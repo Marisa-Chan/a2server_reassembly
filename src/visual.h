@@ -589,7 +589,7 @@ public:
 	virtual void VMethod28() override; //4e012d
 	virtual void DoClose(uint32_t code) override; //4e0148
 
-	VisRoleKeyScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CString& text); //4dff5c in asm
+	VisRoleKeyScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CString& text); //4dff5c
 
 	bool sub_4E0169(); //4e0169 in asm - advance to next talk line
 	void LoadText(); //4e0978

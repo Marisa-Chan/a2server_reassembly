@@ -3702,6 +3702,19 @@ void VisRoleKeyScreen::LoadText()
 VisRoleKeyScreen::~VisRoleKeyScreen()
 {}
 
+// 4dff5c
+VisRoleKeyScreen::VisRoleKeyScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CString& text)
+: VisWindow(_id, l, t, r, b, nullptr)
+{
+    this->role_name = text;
+    this->field_0x68 = 0;
+    this->field_0x70 = 0;
+    this->text_buf = nullptr;
+    this->text_len = 0;
+    this->field_0x80 = 0;
+    this->LoadText();
+}
+
 
 VisMessageBox::~VisMessageBox()
 {

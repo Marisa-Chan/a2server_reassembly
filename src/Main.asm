@@ -55855,88 +55855,6 @@ arg_0           = dword ptr  8
 
 ; Attributes: bp-based frame
 
-; int __stdcall ??0VisRoleKeyScreen@@QAE@HHHHHABVCString@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
-??0VisRoleKeyScreen@@QAE@HHHHHABVCString@@@Z      proc near               ; CODE XREF: ?ShowRoleKeyDialog@@YGXPBD@Z+65↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-xLeft           = dword ptr  0Ch
-yTop            = dword ptr  10h
-xRight          = dword ptr  14h
-yBottom         = dword ptr  18h
-arg_14          = dword ptr  1Ch
-
-; FUNCTION CHUNK AT 005FF680 SIZE 00000028 BYTES
-
-; __unwind { // SEH_4DFF5C
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4DFF5C
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-;   try {
-                mov     [ebp+var_4], 0
-                push    0               ; int
-                mov     eax, dword ptr [ebp+yBottom]
-                push    eax             ; yBottom
-                mov     ecx, dword ptr [ebp+xRight]
-                push    ecx             ; xRight
-                mov     edx, dword ptr [ebp+yTop]
-                push    edx             ; yTop
-                mov     eax, dword ptr [ebp+xLeft]
-                push    eax             ; xLeft
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0VisWindow@@QAE@HHHHHPAVCGameBitmap@@@Z
-;   } // starts at 4DFF78
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 6Ch ; 'l'  ; varThis
-                call    ??0CString@@QAE@XZ ; CString::CString(void)
-;   } // starts at 4DFF9D
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx], offset off_60E3D0
-                lea     eax, [ebp+arg_14]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 6Ch ; 'l'  ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx+68h], 0
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx+70h], 0
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax+74h], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx+78h], 0
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx+80h], 0
-                mov     ecx, dword ptr [ebp+var_10]
-
-loc_4E0000:                             ; DATA XREF: CWnd::OnNotify(uint,long,long *)+5C↓o
-                call    ?LoadText@VisRoleKeyScreen@@QAEXXZ
-;   } // starts at 4DFFAC
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+arg_14] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    18h
-; } // starts at 4DFF5C
-??0VisRoleKeyScreen@@QAE@HHHHHABVCString@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -172584,7 +172502,7 @@ loc_5E2260:                             ; CODE XREF: CWnd::OnNotify(uint,long,lo
                 push    0
                 push    ecx
                 movzx   ecx, word ptr [ebp+arg_4]
-                or      ecx, offset loc_4E0000
+                or      ecx, 4E0000h
                 mov     [ebp+var_C], eax
                 mov     eax, dword ptr [edi]
                 push    ecx
@@ -231680,38 +231598,6 @@ SEH_4DFDAB:                             ; DATA XREF: ??0VisWindow@@QAE@HHHHHPAVC
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FF66D
 ; END OF FUNCTION CHUNK FOR ??0VisWindow@@QAE@HHHHHPAVCGameBitmap@@@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisRoleKeyScreen@@QAE@HHHHHABVCString@@@Z
-
-loc_5FF680:                             ; DATA XREF: .rdata:stru_620B78↓o
-; __unwind { // SEH_4DFF5C              ; varThis
-;   cleanup() // owned by 4DFF78
-                lea     ecx, [ebp+arg_14]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF689:                             ; DATA XREF: .rdata:00620B80↓o
-;   cleanup() // owned by 4DFF9D
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisWindow@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF692:                             ; DATA XREF: .rdata:00620B88↓o
-;   cleanup() // owned by 4DFFAC
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 6Ch ; 'l'  ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4DFF5C:                             ; DATA XREF: ??0VisRoleKeyScreen@@QAE@HHHHHABVCString@@@Z+5↑o
-                mov     eax, offset stru_620B58
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF680
-; END OF FUNCTION CHUNK FOR ??0VisRoleKeyScreen@@QAE@HHHHHABVCString@@@Z
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ
 
 loc_5FF6A8:                             ; DATA XREF: .rdata:stru_620BB0↓o
@@ -245117,42 +245003,6 @@ off_60DB10      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
 
 
 
-off_60E3D0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisRoleKeyScreen@@QAE@HHHHHABVCString@@@Z+57↑o
-                dd offset ??_GVisRoleKeyScreen@@UAEPAXI@Z
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
-                dd offset ?GetHint@CVisualObject@@UAEPBDXZ
-                dd offset ?SetHint@CVisualObject@@UAEXPBD@Z ; Concurrency::details::SchedulerBase::HasSearchers(Concurrency::details::QuickBitSet const &)
-                dd offset ?ChangeFlags@CVisualObject@@UAEXI_N@Z
-                dd offset ?TestFlags@CVisualObject@@UAEII@Z
-                dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
-                dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset ?VMethod7@VisScreen@@UAEXXZ
-                dd offset ?VMethod8@VisScreen@@UAEXPAVCRect@@@Z
-                dd offset ?VMethod9@CVisualObject@@UAEXXZ
-                dd offset ?VMethod10@CVisualObject@@UAEXXZ
-                dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
-                dd offset ?DataSize@CVisualObject@@UAEIXZ
-                dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
-                dd offset ?MsgProc@VisRoleKeyScreen@@UAEHIII@Z
-                dd offset ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnKeyDown@VisRoleKeyScreen@@UAEHI@Z
-                dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?VMethod26@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod28@VisRoleKeyScreen@@UAEXXZ
-                dd offset ?DoClose@VisRoleKeyScreen@@UAEXI@Z
-
-
 
 off_60E760      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_4E4590+12↑o
                 dd offset sub_4E4B20
@@ -257326,14 +257176,6 @@ stru_620B30     FuncInfoV1 <19930520h, 1, offset stru_620B50, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_620B50     UnwindMapEntry <-1, offset loc_5FF66D>
-stru_620B58     FuncInfoV1 <19930520h, 3, offset stru_620B78, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_620B78     UnwindMapEntry <-1, offset loc_5FF680>
-                UnwindMapEntry <0, offset loc_5FF689>
-                UnwindMapEntry <1, offset loc_5FF692>
 stru_620B90     FuncInfoV1 <19930520h, 12, offset stru_620BB0, 0, 0, 0, 0>
                 db    0
                 db    0

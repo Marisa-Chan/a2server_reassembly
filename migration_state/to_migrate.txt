@@ -65,5 +65,4 @@ _byte_659A3C
 ?Save@SoundSettings@@QAEXAAPAUHKEY__@@@Z	66
 ?GetSprite@StructureInfo@@QAEPAVCSprite256@@XZ	20
 ?GetSpriteB@StructureInfo@@QAEPAVCSprite256@@XZ	20
-??0VisRoleKeyScreen@@QAE@HHHHHABVCString@@@Z	80
 ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ	756
