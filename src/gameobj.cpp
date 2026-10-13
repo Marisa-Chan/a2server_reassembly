@@ -4398,6 +4398,12 @@ int32_t CBackPack::VMethod5()
     return 1;
 }
 
+// 46f670
+int32_t CProjectile::VMethod5()
+{
+    return 1;
+}
+
 // 46ef30
 CBackPack::~CBackPack()
 {

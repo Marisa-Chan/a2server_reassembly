@@ -1013,6 +1013,7 @@
 ?VMethod43@VisInvExtType3@@UAEPAVTokenEntry@@HH@Z
 ?VMethod4@CProjectile@@UAEHXZ
 ?VMethod4@CUnit@@UAEHXZ
+?VMethod5@CProjectile@@UAEHXZ
 ?VMethod5@CUnit@@UAEHXZ
 ?VMethod6@CProjectile@@UAEXHHH@Z
 ?VMethod6@CUnit@@UAEXHHH@Z
