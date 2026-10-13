@@ -7333,6 +7333,83 @@ BigStruct2::~BigStruct2()
 	}
 }
 
+// 4764BC
+uint8_t* __cdecl sub_4764BC(int32_t val)
+{
+	if (g_settings.ShowTimeFlow == 0) {
+		g_DeltaCLR.r = 0;
+		g_DeltaCLR.g = 0;
+		g_DeltaCLR.b = 0;
+		g_DeltaCLR.field_4 = 0xE;
+		g_DeltaCLR.field_8 = 0x20;
+		g_DeltaCLR.field_c = 4;
+		g_DeltaCLR.field_10 = 2;
+		g_DeltaCLR.field_18 = 0.78539815;
+		return &g_DeltaCLR.r;
+	}
+
+	int32_t hour = (val / 60) % 24;
+	if (hour >= 6 && hour < 18) {
+		g_DeltaCLR.r = 0;
+		g_DeltaCLR.g = 0;
+		g_DeltaCLR.b = 0;
+		g_DeltaCLR.field_4 = 0xE;
+		g_DeltaCLR.field_8 = 0x20;
+		g_DeltaCLR.field_c = 4;
+		g_DeltaCLR.field_10 = 2;
+		g_DeltaCLR.field_18 = ((double)((val + 0x168) % 0x2D0) * 3.1415926) / 2.0 / 720.0 - 0.78539815;
+	} else if (hour < 2 || hour >= 22) {
+		g_DeltaCLR.r = 0;
+		g_DeltaCLR.g = 12;
+		g_DeltaCLR.b = 48;
+		g_DeltaCLR.field_4 = 0x20;
+		g_DeltaCLR.field_8 = 8;
+		g_DeltaCLR.field_c = 8;
+		g_DeltaCLR.field_10 = 4;
+		g_DeltaCLR.field_18 = 0.78539815 - (((double)((val + 0x78) % 0xF0) * 3.1415926) / 2.0) / 240.0;
+	} else {
+		int32_t delta = val % 0x78;
+		if (hour < 4) {
+			g_DeltaCLR.r = (uint8_t)((delta * 0x18) / 0x78);
+			g_DeltaCLR.g = 12;
+			g_DeltaCLR.b = (uint8_t)(0x30 - (delta * 0x30) / 0x78);
+			g_DeltaCLR.field_4 = 0x20 - (delta * 4) / 0x78;
+			g_DeltaCLR.field_8 = (delta * 0xC) / 0x78 + 8;
+			g_DeltaCLR.field_c = 6;
+			g_DeltaCLR.field_10 = 3;
+			g_DeltaCLR.field_18 = -0.78539815;
+		} else if (hour < 6) {
+			g_DeltaCLR.r = (uint8_t)(0x18 - (delta * 0x18) / 0x78);
+			g_DeltaCLR.g = (uint8_t)(12 - (delta * 0xC) / 0x78);
+			g_DeltaCLR.b = 0;
+			g_DeltaCLR.field_4 = 0x1C - (delta * 0xE) / 0x78;
+			g_DeltaCLR.field_8 = (delta * 0xC) / 0x78 + 0x14;
+			g_DeltaCLR.field_c = 6;
+			g_DeltaCLR.field_10 = 3;
+			g_DeltaCLR.field_18 = -0.78539815;
+		} else if (hour < 20) {
+			g_DeltaCLR.r = (uint8_t)((delta * 0x18) / 0x78);
+			g_DeltaCLR.g = 0;
+			g_DeltaCLR.b = (uint8_t)((delta * 8) / 0x78);
+			g_DeltaCLR.field_4 = (delta * 10) / 0x78 + 0xE;
+			g_DeltaCLR.field_8 = 0x20 - (delta * 0xC) / 0x78;
+			g_DeltaCLR.field_c = 6;
+			g_DeltaCLR.field_10 = 3;
+			g_DeltaCLR.field_18 = 0.78539815;
+		} else {
+			g_DeltaCLR.r = (uint8_t)(0x18 - (delta * 0x18) / 0x78);
+			g_DeltaCLR.g = (uint8_t)((delta * 0xC) / 0x78);
+			g_DeltaCLR.b = (uint8_t)((delta * 0x28) / 0x78 + 8);
+			g_DeltaCLR.field_4 = ((delta * 8) / 0x78) + 0x18;
+			g_DeltaCLR.field_8 = 0x14 - (delta * 0xC) / 0x78;
+			g_DeltaCLR.field_c = 6;
+			g_DeltaCLR.field_10 = 3;
+			g_DeltaCLR.field_18 = 0.78539815;
+		}
+	}
+	return &g_DeltaCLR.r;
+}
+
 // 47fa75
 void sub_47FA75()
 {
