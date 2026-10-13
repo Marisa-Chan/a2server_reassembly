@@ -2386,6 +2386,27 @@ void TransientVisualEffectBuilder::FUN_004CC5D1(int32_t x, int32_t y, int32_t ra
     }
 }
 
+// 4cc059
+void TransientVisualEffectBuilder::FUN_004cc059(double x0, double y0, double x1, double y1, uint8_t arg5)
+{
+    double dx = x1 - x0;
+    double dy = y1 - y0;
+    this->field_0x60 = std::hypot(dx, dy);
+
+    this->FUN_004CB993(x0, y0, x0 + this->field_0x60, y0);
+
+    double step_x = dx / this->field_0x60;
+    double step_y = dy / this->field_0x60;
+
+    for (int32_t i = 0; i < this->field_0x90.GetSize(); i++) {
+        double px_f = (this->field_0x90[i] - this->field_0x90[0]) * step_x + this->field_0x90[0];
+        int32_t px = (int32_t)(px_f - (this->field_0xa4[i] - this->field_0xa4[0]) * step_y);
+        double py_f = (this->field_0x90[i] - this->field_0x90[0]) * step_y + this->field_0xa4[0];
+        int32_t py = (int32_t)((this->field_0xa4[i] - this->field_0xa4[0]) * step_x + py_f);
+        this->visual_elements.Add(GO_11c((int16_t)px, (int16_t)py, 0, arg5, 0));
+    }
+}
+
 // 4cc22d
 int32_t TransientVisualEffectBuilder::FUN_004CC22D(CArray<GO_11c>* existing, int16_t x_radius, int16_t y_radius, int16_t z_radius, uint16_t visual_id)
 {
