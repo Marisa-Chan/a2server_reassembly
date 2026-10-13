@@ -73,7 +73,6 @@ _byte_659A3C
 ??1CProjectile@@UAE@XZ	33
 ??0CProjectile@@QAE@XZ	36
 ??0CProjectile@@QAE@PAV0@@Z	48
-?VMethod16@CProjectile@@UAEXXZ	233
 ?Play@CSound@@SAXAAU1@@Z	31
 ?LPCTSTR@CString@@QBEPBDXZ	13
 ??0DiplomacyEntry@@QAE@PBDHHHH@Z	46
@@ -81,3 +80,4 @@ _byte_659A3C
 ?FUN_0046f760@ProjectileInfo@@QAEPAVCSprite256@@XZ	20
 ?GetSprite@StructureInfo@@QAEPAVCSprite256@@XZ	20
 ?GetSpriteB@StructureInfo@@QAEPAVCSprite256@@XZ	20
+?FUN_004cc059@TransientVisualEffectBuilder@@QAEXNNNNE@Z	184

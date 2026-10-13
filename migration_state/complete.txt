@@ -336,6 +336,7 @@
 ?FUN_00461f8e@CGameObject@@QAEHHH@Z
 ?FUN_00462405@CGameObject@@QAEHH@Z
 ?FUN_0046246b@CGameObject@@QAEXHHHHGGG@Z
+?FUN_0046f390@TransientVisualEffectBuilder@@QAEXXZ
 ?FUN_0046f700@UnitGfxFile@@QAEPAVCSprite256@@XZ
 ?FUN_0046fb90@VisInvBase@@QAEHXZ
 ?FUN_0048ca7e@MainWindow@@QAEHH@Z
@@ -908,6 +909,7 @@
 ?VMethod15@CGameObject@@UAEHXZ
 ?VMethod15@CUnit@@UAEHXZ
 ?VMethod16@CGameObject@@UAEXXZ
+?VMethod16@CProjectile@@UAEXXZ
 ?VMethod16@CUnit@@UAEXXZ
 ?VMethod17@CUnit@@UAEXFHHHHPAVMapPlayerData@@HHFF@Z
 ?VMethod18@CUnit@@UAEXXZ

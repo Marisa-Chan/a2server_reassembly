@@ -2265,6 +2265,9 @@ public:
 
     void FUN_004CC5D1(int32_t x, int32_t y, int32_t radius, int32_t step); // 4cc5d1
     void FUN_004CC798(int32_t x, int32_t y, int32_t height, float speed, float radius, int32_t angle); // 4cc798
+    void FUN_004cc059(double x0, double y0, double x1, double y1, uint8_t arg5); // 4cc059
+
+    void FUN_0046f390(); // 46f390
 
     CArray<GO_11c>* GetVisualElements() { return &this->visual_elements; } // 46f3f0
 
@@ -2296,6 +2299,14 @@ TransientVisualEffectBuilder::TransientVisualEffectBuilder()
 // 4cb190
 TransientVisualEffectBuilder::~TransientVisualEffectBuilder()
 {
+    this->visual_elements.RemoveAll();
+}
+
+// 46f390
+void TransientVisualEffectBuilder::FUN_0046f390()
+{
+    this->field_0x90.RemoveAll();
+    this->field_0xa4.RemoveAll();
     this->visual_elements.RemoveAll();
 }
 
@@ -4734,5 +4745,39 @@ void CProjectile::VMethod12()
             map->field_0xf4 |= rect;
         }
         break;
+    }
+}
+
+// 46eb80
+void CProjectile::VMethod16()
+{
+    BigStruct2* map = this->pMapObject;
+
+    if (this->typeId == 28) {
+        TransientVisualEffectBuilder builder;
+        int32_t x0 = this->screenX;
+        int32_t y0 = this->screenY - this->terrainHeightOffset - this->z_pos;
+
+        CGameObject* target = nullptr;
+        if (map->field_0x9d0.Lookup(this->action_target, target) && target != nullptr) {
+            int32_t x1 = target->centerScreenX;
+            int32_t y1 = target->centerScreenY - target->terrainHeightOffset - target->z_pos;
+            builder.FUN_004cc059(x0, y0, x1, y1, 28);
+            this->transientVisualElements.Copy(*builder.GetVisualElements());
+        }
+    } else if (this->typeId == 30) {
+        TransientVisualEffectBuilder builder;
+        int32_t x0 = this->screenX;
+        int32_t y0 = this->screenY - this->terrainHeightOffset - this->z_pos;
+
+        this->transientVisualElements.RemoveAll();
+        for (int32_t i = 0; i < this->actionTargets.GetSize(); i++) {
+            CGameObject* target = nullptr;
+            if (map->field_0x9d0.Lookup(this->actionTargets[i], target) && target != nullptr) {
+                builder.FUN_004cc059(x0, y0, target->centerScreenX, target->centerScreenY - target->terrainHeightOffset - target->z_pos, i % 7);
+                this->transientVisualElements.Append(*builder.GetVisualElements());
+                builder.FUN_0046f390();
+            }
+        }
     }
 }
