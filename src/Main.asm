@@ -55955,22 +55955,6 @@ loc_4E0000:                             ; DATA XREF: CWnd::OnNotify(uint,long,lo
 
 ; Attributes: bp-based frame
 
-?VMethod28@VisRoleKeyScreen@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060E450↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?VMethod28@VisScreen@@UAEXXZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod28@VisRoleKeyScreen@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

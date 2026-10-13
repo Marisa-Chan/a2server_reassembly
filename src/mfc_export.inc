@@ -1262,7 +1262,7 @@ externdef ??_GVisRoleKeyScreen@@UAEPAXI@Z :proc  ; VisRoleKeyScreen::`scalar del
 extern ?MsgProc@VisRoleKeyScreen@@UAEHIII@Z :proc  ; int32_t VisRoleKeyScreen::MsgProc(uint32_t, uint32_t, uint32_t)
 externdef ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ :proc  ; bool VisRoleKeyScreen::sub_4E0169() - advance to next talk line
 extern ?OnKeyDown@VisRoleKeyScreen@@UAEHI@Z :proc  ; int32_t VisRoleKeyScreen::OnKeyDown(uint32_t)
-externdef ?VMethod28@VisRoleKeyScreen@@UAEXXZ :proc  ; void VisRoleKeyScreen::VMethod28()
+extern ?VMethod28@VisRoleKeyScreen@@UAEXXZ :proc  ; void VisRoleKeyScreen::VMethod28()
 externdef ?DoClose@VisRoleKeyScreen@@UAEXI@Z :proc  ; void VisRoleKeyScreen::DoClose(uint32_t)
 
 

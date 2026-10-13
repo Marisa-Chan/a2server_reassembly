@@ -3649,6 +3649,14 @@ int32_t VisRoleKeyScreen::OnKeyDown(uint32_t wparam)
 }
 
 
+// 4e012d
+void VisRoleKeyScreen::VMethod28()
+{
+    this->sub_4E0169();
+    this->VisScreen::VMethod28();
+}
+
+
 VisMessageBox::~VisMessageBox()
 {
     //444ff3
