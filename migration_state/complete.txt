@@ -575,6 +575,7 @@
 ?LoadFile@CBmp64@@QAEXPBDPAVCGameBitmap@@@Z
 ?LoadSample@SfxSample@@QAEXXZ
 ?LoadStringA@CString@@QAEHI@Z
+?LoadText@VisRoleKeyScreen@@QAEXXZ
 ?LockSurface2@@YAIXZ
 ?LockSurface3@@YAIXZ
 ?LogMessage@@YAXVCString@@@Z

@@ -55924,7 +55924,7 @@ arg_14          = dword ptr  1Ch
                 mov     ecx, dword ptr [ebp+var_10]
 
 loc_4E0000:                             ; DATA XREF: CWnd::OnNotify(uint,long,long *)+5C↓o
-                call    sub_4E0978
+                call    ?LoadText@VisRoleKeyScreen@@QAEXXZ
 ;   } // starts at 4DFFAC
                 mov     [ebp+var_4], 0FFFFFFFFh
                 lea     ecx, [ebp+arg_14] ; varThis
@@ -56730,164 +56730,6 @@ loc_4E096A:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScree
 
 ; Attributes: bp-based frame
 
-sub_4E0978      proc near               ; CODE XREF: ??0VisRoleKeyScreen@@QAE@HHHHHABVCString@@@Z:loc_4E0000↑p
-
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = byte ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = byte ptr -14h
-var_10          = byte ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FF741 SIZE 00000025 BYTES
-
-; __unwind { // SEH_4E0978
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4E0978
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 1Ch
-                mov     [ebp+var_20], ecx
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??0CString@@QAE@XZ ; CString::CString(void)
-;   try {
-                mov     [ebp+var_4], 0
-                mov     eax, dword ptr [ebp+var_20]
-                mov     ecx, dword ptr [eax+6Ch]
-                push    ecx
-                push    offset aS_1     ; "#%s"
-                lea     edx, [ebp+var_14]
-                push    edx             ; varThis
-                call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
-                add     esp, 0Ch
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ?MakeLower@CString@@QAEXXZ ; CString::MakeLower(void)
-                lea     ecx, [ebp+var_14]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; char *
-                mov     ecx, offset ?g_MissionText@@3VCString@@A ; varThis
-                call    ?Find@CString@@QBEHPBD@Z ; CString::Find(char const *)
-                mov     [ebp+var_18], eax
-                cmp     [ebp+var_18], 0FFFFFFFFh
-                jnz     short loc_4E0A27
-                mov     eax, dword ptr [ebp+var_20]
-                mov     dword ptr [eax+78h], 1
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     edx, dword ptr [ecx+78h]
-                push    edx             ; varSize
-                call    _malloc
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     [ecx+74h], eax
-                mov     edx, dword ptr [ebp+var_20]
-                mov     eax, dword ptr [edx+74h]
-                mov     byte ptr [eax], 0
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     dword ptr [ecx+7Ch], 0
-;   } // starts at 4E099E
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                jmp     loc_4E0B12
-; ---------------------------------------------------------------------------
-
-loc_4E0A27:                             ; CODE XREF: sub_4E0978+67↑j
-                lea     ecx, [ebp+var_14]
-                call    sub_4029A0
-                mov     edx, dword ptr [ebp+var_18]
-                lea     eax, [edx+eax+2]
-                push    eax
-                lea     ecx, [ebp+var_10]
-                push    ecx
-                mov     ecx, offset ?g_MissionText@@3VCString@@A
-                call    ?Mid@CString@@QBE?AV1@H@Z ; CString::Mid(int)
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                push    23h ; '#'       ; char
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ?Find@CString@@QBEHD@Z ; CString::Find(char)
-                mov     [ebp+var_18], eax
-                cmp     [ebp+var_18], 0FFFFFFFFh
-                jnz     short loc_4E0A67
-                lea     ecx, [ebp+var_10]
-                call    sub_4029A0
-                mov     [ebp+var_18], eax
-
-loc_4E0A67:                             ; CODE XREF: sub_4E0978+E2↑j
-                mov     edx, dword ptr [ebp+var_18]
-                push    edx
-                lea     eax, [ebp+var_1C]
-                push    eax
-                lea     ecx, [ebp+var_10]
-                call    ?Left@CString@@QBE?AV1@H@Z ; CString::Left(int)
-                mov     [ebp+var_24], eax
-                mov     ecx, dword ptr [ebp+var_24]
-                mov     [ebp+var_28], ecx
-;   } // starts at 4E0A45
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                mov     edx, dword ptr [ebp+var_28]
-                push    edx             ; int
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-;   } // starts at 4E0A80
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                lea     ecx, [ebp+var_1C] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     eax, dword ptr [ebp+var_18]
-                add     eax, 1
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     [ecx+78h], eax
-                mov     edx, dword ptr [ebp+var_20]
-                mov     eax, dword ptr [edx+78h]
-                push    eax             ; varSize
-                call    _malloc
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     [ecx+74h], eax
-                lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; Source
-                mov     edx, dword ptr [ebp+var_20]
-                mov     eax, dword ptr [edx+74h]
-                push    eax             ; Destination
-                call    _strcpy
-                add     esp, 8
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ?MakeLower@CString@@QAEXXZ ; CString::MakeLower(void)
-                push    offset aNpc_1 ; char *
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ?Find@CString@@QBEHPBD@Z ; CString::Find(char const *)
-                xor     ecx, ecx
-                test    eax, eax
-                setnl   cl
-                mov     edx, dword ptr [ebp+var_20]
-                mov     [edx+7Ch], ecx
-;   } // starts at 4E0A90
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 4E0AF7
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-
-loc_4E0B12:                             ; CODE XREF: sub_4E0978+AA↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 4E0978
-sub_4E0978      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -232045,39 +231887,6 @@ SEH_4E0169:                             ; DATA XREF: ?sub_4E0169@VisRoleKeyScree
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FF6A8
 ; END OF FUNCTION CHUNK FOR ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_4E0978
-
-loc_5FF741:                             ; DATA XREF: .rdata:stru_620C30↓o
-; __unwind { // SEH_4E0978              ; varThis
-;   cleanup() // owned by 4E099E
-;   cleanup() // owned by 4E0AF7
-                lea     ecx, [ebp+var_14]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF74A:                             ; DATA XREF: .rdata:00620C38↓o
-;   cleanup() // owned by 4E0A45        ; varThis
-;   cleanup() // owned by 4E0A90
-                lea     ecx, [ebp+var_10]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF753:                             ; DATA XREF: .rdata:00620C40↓o
-;   cleanup() // owned by 4E0A80        ; varThis
-                lea     ecx, [ebp+var_1C]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4E0978:                             ; DATA XREF: sub_4E0978+5↑o
-                mov     eax, offset stru_620C10
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF741
-; END OF FUNCTION CHUNK FOR sub_4E0978
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4E0B43
 
 loc_5FF766:                             ; DATA XREF: .rdata:stru_620C68↓o
@@ -257619,14 +257428,6 @@ stru_620BB0     UnwindMapEntry <-1, offset loc_5FF6A8>
                 UnwindMapEntry <0, offset loc_5FF6F9>
                 UnwindMapEntry <9, offset loc_5FF703>
                 UnwindMapEntry <10, offset loc_5FF71D>
-stru_620C10     FuncInfoV1 <19930520h, 3, offset stru_620C30, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_620C30     UnwindMapEntry <-1, offset loc_5FF741>
-                UnwindMapEntry <0, offset loc_5FF74A>
-                UnwindMapEntry <1, offset loc_5FF753>
 stru_620C48     FuncInfoV1 <19930520h, 13, offset stru_620C68, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -264703,7 +264504,7 @@ aWav_0          db '.wav',0             ; DATA XREF: ?sub_4E0169@VisRoleKeyScree
 ; CHAR aSpeech[]
 aSpeech         db 'speech\',0          ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+62D↑o
 ; char aS_1[]
-aS_1            db '#%s',0              ; DATA XREF: sub_4E0978+34↑o
+aS_1            db '#%s',0              ; DATA XREF: ?LoadText@VisRoleKeyScreen@@QAEXXZ+34↑o
 aNpc_1          db 'npc',0
 ; char aPartD[]
 aPartD          db 'part=%d',0          ; DATA XREF: sub_4E0B43+E0↑o

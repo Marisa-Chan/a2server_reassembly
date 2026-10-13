@@ -3667,6 +3667,37 @@ void VisRoleKeyScreen::DoClose(uint32_t code)
 }
 
 
+// 4e0978
+void VisRoleKeyScreen::LoadText()
+{
+    CString key;
+    key.Format("#%s", (const char*)this->role_name);
+    key.MakeLower();
+
+    int32_t pos = g_MissionText.Find(key);
+    if (pos == -1) {
+        this->text_len = 1;
+        this->text_buf = (char*)malloc(this->text_len);
+        this->text_buf[0] = '\0';
+        this->is_npc = 0;
+        return;
+    }
+
+    CString body = g_MissionText.Mid(pos + key.GetLength() + 2);
+    int32_t hash_pos = body.Find('#');
+    if (hash_pos == -1) {
+        hash_pos = body.GetLength();
+    }
+    body = body.Left(hash_pos);
+
+    this->text_len = hash_pos + 1;
+    this->text_buf = (char*)malloc(this->text_len);
+    strcpy(this->text_buf, body);
+    body.MakeLower();
+    this->is_npc = body.Find("npc") >= 0;
+}
+
+
 VisMessageBox::~VisMessageBox()
 {
     //444ff3
