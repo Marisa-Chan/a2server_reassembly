@@ -25091,7 +25091,7 @@ jpt_45844B      dd offset loc_458452    ; DATA XREF: sub_458434+17↑r
 
 ; Attributes: bp-based frame
 
-sub_4586FE      proc near               ; CODE XREF: ?sub_4588EC@@YAXHHHHHH@Z+1B↓p
+?sub_4586FE@@YAXHHHHHH@Z      proc near               ; CODE XREF: ?sub_4588EC@@YAXHHHHHH@Z+1B↓p
 
 var_18          = dword ptr -18h
 var_14          = dword ptr -14h
@@ -25129,7 +25129,7 @@ arg_14          = dword ptr  1Ch
                 jge     short loc_458757
                 mov     [ebp+arg_14], 0
 
-loc_458757:                             ; CODE XREF: sub_4586FE+50↑j
+loc_458757:                             ; CODE XREF: ?sub_4586FE@@YAXHHHHHH@Z+50↑j
                 mov     edx, ?g_selDrawBitmap@@3U_DDSURFACEDESC@@A+10h
                 sar     edx, 1
                 mov     eax, dword ptr [ebp+arg_4]
@@ -25255,279 +25255,19 @@ loc_458757:                             ; CODE XREF: sub_4586FE+50↑j
                 mov     eax, dword ptr [ebp+var_10]
                 mov     [eax], si
 
-loc_4588E6:                             ; CODE XREF: sub_4586FE+19↑j
+loc_4588E6:                             ; CODE XREF: ?sub_4586FE@@YAXHHHHHH@Z+19↑j
                 pop     edi
                 pop     esi
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4586FE      endp
+?sub_4586FE@@YAXHHHHHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-?sub_4588EC@@YAXHHHHHH@Z      proc near               ; CODE XREF: ?FUN_0049bc23@VisTavScene@@QAEXXZ+A71↓p
-
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-arg_C           = dword ptr  14h
-arg_10          = dword ptr  18h
-arg_14          = dword ptr  1Ch
-
-                push    ebp
-                mov     ebp, esp
-                mov     eax, dword ptr [ebp+arg_14]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_10]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_C]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                call    sub_4586FE
-                add     esp, 18h
-                mov     eax, dword ptr [ebp+arg_14]
-                imul    eax, 3
-                cdq
-                and     edx, 3
-                add     eax, edx
-                sar     eax, 2
-                push    eax
-                mov     eax, dword ptr [ebp+arg_10]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_C]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_8]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                add     ecx, 1
-                push    ecx
-                call    sub_4586FE
-                add     esp, 18h
-                mov     eax, dword ptr [ebp+arg_14]
-                imul    eax, 3
-                cdq
-                and     edx, 3
-                add     eax, edx
-                sar     eax, 2
-                push    eax
-                mov     edx, dword ptr [ebp+arg_10]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_C]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                add     edx, 1
-                push    edx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                call    sub_4586FE
-                add     esp, 18h
-                mov     eax, dword ptr [ebp+arg_14]
-                imul    eax, 3
-                cdq
-                and     edx, 3
-                add     eax, edx
-                sar     eax, 2
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_10]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_C]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                sub     edx, 1
-                push    edx
-                call    sub_4586FE
-                add     esp, 18h
-                mov     eax, dword ptr [ebp+arg_14]
-                imul    eax, 3
-                cdq
-                and     edx, 3
-                add     eax, edx
-                sar     eax, 2
-                push    eax
-                mov     eax, dword ptr [ebp+arg_10]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_C]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_8]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_4]
-                sub     eax, 1
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                call    sub_4586FE
-                add     esp, 18h
-                mov     eax, dword ptr [ebp+arg_14]
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                push    eax
-                mov     edx, dword ptr [ebp+arg_10]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_C]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_0]
-                add     eax, 2
-                push    eax
-                call    sub_4586FE
-                add     esp, 18h
-                mov     eax, dword ptr [ebp+arg_14]
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_10]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_C]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                add     ecx, 2
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                call    sub_4586FE
-                add     esp, 18h
-                mov     eax, dword ptr [ebp+arg_14]
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                push    eax
-                mov     eax, dword ptr [ebp+arg_10]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_C]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_8]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                sub     ecx, 2
-                push    ecx
-                call    sub_4586FE
-                add     esp, 18h
-                mov     eax, dword ptr [ebp+arg_14]
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                push    eax
-                mov     edx, dword ptr [ebp+arg_10]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_C]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                sub     edx, 2
-                push    edx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                call    sub_4586FE
-                add     esp, 18h
-                mov     eax, dword ptr [ebp+arg_14]
-                cdq
-                and     edx, 3
-                add     eax, edx
-                sar     eax, 2
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_10]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_C]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                add     ecx, 1
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                add     edx, 1
-                push    edx
-                call    sub_4586FE
-                add     esp, 18h
-                mov     eax, dword ptr [ebp+arg_14]
-                cdq
-                and     edx, 3
-                add     eax, edx
-                sar     eax, 2
-                push    eax
-                mov     eax, dword ptr [ebp+arg_10]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_C]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_8]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_4]
-                add     eax, 1
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                sub     ecx, 1
-                push    ecx
-                call    sub_4586FE
-                add     esp, 18h
-                mov     eax, dword ptr [ebp+arg_14]
-                cdq
-                and     edx, 3
-                add     eax, edx
-                sar     eax, 2
-                push    eax
-                mov     edx, dword ptr [ebp+arg_10]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_C]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                sub     edx, 1
-                push    edx
-                mov     eax, dword ptr [ebp+arg_0]
-                add     eax, 1
-                push    eax
-                call    sub_4586FE
-                add     esp, 18h
-                mov     eax, dword ptr [ebp+arg_14]
-                cdq
-                and     edx, 3
-                add     eax, edx
-                sar     eax, 2
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_10]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_C]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                sub     ecx, 1
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                sub     edx, 1
-                push    edx
-                call    sub_4586FE
-                add     esp, 18h
-                pop     ebp
-                retn
-?sub_4588EC@@YAXHHHHHH@Z      endp
 
 
 

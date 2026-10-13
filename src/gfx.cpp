@@ -2352,6 +2352,24 @@ void __cdecl SetPixelColor(int32_t x, int32_t y, uint32_t clr)
 		((uint16_t*)g_selDrawBitmap.lpSurface)[x + y * (g_selDrawBitmap.lPitch / 2)] = clr;
 }
 
+// 4588EC
+void __cdecl sub_4588EC(int32_t x, int32_t y, int32_t r, int32_t g, int32_t b, int32_t alpha)
+{
+	sub_4586FE(x, y, r, g, b, alpha);
+	sub_4586FE(x + 1, y, r, g, b, alpha * 3 / 4);
+	sub_4586FE(x, y + 1, r, g, b, alpha * 3 / 4);
+	sub_4586FE(x - 1, y, r, g, b, alpha * 3 / 4);
+	sub_4586FE(x, y - 1, r, g, b, alpha * 3 / 4);
+	sub_4586FE(x + 2, y, r, g, b, alpha / 2);
+	sub_4586FE(x, y + 2, r, g, b, alpha / 2);
+	sub_4586FE(x - 2, y, r, g, b, alpha / 2);
+	sub_4586FE(x, y - 2, r, g, b, alpha / 2);
+	sub_4586FE(x + 1, y + 1, r, g, b, alpha / 4);
+	sub_4586FE(x - 1, y + 1, r, g, b, alpha / 4);
+	sub_4586FE(x + 1, y - 1, r, g, b, alpha / 4);
+	sub_4586FE(x - 1, y - 1, r, g, b, alpha / 4);
+}
+
 void __cdecl FillRectColor(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr)
 {
 	//457dcc
