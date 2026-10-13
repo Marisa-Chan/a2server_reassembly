@@ -55943,48 +55943,6 @@ loc_4E0000:                             ; DATA XREF: CWnd::OnNotify(uint,long,lo
 
 ; Attributes: bp-based frame
 
-?OnKeyDown@VisRoleKeyScreen@@UAEHI@Z      proc near               ; DATA XREF: .rdata:0060E43C↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [ebp+var_8], eax
-                cmp     [ebp+var_8], 0Dh
-                jz      short loc_4E0044
-                cmp     [ebp+var_8], 1Bh
-                jz      short loc_4E0044
-                jmp     short loc_4E005F
-; ---------------------------------------------------------------------------
-
-loc_4E0044:                             ; CODE XREF: ?OnKeyDown@VisRoleKeyScreen@@UAEHI@Z+13↑j
-                push    0
-                push    0
-                push    470h
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+48h]
-                mov     eax, 1
-                jmp     short loc_4E006B
-; ---------------------------------------------------------------------------
-
-loc_4E005F:                             ; CODE XREF: ?OnKeyDown@VisRoleKeyScreen@@UAEHI@Z+1B↑j
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?OnKeyDown@VisScreen@@UAEHI@Z
-
-loc_4E006B:                             ; CODE XREF: ?OnKeyDown@VisRoleKeyScreen@@UAEHI@Z+36↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?OnKeyDown@VisRoleKeyScreen@@UAEHI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

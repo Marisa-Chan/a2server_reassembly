@@ -3638,6 +3638,17 @@ int32_t VisRoleKeyScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
 }
 
 
+// 4e0027
+int32_t VisRoleKeyScreen::OnKeyDown(uint32_t wparam)
+{
+    if (wparam == VK_RETURN || wparam == VK_ESCAPE) {
+        this->MsgProc(0x470, 0, 0);
+        return 1;
+    }
+    return this->VisScreen::OnKeyDown(wparam);
+}
+
+
 VisMessageBox::~VisMessageBox()
 {
     //444ff3

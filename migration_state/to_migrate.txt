@@ -69,6 +69,5 @@ _byte_659A3C
 ?DoClose@VisRoleKeyScreen@@UAEXI@Z	18
 ??_GVisRoleKeyScreen@@UAEPAXI@Z	24
 ??1VisRoleKeyScreen@@UAE@XZ	33
-?OnKeyDown@VisRoleKeyScreen@@UAEHI@Z	41
 ??0VisRoleKeyScreen@@QAE@HHHHHABVCString@@@Z	80
 ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ	756
