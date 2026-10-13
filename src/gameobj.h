@@ -322,6 +322,48 @@ public:
 ASSERT_SIZE(CUnit, 0x1e4);
 
 
+class TransientVisualEffectBuilder
+{
+public:
+    TransientVisualEffectBuilder(); // 4cb0a0
+    ~TransientVisualEffectBuilder(); // 4cb190
+
+    int32_t FUN_004CC22D(CArray<GO_11c>* existing, int16_t x_radius, int16_t y_radius, int16_t z_radius, uint16_t visual_id); // 4cc22d
+    int32_t FUN_004CC3FD(CArray<GO_11c>* existing, int16_t x_radius, int16_t y_radius, int16_t z_radius, uint16_t visual_id); // 4cc3fd
+    void FUN_004CC944(int16_t height, float speed, float radius, uint32_t phase); // 4cc944
+    void FUN_004CCAF2(int16_t height, float radius, uint32_t phase); // 4ccaf2
+    void FUN_004CCC7B(int16_t height, float radius, uint32_t phase); // 4ccc7b
+    void FUN_004CCE04(int16_t height, uint8_t effect_type, uint8_t phase); // 4cce04
+    void FUN_004CCED2(int16_t height, uint8_t phase); // 4cced2
+
+    void FUN_004CC5D1(int32_t x, int32_t y, int32_t radius, int32_t step); // 4cc5d1
+    void FUN_004CC798(int32_t x, int32_t y, int32_t height, float speed, float radius, int32_t angle); // 4cc798
+    void FUN_004cc059(double x0, double y0, double x1, double y1, uint8_t arg5); // 4cc059
+
+    void FUN_0046f390(); // 46f390
+
+    CArray<GO_11c>* GetVisualElements() { return &this->visual_elements; } // 46f3f0
+
+public:
+    CPoint field_0x0;
+    uint8_t gap_0x8[0x1c];
+    CPoint field_0x24;
+    CPoint field_0x2c;
+    CPoint field_0x34[2];
+    CPoint field_0x44[2];
+    int32_t field_0x54;
+    double field_0x58;
+    double field_0x60;
+    CArray<CPoint> field_0x68;
+    CArray<GO_11c> visual_elements; // 0x7c
+    CArray<double> field_0x90;
+    CArray<double> field_0xa4;
+    CArray<double> field_0xb8;
+    CArray<double> field_0xcc;
+};
+ASSERT_SIZE(TransientVisualEffectBuilder, 0xe0);
+
+
 // Enterable structures collection (global at 65fa38)
 struct StructEnter
 {
