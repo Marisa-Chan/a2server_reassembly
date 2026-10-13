@@ -3698,6 +3698,11 @@ void VisRoleKeyScreen::LoadText()
 }
 
 
+// 4e3f60
+VisRoleKeyScreen::~VisRoleKeyScreen()
+{}
+
+
 VisMessageBox::~VisMessageBox()
 {
     //444ff3

@@ -144,6 +144,7 @@
 ??1VisMessageBox@@UAE@XZ
 ??1VisMessageBoxWithList@@UAE@XZ
 ??1VisRadioType1@@UAE@XZ
+??1VisRoleKeyScreen@@UAE@XZ
 ??1VisScreen@@UAE@XZ
 ??1VisShopCompass@@UAE@XZ
 ??1VisSpellBook@@UAE@XZ
@@ -176,6 +177,7 @@
 ??_GVisInvExtType2@@UAEPAXI@Z
 ??_GVisInvExtType3@@UAEPAXI@Z
 ??_GVisInvType1@@UAEPAXI@Z
+??_GVisRoleKeyScreen@@UAEPAXI@Z
 ??_GVisShopCompass@@UAEPAXI@Z
 ??_GVisSpellBook@@UAEPAXI@Z
 ??_GVisStartGame@@UAEPAXI@Z

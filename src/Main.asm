@@ -57885,31 +57885,6 @@ sub_4E3E80      endp
 
 ; Attributes: bp-based frame
 
-??_GVisRoleKeyScreen@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060E3D4↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??1VisRoleKeyScreen@@UAE@XZ
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_4E3F52
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_4E3F52:                             ; CODE XREF: ??_GVisRoleKeyScreen@@UAEPAXI@Z+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-??_GVisRoleKeyScreen@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -57918,40 +57893,6 @@ loc_4E3F52:                             ; CODE XREF: ??_GVisRoleKeyScreen@@UAEPA
 
 ; Attributes: bp-based frame
 
-??1VisRoleKeyScreen@@UAE@XZ      proc near               ; CODE XREF: ??_GVisRoleKeyScreen@@UAEPAXI@Z+A↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FFA40 SIZE 00000013 BYTES
-
-; __unwind { // SEH_4E3F60
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4E3F60
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 6Ch ; 'l'  ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 4E3F7C
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisWindow@@UAE@XZ
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 4E3F60
-??1VisRoleKeyScreen@@UAE@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -232297,24 +232238,6 @@ SEH_4E3C20:                             ; DATA XREF: sub_4E3C20+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FFA20
 ; END OF FUNCTION CHUNK FOR sub_4E3C20
-; ---------------------------------------------------------------------------
-                align 10h
-; START OF FUNCTION CHUNK FOR ??1VisRoleKeyScreen@@UAE@XZ
-
-loc_5FFA40:                             ; DATA XREF: .rdata:stru_621080↓o
-; __unwind { // SEH_4E3F60
-;   cleanup() // owned by 4E3F7C
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisWindow@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4E3F60:                             ; DATA XREF: ??1VisRoleKeyScreen@@UAE@XZ+5↑o
-                mov     eax, offset stru_621060
-                jmp     ___CxxFrameHandler
-; } // starts at 5FFA40
-; END OF FUNCTION CHUNK FOR ??1VisRoleKeyScreen@@UAE@XZ
-; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR CWinThread::~CWinThread(void)
 
@@ -257523,12 +257446,6 @@ stru_621038     FuncInfoV1 <19930520h, 1, offset stru_621058, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_621058     UnwindMapEntry <-1, offset loc_5FFA20>
-stru_621060     FuncInfoV1 <19930520h, 1, offset stru_621080, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_621080     UnwindMapEntry <-1, offset loc_5FFA40>
 stru_621088     FuncInfoV1 <19930520h, 1, offset stru_6210A8, 0, 0, 0, 0>
                 db    0
                 db    0
