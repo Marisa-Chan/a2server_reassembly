@@ -55943,7 +55943,7 @@ loc_4E0000:                             ; DATA XREF: CWnd::OnNotify(uint,long,lo
 
 ; Attributes: bp-based frame
 
-sub_4E0027      proc near               ; DATA XREF: .rdata:0060E43C↓o
+?OnKeyDown@VisRoleKeyScreen@@UAEHI@Z      proc near               ; DATA XREF: .rdata:0060E43C↓o
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -55962,7 +55962,7 @@ arg_0           = dword ptr  8
                 jmp     short loc_4E005F
 ; ---------------------------------------------------------------------------
 
-loc_4E0044:                             ; CODE XREF: sub_4E0027+13↑j
+loc_4E0044:                             ; CODE XREF: ?OnKeyDown@VisRoleKeyScreen@@UAEHI@Z+13↑j
                 push    0
                 push    0
                 push    470h
@@ -55974,24 +55974,24 @@ loc_4E0044:                             ; CODE XREF: sub_4E0027+13↑j
                 jmp     short loc_4E006B
 ; ---------------------------------------------------------------------------
 
-loc_4E005F:                             ; CODE XREF: sub_4E0027+1B↑j
+loc_4E005F:                             ; CODE XREF: ?OnKeyDown@VisRoleKeyScreen@@UAEHI@Z+1B↑j
                 mov     eax, dword ptr [ebp+arg_0]
                 push    eax
                 mov     ecx, dword ptr [ebp+var_4]
                 call    ?OnKeyDown@VisScreen@@UAEHI@Z
 
-loc_4E006B:                             ; CODE XREF: sub_4E0027+36↑j
+loc_4E006B:                             ; CODE XREF: ?OnKeyDown@VisRoleKeyScreen@@UAEHI@Z+36↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4E0027      endp
+?OnKeyDown@VisRoleKeyScreen@@UAEHI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4E0071      proc near               ; DATA XREF: .rdata:0060E418↓o
+?MsgProc@VisRoleKeyScreen@@UAEHIII@Z      proc near               ; DATA XREF: .rdata:0060E418↓o
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -56012,7 +56012,7 @@ arg_8           = dword ptr  10h
                 jmp     loc_4E0113
 ; ---------------------------------------------------------------------------
 
-loc_4E008E:                             ; CODE XREF: sub_4E0071+16↑j
+loc_4E008E:                             ; CODE XREF: ?MsgProc@VisRoleKeyScreen@@UAEHIII@Z+16↑j
                 mov     ecx, dword ptr [ebp+var_8]
                 call    sub_4E0169
                 test    eax, eax
@@ -56036,12 +56036,12 @@ loc_4E008E:                             ; CODE XREF: sub_4E0071+16↑j
                 mov     ecx, dword ptr [ebp+var_4]
                 call    dword ptr [edx+34h]
 
-loc_4E00D0:                             ; CODE XREF: sub_4E0071+52↑j
+loc_4E00D0:                             ; CODE XREF: ?MsgProc@VisRoleKeyScreen@@UAEHIII@Z+52↑j
                 mov     eax, 1
                 jmp     short loc_4E0127
 ; ---------------------------------------------------------------------------
 
-loc_4E00D7:                             ; CODE XREF: sub_4E0071+27↑j
+loc_4E00D7:                             ; CODE XREF: ?MsgProc@VisRoleKeyScreen@@UAEHIII@Z+27↑j
                 mov     eax, dword ptr [ebp+var_8]
                 cmp     dword ptr [eax+80h], 0
                 jz      short loc_4E0100
@@ -56054,7 +56054,7 @@ loc_4E00D7:                             ; CODE XREF: sub_4E0071+27↑j
                 mov     ecx, eax
                 call    ?PostMessageA@CWnd@@QAEHIIJ@Z
 
-loc_4E0100:                             ; CODE XREF: sub_4E0071+70↑j
+loc_4E0100:                             ; CODE XREF: ?MsgProc@VisRoleKeyScreen@@UAEHIII@Z+70↑j
                 push    0
                 push    0
                 push    445h
@@ -56063,7 +56063,7 @@ loc_4E0100:                             ; CODE XREF: sub_4E0071+70↑j
                 jmp     short loc_4E0127
 ; ---------------------------------------------------------------------------
 
-loc_4E0113:                             ; CODE XREF: sub_4E0071+18↑j
+loc_4E0113:                             ; CODE XREF: ?MsgProc@VisRoleKeyScreen@@UAEHIII@Z+18↑j
                 mov     eax, dword ptr [ebp+arg_8]
                 push    eax
                 mov     ecx, dword ptr [ebp+arg_4]
@@ -56073,18 +56073,18 @@ loc_4E0113:                             ; CODE XREF: sub_4E0071+18↑j
                 mov     ecx, dword ptr [ebp+var_8]
                 call    ?MsgProc@VisScreen@@UAEHIII@Z
 
-loc_4E0127:                             ; CODE XREF: sub_4E0071+64↑j
+loc_4E0127:                             ; CODE XREF: ?MsgProc@VisRoleKeyScreen@@UAEHIII@Z+64↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_4E0071      endp
+?MsgProc@VisRoleKeyScreen@@UAEHIII@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4E012D      proc near               ; DATA XREF: .rdata:0060E450↓o
+?VMethod28@VisRoleKeyScreen@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060E450↓o
 
 var_4           = dword ptr -4
 
@@ -56099,14 +56099,14 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4E012D      endp
+?VMethod28@VisRoleKeyScreen@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4E0148      proc near               ; DATA XREF: .rdata:0060E454↓o
+?DoClose@VisRoleKeyScreen@@UAEXI@Z      proc near               ; DATA XREF: .rdata:0060E454↓o
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -56124,14 +56124,14 @@ arg_0           = dword ptr  8
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4E0148      endp
+?DoClose@VisRoleKeyScreen@@UAEXI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4E0169      proc near               ; CODE XREF: sub_4E0071+20↑p
+sub_4E0169      proc near               ; CODE XREF: ?MsgProc@VisRoleKeyScreen@@UAEHIII@Z+20↑p
 
 var_CC          = dword ptr -0CCh
 var_C8          = dword ptr -0C8h
@@ -57058,7 +57058,7 @@ sub_4E0978      endp
 
 ; Attributes: bp-based frame
 
-sub_4E0B20      proc near               ; CODE XREF: sub_4E0148+A↑p
+sub_4E0B20      proc near               ; CODE XREF: ?DoClose@VisRoleKeyScreen@@UAEXI@Z+A↑p
 
 var_4           = dword ptr -4
 
@@ -58229,7 +58229,7 @@ sub_4E3E80      endp
 
 ; Attributes: bp-based frame
 
-sub_4E3F30      proc near               ; DATA XREF: .rdata:0060E3D4↓o
+??_GVisRoleKeyScreen@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060E3D4↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -58239,7 +58239,7 @@ arg_0           = dword ptr  8
                 push    ecx
                 mov     [ebp+Block], ecx
                 mov     ecx, dword ptr [ebp+Block]
-                call    sub_4E3F60
+                call    ??1VisRoleKeyScreen@@UAE@XZ
                 mov     eax, dword ptr [ebp+arg_0]
                 and     eax, 1
                 test    eax, eax
@@ -58248,12 +58248,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_4E3F52:                             ; CODE XREF: sub_4E3F30+17↑j
+loc_4E3F52:                             ; CODE XREF: ??_GVisRoleKeyScreen@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4E3F30      endp
+??_GVisRoleKeyScreen@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -58262,7 +58262,7 @@ sub_4E3F30      endp
 
 ; Attributes: bp-based frame
 
-sub_4E3F60      proc near               ; CODE XREF: sub_4E3F30+A↑p
+??1VisRoleKeyScreen@@UAE@XZ      proc near               ; CODE XREF: ??_GVisRoleKeyScreen@@UAEPAXI@Z+A↑p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -58295,7 +58295,7 @@ var_4           = dword ptr -4
                 pop     ebp
                 retn
 ; } // starts at 4E3F60
-sub_4E3F60      endp
+??1VisRoleKeyScreen@@UAE@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -232676,7 +232676,7 @@ SEH_4E3C20:                             ; DATA XREF: sub_4E3C20+5↑o
 ; END OF FUNCTION CHUNK FOR sub_4E3C20
 ; ---------------------------------------------------------------------------
                 align 10h
-; START OF FUNCTION CHUNK FOR sub_4E3F60
+; START OF FUNCTION CHUNK FOR ??1VisRoleKeyScreen@@UAE@XZ
 
 loc_5FFA40:                             ; DATA XREF: .rdata:stru_621080↓o
 ; __unwind { // SEH_4E3F60
@@ -232686,11 +232686,11 @@ loc_5FFA40:                             ; DATA XREF: .rdata:stru_621080↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_4E3F60:                             ; DATA XREF: sub_4E3F60+5↑o
+SEH_4E3F60:                             ; DATA XREF: ??1VisRoleKeyScreen@@UAE@XZ+5↑o
                 mov     eax, offset stru_621060
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FFA40
-; END OF FUNCTION CHUNK FOR sub_4E3F60
+; END OF FUNCTION CHUNK FOR ??1VisRoleKeyScreen@@UAE@XZ
 ; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR CWinThread::~CWinThread(void)
@@ -245572,7 +245572,7 @@ off_60DB10      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
 
 
 off_60E3D0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisRoleKeyScreen@@QAE@HHHHHABVCString@@@Z+57↑o
-                dd offset sub_4E3F30
+                dd offset ??_GVisRoleKeyScreen@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
@@ -245589,7 +245589,7 @@ off_60E3D0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
                 dd offset ?DataSize@CVisualObject@@UAEIXZ
                 dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
-                dd offset sub_4E0071
+                dd offset ?MsgProc@VisRoleKeyScreen@@UAEHIII@Z
                 dd offset ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z
@@ -245598,13 +245598,13 @@ off_60E3D0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset sub_4E0027
+                dd offset ?OnKeyDown@VisRoleKeyScreen@@UAEHI@Z
                 dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
                 dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
                 dd offset ?VMethod26@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset sub_4E012D
-                dd offset sub_4E0148
+                dd offset ?VMethod28@VisRoleKeyScreen@@UAEXXZ
+                dd offset ?DoClose@VisRoleKeyScreen@@UAEXI@Z
 
 
 

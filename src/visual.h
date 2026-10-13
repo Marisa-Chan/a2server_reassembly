@@ -583,6 +583,12 @@ ASSERT_SIZE(VisWindow, 0x68);
 class VisRoleKeyScreen : public VisWindow
 {
 public:
+	virtual ~VisRoleKeyScreen(); //4e3f60
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; //4e0071
+	virtual int32_t OnKeyDown(uint32_t wparam) override; //4e0027
+	virtual void VMethod28() override; //4e012d
+	virtual void DoClose(uint32_t code) override; //4e0148
+
 	VisRoleKeyScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CString& text); //4dff5c in asm
 public:
 	int32_t field_0x68; // 0x68
