@@ -4571,3 +4571,86 @@ int32_t CProjectile::VMethod11()
     this->y_pos2 = this->y_pos;
     return 1;
 }
+
+// 46e291
+void CProjectile::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3)
+{
+    if (g_ProjectileInfos.GetSize() <= this->typeId || g_ProjectileInfos[this->typeId] == nullptr) {
+        return;
+    }
+
+    BigStruct2* map = this->pMapObject;
+    ProjectileInfo* info = g_ProjectileInfos[this->typeId];
+
+    int32_t x = this->screenX - info->width / 2;
+    int32_t y = (this->screenY - info->height / 2) - this->terrainHeightOffset - this->z_pos;
+
+    int32_t flip = 0;
+    int32_t rot_idx = (this->dir - 8) & 0xf;
+    if (info->flip != 0 && rot_idx > 8) {
+        flip = 1;
+        rot_idx = 0x10 - rot_idx;
+    }
+
+    int32_t sprite_idx = this->phase + info->phases * rot_idx;
+    if (info->rotation_phases == 1) {
+        sprite_idx = this->phase;
+    }
+
+    switch (this->typeId) {
+    case 7:
+        g_DistortMap->sub_4AA29B(this->screenX, this->screenY - this->terrainHeightOffset - this->z_pos);
+        break;
+    case 23: {
+        int32_t sub_phase;
+        if (this->phase < 8) {
+            sub_phase = 8;
+            y -= 0x1c - this->phase * 4;
+        } else {
+            sub_phase = this->phase - 8;
+        }
+        info->FUN_0041f8f0()->VMethod2(x, y, sub_phase, arg3, 0);
+        break;
+    }
+    case 28:
+        for (int32_t i = 0; i < this->transientVisualElements.GetSize(); i++) {
+            GO_11c& el = this->transientVisualElements.ElementAt(i);
+            g_ProjectileInfos[28]->FUN_0041f8f0()->VMethod2(el.field_0x0 - 8, el.field_0x2 - 8, this->phase, 0, 0);
+        }
+        break;
+    case 30:
+        for (int32_t i = 0; i < this->transientVisualElements.GetSize(); i++) {
+            GO_11c& el = this->transientVisualElements.ElementAt(i);
+            g_ProjectileInfos[30]->FUN_0041f8f0()->VMethod2(el.field_0x0 - 8, el.field_0x2 - 8, this->phase + el.field_0x6 * 5, 0, 0);
+        }
+        break;
+    case 54:
+        info->FUN_0041f8f0()->VMethod2(x, y, this->phase, arg3, 0);
+        break;
+    case 56:
+        break;
+    default:
+        if (info->palette == 0) {
+            info->FUN_0041f8f0()->VMethod1(x, y, sprite_idx, arg3, g_pal_projectiles, flip);
+        } else {
+            info->FUN_0041f8f0()->VMethod2(x, y, sprite_idx, arg3, flip);
+            CSprite256* sprite2 = info->FUN_0046f760();
+            if (sprite2 != nullptr) {
+                sprite2->VMethod10(x, y, sprite_idx, arg3, flip);
+            }
+            if (this->field_0x144.GetSize() != 0) {
+                int32_t smoke_idx = 0;
+                if (this->typeId == 12) {
+                    smoke_idx = 1;
+                }
+                for (int32_t i = 0; i < this->field_0x144.GetSize(); i++) {
+                    uint32_t packed = this->field_0x144[i];
+                    int32_t sx = ((packed & 0xffff) >> 3) - map->view_x * 0x20 - g_spr_smoke[smoke_idx]->GetWidth(0) / 2;
+                    int32_t sy = (packed >> 0x13) - map->view_y * 0x20 - g_spr_smoke[smoke_idx]->GetHeight(0) / 2 - this->terrainHeightOffset - this->z_pos;
+                    g_spr_smoke[smoke_idx]->VMethod2(sx, sy, i, arg3, 0);
+                }
+            }
+        }
+        break;
+    }
+}

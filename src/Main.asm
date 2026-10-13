@@ -27232,560 +27232,6 @@ arg_0           = dword ptr  8
 
 ; Attributes: bp-based frame
 
-?VMethod6@CProjectile@@UAEXHHH@Z      proc near               ; DATA XREF: .rdata:0060B718↓o
-
-var_60          = dword ptr -60h
-var_5C          = dword ptr -5Ch
-var_58          = dword ptr -58h
-var_54          = dword ptr -54h
-var_50          = dword ptr -50h
-var_4C          = dword ptr -4Ch
-var_48          = dword ptr -48h
-var_44          = dword ptr -44h
-var_40          = dword ptr -40h
-var_3C          = dword ptr -3Ch
-var_38          = dword ptr -38h
-var_34          = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 60h
-                push    esi
-                mov     [ebp+var_3C], ecx
-                mov     ecx, offset  ?g_ProjectileInfos@@3V?$CArray@PAVProjectileInfo@@ABQAV1@@@A 
-                call    unknown_libname_450 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [ebp+var_3C]
-                cmp     eax, [ecx+24h]
-                jg      short loc_46E2B2
-                jmp     loc_46E7B0
-; ---------------------------------------------------------------------------
-
-loc_46E2B2:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+1A↑j
-                mov     edx, dword ptr [ebp+var_3C]
-                mov     eax, dword ptr [edx+24h]
-                push    eax
-                mov     ecx, offset  ?g_ProjectileInfos@@3V?$CArray@PAVProjectileInfo@@ABQAV1@@@A 
-                call    sub_421470
-                cmp     dword ptr [eax], 0
-                jnz     short loc_46E2CD
-                jmp     loc_46E7B0
-; ---------------------------------------------------------------------------
-
-loc_46E2CD:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+35↑j
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx+0E8h]
-                mov     [ebp+var_4], edx
-                mov     eax, dword ptr [ebp+var_3C]
-                mov     ecx, dword ptr [eax+24h]
-                push    ecx
-                mov     ecx, offset  ?g_ProjectileInfos@@3V?$CArray@PAVProjectileInfo@@ABQAV1@@@A 
-                call    sub_421470
-                mov     edx, dword ptr [eax]
-                mov     [ebp+var_18], edx
-                mov     eax, dword ptr [ebp+var_18]
-                mov     eax, dword ptr [eax+1Ch]
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx+54h]
-                sub     edx, eax
-                mov     [ebp+var_10], edx
-                mov     eax, dword ptr [ebp+var_18]
-                mov     eax, dword ptr [eax+20h]
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx+58h]
-                sub     edx, eax
-                mov     eax, dword ptr [ebp+var_3C]
-                sub     edx, [eax+6Ch]
-                mov     ecx, dword ptr [ebp+var_3C]
-                sub     edx, [ecx+10h]
-                mov     [ebp+var_14], edx
-                mov     [ebp+var_1C], 0
-                mov     edx, dword ptr [ebp+var_3C]
-                mov     eax, dword ptr [edx+70h]
-                sub     eax, 8
-                and     eax, 0Fh
-                mov     [ebp+var_C], eax
-                mov     ecx, dword ptr [ebp+var_18]
-                cmp     dword ptr [ecx+30h], 0
-                jz      short loc_46E38A
-                cmp     [ebp+var_C], 8
-                jle     short loc_46E375
-                mov     [ebp+var_1C], 1
-                mov     edx, 10h
-                sub     edx, [ebp+var_C]
-                mov     [ebp+var_C], edx
-                mov     eax, dword ptr [ebp+var_18]
-                mov     ecx, dword ptr [eax+10h]
-                imul    ecx, [ebp+var_C]
-                mov     edx, dword ptr [ebp+var_3C]
-                mov     eax, dword ptr [edx+74h]
-                add     eax, ecx
-                mov     [ebp+var_8], eax
-                jmp     short loc_46E38A
-; ---------------------------------------------------------------------------
-
-loc_46E375:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+B9↑j
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     edx, dword ptr [ecx+10h]
-                imul    edx, [ebp+var_C]
-                mov     eax, dword ptr [ebp+var_3C]
-                mov     ecx, dword ptr [eax+74h]
-                add     ecx, edx
-                mov     [ebp+var_8], ecx
-
-loc_46E38A:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+B3↑j
-                mov     edx, dword ptr [ebp+var_18]
-                mov     eax, dword ptr [edx+10h]
-                imul    eax, [ebp+var_C]
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx+74h]
-                add     edx, eax
-                mov     [ebp+var_8], edx
-                mov     eax, dword ptr [ebp+var_18]
-                cmp     dword ptr [eax+18h], 1
-                jnz     short loc_46E3B1
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx+74h]
-                mov     [ebp+var_8], edx
-
-loc_46E3B1:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+115↑j
-                mov     eax, dword ptr [ebp+var_3C]
-                mov     ecx, dword ptr [eax+24h]
-                mov     [ebp+var_40], ecx
-                mov     edx, dword ptr [ebp+var_40]
-                sub     edx, 7          ; switch 50 cases
-                mov     [ebp+var_40], edx
-                cmp     [ebp+var_40], 31h
-                ja      def_46E3D8      ; jumptable 0046E3D8 default case, cases 8-22,24-27,29,31-53,55
-                mov     ecx, dword ptr [ebp+var_40]
-                xor     eax, eax
-                mov     al, ds:byte_46E7D3[ecx]
-                jmp     ds:jpt_46E3D8[eax*4] ; switch jump
-; ---------------------------------------------------------------------------
-
-loc_46E3DF:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+147↑j
-                mov     edx, dword ptr [ebp+var_3C] ; jumptable 0046E3D8 case 7
-                mov     eax, dword ptr [ebp+var_3C]
-                mov     ecx, dword ptr [edx+58h]
-                sub     ecx, [eax+6Ch]
-                mov     edx, dword ptr [ebp+var_3C]
-                sub     ecx, [edx+10h]
-                push    ecx
-                mov     eax, dword ptr [ebp+var_3C]
-                mov     ecx, dword ptr [eax+54h]
-                push    ecx
-                mov     ecx, ?g_DistortMap@@3PAVDistortMap@@A
-                call    sub_4AA29B
-                jmp     loc_46E7B0
-; ---------------------------------------------------------------------------
-
-loc_46E409:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+147↑j
-                mov     [ebp+var_24], 0 ; jumptable 0046E3D8 case 28
-                jmp     short loc_46E41B
-; ---------------------------------------------------------------------------
-
-loc_46E412:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+1FC↓j
-                mov     edx, dword ptr [ebp+var_24]
-                add     edx, 1
-                mov     [ebp+var_24], edx
-
-loc_46E41B:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+17F↑j
-                mov     ecx, dword ptr [ebp+var_3C]
-                add     ecx, 11Ch
-                call    unknown_libname_508 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_24], eax
-                jge     short loc_46E48F
-                push    0
-                push    0
-                mov     eax, dword ptr [ebp+var_3C]
-                mov     ecx, dword ptr [eax+74h]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_24]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_3C]
-                add     ecx, 11Ch
-                call    sub_46F1C0
-                movsx   eax, word ptr [eax+2]
-                sub     eax, 8
-                push    eax
-                mov     ecx, dword ptr [ebp+var_24]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_3C]
-                add     ecx, 11Ch
-                call    sub_46F1C0
-                movsx   edx, word ptr [eax]
-                sub     edx, 8
-                push    edx
-                push    1Ch
-                mov     ecx, offset  ?g_ProjectileInfos@@3V?$CArray@PAVProjectileInfo@@ABQAV1@@@A 
-                call    sub_421470
-                mov     ecx, dword ptr [eax]
-                call    ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ
-                mov     [ebp+var_44], eax
-                mov     eax, dword ptr [ebp+var_44]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_44]
-                call    dword ptr [edx+18h]
-                jmp     short loc_46E412
-; ---------------------------------------------------------------------------
-
-loc_46E48F:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+19B↑j
-                jmp     loc_46E7B0
-; ---------------------------------------------------------------------------
-
-loc_46E494:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+147↑j
-                mov     [ebp+var_28], 0 ; jumptable 0046E3D8 case 30
-                jmp     short loc_46E4A6
-; ---------------------------------------------------------------------------
-
-loc_46E49D:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+2A7↓j
-                mov     eax, dword ptr [ebp+var_28]
-                add     eax, 1
-                mov     [ebp+var_28], eax
-
-loc_46E4A6:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+20A↑j
-                mov     ecx, dword ptr [ebp+var_3C]
-                add     ecx, 11Ch
-                call    unknown_libname_508 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_28], eax
-                jge     loc_46E53D
-                push    0
-                push    0
-                mov     ecx, dword ptr [ebp+var_28]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_3C]
-                add     ecx, 11Ch
-                call    sub_46F1C0
-                xor     edx, edx
-                mov     dl, [eax+6]
-                imul    edx, 5
-                mov     eax, dword ptr [ebp+var_3C]
-                mov     ecx, dword ptr [eax+74h]
-                add     ecx, edx
-                push    ecx
-                mov     edx, dword ptr [ebp+var_28]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_3C]
-                add     ecx, 11Ch
-                call    sub_46F1C0
-                movsx   eax, word ptr [eax+2]
-                sub     eax, 8
-                push    eax
-                mov     ecx, dword ptr [ebp+var_28]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_3C]
-                add     ecx, 11Ch
-                call    sub_46F1C0
-                movsx   edx, word ptr [eax]
-                sub     edx, 8
-                push    edx
-                push    1Eh
-                mov     ecx, offset  ?g_ProjectileInfos@@3V?$CArray@PAVProjectileInfo@@ABQAV1@@@A 
-                call    sub_421470
-                mov     ecx, dword ptr [eax]
-                call    ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ
-                mov     [ebp+var_48], eax
-                mov     eax, dword ptr [ebp+var_48]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_48]
-                call    dword ptr [edx+18h]
-                jmp     loc_46E49D
-; ---------------------------------------------------------------------------
-
-loc_46E53D:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+226↑j
-                jmp     loc_46E7B0
-; ---------------------------------------------------------------------------
-
-loc_46E542:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+147↑j
-                jmp     loc_46E7B0      ; jumptable 0046E3D8 case 56
-; ---------------------------------------------------------------------------
-
-loc_46E547:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+147↑j
-                mov     eax, dword ptr [ebp+var_3C] ; jumptable 0046E3D8 case 23
-                cmp     dword ptr [eax+74h], 8
-                jge     short loc_46E571
-                mov     [ebp+var_20], 8
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx+74h]
-                shl     edx, 2
-                mov     eax, 1Ch
-                sub     eax, edx
-                mov     ecx, dword ptr [ebp+var_14]
-                sub     ecx, eax
-                mov     [ebp+var_14], ecx
-                jmp     short loc_46E57D
-; ---------------------------------------------------------------------------
-
-loc_46E571:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+2BD↑j
-                mov     edx, dword ptr [ebp+var_3C]
-                mov     eax, dword ptr [edx+74h]
-                sub     eax, 8
-                mov     [ebp+var_20], eax
-
-loc_46E57D:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+2DE↑j
-                push    0
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_20]
-                push    edx
-                mov     eax, dword ptr [ebp+var_14]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_10]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ
-                mov     [ebp+var_4C], eax
-                mov     edx, dword ptr [ebp+var_4C]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_4C]
-                call    dword ptr [eax+18h]
-                jmp     loc_46E7B0
-; ---------------------------------------------------------------------------
-
-loc_46E5AA:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+147↑j
-                push    0               ; jumptable 0046E3D8 case 54
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_3C]
-                mov     eax, dword ptr [edx+74h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_14]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_10]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ
-                mov     [ebp+var_50], eax
-                mov     eax, dword ptr [ebp+var_50]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_50]
-                call    dword ptr [edx+18h]
-                jmp     loc_46E7B0
-; ---------------------------------------------------------------------------
-
-def_46E3D8:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+136↑j
-                mov     eax, dword ptr [ebp+var_18] ; jumptable 0046E3D8 default case, cases 8-22,24-27,29,31-53,55
-                cmp     dword ptr [eax+28h], 0
-                jz      loc_46E77F
-                mov     ecx, dword ptr [ebp+var_1C]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_8]
-                push    edx
-                mov     eax, dword ptr [ebp+var_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_14]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_10]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ
-                mov     [ebp+var_54], eax
-                mov     eax, dword ptr [ebp+var_54]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_54]
-                call    dword ptr [edx+18h]
-                mov     ecx, dword ptr [ebp+var_18]
-                call    sub_46F760
-                test    eax, eax
-                jz      short loc_46E647
-                mov     eax, dword ptr [ebp+var_1C]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_8]
-                push    edx
-                mov     eax, dword ptr [ebp+var_14]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_10]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_18]
-                call    sub_46F760
-                mov     [ebp+var_58], eax
-                mov     edx, dword ptr [ebp+var_58]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_58]
-                call    dword ptr [eax+38h]
-
-loc_46E647:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+38A↑j
-                mov     ecx, dword ptr [ebp+var_3C]
-                add     ecx, 144h
-                call    unknown_libname_411 ; Microsoft VisualC 2-14/net runtime
-                test    eax, eax
-                jz      loc_46E77D
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx+24h]
-                mov     [ebp+var_5C], edx
-                cmp     [ebp+var_5C], 0Ah
-                jz      short loc_46E674
-                cmp     [ebp+var_5C], 0Ch
-                jz      short loc_46E67D
-                jmp     short loc_46E684
-; ---------------------------------------------------------------------------
-
-loc_46E674:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+3D9↑j
-                mov     [ebp+var_2C], 0
-                jmp     short loc_46E684
-; ---------------------------------------------------------------------------
-
-loc_46E67D:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+3DF↑j
-                mov     [ebp+var_2C], 1
-
-loc_46E684:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+3E1↑j
-                mov     [ebp+var_30], 0
-                jmp     short loc_46E696
-; ---------------------------------------------------------------------------
-
-loc_46E68D:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+4E7↓j
-                mov     eax, dword ptr [ebp+var_30]
-                add     eax, 1
-                mov     [ebp+var_30], eax
-
-loc_46E696:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+3FA↑j
-                mov     ecx, dword ptr [ebp+var_3C]
-                add     ecx, 144h
-                call    unknown_libname_411 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_30], eax
-                jge     loc_46E77D
-                mov     ecx, dword ptr [ebp+var_30]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_3C]
-                add     ecx, 144h
-                call    sub_402880
-                mov     esi, [eax]
-                and     esi, 0FFFFh
-                shr     esi, 3
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+5Ch]
-                shl     eax, 5
-                sub     esi, eax
-                push    0
-                mov     ecx, dword ptr [ebp+var_2C]
-                mov     ecx, ?g_spr_smoke@@3PAPAVCA16@@A[ecx*4]
-                mov     edx, dword ptr [ebp+var_2C]
-                mov     eax, ?g_spr_smoke@@3PAPAVCA16@@A[edx*4]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+20h]
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                sub     esi, eax
-                mov     [ebp+var_34], esi
-                mov     eax, dword ptr [ebp+var_30]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                add     ecx, 144h
-                call    sub_402880
-                mov     esi, [eax]
-                shr     esi, 13h
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+60h]
-                shl     edx, 5
-                sub     esi, edx
-                push    0
-                mov     eax, dword ptr [ebp+var_2C]
-                mov     ecx, ?g_spr_smoke@@3PAPAVCA16@@A[eax*4]
-                mov     edx, dword ptr [ebp+var_2C]
-                mov     eax, ?g_spr_smoke@@3PAPAVCA16@@A[edx*4]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+24h]
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                sub     esi, eax
-                mov     eax, dword ptr [ebp+var_3C]
-                sub     esi, [eax+6Ch]
-                mov     ecx, dword ptr [ebp+var_3C]
-                sub     esi, [ecx+10h]
-                mov     [ebp+var_38], esi
-                push    0
-                mov     edx, dword ptr [ebp+arg_8]
-                push    edx
-                mov     eax, dword ptr [ebp+var_30]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_38]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_34]
-                push    edx
-                mov     eax, dword ptr [ebp+var_2C]
-                mov     ecx, ?g_spr_smoke@@3PAPAVCA16@@A[eax*4]
-                mov     edx, dword ptr [ebp+var_2C]
-                mov     eax, ?g_spr_smoke@@3PAPAVCA16@@A[edx*4]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+18h]
-                jmp     loc_46E68D
-; ---------------------------------------------------------------------------
-
-loc_46E77D:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+3C6↑j
-                jmp     short loc_46E7B0
-; ---------------------------------------------------------------------------
-
-loc_46E77F:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+350↑j
-                mov     eax, dword ptr [ebp+var_1C]
-                push    eax
-                mov     ecx, ?g_pal_projectiles@@3PAVCGamePalette@@A
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_8]
-                push    edx
-                mov     eax, dword ptr [ebp+var_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_14]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_10]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ
-                mov     [ebp+var_60], eax
-                mov     eax, dword ptr [ebp+var_60]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_60]
-                call    dword ptr [edx+14h]
-
-loc_46E7B0:                             ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+1C↑j
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?VMethod6@CProjectile@@UAEXHHH@Z      endp
-
-; ---------------------------------------------------------------------------
-jpt_46E3D8      dd offset loc_46E3DF    ; DATA XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+147↑r
-                dd offset loc_46E547    ; jump table for switch statement
-                dd offset loc_46E409
-                dd offset loc_46E494
-                dd offset loc_46E5AA
-                dd offset loc_46E542
-                dd offset def_46E3D8
-byte_46E7D3     db      0,     6,     6,     6
-                db      6,     6,     6,     6 ; indirect table for switch statement
-                db      6,     6,     6,     6
-                db      6,     6,     6,     6
-                db      1,     6,     6,     6
-                db      6,     2,     6,     3
-                db      6,     6,     6,     6
-                db      6,     6,     6,     6
-                db      6,     6,     6,     6
-                db      6,     6,     6,     6
-                db      6,     6,     6,     6
-                db      6,     6,     6,     4
-                db      6,     5
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -29195,7 +28641,7 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-sub_46F760      proc near               ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+383↑p
+?FUN_0046f760@ProjectileInfo@@QAEPAVCSprite256@@XZ      proc near               ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+383↑p
 
 var_4           = dword ptr -4
 
@@ -29209,13 +28655,13 @@ var_4           = dword ptr -4
                 mov     ecx, dword ptr [ebp+var_4]
                 call    ?Init@ProjectileInfo@@QAEXXZ
 
-loc_46F778:                             ; CODE XREF: sub_46F760+E↑j
+loc_46F778:                             ; CODE XREF: ?FUN_0046f760@ProjectileInfo@@QAEPAVCSprite256@@XZ+E↑j
                 mov     ecx, dword ptr [ebp+var_4]
                 mov     eax, dword ptr [ecx+8]
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_46F760      endp
+?FUN_0046f760@ProjectileInfo@@QAEPAVCSprite256@@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -49057,7 +48503,7 @@ sub_4AA04F      endp
 
 ; Attributes: bp-based frame
 
-sub_4AA29B      proc near               ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+16E↑p
+?sub_4AA29B@DistortMap@@QAEXHH@Z      proc near               ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+16E↑p
 
 var_B0          = dword ptr -0B0h
 var_AC          = byte ptr -0ACh
@@ -49107,12 +48553,12 @@ arg_4           = dword ptr  0Ch
                 jmp     short loc_4AA2E1
 ; ---------------------------------------------------------------------------
 
-loc_4AA2D8:                             ; CODE XREF: sub_4AA29B:loc_4AA62C↓j
+loc_4AA2D8:                             ; CODE XREF: ?sub_4AA29B@DistortMap@@QAEXHH@Z:loc_4AA62C↓j
                 mov     ecx, dword ptr [ebp+var_1C]
                 sub     ecx, 1
                 mov     [ebp+var_1C], ecx
 
-loc_4AA2E1:                             ; CODE XREF: sub_4AA29B+3B↑j
+loc_4AA2E1:                             ; CODE XREF: ?sub_4AA29B@DistortMap@@QAEXHH@Z+3B↑j
                 cmp     [ebp+var_1C], 0
                 jl      loc_4AA631
                 mov     edx, dword ptr [ebp+var_B0]
@@ -49122,12 +48568,12 @@ loc_4AA2E1:                             ; CODE XREF: sub_4AA29B+3B↑j
                 jmp     short loc_4AA305
 ; ---------------------------------------------------------------------------
 
-loc_4AA2FC:                             ; CODE XREF: sub_4AA29B:loc_4AA627↓j
+loc_4AA2FC:                             ; CODE XREF: ?sub_4AA29B@DistortMap@@QAEXHH@Z:loc_4AA627↓j
                 mov     ecx, dword ptr [ebp+var_20]
                 sub     ecx, 1
                 mov     [ebp+var_20], ecx
 
-loc_4AA305:                             ; CODE XREF: sub_4AA29B+5F↑j
+loc_4AA305:                             ; CODE XREF: ?sub_4AA29B@DistortMap@@QAEXHH@Z+5F↑j
                 cmp     [ebp+var_20], 0
                 jl      loc_4AA62C
                 mov     edx, dword ptr [ebp+var_B0]
@@ -49205,7 +48651,7 @@ loc_4AA305:                             ; CODE XREF: sub_4AA29B+5F↑j
                 mov     dx, [esi+edx*2]
                 mov     [ecx+eax*2], dx
 
-loc_4AA3EE:                             ; CODE XREF: sub_4AA29B+D8↑j
+loc_4AA3EE:                             ; CODE XREF: ?sub_4AA29B@DistortMap@@QAEXHH@Z+D8↑j
                 mov     eax, dword ptr [ebp+arg_4]
                 sub     eax, [ebp+var_20]
                 push    eax
@@ -49267,7 +48713,7 @@ loc_4AA3EE:                             ; CODE XREF: sub_4AA29B+D8↑j
                 mov     ax, [esi+eax*2]
                 mov     [edx+ecx*2], ax
 
-loc_4AA49C:                             ; CODE XREF: sub_4AA29B+186↑j
+loc_4AA49C:                             ; CODE XREF: ?sub_4AA29B@DistortMap@@QAEXHH@Z+186↑j
                 mov     ecx, dword ptr [ebp+arg_4]
                 add     ecx, [ebp+var_20]
                 push    ecx
@@ -49329,7 +48775,7 @@ loc_4AA49C:                             ; CODE XREF: sub_4AA29B+186↑j
                 mov     dx, [esi+edx*2]
                 mov     [ecx+eax*2], dx
 
-loc_4AA557:                             ; CODE XREF: sub_4AA29B+234↑j
+loc_4AA557:                             ; CODE XREF: ?sub_4AA29B@DistortMap@@QAEXHH@Z+234↑j
                 mov     eax, dword ptr [ebp+arg_4]
                 sub     eax, [ebp+var_20]
                 push    eax
@@ -49391,20 +48837,20 @@ loc_4AA557:                             ; CODE XREF: sub_4AA29B+234↑j
                 mov     ax, [esi+eax*2]
                 mov     [edx+ecx*2], ax
 
-loc_4AA627:                             ; CODE XREF: sub_4AA29B+2FE↑j
+loc_4AA627:                             ; CODE XREF: ?sub_4AA29B@DistortMap@@QAEXHH@Z+2FE↑j
                 jmp     loc_4AA2FC
 ; ---------------------------------------------------------------------------
 
-loc_4AA62C:                             ; CODE XREF: sub_4AA29B+6E↑j
+loc_4AA62C:                             ; CODE XREF: ?sub_4AA29B@DistortMap@@QAEXHH@Z+6E↑j
                 jmp     loc_4AA2D8
 ; ---------------------------------------------------------------------------
 
-loc_4AA631:                             ; CODE XREF: sub_4AA29B+4A↑j
+loc_4AA631:                             ; CODE XREF: ?sub_4AA29B@DistortMap@@QAEXHH@Z+4A↑j
                 pop     esi
                 mov     esp, ebp
                 pop     ebp
                 retn    8
-sub_4AA29B      endp
+?sub_4AA29B@DistortMap@@QAEXHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
