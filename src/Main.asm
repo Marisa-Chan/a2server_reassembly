@@ -27249,22 +27249,6 @@ arg_0           = dword ptr  8
 ; Attributes: bp-based frame
 
 ; int __stdcall ?Dump@CProjectile@@UBEXAAVCDumpContext@@@Z(CDumpContext *)
-?Dump@CProjectile@@UBEXAAVCDumpContext@@@Z      proc near               ; DATA XREF: .rdata:0060B700↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    offset aCprojectile ; "CProjectile"
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ??6CDumpContext@@QAEAAV0@PBD@Z ; CDumpContext::operator<<(char const *)
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?Dump@CProjectile@@UBEXAAVCDumpContext@@@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

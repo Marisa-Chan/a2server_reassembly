@@ -4374,6 +4374,12 @@ void CBackPack::Dump(CDumpContext& dc) const
     //dc << "CBackPack";
 }
 
+// 46eeb4
+void CProjectile::Dump(CDumpContext& dc) const
+{
+    //dc << "CProjectile";
+}
+
 // 46f5c0
 int32_t CBackPack::VMethod4()
 {
