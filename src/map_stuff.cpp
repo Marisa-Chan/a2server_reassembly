@@ -2930,6 +2930,15 @@ Scenario::~Scenario()
     }
 }
 
+// 4a7a50
+Scenario::Scenario()
+{
+    this->landscape = nullptr;
+    this->map_heights = nullptr;
+    this->field_0x14 = nullptr;
+    this->field_0x18 = nullptr;
+}
+
 // 4a7bec
 Scenario::Scenario(const char* fname)
 {

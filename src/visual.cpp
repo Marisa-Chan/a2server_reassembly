@@ -28,6 +28,7 @@ extern "C" char byte_659A54[4]; //659a54 "" hint string of the action menu confi
 extern "C" char byte_659A58[4]; //659a58 "" hint string of the action menu cancel button
 extern "C" char byte_659A4C[4]; //659a4c "" hint string of the mission-failed load button
 extern "C" char byte_659A50[4]; //659a50 "" hint string of the mission-failed retry button
+extern "C" char byte_659A30[4]; //659a30 "" placeholder tooltip for net map entries with an unprintable tooltip
 
 // Spellbook pressed-position spell table. 62f8a8
 uint32_t DAT_0062F8A8[24] = {1,0,0,1, 1,1,1,1, 1,1,1,1, 1,0,0,1, 1,0,0,1, 1,1,0,1};
@@ -5054,6 +5055,65 @@ UINT __cdecl VisNetMapThreadProc(LPVOID pParam)
 {
     static_cast<VisNetMapSelection*>(pParam)->FUN_0044aae5();
     return 0;
+}
+
+
+// 44AAE5
+void VisNetMapSelection::FUN_0044aae5()
+{
+    char path[MAX_PATH];
+    WIN32_FIND_DATAA find_data;
+    AppGetWorkingDir(0x103, path);
+    strcat(path, "\\*.alm");
+    HANDLE find_handle = FindFirstFileA(path, &find_data);
+    if (find_handle != INVALID_HANDLE_VALUE) {
+        do {
+            if ((find_data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0) {
+                NetMapInfo* info = new NetMapInfo;
+                info->mapid = find_data.cFileName;
+                Scenario* scenario = new Scenario;
+                if (scenario->FUN_0044ec40(info)) {
+                    bool name_printable = false;
+                    const char* psz = (LPCTSTR)info->name;
+                    if (psz != nullptr) {
+                        for (; *psz != '\0'; psz++) {
+                            if (isprint(*psz) || *psz < 0) {
+                                name_printable = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!name_printable) {
+                        info->name = find_data.cFileName;
+                    }
+                    bool tooltip_printable = false;
+                    psz = (LPCTSTR)info->tooltip;
+                    if (psz != nullptr) {
+                        for (; *psz != '\0'; psz++) {
+                            if (isprint(*psz) || *psz < 0) {
+                                tooltip_printable = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!tooltip_printable) {
+                        info->tooltip = byte_659A30;
+                    }
+                    info->name.AnsiToOem();
+                    info->tooltip.AnsiToOem();
+                    if (info->tooltip.IsEmpty()) {
+                        info->tooltip = info->name;
+                    }
+                    delete scenario;
+                    PostMessageA(g_MainWndHWND, 0x461, (WPARAM)info, 0);
+                } else {
+                    delete scenario;
+                    delete info;
+                }
+            }
+        } while (FindNextFileA(find_handle, &find_data) && WaitForSingleObject(this->stop_event, 0) != 0);
+    }
+    FindClose(find_handle);
 }
 
 

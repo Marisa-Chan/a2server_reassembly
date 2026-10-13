@@ -2016,6 +2016,7 @@ extern   ?VMethod8@CUnit@@UAEXHHH@Z  : proc
 extern   ?VMethod9@CUnit@@UAEXHHH@Z  : proc
 extern   ?FUN_004a7b79@Scenario@@QAENXZ  : proc
 extern ??_7Scenario@@6B@ :dword ; Scenario::vftable (C++-emitted)
+externdef ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z : proc  ; bool Scenario::FUN_0044ec40(NetMapInfo*)
 extern ??0CStructure@@QAE@XZ : proc
 extern ??0CVerticalWoodenBridge@@QAE@HH@Z : proc
 extern ??0CHorisontalWoodenBridge@@QAE@HH@Z : proc
@@ -2116,9 +2117,9 @@ externdef _byte_659A58 : byte  ; "" hint string of the action menu cancel button
 
 
 
-externdef ?FUN_0044aae5@VisNetMapSelection@@QAEXXZ : proc  ; void VisNetMapSelection::FUN_0044aae5(void) — thread body
 externdef ??0CWinThread@@QAE@P6AIPAX@Z0@Z : proc
 externdef _byte_659A5C : byte  ; 659a5c zeroed buffer used to clear the net chat text box
+externdef _byte_659A30 : byte  ; 659a30 "" placeholder tooltip for net map entries with an unprintable tooltip
 externdef ?CreateThread@CWinThread@@QAEHKIPAU_SECURITY_ATTRIBUTES@@@Z : proc
 
 ; VisTipsDialog ctor child-ctrl builder (still in asm)

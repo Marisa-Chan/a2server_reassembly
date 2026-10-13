@@ -3572,7 +3572,7 @@ public:
 
 	void StopThread(); // 44aeef
 	void AddNetMapInfo(NetMapInfo* info); // 44d13d
-	void FUN_0044aae5(); // 44aae5 (thread body, stays in ASM for now)
+	void FUN_0044aae5(); // 44aae5
 
 public:
 	CString* p_mapname;

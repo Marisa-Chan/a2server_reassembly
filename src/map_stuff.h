@@ -17,6 +17,7 @@ class AreaEffect;
 class Building;
 class Human;
 struct MapAlm;
+struct NetMapInfo;
 class Sack;
 class TokenPos;
 class Unit;
@@ -343,7 +344,9 @@ class Scenario : public CObject
 public:
     ~Scenario(); //4a9468
 
+    Scenario(); //4a7a50
     Scenario(const char* fname); //4a7bec
+    bool FUN_0044ec40(NetMapInfo* info); //44ec40
 
     uint16_t* GetLandscape() const { return landscape; }; //41ee80
     int32_t GetWidth() const { return width; }; //41ef20
