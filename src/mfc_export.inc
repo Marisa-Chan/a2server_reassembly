@@ -968,7 +968,6 @@ externdef ?UpdateData@CWnd@@QAEHH@Z :proc     ; CWnd::UpdateData(int) - 5e31fc
 externdef ?Add@CStringArray@@QAEHPBD@Z :proc   ; CStringArray::Add(const char*) - 402970
 externdef ?LPCTSTR@CString@@QBEPBDXZ :proc     ; CString::operator const char*() - unknown_libname_400
 extern ?g_DistortMap@@3PAVDistortMap@@A : dword ; DistortMap* g_DistortMap
-externdef ?sub_4AA29B@DistortMap@@QAEXHH@Z : proc  ; void DistortMap::sub_4AA29B(int, int)
 extern ?g_CpuFeatureFlags@@3IA : dword         ; uint32_t g_CpuFeatureFlags
 
 extern ?ReadFileToString@@YAXPBDPAVCString@@@Z  : proc

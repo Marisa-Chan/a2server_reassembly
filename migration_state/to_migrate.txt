@@ -59,7 +59,6 @@ _byte_659A3C
 ?Play@CSound@@SAXAAU1@@Z	31
 ?LPCTSTR@CString@@QBEPBDXZ	13
 ??0DiplomacyEntry@@QAE@PBDHHHH@Z	46
-?sub_4AA29B@DistortMap@@QAEXHH@Z	347
 ?Save@GameSettings@@QAEXAAPAUHKEY__@@@Z	171
 ?Save@HatSettings@@QAEXAAPAUHKEY__@@@Z	225
 ?Save@PhoneBook@@QAEXAAPAUHKEY__@@@Z	82

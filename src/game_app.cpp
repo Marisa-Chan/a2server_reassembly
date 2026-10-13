@@ -111,6 +111,57 @@ void DistortMap::sub_4AA0AF() {
 	delete[] scale;
 }
 
+// 4AA29B
+void DistortMap::sub_4AA29B(int32_t x, int32_t y)
+{
+	CRect clip;
+	GetClipRect(&clip);
+	uint16_t* surface = (uint16_t*)g_selDrawBitmap.lpSurface;
+
+	for (int32_t i = this->radius - 1; i >= 0; i--) {
+		for (int32_t j = this->radius - 1; j >= 0; j--) {
+			int32_t off_x = this->offsets[i][j * 2];
+			int32_t off_y = this->offsets[i][j * 2 + 1];
+			CPoint pt(x + i, y + j);
+			if (clip.PtInRect(pt)) {
+				CPoint src_pt(x + off_x, y + off_y);
+				if (clip.PtInRect(src_pt)) {
+					int32_t dst_idx = (y + j) * g_selDrawBitmap.dwWidth + (x + i);
+					int32_t src_idx = (y + off_y) * g_selDrawBitmap.dwWidth + (x + off_x);
+					surface[dst_idx] = surface[src_idx];
+				}
+			}
+			CPoint pt2(x + i, y - j);
+			if (clip.PtInRect(pt2)) {
+				CPoint src_pt(x + off_x, y - off_y);
+				if (clip.PtInRect(src_pt)) {
+					int32_t dst_idx = (y - j) * g_selDrawBitmap.dwWidth + (x + i);
+					int32_t src_idx = (y - off_y) * g_selDrawBitmap.dwWidth + (x + off_x);
+					surface[dst_idx] = surface[src_idx];
+				}
+			}
+			CPoint pt3(x - i, y + j);
+			if (clip.PtInRect(pt3)) {
+				CPoint src_pt(x - off_x, y + off_y);
+				if (clip.PtInRect(src_pt)) {
+					int32_t dst_idx = (y + j) * g_selDrawBitmap.dwWidth + (x - i);
+					int32_t src_idx = (y + off_y) * g_selDrawBitmap.dwWidth + (x - off_x);
+					surface[dst_idx] = surface[src_idx];
+				}
+			}
+			CPoint pt4(x - i, y - j);
+			if (clip.PtInRect(pt4)) {
+				CPoint src_pt(x - off_x, y - off_y);
+				if (clip.PtInRect(src_pt)) {
+					int32_t dst_idx = (y - j) * g_selDrawBitmap.dwWidth + (x - i);
+					int32_t src_idx = (y - off_y) * g_selDrawBitmap.dwWidth + (x - off_x);
+					surface[dst_idx] = surface[src_idx];
+				}
+			}
+		}
+	}
+}
+
 // 475E7A
 void FUN_00475e7a() {
 	// In vanilla, here they checked if `CPUID` was available, and if yes --- called it to check if MMX is supported.
