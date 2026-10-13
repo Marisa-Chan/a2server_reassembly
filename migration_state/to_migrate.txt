@@ -25,7 +25,6 @@ _byte_659A3C
 ?FUN_00454a1e@@YAXHHHH@Z	28
 ?FUN_0047619a@@YAXXZ	33
 ?FUN_0043aae0@@YAHD@Z	35
-?SaveSettings@@YAXXZ	66
 ?IsDefaultNpcName@@YAIPBD@Z	67
 ?FUN_00457aa6@@YAXHHHHG@Z	98
 ?ParseTunes@@YAXXZ	99
@@ -63,7 +62,11 @@ _byte_659A3C
 ?LPCTSTR@CString@@QBEPBDXZ	13
 ??0DiplomacyEntry@@QAE@PBDHHHH@Z	46
 ?sub_4AA29B@DistortMap@@QAEXHH@Z	347
+?Save@GameSettings@@QAEXAAPAUHKEY__@@@Z	171
+?Save@HatSettings@@QAEXAAPAUHKEY__@@@Z	225
+?Save@PhoneBook@@QAEXAAPAUHKEY__@@@Z	82
 ?FUN_0046f760@ProjectileInfo@@QAEPAVCSprite256@@XZ	20
+?Save@SoundSettings@@QAEXAAPAUHKEY__@@@Z	66
 ?GetSprite@StructureInfo@@QAEPAVCSprite256@@XZ	20
 ?GetSpriteB@StructureInfo@@QAEPAVCSprite256@@XZ	20
 ?FUN_0044aae5@VisNetMapSelection@@QAEXXZ	329

@@ -17510,7 +17510,7 @@ sub_43CDEE      endp
 
 ; Attributes: bp-based frame
 
-sub_43CF29      proc near               ; CODE XREF: ?SaveSettings@@YAXXZ+66↓p
+?Save@PhoneBook@@QAEXAAPAUHKEY__@@@Z      proc near               ; CODE XREF: ?SaveSettings@@YAXXZ+66↓p
 
 var_8C          = dword ptr -8Ch
 var_88          = byte ptr -88h
@@ -17541,12 +17541,12 @@ arg_0           = dword ptr  8
                 jmp     short loc_43CF76
 ; ---------------------------------------------------------------------------
 
-loc_43CF6D:                             ; CODE XREF: sub_43CF29+C1↓j
+loc_43CF6D:                             ; CODE XREF: ?Save@PhoneBook@@QAEXAAPAUHKEY__@@@Z+C1↓j
                 mov     eax, dword ptr [ebp+var_8]
                 add     eax, 1
                 mov     [ebp+var_8], eax
 
-loc_43CF76:                             ; CODE XREF: sub_43CF29+42↑j
+loc_43CF76:                             ; CODE XREF: ?Save@PhoneBook@@QAEXAAPAUHKEY__@@@Z+42↑j
                 mov     ecx, dword ptr [ebp+var_8]
                 cmp     ecx, dword ptr [ebp+Data]
                 jnb     short loc_43CFEC
@@ -17588,11 +17588,11 @@ loc_43CF76:                             ; CODE XREF: sub_43CF29+42↑j
                 jmp     short loc_43CF6D
 ; ---------------------------------------------------------------------------
 
-loc_43CFEC:                             ; CODE XREF: sub_43CF29+53↑j
+loc_43CFEC:                             ; CODE XREF: ?Save@PhoneBook@@QAEXAAPAUHKEY__@@@Z+53↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_43CF29      endp
+?Save@PhoneBook@@QAEXAAPAUHKEY__@@@Z      endp
 
 
 
@@ -17603,29 +17603,6 @@ sub_43CF29      endp
 
 ; Attributes: bp-based frame
 
-sub_43D069      proc near               ; CODE XREF: ?SaveSettings@@YAXXZ+78↓p
-
-lpData          = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+lpData], ecx
-                push    14h             ; cbData
-                mov     eax, dword ptr [ebp+lpData]
-                push    eax             ; lpData
-                push    3               ; dwType
-                push    0               ; Reserved
-                push    offset aComportsetting_0 ; "comportsettings"
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [ecx]
-                push    edx             ; hKey
-                call    RegSetValueExA
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_43D069      endp
 
 
 
@@ -17634,29 +17611,6 @@ sub_43D069      endp
 
 ; Attributes: bp-based frame
 
-sub_43D0CD      proc near               ; CODE XREF: ?SaveSettings@@YAXXZ+54↓p
-
-lpData          = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+lpData], ecx
-                push    4               ; cbData
-                mov     eax, dword ptr [ebp+lpData]
-                push    eax             ; lpData
-                push    4               ; dwType
-                push    0               ; Reserved
-                push    offset aLastprotocol_0 ; "lastprotocol"
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [ecx]
-                push    edx             ; hKey
-                call    RegSetValueExA
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_43D0CD      endp
 
 
 
@@ -17664,42 +17618,6 @@ sub_43D0CD      endp
 
 ; Attributes: bp-based frame
 
-sub_43D14A      proc near               ; CODE XREF: ?SaveSettings@@YAXXZ+8A↓p
-
-var_104         = dword ptr -104h
-Data            = byte ptr -100h
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 104h
-                mov     [ebp+var_104], ecx
-                mov     ecx, dword ptr [ebp+var_104]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; Source
-                lea     eax, [ebp+Data]
-                push    eax             ; Destination
-                call    _strcpy
-                add     esp, 8
-                lea     ecx, [ebp+Data]
-                push    ecx             ; varStr
-                call    _strlen
-                add     esp, 4
-                add     eax, 1
-                push    eax             ; cbData
-                lea     edx, [ebp+Data]
-                push    edx             ; lpData
-                push    1               ; dwType
-                push    0               ; Reserved
-                push    offset aLastip_0 ; "lastip"
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [eax]
-                push    ecx             ; hKey
-                call    RegSetValueExA
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_43D14A      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -17790,7 +17708,7 @@ sub_43D1A9      endp
 
 ; Attributes: bp-based frame
 
-sub_43D51B      proc near               ; CODE XREF: ?SaveSettings@@YAXXZ+9C↓p
+?Save@HatSettings@@QAEXAAPAUHKEY__@@@Z      proc near               ; CODE XREF: ?SaveSettings@@YAXXZ+9C↓p
 
 var_13C         = dword ptr -13Ch
 var_138         = dword ptr -138h
@@ -17937,10 +17855,10 @@ arg_0           = dword ptr  8
                 jmp     short loc_43D6CE
 ; ---------------------------------------------------------------------------
 
-loc_43D6C7:                             ; CODE XREF: sub_43D51B+135↑j
+loc_43D6C7:                             ; CODE XREF: ?Save@HatSettings@@QAEXAAPAUHKEY__@@@Z+135↑j
                 mov     [ebp+Data], 0
 
-loc_43D6CE:                             ; CODE XREF: sub_43D51B+1AA↑j
+loc_43D6CE:                             ; CODE XREF: ?Save@HatSettings@@QAEXAAPAUHKEY__@@@Z+1AA↑j
                 lea     eax, [ebp+Data]
                 push    eax             ; varStr
                 call    _strlen
@@ -17990,10 +17908,10 @@ loc_43D6CE:                             ; CODE XREF: sub_43D51B+1AA↑j
                 jmp     short loc_43D785
 ; ---------------------------------------------------------------------------
 
-loc_43D77E:                             ; CODE XREF: sub_43D51B+1EC↑j
+loc_43D77E:                             ; CODE XREF: ?Save@HatSettings@@QAEXAAPAUHKEY__@@@Z+1EC↑j
                 mov     [ebp+Data], 0
 
-loc_43D785:                             ; CODE XREF: sub_43D51B+261↑j
+loc_43D785:                             ; CODE XREF: ?Save@HatSettings@@QAEXAAPAUHKEY__@@@Z+261↑j
                 lea     eax, [ebp+Data]
                 push    eax             ; varStr
                 call    _strlen
@@ -18015,7 +17933,7 @@ loc_43D785:                             ; CODE XREF: sub_43D51B+261↑j
                 pop     ebp
                 retn    4
 ; } // starts at 43D51B
-sub_43D51B      endp
+?Save@HatSettings@@QAEXAAPAUHKEY__@@@Z      endp
 
 
 
@@ -18023,7 +17941,7 @@ sub_43D51B      endp
 
 ; Attributes: bp-based frame
 
-sub_43D877      proc near               ; CODE XREF: ?SaveSettings@@YAXXZ+2C↓p
+?Save@SoundSettings@@QAEXAAPAUHKEY__@@@Z      proc near               ; CODE XREF: ?SaveSettings@@YAXXZ+2C↓p
 
 lpData          = dword ptr -4
 arg_0           = dword ptr  8
@@ -18089,7 +18007,7 @@ arg_0           = dword ptr  8
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_43D877      endp
+?Save@SoundSettings@@QAEXAAPAUHKEY__@@@Z      endp
 
 
 
@@ -18129,73 +18047,6 @@ sub_43FA24      endp
 
 ; Attributes: bp-based frame
 
-?SaveSettings@@YAXXZ      proc near               ; CODE XREF: ?_OnDestroy@MainWindow@@QAEXXZ+103↓p
-
-var_8           = dword ptr -8
-phkResult       = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                lea     eax, [ebp+phkResult]
-                push    eax             ; phkResult
-                push    20019h          ; samDesired
-                push    0               ; ulOptions
-                mov     ecx, [g_lpSubKey]
-                push    ecx             ; lpSubKey
-                push    80000002h       ; hKey
-                call    RegOpenKeyExA
-                lea     edx, [ebp+phkResult]
-                push    edx
-                mov     ecx, offset ?g_SoundSettings@@3USoundSettings@@A
-                call    sub_43D877
-                lea     eax, [ebp+phkResult]
-                push    eax
-                mov     ecx, offset ?g_settings@@3UGameSettings@@A
-                call    sub_4421BE
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_8], eax
-                lea     ecx, [ebp+phkResult]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 368h
-                call    sub_43D0CD
-                lea     edx, [ebp+phkResult]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 380h
-                call    sub_43CF29
-                lea     eax, [ebp+phkResult]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 39Ch
-                call    sub_43D069
-                lea     ecx, [ebp+phkResult]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 3B0h
-                call    sub_43D14A
-                lea     edx, [ebp+phkResult]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 3B4h
-                call    sub_43D51B
-                push    4               ; cbData
-                push    offset ?g_using_vxd@@3IA     ; lpData
-                push    4               ; dwType
-                push    0               ; Reserved
-                push    offset aUsingVxd_0 ; "Using VxD"
-                mov     eax, dword ptr [ebp+phkResult]
-                push    eax             ; hKey
-                call    RegSetValueExA
-                mov     ecx, dword ptr [ebp+phkResult]
-                push    ecx             ; hKey
-                call    RegCloseKey
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn
-?SaveSettings@@YAXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -18286,7 +18137,7 @@ unknown_libname_479 endp
 
 ; Attributes: bp-based frame
 
-sub_4421BE      proc near               ; CODE XREF: ?SaveSettings@@YAXXZ+3A↑p
+?Save@GameSettings@@QAEXAAPAUHKEY__@@@Z      proc near               ; CODE XREF: ?SaveSettings@@YAXXZ+3A↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -18457,7 +18308,7 @@ arg_0           = dword ptr  8
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4421BE      endp
+?Save@GameSettings@@QAEXAAPAUHKEY__@@@Z      endp
 
 
 
@@ -228113,7 +227964,7 @@ SEH_43D249:                             ; DATA XREF: sub_43D249+5↑o
 ; } // starts at 5F8DD1
 ; END OF FUNCTION CHUNK FOR sub_43D249
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_43D51B
+; START OF FUNCTION CHUNK FOR ?Save@HatSettings@@QAEXAAPAUHKEY__@@@Z
 
 loc_5F8DF3:                             ; DATA XREF: .rdata:stru_619700↓o
 ; __unwind { // SEH_43D51B              ; varThis
@@ -228130,11 +227981,11 @@ loc_5F8DFF:                             ; DATA XREF: .rdata:00619708↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_43D51B:                             ; DATA XREF: sub_43D51B+5↑o
+SEH_43D51B:                             ; DATA XREF: ?Save@HatSettings@@QAEXAAPAUHKEY__@@@Z+5↑o
                 mov     eax, offset stru_6196E0
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F8DF3
-; END OF FUNCTION CHUNK FOR sub_43D51B
+; END OF FUNCTION CHUNK FOR ?Save@HatSettings@@QAEXAAPAUHKEY__@@@Z
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_43D959
 
@@ -266104,10 +265955,10 @@ g_ValueName       db 'phonebooksize',0    ; DATA XREF: sub_43CE7D+29↑o
 ; char aPhoneD[]
 aPhoneD         db 'phone%d',0          ; DATA XREF: sub_43CE7D+58↑o
 ; CHAR aPhonebooksize_0[]
-aPhonebooksize_0 db 'phonebooksize',0   ; DATA XREF: sub_43CF29+2A↑o
+aPhonebooksize_0 db 'phonebooksize',0   ; DATA XREF: ?Save@PhoneBook@@QAEXAAPAUHKEY__@@@Z+2A↑o
                 align 4
 ; char aPhoneD_0[]
-aPhoneD_0       db 'phone%d',0          ; DATA XREF: sub_43CF29+82↑o
+aPhoneD_0       db 'phone%d',0          ; DATA XREF: ?Save@PhoneBook@@QAEXAAPAUHKEY__@@@Z+82↑o
 ; CHAR aComportsetting[]
 aComportsetting db 'comportsettings',0  ; DATA XREF: sub_43D02E+24↑o
 ; CHAR aComportsetting_0[]
@@ -266146,25 +265997,25 @@ aDeathmatch     db 'deathmatch',0       ; DATA XREF: sub_43D249+281↑o
 aStore          db 'store',0            ; DATA XREF: sub_43D249+2B1↑o
                 align 4
 ; CHAR aHatip_0[]
-aHatip_0        db 'hatip',0            ; DATA XREF: sub_43D51B+5D↑o
+aHatip_0        db 'hatip',0            ; DATA XREF: ?Save@HatSettings@@QAEXAAPAUHKEY__@@@Z+5D↑o
                 align 4
 ; CHAR aHatprogip_0[]
-aHatprogip_0    db 'hatprogip',0        ; DATA XREF: sub_43D51B+AA↑o
+aHatprogip_0    db 'hatprogip',0        ; DATA XREF: ?Save@HatSettings@@QAEXAAPAUHKEY__@@@Z+AA↑o
                 align 4
 ; CHAR aIshat_0[]
-aIshat_0        db 'ishat',0            ; DATA XREF: sub_43D51B+D4↑o
+aIshat_0        db 'ishat',0            ; DATA XREF: ?Save@HatSettings@@QAEXAAPAUHKEY__@@@Z+D4↑o
                 align 10h
 ; CHAR aDeathmatch_0[]
-aDeathmatch_0   db 'deathmatch',0       ; DATA XREF: sub_43D51B+F7↑o
+aDeathmatch_0   db 'deathmatch',0       ; DATA XREF: ?Save@HatSettings@@QAEXAAPAUHKEY__@@@Z+F7↑o
                 align 4
 ; CHAR aStore_0[]
-aStore_0        db 'store',0            ; DATA XREF: sub_43D51B+11A↑o
+aStore_0        db 'store',0            ; DATA XREF: ?Save@HatSettings@@QAEXAAPAUHKEY__@@@Z+11A↑o
                 align 4
 ; CHAR aLogin_0[]
-aLogin_0        db 'login',0            ; DATA XREF: sub_43D51B+1D1↑o
+aLogin_0        db 'login',0            ; DATA XREF: ?Save@HatSettings@@QAEXAAPAUHKEY__@@@Z+1D1↑o
                 align 4
 ; CHAR aPassword_0[]
-aPassword_0     db 'password',0         ; DATA XREF: sub_43D51B+288↑o
+aPassword_0     db 'password',0         ; DATA XREF: ?Save@HatSettings@@QAEXAAPAUHKEY__@@@Z+288↑o
                 align 4
 ; CHAR aSoundrandom[]
 aSoundrandom    db 'SoundRandom',0      ; DATA XREF: sub_43D7C4+1C↑o
@@ -266179,16 +266030,16 @@ aSoundspeechpos db 'SoundSpeechPos',0   ; DATA XREF: sub_43D7C4+7C↑o
 aMusicenabled   db 'MusicEnabled',0     ; DATA XREF: sub_43D7C4+9C↑o
                 align 4
 ; CHAR aSoundrandom_0[]
-aSoundrandom_0  db 'SoundRandom',0      ; DATA XREF: sub_43D877+11↑o
+aSoundrandom_0  db 'SoundRandom',0      ; DATA XREF: ?Save@SoundSettings@@QAEXAAPAUHKEY__@@@Z+11↑o
 ; CHAR aSoundmuspos_0[]
-aSoundmuspos_0  db 'SoundMusPos',0      ; DATA XREF: sub_43D877+2F↑o
+aSoundmuspos_0  db 'SoundMusPos',0      ; DATA XREF: ?Save@SoundSettings@@QAEXAAPAUHKEY__@@@Z+2F↑o
 ; CHAR aSoundsfxpos_0[]
-aSoundsfxpos_0  db 'SoundSfxPos',0      ; DATA XREF: sub_43D877+4D↑o
+aSoundsfxpos_0  db 'SoundSfxPos',0      ; DATA XREF: ?Save@SoundSettings@@QAEXAAPAUHKEY__@@@Z+4D↑o
 ; CHAR aSoundspeechpos_0[]
-aSoundspeechpos_0 db 'SoundSpeechPos',0 ; DATA XREF: sub_43D877+6B↑o
+aSoundspeechpos_0 db 'SoundSpeechPos',0 ; DATA XREF: ?Save@SoundSettings@@QAEXAAPAUHKEY__@@@Z+6B↑o
                 align 10h
 ; CHAR aMusicenabled_0[]
-aMusicenabled_0 db 'MusicEnabled',0     ; DATA XREF: sub_43D877+89↑o
+aMusicenabled_0 db 'MusicEnabled',0     ; DATA XREF: ?Save@SoundSettings@@QAEXAAPAUHKEY__@@@Z+89↑o
                 align 10h
 
 ; char aRb_0[]
@@ -266223,46 +266074,46 @@ a0              db '0',0                ; DATA XREF: ?VMethod28@VisDropGold@@UAE
 asc_62E810      db '%f',0               ; DATA XREF: ?DoClose@VisDropGold@@UAEXI@Z+44↑o
                 align 4
 ; CHAR aGamespeed[]
-aGamespeed      db 'GameSpeed',0        ; DATA XREF: sub_4421BE+13↑o
+aGamespeed      db 'GameSpeed',0        ; DATA XREF: ?Save@GameSettings@@QAEXAAPAUHKEY__@@@Z+13↑o
                 align 10h
 ; CHAR aFormationmode[]
-aFormationmode  db 'FormationMode',0    ; DATA XREF: sub_4421BE+31↑o
+aFormationmode  db 'FormationMode',0    ; DATA XREF: ?Save@GameSettings@@QAEXAAPAUHKEY__@@@Z+31↑o
                 align 10h
 ; CHAR aWimpymode[]
-aWimpymode      db 'WimpyMode',0        ; DATA XREF: sub_4421BE+4F↑o
+aWimpymode      db 'WimpyMode',0        ; DATA XREF: ?Save@GameSettings@@QAEXAAPAUHKEY__@@@Z+4F↑o
                 align 4
 ; CHAR aShowallhitpoin[]
-aShowallhitpoin db 'ShowAllHitPoints',0 ; DATA XREF: sub_4421BE+6D↑o
+aShowallhitpoin db 'ShowAllHitPoints',0 ; DATA XREF: ?Save@GameSettings@@QAEXAAPAUHKEY__@@@Z+6D↑o
                 align 10h
 ; CHAR aSmoothing[]
-aSmoothing      db 'Smoothing',0        ; DATA XREF: sub_4421BE+89↑o
+aSmoothing      db 'Smoothing',0        ; DATA XREF: ?Save@GameSettings@@QAEXAAPAUHKEY__@@@Z+89↑o
                 align 4
 ; CHAR aShowflyinghp[]
-aShowflyinghp   db 'ShowFlyingHP',0     ; DATA XREF: sub_4421BE+A7↑o
+aShowflyinghp   db 'ShowFlyingHP',0     ; DATA XREF: ?Save@GameSettings@@QAEXAAPAUHKEY__@@@Z+A7↑o
                 align 4
 ; CHAR aShowtimeflow[]
-aShowtimeflow   db 'ShowTimeFlow',0     ; DATA XREF: sub_4421BE+C3↑o
+aShowtimeflow   db 'ShowTimeFlow',0     ; DATA XREF: ?Save@GameSettings@@QAEXAAPAUHKEY__@@@Z+C3↑o
                 align 4
 ; CHAR aTipsmode[]
-aTipsmode       db 'TipsMode',0         ; DATA XREF: sub_4421BE+DF↑o
+aTipsmode       db 'TipsMode',0         ; DATA XREF: ?Save@GameSettings@@QAEXAAPAUHKEY__@@@Z+DF↑o
                 align 4
 ; CHAR aAutocasting[]
-aAutocasting    db 'AutoCasting',0      ; DATA XREF: sub_4421BE+FD↑o
+aAutocasting    db 'AutoCasting',0      ; DATA XREF: ?Save@GameSettings@@QAEXAAPAUHKEY__@@@Z+FD↑o
 ; CHAR aAcknowledgemen[]
-aAcknowledgemen db 'Acknowledgement',0  ; DATA XREF: sub_4421BE+11B↑o
+aAcknowledgemen db 'Acknowledgement',0  ; DATA XREF: ?Save@GameSettings@@QAEXAAPAUHKEY__@@@Z+11B↑o
 ; CHAR aShadows[]
-aShadows        db 'Shadows',0          ; DATA XREF: sub_4421BE+139↑o
+aShadows        db 'Shadows',0          ; DATA XREF: ?Save@GameSettings@@QAEXAAPAUHKEY__@@@Z+139↑o
 ; CHAR aLighting[]
-aLighting       db 'Lighting',0         ; DATA XREF: sub_4421BE+157↑o
+aLighting       db 'Lighting',0         ; DATA XREF: ?Save@GameSettings@@QAEXAAPAUHKEY__@@@Z+157↑o
                 align 4
 ; CHAR aAnimation[]
-aAnimation      db 'Animation',0        ; DATA XREF: sub_4421BE+175↑o
+aAnimation      db 'Animation',0        ; DATA XREF: ?Save@GameSettings@@QAEXAAPAUHKEY__@@@Z+175↑o
                 align 4
 ; CHAR aClannames[]
-aClannames      db 'ClanNames',0        ; DATA XREF: sub_4421BE+193↑o
+aClannames      db 'ClanNames',0        ; DATA XREF: ?Save@GameSettings@@QAEXAAPAUHKEY__@@@Z+193↑o
                 align 10h
 ; CHAR aMessagecolors[]
-aMessagecolors  db 'MessageColors',0    ; DATA XREF: sub_4421BE+1B1↑o
+aMessagecolors  db 'MessageColors',0    ; DATA XREF: ?Save@GameSettings@@QAEXAAPAUHKEY__@@@Z+1B1↑o
                 align 10h
 ; char aAlm[]
 aAlm            db '\*.alm',0           ; DATA XREF: ?FUN_0044aae5@VisNetMapSelection@@QAEXXZ+38↑o

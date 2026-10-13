@@ -1017,6 +1017,9 @@ extern ?g_kbMenuState@@3HA : dword
 
 extern ?g_mapmusicinfos@@3V?$CArray@PAUMapMusicInfo@@ABQAU1@@@A : byte
 extern ?g_settings@@3UGameSettings@@A : dword
+externdef ?Save@GameSettings@@QAEXAAPAUHKEY__@@@Z : proc  ; void GameSettings::Save(HKEY&)
+externdef ?Save@PhoneBook@@QAEXAAPAUHKEY__@@@Z : proc  ; void PhoneBook::Save(HKEY&)
+externdef ?Save@HatSettings@@QAEXAAPAUHKEY__@@@Z : proc  ; void HatSettings::Save(HKEY&)
 extern ?g_TunesMap@@3VCMapStringToString@@A  : dword
 
 extern ?DAT_00660f88@@3HA : dword
@@ -1691,9 +1694,9 @@ externdef ?FUN_00454a1e@@YAXHHHH@Z  : proc  ; void FUN_00454a1e(int,int,int,int)
 extern ?CopySurface16Rect@@YAXPAEHH0HHHHHH@Z : proc
 
 extern ?SaveScreenshot@@YAXXZ : proc
+extern ?SaveSettings@@YAXXZ : proc  ; void SaveSettings(void) — defined in C++, still called from sub_491F7D
 externdef ?FUN_004c86f5@@YAXXZ  : proc  ; void FUN_004c86f5(void)
 externdef ?FUN_0047619a@@YAXXZ  : proc  ; void FUN_0047619a(void)
-externdef ?SaveSettings@@YAXXZ  : proc  ; void SaveSettings(void)
 
 
 extern ?LockSurface3@@YAIXZ  :proc
@@ -1903,6 +1906,7 @@ extern ?Stop@SoundChannel@@QAEXXZ : proc
 
 extern ?g_SfxArray@@3V?$CArray@PAVSfxSample@@ABQAV1@@@A  :dword
 extern ?g_SoundSettings@@3USoundSettings@@A : dword
+externdef ?Save@SoundSettings@@QAEXAAPAUHKEY__@@@Z : proc  ; void SoundSettings::Save(HKEY&)
 
 extern ?g_CurrentMusicTrack@@3HA : dword
 

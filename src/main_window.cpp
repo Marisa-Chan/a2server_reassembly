@@ -1837,6 +1837,32 @@ void MainWindow::LoadSettings()
 }
 
 
+// 441b1e
+void SaveSettings()
+{
+    HKEY regkey;
+    RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\1C\\Allods 2", 0, KEY_READ, &regkey);
+
+    g_SoundSettings.Save(regkey);
+    g_settings.Save(regkey);
+
+    MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+
+    RegSetValueExA(regkey, "lastprotocol", 0, REG_DWORD, (const BYTE*)&wnd->last_protocol, 4); //inline 43d0cd
+    wnd->phone_book.Save(regkey);
+    RegSetValueExA(regkey, "comportsettings", 0, REG_BINARY, (const BYTE*)&wnd->com_settings, 0x14); //inline 43d069
+
+    char buf[256];
+    strcpy(buf, wnd->last_ip);
+    RegSetValueExA(regkey, "lastip", 0, REG_SZ, (const BYTE*)buf, strlen(buf) + 1); //inline 43d14a
+
+    wnd->hat_settings.Save(regkey);
+
+    RegSetValueExA(regkey, "Using VxD", 0, REG_DWORD, (const BYTE*)&g_using_vxd, 4);
+    RegCloseKey(regkey);
+}
+
+
 void MainWindow::SetControlPositions()
 { //484127
     CRect r;

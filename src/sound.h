@@ -111,6 +111,7 @@ struct SoundSettings
 	~SoundSettings(); //477920
 
 	void Load(HKEY& rkey); //43d7c4
+	void Save(HKEY& rkey); //43d877
 };
 ASSERT_SIZE(SoundSettings, 0x28);
 

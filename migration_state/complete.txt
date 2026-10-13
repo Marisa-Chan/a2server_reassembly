@@ -730,6 +730,7 @@
 ?ReverseFind@CString@@QBEHD@Z
 ?Right@CString@@QBE?AV1@H@Z
 ?SaveScreenshot@@YAXXZ
+?SaveSettings@@YAXXZ
 ?ScenarioEnterInn@@YGXPAH0@Z
 ?ScenarioEnterLocation@@YGXPAUScenarioLocation@@@Z
 ?ScenarioEnterShop@@YGHXZ

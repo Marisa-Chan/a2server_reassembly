@@ -50,6 +50,7 @@ struct GameSettings
 
 	void Init(); // 442386
 	void Load(HKEY& rkey); //442420
+	void Save(HKEY& rkey); //4421be
 };
 ASSERT_SIZE(GameSettings, 0x3c);
 
