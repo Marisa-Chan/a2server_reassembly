@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "asm_mfc.h"
 #include "gfx.h"
+#include "ingame.h"
 #include "util.h"
 #include "game_app.h"
 #include "file.h"
@@ -5355,6 +5356,31 @@ void UnloadGraphics()
 	g_spr_backpack = nullptr;
 	g_spr_backpackb = nullptr;
 	g_bmp_testiva = nullptr;
+}
+
+void FUN_0047c6cd()
+{ //47c6cd
+	for (int32_t i = 0; i < g_UnitGfxFiles.GetSize(); i++) {
+		UnitGfxFile* gfx = g_UnitGfxFiles[i];
+		if (gfx != nullptr) {
+			delete gfx;
+		}
+	}
+	for (int32_t i = 0; i < g_VFX_info.GetSize(); i++) {
+		UnitVFXUnfo* vfx = g_VFX_info[i];
+		if (vfx != nullptr) {
+			delete vfx;
+		}
+	}
+	g_UnitGfxFiles.RemoveAll();
+	g_VFX_info.RemoveAll();
+	for (int32_t i = 0; i < g_Human_palettes.GetSize(); i++) {
+		CGamePalette* pal = g_Human_palettes[i];
+		if (pal != nullptr) {
+			delete pal;
+		}
+	}
+	g_Human_palettes.RemoveAll();
 }
 
 void LoadFonts()

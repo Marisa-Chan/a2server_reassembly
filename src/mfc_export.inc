@@ -1691,7 +1691,6 @@ externdef ?FUN_00454a1e@@YAXHHHH@Z  : proc  ; void FUN_00454a1e(int,int,int,int)
 extern ?CopySurface16Rect@@YAXPAEHH0HHHHHH@Z : proc
 
 extern ?SaveScreenshot@@YAXXZ : proc
-externdef ?FUN_0047c6cd@@YAXXZ  : proc  ; void FUN_0047c6cd(void)
 externdef ?FUN_004c86f5@@YAXXZ  : proc  ; void FUN_004c86f5(void)
 externdef ?FUN_0047619a@@YAXXZ  : proc  ; void FUN_0047619a(void)
 externdef ?SaveSettings@@YAXXZ  : proc  ; void SaveSettings(void)
