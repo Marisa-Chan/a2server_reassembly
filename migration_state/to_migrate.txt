@@ -34,7 +34,6 @@ _byte_659A3C
 ?sub_4586FE@@YAXHHHHHH@Z	170
 ?FUN_00476c0d@@YAXHH@Z	183
 ?sub_44E4CE@@YAXPBD@Z	187
-?ShowRoleKeyDialog@@YGXPBD@Z	237
 ?DAT_00661018@@3PAPAVCGamePalette@@A
 ?DAT_00665344@@3PAVCGameBitmap@@A
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
@@ -66,3 +65,4 @@ _byte_659A3C
 ?Save@SoundSettings@@QAEXAAPAUHKEY__@@@Z	66
 ?GetSprite@StructureInfo@@QAEPAVCSprite256@@XZ	20
 ?GetSpriteB@StructureInfo@@QAEPAVCSprite256@@XZ	20
+??0VisRoleKeyScreen@@QAE@HHHHHABVCString@@@Z	80

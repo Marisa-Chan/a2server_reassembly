@@ -2475,245 +2475,6 @@ unknown_libname_410 endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall ?ShowRoleKeyDialog@@YGXPBD@Z(LPCSTR lpString)
-?ShowRoleKeyDialog@@YGXPBD@Z      proc near               ; CODE XREF: ?WindowProc@MainWindow@@UAEJIIJ@Z+E5A↓p
-
-var_5C          = dword ptr -5Ch
-var_58          = dword ptr -58h
-var_54          = dword ptr -54h
-var_50          = dword ptr -50h
-var_4C          = dword ptr -4Ch
-var_48          = dword ptr -48h
-var_44          = dword ptr -44h
-var_40          = dword ptr -40h
-var_3C          = dword ptr -3Ch
-var_38          = dword ptr -38h
-var_34          = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-Block           = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-lpString        = dword ptr  8
-
-; FUNCTION CHUNK AT 005F77FF SIZE 0000003C BYTES
-
-; __unwind { // SEH_41D723
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_41D723
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 50h
-                mov     [ebp+var_44], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_10], eax
-                push    88h             ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_41D792
-                push    ecx             ; int
-                mov     ecx, esp        ; varThis
-                mov     [ebp+var_20], esp
-                mov     eax, dword ptr [ebp+lpString]
-                push    eax             ; lpString
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                mov     [ebp+var_48], eax
-                push    168h            ; yBottom
-                push    262h            ; xRight
-                push    78h ; 'x'       ; yTop
-                push    1Eh             ; xLeft
-                push    9               ; int
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_4DFF5C
-                mov     [ebp+var_4C], eax
-                jmp     short loc_41D799
-; ---------------------------------------------------------------------------
-
-loc_41D792:                             ; CODE XREF: ?ShowRoleKeyDialog@@YGXPBD@Z+3E↑j
-                mov     [ebp+var_4C], 0
-
-loc_41D799:                             ; CODE XREF: ?ShowRoleKeyDialog@@YGXPBD@Z+6D↑j
-                mov     ecx, dword ptr [ebp+var_4C]
-                mov     [ebp+var_1C], ecx
-;   } // starts at 41D756
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     edx, dword ptr [ebp+var_1C]
-                mov     [ebp+var_14], edx
-                mov     eax, dword ptr [ebp+var_14]
-                cmp     dword ptr [eax+7Ch], 0
-                jz      loc_41D87C
-                push    64h ; 'd'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+var_24], eax
-;   try {
-                mov     [ebp+var_4], 1
-                cmp     [ebp+var_24], 0
-                jz      short loc_41D7EE
-                push    2               ; int
-                push    0               ; int
-                push    0A8h            ; yBottom
-                push    76h ; 'v'       ; xRight
-                push    36h ; '6'       ; yTop
-                push    1Eh             ; xLeft
-                push    0Ch             ; int
-                mov     ecx, dword ptr [ebp+var_24]
-                call    ??0VisBitmap@@QAE@HHHHHPAVCGameBitmap@@H@Z
-                mov     [ebp+var_50], eax
-                jmp     short loc_41D7F5
-; ---------------------------------------------------------------------------
-
-loc_41D7EE:                             ; CODE XREF: ?ShowRoleKeyDialog@@YGXPBD@Z+AB↑j
-                mov     [ebp+var_50], 0
-
-loc_41D7F5:                             ; CODE XREF: ?ShowRoleKeyDialog@@YGXPBD@Z+C9↑j
-                mov     ecx, dword ptr [ebp+var_50]
-                mov     [ebp+var_28], ecx
-;   } // starts at 41D7C3
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     edx, dword ptr [ebp+var_28]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_14]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                push    98h             ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+var_2C], eax
-;   try {
-                mov     [ebp+var_4], 2
-                cmp     [ebp+var_2C], 0
-                jz      short loc_41D85A
-                push    0               ; int
-                push    offset ?clrsh_ShockingBlack@@3PAGA ; int
-                mov     eax, ?g_font1@@3PAVCGameFont@@A
-                push    eax             ; int
-                push    offset aNothingToSay ; "Nothing to say"
-                push    0ACh            ; yBottom
-                push    1ACh            ; xRight
-                push    24h ; '$'       ; yTop
-                push    80h             ; xLeft
-                push    0Ah             ; int
-                mov     ecx, dword ptr [ebp+var_2C]
-                call    ??0VisMultiText@@QAE@HHHHHPBDPAVCGameFont@@PAGH@Z
-                mov     [ebp+var_54], eax
-                jmp     short loc_41D861
-; ---------------------------------------------------------------------------
-
-loc_41D85A:                             ; CODE XREF: ?ShowRoleKeyDialog@@YGXPBD@Z+103↑j
-                mov     [ebp+var_54], 0
-
-loc_41D861:                             ; CODE XREF: ?ShowRoleKeyDialog@@YGXPBD@Z+135↑j
-                mov     ecx, dword ptr [ebp+var_54]
-                mov     [ebp+var_30], ecx
-;   } // starts at 41D81B
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     edx, dword ptr [ebp+var_30]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_14]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                jmp     short loc_41D8E5
-; ---------------------------------------------------------------------------
-
-loc_41D87C:                             ; CODE XREF: ?ShowRoleKeyDialog@@YGXPBD@Z+90↑j
-                push    98h             ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+var_34], eax
-;   try {
-                mov     [ebp+var_4], 3
-                cmp     [ebp+var_34], 0
-                jz      short loc_41D8C5
-                push    0               ; int
-                push    offset ?clrsh_ShockingBlack@@3PAGA ; int
-                mov     eax, ?g_font1@@3PAVCGameFont@@A
-                push    eax             ; int
-                push    offset aNothingToSay_0 ; "Nothing to say"
-                push    0ACh            ; yBottom
-                push    1ACh            ; xRight
-                push    24h ; '$'       ; yTop
-                push    30h ; '0'       ; xLeft
-                push    0Ah             ; int
-                mov     ecx, dword ptr [ebp+var_34]
-                call    ??0VisMultiText@@QAE@HHHHHPBDPAVCGameFont@@PAGH@Z
-                mov     [ebp+var_58], eax
-                jmp     short loc_41D8CC
-; ---------------------------------------------------------------------------
-
-loc_41D8C5:                             ; CODE XREF: ?ShowRoleKeyDialog@@YGXPBD@Z+171↑j
-                mov     [ebp+var_58], 0
-
-loc_41D8CC:                             ; CODE XREF: ?ShowRoleKeyDialog@@YGXPBD@Z+1A0↑j
-                mov     ecx, dword ptr [ebp+var_58]
-                mov     [ebp+var_38], ecx
-;   } // starts at 41D889
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     edx, dword ptr [ebp+var_38]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_14]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-
-loc_41D8E5:                             ; CODE XREF: ?ShowRoleKeyDialog@@YGXPBD@Z+157↑j
-                push    78h ; 'x'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+var_3C], eax
-;   try {
-                mov     [ebp+var_4], 4
-                cmp     [ebp+var_3C], 0
-                jz      short loc_41D942
-                push    0               ; lpString
-                push    0               ; int
-                push    470h            ; int
-                push    offset ?clrsh_TechBlack@@3PAGA ; int
-                mov     eax, ?g_font1@@3PAVCGameFont@@A
-                push    eax             ; int
-                push    4Dh ; 'M'
-                mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
-                call    sub_41F850
-                mov     ecx, dword ptr [eax]
-                push    ecx             ; varStr
-                push    0C6h            ; yBottom
-                push    118h            ; xRight
-                push    0ACh            ; yTop
-                push    0C8h            ; xLeft
-                push    0Bh             ; int
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    ??0VisButton@@QAE@HHHHHPBDPAVCGameFont@@PAGHH0@Z
-                mov     [ebp+var_5C], eax
-                jmp     short loc_41D949
-; ---------------------------------------------------------------------------
-
-loc_41D942:                             ; CODE XREF: ?ShowRoleKeyDialog@@YGXPBD@Z+1D7↑j
-                mov     [ebp+var_5C], 0
-
-loc_41D949:                             ; CODE XREF: ?ShowRoleKeyDialog@@YGXPBD@Z+21D↑j
-                mov     edx, dword ptr [ebp+var_5C]
-                mov     [ebp+var_40], edx
-;   } // starts at 41D8EF
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_40]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_14]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     ecx, dword ptr [ebp+var_14]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?PopUpScreen@MainWindow@@QAEXPAVVisScreen@@@Z
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-; } // starts at 41D723
-?ShowRoleKeyDialog@@YGXPBD@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -56094,8 +55855,8 @@ arg_0           = dword ptr  8
 
 ; Attributes: bp-based frame
 
-; int __stdcall sub_4DFF5C(int, int xLeft, int yTop, int xRight, int yBottom, int)
-sub_4DFF5C      proc near               ; CODE XREF: ?ShowRoleKeyDialog@@YGXPBD@Z+65↑p
+; int __stdcall ??0VisRoleKeyScreen@@QAE@HHHHHABVCString@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
+??0VisRoleKeyScreen@@QAE@HHHHHABVCString@@@Z      proc near               ; CODE XREF: ?ShowRoleKeyDialog@@YGXPBD@Z+65↑p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -56175,7 +55936,7 @@ loc_4E0000:                             ; DATA XREF: CWnd::OnNotify(uint,long,lo
                 pop     ebp
                 retn    18h
 ; } // starts at 4DFF5C
-sub_4DFF5C      endp
+??0VisRoleKeyScreen@@QAE@HHHHHABVCString@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -57133,7 +56894,7 @@ sub_4E0169      endp
 
 ; Attributes: bp-based frame
 
-sub_4E0978      proc near               ; CODE XREF: sub_4DFF5C:loc_4E0000↑p
+sub_4E0978      proc near               ; CODE XREF: ??0VisRoleKeyScreen@@QAE@HHHHHABVCString@@@Z:loc_4E0000↑p
 
 var_28          = dword ptr -28h
 var_24          = dword ptr -24h
@@ -224101,56 +223862,6 @@ SEH_41CC78:                             ; DATA XREF: sub_41CC78+5↑o
 ; END OF FUNCTION CHUNK FOR sub_41CC78
 ; ---------------------------------------------------------------------------
 
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?ShowRoleKeyDialog@@YGXPBD@Z
-
-loc_5F77FF:                             ; DATA XREF: .rdata:stru_617BF0↓o
-; __unwind { // SEH_41D723
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F7809:                             ; DATA XREF: .rdata:00617BF8↓o
-                mov     eax, dword ptr [ebp+var_24]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F7813:                             ; DATA XREF: .rdata:00617C00↓o
-                mov     eax, dword ptr [ebp+var_2C]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F781D:                             ; DATA XREF: .rdata:00617C08↓o
-                mov     eax, dword ptr [ebp+var_34]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F7827:                             ; DATA XREF: .rdata:00617C10↓o
-;   cleanup() // owned by 41D756
-;   cleanup() // owned by 41D7C3
-;   cleanup() // owned by 41D81B
-;   cleanup() // owned by 41D889
-;   cleanup() // owned by 41D8EF
-                mov     eax, dword ptr [ebp+var_3C]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_41D723:                             ; DATA XREF: ?ShowRoleKeyDialog@@YGXPBD@Z+5↑o
-                mov     eax, offset stru_617BD0
-                jmp     ___CxxFrameHandler
-; } // starts at 5F77FF
-; END OF FUNCTION CHUNK FOR ?ShowRoleKeyDialog@@YGXPBD@Z
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_41DA52
 
 loc_5F783B:                             ; DATA XREF: .rdata:stru_617C38↓o
@@ -232443,7 +232154,7 @@ SEH_4DFDAB:                             ; DATA XREF: ??0VisWindow@@QAE@HHHHHPAVC
 ; } // starts at 5FF66D
 ; END OF FUNCTION CHUNK FOR ??0VisWindow@@QAE@HHHHHPAVCGameBitmap@@@Z
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_4DFF5C
+; START OF FUNCTION CHUNK FOR ??0VisRoleKeyScreen@@QAE@HHHHHABVCString@@@Z
 
 loc_5FF680:                             ; DATA XREF: .rdata:stru_620B78↓o
 ; __unwind { // SEH_4DFF5C              ; varThis
@@ -232468,11 +232179,11 @@ loc_5FF692:                             ; DATA XREF: .rdata:00620B88↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_4DFF5C:                             ; DATA XREF: sub_4DFF5C+5↑o
+SEH_4DFF5C:                             ; DATA XREF: ??0VisRoleKeyScreen@@QAE@HHHHHABVCString@@@Z+5↑o
                 mov     eax, offset stru_620B58
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FF680
-; END OF FUNCTION CHUNK FOR sub_4DFF5C
+; END OF FUNCTION CHUNK FOR ??0VisRoleKeyScreen@@QAE@HHHHHABVCString@@@Z
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4E0169
 
@@ -245930,7 +245641,7 @@ off_60DB10      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
 
 
 
-off_60E3D0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_4DFF5C+57↑o
+off_60E3D0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisRoleKeyScreen@@QAE@HHHHHABVCString@@@Z+57↑o
                 dd offset sub_4E3F30
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
@@ -256244,16 +255955,6 @@ stru_617B58     FuncInfoV1 <19930520h, 1, offset stru_617B78, 0, 0, 0, 0>
 stru_617B78     UnwindMapEntry <-1, offset loc_5F77C6>
 
 
-stru_617BD0     FuncInfoV1 <19930520h, 5, offset stru_617BF0, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_617BF0     UnwindMapEntry <-1, offset loc_5F77FF>
-                UnwindMapEntry <-1, offset loc_5F7809>
-                UnwindMapEntry <-1, offset loc_5F7813>
-                UnwindMapEntry <-1, offset loc_5F781D>
-                UnwindMapEntry <-1, offset loc_5F7827>
 stru_617C18     FuncInfoV1 <19930520h, 3, offset stru_617C38, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -262485,12 +262186,6 @@ aCairunit_0     db 'CAirUnit',0         ; DATA XREF: ?sub_41864D@BigStruct2@@QAE
 aCstructure_0   db 'CStructure',0       ; DATA XREF: ?sub_41864D@BigStruct2@@QAEIXZ:loc_4188E4↑o
                 align 4
 asc_62CAE8      db ':',0                ; DATA XREF: .text:0041B1CF↑o
-                align 4
-; CHAR aNothingToSay[]
-aNothingToSay   db 'Nothing to say',0   ; DATA XREF: ?ShowRoleKeyDialog@@YGXPBD@Z+112↑o
-                align 4
-; CHAR aNothingToSay_0[]
-aNothingToSay_0 db 'Nothing to say',0   ; DATA XREF: ?ShowRoleKeyDialog@@YGXPBD@Z+180↑o
                 align 4
 ; char aGraphicsInfowi[]
 aGraphicsInfowi db 'graphics\infowindow\%s%d',0

@@ -173,7 +173,7 @@ extern  ?AppHasAnySaveFile@@YAHXZ  : proc
 
 extern ?LogMessage@@YAXVCString@@@Z:proc     ;  LogMessage
 
-externdef ?ShowRoleKeyDialog@@YGXPBD@Z : proc
+externdef ??0VisRoleKeyScreen@@QAE@HHHHHABVCString@@@Z : proc  ; VisRoleKeyScreen::VisRoleKeyScreen(int, int, int, int, int, const CString&)
 
 
 ;GameDataRes

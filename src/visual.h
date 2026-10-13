@@ -579,6 +579,24 @@ public:
 ASSERT_SIZE(VisWindow, 0x68);
 
 
+//60e3d0 — role/NPC speech dialog screen shown by ShowRoleKeyDialog
+class VisRoleKeyScreen : public VisWindow
+{
+public:
+	VisRoleKeyScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CString& text); //4dff5c in asm
+public:
+	int32_t field_0x68; // 0x68
+	CString role_name; // 0x6c
+	int32_t field_0x70; // 0x70
+	char* text_buf; // 0x74
+	int32_t text_len; // 0x78
+	int32_t is_npc; // 0x7c
+	int32_t field_0x80; // 0x80
+	int32_t field_0x84; // 0x84
+};
+ASSERT_SIZE(VisRoleKeyScreen, 0x88);
+
+
 //44402b
 class VisMessageBox : public VisWindow
 {

@@ -1020,6 +1020,21 @@ Item* __cdecl sub_549372(CString category, int32_t min_price, int32_t max_price)
     return sub_5499A6(min_price, max_price);
 }
 
+// 41D723
+void __stdcall ShowRoleKeyDialog(const char* str)
+{
+    MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+    VisRoleKeyScreen* screen = new VisRoleKeyScreen(9, 0x1E, 0x78, 0x262, 0x168, CString(str));
+    if (screen->is_npc != 0) {
+        screen->AddChild(new VisBitmap(0xC, 0x1E, 0x36, 0x76, 0xA8, nullptr, 2));
+        screen->AddChild(new VisMultiText(10, 0x80, 0x24, 0x1AC, 0xAC, "Nothing to say", g_font1, clrsh_ShockingBlack, 0));
+    } else {
+        screen->AddChild(new VisMultiText(10, 0x30, 0x24, 0x1AC, 0xAC, "Nothing to say", g_font1, clrsh_ShockingBlack, 0));
+    }
+    screen->AddChild(new VisButton(0xB, 0xC8, 0xAC, 0x118, 0xC6, TxtFile::AllLines[0x4D], g_font1, clrsh_TechBlack, 0x470, 0, NULL));
+    wnd->PopUpScreen(screen);
+}
+
 // 5499A6
 // Create a random item (level = min value, max_gold = max value).
 Item* __cdecl sub_5499A6(int32_t level, int32_t max_gold) {
