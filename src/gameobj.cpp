@@ -4802,3 +4802,9 @@ void CAirUnit::VMethod10()
                y + vfx->height);
     this->pMapObject->field_0xf4 |= rect;
 }
+
+// 46d7e8
+void CAirUnit::Dump(CDumpContext& dc) const
+{
+    //dc << "CAirUnit";
+}

@@ -27000,22 +27000,6 @@ var_4           = dword ptr -4
 ; Attributes: bp-based frame
 
 ; int __stdcall ?Dump@CAirUnit@@UBEXAAVCDumpContext@@@Z(CDumpContext *)
-?Dump@CAirUnit@@UBEXAAVCDumpContext@@@Z      proc near               ; DATA XREF: .rdata:0060B670↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    offset aCairunit_1 ; "CAirUnit"
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ??6CDumpContext@@QAEAAV0@PBD@Z ; CDumpContext::operator<<(char const *)
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?Dump@CAirUnit@@UBEXAAVCDumpContext@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -267997,8 +267981,6 @@ asc_62F504      db ',#',0               ; DATA XREF: ?FUN_0046d0f7@CUnit@@QAEPBD
 ; CHAR asc_62F508[]
 asc_62F508      db ', ',0               ; DATA XREF: ?FUN_0046d0f7@CUnit@@QAEPBDHH@Z:loc_46D658↑o
                 align 4
-; CHAR aCairunit_1[]
-aCairunit_1     db 'CAirUnit',0         ; DATA XREF: ?Dump@CAirUnit@@UBEXAAVCDumpContext@@@Z+7↑o
                 align 4
                 db    1
                 db    0

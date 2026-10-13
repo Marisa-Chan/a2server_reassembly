@@ -2049,7 +2049,7 @@ extern ?GetRuntimeClass@CAirUnit@@UBEPAUCRuntimeClass@@XZ : proc
 extern ?VMethod10@CAirUnit@@UAEXXZ : proc
 externdef ??_GCAirUnit@@UAEPAXI@Z : proc
 externdef ??1CAirUnit@@UAE@XZ : proc
-externdef ?Dump@CAirUnit@@UBEXAAVCDumpContext@@@Z : proc
+extern ?Dump@CAirUnit@@UBEXAAVCDumpContext@@@Z : proc
 
 
 ;CProjectile - fully migrated to C++ (no ASM references remain)
