@@ -3657,6 +3657,16 @@ void VisRoleKeyScreen::VMethod28()
 }
 
 
+// 4e0148 (helper 4e0b20 inlined)
+void VisRoleKeyScreen::DoClose(uint32_t code)
+{
+    if (this->text_buf != nullptr) {
+        free(this->text_buf);
+    }
+    this->VisScreen::DoClose(code);
+}
+
+
 VisMessageBox::~VisMessageBox()
 {
     //444ff3

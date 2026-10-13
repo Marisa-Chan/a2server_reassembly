@@ -55961,25 +55961,6 @@ loc_4E0000:                             ; DATA XREF: CWnd::OnNotify(uint,long,lo
 
 ; Attributes: bp-based frame
 
-?DoClose@VisRoleKeyScreen@@UAEXI@Z      proc near               ; DATA XREF: .rdata:0060E454↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_4E0B20
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?DoClose@VisScreen@@UAEXI@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?DoClose@VisRoleKeyScreen@@UAEXI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -56913,28 +56894,6 @@ sub_4E0978      endp
 
 ; Attributes: bp-based frame
 
-sub_4E0B20      proc near               ; CODE XREF: ?DoClose@VisRoleKeyScreen@@UAEXI@Z+A↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+74h], 0
-                jz      short loc_4E0B3F
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+74h]
-                push    edx             ; Block
-                call    _free
-                add     esp, 4
-
-loc_4E0B3F:                             ; CODE XREF: sub_4E0B20+E↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_4E0B20      endp
 
 
 ; =============== S U B R O U T I N E =======================================
