@@ -3557,7 +3557,7 @@ public:
 ASSERT_SIZE(VisNetChatTextBox, 0x7c);
 
 //60a930
-UINT __cdecl VisNetMapThreadProc(LPVOID pParam); // 44aad6 (body: 44aae5)
+UINT __cdecl VisNetMapThreadProc(LPVOID pParam); // 44aad6
 
 class VisNetMapSelection : public VisWindow
 {
@@ -3572,6 +3572,7 @@ public:
 
 	void StopThread(); // 44aeef
 	void AddNetMapInfo(NetMapInfo* info); // 44d13d
+	void FUN_0044aae5(); // 44aae5 (thread body, stays in ASM for now)
 
 public:
 	CString* p_mapname;

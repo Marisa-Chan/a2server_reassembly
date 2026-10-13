@@ -19,7 +19,6 @@ _byte_659A5C
 _byte_659A34
 _byte_659A38
 _byte_659A3C
-?VisNetMapThreadProc@@YAIPAX@Z	11
 ?FUN_004CD4B0@@YANH@Z	12
 ?FUN_004549e5@@YAXHHHH@Z	19
 ?SetMessageColors@@YAXI@Z	26
@@ -67,3 +66,4 @@ _byte_659A3C
 ?FUN_0046f760@ProjectileInfo@@QAEPAVCSprite256@@XZ	20
 ?GetSprite@StructureInfo@@QAEPAVCSprite256@@XZ	20
 ?GetSpriteB@StructureInfo@@QAEPAVCSprite256@@XZ	20
+?FUN_0044aae5@VisNetMapSelection@@QAEXXZ	329

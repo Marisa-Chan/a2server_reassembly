@@ -5049,6 +5049,14 @@ int32_t VisNetMapSelection::OnKeyDown(uint32_t wparam)
 }
 
 
+// 44aad6
+UINT __cdecl VisNetMapThreadProc(LPVOID pParam)
+{
+    static_cast<VisNetMapSelection*>(pParam)->FUN_0044aae5();
+    return 0;
+}
+
+
 // 44AF45
 VisNetMapSelection::VisNetMapSelection(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CString* pMapName)
 : VisWindow(_id, l, t, r, b, nullptr), thread(VisNetMapThreadProc, this)

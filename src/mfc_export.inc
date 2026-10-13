@@ -2114,7 +2114,7 @@ externdef _byte_659A58 : byte  ; "" hint string of the action menu cancel button
 
 
 
-externdef ?VisNetMapThreadProc@@YAIPAX@Z : proc
+externdef ?FUN_0044aae5@VisNetMapSelection@@QAEXXZ : proc  ; void VisNetMapSelection::FUN_0044aae5(void) — thread body
 externdef ??0CWinThread@@QAE@P6AIPAX@Z0@Z : proc
 externdef _byte_659A5C : byte  ; 659a5c zeroed buffer used to clear the net chat text box
 externdef ?CreateThread@CWinThread@@QAEHKIPAU_SECURITY_ATTRIBUTES@@@Z : proc
