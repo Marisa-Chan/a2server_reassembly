@@ -3614,6 +3614,30 @@ void VisWindow::UpdateWinRect()
 }
 
 
+// 4e0071
+int32_t VisRoleKeyScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    if (msg != 0x470) {
+        return this->VisScreen::MsgProc(msg, wparam, lparam);
+    }
+
+    if (this->sub_4E0169()) {
+        CVisualObject* textbox = this->FindChild(10);
+        textbox->VMethod9();
+        CVisualObject* portrait = this->FindChild(12);
+        if (portrait != nullptr) {
+            portrait->VMethod9();
+        }
+        return 1;
+    }
+
+    if (this->field_0x80 != 0) {
+        AfxGetMainWnd()->PostMessage(0x45B, this->field_0x80, 0);
+    }
+    return this->VisScreen::MsgProc(0x445, 0, 0);
+}
+
+
 VisMessageBox::~VisMessageBox()
 {
     //444ff3

@@ -1259,7 +1259,8 @@ extern ?UpdateWinRect@VisWindow@@QAEXXZ  :proc
 externdef ??0VisRoleKeyScreen@@QAE@HHHHHABVCString@@@Z : proc  ; VisRoleKeyScreen::VisRoleKeyScreen(int, int, int, int, int, const CString&)
 externdef ??1VisRoleKeyScreen@@UAE@XZ :proc  ; VisRoleKeyScreen::~VisRoleKeyScreen()
 externdef ??_GVisRoleKeyScreen@@UAEPAXI@Z :proc  ; VisRoleKeyScreen::`scalar deleting destructor'(uint32_t)
-externdef ?MsgProc@VisRoleKeyScreen@@UAEHIII@Z :proc  ; int32_t VisRoleKeyScreen::MsgProc(uint32_t, uint32_t, uint32_t)
+extern ?MsgProc@VisRoleKeyScreen@@UAEHIII@Z :proc  ; int32_t VisRoleKeyScreen::MsgProc(uint32_t, uint32_t, uint32_t)
+externdef ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ :proc  ; bool VisRoleKeyScreen::sub_4E0169() - advance to next talk line
 externdef ?OnKeyDown@VisRoleKeyScreen@@UAEHI@Z :proc  ; int32_t VisRoleKeyScreen::OnKeyDown(uint32_t)
 externdef ?VMethod28@VisRoleKeyScreen@@UAEXXZ :proc  ; void VisRoleKeyScreen::VMethod28()
 externdef ?DoClose@VisRoleKeyScreen@@UAEXI@Z :proc  ; void VisRoleKeyScreen::DoClose(uint32_t)

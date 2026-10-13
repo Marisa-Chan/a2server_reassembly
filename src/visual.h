@@ -590,6 +590,8 @@ public:
 	virtual void DoClose(uint32_t code) override; //4e0148
 
 	VisRoleKeyScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CString& text); //4dff5c in asm
+
+	bool sub_4E0169(); //4e0169 in asm - advance to next talk line
 public:
 	int32_t field_0x68; // 0x68
 	CString role_name; // 0x6c

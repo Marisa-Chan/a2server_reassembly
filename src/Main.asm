@@ -2486,7 +2486,7 @@ unknown_libname_410 endp
 
 ; Attributes: bp-based frame
 
-sub_41DA52      proc near               ; CODE XREF: sub_4E0169+7BC↓p
+sub_41DA52      proc near               ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+7BC↓p
 
 var_178         = dword ptr -178h
 var_174         = dword ptr -174h
@@ -24723,7 +24723,7 @@ sub_45A6EE      endp
 
 ; Attributes: bp-based frame
 
-sub_45B681      proc near               ; CODE XREF: sub_4E0169+7DD↓p
+sub_45B681      proc near               ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+7DD↓p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -55991,93 +55991,6 @@ loc_4E006B:                             ; CODE XREF: ?OnKeyDown@VisRoleKeyScreen
 
 ; Attributes: bp-based frame
 
-?MsgProc@VisRoleKeyScreen@@UAEHIII@Z      proc near               ; DATA XREF: .rdata:0060E418↓o
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 10h
-                mov     [ebp+var_8], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [ebp+var_C], eax
-                cmp     [ebp+var_C], 470h
-                jz      short loc_4E008E
-                jmp     loc_4E0113
-; ---------------------------------------------------------------------------
-
-loc_4E008E:                             ; CODE XREF: ?MsgProc@VisRoleKeyScreen@@UAEHIII@Z+16↑j
-                mov     ecx, dword ptr [ebp+var_8]
-                call    sub_4E0169
-                test    eax, eax
-                jz      short loc_4E00D7
-                push    0Ah
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                mov     [ebp+var_10], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_10]
-                call    dword ptr [edx+34h]
-                push    0Ch
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                mov     [ebp+var_4], eax
-                cmp     [ebp+var_4], 0
-                jz      short loc_4E00D0
-                mov     eax, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+34h]
-
-loc_4E00D0:                             ; CODE XREF: ?MsgProc@VisRoleKeyScreen@@UAEHIII@Z+52↑j
-                mov     eax, 1
-                jmp     short loc_4E0127
-; ---------------------------------------------------------------------------
-
-loc_4E00D7:                             ; CODE XREF: ?MsgProc@VisRoleKeyScreen@@UAEHIII@Z+27↑j
-                mov     eax, dword ptr [ebp+var_8]
-                cmp     dword ptr [eax+80h], 0
-                jz      short loc_4E0100
-                push    0               ; lParam
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx+80h]
-                push    edx             ; wParam
-                push    45Bh            ; Msg
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     ecx, eax
-                call    ?PostMessageA@CWnd@@QAEHIIJ@Z
-
-loc_4E0100:                             ; CODE XREF: ?MsgProc@VisRoleKeyScreen@@UAEHIII@Z+70↑j
-                push    0
-                push    0
-                push    445h
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?MsgProc@VisScreen@@UAEHIII@Z
-                jmp     short loc_4E0127
-; ---------------------------------------------------------------------------
-
-loc_4E0113:                             ; CODE XREF: ?MsgProc@VisRoleKeyScreen@@UAEHIII@Z+18↑j
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?MsgProc@VisScreen@@UAEHIII@Z
-
-loc_4E0127:                             ; CODE XREF: ?MsgProc@VisRoleKeyScreen@@UAEHIII@Z+64↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?MsgProc@VisRoleKeyScreen@@UAEHIII@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -56093,7 +56006,7 @@ var_4           = dword ptr -4
                 push    ecx
                 mov     [ebp+var_4], ecx
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_4E0169
+                call    ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ
                 mov     ecx, dword ptr [ebp+var_4]
                 call    ?VMethod28@VisScreen@@UAEXXZ
                 mov     esp, ebp
@@ -56131,7 +56044,7 @@ arg_0           = dword ptr  8
 
 ; Attributes: bp-based frame
 
-sub_4E0169      proc near               ; CODE XREF: ?MsgProc@VisRoleKeyScreen@@UAEHIII@Z+20↑p
+?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ      proc near               ; CODE XREF: ?MsgProc@VisRoleKeyScreen@@UAEHIII@Z+20↑p
 
 var_CC          = dword ptr -0CCh
 var_C8          = dword ptr -0C8h
@@ -56218,7 +56131,7 @@ var_4           = dword ptr -4
                 mov     edx, dword ptr [ebp+var_30]
                 mov     dword ptr [edx+8], 0
 
-loc_4E01E9:                             ; CODE XREF: sub_4E0169+6C↑j
+loc_4E01E9:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+6C↑j
                 mov     eax, dword ptr [ebp+var_90]
                 mov     ecx, dword ptr [eax+70h]
                 mov     [ebp+var_58], ecx
@@ -56235,14 +56148,14 @@ loc_4E01E9:                             ; CODE XREF: sub_4E0169+6C↑j
                 jmp     short loc_4E0220
 ; ---------------------------------------------------------------------------
 
-loc_4E0216:                             ; CODE XREF: sub_4E0169+96↑j
+loc_4E0216:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+96↑j
                 mov     [ebp+var_94], 0
 
-loc_4E0220:                             ; CODE XREF: sub_4E0169+AB↑j
+loc_4E0220:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+AB↑j
                 mov     eax, dword ptr [ebp+var_90]
                 mov     dword ptr [eax+70h], 0
 
-loc_4E022D:                             ; CODE XREF: sub_4E0169+55↑j
+loc_4E022D:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+55↑j
                 lea     ecx, [ebp+var_28] ; varThis
                 call    ??0CString@@QAE@XZ ; CString::CString(void)
 ;   try {
@@ -56273,7 +56186,7 @@ loc_4E022D:                             ; CODE XREF: sub_4E0169+55↑j
                 jmp     loc_4E096A
 ; ---------------------------------------------------------------------------
 
-loc_4E0287:                             ; CODE XREF: sub_4E0169+FE↑j
+loc_4E0287:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+FE↑j
                 push    0Ah
                 mov     ecx, dword ptr [ebp+var_90]
                 call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
@@ -56301,7 +56214,7 @@ loc_4E0287:                             ; CODE XREF: sub_4E0169+FE↑j
                 cmp     [ebp+var_24], 15h
                 jnz     short loc_4E033B
 
-loc_4E02E2:                             ; CODE XREF: sub_4E0169+171↑j
+loc_4E02E2:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+171↑j
                 push    15h
                 mov     eax, dword ptr [ebp+var_1C]
                 mov     ecx, dword ptr [eax+0D0h]
@@ -56321,14 +56234,14 @@ loc_4E02E2:                             ; CODE XREF: sub_4E0169+171↑j
                 jmp     short loc_4E031F
 ; ---------------------------------------------------------------------------
 
-loc_4E031B:                             ; CODE XREF: sub_4E0169+1AA↑j
+loc_4E031B:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+1AA↑j
                 mov     [ebp+var_34], 61h ; 'a'
 
-loc_4E031F:                             ; CODE XREF: sub_4E0169+1B0↑j
+loc_4E031F:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+1B0↑j
                 jmp     short loc_4E033B
 ; ---------------------------------------------------------------------------
 
-loc_4E0321:                             ; CODE XREF: sub_4E0169+19A↑j
+loc_4E0321:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+19A↑j
                 mov     edx, dword ptr [ebp+var_38]
                 mov     eax, dword ptr [edx+1B8h]
                 and     eax, 2
@@ -56338,10 +56251,10 @@ loc_4E0321:                             ; CODE XREF: sub_4E0169+19A↑j
                 jmp     short loc_4E033B
 ; ---------------------------------------------------------------------------
 
-loc_4E0337:                             ; CODE XREF: sub_4E0169+1C6↑j
+loc_4E0337:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+1C6↑j
                 mov     [ebp+var_34], 66h ; 'f'
 
-loc_4E033B:                             ; CODE XREF: sub_4E0169+177↑j
+loc_4E033B:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+177↑j
                 push    offset aTalk    ; "talk"
                 mov     ecx, dword ptr [ebp+var_90]
                 add     ecx, 6Ch ; 'l'  ; varThis
@@ -56353,7 +56266,7 @@ loc_4E033B:                             ; CODE XREF: sub_4E0169+177↑j
                 jnz     short loc_4E0362
                 mov     [ebp+var_34], 74h ; 't'
 
-loc_4E0362:                             ; CODE XREF: sub_4E0169+1F3↑j
+loc_4E0362:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+1F3↑j
                 push    5
                 push    offset aTalk_0  ; "talk"
                 mov     ecx, dword ptr [ebp+var_90]
@@ -56369,7 +56282,7 @@ loc_4E0362:                             ; CODE XREF: sub_4E0169+1F3↑j
 ;   try {
                 mov     byte ptr [ebp+var_4], 1
 
-loc_4E0391:                             ; CODE XREF: sub_4E0169+278↓j
+loc_4E0391:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+278↓j
                 lea     ecx, [ebp+var_3C]
                 call    sub_4029A0
                 cmp     eax, 3
@@ -56398,7 +56311,7 @@ loc_4E0391:                             ; CODE XREF: sub_4E0169+278↓j
                 jmp     short loc_4E0391
 ; ---------------------------------------------------------------------------
 
-loc_4E03E3:                             ; CODE XREF: sub_4E0169+233↑j
+loc_4E03E3:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+233↑j
                 mov     ecx, dword ptr [ebp+var_90]
                 mov     edx, dword ptr [ecx+68h]
                 push    edx
@@ -56422,7 +56335,7 @@ loc_4E03E3:                             ; CODE XREF: sub_4E0169+233↑j
                 jmp     loc_4E0765
 ; ---------------------------------------------------------------------------
 
-loc_4E0421:                             ; CODE XREF: sub_4E0169+1E7↑j
+loc_4E0421:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+1E7↑j
                 push    offset aAbout   ; "about"
                 mov     ecx, dword ptr [ebp+var_90]
                 add     ecx, 6Ch ; 'l'  ; varThis
@@ -56442,7 +56355,7 @@ loc_4E0421:                             ; CODE XREF: sub_4E0169+1E7↑j
                 jmp     loc_4E0765
 ; ---------------------------------------------------------------------------
 
-loc_4E045C:                             ; CODE XREF: sub_4E0169+2CD↑j
+loc_4E045C:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+2CD↑j
                 push    offset aAccept  ; "accept"
                 mov     ecx, dword ptr [ebp+var_90]
                 add     ecx, 6Ch ; 'l'  ; varThis
@@ -56454,7 +56367,7 @@ loc_4E045C:                             ; CODE XREF: sub_4E0169+2CD↑j
                 jnz     short loc_4E0483
                 mov     [ebp+var_34], 74h ; 't'
 
-loc_4E0483:                             ; CODE XREF: sub_4E0169+314↑j
+loc_4E0483:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+314↑j
                 push    5
                 push    offset aAccept_0 ; "accept"
                 mov     ecx, dword ptr [ebp+var_90]
@@ -56471,7 +56384,7 @@ loc_4E0483:                             ; CODE XREF: sub_4E0169+314↑j
 ;   try {
                 mov     byte ptr [ebp+var_4], 3
 
-loc_4E04B2:                             ; CODE XREF: sub_4E0169+399↓j
+loc_4E04B2:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+399↓j
                 lea     ecx, [ebp+var_40]
                 call    sub_4029A0
                 cmp     eax, 3
@@ -56500,7 +56413,7 @@ loc_4E04B2:                             ; CODE XREF: sub_4E0169+399↓j
                 jmp     short loc_4E04B2
 ; ---------------------------------------------------------------------------
 
-loc_4E0504:                             ; CODE XREF: sub_4E0169+354↑j
+loc_4E0504:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+354↑j
                 mov     ecx, dword ptr [ebp+var_90]
                 mov     edx, dword ptr [ecx+68h]
                 push    edx
@@ -56524,7 +56437,7 @@ loc_4E0504:                             ; CODE XREF: sub_4E0169+354↑j
                 jmp     loc_4E0765
 ; ---------------------------------------------------------------------------
 
-loc_4E0542:                             ; CODE XREF: sub_4E0169+308↑j
+loc_4E0542:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+308↑j
                 push    offset aReject  ; "reject"
                 mov     ecx, dword ptr [ebp+var_90]
                 add     ecx, 6Ch ; 'l'  ; varThis
@@ -56536,7 +56449,7 @@ loc_4E0542:                             ; CODE XREF: sub_4E0169+308↑j
                 jnz     short loc_4E0569
                 mov     [ebp+var_34], 74h ; 't'
 
-loc_4E0569:                             ; CODE XREF: sub_4E0169+3FA↑j
+loc_4E0569:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+3FA↑j
                 push    5
                 push    offset aReject_0 ; "reject"
                 mov     ecx, dword ptr [ebp+var_90]
@@ -56553,7 +56466,7 @@ loc_4E0569:                             ; CODE XREF: sub_4E0169+3FA↑j
 ;   try {
                 mov     byte ptr [ebp+var_4], 5
 
-loc_4E0598:                             ; CODE XREF: sub_4E0169+47F↓j
+loc_4E0598:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+47F↓j
                 lea     ecx, [ebp+var_44]
                 call    sub_4029A0
                 cmp     eax, 3
@@ -56582,7 +56495,7 @@ loc_4E0598:                             ; CODE XREF: sub_4E0169+47F↓j
                 jmp     short loc_4E0598
 ; ---------------------------------------------------------------------------
 
-loc_4E05EA:                             ; CODE XREF: sub_4E0169+43A↑j
+loc_4E05EA:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+43A↑j
                 mov     eax, dword ptr [ebp+var_90]
                 mov     ecx, dword ptr [eax+68h]
                 push    ecx
@@ -56606,7 +56519,7 @@ loc_4E05EA:                             ; CODE XREF: sub_4E0169+43A↑j
                 jmp     loc_4E0765
 ; ---------------------------------------------------------------------------
 
-loc_4E0628:                             ; CODE XREF: sub_4E0169+3EE↑j
+loc_4E0628:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+3EE↑j
                 push    offset aKeeper  ; "keeper"
                 mov     ecx, dword ptr [ebp+var_90]
                 add     ecx, 6Ch ; 'l'  ; varThis
@@ -56626,13 +56539,13 @@ loc_4E0628:                             ; CODE XREF: sub_4E0169+3EE↑j
                 test    eax, eax
                 jl      loc_4E0765
 
-loc_4E0671:                             ; CODE XREF: sub_4E0169+4D4↑j
+loc_4E0671:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+4D4↑j
                 mov     ecx, dword ptr [ebp+var_90]
                 add     ecx, 6Ch ; 'l'
                 call    sub_4029A0
                 mov     [ebp+var_4C], eax
 
-loc_4E0682:                             ; CODE XREF: sub_4E0169+547↓j
+loc_4E0682:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+547↓j
                 mov     edx, dword ptr [ebp+var_4C]
                 sub     edx, 1
                 push    edx
@@ -56651,13 +56564,13 @@ loc_4E0682:                             ; CODE XREF: sub_4E0169+547↓j
                 jmp     short loc_4E0682
 ; ---------------------------------------------------------------------------
 
-loc_4E06B2:                             ; CODE XREF: sub_4E0169+53C↑j
+loc_4E06B2:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+53C↑j
                 movsx   edx, [ebp+var_34]
                 test    edx, edx
                 jnz     short loc_4E06BE
                 mov     [ebp+var_34], 74h ; 't'
 
-loc_4E06BE:                             ; CODE XREF: sub_4E0169+54F↑j
+loc_4E06BE:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+54F↑j
                 push    5
                 mov     eax, dword ptr [ebp+var_4C]
                 push    eax
@@ -56670,7 +56583,7 @@ loc_4E06BE:                             ; CODE XREF: sub_4E0169+54F↑j
 ;   try {
                 mov     byte ptr [ebp+var_4], 7
 
-loc_4E06DA:                             ; CODE XREF: sub_4E0169+5C1↓j
+loc_4E06DA:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+5C1↓j
                 lea     ecx, [ebp+var_48]
                 call    sub_4029A0
                 cmp     eax, 3
@@ -56699,7 +56612,7 @@ loc_4E06DA:                             ; CODE XREF: sub_4E0169+5C1↓j
                 jmp     short loc_4E06DA
 ; ---------------------------------------------------------------------------
 
-loc_4E072C:                             ; CODE XREF: sub_4E0169+57C↑j
+loc_4E072C:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+57C↑j
                 mov     eax, dword ptr [ebp+var_90]
                 mov     ecx, dword ptr [eax+68h]
                 push    ecx
@@ -56721,7 +56634,7 @@ loc_4E072C:                             ; CODE XREF: sub_4E0169+57C↑j
                 lea     ecx, [ebp+var_48] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-loc_4E0765:                             ; CODE XREF: sub_4E0169+15A↑j
+loc_4E0765:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+15A↑j
                 lea     ecx, [ebp+var_28]
                 call    sub_4029A0
                 test    eax, eax
@@ -56773,10 +56686,10 @@ loc_4E0765:                             ; CODE XREF: sub_4E0169+15A↑j
                 jmp     short loc_4E0827
 ; ---------------------------------------------------------------------------
 
-loc_4E081D:                             ; CODE XREF: sub_4E0169+61E↑j
+loc_4E081D:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+61E↑j
                 mov     [ebp+var_C8], 0
 
-loc_4E0827:                             ; CODE XREF: sub_4E0169+6B2↑j
+loc_4E0827:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+6B2↑j
                 mov     ecx, dword ptr [ebp+var_C8]
                 mov     [ebp+var_74], ecx
 ;   } // starts at 4E07FA
@@ -56791,7 +56704,7 @@ loc_4E0827:                             ; CODE XREF: sub_4E0169+6B2↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4E0830
 
-loc_4E0853:                             ; CODE XREF: sub_4E0169+6D9↑j
+loc_4E0853:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+6D9↑j
 ;   try {
                 mov     [ebp+var_4], 9
                 mov     eax, dword ptr [ebp+var_8C]
@@ -56803,7 +56716,7 @@ loc_4E0853:                             ; CODE XREF: sub_4E0169+6D9↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4E0853
 
-loc_4E0876:                             ; CODE XREF: sub_4E0169+6FC↑j
+loc_4E0876:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+6FC↑j
 ;   try {
                 mov     byte ptr [ebp+var_4], 0
                 mov     ecx, dword ptr [ebp+var_90]
@@ -56822,7 +56735,7 @@ loc_4E0876:                             ; CODE XREF: sub_4E0169+6FC↑j
                 mov     ecx, dword ptr [edx+70h]
                 call    ?Play@SfxSample@@QAEXHHHEH@Z
 
-loc_4E08B4:                             ; CODE XREF: sub_4E0169+606↑j
+loc_4E08B4:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+606↑j
                 mov     eax, dword ptr [ebp+var_90]
                 cmp     dword ptr [eax+7Ch], 0
                 jz      short loc_4E0933
@@ -56850,10 +56763,10 @@ loc_4E08B4:                             ; CODE XREF: sub_4E0169+606↑j
                 jmp     short loc_4E0918
 ; ---------------------------------------------------------------------------
 
-loc_4E090E:                             ; CODE XREF: sub_4E0169+78E↑j
+loc_4E090E:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+78E↑j
                 mov     [ebp+var_CC], 0
 
-loc_4E0918:                             ; CODE XREF: sub_4E0169+771↑j
+loc_4E0918:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+771↑j
                 mov     ecx, dword ptr [ebp+var_24]
                 push    ecx
                 mov     edx, dword ptr [ebp+var_1C]
@@ -56863,7 +56776,7 @@ loc_4E0918:                             ; CODE XREF: sub_4E0169+771↑j
                 mov     ecx, dword ptr [ebp+var_50] ; varThis
                 call    ?SetBitmap@VisBitmap@@QAEXPAVCGameBitmap@@@Z ; CMFCVisualManager::SetFadeInactiveImage(int)
 
-loc_4E0933:                             ; CODE XREF: sub_4E0169+755↑j
+loc_4E0933:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+755↑j
                 cmp     [ebp+var_20], 0
                 jl      short loc_4E094B
                 mov     eax, dword ptr [ebp+var_20]
@@ -56872,7 +56785,7 @@ loc_4E0933:                             ; CODE XREF: sub_4E0169+755↑j
                 mov     ecx, dword ptr [ecx+0C8h]
                 call    sub_45B681
 
-loc_4E094B:                             ; CODE XREF: sub_4E0169+7CE↑j
+loc_4E094B:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+7CE↑j
                 mov     [ebp+var_88], 1
 ;   } // starts at 4E0876
                 mov     [ebp+var_4], 0FFFFFFFFh
@@ -56880,14 +56793,14 @@ loc_4E094B:                             ; CODE XREF: sub_4E0169+7CE↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
                 mov     eax, dword ptr [ebp+var_88]
 
-loc_4E096A:                             ; CODE XREF: sub_4E0169+119↑j
+loc_4E096A:                             ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+119↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 mov     esp, ebp
                 pop     ebp
                 retn
 ; } // starts at 4E0169
-sub_4E0169      endp
+?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -57087,7 +57000,7 @@ sub_4E0B20      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall sub_4E0B43(int, int, CString *, int, int, int)
-sub_4E0B43      proc near               ; CODE XREF: sub_4E0169+F7↑p
+sub_4E0B43      proc near               ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+F7↑p
 
 var_C8          = dword ptr -0C8h
 var_C4          = dword ptr -0C4h
@@ -232115,7 +232028,7 @@ SEH_4DFF5C:                             ; DATA XREF: ??0VisRoleKeyScreen@@QAE@HH
 ; } // starts at 5FF680
 ; END OF FUNCTION CHUNK FOR ??0VisRoleKeyScreen@@QAE@HHHHHABVCString@@@Z
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_4E0169
+; START OF FUNCTION CHUNK FOR ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ
 
 loc_5FF6A8:                             ; DATA XREF: .rdata:stru_620BB0↓o
 ; __unwind { // SEH_4E0169              ; varThis
@@ -232209,7 +232122,7 @@ loc_5FF703:                             ; DATA XREF: .rdata:00620C00↓o
                 lea     ecx, [ebp+var_78] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FF71C:                          ; CODE XREF: sub_4E0169+11F5A5↑j
+locret_5FF71C:                          ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+11F5A5↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -232222,15 +232135,15 @@ loc_5FF71D:                             ; DATA XREF: .rdata:00620C08↓o
                 lea     ecx, [ebp+var_7C] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FF736:                          ; CODE XREF: sub_4E0169+11F5BF↑j
+locret_5FF736:                          ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+11F5BF↑j
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_4E0169:                             ; DATA XREF: sub_4E0169+5↑o
+SEH_4E0169:                             ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+5↑o
                 mov     eax, offset stru_620B90
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FF6A8
-; END OF FUNCTION CHUNK FOR sub_4E0169
+; END OF FUNCTION CHUNK FOR ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4E0978
 
@@ -264829,65 +264742,65 @@ asc_6356B8      db ' ',0                ; DATA XREF: ??0VisListBoxDiplomacy@@QAE
 asc_6356BC      db ' ',0                ; DATA XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+46B↑o
                 align 10h
 ; char aTalk[]
-aTalk           db 'talk',0             ; DATA XREF: sub_4E0169:loc_4E033B↑o
+aTalk           db 'talk',0             ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ:loc_4E033B↑o
                 align 4
 ; char aTalk_0[]
-aTalk_0         db 'talk',0             ; DATA XREF: sub_4E0169+1FB↑o
+aTalk_0         db 'talk',0             ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+1FB↑o
                 align 10h
 ; CHAR a0_0[]
-a0_0            db '0',0                ; DATA XREF: sub_4E0169+239↑o
+a0_0            db '0',0                ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+239↑o
                 align 4
 ; char aTalk04dCSp02d[]
-aTalk04dCSp02d  db 'talk\%04d%c%sp%02d',0 ; DATA XREF: sub_4E0169+296↑o
+aTalk04dCSp02d  db 'talk\%04d%c%sp%02d',0 ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+296↑o
                 align 4
 ; char aAbout[]
-aAbout          db 'about',0            ; DATA XREF: sub_4E0169:loc_4E0421↑o
+aAbout          db 'about',0            ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ:loc_4E0421↑o
                 align 10h
 ; char aAbout04dt000p0[]
-aAbout04dt000p0 db 'about\%04dt000p%02d',0 ; DATA XREF: sub_4E0169+2DD↑o
+aAbout04dt000p0 db 'about\%04dt000p%02d',0 ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+2DD↑o
 ; char aAccept[]
-aAccept         db 'accept',0           ; DATA XREF: sub_4E0169:loc_4E045C↑o
+aAccept         db 'accept',0           ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ:loc_4E045C↑o
                 align 4
 ; char aAccept_0[]
-aAccept_0       db 'accept',0           ; DATA XREF: sub_4E0169+31C↑o
+aAccept_0       db 'accept',0           ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+31C↑o
                 align 4
 ; CHAR a0_1[]
-a0_1            db '0',0                ; DATA XREF: sub_4E0169+35A↑o
+a0_1            db '0',0                ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+35A↑o
                 align 4
 ; char aAccept04dCSp02[]
 aAccept04dCSp02 db 'accept\%04d%c%sp%02d',0
                 align 10h
 ; char aReject[]
-aReject         db 'reject',0           ; DATA XREF: sub_4E0169:loc_4E0542↑o
+aReject         db 'reject',0           ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ:loc_4E0542↑o
                 align 4
 ; char aReject_0[]
-aReject_0       db 'reject',0           ; DATA XREF: sub_4E0169+402↑o
+aReject_0       db 'reject',0           ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+402↑o
                 align 10h
 ; CHAR a0_2[]
-a0_2            db '0',0                ; DATA XREF: sub_4E0169+440↑o
+a0_2            db '0',0                ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+440↑o
                 align 4
 ; char aReject04dCSp02[]
 aReject04dCSp02 db 'reject\%04d%c%sp%02d',0
                 align 4
 ; char aKeeper[]
-aKeeper         db 'keeper',0           ; DATA XREF: sub_4E0169:loc_4E0628↑o
+aKeeper         db 'keeper',0           ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ:loc_4E0628↑o
                 align 4
 ; char off_635764[]
-off_635764      dd offset unk_6E616D    ; DATA XREF: sub_4E0169+4D6↑o
+off_635764      dd offset unk_6E616D    ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+4D6↑o
 ; char aGuard[]
-aGuard          db 'guard',0            ; DATA XREF: sub_4E0169+4ED↑o
+aGuard          db 'guard',0            ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+4ED↑o
                 align 10h
 ; CHAR a0_3[]
-a0_3            db '0',0                ; DATA XREF: sub_4E0169+582↑o
+a0_3            db '0',0                ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+582↑o
                 align 4
 ; char aTown04dCSp02d[]
-aTown04dCSp02d  db 'town\%04d%c%sp%02d',0 ; DATA XREF: sub_4E0169+5DF↑o
+aTown04dCSp02d  db 'town\%04d%c%sp%02d',0 ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+5DF↑o
                 align 4
 ; CHAR aWav_0[]
-aWav_0          db '.wav',0             ; DATA XREF: sub_4E0169+624↑o
+aWav_0          db '.wav',0             ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+624↑o
                 align 10h
 ; CHAR aSpeech[]
-aSpeech         db 'speech\',0          ; DATA XREF: sub_4E0169+62D↑o
+aSpeech         db 'speech\',0          ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+62D↑o
 ; char aS_1[]
 aS_1            db '#%s',0              ; DATA XREF: sub_4E0978+34↑o
 aNpc_1          db 'npc',0
