@@ -3134,3 +3134,72 @@ Scenario::Scenario(const char* fname)
         }
     }
 }
+
+// 44EC40
+bool Scenario::FUN_0044ec40(NetMapInfo* info)
+{
+    File2* file = new File2();
+    file->Open(info->mapid, 0, NULL);
+
+    uint8_t line[0x40];
+    FUN_004a7b3c((char*)line, file);
+    uint32_t version;
+    memcpy(&version, line + 0xC, 4);
+    uint32_t build;
+    memcpy(&build, line + 0x10, 4);
+    if (strcmp((char*)line, "M7R") == 0 && version >= 2) {
+        while (file->GetPosition() < file->GetLength()) {
+            FUN_004a7b3c((char*)line, file);
+            uint32_t skip;
+            memcpy(&skip, line + 8, 4);
+            uint32_t type;
+            memcpy(&type, line + 0xC, 4);
+            if (type != 0) {
+                file->Seek(skip, CFile::current);
+                continue;
+            }
+
+            int32_t dummy;
+            file->Read(&info->width, 4);
+            file->Read(&info->height, 4);
+            file->Read(&dummy, 4);
+            for (int32_t i = 0; i < 9; i++) {
+                file->Read(&dummy, 4);
+            }
+            if (build >= 0x47E) {
+                file->Read(&dummy, 4);
+            }
+            if (build >= 0x4CE) {
+                file->Read(&dummy, 4);
+                file->Read(&dummy, 4);
+                file->Read(&dummy, 4);
+            }
+            if (build >= 0x514) {
+                file->Read(&dummy, 4);
+            }
+            char name[0x40];
+            file->Read(name, 0x40);
+            info->name = name;
+            file->Read(&info->players, 4);
+            file->Read(&info->maplevel, 4);
+            if (build >= 0x488) {
+                file->Read(&dummy, 4);
+                file->Read(&dummy, 4);
+            }
+            char tooltip[0x200];
+            file->Read(tooltip, 0x200);
+            for (char* p = tooltip; *p != '\0'; p++) {
+                if (*p == '\n') {
+                    *p = '#';
+                }
+            }
+            info->tooltip = tooltip;
+            file->Close();
+            delete file;
+            return info->players > 1;
+        }
+    }
+    file->Close();
+    delete file;
+    return false;
+}

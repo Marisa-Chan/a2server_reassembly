@@ -312,6 +312,7 @@ extern ?Seek@File2@@UAEJJI@Z:proc   ; (public: virtual long __thiscall File2::Se
 extern ?Read@File2@@UAEIPAXI@Z:proc   ; (public: virtual unsigned int __thiscall File2::Read(void *,unsigned int))
 extern ?Close@File2@@UAEXXZ:proc   ; (public: virtual void __thiscall File2::Close(void))
 extern ?Open@File2@@UAEHPBDIPAVCFileException@@@Z:proc   ; (public: virtual int __thiscall File2::Open(char const *,unsigned int,class CFileException *))
+externdef ?FUN_004a7b3c@@YAXPADPAVFile2@@@Z : proc  ; void __cdecl FUN_004a7b3c(char*, File2*)
 
 
 ;Resources

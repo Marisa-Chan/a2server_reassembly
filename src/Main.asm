@@ -19412,452 +19412,6 @@ loc_44E6D0:                             ; CODE XREF: ?sub_44E4CE@@YAXPBD@Z+D8↑
 
 ; Attributes: bp-based frame
 
-?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z      proc near               ; CODE XREF: ?FUN_0044aae5@VisNetMapSelection@@QAEXXZ+159↑p
-
-var_2C0         = dword ptr -2C0h
-var_2BC         = dword ptr -2BCh
-var_2B8         = dword ptr -2B8h
-var_2B4         = dword ptr -2B4h
-var_2B0         = dword ptr -2B0h
-var_2AC         = dword ptr -2ACh
-var_2A8         = dword ptr -2A8h
-var_2A4         = dword ptr -2A4h
-var_2A0         = dword ptr -2A0h
-var_29C         = dword ptr -29Ch
-var_298         = dword ptr -298h
-var_294         = dword ptr -294h
-var_290         = dword ptr -290h
-Block           = dword ptr -28Ch
-String          = byte ptr -288h
-var_248         = byte ptr -248h
-var_244         = dword ptr -244h
-var_240         = byte ptr -240h
-var_40          = byte ptr -40h
-var_3C          = dword ptr -3Ch
-Str1            = byte ptr -38h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = byte ptr -24h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-; FUNCTION CHUNK AT 005F9B19 SIZE 00000017 BYTES
-
-; __unwind { // SEH_44EC40
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_44EC40
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 2B4h
-                push    esi
-                mov     [ebp+var_2AC], ecx
-                push    20h ; ' '       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_44EC95
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0File2@@QAE@XZ
-                mov     [ebp+var_2B0], eax
-                jmp     short loc_44EC9F
-; ---------------------------------------------------------------------------
-
-loc_44EC95:                             ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+40↑j
-                mov     [ebp+var_2B0], 0
-
-loc_44EC9F:                             ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+53↑j
-                mov     eax, dword ptr [ebp+var_2B0]
-                mov     [ebp+var_290], eax
-;   } // starts at 44EC72
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_290]
-                mov     [ebp+var_3C], ecx
-                push    0
-                push    0
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     edx, dword ptr [ebp+var_3C]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [eax+28h]
-                mov     ecx, dword ptr [ebp+var_3C]
-                push    ecx
-                lea     edx, [ebp+Str1]
-                push    edx
-                call    sub_4A7B3C
-                add     esp, 8
-                push    offset off_62EB38 ; Str2
-                lea     eax, [ebp+Str1]
-                push    eax             ; Str1
-                call    _strcmp
-                add     esp, 8
-                test    eax, eax
-                jnz     short loc_44ECFE
-                cmp     [ebp+var_2C], 2
-                jnb     short loc_44ED53
-
-loc_44ECFE:                             ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+B6↑j
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [edx+54h]
-                mov     eax, dword ptr [ebp+var_3C]
-                mov     [ebp+var_298], eax
-                mov     ecx, dword ptr [ebp+var_298]
-                mov     [ebp+var_294], ecx
-                cmp     [ebp+var_294], 0
-                jz      short loc_44ED42
-                push    1
-                mov     edx, dword ptr [ebp+var_294]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_294]
-                call    dword ptr [eax+4]
-                mov     [ebp+var_2B4], eax
-                jmp     short loc_44ED4C
-; ---------------------------------------------------------------------------
-
-loc_44ED42:                             ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+E5↑j
-                mov     [ebp+var_2B4], 0
-
-loc_44ED4C:                             ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+100↑j
-                xor     eax, eax
-                jmp     loc_44F091
-; ---------------------------------------------------------------------------
-
-loc_44ED53:                             ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+BC↑j
-                mov     [ebp+var_10], 0
-
-loc_44ED5A:                             ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+3FC↓j
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [edx+14h]
-                mov     esi, eax
-                mov     eax, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [edx+38h]
-                cmp     esi, eax
-                jnb     loc_44F041
-                mov     eax, dword ptr [ebp+var_3C]
-                push    eax
-                lea     ecx, [ebp+var_24]
-                push    ecx
-                call    sub_4A7B3C
-                add     esp, 8
-                mov     edx, dword ptr [ebp+var_18]
-                mov     [ebp+var_2B8], edx
-                cmp     [ebp+var_2B8], 0
-                jz      short loc_44EDA1
-                jmp     loc_44F02B
-; ---------------------------------------------------------------------------
-
-loc_44EDA1:                             ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+15A↑j
-                push    4
-                mov     eax, dword ptr [ebp+arg_0]
-                add     eax, 14h
-                push    eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [edx+3Ch]
-                push    4
-                mov     eax, dword ptr [ebp+arg_0]
-                add     eax, 18h
-                push    eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [edx+3Ch]
-                push    4
-                lea     eax, [ebp+var_248]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [edx+3Ch]
-                push    4
-                lea     eax, [ebp+var_40]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [edx+3Ch]
-                push    4
-                lea     eax, [ebp+var_40]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [edx+3Ch]
-                push    4
-                lea     eax, [ebp+var_40]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [edx+3Ch]
-                push    4
-                lea     eax, [ebp+var_40]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [edx+3Ch]
-                push    4
-                lea     eax, [ebp+var_40]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [edx+3Ch]
-                push    4
-                lea     eax, [ebp+var_40]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [edx+3Ch]
-                push    4
-                lea     eax, [ebp+var_40]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [edx+3Ch]
-                push    4
-                lea     eax, [ebp+var_40]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [edx+3Ch]
-                push    4
-                lea     eax, [ebp+var_40]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [edx+3Ch]
-                cmp     [ebp+var_28], 47Eh
-                jb      short loc_44EE90
-                push    4
-                lea     eax, [ebp+var_40]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [edx+3Ch]
-
-loc_44EE90:                             ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+23D↑j
-                cmp     [ebp+var_28], 4CEh
-                jb      short loc_44EECC
-                push    4
-                lea     eax, [ebp+var_40]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [edx+3Ch]
-                push    4
-                lea     eax, [ebp+var_40]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [edx+3Ch]
-                push    4
-                lea     eax, [ebp+var_40]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [edx+3Ch]
-
-loc_44EECC:                             ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+257↑j
-                cmp     [ebp+var_28], 514h
-                jb      short loc_44EEE6
-                push    4
-                lea     eax, [ebp+var_40]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [edx+3Ch]
-
-loc_44EEE6:                             ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+293↑j
-                push    40h ; '@'
-                lea     eax, [ebp+String]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [edx+3Ch]
-                lea     eax, [ebp+String]
-                push    eax             ; lpString
-                mov     ecx, dword ptr [ebp+arg_0]
-                add     ecx, 4          ; varThis
-                call    ??4CString@@QAEABV0@PBD@Z ; CString::operator=(char const *)
-                push    4
-                mov     ecx, dword ptr [ebp+arg_0]
-                add     ecx, 0Ch
-                push    ecx
-                mov     edx, dword ptr [ebp+var_3C]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [eax+3Ch]
-                push    4
-                mov     ecx, dword ptr [ebp+arg_0]
-                add     ecx, 10h
-                push    ecx
-                mov     edx, dword ptr [ebp+var_3C]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [eax+3Ch]
-                cmp     [ebp+var_28], 488h
-                jb      short loc_44EF5F
-                push    4
-                lea     ecx, [ebp+var_40]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_3C]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [eax+3Ch]
-                push    4
-                lea     ecx, [ebp+var_40]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_3C]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [eax+3Ch]
-
-loc_44EF5F:                             ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+2FB↑j
-                push    200h
-                lea     ecx, [ebp+var_240]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_3C]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [eax+3Ch]
-                lea     ecx, [ebp+var_240]
-                mov     [ebp+var_244], ecx
-
-loc_44EF82:                             ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+375↓j
-                mov     edx, dword ptr [ebp+var_244]
-                movsx   eax, byte ptr [edx]
-                test    eax, eax
-                jz      short loc_44EFB7
-                mov     ecx, dword ptr [ebp+var_244]
-                movsx   edx, byte ptr [ecx]
-                cmp     edx, 0Ah
-                jnz     short loc_44EFA6
-                mov     eax, dword ptr [ebp+var_244]
-                mov     byte ptr [eax], 23h ; '#'
-
-loc_44EFA6:                             ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+35B↑j
-                mov     ecx, dword ptr [ebp+var_244]
-                add     ecx, 1
-                mov     [ebp+var_244], ecx
-                jmp     short loc_44EF82
-; ---------------------------------------------------------------------------
-
-loc_44EFB7:                             ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+34D↑j
-                lea     edx, [ebp+var_240]
-                push    edx             ; lpString
-                mov     ecx, dword ptr [ebp+arg_0]
-                add     ecx, 8          ; varThis
-                call    ??4CString@@QAEABV0@PBD@Z ; CString::operator=(char const *)
-                mov     eax, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [edx+54h]
-                mov     eax, dword ptr [ebp+var_3C]
-                mov     [ebp+var_2A0], eax
-                mov     ecx, dword ptr [ebp+var_2A0]
-                mov     [ebp+var_29C], ecx
-                cmp     [ebp+var_29C], 0
-                jz      short loc_44F00D
-                push    1
-                mov     edx, dword ptr [ebp+var_29C]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_29C]
-                call    dword ptr [eax+4]
-                mov     [ebp+var_2BC], eax
-                jmp     short loc_44F017
-; ---------------------------------------------------------------------------
-
-loc_44F00D:                             ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+3B0↑j
-                mov     [ebp+var_2BC], 0
-
-loc_44F017:                             ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+3CB↑j
-                mov     ecx, dword ptr [ebp+arg_0]
-                cmp     dword ptr [ecx+0Ch], 1
-                jle     short loc_44F027
-                mov     eax, 1
-                jmp     short loc_44F091
-; ---------------------------------------------------------------------------
-
-loc_44F027:                             ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+3DE↑j
-                xor     eax, eax
-                jmp     short loc_44F091
-; ---------------------------------------------------------------------------
-
-loc_44F02B:                             ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+15C↑j
-                push    1
-                mov     edx, dword ptr [ebp+var_1C]
-                push    edx
-                mov     eax, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [edx+30h]
-                jmp     loc_44ED5A
-; ---------------------------------------------------------------------------
-
-loc_44F041:                             ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+134↑j
-                mov     eax, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    dword ptr [edx+54h]
-                mov     eax, dword ptr [ebp+var_3C]
-                mov     [ebp+var_2A8], eax
-                mov     ecx, dword ptr [ebp+var_2A8]
-                mov     [ebp+var_2A4], ecx
-                cmp     [ebp+var_2A4], 0
-                jz      short loc_44F085
-                push    1
-                mov     edx, dword ptr [ebp+var_2A4]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_2A4]
-                call    dword ptr [eax+4]
-                mov     [ebp+var_2C0], eax
-                jmp     short loc_44F08F
-; ---------------------------------------------------------------------------
-
-loc_44F085:                             ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+428↑j
-                mov     [ebp+var_2C0], 0
-
-loc_44F08F:                             ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+443↑j
-                xor     eax, eax
-
-loc_44F091:                             ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+10E↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-; } // starts at 44EC40
-?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -43812,7 +43366,7 @@ unknown_libname_612 endp
 
 ; Attributes: bp-based frame
 
-sub_4A7B3C      proc near               ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+9B↑p
+?FUN_004a7b3c@@YAXPADPAVFile2@@@Z      proc near               ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+9B↑p
 
 var_8           = byte ptr -8
 var_4           = dword ptr -4
@@ -43846,7 +43400,7 @@ arg_4           = dword ptr  0Ch
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4A7B3C      endp
+?FUN_004a7b3c@@YAXPADPAVFile2@@@Z      endp
 
 
 
@@ -43928,7 +43482,7 @@ arg_0           = dword ptr  8
                 push    ecx
                 lea     edx, [ebp+Str1]
                 push    edx
-                call    sub_4A7B3C
+                call    ?FUN_004a7b3c@@YAXPADPAVFile2@@@Z
                 add     esp, 8
                 push    offset off_632E70 ; Str2
                 lea     eax, [ebp+Str1]
@@ -43969,7 +43523,7 @@ loc_4A8C3C:                             ; CODE XREF: sub_4A8B94:loc_4A9380↓j
                 push    eax
                 lea     ecx, [ebp+var_234]
                 push    ecx
-                call    sub_4A7B3C
+                call    ?FUN_004a7b3c@@YAXPADPAVFile2@@@Z
                 add     esp, 8
                 mov     edx, dword ptr [ebp+var_228]
                 mov     [ebp+var_2EC], edx
@@ -226710,22 +226264,6 @@ SEH_44E4CE:                             ; DATA XREF: ?sub_44E4CE@@YAXPBD@Z+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F9AB8
 ; END OF FUNCTION CHUNK FOR ?sub_44E4CE@@YAXPBD@Z
-; START OF FUNCTION CHUNK FOR ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z
-
-loc_5F9B19:                             ; DATA XREF: .rdata:stru_61A558↓o
-; __unwind { // SEH_44EC40
-;   cleanup() // owned by 44EC72
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_44EC40:                             ; DATA XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+5↑o
-                mov     eax, offset stru_61A538
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9B19
-; END OF FUNCTION CHUNK FOR ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z
                 align 10h
 
 
@@ -257269,12 +256807,6 @@ stru_61A4C0     UnwindMapEntry <-1, offset loc_5F9AB8>
                 UnwindMapEntry <0, offset loc_5F9AC1>
                 UnwindMapEntry <0, offset loc_5F9ACA>
                 align 8
-stru_61A538     FuncInfoV1 <19930520h, 1, offset stru_61A558, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61A558     UnwindMapEntry <-1, offset loc_5F9B19>
 
 stru_61A5C0     FuncInfoV1 <19930520h, 2, offset stru_61A5E0, 0, 0, 0, 0>
                 db    0
@@ -263499,8 +263031,6 @@ aDisconnect     db 'disconnect',0       ; DATA XREF: ?sub_44E4CE@@YAXPBD@Z+36↑
 ; char aCurse[]
 aCurse          db 'curse',0            ; DATA XREF: ?sub_44E4CE@@YAXPBD@Z:loc_44E5AB↑o
                 align 4
-; char off_62EB38[]
-off_62EB38      db 'M7R',0  ; DATA XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+A3↑o
                 align 10h
 
                 align 10h

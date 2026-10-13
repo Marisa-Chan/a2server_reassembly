@@ -41,6 +41,7 @@ _byte_659A3C
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
 ?FUN_00475110@@YA_NPAUCSound@@@Z	28
 ?GetFieldPos@@YAHVCString@@H@Z	104
+?FUN_004a7b3c@@YAXPADPAVFile2@@@Z	34
 ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z	24
 ?FUN_004a4740@@YAXPAPAVSfxSample@@@Z	31
 ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z	53
@@ -63,7 +64,6 @@ _byte_659A3C
 ?Save@HatSettings@@QAEXAAPAUHKEY__@@@Z	225
 ?Save@PhoneBook@@QAEXAAPAUHKEY__@@@Z	82
 ?FUN_0046f760@ProjectileInfo@@QAEPAVCSprite256@@XZ	20
-?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z	445
 ?Save@SoundSettings@@QAEXAAPAUHKEY__@@@Z	66
 ?GetSprite@StructureInfo@@QAEPAVCSprite256@@XZ	20
 ?GetSpriteB@StructureInfo@@QAEPAVCSprite256@@XZ	20
