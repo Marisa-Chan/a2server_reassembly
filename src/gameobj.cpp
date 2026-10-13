@@ -4777,3 +4777,28 @@ void CProjectile::VMethod16()
         }
     }
 }
+
+// 46d6fb
+void CAirUnit::VMethod10()
+{
+    this->FUN_00461c41(3, this);
+
+    if (g_Animation != 0) {
+        return;
+    }
+
+    if (this->FUN_0041f130() != 0) {
+        return;
+    }
+
+    UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
+
+    int32_t x = this->centerScreenX - vfx->center_x;
+    int32_t y = this->centerScreenY - vfx->center_y - this->terrainHeightOffset - this->z_pos;
+
+    CRect rect(x & 0xffffffe0,
+               y,
+               ((x + vfx->width) & 0xffffffe0) + 0x20,
+               y + vfx->height);
+    this->pMapObject->field_0xf4 |= rect;
+}
