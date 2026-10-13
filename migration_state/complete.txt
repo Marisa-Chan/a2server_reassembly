@@ -288,7 +288,6 @@
 ?DrawTextLines@CGameFont@@QAEXABVCRect@@HHABVCStringArray@@PAGH@Z
 ?DrawTextWithShadow@CGameFont@@QAEXHHPBDIPAGH@Z
 ?Dump@CObject@@UBEXAAVCDumpContext@@@Z
-?Dump@CProjectile@@UBEXAAVCDumpContext@@@Z
 ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
 ?Duplicate@Packet@@UAEPAV1@XZ
 ?dword_65FBB8@@3PAXA
@@ -527,7 +526,6 @@
 ?GetRect@CVisualObject@@QAEAAVCRect@@XZ
 ?GetRuntimeClass@CAirUnit@@UBEPAUCRuntimeClass@@XZ
 ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ
-?GetRuntimeClass@CProjectile@@UBEPAUCRuntimeClass@@XZ
 ?GetSelectedIndex@VisListBox@@QAEHXZ
 ?GetSelectState@CMousePointer@@QAEHXZ
 ?GetShape@TokenEntry@@QBEHXZ
@@ -900,10 +898,8 @@
 ?VMethod10@CGameObject@@UAEXXZ
 ?VMethod10@CVisualObject@@UAEXXZ
 ?VMethod11@CGameObject@@UAEHXZ
-?VMethod11@CProjectile@@UAEHXZ
 ?VMethod11@CUnit@@UAEHXZ
 ?VMethod12@CGameObject@@UAEXXZ
-?VMethod12@CProjectile@@UAEXXZ
 ?VMethod13@CGameObject@@UAEXXZ
 ?VMethod13@CUnit@@UAEXXZ
 ?VMethod14@CGameObject@@UAEXXZ
@@ -911,7 +907,6 @@
 ?VMethod15@CGameObject@@UAEHXZ
 ?VMethod15@CUnit@@UAEHXZ
 ?VMethod16@CGameObject@@UAEXXZ
-?VMethod16@CProjectile@@UAEXXZ
 ?VMethod16@CUnit@@UAEXXZ
 ?VMethod17@CUnit@@UAEXFHHHHPAVMapPlayerData@@HHFF@Z
 ?VMethod18@CUnit@@UAEXXZ
@@ -1012,11 +1007,8 @@
 ?VMethod42@VisInvExtType1@@UAEXXZ
 ?VMethod42@VisInvExtType3@@UAEXXZ
 ?VMethod43@VisInvExtType3@@UAEPAVTokenEntry@@HH@Z
-?VMethod4@CProjectile@@UAEHXZ
 ?VMethod4@CUnit@@UAEHXZ
-?VMethod5@CProjectile@@UAEHXZ
 ?VMethod5@CUnit@@UAEHXZ
-?VMethod6@CProjectile@@UAEXHHH@Z
 ?VMethod6@CUnit@@UAEXHHH@Z
 ?VMethod7@CGameObject@@UAEXHHH@Z
 ?VMethod7@CUnit@@UAEXHHH@Z

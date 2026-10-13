@@ -377,7 +377,6 @@ public:
 };
 ASSERT_SIZE(CBackPack, 0x144);
 
-//60b6f0
 class CProjectile : public CGameObject
 {
 	DECLARE_DYNAMIC(CProjectile);

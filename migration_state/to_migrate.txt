@@ -65,10 +65,6 @@ _byte_659A3C
 ??0CAirUnit@@QAE@XZ	18
 ??_GCAirUnit@@UAEPAXI@Z	24
 ?FUN_004ac839@CFameHall@@QAEXPAVCFile@@@Z	110
-??_GCProjectile@@UAEPAXI@Z	24
-??1CProjectile@@UAE@XZ	33
-??0CProjectile@@QAE@XZ	36
-??0CProjectile@@QAE@PAV0@@Z	48
 ?Play@CSound@@SAXAAU1@@Z	31
 ?LPCTSTR@CString@@QBEPBDXZ	13
 ??0DiplomacyEntry@@QAE@PBDHHHH@Z	46

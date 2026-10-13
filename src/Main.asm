@@ -26733,11 +26733,6 @@ sub_45DB30      endp
 
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; sCRuntimeClass *?GetRuntimeClass@CProjectile@@UBEPAUCRuntimeClass@@XZ()
 
 
 
@@ -27115,99 +27110,6 @@ arg_0           = dword ptr  8
 
 ; Attributes: bp-based frame
 
-; int __thiscall ??0CProjectile@@QAE@XZ(_DWORD)
-??0CProjectile@@QAE@XZ      proc near               ; CODE XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+75B0↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FA604 SIZE 00000013 BYTES
-
-; __unwind { // SEH_46D802
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_46D802
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0CGameObject@@QAE@XZ
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 144h
-                call    sub_5DB0C3
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax], offset off_60B6F0
-;   } // starts at 46D826
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 46D802
-??0CProjectile@@QAE@XZ      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-??0CProjectile@@QAE@PAV0@@Z      proc near               ; CODE XREF: ?VMethod19@CUnit@@UAEXXZ+4C5↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-; FUNCTION CHUNK AT 005FA617 SIZE 00000022 BYTES
-
-; __unwind { // SEH_46D85C
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_46D85C
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0CGameObject@@QAE@PBV0@@Z
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 144h
-                call    sub_5DB0C3
-;   } // starts at 46D884
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx], offset off_60B6F0
-                mov     edx, dword ptr [ebp+arg_0]
-                add     edx, 144h
-                push    edx
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 144h
-                call    sub_5DB28A
-;   } // starts at 46D899
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-; } // starts at 46D85C
-??0CProjectile@@QAE@PAV0@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -27231,14 +27133,6 @@ arg_0           = dword ptr  8
 
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ?Dump@CProjectile@@UBEXAAVCDumpContext@@@Z(CDumpContext *)
-
-; ---------------------------------------------------------------------------
-                align 10h
 
 
 
@@ -27322,82 +27216,6 @@ var_4           = dword ptr -4
 ; ---------------------------------------------------------------------------
                 align 10h
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; void *__thiscall ??_GCProjectile@@UAEPAXI@Z(void *varThis, char)
-??_GCProjectile@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060B6F4↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??1CProjectile@@UAE@XZ
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_46F052
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_46F052:                             ; CODE XREF: ??_GCProjectile@@UAEPAXI@Z+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-??_GCProjectile@@UAEPAXI@Z      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __thiscall ??1CProjectile@@UAE@XZ(_DWORD)
-??1CProjectile@@UAE@XZ      proc near               ; CODE XREF: ??_GCProjectile@@UAEPAXI@Z+A↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FA660 SIZE 00000013 BYTES
-
-; __unwind { // SEH_46F060
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_46F060
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 144h
-                call    sub_5DB0F6
-;   } // starts at 46F07C
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CGameObject@@UAE@XZ
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 46F060
-??1CProjectile@@UAE@XZ      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -232056,62 +231874,6 @@ SEH_464215:                             ; DATA XREF: sub_464215+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FA42D
 ; END OF FUNCTION CHUNK FOR sub_464215
-; START OF FUNCTION CHUNK FOR ??0CProjectile@@QAE@XZ
-
-loc_5FA604:                             ; DATA XREF: .rdata:stru_61B4F8↓o
-; __unwind { // SEH_46D802
-;   cleanup() // owned by 46D826
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CGameObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_46D802:                             ; DATA XREF: ??0CProjectile@@QAE@XZ+5↑o
-                mov     eax, offset stru_61B4D8
-                jmp     ___CxxFrameHandler
-; } // starts at 5FA604
-; END OF FUNCTION CHUNK FOR ??0CProjectile@@QAE@XZ
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0CProjectile@@QAE@PAV0@@Z
-
-loc_5FA617:                             ; DATA XREF: .rdata:stru_61B520↓o
-; __unwind { // SEH_46D85C
-;   cleanup() // owned by 46D884
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CGameObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FA620:                             ; DATA XREF: .rdata:0061B528↓o
-;   cleanup() // owned by 46D899
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 144h
-                call    sub_5DB0F6
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_46D85C:                             ; DATA XREF: ??0CProjectile@@QAE@PAV0@@Z+5↑o
-                mov     eax, offset stru_61B500
-                jmp     ___CxxFrameHandler
-; } // starts at 5FA617
-; END OF FUNCTION CHUNK FOR ??0CProjectile@@QAE@PAV0@@Z
-                align 10h
-; START OF FUNCTION CHUNK FOR ??1CProjectile@@UAE@XZ
-
-loc_5FA660:                             ; DATA XREF: .rdata:stru_61B580↓o
-; __unwind { // SEH_46F060
-;   cleanup() // owned by 46F07C
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CGameObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_46F060:                             ; DATA XREF: ??1CProjectile@@UAE@XZ+5↑o
-                mov     eax, offset stru_61B560
-                jmp     ___CxxFrameHandler
-; } // starts at 5FA660
-; END OF FUNCTION CHUNK FOR ??1CProjectile@@UAE@XZ
-; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR CWinThread::~CWinThread(void)
 
@@ -250036,28 +249798,6 @@ off_60B660      dd offset ?GetRuntimeClass@CAirUnit@@UBEPAUCRuntimeClass@@XZ    
                 dd offset ?VMethod29@CUnit@@UAEXXZ
                 dd offset ?VMethod30@CUnit@@UAEXPBDPAVCGameBitmap@@1@Z
                 align 10h
-off_60B6F0      dd offset ?GetRuntimeClass@CProjectile@@UBEPAUCRuntimeClass@@XZ    ; DATA XREF: ??0CProjectile@@QAE@XZ+3C↑o
-                dd offset ??_GCProjectile@@UAEPAXI@Z
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CGameObject@@UBEXXZ
-                dd offset ?Dump@CProjectile@@UBEXAAVCDumpContext@@@Z
-                dd offset ?VMethod1@CGameObject@@UAEXH@Z
-                dd offset ?VMethod2@CGameObject@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod3@CGameObject@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod4@CProjectile@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod5@CProjectile@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod6@CProjectile@@UAEXHHH@Z
-                dd offset ?VMethod7@CGameObject@@UAEXHHH@Z ; MFC 3.1-14.0 32bit
-                dd offset ?VMethod8@CGameObject@@UAEXHHH@Z ; MFC 3.1-14.0 32bit
-                dd offset ?VMethod9@CGameObject@@UAEXHHH@Z ; MFC 3.1-14.0 32bit
-                dd offset ?VMethod10@CGameObject@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod11@CProjectile@@UAEHXZ
-                dd offset ?VMethod12@CProjectile@@UAEXXZ
-                dd offset ?VMethod13@CGameObject@@UAEXXZ
-                dd offset ?VMethod14@CGameObject@@UAEXXZ
-                dd offset ?VMethod15@CGameObject@@UAEHXZ
-                dd offset ?VMethod16@CProjectile@@UAEXXZ
-                align 8
 off_60B748      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_46F0B0+12↑o
                 dd offset sub_46F7F0
                 dd offset sub_46F260
@@ -262096,25 +261836,6 @@ stru_61B298     UnwindMapEntry <-1, offset loc_5FA42D>
                 UnwindMapEntry <0, offset loc_5FA436>
                 UnwindMapEntry <0, offset loc_5FA440>
                 UnwindMapEntry <0, offset loc_5FA44A>
-stru_61B4D8     FuncInfoV1 <19930520h, 1, offset stru_61B4F8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61B4F8     UnwindMapEntry <-1, offset loc_5FA604>
-stru_61B500     FuncInfoV1 <19930520h, 2, offset stru_61B520, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61B520     UnwindMapEntry <-1, offset loc_5FA617>
-                UnwindMapEntry <0, offset loc_5FA620>
-stru_61B560     FuncInfoV1 <19930520h, 1, offset stru_61B580, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61B580     UnwindMapEntry <-1, offset loc_5FA660>
 stru_61B588     FuncInfoV1 <19930520h, 1, offset stru_61B5A8, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -268367,8 +268088,6 @@ asc_62F508      db ', ',0               ; DATA XREF: ?FUN_0046d0f7@CUnit@@QAEPBD
 ; CHAR aCairunit_1[]
 aCairunit_1     db 'CAirUnit',0         ; DATA XREF: ?Dump@CAirUnit@@UBEXAAVCDumpContext@@@Z+7↑o
                 align 4
-; CHAR aCprojectile[]
-aCprojectile    db 'CProjectile',0      ; DATA XREF: ?Dump@CProjectile@@UBEXAAVCDumpContext@@@Z+7↑o
                 db    1
                 db    0
                 db    0

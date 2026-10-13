@@ -2051,19 +2051,7 @@ externdef ??1CAirUnit@@UAE@XZ : proc
 externdef ?Dump@CAirUnit@@UBEXAAVCDumpContext@@@Z : proc
 
 
-;CProjectile
-externdef ??0CProjectile@@QAE@XZ : proc
-externdef ??0CProjectile@@QAE@PAV0@@Z : proc
-externdef ?GetRuntimeClass@CProjectile@@UBEPAUCRuntimeClass@@XZ : proc
-externdef ??_GCProjectile@@UAEPAXI@Z : proc
-externdef ??1CProjectile@@UAE@XZ : proc
-externdef ?Dump@CProjectile@@UBEXAAVCDumpContext@@@Z : proc
-externdef ?VMethod4@CProjectile@@UAEHXZ : proc
-externdef ?VMethod5@CProjectile@@UAEHXZ : proc
-externdef ?VMethod6@CProjectile@@UAEXHHH@Z : proc
-externdef ?VMethod11@CProjectile@@UAEHXZ : proc
-externdef ?VMethod12@CProjectile@@UAEXXZ : proc
-externdef ?VMethod16@CProjectile@@UAEXXZ : proc
+;CProjectile - fully migrated to C++ (no ASM references remain)
 
 ;CStructure
 extern ??0CStructure@@QAE@XZ : proc

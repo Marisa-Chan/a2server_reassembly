@@ -4383,6 +4383,22 @@ void CProjectile::Dump(CDumpContext& dc) const
     //dc << "CProjectile";
 }
 
+// 46d802
+CProjectile::CProjectile()
+{
+}
+
+// 46d85c
+CProjectile::CProjectile(CProjectile* obj) : CGameObject(obj)
+{
+    this->field_0x144.Copy(obj->field_0x144);
+}
+
+// 46f060
+CProjectile::~CProjectile()
+{
+}
+
 // 46f5c0
 int32_t CBackPack::VMethod4()
 {
