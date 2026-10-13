@@ -1695,7 +1695,6 @@ extern ?CopySurface16Rect@@YAXPAEHH0HHHHHH@Z : proc
 
 extern ?SaveScreenshot@@YAXXZ : proc
 extern ?SaveSettings@@YAXXZ : proc  ; void SaveSettings(void) — defined in C++, still called from sub_491F7D
-externdef ?FUN_004c86f5@@YAXXZ  : proc  ; void FUN_004c86f5(void)
 externdef ?FUN_0047619a@@YAXXZ  : proc  ; void FUN_0047619a(void)
 
 
