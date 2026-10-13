@@ -3667,6 +3667,118 @@ void VisRoleKeyScreen::DoClose(uint32_t code)
 }
 
 
+// 4e0169
+bool VisRoleKeyScreen::sub_4E0169()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    this->field_0x68 = this->field_0x68 + 1;
+
+    if (this->field_0x70 != nullptr) {
+        SoundChannel* channel = this->field_0x70->FindPlayingChannel();
+        if (channel != nullptr) {
+            channel->Stop();
+            channel->psample = nullptr;
+        }
+        delete this->field_0x70;
+        this->field_0x70 = nullptr;
+    }
+
+    CString text;
+    int32_t id;
+    char* name;
+    char* name_end;
+    int32_t music_id;
+    if (!this->FUN_004e0b43(this->field_0x68, &id, &text, &name, &name_end, &music_id)) {
+        return false;
+    }
+
+    VisMultiText* textbox = (VisMultiText*)this->FindChild(10);
+    char first_char = *name_end;
+    *name_end = '\0';
+    textbox->SetText(name);
+    *name_end = first_char;
+
+    if (text.GetLength() == 0) {
+        char gender = 0;
+        if (this->field_0x84 != 0 || id == 0x15) {
+            CUnit* unit = main_wnd->vis_map_context->FUN_0041dfa6(0x15);
+            if ((unit->unitFlags & 4) == 0) {
+                gender = (unit->unitFlags & 2) != 0 ? 'm' : 'f';
+            } else {
+                gender = (unit->unitFlags & 2) != 0 ? 's' : 'a';
+            }
+        }
+
+        int32_t pos;
+        if ((pos = this->role_name.Find("talk")) >= 0) {
+            if (gender == 0) {
+                gender = 't';
+            }
+            CString num = this->role_name.Mid(pos + 4, 5);
+            while (num.GetLength() < 3) {
+                num = "0" + num;
+            }
+            text.Format("talk\\%04d%c%sp%02d", id, gender, (const char*)num, this->field_0x68);
+        } else if ((pos = this->role_name.Find("about")) >= 0) {
+            text.Format("about\\%04dt000p%02d", id, this->field_0x68);
+        } else if ((pos = this->role_name.Find("accept")) >= 0) {
+            if (gender == 0) {
+                gender = 't';
+            }
+            CString num = this->role_name.Mid(pos + 6, 5);
+            while (num.GetLength() < 3) {
+                num = "0" + num;
+            }
+            text.Format("accept\\%04d%c%sp%02d", id, gender, (const char*)num, this->field_0x68);
+        } else if ((pos = this->role_name.Find("reject")) >= 0) {
+            if (gender == 0) {
+                gender = 't';
+            }
+            CString num = this->role_name.Mid(pos + 6, 5);
+            while (num.GetLength() < 3) {
+                num = "0" + num;
+            }
+            text.Format("reject\\%04d%c%sp%02d", id, gender, (const char*)num, this->field_0x68);
+        } else if (this->role_name.Find("keeper") >= 0 || this->role_name.Find("man") >= 0 || this->role_name.Find("guard") >= 0) {
+            int32_t len = this->role_name.GetLength();
+            while (!isalpha(this->role_name[len - 1])) {
+                len = len - 1;
+            }
+            if (gender == 0) {
+                gender = 't';
+            }
+            CString num = this->role_name.Mid(len, 5);
+            while (num.GetLength() < 3) {
+                num = "0" + num;
+            }
+            text.Format("town\\%04d%c%sp%02d", id, gender, (const char*)num, this->field_0x68);
+        }
+    }
+
+    if (text.GetLength() != 0) {
+        this->field_0x70 = new SfxSample("speech\\" + text + ".wav");
+        this->field_0x70->LoadSample();
+        this->field_0x70->Play(g_SoundSettings.speech_pos, 0, 0, 0x80, 0);
+    }
+
+    if (this->is_npc != 0) {
+        VisBitmap* portrait = (VisBitmap*)this->FindChild(12);
+        CGameBitmap* bmp = portrait->GetBitmap();
+        if (bmp != nullptr) {
+            delete bmp;
+        }
+        portrait->SetBitmap(main_wnd->vis_map_context->FUN_0041da52(id));
+    }
+
+    if (music_id >= 0) {
+        main_wnd->music_player->FUN_0045b681(music_id);
+    }
+
+    return true;
+}
+
+
 // 4e0978
 void VisRoleKeyScreen::LoadText()
 {
@@ -3708,7 +3820,7 @@ VisRoleKeyScreen::VisRoleKeyScreen(int32_t _id, int32_t l, int32_t t, int32_t r,
 {
     this->role_name = text;
     this->field_0x68 = 0;
-    this->field_0x70 = 0;
+    this->field_0x70 = nullptr;
     this->text_buf = nullptr;
     this->text_len = 0;
     this->field_0x80 = 0;
