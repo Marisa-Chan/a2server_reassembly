@@ -4654,3 +4654,85 @@ void CProjectile::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3)
         break;
     }
 }
+
+// 46e805
+void CProjectile::VMethod12()
+{
+    BigStruct2* map = this->pMapObject;
+
+    switch (this->typeId) {
+    case 10:
+    case 18:
+    case 40:
+        map->ApplyDynamicLight(this->tileX, this->tileY, 0, 0x10);
+        break;
+    case 12:
+        map->ApplyDynamicLight(this->tileX, this->tileY, 1, 0x10);
+        break;
+    case 13: {
+        int32_t radius = 3;
+        int32_t brightness = 0;
+        switch (this->phase) {
+        case 0:
+            radius = 1;
+            brightness = 0x10;
+            break;
+        case 1:
+            radius = 2;
+            brightness = 8;
+            break;
+        case 4:
+            brightness = 8;
+            break;
+        case 5:
+            brightness = 0x10;
+            break;
+        case 6:
+            brightness = 0x18;
+            break;
+        case 7:
+            brightness = 0x20;
+            break;
+        case 8:
+            brightness = 0x28;
+            break;
+        case 9:
+            brightness = 0x2e;
+            break;
+        case 10:
+            brightness = 0x2e;
+            break;
+        }
+        map->ApplyDynamicLight(this->tileX, this->tileY, radius, brightness);
+        break;
+    }
+    case 28:
+    case 30: {
+        uint8_t* lightmap = map->field_0xa8;
+        for (int32_t i = 0; i < this->transientVisualElements.GetSize(); i++) {
+            GO_11c& el = this->transientVisualElements.ElementAt(i);
+            int32_t lx = el.field_0x0 >> 5;
+            int32_t ly = map->sub_4184B8(el.field_0x0, el.field_0x2);
+            if (lx < 0 || ly < 0 || lx > map->field_0x64 || ly > map->field_0x68 + 4) {
+                continue;
+            }
+            int32_t idx1 = lx + 3 + (ly + 3) * (map->field_0x64 + 7);
+            int32_t idx2 = idx1 + 7 + map->field_0x64;
+            lightmap[idx1] = this->phase * 10;
+            lightmap[idx1 + 1] = this->phase * 10;
+            lightmap[idx2] = this->phase * 10;
+            lightmap[idx2 + 1] = this->phase * 10;
+            map->field_0x108 += 1;
+            CRect rect((lx - 1) * 0x20, (ly - 1) * 0x20, (lx + 2) * 0x20, (ly + 2) * 0x20);
+            map->field_0xf4 |= rect;
+        }
+        break;
+    }
+    default:
+        if (g_Animation == 0) {
+            CRect rect((this->tileX - 2) * 0x20, (this->tileY - 2) * 0x20, (this->tileX + 3) * 0x20, (this->tileY + 3) * 0x20);
+            map->field_0xf4 |= rect;
+        }
+        break;
+    }
+}

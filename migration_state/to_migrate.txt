@@ -74,11 +74,10 @@ _byte_659A3C
 ??0CProjectile@@QAE@XZ	36
 ??0CProjectile@@QAE@PAV0@@Z	48
 ?VMethod16@CProjectile@@UAEXXZ	233
-?VMethod12@CProjectile@@UAEXXZ	306
-?VMethod6@CProjectile@@UAEXHHH@Z	531
-?VMethod11@CProjectile@@UAEHXZ	825
 ?Play@CSound@@SAXAAU1@@Z	31
 ?LPCTSTR@CString@@QBEPBDXZ	13
 ??0DiplomacyEntry@@QAE@PBDHHHH@Z	46
+?sub_4AA29B@DistortMap@@QAEXHH@Z	347
+?FUN_0046f760@ProjectileInfo@@QAEPAVCSprite256@@XZ	20
 ?GetSprite@StructureInfo@@QAEPAVCSprite256@@XZ	20
 ?GetSpriteB@StructureInfo@@QAEPAVCSprite256@@XZ	20

@@ -897,8 +897,10 @@
 ?VMethod10@CGameObject@@UAEXXZ
 ?VMethod10@CVisualObject@@UAEXXZ
 ?VMethod11@CGameObject@@UAEHXZ
+?VMethod11@CProjectile@@UAEHXZ
 ?VMethod11@CUnit@@UAEHXZ
 ?VMethod12@CGameObject@@UAEXXZ
+?VMethod12@CProjectile@@UAEXXZ
 ?VMethod13@CGameObject@@UAEXXZ
 ?VMethod13@CUnit@@UAEXXZ
 ?VMethod14@CGameObject@@UAEXXZ
@@ -1008,6 +1010,7 @@
 ?VMethod43@VisInvExtType3@@UAEPAVTokenEntry@@HH@Z
 ?VMethod4@CUnit@@UAEHXZ
 ?VMethod5@CUnit@@UAEHXZ
+?VMethod6@CProjectile@@UAEXHHH@Z
 ?VMethod6@CUnit@@UAEXHHH@Z
 ?VMethod7@CGameObject@@UAEXHHH@Z
 ?VMethod7@CUnit@@UAEXHHH@Z
