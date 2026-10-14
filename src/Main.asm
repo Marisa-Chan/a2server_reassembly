@@ -15561,38 +15561,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?Play@CSound@@SAXAAU1@@Z      proc near               ; CODE XREF: ?OnStatUp@VisCharGenStats@@AAEHH@Z+EC↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                cmp     dword ptr [eax], 0
-                jz      short loc_438EFB
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [ecx]
-                call    ?FindPlayingChannel@SfxSample@@QAEPAVSoundChannel@@XZ
-                mov     [ebp+var_4], eax
-                cmp     [ebp+var_4], 0
-                jnz     short loc_438EFB
-                push    0
-                push    80h
-                push    0
-                push    0
-                mov     edx, ?g_SoundSettings@@3USoundSettings@@A+010h
-                push    edx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [eax]
-                call    ?Play@SfxSample@@QAEXHHHEH@Z
-
-loc_438EFB:                             ; CODE XREF: ?Play@CSound@@SAXAAU1@@Z+A↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?Play@CSound@@SAXAAU1@@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

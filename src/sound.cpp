@@ -298,6 +298,16 @@ void FUN_004a4740(SfxSample** sample)
 	}
 }
 
+void CSound::Play(CSound& sound)
+{ //438ec0
+	if (sound.sample != nullptr) {
+		SoundChannel* chnl = sound.sample->FindPlayingChannel();
+		if (chnl == nullptr) {
+			sound.sample->Play(g_SoundSettings.sfx_pos, 0, 0, 0x80, 0);
+		}
+	}
+}
+
 
 void SfxSample::LoadSample()
 { //45ba94

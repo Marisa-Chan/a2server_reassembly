@@ -1873,7 +1873,7 @@ extern ?DrawTextLines@CGameFont@@QAEXABVCRect@@HHABVCStringArray@@PAGH@Z : proc
 ;sound
 extern ??0SfxSample@@QAE@PBD@Z : proc
 extern ?LoadSample@SfxSample@@QAEXXZ : proc
-externdef ?Play@CSound@@SAXAAU1@@Z :proc
+extern ?Play@CSound@@SAXAAU1@@Z :proc  ; called from asm (sub_4C34E6, sub_4C65BA)
 extern ?Play@SfxSample@@QAEXHHHEH@Z : proc
 
 
