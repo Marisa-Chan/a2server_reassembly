@@ -43,7 +43,6 @@ _byte_659A3C
 ?FUN_004ac839@CFameHall@@QAEXPAVCFile@@@Z	110
 ?Play@CSound@@SAXAAU1@@Z	31
 ?LPCTSTR@CString@@QBEPBDXZ	13
-??0DiplomacyEntry@@QAE@PBDHHHH@Z	46
 ??1DistortMap@@QAE@XZ	51
 ?FUN_0045b681@MusicPlayer@@QAEXH@Z	21
 ?FUN_0046f760@ProjectileInfo@@QAEPAVCSprite256@@XZ	20

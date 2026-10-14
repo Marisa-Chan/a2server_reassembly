@@ -17192,54 +17192,6 @@ sub_4459AF      endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall ??0DiplomacyEntry@@QAE@PBDHHHH@Z(char *Source, int, int, int, int)
-??0DiplomacyEntry@@QAE@PBDHHHH@Z      proc near               ; CODE XREF: ?FUN_00494a9e@MainWindow@@QAEXXZ+1B0↓p
-
-var_4           = dword ptr -4
-Source          = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-arg_C           = dword ptr  14h
-arg_10          = dword ptr  18h
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+Source]
-                push    eax             ; varStr
-                call    _strlen
-                add     esp, 4
-                add     eax, 1
-                push    eax             ; varSize
-                call    ??2@YAPAXI@Z    ; operator new(uint)
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx], eax
-                mov     edx, dword ptr [ebp+Source]
-                push    edx             ; Source
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax]
-                push    ecx             ; Destination
-                call    _strcpy
-                add     esp, 8
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [ebp+arg_4]
-                mov     [edx+4], eax
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ebp+arg_8]
-                mov     [ecx+8], edx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ebp+arg_C]
-                mov     [eax+0Ch], ecx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [ebp+arg_10]
-                mov     [edx+10h], eax
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn    14h
-??0DiplomacyEntry@@QAE@PBDHHHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

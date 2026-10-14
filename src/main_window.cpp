@@ -2407,6 +2407,17 @@ void MainWindow::ResetItemCursor()
 }
 
 
+// 445a46
+DiplomacyEntry::DiplomacyEntry(const char* _name, int e, int a, int s, int m)
+{
+    this->name = new char[strlen(_name) + 1];
+    strcpy(this->name, _name);
+    this->enemy = e;
+    this->ally = a;
+    this->see = s;
+    this->mute = m;
+}
+
 //445aa9
 DiplomacyEntry::~DiplomacyEntry()
 {
