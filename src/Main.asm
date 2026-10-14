@@ -30266,29 +30266,6 @@ sub_477160      endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall sub_477200(unsigned __int8 *Str2, LPCSTR lpString)
-sub_477200      proc near               ; CODE XREF: ?ParseTunes@@YAXXZ+AD↑p
-
-var_4           = dword ptr -4
-Str2            = dword ptr  8
-lpString        = dword ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+lpString]
-                push    eax             ; lpString
-                mov     ecx, dword ptr [ebp+Str2]
-                push    ecx             ; Str2
-                mov     ecx, dword ptr [ebp+var_4] ; varThis
-                call    sub_5DCEDC
-                mov     ecx, eax        ; varThis
-                call    ??4CString@@QAEABV0@PBD@Z ; CString::operator=(char const *)
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-sub_477200      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
