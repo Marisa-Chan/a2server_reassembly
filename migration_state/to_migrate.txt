@@ -24,4 +24,3 @@ _byte_659A3C
 ?DAT_00665344@@3PAVCGameBitmap@@A
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
-?LPCTSTR@CString@@QBEPBDXZ	13

@@ -182,6 +182,7 @@
 ??_GVisTavScene@@UAEPAXI@Z
 ??_GVisTavSceneDruid@@UAEPAXI@Z
 ??_GVisTavSceneKaarg@@UAEPAXI@Z
+??BCString@@QBEPBDXZ
 ??H@YG?AVCString@@ABV0@0@Z
 ??H@YG?AVCString@@ABV0@D@Z
 ??H@YG?AVCString@@ABV0@PBD@Z

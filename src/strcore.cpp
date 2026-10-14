@@ -93,6 +93,12 @@ void PASCAL CString::Release(CStringData* pData)
 	}
 }
 
+// 4018a0
+CString::operator LPCTSTR() const
+{
+	return this->m_pchData;
+}
+
 void CString::Empty()
 {
 	if (GetData()->nDataLength == 0)

@@ -285,7 +285,7 @@ loc_401281:                             ; CODE XREF: sub_40123B+3B↑j
                 add     ecx, 1Ch
                 call    sub_401820
                 mov     ecx, eax
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; Source
                 mov     ecx, dword ptr [ebp+Block]
                 call    ??0CBmp64@@QAE@PBD@Z
@@ -411,7 +411,7 @@ loc_401390:                             ; CODE XREF: sub_40131F+2C↑j
                 add     ecx, 1Ch
                 call    sub_401820
                 mov     ecx, eax
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; Source
                 mov     ecx, dword ptr [ebp+Block]
                 call    ??0CBmp64@@QAE@PBD@Z
@@ -520,7 +520,7 @@ loc_401482:                             ; CODE XREF: sub_40140E+44↑j
                 add     ecx, 1Ch
                 call    sub_401820
                 mov     ecx, eax
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; Source
                 mov     ecx, dword ptr [ebp+Block]
                 call    ??0CBmp64@@QAE@PBD@Z
@@ -769,27 +769,6 @@ sub_401840      endp
 
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Microsoft VisualC 2-14/net runtime
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-; int __thiscall ?LPCTSTR@CString@@QBEPBDXZ(_DWORD)
-?LPCTSTR@CString@@QBEPBDXZ proc near           ; CODE XREF: ?FUN_004010ee@VisTavSceneAnim@@QAEXPAVCStringArray@@@Z+A3↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [eax]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?LPCTSTR@CString@@QBEPBDXZ endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -1977,7 +1956,7 @@ arg_4           = dword ptr  0Ch
                 push    ebp
                 mov     ebp, esp
                 mov     ecx, dword ptr [ebp+arg_4]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; Str2
                 mov     ecx, dword ptr [ebp+arg_0]
                 call    sub_402A20
@@ -15713,7 +15692,7 @@ var_4           = dword ptr -4
                 push    0
                 push    0
                 lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax
                 lea     ecx, [ebp+var_34]
                 call    ?Open@File2@@UAEHPBDIPAVCFileException@@@Z
@@ -24672,7 +24651,7 @@ loc_47206E:                             ; CODE XREF: sub_471F15+102↑j
                 push    0Ah
                 mov     ecx, dword ptr [ebp+arg_8]
                 add     ecx, 30h ; '0'
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax
                 mov     eax, dword ptr [ebp+arg_8]
                 mov     esi, [ebp+var_10]
@@ -24777,7 +24756,7 @@ loc_4721E4:                             ; CODE XREF: sub_471F15+2B7↑j
                 push    offset ?clrsh_InvBarleyCorn@@3PAGA
                 push    2
                 lea     ecx, [ebp+var_28]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax
                 mov     eax, dword ptr [ebp+arg_8]
                 mov     ecx, dword ptr [ebp+var_14]
@@ -35228,7 +35207,7 @@ loc_492AE1:                             ; CODE XREF: sub_492A85+197↓j
                 push    edx
                 push    offset aD_25    ; "%d"
                 lea     ecx, [ebp+var_38]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; Buffer
                 call    _sscanf
                 add     esp, 0Ch
@@ -35259,7 +35238,7 @@ loc_492AE1:                             ; CODE XREF: sub_492A85+197↓j
                 push    0               ; struct CFileException *
                 push    0               ; dwDesiredAccess
                 lea     ecx, [ebp+var_38]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; lpFileName
                 lea     ecx, [ebp+var_4C] ; varThis
                 call    ?Open@CFile@@UAEHPBDIPAVCFileException@@@Z ; CFile::Open(char const *,uint,CFileException *)
@@ -35293,7 +35272,7 @@ loc_492BD5:                             ; CODE XREF: sub_492A85+134↑j
                 test    eax, eax
                 jnz     short loc_492C00
                 lea     ecx, [ebp+var_38]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; lpFileName
                 call    DeleteFileA
 ;   } // starts at 492B7C
@@ -35983,7 +35962,7 @@ arg_4           = dword ptr  0Ch
                 push    ebp
                 mov     ebp, esp
                 mov     ecx, dword ptr [ebp+arg_4]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; Str2
                 mov     ecx, dword ptr [ebp+arg_0]
                 call    sub_402A20
@@ -41168,7 +41147,7 @@ arg_0           = dword ptr  8
                 mov     [ebp+var_28], ecx
                 push    1               ; unsigned int
                 mov     ecx, dword ptr [ebp+arg_0]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; lpFileName
                 lea     ecx, [ebp+var_24] ; varThis
                 call    ??0CFile@@QAE@PBDI@Z ; CFile::CFile(char const *,uint)
@@ -41280,7 +41259,7 @@ arg_0           = dword ptr  8
                 mov     [ebp+var_2C], ecx
                 push    0               ; unsigned int
                 mov     ecx, dword ptr [ebp+arg_0]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; lpFileName
                 lea     ecx, [ebp+var_28] ; varThis
                 call    ??0CFile@@QAE@PBDI@Z ; CFile::CFile(char const *,uint)
@@ -46252,7 +46231,7 @@ loc_4C4D3D:                             ; CODE XREF: sub_4C4A78+2BA↑j
 ;   try {
                 mov     [ebp+var_4], 0Ch
                 mov     ecx, dword ptr [ebp+var_12C]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; Source
                 mov     ecx, dword ptr [ebp+var_4C]
                 call    ??0CBmp64@@QAE@PBD@Z
@@ -46411,7 +46390,7 @@ loc_4C4F5E:                             ; CODE XREF: sub_4C4A78+4D5↑j
 ;   try {
                 mov     [ebp+var_4], 12h
                 mov     ecx, dword ptr [ebp+var_158]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; Source
                 mov     ecx, dword ptr [ebp+var_68]
                 call    ??0CBmp64@@QAE@PBD@Z
@@ -46572,7 +46551,7 @@ loc_4C51D0:                             ; CODE XREF: sub_4C4A78+74D↑j
 ;   try {
                 mov     [ebp+var_4], 17h
                 mov     ecx, dword ptr [ebp+var_17C]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; Source
                 mov     ecx, dword ptr [ebp+var_84]
                 call    ??0CBmp64@@QAE@PBD@Z
@@ -46705,7 +46684,7 @@ loc_4C53CE:                             ; CODE XREF: sub_4C4A78+942↑j
 ;   try {
                 mov     [ebp+var_4], 1Ch
                 mov     ecx, dword ptr [ebp+var_1A0]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; Source
                 mov     ecx, dword ptr [ebp+var_9C]
                 call    ??0CBmp64@@QAE@PBD@Z
@@ -46854,7 +46833,7 @@ loc_4C5615:                             ; CODE XREF: sub_4C4A78+B92↑j
 ;   try {
                 mov     [ebp+var_4], 21h ; '!'
                 mov     ecx, dword ptr [ebp+var_1C4]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; Source
                 mov     ecx, dword ptr [ebp+var_B4]
                 call    ??0CBmp64@@QAE@PBD@Z
@@ -46987,7 +46966,7 @@ loc_4C5813:                             ; CODE XREF: sub_4C4A78+D87↑j
 ;   try {
                 mov     [ebp+var_4], 26h ; '&'
                 mov     ecx, dword ptr [ebp+var_1E8]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; Source
                 mov     ecx, dword ptr [ebp+var_CC]
                 call    ??0CBmp64@@QAE@PBD@Z
@@ -50026,7 +50005,7 @@ arg_8           = dword ptr  10h
                 lea     ecx, [ebp+var_10] ; varThis
                 call    ?TrimRight@CString@@QAEXXZ ; CString::TrimRight(void)
                 lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; varStr
                 lea     ecx, [ebp+var_50]
                 call    ??0RegFile@@QAE@PBD@Z
@@ -50144,7 +50123,7 @@ loc_4C7A16:                             ; CODE XREF: sub_4C77C2+249↑j
                 push    0               ; int
                 push    offset aStartframe ; "startframe"
                 lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; String1
                 lea     ecx, [ebp+var_50]
                 call    ?GetInt@ResBase@@QAEHPBD0H@Z
@@ -50156,7 +50135,7 @@ loc_4C7A16:                             ; CODE XREF: sub_4C77C2+249↑j
                 push    0               ; int
                 push    offset aEndframe ; "endframe"
                 lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; String1
                 lea     ecx, [ebp+var_50]
                 call    ?GetInt@ResBase@@QAEHPBD0H@Z
@@ -50169,7 +50148,7 @@ loc_4C7A16:                             ; CODE XREF: sub_4C77C2+249↑j
                 push    0               ; int
                 push    offset aStartfade ; "startfade"
                 lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; String1
                 lea     ecx, [ebp+var_50]
                 call    ?GetDouble@ResBase@@QAENPBD0N@Z
@@ -50183,7 +50162,7 @@ loc_4C7A16:                             ; CODE XREF: sub_4C77C2+249↑j
                 push    0               ; int
                 push    offset aEndfade ; "endfade"
                 lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; String1
                 lea     ecx, [ebp+var_50]
                 call    ?GetDouble@ResBase@@QAENPBD0N@Z
@@ -50263,7 +50242,7 @@ loc_4C7B8C:                             ; CODE XREF: sub_4C77C2+3BF↑j
                 push    0               ; int
                 push    offset aStartframe_0 ; "startframe"
                 lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; String1
                 lea     ecx, [ebp+var_50]
                 call    ?GetInt@ResBase@@QAEHPBD0H@Z
@@ -50275,7 +50254,7 @@ loc_4C7B8C:                             ; CODE XREF: sub_4C77C2+3BF↑j
                 push    0               ; int
                 push    offset aEndframe_0 ; "endframe"
                 lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; String1
                 lea     ecx, [ebp+var_50]
                 call    ?GetInt@ResBase@@QAEHPBD0H@Z
@@ -50287,7 +50266,7 @@ loc_4C7B8C:                             ; CODE XREF: sub_4C77C2+3BF↑j
                 push    0               ; int
                 push    offset aStepx   ; "stepx"
                 lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; String1
                 lea     ecx, [ebp+var_50]
                 call    ?GetInt@ResBase@@QAEHPBD0H@Z
@@ -50299,7 +50278,7 @@ loc_4C7B8C:                             ; CODE XREF: sub_4C77C2+3BF↑j
                 push    0               ; int
                 push    offset aStepy   ; "stepy"
                 lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; String1
                 lea     ecx, [ebp+var_50]
                 call    ?GetInt@ResBase@@QAEHPBD0H@Z
@@ -54224,7 +54203,7 @@ loc_4E5265:                             ; CODE XREF: sub_4E505F+1BB↑j
                 push    0               ; dwHeadersLength
                 push    0               ; lpszHeaders
                 lea     ecx, [ebp+var_20]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; lpszUrl
                 mov     eax, dword ptr [ebp+hInternet]
                 push    eax             ; hInternet
@@ -126821,7 +126800,7 @@ loc_5B28C5:                             ; CODE XREF: sub_5B280D+AD↑j
                 lea     ecx, [ebp+var_34]
                 call    sub_401820
                 mov     ecx, eax
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
+                call    ??BCString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; Source
                 lea     edx, [ebp+Destination]
                 push    edx             ; Destination

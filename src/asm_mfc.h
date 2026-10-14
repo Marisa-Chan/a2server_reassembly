@@ -175,7 +175,7 @@ public:
 	TCHAR GetAt(int nIndex) const;      // 0 based
 	TCHAR operator[](int nIndex) const; // same as GetAt
 	void SetAt(int nIndex, TCHAR ch);
-	operator LPCTSTR() const;           // as a C string
+	operator LPCTSTR() const;           // as a C string (4018a0, defined in strcore.cpp)
 
 	// overloaded assignment
 	const CString& operator=(const CString& stringSrc);
@@ -382,10 +382,6 @@ _AFX_INLINE int CString::GetAllocLength() const
 _AFX_INLINE BOOL CString::IsEmpty() const
 {
 	return GetData()->nDataLength == 0;
-}
-_AFX_INLINE CString::operator LPCTSTR() const
-{
-	return m_pchData;
 }
 _AFX_INLINE int PASCAL CString::SafeStrlen(LPCTSTR lpsz)
 {
