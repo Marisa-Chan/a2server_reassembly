@@ -25559,6 +25559,14 @@ void Vis1200obj::FUN_0043b03a()
     }
 }
 
+// 43aae0
+int32_t FUN_0043aae0(char ch) {
+    if (ch == ' ' || ch == ',' || ch == '.' || ch == ':' || ch == ';') {
+        return 1;
+    }
+    return 0;
+}
+
 // 43B724
 void Vis1200obj::FUN_0043b724()
 {

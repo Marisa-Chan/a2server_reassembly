@@ -15896,42 +15896,6 @@ sub_43AAC0      endp
 
 ; Attributes: bp-based frame
 
-?FUN_0043aae0@@YAHD@Z      proc near               ; CODE XREF: ?FUN_0043b724@Vis1200obj@@QAEXXZ+A3↓p
-
-var_4           = dword ptr -4
-arg_0           = byte ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                movsx   eax, [ebp+arg_0]
-                cmp     eax, 20h ; ' '
-                jz      short loc_43AB1A
-                movsx   ecx, [ebp+arg_0]
-                cmp     ecx, 2Ch ; ','
-                jz      short loc_43AB1A
-                movsx   edx, [ebp+arg_0]
-                cmp     edx, 2Eh ; '.'
-                jz      short loc_43AB1A
-                movsx   eax, [ebp+arg_0]
-                cmp     eax, 3Ah ; ':'
-                jz      short loc_43AB1A
-                movsx   ecx, [ebp+arg_0]
-                cmp     ecx, 3Bh ; ';'
-                jz      short loc_43AB1A
-                mov     [ebp+var_4], 0
-                jmp     short loc_43AB21
-; ---------------------------------------------------------------------------
-
-loc_43AB1A:                             ; CODE XREF: ?FUN_0043aae0@@YAHD@Z+B↑j
-                mov     [ebp+var_4], 1
-
-loc_43AB21:                             ; CODE XREF: ?FUN_0043aae0@@YAHD@Z+38↑j
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_0043aae0@@YAHD@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
