@@ -594,7 +594,7 @@ public:
 	VisRoleKeyScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CString& text); //4dff5c
 
 	bool sub_4E0169(); //4e0169 in asm - advance to next talk line
-	bool FUN_004e0b43(int32_t line_no, int32_t* out_id, CString* out_text, char** out_name, char** out_name_end, int32_t* out_music); //4e0b43 in asm
+	bool FUN_004e0b43(int32_t line_no, int32_t* out_id, CString* out_text, char** out_name, char** out_name_end, int32_t* out_music); //4e0b43
 	void LoadText(); //4e0978
 public:
 	int32_t field_0x68; // 0x68

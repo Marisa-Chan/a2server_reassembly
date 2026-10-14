@@ -3801,6 +3801,163 @@ bool VisRoleKeyScreen::sub_4E0169()
 }
 
 
+// 4e0b43
+bool VisRoleKeyScreen::FUN_004e0b43(int32_t line_no, int32_t* out_id, CString* out_text, char** out_name, char** out_name_end, int32_t* out_music)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    char* p = this->text_buf;
+
+    while (true) {
+        while (*p != '<' && *p != '\0') {
+            p++;
+        }
+        if (*p == '\0') {
+            return false;
+        }
+        char* tag_start = p + 1;
+        while (*p != '>' && *p != '\0') {
+            p++;
+        }
+        if (*p == '\0') {
+            return false;
+        }
+        char tag_close = *p;
+        *p = '\0';
+        CString tag(tag_start);
+        tag.MakeLower();
+        *p = tag_close;
+
+        CString num;
+        num.Format("part=%d", line_no);
+        if (tag.Find(num) == -1) {
+            if (*p == '\0') {
+                return false;
+            }
+            continue;
+        }
+
+        int32_t pos = tag.Find("npc=");
+        this->is_npc = pos >= 0;
+        if (this->is_npc != 0) {
+            num = tag.Mid(pos + 4, 5);
+            sscanf(num, "%d", out_id);
+        } else {
+            *out_id = 0;
+        }
+
+        if (tag.Find("iamfemale") >= 0 || tag.Find("iammale") >= 0 || tag.Find("iammage") >= 0 || tag.Find("iamfighter") >= 0) {
+            this->field_0x84 = 1;
+        } else {
+            this->field_0x84 = 0;
+        }
+
+        uint32_t unit_flags = main_wnd->vis_map_context->field_0x3f6c->unitFlags;
+        if ((tag.Find("iamfemale") >= 0 && (unit_flags & 4) == 0) ||
+            (tag.Find("iammale") >= 0 && (unit_flags & 4) != 0) ||
+            (tag.Find("iammage") >= 0 && (unit_flags & 2) == 0) ||
+            (tag.Find("iamfighter") >= 0 && (unit_flags & 2) != 0)) {
+            if (*p == '\0') {
+                return false;
+            }
+            continue;
+        }
+
+        pos = 0;
+        while (true) {
+            CString tail = tag.Mid(pos);
+            pos = tail.Find("npcalive=");
+            if (pos == -1) {
+                break;
+            }
+            pos = pos + 9;
+            num = tag.Mid(pos, 5);
+            int32_t unit_id = 0;
+            sscanf(num, "%d", &unit_id);
+            CUnit* unit = main_wnd->vis_map_context->FUN_0041df23(unit_id);
+            if (unit == nullptr || pos < 0) {
+                break;
+            }
+        }
+        if (pos >= 0) {
+            if (*p == '\0') {
+                return false;
+            }
+            continue;
+        }
+
+        pos = 0;
+        while (true) {
+            CString tail = tag.Mid(pos);
+            pos = tail.Find("npcdead=");
+            if (pos == -1) {
+                break;
+            }
+            pos = pos + 9;
+            num = tag.Mid(pos, 5);
+            int32_t unit_id = 0;
+            sscanf(num, "%d", &unit_id);
+            CUnit* unit = main_wnd->vis_map_context->FUN_0041df23(unit_id);
+            if (unit != nullptr || pos < 0) {
+                break;
+            }
+        }
+        if (pos >= 0) {
+            if (*p == '\0') {
+                return false;
+            }
+            continue;
+        }
+
+        pos = tag.Find("sound=");
+        if (pos == -1) {
+            *out_text = "";
+        } else {
+            pos = pos + 6;
+            if (tag[pos] == '"') {
+                *out_text = tag.Mid(pos + 1);
+                *out_text = out_text->Left(out_text->Find('"'));
+            } else {
+                *out_text = tag.Mid(pos);
+                *out_text = out_text->Left(out_text->Find(';'));
+            }
+        }
+
+        pos = tag.Find("tune=");
+        if (pos == -1) {
+            *out_music = -1;
+        } else {
+            num = tag.Mid(pos + 5, 5);
+            sscanf(num, "%d", out_music);
+        }
+
+        pos = tag.Find("tips=");
+        if (pos >= 0) {
+            num = tag.Mid(pos + 5, 5);
+            sscanf(num, "%d", &this->field_0x80);
+        }
+
+        while (*p != '\n' && *p != '\0') {
+            p++;
+        }
+        if (*p == '\0') {
+            return false;
+        }
+        p++;
+        *out_name = p;
+        while (*p != '<' && *p != '\0') {
+            p++;
+        }
+        if (*p == '<') {
+            while (*p != '\r') {
+                p--;
+            }
+        }
+        *out_name_end = p;
+        return true;
+    }
+}
+
+
 // 4e0978
 void VisRoleKeyScreen::LoadText()
 {

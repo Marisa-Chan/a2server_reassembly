@@ -1249,9 +1249,6 @@ extern ??0VisWindow@@QAE@HHHHHPAVCGameBitmap@@@Z  :proc
 extern ?UpdateWinRect@VisWindow@@QAEXXZ  :proc
 
 
-;VisRoleKeyScreen
-externdef ?FUN_004e0b43@VisRoleKeyScreen@@QAE_NHPAHPAVCString@@PAPAD20@Z :proc  ; bool VisRoleKeyScreen::FUN_004e0b43(int, int32_t*, CString*, char**, char**, int32_t*)
-
 ;BigStruct2 (ASM-backed helpers)
 externdef ?FUN_0041da52@BigStruct2@@QAEPAVCGameBitmap@@H@Z :proc  ; CGameBitmap* BigStruct2::FUN_0041da52(int32_t)
 
