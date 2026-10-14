@@ -61,6 +61,10 @@ CArray<UnitGfxFile*> g_UnitGfxFiles; //665118
 
 CGamePalette* g_pal_projectiles; //665490
 
+int32_t DAT_00660f68 = 0; //660f68
+int32_t DAT_00660f6c = 0; //660f6c
+int32_t INT_00660f8c = 0; //660f8c
+int32_t INT_00660f90 = 0; //660f90
 int32_t DAT_00660f70 = 0; //660f70
 CGamePalette* g_pal_projectile_; //665494
 

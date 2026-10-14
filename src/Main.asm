@@ -260734,11 +260734,7 @@ dword_65FB74    dd ?                    ; DATA XREF: ?InitVideo@@YAHXZ+3C↑w
 
 
 
-?DAT_00660f68@@3HA    dd ?                    ; DATA XREF: ?sub_404E1A@BigStruct2@@QAEXXZ:loc_405202↑r
-?DAT_00660f6c@@3HA    dd ?                    ; DATA XREF: ?sub_406F7B@BigStruct2@@QAEXXZ:loc_40AAAA↑r
 
-?INT_00660f8c@@3HA    dd ?                    ; DATA XREF: ?ConnectAndJoinSession@BigStruct2@@QAEHXZ+1E↑w
-?INT_00660f90@@3HA    dd ?                    ; DATA XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z:loc_40DB73↑w
 
                 db 80h dup(?)
 ?DAT_00661018@@3PAPAVCGamePalette@@A    dd ?                    ; DATA XREF: ?sub_404E1A@BigStruct2@@QAEXXZ+2F8↑r

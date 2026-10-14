@@ -1294,10 +1294,8 @@ extern ?ApplyDynamicLight@BigStruct2@@QAEXHHHH@Z : proc
 extern ?ProcessPackets@BigStruct2@@QAEHE@Z : proc
 extern ?UpdateSelectionState@BigStruct2@@QAEXXZ  : proc
 extern ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ : proc
-externdef ?DAT_00660f68@@3HA :dword
 externdef ?DAT_00661018@@3PAPAVCGamePalette@@A :dword
 externdef ?DAT_00665344@@3PAVCGameBitmap@@A :dword
-externdef ?DAT_00660f6c@@3HA :dword
 extern ?sub_4184B8@BigStruct2@@QAEHHH@Z : proc
 extern ?sub_419154@BigStruct2@@QAEXGG@Z : proc
 extern ?sub_419246@BigStruct2@@QAEXG@Z : proc
@@ -1320,9 +1318,6 @@ extern ?MapMinX@BigStruct2@@QBEHXZ : proc
 
 
 extern ?UpdateSelectionState@BigStruct2@@QAEXXZ : proc
-
-externdef ?INT_00660f8c@@3HA  :dword
-externdef ?INT_00660f90@@3HA  :dword
 
 
 extern ?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z : proc  ; CUnit* BigStruct2::FUN_0041dfa6(int); called from asm

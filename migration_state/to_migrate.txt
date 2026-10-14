@@ -3,10 +3,6 @@
 # Optional second tab-separated column stores ASM span (endp_line - proc_line, functions only).
 # Edit migration_state/known_mfc.txt to exclude symbols you do not plan to migrate.
 
-?DAT_00660f68@@3HA
-?DAT_00660f6c@@3HA
-?INT_00660f8c@@3HA
-?INT_00660f90@@3HA
 _byte_666590
 _g_Destination
 _unk_659A48
