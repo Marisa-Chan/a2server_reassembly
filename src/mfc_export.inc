@@ -2074,7 +2074,7 @@ extern ?Init@UnitGfxFile@@QAEXXZ : proc
 
 ;StructureInfo
 extern ?Init@StructureInfo@@QAEXXZ : proc
-externdef ?GetSprite@StructureInfo@@QAEPAVCSprite256@@XZ : proc
+extern ?GetSprite@StructureInfo@@QAEPAVCSprite256@@XZ : proc  ; called from asm (sub_47F6E1)
 externdef ?GetSpriteB@StructureInfo@@QAEPAVCSprite256@@XZ : proc
 extern ?g_StructuresInfo@@3V?$CArray@PAVStructureInfo@@ABQAV1@@@A  : dword
 
