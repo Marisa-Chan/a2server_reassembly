@@ -260664,25 +260664,6 @@ byte_6599FC     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMessageBox@@U
 byte_659A00     db 4 dup(?)             ; DATA XREF: sub_4451E1+575↑o
 unk_659A20      db 4h dup(?)
 unk_659A24      db 4h dup(?)
-; CHAR _byte_659A30[4]
-_byte_659A30     db 4 dup(?)             ; 659a30 "" placeholder tooltip for net map entries with an unprintable tooltip
-; CHAR _byte_659A34[4]
-_byte_659A34     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+36E↑o
-; CHAR _byte_659A38[4]
-_byte_659A38     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+40A↑o
-; CHAR _byte_659A3C[4]
-_byte_659A3C     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+4AC↑o
-_unk_659A48      db 4h dup(?)
-; CHAR _byte_659A4C[4]
-_byte_659A4C     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMissionFailed@@UAEXXZ+F2↑o
-; CHAR _byte_659A50[4]
-_byte_659A50     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMissionFailed@@UAEXXZ+15D↑o
-; CHAR _byte_659A54[4]
-_byte_659A54     db 4 dup(?)             ; DATA XREF: ?VMethod26@Vis2Action@@UAEXXZ+142↑o
-; CHAR _byte_659A58[4]
-_byte_659A58     db 4 dup(?)             ; DATA XREF: ?VMethod26@Vis2Action@@UAEXXZ+1B6↑o
-; CHAR _byte_659A5C[4]
-_byte_659A5C     db 4 dup(?)             ; DATA XREF: ?OnKeyDown@VisNetChatTextBox@@UAEHI@Z+2D↑o
 ; AFX_CLASSINIT unk_659A60
 unk_659A60      db 8h dup(?)
 

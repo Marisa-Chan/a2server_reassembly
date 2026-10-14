@@ -5,16 +5,6 @@
 
 _byte_666590
 _g_Destination
-_unk_659A48
 _byte_65F630
-_byte_659A54
-_byte_659A4C
-_byte_659A50
-_byte_659A58
-_byte_659A5C
-_byte_659A30
-_byte_659A34
-_byte_659A38
-_byte_659A3C
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
 ??0_AFX_THREAD_STATE@@QAE@XZ	6

@@ -20,16 +20,23 @@
 
 
 extern "C" char byte_666590[223]; //4c9a6f GetHint static buffer
-extern "C" char unk_659A48[4]; //659a48 zeroed buffer used to clear the server screen text box
-extern "C" char byte_659A5C[4]; //659a5c zeroed buffer used to clear the net chat text box
-extern "C" char byte_659A34[4]; //659a34 "" hint string of the hat browser OK button
-extern "C" char byte_659A38[4]; //659a38 "" hint string of the hat browser cancel button
-extern "C" char byte_659A3C[4]; //659a3c "" hint string of the hat browser refresh button
-extern "C" char byte_659A54[4]; //659a54 "" hint string of the action menu confirm button
-extern "C" char byte_659A58[4]; //659a58 "" hint string of the action menu cancel button
-extern "C" char byte_659A4C[4]; //659a4c "" hint string of the mission-failed load button
-extern "C" char byte_659A50[4]; //659a50 "" hint string of the mission-failed retry button
-extern "C" char byte_659A30[4]; //659a30 "" placeholder tooltip for net map entries with an unprintable tooltip
+
+char unk_659A48[4]; //659a48 zeroed buffer used to clear the server screen text box
+char byte_659A34[4]; //659a34 "" hint string of the hat browser OK button
+char byte_659A38[4]; //659a38 "" hint string of the hat browser cancel button
+char byte_659A3C[4]; //659a3c "" hint string of the hat browser refresh button
+char byte_659A54[4]; //659a54 "" hint string of the action menu confirm button
+char byte_659A58[4]; //659a58 "" hint string of the action menu cancel button
+char byte_659A4C[4]; //659a4c "" hint string of the mission-failed load button
+char byte_659A50[4]; //659a50 "" hint string of the mission-failed retry button
+char byte_659A30[4]; //659a30 "" placeholder tooltip for net map entries with an unprintable tooltip
+
+// Still referenced from ASM: ostream::operator<< passes it as the "" pad string and a
+// RegQueryValueExA caller passes it as the "" value name, so it keeps C linkage.
+extern "C"
+{
+    char byte_659A5C[4]; //659a5c zeroed buffer used to clear the net chat text box
+}
 
 // Spellbook pressed-position spell table. 62f8a8
 uint32_t DAT_0062F8A8[24] = {1,0,0,1, 1,1,1,1, 1,1,1,1, 1,0,0,1, 1,0,0,1, 1,1,0,1};

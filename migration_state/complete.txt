@@ -1048,3 +1048,4 @@
 ?WriteObject@CArchive@@QAEXPBVCObject@@@Z
 ?WritePlayerFile_4F53EA@@YAHPBDPAUFileSectionBasicInfo@@PAUFileSectionStats@@PAEPAVPacketUnitStateVec@@43I@Z
 ?YToIndex@VisListBox@@QAEHH@Z
+_byte_659A5C

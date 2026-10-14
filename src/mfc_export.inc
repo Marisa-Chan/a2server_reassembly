@@ -1653,7 +1653,6 @@ extern ?VMethod43@VisInvExtType3@@UAEPAVTokenEntry@@HH@Z : proc  ; TokenEntry* V
 
 ;VisServerScreenRadio
 
-externdef _unk_659A48 : byte  ; zeroed 4-byte buffer
 
 ;GameOptionsWindow
 
@@ -2059,10 +2058,7 @@ extern ?FUN_0046f390@TransientVisualEffectBuilder@@QAEXXZ : proc  ; void Transie
 
 
 ; Vis2Action
-externdef _byte_659A54 : byte  ; "" hint string of the action menu confirm button
-externdef _byte_659A4C : byte  ; "" hint string of the mission-failed retry button
-externdef _byte_659A50 : byte  ; "" hint string of the mission-failed load button
-externdef _byte_659A58 : byte  ; "" hint string of the action menu cancel button
+
 
 
 
@@ -2072,13 +2068,9 @@ externdef _byte_659A58 : byte  ; "" hint string of the action menu cancel button
 
 externdef ??0CWinThread@@QAE@P6AIPAX@Z0@Z : proc
 externdef _byte_659A5C : byte  ; 659a5c zeroed buffer used to clear the net chat text box
-externdef _byte_659A30 : byte  ; 659a30 "" placeholder tooltip for net map entries with an unprintable tooltip
 externdef ?CreateThread@CWinThread@@QAEHKIPAU_SECURITY_ATTRIBUTES@@@Z : proc
 
 ; VisTipsDialog ctor child-ctrl builder (still in asm)
 
 ; VisHatBrowserList
 extern ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z : proc
-externdef _byte_659A34 : byte  ; "" hint string of the hat browser OK button
-externdef _byte_659A38 : byte  ; "" hint string of the hat browser cancel button
-externdef _byte_659A3C : byte  ; "" hint string of the hat browser refresh button
