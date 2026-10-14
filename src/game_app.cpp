@@ -83,6 +83,14 @@ DistortMap::DistortMap(int32_t outer, int32_t inner) {
 	this->sub_4AA0AF();
 }
 
+// 4aa04f
+DistortMap::~DistortMap() {
+	for (int32_t i = 0; i < this->radius; i++) {
+		delete[] this->offsets[i];
+	}
+	delete[] this->offsets;
+}
+
 // 47619a
 void FUN_0047619a()
 {

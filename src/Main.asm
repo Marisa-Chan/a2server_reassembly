@@ -41588,58 +41588,6 @@ sub_4A9E70      endp
 
 ; Attributes: bp-based frame
 
-??1DistortMap@@QAE@XZ      proc near               ; CODE XREF: sub_476E50+A↑p
-
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-Block           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 14h
-                mov     [ebp+var_14], ecx
-                mov     eax, dword ptr [ebp+var_14]
-                mov     ecx, dword ptr [eax+0Ch]
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], 0
-                jmp     short loc_4AA073
-; ---------------------------------------------------------------------------
-
-loc_4AA06A:                             ; CODE XREF: ??1DistortMap@@QAE@XZ+46↓j
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 1
-                mov     [ebp+var_4], edx
-
-loc_4AA073:                             ; CODE XREF: ??1DistortMap@@QAE@XZ+19↑j
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     eax, [ebp+var_8]
-                jge     short loc_4AA097
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     edx, dword ptr [ecx]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [edx+eax*4]
-                mov     [ebp+Block], ecx
-                mov     edx, dword ptr [ebp+Block]
-                push    edx             ; Block
-                call    ??3@YAXPAX@Z    ; operator delete(void *)
-                add     esp, 4
-                jmp     short loc_4AA06A
-; ---------------------------------------------------------------------------
-
-loc_4AA097:                             ; CODE XREF: ??1DistortMap@@QAE@XZ+2A↑j
-                mov     eax, dword ptr [ebp+var_14]
-                mov     ecx, dword ptr [eax]
-                mov     [ebp+var_10], ecx
-                mov     edx, dword ptr [ebp+var_10]
-                push    edx             ; Block
-                call    ??3@YAXPAX@Z    ; operator delete(void *)
-                add     esp, 4
-                mov     esp, ebp
-                pop     ebp
-                retn
-??1DistortMap@@QAE@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
