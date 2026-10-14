@@ -207,3 +207,6 @@ unknown_libname_448
 ?AfxWinInit@@YGHPAUHINSTANCE__@@0PADH@Z
 ?AfxWinTerm@@YGXXZ
 ?AfxRegisterWndClass@@YGPBDIPAUHICON__@@PAUHBRUSH__@@0@Z
+?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z
+?DDX_Text@@YGXPAVCDataExchange@@HAAVCString@@@Z
+?DDV_MaxChars@@YGXPAVCDataExchange@@ABVCString@@H@Z

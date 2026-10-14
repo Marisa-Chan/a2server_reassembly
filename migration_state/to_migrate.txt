@@ -26,9 +26,6 @@ _byte_659A3C
 ?GetFieldPos@@YAHVCString@@H@Z	104
 ?FUN_00476236@@YAXPAVCString@@@Z	150
 ?FUN_00476987@@YAXPAVCString@@@Z	185
-?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z	40
-?DDX_Text@@YGXPAVCDataExchange@@HAAVCString@@@Z	44
-?DDV_MaxChars@@YGXPAVCDataExchange@@ABVCString@@H@Z	89
 ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z	335
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ?FUN_004ac839@CFameHall@@QAEXPAVCFile@@@Z	110
