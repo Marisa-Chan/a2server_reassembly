@@ -113,6 +113,7 @@ extern uint16_t clrsh_DullGold[16]; //65f4f8
 extern uint16_t clrsh_Oxley[16]; //65f4d8
 extern uint16_t clrsh_TechBlack[16]; //65f090
 extern uint16_t clrsh_ShockingBlack[16]; //65e1e8
+extern uint16_t clrsh_GoldenFizz[16]; //65f578
 extern uint16_t clrsh_CharlieBrown[16]; //65f4b8
 extern uint16_t clrsh_LuxorGold[16]; //65e848
 extern uint16_t clrsh_CoralRed[16]; //65f608

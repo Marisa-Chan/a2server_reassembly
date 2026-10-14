@@ -30,6 +30,22 @@ uint16_t* clr_log_tok2 = clrsh_ShockingBlack; //62f898
 uint16_t* clr_log_tok1 = clrsh_ShockingBlack; //62f89c
 uint16_t* clr_log_tok3 = clrsh_ShockingBlack; //62f8a0
 
+//476de7
+void __cdecl SetMessageColors(uint32_t flag) {
+	g_MessageColors = flag;
+	if (flag == 0) {
+		clr_log_sblack = clrsh_ShockingBlack;
+		clr_log_tblack = clrsh_TechBlack;
+	} else {
+		clr_log_sblack = g_colors_human_pals[2];
+		clr_log_tblack = g_colors_human_pals[7];
+		clr_log_tok0 = clrsh_GoldenFizz;
+		clr_log_tok1 = g_colors_human_pals[1];
+		clr_log_tok2 = g_colors_human_pals[4];
+		clr_log_tok3 = g_colors_human_pals[0];
+	}
+}
+
 int INT_6362e8[16] = { 0, 0, 1, 0,   1, 0, 1, 0,   0, 0, -1, 0,   -1, 0, -1, 0 };
 int INT_636328[16] = { -1, 0, -1, 0,   0, 0, 1, 0,   1, 0, 1, 0,   0, 0, -1, 0 };
 

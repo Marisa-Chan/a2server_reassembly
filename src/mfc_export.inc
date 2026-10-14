@@ -1004,7 +1004,6 @@ extern ?g_ServerConfig@@3UServerConfig@@A   : dword
 
 extern ?unk_660DA8@@3VCMapWordToPtr@@A :byte
 extern ?dword_65FBB8@@3PAXA :dword
-externdef ?SetMessageColors@@YAXI@Z  : proc
 
 extern ?g_kbControlState@@3HA : dword
 extern ?g_kbShiftState@@3HA : dword
@@ -1825,13 +1824,6 @@ extern ?palette_paris_daisy@@3PAVCGamePalette@@A  : dword
 extern ?palette_brown_derby@@3PAVCGamePalette@@A  : dword
 extern ?palette_tawny_port@@3PAVCGamePalette@@A  : dword
 
-
-extern ?clr_log_tblack@@3PAGA  : dword
-extern ?clr_log_sblack@@3PAGA  : dword
-extern ?clr_log_tok0@@3PAGA  : dword
-extern ?clr_log_tok1@@3PAGA  : dword
-extern ?clr_log_tok2@@3PAGA  : dword
-extern ?clr_log_tok3@@3PAGA  : dword
 
 extern ?g_isLowMemory@@3IA : dword
 extern ?g_ColorAddMask@@3GA : word

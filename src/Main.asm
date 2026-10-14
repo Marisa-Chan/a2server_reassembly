@@ -28113,33 +28113,6 @@ loc_476ACE:                             ; CODE XREF: ?FUN_00476987@@YAXPAVCStrin
 
 ; Attributes: bp-based frame
 
-?SetMessageColors@@YAXI@Z      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+932↑p
-
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     ?g_MessageColors@@3HA, eax
-                cmp     [ebp+arg_0], 0
-                jz      short loc_476E36
-                mov     ?clr_log_sblack@@3PAGA, offset ?g_colors_human_pals@@3PAY0BA@GA+40h
-                mov     ?clr_log_tblack@@3PAGA, offset ?g_colors_human_pals@@3PAY0BA@GA+0e0h
-                mov     ?clr_log_tok0@@3PAGA, offset ?clrsh_GoldenFizz@@3PAGA
-                mov     ?clr_log_tok1@@3PAGA, offset ?g_colors_human_pals@@3PAY0BA@GA+20h
-                mov     ?clr_log_tok2@@3PAGA, offset ?g_colors_human_pals@@3PAY0BA@GA+80h
-                mov     ?clr_log_tok3@@3PAGA, offset ?g_colors_human_pals@@3PAY0BA@GA
-                jmp     short loc_476E4A
-; ---------------------------------------------------------------------------
-
-loc_476E36:                             ; CODE XREF: ?SetMessageColors@@YAXI@Z+F↑j
-                mov     ?clr_log_sblack@@3PAGA, offset ?clrsh_ShockingBlack@@3PAGA
-                mov     ?clr_log_tblack@@3PAGA, offset ?clrsh_TechBlack@@3PAGA
-
-loc_476E4A:                             ; CODE XREF: ?SetMessageColors@@YAXI@Z+4D↑j
-                pop     ebp
-                retn
-?SetMessageColors@@YAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
