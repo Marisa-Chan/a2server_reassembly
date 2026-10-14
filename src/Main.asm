@@ -550,31 +550,6 @@ loc_4014C7:                             ; CODE XREF: sub_40140E+B0↑j
 ; } // starts at 40140E
 sub_40140E      endp
 
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
@@ -2681,15 +2656,6 @@ loc_41E67A:                             ; CODE XREF: sub_41E5ED+5F↑j
                 pop     ebp
                 retn    4
 sub_41E5ED      endp
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; ---------------------------------------------------------------------------
-                align 10h
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -14363,100 +14329,6 @@ var_4           = dword ptr -4
                 retn    4
 unknown_libname_460 endp
 
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: library function bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z(struct type_info *)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: library function bp-based frame
@@ -14490,41 +14362,6 @@ loc_438353:                             ; CODE XREF: `vector constructor iterato
                 pop     ebp
                 retn    10h
 ??_H@YGXPAXIHP6EX0@Z@Z endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -14818,30 +14655,6 @@ arg_0           = dword ptr  8
                 pop     ebp
                 retn    4
 sub_438610      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: library function bp-based frame
-
-; void *__thiscall CSessionMapPtrToPtr::`scalar deleting destructor'(CSessionMapPtrToPtr *__hidden varThis, unsigned int)
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-                align 10h
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -15246,15 +15059,6 @@ loc_438B7A:                             ; CODE XREF: sub_438960+6D↑j
                 pop     ebp
                 retn    8
 sub_438960      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -15868,220 +15672,6 @@ var_4           = dword ptr -4
                 retn
 sub_43AAC0      endp
 
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ?ReadData@Vis1200obj@@UAEXPBX@Z(LPCSTR lpString)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ?OnKeyDown@Vis1200obj@@UAEHI@Z(struct type_info *)
-byte_43B22C     db      0,     1,     4,     4
-                db      4,     2,     4,     4 ; indirect table for switch statement
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     3
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ?OnChar@Vis1200obj@@UAEHI@Z(struct type_info *)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: library function bp-based frame
-
-; int __thiscall CFormView::accHitTest(CFormView *__hidden varThis, int, int, struct tagVARIANT *)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Microsoft VisualC 2-14/net runtime
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-
-
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
@@ -16099,9 +15689,6 @@ var_4           = dword ptr -4
                 pop     ebp
                 retn
 sub_43C030      endp
-
-
-
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -16282,106 +15869,6 @@ var_4           = dword ptr -4
                 retn
 ; } // starts at 43C270
 sub_43C270      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: library function bp-based frame
-
-; void __thiscall CHandleMap::~CHandleMap(CHandleMap *__hidden varThis)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Microsoft VisualC 2-14/net runtime
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -17254,269 +16741,6 @@ sub_445B39      endp
 
 ; =============== S U B R O U T I N E =======================================
 
-; Attributes: bp-based frame
-
-; int __stdcall ??0VisDiplomacy@@QAE@HHHHHPBV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z(int, RECT *lprcSrc)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; =============== S U B R O U T I N E =======================================
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; =============== S U B R O U T I N E =======================================
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __cdecl ?VisNetMapThreadProc@@YAIPAX@Z(void *)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-byte_44C5F5     db      0,     1,     2,     7
-                db      7,     7,     7,     7 ; indirect table for switch statement
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     3,     7
-                db      7,     7,     7,     4
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     5,     6
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Microsoft VisualC 2-14/net runtime
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
 unknown_libname_481 proc near           ; CODE XREF: ?AddNetMapInfo@VisNetMapSelection@@QAEXPAUNetMapInfo@@@Z+E0↓p
 
 var_4           = dword ptr -4
@@ -17529,77 +16753,6 @@ var_4           = dword ptr -4
                 pop     ebp
                 retn    4
 unknown_libname_481 endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ??0Vis2Action@@QAE@HHHHHPBDABVCRect@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int, int)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ?MsgProc@Vis2Action@@UAEHIII@Z(int, UINT Msg, int)
-
-; ---------------------------------------------------------------------------
-                align 10h
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -18028,159 +17181,6 @@ loc_44F9D5:                             ; CODE XREF: sub_44F9B0+17↑j
                 retn    4
 sub_44F9B0      endp
 
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ??0VisHatBrowserList@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z(int, int xLeft, int yTop, int xRight, int yBottom, int, int, int, int, LPCSTR lpString)
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-
-
-
-
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
@@ -18442,104 +17442,6 @@ UnkAfxetModuleStateIncremented1_450910 proc near
                 pop     ebp
                 retn
 UnkAfxetModuleStateIncremented1_450910 endp
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -24830,85 +23732,6 @@ var_4           = dword ptr -4
                 retn
 sub_472700      endp
 
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
@@ -27308,59 +26131,6 @@ var_4           = dword ptr -4
 ; } // starts at 474E60
 sub_474E60      endp
 
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: library function bp-based frame
-
-; void __thiscall CHandleMap::~CHandleMap(CHandleMap *__hidden varThis)
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
 ; =============== S U B R O U T I N E =======================================
 
 ; Microsoft VisualC 2-14/net runtime
@@ -27380,27 +26150,6 @@ var_4           = dword ptr -4
                 pop     ebp
                 retn
 unknown_libname_536 endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -41377,130 +40126,6 @@ loc_4AA834:                             ; CODE XREF: sub_4AA71C+D9↑j
 ; } // starts at 4AA71C
 sub_4AA71C      endp
 
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall sub_4AA9F4(int, RECT *lprcSrc)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Microsoft VisualC 2-14/net runtime
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
@@ -43677,111 +42302,6 @@ var_4           = dword ptr -4
                 retn
 unknown_libname_632 endp
 
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Microsoft VisualC 2-14/net runtime
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ??0VisOrderToolbar@@QAE@HHHHH@Z(int, int xLeft, int yTop, int xRight, int yBottom)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
 ; =============== S U B R O U T I N E =======================================
 
 ; Microsoft VisualC 2-14/net runtime
@@ -43803,75 +42323,6 @@ var_4           = dword ptr -4
                 pop     ebp
                 retn
 unknown_libname_639 endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -44038,90 +42489,6 @@ var_4           = dword ptr -4
                 pop     ebp
                 retn
 sub_4B9E10      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Microsoft VisualC 2-14/net runtime
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Microsoft VisualC 2-14/net runtime
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Microsoft VisualC 2-14/net runtime
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Microsoft VisualC 2-14/net runtime
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: library function bp-based frame
-
-; public: virtual enum Concurrency::details::ContextBase::ContextKind __thiscall Concurrency::details::UMSThreadInternalContext::GetContextKind(void)const
-
-
-; =============== S U B R O U T I N E =======================================
-
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-
-
-
-
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -48653,9 +47020,6 @@ sub_4C6A30      endp
 ; ---------------------------------------------------------------------------
                 align 10h
 
-; ---------------------------------------------------------------------------
-                align 10h
-
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
@@ -51978,252 +50342,6 @@ loc_4CD49D:                             ; CODE XREF: sub_4CD410+67↑j
                 retn
 sub_4CD410      endp
 
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z(int, RECT *lprcSrc, int, int, int, int, int)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: library function bp-based frame
@@ -52242,38 +50360,6 @@ var_4           = dword ptr -4
                 pop     ebp
                 retn    4
 ?_Get_deleter@_Ref_count_base@std@@UBEPAXABVtype_info@@@Z_3 endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -219167,160 +217253,6 @@ SEH_442646:                             ; DATA XREF: sub_442646+5↑o
 ; } // starts at 5F920C
 ; END OF FUNCTION CHUNK FOR sub_442646
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?VMethod26@VisMessageBox@@UAEXXZ
-
-loc_5F9345:                             ; DATA XREF: .rdata:stru_619C48↓o
-; __unwind { // SEH_444086
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F9352:                             ; DATA XREF: .rdata:00619C50↓o
-                mov     eax, dword ptr [ebp+var_C4]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F935F:                             ; DATA XREF: .rdata:00619C58↓o
-                mov     eax, dword ptr [ebp+var_EC]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F936C:                             ; DATA XREF: .rdata:00619C60↓o
-                mov     eax, dword ptr [ebp+var_F4]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F9379:                             ; DATA XREF: .rdata:00619C68↓o
-                mov     eax, dword ptr [ebp+var_FC]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F9386:                             ; DATA XREF: .rdata:00619C70↓o
-                mov     eax, dword ptr [ebp+var_104]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F9393:                             ; DATA XREF: .rdata:00619C78↓o
-                mov     eax, dword ptr [ebp+var_10C]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F93A0:                             ; DATA XREF: .rdata:00619C80↓o
-                mov     eax, dword ptr [ebp+var_114]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F93AD:                             ; DATA XREF: .rdata:00619C88↓o
-                mov     eax, dword ptr [ebp+var_11C]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F93BA:                             ; DATA XREF: .rdata:00619C90↓o
-                mov     eax, dword ptr [ebp+var_124]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F93C7:                             ; DATA XREF: .rdata:00619C98↓o
-                mov     eax, dword ptr [ebp+var_12C]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F93D4:                             ; DATA XREF: .rdata:00619CA0↓o
-                mov     eax, dword ptr [ebp+var_134]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F93E1:                             ; DATA XREF: .rdata:00619CA8↓o
-                mov     eax, dword ptr [ebp+var_13C]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F93EE:                             ; DATA XREF: .rdata:00619CB0↓o
-                mov     eax, dword ptr [ebp+var_144]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F93FB:                             ; DATA XREF: .rdata:00619CB8↓o
-                mov     eax, dword ptr [ebp+var_14C]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F9408:                             ; DATA XREF: .rdata:00619CC0↓o
-;   cleanup() // owned by 44411A
-;   cleanup() // owned by 444212
-;   cleanup() // owned by 444370
-;   cleanup() // owned by 44465E
-;   cleanup() // owned by 44470B
-;   cleanup() // owned by 4447B2
-;   cleanup() // owned by 44486C
-;   cleanup() // owned by 4448FE
-;   cleanup() // owned by 4449A6
-;   cleanup() // owned by 444A81
-;   cleanup() // owned by 444B2B
-;   cleanup() // owned by 444BC0
-;   cleanup() // owned by 444C9C
-;   cleanup() // owned by 444D45
-;   cleanup() // owned by 444E00
-;   cleanup() // owned by 444EA7
-                mov     eax, dword ptr [ebp+var_154]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_444086:                             ; DATA XREF: ?VMethod26@VisMessageBox@@UAEXXZ+5↑o
-                mov     eax, offset stru_619C28
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9345
-; END OF FUNCTION CHUNK FOR ?VMethod26@VisMessageBox@@UAEXXZ
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?VMethod30@VisMessageBoxWithList@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
-
-unknown_libname_973:                    ; DATA XREF: .rdata:stru_619CE8↓o
-; __unwind { // SEH_4450D4              ; MFC 3.1-14.0 32bit
-;   cleanup() // owned by 4450FF
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4450D4:                             ; DATA XREF: ?VMethod30@VisMessageBoxWithList@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+5↑o
-                mov     eax, offset stru_619CC8
-                jmp     ___CxxFrameHandler
-; } // starts at 5F941F
-; END OF FUNCTION CHUNK FOR ?VMethod30@VisMessageBoxWithList@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4451E1
 
 loc_5F9433:                             ; DATA XREF: .rdata:stru_619D10↓o
@@ -219502,58 +217434,6 @@ SEH_44F540:                             ; DATA XREF: sub_44F540+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F9BA0
 ; END OF FUNCTION CHUNK FOR sub_44F540
-                align 10h
-                align 10h
-                align 10h
-; START OF FUNCTION CHUNK FOR ??1VisTextBox@@UAE@XZ
-
-loc_5F9CA0:                             ; DATA XREF: .rdata:stru_61A768↓o
-; __unwind { // SEH_4503A0
-;   cleanup() // owned by 4503BC
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4503A0:                             ; DATA XREF: ??1VisTextBox@@UAE@XZ+5↑o
-                mov     eax, offset stru_61A748
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9CA0
-; END OF FUNCTION CHUNK FOR ??1VisTextBox@@UAE@XZ
-; ---------------------------------------------------------------------------
-                align 10h
-; START OF FUNCTION CHUNK FOR ??1VisRadioBase@@UAE@XZ
-
-loc_5F9CC0:                             ; DATA XREF: .rdata:stru_61A790↓o
-; __unwind { // SEH_4505B0
-;   cleanup() // owned by 4505CC
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4505B0:                             ; DATA XREF: ??1VisRadioBase@@UAE@XZ+5↑o
-                mov     eax, offset stru_61A770
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9CC0
-; END OF FUNCTION CHUNK FOR ??1VisRadioBase@@UAE@XZ
-; ---------------------------------------------------------------------------
-                align 10h
-; START OF FUNCTION CHUNK FOR ??1VisButton@@UAE@XZ
-
-loc_5F9CE0:                             ; DATA XREF: .rdata:stru_61A7B8↓o
-; __unwind { // SEH_450A40
-;   cleanup() // owned by 450A5C
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_450A40:                             ; DATA XREF: ??1VisButton@@UAE@XZ+5↑o
-                mov     eax, offset stru_61A798
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9CE0
-; END OF FUNCTION CHUNK FOR ??1VisButton@@UAE@XZ
 ; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR CWinThread::~CWinThread(void)
@@ -219626,26 +217506,6 @@ SEH_451910:                             ; DATA XREF: CWinThread::~CWinThread(voi
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F9D60
 ; END OF FUNCTION CHUNK FOR CWinThread::~CWinThread(void)
-; ---------------------------------------------------------------------------
-                align 10h
-; START OF FUNCTION CHUNK FOR ??0VisMenuWnd@@QAE@HHHHHPAVCGameBitmap@@IABVCRect@@@Z
-
-loc_5F9D80:                             ; DATA XREF: .rdata:stru_61A880↓o
-; __unwind { // SEH_451990
-;   cleanup() // owned by 4519CC
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisWindow@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_451990:                             ; DATA XREF: ??0VisMenuWnd@@QAE@HHHHHPAVCGameBitmap@@IABVCRect@@@Z+5↑o
-                mov     eax, offset stru_61A860
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9D80
-; END OF FUNCTION CHUNK FOR ??0VisMenuWnd@@QAE@HHHHHPAVCGameBitmap@@IABVCRect@@@Z
-; ---------------------------------------------------------------------------
-                align 10h
-
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_452674
 
@@ -224912,23 +222772,6 @@ SEH_4CD1A0:                             ; DATA XREF: CWinThread::~CWinThread(voi
 ; } // starts at 5FEAA0
 ; END OF FUNCTION CHUNK FOR CWinThread::~CWinThread(void)
 ; ---------------------------------------------------------------------------
-                align 10h
-; START OF FUNCTION CHUNK FOR ??0VisLogoWnd@@QAE@HHHHH@Z
-
-unknown_libname_993:                    ; DATA XREF: .rdata:stru_61FDC0↓o
-; __unwind { // SEH_4CD4D0              ; MFC 3.1-14.0 32bit
-;   cleanup() // owned by 4CD50A
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisScreen@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4CD4D0:                             ; DATA XREF: ??0VisLogoWnd@@QAE@HHHHH@Z+5↑o
-                mov     eax, offset stru_61FDA0
-                jmp     ___CxxFrameHandler
-; } // starts at 5FEAC0
-; END OF FUNCTION CHUNK FOR ??0VisLogoWnd@@QAE@HHHHH@Z
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4CD53C
 
 loc_5FEAD3:                             ; DATA XREF: .rdata:stru_61FDE8↓o
@@ -224995,119 +222838,6 @@ SEH_4D835F:                             ; DATA XREF: sub_4D835F+5↑o
 ; } // starts at 5FF2AC
 ; END OF FUNCTION CHUNK FOR sub_4D835F
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisLabel@@QAE@HHHHHPBDPAVCGameFont@@PAGI@Z
-
-loc_5FF2BF:                             ; DATA XREF: .rdata:stru_620538↓o
-; __unwind { // SEH_4D83B6
-;   cleanup() // owned by 4D83F0
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF2C8:                             ; DATA XREF: .rdata:00620540↓o
-;   cleanup() // owned by 4D8402
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 5Ch ; '\'  ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4D83B6:                             ; DATA XREF: ??0VisLabel@@QAE@HHHHHPBDPAVCGameFont@@PAGI@Z+5↑o
-                mov     eax, offset stru_620518
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF2BF
-; END OF FUNCTION CHUNK FOR ??0VisLabel@@QAE@HHHHHPBDPAVCGameFont@@PAGI@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisLabel@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGI@Z
-
-loc_5FF2DE:                             ; DATA XREF: .rdata:stru_620568↓o
-; __unwind { // SEH_4D8453
-;   cleanup() // owned by 4D8481
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF2E7:                             ; DATA XREF: .rdata:00620570↓o
-;   cleanup() // owned by 4D8493
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 5Ch ; '\'  ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4D8453:                             ; DATA XREF: ??0VisLabel@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGI@Z+5↑o
-                mov     eax, offset stru_620548
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF2DE
-; END OF FUNCTION CHUNK FOR ??0VisLabel@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGI@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisMultiText@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGH@Z
-
-loc_5FF2FD:                             ; DATA XREF: .rdata:stru_620598↓o
-; __unwind { // SEH_4D8629
-;   cleanup() // owned by 4D8663
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisListBox@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF306:                             ; DATA XREF: .rdata:006205A0↓o
-;   cleanup() // owned by 4D867C
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 94h        ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4D8629:                             ; DATA XREF: ??0VisMultiText@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGH@Z+5↑o
-                mov     eax, offset stru_620578
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF2FD
-; END OF FUNCTION CHUNK FOR ??0VisMultiText@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGH@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisMultiText@@QAE@HHHHHPBDPAVCGameFont@@PAGH@Z
-
-loc_5FF31F:                             ; DATA XREF: .rdata:stru_6205C8↓o
-; __unwind { // SEH_4D86FB
-;   cleanup() // owned by 4D8744
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisListBox@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF328:                             ; DATA XREF: .rdata:006205D0↓o
-;   cleanup() // owned by 4D875D
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 94h        ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4D86FB:                             ; DATA XREF: ??0VisMultiText@@QAE@HHHHHPBDPAVCGameFont@@PAGH@Z+5↑o
-                mov     eax, offset stru_6205A8
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF31F
-; END OF FUNCTION CHUNK FOR ??0VisMultiText@@QAE@HHHHHPBDPAVCGameFont@@PAGH@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?SizesCheck@VisMultiText@@QAEXXZ
-
-loc_5FF341:                             ; DATA XREF: .rdata:stru_6205F8↓o
-; __unwind { // SEH_4D8A3B
-;   cleanup() // owned by 4D8AE7
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4D8A3B:                             ; DATA XREF: ?SizesCheck@VisMultiText@@QAEXXZ+5↑o
-                mov     eax, offset stru_6205D8
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF341
-; END OF FUNCTION CHUNK FOR ?SizesCheck@VisMultiText@@QAEXXZ
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4D8C79
 
 loc_5FF355:                             ; DATA XREF: .rdata:stru_620620↓o
@@ -225124,54 +222854,6 @@ SEH_4D8C79:                             ; DATA XREF: sub_4D8C79+5↑o
 ; } // starts at 5FF355
 ; END OF FUNCTION CHUNK FOR sub_4D8C79
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisButton@@QAE@HHHHHPBDPAVCGameFont@@PAGHH0@Z
-
-loc_5FF368:                             ; DATA XREF: .rdata:stru_620648↓o
-; __unwind { // SEH_4D8CD0
-;   cleanup() // owned by 4D8D0E
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF371:                             ; DATA XREF: .rdata:00620650↓o
-;   cleanup() // owned by 4D8D20
-                mov     ecx, dword ptr [ebp+var_18]
-                add     ecx, 5Ch ; '\'  ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4D8CD0:                             ; DATA XREF: ??0VisButton@@QAE@HHHHHPBDPAVCGameFont@@PAGHH0@Z+5↑o
-                mov     eax, offset stru_620628
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF368
-; END OF FUNCTION CHUNK FOR ??0VisButton@@QAE@HHHHHPBDPAVCGameFont@@PAGHH0@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisButton@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z
-
-loc_5FF387:                             ; DATA XREF: .rdata:stru_620678↓o
-; __unwind { // SEH_4D8E2D
-;   cleanup() // owned by 4D8E5F
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF390:                             ; DATA XREF: .rdata:00620680↓o
-;   cleanup() // owned by 4D8E71
-                mov     ecx, dword ptr [ebp+var_18]
-                add     ecx, 5Ch ; '\'  ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4D8E2D:                             ; DATA XREF: ??0VisButton@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z+5↑o
-                mov     eax, offset stru_620658
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF387
-; END OF FUNCTION CHUNK FOR ??0VisButton@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4D983A
 
 loc_5FF3A6:                             ; DATA XREF: .rdata:stru_6206A8↓o
@@ -225187,93 +222869,6 @@ SEH_4D983A:                             ; DATA XREF: sub_4D983A+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FF3A6
 ; END OF FUNCTION CHUNK FOR sub_4D983A
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisTextBox@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z
-
-loc_5FF3B9:                             ; DATA XREF: .rdata:stru_6206D0↓o
-; __unwind { // SEH_4D9891
-;   cleanup() // owned by 4D98CD
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF3C2:                             ; DATA XREF: .rdata:006206D8↓o
-;   cleanup() // owned by 4D98DF
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 5Ch ; '\'  ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4D9891:                             ; DATA XREF: ??0VisTextBox@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z+5↑o
-                mov     eax, offset stru_6206B0
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF3B9
-; END OF FUNCTION CHUNK FOR ??0VisTextBox@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z
-
-loc_5FF3D8:                             ; DATA XREF: .rdata:stru_620700↓o
-; __unwind { // SEH_4D995F
-;   cleanup() // owned by 4D998F
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF3E1:                             ; DATA XREF: .rdata:00620708↓o
-;   cleanup() // owned by 4D99A1
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 5Ch ; '\'  ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4D995F:                             ; DATA XREF: ??0VisTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z+5↑o
-                mov     eax, offset stru_6206E0
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF3D8
-; END OF FUNCTION CHUNK FOR ??0VisTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?VMethod7@VisTextBox@@UAEXXZ
-
-loc_5FF3F7:                             ; DATA XREF: .rdata:stru_620730↓o
-; __unwind { // SEH_4D9A21              ; varThis
-                lea     ecx, [ebp+var_20]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF400:                             ; DATA XREF: .rdata:00620738↓o
-                lea     ecx, [ebp+var_24] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF409:                             ; DATA XREF: .rdata:00620740↓o
-;   cleanup() // owned by 4D9CD9        ; varThis
-;   cleanup() // owned by 4D9D22
-;   cleanup() // owned by 4D9D4A
-;   cleanup() // owned by 4D9E52
-;   cleanup() // owned by 4D9EC3
-                lea     ecx, [ebp+var_28]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF412:                             ; DATA XREF: .rdata:00620748↓o
-;   cleanup() // owned by 4D9E9B        ; varThis
-                lea     ecx, [ebp+var_2C]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4D9A21:                             ; DATA XREF: ?VMethod7@VisTextBox@@UAEXXZ+5↑o
-                mov     eax, offset stru_620710
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF3F7
-; END OF FUNCTION CHUNK FOR ?VMethod7@VisTextBox@@UAEXXZ
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4D9EF2
 
@@ -225370,61 +222965,6 @@ SEH_4DA153:                             ; DATA XREF: sub_4DA153+5↑o
 ; } // starts at 5FF481
 ; END OF FUNCTION CHUNK FOR sub_4DA153
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?OnKeyDown@VisTextBox@@UAEHI@Z
-
-loc_5FF494:                             ; DATA XREF: .rdata:stru_620830↓o
-; __unwind { // SEH_4DA3ED              ; varThis
-                lea     ecx, [ebp+var_14]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF49D:                             ; DATA XREF: .rdata:00620838↓o
-                lea     ecx, [ebp+var_18] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF4A6:                             ; DATA XREF: .rdata:00620840↓o
-                lea     ecx, [ebp+var_1C] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF4AF:                             ; DATA XREF: .rdata:00620848↓o
-;   cleanup() // owned by 4DA75F        ; varThis
-;   cleanup() // owned by 4DA789
-;   cleanup() // owned by 4DA7A3
-;   cleanup() // owned by 4DA7B6
-;   cleanup() // owned by 4DA7C2
-;   cleanup() // owned by 4DA85D
-;   cleanup() // owned by 4DA8C0
-                lea     ecx, [ebp+var_20]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF4B8:                             ; DATA XREF: .rdata:00620850↓o
-;   cleanup() // owned by 4DA887        ; varThis
-;   cleanup() // owned by 4DA8B4
-                lea     ecx, [ebp+var_24]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF4C1:                             ; DATA XREF: .rdata:00620858↓o
-;   cleanup() // owned by 4DA8A1        ; varThis
-                lea     ecx, [ebp+var_28]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4DA3ED:                             ; DATA XREF: ?OnKeyDown@VisTextBox@@UAEHI@Z+5↑o
-                mov     eax, offset stru_620810
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF494
-; END OF FUNCTION CHUNK FOR ?OnKeyDown@VisTextBox@@UAEHI@Z
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4DAAD4
 
 unknown_libname_994:                    ; DATA XREF: .rdata:stru_620880↓o
@@ -225440,22 +222980,6 @@ SEH_4DAAD4:                             ; DATA XREF: sub_4DAAD4+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FF4D4
 ; END OF FUNCTION CHUNK FOR sub_4DAAD4
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisRadioBase@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z
-
-loc_5FF4E7:                             ; DATA XREF: .rdata:stru_6208A8↓o
-; __unwind { // SEH_4DAB2B
-;   cleanup() // owned by 4DAB67
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4DAB2B:                             ; DATA XREF: ??0VisRadioBase@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z+5↑o
-                mov     eax, offset stru_620888
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF4E7
-; END OF FUNCTION CHUNK FOR ??0VisRadioBase@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4DABD7
 
@@ -225489,56 +223013,6 @@ SEH_4DBBBA:                             ; DATA XREF: sub_4DBBBA+5↑o
 ; } // starts at 5FF50D
 ; END OF FUNCTION CHUNK FOR sub_4DBBBA
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisListBox@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z
-
-loc_5FF520:                             ; DATA XREF: .rdata:stru_620920↓o
-; __unwind { // SEH_4DBC11
-;   cleanup() // owned by 4DBC4D
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF529:                             ; DATA XREF: .rdata:00620928↓o
-;   cleanup() // owned by 4DBC5F
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 64h ; 'd'  ; varThis
-                call    ??1CStringArray@@UAE@XZ ; CStringArray::~CStringArray(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4DBC11:                             ; DATA XREF: ??0VisListBox@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z+5↑o
-                mov     eax, offset stru_620900
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF520
-; END OF FUNCTION CHUNK FOR ??0VisListBox@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisListBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z
-
-loc_5FF53F:                             ; DATA XREF: .rdata:stru_620950↓o
-; __unwind { // SEH_4DBD31
-;   cleanup() // owned by 4DBD61
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF548:                             ; DATA XREF: .rdata:00620958↓o
-;   cleanup() // owned by 4DBD73
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 64h ; 'd'  ; varThis
-                call    ??1CStringArray@@UAE@XZ ; CStringArray::~CStringArray(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4DBD31:                             ; DATA XREF: ??0VisListBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z+5↑o
-                mov     eax, offset stru_620930
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF53F
-; END OF FUNCTION CHUNK FOR ??0VisListBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z
-
-
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4DDF7E
 
 unknown_libname_997:                    ; DATA XREF: .rdata:stru_620A88↓o
@@ -225571,69 +223045,6 @@ SEH_4DF2C3:                             ; DATA XREF: sub_4DF2C3+5↑o
 ; } // starts at 5FF621
 ; END OF FUNCTION CHUNK FOR sub_4DF2C3
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisScreen@@QAE@HABUtagRECT@@PAVCGameBitmap@@@Z
-
-loc_5FF634:                             ; DATA XREF: .rdata:stru_620AD8↓o
-; __unwind { // SEH_4DF4FA
-;   cleanup() // owned by 4DF528
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4DF4FA:                             ; DATA XREF: ??0VisScreen@@QAE@HABUtagRECT@@PAVCGameBitmap@@@Z+5↑o
-                mov     eax, offset stru_620AB8
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF634
-; END OF FUNCTION CHUNK FOR ??0VisScreen@@QAE@HABUtagRECT@@PAVCGameBitmap@@@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisScreen@@QAE@HHHHHPAVCGameBitmap@@@Z
-
-loc_5FF647:                             ; DATA XREF: .rdata:stru_620B00↓o
-; __unwind { // SEH_4DF56D
-;   cleanup() // owned by 4DF5A7
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4DF56D:                             ; DATA XREF: ??0VisScreen@@QAE@HHHHHPAVCGameBitmap@@@Z+5↑o
-                mov     eax, offset stru_620AE0
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF647
-; END OF FUNCTION CHUNK FOR ??0VisScreen@@QAE@HHHHHPAVCGameBitmap@@@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??1VisScreen@@UAE@XZ
-
-loc_5FF65A:                             ; DATA XREF: .rdata:stru_620B28↓o
-; __unwind { // SEH_4DF5EC
-;   cleanup() // owned by 4DF611
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4DF5EC:                             ; DATA XREF: ??1VisScreen@@UAE@XZ+5↑o
-                mov     eax, offset stru_620B08
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF65A
-; END OF FUNCTION CHUNK FOR ??1VisScreen@@UAE@XZ
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisWindow@@QAE@HHHHHPAVCGameBitmap@@@Z
-
-loc_5FF66D:                             ; DATA XREF: .rdata:stru_620B50↓o
-; __unwind { // SEH_4DFDAB
-;   cleanup() // owned by 4DFDE7
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisScreen@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4DFDAB:                             ; DATA XREF: ??0VisWindow@@QAE@HHHHHPAVCGameBitmap@@@Z+5↑o
-                mov     eax, offset stru_620B30
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF66D
-; END OF FUNCTION CHUNK FOR ??0VisWindow@@QAE@HHHHHPAVCGameBitmap@@@Z
 ; START OF FUNCTION CHUNK FOR sub_4E13DB
 
 unknown_libname_998:                    ; DATA XREF: .rdata:stru_620CF0↓o
@@ -225849,64 +223260,6 @@ SEH_4E1A47:                             ; DATA XREF: sub_4E1A47+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FF8BA
 ; END OF FUNCTION CHUNK FOR sub_4E1A47
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisComboBox@@QAE@HVCRect@@PBD@Z
-
-loc_5FF8DF:                             ; DATA XREF: .rdata:stru_620E70↓o
-; __unwind { // SEH_4E1E10
-;   cleanup() // owned by 4E1E51
-;   cleanup() // owned by 4E1EB1
-;   cleanup() // owned by 4E1F3D
-;   cleanup() // owned by 4E1FD1
-                mov     ecx, dword ptr [ebp+var_28]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF8E8:                             ; DATA XREF: .rdata:00620E78↓o
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF8F2:                             ; DATA XREF: .rdata:00620E80↓o
-                mov     eax, dword ptr [ebp+var_18]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF8FC:                             ; DATA XREF: .rdata:00620E88↓o
-;   cleanup() // owned by 4E1E6B
-;   cleanup() // owned by 4E1EEF
-;   cleanup() // owned by 4E1F7B
-                mov     eax, dword ptr [ebp+var_20]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4E1E10:                             ; DATA XREF: ??0VisComboBox@@QAE@HVCRect@@PBD@Z+5↑o
-                mov     eax, offset stru_620E50
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF8DF
-; END OF FUNCTION CHUNK FOR ??0VisComboBox@@QAE@HVCRect@@PBD@Z
-; START OF FUNCTION CHUNK FOR ??1VisLabel@@UAE@XZ
-
-loc_5FFA00:                             ; DATA XREF: .rdata:stru_621030↓o
-; __unwind { // SEH_4E3BA0
-;   cleanup() // owned by 4E3BBC
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4E3BA0:                             ; DATA XREF: ??1VisLabel@@UAE@XZ+5↑o
-                mov     eax, offset stru_621010
-                jmp     ___CxxFrameHandler
-; } // starts at 5FFA00
-; END OF FUNCTION CHUNK FOR ??1VisLabel@@UAE@XZ
 ; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR sub_4E3C20
@@ -249364,30 +246717,6 @@ stru_619B68     UnwindMapEntry <-1, offset loc_5F920C>
                 UnwindMapEntry <-1, offset loc_5F9314>
                 UnwindMapEntry <-1, offset loc_5F9321>
                 UnwindMapEntry <-1, offset loc_5F932E>
-stru_619C28     FuncInfoV1 <19930520h, 16, offset stru_619C48, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_619C48     UnwindMapEntry <-1, offset loc_5F9345>
-                UnwindMapEntry <-1, offset loc_5F9352>
-                UnwindMapEntry <-1, offset loc_5F935F>
-                UnwindMapEntry <-1, offset loc_5F936C>
-                UnwindMapEntry <-1, offset loc_5F9379>
-                UnwindMapEntry <-1, offset loc_5F9386>
-                UnwindMapEntry <-1, offset loc_5F9393>
-                UnwindMapEntry <-1, offset loc_5F93A0>
-                UnwindMapEntry <-1, offset loc_5F93AD>
-                UnwindMapEntry <-1, offset loc_5F93BA>
-                UnwindMapEntry <-1, offset loc_5F93C7>
-                UnwindMapEntry <-1, offset loc_5F93D4>
-                UnwindMapEntry <-1, offset loc_5F93E1>
-                UnwindMapEntry <-1, offset loc_5F93EE>
-                UnwindMapEntry <-1, offset loc_5F93FB>
-                UnwindMapEntry <-1, offset loc_5F9408>
-stru_619CC8     FuncInfoV1 <19930520h, 1, offset stru_619CE8, 0, 0, 0, 0>
-                align 8
-stru_619CE8     UnwindMapEntry <-1, offset unknown_libname_973>
 stru_619CF0     FuncInfoV1 <19930520h, 9, offset stru_619D10, 0, 0, 0, 0>
                 align 10h
 stru_619D10     UnwindMapEntry <-1, offset loc_5F9433>
@@ -249427,24 +246756,6 @@ stru_61A5F0     FuncInfoV1 <19930520h, 2, offset stru_61A610, 0, 0, 0, 0>
                 db    0
 stru_61A610     UnwindMapEntry <-1, offset loc_5F9BA0>
                 UnwindMapEntry <0, offset loc_5F9BA9>
-stru_61A748     FuncInfoV1 <19930520h, 1, offset stru_61A768, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61A768     UnwindMapEntry <-1, offset loc_5F9CA0>
-stru_61A770     FuncInfoV1 <19930520h, 1, offset stru_61A790, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61A790     UnwindMapEntry <-1, offset loc_5F9CC0>
-stru_61A798     FuncInfoV1 <19930520h, 1, offset stru_61A7B8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61A7B8     UnwindMapEntry <-1, offset loc_5F9CE0>
 stru_61A7C0     FuncInfoV1 <19930520h, 1, offset stru_61A7E0, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -249469,13 +246780,6 @@ stru_61A838     FuncInfoV1 <19930520h, 1, offset stru_61A858, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_61A858     UnwindMapEntry <-1, offset loc_5F9D60>
-stru_61A860     FuncInfoV1 <19930520h, 1, offset stru_61A880, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61A880     UnwindMapEntry <-1, offset loc_5F9D80>
-
 stru_61A8B0     FuncInfoV1 <19930520h, 1, offset stru_61A8D0, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -250619,12 +247923,6 @@ stru_61FD78     FuncInfoV1 <19930520h, 1, offset stru_61FD98, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_61FD98     UnwindMapEntry <-1, offset loc_5FEAA0>
-stru_61FDA0     FuncInfoV1 <19930520h, 1, offset stru_61FDC0, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61FDC0     UnwindMapEntry <-1, offset unknown_libname_993>
 stru_61FDC8     FuncInfoV1 <19930520h, 1, offset stru_61FDE8, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -250646,86 +247944,18 @@ stru_6204F0     FuncInfoV1 <19930520h, 1, offset stru_620510, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_620510     UnwindMapEntry <-1, offset loc_5FF2AC>
-stru_620518     FuncInfoV1 <19930520h, 2, offset stru_620538, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_620538     UnwindMapEntry <-1, offset loc_5FF2BF>
-                UnwindMapEntry <0, offset loc_5FF2C8>
-stru_620548     FuncInfoV1 <19930520h, 2, offset stru_620568, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_620568     UnwindMapEntry <-1, offset loc_5FF2DE>
-                UnwindMapEntry <0, offset loc_5FF2E7>
-stru_620578     FuncInfoV1 <19930520h, 2, offset stru_620598, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_620598     UnwindMapEntry <-1, offset loc_5FF2FD>
-                UnwindMapEntry <0, offset loc_5FF306>
-stru_6205A8     FuncInfoV1 <19930520h, 2, offset stru_6205C8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_6205C8     UnwindMapEntry <-1, offset loc_5FF31F>
-                UnwindMapEntry <0, offset loc_5FF328>
-stru_6205D8     FuncInfoV1 <19930520h, 1, offset stru_6205F8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_6205F8     UnwindMapEntry <-1, offset loc_5FF341>
 stru_620600     FuncInfoV1 <19930520h, 1, offset stru_620620, 0, 0, 0, 0>
                 db    0
                 db    0
                 db    0
                 db    0
 stru_620620     UnwindMapEntry <-1, offset loc_5FF355>
-stru_620628     FuncInfoV1 <19930520h, 2, offset stru_620648, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_620648     UnwindMapEntry <-1, offset loc_5FF368>
-                UnwindMapEntry <0, offset loc_5FF371>
-stru_620658     FuncInfoV1 <19930520h, 2, offset stru_620678, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_620678     UnwindMapEntry <-1, offset loc_5FF387>
-                UnwindMapEntry <0, offset loc_5FF390>
 stru_620688     FuncInfoV1 <19930520h, 1, offset stru_6206A8, 0, 0, 0, 0>
                 db    0
                 db    0
                 db    0
                 db    0
 stru_6206A8     UnwindMapEntry <-1, offset loc_5FF3A6>
-stru_6206B0     FuncInfoV1 <19930520h, 2, offset stru_6206D0, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_6206D0     UnwindMapEntry <-1, offset loc_5FF3B9>
-                UnwindMapEntry <0, offset loc_5FF3C2>
-stru_6206E0     FuncInfoV1 <19930520h, 2, offset stru_620700, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_620700     UnwindMapEntry <-1, offset loc_5FF3D8>
-                UnwindMapEntry <0, offset loc_5FF3E1>
-stru_620710     FuncInfoV1 <19930520h, 4, offset stru_620730, 0, 0, 0, 0>
-                align 10h
-stru_620730     UnwindMapEntry <-1, offset loc_5FF3F7>
-                UnwindMapEntry <0, offset loc_5FF400>
-                UnwindMapEntry <-1, offset loc_5FF409>
-                UnwindMapEntry <2, offset loc_5FF412>
 stru_620750     FuncInfoV1 <19930520h, 8, offset stru_620770, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -250753,29 +247983,12 @@ stru_6207E8     FuncInfoV1 <19930520h, 1, offset stru_620808, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_620808     UnwindMapEntry <-1, offset loc_5FF481>
-stru_620810     FuncInfoV1 <19930520h, 6, offset stru_620830, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_620830     UnwindMapEntry <-1, offset loc_5FF494>
-                UnwindMapEntry <0, offset loc_5FF49D>
-                UnwindMapEntry <1, offset loc_5FF4A6>
-                UnwindMapEntry <-1, offset loc_5FF4AF>
-                UnwindMapEntry <3, offset loc_5FF4B8>
-                UnwindMapEntry <4, offset loc_5FF4C1>
 stru_620860     FuncInfoV1 <19930520h, 1, offset stru_620880, 0, 0, 0, 0>
                 db    0
                 db    0
                 db    0
                 db    0
 stru_620880     UnwindMapEntry <-1, offset unknown_libname_994>
-stru_620888     FuncInfoV1 <19930520h, 1, offset stru_6208A8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_6208A8     UnwindMapEntry <-1, offset loc_5FF4E7>
 stru_6208B0     FuncInfoV1 <19930520h, 1, offset stru_6208D0, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -250788,20 +248001,6 @@ stru_6208D8     FuncInfoV1 <19930520h, 1, offset stru_6208F8, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_6208F8     UnwindMapEntry <-1, offset loc_5FF50D>
-stru_620900     FuncInfoV1 <19930520h, 2, offset stru_620920, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_620920     UnwindMapEntry <-1, offset loc_5FF520>
-                UnwindMapEntry <0, offset loc_5FF529>
-stru_620930     FuncInfoV1 <19930520h, 2, offset stru_620950, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_620950     UnwindMapEntry <-1, offset loc_5FF53F>
-                UnwindMapEntry <0, offset loc_5FF548>
 
 
 stru_620A68     FuncInfoV1 <19930520h, 1, offset stru_620A88, 0, 0, 0, 0>
@@ -250816,30 +248015,6 @@ stru_620A90     FuncInfoV1 <19930520h, 1, offset stru_620AB0, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_620AB0     UnwindMapEntry <-1, offset loc_5FF621>
-stru_620AB8     FuncInfoV1 <19930520h, 1, offset stru_620AD8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_620AD8     UnwindMapEntry <-1, offset loc_5FF634>
-stru_620AE0     FuncInfoV1 <19930520h, 1, offset stru_620B00, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_620B00     UnwindMapEntry <-1, offset loc_5FF647>
-stru_620B08     FuncInfoV1 <19930520h, 1, offset stru_620B28, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_620B28     UnwindMapEntry <-1, offset loc_5FF65A>
-stru_620B30     FuncInfoV1 <19930520h, 1, offset stru_620B50, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_620B50     UnwindMapEntry <-1, offset loc_5FF66D>
 stru_620CD0     FuncInfoV1 <19930520h, 2, offset stru_620CF0, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -250895,22 +248070,6 @@ stru_620E18     FuncInfoV1 <19930520h, 3, offset stru_620E38, 0, 0, 0, 0>
 stru_620E38     UnwindMapEntry <-1, offset loc_5FF8BA>
                 UnwindMapEntry <0, offset loc_5FF8C3>
                 UnwindMapEntry <1, offset loc_5FF8CC>
-stru_620E50     FuncInfoV1 <19930520h, 4, offset stru_620E70, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_620E70     UnwindMapEntry <-1, offset loc_5FF8DF>
-                UnwindMapEntry <0, offset loc_5FF8E8>
-                UnwindMapEntry <0, offset loc_5FF8F2>
-                UnwindMapEntry <0, offset loc_5FF8FC>
-                db    0
-stru_621010     FuncInfoV1 <19930520h, 1, offset stru_621030, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_621030     UnwindMapEntry <-1, offset loc_5FFA00>
 stru_621038     FuncInfoV1 <19930520h, 1, offset stru_621058, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -255282,10 +252441,6 @@ aTurnDDPlayersO db 'Turn %d. %d players online',0
                 db    0
                 db    0
                 db    0
-; char asc_62E4F4[2]
-asc_62E4F4      db '_',0                ; DATA XREF: ?FUN_0043ae1c@Vis1200obj@@QAEXE@Z+4D↑o
-                db    0
-                db    0
 aCplayer_0      db 'CPlayer',0          ; DATA XREF: .rdata:off_609B58↑o
 ; CHAR aCplayer[]
 aCplayer        db 'CPlayer',0          ; DATA XREF: sub_43C225+7↑o
@@ -255456,24 +252611,6 @@ aGame0LdSav     db 'game0%ld.sav',0     ; DATA XREF: sub_43FB2C+775↑o
 ; char aGameLdSav[]
 aGameLdSav      db 'game%ld.sav',0      ; DATA XREF: sub_43FB2C+78F↑o
 
-
-; CHAR aUsingVxd[]
-aUsingVxd       db 'Using VxD',0        ; DATA XREF: ?LoadSettings@MainWindow@@QAEXXZ +E2↑o
-                align 10h
-; CHAR aUsingVxd_0[]
-aUsingVxd_0     db 'Using VxD',0        ; DATA XREF: ?SaveSettings@@YAXXZ+AC↑o
-                align 4
-; char a0[]
-a0              db '0',0                ; DATA XREF: ?VMethod28@VisDropGold@@UAEXXZ+9↑o
-                align 10h
-; char asc_62E810[]
-asc_62E810      db '%f',0               ; DATA XREF: ?DoClose@VisDropGold@@UAEXI@Z+44↑o
-                align 4
-                align 10h
-                align 4
-                align 10h
-
-                align 10h
 aEmptyBitmapFil db 'Empty bitmap file',0 ; DATA XREF: .text:0045296F↑o
                 align 4
 aInvalidBitmapF db 'Invalid bitmap file',0 ; DATA XREF: .text:004529A5↑o
@@ -256776,20 +253913,6 @@ aGraphicsInterf_161 db 'graphics\interface\Inn\button3off.bmp',0
 ; char aGraphicsInterf_162[]
 aGraphicsInterf_162 db 'graphics\interface\Inn\ButtonsArea.bmp',0
                 align 4
-; char aD_31[]
-aD_31           db '%d',0               ; DATA XREF: ?FUN_0049bc23@VisTavScene@@QAEXXZ+540↑o
-                align 4
-; char aD_32[]
-aD_32           db '%d',0               ; DATA XREF: ?FUN_0049bc23@VisTavScene@@QAEXXZ+610↑o
-                align 4
-; CHAR a16a_2[]
-a16a_2          db '.16a',0             ; DATA XREF: ?FUN_0049bc23@VisTavScene@@QAEXXZ+724↑o
-                align 4
-; CHAR aGraphicsInvent_0[]
-aGraphicsInvent_0 db 'graphics\inventory\',0
-; char aD_33[]
-aD_33           db '%d',0               ; DATA XREF: ?FUN_0049bc23@VisTavScene@@QAEXXZ+95C↑o
-                align 4
                 db    1
                 db    0
                 db    0
@@ -257429,137 +254552,6 @@ aGraphicsInterf_309 db 'graphics\interface\logo\splash4.bmp',0
                 db    0
                 db    0
                 db    0
-
-; char asc_6356B0[]
-asc_6356B0      db ' ',0                ; DATA XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+29A↑o
-                align 4
-; char asc_6356B4[]
-asc_6356B4      db ' ',0                ; DATA XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+32F↑o
-                align 4
-; char asc_6356B8[]
-asc_6356B8      db ' ',0                ; DATA XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+3C7↑o
-                align 4
-; char asc_6356BC[]
-asc_6356BC      db ' ',0                ; DATA XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+46B↑o
-                align 10h
-; char aTalk[]
-aTalk           db 'talk',0             ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ:loc_4E033B↑o
-                align 4
-; char aTalk_0[]
-aTalk_0         db 'talk',0             ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+1FB↑o
-                align 10h
-; CHAR a0_0[]
-a0_0            db '0',0                ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+239↑o
-                align 4
-; char aTalk04dCSp02d[]
-aTalk04dCSp02d  db 'talk\%04d%c%sp%02d',0 ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+296↑o
-                align 4
-; char aAbout[]
-aAbout          db 'about',0            ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ:loc_4E0421↑o
-                align 10h
-; char aAbout04dt000p0[]
-aAbout04dt000p0 db 'about\%04dt000p%02d',0 ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+2DD↑o
-; char aAccept[]
-aAccept         db 'accept',0           ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ:loc_4E045C↑o
-                align 4
-; char aAccept_0[]
-aAccept_0       db 'accept',0           ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+31C↑o
-                align 4
-; CHAR a0_1[]
-a0_1            db '0',0                ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+35A↑o
-                align 4
-; char aAccept04dCSp02[]
-aAccept04dCSp02 db 'accept\%04d%c%sp%02d',0
-                align 10h
-; char aReject[]
-aReject         db 'reject',0           ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ:loc_4E0542↑o
-                align 4
-; char aReject_0[]
-aReject_0       db 'reject',0           ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+402↑o
-                align 10h
-; CHAR a0_2[]
-a0_2            db '0',0                ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+440↑o
-                align 4
-; char aReject04dCSp02[]
-aReject04dCSp02 db 'reject\%04d%c%sp%02d',0
-                align 4
-; char aKeeper[]
-aKeeper         db 'keeper',0           ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ:loc_4E0628↑o
-                align 4
-; char off_635764[]
-off_635764      dd offset unk_6E616D    ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+4D6↑o
-; char aGuard[]
-aGuard          db 'guard',0            ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+4ED↑o
-                align 10h
-; CHAR a0_3[]
-a0_3            db '0',0                ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+582↑o
-                align 4
-; char aTown04dCSp02d[]
-aTown04dCSp02d  db 'town\%04d%c%sp%02d',0 ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+5DF↑o
-                align 4
-; CHAR aWav_0[]
-aWav_0          db '.wav',0             ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+624↑o
-                align 10h
-; CHAR aSpeech[]
-aSpeech         db 'speech\',0          ; DATA XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+62D↑o
-; char aS_1[]
-aS_1            db '#%s',0              ; DATA XREF: ?LoadText@VisRoleKeyScreen@@QAEXXZ+34↑o
-aNpc_1          db 'npc',0
-; char aPartD[]
-aPartD          db 'part=%d',0          ; DATA XREF: ?FUN_004e0b43@VisRoleKeyScreen@@QAE_NHPAHPAVCString@@PAPAD20@Z+E0↑o
-; char aNpc[]
-aNpc            db 'npc=',0             ; DATA XREF: ?FUN_004e0b43@VisRoleKeyScreen@@QAE_NHPAHPAVCString@@PAPAD20@Z:loc_4E0C6A↑o
-                align 10h
-; char aD_48[]
-aD_48           db '%d',0               ; DATA XREF: ?FUN_004e0b43@VisRoleKeyScreen@@QAE_NHPAHPAVCString@@PAPAD20@Z+18D↑o
-                align 4
-; char aIamfemale[]
-aIamfemale      db 'iamfemale',0        ; DATA XREF: ?FUN_004e0b43@VisRoleKeyScreen@@QAE_NHPAHPAVCString@@PAPAD20@Z:loc_4E0CF1↑o
-                align 10h
-; char aIammale[]
-aIammale        db 'iammale',0          ; DATA XREF: ?FUN_004e0b43@VisRoleKeyScreen@@QAE_NHPAHPAVCString@@PAPAD20@Z+1BF↑o
-; char aIammage[]
-aIammage        db 'iammage',0          ; DATA XREF: ?FUN_004e0b43@VisRoleKeyScreen@@QAE_NHPAHPAVCString@@PAPAD20@Z+1D0↑o
-; char aIamfighter[]
-aIamfighter     db 'iamfighter',0       ; DATA XREF: ?FUN_004e0b43@VisRoleKeyScreen@@QAE_NHPAHPAVCString@@PAPAD20@Z+1E1↑o
-                align 4
-; char aIamfemale_0[]
-aIamfemale_0    db 'iamfemale',0        ; DATA XREF: ?FUN_004e0b43@VisRoleKeyScreen@@QAE_NHPAHPAVCString@@PAPAD20@Z+20E↑o
-                align 4
-; char aIammale_0[]
-aIammale_0      db 'iammale',0          ; DATA XREF: ?FUN_004e0b43@VisRoleKeyScreen@@QAE_NHPAHPAVCString@@PAPAD20@Z:loc_4E0D9E↑o
-; char aIammage_0[]
-aIammage_0      db 'iammage',0          ; DATA XREF: ?FUN_004e0b43@VisRoleKeyScreen@@QAE_NHPAHPAVCString@@PAPAD20@Z:loc_4E0DEB↑o
-; char aIamfighter_0[]
-aIamfighter_0   db 'iamfighter',0       ; DATA XREF: ?FUN_004e0b43@VisRoleKeyScreen@@QAE_NHPAHPAVCString@@PAPAD20@Z:loc_4E0E38↑o
-                align 4
-; char aNpcalive[]
-aNpcalive       db 'npcalive=',0        ; DATA XREF: ?FUN_004e0b43@VisRoleKeyScreen@@QAE_NHPAHPAVCString@@PAPAD20@Z:loc_4E0E8C↑o
-                align 10h
-; char aD_49[]
-aD_49           db '%d',0               ; DATA XREF: ?FUN_004e0b43@VisRoleKeyScreen@@QAE_NHPAHPAVCString@@PAPAD20@Z+3E4↑o
-                align 4
-; char aNpcdead[]
-aNpcdead        db 'npcdead=',0         ; DATA XREF: ?FUN_004e0b43@VisRoleKeyScreen@@QAE_NHPAHPAVCString@@PAPAD20@Z:loc_4E0F8C↑o
-                align 10h
-; char aD_50[]
-aD_50           db '%d',0               ; DATA XREF: ?FUN_004e0b43@VisRoleKeyScreen@@QAE_NHPAHPAVCString@@PAPAD20@Z+4F0↑o
-                align 4
-; char aSound_1[]
-aSound_1        db 'sound=',0           ; DATA XREF: ?FUN_004e0b43@VisRoleKeyScreen@@QAE_NHPAHPAVCString@@PAPAD20@Z:loc_4E1091↑o
-                align 4
-; char aTune[]
-aTune           db 'tune=',0            ; DATA XREF: ?FUN_004e0b43@VisRoleKeyScreen@@QAE_NHPAHPAVCString@@PAPAD20@Z:loc_4E11F4↑o
-                align 4
-; char aD_51[]
-aD_51           db '%d',0               ; DATA XREF: ?FUN_004e0b43@VisRoleKeyScreen@@QAE_NHPAHPAVCString@@PAPAD20@Z+71C↑o
-                align 4
-; char aTips[]
-aTips           db 'tips=',0            ; DATA XREF: ?FUN_004e0b43@VisRoleKeyScreen@@QAE_NHPAHPAVCString@@PAPAD20@Z:loc_4E1275↑o
-                align 10h
-; char aD_52[]
-aD_52           db '%d',0               ; DATA XREF: ?FUN_004e0b43@VisRoleKeyScreen@@QAE_NHPAHPAVCString@@PAPAD20@Z+797↑o
-                align 4
 ; char aBriefing[]
 aBriefing       db '#briefing',0        ; DATA XREF: sub_4E13DB+23↑o
                 align 10h
@@ -260632,32 +257624,6 @@ byte_6599C0     db 4 dup(?)             ; DATA XREF: ??0ExitGameMenu@@QAE@HHHHHA
 byte_6599C4     db 4 dup(?)             ; DATA XREF: sub_442646+1540↑o
 ; CHAR byte_6599C8[4]
 byte_6599C8     db 4 dup(?)             ; DATA XREF: sub_442646+15DC↑o
-; CHAR byte_6599CC[4]
-byte_6599CC     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMessageBox@@UAEXXZ+5E8↑o
-; CHAR byte_6599D0[4]
-byte_6599D0     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMessageBox@@UAEXXZ+695↑o
-; CHAR byte_6599D4[4]
-byte_6599D4     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMessageBox@@UAEXXZ+73C↑o
-; CHAR byte_6599D8[4]
-byte_6599D8     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMessageBox@@UAEXXZ+7F6↑o
-; CHAR byte_6599DC[4]
-byte_6599DC     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMessageBox@@UAEXXZ+888↑o
-; CHAR byte_6599E0[4]
-byte_6599E0     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMessageBox@@UAEXXZ+930↑o
-; CHAR byte_6599E4[4]
-byte_6599E4     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMessageBox@@UAEXXZ+A0B↑o
-; CHAR byte_6599E8[4]
-byte_6599E8     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMessageBox@@UAEXXZ+AB5↑o
-; CHAR byte_6599EC[4]
-byte_6599EC     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMessageBox@@UAEXXZ+B4A↑o
-; CHAR byte_6599F0[4]
-byte_6599F0     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMessageBox@@UAEXXZ+C26↑o
-; CHAR byte_6599F4[4]
-byte_6599F4     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMessageBox@@UAEXXZ+CCF↑o
-; CHAR byte_6599F8[4]
-byte_6599F8     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMessageBox@@UAEXXZ+D8A↑o
-; CHAR byte_6599FC[4]
-byte_6599FC     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMessageBox@@UAEXXZ+E31↑o
 ; CHAR byte_659A00[4]
 byte_659A00     db 4 dup(?)             ; DATA XREF: sub_4451E1+575↑o
 unk_659A20      db 4h dup(?)
@@ -260763,8 +257729,6 @@ byte_665D2C     db 4 dup(?)             ; DATA XREF: ??0ServerControlDialog@@QAE
 byte_665D30     db 4 dup(?)             ; DATA XREF: ??0ServerControlDialog@@QAE@PAVCWnd@@@Z+110↑o
 ; CHAR byte_665D34[4]
 byte_665D34     db 4 dup(?)             ; DATA XREF: ?sub_49585B@ServerControlDialog@@QAEXXZ+1F9↑o
-dword_665D38    dd ?                    ; DATA XREF: ?VMethod7@VisTavScene@@UAEXXZ+DA↑w
-dword_665D3C    dd ?                    ; DATA XREF: ?VMethod7@VisTavScene@@UAEXXZ+89↑w
 byte_665D40      db    ?
                 db 3 dup(?)
 byte_665D98      db    ?
@@ -260777,17 +257741,10 @@ byte_665DAC      db    ?
                 db 3 dup(?)
 dword_665DB0    dd ?                    ; DATA XREF: sub_4C608E+56↑w
 dword_665DB4    dd ?                    ; DATA XREF: sub_4C608E+30↑w
-dword_665DB8    dd ?                    ; DATA XREF: ?VMethod30@VisShopKaarg@@UAEXXZ+2C↑w
-byte_665DBC      db    ?
-                db 3 dup(?)
 dword_665DC0    dd ?                    ; DATA XREF: sub_4C30B4+56↑w
 dword_665DC8    dd ?                    ; DATA XREF: sub_4C30B4+30↑w
 byte_665DD0      db    ?
                 db 3 dup(?)
-dword_665DD4    dd ?                    ; DATA XREF: ?VMethod30@VisShopDruid@@UAEXXZ+2C↑w
-
-
-
 ; char byte_666588[8]
 byte_666588     db 8 dup(?)             ; DATA XREF: ?LoadGameSounds@@YAXXZ+BF↑o
 unk_66666F      db 321h dup(?)
@@ -260795,17 +257752,9 @@ unk_66666F      db 321h dup(?)
 byte_666990     db 4 dup(?)             ; DATA XREF: sub_4CD5BE+5E↑o
 ; CHAR byte_6669E0[4]
 byte_6669E0     db 4 dup(?)             ; DATA XREF: ??0CVisualObject@@QAE@XZ+A3↑o
-; CHAR byte_6669E4[4]
-byte_6669E4     db 4 dup(?)             ; DATA XREF: ??0VisTextBox@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z+6D↑o
-; CHAR byte_6669E8[4]
-byte_6669E8     db 4 dup(?)             ; DATA XREF: ??0VisTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z+61↑o
-; CHAR byte_6669EC[4]
-byte_6669EC     db 4 dup(?)             ; DATA XREF: ?FUN_004e0b43@VisRoleKeyScreen@@QAE_NHPAHPAVCString@@PAPAD20@Z+564↑o
 ; char byte_6669F0[4]
 byte_6669F0     db 4 dup(?)             ; DATA XREF: sub_4E1B5C+1E↑o
 unk_6669F4      db 4h dup(?)
-; CHAR byte_6669F8[8]
-byte_6669F8     db 8 dup(?)             ; DATA XREF: ??0VisComboBox@@QAE@HVCRect@@PBD@Z+175↑o
 ; char byte_666A18[64346]
 byte_666A18     db 0FB5Ah dup(?)        ; DATA XREF: ?FUN_004e5466@MainWindow@@QAEHABVCString@@@Z+1C1↑o
 unk_676572      db 304A6h dup(?)
