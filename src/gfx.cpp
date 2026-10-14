@@ -3255,6 +3255,28 @@ void __cdecl CopySurface16Rect(uint8_t* src, int32_t sx, int32_t sy, uint8_t* ds
 	}
 }
 
+// 454e40
+void __cdecl FUN_00454e40(int32_t sx, int32_t sy, int32_t w, int32_t h)
+{
+	LockSurface3();
+	uint8_t* src = (uint8_t*)g_selDrawBitmap.lpSurface;
+	int32_t spitch = g_selDrawBitmap.lPitch;
+	LockSurface2();
+	uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface;
+
+	int32_t sx32 = sx << 5;
+	int32_t sy32 = sy << 5;
+
+	CopySurface16Rect(src, sx32, sy32, dst, 0, 0, w - sx32, h - sy32, spitch, g_selDrawBitmap.lPitch);
+	CopySurface16Rect(src, 0, 0, dst, w - sx32, h - sy32, sx32, sy32, spitch, g_selDrawBitmap.lPitch);
+	CopySurface16Rect(src, sx32, 0, dst, 0, h - sy32, w - sx32, sy32, spitch, g_selDrawBitmap.lPitch);
+	CopySurface16Rect(src, 0, sy32, dst, w - sx32, 0, sx32, h - sy32, spitch, g_selDrawBitmap.lPitch);
+
+	UnlockSurface2();
+	g_selDrawBitmap.lpSurface = src;
+	UnlockSurface3();
+}
+
 void __cdecl gfxFlushRect(const CRect& rect)
 { //454c74
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
