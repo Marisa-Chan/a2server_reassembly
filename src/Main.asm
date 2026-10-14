@@ -24145,27 +24145,6 @@ sub_46F410      endp
 
 ; Attributes: bp-based frame
 
-?FUN_0046f760@ProjectileInfo@@QAEPAVCSprite256@@XZ      proc near               ; CODE XREF: ?VMethod6@CProjectile@@UAEXHHH@Z+383↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+38h], 0
-                jnz     short loc_46F778
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?Init@ProjectileInfo@@QAEXXZ
-
-loc_46F778:                             ; CODE XREF: ?FUN_0046f760@ProjectileInfo@@QAEPAVCSprite256@@XZ+E↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [ecx+8]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_0046f760@ProjectileInfo@@QAEPAVCSprite256@@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
