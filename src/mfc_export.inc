@@ -1450,8 +1450,6 @@ extern ?ResetSelected@VisShopButtons@@QAEXXZ : proc
 
 extern ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z : proc  ; called from asm (sub_4C34E6, sub_4C65BA)
 
-;Vis1200obj
-externdef ?FUN_00476236@@YAXPAVCString@@@Z : proc  ; void FUN_00476236(CString*)
 ;VisDropGold
 ;VisStartGame
 extern ??_GVisStartGame@@UAEPAXI@Z : proc

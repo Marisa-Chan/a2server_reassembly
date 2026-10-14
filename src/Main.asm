@@ -27500,162 +27500,6 @@ unknown_libname_539 endp
 
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __cdecl ?FUN_00476236@@YAXPAVCString@@@Z(CString *)
-?FUN_00476236@@YAXPAVCString@@@Z      proc near               ; CODE XREF: ?FUN_0043b724@Vis1200obj@@QAEXXZ+130↑p
-
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-; FUNCTION CHUNK AT 005FAC4E SIZE 00000013 BYTES
-
-; __unwind { // SEH_476236
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_476236
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 0Ch
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax             ; struct CString *
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??0CString@@QAE@ABV0@@Z ; CString::CString(CString const &)
-;   try {
-                mov     [ebp+var_4], 0
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ?MakeLower@CString@@QAEXXZ ; CString::MakeLower(void)
-                mov     ecx, ?g_isDosCP@@3HA
-                mov     [ebp+var_18], ecx
-                cmp     [ebp+var_18], 1
-                jz      short loc_476280
-                jmp     loc_476380
-; ---------------------------------------------------------------------------
-
-loc_476280:                             ; CODE XREF: ?FUN_00476236@@YAXPAVCString@@@Z+43↑j
-                mov     [ebp+var_14], 0
-                jmp     short loc_476292
-; ---------------------------------------------------------------------------
-
-loc_476289:                             ; CODE XREF: ?FUN_00476236@@YAXPAVCString@@@Z:loc_476379↓j
-                mov     edx, dword ptr [ebp+var_14]
-                add     edx, 1
-                mov     [ebp+var_14], edx
-
-loc_476292:                             ; CODE XREF: ?FUN_00476236@@YAXPAVCString@@@Z+51↑j
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    sub_4029A0
-                cmp     [ebp+var_14], eax
-                jge     loc_47637E
-                mov     eax, dword ptr [ebp+var_14]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    sub_4029E0
-                and     eax, 0FFh
-                cmp     eax, 80h
-                jl      short loc_4762F7
-                mov     ecx, dword ptr [ebp+var_14]
-                push    ecx
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    sub_4029E0
-                and     eax, 0FFh
-                cmp     eax, 90h
-                jge     short loc_4762F7
-                mov     edx, dword ptr [ebp+var_14]
-                push    edx
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    sub_4029E0
-                movsx   eax, al
-                add     eax, 20h ; ' '
-                push    eax             ; char
-                mov     ecx, dword ptr [ebp+var_14]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ?SetAt@CString@@QAEXHD@Z ; CString::SetAt(int,char)
-                jmp     loc_476379
-; ---------------------------------------------------------------------------
-
-loc_4762F7:                             ; CODE XREF: ?FUN_00476236@@YAXPAVCString@@@Z+83↑j
-                mov     edx, dword ptr [ebp+var_14]
-                push    edx
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    sub_4029E0
-                and     eax, 0FFh
-                cmp     eax, 90h
-                jl      short loc_476348
-                mov     eax, dword ptr [ebp+var_14]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    sub_4029E0
-                and     eax, 0FFh
-                cmp     eax, 0A0h
-                jge     short loc_476348
-                mov     ecx, dword ptr [ebp+var_14]
-                push    ecx
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    sub_4029E0
-                movsx   edx, al
-                add     edx, 50h ; 'P'
-                push    edx             ; char
-                mov     eax, dword ptr [ebp+var_14]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ?SetAt@CString@@QAEXHD@Z ; CString::SetAt(int,char)
-                jmp     short loc_476379
-; ---------------------------------------------------------------------------
-
-loc_476348:                             ; CODE XREF: ?FUN_00476236@@YAXPAVCString@@@Z+D7↑j
-                mov     ecx, dword ptr [ebp+var_14]
-                push    ecx
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    sub_4029E0
-                and     eax, 0FFh
-                cmp     eax, 80h
-                jge     short loc_476379
-                mov     edx, dword ptr [ebp+var_14]
-                push    edx
-                lea     ecx, [ebp+var_10]
-                call    sub_4029E0
-                push    eax             ; char
-                mov     eax, dword ptr [ebp+var_14]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ?SetAt@CString@@QAEXHD@Z ; CString::SetAt(int,char)
-
-loc_476379:                             ; CODE XREF: ?FUN_00476236@@YAXPAVCString@@@Z+BC↑j
-                jmp     loc_476289
-; ---------------------------------------------------------------------------
-
-loc_47637E:                             ; CODE XREF: ?FUN_00476236@@YAXPAVCString@@@Z+67↑j
-                jmp     short loc_47638C
-; ---------------------------------------------------------------------------
-
-loc_476380:                             ; CODE XREF: ?FUN_00476236@@YAXPAVCString@@@Z+45↑j
-                lea     ecx, [ebp+var_10]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-;   } // starts at 47625D
-
-loc_47638C:                             ; CODE XREF: ?FUN_00476236@@YAXPAVCString@@@Z:loc_47637E↑j
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 476236
-?FUN_00476236@@YAXPAVCString@@@Z      endp
 
 
 
@@ -221455,23 +221299,6 @@ SEH_475CA9:                             ; DATA XREF: ?LoadChunkFile@TxtFile@@QAE
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FABF6
 ; END OF FUNCTION CHUNK FOR ?LoadChunkFile@TxtFile@@QAEXPBD@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?FUN_00476236@@YAXPAVCString@@@Z
-
-loc_5FAC4E:                             ; DATA XREF: .rdata:stru_61BC08↓o
-; __unwind { // SEH_476236              ; varThis
-;   cleanup() // owned by 47625D
-                lea     ecx, [ebp+var_10]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_476236:                             ; DATA XREF: ?FUN_00476236@@YAXPAVCString@@@Z+5↑o
-                mov     eax, offset stru_61BBE8
-                jmp     ___CxxFrameHandler
-; } // starts at 5FAC4E
-; END OF FUNCTION CHUNK FOR ?FUN_00476236@@YAXPAVCString@@@Z
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?FUN_00476987@@YAXPAVCString@@@Z
 
 loc_5FAC61:                             ; DATA XREF: .rdata:stru_61BC30↓o
@@ -250705,12 +250532,6 @@ stru_61BB78     FuncInfoV1 <19930520h, 1, offset stru_61BB98, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_61BB98     UnwindMapEntry <-1, offset loc_5FABF6>
-stru_61BBE8     FuncInfoV1 <19930520h, 1, offset stru_61BC08, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61BC08     UnwindMapEntry <-1, offset loc_5FAC4E>
 stru_61BC10     FuncInfoV1 <19930520h, 6, offset stru_61BC30, 0, 0, 0, 0>
                 db    0
                 db    0

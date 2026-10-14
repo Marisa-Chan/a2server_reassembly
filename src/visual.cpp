@@ -25739,6 +25739,28 @@ int32_t FUN_0043aae0(char ch) {
     return 0;
 }
 
+// 476236
+void FUN_00476236(CString* str)
+{
+    CString lowered(*str);
+    lowered.MakeLower();
+
+    if (g_isDosCP == 1) {
+        for (int32_t i = 0; i < str->GetLength(); i++) {
+            uint8_t c = (*str)[i];
+            if (c >= 0x80 && c < 0x90) {
+                str->SetAt(i, c + 0x20);
+            } else if (c >= 0x90 && c < 0xA0) {
+                str->SetAt(i, c + 0x50);
+            } else if (c < 0x80) {
+                str->SetAt(i, lowered[i]);
+            }
+        }
+    } else {
+        *str = lowered;
+    }
+}
+
 // 43B724
 void Vis1200obj::FUN_0043b724()
 {
