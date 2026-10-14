@@ -56,7 +56,6 @@ _byte_659A3C
 ?LPCTSTR@CString@@QBEPBDXZ	13
 ??0DiplomacyEntry@@QAE@PBDHHHH@Z	46
 ?Save@GameSettings@@QAEXAAPAUHKEY__@@@Z	171
-?Save@HatSettings@@QAEXAAPAUHKEY__@@@Z	225
 ?FUN_0045b681@MusicPlayer@@QAEXH@Z	21
 ?Save@PhoneBook@@QAEXAAPAUHKEY__@@@Z	82
 ?FUN_0046f760@ProjectileInfo@@QAEPAVCSprite256@@XZ	20

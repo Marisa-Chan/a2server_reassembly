@@ -1019,7 +1019,6 @@ extern ?g_mapmusicinfos@@3V?$CArray@PAUMapMusicInfo@@ABQAU1@@@A : byte
 extern ?g_settings@@3UGameSettings@@A : dword
 externdef ?Save@GameSettings@@QAEXAAPAUHKEY__@@@Z : proc  ; void GameSettings::Save(HKEY&)
 externdef ?Save@PhoneBook@@QAEXAAPAUHKEY__@@@Z : proc  ; void PhoneBook::Save(HKEY&)
-externdef ?Save@HatSettings@@QAEXAAPAUHKEY__@@@Z : proc  ; void HatSettings::Save(HKEY&)
 extern ?g_TunesMap@@3VCMapStringToString@@A  : dword
 
 extern ?DAT_00660f88@@3HA : dword

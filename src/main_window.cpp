@@ -1797,6 +1797,38 @@ void HatSettings::Load(HKEY& rkey)
     RegQueryValueExA(rkey, "store", nullptr, nullptr, (LPBYTE)&store, &sz);
 }
 
+// 43d51b
+void HatSettings::Save(HKEY& rkey)
+{
+    char buf[256];
+    DWORD cbData;
+
+    strcpy(buf, this->hatip);
+    RegSetValueExA(rkey, "hatip", 0, REG_SZ, (const BYTE*)buf, strlen(buf) + 1);
+
+    strcpy(buf, this->hatprogip);
+    RegSetValueExA(rkey, "hatprogip", 0, REG_SZ, (const BYTE*)buf, strlen(buf) + 1);
+
+    cbData = 4;
+    RegSetValueExA(rkey, "ishat", 0, REG_DWORD, (const BYTE*)&this->ishat, cbData);
+    RegSetValueExA(rkey, "deathmatch", 0, REG_DWORD, (const BYTE*)&this->deathmatch, cbData);
+    RegSetValueExA(rkey, "store", 0, REG_DWORD, (const BYTE*)&this->store, cbData);
+
+    if (this->store != 0) {
+        strcpy(buf, XorRegString(this->login));
+    } else {
+        buf[0] = '\0';
+    }
+    RegSetValueExA(rkey, "login", 0, REG_SZ, (const BYTE*)buf, strlen(buf) + 1);
+
+    if (this->store != 0) {
+        strcpy(buf, XorRegString(this->password));
+    } else {
+        buf[0] = '\0';
+    }
+    RegSetValueExA(rkey, "password", 0, REG_SZ, (const BYTE*)buf, strlen(buf) + 1);
+}
+
 
 void MainWindow::LoadSettings()
 { //441a03
