@@ -1736,6 +1736,28 @@ void GameSettings::Load(HKEY& rkey)
     RegQueryValueExA(rkey, "MessageColors", nullptr, nullptr, (LPBYTE)pMessageColors, &sz);
 }
 
+// 4421be
+void GameSettings::Save(HKEY& rkey)
+{
+    DWORD cbData = 4;
+
+    RegSetValueExA(rkey, "GameSpeed", 0, REG_DWORD, (const BYTE*)this->pGameSpeed, cbData);
+    RegSetValueExA(rkey, "FormationMode", 0, REG_DWORD, (const BYTE*)this->pFormationMode, cbData);
+    RegSetValueExA(rkey, "WimpyMode", 0, REG_DWORD, (const BYTE*)this->pWimpyMode, cbData);
+    RegSetValueExA(rkey, "ShowAllHitPoints", 0, REG_DWORD, (const BYTE*)this->pShowAllHitPoints, cbData);
+    RegSetValueExA(rkey, "Smoothing", 0, REG_DWORD, (const BYTE*)&this->Smoothing, cbData);
+    RegSetValueExA(rkey, "ShowFlyingHP", 0, REG_DWORD, (const BYTE*)this->pShowFlyingHP, cbData);
+    RegSetValueExA(rkey, "ShowTimeFlow", 0, REG_DWORD, (const BYTE*)&this->ShowTimeFlow, cbData);
+    RegSetValueExA(rkey, "TipsMode", 0, REG_DWORD, (const BYTE*)&this->TipsMode, cbData);
+    RegSetValueExA(rkey, "AutoCasting", 0, REG_DWORD, (const BYTE*)&this->AutoCasting, cbData);
+    RegSetValueExA(rkey, "Acknowledgement", 0, REG_DWORD, (const BYTE*)&this->Acknowledgement, cbData);
+    RegSetValueExA(rkey, "Shadows", 0, REG_DWORD, (const BYTE*)this->pShadows, cbData);
+    RegSetValueExA(rkey, "Lighting", 0, REG_DWORD, (const BYTE*)this->pLightning, cbData);
+    RegSetValueExA(rkey, "Animation", 0, REG_DWORD, (const BYTE*)this->pAnimation, cbData);
+    RegSetValueExA(rkey, "ClanNames", 0, REG_DWORD, (const BYTE*)&this->ClanNames, cbData);
+    RegSetValueExA(rkey, "MessageColors", 0, REG_DWORD, (const BYTE*)this->pMessageColors, cbData);
+}
+
 void PhoneBook::Load(HKEY& rkey)
 { //43ce7d
     DWORD sz = 4;
