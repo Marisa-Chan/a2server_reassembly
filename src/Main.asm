@@ -21928,26 +21928,6 @@ SetRcSrc_4549BA endp
 
 ; Attributes: bp-based frame
 
-?FUN_004549e5@@YAXHHHH@Z      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+9D9↑p
-
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-arg_C           = dword ptr  14h
-
-                push    ebp
-                mov     ebp, esp
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     dword ptr [?g_clipRect@@3VCRect@@A], eax ; [?g_clipRect@@3VCRect@@A]
-                mov     ecx, dword ptr [ebp+arg_8]
-                mov     dword ptr [?g_clipRect@@3VCRect@@A+8], ecx ; [?g_clipRect@@3VCRect@@A+08h]
-                mov     edx, dword ptr [ebp+arg_4]
-                mov     dword ptr [?g_clipRect@@3VCRect@@A+4], edx ; [?g_clipRect@@3VCRect@@A+04h]
-                mov     eax, dword ptr [ebp+arg_C]
-                mov     dword ptr [?g_clipRect@@3VCRect@@A+0Ch], eax ; [?g_clipRect@@3VCRect@@A+0Ch]
-                pop     ebp
-                retn
-?FUN_004549e5@@YAXHHHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

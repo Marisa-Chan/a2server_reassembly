@@ -171,6 +171,14 @@ void SetClipRect(CRect& r)
 	g_clipRect = r;
 }
 
+//4549e5
+void __cdecl FUN_004549e5(int32_t l, int32_t t, int32_t r, int32_t b) {
+	g_clipRect.left = l;
+	g_clipRect.top = t;
+	g_clipRect.right = r;
+	g_clipRect.bottom = b;
+}
+
 
 void __cdecl Convert24To16(uint8_t* src, uint16_t* dst, int32_t num)
 { //4255a6
