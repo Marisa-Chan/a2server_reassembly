@@ -258,6 +258,18 @@ void ReadFileToString(const char* fname, CString* str)
 	free(buf);
 }
 
+// 476b21
+void ParseTunes()
+{
+	for (int32_t i = 0; i < txt_tunes.GetCount(); i++) {
+		CString line(txt_tunes.GetLine(i));
+		int32_t pos = line.Find('=');
+		CString key = line.Left(pos);
+		CString value = line.Mid(pos + 1);
+		g_TunesMap.SetAt(key, value);
+	}
+}
+
 
 int32_t GetRandS16(int32_t range)
 {

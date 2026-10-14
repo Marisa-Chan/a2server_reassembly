@@ -29568,107 +29568,6 @@ loc_476ACE:                             ; CODE XREF: ?FUN_00476987@@YAXPAVCStrin
 
 ; Attributes: bp-based frame
 
-; int ?ParseTunes@@YAXXZ(void)
-?ParseTunes@@YAXXZ      proc near               ; CODE XREF: ?InitInstance@GameApp@@UAEHXZ+CC7↓p
-
-var_20          = dword ptr -20h
-var_1C          = byte ptr -1Ch
-var_18          = byte ptr -18h
-var_14          = byte ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FACA1 SIZE 00000025 BYTES
-
-; __unwind { // SEH_476B21
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_476B21
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 14h
-                mov     [ebp+var_10], 0
-                jmp     short loc_476B4E
-; ---------------------------------------------------------------------------
-
-loc_476B45:                             ; CODE XREF: ?ParseTunes@@YAXXZ+D9↓j
-                mov     eax, dword ptr [ebp+var_10]
-                add     eax, 1
-                mov     [ebp+var_10], eax
-
-loc_476B4E:                             ; CODE XREF: ?ParseTunes@@YAXXZ+22↑j
-                mov     ecx, offset ?txt_tunes@@3VTxtFile@@A
-                call    ?GetCount@TxtFile@@QAEHXZ  ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_10], eax
-                jge     loc_476BFF
-                mov     ecx, dword ptr [ebp+var_10]
-                push    ecx
-                mov     ecx, offset ?txt_tunes@@3VTxtFile@@A
-                call    ?GetLine@TxtFile@@QAEPADH@Z
-                push    eax             ; lpString
-                lea     ecx, [ebp+var_18] ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-;   try {
-                mov     [ebp+var_4], 0
-                push    3Dh ; '='       ; char
-                lea     ecx, [ebp+var_18] ; varThis
-                call    ?Find@CString@@QBEHD@Z ; CString::Find(char)
-                mov     [ebp+var_20], eax
-                mov     edx, dword ptr [ebp+var_20]
-                push    edx
-                lea     eax, [ebp+var_1C]
-                push    eax
-                lea     ecx, [ebp+var_18]
-                call    ?Left@CString@@QBE?AV1@H@Z ; CString::Left(int)
-;   } // starts at 476B78
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_20]
-                add     ecx, 1
-                push    ecx
-                lea     edx, [ebp+var_14]
-                push    edx
-                lea     ecx, [ebp+var_18]
-                call    ?Mid@CString@@QBE?AV1@H@Z ; CString::Mid(int)
-;   } // starts at 476B9C
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                lea     ecx, [ebp+var_14]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; lpString
-                lea     ecx, [ebp+var_1C]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; Str2
-                mov     ecx, offset ?g_TunesMap@@3VCMapStringToString@@A 
-                call    sub_477200
-;   } // starts at 476BB3
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 476BD3
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                lea     ecx, [ebp+var_1C] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 476BDF
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_18] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                jmp     loc_476B45
-; ---------------------------------------------------------------------------
-
-loc_476BFF:                             ; CODE XREF: ?ParseTunes@@YAXXZ+3A↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 476B21
-?ParseTunes@@YAXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -224667,39 +224566,6 @@ SEH_476987:                             ; DATA XREF: ?FUN_00476987@@YAXPAVCStrin
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FAC61
 ; END OF FUNCTION CHUNK FOR ?FUN_00476987@@YAXPAVCString@@@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?ParseTunes@@YAXXZ
-
-loc_5FACA1:                             ; DATA XREF: .rdata:stru_61BC80↓o
-; __unwind { // SEH_476B21              ; varThis
-;   cleanup() // owned by 476B78
-;   cleanup() // owned by 476BDF
-                lea     ecx, [ebp+var_18]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FACAA:                             ; DATA XREF: .rdata:0061BC88↓o
-;   cleanup() // owned by 476B9C        ; varThis
-;   cleanup() // owned by 476BD3
-                lea     ecx, [ebp+var_1C]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FACB3:                             ; DATA XREF: .rdata:0061BC90↓o
-;   cleanup() // owned by 476BB3        ; varThis
-                lea     ecx, [ebp+var_14]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_476B21:                             ; DATA XREF: ?ParseTunes@@YAXXZ+5↑o
-                mov     eax, offset stru_61BC60
-                jmp     ___CxxFrameHandler
-; } // starts at 5FACA1
-; END OF FUNCTION CHUNK FOR ?ParseTunes@@YAXXZ
-; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR CWinThread::~CWinThread(void)
 
@@ -254039,14 +253905,6 @@ stru_61BC30     UnwindMapEntry <-1, offset loc_5FAC61>
                 UnwindMapEntry <2, offset loc_5FAC7C>
                 UnwindMapEntry <0, offset loc_5FAC85>
                 UnwindMapEntry <0, offset loc_5FAC8E>
-stru_61BC60     FuncInfoV1 <19930520h, 3, offset stru_61BC80, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61BC80     UnwindMapEntry <-1, offset loc_5FACA1>
-                UnwindMapEntry <0, offset loc_5FACAA>
-                UnwindMapEntry <1, offset loc_5FACB3>
 stru_61BC98     FuncInfoV1 <19930520h, 1, offset stru_61BCB8, 0, 0, 0, 0>
                 db    0
                 db    0

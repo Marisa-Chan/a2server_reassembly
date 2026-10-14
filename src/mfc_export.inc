@@ -1004,7 +1004,6 @@ extern ?g_ServerConfig@@3UServerConfig@@A   : dword
 
 extern ?unk_660DA8@@3VCMapWordToPtr@@A :byte
 extern ?dword_65FBB8@@3PAXA :dword
-externdef ?ParseTunes@@YAXXZ : proc
 externdef ?SetMessageColors@@YAXI@Z  : proc
 
 extern ?g_kbControlState@@3HA : dword
