@@ -16873,92 +16873,6 @@ sub_43CDEE      endp
 
 ; Attributes: bp-based frame
 
-?Save@PhoneBook@@QAEXAAPAUHKEY__@@@Z      proc near               ; CODE XREF: ?SaveSettings@@YAXXZ+66↓p
-
-var_8C          = dword ptr -8Ch
-var_88          = byte ptr -88h
-ValueName       = byte ptr -48h
-var_8           = dword ptr -8
-Data            = byte ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8Ch
-                mov     [ebp+var_8C], ecx
-                mov     ecx, dword ptr [ebp+var_8C]
-                add     ecx, 8
-                call    ?GetSize@CStringArray@@QBEHXZ ; Microsoft VisualC 2-14/net runtime
-                mov     dword ptr [ebp+Data], eax
-                push    4               ; cbData
-                lea     eax, [ebp+Data]
-                push    eax             ; lpData
-                push    4               ; dwType
-                push    0               ; Reserved
-                push    offset aPhonebooksize_0 ; "phonebooksize"
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [ecx]
-                push    edx             ; hKey
-                call    RegSetValueExA
-                mov     [ebp+var_8], 0
-                jmp     short loc_43CF76
-; ---------------------------------------------------------------------------
-
-loc_43CF6D:                             ; CODE XREF: ?Save@PhoneBook@@QAEXAAPAUHKEY__@@@Z+C1↓j
-                mov     eax, dword ptr [ebp+var_8]
-                add     eax, 1
-                mov     [ebp+var_8], eax
-
-loc_43CF76:                             ; CODE XREF: ?Save@PhoneBook@@QAEXAAPAUHKEY__@@@Z+42↑j
-                mov     ecx, dword ptr [ebp+var_8]
-                cmp     ecx, dword ptr [ebp+Data]
-                jnb     short loc_43CFEC
-                mov     edx, dword ptr [ebp+var_8]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_8C]
-                add     ecx, 8
-                call    sub_401820
-                mov     ecx, eax
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; Source
-                lea     eax, [ebp+var_88]
-                push    eax             ; Destination
-                call    _strcpy
-                add     esp, 8
-                mov     ecx, dword ptr [ebp+var_8]
-                push    ecx
-                push    offset aPhoneD_0 ; "phone%d"
-                lea     edx, [ebp+ValueName]
-                push    edx             ; Buffer
-                call    _sprintf
-                add     esp, 0Ch
-                lea     eax, [ebp+var_88]
-                push    eax             ; varStr
-                call    _strlen
-                add     esp, 4
-                add     eax, 1
-                push    eax             ; cbData
-                lea     ecx, [ebp+var_88]
-                push    ecx             ; lpData
-                push    1               ; dwType
-                push    0               ; Reserved
-                lea     edx, [ebp+ValueName]
-                push    edx             ; lpValueName
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [eax]
-                push    ecx             ; hKey
-                call    RegSetValueExA
-                jmp     short loc_43CF6D
-; ---------------------------------------------------------------------------
-
-loc_43CFEC:                             ; CODE XREF: ?Save@PhoneBook@@QAEXAAPAUHKEY__@@@Z+53↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?Save@PhoneBook@@QAEXAAPAUHKEY__@@@Z      endp
-
-
-
 
 
 
@@ -258480,11 +258394,6 @@ g_ValueName       db 'phonebooksize',0    ; DATA XREF: sub_43CE7D+29↑o
                 align 10h
 ; char aPhoneD[]
 aPhoneD         db 'phone%d',0          ; DATA XREF: sub_43CE7D+58↑o
-; CHAR aPhonebooksize_0[]
-aPhonebooksize_0 db 'phonebooksize',0   ; DATA XREF: ?Save@PhoneBook@@QAEXAAPAUHKEY__@@@Z+2A↑o
-                align 4
-; char aPhoneD_0[]
-aPhoneD_0       db 'phone%d',0          ; DATA XREF: ?Save@PhoneBook@@QAEXAAPAUHKEY__@@@Z+82↑o
 ; CHAR aComportsetting[]
 aComportsetting db 'comportsettings',0  ; DATA XREF: sub_43D02E+24↑o
 ; CHAR aComportsetting_0[]

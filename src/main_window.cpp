@@ -1776,6 +1776,23 @@ void PhoneBook::Load(HKEY& rkey)
     }
 }
 
+// 43cf29
+void PhoneBook::Save(HKEY& rkey)
+{
+    char data[64];
+    char name[64];
+    int32_t count = this->phones.GetSize();
+
+    RegSetValueExA(rkey, "phonebooksize", 0, REG_DWORD, (const BYTE*)&count, 4);
+
+    for (int32_t i = 0; i < count; i++)
+    {
+        strcpy(data, this->phones[i]);
+        sprintf(name, "phone%d", i);
+        RegSetValueExA(rkey, name, 0, REG_SZ, (const BYTE*)data, strlen(data) + 1);
+    }
+}
+
 void HatSettings::Load(HKEY& rkey)
 { //43d249
     char buf[256];

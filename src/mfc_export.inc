@@ -1016,7 +1016,6 @@ extern ?g_kbMenuState@@3HA : dword
 
 extern ?g_mapmusicinfos@@3V?$CArray@PAUMapMusicInfo@@ABQAU1@@@A : byte
 extern ?g_settings@@3UGameSettings@@A : dword
-externdef ?Save@PhoneBook@@QAEXAAPAUHKEY__@@@Z : proc  ; void PhoneBook::Save(HKEY&)
 extern ?g_TunesMap@@3VCMapStringToString@@A  : dword
 
 extern ?DAT_00660f88@@3HA : dword
