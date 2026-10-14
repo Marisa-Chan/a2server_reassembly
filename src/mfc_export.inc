@@ -969,6 +969,7 @@ externdef ?UpdateData@CWnd@@QAEHH@Z :proc     ; CWnd::UpdateData(int) - 5e31fc
 externdef ?Add@CStringArray@@QAEHPBD@Z :proc   ; CStringArray::Add(const char*) - 402970
 externdef ?LPCTSTR@CString@@QBEPBDXZ :proc     ; CString::operator const char*() - unknown_libname_400
 extern ?g_DistortMap@@3PAVDistortMap@@A : dword ; DistortMap* g_DistortMap
+externdef ??1DistortMap@@QAE@XZ : proc          ; DistortMap::~DistortMap()
 extern ?g_CpuFeatureFlags@@3IA : dword         ; uint32_t g_CpuFeatureFlags
 
 extern ?ReadFileToString@@YAXPBDPAVCString@@@Z  : proc
@@ -1695,7 +1696,6 @@ extern ?CopySurface16Rect@@YAXPAEHH0HHHHHH@Z : proc
 
 extern ?SaveScreenshot@@YAXXZ : proc
 extern ?SaveSettings@@YAXXZ : proc  ; void SaveSettings(void) — defined in C++, still called from sub_491F7D
-externdef ?FUN_0047619a@@YAXXZ  : proc  ; void FUN_0047619a(void)
 
 
 extern ?LockSurface3@@YAIXZ  :proc

@@ -17,6 +17,8 @@ class PacketUnitStateVec;
 extern CMapWordToPtr unk_660D28;
 extern CMapWordToPtr unk_660DA8;
 
+extern void* dword_65FBB8; // 65fbb8 - item name packet area
+
 Item* __cdecl sub_4F499B(uint8_t** packet_data);
 void LoadItemNames(); //475988
 void sub_540DAA(const CString& effect_str, CList<Effect*>* effects); // 540DAA: parse effect string into effects list

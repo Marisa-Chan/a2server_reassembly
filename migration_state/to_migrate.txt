@@ -24,7 +24,6 @@ _byte_659A3C
 ?FUN_004549e5@@YAXHHHH@Z	19
 ?SetMessageColors@@YAXI@Z	26
 ?FUN_00454a1e@@YAXHHHH@Z	28
-?FUN_0047619a@@YAXXZ	33
 ?FUN_0043aae0@@YAHD@Z	35
 ?IsDefaultNpcName@@YAIPBD@Z	67
 ?FUN_00457aa6@@YAXHHHHG@Z	98
@@ -48,6 +47,7 @@ _byte_659A3C
 ?Play@CSound@@SAXAAU1@@Z	31
 ?LPCTSTR@CString@@QBEPBDXZ	13
 ??0DiplomacyEntry@@QAE@PBDHHHH@Z	46
+??1DistortMap@@QAE@XZ	51
 ?FUN_0045b681@MusicPlayer@@QAEXH@Z	21
 ?FUN_0046f760@ProjectileInfo@@QAEPAVCSprite256@@XZ	20
 ?Save@SoundSettings@@QAEXAAPAUHKEY__@@@Z	66

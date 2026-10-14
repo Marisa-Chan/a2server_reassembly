@@ -83,6 +83,15 @@ DistortMap::DistortMap(int32_t outer, int32_t inner) {
 	this->sub_4AA0AF();
 }
 
+// 47619a
+void FUN_0047619a()
+{
+	free(dword_65FBB8);
+	if (g_DistortMap != nullptr) {
+		delete g_DistortMap;
+	}
+}
+
 // 4aa0af
 void DistortMap::sub_4AA0AF() {
 	// scale[i] = i / (outer * sin(atan(i / (outer - inner))))

@@ -28203,41 +28203,6 @@ unknown_libname_539 endp
 
 ; Attributes: bp-based frame
 
-?FUN_0047619a@@YAXXZ      proc near               ; CODE XREF: .text:00494A20↓p
-
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     eax, ?dword_65FBB8@@3PAXA
-                push    eax             ; Block
-                call    _free
-                add     esp, 4
-                mov     ecx, ?g_DistortMap@@3PAVDistortMap@@A
-                mov     [ebp+var_8], ecx
-                mov     edx, dword ptr [ebp+var_8]
-                mov     [ebp+var_4], edx
-                cmp     [ebp+var_4], 0
-                jz      short loc_4761D2
-                push    1
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_476E50
-                mov     [ebp+var_C], eax
-                jmp     short loc_4761D9
-; ---------------------------------------------------------------------------
-
-loc_4761D2:                             ; CODE XREF: ?FUN_0047619a@@YAXXZ+27↑j
-                mov     [ebp+var_C], 0
-
-loc_4761D9:                             ; CODE XREF: ?FUN_0047619a@@YAXXZ+36↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_0047619a@@YAXXZ      endp
-
 
 
 
@@ -28653,33 +28618,6 @@ loc_476E4A:                             ; CODE XREF: ?SetMessageColors@@YAXI@Z+4
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
-
-sub_476E50      proc near               ; CODE XREF: ?FUN_0047619a@@YAXXZ+2E↑p
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_4AA04F
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_476E75
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3@YAXPAX@Z    ; operator delete(void *)
-                add     esp, 4
-
-loc_476E75:                             ; CODE XREF: sub_476E50+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_476E50      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -42341,7 +42279,7 @@ sub_4A9E70      endp
 
 ; Attributes: bp-based frame
 
-sub_4AA04F      proc near               ; CODE XREF: sub_476E50+A↑p
+??1DistortMap@@QAE@XZ      proc near               ; CODE XREF: sub_476E50+A↑p
 
 var_14          = dword ptr -14h
 var_10          = dword ptr -10h
@@ -42360,12 +42298,12 @@ var_4           = dword ptr -4
                 jmp     short loc_4AA073
 ; ---------------------------------------------------------------------------
 
-loc_4AA06A:                             ; CODE XREF: sub_4AA04F+46↓j
+loc_4AA06A:                             ; CODE XREF: ??1DistortMap@@QAE@XZ+46↓j
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 1
                 mov     [ebp+var_4], edx
 
-loc_4AA073:                             ; CODE XREF: sub_4AA04F+19↑j
+loc_4AA073:                             ; CODE XREF: ??1DistortMap@@QAE@XZ+19↑j
                 mov     eax, dword ptr [ebp+var_4]
                 cmp     eax, [ebp+var_8]
                 jge     short loc_4AA097
@@ -42381,7 +42319,7 @@ loc_4AA073:                             ; CODE XREF: sub_4AA04F+19↑j
                 jmp     short loc_4AA06A
 ; ---------------------------------------------------------------------------
 
-loc_4AA097:                             ; CODE XREF: sub_4AA04F+2A↑j
+loc_4AA097:                             ; CODE XREF: ??1DistortMap@@QAE@XZ+2A↑j
                 mov     eax, dword ptr [ebp+var_14]
                 mov     ecx, dword ptr [eax]
                 mov     [ebp+var_10], ecx
@@ -42392,7 +42330,7 @@ loc_4AA097:                             ; CODE XREF: sub_4AA04F+2A↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4AA04F      endp
+??1DistortMap@@QAE@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
