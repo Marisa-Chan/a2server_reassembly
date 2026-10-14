@@ -1459,7 +1459,6 @@ externdef ?FUN_00476987@@YAXPAVCString@@@Z : proc
 
 extern ?ResetSelected@VisShopButtons@@QAEXXZ : proc
 
-externdef ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z : proc
 externdef ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z : proc
 
 ;Vis1200obj

@@ -15547,62 +15547,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z      proc near               ; CODE XREF: ?FreeSamples@VisCharGenSkills@@QAEXXZ+10↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 10h
-                mov     eax, dword ptr [ebp+arg_0]
-                cmp     dword ptr [eax], 0
-                jz      short loc_438E39
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [ecx]
-                call    ?FindPlayingChannel@SfxSample@@QAEPAVSoundChannel@@XZ
-                mov     [ebp+var_4], eax
-                cmp     [ebp+var_4], 0
-                jz      short loc_438E03
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?Stop@SoundChannel@@QAEXXZ
-                mov     edx, dword ptr [ebp+var_4]
-                mov     dword ptr [edx+8], 0
-
-loc_438E03:                             ; CODE XREF: ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z+1F↑j
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [eax]
-                mov     [ebp+var_C], ecx
-                mov     edx, dword ptr [ebp+var_C]
-                mov     [ebp+var_8], edx
-                cmp     [ebp+var_8], 0
-                jz      short loc_438E29
-                push    1
-                mov     eax, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [edx+4]
-                mov     [ebp+var_10], eax
-                jmp     short loc_438E30
-; ---------------------------------------------------------------------------
-
-loc_438E29:                             ; CODE XREF: ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z+45↑j
-                mov     [ebp+var_10], 0
-
-loc_438E30:                             ; CODE XREF: ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z+57↑j
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     dword ptr [eax], 0
-
-loc_438E39:                             ; CODE XREF: ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z+C↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z      endp
-
-; ---------------------------------------------------------------------------
                 align 10h
 
 ; =============== S U B R O U T I N E =======================================

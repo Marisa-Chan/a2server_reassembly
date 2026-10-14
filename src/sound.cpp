@@ -174,6 +174,23 @@ SoundChannel* __cdecl SoundChannel::GetChannel(int32_t priority)
 	return &chn;
 }
 
+// 438dd0
+void FUN_00438dd0(SfxSample** sample)
+{
+	if (*sample == nullptr) {
+		return;
+	}
+
+	SoundChannel* chan = (*sample)->FindPlayingChannel();
+	if (chan != nullptr) {
+		chan->Stop();
+		chan->pbuffer = nullptr;
+	}
+
+	delete *sample;
+	*sample = nullptr;
+}
+
 // 438e40
 void FUN_00438e40(SfxSample** sample, const char* fname)
 {
