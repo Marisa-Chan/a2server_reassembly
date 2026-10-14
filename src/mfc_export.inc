@@ -1938,8 +1938,6 @@ extern ?GetSprite@CCursor@@QBEPAVCSprite256@@XZ : proc
 
 ;CGameObject
 
-externdef ?FUN_004a4740@@YAXPAPAVSfxSample@@@Z : proc  ; void __cdecl FUN_004a4740(SfxSample**)
-
 extern ?IsSelected@CGameObject@@QAEHXZ : proc
 
 

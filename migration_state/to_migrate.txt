@@ -27,7 +27,6 @@ _byte_659A3C
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
 ?GetFieldPos@@YAHVCString@@H@Z	104
 ?FUN_004a7b3c@@YAXPADPAVFile2@@@Z	34
-?FUN_004a4740@@YAXPAPAVSfxSample@@@Z	31
 ?FUN_00476236@@YAXPAVCString@@@Z	150
 ?FUN_00476987@@YAXPAVCString@@@Z	185
 ?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z	40

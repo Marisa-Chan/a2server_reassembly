@@ -40291,38 +40291,6 @@ unknown_libname_609 endp
 
 ; Attributes: bp-based frame
 
-?FUN_004a4740@@YAXPAPAVSfxSample@@@Z      proc near               ; CODE XREF: ?VMethod7@VisTav@@UAEXXZ+25↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                cmp     dword ptr [eax], 0
-                jz      short loc_4A477B
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [ecx]
-                call    ?FindPlayingChannel@SfxSample@@QAEPAVSoundChannel@@XZ
-                mov     [ebp+var_4], eax
-                cmp     [ebp+var_4], 0
-                jnz     short loc_4A477B
-                push    0
-                push    80h
-                push    1
-                push    0
-                mov     edx, ?g_SoundSettings@@3USoundSettings@@A+010h
-                push    edx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [eax]
-                call    ?Play@SfxSample@@QAEXHHHEH@Z
-
-loc_4A477B:                             ; CODE XREF: ?FUN_004a4740@@YAXPAPAVSfxSample@@@Z+A↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_004a4740@@YAXPAPAVSfxSample@@@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
