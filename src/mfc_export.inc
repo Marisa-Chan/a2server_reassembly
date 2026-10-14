@@ -1294,8 +1294,6 @@ extern ?ApplyDynamicLight@BigStruct2@@QAEXHHHH@Z : proc
 extern ?ProcessPackets@BigStruct2@@QAEHE@Z : proc
 extern ?UpdateSelectionState@BigStruct2@@QAEXXZ  : proc
 extern ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ : proc
-externdef ?DAT_00661018@@3PAPAVCGamePalette@@A :dword
-externdef ?DAT_00665344@@3PAVCGameBitmap@@A :dword
 extern ?sub_4184B8@BigStruct2@@QAEHHH@Z : proc
 extern ?sub_419154@BigStruct2@@QAEXGG@Z : proc
 extern ?sub_419246@BigStruct2@@QAEXG@Z : proc

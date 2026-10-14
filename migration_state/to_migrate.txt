@@ -16,7 +16,5 @@ _byte_659A30
 _byte_659A34
 _byte_659A38
 _byte_659A3C
-?DAT_00661018@@3PAPAVCGamePalette@@A
-?DAT_00665344@@3PAVCGameBitmap@@A
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
 ??0_AFX_THREAD_STATE@@QAE@XZ	6

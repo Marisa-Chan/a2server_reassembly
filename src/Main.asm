@@ -260737,12 +260737,10 @@ dword_65FB74    dd ?                    ; DATA XREF: ?InitVideo@@YAHXZ+3C↑w
 
 
                 db 80h dup(?)
-?DAT_00661018@@3PAPAVCGamePalette@@A    dd ?                    ; DATA XREF: ?sub_404E1A@BigStruct2@@QAEXXZ+2F8↑r
                 db 7Ch dup(?)
 
 
 
-?DAT_00665344@@3PAVCGameBitmap@@A    dd ?                    ; DATA XREF: ?sub_404E1A@BigStruct2@@QAEXXZ+286↑r
 
 
 
