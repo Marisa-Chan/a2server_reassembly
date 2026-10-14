@@ -17477,115 +17477,6 @@ sub_445B39      endp
 
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?GetFieldPos@@YAHVCString@@H@Z      proc near               ; CODE XREF: ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z+6B↓p
-
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = byte ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = byte ptr  8
-arg_4           = dword ptr  0Ch
-
-; FUNCTION CHUNK AT 005F98B6 SIZE 0000001C BYTES
-
-; __unwind { // SEH_44B37A
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_44B37A
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 20h
-;   try {
-                mov     [ebp+var_4], 0
-                mov     [ebp+var_14], 0
-                mov     [ebp+var_10], 0
-                jmp     short loc_44B3B5
-; ---------------------------------------------------------------------------
-
-loc_44B3AC:                             ; CODE XREF: ?GetFieldPos@@YAHVCString@@H@Z+BA↓j
-                mov     eax, dword ptr [ebp+var_10]
-                add     eax, 1
-                mov     [ebp+var_10], eax
-
-loc_44B3B5:                             ; CODE XREF: ?GetFieldPos@@YAHVCString@@H@Z+30↑j
-                mov     ecx, dword ptr [ebp+var_10]
-                cmp     ecx, [ebp+arg_4]
-                jge     short loc_44B439
-                push    7Ch ; '|'       ; char
-                lea     ecx, [ebp+arg_0] ; varThis
-                call    ?Find@CString@@QBEHD@Z ; CString::Find(char)
-                mov     [ebp+var_18], eax
-                mov     edx, dword ptr [ebp+var_18]
-                mov     eax, dword ptr [ebp+var_14]
-                lea     ecx, [eax+edx+1]
-                mov     [ebp+var_14], ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                sub     edx, 1
-                cmp     [ebp+var_10], edx
-                jnz     short loc_44B3FC
-                mov     eax, dword ptr [ebp+var_14]
-                mov     [ebp+var_1C], eax
-;   } // starts at 44B395
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+arg_0] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     eax, dword ptr [ebp+var_1C]
-                jmp     short loc_44B452
-; ---------------------------------------------------------------------------
-
-loc_44B3FC:                             ; CODE XREF: ?GetFieldPos@@YAHVCString@@H@Z+66↑j
-                mov     ecx, dword ptr [ebp+var_18]
-                add     ecx, 1
-                push    ecx
-                lea     edx, [ebp+var_20]
-                push    edx
-                lea     ecx, [ebp+arg_0]
-                call    ?Mid@CString@@QBE?AV1@H@Z ; CString::Mid(int)
-                mov     [ebp+var_28], eax
-                mov     eax, dword ptr [ebp+var_28]
-                mov     [ebp+var_2C], eax
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_2C]
-                push    ecx             ; int
-                lea     ecx, [ebp+arg_0] ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-;   } // starts at 44B418
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                lea     ecx, [ebp+var_20] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                jmp     loc_44B3AC
-; ---------------------------------------------------------------------------
-
-loc_44B439:                             ; CODE XREF: ?GetFieldPos@@YAHVCString@@H@Z+41↑j
-                mov     [ebp+var_24], 0FFFFFFFFh
-;   } // starts at 44B428
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+arg_0] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     eax, dword ptr [ebp+var_24]
-
-loc_44B452:                             ; CODE XREF: ?GetFieldPos@@YAHVCString@@H@Z+80↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 44B37A
-?GetFieldPos@@YAHVCString@@H@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -220382,29 +220273,6 @@ SEH_445ACA:                             ; DATA XREF: sub_445ACA+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F94C9
 ; END OF FUNCTION CHUNK FOR sub_445ACA
-; START OF FUNCTION CHUNK FOR ?GetFieldPos@@YAHVCString@@H@Z
-
-loc_5F98B6:                             ; DATA XREF: .rdata:stru_61A250↓o
-; __unwind { // SEH_44B37A              ; varThis
-;   cleanup() // owned by 44B395
-;   cleanup() // owned by 44B428
-                lea     ecx, [ebp+arg_0]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F98BF:                             ; DATA XREF: .rdata:0061A258↓o
-;   cleanup() // owned by 44B418        ; varThis
-                lea     ecx, [ebp+var_20]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_44B37A:                             ; DATA XREF: ?GetFieldPos@@YAHVCString@@H@Z+5↑o
-                mov     eax, offset stru_61A230
-                jmp     ___CxxFrameHandler
-; } // starts at 5F98B6
-; END OF FUNCTION CHUNK FOR ?GetFieldPos@@YAHVCString@@H@Z
                 align 10h
 
 
@@ -250503,13 +250371,6 @@ stru_619D88     FuncInfoV1 <19930520h, 1, offset stru_619DA8, 0, 0, 0, 0>
 stru_619DA8     UnwindMapEntry <-1, offset loc_5F94C9>
                 align 10h
                 align 8
-stru_61A230     FuncInfoV1 <19930520h, 2, offset stru_61A250, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61A250     UnwindMapEntry <-1, offset loc_5F98B6>
-                UnwindMapEntry <0, offset loc_5F98BF>
                 align 8
 
 stru_61A5C0     FuncInfoV1 <19930520h, 2, offset stru_61A5E0, 0, 0, 0, 0>

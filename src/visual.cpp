@@ -24866,6 +24866,21 @@ int32_t VisNetSerialSettings::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lp
     }
 }
 
+// 44b37a
+int32_t GetFieldPos(CString str, int32_t field)
+{
+    int32_t pos = 0;
+    for (int32_t i = 0; i < field; i++) {
+        int32_t sep = str.Find('|');
+        pos = pos + sep + 1;
+        if (i == field - 1) {
+            return pos;
+        }
+        str = str.Mid(sep + 1);
+    }
+    return -1;
+}
+
 // 44b460
 int32_t VisHatBrowserList::IsItemEnabled(int32_t idx)
 {
