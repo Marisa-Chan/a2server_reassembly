@@ -19,7 +19,7 @@
 #include "packet.h"
 
 
-extern "C" char byte_666590[223]; //4c9a6f GetHint static buffer
+char byte_666590[223]; //4c9a6f GetHint static buffer
 
 char unk_659A48[4]; //659a48 zeroed buffer used to clear the server screen text box
 char byte_659A34[4]; //659a34 "" hint string of the hat browser OK button

@@ -1348,10 +1348,8 @@ extern ?FlushScreen@@YAXXZ  : proc
 
 
 ;VisSpellBook
-externdef _byte_666590 : byte
 
 ;TokenEntry
-externdef _g_Destination : byte  ; char g_Destination[0x400] hint buffer (659558)
 extern ?sub_4CA89B@VisSpellBook@@QAEHH@Z : proc
 extern ?sub_4CA8E0@VisSpellBook@@QAEHH@Z : proc
 externdef ?sub_41F9B0@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_41F9B0()
@@ -1997,7 +1995,6 @@ extern   ?VMethod27@CUnit@@UAEXXZ  : proc
 extern   ?VMethod28@CUnit@@UAEXXZ  : proc
 extern   ?VMethod29@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod30@CUnit@@UAEXPBDPAVCGameBitmap@@1@Z  : proc
-externdef _byte_65F630 : byte  ; char[1024] CUnit::FUN_0046d0f7 spell-list hint buffer
 
 
 ;CProjectile - fully migrated to C++ (no ASM references remain)

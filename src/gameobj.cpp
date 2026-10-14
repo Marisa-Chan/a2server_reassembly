@@ -21,8 +21,8 @@
 
 CStringArray g_CUnitMaterialSpritePaths; //660e70
 
-extern "C" char g_Destination[0x400]; //659558 TokenEntry::FUN_00439973 hint buffer
-extern "C" char byte_65F630[1024]; //65f630 CUnit::FUN_0046d0f7 spell-list hint buffer
+char g_Destination[0x400]; //659558 TokenEntry::FUN_00439973 hint buffer
+char byte_65F630[1024]; //65f630 CUnit::FUN_0046d0f7 spell-list hint buffer
 
 //GetRuntimeClass 461020
 IMPLEMENT_DYNAMIC(CGameObject, CObject);

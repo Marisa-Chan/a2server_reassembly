@@ -260594,8 +260594,6 @@ byte_659544      db    ?
                 align 4
 byte_659548      db    ?
                 align 4
-; char Destination
-_g_Destination      db 400h dup(?)
                 align 10h
 ; char byte_659964[4]
 byte_659964     db 4 dup(?)             ; DATA XREF: sub_43FB2C+2BC↑o
@@ -260693,8 +260691,6 @@ DWORD_0065dddc             dd ?                    ; DATA XREF: ?LoadSample@SfxS
 
 
                 align 10h
-; char _byte_65F630[1024]
-_byte_65F630     db 400h dup(?)          ; DATA XREF: ?FUN_0046d0f7@CUnit@@QAEPBDHH@Z+57C↑o
 byte_65FA30      db    ?
                 align 8
                 align 10h
@@ -260794,8 +260790,6 @@ dword_665DD4    dd ?                    ; DATA XREF: ?VMethod30@VisShopDruid@@UA
 
 ; char byte_666588[8]
 byte_666588     db 8 dup(?)             ; DATA XREF: ?LoadGameSounds@@YAXXZ+BF↑o
-; char _byte_666590
-_byte_666590      db 0DFh dup(?)
 unk_66666F      db 321h dup(?)
 ; char byte_666990[4]
 byte_666990     db 4 dup(?)             ; DATA XREF: sub_4CD5BE+5E↑o

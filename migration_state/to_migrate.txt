@@ -3,8 +3,5 @@
 # Optional second tab-separated column stores ASM span (endp_line - proc_line, functions only).
 # Edit migration_state/known_mfc.txt to exclude symbols you do not plan to migrate.
 
-_byte_666590
-_g_Destination
-_byte_65F630
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
