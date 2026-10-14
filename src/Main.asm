@@ -15680,65 +15680,6 @@ loc_438E39:                             ; CODE XREF: ?FUN_00438dd0@@YAXPAPAVSfxS
 
 ; Attributes: bp-based frame
 
-; int __cdecl ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z(int, LPCSTR lpString)
-?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z      proc near               ; CODE XREF: ?LoadSamples@VisCharGenSkills@@QAEXI@Z+1B↑p
-
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-Block           = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-lpString        = dword ptr  0Ch
-
-; FUNCTION CHUNK AT 005F8920 SIZE 00000014 BYTES
-
-; __unwind { // SEH_438E40
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_438E40
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 0Ch
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                push    14h             ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_438E8F
-                mov     ecx, dword ptr [ebp+lpString]
-                push    ecx             ; lpString
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0SfxSample@@QAE@PBD@Z
-                mov     [ebp+var_18], eax
-                jmp     short loc_438E96
-; ---------------------------------------------------------------------------
-
-loc_438E8F:                             ; CODE XREF: ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z+3C↑j
-                mov     [ebp+var_18], 0
-
-loc_438E96:                             ; CODE XREF: ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z+4D↑j
-                mov     edx, dword ptr [ebp+var_18]
-                mov     [ebp+var_14], edx
-;   } // starts at 438E71
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     [eax], ecx
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 438E40
-?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -220834,25 +220775,6 @@ SEH_438BC0:                             ; DATA XREF: CWinThread::~CWinThread(voi
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F8900
 ; END OF FUNCTION CHUNK FOR CWinThread::~CWinThread(void)
-; ---------------------------------------------------------------------------
-                align 10h
-; START OF FUNCTION CHUNK FOR ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-
-loc_5F8920:                             ; DATA XREF: .rdata:stru_619020↓o
-; __unwind { // SEH_438E40
-;   cleanup() // owned by 438E71
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_438E40:                             ; DATA XREF: ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z+5↑o
-                mov     eax, offset stru_619000
-                jmp     ___CxxFrameHandler
-; } // starts at 5F8920
-; END OF FUNCTION CHUNK FOR ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4395E0
 
 loc_5F8990:                             ; DATA XREF: .rdata:stru_6190C8↓o
@@ -252144,12 +252066,6 @@ stru_618FD8     FuncInfoV1 <19930520h, 1, offset stru_618FF8, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_618FF8     UnwindMapEntry <-1, offset loc_5F8900>
-stru_619000     FuncInfoV1 <19930520h, 1, offset stru_619020, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_619020     UnwindMapEntry <-1, offset loc_5F8920>
 stru_6190A8     FuncInfoV1 <19930520h, 6, offset stru_6190C8, 0, 0, 0, 0>
                 db    0
                 db    0

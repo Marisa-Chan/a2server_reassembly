@@ -1956,7 +1956,6 @@ extern ?GetSprite@CCursor@@QBEPAVCSprite256@@XZ : proc
 
 ;CGameObject
 
-externdef ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z : proc  ; void __cdecl FUN_00438e40(SfxSample**, const char*)
 externdef ?FUN_00475110@@YA_NPAUCSound@@@Z : proc  ; bool __cdecl FUN_00475110(CSound*)
 externdef ?FUN_004a4740@@YAXPAPAVSfxSample@@@Z : proc  ; void __cdecl FUN_004a4740(SfxSample**)
 
