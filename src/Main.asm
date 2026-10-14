@@ -29159,78 +29159,6 @@ unknown_libname_539 endp
 ; ---------------------------------------------------------------------------
                 align 10h
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-unknown_libname_567 proc near           ; DATA XREF: .data:0062C098↓o
-                push    ebp
-                mov     ebp, esp
-                call    sub_47584A
-                call    sub_475859
-                pop     ebp
-                retn
-unknown_libname_567 endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_47584A      proc near               ; CODE XREF: unknown_libname_567+3↑p
-                push    ebp
-                mov     ebp, esp
-                mov     ecx, offset unk_65FA70
-                call    sub_477960
-                pop     ebp
-                retn
-sub_47584A      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_475859      proc near               ; CODE XREF: unknown_libname_567+8↑p
-                push    ebp
-                mov     ebp, esp
-                push    offset sub_47586B ; void (__cdecl *)()
-                call    _atexit
-                add     esp, 4
-                pop     ebp
-                retn
-sub_475859      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; void __cdecl sub_47586B()
-sub_47586B      proc near               ; DATA XREF: sub_475859+3↑o
-                push    ebp
-                mov     ebp, esp
-                mov     ecx, offset unk_65FA70
-                call    unknown_libname_570 ; Microsoft VisualC 2-14/net runtime
-                pop     ebp
-                retn
-sub_47586B      endp
-
-
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
@@ -31303,53 +31231,6 @@ Destination     = dword ptr -4
                 pop     ebp
                 retn
 sub_477960      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Microsoft VisualC 2-14/net runtime
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-unknown_libname_570 proc near           ; CODE XREF: sub_47586B+8↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-unknown_libname_570 endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-
-
-
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-
-
-
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -265233,7 +265114,6 @@ _byte_65F630     db 400h dup(?)          ; DATA XREF: ?FUN_0046d0f7@CUnit@@QAEPB
 byte_65FA30      db    ?
                 align 8
                 align 10h
-unk_65FA70      db 104h dup(?)
 dword_65FB74    dd ?                    ; DATA XREF: ?InitVideo@@YAHXZ+3C↑w
 
                 db 0Ch dup(?)
