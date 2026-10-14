@@ -15627,31 +15627,6 @@ sub_438F00      endp
 
 ; Attributes: bp-based frame
 
-?FUN_00438f20@@YAXPAPAVSfxSample@@@Z      proc near               ; CODE XREF: ?OnStatUp@VisCharGenStats@@AAEHH@Z+D8↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                cmp     dword ptr [eax], 0
-                jz      short loc_438F47
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [ecx]
-                call    ?FindPlayingChannel@SfxSample@@QAEPAVSoundChannel@@XZ
-                mov     [ebp+var_4], eax
-                cmp     [ebp+var_4], 0
-                jz      short loc_438F47
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?Stop@SoundChannel@@QAEXXZ
-
-loc_438F47:                             ; CODE XREF: ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z+A↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_00438f20@@YAXPAPAVSfxSample@@@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

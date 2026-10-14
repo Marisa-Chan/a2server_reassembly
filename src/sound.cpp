@@ -270,6 +270,17 @@ void SfxSample::Play()
 }
 
 
+void FUN_00438f20(SfxSample** sample)
+{ //438f20
+	if (*sample != nullptr) {
+		SoundChannel* chnl = (*sample)->FindPlayingChannel();
+		if (chnl != nullptr) {
+			chnl->Stop();
+		}
+	}
+}
+
+
 void SfxSample::LoadSample()
 { //45ba94
 	if (!g_dsound)

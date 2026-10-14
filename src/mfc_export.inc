@@ -1453,7 +1453,7 @@ externdef ?FUN_00476987@@YAXPAVCString@@@Z : proc
 
 extern ?ResetSelected@VisShopButtons@@QAEXXZ : proc
 
-externdef ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z : proc
+extern ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z : proc  ; called from asm (sub_4C34E6, sub_4C65BA)
 
 ;Vis1200obj
 externdef ?FUN_0043aae0@@YAHD@Z : proc  ; int32_t FUN_0043aae0(char)
