@@ -522,8 +522,9 @@ void CGameSession::RefreshCharacterRosterFiles(int val)
 				if (CalcChecksum(data.data(), hdr.size) == hdr.checksum)
 				{
 					FileSectionBasicInfo* sec = (FileSectionBasicInfo*)data.data();
-					if (sec->hat_id == 0x529c0291 || sec->hat_id == 0xbaadf00d)
+					if (sec->hat_id == 0x529c0291 || sec->hat_id == 0xbaadf00d) {
 						sec->hat_id = mwnd->field_0x3e0.field_0c;
+					}
 					if (sec->hat_id == mwnd->field_0x3e0.field_0c)
 					{
 						strcpy(character_name, sec->nick);
@@ -534,8 +535,9 @@ void CGameSession::RefreshCharacterRosterFiles(int val)
 						int idx = 0;
 						for (; idx < ftimes.GetSize(); idx++)
 						{
-							if (CompareFileTime(&tm, &ftimes[idx]) > 0)
+							if (CompareFileTime(&tm, &ftimes[idx]) > 0) {
 								break;
+							}
 						}
 
 						ftimes.InsertAt(idx, tm);
@@ -546,9 +548,9 @@ void CGameSession::RefreshCharacterRosterFiles(int val)
 						hatid.id1 = sec->id1;
 						hatid.id2 = sec->id2;
 
-						if (val == 0)
+						if (val == 0) {
 							characterRosterHatId.InsertAt(idx, hatid);
-						else
+						} else
 						{
 							for (int i = 0; i < field_0x130.GetSize(); i++)
 							{

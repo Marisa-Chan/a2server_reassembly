@@ -46,7 +46,11 @@ public:
 	void Play(int volume, int pan, int loop, uint8_t priority, int freq = 0); //45c0cf
 
 	void Play(); //438ec0 alt
-	static void Play(SfxSample* smpl) { if (smpl) smpl->Play(); } //438ec0 alt
+	static void Play(SfxSample* smpl) {
+		if (smpl) {
+			smpl->Play();
+		}
+	} //438ec0 alt
 
 	void LoadSample(); //45ba94
 

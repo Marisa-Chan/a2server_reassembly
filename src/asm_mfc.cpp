@@ -48,16 +48,18 @@ void* __cdecl operator new(size_t nSize)
 	{
 		pResult = malloc(nSize);
 
-		if (pResult != NULL)
+		if (pResult != NULL) {
 			return pResult;
+		}
 
 		if (pfnNewHandler == _pfnUninitialized)
 		{
 			AFX_MODULE_THREAD_STATE* pState = AfxGetModuleThreadState();
 			pfnNewHandler = pState->m_pfnNewHandler;
 		}
-		if (pfnNewHandler == NULL || (*pfnNewHandler)(nSize) == 0)
+		if (pfnNewHandler == NULL || (*pfnNewHandler)(nSize) == 0) {
 			break;
+		}
 	}
 	return pResult;
 }
@@ -70,15 +72,17 @@ void __cdecl operator delete(void* p)
 
 BOOL AFXAPI AfxIsValidString(LPCWSTR lpsz, int nLength)
 {
-	if (lpsz == NULL)
+	if (lpsz == NULL) {
 		return FALSE;
+	}
 	return /*afxData.bWin32s ||*/ ::IsBadStringPtrW(lpsz, nLength) == 0;
 }
 
 BOOL AFXAPI AfxIsValidString(LPCSTR lpsz, int nLength)
 {
-	if (lpsz == NULL)
+	if (lpsz == NULL) {
 		return FALSE;
+	}
 	return ::IsBadStringPtrA(lpsz, nLength) == 0;
 }
 
@@ -201,8 +205,9 @@ BOOL CRuntimeClass::IsDerivedFrom(const CRuntimeClass* pBaseClass) const
 	const CRuntimeClass* pClassThis = this;
 	while (pClassThis != NULL)
 	{
-		if (pClassThis == pBaseClass)
+		if (pClassThis == pBaseClass) {
 			return TRUE;
+		}
 		pClassThis = pClassThis->m_pBaseClass;
 	}
 	return FALSE;       // walked to the top, no match
@@ -248,8 +253,9 @@ int AFXAPI AfxLoadString(UINT nID, LPTSTR lpszBuf, UINT nMaxBuf)
 	ASSERT(AfxIsValidAddress(lpszBuf, nMaxBuf * sizeof(TCHAR)));
 
 	int nLen = ::LoadString(AfxGetResourceHandle(), nID, lpszBuf, nMaxBuf);
-	if (nLen == 0)
+	if (nLen == 0) {
 		lpszBuf[0] = '\0';
+	}
 	return nLen;
 }
 
@@ -258,8 +264,9 @@ int AFXAPI AfxLoadString(UINT nID, LPTSTR lpszBuf, UINT nMaxBuf)
 BOOL AFXAPI AfxExtractSubString(CString& rString, LPCTSTR lpszFullString,
 	int iSubString, TCHAR chSep)
 {
-	if (lpszFullString == NULL)
+	if (lpszFullString == NULL) {
 		return FALSE;
+	}
 
 	while (iSubString--)
 	{
@@ -305,20 +312,21 @@ void AFXAPI AfxFormatStrings(CString& rString, LPCTSTR lpszFormat, LPCTSTR const
 		{
 			// %A comes after %9 -- we'll need it someday
 			int i;
-			if (pchSrc[1] > '9')
+			if (pchSrc[1] > '9') {
 				i = 9 + (pchSrc[1] - 'A');
-			else
+			} else {
 				i = pchSrc[1] - '1';
+			}
 			pchSrc += 2;
-			if (i >= nString)
+			if (i >= nString) {
 				++nTotalLen;
-			else if (rglpsz[i] != NULL)
+			} else if (rglpsz[i] != NULL) {
 				nTotalLen += lstrlen(rglpsz[i]);
-		}
-		else
-		{
-			if (_istlead(*pchSrc))
+			}
+		} else {
+			if (_istlead(*pchSrc)) {
 				++nTotalLen, ++pchSrc;
+			}
 			++pchSrc;
 			++nTotalLen;
 		}
@@ -334,26 +342,25 @@ void AFXAPI AfxFormatStrings(CString& rString, LPCTSTR lpszFormat, LPCTSTR const
 		{
 			// %A comes after %9 -- we'll need it someday
 			int i;
-			if (pchSrc[1] > '9')
+			if (pchSrc[1] > '9') {
 				i = 9 + (pchSrc[1] - 'A');
-			else
+			} else {
 				i = pchSrc[1] - '1';
+			}
 			pchSrc += 2;
 			if (i >= nString)
 			{
 				TRACE1("Error: illegal string index requested %d.\n", i);
 				*pchDest++ = '?';
-			}
-			else if (rglpsz[i] != NULL)
+			} else if (rglpsz[i] != NULL)
 			{
 				lstrcpy(pchDest, rglpsz[i]);
 				pchDest += lstrlen(pchDest);
 			}
-		}
-		else
-		{
-			if (_istlead(*pchSrc))
+		} else {
+			if (_istlead(*pchSrc)) {
 				*pchDest++ = *pchSrc++; // copy first of 2 bytes
+			}
 			*pchDest++ = *pchSrc++;
 		}
 	}
@@ -557,9 +564,7 @@ CTime::CTime(const SYSTEMTIME& sysTime, int nDST)
 		time_t time0 = 0L;
 		CTime timeT(time0);
 		*this = timeT;
-	}
-	else
-	{
+	} else {
 		CTime timeT(
 			(int)sysTime.wYear, (int)sysTime.wMonth, (int)sysTime.wDay,
 			(int)sysTime.wHour, (int)sysTime.wMinute, (int)sysTime.wSecond,
@@ -603,9 +608,9 @@ struct tm* CTime::GetGmtTm(struct tm* ptm) const
 	{
 		*ptm = *gmtime(&m_time);
 		return ptm;
-	}
-	else
+	} else {
 		return gmtime(&m_time);
+	}
 }
 
 struct tm* CTime::GetLocalTm(struct tm* ptm) const
@@ -613,14 +618,15 @@ struct tm* CTime::GetLocalTm(struct tm* ptm) const
 	if (ptm != NULL)
 	{
 		struct tm* ptmTemp = localtime(&m_time);
-		if (ptmTemp == NULL)
+		if (ptmTemp == NULL) {
 			return NULL;    // indicates the m_time was not initialized!
+		}
 
 		*ptm = *ptmTemp;
 		return ptm;
-	}
-	else
+	} else {
 		return localtime(&m_time);
+	}
 }
 
 
@@ -643,8 +649,9 @@ CString CTime::Format(LPCTSTR pFormat) const
 
 	struct tm* ptmTemp = localtime(&m_time);
 	if (ptmTemp == NULL ||
-		!_tcsftime(szBuffer, _countof(szBuffer), pFormat, ptmTemp))
+		!_tcsftime(szBuffer, _countof(szBuffer), pFormat, ptmTemp)) {
 		szBuffer[0] = '\0';
+	}
 	return szBuffer;
 }
 
@@ -654,8 +661,9 @@ CString CTime::FormatGmt(LPCTSTR pFormat) const
 
 	struct tm* ptmTemp = gmtime(&m_time);
 	if (ptmTemp == NULL ||
-		!_tcsftime(szBuffer, _countof(szBuffer), pFormat, ptmTemp))
+		!_tcsftime(szBuffer, _countof(szBuffer), pFormat, ptmTemp)) {
 		szBuffer[0] = '\0';
+	}
 	return szBuffer;
 }
 
@@ -1140,8 +1148,9 @@ CRect CRect::MulDiv(int nMultiplier, int nDivisor) const
 
 void CArchive::CheckCount()
 {
-	if (m_nMapCount >= nMaxMapCount)
+	if (m_nMapCount >= nMaxMapCount) {
 		AfxThrowArchiveException(CArchiveException::badIndex, m_strFileName);
+	}
 }
 
 void CArchive::WriteObject(const CObject* pOb)
@@ -1164,21 +1173,18 @@ void CArchive::WriteObject(const CObject* pOb)
 	{
 		// save out null tag to represent NULL pointer
 		*this << wNullTag;
-	}
-	else if ((nObIndex = (DWORD)(*m_pStoreMap)[(void*)pOb]) != 0)
+	} else if ((nObIndex = (DWORD)(*m_pStoreMap)[(void*)pOb]) != 0)
 		// assumes initialized to 0 map
 	{
 		// save out index of already stored object
-		if (nObIndex < wBigObjectTag)
+		if (nObIndex < wBigObjectTag) {
 			*this << (WORD)nObIndex;
-		else
+		} else
 		{
 			*this << wBigObjectTag;
 			*this << nObIndex;
 		}
-	}
-	else
-	{
+	} else {
 		// write class of object first
 		CRuntimeClass* pClassRef = pOb->GetRuntimeClass();
 		WriteClass(pClassRef);
@@ -1228,15 +1234,14 @@ CObject* CArchive::ReadObject(const CRuntimeClass* pClassRefRequested)
 			AfxThrowArchiveException(CArchiveException::badClass,
 				m_strFileName);
 		}
-	}
-	else
-	{
+	} else {
 		// allocate a new object based on the class just acquired
 		pOb = pClassRef->CreateObject();
-		if (pOb == NULL)
+		if (pOb == NULL) {
 			AfxThrowMemoryException();
 
 		// Add to mapping array BEFORE de-serializing
+		}
 		CheckCount();
 		m_pLoadArray->InsertAt(m_nMapCount++, pOb);
 
@@ -1279,9 +1284,7 @@ void CArchive::MapObject(const CObject* pOb)
 			CheckCount();
 			(*m_pStoreMap)[(void*)pOb] = (void*)m_nMapCount++;
 		}
-	}
-	else
-	{
+	} else {
 		if (m_pLoadArray == NULL)
 		{
 			// initialize the loaded object pointer array and set special values
@@ -1322,16 +1325,14 @@ void CArchive::WriteClass(const CRuntimeClass* pClassRef)
 	if ((nClassIndex = (DWORD)(*m_pStoreMap)[(void*)pClassRef]) != 0)
 	{
 		// previously seen class, write out the index tagged by high bit
-		if (nClassIndex < wBigObjectTag)
+		if (nClassIndex < wBigObjectTag) {
 			*this << (WORD)(wClassTag | nClassIndex);
-		else
+		} else
 		{
 			*this << wBigObjectTag;
 			*this << (dwBigClassTag | nClassIndex);
 		}
-	}
-	else
-	{
+	} else {
 		// store new class
 		*this << wNewClassTag;
 		pClassRef->Store(*this);
@@ -1363,16 +1364,18 @@ CRuntimeClass* CArchive::ReadClass(const CRuntimeClass* pClassRefRequested,
 	DWORD obTag;
 	WORD wTag;
 	*this >> wTag;
-	if (wTag == wBigObjectTag)
+	if (wTag == wBigObjectTag) {
 		*this >> obTag;
-	else
+	} else {
 		obTag = ((wTag & wClassTag) << 16) | (wTag & ~wClassTag);
 
 	// check for object tag (throw exception if expecting class tag)
+	}
 	if (!(obTag & dwBigClassTag))
 	{
-		if (pObTag == NULL)
+		if (pObTag == NULL) {
 			AfxThrowArchiveException(CArchiveException::badIndex, m_strFileName);
+		}
 
 		*pObTag = obTag;
 		return NULL;
@@ -1383,10 +1386,11 @@ CRuntimeClass* CArchive::ReadClass(const CRuntimeClass* pClassRefRequested,
 	if (wTag == wNewClassTag)
 	{
 		// new object follows a new class id
-		if ((pClassRef = CRuntimeClass::Load(*this, &nSchema)) == NULL)
+		if ((pClassRef = CRuntimeClass::Load(*this, &nSchema)) == NULL) {
 			AfxThrowArchiveException(CArchiveException::badClass, m_strFileName);
 
 		// check nSchema against the expected schema
+		}
 		if ((pClassRef->m_wSchema & ~VERSIONABLE_SCHEMA) != nSchema)
 		{
 			if (!(pClassRef->m_wSchema & VERSIONABLE_SCHEMA))
@@ -1394,36 +1398,35 @@ CRuntimeClass* CArchive::ReadClass(const CRuntimeClass* pClassRefRequested,
 				// schema doesn't match and not marked as VERSIONABLE_SCHEMA
 				AfxThrowArchiveException(CArchiveException::badSchema,
 					m_strFileName);
-			}
-			else
-			{
+			} else {
 				// they differ -- store the schema for later retrieval
-				if (m_pSchemaMap == NULL)
+				if (m_pSchemaMap == NULL) {
 					m_pSchemaMap = new CMapPtrToPtr;
+				}
 				ASSERT_VALID(m_pSchemaMap);
 				m_pSchemaMap->SetAt(pClassRef, (void*)nSchema);
 			}
 		}
 		CheckCount();
 		m_pLoadArray->InsertAt(m_nMapCount++, pClassRef);
-	}
-	else
-	{
+	} else {
 		// existing class index in obTag followed by new object
 		DWORD nClassIndex = (obTag & ~dwBigClassTag);
-		if (nClassIndex == 0 || nClassIndex > (DWORD)m_pLoadArray->GetUpperBound())
+		if (nClassIndex == 0 || nClassIndex > (DWORD)m_pLoadArray->GetUpperBound()) {
 			AfxThrowArchiveException(CArchiveException::badIndex,
 				m_strFileName);
+		}
 
 		pClassRef = (CRuntimeClass*)m_pLoadArray->GetAt(nClassIndex);
 		ASSERT(pClassRef != NULL);
 
 		// determine schema stored against objects of this type
 		void* pTemp;
-		if (m_pSchemaMap != NULL && (pTemp = m_pSchemaMap->GetValueAt(pClassRef)) != NULL)
+		if (m_pSchemaMap != NULL && (pTemp = m_pSchemaMap->GetValueAt(pClassRef)) != NULL) {
 			nSchema = (UINT)pTemp;
-		else
+		} else {
 			nSchema = pClassRef->m_wSchema & ~VERSIONABLE_SCHEMA;
+		}
 	}
 
 	// check for correct derivation
@@ -1434,25 +1437,28 @@ CRuntimeClass* CArchive::ReadClass(const CRuntimeClass* pClassRefRequested,
 	}
 
 	// store nSchema for later examination
-	if (pSchema != NULL)
+	if (pSchema != NULL) {
 		*pSchema = nSchema;
-	else
+	} else {
 		m_nObjectSchema = nSchema;
 
 	// store obTag for later examination
-	if (pObTag != NULL)
+	}
+	if (pObTag != NULL) {
 		*pObTag = obTag;
 
 	// return the resulting CRuntimeClass*
+	}
 	return pClassRef;
 }
 
 void CArchive::SerializeClass(const CRuntimeClass* pClassRef)
 {
-	if (IsStoring())
+	if (IsStoring()) {
 		WriteClass(pClassRef);
-	else
+	} else {
 		ReadClass(pClassRef);
+	}
 }
 
 void AFXAPI AfxThrowArchiveException(int cause,
@@ -1479,16 +1485,18 @@ BOOL CArchiveException::GetErrorMessage(LPTSTR lpszError, UINT nMaxError,
 {
 	ASSERT(lpszError != NULL && AfxIsValidString(lpszError, nMaxError));
 
-	if (pnHelpContext != NULL)
+	if (pnHelpContext != NULL) {
 		*pnHelpContext = m_cause + 0xf1b0;
 
 	// we can use CString here; archive errors aren't caused
 	// by being out of memory.
 
+	}
 	CString strMessage;
 	CString strFileName = m_strFileName;
-	if (strFileName.IsEmpty())
+	if (strFileName.IsEmpty()) {
 		strFileName.LoadString(AFX_IDS_UNNAMED_FILE);
+	}
 	AfxFormatString1(strMessage,
 		m_cause + 0xf1b0, strFileName);
 	lstrcpyn(lpszError, strMessage, nMaxError);

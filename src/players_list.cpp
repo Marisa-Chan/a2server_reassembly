@@ -151,15 +151,17 @@ int PlayersList::CountHumanPlayers()
 {
 	//53618f
 
-	if (list.IsEmpty())
+	if (list.IsEmpty()) {
 		return 0;
+	}
 
 	int count = 0;
 
 	for (POSITION it = list.GetHeadPosition(); it != nullptr;)
 	{
-		if (list.GetNext(it)->is_ai == 0)
+		if (list.GetNext(it)->is_ai == 0) {
 			count++;
+		}
 	}
 	return count;
 }
@@ -171,8 +173,9 @@ int PlayersList::CountCD()
 
 	for (POSITION pos = list.GetHeadPosition(); pos != nullptr;)
 	{
-		if (list.GetNext(pos)->field_0xa45 != 0)
+		if (list.GetNext(pos)->field_0xa45 != 0) {
 			count++;
+		}
 	}
 	return count;
 }
@@ -388,8 +391,9 @@ PlayersList::~PlayersList()
 	for (POSITION it = list.GetHeadPosition(); it != nullptr;)
 	{
 		Player* pl = list.GetNext(it);
-		if (pl)
+		if (pl) {
 			delete pl;
+		}
 	}
 	list.RemoveAll();
 }

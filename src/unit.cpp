@@ -43,9 +43,7 @@ void EquipmentExtra::Serialize(CArchive& ar)
     {
         //ar.Write(this, sizeof(EquipmentExtra));
         ar.Write(this, 0x40);
-    }
-    else
-    {
+    } else {
         //ar.Read(this, sizeof(EquipmentExtra));
         ar.Read(this, 0x40);
     }
@@ -68,8 +66,9 @@ void EquipmentExtra::AddToUnit(Unit *unit)
     //52eb64
     unit->speed += speed;
 
-    if (unit->speed < 6)
+    if (unit->speed < 6) {
         unit->speed = 6;
+    }
 
     unit->carrying_body_100g += carrying_body_100g;
     unit->hp_max += hp_max;
@@ -752,8 +751,9 @@ void Unit::VMethod2()
             this->charge_countdown = (int8_t)(this->VMethod25() - 1);
             g_NetStru1_main.sub_519221(this, nullptr, 0x4001, 0xffb, 0, 0);
         } else if (this->charge_countdown < 1) {
-            if (this->movement_type > 1)
+            if (this->movement_type > 1) {
                 this->hp = -1000;
+            }
             if (this->hp < -9) {
                 this->some_state = 0x10;
                 this->sub_52D94E(); // Kill the unit.
@@ -1203,10 +1203,11 @@ uint32_t Unit::VMethod17(UnitToHit* unit_to_hit, Unit* attacker)
 
 void Unit::VMethod18()
 {
-    if (!pOwner)
+    if (!pOwner) {
         mp2 = mp_max;
-    else
+    } else {
         mp2 = (pOwner->field_0xa5c * mp_max) / 100;
+    }
 }
 
 uint32_t Unit::VMethod19()
@@ -1221,8 +1222,9 @@ void Unit::VMethod20()
 void Unit::VMethod21(uint32_t newExp, Unit *target, int32_t sphere)
 {
     experience += newExp;
-    if (target && target->hp < 0)
+    if (target && target->hp < 0) {
         pOwner->monster_kills += 1;
+    }
 }
 
 void Unit::VMethod22(Unit*, int32_t)
@@ -2384,15 +2386,17 @@ void Humanoid::VMethod13(Item *item)
 {
     //5304b2
     Item *itm = VMethod12(item);
-    if (itm)
+    if (itm) {
         inventory->PutItemIntoBagAtDefault(itm);
+    }
 }
 
 Item *Humanoid::Unequip(Item* item)
 {
     //5304e8
-    if (item)
+    if (item) {
         item->VMethod11(this);
+    }
     return item;
 }
 
@@ -2579,8 +2583,9 @@ uint32_t Humanoid::VMethod19()
 {
     //537199
     uint32_t exps = 0;
-    for (uint32_t ex : experience_per_sphere)
+    for (uint32_t ex : experience_per_sphere) {
         exps += ex;
+    }
 
     _exp = (exps * 0.01);
     return _exp;

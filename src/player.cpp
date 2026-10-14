@@ -273,8 +273,9 @@ static int32_t g_ExperienceLevelTable[150];
 
 void InitTable()
 { //53069e
-    for (int i = 0; i < 150; i++)
+    for (int i = 0; i < 150; i++) {
         g_ExperienceLevelTable[i] = (pow(1.1, i) - 1.0) * 1000.0;
+    }
 }
 
 int32_t __cdecl GetLevel(uint32_t ex)
@@ -290,8 +291,9 @@ int32_t __cdecl GetLevel(uint32_t ex)
 
 int32_t __cdecl GetExp(uint32_t lvl)
 { //530726
-    if (lvl >= 150)
+    if (lvl >= 150) {
         lvl = 149;
+    }
     return g_ExperienceLevelTable[lvl];
 }
 }

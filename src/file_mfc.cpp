@@ -31,14 +31,16 @@ CFile::CFile(LPCTSTR lpszFileName, UINT nOpenFlags)
 	ASSERT(AfxIsValidString(lpszFileName));
 
 	CFileException e;
-	if (!Open(lpszFileName, nOpenFlags, &e))
+	if (!Open(lpszFileName, nOpenFlags, &e)) {
 		AfxThrowFileException(e.m_cause, e.m_lOsError, e.m_strFileName);
+	}
 }
 
 CFile::~CFile()
 {
-	if (m_hFile != (UINT)hFileNull && m_bCloseOnDelete)
+	if (m_hFile != (UINT)hFileNull && m_bCloseOnDelete) {
 		Close();
+	}
 }
 
 CFile* CFile::Duplicate() const
@@ -134,15 +136,16 @@ BOOL CFile::Open(LPCTSTR lpszFileName, UINT nOpenFlags,
 	DWORD dwCreateFlag;
 	if (nOpenFlags & modeCreate)
 	{
-		if (nOpenFlags & modeNoTruncate)
+		if (nOpenFlags & modeNoTruncate) {
 			dwCreateFlag = OPEN_ALWAYS;
-		else
+		} else {
 			dwCreateFlag = CREATE_ALWAYS;
-	}
-	else
+		}
+	} else {
 		dwCreateFlag = OPEN_EXISTING;
 
 	// attempt file creation
+	}
 	HANDLE hFile = ::CreateFile(lpszFileName, dwAccess, dwShareMode, &sa,
 		dwCreateFlag, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (hFile == INVALID_HANDLE_VALUE)
@@ -171,15 +174,17 @@ UINT CFile::Read(void* lpBuf, UINT nCount)
 	ASSERT_VALID(this);
 	ASSERT(m_hFile != (UINT)hFileNull);
 
-	if (nCount == 0)
+	if (nCount == 0) {
 		return 0;   // avoid Win32 "null-read"
+	}
 
 	ASSERT(lpBuf != NULL);
 	ASSERT(AfxIsValidAddress(lpBuf, nCount));
 
 	DWORD dwRead;
-	if (!::ReadFile((HANDLE)m_hFile, lpBuf, nCount, &dwRead, NULL))
+	if (!::ReadFile((HANDLE)m_hFile, lpBuf, nCount, &dwRead, NULL)) {
 		CFileException::ThrowOsError((LONG)::GetLastError());
+	}
 
 	return (UINT)dwRead;
 }
@@ -189,19 +194,22 @@ void CFile::Write(const void* lpBuf, UINT nCount)
 	ASSERT_VALID(this);
 	ASSERT(m_hFile != (UINT)hFileNull);
 
-	if (nCount == 0)
+	if (nCount == 0) {
 		return;     // avoid Win32 "null-write" option
+	}
 
 	ASSERT(lpBuf != NULL);
 	ASSERT(AfxIsValidAddress(lpBuf, nCount, FALSE));
 
 	DWORD nWritten;
-	if (!::WriteFile((HANDLE)m_hFile, lpBuf, nCount, &nWritten, NULL))
+	if (!::WriteFile((HANDLE)m_hFile, lpBuf, nCount, &nWritten, NULL)) {
 		CFileException::ThrowOsError((LONG)::GetLastError(), m_strFileName);
 
 	// Win32s will not return an error all the time (usually DISK_FULL)
-	if (nWritten != nCount)
+	}
+	if (nWritten != nCount) {
 		AfxThrowFileException(CFileException::diskFull, -1, m_strFileName);
+	}
 }
 
 LONG CFile::Seek(LONG lOff, UINT nFrom)
@@ -212,8 +220,9 @@ LONG CFile::Seek(LONG lOff, UINT nFrom)
 	ASSERT(begin == FILE_BEGIN && end == FILE_END && current == FILE_CURRENT);
 
 	DWORD dwNew = ::SetFilePointer((HANDLE)m_hFile, lOff, NULL, (DWORD)nFrom);
-	if (dwNew == (DWORD)-1)
+	if (dwNew == (DWORD)-1) {
 		CFileException::ThrowOsError((LONG)::GetLastError());
+	}
 
 	return dwNew;
 }
@@ -224,8 +233,9 @@ DWORD CFile::GetPosition() const
 	ASSERT(m_hFile != (UINT)hFileNull);
 
 	DWORD dwPos = ::SetFilePointer((HANDLE)m_hFile, 0, NULL, FILE_CURRENT);
-	if (dwPos == (DWORD)-1)
+	if (dwPos == (DWORD)-1) {
 		CFileException::ThrowOsError((LONG)::GetLastError());
+	}
 
 	return dwPos;
 }
@@ -234,11 +244,13 @@ void CFile::Flush()
 {
 	ASSERT_VALID(this);
 
-	if (m_hFile == (UINT)hFileNull)
+	if (m_hFile == (UINT)hFileNull) {
 		return;
+	}
 
-	if (!::FlushFileBuffers((HANDLE)m_hFile))
+	if (!::FlushFileBuffers((HANDLE)m_hFile)) {
 		CFileException::ThrowOsError((LONG)::GetLastError());
+	}
 }
 
 void CFile::Close()
@@ -247,15 +259,17 @@ void CFile::Close()
 	ASSERT(m_hFile != (UINT)hFileNull);
 
 	BOOL bError = FALSE;
-	if (m_hFile != (UINT)hFileNull)
+	if (m_hFile != (UINT)hFileNull) {
 		bError = !::CloseHandle((HANDLE)m_hFile);
+	}
 
 	m_hFile = (UINT)hFileNull;
 	m_bCloseOnDelete = FALSE;
 	m_strFileName.Empty();
 
-	if (bError)
+	if (bError) {
 		CFileException::ThrowOsError((LONG)::GetLastError());
+	}
 }
 
 void CFile::Abort()
@@ -275,8 +289,9 @@ void CFile::LockRange(DWORD dwPos, DWORD dwCount)
 	ASSERT_VALID(this);
 	ASSERT(m_hFile != (UINT)hFileNull);
 
-	if (!::LockFile((HANDLE)m_hFile, dwPos, 0, dwCount, 0))
+	if (!::LockFile((HANDLE)m_hFile, dwPos, 0, dwCount, 0)) {
 		CFileException::ThrowOsError((LONG)::GetLastError());
+	}
 }
 
 void CFile::UnlockRange(DWORD dwPos, DWORD dwCount)
@@ -284,8 +299,9 @@ void CFile::UnlockRange(DWORD dwPos, DWORD dwCount)
 	ASSERT_VALID(this);
 	ASSERT(m_hFile != (UINT)hFileNull);
 
-	if (!::UnlockFile((HANDLE)m_hFile, dwPos, 0, dwCount, 0))
+	if (!::UnlockFile((HANDLE)m_hFile, dwPos, 0, dwCount, 0)) {
 		CFileException::ThrowOsError((LONG)::GetLastError());
+	}
 }
 
 void CFile::SetLength(DWORD dwNewLen)
@@ -295,8 +311,9 @@ void CFile::SetLength(DWORD dwNewLen)
 
 	Seek((LONG)dwNewLen, (UINT)begin);
 
-	if (!::SetEndOfFile((HANDLE)m_hFile))
+	if (!::SetEndOfFile((HANDLE)m_hFile)) {
 		CFileException::ThrowOsError((LONG)::GetLastError());
+	}
 }
 
 DWORD CFile::GetLength() const
@@ -326,14 +343,16 @@ UINT CFile::GetBufferPtr(UINT nCommand, UINT /*nCount*/,
 
 void PASCAL CFile::Rename(LPCTSTR lpszOldName, LPCTSTR lpszNewName)
 {
-	if (!::MoveFile((LPTSTR)lpszOldName, (LPTSTR)lpszNewName))
+	if (!::MoveFile((LPTSTR)lpszOldName, (LPTSTR)lpszNewName)) {
 		CFileException::ThrowOsError((LONG)::GetLastError());
+	}
 }
 
 void PASCAL CFile::Remove(LPCTSTR lpszFileName)
 {
-	if (!::DeleteFile((LPTSTR)lpszFileName))
+	if (!::DeleteFile((LPTSTR)lpszFileName)) {
 		CFileException::ThrowOsError((LONG)::GetLastError());
+	}
 }
 
 
@@ -378,10 +397,11 @@ BOOL AFXAPI AfxFullPath(LPTSTR lpszPathOut, LPCTSTR lpszFileIn)
 	}
 
 	// not all characters have complete uppercase/lowercase
-	if (!(dwFlags & FS_CASE_IS_PRESERVED))
+	if (!(dwFlags & FS_CASE_IS_PRESERVED)) {
 		CharUpper(lpszPathOut);
 
 	// assume non-UNICODE file systems, use OEM character set
+	}
 	if (!(dwFlags & FS_UNICODE_STORED_ON_DISK))
 	{
 		WIN32_FIND_DATA data;
@@ -407,8 +427,9 @@ void AFXAPI AfxGetRoot(LPCTSTR lpszPath, CString& strRoot)
 	for (lpsz = lpszRoot; *lpsz != '\0'; lpsz = _tcsinc(lpsz))
 	{
 		// find first double slash and stop
-		if (IsDirSep(lpsz[0]) && IsDirSep(lpsz[1]))
+		if (IsDirSep(lpsz[0]) && IsDirSep(lpsz[1])) {
 			break;
+		}
 	}
 	if (*lpsz != '\0')
 	{
@@ -416,25 +437,29 @@ void AFXAPI AfxGetRoot(LPCTSTR lpszPath, CString& strRoot)
 		ASSERT(IsDirSep(lpsz[0]));
 		ASSERT(IsDirSep(lpsz[1]));
 		lpsz += 2;
-		while (*lpsz != '\0' && (!IsDirSep(*lpsz)))
+		while (*lpsz != '\0' && (!IsDirSep(*lpsz))) {
 			lpsz = _tcsinc(lpsz);
-		if (*lpsz != '\0')
+		}
+		if (*lpsz != '\0') {
 			lpsz = _tcsinc(lpsz);
-		while (*lpsz != '\0' && (!IsDirSep(*lpsz)))
+		}
+		while (*lpsz != '\0' && (!IsDirSep(*lpsz))) {
 			lpsz = _tcsinc(lpsz);
 		// terminate it just after the UNC root (ie. '\\server\share\')
-		if (*lpsz != '\0')
+		}
+		if (*lpsz != '\0') {
 			lpsz[1] = '\0';
-	}
-	else
-	{
+		}
+	} else {
 		// not a UNC, look for just the first slash
 		lpsz = lpszRoot;
-		while (*lpsz != '\0' && (!IsDirSep(*lpsz)))
+		while (*lpsz != '\0' && (!IsDirSep(*lpsz))) {
 			lpsz = _tcsinc(lpsz);
 		// terminate it just after root (ie. 'x:\')
-		if (*lpsz != '\0')
+		}
+		if (*lpsz != '\0') {
 			lpsz[1] = '\0';
+		}
 	}
 	strRoot.ReleaseBuffer();
 }
@@ -524,11 +549,13 @@ BOOL CFile::GetStatus(CFileStatus& rStatus) const
 	{
 		// get time current file size
 		FILETIME ftCreate, ftAccess, ftModify;
-		if (!::GetFileTime((HANDLE)m_hFile, &ftCreate, &ftAccess, &ftModify))
+		if (!::GetFileTime((HANDLE)m_hFile, &ftCreate, &ftAccess, &ftModify)) {
 			return FALSE;
+		}
 
-		if ((rStatus.m_size = ::GetFileSize((HANDLE)m_hFile, NULL)) == (DWORD)-1L)
+		if ((rStatus.m_size = ::GetFileSize((HANDLE)m_hFile, NULL)) == (DWORD)-1L) {
 			return FALSE;
+		}
 
 #ifdef _MAC
 		rStatus.m_attribute = 0;
@@ -559,11 +586,13 @@ BOOL CFile::GetStatus(CFileStatus& rStatus) const
 		rStatus.m_atime = CTime(ftAccess);
 		rStatus.m_mtime = CTime(ftModify);
 
-		if (rStatus.m_ctime.GetTime() == 0)
+		if (rStatus.m_ctime.GetTime() == 0) {
 			rStatus.m_ctime = rStatus.m_mtime;
+		}
 
-		if (rStatus.m_atime.GetTime() == 0)
+		if (rStatus.m_atime.GetTime() == 0) {
 			rStatus.m_atime = rStatus.m_mtime;
+		}
 	}
 	return TRUE;
 }
@@ -579,8 +608,9 @@ BOOL PASCAL CFile::GetStatus(LPCTSTR lpszFileName, CFileStatus& rStatus)
 
 	WIN32_FIND_DATA findFileData;
 	HANDLE hFind = FindFirstFile((LPTSTR)lpszFileName, &findFileData);
-	if (hFind == INVALID_HANDLE_VALUE)
+	if (hFind == INVALID_HANDLE_VALUE) {
 		return FALSE;
+	}
 	VERIFY(FindClose(hFind));
 
 	// strip attribute of NORMAL bit, our API doesn't have a "normal" bit.
@@ -596,11 +626,13 @@ BOOL PASCAL CFile::GetStatus(LPCTSTR lpszFileName, CFileStatus& rStatus)
 	rStatus.m_atime = CTime(findFileData.ftLastAccessTime);
 	rStatus.m_mtime = CTime(findFileData.ftLastWriteTime);
 
-	if (rStatus.m_ctime.GetTime() == 0)
+	if (rStatus.m_ctime.GetTime() == 0) {
 		rStatus.m_ctime = rStatus.m_mtime;
+	}
 
-	if (rStatus.m_atime.GetTime() == 0)
+	if (rStatus.m_atime.GetTime() == 0) {
 		rStatus.m_atime = rStatus.m_mtime;
+	}
 
 	return TRUE;
 }
@@ -618,12 +650,14 @@ void AFX_CDECL AfxTimeToFileTime(const CTime& time, LPFILETIME pFileTime)
 
 	// convert system time to local file time
 	FILETIME localTime;
-	if (!SystemTimeToFileTime((LPSYSTEMTIME)&sysTime, &localTime))
+	if (!SystemTimeToFileTime((LPSYSTEMTIME)&sysTime, &localTime)) {
 		CFileException::ThrowOsError((LONG)::GetLastError());
 
 	// convert local file time to UTC file time
-	if (!LocalFileTimeToFileTime(&localTime, pFileTime))
+	}
+	if (!LocalFileTimeToFileTime(&localTime, pFileTime)) {
 		CFileException::ThrowOsError((LONG)::GetLastError());
+	}
 }
 
 void PASCAL CFile::SetStatus(LPCTSTR lpszFileName, const CFileStatus& status)
@@ -636,8 +670,9 @@ void PASCAL CFile::SetStatus(LPCTSTR lpszFileName, const CFileStatus& status)
 	LPFILETIME lpLastAccessTime = NULL;
 	LPFILETIME lpLastWriteTime = NULL;
 
-	if ((wAttr = GetFileAttributes((LPTSTR)lpszFileName)) == (DWORD)-1L)
+	if ((wAttr = GetFileAttributes((LPTSTR)lpszFileName)) == (DWORD)-1L) {
 		CFileException::ThrowOsError((LONG)GetLastError());
+	}
 
 	if ((DWORD)status.m_attribute != wAttr && (wAttr & readOnly))
 	{
@@ -645,8 +680,9 @@ void PASCAL CFile::SetStatus(LPCTSTR lpszFileName, const CFileStatus& status)
 		// This way we will be able to modify the time assuming the
 		// caller changed the file from readonly.
 
-		if (!SetFileAttributes((LPTSTR)lpszFileName, (DWORD)status.m_attribute))
+		if (!SetFileAttributes((LPTSTR)lpszFileName, (DWORD)status.m_attribute)) {
 			CFileException::ThrowOsError((LONG)GetLastError());
+		}
 	}
 
 	// last modification time
@@ -673,20 +709,24 @@ void PASCAL CFile::SetStatus(LPCTSTR lpszFileName, const CFileStatus& status)
 			FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL,
 			NULL);
 
-		if (hFile == INVALID_HANDLE_VALUE)
+		if (hFile == INVALID_HANDLE_VALUE) {
 			CFileException::ThrowOsError((LONG)::GetLastError());
+		}
 
-		if (!SetFileTime((HANDLE)hFile, lpCreationTime, lpLastAccessTime, lpLastWriteTime))
+		if (!SetFileTime((HANDLE)hFile, lpCreationTime, lpLastAccessTime, lpLastWriteTime)) {
 			CFileException::ThrowOsError((LONG)::GetLastError());
+		}
 
-		if (!::CloseHandle(hFile))
+		if (!::CloseHandle(hFile)) {
 			CFileException::ThrowOsError((LONG)::GetLastError());
+		}
 	}
 
 	if ((DWORD)status.m_attribute != wAttr && !(wAttr & readOnly))
 	{
-		if (!SetFileAttributes((LPTSTR)lpszFileName, (DWORD)status.m_attribute))
+		if (!SetFileAttributes((LPTSTR)lpszFileName, (DWORD)status.m_attribute)) {
 			CFileException::ThrowOsError((LONG)GetLastError());
+		}
 	}
 }
 
@@ -753,8 +793,9 @@ CString CFileFind::GetFilePath() const
 
 	CString strResult = m_strRoot;
 	if (strResult[strResult.GetLength() - 1] != '\\' &&
-		strResult[strResult.GetLength() - 1] != '/')
+		strResult[strResult.GetLength() - 1] != '/') {
 		strResult += m_chDirSeparator;
+	}
 	strResult += GetFileName();
 	return strResult;
 }
@@ -779,8 +820,9 @@ CString CFileFind::GetFileName() const
 
 	CString ret;
 
-	if (m_pFoundInfo != NULL)
+	if (m_pFoundInfo != NULL) {
 		ret = ((LPWIN32_FIND_DATA)m_pFoundInfo)->cFileName;
+	}
 	return ret;
 }
 
@@ -800,9 +842,9 @@ BOOL CFileFind::GetLastWriteTime(FILETIME* pTimeStamp) const
 	{
 		*pTimeStamp = ((LPWIN32_FIND_DATA)m_pFoundInfo)->ftLastWriteTime;
 		return TRUE;
-	}
-	else
+	} else {
 		return FALSE;
+	}
 }
 
 BOOL CFileFind::GetLastAccessTime(FILETIME* pTimeStamp) const
@@ -815,9 +857,9 @@ BOOL CFileFind::GetLastAccessTime(FILETIME* pTimeStamp) const
 	{
 		*pTimeStamp = ((LPWIN32_FIND_DATA)m_pFoundInfo)->ftLastAccessTime;
 		return TRUE;
-	}
-	else
+	} else {
 		return FALSE;
+	}
 }
 
 BOOL CFileFind::GetCreationTime(FILETIME* pTimeStamp) const
@@ -829,9 +871,9 @@ BOOL CFileFind::GetCreationTime(FILETIME* pTimeStamp) const
 	{
 		*pTimeStamp = ((LPWIN32_FIND_DATA)m_pFoundInfo)->ftCreationTime;
 		return TRUE;
-	}
-	else
+	} else {
 		return FALSE;
+	}
 }
 
 BOOL CFileFind::GetLastWriteTime(CTime& refTime) const
@@ -843,9 +885,9 @@ BOOL CFileFind::GetLastWriteTime(CTime& refTime) const
 	{
 		refTime = CTime(((LPWIN32_FIND_DATA)m_pFoundInfo)->ftLastWriteTime);
 		return TRUE;
-	}
-	else
+	} else {
 		return FALSE;
+	}
 }
 
 BOOL CFileFind::GetLastAccessTime(CTime& refTime) const
@@ -857,9 +899,9 @@ BOOL CFileFind::GetLastAccessTime(CTime& refTime) const
 	{
 		refTime = CTime(((LPWIN32_FIND_DATA)m_pFoundInfo)->ftLastAccessTime);
 		return TRUE;
-	}
-	else
+	} else {
 		return FALSE;
+	}
 }
 
 BOOL CFileFind::GetCreationTime(CTime& refTime) const
@@ -871,9 +913,9 @@ BOOL CFileFind::GetCreationTime(CTime& refTime) const
 	{
 		refTime = CTime(((LPWIN32_FIND_DATA)m_pFoundInfo)->ftCreationTime);
 		return TRUE;
-	}
-	else
+	} else {
 		return FALSE;
+	}
 }
 
 BOOL CFileFind::MatchesMask(DWORD dwMask) const
@@ -881,10 +923,11 @@ BOOL CFileFind::MatchesMask(DWORD dwMask) const
 	ASSERT(m_hContext != NULL);
 	ASSERT_VALID(this);
 
-	if (m_pFoundInfo != NULL)
+	if (m_pFoundInfo != NULL) {
 		return (!!(((LPWIN32_FIND_DATA)m_pFoundInfo)->dwFileAttributes & dwMask));
-	else
+	} else {
 		return FALSE;
+	}
 }
 
 BOOL CFileFind::IsDots() const
@@ -940,8 +983,9 @@ BOOL CFileFind::FindFile(LPCTSTR pstrName, DWORD /* dwUnused */)
 	m_pNextInfo = new WIN32_FIND_DATA;
 	m_bGotLast = FALSE;
 
-	if (pstrName == NULL)
+	if (pstrName == NULL) {
 		pstrName = _T("*.*");
+	}
 	_tcscpy(((WIN32_FIND_DATA*)m_pNextInfo)->cFileName, pstrName);
 
 	m_hContext = ::FindFirstFile(pstrName, (WIN32_FIND_DATA*)m_pNextInfo);
@@ -965,26 +1009,27 @@ BOOL CFileFind::FindFile(LPCTSTR pstrName, DWORD /* dwUnused */)
 		Close();
 		::SetLastError(ERROR_INVALID_NAME);
 		return FALSE;
-	}
-	else
-	{
+	} else {
 		// find the last forward or backward whack
 		LPTSTR pstrBack = _tcsrchr(pstrRoot, '\\');
 		LPTSTR pstrFront = _tcsrchr(pstrRoot, '/');
 
 		if (pstrFront != NULL || pstrBack != NULL)
 		{
-			if (pstrFront == NULL)
+			if (pstrFront == NULL) {
 				pstrFront = pstrRoot;
-			if (pstrBack == NULL)
+			}
+			if (pstrBack == NULL) {
 				pstrBack = pstrRoot;
 
 			// from the start to the last whack is the root
 
-			if (pstrFront >= pstrBack)
+			}
+			if (pstrFront >= pstrBack) {
 				*pstrFront = '\0';
-			else
+			} else {
 				*pstrBack = '\0';
+			}
 		}
 		m_strRoot.ReleaseBuffer(-1);
 	}
@@ -996,10 +1041,12 @@ int CFileFind::FindNextFile()
 {
 	ASSERT(m_hContext != NULL);
 
-	if (m_hContext == NULL)
+	if (m_hContext == NULL) {
 		return FALSE;
-	if (m_pFoundInfo == NULL)
+	}
+	if (m_pFoundInfo == NULL) {
 		m_pFoundInfo = new WIN32_FIND_DATA;
+	}
 
 	ASSERT_VALID(this);
 
@@ -1110,8 +1157,9 @@ BYTE* CMemFile::Detach()
 CMemFile::~CMemFile()
 {
 	// Close should have already been called, but we check anyway
-	if (m_lpBuffer)
+	if (m_lpBuffer) {
 		Close();
+	}
 	ASSERT(m_lpBuffer == NULL);
 
 	m_nGrowBytes = 0;
@@ -1168,22 +1216,26 @@ void CMemFile::GrowFile(DWORD dwNewLen)
 
 		// watch out for buffers which cannot be grown!
 		ASSERT(m_nGrowBytes != 0);
-		if (m_nGrowBytes == 0)
+		if (m_nGrowBytes == 0) {
 			AfxThrowMemoryException();
 
 		// determine new buffer size
-		while (dwNewBufferSize < dwNewLen)
+		}
+		while (dwNewBufferSize < dwNewLen) {
 			dwNewBufferSize += m_nGrowBytes;
 
 		// allocate new buffer
+		}
 		BYTE* lpNew;
-		if (m_lpBuffer == NULL)
+		if (m_lpBuffer == NULL) {
 			lpNew = Alloc(dwNewBufferSize);
-		else
+		} else {
 			lpNew = Realloc(m_lpBuffer, dwNewBufferSize);
+		}
 
-		if (lpNew == NULL)
+		if (lpNew == NULL) {
 			AfxThrowMemoryException();
+		}
 
 		m_lpBuffer = lpNew;
 		m_nBufferSize = dwNewBufferSize;
@@ -1195,11 +1247,13 @@ void CMemFile::SetLength(DWORD dwNewLen)
 {
 	ASSERT_VALID(this);
 
-	if (dwNewLen > m_nBufferSize)
+	if (dwNewLen > m_nBufferSize) {
 		GrowFile(dwNewLen);
+	}
 
-	if (dwNewLen < m_nPosition)
+	if (dwNewLen < m_nPosition) {
 		m_nPosition = dwNewLen;
+	}
 
 	m_nFileSize = dwNewLen;
 	ASSERT_VALID(this);
@@ -1209,20 +1263,23 @@ UINT CMemFile::Read(void* lpBuf, UINT nCount)
 {
 	ASSERT_VALID(this);
 
-	if (nCount == 0)
+	if (nCount == 0) {
 		return 0;
+	}
 
 	ASSERT(lpBuf != NULL);
 	ASSERT(AfxIsValidAddress(lpBuf, nCount));
 
-	if (m_nPosition > m_nFileSize)
+	if (m_nPosition > m_nFileSize) {
 		return 0;
+	}
 
 	UINT nRead;
-	if (m_nPosition + nCount > m_nFileSize)
+	if (m_nPosition + nCount > m_nFileSize) {
 		nRead = (UINT)(m_nFileSize - m_nPosition);
-	else
+	} else {
 		nRead = nCount;
+	}
 
 	Memcpy((BYTE*)lpBuf, (BYTE*)m_lpBuffer + m_nPosition, nRead);
 	m_nPosition += nRead;
@@ -1236,14 +1293,16 @@ void CMemFile::Write(const void* lpBuf, UINT nCount)
 {
 	ASSERT_VALID(this);
 
-	if (nCount == 0)
+	if (nCount == 0) {
 		return;
+	}
 
 	ASSERT(lpBuf != NULL);
 	ASSERT(AfxIsValidAddress(lpBuf, nCount, FALSE));
 
-	if (m_nPosition + nCount > m_nBufferSize)
+	if (m_nPosition + nCount > m_nBufferSize) {
 		GrowFile(m_nPosition + nCount);
+	}
 
 	ASSERT(m_nPosition + nCount <= m_nBufferSize);
 
@@ -1251,8 +1310,9 @@ void CMemFile::Write(const void* lpBuf, UINT nCount)
 
 	m_nPosition += nCount;
 
-	if (m_nPosition > m_nFileSize)
+	if (m_nPosition > m_nFileSize) {
 		m_nFileSize = m_nPosition;
+	}
 
 	ASSERT_VALID(this);
 }
@@ -1264,17 +1324,19 @@ LONG CMemFile::Seek(LONG lOff, UINT nFrom)
 
 	LONG lNewPos = m_nPosition;
 
-	if (nFrom == begin)
+	if (nFrom == begin) {
 		lNewPos = lOff;
-	else if (nFrom == current)
+	} else if (nFrom == current) {
 		lNewPos += lOff;
-	else if (nFrom == end)
+	} else if (nFrom == end) {
 		lNewPos = m_nFileSize + lOff;
-	else
+	} else {
 		return -1;
+	}
 
-	if (lNewPos < 0)
+	if (lNewPos < 0) {
 		AfxThrowFileException(CFileException::badSeek);
+	}
 
 	m_nPosition = lNewPos;
 
@@ -1295,8 +1357,9 @@ void CMemFile::Close()
 	m_nPosition = 0;
 	m_nBufferSize = 0;
 	m_nFileSize = 0;
-	if (m_lpBuffer && m_bAutoDelete)
+	if (m_lpBuffer && m_bAutoDelete) {
 		Free(m_lpBuffer);
+	}
 	m_lpBuffer = NULL;
 }
 
@@ -1334,8 +1397,9 @@ UINT CMemFile::GetBufferPtr(UINT nCommand, UINT nCount,
 	ASSERT(nCommand == bufferCheck || nCommand == bufferCommit ||
 		nCommand == bufferRead || nCommand == bufferWrite);
 
-	if (nCommand == bufferCheck)
+	if (nCommand == bufferCheck) {
 		return 1;   // just a check for direct buffer support
+	}
 
 	if (nCommand == bufferCommit)
 	{
@@ -1343,8 +1407,9 @@ UINT CMemFile::GetBufferPtr(UINT nCommand, UINT nCount,
 		ASSERT(ppBufStart == NULL);
 		ASSERT(ppBufMax == NULL);
 		m_nPosition += nCount;
-		if (m_nPosition > m_nFileSize)
+		if (m_nPosition > m_nFileSize) {
 			m_nFileSize = m_nPosition;
+		}
 		return 0;
 	}
 
@@ -1353,19 +1418,21 @@ UINT CMemFile::GetBufferPtr(UINT nCommand, UINT nCount,
 	ASSERT(ppBufMax != NULL);
 
 	// when storing, grow file as necessary to satisfy buffer request
-	if (nCommand == bufferWrite && m_nPosition + nCount > m_nBufferSize)
+	if (nCommand == bufferWrite && m_nPosition + nCount > m_nBufferSize) {
 		GrowFile(m_nPosition + nCount);
 
 	// store buffer max and min
+	}
 	*ppBufStart = m_lpBuffer + m_nPosition;
 
 	// end of buffer depends on whether you are reading or writing
-	if (nCommand == bufferWrite)
+	if (nCommand == bufferWrite) {
 		*ppBufMax = m_lpBuffer + min(m_nBufferSize, m_nPosition + nCount);
-	else
+	} else
 	{
-		if (nCount == (UINT)-1)
+		if (nCount == (UINT)-1) {
 			nCount = m_nBufferSize - m_nPosition;
+		}
 		*ppBufMax = m_lpBuffer + min(m_nFileSize, m_nPosition + nCount);
 		m_nPosition += LPBYTE(*ppBufMax) - LPBYTE(*ppBufStart);
 	}
@@ -1408,16 +1475,18 @@ CStdioFile::CStdioFile(LPCTSTR lpszFileName, UINT nOpenFlags)
 	ASSERT(AfxIsValidString(lpszFileName));
 
 	CFileException e;
-	if (!Open(lpszFileName, nOpenFlags, &e))
+	if (!Open(lpszFileName, nOpenFlags, &e)) {
 		AfxThrowFileException(e.m_cause, e.m_lOsError, e.m_strFileName);
+	}
 }
 
 CStdioFile::~CStdioFile()
 {
 	ASSERT_VALID(this);
 
-	if (m_pStream != NULL && m_bCloseOnDelete)
+	if (m_pStream != NULL && m_bCloseOnDelete) {
 		Close();
+	}
 }
 
 BOOL CStdioFile::Open(LPCTSTR lpszFileName, UINT nOpenFlags,
@@ -1428,8 +1497,9 @@ BOOL CStdioFile::Open(LPCTSTR lpszFileName, UINT nOpenFlags,
 	ASSERT(AfxIsValidString(lpszFileName));
 
 	m_pStream = NULL;
-	if (!CFile::Open(lpszFileName, (nOpenFlags & ~typeText), pException))
+	if (!CFile::Open(lpszFileName, (nOpenFlags & ~typeText), pException)) {
 		return FALSE;
+	}
 
 	ASSERT(m_hFile != hFileNull);
 	ASSERT(m_bCloseOnDelete);
@@ -1440,17 +1510,18 @@ BOOL CStdioFile::Open(LPCTSTR lpszFileName, UINT nOpenFlags,
 	// determine read/write mode depending on CFile mode
 	if (nOpenFlags & modeCreate)
 	{
-		if (nOpenFlags & modeNoTruncate)
+		if (nOpenFlags & modeNoTruncate) {
 			szMode[nMode++] = 'a';
-		else
+		} else {
 			szMode[nMode++] = 'w';
-	}
-	else if (nOpenFlags & modeWrite)
+		}
+	} else if (nOpenFlags & modeWrite) {
 		szMode[nMode++] = 'a';
-	else
+	} else {
 		szMode[nMode++] = 'r';
 
 	// add '+' if necessary (when read/write modes mismatched)
+	}
 	if (szMode[0] == 'r' && (nOpenFlags & modeReadWrite) ||
 		szMode[0] != 'r' && !(nOpenFlags & modeWrite))
 	{
@@ -1460,13 +1531,15 @@ BOOL CStdioFile::Open(LPCTSTR lpszFileName, UINT nOpenFlags,
 
 	// will be inverted if not necessary
 	int nFlags = _O_RDONLY | _O_TEXT;
-	if (nOpenFlags & (modeWrite | modeReadWrite))
+	if (nOpenFlags & (modeWrite | modeReadWrite)) {
 		nFlags ^= _O_RDONLY;
+	}
 
-	if (nOpenFlags & typeBinary)
+	if (nOpenFlags & typeBinary) {
 		szMode[nMode++] = 'b', nFlags ^= _O_TEXT;
-	else
+	} else {
 		szMode[nMode++] = 't';
+	}
 	szMode[nMode++] = '\0';
 
 #ifndef _MAC
@@ -1480,8 +1553,9 @@ BOOL CStdioFile::Open(LPCTSTR lpszFileName, UINT nOpenFlags,
 #endif
 
 	// open a C-runtime stream from that handle
-	if (nHandle != -1)
+	if (nHandle != -1) {
 		m_pStream = _fdopen(nHandle, szMode);
+	}
 
 	if (m_pStream == NULL)
 	{
@@ -1504,15 +1578,17 @@ UINT CStdioFile::Read(void* lpBuf, UINT nCount)
 	ASSERT_VALID(this);
 	ASSERT(m_pStream != NULL);
 
-	if (nCount == 0)
+	if (nCount == 0) {
 		return 0;   // avoid Win32 "null-read"
+	}
 
 	ASSERT(AfxIsValidAddress(lpBuf, nCount));
 
 	UINT nRead = 0;
 
-	if ((nRead = fread(lpBuf, sizeof(BYTE), nCount, m_pStream)) == 0 && !feof(m_pStream))
+	if ((nRead = fread(lpBuf, sizeof(BYTE), nCount, m_pStream)) == 0 && !feof(m_pStream)) {
 		AfxThrowFileException(CFileException::generic, _doserrno, m_strFileName);
+	}
 	if (ferror(m_pStream))
 	{
 		clearerr(m_pStream);
@@ -1527,8 +1603,9 @@ void CStdioFile::Write(const void* lpBuf, UINT nCount)
 	ASSERT(m_pStream != NULL);
 	ASSERT(AfxIsValidAddress(lpBuf, nCount, FALSE));
 
-	if (fwrite(lpBuf, sizeof(BYTE), nCount, m_pStream) != nCount)
+	if (fwrite(lpBuf, sizeof(BYTE), nCount, m_pStream) != nCount) {
 		AfxThrowFileException(CFileException::generic, _doserrno, m_strFileName);
+	}
 }
 
 void CStdioFile::WriteString(LPCTSTR lpsz)
@@ -1536,8 +1613,9 @@ void CStdioFile::WriteString(LPCTSTR lpsz)
 	ASSERT(lpsz != NULL);
 	ASSERT(m_pStream != NULL);
 
-	if (_fputts(lpsz, m_pStream) == _TEOF)
+	if (_fputts(lpsz, m_pStream) == _TEOF) {
 		AfxThrowFileException(CFileException::diskFull, _doserrno, m_strFileName);
+	}
 }
 
 LPTSTR CStdioFile::ReadString(LPTSTR lpsz, UINT nMax)
@@ -1580,8 +1658,9 @@ BOOL CStdioFile::ReadString(CString& rString)
 		// if string is read completely or EOF
 		if (lpszResult == NULL ||
 			(nLen = lstrlen(lpsz)) < nMaxSize ||
-			lpsz[nLen - 1] == '\n')
+			lpsz[nLen - 1] == '\n') {
 			break;
+		}
 
 		nLen = rString.GetLength();
 		lpsz = rString.GetBuffer(nMaxSize + nLen) + nLen;
@@ -1590,8 +1669,9 @@ BOOL CStdioFile::ReadString(CString& rString)
 	// remove '\n' from end of string if present
 	lpsz = rString.GetBuffer(0);
 	nLen = rString.GetLength();
-	if (nLen != 0 && lpsz[nLen - 1] == '\n')
+	if (nLen != 0 && lpsz[nLen - 1] == '\n') {
 		rString.GetBufferSetLength(nLen - 1);
+	}
 
 	return lpszResult != NULL;
 }
@@ -1602,9 +1682,10 @@ LONG CStdioFile::Seek(LONG lOff, UINT nFrom)
 	ASSERT(nFrom == begin || nFrom == end || nFrom == current);
 	ASSERT(m_pStream != NULL);
 
-	if (fseek(m_pStream, lOff, nFrom) != 0)
+	if (fseek(m_pStream, lOff, nFrom) != 0) {
 		AfxThrowFileException(CFileException::badSeek, _doserrno,
 			m_strFileName);
+	}
 
 	long pos = ftell(m_pStream);
 	return pos;
@@ -1616,9 +1697,10 @@ DWORD CStdioFile::GetPosition() const
 	ASSERT(m_pStream != NULL);
 
 	long pos = ftell(m_pStream);
-	if (pos == -1)
+	if (pos == -1) {
 		AfxThrowFileException(CFileException::invalidFile, _doserrno,
 			m_strFileName);
+	}
 	return pos;
 }
 
@@ -1626,9 +1708,10 @@ void CStdioFile::Flush()
 {
 	ASSERT_VALID(this);
 
-	if (m_pStream != NULL && fflush(m_pStream) != 0)
+	if (m_pStream != NULL && fflush(m_pStream) != 0) {
 		AfxThrowFileException(CFileException::diskFull, _doserrno,
 			m_strFileName);
+	}
 }
 
 void CStdioFile::Close()
@@ -1638,24 +1721,27 @@ void CStdioFile::Close()
 
 	int nErr = 0;
 
-	if (m_pStream != NULL)
+	if (m_pStream != NULL) {
 		nErr = fclose(m_pStream);
+	}
 
 	m_hFile = (UINT)hFileNull;
 	m_bCloseOnDelete = FALSE;
 	m_pStream = NULL;
 
-	if (nErr != 0)
+	if (nErr != 0) {
 		AfxThrowFileException(CFileException::diskFull, _doserrno,
 			m_strFileName);
+	}
 }
 
 void CStdioFile::Abort()
 {
 	ASSERT_VALID(this);
 
-	if (m_pStream != NULL && m_bCloseOnDelete)
+	if (m_pStream != NULL && m_bCloseOnDelete) {
 		fclose(m_pStream);  // close but ignore errors
+	}
 	m_hFile = (UINT)hFileNull;
 	m_pStream = NULL;
 	m_bCloseOnDelete = FALSE;
@@ -1718,17 +1804,19 @@ CFileException::~CFileException()
 void PASCAL CFileException::ThrowOsError(LONG lOsError,
 	LPCTSTR lpszFileName /* = NULL */)
 {
-	if (lOsError != 0)
+	if (lOsError != 0) {
 		AfxThrowFileException(CFileException::OsErrorToException(lOsError),
 			lOsError, lpszFileName);
+	}
 }
 
 void PASCAL CFileException::ThrowErrno(int nErrno,
 	LPCTSTR lpszFileName /* = NULL */)
 {
-	if (nErrno != 0)
+	if (nErrno != 0) {
 		AfxThrowFileException(CFileException::ErrnoToException(nErrno),
 			_doserrno, lpszFileName);
+	}
 }
 
 
@@ -1739,13 +1827,15 @@ BOOL CFileException::GetErrorMessage(LPTSTR lpszError, UINT nMaxError,
 {
 	ASSERT(lpszError != NULL && AfxIsValidString(lpszError, nMaxError));
 
-	if (pnHelpContext != NULL)
+	if (pnHelpContext != NULL) {
 		*pnHelpContext = m_cause + AFX_IDP_FILE_NONE;
+	}
 
 	CString strMessage;
 	CString strFileName = m_strFileName;
-	if (strFileName.IsEmpty())
+	if (strFileName.IsEmpty()) {
 		strFileName.LoadString(AFX_IDS_UNNAMED_FILE);
+	}
 	AfxFormatString1(strMessage,
 		m_cause + AFX_IDP_FILE_NONE, strFileName);
 	lstrcpyn(lpszError, strMessage, nMaxError);

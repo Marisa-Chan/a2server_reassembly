@@ -23,8 +23,9 @@ CString::CString(TCHAR ch, int nLength)
 	{
 		AllocBuffer(nLength);
 #ifdef _UNICODE
-		for (int i = 0; i < nLength; i++)
+		for (int i = 0; i < nLength; i++) {
 			m_pchData[i] = ch;
+		}
 #else
 		memset(m_pchData, ch, nLength);
 #endif
@@ -80,15 +81,19 @@ CString CString::Mid(int nFirst) const
 CString CString::Mid(int nFirst, int nCount) const
 {
 	// out-of-bounds requests return sensible things
-	if (nFirst < 0)
+	if (nFirst < 0) {
 		nFirst = 0;
-	if (nCount < 0)
+	}
+	if (nCount < 0) {
 		nCount = 0;
+	}
 
-	if (nFirst + nCount > GetData()->nDataLength)
+	if (nFirst + nCount > GetData()->nDataLength) {
 		nCount = GetData()->nDataLength - nFirst;
-	if (nFirst > GetData()->nDataLength)
+	}
+	if (nFirst > GetData()->nDataLength) {
 		nCount = 0;
+	}
 
 	CString dest;
 	AllocCopy(dest, nCount, nFirst, 0);
@@ -97,10 +102,11 @@ CString CString::Mid(int nFirst, int nCount) const
 
 CString CString::Right(int nCount) const
 {
-	if (nCount < 0)
+	if (nCount < 0) {
 		nCount = 0;
-	else if (nCount > GetData()->nDataLength)
+	} else if (nCount > GetData()->nDataLength) {
 		nCount = GetData()->nDataLength;
+	}
 
 	CString dest;
 	AllocCopy(dest, nCount, GetData()->nDataLength-nCount, 0);
@@ -109,10 +115,11 @@ CString CString::Right(int nCount) const
 
 CString CString::Left(int nCount) const
 {
-	if (nCount < 0)
+	if (nCount < 0) {
 		nCount = 0;
-	else if (nCount > GetData()->nDataLength)
+	} else if (nCount > GetData()->nDataLength) {
 		nCount = GetData()->nDataLength;
+	}
 
 	CString dest;
 	AllocCopy(dest, nCount, 0, 0);
@@ -198,15 +205,16 @@ void CString::FormatV(LPCTSTR lpszFormat, va_list argList)
 		for (; *lpsz != '\0'; lpsz = _tcsinc(lpsz))
 		{
 			// check for valid flags
-			if (*lpsz == '#')
+			if (*lpsz == '#') {
 				nMaxLen += 2;   // for '0x'
-			else if (*lpsz == '*')
+			} else if (*lpsz == '*') {
 				nWidth = va_arg(argList, int);
-			else if (*lpsz == '-' || *lpsz == '+' || *lpsz == '0' ||
+			} else if (*lpsz == '-' || *lpsz == '+' || *lpsz == '0' ||
 				*lpsz == ' ')
-				;
-			else // hit non-flag character
+				{}
+			else { // hit non-flag character
 				break;
+			}
 		}
 		// get width and skip it
 		if (nWidth == 0)
@@ -214,7 +222,7 @@ void CString::FormatV(LPCTSTR lpszFormat, va_list argList)
 			// width indicated by
 			nWidth = _ttoi(lpsz);
 			for (; *lpsz != '\0' && _istdigit(*lpsz); lpsz = _tcsinc(lpsz))
-				;
+				{}
 		}
 		ASSERT(nWidth >= 0);
 
@@ -229,12 +237,10 @@ void CString::FormatV(LPCTSTR lpszFormat, va_list argList)
 			{
 				nPrecision = va_arg(argList, int);
 				lpsz = _tcsinc(lpsz);
-			}
-			else
-			{
+			} else {
 				nPrecision = _ttoi(lpsz);
 				for (; *lpsz != '\0' && _istdigit(*lpsz); lpsz = _tcsinc(lpsz))
-					;
+					{}
 			}
 			ASSERT(nPrecision >= 0);
 		}
@@ -285,9 +291,9 @@ void CString::FormatV(LPCTSTR lpszFormat, va_list argList)
 		case 's':
 		{
 			LPCTSTR pstrNextArg = va_arg(argList, LPCTSTR);
-			if (pstrNextArg == NULL)
+			if (pstrNextArg == NULL) {
 			   nItemLen = 6;  // "(null)"
-			else
+			} else
 			{
 			   nItemLen = lstrlen(pstrNextArg);
 			   nItemLen = max(1, nItemLen);
@@ -299,9 +305,9 @@ void CString::FormatV(LPCTSTR lpszFormat, va_list argList)
 		{
 #ifndef _UNICODE
 			LPWSTR pstrNextArg = va_arg(argList, LPWSTR);
-			if (pstrNextArg == NULL)
+			if (pstrNextArg == NULL) {
 			   nItemLen = 6;  // "(null)"
-			else
+			} else
 			{
 			   nItemLen = wcslen(pstrNextArg);
 			   nItemLen = max(1, nItemLen);
@@ -323,9 +329,9 @@ void CString::FormatV(LPCTSTR lpszFormat, va_list argList)
 		case 'S'|FORCE_ANSI:
 		{
 			LPCSTR pstrNextArg = va_arg(argList, LPCSTR);
-			if (pstrNextArg == NULL)
+			if (pstrNextArg == NULL) {
 			   nItemLen = 6; // "(null)"
-			else
+			} else
 			{
 			   nItemLen = lstrlenA(pstrNextArg);
 			   nItemLen = max(1, nItemLen);
@@ -338,9 +344,9 @@ void CString::FormatV(LPCTSTR lpszFormat, va_list argList)
 		case 'S'|FORCE_UNICODE:
 		{
 			LPWSTR pstrNextArg = va_arg(argList, LPWSTR);
-			if (pstrNextArg == NULL)
+			if (pstrNextArg == NULL) {
 			   nItemLen = 6; // "(null)"
-			else
+			} else
 			{
 			   nItemLen = wcslen(pstrNextArg);
 			   nItemLen = max(1, nItemLen);
@@ -354,11 +360,10 @@ void CString::FormatV(LPCTSTR lpszFormat, va_list argList)
 		if (nItemLen != 0)
 		{
 			nItemLen = max(nItemLen, nWidth);
-			if (nPrecision != 0)
+			if (nPrecision != 0) {
 				nItemLen = min(nItemLen, nPrecision);
-		}
-		else
-		{
+			}
+		} else {
 			switch (*lpsz)
 			{
 			// integers
@@ -488,11 +493,12 @@ void CString::TrimRight()
 	{
 		if (_istspace(*lpsz))
 		{
-			if (lpszLast == NULL)
+			if (lpszLast == NULL) {
 				lpszLast = lpsz;
-		}
-		else
+			}
+		} else {
 			lpszLast = NULL;
+		}
 		lpsz = _tcsinc(lpsz);
 	}
 
@@ -510,10 +516,11 @@ void CString::TrimLeft()
 
 	// find first non-space character
 	LPCTSTR lpsz = m_pchData;
-	while (_istspace(*lpsz))
+	while (_istspace(*lpsz)) {
 		lpsz = _tcsinc(lpsz);
 
 	// fix up data and length
+	}
 	int nDataLength = GetData()->nDataLength - (lpsz - m_pchData);
 	memmove(m_pchData, lpsz, (nDataLength+1)*sizeof(TCHAR));
 	GetData()->nDataLength = nDataLength;
@@ -531,8 +538,9 @@ void AFXAPI ConstructElements(CString* pElements, int nCount)
 	ASSERT(nCount == 0 ||
 		AfxIsValidAddress(pElements, nCount * sizeof(CString)));
 
-	for (; nCount--; ++pElements)
+	for (; nCount--; ++pElements) {
 		memcpy(pElements, &afxEmptyString, sizeof(*pElements));
+	}
 }
 
 #if _MSC_VER >= 1100
@@ -544,8 +552,9 @@ void AFXAPI DestructElements(CString* pElements, int nCount)
 	ASSERT(nCount == 0 ||
 		AfxIsValidAddress(pElements, nCount * sizeof(CString)));
 
-	for (; nCount--; ++pElements)
+	for (; nCount--; ++pElements) {
 		pElements->~CString();
+	}
 }
 
 #if _MSC_VER >= 1100
@@ -559,8 +568,9 @@ void AFXAPI CopyElements(CString* pDest, const CString* pSrc, int nCount)
 	ASSERT(nCount == 0 ||
 		AfxIsValidAddress(pSrc, nCount * sizeof(CString)));
 
-	for (; nCount--; ++pDest, ++pSrc)
+	for (; nCount--; ++pDest, ++pSrc) {
 		*pDest = *pSrc;
+	}
 }
 
 #ifndef OLE2ANSI
@@ -571,8 +581,9 @@ UINT AFXAPI HashKey(LPCWSTR key)
 #endif
 {
 	UINT nHash = 0;
-	while (*key)
+	while (*key) {
 		nHash = (nHash<<5) + nHash + *key++;
+	}
 	return nHash;
 }
 #endif
@@ -584,8 +595,9 @@ UINT AFXAPI HashKey(LPCSTR key)
 #endif
 {
 	UINT nHash = 0;
-	while (*key)
+	while (*key) {
 		nHash = (nHash<<5) + nHash + *key++;
+	}
 	return nHash;
 }
 
@@ -610,12 +622,12 @@ void AFXAPI SerializeElements(CArchive& ar, CString* pElements, int nCount)
 
 	if (ar.IsStoring())
 	{
-		for (; nCount--; ++pElements)
+		for (; nCount--; ++pElements) {
 			ar << *pElements;
-	}
-	else
-	{
-		for (; nCount--; ++pElements)
+		}
+	} else {
+		for (; nCount--; ++pElements) {
 			ar >> *pElements;
+		}
 	}
 }

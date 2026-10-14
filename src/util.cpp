@@ -12,14 +12,16 @@ int32_t g_isDosCP = 0; //660f64
 uint8_t __cdecl DecodeChar(uint8_t ch)
 {
 	//45e181
-	if (g_isDosCP == 0)
+	if (g_isDosCP == 0) {
 		return ch;
+	}
 
 	uint8_t t = ch;
-	if (t >= 0x80 && t < 0xb0)
+	if (t >= 0x80 && t < 0xb0) {
 		return t + 0x30;
-	else if (t >= 0xe0 && t < 0xf0)
+	} else if (t >= 0xe0 && t < 0xf0) {
 		return t + 0x10;
+	}
 	return t;
 }
 
@@ -29,10 +31,11 @@ uint8_t __cdecl EncodeChar(uint8_t c)
 	//4763a9
 	if (g_isDosCP == 1 && c >= 0x80)
 	{
-		if (c >= 0xc0 && c < 0xf0)
+		if (c >= 0xc0 && c < 0xf0) {
 			c -= 0x40;
-		else if (c >= 0xf0)
+		} else if (c >= 0xf0) {
 			c -= 0x10;
+		}
 	}
 	return c;
 }
@@ -40,13 +43,15 @@ uint8_t __cdecl EncodeChar(uint8_t c)
 uint8_t __cdecl ToLowerChar(uint8_t c)
 {
 	//47641d
-	if (g_isDosCP == 0)
+	if (g_isDosCP == 0) {
 		return tolower((char)c);
+	}
 
-	if (c >= 0x80 && c < 0x90)
+	if (c >= 0x80 && c < 0x90) {
 		return c + 0x20;
-	else if (c >= 0x90 && c < 0xa0)
+	} else if (c >= 0x90 && c < 0xa0) {
 		return c + 0x50;
+	}
 
 	return tolower((char)c);
 }
@@ -55,8 +60,9 @@ uint8_t __cdecl ToLowerChar(uint8_t c)
 CString XorRegString(const CString& str)
 { //43d1a9
 	CString tmp = str;
-	for (int i = 0; i < str.GetLength(); i++)
+	for (int i = 0; i < str.GetLength(); i++) {
 		tmp.SetAt(i, tmp[i] ^ (i + 0x1c)); //0x9c in Allods2.exe
+	}
 	return tmp;
 }
 
@@ -65,12 +71,11 @@ void pathStrCpy(const char* src, char* dst)
 	//4e5fd9
 	if (g_PathLower)
 	{
-		for (const char* a = src; *a != 0; a++, dst++)
+		for (const char* a = src; *a != 0; a++, dst++) {
 			*dst = tolower(*a);
+		}
 		*dst = 0;
-	}
-	else
-	{
+	} else {
 		strcpy(dst, src);
 	}
 }
@@ -104,8 +109,9 @@ void __cdecl XorData(void* data, uint32_t size)
 	while (size != 0)
 	{
 		uint32_t num = size;
-		if (num > 80)
+		if (num > 80) {
 			num = 80;
+		}
 
 		const uint8_t* pkey = xorkey;
 		for (int i = num; i != 0; i--)

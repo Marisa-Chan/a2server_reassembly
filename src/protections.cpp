@@ -27,10 +27,12 @@ Protections& Protections::operator=(const Protections&) = default;
 Protections& Protections::operator+=(const Protections &b)
 {
     //533a48
-    for (int32_t i = 0; i < magic_protections.size(); i++)
+    for (int32_t i = 0; i < magic_protections.size(); i++) {
         magic_protections[i] += b.magic_protections[i];
-    for (int32_t i = 0; i < weapon_protections.size(); i++)
+    }
+    for (int32_t i = 0; i < weapon_protections.size(); i++) {
         weapon_protections[i] += b.weapon_protections[i];
+    }
     defense += b.defense;
     absorption += b.absorption;
     return *this;
@@ -39,10 +41,12 @@ Protections& Protections::operator+=(const Protections &b)
 Protections& Protections::operator-=(const Protections &b)
 {
     //533b77
-    for (int32_t i = 0; i < magic_protections.size(); i++)
+    for (int32_t i = 0; i < magic_protections.size(); i++) {
         magic_protections[i] -= b.magic_protections[i];
-    for (int32_t i = 0; i < weapon_protections.size(); i++)
+    }
+    for (int32_t i = 0; i < weapon_protections.size(); i++) {
         weapon_protections[i] -= b.weapon_protections[i];
+    }
     defense -= b.defense;
     absorption -= b.absorption;
     return *this;
@@ -55,9 +59,7 @@ void Protections::Serialize(CArchive& ar)
     {
         //ar.Write(this, sizeof(Protections));
         ar.Write(this, 0x16);
-    }
-    else
-    {
+    } else {
         //ar.Read(this, sizeof(Protections));
         ar.Read(this, 0x16);
     }

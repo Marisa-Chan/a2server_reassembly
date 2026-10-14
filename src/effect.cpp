@@ -86,9 +86,7 @@ Effect::Effect(const CString& name)
         delete tmp;
 
         caster = 0;
-    }
-    else
-    {
+    } else {
         effect_id = 0;
         usage_type = 0;
         spell_or_damage = 0;
@@ -125,9 +123,7 @@ void Effect::Serialize(CArchive& ar)
         ar << spell_or_damage;
         ar << spell_value;
         ar << itemDataID;
-    }
-    else
-    {
+    } else {
         ar >> effect_id;
         ar >> usage_type;
         ar >> spell_or_damage;

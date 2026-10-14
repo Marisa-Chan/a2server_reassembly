@@ -88,8 +88,9 @@ CGameObject::CGameObject()
     active_spell = 0;
 
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-    if (wnd)
+    if (wnd) {
         pMapObject = wnd->vis_map_context;
+    }
 
     shopInventoryVisibleStart = 0;
     str1[0] = 0;
@@ -155,8 +156,9 @@ CGameObject::CGameObject(const CGameObject* obj)
     transientVisualElements.Copy(obj->transientVisualElements);
     actionTargets.Copy(obj->actionTargets);
 
-    for (int i = 0; i < obj->tokenEntries.GetSize(); i++)
+    for (int i = 0; i < obj->tokenEntries.GetSize(); i++) {
         tokenEntries.Add(new TokenEntry(obj->tokenEntries[i]));
+    }
 
     strcpy(str1, obj->str1);
     strcpy(str2, obj->str2);
@@ -190,8 +192,9 @@ void CGameObject::Dump(CDumpContext& dc) const
 
 CGameObject::~CGameObject()
 { //46178a
-    for (int i = 0; i < tokenEntries.GetSize(); i++)
+    for (int i = 0; i < tokenEntries.GetSize(); i++) {
         delete tokenEntries[i];
+    }
 
     tokenEntries.RemoveAll();
 }
@@ -457,8 +460,9 @@ void CGameObject::VMethod12()
 
 void CGameObject::VMethod13()
 { //462190
-    if (pMapObject->my_main_unit->FUN_0041ee50(map_player->index) != 0 && scan_range != 0 && (screenX & 0x1f) == 0x10 && (screenY & 0x1f) == 0x10 && (x_pos != occupiedLocation.x || y_pos != occupiedLocation.y))
+    if (pMapObject->my_main_unit->FUN_0041ee50(map_player->index) != 0 && scan_range != 0 && (screenX & 0x1f) == 0x10 && (screenY & 0x1f) == 0x10 && (x_pos != occupiedLocation.x || y_pos != occupiedLocation.y)) {
         VMethod14();
+    }
 }
 
 
@@ -508,8 +512,9 @@ int32_t CGameObject::VMethod15()
     int32_t idx = tileX + pMapObject->field_0x84 * tileY;
     bIsBlocked = (land[idx] & 0xc000U | land[idx + 1] & 0xc000U | land[idx + pMapObject->field_0x84] & 0xc000U | land[idx + pMapObject->field_0x84 + 1] & 0xc000U) != 0xc000;
 
-    if (bIsBlocked == 0 || m_bSelected == 0)
+    if (bIsBlocked == 0 || m_bSelected == 0) {
         return 0;
+    }
 
     m_bSelected = 0;
     m_bSelectionDirty = 1;
@@ -542,8 +547,9 @@ void CGameObject::SetVals(uint16_t uni_id, int type_id, int32_t xpos, int32_t yp
 
 TokenEntry::~TokenEntry()
 { //4394bf
-    if (mods)
+    if (mods) {
         free(mods);
+    }
 }
 
 TokenEntry::TokenEntry() = default; //438f90
@@ -602,9 +608,7 @@ TokenEntry::TokenEntry(uint8_t** data, int arg)
 
             mods = malloc(mods_size);
             memcpy(mods, pkt->data, mods_size);
-        }
-        else
-        {
+        } else {
             int esz = flg & 0xf;
             mods_count += esz + 1;
             mods_size += (esz + 1) * 2;
@@ -627,27 +631,27 @@ TokenEntry::TokenEntry(uint8_t** data, int arg)
             flg &= 0x60;
             field_0x10 = 1;
         }
-    }
-    else
-    {
+    } else {
         field_0x10 = flg & 0x3f;
         mods = malloc(mods_size);
         memcpy(mods, pkt->data, mods_size);
         flg &= 0x40;
     }
 
-    if (pkt)
+    if (pkt) {
         flg |= pkt->flags;
+    }
 
     if (arg != 0)
     {
         int val = *pdata;
         pdata++;
 
-        if (val == 0)
+        if (val == 0) {
             field_0x18 = 2;
-        else
+        } else {
             field_0x18 = val + 4;
+        }
     }
 
     *data = pdata;
@@ -685,8 +689,9 @@ const char* TokenEntry::FUN_00439973()
     g_Destination[0] = '\0';
 
     void* name = nullptr;
-    if (unk_660DA8.Lookup(this->item_id, name) == 0)
+    if (unk_660DA8.Lookup(this->item_id, name) == 0) {
         return g_Destination;
+    }
 
     strcpy(g_Destination, (const char*)name);
 
@@ -975,8 +980,7 @@ CString TokenEntry::FUN_004394f3()
 
     if (this->GetType() == TYPE_SPELL) {
         sprintf(buffer, "%02d%02d%03d", this->GetMaterial(), this->GetType(), this->GetShape() << 5 | this->GetId());
-    }
-    else {
+    } else {
         sprintf(buffer, "%02d%02d%1d%02d", this->GetMaterial(), this->GetType(), this->GetShape(), this->GetId());
     }
 
@@ -1050,8 +1054,7 @@ int32_t TokenEntry::sub_43988E()
 
         if (attr_id == 1) {
             p += 4;
-        }
-        else {
+        } else {
             p += 1;
         }
     }
@@ -1087,15 +1090,18 @@ CUnit::~CUnit()
 { //46459d
     for (TokenEntry* eq : equipmentTokens)
     {
-        if (eq)
+        if (eq) {
             delete eq;
+        }
     }
 
-    if (sprite)
+    if (sprite) {
         delete sprite;
+    }
 
-    if (sprite_b)
+    if (sprite_b) {
         delete sprite_b;
+    }
 }
 
 void CUnit::VMethod30(const char* str, CGameBitmap* bmp1, CGameBitmap* bmp2)
@@ -1454,9 +1460,7 @@ void CUnit::CopyFromUnit(const Unit& uni)
         skill_levels[2] = uni.protections.weapon_protections[3];
         skill_levels[3] = uni.protections.weapon_protections[4];
         skill_levels[4] = uni.protections.weapon_protections[5];
-    }
-    else
-    {
+    } else {
         Humanoid& hum = (Humanoid&)uni;
         skill_levels[0] = hum.hit_values.skill_levels[1];
         skill_levels[1] = hum.hit_values.skill_levels[2];
@@ -1477,17 +1481,17 @@ void CUnit::CopyFromUnit(const Unit& uni)
         local_20->field_0xf = 0;
         local_20->data_size = 0;
 
-        if (uni.weapon)
+        if (uni.weapon) {
             uni.weapon->StoreToPacket(local_20, 0);
-        else
+        } else
         {
             Item itm;
             itm.StoreToPacket(local_20, 0);
         }
 
-        if (uni.shield)
+        if (uni.shield) {
             uni.shield->StoreToPacket(local_20, 0);
-        else
+        } else
         {
             Item itm;
             itm.StoreToPacket(local_20, 0);
@@ -1495,9 +1499,9 @@ void CUnit::CopyFromUnit(const Unit& uni)
 
         for (int i = 3; i < 13; i++)
         {
-            if (hum.equipment[i])
+            if (hum.equipment[i]) {
                 hum.equipment[i]->StoreToPacket(local_20, 0);
-            else
+            } else
             {
                 Item itm;
                 itm.StoreToPacket(local_20, 0);
@@ -1507,17 +1511,16 @@ void CUnit::CopyFromUnit(const Unit& uni)
         uint8_t* pdata = local_20->data;
         for (int i = 0; i < 12; i++)
         {
-            if (equipmentTokens[i])
+            if (equipmentTokens[i]) {
                 delete equipmentTokens[i];
+            }
 
             TokenEntry* te = new TokenEntry(&pdata, 0);
             if (te->item_id == 0)
             {
                 delete te;
                 equipmentTokens[i] = nullptr;
-            }
-            else
-            {
+            } else {
                 te->field_0x18 = 1;
                 equipmentTokens[i] = te;
             }
@@ -1530,10 +1533,11 @@ void CUnit::CopyFromUnit(const Unit& uni)
     magic_protect[3] = uni.protections.magic_protections[4];
     magic_protect[4] = uni.protections.magic_protections[5];
 
-    if (typeId == 0x49 || typeId == 0x68 || typeId == 0x46)
+    if (typeId == 0x49 || typeId == 0x68 || typeId == 0x46) {
         field_0x156 = 2;
-    else
+    } else {
         field_0x156 = 0;
+    }
 
     ReloadSprite();
 }
@@ -1550,26 +1554,29 @@ void CUnit::ApplyFace(int32_t _face)
 
         typeId -= 0x21;
 
-        if ((typeId & 1) != 0)
+        if ((typeId & 1) != 0) {
             unitFlags |= 4;
+        }
 
-        if ((typeId & 2) != 0)
+        if ((typeId & 2) != 0) {
             unitFlags |= 2;
+        }
 
         typeId = 1;
-    }
-    else if (typeId < 0x1a)
+    } else if (typeId < 0x1a)
     {
         unitFlags &= 0x80;
         unitFlags |= 0x10 | 8;
 
-        if ((face & 0x80) != 0)
+        if ((face & 0x80) != 0) {
             unitFlags |= 4;
+        }
 
         face &= ~0x80;
 
-        if (typeId > 0x16 && typeId < 0x19)
+        if (typeId > 0x16 && typeId < 0x19) {
             unitFlags |= 2;
+        }
     }
 }
 
@@ -1582,23 +1589,25 @@ void CUnit::ReloadSprite()
         if (action == 6)
         {
             sname = "unarmed";
-            if ((unitFlags & 2) != 0 /* && strcmp(local_c8, "unarmed") == 0 */)
+            if ((unitFlags & 2) != 0 /* && strcmp(local_c8, "unarmed") == 0 */) {
                 sname = "mage_st";
-        }
-        else
-        {
+            }
+        } else {
             int32_t hero_id = 0;
 
-            if (equipmentTokens[0] != nullptr)
+            if (equipmentTokens[0] != nullptr) {
                 hero_id = equipmentTokens[0]->GetId() - 1;
+            }
 
             sname = txt_heropicture.GetLine(hero_id);
 
-            if (equipmentTokens[1] != NULL)
+            if (equipmentTokens[1] != NULL) {
                 sname += "_";
+            }
 
-            if ((unitFlags & 2) != 0 && sname == "unarmed")
+            if ((unitFlags & 2) != 0 && sname == "unarmed") {
                 sname = "mage";
+            }
         }
 
         bool do_reload = sname != heroSpritePictureName;
@@ -1607,32 +1616,33 @@ void CUnit::ReloadSprite()
         {
             if (equipmentTokens[7] == nullptr)
             {
-                if (heroSpriteArmorMaterial != -1)
+                if (heroSpriteArmorMaterial != -1) {
                     do_reload = true;
-            }
-            else if (heroSpriteArmorMaterial == -1)
+                }
+            } else if (heroSpriteArmorMaterial == -1) {
                 do_reload = true;
+            }
         }
 
         if (do_reload)
         {
-            if (sprite)
+            if (sprite) {
                 delete sprite;
+            }
 
-            if (sprite_b)
+            if (sprite_b) {
                 delete sprite_b;
+            }
 
             CString sprite_name = "graphics\\units\\";
 
-            if (unitFlags & 2)
+            if (unitFlags & 2) {
                 sprite_name += "heroes";
-            else if (equipmentTokens[7] == nullptr)
+            } else if (equipmentTokens[7] == nullptr)
             {
                 heroSpriteArmorMaterial = -1;
                 sprite_name += "heroes_l";
-            }
-            else
-            {
+            } else {
                 sprite_name += g_CUnitMaterialSpritePaths[equipmentTokens[7]->GetMaterial()];
                 heroSpriteArmorMaterial = equipmentTokens[7]->GetMaterial();
             }
@@ -1650,40 +1660,41 @@ void CUnit::ReloadSprite()
 
             strcpy(heroSpritePictureName, sname);
 
-            if (strcmp(heroSpritePictureName, "unarmed") == 0)
+            if (strcmp(heroSpritePictureName, "unarmed") == 0) {
                 typeId = 1;
-            else if (strcmp(heroSpritePictureName, "unarmed_") == 0)
+            } else if (strcmp(heroSpritePictureName, "unarmed_") == 0) {
                 typeId = 2;
-            else if (strcmp(heroSpritePictureName, "swordsman") == 0)
+            } else if (strcmp(heroSpritePictureName, "swordsman") == 0) {
                 typeId = 3;
-            else if (strcmp(heroSpritePictureName, "swordsman_") == 0)
+            } else if (strcmp(heroSpritePictureName, "swordsman_") == 0) {
                 typeId = 4;
-            else if (strcmp(heroSpritePictureName, "swordsman2h") == 0)
+            } else if (strcmp(heroSpritePictureName, "swordsman2h") == 0) {
                 typeId = 5;
-            else if (strcmp(heroSpritePictureName, "axeman") == 0)
+            } else if (strcmp(heroSpritePictureName, "axeman") == 0) {
                 typeId = 7;
-            else if (strcmp(heroSpritePictureName, "axeman_") == 0)
+            } else if (strcmp(heroSpritePictureName, "axeman_") == 0) {
                 typeId = 8;
-            else if (strcmp(heroSpritePictureName, "axeman2h") == 0)
+            } else if (strcmp(heroSpritePictureName, "axeman2h") == 0) {
                 typeId = 9;
-            else if (strcmp(heroSpritePictureName, "clubman") == 0)
+            } else if (strcmp(heroSpritePictureName, "clubman") == 0) {
                 typeId = 10;
-            else if (strcmp(heroSpritePictureName, "clubman_") == 0)
+            } else if (strcmp(heroSpritePictureName, "clubman_") == 0) {
                 typeId = 11;
-            else if (strcmp(heroSpritePictureName, "pikeman") == 0)
+            } else if (strcmp(heroSpritePictureName, "pikeman") == 0) {
                 typeId = 12;
-            else if (strcmp(heroSpritePictureName, "pikeman_") == 0)
+            } else if (strcmp(heroSpritePictureName, "pikeman_") == 0) {
                 typeId = 13;
-            else if (strcmp(heroSpritePictureName, "archer") == 0)
+            } else if (strcmp(heroSpritePictureName, "archer") == 0) {
                 typeId = 14;
-            else if (strcmp(heroSpritePictureName, "bowman") == 0)
+            } else if (strcmp(heroSpritePictureName, "bowman") == 0) {
                 typeId = 14;
-            else if (strcmp(heroSpritePictureName, "xbowman") == 0)
+            } else if (strcmp(heroSpritePictureName, "xbowman") == 0) {
                 typeId = 15;
-            else if (strcmp(heroSpritePictureName, "mage") == 0)
+            } else if (strcmp(heroSpritePictureName, "mage") == 0) {
                 typeId = 23;
-            else if (strcmp(heroSpritePictureName, "mage_st") == 0)
+            } else if (strcmp(heroSpritePictureName, "mage_st") == 0) {
                 typeId = 24;
+            }
         }
     }
 }

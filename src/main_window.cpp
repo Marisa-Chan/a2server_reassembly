@@ -150,8 +150,9 @@ Fame2::Fame2()
 void Fame2::Clear()
 {
     //4ac27f
-    if (field_x8)
+    if (field_x8) {
         delete field_x8;
+    }
 
     field_x8 = nullptr;
     str.Empty();
@@ -283,8 +284,9 @@ uint32_t CFameHall::FUN_004ac566(int32_t arg)
     for (uint32_t i = 0; i < m_Documents.GetSize(); i++)
     {
         Fame2& fame = m_Documents[i];
-        if (fame.FUN_004ad880() == arg && fame.FUN_004ad890() != 0)
+        if (fame.FUN_004ad880() == arg && fame.FUN_004ad890() != 0) {
             return 0;
+        }
     }
 
     Fame2 f;
@@ -339,9 +341,9 @@ void CFameHall::FUN_004ac945(CFile* file)
     uint32_t num;
     file->Read(&num, 4);
     
-    if (num == 0)
+    if (num == 0) {
         m_Entries.RemoveAll();
-    else
+    } else
     {
         m_Entries.SetSize(num);
         for (uint32_t i = 0; i < num; i++)
@@ -401,9 +403,9 @@ void CFameHall::FUN_004ac7a2(CFile* file)
 void CFameHall::FUN_004ac3ce(const Fame1& fame)
 {
     //4ac3ce
-    if (m_Entries.GetSize() == 0)
+    if (m_Entries.GetSize() == 0) {
         m_Entries.Add(fame);
-    else
+    } else
     {
         int32_t i = 0;
         for (i = 0; i < m_Entries.GetSize(); i++)
@@ -415,12 +417,14 @@ void CFameHall::FUN_004ac3ce(const Fame1& fame)
                 break;
             }
         }
-        if (i == m_Entries.GetSize())
+        if (i == m_Entries.GetSize()) {
             m_Entries.Add(fame);
+        }
     }
 
-    if (m_Entries.GetSize() > m_nMaxEntries)
+    if (m_Entries.GetSize() > m_nMaxEntries) {
         m_Entries.SetSize(m_nMaxEntries);
+    }
 }
 
 void CFameHall::FUN_00420050()
@@ -437,10 +441,11 @@ void CFameHall::SubmitScore()
     if (unit)
     {
         fm.str = unit->str1;
-        if (m_nTotalTime == 0)
+        if (m_nTotalTime == 0) {
             fm.field_x4 = unit->exp_summary / 500000.0 * m_nDifficultyWeight;
-        else
+        } else {
             fm.field_x4 = unit->exp_summary / (m_nTotalTime * 10.0) * m_nDifficultyWeight;
+        }
 
         FUN_004ac3ce(fm);
     }
@@ -1555,36 +1560,28 @@ MainWindow::MainWindow()
         {
             resolution.x = 800;
             resolution.y = 600;
-        }
-        else if (strstr(cmdline, "-1024"))
+        } else if (strstr(cmdline, "-1024"))
         {
             resolution.x = 1024;
             resolution.y = 768;
-        }
-        else if (strstr(cmdline, "-640"))
+        } else if (strstr(cmdline, "-640"))
         {
             resolution.x = 640;
             resolution.y = 480;
-        }
-        else if(strstr(g_resolution, "-800"))
+        } else if(strstr(g_resolution, "-800"))
         {
             resolution.x = 800;
             resolution.y = 600;
-        }
-        else if (strstr(g_resolution, "-1024"))
+        } else if (strstr(g_resolution, "-1024"))
         {
             resolution.x = 1024;
             resolution.y = 768;
-        }
-        else
-        {
+        } else {
             resolution.x = 640;
             resolution.y = 480;
         }
 
-    }
-    else
-    {
+    } else {
         resolution.x = 640;
         resolution.y = 480;
     }
@@ -1601,9 +1598,7 @@ MainWindow::MainWindow()
     {
         const char* cls = AfxRegisterWndClass(CS_DBLCLKS | CS_HREDRAW | CS_VREDRAW, NULL, NULL, NULL);
         CFrameWnd::Create(cls, "Allods", WS_POPUP, CRect(0, 0, resolution.x, resolution.y), NULL, 0, 0, NULL);
-    }
-    else
-    {
+    } else {
         CFrameWnd::LoadFrame(0x65, WS_TILEDWINDOW, NULL, NULL);
         SetWindowPos(0, 0, 0, resolution.x, resolution.y, SWP_NOREPOSITION | SWP_NOMOVE);
         SetControlPositions();
@@ -1711,8 +1706,9 @@ void MainWindow::LoadData()
     g_Cursors[CURSOR_DEFAULT]->Use();
     g_mousept.Paint();
 
-    if (InitSound(AfxGetMainWnd()->m_hWnd, 16) != 0)
+    if (InitSound(AfxGetMainWnd()->m_hWnd, 16) != 0) {
         g_SoundSettings.field_0x20 = 0;
+    }
 
     music_player = new MusicPlayer(g_isLowMemory == 0 ? 0xac000 : 0x56000);
     music_player->SetVolume(g_SoundSettings.mus_pos);
@@ -1820,16 +1816,18 @@ void HatSettings::Load(HKEY& rkey)
     RegQueryValueExA(rkey, "hatip", nullptr, nullptr, (LPBYTE)buf, &sz);
 
     hatip = buf;
-    if (hatip.IsEmpty())
+    if (hatip.IsEmpty()) {
         hatip = txt_patch.GetLine(118);
+    }
 
     buf[0] = '\0';
     sz = 255;
     RegQueryValueExA(rkey, "hatprogip", nullptr, nullptr, (LPBYTE)buf, &sz);
 
     hatprogip = buf;
-    if (hatprogip.IsEmpty())
+    if (hatprogip.IsEmpty()) {
         hatprogip = txt_patch.GetLine(119);
+    }
 
     buf[0] = '\0';
     sz = 255;
@@ -1894,8 +1892,9 @@ void MainWindow::LoadSettings()
     com_settings.Reset();
 
     HKEY regkey;
-    if (RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\1C\\Allods 2", 0, KEY_READ, &regkey) != 0)
+    if (RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\1C\\Allods 2", 0, KEY_READ, &regkey) != 0) {
         return;
+    }
 
     g_SoundSettings.Load(regkey);
     g_settings.Load(regkey);
@@ -1919,8 +1918,9 @@ void MainWindow::LoadSettings()
 
     sz = 4;
     RegQueryValueExA(regkey, "Using VxD", nullptr, nullptr, (LPBYTE)&g_using_vxd, &sz);
-    if (g_using_vxd == 0)
+    if (g_using_vxd == 0) {
         g_using_vxd = 1;
+    }
 
     RegCloseKey(regkey);
 }
@@ -2146,12 +2146,14 @@ void MainWindow::sub_48A756()
 
 void MainWindow::sub_484259()
 { //484259
-    if (!g_Server)
+    if (!g_Server) {
         return;
+    }
 
     int32_t sredne = 0;
-    if (g_Server->tic16)
+    if (g_Server->tic16) {
         sredne = g_Server->field44_0x1bc / g_Server->tic16 / 10;
+    }
 
     char buf[2560];
 
@@ -2173,8 +2175,9 @@ void MainWindow::sub_484259()
 
     CString t;
     int sel = list_box2.GetCurSel();
-    if (sel >= 0)
+    if (sel >= 0) {
         list_box2.GetText(sel, t);
+    }
 
     list_box2.ResetContent();
 
@@ -2184,15 +2187,17 @@ void MainWindow::sub_484259()
         if (pl->is_ai == 0)
         {
             CString s = pl->name;
-            if (pl->field_0x42 == 0)
+            if (pl->field_0x42 == 0) {
                 s = "(-)" + s;
+            }
             OemToCharA(s, buf);
             list_box2.AddString(buf);
         }
     }
 
-    if (!t.IsEmpty())
+    if (!t.IsEmpty()) {
         list_box2.SelectString(0, t);
+    }
 
     sel = list_box2.GetCurSel();
 
@@ -2216,9 +2221,9 @@ void MainWindow::sub_484259()
         }
     }
 
-    if (!selpl)
+    if (!selpl) {
         SetDlgItemText(0x7ddf, "");
-    else
+    } else
     {
         CString local_a54;
         CString local_a44;
@@ -2241,8 +2246,9 @@ void MainWindow::sub_484259()
                 stat1.Format("%d:%02d:%02d", stat->time / 3600, (stat->time % 3600) / 60, stat->time % 60);
 
                 int bs = 0;
-                if (stat->time)
+                if (stat->time) {
                     bs = stat->total_bytes / stat->time;
+                }
 
                 stat2.Format("%d/%d/%d", stat->cur_bs, bs, stat->max_bs);
             }
@@ -2282,11 +2288,13 @@ int MainWindow::SetSpeed(int speed)
     //48dc02
     int32_t old_speed = game_speed;
 
-    if (speed < 0)
+    if (speed < 0) {
         speed = 0;
+    }
   
-    if (speed > 8)
+    if (speed > 8) {
         speed = 8;
+    }
 
     game_speed = speed;
 
@@ -2353,8 +2361,9 @@ void MainWindow::Proc_421()
     m_FameHall.ZeroFactors();
 
     CVisualObject* elm = vis_root->FindChild(0x3fc);
-    if (elm)
+    if (elm) {
         elm->MsgProc(0x445, 0, 0);
+    }
 
     FUN_00485a41();
 
@@ -2412,11 +2421,13 @@ int32_t CGameSession::GetStringArray1Size()
 void MainWindow::ResetItemCursor()
 {
     //48cd44
-    if (!field_0x408)
+    if (!field_0x408) {
         return;
+    }
 
-    if (item_cursor)
+    if (item_cursor) {
         delete item_cursor;
+    }
 
     item_cursor = nullptr;
     field_0x408 = nullptr;
@@ -2439,8 +2450,9 @@ DiplomacyEntry::DiplomacyEntry(const char* _name, int e, int a, int s, int m)
 //445aa9
 DiplomacyEntry::~DiplomacyEntry()
 {
-    if (name)
+    if (name) {
         delete name;
+    }
 }
 
 void MainWindow::Proc_44c(CVisualObject* obj)
@@ -2455,10 +2467,10 @@ void MainWindow::Proc_44c(CVisualObject* obj)
     {
         vis_map_context->FUN_0041a8cc();
         vis_map_context->UpdateSelectionState();
-        if (sessionMode != 2)
+        if (sessionMode != 2) {
             FUN_00494c91();
-    }
-    else if (obj == vis_1200)
+        }
+    } else if (obj == vis_1200)
     {
         vis_map_context->RemoveChild(vis_1200);
 
@@ -2467,48 +2479,47 @@ void MainWindow::Proc_44c(CVisualObject* obj)
 
             CString str;
             vis_1200->WriteData(&str);
-            if (str[0] == '=')
+            if (str[0] == '=') {
                 vis_map_context->FUN_0041b2a4(str.Mid(1), 3, 0);
-            else if (str[0] == '-')
+            } else if (str[0] == '-')
             {
                 int val = vis_1200->FUN_004972d0();
-                if (val == -1)
+                if (val == -1) {
                     vis_map_context->FUN_0041b2a4(str.Mid(1), 1, 0);
-                else
+                } else {
                     vis_map_context->FUN_0041b2a4(str.Mid(vis_1200->FUN_00497310()), 2, val);
-            }
-            else
+                }
+            } else {
                 vis_map_context->FUN_0041b2a4(str, 0, 0);
+            }
         }
-    }
-    else if (obj == vis_logownd)
+    } else if (obj == vis_logownd) {
         dialogsMask &= ~0x100;
-    else if (obj == vis_famedocument)
+    } else if (obj == vis_famedocument) {
         dialogsMask &= ~0x4000;
-    else if (obj == vis_famehall)
+    } else if (obj == vis_famehall)
     {
         dialogsMask &= ~0x1000;
         PostMessage(0x421, 0, 0);
-    }
-    else if (obj == vis_mainmenu)
+    } else if (obj == vis_mainmenu) {
         dialogsMask &= ~0x80;
-    else if (obj == vis_town || obj == vis_towndruid || obj == vis_townkaarg)
+    } else if (obj == vis_town || obj == vis_towndruid || obj == vis_townkaarg)
     {}
     else if (obj == vis_tav || obj == vis_tavdruid || obj == vis_tavkaarg)
     {
-        if (sessionMode != 2)
+        if (sessionMode != 2) {
             FUN_00494c91();
+        }
 
         dialogsMask &= ~4;
         vis_map_context->UpdateSelectionState();
-    }
-    else if (obj == vis_chargen)
+    } else if (obj == vis_chargen)
     { //charget 2step
         dialogsMask &= ~0x200;
 
-        if (vis_chargen->GetCloseCode() == 0x446)
+        if (vis_chargen->GetCloseCode() == 0x446) {
             ShowStartGameSetupForNewSession();
-        else
+        } else
         {
             m_GameSession.flags |= 4;
 
@@ -2520,23 +2531,22 @@ void MainWindow::Proc_44c(CVisualObject* obj)
                 ScenarioSetVar(0x308, (m_GameSession.type & 0x40) != 0);
                 ScenarioSetVar(0x30d, (m_GameSession.type & 0x80) != 0);
 
-                if (g_Server)
+                if (g_Server) {
                     g_Server->FUN_00497470(m_FameHall.GetDifficulty() + 1);
+                }
 
                 PostMessage(0x42e, 0, 0);
-            }
-            else
-            {
+            } else {
                 m_GameSession.FUN_00493d8d();
 
-                if (field_0x3e0.field_10 == 0)
+                if (field_0x3e0.field_10 == 0) {
                     PostMessage(0x451, 0, 0);
-                else
+                } else {
                     PostMessage(0x489, 0, 0);
+                }
             }
         }
-    }
-    else if (obj == vis_startgame)
+    } else if (obj == vis_startgame)
     { // chargen 1step
         dialogsMask &= ~0x800;
 
@@ -2547,19 +2557,19 @@ void MainWindow::Proc_44c(CVisualObject* obj)
                 vis_map_context->field_0x9d0.RemoveAll();
 
                 CUnit *uni = vis_map_context->GetUnit_3f6c();
-                if (uni)
+                if (uni) {
                     delete uni;
+                }
 
                 vis_map_context->SetUnit_3f6c(nullptr);
             }
 
-            if (sessionMode == 2)
+            if (sessionMode == 2) {
                 PostMessage(0x421, 0, 0);
-            else
+            } else {
                 ShowCharacterLoaderDialog();
-        }
-        else
-        {
+            }
+        } else {
             CString name = vis_startgame->GetName();
             strcpy(m_GameSession.character_name, name);
 
@@ -2572,8 +2582,9 @@ void MainWindow::Proc_44c(CVisualObject* obj)
 
                     m_GameSession.color = atoi(name);
 
-                    if (m_GameSession.color == 0 || m_GameSession.color > 16)
+                    if (m_GameSession.color == 0 || m_GameSession.color > 16) {
                         m_GameSession.color = 0;
+                    }
 
                     name = vis_startgame->GetClan().Left(pos);
                 }
@@ -2598,45 +2609,43 @@ void MainWindow::Proc_44c(CVisualObject* obj)
             m_GameSession.FUN_00494687();
             FUN_00491a49();
         }
-    }
-    else if (obj == vis_charsel)
+    } else if (obj == vis_charsel)
     {
         dialogsMask &= ~0x400;
 
         if (vis_charsel->GetCloseCode() == 0x446)
         {
-            if (!field_0x3e0.field_08.IsEmpty())
+            if (!field_0x3e0.field_08.IsEmpty()) {
                 PostMessage(WM_CLOSE, 0, 0);
-            else
+            } else {
                 PostMessage(0x421, 0, 0);
-        }
-        else if ((m_GameSession.flags & 4) == 0)
+            }
+        } else if ((m_GameSession.flags & 4) == 0) {
             ShowStartGameSetupForNewSession();
-        else if (field_0x3e0.field_10 == 0)
+        } else if (field_0x3e0.field_10 == 0) {
             PostMessage(0x451, 0, 0);
-        else
+        } else {
             PostMessage(0x489, 0, 0);
-    }
-    else if (obj == vis_globalmap)
+        }
+    } else if (obj == vis_globalmap) {
         dialogsMask &= ~0x20;
-    else if (obj == vis_credits)
+    } else if (obj == vis_credits)
     {
         dialogsMask &= ~0x40;
 
-        if (FUN_00497490() == 0)
+        if (FUN_00497490() == 0) {
             CWnd::PostMessage(0x421, 0, 0);
-        else
+        } else {
             CWnd::PostMessage(0x429, 0, 0);
-    }
-    else if (obj == vis_dropgold)
+        }
+    } else if (obj == vis_dropgold)
     {
         dialogsMask &= ~0x8;
 
         field_0x438 = timeGetTime();
         game_tic_counter = 0;
         field_0x43c = 0;
-    }
-    else if (obj == field_0x12c)
+    } else if (obj == field_0x12c)
     {
         dialogsMask &= ~0x8;
 
@@ -2644,19 +2653,19 @@ void MainWindow::Proc_44c(CVisualObject* obj)
         {
             vis_map_context->FUN_0041d2da(1);
             PostMessage(0x421, 0, 0);
-        }
-        else
+        } else {
             PostMessage(0x42e, 0, 0);
+        }
 
         delete field_0x12c;
         field_0x12c = nullptr;
-    }
-    else if (obj == field_0x140)
+    } else if (obj == field_0x140)
     { //save game
         dialogsMask &= ~0x8;
 
-        if (field_0x140->GetCloseCode() == 0x445)
+        if (field_0x140->GetCloseCode() == 0x445) {
             FUN_0048f905();
+        }
 
         if (dialogsMask == 1 && serverBootstrapEnabled != 0)
         {
@@ -2667,18 +2676,18 @@ void MainWindow::Proc_44c(CVisualObject* obj)
 
         delete field_0x140;
         field_0x140 = nullptr;
-    }
-    else if (obj == field_0x13c)
+    } else if (obj == field_0x13c)
     { //load game
         dialogsMask &= ~8;
 
         int32_t code = field_0x13c->GetCloseCode();
-        if (code == 0x445)
+        if (code == 0x445) {
             PostMessage(0x419, 0, 0);
-        else if (g_Server == nullptr)
+        } else if (g_Server == nullptr) {
             PostMessage(0x421, 0, 0);
-        else if (field_0x450 == 0xff)
+        } else if (field_0x450 == 0xff) {
             PostMessage(0x41e, 0, 0);
+        }
 
         if (dialogsMask == 1 && serverBootstrapEnabled != 0)
         {
@@ -2690,10 +2699,10 @@ void MainWindow::Proc_44c(CVisualObject* obj)
         delete field_0x13c;
         field_0x13c = nullptr;
 
-        if (code == 0x445)
+        if (code == 0x445) {
             return;
-    }
-    else if (obj == field_0x34c)
+        }
+    } else if (obj == field_0x34c)
     {
         dialogsMask &= ~8;
 
@@ -2703,35 +2712,34 @@ void MainWindow::Proc_44c(CVisualObject* obj)
         {
             serverBootstrapEnabled = 0;
             FUN_004903d0();
-        }
-        else if (code == 0x44d) 
+        } else if (code == 0x44d) {
             FUN_00491822();
-        else if (code == 0x44e)
+        } else if (code == 0x44e) {
             FUN_004918ae();
-        else
+        } else {
             PostMessage(0x421, 0, 0);
+        }
             
         delete field_0x34c;
         field_0x34c = nullptr;
         return;
-    }
-    else if (obj == field_0x350)
+    } else if (obj == field_0x350)
     {
         dialogsMask &= ~8;
 
         if (field_0x350->GetCloseCode() == 0x446)
         {
-            if (sessionMode == 3)
+            if (sessionMode == 3) {
                 PostMessage(0x421, 0, 0);
-            else
+            } else {
                 ShowCharacterLoaderDialog();
+            }
         }
 
         delete field_0x350;
         field_0x350 = nullptr;
         return;
-    }
-    else if (obj == field_0x378)
+    } else if (obj == field_0x378)
     {
         dialogsMask &= ~8;
 
@@ -2739,15 +2747,14 @@ void MainWindow::Proc_44c(CVisualObject* obj)
         {
             vis_root->MsgProc(0x446, 0, 0);
             PostMessage(0x45c, 0, 0);
-        }
-        else
+        } else {
             PostMessage(0x457, 0, 0);
+        }
         
         delete field_0x378;
         field_0x378 = nullptr;
         return;
-    }
-    else if (obj == field_0x37c)
+    } else if (obj == field_0x37c)
     {
         dialogsMask &= ~8;
 
@@ -2757,38 +2764,36 @@ void MainWindow::Proc_44c(CVisualObject* obj)
             {
                 vis_root->MsgProc(0x446, 0, 0);
                 ShowCharacterLoaderDialog();
-            }
-            else if (g_CLlDriver.IsListen())
+            } else if (g_CLlDriver.IsListen()) {
                 ShowCharacterLoaderDialog();
-            else
+            } else {
                 PostMessage(0x487, 0, 0);
-        }
-        else if (hat_settings.ishat == 0)
+            }
+        } else if (hat_settings.ishat == 0)
         {
             g_NetStru1_local.SetLLDriver(&g_CLlDriver);
             g_CLlDriver.SetHlDriver(&g_NetStru1_local);
             g_CLlDriver.ResetProvider(3);
             PostMessage(0x452, 0, 0);
-        }
-        else
+        } else {
             PostMessage(0x441, 0, 0);
+        }
         
         delete field_0x37c;
         field_0x37c = nullptr;
         return;
-    }
-    else if (obj == field_0x3d0)
+    } else if (obj == field_0x3d0)
     {
         dialogsMask &= ~8;
         dialogsMask = 0;
 
-        if (field_0x3d0->GetCloseCode() == 0x445)
+        if (field_0x3d0->GetCloseCode() == 0x445) {
             PostMessage(0x421, 0, 0);
+        }
 
         delete field_0x3d0;
         field_0x3d0 = nullptr;
-    }
-    else if (obj == field_0x144)
+    } else if (obj == field_0x144)
     {
         dialogsMask &= ~8;
 
@@ -2808,17 +2813,21 @@ void MainWindow::Proc_44c(CVisualObject* obj)
 
                     uint16_t dpl = vis_map_context->my_main_unit->diplomacy[mp->index] & 0x68;
 
-                    if (visdp->enemy != 0)
+                    if (visdp->enemy != 0) {
                         dpl |= 1;
+                    }
 
-                    if (visdp->ally != 0)
+                    if (visdp->ally != 0) {
                         dpl |= 2;
+                    }
 
-                    if (visdp->see != 0)
+                    if (visdp->see != 0) {
                         dpl |= 0x10;
+                    }
 
-                    if (visdp->mute != 0)
+                    if (visdp->mute != 0) {
                         dpl |= 4;
+                    }
 
                     vis_map_context->my_main_unit->diplomacy[mp->index] = dpl;
 
@@ -2832,8 +2841,7 @@ void MainWindow::Proc_44c(CVisualObject* obj)
         }
 
         delete obj;
-    }
-    else if (obj == field_0x3d4)
+    } else if (obj == field_0x3d4)
     {
         dialogsMask &= ~8;
 
@@ -2842,36 +2850,35 @@ void MainWindow::Proc_44c(CVisualObject* obj)
             DAT_00660f88 = ((VisListBox*)field_0x3d4->FindChild(2))->GetSelectedIndex();
             FUN_00491f7d(DAT_00660f88);
             PostMessage(0x43b, 0, 0);
-        }
-        else
+        } else {
             PostMessage(0x421, 0, 0);
+        }
 
         delete field_0x3d4;
         field_0x3d4 = nullptr; // MUST BE DONE? WAT?
-    }
-    else if (obj == field_0x124)
+    } else if (obj == field_0x124)
     {
         dialogsMask &= ~8;
 
-        if (field_0x124->GetCloseCode() == 0x445)
+        if (field_0x124->GetCloseCode() == 0x445) {
             PostMessage(0x41e, 0, 0);
-        else
+        } else {
             PostMessage(0x418, 0, 0);
+        }
 
         delete field_0x124;
         field_0x124 = nullptr; // MUST BE DONE? WAT?
-    }
-    else if (obj == field_0x3dc)
+    } else if (obj == field_0x3dc)
     {
         dialogsMask &= ~0x8000;
 
         delete field_0x3dc;
         field_0x3dc = nullptr; // MUST BE DONE? WAT?
 
-        if ((dialogsMask & 1) == 0)
+        if ((dialogsMask & 1) == 0) {
             vis_root->cursor_over_obj_last = vis_root->FindChild(1020);
-    }
-    else if ((dialogsMask & 8) != 0)
+        }
+    } else if ((dialogsMask & 8) != 0)
     {
         dialogsMask &= ~8;
 
@@ -2885,13 +2892,15 @@ void MainWindow::Proc_44c(CVisualObject* obj)
         delete obj;
     }
 
-    if (dialogsMask == 0x80)
+    if (dialogsMask == 0x80) {
         g_Cursors[CURSOR_SELECT]->Use();
+    }
 
     vis_right_panel->MsgProc(0x408, 0, 0);
 
-    if (dialogsMask != 1 || vis_map_context->field_0x80 != nullptr)
+    if (dialogsMask != 1 || vis_map_context->field_0x80 != nullptr) {
         vis_root->VMethod9();
+    }
 
     if (dialogsMask == 1 && DAT_006658d8.GetSize() != 0)
     {
@@ -2995,13 +3004,15 @@ void MainWindow::FUN_0048f905()
 
                 vis_map_context->field_0x9d0.GetNextAssoc(pos, key, obj);
 
-                if (obj->IsSelected() != 0)
+                if (obj->IsSelected() != 0) {
                     local_12c.Add(key);
+                }
 
                 for (int i = 0; i < 10; i++)
                 {
-                    if (obj->FUN_0041f1c0(i) != 0)
+                    if (obj->FUN_0041f1c0(i) != 0) {
                         local_248[i].Add(key);
+                    }
                 }
             }
         }
@@ -3083,9 +3094,9 @@ void MainWindow::FUN_0048f905()
                     break;
                 }
                 
-                if (state == (*land & 0x8000))
+                if (state == (*land & 0x8000)) {
                     num++;
-                else
+                } else
                 {
                     state = *land & 0x8000;
                     local_2a0.Add(num);
@@ -3102,13 +3113,12 @@ void MainWindow::FUN_0048f905()
 
         ScenarioSave(&local_13c);
 
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < 9; i++) {
             m_GameSession.shortcuts[i].WriteToFile(&local_13c);
+        }
 
         local_13c.Close();
-    }
-    else
-    {
+    } else {
         vis_map_context->FUN_0041afcf(field_0x148.filename);
     }
 }
@@ -3124,19 +3134,19 @@ void MainWindow::FUN_004903d0()
 
     LPTSTR cmdline = afxCurrentWinApp->m_lpCmdLine;
 
-    if (strstr(cmdline, "-waitforever"))
+    if (strstr(cmdline, "-waitforever")) {
         g_CLlDriver.SetTimeout(-1);
+    }
 
-    if (strstr(cmdline, "-timeout"))
+    if (strstr(cmdline, "-timeout")) {
         g_CLlDriver.SetTimeout(g_CmdTimeout);
+    }
 
     if (vis_map_context->ConnectAndJoinSession() == 0)
     {
         g_CLlDriver.Close();
         PostMessage(0x41d, 0, 0);
-    }
-    else
-    {
+    } else {
         if (m_GameSession.field_0x10c == 0)
         {
             VisMessageBoxWithList* mwnd = new VisMessageBoxWithList(1, 64, 100, 428, 594, TxtFile::AllLines[210], nullptr, 4);
@@ -3149,10 +3159,11 @@ void MainWindow::FUN_004903d0()
             }
         }
 
-        if (field_0x454 == 0)
+        if (field_0x454 == 0) {
             PostMessage(0x459, 0, 0);
-        else
+        } else {
             PostMessage(0x457, 0, 0);
+        }
     }
 }
 
@@ -3163,8 +3174,9 @@ void MainWindow::FUN_00491822()
     g_NetStru1_main.SetLLDriver(&g_CLlDriver);
     g_CLlDriver.SetHlDriver(&g_NetStru1_main);
 
-    if (g_CLlDriver.GetProvider() == 3 || g_CLlDriver.GetProvider() == 2)
+    if (g_CLlDriver.GetProvider() == 3 || g_CLlDriver.GetProvider() == 2) {
         g_CLlDriver.StartServer(g_ServerConfig.max_players, m_GameSession.character_name, nullptr);
+    }
 
     FUN_0048ca7e(0);
 
@@ -3180,9 +3192,7 @@ int MainWindow::FUN_0048ca7e(int mode)
     {
         serverBootstrapEnabled = 1;
         return 0;
-    }
-    else
-    {
+    } else {
         serverBootstrapEnabled = 0;
         return 1;
     }
@@ -3199,11 +3209,13 @@ void MainWindow::FUN_004918ae()
 
     LPTSTR cmdline = afxCurrentWinApp->m_lpCmdLine;
 
-    if (strstr(cmdline, "-timeout"))
+    if (strstr(cmdline, "-timeout")) {
         g_CLlDriver.SetTimeout(g_CmdTimeout);
+    }
 
-    if (g_CLlDriver.GetProvider() == 3 || g_CLlDriver.GetProvider() == 2)
+    if (g_CLlDriver.GetProvider() == 3 || g_CLlDriver.GetProvider() == 2) {
         g_CLlDriver.StartServer(g_ServerConfig.max_players, m_GameSession.character_name, nullptr);
+    }
 
     FUN_0048ca7e(sessionMode);
 
@@ -3211,9 +3223,9 @@ void MainWindow::FUN_004918ae()
     {
         vis_root->MsgProc(0x446, 0, 0);
         PostMessage(0x45c, 0, 0);
-    }
-    else
+    } else {
         PostMessage(0x459, 0, 0);
+    }
 }
 
 
@@ -3229,8 +3241,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
     switch (message)
     {
     default:
-        if (vis_root && vis_root->MsgProc(message, wParam, lParam) != 0)
+        if (vis_root && vis_root->MsgProc(message, wParam, lParam) != 0) {
             return DefWindowProc(message, wParam, lParam);
+        }
         break;
 
     case WM_KEYDOWN:
@@ -3239,8 +3252,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         vis_root->MsgProc(WM_KEYUP, wParam, lParam);
         break;
     case WM_MOUSEMOVE:
-        if (vis_root->MsgProc(WM_MOUSEMOVE, wParam, lParam) != 0)
+        if (vis_root->MsgProc(WM_MOUSEMOVE, wParam, lParam) != 0) {
             SetCursorPos(g_mousept.GetX(), g_mousept.GetY());
+        }
 
         g_mousept.ResetNext400msg();
         break;
@@ -3274,8 +3288,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         break;
 
     case 0x416:
-        if (dialogsMask == 1)
+        if (dialogsMask == 1) {
             PopUpScreen(new IngameMenu(1, 100, 60, 440, 400, nullptr, 0, CRect(0, 0, 240, 40)));
+        }
         break;
 
     case 0x418:
@@ -3286,8 +3301,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         break;
 
     case 0x419:
-        if (dialogsMask == 1)
+        if (dialogsMask == 1) {
             g_Server->sub_4F1E2A();
+        }
 
         FUN_0048cb3c();
 
@@ -3299,12 +3315,13 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
             if (cur_location != nullptr)
             {
                 int loc_type = cur_location->GetId();
-                if (loc_type == 1)
+                if (loc_type == 1) {
                     vis_town->MsgProc(0x445, 0, 0);
-                else if (loc_type == 2)
+                } else if (loc_type == 2) {
                     vis_townkaarg->MsgProc(0x445, 0, 0);
-                else if (loc_type == 3)
+                } else if (loc_type == 3) {
                     vis_towndruid->MsgProc(0x445, 0, 0);
+                }
             }
         }
         FUN_0048f79d();
@@ -3321,37 +3338,41 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         break;
 
     case 0x41b:
-        if (dialogsMask == 1 || dialogsMask == 0)
+        if (dialogsMask == 1 || dialogsMask == 0) {
             PopUpScreen(new GameOptionsWindow(1, 20, 0, 620, 480));
+        }
         break;
 
     case 0x41c:
-        if (dialogsMask == 1)
+        if (dialogsMask == 1) {
             PopUpScreen(new EndGameMenu(1, 100, 100, 440, 340, nullptr, 0, CRect(0, 0, 300, 50), field_0x3f8));
-        else if (dialogsMask == 0)
+        } else if (dialogsMask == 0) {
             PopUpScreen(new ExitGameMenu(1, 100, 100, 440, 340, CRect(0, 0, 300, 70)));
+        }
         break;
 
     case 0x41d:
         if (sessionMode == 1 || sessionMode == 3)
         {
-            if (sessionMode == 1)
+            if (sessionMode == 1) {
                 vis_map_context->FUN_0041d2da(0);
-            else
+            } else {
                 vis_map_context->FUN_0041d2da(1);
+            }
 
-            if ((dialogsMask & 1) != 0)
+            if ((dialogsMask & 1) != 0) {
                 FUN_0048f6f7();
+            }
             
             g_Server->sub_4F1E2A();
             PostMessage(0x459, 0, 0);
-        }
-        else if (sessionMode == 0)
+        } else if (sessionMode == 0)
         {
             vis_map_context->FUN_0041d2da(1);
 
-            if ((dialogsMask & 1) != 0)
+            if ((dialogsMask & 1) != 0) {
                 FUN_0048f6f7();
+            }
 
             g_CLlDriver.Close();
 
@@ -3359,22 +3380,21 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
             last_tic_time = 0x7fffffff;
 
             PostMessage(0x452, 0, 0);
-        }
-        else if (field_0x3f8 == 0)
+        } else if (field_0x3f8 == 0)
         {
             g_Server->sub_4F1E2A();
             PostMessage(0x421, 0, 0);
-        }
-        else
-        {
+        } else {
             m_FameHall.AddMissionElapsedTime(g_Server->tick / 16);
             vis_map_context->CleanupCompletedMissionMapState();
 
-            if ((dialogsMask & 1) != 0)
+            if ((dialogsMask & 1) != 0) {
                 FUN_0048f6f7();
+            }
             
-            if (g_Server)
+            if (g_Server) {
                 g_Server->sub_4F1E2A();
+            }
             
             FUN_00485a41();
 
@@ -3392,28 +3412,26 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
                 vis_map_context->ProcessPackets(0);
             }
 
-            if (loc > -1)
+            if (loc > -1) {
                 FUN_00491f7d(loc);
+            }
 
             if (FUN_00497490() == 0)
             {
-                if (local_894 != 0)
+                if (local_894 != 0) {
                     vis_map_context->SendAdjustPlayerGoldAction(local_894);
+                }
 
                 if (ScenarioIsTownAvailable(0) == 0)
                 {
                     CList<ScenarioLocation*>* locs = ScenarioGetAvailableLocations();
                     ScenarioEnterLocation(locs->GetHead());
                     PostMessage(0x468, 0, 0);
-                }
-                else
-                {
+                } else {
                     vis_globalmap->umoirMapMode = 0;
                     ShowGlobalMapDialog();
                 }
-            }
-            else
-            {
+            } else {
                 m_FameHall.SubmitScore();
                 vis_map_context->FUN_0041d2da(1);
                 PostMessage(MSG_428, 0 ,0);
@@ -3435,17 +3453,18 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         break;
 
     case 0x421:
-        if (dialogsMask == 0)
+        if (dialogsMask == 0) {
             Proc_421();
+        }
         break;
 
     case 0x422:
         if (dialogsMask == 1 || (dialogsMask == 0 && g_Server != nullptr))
         {
             PopUpScreen(new SoundPreferencesDialogVisualObject(1, 100, 30, 640, 450, nullptr, &g_SoundSettings));
-        }
-        else if (dialogsMask == 0)
+        } else if (dialogsMask == 0) {
             PostMessage(MSG_487, 0, 0);
+        }
         break;
 
     case 0x425:
@@ -3458,10 +3477,11 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         vis_globalmap->RebuildScenarioLocations();
         m_FameHall.SetDifficulty(1);
 
-        if (sessionMode == 3)
+        if (sessionMode == 3) {
             PostMessage(MSG_42f, 0, 0);
-        else
+        } else {
             m_GameSession.RefreshCharacterRosterFiles(1);
+        }
             m_GameSession.InitializeNewCharacterSession(0, nullptr);
             ShowStartGameSetupForNewSession();
         break;
@@ -3489,13 +3509,15 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         break;
 
     case 0x42a:
-        if (dialogsMask == 0 || (sessionMode < 2 && dialogsMask == 1))
+        if (dialogsMask == 0 || (sessionMode < 2 && dialogsMask == 1)) {
             ShowShopDialog(wParam);
+        }
         break;
 
     case 0x42b:
-        if (dialogsMask == 0 || (sessionMode < 2 && dialogsMask == 1))
+        if (dialogsMask == 0 || (sessionMode < 2 && dialogsMask == 1)) {
             ShowInnDialog(wParam, lParam);
+        }
         break;
 
     case 0x42d:
@@ -3509,11 +3531,13 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
             int32_t loc = -1;
             ScenarioLeaveLocation(&loc);
 
-            if (loc > -1)
+            if (loc > -1) {
                 FUN_00491f7d(loc);
+            }
 
-            if (cloc->GetId() == 1)
+            if (cloc->GetId() == 1) {
                 vis_globalmap->umoirMapMode = 1;
+            }
         }
         ShowGlobalMapDialog();
     }
@@ -3536,11 +3560,10 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
             CRect local_8c0(local_8d0.Width() / 8, local_8d0.Height() - 120, local_8d0.Width() * 7 / 8, local_8d0.Height() - 96);
             field_0x128 = new Vis2Action(1, local_8d0.left, local_8d0.top, local_8d0.right, local_8d0.bottom, txt_main.GetLine(140), local_8c0);
             PopUpScreen(field_0x128);
-            if (!g_SfxArray[14]->FindPlayingChannel())
+            if (!g_SfxArray[14]->FindPlayingChannel()) {
                 g_SfxArray[14]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
-        }
-        else
-        {
+            }
+        } else {
             field_0x3f8 = 1;
             PostMessage(0x41d, 0, 0);
         }
@@ -3553,8 +3576,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
             field_0x124 = new VisMissionFailed(1, 32, 100, 608, 380, g_MissionFailures[wParam - 2]);
             PopUpScreen(field_0x124);
 
-            if (!g_SfxArray[16]->FindPlayingChannel())
+            if (!g_SfxArray[16]->FindPlayingChannel()) {
                 g_SfxArray[16]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
+            }
         }
         break;
 
@@ -3565,39 +3589,38 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
     case 0x433:
         field_0x450 = wParam;
 
-        if (field_0x450 == 255)
+        if (field_0x450 == 255) {
             PostMessage(0x431, lParam, 0);
-        else if (field_0x450 == 254)
+        } else if (field_0x450 == 254)
         {
-            if (!g_SfxArray[16]->FindPlayingChannel())
+            if (!g_SfxArray[16]->FindPlayingChannel()) {
                 g_SfxArray[16]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
-        }
-        else if (field_0x450 == 253)
+            }
+        } else if (field_0x450 == 253)
         {
-            if (!g_SfxArray[14]->FindPlayingChannel())
+            if (!g_SfxArray[14]->FindPlayingChannel()) {
                 g_SfxArray[14]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
-        }
-        else if (field_0x450 == 250)
+            }
+        } else if (field_0x450 == 250)
         {
-            if (!g_SfxArray[14]->FindPlayingChannel())
+            if (!g_SfxArray[14]->FindPlayingChannel()) {
                 g_SfxArray[14]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
+            }
             vis_map_context->msglog.Add(txt_patch.GetLine(97), clr_log_sblack, 30000);
-        }
-        else if ((dialogsMask & 8) == 0)
+        } else if ((dialogsMask & 8) == 0)
         {
             CString local_850;
             local_850.Format("event%d", field_0x450);
             ShowRoleKeyDialog(local_850);
-        }
-        else
-        {
+        } else {
             DAT_006658d8.Add(field_0x450);
         }
         break;
 
     case 0x434:
-        if (dialogsMask == 1)
+        if (dialogsMask == 1) {
             PopUpScreen(new VisMessageBoxWithList(1, 32, 48, 608, 432, g_HelpStr, nullptr, 0));
+        }
         break;
 
     case 0x435:
@@ -3666,8 +3689,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
             CStringArray local_934;
             for (int i = 0; i < 32; i++)
             {
-                if ((g_using_vxd & (1 << i)) != 0)
+                if ((g_using_vxd & (1 << i)) != 0) {
                     local_934.Add(txt_cutscene.GetLine(i));
+                }
             }
             field_0x3d4 = new VisCutScenesDlg(17, 100, 30, 540, 450, local_934);
             PopUpScreen(field_0x3d4);
@@ -3692,25 +3716,26 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
     case 0x441:
         if (WaitHatConnection() == 0)
         {
-            if (g_CLlDriver.IsListen() == 0)
+            if (g_CLlDriver.IsListen() == 0) {
                 CWnd::PostMessage(0x487, 0, 0);
-            else
+            } else {
                 CWnd::PostMessage(0x489, 0, 0);
-        }
-        else
-        {
-            if (ConnectToServerAddress() == 0)
+            }
+        } else {
+            if (ConnectToServerAddress() == 0) {
                 PostMessage(0x487, 0, 0);
-            else
+            } else {
                 WaitConnectionCharacterJoin();
+            }
         }
         break;
 
     case 0x442:
-        if (wParam == 0)
+        if (wParam == 0) {
             strcpy(field_0x148.title, txt_patch.GetLine(55));
-        else
+        } else {
             strcpy(field_0x148.title, txt_patch.GetLine(95));
+        }
         sprintf(field_0x148.filename, "game%d.sav", 9999 - wParam);
         FUN_0048f905();
         field_0x438 = timeGetTime();
@@ -3731,34 +3756,37 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         if (field_0x3e0.field_08.IsEmpty() == 0)
         {
             WaitConnectionCharacterJoin();
-        }
-        else if (this->dialogsMask == 0)
+        } else if (this->dialogsMask == 0)
         {
             music_player->OnEndTrack();
             if (!IsDplayAvail)
             {
                 ModalScreen(new VisMessageBoxWithList(1, 100, 100, 540, 380, txt_main.GetLine(152), nullptr, 0));
                 PostMessage(0x421, 0, 0);
-            }
-            else
-            {
+            } else {
 
                 field_0x350 = new VisConnectionDlg(1, 0, 0, 640, 350, &last_protocol);
                 PopUpScreen(field_0x350);
 
-                if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol0"))
+                if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol0")) {
                     ((VisListBox*)field_0x350->FindChild(2))->SetSelectedIndex(0);
-                if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol1"))
+                }
+                if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol1")) {
                     ((VisListBox*)field_0x350->FindChild(2))->SetSelectedIndex(1);
-                if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol2"))
+                }
+                if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol2")) {
                     ((VisListBox*)field_0x350->FindChild(2))->SetSelectedIndex(2);
-                if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol3"))
+                }
+                if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol3")) {
                     ((VisListBox*)field_0x350->FindChild(2))->SetSelectedIndex(3);
-                if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol4"))
+                }
+                if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol4")) {
                     ((VisListBox*)field_0x350->FindChild(2))->SetSelectedIndex(4);
+                }
 
-                if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol"))
+                if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol")) {
                     field_0x350->MsgProc(0x445, 0, 0);
+                }
 
                 if (g_ServerConfig.protocol > -1 && g_ServerConfig.protocol < 2)
                 {
@@ -3774,9 +3802,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         {
             g_CLlDriver.RecreateDp();
             g_CLlDriver.PrepareForConnect("", nullptr);
-        }
-        else
-        {
+        } else {
             if (g_CLlDriver.GetProvider() == 3)
             {
                 g_CLlDriver.RecreateDp();
@@ -3792,9 +3818,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         if (sessionMode == 3)
         {
             FUN_00491822();
-        }
-        else
-        {
+        } else {
             field_0x34c = new VisNetDlg(1, 0, 30, 640, 450, &net_sessions);
             PopUpScreen(field_0x34c);
         }
@@ -3802,8 +3826,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 
     case 0x453:
         PopUpScreen( new VisNetTcpIp(1, 0, 100, 640, 300, &last_ip) );
-        if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol") != nullptr || g_ServerConfig.protocol > -1)
+        if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol") != nullptr || g_ServerConfig.protocol > -1) {
             PostMessage(0x445, 0, 0);
+        }
         break;
 
     case 0x454:
@@ -3833,17 +3858,16 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
                             g_NetStru1_local.SendPacket_64(1, 0);
                             g_RemoteTimestamp = ticks;
                         }
-                    }
-                    else
-                    {
+                    } else {
                         vis_map_context->ProcessPackets(0x64);
                     }
 
                     MSG msg;
                     if (PeekMessageA(&msg, NULL, 0, 0, 1) != 0)
                     {
-                        if (msg.message == WM_QUIT)
+                        if (msg.message == WM_QUIT) {
                             return 0;
+                        }
 
                         TranslateMessage(&msg);
                         DispatchMessageA(&msg);
@@ -3869,10 +3893,11 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 
             if (m_GameSession.SubmitCharacterSetupAndWaitForSelectedUnit() == 0)
             {
-                if ((INT_00660f8c & 0xff) < 11)
+                if ((INT_00660f8c & 0xff) < 11) {
                     ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_main.GetLine(192 + (INT_00660f8c & 0xff)), nullptr, 0));
-                else
+                } else {
                     ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
+                }
                 PostMessage(0x45c, 0, 0);
                 break;
             }
@@ -3880,10 +3905,11 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 
         if (RunSessionBootstrap(0) == 0)
         {
-            if ((INT_00660f8c & 0xff) < 11)
+            if ((INT_00660f8c & 0xff) < 11) {
                 ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_main.GetLine(192 + (INT_00660f8c & 0xff)), nullptr, 0));
-            else
+            } else {
                 ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
+            }
             PostMessage(0x45c, 0, 0);
         }
         break;
@@ -3897,19 +3923,16 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
             {
                 field_0x378 = new VisNetMapSelection(1, 0, -64, 640, 480, &current_map_name);
                 PopUpScreen(field_0x378);
-            }
-            else
-            {
+            } else {
                 current_map_name = g_ServerConfig.map_names[g_ServerConfig.current_map_index];
                 PostMessage(0x457, 0, 0);
             }
-        }
-        else
-        {
+        } else {
             current_map_name = token + 5;
             int nidx = current_map_name.Find('"');
-            if (nidx != 0)
+            if (nidx != 0) {
                 current_map_name = current_map_name.Left(nidx);
+            }
 
             PostMessage(0x457, 0, 0);
         }
@@ -3920,9 +3943,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
     case 0x45a:
     {
         CVisualObject* local_96c = vis_map_context->FindChild(16);
-        if (!local_96c)
+        if (!local_96c) {
             vis_root->MsgProc(message, wParam, lParam);
-        else
+        } else
         {
             vis_map_context->RemoveChild(local_96c);
             delete local_96c;
@@ -3951,41 +3974,42 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         if (field_0x3e0.field_08.IsEmpty() == 0)
         {
             PostMessage(WM_CLOSE, 0, 0);
-        }
-        else if (sessionMode == 0 || sessionMode == 1)
+        } else if (sessionMode == 0 || sessionMode == 1)
         {
-            if (dialogsMask & 8)
+            if (dialogsMask & 8) {
                 vis_root->MsgProc(0x446, 0, 0);
+            }
 
-            if (dialogsMask & 2)
+            if (dialogsMask & 2) {
                 vis_root->MsgProc(0x445, 0, 0);
+            }
 
-            if (dialogsMask & 4)
+            if (dialogsMask & 4) {
                 vis_root->MsgProc(0x445, 0, 0);
+            }
             
             vis_map_context->FUN_0041d2da(1);
 
-            if (dialogsMask & 1)
+            if (dialogsMask & 1) {
                 FUN_0048f6f7();
+            }
             
             FUN_0048cb3c();
 
-            if (g_CLlDriver.GetProvider() == 0)
+            if (g_CLlDriver.GetProvider() == 0) {
                 PostMessage(0x454, 0, 0);
-            else if (g_CLlDriver.GetProvider() == 1)
+            } else if (g_CLlDriver.GetProvider() == 1) {
                 PostMessage(0x455, 0, 0);
-            else
+            } else {
                 PostMessage(0x452, 0, 0);
-        }
-        else if (sessionMode == 3)
+            }
+        } else if (sessionMode == 3)
         {
             if (g_CLlDriver.GetProvider() == 3)
             {
                 PostMessage(0x453, 0, 0);
                 FUN_0048cb3c();
-            }
-            else
-            {
+            } else {
                 PostMessage(0x451, 0, 0);
                 FUN_0048cb3c();
             }
@@ -3996,15 +4020,17 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         if (sessionMode == 0)
         {
             vis_map_context->FUN_0041d2da(0);
-            if (dialogsMask & 1)
+            if (dialogsMask & 1) {
                 FUN_0048f6f7();
+            }
             PostMessage(0x459, 0, 0);
         }
         break;
 
     case 0x463:
-        if (dialogsMask == 1)
+        if (dialogsMask == 1) {
             ShowFameHallDocDlg();
+        }
         break;
 
     case 0x464:
@@ -4016,9 +4042,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         {
             //DAT_00665cf8 = 0x35;
             PostMessage(0x421, 0, 0);
-        }
-        else
+        } else {
             PostMessage(WM_CLOSE, 0, 0);
+        }
     }
         break;
 
@@ -4027,10 +4053,11 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         VisMessageBoxWithList* msgbox = new VisMessageBoxWithList(1, 100, 100, 540, 480, txt_main.GetLine(181), nullptr, 1);
         ModalScreen(msgbox);
 
-        if (msgbox->GetCloseCode() == 0x445)
+        if (msgbox->GetCloseCode() == 0x445) {
             PostMessage(0x421, 0, 0);
-        else
+        } else {
             PostMessage(WM_CLOSE, 0, 0);
+        }
     }
         break;
 
@@ -4041,9 +4068,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         {
             vis_map_context->RemoveChild(obj);
             delete obj;
-        }
-        else
-        {
+        } else {
             vis_map_context->AddChild(new VisQuestStatus(18, 10, 20, 370, 188));
         }
         vis_map_context->field_0xe0 = 1;
@@ -4056,8 +4081,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
             CDWordArray local_95c;
             for (int i = 0; i < 20; i++)
             {
-                if (ScenarioGetVar(0x200 + i) != 0 && ScenarioGetVar(0x214 + i) != 0)
+                if (ScenarioGetVar(0x200 + i) != 0 && ScenarioGetVar(0x214 + i) != 0) {
                     local_95c.Add(i + 1);
+                }
             }
             if (local_95c.GetSize() != 0)
             {
@@ -4066,9 +4092,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
             }
 
             RunSessionBootstrap(0);
-        }
-        else
-        {
+        } else {
             vis_map_context->FUN_0041b064(0, 0);
             ShowCurrentTownDialog();
         }
@@ -4082,9 +4106,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
                 vis_map_context->msglog.Add((const char*)wParam, clrsh_ShockingBlack, 30000);
                 free((void*)wParam);
             }
-        }
-        else
-        {
+        } else {
             char buf[2048];
             OemToCharA((const char*)wParam, buf);
             list_box1.SetCurSel(list_box1.AddString(buf));
@@ -4108,10 +4130,11 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         break;
 
     case 0x488:
-        if (FUN_0049057b() == 0)
+        if (FUN_0049057b() == 0) {
             PostMessage(0x422, 0, 0);
-        else
+        } else {
             PostMessage(0x426, 0, 0);
+        }
         break;
 
     case 0x489:
@@ -4120,9 +4143,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         PopUpScreen(field_0x37c);
 
         int32_t res;
-        if (hat_settings.ishat == 0)
+        if (hat_settings.ishat == 0) {
             res = FUN_004e5466(hat_settings.hatip);
-        else
+        } else
         {
             res = FUN_00490eb3();
             if (res == 0)
@@ -4143,10 +4166,11 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 void MainWindow::PopUpScreen(VisScreen* screen)
 { //48d26a
-    if (screen == field_0x3dc)
+    if (screen == field_0x3dc) {
         dialogsMask |= 0x8000;
-    else
+    } else {
         dialogsMask |= 8;
+    }
 
     vis_root->AddChild(screen);
 
@@ -4210,11 +4234,11 @@ void MainWindow::FUN_0048f79d()
 
     g_Server->sub_4EDB83(field_0x148.filename);
 
-    if (!vis_map_context->ConnectAndJoinSession())
+    if (!vis_map_context->ConnectAndJoinSession()) {
         PostMessage(0x421, 0, 0);
-    else if (GetSaveFileInBattle())
+    } else if (GetSaveFileInBattle()) {
         RunSessionBootstrap(1);
-    else
+    } else
     {
         vis_map_context->FUN_0041b10f();
         g_Server->FUN_0050907e();
@@ -4255,8 +4279,9 @@ int MainWindow::RunSessionBootstrap(int mode)
     vis_map_context->field_0x80 = nullptr;
     g_Cursors[CURSOR_WAIT]->Use();
 
-    if (g_SoundSettings.field_0x20 != 0)
+    if (g_SoundSettings.field_0x20 != 0) {
         music_player->OnEndTrack();
+    }
 
     if (sessionMode == 3)
     {
@@ -4276,10 +4301,11 @@ int MainWindow::RunSessionBootstrap(int mode)
     }
 
     char buf[128];
-    if (sessionMode == 2 && mode == 0)
+    if (sessionMode == 2 && mode == 0) {
         sprintf(buf, "%d.alm", ScenarioGetCurrentLocation()->GetId());
-    else
+    } else {
         strcpy(buf, current_map_name);
+    }
 
     if (mode == 0 && serverBootstrapEnabled != 0)
     {
@@ -4301,8 +4327,9 @@ int MainWindow::RunSessionBootstrap(int mode)
         vis_map_context->FUN_0041abd2(vis_map_context->formation);
         vis_map_context->FUN_0041ab74();
 
-        if (serverBootstrapEnabled != 0)
+        if (serverBootstrapEnabled != 0) {
             g_Server->ServerTic();
+        }
 
         uint32_t tm = timeGetTime();
         while (true)
@@ -4316,8 +4343,9 @@ int MainWindow::RunSessionBootstrap(int mode)
             MSG msg;
             if (PeekMessageA(&msg, nullptr, 0, 0, 1))
             {
-                if (msg.message == WM_QUIT)
+                if (msg.message == WM_QUIT) {
                     return 0;
+                }
 
                 TranslateMessage(&msg);
                 DispatchMessage(&msg);
@@ -4334,8 +4362,9 @@ int MainWindow::RunSessionBootstrap(int mode)
                 g_mousept.Update();
             }
 
-            if (vis_map_context->ProcessPackets(0x64) == 0)
+            if (vis_map_context->ProcessPackets(0x64) == 0) {
                 return 0;
+            }
         }
     }
 
@@ -4354,8 +4383,9 @@ int MainWindow::RunSessionBootstrap(int mode)
         m_FameHall.FUN_004ac7a2(&fil);
         ScenarioLoad(&fil);
 
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < 9; i++) {
             m_GameSession.shortcuts[i].ReadFromFile(&fil);
+        }
 
         fil.Close();
 
@@ -4375,13 +4405,13 @@ int MainWindow::RunSessionBootstrap(int mode)
 
         if (reg.GetInt("SpellBook", "IsOpen", 0) == 0)
         {
-            if (vis_map_context->IsBagOpen() != 0)
+            if (vis_map_context->IsBagOpen() != 0) {
                 vis_map_context->FUN_0041b636();
-        }
-        else
-        {
-            if (vis_map_context->IsBagOpen() == 0)
+            }
+        } else {
+            if (vis_map_context->IsBagOpen() == 0) {
                 vis_map_context->FUN_0041b509();
+            }
         }
 
         vis_spellbook->pressed = reg.GetInt("SpellBook", "Pressed", vis_spellbook->pressed);
@@ -4394,8 +4424,9 @@ int MainWindow::RunSessionBootstrap(int mode)
         for (int i = 0; i < sel_ids.GetSize(); i++)
         {
             CGameObject* obj;
-            if (vis_map_context->field_0x9d0.Lookup(sel_ids[i], obj))
+            if (vis_map_context->field_0x9d0.Lookup(sel_ids[i], obj)) {
                 obj->VMethod1(1);
+            }
         }
 
         for (int i = 0; i < 10; i++)
@@ -4408,20 +4439,21 @@ int MainWindow::RunSessionBootstrap(int mode)
             for (int j = 0; j < grp_ids.GetSize(); j++)
             {
                 CGameObject* obj;
-                if (vis_map_context->field_0x9d0.Lookup(grp_ids[i], obj) != 0)
+                if (vis_map_context->field_0x9d0.Lookup(grp_ids[i], obj) != 0) {
                     obj->FUN_0041f180(i);
+                }
             }
         }
 
         if (reg.GetInt("Inventory", "IsOpen", 0) == 0)
         {
-            if (vis_map_context->FUN_0041b495() != 0)
+            if (vis_map_context->FUN_0041b495() != 0) {
                 vis_map_context->FUN_0041b40e();
-        }
-        else
-        {
-            if (vis_map_context->FUN_0041b495() == 0)
+            }
+        } else {
+            if (vis_map_context->FUN_0041b495() == 0) {
                 vis_map_context->FUN_0041b381();
+            }
         }
 
         CArray<uint16_t> proj_ids;
@@ -4488,10 +4520,11 @@ int MainWindow::RunSessionBootstrap(int mode)
         field_0x3fc = 0;
     }
 
-    if (sessionMode == 2)
+    if (sessionMode == 2) {
         SetSpeed(game_speed);
-    else
+    } else {
         SetSpeed(g_ServerConfig.game_speed);
+    }
 
     if (sessionMode == 2)
     {
@@ -4507,8 +4540,9 @@ int MainWindow::RunSessionBootstrap(int mode)
             MissionGetFailure(i, &tmp);
             if (tmp.IsEmpty())
             {
-                if (i > 4)
+                if (i > 4) {
                     break;
+                }
 
                 tmp = txt_main.GetLine(0x118 + i);
             }
@@ -4519,16 +4553,16 @@ int MainWindow::RunSessionBootstrap(int mode)
         for (int i = 0; ; i++)
         {
             MissionGetSubj(i, &tmp);
-            if (tmp.IsEmpty())
+            if (tmp.IsEmpty()) {
                 break;
+            }
             g_MissionSubjs.Add(tmp);
         }
 
-        if (mode == 0)
+        if (mode == 0) {
             PostMessage(0x442, 0, 0);
-    }
-    else
-    {
+        }
+    } else {
         ReadFileToString("main\\text\\quest.txt", &g_MissionText);
     }
 
@@ -4583,50 +4617,59 @@ void MainWindow::FUN_0047a5e6()
         obj->sn = i;
 
         int parentID = reg.GetInt(buf, "Parent", -1);
-        if (parentID != -1)
+        if (parentID != -1) {
             sprintf(parnt, "Object%d", g_GfxObjects[parentID]->sn);
+        }
 
         obj->file = reg.GetInt(buf, "File", -1);
 
-        if (parentID == -1)
+        if (parentID == -1) {
             obj->index = reg.GetInt(buf, "Index", -1);
-        else
+        } else {
             obj->index = reg.GetInt(buf, "Index", g_GfxObjects[parentID]->index);
+        }
 
-        if (parentID == -1)
+        if (parentID == -1) {
             obj->phases = reg.GetInt(buf, "Phases", -1);
-        else
+        } else {
             obj->phases = reg.GetInt(buf, "Phases", g_GfxObjects[parentID]->phases);
+        }
 
-        if (parentID == -1)
+        if (parentID == -1) {
             obj->width = reg.GetInt(buf, "Width", -1);
-        else
+        } else {
             obj->width = reg.GetInt(buf, "Width", g_GfxObjects[parentID]->width);
+        }
 
-        if (parentID == -1)
+        if (parentID == -1) {
             obj->height = reg.GetInt(buf, "Height", -1);
-        else
+        } else {
             obj->height = reg.GetInt(buf, "Height", g_GfxObjects[parentID]->height);
+        }
 
-        if (parentID == -1)
+        if (parentID == -1) {
             obj->center_x = reg.GetInt(buf, "CenterX", -1);
-        else
+        } else {
             obj->center_x = reg.GetInt(buf, "CenterX", g_GfxObjects[parentID]->center_x);
+        }
 
-        if (parentID == -1)
+        if (parentID == -1) {
             obj->center_y = reg.GetInt(buf, "CenterY", -1);
-        else
+        } else {
             obj->center_y = reg.GetInt(buf, "CenterY", g_GfxObjects[parentID]->center_y);
+        }
 
-        if (parentID == -1)
+        if (parentID == -1) {
             obj->fire_object = reg.GetInt(buf, "FireObject", -1);
-        else
+        } else {
             obj->fire_object = reg.GetInt(buf, "FireObject", g_GfxObjects[parentID]->fire_object);
+        }
 
-        if (parentID == -1)
+        if (parentID == -1) {
             obj->dead_object = reg.GetInt(buf, "DeadObject", -1);
-        else
+        } else {
             obj->dead_object = reg.GetInt(buf, "DeadObject", g_GfxObjects[parentID]->dead_object);
+        }
 
         obj->in_map_editor = reg.GetInt(buf, "InMapEditor", 0);
 
@@ -4640,21 +4683,24 @@ void MainWindow::FUN_0047a5e6()
         reg.GetInt32Array(buf, "AnimationTime", &animationTime);
         if (parentID != -1)
         {
-            if (animationTime.GetSize() == 0)
+            if (animationTime.GetSize() == 0) {
                 reg.GetInt32Array(parnt, "AnimationTime", &animationTime);
+            }
         }
 
         reg.GetInt32Array(buf, "AnimationFrame", &animationFrame);
         if (parentID != -1)
         {
-            if (animationFrame.GetSize() == 0)
+            if (animationFrame.GetSize() == 0) {
                 reg.GetInt32Array(parnt, "AnimationFrame", &animationFrame);
+            }
         }
 
         for (int j = 0; j < animationTime.GetSize() && j < animationFrame.GetSize(); j++)
         {
-            for (int frm = 0; frm < animationTime[j]; frm++)
+            for (int frm = 0; frm < animationTime[j]; frm++) {
                 obj->frames.Add(animationFrame[j]);
+            }
         }
 
         obj->frame_count = obj->frames.GetSize();
@@ -4716,8 +4762,9 @@ void MainWindow::FUN_0047efdf()
 
             for(int j = 0; j < anim_time.GetSize() && j < anim_frame.GetSize(); j++)
             {
-                for (int frm = 0; frm < anim_time[j]; frm++)
+                for (int frm = 0; frm < anim_time[j]; frm++) {
                     bld->frames.Add(anim_frame[j]);
+                }
             }
 
             bld->frame_count = bld->frames.GetSize();
@@ -4728,8 +4775,9 @@ void MainWindow::FUN_0047efdf()
             int sz = strlen(bld->anim_mask);
             for (int j = 0; j < sz; j++)
             {
-                if (bld->anim_mask[j] != '-')
+                if (bld->anim_mask[j] != '-') {
                     bld->field_0x38++;
+                }
             }
         }
         g_StructuresInfo.SetAtGrow(bld->id, bld);
@@ -4817,8 +4865,9 @@ void MainWindow::FUN_0048df44()
 
     ScenarioLoad(&fil);
 
-    for (int i = 0; i < 9; i++)
+    for (int i = 0; i < 9; i++) {
         m_GameSession.shortcuts[i].ReadFromFile(&fil);
+    }
 
     fil.Close();
 
@@ -4850,8 +4899,9 @@ void MainWindow::FUN_0048df44()
     for (int i = 0; i < sel_objs.GetSize(); i++)
     {
         CGameObject* obj = nullptr;
-        if (vis_map_context->field_0x9d0.Lookup(sel_objs[i], obj) && obj)
+        if (vis_map_context->field_0x9d0.Lookup(sel_objs[i], obj) && obj) {
             obj->VMethod1(1);
+        }
     }
 
     for (int i = 0; i < 10; i++)
@@ -4865,8 +4915,9 @@ void MainWindow::FUN_0048df44()
         for(int j = 0; j < grp_objs.GetSize(); j++)
         {
             CGameObject* obj = nullptr;
-            if (vis_map_context->field_0x9d0.Lookup(grp_objs[j], obj))
+            if (vis_map_context->field_0x9d0.Lookup(grp_objs[j], obj)) {
                 obj->FUN_0041f180(i);
+            }
         }
     }
 
@@ -4885,13 +4936,15 @@ void MainWindow::FUN_0048f6f7()
 { //48f6f7
 
     vis_map_context->FUN_0041c39c();
-    if (g_SoundSettings.field_0x20 != 0)
+    if (g_SoundSettings.field_0x20 != 0) {
         music_player->OnEndTrack();
+    }
 
     FUN_0047ad28();
 
-    for (int i = 0; i < g_UnitGfxFiles.GetSize(); i++)
+    for (int i = 0; i < g_UnitGfxFiles.GetSize(); i++) {
         g_UnitGfxFiles[i]->Deinit();
+    }
     
     FUN_00478130();
     FUN_0047eab6();
@@ -4905,8 +4958,9 @@ void MainWindow::FUN_0047eab6()
     for (int i = 0; i < g_ProjectileInfos.GetSize(); i++)
     {
         ProjectileInfo* inf = g_ProjectileInfos[i];
-        if (inf)
+        if (inf) {
             delete inf;
+        }
     }
     g_ProjectileInfos.RemoveAll();
 
@@ -4937,8 +4991,9 @@ void MainWindow::FUN_0047f5e4()
     for (int i = 0; i < g_StructuresInfo.GetSize(); i++)
     {
         StructureInfo* inf = g_StructuresInfo[i];
-        if (inf)
+        if (inf) {
             delete inf;
+        }
     }
     g_StructuresInfo.RemoveAll();
 }
@@ -4946,10 +5001,12 @@ void MainWindow::FUN_0047f5e4()
 
 void MainWindow::FUN_0047ad28()
 { //47ad28
-    for (int i = 0; i < g_GfxFiles.GetSize(); i++)
+    for (int i = 0; i < g_GfxFiles.GetSize(); i++) {
         delete g_GfxFiles[i];
-    for (int i = 0; i < g_GfxObjects.GetSize(); i++)
+    }
+    for (int i = 0; i < g_GfxObjects.GetSize(); i++) {
         delete g_GfxObjects[i];
+    }
     g_GfxFiles.RemoveAll();
     g_GfxObjects.RemoveAll();
 }
@@ -4963,25 +5020,26 @@ void MainWindow::InitNewCampaignSession()
     if (FUN_0048ca7e(sessionMode) == 0)
     {
         m_GameSession.type = 0;
-        if (strstr(afxCurrentWinApp->m_lpCmdLine, "-female") != nullptr)
+        if (strstr(afxCurrentWinApp->m_lpCmdLine, "-female") != nullptr) {
             m_GameSession.type |= 0x80;
-        if (strstr(afxCurrentWinApp->m_lpCmdLine, "-mage") != nullptr)
+        }
+        if (strstr(afxCurrentWinApp->m_lpCmdLine, "-mage") != nullptr) {
             m_GameSession.type |= 0x40;
+        }
         const char* nm = strstr(afxCurrentWinApp->m_lpCmdLine, "-name");
 
-        if (!nm)
+        if (!nm) {
             strcpy(m_GameSession.character_name, "Unnamed");
-        else
+        } else
         {
             strncpy(m_GameSession.character_name, nm + 5, 32 - 1);
             m_GameSession.type |= 0x80;
             char* nm_sp = strstr(m_GameSession.character_name, " ");
-            if (nm_sp)
+            if (nm_sp) {
                 *nm_sp = 0;
+            }
         }
-    }
-    else
-    {
+    } else {
         AfxMessageBox("Suxx");
         abort();
     }
@@ -4996,8 +5054,9 @@ void MainWindow::ShowStartGameSetupForNewSession()
 
     vis_root->AddChild(vis_startgame);
 
-    if (sessionMode != 2)
+    if (sessionMode != 2) {
         m_GameSession.character_name[0] = '\0';
+    }
 
     vis_startgame->SetCharName(m_GameSession.character_name);
 
@@ -5017,8 +5076,9 @@ void MainWindow::ShowStartGameSetupForNewSession()
         lst.Add("music\\chrgen.wav");
 
         CStringArray& playing = music_player->GetPlaylist();
-        if (music_player->GetPlaylistSize() == 0 || music_player->GetPlaylist()[0] != lst[0])
+        if (music_player->GetPlaylistSize() == 0 || music_player->GetPlaylist()[0] != lst[0]) {
             music_player->SetPlayList(lst);
+        }
 
         music_player->Play();
     }
@@ -5079,15 +5139,16 @@ void MainWindow::ShowShopDialog(uint32_t id)
         sub_48CC87();
     }
 
-    if (vis_map_context->IsBookOpen() != 0)
+    if (vis_map_context->IsBookOpen() != 0) {
         vis_map_context->FUN_0041b636();
+    }
 
     g_Cursors[CURSOR_WAIT]->Use();
 
     int locid = 1;
-    if (sessionMode == 2)
+    if (sessionMode == 2) {
         locid = ScenarioGetCurrentLocation()->GetId();
-    else
+    } else
     {
         switch (id)
         {
@@ -5114,13 +5175,11 @@ void MainWindow::ShowShopDialog(uint32_t id)
     {
         vis_root->AddChild(vis_shop);
         vis_shop->VMethod28();
-    }
-    else if (locid == 2)
+    } else if (locid == 2)
     {
         vis_root->AddChild(vis_shopkaarg);
         vis_shopkaarg->VMethod28();
-    }
-    else if (locid == 3)
+    } else if (locid == 3)
     {
         vis_root->AddChild(vis_shopdruid);
         vis_shopdruid->VMethod28();
@@ -5145,15 +5204,16 @@ void MainWindow::ShowInnDialog(uint32_t id, int32_t interact_target)
         sub_48CC87();
     }
 
-    if (vis_map_context->IsBookOpen() != 0)
+    if (vis_map_context->IsBookOpen() != 0) {
         vis_map_context->FUN_0041b636();
+    }
 
     g_Cursors[CURSOR_WAIT]->Use();
 
     int locid = 1;
-    if (sessionMode == 2)
+    if (sessionMode == 2) {
         locid = ScenarioGetCurrentLocation()->GetId();
-    else
+    } else
     {
         switch (id)
         {
@@ -5178,12 +5238,13 @@ void MainWindow::ShowInnDialog(uint32_t id, int32_t interact_target)
     }
 
     VisTav* inn = nullptr;
-    if (locid == 1)
+    if (locid == 1) {
         inn = vis_tav;
-    else if (locid == 2)
+    } else if (locid == 2) {
         inn = vis_tavkaarg;
-    else if (locid == 3)
+    } else if (locid == 3) {
         inn = vis_tavdruid;
+    }
 
     vis_root->AddChild(inn);
 
@@ -5196,15 +5257,16 @@ void MainWindow::ShowInnDialog(uint32_t id, int32_t interact_target)
         CDWordArray arr;
         arr.SetSize(num);
 
-        for (int i = 0; i < num; i++)
+        for (int i = 0; i < num; i++) {
             arr[i] = ids[i];
+        }
 
         g_Server->FUN_00501b9e(ScenarioGetVar(0x300), arr);
 
         vis_map_context->ProcessPackets(0);
-    }
-    else
+    } else {
         vis_map_context->NetOnOpenInnDialog();
+    }
 
     inn->field_0x138 = interact_target;
     inn->VMethod28();
@@ -5241,9 +5303,7 @@ void MainWindow::RemoteGameIdle()
 
             vis_map_context->msglog.Add("Connection lost", clrsh_TechBlack, 30000);
         }
-    }
-    else
-    {
+    } else {
         g_mousept.Update();
 
         if (g_NetStru1_local.GetClientsPktNum() == 0)
@@ -5254,45 +5314,50 @@ void MainWindow::RemoteGameIdle()
                 g_NetStru1_local.SendPacket_64(1, 0);
                 g_RemoteTimestamp = tick;
             }
-        }
-        else
-        {
+        } else {
             while(true)
             {
                 game_tic_counter++;
                 game_tic_counter &= 0xf;
 
-                if (game_tic_counter == 0)
+                if (game_tic_counter == 0) {
                     g_NetStru1_local.sub_51EEB7();
+                }
 
                 vis_map_context->ProcessPackets(100);
                 vis_root->MsgProc(0x401, 0, 0);
 
                 g_mousept.Update();
 
-                if (g_NetStru1_local.GetClientsPktNum() == 0)
+                if (g_NetStru1_local.GetClientsPktNum() == 0) {
                     break;
+                }
             }
             g_RemoteTimestamp = GetTickCount();
         }
 
         if (g_mousept.GetSelectState() == 0 && dialogsMask == 1)
         {
-            if (g_mousept.GetX() <= 0)
+            if (g_mousept.GetX() <= 0) {
                 vis_map_context->ScrollMapX(-1);
+            }
 
-            if (g_mousept.GetY() <= 0)
+            if (g_mousept.GetY() <= 0) {
                 vis_map_context->ScrollMapY(-1);
+            }
 
-            if (g_mousept.GetX() >= g_ScreenSize.right - 2)
+            if (g_mousept.GetX() >= g_ScreenSize.right - 2) {
                 vis_map_context->ScrollMapX(1);
+            }
 
-            if (g_mousept.GetY() >= g_ScreenSize.bottom - 2)
+            if (g_mousept.GetY() >= g_ScreenSize.bottom - 2) {
                 vis_map_context->ScrollMapY(1);
+            }
         }
 
-        if (field_0xbc != 0)
+        if (field_0xbc != 0) {
             vis_root->MsgProc(0x402, 0, 0);
+        }
 
         g_mousept.Update();
     }
@@ -5305,8 +5370,9 @@ void MainWindow::SingleGameTimedIdle()
     uint32_t ticks = timeGetTime();
     while (ticks >= last_tic_time + game_tic_time * (game_tic_counter + 1))
     {
-        if (game_tic_counter == 0)
+        if (game_tic_counter == 0) {
             last_tic_time = ticks;
+        }
 
         game_tic_counter++;
         game_tic_counter &= 0xf;
@@ -5351,12 +5417,14 @@ void MainWindow::SingleGameTimedIdle()
             scroll = true;
         }
 
-        if (scroll)
+        if (scroll) {
             vis_minimap->MsgProc(0x408, 0, 0);
+        }
     }
 
-    if (field_0xbc != 0)
+    if (field_0xbc != 0) {
         vis_root->MsgProc(0x402, 0, 0);
+    }
 
     g_mousept.Update();
 }
@@ -5404,8 +5472,9 @@ void MainWindow::SingleGameIdle()
             scroll = true;
         }
 
-        if (scroll)
+        if (scroll) {
             vis_minimap->MsgProc(0x408, 0, 0);
+        }
     }
 
     if (field_0xbc != 0)
@@ -5451,37 +5520,42 @@ void MainWindow::SpawnScenarioMissionUnits(int32_t id, const CDWordArray& array)
 
         int32_t unit_info_id = g_GameDataRes.FUN_005125a8(uid * 10 + 10000);
         bool not_human = unit_info_id == 0;
-        if (not_human)
+        if (not_human) {
             unit_info_id = g_GameDataRes.FUN_00512625(uid * 10 + 10000);
+        }
 
         for (int j = 1; j < 10; j += 1)
         {
             int32_t id_variant;
-            if (not_human)
+            if (not_human) {
                 id_variant = g_GameDataRes.FUN_00512625(uid * 10 + 10000 + j);
-            else
+            } else {
                 id_variant = g_GameDataRes.FUN_005125a8(uid * 10 + 10000 + j);
+            }
 
             if (id_variant > 0)
             {
                 int32_t tmp_id;
-                if (not_human)
+                if (not_human) {
                     tmp_id = g_GameDataRes.FUN_00512625(uid * 10 + 9998 + id / 10);
-                else
+                } else {
                     tmp_id = g_GameDataRes.FUN_005125a8(uid * 10 + 9998 + id / 10);
+                }
 
-                if (tmp_id != 0)
+                if (tmp_id != 0) {
                     unit_info_id = tmp_id;
+                }
 
 break;
             }
         }
 
         Unit* unit;
-        if (not_human)
+        if (not_human) {
             unit = new Unit(g_GameDataRes.monsters[unit_info_id].name);
-        else
+        } else {
             unit = new Human(g_GameDataRes.humans[unit_info_id].name, 0, nullptr);
+        }
 
         unit->server_id = array[i];
         unit->building_id = g_buildingIdSet.AllocBit() & 0xffff;
@@ -5523,15 +5597,17 @@ int32_t MainWindow::FUN_0049057b()
     g_CLlDriver.SetHlDriver(&g_NetStru1_local);
     g_CLlDriver.ResetProvider(4);
 
-    if (strstr(afxCurrentWinApp->m_lpCmdLine, "-timeout"))
+    if (strstr(afxCurrentWinApp->m_lpCmdLine, "-timeout")) {
         g_CLlDriver.SetTimeout(g_CmdTimeout);
+    }
 
     CLlAddress local_224;
     strcpy(local_224.address, "0.0.0.0");
 
     int local_230 = g_CLlDriver.PrepareForConnect(hat_settings.hatprogip, &local_224);
-    if (local_230)
+    if (local_230) {
         local_230 = g_CLlDriver.Connect(m_GameSession.character_name, nullptr);
+    }
 
     if (local_230 == 0)
     {
@@ -5554,8 +5630,9 @@ int32_t MainWindow::FUN_0049057b()
     {
         if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0)
         {
-            if (msg.message == WM_QUIT)
+            if (msg.message == WM_QUIT) {
                 return 0;
+            }
 
             TranslateMessage(&msg);
             DispatchMessageA(&msg);
@@ -5571,8 +5648,7 @@ int32_t MainWindow::FUN_0049057b()
             }
 
             g_mousept.Update();
-        }
-        else if (vis_map_context->ProcessPackets(100) == 0)
+        } else if (vis_map_context->ProcessPackets(100) == 0)
         {
             ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
             PostMessage(WM_CLOSE, 0, 0);
@@ -5612,8 +5688,9 @@ int32_t MainWindow::FUN_0049057b()
             {
                 if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0)
                 {
-                    if (msg.message == WM_QUIT)
+                    if (msg.message == WM_QUIT) {
                         return 0;
+                    }
 
                     TranslateMessage(&msg);
                     DispatchMessageA(&msg);
@@ -5656,24 +5733,27 @@ int32_t MainWindow::FUN_0049057b()
 int32_t MainWindow::FUN_004e5466(const CString& addr)
 { //4e5466
     HINTERNET agent = InternetOpenA("RageOfMages2", 0, 0, 0, 0);
-    if (!agent)
+    if (!agent) {
         return 0;
+    }
 
     CString tmp;
     for (int i = 0; i < addr.GetLength(); i++)
     {
         char chr = addr[i];
-        if (chr == ' ')
+        if (chr == ' ') {
             tmp += '+';
-        else
+        } else {
             tmp += chr;
+        }
     }
 
     CString proto = tmp.Left(7);
     proto.MakeLower();
 
-    if (proto != "http://")
+    if (proto != "http://") {
         tmp = "http://" + tmp;
+    }
 
     HINTERNET url = InternetOpenUrlA(agent, tmp, nullptr, 0, INTERNET_FLAG_DONT_CACHE | INTERNET_FLAG_RELOAD, 0);
     if (!url == 0)
@@ -5694,8 +5774,9 @@ int32_t MainWindow::FUN_004e5466(const CString& addr)
             return 0;
         }
 
-        if (!readed)
+        if (!readed) {
             break;
+        }
 
         buf_pos += readed; // WAT FIXME  OVERFLOW!!
     }
@@ -5703,12 +5784,14 @@ int32_t MainWindow::FUN_004e5466(const CString& addr)
     InternetCloseHandle(agent);
 
     DAT_00666a00.RemoveAll();
-    if (!strstr(buf, "CURRENTCOUNT"))
+    if (!strstr(buf, "CURRENTCOUNT")) {
         return 0;
+    }
 
     char *cursor = strchr(buf, '|');
-    if (!cursor)
+    if (!cursor) {
         return 0;
+    }
 
     cursor++;
 
@@ -5722,8 +5805,9 @@ int32_t MainWindow::FUN_004e5466(const CString& addr)
 
     for (int i = 0; i < nnum; i++)
     {
-        while (isprint(*cursor) == 0)
+        while (isprint(*cursor) == 0) {
             cursor++;
+        }
 
         CString srv = '|';
         while(*cursor >= ' ')
@@ -5747,32 +5831,37 @@ int32_t MainWindow::FUN_00490eb3()
     uint32_t start_time = timeGetTime();
     while (true)
     {
-        if (false)
+        if (false) {
             return 1;
+        }
 
         MSG msg;
         if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0)
         {
-            if (msg.message == WM_QUIT)
+            if (msg.message == WM_QUIT) {
                 return 0;
+            }
 
             TranslateMessage(&msg);
             DispatchMessageA(&msg);
         }
 
-        if (g_NetStru1_local.GetClientsPktNum() != 0)
+        if (g_NetStru1_local.GetClientsPktNum() != 0) {
             break;
+        }
 
-        if (timeGetTime() - start_time > g_CmdTimeout)
+        if (timeGetTime() - start_time > g_CmdTimeout) {
             return 0;
+        }
 
         g_mousept.Update();
     }
 
     int32_t res = vis_map_context->ProcessPackets(100);
 
-    if (res != 0)
+    if (res != 0) {
         return res;
+    }
 
     return 0;
 }
@@ -5796,13 +5885,15 @@ int CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit()
 
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
-    if ((flags & 1) == 0 && wnd->sessionMode != 2)
+    if ((flags & 1) == 0 && wnd->sessionMode != 2) {
         wnd->vis_map_context->FUN_0041cc78(characterRosterFilePaths[selectedCharacterRosterFileIndex]);
-    else
+    } else {
         wnd->vis_map_context->FUN_0041cbb8();
+    }
 
-    if (wnd->sessionMode == 1 || wnd->sessionMode == 2)
+    if (wnd->sessionMode == 1 || wnd->sessionMode == 2) {
         g_Server->FUN_0050907e();
+    }
 
     uint32_t stime = timeGetTime();
     while (wnd->vis_map_context->field_0x3f6c == nullptr)
@@ -5830,8 +5921,9 @@ int CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit()
             g_NetStru1_local.ProcessConnections();
         }
 
-        if (wnd->vis_map_context->ProcessPackets(0x64) == 0)
+        if (wnd->vis_map_context->ProcessPackets(0x64) == 0) {
             return 0;
+        }
 
     }
 
@@ -5843,8 +5935,9 @@ void CGameSession::FUN_00493d8d()
 { //493d8d
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
-    if (wnd->sessionMode == 2)
+    if (wnd->sessionMode == 2) {
         return;
+    }
 
     CUnit* cu = wnd->vis_map_context->GetUnit_3f6c();
     money = 1000;
@@ -5890,8 +5983,9 @@ void CGameSession::FUN_00493d8d()
     uint8_t buffer[2560];
     uint8_t* bufpos = buffer;
 
-    for (int i = 0; i < 9; i++)
+    for (int i = 0; i < 9; i++) {
         shortcuts[i].ToBuffer(&bufpos);
+    }
     
     WritePlayerFile_4F53EA(characterRosterFilePaths[selectedCharacterRosterFileIndex], &local_40, &local_74, wnd->vis_map_context->kill_stats.data(), &PacketUnitStateVec::Inst, nullptr, buffer, bufpos - buffer);
 }
@@ -5942,8 +6036,9 @@ void CGameSession::RecreateCUnit()
             hm->face = (byte)face;
         }
 
-        if (main_sphere == 0)
+        if (main_sphere == 0) {
             main_sphere = hm->main_sphere;
+        }
 
         hm->sub_533345(main_sphere, 0x14);
         cu->CopyFromUnit(*hm);
@@ -5998,8 +6093,7 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx)
             {
                 memcpy(unit->str1, character_name, 11);
                 unit->str2[0] = 0;
-            }
-            else {
+            } else {
                 memcpy(unit->str1, character_name, delim - character_name);
                 memcpy(unit->str2, delim + 1, 12);
             }
@@ -6064,35 +6158,40 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx)
             {
                 hum->hit_values.skill_levels[i] = ExperienceTable::GetLevel(hum->experience_per_sphere[i - 1]);
 
-                if (hum->hit_values.skill_levels[i] > maxlvl)
+                if (hum->hit_values.skill_levels[i] > maxlvl) {
                     maxlvl = hum->hit_values.skill_levels[i];
+                }
             }
 
-            for (int i = 1; i < 6; i++)
+            for (int i = 1; i < 6; i++) {
                 hum->hit_values2.skill_levels[i] = hum->hit_values.skill_levels[i];
+            }
 
-            if (maxlvl >= 96)
+            if (maxlvl >= 96) {
                 field_0x114 = 4;
-            else if (maxlvl >= 76)
+            } else if (maxlvl >= 76) {
                 field_0x114 = 3;
-            else if (maxlvl >= 51)
+            } else if (maxlvl >= 51) {
                 field_0x114 = 2;
-            else
+            } else {
                 field_0x114 = 1;
+            }
 
-            if (maxlvl >= 90)
+            if (maxlvl >= 90) {
                 field_0x118 = 4;
-            else if (maxlvl >= 51)
+            } else if (maxlvl >= 51) {
                 field_0x118 = 3;
-            else if (maxlvl >= 26)
+            } else if (maxlvl >= 26) {
                 field_0x118 = 2;
-            else
+            } else {
                 field_0x118 = 1;
+            }
 
             hum->experience = 0;
 
-            for (int i = 1; i < 6; i++)
+            for (int i = 1; i < 6; i++) {
                 hum->experience += hum->experience_per_sphere[i - 1];
+            }
 
             hum->VMethod18();
 
@@ -6102,22 +6201,26 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx)
 
                 hum->VMethod15();
 
-                if (hum->weapon)
+                if (hum->weapon) {
                     hum->inventory->PutItemIntoBagAtDefault(hum->Unequip(hum->weapon));
+                }
 
-                if (hum->shield)
+                if (hum->shield) {
                     hum->inventory->PutItemIntoBagAtDefault(hum->Unequip(hum->shield));
+                }
 
-                if (hum->inventory)
+                if (hum->inventory) {
                     delete hum->inventory;
+                }
 
                 hum->inventory = new Inventory();
                 for (int i = 1; i < 13; i++)
                 {
                     Item* itm = sub_4F499B(&eq_data);
 
-                    if (itm->item_id != 0)
+                    if (itm->item_id != 0) {
                         hum->VMethod13(itm);
+                    }
                 }
             }
 
@@ -6132,8 +6235,9 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx)
 
             if (sec40a != nullptr)
             {
-                for (int i = 0; i < 9; i++)
+                for (int i = 0; i < 9; i++) {
                     shortcuts[i].LoadFromBuffer(&sec40a);
+                }
             }
         }
     }
@@ -6359,8 +6463,9 @@ UserShortcut::~UserShortcut()
 { //41e493
     if (mods_size)
     {
-        if (mods)
+        if (mods) {
             free(mods);
+        }
 
         mods_size = 0;
         mods = nullptr;
@@ -6449,16 +6554,18 @@ void UserShortcut::WriteToFile(CFile* f)
     f->Write(&kind, 2);
     f->Write(&item_id, 2);
     f->Write(&mods_size, 4);
-    if (mods_size != 0)
+    if (mods_size != 0) {
         f->Write(mods, mods_size);
+    }
 }
 
 void UserShortcut::ReadFromFile(CFile* f)
 { //41e53b
     if (mods_size != 0)
     {
-        if (mods) 
+        if (mods) { 
             free(mods);
+        }
 
         mods = nullptr;
         mods_size = 0;
@@ -6482,8 +6589,9 @@ void UserShortcut::LoadFromBuffer(uint8_t** buf)
 
     if (mods_size != 0)
     {
-        if (mods != nullptr)
+        if (mods != nullptr) {
             free(mods);
+        }
 
         mods = nullptr;
         mods_size = 0;

@@ -28,16 +28,18 @@ struct Listerator
 		holder = &hld;
 		position = hld.GetHeadPosition();
 
-		if (position = NULL)
+		if (position = NULL) {
 			return nullptr;
+		}
 
 		return GetNext();
 	}
 
 	TYPE* GetNext()
 	{
-		if (position == NULL)
+		if (position == NULL) {
 			return nullptr;
+		}
 
 		return holder->GetNext(position);
 	}

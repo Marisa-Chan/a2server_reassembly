@@ -146,8 +146,9 @@ Server::~Server()
     g_NetStru1_main.SendPacket_64(tick | 1, 0);
     g_NetStru1_main.SendAllData();
 
-    if (field15_0x88)
+    if (field15_0x88) {
         ResumeThread(field15_0x88);
+    }
 
     while (WaitForSingleObject(field15_0x88, 50) == WAIT_TIMEOUT)
     {}
@@ -889,15 +890,17 @@ Unit* Srv1::GetScenarioScriptPCUnit(const char* name)
         for (POSITION pos = first_player->unit_list->unit_list.GetHeadPosition(); pos != nullptr;)
         {
             Unit* unit = first_player->unit_list->unit_list.GetNext(pos);
-            if (unit->monster_info->name.Find(pcname) == 0)
+            if (unit->monster_info->name.Find(pcname) == 0) {
                 return unit;
+            }
         }
 
         for (POSITION pos = dword_6CDB3C->unit_list.GetHeadPosition(); pos != nullptr;)
         {
             Unit* unit = dword_6CDB3C->unit_list.GetNext(pos);
-            if (unit->monster_info->name.Find(pcname) == 0)
+            if (unit->monster_info->name.Find(pcname) == 0) {
                 return unit;
+            }
         }
     }
     return nullptr;
@@ -911,15 +914,17 @@ Unit* Srv1::GetScenarioScriptHero(uint32_t idx)
         for (POSITION pos = first_player->unit_list->unit_list.GetHeadPosition(); pos != nullptr;)
         {
             Unit* unit = first_player->unit_list->unit_list.GetNext(pos);
-            if (unit->server_id - 21 == idx)
+            if (unit->server_id - 21 == idx) {
                 return unit;
+            }
         }
 
         for (POSITION pos = dword_6CDB3C->unit_list.GetHeadPosition(); pos != nullptr;)
         {
             Unit* unit = dword_6CDB3C->unit_list.GetNext(pos);
-            if (unit->server_id - 21 == idx)
+            if (unit->server_id - 21 == idx) {
                 return unit;
+            }
         }
     }
     return nullptr;
@@ -931,23 +936,21 @@ Unit* Srv1::GetScenarioScriptUnit(CMap<int32_t, int32_t, Unit*, Unit*>& umap, ui
     if (idx < 10001)
     {
         result = umap[idx];
-    }
-    else if (idx < 11001)
+    } else if (idx < 11001)
     {
         result = GetScenarioScriptHero(idx - 10001);
-    }
-    else
-    {
+    } else {
         static const char* PCUnitNames[] = { "Danath", "Reniesta", "Fergard", "Naira", "Treyrak", "Brian", "Glaen", "Woman" }; //63d5d8
         result = GetScenarioScriptPCUnit(PCUnitNames[idx - 11001]);
     }
     if (!result)
     {
         CString msg;
-        if (idx < 10001)
+        if (idx < 10001) {
             msg.Format("Can\'t resolve unit %d.", idx);
-        else
+        } else {
             msg.Format("Can\'t resolve hero %d.", idx);
+        }
 
         LogWarning(msg);
     }
@@ -1162,8 +1165,7 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
                     if (arg_value < 9000) {
                         action.field_0x3a[arg_idx] = 1;
                         arg_value = arg_value - 8000;
-                    }
-                    else {
+                    } else {
                         action.field_0x3a[arg_idx] = 2;
                         arg_value = arg_value - 9000;
                     }
@@ -1177,8 +1179,7 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
                 action.type = action_data->type_id;
                 action.id = action_idx;
                 action_idx++;
-            }
-            else {
+            } else {
                 CString message;
                 message.Format("Failed to create instant %d %s",action_data->index, action_data->name);
                 LogMessage(message);
@@ -1304,8 +1305,7 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
                     if (arg_value < 9000) {
                         check.field_0x3a[arg_idx] = 1;
                         arg_value = arg_value + -8000;
-                    }
-                    else {
+                    } else {
                         check.field_0x3a[arg_idx] = 2;
                         arg_value = arg_value + -9000;
                     }
@@ -1890,11 +1890,13 @@ void Server::FUN_004ff439(Player* player, int32_t arg4)
                     packet.field_0xc = player->field_0xa44 - 1;
                     packet.flags = 0;
 
-                    if (phased_in != 0)
+                    if (phased_in != 0) {
                         packet.flags |= 2;
+                    }
                     
-                    if (player->is_ai != 0)
+                    if (player->is_ai != 0) {
                         packet.flags |= 1;
+                    }
                     
                     packet.to_player_id = target->player_id;
 
@@ -1912,8 +1914,9 @@ void Server::FUN_004ff439(Player* player, int32_t arg4)
 
     player->sub_534AC1(0, 1);
 
-    if (field18_0x94 != 0)
+    if (field18_0x94 != 0) {
         g_NetStru1_main.FUN_0051ceac(0xB7, player);
+    }
 
     g_NetStru1_main.FUN_0051c748(nullptr);
     if (field3_0x70 != 0) {
@@ -2743,23 +2746,26 @@ void Server::CheatCommand(Player* player, CString cheat_string)
 
         if (_stricmp((const char*)cheat_string, "Gold") == 0) {
             player->sub_534AC1(count, 0);
-            if (!is_reconnect)
+            if (!is_reconnect) {
                 g_NetStru1_main.FUN_0051ce86(7, player->player_id, nullptr);
+            }
             return;
         }
 
         Item* item = g_GameDataRes.sub_510502(&cheat_string);
         if (item == nullptr) {
-            if (!is_reconnect)
+            if (!is_reconnect) {
                 g_NetStru1_main.FUN_0051ce86(6, player->player_id, nullptr);
+            }
             return;
         }
 
         if (!item->sub_548F6A()) {
             // Item cannot be freely created; destroy the template copy we got.
             item->~Item(); // virtual dtor with delete-flag=1 equivalent
-            if (!is_reconnect)
+            if (!is_reconnect) {
                 g_NetStru1_main.FUN_0051ce86(6, player->player_id, nullptr);
+            }
             return;
         }
 
@@ -2767,8 +2773,9 @@ void Server::CheatCommand(Player* player, CString cheat_string)
         player->main_unit->inventory->PutItemIntoBagAtDefault(item);
         player->main_unit->sub_52A790(0);
         g_NetStru1_main.sub_519221(player->main_unit, player, -1, 0xFFB, 0, 0);
-        if (!is_reconnect)
+        if (!is_reconnect) {
             g_NetStru1_main.FUN_0051ce86(7, player->player_id, 0);
+        }
     } else if (cheat_string.Find("#modify ") == 0) {
         cheat_string = cheat_string.Mid(8);
         cheat_string.TrimLeft();
@@ -2805,7 +2812,9 @@ void Server::CheatCommand(Player* player, CString cheat_string)
             cheat_string.TrimLeft();
             if (target_mode == 1) {
                 SpellBook* spell_book = player->main_unit->spell_book;
-                if (spell_book == nullptr) return;
+                if (spell_book == nullptr) {
+                    return;
+                }
                 int32_t spell_id = atoi(cheat_string);
                 if (spell_id > 0 && spell_id <  g_GameDataRes.spells.GetSize()) {
                     Spell* sp = new Spell((uint8_t)spell_id);
@@ -2826,8 +2835,9 @@ void Server::CheatCommand(Player* player, CString cheat_string)
                     spell_book->sub_53D7F0(i, sp);
                 }
                 g_NetStru1_main.sub_519221(player->main_unit, player, (int32_t)0xA31FFFFF, 0xFFB, 0, 0);
-                if (!is_reconnect)
+                if (!is_reconnect) {
                     g_NetStru1_main.FUN_0051ce86(7, player->player_id, nullptr);
+                }
             }
         }
 
@@ -3511,7 +3521,9 @@ void Server::sub_504a96(Packet* pkt)
                 break;
             }
             Shop* shop = this->sub_502C50(unit->position);
-            if (!shop) break;
+            if (!shop) {
+                break;
+            }
             shop->sub_544737(unit);
             if (GetTickCount() - unit->pOwner->field_0xa7c > 15000) {
                 this->sub_4EE028((Humanoid*)unit);
@@ -4105,15 +4117,17 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
         return;
     }
 
-    if (name == "Self" && field4_0x74 == 0)
+    if (name == "Self" && field4_0x74 == 0) {
         name = g_PlayersList->list.GetHead()->name;
+    }
 
     CString nickname = name;
 
     int pipe_pos = nickname.Find('|');
 
-    if (pipe_pos != -1)
+    if (pipe_pos != -1) {
         nickname = nickname.Left(pipe_pos);
+    }
 
     if (field4_0x74)
     {
@@ -4213,9 +4227,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
         LogMessage(str);
 
         player->field_0xa50 = 0;
-    }
-    else
-    {
+    } else {
         player_not_exist = true;
 
         if (MapLevel != -1)
@@ -4243,12 +4255,14 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
         if (cd_flag == 0)
         {
             int cds = g_PlayersList->CountCD();
-            if (field3_0x70 == 0)
+            if (field3_0x70 == 0) {
                 cds++;
+            }
 
             int humans = g_PlayersList->CountHumanPlayers();
-            if (humans > 15)
+            if (humans > 15) {
                 humans = 15;
+            }
 
             static const int neededCD[16] = 
             {1, 1, 1, 2,
@@ -4297,8 +4311,9 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
         }
     }
 
-    if (some_id != 0)
+    if (some_id != 0) {
         player->field_0xa44 = some_id;
+    }
 
     PacketJoin& pkt = PacketJoin::Inst;
     strcpy(pkt.name, player->name);
@@ -4313,22 +4328,25 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
 
     LogMessage("Player " + name + " joined.");
 
-    if (player_not_exist)
+    if (player_not_exist) {
         g_NetStru1_main.FUN_0051ce86(3, player->player_id, nullptr);
-    else
+    } else {
         g_NetStru1_main.FUN_0051ce86(4, player->player_id, nullptr);
+    }
 
     player->sub_534AC1(0, 1);
 
     g_NetStru1_main.sub_51C8B1(player);
 
-    if (field18_0x94 != 0)
+    if (field18_0x94 != 0) {
         g_NetStru1_main.FUN_0051ceac(0xb7, player);
+    }
     
     g_NetStru1_main.FUN_0051c748(nullptr);
 
-    if (field3_0x70 != 0)
+    if (field3_0x70 != 0) {
         g_NetStru1_main.SendAllData();
+    }
 }
 
 void Server::JoinErrorSend(NetStru2* client, int32_t arg, const CString& str)
@@ -4338,8 +4356,9 @@ void Server::JoinErrorSend(NetStru2* client, int32_t arg, const CString& str)
     Player pl;
     pl.player_id = 9999;
     client->player_id = 9999;
-    if (!str.IsEmpty())
+    if (!str.IsEmpty()) {
         g_NetStru1_main.FUN_0051cd89(str, &pl);
+    }
     g_NetStru1_main.FUN_0051cefb(0xb, arg, 0, &pl);
     g_NetStru1_main.FUN_0051c748(&pl);
     g_NetStru1_main.SendAllData();
@@ -4350,8 +4369,9 @@ void Server::JoinErrorSend(NetStru2* client, int32_t arg, const CString& str)
 Player* Server::Allods2_CreatePlayer(CString name)
 {
     Player* player = nullptr;
-    if (field4_0x74 == 0)
+    if (field4_0x74 == 0) {
         player = g_PlayersList->sub_535D39("Self");
+    }
 
     bool created = false;
     if (!player)
@@ -4362,11 +4382,13 @@ Player* Server::Allods2_CreatePlayer(CString name)
 
     player->name = name;
     player->is_ai = 0;
-    if (player->money == 0)
+    if (player->money == 0) {
         player->money = 1000;
+    }
 
-    if (created)
+    if (created) {
         g_PlayersList->sub_5357C6(player);
+    }
 
     return player;
 }
@@ -4518,10 +4540,11 @@ int Server::Start(int mode)
     field4_0x74 = mode < 2;
     field3_0x70 = mode > 0;
 
-    if (field4_0x74 == 0)
+    if (field4_0x74 == 0) {
         field39_0x1a8 = 0;
-    else
+    } else {
         field39_0x1a8 = 1;
+    }
 
     field16_0x8c = 0;
 
@@ -4538,18 +4561,21 @@ int Server::Start(int mode)
     }
 #endif
 
-    if (g_GameDataRes.ParseWorldIn("World\\Data\\") != 0)
+    if (g_GameDataRes.ParseWorldIn("World\\Data\\") != 0) {
         return 2;
+    }
 
 #ifndef A2CLIENT
-    if (g_GameDataRes.magics[3].Values()[0].mana_cost < 200)
+    if (g_GameDataRes.magics[3].Values()[0].mana_cost < 200) {
         return 2;
+    }
 #endif
 
     spells[0] = nullptr;
 
-    for (int i = 1; i < 30; i++)
+    for (int i = 1; i < 30; i++) {
         spells[i] = new Spell(i);
+    }
 
     dword_6CDB3C = new UnitList();
     dword_6B37C4 = new UnitList();
@@ -4560,8 +4586,9 @@ int Server::Start(int mode)
 
     for (int j = 0; j < 32; j++)
     {
-        for (int i = 0; i < 32; i++)
+        for (int i = 0; i < 32; i++) {
             somewords[j][i] = 0;
+        }
     }
 
 #ifndef A2CLIENT
@@ -4572,8 +4599,9 @@ int Server::Start(int mode)
     while (res)
     {
         res = fnd.FindNextFileA();
-        if (!fnd.IsDirectory())
+        if (!fnd.IsDirectory()) {
             FileList.Add(fnd.GetFileName());
+        }
     }
 
     if (FileList.GetSize())
@@ -4925,8 +4953,9 @@ void Server::ProcessAvailPackets()
     while (true)
     {
         Packet* pkt = g_NetStru1_main.ReceiveAnyPacket();
-        if (!pkt)
+        if (!pkt) {
             break;
+        }
 
         sub_504a96(pkt);
     }
@@ -5016,16 +5045,18 @@ void Server::FUN_00501b9e(int32_t var300, CDWordArray& arr)
         uint32_t serverID = arr[i] & 0xffff;
         bool bVar7 = true;
 
-        if (serverID < 21 || serverID > 30)
+        if (serverID < 21 || serverID > 30) {
             bVar7 = false;
+        }
 
         bool bVar2 = false;
         int32_t idx = g_GameDataRes.FUN_005125a8(serverID * 10 + 10000);
         if (idx == 0)
         {
             idx = g_GameDataRes.FUN_00512625(serverID * 10 + 10000);
-            if (idx)
+            if (idx) {
                 bVar2 = true;
+            }
         }
 
         if (idx == 0)
@@ -5036,26 +5067,27 @@ void Server::FUN_00501b9e(int32_t var300, CDWordArray& arr)
                 idx = g_GameDataRes.FUN_00512625(serverID);
                 bVar2 = true;
             }
-        }
-        else
-        {
+        } else {
             for (int i = 1; i < 10; i++)
             {
                 int32_t idd = 0;
-                if (bVar2)
+                if (bVar2) {
                     idd = g_GameDataRes.FUN_00512625(serverID * 10 + 10000 + i);
-                else
+                } else {
                     idd = g_GameDataRes.FUN_005125a8(serverID * 10 + 10000 + i);
+                }
 
                 if (idd != 0)
                 {
-                    if (bVar2)
+                    if (bVar2) {
                         idd = g_GameDataRes.FUN_00512625(serverID * 10 + 9998 + var300 / 10);
-                    else
+                    } else {
                         idd = g_GameDataRes.FUN_005125a8(serverID * 10 + 9998 + var300 / 10);
+                    }
 
-                    if (idd != 0)
+                    if (idd != 0) {
                         idx = idd;
+                    }
                     break;
                 }
             }
@@ -5091,15 +5123,14 @@ void Server::FUN_00501b9e(int32_t var300, CDWordArray& arr)
                 g_World->sub_5ACDF4(grp);
                 g_NetStru1_main.sub_519221(hm, pl, (uint32_t)-1, 0xffb, 0, 0);
             }
-        }
-        else
-        {
+        } else {
             Player* pl = g_PlayersList->list.GetHead();
             Unit* u;
-            if (bVar2)
+            if (bVar2) {
                 u = new Unit(g_GameDataRes.monsters[idx].name);
-            else
+            } else {
                 u = new Human(g_GameDataRes.humans[idx].name, 0, nullptr);
+            }
             u->server_id = serverID;
             u->pOwner = pl;
             ulst.AddTailAllocId(u);
@@ -5708,8 +5739,9 @@ void SrvStru1::Deinit()
         for (POSITION pos = units_list->unit_list.GetHeadPosition(); pos != nullptr;)
         {
             Unit* unit = units_list->unit_list.GetNext(pos);
-            if (unit)
+            if (unit) {
                 delete unit;
+            }
         }
         units_list->unit_list.RemoveAll();
 
@@ -5728,8 +5760,9 @@ void SrvStru1::Deinit()
         for (POSITION pos = building_list->GetHeadPosition(); pos != nullptr;)
         {
             Building* bld = building_list->GetNext(pos);
-            if (bld)
+            if (bld) {
                 delete bld;
+            }
         }
         building_list->RemoveAll();
 
@@ -5742,8 +5775,9 @@ void SrvStru1::Deinit()
         for (POSITION pos = virtual_casters_list.GetHeadPosition(); pos != nullptr;)
         {
             VirtualCaster* caster = virtual_casters_list.GetNext(pos);
-            if (caster)
+            if (caster) {
                 delete caster;
+            }
         }
         virtual_casters_list.RemoveAll();
     }
@@ -5753,8 +5787,9 @@ void SrvStru1::Deinit()
         for (POSITION pos = some_unit_list.GetHeadPosition(); pos != nullptr;)
         {
             Unit* unit = some_unit_list.GetNext(pos);
-            if (unit)
+            if (unit) {
                 delete unit;
+            }
         }
         some_unit_list.RemoveAll();
     }
@@ -5959,8 +5994,9 @@ SackList::~SackList()
     {
         Sack* sac = list.GetNext(pos);
         
-        if (sac)
+        if (sac) {
             delete sac;
+        }
     }
 
     list.RemoveAll();
@@ -6048,8 +6084,9 @@ SpellEffectList::~SpellEffectList()
     {
         SpellEffect* eff = list.GetNext(pos);
 
-        if (eff)
+        if (eff) {
             delete eff;
+        }
     }
 
     list.RemoveAll();

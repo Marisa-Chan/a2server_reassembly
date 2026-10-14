@@ -2402,8 +2402,9 @@ uint8_t World::UnitMaxRange(Unit* unit)
     if (unit->eye2->spell_id != 0)
     {
         Spell* spell = unit->spell_book->sub_53DB79(unit->eye2->spell_id);
-        if (spell && spell->mana_cost <= unit->mp)
+        if (spell && spell->mana_cost <= unit->mp) {
             return spell->max_range;
+        }
     }
     return unit->max_range;
 }
@@ -2686,15 +2687,17 @@ void World::sub_5A92AF(Unit* unit, Unit* target, Spell* spell) {
 
 void World::FUN_005a9832(Unit* unit)
 { //5a9832
-    if (unit->eye->field0_0x0 != unit->eye->field1_0x1)
+    if (unit->eye->field0_0x0 != unit->eye->field1_0x1) {
         unit->eye->field1_0x1 = unit->eye->field0_0x0;
+    }
 
     if (unit->eye->field121_0x80 != PosYX())
     {
         if (unit->position->sub_58bec3())
         {
-            if (unit->position->GetYX() != unit->eye->field121_0x80)
+            if (unit->position->GetYX() != unit->eye->field121_0x80) {
                 field24_0xa50->FUN_005969c6(unit, PosYX(), 1);
+            }
         }
     }
     unit->eye2->max_range = UnitMaxRange(unit);

@@ -962,11 +962,13 @@ void MapStuff::FUN_0058b5d6(CellState& cell)
     ob1->SetBits(0x20);
     *ob2 = *ob1;
 
-    if (cell.static_blocker)
+    if (cell.static_blocker) {
         ob2->SetBits(0x40);
+    }
 
-    if (cell.dynamic_blocker)
+    if (cell.dynamic_blocker) {
         ob2->SetBits(0x80);
+    }
 
     if (cell.building)
     {
@@ -976,9 +978,7 @@ void MapStuff::FUN_0058b5d6(CellState& cell)
             ob1->UnsetBits(1 | 4);
             ob2->UnsetBits(1 | 4);
             WalkCostAt(pos) = walk_cost[5];
-        }
-        else
-        {
+        } else {
             ob1->SetBits(1 | 4);
             ob2->SetBits(1 | 4);
         }
@@ -988,8 +988,9 @@ void MapStuff::FUN_0058b5d6(CellState& cell)
     {
         if (cell.area_effects[i])
         {
-            if (true) //FUN_0059a050
+            if (true) { //FUN_0059a050
                 WalkCostAt(pos) *= 4;
+            }
         }
     }
     if (cell.area_effects[3])
@@ -1007,8 +1008,9 @@ void MapStuff::FUN_0058b5d6(CellState& cell)
 
 int MapStuff::FUN_0058b4a6(PosYX yx)
 { //58b4a6
-    if (!cell_states.Lookup(yx.val, scratch_cell_state))
+    if (!cell_states.Lookup(yx.val, scratch_cell_state)) {
         return 0;
+    }
 
     Obstacle old = ObstacleAt(yx);
     WalkCostAt(yx) = scratch_cell_state.walk_cost;
@@ -1029,19 +1031,20 @@ void MapStuff::FUN_00596d3e(Unit* unit, PosYX yx)
     {
         if ((unit->VMethod4() & 0xff) == 3)
         {
-            if (scratch_cell_state.dynamic_blocker == unit)
+            if (scratch_cell_state.dynamic_blocker == unit) {
                 scratch_cell_state.dynamic_blocker = nullptr;
-        }
-        else
-        {
-            if (scratch_cell_state.static_blocker == unit)
+            }
+        } else {
+            if (scratch_cell_state.static_blocker == unit) {
                 scratch_cell_state.static_blocker = nullptr;
+            }
         }
 
         FUN_0058b5d6(scratch_cell_state);
         cell_states[yx.val] = scratch_cell_state;
-        if (scratch_cell_state.IsEmpty())
+        if (scratch_cell_state.IsEmpty()) {
             FUN_0058b4a6(yx);
+        }
     }
 }
 
@@ -1066,20 +1069,21 @@ void MapStuff::FUN_00596e0e(Unit* unit, PosYX yx)
     {
         FUN_0058b3e0(yx);
 
-        if (!cell_states.Lookup(yx.val, scratch_cell_state))
+        if (!cell_states.Lookup(yx.val, scratch_cell_state)) {
             return;
+        }
     }
     if ((unit->VMethod4() & 0xff) == 3)
     {
-        if (scratch_cell_state.dynamic_blocker && scratch_cell_state.dynamic_blocker != unit)
+        if (scratch_cell_state.dynamic_blocker && scratch_cell_state.dynamic_blocker != unit) {
             return;
+        }
 
         scratch_cell_state.dynamic_blocker = unit;
-    }
-    else
-    {
-        if (scratch_cell_state.static_blocker && scratch_cell_state.static_blocker != unit)
+    } else {
+        if (scratch_cell_state.static_blocker && scratch_cell_state.static_blocker != unit) {
             return;
+        }
 
         scratch_cell_state.static_blocker = unit;
     }
@@ -1153,12 +1157,13 @@ void MapStuff::FUN_005969c6(Unit* unit, PosYX yx, uint8_t t)
         }
     }
 
-    if (t == 0)
+    if (t == 0) {
         unit->eye->field121_0x80 = yx;
-    else if (t == 1)
+    } else if (t == 1) {
         unit->eye->field121_0x80 = unit->position->GetYX();
-    else if (t == 2)
+    } else if (t == 2) {
         unit->eye->field121_0x80 = PosYX(0, 0);
+    }
 }
 
 
@@ -1306,8 +1311,9 @@ int CellState::IsEmpty() const
         effect_count != 0 ||
         spell_id != 0 ||
         static_blocker != nullptr ||
-        dynamic_blocker != nullptr)
+        dynamic_blocker != nullptr) {
         return 0;
+    }
     return 1;
 }
 
@@ -1372,8 +1378,9 @@ void __cdecl MissionGetBriefing(CString* out)
     {
         CString txt = g_MissionText.Mid(pos + 11);
         pos = txt.Find('#');
-        if (pos == -1)
+        if (pos == -1) {
             pos = txt.GetLength();
+        }
 
         *out = txt.Left(pos);
     }
@@ -1391,8 +1398,9 @@ void __cdecl MissionGetFailure(int32_t idx, CString* out)
     {
         CString txt = g_MissionText.Mid(pos + str.GetLength() + 2);
         pos = txt.Find('#');
-        if (pos == -1)
+        if (pos == -1) {
             pos = txt.GetLength();
+        }
 
         *out = txt.Left(pos);
     }
@@ -1410,8 +1418,9 @@ void __cdecl MissionGetTips(int32_t idx, CString* out)
     {
         CString txt = g_MissionText.Mid(pos + str.GetLength() + 2);
         pos = txt.Find('#');
-        if (pos == -1)
+        if (pos == -1) {
             pos = txt.GetLength();
+        }
 
         *out = txt.Left(pos);
     }
@@ -1429,8 +1438,9 @@ void __cdecl MissionGetSubj(int32_t idx, CString* out)
     {
         CString txt = g_MissionText.Mid(pos + str.GetLength() + 2);
         pos = txt.Find('#');
-        if (pos == -1)
+        if (pos == -1) {
             pos = txt.GetLength();
+        }
 
         *out = txt.Left(pos);
     }
@@ -1441,18 +1451,20 @@ void __cdecl MissionGetLocName(int32_t t, int32_t idx, CString* out)
     out->Empty();
 
     CString str;
-    if (t == 1)
+    if (t == 1) {
         str.Format("#title%d", idx);
-    else
+    } else {
         str.Format("#town%d", idx);
+    }
 
     int pos = g_MissionText.Find(str);
     if (pos != -1)
     {
         CString txt = g_MissionText.Mid(pos + str.GetLength() + 2);
         pos = txt.Find('#');
-        if (pos == -1)
+        if (pos == -1) {
             pos = txt.GetLength();
+        }
 
         *out = txt.Left(pos);
     }
@@ -1464,18 +1476,20 @@ void __cdecl MissionGetDescription(int32_t t, int32_t idx, CString* out)
     out->Empty();
 
     CString str;
-    if (t == 1)
+    if (t == 1) {
         str.Format("#briefing%d", idx);
-    else
+    } else {
         str.Format("#description%d", idx);
+    }
 
     int pos = g_MissionText.Find(str);
     if (pos != -1)
     {
         CString txt = g_MissionText.Mid(pos + str.GetLength() + 2);
         pos = txt.Find('#');
-        if (pos == -1)
+        if (pos == -1) {
             pos = txt.GetLength();
+        }
 
         *out = txt.Left(pos);
     }

@@ -84,8 +84,9 @@ CVisualObject::CVisualObject(int32_t _id, int32_t l, int32_t t, int32_t r, int32
     flags = 1;
     id = _id;
 
-    if (str)
+    if (str) {
         hint = str;
+    }
 
     rect = CRect(l, t, r, b);
     down_obj = nullptr;
@@ -106,8 +107,9 @@ CVisualObject::CVisualObject(int32_t _id, const RECT& r, const char* str)
     flags = 1;
     id = _id;
 
-    if (str)
+    if (str) {
         hint = str;
+    }
 
     rect = r;
 
@@ -125,8 +127,9 @@ CVisualObject::~CVisualObject()
     for (int32_t i = 0; i < childs.GetSize(); i++)
     {
         CVisualObject* obj = childs[i];
-        if (obj)
+        if (obj) {
             delete obj;
+        }
     }
 }
 
@@ -143,8 +146,9 @@ const char* CVisualObject::GetHint()
 {
     //4d7c15
 
-    if (TestFlags(FLAG_20))
+    if (TestFlags(FLAG_20)) {
         return nullptr;
+    }
 
     return hint;
 }
@@ -161,10 +165,11 @@ void CVisualObject::ChangeFlags(uint32_t _flags, bool setunset)
 {
     //4d7a03
 
-    if (setunset)
+    if (setunset) {
         flags |= _flags;
-    else
+    } else {
         flags &= ~_flags;
+    }
 }
 
 // 4386e0
@@ -209,8 +214,7 @@ void CVisualObject::SetCursorOver(bool isOver)
         {
             parent->cursor_over_obj_last = parent->cursor_over_obj;
             parent->cursor_over_obj = this;
-        }
-        else if (parent->cursor_over_obj == this)
+        } else if (parent->cursor_over_obj == this)
         {
             parent->cursor_over_obj = parent->cursor_over_obj_last;
         }
@@ -230,16 +234,17 @@ void CVisualObject::SetFocus(bool isFocus)
         {
             parent->last_focus_obj = parent->focus_obj;
             parent->focus_obj = this;
-            if (caption_obj)
+            if (caption_obj) {
                 caption_obj->SetActiveColor(true);
-        }
-        else
-        {
-            if (parent->focus_obj == this)
+            }
+        } else {
+            if (parent->focus_obj == this) {
                 parent->focus_obj = parent->last_focus_obj;
+            }
 
-            if (caption_obj)
+            if (caption_obj) {
                 caption_obj->SetActiveColor(false);
+            }
         }
     }
 }
@@ -249,14 +254,16 @@ void CVisualObject::VMethod7()
 {
     //4d7c40
 
-    if (TestFlags(FLAG_20))
+    if (TestFlags(FLAG_20)) {
         return;
+    }
 
     for (uint32_t i = 0; i < childs.GetSize(); i++)
     {
         CVisualObject* obj = childs[i];
-        if (!obj->TestFlags(FLAG_20))
+        if (!obj->TestFlags(FLAG_20)) {
             obj->VMethod7();
+        }
     }
 }
 
@@ -270,11 +277,13 @@ void CVisualObject::VMethod8(CRect* rect)
 void CVisualObject::VMethod9()
 {
     //4d7cc8
-    if (TestFlags(FLAG_20))
+    if (TestFlags(FLAG_20)) {
         return;
+    }
 
-    if (g_IsServer != 0)
+    if (g_IsServer != 0) {
         return;
+    }
 
     VMethod7();
     VMethod10();
@@ -307,8 +316,9 @@ uint32_t CVisualObject::DataSize()
     //4d7d37
 
     uint32_t sz = 0;
-    for (uint32_t i = 0; i < childs.GetSize(); i++)
+    for (uint32_t i = 0; i < childs.GetSize(); i++) {
         sz += childs[i]->DataSize();
+    }
     return sz;
 }
 
@@ -400,49 +410,53 @@ int32_t CVisualObject::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
     int32_t res = 0;
     if (msg >= WM_KEYDOWN && msg <= WM_CHAR)
     {
-        if (focus_obj)
+        if (focus_obj) {
             res = focus_obj->MsgProc(msg, wparam, lparam);
+        }
         
-        if (!res)
+        if (!res) {
             res = MsgProcOnChilds(msg, wparam, lparam);
-    }
-    else if ((msg >= WM_MOUSEMOVE && msg <= WM_RBUTTONDBLCLK) || msg == WM_USER)
+        }
+    } else if ((msg >= WM_MOUSEMOVE && msg <= WM_RBUTTONDBLCLK) || msg == WM_USER)
     {
-        if (cursor_over_obj)
+        if (cursor_over_obj) {
             res = cursor_over_obj->MsgProc(msg, wparam, lparam);
+        }
             
-        if (!res)
+        if (!res) {
             res = MsgProcOnChilds(msg, wparam, lparam);
-    }
-    else
+        }
+    } else {
         res = MsgProcOnChilds(msg, wparam, lparam);
+    }
 
     if (!res)
     {
         CPoint mouse(lparam & 0xffff, lparam >> 16);
 
-        if (msg == WM_KEYDOWN)
+        if (msg == WM_KEYDOWN) {
             res = OnKeyDown(wparam);
-        else if (msg == WM_KEYUP)
+        } else if (msg == WM_KEYUP) {
             res = OnKeyUp(wparam);
-        else if (msg == WM_CHAR)
+        } else if (msg == WM_CHAR) {
             res = OnChar(wparam);
-        else if (msg == WM_MOUSEMOVE)
+        } else if (msg == WM_MOUSEMOVE) {
             res = OnMouseMove(wparam, mouse);
-        else if (msg == WM_LBUTTONDOWN)
+        } else if (msg == WM_LBUTTONDOWN) {
             res = OnLButtonDown(wparam, mouse);
-        else if (msg == WM_LBUTTONUP)
+        } else if (msg == WM_LBUTTONUP) {
             res = OnLButtonUp(wparam, mouse);
-        else if (msg == WM_LBUTTONDBLCLK)
+        } else if (msg == WM_LBUTTONDBLCLK) {
             res = OnLButtonDblClk(wparam, mouse);
-        else if (msg == WM_RBUTTONDOWN)
+        } else if (msg == WM_RBUTTONDOWN) {
             res = OnRButtonDown(wparam, mouse);
-        else if (msg == WM_RBUTTONUP)
+        } else if (msg == WM_RBUTTONUP) {
             res = OnRButtonUp(wparam, mouse);
-        else if (msg == WM_RBUTTONDBLCLK)
+        } else if (msg == WM_RBUTTONDBLCLK) {
             res = OnRButtonDblClk(wparam, mouse);
-        else if (msg == WM_USER)
+        } else if (msg == WM_USER) {
             res = OnWmUser(wparam, mouse);
+        }
     }
 
     return res;
@@ -455,8 +469,9 @@ int32_t CVisualObject::MsgProcOnChilds(uint32_t msg, uint32_t wparam, uint32_t l
     CPoint mouse(lparam & 0xffff, lparam >> 16);
     
     bool isMouseEvent = false;
-    if ((msg >= WM_MOUSEMOVE && msg <= WM_RBUTTONDBLCLK) || msg == WM_USER)
+    if ((msg >= WM_MOUSEMOVE && msg <= WM_RBUTTONDBLCLK) || msg == WM_USER) {
         isMouseEvent = true;
+    }
 
     for (uint32_t i = 0; i < childs.GetSize(); i++)
     {
@@ -467,11 +482,13 @@ int32_t CVisualObject::MsgProcOnChilds(uint32_t msg, uint32_t wparam, uint32_t l
         if (!isMouseEvent || r.PtInRect(mouse))
         {
             int32_t res = obj->MsgProc(msg, wparam, lparam);
-            if (res)
+            if (res) {
                 return res;
+            }
 
-            if (isMouseEvent) // is mouse event, mouse in rect and res == 0 then break and return 0
+            if (isMouseEvent) { // is mouse event, mouse in rect and res == 0 then break and return 0
                 return 0;
+            }
         }
     }
     return 0;
@@ -481,8 +498,9 @@ void CVisualObject::ClientPtToScreen(CPoint* out, const CPoint& _point)
 {
     //4d71f3
     *out = _point;
-    for (CVisualObject* pobj = parent; pobj; pobj = pobj->parent)
+    for (CVisualObject* pobj = parent; pobj; pobj = pobj->parent) {
         *out += pobj->rect.TopLeft();
+    }
 }
 
 void CVisualObject::ClientRectToScreen(CRect* out, const CRect& _rect)
@@ -496,8 +514,9 @@ CPoint CVisualObject::ClientPtToScreen(const CPoint& _point)
 {
     //4d71f3
     CPoint out = _point;
-    for (CVisualObject* pobj = parent; pobj; pobj = pobj->parent)
+    for (CVisualObject* pobj = parent; pobj; pobj = pobj->parent) {
         out += pobj->rect.TopLeft();
+    }
     return out;
 }
 
@@ -529,11 +548,13 @@ void CVisualObject::RemoveChild(CVisualObject* obj)
 
             obj->parent = nullptr;
 
-            if (cursor_over_obj == obj)
+            if (cursor_over_obj == obj) {
                 cursor_over_obj = nullptr;
+            }
 
-            if (focus_obj == obj)
+            if (focus_obj == obj) {
                 focus_obj = last_focus_obj;
+            }
             
             if (last_focus_obj == obj)
             {
@@ -558,7 +579,7 @@ void CVisualObject::RemoveChildById(int32_t _id)
 
             obj->parent = nullptr;
 
-            if (cursor_over_obj == obj)
+            if (cursor_over_obj == obj) {
                 cursor_over_obj = nullptr;
 
             /*if (focus_obj == obj)
@@ -567,6 +588,7 @@ void CVisualObject::RemoveChildById(int32_t _id)
             if (last_focus_obj == obj)
                 last_focus_obj = nullptr;
             */
+            }
             break;
         }
     }
@@ -575,8 +597,9 @@ void CVisualObject::RemoveChildById(int32_t _id)
 void CVisualObject::RemoveAllChilds()
 {
     //4d78d4
-    for (uint32_t i = 0; i < childs.GetSize(); i++)
+    for (uint32_t i = 0; i < childs.GetSize(); i++) {
         childs[i]->parent = nullptr;
+    }
     childs.RemoveAll();
 
     cursor_over_obj = nullptr;
@@ -594,7 +617,7 @@ void CVisualObject::DestroyChild(CVisualObject* obj)
         {
             childs.RemoveAt(i);
 
-            if (cursor_over_obj == obj)
+            if (cursor_over_obj == obj) {
                 cursor_over_obj = nullptr;
             
             /*if (focus_obj == obj)
@@ -603,6 +626,7 @@ void CVisualObject::DestroyChild(CVisualObject* obj)
             if (last_focus_obj == obj)
                 last_focus_obj = nullptr;*/
 
+            }
             delete obj;
             break;
         }
@@ -619,7 +643,7 @@ void CVisualObject::DestroyChildById(int32_t _id)
         {
             childs.RemoveAt(i);
 
-            if (cursor_over_obj == obj)
+            if (cursor_over_obj == obj) {
                 cursor_over_obj = nullptr;
 
             /*if (focus_obj == obj)
@@ -629,6 +653,7 @@ void CVisualObject::DestroyChildById(int32_t _id)
                 last_focus_obj = nullptr;
             */
 
+            }
             delete obj;
             break;
         }
@@ -638,8 +663,9 @@ void CVisualObject::DestroyChildById(int32_t _id)
 void CVisualObject::DestroyAllChilds()
 {
     //4d7950
-    for (uint32_t i = 0; i < childs.GetSize(); i++)
+    for (uint32_t i = 0; i < childs.GetSize(); i++) {
         delete childs[i];
+    }
     childs.RemoveAll();
 
     cursor_over_obj = nullptr;
@@ -654,8 +680,9 @@ CVisualObject* CVisualObject::FindChild(int32_t _id)
     for (uint32_t i = 0; i < childs.GetSize(); i++)
     {
         CVisualObject* obj = childs[i];
-        if (obj->id == _id)
+        if (obj->id == _id) {
             return obj;
+        }
     }
     return nullptr;
 }
@@ -667,13 +694,15 @@ CVisualObject* CVisualObject::GetChildAt(POINT pt)
     for (int32_t i = childs.GetSize() - 1; i >= 0; i--)
     {
         CVisualObject* ret = childs[i]->GetChildAt(pt);
-        if (ret)
+        if (ret) {
             return ret;
+        }
     }
 
     CRect r = ClientRectToScreen(rect);
-    if (r.PtInRect(pt))
+    if (r.PtInRect(pt)) {
         return this;
+    }
     return nullptr;
 }
 
@@ -718,23 +747,26 @@ void CVisualObject::FocusTo(CVisualObject* obj, bool update)
     {
         CVisualObject* oldo = focus_obj;
         oldo->SetFocus(false);
-        if (update)
+        if (update) {
             oldo->VMethod9();
+        }
     }
 
     obj->SetFocus(true);
-    if (update)
+    if (update) {
         obj->VMethod9();
+    }
 }
 
 void CVisualObject::TabFocus(bool forward, bool update)
 {
     //4d7674
     int inc = 1;
-    if (forward)
+    if (forward) {
         inc = 1;
-    else
+    } else {
         inc = -1;
+    }
 
     int32_t indx = -1;
     if (focus_obj)
@@ -749,8 +781,9 @@ void CVisualObject::TabFocus(bool forward, bool update)
         }
     }
 
-    if (!childs.GetSize())
+    if (!childs.GetSize()) {
         return;
+    }
 
     int32_t next_indx = indx + inc;
     int32_t first_check_id = -1;
@@ -760,18 +793,18 @@ void CVisualObject::TabFocus(bool forward, bool update)
     {
         next_indx += inc;
 
-        if (next_indx >= childs.GetSize())
+        if (next_indx >= childs.GetSize()) {
             next_indx = 0;
-        else if (next_indx < 0)
+        } else if (next_indx < 0) {
             next_indx = childs.GetSize() - 1;
+        }
 
         if (idIsSet)
         {
-            if (next_indx == first_check_id)
+            if (next_indx == first_check_id) {
                 return; //full loop
-        }
-        else
-        {
+            }
+        } else {
             first_check_id = next_indx;
             idIsSet = true;
         }
@@ -783,12 +816,14 @@ void CVisualObject::TabFocus(bool forward, bool update)
             {
                 CVisualObject* old_focus = focus_obj;
                 focus_obj->SetFocus(false);
-                if (update)
+                if (update) {
                     old_focus->VMethod9();
+                }
             }
             obj->SetFocus(true);
-            if (update)
+            if (update) {
                 obj->VMethod9();
+            }
             break;
         }
     }
@@ -866,19 +901,21 @@ void VisLabel::VMethod7()
         int32_t outx = 0;
         int32_t outy = 0;
 
-        if (align_flags & 1)
+        if (align_flags & 1) {
             outx = res.right;
-        else if (align_flags & 2)
+        } else if (align_flags & 2) {
             outx = (res.left + res.right) / 2;
-        else
+        } else {
             outx = res.left;
+        }
 
-        if (align_flags & 4)
+        if (align_flags & 4) {
             outy = res.bottom;
-        else if (align_flags & 8)
+        } else if (align_flags & 8) {
             outy = (res.top + res.bottom) / 2;
-        else
+        } else {
             outy = res.top;
+        }
 
         font->DrawTextWithShadow(outx, outy, text, align_flags, color_sh, 1);
 
@@ -889,10 +926,11 @@ void VisLabel::VMethod7()
 void VisLabel::SetActiveColor(bool isActive)
 {
     //4d85e6
-    if (isActive)
+    if (isActive) {
         color_sh = clrsh_DullGold;
-    else
+    } else {
         color_sh = clrsh_TechBlack;
+    }
 }
 
 
@@ -904,8 +942,9 @@ VisButton::~VisButton()
 void VisButton::VMethod7()
 {
     //4d8f7e
-    if (!parent)
+    if (!parent) {
         return;
+    }
 
     CRect r2 = ClientRectToScreen(rect);
     
@@ -926,9 +965,7 @@ void VisButton::VMethod7()
         clr1 = GetColorRGB(0x29, 0x45, 0x3f);
         clr2 = GetColorRGB(7, 12, 9);
         dd = 2;
-    }
-    else
-    {
+    } else {
         clr1 = GetColorRGB(7, 12, 9);
         clr2 = GetColorRGB(0x29, 0x45, 0x3f);
         dd = 4;
@@ -936,15 +973,16 @@ void VisButton::VMethod7()
 
     if (!clr)
     {
-        if ((mouse_on == 0 && TestFlags(FLAG_FOCUS) == 0) || TestFlags(FLAG_ENABLED) == 0)
+        if ((mouse_on == 0 && TestFlags(FLAG_FOCUS) == 0) || TestFlags(FLAG_ENABLED) == 0) {
             font->DrawTextWithShadow(r2.left + 1 + r2.Width() / 2, r2.top + r2.Height() / 2, caption, 8 | 2, p_clrsh_Black, dd);
-        else
+        } else {
             font->DrawTextWithShadow(r2.left + 1 + r2.Width() / 2, r2.top + r2.Height() / 2, caption, 8 | 2, p_clrsh_Gold, dd);
-    }
-    else if (mouse_on == 0)
+        }
+    } else if (mouse_on == 0) {
         font->DrawTextWithShadow(r2.left + 1 + r2.Width() / 2, r2.top + r2.Height() / 2, caption, 8 | 2, clrsh_DullGold, dd);
-    else
+    } else {
         font->DrawTextWithShadow(r2.left + 1 + r2.Width() / 2, r2.top + r2.Height() / 2, caption, 8 | 2, clrsh_CharlieBrown, dd);
+    }
 
     FillRectColor(r2.right, r2.top + 2, r2.right, r2.bottom - 2, clr2);
     FillRectColor(r2.right - 1, r2.top + 1, r2.right - 1, r2.bottom - 1, clr2);
@@ -967,28 +1005,30 @@ void VisButton::VMethod7()
 int32_t VisButton::OnMouseMove(uint32_t wparam, CPoint pos)
 {
     //4d958f
-    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+    if (!parent || TestFlags(FLAG_ENABLED) == 0) {
         return 0;
+    }
 
-    if (TestFlags(FLAG_FOCUS) == 0)
+    if (TestFlags(FLAG_FOCUS) == 0) {
         parent->FocusTo(this, true);
+    }
 
     CRect t = ClientRectToScreen(rect);
     
     if (t.PtInRect(pos))
     {
-        if (TestFlags(FLAG_OVERCURSOR) == 0)
+        if (TestFlags(FLAG_OVERCURSOR) == 0) {
             SetCursorOver(true);
+        }
         if (mouse_on == 0)
         {
             mouse_on = 1;
             VMethod9();
         }
-    }
-    else
-    {
-        if (TestFlags(FLAG_OVERCURSOR) != 0 && downed == 0)
+    } else {
+        if (TestFlags(FLAG_OVERCURSOR) != 0 && downed == 0) {
             SetCursorOver(false);
+        }
 
         if (mouse_on == 1)
         {
@@ -1002,11 +1042,13 @@ int32_t VisButton::OnMouseMove(uint32_t wparam, CPoint pos)
 int32_t VisButton::OnLButtonDown(uint32_t wparam, CPoint pos)
 {
     //4d96a1
-    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+    if (!parent || TestFlags(FLAG_ENABLED) == 0) {
         return 0;
+    }
 
-    if (downed)
+    if (downed) {
         return 0;
+    }
     
     SetDowned(true);
     return 1;
@@ -1015,29 +1057,34 @@ int32_t VisButton::OnLButtonDown(uint32_t wparam, CPoint pos)
 int32_t VisButton::OnLButtonUp(uint32_t wparam, CPoint pos)
 {
     //4d96e8
-    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+    if (!parent || TestFlags(FLAG_ENABLED) == 0) {
         return 0;
+    }
 
-    if (downed == 0)
+    if (downed == 0) {
         return 0;
+    }
 
     CRect t = ClientRectToScreen(rect);
 
     SetDowned(false);
 
-    if (t.PtInRect(pos))
+    if (t.PtInRect(pos)) {
         AfxGetMainWnd()->PostMessage(msgid, 0, 0);
+    }
     return 1;
 }
 
 int32_t VisButton::OnKeyDown(uint32_t wparam)
 {
     //4d9783
-    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+    if (!parent || TestFlags(FLAG_ENABLED) == 0) {
         return 0;
+    }
 
-    if (wparam != VK_RETURN)
+    if (wparam != VK_RETURN) {
         return 0;
+    }
 
     AfxGetMainWnd()->PostMessage(msgid, 0, 0);
     return 1;
@@ -1046,11 +1093,13 @@ int32_t VisButton::OnKeyDown(uint32_t wparam)
 int32_t VisButton::OnChar(uint32_t wparam)
 {
     //4d97d4
-    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+    if (!parent || TestFlags(FLAG_ENABLED) == 0) {
         return 0;
+    }
 
-    if (EncodeChar(wparam) != charid)
+    if (EncodeChar(wparam) != charid) {
         return 0;
+    }
 
     AfxGetMainWnd()->PostMessage(msgid, 0, 0);
     return 1;
@@ -1070,9 +1119,9 @@ VisButton::VisButton(int32_t _id, const RECT& r, const char* _caption, CGameFont
     {
         char c0 = caption[i - 1];
         char c1 = caption[i];
-        if (c1 == '~' && c0 == '~')
+        if (c1 == '~' && c0 == '~') {
             i += 2;
-        else if (c1 != '~' && c0 == '~')
+        } else if (c1 != '~' && c0 == '~')
         {
             charid = ToLowerChar(c1);
             break;
@@ -1098,9 +1147,9 @@ VisButton::VisButton(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, co
     {
         char c0 = caption[i - 1];
         char c1 = caption[i];
-        if (c1 == '~' && c0 == '~')
+        if (c1 == '~' && c0 == '~') {
             i += 2;
-        else if (c1 != '~' && c0 == '~')
+        } else if (c1 != '~' && c0 == '~')
         {
             charid = ToLowerChar(c1);
             break;
@@ -1118,18 +1167,18 @@ void VisButton::SetDowned(bool down)
     if (!down)
     {
         downed = 0;
-        if (TestFlags(FLAG_OVERCURSOR))
+        if (TestFlags(FLAG_OVERCURSOR)) {
             SetCursorOver(false);
+        }
 
         VMethod9();
-    }
-    else
-    {
+    } else {
         g_SfxArray[2]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xdc, 0);
 
         downed = 1;
-        if (TestFlags(FLAG_OVERCURSOR) == 0)
+        if (TestFlags(FLAG_OVERCURSOR) == 0) {
             SetCursorOver(true);
+        }
 
         VMethod9();
     }
@@ -1151,8 +1200,9 @@ void VisScrollBar::SetCursorOver(bool isOver)
 
 void VisScrollBar::VMethod7()
 {
-    if (!parent)
+    if (!parent) {
         return;
+    }
 
     CRect tr = ClientRectToScreen(rect);
     tr.BottomRight() += CPoint(4, 4);
@@ -1166,18 +1216,17 @@ void VisScrollBar::VMethod7()
     {
         int32_t val_pos = 0;
 
-        if (val_max < 2)
+        if (val_max < 2) {
             val_pos = 0;
-        else
+        } else {
             val_pos = (val * (tr.Height() - 3 * tr.Width() + 8)) / (val_max - 1);
+        }
 
         if (mouse_on_minus == 0)
         {
             gfx_scrollbars->VMethod3(tr.left + 4, tr.top + 4, 18, 4, 0);
             gfx_scrollbars->VMethod2(tr.left, tr.top, 18, 0, 0);
-        }
-        else
-        {
+        } else {
             gfx_scrollbars->VMethod3(tr.left + 4, tr.top + 4, 21, 4, 0);
             gfx_scrollbars->VMethod2(tr.left, tr.top, 21, 0, 0);
         }
@@ -1194,26 +1243,20 @@ void VisScrollBar::VMethod7()
         {
             gfx_scrollbars->VMethod3(tr.left + 4, tr.bottom - tr.Width() + 4, 20, 4, 0);
             gfx_scrollbars->VMethod2(tr.left, tr.bottom - tr.Width(), 20, 0, 0);
-        }
-        else
-        {
+        } else {
             gfx_scrollbars->VMethod3(tr.left + 4, tr.bottom - tr.Width() + 4, 23, 4, 0);
             gfx_scrollbars->VMethod2(tr.left, tr.bottom - tr.Width(), 23, 0, 0);
         }
 
         gfx_scrollbars->VMethod2(tr.left, tr.top + tr.Width() - 4 + val_pos, 22, 0, 0);
-    }
-    else
-    {
+    } else {
         UpdateHBoxes();
 
         if (mouse_on_minus == 0)
         {
             gfx_scrollbars->VMethod3(tr.left + 4, tr.top + 4, 0, 4, 0);
             gfx_scrollbars->VMethod2(tr.left, tr.top, 0, 0, 0);
-        }
-        else
-        {
+        } else {
             gfx_scrollbars->VMethod3(tr.left + 4, tr.top + 4, 3, 4, 0);
             gfx_scrollbars->VMethod2(tr.left, tr.top, 3, 0, 0);
         }
@@ -1230,9 +1273,7 @@ void VisScrollBar::VMethod7()
         {
             gfx_scrollbars->VMethod3(tr.right - tr.Height() + 4, tr.top + 4, 8, 4, 0);
             gfx_scrollbars->VMethod2(tr.right - tr.Height(), tr.top, 8, 0, 0);
-        }
-        else
-        {
+        } else {
             gfx_scrollbars->VMethod3(tr.right - tr.Height() + 4, tr.top + 4, 11, 4, 0);
             gfx_scrollbars->VMethod2(tr.right - tr.Height(), tr.top, 11, 0, 0);
         }
@@ -1285,8 +1326,9 @@ void VisScrollBar::ReadData(const void* buf)
 int32_t VisScrollBar::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 {
     //4df055
-    if (msg == 0x46f)
+    if (msg == 0x46f) {
         UpdateRects();
+    }
 
     return CVisualObject::MsgProc(msg, wparam, lparam);
 }
@@ -1294,8 +1336,9 @@ int32_t VisScrollBar::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 int32_t VisScrollBar::OnMouseMove(uint32_t wparam, CPoint pos)
 {
     //4deb32
-    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+    if (!parent || TestFlags(FLAG_ENABLED) == 0) {
         return 0;
+    }
 
     CRect tr = ClientRectToScreen(rect);
 
@@ -1307,11 +1350,10 @@ int32_t VisScrollBar::OnMouseMove(uint32_t wparam, CPoint pos)
             VMethod9();
         }
 
-        if (TestFlags(FLAG_OVERCURSOR) == 0)
+        if (TestFlags(FLAG_OVERCURSOR) == 0) {
             CVisualObject::SetCursorOver(true); //do not set   is_mouse_over
-    }
-    else
-    {
+        }
+    } else {
         if (mouse_on_minus != 0)
         {
             CVisualObject::SetCursorOver(false); //do not set   is_mouse_over
@@ -1328,11 +1370,10 @@ int32_t VisScrollBar::OnMouseMove(uint32_t wparam, CPoint pos)
             VMethod9();
         }
 
-        if (TestFlags(FLAG_OVERCURSOR) == 0)
+        if (TestFlags(FLAG_OVERCURSOR) == 0) {
             CVisualObject::SetCursorOver(true); //do not set   is_mouse_over
-    } 
-    else
-    {
+        }
+    } else {
         if (mouse_on_plus != 0)
         {
             CVisualObject::SetCursorOver(false); //do not set   is_mouse_over
@@ -1343,38 +1384,43 @@ int32_t VisScrollBar::OnMouseMove(uint32_t wparam, CPoint pos)
 
     if (TestFlags(FLAG_FOCUS) == 0)
     {
-        if (tr.Height() < tr.Width())
+        if (tr.Height() < tr.Width()) {
             parent->FocusTo(parent, true);
+        }
     }
 
     if (TestFlags(FLAG_OVERCURSOR) == 0 || is_mouse_over == 0)
     {
-        if ((wparam & 1) != 0)
+        if ((wparam & 1) != 0) {
             OnLButtonDown(wparam, pos);
+        }
         return 0;
     }
 
     if (tr.Width() < tr.Height())
     {
         int32_t val_pos = val_max - 1;
-        if (val_max >= 2)
+        if (val_max >= 2) {
             val_pos = ((val_max - 1) * (pos.y - tr.top - 24)) / (tr.Height() + (tr.Width() - 4) * -3);
+        }
 
-        if (val_pos < 0)
+        if (val_pos < 0) {
             val_pos = 0;
+        }
 
-        if (val_pos > val_max - 1)
+        if (val_pos > val_max - 1) {
             val_pos = val_max - 1;
+        }
 
         parent->MsgProc(0x469, id, val_pos);
 
         if (pos.x < tr.left - tr.Width() ||
             pos.x > tr.right + tr.Width() ||
             pos.y < tr.top - tr.Width() ||
-            pos.y > tr.bottom + tr.Width() )
+            pos.y > tr.bottom + tr.Width() ) {
             SetCursorOver(false);
-    }
-    else if (mousedown_on_hbox != 0)
+        }
+    } else if (mousedown_on_hbox != 0)
     {
         val = GetValHPos(pos.x);
         VMethod9();
@@ -1387,17 +1433,20 @@ int32_t VisScrollBar::OnMouseMove(uint32_t wparam, CPoint pos)
 int32_t VisScrollBar::OnWmUser(uint32_t wparam, CPoint pos)
 {
     //4deebd
-    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+    if (!parent || TestFlags(FLAG_ENABLED) == 0) {
         return 0;
+    }
 
     if (rect.Width() < rect.Height())
     {
         if (TestFlags(FLAG_OVERCURSOR) &&
-            (btn_minus.PtInRect(pos) || btn_plus.PtInRect(pos)))
+            (btn_minus.PtInRect(pos) || btn_plus.PtInRect(pos))) {
             return OnLButtonDown(wparam | 1, pos);
+        }
 
-        if (wparam == 1)
+        if (wparam == 1) {
             return OnMouseMove(wparam, pos);
+        }
     }
     return 1;
 }
@@ -1406,64 +1455,63 @@ int32_t VisScrollBar::OnWmUser(uint32_t wparam, CPoint pos)
 int32_t VisScrollBar::OnLButtonDown(uint32_t wparam, CPoint pos)
 {
     //4de701
-    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+    if (!parent || TestFlags(FLAG_ENABLED) == 0) {
         return 0;
+    }
 
     CRect rt = ClientRectToScreen(rect);
     if (rt.Width() < rt.Height())
     {
         int32_t val_pos = val_max - 1;
-        if (val_max >= 2)
+        if (val_max >= 2) {
             val_pos = (val * (rt.Height() + rt.Width() * -3 + 8)) / (val_max - 1);
+        }
 
-        if (pos.y - rt.top < rt.Width())
+        if (pos.y - rt.top < rt.Width()) {
             parent->MsgProc(0x46a, id, 0);
-        else if (rt.bottom - pos.y < rt.Width() - 4)
+        } else if (rt.bottom - pos.y < rt.Width() - 4) {
             parent->MsgProc(0x46b, id, 0);
-        else if (pos.y - rt.top - rt.Width() < val_pos)
+        } else if (pos.y - rt.top - rt.Width() < val_pos)
         {
             if (down_on_part != 2)
             {
                 parent->MsgProc(0x46c, id, 0);
                 down_on_part = 1;
             }
-        }
-        else if ((pos.y - rt.top) - (rt.Width() * 2 - 4) < val_pos)
+        } else if ((pos.y - rt.top) - (rt.Width() * 2 - 4) < val_pos)
         {
             SetCursorOver(true);
-        }
-        else if (down_on_part != 1)
+        } else if (down_on_part != 1)
         {
             parent->MsgProc(0x46d, id, 0);
             down_on_part = 2;
         }
-    }
-    else
-    {
+    } else {
         if (btn_minus.PtInRect(pos))
         {
             int32_t d = val_max / 16;
-            if (d < 1)
+            if (d < 1) {
                 d = 1;
+            }
 
-            if (val - d < 0)
+            if (val - d < 0) {
                 val = 0;
-            else
+            } else {
                 val -= d;
-        }
-        else if (btn_plus.PtInRect(pos))
+            }
+        } else if (btn_plus.PtInRect(pos))
         {
             int32_t d = val_max / 16;
-            if (d < 1)
+            if (d < 1) {
                 d = 1;
+            }
 
-            if (val + d > val_max)
+            if (val + d > val_max) {
                 val = val_max;
-            else
+            } else {
                 val += d;
-        }
-        else
-        {
+            }
+        } else {
             val = GetValHPos(pos.x);
             UpdateHBoxes();
 
@@ -1471,8 +1519,9 @@ int32_t VisScrollBar::OnLButtonDown(uint32_t wparam, CPoint pos)
             {
                 mousedown_on_hbox = horiz_box_pos.PtInRect(pos);
 
-                if (mousedown_on_hbox != 0 && TestFlags(FLAG_OVERCURSOR) == 0)
+                if (mousedown_on_hbox != 0 && TestFlags(FLAG_OVERCURSOR) == 0) {
                     SetCursorOver(true);
+                }
             }            
         }
 
@@ -1486,8 +1535,9 @@ int32_t VisScrollBar::OnLButtonDown(uint32_t wparam, CPoint pos)
 int32_t VisScrollBar::OnLButtonUp(uint32_t wparam, CPoint pos)
 {
     //4defc7
-    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+    if (!parent || TestFlags(FLAG_ENABLED) == 0) {
         return 0;
+    }
 
     down_on_part = 0;
 
@@ -1504,8 +1554,9 @@ int32_t VisScrollBar::OnLButtonUp(uint32_t wparam, CPoint pos)
 int32_t VisScrollBar::OnLButtonDblClk(uint32_t wparam, CPoint pos)
 {
     //4e3df0
-    if (OnLButtonDown(wparam, pos) != 0 && OnLButtonUp(wparam, pos) != 0)
+    if (OnLButtonDown(wparam, pos) != 0 && OnLButtonUp(wparam, pos) != 0) {
         return 1;
+    }
     return 0;
 }
 
@@ -1513,19 +1564,22 @@ int32_t VisScrollBar::OnLButtonDblClk(uint32_t wparam, CPoint pos)
 int32_t VisScrollBar::OnKeyDown(uint32_t wparam)
 {
     //4df087
-    if (TestFlags(FLAG_FOCUS) == 0 || rect.Height() >= rect.Width())
+    if (TestFlags(FLAG_FOCUS) == 0 || rect.Height() >= rect.Width()) {
         return CVisualObject::OnKeyDown(wparam);
+    }
 
     int32_t d = val_max / 16;
-    if (d == 0)
+    if (d == 0) {
         d = 1;
+    }
 
     if (wparam == VK_LEFT)
     {
-        if (val - d < 0)
+        if (val - d < 0) {
             val = 0;
-        else
+        } else {
             val -= d;
+        }
 
         VMethod9();
         parent->MsgProc(0x46e, id, val);
@@ -1534,10 +1588,11 @@ int32_t VisScrollBar::OnKeyDown(uint32_t wparam)
     
     if (wparam == VK_RIGHT)
     {
-        if (val + d >= val_max)
+        if (val + d >= val_max) {
             val = val_max;
-        else
+        } else {
             val += d;
+        }
 
         VMethod9();
         parent->MsgProc(0x46e, id, val);
@@ -1566,11 +1621,13 @@ VisScrollBar::VisScrollBar(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
 void VisScrollBar::SetPos(int32_t pos, int32_t pos_max)
 {
     //4de086
-    if (pos_max > -1)
+    if (pos_max > -1) {
         val_max = pos_max;
+    }
 
-    if (pos > -1 && pos < val_max)
+    if (pos > -1 && pos < val_max) {
         val = pos;
+    }
 
     VMethod9();
 }
@@ -1586,9 +1643,7 @@ void VisScrollBar::UpdateRects()
     {
         btn_minus = CRect(rt.left, rt.top, rt.right, rt.top + rt.Width() - 4);
         btn_plus = CRect(rt.left, rt.bottom - rt.Width() + 4, rt.right, rt.bottom);
-    }
-    else
-    {
+    } else {
         btn_minus = CRect(rt.left, rt.top, rt.left + rt.Height() - 4, rt.bottom);
         btn_plus = CRect(rt.right - rt.Height() + 4, rt.top, rt.right, rt.bottom);
 
@@ -1606,8 +1661,9 @@ void VisScrollBar::UpdateHBoxes()
     if (rt.Height() < rt.Width())
     {
         int32_t p = rt.left + rt.Height() - 4;
-        if (val_max != 0)
+        if (val_max != 0) {
             p += (rt.Width() - (rt.Height() * 2 - 8) - 12) * val / val_max;
+        }
 
         horiz_box_pos = CRect(p, rt.top, p + 16, rt.bottom);
         rect4 = CRect(btn_minus.right, btn_minus.top, horiz_box_pos.left, horiz_box_pos.bottom);
@@ -1621,10 +1677,12 @@ int32_t VisScrollBar::GetValHPos(int32_t x)
     //4dddbe
     CRect rt = ClientRectToScreen(rect);
     int32_t p = val_max * (x - (rt.left + 2 + rt.Height())) / (rt.Width() - (rt.Height() * 2 - 8) - 12);
-    if (p < 0)
+    if (p < 0) {
         p = 0;
-    if (p > val_max)
+    }
+    if (p > val_max) {
         p = val_max;
+    }
     return p;
 }
 
@@ -1638,8 +1696,9 @@ VisListBox::~VisListBox() = default; //44f430
 void VisListBox::VMethod7()
 {
     //4dc11d
-    if (!parent)
+    if (!parent) {
         return;
+    }
 
     CRect rt = ClientRectToScreen(rect);
 
@@ -1667,13 +1726,14 @@ void VisListBox::VMethod7()
         {
             VMethod30(CPoint(rt.left, y), rt);
 
-            if (TestFlags(FLAG_FOCUS) == 0)
+            if (TestFlags(FLAG_FOCUS) == 0) {
                 DrawItem(i, CPoint(rt.left + 4, y - 2), p_clrsh_ShockingBlack);
-            else
+            } else {
                 DrawItem(i, CPoint(rt.left + 4, y - 2), p_clrsh_Gold);
-        }
-        else
+            }
+        } else {
             DrawItem(i, CPoint(rt.left + 4, y - 2), p_clrsh_Black);
+        }
 
         y += entry_height_full;
     }
@@ -1702,8 +1762,9 @@ int32_t VisListBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 {
     //4dc62f
     int32_t res = CVisualObject::MsgProc(msg, wparam, lparam);
-    if (res != 0)
+    if (res != 0) {
         return res;
+    }
 
     switch (msg)
     {
@@ -1753,11 +1814,13 @@ int32_t VisListBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 int32_t VisListBox::OnMouseMove(uint32_t wparam, CPoint pos)
 {
     //4dc8a4
-    if (TestFlags(FLAG_FOCUS) == 0)
+    if (TestFlags(FLAG_FOCUS) == 0) {
         parent->FocusTo(this, true);
+    }
 
-    if ((wparam & 1) != 0)
+    if ((wparam & 1) != 0) {
         OnLButtonDown(wparam, pos);
+    }
 
     return 0;
 }
@@ -1770,10 +1833,11 @@ int32_t VisListBox::OnLButtonDown(uint32_t wparam, CPoint pos)
     int32_t idx = YToIndex(pos.y);
     if (idx < num_vis_entry)
     {
-        if (vis_start_index + idx < entries.GetSize() - 1)
+        if (vis_start_index + idx < entries.GetSize() - 1) {
             idx += vis_start_index;
-        else
+        } else {
             idx = entries.GetSize() - 1;
+        }
     }
 
     selected_index = idx;
@@ -1781,8 +1845,9 @@ int32_t VisListBox::OnLButtonDown(uint32_t wparam, CPoint pos)
     VMethod9();
 
     VisScrollBar* scrollbar = (VisScrollBar*)parent->FindChild(scrollbox_id);
-    if (scrollbar)
+    if (scrollbar) {
         scrollbar->SetPos(selected_index, entries.GetSize());
+    }
 
     parent->MsgProc(0x46e, id, selected_index);
 
@@ -1809,8 +1874,9 @@ int32_t VisListBox::OnKeyDown(uint32_t wparam)
 {
     //4dc8f6
 
-    if (TestFlags(FLAG_FOCUS) == 0)
+    if (TestFlags(FLAG_FOCUS) == 0) {
         return CVisualObject::OnKeyDown(wparam);
+    }
 
     switch (wparam)
     {
@@ -1854,16 +1920,18 @@ int32_t VisListBox::OnKeyDown(uint32_t wparam)
 int32_t VisListBox::IsValidIndex(int32_t idx)
 {
     //4dc528
-    if (idx > -1 && idx < entries.GetSize())
+    if (idx > -1 && idx < entries.GetSize()) {
         return 1;
+    }
     return 0;
 }
 
 void VisListBox::DrawItem(int32_t idx, CPoint pos, uint16_t* clr)
 {
     //4dc560
-    if (!IsValidIndex(idx))
+    if (!IsValidIndex(idx)) {
         return;
+    }
 
     CRect tmp;
     GetClipRect(&tmp);
@@ -1882,26 +1950,30 @@ void VisListBox::SelectItem(int32_t idx)
 {
     //4dbe7f
 
-    if (idx < 0)
+    if (idx < 0) {
         idx = 0;
+    }
 
-    if (idx >= entries.GetSize())
+    if (idx >= entries.GetSize()) {
         idx = entries.GetSize() - 1;
+    }
 
-    if (idx < 0)
+    if (idx < 0) {
         vis_start_index = 0;
-    else if (idx < vis_start_index)
+    } else if (idx < vis_start_index) {
         vis_start_index = idx;
-    else if (idx >= vis_start_index + num_vis_entry)
+    } else if (idx >= vis_start_index + num_vis_entry) {
         vis_start_index = (idx - num_vis_entry) + 1;
+    }
 
     selected_index = idx;
 
     VMethod9();
 
     VisScrollBar* scrollbar = (VisScrollBar*)parent->FindChild(scrollbox_id);
-    if (scrollbar)
+    if (scrollbar) {
         scrollbar->SetPos(selected_index, entries.GetSize());
+    }
 
     parent->MsgProc(0x46e, id, selected_index);
 }
@@ -1980,26 +2052,29 @@ void VisListBox::Down()
 void VisListBox::Up()
 {
     //4dbf89
-    if (selected_index > 0)
+    if (selected_index > 0) {
         SelectItem(selected_index - 1);
+    }
 }
 
 void VisListBox::PageDown()
 {
     //4dc03b
-    if (selected_index == vis_start_index + num_vis_entry - 1)
+    if (selected_index == vis_start_index + num_vis_entry - 1) {
         SelectItem(vis_start_index + num_vis_entry + num_vis_entry - 1);
-    else
+    } else {
         SelectItem(vis_start_index + num_vis_entry - 1);
+    }
 }
 
 void VisListBox::PageUp()
 {
     //4dbfe1
-    if (selected_index == vis_start_index)
+    if (selected_index == vis_start_index) {
         SelectItem(vis_start_index - num_vis_entry);
-    else
+    } else {
         SelectItem(vis_start_index);
+    }
 }
 
 
@@ -2013,28 +2088,32 @@ void VisListBox::AddItem(const char* str)
 {
     //4507f0
     entries.Add(str);
-    if (selected_index < 0)
+    if (selected_index < 0) {
         selected_index++;
+    }
 }
 
 void VisListBox::SetSelectedIndex(int32_t idx)
 { 
     //4507a0
-    if (idx < 0)
+    if (idx < 0) {
         idx = 0;
-    else if (idx >= entries.GetSize())
+    } else if (idx >= entries.GetSize()) {
         idx = entries.GetSize() - 1;
+    }
     selected_index = idx;
 }
 
 CString& VisListBox::GetItem(int32_t idx)
 {
     //4508b0
-    if (idx < 0)
+    if (idx < 0) {
         return entries[0];
+    }
 
-    if (idx < entries.GetSize())
+    if (idx < entries.GetSize()) {
         return entries[idx];
+    }
 
     return entries[entries.GetSize() - 1];
 }
@@ -2053,8 +2132,9 @@ VisTextBox::~VisTextBox() = default; //4503a0
 void VisTextBox::VMethod7()
 {
     //4d9a21
-    if (!parent)
+    if (!parent) {
         return;
+    }
 
     CRect rt = ClientRectToScreen(rect);
 
@@ -2127,8 +2207,9 @@ int32_t VisTextBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
         cursor_blink_ts = timeGetTime();
         cursor_blink = 1 - cursor_blink;
 
-        if (TestFlags(FLAG_ENABLED))
+        if (TestFlags(FLAG_ENABLED)) {
             VMethod9();
+        }
     }
 
     return CVisualObject::MsgProc(msg, wparam, lparam);
@@ -2138,16 +2219,19 @@ int32_t VisTextBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 int32_t VisTextBox::OnMouseMove(uint32_t wparam, CPoint pos)
 {
     //4da22e
-    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+    if (!parent || TestFlags(FLAG_ENABLED) == 0) {
         return 0;
+    }
 
-    if (TestFlags(FLAG_FOCUS) == 0)
+    if (TestFlags(FLAG_FOCUS) == 0) {
         parent->FocusTo(this, true);
+    }
 
     cursor_blink_ts = timeGetTime();
 
-    if ((wparam & 1) == 0)
+    if ((wparam & 1) == 0) {
         return 0;
+    }
 
     parent->FocusTo(this, true);
 
@@ -2159,22 +2243,21 @@ int32_t VisTextBox::OnMouseMove(uint32_t wparam, CPoint pos)
         {
             select_end = cursor_pos;
             select_start = cpos;
-        }
-        else if (select_start < cpos)
+        } else if (select_start < cpos) {
             select_end = cpos;
-        else
+        } else {
             select_start = cpos;
-    }
-    else if (cpos > cursor_pos)
+        }
+    } else if (cpos > cursor_pos)
     {
         if (select_end == select_start) {
             select_start = cursor_pos;
             select_end = cpos;
-        }
-        else if (cpos < select_end)
+        } else if (cpos < select_end) {
             select_start = cpos;
-        else
+        } else {
             select_end = cpos;
+        }
     }
 
     cursor_pos = cpos;
@@ -2190,8 +2273,9 @@ int32_t VisTextBox::OnMouseMove(uint32_t wparam, CPoint pos)
 int32_t VisTextBox::OnLButtonDown(uint32_t wparam, CPoint pos)
 {
     //4da37c
-    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+    if (!parent || TestFlags(FLAG_ENABLED) == 0) {
         return 0;
+    }
 
     cursor_blink_ts = timeGetTime();
 
@@ -2208,11 +2292,13 @@ int32_t VisTextBox::OnLButtonDown(uint32_t wparam, CPoint pos)
 int32_t VisTextBox::OnKeyDown(uint32_t wparam)
 {
     //4da3ed
-    if (TestFlags(FLAG_FOCUS) == 0)
+    if (TestFlags(FLAG_FOCUS) == 0) {
         return 0;
+    }
 
-    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+    if (!parent || TestFlags(FLAG_ENABLED) == 0) {
         return 0;
+    }
 
     cursor_blink_ts = timeGetTime();
 
@@ -2231,22 +2317,23 @@ int32_t VisTextBox::OnKeyDown(uint32_t wparam)
 
             VMethod9();
             res = 1;
-        }
-        else
+        } else {
             res = 0;
+        }
         break;
 
     case VK_END:
         if (cursor_pos < text.GetLength())
         {
-            if (g_kbShiftState == 0)
+            if (g_kbShiftState == 0) {
                 select_end = select_start;
-            else
+            } else
             {
-                if (select_start == select_end)
+                if (select_start == select_end) {
                     select_start = cursor_pos;
-                else if (cursor_pos < select_end)
+                } else if (cursor_pos < select_end) {
                     select_start = select_end;
+                }
 
                 select_end = text.GetLength();
             }
@@ -2263,14 +2350,15 @@ int32_t VisTextBox::OnKeyDown(uint32_t wparam)
     case VK_HOME:
         if (cursor_pos != 0)
         {
-            if (g_kbShiftState == 0)
+            if (g_kbShiftState == 0) {
                 select_end = select_start;
-            else
+            } else
             {
-                if (select_start == select_end)
+                if (select_start == select_end) {
                     select_end = cursor_pos;
-                else if (select_start < cursor_pos)
+                } else if (select_start < cursor_pos) {
                     select_end = select_start;
+                }
 
                 select_start = 0;
             }
@@ -2289,17 +2377,17 @@ int32_t VisTextBox::OnKeyDown(uint32_t wparam)
         {
             cursor_pos--;
 
-            if (g_kbShiftState == 0)
+            if (g_kbShiftState == 0) {
                 select_end = select_start;
-            else if (select_end == select_start)
+            } else if (select_end == select_start)
             {
                 select_end = cursor_pos + 1;
                 select_start = cursor_pos;
-            }
-            else if (cursor_pos + 1 == select_start)
+            } else if (cursor_pos + 1 == select_start) {
                 select_start--;
-            else
+            } else {
                 select_end--;
+            }
 
             ResetBlink();
 
@@ -2312,17 +2400,17 @@ int32_t VisTextBox::OnKeyDown(uint32_t wparam)
         if (cursor_pos < text.GetLength())
         {
             cursor_pos++;
-            if (g_kbShiftState == 0)
+            if (g_kbShiftState == 0) {
                 select_end = select_start;
-            else if (select_end == select_start)
+            } else if (select_end == select_start)
             {
                 select_start = cursor_pos - 1;
                 select_end = cursor_pos;
-            }
-            else if (cursor_pos - 1 == select_end)
+            } else if (cursor_pos - 1 == select_end) {
                 select_end++;
-            else
+            } else {
                 select_start++;
+            }
 
             ResetBlink();
 
@@ -2334,11 +2422,12 @@ int32_t VisTextBox::OnKeyDown(uint32_t wparam)
     case VK_DELETE:
         if (select_end == select_start || (select_end - select_start) < 0)
         {
-            if (cursor_pos < text.GetLength())
+            if (cursor_pos < text.GetLength()) {
                 text = text.Left(cursor_pos) + text.Right((text.GetLength() - cursor_pos) - 1);
-        }
-        else
+            }
+        } else {
             DelSelection();
+        }
 
         ResetBlink();
 
@@ -2360,16 +2449,19 @@ int32_t VisTextBox::OnChar(uint32_t wparam)
 {
     //4da96a
 
-    if (isalnum(wparam) != 0 && TestFlags(FLAG_FOCUS) == 0)
+    if (isalnum(wparam) != 0 && TestFlags(FLAG_FOCUS) == 0) {
         parent->FocusTo(this, true);
+    }
 
-    if (TestFlags(FLAG_FOCUS) == 0 || !parent || TestFlags(FLAG_ENABLED) == 0)
+    if (TestFlags(FLAG_FOCUS) == 0 || !parent || TestFlags(FLAG_ENABLED) == 0) {
         return 0;
+    }
 
     cursor_blink_ts = timeGetTime();
 
-    if (wparam >= ' ')
+    if (wparam >= ' ') {
         InsertChar(wparam);
+    }
 
     VMethod9();
 
@@ -2423,8 +2515,9 @@ void VisTextBox::DelSelection()
 void VisTextBox::InsertChar(int32_t chr)
 {
     //4d9ef2
-    if (select_end != select_start && (select_end - select_start) > -1)
+    if (select_end != select_start && (select_end - select_start) > -1) {
         DelSelection();
+    }
 
     CString tmp = text.Left(cursor_pos) + (char)EncodeChar(chr) + text.Right(text.GetLength() - cursor_pos);
     if (font->GetStrWidth(tmp) + 8 < rect.Width())
@@ -2449,8 +2542,9 @@ int32_t VisTextBox::GetCursorPosByX(int32_t x)
     for (int32_t i = 0; i < text.GetLength(); i++)
     {
         CString str = text.Left(i + 1);
-        if (rt.left + 4 + font->GetStrWidth(str) >= x)
+        if (rt.left + 4 + font->GetStrWidth(str) >= x) {
             return i;
+        }
     }
     return text.GetLength();
 }
@@ -2487,25 +2581,28 @@ void VisRadioBase::ReadData(const void* buf)
 int32_t VisRadioBase::OnMouseMove(uint32_t wparam, CPoint pos)
 {
     //4dacef
-    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+    if (!parent || TestFlags(FLAG_ENABLED) == 0) {
         return 0;
+    }
 
-    if (TestFlags(FLAG_FOCUS) == 0)
+    if (TestFlags(FLAG_FOCUS) == 0) {
         parent->FocusTo(this, true);
+    }
 
-    if (wparam & 1)
+    if (wparam & 1) {
         OnLButtonDown(wparam, pos);
-    else
+    } else
     {
         CRect rt = ClientRectToScreen(rect);
 
         if (rt.PtInRect(pos))
         {
-            if (TestFlags(FLAG_OVERCURSOR) == 0)
+            if (TestFlags(FLAG_OVERCURSOR) == 0) {
                 SetCursorOver(true);
-        }
-        else
+            }
+        } else {
             SetCursorOver(false);
+        }
 
         VMethod9();
     }
@@ -2563,17 +2660,16 @@ void VisRadioType1::VMethod7()
         {
             gfx_radiob->VMethod3(rt.left + 5, y + 4, 2, 4, 0);
             gfx_radiob->VMethod2(rt.left + 1, y, 2, 0, 0);
-        }
-        else
-        {
+        } else {
             gfx_radiob->VMethod3(rt.left + 5, y + 4, 3, 4, 0);
             gfx_radiob->VMethod2(rt.left + 1, y, 3, 0, 0);
         }
 
-        if (TestFlags(FLAG_FOCUS) == 0)
+        if (TestFlags(FLAG_FOCUS) == 0) {
             clr = p_clrsh_Black;
-        else
+        } else {
             clr = p_clrsh_Gold;
+        }
 
         font->DrawTextWithShadow(x, y + 5, entries[i], 0, clr, 1);
 
@@ -2599,15 +2695,17 @@ void VisRadioType1::ReadData(const void* buf)
 int32_t VisRadioType1::OnMouseMove(uint32_t wparam, CPoint pos)
 {
     //4db134
-    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+    if (!parent || TestFlags(FLAG_ENABLED) == 0) {
         return 0;
+    }
 
-    if (TestFlags(FLAG_FOCUS) == 0)
+    if (TestFlags(FLAG_FOCUS) == 0) {
         parent->FocusTo(this, true);
+    }
 
-    if (wparam & 1)
+    if (wparam & 1) {
         OnLButtonDown(wparam, pos);
-    else
+    } else
     {
         CRect rt = ClientRectToScreen(rect);
         rt.bottom += 4;
@@ -2615,11 +2713,12 @@ int32_t VisRadioType1::OnMouseMove(uint32_t wparam, CPoint pos)
 
         if (rt.PtInRect(pos))
         {
-            if (TestFlags(FLAG_OVERCURSOR) == 0)
+            if (TestFlags(FLAG_OVERCURSOR) == 0) {
                 SetCursorOver(true);
-        }
-        else
+            }
+        } else {
             SetCursorOver(false);
+        }
 
         VMethod9();
     }
@@ -2629,17 +2728,19 @@ int32_t VisRadioType1::OnMouseMove(uint32_t wparam, CPoint pos)
 int32_t VisRadioType1::OnLButtonDown(uint32_t wparam, CPoint pos)
 {
     //4db062
-    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+    if (!parent || TestFlags(FLAG_ENABLED) == 0) {
         return 0;
+    }
 
     selected = GetIndex(pos.y);
 
     uint32_t bit = 1 << selected;
 
-    if ((selection & bit) == 0)
+    if ((selection & bit) == 0) {
         selection |= bit;
-    else
+    } else {
         selection &= ~bit;
+    }
 
     VMethod9();
     parent->MsgProc(0x46e, id, selection);
@@ -2659,11 +2760,13 @@ int32_t VisRadioType1::OnKeyDown(uint32_t wparam)
     if (wparam == VK_DOWN && TestFlags(FLAG_FOCUS) != 0)
     {
         int32_t num = entries.GetSize();
-        if (num <= 0)
+        if (num <= 0) {
             return 0;
+        }
 
-        if (selected < num - 1)
+        if (selected < num - 1) {
             selected++;
+        }
 
         VMethod9();
         return 1;
@@ -2672,11 +2775,13 @@ int32_t VisRadioType1::OnKeyDown(uint32_t wparam)
     if (wparam == VK_UP && TestFlags(FLAG_FOCUS) != 0)
     {
         int32_t num = entries.GetSize();
-        if (num <= 0)
+        if (num <= 0) {
             return 0;
+        }
 
-        if (selected > 0)
+        if (selected > 0) {
             selected--;
+        }
 
         VMethod9();
         return 1;
@@ -2689,14 +2794,16 @@ int32_t VisRadioType1::OnKeyDown(uint32_t wparam)
 int32_t VisRadioType1::OnChar(uint32_t wparam)
 {
     //4db20d
-    if (wparam != ' ' || TestFlags(FLAG_FOCUS) == 0)
+    if (wparam != ' ' || TestFlags(FLAG_FOCUS) == 0) {
         return CVisualObject::OnChar(wparam);
+    }
 
     uint32_t bit = 1 << selected;
-    if ((selection & bit) == 0)
+    if ((selection & bit) == 0) {
         selection |= bit;
-    else 
+    } else { 
         selection &= ~bit;
+    }
     
     VMethod9();
     parent->MsgProc(0x46e, id, selection);
@@ -2737,13 +2844,12 @@ void VisRadioType2::VMethod7()
             gfx_radiob->VMethod3(rt.left + 5, y + 4, 1, 4, 0);
             gfx_radiob->VMethod2(rt.left + 1, y, 1, 0, 0);
 
-            if (TestFlags(FLAG_FOCUS) == 0)
+            if (TestFlags(FLAG_FOCUS) == 0) {
                 clr = p_clrsh_Black;
-            else
+            } else {
                 clr = p_clrsh_Gold;
-        }
-        else
-        {
+            }
+        } else {
             gfx_radiob->VMethod3(rt.left + 5, y + 4, 0, 4, 0);
             gfx_radiob->VMethod2(rt.left + 1, y, 0, 0, 0);
 
@@ -2768,22 +2874,26 @@ void VisRadioType2::VMethod7()
 int32_t VisRadioType2::OnMouseMove(uint32_t wparam, CPoint pos)
 {
     //4dbb7b
-    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+    if (!parent || TestFlags(FLAG_ENABLED) == 0) {
         return 0;
+    }
     return VisRadioBase::OnMouseMove(wparam, pos);
 }
 
 int32_t VisRadioType2::OnLButtonDown(uint32_t wparam, CPoint pos)
 {
     //4db8e7
-    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+    if (!parent || TestFlags(FLAG_ENABLED) == 0) {
         return 0;
+    }
 
     int32_t idx = GetIndex(pos.y);
-    if (idx < 0)
+    if (idx < 0) {
         return 0;
-    if (idx >= entries.GetSize())
+    }
+    if (idx >= entries.GetSize()) {
         return 0;
+    }
 
     selection = idx;
     selected = idx;
@@ -2798,11 +2908,13 @@ int32_t VisRadioType2::OnKeyDown(uint32_t wparam)
     if (wparam == VK_DOWN && TestFlags(FLAG_FOCUS) != 0)
     {
         int32_t num = entries.GetSize();
-        if (num <= 0)
+        if (num <= 0) {
             return 0;
+        }
 
-        if (selection < num - 1)
+        if (selection < num - 1) {
             selection++;
+        }
 
         selected = selection;
         parent->MsgProc(0x46e, id, selection);
@@ -2813,11 +2925,13 @@ int32_t VisRadioType2::OnKeyDown(uint32_t wparam)
     if (wparam == VK_UP && TestFlags(FLAG_FOCUS) != 0)
     {
         int32_t num = entries.GetSize();
-        if (num <= 0)
+        if (num <= 0) {
             return 0;
+        }
 
-        if (selection > 0)
+        if (selection > 0) {
             selection--;
+        }
 
         selected = selection;
         parent->MsgProc(0x46e, id, selection);
@@ -2831,8 +2945,9 @@ int32_t VisRadioType2::OnKeyDown(uint32_t wparam)
 int32_t VisRadioType2::OnChar(uint32_t wparam)
 {
     //4db993
-    if (wparam != ' ' || TestFlags(FLAG_FOCUS) == 0)
+    if (wparam != ' ' || TestFlags(FLAG_FOCUS) == 0) {
         return CVisualObject::OnChar(wparam);
+    }
 
     selection = selected;
 
@@ -2852,15 +2967,17 @@ VisRadioType2::VisRadioType2(int32_t _id, int32_t l, int32_t t, int32_t r, int32
 VisBitmap::~VisBitmap()
 {
     //4df2c3
-    if (bitmap)
+    if (bitmap) {
         delete bitmap;
+    }
 }
 
 void VisBitmap::VMethod7()
 {
     //4df345
-    if (!bitmap)
+    if (!bitmap) {
         return;
+    }
 
     CRect rt = ClientRectToScreen(rect);
     LockSurface2();
@@ -2870,8 +2987,7 @@ void VisBitmap::VMethod7()
         parent->VMethod8(&rt);
         CBmp64* bmp64 = (CBmp64*)bitmap;
         bmp64->VMethod10(rt.left, rt.top, 0, 0, bmp64->GetWidth(0), bmp64->GetHeight(0));
-    }
-    else if (draw_type == 2)
+    } else if (draw_type == 2)
     {
         parent->VMethod8(&rt);
 
@@ -2879,11 +2995,11 @@ void VisBitmap::VMethod7()
 
         CBmp64* bmp64 = (CBmp64*)bitmap;
         bmp64->VMethod10(rt.left, rt.top, 0, 0, bmp64->GetWidth(0), bmp64->GetHeight(0));
-    }
-    else if (draw_type < 11)
+    } else if (draw_type < 11) {
         bitmap->VMethod2(rt.left, rt.top, 0, 0, 0);
-    else
+    } else {
         bitmap->VMethod2(rt.left, rt.top, draw_type - 10, 0, 0);
+    }
 
     UnlockSurface2();
 }
@@ -2935,8 +3051,9 @@ void VisComboBoxText::VMethod7()
     FillRectColor(rt.left + 1, rt.bottom, rt.right - 1, rt.bottom, GetColorRGB(0x5e, 0x73, 0x65));
 
     uint16_t *clr = p_clrsh_Gold;
-    if (parent->TestFlags(FLAG_FOCUS) == 0)
+    if (parent->TestFlags(FLAG_FOCUS) == 0) {
         clr = p_clrsh_Black;
+    }
 
     font->DrawTextWithShadow(rt.left + 4, rt.top + rt.Height() / 2, text, 8, clr, 1);
 
@@ -2976,13 +3093,13 @@ void VisComboBoxButton::SetCursorOver(bool isOver)
 
     if (isOver)
     {
-        if (parent->TestFlags(FLAG_OVERCURSOR) == 0)
+        if (parent->TestFlags(FLAG_OVERCURSOR) == 0) {
             parent->SetCursorOver(true);
-    }
-    else
-    {
-        if (TestFlags(FLAG_OVERCURSOR) && ((VisComboBox*)parent)->list_showed == 0)
+        }
+    } else {
+        if (TestFlags(FLAG_OVERCURSOR) && ((VisComboBox*)parent)->list_showed == 0) {
             parent->SetCursorOver(false);
+        }
     }
 }
 
@@ -2993,10 +3110,11 @@ void VisComboBoxButton::VMethod7()
     CRect rt = ClientRectToScreen(rect);
     parent->VMethod8(&rt);
 
-    if (mouse_on)
+    if (mouse_on) {
         bitmap->VMethod2(rt.left, rt.top, frm + 1, 0, 0);
-    else
+    } else {
         bitmap->VMethod2(rt.left, rt.top, frm, 0, 0);
+    }
 }
 
 int32_t VisComboBoxButton::OnMouseMove(uint32_t wparam, CPoint pos)
@@ -3014,17 +3132,20 @@ int32_t VisComboBoxButton::OnLButtonDown(uint32_t wparam, CPoint pos)
 int32_t VisComboBoxButton::OnLButtonUp(uint32_t wparam, CPoint pos)
 {
     //4e1c16
-    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+    if (!parent || TestFlags(FLAG_ENABLED) == 0) {
         return 0;
+    }
 
-    if (downed == 0)
+    if (downed == 0) {
         return 0;
+    }
 
     CRect rt = ClientRectToScreen(rect);
     VisButton::SetDowned(false);
 
-    if (rt.PtInRect(pos))
+    if (rt.PtInRect(pos)) {
         parent->MsgProc(msgid, 0, 0);
+    }
 
     return 1;
 }
@@ -3064,8 +3185,7 @@ int32_t VisComboBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
     {
         ToggleList();
         return 1;
-    }
-    else if (msg == WM_LBUTTONDOWN)
+    } else if (msg == WM_LBUTTONDOWN)
     {
         CRect rt = ClientRectToScreen(rect);
         CPoint cpt(g_mousept.x, g_mousept.y);
@@ -3073,24 +3193,21 @@ int32_t VisComboBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
         {
             parent->FocusTo(this, true);
             return CVisualObject::MsgProc(WM_LBUTTONDOWN, wparam, lparam);
-        }
-        else
-        {
+        } else {
             HideList();
             parent->OnLButtonDown(1, cpt);
             return 1;
         }
-    }
-    else if (msg == 0x473)
+    } else if (msg == 0x473)
     {
         if (wparam == listbox->GetId())
         {
             ProcSelectList();
             return 1;
         }
-    }
-    else if (msg == WM_MOUSEMOVE)
+    } else if (msg == WM_MOUSEMOVE) {
         return CVisualObject::MsgProc(WM_MOUSEMOVE, wparam, lparam);
+    }
 
     return CVisualObject::MsgProc(msg, wparam, lparam);
 }
@@ -3104,10 +3221,11 @@ int32_t VisComboBox::OnLButtonDown(uint32_t wparam, CPoint pos)
 int32_t VisComboBox::OnKeyDown(uint32_t wparam)
 {
     //4e2422
-    if (wparam != VK_DOWN || TestFlags(FLAG_FOCUS) == 0)
+    if (wparam != VK_DOWN || TestFlags(FLAG_FOCUS) == 0) {
         return CVisualObject::OnKeyDown(wparam);
 
     //VK_DOWN
+    }
     SetFocus(true);
     listbox->SetFocus(true);
     ToggleList();
@@ -3159,8 +3277,9 @@ void VisComboBox::ToggleList()
 
     list_showed = 1;
 
-    if (TestFlags(FLAG_OVERCURSOR) == 0)
+    if (TestFlags(FLAG_OVERCURSOR) == 0) {
         SetCursorOver(true);
+    }
 
     listbox->ChangeFlags(FLAG_20, false);
     listbox->SetFocus(true);
@@ -3223,8 +3342,9 @@ void VisComboBox::SelectItem(int32_t index)
 void VisMultiText::VMethod7()
 {
     //4d8994
-    if (!parent)
+    if (!parent) {
         return;
+    }
 
     CRect rt = ClientRectToScreen(rect);
     parent->VMethod8(&rt);
@@ -3249,14 +3369,16 @@ int32_t VisMultiText::OnMouseMove(uint32_t wparam, CPoint pos)
 int32_t VisMultiText::OnWmUser(uint32_t wparam, CPoint pos)
 {
     //4d8bdb
-    if ((wparam & 1) == 0 || scrollbox_id == 0)
+    if ((wparam & 1) == 0 || scrollbox_id == 0) {
         return 1;
+    }
 
     CRect rt = ClientRectToScreen(rect);
-    if ((rt.top + rt.bottom) / 2 < pos.y)
+    if ((rt.top + rt.bottom) / 2 < pos.y) {
         VisListBox::Down();
-    else
+    } else {
         VisListBox::Up();
+    }
 
     return 1;
 }
@@ -3276,16 +3398,15 @@ int32_t VisMultiText::OnKeyDown(uint32_t wparam)
 void VisMultiText::SelectItem(int32_t idx)
 {
     //4d889d
-    if (idx < 0)
+    if (idx < 0) {
         idx = 0;
+    }
 
     if (idx < entries.GetSize() - num_vis_entry)
     {
         selected_index = idx;
         vis_start_index = idx;
-    }
-    else
-    {
+    } else {
         selected_index = entries.GetSize() - num_vis_entry;
         vis_start_index = selected_index;
     }
@@ -3293,8 +3414,9 @@ void VisMultiText::SelectItem(int32_t idx)
     VMethod9();
 
     VisScrollBar* scroll = (VisScrollBar*)parent->FindChild(scrollbox_id);
-    if (scroll)
+    if (scroll) {
         scroll->SetPos(vis_start_index, (entries.GetSize() - num_vis_entry) + 1);
+    }
 
     parent->MsgProc(0x46e, id, vis_start_index);
 }
@@ -3305,16 +3427,18 @@ VisMultiText::VisMultiText(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
 {
     text = str;
 
-    if (dy == 0)
+    if (dy == 0) {
         dy = entry_height + 2;
+    }
 
     entry_height_full = dy;
     entries.Copy( font->StringArrayForRect(rect, str) );
 
-    if (rect.Height() / entry_height_full < entries.GetSize())
+    if (rect.Height() / entry_height_full < entries.GetSize()) {
         num_vis_entry = rect.Height() / entry_height_full;
-    else
+    } else {
         num_vis_entry = entries.GetSize();
+    }
 }
 
 VisMultiText::VisMultiText(int32_t _id, const RECT& r, const char* str, CGameFont* _font, uint16_t* _clr, int32_t dy)
@@ -3322,16 +3446,18 @@ VisMultiText::VisMultiText(int32_t _id, const RECT& r, const char* str, CGameFon
 {
     text = str;
 
-    if (dy == 0)
+    if (dy == 0) {
         dy = entry_height + 2;
+    }
 
     entry_height_full = dy;
     entries.Copy(font->StringArrayForRect(rect, str));
 
-    if (rect.Height() / entry_height_full < entries.GetSize())
+    if (rect.Height() / entry_height_full < entries.GetSize()) {
         num_vis_entry = rect.Height() / entry_height_full;
-    else
+    } else {
         num_vis_entry = entries.GetSize();
+    }
 }
 
 void VisMultiText::SetText(const char* _text)
@@ -3341,10 +3467,11 @@ void VisMultiText::SetText(const char* _text)
 
     entries.Copy(font->StringArrayForRect(rect, _text));
 
-    if (rect.Height() / entry_height_full < entries.GetSize())
+    if (rect.Height() / entry_height_full < entries.GetSize()) {
         num_vis_entry = rect.Height() / entry_height_full;
-    else
+    } else {
         num_vis_entry = entries.GetSize();
+    }
 }
 
 void VisMultiText::SizesCheck()
@@ -3425,9 +3552,7 @@ void VisScreen::VMethod8(CRect* r)
 
         UnlockSurface2();
         SetClipRect(tmp);
-    }
-    else
-    {
+    } else {
         CRect r2 = ClientRectToScreen(rect);
 
         r2.right -= 8;
@@ -3442,11 +3567,13 @@ void VisScreen::VMethod8(CRect* r)
         gfx_interface_lm->VMethod3(r2.left + 8, r2.bottom - 40, 6, 6, 0);
         gfx_interface_lm->VMethod3(r2.right - 40, r2.bottom - 40, 8, 6, 0);
 
-        for (int x = 0; x < (r2.Width() - 96); x += 96)
+        for (int x = 0; x < (r2.Width() - 96); x += 96) {
             gfx_interface_lm->VMethod3(r2.left + 56 + x, r2.bottom - 40, 7, 6, 0);
+        }
 
-        for (int y = 0; y < (r2.Height() - 96); y += 64)
+        for (int y = 0; y < (r2.Height() - 96); y += 64) {
             gfx_interface_lm->VMethod3(r2.right - 40, r2.top + 56 + y, 5, 6, 0);
+        }
 
 
         gfx_interface_lm->VMethod2(r2.left, r2.top, 1, 0, 0);
@@ -3491,9 +3618,9 @@ int32_t VisScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
             AfxGetMainWnd()->PostMessageA(0x44c, (WPARAM)this, 0);
         }
         return 1;
-    }
-    else
+    } else {
         return CVisualObject::MsgProc(msg, wparam, lparam);
+    }
 }
 
 int32_t VisScreen::OnLButtonDown(uint32_t wparam, CPoint pos)
@@ -3617,10 +3744,11 @@ VisWindow::~VisWindow()  //451a70
 int32_t VisWindow::OnKeyDown(uint32_t wparam)
 {
     //4dfeb2
-    if (wparam == VK_ESCAPE)
+    if (wparam == VK_ESCAPE) {
         return MsgProc(0x446, 0, 0);
-    else
+    } else {
         return VisScreen::OnKeyDown(wparam);
+    }
 }
 
 VisWindow::VisWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap)
@@ -4028,9 +4156,9 @@ int32_t VisMessageBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
         exit_code = msg;
         VMethod31(msg);
         return res;
-    }
-    else
+    } else {
         return VisScreen::MsgProc(msg, wparam, lparam);
+    }
 }
 
 
@@ -4049,18 +4177,16 @@ void VisMessageBox::VMethod26()
             txt->SizesCheck();
 
             r2 = CRect(40, 116, rect.Width() - 40, rect.Height() - 112);
-        }
-        else
-        {
+        } else {
             VisLabel* lbl = new VisLabel(1, 40, 32, rect.Width() - 40, 56, field_0x6c, g_font1, p_clrsh_Black, 2);
 
             AddChild(lbl);
 
             r2 = CRect(40, 68, rect.Width() - 40, rect.Height() - 112);
         }
-    }
-    else
+    } else {
         r2 = CRect(40, 56, rect.Width() - 40, rect.Height() - 88);
+    }
 
     if (field_0x70 && strlen(field_0x70) > 0)
     {
@@ -4186,16 +4312,19 @@ void VisMessageBox::VMethod26()
     }
 
     CVisualObject* dobj = FindChild(5);
-    if (dobj)
+    if (dobj) {
         obj->SetDownObj(dobj);
+    }
 
     dobj = FindChild(6);
-    if (dobj)
+    if (dobj) {
         obj->SetDownObj(dobj);
+    }
 
     dobj = FindChild(4);
-    if (dobj)
+    if (dobj) {
         obj->SetDownObj(dobj);
+    }
 }
 
 
@@ -4492,15 +4621,13 @@ void QuestObjectivesHeaderDialogVisualObject::VMethod26()
                 bitmap = new CSprite256("graphics\\interface\\subobj.256");
                 bitmap->ResetPalette(1, 1, 0);
                 vis_bitmap = new VisBitmap(pos + 1, r, bitmap, 11);
-            }
-            else if (bits & 4)
+            } else if (bits & 4)
             {
                 colorsh = clrsh_CoralRed;
                 bitmap = new CSprite256("graphics\\interface\\subobj.256");
                 bitmap->ResetPalette(1, 1, 0);
                 vis_bitmap = new VisBitmap(pos + 1, r, bitmap, 12);
-            }
-            else if (bits & 1)
+            } else if (bits & 1)
             {
                 colorsh = clrsh_TechBlack;
                 bitmap = new CSprite256("graphics\\interface\\subobj.256");
@@ -4509,8 +4636,9 @@ void QuestObjectivesHeaderDialogVisualObject::VMethod26()
             }
 
             AddChild(new VisMultiText(pos, 80, pos, rect.Width() - 48, pos + sarr.GetSize() * (g_font1->GetHeight() + 4), g_MissionSubjs[i], g_font1, colorsh, 0));
-            if (vis_bitmap)
+            if (vis_bitmap) {
                 AddChild(vis_bitmap);
+            }
 
             int32_t dy = 10 + sarr.GetSize() * (g_font1->GetHeight() + 4);
             pos += dy;
@@ -4882,16 +5010,15 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
                     VisScreen* mbox = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(141), nullptr, 0x2000);
                     mwnd->field_0x3dc = mbox;
                     mwnd->ModalScreen(mbox);
-                }
-                else if (idx == parent_screen->session->GetStringArray1Size() - 1 &&
+                } else if (idx == parent_screen->session->GetStringArray1Size() - 1 &&
                     mwnd->field_0x3e0.field_10 != 0 && mwnd->hat_settings.ishat != 0 && mwnd->hat_settings.deathmatch != 0)
                 {
                     VisScreen* mbox = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(142), nullptr, 0x2000);
                     mwnd->field_0x3dc = mbox;
                     mwnd->ModalScreen(mbox);
-                }
-                else
+                } else {
                     parent_screen->CloseOk();
+                }
             }
 #else
                 parent_screen->CloseOk();
@@ -4918,9 +5045,7 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
                             parent_screen->session->LoadCharacterRosterEntry(idx);
                             parent_screen->vis_stats->ReadUnitStats();
                             parent_screen->FUN_00432655(parent_screen->selected_unit);
-                        }
-                        else
-                        {
+                        } else {
                             parent_screen->roster_list->field_0xd0 = parent_screen->session->GetStringArray1Size() - 1;
                             parent_screen->selected_unit->VMethod1(0);
                             parent_screen->map_context->UpdateSelectionState();
@@ -4934,14 +5059,16 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
             if (parent_screen->roster_list->field_0xd8 == 0)
             {
                 parent_screen->OpenRenameWindow();
-                if (parent_screen->snd_rename)
+                if (parent_screen->snd_rename) {
                     parent_screen->snd_rename->Play();
+                }
             }
             break;
 
         case 3:
-            if (parent_screen->roster_list->field_0xd8 == 0)
+            if (parent_screen->roster_list->field_0xd8 == 0) {
                 parent_screen->CloseCancel();
+            }
             break;
             
         default:
@@ -4957,8 +5084,9 @@ int VisCharSellectButtons::GetMouseOnBox(CPoint pos)
 
     for (int i = 0; i < 4; i++)
     {
-        if (areas[i].PtInRect(pos))
+        if (areas[i].PtInRect(pos)) {
             return i;
+        }
     }
     return -1;
 }
@@ -4966,12 +5094,13 @@ int VisCharSellectButtons::GetMouseOnBox(CPoint pos)
 void VisCharSellectButtons::UpdateMouseOverBox(uint32_t wparam, CPoint pos)
 {
     int over = GetMouseOnBox(pos);
-    if (over >= 0 && (wparam & 1) == 0)
+    if (over >= 0 && (wparam & 1) == 0) {
         mouse_over_box = over;
-    else if (over >= 0 && mouse_down_box == over && (wparam & 1) != 0)
+    } else if (over >= 0 && mouse_down_box == over && (wparam & 1) != 0) {
         mouse_over_box = over;
-    else
+    } else {
         mouse_over_box = -1;
+    }
 }
 
 
@@ -6406,8 +6535,9 @@ int32_t VisMenuWnd::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 { //440e54
     if (msg == 0x47b)
     {
-        if (wparam == 0)
+        if (wparam == 0) {
             return VisScreen::MsgProc(0x446, 0, 0);
+        }
 
         int32_t res = VisScreen::MsgProc(0x445, 0, 0);
         AfxGetMainWnd()->PostMessage(wparam, 0, 0);
@@ -6423,8 +6553,7 @@ int32_t VisMenuWnd::OnKeyDown(uint32_t wparam)
     {
         TabFocus(false, true);
         return 1;
-    }
-    else if (wparam == VK_DOWN)
+    } else if (wparam == VK_DOWN)
     {
         TabFocus(true, true);
         return 1;
@@ -6448,26 +6577,30 @@ int32_t MenuButton::OnLButtonUp(uint32_t wparam, CPoint pos)
 { //4dd933
     CRect r = ClientRectToScreen(rect);
 
-    if (downed == 0)
+    if (downed == 0) {
         return 0;
+    }
 
     SetDowned(false);
 
-    if (r.PtInRect(pos) != 0)
+    if (r.PtInRect(pos) != 0) {
         AfxGetMainWnd()->PostMessage(0x47b, msgid, 0);
+    }
 
     return 1;
 }
 
 int32_t MenuButton::OnChar(uint32_t wparam)
 { //4dd9b3
-    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+    if (!parent || TestFlags(FLAG_ENABLED) == 0) {
         return 0;
+    }
 
     char ch = ToLowerChar(EncodeChar(wparam));
 
-    if (ch != '\r' && ch != charid)
+    if (ch != '\r' && ch != charid) {
         return 0;
+    }
 
     AfxGetMainWnd()->PostMessage(0x47b, msgid, 0);
     return 1;
@@ -6492,8 +6625,9 @@ IngameMenu::IngameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, 
     //Save game
     MenuButton* btn = new MenuButton(1, txt_dialogs.GetLine(34), g_font1, 0, 0x41a, 'S', "");
 
-    if (mwnd->sessionMode == 0 || mwnd->sessionMode == 1)
+    if (mwnd->sessionMode == 0 || mwnd->sessionMode == 1) {
         btn->ChangeFlags(FLAG_ENABLED, false);
+    }
 
     AddElement(btn, 30);
 
@@ -6502,11 +6636,10 @@ IngameMenu::IngameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, 
         //Load game
         btn = new MenuButton(2, txt_dialogs.GetLine(35), g_font1, 0, 0x418, 'L', "");
 
-        if (AppHasAnySaveFile() == 0)
+        if (AppHasAnySaveFile() == 0) {
             btn->ChangeFlags(FLAG_ENABLED, false);
-    }
-    else
-    {
+        }
+    } else {
         //Diplomacy
         btn = new MenuButton(7, txt_dialogs.GetLine(76), g_font1, 0, 0x43c, 'D', "");
     }
@@ -6521,8 +6654,9 @@ IngameMenu::IngameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, 
     //sound options
     btn = new MenuButton(4, txt_dialogs.GetLine(37), g_font1, 0, 0x422, 'N', "");
 
-    if (mwnd->music_player->GetState() == 5)
+    if (mwnd->music_player->GetState() == 5) {
         btn->ChangeFlags(FLAG_ENABLED, false);
+    }
 
     AddElement(btn, 30);
 
@@ -6559,8 +6693,9 @@ int32_t LoadGameWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
     case 0x444:
     case 0x479:
     {
-        if (field_0x94 < 0)
+        if (field_0x94 < 0) {
             return VisScreen::MsgProc(0x446, 0, 0);
+        }
 
         CStringArray arr;
         ((VisListBox*)FindChild(3))->WriteData(&arr);
@@ -6572,8 +6707,9 @@ int32_t LoadGameWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
     }
 
     case 0x46e:
-        if (wparam == 3)
+        if (wparam == 3) {
             field_0x94 = lparam;
+        }
         return 1;
 
     case 0x475:
@@ -6655,9 +6791,9 @@ void LoadGameWindow::VMethod26()
             CString str;
             str.Format("%s  %02d.%02d.%d  %02d:%02d:%02d", savename, t.GetDay(), t.GetMonth(), t.GetYear(), t.GetHour(), t.GetMinute(), t.GetSecond());
             save_times.Add(str);
-        }
-        else
+        } else {
             inf->cFileName[0] = 0; // disable this save
+        }
 
         fclose(f);
 
@@ -6689,8 +6825,9 @@ void LoadGameWindow::VMethod26()
 
     btn->ChangeFlags(FLAG_10, true);
 
-    if (file_names.GetSize() == 0)
+    if (file_names.GetSize() == 0) {
         btn->ChangeFlags(FLAG_ENABLED, false);
+    }
 
     VisButton* btn2 = new VisButton(6, local_190, txt_dialogs.GetLine(157), g_font1, nullptr, 0x475, 0, txt_dialogs.GetLine(158));
     AddChild(btn2);
@@ -6716,17 +6853,20 @@ LoadGameWindow::LoadGameWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int
 const char* HintedListBox::GetHint()
 { //43ec67
     int32_t idx = YToIndex(g_mousept.GetY());
-    if (idx >= num_vis_entry)
+    if (idx >= num_vis_entry) {
         return nullptr;
+    }
     
     idx += vis_start_index;
 
-    if (idx >= entries.GetSize())
+    if (idx >= entries.GetSize()) {
         return nullptr;
+    }
 
     CString& str = hints->ElementAt(idx);
-    if (str.IsEmpty())
+    if (str.IsEmpty()) {
         return nullptr;
+    }
     
     return str;
 }
@@ -6793,9 +6933,9 @@ int32_t SaveGameWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
             obj->VMethod9();
             CheckInput();
             return 1;
-        }
-        else if (wparam == 1)
+        } else if (wparam == 1) {
             CheckInput();
+        }
         return VisScreen::MsgProc(msg, wparam, lparam);
 
     case 0x475:
@@ -6832,10 +6972,11 @@ int32_t SaveGameWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 
 int __cdecl SaveGameWindow::Compare(void const* a, void const* b)
 { //43faf4
-    if (*(const int*)a > *(const int*)b)
+    if (*(const int*)a > *(const int*)b) {
         return 1;
-    else if (*(const int*)a < *(const int*)b)
+    } else if (*(const int*)a < *(const int*)b) {
         return -1;
+    }
     return 0;
 }
 
@@ -6883,9 +7024,9 @@ void SaveGameWindow::VMethod26()
             CString str;
             str.Format("%s  %02d.%02d.%d  %02d:%02d:%02d", savename, t.GetDay(), t.GetMonth(), t.GetYear(), t.GetHour(), t.GetMinute(), t.GetSecond());
             save_times.Add(str);
-        }
-        else
+        } else {
             inf->cFileName[0] = 0; // disable this save
+        }
 
         fclose(f);
 
@@ -6943,8 +7084,9 @@ void SaveGameWindow::VMethod26()
 
     btn->ChangeFlags(FLAG_10, true);
 
-    if (file_names.GetSize() == 0)
+    if (file_names.GetSize() == 0) {
         btn->ChangeFlags(FLAG_ENABLED, false);
+    }
 
     VisButton* btn2 = new VisButton(6, local_190, txt_dialogs.GetLine(157), g_font1, nullptr, 0x475, 0, txt_dialogs.GetLine(158));
     AddChild(btn2);
@@ -6974,10 +7116,11 @@ void SaveGameWindow::CheckInput()
     FindChild(1)->WriteData(buf);
 
     CVisualObject* obj = FindChild(4);
-    if (strlen(buf) == 0)
+    if (strlen(buf) == 0) {
         obj->ChangeFlags(FLAG_ENABLED, false);
-    else
+    } else {
         obj->ChangeFlags(FLAG_ENABLED, true);
+    }
 
     obj->VMethod9();
 }
@@ -6994,10 +7137,11 @@ int32_t GameOptionsWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpara
         FindChild(2)->WriteData(&dat);
         mwnd->SetSpeed(dat.v);
 
-        if (mwnd->sessionMode == 2)
+        if (mwnd->sessionMode == 2) {
             FindChild(13)->WriteData(&g_settings.TipsMode);
-        else
+        } else {
             FindChild(13)->WriteData(&g_settings.ClanNames);
+        }
 
         FindChild(12)->WriteData(&g_settings.ShowTimeFlow);
         FindChild(3)->WriteData(&g_settings.Smoothing);
@@ -7005,8 +7149,9 @@ int32_t GameOptionsWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpara
         FindChild(32)->WriteData(&g_Lightning);
         FindChild(33)->WriteData(&g_Animation);
 
-        if (g_Animation == 0)
+        if (g_Animation == 0) {
             g_Lightning = 0;
+        }
 
         FindChild(4)->WriteData(g_settings.pShowAllHitPoints);
         FindChild(5)->WriteData(g_settings.pShowFlyingHP);
@@ -7022,30 +7167,35 @@ int32_t GameOptionsWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpara
         int32_t sel;
         FindChild(141)->WriteData(&sel);
 
-        if (sel == 1)
+        if (sel == 1) {
             g_settings.AutoCasting |= 0x18;
-        else if (sel == 2)
+        } else if (sel == 2) {
             g_settings.AutoCasting |= 0x38;
+        }
 
         FindChild(131)->WriteData(&sel);
-        if (sel != 0)
+        if (sel != 0) {
             g_settings.AutoCasting |= 1;
+        }
 
         FindChild(132)->WriteData(&sel);
-        if (sel != 0)
+        if (sel != 0) {
             g_settings.AutoCasting |= 2;
+        }
 
         FindChild(133)->WriteData(&sel);
-        if (sel != 0)
+        if (sel != 0) {
             g_settings.AutoCasting |= 4;
+        }
 
 
         mwnd->vis_map_context->FUN_0041abd2(*g_settings.pFormationMode % 3);
         mwnd->vis_map_context->FUN_0041aaaa(*g_settings.pWimpyMode % 3);
         mwnd->vis_map_context->FUN_0041ab74();
     }
-    if (g_settings.ShowTimeFlow != oldshtfl)
+    if (g_settings.ShowTimeFlow != oldshtfl) {
         mwnd->vis_map_context->FUN_0041d97e(1);
+    }
 
     return VisScreen::MsgProc(msg, wparam, lparam);
 }
@@ -7063,8 +7213,9 @@ void GameOptionsWindow::VMethod26()
     VisScrollBar* scrl = new VisScrollBar(2, 40, 84, 232, 108, txt_dialogs.GetLine(51));
     AddChild(scrl);
 
-    if (mwnd->sessionMode == 0)
+    if (mwnd->sessionMode == 0) {
         scrl->ChangeFlags(FLAG_ENABLED, false);
+    }
 
     VisScrollBar::Data sd;
     sd.v = *g_settings.pGameSpeed;
@@ -7128,17 +7279,19 @@ void GameOptionsWindow::VMethod26()
 
     VisRadioType1* clantips = new VisRadioType1(13, scr.right + 48, ypoint + 56, scr.right + 264, ypoint + 80, g_font1, p_clrsh_Black, nullptr);
 
-    if (mwnd->sessionMode == 2)
+    if (mwnd->sessionMode == 2) {
         clantips->AddEntry(txt_dialogs.GetLine(156)); //tips
-    else
+    } else {
         clantips->AddEntry(txt_dialogs.GetLine(175)); //clans
+    }
 
     AddChild(clantips);
 
-    if (mwnd->sessionMode == 2)
+    if (mwnd->sessionMode == 2) {
         clantips->ReadData(&g_settings.TipsMode);
-    else
+    } else {
         clantips->ReadData(&g_settings.ClanNames);
+    }
     clantips->SetUpObj(showhp);
 
 
@@ -7233,8 +7386,9 @@ void GameOptionsWindow::VMethod26()
     AddChild(acast);
 
     aflg = (g_settings.AutoCasting & 0x10) != 0;
-    if ((g_settings.AutoCasting & 0x20) != 0)
+    if ((g_settings.AutoCasting & 0x20) != 0) {
         aflg = 2;
+    }
 
     acast->ReadData(&aflg);
 
@@ -7265,17 +7419,20 @@ EndGameMenu::EndGameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b
 
     MenuButton* btn = nullptr;
 
-    if (mwnd->sessionMode == 1 || mwnd->sessionMode == 3 || mwnd->sessionMode == 0)
+    if (mwnd->sessionMode == 1 || mwnd->sessionMode == 3 || mwnd->sessionMode == 0) {
         btn = new MenuButton(1, txt_dialogs.GetLine(42), g_font1, nullptr, 0x41d, 'C', ""); //restart mission
-    else
+    } else {
         btn = new MenuButton(1, txt_dialogs.GetLine(43), g_font1, nullptr, 0x41d, 'V', ""); //win
+    }
     AddElement(btn, 30);
 
-    if (unk2 == 0 && mwnd->sessionMode == 2)
+    if (unk2 == 0 && mwnd->sessionMode == 2) {
         btn->ChangeFlags(FLAG_ENABLED, false);
+    }
     
-    if (g_CLlDriver.GetProvider() == 4)
+    if (g_CLlDriver.GetProvider() == 4) {
         btn->ChangeFlags(FLAG_ENABLED, false);
+    }
 
     btn = new MenuButton(2, txt_dialogs.GetLine(44), g_font1, nullptr, 0x41e, 'E', ""); //exit to main
     AddElement(btn, 30);
@@ -7358,8 +7515,9 @@ int32_t SoundPreferencesDialogVisualObject::MsgProc(uint32_t msg, uint32_t wpara
             if (vol != cur_vol)
             {
                 settings->mus_pos = vol;
-                if (music_player->GetState() != 2)
+                if (music_player->GetState() != 2) {
                     music_player->SetVolume(vol);
+                }
             }
             result = 1;
         }   break;
@@ -7382,10 +7540,11 @@ int32_t SoundPreferencesDialogVisualObject::MsgProc(uint32_t msg, uint32_t wpara
         break;
 
     case 0x474:
-        if (wparam == 7)
+        if (wparam == 7) {
             g_SfxArray[100]->Play(settings->sfx_pos, 0, 0, 220, 0);
-        else if (wparam == 8)
+        } else if (wparam == 8) {
             SoundBank_fighter[0].select[1]->Play(settings->sfx_pos, 0, 0, 220, 0);
+        }
         result = 1;
         break;
 
@@ -7403,9 +7562,7 @@ int32_t SoundPreferencesDialogVisualObject::MsgProc(uint32_t msg, uint32_t wpara
         {
             music_player->SetVolume(settings->mus_pos);
             music_player->Play();
-        }
-        else
-        {
+        } else {
             music_player->OnEndTrack();
             music_player->StartPlayTrack(track_index);
             music_player->SetVolume(settings->mus_pos);
@@ -7415,10 +7572,12 @@ int32_t SoundPreferencesDialogVisualObject::MsgProc(uint32_t msg, uint32_t wpara
         break;
 
     case 0x478:
-        if (music_player->GetState() == 2)
+        if (music_player->GetState() == 2) {
             music_player->OnEndTrack();
-        if (music_player->GetState() == 1)
+        }
+        if (music_player->GetState() == 1) {
             music_player->BeginFadeOut(2000, 8000);
+        }
 
         settings->music_enabled = 0;
         result = 1;
@@ -7452,8 +7611,9 @@ void SoundPreferencesDialogVisualObject::VMethod26()
     btn_raport->ReadData(&g_settings.Acknowledgement);
     AddChild(btn_raport);
 
-    if (mwnd->sessionMode == 0 || mwnd->sessionMode == 1)
+    if (mwnd->sessionMode == 0 || mwnd->sessionMode == 1) {
         btn_raport->ChangeFlags(FLAG_ENABLED, false);
+    }
 
 
     VisListBox* lst_melody = new VisListBox(3, 40, 80, rect.Width() - 64, 170, g_font1, p_clrsh_Black, p_clrsh_ShockingBlack, 10, txt_dialogs.GetLine(11)); //Select melody
@@ -7588,8 +7748,9 @@ void VisGlobalMap::PopulateScenarioLocationFlags()
         ScenarioLocation* loc = locs->GetNext(pos);
         locationPoints.Add(loc->GetRect().TopLeft());
 
-        if (loc->GetRect().BottomRight() == CPoint(0, 0))
+        if (loc->GetRect().BottomRight() == CPoint(0, 0)) {
             locationAvailabilityFlags.Add(1);
+        }
     }
 }
 
@@ -9745,8 +9906,9 @@ VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 
 VisLogoWnd::~VisLogoWnd()
 { //4cd53c
-    if (logoBitmap)
+    if (logoBitmap) {
         delete logoBitmap;
+    }
 }
 
 void VisLogoWnd::VMethod7()
@@ -9755,8 +9917,9 @@ void VisLogoWnd::VMethod7()
 
     LockSurface2();
 
-    if (logoBitmap)
+    if (logoBitmap) {
         logoBitmap->VMethod2(rect.left, rect.top, 0, 0, 0);
+    }
 
     UnlockSurface2();
 }
@@ -9781,11 +9944,13 @@ int32_t VisLogoWnd::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
     switch (msg)
     {
     case 0x402:
-        if (drawPendingFlag)
+        if (drawPendingFlag) {
             VMethod9();
+        }
 
-        if (timeoutTicks < timeGetTime() - timeoutStart)
+        if (timeoutTicks < timeGetTime() - timeoutStart) {
             AfxGetMainWnd()->PostMessage(0x438, step, 0);
+        }
         break;
 
     case 0x408:
@@ -12390,8 +12555,9 @@ void VisShopButtons::LoadBmp()
 {
     this->ReleaseBmp();
     CString base = "graphics\\interface\\";
-    if (this->shop != nullptr)
+    if (this->shop != nullptr) {
         base += this->shop->VMethod33();
+    }
 
     for (int32_t i = 0; i < 4; i++) {
         CString fname = base + "ShopButton" + CString((char)('1' + i), 1) + ".bmp";
@@ -12407,13 +12573,14 @@ void VisShopButtons::UpdateHoveredState(uint32_t wparam, CPoint pos)
     int32_t idx = GetButtonAt(pos);
     if (idx < 0 || (wparam & 1) != 0)
     {
-        if (idx < 0 || idx != pressed_btn || (wparam & 1) == 0)
+        if (idx < 0 || idx != pressed_btn || (wparam & 1) == 0) {
             hovered_btn = -1;
-        else
+        } else {
             hovered_btn = idx;
-    }
-    else
+        }
+    } else {
         hovered_btn = idx;
+    }
 
     shop->dirty |= 0x20;
 }
@@ -12431,21 +12598,25 @@ int32_t VisShopButtons::GetButtonAt(CPoint pos)
         }
     }
 
-    if (idx < 0)
-        return -1;
-
-    if (idx == 0)
-    {
-        if (inner_rects[0].PtInRect(pt) || inner_rects[1].PtInRect(pt))
-            return 0;
+    if (idx < 0) {
         return -1;
     }
 
-    if (idx != 3)
-        return idx;
+    if (idx == 0)
+    {
+        if (inner_rects[0].PtInRect(pt) || inner_rects[1].PtInRect(pt)) {
+            return 0;
+        }
+        return -1;
+    }
 
-    if (inner_rects[2].PtInRect(pt) || inner_rects[3].PtInRect(pt))
+    if (idx != 3) {
+        return idx;
+    }
+
+    if (inner_rects[2].PtInRect(pt) || inner_rects[3].PtInRect(pt)) {
         return 3;
+    }
 
     return -1;
 }
@@ -19487,8 +19658,7 @@ void VisTown::VMethod28()
             delete this->tips;
             this->tips = nullptr;
         }
-    }
-    else {
+    } else {
         CString str;
         MissionGetTips(1, &str);
         this->tips = new VisTipsDialog(0x467, 0x148, 0, 0x280, 0xC8, str);
@@ -19553,18 +19723,15 @@ int32_t VisTown::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
         if (mainwnd->dialogsMask == 0) {
             this->VMethod9();
         }
-    }
-    else if (msg == 0x446) {
+    } else if (msg == 0x446) {
         return 1;
-    }
-    else if (msg == 0x45A) {
+    } else if (msg == 0x45A) {
         if (this->tips != nullptr) {
             this->RemoveChild(this->tips);
             delete this->tips;
             this->tips = nullptr;
         }
-    }
-    else if (msg == 0x100 && wparam == 0x0D) {
+    } else if (msg == 0x100 && wparam == 0x0D) {
         return 1;
     }
     return this->VisScreen::MsgProc(msg, wparam, lparam);
@@ -19587,8 +19754,7 @@ int32_t VisTown::OnLButtonDown(uint32_t wparam, CPoint pos)
     case 8:
         if (ScenarioGetVar(0x301) == 0) {
             ShowRoleKeyDialog("plagatguard");
-        }
-        else {
+        } else {
             this->VMethod39();
             AfxGetMainWnd()->PostMessage(0x442, 1, 0);
             AfxGetMainWnd()->PostMessage(0x42D, 0, 0);
@@ -19676,8 +19842,7 @@ int32_t VisTown::FUN_004ce64b()
     this->active_bird = GetRandS16(3) + 1;
     if (this->active_bird == 1) {
         CSound::Play((CSound&)this->sounds[3]);
-    }
-    else {
+    } else {
         CSound::Play((CSound&)this->sounds[4]);
     }
     int32_t delay = GetRandS16(2000) + 1000;
@@ -19699,8 +19864,7 @@ void VisTown::FUN_004ce726()
             int32_t frame_count = spr->GetFrameCount();
             if ((&this->bird_frame0)[i] < frame_count) {
                 spr->VMethod2(this->rect.left, this->rect.top, (&this->bird_frame0)[i], 0, 0);
-            }
-            else {
+            } else {
                 done_count++;
             }
         }
@@ -19785,16 +19949,14 @@ void VisTown::VMethod7()
             if (this->horse_frame == 0xE) {
                 CSound::Play((CSound&)this->sounds[11]);
             }
-        }
-        else if (this->horse_anim_index == 1) {
+        } else if (this->horse_anim_index == 1) {
             if (this->horse_frame == 8) {
                 CSound::Play((CSound&)this->sounds[11]);
             }
             if (this->horse_frame == 0xE) {
                 CSound::Play((CSound&)this->sounds[11]);
             }
-        }
-        else if (this->horse_anim_index == 2) {
+        } else if (this->horse_anim_index == 2) {
             if (this->horse_frame == 1) {
                 CSound::Play((CSound&)this->sounds[13]);
             }
@@ -19804,16 +19966,14 @@ void VisTown::VMethod7()
         }
         if (this->horse_frame == -1) {
             this->spr_cur_horse->VMethod2(this->rect.left + this->horse_position.x, this->rect.top + this->horse_position.y, 0, 0, 0);
-        }
-        else {
+        } else {
             this->spr_cur_horse->VMethod2(this->rect.left + this->horse_position.x, this->rect.top + this->horse_position.y, this->horse_frame, 0, 0);
         }
     }
     if (this->spr_cur_bbird != nullptr) {
         if (this->bbird_frame == -1) {
             this->spr_cur_bbird->VMethod2(this->rect.left + this->bbird_position.x, this->rect.top + this->bbird_position.y, 0, 0, 0);
-        }
-        else {
+        } else {
             this->spr_cur_bbird->VMethod2(this->rect.left + this->bbird_position.x, this->rect.top + this->bbird_position.y, this->bbird_frame, 0, 0);
         }
     }
@@ -19900,8 +20060,7 @@ void VisTown::VMethod34(CPoint pos)
     case 9:
         if (ScenarioGetVar(0x301) == 0) {
             this->guard_frame_step = -1;
-        }
-        else {
+        } else {
             this->guard_frame_step = 1;
         }
         this->hover_snd_second = 0;
@@ -19946,8 +20105,7 @@ void VisTown::FUN_004d06aa()
         FUN_00438e40(&this->sounds[2], "SFX\\Town\\Guard2.wav");
         CSound::Play((CSound&)this->sounds[2]);
         this->guard_sound = 1;
-    }
-    else if (this->guard_frame_step == -1 && this->guard_sound != 0) {
+    } else if (this->guard_frame_step == -1 && this->guard_sound != 0) {
         FUN_00438e40(&this->sounds[2], "SFX\\Town\\Guard1.wav");
         CSound::Play((CSound&)this->sounds[2]);
         this->guard_sound = 0;
@@ -19956,8 +20114,7 @@ void VisTown::FUN_004d06aa()
         this->guard_frame_step = 0;
         this->guard_frame = 0;
         FUN_00438dd0(&this->sounds[2]);
-    }
-    else {
+    } else {
         if (this->spr_guard->GetFrameCount() <= this->guard_frame) {
             this->guard_frame_step = 0;
             this->guard_frame = this->spr_guard->GetFrameCount() - 1;
@@ -20018,8 +20175,7 @@ void VisTown::FUN_004d0913()
             this->door_frame = 8;
             this->town_anim &= ~0x08u;
         }
-    }
-    else {
+    } else {
         if (this->door_open_flag == 0) {
             FUN_00438e40(&this->sounds[1], "SFX\\Town\\GateUp.wav");
             CSound::Play((CSound&)this->sounds[1]);
@@ -20045,8 +20201,7 @@ void VisTown::FUN_004d0ad7()
     this->stars_frame++;
     if (this->stars_frame < 9) {
         this->bmp_cur_stars = this->bmp_stars.GetAt(this->stars_frame);
-    }
-    else {
+    } else {
         stars_repeat++;
         if (stars_repeat == 10) {
             this->stars_frame = 0;
@@ -20064,11 +20219,9 @@ void VisTown::FUN_004d0b95()
     static int32_t fighter_dir; // dword_6669d4 in asm
     if (this->fighter_frame < 1 && fighter_dir == 0) {
         fighter_dir = (rand() % 100 > 0x5F) ? 1 : 0;
-    }
-    else if (this->fighter_frame == 10) {
+    } else if (this->fighter_frame == 10) {
         fighter_dir = (rand() % 100 > 0x5F) ? -1 : 0;
-    }
-    else if (this->fighter_frame == 0 && fighter_dir == -1) {
+    } else if (this->fighter_frame == 0 && fighter_dir == -1) {
         this->fighter_frame = 0;
         fighter_dir = 0;
         this->town_anim &= ~4u;
@@ -20083,11 +20236,9 @@ void VisTown::FUN_004d0c6e()
     static int32_t mage_dir; // dword_6669d8 in asm
     if (this->mage_frame < 1 && mage_dir == 0) {
         mage_dir = (rand() % 100 > 0x5F) ? 1 : 0;
-    }
-    else if (this->mage_frame == 10) {
+    } else if (this->mage_frame == 10) {
         mage_dir = (rand() % 100 > 0x5F) ? -1 : 0;
-    }
-    else if (this->mage_frame == 0 && mage_dir == -1) {
+    } else if (this->mage_frame == 0 && mage_dir == -1) {
         this->mage_frame = 0;
         mage_dir = 0;
         this->town_anim &= ~4u;
@@ -20155,8 +20306,7 @@ void VisTown::FUN_004d109e()
 {
     if (this->spr_dervish == nullptr) {
         this->dervish_frame = -1;
-    }
-    else {
+    } else {
         this->dervish_frame = (this->dervish_frame + 1) % this->spr_dervish->GetFrameCount();
     }
 }
@@ -20532,8 +20682,7 @@ void VisTownKaarg::VMethod34(CPoint pos)
                 FUN_00438f20(&this->snd_tavern_enter);
                 this->exit_snd_flag = 1;
             }
-        }
-        else {
+        } else {
             switch (mask + 1) {
             case 0:
                 ApplyCursor(g_Cursors[0]);
@@ -20569,8 +20718,7 @@ void VisTownKaarg::VMethod34(CPoint pos)
                 break;
             }
         }
-    }
-    else {
+    } else {
         if (mask != 0x200 && mask != 0x400 && mask != 0x800) {
             this->town_anim |= mask;
             this->tavern_snd_flag = 0;
@@ -20735,8 +20883,7 @@ void VisTownKaarg::FUN_004d6480()
             this->door_frame = 0;
             this->town_anim &= ~0x08u;
         }
-    }
-    else {
+    } else {
         if (this->door_open_flag == 0) {
             FUN_00438e40(&this->sounds[1], "SFX\\Town_kaarg\\Kdoor1.wav");
             CSound::Play((CSound&)this->sounds[1]);
@@ -20862,11 +21009,9 @@ void VisTownKaarg::VMethod35()
         this->active_bird = GetRandS16(3) + 1;
         if (this->active_bird == 1) {
             CSound::Play((CSound&)this->snd_voice[0]);
-        }
-        else if (this->active_bird == 2) {
+        } else if (this->active_bird == 2) {
             CSound::Play((CSound&)this->snd_voice[1]);
-        }
-        else if (this->active_bird == 3) {
+        } else if (this->active_bird == 3) {
             CSound::Play((CSound&)this->snd_voice[2]);
         }
         voice_delay = (uint32_t)(GetRandS16(2000) + 2000);
@@ -20905,8 +21050,7 @@ void VisTownKaarg::VMethod35()
             if (this->guard_snd_flag == 0) {
                 if (GetRandS16(4) == 0) {
                     CSound::Play((CSound&)this->snd_guard[1]);
-                }
-                else {
+                } else {
                     CSound::Play((CSound&)this->snd_guard[0]);
                 }
                 this->guard_snd_flag = 1;
@@ -20920,8 +21064,7 @@ void VisTownKaarg::VMethod35()
             if (this->guard_snd_flag == 0) {
                 if (GetRandS16(4) == 0) {
                     CSound::Play((CSound&)this->snd_guard[3]);
-                }
-                else {
+                } else {
                     CSound::Play((CSound&)this->snd_guard[2]);
                 }
                 this->guard_snd_flag = 1;
@@ -20932,8 +21075,7 @@ void VisTownKaarg::VMethod35()
             if (this->guard_snd_flag == 0) {
                 if (GetRandS16(4) == 0) {
                     CSound::Play((CSound&)this->snd_guard[5]);
-                }
-                else {
+                } else {
                     CSound::Play((CSound&)this->snd_guard[4]);
                 }
                 this->guard_snd_flag = 1;
@@ -20985,37 +21127,30 @@ int32_t VisTownKaarg::OnLButtonDown(uint32_t wparam, CPoint pos)
             this->VMethod39();
             AfxGetMainWnd()->PostMessage(0x442, 1, 0);
             AfxGetMainWnd()->PostMessage(0x42D, 0, 0);
-        }
-        else if (mask == 1) {
+        } else if (mask == 1) {
             this->VMethod39();
             AfxGetMainWnd()->PostMessage(0x42A, 0, 0);
-        }
-        else if (mask == 2) {
+        } else if (mask == 2) {
             this->VMethod39();
             AfxGetMainWnd()->PostMessage(0x42B, 0, 0);
-        }
-        else if (mask == 4) {
+        } else if (mask == 4) {
             CString name;
             name.Format("kaargwoman%d", ScenarioGetVar(0x300));
             ShowRoleKeyDialog(name);
         }
-    }
-    else if (mask < 0x201) {
+    } else if (mask < 0x201) {
         if (mask == 0x200) {
             CString name;
             name.Format("kaargwoman%d", ScenarioGetVar(0x300));
             ShowRoleKeyDialog(name);
-        }
-        else if (mask == 0x10) {
+        } else if (mask == 0x10) {
             AfxGetMainWnd()->PostMessage(0x41F, 0, 0);
         }
-    }
-    else if (mask == 0x400) {
+    } else if (mask == 0x400) {
         CString name;
         name.Format("kaargman%d", ScenarioGetVar(0x300));
         ShowRoleKeyDialog(name);
-    }
-    else if (mask == 0x800) {
+    } else if (mask == 0x800) {
         CString name;
         name.Format("kaargguard%d", ScenarioGetVar(0x300));
         ShowRoleKeyDialog(name);
@@ -21039,8 +21174,7 @@ void VisTownKaarg::VMethod28()
             delete this->tips;
             this->tips = nullptr;
         }
-    }
-    else {
+    } else {
         CString str;
         MissionGetTips(0xC, &str);
         this->tips = new VisTipsDialog(0x467, 0x148, 0, 0x280, 0xC8, str);
@@ -21107,29 +21241,24 @@ void VisTownKaarg::VMethod7()
     }
     if ((this->town_anim & 0x200) == 0) {
         this->bmp_girl1[0].GetAt(0)->VMethod2(this->rect.left + 0xD8, this->rect.top + 0x11C, 0, 0, 0);
-    }
-    else {
+    } else {
         this->bmp_girl1[this->girl1_group].GetAt(this->bbird_frame)->VMethod2(this->rect.left + 0xD8, this->rect.top + 0x11C, 0, 0, 0);
     }
     if ((this->town_anim & 4) == 0) {
         this->bmp_girl2[0].GetAt(0)->VMethod2(this->rect.left + 0x104, this->rect.top + 0x11C, 0, 0, 0);
-    }
-    else {
+    } else {
         this->bmp_girl2[this->girl2_group].GetAt(this->girl2_frame)->VMethod2(this->rect.left + 0x104, this->rect.top + 0x11C, 0, 0, 0);
     }
     if ((this->town_anim & 0x800) == 0) {
         this->bmp_guard.GetAt(0)->VMethod2(this->rect.left + 0xB8, this->rect.top + 0x9C, 0, 0, 0);
-    }
-    else if (this->fighter_frame < 0xD || this->fighter_frame > 0x25) {
+    } else if (this->fighter_frame < 0xD || this->fighter_frame > 0x25) {
         this->bmp_guard.GetAt(this->fighter_frame)->VMethod2(this->rect.left + 0xB8, this->rect.top + 0x9C, 0, 0, 0);
-    }
-    else {
+    } else {
         this->bmp_guard.GetAt(this->fighter_frame)->VMethod2(this->rect.left + 0x8C, this->rect.top + 0x98, 0, 0, 0);
     }
     if ((this->town_anim & 0x400) == 0) {
         this->bmp_dervish.GetAt(0)->VMethod2(this->rect.left + 0x1A0, this->rect.top + 0x148, 0, 0, 0);
-    }
-    else {
+    } else {
         this->bmp_dervish.GetAt(this->dervish_frame)->VMethod2(this->rect.left + 0x1A0, this->rect.top + 0x148, 0, 0, 0);
     }
     this->bmp_gate.GetAt(this->door_frame)->VMethod2(this->rect.left + 0x98, this->rect.top + 0x100, 0, 0, 0);
@@ -21444,8 +21573,7 @@ void VisTownDruid::VMethod34(CPoint pos)
                 CSound::Play((CSound&)this->snd_town_exit);
                 this->mission_exit_hover_snd_flag = 1;
             }
-        }
-        else {
+        } else {
             switch (mask + 1) {
             case 0:
                 ApplyCursor(g_Cursors[0]);
@@ -21501,8 +21629,7 @@ void VisTownDruid::VMethod34(CPoint pos)
                 break;
             }
         }
-    }
-    else {
+    } else {
         if (mask != 0x200 && mask != 0x1000) {
             this->town_anim |= mask;
             this->tavern_hover_snd_flag = 0;
@@ -21530,8 +21657,7 @@ void VisTownDruid::VMethod35()
             this->shop_frame = 0;
             if (mask == 1) {
                 this->shop_group = 2;
-            }
-            else {
+            } else {
                 this->shop_group = GetRandS16(2);
             }
             this->town_anim |= 1;
@@ -21546,8 +21672,7 @@ void VisTownDruid::VMethod35()
             this->tavern_frame = 0;
             if (mask == 2) {
                 this->tavern_group = 2;
-            }
-            else {
+            } else {
                 this->tavern_group = GetRandS16(2);
             }
             this->town_anim |= 2;
@@ -21567,11 +21692,9 @@ void VisTownDruid::VMethod35()
         this->active_bird = GetRandS16(3) + 1;
         if (this->active_bird == 1) {
             CSound::Play((CSound&)this->snd_bird[0]);
-        }
-        else if (this->active_bird == 2) {
+        } else if (this->active_bird == 2) {
             CSound::Play((CSound&)this->snd_bird[1]);
-        }
-        else if (this->active_bird == 3) {
+        } else if (this->active_bird == 3) {
             CSound::Play((CSound&)this->snd_bird[2]);
         }
         bird_delay = (uint32_t)(GetRandS16(2000) + 2000);
@@ -21591,11 +21714,9 @@ void VisTownDruid::VMethod35()
         int32_t bug_index = GetRandS16(3) + 1;
         if (bug_index == 1) {
             CSound::Play((CSound&)this->snd_bug[0]);
-        }
-        else if (bug_index == 2) {
+        } else if (bug_index == 2) {
             CSound::Play((CSound&)this->snd_bug[1]);
-        }
-        else if (bug_index == 3) {
+        } else if (bug_index == 3) {
             CSound::Play((CSound&)this->snd_bug[2]);
         }
         this->bug_variant = bug_index - 1;
@@ -21608,16 +21729,13 @@ void VisTownDruid::VMethod35()
         if (roll == 1) {
             this->lizard_variant = 1;
             CSound::Play((CSound&)this->snd_lizard[1]);
-        }
-        else if (roll == 2) {
+        } else if (roll == 2) {
             this->lizard_variant = 2;
             CSound::Play((CSound&)this->snd_lizard[2]);
-        }
-        else if (roll == 3) {
+        } else if (roll == 3) {
             this->lizard_variant = 3;
             CSound::Play((CSound&)this->snd_lizard[3]);
-        }
-        else {
+        } else {
             this->lizard_variant = 0;
             CSound::Play((CSound&)this->snd_lizard[0]);
         }
@@ -21663,12 +21781,10 @@ void VisTownDruid::VMethod7()
     if (this->shop_group < 0) {
         if (this->hovered_action_mask == 1) {
             this->shop_frame_group[2].GetAt(0)->VMethod2(this->rect.left + 0x154, this->rect.top + 0xE0, 0, 0, 0);
-        }
-        else {
+        } else {
             this->shop_frame_group[0].GetAt(0)->VMethod2(this->rect.left + 0x150, this->rect.top + 0xF4, 0, 0, 0);
         }
-    }
-    else {
+    } else {
         this->shop_frame_group[this->shop_group].GetAt(this->shop_frame)->VMethod2(
             this->rect.left + 0x150 + (this->shop_group / 2) * 4,
             this->rect.top + 0xF4 - (this->shop_group / 2) * 0x14, 0, 0, 0);
@@ -21679,20 +21795,17 @@ void VisTownDruid::VMethod7()
     if (this->tavern_group < 0) {
         if (this->hovered_action_mask == 2) {
             this->tavern_frame_group[2].GetAt(0)->VMethod2(this->rect.left + 0x98, this->rect.top + 0xB8, 0, 0, 0);
-        }
-        else {
+        } else {
             this->tavern_frame_group[0].GetAt(0)->VMethod2(this->rect.left + 0xA4, this->rect.top + 0xC8, 0, 0, 0);
         }
-    }
-    else {
+    } else {
         this->tavern_frame_group[this->tavern_group].GetAt(this->tavern_frame)->VMethod2(
             this->rect.left + 0xA4 - (this->tavern_group / 2) * 0xC,
             this->rect.top + 0xC8 - (this->tavern_group / 2) * 0x10, 0, 0, 0);
     }
     if (this->lizard_variant < 0 || this->lizard_frame < 0) {
         this->spr_lizard->VMethod2(this->rect.left, this->rect.top + 300, 0, 0, 0);
-    }
-    else {
+    } else {
         this->spr_lizard->VMethod2(this->rect.left, this->rect.top + 300, lizard_seqs[this->lizard_variant][this->lizard_frame] - 1, 0, 0);
     }
     if (this->bug_variant >= 0 && this->bug_frame >= 0) {
@@ -21718,8 +21831,7 @@ void VisTownDruid::VMethod28()
             delete this->tips;
             this->tips = nullptr;
         }
-    }
-    else {
+    } else {
         CString str;
         MissionGetTips(0xB, &str);
         this->tips = new VisTipsDialog(0x467, 0x148, 0, 0x280, 0xC8, str);
@@ -21758,25 +21870,20 @@ int32_t VisTownDruid::OnLButtonDown(uint32_t wparam, CPoint pos)
             this->VMethod39();
             AfxGetMainWnd()->PostMessage(0x442, 1, 0);
             AfxGetMainWnd()->PostMessage(0x42D, 0, 0);
-        }
-        else if (mask == 1) {
+        } else if (mask == 1) {
             this->VMethod39();
             AfxGetMainWnd()->PostMessage(0x42A, 0, 0);
-        }
-        else if (mask == 2) {
+        } else if (mask == 2) {
             this->VMethod39();
             AfxGetMainWnd()->PostMessage(0x42B, 0, 0);
         }
-    }
-    else if (mask == 0x10) {
+    } else if (mask == 0x10) {
         AfxGetMainWnd()->PostMessage(0x41F, 0, 0);
-    }
-    else if (mask == 0x200) {
+    } else if (mask == 0x200) {
         CString name;
         name.Format("druidinnkeeper%d", ScenarioGetVar(0x300));
         ShowRoleKeyDialog(name);
-    }
-    else if (mask == 0x1000) {
+    } else if (mask == 0x1000) {
         CString name;
         name.Format("druidshopkeeper%d", ScenarioGetVar(0x300));
         ShowRoleKeyDialog(name);
@@ -21907,8 +22014,7 @@ void VisNetDlg::FillServerList()
     CString sel_name;
     if (count > this->selected) {
         sel_name = server_list->GetItem(this->selected);
-    }
-    else {
+    } else {
         sel_name = "When night are cold and friends are few";
     }
     while (count != 0) {
@@ -21932,8 +22038,7 @@ void VisNetDlg::FillServerList()
     if (num_sessions == 0) {
         join_btn->ChangeFlags(1, false);
         join_btn->SetDowned(false);
-    }
-    else {
+    } else {
         join_btn->ChangeFlags(1, true);
     }
     join_btn->VMethod9();
@@ -21992,11 +22097,9 @@ void VisNetDlg::RefreshSessions()
     int32_t provider = g_CLlDriver.GetProvider();
     if (provider == 3) {
         timeout = 0x5DC;
-    }
-    else if (provider == 2) {
+    } else if (provider == 2) {
         timeout = 0x12C;
-    }
-    else if (provider == 1) {
+    } else if (provider == 1) {
         timeout = 0xEA60;
     }
 
@@ -22064,25 +22167,21 @@ int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
         if (provider == 1) {
             g_CLlDriver.Close();
             PostMessageA(g_MainWndHWND, 0x455, 0, 0);
-        }
-        else {
+        } else {
             provider = g_CLlDriver.GetProvider();
             if (provider == 0) {
                 g_CLlDriver.Close();
                 PostMessageA(g_MainWndHWND, 0x454, 0, 0);
-            }
-            else {
+            } else {
                 provider = g_CLlDriver.GetProvider();
                 if (provider == 3) {
                     g_CLlDriver.Close();
                     if (main_wnd->field_0x3e0.field_10 == 0) {
                         PostMessageA(g_MainWndHWND, 0x453, 0, 0);
-                    }
-                    else {
+                    } else {
                         PostMessageA(g_MainWndHWND, 0x489, 0, 0);
                     }
-                }
-                else {
+                } else {
                     g_CLlDriver.Close();
                     PostMessageA(g_MainWndHWND, 0x451, 0, 0);
                 }
@@ -22122,8 +22221,7 @@ int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
                 int32_t h = this->rect.Height();
                 int32_t w = this->rect.Width();
                 this->AddChild(new VisButton(2, w / 2 - 0x30, h / 2 + 0xC, w / 2 + 0x30, h / 2 + 0x24, txt_dialogs.GetLine(1), g_font1, clrsh_TechBlack, 0x446, 0, ""));
-            }
-            else {
+            } else {
                 if (g_CLlDriver.GetProvider() == 1) {
                     char* word = ExtractFirstWord(main_wnd->phone_book.phones.ElementAt(0));
                     if (word != nullptr) {
@@ -22134,8 +22232,7 @@ int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
                 main_wnd->PostMessage(0x44C, (WPARAM)this, 0);
                 AfxGetMainWnd()->PostMessage(0x44F, 0, 0);
             }
-        }
-        else {
+        } else {
             this->FillServerList();
             this->UpdatePlayerList();
             this->sessions->field_0x4 = this->selected;
@@ -22162,16 +22259,14 @@ void VisNetDlg::VMethod26()
 
         if (g_CLlDriver.GetProvider() == 1) {
             this->AddChild(new VisLabel(1, 0x28, 0x30, 0xDC, 0x4A, txt_dialogs.GetLine(0x77), g_font1, p_clrsh_Black, 0));
-        }
-        else {
+        } else {
             this->AddChild(new VisLabel(1, 0x28, 0x30, 0xDC, 0x4A, txt_dialogs.GetLine(0xA3), g_font1, p_clrsh_Black, 0));
         }
 
         int32_t h = this->rect.Height();
         int32_t w = this->rect.Width();
         this->AddChild(new VisButton(2, w / 2 - 0x30, h / 2 + 0xC, w / 2 + 0x30, h / 2 + 0x24, txt_dialogs.GetLine(1), g_font1, nullptr, 0x47C, 0, ""));
-    }
-    else {
+    } else {
         this->CreateSessionList();
     }
 
@@ -25141,8 +25236,7 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
         if (list->state == 0) {
             list->vis_start_index = 0;
             list->SetSelectedIndex(0);
-        }
-        else {
+        } else {
             for (int32_t i = 0; i < DAT_00666a00.GetSize(); i++) {
                 list->AddItem(DAT_00666a00[i]);
             }

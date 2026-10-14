@@ -71,8 +71,9 @@ void CByteArray::SetSize(int nNewSize, int nGrowBy)
 	ASSERT_VALID(this);
 	ASSERT(nNewSize >= 0);
 
-	if (nGrowBy != -1)
+	if (nGrowBy != -1) {
 		m_nGrowBy = nGrowBy;  // set new size
+	}
 
 	if (nNewSize == 0)
 	{
@@ -80,8 +81,7 @@ void CByteArray::SetSize(int nNewSize, int nGrowBy)
 		delete[](BYTE*)m_pData;
 		m_pData = NULL;
 		m_nSize = m_nMaxSize = 0;
-	}
-	else if (m_pData == NULL)
+	} else if (m_pData == NULL)
 	{
 		// create one with exact size
 #ifdef SIZE_T_MAX
@@ -92,8 +92,7 @@ void CByteArray::SetSize(int nNewSize, int nGrowBy)
 		memset(m_pData, 0, nNewSize * sizeof(BYTE));  // zero fill
 
 		m_nSize = m_nMaxSize = nNewSize;
-	}
-	else if (nNewSize <= m_nMaxSize)
+	} else if (nNewSize <= m_nMaxSize)
 	{
 		// it fits
 		if (nNewSize > m_nSize)
@@ -105,9 +104,7 @@ void CByteArray::SetSize(int nNewSize, int nGrowBy)
 		}
 
 		m_nSize = nNewSize;
-	}
-	else
-	{
+	} else {
 		// otherwise, grow array
 		int nGrowBy = m_nGrowBy;
 		if (nGrowBy == 0)
@@ -117,10 +114,11 @@ void CByteArray::SetSize(int nNewSize, int nGrowBy)
 			nGrowBy = min(1024, max(4, m_nSize / 8));
 		}
 		int nNewMax;
-		if (nNewSize < m_nMaxSize + nGrowBy)
+		if (nNewSize < m_nMaxSize + nGrowBy) {
 			nNewMax = m_nMaxSize + nGrowBy;  // granularity
-		else
+		} else {
 			nNewMax = nNewSize;  // no slush
+		}
 
 		ASSERT(nNewMax >= m_nMaxSize);  // no wrap around
 #ifdef SIZE_T_MAX
@@ -201,8 +199,9 @@ void CByteArray::SetAtGrow(int nIndex, BYTE newElement)
 	ASSERT_VALID(this);
 	ASSERT(nIndex >= 0);
 
-	if (nIndex >= m_nSize)
+	if (nIndex >= m_nSize) {
 		SetSize(nIndex + 1);
+	}
 	m_pData[nIndex] = newElement;
 }
 
@@ -216,9 +215,7 @@ void CByteArray::InsertAt(int nIndex, BYTE newElement, int nCount)
 	{
 		// adding after the end of the array
 		SetSize(nIndex + nCount);  // grow so nIndex is valid
-	}
-	else
-	{
+	} else {
 		// inserting in the middle of the array
 		int nOldSize = m_nSize;
 		SetSize(m_nSize + nCount);  // grow it to new size
@@ -234,8 +231,9 @@ void CByteArray::InsertAt(int nIndex, BYTE newElement, int nCount)
 
 	// insert new value in the gap
 	ASSERT(nIndex + nCount <= m_nSize);
-	while (nCount--)
+	while (nCount--) {
 		m_pData[nIndex++] = newElement;
+	}
 }
 
 void CByteArray::RemoveAt(int nIndex, int nCount)
@@ -248,9 +246,10 @@ void CByteArray::RemoveAt(int nIndex, int nCount)
 	// just remove a range
 	int nMoveCount = m_nSize - (nIndex + nCount);
 
-	if (nMoveCount)
+	if (nMoveCount) {
 		memcpy(&m_pData[nIndex], &m_pData[nIndex + nCount],
 			nMoveCount * sizeof(BYTE));
+	}
 	m_nSize -= nCount;
 }
 
@@ -265,8 +264,9 @@ void CByteArray::InsertAt(int nStartIndex, CByteArray* pNewArray)
 	if (pNewArray->GetSize() > 0)
 	{
 		InsertAt(nStartIndex, pNewArray->GetAt(0), pNewArray->GetSize());
-		for (int i = 0; i < pNewArray->GetSize(); i++)
+		for (int i = 0; i < pNewArray->GetSize(); i++) {
 			SetAt(nStartIndex + i, pNewArray->GetAt(i));
+		}
 	}
 }
 
@@ -285,9 +285,7 @@ void CByteArray::Serialize(CArchive& ar)
 	{
 		ar.WriteCount(m_nSize);
 		ar.Write(m_pData, m_nSize * sizeof(BYTE));
-	}
-	else
-	{
+	} else {
 		DWORD nOldSize = ar.ReadCount();
 		SetSize(nOldSize);
 		ar.Read(m_pData, m_nSize * sizeof(BYTE));
@@ -364,8 +362,9 @@ void CWordArray::SetSize(int nNewSize, int nGrowBy)
 	ASSERT_VALID(this);
 	ASSERT(nNewSize >= 0);
 
-	if (nGrowBy != -1)
+	if (nGrowBy != -1) {
 		m_nGrowBy = nGrowBy;  // set new size
+	}
 
 	if (nNewSize == 0)
 	{
@@ -373,8 +372,7 @@ void CWordArray::SetSize(int nNewSize, int nGrowBy)
 		delete[](BYTE*)m_pData;
 		m_pData = NULL;
 		m_nSize = m_nMaxSize = 0;
-	}
-	else if (m_pData == NULL)
+	} else if (m_pData == NULL)
 	{
 		// create one with exact size
 #ifdef SIZE_T_MAX
@@ -385,8 +383,7 @@ void CWordArray::SetSize(int nNewSize, int nGrowBy)
 		memset(m_pData, 0, nNewSize * sizeof(WORD));  // zero fill
 
 		m_nSize = m_nMaxSize = nNewSize;
-	}
-	else if (nNewSize <= m_nMaxSize)
+	} else if (nNewSize <= m_nMaxSize)
 	{
 		// it fits
 		if (nNewSize > m_nSize)
@@ -398,9 +395,7 @@ void CWordArray::SetSize(int nNewSize, int nGrowBy)
 		}
 
 		m_nSize = nNewSize;
-	}
-	else
-	{
+	} else {
 		// otherwise, grow array
 		int nGrowBy = m_nGrowBy;
 		if (nGrowBy == 0)
@@ -410,10 +405,11 @@ void CWordArray::SetSize(int nNewSize, int nGrowBy)
 			nGrowBy = min(1024, max(4, m_nSize / 8));
 		}
 		int nNewMax;
-		if (nNewSize < m_nMaxSize + nGrowBy)
+		if (nNewSize < m_nMaxSize + nGrowBy) {
 			nNewMax = m_nMaxSize + nGrowBy;  // granularity
-		else
+		} else {
 			nNewMax = nNewSize;  // no slush
+		}
 
 		ASSERT(nNewMax >= m_nMaxSize);  // no wrap around
 #ifdef SIZE_T_MAX
@@ -494,8 +490,9 @@ void CWordArray::SetAtGrow(int nIndex, WORD newElement)
 	ASSERT_VALID(this);
 	ASSERT(nIndex >= 0);
 
-	if (nIndex >= m_nSize)
+	if (nIndex >= m_nSize) {
 		SetSize(nIndex + 1);
+	}
 	m_pData[nIndex] = newElement;
 }
 
@@ -509,9 +506,7 @@ void CWordArray::InsertAt(int nIndex, WORD newElement, int nCount)
 	{
 		// adding after the end of the array
 		SetSize(nIndex + nCount);  // grow so nIndex is valid
-	}
-	else
-	{
+	} else {
 		// inserting in the middle of the array
 		int nOldSize = m_nSize;
 		SetSize(m_nSize + nCount);  // grow it to new size
@@ -527,8 +522,9 @@ void CWordArray::InsertAt(int nIndex, WORD newElement, int nCount)
 
 	// insert new value in the gap
 	ASSERT(nIndex + nCount <= m_nSize);
-	while (nCount--)
+	while (nCount--) {
 		m_pData[nIndex++] = newElement;
+	}
 }
 
 void CWordArray::RemoveAt(int nIndex, int nCount)
@@ -541,9 +537,10 @@ void CWordArray::RemoveAt(int nIndex, int nCount)
 	// just remove a range
 	int nMoveCount = m_nSize - (nIndex + nCount);
 
-	if (nMoveCount)
+	if (nMoveCount) {
 		memcpy(&m_pData[nIndex], &m_pData[nIndex + nCount],
 			nMoveCount * sizeof(WORD));
+	}
 	m_nSize -= nCount;
 }
 
@@ -558,8 +555,9 @@ void CWordArray::InsertAt(int nStartIndex, CWordArray* pNewArray)
 	if (pNewArray->GetSize() > 0)
 	{
 		InsertAt(nStartIndex, pNewArray->GetAt(0), pNewArray->GetSize());
-		for (int i = 0; i < pNewArray->GetSize(); i++)
+		for (int i = 0; i < pNewArray->GetSize(); i++) {
 			SetAt(nStartIndex + i, pNewArray->GetAt(i));
+		}
 	}
 }
 
@@ -579,9 +577,7 @@ void CWordArray::Serialize(CArchive& ar)
 	{
 		ar.WriteCount(m_nSize);
 		ar.Write(m_pData, m_nSize * sizeof(WORD));
-	}
-	else
-	{
+	} else {
 		DWORD nOldSize = ar.ReadCount();
 		SetSize(nOldSize);
 		ar.Read(m_pData, m_nSize * sizeof(WORD));
@@ -656,8 +652,9 @@ void CDWordArray::SetSize(int nNewSize, int nGrowBy)
 	ASSERT_VALID(this);
 	ASSERT(nNewSize >= 0);
 
-	if (nGrowBy != -1)
+	if (nGrowBy != -1) {
 		m_nGrowBy = nGrowBy;  // set new size
+	}
 
 	if (nNewSize == 0)
 	{
@@ -665,8 +662,7 @@ void CDWordArray::SetSize(int nNewSize, int nGrowBy)
 		delete[](BYTE*)m_pData;
 		m_pData = NULL;
 		m_nSize = m_nMaxSize = 0;
-	}
-	else if (m_pData == NULL)
+	} else if (m_pData == NULL)
 	{
 		// create one with exact size
 #ifdef SIZE_T_MAX
@@ -677,8 +673,7 @@ void CDWordArray::SetSize(int nNewSize, int nGrowBy)
 		memset(m_pData, 0, nNewSize * sizeof(DWORD));  // zero fill
 
 		m_nSize = m_nMaxSize = nNewSize;
-	}
-	else if (nNewSize <= m_nMaxSize)
+	} else if (nNewSize <= m_nMaxSize)
 	{
 		// it fits
 		if (nNewSize > m_nSize)
@@ -690,9 +685,7 @@ void CDWordArray::SetSize(int nNewSize, int nGrowBy)
 		}
 
 		m_nSize = nNewSize;
-	}
-	else
-	{
+	} else {
 		// otherwise, grow array
 		int nGrowBy = m_nGrowBy;
 		if (nGrowBy == 0)
@@ -702,10 +695,11 @@ void CDWordArray::SetSize(int nNewSize, int nGrowBy)
 			nGrowBy = min(1024, max(4, m_nSize / 8));
 		}
 		int nNewMax;
-		if (nNewSize < m_nMaxSize + nGrowBy)
+		if (nNewSize < m_nMaxSize + nGrowBy) {
 			nNewMax = m_nMaxSize + nGrowBy;  // granularity
-		else
+		} else {
 			nNewMax = nNewSize;  // no slush
+		}
 
 		ASSERT(nNewMax >= m_nMaxSize);  // no wrap around
 #ifdef SIZE_T_MAX
@@ -786,8 +780,9 @@ void CDWordArray::SetAtGrow(int nIndex, DWORD newElement)
 	ASSERT_VALID(this);
 	ASSERT(nIndex >= 0);
 
-	if (nIndex >= m_nSize)
+	if (nIndex >= m_nSize) {
 		SetSize(nIndex + 1);
+	}
 	m_pData[nIndex] = newElement;
 }
 
@@ -801,9 +796,7 @@ void CDWordArray::InsertAt(int nIndex, DWORD newElement, int nCount)
 	{
 		// adding after the end of the array
 		SetSize(nIndex + nCount);  // grow so nIndex is valid
-	}
-	else
-	{
+	} else {
 		// inserting in the middle of the array
 		int nOldSize = m_nSize;
 		SetSize(m_nSize + nCount);  // grow it to new size
@@ -819,8 +812,9 @@ void CDWordArray::InsertAt(int nIndex, DWORD newElement, int nCount)
 
 	// insert new value in the gap
 	ASSERT(nIndex + nCount <= m_nSize);
-	while (nCount--)
+	while (nCount--) {
 		m_pData[nIndex++] = newElement;
+	}
 }
 
 void CDWordArray::RemoveAt(int nIndex, int nCount)
@@ -833,9 +827,10 @@ void CDWordArray::RemoveAt(int nIndex, int nCount)
 	// just remove a range
 	int nMoveCount = m_nSize - (nIndex + nCount);
 
-	if (nMoveCount)
+	if (nMoveCount) {
 		memcpy(&m_pData[nIndex], &m_pData[nIndex + nCount],
 			nMoveCount * sizeof(DWORD));
+	}
 	m_nSize -= nCount;
 }
 
@@ -850,8 +845,9 @@ void CDWordArray::InsertAt(int nStartIndex, CDWordArray* pNewArray)
 	if (pNewArray->GetSize() > 0)
 	{
 		InsertAt(nStartIndex, pNewArray->GetAt(0), pNewArray->GetSize());
-		for (int i = 0; i < pNewArray->GetSize(); i++)
+		for (int i = 0; i < pNewArray->GetSize(); i++) {
 			SetAt(nStartIndex + i, pNewArray->GetAt(i));
+		}
 	}
 }
 
@@ -871,9 +867,7 @@ void CDWordArray::Serialize(CArchive& ar)
 	{
 		ar.WriteCount(m_nSize);
 		ar.Write(m_pData, m_nSize * sizeof(DWORD));
-	}
-	else
-	{
+	} else {
 		DWORD nOldSize = ar.ReadCount();
 		SetSize(nOldSize);
 		ar.Read(m_pData, m_nSize * sizeof(DWORD));
@@ -947,8 +941,9 @@ void CUIntArray::SetSize(int nNewSize, int nGrowBy)
 	ASSERT_VALID(this);
 	ASSERT(nNewSize >= 0);
 
-	if (nGrowBy != -1)
+	if (nGrowBy != -1) {
 		m_nGrowBy = nGrowBy;  // set new size
+	}
 
 	if (nNewSize == 0)
 	{
@@ -956,8 +951,7 @@ void CUIntArray::SetSize(int nNewSize, int nGrowBy)
 		delete[](BYTE*)m_pData;
 		m_pData = NULL;
 		m_nSize = m_nMaxSize = 0;
-	}
-	else if (m_pData == NULL)
+	} else if (m_pData == NULL)
 	{
 		// create one with exact size
 #ifdef SIZE_T_MAX
@@ -968,8 +962,7 @@ void CUIntArray::SetSize(int nNewSize, int nGrowBy)
 		memset(m_pData, 0, nNewSize * sizeof(UINT));  // zero fill
 
 		m_nSize = m_nMaxSize = nNewSize;
-	}
-	else if (nNewSize <= m_nMaxSize)
+	} else if (nNewSize <= m_nMaxSize)
 	{
 		// it fits
 		if (nNewSize > m_nSize)
@@ -981,9 +974,7 @@ void CUIntArray::SetSize(int nNewSize, int nGrowBy)
 		}
 
 		m_nSize = nNewSize;
-	}
-	else
-	{
+	} else {
 		// otherwise, grow array
 		int nGrowBy = m_nGrowBy;
 		if (nGrowBy == 0)
@@ -993,10 +984,11 @@ void CUIntArray::SetSize(int nNewSize, int nGrowBy)
 			nGrowBy = min(1024, max(4, m_nSize / 8));
 		}
 		int nNewMax;
-		if (nNewSize < m_nMaxSize + nGrowBy)
+		if (nNewSize < m_nMaxSize + nGrowBy) {
 			nNewMax = m_nMaxSize + nGrowBy;  // granularity
-		else
+		} else {
 			nNewMax = nNewSize;  // no slush
+		}
 
 		ASSERT(nNewMax >= m_nMaxSize);  // no wrap around
 #ifdef SIZE_T_MAX
@@ -1077,8 +1069,9 @@ void CUIntArray::SetAtGrow(int nIndex, UINT newElement)
 	ASSERT_VALID(this);
 	ASSERT(nIndex >= 0);
 
-	if (nIndex >= m_nSize)
+	if (nIndex >= m_nSize) {
 		SetSize(nIndex + 1);
+	}
 	m_pData[nIndex] = newElement;
 }
 
@@ -1092,9 +1085,7 @@ void CUIntArray::InsertAt(int nIndex, UINT newElement, int nCount)
 	{
 		// adding after the end of the array
 		SetSize(nIndex + nCount);  // grow so nIndex is valid
-	}
-	else
-	{
+	} else {
 		// inserting in the middle of the array
 		int nOldSize = m_nSize;
 		SetSize(m_nSize + nCount);  // grow it to new size
@@ -1110,8 +1101,9 @@ void CUIntArray::InsertAt(int nIndex, UINT newElement, int nCount)
 
 	// insert new value in the gap
 	ASSERT(nIndex + nCount <= m_nSize);
-	while (nCount--)
+	while (nCount--) {
 		m_pData[nIndex++] = newElement;
+	}
 }
 
 void CUIntArray::RemoveAt(int nIndex, int nCount)
@@ -1124,9 +1116,10 @@ void CUIntArray::RemoveAt(int nIndex, int nCount)
 	// just remove a range
 	int nMoveCount = m_nSize - (nIndex + nCount);
 
-	if (nMoveCount)
+	if (nMoveCount) {
 		memcpy(&m_pData[nIndex], &m_pData[nIndex + nCount],
 			nMoveCount * sizeof(UINT));
+	}
 	m_nSize -= nCount;
 }
 
@@ -1141,8 +1134,9 @@ void CUIntArray::InsertAt(int nStartIndex, CUIntArray* pNewArray)
 	if (pNewArray->GetSize() > 0)
 	{
 		InsertAt(nStartIndex, pNewArray->GetAt(0), pNewArray->GetSize());
-		for (int i = 0; i < pNewArray->GetSize(); i++)
+		for (int i = 0; i < pNewArray->GetSize(); i++) {
 			SetAt(nStartIndex + i, pNewArray->GetAt(i));
+		}
 	}
 }
 
@@ -1217,8 +1211,9 @@ void CPtrArray::SetSize(int nNewSize, int nGrowBy)
 	ASSERT_VALID(this);
 	ASSERT(nNewSize >= 0);
 
-	if (nGrowBy != -1)
+	if (nGrowBy != -1) {
 		m_nGrowBy = nGrowBy;  // set new size
+	}
 
 	if (nNewSize == 0)
 	{
@@ -1226,8 +1221,7 @@ void CPtrArray::SetSize(int nNewSize, int nGrowBy)
 		delete[](BYTE*)m_pData;
 		m_pData = NULL;
 		m_nSize = m_nMaxSize = 0;
-	}
-	else if (m_pData == NULL)
+	} else if (m_pData == NULL)
 	{
 		// create one with exact size
 #ifdef SIZE_T_MAX
@@ -1238,8 +1232,7 @@ void CPtrArray::SetSize(int nNewSize, int nGrowBy)
 		memset(m_pData, 0, nNewSize * sizeof(void*));  // zero fill
 
 		m_nSize = m_nMaxSize = nNewSize;
-	}
-	else if (nNewSize <= m_nMaxSize)
+	} else if (nNewSize <= m_nMaxSize)
 	{
 		// it fits
 		if (nNewSize > m_nSize)
@@ -1251,9 +1244,7 @@ void CPtrArray::SetSize(int nNewSize, int nGrowBy)
 		}
 
 		m_nSize = nNewSize;
-	}
-	else
-	{
+	} else {
 		// otherwise, grow array
 		int nGrowBy = m_nGrowBy;
 		if (nGrowBy == 0)
@@ -1263,10 +1254,11 @@ void CPtrArray::SetSize(int nNewSize, int nGrowBy)
 			nGrowBy = min(1024, max(4, m_nSize / 8));
 		}
 		int nNewMax;
-		if (nNewSize < m_nMaxSize + nGrowBy)
+		if (nNewSize < m_nMaxSize + nGrowBy) {
 			nNewMax = m_nMaxSize + nGrowBy;  // granularity
-		else
+		} else {
 			nNewMax = nNewSize;  // no slush
+		}
 
 		ASSERT(nNewMax >= m_nMaxSize);  // no wrap around
 #ifdef SIZE_T_MAX
@@ -1347,8 +1339,9 @@ void CPtrArray::SetAtGrow(int nIndex, void* newElement)
 	ASSERT_VALID(this);
 	ASSERT(nIndex >= 0);
 
-	if (nIndex >= m_nSize)
+	if (nIndex >= m_nSize) {
 		SetSize(nIndex + 1);
+	}
 	m_pData[nIndex] = newElement;
 }
 
@@ -1362,9 +1355,7 @@ void CPtrArray::InsertAt(int nIndex, void* newElement, int nCount)
 	{
 		// adding after the end of the array
 		SetSize(nIndex + nCount);  // grow so nIndex is valid
-	}
-	else
-	{
+	} else {
 		// inserting in the middle of the array
 		int nOldSize = m_nSize;
 		SetSize(m_nSize + nCount);  // grow it to new size
@@ -1380,8 +1371,9 @@ void CPtrArray::InsertAt(int nIndex, void* newElement, int nCount)
 
 	// insert new value in the gap
 	ASSERT(nIndex + nCount <= m_nSize);
-	while (nCount--)
+	while (nCount--) {
 		m_pData[nIndex++] = newElement;
+	}
 }
 
 void CPtrArray::RemoveAt(int nIndex, int nCount)
@@ -1394,9 +1386,10 @@ void CPtrArray::RemoveAt(int nIndex, int nCount)
 	// just remove a range
 	int nMoveCount = m_nSize - (nIndex + nCount);
 
-	if (nMoveCount)
+	if (nMoveCount) {
 		memcpy(&m_pData[nIndex], &m_pData[nIndex + nCount],
 			nMoveCount * sizeof(void*));
+	}
 	m_nSize -= nCount;
 }
 
@@ -1411,8 +1404,9 @@ void CPtrArray::InsertAt(int nStartIndex, CPtrArray* pNewArray)
 	if (pNewArray->GetSize() > 0)
 	{
 		InsertAt(nStartIndex, pNewArray->GetAt(0), pNewArray->GetSize());
-		for (int i = 0; i < pNewArray->GetSize(); i++)
+		for (int i = 0; i < pNewArray->GetSize(); i++) {
 			SetAt(nStartIndex + i, pNewArray->GetAt(i));
+		}
 	}
 }
 
@@ -1489,8 +1483,9 @@ void CObArray::SetSize(int nNewSize, int nGrowBy)
 	ASSERT_VALID(this);
 	ASSERT(nNewSize >= 0);
 
-	if (nGrowBy != -1)
+	if (nGrowBy != -1) {
 		m_nGrowBy = nGrowBy;  // set new size
+	}
 
 	if (nNewSize == 0)
 	{
@@ -1498,8 +1493,7 @@ void CObArray::SetSize(int nNewSize, int nGrowBy)
 		delete[](BYTE*)m_pData;
 		m_pData = NULL;
 		m_nSize = m_nMaxSize = 0;
-	}
-	else if (m_pData == NULL)
+	} else if (m_pData == NULL)
 	{
 		// create one with exact size
 #ifdef SIZE_T_MAX
@@ -1510,8 +1504,7 @@ void CObArray::SetSize(int nNewSize, int nGrowBy)
 		memset(m_pData, 0, nNewSize * sizeof(CObject*));  // zero fill
 
 		m_nSize = m_nMaxSize = nNewSize;
-	}
-	else if (nNewSize <= m_nMaxSize)
+	} else if (nNewSize <= m_nMaxSize)
 	{
 		// it fits
 		if (nNewSize > m_nSize)
@@ -1523,9 +1516,7 @@ void CObArray::SetSize(int nNewSize, int nGrowBy)
 		}
 
 		m_nSize = nNewSize;
-	}
-	else
-	{
+	} else {
 		// otherwise, grow array
 		int nGrowBy = m_nGrowBy;
 		if (nGrowBy == 0)
@@ -1535,10 +1526,11 @@ void CObArray::SetSize(int nNewSize, int nGrowBy)
 			nGrowBy = min(1024, max(4, m_nSize / 8));
 		}
 		int nNewMax;
-		if (nNewSize < m_nMaxSize + nGrowBy)
+		if (nNewSize < m_nMaxSize + nGrowBy) {
 			nNewMax = m_nMaxSize + nGrowBy;  // granularity
-		else
+		} else {
 			nNewMax = nNewSize;  // no slush
+		}
 
 		ASSERT(nNewMax >= m_nMaxSize);  // no wrap around
 #ifdef SIZE_T_MAX
@@ -1619,8 +1611,9 @@ void CObArray::SetAtGrow(int nIndex, CObject* newElement)
 	ASSERT_VALID(this);
 	ASSERT(nIndex >= 0);
 
-	if (nIndex >= m_nSize)
+	if (nIndex >= m_nSize) {
 		SetSize(nIndex + 1);
+	}
 	m_pData[nIndex] = newElement;
 }
 
@@ -1634,9 +1627,7 @@ void CObArray::InsertAt(int nIndex, CObject* newElement, int nCount)
 	{
 		// adding after the end of the array
 		SetSize(nIndex + nCount);  // grow so nIndex is valid
-	}
-	else
-	{
+	} else {
 		// inserting in the middle of the array
 		int nOldSize = m_nSize;
 		SetSize(m_nSize + nCount);  // grow it to new size
@@ -1652,8 +1643,9 @@ void CObArray::InsertAt(int nIndex, CObject* newElement, int nCount)
 
 	// insert new value in the gap
 	ASSERT(nIndex + nCount <= m_nSize);
-	while (nCount--)
+	while (nCount--) {
 		m_pData[nIndex++] = newElement;
+	}
 }
 
 void CObArray::RemoveAt(int nIndex, int nCount)
@@ -1666,9 +1658,10 @@ void CObArray::RemoveAt(int nIndex, int nCount)
 	// just remove a range
 	int nMoveCount = m_nSize - (nIndex + nCount);
 
-	if (nMoveCount)
+	if (nMoveCount) {
 		memcpy(&m_pData[nIndex], &m_pData[nIndex + nCount],
 			nMoveCount * sizeof(CObject*));
+	}
 	m_nSize -= nCount;
 }
 
@@ -1683,8 +1676,9 @@ void CObArray::InsertAt(int nStartIndex, CObArray* pNewArray)
 	if (pNewArray->GetSize() > 0)
 	{
 		InsertAt(nStartIndex, pNewArray->GetAt(0), pNewArray->GetSize());
-		for (int i = 0; i < pNewArray->GetSize(); i++)
+		for (int i = 0; i < pNewArray->GetSize(); i++) {
 			SetAt(nStartIndex + i, pNewArray->GetAt(i));
+		}
 	}
 }
 
@@ -1701,15 +1695,15 @@ void CObArray::Serialize(CArchive& ar)
 	if (ar.IsStoring())
 	{
 		ar.WriteCount(m_nSize);
-		for (int i = 0; i < m_nSize; i++)
+		for (int i = 0; i < m_nSize; i++) {
 			ar << m_pData[i];
-	}
-	else
-	{
+		}
+	} else {
 		DWORD nOldSize = ar.ReadCount();
 		SetSize(nOldSize);
-		for (int i = 0; i < m_nSize; i++)
+		for (int i = 0; i < m_nSize; i++) {
 			ar >> m_pData[i];
+		}
 	}
 }
 
@@ -1823,8 +1817,9 @@ void CStringArray::SetSize(int nNewSize, int nGrowBy)
 	ASSERT_VALID(this);
 	ASSERT(nNewSize >= 0);
 
-	if (nGrowBy != -1)
+	if (nGrowBy != -1) {
 		m_nGrowBy = nGrowBy;  // set new size
+	}
 
 	if (nNewSize == 0)
 	{
@@ -1834,8 +1829,7 @@ void CStringArray::SetSize(int nNewSize, int nGrowBy)
 		delete[](BYTE*)m_pData;
 		m_pData = NULL;
 		m_nSize = m_nMaxSize = 0;
-	}
-	else if (m_pData == NULL)
+	} else if (m_pData == NULL)
 	{
 		// create one with exact size
 #ifdef SIZE_T_MAX
@@ -1846,8 +1840,7 @@ void CStringArray::SetSize(int nNewSize, int nGrowBy)
 		ConstructElements(m_pData, nNewSize);
 
 		m_nSize = m_nMaxSize = nNewSize;
-	}
-	else if (nNewSize <= m_nMaxSize)
+	} else if (nNewSize <= m_nMaxSize)
 	{
 		// it fits
 		if (nNewSize > m_nSize)
@@ -1858,13 +1851,12 @@ void CStringArray::SetSize(int nNewSize, int nGrowBy)
 
 		}
 
-		else if (m_nSize > nNewSize)  // destroy the old elements
+		else if (m_nSize > nNewSize) {  // destroy the old elements
 			DestructElements(&m_pData[nNewSize], m_nSize - nNewSize);
+		}
 
 		m_nSize = nNewSize;
-	}
-	else
-	{
+	} else {
 		// otherwise, grow array
 		int nGrowBy = m_nGrowBy;
 		if (nGrowBy == 0)
@@ -1874,10 +1866,11 @@ void CStringArray::SetSize(int nNewSize, int nGrowBy)
 			nGrowBy = min(1024, max(4, m_nSize / 8));
 		}
 		int nNewMax;
-		if (nNewSize < m_nMaxSize + nGrowBy)
+		if (nNewSize < m_nMaxSize + nGrowBy) {
 			nNewMax = m_nMaxSize + nGrowBy;  // granularity
-		else
+		} else {
 			nNewMax = nNewSize;  // no slush
+		}
 
 		ASSERT(nNewMax >= m_nMaxSize);  // no wrap around
 #ifdef SIZE_T_MAX
@@ -1958,8 +1951,9 @@ void CStringArray::SetAtGrow(int nIndex, LPCTSTR newElement)
 	ASSERT_VALID(this);
 	ASSERT(nIndex >= 0);
 
-	if (nIndex >= m_nSize)
+	if (nIndex >= m_nSize) {
 		SetSize(nIndex + 1);
+	}
 	m_pData[nIndex] = newElement;
 }
 
@@ -1973,9 +1967,7 @@ void CStringArray::InsertAt(int nIndex, LPCTSTR newElement, int nCount)
 	{
 		// adding after the end of the array
 		SetSize(nIndex + nCount);  // grow so nIndex is valid
-	}
-	else
-	{
+	} else {
 		// inserting in the middle of the array
 		int nOldSize = m_nSize;
 		SetSize(m_nSize + nCount);  // grow it to new size
@@ -1991,8 +1983,9 @@ void CStringArray::InsertAt(int nIndex, LPCTSTR newElement, int nCount)
 
 	// insert new value in the gap
 	ASSERT(nIndex + nCount <= m_nSize);
-	while (nCount--)
+	while (nCount--) {
 		m_pData[nIndex++] = newElement;
+	}
 }
 
 void CStringArray::RemoveAt(int nIndex, int nCount)
@@ -2007,9 +2000,10 @@ void CStringArray::RemoveAt(int nIndex, int nCount)
 
 	DestructElements(&m_pData[nIndex], nCount);
 
-	if (nMoveCount)
+	if (nMoveCount) {
 		memcpy(&m_pData[nIndex], &m_pData[nIndex + nCount],
 			nMoveCount * sizeof(CString));
+	}
 	m_nSize -= nCount;
 }
 
@@ -2024,8 +2018,9 @@ void CStringArray::InsertAt(int nStartIndex, CStringArray* pNewArray)
 	if (pNewArray->GetSize() > 0)
 	{
 		InsertAt(nStartIndex, pNewArray->GetAt(0), pNewArray->GetSize());
-		for (int i = 0; i < pNewArray->GetSize(); i++)
+		for (int i = 0; i < pNewArray->GetSize(); i++) {
 			SetAt(nStartIndex + i, pNewArray->GetAt(i));
+		}
 	}
 }
 
@@ -2042,15 +2037,15 @@ void CStringArray::Serialize(CArchive& ar)
 	if (ar.IsStoring())
 	{
 		ar.WriteCount(m_nSize);
-		for (int i = 0; i < m_nSize; i++)
+		for (int i = 0; i < m_nSize; i++) {
 			ar << m_pData[i];
-	}
-	else
-	{
+		}
+	} else {
 		DWORD nOldSize = ar.ReadCount();
 		SetSize(nOldSize);
-		for (int i = 0; i < m_nSize; i++)
+		for (int i = 0; i < m_nSize; i++) {
 			ar >> m_pData[i];
+		}
 	}
 }
 
@@ -2222,8 +2217,9 @@ void CPtrList::FreeNode(CPtrList::CNode* pNode)
 	ASSERT(m_nCount >= 0);  // make sure we don't underflow
 
 	// if no more elements, cleanup completely
-	if (m_nCount == 0)
+	if (m_nCount == 0) {
 		RemoveAll();
+	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -2234,10 +2230,11 @@ POSITION CPtrList::AddHead(void* newElement)
 
 	CNode* pNewNode = NewNode(NULL, m_pNodeHead);
 	pNewNode->data = newElement;
-	if (m_pNodeHead != NULL)
+	if (m_pNodeHead != NULL) {
 		m_pNodeHead->pPrev = pNewNode;
-	else
+	} else {
 		m_pNodeTail = pNewNode;
+	}
 	m_pNodeHead = pNewNode;
 	return (POSITION)pNewNode;
 }
@@ -2248,10 +2245,11 @@ POSITION CPtrList::AddTail(void* newElement)
 
 	CNode* pNewNode = NewNode(m_pNodeTail, NULL);
 	pNewNode->data = newElement;
-	if (m_pNodeTail != NULL)
+	if (m_pNodeTail != NULL) {
 		m_pNodeTail->pNext = pNewNode;
-	else
+	} else {
 		m_pNodeHead = pNewNode;
+	}
 	m_pNodeTail = pNewNode;
 	return (POSITION)pNewNode;
 }
@@ -2266,8 +2264,9 @@ void CPtrList::AddHead(CPtrList* pNewList)
 
 	// add a list of same elements to head (maintain order)
 	POSITION pos = pNewList->GetTailPosition();
-	while (pos != NULL)
+	while (pos != NULL) {
 		AddHead(pNewList->GetPrev(pos));
+	}
 }
 
 void CPtrList::AddTail(CPtrList* pNewList)
@@ -2279,8 +2278,9 @@ void CPtrList::AddTail(CPtrList* pNewList)
 
 	// add a list of same elements
 	POSITION pos = pNewList->GetHeadPosition();
-	while (pos != NULL)
+	while (pos != NULL) {
 		AddTail(pNewList->GetNext(pos));
+	}
 }
 
 void* CPtrList::RemoveHead()
@@ -2293,10 +2293,11 @@ void* CPtrList::RemoveHead()
 	void* returnValue = pOldNode->data;
 
 	m_pNodeHead = pOldNode->pNext;
-	if (m_pNodeHead != NULL)
+	if (m_pNodeHead != NULL) {
 		m_pNodeHead->pPrev = NULL;
-	else
+	} else {
 		m_pNodeTail = NULL;
+	}
 	FreeNode(pOldNode);
 	return returnValue;
 }
@@ -2311,10 +2312,11 @@ void* CPtrList::RemoveTail()
 	void* returnValue = pOldNode->data;
 
 	m_pNodeTail = pOldNode->pPrev;
-	if (m_pNodeTail != NULL)
+	if (m_pNodeTail != NULL) {
 		m_pNodeTail->pNext = NULL;
-	else
+	} else {
 		m_pNodeHead = NULL;
+	}
 	FreeNode(pOldNode);
 	return returnValue;
 }
@@ -2323,10 +2325,11 @@ POSITION CPtrList::InsertBefore(POSITION position, void* newElement)
 {
 	ASSERT_VALID(this);
 
-	if (position == NULL)
+	if (position == NULL) {
 		return AddHead(newElement); // insert before nothing -> head of the list
 
 	// Insert it before position
+	}
 	CNode* pOldNode = (CNode*)position;
 	CNode* pNewNode = NewNode(pOldNode->pPrev, pOldNode);
 	pNewNode->data = newElement;
@@ -2335,9 +2338,7 @@ POSITION CPtrList::InsertBefore(POSITION position, void* newElement)
 	{
 		ASSERT(AfxIsValidAddress(pOldNode->pPrev, sizeof(CNode)));
 		pOldNode->pPrev->pNext = pNewNode;
-	}
-	else
-	{
+	} else {
 		ASSERT(pOldNode == m_pNodeHead);
 		m_pNodeHead = pNewNode;
 	}
@@ -2349,10 +2350,11 @@ POSITION CPtrList::InsertAfter(POSITION position, void* newElement)
 {
 	ASSERT_VALID(this);
 
-	if (position == NULL)
+	if (position == NULL) {
 		return AddTail(newElement); // insert after nothing -> tail of the list
 
 	// Insert it before position
+	}
 	CNode* pOldNode = (CNode*)position;
 	ASSERT(AfxIsValidAddress(pOldNode, sizeof(CNode)));
 	CNode* pNewNode = NewNode(pOldNode, pOldNode->pNext);
@@ -2362,9 +2364,7 @@ POSITION CPtrList::InsertAfter(POSITION position, void* newElement)
 	{
 		ASSERT(AfxIsValidAddress(pOldNode->pNext, sizeof(CNode)));
 		pOldNode->pNext->pPrev = pNewNode;
-	}
-	else
-	{
+	} else {
 		ASSERT(pOldNode == m_pNodeTail);
 		m_pNodeTail = pNewNode;
 	}
@@ -2383,18 +2383,14 @@ void CPtrList::RemoveAt(POSITION position)
 	if (pOldNode == m_pNodeHead)
 	{
 		m_pNodeHead = pOldNode->pNext;
-	}
-	else
-	{
+	} else {
 		ASSERT(AfxIsValidAddress(pOldNode->pPrev, sizeof(CNode)));
 		pOldNode->pPrev->pNext = pOldNode->pNext;
 	}
 	if (pOldNode == m_pNodeTail)
 	{
 		m_pNodeTail = pOldNode->pPrev;
-	}
-	else
-	{
+	} else {
 		ASSERT(AfxIsValidAddress(pOldNode->pNext, sizeof(CNode)));
 		pOldNode->pNext->pPrev = pOldNode->pPrev;
 	}
@@ -2410,8 +2406,9 @@ POSITION CPtrList::FindIndex(int nIndex) const
 	ASSERT_VALID(this);
 	ASSERT(nIndex >= 0);
 
-	if (nIndex >= m_nCount)
+	if (nIndex >= m_nCount) {
 		return NULL;  // went too far
+	}
 
 	CNode* pNode = m_pNodeHead;
 	while (nIndex--)
@@ -2430,16 +2427,16 @@ POSITION CPtrList::Find(void* searchValue, POSITION startAfter) const
 	if (pNode == NULL)
 	{
 		pNode = m_pNodeHead;  // start at head
-	}
-	else
-	{
+	} else {
 		ASSERT(AfxIsValidAddress(pNode, sizeof(CNode)));
 		pNode = pNode->pNext;  // start after the one specified
 	}
 
-	for (; pNode != NULL; pNode = pNode->pNext)
-		if (pNode->data == searchValue)
+	for (; pNode != NULL; pNode = pNode->pNext) {
+		if (pNode->data == searchValue) {
 			return (POSITION)pNode;
+		}
+	}
 	return NULL;
 }
 
@@ -2599,8 +2596,9 @@ void CObList::FreeNode(CObList::CNode* pNode)
 	ASSERT(m_nCount >= 0);  // make sure we don't underflow
 
 	// if no more elements, cleanup completely
-	if (m_nCount == 0)
+	if (m_nCount == 0) {
 		RemoveAll();
+	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -2611,10 +2609,11 @@ POSITION CObList::AddHead(CObject* newElement)
 
 	CNode* pNewNode = NewNode(NULL, m_pNodeHead);
 	pNewNode->data = newElement;
-	if (m_pNodeHead != NULL)
+	if (m_pNodeHead != NULL) {
 		m_pNodeHead->pPrev = pNewNode;
-	else
+	} else {
 		m_pNodeTail = pNewNode;
+	}
 	m_pNodeHead = pNewNode;
 	return (POSITION)pNewNode;
 }
@@ -2625,10 +2624,11 @@ POSITION CObList::AddTail(CObject* newElement)
 
 	CNode* pNewNode = NewNode(m_pNodeTail, NULL);
 	pNewNode->data = newElement;
-	if (m_pNodeTail != NULL)
+	if (m_pNodeTail != NULL) {
 		m_pNodeTail->pNext = pNewNode;
-	else
+	} else {
 		m_pNodeHead = pNewNode;
+	}
 	m_pNodeTail = pNewNode;
 	return (POSITION)pNewNode;
 }
@@ -2643,8 +2643,9 @@ void CObList::AddHead(CObList* pNewList)
 
 	// add a list of same elements to head (maintain order)
 	POSITION pos = pNewList->GetTailPosition();
-	while (pos != NULL)
+	while (pos != NULL) {
 		AddHead(pNewList->GetPrev(pos));
+	}
 }
 
 void CObList::AddTail(CObList* pNewList)
@@ -2656,8 +2657,9 @@ void CObList::AddTail(CObList* pNewList)
 
 	// add a list of same elements
 	POSITION pos = pNewList->GetHeadPosition();
-	while (pos != NULL)
+	while (pos != NULL) {
 		AddTail(pNewList->GetNext(pos));
+	}
 }
 
 CObject* CObList::RemoveHead()
@@ -2670,10 +2672,11 @@ CObject* CObList::RemoveHead()
 	CObject* returnValue = pOldNode->data;
 
 	m_pNodeHead = pOldNode->pNext;
-	if (m_pNodeHead != NULL)
+	if (m_pNodeHead != NULL) {
 		m_pNodeHead->pPrev = NULL;
-	else
+	} else {
 		m_pNodeTail = NULL;
+	}
 	FreeNode(pOldNode);
 	return returnValue;
 }
@@ -2688,10 +2691,11 @@ CObject* CObList::RemoveTail()
 	CObject* returnValue = pOldNode->data;
 
 	m_pNodeTail = pOldNode->pPrev;
-	if (m_pNodeTail != NULL)
+	if (m_pNodeTail != NULL) {
 		m_pNodeTail->pNext = NULL;
-	else
+	} else {
 		m_pNodeHead = NULL;
+	}
 	FreeNode(pOldNode);
 	return returnValue;
 }
@@ -2700,10 +2704,11 @@ POSITION CObList::InsertBefore(POSITION position, CObject* newElement)
 {
 	ASSERT_VALID(this);
 
-	if (position == NULL)
+	if (position == NULL) {
 		return AddHead(newElement); // insert before nothing -> head of the list
 
 	// Insert it before position
+	}
 	CNode* pOldNode = (CNode*)position;
 	CNode* pNewNode = NewNode(pOldNode->pPrev, pOldNode);
 	pNewNode->data = newElement;
@@ -2712,9 +2717,7 @@ POSITION CObList::InsertBefore(POSITION position, CObject* newElement)
 	{
 		ASSERT(AfxIsValidAddress(pOldNode->pPrev, sizeof(CNode)));
 		pOldNode->pPrev->pNext = pNewNode;
-	}
-	else
-	{
+	} else {
 		ASSERT(pOldNode == m_pNodeHead);
 		m_pNodeHead = pNewNode;
 	}
@@ -2726,10 +2729,11 @@ POSITION CObList::InsertAfter(POSITION position, CObject* newElement)
 {
 	ASSERT_VALID(this);
 
-	if (position == NULL)
+	if (position == NULL) {
 		return AddTail(newElement); // insert after nothing -> tail of the list
 
 	// Insert it before position
+	}
 	CNode* pOldNode = (CNode*)position;
 	ASSERT(AfxIsValidAddress(pOldNode, sizeof(CNode)));
 	CNode* pNewNode = NewNode(pOldNode, pOldNode->pNext);
@@ -2739,9 +2743,7 @@ POSITION CObList::InsertAfter(POSITION position, CObject* newElement)
 	{
 		ASSERT(AfxIsValidAddress(pOldNode->pNext, sizeof(CNode)));
 		pOldNode->pNext->pPrev = pNewNode;
-	}
-	else
-	{
+	} else {
 		ASSERT(pOldNode == m_pNodeTail);
 		m_pNodeTail = pNewNode;
 	}
@@ -2760,18 +2762,14 @@ void CObList::RemoveAt(POSITION position)
 	if (pOldNode == m_pNodeHead)
 	{
 		m_pNodeHead = pOldNode->pNext;
-	}
-	else
-	{
+	} else {
 		ASSERT(AfxIsValidAddress(pOldNode->pPrev, sizeof(CNode)));
 		pOldNode->pPrev->pNext = pOldNode->pNext;
 	}
 	if (pOldNode == m_pNodeTail)
 	{
 		m_pNodeTail = pOldNode->pPrev;
-	}
-	else
-	{
+	} else {
 		ASSERT(AfxIsValidAddress(pOldNode->pNext, sizeof(CNode)));
 		pOldNode->pNext->pPrev = pOldNode->pPrev;
 	}
@@ -2787,8 +2785,9 @@ POSITION CObList::FindIndex(int nIndex) const
 	ASSERT_VALID(this);
 	ASSERT(nIndex >= 0);
 
-	if (nIndex >= m_nCount)
+	if (nIndex >= m_nCount) {
 		return NULL;  // went too far
+	}
 
 	CNode* pNode = m_pNodeHead;
 	while (nIndex--)
@@ -2807,16 +2806,16 @@ POSITION CObList::Find(CObject* searchValue, POSITION startAfter) const
 	if (pNode == NULL)
 	{
 		pNode = m_pNodeHead;  // start at head
-	}
-	else
-	{
+	} else {
 		ASSERT(AfxIsValidAddress(pNode, sizeof(CNode)));
 		pNode = pNode->pNext;  // start after the one specified
 	}
 
-	for (; pNode != NULL; pNode = pNode->pNext)
-		if (pNode->data == searchValue)
+	for (; pNode != NULL; pNode = pNode->pNext) {
+		if (pNode->data == searchValue) {
 			return (POSITION)pNode;
+		}
+	}
 	return NULL;
 }
 
@@ -2838,9 +2837,7 @@ void CObList::Serialize(CArchive& ar)
 			ASSERT(AfxIsValidAddress(pNode, sizeof(CNode)));
 			ar << pNode->data;
 		}
-	}
-	else
-	{
+	} else {
 		DWORD nNewCount = ar.ReadCount();
 		CObject* newData;
 		while (nNewCount--)
@@ -2949,8 +2946,9 @@ void CStringList::RemoveAll()
 	// destroy elements
 
 	CNode* pNode;
-	for (pNode = m_pNodeHead; pNode != NULL; pNode = pNode->pNext)
+	for (pNode = m_pNodeHead; pNode != NULL; pNode = pNode->pNext) {
 		DestructElement(&pNode->data);
+	}
 
 
 	m_nCount = 0;
@@ -3027,8 +3025,9 @@ void CStringList::FreeNode(CStringList::CNode* pNode)
 	ASSERT(m_nCount >= 0);  // make sure we don't underflow
 
 	// if no more elements, cleanup completely
-	if (m_nCount == 0)
+	if (m_nCount == 0) {
 		RemoveAll();
+	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -3039,10 +3038,11 @@ POSITION CStringList::AddHead(LPCTSTR newElement)
 
 	CNode* pNewNode = NewNode(NULL, m_pNodeHead);
 	pNewNode->data = newElement;
-	if (m_pNodeHead != NULL)
+	if (m_pNodeHead != NULL) {
 		m_pNodeHead->pPrev = pNewNode;
-	else
+	} else {
 		m_pNodeTail = pNewNode;
+	}
 	m_pNodeHead = pNewNode;
 	return (POSITION)pNewNode;
 }
@@ -3053,10 +3053,11 @@ POSITION CStringList::AddTail(LPCTSTR newElement)
 
 	CNode* pNewNode = NewNode(m_pNodeTail, NULL);
 	pNewNode->data = newElement;
-	if (m_pNodeTail != NULL)
+	if (m_pNodeTail != NULL) {
 		m_pNodeTail->pNext = pNewNode;
-	else
+	} else {
 		m_pNodeHead = pNewNode;
+	}
 	m_pNodeTail = pNewNode;
 	return (POSITION)pNewNode;
 }
@@ -3071,8 +3072,9 @@ void CStringList::AddHead(CStringList* pNewList)
 
 	// add a list of same elements to head (maintain order)
 	POSITION pos = pNewList->GetTailPosition();
-	while (pos != NULL)
+	while (pos != NULL) {
 		AddHead(pNewList->GetPrev(pos));
+	}
 }
 
 void CStringList::AddTail(CStringList* pNewList)
@@ -3084,8 +3086,9 @@ void CStringList::AddTail(CStringList* pNewList)
 
 	// add a list of same elements
 	POSITION pos = pNewList->GetHeadPosition();
-	while (pos != NULL)
+	while (pos != NULL) {
 		AddTail(pNewList->GetNext(pos));
+	}
 }
 
 CString CStringList::RemoveHead()
@@ -3098,10 +3101,11 @@ CString CStringList::RemoveHead()
 	CString returnValue = pOldNode->data;
 
 	m_pNodeHead = pOldNode->pNext;
-	if (m_pNodeHead != NULL)
+	if (m_pNodeHead != NULL) {
 		m_pNodeHead->pPrev = NULL;
-	else
+	} else {
 		m_pNodeTail = NULL;
+	}
 	FreeNode(pOldNode);
 	return returnValue;
 }
@@ -3116,10 +3120,11 @@ CString CStringList::RemoveTail()
 	CString returnValue = pOldNode->data;
 
 	m_pNodeTail = pOldNode->pPrev;
-	if (m_pNodeTail != NULL)
+	if (m_pNodeTail != NULL) {
 		m_pNodeTail->pNext = NULL;
-	else
+	} else {
 		m_pNodeHead = NULL;
+	}
 	FreeNode(pOldNode);
 	return returnValue;
 }
@@ -3128,10 +3133,11 @@ POSITION CStringList::InsertBefore(POSITION position, LPCTSTR newElement)
 {
 	ASSERT_VALID(this);
 
-	if (position == NULL)
+	if (position == NULL) {
 		return AddHead(newElement); // insert before nothing -> head of the list
 
 	// Insert it before position
+	}
 	CNode* pOldNode = (CNode*)position;
 	CNode* pNewNode = NewNode(pOldNode->pPrev, pOldNode);
 	pNewNode->data = newElement;
@@ -3140,9 +3146,7 @@ POSITION CStringList::InsertBefore(POSITION position, LPCTSTR newElement)
 	{
 		ASSERT(AfxIsValidAddress(pOldNode->pPrev, sizeof(CNode)));
 		pOldNode->pPrev->pNext = pNewNode;
-	}
-	else
-	{
+	} else {
 		ASSERT(pOldNode == m_pNodeHead);
 		m_pNodeHead = pNewNode;
 	}
@@ -3154,10 +3158,11 @@ POSITION CStringList::InsertAfter(POSITION position, LPCTSTR newElement)
 {
 	ASSERT_VALID(this);
 
-	if (position == NULL)
+	if (position == NULL) {
 		return AddTail(newElement); // insert after nothing -> tail of the list
 
 	// Insert it before position
+	}
 	CNode* pOldNode = (CNode*)position;
 	ASSERT(AfxIsValidAddress(pOldNode, sizeof(CNode)));
 	CNode* pNewNode = NewNode(pOldNode, pOldNode->pNext);
@@ -3167,9 +3172,7 @@ POSITION CStringList::InsertAfter(POSITION position, LPCTSTR newElement)
 	{
 		ASSERT(AfxIsValidAddress(pOldNode->pNext, sizeof(CNode)));
 		pOldNode->pNext->pPrev = pNewNode;
-	}
-	else
-	{
+	} else {
 		ASSERT(pOldNode == m_pNodeTail);
 		m_pNodeTail = pNewNode;
 	}
@@ -3188,18 +3191,14 @@ void CStringList::RemoveAt(POSITION position)
 	if (pOldNode == m_pNodeHead)
 	{
 		m_pNodeHead = pOldNode->pNext;
-	}
-	else
-	{
+	} else {
 		ASSERT(AfxIsValidAddress(pOldNode->pPrev, sizeof(CNode)));
 		pOldNode->pPrev->pNext = pOldNode->pNext;
 	}
 	if (pOldNode == m_pNodeTail)
 	{
 		m_pNodeTail = pOldNode->pPrev;
-	}
-	else
-	{
+	} else {
 		ASSERT(AfxIsValidAddress(pOldNode->pNext, sizeof(CNode)));
 		pOldNode->pNext->pPrev = pOldNode->pPrev;
 	}
@@ -3215,8 +3214,9 @@ POSITION CStringList::FindIndex(int nIndex) const
 	ASSERT_VALID(this);
 	ASSERT(nIndex >= 0);
 
-	if (nIndex >= m_nCount)
+	if (nIndex >= m_nCount) {
 		return NULL;  // went too far
+	}
 
 	CNode* pNode = m_pNodeHead;
 	while (nIndex--)
@@ -3235,16 +3235,16 @@ POSITION CStringList::Find(LPCTSTR searchValue, POSITION startAfter) const
 	if (pNode == NULL)
 	{
 		pNode = m_pNodeHead;  // start at head
-	}
-	else
-	{
+	} else {
 		ASSERT(AfxIsValidAddress(pNode, sizeof(CNode)));
 		pNode = pNode->pNext;  // start after the one specified
 	}
 
-	for (; pNode != NULL; pNode = pNode->pNext)
-		if (pNode->data == searchValue)
+	for (; pNode != NULL; pNode = pNode->pNext) {
+		if (pNode->data == searchValue) {
 			return (POSITION)pNode;
+		}
+	}
 	return NULL;
 }
 
@@ -3266,9 +3266,7 @@ void CStringList::Serialize(CArchive& ar)
 			ASSERT(AfxIsValidAddress(pNode, sizeof(CNode)));
 			ar << pNode->data;
 		}
-	}
-	else
-	{
+	} else {
 		DWORD nNewCount = ar.ReadCount();
 		CString newData;
 		while (nNewCount--)
@@ -3432,8 +3430,9 @@ void CMapWordToPtr::FreeAssoc(CMapWordToPtr::CAssoc* pAssoc)
 	ASSERT(m_nCount >= 0);  // make sure we don't underflow
 
 	// if no more elements, cleanup completely
-	if (m_nCount == 0)
+	if (m_nCount == 0) {
 		RemoveAll();
+	}
 }
 
 CMapWordToPtr::CAssoc*
@@ -3442,15 +3441,17 @@ CMapWordToPtr::GetAssocAt(WORD key, UINT& nHash) const
 {
 	nHash = HashKey(key) % m_nHashTableSize;
 
-	if (m_pHashTable == NULL)
+	if (m_pHashTable == NULL) {
 		return NULL;
 
 	// see if it exists
+	}
 	CAssoc* pAssoc;
 	for (pAssoc = m_pHashTable[nHash]; pAssoc != NULL; pAssoc = pAssoc->pNext)
 	{
-		if (pAssoc->key == key)
+		if (pAssoc->key == key) {
 			return pAssoc;
+		}
 	}
 	return NULL;
 }
@@ -3465,8 +3466,9 @@ BOOL CMapWordToPtr::Lookup(WORD key, void*& rValue) const
 
 	UINT nHash;
 	CAssoc* pAssoc = GetAssocAt(key, nHash);
-	if (pAssoc == NULL)
+	if (pAssoc == NULL) {
 		return FALSE;  // not in map
+	}
 
 	rValue = pAssoc->value;
 	return TRUE;
@@ -3480,10 +3482,11 @@ void*& CMapWordToPtr::operator[](WORD key)
 	CAssoc* pAssoc;
 	if ((pAssoc = GetAssocAt(key, nHash)) == NULL)
 	{
-		if (m_pHashTable == NULL)
+		if (m_pHashTable == NULL) {
 			InitHashTable(m_nHashTableSize);
 
 		// it doesn't exist, add a new Association
+		}
 		pAssoc = NewAssoc();
 
 		pAssoc->key = key;
@@ -3502,8 +3505,9 @@ BOOL CMapWordToPtr::RemoveKey(WORD key)
 {
 	ASSERT_VALID(this);
 
-	if (m_pHashTable == NULL)
+	if (m_pHashTable == NULL) {
 		return FALSE;  // nothing in the table
+	}
 
 	CAssoc** ppAssocPrev;
 	ppAssocPrev = &m_pHashTable[HashKey(key) % m_nHashTableSize];
@@ -3539,9 +3543,11 @@ void CMapWordToPtr::GetNextAssoc(POSITION& rNextPosition,
 	if (pAssocRet == (CAssoc*)BEFORE_START_POSITION)
 	{
 		// find the first association
-		for (UINT nBucket = 0; nBucket < m_nHashTableSize; nBucket++)
-			if ((pAssocRet = m_pHashTable[nBucket]) != NULL)
+		for (UINT nBucket = 0; nBucket < m_nHashTableSize; nBucket++) {
+			if ((pAssocRet = m_pHashTable[nBucket]) != NULL) {
 				break;
+			}
+		}
 		ASSERT(pAssocRet != NULL);  // must find something
 	}
 
@@ -3553,9 +3559,11 @@ void CMapWordToPtr::GetNextAssoc(POSITION& rNextPosition,
 
 		// go to next bucket
 		for (UINT nBucket = (HashKey(pAssocRet->key) % m_nHashTableSize) + 1;
-			nBucket < m_nHashTableSize; nBucket++)
-			if ((pAssocNext = m_pHashTable[nBucket]) != NULL)
+			nBucket < m_nHashTableSize; nBucket++) {
+			if ((pAssocNext = m_pHashTable[nBucket]) != NULL) {
 				break;
+			}
+		}
 
 	}
 
@@ -3720,8 +3728,9 @@ void CMapPtrToWord::FreeAssoc(CMapPtrToWord::CAssoc* pAssoc)
 	ASSERT(m_nCount >= 0);  // make sure we don't underflow
 
 	// if no more elements, cleanup completely
-	if (m_nCount == 0)
+	if (m_nCount == 0) {
 		RemoveAll();
+	}
 }
 
 CMapPtrToWord::CAssoc*
@@ -3730,15 +3739,17 @@ CMapPtrToWord::GetAssocAt(void* key, UINT& nHash) const
 {
 	nHash = HashKey(key) % m_nHashTableSize;
 
-	if (m_pHashTable == NULL)
+	if (m_pHashTable == NULL) {
 		return NULL;
 
 	// see if it exists
+	}
 	CAssoc* pAssoc;
 	for (pAssoc = m_pHashTable[nHash]; pAssoc != NULL; pAssoc = pAssoc->pNext)
 	{
-		if (pAssoc->key == key)
+		if (pAssoc->key == key) {
 			return pAssoc;
+		}
 	}
 	return NULL;
 }
@@ -3753,8 +3764,9 @@ BOOL CMapPtrToWord::Lookup(void* key, WORD& rValue) const
 
 	UINT nHash;
 	CAssoc* pAssoc = GetAssocAt(key, nHash);
-	if (pAssoc == NULL)
+	if (pAssoc == NULL) {
 		return FALSE;  // not in map
+	}
 
 	rValue = pAssoc->value;
 	return TRUE;
@@ -3768,10 +3780,11 @@ WORD& CMapPtrToWord::operator[](void* key)
 	CAssoc* pAssoc;
 	if ((pAssoc = GetAssocAt(key, nHash)) == NULL)
 	{
-		if (m_pHashTable == NULL)
+		if (m_pHashTable == NULL) {
 			InitHashTable(m_nHashTableSize);
 
 		// it doesn't exist, add a new Association
+		}
 		pAssoc = NewAssoc();
 
 		pAssoc->key = key;
@@ -3790,8 +3803,9 @@ BOOL CMapPtrToWord::RemoveKey(void* key)
 {
 	ASSERT_VALID(this);
 
-	if (m_pHashTable == NULL)
+	if (m_pHashTable == NULL) {
 		return FALSE;  // nothing in the table
+	}
 
 	CAssoc** ppAssocPrev;
 	ppAssocPrev = &m_pHashTable[HashKey(key) % m_nHashTableSize];
@@ -3827,9 +3841,11 @@ void CMapPtrToWord::GetNextAssoc(POSITION& rNextPosition,
 	if (pAssocRet == (CAssoc*)BEFORE_START_POSITION)
 	{
 		// find the first association
-		for (UINT nBucket = 0; nBucket < m_nHashTableSize; nBucket++)
-			if ((pAssocRet = m_pHashTable[nBucket]) != NULL)
+		for (UINT nBucket = 0; nBucket < m_nHashTableSize; nBucket++) {
+			if ((pAssocRet = m_pHashTable[nBucket]) != NULL) {
 				break;
+			}
+		}
 		ASSERT(pAssocRet != NULL);  // must find something
 	}
 
@@ -3841,9 +3857,11 @@ void CMapPtrToWord::GetNextAssoc(POSITION& rNextPosition,
 
 		// go to next bucket
 		for (UINT nBucket = (HashKey(pAssocRet->key) % m_nHashTableSize) + 1;
-			nBucket < m_nHashTableSize; nBucket++)
-			if ((pAssocNext = m_pHashTable[nBucket]) != NULL)
+			nBucket < m_nHashTableSize; nBucket++) {
+			if ((pAssocNext = m_pHashTable[nBucket]) != NULL) {
 				break;
+			}
+		}
 
 	}
 
@@ -4004,8 +4022,9 @@ void CMapPtrToPtr::FreeAssoc(CMapPtrToPtr::CAssoc* pAssoc)
 	ASSERT(m_nCount >= 0);  // make sure we don't underflow
 
 	// if no more elements, cleanup completely
-	if (m_nCount == 0)
+	if (m_nCount == 0) {
 		RemoveAll();
+	}
 }
 
 CMapPtrToPtr::CAssoc*
@@ -4014,15 +4033,17 @@ CMapPtrToPtr::GetAssocAt(void* key, UINT& nHash) const
 {
 	nHash = HashKey(key) % m_nHashTableSize;
 
-	if (m_pHashTable == NULL)
+	if (m_pHashTable == NULL) {
 		return NULL;
 
 	// see if it exists
+	}
 	CAssoc* pAssoc;
 	for (pAssoc = m_pHashTable[nHash]; pAssoc != NULL; pAssoc = pAssoc->pNext)
 	{
-		if (pAssoc->key == key)
+		if (pAssoc->key == key) {
 			return pAssoc;
+		}
 	}
 	return NULL;
 }
@@ -4031,8 +4052,9 @@ CMapPtrToPtr::GetAssocAt(void* key, UINT& nHash) const
 void* CMapPtrToPtr::GetValueAt(void* key) const
 // find value (or return NULL -- NULL values not different as a result)
 {
-	if (m_pHashTable == NULL)
+	if (m_pHashTable == NULL) {
 		return NULL;
+	}
 
 	UINT nHash = HashKey(key) % m_nHashTableSize;
 
@@ -4040,8 +4062,9 @@ void* CMapPtrToPtr::GetValueAt(void* key) const
 	CAssoc* pAssoc;
 	for (pAssoc = m_pHashTable[nHash]; pAssoc != NULL; pAssoc = pAssoc->pNext)
 	{
-		if (pAssoc->key == key)
+		if (pAssoc->key == key) {
 			return pAssoc->value;
+		}
 	}
 	return NULL;
 }
@@ -4055,8 +4078,9 @@ BOOL CMapPtrToPtr::Lookup(void* key, void*& rValue) const
 
 	UINT nHash;
 	CAssoc* pAssoc = GetAssocAt(key, nHash);
-	if (pAssoc == NULL)
+	if (pAssoc == NULL) {
 		return FALSE;  // not in map
+	}
 
 	rValue = pAssoc->value;
 	return TRUE;
@@ -4070,10 +4094,11 @@ void*& CMapPtrToPtr::operator[](void* key)
 	CAssoc* pAssoc;
 	if ((pAssoc = GetAssocAt(key, nHash)) == NULL)
 	{
-		if (m_pHashTable == NULL)
+		if (m_pHashTable == NULL) {
 			InitHashTable(m_nHashTableSize);
 
 		// it doesn't exist, add a new Association
+		}
 		pAssoc = NewAssoc();
 
 		pAssoc->key = key;
@@ -4092,8 +4117,9 @@ BOOL CMapPtrToPtr::RemoveKey(void* key)
 {
 	ASSERT_VALID(this);
 
-	if (m_pHashTable == NULL)
+	if (m_pHashTable == NULL) {
 		return FALSE;  // nothing in the table
+	}
 
 	CAssoc** ppAssocPrev;
 	ppAssocPrev = &m_pHashTable[HashKey(key) % m_nHashTableSize];
@@ -4129,9 +4155,11 @@ void CMapPtrToPtr::GetNextAssoc(POSITION& rNextPosition,
 	if (pAssocRet == (CAssoc*)BEFORE_START_POSITION)
 	{
 		// find the first association
-		for (UINT nBucket = 0; nBucket < m_nHashTableSize; nBucket++)
-			if ((pAssocRet = m_pHashTable[nBucket]) != NULL)
+		for (UINT nBucket = 0; nBucket < m_nHashTableSize; nBucket++) {
+			if ((pAssocRet = m_pHashTable[nBucket]) != NULL) {
 				break;
+			}
+		}
 		ASSERT(pAssocRet != NULL);  // must find something
 	}
 
@@ -4143,9 +4171,11 @@ void CMapPtrToPtr::GetNextAssoc(POSITION& rNextPosition,
 
 		// go to next bucket
 		for (UINT nBucket = (HashKey(pAssocRet->key) % m_nHashTableSize) + 1;
-			nBucket < m_nHashTableSize; nBucket++)
-			if ((pAssocNext = m_pHashTable[nBucket]) != NULL)
+			nBucket < m_nHashTableSize; nBucket++) {
+			if ((pAssocNext = m_pHashTable[nBucket]) != NULL) {
 				break;
+			}
+		}
 
 	}
 
@@ -4306,8 +4336,9 @@ void CMapWordToOb::FreeAssoc(CMapWordToOb::CAssoc* pAssoc)
 	ASSERT(m_nCount >= 0);  // make sure we don't underflow
 
 	// if no more elements, cleanup completely
-	if (m_nCount == 0)
+	if (m_nCount == 0) {
 		RemoveAll();
+	}
 }
 
 CMapWordToOb::CAssoc*
@@ -4316,15 +4347,17 @@ CMapWordToOb::GetAssocAt(WORD key, UINT& nHash) const
 {
 	nHash = HashKey(key) % m_nHashTableSize;
 
-	if (m_pHashTable == NULL)
+	if (m_pHashTable == NULL) {
 		return NULL;
 
 	// see if it exists
+	}
 	CAssoc* pAssoc;
 	for (pAssoc = m_pHashTable[nHash]; pAssoc != NULL; pAssoc = pAssoc->pNext)
 	{
-		if (pAssoc->key == key)
+		if (pAssoc->key == key) {
 			return pAssoc;
+		}
 	}
 	return NULL;
 }
@@ -4339,8 +4372,9 @@ BOOL CMapWordToOb::Lookup(WORD key, CObject*& rValue) const
 
 	UINT nHash;
 	CAssoc* pAssoc = GetAssocAt(key, nHash);
-	if (pAssoc == NULL)
+	if (pAssoc == NULL) {
 		return FALSE;  // not in map
+	}
 
 	rValue = pAssoc->value;
 	return TRUE;
@@ -4354,10 +4388,11 @@ CObject*& CMapWordToOb::operator[](WORD key)
 	CAssoc* pAssoc;
 	if ((pAssoc = GetAssocAt(key, nHash)) == NULL)
 	{
-		if (m_pHashTable == NULL)
+		if (m_pHashTable == NULL) {
 			InitHashTable(m_nHashTableSize);
 
 		// it doesn't exist, add a new Association
+		}
 		pAssoc = NewAssoc();
 
 		pAssoc->key = key;
@@ -4376,8 +4411,9 @@ BOOL CMapWordToOb::RemoveKey(WORD key)
 {
 	ASSERT_VALID(this);
 
-	if (m_pHashTable == NULL)
+	if (m_pHashTable == NULL) {
 		return FALSE;  // nothing in the table
+	}
 
 	CAssoc** ppAssocPrev;
 	ppAssocPrev = &m_pHashTable[HashKey(key) % m_nHashTableSize];
@@ -4413,9 +4449,11 @@ void CMapWordToOb::GetNextAssoc(POSITION& rNextPosition,
 	if (pAssocRet == (CAssoc*)BEFORE_START_POSITION)
 	{
 		// find the first association
-		for (UINT nBucket = 0; nBucket < m_nHashTableSize; nBucket++)
-			if ((pAssocRet = m_pHashTable[nBucket]) != NULL)
+		for (UINT nBucket = 0; nBucket < m_nHashTableSize; nBucket++) {
+			if ((pAssocRet = m_pHashTable[nBucket]) != NULL) {
 				break;
+			}
+		}
 		ASSERT(pAssocRet != NULL);  // must find something
 	}
 
@@ -4427,9 +4465,11 @@ void CMapWordToOb::GetNextAssoc(POSITION& rNextPosition,
 
 		// go to next bucket
 		for (UINT nBucket = (HashKey(pAssocRet->key) % m_nHashTableSize) + 1;
-			nBucket < m_nHashTableSize; nBucket++)
-			if ((pAssocNext = m_pHashTable[nBucket]) != NULL)
+			nBucket < m_nHashTableSize; nBucket++) {
+			if ((pAssocNext = m_pHashTable[nBucket]) != NULL) {
 				break;
+			}
+		}
 
 	}
 
@@ -4453,8 +4493,9 @@ void CMapWordToOb::Serialize(CArchive& ar)
 	if (ar.IsStoring())
 	{
 		ar.WriteCount(m_nCount);
-		if (m_nCount == 0)
+		if (m_nCount == 0) {
 			return;  // nothing more to do
+		}
 
 		ASSERT(m_pHashTable != NULL);
 		for (UINT nHash = 0; nHash < m_nHashTableSize; nHash++)
@@ -4467,9 +4508,7 @@ void CMapWordToOb::Serialize(CArchive& ar)
 				ar << pAssoc->value;
 			}
 		}
-	}
-	else
-	{
+	} else {
 		DWORD nNewCount = ar.ReadCount();
 		WORD newKey;
 		CObject* newValue;
@@ -4533,8 +4572,9 @@ CMapStringToPtr::CMapStringToPtr(int nBlockSize)
 inline UINT CMapStringToPtr::HashKey(LPCTSTR key) const
 {
 	UINT nHash = 0;
-	while (*key)
+	while (*key) {
 		nHash = (nHash << 5) + nHash + *key++;
+	}
 	return nHash;
 }
 
@@ -4647,8 +4687,9 @@ void CMapStringToPtr::FreeAssoc(CMapStringToPtr::CAssoc* pAssoc)
 	ASSERT(m_nCount >= 0);  // make sure we don't underflow
 
 	// if no more elements, cleanup completely
-	if (m_nCount == 0)
+	if (m_nCount == 0) {
 		RemoveAll();
+	}
 }
 
 CMapStringToPtr::CAssoc*
@@ -4657,15 +4698,17 @@ CMapStringToPtr::GetAssocAt(LPCTSTR key, UINT& nHash) const
 {
 	nHash = HashKey(key) % m_nHashTableSize;
 
-	if (m_pHashTable == NULL)
+	if (m_pHashTable == NULL) {
 		return NULL;
 
 	// see if it exists
+	}
 	CAssoc* pAssoc;
 	for (pAssoc = m_pHashTable[nHash]; pAssoc != NULL; pAssoc = pAssoc->pNext)
 	{
-		if (pAssoc->key == key)
+		if (pAssoc->key == key) {
 			return pAssoc;
+		}
 	}
 	return NULL;
 }
@@ -4678,8 +4721,9 @@ BOOL CMapStringToPtr::Lookup(LPCTSTR key, void*& rValue) const
 
 	UINT nHash;
 	CAssoc* pAssoc = GetAssocAt(key, nHash);
-	if (pAssoc == NULL)
+	if (pAssoc == NULL) {
 		return FALSE;  // not in map
+	}
 
 	rValue = pAssoc->value;
 	return TRUE;
@@ -4691,8 +4735,9 @@ BOOL CMapStringToPtr::LookupKey(LPCTSTR key, LPCTSTR& rKey) const
 
 	UINT nHash;
 	CAssoc* pAssoc = GetAssocAt(key, nHash);
-	if (pAssoc == NULL)
+	if (pAssoc == NULL) {
 		return FALSE;  // not in map
+	}
 
 	rKey = pAssoc->key;
 	return TRUE;
@@ -4706,10 +4751,11 @@ void*& CMapStringToPtr::operator[](LPCTSTR key)
 	CAssoc* pAssoc;
 	if ((pAssoc = GetAssocAt(key, nHash)) == NULL)
 	{
-		if (m_pHashTable == NULL)
+		if (m_pHashTable == NULL) {
 			InitHashTable(m_nHashTableSize);
 
 		// it doesn't exist, add a new Association
+		}
 		pAssoc = NewAssoc();
 		pAssoc->nHashValue = nHash;
 		pAssoc->key = key;
@@ -4728,8 +4774,9 @@ BOOL CMapStringToPtr::RemoveKey(LPCTSTR key)
 {
 	ASSERT_VALID(this);
 
-	if (m_pHashTable == NULL)
+	if (m_pHashTable == NULL) {
 		return FALSE;  // nothing in the table
+	}
 
 	CAssoc** ppAssocPrev;
 	ppAssocPrev = &m_pHashTable[HashKey(key) % m_nHashTableSize];
@@ -4765,9 +4812,11 @@ void CMapStringToPtr::GetNextAssoc(POSITION& rNextPosition,
 	if (pAssocRet == (CAssoc*)BEFORE_START_POSITION)
 	{
 		// find the first association
-		for (UINT nBucket = 0; nBucket < m_nHashTableSize; nBucket++)
-			if ((pAssocRet = m_pHashTable[nBucket]) != NULL)
+		for (UINT nBucket = 0; nBucket < m_nHashTableSize; nBucket++) {
+			if ((pAssocRet = m_pHashTable[nBucket]) != NULL) {
 				break;
+			}
+		}
 		ASSERT(pAssocRet != NULL);  // must find something
 	}
 
@@ -4778,9 +4827,11 @@ void CMapStringToPtr::GetNextAssoc(POSITION& rNextPosition,
 	{
 		// go to next bucket
 		for (UINT nBucket = pAssocRet->nHashValue + 1;
-			nBucket < m_nHashTableSize; nBucket++)
-			if ((pAssocNext = m_pHashTable[nBucket]) != NULL)
+			nBucket < m_nHashTableSize; nBucket++) {
+			if ((pAssocNext = m_pHashTable[nBucket]) != NULL) {
 				break;
+			}
+		}
 	}
 
 	rNextPosition = (POSITION)pAssocNext;
@@ -4842,8 +4893,9 @@ CMapStringToOb::CMapStringToOb(int nBlockSize)
 inline UINT CMapStringToOb::HashKey(LPCTSTR key) const
 {
 	UINT nHash = 0;
-	while (*key)
+	while (*key) {
 		nHash = (nHash << 5) + nHash + *key++;
+	}
 	return nHash;
 }
 
@@ -4956,8 +5008,9 @@ void CMapStringToOb::FreeAssoc(CMapStringToOb::CAssoc* pAssoc)
 	ASSERT(m_nCount >= 0);  // make sure we don't underflow
 
 	// if no more elements, cleanup completely
-	if (m_nCount == 0)
+	if (m_nCount == 0) {
 		RemoveAll();
+	}
 }
 
 CMapStringToOb::CAssoc*
@@ -4966,15 +5019,17 @@ CMapStringToOb::GetAssocAt(LPCTSTR key, UINT& nHash) const
 {
 	nHash = HashKey(key) % m_nHashTableSize;
 
-	if (m_pHashTable == NULL)
+	if (m_pHashTable == NULL) {
 		return NULL;
 
 	// see if it exists
+	}
 	CAssoc* pAssoc;
 	for (pAssoc = m_pHashTable[nHash]; pAssoc != NULL; pAssoc = pAssoc->pNext)
 	{
-		if (pAssoc->key == key)
+		if (pAssoc->key == key) {
 			return pAssoc;
+		}
 	}
 	return NULL;
 }
@@ -4987,8 +5042,9 @@ BOOL CMapStringToOb::Lookup(LPCTSTR key, CObject*& rValue) const
 
 	UINT nHash;
 	CAssoc* pAssoc = GetAssocAt(key, nHash);
-	if (pAssoc == NULL)
+	if (pAssoc == NULL) {
 		return FALSE;  // not in map
+	}
 
 	rValue = pAssoc->value;
 	return TRUE;
@@ -5000,8 +5056,9 @@ BOOL CMapStringToOb::LookupKey(LPCTSTR key, LPCTSTR& rKey) const
 
 	UINT nHash;
 	CAssoc* pAssoc = GetAssocAt(key, nHash);
-	if (pAssoc == NULL)
+	if (pAssoc == NULL) {
 		return FALSE;  // not in map
+	}
 
 	rKey = pAssoc->key;
 	return TRUE;
@@ -5015,10 +5072,11 @@ CObject*& CMapStringToOb::operator[](LPCTSTR key)
 	CAssoc* pAssoc;
 	if ((pAssoc = GetAssocAt(key, nHash)) == NULL)
 	{
-		if (m_pHashTable == NULL)
+		if (m_pHashTable == NULL) {
 			InitHashTable(m_nHashTableSize);
 
 		// it doesn't exist, add a new Association
+		}
 		pAssoc = NewAssoc();
 		pAssoc->nHashValue = nHash;
 		pAssoc->key = key;
@@ -5037,8 +5095,9 @@ BOOL CMapStringToOb::RemoveKey(LPCTSTR key)
 {
 	ASSERT_VALID(this);
 
-	if (m_pHashTable == NULL)
+	if (m_pHashTable == NULL) {
 		return FALSE;  // nothing in the table
+	}
 
 	CAssoc** ppAssocPrev;
 	ppAssocPrev = &m_pHashTable[HashKey(key) % m_nHashTableSize];
@@ -5074,9 +5133,11 @@ void CMapStringToOb::GetNextAssoc(POSITION& rNextPosition,
 	if (pAssocRet == (CAssoc*)BEFORE_START_POSITION)
 	{
 		// find the first association
-		for (UINT nBucket = 0; nBucket < m_nHashTableSize; nBucket++)
-			if ((pAssocRet = m_pHashTable[nBucket]) != NULL)
+		for (UINT nBucket = 0; nBucket < m_nHashTableSize; nBucket++) {
+			if ((pAssocRet = m_pHashTable[nBucket]) != NULL) {
 				break;
+			}
+		}
 		ASSERT(pAssocRet != NULL);  // must find something
 	}
 
@@ -5087,9 +5148,11 @@ void CMapStringToOb::GetNextAssoc(POSITION& rNextPosition,
 	{
 		// go to next bucket
 		for (UINT nBucket = pAssocRet->nHashValue + 1;
-			nBucket < m_nHashTableSize; nBucket++)
-			if ((pAssocNext = m_pHashTable[nBucket]) != NULL)
+			nBucket < m_nHashTableSize; nBucket++) {
+			if ((pAssocNext = m_pHashTable[nBucket]) != NULL) {
 				break;
+			}
+		}
 	}
 
 	rNextPosition = (POSITION)pAssocNext;
@@ -5112,8 +5175,9 @@ void CMapStringToOb::Serialize(CArchive& ar)
 	if (ar.IsStoring())
 	{
 		ar.WriteCount(m_nCount);
-		if (m_nCount == 0)
+		if (m_nCount == 0) {
 			return;  // nothing more to do
+		}
 
 		ASSERT(m_pHashTable != NULL);
 		for (UINT nHash = 0; nHash < m_nHashTableSize; nHash++)
@@ -5126,9 +5190,7 @@ void CMapStringToOb::Serialize(CArchive& ar)
 				ar << pAssoc->value;
 			}
 		}
-	}
-	else
-	{
+	} else {
 		DWORD nNewCount = ar.ReadCount();
 		CString newKey;
 		CObject* newValue;
@@ -5186,8 +5248,9 @@ CMapStringToString::CMapStringToString(int nBlockSize)
 inline UINT CMapStringToString::HashKey(LPCTSTR key) const
 {
 	UINT nHash = 0;
-	while (*key)
+	while (*key) {
 		nHash = (nHash << 5) + nHash + *key++;
+	}
 	return nHash;
 }
 
@@ -5304,8 +5367,9 @@ void CMapStringToString::FreeAssoc(CMapStringToString::CAssoc* pAssoc)
 	ASSERT(m_nCount >= 0);  // make sure we don't underflow
 
 	// if no more elements, cleanup completely
-	if (m_nCount == 0)
+	if (m_nCount == 0) {
 		RemoveAll();
+	}
 }
 
 CMapStringToString::CAssoc*
@@ -5314,15 +5378,17 @@ CMapStringToString::GetAssocAt(LPCTSTR key, UINT& nHash) const
 {
 	nHash = HashKey(key) % m_nHashTableSize;
 
-	if (m_pHashTable == NULL)
+	if (m_pHashTable == NULL) {
 		return NULL;
 
 	// see if it exists
+	}
 	CAssoc* pAssoc;
 	for (pAssoc = m_pHashTable[nHash]; pAssoc != NULL; pAssoc = pAssoc->pNext)
 	{
-		if (pAssoc->key == key)
+		if (pAssoc->key == key) {
 			return pAssoc;
+		}
 	}
 	return NULL;
 }
@@ -5335,8 +5401,9 @@ BOOL CMapStringToString::Lookup(LPCTSTR key, CString& rValue) const
 
 	UINT nHash;
 	CAssoc* pAssoc = GetAssocAt(key, nHash);
-	if (pAssoc == NULL)
+	if (pAssoc == NULL) {
 		return FALSE;  // not in map
+	}
 
 	rValue = pAssoc->value;
 	return TRUE;
@@ -5348,8 +5415,9 @@ BOOL CMapStringToString::LookupKey(LPCTSTR key, LPCTSTR& rKey) const
 
 	UINT nHash;
 	CAssoc* pAssoc = GetAssocAt(key, nHash);
-	if (pAssoc == NULL)
+	if (pAssoc == NULL) {
 		return FALSE;  // not in map
+	}
 
 	rKey = pAssoc->key;
 	return TRUE;
@@ -5363,10 +5431,11 @@ CString& CMapStringToString::operator[](LPCTSTR key)
 	CAssoc* pAssoc;
 	if ((pAssoc = GetAssocAt(key, nHash)) == NULL)
 	{
-		if (m_pHashTable == NULL)
+		if (m_pHashTable == NULL) {
 			InitHashTable(m_nHashTableSize);
 
 		// it doesn't exist, add a new Association
+		}
 		pAssoc = NewAssoc();
 		pAssoc->nHashValue = nHash;
 		pAssoc->key = key;
@@ -5385,8 +5454,9 @@ BOOL CMapStringToString::RemoveKey(LPCTSTR key)
 {
 	ASSERT_VALID(this);
 
-	if (m_pHashTable == NULL)
+	if (m_pHashTable == NULL) {
 		return FALSE;  // nothing in the table
+	}
 
 	CAssoc** ppAssocPrev;
 	ppAssocPrev = &m_pHashTable[HashKey(key) % m_nHashTableSize];
@@ -5422,9 +5492,11 @@ void CMapStringToString::GetNextAssoc(POSITION& rNextPosition,
 	if (pAssocRet == (CAssoc*)BEFORE_START_POSITION)
 	{
 		// find the first association
-		for (UINT nBucket = 0; nBucket < m_nHashTableSize; nBucket++)
-			if ((pAssocRet = m_pHashTable[nBucket]) != NULL)
+		for (UINT nBucket = 0; nBucket < m_nHashTableSize; nBucket++) {
+			if ((pAssocRet = m_pHashTable[nBucket]) != NULL) {
 				break;
+			}
+		}
 		ASSERT(pAssocRet != NULL);  // must find something
 	}
 
@@ -5435,9 +5507,11 @@ void CMapStringToString::GetNextAssoc(POSITION& rNextPosition,
 	{
 		// go to next bucket
 		for (UINT nBucket = pAssocRet->nHashValue + 1;
-			nBucket < m_nHashTableSize; nBucket++)
-			if ((pAssocNext = m_pHashTable[nBucket]) != NULL)
+			nBucket < m_nHashTableSize; nBucket++) {
+			if ((pAssocNext = m_pHashTable[nBucket]) != NULL) {
 				break;
+			}
+		}
 	}
 
 	rNextPosition = (POSITION)pAssocNext;
@@ -5460,8 +5534,9 @@ void CMapStringToString::Serialize(CArchive& ar)
 	if (ar.IsStoring())
 	{
 		ar.WriteCount(m_nCount);
-		if (m_nCount == 0)
+		if (m_nCount == 0) {
 			return;  // nothing more to do
+		}
 
 		ASSERT(m_pHashTable != NULL);
 		for (UINT nHash = 0; nHash < m_nHashTableSize; nHash++)
@@ -5474,9 +5549,7 @@ void CMapStringToString::Serialize(CArchive& ar)
 				ar << pAssoc->value;
 			}
 		}
-	}
-	else
-	{
+	} else {
 		DWORD nNewCount = ar.ReadCount();
 		CString newKey;
 		CString newValue;

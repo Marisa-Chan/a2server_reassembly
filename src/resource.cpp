@@ -27,18 +27,20 @@ uint16_t Resources::GetPathType(const char* path)
 		DWORD num = GetLogicalDriveStringsA(100, buf);
 		for (DWORD i = 0; i < num; i++)
 		{
-			if (isalpha(buf[i]))
+			if (isalpha(buf[i])) {
 				buf[i] = tolower(buf[i]);
+			}
 		}
 		if (isalnum(letter) &&
 			strcmp(path + 1, ":\\") == 0 &&
-			memchr(buf, letter, num - 2) != NULL)
+			memchr(buf, letter, num - 2) != NULL) {
 			return 2;
+		}
 
 		return 0;
-	}
-	else if ((fnd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0)
+	} else if ((fnd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0) {
 		return 1;
+	}
 	
 	return 2;
 }
@@ -58,14 +60,16 @@ Resources::~Resources()
 
     for (uint32_t i = 0; i < res_files.GetSize(); i++)
     {
-        if (res_files[i] != nullptr)
+        if (res_files[i] != nullptr) {
             delete res_files[i];
+        }
     }
 
     for (uint32_t i = 0; i < files.GetSize(); i++)
     {
-        if (files[i] != nullptr)
+        if (files[i] != nullptr) {
             delete files[i];
+        }
     }
 }
 
@@ -73,8 +77,9 @@ void Resources::AddPath(const char* path)
 {
 	//4e6273
 
-	if (GetPathType(path) != 2)
+	if (GetPathType(path) != 2) {
 		AfxThrowFileException(CFileException::badPath);
+	}
 
 	char buf[1024];
 	pathStrCpy(path, buf);
@@ -88,14 +93,16 @@ void Resources::AddResFile(const char* path)
 	char buf[1024];
 	pathStrCpy(path, buf);
 
-	if (field_0x14.GetSize() <= 0)
+	if (field_0x14.GetSize() <= 0) {
 		AfxThrowFileException(CFileException::fileNotFound);
+	}
 
 	char pbuf[256];
 	strcpy(pbuf, (const char*)field_0x14[0]);
 	size_t len = strlen(pbuf);
-	if (pbuf[len - 1] != '\\' || pbuf[len - 2] != ':')
+	if (pbuf[len - 1] != '\\' || pbuf[len - 2] != ':') {
 		strcat(pbuf, "\\");
+	}
 	strcat(pbuf, buf);
 
 	res_files.Add(new ResFile(pbuf));
@@ -132,8 +139,9 @@ FatInfo* Resources::FUN_004e646d(const char* fpath)
         FatInfo* inf = res_files[i]->FUN_004e5d55(buf);
         if (inf != nullptr)
         {
-            if (inf != FATINFO_T1)
+            if (inf != FATINFO_T1) {
                 return inf;
+            }
             break;
         }
     }
@@ -145,19 +153,19 @@ FatInfo* Resources::FUN_004e646d(const char* fpath)
         strcpy(dbuf, field_0x14[i]);
 
         int ln = strlen(dbuf);
-        if (dbuf[ln - 1] != '\\' || dbuf[ln - 2] != ':')
+        if (dbuf[ln - 1] != '\\' || dbuf[ln - 2] != ':') {
             strcat(dbuf, "\\");
+        }
 
         strcat(dbuf, buf);
 
         CFileException exc;
         if (cfile->Open(dbuf, 0, &exc) == FALSE)
         {
-            if (exc.m_cause != CFileException::fileNotFound && exc.m_cause != CFileException::badPath)
+            if (exc.m_cause != CFileException::fileNotFound && exc.m_cause != CFileException::badPath) {
                 AfxThrowFileException(exc.m_cause);
-        }
-        else
-        {
+            }
+        } else {
             files.Add(cfile);
             FatInfo* inf = new FatInfo();
             inf->file = cfile;
@@ -167,8 +175,9 @@ FatInfo* Resources::FUN_004e646d(const char* fpath)
         }
     }
 
-    if (cfile)
+    if (cfile) {
         delete cfile;
+    }
 
     return nullptr;
 }
@@ -205,19 +214,22 @@ void Resources::FUN_004e632d(const char* fname)
 {
     //4e632d
     FILE* f = fopen(fname, "r");
-    if (!f)
+    if (!f) {
         return;
+    }
 
     char bufline[256];
     while (fgets(bufline, 255, f) && isprint(bufline[0]))
     {
         char* pc = strchr(bufline, '\n');
-        if (pc)
+        if (pc) {
             *pc = 0;
+        }
 
         pc = strchr(bufline, '\r');
-        if (pc)
+        if (pc) {
             *pc = 0;
+        }
 
         ResFiles.FUN_004e6409(bufline);
     }
@@ -237,8 +249,9 @@ ResFile::ResFile(const char* fpath)
 
     const char *puVar1 = strchr(fpath, '.');
 
-    if (puVar1 == NULL)
+    if (puVar1 == NULL) {
         strcat(buf, ".res");    
+    }
 
     field_0x3c = 0;
 
@@ -254,8 +267,9 @@ ResFile::ResFile(const char* fpath)
         pchar--;
     }
 
-    if (pchar != buf)
+    if (pchar != buf) {
         pchar++;
+    }
 
     root.SetName(pchar);
 
@@ -263,8 +277,9 @@ ResFile::ResFile(const char* fpath)
 
     file->Read(&root.magic, 4);
 
-    if (root.magic != 0x31415926)
+    if (root.magic != 0x31415926) {
         AfxThrowFileException(CFileException::generic);
+    }
     
     file->Read(&root.offset, 4);
     file->Read(&root.size, 4);
@@ -272,30 +287,32 @@ ResFile::ResFile(const char* fpath)
     file->Read(&fat_offset, 4);
     file->Read(&fat_size, 4);
 
-    if ((field_0x3c & 0xf) == 0)
+    if ((field_0x3c & 0xf) == 0) {
         field_0x3c = 0;
-    else
+    } else {
         field_0x3c = 1;
+    }
 
     if (field_0x3c == 0)
     {
         size = fat_size;
         fat_data = (FatEntry*)malloc(size * sizeof(FatEntry));
 
-        if (fat_data == nullptr)
+        if (fat_data == nullptr) {
             AfxThrowMemoryException();
-    }
-    else 
-    {
+        }
+    } else {
         size = fat_size + 10000 + (fat_size / 4);
         fat_data = (FatEntry*)malloc(size * sizeof(FatEntry));
 
-        if (fat_data == nullptr)
+        if (fat_data == nullptr) {
             AfxThrowMemoryException();
+        }
     }
 
-    if ((root.flags & 0x80000000) == 0)
+    if ((root.flags & 0x80000000) == 0) {
         file->Seek(fat_offset, 0);
+    }
 
     file->Read(fat_data, fat_size << 5);
 
@@ -306,11 +323,13 @@ ResFile::ResFile(const char* fpath)
 ResFile::~ResFile()
 {
     //4e5d0b
-    if (fat_data)
+    if (fat_data) {
         free(fat_data);
+    }
 
-    if (file)
+    if (file) {
         delete file;
+    }
 }
 
 
@@ -322,16 +341,18 @@ RegFile::RegFile()
 
     pdata = (uint8_t *)malloc(fat_offset);
 
-    if (pdata == nullptr)
+    if (pdata == nullptr) {
         AfxThrowMemoryException();
+    }
 
     field_0x3c = 0;
     size = 4;
 
     fat_data = (FatEntry *)malloc(size * sizeof(FatEntry));
 
-    if (fat_data == nullptr)
+    if (fat_data == nullptr) {
         AfxThrowMemoryException();
+    }
 
     fat_size = 0;
     root.SetName("");
@@ -354,8 +375,9 @@ RegFile::RegFile(const char* fpath)
     CFileException exc;
     if (cfile->Open(fpath, 0, &exc) == FALSE)
     {
-        if (cfile)
+        if (cfile) {
             delete cfile;
+        }
         
         char buf[256];
         sprintf(buf, " Could`t create registry file :%d", exc.m_cause);
@@ -365,16 +387,19 @@ RegFile::RegFile(const char* fpath)
     const char *pdot = strchr(fpath, '.');
     const char* pcur = pdot - 1;
 
-    while (*pcur != '\\' && *pcur != '/' && pcur != fpath)
+    while (*pcur != '\\' && *pcur != '/' && pcur != fpath) {
         pcur--;
+    }
 
-    if (pcur != fpath)
+    if (pcur != fpath) {
         pcur++;
+    }
 
     int cpylen = pdot - pcur;
 
-    if (cpylen > 15)
+    if (cpylen > 15) {
         cpylen = 15;
+    }
 
     strncpy(root.name, pcur, cpylen);
 
@@ -383,18 +408,21 @@ RegFile::RegFile(const char* fpath)
 
     ReadFromFile(cfile);
 
-    if (cfile != nullptr)
+    if (cfile != nullptr) {
         delete cfile;
+    }
 }
 
 RegFile::~RegFile()
 {
     //4e9989
-    if (fat_data)
+    if (fat_data) {
         free(fat_data);
+    }
 
-    if (pdata)
+    if (pdata) {
         free(pdata);
+    }
 }
 
 
@@ -403,8 +431,9 @@ RegFile::~RegFile()
 FatEntry* ResBase::Find(FatEntry* node, const char* fname)
 {
     //4eca9e
-    if (!node)
+    if (!node) {
         return nullptr;
+    }
 
     FatEntry* searchBase = fat_data + node->offset;
 
@@ -417,8 +446,9 @@ FatEntry* ResBase::Find(FatEntry* node, const char* fname)
 
     for (int i = 0; i < node->size; i++)
     {
-        if (_strnicmp(fname, searchBase[i].name, 15) == 0)
+        if (_strnicmp(fname, searchBase[i].name, 15) == 0) {
             return &searchBase[i];
+        }
     }
 
     return nullptr;
@@ -447,10 +477,11 @@ FatEntry* ResBase::FindNext(FatEntry* node, const char** fpath)
 
     FatEntry *node_find = Find(node, buf);
 
-    if (*pchar == 0)
+    if (*pchar == 0) {
         *fpath = pchar;
-    else
+    } else {
         *fpath = pchar + 1;
+    }
 
     return node_find;
 }
@@ -460,25 +491,30 @@ FatEntry* ResBase::TracePath(const char* fpath)
     //4ec956
     for (char* pchar = root.name; *fpath != '\\' && *fpath != '/' && *fpath != 0 && *pchar != 0; fpath++, pchar++)
     {
-        if (*fpath != *pchar)
+        if (*fpath != *pchar) {
             return nullptr;
+        }
     }
 
-    if (*fpath != 0)
+    if (*fpath != 0) {
         fpath++;
+    }
 
     FatEntry* node = &root;
 
     while (true)
     {
-        if (*fpath == 0)
+        if (*fpath == 0) {
             return node;
+        }
 
-        if (node == nullptr) 
+        if (node == nullptr) { 
             break;
+        }
 
-        if ((node->flags & 0x40000001) != 1)
+        if ((node->flags & 0x40000001) != 1) {
             return nullptr;
+        }
 
         node = FindNext(node, &fpath);
     }
@@ -493,8 +529,9 @@ void ResBase::GrowFat()
     {
         size += 1 + (size / 4);
         fat_data = (FatEntry*)realloc(fat_data, size * sizeof(FatEntry));
-        if (fat_data == nullptr)
+        if (fat_data == nullptr) {
             AfxThrowMemoryException();
+        }
     }
 }
 
@@ -508,10 +545,10 @@ void ResBase::FUN_004ecc05(FatEntry* node)
         node->flags |= 0x40000000;
 
         int8_t tmp = (node->flags & 0xe) >> 1;
-        if (tmp != 1 && tmp != 2)
+        if (tmp != 1 && tmp != 2) {
             field_0x30 += node->size;
-    }
-    else if ((node->flags & 0x40000001) == 1)
+        }
+    } else if ((node->flags & 0x40000001) == 1)
     {
         node->flags |= 0x40000000;
         
@@ -520,8 +557,9 @@ void ResBase::FUN_004ecc05(FatEntry* node)
         {
             FUN_004ecc05(fat_data + node->offset + cnt);
 
-            if (DAT_006a6a64)
+            if (DAT_006a6a64) {
                 break;
+            }
 
             cnt++;
         }
@@ -561,12 +599,14 @@ void ResBase::FUN_004ec553(FatEntry* newFat, int* pCount, const FatEntry* srcFat
 
     for (uint32_t i = 0; i < srcRoot->size; i++)
     {
-        if ((srcFat[srcOffset + i].flags & 0x40000001) == 1)
+        if ((srcFat[srcOffset + i].flags & 0x40000001) == 1) {
             newSize++;
+        }
     }
 
-    if (srcRoot != node)
+    if (srcRoot != node) {
         *pCount += newSize;
+    }
 
     for (uint32_t i = 0; i < srcRoot->size; i++)
     {
@@ -583,8 +623,9 @@ void ResBase::FUN_004ec553(FatEntry* newFat, int* pCount, const FatEntry* srcFat
 FatEntry* ResBase::FUN_004ec438(FatEntry* node)
 {
     // 4ec438
-    if (node == modify_fat)
+    if (node == modify_fat) {
         return node;
+    }
 
     FatEntry *newFat = (FatEntry*)malloc(size * sizeof(FatEntry));
 
@@ -601,8 +642,9 @@ FatEntry* ResBase::FUN_004ec438(FatEntry* node)
 
     if (aproxSize != exactSize)
     {
-        for (uint32_t i = 0; i < g_lastDstRoot->size; i++)
+        for (uint32_t i = 0; i < g_lastDstRoot->size; i++) {
             newFat[exactSize + i] = newFat[aproxSize + i];
+        }
     }
 
     g_lastDstRoot->offset = exactSize;
@@ -628,12 +670,14 @@ FatEntry* ResBase::FUN_004ec7e0(FatEntry** pOldNode, const char* fname)
 
     GrowFat();
 
-    if (*pOldNode != &root)
+    if (*pOldNode != &root) {
         *pOldNode = fat_data + (*pOldNode - oldFat);
+    }
 
     FatEntry *fndNode = Find(*pOldNode, fname);
-    if (fndNode != nullptr)
+    if (fndNode != nullptr) {
         FUN_004ecc05(fndNode);
+    }
     
     fat_size++;
 
@@ -687,13 +731,15 @@ void ResBase::WriteToFile(CFile* cfile, int32_t offset)
 void ResBase::ReadFromFile(CFile* cfile, int32_t offset)
 {
     //4e819c
-    if (offset != -1) 
+    if (offset != -1) { 
         file->Seek(offset, 0);
+    }
     
     cfile->Read(&root.magic, 4);
 
-    if (root.magic != 0x31415926)
+    if (root.magic != 0x31415926) {
         throw std::runtime_error("bad signature");
+    }
 
     cfile->Read(&root.offset, 4);
     cfile->Read(&root.size, 4);
@@ -701,14 +747,15 @@ void ResBase::ReadFromFile(CFile* cfile, int32_t offset)
     cfile->Read(&fat_size, 4);
     cfile->Read(&field_0x30, 4);
 
-    if (fat_data == nullptr)
+    if (fat_data == nullptr) {
         fat_data = (FatEntry*)malloc(fat_size * sizeof(FatEntry));
-    else
+    } else
     {
-        if (fat_size == 0)
+        if (fat_size == 0) {
             fat_data = (FatEntry*)realloc(fat_data, 1 * sizeof(FatEntry));
-        else
+        } else {
             fat_data = (FatEntry*)realloc(fat_data, fat_size * sizeof(FatEntry));
+        }
     }
 
     if (fat_data == nullptr)
@@ -725,14 +772,15 @@ void ResBase::ReadFromFile(CFile* cfile, int32_t offset)
 
     fat_offset = field_0x3c;
 
-    if (pdata == nullptr)
+    if (pdata == nullptr) {
         pdata = (uint8_t *)malloc(field_0x3c);
-    else
+    } else
     {
-        if (field_0x3c == 0)
+        if (field_0x3c == 0) {
             pdata = (uint8_t*)realloc(pdata, 1);
-        else
+        } else {
             pdata = (uint8_t*)realloc(pdata, field_0x3c);
+        }
     }
 
     if (pdata == nullptr)
@@ -741,8 +789,9 @@ void ResBase::ReadFromFile(CFile* cfile, int32_t offset)
         return;
     }
 
-    if (field_0x3c != 0)
+    if (field_0x3c != 0) {
         cfile->Read(pdata, field_0x3c);
+    }
 }
 
 FatEntry* ResBase::FUN_004ec8c6(const char* fpath, const char* fname)
@@ -756,8 +805,9 @@ FatEntry* ResBase::FUN_004ea183(const char* fpath, const char* fname)
 {
     //4ea183
     FatEntry *pathNode = TracePath(fpath);
-    if (pathNode == nullptr)
+    if (pathNode == nullptr) {
         return nullptr;
+    }
 
     FUN_004ec438(pathNode);
 
@@ -772,11 +822,13 @@ FatEntry* ResBase::FUN_004eca16(const char* fpath)
 {
     //4eca16
     FatEntry* node = TracePath(fpath);
-    if (node == nullptr)
+    if (node == nullptr) {
         AfxThrowFileException(CFileException::fileNotFound);
+    }
 
-    if ((node->flags & 0x40000001) == 0)
+    if ((node->flags & 0x40000001) == 0) {
         AfxThrowFileException(CFileException::badPath);
+    }
 
     return node;
 }
@@ -786,8 +838,9 @@ FatEntry* ResBase::FUN_004eca63(const char* fpath)
     //4eca63
     FatEntry* node = TracePath(fpath);
 
-    if (node != nullptr && (node->flags & 0x40000010) != 0)
+    if (node != nullptr && (node->flags & 0x40000010) != 0) {
         return nullptr;
+    }
 
     return node;
 }
@@ -796,11 +849,13 @@ FatInfo* ResBase::FUN_004e5d55(const char* fpath)
 {
     //4e5d55
     FatEntry* node = FUN_004eca63(fpath);
-    if (node == nullptr)
+    if (node == nullptr) {
         return nullptr;
+    }
     
-    if ((node->flags & 0x20000000) != 0)
+    if ((node->flags & 0x20000000) != 0) {
         return FATINFO_T1;
+    }
 
     FatInfo *info = new FatInfo();
     info->file = file;
@@ -820,10 +875,11 @@ int ResBase::GetSizedString(const char* fpath, const char* fname, const char* de
     {
         uint32_t copylen = strlen(defval);
 
-        if (sz < copylen + 1)
+        if (sz < copylen + 1) {
             copylen = sz;
-        else
+        } else {
             copylen++;
+        }
 
         strncpy(out, defval, copylen);
         return strlen(out);
@@ -835,10 +891,11 @@ int ResBase::GetSizedString(const char* fpath, const char* fname, const char* de
     switch (ntype)
     {
     case 0:
-        if (sz < node->size)
+        if (sz < node->size) {
             strncpy(out, (char *)pdata + node->offset, sz);
-        else
+        } else {
             strncpy(out, (char *)pdata + node->offset, node->size);
+        }
         break;
 
     case 1:
@@ -859,13 +916,15 @@ int ResBase::GetSizedString(const char* fpath, const char* fname, const char* de
         {
             _itoa(*((int *)(pdata + node->offset) + i), buf, 10);
 
-            if (i < (node->size / 4) - 1)
+            if (i < (node->size / 4) - 1) {
                 strcat(buf, ",");
+            }
 
             uint32_t ln = strlen(buf);
 
-            if (sz < (pout - out) + ln + 2)
+            if (sz < (pout - out) + ln + 2) {
                 break;
+            }
 
             strcat(pout, buf);
 
@@ -875,10 +934,11 @@ int ResBase::GetSizedString(const char* fpath, const char* fname, const char* de
         break;
 
     case 4:
-        if (sz - 2 < node->size - 4)
+        if (sz - 2 < node->size - 4) {
             memcpy(out, (uint8_t *)pdata + 4 + node->offset, sz - 2);
-        else
+        } else {
             memcpy(out, (uint8_t*)pdata + 4 + node->offset, node->size - 4);
+        }
         out[sz - 2] = 0;
         out[sz - 1] = 0;
         break;
@@ -890,12 +950,14 @@ int ResBase::GetSizedString(const char* fpath, const char* fname, const char* de
         {
             sprintf(buf, "%f", *((double*)(pdata + node->offset) + i));
 
-            if (i < (node->size / 8) - 1)
+            if (i < (node->size / 8) - 1) {
                 strcat(buf, ",");
+            }
 
             int ln = strlen(buf);
-            if (sz < (pout - out) + (ln + 2))
+            if (sz < (pout - out) + (ln + 2)) {
                 break;
+            }
             strcat(pout, buf);
             pout += ln;
         }
@@ -991,9 +1053,7 @@ uint8_t *ResBase::AllocData(uint32_t size)
                     return nullptr;
                 }
             }
-        }
-        else
-        {
+        } else {
             fat_offset += size + (fat_offset / 8);
 
             pdata = (uint8_t*)realloc(pdata, fat_offset);
@@ -1018,8 +1078,9 @@ void ResBase::SetString(const char* fpath, const char* fname, const char* str)
 
     if (node == nullptr)
     {
-        if (nodePath == nullptr)
+        if (nodePath == nullptr) {
             nodePath = FUN_004ea183(root.name, fpath);
+        }
 
         node = FUN_004ec438(nodePath);
         node = FUN_004ec7e0(&node, fname);
@@ -1028,8 +1089,9 @@ void ResBase::SetString(const char* fpath, const char* fname, const char* str)
         node->offset = pdata - AllocData(node->size); //??? BUG
     }
 
-    if ((node->flags & 0xe) != 0)
+    if ((node->flags & 0xe) != 0) {
         throw std::runtime_error("not a string associated with specified key");
+    }
     
     int ln = strlen(str) + 1;
     if (node->size < ln)
@@ -1037,9 +1099,9 @@ void ResBase::SetString(const char* fpath, const char* fname, const char* str)
         field_0x30 += node->size;
         node->size = ln;
         node->offset = AllocData(ln) - pdata;
-    }
-    else
+    } else {
         field_0x30 += (node->size - ln);
+    }
 
     strcpy((char *)pdata + node->offset, str);
 }
@@ -1053,19 +1115,19 @@ void ResBase::SetInt(const char* fpath, const char* fname, int32_t val)
 
     if (node == nullptr)
     {
-        if (nodePath == nullptr)
+        if (nodePath == nullptr) {
             nodePath = FUN_004ea183(root.name, fpath);
+        }
 
         node = FUN_004ec438(nodePath);
         node = FUN_004ec7e0(&node, fname);
         node->flags = 1 << 1;
         node->size = 0;
         node->offset = val;
-    }
-    else
-    {
-        if ((node->flags & 0xe) >> 1 != 1)
+    } else {
+        if ((node->flags & 0xe) >> 1 != 1) {
             throw std::runtime_error("not an int associated with specified key");
+        }
         node->offset = val;
     }
 }
@@ -1078,21 +1140,21 @@ void ResBase::SetDouble(const char* fpath, const char* fname, double val)
 
     if (node == nullptr)
     {
-        if (nodePath == nullptr)
+        if (nodePath == nullptr) {
             nodePath = FUN_004ea183(root.name, fpath);
+        }
 
         node = FUN_004ec438(nodePath);
         node = FUN_004ec7e0(&node, fname);
         node->flags = 2 << 1;
         //node->size = 0;
         *(double *)&node->offset = val;
-    }
-    else
-    {
-        if ((node->flags & 0xe) >> 1 != 2)
+    } else {
+        if ((node->flags & 0xe) >> 1 != 2) {
             throw std::runtime_error("not an double associated with specified key");
 
         //node->size = 0;
+        }
         *(double*)&node->offset = val;
     }
 }
@@ -1106,8 +1168,9 @@ void ResBase::SetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>
 
     if (node == nullptr)
     {
-        if (nodePath == nullptr)
+        if (nodePath == nullptr) {
             nodePath = FUN_004ea183(root.name, fpath);
+        }
 
         node = FUN_004ec438(nodePath);
         node = FUN_004ec7e0(&node, fname);
@@ -1116,8 +1179,9 @@ void ResBase::SetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>
         node->offset = AllocData(node->size) - pdata;
     }
 
-    if ((node->flags & 0xe) >> 1 != 3)
+    if ((node->flags & 0xe) >> 1 != 3) {
         throw std::runtime_error("not an int array associated with specified key");
+    }
 
     uint32_t ln = array.GetSize() * 4;
     if (node->size < ln)
@@ -1125,12 +1189,13 @@ void ResBase::SetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>
         field_0x30 += node->size;
         node->size = ln;
         node->offset = AllocData(node->size) - pdata;
-    }
-    else
+    } else {
         field_0x30 += node->size - ln;
+    }
 
-    for (uint32_t i = 0; i < array.GetSize(); i++)
+    for (uint32_t i = 0; i < array.GetSize(); i++) {
         *(uint32_t*)(pdata + node->offset + i * 4) = array[i];
+    }
 }
 
 
@@ -1142,8 +1207,9 @@ void ResBase::SetInt16Array(const char* fpath, const char* fname, CArray<uint16_
 
     if (node == nullptr)
     {
-        if (nodePath == nullptr)
+        if (nodePath == nullptr) {
             nodePath = FUN_004ea183(root.name, fpath);
+        }
 
         node = FUN_004ec438(nodePath);
         node = FUN_004ec7e0(&node, fname);
@@ -1152,8 +1218,9 @@ void ResBase::SetInt16Array(const char* fpath, const char* fname, CArray<uint16_
         node->offset = AllocData(node->size) - pdata;
     }
 
-    if ((node->flags & 0xe) >> 1 != 3)
+    if ((node->flags & 0xe) >> 1 != 3) {
         throw std::runtime_error("not an int array associated with specified key");
+    }
 
     uint32_t ln = array.GetSize() * 4;
     if (node->size < ln)
@@ -1161,12 +1228,13 @@ void ResBase::SetInt16Array(const char* fpath, const char* fname, CArray<uint16_
         field_0x30 += node->size;
         node->size = ln;
         node->offset = AllocData(node->size) - pdata;
-    }
-    else
+    } else {
         field_0x30 += node->size - ln;
+    }
 
-    for (uint32_t i = 0; i < array.GetSize(); i++)
+    for (uint32_t i = 0; i < array.GetSize(); i++) {
         *(uint32_t*)(pdata + node->offset + i * 4) = array[i];
+    }
 }
 
 
@@ -1178,8 +1246,9 @@ void ResBase::SetInt32Array(const char* fpath, const char* fname, CArray<uint32_
 
     if (node == nullptr)
     {
-        if (nodePath == nullptr)
+        if (nodePath == nullptr) {
             nodePath = FUN_004ea183(root.name, fpath);
+        }
 
         node = FUN_004ec438(nodePath);
         node = FUN_004ec7e0(&node, fname);
@@ -1188,8 +1257,9 @@ void ResBase::SetInt32Array(const char* fpath, const char* fname, CArray<uint32_
         node->offset = AllocData(node->size) - pdata;
     }
 
-    if ((node->flags & 0xe) >> 1 != 3)
+    if ((node->flags & 0xe) >> 1 != 3) {
         throw std::runtime_error("not an int array associated with specified key");
+    }
 
     uint32_t ln = array.GetSize() * 4;
     if (node->size < ln)
@@ -1197,12 +1267,13 @@ void ResBase::SetInt32Array(const char* fpath, const char* fname, CArray<uint32_
         field_0x30 += node->size;
         node->size = ln;
         node->offset = AllocData(node->size) - pdata;
-    }
-    else
+    } else {
         field_0x30 += node->size - ln;
+    }
 
-    for (uint32_t i = 0; i < array.GetSize(); i++)
+    for (uint32_t i = 0; i < array.GetSize(); i++) {
         *(uint32_t*)(pdata + node->offset + i * 4) = array[i];
+    }
 }
 
 
@@ -1222,11 +1293,13 @@ int32_t ResBase::GetInt(const char* fpath, const char* fname, int32_t defval)
     FatEntry* nodePath = Find(&root, fpath);
     FatEntry* node = Find(nodePath, fname);
 
-    if (node == nullptr)
+    if (node == nullptr) {
         return defval;
+    }
 
-    if ((node->flags & 0xe) >> 1 != 1)
+    if ((node->flags & 0xe) >> 1 != 1) {
         throw std::runtime_error("not an int associated with specified key");
+    }
 
     return node->offset;
 }
@@ -1238,11 +1311,13 @@ double ResBase::GetDouble(const char* fpath, const char* fname, double defval)
     FatEntry* nodePath = Find(&root, fpath);
     FatEntry* node = Find(nodePath, fname);
 
-    if (node == nullptr)
+    if (node == nullptr) {
         return defval;
+    }
 
-    if ((node->flags & 0xe) >> 1 != 2)
+    if ((node->flags & 0xe) >> 1 != 2) {
         throw std::runtime_error("not an double associated with specified key");
+    }
 
     return *(double *)&node->offset;
 }
@@ -1255,10 +1330,11 @@ int ResBase::GetAllNodeNames(char* pbuf, int bufsz)
     {
         const char* name = fat_data[root.offset + i].name;
         int ln = strlen(name);
-        if (ln + 1 < bufsz - out_len)
+        if (ln + 1 < bufsz - out_len) {
             ln++;
-        else
+        } else {
             ln = bufsz - out_len;
+        }
 
         if (ln <= 1)
         {
@@ -1282,15 +1358,17 @@ int ResBase::GetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>*
     FatEntry* nodePath = Find(&root, fpath);
     FatEntry* node = Find(nodePath, fname);
 
-    if (node == nullptr)
+    if (node == nullptr) {
         return 0;
+    }
 
     int tp = (node->flags & 0xe) >> 1;
     if (tp == 3)
     {
         array->SetSize(node->size / 4);
-        for (int i = 0; i < node->size / 4; i++)
+        for (int i = 0; i < node->size / 4; i++) {
             array->SetAt(i, *(int32_t*)(pdata + node->offset + i * 4));
+        }
 
         return 1;
     }
@@ -1312,15 +1390,17 @@ int ResBase::GetInt16Array(const char* fpath, const char* fname, CArray<uint16_t
     FatEntry* nodePath = Find(&root, fpath);
     FatEntry* node = Find(nodePath, fname);
 
-    if (node == nullptr)
+    if (node == nullptr) {
         return 0;
+    }
 
     int tp = (node->flags & 0xe) >> 1;
     if (tp == 3)
     {
         array->SetSize(node->size / 4);
-        for (int i = 0; i < node->size / 4; i++)
+        for (int i = 0; i < node->size / 4; i++) {
             array->SetAt(i, *(int32_t*)(pdata + node->offset + i * 4));
+        }
 
         return 1;
     }
@@ -1343,15 +1423,17 @@ int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<uint32_t
     FatEntry* nodePath = Find(&root, fpath);
     FatEntry* node = Find(nodePath, fname);
 
-    if (node == nullptr)
+    if (node == nullptr) {
         return 0;
+    }
 
     int tp = (node->flags & 0xe) >> 1;
     if (tp == 3)
     {
         array->SetSize(node->size / 4);
-        for (int i = 0; i < node->size / 4; i++)
+        for (int i = 0; i < node->size / 4; i++) {
             array->SetAt(i, *(uint32_t*)(pdata + node->offset + i * 4));
+        }
 
         return 1;
     }
@@ -1380,15 +1462,17 @@ int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<int32_t>
     FatEntry* nodePath = Find(&root, fpath);
     FatEntry* node = Find(nodePath, fname);
 
-    if (node == nullptr)
+    if (node == nullptr) {
         return 0;
+    }
 
     int tp = (node->flags & 0xe) >> 1;
     if (tp == 3)
     {
         array->SetSize(node->size / 4);
-        for (int i = 0; i < node->size / 4; i++)
+        for (int i = 0; i < node->size / 4; i++) {
             array->SetAt(i, *(int32_t*)(pdata + node->offset + i * 4));
+        }
 
         return 1;
     }
@@ -1417,8 +1501,9 @@ int ResBase::GetStringArray(const char* fpath, const char* fname, CStringArray* 
     FatEntry* nodePath = Find(&root, fpath);
     FatEntry* node = Find(nodePath, fname);
 
-    if (node == nullptr)
+    if (node == nullptr) {
         return 0;
+    }
 
     int tp = (node->flags & 0xe) >> 1;
 
@@ -1435,9 +1520,7 @@ int ResBase::GetStringArray(const char* fpath, const char* fname, CStringArray* 
     {
         array->SetSize(1);
         count = 1;
-    }
-    else
-    {
+    } else {
         count = *(int32_t*)(dat);
         dat += 4;
         array->SetSize(count);
@@ -1445,8 +1528,9 @@ int ResBase::GetStringArray(const char* fpath, const char* fname, CStringArray* 
 
     for (int i = 0; i < count; i++)
     {
-        if ((dat - datstart) >= node->size)
+        if ((dat - datstart) >= node->size) {
             break;
+        }
 
         array->SetAt(i, dat);
         int ln = strlen(dat);
@@ -1469,11 +1553,13 @@ void FatEntry::SetName(const char* resname)
 
     if (resname != name) {
         size_t len = strlen(resname);
-        if (len > 15)
+        if (len > 15) {
             flags |= 0x10000000;
+        }
 
-        if (len + 1 > 15)
+        if (len + 1 > 15) {
             len = 15;
+        }
 
         name[len] = 0;
         strncpy(name, resname, len);
@@ -1491,15 +1577,16 @@ int FatEntry::SortCompare(const void* a, const void* b)
     //4eccd1
     const FatEntry *_a = *(const FatEntry**)a;
     const FatEntry *_b = *(const FatEntry**)b;
-    if (_b->offset < _a->offset)
+    if (_b->offset < _a->offset) {
         return 1;
-    else if (_a->offset == _b->offset)
+    } else if (_a->offset == _b->offset)
     {
-        if (_b->size < _a->size)
+        if (_b->size < _a->size) {
             return 1;
-        else
+        } else {
             return 0;
-    }
-    else
+        }
+    } else {
         return -1;
+    }
 }

@@ -97,15 +97,17 @@ public:
     size_t GetID(uint32_t x, uint32_t y) const
     {
         size_t n = x + y * XW;
-        if (n < size())
+        if (n < size()) {
             return n;
+        }
         return -1;
     }
 
     CPoint GetPos(size_t id) const
     {
-        if (id >= 0 && id < size())
+        if (id >= 0 && id < size()) {
             return CPoint(id % XW, id / XW);
+        }
         return CPoint(-1, -1);
     }
 
@@ -228,15 +230,17 @@ public:
     size_t GetID(uint32_t x, uint32_t y) const
     {
         size_t n = x + y * _w;
-        if (n < size())
+        if (n < size()) {
             return n;
+        }
         return -1;
     }
 
     CPoint GetPos(size_t id) const
     {
-        if (id >= 0 && id < size())
+        if (id >= 0 && id < size()) {
             return CPoint(id % _w, id / _w);
+        }
         return CPoint(-1, -1);
     }
 

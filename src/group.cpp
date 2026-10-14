@@ -20,8 +20,9 @@ GroupSub::GroupSub()
 GroupSub::~GroupSub()
 {
     //5a500c
-    if (list)
+    if (list) {
         delete list;
+    }
 }
 
 void GroupSub::Serialize(CArchive& ar)
@@ -33,9 +34,7 @@ void GroupSub::Serialize(CArchive& ar)
         list = new CList<uint16_t>();
 
         list->Serialize(ar);
-    }
-    else
-    {
+    } else {
         ar.Write(this, 0x50);
 
         list->Serialize(ar);
@@ -60,12 +59,14 @@ Group::~Group()
     while (!unit_list.IsEmpty())
     {
         Unit* unit = unit_list.RemoveHead();
-        if (unit)
+        if (unit) {
             delete unit;
+        }
     }
 
-    if (group_sub)
+    if (group_sub) {
         delete group_sub;
+    }
 }
 
 
@@ -91,15 +92,15 @@ void Group::Serialize(CArchive& ar)
         ar >> group_id;
 
         ar >> tmp;
-        if (!g_Server->field23_0xdc.Lookup((void *)tmp, *(void**)&field_0x40))
+        if (!g_Server->field23_0xdc.Lookup((void *)tmp, *(void**)&field_0x40)) {
             field_0x40 = 0;
+        }
 
         ar >> tmp;
-        if (!g_Server->field23_0xdc.Lookup((void*)tmp, *(void**)&owner))
+        if (!g_Server->field23_0xdc.Lookup((void*)tmp, *(void**)&owner)) {
             owner = nullptr;
-    }
-    else
-    {
+        }
+    } else {
         ar << (uint32_t)unit_list.GetCount();
 
         for (POSITION pos = unit_list.GetHeadPosition(); pos != NULL;)
@@ -120,8 +121,9 @@ void Group::RemoveUnit(Unit* unit)
 {
     //5552e6
     POSITION pos = unit_list.Find(unit);
-    if (pos != NULL)
+    if (pos != NULL) {
         unit_list.RemoveAt(pos);
+    }
 
     unit->group = nullptr;
 }
@@ -129,8 +131,9 @@ void Group::RemoveUnit(Unit* unit)
 void Group::AddUnit(Unit* unit)
 {
     //555176
-    if (unit->group)
+    if (unit->group) {
         unit->group->RemoveUnit(unit);
+    }
 
     unit_list.AddTail(unit);
 

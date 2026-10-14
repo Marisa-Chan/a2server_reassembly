@@ -253,8 +253,7 @@ void __stdcall ScenarioEnterInn(int32_t *ids, int32_t* ids_num)
                     ids[*ids_num] = 0x305207d9;
                     *ids_num += 1;
                 }
-            }
-            else if (g_scenarioState.completedLocationFlags[81] == 0)
+            } else if (g_scenarioState.completedLocationFlags[81] == 0)
             {
                 ids[*ids_num] = 0x305107da;
                 *ids_num += 1;
@@ -267,8 +266,7 @@ void __stdcall ScenarioEnterInn(int32_t *ids, int32_t* ids_num)
         {
             ids[*ids_num] = 0x305a07d4;
             *ids_num += 1;
-        }
-        else if (g_currentScenarioLocation->GetId() == 3)
+        } else if (g_currentScenarioLocation->GetId() == 3)
         {
             if (g_scenarioState.completedLocationFlags[91] == 0)
             {
@@ -301,8 +299,7 @@ void __stdcall ScenarioEnterInn(int32_t *ids, int32_t* ids_num)
                 ids[*ids_num] = 0x306707d5;
                 *ids_num += 1;
             }
-        }
-        else if ((g_currentScenarioLocation->GetId() == 3) && (g_scenarioState.completedLocationFlags[0x65] == 0))
+        } else if ((g_currentScenarioLocation->GetId() == 3) && (g_scenarioState.completedLocationFlags[0x65] == 0))
         {
             ids[*ids_num] = 0x306502a9;
             *ids_num += 1;
@@ -344,20 +341,15 @@ void __stdcall ScenarioEnterInn(int32_t *ids, int32_t* ids_num)
                 {
                     ids[*ids_num] = 0x304a07e6;
                     *ids_num += 1;
-                }
-                else
-                {
+                } else {
                     ids[*ids_num] = 0x304b07e6;
                     *ids_num += 1;
                 }
-            }
-            else if (g_scenarioState.isFemale == 0)
+            } else if (g_scenarioState.isFemale == 0)
             {
                 ids[*ids_num] = 0x304d07e6;
                 *ids_num += 1;
-            }
-            else
-            {
+            } else {
                 ids[*ids_num] = 0x304c07e6;
                 *ids_num += 1;
             }
@@ -376,20 +368,15 @@ void __stdcall ScenarioEnterInn(int32_t *ids, int32_t* ids_num)
                 {
                     ids[*ids_num] = 0x305407e6;
                     *ids_num += 1;
-                }
-                else
-                {
+                } else {
                     ids[*ids_num] = 0x305507e6;
                     *ids_num += 1;
                 }
-            }
-            else if (g_scenarioState.isFemale == 0)
+            } else if (g_scenarioState.isFemale == 0)
             {
                 ids[*ids_num] = 0x305707e6;
                 *ids_num += 1;
-            }
-            else
-            {
+            } else {
                 ids[*ids_num] = 0x305607e6;
                 *ids_num += 1;
             }
@@ -408,20 +395,15 @@ void __stdcall ScenarioEnterInn(int32_t *ids, int32_t* ids_num)
                 {
                     ids[*ids_num] = 0x305d07e6;
                     *ids_num += 1;
-                }
-                else
-                {
+                } else {
                     ids[*ids_num] = 0x305e07e6;
                     *ids_num += 1;
                 }
-            }
-            else if (g_scenarioState.isFemale == 0)
+            } else if (g_scenarioState.isFemale == 0)
             {
                 ids[*ids_num] = 0x306007e6;
                 *ids_num += 1;
-            }
-            else
-            {
+            } else {
                 ids[*ids_num] = 0x305f07e6;
                 *ids_num += 1;
             }
@@ -445,8 +427,7 @@ void __stdcall ScenarioEnterInn(int32_t *ids, int32_t* ids_num)
             {
                 ids[*ids_num] = (i + 1) | 0x10000000 | ((g_scenarioState.locationEntrySelectionFlags[i] > 0) << 31);
                 *ids_num += 1;
-            }
-            else if (g_scenarioState.locationEntryStates[i] == 2)
+            } else if (g_scenarioState.locationEntryStates[i] == 2)
             {
                 ids[*ids_num] = (i + 1) | 0x20000000 | ((g_scenarioState.locationEntrySelectionFlags[i] > 0) << 31);
                 *ids_num += 1;
@@ -459,8 +440,9 @@ void __stdcall ScenarioEnterInn(int32_t *ids, int32_t* ids_num)
 void __stdcall ScenarioEnterLocation(ScenarioLocation* loc)
 { //10001d22
     g_currentScenarioLocation = loc;
-    for (int i = 0; i < 16; i++)
+    for (int i = 0; i < 16; i++) {
         g_scenarioState.currentLocationTransientFlags[i] = 0;
+    }
 }
 
 int32_t __stdcall ScenarioEnterShop()
@@ -498,8 +480,9 @@ int32_t __stdcall ScenarioIsMissionAvailable(int32_t id)
     for (POSITION pos = g_availableLocations.GetHeadPosition(); pos;)
     {
         ScenarioLocation* loc = g_availableLocations.GetNext(pos);
-        if (loc->GetKind() == 1 && loc->GetId() == id)
+        if (loc->GetKind() == 1 && loc->GetId() == id) {
             return 1;
+        }
     }
     return 0;
 }
@@ -511,8 +494,9 @@ int32_t __stdcall ScenarioIsTownAvailable(int32_t id)
         ScenarioLocation* loc = g_availableLocations.GetNext(pos);
         if (loc->GetKind() == 2)
         {
-            if (id == 0 || loc->GetId() == id)
+            if (id == 0 || loc->GetId() == id) {
                 return 1;
+            }
         }
     }
     return 0;
@@ -532,8 +516,9 @@ void ScenarioMakeTownAvailable(int32_t id)
         if (loc->GetKind() == 2 && loc->GetId() == id)
         {
             POSITION p = g_availableLocations.Find(loc);
-            if (!p)
+            if (!p) {
                 g_availableLocations.AddTail(loc);
+            }
         }
     }
 }
@@ -546,8 +531,9 @@ void ScenarioMakeMissionAvailable(int32_t id)
         if (loc->GetKind() == 1 && loc->GetId() == id)
         {
             POSITION p = g_availableLocations.Find(loc);
-            if (!p)
+            if (!p) {
                 g_availableLocations.AddTail(loc);
+            }
         }
     }
 }
@@ -601,15 +587,16 @@ int32_t ScenarioOnCompleted(int32_t* loc, int32_t id)
 
         if (g_scenarioState.isMage == 0)
         {
-            if (g_scenarioState.isFemale == 0)
+            if (g_scenarioState.isFemale == 0) {
                 g_availableLocations.AddTail(&g_scenarioLocationMission93);
-            else
+            } else {
                 g_availableLocations.AddTail(&g_scenarioLocationMission94);
-        }
-        else if (g_scenarioState.isFemale == 0)
+            }
+        } else if (g_scenarioState.isFemale == 0) {
             g_availableLocations.AddTail(&g_scenarioLocationMission96);
-        else
+        } else {
             g_availableLocations.AddTail(&g_scenarioLocationMission95);
+        }
 
         g_availableLocations.AddTail(&g_scenarioLocationMission100);
         g_availableLocations.AddTail(&g_scenarioLocationMission101);
@@ -622,10 +609,11 @@ int32_t ScenarioOnCompleted(int32_t* loc, int32_t id)
     {
         if (g_scenarioState.locationEntryStates[i] != 0)
         {
-            if (g_scenarioState.locationEntrySelectionFlags[i] == 0)
+            if (g_scenarioState.locationEntrySelectionFlags[i] == 0) {
                 g_scenarioState.locationEntryStates[i] = 1;
-            else
+            } else {
                 g_scenarioState.locationEntryStates[i] = 2;
+            }
         }
 
         g_scenarioState.locationEntrySelectionFlags[i] = 0;
@@ -633,8 +621,9 @@ int32_t ScenarioOnCompleted(int32_t* loc, int32_t id)
 
 
     POSITION pos = g_availableLocations.Find(g_currentScenarioLocation);
-    if (pos)
+    if (pos) {
         g_availableLocations.RemoveAt(pos);
+    }
 
     g_currentScenarioLocation = nullptr;
     g_scenarioState.completedLocationFlags[id] = 1;
@@ -648,8 +637,9 @@ int32_t ScenarioOnCompleted(int32_t* loc, int32_t id)
 
     case 20:
         ScenarioMakeTownAvailable(2);
-        if (g_scenarioState.followupLocationUnlockFlagLowConfidence != 0)
+        if (g_scenarioState.followupLocationUnlockFlagLowConfidence != 0) {
             ScenarioMakeMissionAvailable(21);
+        }
         g_scenarioState.locationEntryStates[0] = 1;
         g_scenarioState.locationEntryLocationIds[0] = 2;
         break;
@@ -676,27 +666,31 @@ int32_t ScenarioOnCompleted(int32_t* loc, int32_t id)
 
     case 50:
         ScenarioMakeTownAvailable(3);
-        if (g_scenarioState.mission31UnlockedLowConfidence != 0)
+        if (g_scenarioState.mission31UnlockedLowConfidence != 0) {
             g_availableLocations.AddTail(&g_scenarioLocationMission52);
+        }
 
         g_scenarioState.innSceneUnlockedLowConfidence = 1;
 
         for (int i = 0; i < 4; i++)
         {
-            if (i == 2)
+            if (i == 2) {
                 g_ShopsAssortment[3][2].min_cost = 0;
-            else
+            } else {
                 g_ShopsAssortment[3][i].min_cost = 499;
+            }
             
-            if (i == 0 || i == 3)
+            if (i == 0 || i == 3) {
                 g_ShopsAssortment[3][i].max_count = 100;
-            else
+            } else {
                 g_ShopsAssortment[3][i].max_count = 20;
+            }
 
-            if (i == 0 || i == 3)
+            if (i == 0 || i == 3) {
                 g_ShopsAssortment[3][i].max_same_count = 2;
-            else
+            } else {
                 g_ShopsAssortment[3][i].max_same_count = 1;
+            }
         }
 
         g_ShopsAssortment[3][0].flags = 0x13c7d318;
@@ -720,16 +714,18 @@ int32_t ScenarioOnCompleted(int32_t* loc, int32_t id)
     case 70:
         g_scenarioState.locationEntryStates[3] = 1;
         g_scenarioState.locationEntryLocationIds[3] = 3;
-        if (g_scenarioState.unk == 0 && g_scenarioState.pairedObjectiveBCompletedLowConfidence != 0)
+        if (g_scenarioState.unk == 0 && g_scenarioState.pairedObjectiveBCompletedLowConfidence != 0) {
             *loc = 3;
+        }
         
         g_scenarioState.unk = 1;
         g_scenarioState.specialDialogStateLowConfidence = 1;
         break;
 
     case 80:
-        if (g_scenarioState.pairedObjectiveBCompletedLowConfidence == 0 && g_scenarioState.unk != 0)
+        if (g_scenarioState.pairedObjectiveBCompletedLowConfidence == 0 && g_scenarioState.unk != 0) {
             *loc = 3;
+        }
 
         g_scenarioState.pairedObjectiveBCompletedLowConfidence = 1;
         g_ShopsAssortment[2][0].flags = 0x138752e0;
@@ -749,26 +745,30 @@ int32_t ScenarioOnCompleted(int32_t* loc, int32_t id)
         break;
 
     case 110:
-        if (g_scenarioState.endingVariantFlagLowConfidence == 0)
+        if (g_scenarioState.endingVariantFlagLowConfidence == 0) {
             *loc = 4;
-        else
+        } else {
             *loc = 5;
+        }
         break;
     }
 
-    if (id % 10 == 0)
+    if (id % 10 == 0) {
         g_scenarioState.scenarioChapter += 10;
+    }
     
     switch (g_scenarioState.scenarioChapter)
     {
     case 30:
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++) {
             g_ShopsAssortment[2][i].max_cost = 10000;
+        }
         break;
 
     case 40:
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++) {
             g_ShopsAssortment[2][i].max_cost = 22000;
+        }
         break;
 
     case 50:
@@ -808,8 +808,9 @@ int32_t ScenarioOnCompleted(int32_t* loc, int32_t id)
         {
             g_ShopsAssortment[3][i].max_cost = 1500000;
             g_ShopsAssortment[2][i].max_cost = 1500000;
-            if (i != 2)
+            if (i != 2) {
                 g_ShopsAssortment[2][i].min_cost = 12000;
+            }
         }
         break;
 
@@ -818,8 +819,9 @@ int32_t ScenarioOnCompleted(int32_t* loc, int32_t id)
         {
             g_ShopsAssortment[3][i].max_cost = 5000000;
             g_ShopsAssortment[2][i].max_cost = 5000000;
-            if (i != 2)
+            if (i != 2) {
                 g_ShopsAssortment[2][i].min_cost = 40000;
+            }
         }
         break;
 
@@ -839,16 +841,18 @@ int32_t __stdcall ScenarioLeaveLocation(int32_t* loc)
 { //10002806
     *loc = -1;
 
-    if (!g_currentScenarioLocation)
+    if (!g_currentScenarioLocation) {
         return 0;
+    }
 
     if (g_currentScenarioLocation->GetKind() == 2)
     {
         if (g_currentScenarioLocation->GetId() == 1)
         {
             POSITION pos = g_availableLocations.Find(g_currentScenarioLocation);
-            if (pos)
+            if (pos) {
                 g_availableLocations.RemoveAt(pos);
+            }
         }
         g_currentScenarioLocation = nullptr;
         return 0;
@@ -867,8 +871,9 @@ void __stdcall ScenarioLoad(CFile* fl)
 
     for (int i = 0; i < 4; i++)
     {
-        for (int j = 0; j < 4; j++)
+        for (int j = 0; j < 4; j++) {
             fl->Read(&g_ShopsAssortment[i][j], 20);
+        }
     }
 
     int32_t num = 0;
@@ -883,17 +888,19 @@ void __stdcall ScenarioLoad(CFile* fl)
         ScenarioLocation loc;
         loc.Read(fl);
 
-        if (loc.GetKind() == 1)
+        if (loc.GetKind() == 1) {
             ScenarioMakeMissionAvailable(loc.GetId());
-        else
+        } else {
             ScenarioMakeTownAvailable(loc.GetId());
+        }
     }
 
     fl->Read(&num, 4);
 
     POSITION pos = g_availableLocations.GetHeadPosition();
-    for (int i = 0; i != num; i++)
+    for (int i = 0; i != num; i++) {
          g_availableLocations.GetNext(pos);
+    }
 
     g_currentScenarioLocation = g_availableLocations.GetAt(pos);
 }
@@ -903,8 +910,9 @@ void __stdcall ScenarioSave(CFile* fl)
     fl->Write(&g_scenarioState, 0x1000);
     for (int i = 0; i < 4; i += 1)
     {
-        for (int j = 0; j < 4; j += 1)
+        for (int j = 0; j < 4; j += 1) {
             fl->Write(&g_ShopsAssortment[i][j], 20);
+        }
     }
 
     int32_t num = g_availableLocations.GetCount();
@@ -914,8 +922,9 @@ void __stdcall ScenarioSave(CFile* fl)
     for (POSITION pos = g_availableLocations.GetHeadPosition(); pos; i++)
     {
         ScenarioLocation* loc = g_availableLocations.GetNext(pos);
-        if (g_currentScenarioLocation == loc)
+        if (g_currentScenarioLocation == loc) {
             num = i;
+        }
     }
 
     fl->Write(&num, 4);
@@ -929,8 +938,9 @@ void __stdcall ScenarioNewGame()
 
     InitAllScenatioLocations();
 
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < 20; i++) {
         g_scenarioState.locationEntryStates[i] = 0;
+    }
 
     g_scenarioState.scenarioChapter = 10;
 
@@ -957,15 +967,17 @@ void __stdcall ScenarioNewGame()
         g_ShopsAssortment[2][i].min_cost = 0;
         g_ShopsAssortment[2][i].max_cost = 5000;
 
-        if (i == 0 || i == 3)
+        if (i == 0 || i == 3) {
             g_ShopsAssortment[2][i].max_count = 100;
-        else
+        } else {
             g_ShopsAssortment[2][i].max_count = 20;
+        }
 
-        if (i == 0 || i == 3)
+        if (i == 0 || i == 3) {
             g_ShopsAssortment[2][i].max_same_count = 2;
-        else
+        } else {
             g_ShopsAssortment[2][i].max_same_count = 1;
+        }
     }
 
     g_ShopsAssortment[2][0].flags = 0x1383c305;
@@ -1000,17 +1012,16 @@ void __stdcall ScenarioTalkTo(uint32_t t)
             g_scenarioState.specialDialogStateLowConfidence = 2;
             g_ShopsAssortment[3][3].flags |= 0x80000;
         }
-    }
-    else if (kind == 1)
+    } else if (kind == 1)
     {
         g_scenarioState.locationEntrySelectionFlags[entry - 1] = g_scenarioState.locationEntrySelectionFlags[entry - 1] == 0 ? 1 : 0;
-    }
-    else if (kind == 3)
+    } else if (kind == 3)
     {
         ScenarioMakeMissionAvailable(id);
 
-        if (id == g_scenarioLocationMission10.GetId())
+        if (id == g_scenarioLocationMission10.GetId()) {
             g_scenarioState.startMissionAllowed = 1;
+        }
 
         if (entry == 22 && id == 30)
         {

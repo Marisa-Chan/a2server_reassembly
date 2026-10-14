@@ -235,17 +235,20 @@ void BlitPaletted(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t
 		y = g_clipRect.top;
 	}
 
-	if (x + w >= g_clipRect.right)
+	if (x + w >= g_clipRect.right) {
 		w = g_clipRect.right - x;
+	}
 
-	if (y + h >= g_clipRect.bottom)
+	if (y + h >= g_clipRect.bottom) {
 		h = g_clipRect.bottom - y;
+	}
 
-	if (w <= 0 || h <= 0)
+	if (w <= 0 || h <= 0) {
 		return;
 
 	//MMX optimise omitted
 
+	}
 	w = l + w;
 	h = t + h;
 
@@ -284,14 +287,17 @@ void BlitFlipPalettedAdd(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, 
 		y = g_clipRect.top;
 	}
 
-	if (x + w >= g_clipRect.right)
+	if (x + w >= g_clipRect.right) {
 		w = g_clipRect.right - x;
+	}
 
-	if (y + h >= g_clipRect.bottom)
+	if (y + h >= g_clipRect.bottom) {
 		h = g_clipRect.bottom - y;
+	}
 
-	if (w <= 0 || h <= 0)
+	if (w <= 0 || h <= 0) {
 		return;
+	}
 
 	h = t + h;
 
@@ -329,14 +335,17 @@ void Blit16(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, ui
 		t += g_clipRect.top - y;
 		y = g_clipRect.top;
 	}
-	if (x + w >= g_clipRect.right)
+	if (x + w >= g_clipRect.right) {
 		w = g_clipRect.right - x;
+	}
 	
-	if (y + h >= g_clipRect.bottom)
+	if (y + h >= g_clipRect.bottom) {
 		h = g_clipRect.bottom - y;
+	}
 
-	if (w <= 0 || h <= 0)
+	if (w <= 0 || h <= 0) {
 		return;
+	}
 
 	uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + y * g_selDrawBitmap.lPitch + x * 2;
 	uint8_t* src = src_data + (((src_height - 1) - t) * src_width + l) * 2;
@@ -365,14 +374,17 @@ void Blit16Masked(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t
 		t += g_clipRect.top - y;
 		y = g_clipRect.top;
 	}
-	if (x + w >= g_clipRect.right)
+	if (x + w >= g_clipRect.right) {
 		w = g_clipRect.right - x;
+	}
 
-	if (y + h >= g_clipRect.bottom)
+	if (y + h >= g_clipRect.bottom) {
 		h = g_clipRect.bottom - y;
+	}
 
-	if (w <= 0 || h <= 0)
+	if (w <= 0 || h <= 0) {
 		return;
+	}
 
 	uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + y * g_selDrawBitmap.lPitch + x * 2;
 	uint16_t* src = (uint16_t*)(src_data + (((src_height - 1) - t) * src_width + l) * 2);
@@ -380,8 +392,9 @@ void Blit16Masked(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t
 	{
 		for (int32_t ww = w; ww; ww--)
 		{
-			if (*src != 0)
+			if (*src != 0) {
 				*(uint16_t*)dst = *src;
+			}
 
 			src++;
 			dst += 2;
@@ -409,14 +422,17 @@ void Blit16Add(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b,
 		t += g_clipRect.top - y;
 		y = g_clipRect.top;
 	}
-	if (x + w >= g_clipRect.right)
+	if (x + w >= g_clipRect.right) {
 		w = g_clipRect.right - x;
+	}
 
-	if (y + h >= g_clipRect.bottom)
+	if (y + h >= g_clipRect.bottom) {
 		h = g_clipRect.bottom - y;
+	}
 
-	if (w <= 0 || h <= 0)
+	if (w <= 0 || h <= 0) {
 		return;
+	}
 
 	uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + y * g_selDrawBitmap.lPitch + x * 2;
 	uint16_t* src = (uint16_t*)(src_data + (((src_height - 1) - t) * src_width + l) * 2);
@@ -438,14 +454,18 @@ void Blit16Add(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b,
 
 void __cdecl BlitRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr)
 { // 4559d4
-	if (x + w <= g_clipRect.left)
+	if (x + w <= g_clipRect.left) {
 		return;
-	if (x >= g_clipRect.right)
+	}
+	if (x >= g_clipRect.right) {
 		return;
-	if (y + h <= g_clipRect.top)
+	}
+	if (y + h <= g_clipRect.top) {
 		return;
-	if (y >= g_clipRect.bottom)
+	}
+	if (y >= g_clipRect.bottom) {
 		return;
+	}
 
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 
@@ -469,31 +489,28 @@ void __cdecl BlitRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 						src += count;
 						dst += count;
 						xx += count;
-					}
-					else
-					{
+					} else {
 						while (count)
 						{
-							if (xx >= g_clipRect.left && xx < g_clipRect.right)
+							if (xx >= g_clipRect.left && xx < g_clipRect.right) {
 								*dst = clr[*src];
+							}
 							src++;
 							dst++;
 							xx++;
 							count--;
 						}
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
 					yy += count;
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst += count;
 					xx += count;
 				}
@@ -503,9 +520,7 @@ void __cdecl BlitRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 			yy++;
 			h--;
 		}
-	}
-	else
-	{
+	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + x * 2 + y * dstpitch);
 		while (h > 0)
 		{
@@ -531,17 +546,15 @@ void __cdecl BlitRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 						src++;
 						dst++;
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst += count;
 					xx += count;
 				}
@@ -556,14 +569,18 @@ void __cdecl BlitRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 
 void __cdecl BlitRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr)
 { //456a0d
-	if (x + w <= g_clipRect.left)
+	if (x + w <= g_clipRect.left) {
 		return;
-	if (x >= g_clipRect.right)
+	}
+	if (x >= g_clipRect.right) {
 		return;
-	if (y + h <= g_clipRect.top)
+	}
+	if (y + h <= g_clipRect.top) {
 		return;
-	if (y >= g_clipRect.bottom)
+	}
+	if (y >= g_clipRect.bottom) {
 		return;
+	}
 
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 
@@ -587,31 +604,28 @@ void __cdecl BlitRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 						src += count;
 						dst -= count;
 						xx -= count;
-					}
-					else
-					{
+					} else {
 						while (count)
 						{
-							if (xx >= g_clipRect.left && xx < g_clipRect.right)
+							if (xx >= g_clipRect.left && xx < g_clipRect.right) {
 								*dst = clr[*src];
+							}
 							src++;
 							dst--;
 							xx--;
 							count--;
 						}
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
 					yy += count;
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst -= count;
 					xx -= count;
 				}
@@ -621,9 +635,7 @@ void __cdecl BlitRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 			yy++;
 			h--;
 		}
-	}
-	else
-	{
+	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (x + w - 1) * 2 + y * dstpitch);
 		while (h > 0)
 		{
@@ -643,17 +655,15 @@ void __cdecl BlitRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 						src++;
 						dst--;
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst -= count;
 					xx += count;
 				}
@@ -668,14 +678,18 @@ void __cdecl BlitRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 
 void __cdecl BlitLightRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl)
 { //45614c
-	if (x + w <= g_clipRect.left)
+	if (x + w <= g_clipRect.left) {
 		return;
-	if (x >= g_clipRect.right)
+	}
+	if (x >= g_clipRect.right) {
 		return;
-	if (y + h <= g_clipRect.top)
+	}
+	if (y + h <= g_clipRect.top) {
 		return;
-	if (y >= g_clipRect.bottom)
+	}
+	if (y >= g_clipRect.bottom) {
 		return;
+	}
 
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 	int32_t bl = blvl * g_brightnessLookupCount;
@@ -700,31 +714,28 @@ void __cdecl BlitLightRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 						src += count;
 						dst += count;
 						xx += count;
-					}
-					else
-					{
+					} else {
 						src += count;
 						while (count)
 						{
-							if (xx >= g_clipRect.left && xx < g_clipRect.right)
+							if (xx >= g_clipRect.left && xx < g_clipRect.right) {
 								*dst = g_brightnessLookup[bl + *dst];
+							}
 							dst++;
 							xx++;
 							count--;
 						}
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
 					yy += count;
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst += count;
 					xx += count;
 				}
@@ -734,9 +745,7 @@ void __cdecl BlitLightRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 			yy++;
 			h--;
 		}
-	}
-	else
-	{
+	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + x * 2 + y * dstpitch);
 		while (h > 0)
 		{
@@ -756,17 +765,15 @@ void __cdecl BlitLightRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 						*dst = g_brightnessLookup[bl + *dst];
 						dst++;
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst += count;
 					xx += count;
 				}
@@ -781,14 +788,18 @@ void __cdecl BlitLightRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 
 void __cdecl BlitLightRle8Low(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl)
 { //455f1c
-	if (x + w <= g_clipRect.left)
+	if (x + w <= g_clipRect.left) {
 		return;
-	if (x >= g_clipRect.right)
+	}
+	if (x >= g_clipRect.right) {
 		return;
-	if (y + h <= g_clipRect.top)
+	}
+	if (y + h <= g_clipRect.top) {
 		return;
-	if (y >= g_clipRect.bottom)
+	}
+	if (y >= g_clipRect.bottom) {
 		return;
+	}
 
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 	int32_t bl = blvl * g_brightnessLookupCount;
@@ -813,31 +824,28 @@ void __cdecl BlitLightRle8Low(int32_t x, int32_t y, int32_t w, int32_t h, uint8_
 						src += count;
 						dst += count;
 						xx += count;
-					}
-					else
-					{
+					} else {
 						src += count;
 						while (count)
 						{
-							if (xx >= g_clipRect.left && xx < g_clipRect.right)
+							if (xx >= g_clipRect.left && xx < g_clipRect.right) {
 								*dst = g_brightnessLookup[bl + (*dst >> 3)];
+							}
 							dst++;
 							xx++;
 							count--;
 						}
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
 					yy += count;
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst += count;
 					xx += count;
 				}
@@ -847,9 +855,7 @@ void __cdecl BlitLightRle8Low(int32_t x, int32_t y, int32_t w, int32_t h, uint8_
 			yy++;
 			h--;
 		}
-	}
-	else
-	{
+	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + x * 2 + y * dstpitch);
 		while (h > 0)
 		{
@@ -869,17 +875,15 @@ void __cdecl BlitLightRle8Low(int32_t x, int32_t y, int32_t w, int32_t h, uint8_
 						*dst = g_brightnessLookup[bl + (*dst >> 3)];
 						dst++;
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst += count;
 					xx += count;
 				}
@@ -893,14 +897,18 @@ void __cdecl BlitLightRle8Low(int32_t x, int32_t y, int32_t w, int32_t h, uint8_
 
 void __cdecl BlitLightRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl)
 { //457141
-	if (x + w <= g_clipRect.left)
+	if (x + w <= g_clipRect.left) {
 		return;
-	if (x >= g_clipRect.right)
+	}
+	if (x >= g_clipRect.right) {
 		return;
-	if (y + h <= g_clipRect.top)
+	}
+	if (y + h <= g_clipRect.top) {
 		return;
-	if (y >= g_clipRect.bottom)
+	}
+	if (y >= g_clipRect.bottom) {
 		return;
+	}
 
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 	int32_t bl = blvl * g_brightnessLookupCount;
@@ -925,31 +933,28 @@ void __cdecl BlitLightRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint
 						src += count;
 						dst -= count;
 						xx -= count;
-					}
-					else
-					{
+					} else {
 						src += count;
 						while (count)
 						{
-							if (xx >= g_clipRect.left && xx < g_clipRect.right)
+							if (xx >= g_clipRect.left && xx < g_clipRect.right) {
 								*dst = g_brightnessLookup[bl + *dst];
+							}
 							dst--;
 							xx--;
 							count--;
 						}
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
 					yy += count;
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst -= count;
 					xx -= count;
 				}
@@ -959,9 +964,7 @@ void __cdecl BlitLightRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint
 			yy++;
 			h--;
 		}
-	}
-	else
-	{
+	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (x + w - 1) * 2 + y * dstpitch);
 		while (h > 0)
 		{
@@ -981,17 +984,15 @@ void __cdecl BlitLightRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint
 						*dst = g_brightnessLookup[bl + *dst];
 						dst--;
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst -= count;
 					xx += count;
 				}
@@ -1005,14 +1006,18 @@ void __cdecl BlitLightRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint
 
 void __cdecl BlitLightRle8FlipXLow(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl)
 { //457141
-	if (x + w <= g_clipRect.left)
+	if (x + w <= g_clipRect.left) {
 		return;
-	if (x >= g_clipRect.right)
+	}
+	if (x >= g_clipRect.right) {
 		return;
-	if (y + h <= g_clipRect.top)
+	}
+	if (y + h <= g_clipRect.top) {
 		return;
-	if (y >= g_clipRect.bottom)
+	}
+	if (y >= g_clipRect.bottom) {
 		return;
+	}
 
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 	int32_t bl = blvl * g_brightnessLookupCount;
@@ -1037,31 +1042,28 @@ void __cdecl BlitLightRle8FlipXLow(int32_t x, int32_t y, int32_t w, int32_t h, u
 						src += count;
 						dst -= count;
 						xx -= count;
-					}
-					else
-					{
+					} else {
 						src += count;
 						while (count)
 						{
-							if (xx >= g_clipRect.left && xx < g_clipRect.right)
+							if (xx >= g_clipRect.left && xx < g_clipRect.right) {
 								*dst = g_brightnessLookup[bl + (*dst >> 3)];
+							}
 							dst--;
 							xx--;
 							count--;
 						}
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
 					yy += count;
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst -= count;
 					xx -= count;
 				}
@@ -1071,9 +1073,7 @@ void __cdecl BlitLightRle8FlipXLow(int32_t x, int32_t y, int32_t w, int32_t h, u
 			yy++;
 			h--;
 		}
-	}
-	else
-	{
+	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (x + w - 1) * 2 + y * dstpitch);
 		while (h > 0)
 		{
@@ -1093,17 +1093,15 @@ void __cdecl BlitLightRle8FlipXLow(int32_t x, int32_t y, int32_t w, int32_t h, u
 						*dst = g_brightnessLookup[bl + (*dst >> 3)];
 						dst--;
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst -= count;
 					xx += count;
 				}
@@ -1118,14 +1116,18 @@ void __cdecl BlitLightRle8FlipXLow(int32_t x, int32_t y, int32_t w, int32_t h, u
 
 void __cdecl BlitRle8Blend(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr)
 { // 455ce6
-	if (x + w <= g_clipRect.left)
+	if (x + w <= g_clipRect.left) {
 		return;
-	if (x >= g_clipRect.right)
+	}
+	if (x >= g_clipRect.right) {
 		return;
-	if (y + h <= g_clipRect.top)
+	}
+	if (y + h <= g_clipRect.top) {
 		return;
-	if (y >= g_clipRect.bottom)
+	}
+	if (y >= g_clipRect.bottom) {
 		return;
+	}
 
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 
@@ -1149,31 +1151,28 @@ void __cdecl BlitRle8Blend(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 						src += count;
 						dst += count;
 						xx += count;
-					}
-					else
-					{
+					} else {
 						while (count)
 						{
-							if (xx >= g_clipRect.left && xx < g_clipRect.right)
+							if (xx >= g_clipRect.left && xx < g_clipRect.right) {
 								*dst = ((clr[*src] >> 1) & g_ColorAddMask) + ((*dst >> 1) & g_ColorAddMask);
+							}
 							src++;
 							dst++;
 							xx++;
 							count--;
 						}
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
 					yy += count;
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst += count;
 					xx += count;
 				}
@@ -1183,9 +1182,7 @@ void __cdecl BlitRle8Blend(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 			yy++;
 			h--;
 		}
-	}
-	else
-	{
+	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + x * 2 + y * dstpitch);
 		while (h > 0)
 		{
@@ -1205,17 +1202,15 @@ void __cdecl BlitRle8Blend(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 						src++;
 						dst++;
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst += count;
 					xx += count;
 				}
@@ -1230,14 +1225,18 @@ void __cdecl BlitRle8Blend(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 
 void __cdecl BlitRle8BlendFlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr)
 { // 456ca7
-	if (x + w <= g_clipRect.left)
+	if (x + w <= g_clipRect.left) {
 		return;
-	if (x >= g_clipRect.right)
+	}
+	if (x >= g_clipRect.right) {
 		return;
-	if (y + h <= g_clipRect.top)
+	}
+	if (y + h <= g_clipRect.top) {
 		return;
-	if (y >= g_clipRect.bottom)
+	}
+	if (y >= g_clipRect.bottom) {
 		return;
+	}
 
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 
@@ -1261,31 +1260,28 @@ void __cdecl BlitRle8BlendFlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint
 						src += count;
 						dst -= count;
 						xx -= count;
-					}
-					else
-					{
+					} else {
 						while (count)
 						{
-							if (xx >= g_clipRect.left && xx < g_clipRect.right)
+							if (xx >= g_clipRect.left && xx < g_clipRect.right) {
 								*dst = ((clr[*src] >> 1) & g_ColorAddMask) + ((*dst >> 1) & g_ColorAddMask);
+							}
 							src++;
 							dst--;
 							xx--;
 							count--;
 						}
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
 					yy += count;
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst -= count;
 					xx -= count;
 				}
@@ -1295,9 +1291,7 @@ void __cdecl BlitRle8BlendFlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint
 			yy++;
 			h--;
 		}
-	}
-	else
-	{
+	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (x + w - 1) * 2 + y * dstpitch);
 		while (h > 0)
 		{
@@ -1317,17 +1311,15 @@ void __cdecl BlitRle8BlendFlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint
 						src++;
 						dst--;
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst -= count;
 					xx += count;
 				}
@@ -1346,14 +1338,18 @@ void __cdecl BlitLightRle8Tilt(int32_t x, int32_t y, int32_t w, int32_t h, uint8
 	int32_t off = (int16_t)((tilt * h) >> 16);
 	int32_t aoff = abs(off);
 
-	if (x + w + aoff <= g_clipRect.left)
+	if (x + w + aoff <= g_clipRect.left) {
 		return;
-	if (x - aoff >= g_clipRect.right)
+	}
+	if (x - aoff >= g_clipRect.right) {
 		return;
-	if (y + h <= g_clipRect.top)
+	}
+	if (y + h <= g_clipRect.top) {
 		return;
-	if (y >= g_clipRect.bottom)
+	}
+	if (y >= g_clipRect.bottom) {
 		return;
+	}
 
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 	int32_t bl = blvl * g_brightnessLookupCount;
@@ -1380,25 +1376,24 @@ void __cdecl BlitLightRle8Tilt(int32_t x, int32_t y, int32_t w, int32_t h, uint8
 						src += count;
 						dst += count;
 						xx += count;
-					}
-					else
-					{
+					} else {
 						src += count;
 						while (count)
 						{
-							if (xx + off >= g_clipRect.left && xx + off < g_clipRect.right)
+							if (xx + off >= g_clipRect.left && xx + off < g_clipRect.right) {
 								*dst = g_brightnessLookup[bl + *dst];
+							}
 							dst++;
 							xx++;
 							count--;
 						}
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
 					yy += count;
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					int32_t tmp = tl + count * tilt;
 					tl = tmp & 0xffff;
@@ -1407,9 +1402,7 @@ void __cdecl BlitLightRle8Tilt(int32_t x, int32_t y, int32_t w, int32_t h, uint8
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch - tmp * 2);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst += count;
 					xx += count;
 				}
@@ -1425,9 +1418,7 @@ void __cdecl BlitLightRle8Tilt(int32_t x, int32_t y, int32_t w, int32_t h, uint8
 			yy++;
 			h--;
 		}
-	}
-	else
-	{
+	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (off + x) * 2 + y * dstpitch);
 		while (h > 0)
 		{
@@ -1447,11 +1438,11 @@ void __cdecl BlitLightRle8Tilt(int32_t x, int32_t y, int32_t w, int32_t h, uint8
 						*dst = g_brightnessLookup[bl + *dst];
 						dst++;
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					int32_t tmp = tl + count * tilt;
 					tl = tmp & 0xffff;
@@ -1459,9 +1450,7 @@ void __cdecl BlitLightRle8Tilt(int32_t x, int32_t y, int32_t w, int32_t h, uint8
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch - tmp * 2);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst += count;
 					xx += count;
 				}
@@ -1481,14 +1470,18 @@ void __cdecl BlitLightRle8TiltLow(int32_t x, int32_t y, int32_t w, int32_t h, ui
 	int32_t off = (int16_t)((tilt * h) >> 16);
 	int32_t aoff = abs(off);
 
-	if (x + w + aoff <= g_clipRect.left)
+	if (x + w + aoff <= g_clipRect.left) {
 		return;
-	if (x - aoff >= g_clipRect.right)
+	}
+	if (x - aoff >= g_clipRect.right) {
 		return;
-	if (y + h <= g_clipRect.top)
+	}
+	if (y + h <= g_clipRect.top) {
 		return;
-	if (y >= g_clipRect.bottom)
+	}
+	if (y >= g_clipRect.bottom) {
 		return;
+	}
 
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 	int32_t bl = blvl * g_brightnessLookupCount;
@@ -1515,25 +1508,24 @@ void __cdecl BlitLightRle8TiltLow(int32_t x, int32_t y, int32_t w, int32_t h, ui
 						src += count;
 						dst += count;
 						xx += count;
-					}
-					else
-					{
+					} else {
 						src += count;
 						while (count)
 						{
-							if (xx + off >= g_clipRect.left && xx + off < g_clipRect.right)
+							if (xx + off >= g_clipRect.left && xx + off < g_clipRect.right) {
 								*dst = g_brightnessLookup[bl + (*dst >> 3)];
+							}
 							dst++;
 							xx++;
 							count--;
 						}
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
 					yy += count;
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					int32_t tmp = tl + count * tilt;
 					tl = tmp & 0xffff;
@@ -1542,9 +1534,7 @@ void __cdecl BlitLightRle8TiltLow(int32_t x, int32_t y, int32_t w, int32_t h, ui
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch - tmp * 2);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst += count;
 					xx += count;
 				}
@@ -1560,9 +1550,7 @@ void __cdecl BlitLightRle8TiltLow(int32_t x, int32_t y, int32_t w, int32_t h, ui
 			yy++;
 			h--;
 		}
-	}
-	else
-	{
+	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (off + x) * 2 + y * dstpitch);
 		while (h > 0)
 		{
@@ -1582,11 +1570,11 @@ void __cdecl BlitLightRle8TiltLow(int32_t x, int32_t y, int32_t w, int32_t h, ui
 						*dst = g_brightnessLookup[bl + (*dst >> 3)];
 						dst++;
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					int32_t tmp = tl + count * tilt;
 					tl = tmp & 0xffff;
@@ -1594,9 +1582,7 @@ void __cdecl BlitLightRle8TiltLow(int32_t x, int32_t y, int32_t w, int32_t h, ui
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch - tmp * 2);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst += count;
 					xx += count;
 				}
@@ -1617,14 +1603,18 @@ void __cdecl BlitLightRle8TiltFlipX(int32_t x, int32_t y, int32_t w, int32_t h, 
 	int32_t off = (int16_t)((tilt * h) >> 16);
 	int32_t aoff = abs(off);
 
-	if (x + w + aoff <= g_clipRect.left)
+	if (x + w + aoff <= g_clipRect.left) {
 		return;
-	if (x - aoff >= g_clipRect.right)
+	}
+	if (x - aoff >= g_clipRect.right) {
 		return;
-	if (y + h <= g_clipRect.top)
+	}
+	if (y + h <= g_clipRect.top) {
 		return;
-	if (y >= g_clipRect.bottom)
+	}
+	if (y >= g_clipRect.bottom) {
 		return;
+	}
 
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 	int32_t bl = blvl * g_brightnessLookupCount;
@@ -1651,25 +1641,24 @@ void __cdecl BlitLightRle8TiltFlipX(int32_t x, int32_t y, int32_t w, int32_t h, 
 						src += count;
 						dst -= count;
 						xx -= count;
-					}
-					else
-					{
+					} else {
 						src += count;
 						while (count)
 						{
-							if (xx + off >= g_clipRect.left && xx + off < g_clipRect.right)
+							if (xx + off >= g_clipRect.left && xx + off < g_clipRect.right) {
 								*dst = g_brightnessLookup[bl + *dst];
+							}
 							dst--;
 							xx--;
 							count--;
 						}
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
 					yy += count;
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					int32_t tmp = tl + count * tilt;
 					tl = tmp & 0xffff;
@@ -1678,9 +1667,7 @@ void __cdecl BlitLightRle8TiltFlipX(int32_t x, int32_t y, int32_t w, int32_t h, 
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch - tmp * 2);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst -= count;
 					xx -= count;
 				}
@@ -1696,9 +1683,7 @@ void __cdecl BlitLightRle8TiltFlipX(int32_t x, int32_t y, int32_t w, int32_t h, 
 			yy++;
 			h--;
 		}
-	}
-	else
-	{
+	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (off + x + w - 1) * 2 + y * dstpitch);
 		while (h > 0)
 		{
@@ -1718,11 +1703,11 @@ void __cdecl BlitLightRle8TiltFlipX(int32_t x, int32_t y, int32_t w, int32_t h, 
 						*dst = g_brightnessLookup[bl + *dst];
 						dst--;
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					int32_t tmp = tl + count * tilt;
 					tl = tmp & 0xffff;
@@ -1730,9 +1715,7 @@ void __cdecl BlitLightRle8TiltFlipX(int32_t x, int32_t y, int32_t w, int32_t h, 
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch - tmp * 2);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst -= count;
 					xx += count;
 				}
@@ -1752,14 +1735,18 @@ void __cdecl BlitLightRle8TiltFlipXLow(int32_t x, int32_t y, int32_t w, int32_t 
 	int32_t off = (int16_t)((tilt * h) >> 16);
 	int32_t aoff = abs(off);
 
-	if (x + w + aoff <= g_clipRect.left)
+	if (x + w + aoff <= g_clipRect.left) {
 		return;
-	if (x - aoff >= g_clipRect.right)
+	}
+	if (x - aoff >= g_clipRect.right) {
 		return;
-	if (y + h <= g_clipRect.top)
+	}
+	if (y + h <= g_clipRect.top) {
 		return;
-	if (y >= g_clipRect.bottom)
+	}
+	if (y >= g_clipRect.bottom) {
 		return;
+	}
 
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 	int32_t bl = blvl * g_brightnessLookupCount;
@@ -1786,25 +1773,24 @@ void __cdecl BlitLightRle8TiltFlipXLow(int32_t x, int32_t y, int32_t w, int32_t 
 						src += count;
 						dst -= count;
 						xx -= count;
-					}
-					else
-					{
+					} else {
 						src += count;
 						while (count)
 						{
-							if (xx + off >= g_clipRect.left && xx + off < g_clipRect.right)
+							if (xx + off >= g_clipRect.left && xx + off < g_clipRect.right) {
 								*dst = g_brightnessLookup[bl + (*dst >> 3)];
+							}
 							dst--;
 							xx--;
 							count--;
 						}
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
 					yy += count;
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					int32_t tmp = tl + count * tilt;
 					tl = tmp & 0xffff;
@@ -1813,9 +1799,7 @@ void __cdecl BlitLightRle8TiltFlipXLow(int32_t x, int32_t y, int32_t w, int32_t 
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch - tmp * 2);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst -= count;
 					xx -= count;
 				}
@@ -1831,9 +1815,7 @@ void __cdecl BlitLightRle8TiltFlipXLow(int32_t x, int32_t y, int32_t w, int32_t 
 			yy++;
 			h--;
 		}
-	}
-	else
-	{
+	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (off + x + w - 1) * 2 + y * dstpitch);
 		while (h > 0)
 		{
@@ -1853,11 +1835,11 @@ void __cdecl BlitLightRle8TiltFlipXLow(int32_t x, int32_t y, int32_t w, int32_t 
 						*dst = g_brightnessLookup[bl + (*dst >> 3)];
 						dst--;
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					int32_t tmp = tl + count * tilt;
 					tl = tmp & 0xffff;
@@ -1865,9 +1847,7 @@ void __cdecl BlitLightRle8TiltFlipXLow(int32_t x, int32_t y, int32_t w, int32_t 
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch - tmp * 2);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst -= count;
 					xx += count;
 				}
@@ -1908,17 +1888,15 @@ void __cdecl BlitRle8IndexMask(int32_t x, int32_t y, int32_t w, int32_t h, uint8
 					*dst = mv;
 					dst++;
 				}
-			}
-			else if (flags == 0x40)
+			} else if (flags == 0x40)
 			{
-				if (h <= count)
+				if (h <= count) {
 					return;
+				}
 
 				dst = (uint8_t*)dst + count * dstpitch;
 				h -= count;
-			}
-			else
-			{
+			} else {
 				dst += count;
 				xx += count;
 			}
@@ -1932,14 +1910,18 @@ void __cdecl BlitRle8IndexMask(int32_t x, int32_t y, int32_t w, int32_t h, uint8
 
 void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src, const uint16_t* clr)
 { // 
-	if (x + w <= g_clipRect.left)
+	if (x + w <= g_clipRect.left) {
 		return;
-	if (x >= g_clipRect.right)
+	}
+	if (x >= g_clipRect.right) {
 		return;
-	if (y + h <= g_clipRect.top)
+	}
+	if (y + h <= g_clipRect.top) {
 		return;
-	if (y >= g_clipRect.bottom)
+	}
+	if (y >= g_clipRect.bottom) {
 		return;
+	}
 
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 
@@ -1963,9 +1945,7 @@ void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src
 						src += count;
 						dst += count;
 						xx += count;
-					}
-					else
-					{
+					} else {
 						if (g_isLowMemory == 0)
 						{
 							while (count)
@@ -1980,9 +1960,7 @@ void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src
 								xx++;
 								count--;
 							}
-						}
-						else
-						{
+						} else {
 							while (count)
 							{
 								if (xx >= g_clipRect.left && xx < g_clipRect.right)
@@ -1997,17 +1975,16 @@ void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src
 							}
 						}
 					}
-				}
-				else if (flags == 0x4000)
+				} else if (flags == 0x4000)
 				{
 					yy += count;
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				}
-				else if (flags == 0x8000)
+				} else if (flags == 0x8000)
 				{
 					dst += count;
 					xx += count;
@@ -2018,9 +1995,7 @@ void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src
 			yy++;
 			h--;
 		}
-	}
-	else
-	{
+	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + x * 2 + y * dstpitch);
 		while (h > 0)
 		{
@@ -2043,9 +2018,7 @@ void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src
 							src++;
 							dst++;
 						}
-					}
-					else
-					{
+					} else {
 						for (int i = count; i > 0; i--)
 						{
 							const uint16_t px = *src;
@@ -2054,16 +2027,15 @@ void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src
 							dst++;
 						}
 					}
-				}
-				else if (flags == 0x4000)
+				} else if (flags == 0x4000)
 				{
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				}
-				else if (flags == 0x8000)
+				} else if (flags == 0x8000)
 				{
 					dst += count;
 					xx += count;
@@ -2078,14 +2050,18 @@ void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src
 
 void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src, const uint16_t* clr)
 { //
-	if (x + w <= g_clipRect.left)
+	if (x + w <= g_clipRect.left) {
 		return;
-	if (x >= g_clipRect.right)
+	}
+	if (x >= g_clipRect.right) {
 		return;
-	if (y + h <= g_clipRect.top)
+	}
+	if (y + h <= g_clipRect.top) {
 		return;
-	if (y >= g_clipRect.bottom)
+	}
+	if (y >= g_clipRect.bottom) {
 		return;
+	}
 
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 
@@ -2109,9 +2085,7 @@ void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t
 						src += count;
 						dst -= count;
 						xx -= count;
-					}
-					else
-					{
+					} else {
 						if (g_isLowMemory == 0)
 						{
 							while (count)
@@ -2126,9 +2100,7 @@ void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t
 								xx--;
 								count--;
 							}
-						}
-						else
-						{
+						} else {
 							while (count)
 							{
 								if (xx >= g_clipRect.left && xx < g_clipRect.right)
@@ -2143,17 +2115,16 @@ void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t
 							}
 						}
 					}
-				}
-				else if (flags == 0x4000)
+				} else if (flags == 0x4000)
 				{
 					yy += count;
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				}
-				else if (flags == 0x8000)
+				} else if (flags == 0x8000)
 				{
 					dst -= count;
 					xx -= count;
@@ -2164,9 +2135,7 @@ void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t
 			yy++;
 			h--;
 		}
-	}
-	else
-	{
+	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (x + w - 1) * 2 + y * dstpitch);
 		while (h > 0)
 		{
@@ -2189,9 +2158,7 @@ void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t
 							src++;
 							dst--;
 						}
-					}
-					else
-					{
+					} else {
 						for (int i = count; i > 0; i--)
 						{
 							const uint16_t px = *src;
@@ -2200,16 +2167,15 @@ void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t
 							dst--;
 						}
 					}
-				}
-				else if (flags == 0x4000)
+				} else if (flags == 0x4000)
 				{
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				}
-				else if(flags == 0x8000)
+				} else if(flags == 0x8000)
 				{
 					dst -= count;
 					xx += count;
@@ -2224,14 +2190,18 @@ void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t
 
 void __cdecl BlitRle4(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr)
 { // 455761
-	if (x + w <= g_clipRect.left)
+	if (x + w <= g_clipRect.left) {
 		return;
-	if (x >= g_clipRect.right)
+	}
+	if (x >= g_clipRect.right) {
 		return;
-	if (y + h <= g_clipRect.top)
+	}
+	if (y + h <= g_clipRect.top) {
 		return;
-	if (y >= g_clipRect.bottom)
+	}
+	if (y >= g_clipRect.bottom) {
 		return;
+	}
 
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 
@@ -2261,42 +2231,41 @@ void __cdecl BlitRle4(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 							dst--;
 							xx--;
 						}
-					}
-					else
-					{
+					} else {
 						while (count)
 						{
 							uint8_t bb = *src;
 							src++;
 
-							if (xx >= g_clipRect.left && xx < g_clipRect.right)
+							if (xx >= g_clipRect.left && xx < g_clipRect.right) {
 								*dst = clr[bb & 0xf];
+							}
 							dst++;
 							xx++;
 
 							bb >>= 4;
-							if (bb == 0)
+							if (bb == 0) {
 								break;
-							if (xx >= g_clipRect.left && xx < g_clipRect.right)
+							}
+							if (xx >= g_clipRect.left && xx < g_clipRect.right) {
 								*dst = clr[bb];
+							}
 							dst++;
 							xx++;
 
 							count--;
 						}
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
 					yy += count;
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst += count;
 					xx += count;
 				}
@@ -2306,9 +2275,7 @@ void __cdecl BlitRle4(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 			yy++;
 			h--;
 		}
-	}
-	else
-	{
+	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + x * 2 + y * dstpitch);
 		while (h > 0)
 		{
@@ -2331,23 +2298,22 @@ void __cdecl BlitRle4(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 						xx++;
 
 						bb >>= 4;
-						if (bb == 0)
+						if (bb == 0) {
 							break;
+						}
 						*dst = clr[bb];
 						dst++;
 						xx++;
 					}
-				}
-				else if (flags == 0x40)
+				} else if (flags == 0x40)
 				{
-					if (h <= count)
+					if (h <= count) {
 						return;
+					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				}
-				else
-				{
+				} else {
 					dst += count;
 					xx += count;
 				}
@@ -2365,8 +2331,9 @@ void __cdecl SetPixelColor(int32_t x, int32_t y, uint32_t clr)
 {
 	//4586a4
 	if (x >= g_clipRect.left && x < g_clipRect.right &&
-		y >= g_clipRect.top && y < g_clipRect.bottom)
+		y >= g_clipRect.top && y < g_clipRect.bottom) {
 		((uint16_t*)g_selDrawBitmap.lpSurface)[x + y * (g_selDrawBitmap.lPitch / 2)] = clr;
+	}
 }
 
 // 457aa6
@@ -2507,9 +2474,7 @@ void __cdecl FillRectColor(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t 
 		dl = h - w;
 		rr = r;
 		dd = h;
-	}
-	else
-	{
+	} else {
 		dp = w * 2 - h;
 		dl = w - h;
 		bb = b;
@@ -2520,19 +2485,22 @@ void __cdecl FillRectColor(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t 
 	dl *= 2;
 
 	int32_t dx = 1;
-	if (r < l)
+	if (r < l) {
 		dx = -1;
+	}
 
 	int32_t dy = 1;
-	if (b < t)
+	if (b < t) {
 		dy = -1;
+	}
 
 	int32_t xx = l;
 	int32_t yy = t;
 
 	if (l >= g_clipRect.left && l < g_clipRect.right &&
-		t >= g_clipRect.top && t < g_clipRect.bottom)
+		t >= g_clipRect.top && t < g_clipRect.bottom) {
 		sp[l + t * (g_selDrawBitmap.lPitch / 2)] = clr;
+	}
 
 	if (h < w)
 	{
@@ -2548,12 +2516,11 @@ void __cdecl FillRectColor(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t 
 			dp += w;
 
 			if (xx >= g_clipRect.left && xx < g_clipRect.right &&
-				yy >= g_clipRect.top && yy < g_clipRect.bottom)
+				yy >= g_clipRect.top && yy < g_clipRect.bottom) {
 				sp[xx + yy * (g_selDrawBitmap.lPitch / 2)] = clr;
+			}
 		}
-	}
-	else
-	{
+	} else {
 		while (yy != bb)
 		{
 			yy += dy;
@@ -2566,8 +2533,9 @@ void __cdecl FillRectColor(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t 
 			dp += w;
 
 			if (xx >= g_clipRect.left && xx < g_clipRect.right &&
-				yy >= g_clipRect.top && yy < g_clipRect.bottom)
+				yy >= g_clipRect.top && yy < g_clipRect.bottom) {
 				sp[xx + yy * (g_selDrawBitmap.lPitch / 2)] = clr;
+			}
 		}
 	}
 }
@@ -2575,17 +2543,22 @@ void __cdecl FillRectColor(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t 
 void __cdecl FillRectColorSimple(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr)
 {
 	//4579d8
-	if (g_IsServer != 0)
+	if (g_IsServer != 0) {
 		return;
+	}
 
-	if (l < g_clipRect.left)
+	if (l < g_clipRect.left) {
 		l = g_clipRect.left;
-	if (r > g_clipRect.right)
+	}
+	if (r > g_clipRect.right) {
 		r = g_clipRect.right;
-	if (t < g_clipRect.top)
+	}
+	if (t < g_clipRect.top) {
 		t = g_clipRect.top;
-	if (b > g_clipRect.bottom)
+	}
+	if (b > g_clipRect.bottom) {
 		b = g_clipRect.bottom;
+	}
 
 	const uint32_t dcolor = (clr << 16) | clr;
 
@@ -2602,8 +2575,9 @@ void __cdecl FillRectColorSimple(int32_t l, int32_t t, int32_t r, int32_t b, uin
 			num -= 2;
 		}
 
-		if (num == 1)
+		if (num == 1) {
 			*dout = clr;
+		}
 	}
 }
 
@@ -2614,8 +2588,9 @@ void __cdecl ShadowRect(CRect rect, int shadow)
 
 	rect.IntersectRect(rect, g_clipRect);
 
-	if (rect.Width() == 0 || rect.Height() == 0)
+	if (rect.Width() == 0 || rect.Height() == 0) {
 		return;
+	}
 
 	uint16_t* px = (uint16_t*)g_selDrawBitmap.lpSurface + (g_selDrawBitmap.lPitch / 2) * rect.top + rect.left;
 	for (int32_t y = rect.top; y < rect.bottom; y++)
@@ -2623,10 +2598,11 @@ void __cdecl ShadowRect(CRect rect, int shadow)
 		uint16_t* row = px;
 		for (int32_t x = rect.left; x < rect.right; x++)
 		{
-			if (g_isLowMemory)
+			if (g_isLowMemory) {
 				*row = lookup[(*row) >> 3];
-			else
+			} else {
 				*row = lookup[*row];
+			}
 			row++;
 		}
 		px += g_selDrawBitmap.lPitch / 2;
@@ -2639,8 +2615,9 @@ void CopyIndexedSkip0(uint8_t* dst, uint8_t* src, int32_t size)
 	while (size > 0)
 	{
 		uint8_t px = *src;
-		if (px != 0)
+		if (px != 0) {
 			*dst = px;
+		}
 		dst++;
 		src++;
 		size--;
@@ -2650,8 +2627,9 @@ void CopyIndexedSkip0(uint8_t* dst, uint8_t* src, int32_t size)
 
 void DrawFlatTile(int32_t x, int32_t y, int32_t l1, int32_t l2, int32_t l3, int32_t l4, uint8_t* src, uint16_t* pal)
 { //458b29
-	if (x < g_clipRect.left || x + 32 > g_clipRect.right || y >= g_clipRect.bottom || y + 32 < g_clipRect.top)
+	if (x < g_clipRect.left || x + 32 > g_clipRect.right || y >= g_clipRect.bottom || y + 32 < g_clipRect.top) {
 		return;
+	}
 
 	int32_t tl = (l2 - l1) * 32 / 32; //top light diff
 	int32_t bl = (l4 - l3) * 32 / 32; //bottom light diff
@@ -2665,11 +2643,13 @@ void DrawFlatTile(int32_t x, int32_t y, int32_t l1, int32_t l2, int32_t l3, int3
 		int32_t num_row = 32;
 		int32_t lstep = (l3 - l1) / 32; // 256 / 32 lines
 
-		if (y + 32 > g_clipRect.bottom)
+		if (y + 32 > g_clipRect.bottom) {
 			num_row = g_clipRect.bottom - y;
+		}
 		
-		if (num_row < 0)
+		if (num_row < 0) {
 			num_row = 0;
+		}
 
 		uint8_t* srcpx = src + i;
 
@@ -2705,8 +2685,9 @@ void DrawDeformedTile(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 { //458ca0
 	if (x0 < g_clipRect.left || x1 > g_clipRect.right || 
 		(h0 >= g_clipRect.bottom && h1 >= g_clipRect.bottom) ||
-		(h2 < g_clipRect.top && h3 < g_clipRect.top))
+		(h2 < g_clipRect.top && h3 < g_clipRect.top)) {
 		return;
+	}
 
 	int32_t dtop = abs(h1 - h0);
 	int32_t dbtm = abs(h3 - h2);
@@ -2719,11 +2700,13 @@ void DrawDeformedTile(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 	int32_t tidx = 0;
 	int32_t bidx = 0;
 
-	if (h1 < h0)
+	if (h1 < h0) {
 		tidx = dtop - 1;
+	}
 
-	if (h2 < h3)
+	if (h2 < h3) {
 		bidx = dbtm - 1;
+	}
 
 	bool bVar2 = false;
 	bool bVar3 = false;
@@ -2741,9 +2724,7 @@ void DrawDeformedTile(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 					h0++;
 					tidx++;
 				}
-			}
-			else
-			{
+			} else {
 				while (32 - g_TerrainHelper[dtop][tidx] <= i && tidx > -1)
 				{
 					h0--;
@@ -2751,8 +2732,9 @@ void DrawDeformedTile(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 				}
 			}
 
-			if (tidx < 0 || tidx == dtop)
+			if (tidx < 0 || tidx == dtop) {
 				bVar2 = true;
+			}
 		}
 
 		if (!bVar3)
@@ -2764,9 +2746,7 @@ void DrawDeformedTile(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 					h2++;
 					bidx--;
 				}
-			}
-			else
-			{
+			} else {
 				while (g_TerrainHelper[dbtm][bidx] <= i && bidx < dbtm)
 				{
 					h2--;
@@ -2774,8 +2754,9 @@ void DrawDeformedTile(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 				}
 			}
 
-			if (bidx < 0 || bidx == dbtm)
+			if (bidx < 0 || bidx == dbtm) {
 				bVar3 = true;
+			}
 		}
 
 		uint8_t* out_dst = (uint8_t*)g_selDrawBitmap.lpSurface + h0 * g_selDrawBitmap.lPitch + i * 2 + x0 * 2;
@@ -2821,15 +2802,18 @@ void DrawDeformedTile(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 
 void FillFlatTerrain(int32_t x, int32_t h0, int32_t h2)
 { //458fe6
-	if (h0 >= g_clipRect.bottom || h2 < g_clipRect.top)
+	if (h0 >= g_clipRect.bottom || h2 < g_clipRect.top) {
 		return;
+	}
 
-	if (h0 < g_clipRect.top)
+	if (h0 < g_clipRect.top) {
 		h0 = g_clipRect.top;
+	}
 
 	int32_t num_rows = h2 - h0;
-	if (g_clipRect.bottom < h2)
+	if (g_clipRect.bottom < h2) {
 		num_rows = g_clipRect.bottom - h0;
+	}
 
 	uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + h0 * g_selDrawBitmap.lPitch + x * 2;
 	while (num_rows > 0)
@@ -2845,16 +2829,19 @@ void FillDeformedTerrain(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t
 { // 4590ef
 	if (x0 < g_clipRect.left || x1 > g_clipRect.right ||
 		(h0 >= g_clipRect.bottom && h1 >= g_clipRect.bottom) ||
-		(h2 < g_clipRect.top && h3 < g_clipRect.top))
+		(h2 < g_clipRect.top && h3 < g_clipRect.top)) {
 		return;
+	}
 
 	int32_t local_30 = h3;
-	if (h2 < h3)
+	if (h2 < h3) {
 		local_30 = h2;
+	}
 
 	int32_t local_34 = h1;
-	if (h1 < h0)
+	if (h1 < h0) {
 		local_34 = h0;
+	}
 
 	if (local_34 < local_30)
 	{
@@ -2874,8 +2861,7 @@ void FillDeformedTerrain(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t
 				h0++;
 				idx++;
 			}
-		}
-		else if (h1 < h0)
+		} else if (h1 < h0)
 		{
 			uint8_t* out_dst = (uint8_t*)g_selDrawBitmap.lpSurface + h1 * g_selDrawBitmap.lPitch + x0 * 2;
 			const int32_t hid = h0 - h1;
@@ -2893,8 +2879,9 @@ void FillDeformedTerrain(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t
 			}
 		}
 
-		if (local_34 < local_30)
+		if (local_34 < local_30) {
 			FillFlatTerrain(x0, local_34, local_30);
+		}
 
 		if (h3 < h2)
 		{
@@ -2912,8 +2899,7 @@ void FillDeformedTerrain(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t
 				h3++;
 				idx--;
 			}
-		}
-		else if (h2 < h3)
+		} else if (h2 < h3)
 		{
 			uint8_t* out_dst = (uint8_t*)g_selDrawBitmap.lpSurface + h2 * g_selDrawBitmap.lPitch + x0 * 2;
 			const int32_t hid = h3 - h2;
@@ -2930,16 +2916,17 @@ void FillDeformedTerrain(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t
 				idx--;
 			}
 		}
-	}
-	else
+	} else {
 		FillDeformedLight(x0, x1, h0, h1, h2, h3, 16, 16, 16, 16);
+	}
 }
 
 
 void FillFlatLight(int32_t x, int32_t y, int32_t t0, int32_t t1, int32_t t2, int32_t t3)
 { //459449
-	if (x < g_clipRect.left || x + 32 > g_clipRect.right || y >= g_clipRect.bottom || y + 32 < g_clipRect.top)
+	if (x < g_clipRect.left || x + 32 > g_clipRect.right || y >= g_clipRect.bottom || y + 32 < g_clipRect.top) {
 		return;
+	}
 
 	int32_t tl = (t1 - t0) * 32 / 32; //top light diff
 	int32_t bl = (t3 - t2) * 32 / 32; //bottom light diff
@@ -2953,11 +2940,13 @@ void FillFlatLight(int32_t x, int32_t y, int32_t t0, int32_t t1, int32_t t2, int
 		int32_t num_row = 32;
 		int32_t lstep = (t2 - t0) / 32;
 
-		if (y + 32 > g_clipRect.bottom)
+		if (y + 32 > g_clipRect.bottom) {
 			num_row = g_clipRect.bottom - y;
+		}
 
-		if (num_row < 0)
+		if (num_row < 0) {
 			num_row = 0;
+		}
 
 		int32_t lght = t0 + 32 / 2; //128  half light step
 		int32_t yy = y;
@@ -2979,9 +2968,7 @@ void FillFlatLight(int32_t x, int32_t y, int32_t t0, int32_t t1, int32_t t2, int
 				yy++;
 				num_row--;
 			}
-		}
-		else
-		{
+		} else {
 			while (num_row > 0)
 			{
 				if (yy >= g_clipRect.top)
@@ -3011,8 +2998,9 @@ void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h
 
 	if (x0 < g_clipRect.left || x1 > g_clipRect.right ||
 		(h0 >= g_clipRect.bottom && h1 >= g_clipRect.bottom) ||
-		(h2 < g_clipRect.top && h3 < g_clipRect.top))
+		(h2 < g_clipRect.top && h3 < g_clipRect.top)) {
 		return;
+	}
 
 	int32_t dtop = abs(h1 - h0);
 	int32_t dbtm = abs(h3 - h2);
@@ -3023,12 +3011,14 @@ void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h
 	t2 *= 32;
 
 	int32_t tidx = 0;
-	if (h0 >= h1 && dtop > 0)
+	if (h0 >= h1 && dtop > 0) {
 		tidx = dtop - 1;
+	}
 
 	int32_t bidx = 0;
-	if (h2 < h3 && dbtm > 0)
+	if (h2 < h3 && dbtm > 0) {
 		bidx = dbtm - 1;
+	}
 
 	bool bVar2 = false;
 	bool bVar3 = false;
@@ -3043,9 +3033,7 @@ void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h
 					h0++;
 					tidx++;
 				}
-			}
-			else
-			{
+			} else {
 				while (i >= 32 - g_TerrainHelper[dtop][tidx] && tidx > -1)
 				{
 					h0--;
@@ -3053,8 +3041,9 @@ void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h
 				}
 			}
 
-			if (tidx < 0 || tidx == dtop)
+			if (tidx < 0 || tidx == dtop) {
 				bVar2 = true;
+			}
 		}
 		if (!bVar3)
 		{
@@ -3065,9 +3054,7 @@ void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h
 					h2++;
 					bidx--;
 				}
-			}
-			else
-			{
+			} else {
 				while (i >= g_TerrainHelper[dbtm][bidx] && bidx < dbtm)
 				{
 					h2--;
@@ -3075,8 +3062,9 @@ void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h
 				}
 			}
 
-			if (bidx < 0 || bidx == dbtm)
+			if (bidx < 0 || bidx == dbtm) {
 				bVar3 = true;
+			}
 		}
 
 		int32_t num_rows = h2 - h0;
@@ -3086,11 +3074,13 @@ void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h
 
 			uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + h0 * g_selDrawBitmap.lPitch + (x0 + i) * 2;
 
-			if (h2 > g_clipRect.bottom)
+			if (h2 > g_clipRect.bottom) {
 				num_rows = g_clipRect.bottom - h0;
+			}
 
-			if (num_rows < 0)
+			if (num_rows < 0) {
 				num_rows = 0;
+			}
 
 			int32_t uVar10 = t0 + 32 / 2;
 			int32_t yy = h0;
@@ -3099,10 +3089,11 @@ void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h
 				if (yy >= g_clipRect.top)
 				{
 					const uint32_t page = (uVar10 >> 5) * g_brightnessLookupCount;
-					if (g_isLowMemory == 1)
+					if (g_isLowMemory == 1) {
 						*(uint16_t*)dst = g_brightnessLookup[page + ((*(uint16_t*)dst) >> 3)];
-					else
+					} else {
 						*(uint16_t*)dst = g_brightnessLookup[page + *(uint16_t*)dst];
+					}
 				}
 
 				uVar10 += light_step;
@@ -3120,15 +3111,18 @@ void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h
 
 void FillFlatGrey(int32_t x, int32_t h0, int32_t h2)
 { //45995e
-	if (h0 >= g_clipRect.bottom || h2 < g_clipRect.top)
+	if (h0 >= g_clipRect.bottom || h2 < g_clipRect.top) {
 		return;
+	}
 
-	if (h0 < g_clipRect.top)
+	if (h0 < g_clipRect.top) {
 		h0 = g_clipRect.top;
+	}
 
 	int32_t num_rows = h2 - h0;
-	if (g_clipRect.bottom < h2)
+	if (g_clipRect.bottom < h2) {
 		num_rows = g_clipRect.bottom - h0;
+	}
 
 	uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + h0 * g_selDrawBitmap.lPitch + x * 2;
 	while (num_rows > 0)
@@ -3149,16 +3143,19 @@ void FillDeformedGrey(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 { //459b72
 	if (x0 < g_clipRect.left || x1 > g_clipRect.right ||
 		(h0 >= g_clipRect.bottom && h1 >= g_clipRect.bottom) ||
-		(h2 < g_clipRect.top && h3 < g_clipRect.top))
+		(h2 < g_clipRect.top && h3 < g_clipRect.top)) {
 		return;
+	}
 
 	int32_t h_bottom = h3;
-	if (h2 < h3)
+	if (h2 < h3) {
 		h_bottom = h2;
+	}
 
 	int32_t h_top = h1;
-	if (h1 < h0)
+	if (h1 < h0) {
 		h_top = h0;
+	}
 
 	if (h_top < h_bottom)
 	{
@@ -3182,8 +3179,7 @@ void FillDeformedGrey(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 				h0++;
 				idx++;
 			}
-		}
-		else if (h1 < h0)
+		} else if (h1 < h0)
 		{
 			uint8_t* out_dst = (uint8_t*)g_selDrawBitmap.lpSurface + h1 * g_selDrawBitmap.lPitch + x0 * 2;
 			const int32_t hid = h0 - h1;
@@ -3206,8 +3202,9 @@ void FillDeformedGrey(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 			}
 		}
 
-		if (h_top < h_bottom)
+		if (h_top < h_bottom) {
 			FillFlatGrey(x0, h_top, h_bottom);
+		}
 
 		if (h3 < h2)
 		{
@@ -3229,8 +3226,7 @@ void FillDeformedGrey(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 				h3++;
 				idx--;
 			}
-		}
-		else if (h2 < h3)
+		} else if (h2 < h3)
 		{
 			uint8_t* out_dst = (uint8_t*)g_selDrawBitmap.lpSurface + h2 * g_selDrawBitmap.lPitch + x0 * 2;
 			const int32_t hid = h3 - h2;
@@ -3252,9 +3248,9 @@ void FillDeformedGrey(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 				idx--;
 			}
 		}
-	}
-	else
+	} else {
 		FillDeformedLight(x0, x1, h0, h1, h2, h3, 8, 8, 8, 8);
+	}
 }
 
 
@@ -3277,8 +3273,9 @@ void __cdecl CopySurface16Rect(uint8_t* src, int32_t sx, int32_t sy, uint8_t* ds
 		w -= t;
 	}
 	t = (dx + w) - g_clipRect.right;
-	if (t > -1)
+	if (t > -1) {
 		w -= t;
+	}
 
 	t = g_clipRect.top - dy;
 	if (t > 0)
@@ -3289,11 +3286,13 @@ void __cdecl CopySurface16Rect(uint8_t* src, int32_t sx, int32_t sy, uint8_t* ds
 	}
 
 	t = (dy + h) - g_clipRect.bottom;
-	if (t > -1)
+	if (t > -1) {
 		h -= t;
+	}
 
-	if (w <= 0 || h <= 0)
+	if (w <= 0 || h <= 0) {
 		return;
+	}
 
 	uint8_t* s = src + sy * sp + sx * 2;
 	uint8_t* d = dst + dy * dp + dx * 2;
@@ -3351,9 +3350,7 @@ void __cdecl gfxFlushRect(const CRect& rect)
 		if (w < 1 || h < 1)
 		{
 			g_mousept.SaveScreenParts(r);
-		}
-		else
-		{
+		} else {
 			LockSurface2();
 
 			void* sv = g_selDrawBitmap.lpSurface;
@@ -3389,8 +3386,9 @@ void __cdecl FlushScreen()
 
 uint32_t LockSurface1()
 { //45431c
-	if (g_IsServer)
+	if (g_IsServer) {
 		return 0;
+	}
 
 	int res = 0;
 	if (g_ddsurf_lock == 0)
@@ -3405,8 +3403,9 @@ uint32_t LockSurface1()
 
 uint32_t UnlockSurface1()
 { //454378
-	if (g_IsServer)
+	if (g_IsServer) {
 		return 0;
+	}
 
 	int res = 0;
 	if (g_ddsurf_lock != 0)
@@ -3420,8 +3419,9 @@ uint32_t UnlockSurface1()
 
 uint32_t LockSurface2()
 { //45431c
-	if (g_IsServer)
+	if (g_IsServer) {
 		return 0;
+	}
 
 	int res = 0;
 	if (g_ddsurf_lock2 == 0)
@@ -3435,8 +3435,9 @@ uint32_t LockSurface2()
 
 uint32_t UnlockSurface2()
 { //4542ca
-	if (g_IsServer)
+	if (g_IsServer) {
 		return 0;
+	}
 
 	int res = 0;
 	if (g_ddsurf_lock2 != 0)
@@ -3449,11 +3450,13 @@ uint32_t UnlockSurface2()
 
 uint32_t LockSurface3()
 { //4543ca
-	if (g_IsServer)
+	if (g_IsServer) {
 		return 0;
+	}
 
-	if (g_ddsurface3->IsLost() == DDERR_SURFACELOST)
+	if (g_ddsurface3->IsLost() == DDERR_SURFACELOST) {
 		g_ddsurface3->Restore();
+	}
 
 	int res = 0;
 	if (g_ddsurf_lock3 == 0)
@@ -3468,11 +3471,13 @@ uint32_t LockSurface3()
 
 uint32_t UnlockSurface3()
 { //45444f
-	if (g_IsServer)
+	if (g_IsServer) {
 		return 0;
+	}
 
-	if (g_ddsurface3->IsLost() == DDERR_SURFACELOST)
+	if (g_ddsurface3->IsLost() == DDERR_SURFACELOST) {
 		g_ddsurface3->Restore();
+	}
 
 	int res = 0;
 	if (g_ddsurf_lock3 != 0)
@@ -3501,13 +3506,16 @@ void __cdecl CopyScreenRectToBmp64(int32_t x, int32_t y, int32_t w, int32_t h, i
 		dy = g_clipRect.top - y;
 		y = g_clipRect.top;
 	}
-	if (g_clipRect.right <= x + w)
+	if (g_clipRect.right <= x + w) {
 		w = g_clipRect.right - x;
-	if (g_clipRect.bottom <= y + h)
+	}
+	if (g_clipRect.bottom <= y + h) {
 		h = g_clipRect.bottom - y;
+	}
 
-	if (w <= 0 || h <= 0)
+	if (w <= 0 || h <= 0) {
 		return;
+	}
 
 	uint8_t* s = (uint8_t*)g_selDrawBitmap.lpSurface + y * g_selDrawBitmap.lPitch + x * 2;
 	uint8_t* d = (uint8_t*)dst + dx * 2 + ((dh - dy) - 1) * dw * 2;
@@ -3523,8 +3531,9 @@ int BitmaskLowBound(uint32_t bm)
 { //453f5c
 	for (int32_t i = 0; i < 32; i++)
 	{
-		if (bm & (1 << i))
+		if (bm & (1 << i)) {
 			return i;
+		}
 	}
 	return -1;
 }
@@ -3538,16 +3547,18 @@ int BitmaskHighBound(uint32_t bm)
 
 	for (int32_t i = max; i >= 0; i--)
 	{
-		if (bm & (1 << i))
+		if (bm & (1 << i)) {
 			return i;
+		}
 	}
 	return -1;
 }
 
 void FreeBrightnessLookup()
 { //453cf9
-	if (g_brightnessLookup)
+	if (g_brightnessLookup) {
 		delete[] g_brightnessLookup;
+	}
 	g_brightnessLookup = nullptr;
 }
 
@@ -3562,10 +3573,11 @@ void CalculateBrightness()
 	int32_t maxG = 1 << g_GBits;
 	int32_t maxB = 1 << g_BBits;
 
-	if (g_isLowMemory == 0)
+	if (g_isLowMemory == 0) {
 		g_brightnessLookupCount = 0x10000;
-	else
+	} else {
 		g_brightnessLookupCount = 0x10000 >> 3;
+	}
 
 	g_brightnessLookup = new uint16_t[g_brightnessLookupCount * 17];
 
@@ -3589,15 +3601,19 @@ void CalculateBrightness()
 					int32_t r = (ri * br / 16) << (8 - g_RBits);
 					int32_t g = (gi * br / 16) << (8 - g_GBits);
 					int32_t b = (bi * br / 16) << (8 - g_BBits);
-					if (r > 255)
+					if (r > 255) {
 						r = 255;
-					if (g > 255)
+					}
+					if (g > 255) {
 						g = 255;
-					if (b > 255)
+					}
+					if (b > 255) {
 						b = 255;
+					}
 					int32_t idx = (ri << g_RBitShift) | (gi << g_GBitShift) | (bi << g_BBitShift);
-					if (g_isLowMemory)
+					if (g_isLowMemory) {
 						idx >>= 3;
+					}
 					g_brightnessLookup[off + idx] = GetColorRGB(r, g, b);
 				}
 			}
@@ -3733,11 +3749,13 @@ int32_t InitVideo()
 	gfx_bits = g_RBits + g_GBits + g_BBits;
 	#endif
 	
-	if (FAILED(DirectDrawCreate(nullptr, &g_ddraw, nullptr)))
+	if (FAILED(DirectDrawCreate(nullptr, &g_ddraw, nullptr))) {
 		return 0;
+	}
 
-	if (FAILED(g_ddraw->SetCooperativeLevel(AfxGetMainWnd()->m_hWnd, DDSCL_NORMAL)))
+	if (FAILED(g_ddraw->SetCooperativeLevel(AfxGetMainWnd()->m_hWnd, DDSCL_NORMAL))) {
 		return 0;
+	}
 
 	DDSURFACEDESC tmp;
 	tmp.dwSize = sizeof(DDSURFACEDESC);
@@ -3745,10 +3763,11 @@ int32_t InitVideo()
 	tmp.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE;
 	tmp.dwBackBufferCount = 0;
 
-	if (FAILED(g_ddraw->CreateSurface(&tmp, &g_ddsurface, nullptr)))
+	if (FAILED(g_ddraw->CreateSurface(&tmp, &g_ddsurface, nullptr))) {
 		return 0;
 
 	//if we can't init pixel colors then try force video mode set which also call InitPixelColors
+	}
 	if (InitPixelColors() == 0 && SetVideoMode() == 0)
 	{
 		AfxMessageBox("Unable to set video mode", 0, 0);
@@ -3762,11 +3781,13 @@ int32_t InitVideo()
 	desc.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN | DDSCAPS_SYSTEMMEMORY;
 	desc.dwWidth = g_ScreenSize.right;
 	desc.dwHeight = g_ScreenSize.bottom + 1;
-	if (FAILED(g_ddraw->CreateSurface(&desc, &g_ddsurface2, nullptr)))
+	if (FAILED(g_ddraw->CreateSurface(&desc, &g_ddsurface2, nullptr))) {
 		return 0;
+	}
 
-	if (!g_ddsurface2)
+	if (!g_ddsurface2) {
 		return 0;
+	}
 
 	memset(&desc, 0, sizeof(DDSURFACEDESC));
 	desc.dwSize = sizeof(DDSURFACEDESC);
@@ -3774,10 +3795,11 @@ int32_t InitVideo()
 	desc.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN | DDSCAPS_SYSTEMMEMORY;
 	desc.dwWidth = g_ScreenSize.right - 160;
 	desc.dwHeight = g_ScreenSize.bottom + 1;
-	if (FAILED(g_ddraw->CreateSurface(&desc, &g_ddsurface3, nullptr)))
+	if (FAILED(g_ddraw->CreateSurface(&desc, &g_ddsurface3, nullptr))) {
 		return 0;
+	}
 
-	if (!g_ddsurface3)
+	if (!g_ddsurface3) {
 		return 0;
 	
 	/* NOT USED
@@ -3786,31 +3808,37 @@ int32_t InitVideo()
 	g_ddraw->GetCaps(&g_ddrawCaps, nullptr);
 	*/
 
+	}
 	return 1;
 }
 
 int32_t SetVideoMode()
 { //4546c6
-	if (g_IsServer)
+	if (g_IsServer) {
 		return 1;
+	}
 
-	if (g_ddsurface)
+	if (g_ddsurface) {
 		g_ddsurface->Release();
+	}
 	g_ddsurface = nullptr;
 
-	if (FAILED(g_ddraw->SetCooperativeLevel(AfxGetMainWnd()->m_hWnd, DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN)))
+	if (FAILED(g_ddraw->SetCooperativeLevel(AfxGetMainWnd()->m_hWnd, DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN))) {
 		return 0;
+	}
 
-	if (FAILED(g_ddraw->SetDisplayMode(g_ScreenSize.right, g_ScreenSize.bottom, gfx_bits)))
+	if (FAILED(g_ddraw->SetDisplayMode(g_ScreenSize.right, g_ScreenSize.bottom, gfx_bits))) {
 		return 0;
+	}
 
 	g_selDrawBitmap.dwSize = sizeof(DDSURFACEDESC);
 	g_selDrawBitmap.dwFlags = DDSD_CAPS;
 	g_selDrawBitmap.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE;
 	g_selDrawBitmap.dwBackBufferCount = 0;
 
-	if (FAILED(g_ddraw->CreateSurface(&g_selDrawBitmap, &g_ddsurface, nullptr)))
+	if (FAILED(g_ddraw->CreateSurface(&g_selDrawBitmap, &g_ddsurface, nullptr))) {
 		return 0;
+	}
 
 	InitPixelColors();
 	return 1;
@@ -3828,11 +3856,13 @@ CGameFont::CGameFont()
 CGameFont::~CGameFont()
 {
 	//45e0f9
-	if (char_widths)
+	if (char_widths) {
 		delete[] char_widths;
+	}
 
-	if (bitmap)
+	if (bitmap) {
 		delete bitmap;
+	}
 }
 
 void CGameFont::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colosh)
@@ -3874,16 +3904,16 @@ int32_t CGameFont::GetStrWidth(const char* str)
 
 					uint8_t n = DecodeChar('~') - 0x20;
 					wi += char_widths[n] + space;
-					if (n == 0)
+					if (n == 0) {
 						wi += bitmap->GetHeight(0) / 2;
+					}
 				}
-			}
-			else
-			{
+			} else {
 				uint8_t n = DecodeChar(c) - 0x20;
 				wi += char_widths[n] + space;
-				if (n == 0)
+				if (n == 0) {
 					wi += bitmap->GetHeight(0) / 2;
+				}
 			}
 		}
 	}
@@ -3912,8 +3942,9 @@ CStringArray& CGameFont::StrToArray(const char* str)
 	while (!s.IsEmpty())
 	{
 		int pos = s.Find('\r');
-		if (pos == -1)
+		if (pos == -1) {
 			break;
+		}
 
 		if (s[pos + 1] == '\n')
 		{
@@ -3926,8 +3957,9 @@ CStringArray& CGameFont::StrToArray(const char* str)
 		}
 	}
 
-	if (!s.IsEmpty())
+	if (!s.IsEmpty()) {
 		out.Add(s);
+	}
 
 	return out;
 }
@@ -3960,10 +3992,11 @@ CStringArray& CGameFont::StrSplitToFitWidth(const CRect& r, const char* str)
 				split_pos = x;
 
 				int32_t pos = tmp2.Find(' ');
-				if (pos == -1)
+				if (pos == -1) {
 					x = s.GetLength();
-				else
+				} else {
 					x += pos + 1;
+				}
 
 				tmp1 = s.Left(x);
 
@@ -3978,18 +4011,18 @@ CStringArray& CGameFont::StrSplitToFitWidth(const CRect& r, const char* str)
 					}
 				}
 
-				if (GetStrWidth(tmp1) >= w)
+				if (GetStrWidth(tmp1) >= w) {
 					break;
+				}
 			}
-		}
-		else
-		{
+		} else {
 			s += '\r';
 			split_pos = s.GetLength();
 		}
 
-		if (w < GetStrWidth(tmp1) && split_pos == 0)
+		if (w < GetStrWidth(tmp1) && split_pos == 0) {
 			split_pos = x;
+		}
 
 		tmp1 = s.Left(split_pos);
 		tmp1.TrimLeft();
@@ -4023,10 +4056,12 @@ CStringArray& CGameFont::StringArrayForRect(const CRect& r, const char* str)
 
 void CGameFont::DrawTextLinesShadow(const CRect& r, int32_t first, int32_t last, const CStringArray& lines, uint16_t* clr, int32_t dy)
 { //45f6c2
-	if (last > lines.GetSize())
+	if (last > lines.GetSize()) {
 		last = lines.GetSize();
-	if (dy == 0)
+	}
+	if (dy == 0) {
 		dy = GetHeight();
+	}
 
 	for (int32_t i = first; i < last; i++)
 	{
@@ -4034,59 +4069,65 @@ void CGameFont::DrawTextLinesShadow(const CRect& r, int32_t first, int32_t last,
 		CString line = lines[i];
 		if (i != lines.GetSize() - 1)
 		{
-			if (line[line.GetLength() - 1] != '\r')
+			if (line[line.GetLength() - 1] != '\r') {
 				flags |= 2;
+			}
 		}
 
 		if (i == 0)
 		{
 			flags |= 1;
-			if (GetStrWidth(line + ' ') > r.Width())
+			if (GetStrWidth(line + ' ') > r.Width()) {
 				flags |= 2;
-		}
-		else
-		{
+			}
+		} else {
 			const CString& s = lines[i - 1];
 
 			if (s[s.GetLength() - 1] == '\r')
 			{
 				flags |= 1;
-				if (GetStrWidth(line + ' ') > r.Width())
+				if (GetStrWidth(line + ' ') > r.Width()) {
 					flags |= 2;
+				}
 			}
 		}
 
-		if (i == lines.GetSize() - 1)
+		if (i == lines.GetSize() - 1) {
 			flags |= 4;
-		else
+		} else
 		{
-			if (line[line.GetLength() - 1] != '\r')
+			if (line[line.GetLength() - 1] != '\r') {
 				flags |= 4;
+			}
 		}
 
-		if (line[line.GetLength() - 1] == '\r')
+		if (line[line.GetLength() - 1] == '\r') {
 			line.SetAt(line.GetLength() - 1, 0);
+		}
 
 		if ((flags & 2) == 0)
 		{
-			if ((flags & 1) == 0)
+			if ((flags & 1) == 0) {
 				DrawTextWithShadow(r.left, r.top + (i - first) * dy, line, 0, clr, 1);
-			else
+			} else {
 				DrawTextWithShadow(r.left + char_widths[' '], r.top + (i - first) * dy, line, 0, clr, 1);
-		}
-		else if ((flags & 1) == 0)
+			}
+		} else if ((flags & 1) == 0) {
 			DrawTextJustifyShadow(r.left, r.top + (i - first) * dy, r.Width(), line, clr);
-		else
+		} else {
 			DrawTextJustifyShadow(r.left + char_widths[' '], r.top + (i - first) * dy, r.Width() - char_widths[' '], line, clr);
+		}
 	}
 }
 
 void CGameFont::DrawTextLines(const CRect& r, int32_t first, int32_t last, const CStringArray& lines, uint16_t* clr, int32_t dy)
 { //45f33e
-	if (last > lines.GetSize())
+	if (last > lines.GetSize()) {
 		last = lines.GetSize();
-	if (dy == 0)
+	}
+	if (dy == 0) {
 		dy = GetHeight();
+	}
 
 	for (int32_t i = first; i < last; i++)
 	{
@@ -4094,50 +4135,54 @@ void CGameFont::DrawTextLines(const CRect& r, int32_t first, int32_t last, const
 		CString line = lines[i];
 		if (i != lines.GetSize() - 1)
 		{
-			if (line[line.GetLength() - 1] != '\r')
+			if (line[line.GetLength() - 1] != '\r') {
 				flags |= 2;
+			}
 		}
 
 		if (i == 0)
 		{
 			flags |= 1;
-			if (GetStrWidth(line + ' ') > r.Width())
+			if (GetStrWidth(line + ' ') > r.Width()) {
 				flags |= 2;
-		}
-		else
-		{
+			}
+		} else {
 			const CString& s = lines[i - 1];
 
 			if (s[s.GetLength() - 1] == '\r')
 			{
 				flags |= 1;
-				if (GetStrWidth(line + ' ') > r.Width())
+				if (GetStrWidth(line + ' ') > r.Width()) {
 					flags |= 2;
+				}
 			}
 		}
 
-		if (i == lines.GetSize() - 1)
+		if (i == lines.GetSize() - 1) {
 			flags |= 4;
-		else
+		} else
 		{
-			if (line[line.GetLength() - 1] != '\r')
+			if (line[line.GetLength() - 1] != '\r') {
 				flags |= 4;
+			}
 		}
 
-		if (line[line.GetLength() - 1] == '\r')
+		if (line[line.GetLength() - 1] == '\r') {
 			line.SetAt(line.GetLength() - 1, 0);
+		}
 
 		if ((flags & 2) == 0)
 		{
-			if ((flags & 1) == 0)
+			if ((flags & 1) == 0) {
 				DrawTxt(r.left, r.top + (i - first) * dy, line, 0, clr);
-			else
+			} else {
 				DrawTxt(r.left + char_widths[' '], r.top + (i - first) * dy, line, 0, clr);
-		}
-		else if ((flags & 1) == 0)
+			}
+		} else if ((flags & 1) == 0) {
 			DrawTextJustify(r.left, r.top + (i - first) * dy, r.Width(), line, clr);
-		else
+		} else {
 			DrawTextJustify(r.left + char_widths[' '], r.top + (i - first) * dy, r.Width() - char_widths[' '], line, clr);
+		}
 	}
 }
 
@@ -4156,8 +4201,9 @@ void CGameFont::DrawTextJustifyShadow(int32_t x, int32_t y, int32_t w, CString t
 		txt.TrimLeft();
 
 		int32_t word_end = txt.Find(' ');
-		if (word_end == -1)
+		if (word_end == -1) {
 			word_end = txt.GetLength();
+		}
 
 		CString wrd = txt.Left(word_end);
 		wrd.TrimRight();
@@ -4173,8 +4219,9 @@ void CGameFont::DrawTextJustifyShadow(int32_t x, int32_t y, int32_t w, CString t
 	} 
 
 	int32_t word_space = (w - words_width) << 8; //replace it with int, because no sense of float. Use << 8
-	if (words.GetSize() >= 2)
+	if (words.GetSize() >= 2) {
 		word_space /= (words.GetSize() - 1);
+	}
 
 	int32_t xx = x << 8;
 	for (int i = 0; i < words.GetSize(); i++)
@@ -4198,8 +4245,9 @@ void CGameFont::DrawTextJustify(int32_t x, int32_t y, int32_t w, CString txt, ui
 		txt.TrimLeft();
 
 		int32_t word_end = txt.Find(' ');
-		if (word_end == -1)
+		if (word_end == -1) {
 			word_end = txt.GetLength();
+		}
 
 		CString wrd = txt.Left(word_end);
 		wrd.TrimRight();
@@ -4215,8 +4263,9 @@ void CGameFont::DrawTextJustify(int32_t x, int32_t y, int32_t w, CString txt, ui
 	}
 
 	int32_t word_space = (w - words_width) << 8; //replace it with int, because no sense of float. Use << 8
-	if (words.GetSize() >= 2)
+	if (words.GetSize() >= 2) {
 		word_space /= (words.GetSize() - 1);
+	}
 
 	int32_t xx = x << 8;
 	for (int i = 0; i < words.GetSize(); i++)
@@ -4231,13 +4280,15 @@ void CGameFont::DrawTextJustifyInRectShadow(const CRect& r, const char* str, uin
 { //45ed37
 	CStringArray& array = StringArrayForRect(r, str);
 
-	if (dy == 0)
+	if (dy == 0) {
 		dy = GetHeight();
+	}
 
 	for (int32_t i = 0; i < array.GetSize(); i++)
 	{
-		if (i * dy + GetHeight() > r.Height())
+		if (i * dy + GetHeight() > r.Height()) {
 			break;
+		}
 		DrawTextJustifyShadow(r.left, r.top + i * dy, r.Width(), array[i], clr);
 	}
 
@@ -4268,8 +4319,9 @@ void CGamePalette::Dump(CDumpContext& dc) const
 
 void CGamePalette::Free()
 { //42457a
-	if (colors)
+	if (colors) {
 		delete[] colors;
+	}
 
 	colors = nullptr;
 
@@ -4298,8 +4350,9 @@ void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useCo
 	{
 	case 0:
 		colors[0] = 0;
-		for (int i = 1; i < 256; i++)
+		for (int i = 1; i < 256; i++) {
 			colors[i] = 0xffff;
+		}
 		break;
 
 	case 1:
@@ -4307,18 +4360,21 @@ void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useCo
 		{
 			uint32_t r = rgb[i].rgbRed + dr;
 
-			if (dr > 255)
+			if (dr > 255) {
 				dr = 255;
+			}
 
 			uint32_t g = rgb[i].rgbGreen + dg;
 			
-			if (dg > 255)
+			if (dg > 255) {
 				dg = 255;
+			}
 
 			uint32_t b = rgb[i].rgbBlue + db;
 			
-			if (db > 255)
+			if (db > 255) {
 				db = 255;
+			}
 
 			colors[i] = GetColorRGB(r, g, b);
 		}
@@ -4330,22 +4386,25 @@ void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useCo
 			for (int i = 0; i < 256; i++)
 			{
 				int r = (rgb[i].rgbRed + dr) * j * 2 / count;
-				if (r < 0)
+				if (r < 0) {
 					r = 0;
-				else if (r > 255)
+				} else if (r > 255) {
 					r = 255;
+				}
 
 				int g = (rgb[i].rgbGreen + dg) * j * 2 / count;
-				if (g < 0)
+				if (g < 0) {
 					g = 0;
-				else if (g > 255)
+				} else if (g > 255) {
 					g = 255;
+				}
 
 				int b = (rgb[i].rgbBlue + db) * j * 2 / count;
-				if (b < 0)
+				if (b < 0) {
 					b = 0;
-				else if (b > 255)
+				} else if (b > 255) {
 					b = 255;
+				}
 
 				clrs[i] = GetColorRGB(r, g, b);
 			}
@@ -4359,22 +4418,25 @@ void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useCo
 			for (int i = 0; i < 256; i++)
 			{
 				int r = (rgb[i].rgbRed + dr) * j / 32;
-				if (r < 0)
+				if (r < 0) {
 					r = 0;
-				else if (r > 255)
+				} else if (r > 255) {
 					r = 255;
+				}
 
 				int g = (rgb[i].rgbGreen + dg) * j / 32;
-				if (g < 0)
+				if (g < 0) {
 					g = 0;
-				else if (g > 255)
+				} else if (g > 255) {
 					g = 255;
+				}
 
 				int b = (rgb[i].rgbBlue + db) * j / 32;
-				if (b < 0)
+				if (b < 0) {
 					b = 0;
-				else if (b > 255)
+				} else if (b > 255) {
 					b = 255;
+				}
 
 				clrs[i] = GetColorRGB(r, g, b);
 			}
@@ -4393,27 +4455,28 @@ void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useCo
 					r = rgb[i].rgbRed * j / 16;
 					g = rgb[i].rgbGreen * j / 16;
 					b = rgb[i].rgbBlue * j / 16;
-				}
-				else
-				{
+				} else {
 					r = rgb[i].rgbRed * j / 18;
 					g = rgb[i].rgbGreen * j / 18;
 					b = rgb[i].rgbBlue * j / 18;
 				}
-				if (r < 0)
+				if (r < 0) {
 					r = 0;
-				else if (r > 255)
+				} else if (r > 255) {
 					r = 255;
+				}
 
-				if (g < 0)
+				if (g < 0) {
 					g = 0;
-				else if (g > 255)
+				} else if (g > 255) {
 					g = 255;
+				}
 
-				if (b < 0)
+				if (b < 0) {
 					b = 0;
-				else if (b > 255)
+				} else if (b > 255) {
 					b = 255;
+				}
 					
 				clrs[i] = GetColorRGB(r, g, b);
 			}
@@ -4427,8 +4490,9 @@ void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useCo
 			for (int i = 0; i < 256; i++)
 			{
 				int v = ((rgb[i].rgbRed + rgb[i].rgbGreen + rgb[i].rgbBlue) * j * 2) / 3 / count;
-				if (v > 255)
+				if (v > 255) {
 					v = 255;
+				}
 
 				clrs[i] = GetColorRGB(v, v, v);
 			}
@@ -4508,10 +4572,12 @@ CGameBitmap::CGameBitmap(const CGameBitmap& src)
 
 CGameBitmap::~CGameBitmap()
 { //42496a
-	if (frames)
+	if (frames) {
 		delete[] frames;
-	if (pdata)
+	}
+	if (pdata) {
 		delete[] pdata;
+	}
 
 	palette.Free();
 }
@@ -4617,10 +4683,11 @@ CBmp256::CBmp256(const char* fname)
 	palette_data = pdata + pixsz + sizeof(BmpFrame);
 	memset(palette_data, 0, 256 * 4);
 
-	if (binf.biClrUsed == 0)
+	if (binf.biClrUsed == 0) {
 		f.Read(palette_data, 256 * 4);
-	else
+	} else {
 		f.Read(palette_data, binf.biClrUsed * 4);
+	}
 
 	BmpFrame* frm = (BmpFrame*)pdata;
 	frm->width = binf.biWidth;
@@ -4756,8 +4823,9 @@ CBmp64::CBmp64(const char* fname)
 	for (int32_t rawdata = binf.biWidth * binf.biHeight * 3; rawdata; )
 	{
 		int32_t rsz = sizeof(g_GfxTempBuffer);
-		if (rawdata < rsz)
+		if (rawdata < rsz) {
 			rsz = rawdata;
+		}
 
 		f.Read(g_GfxTempBuffer, rsz);
 		Convert24To16(g_GfxTempBuffer, dat, rsz / 3);
@@ -4862,8 +4930,9 @@ void CBmp64::LoadFile(const char* fname, CGameBitmap* bmp2)
 	for (int32_t rawdata = binf.biWidth * binf.biHeight * 3; rawdata; )
 	{
 		int32_t rsz = sizeof(g_GfxTempBuffer);
-		if (rawdata < rsz)
+		if (rawdata < rsz) {
 			rsz = rawdata;
+		}
 
 		f.Read(g_GfxTempBuffer, rsz);
 		Convert24To16(g_GfxTempBuffer, dat, rsz / 3);
@@ -4872,8 +4941,9 @@ void CBmp64::LoadFile(const char* fname, CGameBitmap* bmp2)
 		rawdata -= rsz;
 	}
 
-	if (bmp2)
+	if (bmp2) {
 		f.Read(bmp2->GetData(), binf.biWidth * binf.biHeight);
+	}
 
 	f.Close();
 }
@@ -4895,8 +4965,9 @@ void CBmp64::WriteFile(const char* fname, CGameBitmap* bmp2)
 	for (int32_t rawdata = binf.biWidth * binf.biHeight * 3; rawdata; )
 	{
 		int32_t rsz = sizeof(g_GfxTempBuffer);
-		if (rawdata < rsz)
+		if (rawdata < rsz) {
 			rsz = rawdata;
+		}
 
 		Convert16To24(dat, g_GfxTempBuffer, rsz / 3);
 		f.Write(g_GfxTempBuffer, rsz);
@@ -4905,8 +4976,9 @@ void CBmp64::WriteFile(const char* fname, CGameBitmap* bmp2)
 		rawdata -= rsz;
 	}
 
-	if (bmp2)
+	if (bmp2) {
 		f.Write(bmp2->GetData(), binf.biWidth * binf.biHeight);
+	}
 
 	f.Close();
 }
@@ -4978,20 +5050,22 @@ void CSprite256::VMethod1(int32_t x, int32_t y, int frame, int palid, CGamePalet
 { //425210
 	const uint16_t* pal = ppalette->GetPalette(palid);
 	SpriteFrame* frm = ((SpriteFrame**)frames)[frame];
-	if (mode == 0)
+	if (mode == 0) {
 		BlitRle8(x, y, frm->width, frm->height, frm->data, pal);
-	else
+	} else {
 		BlitRle8FlipX(x, y, frm->width, frm->height, frm->data, pal);
+	}
 }
 
 void CSprite256::VMethod2(int32_t x, int32_t y, int frame, int palid, int mode)
 { //4250e4
 	const uint16_t* pal = palette.GetPalette(palid);
 	SpriteFrame* frm = ((SpriteFrame**)frames)[frame];
-	if (mode == 0)
+	if (mode == 0) {
 		BlitRle8(x, y, frm->width, frm->height, frm->data, pal);
-	else
+	} else {
 		BlitRle8FlipX(x, y, frm->width, frm->height, frm->data, pal);
+	}
 }
 
 void CSprite256::VMethod3(int32_t x, int32_t y, int frame, int blevel, int mode)
@@ -4999,36 +5073,38 @@ void CSprite256::VMethod3(int32_t x, int32_t y, int frame, int blevel, int mode)
 	SpriteFrame* frm = ((SpriteFrame**)frames)[frame];
 	if (mode == 0)
 	{
-		if (g_isLowMemory == 0)
+		if (g_isLowMemory == 0) {
 			BlitLightRle8(x, y, frm->width, frm->height, frm->data, blevel);
-		else
+		} else {
 			BlitLightRle8Low(x, y, frm->width, frm->height, frm->data, blevel);
-	}
-	else
-	{
-		if (g_isLowMemory == 0)
+		}
+	} else {
+		if (g_isLowMemory == 0) {
 			BlitLightRle8FlipX(x, y, frm->width, frm->height, frm->data, blevel);
-		else
+		} else {
 			BlitLightRle8FlipXLow(x, y, frm->width, frm->height, frm->data, blevel);
+		}
 	}
 }
 
 void CSprite256::VMethod9(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode)
 { //4252a0
 	SpriteFrame* frm = ((SpriteFrame**)frames)[frame];
-	if (mode == 0)
+	if (mode == 0) {
 		BlitRle8Blend(x, y, frm->width, frm->height, frm->data, ppalette->GetPalette(palid));
-	else
+	} else {
 		BlitRle8BlendFlipX(x, y, frm->width, frm->height, frm->data, ppalette->GetPalette(palid));
+	}
 }
 
 void CSprite256::VMethod10(int32_t x, int32_t y, int frame, int palid, int mode)
 { //42517a
 	SpriteFrame* frm = ((SpriteFrame**)frames)[frame];
-	if (mode == 0)
+	if (mode == 0) {
 		BlitRle8Blend(x, y, frm->width, frm->height, frm->data, palette.GetPalette(palid));
-	else
+	} else {
 		BlitRle8BlendFlipX(x, y, frm->width, frm->height, frm->data, palette.GetPalette(palid));
+	}
 }
 
 void CSprite256::VMethod11(int32_t x, int32_t y, int frame, int blevel, int32_t tilt, int mode)
@@ -5036,17 +5112,17 @@ void CSprite256::VMethod11(int32_t x, int32_t y, int frame, int blevel, int32_t 
 	SpriteFrame* frm = ((SpriteFrame**)frames)[frame];
 	if (mode == 0)
 	{
-		if (g_isLowMemory == 0)
+		if (g_isLowMemory == 0) {
 			BlitLightRle8Tilt(x, y, frm->width, frm->height, frm->data, blevel, tilt);
-		else
+		} else {
 			BlitLightRle8TiltLow(x, y, frm->width, frm->height, frm->data, blevel, tilt);
-	}
-	else
-	{
-		if (g_isLowMemory == 0)
+		}
+	} else {
+		if (g_isLowMemory == 0) {
 			BlitLightRle8TiltFlipX(x, y, frm->width, frm->height, frm->data, blevel, tilt);
-		else
+		} else {
 			BlitLightRle8TiltFlipXLow(x, y, frm->width, frm->height, frm->data, blevel, tilt);
+		}
 	}
 }
 
@@ -5070,13 +5146,15 @@ void CA16::VMethod2(int32_t x, int32_t y, int frame, int palid, int mode)
 	SpriteFrame* frm = ((SpriteFrame**)frames)[frame];
 
 	uint16_t* pal = (uint16_t*)palid;
-	if (!pal)
+	if (!pal) {
 		pal = palette.GetPalette(0);
+	}
 
-	if (mode == 0)
+	if (mode == 0) {
 		BlitRle16(x, y, frm->width, frm->height, (uint16_t*)frm->data, pal);
-	else
+	} else {
 		BlitRle16FlipX(x, y, frm->width, frm->height, (uint16_t*)frm->data, pal);
+	}
 }
 
 
@@ -5121,17 +5199,21 @@ CSpriteFont16::CSpriteFont16(const char* fname, int32_t _space)
 
 void CSpriteFont16::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* clr)
 { //45fbd7
-	if ((align & 1) != 0)
+	if ((align & 1) != 0) {
 		x -= GetStrWidth(txt);
+	}
 
-	if ((align & 2) != 0)
+	if ((align & 2) != 0) {
 		x -= GetStrWidth(txt) / 2;
+	}
 
-	if ((align & 4) != 0)
+	if ((align & 4) != 0) {
 		y -= bitmap->GetWidth();
+	}
 
-	if ((align & 8) != 0)
+	if ((align & 8) != 0) {
 		y -= bitmap->GetWidth() / 2;
+	}
 
 	int32_t tlen = strlen(txt);
 	for (int32_t i = 0; i < tlen; i++)
@@ -5142,19 +5224,19 @@ void CSpriteFont16::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t alig
 		if (chr1 == 0x5e && chr2 != 0x5e)
 		{
 			FillRectColor(x, y + bitmap->GetHeight(), x + char_widths[chr2], y + bitmap->GetHeight(), clr[15]);
-		}
-		else
-		{
-			if (chr1 == 0)
+		} else {
+			if (chr1 == 0) {
 				x += bitmap->GetHeight() / 2;
-			else
+			} else {
 				((CSprite16*)bitmap)->VMethod9(x, y, chr1, clr);
+			}
 
 			x += char_widths[chr1] + space;
 		}
 
-		if (chr1 == 0x5e && chr2 == 0x5e)
+		if (chr1 == 0x5e && chr2 == 0x5e) {
 			i++;
+		}
 	}
 }
 
@@ -5194,26 +5276,31 @@ CSpriteFont16a::~CSpriteFont16a()
 
 void CSpriteFont16a::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* clr)
 { // 45ffa9
-	if ((align & 1) != 0)
+	if ((align & 1) != 0) {
 		x -= GetStrWidth(txt);
+	}
 
-	if ((align & 2) != 0)
+	if ((align & 2) != 0) {
 		x -= GetStrWidth(txt) / 2;
+	}
 
-	if ((align & 4) != 0)
+	if ((align & 4) != 0) {
 		y -= bitmap->GetWidth();
+	}
 
-	if ((align & 8) != 0)
+	if ((align & 8) != 0) {
 		y -= bitmap->GetWidth() / 2;
+	}
 
 	int32_t tlen = strlen(txt);
 	for (int32_t i = 0; i < tlen; i++)
 	{
 		uint8_t chr1 = DecodeChar(txt[i]) - 0x20;
-		if (chr1 == 0)
+		if (chr1 == 0) {
 			x += bitmap->GetHeight() / 2;
-		else
+		} else {
 			((CA16*)bitmap)->VMethod2(x, y, chr1, (int)clr, 0); //FIXME
+		}
 
 		x += char_widths[chr1] + space;
 	}
@@ -5298,9 +5385,7 @@ void LoadGraphics()
 				g_bmp_extra800l = new CBmp64("graphics\\interface\\extra800l.bmp");
 				g_bmp_extra800r = new CBmp64("graphics\\interface\\extra800r.bmp");
 			}
-		}
-		else
-		{
+		} else {
 			g_bmp_spb1024l = new CBmp64("graphics\\interface\\spb1024l.bmp");
 			g_bmp_spb1024r = new CBmp64("graphics\\interface\\spb1024r.bmp");
 			g_bmp_extra1024l = new CBmp64("graphics\\interface\\extra1024l.bmp");
@@ -5347,116 +5432,171 @@ void LoadGraphics()
 
 void UnloadGraphics()
 { //47961c
-	if (g_bmp_crystalr)
+	if (g_bmp_crystalr) {
 		delete g_bmp_crystalr;
-	if (g_bmp_crystall)
+	}
+	if (g_bmp_crystall) {
 		delete g_bmp_crystall;
-	if (g_bmp_headsr)
+	}
+	if (g_bmp_headsr) {
 		delete g_bmp_headsr;
-	if (g_bmp_headsl)
+	}
+	if (g_bmp_headsl) {
 		delete g_bmp_headsl;
-	if (g_bmp_cmdbarr)
+	}
+	if (g_bmp_cmdbarr) {
 		delete g_bmp_cmdbarr;
-	if (g_bmp_cmdbarl)
+	}
+	if (g_bmp_cmdbarl) {
 		delete g_bmp_cmdbarl;
-	if (g_bmp_cmddnr)
+	}
+	if (g_bmp_cmddnr) {
 		delete g_bmp_cmddnr;
-	if (g_bmp_cmdempr)
+	}
+	if (g_bmp_cmdempr) {
 		delete g_bmp_cmdempr;
-	if (g_bmp_humanbackl)
+	}
+	if (g_bmp_humanbackl) {
 		delete g_bmp_humanbackl;
-	if (g_bmp_humanbackr)
+	}
+	if (g_bmp_humanbackr) {
 		delete g_bmp_humanbackr;
-	if (g_bmp_textbackl)
+	}
+	if (g_bmp_textbackl) {
 		delete g_bmp_textbackl;
-	if (g_bmp_textbackr)
+	}
+	if (g_bmp_textbackr) {
 		delete g_bmp_textbackr;
-	if (g_bmp_bookopened)
+	}
+	if (g_bmp_bookopened) {
 		delete g_bmp_bookopened;
-	if (g_bmp_bookclosed)
+	}
+	if (g_bmp_bookclosed) {
 		delete g_bmp_bookclosed;
-	if (g_bmp_backpackop)
+	}
+	if (g_bmp_backpackop) {
 		delete g_bmp_backpackop;
-	if (g_bmp_backpackcl)
+	}
+	if (g_bmp_backpackcl) {
 		delete g_bmp_backpackcl;
-	if (g_bmp_humanmode)
+	}
+	if (g_bmp_humanmode) {
 		delete g_bmp_humanmode;
-	if (g_bmp_textmode)
+	}
+	if (g_bmp_textmode) {
 		delete g_bmp_textmode;
-	if (g_bmp_diskette)
+	}
+	if (g_bmp_diskette) {
 		delete g_bmp_diskette;
-	if (g_bmp_ar1)
+	}
+	if (g_bmp_ar1) {
 		delete g_bmp_ar1;
-	if (g_bmp_ar2)
+	}
+	if (g_bmp_ar2) {
 		delete g_bmp_ar2;
-	if (g_bmp_ar3)
+	}
+	if (g_bmp_ar3) {
 		delete g_bmp_ar3;
-	if (g_bmp_ar4)
+	}
+	if (g_bmp_ar4) {
 		delete g_bmp_ar4;
-	if (g_bmp_spellbook)
+	}
+	if (g_bmp_spellbook) {
 		delete g_bmp_spellbook;
-	if (g_bmp_spellback)
+	}
+	if (g_bmp_spellback) {
 		delete g_bmp_spellback;
-	if (g_bmp_invframe)
+	}
+	if (g_bmp_invframe) {
 		delete g_bmp_invframe;
-	if (g_bmp_invarrow1)
+	}
+	if (g_bmp_invarrow1) {
 		delete g_bmp_invarrow1;
-	if (g_bmp_invarrow2)
+	}
+	if (g_bmp_invarrow2) {
 		delete g_bmp_invarrow2;
-	if (g_bmp_invarrow3)
+	}
+	if (g_bmp_invarrow3) {
 		delete g_bmp_invarrow3;
-	if (g_bmp_invarrow4)
+	}
+	if (g_bmp_invarrow4) {
 		delete g_bmp_invarrow4;
-	if (g_bmp_backinv)
+	}
+	if (g_bmp_backinv) {
 		delete g_bmp_backinv;
-	if (g_bmp_spb1024l)
+	}
+	if (g_bmp_spb1024l) {
 		delete g_bmp_spb1024l;
-	if (g_bmp_spb1024r)
+	}
+	if (g_bmp_spb1024r) {
 		delete g_bmp_spb1024r;
-	if (g_bmp_extra1024l)
+	}
+	if (g_bmp_extra1024l) {
 		delete g_bmp_extra1024l;
-	if (g_bmp_extra1024r)
+	}
+	if (g_bmp_extra1024r) {
 		delete g_bmp_extra1024r;
-	if (g_bmp_inv1024l)
+	}
+	if (g_bmp_inv1024l) {
 		delete g_bmp_inv1024l;
-	if (g_bmp_inv1024r)
+	}
+	if (g_bmp_inv1024r) {
 		delete g_bmp_inv1024r;
-	if (g_bmp_spb800l)
+	}
+	if (g_bmp_spb800l) {
 		delete g_bmp_spb800l;
-	if (g_bmp_spb800r)
+	}
+	if (g_bmp_spb800r) {
 		delete g_bmp_spb800r;
-	if (g_bmp_extra800l)
+	}
+	if (g_bmp_extra800l) {
 		delete g_bmp_extra800l;
-	if (g_bmp_extra800r)
+	}
+	if (g_bmp_extra800r) {
 		delete g_bmp_extra800r;
-	if (gfx_interface_lm)
+	}
+	if (gfx_interface_lm) {
 		delete gfx_interface_lm;
-	if (gfx_scrollbars)
+	}
+	if (gfx_scrollbars) {
 		delete gfx_scrollbars;
-	if (gfx_radiob)
+	}
+	if (gfx_radiob) {
 		delete gfx_radiob;
-	if (g_ca16_money)
+	}
+	if (g_ca16_money) {
 		delete g_ca16_money;
-	if (g_spr_t_border)
+	}
+	if (g_spr_t_border) {
 		delete g_spr_t_border;
-	if (g_bmp_t_back)
+	}
+	if (g_bmp_t_back) {
 		delete g_bmp_t_back;
-	if (g_spr_backm)
+	}
+	if (g_spr_backm) {
 		delete g_spr_backm;
-	if (g_spr_backf)
+	}
+	if (g_spr_backf) {
 		delete g_spr_backf;
-	if (g_bmp_minimapdata)
+	}
+	if (g_bmp_minimapdata) {
 		delete g_bmp_minimapdata;
-	if (g_bmp_server)
+	}
+	if (g_bmp_server) {
 		delete g_bmp_server;
-	if (gfx_ball)
+	}
+	if (gfx_ball) {
 		delete gfx_ball;
-	if (g_spr_backpack)
+	}
+	if (g_spr_backpack) {
 		delete g_spr_backpack;
-	if (g_spr_backpackb)
+	}
+	if (g_spr_backpackb) {
 		delete g_spr_backpackb;
-	if (g_bmp_testiva)
+	}
+	if (g_bmp_testiva) {
 		delete g_bmp_testiva;
+	}
 
 	g_bmp_crystalr = nullptr;
 	g_bmp_crystall = nullptr;
@@ -5550,24 +5690,33 @@ void LoadFonts()
 
 void FreeFontData()
 { //460d7f
-	if (g_font1)
+	if (g_font1) {
 		delete g_font1;
-	if (g_font2)
+	}
+	if (g_font2) {
 		delete g_font2;
-	if (g_font3)
+	}
+	if (g_font3) {
 		delete g_font3;
-	if (g_font4)
+	}
+	if (g_font4) {
 		delete g_font4;
-	if (palette_paris_daisy)
+	}
+	if (palette_paris_daisy) {
 		delete palette_paris_daisy;
-	if (palette_husk)
+	}
+	if (palette_husk) {
 		delete palette_husk;
-	if (palette_black)
+	}
+	if (palette_black) {
 		delete palette_black;
-	if (palette_brown_derby)
+	}
+	if (palette_brown_derby) {
 		delete palette_brown_derby;
-	if (palette_tawny_port)
+	}
+	if (palette_tawny_port) {
 		delete palette_tawny_port;
+	}
 
 	g_font2 = nullptr;
 	g_font3 = nullptr;

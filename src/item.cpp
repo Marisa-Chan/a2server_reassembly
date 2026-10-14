@@ -466,15 +466,11 @@ void Item::StoreToPacket(PacketUnitStateVec* pkt, int arg)
         {
             pdata[2] = count | 0x80;
             pkt->data_size += 3;
-        }
-        else
-        {
+        } else {
             SetU16(pdata + 3, count);
             pkt->data_size += 5;
         }
-    }
-    else
-    {
+    } else {
         pdata[2] |= 0x20;
         SetU32(pdata + 3, _exp);
 
@@ -504,8 +500,7 @@ void Item::StoreToPacket(PacketUnitStateVec* pkt, int arg)
                     pkt->data_size++;
 
                     cnt_flg += 2;
-                }
-                else if (eff->effect_id == 0x2c ||
+                } else if (eff->effect_id == 0x2c ||
                         eff->effect_id == 0x2d ||
                         eff->effect_id == 0x2e ||
                         eff->effect_id == 0x2f || 
@@ -517,9 +512,9 @@ void Item::StoreToPacket(PacketUnitStateVec* pkt, int arg)
                         pkt->data[pkt->data_size] = (eff->spell_or_damage >> 8) & 0xff;
                         pkt->data_size++;
                         cnt_flg += 2;
-                }
-                else
+                } else {
                     cnt_flg++;
+                }
             }
         }
 

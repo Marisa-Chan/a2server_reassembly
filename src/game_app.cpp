@@ -522,16 +522,18 @@ BOOL GameApp::InitInstance()
 	if (stmp)
 	{
 		g_CmdLatency = atoi(stmp + 8);
-		if (g_CmdLatency && (g_CmdLatency < 50 || g_CmdLatency > 10000))
+		if (g_CmdLatency && (g_CmdLatency < 50 || g_CmdLatency > 10000)) {
 			g_CmdLatency = 0;
+		}
 	}
 
 	stmp = strstr(m_lpCmdLine, "-timeout");
 	if (stmp)
 	{
 		g_CmdTimeout = atoi(stmp + 8);
-		if (g_CmdTimeout == 0 || g_CmdTimeout > 120)
+		if (g_CmdTimeout == 0 || g_CmdTimeout > 120) {
 			g_CmdTimeout = 15;
+		}
 
 		g_CmdTimeout *= 1000;
 	}
@@ -550,12 +552,14 @@ BOOL GameApp::InitInstance()
 	RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\1C\\Allods 2", 0, KEY_READ, &regkey);
 	
 	DWORD bufsz = 255;
-	if (RegQueryValueExA(regkey, "CDSPEED", NULL, NULL, (uint8_t*)g_CdSpeed, &bufsz) != ERROR_SUCCESS)
+	if (RegQueryValueExA(regkey, "CDSPEED", NULL, NULL, (uint8_t*)g_CdSpeed, &bufsz) != ERROR_SUCCESS) {
 		strcpy(g_CdSpeed, "-4x");
+	}
 
 	bufsz = 255;
-	if (RegQueryValueExA(regkey, "RESOLUTION", NULL, NULL, (uint8_t*)g_resolution, &bufsz) != ERROR_SUCCESS)
+	if (RegQueryValueExA(regkey, "RESOLUTION", NULL, NULL, (uint8_t*)g_resolution, &bufsz) != ERROR_SUCCESS) {
 		strcpy(g_resolution, "-640");
+	}
 
 	GetCurrentDirectoryA(sizeof(g_InitialWorkingDir), g_InitialWorkingDir);
 
@@ -575,10 +579,11 @@ BOOL GameApp::InitInstance()
 
 	g_MainWndHWND = mwnd->m_hWnd;
 
-	if (g_IsServer == 0)
+	if (g_IsServer == 0) {
 		SetCursor(NULL);
-	else
+	} else {
 		SetCursor(mwnd->cursor_arrow);
+	}
 
 	GetCurrentDirectoryA(sizeof(g_WorkingDir), g_WorkingDir);
 
@@ -599,15 +604,14 @@ BOOL GameApp::InitInstance()
 		DWORD a, b, c;
 		GetVolumeInformationA(path, pathbuf, 255, &a, &b, &c, NULL, 0);
 
-		if (strcmp(pathbuf, "ROM2") != 0)
+		if (strcmp(pathbuf, "ROM2") != 0) {
 			g_IsCdPresent = 0;
+		}
 		
 		strcat(path, "Allods");
 
 		Resources::StaticAddPath(path);
-	}
-	else
-	{
+	} else {
 		g_IsCdPresent = 0;
 	}
 
@@ -630,11 +634,13 @@ BOOL GameApp::InitInstance()
 	Resources::StaticAddResFile("music.res");
 	Resources::StaticAddResFile("video.res");
 
-	if (strstr(m_lpCmdLine, "-nomusic"))
+	if (strstr(m_lpCmdLine, "-nomusic")) {
 		g_SoundSettings.field_0x20 = 0;
+	}
 
-	if (strstr(m_lpCmdLine, "-trace"))
+	if (strstr(m_lpCmdLine, "-trace")) {
 		g_EnableTrace = 1;
+	}
 
 	g_CLlDriver.keepalive = 0;
 
@@ -655,8 +661,9 @@ BOOL GameApp::InitInstance()
 
 	g_DWORD_00659d18 = 0;
 
-	if (strstr(m_lpCmdLine, "-safevideo"))
+	if (strstr(m_lpCmdLine, "-safevideo")) {
 		g_CmdSafeVideo = 1;
+	}
 
 	stmp = strstr(m_lpCmdLine, "-cfg\"");
 	if (stmp)
@@ -669,17 +676,16 @@ BOOL GameApp::InitInstance()
 			if (ierr != 0)
 			{
 				CString msg;
-				if (ierr < 1)
+				if (ierr < 1) {
 					msg = "Error loading " + confname + ".";
-				else
+				} else {
 					msg.Format("Error in %s. Line %d.", confname, ierr);
+				}
 
 				AfxMessageBox(msg);
 			}
 		}
-	}
-	else
-	{
+	} else {
 		int32_t ierr = ParseConfig("server.cfg");
 		if (ierr > 0)
 		{
@@ -710,9 +716,7 @@ BOOL GameApp::InitInstance()
 			AfxMessageBox(msg);
 			exit(1);
 		}
-	}
-	else
-	{
+	} else {
 		if (!CreateDirectoryA(ffdir, NULL))
 		{
 			CString msg = "ChrBase directory \"" + ffdir + "\" does not exist and can't be created";
@@ -758,13 +762,12 @@ BOOL GameApp::InitInstance()
 	if (!ffame.Open("famehall.dat", 0))
 	{
 		mwnd->m_FameHall.FUN_004acafa();
-	}
-	else
-	{
-		if (!ffame.GetLength())
+	} else {
+		if (!ffame.GetLength()) {
 			mwnd->m_FameHall.FUN_004acafa();
-		else
+		} else {
 			mwnd->m_FameHall.FUN_004ac945(&ffame);
+		}
 
 		ffame.Close();
 	}
@@ -802,18 +805,16 @@ BOOL GameApp::OnIdle(LONG lCount)
 	if (mwnd->sessionMode == 3 && g_Server)
 	{
 		mwnd->sub_48A756();
-	}
-	else if ((mwnd->dialogsMask & 1) == 0)
+	} else if ((mwnd->dialogsMask & 1) == 0)
 	{
 		if (mwnd->serverBootstrapEnabled == 0 || !g_Server)
 		{
-			if (mwnd->field_0x378 && g_NetStru1_local.IsActive() == 0)
+			if (mwnd->field_0x378 && g_NetStru1_local.IsActive() == 0) {
 				mwnd->field_0x378->MsgProc(0x446, 0, 0);
+			}
 
 			mwnd->vis_map_context->ProcessPackets(0);
-		}
-		else
-		{
+		} else {
 			uint32_t tick = GetTickCount();
 			if (tick - idle_tick > 62)
 			{
@@ -823,23 +824,22 @@ BOOL GameApp::OnIdle(LONG lCount)
 			}
 		}
 
-		if (mwnd->field_0xbc != 0)
+		if (mwnd->field_0xbc != 0) {
 			mwnd->vis_root->MsgProc(0x402, 0, 0);
+		}
 
 		g_mousept.Update();
-	}
-	else
-	{
+	} else {
 		if (mwnd->serverBootstrapEnabled == 0)
 		{
 			mwnd->RemoteGameIdle();
-		}
-		else if ((mwnd->dialogsMask & 1) != 0 && (mwnd->sessionMode != 2 || (mwnd->dialogsMask & 0x4008) == 0))
+		} else if ((mwnd->dialogsMask & 1) != 0 && (mwnd->sessionMode != 2 || (mwnd->dialogsMask & 0x4008) == 0))
 		{
-			if (mwnd->field_0x448 == 0)
+			if (mwnd->field_0x448 == 0) {
 				mwnd->SingleGameTimedIdle();
-			else
+			} else {
 				mwnd->SingleGameIdle();
+			}
 		}
 	}
 	g_NetStru1_local.ProcessConnections();
@@ -852,8 +852,9 @@ BOOL GameApp::OnIdle(LONG lCount)
 
 int GameApp::ExitInstance()
 { //4833f1
-	if (g_EnableTrace != 0)
+	if (g_EnableTrace != 0) {
 		g_NetStru1_main.WriteStatsLog("pkt.log");
+	}
 
 	CloseHandle(g_AutoRunEvent);
 
@@ -897,8 +898,9 @@ int GameApp::ExitInstance()
 
 			DeleteFileA(fpath);
 
-			if (FindNextFileA(fhndl, &fnd) == 0)
+			if (FindNextFileA(fhndl, &fnd) == 0) {
 				break;
+			}
 		}
 	}
 	FindClose(fhndl);
@@ -1085,8 +1087,9 @@ Item* __cdecl sub_5499A6(int32_t level, int32_t max_gold) {
 int32_t __cdecl AppGetWorkingDir(int maxchar, char* buf)
 { //4761dd
 	int ln = strlen(g_WorkingDir);
-	if (ln > maxchar)
+	if (ln > maxchar) {
 		ln = maxchar;
+	}
 
 	strncpy(buf, g_WorkingDir, ln);
 	buf[ln] = 0;
@@ -1102,8 +1105,9 @@ int __cdecl AppHasAnySaveFile()
 
 	_WIN32_FIND_DATAA fnd;
 	HANDLE hFindFile = FindFirstFileA(buf, &fnd);
-	if (hFindFile == INVALID_HANDLE_VALUE)
+	if (hFindFile == INVALID_HANDLE_VALUE) {
 		return 0;
+	}
 
 	FindClose(hFindFile);
 	return 1;
@@ -1122,8 +1126,9 @@ void __cdecl AppFindSavesList(CArray<WIN32_FIND_DATAA>* list, int p)
 	strcat(buf, "\\game*.sav");
 	_WIN32_FIND_DATAA fnd;
 	HANDLE hFindFile = FindFirstFileA(buf, &fnd);
-	if (hFindFile == INVALID_HANDLE_VALUE)
+	if (hFindFile == INVALID_HANDLE_VALUE) {
 		return;
+	}
 
 	while (true)
 	{
@@ -1131,21 +1136,24 @@ void __cdecl AppFindSavesList(CArray<WIN32_FIND_DATAA>* list, int p)
 		{
 			if (p == 0)
 			{
-				if (strcmp(fnd.cFileName, "game9999.sav") != 0 && strcmp(fnd.cFileName, "game9998.sav") != 0)
+				if (strcmp(fnd.cFileName, "game9999.sav") != 0 && strcmp(fnd.cFileName, "game9998.sav") != 0) {
 					list->Add(fnd);
-			}
-			else
+				}
+			} else {
 				list->Add(fnd);
+			}
 		}
 
-		if (FindNextFileA(hFindFile, &fnd) == 0)
+		if (FindNextFileA(hFindFile, &fnd) == 0) {
 			break;
+		}
 	}
 	FindClose(hFindFile);
 
 	
-	if (list->GetSize() != 0)
+	if (list->GetSize() != 0) {
 		qsort(list->GetData(), list->GetSize(), sizeof(WIN32_FIND_DATAA), SaveListCompare);
+	}
 
 }
 
@@ -1154,10 +1162,11 @@ void LogWarning(const CString& msg)
 { //59b753
 	CString str("WARNING! : ");
 	str += msg;
-	if (g_Server->field4_0x74 == 0)
+	if (g_Server->field4_0x74 == 0) {
 		g_NetStru1_main.FUN_0051cd89(str, nullptr);
-	else
+	} else {
 		LogMessage(str);
+	}
 }
 
 // 5e64bd - MFC AfxWinMain; the _a2WinMain@16 stdcall thunk (5d9d58) is folded in
@@ -1174,9 +1183,7 @@ extern "C" int32_t WINAPI a2WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance
 			if (pApp->InitInstance())
 			{
 				exitCode = pApp->Run();
-			}
-			else
-			{
+			} else {
 				if (pApp->m_pMainWnd != nullptr)
 				{
 					pApp->m_pMainWnd->DestroyWindow();

@@ -47,8 +47,9 @@ File2::File2()
 File2::File2(LPCTSTR lpszFileName, UINT nOpenFlags)
 {
 	//4e67ea
-	if (!Open(lpszFileName, nOpenFlags))
+	if (!Open(lpszFileName, nOpenFlags)) {
 		AfxThrowFileException(CFileException::accessDenied, -1, nullptr);
+	}
 }
 
 File2::~File2()
@@ -70,8 +71,9 @@ BOOL File2::Open(LPCTSTR lpszFileName, UINT nOpenFlags, CFileException* pError)
 	char fname[1024];
 	pathStrCpy(lpszFileName, fname);
 
-	if (nOpenFlags & modeWrite)
+	if (nOpenFlags & modeWrite) {
 		return FALSE;
+	}
 
 	m_strFileName = fname;
 
@@ -81,8 +83,9 @@ BOOL File2::Open(LPCTSTR lpszFileName, UINT nOpenFlags, CFileException* pError)
 	FatInfo* inf = Resources::ResFiles.FUN_004e646d(fbuf);
 	if (inf == nullptr)
 	{
-		if (pError)
+		if (pError) {
 			pError->m_cause = 2;
+		}
 		return FALSE;
 	}
 	
@@ -95,8 +98,9 @@ BOOL File2::Open(LPCTSTR lpszFileName, UINT nOpenFlags, CFileException* pError)
 	position = 0;
 	m_hFile = file->m_hFile;
 
-	if (pError)
+	if (pError) {
 		pError->m_cause = 0;
+	}
 
 	return TRUE;
 };
@@ -111,25 +115,27 @@ CFile* File2::Duplicate() const
 LONG File2::Seek(LONG lOff, UINT nFrom) 
 {
 	//4e6acb
-	if (m_hFile == (UINT)-1)
+	if (m_hFile == (UINT)-1) {
 		AfxThrowFileException(CFileException::invalidFile);
+	}
 
 	if (nFrom == 0)
 	{
-		if (size < lOff)
+		if (size < lOff) {
 			AfxThrowFileException(CFileException::badSeek);
+		}
 		position = lOff;
-	}
-	else if (nFrom == 1)
+	} else if (nFrom == 1)
 	{
-		if (size < lOff + position)
+		if (size < lOff + position) {
 			AfxThrowFileException(CFileException::badSeek);
+		}
 		position = position + lOff;
-	}
-	else if (nFrom == 2)
+	} else if (nFrom == 2)
 	{
-		if (-size != lOff && size <= -lOff)
+		if (-size != lOff && size <= -lOff) {
 			AfxThrowFileException(CFileException::badSeek);
+		}
 		position = size + lOff;
 	}
 	return position;
@@ -150,24 +156,28 @@ DWORD File2::GetLength() const
 UINT File2::Read(void* lpBuf, UINT nCount) 
 {
 	//4e6bac
-	if (m_hFile == (UINT)-1)
+	if (m_hFile == (UINT)-1) {
 		AfxThrowFileException(CFileException::invalidFile);
+	}
 
 	UINT toRead = 0;
-	if (nCount < size - position)
+	if (nCount < size - position) {
 		toRead = nCount;
-	else
+	} else {
 		toRead = size - position;
+	}
 
 	file->Seek(offset + position, 0);
 
-	if (toRead == 0)
+	if (toRead == 0) {
 		return 0;
+	}
 
 	position += toRead;
 	
-	if (size < position)
+	if (size < position) {
 		AfxThrowFileException(CFileException::endOfFile);
+	}
 
 	return file->Read(lpBuf, toRead);
 };

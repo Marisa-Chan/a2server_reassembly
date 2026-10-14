@@ -12,23 +12,28 @@ IMPLEMENT_DYNAMIC(CMousePointer, CObject);
 CMousePointer::~CMousePointer()
 {
     //42693e
-    if (saved_screen_rect)
+    if (saved_screen_rect) {
         delete saved_screen_rect;
+    }
 
-    if (saved_screen_rect2)
+    if (saved_screen_rect2) {
         delete saved_screen_rect2;
+    }
 
-    if (saved_screen_rect_hint)
+    if (saved_screen_rect_hint) {
         delete saved_screen_rect_hint;
+    }
 
     for (int i = 0; i < 8; i++)
     {
-        if (saved_rect_frame[i])
+        if (saved_rect_frame[i]) {
             delete saved_rect_frame[i];
+        }
     }
 
-    if (hint_image)
+    if (hint_image) {
         delete hint_image;
+    }
 }
 
 CMousePointer::CMousePointer()
@@ -45,10 +50,11 @@ CMousePointer::CMousePointer()
 
     for (int i = 0; i < 8; i++)
     {
-        if ((i & 2) == 0)
+        if ((i & 2) == 0) {
             saved_rect_frame[i] = new CBmp64(1600, 2);
-        else
+        } else {
             saved_rect_frame[i] = new CBmp64(2, 1600);
+        }
     }
 
     hint_image = new CBmp64(640, 117);
@@ -70,12 +76,14 @@ void CMousePointer::CheckHintValues()
     while (true)
     {
         int fpos = ht.Find('#');
-        if (fpos < 0)
+        if (fpos < 0) {
             break;
+        }
 
         int32_t sw = g_font2->GetStrWidth(ht.Left(fpos));
-        if (hint_max_width < sw)
+        if (hint_max_width < sw) {
             hint_max_width = sw;
+        }
 
         ht = ht.Mid(fpos + 1);
 
@@ -83,8 +91,9 @@ void CMousePointer::CheckHintValues()
     }
 
     int32_t sw = g_font2->GetStrWidth(ht);
-    if (hint_max_width < sw)
+    if (hint_max_width < sw) {
         hint_max_width = sw;
+    }
 }
 
 void CMousePointer::DrawToScreen()
@@ -95,8 +104,9 @@ void CMousePointer::DrawToScreen()
     {
         frame_ts = ts;
         frame++;
-        if (frame >= frame_count)
+        if (frame >= frame_count) {
             frame = 0;
+        }
     }
 
     LockSurface1();
@@ -128,11 +138,13 @@ void CMousePointer::ForceDisableHint()
 void CMousePointer::Paint()
 {
     //426ca3
-    if (g_IsServer)
+    if (g_IsServer) {
         return;
+    }
 
-    if (paint_call_count == 0 && cursor_sprite)
+    if (paint_call_count == 0 && cursor_sprite) {
         DrawToScreen();
+    }
     
     paint_call_count++;
 }
@@ -168,8 +180,9 @@ void CMousePointer::PaintHint()
     while (true)
     {
         int fpos = ht.Find('#');
-        if (fpos < 0)
+        if (fpos < 0) {
             break;
+        }
 
         g_font2->DrawTextWithShadow(hint_rect.left + 5, hint_rect.top + 4 + line * 14, ht.Left(fpos), 0, clrsh_LuxorGold, 1);
 
@@ -220,23 +233,26 @@ void CMousePointer::Repaint(CPoint point)
     mouse_hint_time = 0;
     mouse_hint_ts = timeGetTime();
 
-    if (hint_state != 0)
+    if (hint_state != 0) {
         RepaintHint();
+    }
 
     hint_state = 0;
 
     Unpaint();
 
-    if (select_frame_state != 0)
+    if (select_frame_state != 0) {
         UnpaintSelectFrame();
+    }
 
     x = point.x;
     y = point.y;
 
     select_frame_rect.SetRect(select_frame_rect.left, select_frame_rect.top, x, y);
 
-    if (select_frame_state != 0)
+    if (select_frame_state != 0) {
         PaintSelectFrame();
+    }
     
     Paint();
 }
@@ -363,8 +379,7 @@ void CMousePointer::SaveScreenParts2(const CRect& rect)
                                     (uint8_t*)saved_screen_rect_hint->GetData());
 
             UnlockSurface2();
-        }
-        else if (intr.IntersectRect(&rect, &r) && select_frame_state)
+        } else if (intr.IntersectRect(&rect, &r) && select_frame_state)
         {
             LockSurface2();
 
@@ -403,16 +418,19 @@ void CMousePointer::SaveScreenParts2(const CRect& rect)
 void CMousePointer::SetCursor(CSprite256* spr, int32_t off_x, int32_t off_y, int32_t count, int32_t delay)
 {
     //426aa5
-    if (g_IsServer)
+    if (g_IsServer) {
         return;
+    }
 
     Unpaint();
 
-    if (saved_screen_rect)
+    if (saved_screen_rect) {
         delete saved_screen_rect;
+    }
 
-    if (saved_screen_rect2)
+    if (saved_screen_rect2) {
         delete saved_screen_rect2;
+    }
 
     cursor_sprite = spr;
     x_offset = off_x;
@@ -448,20 +466,23 @@ void CMousePointer::StartSelect(const CPoint& point)
 void CMousePointer::Unpaint()
 {
     //426c64
-    if (g_IsServer)
+    if (g_IsServer) {
         return;
+    }
 
     paint_call_count--;
 
-    if (paint_call_count == 0 && cursor_sprite)
+    if (paint_call_count == 0 && cursor_sprite) {
         EraseCursor();
+    }
 }
 
 void CMousePointer::UnpaintSelectFrame()
 {
     //428051
-    if (select_frame_rect.Width() == 0 || select_frame_rect.Height() == 0)
+    if (select_frame_rect.Width() == 0 || select_frame_rect.Height() == 0) {
         return;
+    }
 
     CRect r = select_frame_rect;
     r.NormalizeRect();
@@ -489,8 +510,9 @@ void CMousePointer::UnpaintSelectFrame()
 void CMousePointer::Update()
 {
     //4271e6
-    if (g_IsServer || GetLockCountSurf2())
+    if (g_IsServer || GetLockCountSurf2()) {
         return;
+    }
 
     uint32_t ts = timeGetTime();
 
@@ -501,8 +523,9 @@ void CMousePointer::Update()
         POINT pt;
         GetCursorPos(&pt);
 
-        if ((pt.x != x  || pt.y != y) && cursor_sprite )
+        if ((pt.x != x  || pt.y != y) && cursor_sprite ) {
             Repaint(pt);
+        }
     }
 
     if (user_msg_delay < ts - user_msg_ts && g_LButtonDown != 0)
@@ -518,8 +541,9 @@ void CMousePointer::Update()
         frame_ts = ts;
         frame++;
 
-        if (frame >= frame_count)
+        if (frame >= frame_count) {
             frame = 0;
+        }
 
         Unpaint();
         Paint();
@@ -556,8 +580,9 @@ void CMousePointer::Update()
         RepaintHint();
     }
 
-    if (wnd->music_update_proc)
+    if (wnd->music_update_proc) {
         wnd->music_update_proc();
+    }
 }
 
 void CMousePointer::UpdateHint()
@@ -565,11 +590,13 @@ void CMousePointer::UpdateHint()
     //42819d
     hint_rect.SetRect(x, y - 5 - hint_lines * 14, x + 11 + hint_max_width, y);
 
-    if (hint_rect.right > g_ScreenSize.right)
+    if (hint_rect.right > g_ScreenSize.right) {
         hint_rect.OffsetRect(g_ScreenSize.right - hint_rect.right, 0);
+    }
 
-    if (hint_rect.top < g_ScreenSize.top)
+    if (hint_rect.top < g_ScreenSize.top) {
         hint_rect.OffsetRect(0, g_ScreenSize.top - hint_rect.top);
+    }
 
     Unpaint();
     LockSurface1();
@@ -593,8 +620,9 @@ int32_t CMousePointer::GetY() { return y; } //41ece0
 CCursor::~CCursor()
 {
     //47cf99
-    if (sprite)
+    if (sprite) {
         delete sprite;
+    }
     sprite = nullptr;
 }
 
@@ -605,9 +633,7 @@ CCursor::CCursor(const char* fname, int32_t xof, int32_t yof, int32_t _delay)
     {
         sprite = new CSprite256(fname);
         sprite->ResetPalette(1, 1, 0);
-    }
-    else
-    {
+    } else {
         sprite = new CA16(fname);
         sprite->ResetPalette(16, 4, 0);
     }
@@ -666,18 +692,21 @@ void LoadCursors()
 void DeleteCursors()
 {
     //47daf0
-    for (int i = 0; i < 28; i++)
+    for (int i = 0; i < 28; i++) {
         delete g_Cursors[i];
+    }
 }
 
 int __cdecl ApplyCursor(CCursor* cur)
 {
     //4750d0
-    if (!cur)
+    if (!cur) {
         return 0;
+    }
 
-    if (g_mousept.GetCursorSprite() == cur->GetSprite())
+    if (g_mousept.GetCursorSprite() == cur->GetSprite()) {
         return 0;
+    }
     
     cur->Use();
     return 1;

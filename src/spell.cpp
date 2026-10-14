@@ -42,9 +42,7 @@ void Spell::Serialize(CArchive& ar)
         ar.Write(&is_defensive, 1);
         ar.Write(&mana_cost, 2);
         ar.Write(this, 4);
-    }
-    else
-    {
+    } else {
         ar.Read(&spell_id, 1);
         ar.Read(&max_range, 1);
         ar.Read(&is_defensive, 1);
@@ -97,9 +95,9 @@ Spell::Spell(const CString& name)
     {
         CString msg("Invalid spell ");
         LogMessage(msg + name);
-    }
-    else
+    } else {
         Init();
+    }
 }
 
 Spell::~Spell() //5392fe
@@ -112,9 +110,7 @@ void Spell::Init()
         CString msg;
         msg.Format("Invalid spell #%d - no such ID", spell_id);
         LogMessage(msg);
-    }
-    else
-    {
+    } else {
         spell_info = &g_GameDataRes.spells[spell_id];
         mana_cost = spell_info->Values()[0].mana_cost;
         max_range = spell_info->Values()[0].max_range;
@@ -876,11 +872,13 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
 
 Spell* SpellBook::sub_53DB79(int spell_id)
 { // 53db79 // Look up spell in book by id
-    if ((uint32_t)spell_id >= spells.GetSize())
+    if ((uint32_t)spell_id >= spells.GetSize()) {
         return nullptr;
+    }
     
-    if (spells[spell_id] == nullptr)
+    if (spells[spell_id] == nullptr) {
         return nullptr;
+    }
 
     current_spell_index = spell_id;
     return spells[spell_id];

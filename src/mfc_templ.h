@@ -27,8 +27,9 @@ inline void AFXAPI ConstructElements(TYPE* pElements, int nCount)
 	memset((void*)pElements, 0, nCount * sizeof(TYPE));
 
 	// then call the constructor(s)
-	for (; nCount--; pElements++)
+	for (; nCount--; pElements++) {
 		::new((void*)pElements) TYPE;
+	}
 }
 
 template<class TYPE>
@@ -38,8 +39,9 @@ inline void AFXAPI DestructElements(TYPE* pElements, int nCount)
 		AfxIsValidAddress(pElements, nCount * sizeof(TYPE)));
 
 	// call the destructor(s)
-	for (; nCount--; pElements++)
+	for (; nCount--; pElements++) {
 		pElements->~TYPE();
+	}
 }
 
 template<class TYPE>
@@ -51,8 +53,9 @@ inline void AFXAPI CopyElements(TYPE* pDest, const TYPE* pSrc, int nCount)
 		AfxIsValidAddress(pSrc, nCount * sizeof(TYPE)));
 
 	// default is element-copy using assignment
-	while (nCount--)
+	while (nCount--) {
 		*pDest++ = *pSrc++;
+	}
 }
 
 template<class TYPE>
@@ -62,10 +65,11 @@ void AFXAPI SerializeElements(CArchive& ar, TYPE* pElements, int nCount)
 		AfxIsValidAddress(pElements, nCount * sizeof(TYPE)));
 
 	// default is bit-wise read/write
-	if (ar.IsStoring())
+	if (ar.IsStoring()) {
 		ar.Write((void*)pElements, nCount * sizeof(TYPE));
-	else
+	} else {
 		ar.Read((void*)pElements, nCount * sizeof(TYPE));
+	}
 }
 
 #ifdef _DEBUG
@@ -291,8 +295,9 @@ void CArray<TYPE, ARG_TYPE>::SetSize(int nNewSize, int nGrowBy)
 	ASSERT_VALID(this);
 	ASSERT(nNewSize >= 0);
 
-	if (nGrowBy != -1)
+	if (nGrowBy != -1) {
 		m_nGrowBy = nGrowBy;  // set new size
+	}
 
 	if (nNewSize == 0)
 	{
@@ -304,8 +309,7 @@ void CArray<TYPE, ARG_TYPE>::SetSize(int nNewSize, int nGrowBy)
 			m_pData = NULL;
 		}
 		m_nSize = m_nMaxSize = 0;
-	}
-	else if (m_pData == NULL)
+	} else if (m_pData == NULL)
 	{
 		// create one with exact size
 #ifdef SIZE_T_MAX
@@ -314,24 +318,20 @@ void CArray<TYPE, ARG_TYPE>::SetSize(int nNewSize, int nGrowBy)
 		m_pData = (TYPE*) new BYTE[nNewSize * sizeof(TYPE)];
 		ConstructElements<TYPE>(m_pData, nNewSize);
 		m_nSize = m_nMaxSize = nNewSize;
-	}
-	else if (nNewSize <= m_nMaxSize)
+	} else if (nNewSize <= m_nMaxSize)
 	{
 		// it fits
 		if (nNewSize > m_nSize)
 		{
 			// initialize the new elements
 			ConstructElements<TYPE>(&m_pData[m_nSize], nNewSize - m_nSize);
-		}
-		else if (m_nSize > nNewSize)
+		} else if (m_nSize > nNewSize)
 		{
 			// destroy the old elements
 			DestructElements<TYPE>(&m_pData[nNewSize], m_nSize - nNewSize);
 		}
 		m_nSize = nNewSize;
-	}
-	else
-	{
+	} else {
 		// otherwise, grow array
 		int nGrowBy = m_nGrowBy;
 		if (nGrowBy == 0)
@@ -342,10 +342,11 @@ void CArray<TYPE, ARG_TYPE>::SetSize(int nNewSize, int nGrowBy)
 			nGrowBy = (nGrowBy < 4) ? 4 : ((nGrowBy > 1024) ? 1024 : nGrowBy);
 		}
 		int nNewMax;
-		if (nNewSize < m_nMaxSize + nGrowBy)
+		if (nNewSize < m_nMaxSize + nGrowBy) {
 			nNewMax = m_nMaxSize + nGrowBy;  // granularity
-		else
+		} else {
 			nNewMax = nNewSize;  // no slush
+		}
 
 		ASSERT(nNewMax >= m_nMaxSize);  // no wrap around
 #ifdef SIZE_T_MAX
@@ -422,8 +423,9 @@ void CArray<TYPE, ARG_TYPE>::SetAtGrow(int nIndex, ARG_TYPE newElement)
 	ASSERT_VALID(this);
 	ASSERT(nIndex >= 0);
 
-	if (nIndex >= m_nSize)
+	if (nIndex >= m_nSize) {
 		SetSize(nIndex + 1, -1);
+	}
 	m_pData[nIndex] = newElement;
 }
 
@@ -438,9 +440,7 @@ void CArray<TYPE, ARG_TYPE>::InsertAt(int nIndex, ARG_TYPE newElement, int nCoun
 	{
 		// adding after the end of the array
 		SetSize(nIndex + nCount, -1);   // grow so nIndex is valid
-	}
-	else
-	{
+	} else {
 		// inserting in the middle of the array
 		int nOldSize = m_nSize;
 		SetSize(m_nSize + nCount, -1);  // grow it to new size
@@ -456,8 +456,9 @@ void CArray<TYPE, ARG_TYPE>::InsertAt(int nIndex, ARG_TYPE newElement, int nCoun
 
 	// insert new value in the gap
 	ASSERT(nIndex + nCount <= m_nSize);
-	while (nCount--)
+	while (nCount--) {
 		m_pData[nIndex++] = newElement;
+	}
 }
 
 template<class TYPE, class ARG_TYPE>
@@ -471,9 +472,10 @@ void CArray<TYPE, ARG_TYPE>::RemoveAt(int nIndex, int nCount)
 	// just remove a range
 	int nMoveCount = m_nSize - (nIndex + nCount);
 	DestructElements<TYPE>(&m_pData[nIndex], nCount);
-	if (nMoveCount)
+	if (nMoveCount) {
 		memmove(&m_pData[nIndex], &m_pData[nIndex + nCount],
 			nMoveCount * sizeof(TYPE));
+	}
 	m_nSize -= nCount;
 }
 
@@ -488,8 +490,9 @@ void CArray<TYPE, ARG_TYPE>::InsertAt(int nStartIndex, CArray* pNewArray)
 	if (pNewArray->GetSize() > 0)
 	{
 		InsertAt(nStartIndex, pNewArray->GetAt(0), pNewArray->GetSize());
-		for (int i = 0; i < pNewArray->GetSize(); i++)
+		for (int i = 0; i < pNewArray->GetSize(); i++) {
 			SetAt(nStartIndex + i, pNewArray->GetAt(i));
+		}
 	}
 }
 
@@ -502,9 +505,7 @@ void CArray<TYPE, ARG_TYPE>::Serialize(CArchive& ar)
 	if (ar.IsStoring())
 	{
 		ar.WriteCount(m_nSize);
-	}
-	else
-	{
+	} else {
 		DWORD nOldSize = ar.ReadCount();
 		SetSize(nOldSize, -1);
 	}
@@ -725,8 +726,9 @@ void CList<TYPE, ARG_TYPE>::RemoveAll()
 
 	// destroy elements
 	CNode* pNode;
-	for (pNode = m_pNodeHead; pNode != NULL; pNode = pNode->pNext)
+	for (pNode = m_pNodeHead; pNode != NULL; pNode = pNode->pNext) {
 		DestructElements<TYPE>(&pNode->data, 1);
+	}
 
 	m_nCount = 0;
 	m_pNodeHead = m_pNodeTail = m_pNodeFree = NULL;
@@ -799,8 +801,9 @@ void CList<TYPE, ARG_TYPE>::FreeNode(CList::CNode* pNode)
 	ASSERT(m_nCount >= 0);  // make sure we don't underflow
 
 	// if no more elements, cleanup completely
-	if (m_nCount == 0)
+	if (m_nCount == 0) {
 		RemoveAll();
+	}
 }
 
 template<class TYPE, class ARG_TYPE>
@@ -810,10 +813,11 @@ POSITION CList<TYPE, ARG_TYPE>::AddHead(ARG_TYPE newElement)
 
 	CNode* pNewNode = NewNode(NULL, m_pNodeHead);
 	pNewNode->data = newElement;
-	if (m_pNodeHead != NULL)
+	if (m_pNodeHead != NULL) {
 		m_pNodeHead->pPrev = pNewNode;
-	else
+	} else {
 		m_pNodeTail = pNewNode;
+	}
 	m_pNodeHead = pNewNode;
 	return (POSITION)pNewNode;
 }
@@ -825,10 +829,11 @@ POSITION CList<TYPE, ARG_TYPE>::AddTail(ARG_TYPE newElement)
 
 	CNode* pNewNode = NewNode(m_pNodeTail, NULL);
 	pNewNode->data = newElement;
-	if (m_pNodeTail != NULL)
+	if (m_pNodeTail != NULL) {
 		m_pNodeTail->pNext = pNewNode;
-	else
+	} else {
 		m_pNodeHead = pNewNode;
+	}
 	m_pNodeTail = pNewNode;
 	return (POSITION)pNewNode;
 }
@@ -843,8 +848,9 @@ void CList<TYPE, ARG_TYPE>::AddHead(CList* pNewList)
 
 	// add a list of same elements to head (maintain order)
 	POSITION pos = pNewList->GetTailPosition();
-	while (pos != NULL)
+	while (pos != NULL) {
 		AddHead(pNewList->GetPrev(pos));
+	}
 }
 
 template<class TYPE, class ARG_TYPE>
@@ -856,8 +862,9 @@ void CList<TYPE, ARG_TYPE>::AddTail(CList* pNewList)
 
 	// add a list of same elements
 	POSITION pos = pNewList->GetHeadPosition();
-	while (pos != NULL)
+	while (pos != NULL) {
 		AddTail(pNewList->GetNext(pos));
+	}
 }
 
 template<class TYPE, class ARG_TYPE>
@@ -871,10 +878,11 @@ TYPE CList<TYPE, ARG_TYPE>::RemoveHead()
 	TYPE returnValue = pOldNode->data;
 
 	m_pNodeHead = pOldNode->pNext;
-	if (m_pNodeHead != NULL)
+	if (m_pNodeHead != NULL) {
 		m_pNodeHead->pPrev = NULL;
-	else
+	} else {
 		m_pNodeTail = NULL;
+	}
 	FreeNode(pOldNode);
 	return returnValue;
 }
@@ -890,10 +898,11 @@ TYPE CList<TYPE, ARG_TYPE>::RemoveTail()
 	TYPE returnValue = pOldNode->data;
 
 	m_pNodeTail = pOldNode->pPrev;
-	if (m_pNodeTail != NULL)
+	if (m_pNodeTail != NULL) {
 		m_pNodeTail->pNext = NULL;
-	else
+	} else {
 		m_pNodeHead = NULL;
+	}
 	FreeNode(pOldNode);
 	return returnValue;
 }
@@ -903,10 +912,11 @@ POSITION CList<TYPE, ARG_TYPE>::InsertBefore(POSITION position, ARG_TYPE newElem
 {
 	ASSERT_VALID(this);
 
-	if (position == NULL)
+	if (position == NULL) {
 		return AddHead(newElement); // insert before nothing -> head of the list
 
 	// Insert it before position
+	}
 	CNode* pOldNode = (CNode*)position;
 	CNode* pNewNode = NewNode(pOldNode->pPrev, pOldNode);
 	pNewNode->data = newElement;
@@ -915,9 +925,7 @@ POSITION CList<TYPE, ARG_TYPE>::InsertBefore(POSITION position, ARG_TYPE newElem
 	{
 		ASSERT(AfxIsValidAddress(pOldNode->pPrev, sizeof(CNode)));
 		pOldNode->pPrev->pNext = pNewNode;
-	}
-	else
-	{
+	} else {
 		ASSERT(pOldNode == m_pNodeHead);
 		m_pNodeHead = pNewNode;
 	}
@@ -930,10 +938,11 @@ POSITION CList<TYPE, ARG_TYPE>::InsertAfter(POSITION position, ARG_TYPE newEleme
 {
 	ASSERT_VALID(this);
 
-	if (position == NULL)
+	if (position == NULL) {
 		return AddTail(newElement); // insert after nothing -> tail of the list
 
 	// Insert it before position
+	}
 	CNode* pOldNode = (CNode*)position;
 	ASSERT(AfxIsValidAddress(pOldNode, sizeof(CNode)));
 	CNode* pNewNode = NewNode(pOldNode, pOldNode->pNext);
@@ -943,9 +952,7 @@ POSITION CList<TYPE, ARG_TYPE>::InsertAfter(POSITION position, ARG_TYPE newEleme
 	{
 		ASSERT(AfxIsValidAddress(pOldNode->pNext, sizeof(CNode)));
 		pOldNode->pNext->pPrev = pNewNode;
-	}
-	else
-	{
+	} else {
 		ASSERT(pOldNode == m_pNodeTail);
 		m_pNodeTail = pNewNode;
 	}
@@ -965,18 +972,14 @@ void CList<TYPE, ARG_TYPE>::RemoveAt(POSITION position)
 	if (pOldNode == m_pNodeHead)
 	{
 		m_pNodeHead = pOldNode->pNext;
-	}
-	else
-	{
+	} else {
 		ASSERT(AfxIsValidAddress(pOldNode->pPrev, sizeof(CNode)));
 		pOldNode->pPrev->pNext = pOldNode->pNext;
 	}
 	if (pOldNode == m_pNodeTail)
 	{
 		m_pNodeTail = pOldNode->pPrev;
-	}
-	else
-	{
+	} else {
 		ASSERT(AfxIsValidAddress(pOldNode->pNext, sizeof(CNode)));
 		pOldNode->pNext->pPrev = pOldNode->pPrev;
 	}
@@ -989,8 +992,9 @@ POSITION CList<TYPE, ARG_TYPE>::FindIndex(int nIndex) const
 	ASSERT_VALID(this);
 	ASSERT(nIndex >= 0);
 
-	if (nIndex >= m_nCount)
+	if (nIndex >= m_nCount) {
 		return NULL;  // went too far
+	}
 
 	CNode* pNode = m_pNodeHead;
 	while (nIndex--)
@@ -1010,16 +1014,16 @@ POSITION CList<TYPE, ARG_TYPE>::Find(ARG_TYPE searchValue, POSITION startAfter) 
 	if (pNode == NULL)
 	{
 		pNode = m_pNodeHead;  // start at head
-	}
-	else
-	{
+	} else {
 		ASSERT(AfxIsValidAddress(pNode, sizeof(CNode)));
 		pNode = pNode->pNext;  // start after the one specified
 	}
 
-	for (; pNode != NULL; pNode = pNode->pNext)
-		if (CompareElements<TYPE>(&pNode->data, &searchValue))
+	for (; pNode != NULL; pNode = pNode->pNext) {
+		if (CompareElements<TYPE>(&pNode->data, &searchValue)) {
 			return (POSITION)pNode;
+		}
+	}
 	return NULL;
 }
 
@@ -1038,9 +1042,7 @@ void CList<TYPE, ARG_TYPE>::Serialize(CArchive& ar)
 			ASSERT(AfxIsValidAddress(pNode, sizeof(CNode)));
 			SerializeElements<TYPE>(ar, &pNode->data, 1);
 		}
-	}
-	else
-	{
+	} else {
 		DWORD nNewCount = ar.ReadCount();
 		while (nNewCount--)
 		{
@@ -1271,8 +1273,9 @@ void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::FreeAssoc(CMap::CAssoc* pAssoc)
 	ASSERT(m_nCount >= 0);  // make sure we don't underflow
 
 	// if no more elements, cleanup completely
-	if (m_nCount == 0)
+	if (m_nCount == 0) {
 		RemoveAll();
+	}
 }
 
 template<class KEY, class ARG_KEY, class VALUE, class ARG_VALUE>
@@ -1282,15 +1285,17 @@ CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::GetAssocAt(ARG_KEY key, UINT& nHash) const
 {
 	nHash = HashKey<ARG_KEY>(key) % m_nHashTableSize;
 
-	if (m_pHashTable == NULL)
+	if (m_pHashTable == NULL) {
 		return NULL;
 
 	// see if it exists
+	}
 	CAssoc* pAssoc;
 	for (pAssoc = m_pHashTable[nHash]; pAssoc != NULL; pAssoc = pAssoc->pNext)
 	{
-		if (CompareElements(&pAssoc->key, &key))
+		if (CompareElements(&pAssoc->key, &key)) {
 			return pAssoc;
+		}
 	}
 	return NULL;
 }
@@ -1302,8 +1307,9 @@ BOOL CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::Lookup(ARG_KEY key, VALUE& rValue) co
 
 	UINT nHash;
 	CAssoc* pAssoc = GetAssocAt(key, nHash);
-	if (pAssoc == NULL)
+	if (pAssoc == NULL) {
 		return FALSE;  // not in map
+	}
 
 	rValue = pAssoc->value;
 	return TRUE;
@@ -1318,10 +1324,11 @@ VALUE& CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::operator[](ARG_KEY key)
 	CAssoc* pAssoc;
 	if ((pAssoc = GetAssocAt(key, nHash)) == NULL)
 	{
-		if (m_pHashTable == NULL)
+		if (m_pHashTable == NULL) {
 			InitHashTable(m_nHashTableSize);
 
 		// it doesn't exist, add a new Association
+		}
 		pAssoc = NewAssoc();
 		pAssoc->nHashValue = nHash;
 		pAssoc->key = key;
@@ -1340,8 +1347,9 @@ BOOL CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::RemoveKey(ARG_KEY key)
 {
 	ASSERT_VALID(this);
 
-	if (m_pHashTable == NULL)
+	if (m_pHashTable == NULL) {
 		return FALSE;  // nothing in the table
+	}
 
 	CAssoc** ppAssocPrev;
 	ppAssocPrev = &m_pHashTable[HashKey<ARG_KEY>(key) % m_nHashTableSize];
@@ -1374,9 +1382,11 @@ void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::GetNextAssoc(POSITION& rNextPosition,
 	if (pAssocRet == (CAssoc*)BEFORE_START_POSITION)
 	{
 		// find the first association
-		for (UINT nBucket = 0; nBucket < m_nHashTableSize; nBucket++)
-			if ((pAssocRet = m_pHashTable[nBucket]) != NULL)
+		for (UINT nBucket = 0; nBucket < m_nHashTableSize; nBucket++) {
+			if ((pAssocRet = m_pHashTable[nBucket]) != NULL) {
 				break;
+			}
+		}
 		ASSERT(pAssocRet != NULL);  // must find something
 	}
 
@@ -1387,9 +1397,11 @@ void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::GetNextAssoc(POSITION& rNextPosition,
 	{
 		// go to next bucket
 		for (UINT nBucket = pAssocRet->nHashValue + 1;
-			nBucket < m_nHashTableSize; nBucket++)
-			if ((pAssocNext = m_pHashTable[nBucket]) != NULL)
+			nBucket < m_nHashTableSize; nBucket++) {
+			if ((pAssocNext = m_pHashTable[nBucket]) != NULL) {
 				break;
+			}
+		}
 	}
 
 	rNextPosition = (POSITION)pAssocNext;
@@ -1409,8 +1421,9 @@ void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::Serialize(CArchive& ar)
 	if (ar.IsStoring())
 	{
 		ar.WriteCount(m_nCount);
-		if (m_nCount == 0)
+		if (m_nCount == 0) {
 			return;  // nothing more to do
+		}
 
 		ASSERT(m_pHashTable != NULL);
 		for (UINT nHash = 0; nHash < m_nHashTableSize; nHash++)
@@ -1423,9 +1436,7 @@ void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::Serialize(CArchive& ar)
 				SerializeElements<VALUE>(ar, &pAssoc->value, 1);
 			}
 		}
-	}
-	else
-	{
+	} else {
 		DWORD nNewCount = ar.ReadCount();
 		while (nNewCount--)
 		{

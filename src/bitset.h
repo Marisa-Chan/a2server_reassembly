@@ -11,15 +11,17 @@ struct BitSet
 	void Set(uint32_t index)
 	{
 		//509cfb
-		if (index < BIT_SET_SIZE)
+		if (index < BIT_SET_SIZE) {
 			_storage[index >> 5] |= 1 << (index & 0x1F);
+		}
 	}
 
 	void Unset(uint32_t index)
 	{
 		//509d4c
-		if (index < BIT_SET_SIZE)
+		if (index < BIT_SET_SIZE) {
 			_storage[index >> 5] &= ~(1 << (index & 0x1F));
+		}
 	}
 
 	uint32_t AllocBit()  // Set 0 bit to 1 and return index

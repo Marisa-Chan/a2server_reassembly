@@ -43,9 +43,7 @@ CString::CString(const CString& stringSrc)
 		ASSERT(stringSrc.GetData() != afxDataNil);
 		m_pchData = stringSrc.m_pchData;
 		InterlockedIncrement(&GetData()->nRefs);
-	}
-	else
-	{
+	} else {
 		Init();
 		*this = stringSrc.m_pchData;
 	}
@@ -58,9 +56,9 @@ void CString::AllocBuffer(int nLen)
 	ASSERT(nLen >= 0);
 	ASSERT(nLen <= INT_MAX-1);    // max size (enough room for 1 extra)
 
-	if (nLen == 0)
+	if (nLen == 0) {
 		Init();
-	else
+	} else
 	{
 		CStringData* pData =
 			(CStringData*)new BYTE[sizeof(CStringData) + (nLen+1)*sizeof(TCHAR)];
@@ -77,8 +75,9 @@ void CString::Release()
 	if (GetData() != afxDataNil)
 	{
 		ASSERT(GetData()->nRefs != 0);
-		if (InterlockedDecrement(&GetData()->nRefs) <= 0)
+		if (InterlockedDecrement(&GetData()->nRefs) <= 0) {
 			delete[] (BYTE*)GetData();
+		}
 		Init();
 	}
 }
@@ -88,8 +87,9 @@ void PASCAL CString::Release(CStringData* pData)
 	if (pData != afxDataNil)
 	{
 		ASSERT(pData->nRefs != 0);
-		if (InterlockedDecrement(&pData->nRefs) <= 0)
+		if (InterlockedDecrement(&pData->nRefs) <= 0) {
 			delete[] (BYTE*)pData;
+		}
 	}
 }
 
@@ -101,12 +101,14 @@ CString::operator LPCTSTR() const
 
 void CString::Empty()
 {
-	if (GetData()->nDataLength == 0)
+	if (GetData()->nDataLength == 0) {
 		return;
-	if (GetData()->nRefs >= 0)
+	}
+	if (GetData()->nRefs >= 0) {
 		Release();
-	else
+	} else {
 		*this = &afxChNil;
+	}
 	ASSERT(GetData()->nDataLength == 0);
 	ASSERT(GetData()->nRefs < 0 || GetData()->nAllocLength == 0);
 }
@@ -138,8 +140,9 @@ CString::~CString()
 {
 	if (GetData() != afxDataNil)
 	{
-		if (InterlockedDecrement(&GetData()->nRefs) <= 0)
+		if (InterlockedDecrement(&GetData()->nRefs) <= 0) {
 			delete[] (BYTE*)GetData();
+		}
 	}
 }
 
@@ -158,9 +161,7 @@ void CString::AllocCopy(CString& dest, int nCopyLen, int nCopyIndex,
 	if (nNewLen == 0)
 	{
 		dest.Init();
-	}
-	else
-	{
+	} else {
 		dest.AllocBuffer(nNewLen);
 		memcpy(dest.m_pchData, m_pchData+nCopyIndex, nCopyLen*sizeof(TCHAR));
 	}
@@ -175,11 +176,10 @@ CString::CString(LPCTSTR lpsz)
 	if (lpsz != NULL && HIWORD(lpsz) == NULL)
 	{
 		UINT nID = LOWORD((DWORD)lpsz);
-		if (!LoadString(nID))
+		if (!LoadString(nID)) {
 			TRACE1("Warning: implicit LoadString(%u) failed\n", nID);
-	}
-	else
-	{
+		}
+	} else {
 		int nLen = SafeStrlen(lpsz);
 		if (nLen != 0)
 		{
@@ -257,9 +257,7 @@ const CString& CString::operator=(const CString& stringSrc)
 		{
 			// actual copy necessary since one of the strings is locked
 			AssignCopy(stringSrc.GetData()->nDataLength, stringSrc.m_pchData);
-		}
-		else
-		{
+		} else {
 			// can just copy references around
 			Release();
 			ASSERT(stringSrc.GetData() != afxDataNil);
@@ -360,11 +358,12 @@ void CString::ConcatInPlace(int nSrcLen, LPCTSTR lpszSrcData)
 	//  -- the main routine for += operators
 
 	// concatenating an empty string is a no-op!
-	if (nSrcLen == 0)
+	if (nSrcLen == 0) {
 		return;
 
 	// if the buffer is too small, or we have a width mis-match, just
 	//   allocate a new buffer (slow but sure)
+	}
 	if (GetData()->nRefs > 1 || GetData()->nDataLength + nSrcLen > GetData()->nAllocLength)
 	{
 		// we have to grow the buffer, use the ConcatCopy routine
@@ -372,9 +371,7 @@ void CString::ConcatInPlace(int nSrcLen, LPCTSTR lpszSrcData)
 		ConcatCopy(GetData()->nDataLength, m_pchData, nSrcLen, lpszSrcData);
 		ASSERT(pOldData != NULL);
 		CString::Release(pOldData);
-	}
-	else
-	{
+	} else {
 		// fast concatenation when buffer big enough
 		memcpy(m_pchData+GetData()->nDataLength, lpszSrcData, nSrcLen*sizeof(TCHAR));
 		GetData()->nDataLength += nSrcLen;
@@ -414,8 +411,9 @@ LPTSTR CString::GetBuffer(int nMinBufLength)
 		// we have to grow the buffer
 		CStringData* pOldData = GetData();
 		int nOldLen = GetData()->nDataLength;   // AllocBuffer will tromp it
-		if (nMinBufLength < nOldLen)
+		if (nMinBufLength < nOldLen) {
 			nMinBufLength = nOldLen;
+		}
 		AllocBuffer(nMinBufLength);
 		memcpy(m_pchData, pOldData->data(), (nOldLen+1)*sizeof(TCHAR));
 		GetData()->nDataLength = nOldLen;
@@ -432,8 +430,9 @@ void CString::ReleaseBuffer(int nNewLength)
 {
 	CopyBeforeWrite();  // just in case GetBuffer was not called
 
-	if (nNewLength == -1)
+	if (nNewLength == -1) {
 		nNewLength = lstrlen(m_pchData); // zero terminated
+	}
 
 	ASSERT(nNewLength <= GetData()->nAllocLength);
 	GetData()->nDataLength = nNewLength;
@@ -474,8 +473,9 @@ LPTSTR CString::LockBuffer()
 void CString::UnlockBuffer()
 {
 	ASSERT(GetData()->nRefs == -1);
-	if (GetData() != afxDataNil)
+	if (GetData() != afxDataNil) {
 		GetData()->nRefs = 1;
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -542,34 +542,39 @@ void CString::OemToAnsi()
 
 int AFX_CDECL _wcstombsz(char* mbstr, const wchar_t* wcstr, size_t count)
 {
-	if (count == 0 && mbstr != NULL)
+	if (count == 0 && mbstr != NULL) {
 		return 0;
+	}
 
 	int result = ::WideCharToMultiByte(CP_ACP, 0, wcstr, -1,
 		mbstr, count, NULL, NULL);
 	ASSERT(mbstr == NULL || result <= (int)count);
-	if (result > 0)
+	if (result > 0) {
 		mbstr[result-1] = 0;
+	}
 	return result;
 }
 
 int AFX_CDECL _mbstowcsz(wchar_t* wcstr, const char* mbstr, size_t count)
 {
-	if (count == 0 && wcstr != NULL)
+	if (count == 0 && wcstr != NULL) {
 		return 0;
+	}
 
 	int result = ::MultiByteToWideChar(CP_ACP, 0, mbstr, -1,
 		wcstr, count);
 	ASSERT(wcstr == NULL || result <= (int)count);
-	if (result > 0)
+	if (result > 0) {
 		wcstr[result-1] = 0;
+	}
 	return result;
 }
 
 LPWSTR AFXAPI AfxA2WHelper(LPWSTR lpw, LPCSTR lpa, int nChars)
 {
-	if (lpa == NULL)
+	if (lpa == NULL) {
 		return NULL;
+	}
 	ASSERT(lpw != NULL);
 	// verify that no illegal character present
 	// since lpw was allocated based on the size of lpa
@@ -581,8 +586,9 @@ LPWSTR AFXAPI AfxA2WHelper(LPWSTR lpw, LPCSTR lpa, int nChars)
 
 LPSTR AFXAPI AfxW2AHelper(LPSTR lpa, LPCWSTR lpw, int nChars)
 {
-	if (lpw == NULL)
+	if (lpw == NULL) {
 		return NULL;
+	}
 	ASSERT(lpa != NULL);
 	// verify that no illegal character present
 	// since lpa was allocated based on the size of lpw

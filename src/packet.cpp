@@ -43,8 +43,9 @@ void Packet::VMethod4(NetStru2* net)
 {
     //5268b7
     uint32_t sz = GetDataSize();
-    if (sz != 1)
+    if (sz != 1) {
         net->ReadData(this + 1, sz - 1);
+    }
 }
 
 uint32_t Packet::GetDataSize()
@@ -202,8 +203,9 @@ void PacketTerrain::VMethod4(NetStru2* net)
 {
     //5273ce
     net->ReadData(&count, 4);
-    if (count)
+    if (count) {
         net->ReadData(buf, count * 2);
+    }
 }
 
 uint32_t PacketTerrain::GetDataSize()
@@ -295,14 +297,15 @@ uint32_t PacketUnitUpdate::GetDataSize()
 
 uint32_t PacketUnitUpdate::FUN_00527bd8()
 {
-    if (flags_mask < 0x100)
+    if (flags_mask < 0x100) {
         field_0xe = 1;
-    else if (flags_mask < 0x10000)
+    } else if (flags_mask < 0x10000) {
         field_0xe = 2;
-    else if (flags_mask < 0x1000000)
+    } else if (flags_mask < 0x1000000) {
         field_0xe = 3;
-    else
+    } else {
         field_0xe = 4;
+    }
 
     return field_0xe;
 }
@@ -319,8 +322,9 @@ uint32_t PacketUnitUpdate::FUN_00527c3b()
     uint32_t sh = 1;
     for (int i = 0; i < 32; i++)
     {
-        if ((flags_mask & sh) != 0)
+        if ((flags_mask & sh) != 0) {
             data_offset += offsets[i];
+        }
         sh <<= 1;
     }
 
@@ -384,8 +388,9 @@ PacketItemOperation::PacketItemOperation(const PacketItemOperation* src)
 void PacketItemOperation::AppendWord(uint16_t val)
 {
     //sub_52695A
-    if (count < 0xFD)
+    if (count < 0xFD) {
         entries[count++] = val;
+    }
 }
 
 // 5275F8
@@ -425,8 +430,9 @@ void PacketItemOperation::VMethod4(NetStru2* net)
 {
     //sub_5269C3
     net->ReadData(&unit_id, 9);
-    if (count)
+    if (count) {
         net->ReadData(entries, count * 2);
+    }
 }
 
 uint32_t PacketItemOperation::GetDataSize()
@@ -774,8 +780,9 @@ void PacketPlayerInfo::VMethod4(NetStru2* net)
 {
     //sub_527246  reads 0x2C bytes at +0xA, then optional count bytes at +0x36
     net->ReadData(&preamble[0], 0x2C);
-    if (count > 0)
+    if (count > 0) {
         net->ReadData(var_data, count);
+    }
 }
 
 uint32_t PacketPlayerInfo::GetDataSize()
@@ -822,8 +829,9 @@ void PacketData::VMethod4(NetStru2* net)
 {
     //sub_527309
     net->ReadData(&count, 4);
-    if (count > 0)
+    if (count > 0) {
         net->ReadData(data, count);
+    }
 }
 
 uint32_t PacketData::GetDataSize()
@@ -868,17 +876,19 @@ void PacketUnitStateVec::VMethod3(NetStru2* net)
 {
     //sub_5274CC
     net->WriteData(&id, 0xA);
-    if (entry_count > 0)
+    if (entry_count > 0) {
         net->WriteData(data, data_size);
     //printf("PacketUnitStateVec: %x %d %x\n", id, entry_count, data_size);
+    }
 }
 
 void PacketUnitStateVec::VMethod4(NetStru2* net)
 {
     //sub_527528
     net->ReadData(&building_id, 9);
-    if (entry_count > 0)
+    if (entry_count > 0) {
         net->ReadData(data, data_size);
+    }
 }
 
 uint32_t PacketUnitStateVec::GetDataSize()
@@ -953,8 +963,11 @@ uint32_t PacketUnitProperties::GetDataSize()
 {
     //sub_5278CE  variable: 0x1D - (12 - popcount(flags)) * 2
     int popcount = 0;
-    for (int i = 0; i < 12; i++)
-        if (flags & (1 << i)) popcount++;
+    for (int i = 0; i < 12; i++) {
+        if (flags & (1 << i)) {
+            popcount++;
+        }
+    }
     return 0x1D - (12 - popcount) * 2;
 }
 

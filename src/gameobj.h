@@ -57,8 +57,9 @@ public:
 
 	uint32_t GetAttribute(uint8_t aid) const //4397de
 	{
-		if (!mods || mods_count == 0 || mods_size == 0)
+		if (!mods || mods_count == 0 || mods_size == 0) {
 			return 0;
+		}
 
 		int pos = 0;
 		uint32_t result = 0;
@@ -70,10 +71,11 @@ public:
 			uint8_t k = cmods[pos];
 			if (k == aid)
 			{
-				if (k == 1)
+				if (k == 1) {
 					result = GetU32(cmods + pos + 1);
-				else
+				} else {
 					result = cmods[pos + 1];
+				}
 			}
 			
 			pos += k == 1 ? 5 : 2;

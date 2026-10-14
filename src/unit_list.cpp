@@ -27,9 +27,7 @@ void UnitList::Serialize(CArchive& ar)
 			Unit *unit = unit_list.GetNext(pos);
 			ar.WriteObject(unit);
 		}
-	}
-	else
-	{
+	} else {
 		DWORD nNewCount = ar.ReadCount();
 		Unit* unit;
 		while (nNewCount--)
@@ -74,8 +72,9 @@ void UnitList::AddTailId6xxx(Unit* unit)
 void UnitList::Remove(Unit* unit)
 {  //575aa0
 	POSITION pos = unit_list.Find(unit);
-	if (pos)
+	if (pos) {
 		unit_list.RemoveAt(pos);
+	}
 
 	delete unit;
 }
@@ -278,19 +277,21 @@ void UnitList::ProcessTick()
 			}
 
 			// Quest event: unit death
-			if (unit->summon_id == 0)
+			if (unit->summon_id == 0) {
 				g_QuestMap.sub_55DD10(4, unit->building_id, unit->typeId << 16 | unit->face << 24 | killer_pid);
 
 			// Quest event: group death
+			}
 			if (group_id != 0) {
 				g_QuestMap.sub_55DD10(5, group_id, killer_pid);
 			}
 
 			// Quest event: player has no more units alive
-			if (unit->pOwner != NULL && unit->pOwner->field_0xa60 != 0 && unit->pOwner->unit_list->unit_list.GetCount() == 0)
+			if (unit->pOwner != NULL && unit->pOwner->field_0xa60 != 0 && unit->pOwner->unit_list->unit_list.GetCount() == 0) {
 				g_QuestMap.sub_55DD10(15, unit->pOwner->player_id, killer_pid);
 
 			// Clear pathfinding tracking
+			}
 			if (unit->building_id != 0 && unit->movement_type > 1) {
 				g_buildingIdSet.Unset(unit->building_id);
 				unit->building_id = 0;

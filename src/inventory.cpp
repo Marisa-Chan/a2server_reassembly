@@ -231,9 +231,7 @@ void Inventory::SerializeItems(CArchive& ar)
             Item* itm = items.GetNext(pos);
             ar.WriteObject(itm);
         }
-    }
-    else
-    {
+    } else {
         items.RemoveAll();
         ar.Read(&cnt, 4);
         for (int i = 0; i < cnt; i++)

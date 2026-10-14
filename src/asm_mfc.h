@@ -862,33 +862,45 @@ _AFX_INLINE CArchive& CArchive::operator<<(char ch)
 }
 _AFX_INLINE CArchive& CArchive::operator<<(BYTE by)
 {
-	if (m_lpBufCur + sizeof(BYTE) > m_lpBufMax) Flush();
+	if (m_lpBufCur + sizeof(BYTE) > m_lpBufMax) {
+		Flush();
+	}
 	*(UNALIGNED BYTE*)m_lpBufCur = by; m_lpBufCur += sizeof(BYTE); return *this;
 }
 
 _AFX_INLINE CArchive& CArchive::operator<<(WORD w)
 {
-	if (m_lpBufCur + sizeof(WORD) > m_lpBufMax) Flush();
+	if (m_lpBufCur + sizeof(WORD) > m_lpBufMax) {
+		Flush();
+	}
 	*(UNALIGNED WORD*)m_lpBufCur = w; m_lpBufCur += sizeof(WORD); return *this;
 }
 _AFX_INLINE CArchive& CArchive::operator<<(LONG l)
 {
-	if (m_lpBufCur + sizeof(LONG) > m_lpBufMax) Flush();
+	if (m_lpBufCur + sizeof(LONG) > m_lpBufMax) {
+		Flush();
+	}
 	*(UNALIGNED LONG*)m_lpBufCur = l; m_lpBufCur += sizeof(LONG); return *this;
 }
 _AFX_INLINE CArchive& CArchive::operator<<(DWORD dw)
 {
-	if (m_lpBufCur + sizeof(DWORD) > m_lpBufMax) Flush();
+	if (m_lpBufCur + sizeof(DWORD) > m_lpBufMax) {
+		Flush();
+	}
 	*(UNALIGNED DWORD*)m_lpBufCur = dw; m_lpBufCur += sizeof(DWORD); return *this;
 }
 _AFX_INLINE CArchive& CArchive::operator<<(float f)
 {
-	if (m_lpBufCur + sizeof(float) > m_lpBufMax) Flush();
+	if (m_lpBufCur + sizeof(float) > m_lpBufMax) {
+		Flush();
+	}
 	*(UNALIGNED _AFX_FLOAT*)m_lpBufCur = *(_AFX_FLOAT*)&f; m_lpBufCur += sizeof(float); return *this;
 }
 _AFX_INLINE CArchive& CArchive::operator<<(double d)
 {
-	if (m_lpBufCur + sizeof(double) > m_lpBufMax) Flush();
+	if (m_lpBufCur + sizeof(double) > m_lpBufMax) {
+		Flush();
+	}
 	*(UNALIGNED _AFX_DOUBLE*)m_lpBufCur = *(_AFX_DOUBLE*)&d; m_lpBufCur += sizeof(double); return *this;
 }
 
@@ -910,39 +922,45 @@ _AFX_INLINE CArchive& CArchive::operator>>(char& ch)
 }
 _AFX_INLINE CArchive& CArchive::operator>>(BYTE& by)
 {
-	if (m_lpBufCur + sizeof(BYTE) > m_lpBufMax)
+	if (m_lpBufCur + sizeof(BYTE) > m_lpBufMax) {
 		FillBuffer(sizeof(BYTE) - (UINT)(m_lpBufMax - m_lpBufCur));
+	}
 	by = *(UNALIGNED BYTE*)m_lpBufCur; m_lpBufCur += sizeof(BYTE); return *this;
 }
 
 _AFX_INLINE CArchive& CArchive::operator>>(WORD& w)
 {
-	if (m_lpBufCur + sizeof(WORD) > m_lpBufMax)
+	if (m_lpBufCur + sizeof(WORD) > m_lpBufMax) {
 		FillBuffer(sizeof(WORD) - (UINT)(m_lpBufMax - m_lpBufCur));
+	}
 	w = *(UNALIGNED WORD*)m_lpBufCur; m_lpBufCur += sizeof(WORD); return *this;
 }
 _AFX_INLINE CArchive& CArchive::operator>>(DWORD& dw)
 {
-	if (m_lpBufCur + sizeof(DWORD) > m_lpBufMax)
+	if (m_lpBufCur + sizeof(DWORD) > m_lpBufMax) {
 		FillBuffer(sizeof(DWORD) - (UINT)(m_lpBufMax - m_lpBufCur));
+	}
 	dw = *(UNALIGNED DWORD*)m_lpBufCur; m_lpBufCur += sizeof(DWORD); return *this;
 }
 _AFX_INLINE CArchive& CArchive::operator>>(float& f)
 {
-	if (m_lpBufCur + sizeof(float) > m_lpBufMax)
+	if (m_lpBufCur + sizeof(float) > m_lpBufMax) {
 		FillBuffer(sizeof(float) - (UINT)(m_lpBufMax - m_lpBufCur));
+	}
 	*(_AFX_FLOAT*)&f = *(UNALIGNED _AFX_FLOAT*)m_lpBufCur; m_lpBufCur += sizeof(float); return *this;
 }
 _AFX_INLINE CArchive& CArchive::operator>>(double& d)
 {
-	if (m_lpBufCur + sizeof(double) > m_lpBufMax)
+	if (m_lpBufCur + sizeof(double) > m_lpBufMax) {
 		FillBuffer(sizeof(double) - (UINT)(m_lpBufMax - m_lpBufCur));
+	}
 	*(_AFX_DOUBLE*)&d = *(UNALIGNED _AFX_DOUBLE*)m_lpBufCur; m_lpBufCur += sizeof(double); return *this;
 }
 _AFX_INLINE CArchive& CArchive::operator>>(LONG& l)
 {
-	if (m_lpBufCur + sizeof(LONG) > m_lpBufMax)
+	if (m_lpBufCur + sizeof(LONG) > m_lpBufMax) {
 		FillBuffer(sizeof(LONG) - (UINT)(m_lpBufMax - m_lpBufCur));
+	}
 	l = *(UNALIGNED LONG*)m_lpBufCur; m_lpBufCur += sizeof(LONG); return *this;
 }
 

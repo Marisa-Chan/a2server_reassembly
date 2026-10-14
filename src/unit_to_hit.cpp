@@ -87,9 +87,7 @@ void UnitToHit::Serialize(CArchive& ar)
     {
         //ar.Write(this, sizeof(UnitToHit));
         ar.Write(this, 0x18);
-    }
-    else
-    {
+    } else {
         //ar.Read(this, sizeof(UnitToHit));
         ar.Read(this, 0x18);
     }

@@ -57,9 +57,7 @@ void TokenPos::Serialize(CArchive& ar)
 	{
 		//ar.Write(this, sizeof(TokenPos));
 		ar.Write(this, 0xc);
-	}
-	else
-	{
+	} else {
 		//ar.Read(this, sizeof(TokenPos));
 		ar.Read(this, 0xc);
 	}
@@ -106,8 +104,9 @@ uint8_t TokenPos::Distance(const TokenPos* b) const
 	//58a6bf
 	uint8_t xLen = abs((int32_t)x - (int32_t)b->x);
 	uint8_t yLen = abs((int32_t)y - (int32_t)b->y);
-	if (xLen <= yLen)
+	if (xLen <= yLen) {
 		return yLen;
+	}
 	return xLen;
 }
 
@@ -139,12 +138,14 @@ void TokenPos::SetCoords2(uint16_t Xx, uint16_t Yy)
 
 void TokenPos::FUN_00594200()
 { // 594200
-	if (!pInstance)
+	if (!pInstance) {
 		return;
+	}
 
 	MapStuff* stuf = nullptr;
-	if (g_Server->field23_0xdc.Lookup(pInstance, *(void**)&stuf))
+	if (g_Server->field23_0xdc.Lookup(pInstance, *(void**)&stuf)) {
 		pInstance = stuf;
+	}
 }
 
 int TokenPos::FUN_0058a7e8(uint8_t _x, uint8_t _y)
@@ -176,8 +177,9 @@ int TokenPos::FUN_0058a7e8(uint8_t _x, uint8_t _y)
 
 int32_t TokenPos::sub_58bec3() // Check if we'in the middle of a cell (both subcell values are 0x80).
 { //58bec3
-	if (x_subcell == 128 && y_subcell == 128)
+	if (x_subcell == 128 && y_subcell == 128) {
 		return 1;
+	}
 	return 0;
 }
 
@@ -204,10 +206,11 @@ Token::Token(const Token& b)
 	field_x18 = b.field_x18;
 	_exp = b._exp;
 	//building_id = b.building_id;  // No copy in vanilla?
-	if (b.position == nullptr)
+	if (b.position == nullptr) {
 		position = nullptr;
-	else
+	} else {
 		position = new TokenPos(*b.position);
+	}
 }
 
 //Token::Token(Token&&) = default;
@@ -238,8 +241,9 @@ IMPLEMENT_SERIAL(Token, CObject, 1);
 Token::~Token()
 {
 	// 5283d6
-	if (position)
+	if (position) {
 		delete position;
+	}
 }
 
 void Token::VMethod1()
@@ -309,9 +313,7 @@ void Token::Serialize(CArchive& ar)
 		void* ptr = this;
 		ar.Write(&ptr, 4); //32
 		ar.Write(&pOwner, 4); //32
-	}
-	else
-	{
+	} else {
 		ar.Read(&building_id, 4);
 		ar.Read(&itemDataID, 2);
 		ar.Read(&typeId, 2);

@@ -58,8 +58,9 @@ void TxtFile::LoadChunkFile(const char* fname)
 		for(; *pcur != '\r' && pcur < buffer + fsize; pcur++ )
 		{}
 
-		if (pcur >= buffer + fsize)
+		if (pcur >= buffer + fsize) {
 			break;
+		}
 
 		*pcur = 0;
 		pcur += 2;

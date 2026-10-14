@@ -41,36 +41,41 @@ public:
 
     uint8_t GetSpeed(uint8_t v) const //539926
     {
-        if (spell_id != 21) //HASTE
+        if (spell_id != 21) { //HASTE
             return 0;
+        }
         return (v / 15) + 1;
     }
 
     uint8_t GetResistance(uint8_t v) const //53985f
     {
-        if (spell_id == 4 || spell_id == 8 || spell_id == 13 || spell_id == 19)
+        if (spell_id == 4 || spell_id == 8 || spell_id == 13 || spell_id == 19) {
             return v / 2;
+        }
         return 0;
     }
 
     int16_t GetSight(uint8_t v) const //5398e2
     {
-        if (spell_id == 15 || spell_id == 14)
+        if (spell_id == 15 || spell_id == 14) {
             return -(v / 30) - 1;
+        }
         return 0;
     }
 
     uint8_t GetMaximumDamageProbability(uint8_t v) const //5397f7
     {
-        if (spell_id == 20)
+        if (spell_id == 20) {
             return (v * 4 / 5) + 20;
+        }
         return 0;
     }
 
     uint8_t GetMinimumDamageProbability(uint8_t v) const //53982b
     {
-        if (spell_id == 28)
+        if (spell_id == 28) {
             return (v * 4 / 5) + 20;
+        }
         return 0;
     }
 
@@ -79,8 +84,9 @@ public:
         if (spell_id == 11)
         {
             uint8_t r = v / 20 + 2;
-            if (r > 7)
+            if (r > 7) {
                 r = 7;
+            }
             return r;
         }
         return 0;
@@ -88,8 +94,9 @@ public:
 
     uint8_t GetBonusType5(uint8_t v) const //5397a3
     {
-        if (spell_id == 27)
+        if (spell_id == 27) {
             return v / 10 + 3;
+        }
         return 0;
     }
 
