@@ -68,6 +68,18 @@ void SoundSettings::Load(HKEY& rkey)
 	RegQueryValueExA(rkey, "MusicEnabled", nullptr, nullptr, (LPBYTE)&music_enabled, &sz);
 }
 
+// 43d877
+void SoundSettings::Save(HKEY& rkey)
+{
+	DWORD cbData = 4;
+
+	RegSetValueExA(rkey, "SoundRandom", 0, REG_DWORD, (const BYTE*)&this->random, cbData);
+	RegSetValueExA(rkey, "SoundMusPos", 0, REG_DWORD, (const BYTE*)&this->mus_pos, cbData);
+	RegSetValueExA(rkey, "SoundSfxPos", 0, REG_DWORD, (const BYTE*)&this->sfx_pos, cbData);
+	RegSetValueExA(rkey, "SoundSpeechPos", 0, REG_DWORD, (const BYTE*)&this->speech_pos, cbData);
+	RegSetValueExA(rkey, "MusicEnabled", 0, REG_DWORD, (const BYTE*)&this->music_enabled, cbData);
+}
+
 
 void SoundChannel::Clear()
 { //41fdd0

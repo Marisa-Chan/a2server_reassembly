@@ -1903,7 +1903,6 @@ extern ?Stop@SoundChannel@@QAEXXZ : proc
 
 extern ?g_SfxArray@@3V?$CArray@PAVSfxSample@@ABQAV1@@@A  :dword
 extern ?g_SoundSettings@@3USoundSettings@@A : dword
-externdef ?Save@SoundSettings@@QAEXAAPAUHKEY__@@@Z : proc  ; void SoundSettings::Save(HKEY&)
 
 extern ?g_CurrentMusicTrack@@3HA : dword
 

@@ -16862,73 +16862,6 @@ sub_43D1A9      endp
 
 ; Attributes: bp-based frame
 
-?Save@SoundSettings@@QAEXAAPAUHKEY__@@@Z      proc near               ; CODE XREF: ?SaveSettings@@YAXXZ+2C↓p
-
-lpData          = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+lpData], ecx
-                push    4               ; cbData
-                mov     eax, dword ptr [ebp+lpData]
-                push    eax             ; lpData
-                push    4               ; dwType
-                push    0               ; Reserved
-                push    offset aSoundrandom_0 ; "SoundRandom"
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [ecx]
-                push    edx             ; hKey
-                call    RegSetValueExA
-                push    4               ; cbData
-                mov     eax, dword ptr [ebp+lpData]
-                add     eax, 8
-                push    eax             ; lpData
-                push    4               ; dwType
-                push    0               ; Reserved
-                push    offset aSoundmuspos_0 ; "SoundMusPos"
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [ecx]
-                push    edx             ; hKey
-                call    RegSetValueExA
-                push    4               ; cbData
-                mov     eax, dword ptr [ebp+lpData]
-                add     eax, 10h
-                push    eax             ; lpData
-                push    4               ; dwType
-                push    0               ; Reserved
-                push    offset aSoundsfxpos_0 ; "SoundSfxPos"
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [ecx]
-                push    edx             ; hKey
-                call    RegSetValueExA
-                push    4               ; cbData
-                mov     eax, dword ptr [ebp+lpData]
-                add     eax, 18h
-                push    eax             ; lpData
-                push    4               ; dwType
-                push    0               ; Reserved
-                push    offset aSoundspeechpos_0 ; "SoundSpeechPos"
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [ecx]
-                push    edx             ; hKey
-                call    RegSetValueExA
-                push    4               ; cbData
-                mov     eax, dword ptr [ebp+lpData]
-                add     eax, 24h ; '$'
-                push    eax             ; lpData
-                push    4               ; dwType
-                push    0               ; Reserved
-                push    offset aMusicenabled_0 ; "MusicEnabled"
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [ecx]
-                push    edx             ; hKey
-                call    RegSetValueExA
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?Save@SoundSettings@@QAEXAAPAUHKEY__@@@Z      endp
 
 
 
@@ -258146,17 +258079,6 @@ aSoundspeechpos db 'SoundSpeechPos',0   ; DATA XREF: sub_43D7C4+7C↑o
 ; CHAR aMusicenabled[]
 aMusicenabled   db 'MusicEnabled',0     ; DATA XREF: sub_43D7C4+9C↑o
                 align 4
-; CHAR aSoundrandom_0[]
-aSoundrandom_0  db 'SoundRandom',0      ; DATA XREF: ?Save@SoundSettings@@QAEXAAPAUHKEY__@@@Z+11↑o
-; CHAR aSoundmuspos_0[]
-aSoundmuspos_0  db 'SoundMusPos',0      ; DATA XREF: ?Save@SoundSettings@@QAEXAAPAUHKEY__@@@Z+2F↑o
-; CHAR aSoundsfxpos_0[]
-aSoundsfxpos_0  db 'SoundSfxPos',0      ; DATA XREF: ?Save@SoundSettings@@QAEXAAPAUHKEY__@@@Z+4D↑o
-; CHAR aSoundspeechpos_0[]
-aSoundspeechpos_0 db 'SoundSpeechPos',0 ; DATA XREF: ?Save@SoundSettings@@QAEXAAPAUHKEY__@@@Z+6B↑o
-                align 10h
-; CHAR aMusicenabled_0[]
-aMusicenabled_0 db 'MusicEnabled',0     ; DATA XREF: ?Save@SoundSettings@@QAEXAAPAUHKEY__@@@Z+89↑o
                 align 10h
 
 ; char aRb_0[]
