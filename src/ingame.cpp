@@ -2999,7 +2999,7 @@ int32_t BigStruct2::IsBookOpen()
 { // 41b4b0
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	if (wnd->dialogsMask & 2)
-		return FindChild(1000)->FindChild(3) != nullptr;
+		return wnd->vis_root->FindChild(1000)->FindChild(3) != nullptr;
 
 	return FindChild(3) != nullptr;
 }
