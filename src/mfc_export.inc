@@ -1791,7 +1791,6 @@ extern ?g_ScreenSize@@3VCRect@@A : dword
 
 extern ?FillRectColor@@YAXHHHHI@Z : proc
 extern ?FillRectColorSimple@@YAXHHHHI@Z : proc
-externdef ?FUN_00457aa6@@YAXHHHHG@Z : proc
 extern ?ShadowRect@@YAXVCRect@@H@Z : proc
 
 extern ?DrawRectangleFrame@@YAXHHHHI@Z : proc

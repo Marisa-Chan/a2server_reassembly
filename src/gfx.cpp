@@ -2352,6 +2352,40 @@ void __cdecl SetPixelColor(int32_t x, int32_t y, uint32_t clr)
 		((uint16_t*)g_selDrawBitmap.lpSurface)[x + y * (g_selDrawBitmap.lPitch / 2)] = clr;
 }
 
+// 457aa6
+void __cdecl FUN_00457aa6(int32_t l, int32_t t, int32_t r, int32_t b, uint16_t clr)
+{
+	if (l < g_clipRect.left) {
+		l = g_clipRect.left;
+	}
+	if (r > g_clipRect.right) {
+		r = g_clipRect.right;
+	}
+
+	uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + l * 2 + t * g_selDrawBitmap.lPitch);
+	int32_t width = r - l;
+
+	if (width <= 0) {
+		return;
+	}
+
+	uint32_t clr2 = ((uint32_t)clr << 16) | clr;
+
+	for (int32_t y = t; y < b; y++) {
+		if (y >= g_clipRect.top && y < g_clipRect.bottom) {
+			uint32_t* p32 = (uint32_t*)dst;
+			for (int32_t n = width >> 1; n != 0; n--) {
+				*p32 = *p32 + clr2;
+				p32++;
+			}
+			if (width & 1) {
+				*(uint16_t*)p32 = (uint16_t)(*(uint16_t*)p32 + clr);
+			}
+		}
+		dst = (uint16_t*)((uint8_t*)dst + g_selDrawBitmap.lPitch);
+	}
+}
+
 // 457c5d
 void __cdecl sub_457C5D(int32_t l, int32_t t, int32_t r, int32_t b, int32_t brightness)
 {
