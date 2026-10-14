@@ -222372,28 +222372,6 @@ SEH_43D1A9:                             ; DATA XREF: sub_43D1A9+5↑o
 ; } // starts at 5F8DA7
 ; END OF FUNCTION CHUNK FOR sub_43D1A9
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_43D249
-
-loc_5F8DD1:                             ; DATA XREF: .rdata:stru_6196D0↓o
-; __unwind { // SEH_43D249              ; varThis
-                lea     ecx, [ebp+var_118]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F8DDD:                             ; DATA XREF: .rdata:006196D8↓o
-;   cleanup() // owned by 43D3AE        ; varThis
-;   cleanup() // owned by 43D446
-                lea     ecx, [ebp+var_120]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_43D249:                             ; DATA XREF: sub_43D249+5↑o
-                mov     eax, offset stru_6196B0
-                jmp     ___CxxFrameHandler
-; } // starts at 5F8DD1
-; END OF FUNCTION CHUNK FOR sub_43D249
 ; START OF FUNCTION CHUNK FOR sub_43D959
 
 loc_5F8E15:                             ; DATA XREF: .rdata:stru_619730↓o
@@ -253636,13 +253614,6 @@ stru_619680     FuncInfoV1 <19930520h, 2, offset stru_6196A0, 0, 0, 0, 0>
                 db    0
 stru_6196A0     UnwindMapEntry <-1, offset loc_5F8DB0>
                 UnwindMapEntry <0, offset loc_5F8DA7>
-stru_6196B0     FuncInfoV1 <19930520h, 2, offset stru_6196D0, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_6196D0     UnwindMapEntry <-1, offset loc_5F8DD1>
-                UnwindMapEntry <-1, offset loc_5F8DDD>
 stru_619710     FuncInfoV1 <19930520h, 17, offset stru_619730, 0, 0, 0, 0>
                 align 10h
 stru_619730     UnwindMapEntry <-1, offset loc_5F8E15>
