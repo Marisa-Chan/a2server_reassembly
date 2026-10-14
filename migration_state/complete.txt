@@ -244,12 +244,6 @@
 ?Close@CLlDriver@@QAEXXZ
 ?Close@File2@@UAEXXZ
 ?CloseOk@VisScreen@@QAEXXZ
-?clr_log_sblack@@3PAGA
-?clr_log_tblack@@3PAGA
-?clr_log_tok0@@3PAGA
-?clr_log_tok1@@3PAGA
-?clr_log_tok2@@3PAGA
-?clr_log_tok3@@3PAGA
 ?clrsh_CharlieBrown@@3PAGA
 ?clrsh_CoralRed@@3PAGA
 ?clrsh_DullGold@@3PAGA
@@ -331,6 +325,7 @@
 ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ
 ?FUN_00432b80@VisStartGameTextBox@@QAEXXZ
 ?FUN_004382d9@VisStartGame@@QAEXXZ
+?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
 ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ
 ?FUN_0043be9f@Vis1200@@QAEXXZ
 ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z
@@ -355,6 +350,7 @@
 ?FUN_004a47a0@QuestMap@@QAEHIPAPAVQuest@@@Z
 ?FUN_004a4ebc@VisInvBase@@QAEXXZ
 ?FUN_004a5e12@VisInvBase@@QAEXXZ
+?FUN_004a7b3c@@YAXPADPAVFile2@@@Z
 ?FUN_004a7b79@Scenario@@QAENXZ
 ?FUN_004abf0f@Fame2@@QAEXHI@Z
 ?FUN_004abf35@Fame2@@QAE_NXZ
@@ -533,6 +529,7 @@
 ?GetSize@CStringArray@@QBEHXZ
 ?GetSizedString@ResBase@@QAEHPBD00PADI@Z
 ?GetSprite@CCursor@@QBEPAVCSprite256@@XZ
+?GetSprite@StructureInfo@@QAEPAVCSprite256@@XZ
 ?GetStringArray@ResBase@@QAEHPBD0PAVCStringArray@@@Z
 ?GetStrWidth@CGameFont@@QAEHPBD@Z
 ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ
@@ -698,6 +695,7 @@
 ?palette_paris_daisy@@3PAVCGamePalette@@A
 ?palette_tawny_port@@3PAVCGamePalette@@A
 ?ParsePlayerFile_4F62E6@@YAHPAVCFile@@PAPAUFileSectionBasicInfo@@PAPAUFileSectionStats@@PAPAEPAPAVPacketUnitStateVec@@43PAI@Z
+?Play@CSound@@SAXAAU1@@Z
 ?Play@MusicPlayer@@QAEXXZ
 ?Play@SfxSample@@QAEXHHHEH@Z
 ?PopUpScreen@MainWindow@@QAEXPAVVisScreen@@@Z
