@@ -261,6 +261,50 @@ MagicInfo::MagicInfo() {
 MagicInfo::~MagicInfo() {
 }
 
+// 514085
+void __stdcall sub_514085(CString line, int count, CStringArray* items)
+{
+    static char quote_buf[0xA00];
+
+    for (int32_t i = 0; i < count; i++) {
+        items->ElementAt(i).Empty();
+    }
+
+    int32_t tab = line.ReverseFind('\t');
+    line = line.Mid(tab + 1) + ',';
+    line.TrimLeft();
+    line.TrimRight();
+
+    int32_t len = 0;
+    for (int32_t i = 0; line[i] != '\0'; i++) {
+        if (line[i] != '"') {
+            quote_buf[len] = line[i];
+            len = len + 1;
+        }
+    }
+    quote_buf[len] = '\0';
+    line = quote_buf;
+
+    int32_t pos = 0;
+    int32_t brace = line.Find('{');
+    int32_t comma = line.Find(',');
+    while ((brace != -1 || comma != -1) && pos < count) {
+        if (comma < brace || brace == -1) {
+            items->ElementAt(pos) = line.Left(comma);
+            pos = pos + 1;
+            line = line.Right(line.GetLength() - comma - 1);
+        } else {
+            brace = line.Find('}');
+            items->ElementAt(pos) = line.Left(brace + 1);
+            pos = pos + 1;
+            line = line.Right(line.GetLength() - brace - 2);
+        }
+        line.TrimLeft();
+        brace = line.Find('{');
+        comma = line.Find(',');
+    }
+}
+
 // 578190
 void MonsterInfo::ParseLine(CString line) {
     this->VMethod1(line, 0x3e, nullptr);

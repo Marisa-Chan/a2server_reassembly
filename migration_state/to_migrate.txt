@@ -23,7 +23,6 @@ _byte_659A3C
 ?DAT_00661018@@3PAPAVCGamePalette@@A
 ?DAT_00665344@@3PAVCGameBitmap@@A
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
-?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z	335
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ?FUN_004ac839@CFameHall@@QAEXPAVCFile@@@Z	110
 ?LPCTSTR@CString@@QBEPBDXZ	13

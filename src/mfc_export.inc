@@ -15,7 +15,6 @@ extern ?IsKindOf@CObject@@QBEHPBUCRuntimeClass@@@Z:proc  ; CObject::IsKindOf
 
 ; WorldEquip
 externdef ??0WorldEquip@@QAE@XZ :proc
-externdef ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z :proc
 
 
 ; MagicItem
