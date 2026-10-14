@@ -22778,28 +22778,6 @@ sub_45A6EE      endp
 
 ; Attributes: bp-based frame
 
-?FUN_0045b681@MusicPlayer@@QAEXH@Z      proc near               ; CODE XREF: ?sub_4E0169@VisRoleKeyScreen@@QAE_NXZ+7DD↓p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+18h], 1
-                push    1F40h
-                push    7D0h
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?BeginFadeOut@MusicPlayer@@QAEXHH@Z
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     [ecx+1Ch], edx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?FUN_0045b681@MusicPlayer@@QAEXH@Z      endp
 
 
 

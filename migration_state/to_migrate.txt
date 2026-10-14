@@ -42,5 +42,4 @@ _byte_659A3C
 ?Play@CSound@@SAXAAU1@@Z	31
 ?LPCTSTR@CString@@QBEPBDXZ	13
 ??1DistortMap@@QAE@XZ	51
-?FUN_0045b681@MusicPlayer@@QAEXH@Z	21
 ?FUN_004e0b43@VisRoleKeyScreen@@QAE_NHPAHPAVCString@@PAPAD20@Z	848
