@@ -52979,19 +52979,6 @@ sub_4CD410      endp
 
 ; Attributes: bp-based frame
 
-?FUN_004CD4B0@@YANH@Z      proc near               ; CODE XREF: ?FUN_004CC22D@TransientVisualEffectBuilder@@QAEHPAV?$CArray@UGO_11c@@ABU1@@@FFFG@Z+146↑p
-
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                fild    [ebp+arg_0]
-                fld     qword ptr [dbl_60DA80]
-                fdiv    qword ptr [dbl_60DB08]
-                fmulp   st(1), st
-                pop     ebp
-                retn
-?FUN_004CD4B0@@YANH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -241194,7 +241181,6 @@ off_60D9E8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CObject@@UBEXAAVCDumpContext@@@Z ; Microsoft VisualC 2-14/net runtime
                 align 10h
-dbl_60DA80      dq 3.141592653589793    ; DATA XREF: ?FUN_004CD4B0@@YANH@Z+6↑r
 dbl_60DA88      dq 0.2                  ; DATA XREF: .text:004CB45A↑r
 dbl_60DA98      dq 0.15                 ; DATA XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+2E↑r
 dbl_60DAA0      dq 0.03                 ; DATA XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+9A↑r
@@ -241210,7 +241196,6 @@ dbl_60DAE8      dq 5.0                  ; DATA XREF: ?FUN_004CC798@TransientVisu
 dbl_60DAF0      dq 0.02222222222222222  ; DATA XREF: ?FUN_004CC944@TransientVisualEffectBuilder@@QAEXFMMI@Z+40↑r
 dbl_60DAF8      dq 13.0                 ; DATA XREF: .text:004CCF50↑r
 dbl_60DB00      dq 0.5                  ; DATA XREF: .text:004CCF71↑r
-dbl_60DB08      dq 180.0                ; DATA XREF: ?FUN_004CD4B0@@YANH@Z+C↑r
 off_60DB10      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_4CD020+12↑o
                 dd offset sub_4CD290
                 dd offset sub_4CD220

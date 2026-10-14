@@ -1987,7 +1987,6 @@ externdef ?FUN_0046246b@CGameObject@@QAEXHHHHGGG@Z : proc
 ;TransientVisualEffectBuilder
 externdef ??0TransientVisualEffectBuilder@@QAE@XZ :proc
 externdef ??1TransientVisualEffectBuilder@@QAE@XZ :proc
-externdef ?FUN_004CD4B0@@YANH@Z :proc
 
 ;CUnit
 extern ??0CUnit@@QAE@XZ : proc

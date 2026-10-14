@@ -2301,7 +2301,9 @@ void TransientVisualEffectBuilder::FUN_004CCE04(int16_t height, uint8_t effect_t
 }
 
 // 4cd4b0
-extern double __cdecl FUN_004CD4B0(int32_t degrees);
+double FUN_004CD4B0(int32_t degrees) {
+    return degrees * (3.141592653589793 / 180.0);
+}
 
 // 4ccaf2
 void TransientVisualEffectBuilder::FUN_004CCAF2(int16_t height, float radius, uint32_t phase)
