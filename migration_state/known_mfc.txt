@@ -196,3 +196,14 @@ unknown_libname_448
 ?UpdateData@CWnd@@QAEHH@Z
 ?WinHelpA@CWnd@@UAEXKI@Z
 ?OnWndMsg@CWnd@@UAEHIIJPAJ@Z
+?AfxRegisterWndClass@@YGPBDIPAUHICON__@@PAUHBRUSH__@@0@Z
+?AfxThrowMemoryException@@YGXXZ
+?AfxThrowNotSupportedException@@YGXXZ
+?AfxUnlockGlobals@@YGXH@Z
+?AfxTryCleanup@@YGXXZ
+?AfxGetFileName@@YGIPBDPADI@Z
+?AfxLockGlobals@@YGXH@Z
+?AfxGetFileTitle@@YGIPBDPADI@Z
+?AfxWinInit@@YGHPAUHINSTANCE__@@0PADH@Z
+?AfxWinTerm@@YGXXZ
+?AfxRegisterWndClass@@YGPBDIPAUHICON__@@PAUHBRUSH__@@0@Z
