@@ -14862,77 +14862,6 @@ sub_438610      endp
 
 ; Attributes: bp-based frame
 
-; int __cdecl ?IsDefaultNpcName@@YAIPBD@Z(char *Str2)
-?IsDefaultNpcName@@YAIPBD@Z      proc near               ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+14F↑p
-
-var_4           = dword ptr -4
-Str2            = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     eax, dword ptr [ebp+Str2]
-                push    eax             ; Str2
-                push    17h
-                mov     ecx, offset ?txt_npcnames@@3VTxtFile@@A
-                call    ?GetLine@TxtFile@@QAEPADH@Z
-                push    eax             ; Str1
-                call    _strcmp
-                add     esp, 8
-                test    eax, eax
-                jz      short loc_438776
-                mov     ecx, dword ptr [ebp+Str2]
-                push    ecx             ; Str2
-                push    18h
-                mov     ecx, offset ?txt_npcnames@@3VTxtFile@@A
-                call    ?GetLine@TxtFile@@QAEPADH@Z
-                push    eax             ; Str1
-                call    _strcmp
-                add     esp, 8
-                test    eax, eax
-                jz      short loc_438776
-                mov     edx, dword ptr [ebp+Str2]
-                push    edx             ; Str2
-                push    19h
-                mov     ecx, offset ?txt_npcnames@@3VTxtFile@@A
-                call    ?GetLine@TxtFile@@QAEPADH@Z
-                push    eax             ; Str1
-                call    _strcmp
-                add     esp, 8
-                test    eax, eax
-                jz      short loc_438776
-                mov     eax, dword ptr [ebp+Str2]
-                push    eax             ; Str2
-                push    1Ah
-                mov     ecx, offset ?txt_npcnames@@3VTxtFile@@A
-                call    ?GetLine@TxtFile@@QAEPADH@Z
-                push    eax             ; Str1
-                call    _strcmp
-                add     esp, 8
-                test    eax, eax
-                jz      short loc_438776
-                mov     ecx, dword ptr [ebp+Str2]
-                push    ecx             ; Str2
-                push    offset g_Str1     ; "Unnamed"
-                call    _strcmp
-                add     esp, 8
-                test    eax, eax
-                jz      short loc_438776
-                mov     [ebp+var_4], 0
-                jmp     short loc_43877D
-; ---------------------------------------------------------------------------
-
-loc_438776:                             ; CODE XREF: ?IsDefaultNpcName@@YAIPBD@Z+1F↑j
-                mov     [ebp+var_4], 1
-
-loc_43877D:                             ; CODE XREF: ?IsDefaultNpcName@@YAIPBD@Z+94↑j
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?IsDefaultNpcName@@YAIPBD@Z      endp
-
-; ---------------------------------------------------------------------------
                 align 10h
 
 ; =============== S U B R O U T I N E =======================================
@@ -257934,8 +257863,6 @@ g_Source          db '.bmp',0             ; DATA XREF: ?FUN_0041da52@BigStruct2@
                 db    0
                 db    0
                 db    0
-; char Str1[]
-g_Str1            db 'Unnamed',0          ; DATA XREF: ?IsDefaultNpcName@@YAIPBD@Z+7C↑o
                 db    3
                 db    0
                 db    0

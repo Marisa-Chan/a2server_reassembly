@@ -160,6 +160,27 @@ void CVisualObject::ChangeFlags(uint32_t _flags, bool setunset)
         flags &= ~_flags;
 }
 
+// 4386e0
+uint32_t IsDefaultNpcName(const char* name)
+{
+    if (strcmp(txt_npcnames.GetLine(0x17), name) == 0) {
+        return 1;
+    }
+    if (strcmp(txt_npcnames.GetLine(0x18), name) == 0) {
+        return 1;
+    }
+    if (strcmp(txt_npcnames.GetLine(0x19), name) == 0) {
+        return 1;
+    }
+    if (strcmp(txt_npcnames.GetLine(0x1A), name) == 0) {
+        return 1;
+    }
+    if (strcmp("Unnamed", name) == 0) {
+        return 1;
+    }
+    return 0;
+}
+
 
 uint32_t CVisualObject::TestFlags(uint32_t _flags)
 {

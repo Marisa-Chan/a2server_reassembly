@@ -1364,7 +1364,6 @@ extern ?StatLevelPoints@@YAHH@Z:proc ; int32_t StatLevelPoints(int32_t) 5008CA
 extern ?sub_43A820@@YAPAVCString@@PAV1@I@Z :proc                                        ; CString* sub_43A820(CString*, uint32_t) — itoa
 externdef ?sub_4F499B@@YAPAVItem@@PAPAE@Z :proc                                                     ; sub_4F499B — parse item from packet data
 
-externdef ?IsDefaultNpcName@@YAIPBD@Z : proc
 extern ?FlushScreen@@YAXXZ  : proc
 
 
