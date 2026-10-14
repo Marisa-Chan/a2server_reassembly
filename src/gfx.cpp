@@ -179,6 +179,12 @@ void __cdecl FUN_004549e5(int32_t l, int32_t t, int32_t r, int32_t b) {
 	g_clipRect.bottom = b;
 }
 
+//454a1e
+void __cdecl FUN_00454a1e(int32_t l, int32_t t, int32_t r, int32_t b) {
+	CRect rc(l, t, r, b);
+	gfxFlushRect(rc);
+}
+
 
 void __cdecl Convert24To16(uint8_t* src, uint16_t* dst, int32_t num)
 { //4255a6

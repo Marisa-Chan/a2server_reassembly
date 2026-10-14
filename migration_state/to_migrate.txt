@@ -20,7 +20,6 @@ _byte_659A30
 _byte_659A34
 _byte_659A38
 _byte_659A3C
-?FUN_00454a1e@@YAXHHHH@Z	28
 ?DAT_00661018@@3PAPAVCGamePalette@@A
 ?DAT_00665344@@3PAVCGameBitmap@@A
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A

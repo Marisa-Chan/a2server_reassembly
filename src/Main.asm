@@ -21860,35 +21860,6 @@ sub_454A0C      endp
 
 ; Attributes: bp-based frame
 
-?FUN_00454a1e@@YAXHHHH@Z      proc near               ; CODE XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+73F↑p
-
-rcSrc1          = RECT ptr -10h
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-arg_C           = dword ptr  14h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 10h
-                lea     ecx, [ebp+rcSrc1] ; void *
-                call    unknown_libname_408 ; Microsoft VisualC 2-14/net runtime
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     dword ptr [ebp+rcSrc1], eax ; rcSrc1.left
-                mov     ecx, dword ptr [ebp+arg_8]
-                mov     dword ptr [ebp+rcSrc1+8], ecx ; rcSrc1.right
-                mov     edx, dword ptr [ebp+arg_4]
-                mov     dword ptr [ebp+rcSrc1+4], edx ; rcSrc1.top
-                mov     eax, dword ptr [ebp+arg_C]
-                mov     dword ptr [ebp+rcSrc1+0Ch], eax ; rcSrc1.bottom
-                lea     ecx, [ebp+rcSrc1]
-                push    ecx             ; lprcSrc1
-                call    ?gfxFlushRect@@YAXABVCRect@@@Z
-                add     esp, 4
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_00454a1e@@YAXHHHH@Z      endp
 
 
 

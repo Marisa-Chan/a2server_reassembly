@@ -1681,7 +1681,6 @@ externdef _unk_659A48 : byte  ; zeroed 4-byte buffer
 
 ;GFX things
 extern ?gfxFlushRect@@YAXABVCRect@@@Z :proc
-externdef ?FUN_00454a1e@@YAXHHHH@Z  : proc  ; void FUN_00454a1e(int,int,int,int)
 extern ?CopySurface16Rect@@YAXPAEHH0HHHHHH@Z : proc
 
 extern ?SaveScreenshot@@YAXXZ : proc
