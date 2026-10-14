@@ -1339,7 +1339,6 @@ externdef ?INT_00660f90@@3HA  :dword
 externdef ?FUN_004549e5@@YAXHHHH@Z : proc  ; void __cdecl FUN_004549e5(int, int, int, int)
 externdef ?FUN_00454e40@@YAXHHHH@Z : proc  ; void __cdecl FUN_00454e40(int, int, int, int)
 
-externdef ?sub_457C5D@@YAXHHHHH@Z : proc  ; void __cdecl sub_457C5D(int, int, int, int, int)
 extern ?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z : proc  ; CUnit* BigStruct2::FUN_0041dfa6(int); called from asm
 
 

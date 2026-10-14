@@ -2352,6 +2352,47 @@ void __cdecl SetPixelColor(int32_t x, int32_t y, uint32_t clr)
 		((uint16_t*)g_selDrawBitmap.lpSurface)[x + y * (g_selDrawBitmap.lPitch / 2)] = clr;
 }
 
+// 457c5d
+void __cdecl sub_457C5D(int32_t l, int32_t t, int32_t r, int32_t b, int32_t brightness)
+{
+	uint16_t add = (uint16_t)(((((brightness << 4) - 1) >> (8 - g_RBits)) << g_RBitShift) |
+	                          ((((brightness << 4) - 1) >> (8 - g_GBits)) << g_GBitShift) |
+	                          ((((brightness << 4) - 1) >> (8 - g_BBits)) << g_BBitShift));
+	uint16_t* table = g_brightnessLookup + brightness * g_brightnessLookupCount;
+
+	if (l < g_clipRect.left) {
+		l = g_clipRect.left;
+	}
+	if (r > g_clipRect.right) {
+		r = g_clipRect.right;
+	}
+
+	uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + l * 2 + t * g_selDrawBitmap.lPitch);
+	int32_t width = r - l;
+
+	if (width <= 0) {
+		return;
+	}
+
+	for (int32_t y = t; y < b; y++) {
+		if (y >= g_clipRect.top && y < g_clipRect.bottom) {
+			uint16_t* p = dst;
+			if (g_isLowMemory != 0) {
+				for (int32_t n = width; n != 0; n--) {
+					*p = table[*p >> 3] + add;
+					p++;
+				}
+			} else {
+				for (int32_t n = width; n != 0; n--) {
+					*p = table[*p] + add;
+					p++;
+				}
+			}
+		}
+		dst = (uint16_t*)((uint8_t*)dst + g_selDrawBitmap.lPitch);
+	}
+}
+
 // 4586fe
 void __cdecl sub_4586FE(int32_t x, int32_t y, int32_t r, int32_t g, int32_t b, int32_t alpha)
 {
