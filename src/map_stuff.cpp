@@ -3203,3 +3203,11 @@ bool Scenario::FUN_0044ec40(NetMapInfo* info)
     delete file;
     return false;
 }
+
+// 4a7b3c
+void __cdecl FUN_004a7b3c(char* buf, File2* file) {
+    uint32_t header[2];
+    file->Read(header, 8);
+    file->Seek(-8, CFile::current);
+    file->Read(buf, header[0]);
+}

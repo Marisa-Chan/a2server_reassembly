@@ -40462,41 +40462,6 @@ unknown_libname_612 endp
 
 ; Attributes: bp-based frame
 
-?FUN_004a7b3c@@YAXPADPAVFile2@@@Z      proc near               ; CODE XREF: ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z+9B↑p
-
-var_8           = byte ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                push    8
-                lea     eax, [ebp+var_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+arg_4]
-                call    dword ptr [edx+3Ch]
-                push    1
-                push    0FFFFFFF8h
-                mov     eax, dword ptr [ebp+arg_4]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+arg_4]
-                call    dword ptr [edx+30h]
-                mov     eax, dword ptr [ebp+var_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+arg_4]
-                call    dword ptr [eax+3Ch]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_004a7b3c@@YAXPADPAVFile2@@@Z      endp
 
 
 
