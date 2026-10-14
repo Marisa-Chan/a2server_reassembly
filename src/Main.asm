@@ -27625,35 +27625,6 @@ unknown_libname_536 endp
 
 ; Attributes: bp-based frame
 
-?FUN_00475110@@YA_NPAUCSound@@@Z      proc near               ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+59A↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                cmp     dword ptr [eax], 0
-                jz      short loc_475134
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [ecx]
-                call    ?FindPlayingChannel@SfxSample@@QAEPAVSoundChannel@@XZ
-                mov     [ebp+var_4], eax
-                xor     eax, eax
-                cmp     [ebp+var_4], 0
-                setnz   al
-                jmp     short loc_475136
-; ---------------------------------------------------------------------------
-
-loc_475134:                             ; CODE XREF: ?FUN_00475110@@YA_NPAUCSound@@@Z+A↑j
-                xor     eax, eax
-
-loc_475136:                             ; CODE XREF: ?FUN_00475110@@YA_NPAUCSound@@@Z+22↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_00475110@@YA_NPAUCSound@@@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

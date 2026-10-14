@@ -280,6 +280,14 @@ void FUN_00438f20(SfxSample** sample)
 	}
 }
 
+bool FUN_00475110(CSound* sound)
+{ //475110
+	if (sound->sample == nullptr) {
+		return false;
+	}
+	return sound->sample->FindPlayingChannel() != nullptr;
+}
+
 
 void SfxSample::LoadSample()
 { //45ba94
