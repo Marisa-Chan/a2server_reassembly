@@ -25761,6 +25761,28 @@ void FUN_00476236(CString* str)
     }
 }
 
+// 476987
+void FUN_00476987(CString* str)
+{
+    CString work(*str);
+    int32_t len = work.GetLength();
+    str->Empty();
+
+    while (len > 3) {
+        if (len == 4) {
+            char first = work[0];
+            if (first == '-' || first == '+') {
+                break;
+            }
+        }
+        *str = ',' + work.Right(3) + *str;
+        work = work.Left(len - 3);
+        len = work.GetLength();
+    }
+
+    *str = work + *str;
+}
+
 // 43B724
 void Vis1200obj::FUN_0043b724()
 {

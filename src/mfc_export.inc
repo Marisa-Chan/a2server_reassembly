@@ -1444,8 +1444,6 @@ extern ?VMethod36@VisShopCompass@@UAEXXZ : proc
 extern ?VMethod37@VisShopCompass@@UAEHH@Z : proc
 extern ?VMethod38@VisShopCompass@@UAEHXZ : proc
 
-externdef ?FUN_00476987@@YAXPAVCString@@@Z : proc
-
 extern ?ResetSelected@VisShopButtons@@QAEXXZ : proc
 
 extern ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z : proc  ; called from asm (sub_4C34E6, sub_4C65BA)

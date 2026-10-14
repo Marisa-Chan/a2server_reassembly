@@ -1937,7 +1937,7 @@ ASSERT_SIZE(VisShopButtons, 0x100);
 
 
 void __cdecl FUN_004ba1cc(CArray<TokenEntry*>* arr); //4ba1cc in asm
-void __cdecl FUN_00476987(CString* str); //476987 in asm
+void __cdecl FUN_00476987(CString* str); //476987 - insert thousands separators
 
 
 //60d3e8
