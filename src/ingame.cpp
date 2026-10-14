@@ -3529,6 +3529,14 @@ CSprite256* StructureInfo::GetSprite()
 	return this->spr;
 }
 
+CSprite256* StructureInfo::GetSpriteB()
+{ //46f7c0
+	if (this->inited == 0) {
+		this->Init();
+	}
+	return this->spr_b;
+}
+
 
 ProjectileInfo::ProjectileInfo(const char* fname, int32_t _a16)
 { //47e1ec

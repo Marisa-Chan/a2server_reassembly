@@ -43,5 +43,4 @@ _byte_659A3C
 ?LPCTSTR@CString@@QBEPBDXZ	13
 ??1DistortMap@@QAE@XZ	51
 ?FUN_0045b681@MusicPlayer@@QAEXH@Z	21
-?GetSpriteB@StructureInfo@@QAEPAVCSprite256@@XZ	20
 ?FUN_004e0b43@VisRoleKeyScreen@@QAE_NHPAHPAVCString@@PAPAD20@Z	848
