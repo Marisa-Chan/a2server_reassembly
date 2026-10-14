@@ -18318,195 +18318,6 @@ unknown_libname_481 endp
 
 ; Attributes: bp-based frame
 
-; int __cdecl ?sub_44E4CE@@YAXPBD@Z(LPCSTR lpString)
-?sub_44E4CE@@YAXPBD@Z      proc near               ; CODE XREF: ?OnKeyDown@VisServerScreen@@UAEHI@Z+6D↓p
-
-var_3C          = dword ptr -3Ch
-var_38          = dword ptr -38h
-var_34          = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = byte ptr -2Ch
-var_28          = byte ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = byte ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-lpString        = dword ptr  8
-
-; FUNCTION CHUNK AT 005F9AB8 SIZE 00000025 BYTES
-
-; __unwind { // SEH_44E4CE
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_44E4CE
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 30h
-                mov     eax, dword ptr [ebp+lpString]
-                push    eax             ; lpString
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-;   try {
-                mov     [ebp+var_4], 0
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ?MakeLower@CString@@QAEXXZ ; CString::MakeLower(void)
-                push    offset aDisconnect ; "disconnect"
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ?Find@CString@@QBEHPBD@Z ; CString::Find(char const *)
-                test    eax, eax
-                jnz     loc_44E5AB
-                push    0Bh
-                lea     ecx, [ebp+var_28]
-                push    ecx
-                lea     ecx, [ebp+var_10]
-                call    ?Mid@CString@@QBE?AV1@H@Z ; CString::Mid(int)
-                mov     [ebp+var_30], eax
-                mov     edx, dword ptr [ebp+var_30]
-                mov     [ebp+var_34], edx
-;   } // starts at 44E4F5
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_34]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; String
-                call    _atoi
-                add     esp, 4
-                mov     [ebp+var_1C], eax
-;   } // starts at 44E530
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                xor     eax, eax
-                mov     ax, word ptr [ebp+var_1C]
-                push    eax
-                mov     ecx, offset ?g_NetStru1_main@@3VNetStru1@@A
-                call    ?GetClientByPlayerID@NetStru1@@QAEPAUNetStru2@@G@Z
-                mov     [ebp+var_18], eax
-                xor     ecx, ecx
-                mov     cx, word ptr [ebp+var_1C]
-                push    ecx
-                mov     ecx, ?g_PlayersList@@3PAVPlayersList@@A
-                call    ?sub_535B50@PlayersList@@QAEPAVPlayer@@G@Z
-                mov     [ebp+var_14], eax
-                cmp     [ebp+var_18], 0
-                jz      short loc_44E597
-                cmp     [ebp+var_14], 0
-                jz      short loc_44E597
-                mov     edx, dword ptr [ebp+var_18]
-                push    edx
-                mov     ecx, offset ?g_NetStru1_main@@3VNetStru1@@A
-                call    ?DisconnectClient@NetStru1@@QAEXPAUNetStru2@@@Z
-;   } // starts at 44E548
-
-loc_44E597:                             ; CODE XREF: ?sub_44E4CE@@YAXPBD@Z+B3↑j
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                jmp     loc_44E6D0
-; ---------------------------------------------------------------------------
-
-loc_44E5AB:                             ; CODE XREF: ?sub_44E4CE@@YAXPBD@Z+45↑j
-                push    offset aCurse   ; "curse"
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ?Find@CString@@QBEHPBD@Z ; CString::Find(char const *)
-                test    eax, eax
-                jnz     loc_44E6C1
-                push    6
-                lea     eax, [ebp+var_2C]
-                push    eax
-                lea     ecx, [ebp+var_10]
-                call    ?Mid@CString@@QBE?AV1@H@Z ; CString::Mid(int)
-                mov     [ebp+var_38], eax
-                mov     ecx, dword ptr [ebp+var_38]
-                mov     [ebp+var_3C], ecx
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; String
-                call    _atoi
-                add     esp, 4
-                mov     [ebp+var_24], eax
-;   } // starts at 44E5D7
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                lea     ecx, [ebp+var_2C] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                xor     edx, edx
-                mov     dx, word ptr [ebp+var_24]
-                push    edx
-                mov     ecx, ?g_PlayersList@@3PAVPlayersList@@A
-                call    ?sub_535B50@PlayersList@@QAEPAVPlayer@@G@Z
-                mov     [ebp+var_20], eax
-                cmp     [ebp+var_20], 0
-                jz      loc_44E6B0
-                mov     eax, dword ptr [ebp+var_20]
-                cmp     dword ptr [eax+38h], 0
-                jz      loc_44E6B0
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     edx, dword ptr [ecx+38h]
-                mov     dword ptr [edx+130h], 0
-                mov     eax, dword ptr [ebp+var_20]
-                mov     ecx, dword ptr [eax+38h]
-                mov     word ptr [ecx+84h], 0Ah
-                mov     edx, dword ptr [ebp+var_20]
-                mov     eax, dword ptr [edx+38h]
-                mov     word ptr [eax+88h], 0Ah
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     edx, dword ptr [ecx+38h]
-                mov     word ptr [edx+86h], 0Ah
-                mov     eax, dword ptr [ebp+var_20]
-                mov     ecx, dword ptr [eax+38h]
-                mov     word ptr [ecx+8Ah], 1
-                mov     edx, dword ptr [ebp+var_20]
-                mov     ecx, dword ptr [edx+38h]
-                mov     eax, dword ptr [ebp+var_20]
-                mov     edx, dword ptr [eax+38h]
-                mov     eax, dword ptr [edx]
-                call    dword ptr [eax+58h]
-                push    0
-                push    0
-                push    0FFBh
-                push    0FFFFFFFFh
-                push    0
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     edx, dword ptr [ecx+38h]
-                push    edx
-                mov     ecx, offset ?g_NetStru1_main@@3VNetStru1@@A
-                call    ?sub_519221@NetStru1@@QAEXPAVUnit@@PAVPlayer@@IHHH@Z
-                mov     eax, dword ptr [ebp+var_20]
-                push    eax
-                mov     ecx, offset ?g_NetStru1_main@@3VNetStru1@@A
-                call    unknown_libname_721 ; Microsoft VisualC 2-14/net runtime
-;   } // starts at 44E5EF               ; MFC 3.1-14.0 32bit
-
-loc_44E6B0:                             ; CODE XREF: ?sub_44E4CE@@YAXPBD@Z+146↑j
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                jmp     short loc_44E6D0
-; ---------------------------------------------------------------------------
-
-loc_44E6C1:                             ; CODE XREF: ?sub_44E4CE@@YAXPBD@Z+EC↑j
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-
-loc_44E6D0:                             ; CODE XREF: ?sub_44E4CE@@YAXPBD@Z+D8↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 44E4CE
-?sub_44E4CE@@YAXPBD@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -65316,20 +65127,6 @@ sub_51CD89      endp
 
 ; =============== S U B R O U T I N E =======================================
 
-; Attributes: bp-based frame
-
-unknown_libname_721 proc near           ; CODE XREF: ?sub_44E4CE@@YAXPBD@Z+1DD↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-unknown_libname_721 endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -223072,38 +222869,6 @@ SEH_44B37A:                             ; DATA XREF: ?GetFieldPos@@YAHVCString@@
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F98B6
 ; END OF FUNCTION CHUNK FOR ?GetFieldPos@@YAHVCString@@H@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?sub_44E4CE@@YAXPBD@Z
-
-loc_5F9AB8:                             ; DATA XREF: .rdata:stru_61A4C0↓o
-; __unwind { // SEH_44E4CE              ; varThis
-;   cleanup() // owned by 44E4F5
-;   cleanup() // owned by 44E548
-;   cleanup() // owned by 44E5EF
-                lea     ecx, [ebp+var_10]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F9AC1:                             ; DATA XREF: .rdata:0061A4C8↓o
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F9ACA:                             ; DATA XREF: .rdata:0061A4D0↓o
-;   cleanup() // owned by 44E530        ; varThis
-;   cleanup() // owned by 44E5D7
-                lea     ecx, [ebp+var_2C]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_44E4CE:                             ; DATA XREF: ?sub_44E4CE@@YAXPBD@Z+5↑o
-                mov     eax, offset stru_61A4A0
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9AB8
-; END OF FUNCTION CHUNK FOR ?sub_44E4CE@@YAXPBD@Z
                 align 10h
 
 
@@ -253337,14 +253102,6 @@ stru_61A230     FuncInfoV1 <19930520h, 2, offset stru_61A250, 0, 0, 0, 0>
                 db    0
 stru_61A250     UnwindMapEntry <-1, offset loc_5F98B6>
                 UnwindMapEntry <0, offset loc_5F98BF>
-stru_61A4A0     FuncInfoV1 <19930520h, 3, offset stru_61A4C0, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61A4C0     UnwindMapEntry <-1, offset loc_5F9AB8>
-                UnwindMapEntry <0, offset loc_5F9AC1>
-                UnwindMapEntry <0, offset loc_5F9ACA>
                 align 8
 
 stru_61A5C0     FuncInfoV1 <19930520h, 2, offset stru_61A5E0, 0, 0, 0, 0>
@@ -259510,12 +259267,6 @@ aClannames      db 'ClanNames',0        ; DATA XREF: ?Save@GameSettings@@QAEXAAP
 ; CHAR aMessagecolors[]
 aMessagecolors  db 'MessageColors',0    ; DATA XREF: ?Save@GameSettings@@QAEXAAPAUHKEY__@@@Z+1B1↑o
                 align 10h
-                align 4
-; char aDisconnect[]
-aDisconnect     db 'disconnect',0       ; DATA XREF: ?sub_44E4CE@@YAXPBD@Z+36↑o
-                align 10h
-; char aCurse[]
-aCurse          db 'curse',0            ; DATA XREF: ?sub_44E4CE@@YAXPBD@Z:loc_44E5AB↑o
                 align 4
                 align 10h
 

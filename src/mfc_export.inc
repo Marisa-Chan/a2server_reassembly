@@ -1684,7 +1684,6 @@ extern ?VMethod43@VisInvExtType3@@UAEPAVTokenEntry@@HH@Z : proc  ; TokenEntry* V
 
 ;VisServerScreenRadio
 
-externdef ?sub_44E4CE@@YAXPBD@Z : proc  ; void sub_44E4CE(const char* cmd)
 externdef _unk_659A48 : byte  ; zeroed 4-byte buffer
 
 ;GameOptionsWindow

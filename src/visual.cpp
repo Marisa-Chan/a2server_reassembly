@@ -13,6 +13,7 @@
 #include "spell.h"
 #include "players_list.h"
 #include "player.h"
+#include "unit.h"
 #include "unit_list.h"
 #include "buildings_list.h"
 #include "packet.h"
@@ -24096,6 +24097,36 @@ void VisServerScreen::VMethod26()
 
     this->AddChild(new VisTextBox(0x68, 4, g_ScreenSize.bottom - 0x38, g_ScreenSize.right - 4, g_ScreenSize.bottom - 0x28,
                                   g_font2, clrsh_ShockingBlack, nullptr));
+}
+
+
+// 44e4ce
+void sub_44E4CE(const char* cmd)
+{
+    CString s(cmd);
+    s.MakeLower();
+    if (s.Find("disconnect") == 0) {
+        CString arg = s.Mid(0xB);
+        int32_t id = atoi(arg);
+        NetStru2* cli = g_NetStru1_main.GetClientByPlayerID((uint16_t)id);
+        Player* player = g_PlayersList->sub_535B50((uint16_t)id);
+        if (cli != nullptr && player != nullptr) {
+            g_NetStru1_main.DisconnectClient(cli);
+        }
+    } else if (s.Find("curse") == 0) {
+        CString arg = s.Mid(6);
+        int32_t id = atoi(arg);
+        Player* player = g_PlayersList->sub_535B50((uint16_t)id);
+        if (player != nullptr && player->main_unit != nullptr) {
+            player->main_unit->experience = 0;
+            player->main_unit->body = 10;
+            player->main_unit->mind = 10;
+            player->main_unit->reaction = 10;
+            player->main_unit->spirit = 1;
+            player->main_unit->VMethod18();
+            g_NetStru1_main.sub_519221(player->main_unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
+        }
+    }
 }
 
 
