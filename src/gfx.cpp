@@ -2352,6 +2352,31 @@ void __cdecl SetPixelColor(int32_t x, int32_t y, uint32_t clr)
 		((uint16_t*)g_selDrawBitmap.lpSurface)[x + y * (g_selDrawBitmap.lPitch / 2)] = clr;
 }
 
+// 4586fe
+void __cdecl sub_4586FE(int32_t x, int32_t y, int32_t r, int32_t g, int32_t b, int32_t alpha)
+{
+	if (x < g_clipRect.left || x >= g_clipRect.right || y < g_clipRect.top || y >= g_clipRect.bottom) {
+		return;
+	}
+
+	if (alpha < 0) {
+		alpha = 0;
+	}
+
+	uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (x + y * (g_selDrawBitmap.lPitch >> 1)) * 2);
+	uint16_t pixel = *dst;
+
+	int32_t src_r = ((pixel & g_RBitMask) >> g_RBitShift) << (8 - g_RBits);
+	int32_t src_g = ((pixel & g_GBitMask) >> g_GBitShift) << (8 - g_GBits);
+	int32_t src_b = ((pixel & g_BBitMask) >> g_BBitShift) << (8 - g_BBits);
+
+	int32_t new_r = (((255 - alpha) * src_r) / 255 + (r * alpha) / 255) >> (8 - g_RBits);
+	int32_t new_g = (((255 - alpha) * src_g) / 255 + (g * alpha) / 255) >> (8 - g_GBits);
+	int32_t new_b = (((255 - alpha) * src_b) / 255 + (b * alpha) / 255) >> (8 - g_BBits);
+
+	*dst = (uint16_t)((new_r << g_RBitShift) | (new_g << g_GBitShift) | (new_b << g_BBitShift));
+}
+
 // 4588EC
 void __cdecl sub_4588EC(int32_t x, int32_t y, int32_t r, int32_t g, int32_t b, int32_t alpha)
 {
