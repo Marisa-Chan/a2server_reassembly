@@ -1,5 +1,6 @@
 #include "sound.h"
 #include "main_window.h"
+#include "game_app.h"
 #include "file.h"
 #include "resource.h"
 #include <mmreg.h>
@@ -1132,6 +1133,41 @@ void FUN_004c86f5()
 	}
 	for (int32_t i = 0; i < 12; i++) {
 		SoundBank_other[i].Unload();
+	}
+}
+
+// 476c0d
+void FUN_00476c0d(int32_t x, int32_t y)
+{
+	int32_t best = -1;
+	double best_dist = 1e20;
+
+	for (int32_t i = 0; i < g_mapmusicinfos.GetSize(); i++) {
+		MapMusicInfo* info = g_mapmusicinfos[i];
+		if (info->x == 0 && info->y == 0) {
+			if (best_dist > 1e15) {
+				best = i;
+				best_dist = 1e10;
+			}
+		} else {
+			if (info->melody_type_id[0] != 0xFFFFFFFF || info->melody_type_id[1] != 0xFFFFFFFF ||
+				info->melody_type_id[2] != 0xFFFFFFFF || info->melody_type_id[3] != 0xFFFFFFFF) {
+				double dx = (double)(int32_t)(x - (info->x << 8));
+				double dy = (double)(int32_t)(y - (info->y << 8));
+				double dist = sqrt(dx * dx + dy * dy);
+				if (dist < (double)(int32_t)(info->radius << 8) && dist < best_dist) {
+					best_dist = dist;
+					best = i;
+				}
+			}
+		}
+	}
+
+	if (best >= 0) {
+		do {
+			MapMusicInfo* info = g_mapmusicinfos[best];
+			g_CurrentMusicTrack = info->melody_type_id[Random0N(3)];
+		} while (g_CurrentMusicTrack == -1);
 	}
 }
 
