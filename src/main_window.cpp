@@ -315,6 +315,24 @@ void CFameHall::FUN_004acafa()
 
 
 
+// 4ac839
+void CFameHall::FUN_004ac839(CFile* file)
+{
+    int32_t count = this->m_Entries.GetSize();
+    file->Write(&count, 4);
+
+    for (int32_t i = 0; i < this->m_Entries.GetSize(); i++) {
+        Fame1& fame = this->m_Entries[i];
+
+        int32_t len = fame.str.GetLength() + 1;
+        file->Write(&len, 4);
+        file->Write(fame.str, len);
+        file->Write(&fame.field_x4, 4);
+        file->Write(&fame.field_x8, 4);
+        file->Write(&fame.field_xc, 4);
+    }
+}
+
 void CFameHall::FUN_004ac945(CFile* file)
 {
     //4ac945

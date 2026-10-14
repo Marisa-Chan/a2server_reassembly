@@ -115,7 +115,7 @@ struct CFameHall
     uint32_t FUN_004ac566(int32_t arg);
     void FUN_004acafa();
     void FUN_004ac945(CFile* file);
-    void FUN_004ac839(CFile* file); //4ac839 in asm
+    void FUN_004ac839(CFile* file); //4ac839 - save m_Entries to file
     void FUN_004ac706(CFile* file);
     void FUN_004ac7a2(CFile* file);
     void FUN_004ac3ce(const Fame1& fame);

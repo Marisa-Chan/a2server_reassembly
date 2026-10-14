@@ -950,7 +950,6 @@ extern ?FUN_0048f6f7@MainWindow@@QAEXXZ : proc
 
 
 extern ?FUN_004ac3ce@CFameHall@@QAEXABUFame1@@@Z  :proc   ; (public: void __thiscall CFameHall::FUN_004ac3ce(struct Fame1 const &))
-externdef ?FUN_004ac839@CFameHall@@QAEXPAVCFile@@@Z : proc  ; void CFameHall::FUN_004ac839(CFile*)
 
 extern ??0Fame2@@QAE@XZ  :proc   ; (public: __thiscall Fame2::Fame2(void))
 extern ??4Fame2@@QAEXABU0@@Z  :proc   ; (public: void __thiscall Fame2::operator=(struct Fame2 const &))
