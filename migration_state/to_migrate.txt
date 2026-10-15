@@ -22,6 +22,3 @@
 ?VMethod26@VisShopCompassDruid@@UAEXXZ	262
 ?VMethod7@VisShopCompassDruid@@UAEXXZ	365
 ??1VisShopCompassKaarg@@UAE@XZ	13
-?VMethod28@VisShopCompassKaarg@@UAEXXZ	15
-?VMethod29@VisShopCompassKaarg@@UAEXXZ	15
-?VMethod31@VisShopCompassKaarg@@UAEXH@Z	18

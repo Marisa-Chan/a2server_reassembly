@@ -12635,6 +12635,27 @@ void VisShopCompassKaarg::VMethod36()
 }
 
 
+// 4C5CA8
+void VisShopCompassKaarg::VMethod31(int32_t arg)
+{
+    this->VMethod32(arg);
+}
+
+
+// 4C5D64
+void VisShopCompassKaarg::VMethod28()
+{
+    this->VMethod33();
+}
+
+
+// 4C5D7D
+void VisShopCompassKaarg::VMethod29()
+{
+    this->VMethod34();
+}
+
+
 // 4BFA5A
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)

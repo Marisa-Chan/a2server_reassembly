@@ -42833,25 +42833,6 @@ loc_4C37A1:                             ; CODE XREF: ?GetHint@VisShopCompassDrui
 
 ; Attributes: bp-based frame
 
-?VMethod31@VisShopCompassKaarg@@UAEXH@Z      proc near               ; DATA XREF: .rdata:0060D82C↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+90h]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?VMethod31@VisShopCompassKaarg@@UAEXH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -42864,44 +42845,12 @@ arg_0           = dword ptr  8
 
 ; Attributes: bp-based frame
 
-?VMethod28@VisShopCompassKaarg@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060D820↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+94h]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod28@VisShopCompassKaarg@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-?VMethod29@VisShopCompassKaarg@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060D824↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+98h]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod29@VisShopCompassKaarg@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
