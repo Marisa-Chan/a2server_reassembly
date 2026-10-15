@@ -1259,6 +1259,24 @@ extern ?VMethod36@VisShopCompass@@UAEXXZ : proc
 extern ?VMethod37@VisShopCompass@@UAEHH@Z : proc
 extern ?VMethod38@VisShopCompass@@UAEHXZ : proc
 
+;VisShopCompassDruid (override bodies stay in ASM, vtable emitted by C++)
+externdef ??1VisShopCompassDruid@@UAE@XZ : proc  ; virtual VisShopCompassDruid::~VisShopCompassDruid()
+externdef ?GetHint@VisShopCompassDruid@@UAEPBDXZ : proc  ; const char* VisShopCompassDruid::GetHint()
+externdef ?VMethod7@VisShopCompassDruid@@UAEXXZ : proc  ; void VisShopCompassDruid::VMethod7()
+externdef ?OnLButtonDown@VisShopCompassDruid@@UAEHIVCPoint@@@Z : proc  ; int32_t VisShopCompassDruid::OnLButtonDown(uint32_t, CPoint)
+externdef ?VMethod26@VisShopCompassDruid@@UAEXXZ : proc  ; void VisShopCompassDruid::VMethod26()
+externdef ?VMethod27@VisShopCompassDruid@@UAEXXZ : proc  ; void VisShopCompassDruid::VMethod27()
+externdef ?VMethod28@VisShopCompassDruid@@UAEXXZ : proc  ; void VisShopCompassDruid::VMethod28()
+externdef ?VMethod29@VisShopCompassDruid@@UAEXXZ : proc  ; void VisShopCompassDruid::VMethod29()
+externdef ?VMethod30@VisShopCompassDruid@@UAEXXZ : proc  ; void VisShopCompassDruid::VMethod30()
+externdef ?VMethod31@VisShopCompassDruid@@UAEXH@Z : proc  ; void VisShopCompassDruid::VMethod31(int32_t)
+externdef ?VMethod32@VisShopCompassDruid@@UAEXH@Z : proc  ; void VisShopCompassDruid::VMethod32(int32_t)
+externdef ?VMethod33@VisShopCompassDruid@@UAEXXZ : proc  ; void VisShopCompassDruid::VMethod33()
+externdef ?VMethod34@VisShopCompassDruid@@UAEXXZ : proc  ; void VisShopCompassDruid::VMethod34()
+externdef ?VMethod35@VisShopCompassDruid@@UAEXXZ : proc  ; void VisShopCompassDruid::VMethod35()
+externdef ?VMethod36@VisShopCompassDruid@@UAEXXZ : proc  ; void VisShopCompassDruid::VMethod36()
+externdef ?VMethod37@VisShopCompassDruid@@UAEHH@Z : proc  ; int32_t VisShopCompassDruid::VMethod37(int32_t)
+
 extern ?ResetSelected@VisShopButtons@@QAEXXZ : proc
 
 extern ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z : proc  ; called from asm (sub_4C34E6, sub_4C65BA)

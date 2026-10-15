@@ -1870,6 +1870,24 @@ ASSERT_SIZE(VisShopCompass, 0x258);
 class VisShopCompassDruid : public VisShopCompass
 {
 public:
+	virtual ~VisShopCompassDruid(); // 4C6A30
+
+	virtual const char* GetHint() override; // 4C3690
+	virtual void VMethod7() override; // 4C30B4
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4C359D
+	virtual void VMethod26() override; // 4C2882
+	virtual void VMethod27() override; // 4C2B29
+	virtual void VMethod28() override; // 4C2D8A
+	virtual void VMethod29() override; // 4C2DA3
+	virtual void VMethod30() override; // 4C2DBC
+	virtual void VMethod31(int32_t arg) override; // 4C2CCE
+	virtual void VMethod32(int32_t arg) override; // 4C2CED
+	virtual void VMethod33() override; // 4C2F00
+	virtual void VMethod34() override; // 4C2F7D
+	virtual void VMethod35() override; // 4C2FFA
+	virtual void VMethod36() override; // 4C3051
+	virtual int32_t VMethod37(int32_t arg) override; // 4C34E6
+
 	VisShopCompassDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4c247b in asm
 
 public:

@@ -5,3 +5,19 @@
 
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
+??1VisShopCompassDruid@@UAE@XZ	13
+?VMethod28@VisShopCompassDruid@@UAEXXZ	15
+?VMethod29@VisShopCompassDruid@@UAEXXZ	15
+?VMethod31@VisShopCompassDruid@@UAEXH@Z	18
+?VMethod35@VisShopCompassDruid@@UAEXXZ	39
+?VMethod36@VisShopCompassDruid@@UAEXXZ	46
+?VMethod33@VisShopCompassDruid@@UAEXXZ	59
+?VMethod34@VisShopCompassDruid@@UAEXXZ	59
+?VMethod37@VisShopCompassDruid@@UAEHH@Z	66
+?VMethod32@VisShopCompassDruid@@UAEXH@Z	69
+?OnLButtonDown@VisShopCompassDruid@@UAEHIVCPoint@@@Z	106
+?GetHint@VisShopCompassDruid@@UAEPBDXZ	122
+?VMethod30@VisShopCompassDruid@@UAEXXZ	123
+?VMethod27@VisShopCompassDruid@@UAEXXZ	171
+?VMethod26@VisShopCompassDruid@@UAEXXZ	262
+?VMethod7@VisShopCompassDruid@@UAEXXZ	365
