@@ -1277,6 +1277,24 @@ externdef ?VMethod35@VisShopCompassDruid@@UAEXXZ : proc  ; void VisShopCompassDr
 externdef ?VMethod36@VisShopCompassDruid@@UAEXXZ : proc  ; void VisShopCompassDruid::VMethod36()
 externdef ?VMethod37@VisShopCompassDruid@@UAEHH@Z : proc  ; int32_t VisShopCompassDruid::VMethod37(int32_t)
 
+;VisShopCompassKaarg (override bodies stay in ASM, vtable emitted by C++)
+externdef ??1VisShopCompassKaarg@@UAE@XZ : proc  ; virtual VisShopCompassKaarg::~VisShopCompassKaarg()
+externdef ?GetHint@VisShopCompassKaarg@@UAEPBDXZ : proc  ; const char* VisShopCompassKaarg::GetHint()
+externdef ?VMethod7@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod7()
+externdef ?OnLButtonDown@VisShopCompassKaarg@@UAEHIVCPoint@@@Z : proc  ; int32_t VisShopCompassKaarg::OnLButtonDown(uint32_t, CPoint)
+externdef ?VMethod26@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod26()
+externdef ?VMethod27@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod27()
+externdef ?VMethod28@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod28()
+externdef ?VMethod29@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod29()
+externdef ?VMethod30@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod30()
+externdef ?VMethod31@VisShopCompassKaarg@@UAEXH@Z : proc  ; void VisShopCompassKaarg::VMethod31(int32_t)
+externdef ?VMethod32@VisShopCompassKaarg@@UAEXH@Z : proc  ; void VisShopCompassKaarg::VMethod32(int32_t)
+externdef ?VMethod33@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod33()
+externdef ?VMethod34@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod34()
+externdef ?VMethod35@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod35()
+externdef ?VMethod36@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod36()
+externdef ?VMethod37@VisShopCompassKaarg@@UAEHH@Z : proc  ; int32_t VisShopCompassKaarg::VMethod37(int32_t)
+
 extern ?ResetSelected@VisShopButtons@@QAEXXZ : proc
 
 extern ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z : proc  ; called from asm (sub_4C34E6, sub_4C65BA)

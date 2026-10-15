@@ -1905,6 +1905,24 @@ ASSERT_SIZE(VisShopCompassDruid, 0x270);
 class VisShopCompassKaarg : public VisShopCompass
 {
 public:
+	virtual ~VisShopCompassKaarg(); // 4C6AD0
+
+	virtual const char* GetHint() override; // 4C6800
+	virtual void VMethod7() override; // 4C608E
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4C671F
+	virtual void VMethod26() override; // 4C4A78
+	virtual void VMethod27() override; // 4C5A80
+	virtual void VMethod28() override; // 4C5D64
+	virtual void VMethod29() override; // 4C5D7D
+	virtual void VMethod30() override; // 4C5D96
+	virtual void VMethod31(int32_t arg) override; // 4C5CA8
+	virtual void VMethod32(int32_t arg) override; // 4C5CC7
+	virtual void VMethod33() override; // 4C5EDA
+	virtual void VMethod34() override; // 4C5F57
+	virtual void VMethod35() override; // 4C5FD4
+	virtual void VMethod36() override; // 4C602B
+	virtual int32_t VMethod37(int32_t arg) override; // 4C65BA
+
 	VisShopCompassKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4c4693 in asm
 
 public:

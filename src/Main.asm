@@ -42821,7 +42821,7 @@ loc_4C37A1:                             ; CODE XREF: ?GetHint@VisShopCompassDrui
 
 ; Attributes: bp-based frame
 
-sub_4C4A78      proc near               ; DATA XREF: .rdata:0060D818↓o
+?VMethod26@VisShopCompassKaarg@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060D818↓o
 
 var_1EC         = dword ptr -1ECh
 var_1E8         = dword ptr -1E8h
@@ -42977,10 +42977,10 @@ var_4           = dword ptr -4
                 jmp     short loc_4C4AED
 ; ---------------------------------------------------------------------------
 
-loc_4C4AE3:                             ; CODE XREF: sub_4C4A78+54↑j
+loc_4C4AE3:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+54↑j
                 mov     [ebp+var_EC], 0
 
-loc_4C4AED:                             ; CODE XREF: sub_4C4A78+69↑j
+loc_4C4AED:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+69↑j
                 mov     eax, dword ptr [ebp+var_EC]
                 mov     [ebp+var_18], eax
 ;   } // starts at 4C4AC1
@@ -43010,10 +43010,10 @@ loc_4C4AED:                             ; CODE XREF: sub_4C4A78+69↑j
                 jmp     short loc_4C4B63
 ; ---------------------------------------------------------------------------
 
-loc_4C4B59:                             ; CODE XREF: sub_4C4A78+CA↑j
+loc_4C4B59:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+CA↑j
                 mov     [ebp+var_F0], 0
 
-loc_4C4B63:                             ; CODE XREF: sub_4C4A78+DF↑j
+loc_4C4B63:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+DF↑j
                 mov     ecx, dword ptr [ebp+var_F0]
                 mov     [ebp+var_20], ecx
 ;   } // starts at 4C4B37
@@ -43035,10 +43035,10 @@ loc_4C4B63:                             ; CODE XREF: sub_4C4A78+DF↑j
                 jmp     short loc_4C4BB8
 ; ---------------------------------------------------------------------------
 
-loc_4C4BAE:                             ; CODE XREF: sub_4C4A78+11F↑j
+loc_4C4BAE:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+11F↑j
                 mov     [ebp+var_F4], 0
 
-loc_4C4BB8:                             ; CODE XREF: sub_4C4A78+134↑j
+loc_4C4BB8:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+134↑j
                 mov     ecx, dword ptr [ebp+var_F4]
                 mov     [ebp+var_28], ecx
 ;   } // starts at 4C4B8C
@@ -43060,10 +43060,10 @@ loc_4C4BB8:                             ; CODE XREF: sub_4C4A78+134↑j
                 jmp     short loc_4C4C0D
 ; ---------------------------------------------------------------------------
 
-loc_4C4C03:                             ; CODE XREF: sub_4C4A78+174↑j
+loc_4C4C03:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+174↑j
                 mov     [ebp+var_F8], 0
 
-loc_4C4C0D:                             ; CODE XREF: sub_4C4A78+189↑j
+loc_4C4C0D:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+189↑j
                 mov     ecx, dword ptr [ebp+var_F8]
                 mov     [ebp+var_30], ecx
 ;   } // starts at 4C4BE1
@@ -43085,10 +43085,10 @@ loc_4C4C0D:                             ; CODE XREF: sub_4C4A78+189↑j
                 jmp     short loc_4C4C62
 ; ---------------------------------------------------------------------------
 
-loc_4C4C58:                             ; CODE XREF: sub_4C4A78+1C9↑j
+loc_4C4C58:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+1C9↑j
                 mov     [ebp+var_FC], 0
 
-loc_4C4C62:                             ; CODE XREF: sub_4C4A78+1DE↑j
+loc_4C4C62:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+1DE↑j
                 mov     ecx, dword ptr [ebp+var_FC]
                 mov     [ebp+var_38], ecx
 ;   } // starts at 4C4C36
@@ -43110,10 +43110,10 @@ loc_4C4C62:                             ; CODE XREF: sub_4C4A78+1DE↑j
                 jmp     short loc_4C4CB7
 ; ---------------------------------------------------------------------------
 
-loc_4C4CAD:                             ; CODE XREF: sub_4C4A78+21E↑j
+loc_4C4CAD:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+21E↑j
                 mov     [ebp+var_100], 0
 
-loc_4C4CB7:                             ; CODE XREF: sub_4C4A78+233↑j
+loc_4C4CB7:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+233↑j
                 mov     ecx, dword ptr [ebp+var_100]
                 mov     [ebp+var_40], ecx
 ;   } // starts at 4C4C8B
@@ -43135,10 +43135,10 @@ loc_4C4CB7:                             ; CODE XREF: sub_4C4A78+233↑j
                 jmp     short loc_4C4D0C
 ; ---------------------------------------------------------------------------
 
-loc_4C4D02:                             ; CODE XREF: sub_4C4A78+273↑j
+loc_4C4D02:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+273↑j
                 mov     [ebp+var_104], 0
 
-loc_4C4D0C:                             ; CODE XREF: sub_4C4A78+288↑j
+loc_4C4D0C:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+288↑j
                 mov     ecx, dword ptr [ebp+var_104]
                 mov     [ebp+var_48], ecx
 ;   } // starts at 4C4CE0
@@ -43150,12 +43150,12 @@ loc_4C4D0C:                             ; CODE XREF: sub_4C4A78+288↑j
                 jmp     short loc_4C4D3D
 ; ---------------------------------------------------------------------------
 
-loc_4C4D34:                             ; CODE XREF: sub_4C4A78+741↓j
+loc_4C4D34:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+741↓j
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 1
                 mov     [ebp+var_10], ecx
 
-loc_4C4D3D:                             ; CODE XREF: sub_4C4A78+2BA↑j
+loc_4C4D3D:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+2BA↑j
                 cmp     [ebp+var_10], 6
                 jge     loc_4C51BE
                 push    24h ; '$'       ; varSize
@@ -43245,10 +43245,10 @@ loc_4C4D3D:                             ; CODE XREF: sub_4C4A78+2BA↑j
                 jmp     short loc_4C4EA6
 ; ---------------------------------------------------------------------------
 
-loc_4C4E9C:                             ; CODE XREF: sub_4C4A78+2E4↑j
+loc_4C4E9C:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+2E4↑j
                 mov     [ebp+var_130], 0
 
-loc_4C4EA6:                             ; CODE XREF: sub_4C4A78+422↑j
+loc_4C4EA6:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+422↑j
                 mov     ecx, dword ptr [ebp+var_130]
                 mov     [ebp+var_50], ecx
 ;   } // starts at 4C4E79
@@ -43263,7 +43263,7 @@ loc_4C4EA6:                             ; CODE XREF: sub_4C4A78+422↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C4EAF
 
-loc_4C4ED2:                             ; CODE XREF: sub_4C4A78+449↑j
+loc_4C4ED2:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+449↑j
 ;   try {
                 mov     [ebp+var_4], 0Ah
                 mov     eax, dword ptr [ebp+var_E4]
@@ -43275,7 +43275,7 @@ loc_4C4ED2:                             ; CODE XREF: sub_4C4A78+449↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C4ED2
 
-loc_4C4EF5:                             ; CODE XREF: sub_4C4A78+46C↑j
+loc_4C4EF5:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+46C↑j
 ;   try {
                 mov     [ebp+var_4], 9
                 mov     ecx, dword ptr [ebp+var_E4]
@@ -43287,7 +43287,7 @@ loc_4C4EF5:                             ; CODE XREF: sub_4C4A78+46C↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C4EF5
 
-loc_4C4F18:                             ; CODE XREF: sub_4C4A78+48F↑j
+loc_4C4F18:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+48F↑j
 ;   try {
                 mov     [ebp+var_4], 8
                 mov     edx, dword ptr [ebp+var_E4]
@@ -43299,7 +43299,7 @@ loc_4C4F18:                             ; CODE XREF: sub_4C4A78+48F↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C4F18
 
-loc_4C4F3B:                             ; CODE XREF: sub_4C4A78+4B2↑j
+loc_4C4F3B:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+4B2↑j
 ;   try {
                 mov     [ebp+var_4], 7
                 mov     eax, dword ptr [ebp+var_E4]
@@ -43311,7 +43311,7 @@ loc_4C4F3B:                             ; CODE XREF: sub_4C4A78+4B2↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C4F3B
 
-loc_4C4F5E:                             ; CODE XREF: sub_4C4A78+4D5↑j
+loc_4C4F5E:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+4D5↑j
                 mov     [ebp+var_4], 0FFFFFFFFh
                 mov     ecx, dword ptr [ebp+var_10]
                 mov     edx, dword ptr [ebp+var_E8]
@@ -43404,10 +43404,10 @@ loc_4C4F5E:                             ; CODE XREF: sub_4C4A78+4D5↑j
                 jmp     short loc_4C50DF
 ; ---------------------------------------------------------------------------
 
-loc_4C50D5:                             ; CODE XREF: sub_4C4A78+515↑j
+loc_4C50D5:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+515↑j
                 mov     [ebp+var_15C], 0
 
-loc_4C50DF:                             ; CODE XREF: sub_4C4A78+65B↑j
+loc_4C50DF:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+65B↑j
                 mov     eax, dword ptr [ebp+var_15C]
                 mov     [ebp+var_6C], eax
 ;   } // starts at 4C50B2
@@ -43422,7 +43422,7 @@ loc_4C50DF:                             ; CODE XREF: sub_4C4A78+65B↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C50E8
 
-loc_4C510E:                             ; CODE XREF: sub_4C4A78+685↑j
+loc_4C510E:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+685↑j
 ;   try {
                 mov     [ebp+var_4], 10h
                 mov     edx, dword ptr [ebp+var_E4]
@@ -43434,7 +43434,7 @@ loc_4C510E:                             ; CODE XREF: sub_4C4A78+685↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C510E
 
-loc_4C5134:                             ; CODE XREF: sub_4C4A78+6AB↑j
+loc_4C5134:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+6AB↑j
 ;   try {
                 mov     [ebp+var_4], 0Fh
                 mov     eax, dword ptr [ebp+var_E4]
@@ -43446,7 +43446,7 @@ loc_4C5134:                             ; CODE XREF: sub_4C4A78+6AB↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C5134
 
-loc_4C5159:                             ; CODE XREF: sub_4C4A78+6D0↑j
+loc_4C5159:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+6D0↑j
 ;   try {
                 mov     [ebp+var_4], 0Eh
                 mov     ecx, dword ptr [ebp+var_E4]
@@ -43458,7 +43458,7 @@ loc_4C5159:                             ; CODE XREF: sub_4C4A78+6D0↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C5159
 
-loc_4C517C:                             ; CODE XREF: sub_4C4A78+6F3↑j
+loc_4C517C:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+6F3↑j
 ;   try {
                 mov     [ebp+var_4], 0Dh
                 mov     edx, dword ptr [ebp+var_E4]
@@ -43470,7 +43470,7 @@ loc_4C517C:                             ; CODE XREF: sub_4C4A78+6F3↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C517C
 
-loc_4C519F:                             ; CODE XREF: sub_4C4A78+716↑j
+loc_4C519F:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+716↑j
                 mov     [ebp+var_4], 0FFFFFFFFh
                 mov     eax, dword ptr [ebp+var_10]
                 mov     ecx, dword ptr [ebp+var_E8]
@@ -43479,17 +43479,17 @@ loc_4C519F:                             ; CODE XREF: sub_4C4A78+716↑j
                 jmp     loc_4C4D34
 ; ---------------------------------------------------------------------------
 
-loc_4C51BE:                             ; CODE XREF: sub_4C4A78+2C9↑j
+loc_4C51BE:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+2C9↑j
                 mov     [ebp+var_10], 0
                 jmp     short loc_4C51D0
 ; ---------------------------------------------------------------------------
 
-loc_4C51C7:                             ; CODE XREF: sub_4C4A78+B86↓j
+loc_4C51C7:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+B86↓j
                 mov     eax, dword ptr [ebp+var_10]
                 add     eax, 1
                 mov     [ebp+var_10], eax
 
-loc_4C51D0:                             ; CODE XREF: sub_4C4A78+74D↑j
+loc_4C51D0:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+74D↑j
                 cmp     [ebp+var_10], 6
                 jge     loc_4C5603
                 push    24h ; '$'       ; varSize
@@ -43565,10 +43565,10 @@ loc_4C51D0:                             ; CODE XREF: sub_4C4A78+74D↑j
                 jmp     short loc_4C531F
 ; ---------------------------------------------------------------------------
 
-loc_4C5315:                             ; CODE XREF: sub_4C4A78+77D↑j
+loc_4C5315:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+77D↑j
                 mov     [ebp+var_180], 0
 
-loc_4C531F:                             ; CODE XREF: sub_4C4A78+89B↑j
+loc_4C531F:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+89B↑j
                 mov     eax, dword ptr [ebp+var_180]
                 mov     [ebp+var_88], eax
 ;   } // starts at 4C52EF
@@ -43583,7 +43583,7 @@ loc_4C531F:                             ; CODE XREF: sub_4C4A78+89B↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C532B
 
-loc_4C5354:                             ; CODE XREF: sub_4C4A78+8C8↑j
+loc_4C5354:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+8C8↑j
 ;   try {
                 mov     [ebp+var_4], 15h
                 mov     edx, dword ptr [ebp+var_E4]
@@ -43595,7 +43595,7 @@ loc_4C5354:                             ; CODE XREF: sub_4C4A78+8C8↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C5354
 
-loc_4C537D:                             ; CODE XREF: sub_4C4A78+8F1↑j
+loc_4C537D:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+8F1↑j
 ;   try {
                 mov     [ebp+var_4], 14h
                 mov     eax, dword ptr [ebp+var_E4]
@@ -43607,7 +43607,7 @@ loc_4C537D:                             ; CODE XREF: sub_4C4A78+8F1↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C537D
 
-loc_4C53A5:                             ; CODE XREF: sub_4C4A78+919↑j
+loc_4C53A5:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+919↑j
 ;   try {
                 mov     [ebp+var_4], 13h
                 mov     ecx, dword ptr [ebp+var_E4]
@@ -43619,7 +43619,7 @@ loc_4C53A5:                             ; CODE XREF: sub_4C4A78+919↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C53A5
 
-loc_4C53CE:                             ; CODE XREF: sub_4C4A78+942↑j
+loc_4C53CE:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+942↑j
                 mov     [ebp+var_4], 0FFFFFFFFh
                 mov     edx, dword ptr [ebp+var_10]
                 mov     eax, dword ptr [ebp+var_E8]
@@ -43698,10 +43698,10 @@ loc_4C53CE:                             ; CODE XREF: sub_4C4A78+942↑j
                 jmp     short loc_4C5532
 ; ---------------------------------------------------------------------------
 
-loc_4C5528:                             ; CODE XREF: sub_4C4A78+98E↑j
+loc_4C5528:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+98E↑j
                 mov     [ebp+var_1A4], 0
 
-loc_4C5532:                             ; CODE XREF: sub_4C4A78+AAE↑j
+loc_4C5532:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+AAE↑j
                 mov     ecx, dword ptr [ebp+var_1A4]
                 mov     [ebp+var_A0], ecx
 ;   } // starts at 4C5502
@@ -43716,7 +43716,7 @@ loc_4C5532:                             ; CODE XREF: sub_4C4A78+AAE↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C553E
 
-loc_4C5567:                             ; CODE XREF: sub_4C4A78+ADB↑j
+loc_4C5567:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+ADB↑j
 ;   try {
                 mov     [ebp+var_4], 1Ah
                 mov     eax, dword ptr [ebp+var_E4]
@@ -43728,7 +43728,7 @@ loc_4C5567:                             ; CODE XREF: sub_4C4A78+ADB↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C5567
 
-loc_4C558F:                             ; CODE XREF: sub_4C4A78+B03↑j
+loc_4C558F:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+B03↑j
 ;   try {
                 mov     [ebp+var_4], 19h
                 mov     ecx, dword ptr [ebp+var_E4]
@@ -43740,7 +43740,7 @@ loc_4C558F:                             ; CODE XREF: sub_4C4A78+B03↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C558F
 
-loc_4C55B8:                             ; CODE XREF: sub_4C4A78+B2C↑j
+loc_4C55B8:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+B2C↑j
 ;   try {
                 mov     [ebp+var_4], 18h
                 mov     edx, dword ptr [ebp+var_E4]
@@ -43752,7 +43752,7 @@ loc_4C55B8:                             ; CODE XREF: sub_4C4A78+B2C↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C55B8
 
-loc_4C55E1:                             ; CODE XREF: sub_4C4A78+B55↑j
+loc_4C55E1:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+B55↑j
                 mov     [ebp+var_4], 0FFFFFFFFh
                 mov     eax, dword ptr [ebp+var_10]
                 mov     ecx, dword ptr [ebp+var_E8]
@@ -43761,17 +43761,17 @@ loc_4C55E1:                             ; CODE XREF: sub_4C4A78+B55↑j
                 jmp     loc_4C51C7
 ; ---------------------------------------------------------------------------
 
-loc_4C5603:                             ; CODE XREF: sub_4C4A78+75C↑j
+loc_4C5603:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+75C↑j
                 mov     [ebp+var_10], 0
                 jmp     short loc_4C5615
 ; ---------------------------------------------------------------------------
 
-loc_4C560C:                             ; CODE XREF: sub_4C4A78+FCB↓j
+loc_4C560C:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+FCB↓j
                 mov     eax, dword ptr [ebp+var_10]
                 add     eax, 1
                 mov     [ebp+var_10], eax
 
-loc_4C5615:                             ; CODE XREF: sub_4C4A78+B92↑j
+loc_4C5615:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+B92↑j
                 cmp     [ebp+var_10], 6
                 jge     loc_4C5A48
                 push    24h ; '$'       ; varSize
@@ -43847,10 +43847,10 @@ loc_4C5615:                             ; CODE XREF: sub_4C4A78+B92↑j
                 jmp     short loc_4C5764
 ; ---------------------------------------------------------------------------
 
-loc_4C575A:                             ; CODE XREF: sub_4C4A78+BC2↑j
+loc_4C575A:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+BC2↑j
                 mov     [ebp+var_1C8], 0
 
-loc_4C5764:                             ; CODE XREF: sub_4C4A78+CE0↑j
+loc_4C5764:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+CE0↑j
                 mov     eax, dword ptr [ebp+var_1C8]
                 mov     [ebp+var_B8], eax
 ;   } // starts at 4C5734
@@ -43865,7 +43865,7 @@ loc_4C5764:                             ; CODE XREF: sub_4C4A78+CE0↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C5770
 
-loc_4C5799:                             ; CODE XREF: sub_4C4A78+D0D↑j
+loc_4C5799:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+D0D↑j
 ;   try {
                 mov     [ebp+var_4], 1Fh
                 mov     edx, dword ptr [ebp+var_E4]
@@ -43877,7 +43877,7 @@ loc_4C5799:                             ; CODE XREF: sub_4C4A78+D0D↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C5799
 
-loc_4C57C2:                             ; CODE XREF: sub_4C4A78+D36↑j
+loc_4C57C2:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+D36↑j
 ;   try {
                 mov     [ebp+var_4], 1Eh
                 mov     eax, dword ptr [ebp+var_E4]
@@ -43889,7 +43889,7 @@ loc_4C57C2:                             ; CODE XREF: sub_4C4A78+D36↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C57C2
 
-loc_4C57EA:                             ; CODE XREF: sub_4C4A78+D5E↑j
+loc_4C57EA:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+D5E↑j
 ;   try {
                 mov     [ebp+var_4], 1Dh
                 mov     ecx, dword ptr [ebp+var_E4]
@@ -43901,7 +43901,7 @@ loc_4C57EA:                             ; CODE XREF: sub_4C4A78+D5E↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C57EA
 
-loc_4C5813:                             ; CODE XREF: sub_4C4A78+D87↑j
+loc_4C5813:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+D87↑j
                 mov     [ebp+var_4], 0FFFFFFFFh
                 mov     edx, dword ptr [ebp+var_10]
                 mov     eax, dword ptr [ebp+var_E8]
@@ -43980,10 +43980,10 @@ loc_4C5813:                             ; CODE XREF: sub_4C4A78+D87↑j
                 jmp     short loc_4C5977
 ; ---------------------------------------------------------------------------
 
-loc_4C596D:                             ; CODE XREF: sub_4C4A78+DD3↑j
+loc_4C596D:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+DD3↑j
                 mov     [ebp+var_1EC], 0
 
-loc_4C5977:                             ; CODE XREF: sub_4C4A78+EF3↑j
+loc_4C5977:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+EF3↑j
                 mov     ecx, dword ptr [ebp+var_1EC]
                 mov     [ebp+var_D0], ecx
 ;   } // starts at 4C5947
@@ -43998,7 +43998,7 @@ loc_4C5977:                             ; CODE XREF: sub_4C4A78+EF3↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C5983
 
-loc_4C59AC:                             ; CODE XREF: sub_4C4A78+F20↑j
+loc_4C59AC:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+F20↑j
 ;   try {
                 mov     [ebp+var_4], 24h ; '$'
                 mov     eax, dword ptr [ebp+var_E4]
@@ -44010,7 +44010,7 @@ loc_4C59AC:                             ; CODE XREF: sub_4C4A78+F20↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C59AC
 
-loc_4C59D4:                             ; CODE XREF: sub_4C4A78+F48↑j
+loc_4C59D4:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+F48↑j
 ;   try {
                 mov     [ebp+var_4], 23h ; '#'
                 mov     ecx, dword ptr [ebp+var_E4]
@@ -44022,7 +44022,7 @@ loc_4C59D4:                             ; CODE XREF: sub_4C4A78+F48↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C59D4
 
-loc_4C59FD:                             ; CODE XREF: sub_4C4A78+F71↑j
+loc_4C59FD:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+F71↑j
 ;   try {
                 mov     [ebp+var_4], 22h ; '"'
                 mov     edx, dword ptr [ebp+var_E4]
@@ -44034,7 +44034,7 @@ loc_4C59FD:                             ; CODE XREF: sub_4C4A78+F71↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 ;   } // starts at 4C59FD
 
-loc_4C5A26:                             ; CODE XREF: sub_4C4A78+F9A↑j
+loc_4C5A26:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+F9A↑j
                 mov     [ebp+var_4], 0FFFFFFFFh
                 mov     eax, dword ptr [ebp+var_10]
                 mov     ecx, dword ptr [ebp+var_E8]
@@ -44043,7 +44043,7 @@ loc_4C5A26:                             ; CODE XREF: sub_4C4A78+F9A↑j
                 jmp     loc_4C560C
 ; ---------------------------------------------------------------------------
 
-loc_4C5A48:                             ; CODE XREF: sub_4C4A78+BA1↑j
+loc_4C5A48:                             ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+BA1↑j
                 mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
                 call    ?Update@CMousePointer@@QAEXXZ 
                 mov     eax, dword ptr [ebp+var_E8]
@@ -44056,14 +44056,14 @@ loc_4C5A48:                             ; CODE XREF: sub_4C4A78+BA1↑j
                 pop     ebp
                 retn
 ; } // starts at 4C4A78
-sub_4C4A78      endp
+?VMethod26@VisShopCompassKaarg@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4C5A80      proc near               ; DATA XREF: .rdata:0060D81C↓o
+?VMethod27@VisShopCompassKaarg@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060D81C↓o
 
 var_50          = dword ptr -50h
 var_4C          = dword ptr -4Ch
@@ -44109,10 +44109,10 @@ var_4           = dword ptr -4
                 jmp     short loc_4C5AC6
 ; ---------------------------------------------------------------------------
 
-loc_4C5ABF:                             ; CODE XREF: sub_4C5A80+2B↑j
+loc_4C5ABF:                             ; CODE XREF: ?VMethod27@VisShopCompassKaarg@@UAEXXZ+2B↑j
                 mov     [ebp+var_3C], 0
 
-loc_4C5AC6:                             ; CODE XREF: sub_4C5A80+13↑j
+loc_4C5AC6:                             ; CODE XREF: ?VMethod27@VisShopCompassKaarg@@UAEXXZ+13↑j
                 mov     eax, dword ptr [ebp+var_38]
                 cmp     dword ptr [eax+124h], 0
                 jz      short loc_4C5B03
@@ -44132,10 +44132,10 @@ loc_4C5AC6:                             ; CODE XREF: sub_4C5A80+13↑j
                 jmp     short loc_4C5B03
 ; ---------------------------------------------------------------------------
 
-loc_4C5AFC:                             ; CODE XREF: sub_4C5A80+68↑j
+loc_4C5AFC:                             ; CODE XREF: ?VMethod27@VisShopCompassKaarg@@UAEXXZ+68↑j
                 mov     [ebp+var_40], 0
 
-loc_4C5B03:                             ; CODE XREF: sub_4C5A80+50↑j
+loc_4C5B03:                             ; CODE XREF: ?VMethod27@VisShopCompassKaarg@@UAEXXZ+50↑j
                 mov     eax, dword ptr [ebp+var_38]
                 cmp     dword ptr [eax+128h], 0
                 jz      short loc_4C5B40
@@ -44155,10 +44155,10 @@ loc_4C5B03:                             ; CODE XREF: sub_4C5A80+50↑j
                 jmp     short loc_4C5B40
 ; ---------------------------------------------------------------------------
 
-loc_4C5B39:                             ; CODE XREF: sub_4C5A80+A5↑j
+loc_4C5B39:                             ; CODE XREF: ?VMethod27@VisShopCompassKaarg@@UAEXXZ+A5↑j
                 mov     [ebp+var_44], 0
 
-loc_4C5B40:                             ; CODE XREF: sub_4C5A80+8D↑j
+loc_4C5B40:                             ; CODE XREF: ?VMethod27@VisShopCompassKaarg@@UAEXXZ+8D↑j
                 mov     eax, dword ptr [ebp+var_38]
                 mov     dword ptr [eax+120h], 0
                 mov     ecx, dword ptr [ebp+var_38]
@@ -44169,12 +44169,12 @@ loc_4C5B40:                             ; CODE XREF: sub_4C5A80+8D↑j
                 jmp     short loc_4C5B79
 ; ---------------------------------------------------------------------------
 
-loc_4C5B70:                             ; CODE XREF: sub_4C5A80+155↓j
+loc_4C5B70:                             ; CODE XREF: ?VMethod27@VisShopCompassKaarg@@UAEXXZ+155↓j
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 1
                 mov     [ebp+var_4], eax
 
-loc_4C5B79:                             ; CODE XREF: sub_4C5A80+EE↑j
+loc_4C5B79:                             ; CODE XREF: ?VMethod27@VisShopCompassKaarg@@UAEXXZ+EE↑j
                 cmp     [ebp+var_4], 4
                 jge     short loc_4C5BD7
                 mov     ecx, dword ptr [ebp+var_4]
@@ -44198,27 +44198,27 @@ loc_4C5B79:                             ; CODE XREF: sub_4C5A80+EE↑j
                 jmp     short loc_4C5BC4
 ; ---------------------------------------------------------------------------
 
-loc_4C5BBD:                             ; CODE XREF: sub_4C5A80+129↑j
+loc_4C5BBD:                             ; CODE XREF: ?VMethod27@VisShopCompassKaarg@@UAEXXZ+129↑j
                 mov     [ebp+var_48], 0
 
-loc_4C5BC4:                             ; CODE XREF: sub_4C5A80+10D↑j
+loc_4C5BC4:                             ; CODE XREF: ?VMethod27@VisShopCompassKaarg@@UAEXXZ+10D↑j
                 mov     eax, dword ptr [ebp+var_4]
                 mov     ecx, dword ptr [ebp+var_38]
                 mov     dword ptr [ecx+eax*4+25Ch], 0
                 jmp     short loc_4C5B70
 ; ---------------------------------------------------------------------------
 
-loc_4C5BD7:                             ; CODE XREF: sub_4C5A80+FD↑j
+loc_4C5BD7:                             ; CODE XREF: ?VMethod27@VisShopCompassKaarg@@UAEXXZ+FD↑j
                 mov     [ebp+var_4], 0
                 jmp     short loc_4C5BE9
 ; ---------------------------------------------------------------------------
 
-loc_4C5BE0:                             ; CODE XREF: sub_4C5A80+21F↓j
+loc_4C5BE0:                             ; CODE XREF: ?VMethod27@VisShopCompassKaarg@@UAEXXZ+21F↓j
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 1
                 mov     [ebp+var_4], edx
 
-loc_4C5BE9:                             ; CODE XREF: sub_4C5A80+15E↑j
+loc_4C5BE9:                             ; CODE XREF: ?VMethod27@VisShopCompassKaarg@@UAEXXZ+15E↑j
                 cmp     [ebp+var_4], 12h
                 jge     loc_4C5CA4
                 mov     eax, dword ptr [ebp+var_4]
@@ -44242,10 +44242,10 @@ loc_4C5BE9:                             ; CODE XREF: sub_4C5A80+15E↑j
                 jmp     short loc_4C5C38
 ; ---------------------------------------------------------------------------
 
-loc_4C5C31:                             ; CODE XREF: sub_4C5A80+19D↑j
+loc_4C5C31:                             ; CODE XREF: ?VMethod27@VisShopCompassKaarg@@UAEXXZ+19D↑j
                 mov     [ebp+var_4C], 0
 
-loc_4C5C38:                             ; CODE XREF: sub_4C5A80+181↑j
+loc_4C5C38:                             ; CODE XREF: ?VMethod27@VisShopCompassKaarg@@UAEXXZ+181↑j
                 mov     eax, dword ptr [ebp+var_4]
                 mov     ecx, dword ptr [ebp+var_38]
                 mov     dword ptr [ecx+eax*4+26Ch], 0
@@ -44270,28 +44270,28 @@ loc_4C5C38:                             ; CODE XREF: sub_4C5A80+181↑j
                 jmp     short loc_4C5C8E
 ; ---------------------------------------------------------------------------
 
-loc_4C5C87:                             ; CODE XREF: sub_4C5A80+1F3↑j
+loc_4C5C87:                             ; CODE XREF: ?VMethod27@VisShopCompassKaarg@@UAEXXZ+1F3↑j
                 mov     [ebp+var_50], 0
 
-loc_4C5C8E:                             ; CODE XREF: sub_4C5A80+1D7↑j
+loc_4C5C8E:                             ; CODE XREF: ?VMethod27@VisShopCompassKaarg@@UAEXXZ+1D7↑j
                 mov     ecx, dword ptr [ebp+var_4]
                 mov     edx, dword ptr [ebp+var_38]
                 mov     dword ptr [edx+ecx*4+2B4h], 0
                 jmp     loc_4C5BE0
 ; ---------------------------------------------------------------------------
 
-loc_4C5CA4:                             ; CODE XREF: sub_4C5A80+16D↑j
+loc_4C5CA4:                             ; CODE XREF: ?VMethod27@VisShopCompassKaarg@@UAEXXZ+16D↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4C5A80      endp
+?VMethod27@VisShopCompassKaarg@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4C5CA8      proc near               ; DATA XREF: .rdata:0060D82C↓o
+?VMethod31@VisShopCompassKaarg@@UAEXH@Z      proc near               ; DATA XREF: .rdata:0060D82C↓o
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -44309,14 +44309,14 @@ arg_0           = dword ptr  8
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4C5CA8      endp
+?VMethod31@VisShopCompassKaarg@@UAEXH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4C5CC7      proc near               ; DATA XREF: .rdata:0060D830↓o
+?VMethod32@VisShopCompassKaarg@@UAEXH@Z      proc near               ; DATA XREF: .rdata:0060D830↓o
 
 var_14          = dword ptr -14h
 var_10          = dword ptr -10h
@@ -44333,12 +44333,12 @@ arg_0           = dword ptr  8
                 jmp     short loc_4C5CE2
 ; ---------------------------------------------------------------------------
 
-loc_4C5CD9:                             ; CODE XREF: sub_4C5CC7+92↓j
+loc_4C5CD9:                             ; CODE XREF: ?VMethod32@VisShopCompassKaarg@@UAEXH@Z+92↓j
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 1
                 mov     [ebp+var_4], eax
 
-loc_4C5CE2:                             ; CODE XREF: sub_4C5CC7+10↑j
+loc_4C5CE2:                             ; CODE XREF: ?VMethod32@VisShopCompassKaarg@@UAEXH@Z+10↑j
                 cmp     [ebp+var_4], 0Bh
                 jge     short loc_4C5D5E
                 mov     ecx, dword ptr [ebp+arg_0]
@@ -44368,10 +44368,10 @@ loc_4C5CE2:                             ; CODE XREF: sub_4C5CC7+10↑j
                 jmp     short loc_4C5D3F
 ; ---------------------------------------------------------------------------
 
-loc_4C5D38:                             ; CODE XREF: sub_4C5CC7+5D↑j
+loc_4C5D38:                             ; CODE XREF: ?VMethod32@VisShopCompassKaarg@@UAEXH@Z+5D↑j
                 mov     [ebp+var_14], 0
 
-loc_4C5D3F:                             ; CODE XREF: sub_4C5CC7+38↑j
+loc_4C5D3F:                             ; CODE XREF: ?VMethod32@VisShopCompassKaarg@@UAEXH@Z+38↑j
                 mov     ecx, dword ptr [ebp+arg_0]
                 imul    ecx, 2Ch ; ','
                 mov     edx, dword ptr [ebp+var_10]
@@ -44381,18 +44381,18 @@ loc_4C5D3F:                             ; CODE XREF: sub_4C5CC7+38↑j
                 jmp     loc_4C5CD9
 ; ---------------------------------------------------------------------------
 
-loc_4C5D5E:                             ; CODE XREF: sub_4C5CC7+1F↑j
+loc_4C5D5E:                             ; CODE XREF: ?VMethod32@VisShopCompassKaarg@@UAEXH@Z+1F↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4C5CC7      endp
+?VMethod32@VisShopCompassKaarg@@UAEXH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4C5D64      proc near               ; DATA XREF: .rdata:0060D820↓o
+?VMethod28@VisShopCompassKaarg@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060D820↓o
 
 var_4           = dword ptr -4
 
@@ -44407,14 +44407,14 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4C5D64      endp
+?VMethod28@VisShopCompassKaarg@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4C5D7D      proc near               ; DATA XREF: .rdata:0060D824↓o
+?VMethod29@VisShopCompassKaarg@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060D824↓o
 
 var_4           = dword ptr -4
 
@@ -44429,14 +44429,14 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4C5D7D      endp
+?VMethod29@VisShopCompassKaarg@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4C5D96      proc near               ; DATA XREF: .rdata:0060D828↓o
+?VMethod30@VisShopCompassKaarg@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060D828↓o
 
 var_50          = dword ptr -50h
 var_4C          = dword ptr -4Ch
@@ -44483,7 +44483,7 @@ var_4           = dword ptr -4
                 mov     ecx, dword ptr [ebp+var_4C]
                 mov     [ecx+240h], eax
 
-loc_4C5E13:                             ; CODE XREF: sub_4C5D96+66↑j
+loc_4C5E13:                             ; CODE XREF: ?VMethod30@VisShopCompassKaarg@@UAEXXZ+66↑j
                 mov     edx, dword ptr [ebp+var_4C]
                 mov     eax, dword ptr [edx+240h]
                 and     eax, 10h
@@ -44501,7 +44501,7 @@ loc_4C5E13:                             ; CODE XREF: sub_4C5D96+66↑j
                 jmp     short loc_4C5E84
 ; ---------------------------------------------------------------------------
 
-loc_4C5E43:                             ; CODE XREF: sub_4C5D96+8B↑j
+loc_4C5E43:                             ; CODE XREF: ?VMethod30@VisShopCompassKaarg@@UAEXXZ+8B↑j
                 mov     ecx, dword ptr [ebp+var_4C]
                 mov     edx, dword ptr [ecx+240h]
                 and     edx, 20h
@@ -44519,14 +44519,14 @@ loc_4C5E43:                             ; CODE XREF: sub_4C5D96+8B↑j
                 jmp     short loc_4C5E84
 ; ---------------------------------------------------------------------------
 
-loc_4C5E73:                             ; CODE XREF: sub_4C5D96+BB↑j
+loc_4C5E73:                             ; CODE XREF: ?VMethod30@VisShopCompassKaarg@@UAEXXZ+BB↑j
                 push    offset aMoviesShopKaar_2 ; "movies\\shop_kaarg\\a10000.bmp"
                 lea     eax, [ebp+Buffer]
                 push    eax             ; Buffer
                 call    _sprintf
                 add     esp, 8
 
-loc_4C5E84:                             ; CODE XREF: sub_4C5D96+AB↑j
+loc_4C5E84:                             ; CODE XREF: ?VMethod30@VisShopCompassKaarg@@UAEXXZ+AB↑j
                 push    24h ; '$'       ; varSize
                 call    ??2CObject@@SGPAXI@Z
                 mov     [ebp+Block], eax
@@ -44542,10 +44542,10 @@ loc_4C5E84:                             ; CODE XREF: sub_4C5D96+AB↑j
                 jmp     short loc_4C5EB3
 ; ---------------------------------------------------------------------------
 
-loc_4C5EAC:                             ; CODE XREF: sub_4C5D96+103↑j
+loc_4C5EAC:                             ; CODE XREF: ?VMethod30@VisShopCompassKaarg@@UAEXXZ+103↑j
                 mov     [ebp+var_50], 0
 
-loc_4C5EB3:                             ; CODE XREF: sub_4C5D96+114↑j
+loc_4C5EB3:                             ; CODE XREF: ?VMethod30@VisShopCompassKaarg@@UAEXXZ+114↑j
                 mov     edx, dword ptr [ebp+var_50]
                 mov     [ebp+var_48], edx
 ;   } // starts at 4C5E8E
@@ -44559,14 +44559,14 @@ loc_4C5EB3:                             ; CODE XREF: sub_4C5D96+114↑j
                 pop     ebp
                 retn
 ; } // starts at 4C5D96
-sub_4C5D96      endp
+?VMethod30@VisShopCompassKaarg@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4C5EDA      proc near               ; DATA XREF: .rdata:0060D834↓o
+?VMethod33@VisShopCompassKaarg@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060D834↓o
 
 var_14          = dword ptr -14h
 var_10          = dword ptr -10h
@@ -44582,12 +44582,12 @@ var_4           = dword ptr -4
                 jmp     short loc_4C5EF5
 ; ---------------------------------------------------------------------------
 
-loc_4C5EEC:                             ; CODE XREF: sub_4C5EDA+77↓j
+loc_4C5EEC:                             ; CODE XREF: ?VMethod33@VisShopCompassKaarg@@UAEXXZ+77↓j
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 1
                 mov     [ebp+var_4], eax
 
-loc_4C5EF5:                             ; CODE XREF: sub_4C5EDA+10↑j
+loc_4C5EF5:                             ; CODE XREF: ?VMethod33@VisShopCompassKaarg@@UAEXXZ+10↑j
                 cmp     [ebp+var_4], 0Ch
                 jge     short loc_4C5F53
                 mov     ecx, dword ptr [ebp+var_4]
@@ -44611,28 +44611,28 @@ loc_4C5EF5:                             ; CODE XREF: sub_4C5EDA+10↑j
                 jmp     short loc_4C5F40
 ; ---------------------------------------------------------------------------
 
-loc_4C5F39:                             ; CODE XREF: sub_4C5EDA+4B↑j
+loc_4C5F39:                             ; CODE XREF: ?VMethod33@VisShopCompassKaarg@@UAEXXZ+4B↑j
                 mov     [ebp+var_14], 0
 
-loc_4C5F40:                             ; CODE XREF: sub_4C5EDA+2F↑j
+loc_4C5F40:                             ; CODE XREF: ?VMethod33@VisShopCompassKaarg@@UAEXXZ+2F↑j
                 mov     eax, dword ptr [ebp+var_4]
                 mov     ecx, dword ptr [ebp+var_10]
                 mov     dword ptr [ecx+eax*4+1E0h], 0
                 jmp     short loc_4C5EEC
 ; ---------------------------------------------------------------------------
 
-loc_4C5F53:                             ; CODE XREF: sub_4C5EDA+1F↑j
+loc_4C5F53:                             ; CODE XREF: ?VMethod33@VisShopCompassKaarg@@UAEXXZ+1F↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4C5EDA      endp
+?VMethod33@VisShopCompassKaarg@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4C5F57      proc near               ; DATA XREF: .rdata:0060D838↓o
+?VMethod34@VisShopCompassKaarg@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060D838↓o
 
 var_14          = dword ptr -14h
 var_10          = dword ptr -10h
@@ -44648,12 +44648,12 @@ var_4           = dword ptr -4
                 jmp     short loc_4C5F72
 ; ---------------------------------------------------------------------------
 
-loc_4C5F69:                             ; CODE XREF: sub_4C5F57+77↓j
+loc_4C5F69:                             ; CODE XREF: ?VMethod34@VisShopCompassKaarg@@UAEXXZ+77↓j
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 1
                 mov     [ebp+var_4], eax
 
-loc_4C5F72:                             ; CODE XREF: sub_4C5F57+10↑j
+loc_4C5F72:                             ; CODE XREF: ?VMethod34@VisShopCompassKaarg@@UAEXXZ+10↑j
                 cmp     [ebp+var_4], 0Ch
                 jge     short loc_4C5FD0
                 mov     ecx, dword ptr [ebp+var_4]
@@ -44677,28 +44677,28 @@ loc_4C5F72:                             ; CODE XREF: sub_4C5F57+10↑j
                 jmp     short loc_4C5FBD
 ; ---------------------------------------------------------------------------
 
-loc_4C5FB6:                             ; CODE XREF: sub_4C5F57+4B↑j
+loc_4C5FB6:                             ; CODE XREF: ?VMethod34@VisShopCompassKaarg@@UAEXXZ+4B↑j
                 mov     [ebp+var_14], 0
 
-loc_4C5FBD:                             ; CODE XREF: sub_4C5F57+2F↑j
+loc_4C5FBD:                             ; CODE XREF: ?VMethod34@VisShopCompassKaarg@@UAEXXZ+2F↑j
                 mov     eax, dword ptr [ebp+var_4]
                 mov     ecx, dword ptr [ebp+var_10]
                 mov     dword ptr [ecx+eax*4+210h], 0
                 jmp     short loc_4C5F69
 ; ---------------------------------------------------------------------------
 
-loc_4C5FD0:                             ; CODE XREF: sub_4C5F57+1F↑j
+loc_4C5FD0:                             ; CODE XREF: ?VMethod34@VisShopCompassKaarg@@UAEXXZ+1F↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4C5F57      endp
+?VMethod34@VisShopCompassKaarg@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4C5FD4      proc near               ; DATA XREF: .rdata:0060D83C↓o
+?VMethod35@VisShopCompassKaarg@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060D83C↓o
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -44728,23 +44728,23 @@ var_4           = dword ptr -4
                 jmp     short loc_4C601A
 ; ---------------------------------------------------------------------------
 
-loc_4C6013:                             ; CODE XREF: sub_4C5FD4+2B↑j
+loc_4C6013:                             ; CODE XREF: ?VMethod35@VisShopCompassKaarg@@UAEXXZ+2B↑j
                 mov     [ebp+var_10], 0
 
-loc_4C601A:                             ; CODE XREF: sub_4C5FD4+13↑j
+loc_4C601A:                             ; CODE XREF: ?VMethod35@VisShopCompassKaarg@@UAEXXZ+13↑j
                 mov     eax, dword ptr [ebp+var_C]
                 mov     dword ptr [eax+12Ch], 0
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4C5FD4      endp
+?VMethod35@VisShopCompassKaarg@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4C602B      proc near               ; DATA XREF: .rdata:0060D840↓o
+?VMethod36@VisShopCompassKaarg@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060D840↓o
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -44757,12 +44757,12 @@ var_4           = dword ptr -4
                 jmp     short loc_4C6046
 ; ---------------------------------------------------------------------------
 
-loc_4C603D:                             ; CODE XREF: sub_4C602B+33↓j
+loc_4C603D:                             ; CODE XREF: ?VMethod36@VisShopCompassKaarg@@UAEXXZ+33↓j
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 1
                 mov     [ebp+var_4], eax
 
-loc_4C6046:                             ; CODE XREF: sub_4C602B+10↑j
+loc_4C6046:                             ; CODE XREF: ?VMethod36@VisShopCompassKaarg@@UAEXXZ+10↑j
                 cmp     [ebp+var_4], 4
                 jge     short loc_4C6060
                 mov     ecx, dword ptr [ebp+var_4]
@@ -44774,7 +44774,7 @@ loc_4C6046:                             ; CODE XREF: sub_4C602B+10↑j
                 jmp     short loc_4C603D
 ; ---------------------------------------------------------------------------
 
-loc_4C6060:                             ; CODE XREF: sub_4C602B+1F↑j
+loc_4C6060:                             ; CODE XREF: ?VMethod36@VisShopCompassKaarg@@UAEXXZ+1F↑j
                 mov     ecx, dword ptr [ebp+var_8]
                 mov     edx, dword ptr [ecx]
                 mov     ecx, dword ptr [ebp+var_8]
@@ -44790,14 +44790,14 @@ loc_4C6060:                             ; CODE XREF: sub_4C602B+1F↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4C602B      endp
+?VMethod36@VisShopCompassKaarg@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4C608E      proc near               ; DATA XREF: .rdata:0060D7CC↓o
+?VMethod7@VisShopCompassKaarg@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060D7CC↓o
 
 var_C           = dword ptr -0Ch
 var_8           = dword ptr -8
@@ -44820,7 +44820,7 @@ var_4           = dword ptr -4
                 sub     eax, 64h ; 'd'
                 mov     dword_665DB4, eax
 
-loc_4C60C3:                             ; CODE XREF: sub_4C608E+16↑j
+loc_4C60C3:                             ; CODE XREF: ?VMethod7@VisShopCompassKaarg@@UAEXXZ+16↑j
                 xor     edx, edx
                 mov     dl, byte_665DD0
                 and     edx, 2
@@ -44832,7 +44832,7 @@ loc_4C60C3:                             ; CODE XREF: sub_4C608E+16↑j
                 call    timeGetTime
                 mov     dword_665DB0, eax
 
-loc_4C60E9:                             ; CODE XREF: sub_4C608E+42↑j
+loc_4C60E9:                             ; CODE XREF: ?VMethod7@VisShopCompassKaarg@@UAEXXZ+42↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     ecx, dword ptr [ecx+5Ch]
                 add     ecx, 8
@@ -44848,7 +44848,7 @@ loc_4C60E9:                             ; CODE XREF: sub_4C608E+42↑j
                 jmp     loc_4C65B5
 ; ---------------------------------------------------------------------------
 
-loc_4C6116:                             ; CODE XREF: sub_4C608E+81↑j
+loc_4C6116:                             ; CODE XREF: ?VMethod7@VisShopCompassKaarg@@UAEXXZ+81↑j
                 call    timeGetTime
                 sub     eax, dword_665DB4
                 cmp     eax, 64h ; 'd'
@@ -44894,7 +44894,7 @@ loc_4C6116:                             ; CODE XREF: sub_4C608E+81↑j
                 mov     eax, dword ptr [ebp+var_C]
                 mov     [eax+240h], edx
 
-loc_4C61BC:                             ; CODE XREF: sub_4C608E+E5↑j
+loc_4C61BC:                             ; CODE XREF: ?VMethod7@VisShopCompassKaarg@@UAEXXZ+E5↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     edx, dword ptr [ecx+240h]
                 and     edx, 30h
@@ -44910,7 +44910,7 @@ loc_4C61BC:                             ; CODE XREF: sub_4C608E+E5↑j
                 call    timeGetTime
                 mov     dword_665DB0, eax
 
-loc_4C61F1:                             ; CODE XREF: sub_4C608E+13C↑j
+loc_4C61F1:                             ; CODE XREF: ?VMethod7@VisShopCompassKaarg@@UAEXXZ+13C↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 cmp     dword ptr [ecx+300h], 0
                 jz      short loc_4C624C
@@ -44926,18 +44926,18 @@ loc_4C61F1:                             ; CODE XREF: sub_4C608E+13C↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     dword ptr [ecx+300h], 0
 
-loc_4C6231:                             ; CODE XREF: sub_4C608E+194↑j
+loc_4C6231:                             ; CODE XREF: ?VMethod7@VisShopCompassKaarg@@UAEXXZ+194↑j
                 mov     edx, dword ptr [ebp+var_C]
                 cmp     dword ptr [edx+2FCh], 11h
                 jl      short loc_4C624A
                 mov     eax, dword ptr [ebp+var_C]
                 mov     dword ptr [eax+300h], 0
 
-loc_4C624A:                             ; CODE XREF: sub_4C608E+1AD↑j
+loc_4C624A:                             ; CODE XREF: ?VMethod7@VisShopCompassKaarg@@UAEXXZ+1AD↑j
                 jmp     short loc_4C6293
 ; ---------------------------------------------------------------------------
 
-loc_4C624C:                             ; CODE XREF: sub_4C608E+16D↑j
+loc_4C624C:                             ; CODE XREF: ?VMethod7@VisShopCompassKaarg@@UAEXXZ+16D↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     edx, dword ptr [ecx+2FCh]
                 add     edx, 1
@@ -44949,14 +44949,14 @@ loc_4C624C:                             ; CODE XREF: sub_4C608E+16D↑j
                 mov     edx, dword ptr [ebp+var_C]
                 mov     dword ptr [edx+2FCh], 0
 
-loc_4C627A:                             ; CODE XREF: sub_4C608E+1DD↑j
+loc_4C627A:                             ; CODE XREF: ?VMethod7@VisShopCompassKaarg@@UAEXXZ+1DD↑j
                 mov     eax, dword ptr [ebp+var_C]
                 cmp     dword ptr [eax+2FCh], 12h
                 jl      short loc_4C6293
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     dword ptr [ecx+2FCh], 0Ch
 
-loc_4C6293:                             ; CODE XREF: sub_4C608E+97↑j
+loc_4C6293:                             ; CODE XREF: ?VMethod7@VisShopCompassKaarg@@UAEXXZ+97↑j
                 call    ?LockSurface2@@YAIXZ
                 mov     edx, dword ptr [ebp+var_C]
                 cmp     dword ptr [edx+120h], 0
@@ -44979,7 +44979,7 @@ loc_4C6293:                             ; CODE XREF: sub_4C608E+97↑j
                 mov     edx, dword ptr [eax]
                 call    dword ptr [edx+18h]
 
-loc_4C62D5:                             ; CODE XREF: sub_4C608E+214↑j
+loc_4C62D5:                             ; CODE XREF: ?VMethod7@VisShopCompassKaarg@@UAEXXZ+214↑j
                 mov     eax, dword ptr [ebp+var_C]
                 cmp     dword ptr [eax+124h], 0
                 jz      short loc_4C631A
@@ -45003,7 +45003,7 @@ loc_4C62D5:                             ; CODE XREF: sub_4C608E+214↑j
                 mov     edx, dword ptr [eax]
                 call    dword ptr [edx+18h]
 
-loc_4C631A:                             ; CODE XREF: sub_4C608E+251↑j
+loc_4C631A:                             ; CODE XREF: ?VMethod7@VisShopCompassKaarg@@UAEXXZ+251↑j
                 mov     eax, dword ptr [ebp+var_C]
                 mov     ecx, dword ptr [eax+5Ch]
                 xor     edx, edx
@@ -45030,7 +45030,7 @@ loc_4C631A:                             ; CODE XREF: sub_4C608E+251↑j
                 mov     eax, dword ptr [edx]
                 call    dword ptr [eax+18h]
 
-loc_4C6366:                             ; CODE XREF: sub_4C608E+29D↑j
+loc_4C6366:                             ; CODE XREF: ?VMethod7@VisShopCompassKaarg@@UAEXXZ+29D↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     edx, dword ptr [ecx+5Ch]
                 xor     eax, eax
@@ -45057,7 +45057,7 @@ loc_4C6366:                             ; CODE XREF: sub_4C608E+29D↑j
                 mov     edx, dword ptr [eax]
                 call    dword ptr [edx+18h]
 
-loc_4C63B3:                             ; CODE XREF: sub_4C608E+2EA↑j
+loc_4C63B3:                             ; CODE XREF: ?VMethod7@VisShopCompassKaarg@@UAEXXZ+2EA↑j
                 mov     eax, dword ptr [ebp+var_C]
                 mov     ecx, dword ptr [eax+5Ch]
                 xor     edx, edx
@@ -45084,7 +45084,7 @@ loc_4C63B3:                             ; CODE XREF: sub_4C608E+2EA↑j
                 mov     eax, dword ptr [edx]
                 call    dword ptr [eax+18h]
 
-loc_4C6400:                             ; CODE XREF: sub_4C608E+337↑j
+loc_4C6400:                             ; CODE XREF: ?VMethod7@VisShopCompassKaarg@@UAEXXZ+337↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     edx, dword ptr [ecx+5Ch]
                 xor     eax, eax
@@ -45111,7 +45111,7 @@ loc_4C6400:                             ; CODE XREF: sub_4C608E+337↑j
                 mov     edx, dword ptr [eax]
                 call    dword ptr [edx+18h]
 
-loc_4C6450:                             ; CODE XREF: sub_4C608E+384↑j
+loc_4C6450:                             ; CODE XREF: ?VMethod7@VisShopCompassKaarg@@UAEXXZ+384↑j
                 mov     eax, dword ptr [ebp+var_C]
                 mov     ecx, dword ptr [eax+240h]
                 and     ecx, 30h
@@ -45140,11 +45140,11 @@ loc_4C6450:                             ; CODE XREF: sub_4C608E+384↑j
                 mov     eax, dword ptr [edx]
                 call    dword ptr [eax+18h]
 
-loc_4C64A5:                             ; CODE XREF: sub_4C608E+3DC↑j
+loc_4C64A5:                             ; CODE XREF: ?VMethod7@VisShopCompassKaarg@@UAEXXZ+3DC↑j
                 jmp     short loc_4C64EC
 ; ---------------------------------------------------------------------------
 
-loc_4C64A7:                             ; CODE XREF: sub_4C608E+3D0↑j
+loc_4C64A7:                             ; CODE XREF: ?VMethod7@VisShopCompassKaarg@@UAEXXZ+3D0↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 cmp     dword ptr [ecx+128h], 0
                 jz      short loc_4C64EC
@@ -45168,7 +45168,7 @@ loc_4C64A7:                             ; CODE XREF: sub_4C608E+3D0↑j
                 mov     edx, dword ptr [eax]
                 call    dword ptr [edx+18h]
 
-loc_4C64EC:                             ; CODE XREF: sub_4C608E:loc_4C64A5↑j
+loc_4C64EC:                             ; CODE XREF: ?VMethod7@VisShopCompassKaarg@@UAEXXZ:loc_4C64A5↑j
                 mov     eax, dword ptr [ebp+var_C]
                 mov     ecx, dword ptr [eax+5Ch]
                 xor     edx, edx
@@ -45201,7 +45201,7 @@ loc_4C64EC:                             ; CODE XREF: sub_4C608E:loc_4C64A5↑j
                 jmp     short loc_4C65A8
 ; ---------------------------------------------------------------------------
 
-loc_4C6555:                             ; CODE XREF: sub_4C608E+470↑j
+loc_4C6555:                             ; CODE XREF: ?VMethod7@VisShopCompassKaarg@@UAEXXZ+470↑j
                 push    0
                 push    0
                 push    0
@@ -45226,24 +45226,24 @@ loc_4C6555:                             ; CODE XREF: sub_4C608E+470↑j
                 mov     edx, dword ptr [eax]
                 call    dword ptr [edx+18h]
 
-loc_4C65A8:                             ; CODE XREF: sub_4C608E+4C5↑j
+loc_4C65A8:                             ; CODE XREF: ?VMethod7@VisShopCompassKaarg@@UAEXXZ+4C5↑j
                 call    ?UnlockSurface2@@YAIXZ
                 mov     ecx, dword ptr [ebp+var_C]
                 call    ?VMethod7@CVisualObject@@UAEXXZ
 
-loc_4C65B5:                             ; CODE XREF: sub_4C608E+83↑j
+loc_4C65B5:                             ; CODE XREF: ?VMethod7@VisShopCompassKaarg@@UAEXXZ+83↑j
                 pop     esi
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4C608E      endp
+?VMethod7@VisShopCompassKaarg@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4C65BA      proc near               ; DATA XREF: .rdata:0060D844↓o
+?VMethod37@VisShopCompassKaarg@@UAEHH@Z      proc near               ; DATA XREF: .rdata:0060D844↓o
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -45264,7 +45264,7 @@ arg_0           = dword ptr  8
                 jmp     loc_4C6719
 ; ---------------------------------------------------------------------------
 
-loc_4C65E3:                             ; CODE XREF: sub_4C65BA+20↑j
+loc_4C65E3:                             ; CODE XREF: ?VMethod37@VisShopCompassKaarg@@UAEHH@Z+20↑j
                 mov     ecx, dword ptr [ebp+var_4]
                 mov     edx, dword ptr [ecx+5Ch]
                 add     edx, 0A0h
@@ -45292,7 +45292,7 @@ loc_4C65E3:                             ; CODE XREF: sub_4C65BA+20↑j
                 jmp     short loc_4C6681
 ; ---------------------------------------------------------------------------
 
-loc_4C6640:                             ; CODE XREF: sub_4C65BA+65↑j
+loc_4C6640:                             ; CODE XREF: ?VMethod37@VisShopCompassKaarg@@UAEHH@Z+65↑j
                 mov     eax, dword ptr [ebp+var_4]
                 mov     dword ptr [eax+240h], 0
                 mov     ecx, dword ptr [ebp+var_4]
@@ -45304,7 +45304,7 @@ loc_4C6640:                             ; CODE XREF: sub_4C65BA+65↑j
                 mov     ecx, dword ptr [ebp+var_4]
                 mov     dword ptr [ecx+244h], 0
 
-loc_4C6681:                             ; CODE XREF: sub_4C65BA+84↑j
+loc_4C6681:                             ; CODE XREF: ?VMethod37@VisShopCompassKaarg@@UAEHH@Z+84↑j
                 mov     edx, dword ptr [ebp+arg_0]
                 and     edx, 0FFFFh
                 mov     eax, dword ptr [ebp+var_4]
@@ -45325,18 +45325,18 @@ loc_4C6681:                             ; CODE XREF: sub_4C65BA+84↑j
                 mov     eax, dword ptr [ebp+var_4]
                 mov     dword ptr [eax+300h], 1
 
-loc_4C66D3:                             ; CODE XREF: sub_4C65BA+10A↑j
+loc_4C66D3:                             ; CODE XREF: ?VMethod37@VisShopCompassKaarg@@UAEHH@Z+10A↑j
                 jmp     short loc_4C66EE
 ; ---------------------------------------------------------------------------
 
-loc_4C66D5:                             ; CODE XREF: sub_4C65BA+FE↑j
+loc_4C66D5:                             ; CODE XREF: ?VMethod37@VisShopCompassKaarg@@UAEHH@Z+FE↑j
                 mov     ecx, dword ptr [ebp+var_4]
                 cmp     dword ptr [ecx+2FCh], 0
                 jle     short loc_4C66EE
                 mov     edx, dword ptr [ebp+var_4]
                 mov     dword ptr [edx+300h], 0FFFFFFFFh
 
-loc_4C66EE:                             ; CODE XREF: sub_4C65BA+F0↑j
+loc_4C66EE:                             ; CODE XREF: ?VMethod37@VisShopCompassKaarg@@UAEHH@Z+F0↑j
                 mov     eax, dword ptr [ebp+var_4]
                 mov     ecx, dword ptr [eax+5Ch]
                 mov     dx, word ptr [ebp+arg_0]
@@ -45348,18 +45348,18 @@ loc_4C66EE:                             ; CODE XREF: sub_4C65BA+F0↑j
                 mov     dword ptr [eax], 0
                 mov     eax, 1
 
-loc_4C6719:                             ; CODE XREF: sub_4C65BA+24↑j
+loc_4C6719:                             ; CODE XREF: ?VMethod37@VisShopCompassKaarg@@UAEHH@Z+24↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4C65BA      endp
+?VMethod37@VisShopCompassKaarg@@UAEHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4C671F      proc near               ; DATA XREF: .rdata:0060D7F4↓o
+?OnLButtonDown@VisShopCompassKaarg@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060D7F4↓o
 
 var_2C          = dword ptr -2Ch
 pt              = POINT ptr -28h
@@ -45389,12 +45389,12 @@ arg_8           = dword ptr  10h
                 jmp     short loc_4C675B
 ; ---------------------------------------------------------------------------
 
-loc_4C6752:                             ; CODE XREF: sub_4C671F:loc_4C67F3↓j
+loc_4C6752:                             ; CODE XREF: ?OnLButtonDown@VisShopCompassKaarg@@UAEHIVCPoint@@@Z:loc_4C67F3↓j
                 mov     eax, dword ptr [ebp+var_10]
                 add     eax, 1
                 mov     [ebp+var_10], eax
 
-loc_4C675B:                             ; CODE XREF: sub_4C671F+31↑j
+loc_4C675B:                             ; CODE XREF: ?OnLButtonDown@VisShopCompassKaarg@@UAEHIVCPoint@@@Z+31↑j
                 cmp     [ebp+var_10], 4
                 jge     loc_4C67F8
                 mov     ecx, dword ptr [ebp+arg_4]
@@ -45448,23 +45448,23 @@ loc_4C675B:                             ; CODE XREF: sub_4C671F+31↑j
                 jmp     short loc_4C67F8
 ; ---------------------------------------------------------------------------
 
-loc_4C67F3:                             ; CODE XREF: sub_4C671F+82↑j
+loc_4C67F3:                             ; CODE XREF: ?OnLButtonDown@VisShopCompassKaarg@@UAEHIVCPoint@@@Z+82↑j
                 jmp     loc_4C6752
 ; ---------------------------------------------------------------------------
 
-loc_4C67F8:                             ; CODE XREF: sub_4C671F+40↑j
+loc_4C67F8:                             ; CODE XREF: ?OnLButtonDown@VisShopCompassKaarg@@UAEHIVCPoint@@@Z+40↑j
                 xor     eax, eax
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_4C671F      endp
+?OnLButtonDown@VisShopCompassKaarg@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4C6800      proc near               ; DATA XREF: .rdata:0060D7B4↓o
+?GetHint@VisShopCompassKaarg@@UAEPBDXZ      proc near               ; DATA XREF: .rdata:0060D7B4↓o
 
 var_20          = dword ptr -20h
 var_1C          = POINT ptr -1Ch
@@ -45486,7 +45486,7 @@ var_4           = dword ptr -4
                 jmp     loc_4C6911
 ; ---------------------------------------------------------------------------
 
-loc_4C6820:                             ; CODE XREF: sub_4C6800+17↑j
+loc_4C6820:                             ; CODE XREF: ?GetHint@VisShopCompassKaarg@@UAEPBDXZ+17↑j
                 mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
                 call    ?GetY@CMousePointer@@QAEHXZ ; Microsoft VisualC 2-14/net runtime
                 mov     esi, eax
@@ -45516,17 +45516,17 @@ loc_4C6820:                             ; CODE XREF: sub_4C6800+17↑j
                 jmp     loc_4C6911
 ; ---------------------------------------------------------------------------
 
-loc_4C687D:                             ; CODE XREF: sub_4C6800+74↑j
+loc_4C687D:                             ; CODE XREF: ?GetHint@VisShopCompassKaarg@@UAEPBDXZ+74↑j
                 mov     [ebp+var_4], 0
                 jmp     short loc_4C688F
 ; ---------------------------------------------------------------------------
 
-loc_4C6886:                             ; CODE XREF: sub_4C6800:loc_4C68D7↓j
+loc_4C6886:                             ; CODE XREF: ?GetHint@VisShopCompassKaarg@@UAEPBDXZ:loc_4C68D7↓j
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 1
                 mov     [ebp+var_4], eax
 
-loc_4C688F:                             ; CODE XREF: sub_4C6800+84↑j
+loc_4C688F:                             ; CODE XREF: ?GetHint@VisShopCompassKaarg@@UAEPBDXZ+84↑j
                 cmp     [ebp+var_4], 4
                 jge     short loc_4C68D9
                 mov     ecx, dword ptr [ebp+var_C]
@@ -45553,11 +45553,11 @@ loc_4C688F:                             ; CODE XREF: sub_4C6800+84↑j
                 jmp     short loc_4C6911
 ; ---------------------------------------------------------------------------
 
-loc_4C68D7:                             ; CODE XREF: sub_4C6800+BD↑j
+loc_4C68D7:                             ; CODE XREF: ?GetHint@VisShopCompassKaarg@@UAEPBDXZ+BD↑j
                 jmp     short loc_4C6886
 ; ---------------------------------------------------------------------------
 
-loc_4C68D9:                             ; CODE XREF: sub_4C6800+93↑j
+loc_4C68D9:                             ; CODE XREF: ?GetHint@VisShopCompassKaarg@@UAEPBDXZ+93↑j
                 mov     edx, dword ptr [ebp+var_C]
                 mov     dword ptr [ebp+var_1C], edx ; var_1C.x
                 mov     eax, dword ptr [ebp+var_8]
@@ -45578,15 +45578,15 @@ loc_4C68D9:                             ; CODE XREF: sub_4C6800+93↑j
                 jmp     short loc_4C6911
 ; ---------------------------------------------------------------------------
 
-loc_4C690F:                             ; CODE XREF: sub_4C6800+FD↑j
+loc_4C690F:                             ; CODE XREF: ?GetHint@VisShopCompassKaarg@@UAEPBDXZ+FD↑j
                 xor     eax, eax
 
-loc_4C6911:                             ; CODE XREF: sub_4C6800+1B↑j
+loc_4C6911:                             ; CODE XREF: ?GetHint@VisShopCompassKaarg@@UAEPBDXZ+1B↑j
                 pop     esi
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4C6800      endp
+?GetHint@VisShopCompassKaarg@@UAEPBDXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -45627,44 +45627,12 @@ var_4           = dword ptr -4
 ; ---------------------------------------------------------------------------
                 align 10h
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_4C6AA0      proc near               ; DATA XREF: .rdata:0060D7A4↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_4C6AD0
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_4C6AC2
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_4C6AC2:                             ; CODE XREF: sub_4C6AA0+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_4C6AA0      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4C6AD0      proc near               ; CODE XREF: sub_4C6AA0+A↑p
+??1VisShopCompassKaarg@@UAE@XZ      proc near               ; CODE XREF: ??_GVisShopCompassKaarg@@UAEPAXI@Z+A↑p
 
 var_4           = dword ptr -4
 
@@ -45677,7 +45645,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4C6AD0      endp
+??1VisShopCompassKaarg@@UAE@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -203264,7 +203232,7 @@ SEH_4C2DBC:                             ; DATA XREF: ?VMethod30@VisShopCompassDr
 ; } // starts at 5FE260
 ; END OF FUNCTION CHUNK FOR ?VMethod30@VisShopCompassDruid@@UAEXXZ
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_4C4A78
+; START OF FUNCTION CHUNK FOR ?VMethod26@VisShopCompassKaarg@@UAEXXZ
 
 loc_5FE2EC:                             ; DATA XREF: .rdata:stru_61F8E0↓o
 ; __unwind { // SEH_4C4A78
@@ -203331,7 +203299,7 @@ loc_5FE33C:                             ; DATA XREF: .rdata:0061F920↓o
                 lea     ecx, [ebp+var_54] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE355:                          ; CODE XREF: sub_4C4A78+1398CF↑j
+locret_5FE355:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+1398CF↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203343,7 +203311,7 @@ loc_5FE356:                             ; DATA XREF: .rdata:0061F928↓o
                 lea     ecx, [ebp+var_58] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE36F:                          ; CODE XREF: sub_4C4A78+1398E9↑j
+locret_5FE36F:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+1398E9↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203355,7 +203323,7 @@ loc_5FE370:                             ; DATA XREF: .rdata:0061F930↓o
                 lea     ecx, [ebp+var_5C] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE389:                          ; CODE XREF: sub_4C4A78+139903↑j
+locret_5FE389:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+139903↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203367,7 +203335,7 @@ loc_5FE38A:                             ; DATA XREF: .rdata:0061F938↓o
                 lea     ecx, [ebp+var_60] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE3A3:                          ; CODE XREF: sub_4C4A78+13991D↑j
+locret_5FE3A3:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+13991D↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203379,7 +203347,7 @@ loc_5FE3A4:                             ; DATA XREF: .rdata:0061F940↓o
                 lea     ecx, [ebp+var_64] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE3BD:                          ; CODE XREF: sub_4C4A78+139937↑j
+locret_5FE3BD:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+139937↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203398,7 +203366,7 @@ loc_5FE3C8:                             ; DATA XREF: .rdata:0061F950↓o
                 lea     ecx, [ebp+var_70] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE3E1:                          ; CODE XREF: sub_4C4A78+13995B↑j
+locret_5FE3E1:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+13995B↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203410,7 +203378,7 @@ loc_5FE3E2:                             ; DATA XREF: .rdata:0061F958↓o
                 lea     ecx, [ebp+var_74] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE3FB:                          ; CODE XREF: sub_4C4A78+139975↑j
+locret_5FE3FB:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+139975↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203422,7 +203390,7 @@ loc_5FE3FC:                             ; DATA XREF: .rdata:0061F960↓o
                 lea     ecx, [ebp+var_78] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE417:                          ; CODE XREF: sub_4C4A78+139991↑j
+locret_5FE417:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+139991↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203434,7 +203402,7 @@ loc_5FE418:                             ; DATA XREF: .rdata:0061F968↓o
                 lea     ecx, [ebp+var_7C] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE433:                          ; CODE XREF: sub_4C4A78+1399AD↑j
+locret_5FE433:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+1399AD↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203446,7 +203414,7 @@ loc_5FE434:                             ; DATA XREF: .rdata:0061F970↓o
                 lea     ecx, [ebp+var_80] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE44F:                          ; CODE XREF: sub_4C4A78+1399C9↑j
+locret_5FE44F:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+1399C9↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203465,7 +203433,7 @@ loc_5FE45D:                             ; DATA XREF: .rdata:0061F980↓o
                 lea     ecx, [ebp+var_8C] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE47B:                          ; CODE XREF: sub_4C4A78+1399F2↑j
+locret_5FE47B:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+1399F2↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203477,7 +203445,7 @@ loc_5FE47C:                             ; DATA XREF: .rdata:0061F988↓o
                 lea     ecx, [ebp+var_90] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE49A:                          ; CODE XREF: sub_4C4A78+139A11↑j
+locret_5FE49A:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+139A11↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203489,7 +203457,7 @@ loc_5FE49B:                             ; DATA XREF: .rdata:0061F990↓o
                 lea     ecx, [ebp+var_94] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE4B9:                          ; CODE XREF: sub_4C4A78+139A30↑j
+locret_5FE4B9:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+139A30↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203501,7 +203469,7 @@ loc_5FE4BA:                             ; DATA XREF: .rdata:0061F998↓o
                 lea     ecx, [ebp+var_98] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE4D8:                          ; CODE XREF: sub_4C4A78+139A4F↑j
+locret_5FE4D8:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+139A4F↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203520,7 +203488,7 @@ loc_5FE4E6:                             ; DATA XREF: .rdata:0061F9A8↓o
                 lea     ecx, [ebp+var_A4] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE504:                          ; CODE XREF: sub_4C4A78+139A7B↑j
+locret_5FE504:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+139A7B↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203532,7 +203500,7 @@ loc_5FE505:                             ; DATA XREF: .rdata:0061F9B0↓o
                 lea     ecx, [ebp+var_A8] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE523:                          ; CODE XREF: sub_4C4A78+139A9A↑j
+locret_5FE523:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+139A9A↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203544,7 +203512,7 @@ loc_5FE524:                             ; DATA XREF: .rdata:0061F9B8↓o
                 lea     ecx, [ebp+var_AC] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE542:                          ; CODE XREF: sub_4C4A78+139AB9↑j
+locret_5FE542:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+139AB9↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203556,7 +203524,7 @@ loc_5FE543:                             ; DATA XREF: .rdata:0061F9C0↓o
                 lea     ecx, [ebp+var_B0] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE561:                          ; CODE XREF: sub_4C4A78+139AD8↑j
+locret_5FE561:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+139AD8↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203575,7 +203543,7 @@ loc_5FE56F:                             ; DATA XREF: .rdata:0061F9D0↓o
                 lea     ecx, [ebp+var_BC] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE58D:                          ; CODE XREF: sub_4C4A78+139B04↑j
+locret_5FE58D:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+139B04↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203587,7 +203555,7 @@ loc_5FE58E:                             ; DATA XREF: .rdata:0061F9D8↓o
                 lea     ecx, [ebp+var_C0] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE5AC:                          ; CODE XREF: sub_4C4A78+139B23↑j
+locret_5FE5AC:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+139B23↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203599,7 +203567,7 @@ loc_5FE5AD:                             ; DATA XREF: .rdata:0061F9E0↓o
                 lea     ecx, [ebp+var_C4] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE5CB:                          ; CODE XREF: sub_4C4A78+139B42↑j
+locret_5FE5CB:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+139B42↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203611,7 +203579,7 @@ loc_5FE5CC:                             ; DATA XREF: .rdata:0061F9E8↓o
                 lea     ecx, [ebp+var_C8] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE5EA:                          ; CODE XREF: sub_4C4A78+139B61↑j
+locret_5FE5EA:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+139B61↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203690,7 +203658,7 @@ loc_5FE5F8:                             ; DATA XREF: .rdata:0061F9F8↓o
                 lea     ecx, [ebp+var_D4] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE616:                          ; CODE XREF: sub_4C4A78+139B8D↑j
+locret_5FE616:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+139B8D↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203704,7 +203672,7 @@ loc_5FE617:                             ; DATA XREF: .rdata:0061FA00↓o
                 lea     ecx, [ebp+var_D8] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE635:                          ; CODE XREF: sub_4C4A78+139BAC↑j
+locret_5FE635:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+139BAC↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203718,7 +203686,7 @@ loc_5FE636:                             ; DATA XREF: .rdata:0061FA08↓o
                 lea     ecx, [ebp+var_DC] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE654:                          ; CODE XREF: sub_4C4A78+139BCB↑j
+locret_5FE654:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+139BCB↑j
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -203731,17 +203699,17 @@ loc_5FE655:                             ; DATA XREF: .rdata:0061FA10↓o
                 lea     ecx, [ebp+var_E0] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-locret_5FE673:                          ; CODE XREF: sub_4C4A78+139BEA↑j
+locret_5FE673:                          ; CODE XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+139BEA↑j
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_4C4A78:                             ; DATA XREF: sub_4C4A78+5↑o
+SEH_4C4A78:                             ; DATA XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+5↑o
                 mov     eax, offset stru_61F8C0
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FE2EC
-; END OF FUNCTION CHUNK FOR sub_4C4A78
+; END OF FUNCTION CHUNK FOR ?VMethod26@VisShopCompassKaarg@@UAEXXZ
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_4C5D96
+; START OF FUNCTION CHUNK FOR ?VMethod30@VisShopCompassKaarg@@UAEXXZ
 
 loc_5FE67E:                             ; DATA XREF: .rdata:stru_61FA38↓o
 ; __unwind { // SEH_4C5D96
@@ -203752,11 +203720,11 @@ loc_5FE67E:                             ; DATA XREF: .rdata:stru_61FA38↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_4C5D96:                             ; DATA XREF: sub_4C5D96+5↑o
+SEH_4C5D96:                             ; DATA XREF: ?VMethod30@VisShopCompassKaarg@@UAEXXZ+5↑o
                 mov     eax, offset stru_61FA18
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FE67E
-; END OF FUNCTION CHUNK FOR sub_4C5D96
+; END OF FUNCTION CHUNK FOR ?VMethod30@VisShopCompassKaarg@@UAEXXZ
 ; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR sub_4C6E49
@@ -234582,37 +234550,37 @@ aGraphicsInterf_253 db 'graphics\interface\shop_kaarg\hili_potion.bmp',0
 aGraphicsInterf_254 db 'graphics\interface\shop_kaarg\hili_weapon.bmp',0
                 align 4
 ; CHAR aBmp_1[]
-aBmp_1          db '.bmp',0             ; DATA XREF: sub_4C4A78+2EA↑o
+aBmp_1          db '.bmp',0             ; DATA XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+2EA↑o
                 align 4
 ; CHAR aGraphicsInterf_255[]
 aGraphicsInterf_255 db 'graphics\interface\shop_kaarg\fire\dark\lite',0
                 align 4
 ; CHAR aBmp_2[]
-aBmp_2          db '.bmp',0             ; DATA XREF: sub_4C4A78+51B↑o
+aBmp_2          db '.bmp',0             ; DATA XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+51B↑o
                 align 4
 ; CHAR aGraphicsInterf_256[]
 aGraphicsInterf_256 db 'graphics\interface\shop_kaarg\fire\select\lite',0
                 align 4
 ; CHAR aBmp_3[]
-aBmp_3          db '.bmp',0             ; DATA XREF: sub_4C4A78+783↑o
+aBmp_3          db '.bmp',0             ; DATA XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+783↑o
                 align 4
 ; CHAR aGraphicsInterf_257[]
 aGraphicsInterf_257 db 'graphics\interface\shop_kaarg\fire\dark\burn',0
                 align 4
 ; CHAR aBmp_4[]
-aBmp_4          db '.bmp',0             ; DATA XREF: sub_4C4A78+994↑o
+aBmp_4          db '.bmp',0             ; DATA XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+994↑o
                 align 4
 ; CHAR aGraphicsInterf_258[]
 aGraphicsInterf_258 db 'graphics\interface\shop_kaarg\fire\select\burn',0
                 align 4
 ; CHAR aBmp_5[]
-aBmp_5          db '.bmp',0             ; DATA XREF: sub_4C4A78+BC8↑o
+aBmp_5          db '.bmp',0             ; DATA XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+BC8↑o
                 align 4
 ; CHAR aGraphicsInterf_259[]
 aGraphicsInterf_259 db 'graphics\interface\shop_kaarg\fire\dark\cicle',0
                 align 4
 ; CHAR aBmp_6[]
-aBmp_6          db '.bmp',0             ; DATA XREF: sub_4C4A78+DD9↑o
+aBmp_6          db '.bmp',0             ; DATA XREF: ?VMethod26@VisShopCompassKaarg@@UAEXXZ+DD9↑o
                 align 4
 ; CHAR aGraphicsInterf_260[]
 aGraphicsInterf_260 db 'graphics\interface\shop_kaarg\fire\select\cicle',0
@@ -238151,8 +238119,8 @@ byte_665DA4      db    ?
                 db 3 dup(?)
 byte_665DAC      db    ?
                 db 3 dup(?)
-dword_665DB0    dd ?                    ; DATA XREF: sub_4C608E+56↑w
-dword_665DB4    dd ?                    ; DATA XREF: sub_4C608E+30↑w
+dword_665DB0    dd ?                    ; DATA XREF: ?VMethod7@VisShopCompassKaarg@@UAEXXZ+56↑w
+dword_665DB4    dd ?                    ; DATA XREF: ?VMethod7@VisShopCompassKaarg@@UAEXXZ+30↑w
 dword_665DC0    dd ?                    ; DATA XREF: ?VMethod7@VisShopCompassDruid@@UAEXXZ+56↑w
 dword_665DC8    dd ?                    ; DATA XREF: ?VMethod7@VisShopCompassDruid@@UAEXXZ+30↑w
 byte_665DD0      db    ?
