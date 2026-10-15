@@ -210,3 +210,5 @@ unknown_libname_448
 ?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z
 ?DDX_Text@@YGXPAVCDataExchange@@HAAVCString@@@Z
 ?DDV_MaxChars@@YGXPAVCDataExchange@@ABVCString@@H@Z
+?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
+??0_AFX_THREAD_STATE@@QAE@XZ
