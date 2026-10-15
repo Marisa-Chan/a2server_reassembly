@@ -1231,7 +1231,6 @@ extern ?sub_4BCDA0@VisShop@@QAEXXZ : proc
 extern ?sub_4BC97B@VisShop@@QAEXXZ : proc
 extern ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z : proc
 extern ??0VisShopCompassDruid@@QAE@HHHHHPAVVisShop@@@Z : proc
-extern ??0VisShopCompassKaarg@@QAE@HHHHHPAVVisShop@@@Z : proc
 extern ??0VisInvExtType1Kaarg@@QAE@HHHHHPAVVisShop@@@Z : proc  ; VisInvExtType1Kaarg::VisInvExtType1Kaarg(int32_t, int32_t, int32_t, int32_t, int32_t, VisShop*)
 extern ??_GVisInvExtType1Kaarg@@UAEPAXI@Z : proc  ; virtual VisInvExtType1Kaarg::~VisInvExtType1Kaarg() (scalar deleting dtor)
 extern ?VMethod41@VisInvExtType1Kaarg@@UAEXXZ : proc  ; void VisInvExtType1Kaarg::VMethod41()

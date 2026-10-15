@@ -87,7 +87,6 @@
 ??0VisScrollBar@@QAE@HHHHHPBD@Z
 ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z
 ??0VisShopCompassDruid@@QAE@HHHHHPAVVisShop@@@Z
-??0VisShopCompassKaarg@@QAE@HHHHHPAVVisShop@@@Z
 ??0VisTav@@QAE@HHHHH@Z
 ??0VisTavScene@@QAE@HHHHHPAVVisTav@@@Z
 ??0VisTavSceneKaarg@@QAE@HHHHHPAVVisTav@@@Z
