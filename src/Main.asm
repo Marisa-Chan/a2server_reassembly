@@ -41377,20 +41377,6 @@ loc_4C287E:                             ; CODE XREF: ?FUN_004c2842@VisShopCompas
 
 ; Attributes: bp-based frame
 
-??1VisShopCompassDruid@@UAE@XZ      proc near               ; CODE XREF: ??_GVisShopCompassDruid@@UAEPAXI@Z+A↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??1VisShopCompass@@UAE@XZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-??1VisShopCompassDruid@@UAE@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
