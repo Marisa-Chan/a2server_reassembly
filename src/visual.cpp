@@ -12371,6 +12371,44 @@ void VisShopCompassDruid::VMethod26()
 }
 
 
+// 4C2B29
+void VisShopCompassDruid::VMethod27()
+{
+    if (this->frame_sprite != nullptr) {
+        delete this->frame_sprite;
+    }
+    if (this->bkg_bmp != nullptr) {
+        delete this->bkg_bmp;
+    }
+    if (this->idle_bmp != nullptr) {
+        delete this->idle_bmp;
+    }
+    if (this->category_bmp != nullptr) {
+        delete this->category_bmp;
+    }
+    this->frame_sprite = nullptr;
+    this->bkg_bmp = nullptr;
+    this->idle_bmp = nullptr;
+    this->category_bmp = nullptr;
+    if (this->armor_bmp != nullptr) {
+        delete this->armor_bmp;
+    }
+    this->armor_bmp = nullptr;
+    if (this->magic_bmp != nullptr) {
+        delete this->magic_bmp;
+    }
+    this->magic_bmp = nullptr;
+    if (this->potions_bmp != nullptr) {
+        delete this->potions_bmp;
+    }
+    this->potions_bmp = nullptr;
+    if (this->sel_goods_bmp != nullptr) {
+        delete this->sel_goods_bmp;
+    }
+    this->sel_goods_bmp = nullptr;
+}
+
+
 // 4C4693
 VisShopCompassKaarg::VisShopCompassKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : VisShopCompass(_id, l, t, r, b, shop)

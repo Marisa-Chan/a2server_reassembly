@@ -19,4 +19,3 @@
 ?OnLButtonDown@VisShopCompassDruid@@UAEHIVCPoint@@@Z	106
 ?GetHint@VisShopCompassDruid@@UAEPBDXZ	122
 ?VMethod30@VisShopCompassDruid@@UAEXXZ	123
-?VMethod27@VisShopCompassDruid@@UAEXXZ	171
