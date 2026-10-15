@@ -1265,7 +1265,6 @@ externdef ?GetHint@VisShopCompassDruid@@UAEPBDXZ : proc  ; const char* VisShopCo
 externdef ?OnLButtonDown@VisShopCompassDruid@@UAEHIVCPoint@@@Z : proc  ; int32_t VisShopCompassDruid::OnLButtonDown(uint32_t, CPoint)
 externdef ?VMethod28@VisShopCompassDruid@@UAEXXZ : proc  ; void VisShopCompassDruid::VMethod28()
 externdef ?VMethod29@VisShopCompassDruid@@UAEXXZ : proc  ; void VisShopCompassDruid::VMethod29()
-externdef ?VMethod30@VisShopCompassDruid@@UAEXXZ : proc  ; void VisShopCompassDruid::VMethod30()
 externdef ?VMethod31@VisShopCompassDruid@@UAEXH@Z : proc  ; void VisShopCompassDruid::VMethod31(int32_t)
 externdef ?VMethod32@VisShopCompassDruid@@UAEXH@Z : proc  ; void VisShopCompassDruid::VMethod32(int32_t)
 externdef ?VMethod33@VisShopCompassDruid@@UAEXXZ : proc  ; void VisShopCompassDruid::VMethod33()
