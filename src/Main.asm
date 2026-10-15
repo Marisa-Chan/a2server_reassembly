@@ -46656,19 +46656,6 @@ unknown_libname_687 endp
 ; Attributes: library function bp-based frame
 
 ; void *__thiscall std::_Ref_count_base::_Get_deleter(std::_Ref_count_base *__hidden varThis, const struct type_info *)
-?_Get_deleter@_Ref_count_base@std@@UBEPAXABVtype_info@@@Z_4 proc near
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                xor     eax, eax
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?_Get_deleter@_Ref_count_base@std@@UBEPAXABVtype_info@@@Z_4 endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -52322,19 +52309,6 @@ unknown_libname_727 endp
 ; Attributes: library function bp-based frame
 
 ; void *__thiscall std::_Ref_count_base::_Get_deleter(std::_Ref_count_base *__hidden varThis, const struct type_info *)
-?_Get_deleter@_Ref_count_base@std@@UBEPAXABVtype_info@@@Z_5 proc near
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                xor     eax, eax
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?_Get_deleter@_Ref_count_base@std@@UBEPAXABVtype_info@@@Z_5 endp
 
 
 ; =============== S U B R O U T I N E =======================================
