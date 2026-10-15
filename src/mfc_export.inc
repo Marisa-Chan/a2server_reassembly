@@ -1269,7 +1269,6 @@ externdef ?VMethod33@VisShopCompassDruid@@UAEXXZ : proc  ; void VisShopCompassDr
 externdef ?VMethod34@VisShopCompassDruid@@UAEXXZ : proc  ; void VisShopCompassDruid::VMethod34()
 externdef ?VMethod35@VisShopCompassDruid@@UAEXXZ : proc  ; void VisShopCompassDruid::VMethod35()
 externdef ?VMethod36@VisShopCompassDruid@@UAEXXZ : proc  ; void VisShopCompassDruid::VMethod36()
-externdef ?VMethod37@VisShopCompassDruid@@UAEHH@Z : proc  ; int32_t VisShopCompassDruid::VMethod37(int32_t)
 
 extern ?ResetSelected@VisShopButtons@@QAEXXZ : proc
 

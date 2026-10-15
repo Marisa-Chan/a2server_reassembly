@@ -12737,6 +12737,25 @@ int32_t VisShopCompassDruid::OnLButtonDown(uint32_t wparam, CPoint pos)
 }
 
 
+// 4C34E6
+int32_t VisShopCompassDruid::VMethod37(int32_t arg)
+{
+    if ((uint16_t)arg == 3 && this->FUN_004c2842() == 0) {
+        return 0;
+    }
+    int32_t result = 0;
+    if ((uint16_t)this->shop->select_category != (uint16_t)arg) {
+        FUN_00438f20(&this->shop->snd_depart);
+        CSound::Play((CSound&)this->shop->snd_depart);
+        this->dir_frm[(uint16_t)arg] = 0;
+        this->shop->select_category = arg;
+        *this->shop->assortiment->visible_startref = 0;
+        result = 1;
+    }
+    return result;
+}
+
+
 // 4C671F
 int32_t VisShopCompassKaarg::OnLButtonDown(uint32_t wparam, CPoint pos)
 {
