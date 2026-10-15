@@ -42950,20 +42950,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-??1VisShopCompassKaarg@@UAE@XZ      proc near               ; CODE XREF: ??_GVisShopCompassKaarg@@UAEPAXI@Z+A↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??1VisShopCompass@@UAE@XZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-??1VisShopCompassKaarg@@UAE@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

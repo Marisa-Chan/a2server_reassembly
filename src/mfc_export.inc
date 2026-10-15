@@ -1277,9 +1277,6 @@ externdef ?VMethod35@VisShopCompassDruid@@UAEXXZ : proc  ; void VisShopCompassDr
 externdef ?VMethod36@VisShopCompassDruid@@UAEXXZ : proc  ; void VisShopCompassDruid::VMethod36()
 externdef ?VMethod37@VisShopCompassDruid@@UAEHH@Z : proc  ; int32_t VisShopCompassDruid::VMethod37(int32_t)
 
-;VisShopCompassKaarg (override bodies stay in ASM, vtable emitted by C++)
-externdef ??1VisShopCompassKaarg@@UAE@XZ : proc  ; virtual VisShopCompassKaarg::~VisShopCompassKaarg()
-
 extern ?ResetSelected@VisShopButtons@@QAEXXZ : proc
 
 extern ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z : proc  ; called from asm (sub_4C34E6, sub_4C65BA)
