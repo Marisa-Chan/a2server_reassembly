@@ -5,4 +5,3 @@
 
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
-?FUN_004c2842@VisShopCompassDruid@@QAEHXZ	34

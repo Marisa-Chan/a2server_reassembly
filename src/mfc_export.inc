@@ -1257,9 +1257,6 @@ extern ?VMethod36@VisShopCompass@@UAEXXZ : proc
 extern ?VMethod37@VisShopCompass@@UAEHH@Z : proc
 extern ?VMethod38@VisShopCompass@@UAEHXZ : proc
 
-;VisShopCompassDruid (FUN_004c2842 body stays in ASM)
-externdef ?FUN_004c2842@VisShopCompassDruid@@QAEHXZ : proc  ; int32_t VisShopCompassDruid::FUN_004c2842()
-
 extern ?ResetSelected@VisShopButtons@@QAEXXZ : proc
 
 extern ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z : proc  ; called from asm (sub_4C34E6, sub_4C65BA)

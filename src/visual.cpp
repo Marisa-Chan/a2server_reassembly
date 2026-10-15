@@ -12841,6 +12841,20 @@ VisShopCompassDruid::~VisShopCompassDruid()
 }
 
 
+// 4C2842
+int32_t VisShopCompassDruid::FUN_004c2842()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->sessionMode == 2) {
+        if (ScenarioGetVar(0x302) != 0) {
+            return 1;
+        }
+        return 0;
+    }
+    return 1;
+}
+
+
 // 4C671F
 int32_t VisShopCompassKaarg::OnLButtonDown(uint32_t wparam, CPoint pos)
 {

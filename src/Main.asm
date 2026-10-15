@@ -41133,41 +41133,6 @@ sub_4B9E10      endp
 
 ; Attributes: library function bp-based frame
 
-?FUN_004c2842@VisShopCompassDruid@@QAEHXZ      proc near               ; CODE XREF: ?VMethod7@VisShopCompassDruid@@UAEXXZ+1FD↓p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+640h], 2
-                jz      short loc_4C2866
-                mov     eax, 1
-                jmp     short loc_4C287E
-; ---------------------------------------------------------------------------
-
-loc_4C2866:                             ; CODE XREF: ?FUN_004c2842@VisShopCompassDruid@@QAEHXZ+1B↑j
-                push    302h
-                call    ?ScenarioGetVar@@YGHH@Z
-                test    eax, eax
-                jz      short loc_4C287C
-                mov     eax, 1
-                jmp     short loc_4C287E
-; ---------------------------------------------------------------------------
-
-loc_4C287C:                             ; CODE XREF: ?FUN_004c2842@VisShopCompassDruid@@QAEHXZ+31↑j
-                xor     eax, eax
-
-loc_4C287E:                             ; CODE XREF: ?FUN_004c2842@VisShopCompassDruid@@QAEHXZ+22↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_004c2842@VisShopCompassDruid@@QAEHXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
