@@ -1280,7 +1280,6 @@ externdef ?VMethod37@VisShopCompassDruid@@UAEHH@Z : proc  ; int32_t VisShopCompa
 ;VisShopCompassKaarg (override bodies stay in ASM, vtable emitted by C++)
 externdef ??1VisShopCompassKaarg@@UAE@XZ : proc  ; virtual VisShopCompassKaarg::~VisShopCompassKaarg()
 externdef ?GetHint@VisShopCompassKaarg@@UAEPBDXZ : proc  ; const char* VisShopCompassKaarg::GetHint()
-externdef ?VMethod7@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod7()
 externdef ?OnLButtonDown@VisShopCompassKaarg@@UAEHIVCPoint@@@Z : proc  ; int32_t VisShopCompassKaarg::OnLButtonDown(uint32_t, CPoint)
 externdef ?VMethod27@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod27()
 externdef ?VMethod28@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod28()

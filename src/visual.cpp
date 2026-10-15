@@ -12361,6 +12361,82 @@ void VisShopCompassKaarg::VMethod26()
 }
 
 
+// 4C608E
+void VisShopCompassKaarg::VMethod7()
+{
+    static uint32_t last_frame_tick = timeGetTime() - 100;
+    static uint32_t idle_tick = timeGetTime();
+    CPoint topleft = this->shop->rect.TopLeft();
+    if (this->shop->dialog_active == 0) {
+        return;
+    }
+    if (timeGetTime() - last_frame_tick >= 100) {
+        this->shop->VMethod30();
+        last_frame_tick = timeGetTime();
+        if (timeGetTime() - idle_tick >= (uint32_t)(rand() % 5 * 1000 + 5000) &&
+            (this->state & 0x10) == 0 && (this->state & 0x20) == 0) {
+            this->state |= 0x10 << (GetRandS16(2) & 0x1F);
+        }
+        if (this->state & 0x30) {
+            this->VMethod30();
+            if (this->center_frm == 0) {
+                idle_tick = timeGetTime();
+            }
+        }
+        if (this->wpn_tail_frame == 0) {
+            this->tail_frame++;
+            if (this->tail_frame == 6) {
+                this->tail_frame = 0;
+            }
+            if (0x11 < this->tail_frame) {
+                this->tail_frame = 0xc;
+            }
+        } else {
+            this->tail_frame += this->wpn_tail_frame;
+            if (this->tail_frame < 1) {
+                this->wpn_tail_frame = 0;
+            }
+            if (0x10 < this->tail_frame) {
+                this->wpn_tail_frame = 0;
+            }
+        }
+    }
+    LockSurface2();
+    if (this->frame_sprite != nullptr) {
+        this->frame_sprite->VMethod2(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, 0);
+    }
+    if (this->bkg_bmp != nullptr) {
+        this->bkg_bmp->VMethod2(topleft.x + this->rect.left + 5, topleft.y + this->rect.top + 8, 0, 0, 0);
+    }
+    if (this->shop->select_category == 0) {
+        this->armor_bmp->VMethod2(topleft.x + this->rect.left + 5, topleft.y + this->rect.top + 8, 0, 0, 0);
+    }
+    if (this->shop->select_category == 1) {
+        this->magic_bmp->VMethod2(topleft.x + this->rect.left + 0x31, topleft.y + this->rect.top + 0x48, 0, 0, 0);
+    }
+    if (this->shop->select_category == 2) {
+        this->scrolls_bmp->VMethod2(topleft.x + this->rect.left + 0x31, topleft.y + this->rect.top + 8, 0, 0, 0);
+    }
+    if (this->shop->select_category == 3) {
+        this->weapons_bmp->VMethod2(topleft.x + this->rect.left + 0x99, topleft.y + this->rect.top + 8, 0, 0, 0);
+    }
+    if ((this->state & 0x30) == 0) {
+        if (this->idle_bmp != nullptr) {
+            this->idle_bmp->VMethod2(topleft.x + this->rect.left + 0x7D, topleft.y + this->rect.top + 0x74, 0, 0, 0);
+        }
+    } else if (this->trigger_bmp != nullptr) {
+        this->trigger_bmp->VMethod2(topleft.x + this->rect.left + 0x7D, topleft.y + this->rect.top + 0x74, 0, 0, 0);
+    }
+    if (this->shop->select_category == 3) {
+        this->wpn_tail_frames[this->tail_frame]->VMethod2(topleft.x + this->rect.left + 0xC1, topleft.y + this->rect.top + 0xCC, 0, 0, 0);
+    } else {
+        this->tail_frames[this->tail_frame]->VMethod2(topleft.x + this->rect.left + 0xC1, topleft.y + this->rect.top + 0xCC, 0, 0, 0);
+    }
+    UnlockSurface2();
+    CVisualObject::VMethod7();
+}
+
+
 // 4BFA5A
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)
