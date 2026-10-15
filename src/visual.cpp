@@ -12814,6 +12814,27 @@ void VisShopCompassDruid::VMethod36()
 }
 
 
+// 4C2CCE
+void VisShopCompassDruid::VMethod31(int32_t arg)
+{
+    this->VMethod32(arg);
+}
+
+
+// 4C2D8A
+void VisShopCompassDruid::VMethod28()
+{
+    this->VMethod33();
+}
+
+
+// 4C2DA3
+void VisShopCompassDruid::VMethod29()
+{
+    this->VMethod34();
+}
+
+
 // 4C671F
 int32_t VisShopCompassKaarg::OnLButtonDown(uint32_t wparam, CPoint pos)
 {
