@@ -7937,10 +7937,8 @@ void VisGlobalMap::DoClose(uint32_t code)
 
 
 // 473195
-GMapThing* GMapThing::Init()
+GMapThing::GMapThing()
 {
-    new (&this->nodePoints) CArray<CPoint>();
-    new (&this->floodPos) CPoint();
     for (int32_t x = 0; x < 640; x++) {
         for (int32_t y = 0; y < 480; y++) {
             this->visitedGrid[x][y] = 0;
@@ -7969,7 +7967,6 @@ GMapThing* GMapThing::Init()
         }
     }
     this->BuildAdjacency();
-    return this;
 }
 
 
@@ -8014,7 +8011,7 @@ void GMapThing::BuildAdjacency()
 
 
 // 4733cf
-void GMapThing::FreeAdjacency()
+GMapThing::~GMapThing()
 {
     this->FreePathmap();
     if (this->adjacencyMatrix != nullptr) {
@@ -8031,7 +8028,6 @@ void GMapThing::FreeAdjacency()
         }
         operator delete(this->adjacencyMatrix);
     }
-    this->nodePoints.~CArray();
 }
 
 
@@ -8097,16 +8093,6 @@ void GMapThing::FreePathmap()
 }
 
 
-// 473da0
-void GMapThing::Destroy(uint32_t flags)
-{
-    this->FreeAdjacency();
-    if (flags & 1) {
-        operator delete(this);
-    }
-}
-
-
 // 473b4a
 void* GMapThing::TakeAdjacency(void* nodePoints)
 {
@@ -8125,10 +8111,10 @@ void VisGlobalMap::VMethod28()
     this->LoadSamples();
     ReadFileToString("main\\text\\globalmap.txt", &g_MissionText);
     this->routePointSoundIndex = 0;
-    GMapThing* thing = static_cast<GMapThing*>(operator new(0x9602C))->Init();
+    GMapThing* thing = new GMapThing();
     this->graphNodePoints.RemoveAll();
     this->routeAdjacencyMatrix = thing->TakeAdjacency(&this->graphNodePoints);
-    thing->Destroy(1);
+    delete thing;
     this->partyFlagAnimationFrame = 0;
     this->targetCrossAnimationFrame = 0;
     this->locationMetadata.RemoveAll();

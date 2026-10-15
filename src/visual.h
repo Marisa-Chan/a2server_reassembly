@@ -3108,14 +3108,13 @@ ASSERT_SIZE(GlobalMapRouteArray, 0x18);
 class GMapThing
 {
 public:
-	GMapThing* Init(); // 473195
+	GMapThing(); // 473195
+	~GMapThing(); // 4733cf
 	void* TakeAdjacency(void* nodePoints); // 473b4a
-	void Destroy(uint32_t flags); // 473da0
 
 	void LoadPathmap(); // 473508
 	void FreePathmap(); // 4735e2
 	void BuildAdjacency(); // 47362d
-	void FreeAdjacency(); // 4733cf
 	int32_t FloodFill(int32_t x, int32_t y, uint16_t mark, CArray<CPoint>* foundPoints); // 47391f
 
 public:
