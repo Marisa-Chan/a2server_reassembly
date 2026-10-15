@@ -3664,6 +3664,7 @@ public:
 	virtual void VMethod8(CRect* rect) override; // 4E27CD
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4E2B95
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4E2C42
+	virtual int32_t OnKeyDown(uint32_t wparam) override { return 0; } // 4e2c33
 
 	VisTipsDialog(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* txt); //4e2541
 

@@ -43978,19 +43978,6 @@ sub_4CD410      endp
 ; Attributes: library function bp-based frame
 
 ; void *__thiscall std::_Ref_count_base::_Get_deleter(std::_Ref_count_base *__hidden varThis, const struct type_info *)
-?_Get_deleter@_Ref_count_base@std@@UBEPAXABVtype_info@@@Z_3 proc near
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                xor     eax, eax
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?_Get_deleter@_Ref_count_base@std@@UBEPAXABVtype_info@@@Z_3 endp
 
 ; =============== S U B R O U T I N E =======================================
 
