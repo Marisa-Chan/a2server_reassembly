@@ -34,4 +34,3 @@
 ?VMethod37@VisShopCompassKaarg@@UAEHH@Z	109
 ?GetHint@VisShopCompassKaarg@@UAEPBDXZ	122
 ?VMethod30@VisShopCompassKaarg@@UAEXXZ	123
-?VMethod27@VisShopCompassKaarg@@UAEXXZ	221

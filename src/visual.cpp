@@ -12437,6 +12437,50 @@ void VisShopCompassKaarg::VMethod7()
 }
 
 
+// 4C5A80
+void VisShopCompassKaarg::VMethod27()
+{
+    if (this->frame_sprite != nullptr) {
+        delete this->frame_sprite;
+    }
+    if (this->bkg_bmp != nullptr) {
+        delete this->bkg_bmp;
+    }
+    if (this->idle_bmp != nullptr) {
+        delete this->idle_bmp;
+    }
+    this->frame_sprite = nullptr;
+    this->bkg_bmp = nullptr;
+    this->idle_bmp = nullptr;
+    if (this->armor_bmp != nullptr) {
+        delete this->armor_bmp;
+    }
+    this->armor_bmp = nullptr;
+    if (this->magic_bmp != nullptr) {
+        delete this->magic_bmp;
+    }
+    this->magic_bmp = nullptr;
+    if (this->scrolls_bmp != nullptr) {
+        delete this->scrolls_bmp;
+    }
+    this->scrolls_bmp = nullptr;
+    if (this->weapons_bmp != nullptr) {
+        delete this->weapons_bmp;
+    }
+    this->weapons_bmp = nullptr;
+    for (int32_t i = 0; i < 18; i++) {
+        if (this->tail_frames[i] != nullptr) {
+            delete this->tail_frames[i];
+        }
+        this->tail_frames[i] = nullptr;
+        if (this->wpn_tail_frames[i] != nullptr) {
+            delete this->wpn_tail_frames[i];
+        }
+        this->wpn_tail_frames[i] = nullptr;
+    }
+}
+
+
 // 4BFA5A
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)

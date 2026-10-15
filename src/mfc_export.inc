@@ -1281,7 +1281,6 @@ externdef ?VMethod37@VisShopCompassDruid@@UAEHH@Z : proc  ; int32_t VisShopCompa
 externdef ??1VisShopCompassKaarg@@UAE@XZ : proc  ; virtual VisShopCompassKaarg::~VisShopCompassKaarg()
 externdef ?GetHint@VisShopCompassKaarg@@UAEPBDXZ : proc  ; const char* VisShopCompassKaarg::GetHint()
 externdef ?OnLButtonDown@VisShopCompassKaarg@@UAEHIVCPoint@@@Z : proc  ; int32_t VisShopCompassKaarg::OnLButtonDown(uint32_t, CPoint)
-externdef ?VMethod27@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod27()
 externdef ?VMethod28@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod28()
 externdef ?VMethod29@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod29()
 externdef ?VMethod30@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod30()
