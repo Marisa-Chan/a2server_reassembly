@@ -1261,7 +1261,6 @@ extern ?VMethod38@VisShopCompass@@UAEHXZ : proc
 ;VisShopCompassDruid (override bodies stay in ASM, vtable emitted by C++)
 externdef ??1VisShopCompassDruid@@UAE@XZ : proc  ; virtual VisShopCompassDruid::~VisShopCompassDruid()
 externdef ?FUN_004c2842@VisShopCompassDruid@@QAEHXZ : proc  ; int32_t VisShopCompassDruid::FUN_004c2842()
-externdef ?OnLButtonDown@VisShopCompassDruid@@UAEHIVCPoint@@@Z : proc  ; int32_t VisShopCompassDruid::OnLButtonDown(uint32_t, CPoint)
 externdef ?VMethod28@VisShopCompassDruid@@UAEXXZ : proc  ; void VisShopCompassDruid::VMethod28()
 externdef ?VMethod29@VisShopCompassDruid@@UAEXXZ : proc  ; void VisShopCompassDruid::VMethod29()
 externdef ?VMethod31@VisShopCompassDruid@@UAEXH@Z : proc  ; void VisShopCompassDruid::VMethod31(int32_t)
