@@ -12560,6 +12560,23 @@ int32_t VisShopCompassKaarg::VMethod37(int32_t arg)
 }
 
 
+// 4C671F
+int32_t VisShopCompassKaarg::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    CPoint topleft = this->shop->rect.TopLeft();
+    for (int32_t i = 0; i < 4; i++) {
+        CRect hit_rect = this->outer_rects[i] + topleft;
+        if (hit_rect.PtInRect(pos) && this->VMethod37(i) != 0) {
+            this->shop->assortiment->sub_4B73E4((uint16_t)this->shop->select_category);
+            this->shop->assortiment->VMethod9();
+            break;
+        }
+    }
+    return 0;
+}
+
+
 // 4BFA5A
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)
