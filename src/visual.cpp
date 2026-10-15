@@ -12613,6 +12613,28 @@ void VisShopCompassKaarg::VMethod34()
 }
 
 
+// 4C5FD4
+void VisShopCompassKaarg::VMethod35()
+{
+    if (this->trigger_bmp != nullptr) {
+        delete this->trigger_bmp;
+    }
+    this->trigger_bmp = nullptr;
+}
+
+
+// 4C602B
+void VisShopCompassKaarg::VMethod36()
+{
+    for (int32_t i = 0; i < 4; i++) {
+        this->VMethod32(i);
+    }
+    this->VMethod33();
+    this->VMethod34();
+    this->VMethod35();
+}
+
+
 // 4BFA5A
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)
