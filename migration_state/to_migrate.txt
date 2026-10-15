@@ -14,4 +14,3 @@
 ?VMethod36@VisShopCompassDruid@@UAEXXZ	46
 ?VMethod33@VisShopCompassDruid@@UAEXXZ	59
 ?VMethod34@VisShopCompassDruid@@UAEXXZ	59
-?VMethod32@VisShopCompassDruid@@UAEXH@Z	69

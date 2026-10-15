@@ -12756,6 +12756,18 @@ int32_t VisShopCompassDruid::VMethod37(int32_t arg)
 }
 
 
+// 4C2CED
+void VisShopCompassDruid::VMethod32(int32_t arg)
+{
+    for (int32_t i = 0; i < 11; i++) {
+        if (this->direction_frames[arg][i] != nullptr) {
+            delete this->direction_frames[arg][i];
+        }
+        this->direction_frames[arg][i] = nullptr;
+    }
+}
+
+
 // 4C671F
 int32_t VisShopCompassKaarg::OnLButtonDown(uint32_t wparam, CPoint pos)
 {
