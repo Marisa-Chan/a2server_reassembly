@@ -2,11 +2,13 @@
 """CLI client for the Ghidra daemon (tool/ghidra_daemon.py or tool/ghidra_gui_server.py).
 
 Addresses can be given as 55ECFE, 0x55ECFE, sub_55ECFE, FUN_0055ecfe, or a symbol
-name (QuestMap::sub_55ECFE, or a mangled name).
+name (QuestMap::sub_55ECFE, or a mangled name). IDA data names (off_60AF78,
+dword_6CDB3C, ...) also work.
 
 Examples:
   python tool/gh.py info 55ECFE
   python tool/gh.py decompile 55ECFE
+  python tool/gh.py global off_60AF78 --lines 20
   python tool/gh.py set-mangled 55ECFE "?sub_55ECFE@QuestMap@@QAEXH@Z" player_id
   python tool/gh.py set-proto 55ECFE void --class QuestMap -p "int32_t player_id"
   python tool/gh.py set-var 55ECFE local_10 --name assoc --type "CAssoc<int,p_Quest> *"
@@ -30,6 +32,7 @@ READ
   disasm ADDR                       Ghidra disassembly listing
   xrefs ADDR                        who references this address
   callees ADDR                      functions called by this function
+  global ADDR [--lines N]           show a global variable / vtable: data at ADDR, then N following data items
   find REGEX                        search function/label/class names
   demangle MANGLED                  show what a mangled name means (validates it)
 WRITE (functions)
@@ -96,6 +99,9 @@ def main():
     elif cmd == "find":
         a = sub(pattern={}, limit=(["--limit"], {"type": int, "default": 50}))
         call(cmd, {"pattern": a.pattern, "limit": a.limit}, port)
+    elif cmd == "global":
+        a = sub(target={}, lines=(["--lines", "-n"], {"type": int, "default": 10}))
+        call(cmd, {"target": a.target, "lines": a.lines}, port)
     elif cmd == "demangle":
         a = sub(mangled={})
         call(cmd, {"mangled": a.mangled}, port)

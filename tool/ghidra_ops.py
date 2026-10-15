@@ -73,9 +73,10 @@ class OpContext:
         return _Transaction(self, name)
 
     def addr(self, s):
-        """Resolve 'sub_55ECFE' / 'FUN_0055ecfe' / '0x55ECFE' / '55ECFE' / symbol name."""
+        """Resolve 'sub_55ECFE' / 'FUN_0055ecfe' / 'off_60AF78' (IDA data name) /
+        '0x55ECFE' / '55ECFE' / symbol name."""
         s = str(s).strip()
-        m = re.fullmatch(r"(?:sub_|FUN_|loc_|0x|0X)?([0-9A-Fa-f]{5,8})", s)
+        m = re.fullmatch(r"(?:sub_|FUN_|loc_|off_|dword_|word_|byte_|qword_|unk_|dbl_|flt_|stru_|0x|0X)?([0-9A-Fa-f]{5,8})", s)
         if m:
             return self.program.getAddressFactory().getDefaultAddressSpace().getAddress(int(m.group(1), 16))
         syms = self.find_symbols(s)
@@ -353,6 +354,70 @@ def op_callees(ctx, target):
     for cf in sorted(f.getCalledFunctions(ctx.monitor), key=lambda x: str(x.getEntryPoint())):
         out.append(f"{cf.getEntryPoint()}  {_proto(cf)}")
     return "\n".join(out) if out else "no callees"
+
+
+def _fmt_data(ctx, data, show_label=True):
+    from ghidra.program.model.data import Pointer
+    a = data.getAddress()
+    label = ""
+    if show_label:
+        syms = list(dict.fromkeys(str(s.getName(True)) for s in ctx.st.getSymbols(a) if not s.isDynamic()))
+        if syms:
+            label = "  " + ", ".join(syms)
+    val = str(data.getDefaultValueRepresentation())
+    if not val.strip():
+        val = data.getDataType().getName()
+    extra = ""
+    if isinstance(data.getDataType(), Pointer):
+        tgt = data.getValue()
+        if tgt is not None:
+            f = ctx.fm.getFunctionAt(tgt)
+            if f is not None:
+                extra = "  -> " + f.getName(True)
+            else:
+                ts = ctx.st.getPrimarySymbol(tgt)
+                if ts is not None:
+                    extra = "  -> " + ts.getName(True)
+    return f"{a}  {data.getMnemonicString():10} {val}{label}{extra}"
+
+
+def op_global(ctx, target, lines=10):
+    """Show the global variable / vtable at target: the data item at the address, then the
+    next `lines` defined data items. Pointers resolve to function/symbol names; arrays
+    expand one element per line."""
+    from ghidra.program.model.data import Array
+    listing = ctx.program.getListing()
+    a = ctx.addr(target)
+    data = listing.getDataAt(a)
+    note = None
+    if data is None:
+        data = listing.getDataContaining(a)
+        if data is not None:
+            note = f"{a} is inside {data.getDataType().getName()} @ {data.getMinAddress()}"
+    if data is None:
+        data = listing.getDefinedDataAfter(a)
+        if data is not None:
+            note = f"no data at {a}; next defined data @ {data.getAddress()}"
+    if data is None:
+        raise OpError(f"no data at or after {a}")
+    out = [note] if note else []
+    budget = max(0, int(lines)) + 1
+    while data is not None and budget > 0:
+        if isinstance(data.getDataType(), Array) and data.getNumComponents() > 1:
+            out.append(_fmt_data(ctx, data))
+            budget -= 1
+            n, i = data.getNumComponents(), 0
+            while i < n and budget > 0:
+                out.append("  " + _fmt_data(ctx, data.getComponent(i), show_label=False))
+                budget -= 1
+                i += 1
+            if i < n:
+                out.append(f"  ... {n - i} more elements (raise --lines)")
+        else:
+            out.append(_fmt_data(ctx, data))
+            budget -= 1
+        data = listing.getDefinedDataAfter(data.getMaxAddress())
+    return "\n".join(out)
 
 
 def op_find(ctx, pattern, limit=50):
