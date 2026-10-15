@@ -12481,6 +12481,29 @@ void VisShopCompassKaarg::VMethod27()
 }
 
 
+// 4C5D96
+void VisShopCompassKaarg::VMethod30()
+{
+    char fname[52];
+
+    this->VMethod35();
+    this->center_frm = (this->center_frm + 1) % 20;
+    if (this->center_frm == 0) {
+        this->state &= 0xf;
+    }
+    if ((this->state & 0x10) == 0) {
+        if ((this->state & 0x20) == 0) {
+            sprintf(fname, "movies\\shop_kaarg\\a10000.bmp");
+        } else {
+            sprintf(fname, "movies\\shop_kaarg\\a2%04d.bmp", this->center_frm + 1);
+        }
+    } else {
+        sprintf(fname, "movies\\shop_kaarg\\a1%04d.bmp", this->center_frm + 1);
+    }
+    this->trigger_bmp = new CBmp64(fname);
+}
+
+
 // 4BFA5A
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)
