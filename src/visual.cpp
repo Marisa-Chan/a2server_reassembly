@@ -12353,6 +12353,24 @@ void VisShopCompassDruid::VMethod7()
 }
 
 
+// 4C2882
+void VisShopCompassDruid::VMethod26()
+{
+    this->VMethod27();
+    this->frame_sprite = new CSprite256("graphics\\interface\\shop_druid\\ShopFrame.256");
+    this->frame_sprite->ResetPalette(1, 1, 0);
+    g_mousept.Update();
+    this->bkg_bmp = new CBmp64("graphics\\interface\\shop_druid\\ShopMain.bmp");
+    this->idle_bmp = new CBmp64("movies\\shop_druid\\a10001.bmp");
+    this->armor_bmp = new CBmp64("graphics\\interface\\shop_druid\\hili_armor.bmp");
+    this->magic_bmp = new CBmp64("graphics\\interface\\shop_druid\\hili_magic.bmp");
+    this->potions_bmp = new CBmp64("graphics\\interface\\shop_druid\\hili_potion.bmp");
+    this->sel_goods_bmp = new CBmp64("graphics\\interface\\shop_druid\\hili_elven.bmp");
+    this->category_bmp = new CBmp64("graphics\\interface\\shop_druid\\elven.bmp");
+    g_mousept.Update();
+}
+
+
 // 4C4693
 VisShopCompassKaarg::VisShopCompassKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : VisShopCompass(_id, l, t, r, b, shop)

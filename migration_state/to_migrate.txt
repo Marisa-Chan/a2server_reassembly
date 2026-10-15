@@ -20,4 +20,3 @@
 ?GetHint@VisShopCompassDruid@@UAEPBDXZ	122
 ?VMethod30@VisShopCompassDruid@@UAEXXZ	123
 ?VMethod27@VisShopCompassDruid@@UAEXXZ	171
-?VMethod26@VisShopCompassDruid@@UAEXXZ	262
