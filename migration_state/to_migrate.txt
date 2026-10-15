@@ -10,5 +10,3 @@
 ?VMethod29@VisShopCompassDruid@@UAEXXZ	15
 ?VMethod31@VisShopCompassDruid@@UAEXH@Z	18
 ?FUN_004c2842@VisShopCompassDruid@@QAEHXZ	34
-?VMethod35@VisShopCompassDruid@@UAEXXZ	39
-?VMethod36@VisShopCompassDruid@@UAEXXZ	46

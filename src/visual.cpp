@@ -12792,6 +12792,28 @@ void VisShopCompassDruid::VMethod34()
 }
 
 
+// 4C2FFA
+void VisShopCompassDruid::VMethod35()
+{
+    if (this->trigger_bmp != nullptr) {
+        delete this->trigger_bmp;
+    }
+    this->trigger_bmp = nullptr;
+}
+
+
+// 4C3051
+void VisShopCompassDruid::VMethod36()
+{
+    for (int32_t i = 0; i < 4; i++) {
+        this->VMethod32(i);
+    }
+    this->VMethod33();
+    this->VMethod34();
+    this->VMethod35();
+}
+
+
 // 4C671F
 int32_t VisShopCompassKaarg::OnLButtonDown(uint32_t wparam, CPoint pos)
 {
