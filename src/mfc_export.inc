@@ -1288,7 +1288,6 @@ externdef ?VMethod33@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKa
 externdef ?VMethod34@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod34()
 externdef ?VMethod35@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod35()
 externdef ?VMethod36@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod36()
-externdef ?VMethod37@VisShopCompassKaarg@@UAEHH@Z : proc  ; int32_t VisShopCompassKaarg::VMethod37(int32_t)
 
 extern ?ResetSelected@VisShopButtons@@QAEXXZ : proc
 

@@ -12527,6 +12527,39 @@ const char* VisShopCompassKaarg::GetHint()
 }
 
 
+// 4C65BA
+int32_t VisShopCompassKaarg::VMethod37(int32_t arg)
+{
+    if ((uint16_t)this->shop->select_category == (uint16_t)arg) {
+        return 0;
+    }
+    FUN_00438f20(&this->shop->snd_depart);
+    CSound::Play((CSound&)this->shop->snd_depart);
+    if (this->shop->select_category == 100) {
+        this->state = 0;
+        this->dir_frm[3] = 0;
+        this->dir_frm[2] = 0;
+        this->dir_frm[1] = 0;
+        this->dir_frm[0] = 0;
+    } else {
+        this->dir_frm[(uint16_t)this->shop->select_category] = 9;
+    }
+    this->dir_frm[(uint16_t)arg] = 0;
+    if (this->shop->select_category != 100) {
+        if ((uint16_t)arg == 3) {
+            if (this->tail_frame < 0xc) {
+                this->wpn_tail_frame = 1;
+            }
+        } else if (0 < this->tail_frame) {
+            this->wpn_tail_frame = -1;
+        }
+    }
+    this->shop->select_category = arg;
+    *this->shop->assortiment->visible_startref = 0;
+    return 1;
+}
+
+
 // 4BFA5A
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)
