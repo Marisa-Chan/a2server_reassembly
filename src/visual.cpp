@@ -12768,6 +12768,30 @@ void VisShopCompassDruid::VMethod32(int32_t arg)
 }
 
 
+// 4C2F00
+void VisShopCompassDruid::VMethod33()
+{
+    for (int32_t i = 0; i < 12; i++) {
+        if (this->fwd_frames[i] != nullptr) {
+            delete this->fwd_frames[i];
+        }
+        this->fwd_frames[i] = nullptr;
+    }
+}
+
+
+// 4C2F7D
+void VisShopCompassDruid::VMethod34()
+{
+    for (int32_t i = 0; i < 12; i++) {
+        if (this->ret_frames[i] != nullptr) {
+            delete this->ret_frames[i];
+        }
+        this->ret_frames[i] = nullptr;
+    }
+}
+
+
 // 4C671F
 int32_t VisShopCompassKaarg::OnLButtonDown(uint32_t wparam, CPoint pos)
 {
