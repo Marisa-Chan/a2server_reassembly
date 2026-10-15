@@ -12432,6 +12432,29 @@ void VisShopCompassDruid::VMethod30()
 }
 
 
+// 4C3690
+const char* VisShopCompassDruid::GetHint()
+{
+    if (this->shop->dialog_active == 0) {
+        return nullptr;
+    }
+    CPoint topleft = this->shop->rect.TopLeft();
+    CPoint pt(g_mousept.GetX() - topleft.x, g_mousept.GetY() - topleft.y);
+    if (this->state & 0x80) {
+        return nullptr;
+    }
+    for (int32_t i = 0; i < 4; i++) {
+        if (this->outer_rects[i].PtInRect(pt)) {
+            return TxtFile::AllLines[i + 0x112];
+        }
+    }
+    if (this->center_rect.PtInRect(pt)) {
+        return TxtFile::AllLines[0x3D];
+    }
+    return nullptr;
+}
+
+
 // 4C4693
 VisShopCompassKaarg::VisShopCompassKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : VisShopCompass(_id, l, t, r, b, shop)
