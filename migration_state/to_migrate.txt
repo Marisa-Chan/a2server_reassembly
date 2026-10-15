@@ -32,4 +32,3 @@
 ?VMethod32@VisShopCompassKaarg@@UAEXH@Z	69
 ?OnLButtonDown@VisShopCompassKaarg@@UAEHIVCPoint@@@Z	98
 ?VMethod37@VisShopCompassKaarg@@UAEHH@Z	109
-?GetHint@VisShopCompassKaarg@@UAEPBDXZ	122
