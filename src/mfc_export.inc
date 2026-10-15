@@ -1282,8 +1282,6 @@ externdef ??1VisShopCompassKaarg@@UAE@XZ : proc  ; virtual VisShopCompassKaarg::
 externdef ?VMethod28@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod28()
 externdef ?VMethod29@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod29()
 externdef ?VMethod31@VisShopCompassKaarg@@UAEXH@Z : proc  ; void VisShopCompassKaarg::VMethod31(int32_t)
-externdef ?VMethod33@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod33()
-externdef ?VMethod34@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod34()
 externdef ?VMethod35@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod35()
 externdef ?VMethod36@VisShopCompassKaarg@@UAEXXZ : proc  ; void VisShopCompassKaarg::VMethod36()
 
