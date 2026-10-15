@@ -41133,7 +41133,7 @@ sub_4B9E10      endp
 
 ; Attributes: library function bp-based frame
 
-sub_4C2842      proc near               ; CODE XREF: ?VMethod7@VisShopCompassDruid@@UAEXXZ+1FD↓p
+?FUN_004c2842@VisShopCompassDruid@@QAEHXZ      proc near               ; CODE XREF: ?VMethod7@VisShopCompassDruid@@UAEXXZ+1FD↓p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -41151,7 +41151,7 @@ var_4           = dword ptr -4
                 jmp     short loc_4C287E
 ; ---------------------------------------------------------------------------
 
-loc_4C2866:                             ; CODE XREF: sub_4C2842+1B↑j
+loc_4C2866:                             ; CODE XREF: ?FUN_004c2842@VisShopCompassDruid@@QAEHXZ+1B↑j
                 push    302h
                 call    ?ScenarioGetVar@@YGHH@Z
                 test    eax, eax
@@ -41160,14 +41160,14 @@ loc_4C2866:                             ; CODE XREF: sub_4C2842+1B↑j
                 jmp     short loc_4C287E
 ; ---------------------------------------------------------------------------
 
-loc_4C287C:                             ; CODE XREF: sub_4C2842+31↑j
+loc_4C287C:                             ; CODE XREF: ?FUN_004c2842@VisShopCompassDruid@@QAEHXZ+31↑j
                 xor     eax, eax
 
-loc_4C287E:                             ; CODE XREF: sub_4C2842+22↑j
+loc_4C287E:                             ; CODE XREF: ?FUN_004c2842@VisShopCompassDruid@@QAEHXZ+22↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4C2842      endp
+?FUN_004c2842@VisShopCompassDruid@@QAEHXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -42127,372 +42127,6 @@ loc_4C3086:                             ; CODE XREF: ?VMethod36@VisShopCompassDr
 
 ; Attributes: bp-based frame
 
-?VMethod7@VisShopCompassDruid@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060D684↓o
-
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                push    esi
-                mov     [ebp+var_C], ecx
-                xor     eax, eax
-                mov     al, byte_665DAC
-                and     eax, 1
-                test    eax, eax
-                jnz     short loc_4C30E9
-                mov     cl, byte_665DAC
-                or      cl, 1
-                mov     byte_665DAC, cl
-                call    timeGetTime
-                sub     eax, 64h ; 'd'
-                mov     dword_665DC8, eax
-
-loc_4C30E9:                             ; CODE XREF: ?VMethod7@VisShopCompassDruid@@UAEXXZ+16↑j
-                xor     edx, edx
-                mov     dl, byte_665DAC
-                and     edx, 2
-                test    edx, edx
-                jnz     short loc_4C310F
-                mov     al, byte_665DAC
-                or      al, 2
-                mov     byte_665DAC, al
-                call    timeGetTime
-                mov     dword_665DC0, eax
-
-loc_4C310F:                             ; CODE XREF: ?VMethod7@VisShopCompassDruid@@UAEXXZ+42↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [ecx+5Ch]
-                add     ecx, 8
-                call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
-                mov     edx, dword ptr [eax]
-                mov     eax, dword ptr [eax+4]
-                mov     [ebp+var_8], edx
-                mov     [ebp+var_4], eax
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+5Ch]
-                cmp     dword ptr [edx+148h], 0
-                jnz     short loc_4C313C
-                jmp     loc_4C34E1
-; ---------------------------------------------------------------------------
-
-loc_4C313C:                             ; CODE XREF: ?VMethod7@VisShopCompassDruid@@UAEXXZ+81↑j
-                call    timeGetTime
-                sub     eax, dword_665DC8
-                cmp     eax, 64h ; 'd'
-                jb      loc_4C3217
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+5Ch]
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+5Ch]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+88h]
-                call    timeGetTime
-                mov     dword_665DC8, eax
-                call    timeGetTime
-                mov     esi, eax
-                sub     esi, dword_665DC0
-                call    _rand
-                cdq
-                mov     ecx, 5
-                idiv    ecx
-                imul    edx, 3E8h
-                add     edx, 1388h
-                cmp     esi, edx
-                jb      short loc_4C31E2
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+240h]
-                and     eax, 10h
-                test    eax, eax
-                jnz     short loc_4C31E2
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+240h]
-                and     edx, 20h
-                test    edx, edx
-                jnz     short loc_4C31E2
-                push    2
-                call    ?GetRandS16@@YAHH@Z
-                add     esp, 4
-                mov     ecx, eax
-                mov     eax, 10h
-                shl     eax, cl
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+240h]
-                or      edx, eax
-                mov     eax, dword ptr [ebp+var_C]
-                mov     [eax+240h], edx
-
-loc_4C31E2:                             ; CODE XREF: ?VMethod7@VisShopCompassDruid@@UAEXXZ+E5↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+240h]
-                and     edx, 30h
-                test    edx, edx
-                jz      short loc_4C3217
-                mov     eax, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_C]
-                call    dword ptr [edx+88h]
-                mov     eax, dword ptr [ebp+var_C]
-                cmp     dword ptr [eax+254h], 0
-                jnz     short loc_4C3217
-                call    timeGetTime
-                mov     dword_665DC0, eax
-
-loc_4C3217:                             ; CODE XREF: ?VMethod7@VisShopCompassDruid@@UAEXXZ+97↑j
-                call    ?LockSurface2@@YAIXZ
-                mov     ecx, dword ptr [ebp+var_C]
-                cmp     dword ptr [ecx+120h], 0
-                jz      short loc_4C3259
-                push    0
-                push    0
-                push    0
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, [edx+0Ch]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ebp+var_8]
-                add     edx, [ecx+8]
-                push    edx
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+120h]
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+120h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+18h]
-
-loc_4C3259:                             ; CODE XREF: ?VMethod7@VisShopCompassDruid@@UAEXXZ+172↑j
-                mov     eax, dword ptr [ebp+var_C]
-                cmp     dword ptr [eax+124h], 0
-                jz      short loc_4C329E
-                push    0
-                push    0
-                push    0
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+0Ch]
-                mov     eax, dword ptr [ebp+var_4]
-                lea     ecx, [eax+edx+8]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+8]
-                mov     ecx, dword ptr [ebp+var_8]
-                lea     edx, [ecx+eax+5]
-                push    edx
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+124h]
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+124h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+18h]
-
-loc_4C329E:                             ; CODE XREF: ?VMethod7@VisShopCompassDruid@@UAEXXZ+1AF↑j
-                mov     eax, dword ptr [ebp+var_C]
-                cmp     dword ptr [eax+26Ch], 0
-                jz      loc_4C334C
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_4C2842
-                test    eax, eax
-                jz      loc_4C334C
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+5Ch]
-                xor     eax, eax
-                mov     ax, [edx+132h]
-                cmp     eax, 3
-                jnz     short loc_4C3310
-                push    0
-                push    0
-                push    0
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+0Ch]
-                mov     eax, dword ptr [ebp+var_4]
-                lea     ecx, [eax+edx+0ACh]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+8]
-                mov     ecx, dword ptr [ebp+var_8]
-                lea     edx, [ecx+eax+5Dh]
-                push    edx
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+268h]
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+268h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+18h]
-                jmp     short loc_4C334C
-; ---------------------------------------------------------------------------
-
-loc_4C3310:                             ; CODE XREF: ?VMethod7@VisShopCompassDruid@@UAEXXZ+21C↑j
-                push    0
-                push    0
-                push    0
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+0Ch]
-                mov     edx, dword ptr [ebp+var_4]
-                lea     eax, [edx+ecx+0ACh]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+8]
-                mov     eax, dword ptr [ebp+var_8]
-                lea     ecx, [eax+edx+5Dh]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [edx+26Ch]
-                mov     eax, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [eax+26Ch]
-                mov     eax, dword ptr [edx]
-                call    dword ptr [eax+18h]
-
-loc_4C334C:                             ; CODE XREF: ?VMethod7@VisShopCompassDruid@@UAEXXZ+1F4↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+5Ch]
-                xor     eax, eax
-                mov     ax, [edx+132h]
-                test    eax, eax
-                jnz     short loc_4C3398
-                push    0
-                push    0
-                push    0
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+0Ch]
-                mov     eax, dword ptr [ebp+var_4]
-                lea     ecx, [eax+edx+70h]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+8]
-                mov     ecx, dword ptr [ebp+var_8]
-                lea     edx, [ecx+eax+5]
-                push    edx
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+25Ch]
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+25Ch]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+18h]
-
-loc_4C3398:                             ; CODE XREF: ?VMethod7@VisShopCompassDruid@@UAEXXZ+2A9↑j
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+5Ch]
-                xor     edx, edx
-                mov     dx, [ecx+132h]
-                cmp     edx, 1
-                jnz     short loc_4C33E5
-                push    0
-                push    0
-                push    0
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+0Ch]
-                mov     edx, dword ptr [ebp+var_4]
-                lea     eax, [edx+ecx+34h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+8]
-                mov     eax, dword ptr [ebp+var_8]
-                lea     ecx, [eax+edx+5]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [edx+260h]
-                mov     eax, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [eax+260h]
-                mov     eax, dword ptr [edx]
-                call    dword ptr [eax+18h]
-
-loc_4C33E5:                             ; CODE XREF: ?VMethod7@VisShopCompassDruid@@UAEXXZ+2F6↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+5Ch]
-                xor     eax, eax
-                mov     ax, [edx+132h]
-                cmp     eax, 2
-                jnz     short loc_4C3432
-                push    0
-                push    0
-                push    0
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+0Ch]
-                mov     eax, dword ptr [ebp+var_4]
-                lea     ecx, [eax+edx+24h]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+8]
-                mov     ecx, dword ptr [ebp+var_8]
-                lea     edx, [ecx+eax+79h]
-                push    edx
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+264h]
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+264h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+18h]
-
-loc_4C3432:                             ; CODE XREF: ?VMethod7@VisShopCompassDruid@@UAEXXZ+343↑j
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+240h]
-                and     ecx, 30h
-                test    ecx, ecx
-                jz      short loc_4C348C
-                mov     edx, dword ptr [ebp+var_C]
-                cmp     dword ptr [edx+12Ch], 0
-                jz      short loc_4C348A
-                push    0
-                push    0
-                push    0
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+0Ch]
-                mov     edx, dword ptr [ebp+var_4]
-                lea     eax, [edx+ecx+5Ch]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+8]
-                mov     eax, dword ptr [ebp+var_8]
-                lea     ecx, [eax+edx+0C5h]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [edx+12Ch]
-                mov     eax, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [eax+12Ch]
-                mov     eax, dword ptr [edx]
-                call    dword ptr [eax+18h]
-
-loc_4C348A:                             ; CODE XREF: ?VMethod7@VisShopCompassDruid@@UAEXXZ+398↑j
-                jmp     short loc_4C34D4
-; ---------------------------------------------------------------------------
-
-loc_4C348C:                             ; CODE XREF: ?VMethod7@VisShopCompassDruid@@UAEXXZ+38C↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                cmp     dword ptr [ecx+128h], 0
-                jz      short loc_4C34D4
-                push    0
-                push    0
-                push    0
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+0Ch]
-                mov     ecx, dword ptr [ebp+var_4]
-                lea     edx, [ecx+eax+5Ch]
-                push    edx
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+8]
-                mov     edx, dword ptr [ebp+var_8]
-                lea     eax, [edx+ecx+0C5h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [ecx+128h]
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+128h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+18h]
-
-loc_4C34D4:                             ; CODE XREF: ?VMethod7@VisShopCompassDruid@@UAEXXZ:loc_4C348A↑j
-                call    ?UnlockSurface2@@YAIXZ
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?VMethod7@CVisualObject@@UAEXXZ
-
-loc_4C34E1:                             ; CODE XREF: ?VMethod7@VisShopCompassDruid@@UAEXXZ+83↑j
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod7@VisShopCompassDruid@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -42513,7 +42147,7 @@ arg_0           = dword ptr  8
                 cmp     eax, 3
                 jnz     short loc_4C350D
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_4C2842
+                call    ?FUN_004c2842@VisShopCompassDruid@@QAEHXZ
                 test    eax, eax
                 jnz     short loc_4C350D
                 xor     eax, eax
@@ -42635,7 +42269,7 @@ loc_4C35D9:                             ; CODE XREF: ?OnLButtonDown@VisShopCompa
                 cmp     [ebp+var_10], 3
                 jnz     short loc_4C3633
                 mov     ecx, dword ptr [ebp+var_2C]
-                call    sub_4C2842
+                call    ?FUN_004c2842@VisShopCompassDruid@@QAEHXZ
                 test    eax, eax
                 jz      short loc_4C3683
 

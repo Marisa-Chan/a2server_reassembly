@@ -1890,6 +1890,8 @@ public:
 
 	VisShopCompassDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4c247b in asm
 
+	int32_t FUN_004c2842(); // 4c2842
+
 public:
 	int32_t field_0x258; // 0x258
 	CBmp64* armor_bmp; // 0x25c
