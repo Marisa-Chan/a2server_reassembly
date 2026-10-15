@@ -24520,12 +24520,12 @@ void VisMainMenu::VMethod7()
     this->bmp_menu->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
     if (this->bmp_active_button != nullptr) {
         this->bmp_active_button->VMethod2(this->rect_active_button.left, this->rect_active_button.top, 0, 0, 0);
-        if (this->pressed_button >= 0) {
-            this->bmp_labels.GetAt(this->pressed_button)->VMethod2(screen_rect.left + 0xE8, screen_rect.top + 200, 0, 0, 0);
-        }
-    } else {
         if (this->active_button >= 0) {
             this->bmp_labels.GetAt(this->active_button)->VMethod2(screen_rect.left + 0xE8, screen_rect.top + 200, 0, 0, 0);
+        }
+    } else {
+        if (this->over_button >= 0) {
+            this->bmp_labels.GetAt(this->over_button)->VMethod2(screen_rect.left + 0xE8, screen_rect.top + 200, 0, 0, 0);
         }
     }
     this->sprite->VMethod2(screen_rect.left + 0x1E0, screen_rect.top + 0x168, 0, 0, 0);
