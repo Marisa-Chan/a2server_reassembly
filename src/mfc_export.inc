@@ -13,37 +13,6 @@ extern ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ:proc ; CObject::GetRunt
 extern ?IsKindOf@CObject@@QBEHPBUCRuntimeClass@@@Z:proc  ; CObject::IsKindOf
 
 
-; WorldEquip
-externdef ??0WorldEquip@@QAE@XZ :proc
-
-
-; MagicItem
-externdef ??0MagicItem@@QAE@XZ :proc
-
-
-; MatShape
-externdef ??0MatShape@@QAE@XZ :proc
-
-
-; MaginInfo
-externdef ??0MagicInfo@@QAE@XZ :proc
-
-
-; MonsterInfo
-externdef ??0MonsterInfo@@QAE@XZ :proc
-
-
-; HumanInfo
-externdef ??0HumanInfo@@QAE@XZ :proc
-
-
-; BuildingInfo
-externdef ??0BuildingInfo@@QAE@XZ :proc
-
-
-; SpellInfo
-externdef ??0SpellInfo@@QAE@XZ :proc
-
 
 ;CRuntimeClass
 extern ?CreateObject@CRuntimeClass@@QAEPAVCObject@@XZ:proc   ;   CRuntimeClass::CreateObject
@@ -161,84 +130,6 @@ externdef ?WinHelpA@CWinApp@@UAEXKI@Z:proc   ; (public: virtual void __thiscall 
 externdef ??0CWinApp@@QAE@PBD@Z:proc   ; (public: __thiscall CWinApp::CWinApp(char const *))
 externdef ?ExitInstance@CWinApp@@UAEHXZ:proc   ; (public: virtual int __thiscall GameApp::ExitInstance(void))
 
-;GameApp
-
-extern  ?AppGetWorkingDir@@YAHHPAD@Z  : proc
-extern  ?AppHasAnySaveFile@@YAHXZ  : proc
-
-
-
-
-
-
-
-extern ?LogMessage@@YAXVCString@@@Z:proc     ;  LogMessage
-
-
-;GameDataRes
-extern ?g_GameDataRes@@3UGameDataRes@@A:byte    ; g_GameDataRes
-externdef ?sub_510EE6@GameDataRes@@QAEPAVItem@@G@Z :proc
-
-extern ?FUN_00512625@GameDataRes@@QAEHH@Z : proc
-extern ?FUN_005125a8@GameDataRes@@QAEHH@Z : proc
-
-; ParseTxtFiles header CStringArray globals
-extern ?unk_6B0BE8@@3VCStringArray@@A :byte
-extern ?unk_6CDB10@@3VCStringArray@@A :byte
-extern ?unk_6B1638@@3VCStringArray@@A :byte
-extern ?unk_6B0BD0@@3VCStringArray@@A :byte
-extern ?unk_6B1620@@3VCStringArray@@A :byte
-
-; BuildingsList
-
-
-; Building
-externdef ?Serialize@Building@@UAEXAAVCArchive@@@Z :proc                        ; void Building::Serialize(CArchive&)
-
-
-; Pointer
-externdef ??1Pointer@@UAE@XZ :proc                                              ; Pointer::~Pointer()
-
-
-; Outpost
-
-
-; Inn
-
-
-
-; Shop
-
-
-
-; MultiShopShelf
-
-; MultiShopTemplate
-externdef ?sub_546F18@CMultiShopTemplate@@QAEXPAVCMultiShopInstance@@H@Z : proc
-
-; MultiShopInstance
-externdef ?sub_5462C8@CMultiShopInstance@@QAEHPAVItem@@H@Z : proc
-externdef ?sub_5464B6@CMultiShopInstance@@QAEXH@Z : proc
-externdef ?sub_546857@CMultiShopInstance@@QAEPAVUnit@@PAV2@@Z :proc              ; Unit* CMultiShopInstance::sub_546857(Unit*)
-
-
-; ShopAssortment
-externdef ?sub_54C08A@ShopAssortment@@QAEXXZ :proc  ; void ShopAssortment::sub_54C08A()
-externdef ?sub_54EA76@ShopAssortment@@QAEHPAVItem@@@Z :proc  ; int32_t ShopAssortment::sub_54EA76(Item*)
-extern ?sub_54C6DD@@YAXPAV?$CArray@PAVItem@@ABQAV1@@@PAVItem@@@Z :proc  ; void __cdecl sub_54C6DD(CArray<Item*>*, Item*)
-extern ?sub_54C556@@YAXPAV?$CArray@PAVItem@@ABQAV1@@@@Z :proc  ; void __cdecl sub_54C556(CArray<Item*>*)
-
-
-;Scenario
-extern ?ScenarioGetVar@@YGHH@Z  :proc
-extern ?ScenarioTalkTo@@YGXI@Z  :proc
-extern ?ScenarioEnterLocation@@YGXPAUScenarioLocation@@@Z  :proc
-extern ?ScenarioEnterShop@@YGHXZ  :proc
-extern ?ScenarioLeaveShop@@YGXXZ  :proc
-extern ?ScenarioEnterInn@@YGXPAH0@Z  :proc
-extern ?ScenarioLeaveInn@@YGXXZ  :proc
-extern ?ScenarioGetAvailableLocations@@YGPAV?$CList@PAUScenarioLocation@@ABQAU1@@@XZ  :proc
-extern ?ScenarioGetCurrentLocation@@YGPAUScenarioLocation@@XZ  :proc
 
 
 
@@ -304,14 +195,18 @@ extern ??3@YAXPAX@Z:proc ; operator delete      5ddf90
 
 
 
-;File2
-extern ??1File2@@UAE@XZ:proc   ; (public: virtual __thiscall File2::~File2(void))
-extern ??0File2@@QAE@XZ:proc   ; (public: __thiscall File2::File2(void))
-extern ?Seek@File2@@UAEJJI@Z:proc   ; (public: virtual long __thiscall File2::Seek(long,unsigned int))
-extern ?Read@File2@@UAEIPAXI@Z:proc   ; (public: virtual unsigned int __thiscall File2::Read(void *,unsigned int))
-extern ?Close@File2@@UAEXXZ:proc   ; (public: virtual void __thiscall File2::Close(void))
-extern ?Open@File2@@UAEHPBDIPAVCFileException@@@Z:proc   ; (public: virtual int __thiscall File2::Open(char const *,unsigned int,class CFileException *))
-extern ?FUN_004a7b3c@@YAXPADPAVFile2@@@Z : proc  ; void __cdecl FUN_004a7b3c(char*, File2*); called from asm (sub_4A8B94)
+
+
+
+
+
+
+
+
+;Scenario
+extern ?ScenarioGetVar@@YGHH@Z  :proc
+
+
 
 
 ;Resources
@@ -349,75 +244,6 @@ extern ?SetCoords2@TokenPos@@QAEXGG@Z:proc   ; TokenPos::SetCoords2
 extern ?Distance@TokenPos@@QBEEPBU1@@Z:proc   ; TokenPos::Distance
 extern ?sub_58bec3@TokenPos@@QAEHXZ :proc  ; TokenPos::sub_58bec3() – position mode check
 
-
-
-; MapStuff
-externdef ?sub_58E670@MapStuff@@QAEXXZ :proc         ; void MapStuff::sub_58E670()
-
-externdef ?sub_58AD4A@MapStuff@@QAEHPAVUnit@@@Z :proc
-
-externdef ?sub_58A158@MapStuff@@QAEHPAVUnit@@G@Z :proc               ; int32_t MapStuff::sub_58A158(Unit*, uint16_t) [ASM]
-externdef ?sub_58BFA3@MapStuff@@QAEHEEEE@Z :proc                     ; int32_t MapStuff::sub_58BFA3(uint8_t, uint8_t, uint8_t, uint8_t) [ASM]
-
-; Migrated to C++ (map_stuff.cpp), still called directly from remaining ASM code.
-externdef ?sub_58CA1B@MapStuff@@QAEPAVUnit@@UPosYX@@@Z :proc
-externdef ?sub_58CB5A@MapStuff@@QAEPAVUnit@@G@Z :proc
-externdef ?sub_58CBB9@MapStuff@@QAEPAVUnit@@G@Z :proc
-externdef ?sub_58B1D7@MapStuff@@QAEHPAVUnit@@@Z :proc                ; int MapStuff::sub_58B1D7(Unit*)
-externdef ?sub_58B593@MapStuff@@QAEXUPosYX@@@Z :proc                 ; void MapStuff::sub_58B593(PosYX)
-externdef ?sub_58E891@MapStuff@@QAEXPAVUnitList@@@Z :proc
-externdef ?sub_58F166@MapStuff@@QAEXPAUMapAlm@@@Z :proc             ; void MapStuff::sub_58F166(MapAlm*)
-
-extern ?FUN_005969c6@MapStuff@@QAEXPAVUnit@@UPosYX@@E@Z : proc
-externdef ?sub_59A6F0@MapStuff@@QAEPAEEE@Z :proc                          ; uint8_t* MapStuff::sub_59A6F0(uint8_t, uint8_t) [ASM]
-
-
-
-
-extern ?g_MissionText@@3VCString@@A : dword
-
-extern ?MissionGetTips@@YAXHPAVCString@@@Z  :proc
-extern ?MissionGetLocName@@YAXHHPAVCString@@@Z  :proc
-extern ?MissionGetDescription@@YAXHHPAVCString@@@Z  :proc
-
-
-; ScanPresenceGrid
-extern ??0ScanPresenceGrid@@QAE@XZ :proc
-
-; Perf
-extern ??0Perf@@QAE@XZ :proc
-
-; MapStuff sub-object init blocks (opaque, ASM-backed)
-extern ??0FieldBlock54190@@QAE@XZ :proc
-extern ??0FieldBlock5859c@@QAE@XZ :proc
-
-
-; Visibility
-
-extern ??0Visibility@@QAE@XZ :proc
-
-
-;Token
-;extern ??_7Token@@6B@:dword ; Token::`vftable`
-
-
-extern ??1Token@@UAE@XZ:proc ; Token::~Token 005283d6
-
-
-
-; VirtualCaster
-externdef ?classVirtualCaster@VirtualCaster@@2UCRuntimeClass@@A :dword
-
-
-
-;BitSet g_buildingIdSet     in token.cpp
-
-
-
-; Inventory
-externdef ??0Inventory@@QAE@XZ :proc             ; Inventory::Inventory()
-externdef ??1Inventory@@QAE@XZ :proc             ; Inventory::~Inventory()
-externdef ?PutItemIntoBagAtDefault@Inventory@@QAEXPAVItem@@@Z :proc ; void Inventory::PutItemIntoBagAtDefault(Item*)
 
 ; Unit
 
