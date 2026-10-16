@@ -10,23 +10,23 @@ OK	520510	A2NetSock::A2NetSock	src/net.cpp
 OK	520684	A2NetSock::~A2NetSock	src/net.cpp
 
 ## AreaEffect (17)
-PENDING	537846	AreaEffect::AreaEffect	src/spell_effect.cpp
-PENDING	537880	AreaEffect::AreaEffect	src/spell_effect.cpp
-PENDING	5378D8	AreaEffect::~AreaEffect	src/spell_effect.cpp
-PENDING	537964	AreaEffect::VMethod2	src/spell_effect.cpp
-PENDING	537C8C	AreaEffect::sub_537C8C	src/spell_effect.cpp
-PENDING	537CD6	AreaEffect::sub_537CD6	src/spell_effect.cpp
-PENDING	537F2C	AreaEffect::sub_537F2C	src/spell_effect.cpp
-PENDING	53801A	AreaEffect::sub_53801A	src/spell_effect.cpp
-PENDING	538137	AreaEffect::sub_538137	src/spell_effect.cpp
-PENDING	53822C	AreaEffect::sub_53822C	src/spell_effect.cpp
-PENDING	5382FB	AreaEffect::VMethod10	src/spell_effect.cpp
-PENDING	53831D	AreaEffect::sub_53831D	src/spell_effect.cpp
-PENDING	5384FF	AreaEffect::sub_5384FF	src/spell_effect.cpp
-PENDING	53868D	AreaEffect::sub_53868D	src/spell_effect.cpp
-PENDING	538897	AreaEffect::sub_538897	src/spell_effect.cpp
-PENDING	53E81F	AreaEffect::Serialize	src/spell_effect.cpp
-PENDING	53EB1E	AreaEffect::VMethod5	src/spell_effect.cpp
+OK	537846	AreaEffect::AreaEffect	src/spell_effect.cpp
+OK	537880	AreaEffect::AreaEffect	src/spell_effect.cpp
+OK	5378D8	AreaEffect::~AreaEffect	src/spell_effect.cpp
+OK	537964	AreaEffect::VMethod2	src/spell_effect.cpp
+OK	537C8C	AreaEffect::sub_537C8C	src/spell_effect.cpp
+OK	537CD6	AreaEffect::sub_537CD6	src/spell_effect.cpp
+OK	537F2C	AreaEffect::sub_537F2C	src/spell_effect.cpp
+OK	53801A	AreaEffect::sub_53801A	src/spell_effect.cpp
+OK	538137	AreaEffect::sub_538137	src/spell_effect.cpp
+OK	53822C	AreaEffect::sub_53822C	src/spell_effect.cpp
+OK	5382FB	AreaEffect::VMethod10	src/spell_effect.cpp
+OK	53831D	AreaEffect::sub_53831D	src/spell_effect.cpp	vanilla calls unit->VMethod3() twice and multiplies; C++ calls once and squares
+OK	5384FF	AreaEffect::sub_5384FF	src/spell_effect.cpp
+OK	53868D	AreaEffect::sub_53868D	src/spell_effect.cpp
+OK	538897	AreaEffect::sub_538897	src/spell_effect.cpp	default path only builds+destroys CString temp (FUN_0043aa70 = ~CString), no logging; C++ returns 0
+OK	53E81F	AreaEffect::Serialize	src/spell_effect.cpp
+OK	53EB1E	AreaEffect::VMethod5	src/spell_effect.cpp
 
 ## Armor (12)
 PENDING	54F2E9	Armor::Armor	src/item.cpp
