@@ -170,11 +170,11 @@ OK	57C3A0	Building::VMethod9	src/building.cpp
 OK	57C3B0	Building::IsOutpost	src/building.cpp
 
 ## BuildingInfo (5)
-PENDING	514AC9	BuildingInfo::VMethod2	src/table.cpp
-PENDING	514BCE	BuildingInfo::Serialize	src/table.cpp
-PENDING	572F70	BuildingInfo::BuildingInfo	src/table.cpp
-PENDING	573050	BuildingInfo::~BuildingInfo	src/table.cpp
-PENDING	5782B0	BuildingInfo::ParseLine	src/table.cpp
+OK	514AC9	BuildingInfo::VMethod2	src/table.cpp
+OK	514BCE	BuildingInfo::Serialize	src/table.cpp
+OK	572F70	BuildingInfo::BuildingInfo	src/table.cpp
+OK	573050	BuildingInfo::~BuildingInfo	src/table.cpp
+OK	5782B0	BuildingInfo::ParseLine	src/table.cpp
 
 ## BuildingsList (7)
 PENDING	557DB2	BuildingsList::sub_557DB2	src/buildings_list.cpp
@@ -186,10 +186,10 @@ PENDING	558228	BuildingsList::sub_558228	src/buildings_list.cpp
 PENDING	558908	BuildingsList::sub_558908	src/buildings_list.cpp
 
 ## CAirUnit (4)
-PENDING	46D6AD	CAirUnit::CAirUnit	src/gameobj.cpp
-PENDING	46D6FB	CAirUnit::VMethod10	src/gameobj.cpp
-PENDING	46D7E8	CAirUnit::Dump	src/gameobj.cpp
-PENDING	46F010	CAirUnit::~CAirUnit	src/gameobj.cpp
+OK	46D6AD	CAirUnit::CAirUnit	src/gameobj.cpp
+OK	46D6FB	CAirUnit::VMethod10	src/gameobj.cpp
+OK	46D7E8	CAirUnit::Dump	src/gameobj.cpp	vanilla Dump does a real dc<<"CAirUnit" call; C++ stubs all Dump overrides intentionally (diagnostic-only)
+OK	46F010	CAirUnit::~CAirUnit	src/gameobj.cpp
 
 ## CBackPack (8)
 PENDING	462843	CBackPack::CBackPack	src/gameobj.cpp
