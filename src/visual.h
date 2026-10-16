@@ -3003,6 +3003,18 @@ public:
 };
 ASSERT_SIZE(SaveGameWindow, 0x9c);
 
+//609ed8
+class VisButtonSaveGame : public VisButton
+{
+public:
+	virtual ~VisButtonSaveGame(); //44f650
+
+	virtual int32_t OnKeyDown(uint32_t wparam) override; //44f5f0
+
+	VisButtonSaveGame(int32_t _id, const RECT& r, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint); //44f5a0
+};
+ASSERT_SIZE(VisButtonSaveGame, 0x78);
+
 
 //609d38
 class HintedListBox : public VisListBox

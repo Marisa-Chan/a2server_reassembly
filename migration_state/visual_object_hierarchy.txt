@@ -14,6 +14,7 @@ VisComboBox : CVisualObject
 VisComboBoxText : VisTextBox
 VisComboBoxList : VisListBox
 VisComboBoxButton : VisButton
+VisButtonSaveGame : VisButton
 VisMultiText : VisListBox
 VisScreen : CVisualObject
 VisWindow : VisScreen

@@ -16512,8 +16512,8 @@ sub_44F370      endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall sub_44F5A0(int, RECT *lprcSrc, char *varStr, int, int, int, int, LPCSTR lpString)
-sub_44F5A0      proc near               ; CODE XREF: sub_43FB2C+AAC↑p
+; int __stdcall ??0VisButtonSaveGame@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z(int, RECT *lprcSrc, char *varStr, int, int, int, int, LPCSTR lpString)
+??0VisButtonSaveGame@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z      proc near               ; CODE XREF: sub_43FB2C+AAC↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -16553,7 +16553,7 @@ lpString        = dword ptr  24h
                 mov     esp, ebp
                 pop     ebp
                 retn    20h ; ' '
-sub_44F5A0      endp
+??0VisButtonSaveGame@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -16562,7 +16562,7 @@ sub_44F5A0      endp
 
 ; Attributes: bp-based frame
 
-sub_44F5F0      proc near               ; DATA XREF: .rdata:00609F44↓o
+?OnKeyDown@VisButtonSaveGame@@UAEHI@Z      proc near               ; DATA XREF: .rdata:00609F44↓o
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -16585,14 +16585,14 @@ arg_0           = dword ptr  8
                 jmp     short loc_44F618
 ; ---------------------------------------------------------------------------
 
-loc_44F616:                             ; CODE XREF: sub_44F5F0+16↑j
+loc_44F616:                             ; CODE XREF: ?OnKeyDown@VisButtonSaveGame@@UAEHI@Z+16↑j
                 xor     eax, eax
 
-loc_44F618:                             ; CODE XREF: sub_44F5F0+24↑j
+loc_44F618:                             ; CODE XREF: ?OnKeyDown@VisButtonSaveGame@@UAEHI@Z+24↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_44F5F0      endp
+?OnKeyDown@VisButtonSaveGame@@UAEHI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -16602,7 +16602,7 @@ sub_44F5F0      endp
 
 ; Attributes: bp-based frame
 
-sub_44F620      proc near               ; DATA XREF: .rdata:00609EDC↓o
+??_GVisButtonSaveGame@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:00609EDC↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -16612,7 +16612,7 @@ arg_0           = dword ptr  8
                 push    ecx
                 mov     [ebp+Block], ecx
                 mov     ecx, dword ptr [ebp+Block]
-                call    sub_44F650
+                call    ??1VisButtonSaveGame@@UAE@XZ
                 mov     eax, dword ptr [ebp+arg_0]
                 and     eax, 1
                 test    eax, eax
@@ -16621,18 +16621,18 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_44F642:                             ; CODE XREF: sub_44F620+17↑j
+loc_44F642:                             ; CODE XREF: ??_GVisButtonSaveGame@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_44F620      endp
+??_GVisButtonSaveGame@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
 
 
-sub_44F650      proc near               ; CODE XREF: sub_44F620+A↑p
+??1VisButtonSaveGame@@UAE@XZ      proc near               ; CODE XREF: ??_GVisButtonSaveGame@@UAEPAXI@Z+A↑p
 
 var_4           = dword ptr -4
 
@@ -16645,7 +16645,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_44F650      endp
+??1VisButtonSaveGame@@UAE@XZ      endp
 
 
 
@@ -210498,8 +210498,8 @@ off_609C28      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
 
 
 
-off_609ED8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_44F5A0+32↑o
-                dd offset sub_44F620
+off_609ED8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisButtonSaveGame@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z+32↑o
+                dd offset ??_GVisButtonSaveGame@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
@@ -210525,7 +210525,7 @@ off_609ED8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset sub_44F5F0
+                dd offset ?OnKeyDown@VisButtonSaveGame@@UAEHI@Z
                 dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
                 dd offset ?OnChar@VisButton@@UAEHI@Z
 
