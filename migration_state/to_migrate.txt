@@ -5,5 +5,4 @@
 
 ??1VisButtonSaveGame@@UAE@XZ	13
 ??_GVisButtonSaveGame@@UAEPAXI@Z	24
-?OnKeyDown@VisButtonSaveGame@@UAEHI@Z	30
 ??0VisButtonSaveGame@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z	40

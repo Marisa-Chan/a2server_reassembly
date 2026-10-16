@@ -16562,37 +16562,6 @@ lpString        = dword ptr  24h
 
 ; Attributes: bp-based frame
 
-?OnKeyDown@VisButtonSaveGame@@UAEHI@Z      proc near               ; DATA XREF: .rdata:00609F44↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    4
-                mov     eax, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+20h]
-                test    eax, eax
-                jz      short loc_44F616
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?OnKeyDown@VisButton@@UAEHI@Z
-                jmp     short loc_44F618
-; ---------------------------------------------------------------------------
-
-loc_44F616:                             ; CODE XREF: ?OnKeyDown@VisButtonSaveGame@@UAEHI@Z+16↑j
-                xor     eax, eax
-
-loc_44F618:                             ; CODE XREF: ?OnKeyDown@VisButtonSaveGame@@UAEHI@Z+24↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?OnKeyDown@VisButtonSaveGame@@UAEHI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

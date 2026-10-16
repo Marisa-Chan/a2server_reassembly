@@ -208,6 +208,7 @@
 ?OnChar@CVisualObject@@UAEHI@Z
 ?OnChar@VisButton@@UAEHI@Z
 ?OnKeyDown@VisButton@@UAEHI@Z
+?OnKeyDown@VisButtonSaveGame@@UAEHI@Z
 ?OnKeyDown@VisWindow@@UAEHI@Z
 ?OnKeyUp@CVisualObject@@UAEHI@Z
 ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z
