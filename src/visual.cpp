@@ -7134,6 +7134,15 @@ int32_t VisButtonSaveGame::OnKeyDown(uint32_t wparam)
     return VisButton::OnKeyDown(wparam);
 }
 
+VisButtonSaveGame::VisButtonSaveGame(int32_t _id, const RECT& r, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint)
+    : VisButton(_id, r, _caption, _font, _clr, _msgid, _charid, hint)
+{ //44f5a0
+}
+
+VisButtonSaveGame::~VisButtonSaveGame()
+{ //44f650
+}
+
 
 int32_t GameOptionsWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 { //443cd7

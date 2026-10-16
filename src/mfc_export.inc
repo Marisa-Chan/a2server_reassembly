@@ -560,13 +560,6 @@ extern ?OnChar@VisButton@@UAEHI@Z  :proc
 extern ??0VisButton@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z  :proc
 
 
-;VisButtonSaveGame
-externdef ??0VisButtonSaveGame@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z :proc   ; (public: __thiscall VisButtonSaveGame::VisButtonSaveGame(int,struct tagRECT const &,char const *,class CGameFont *,unsigned short *,int,int,char const *))
-externdef ??1VisButtonSaveGame@@UAE@XZ :proc   ; (public: virtual __thiscall VisButtonSaveGame::~VisButtonSaveGame(void))
-externdef ??_GVisButtonSaveGame@@UAEPAXI@Z :proc   ; (public: virtual void * __thiscall VisButtonSaveGame::`scalar deleting destructor'(unsigned int))
-extern ?OnKeyDown@VisButtonSaveGame@@UAEHI@Z :proc   ; (public: virtual int __thiscall VisButtonSaveGame::OnKeyDown(unsigned int))
-
-
 ;VisListBox
 extern ??1VisListBox@@UAE@XZ  :proc
 

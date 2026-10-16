@@ -3,6 +3,3 @@
 # Optional second tab-separated column stores ASM span (endp_line - proc_line, functions only).
 # Edit migration_state/known_mfc.txt to exclude symbols you do not plan to migrate.
 
-??1VisButtonSaveGame@@UAE@XZ	13
-??_GVisButtonSaveGame@@UAEPAXI@Z	24
-??0VisButtonSaveGame@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z	40

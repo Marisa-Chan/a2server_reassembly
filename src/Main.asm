@@ -16512,48 +16512,6 @@ sub_44F370      endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall ??0VisButtonSaveGame@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z(int, RECT *lprcSrc, char *varStr, int, int, int, int, LPCSTR lpString)
-??0VisButtonSaveGame@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z      proc near               ; CODE XREF: sub_43FB2C+AAC↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-lprcSrc         = dword ptr  0Ch
-varStr             = dword ptr  10h
-arg_C           = dword ptr  14h
-arg_10          = dword ptr  18h
-arg_14          = dword ptr  1Ch
-arg_18          = dword ptr  20h
-lpString        = dword ptr  24h
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+lpString]
-                push    eax             ; lpString
-                mov     ecx, dword ptr [ebp+arg_18]
-                push    ecx             ; int
-                mov     edx, dword ptr [ebp+arg_14]
-                push    edx             ; int
-                mov     eax, dword ptr [ebp+arg_10]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+arg_C]
-                push    ecx             ; int
-                mov     edx, dword ptr [ebp+varStr]
-                push    edx             ; varStr
-                mov     eax, dword ptr [ebp+lprcSrc]
-                push    eax             ; lprcSrc
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??0VisButton@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z
-                mov     edx, dword ptr [ebp+var_4]
-                mov     dword ptr [edx], offset off_609ED8
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn    20h ; ' '
-??0VisButtonSaveGame@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -16571,50 +16529,11 @@ lpString        = dword ptr  24h
 
 ; Attributes: bp-based frame
 
-??_GVisButtonSaveGame@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:00609EDC↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??1VisButtonSaveGame@@UAE@XZ
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_44F642
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_44F642:                             ; CODE XREF: ??_GVisButtonSaveGame@@UAEPAXI@Z+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-??_GVisButtonSaveGame@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
 
 
-??1VisButtonSaveGame@@UAE@XZ      proc near               ; CODE XREF: ??_GVisButtonSaveGame@@UAEPAXI@Z+A↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??1VisButton@@UAE@XZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-??1VisButtonSaveGame@@UAE@XZ      endp
 
 
 
@@ -210467,36 +210386,6 @@ off_609C28      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
 
 
 
-off_609ED8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisButtonSaveGame@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z+32↑o
-                dd offset ??_GVisButtonSaveGame@@UAEPAXI@Z
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
-                dd offset ?GetHint@CVisualObject@@UAEPBDXZ
-                dd offset ?SetHint@CVisualObject@@UAEXPBD@Z ; Concurrency::details::SchedulerBase::HasSearchers(Concurrency::details::QuickBitSet const &)
-                dd offset ?ChangeFlags@CVisualObject@@UAEXI_N@Z
-                dd offset ?TestFlags@CVisualObject@@UAEII@Z
-                dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
-                dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset ?VMethod7@VisButton@@UAEXXZ
-                dd offset ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod9@CVisualObject@@UAEXXZ
-                dd offset ?VMethod10@CVisualObject@@UAEXXZ
-                dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
-                dd offset ?DataSize@CVisualObject@@UAEIXZ
-                dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
-                dd offset ?MsgProc@CVisualObject@@UAEHIII@Z
-                dd offset ?OnMouseMove@VisButton@@UAEHIVCPoint@@@Z
-                dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDown@VisButton@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonUp@VisButton@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnKeyDown@VisButtonSaveGame@@UAEHI@Z
-                dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnChar@VisButton@@UAEHI@Z
 
 
 
