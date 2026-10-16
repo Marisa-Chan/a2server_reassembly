@@ -29,24 +29,24 @@ OK	53E81F	AreaEffect::Serialize	src/spell_effect.cpp
 OK	53EB1E	AreaEffect::VMethod5	src/spell_effect.cpp
 
 ## Armor (12)
-PENDING	54F2E9	Armor::Armor	src/item.cpp
-PENDING	54F361	Armor::Armor	src/item.cpp
-PENDING	54F5AB	Armor::Armor	src/item.cpp
-PENDING	54F84D	Armor::VMethod15	src/item.cpp
-PENDING	54F9D1	Armor::~Armor	src/item.cpp
-PENDING	54F9ED	Armor::Armor	src/item.cpp
-PENDING	54FA6E	Armor::VMethod10	src/item.cpp
-PENDING	54FB7E	Armor::VMethod11	src/item.cpp
-PENDING	54FC19	Armor::TakeOne	src/item.cpp
-PENDING	54FCA8	Armor::VMethod17	src/item.cpp
-PENDING	55CF2B	Armor::Serialize	src/item.cpp
-PENDING	57D5B0	Armor::VMethod13	src/item.cpp
+OK	54F2E9	Armor::Armor	src/item.cpp
+OK	54F361	Armor::Armor	src/item.cpp
+OK	54F5AB	Armor::Armor	src/item.cpp
+OK	54F84D	Armor::VMethod15	src/item.cpp
+OK	54F9D1	Armor::~Armor	src/item.cpp
+OK	54F9ED	Armor::Armor	src/item.cpp
+OK	54FA6E	Armor::VMethod10	src/item.cpp
+OK	54FB7E	Armor::VMethod11	src/item.cpp
+OK	54FC19	Armor::TakeOne	src/item.cpp
+OK	54FCA8	Armor::VMethod17	src/item.cpp
+OK	55CF2B	Armor::Serialize	src/item.cpp
+OK	57D5B0	Armor::VMethod13	src/item.cpp
 
 ## asm_mfc (globals) (4)
-PENDING	401860	delete	src/asm_mfc.cpp
-PENDING	401880	new	src/asm_mfc.cpp
-PENDING	5DDF54	new	src/asm_mfc.cpp
-PENDING	5DDF90	delete	src/asm_mfc.cpp
+OK	401860	delete	src/asm_mfc.cpp
+OK	401880	new	src/asm_mfc.cpp
+OK	5DDF54	new	src/asm_mfc.cpp
+OK	5DDF90	delete	src/asm_mfc.cpp
 
 ## BigStruct2 (99)
 PENDING	402AF6	BigStruct2::BigStruct2	src/ingame.cpp
