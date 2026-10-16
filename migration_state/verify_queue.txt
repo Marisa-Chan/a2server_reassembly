@@ -177,13 +177,13 @@ OK	573050	BuildingInfo::~BuildingInfo	src/table.cpp
 OK	5782B0	BuildingInfo::ParseLine	src/table.cpp
 
 ## BuildingsList (7)
-PENDING	557DB2	BuildingsList::sub_557DB2	src/buildings_list.cpp
-PENDING	557EA5	BuildingsList::sub_557EA5	src/buildings_list.cpp
-PENDING	557F69	BuildingsList::sub_557F69	src/buildings_list.cpp
-PENDING	558055	BuildingsList::sub_558055	src/buildings_list.cpp
-PENDING	558128	BuildingsList::sub_558128	src/buildings_list.cpp
-PENDING	558228	BuildingsList::sub_558228	src/buildings_list.cpp
-PENDING	558908	BuildingsList::sub_558908	src/buildings_list.cpp
+OK	557DB2	BuildingsList::sub_557DB2	src/buildings_list.cpp
+OK	557EA5	BuildingsList::sub_557EA5	src/buildings_list.cpp
+OK	557F69	BuildingsList::sub_557F69	src/buildings_list.cpp
+OK	558055	BuildingsList::sub_558055	src/buildings_list.cpp
+OK	558128	BuildingsList::sub_558128	src/buildings_list.cpp
+OK	558228	BuildingsList::sub_558228	src/buildings_list.cpp
+OK	558908	BuildingsList::sub_558908	src/buildings_list.cpp
 
 ## CAirUnit (4)
 OK	46D6AD	CAirUnit::CAirUnit	src/gameobj.cpp
@@ -192,14 +192,14 @@ OK	46D7E8	CAirUnit::Dump	src/gameobj.cpp	vanilla Dump does a real dc<<"CAirUnit"
 OK	46F010	CAirUnit::~CAirUnit	src/gameobj.cpp
 
 ## CBackPack (8)
-PENDING	462843	CBackPack::CBackPack	src/gameobj.cpp
-PENDING	462887	CBackPack::VMethod6	src/gameobj.cpp
-PENDING	46295A	CBackPack::VMethod7	src/gameobj.cpp
-PENDING	462A98	CBackPack::VMethod10	src/gameobj.cpp
-PENDING	462AB1	CBackPack::Dump	src/gameobj.cpp
-PENDING	46EF30	CBackPack::~CBackPack	src/gameobj.cpp
-PENDING	46F5C0	CBackPack::VMethod4	src/gameobj.cpp
-PENDING	46F5D0	CBackPack::VMethod5	src/gameobj.cpp
+OK	462843	CBackPack::CBackPack	src/gameobj.cpp
+OK	462887	CBackPack::VMethod6	src/gameobj.cpp
+OK	46295A	CBackPack::VMethod7	src/gameobj.cpp
+OK	462A98	CBackPack::VMethod10	src/gameobj.cpp
+OK	462AB1	CBackPack::Dump	src/gameobj.cpp	vanilla Dump does a real dc<<"CBackPack" call; C++ stubs Dump overrides intentionally (same as CAirUnit)
+OK	46EF30	CBackPack::~CBackPack	src/gameobj.cpp
+OK	46F5C0	CBackPack::VMethod4	src/gameobj.cpp
+OK	46F5D0	CBackPack::VMethod5	src/gameobj.cpp
 
 ## CBridge (5)
 PENDING	463C7F	CBridge::CBridge	src/gameobj.cpp
