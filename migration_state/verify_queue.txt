@@ -899,14 +899,14 @@ PENDING	56ED8C	MapEffectData::MapEffectData	src/alm.cpp
 PENDING	56E910	MapLogicData::MapLogicData	src/alm.cpp
 
 ## MapPlayerData (8)
-PENDING	41EDF0	MapPlayerData::FUN_0041edf0	src/alm.cpp
-PENDING	41EE20	MapPlayerData::FUN_0041ee20	src/alm.cpp
-PENDING	41EE50	MapPlayerData::FUN_0041ee50	src/alm.cpp
-PENDING	43C040	MapPlayerData::MapPlayerData	src/alm.cpp
-PENDING	43C0BE	MapPlayerData::MapPlayerData	src/alm.cpp
-PENDING	43C17F	MapPlayerData::MapPlayerData	src/alm.cpp
-PENDING	43C225	MapPlayerData::Dump	src/alm.cpp
-PENDING	43C270	MapPlayerData::~MapPlayerData	src/alm.cpp
+OK	41EDF0	MapPlayerData::FUN_0041edf0	src/alm.cpp
+OK	41EE20	MapPlayerData::FUN_0041ee20	src/alm.cpp
+OK	41EE50	MapPlayerData::FUN_0041ee50	src/alm.cpp
+OK	43C040	MapPlayerData::MapPlayerData	src/alm.cpp	MSVC ctor boilerplate omitted intentionally
+OK	43C0BE	MapPlayerData::MapPlayerData	src/alm.cpp	MSVC ctor boilerplate omitted intentionally
+OK	43C17F	MapPlayerData::MapPlayerData	src/alm.cpp	MSVC ctor boilerplate omitted intentionally
+OK	43C225	MapPlayerData::Dump	src/alm.cpp	dc << "CPlayer" guarded by _DEBUG (operator<< debug-only)
+OK	43C270	MapPlayerData::~MapPlayerData	src/alm.cpp	MSVC dtor boilerplate omitted intentionally
 
 ## MapSackData (1)
 PENDING	56EAC7	MapSackData::MapSackData	src/alm.cpp
