@@ -7079,7 +7079,7 @@ void SaveGameWindow::VMethod26()
     CRect local_190((rect.Width() * 8) / 20, lr.bottom + 24, (rect.Width() * 12) / 20, lr.bottom + 48);
     CRect local_1a0((rect.Width() * 13) / 20, lr.bottom + 24, (rect.Width() * 17) / 20, lr.bottom + 48);
 
-    VisButton* btn = new VisButton(4, local_17c, txt_dialogs.GetLine(0), g_font1, nullptr, 0x479, 0, txt_dialogs.GetLine(26));
+    VisButton* btn = new VisButton(4, local_17c, txt_dialogs.GetLine(0), g_font1, nullptr, 0x479, 0, txt_dialogs.GetLine(32));
     AddChild(btn);
 
     btn->ChangeFlags(FLAG_10, true);
@@ -7088,10 +7088,10 @@ void SaveGameWindow::VMethod26()
         btn->ChangeFlags(FLAG_ENABLED, false);
     }
 
-    VisButton* btn2 = new VisButton(6, local_190, txt_dialogs.GetLine(157), g_font1, nullptr, 0x475, 0, txt_dialogs.GetLine(158));
+    VisButton* btn2 = new VisButtonSaveGame(6, local_190, txt_dialogs.GetLine(157), g_font1, nullptr, 0x475, 0, txt_dialogs.GetLine(158));
     AddChild(btn2);
 
-    VisButton* btn3 = new VisButton(5, local_1a0, txt_dialogs.GetLine(1), g_font1, nullptr, 0x47a, 0, txt_dialogs.GetLine(27));
+    VisButton* btn3 = new VisButtonSaveGame(5, local_1a0, txt_dialogs.GetLine(1), g_font1, nullptr, 0x47a, 0, txt_dialogs.GetLine(33));
     AddChild(btn3);
 
     btn->SetRightObj(btn3);
@@ -7123,6 +7123,15 @@ void SaveGameWindow::CheckInput()
     }
 
     obj->VMethod9();
+}
+
+
+int32_t VisButtonSaveGame::OnKeyDown(uint32_t wparam)
+{ //44f5f0
+    if (this->TestFlags(FLAG_FOCUS) == 0) {
+        return 0;
+    }
+    return VisButton::OnKeyDown(wparam);
 }
 
 
