@@ -15564,199 +15564,6 @@ sub_43AAC0      endp
 
 ; Attributes: bp-based frame
 
-sub_43C030      proc near               ; DATA XREF: .rdata:off_609B70↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, offset stru_609B58 ; "CPlayer"
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_43C030      endp
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_43C0BE      proc near               ; CODE XREF: sub_5685AD+5BF↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-; FUNCTION CHUNK AT 005F8C0F SIZE 0000001F BYTES
-
-; __unwind { // SEH_43C0BE
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_43C0BE
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0CObject@@IAE@XZ
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 38h ; '8'  ; void *
-                call    sub_5DB7FE
-;   } // starts at 43C0E2
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax], offset off_609B70
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     eax, dword ptr [edx+4]
-                mov     [ecx+4], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     eax, dword ptr [edx+8]
-                mov     [ecx+8], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     eax, dword ptr [edx+0Ch]
-                mov     [ecx+0Ch], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     eax, dword ptr [edx+10h]
-                mov     [ecx+10h], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     eax, dword ptr [edx+34h]
-                mov     [ecx+34h], eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                add     ecx, 14h
-                push    ecx             ; Source
-                mov     edx, dword ptr [ebp+var_10]
-                add     edx, 14h
-                push    edx             ; Destination
-                call    _strcpy
-                add     esp, 8
-                mov     eax, dword ptr [ebp+arg_0]
-                add     eax, 38h ; '8'
-                push    eax             ; struct CWordArray *
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 38h ; '8'  ; varThis
-                call    ?Copy@CWordArray@@QAEXABV1@@Z ; CWordArray::Copy(CWordArray const &)
-;   } // starts at 43C0F4
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-; } // starts at 43C0BE
-sub_43C0BE      endp
-
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall sub_43C225(CDumpContext *)
-sub_43C225      proc near               ; DATA XREF: .rdata:00609B80↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    offset aCplayer ; "CPlayer"
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ??6CDumpContext@@QAEAAV0@PBD@Z ; CDumpContext::operator<<(char const *)
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_43C225      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_43C240      proc near               ; DATA XREF: .rdata:00609B74↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_43C270
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_43C262
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_43C262:                             ; CODE XREF: sub_43C240+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_43C240      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_43C270      proc near               ; CODE XREF: sub_43C240+A↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F8C50 SIZE 00000013 BYTES
-
-; __unwind { // SEH_43C270
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_43C270
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 38h ; '8'  ; void *
-                call    sub_5DB831
-;   } // starts at 43C28C
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CObject@@UAE@XZ
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 43C270
-sub_43C270      endp
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -55426,7 +55233,7 @@ arg_0           = dword ptr  8
                 mov     ecx, dword ptr [eax+3Ch]
                 push    ecx
                 mov     ecx, dword ptr [ebp+Block]
-                call    sub_43C0BE
+                call    ??0MapPlayerData@@QAE@ABV0@@Z
                 mov     [ebp+var_88], eax
                 jmp     short loc_568B83
 ; ---------------------------------------------------------------------------
@@ -55500,7 +55307,7 @@ loc_568BFA:                             ; CODE XREF: sub_5685AD+642↑j
                 mov     eax, dword ptr [ecx+edx*4]
                 push    eax
                 mov     ecx, dword ptr [ebp+var_28]
-                call    sub_43C0BE
+                call    ??0MapPlayerData@@QAE@ABV0@@Z
                 mov     [ebp+var_8C], eax
                 jmp     short loc_568C4D
 ; ---------------------------------------------------------------------------
@@ -127255,7 +127062,7 @@ arg_0           = dword ptr  4
 ; Attributes: library function
 
 ; void __thiscall CWordArray::Copy(CWordArray *__hidden varThis, const struct CWordArray *)
-?Copy@CWordArray@@QAEXABV1@@Z proc near ; CODE XREF: sub_43C0BE+A2↑p
+?Copy@CWordArray@@QAEXABV1@@Z proc near ; CODE XREF: ??0MapPlayerData@@QAE@ABV0@@Z+A2↑p
 
 arg_0           = dword ptr  4
 
@@ -193499,47 +193306,6 @@ SEH_438BC0:                             ; DATA XREF: CWinThread::~CWinThread(voi
 ; } // starts at 5F8900
 ; END OF FUNCTION CHUNK FOR CWinThread::~CWinThread(void)
 
-; START OF FUNCTION CHUNK FOR sub_43C0BE
-
-loc_5F8C0F:                             ; DATA XREF: .rdata:stru_619460↓o
-; __unwind { // SEH_43C0BE
-;   cleanup() // owned by 43C0E2
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F8C18:                             ; DATA XREF: .rdata:00619468↓o
-;   cleanup() // owned by 43C0F4
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 38h ; '8'  ; void *
-                call    sub_5DB831
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_43C0BE:                             ; DATA XREF: sub_43C0BE+5↑o
-                mov     eax, offset stru_619440
-                jmp     ___CxxFrameHandler
-; } // starts at 5F8C0F
-; END OF FUNCTION CHUNK FOR sub_43C0BE
-; ---------------------------------------------------------------------------
-                align 10h
-; START OF FUNCTION CHUNK FOR sub_43C270
-
-loc_5F8C50:                             ; DATA XREF: .rdata:stru_6194C0↓o
-; __unwind { // SEH_43C270
-;   cleanup() // owned by 43C28C
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_43C270:                             ; DATA XREF: sub_43C270+5↑o
-                mov     eax, offset stru_6194A0
-                jmp     ___CxxFrameHandler
-; } // starts at 5F8C50
-; END OF FUNCTION CHUNK FOR sub_43C270
-; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR ??1TxtFile@@UAE@XZ
 
@@ -210693,12 +210459,6 @@ off_609A20      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?Dump@CObject@@UBEXAAVCDumpContext@@@Z ; Microsoft VisualC 2-14/net runtime
                 align 8
 
-stru_609B58     sCRuntimeClass <offset aCplayer_0, 4Ch, 0FFFFh, 0, offset ?classCObject@CObject@@2UCRuntimeClass@@B, 0> ; CPlayer
-off_609B70      dd offset sub_43C030    ; DATA XREF: ??0MapPlayerData@@QAE@XZ+3D↑o
-                dd offset sub_43C240
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset sub_43C225
                 align 8
 
 off_609C28      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_43CD80+46↑o
@@ -222212,19 +221972,6 @@ stru_618FD8     FuncInfoV1 <19930520h, 1, offset stru_618FF8, 0, 0, 0, 0>
                 db    0
 stru_618FF8     UnwindMapEntry <-1, offset loc_5F8900>
 
-stru_619440     FuncInfoV1 <19930520h, 2, offset stru_619460, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_619460     UnwindMapEntry <-1, offset loc_5F8C0F>
-                UnwindMapEntry <0, offset loc_5F8C18>
-stru_6194A0     FuncInfoV1 <19930520h, 1, offset stru_6194C0, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_6194C0     UnwindMapEntry <-1, offset loc_5F8C50>
 stru_619608     FuncInfoV1 <19930520h, 1, offset stru_619628, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -227845,9 +227592,6 @@ aTurnDDPlayersO db 'Turn %d. %d players online',0
                 db    0
                 db    0
                 db    0
-aCplayer_0      db 'CPlayer',0          ; DATA XREF: .rdata:off_609B58↑o
-; CHAR aCplayer[]
-aCplayer        db 'CPlayer',0          ; DATA XREF: sub_43C225+7↑o
                 db    1
                 db    0
                 db    0

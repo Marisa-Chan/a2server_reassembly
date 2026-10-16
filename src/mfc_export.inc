@@ -716,6 +716,7 @@ extern   ?FUN_0046f700@UnitGfxFile@@QAEPAVCSprite256@@XZ  : proc
 
 ;MapPlayerData
 extern ??0MapPlayerData@@QAE@HH@Z : proc  ; MapPlayerData::MapPlayerData(int, int) 43C17F
+extern ??0MapPlayerData@@QAE@ABV0@@Z : proc  ; MapPlayerData::MapPlayerData(const MapPlayerData&) 43C0BE
 
 
 ;GfxObject

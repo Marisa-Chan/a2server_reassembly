@@ -3,6 +3,9 @@
 #include "file.h"
 #include <stdio.h>
 
+//GetRuntimeClass 43C030
+IMPLEMENT_DYNAMIC(MapPlayerData, CObject); // original RTTI name: "CPlayer"
+
 // 43C040
 MapPlayerData::MapPlayerData() {
     this->gold = 0;
@@ -18,6 +21,28 @@ MapPlayerData::MapPlayerData(int32_t index, int32_t color) {
     this->flags = 0;
     strcpy(this->name, "NoName");
     this->diplomacy.SetSize(0x20, -1);
+}
+
+// 43C0BE
+MapPlayerData::MapPlayerData(const MapPlayerData& other) {
+    this->index = other.index;
+    this->field2_0x8 = other.field2_0x8;
+    this->color = other.color;
+    this->gold = other.gold;
+    this->flags = other.flags;
+    strcpy(this->name, other.name);
+    this->diplomacy.Copy(other.diplomacy);
+}
+
+// 43C270
+MapPlayerData::~MapPlayerData() {}
+
+// 43C225
+void MapPlayerData::Dump(CDumpContext& dc) const
+{
+    #ifdef _DEBUG // Only debug builds define `operator<<`.
+    dc << "CPlayer";
+    #endif
 }
 
 // 41EDF0

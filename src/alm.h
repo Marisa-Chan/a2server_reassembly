@@ -25,6 +25,7 @@ struct MapSectionHeader {
 ASSERT_SIZE(MapSectionHeader, 0x14);
 
 class MapPlayerData : public CObject {
+    DECLARE_DYNAMIC(MapPlayerData); // original RTTI name: "CPlayer"
 public:
     uint32_t index;
     uint32_t field2_0x8;
@@ -37,6 +38,11 @@ public:
 public:
     MapPlayerData(); // 43c040
     MapPlayerData(int32_t index, int32_t color); // 43c17f
+    MapPlayerData(const MapPlayerData& other); // 43c0be
+
+    virtual ~MapPlayerData(); // 43c270
+
+    virtual void Dump(CDumpContext& dc) const override; // 43c225
 
     uint32_t FUN_0041ee20(int32_t idx);
     int32_t FUN_0041edf0(int32_t idx);
