@@ -1,4 +1,3 @@
-
 ;CObject
 extern ??_7CObject@@6B@:dword ; CObject::vftable 60FE84
 extern ?classCObject@CObject@@2UCRuntimeClass@@B:dword ; CObject::classObject 0060FEA0
@@ -13,11 +12,9 @@ extern ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ:proc ; CObject::GetRunt
 extern ?IsKindOf@CObject@@QBEHPBUCRuntimeClass@@@Z:proc  ; CObject::IsKindOf
 
 
-
 ;CRuntimeClass
 extern ?CreateObject@CRuntimeClass@@QAEPAVCObject@@XZ:proc   ;   CRuntimeClass::CreateObject
 extern ?IsDerivedFrom@CRuntimeClass@@QBEHPBU1@@Z:proc   ;  CRuntimeClass::IsDerivedFrom
-
 
 
 ;CNoTrackObject
@@ -31,7 +28,6 @@ externdef ?GetData@CThreadLocalObject@@QAEPAVCNoTrackObject@@P6GPAV2@XZ@Z :proc 
 externdef ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A :byte    ;CThreadLocal<class _AFX_THREAD_STATE>
 
 externdef ??0_AFX_THREAD_STATE@@QAE@XZ  : proc
-
 
 
 ;CArchive
@@ -85,7 +81,6 @@ extern ?AfxGetMainWnd@@YGPAVCWnd@@XZ:proc
 extern ?AfxMessageBox@@YAHPBDII@Z  :proc
 
 
-
 ;CCmdTarget
 externdef ?OnCmdMsg@CCmdTarget@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z:proc   ; (public: virtual int __thiscall CCmdTarget::OnCmdMsg(unsigned int,int,void *,struct AFX_CMDHANDLERINFO *))
 externdef ?OnFinalRelease@CCmdTarget@@UAEXXZ:proc   ; (public: virtual void __thiscall CCmdTarget::OnFinalRelease(void))
@@ -131,9 +126,6 @@ externdef ??0CWinApp@@QAE@PBD@Z:proc   ; (public: __thiscall CWinApp::CWinApp(ch
 externdef ?ExitInstance@CWinApp@@UAEHXZ:proc   ; (public: virtual int __thiscall GameApp::ExitInstance(void))
 
 
-
-
-
 ;CString
 public ?AfxThrowMemoryException@@YGXXZ    ; AfxThrowMemoryException
 extern ?AfxGetEmptyString@@YGABVCString@@XZ:proc   ;AfxGetEmptyString in strcore.cpp
@@ -160,26 +152,17 @@ extern ?FindOneOf@CString@@QBEHPBD@Z:proc   ; (public: int __thiscall CString::F
 ;extern ?MakeUpper@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::MakeUpper(void))
 extern ?MakeLower@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::MakeLower(void))
 extern ?SetAt@CString@@QAEXHD@Z:proc   ; (public: void __thiscall CString::SetAt(int,char))
-extern ?CharToOemA@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::CharToOemA(void))
 ;extern ?OemToCharA@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::OemToCharA(void))
 extern ?_wcstombsz@@YAHPADPB_WI@Z:proc   ; (int __cdecl _wcstombsz(char *,wchar_t const *,unsigned int))
 extern ?_mbstowcsz@@YAHPA_WPBDI@Z:proc   ; (int __cdecl _mbstowcsz(wchar_t *,char const *,unsigned int))
 extern ?AfxA2WHelper@@YGPA_WPA_WPBDH@Z:proc    ;  (wchar_t * __stdcall AfxA2WHelper(wchar_t *,char const *,int))
 extern ?LoadStringA@CString@@QAEHI@Z:proc   ; (public: int __thiscall CString::LoadStringA(unsigned int))
 
-extern ??0CString@@QAE@DH@Z:proc   ; (public: __thiscall CString::CString(char,int))
 ;extern ??4CString@@QAEABV0@D@Z:proc   ; (public: class CString const & __thiscall CString::operator=(char))
-extern ??H@YG?AVCString@@ABV0@D@Z:proc   ; (class CString __stdcall operator+(class CString const &,char))
-extern ??H@YG?AVCString@@DABV0@@Z:proc   ; (class CString __stdcall operator+(char,class CString const &))
 extern ?Mid@CString@@QBE?AV1@H@Z:proc   ; (public: class CString __thiscall CString::Mid(int)const )
 extern ?Mid@CString@@QBE?AV1@HH@Z:proc   ; (public: class CString __thiscall CString::Mid(int,int)const )
-extern ?Right@CString@@QBE?AV1@H@Z:proc   ; (public: class CString __thiscall CString::Right(int)const )
 extern ?Left@CString@@QBE?AV1@H@Z:proc   ; (public: class CString __thiscall CString::Left(int)const )
-extern ?ReverseFind@CString@@QBEHD@Z:proc   ; (public: int __thiscall CString::ReverseFind(char)const )
-extern ?Find@CString@@QBEHPBD@Z:proc   ; (public: int __thiscall CString::Find(char const *)const )
-extern ?Format@CString@@QAAXPBDZZ:proc   ; (public: void __cdecl CString::Format(char const *,...))
 ;extern ?FormatMessageA@CString@@QAAXIZZ:proc   ; (public: void __cdecl CString::FormatMessageA(unsigned int,...))
-extern ?TrimRight@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::TrimRight(void))
 extern ?TrimLeft@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::TrimLeft(void))
 
 ; CStringArray
@@ -194,308 +177,111 @@ extern ??2@YAPAXI@Z:proc ; operator new         5ddf54
 extern ??3@YAXPAX@Z:proc ; operator delete      5ddf90
 
 
-
-
-
-
-
-
-
-
-
-;Scenario
-extern ?ScenarioGetVar@@YGHH@Z  :proc
-
-
-
-
-;Resources
-extern ?StaticAddPath@Resources@@SAXPBD@Z:proc   ; (public: static void __cdecl Resources::StaticAddPath(char const *))
-
-
-
 ;ResFile
-extern ?ReadFromFile@ResBase@@QAEXPAVCFile@@H@Z:proc   ; (public: void __thiscall ResBase::ReadFromFile(class CFile *,int))
 extern ??0RegFile@@QAE@XZ:proc      ; (public: __thiscall RegFile::RegFile(void))
 extern ??0RegFile@@QAE@PBD@Z:proc      ;  (public: __thiscall RegFile::RegFile(char const *))
 extern ??1RegFile@@QAE@XZ:proc       ;   RegFile::~RegFile
 extern ?GetSizedString@ResBase@@QAEHPBD00PADI@Z:proc   ; (public: int __thiscall ResBase::GetSizedString(char const *,char const *,char const *,char *,unsigned int))
-extern ?GetValueString@ResBase@@QAE?AVCString@@PBD00@Z:proc   ; (public: class CString __thiscall ResBase::GetValueString(char const *,char const *,char const *))
 extern ?GetInt@ResBase@@QAEHPBD0H@Z:proc   ; (public: int __thiscall ResBase::GetInt(char const *,char const *,int))
-extern ?GetDouble@ResBase@@QAENPBD0N@Z:proc   ; (public: double __thiscall ResBase::GetDouble(char const *,char const *,double))
 extern ?GetInt8Array@ResBase@@QAEHPBD0PAV?$CArray@EABE@@@Z:proc   ; (public: int __thiscall ResBase::GetInt8Array(char const *,char const *,class CArray<uint8_t>
 extern ?GetInt16Array@ResBase@@QAEHPBD0PAV?$CArray@GABG@@@Z:proc   ; (public: int __thiscall ResBase::GetInt16Array(char const *,char const *,class CArray<uint16_t>
 extern ?GetInt32Array@ResBase@@QAEHPBD0PAV?$CArray@IABI@@@Z:proc   ; (public: int __thiscall ResBase::GetInt32Array(char const *,char const *,class CArray<uint32_t>
 extern ?GetStringArray@ResBase@@QAEHPBD0PAVCStringArray@@@Z:proc   ; (public: int __thiscall ResBase::GetStringArray(char const *,char const *,class CStringArray *))
 
 
-
-
-
-
 ;TokenPos
-extern ??0TokenPos@@QAE@XZ:proc  ; TokenPos::TokenPos()
 extern ?GetX@TokenPos@@QBEEXZ:proc  ; TokenPos::GetX
 extern ?GetY@TokenPos@@QBEEXZ:proc  ; TokenPos::GetY
 extern ?CompatGetYX@TokenPos@@QBEGXZ:proc   ; TokenPos::GetYX
-extern ?GetXx@TokenPos@@QBEGXZ:proc   ; TokenPos::GetXx
-extern ?GetYy@TokenPos@@QBEGXZ:proc   ; TokenPos::GetYy
-extern ?SetCoords2@TokenPos@@QAEXGG@Z:proc   ; TokenPos::SetCoords2
-extern ?Distance@TokenPos@@QBEEPBU1@@Z:proc   ; TokenPos::Distance
-extern ?sub_58bec3@TokenPos@@QAEHXZ :proc  ; TokenPos::sub_58bec3() – position mode check
-
-
-; Unit
-
-
-
-
-extern ??0Unit@@QAE@XZ:proc    ; (public: __thiscall Unit::Unit(void))
-externdef ?FUN_0052ec7a@Unit@@QAEXABV?$CArray@UMonsterInfoData@@ABU1@@@@Z :proc
-
-externdef ??0UnitEye@@QAE@XZ :proc                                        ; UnitEye::UnitEye()
-externdef ??0UnitEye2@@QAE@XZ :proc                                       ; UnitEye2::UnitEye2()
-externdef ??1UnitEye2@@QAE@XZ :proc                                       ; UnitEye2::~UnitEye2()
-
-
-externdef ?sub_52A790@Unit@@QAEXH@Z :proc
-
-; UnitEye
 
 
 ; Group
 extern ??1Group@@QAE@XZ :proc
-externdef ?sub_599F00@Group@@QAEPAVUnit@@XZ :proc              ; Group::sub_599F00()
-externdef ?sub_599F20@Group@@QAEPAVUnit@@PAV2@@Z :proc         ; Group::sub_599F20(Unit*)
-
-; GroupList
+extern ?sub_599F00@Group@@QAEPAVUnit@@XZ :proc              ; Group::sub_599F00()
+extern ?sub_599F20@Group@@QAEPAVUnit@@PAV2@@Z :proc         ; Group::sub_599F20(Unit*)
 
 
-
-
-;Humanoid
-
-externdef ?sub_532dde@Humanoid@@QAEXPAV?$CArray@UHumanInfoData@@ABU1@@@@Z :proc
-externdef ?sub_531418@Humanoid@@QAEXXZ :proc
-
-
-;Human
-
-extern ??0Human@@QAE@XZ:proc   ; Human::Human
-extern ??0Human@@QAE@ABVCString@@HPBD@Z:proc    ; Human::Human(CString&, int, const char *)
-
-
-;UnitList
-externdef ?dword_6CDB3C@@3PAVUnitList@@A :dword
-
-extern ??0UnitList@@QAE@XZ:proc                         ; UnitList::UnitList
+; UnitList
 extern ??1UnitList@@QAE@XZ:proc                         ; UnitList::~UnitList
-extern ?AddTail@UnitList@@QAEXPAVUnit@@@Z:proc          ; UnitList::AddTail
-externdef ?sub_5560D2@UnitList@@QAEPAVUnit@@G@Z :proc
-
-
-
-;UnitToHit
-
-;Protections
-
-
-; Effect
-
-
-
-
-
-
-extern ??0Effect@@QAE@XZ  : proc
-
-
-
-; DirectDamage
-
+extern ?sub_5560D2@UnitList@@QAEPAVUnit@@G@Z :proc
 
 
 ; SpellEffect
-externdef ?classSpellEffect@SpellEffect@@2UCRuntimeClass@@A :byte   ; static CRuntimeClass SpellEffect::classSpellEffect
-
-; AreaEffect
-
-; PointEffect
-
-; SpellTransport
-
-
-; SpellEffectList
-
-
-;EquipmentExtra
+extern ?classSpellEffect@SpellEffect@@2UCRuntimeClass@@A :byte   ; static CRuntimeClass SpellEffect::classSpellEffect
 
 
 ; Item
-externdef ?classItem@Item@@2UCRuntimeClass@@A :byte                           ; static CRuntimeClass Item::classItem
-externdef ??1Item@@UAE@XZ :proc                                               ; Item::~Item()
-
-
-; Armor
-
-externdef ??0Armor@@QAE@ABVCString@@@Z :proc                                   ; Armor::Armor(const CString&)
-
-
-; Shield
-
-externdef ??0Shield@@QAE@ABVCString@@@Z :proc                                   ; Shield::Shield(const CString&)
-
-
-; Weapon
-
-externdef ??0Weapon@@QAE@ABVCString@@@Z :proc                                  ; Weapon::Weapon(const CString&)
-
-
-; Inventory
-extern ?PutItemIntoBagAtDefault@Inventory@@QAEXPAVItem@@@Z:proc   ;   (public: void __thiscall Inventory::PutItemIntoBagAtDefault(class Item *))
-extern ??0Inventory@@QAE@XZ :proc
+extern ?classItem@Item@@2UCRuntimeClass@@A :byte                           ; static CRuntimeClass Item::classItem
+extern ??1Item@@UAE@XZ :proc                                               ; Item::~Item()
 
 
 ;Spell
-
 extern ??0Spell@@QAE@XZ:proc   ;  Spell::Spell(void)
 extern ??0Spell@@QAE@E@Z:proc  ;  Spell::Spell(uint8_t)
 extern ??0Spell@@QAE@ABVCString@@@Z:proc    ;  Spell::Spell(const CString&)
-extern ??1Spell@@UAE@XZ : proc
 
-externdef ?sub_539541@Spell@@QAEXI@Z :proc
+extern ?sub_539541@Spell@@QAEXI@Z :proc
+
 
 ; SpellBook
-externdef ??_7SpellBook@@6B@ :dword                                         ; SpellBook vtable
-extern ?sub_53D7F0@SpellBook@@QAEXHPAVSpell@@@Z :proc
-
+extern ??_7SpellBook@@6B@ :dword                                         ; SpellBook vtable
 
 
 ;Packets
-externdef ??_7Packet@@6B@ : dword
-externdef ?Duplicate@Packet@@UAEPAV1@XZ : proc
+extern ??_7Packet@@6B@ : dword
+extern ?Duplicate@Packet@@UAEPAV1@XZ : proc
 
-externdef ?Inst@PacketJoin@@2V1@A : byte
-externdef ??0PacketJoin@@QAE@VCString@@@Z : proc
+extern ?Inst@PacketJoin@@2V1@A : byte
+extern ??0PacketJoin@@QAE@VCString@@@Z : proc
 
-externdef ?Inst@PacketInfo@@2V1@A : byte
+extern ?Inst@PacketInfo@@2V1@A : byte
 
-externdef ?Inst@PacketWord@@2V1@A : byte                              ; unk_6E9B40
+extern ?Inst@PacketWord@@2V1@A : byte                              ; unk_6E9B40
 
-externdef ?Inst@PacketItemOperation@@2V1@A : byte                     ; unk_6D1670
-externdef ?AppendWord@PacketItemOperation@@QAEXG@Z : proc             ; sub_52695A
-
-
-
-
-
-
-
-
-
-
-
-
-externdef ?Inst@PacketData@@2V1@A : byte                              ; unk_6B37D8
-
-
-
-
-
-
-
+extern ?Inst@PacketData@@2V1@A : byte                              ; unk_6B37D8
 
 
 ;PackerDat
 extern ?Clear@PackerDat@@QAEXXZ : proc
 
+
 ;NetStru1
-
-
-extern ?HatConnector@NetStru1@@2V1@A : dword
 extern ?g_NetStru1_main@@3VNetStru1@@A:byte
 extern ?g_NetStru1_local@@3VNetStru1@@A:byte
 
+extern ?FUN_0051c748@NetStru1@@QAEXPAVPlayer@@@Z :proc   ; NetStru1::FUN_0051c748(class Player *)
 
-extern ?ProcessConnections@NetStru1@@QAEXXZ : proc
-extern ?DisconnectClient@NetStru1@@QAEXPAUNetStru2@@@Z :proc
-
-
-
-extern ?GetClientByPlayerID@NetStru1@@QAEPAUNetStru2@@G@Z : proc
-
-externdef ?FUN_0051c748@NetStru1@@QAEXPAVPlayer@@@Z :proc   ; NetStru1::FUN_0051c748(class Player *)
-
-externdef ?FUN_0051cefb@NetStru1@@QAEXEHHPAVPlayer@@@Z :proc
-externdef ?sub_519221@NetStru1@@QAEXPAVUnit@@PAVPlayer@@IHHH@Z :proc
-
-
-
-
-
+extern ?FUN_0051cefb@NetStru1@@QAEXEHHPAVPlayer@@@Z :proc
 
 extern ?SendAllData@NetStru1@@QAEXXZ : proc
 extern ?QueuePacketSend@NetStru1@@QAEXPAVPacket@@@Z : proc
-extern ?GetClientByLowUid@NetStru1@@QAEPAUNetStru2@@I@Z : proc
 extern ?ReceiveAnyPacket@NetStru1@@QAEPAVPacket@@XZ : proc
-extern ?GetClientsPktNum@NetStru1@@QAEIXZ : proc
 
-extern ?DAT_00666a00@@3VCStringArray@@A  : byte
 
 ;NetStru2
-
 extern ?WriteData@NetStru2@@QAEHPAXI@Z : proc
 extern ?ReadData@NetStru2@@QAEHPAXI@Z : proc
 
 
-;NetStru3
-
-
 ; Server
 extern ?g_Server@@3PAUServer@@A : dword
-extern ?g_IsServer@@3HA : dword
 
 extern ?Load@PasswordManager@@QAEXXZ : proc
 
-externdef ?sub_4F1E2A@Server@@QAEXXZ :proc
-externdef ?sub_52C641@Unit@@QAEXXZ :proc                                         ; void Unit::sub_52C641()
-externdef ?sub_547468@CMultiShopTemplate@@QAEPAVCMultiShopInstance@@PAVHumanoid@@@Z :proc ; CMultiShopInstance* CMultiShopTemplate::sub_547468(Humanoid*)
-
-extern ??1Server@@QAE@XZ :proc
-
-externdef ?sub_4F1471@Server@@QAEHVCString@@@Z :proc    ; int Server::sub_4F1471(CString)
-externdef ?sub_4F8831@Server@@QAEXXZ :proc
-externdef ?sub_4EE028@Server@@QAEXPAVHumanoid@@@Z :proc
-
+extern ?sub_4F1471@Server@@QAEHVCString@@@Z :proc    ; int Server::sub_4F1471(CString)
 
 extern ?sub_504a96@Server@@QAEXPAVPacket@@@Z : proc
 extern ?Start@Server@@QAEHH@Z : proc
 
 
-
-; SrvStru1
-
-
-
-
-
-
 ; World
-
-extern ?sub_5A37C5@World@@QAEPAVUnitList@@PAVUnit@@@Z :proc
-extern ?sub_5A457A@World@@QAEXXZ :proc
 extern ?sub_5A4590@World@@QAEXXZ :proc
-extern ?sub_5A4757@World@@QAEXXZ :proc
 extern ?sub_5A9AC4@World@@QAEXPAVUnit@@@Z :proc
 extern ?sub_5B6F60@World@@QAEHHH@Z :proc
 
 
 ; Action
 extern ??0Action@@QAE@XZ :proc
-
-
-; Diplomacy
-
 
 ; Trigger
 extern ??0Trigger@@QAE@XZ :proc          ; Trigger::Trigger()
@@ -513,7 +299,6 @@ extern ??4TriggerCheck@@QAEAAU0@ABU0@@Z :proc    ; TriggerCheck::operator=(const
 
 
 ; Player
-extern ?sub_534AC1@Player@@QAEXHI@Z :proc
 extern ??0Player@@QAE@XZ :proc
 extern ??1Player@@UAE@XZ :proc
 
@@ -521,50 +306,17 @@ extern ??1Player@@UAE@XZ :proc
 ; PlayersList
 extern ?g_PlayersList@@3PAVPlayersList@@A :dword
 
-extern ?CountHumanPlayers@PlayersList@@QAEHXZ :proc
-externdef ?sub_535D39@PlayersList@@QAEPAVPlayer@@VCString@@@Z :proc
-externdef ?sub_5357C6@PlayersList@@QAEXPAVPlayer@@@Z :proc
-externdef ?sub_535B50@PlayersList@@QAEPAVPlayer@@G@Z :proc
-externdef ?GetHead@PlayersList@@QAEPAVPlayer@@XZ :proc
-externdef ?GetNext@PlayersList@@QAEPAVPlayer@@PAV2@@Z :proc
+extern ?sub_535D39@PlayersList@@QAEPAVPlayer@@VCString@@@Z :proc
+extern ?sub_5357C6@PlayersList@@QAEXPAVPlayer@@@Z :proc
+extern ?GetHead@PlayersList@@QAEPAVPlayer@@XZ :proc
+extern ?GetNext@PlayersList@@QAEPAVPlayer@@PAV2@@Z :proc
 
-; Sack
-
-; SackList method
-
-; Sack methods
-
-; Server methods
-
-; MapStuff methods
 
 ; Srv1
-externdef ??1Srv1@@UAE@XZ :proc
+extern ??1Srv1@@UAE@XZ :proc
 
 ; MapAlm
-externdef ??0MapAlm@@QAE@PBD@Z :proc  ; MapAlm::MapAlm(const char*)
-externdef ??1MapAlm@@QAE@XZ :proc      ; MapAlm::~MapAlm()
-
-; Settings
-
-
-; QuestMap
-extern ??0QuestMap@@QAE@XZ :proc                                              ; QuestMap::QuestMap()
-extern ?sub_55ECFE@QuestMap@@QAEXH@Z :proc
-extern ?FUN_004a47a0@QuestMap@@QAEHIPAPAVQuest@@@Z : proc  ; int32_t QuestMap::FUN_004a47a0(uint32_t, Quest**)
-
-; Quest
-extern ?FUN_004a4780@Quest@@QAEIXZ : proc  ; uint32_t Quest::FUN_004a4780()
-
-
-; ServerControlDialog
-extern ??0ServerControlDialog@@QAE@PAVCWnd@@@Z :proc  ; ServerControlDialog::ServerControlDialog(CWnd*) - 4951bd
-extern ?sub_49585B@ServerControlDialog@@QAEXXZ :proc  ; ServerControlDialog::sub_49585B() - 49585B
-externdef ?messageMap@CDialog@@2UAFX_MSGMAP@@B :dword ; CDialog message map - 610878
-
-
-;CListBox2  in C++
-
+extern ??1MapAlm@@QAE@XZ :proc      ; MapAlm::~MapAlm()
 
 
 ;CListBox
@@ -653,6 +405,9 @@ externdef ?GetClientRect@CWnd@@QBEXPAUtagRECT@@@Z : proc
 externdef ?ModifyStyle@CWnd@@QAEHKKI@Z : proc
 externdef ?SetWindowPos@CWnd@@QAEHPBV1@HHHHI@Z : proc
 
+externdef ?EnableWindow@CWnd@@QAEHH@Z :proc   ; CWnd::EnableWindow(int) - 5e4721
+externdef ?UpdateData@CWnd@@QAEHH@Z :proc     ; CWnd::UpdateData(int) - 5e31fc
+
 ;CFrameWnd
 externdef ??0CFrameWnd@@QAE@XZ : proc
 externdef ??1CFrameWnd@@UAE@XZ : proc
@@ -713,6 +468,8 @@ externdef ?OnOK@CDialog@@UAEXXZ :proc   ; (public: virtual void __thiscall CDial
 externdef ?OnCancel@CDialog@@UAEXXZ :proc   ; (public: virtual void __thiscall CDialog::OnCancel(void))
 externdef ?PreInitDialog@CDialog@@UAEXXZ :proc   ; (public: virtual void __thiscall CDialog::PreInitDialog(void))
 
+externdef ?messageMap@CDialog@@2UAFX_MSGMAP@@B :dword ; CDialog message map - 610878
+
 
 ;CStatic
 externdef ??0CStatic@@QAE@XZ :proc   ; (public: __thiscall CStatic::CStatic(void))
@@ -723,189 +480,42 @@ externdef ??1CStatic@@UAE@XZ :proc   ; (public: virtual __thiscall CStatic::~CSt
 externdef ??0CStatusBar@@QAE@XZ :proc   ; (public: __thiscall CStatusBar::CStatusBar(void))
 externdef ??1CStatusBar@@UAE@XZ :proc   ; (public: virtual __thiscall CStatusBar::~CStatusBar(void))
 
-;CEdit2
-
 
 ;CGameSession
-extern ?FUN_004946e0@CGameSession@@QAEXXZ : proc  ; void CGameSession::FUN_004946e0()
 extern ?LoadCharacterRosterEntry@CGameSession@@QAEXH@Z : proc
 
 
-extern ?RecreateCUnit@CGameSession@@QAEXXZ : proc
-
-
-extern ?RefreshCharacterRosterFiles@CGameSession@@QAEXH@Z : proc
-extern ?InitializeNewCharacterSession@CGameSession@@QAEXHPBD@Z : proc
-
-
-
 ; MainWindow
-externdef   ?_OnCreate@MainWindow@@QAEHPAUtagCREATESTRUCTA@@@Z  : proc
-externdef   ?_OnPaint@MainWindow@@QAEXXZ  : proc
-externdef   ?_OnSetCursor@MainWindow@@QAEHPAVCWnd@@II@Z  : proc
-externdef   ?_OnSetFocus@MainWindow@@QAEXPAVCWnd@@@Z  : proc
-externdef   ?_OnKeyUp@MainWindow@@QAEXIII@Z  : proc
-externdef   ?_OnSysKeyUp@MainWindow@@QAEXIII@Z  : proc
-externdef   ?_OnChar@MainWindow@@QAEXIII@Z  : proc
-externdef   ?_OnKillFocus@MainWindow@@QAEXPAVCWnd@@@Z  : proc
-externdef   ?_OnClose@MainWindow@@QAEXXZ  : proc
-externdef   ?_OnSize@MainWindow@@QAEXIHH@Z  : proc
-externdef   ?_OnSizing@MainWindow@@QAEXIPAUtagRECT@@@Z  : proc
-externdef   ?_OnNcMouseMove@MainWindow@@QAEXIVCPoint@@@Z  : proc
-externdef   ?_OnNcLButtonDown@MainWindow@@QAEXIVCPoint@@@Z  : proc
-externdef   ?_FUN_00495010@MainWindow@@QAEXXZ  : proc
-externdef   ?_FUN_004950c0@MainWindow@@QAEXXZ  : proc
-externdef   ?_FUN_00495743@MainWindow@@QAEXXZ  : proc
-
-externdef ?FUN_0048cb3c@MainWindow@@QAEXXZ : proc
-extern ?sub_48CC87@MainWindow@@QAEXXZ : proc
-extern ?FUN_004e5466@MainWindow@@QAEHABVCString@@@Z : proc
-extern ?FUN_00490eb3@MainWindow@@QAEHXZ : proc
-
 extern ?FUN_0048ca7e@MainWindow@@QAEHH@Z  : proc
-
-
 
 extern ?vis_scr_rect@@3VCRect@@A : dword
 
-extern ?SetSpeed@MainWindow@@QAEHH@Z :proc ; MainWindow::SetSpeed
 extern ?PopUpScreen@MainWindow@@QAEXPAVVisScreen@@@Z : proc
-extern ?FUN_0048f6f7@MainWindow@@QAEXXZ : proc
-
-
-
 
 extern ?FUN_004ac3ce@CFameHall@@QAEXABUFame1@@@Z  :proc   ; (public: void __thiscall CFameHall::FUN_004ac3ce(struct Fame1 const &))
 
 extern ??0Fame2@@QAE@XZ  :proc   ; (public: __thiscall Fame2::Fame2(void))
 extern ??4Fame2@@QAEXABU0@@Z  :proc   ; (public: void __thiscall Fame2::operator=(struct Fame2 const &))
-extern ?Clear@Fame2@@QAEXXZ  :proc   ; (public: void __thiscall Fame2::Clear(void))
 extern ?FUN_004abf0f@Fame2@@QAEXHI@Z  :proc   ; (public: void __thiscall Fame2::FUN_004abf0f(int,unsigned int))
 extern ?FUN_004ad880@Fame2@@QAEHXZ  :proc   ; (public: int __thiscall Fame2::FUN_004ad880(void))
 extern ?FUN_004ad890@Fame2@@QAEIXZ  :proc   ; (public: unsigned int __thiscall Fame2::FUN_004ad890(void))
 extern ??1Fame2@@QAE@XZ  :proc   ; (public: __thiscall Fame2::~Fame2(void))
 
-extern ?IsListen@CLlDriver@@QAEHXZ :proc ; CLlDriver::sub_496ED0() - 496ED0
-externdef ?EnableWindow@CWnd@@QAEHH@Z :proc   ; CWnd::EnableWindow(int) - 5e4721
-externdef ?UpdateData@CWnd@@QAEHH@Z :proc     ; CWnd::UpdateData(int) - 5e31fc
-
 externdef ?Add@CStringArray@@QAEHPBD@Z :proc   ; CStringArray::Add(const char*) - 402970
 extern ??BCString@@QBEPBDXZ : proc   ; CString::operator const char*() - defined in C++ strcore.cpp (4018a0)
-extern ?g_DistortMap@@3PAVDistortMap@@A : dword ; DistortMap* g_DistortMap
-extern ?g_CpuFeatureFlags@@3IA : dword         ; uint32_t g_CpuFeatureFlags
 
-extern ?ReadFileToString@@YAXPBDPAVCString@@@Z  : proc
-extern ?GetRandS16@@YAHH@Z   : proc
-
-
-extern ?g_CmdTimeout@@3IA : dword  ; unsigned int g_CmdTimeout
-extern ?g_MainWndHWND@@3PAUHWND__@@A  : dword  ; HWND g_MainWndHWND
-extern ?g_IsCdPresent@@3IA  : dword
-extern ?g_DWORD_00659d18@@3IA  : dword
-extern ?INT_00660f74@@3IA  : dword
-
-
-
-extern ?txt_heropicture@@3VTxtFile@@A :byte   ; (class TxtFile txt_heropicture)
-extern ?txt_stats@@3VTxtFile@@A :byte   ; (class TxtFile txt_stats)
-extern ?txt_spells@@3VTxtFile@@A :byte   ; (class TxtFile txt_spells)
-extern ?txt_spell@@3VTxtFile@@A :byte   ; (class TxtFile txt_spell)
 extern ?txt_dialogs@@3VTxtFile@@A :byte   ; (class TxtFile txt_dialogs)
-extern ?txt_unitname@@3VTxtFile@@A :byte   ; (class TxtFile txt_unitname)
-extern ?txt_building@@3VTxtFile@@A :byte   ; (class TxtFile txt_building)
-extern ?txt_npcnames@@3VTxtFile@@A :byte   ; (class TxtFile txt_npcnames)
-extern ?txt_cutpaths@@3VTxtFile@@A :byte   ; (class TxtFile txt_cutpaths)
-extern ?txt_tunes@@3VTxtFile@@A :byte   ; (class TxtFile txt_tunes)
-extern ?txt_patch@@3VTxtFile@@A :byte   ; (class TxtFile txt_patch)
-extern ?TxtFile_00660e88@@3VTxtFile@@A : byte
 
-extern ?g_MessageColors@@3HA  : dword
-
-extern ?g_using_vxd@@3IA : dword
 extern ?g_ServerConfig@@3UServerConfig@@A   : dword
 
-
-extern ?unk_660DA8@@3VCMapWordToPtr@@A :byte
-extern ?dword_65FBB8@@3PAXA :dword
-
-extern ?g_kbControlState@@3HA : dword
-extern ?g_kbShiftState@@3HA : dword
-extern ?g_kbMenuState@@3HA : dword
-
-
-
-
-
-extern ?g_mapmusicinfos@@3V?$CArray@PAUMapMusicInfo@@ABQAU1@@@A : byte
 extern ?g_settings@@3UGameSettings@@A : dword
-extern ?g_TunesMap@@3VCMapStringToString@@A  : dword
-
-extern ?DAT_00660f88@@3HA : dword
-
-extern   ??0VisTav@@QAE@HHHHH@Z  : proc
-externdef   ??0VisCredits@@QAE@HHHHH@Z  : proc
-externdef   ??0VisDropGold@@QAE@HHH@Z  : proc
-
-
-
-
-;ExperienceTable
-extern ?GetLevel@ExperienceTable@@YAHI@Z : proc
-
-
-;A2NetSock
-
-
-; CLlDriver
-
-extern ?Close@CLlDriver@@QAEXXZ :proc
-
-extern ?EnumAddresses@CLlDriver@@QAEHPAPAUCLlAddress@@PAH@Z : proc
-
-
-extern ?ResetProvider@CLlDriver@@QAEHH@Z : proc
-
-extern ?EnumSessions@CLlDriver@@QAEHPAPAUCLlNetSession@@PAHP6AHXZI@Z :proc
-
-extern ?EnumConnections@CLlDriver@@QAEXPAPAUCLlConn@@PAH@Z : proc
-
-extern ?EnumPlayers@CLlDriver@@QAEXPAUCLlNetSession@@PAPAUCLlName@@PAH@Z  : proc
-
-extern ?StartServer@CLlDriver@@QAEHHPBDPAUCLlAddress@@@Z : proc
-
-extern ?PrepareForConnect@CLlDriver@@QAEHPBDPAUCLlAddress@@@Z : proc
-extern ?Connect@CLlDriver@@QAEHPBDPAUCLlNetSession@@@Z : proc
-
-
-
-
-extern ?g_CLlDriver@@3UCLlDriver@@A  : dword
-extern ?g_HatLLDriver@@3UCLlDriver@@A : dword
 
 
 ;TxtFile
-
-extern ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A  : byte  ; TxtFile::AllLines
-
-extern ??0TxtFile@@QAE@XZ :proc   ; (public: __thiscall TxtFile::TxtFile(void))
-extern ??1TxtFile@@UAE@XZ :proc   ; (public: virtual __thiscall TxtFile::~TxtFile(void))
-extern ?LoadChunkFile@TxtFile@@QAEXPBD@Z :proc   ; (public: void __thiscall TxtFile::LoadChunkFile(char const *))
-extern ?Free@TxtFile@@QAEXXZ :proc   ; (public: void __thiscall TxtFile::Free(void))
 extern ?GetLine@TxtFile@@QAEPADH@Z :proc   ; (public: char * __thiscall TxtFile::GetLine(int))
-extern ?GetCount@TxtFile@@QAEHXZ   :proc   ; TxtFile::GetCount
-
-
-
-
-
-
 
 
 ;CVisualObject
-extern ??0CVisualObject@@QAE@XZ :proc   ; (public: __thiscall CVisualObject::CVisualObject(void))
-extern ??0CVisualObject@@QAE@HABUtagRECT@@PBD@Z :proc   ; (public: __thiscall CVisualObject::CVisualObject(int,struct tagRECT const &,char const *))
-extern ??0CVisualObject@@QAE@HHHHHPBD@Z :proc   ; (public: __thiscall CVisualObject::CVisualObject(int,int,int,int,int,char const *))
-
 extern ??1CVisualObject@@UAE@XZ  :proc    ;   CVisualObject::~CVisualObject
 extern ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z :proc   ; (public: virtual void __thiscall CVisualObject::Dump(class CDumpContext &)const )
 extern ?GetHint@CVisualObject@@UAEPBDXZ :proc   ; (public: virtual char const * __thiscall CVisualObject::GetHint(void))
@@ -914,7 +524,6 @@ extern ?ChangeFlags@CVisualObject@@UAEXI_N@Z :proc   ; (public: virtual void __t
 extern ?TestFlags@CVisualObject@@UAEII@Z :proc   ; (public: virtual unsigned int __thiscall CVisualObject::TestFlags(unsigned int))
 extern ?SetCursorOver@CVisualObject@@UAEX_N@Z :proc   ; (public: virtual void __thiscall CVisualObject::SetCursorOver(bool))
 extern ?SetFocus@CVisualObject@@UAEX_N@Z :proc   ; (public: virtual void __thiscall CVisualObject::SetFocus(bool))
-extern ?VMethod7@CVisualObject@@UAEXXZ :proc   ; (public: virtual void __thiscall CVisualObject::VMethod7(void))
 extern ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z :proc   ; (public: virtual void __thiscall CVisualObject::VMethod8(struct tagRECT *))
 extern ?VMethod9@CVisualObject@@UAEXXZ :proc   ; (public: virtual void __thiscall CVisualObject::VMethod9(void))
 extern ?VMethod10@CVisualObject@@UAEXXZ :proc   ; (public: virtual void __thiscall CVisualObject::VMethod10(void))
@@ -924,39 +533,20 @@ extern ?ReadData@CVisualObject@@UAEXPBX@Z :proc   ; (public: virtual void __this
 extern ?MsgProc@CVisualObject@@UAEHIII@Z :proc   ; (public: virtual int __thiscall CVisualObject::MsgProc(unsigned int,unsigned int,unsigned int))
 extern ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnMouseMove(unsigned int,class CPoint))
 extern ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnWmUser(unsigned int,class CPoint))
-extern ?OnLButtonDown@CVisualObject@@UAEHIVCPoint@@@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnLButtonDown(unsigned int,class CPoint))
 extern ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnLButtonUp(unsigned int,class CPoint))
 extern ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnLButtonDblClk(unsigned int,class CPoint))
 extern ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnRButtonDown(unsigned int,class CPoint))
 extern ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnRButtonUp(unsigned int,class CPoint))
 extern ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnRButtonDblClk(unsigned int,class CPoint))
-extern ?OnKeyDown@CVisualObject@@UAEHI@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnKeyDown(unsigned int))
 extern ?OnKeyUp@CVisualObject@@UAEHI@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnKeyUp(unsigned int))
 extern ?OnChar@CVisualObject@@UAEHI@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnChar(unsigned int))
 
 extern ?AddChild@CVisualObject@@QAEXPAV1@@Z :proc   ; (public: void __thiscall CVisualObject::AddChild(class CVisualObject *))
-extern ?RemoveChild@CVisualObject@@QAEXPAV1@@Z :proc   ; (public: void __thiscall CVisualObject::RemoveChild(class CVisualObject *))
-extern ?RemoveChildById@CVisualObject@@QAEXH@Z :proc   ; (public: void __thiscall CVisualObject::RemoveChildById(int))
-extern ?RemoveAllChilds@CVisualObject@@QAEXXZ :proc   ; (public: void __thiscall CVisualObject::RemoveAllChilds(void))
-extern ?DestroyChild@CVisualObject@@QAEXPAV1@@Z :proc   ; (public: void __thiscall CVisualObject::DestroyChild(class CVisualObject *))
-extern ?DestroyAllChilds@CVisualObject@@QAEXXZ :proc   ; (public: void __thiscall CVisualObject::DestroyAllChilds(void))
 extern ?FindChild@CVisualObject@@QAEPAV1@H@Z :proc   ; (public: class CVisualObject * __thiscall CVisualObject::FindChild(int))
-extern ?ClientPtToScreen@CVisualObject@@QAEXPAVCPoint@@ABV2@@Z :proc   ; (public: void __thiscall CVisualObject::ClientPtToScreen(class CPoint *,class CPoint const &))
-extern ?ClientRectToScreen@CVisualObject@@QAEXPAVCRect@@ABV2@@Z :proc   ; (public: void __thiscall CVisualObject::ClientRectToScreen(class CRect *,class CRect const &))
-extern ?SetLeftObj@CVisualObject@@QAEXPAV1@@Z :proc   ; (public: void __thiscall CVisualObject::SetLeftObj(class CVisualObject *))
-extern ?SetUpObj@CVisualObject@@QAEXPAV1@@Z :proc   ; (public: void __thiscall CVisualObject::SetUpObj(class CVisualObject *))
-extern ?SetCaptionLabel@CVisualObject@@QAEXPAVVisLabel@@@Z :proc   ; (public: void __thiscall CVisualObject::SetCaptionLabel(class VisLabel *))
-extern ?FocusTo@CVisualObject@@QAEXPAV1@_N@Z :proc   ; (public: void __thiscall CVisualObject::FocusTo(class CVisualObject *,bool))
-extern ?SetRect@CVisualObject@@QAEXUtagRECT@@@Z :proc   ; (public: void __thiscall CVisualObject::SetRect(struct tagRECT))
-extern ?SetRect@CVisualObject@@QAEXPBUtagRECT@@@Z :proc   ; (public: void __thiscall CVisualObject::SetRect(struct tagRECT const *))
-
-extern ?GetRect@CVisualObject@@QAEAAVCRect@@XZ : proc
 
 
-
-;VizLabel
+;VisLabel
 extern ??0VisLabel@@QAE@HHHHHPBDPAVCGameFont@@PAGI@Z :proc   ; (public: __thiscall VisLabel::VisLabel(int,int,int,int,int,char const *,class CGameFont *,unsigned short *,unsigned int))
-extern ??0VisLabel@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGI@Z :proc   ; (public: __thiscall VisLabel::VisLabel(int,struct tagRECT const &,char const *,class CGameFont *,unsigned short *,unsigned i
 
 
 ;VisButton
@@ -968,84 +558,18 @@ extern ?OnLButtonUp@VisButton@@UAEHIVCPoint@@@Z  :proc
 extern ?OnKeyDown@VisButton@@UAEHI@Z  :proc
 extern ?OnChar@VisButton@@UAEHI@Z  :proc
 extern ??0VisButton@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z  :proc
-extern ??0VisButton@@QAE@HHHHHPBDPAVCGameFont@@PAGHH0@Z  :proc
-extern ?SetDowned@VisButton@@QAEX_N@Z  :proc
 
-;VisScrollBar
-extern ?SetPos@VisScrollBar@@QAEXHH@Z  :proc
-extern ??0VisScrollBar@@QAE@HHHHHPBD@Z  :proc
 
 ;VisListBox
 extern ??1VisListBox@@UAE@XZ  :proc
-extern ?VMethod7@VisListBox@@UAEXXZ  :proc
-extern ?WriteData@VisListBox@@UAEXPAX@Z  :proc
-extern ?DataSize@VisListBox@@UAEIXZ  :proc
-extern ?ReadData@VisListBox@@UAEXPBX@Z  :proc
-extern ?MsgProc@VisListBox@@UAEHIII@Z  :proc
-extern ?OnMouseMove@VisListBox@@UAEHIVCPoint@@@Z  :proc
-extern ?OnLButtonDown@VisListBox@@UAEHIVCPoint@@@Z  :proc
-extern ?OnLButtonUp@VisListBox@@UAEHIVCPoint@@@Z  :proc
-extern ?OnLButtonDblClk@VisListBox@@UAEHIVCPoint@@@Z  :proc
-extern ?OnKeyDown@VisListBox@@UAEHI@Z  :proc
-extern ?IsValidIndex@VisListBox@@UAEHH@Z  :proc
-extern ?DrawItem@VisListBox@@UAEXHVCPoint@@PAG@Z  :proc
-extern ?SelectItem@VisListBox@@UAEXH@Z  :proc
-extern ?GetItemCount@VisListBox@@UAEHXZ  :proc
-extern ?VMethod30@VisListBox@@UAEXVCPoint@@ABVCRect@@@Z  :proc
-extern ??0VisListBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z  :proc
-extern ??0VisListBox@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z  :proc
-extern ?YToIndex@VisListBox@@QAEHH@Z  :proc
-extern ?GetItem@VisListBox@@QAEAAVCString@@H@Z : proc
-extern ?SetSelectedIndex@VisListBox@@QAEXH@Z : proc
-extern ?GetSelectedIndex@VisListBox@@QAEHXZ : proc
+
 
 ;VisTextBox
-extern ??1VisTextBox@@UAE@XZ  :proc
-extern ?VMethod7@VisTextBox@@UAEXXZ  :proc
-extern ?WriteData@VisTextBox@@UAEXPAX@Z  :proc
-extern ?DataSize@VisTextBox@@UAEIXZ  :proc
-extern ?ReadData@VisTextBox@@UAEXPBX@Z  :proc
-extern ?MsgProc@VisTextBox@@UAEHIII@Z  :proc
-extern ?OnMouseMove@VisTextBox@@UAEHIVCPoint@@@Z  :proc
-extern ?OnLButtonDown@VisTextBox@@UAEHIVCPoint@@@Z  :proc
-extern ?OnKeyDown@VisTextBox@@UAEHI@Z  :proc
-extern ?OnChar@VisTextBox@@UAEHI@Z  :proc
 extern ??0VisTextBox@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z  :proc
-extern ??0VisTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z  :proc
 
-;VisRadioBase
-extern ?SetCursorOver@VisRadioBase@@UAEX_N@Z  :proc
-extern ?WriteData@VisRadioBase@@UAEXPAX@Z  :proc
-extern ?DataSize@VisRadioBase@@UAEIXZ  :proc
-
-;VisRadioType1
-extern ??1VisRadioType1@@UAE@XZ  :proc
-extern ?ReadData@VisRadioType1@@UAEXPBX@Z  :proc
-extern ?OnMouseMove@VisRadioType1@@UAEHIVCPoint@@@Z  :proc
-extern ?OnLButtonDown@VisRadioType1@@UAEHIVCPoint@@@Z  :proc
-extern ?OnLButtonDblClk@VisRadioType1@@UAEHIVCPoint@@@Z  :proc
-extern ?OnKeyDown@VisRadioType1@@UAEHI@Z  :proc
-extern ?OnChar@VisRadioType1@@UAEHI@Z  :proc
-extern ??0VisRadioType1@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z  :proc
 
 ;VisRadioType2
 extern ??0VisRadioType2@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z  :proc
-
-;VisBitmap
-extern ??0VisBitmap@@QAE@HHHHHPAVCGameBitmap@@H@Z  :proc
-extern ?GetBitmap@VisBitmap@@QAEPAVCGameBitmap@@XZ  :proc
-extern ?SetBitmap@VisBitmap@@QAEXPAVCGameBitmap@@@Z  :proc
-
-
-;VisComboBox
-extern ??0VisComboBox@@QAE@HVCRect@@PBD@Z  :proc
-extern ?AddItem@VisComboBox@@QAEXPBD@Z  :proc
-extern ?SelectItem@VisComboBox@@QAEXH@Z  :proc
-
-
-;VisMultiText
-extern ??0VisMultiText@@QAE@HHHHHPBDPAVCGameFont@@PAGH@Z  :proc
-extern ?SetText@VisMultiText@@QAEXPBD@Z  : proc
 
 
 ;VisScreen
@@ -1054,457 +578,56 @@ extern ?VMethod7@VisScreen@@UAEXXZ  :proc
 extern ?VMethod8@VisScreen@@UAEXPAVCRect@@@Z  :proc
 extern ?MsgProc@VisScreen@@UAEHIII@Z  :proc
 extern ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z  :proc
-extern ?OnKeyDown@VisScreen@@UAEHI@Z  :proc
-extern ?VMethod26@VisScreen@@UAEXXZ  :proc
 extern ?VMethod27@VisScreen@@UAEXXZ  :proc
 extern ?VMethod28@VisScreen@@UAEXXZ  :proc
 extern ?DoClose@VisScreen@@UAEXI@Z  :proc
-extern ??0VisScreen@@QAE@XZ  :proc
-extern ??0VisScreen@@QAE@HABUtagRECT@@PAVCGameBitmap@@@Z  :proc
-extern ??0VisScreen@@QAE@HHHHHPAVCGameBitmap@@@Z  :proc
-extern ?GetCloseCode@VisScreen@@QAEHXZ  :proc
-extern ?CloseOk@VisScreen@@QAEXXZ  :proc
 
 
 ;VisWindow
 extern ??1VisWindow@@UAE@XZ  :proc
 extern ?OnKeyDown@VisWindow@@UAEHI@Z  :proc
 extern ??0VisWindow@@QAE@HHHHHPAVCGameBitmap@@@Z  :proc
-extern ?UpdateWinRect@VisWindow@@QAEXXZ  :proc
-
-
-;BigStruct2 (ASM-backed helpers)
-externdef ?FUN_0041da52@BigStruct2@@QAEPAVCGameBitmap@@H@Z :proc  ; CGameBitmap* BigStruct2::FUN_0041da52(int32_t)
 
 
 ;VisMessageBox
 extern ??1VisMessageBox@@UAE@XZ  :proc
 extern ?MsgProc@VisMessageBox@@UAEHIII@Z  :proc
 extern ?VMethod26@VisMessageBox@@UAEXXZ  :proc
-extern ?VMethod31@VisMessageBox@@UAEXH@Z  :proc
-extern ??0VisMessageBox@@QAE@HHHHHPBXPBDH1@Z  :proc
 
 ;VisMessageBoxWithList
-extern ??1VisMessageBoxWithList@@UAE@XZ  :proc
-extern ?VMethod30@VisMessageBoxWithList@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z  :proc
 extern ??0VisMessageBoxWithList@@QAE@HHHHHPBD0H@Z  :proc
 
 ;VisMenuWnd
-extern ??0VisMenuWnd@@QAE@HHHHHPAVCGameBitmap@@IABVCRect@@@Z : proc
 extern ??1VisMenuWnd@@UAE@XZ : proc
-extern ?MsgProc@VisMenuWnd@@UAEHIII@Z : proc
-extern ?OnKeyDown@VisMenuWnd@@UAEHI@Z : proc
-extern ?AddElement@VisMenuWnd@@QAEXPAVCVisualObject@@H@Z : proc
 
-;MenuButton
-extern ??0MenuButton@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z : proc
-
-;IngameMenu
-
-;HintedListBox
-
-;LoadGameWindow SaveGameWindow
-
-
-;GM_a28
-extern ?AddWithCheck@GM_a28@@QAEXPBDPAGI@Z  :proc
-extern ?Draw@GM_a28@@QAEXXZ  :proc
 
 ;TakeDamage
 extern ??1TakeDamage@@QAE@XZ : proc
 extern ??0TakeDamage@@QAE@XZ : proc
-externdef ?FUN_0041f640@TakeDamage@@QAEHXZ :proc  ; int32_t TakeDamage::FUN_0041f640()
+
 
 ;BigStruct2
-extern ?ApplyDynamicLight@BigStruct2@@QAEXHHHH@Z : proc
-extern ?ProcessPackets@BigStruct2@@QAEHE@Z : proc
-extern ?UpdateSelectionState@BigStruct2@@QAEXXZ  : proc
 extern ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ : proc
-extern ?sub_4184B8@BigStruct2@@QAEHHH@Z : proc
-extern ?sub_419154@BigStruct2@@QAEXGG@Z : proc
-extern ?sub_419246@BigStruct2@@QAEXG@Z : proc
-extern ?sub_41930D@BigStruct2@@QAEXGG@Z : proc
-extern ?sub_41955C@BigStruct2@@QAEXG@Z : proc
-extern ?sub_41965D@BigStruct2@@QAEXGG@Z : proc
-extern ?sub_418F93@BigStruct2@@QAEXH@Z : proc
-extern ?sub_41AC88@BigStruct2@@QAEXHH@Z : proc
-extern ?sub_41A7C7@BigStruct2@@QAEXEGEGG@Z : proc
-extern ?FUN_0041b7b7@BigStruct2@@QAEXHHPAH0@Z : proc
-extern ?FUN_0041df23@BigStruct2@@QAEPAVCUnit@@H@Z : proc
-
-extern ?FUN_0041b2a4@BigStruct2@@QAEXPBDHH@Z : proc
-extern ?FUN_0040d7f3@BigStruct2@@QAEHXZ : proc
-extern ?FUN_0041d2da@BigStruct2@@QAEXH@Z : proc
-
-extern ?FUN_0041b636@BigStruct2@@QAEXXZ : proc
-
-extern ?MapMinX@BigStruct2@@QBEHXZ : proc
-
-
-extern ?UpdateSelectionState@BigStruct2@@QAEXXZ : proc
-
-
-extern ?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z : proc  ; CUnit* BigStruct2::FUN_0041dfa6(int); called from asm
 
 
 ;TokenEntry
-extern ??1TokenEntry@@UAE@XZ  :proc   ; (public: virtual __thiscall TokenEntry::~TokenEntry(void))
-extern ??0TokenEntry@@QAE@XZ  :proc   ; (public: __thiscall TokenEntry::TokenEntry(void))
-extern ??0TokenEntry@@QAE@PBV0@@Z  :proc   ; (public: __thiscall TokenEntry::TokenEntry(class TokenEntry const *))
-extern ??4TokenEntry@@QAEXABV0@@Z  :proc   ; (public: void __thiscall 
-
-
-extern ?GetType@TokenEntry@@QBEHXZ : proc    ; TokenEntry::GetType
 extern ?GetAttribute@TokenEntry@@QBEIE@Z : proc  
-extern ?GetMaterial@TokenEntry@@QBEHXZ : proc
-extern ?GetCastSpellId@TokenEntry@@QBEIXZ : proc
 
-extern ?GetId@TokenEntry@@QBEHXZ : proc
-
-extern ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ  :proc
-externdef ?GetShape@TokenEntry@@QBEHXZ : proc  ; int TokenEntry::GetShape() const
-
-
-
-extern ?StatLevelPoints@@YAHH@Z:proc ; int32_t StatLevelPoints(int32_t) 5008CA
 extern ?sub_43A820@@YAPAVCString@@PAV1@I@Z :proc                                        ; CString* sub_43A820(CString*, uint32_t) — itoa
-externdef ?sub_4F499B@@YAPAVItem@@PAPAE@Z :proc                                                     ; sub_4F499B — parse item from packet data
 
 extern ?FlushScreen@@YAXXZ  : proc
 
 
-;VisSpellBook
-
-;TokenEntry
-extern ?sub_4CA89B@VisSpellBook@@QAEHH@Z : proc
-extern ?sub_4CA8E0@VisSpellBook@@QAEHH@Z : proc
-externdef ?sub_41F9B0@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_41F9B0()
-externdef ?sub_41F9E0@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_41F9E0()
-externdef ?sub_4CAAA7@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_4CAAA7()
-
-; VisTavLeftPanel
-extern ?FUN_00497ace@VisTavLeftPanel@@QAEXXZ : proc  ; void VisTavLeftPanel::FUN_00497ace()
-
-; VisTavRightPanel
-extern ?FUN_0049a973@VisTavRightPanel@@QAEXXZ : proc
-
-; VisTavScene
-extern ??_GVisTavScene@@UAEPAXI@Z :proc
-extern ??1VisTavScene@@UAE@XZ :proc
-extern ?GetHint@VisTavScene@@UAEPBDXZ :proc
-extern ?VMethod7@VisTavScene@@UAEXXZ :proc
-extern ?OnMouseMove@VisTavScene@@UAEHIVCPoint@@@Z :proc
-extern ?OnLButtonDown@VisTavScene@@UAEHIVCPoint@@@Z :proc
-externdef ?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z : proc
-extern ?OnLButtonDblClk@VisTavScene@@UAEHIVCPoint@@@Z :proc
-extern ?VMethod26@VisTavScene@@UAEXXZ :proc
-extern ?VMethod27@VisTavScene@@UAEXXZ :proc
-extern ?VMethod28@VisTavScene@@UAEXXZ :proc
-extern ?VMethod29@VisTavScene@@UAEXXZ :proc
-extern ??0VisTavScene@@QAE@HHHHHPAVVisTav@@@Z : proc
-externdef ?FUN_0049bc23@VisTavScene@@QAEXXZ : proc
-externdef ?FUN_0049af8c@VisTavScene@@QAEXXZ : proc
-
-; VisTavSceneDruid
-extern ??_GVisTavSceneDruid@@UAEPAXI@Z :proc
-extern ??1VisTavSceneDruid@@UAE@XZ :proc
-extern ?VMethod7@VisTavSceneDruid@@UAEXXZ :proc
-extern ?VMethod28@VisTavSceneDruid@@UAEXXZ :proc
-extern ?VMethod29@VisTavSceneDruid@@UAEXXZ :proc
-
-; VisTavSceneKaarg
-extern ??_GVisTavSceneKaarg@@UAEPAXI@Z :proc
-extern ??1VisTavSceneKaarg@@UAE@XZ :proc
-extern ?VMethod7@VisTavSceneKaarg@@UAEXXZ :proc
-extern ?VMethod28@VisTavSceneKaarg@@UAEXXZ :proc
-extern ?VMethod29@VisTavSceneKaarg@@UAEXXZ :proc
-extern ??0VisTavSceneKaarg@@QAE@HHHHHPAVVisTav@@@Z : proc
-
 ; VisTavSceneAnim
 extern ?FUN_004014f2@VisTavSceneAnim@@QAEXXZ : proc
-extern ?StepForward@VisTavSceneAnim@@QAE_NXZ : proc
-extern ?NextFrame@VisTavSceneAnim@@QAEXXZ : proc
-extern ?Draw@VisTavSceneAnim@@QAEXHH@Z : proc
-
-;VisShop
-extern ?sub_4BCDA0@VisShop@@QAEXXZ : proc
-extern ?sub_4BC97B@VisShop@@QAEXXZ : proc
-extern ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z : proc
-extern ??0VisInvExtType1Kaarg@@QAE@HHHHHPAVVisShop@@@Z : proc  ; VisInvExtType1Kaarg::VisInvExtType1Kaarg(int32_t, int32_t, int32_t, int32_t, int32_t, VisShop*)
-extern ??_GVisInvExtType1Kaarg@@UAEPAXI@Z : proc  ; virtual VisInvExtType1Kaarg::~VisInvExtType1Kaarg() (scalar deleting dtor)
-extern ?VMethod41@VisInvExtType1Kaarg@@UAEXXZ : proc  ; void VisInvExtType1Kaarg::VMethod41()
-extern ??0VisInvExtType1Druid@@QAE@HHHHHPAVVisShop@@@Z : proc  ; VisInvExtType1Druid::VisInvExtType1Druid(int32_t, int32_t, int32_t, int32_t, int32_t, VisShop*)
-extern ??_GVisInvExtType1Druid@@UAEPAXI@Z : proc  ; virtual VisInvExtType1Druid::~VisInvExtType1Druid() (scalar deleting dtor)
-extern ?VMethod41@VisInvExtType1Druid@@UAEXXZ : proc  ; void VisInvExtType1Druid::VMethod41()
-extern ??1VisShopCompass@@UAE@XZ : proc
-extern ??_GVisShopCompass@@UAEPAXI@Z : proc
-extern ?GetHint@VisShopCompass@@UAEPBDXZ : proc
-extern ?VMethod7@VisShopCompass@@UAEXXZ : proc
-extern ?OnMouseMove@VisShopCompass@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonDown@VisShopCompass@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonUp@VisShopCompass@@UAEHIVCPoint@@@Z : proc
-extern ?VMethod26@VisShopCompass@@UAEXXZ : proc
-extern ?VMethod27@VisShopCompass@@UAEXXZ : proc
-extern ?VMethod28@VisShopCompass@@UAEXXZ : proc
-extern ?VMethod29@VisShopCompass@@UAEXXZ : proc
-extern ?VMethod30@VisShopCompass@@UAEXXZ : proc
-extern ?VMethod31@VisShopCompass@@UAEXH@Z : proc
-extern ?VMethod32@VisShopCompass@@UAEXH@Z : proc
-extern ?VMethod33@VisShopCompass@@UAEXXZ : proc
-extern ?VMethod34@VisShopCompass@@UAEXXZ : proc
-extern ?VMethod35@VisShopCompass@@UAEXXZ : proc
-extern ?VMethod36@VisShopCompass@@UAEXXZ : proc
-extern ?VMethod37@VisShopCompass@@UAEHH@Z : proc
-extern ?VMethod38@VisShopCompass@@UAEHXZ : proc
-
-extern ?ResetSelected@VisShopButtons@@QAEXXZ : proc
-
-extern ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z : proc  ; called from asm (sub_4C34E6, sub_4C65BA)
-
-;VisDropGold
-;VisStartGame
-extern ??_GVisStartGame@@UAEPAXI@Z : proc
-extern ?GetHint@VisStartGame@@UAEPBDXZ : proc
-extern ?VMethod7@VisStartGame@@UAEXXZ  : proc
-extern ?VMethod8@VisStartGame@@UAEXPAVCRect@@@Z : proc
-extern ?MsgProc@VisStartGame@@UAEHIII@Z : proc
-extern ?OnMouseMove@VisStartGame@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z  : proc
-extern ?UpdateHotspots@VisStartGame@@QAEIHHI@Z  : proc
-extern ?Accept@VisStartGame@@QAEXXZ  : proc
-extern ?OnKeyDown@VisStartGame@@UAEHI@Z : proc
-extern ?VMethod26@VisStartGame@@UAEXXZ  : proc
-extern ?FreeSamples@VisStartGame@@QAEXXZ  : proc
-extern ?FreeBitmaps@VisStartGame@@QAEXXZ  : proc
-extern ?VMethod28@VisStartGame@@UAEXXZ  : proc
-extern ?DoClose@VisStartGame@@UAEXI@Z  : proc
-externdef ?FUN_004382d9@VisStartGame@@QAEXXZ : proc  ; void VisStartGame::FUN_004382d9(void)  //4382d9 in asm
-
-;Vis1200
-externdef  ?FUN_0043be9f@Vis1200@@QAEXXZ : proc
-
-;VisGlobalMap
-extern ??_GVisGlobalMap@@UAEPAXI@Z : proc
-extern ?GetHint@VisGlobalMap@@UAEPBDXZ : proc
-extern ?VMethod7@VisGlobalMap@@UAEXXZ : proc
-extern ?VMethod8@VisGlobalMap@@UAEXPAVCRect@@@Z : proc
-extern ?MsgProc@VisGlobalMap@@UAEHIII@Z : proc
-extern ?OnMouseMove@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
-extern ?OnRButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
-extern ?OnRButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
-extern ?OnKeyDown@VisGlobalMap@@UAEHI@Z : proc
-extern ?OnChar@VisGlobalMap@@UAEHI@Z : proc
-externdef ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z : proc
-externdef ?VMethod26@VisGlobalMap@@UAEXXZ : proc
-extern ?VMethod28@VisGlobalMap@@UAEXXZ  : proc
-extern ?DoClose@VisGlobalMap@@UAEXI@Z  : proc
-
-; Fame2
-extern ?FUN_004abf35@Fame2@@QAE_NXZ : proc
-extern ?FUN_004abf72@Fame2@@QAEHXZ : proc
-extern ?FUN_004abfb1@Fame2@@QAEXHH@Z : proc
-extern ?FUN_004ac0af@Fame2@@QAEXXZ : proc
-
-;UserShortcut spell helpers
-;VisSpellBook hit-test
-externdef ?FUN_004ca7c2@VisSpellBook@@QAEHPAVCPoint@@@Z : proc
-
-
-
-
-;VisSpellBook
-extern ??_GVisSpellBook@@UAEPAXI@Z : proc
-extern ??1VisSpellBook@@UAE@XZ : proc
-externdef ??_GVisSpellBook@@UAEPAXI@Z : proc
-extern ?GetHint@VisSpellBook@@UAEPBDXZ : proc
-extern ?VMethod7@VisSpellBook@@UAEXXZ : proc
-extern ?MsgProc@VisSpellBook@@UAEHIII@Z : proc
-extern ?OnMouseMove@VisSpellBook@@UAEHIVCPoint@@@Z : proc
-extern ?OnWmUser@VisSpellBook@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonDown@VisSpellBook@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonUp@VisSpellBook@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonDblClk@VisSpellBook@@UAEHIVCPoint@@@Z : proc
-extern ?OnRButtonDown@VisSpellBook@@UAEHIVCPoint@@@Z : proc
-extern ?OnRButtonUp@VisSpellBook@@UAEHIVCPoint@@@Z : proc
-extern ?OnRButtonDblClk@VisSpellBook@@UAEHIVCPoint@@@Z : proc
-extern ?OnKeyDown@VisSpellBook@@UAEHI@Z : proc
-
-
-;VisSideStatus
-
-;VisStartGameTextBox
-extern ?GetHint@VisStartGameTextBox@@UAEPBDXZ : proc
-extern ?VMethod7@VisStartGameTextBox@@UAEXXZ : proc
-extern ?OnMouseMove@VisStartGameTextBox@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonDown@VisStartGameTextBox@@UAEHIVCPoint@@@Z : proc
-extern ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z : proc
-externdef ?FUN_00432b80@VisStartGameTextBox@@QAEXXZ : proc  ; void VisStartGameTextBox::FUN_00432b80(void)  //432b80 in asm
-extern ?OnChar@VisStartGameTextBox@@UAEHI@Z : proc
-extern ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ : proc
-extern ?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z : proc
-
-;VisInvBase
-extern ??0VisInvBase@@QAE@HHHHH@Z : proc  ; VisInvBase::VisInvBase(int32_t, int32_t, int32_t, int32_t, int32_t)
-extern ?sub_4A4BCB@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::sub_4A4BCB()
-extern ??1VisInvBase@@UAE@XZ :proc
-extern ??_GVisInvBase@@UAEPAXI@Z : proc  ; virtual VisInvBase::~VisInvBase() (scalar deleting dtor)
-extern ?GetHint@VisInvBase@@UAEPBDXZ : proc  ; const char* VisInvBase::GetHint()
-extern ?MsgProc@VisInvBase@@UAEHIII@Z : proc  ; int32_t VisInvBase::MsgProc(uint32_t, uint32_t, uint32_t)
-extern ?VMethod26@VisInvBase@@UAEHPAVTokenEntry@@H@Z : proc  ; int32_t VisInvBase::VMethod26(TokenEntry*, int32_t)
-extern ?VMethod27@VisInvBase@@UAEHPAVTokenEntry@@@Z : proc  ; int32_t VisInvBase::VMethod27(TokenEntry*)
-extern ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z : proc  ; TokenEntry* VisInvBase::VMethod28(uint32_t)
-extern ?VMethod29@VisInvBase@@UAEPAVTokenEntry@@PAV2@H@Z : proc  ; TokenEntry* VisInvBase::VMethod29(TokenEntry*, int32_t)
-extern ?VMethod30@VisInvBase@@UAEHHH@Z : proc  ; int32_t VisInvBase::VMethod30(int32_t, int32_t)
-extern ?VMethod31@VisInvBase@@UAEHPBVCPoint@@@Z : proc  ; int32_t VisInvBase::VMethod31(const CPoint*)
-extern ?VMethod32@VisInvBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z : proc  ; void VisInvBase::VMethod32(CArray<TokenEntry*>*)  ; void VisInvBase::VMethod32(CArray<TokenEntry*>*)  //4a4da9 in asm
-extern ?VMethod33@VisInvBase@@UAEXPAVCGameObject@@@Z : proc  ; void VisInvBase::VMethod33(CGameObject*)  ; void VisInvBase::VMethod33(CGameObject*)  //4a4d05 in asm
-extern ?VMethod34@VisInvBase@@UAEXXZ : proc  ; void VisInvBase::VMethod34()  ; void VisInvBase::VMethod34()  //4a4e28 in asm
-extern ?VMethod35@VisInvBase@@UAEXXZ : proc  ; void VisInvBase::VMethod35()  ; void VisInvBase::VMethod35()  //4a4c2f in asm
-extern ?VMethod36@VisInvBase@@UAEPAVTokenEntry@@HH@Z : proc  ; TokenEntry* VisInvBase::VMethod36(int32_t, int32_t)  ; TokenEntry* VisInvBase::VMethod36(int32_t, int32_t)  //4a5aae in asm
-extern ?VMethod37@VisInvBase@@UAEHH@Z : proc  ; int32_t VisInvBase::VMethod37(int32_t)  ; int32_t VisInvBase::VMethod37(int32_t)  //4a5c39 in asm
-extern ?VMethod38@VisInvBase@@UAEHXZ : proc  ; int32_t VisInvBase::VMethod38()  ; int32_t VisInvBase::VMethod38()  //4a79b0 in asm
-extern ?sub_4A5FAB@VisInvBase@@QAEXHHH@Z : proc  ; void VisInvBase::sub_4A5FAB(int, int, int)
-extern ?FUN_004a5e12@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::FUN_004a5e12()
-extern ?FUN_0046fb90@VisInvBase@@QAEHXZ : proc  ; int32_t VisInvBase::FUN_0046fb90()
-extern ?FUN_004a4ebc@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::FUN_004a4ebc()
-extern ?sub_4A5350@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::sub_4A5350()
-extern ?sub_4A51C9@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::sub_4A51C9()
-
-;VisInvType1
-extern ??_GVisInvType1@@UAEPAXI@Z : proc
-extern ?GetHint@VisInvType1@@UAEPBDXZ : proc
-extern ?VMethod7@VisInvType1@@UAEXXZ : proc
-extern ?VMethod38@VisInvType1@@UAEHXZ : proc  ; int32_t VisInvType1::VMethod38()
-extern ?MsgProc@VisInvType1@@UAEHIII@Z : proc
-extern ?OnMouseMove@VisInvType1@@UAEHIVCPoint@@@Z : proc
-extern ?OnWmUser@VisInvType1@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonDown@VisInvType1@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonUp@VisInvType1@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z : proc
-extern ?OnRButtonDown@VisInvType1@@UAEHIVCPoint@@@Z : proc
-extern ?OnRButtonUp@VisInvType1@@UAEHIVCPoint@@@Z : proc
-extern ?OnRButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z : proc
-extern ?VMethod26@VisInvType1@@UAEHPAVTokenEntry@@H@Z : proc
-extern ?VMethod27@VisInvType1@@UAEHPAVTokenEntry@@@Z : proc
-extern ?VMethod30@VisInvType1@@UAEHHH@Z : proc
-
-;VisInvExtBase
-extern ??1VisInvExtBase@@UAE@XZ : proc
-extern ??_GVisInvExtBase@@UAEPAXI@Z : proc  ; virtual VisInvExtBase::~VisInvExtBase() (scalar deleting dtor)
-extern ?GetHint@VisInvExtBase@@UAEPBDXZ : proc  ; const char* VisInvExtBase::GetHint()
-extern ?VMethod7@VisInvExtBase@@UAEXXZ : proc  ; void VisInvExtBase::VMethod7()
-extern ?OnMouseMove@VisInvExtBase@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtBase::OnMouseMove(uint32_t, CPoint)
-extern ?OnLButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtBase::OnLButtonDown(uint32_t, CPoint)
-extern ?OnLButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtBase::OnLButtonUp(uint32_t, CPoint)
-extern ?OnLButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtBase::OnLButtonDblClk(uint32_t, CPoint)
-extern ?OnRButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtBase::OnRButtonDown(uint32_t, CPoint)
-extern ?OnRButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtBase::OnRButtonUp(uint32_t, CPoint)
-extern ?OnRButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtBase::OnRButtonDblClk(uint32_t, CPoint)
-extern ?VMethod30@VisInvExtBase@@UAEHHH@Z : proc  ; int32_t VisInvExtBase::VMethod30(int32_t, int32_t)
-extern ?VMethod31@VisInvExtBase@@UAEHPBVCPoint@@@Z : proc  ; int32_t VisInvExtBase::VMethod31(const CPoint*)
-extern ?VMethod32@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z : proc  ; void VisInvExtBase::VMethod32(CArray<TokenEntry*>*)
-extern ?VMethod38@VisInvExtBase@@UAEHXZ : proc  ; int32_t VisInvExtBase::VMethod38()
-extern ?VMethod39@VisInvExtBase@@UAEXXZ : proc  ; void VisInvExtBase::VMethod39()
-extern ?VMethod40@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z : proc  ; void VisInvExtBase::VMethod40(CArray<TokenEntry*>*)
-extern ?VMethod41@VisInvExtBase@@UAEXXZ : proc  ; void VisInvExtBase::VMethod41()
-extern ?VMethod42@VisInvExtBase@@UAEXXZ : proc  ; void VisInvExtBase::VMethod42()
-extern ?sub_4B4C1C@VisInvExtBase@@QAEXXZ : proc  ; void VisInvExtBase::sub_4B4C1C()
-extern ?sub_4B4D33@VisInvExtBase@@QAEXXZ : proc  ; void VisInvExtBase::sub_4B4D33()
-extern ?sub_4B4BC5@VisInvExtBase@@QAEXXZ : proc  ; void VisInvExtBase::sub_4B4BC5()
-extern ?sub_4B4FD1@VisInvExtBase@@QAEXXZ : proc  ; void VisInvExtBase::sub_4B4FD1()
-extern ?sub_4B4BA9@VisInvExtBase@@QAEXXZ : proc  ; void VisInvExtBase::sub_4B4BA9()
-
-;VisInvExtType1
-extern ??0VisInvExtType1@@QAE@HHHHHPAVVisShop@@@Z : proc  ; VisInvExtType1::VisInvExtType1(int32_t, int32_t, int32_t, int32_t, int32_t, VisShop*)
-externdef ??0VisInvExtBase@@QAE@HHHHHPAVVisShop@@@Z : proc  ; VisInvExtBase::VisInvExtBase(int32_t, int32_t, int32_t, int32_t, int32_t, VisShop*)
-extern ??1VisInvExtType1@@UAE@XZ : proc  ; virtual VisInvExtType1::~VisInvExtType1()
-extern ??_GVisInvExtType1@@UAEPAXI@Z : proc  ; virtual VisInvExtType1::~VisInvExtType1() (scalar deleting dtor)
-extern ?GetHint@VisInvExtType1@@UAEPBDXZ : proc  ; const char* VisInvExtType1::GetHint()
-externdef ?VMethod7@VisInvExtType1@@UAEXXZ : proc
-extern ?OnMouseMove@VisInvExtType1@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtType1::OnMouseMove(uint32_t, CPoint)
-extern ?OnWmUser@VisInvExtType1@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtType1::OnWmUser(uint32_t, CPoint)
-extern ?OnLButtonDown@VisInvExtType1@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtType1::OnLButtonDown(uint32_t, CPoint)
-extern ?OnLButtonUp@VisInvExtType1@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtType1::OnLButtonUp(uint32_t, CPoint)
-extern ?OnKeyDown@VisInvExtType1@@UAEHI@Z : proc  ; int32_t VisInvExtType1::OnKeyDown(uint32_t)
-extern ?VMethod26@VisInvExtType1@@UAEHPAVTokenEntry@@H@Z : proc  ; int32_t VisInvExtType1::VMethod26(TokenEntry*, int32_t)
-extern ?VMethod29@VisInvExtType1@@UAEPAVTokenEntry@@PAV2@H@Z : proc  ; TokenEntry* VisInvExtType1::VMethod29(TokenEntry*, int32_t)
-extern ?VMethod37@VisInvExtType1@@UAEHH@Z : proc  ; int32_t VisInvExtType1::VMethod37(int32_t)
-extern ?VMethod38@VisInvExtType1@@UAEHXZ : proc  ; int32_t VisInvExtType1::VMethod38()
-extern ?VMethod39@VisInvExtType1@@UAEXXZ : proc  ; void VisInvExtType1::VMethod39()
-extern ?VMethod41@VisInvExtType1@@UAEXXZ : proc  ; void VisInvExtType1::VMethod41()
-extern ?VMethod42@VisInvExtType1@@UAEXXZ : proc  ; void VisInvExtType1::VMethod42()
-extern ?sub_4B73E4@VisInvExtType1@@QAEXH@Z : proc  ; void VisInvExtType1::sub_4B73E4(int32_t)
-
-;VisInvExtType2
-externdef ??0VisInvExtType2@@QAE@HHHHHPAVVisShop@@@Z : proc
-extern ??_GVisInvExtType2@@UAEPAXI@Z : proc
-externdef ?GetHint@VisInvExtType2@@UAEPBDXZ : proc
-externdef ?VMethod7@VisInvExtType2@@UAEXXZ : proc
-extern ?VMethod38@VisInvExtType2@@UAEHXZ : proc
-externdef ?VMethod39@VisInvExtType2@@UAEXXZ : proc
-externdef ?OnMouseMove@VisInvExtType2@@UAEHIVCPoint@@@Z : proc
-externdef ?OnWmUser@VisInvExtType2@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonDown@VisInvExtType2@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonUp@VisInvExtType2@@UAEHIVCPoint@@@Z : proc
-externdef ?VMethod26@VisInvExtType2@@UAEHPAVTokenEntry@@H@Z : proc
-externdef ?VMethod27@VisInvExtType2@@UAEHPAVTokenEntry@@@Z : proc
-externdef ?sub_4B860E@VisInvExtType2@@QAEXXZ : proc  ; void VisInvExtType2::sub_4B860E()
-externdef ?sub_4B8666@VisInvExtType2@@QAEXXZ : proc  ; void VisInvExtType2::sub_4B8666()
-externdef ?sub_4B86BE@VisInvExtType2@@QAEXXZ : proc  ; void VisInvExtType2::sub_4B86BE()
-externdef ?sub_4B871C@VisInvExtType2@@QAEXXZ : proc  ; void VisInvExtType2::sub_4B871C()
-
-;VisInvExtType3
-extern ??_GVisInvExtType3@@UAEPAXI@Z : proc
-extern ?GetHint@VisInvExtType3@@UAEPBDXZ : proc
-extern ?VMethod7@VisInvExtType3@@UAEXXZ : proc
-extern ?OnMouseMove@VisInvExtType3@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonDown@VisInvExtType3@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonUp@VisInvExtType3@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonDblClk@VisInvExtType3@@UAEHIVCPoint@@@Z : proc
-extern ?VMethod26@VisInvExtType3@@UAEHPAVTokenEntry@@H@Z : proc
-extern ?VMethod27@VisInvExtType3@@UAEHPAVTokenEntry@@@Z : proc
-extern ?VMethod36@VisInvExtType3@@UAEPAVTokenEntry@@HH@Z : proc  ; TokenEntry* VisInvExtType3::VMethod36(int32_t,int32_t) — vtable slot 40
-extern ?VMethod37@VisInvExtType3@@UAEHH@Z : proc  ; int32_t VisInvExtType3::VMethod37(int32_t) — vtable slot 41
-extern ?VMethod38@VisInvExtType3@@UAEHXZ : proc  ; int32_t VisInvExtType3::VMethod38() — vtable slot 42
-extern ?VMethod39@VisInvExtType3@@UAEXXZ : proc  ; void VisInvExtType3::VMethod39() — vtable slot 43
-extern ?VMethod41@VisInvExtType3@@UAEXXZ : proc  ; void VisInvExtType3::VMethod41() — vtable slot 45
-extern ?VMethod42@VisInvExtType3@@UAEXXZ : proc  ; void VisInvExtType3::VMethod42() — vtable slot 46
-extern ?VMethod43@VisInvExtType3@@UAEPAVTokenEntry@@HH@Z : proc  ; TokenEntry* VisInvExtType3::VMethod43(int32_t,int32_t) — vtable slot 47
-
-;VisServerScreenRadio
-
-
-;GameOptionsWindow
-
-;MPGameMenu
-
-;WinGameMenu
 
 
 ;GFX things
-extern ?gfxFlushRect@@YAXABVCRect@@@Z :proc
-extern ?CopySurface16Rect@@YAXPAEHH0HHHHHH@Z : proc
-
-extern ?SaveScreenshot@@YAXXZ : proc
-extern ?SaveSettings@@YAXXZ : proc  ; void SaveSettings(void) — defined in C++, still called from sub_491F7D
-
-
-extern ?LockSurface3@@YAIXZ  :proc
-extern ?UnlockSurface3@@YAIXZ  :proc
 extern ?LockSurface2@@YAIXZ  :proc
 extern ?UnlockSurface2@@YAIXZ  :proc
 
-
-extern ?g_ddsurface@@3PAUIDirectDrawSurface@@A : dword
-
-
 extern ?g_ddraw@@3PAUIDirectDraw@@A : dword
 
-extern ?g_TerrainHelper@@3PAY0IA@EA : byte
-
-extern ?g_bmp_t_back@@3PAVCBmp64@@A  : dword
 extern ?g_bmp_crystalr@@3PAVCBmp64@@A  : dword
 extern ?g_bmp_crystall@@3PAVCBmp64@@A  : dword
 extern ?g_bmp_headsr@@3PAVCBmp64@@A  : dword
@@ -1519,8 +642,6 @@ extern ?g_bmp_textbackl@@3PAVCBmp64@@A  : dword
 extern ?g_bmp_textbackr@@3PAVCBmp64@@A  : dword
 extern ?g_bmp_bookopened@@3PAVCBmp64@@A  : dword
 extern ?g_bmp_bookclosed@@3PAVCBmp64@@A  : dword
-extern ?g_bmp_backpackop@@3PAVCBmp64@@A  : dword
-extern ?g_bmp_backpackcl@@3PAVCBmp64@@A  : dword
 extern ?g_bmp_humanmode@@3PAVCBmp64@@A  : dword
 extern ?g_bmp_textmode@@3PAVCBmp64@@A  : dword
 extern ?g_bmp_diskette@@3PAVCBmp64@@A  : dword
@@ -1536,44 +657,18 @@ extern ?g_bmp_invarrow2@@3PAVCBmp64@@A  : dword
 extern ?g_bmp_invarrow3@@3PAVCBmp64@@A  : dword
 extern ?g_bmp_invarrow4@@3PAVCBmp64@@A  : dword
 extern ?g_bmp_backinv@@3PAVCBmp64@@A  : dword
-extern ?g_bmp_spb1024l@@3PAVCBmp64@@A  : dword
-extern ?g_bmp_spb1024r@@3PAVCBmp64@@A  : dword
-extern ?g_bmp_extra1024r@@3PAVCBmp64@@A  : dword
-extern ?g_bmp_inv1024l@@3PAVCBmp64@@A  : dword
-extern ?g_bmp_inv1024r@@3PAVCBmp64@@A  : dword
-extern ?g_bmp_spb800l@@3PAVCBmp64@@A  : dword
-extern ?g_bmp_spb800r@@3PAVCBmp64@@A  : dword
-extern ?g_bmp_extra800r@@3PAVCBmp64@@A  : dword
 extern ?gfx_interface_lm@@3PAVCSprite256@@A : dword
 extern ?gfx_scrollbars@@3PAVCSprite256@@A : dword
 extern ?gfx_radiob@@3PAVCSprite256@@A : dword
-extern ?g_spr_t_border@@3PAVCSprite256@@A : dword
 extern ?g_ca16_money@@3PAVCA16@@A : dword
-extern ?g_bmp_server@@3PAVCBmp64@@A  : dword
 extern ?g_spr_backpack@@3PAVCSprite256@@A : dword
-extern ?g_spr_backpackb@@3PAVCSprite256@@A : dword
-extern ?gfx_ball@@3PAVCBmp64@@A  : dword
 extern ?g_bmp_minimapdata@@3PAVCBmp64@@A  : dword
-
-
-
 
 extern ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A : dword
 
 extern ?g_font1@@3PAVCGameFont@@A : dword
 extern ?g_font2@@3PAVCGameFont@@A : dword
-extern ?g_font3@@3PAVCGameFont@@A : dword
 extern ?g_font4@@3PAVCGameFont@@A : dword
-
-
-; Free functions
-
-
-extern ?Random0N@@YAHH@Z:proc     ; 542216
-extern ?Random1N@@YAHH@Z:proc     ; 54223F
-
-extern ?WritePlayerFile_4F53EA@@YAHPBDPAUFileSectionBasicInfo@@PAUFileSectionStats@@PAEPAVPacketUnitStateVec@@43I@Z :proc                  ; sub_4F53EA — save character data to file
-extern ?ParsePlayerFile_4F62E6@@YAHPAVCFile@@PAPAUFileSectionBasicInfo@@PAPAUFileSectionStats@@PAPAEPAPAVPacketUnitStateVec@@43PAI@Z :proc                  ; sub_4F62E6 — parse character file sections
 
 
 ;gfx
@@ -1581,136 +676,29 @@ extern ?g_clipRect@@3VCRect@@A : dword
 extern ?g_selDrawBitmap@@3U_DDSURFACEDESC@@A : dword
 extern ?g_ScreenSize@@3VCRect@@A : dword
 
-
-extern ?FillRectColor@@YAXHHHHI@Z : proc
 extern ?FillRectColorSimple@@YAXHHHHI@Z : proc
-extern ?ShadowRect@@YAXVCRect@@H@Z : proc
-
-extern ?DrawRectangleFrame@@YAXHHHHI@Z : proc
 
 extern ?g_brightnessLookup@@3PAGA  :dword
 extern ?g_brightnessLookupCount@@3IA  :dword
 
-extern ?g_Animation@@3HA : dword
-extern ?g_Lightning@@3HA : dword
-
-extern ?g_RBits@@3HA  :byte
-extern ?g_GBits@@3HA  :byte
-extern ?g_BBits@@3HA  :byte
-extern ?g_RBitShift@@3HA  :byte
-extern ?g_GBitShift@@3HA  :byte
-extern ?g_BBitShift@@3HA  :byte
-extern ?g_RBitMask@@3HA  :word
-extern ?g_GBitMask@@3HA  :word
-extern ?g_BBitMask@@3HA  :word
-
-extern ?g_human_pals_data@@3PAY0BAA@UtagRGBQUAD@@A : byte
-extern ?g_Human_palettes@@3V?$CArray@PAVCGamePalette@@ABQAV1@@@A : dword
-
-
 extern ?p_clrsh_Black@@3PAGA  :dword
-extern ?p_clrsh_ShockingBlack@@3PAGA  :dword
 
-extern ?clrsh_DullGold@@3PAGA  : dword
 extern ?clrsh_TechBlack@@3PAGA  : dword
-extern ?clrsh_ShockingBlack@@3PAGA  : dword
-extern ?clrsh_CharlieBrown@@3PAGA  : dword
-extern ?clrsh_CoralRed@@3PAGA  : dword
 
-extern ?clrsh_Oxley@@3PAGA  : dword
-extern ?clrsh_GoldenFizz@@3PAGA  : dword
 extern ?clrsh_InvBarleyCorn@@3PAGA  : dword
 
-extern ?palette_husk@@3PAVCGamePalette@@A  : dword
-extern ?palette_paris_daisy@@3PAVCGamePalette@@A  : dword
 extern ?palette_brown_derby@@3PAVCGamePalette@@A  : dword
-extern ?palette_tawny_port@@3PAVCGamePalette@@A  : dword
-
 
 extern ?g_isLowMemory@@3IA : dword
-extern ?g_ColorAddMask@@3GA : word
 
-extern ?g_colors_human_pals@@3PAY0BA@GA : word
-
-extern ?g_pal_projectiles@@3PAVCGamePalette@@A   : dword
-extern ?g_spr_smoke@@3PAPAVCA16@@A : dword
-
-extern ?g_DeltaCLR@@3UColorThing@@A : byte
-
-;CBmp256
-extern ??0CBmp256@@QAE@PBD@Z : proc
-extern ??0CBmp256@@QAE@II@Z  : proc
 
 ;CBmp64
-extern ??0CBmp64@@QAE@II@Z : proc
 extern ??0CBmp64@@QAE@PBD@Z : proc
-extern ?LoadFile@CBmp64@@QAEXPBDPAVCGameBitmap@@@Z : proc
 
-;CGameBitmap
-extern ?ResetPalette@CGameBitmap@@QAEXIHH@Z  : proc
-
-;CSprite256
-extern ??0CSprite256@@QAE@PBD@Z : proc
-
-;CA16
-extern ??0CA16@@QAE@PBD@Z  :proc
-
-;CSprite16
 
 ;CGamePalette
-extern ?Free@CGamePalette@@QAEXXZ  : proc
-extern ?SetPalette@CGamePalette@@QAEXPAUtagRGBQUAD@@IHH@Z : proc
-extern ??0CGamePalette@@QAE@XZ : proc
 extern ??1CGamePalette@@UAE@XZ : proc
 extern ?GetPalette@CGamePalette@@QAEPAGH@Z : proc
-
-
-;CGameFont
-extern ?GetStrWidth@CGameFont@@QAEHPBD@Z : proc
-extern ?StringArrayForRect@CGameFont@@QAEAAVCStringArray@@ABVCRect@@PBD@Z  : proc
-extern ?DrawTextJustifyInRectShadow@CGameFont@@QAEXABVCRect@@PBDPAGH@Z : proc
-extern ?DrawTextWithShadow@CGameFont@@QAEXHHPBDIPAGH@Z: proc
-extern ?DrawTextLines@CGameFont@@QAEXABVCRect@@HHABVCStringArray@@PAGH@Z : proc
-
-;sound
-extern ??0SfxSample@@QAE@PBD@Z : proc
-extern ?LoadSample@SfxSample@@QAEXXZ : proc
-extern ?Play@CSound@@SAXAAU1@@Z :proc  ; called from asm (sub_4C34E6, sub_4C65BA)
-extern ?Play@SfxSample@@QAEXHHHEH@Z : proc
-
-
-extern ?Unload@SfxBank@@QAEXXZ : proc
-
-
-
-
-extern ?FindPlayingChannel@SfxSample@@QAEPAVSoundChannel@@XZ : proc
-
-extern ?Stop@SoundChannel@@QAEXXZ : proc
-
-extern ?g_SfxArray@@3V?$CArray@PAVSfxSample@@ABQAV1@@@A  :dword
-extern ?g_SoundSettings@@3USoundSettings@@A : dword
-
-extern ?g_CurrentMusicTrack@@3HA : dword
-
-extern ?StartPlayTrack@MusicPlayer@@QAEXH@Z : proc
-extern ?SetPlayList@MusicPlayer@@QAEXABVCStringArray@@@Z  : proc
-extern ?Play@MusicPlayer@@QAEXXZ : proc
-extern ?OnEndTrack@MusicPlayer@@QAEXXZ : proc
-extern ?BeginFadeOut@MusicPlayer@@QAEXHH@Z : proc
-
-
-extern ?SoundBank_fighter@@3PAVSfxBank@@A : dword
-extern ?SoundBank_mage@@3PAVSfxBank@@A : dword
-extern ?SoundBank_peasant@@3PAVSfxBank@@A : dword
-extern ?SoundBank_other@@3PAVSfxBank@@A : dword
-
-
-; util.h
-
-extern ?g_isDosCP@@3HA : dword
-extern ?EncodeChar@@YAEE@Z  :proc
-
 
 
 ; CMousePointer
@@ -1718,180 +706,37 @@ extern ?g_mousept@@3VCMousePointer@@A : byte
 
 extern ?Unpaint@CMousePointer@@QAEXXZ  :proc
 extern ?Paint@CMousePointer@@QAEXXZ  :proc
-extern ?Update@CMousePointer@@QAEXXZ  :proc
-extern ?ResetStates@CMousePointer@@QAEXXZ  : proc
-extern ?ForceDisableHint@CMousePointer@@QAEXXZ : proc
-extern ?GetSelectState@CMousePointer@@QAEHXZ : proc
-extern ?GetY@CMousePointer@@QAEHXZ : proc
-extern ?GetX@CMousePointer@@QAEHXZ : proc
-extern ?GetCursorSprite@CMousePointer@@QAEPAVCSprite256@@XZ : proc
-extern ?DisableHint@CMousePointer@@QAEXXZ : proc
-extern ?EnableHint@CMousePointer@@QAEXXZ : proc
-
-extern ?ApplyCursor@@YAHPAVCCursor@@@Z : proc
-extern ?g_Cursors@@3PAPAVCCursor@@A : dword
-
-
-extern ??0CCursor@@QAE@PBDHHH@Z :proc
-extern ?Use@CCursor@@QAEXXZ : proc
-extern ?GetSprite@CCursor@@QBEPAVCSprite256@@XZ : proc
-
 
 
 ;CGameObject
-
-extern ?IsSelected@CGameObject@@QAEHXZ : proc
-
-
-extern ?classCGameObject@CGameObject@@2UCRuntimeClass@@B  :dword
 extern ??1CGameObject@@UAE@XZ  :proc
 
-extern ?AssertValid@CGameObject@@UBEXXZ : proc
-
-extern ?VMethod1@CGameObject@@UAEXH@Z  :proc
-extern ?VMethod2@CGameObject@@UAEHXZ  :proc
-extern ?VMethod3@CGameObject@@UAEHXZ  :proc
-;extern ?VMethod6@CGameObject@@UAEXHHH@Z  :proc
-extern ?VMethod7@CGameObject@@UAEXHHH@Z  :proc
-extern ?VMethod8@CGameObject@@UAEXHHH@Z  :proc
-extern ?VMethod9@CGameObject@@UAEXHHH@Z  :proc
-extern ?VMethod10@CGameObject@@UAEXXZ  :proc
-extern ?VMethod11@CGameObject@@UAEHXZ  :proc
-extern ?VMethod12@CGameObject@@UAEXXZ  :proc
-extern ?VMethod13@CGameObject@@UAEXXZ  :proc
-extern ?VMethod14@CGameObject@@UAEXXZ  :proc
-extern ?VMethod15@CGameObject@@UAEHXZ  :proc
-extern ?VMethod16@CGameObject@@UAEXXZ  :proc
-extern ??0CGameObject@@QAE@XZ  :proc
-extern ??0CGameObject@@QAE@PBV0@@Z  :proc
-
-
-extern ?FUN_00462405@CGameObject@@QAEHH@Z : proc  ; int32_t CGameObject::FUN_00462405(int)
-extern ?FUN_00461f8e@CGameObject@@QAEHHH@Z : proc  ; int32_t CGameObject::FUN_00461f8e(int, int)
-externdef ?FUN_0046246b@CGameObject@@QAEXHHHHGGG@Z : proc
-
-;TransientVisualEffectBuilder
-externdef ??0TransientVisualEffectBuilder@@QAE@XZ :proc
-externdef ??1TransientVisualEffectBuilder@@QAE@XZ :proc
-
-;CUnit
-extern ??0CUnit@@QAE@XZ : proc
-extern ??1CUnit@@UAE@XZ : proc
-extern ?CopyFromUnit@CUnit@@QAEXABVUnit@@@Z  :proc
-extern ?ReloadSprite@CUnit@@QAEXXZ : proc
-extern ?classCUnit@CUnit@@2UCRuntimeClass@@B : dword
-
-extern   ?VMethod1@CUnit@@UAEXH@Z  : proc
-extern   ?VMethod2@CUnit@@UAEHXZ  : proc
-extern   ?VMethod3@CUnit@@UAEHXZ  : proc
-extern   ?VMethod4@CUnit@@UAEHXZ  : proc
-extern   ?VMethod5@CUnit@@UAEHXZ  : proc
-extern   ?VMethod6@CUnit@@UAEXHHH@Z  : proc
-extern   ?VMethod7@CUnit@@UAEXHHH@Z  : proc
-extern   ?VMethod8@CUnit@@UAEXHHH@Z  : proc
-extern   ?VMethod9@CUnit@@UAEXHHH@Z  : proc
-extern   ?FUN_004a7b79@Scenario@@QAENXZ  : proc
-extern ??_7Scenario@@6B@ :dword ; Scenario::vftable (C++-emitted)
-externdef ?FUN_0044ec40@Scenario@@QAE_NPAUNetMapInfo@@@Z : proc  ; bool Scenario::FUN_0044ec40(NetMapInfo*)
-extern ??0CStructure@@QAE@XZ : proc
-extern ??0CVerticalWoodenBridge@@QAE@HH@Z : proc
-extern ??0CHorisontalWoodenBridge@@QAE@HH@Z : proc
 extern   ?FUN_0046f700@UnitGfxFile@@QAEPAVCSprite256@@XZ  : proc
-extern   ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ  : proc
-extern   ?VMethod11@CUnit@@UAEHXZ  : proc
-extern   ?VMethod13@CUnit@@UAEXXZ  : proc
-extern   ?VMethod14@CUnit@@UAEXXZ  : proc
-extern   ?VMethod15@CUnit@@UAEHXZ  : proc
-extern   ?VMethod16@CUnit@@UAEXXZ  : proc
-extern   ?VMethod17@CUnit@@UAEXFHHHHPAVMapPlayerData@@HHFF@Z  : proc
-extern   ?VMethod18@CUnit@@UAEXXZ  : proc
-extern   ?VMethod19@CUnit@@UAEXXZ  : proc
-extern   ?VMethod20@CUnit@@UAEXXZ  : proc
-extern   ?VMethod21@CUnit@@UAEXXZ  : proc
-extern   ?VMethod22@CUnit@@UAEXXZ  : proc
-extern   ?VMethod23@CUnit@@UAEXXZ  : proc
-extern   ?VMethod24@CUnit@@UAEXXZ  : proc
-extern   ?VMethod25@CUnit@@UAEXH@Z  : proc
-extern ?FUN_0041f130@CGameObject@@QAEHXZ : proc  ; int32_t CGameObject::FUN_0041f130()
-extern ?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z : proc  ; void CGameObject::FUN_00461c41(int, CGameObject*)
-extern   ?VMethod26@CUnit@@UAEXXZ  : proc
-extern   ?VMethod27@CUnit@@UAEXXZ  : proc
-extern   ?VMethod28@CUnit@@UAEXXZ  : proc
-extern   ?VMethod29@CUnit@@UAEXXZ  : proc
-externdef   ?VMethod30@CUnit@@UAEXPBDPAVCGameBitmap@@1@Z  : proc
-
-
-;CProjectile - fully migrated to C++ (no ASM references remain)
-
-;CStructure
-extern ??0CStructure@@QAE@XZ : proc
-
-;CBridge
-
-;CVerticalWoodenBridge
-extern ??0CVerticalWoodenBridge@@QAE@HH@Z : proc
-
-;CHorisontalWoodenBridge
-extern ??0CHorisontalWoodenBridge@@QAE@HH@Z : proc
 
 
 ;MapPlayerData
 extern ??0MapPlayerData@@QAE@HH@Z : proc  ; MapPlayerData::MapPlayerData(int, int) 43C17F
-extern ?FUN_0041ee20@MapPlayerData@@QAEIH@Z : proc  ; MapPlayerData::FUN_0041ee20 41EE20
-extern ?FUN_0041ee50@MapPlayerData@@QAEHH@Z : proc  ; MapPlayerData::FUN_0041ee50 41EE50
 
-;UnitVFXInfo
-extern ?g_VFX_info@@3V?$CArray@PAVUnitVFXUnfo@@ABQAV1@@@A : byte
 
 ;GfxObject
-extern ?Init@GfxFile@@QAEXXZ : proc
 extern ?g_GfxFiles@@3V?$CArray@PAVGfxFile@@ABQAV1@@@A : dword
 extern ?g_GfxObjects@@3V?$CArray@PAVGfxObject@@ABQAV1@@@A  : dword
 
 
 ; GfxFile
 extern ?sub_41F870@GfxFile@@QAEPAVCSprite256@@XZ : proc  ; CSprite256* GfxFile::sub_41F870()
-extern ?sub_41F8A0@GfxFile@@QAEPAVCSprite256@@XZ : proc  ; CSprite256* GfxFile::sub_41F8A0()
 
 
 ;UnitGfxObject
 extern ?g_UnitGfxFiles@@3V?$CArray@PAVUnitGfxFile@@ABQAV1@@@A : dword
-extern ?Init@UnitGfxFile@@QAEXXZ : proc
 
 
 ;StructureInfo
-extern ?Init@StructureInfo@@QAEXXZ : proc
 extern ?GetSprite@StructureInfo@@QAEPAVCSprite256@@XZ : proc  ; called from asm (sub_47F6E1)
 extern ?g_StructuresInfo@@3V?$CArray@PAVStructureInfo@@ABQAV1@@@A  : dword
 
-;ProjectileInfo
-extern  ?g_ProjectileInfos@@3V?$CArray@PAVProjectileInfo@@ABQAV1@@@A  : byte
-extern ?Init@ProjectileInfo@@QAEXXZ : proc
-extern ?FUN_0046f390@TransientVisualEffectBuilder@@QAEXXZ : proc  ; void TransientVisualEffectBuilder::FUN_0046f390() (C++-emitted)
-
-;SoundPreferencesDialogVisualObject
-
-;QuestObjectivesHeaderDialogVisualObject
-
-; TownMenuListDialogVisualObject
-
-; VisLogoWnd
-
-
-; Vis2Action
-
-
-
 
 ; VisListBoxDiplomacy
-
-
-
 externdef ??0CWinThread@@QAE@P6AIPAX@Z0@Z : proc
-externdef _byte_659A5C : byte  ; 659a5c zeroed buffer used to clear the net chat text box
+extern _byte_659A5C : byte  ; 659a5c zeroed buffer used to clear the net chat text box
 externdef ?CreateThread@CWinThread@@QAEHKIPAU_SECURITY_ATTRIBUTES@@@Z : proc
-
-; VisTipsDialog ctor child-ctrl builder (still in asm)
-
-; VisHatBrowserList
-extern ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z : proc
