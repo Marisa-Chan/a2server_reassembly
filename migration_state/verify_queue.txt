@@ -232,22 +232,22 @@ OK	4AC945	CFameHall::FUN_004ac945	src/main_window.cpp
 OK	4ACAFA	CFameHall::FUN_004acafa	src/main_window.cpp
 
 ## CGameBitmap (4)
-PENDING	428D50	CGameBitmap::VMethod2	src/gfx.cpp
-PENDING	428D60	CGameBitmap::VMethod1	src/gfx.cpp
-PENDING	428D70	CGameBitmap::VMethod3	src/gfx.cpp
-PENDING	428D80	CGameBitmap::VMethod7	src/gfx.cpp
+OK	428D50	CGameBitmap::VMethod2	src/gfx.cpp
+OK	428D60	CGameBitmap::VMethod1	src/gfx.cpp
+OK	428D70	CGameBitmap::VMethod3	src/gfx.cpp
+OK	428D80	CGameBitmap::VMethod7	src/gfx.cpp
 
 ## CGameFont (10)
-PENDING	402A90	CGameFont::GetHeight	src/gfx.cpp
-PENDING	45E0D0	CGameFont::CGameFont	src/gfx.cpp
-PENDING	45E0F9	CGameFont::~CGameFont	src/gfx.cpp
-PENDING	45E1F9	CGameFont::GetStrWidth	src/gfx.cpp
-PENDING	45E35F	CGameFont::StrSplitToFitWidth	src/gfx.cpp
-PENDING	45E959	CGameFont::StrToArray	src/gfx.cpp
-PENDING	45EB1D	CGameFont::StringArrayForRect	src/gfx.cpp
-PENDING	45EBDA	CGameFont::DrawTextWithShadow	src/gfx.cpp
-PENDING	460F60	CGameFont::DrawTxt	src/gfx.cpp
-PENDING	460F70	CGameFont::GetShadowColors	src/gfx.cpp
+OK	402A90	CGameFont::GetHeight	src/gfx.cpp
+OK	45E0D0	CGameFont::CGameFont	src/gfx.cpp	vanilla ctor does not null-init char_widths (only bitmap); C++ adds defensive init - no read happens before loader sets it
+OK	45E0F9	CGameFont::~CGameFont	src/gfx.cpp	vanilla uses free(char_widths), C++ delete[] - equivalent for POD arrays (no MSVC cookie), pairs with new[] in CSpriteFont16
+OK	45E1F9	CGameFont::GetStrWidth	src/gfx.cpp
+OK	45E35F	CGameFont::StrSplitToFitWidth	src/gfx.cpp
+OK	45E959	CGameFont::StrToArray	src/gfx.cpp
+OK	45EB1D	CGameFont::StringArrayForRect	src/gfx.cpp
+OK	45EBDA	CGameFont::DrawTextWithShadow	src/gfx.cpp
+OK	460F60	CGameFont::DrawTxt	src/gfx.cpp
+OK	460F70	CGameFont::GetShadowColors	src/gfx.cpp
 
 ## CGameObject (2)
 PENDING	4610B0	CGameObject::CGameObject	src/gameobj.cpp
