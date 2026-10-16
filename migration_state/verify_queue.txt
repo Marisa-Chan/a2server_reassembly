@@ -6,8 +6,8 @@
 # Protocol: see AGENTS.md, "Verifying Migrated Functions Against Ghidra".
 
 ## A2NetSock (2)
-PENDING	520510	A2NetSock::A2NetSock	src/net.cpp
-PENDING	520684	A2NetSock::~A2NetSock	src/net.cpp
+OK	520510	A2NetSock::A2NetSock	src/net.cpp
+OK	520684	A2NetSock::~A2NetSock	src/net.cpp
 
 ## AreaEffect (17)
 PENDING	537846	AreaEffect::AreaEffect	src/spell_effect.cpp
