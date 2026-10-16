@@ -214,22 +214,22 @@ OK	47CF99	CCursor::~CCursor	src/mouse.cpp
 OK	47D025	CCursor::Use	src/mouse.cpp
 
 ## CEdit2 (1)
-PENDING	494EFB	CEdit2::GetMessageMap	src/main_window.cpp
+OK	494EFB	CEdit2::GetMessageMap	src/main_window.cpp
 
 ## CellState (1)
-PENDING	59423F	CellState::sub_59423F	src/map_stuff.cpp
+OK	59423F	CellState::sub_59423F	src/map_stuff.cpp
 
 ## CFameHall (10)
-PENDING	420050	CFameHall::FUN_00420050	src/main_window.cpp
-PENDING	497270	CFameHall::SetDifficulty	src/main_window.cpp
-PENDING	4AC2E3	CFameHall::CFameHall	src/main_window.cpp
-PENDING	4AC352	CFameHall::~CFameHall	src/main_window.cpp
-PENDING	4AC3AF	CFameHall::ZeroFactors	src/main_window.cpp
-PENDING	4AC3CE	CFameHall::FUN_004ac3ce	src/main_window.cpp
-PENDING	4AC566	CFameHall::FUN_004ac566	src/main_window.cpp
-PENDING	4AC839	CFameHall::FUN_004ac839	src/main_window.cpp
-PENDING	4AC945	CFameHall::FUN_004ac945	src/main_window.cpp
-PENDING	4ACAFA	CFameHall::FUN_004acafa	src/main_window.cpp
+OK	420050	CFameHall::FUN_00420050	src/main_window.cpp
+OK	497270	CFameHall::SetDifficulty	src/main_window.cpp
+OK	4AC2E3	CFameHall::CFameHall	src/main_window.cpp
+OK	4AC352	CFameHall::~CFameHall	src/main_window.cpp
+OK	4AC3AF	CFameHall::ZeroFactors	src/main_window.cpp
+OK	4AC3CE	CFameHall::FUN_004ac3ce	src/main_window.cpp
+OK	4AC566	CFameHall::FUN_004ac566	src/main_window.cpp
+OK	4AC839	CFameHall::FUN_004ac839	src/main_window.cpp
+OK	4AC945	CFameHall::FUN_004ac945	src/main_window.cpp
+OK	4ACAFA	CFameHall::FUN_004acafa	src/main_window.cpp
 
 ## CGameBitmap (4)
 PENDING	428D50	CGameBitmap::VMethod2	src/gfx.cpp
