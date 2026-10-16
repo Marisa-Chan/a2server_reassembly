@@ -150,24 +150,24 @@ OK	41F810	BigStruct2::sub_41F810	src/ingame.cpp
 OK	41F830	BigStruct2::GetUnit_3f6c	src/ingame.cpp
 
 ## bitset (globals) (4)
-PENDING	509CD8	Clear	src/bitset.h
-PENDING	509CFB	Set	src/bitset.h
-PENDING	509D4C	Unset	src/bitset.h
-PENDING	509D9F	AllocBit	src/bitset.h
+OK	509CD8	Clear	src/bitset.h
+OK	509CFB	Set	src/bitset.h
+OK	509D4C	Unset	src/bitset.h
+OK	509D9F	AllocBit	src/bitset.h
 
 ## Building (12)
-PENDING	54242A	Building::Building	src/building.cpp
-PENDING	5424AC	Building::Building	src/building.cpp
-PENDING	542534	Building::Building	src/building.cpp
-PENDING	542599	Building::Building	src/building.cpp
-PENDING	542624	Building::sub_542624	src/building.cpp
-PENDING	5427AC	Building::sub_5427AC	src/building.cpp
-PENDING	54293A	Building::~Building	src/building.cpp
-PENDING	5429B6	Building::VMethod1	src/building.cpp
-PENDING	542A31	Building::sub_542A31	src/building.cpp
-PENDING	542CE7	Building::Serialize	src/building.cpp
-PENDING	57C3A0	Building::VMethod9	src/building.cpp
-PENDING	57C3B0	Building::IsOutpost	src/building.cpp
+OK	54242A	Building::Building	src/building.cpp
+OK	5424AC	Building::Building	src/building.cpp
+OK	542534	Building::Building	src/building.cpp
+FIXED	542599	Building::Building	src/building.cpp	ctor zeroes typeId (word at 0x0E, ASM word ptr [edx+0Eh]=0), C++ had itemDataID (0x0C)
+OK	542624	Building::sub_542624	src/building.cpp
+OK	5427AC	Building::sub_5427AC	src/building.cpp	explicit-size branch: vanilla sets unpassable_mask=-1 then unconditionally 0 (redundant w*h<33 branch both write 0); C++ writes 0 directly - same net effect
+OK	54293A	Building::~Building	src/building.cpp
+OK	5429B6	Building::VMethod1	src/building.cpp
+OK	542A31	Building::sub_542A31	src/building.cpp
+OK	542CE7	Building::Serialize	src/building.cpp
+OK	57C3A0	Building::VMethod9	src/building.cpp
+OK	57C3B0	Building::IsOutpost	src/building.cpp
 
 ## BuildingInfo (5)
 PENDING	514AC9	BuildingInfo::VMethod2	src/table.cpp

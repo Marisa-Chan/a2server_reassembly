@@ -12,7 +12,7 @@ IMPLEMENT_SERIAL(Building, Token, 1);
 Building::Building(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height)
     : Token(pos)
 {
-    this->itemDataID = 0;
+    this->typeId = 0;
     this->object_info_id = type_id;
     this->building_info = nullptr;
     this->sub_5427AC(width, height);
