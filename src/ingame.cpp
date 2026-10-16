@@ -1704,9 +1704,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			{
 				int32_t idx = ct->FUN_00462405(packet_effect->effect_type);
 				if (idx < 0) {
-					ct->field_0x130.Add((packet_effect->effect_type << 0x16) | 0xffff);
+					ct->field_0x130.Add((packet_effect->effect_type << 0x10) | 0xffff);
 				} else {
-					ct->field_0x130[idx] = (packet_effect->effect_type << 0x16) | 0xffff;
+					ct->field_0x130[idx] = (packet_effect->effect_type << 0x10) | 0xffff;
 				}
 
 				ct->m_bSelectionDirty = 1;
@@ -1968,7 +1968,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				break;
 
 			case 8:
-				sprintf(buf, "%s %d %s", TxtFile::AllLines[0x53], packet_info->field_0xe, TxtFile::AllLines[0x54]);
+				sprintf(buf, "%s %d %s", txt_patch.GetLine(0x53), packet_info->field_0xe, txt_patch.GetLine(0x54));
 				msglog.Add(buf, clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & 1) != 0) {
@@ -2332,9 +2332,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 					buf[0] = 0;
 
 					if ((diplo & 0x40) == 0 && (packet_terrain->buf[i] & 0x40) != 0) {
-						sprintf(buf, "%s %s %s", txt_patch.GetLine(0x94), mp->name, txt_patch.GetLine(0x95));
+						sprintf(buf, "%s %s %s", TxtFile::AllLines[0x94], mp->name, TxtFile::AllLines[0x95]);
 					} else if ((diplo & 0x40) != 0 && (packet_terrain->buf[i] & 0x40) == 0) {
-						sprintf(buf, "%s %s %s", txt_patch.GetLine(0x92), mp->name, txt_patch.GetLine(0x93));
+						sprintf(buf, "%s %s %s", TxtFile::AllLines[0x92], mp->name, TxtFile::AllLines[0x93]);
 					}
 
 					if (buf[0] != 0)
@@ -2346,9 +2346,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 					buf[0] = 0;
 
 					if ((diplo & 0x20) == 0 && (packet_terrain->buf[i] & 0x20) != 0) {
-						sprintf(buf, "%s %s %s", txt_patch.GetLine(0x8e), mp->name, txt_patch.GetLine(0x8f));
+						sprintf(buf, "%s %s %s", TxtFile::AllLines[0x8e], mp->name, TxtFile::AllLines[0x8f]);
 					} else if ((diplo & 0x20) != 0 && (packet_terrain->buf[i] & 0x20) == 0) {
-						sprintf(buf, "%s %s %s", txt_patch.GetLine(0x90), mp->name, txt_patch.GetLine(0x91));
+						sprintf(buf, "%s %s %s", TxtFile::AllLines[0x90], mp->name, TxtFile::AllLines[0x91]);
 					}
 
 					if (buf[0] != 0)
@@ -2912,7 +2912,7 @@ int BigStruct2::ConnectAndJoinSession()
 	if ((INT_00660f8c & 0xff) < 11) {
 		wnd->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, TxtFile::AllLines.GetAt((INT_00660f8c & 0xff) + 0xc0), nullptr, 0));
 	} else {
-		wnd->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, TxtFile::AllLines.GetAt(INT_00660f8c & 0xff), nullptr, 0));
+		wnd->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
 	}
 	return 0;
 }

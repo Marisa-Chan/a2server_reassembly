@@ -69,26 +69,26 @@ OK	406F1A	BigStruct2::VMethod7	src/ingame.cpp
 SUSPECT	406F7B	BigStruct2::sub_406F7B	src/ingame.cpp	vanilla has extra tile loop (between flat-structure and unit draw loops) drawing field_0x9c (special units) + field_0x98 (backpacks) with VMethod7-if-g_Shadows + VMethod6 when FUN_0041f130()==0; C++ omits the loop entirely
 OK	40AFC5	BigStruct2::sub_40AFC5	src/ingame.cpp
 OK	40B173	BigStruct2::sub_40B173	src/ingame.cpp
-PENDING	40B314	BigStruct2::sub_40B314	src/ingame.cpp
-PENDING	40BD34	BigStruct2::sub_40BD34	src/ingame.cpp
-PENDING	40C0A8	BigStruct2::sub_40C0A8	src/ingame.cpp
-PENDING	40C112	BigStruct2::sub_40C112	src/ingame.cpp
-PENDING	40C18B	BigStruct2::sub_40C18B	src/ingame.cpp
-PENDING	40C232	BigStruct2::MsgProc	src/ingame.cpp
-PENDING	40C510	BigStruct2::OnLButtonDown	src/ingame.cpp
-PENDING	40C56C	BigStruct2::OnRButtonDown	src/ingame.cpp
-PENDING	40C59C	BigStruct2::OnRButtonUp	src/ingame.cpp
-PENDING	40C60F	BigStruct2::OnLButtonDblClk	src/ingame.cpp
-PENDING	40C633	BigStruct2::OnLButtonUp	src/ingame.cpp
-PENDING	40C83F	BigStruct2::OnMouseMove	src/ingame.cpp
-PENDING	40C902	BigStruct2::OnKeyDown	src/ingame.cpp
-PENDING	40D4B2	BigStruct2::OnChar	src/ingame.cpp
-PENDING	40D4E2	BigStruct2::ConnectAndJoinSession	src/ingame.cpp
-PENDING	40D7F3	BigStruct2::FUN_0040d7f3	src/ingame.cpp
-PENDING	40DA14	BigStruct2::ProcessPackets	src/ingame.cpp
-PENDING	4167F7	BigStruct2::sub_4167F7	src/ingame.cpp
-PENDING	4168BD	BigStruct2::sub_4168BD	src/ingame.cpp
-PENDING	416983	BigStruct2::sub_416983	src/ingame.cpp
+OK	40B314	BigStruct2::sub_40B314	src/ingame.cpp
+OK	40BD34	BigStruct2::sub_40BD34	src/ingame.cpp
+OK	40C0A8	BigStruct2::sub_40C0A8	src/ingame.cpp
+OK	40C112	BigStruct2::sub_40C112	src/ingame.cpp
+OK	40C18B	BigStruct2::sub_40C18B	src/ingame.cpp
+OK	40C232	BigStruct2::MsgProc	src/ingame.cpp
+OK	40C510	BigStruct2::OnLButtonDown	src/ingame.cpp
+OK	40C56C	BigStruct2::OnRButtonDown	src/ingame.cpp
+OK	40C59C	BigStruct2::OnRButtonUp	src/ingame.cpp
+OK	40C60F	BigStruct2::OnLButtonDblClk	src/ingame.cpp
+OK	40C633	BigStruct2::OnLButtonUp	src/ingame.cpp
+OK	40C83F	BigStruct2::OnMouseMove	src/ingame.cpp
+OK	40C902	BigStruct2::OnKeyDown	src/ingame.cpp
+OK	40D4B2	BigStruct2::OnChar	src/ingame.cpp
+FIXED	40D4E2	BigStruct2::ConnectAndJoinSession	src/ingame.cpp	else-branch text: vanilla txt_patch.GetLine(err), C++ had TxtFile::AllLines[err] (txt_patch.start_index != 0)
+OK	40D7F3	BigStruct2::FUN_0040d7f3	src/ingame.cpp
+FIXED	40DA14	BigStruct2::ProcessPackets	src/ingame.cpp	3 fixes: 0x88 effect shift 0x16->0x10 (ASM shl 10h); 0x92 case8 lines 0x53/0x54 via txt_patch.GetLine; 0xb9 0x40/0x20 diplomacy pairs are direct AllLines not txt_patch
+OK	4167F7	BigStruct2::sub_4167F7	src/ingame.cpp
+OK	4168BD	BigStruct2::sub_4168BD	src/ingame.cpp
+OK	416983	BigStruct2::sub_416983	src/ingame.cpp
 PENDING	416A02	BigStruct2::sub_416A02	src/ingame.cpp
 PENDING	416AA6	BigStruct2::sub_416AA6	src/ingame.cpp
 PENDING	416B4A	BigStruct2::sub_416B4A	src/ingame.cpp
