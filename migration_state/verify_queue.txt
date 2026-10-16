@@ -202,16 +202,16 @@ OK	46F5C0	CBackPack::VMethod4	src/gameobj.cpp
 OK	46F5D0	CBackPack::VMethod5	src/gameobj.cpp
 
 ## CBridge (5)
-PENDING	463C7F	CBridge::CBridge	src/gameobj.cpp
-PENDING	46F510	CBridge::VMethod4	src/gameobj.cpp
-PENDING	46F530	CBridge::VMethod5	src/gameobj.cpp
-PENDING	46F550	CBridge::VMethod17	src/gameobj.cpp
-PENDING	46F580	CBridge::~CBridge	src/gameobj.cpp
+OK	463C7F	CBridge::CBridge	src/gameobj.cpp
+OK	46F510	CBridge::VMethod4	src/gameobj.cpp
+OK	46F530	CBridge::VMethod5	src/gameobj.cpp
+OK	46F550	CBridge::VMethod17	src/gameobj.cpp
+OK	46F580	CBridge::~CBridge	src/gameobj.cpp
 
 ## CCursor (3)
-PENDING	47CE66	CCursor::CCursor	src/mouse.cpp
-PENDING	47CF99	CCursor::~CCursor	src/mouse.cpp
-PENDING	47D025	CCursor::Use	src/mouse.cpp
+OK	47CE66	CCursor::CCursor	src/mouse.cpp
+OK	47CF99	CCursor::~CCursor	src/mouse.cpp
+OK	47D025	CCursor::Use	src/mouse.cpp
 
 ## CEdit2 (1)
 PENDING	494EFB	CEdit2::GetMessageMap	src/main_window.cpp
