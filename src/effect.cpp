@@ -909,6 +909,7 @@ DirectDamage::DirectDamage(uint8_t hand_damage_min, uint8_t hand_damage_spread) 
 // 540BF7
 DirectDamage::DirectDamage(DirectDamage* src) : Effect(src) {
     this->unit_to_hit = src->unit_to_hit;
+    this->caster = src->caster;
 }
 
 // 57C120 / 57C370

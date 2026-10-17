@@ -517,7 +517,7 @@ OK	4D7D37	CVisualObject::DataSize	src/visual.cpp
 OK	4D7D99	CVisualObject::WriteData	src/visual.cpp
 OK	4D7E02	CVisualObject::ReadData	src/visual.cpp
 OK	4D7E6B	CVisualObject::MsgProcOnChilds	src/visual.cpp
-PENDING	4D7FC9	CVisualObject::MsgProc	src/visual.cpp
+OK	4D7FC9	CVisualObject::MsgProc	src/visual.cpp
 OK	4D82B3	CVisualObject::Dump	src/visual.cpp
 OK	4D82CD	CVisualObject::SetLeftObj	src/visual.cpp
 OK	4D82EC	CVisualObject::SetRightObj	src/visual.cpp
@@ -526,20 +526,20 @@ OK	4D832A	CVisualObject::SetDownObj	src/visual.cpp
 OK	4D8349	CVisualObject::SetCaptionLabel	src/visual.cpp
 
 ## Diplomacy (3)
-PENDING	5B545F	Diplomacy::sub_5B545F	src/world.cpp
-PENDING	5B5643	Diplomacy::sub_5B5643	src/world.cpp
-PENDING	5B5855	Diplomacy::Diplomacy	src/world.cpp
+OK	5B545F	Diplomacy::sub_5B545F	src/world.cpp
+OK	5B5643	Diplomacy::sub_5B5643	src/world.cpp
+OK	5B5855	Diplomacy::Diplomacy	src/world.cpp
 
 ## DiplomacyEntry (2)
-PENDING	445A46	DiplomacyEntry::DiplomacyEntry	src/main_window.cpp
-PENDING	445AA9	DiplomacyEntry::~DiplomacyEntry	src/main_window.cpp
+OK	445A46	DiplomacyEntry::DiplomacyEntry	src/main_window.cpp
+OK	445AA9	DiplomacyEntry::~DiplomacyEntry	src/main_window.cpp
 
 ## DirectDamage (5)
-PENDING	53E422	DirectDamage::Serialize	src/effect.cpp
-PENDING	540B21	DirectDamage::DirectDamage	src/effect.cpp
-PENDING	540B82	DirectDamage::DirectDamage	src/effect.cpp
-PENDING	540BF7	DirectDamage::DirectDamage	src/effect.cpp
-PENDING	540C77	DirectDamage::VMethod11	src/effect.cpp
+OK	53E422	DirectDamage::Serialize	src/effect.cpp
+OK	540B21	DirectDamage::DirectDamage	src/effect.cpp
+OK	540B82	DirectDamage::DirectDamage	src/effect.cpp
+FIXED	540BF7	DirectDamage::DirectDamage	src/effect.cpp	copy ctor also copies caster from src (vanilla does); C++ left it null -> VMethod11 caster-credit path dead for cloned effects
+OK	540C77	DirectDamage::VMethod11	src/effect.cpp
 
 ## DistortMap (4)
 PENDING	4A9F90	DistortMap::DistortMap	src/game_app.cpp
