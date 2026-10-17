@@ -662,7 +662,7 @@ OK	4CB269	CompareVisualElements	src/gameobj.cpp
 OK	4CD4B0	FUN_004CD4B0	src/gameobj.cpp
 
 ## GameSettings (1)
-PENDING	4421BE	GameSettings::Save	src/main_window.cpp
+OK	4421BE	GameSettings::Save	src/main_window.cpp
 
 ## gfx (globals) (15)
 OK	4549BA	SetClipRect	src/gfx.cpp
@@ -682,13 +682,13 @@ OK	4586FE	sub_4586FE	src/gfx.cpp
 OK	4588EC	sub_4588EC	src/gfx.cpp
 
 ## GM_a28 (7)
-PENDING	401F50	GM_a28::GM_a28	src/ingame.cpp
-PENDING	40212B	GM_a28::SetRect	src/ingame.cpp
-PENDING	4021D2	GM_a28::Clear	src/ingame.cpp
-PENDING	4021FE	GM_a28::Add	src/ingame.cpp
-PENDING	4023AA	GM_a28::AddWithCheck	src/ingame.cpp
-PENDING	402585	GM_a28::Update	src/ingame.cpp
-PENDING	40261A	GM_a28::Draw	src/ingame.cpp
+OK	401F50	GM_a28::GM_a28	src/ingame.cpp
+OK	40212B	GM_a28::SetRect	src/ingame.cpp
+OK	4021D2	GM_a28::Clear	src/ingame.cpp
+OK	4021FE	GM_a28::Add	src/ingame.cpp
+OK	4023AA	GM_a28::AddWithCheck	src/ingame.cpp
+OK	402585	GM_a28::Update	src/ingame.cpp
+OK	40261A	GM_a28::Draw	src/ingame.cpp
 
 ## GMapThing (7)
 PENDING	473195	GMapThing::GMapThing	src/visual.cpp
