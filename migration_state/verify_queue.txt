@@ -250,18 +250,18 @@ OK	460F60	CGameFont::DrawTxt	src/gfx.cpp
 OK	460F70	CGameFont::GetShadowColors	src/gfx.cpp
 
 ## CGameObject (2)
-PENDING	4610B0	CGameObject::CGameObject	src/gameobj.cpp
-PENDING	4612F2	CGameObject::CGameObject	src/gameobj.cpp
+OK	4610B0	CGameObject::CGameObject	src/gameobj.cpp
+OK	4612F2	CGameObject::CGameObject	src/gameobj.cpp
 
 ## CGameSession (2)
-PENDING	438D10	CGameSession::GetStringArray1Size	src/main_window.cpp
-PENDING	493FFE	CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit	src/main_window.cpp
+OK	438D10	CGameSession::GetStringArray1Size	src/main_window.cpp
+OK	493FFE	CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit	src/main_window.cpp
 
 ## CHorisontalWoodenBridge (4)
-PENDING	463F0E	CHorisontalWoodenBridge::VMethod6	src/gameobj.cpp
-PENDING	46410F	CHorisontalWoodenBridge::VMethod7	src/gameobj.cpp
-PENDING	4A9F10	CHorisontalWoodenBridge::CHorisontalWoodenBridge	src/gameobj.cpp
-PENDING	4A9F70	CHorisontalWoodenBridge::~CHorisontalWoodenBridge	src/gameobj.cpp
+OK	463F0E	CHorisontalWoodenBridge::VMethod6	src/gameobj.cpp
+OK	46410F	CHorisontalWoodenBridge::VMethod7	src/gameobj.cpp
+OK	4A9F10	CHorisontalWoodenBridge::CHorisontalWoodenBridge	src/gameobj.cpp
+OK	4A9F70	CHorisontalWoodenBridge::~CHorisontalWoodenBridge	src/gameobj.cpp
 
 ## CListBox2 (3)
 PENDING	495033	CListBox2::CListBox2	src/main_window.cpp
