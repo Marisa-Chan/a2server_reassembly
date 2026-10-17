@@ -803,8 +803,8 @@ PENDING	54872B	Item::VMethod15	src/item.cpp
 PENDING	548817	Item::VMethod16	src/item.cpp
 PENDING	548A59	Item::VMethod10	src/item.cpp
 PENDING	548C04	Item::VMethod11	src/item.cpp
-PENDING	548C2E	Item::ApplyEffects	src/item.cpp
-PENDING	548CE4	Item::RemoveEffects	src/item.cpp
+OK	548C2E	Item::ApplyEffects	src/item.cpp
+OK	548CE4	Item::RemoveEffects	src/item.cpp
 PENDING	548D9A	Item::VMethod2	src/item.cpp
 PENDING	548DA5	Item::VMethod1	src/item.cpp
 PENDING	548DB0	Item::VMethod14	src/item.cpp
@@ -816,7 +816,7 @@ PENDING	548F6A	Item::sub_548F6A	src/item.cpp
 PENDING	548FAA	Item::sub_548FAA	src/item.cpp
 PENDING	549AFB	Item::StoreToPacket	src/item.cpp
 PENDING	549E86	Item::VMethod17	src/item.cpp
-PENDING	549F2C	Item::WriteEffects	src/item.cpp
+OK	549F2C	Item::WriteEffects	src/item.cpp
 PENDING	54A0BE	Item::sub_54A0BE	src/item.cpp
 PENDING	55C2F1	Item::Serialize	src/item.cpp
 PENDING	57CDC0	Item::VMethod13	src/item.cpp
@@ -893,7 +893,7 @@ PENDING	5693A3	MapAlm::MapAlm	src/alm.cpp
 PENDING	56D92A	MapAlm::~MapAlm	src/alm.cpp
 
 ## MapEffectData (1)
-PENDING	56ED8C	MapEffectData::MapEffectData	src/alm.cpp
+OK	56ED8C	MapEffectData::MapEffectData	src/alm.cpp
 
 ## MapLogicData (1)
 PENDING	56E910	MapLogicData::MapLogicData	src/alm.cpp
@@ -1170,13 +1170,13 @@ PENDING	55AFB3	PlayersList::sub_55AFB3	src/players_list.cpp
 PENDING	5B70F0	PlayersList::GetHead	src/players_list.cpp
 
 ## PointEffect (7)
-PENDING	5374FC	PointEffect::PointEffect	src/spell_effect.cpp
-PENDING	53752F	PointEffect::PointEffect	src/spell_effect.cpp
-PENDING	5375A4	PointEffect::sub_5375A4	src/spell_effect.cpp
-PENDING	537703	PointEffect::~PointEffect	src/spell_effect.cpp
-PENDING	53E6D4	PointEffect::Serialize	src/spell_effect.cpp
-PENDING	53E7F2	PointEffect::VMethod5	src/spell_effect.cpp
-PENDING	57C0A0	PointEffect::VMethod2	src/spell_effect.cpp
+OK	5374FC	PointEffect::PointEffect	src/spell_effect.cpp
+OK	53752F	PointEffect::PointEffect	src/spell_effect.cpp
+OK	5375A4	PointEffect::sub_5375A4	src/spell_effect.cpp
+OK	537703	PointEffect::~PointEffect	src/spell_effect.cpp
+OK	53E6D4	PointEffect::Serialize	src/spell_effect.cpp
+OK	53E7F2	PointEffect::VMethod5	src/spell_effect.cpp
+OK	57C0A0	PointEffect::VMethod2	src/spell_effect.cpp
 
 ## Pointer (4)
 PENDING	54235D	Pointer::Pointer	src/building.cpp
@@ -1564,18 +1564,18 @@ PENDING	53DD3D	SpellBook::sub_53DD3D	src/spell.cpp
 PENDING	53DDA4	SpellBook::Serialize	src/spell.cpp
 
 ## SpellEffect (6)
-PENDING	537371	SpellEffect::SpellEffect	src/spell_effect.cpp
-PENDING	5373CC	SpellEffect::SpellEffect	src/spell_effect.cpp
-PENDING	53742D	SpellEffect::VMethod2	src/spell_effect.cpp
-PENDING	537438	SpellEffect::VMethod10	src/spell_effect.cpp
-PENDING	53E44A	SpellEffect::Serialize	src/spell_effect.cpp
-PENDING	57C080	SpellEffect::~SpellEffect	src/spell_effect.cpp
+OK	537371	SpellEffect::SpellEffect	src/spell_effect.cpp
+OK	5373CC	SpellEffect::SpellEffect	src/spell_effect.cpp
+OK	53742D	SpellEffect::VMethod2	src/spell_effect.cpp
+OK	537438	SpellEffect::VMethod10	src/spell_effect.cpp
+OK	53E44A	SpellEffect::Serialize	src/spell_effect.cpp
+OK	57C080	SpellEffect::~SpellEffect	src/spell_effect.cpp
 
 ## SpellEffectList (4)
-PENDING	55837D	SpellEffectList::SpellEffectList	src/server.cpp
-PENDING	5585F2	SpellEffectList::sub_5585F2	src/server.cpp
-PENDING	55BF31	SpellEffectList::sub_55BF31	src/server.cpp
-PENDING	55C213	SpellEffectList::VMethod1	src/server.cpp
+OK	55837D	SpellEffectList::SpellEffectList	src/server.cpp
+OK	5585F2	SpellEffectList::sub_5585F2	src/server.cpp
+OK	55BF31	SpellEffectList::sub_55BF31	src/server.cpp
+OK	55C213	SpellEffectList::VMethod1	src/server.cpp
 
 ## SpellInfo (5)
 PENDING	514F41	SpellInfo::VMethod2	src/table.cpp
