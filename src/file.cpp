@@ -46,7 +46,7 @@ File2::File2()
 
 File2::File2(LPCTSTR lpszFileName, UINT nOpenFlags)
 {
-	//4e67ea
+	//4e6813
 	if (!Open(lpszFileName, nOpenFlags)) {
 		AfxThrowFileException(CFileException::accessDenied, -1, nullptr);
 	}
@@ -212,7 +212,7 @@ void File2::Flush()
 
 void File2::Close() 
 {
-	//4e6763
+	//4e6cc6
 	Resources::ResFiles.FUN_004e6763(file);
 	file = nullptr;
 };

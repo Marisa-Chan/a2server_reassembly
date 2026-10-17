@@ -174,14 +174,14 @@ public:
     void sub_4F4570();
     void sub_4F0D58();
     void sub_4FA4BB(CString* name, uint32_t* frags);
-    void sub_4FA348(CString* name, int flag); // TODO: that's likely `CString&`
+    void sub_4FA348(CString* name, int32_t flag); // TODO: that's likely `CString&`
     void sub_4FA551(Player* player); // Arena mode player entry handler
-    void sub_4FF937(Player* player, int arg4); // Mission join: send full world state to connecting player
+    void sub_4FF937(Player* player, int32_t arg4); // Mission join: send full world state to connecting player
 
     void sub_4F8F86(); // Called when all team-game players are ready
     void sub_4F8FBF(int arg1, int arg2); // Called when all team-game players are ready (sub-step)
     void sub_4F8B74(); // Spawn random sack on map
-    void sub_4F9B9E(Sack* sack); // Save sack to file
+    void sub_4F9B9E(Sack* sack); // 4F9B9E Save sack to file
     void sub_4F9AD3(class Sack* sack); // Pre-process a sack before pickup
     Human* sub_509879(CString* unit_name, class Unit* origin, int is_hero); // Summon a unit; returns the new unit (or nullptr on failure)
     void sub_509042(); // 509042

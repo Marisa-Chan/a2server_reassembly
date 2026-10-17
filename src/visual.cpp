@@ -3537,7 +3537,7 @@ void VisScreen::VMethod7()
     CVisualObject::VMethod7();
 }
 
-//4df63d
+//4df67c
 void VisScreen::VMethod8(CRect* r)
 {
     r->IntersectRect(r, &g_ScreenSize);
@@ -4478,7 +4478,7 @@ void VisListBoxDiplomacy::RestoreRect()
 }
 
 
-// 44402B
+// 445bcb
 VisDiplomacy::VisDiplomacy(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CArray<DiplomacyEntry*>* _payload)
 : VisMessageBox(_id, l, t, r, b, *(CArray<DiplomacyEntry*>**)_payload, txt_dialogs.GetLine(0x4F), 1, txt_dialogs.GetLine(0x91))
 {
@@ -17558,13 +17558,13 @@ int32_t VisInvType1::VMethod26(TokenEntry* o, int32_t idx)
 }
 
 
-// 4A7800
+// 4A7830
 VisInvType1::~VisInvType1()
 {
 }
 
 
-// 4A79B0
+// 4a7a20
 int32_t VisInvType1::VMethod38()
 {
     return 2;

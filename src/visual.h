@@ -540,12 +540,12 @@ ASSERT_SIZE(VisMultiText, 0x98);
 class VisScreen : public CVisualObject
 {
 public:
-	virtual ~VisScreen();
-	virtual void VMethod7() override;
-	virtual void VMethod8(CRect* rect) override;
-	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
-	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnKeyDown(uint32_t wparam) override; //4dfc43
+	virtual ~VisScreen(); // 4df5ec
+	virtual void VMethod7() override; // 4df63d
+	virtual void VMethod8(CRect* rect) override; // 4df67c
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4dfbcd
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4dfee7
+	virtual int32_t OnKeyDown(uint32_t wparam) override; // 4dfc43
 
 	virtual void VMethod26(); //450900
 	virtual void VMethod27(); //4388c0
@@ -609,18 +609,18 @@ public:
 ASSERT_SIZE(VisRoleKeyScreen, 0x88);
 
 
-//44402b
+//60a288
 class VisMessageBox : public VisWindow
 {
 public:
-	virtual ~VisMessageBox();
-	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
-	virtual void VMethod26() override;
+	virtual ~VisMessageBox(); // 444ff3
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 44500f
+	virtual void VMethod26() override; // 444086
 
 	virtual CVisualObject* VMethod30(const void* str, const RECT& r) = 0;
-	virtual void VMethod31(int32_t code);
+	virtual void VMethod31(int32_t code); // 445084
 
-	VisMessageBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const void* _payload, const char* str2, int32_t btypes, const char* str3);
+	VisMessageBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const void* _payload, const char* str2, int32_t btypes, const char* str3); // 44402b
 
 public:
 	const void* payload;
@@ -1289,7 +1289,7 @@ ASSERT_SIZE(VisInvBase, 0x20ac);
 class VisInvType1 : public VisInvBase
 {
 public:
-	virtual ~VisInvType1(); // 4A7800
+	virtual ~VisInvType1(); // 4A7830
 
 	virtual const char* GetHint() override; // 4A765D
 	virtual void VMethod7() override; // 4A6449
@@ -1306,7 +1306,7 @@ public:
 	virtual int32_t VMethod26(TokenEntry* o, int32_t idx) override; // 4A79F0
 	virtual int32_t VMethod27(TokenEntry* o) override; // 4A79C0
 	virtual int32_t VMethod30(int32_t x, int32_t y) override; // 4A6D11
-	virtual int32_t VMethod38() override;
+	virtual int32_t VMethod38() override; // 4a7a20
 
 	VisInvType1(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4a630b in asm
 
@@ -3441,7 +3441,7 @@ class VisDiplomacy : public VisMessageBox
 public:
 	virtual ~VisDiplomacy(); // 44F9E0
 
-	VisDiplomacy(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CArray<DiplomacyEntry*>* _payload); //44402b
+	VisDiplomacy(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CArray<DiplomacyEntry*>* _payload); //445bcb
 
 	virtual void ReadData(const void* buf) override; // 445D34
 	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override; // 445C2E

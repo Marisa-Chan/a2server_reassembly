@@ -77,7 +77,6 @@ uint8_t TokenPos::GetY() const
 
 PosYX TokenPos::GetYX() const
 {
-	//58aade
 	return YX;
 }
 

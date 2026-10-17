@@ -89,7 +89,7 @@ void Resources::AddPath(const char* path)
 
 void Resources::AddResFile(const char* path)
 {
-	//4e5950
+	//4e605a
 	char buf[1024];
 	pathStrCpy(path, buf);
 
@@ -1419,7 +1419,7 @@ int ResBase::GetInt16Array(const char* fpath, const char* fname, CArray<uint16_t
 int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<uint32_t>* array)
 {
     //4eae99
-    //4eafb6 same?
+    //same as 4eafb6?
     FatEntry* nodePath = Find(&root, fpath);
     FatEntry* node = Find(nodePath, fname);
 
@@ -1457,8 +1457,8 @@ int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<uint32_t
 
 int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<int32_t>* array)
 {
-    //4eae99
-    //4eafb6 same?
+    //4eafb6
+    //same as 4eae99?
     FatEntry* nodePath = Find(&root, fpath);
     FatEntry* node = Find(nodePath, fname);
 

@@ -600,9 +600,9 @@ OK	599FF0	FieldBlock54190::FieldBlock54190	src/map_stuff.cpp
 ## FieldBlock5859c (1)
 OK	5A3180	FieldBlock5859c::FieldBlock5859c	src/map_stuff.cpp
 
-## File2 (16)
-OK	4E6763	File2::Close	src/file.cpp
+## File2 (17)
 OK	4E67EA	File2::File2	src/file.cpp
+PENDING	4E6813	File2::File2	src/file.cpp
 OK	4E6882	File2::~File2	src/file.cpp
 OK	4E68D3	File2::Open	src/file.cpp
 OK	4E6A97	File2::Rewind	src/file.cpp
@@ -615,6 +615,7 @@ OK	4E6C80	File2::LockRange	src/file.cpp
 OK	4E6C98	File2::UnlockRange	src/file.cpp
 OK	4E6CB0	File2::Abort	src/file.cpp
 OK	4E6CBB	File2::Flush	src/file.cpp
+PENDING	4E6CC6	File2::Close	src/file.cpp
 OK	4E6CEC	File2::Duplicate	src/file.cpp
 OK	4E6D04	File2::GetPosition	src/file.cpp
 
@@ -1314,7 +1315,7 @@ PENDING	4E84C0	RegFile::RegFile	src/resource.cpp
 PENDING	4E8585	RegFile::RegFile	src/resource.cpp
 PENDING	4E9989	RegFile::~RegFile	src/resource.cpp
 
-## ResBase (33)
+## ResBase (34)
 PENDING	4E5D55	ResBase::FUN_004e5d55	src/resource.cpp
 PENDING	4E819C	ResBase::ReadFromFile	src/resource.cpp
 PENDING	4E8396	ResBase::WriteToFile	src/resource.cpp
@@ -1332,6 +1333,7 @@ PENDING	4EAB6B	ResBase::GetAllNodeNames	src/resource.cpp
 PENDING	4EACA7	ResBase::GetInt8Array	src/resource.cpp
 PENDING	4EAD9D	ResBase::GetInt16Array	src/resource.cpp
 PENDING	4EAE99	ResBase::GetInt32Array	src/resource.cpp
+PENDING	4EAFB6	ResBase::GetInt32Array	src/resource.cpp
 PENDING	4EB0D3	ResBase::GetStringArray	src/resource.cpp
 PENDING	4EB2A3	ResBase::SetInt8Array	src/resource.cpp
 PENDING	4EB43A	ResBase::SetInt16Array	src/resource.cpp
@@ -1349,19 +1351,21 @@ PENDING	4ECA9E	ResBase::Find	src/resource.cpp
 PENDING	4ECB78	ResBase::FindNext	src/resource.cpp
 PENDING	4ECC05	ResBase::FUN_004ecc05	src/resource.cpp
 
-## ResFile (1)
+## ResFile (2)
+PENDING	4E5950	ResFile::ResFile	src/resource.cpp
 PENDING	4E5D0B	ResFile::~ResFile	src/resource.cpp
 
-## Resources (10)
-PENDING	4E5950	Resources::AddResFile	src/resource.cpp
+## Resources (11)
 PENDING	4E5E06	Resources::Resources	src/resource.cpp
 PENDING	4E5E9F	Resources::~Resources	src/resource.cpp
+PENDING	4E605A	Resources::AddResFile	src/resource.cpp
 PENDING	4E6211	Resources::StaticAddResFile	src/resource.cpp
 PENDING	4E6242	Resources::StaticAddPath	src/resource.cpp
 PENDING	4E6273	Resources::AddPath	src/resource.cpp
 PENDING	4E632D	Resources::FUN_004e632d	src/resource.cpp
 PENDING	4E6409	Resources::FUN_004e6409	src/resource.cpp
 PENDING	4E646D	Resources::FUN_004e646d	src/resource.cpp
+OK	4E6763	Resources::FUN_004e6763	src/resource.cpp
 PENDING	4E6DE0	Resources::GetPathType	src/resource.cpp
 
 ## Sack (9)
@@ -1671,7 +1675,7 @@ PENDING	58A9EE	TokenPos::TokenPos	src/token.cpp
 PENDING	58AA46	TokenPos::operator=	src/token.cpp
 PENDING	58AA9B	TokenPos::GetXx	src/token.cpp
 PENDING	58AABC	TokenPos::GetYy	src/token.cpp
-PENDING	58AADE	TokenPos::GetYX	src/token.cpp
+PENDING	58AADE	TokenPos::CompatGetYX	src/token.cpp
 PENDING	58AAF0	TokenPos::GetX	src/token.cpp
 PENDING	58AB00	TokenPos::GetY	src/token.cpp
 PENDING	58AB11	TokenPos::Serialize	src/token.cpp
@@ -2072,7 +2076,8 @@ PENDING	43CB77	VisCredits::FreeContent	src/visual.cpp
 PENDING	44EABB	VisCutScenesDlg::VisCutScenesDlg	src/visual.cpp
 PENDING	44EB08	VisCutScenesDlg::VMethod30	src/visual.cpp
 
-## VisDiplomacy (4)
+## VisDiplomacy (5)
+PENDING	445BCB	VisDiplomacy::VisDiplomacy	src/visual.cpp
 PENDING	445C2E	VisDiplomacy::VMethod30	src/visual.cpp
 PENDING	445CF1	VisDiplomacy::VMethod31	src/visual.cpp
 PENDING	445D34	VisDiplomacy::ReadData	src/visual.cpp
@@ -2311,7 +2316,7 @@ PENDING	4B9B2F	VisInvExtType3::sub_4B9B2F	src/visual.cpp
 PENDING	4B9C3C	VisInvExtType3::VMethod36	src/visual.cpp
 PENDING	4B9F10	VisInvExtType3::VMethod38	src/visual.cpp
 
-## VisInvType1 (16)
+## VisInvType1 (17)
 PENDING	4A630B	VisInvType1::VisInvType1	src/visual.cpp
 PENDING	4A6449	VisInvType1::VMethod7	src/visual.cpp
 PENDING	4A6D11	VisInvType1::VMethod30	src/visual.cpp
@@ -2325,9 +2330,10 @@ PENDING	4A716F	VisInvType1::OnMouseMove	src/visual.cpp
 PENDING	4A741D	VisInvType1::OnWmUser	src/visual.cpp
 PENDING	4A7441	VisInvType1::MsgProc	src/visual.cpp
 PENDING	4A765D	VisInvType1::GetHint	src/visual.cpp
-PENDING	4A7800	VisInvType1::~VisInvType1	src/visual.cpp
+PENDING	4A7830	VisInvType1::~VisInvType1	src/visual.cpp
 PENDING	4A79C0	VisInvType1::VMethod27	src/visual.cpp
 PENDING	4A79F0	VisInvType1::VMethod26	src/visual.cpp
+PENDING	4A7A20	VisInvType1::VMethod38	src/visual.cpp
 
 ## VisLabel (4)
 PENDING	4D835F	VisLabel::VisLabel	src/visual.cpp
@@ -2543,7 +2549,7 @@ PENDING	4E0978	VisRoleKeyScreen::LoadText	src/visual.cpp
 PENDING	4E0B43	VisRoleKeyScreen::FUN_004e0b43	src/visual.cpp
 PENDING	4E3F60	VisRoleKeyScreen::~VisRoleKeyScreen	src/visual.cpp
 
-## VisScreen (14)
+## VisScreen (15)
 PENDING	4327B5	VisScreen::CloseOk	src/visual.cpp
 PENDING	4327D4	VisScreen::CloseCancel	src/visual.cpp
 PENDING	4388C0	VisScreen::VMethod27	src/visual.cpp
@@ -2554,6 +2560,7 @@ PENDING	4DF4FA	VisScreen::VisScreen	src/visual.cpp
 PENDING	4DF56D	VisScreen::VisScreen	src/visual.cpp
 PENDING	4DF5EC	VisScreen::~VisScreen	src/visual.cpp
 PENDING	4DF63D	VisScreen::VMethod7	src/visual.cpp
+PENDING	4DF67C	VisScreen::VMethod8	src/visual.cpp
 PENDING	4DFB4F	VisScreen::VMethod28	src/visual.cpp
 PENDING	4DFBCD	VisScreen::MsgProc	src/visual.cpp
 PENDING	4DFC43	VisScreen::OnKeyDown	src/visual.cpp
