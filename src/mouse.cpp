@@ -215,8 +215,8 @@ void CMousePointer::PaintSelectFrame()
 
             if (r.Height() > 2)
             {
-                CopyScreenRectToBmp64(r.left, r.top + 1, 2, r.Width() - 2, 2, 1600, (uint8_t*)saved_rect_frame[2]->GetData());
-                CopyScreenRectToBmp64(r.right - 1, r.top + 1, 2, r.Width() - 2, 2, 1600, (uint8_t*)saved_rect_frame[3]->GetData());
+                CopyScreenRectToBmp64(r.left, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)saved_rect_frame[2]->GetData());
+                CopyScreenRectToBmp64(r.right - 1, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)saved_rect_frame[3]->GetData());
             }
         }
 
@@ -398,7 +398,7 @@ void CMousePointer::SaveScreenParts2(const CRect& rect)
                 }
             }
 
-            DrawRectangleFrame(r.left, r.top, r.right, r.bottom, GetColorRGB(0xff, 0xff, 0xff));
+            DrawRectangleFrame(r.left, r.top, r.right - 1, r.bottom - 1, GetColorRGB(0xff, 0xff, 0xff));
 
             UnlockSurface2();
         }

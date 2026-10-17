@@ -333,27 +333,27 @@ OK	525B86	CLlDriver::SendAllPendingDp	src/net.cpp
 OK	525BCD	CLlDriver::CloseDpSock	src/net.cpp
 
 ## CMousePointer (21)
-PENDING	4264EB	CMousePointer::CMousePointer	src/mouse.cpp
-PENDING	42693E	CMousePointer::~CMousePointer	src/mouse.cpp
-PENDING	426AA5	CMousePointer::SetCursor	src/mouse.cpp
-PENDING	426C64	CMousePointer::Unpaint	src/mouse.cpp
-PENDING	426CA3	CMousePointer::Paint	src/mouse.cpp
-PENDING	426CE2	CMousePointer::DrawToScreen	src/mouse.cpp
-PENDING	426DF7	CMousePointer::EraseCursor	src/mouse.cpp
-PENDING	426EB6	CMousePointer::Repaint	src/mouse.cpp
-PENDING	42707E	CMousePointer::ResetNext400msg	src/mouse.cpp
-PENDING	42709F	CMousePointer::CheckHintValues	src/mouse.cpp
-PENDING	4271E6	CMousePointer::Update	src/mouse.cpp
-PENDING	42751C	CMousePointer::SaveScreenParts2	src/mouse.cpp
-PENDING	427912	CMousePointer::SaveScreenParts	src/mouse.cpp
-PENDING	427DB1	CMousePointer::StartSelect	src/mouse.cpp
-PENDING	427E23	CMousePointer::ResetStates	src/mouse.cpp
-PENDING	427E71	CMousePointer::PaintSelectFrame	src/mouse.cpp
-PENDING	428051	CMousePointer::UnpaintSelectFrame	src/mouse.cpp
-PENDING	42819D	CMousePointer::UpdateHint	src/mouse.cpp
-PENDING	4282BB	CMousePointer::PaintHint	src/mouse.cpp
-PENDING	428779	CMousePointer::RepaintHint	src/mouse.cpp
-PENDING	4287D9	CMousePointer::ForceDisableHint	src/mouse.cpp
+OK	4264EB	CMousePointer::CMousePointer	src/mouse.cpp
+OK	42693E	CMousePointer::~CMousePointer	src/mouse.cpp
+OK	426AA5	CMousePointer::SetCursor	src/mouse.cpp
+OK	426C64	CMousePointer::Unpaint	src/mouse.cpp
+OK	426CA3	CMousePointer::Paint	src/mouse.cpp
+OK	426CE2	CMousePointer::DrawToScreen	src/mouse.cpp
+OK	426DF7	CMousePointer::EraseCursor	src/mouse.cpp
+OK	426EB6	CMousePointer::Repaint	src/mouse.cpp	vanilla builds old/new CRects from pre/post-move cursor pos and unions them into a local that is never used (dead code); C++ omits
+OK	42707E	CMousePointer::ResetNext400msg	src/mouse.cpp
+OK	42709F	CMousePointer::CheckHintValues	src/mouse.cpp
+OK	4271E6	CMousePointer::Update	src/mouse.cpp
+FIXED	42751C	CMousePointer::SaveScreenParts2	src/mouse.cpp	DrawRectangleFrame args lost the -1: vanilla (right-1, bottom-1) per ASM sub ecx,1/sub edx,1
+OK	427912	CMousePointer::SaveScreenParts	src/mouse.cpp
+OK	427DB1	CMousePointer::StartSelect	src/mouse.cpp
+OK	427E23	CMousePointer::ResetStates	src/mouse.cpp
+FIXED	427E71	CMousePointer::PaintSelectFrame	src/mouse.cpp	side-strip copies passed r.Width()-2 as height; vanilla uses r.Height()-2 (matches sibling fns)
+OK	428051	CMousePointer::UnpaintSelectFrame	src/mouse.cpp
+OK	42819D	CMousePointer::UpdateHint	src/mouse.cpp
+OK	4282BB	CMousePointer::PaintHint	src/mouse.cpp
+OK	428779	CMousePointer::RepaintHint	src/mouse.cpp
+OK	4287D9	CMousePointer::ForceDisableHint	src/mouse.cpp
 
 ## CMultiShopInstance (11)
 PENDING	545BD7	CMultiShopInstance::CMultiShopInstance	src/shelf.cpp
