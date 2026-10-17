@@ -620,23 +620,23 @@ OK	4E6CEC	File2::Duplicate	src/file.cpp
 OK	4E6D04	File2::GetPosition	src/file.cpp
 
 ## game_app (globals) (14)
-PENDING	41D723	ShowRoleKeyDialog	src/game_app.cpp
-PENDING	43A857	sub_43A857	src/game_app.cpp
-PENDING	43AA23	LogMessage	src/game_app.cpp
-PENDING	4758CD	ReadFileToString	src/game_app.cpp
-PENDING	475E7A	FUN_00475e7a	src/game_app.cpp
-PENDING	47619A	FUN_0047619a	src/game_app.cpp
-PENDING	476B21	ParseTunes	src/game_app.cpp
-PENDING	4A4720	GetRandS16	src/game_app.cpp
-PENDING	5421FD	sub_5421FD	src/game_app.cpp
-PENDING	542216	Random0N	src/game_app.cpp
-PENDING	54223F	Random1N	src/game_app.cpp
-PENDING	549372	sub_549372	src/game_app.cpp
-PENDING	5498B8	sub_5498B8	src/game_app.cpp
-PENDING	5499A6	sub_5499A6	src/game_app.cpp
+OK	41D723	ShowRoleKeyDialog	src/game_app.cpp
+OK	43A857	sub_43A857	src/game_app.cpp
+OK	43AA23	LogMessage	src/game_app.cpp
+OK	4758CD	ReadFileToString	src/game_app.cpp
+OK	475E7A	FUN_00475e7a	src/game_app.cpp
+OK	47619A	FUN_0047619a	src/game_app.cpp
+OK	476B21	ParseTunes	src/game_app.cpp
+OK	4A4720	GetRandS16	src/game_app.cpp
+OK	5421FD	sub_5421FD	src/game_app.cpp
+OK	542216	Random0N	src/game_app.cpp
+OK	54223F	Random1N	src/game_app.cpp
+OK	549372	sub_549372	src/game_app.cpp
+OK	5498B8	sub_5498B8	src/game_app.cpp
+OK	5499A6	sub_5499A6	src/game_app.cpp
 
 ## GameApp (1)
-PENDING	4823BD	GameApp::InitInstance	src/game_app.cpp
+OK	4823BD	GameApp::InitInstance	src/game_app.cpp
 
 ## GameDataRes (17)
 PENDING	509E1A	GameDataRes::GameDataRes	src/table.cpp
