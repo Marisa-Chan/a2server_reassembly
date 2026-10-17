@@ -264,25 +264,25 @@ OK	4A9F10	CHorisontalWoodenBridge::CHorisontalWoodenBridge	src/gameobj.cpp
 OK	4A9F70	CHorisontalWoodenBridge::~CHorisontalWoodenBridge	src/gameobj.cpp
 
 ## CListBox2 (3)
-PENDING	495033	CListBox2::CListBox2	src/main_window.cpp
-PENDING	495052	CListBox2::~CListBox2	src/main_window.cpp
-PENDING	49506E	CListBox2::GetMessageMap	src/main_window.cpp
+OK	495033	CListBox2::CListBox2	src/main_window.cpp
+OK	495052	CListBox2::~CListBox2	src/main_window.cpp
+OK	49506E	CListBox2::GetMessageMap	src/main_window.cpp
 
 ## CLlDriver (62)
-PENDING	496E50	CLlDriver::SetHlDriver	src/net.cpp
-PENDING	5208EC	CLlDriver::CLlDriver	src/net.cpp
-PENDING	520AD3	CLlDriver::~CLlDriver	src/net.cpp
-PENDING	520C80	CLlDriver::FreeEnumAddresses	src/net.cpp
-PENDING	520CC3	CLlDriver::FreeEnumSessions	src/net.cpp
-PENDING	520D06	CLlDriver::FreeEnumConns	src/net.cpp
-PENDING	520D49	CLlDriver::FreeEnumPlayers	src/net.cpp
-PENDING	520D8C	CLlDriver::AllocAddress	src/net.cpp
-PENDING	520E2E	CLlDriver::AllocSession	src/net.cpp
-PENDING	520ED0	CLlDriver::AllocEnumConns	src/net.cpp
-PENDING	520F72	CLlDriver::AllocEnumPlayers	src/net.cpp
-PENDING	52100E	CLlDriver::cbEnumConnections	src/net.cpp
+OK	496E50	CLlDriver::SetHlDriver	src/net.cpp
+OK	5208EC	CLlDriver::CLlDriver	src/net.cpp
+OK	520AD3	CLlDriver::~CLlDriver	src/net.cpp
+OK	520C80	CLlDriver::FreeEnumAddresses	src/net.cpp
+OK	520CC3	CLlDriver::FreeEnumSessions	src/net.cpp
+OK	520D06	CLlDriver::FreeEnumConns	src/net.cpp
+OK	520D49	CLlDriver::FreeEnumPlayers	src/net.cpp
+OK	520D8C	CLlDriver::AllocAddress	src/net.cpp
+OK	520E2E	CLlDriver::AllocSession	src/net.cpp
+OK	520ED0	CLlDriver::AllocEnumConns	src/net.cpp
+OK	520F72	CLlDriver::AllocEnumPlayers	src/net.cpp
+OK	52100E	CLlDriver::cbEnumConnections	src/net.cpp
 PENDING	5210EA	CLlDriver::EnumConnections	src/net.cpp
-PENDING	5211B2	CLlDriver::cbEnumAddress	src/net.cpp
+FIXED	5211B2	CLlDriver::cbEnumAddress	src/net.cpp	guid compare must be DPAID_Modem (address data-type GUID), C++ had DPSPGUID_MODEM (SP GUID - never matches) -> modem enum never fired
 PENDING	521200	CLlDriver::EnumAddressesDp	src/net.cpp
 PENDING	5214C5	CLlDriver::EnumAddressesTcp	src/net.cpp
 PENDING	52182F	CLlDriver::EnumAddresses	src/net.cpp

@@ -2583,7 +2583,7 @@ BOOL __stdcall CLlDriver::cbEnumAddress(REFGUID guidDataType, DWORD dwDataSize, 
 {
     //5211b2
     CLlDriver* drv = (CLlDriver*)lpContext;
-    if (memcmp(&guidDataType, &DPSPGUID_MODEM, sizeof(GUID)) == 0)
+    if (memcmp(&guidDataType, &DPAID_Modem, sizeof(GUID)) == 0)
     {
         CLlAddress* addr = drv->AllocAddress();
         strcpy(addr->name, (const char*)lpData);
