@@ -35,6 +35,7 @@ public:
     void sub_54546E(int32_t index); // 54546E - remove item at index
     Item* sub_5453E8(int32_t slot, int32_t count); // 5453E8 - pick item from shelf
     int32_t sub_544BCE(Item** item_ptr); // 544BCE - add item to shelf.
+    void sub_545528(); // 545528 - clear all items from the shelf
 };
 ASSERT_SIZE(CMultiShopShelf, 0x1c);
 

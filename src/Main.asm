@@ -43202,7 +43202,7 @@ loc_53EE4D:                             ; CODE XREF: sub_53EE08+3C↑j
 sub_53EE08      endp
 
 
-sub_545528      proc near               ; CODE XREF: CWinThread::~CWinThread(void)+53↓p
+?sub_545528@CMultiShopShelf@@QAEXXZ      proc near               ; CODE XREF: CWinThread::~CWinThread(void)+53↓p
 
 var_5C          = dword ptr -5Ch
 var_58          = dword ptr -58h
@@ -43236,12 +43236,12 @@ var_4           = dword ptr -4
                 jmp     short loc_545543
 ; ---------------------------------------------------------------------------
 
-loc_54553A:                             ; CODE XREF: sub_545528+4A↓j
+loc_54553A:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+4A↓j
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 1
                 mov     [ebp+var_4], eax
 
-loc_545543:                             ; CODE XREF: sub_545528+10↑j
+loc_545543:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+10↑j
                 mov     ecx, dword ptr [ebp+var_50]
                 mov     edx, dword ptr [ecx+10h]
                 mov     [ebp+var_8], edx
@@ -43262,7 +43262,7 @@ loc_545543:                             ; CODE XREF: sub_545528+10↑j
                 jmp     short loc_54553A
 ; ---------------------------------------------------------------------------
 
-loc_545574:                             ; CODE XREF: sub_545528+2A↑j
+loc_545574:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+2A↑j
                 mov     edx, dword ptr [ebp+var_50]
                 add     edx, 8
                 mov     [ebp+var_4C], edx
@@ -43273,7 +43273,7 @@ loc_545574:                             ; CODE XREF: sub_545528+2A↑j
                 mov     ecx, dword ptr [ebp+var_4C]
                 mov     dword ptr [ecx+10h], 0FFFFFFFFh
 
-loc_545596:                             ; CODE XREF: sub_545528+62↑j
+loc_545596:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+62↑j
                 cmp     [ebp+var_48], 0
                 jnz     short loc_54560C
                 mov     edx, dword ptr [ebp+var_4C]
@@ -43288,12 +43288,12 @@ loc_545596:                             ; CODE XREF: sub_545528+62↑j
                 jmp     short loc_5455C2
 ; ---------------------------------------------------------------------------
 
-loc_5455B9:                             ; CODE XREF: sub_545528+AA↓j
+loc_5455B9:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+AA↓j
                 mov     ecx, dword ptr [ebp+var_20]
                 add     ecx, 4
                 mov     [ebp+var_20], ecx
 
-loc_5455C2:                             ; CODE XREF: sub_545528+8F↑j
+loc_5455C2:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+8F↑j
                 mov     edx, dword ptr [ebp+var_24]
                 mov     eax, dword ptr [ebp+var_24]
                 sub     eax, 1
@@ -43303,7 +43303,7 @@ loc_5455C2:                             ; CODE XREF: sub_545528+8F↑j
                 jmp     short loc_5455B9
 ; ---------------------------------------------------------------------------
 
-loc_5455D4:                             ; CODE XREF: sub_545528+A8↑j
+loc_5455D4:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+A8↑j
                 mov     ecx, dword ptr [ebp+var_4C]
                 mov     edx, dword ptr [ecx+4]
                 mov     [ebp+Block], edx
@@ -43314,7 +43314,7 @@ loc_5455D4:                             ; CODE XREF: sub_545528+A8↑j
                 mov     ecx, dword ptr [ebp+var_4C]
                 mov     dword ptr [ecx+4], 0
 
-loc_5455F3:                             ; CODE XREF: sub_545528+7B↑j
+loc_5455F3:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+7B↑j
                 mov     edx, dword ptr [ebp+var_4C]
                 mov     dword ptr [edx+0Ch], 0
                 mov     eax, dword ptr [ebp+var_4C]
@@ -43322,7 +43322,7 @@ loc_5455F3:                             ; CODE XREF: sub_545528+7B↑j
                 jmp     loc_545861
 ; ---------------------------------------------------------------------------
 
-loc_54560C:                             ; CODE XREF: sub_545528+72↑j
+loc_54560C:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+72↑j
                 mov     ecx, dword ptr [ebp+var_4C]
                 cmp     dword ptr [ecx+4], 0
                 jnz     short loc_545682
@@ -43349,12 +43349,12 @@ loc_54560C:                             ; CODE XREF: sub_545528+72↑j
                 jmp     short loc_545659
 ; ---------------------------------------------------------------------------
 
-loc_545650:                             ; CODE XREF: sub_545528+141↓j
+loc_545650:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+141↓j
                 mov     ecx, dword ptr [ebp+var_28]
                 add     ecx, 4
                 mov     [ebp+var_28], ecx
 
-loc_545659:                             ; CODE XREF: sub_545528+126↑j
+loc_545659:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+126↑j
                 mov     edx, dword ptr [ebp+var_2C]
                 mov     eax, dword ptr [ebp+var_2C]
                 sub     eax, 1
@@ -43364,7 +43364,7 @@ loc_545659:                             ; CODE XREF: sub_545528+126↑j
                 jmp     short loc_545650
 ; ---------------------------------------------------------------------------
 
-loc_54566B:                             ; CODE XREF: sub_545528+13F↑j
+loc_54566B:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+13F↑j
                 mov     ecx, dword ptr [ebp+var_4C]
                 mov     edx, dword ptr [ebp+var_48]
                 mov     [ecx+0Ch], edx
@@ -43374,7 +43374,7 @@ loc_54566B:                             ; CODE XREF: sub_545528+13F↑j
                 jmp     loc_545861
 ; ---------------------------------------------------------------------------
 
-loc_545682:                             ; CODE XREF: sub_545528+EB↑j
+loc_545682:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+EB↑j
                 mov     edx, dword ptr [ebp+var_4C]
                 mov     eax, dword ptr [ebp+var_48]
                 cmp     eax, [edx+0Ch]
@@ -43404,12 +43404,12 @@ loc_545682:                             ; CODE XREF: sub_545528+EB↑j
                 jmp     short loc_5456DA
 ; ---------------------------------------------------------------------------
 
-loc_5456D1:                             ; CODE XREF: sub_545528+1C2↓j
+loc_5456D1:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+1C2↓j
                 mov     eax, dword ptr [ebp+var_30]
                 add     eax, 4
                 mov     [ebp+var_30], eax
 
-loc_5456DA:                             ; CODE XREF: sub_545528+1A7↑j
+loc_5456DA:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+1A7↑j
                 mov     ecx, dword ptr [ebp+var_34]
                 mov     edx, dword ptr [ebp+var_34]
                 sub     edx, 1
@@ -43419,11 +43419,11 @@ loc_5456DA:                             ; CODE XREF: sub_545528+1A7↑j
                 jmp     short loc_5456D1
 ; ---------------------------------------------------------------------------
 
-loc_5456EC:                             ; CODE XREF: sub_545528+1C0↑j
+loc_5456EC:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+1C0↑j
                 jmp     short loc_545731
 ; ---------------------------------------------------------------------------
 
-loc_5456EE:                             ; CODE XREF: sub_545528+172↑j
+loc_5456EE:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+172↑j
                 mov     eax, dword ptr [ebp+var_4C]
                 mov     ecx, dword ptr [eax+8]
                 cmp     ecx, [ebp+var_48]
@@ -43440,12 +43440,12 @@ loc_5456EE:                             ; CODE XREF: sub_545528+172↑j
                 jmp     short loc_54571F
 ; ---------------------------------------------------------------------------
 
-loc_545716:                             ; CODE XREF: sub_545528+207↓j
+loc_545716:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+207↓j
                 mov     edx, dword ptr [ebp+var_38]
                 add     edx, 4
                 mov     [ebp+var_38], edx
 
-loc_54571F:                             ; CODE XREF: sub_545528+1EC↑j
+loc_54571F:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+1EC↑j
                 mov     eax, dword ptr [ebp+var_3C]
                 mov     ecx, dword ptr [ebp+var_3C]
                 sub     ecx, 1
@@ -43455,14 +43455,14 @@ loc_54571F:                             ; CODE XREF: sub_545528+1EC↑j
                 jmp     short loc_545716
 ; ---------------------------------------------------------------------------
 
-loc_545731:                             ; CODE XREF: sub_545528:loc_5456EC↑j
+loc_545731:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ:loc_5456EC↑j
                 mov     edx, dword ptr [ebp+var_4C]
                 mov     eax, dword ptr [ebp+var_48]
                 mov     [edx+8], eax
                 jmp     loc_545861
 ; ---------------------------------------------------------------------------
 
-loc_54573F:                             ; CODE XREF: sub_545528+163↑j
+loc_54573F:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+163↑j
                 mov     ecx, dword ptr [ebp+var_4C]
                 mov     edx, dword ptr [ecx+10h]
                 mov     [ebp+var_10], edx
@@ -43481,26 +43481,26 @@ loc_54573F:                             ; CODE XREF: sub_545528+163↑j
                 jmp     short loc_54578D
 ; ---------------------------------------------------------------------------
 
-loc_54576F:                             ; CODE XREF: sub_545528+23C↑j
+loc_54576F:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+23C↑j
                 cmp     [ebp+var_10], 400h
                 jle     short loc_545781
                 mov     [ebp+var_5C], 400h
                 jmp     short loc_545787
 ; ---------------------------------------------------------------------------
 
-loc_545781:                             ; CODE XREF: sub_545528+24E↑j
+loc_545781:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+24E↑j
                 mov     ecx, dword ptr [ebp+var_10]
                 mov     [ebp+var_5C], ecx
 
-loc_545787:                             ; CODE XREF: sub_545528+257↑j
+loc_545787:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+257↑j
                 mov     edx, dword ptr [ebp+var_5C]
                 mov     [ebp+var_58], edx
 
-loc_54578D:                             ; CODE XREF: sub_545528+245↑j
+loc_54578D:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+245↑j
                 mov     eax, dword ptr [ebp+var_58]
                 mov     [ebp+var_10], eax
 
-loc_545793:                             ; CODE XREF: sub_545528+224↑j
+loc_545793:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+224↑j
                 mov     ecx, dword ptr [ebp+var_4C]
                 mov     edx, dword ptr [ecx+0Ch]
                 add     edx, [ebp+var_10]
@@ -43513,11 +43513,11 @@ loc_545793:                             ; CODE XREF: sub_545528+224↑j
                 jmp     short loc_5457B5
 ; ---------------------------------------------------------------------------
 
-loc_5457AF:                             ; CODE XREF: sub_545528+277↑j
+loc_5457AF:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+277↑j
                 mov     edx, dword ptr [ebp+var_48]
                 mov     [ebp+var_14], edx
 
-loc_5457B5:                             ; CODE XREF: sub_545528+285↑j
+loc_5457B5:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+285↑j
                 mov     eax, dword ptr [ebp+var_14]
                 shl     eax, 2
                 push    eax             ; varSize
@@ -43555,12 +43555,12 @@ loc_5457B5:                             ; CODE XREF: sub_545528+285↑j
                 jmp     short loc_54581F
 ; ---------------------------------------------------------------------------
 
-loc_545816:                             ; CODE XREF: sub_545528+307↓j
+loc_545816:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+307↓j
                 mov     edx, dword ptr [ebp+var_40]
                 add     edx, 4
                 mov     [ebp+var_40], edx
 
-loc_54581F:                             ; CODE XREF: sub_545528+2EC↑j
+loc_54581F:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+2EC↑j
                 mov     eax, dword ptr [ebp+var_44]
                 mov     ecx, dword ptr [ebp+var_44]
                 sub     ecx, 1
@@ -43570,7 +43570,7 @@ loc_54581F:                             ; CODE XREF: sub_545528+2EC↑j
                 jmp     short loc_545816
 ; ---------------------------------------------------------------------------
 
-loc_545831:                             ; CODE XREF: sub_545528+305↑j
+loc_545831:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+305↑j
                 mov     edx, dword ptr [ebp+var_4C]
                 mov     eax, dword ptr [edx+4]
                 mov     [ebp+var_1C], eax
@@ -43588,11 +43588,11 @@ loc_545831:                             ; CODE XREF: sub_545528+305↑j
                 mov     ecx, dword ptr [ebp+var_14]
                 mov     [eax+0Ch], ecx
 
-loc_545861:                             ; CODE XREF: sub_545528+DF↑j
+loc_545861:                             ; CODE XREF: ?sub_545528@CMultiShopShelf@@QAEXXZ+DF↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_545528      endp
+?sub_545528@CMultiShopShelf@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

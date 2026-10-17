@@ -86,6 +86,10 @@ CMultiShopInstance::CMultiShopInstance() {
 
 // 545C8C
 CMultiShopInstance::~CMultiShopInstance() {
+    for (size_t i = 0; i < this->shelves.size(); i++) {
+        this->shelves[i].sub_545528();
+    }
+
     this->unit = nullptr;
 
     if (this->shop_template != nullptr) {
