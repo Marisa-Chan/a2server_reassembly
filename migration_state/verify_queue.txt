@@ -584,10 +584,10 @@ OK	52EC3D	EquipmentExtra::Serialize	src/unit.cpp
 ## Fame2 (6)
 OK	4ABD30	Fame2::operator=	src/main_window.cpp
 OK	4ABDAB	Fame2::Fame2	src/main_window.cpp
-PENDING	4ABF0F	Fame2::FUN_004abf0f	src/main_window.cpp
-PENDING	4AC27F	Fame2::Clear	src/main_window.cpp
-PENDING	4AD880	Fame2::FUN_004ad880	src/main_window.cpp
-PENDING	4AD890	Fame2::FUN_004ad890	src/main_window.cpp
+OK	4ABF0F	Fame2::FUN_004abf0f	src/main_window.cpp
+OK	4AC27F	Fame2::Clear	src/main_window.cpp
+OK	4AD880	Fame2::FUN_004ad880	src/main_window.cpp
+OK	4AD890	Fame2::FUN_004ad890	src/main_window.cpp
 
 ## FatEntry (3)
 PENDING	4E6F30	FatEntry::SetName	src/resource.cpp
