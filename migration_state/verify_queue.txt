@@ -761,11 +761,11 @@ OK	57BB50	Humanoid::VMethod7	src/unit.cpp
 OK	57BB60	Humanoid::VMethod8	src/unit.cpp
 
 ## ingame (globals) (5)
-PENDING	4216B0	ReadKillStats	src/ingame.cpp
-PENDING	4764BC	sub_4764BC	src/ingame.cpp
-PENDING	476DE7	SetMessageColors	src/ingame.cpp
-PENDING	477B59	sub_477B59	src/ingame.cpp
-PENDING	47FA75	sub_47FA75	src/ingame.cpp
+OK	4216B0	ReadKillStats	src/ingame.cpp
+OK	4764BC	sub_4764BC	src/ingame.cpp
+OK	476DE7	SetMessageColors	src/ingame.cpp
+OK	477B59	sub_477B59	src/ingame.cpp
+OK	47FA75	sub_47FA75	src/ingame.cpp
 
 ## Inn (10)
 PENDING	56046B	Inn::Inn	src/inn.cpp
