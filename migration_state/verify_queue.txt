@@ -311,26 +311,26 @@ OK	522B95	CLlDriver::RecvThreadTcp	src/net.cpp
 OK	522E8F	CLlDriver::AcceptThreadTcp	src/net.cpp
 OK	52343E	CLlDriver::MakeSockAddr	src/net.cpp
 OK	52359B	CLlDriver::CreateTcp	src/net.cpp
-PENDING	523611	CLlDriver::FreeTcp	src/net.cpp
-PENDING	523621	CLlDriver::StartServerTcp	src/net.cpp
-PENDING	523794	CLlDriver::ConnectTcp	src/net.cpp
-PENDING	52394A	CLlDriver::SendDataTcp	src/net.cpp
-PENDING	523A16	CLlDriver::CloseTcpSocket	src/net.cpp
-PENDING	523B01	CLlDriver::CloseTcp	src/net.cpp
-PENDING	523B7A	CLlDriver::RecvThreadDp	src/net.cpp
-PENDING	523CCF	CLlDriver::CreateDp	src/net.cpp
-PENDING	523D5A	CLlDriver::FreeDp	src/net.cpp
-PENDING	523D96	CLlDriver::PrepareAddressDp	src/net.cpp
-PENDING	5241EA	CLlDriver::StartServerDp	src/net.cpp
-PENDING	52460E	CLlDriver::RestartModemServerDp	src/net.cpp
-PENDING	524644	CLlDriver::RecreateDp	src/net.cpp
-PENDING	52465F	CLlDriver::ConnectDp	src/net.cpp
-PENDING	524986	CLlDriver::FindDpSock	src/net.cpp
-PENDING	524ABD	CLlDriver::HandleMessageDp	src/net.cpp
-PENDING	5255C6	CLlDriver::SendDataDp	src/net.cpp
-PENDING	525A09	CLlDriver::CloseDp	src/net.cpp
-PENDING	525B86	CLlDriver::SendAllPendingDp	src/net.cpp
-PENDING	525BCD	CLlDriver::CloseDpSock	src/net.cpp
+OK	523611	CLlDriver::FreeTcp	src/net.cpp
+OK	523621	CLlDriver::StartServerTcp	src/net.cpp
+OK	523794	CLlDriver::ConnectTcp	src/net.cpp
+OK	52394A	CLlDriver::SendDataTcp	src/net.cpp
+OK	523A16	CLlDriver::CloseTcpSocket	src/net.cpp
+OK	523B01	CLlDriver::CloseTcp	src/net.cpp
+OK	523B7A	CLlDriver::RecvThreadDp	src/net.cpp
+OK	523CCF	CLlDriver::CreateDp	src/net.cpp
+OK	523D5A	CLlDriver::FreeDp	src/net.cpp
+OK	523D96	CLlDriver::PrepareAddressDp	src/net.cpp
+OK	5241EA	CLlDriver::StartServerDp	src/net.cpp
+OK	52460E	CLlDriver::RestartModemServerDp	src/net.cpp
+OK	524644	CLlDriver::RecreateDp	src/net.cpp
+OK	52465F	CLlDriver::ConnectDp	src/net.cpp
+FIXED	524986	CLlDriver::FindDpSock	src/net.cpp	binary-search loop condition inverted: ASM body runs while lb < rb (cmp lb,rb; jge exit); C++ had while (lb >= rb) so only the tail element was ever checked
+OK	524ABD	CLlDriver::HandleMessageDp	src/net.cpp
+OK	5255C6	CLlDriver::SendDataDp	src/net.cpp
+OK	525A09	CLlDriver::CloseDp	src/net.cpp
+OK	525B86	CLlDriver::SendAllPendingDp	src/net.cpp
+OK	525BCD	CLlDriver::CloseDpSock	src/net.cpp
 
 ## CMousePointer (21)
 PENDING	4264EB	CMousePointer::CMousePointer	src/mouse.cpp

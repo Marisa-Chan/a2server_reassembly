@@ -3733,7 +3733,7 @@ A2NetSock* CLlDriver::FindDpSock(uint32_t id, int* out_idx)
 
     int32_t lb = 0;
     int32_t rb = num_connections - 1;
-    while (lb >= rb)
+    while (lb < rb)
     {
         int32_t cur = lb + (rb - lb) / 2;
         SocketNm* info = connections_info + cur;
