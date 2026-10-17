@@ -345,6 +345,3 @@ externdef ??1CStatusBar@@UAE@XZ :proc   ; (public: virtual __thiscall CStatusBar
 externdef ??0CWinThread@@QAE@P6AIPAX@Z0@Z : proc
 extern _byte_659A5C : byte  ; 659a5c zeroed buffer used to clear the net chat text box
 externdef ?CreateThread@CWinThread@@QAEHKIPAU_SECURITY_ATTRIBUTES@@@Z : proc
-
-
-externdef ?sub_545528@CMultiShopShelf@@QAEXXZ :proc

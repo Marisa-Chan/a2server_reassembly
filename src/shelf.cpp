@@ -71,6 +71,14 @@ int32_t CMultiShopShelf::sub_544BCE(Item** item_ptr) {
     return 0;
 }
 
+// 545528
+void CMultiShopShelf::sub_545528() {
+    for (int32_t i = 0; i < this->items.GetSize(); i++) {
+        this->items[i]->field10_0x4c -= 1;
+    }
+    this->items.RemoveAll();
+}
+
 
 IMPLEMENT_SERIAL(CMultiShopInstance, CObject, 1); // 637288
 
