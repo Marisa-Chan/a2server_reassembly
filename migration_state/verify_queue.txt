@@ -664,21 +664,21 @@ PENDING	4CD4B0	FUN_004CD4B0	src/gameobj.cpp
 PENDING	4421BE	GameSettings::Save	src/main_window.cpp
 
 ## gfx (globals) (15)
-PENDING	4549BA	SetClipRect	src/gfx.cpp
-PENDING	4549E5	FUN_004549e5	src/gfx.cpp
-PENDING	454A0C	GetClipRect	src/gfx.cpp
-PENDING	454A1E	FUN_00454a1e	src/gfx.cpp
-PENDING	454E18	FlushScreen	src/gfx.cpp
-PENDING	454E40	FUN_00454e40	src/gfx.cpp
-PENDING	4579D8	FillRectColorSimple	src/gfx.cpp
-PENDING	457AA6	FUN_00457aa6	src/gfx.cpp
-PENDING	457B6F	ShadowRect	src/gfx.cpp
-PENDING	457C5D	sub_457C5D	src/gfx.cpp
-PENDING	457DCC	FillRectColor	src/gfx.cpp
-PENDING	458035	DrawRectangleFrame	src/gfx.cpp
-PENDING	4586A4	SetPixelColor	src/gfx.cpp
-PENDING	4586FE	sub_4586FE	src/gfx.cpp
-PENDING	4588EC	sub_4588EC	src/gfx.cpp
+OK	4549BA	SetClipRect	src/gfx.cpp
+OK	4549E5	FUN_004549e5	src/gfx.cpp
+OK	454A0C	GetClipRect	src/gfx.cpp
+OK	454A1E	FUN_00454a1e	src/gfx.cpp
+OK	454E18	FlushScreen	src/gfx.cpp
+OK	454E40	FUN_00454e40	src/gfx.cpp
+OK	4579D8	FillRectColorSimple	src/gfx.cpp
+OK	457AA6	FUN_00457aa6	src/gfx.cpp
+OK	457B6F	ShadowRect	src/gfx.cpp
+OK	457C5D	sub_457C5D	src/gfx.cpp
+OK	457DCC	FillRectColor	src/gfx.cpp
+OK	458035	DrawRectangleFrame	src/gfx.cpp
+OK	4586A4	SetPixelColor	src/gfx.cpp
+OK	4586FE	sub_4586FE	src/gfx.cpp
+OK	4588EC	sub_4588EC	src/gfx.cpp
 
 ## GM_a28 (7)
 PENDING	401F50	GM_a28::GM_a28	src/ingame.cpp
