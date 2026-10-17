@@ -639,18 +639,18 @@ OK	5499A6	sub_5499A6	src/game_app.cpp
 OK	4823BD	GameApp::InitInstance	src/game_app.cpp
 
 ## GameDataRes (17)
-PENDING	509E1A	GameDataRes::GameDataRes	src/table.cpp
-PENDING	50A15F	GameDataRes::ParseWorldIn	src/table.cpp
-PENDING	50A345	GameDataRes::ParseTxtFiles	src/table.cpp
-PENDING	50D421	GameDataRes::ParseDataBin	src/table.cpp
-PENDING	50D7C2	GameDataRes::WriteDataBin	src/table.cpp
-PENDING	50D8BA	GameDataRes::sub_50D8BA	src/table.cpp
-PENDING	50DA04	GameDataRes::sub_50DA04	src/table.cpp
-PENDING	50DB4E	GameDataRes::sub_50DB4E	src/table.cpp
-PENDING	50DC69	GameDataRes::sub_50DC69	src/table.cpp
-PENDING	50DDAE	GameDataRes::sub_50DDAE	src/table.cpp
-PENDING	50DF19	GameDataRes::sub_50DF19	src/table.cpp
-PENDING	50E0F0	GameDataRes::Serialize	src/table.cpp
+OK	509E1A	GameDataRes::GameDataRes	src/table.cpp
+OK	50A15F	GameDataRes::ParseWorldIn	src/table.cpp
+OK	50A345	GameDataRes::ParseTxtFiles	src/table.cpp
+OK	50D421	GameDataRes::ParseDataBin	src/table.cpp	note: vanilla adds "World.res" fallback (no try/catch); C++ adds "World_srv.res" wrapped in try/catch returning 1, and catches corrupt-bin Serialize -> returns 2 (graceful handling, consistent with server build using world_srv.res)
+OK	50D7C2	GameDataRes::WriteDataBin	src/table.cpp
+OK	50D8BA	GameDataRes::sub_50D8BA	src/table.cpp
+OK	50DA04	GameDataRes::sub_50DA04	src/table.cpp
+OK	50DB4E	GameDataRes::sub_50DB4E	src/table.cpp
+OK	50DC69	GameDataRes::sub_50DC69	src/table.cpp
+OK	50DDAE	GameDataRes::sub_50DDAE	src/table.cpp
+OK	50DF19	GameDataRes::sub_50DF19	src/table.cpp
+OK	50E0F0	GameDataRes::Serialize	src/table.cpp
 PENDING	510502	GameDataRes::sub_510502	src/table.cpp
 PENDING	510EE6	GameDataRes::sub_510EE6	src/table.cpp
 PENDING	510F88	GameDataRes::sub_510F88	src/table.cpp
