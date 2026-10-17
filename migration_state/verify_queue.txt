@@ -467,24 +467,24 @@ OK	46F600	CUnit::VMethod13	src/gameobj.cpp
 OK	46F630	CUnit::VMethod14	src/gameobj.cpp
 
 ## CVerticalWoodenBridge (4)
-PENDING	463D26	CVerticalWoodenBridge::VMethod6	src/gameobj.cpp
-PENDING	463F01	CVerticalWoodenBridge::VMethod7	src/gameobj.cpp
-PENDING	4A9E90	CVerticalWoodenBridge::CVerticalWoodenBridge	src/gameobj.cpp
-PENDING	4A9EF0	CVerticalWoodenBridge::~CVerticalWoodenBridge	src/gameobj.cpp
+OK	463D26	CVerticalWoodenBridge::VMethod6	src/gameobj.cpp
+OK	463F01	CVerticalWoodenBridge::VMethod7	src/gameobj.cpp
+OK	4A9E90	CVerticalWoodenBridge::CVerticalWoodenBridge	src/gameobj.cpp
+OK	4A9EF0	CVerticalWoodenBridge::~CVerticalWoodenBridge	src/gameobj.cpp
 
 ## CVisualObject (51)
-PENDING	41ED60	CVisualObject::VMethod8	src/visual.cpp
-PENDING	41ED70	CVisualObject::OnMouseMove	src/visual.cpp
-PENDING	41ED80	CVisualObject::OnWmUser	src/visual.cpp
-PENDING	41ED90	CVisualObject::OnRButtonDblClk	src/visual.cpp
-PENDING	41EDA0	CVisualObject::OnKeyUp	src/visual.cpp
-PENDING	438850	CVisualObject::OnLButtonDown	src/visual.cpp
-PENDING	438860	CVisualObject::OnLButtonUp	src/visual.cpp
-PENDING	438870	CVisualObject::OnLButtonDblClk	src/visual.cpp
-PENDING	438880	CVisualObject::OnRButtonDown	src/visual.cpp
-PENDING	438890	CVisualObject::OnRButtonUp	src/visual.cpp
-PENDING	4388A0	CVisualObject::OnKeyDown	src/visual.cpp
-PENDING	4388B0	CVisualObject::OnChar	src/visual.cpp
+OK	41ED60	CVisualObject::VMethod8	src/visual.cpp
+OK	41ED70	CVisualObject::OnMouseMove	src/visual.cpp
+OK	41ED80	CVisualObject::OnWmUser	src/visual.cpp
+OK	41ED90	CVisualObject::OnRButtonDblClk	src/visual.cpp
+OK	41EDA0	CVisualObject::OnKeyUp	src/visual.cpp
+OK	438850	CVisualObject::OnLButtonDown	src/visual.cpp
+OK	438860	CVisualObject::OnLButtonUp	src/visual.cpp
+OK	438870	CVisualObject::OnLButtonDblClk	src/visual.cpp
+OK	438880	CVisualObject::OnRButtonDown	src/visual.cpp
+OK	438890	CVisualObject::OnRButtonUp	src/visual.cpp
+OK	4388A0	CVisualObject::OnKeyDown	src/visual.cpp
+OK	4388B0	CVisualObject::OnChar	src/visual.cpp
 PENDING	4D6D40	CVisualObject::CVisualObject	src/visual.cpp
 PENDING	4D6E50	CVisualObject::CVisualObject	src/visual.cpp
 PENDING	4D6F5F	CVisualObject::CVisualObject	src/visual.cpp
