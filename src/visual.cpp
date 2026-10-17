@@ -785,9 +785,12 @@ void CVisualObject::TabFocus(bool forward, bool update)
         return;
     }
 
-    int32_t next_indx = indx + inc;
+    int32_t next_indx = indx;
     int32_t first_check_id = -1;
     bool idIsSet = false;
+    if (next_indx < 0) {
+        inc = 1;
+    }
 
     while (true)
     {
