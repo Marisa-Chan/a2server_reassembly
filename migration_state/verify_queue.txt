@@ -721,17 +721,17 @@ OK	5B0429	GroupSub::Serialize	src/group.cpp
 PENDING	43D51B	HatSettings::Save	src/main_window.cpp
 
 ## Human (5)
-PENDING	53232D	Human::Human	src/unit.cpp
-PENDING	53239A	Human::Human	src/unit.cpp
-PENDING	532587	Human::FUN_00532587	src/unit.cpp
-PENDING	5339A6	Human::VMethod20	src/unit.cpp
-PENDING	55C81C	Human::Serialize	src/unit.cpp
+OK	53232D	Human::Human	src/unit.cpp
+OK	53239A	Human::Human	src/unit.cpp
+OK	532587	Human::FUN_00532587	src/unit.cpp
+OK	5339A6	Human::VMethod20	src/unit.cpp
+OK	55C81C	Human::Serialize	src/unit.cpp
 
 ## HumanInfo (5)
-PENDING	5143A6	HumanInfo::VMethod2	src/table.cpp
-PENDING	514A3A	HumanInfo::Serialize	src/table.cpp
-PENDING	572D80	HumanInfo::HumanInfo	src/table.cpp
-PENDING	572E90	HumanInfo::~HumanInfo	src/table.cpp
+OK	5143A6	HumanInfo::VMethod2	src/table.cpp
+OK	514A3A	HumanInfo::Serialize	src/table.cpp
+OK	572D80	HumanInfo::HumanInfo	src/table.cpp
+OK	572E90	HumanInfo::~HumanInfo	src/table.cpp
 PENDING	578220	HumanInfo::ParseLine	src/table.cpp
 
 ## Humanoid (24)
