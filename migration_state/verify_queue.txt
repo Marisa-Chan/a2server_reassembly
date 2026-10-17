@@ -458,13 +458,13 @@ OK	469C3C	CUnit::VMethod26	src/gameobj.cpp
 OK	469CF5	CUnit::VMethod27	src/gameobj.cpp
 OK	469DAE	CUnit::VMethod29	src/gameobj.cpp
 OK	469E67	CUnit::VMethod15	src/gameobj.cpp
-PENDING	46C0C9	CUnit::FUN_0046c0c9	src/gameobj.cpp
-PENDING	46C124	CUnit::FUN_0046c124	src/gameobj.cpp
-PENDING	46D0F7	CUnit::FUN_0046d0f7	src/gameobj.cpp
-PENDING	46F5E0	CUnit::VMethod2	src/gameobj.cpp
-PENDING	46F5F0	CUnit::VMethod3	src/gameobj.cpp
-PENDING	46F600	CUnit::VMethod13	src/gameobj.cpp
-PENDING	46F630	CUnit::VMethod14	src/gameobj.cpp
+OK	46C0C9	CUnit::FUN_0046c0c9	src/gameobj.cpp
+OK	46C124	CUnit::FUN_0046c124	src/gameobj.cpp
+OK	46D0F7	CUnit::FUN_0046d0f7	src/gameobj.cpp
+OK	46F5E0	CUnit::VMethod2	src/gameobj.cpp
+OK	46F5F0	CUnit::VMethod3	src/gameobj.cpp
+OK	46F600	CUnit::VMethod13	src/gameobj.cpp
+OK	46F630	CUnit::VMethod14	src/gameobj.cpp
 
 ## CVerticalWoodenBridge (4)
 PENDING	463D26	CVerticalWoodenBridge::VMethod6	src/gameobj.cpp
