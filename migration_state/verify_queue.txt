@@ -768,16 +768,16 @@ OK	477B59	sub_477B59	src/ingame.cpp
 OK	47FA75	sub_47FA75	src/ingame.cpp
 
 ## Inn (10)
-PENDING	56046B	Inn::Inn	src/inn.cpp
-PENDING	5605CC	Inn::Inn	src/inn.cpp
-PENDING	56073E	Inn::~Inn	src/inn.cpp
-PENDING	560C67	Inn::sub_560C67	src/inn.cpp
-PENDING	562148	Inn::InnCreateQuests	src/inn.cpp
-PENDING	565307	Inn::InnReward	src/inn.cpp
-PENDING	567A25	Inn::sub_567A25	src/inn.cpp
-PENDING	567B4D	Inn::sub_567B4D	src/inn.cpp
-PENDING	567C21	Inn::sub_567C21	src/inn.cpp
-PENDING	567D74	Inn::VMethod1	src/inn.cpp
+OK	56046B	Inn::Inn	src/inn.cpp
+OK	5605CC	Inn::Inn	src/inn.cpp
+OK	56073E	Inn::~Inn	src/inn.cpp
+OK	560C67	Inn::sub_560C67	src/inn.cpp
+OK	562148	Inn::InnCreateQuests	src/inn.cpp	note: verified structurally - heavy documented refactor (MakeActiveQuest/RegisterQuest helpers); same 11 quest-type stages (KillN/KillMob/KillGroup/InterceptUnit/InterceptGroup/Escort/Raise x3/InnDefenders/DeliverMail/DeliverItem) and flow as vanilla
+OK	565307	Inn::InnReward	src/inn.cpp	note: verified structurally - reward lookup/clamps (16383000/250), table-driven scroll/book/spell phases with PickOneRandom, count-halving clamps
+OK	567A25	Inn::sub_567A25	src/inn.cpp
+OK	567B4D	Inn::sub_567B4D	src/inn.cpp
+OK	567C21	Inn::sub_567C21	src/inn.cpp
+OK	567D74	Inn::VMethod1	src/inn.cpp
 
 ## Inventory (12)
 PENDING	551C0A	Inventory::Inventory	src/inventory.cpp
@@ -1228,16 +1228,16 @@ PENDING	581730	QuestEscort::Something3	src/quest.cpp
 PENDING	581780	QuestEscort::~QuestEscort	src/quest.cpp
 
 ## QuestInnGlue (10)
-PENDING	55F589	QuestInnGlue::VMethod1	src/quest_glue.cpp
-PENDING	5BA8E0	QuestInnGlue::QuestInnGlue	src/quest_glue.cpp
-PENDING	5BA920	QuestInnGlue::VMethod2	src/quest_glue.cpp
-PENDING	5BAA38	QuestInnGlue::VMethod3	src/quest_glue.cpp
-PENDING	5BABAA	QuestInnGlue::VMethod4	src/quest_glue.cpp
-PENDING	5BACFF	QuestInnGlue::VMethod5	src/quest_glue.cpp
-PENDING	5BAF04	QuestInnGlue::VMethod6	src/quest_glue.cpp
-PENDING	5BB10A	QuestInnGlue::VMethod7	src/quest_glue.cpp
+OK	55F589	QuestInnGlue::VMethod1	src/quest_glue.cpp
+OK	5BA8E0	QuestInnGlue::QuestInnGlue	src/quest_glue.cpp
+OK	5BA920	QuestInnGlue::VMethod2	src/quest_glue.cpp
+OK	5BAA38	QuestInnGlue::VMethod3	src/quest_glue.cpp
+OK	5BABAA	QuestInnGlue::VMethod4	src/quest_glue.cpp
+OK	5BACFF	QuestInnGlue::VMethod5	src/quest_glue.cpp
+OK	5BAF04	QuestInnGlue::VMethod6	src/quest_glue.cpp
+OK	5BB10A	QuestInnGlue::VMethod7	src/quest_glue.cpp
 PENDING	5BB310	QuestInnGlue::VMethod8	src/quest_glue.cpp
-PENDING	5BB32B	QuestInnGlue::VMethod9	src/quest_glue.cpp
+OK	5BB32B	QuestInnGlue::VMethod9	src/quest_glue.cpp
 
 ## QuestInterceptGroup (5)
 OK	55FE9B	QuestInterceptGroup::VMethod1	src/quest.cpp
@@ -1259,9 +1259,9 @@ OK	5816B0	QuestKillGroup::Kind	src/quest.cpp
 OK	5816F0	QuestKillGroup::~QuestKillGroup	src/quest.cpp
 
 ## QuestKillInnDefenders (3)
-PENDING	56032D	QuestKillInnDefenders::VMethod1	src/quest.cpp
-PENDING	581B90	QuestKillInnDefenders::Kind	src/quest.cpp
-PENDING	581BD0	QuestKillInnDefenders::~QuestKillInnDefenders	src/quest.cpp
+OK	56032D	QuestKillInnDefenders::VMethod1	src/quest.cpp
+OK	581B90	QuestKillInnDefenders::Kind	src/quest.cpp
+OK	581BD0	QuestKillInnDefenders::~QuestKillInnDefenders	src/quest.cpp
 
 ## QuestKillMob (3)
 PENDING	55F736	QuestKillMob::VMethod1	src/quest.cpp
