@@ -423,20 +423,20 @@ OK	46F660	CProjectile::VMethod4	src/gameobj.cpp
 OK	46F670	CProjectile::VMethod5	src/gameobj.cpp
 
 ## CStructure (14)
-PENDING	462ACB	CStructure::CStructure	src/gameobj.cpp
-PENDING	462AEA	CStructure::CStructure	src/gameobj.cpp
-PENDING	462B0F	CStructure::VMethod10	src/gameobj.cpp
-PENDING	462B28	CStructure::VMethod15	src/gameobj.cpp
-PENDING	462D11	CStructure::VMethod6	src/gameobj.cpp
-PENDING	462F58	CStructure::VMethod7	src/gameobj.cpp
-PENDING	4631F3	CStructure::VMethod8	src/gameobj.cpp
-PENDING	4637B0	CStructure::Dump	src/gameobj.cpp
-PENDING	4637CA	CStructure::VMethod4	src/gameobj.cpp
-PENDING	4637EB	CStructure::VMethod5	src/gameobj.cpp
-PENDING	46380C	CStructure::VMethod9	src/gameobj.cpp
-PENDING	463A05	CStructure::VMethod11	src/gameobj.cpp
-PENDING	463A58	CStructure::VMethod12	src/gameobj.cpp
-PENDING	46F5A0	CStructure::~CStructure	src/gameobj.cpp
+OK	462ACB	CStructure::CStructure	src/gameobj.cpp
+OK	462AEA	CStructure::CStructure	src/gameobj.cpp
+OK	462B0F	CStructure::VMethod10	src/gameobj.cpp
+OK	462B28	CStructure::VMethod15	src/gameobj.cpp
+OK	462D11	CStructure::VMethod6	src/gameobj.cpp
+OK	462F58	CStructure::VMethod7	src/gameobj.cpp
+OK	4631F3	CStructure::VMethod8	src/gameobj.cpp
+OK	4637B0	CStructure::Dump	src/gameobj.cpp	vanilla Dump does a real dc<<"CStructure" call; C++ stubs Dump overrides intentionally
+OK	4637CA	CStructure::VMethod4	src/gameobj.cpp
+OK	4637EB	CStructure::VMethod5	src/gameobj.cpp
+OK	46380C	CStructure::VMethod9	src/gameobj.cpp
+OK	463A05	CStructure::VMethod11	src/gameobj.cpp
+OK	463A58	CStructure::VMethod12	src/gameobj.cpp
+OK	46F5A0	CStructure::~CStructure	src/gameobj.cpp
 
 ## CUnit (26)
 PENDING	4646C1	CUnit::VMethod17	src/gameobj.cpp
