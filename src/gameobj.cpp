@@ -3396,7 +3396,7 @@ void CUnit::VMethod24()
 void CUnit::VMethod28()
 {
     uint32_t now = timeGetTime();
-    if (now - this->lastVoicePlaybackTick < 3000) {
+    if (now - this->lastVoicePlaybackTick < 2000) {
         return;
     }
     this->lastVoicePlaybackTick = now;

@@ -439,25 +439,25 @@ OK	463A58	CStructure::VMethod12	src/gameobj.cpp
 OK	46F5A0	CStructure::~CStructure	src/gameobj.cpp
 
 ## CUnit (26)
-PENDING	4646C1	CUnit::VMethod17	src/gameobj.cpp
-PENDING	464765	CUnit::VMethod10	src/gameobj.cpp
-PENDING	4648A1	CUnit::VMethod4	src/gameobj.cpp
-PENDING	4648C5	CUnit::VMethod5	src/gameobj.cpp
-PENDING	4648E9	CUnit::VMethod1	src/gameobj.cpp
-PENDING	46761E	CUnit::VMethod9	src/gameobj.cpp
-PENDING	4684FB	CUnit::VMethod18	src/gameobj.cpp
-PENDING	4693C1	CUnit::VMethod21	src/gameobj.cpp
-PENDING	469499	CUnit::VMethod20	src/gameobj.cpp
-PENDING	469535	CUnit::VMethod25	src/gameobj.cpp
-PENDING	46978B	CUnit::FUN_0046978b	src/gameobj.cpp
-PENDING	4698C0	CUnit::VMethod22	src/gameobj.cpp
-PENDING	46999F	CUnit::VMethod23	src/gameobj.cpp
-PENDING	469A7E	CUnit::VMethod24	src/gameobj.cpp
-PENDING	469B5D	CUnit::VMethod28	src/gameobj.cpp
-PENDING	469C3C	CUnit::VMethod26	src/gameobj.cpp
-PENDING	469CF5	CUnit::VMethod27	src/gameobj.cpp
-PENDING	469DAE	CUnit::VMethod29	src/gameobj.cpp
-PENDING	469E67	CUnit::VMethod15	src/gameobj.cpp
+OK	4646C1	CUnit::VMethod17	src/gameobj.cpp
+OK	464765	CUnit::VMethod10	src/gameobj.cpp
+OK	4648A1	CUnit::VMethod4	src/gameobj.cpp
+OK	4648C5	CUnit::VMethod5	src/gameobj.cpp
+OK	4648E9	CUnit::VMethod1	src/gameobj.cpp
+OK	46761E	CUnit::VMethod9	src/gameobj.cpp
+OK	4684FB	CUnit::VMethod18	src/gameobj.cpp
+OK	4693C1	CUnit::VMethod21	src/gameobj.cpp
+OK	469499	CUnit::VMethod20	src/gameobj.cpp
+OK	469535	CUnit::VMethod25	src/gameobj.cpp
+OK	46978B	CUnit::FUN_0046978b	src/gameobj.cpp
+OK	4698C0	CUnit::VMethod22	src/gameobj.cpp
+OK	46999F	CUnit::VMethod23	src/gameobj.cpp
+OK	469A7E	CUnit::VMethod24	src/gameobj.cpp
+FIXED	469B5D	CUnit::VMethod28	src/gameobj.cpp	voice throttle is 2000ms in vanilla (ASM cmp 7D0h); C++ had 3000 like the sibling methods (those really are 0xBB8)
+OK	469C3C	CUnit::VMethod26	src/gameobj.cpp
+OK	469CF5	CUnit::VMethod27	src/gameobj.cpp
+OK	469DAE	CUnit::VMethod29	src/gameobj.cpp
+OK	469E67	CUnit::VMethod15	src/gameobj.cpp
 PENDING	46C0C9	CUnit::FUN_0046c0c9	src/gameobj.cpp
 PENDING	46C124	CUnit::FUN_0046c124	src/gameobj.cpp
 PENDING	46D0F7	CUnit::FUN_0046d0f7	src/gameobj.cpp
