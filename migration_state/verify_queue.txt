@@ -398,29 +398,29 @@ FIXED	547DD4	CMultiShopTemplate::sub_547DD4	src/shelf.cpp	loop must not advance 
 OK	547E91	CMultiShopTemplate::sub_547E91	src/shelf.cpp
 
 ## CObject (8)
-PENDING	401900	CObject::CObject	src/asm_mfc.cpp
-PENDING	401950	CObject::~CObject	src/asm_mfc.cpp
-PENDING	401970	CObject::Serialize	src/asm_mfc.cpp
-PENDING	401980	CObject::AssertValid	src/asm_mfc.cpp
-PENDING	401990	CObject::Dump	src/asm_mfc.cpp
-PENDING	5DDF9B	CObject::GetRuntimeClass	src/asm_mfc.cpp
-PENDING	5DDFA1	CObject::IsKindOf	src/asm_mfc.cpp
-PENDING	5DE019	CObject::IsSerializable	src/asm_mfc.cpp
+OK	401900	CObject::CObject	src/asm_mfc.cpp
+OK	401950	CObject::~CObject	src/asm_mfc.cpp
+OK	401970	CObject::Serialize	src/asm_mfc.cpp
+OK	401980	CObject::AssertValid	src/asm_mfc.cpp
+OK	401990	CObject::Dump	src/asm_mfc.cpp
+OK	5DDF9B	CObject::GetRuntimeClass	src/asm_mfc.cpp
+OK	5DDFA1	CObject::IsKindOf	src/asm_mfc.cpp
+OK	5DE019	CObject::IsSerializable	src/asm_mfc.cpp
 
 ## CowardActivation (1)
-PENDING	5A3498	CowardActivation::sub_5A3498	src/server.cpp
+OK	5A3498	CowardActivation::sub_5A3498	src/server.cpp
 
 ## CProjectile (10)
-PENDING	46D802	CProjectile::CProjectile	src/gameobj.cpp
-PENDING	46D85C	CProjectile::CProjectile	src/gameobj.cpp
-PENDING	46D8D8	CProjectile::VMethod11	src/gameobj.cpp
-PENDING	46E291	CProjectile::VMethod6	src/gameobj.cpp
-PENDING	46E805	CProjectile::VMethod12	src/gameobj.cpp
-PENDING	46EB80	CProjectile::VMethod16	src/gameobj.cpp
-PENDING	46EEB4	CProjectile::Dump	src/gameobj.cpp
-PENDING	46F060	CProjectile::~CProjectile	src/gameobj.cpp
-PENDING	46F660	CProjectile::VMethod4	src/gameobj.cpp
-PENDING	46F670	CProjectile::VMethod5	src/gameobj.cpp
+OK	46D802	CProjectile::CProjectile	src/gameobj.cpp
+OK	46D85C	CProjectile::CProjectile	src/gameobj.cpp
+OK	46D8D8	CProjectile::VMethod11	src/gameobj.cpp
+OK	46E291	CProjectile::VMethod6	src/gameobj.cpp
+OK	46E805	CProjectile::VMethod12	src/gameobj.cpp
+OK	46EB80	CProjectile::VMethod16	src/gameobj.cpp
+OK	46EEB4	CProjectile::Dump	src/gameobj.cpp	vanilla Dump does a real dc<<"CProjectile" call; C++ stubs Dump overrides intentionally (same pattern as CAirUnit/CBackPack)
+OK	46F060	CProjectile::~CProjectile	src/gameobj.cpp
+OK	46F660	CProjectile::VMethod4	src/gameobj.cpp
+OK	46F670	CProjectile::VMethod5	src/gameobj.cpp
 
 ## CStructure (14)
 PENDING	462ACB	CStructure::CStructure	src/gameobj.cpp
