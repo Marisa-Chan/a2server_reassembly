@@ -590,33 +590,33 @@ OK	4AD880	Fame2::FUN_004ad880	src/main_window.cpp
 OK	4AD890	Fame2::FUN_004ad890	src/main_window.cpp
 
 ## FatEntry (3)
-PENDING	4E6F30	FatEntry::SetName	src/resource.cpp
-PENDING	4ECCD1	FatEntry::SortCompare	src/resource.cpp
-PENDING	4ECD2A	FatEntry::NameCompare	src/resource.cpp
+OK	4E6F30	FatEntry::SetName	src/resource.cpp
+OK	4ECCD1	FatEntry::SortCompare	src/resource.cpp
+OK	4ECD2A	FatEntry::NameCompare	src/resource.cpp
 
 ## FieldBlock54190 (1)
-PENDING	599FF0	FieldBlock54190::FieldBlock54190	src/map_stuff.cpp
+OK	599FF0	FieldBlock54190::FieldBlock54190	src/map_stuff.cpp
 
 ## FieldBlock5859c (1)
-PENDING	5A3180	FieldBlock5859c::FieldBlock5859c	src/map_stuff.cpp
+OK	5A3180	FieldBlock5859c::FieldBlock5859c	src/map_stuff.cpp
 
 ## File2 (16)
-PENDING	4E6763	File2::Close	src/file.cpp
-PENDING	4E67EA	File2::File2	src/file.cpp
-PENDING	4E6882	File2::~File2	src/file.cpp
-PENDING	4E68D3	File2::Open	src/file.cpp
-PENDING	4E6A97	File2::Rewind	src/file.cpp
-PENDING	4E6ACB	File2::Seek	src/file.cpp
-PENDING	4E6B83	File2::SetLength	src/file.cpp
-PENDING	4E6B9B	File2::GetLength	src/file.cpp
-PENDING	4E6BAC	File2::Read	src/file.cpp
-PENDING	4E6C68	File2::Write	src/file.cpp
-PENDING	4E6C80	File2::LockRange	src/file.cpp
-PENDING	4E6C98	File2::UnlockRange	src/file.cpp
-PENDING	4E6CB0	File2::Abort	src/file.cpp
-PENDING	4E6CBB	File2::Flush	src/file.cpp
-PENDING	4E6CEC	File2::Duplicate	src/file.cpp
-PENDING	4E6D04	File2::GetPosition	src/file.cpp
+OK	4E6763	File2::Close	src/file.cpp
+OK	4E67EA	File2::File2	src/file.cpp
+OK	4E6882	File2::~File2	src/file.cpp
+OK	4E68D3	File2::Open	src/file.cpp
+OK	4E6A97	File2::Rewind	src/file.cpp
+OK	4E6ACB	File2::Seek	src/file.cpp
+OK	4E6B83	File2::SetLength	src/file.cpp
+OK	4E6B9B	File2::GetLength	src/file.cpp
+OK	4E6BAC	File2::Read	src/file.cpp
+OK	4E6C68	File2::Write	src/file.cpp
+OK	4E6C80	File2::LockRange	src/file.cpp
+OK	4E6C98	File2::UnlockRange	src/file.cpp
+OK	4E6CB0	File2::Abort	src/file.cpp
+OK	4E6CBB	File2::Flush	src/file.cpp
+OK	4E6CEC	File2::Duplicate	src/file.cpp
+OK	4E6D04	File2::GetPosition	src/file.cpp
 
 ## game_app (globals) (14)
 PENDING	41D723	ShowRoleKeyDialog	src/game_app.cpp
