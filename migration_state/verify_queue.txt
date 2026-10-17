@@ -1677,21 +1677,21 @@ PENDING	58AB00	TokenPos::GetY	src/token.cpp
 PENDING	58AB11	TokenPos::Serialize	src/token.cpp
 
 ## TransientVisualEffectBuilder (15)
-PENDING	46F390	TransientVisualEffectBuilder::FUN_0046f390	src/gameobj.cpp
-PENDING	4CB0A0	TransientVisualEffectBuilder::TransientVisualEffectBuilder	src/gameobj.cpp
-PENDING	4CB190	TransientVisualEffectBuilder::~TransientVisualEffectBuilder	src/gameobj.cpp
-PENDING	4CB85F	TransientVisualEffectBuilder::FUN_004CB85F	src/gameobj.cpp
-PENDING	4CB993	TransientVisualEffectBuilder::FUN_004CB993	src/gameobj.cpp
-PENDING	4CC059	TransientVisualEffectBuilder::FUN_004cc059	src/gameobj.cpp
-PENDING	4CC22D	TransientVisualEffectBuilder::FUN_004CC22D	src/gameobj.cpp
-PENDING	4CC3FD	TransientVisualEffectBuilder::FUN_004CC3FD	src/gameobj.cpp
-PENDING	4CC5D1	TransientVisualEffectBuilder::FUN_004CC5D1	src/gameobj.cpp
-PENDING	4CC798	TransientVisualEffectBuilder::FUN_004CC798	src/gameobj.cpp
-PENDING	4CC944	TransientVisualEffectBuilder::FUN_004CC944	src/gameobj.cpp
-PENDING	4CCAF2	TransientVisualEffectBuilder::FUN_004CCAF2	src/gameobj.cpp
-PENDING	4CCC7B	TransientVisualEffectBuilder::FUN_004CCC7B	src/gameobj.cpp
-PENDING	4CCE04	TransientVisualEffectBuilder::FUN_004CCE04	src/gameobj.cpp
-PENDING	4CCED2	TransientVisualEffectBuilder::FUN_004CCED2	src/gameobj.cpp
+OK	46F390	TransientVisualEffectBuilder::FUN_0046f390	src/gameobj.cpp
+OK	4CB0A0	TransientVisualEffectBuilder::TransientVisualEffectBuilder	src/gameobj.cpp
+OK	4CB190	TransientVisualEffectBuilder::~TransientVisualEffectBuilder	src/gameobj.cpp
+OK	4CB85F	TransientVisualEffectBuilder::FUN_004CB85F	src/gameobj.cpp
+OK	4CB993	TransientVisualEffectBuilder::FUN_004CB993	src/gameobj.cpp
+OK	4CC059	TransientVisualEffectBuilder::FUN_004cc059	src/gameobj.cpp
+OK	4CC22D	TransientVisualEffectBuilder::FUN_004CC22D	src/gameobj.cpp
+OK	4CC3FD	TransientVisualEffectBuilder::FUN_004CC3FD	src/gameobj.cpp
+OK	4CC5D1	TransientVisualEffectBuilder::FUN_004CC5D1	src/gameobj.cpp
+OK	4CC798	TransientVisualEffectBuilder::FUN_004CC798	src/gameobj.cpp
+OK	4CC944	TransientVisualEffectBuilder::FUN_004CC944	src/gameobj.cpp
+OK	4CCAF2	TransientVisualEffectBuilder::FUN_004CCAF2	src/gameobj.cpp
+OK	4CCC7B	TransientVisualEffectBuilder::FUN_004CCC7B	src/gameobj.cpp
+OK	4CCE04	TransientVisualEffectBuilder::FUN_004CCE04	src/gameobj.cpp
+OK	4CCED2	TransientVisualEffectBuilder::FUN_004CCED2	src/gameobj.cpp
 
 ## Trigger (3)
 PENDING	5AFD79	Trigger::Trigger	src/logic.cpp
