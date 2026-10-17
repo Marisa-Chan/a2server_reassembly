@@ -691,13 +691,13 @@ OK	402585	GM_a28::Update	src/ingame.cpp
 OK	40261A	GM_a28::Draw	src/ingame.cpp
 
 ## GMapThing (7)
-PENDING	473195	GMapThing::GMapThing	src/visual.cpp
-PENDING	4733CF	GMapThing::~GMapThing	src/visual.cpp
-PENDING	473508	GMapThing::LoadPathmap	src/visual.cpp
-PENDING	4735E2	GMapThing::FreePathmap	src/visual.cpp
-PENDING	47362D	GMapThing::BuildAdjacency	src/visual.cpp
-PENDING	47391F	GMapThing::FloodFill	src/visual.cpp
-PENDING	473B4A	GMapThing::TakeAdjacency	src/visual.cpp
+OK	473195	GMapThing::GMapThing	src/visual.cpp
+OK	4733CF	GMapThing::~GMapThing	src/visual.cpp
+OK	473508	GMapThing::LoadPathmap	src/visual.cpp
+OK	4735E2	GMapThing::FreePathmap	src/visual.cpp
+OK	47362D	GMapThing::BuildAdjacency	src/visual.cpp
+OK	47391F	GMapThing::FloodFill	src/visual.cpp
+OK	473B4A	GMapThing::TakeAdjacency	src/visual.cpp
 
 ## Group (6)
 PENDING	554EEA	Group::~Group	src/group.cpp
