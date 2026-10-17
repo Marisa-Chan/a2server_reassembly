@@ -602,7 +602,7 @@ OK	5A3180	FieldBlock5859c::FieldBlock5859c	src/map_stuff.cpp
 
 ## File2 (17)
 OK	4E67EA	File2::File2	src/file.cpp
-PENDING	4E6813	File2::File2	src/file.cpp
+OK	4E6813	File2::File2	src/file.cpp
 OK	4E6882	File2::~File2	src/file.cpp
 OK	4E68D3	File2::Open	src/file.cpp
 OK	4E6A97	File2::Rewind	src/file.cpp
@@ -615,7 +615,7 @@ OK	4E6C80	File2::LockRange	src/file.cpp
 OK	4E6C98	File2::UnlockRange	src/file.cpp
 OK	4E6CB0	File2::Abort	src/file.cpp
 OK	4E6CBB	File2::Flush	src/file.cpp
-PENDING	4E6CC6	File2::Close	src/file.cpp
+OK	4E6CC6	File2::Close	src/file.cpp
 OK	4E6CEC	File2::Duplicate	src/file.cpp
 OK	4E6D04	File2::GetPosition	src/file.cpp
 
