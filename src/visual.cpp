@@ -930,10 +930,11 @@ void VisLabel::SetActiveColor(bool isActive)
 {
     //4d85e6
     if (isActive) {
-        color_sh = clrsh_DullGold;
+        color_sh = p_clrsh_Gold;
     } else {
-        color_sh = clrsh_TechBlack;
+        color_sh = p_clrsh_Black;
     }
+    VMethod9();
 }
 
 

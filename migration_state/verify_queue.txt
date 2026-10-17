@@ -507,23 +507,23 @@ OK	4D79ED	CVisualObject::TestFlags	src/visual.cpp
 OK	4D7A03	CVisualObject::ChangeFlags	src/visual.cpp
 OK	4D7A3A	CVisualObject::SetCursorOver	src/visual.cpp
 OK	4D7AA9	CVisualObject::SetFocus	src/visual.cpp
-PENDING	4D7B48	CVisualObject::GetChildAt	src/visual.cpp
+OK	4D7B48	CVisualObject::GetChildAt	src/visual.cpp
 OK	4D7BF9	CVisualObject::SetHint	src/visual.cpp
 OK	4D7C15	CVisualObject::GetHint	src/visual.cpp
-PENDING	4D7C40	CVisualObject::VMethod7	src/visual.cpp
-PENDING	4D7CC8	CVisualObject::VMethod9	src/visual.cpp
-PENDING	4D7D03	CVisualObject::VMethod10	src/visual.cpp
-PENDING	4D7D37	CVisualObject::DataSize	src/visual.cpp
-PENDING	4D7D99	CVisualObject::WriteData	src/visual.cpp
-PENDING	4D7E02	CVisualObject::ReadData	src/visual.cpp
-PENDING	4D7E6B	CVisualObject::MsgProcOnChilds	src/visual.cpp
+OK	4D7C40	CVisualObject::VMethod7	src/visual.cpp
+OK	4D7CC8	CVisualObject::VMethod9	src/visual.cpp
+OK	4D7D03	CVisualObject::VMethod10	src/visual.cpp
+OK	4D7D37	CVisualObject::DataSize	src/visual.cpp
+OK	4D7D99	CVisualObject::WriteData	src/visual.cpp
+OK	4D7E02	CVisualObject::ReadData	src/visual.cpp
+OK	4D7E6B	CVisualObject::MsgProcOnChilds	src/visual.cpp
 PENDING	4D7FC9	CVisualObject::MsgProc	src/visual.cpp
-PENDING	4D82B3	CVisualObject::Dump	src/visual.cpp
-PENDING	4D82CD	CVisualObject::SetLeftObj	src/visual.cpp
-PENDING	4D82EC	CVisualObject::SetRightObj	src/visual.cpp
-PENDING	4D830B	CVisualObject::SetUpObj	src/visual.cpp
-PENDING	4D832A	CVisualObject::SetDownObj	src/visual.cpp
-PENDING	4D8349	CVisualObject::SetCaptionLabel	src/visual.cpp
+OK	4D82B3	CVisualObject::Dump	src/visual.cpp
+OK	4D82CD	CVisualObject::SetLeftObj	src/visual.cpp
+OK	4D82EC	CVisualObject::SetRightObj	src/visual.cpp
+OK	4D830B	CVisualObject::SetUpObj	src/visual.cpp
+OK	4D832A	CVisualObject::SetDownObj	src/visual.cpp
+OK	4D8349	CVisualObject::SetCaptionLabel	src/visual.cpp
 
 ## Diplomacy (3)
 PENDING	5B545F	Diplomacy::sub_5B545F	src/world.cpp
@@ -2332,7 +2332,7 @@ PENDING	4A79F0	VisInvType1::VMethod26	src/visual.cpp
 ## VisLabel (4)
 PENDING	4D835F	VisLabel::VisLabel	src/visual.cpp
 PENDING	4D84E4	VisLabel::VMethod7	src/visual.cpp
-PENDING	4D85E6	VisLabel::SetActiveColor	src/visual.cpp
+FIXED	4D85E6	VisLabel::SetActiveColor	src/visual.cpp	missing VMethod9() repaint after color change; colors are same values via aliases p_clrsh_Gold=clrsh_DullGold, p_clrsh_Black=clrsh_TechBlack
 PENDING	4E3BA0	VisLabel::~VisLabel	src/visual.cpp
 
 ## VisListBox (23)
@@ -3015,21 +3015,21 @@ PENDING	476236	FUN_00476236	src/visual.cpp
 PENDING	476987	FUN_00476987	src/visual.cpp
 PENDING	4B9F20	FUN_004b9f20	src/visual.cpp
 PENDING	4BA1CC	FUN_004ba1cc	src/visual.cpp
-PENDING	4D83B6	CVisualObject	src/visual.cpp
-PENDING	4D8453	CVisualObject	src/visual.cpp
-PENDING	4D8CD0	CVisualObject	src/visual.cpp
-PENDING	4D8E2D	CVisualObject	src/visual.cpp
-PENDING	4D9891	CVisualObject	src/visual.cpp
-PENDING	4D995F	CVisualObject	src/visual.cpp
-PENDING	4DAB2B	CVisualObject	src/visual.cpp
-PENDING	4DBC11	CVisualObject	src/visual.cpp
-PENDING	4DBD31	CVisualObject	src/visual.cpp
-PENDING	4DDE6A	CVisualObject	src/visual.cpp
-PENDING	4DF23D	CVisualObject	src/visual.cpp
-PENDING	4DF286	CVisualObject	src/visual.cpp
+OK	4D83B6	CVisualObject	src/visual.cpp
+OK	4D8453	CVisualObject	src/visual.cpp
+OK	4D8CD0	CVisualObject	src/visual.cpp
+OK	4D8E2D	CVisualObject	src/visual.cpp
+OK	4D9891	CVisualObject	src/visual.cpp
+OK	4D995F	CVisualObject	src/visual.cpp
+OK	4DAB2B	CVisualObject	src/visual.cpp
+OK	4DBC11	CVisualObject	src/visual.cpp
+OK	4DBD31	CVisualObject	src/visual.cpp
+OK	4DDE6A	CVisualObject	src/visual.cpp
+OK	4DF23D	CVisualObject	src/visual.cpp
+OK	4DF286	CVisualObject	src/visual.cpp
 PENDING	4DFDAB	VisScreen	src/visual.cpp
 PENDING	4E1B5C	VisButton	src/visual.cpp
-PENDING	4E1E10	CVisualObject	src/visual.cpp
+OK	4E1E10	CVisualObject	src/visual.cpp
 PENDING	4E4040	VisListBox	src/visual.cpp
 PENDING	4E4120	VisTextBox	src/visual.cpp
 
