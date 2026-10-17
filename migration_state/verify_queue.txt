@@ -542,34 +542,34 @@ FIXED	540BF7	DirectDamage::DirectDamage	src/effect.cpp	copy ctor also copies cas
 OK	540C77	DirectDamage::VMethod11	src/effect.cpp
 
 ## DistortMap (4)
-PENDING	4A9F90	DistortMap::DistortMap	src/game_app.cpp
-PENDING	4AA04F	DistortMap::~DistortMap	src/game_app.cpp
-PENDING	4AA0AF	DistortMap::sub_4AA0AF	src/game_app.cpp
-PENDING	4AA29B	DistortMap::sub_4AA29B	src/game_app.cpp
+OK	4A9F90	DistortMap::DistortMap	src/game_app.cpp
+OK	4AA04F	DistortMap::~DistortMap	src/game_app.cpp
+OK	4AA0AF	DistortMap::sub_4AA0AF	src/game_app.cpp
+OK	4AA29B	DistortMap::sub_4AA29B	src/game_app.cpp
 
 ## Effect (22)
-PENDING	53E1CE	Effect::Serialize	src/effect.cpp
-PENDING	53EC02	Effect::Effect	src/effect.cpp
-PENDING	53EC55	Effect::Effect	src/effect.cpp
-PENDING	53EDB0	Effect::sub_53EDB0	src/effect.cpp
-PENDING	53EE54	Effect::VMethod10	src/effect.cpp
-PENDING	53EFB2	Effect::VMethod11	src/effect.cpp
-PENDING	53F761	Effect::VMethod12	src/effect.cpp
-PENDING	53F92C	Effect::VMethod13	src/effect.cpp
-PENDING	53FA2B	Effect::VMethod14	src/effect.cpp
-PENDING	540941	Effect::EffectPrice	src/effect.cpp
-PENDING	540A33	Effect::MagicPriceBonus	src/effect.cpp
-PENDING	541046	Effect::CreateFromString	src/effect.cpp
-PENDING	54180C	Effect::ParseDmg	src/effect.cpp
-PENDING	5418F1	Effect::StrToInt	src/effect.cpp
-PENDING	541963	Effect::GetSpellIDByName	src/effect.cpp
-PENDING	5419C3	Effect::AtoI	src/effect.cpp
-PENDING	541A5D	Effect::ParseUsage	src/effect.cpp
-PENDING	541C87	Effect::VMethod15	src/effect.cpp
-PENDING	541D59	Effect::VMethod16	src/effect.cpp
-PENDING	541EB5	Effect::VMethod17	src/effect.cpp
-PENDING	541FD7	Effect::sub_541FD7	src/effect.cpp
-PENDING	57C350	Effect::~Effect	src/effect.cpp
+OK	53E1CE	Effect::Serialize	src/effect.cpp
+OK	53EC02	Effect::Effect	src/effect.cpp
+OK	53EC55	Effect::Effect	src/effect.cpp
+OK	53EDB0	Effect::sub_53EDB0	src/effect.cpp
+OK	53EE54	Effect::VMethod10	src/effect.cpp
+OK	53EFB2	Effect::VMethod11	src/effect.cpp
+OK	53F761	Effect::VMethod12	src/effect.cpp
+OK	53F92C	Effect::VMethod13	src/effect.cpp
+OK	53FA2B	Effect::VMethod14	src/effect.cpp
+OK	540941	Effect::EffectPrice	src/effect.cpp
+OK	540A33	Effect::MagicPriceBonus	src/effect.cpp
+OK	541046	Effect::CreateFromString	src/effect.cpp
+OK	54180C	Effect::ParseDmg	src/effect.cpp
+OK	5418F1	Effect::StrToInt	src/effect.cpp
+OK	541963	Effect::GetSpellIDByName	src/effect.cpp
+OK	5419C3	Effect::AtoI	src/effect.cpp
+OK	541A5D	Effect::ParseUsage	src/effect.cpp
+OK	541C87	Effect::VMethod15	src/effect.cpp
+OK	541D59	Effect::VMethod16	src/effect.cpp
+OK	541EB5	Effect::VMethod17	src/effect.cpp
+OK	541FD7	Effect::sub_541FD7	src/effect.cpp
+OK	57C350	Effect::~Effect	src/effect.cpp
 
 ## effect (globals) (1)
 PENDING	53ED4D	Token	src/effect.cpp
