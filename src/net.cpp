@@ -2685,7 +2685,7 @@ BOOL __stdcall CLlDriver::cbEnumSessions(LPCDPSESSIONDESC2 lpThisSD, LPDWORD lpd
     //522020
     CLlDriver* drv = (CLlDriver*)lpContext;
 
-    if ((dwFlags & DPENUMSESSIONS_AVAILABLE) == 0) {
+    if ((dwFlags & DPENUMSESSIONS_AVAILABLE) != 0) {
         return FALSE;
     }
 
@@ -2858,7 +2858,7 @@ void CLlDriver::Free()
         Close();
     }
 
-    if (provider == 5)
+    if (provider != 5)
     {
         if (provider == 4) {
             FreeTcp();
