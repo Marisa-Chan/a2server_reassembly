@@ -718,7 +718,7 @@ OK	5A500C	GroupSub::~GroupSub	src/group.cpp
 OK	5B0429	GroupSub::Serialize	src/group.cpp
 
 ## HatSettings (1)
-PENDING	43D51B	HatSettings::Save	src/main_window.cpp
+OK	43D51B	HatSettings::Save	src/main_window.cpp
 
 ## Human (5)
 OK	53232D	Human::Human	src/unit.cpp
@@ -732,33 +732,33 @@ OK	5143A6	HumanInfo::VMethod2	src/table.cpp
 OK	514A3A	HumanInfo::Serialize	src/table.cpp
 OK	572D80	HumanInfo::HumanInfo	src/table.cpp
 OK	572E90	HumanInfo::~HumanInfo	src/table.cpp
-PENDING	578220	HumanInfo::ParseLine	src/table.cpp
+OK	578220	HumanInfo::ParseLine	src/table.cpp
 
 ## Humanoid (24)
-PENDING	52FF9E	Humanoid::Humanoid	src/unit.cpp
-PENDING	53004C	Humanoid::InitStats	src/unit.cpp
-PENDING	53015B	Humanoid::~Humanoid	src/unit.cpp
-PENDING	5301AC	Humanoid::VMethod10	src/unit.cpp
-PENDING	530231	Humanoid::sub_530231	src/unit.cpp
-PENDING	530394	Humanoid::VMethod25	src/unit.cpp
-PENDING	5303E3	Humanoid::VMethod12	src/unit.cpp
-PENDING	5304B2	Humanoid::VMethod13	src/unit.cpp
-PENDING	5304E8	Humanoid::Unequip	src/unit.cpp
-PENDING	530511	Humanoid::VMethod15	src/unit.cpp
-PENDING	530745	Humanoid::VMethod21	src/unit.cpp
-PENDING	530E52	Humanoid::VMethod22	src/unit.cpp
-PENDING	530FC1	Humanoid::VMethod23	src/unit.cpp
-PENDING	531090	Humanoid::VMethod24	src/unit.cpp
-PENDING	53111B	Humanoid::VMethod16	src/unit.cpp
-PENDING	53116B	Humanoid::sub_53116B	src/unit.cpp
-PENDING	531418	Humanoid::sub_531418	src/unit.cpp
-PENDING	532DDE	Humanoid::sub_532dde	src/unit.cpp
-PENDING	533345	Humanoid::sub_533345	src/unit.cpp
-PENDING	537199	Humanoid::VMethod19	src/unit.cpp
-PENDING	55AB26	Humanoid::VMethod5	src/unit.cpp
-PENDING	55C760	Humanoid::Serialize	src/unit.cpp
-PENDING	57BB50	Humanoid::VMethod7	src/unit.cpp
-PENDING	57BB60	Humanoid::VMethod8	src/unit.cpp
+OK	52FF9E	Humanoid::Humanoid	src/unit.cpp
+OK	53004C	Humanoid::InitStats	src/unit.cpp
+OK	53015B	Humanoid::~Humanoid	src/unit.cpp
+OK	5301AC	Humanoid::VMethod10	src/unit.cpp
+OK	530231	Humanoid::sub_530231	src/unit.cpp
+OK	530394	Humanoid::VMethod25	src/unit.cpp
+OK	5303E3	Humanoid::VMethod12	src/unit.cpp
+OK	5304B2	Humanoid::VMethod13	src/unit.cpp
+OK	5304E8	Humanoid::Unequip	src/unit.cpp
+OK	530511	Humanoid::VMethod15	src/unit.cpp
+OK	530745	Humanoid::VMethod21	src/unit.cpp
+OK	530E52	Humanoid::VMethod22	src/unit.cpp
+OK	530FC1	Humanoid::VMethod23	src/unit.cpp
+OK	531090	Humanoid::VMethod24	src/unit.cpp
+OK	53111B	Humanoid::VMethod16	src/unit.cpp
+OK	53116B	Humanoid::sub_53116B	src/unit.cpp
+OK	531418	Humanoid::sub_531418	src/unit.cpp
+FIXED	532DDE	Humanoid::sub_532dde	src/unit.cpp	note: scan_range assignment writes only byte 1 of the int32 (ASM: mov byte [scan_range+1]); C++ overwrote the whole field with d.scan_range*256, clobbering the low byte
+OK	533345	Humanoid::sub_533345	src/unit.cpp	note: C++ adds a debug Format+LogMessage prologue absent in vanilla (log-only, no behavior change)
+OK	537199	Humanoid::VMethod19	src/unit.cpp
+OK	55AB26	Humanoid::VMethod5	src/unit.cpp
+OK	55C760	Humanoid::Serialize	src/unit.cpp
+OK	57BB50	Humanoid::VMethod7	src/unit.cpp
+OK	57BB60	Humanoid::VMethod8	src/unit.cpp
 
 ## ingame (globals) (5)
 PENDING	4216B0	ReadKillStats	src/ingame.cpp
@@ -1563,7 +1563,7 @@ PENDING	5365AB	sub_5365AB	src/spell_effect.cpp
 ## SpellBook (5)
 PENDING	53D368	SpellBook::~SpellBook	src/spell.cpp
 PENDING	53D7F0	SpellBook::sub_53D7F0	src/spell.cpp
-PENDING	53DBC5	SpellBook::RefreshForHumanoid	src/spell.cpp
+OK	53DBC5	SpellBook::RefreshForHumanoid	src/spell.cpp
 PENDING	53DD3D	SpellBook::sub_53DD3D	src/spell.cpp
 PENDING	53DDA4	SpellBook::Serialize	src/spell.cpp
 

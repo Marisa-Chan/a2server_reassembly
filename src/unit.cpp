@@ -2944,7 +2944,7 @@ void Humanoid::sub_532dde(CArray<HumanInfoData>* data)
         this->eye->rotation_speed = static_cast<uint8_t>(d.rotation_speed);
     }
     if (d.scan_range != -1) {
-        this->scan_range = d.scan_range * 256;
+        *((uint8_t*)&this->scan_range + 1) = static_cast<uint8_t>(d.scan_range);
     }
     if (d.defence != -1) {
         this->protections.defense = static_cast<int16_t>(d.defence);
