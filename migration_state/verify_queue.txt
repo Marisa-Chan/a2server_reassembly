@@ -700,22 +700,22 @@ OK	47391F	GMapThing::FloodFill	src/visual.cpp
 OK	473B4A	GMapThing::TakeAdjacency	src/visual.cpp
 
 ## Group (6)
-PENDING	554EEA	Group::~Group	src/group.cpp
-PENDING	555176	Group::AddUnit	src/group.cpp
-PENDING	5552E6	Group::RemoveUnit	src/group.cpp
-PENDING	55C94D	Group::Serialize	src/group.cpp
-PENDING	599F00	Group::sub_599F00	src/group.cpp
-PENDING	599F20	Group::sub_599F20	src/group.cpp
+OK	554EEA	Group::~Group	src/group.cpp
+OK	555176	Group::AddUnit	src/group.cpp
+OK	5552E6	Group::RemoveUnit	src/group.cpp
+OK	55C94D	Group::Serialize	src/group.cpp
+OK	599F00	Group::sub_599F00	src/group.cpp
+OK	599F20	Group::sub_599F20	src/group.cpp
 
 ## GroupList (4)
-PENDING	5555F2	GroupList::GroupList	src/group.cpp
-PENDING	55564E	GroupList::AllocGroup	src/group.cpp
-PENDING	555874	GroupList::~GroupList	src/group.cpp
-PENDING	558BE1	GroupList::Serialize	src/group.cpp
+OK	5555F2	GroupList::GroupList	src/group.cpp
+OK	55564E	GroupList::AllocGroup	src/group.cpp
+OK	555874	GroupList::~GroupList	src/group.cpp
+OK	558BE1	GroupList::Serialize	src/group.cpp
 
 ## GroupSub (2)
-PENDING	5A500C	GroupSub::~GroupSub	src/group.cpp
-PENDING	5B0429	GroupSub::Serialize	src/group.cpp
+OK	5A500C	GroupSub::~GroupSub	src/group.cpp
+OK	5B0429	GroupSub::Serialize	src/group.cpp
 
 ## HatSettings (1)
 PENDING	43D51B	HatSettings::Save	src/main_window.cpp
@@ -1240,11 +1240,11 @@ PENDING	5BB310	QuestInnGlue::VMethod8	src/quest_glue.cpp
 PENDING	5BB32B	QuestInnGlue::VMethod9	src/quest_glue.cpp
 
 ## QuestInterceptGroup (5)
-PENDING	55FE9B	QuestInterceptGroup::VMethod1	src/quest.cpp
-PENDING	581950	QuestInterceptGroup::Kind	src/quest.cpp
-PENDING	581960	QuestInterceptGroup::Something2	src/quest.cpp
-PENDING	581970	QuestInterceptGroup::Something3	src/quest.cpp
-PENDING	5819C0	QuestInterceptGroup::~QuestInterceptGroup	src/quest.cpp
+OK	55FE9B	QuestInterceptGroup::VMethod1	src/quest.cpp
+OK	581950	QuestInterceptGroup::Kind	src/quest.cpp
+OK	581960	QuestInterceptGroup::Something2	src/quest.cpp
+OK	581970	QuestInterceptGroup::Something3	src/quest.cpp
+OK	5819C0	QuestInterceptGroup::~QuestInterceptGroup	src/quest.cpp
 
 ## QuestInterceptUnit (5)
 PENDING	55FC25	QuestInterceptUnit::VMethod1	src/quest.cpp
@@ -1254,9 +1254,9 @@ PENDING	5818E0	QuestInterceptUnit::Something3	src/quest.cpp
 PENDING	581930	QuestInterceptUnit::~QuestInterceptUnit	src/quest.cpp
 
 ## QuestKillGroup (3)
-PENDING	55F896	QuestKillGroup::VMethod1	src/quest.cpp
-PENDING	5816B0	QuestKillGroup::Kind	src/quest.cpp
-PENDING	5816F0	QuestKillGroup::~QuestKillGroup	src/quest.cpp
+OK	55F896	QuestKillGroup::VMethod1	src/quest.cpp
+OK	5816B0	QuestKillGroup::Kind	src/quest.cpp
+OK	5816F0	QuestKillGroup::~QuestKillGroup	src/quest.cpp
 
 ## QuestKillInnDefenders (3)
 PENDING	56032D	QuestKillInnDefenders::VMethod1	src/quest.cpp
