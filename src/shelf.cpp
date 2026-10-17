@@ -526,7 +526,7 @@ void CMultiShopTemplate::sub_547DD4() {
         this->refresh_assortment_counter += 1;
         this->sub_547E91();
     }
-    for (int i = 0; i < this->shop_instances.GetSize(); i++) {
+    for (int32_t i = 0; i < this->shop_instances.GetSize();) {
         Unit* unit = this->shop_instances[i]->unit;
         if (unit->pOwner == nullptr) {
             this->sub_5479C6(static_cast<Humanoid*>(unit));
@@ -535,5 +535,6 @@ void CMultiShopTemplate::sub_547DD4() {
         if (unit->pOwner->field_0x43 == 0) {
             this->shop->sub_544685(unit);
         }
+        i++;
     }
 }

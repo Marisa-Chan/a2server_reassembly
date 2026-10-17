@@ -356,46 +356,46 @@ OK	428779	CMousePointer::RepaintHint	src/mouse.cpp
 OK	4287D9	CMousePointer::ForceDisableHint	src/mouse.cpp
 
 ## CMultiShopInstance (11)
-PENDING	545BD7	CMultiShopInstance::CMultiShopInstance	src/shelf.cpp
-PENDING	545C8C	CMultiShopInstance::~CMultiShopInstance	src/shelf.cpp
-PENDING	545D5E	CMultiShopInstance::Sell	src/shelf.cpp
-PENDING	546027	CMultiShopInstance::Buy	src/shelf.cpp
-PENDING	5462C8	CMultiShopInstance::sub_5462C8	src/shelf.cpp
-PENDING	5464B6	CMultiShopInstance::sub_5464B6	src/shelf.cpp
-PENDING	546537	CMultiShopInstance::sub_546537	src/shelf.cpp
-PENDING	546557	CMultiShopInstance::sub_546557	src/shelf.cpp
-PENDING	546577	CMultiShopInstance::sub_546577	src/shelf.cpp
-PENDING	54668B	CMultiShopInstance::sub_54668B	src/shelf.cpp
-PENDING	546857	CMultiShopInstance::sub_546857	src/shelf.cpp
+OK	545BD7	CMultiShopInstance::CMultiShopInstance	src/shelf.cpp
+SUSPECT	545C8C	CMultiShopInstance::~CMultiShopInstance	src/shelf.cpp	vanilla dtor calls FUN_00545528 per shelf (decrements field10_0x4c ref-count += 0xFF on each borrowed item + clears array); C++ dtor omits - template items keep inflated refcounts and 5479C6 cleanup (count==0 && field10==0) never fires for them
+OK	545D5E	CMultiShopInstance::Sell	src/shelf.cpp
+OK	546027	CMultiShopInstance::Buy	src/shelf.cpp
+OK	5462C8	CMultiShopInstance::sub_5462C8	src/shelf.cpp
+OK	5464B6	CMultiShopInstance::sub_5464B6	src/shelf.cpp
+OK	546537	CMultiShopInstance::sub_546537	src/shelf.cpp
+OK	546557	CMultiShopInstance::sub_546557	src/shelf.cpp
+OK	546577	CMultiShopInstance::sub_546577	src/shelf.cpp
+OK	54668B	CMultiShopInstance::sub_54668B	src/shelf.cpp
+OK	546857	CMultiShopInstance::sub_546857	src/shelf.cpp
 
 ## CMultiShopShelf (6)
-PENDING	544A9D	CMultiShopShelf::CMultiShopShelf	src/shelf.cpp
-PENDING	544B0C	CMultiShopShelf::~CMultiShopShelf	src/shelf.cpp
-PENDING	544BCE	CMultiShopShelf::sub_544BCE	src/shelf.cpp
-PENDING	5453E8	CMultiShopShelf::sub_5453E8	src/shelf.cpp
-PENDING	54546E	CMultiShopShelf::sub_54546E	src/shelf.cpp
-PENDING	545865	CMultiShopShelf::ClearItems	src/shelf.cpp
+OK	544A9D	CMultiShopShelf::CMultiShopShelf	src/shelf.cpp
+OK	544B0C	CMultiShopShelf::~CMultiShopShelf	src/shelf.cpp
+OK	544BCE	CMultiShopShelf::sub_544BCE	src/shelf.cpp
+OK	5453E8	CMultiShopShelf::sub_5453E8	src/shelf.cpp
+OK	54546E	CMultiShopShelf::sub_54546E	src/shelf.cpp
+OK	545865	CMultiShopShelf::ClearItems	src/shelf.cpp
 
 ## CMultiShopTemplate (19)
-PENDING	54687B	CMultiShopTemplate::CMultiShopTemplate	src/shelf.cpp
-PENDING	546C72	CMultiShopTemplate::CMultiShopTemplate	src/shelf.cpp
-PENDING	546DA4	CMultiShopTemplate::~CMultiShopTemplate	src/shelf.cpp
-PENDING	546F18	CMultiShopTemplate::sub_546F18	src/shelf.cpp
-PENDING	546F8D	CMultiShopTemplate::sub_546F8D	src/shelf.cpp
-PENDING	54740C	CMultiShopTemplate::sub_54740C	src/shelf.cpp
-PENDING	547468	CMultiShopTemplate::sub_547468	src/shelf.cpp
-PENDING	54749F	CMultiShopTemplate::sub_54749F	src/shelf.cpp
-PENDING	5474D8	CMultiShopTemplate::sub_5474D8	src/shelf.cpp
-PENDING	547644	CMultiShopTemplate::sub_547644	src/shelf.cpp
-PENDING	5479C6	CMultiShopTemplate::sub_5479C6	src/shelf.cpp
-PENDING	547B7B	CMultiShopTemplate::sub_547B7B	src/shelf.cpp
-PENDING	547BBC	CMultiShopTemplate::sub_547BBC	src/shelf.cpp
-PENDING	547BFD	CMultiShopTemplate::sub_547BFD	src/shelf.cpp
-PENDING	547C5A	CMultiShopTemplate::sub_547C5A	src/shelf.cpp
-PENDING	547CB9	CMultiShopTemplate::sub_547CB9	src/shelf.cpp
-PENDING	547D7F	CMultiShopTemplate::sub_547D7F	src/shelf.cpp
-PENDING	547DD4	CMultiShopTemplate::sub_547DD4	src/shelf.cpp
-PENDING	547E91	CMultiShopTemplate::sub_547E91	src/shelf.cpp
+OK	54687B	CMultiShopTemplate::CMultiShopTemplate	src/shelf.cpp
+OK	546C72	CMultiShopTemplate::CMultiShopTemplate	src/shelf.cpp
+OK	546DA4	CMultiShopTemplate::~CMultiShopTemplate	src/shelf.cpp
+OK	546F18	CMultiShopTemplate::sub_546F18	src/shelf.cpp
+OK	546F8D	CMultiShopTemplate::sub_546F8D	src/shelf.cpp
+OK	54740C	CMultiShopTemplate::sub_54740C	src/shelf.cpp
+OK	547468	CMultiShopTemplate::sub_547468	src/shelf.cpp
+OK	54749F	CMultiShopTemplate::sub_54749F	src/shelf.cpp
+OK	5474D8	CMultiShopTemplate::sub_5474D8	src/shelf.cpp
+OK	547644	CMultiShopTemplate::sub_547644	src/shelf.cpp
+OK	5479C6	CMultiShopTemplate::sub_5479C6	src/shelf.cpp
+OK	547B7B	CMultiShopTemplate::sub_547B7B	src/shelf.cpp
+OK	547BBC	CMultiShopTemplate::sub_547BBC	src/shelf.cpp
+OK	547BFD	CMultiShopTemplate::sub_547BFD	src/shelf.cpp
+OK	547C5A	CMultiShopTemplate::sub_547C5A	src/shelf.cpp
+OK	547CB9	CMultiShopTemplate::sub_547CB9	src/shelf.cpp
+OK	547D7F	CMultiShopTemplate::sub_547D7F	src/shelf.cpp
+FIXED	547DD4	CMultiShopTemplate::sub_547DD4	src/shelf.cpp	loop must not advance index after sub_5479C6 removal (ASM remove path jumps back without inc); C++ for-loop i++ skipped the slid-in element
+OK	547E91	CMultiShopTemplate::sub_547E91	src/shelf.cpp
 
 ## CObject (8)
 PENDING	401900	CObject::CObject	src/asm_mfc.cpp
