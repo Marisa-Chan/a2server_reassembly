@@ -281,7 +281,7 @@ OK	520E2E	CLlDriver::AllocSession	src/net.cpp
 OK	520ED0	CLlDriver::AllocEnumConns	src/net.cpp
 OK	520F72	CLlDriver::AllocEnumPlayers	src/net.cpp
 OK	52100E	CLlDriver::cbEnumConnections	src/net.cpp
-PENDING	5210EA	CLlDriver::EnumConnections	src/net.cpp
+OK	5210EA	CLlDriver::EnumConnections	src/net.cpp
 FIXED	5211B2	CLlDriver::cbEnumAddress	src/net.cpp	guid compare must be DPAID_Modem (address data-type GUID), C++ had DPSPGUID_MODEM (SP GUID - never matches) -> modem enum never fired
 OK	521200	CLlDriver::EnumAddressesDp	src/net.cpp
 OK	5214C5	CLlDriver::EnumAddressesTcp	src/net.cpp
@@ -294,7 +294,7 @@ FIXED	522020	CLlDriver::cbEnumSessions	src/net.cpp	flag test inverted: ASM adds 
 OK	52210D	CLlDriver::EnumSessions	src/net.cpp
 OK	522318	CLlDriver::SetEventNewSession	src/net.cpp
 OK	52233F	CLlDriver::cbEnumPlayes	src/net.cpp
-PENDING	52238E	CLlDriver::EnumPlayers	src/net.cpp
+OK	52238E	CLlDriver::EnumPlayers	src/net.cpp
 OK	5223FB	CLlDriver::Connect	src/net.cpp
 OK	5224C4	CLlDriver::GetClientBySocketId	src/net.cpp
 OK	522526	CLlDriver::DisconnectClient	src/net.cpp
