@@ -1936,23 +1936,23 @@ PENDING	42DADF	VisCharGenSkills::HitTest	src/visual.cpp
 PENDING	42DBCE	VisCharGenSkills::GetHint	src/visual.cpp
 
 ## VisCharGenStats (17)
-PENDING	428E51	VisCharGenStats::VisCharGenStats	src/visual.cpp
-PENDING	428F12	VisCharGenStats::~VisCharGenStats	src/visual.cpp
-PENDING	428F7F	VisCharGenStats::Init	src/visual.cpp
-PENDING	429C39	VisCharGenStats::ReadUnitStats	src/visual.cpp
-PENDING	429D03	VisCharGenStats::VMethod7	src/visual.cpp
-PENDING	42A02A	VisCharGenStats::HitTest	src/visual.cpp
-PENDING	42A161	VisCharGenStats::HandleClick	src/visual.cpp
-PENDING	42A312	VisCharGenStats::OnMouseMove	src/visual.cpp
-PENDING	42A335	VisCharGenStats::OnLButtonDown	src/visual.cpp
-PENDING	42A3A8	VisCharGenStats::OnLButtonUp	src/visual.cpp
-PENDING	42A3CE	VisCharGenStats::OnLButtonDblClk	src/visual.cpp
-PENDING	42A3F2	VisCharGenStats::OnWmUser	src/visual.cpp
-PENDING	42A43B	VisCharGenStats::GetHint	src/visual.cpp
-PENDING	42A778	VisCharGenStats::OnStatUp	src/visual.cpp
-PENDING	42A87B	VisCharGenStats::OnStatDown	src/visual.cpp
-PENDING	42A96D	VisCharGenStats::StatUpCost	src/visual.cpp
-PENDING	42A99D	VisCharGenStats::StatDownRefund	src/visual.cpp
+OK	428E51	VisCharGenStats::VisCharGenStats	src/visual.cpp
+OK	428F12	VisCharGenStats::~VisCharGenStats	src/visual.cpp
+OK	428F7F	VisCharGenStats::Init	src/visual.cpp
+OK	429C39	VisCharGenStats::ReadUnitStats	src/visual.cpp
+OK	429D03	VisCharGenStats::VMethod7	src/visual.cpp
+OK	42A02A	VisCharGenStats::HitTest	src/visual.cpp
+OK	42A161	VisCharGenStats::HandleClick	src/visual.cpp
+OK	42A312	VisCharGenStats::OnMouseMove	src/visual.cpp
+OK	42A335	VisCharGenStats::OnLButtonDown	src/visual.cpp
+OK	42A3A8	VisCharGenStats::OnLButtonUp	src/visual.cpp
+OK	42A3CE	VisCharGenStats::OnLButtonDblClk	src/visual.cpp
+OK	42A3F2	VisCharGenStats::OnWmUser	src/visual.cpp
+OK	42A43B	VisCharGenStats::GetHint	src/visual.cpp
+OK	42A778	VisCharGenStats::OnStatUp	src/visual.cpp
+OK	42A87B	VisCharGenStats::OnStatDown	src/visual.cpp
+OK	42A96D	VisCharGenStats::StatUpCost	src/visual.cpp
+OK	42A99D	VisCharGenStats::StatDownRefund	src/visual.cpp
 
 ## VisCharInfo (17)
 OK	4B16C3	VisCharInfo::VisCharInfo	src/visual.cpp
