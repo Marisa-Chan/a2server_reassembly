@@ -1855,16 +1855,16 @@ OK	4972F0	Vis1200obj::FUN_004972f0	src/visual.cpp
 OK	497330	Vis1200obj::FUN_00497330	src/visual.cpp
 
 ## Vis2Action (4)
-PENDING	44F0A2	Vis2Action::Vis2Action	src/visual.cpp
-PENDING	44F0E8	Vis2Action::VMethod26	src/visual.cpp
-PENDING	44F30D	Vis2Action::MsgProc	src/visual.cpp
-PENDING	450BD0	Vis2Action::~Vis2Action	src/visual.cpp
+OK	44F0A2	Vis2Action::Vis2Action	src/visual.cpp
+OK	44F0E8	Vis2Action::VMethod26	src/visual.cpp
+OK	44F30D	Vis2Action::MsgProc	src/visual.cpp
+OK	450BD0	Vis2Action::~Vis2Action	src/visual.cpp
 
 ## VisBitmap (4)
-PENDING	4DF2C3	VisBitmap::~VisBitmap	src/visual.cpp
-PENDING	4DF345	VisBitmap::VMethod7	src/visual.cpp
-PENDING	4E3FB0	VisBitmap::GetBitmap	src/visual.cpp
-PENDING	4E3FD0	VisBitmap::SetBitmap	src/visual.cpp
+OK	4DF2C3	VisBitmap::~VisBitmap	src/visual.cpp
+OK	4DF345	VisBitmap::VMethod7	src/visual.cpp
+OK	4E3FB0	VisBitmap::GetBitmap	src/visual.cpp
+OK	4E3FD0	VisBitmap::SetBitmap	src/visual.cpp
 
 ## VisButton (8)
 OK	450A40	VisButton::~VisButton	src/visual.cpp
@@ -2337,10 +2337,10 @@ OK	4A79F0	VisInvType1::VMethod26	src/visual.cpp
 OK	4A7A20	VisInvType1::VMethod38	src/visual.cpp
 
 ## VisLabel (4)
-PENDING	4D835F	VisLabel::VisLabel	src/visual.cpp
-PENDING	4D84E4	VisLabel::VMethod7	src/visual.cpp
+OK	4D835F	VisLabel::VisLabel	src/visual.cpp
+OK	4D84E4	VisLabel::VMethod7	src/visual.cpp
 FIXED	4D85E6	VisLabel::SetActiveColor	src/visual.cpp	missing VMethod9() repaint after color change; colors are same values via aliases p_clrsh_Gold=clrsh_DullGold, p_clrsh_Black=clrsh_TechBlack
-PENDING	4E3BA0	VisLabel::~VisLabel	src/visual.cpp
+OK	4E3BA0	VisLabel::~VisLabel	src/visual.cpp
 
 ## VisListBox (23)
 FIXED	4507A0	VisListBox::SetSelectedIndex	src/visual.cpp	C++ clamped idx to [0,size-1]; vanilla stores raw index (disasm 4507aa)
