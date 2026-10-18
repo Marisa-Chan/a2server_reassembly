@@ -1406,7 +1406,7 @@ OK	4A9468	Scenario::~Scenario	src/map_stuff.cpp
 OK	4A952B	Scenario::sub_4A952B	src/map_stuff.cpp
 
 ## ScriptSettings (1)
-PENDING	5B681A	ScriptSettings::sub_5B681A	src/logic.cpp
+OK	5B681A	ScriptSettings::sub_5B681A	src/logic.cpp	raw Write/Read of this, 0x190 bytes
 
 ## Server (50)
 OK	4ED2DC	Server::sub_4ED2DC	src/server.cpp
@@ -1461,12 +1461,12 @@ OK	50979A	Server::sub_50979A	src/server.cpp
 OK	509879	Server::sub_509879	src/server.cpp
 
 ## server (globals) (3)
-PENDING	43A820	sub_43A820	src/server.cpp
-PENDING	4FA768	sub_4FA768	src/server.cpp
-PENDING	5008CA	StatLevelPoints	src/server.cpp
+OK	43A820	sub_43A820	src/server.cpp
+OK	4FA768	sub_4FA768	src/server.cpp
+OK	5008CA	StatLevelPoints	src/server.cpp
 
 ## ServerConfig (1)
-PENDING	4F6FC9	ServerConfig::ServerConfig	src/server.cpp
+OK	4F6FC9	ServerConfig::ServerConfig	src/server.cpp
 
 ## ServerControlDialog (12)
 OK	4951BD	ServerControlDialog::ServerControlDialog	src/main_window.cpp
