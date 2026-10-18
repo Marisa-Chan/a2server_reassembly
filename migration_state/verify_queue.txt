@@ -2667,24 +2667,24 @@ OK	4BFA01	VisShopCompass::OnLButtonUp	src/visual.cpp
 OK	4C6BC0	VisShopCompass::VMethod38	src/visual.cpp
 
 ## VisShopCompassDruid (18)
-PENDING	4C247B	VisShopCompassDruid::VisShopCompassDruid	src/visual.cpp
-PENDING	4C2842	VisShopCompassDruid::FUN_004c2842	src/visual.cpp
-PENDING	4C2882	VisShopCompassDruid::VMethod26	src/visual.cpp
-PENDING	4C2B29	VisShopCompassDruid::VMethod27	src/visual.cpp
-PENDING	4C2CCE	VisShopCompassDruid::VMethod31	src/visual.cpp
-PENDING	4C2CED	VisShopCompassDruid::VMethod32	src/visual.cpp
-PENDING	4C2D8A	VisShopCompassDruid::VMethod28	src/visual.cpp
-PENDING	4C2DA3	VisShopCompassDruid::VMethod29	src/visual.cpp
-PENDING	4C2DBC	VisShopCompassDruid::VMethod30	src/visual.cpp
-PENDING	4C2F00	VisShopCompassDruid::VMethod33	src/visual.cpp
-PENDING	4C2F7D	VisShopCompassDruid::VMethod34	src/visual.cpp
-PENDING	4C2FFA	VisShopCompassDruid::VMethod35	src/visual.cpp
-PENDING	4C3051	VisShopCompassDruid::VMethod36	src/visual.cpp
-PENDING	4C30B4	VisShopCompassDruid::VMethod7	src/visual.cpp
-PENDING	4C34E6	VisShopCompassDruid::VMethod37	src/visual.cpp
-PENDING	4C359D	VisShopCompassDruid::OnLButtonDown	src/visual.cpp
-PENDING	4C3690	VisShopCompassDruid::GetHint	src/visual.cpp
-PENDING	4C6A30	VisShopCompassDruid::~VisShopCompassDruid	src/visual.cpp
+OK	4C247B	VisShopCompassDruid::VisShopCompassDruid	src/visual.cpp
+OK	4C2842	VisShopCompassDruid::FUN_004c2842	src/visual.cpp
+OK	4C2882	VisShopCompassDruid::VMethod26	src/visual.cpp
+OK	4C2B29	VisShopCompassDruid::VMethod27	src/visual.cpp
+OK	4C2CCE	VisShopCompassDruid::VMethod31	src/visual.cpp
+OK	4C2CED	VisShopCompassDruid::VMethod32	src/visual.cpp
+OK	4C2D8A	VisShopCompassDruid::VMethod28	src/visual.cpp
+OK	4C2DA3	VisShopCompassDruid::VMethod29	src/visual.cpp
+OK	4C2DBC	VisShopCompassDruid::VMethod30	src/visual.cpp
+OK	4C2F00	VisShopCompassDruid::VMethod33	src/visual.cpp
+OK	4C2F7D	VisShopCompassDruid::VMethod34	src/visual.cpp
+OK	4C2FFA	VisShopCompassDruid::VMethod35	src/visual.cpp
+OK	4C3051	VisShopCompassDruid::VMethod36	src/visual.cpp
+OK	4C30B4	VisShopCompassDruid::VMethod7	src/visual.cpp
+OK	4C34E6	VisShopCompassDruid::VMethod37	src/visual.cpp
+OK	4C359D	VisShopCompassDruid::OnLButtonDown	src/visual.cpp
+OK	4C3690	VisShopCompassDruid::GetHint	src/visual.cpp
+OK	4C6A30	VisShopCompassDruid::~VisShopCompassDruid	src/visual.cpp
 
 ## VisShopCompassKaarg (17)
 PENDING	4C4693	VisShopCompassKaarg::VisShopCompassKaarg	src/visual.cpp
