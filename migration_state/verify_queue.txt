@@ -2019,13 +2019,13 @@ OK	431B95	VisCharSellectList::OnKeyDown	src/visual.cpp
 OK	431C97	VisCharSellectList::UpdateArrows	src/visual.cpp
 
 ## VisCharSellectStats (7)
-PENDING	42F0EC	VisCharSellectStats::VisCharSellectStats	src/visual.cpp
-PENDING	42F1E8	VisCharSellectStats::Init	src/visual.cpp
-PENDING	42F4DF	VisCharSellectStats::LoadBitmaps	src/visual.cpp
-PENDING	42F61A	VisCharSellectStats::FreeBitmaps	src/visual.cpp
-PENDING	42F6F3	VisCharSellectStats::ReadUnitStats	src/visual.cpp
-PENDING	42F7B9	VisCharSellectStats::VMethod7	src/visual.cpp
-PENDING	42FC61	VisCharSellectStats::GetHint	src/visual.cpp
+OK	42F0EC	VisCharSellectStats::VisCharSellectStats	src/visual.cpp
+OK	42F1E8	VisCharSellectStats::Init	src/visual.cpp
+OK	42F4DF	VisCharSellectStats::LoadBitmaps	src/visual.cpp
+OK	42F61A	VisCharSellectStats::FreeBitmaps	src/visual.cpp
+OK	42F6F3	VisCharSellectStats::ReadUnitStats	src/visual.cpp
+OK	42F7B9	VisCharSellectStats::VMethod7	src/visual.cpp
+OK	42FC61	VisCharSellectStats::GetHint	src/visual.cpp
 
 ## VisComboBox (11)
 OK	4E201E	VisComboBox::VMethod9	src/visual.cpp
