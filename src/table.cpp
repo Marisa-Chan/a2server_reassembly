@@ -63,7 +63,7 @@ void TableLine::VMethod1(CString line, int32_t values_count, double* out_values)
         } else if (tab_index > 0) {
             CString token = line.Left(tab_index);
             int32_t* dst = &this->values[value_index - 1];
-            this->VMethod2(token, this->values[value_index - 1], dst, nullptr);
+            this->VMethod2(token, value_index, dst, nullptr);
         } else {
             this->values[value_index - 1] = -1;
         }
@@ -991,11 +991,18 @@ void GameDataRes::sub_514BE7() {
 }
 
 // 50a26b
+// The original returns an inverted convention (0 = ok, 1 = "not found"); the
+// migrated callers check !OpenText instead. It also consumes the first (header)
+// line via ReadString into a write-only global.
 int OpenText(const CString& path, CStdioFile& file) {
     BOOL success = file.Open(path, CFile::modeRead | CFile::typeText | CFile::shareDenyWrite);
     if (!success) {
         LogMessage("Error - file " + path + " not found");
+        return success;
     }
+
+    CString header_line;
+    file.ReadString(header_line);
     return success;
 }
 

@@ -1626,22 +1626,22 @@ OK	475010	StructEnter::FUN_00475010	src/gameobj.cpp
 OK	475080	StructEnter::FUN_00475080	src/gameobj.cpp
 
 ## table (globals) (2)
-PENDING	50A26B	OpenText	src/table.cpp
-PENDING	514085	sub_514085	src/table.cpp
+FIXED	50A26B	OpenText	src/table.cpp	original consumes the first (header) line via ReadString into write-only global 6cf388; return convention intentionally inverted in migration
+OK	514085	sub_514085	src/table.cpp
 
 ## TableLine (4)
-PENDING	512B33	TableLine::TableLine	src/table.cpp
-PENDING	512C4D	TableLine::VMethod1	src/table.cpp
-PENDING	5131C1	TableLine::VMethod2	src/table.cpp
-PENDING	513A4F	TableLine::Serialize	src/table.cpp
+OK	512B33	TableLine::TableLine	src/table.cpp
+FIXED	512C4D	TableLine::VMethod1	src/table.cpp	values branch must pass value_index as VMethod2 type_id (column selector for derived switches), not values[i-1]
+OK	5131C1	TableLine::VMethod2	src/table.cpp
+OK	513A4F	TableLine::Serialize	src/table.cpp
 
 ## TakeDamage (6)
-PENDING	45DB8A	TakeDamage::TakeDamage	src/ingame.cpp
-PENDING	45DD1B	TakeDamage::Update	src/ingame.cpp
-PENDING	45DD6D	TakeDamage::Draw	src/ingame.cpp
-PENDING	45DDF6	TakeDamage::DrawDamages	src/ingame.cpp
-PENDING	45DE65	TakeDamage::UpdateDamages	src/ingame.cpp
-PENDING	45DEA1	TakeDamage::AddDamage	src/ingame.cpp
+OK	45DB8A	TakeDamage::TakeDamage	src/ingame.cpp
+OK	45DD1B	TakeDamage::Update	src/ingame.cpp
+OK	45DD6D	TakeDamage::Draw	src/ingame.cpp	elapsed<=1000 == vanilla elapsed<1001
+OK	45DDF6	TakeDamage::DrawDamages	src/ingame.cpp
+OK	45DE65	TakeDamage::UpdateDamages	src/ingame.cpp
+OK	45DEA1	TakeDamage::AddDamage	src/ingame.cpp
 
 ## Token (14)
 OK	5280AD	Token::Token	src/token.cpp
