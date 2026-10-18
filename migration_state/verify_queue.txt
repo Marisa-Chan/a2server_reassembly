@@ -1711,12 +1711,12 @@ PENDING	5AFC1D	TriggerCheck::TriggerCheck	src/logic.cpp
 PENDING	5AFC6F	TriggerCheck::operator=	src/logic.cpp
 
 ## TxtFile (6)
-PENDING	43CCD0	TxtFile::~TxtFile	src/txtfile.cpp
-PENDING	43CD30	TxtFile::GetCount	src/txtfile.cpp
-PENDING	475C6C	TxtFile::TxtFile	src/txtfile.cpp
-PENDING	475CA9	TxtFile::LoadChunkFile	src/txtfile.cpp
-PENDING	475DE9	TxtFile::Free	src/txtfile.cpp
-PENDING	475E57	TxtFile::GetLine	src/txtfile.cpp
+OK	43CCD0	TxtFile::~TxtFile	src/txtfile.cpp
+OK	43CD30	TxtFile::GetCount	src/txtfile.cpp
+OK	475C6C	TxtFile::TxtFile	src/txtfile.cpp
+OK	475CA9	TxtFile::LoadChunkFile	src/txtfile.cpp
+OK	475DE9	TxtFile::Free	src/txtfile.cpp
+OK	475E57	TxtFile::GetLine	src/txtfile.cpp
 
 ## Unit (40)
 OK	528725	Unit::sub_528725	src/unit.cpp
