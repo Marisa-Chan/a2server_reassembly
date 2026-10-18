@@ -2041,17 +2041,17 @@ OK	4E2422	VisComboBox::OnKeyDown	src/visual.cpp
 OK	4E2481	VisComboBox::VMethod8	src/visual.cpp
 
 ## VisComboBoxButton (5)
-PENDING	4E1C16	VisComboBoxButton::OnLButtonUp	src/visual.cpp
-PENDING	4E1CB6	VisComboBoxButton::SetCursorOver	src/visual.cpp
-PENDING	4E1D3B	VisComboBoxButton::OnLButtonDown	src/visual.cpp
-PENDING	4E1D5C	VisComboBoxButton::OnMouseMove	src/visual.cpp
-PENDING	4E1D7D	VisComboBoxButton::VMethod7	src/visual.cpp
+OK	4E1C16	VisComboBoxButton::OnLButtonUp	src/visual.cpp
+FIXED	4E1CB6	VisComboBoxButton::SetCursorOver	src/visual.cpp	else-branch tests FLAG_OVERCURSOR on parent, not this (disasm [this+0x30]->vtable+0x20)
+OK	4E1D3B	VisComboBoxButton::OnLButtonDown	src/visual.cpp
+OK	4E1D5C	VisComboBoxButton::OnMouseMove	src/visual.cpp
+OK	4E1D7D	VisComboBoxButton::VMethod7	src/visual.cpp
 
 ## VisComboBoxList (1)
-PENDING	4E4090	VisComboBoxList::OnKeyDown	src/visual.cpp
+OK	4E4090	VisComboBoxList::OnKeyDown	src/visual.cpp
 
 ## VisComboBoxText (1)
-PENDING	4E4170	VisComboBoxText::VMethod7	src/visual.cpp
+OK	4E4170	VisComboBoxText::VMethod7	src/visual.cpp
 
 ## VisConnectionDlg (4)
 PENDING	445E52	VisConnectionDlg::VisConnectionDlg	src/visual.cpp
@@ -3036,10 +3036,10 @@ OK	4DDE6A	CVisualObject	src/visual.cpp
 OK	4DF23D	CVisualObject	src/visual.cpp
 OK	4DF286	CVisualObject	src/visual.cpp
 PENDING	4DFDAB	VisScreen	src/visual.cpp
-PENDING	4E1B5C	VisButton	src/visual.cpp
+OK	4E1B5C	VisButton	src/visual.cpp
 OK	4E1E10	CVisualObject	src/visual.cpp
-PENDING	4E4040	VisListBox	src/visual.cpp
-PENDING	4E4120	VisTextBox	src/visual.cpp
+OK	4E4040	VisListBox	src/visual.cpp
+OK	4E4120	VisTextBox	src/visual.cpp
 
 ## VisWindow (2)
 PENDING	4DFE19	VisWindow::UpdateWinRect	src/visual.cpp

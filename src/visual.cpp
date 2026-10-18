@@ -3092,7 +3092,7 @@ void VisComboBoxButton::SetCursorOver(bool isOver)
             parent->SetCursorOver(true);
         }
     } else {
-        if (TestFlags(FLAG_OVERCURSOR) && ((VisComboBox*)parent)->list_showed == 0) {
+        if (parent->TestFlags(FLAG_OVERCURSOR) && ((VisComboBox*)parent)->list_showed == 0) {
             parent->SetCursorOver(false);
         }
     }
