@@ -1526,16 +1526,16 @@ PENDING	54EDE9	sub_54EDE9	src/shop_assortment.cpp
 PENDING	54F04F	sub_54F04F	src/shop_assortment.cpp
 
 ## ShopAssortment (10)
-PENDING	54A13B	ShopAssortment::ShopAssortment	src/shop_assortment.cpp
-PENDING	54A2DD	ShopAssortment::~ShopAssortment	src/shop_assortment.cpp
-PENDING	54A420	ShopAssortment::sub_54A420	src/shop_assortment.cpp
-PENDING	54ACCB	ShopAssortment::sub_54ACCB	src/shop_assortment.cpp
-PENDING	54AF21	ShopAssortment::sub_54AF21	src/shop_assortment.cpp
-PENDING	54BC09	ShopAssortment::sub_54BC09	src/shop_assortment.cpp
-PENDING	54BF6B	ShopAssortment::GenerateAssortment	src/shop_assortment.cpp
-PENDING	54C08A	ShopAssortment::sub_54C08A	src/shop_assortment.cpp
-PENDING	54D423	ShopAssortment::ArrangeShelfs	src/shop_assortment.cpp
-PENDING	54EA76	ShopAssortment::sub_54EA76	src/shop_assortment.cpp
+OK	54A13B	ShopAssortment::ShopAssortment	src/shop_assortment.cpp
+OK	54A2DD	ShopAssortment::~ShopAssortment	src/shop_assortment.cpp
+OK	54A420	ShopAssortment::sub_54A420	src/shop_assortment.cpp
+OK	54ACCB	ShopAssortment::sub_54ACCB	src/shop_assortment.cpp
+OK	54AF21	ShopAssortment::sub_54AF21	src/shop_assortment.cpp
+OK	54BC09	ShopAssortment::sub_54BC09	src/shop_assortment.cpp
+OK	54BF6B	ShopAssortment::GenerateAssortment	src/shop_assortment.cpp
+OK	54C08A	ShopAssortment::sub_54C08A	src/shop_assortment.cpp
+OK	54D423	ShopAssortment::ArrangeShelfs	src/shop_assortment.cpp
+OK	54EA76	ShopAssortment::sub_54EA76	src/shop_assortment.cpp
 
 ## sound (globals) (4)
 PENDING	438DD0	FUN_00438dd0	src/sound.cpp
