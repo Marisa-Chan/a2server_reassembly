@@ -2504,10 +2504,10 @@ OK	4B1468	VisOrderToolbar::UpdateCursor	src/visual.cpp
 OK	4B4790	VisOrderToolbar::~VisOrderToolbar	src/visual.cpp
 
 ## VisQuestStatus (4)
-PENDING	4E2E3D	VisQuestStatus::VisQuestStatus	src/visual.cpp
-PENDING	4E2EF4	VisQuestStatus::~VisQuestStatus	src/visual.cpp
-PENDING	4E2F76	VisQuestStatus::VMethod7	src/visual.cpp
-PENDING	4E4530	VisQuestStatus::MsgProc	src/visual.cpp
+OK	4E2E3D	VisQuestStatus::VisQuestStatus	src/visual.cpp
+OK	4E2EF4	VisQuestStatus::~VisQuestStatus	src/visual.cpp
+OK	4E2F76	VisQuestStatus::VMethod7	src/visual.cpp
+OK	4E4530	VisQuestStatus::MsgProc	src/visual.cpp
 
 ## VisRadioBase (7)
 OK	450470	VisRadioBase::AddEntry	src/visual.cpp
@@ -2528,17 +2528,17 @@ OK	4DB20D	VisRadioType1::OnChar	src/visual.cpp
 OK	4DB2D3	VisRadioType1::OnKeyDown	src/visual.cpp
 
 ## VisRadioType2 (5)
-PENDING	4DB680	VisRadioType2::VMethod7	src/visual.cpp
-PENDING	4DB8E7	VisRadioType2::OnLButtonDown	src/visual.cpp
-PENDING	4DB993	VisRadioType2::OnChar	src/visual.cpp
-PENDING	4DBA0E	VisRadioType2::OnKeyDown	src/visual.cpp
-PENDING	4DBB7B	VisRadioType2::OnMouseMove	src/visual.cpp
+OK	4DB680	VisRadioType2::VMethod7	src/visual.cpp
+OK	4DB8E7	VisRadioType2::OnLButtonDown	src/visual.cpp
+OK	4DB993	VisRadioType2::OnChar	src/visual.cpp
+OK	4DBA0E	VisRadioType2::OnKeyDown	src/visual.cpp
+OK	4DBB7B	VisRadioType2::OnMouseMove	src/visual.cpp
 
 ## VisRightPanel (4)
-PENDING	4AEDCF	VisRightPanel::VisRightPanel	src/visual.cpp
-PENDING	4AEE31	VisRightPanel::VMethod7	src/visual.cpp
-PENDING	4AEE44	VisRightPanel::MsgProc	src/visual.cpp
-PENDING	4B46E0	VisRightPanel::~VisRightPanel	src/visual.cpp
+OK	4AEDCF	VisRightPanel::VisRightPanel	src/visual.cpp
+OK	4AEE31	VisRightPanel::VMethod7	src/visual.cpp
+OK	4AEE44	VisRightPanel::MsgProc	src/visual.cpp
+OK	4B46E0	VisRightPanel::~VisRightPanel	src/visual.cpp
 
 ## VisRoleKeyScreen (8)
 OK	4DFF5C	VisRoleKeyScreen::VisRoleKeyScreen	src/visual.cpp
@@ -2594,9 +2594,9 @@ OK	44E6DE	VisServerScreen::OnKeyDown	src/visual.cpp
 OK	44E7C8	VisServerScreen::MsgProc	src/visual.cpp
 
 ## VisServerScreenRadio (3)
-PENDING	450920	VisServerScreenRadio::VisServerScreenRadio	src/visual.cpp
-PENDING	4DB3AD	VisServerScreenRadio::VMethod7	src/visual.cpp
-PENDING	4DB615	VisServerScreenRadio::GetIndex	src/visual.cpp
+OK	450920	VisServerScreenRadio::VisServerScreenRadio	src/visual.cpp
+OK	4DB3AD	VisServerScreenRadio::VMethod7	src/visual.cpp
+OK	4DB615	VisServerScreenRadio::GetIndex	src/visual.cpp
 
 ## VisShop (31)
 OK	4BA342	VisShop::VisShop	src/visual.cpp
