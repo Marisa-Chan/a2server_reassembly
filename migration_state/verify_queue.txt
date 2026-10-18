@@ -1798,14 +1798,14 @@ OK	558EF8	UnitList::Serialize	src/unit_list.cpp
 OK	5591DA	UnitList::CallMethod5	src/unit_list.cpp
 
 ## UnitToHit (8)
-PENDING	533C5C	UnitToHit::UnitToHit	src/unit_to_hit.cpp
-PENDING	533C72	UnitToHit::Clear	src/unit_to_hit.cpp
-PENDING	533D0D	UnitToHit::UnitToHit	src/unit_to_hit.cpp
-PENDING	533D2C	UnitToHit::operator+=	src/unit_to_hit.cpp
-PENDING	533E02	UnitToHit::operator=	src/unit_to_hit.cpp
-PENDING	533EA3	UnitToHit::AddHits	src/unit_to_hit.cpp
-PENDING	533F3A	UnitToHit::operator-=	src/unit_to_hit.cpp
-PENDING	534021	UnitToHit::Serialize	src/unit_to_hit.cpp
+OK	533C5C	UnitToHit::UnitToHit	src/unit_to_hit.cpp
+OK	533C72	UnitToHit::Clear	src/unit_to_hit.cpp
+OK	533D0D	UnitToHit::UnitToHit	src/unit_to_hit.cpp
+OK	533D2C	UnitToHit::operator+=	src/unit_to_hit.cpp
+OK	533E02	UnitToHit::operator=	src/unit_to_hit.cpp
+OK	533EA3	UnitToHit::AddHits	src/unit_to_hit.cpp
+OK	533F3A	UnitToHit::operator-=	src/unit_to_hit.cpp
+OK	534021	UnitToHit::Serialize	src/unit_to_hit.cpp
 
 ## util (globals) (6)
 PENDING	45E181	DecodeChar	src/util.cpp
