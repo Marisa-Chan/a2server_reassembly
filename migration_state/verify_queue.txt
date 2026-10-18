@@ -1062,15 +1062,15 @@ FIXED	51F561	NetStru1::OnClientDisconnect	src/net.cpp	missing delete pl after Pl
 OK	51FC72	NetStru1::OnClientConnect	src/net.cpp
 
 ## NetStru2 (9)
-PENDING	515831	NetStru2::NetStru2	src/net.cpp
-PENDING	515C27	NetStru2::~NetStru2	src/net.cpp
-PENDING	515D9D	NetStru2::ReturnBuffers	src/net.cpp
-PENDING	515EF3	NetStru2::WriteData	src/net.cpp
-PENDING	515F9C	NetStru2::ReadData	src/net.cpp
-PENDING	5161BF	NetStru2::ReceiveData	src/net.cpp
-PENDING	5167A5	NetStru2::sub_5167A5	src/net.cpp
-PENDING	51682D	NetStru2::SetDrivers	src/net.cpp
-PENDING	518408	NetStru2::SendData	src/net.cpp
+OK	515831	NetStru2::NetStru2	src/net.cpp
+OK	515C27	NetStru2::~NetStru2	src/net.cpp
+OK	515D9D	NetStru2::ReturnBuffers	src/net.cpp
+OK	515EF3	NetStru2::WriteData	src/net.cpp
+OK	515F9C	NetStru2::ReadData	src/net.cpp
+OK	5161BF	NetStru2::ReceiveData	src/net.cpp
+OK	5167A5	NetStru2::sub_5167A5	src/net.cpp
+OK	51682D	NetStru2::SetDrivers	src/net.cpp
+OK	518408	NetStru2::SendData	src/net.cpp
 
 ## NetStru3 (6)
 PENDING	5155C0	NetStru3::NetStru3	src/net.cpp
