@@ -483,7 +483,7 @@ void MapStuff::sub_59028D(Unit* unit, Unit* target, uint8_t max_range) {
         return;
     }
 
-    if (unit->list2.IsEmpty() || unit->eye->counter > this->dynamic_by_static_lookup) {
+    if (unit->list2.IsEmpty() || unit->eye->counter > this->dynamic_refresh_rate) {
         if (unit->eye->field0_0x0 == unit->eye->field1_0x1) {
             this->sub_590902(unit, target);
             unit->eye->field137_0x94 = target_yx;
