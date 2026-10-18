@@ -1644,20 +1644,20 @@ PENDING	45DE65	TakeDamage::UpdateDamages	src/ingame.cpp
 PENDING	45DEA1	TakeDamage::AddDamage	src/ingame.cpp
 
 ## Token (14)
-PENDING	5280AD	Token::Token	src/token.cpp
-PENDING	5281AF	Token::Token	src/token.cpp
-PENDING	5282AF	Token::Token	src/token.cpp
-PENDING	5283D6	Token::~Token	src/token.cpp
-PENDING	5285C6	Token::Token	src/token.cpp
-PENDING	52871A	Token::VMethod2	src/token.cpp
-PENDING	55AF48	Token::VMethod5	src/token.cpp
-PENDING	57B290	Token::VMethod1	src/token.cpp
-PENDING	57B2A0	Token::VMethod3	src/token.cpp
-PENDING	57B2B0	Token::VMethod4	src/token.cpp
-PENDING	57B2C0	Token::VMethod6	src/token.cpp
-PENDING	57B2D0	Token::VMethod7	src/token.cpp
-PENDING	57B2E0	Token::VMethod8	src/token.cpp
-PENDING	57B2F0	Token::VMethod9	src/token.cpp
+OK	5280AD	Token::Token	src/token.cpp
+OK	5281AF	Token::Token	src/token.cpp
+OK	5282AF	Token::Token	src/token.cpp
+OK	5283D6	Token::~Token	src/token.cpp
+OK	5285C6	Token::Token	src/token.cpp
+OK	52871A	Token::VMethod2	src/token.cpp
+OK	55AF48	Token::VMethod5	src/token.cpp
+OK	57B290	Token::VMethod1	src/token.cpp
+OK	57B2A0	Token::VMethod3	src/token.cpp
+OK	57B2B0	Token::VMethod4	src/token.cpp
+OK	57B2C0	Token::VMethod6	src/token.cpp
+OK	57B2D0	Token::VMethod7	src/token.cpp
+OK	57B2E0	Token::VMethod8	src/token.cpp
+OK	57B2F0	Token::VMethod9	src/token.cpp
 
 ## TokenEntry (3)
 PENDING	439102	TokenEntry::TokenEntry	src/gameobj.cpp
