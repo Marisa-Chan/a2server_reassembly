@@ -1502,21 +1502,21 @@ PENDING	55AF5E	Shield::Serialize	src/item.cpp
 PENDING	57D660	Shield::VMethod13	src/item.cpp
 
 ## Shop (15)
-PENDING	5442CA	Shop::Shop	src/shop.cpp
-PENDING	5443EF	Shop::Shop	src/shop.cpp
-PENDING	544495	Shop::Shop	src/shop.cpp
-PENDING	544564	Shop::~Shop	src/shop.cpp
-PENDING	544629	Shop::VMethod1	src/shop.cpp
-PENDING	54463F	Shop::sub_54463F	src/shop.cpp
-PENDING	544655	Shop::sub_544655	src/shop.cpp
-PENDING	544685	Shop::sub_544685	src/shop.cpp
-PENDING	5446C7	Shop::sub_5446C7	src/shop.cpp
-PENDING	5446EB	Shop::sub_5446EB	src/shop.cpp
-PENDING	54471B	Shop::sub_54471B	src/shop.cpp
-PENDING	544737	Shop::sub_544737	src/shop.cpp
-PENDING	544777	Shop::sub_544777	src/shop.cpp
-PENDING	544793	Shop::sub_544793	src/shop.cpp
-PENDING	5447B7	Shop::Serialize	src/shop.cpp
+OK	5442CA	Shop::Shop	src/shop.cpp
+OK	5443EF	Shop::Shop	src/shop.cpp
+OK	544495	Shop::Shop	src/shop.cpp
+OK	544564	Shop::~Shop	src/shop.cpp
+OK	544629	Shop::VMethod1	src/shop.cpp
+OK	54463F	Shop::sub_54463F	src/shop.cpp
+OK	544655	Shop::sub_544655	src/shop.cpp
+OK	544685	Shop::sub_544685	src/shop.cpp
+OK	5446C7	Shop::sub_5446C7	src/shop.cpp
+OK	5446EB	Shop::sub_5446EB	src/shop.cpp
+OK	54471B	Shop::sub_54471B	src/shop.cpp
+OK	544737	Shop::sub_544737	src/shop.cpp
+OK	544777	Shop::sub_544777	src/shop.cpp
+OK	544793	Shop::sub_544793	src/shop.cpp
+OK	5447B7	Shop::Serialize	src/shop.cpp
 
 ## shop_assortment (globals) (5)
 PENDING	54C42A	sub_54C42A	src/shop_assortment.cpp
