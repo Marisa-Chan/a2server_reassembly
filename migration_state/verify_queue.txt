@@ -1733,10 +1733,10 @@ OK	52A790	Unit::sub_52A790	src/unit.cpp
 OK	52A857	Unit::VMethod2	src/unit.cpp
 OK	52BABD	Unit::sub_52BABD	src/unit.cpp
 OK	52BAD9	Unit::VMethod1	src/unit.cpp
-PENDING	52BDD7	Unit::sub_52BDD7	src/unit.cpp
-PENDING	52BF3D	Unit::sub_52BF3D	src/unit.cpp
+OK	52BDD7	Unit::sub_52BDD7	src/unit.cpp
+OK	52BF3D	Unit::sub_52BF3D	src/unit.cpp
 OK	52C163	Unit::sub_52C163	src/unit.cpp
-PENDING	52C36D	Unit::sub_52C36D	src/unit.cpp
+OK	52C36D	Unit::sub_52C36D	src/unit.cpp
 OK	52C409	Unit::sub_52C409	src/unit.cpp
 OK	52C4DF	Unit::sub_52C4DF	src/unit.cpp
 OK	52C58F	Unit::sub_52C58F	src/unit.cpp
