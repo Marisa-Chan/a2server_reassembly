@@ -2271,11 +2271,11 @@ OK	4B9E70	VisInvExtType1::VMethod38	src/visual.cpp
 
 ## VisInvExtType1Druid (2)
 OK	4B69EE	VisInvExtType1Druid::VMethod41	src/visual.cpp
-PENDING	4C6C40	VisInvExtType1Druid::VisInvExtType1Druid	src/visual.cpp
+OK	4C6C40	VisInvExtType1Druid::VisInvExtType1Druid	src/visual.cpp
 
 ## VisInvExtType1Kaarg (2)
-PENDING	4B6815	VisInvExtType1Kaarg::VMethod41	src/visual.cpp
-PENDING	4C6CD0	VisInvExtType1Kaarg::VisInvExtType1Kaarg	src/visual.cpp
+OK	4B6815	VisInvExtType1Kaarg::VMethod41	src/visual.cpp
+OK	4C6CD0	VisInvExtType1Kaarg::VisInvExtType1Kaarg	src/visual.cpp
 
 ## VisInvExtType2 (16)
 PENDING	4B7FE5	VisInvExtType2::VisInvExtType2	src/visual.cpp
