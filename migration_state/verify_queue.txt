@@ -1549,14 +1549,14 @@ PENDING	477860	SoundSettings::SoundSettings	src/sound.cpp
 PENDING	477920	SoundSettings::~SoundSettings	src/sound.cpp
 
 ## Spell (8)
-PENDING	53939E	Spell::sub_53939E	src/spell.cpp
-PENDING	5393C7	Spell::sub_5393C7	src/spell.cpp
-PENDING	53940D	Spell::sub_53940D	src/spell.cpp
-PENDING	539541	Spell::sub_539541	src/spell.cpp
-PENDING	539958	Spell::sub_539958	src/spell.cpp
-PENDING	539C49	Spell::sub_539C49	src/spell.cpp
-PENDING	539F21	Spell::sub_539F21	src/spell.cpp
-PENDING	539F5A	Spell::sub_539F5A	src/spell.cpp
+OK	53939E	Spell::sub_53939E	src/spell.cpp
+OK	5393C7	Spell::sub_5393C7	src/spell.cpp
+OK	53940D	Spell::sub_53940D	src/spell.cpp
+OK	539541	Spell::sub_539541	src/spell.cpp
+OK	539958	Spell::sub_539958	src/spell.cpp
+OK	539C49	Spell::sub_539C49	src/spell.cpp
+OK	539F21	Spell::sub_539F21	src/spell.cpp
+OK	539F5A	Spell::sub_539F5A	src/spell.cpp
 
 ## spell_effect (globals) (1)
 PENDING	5365AB	sub_5365AB	src/spell_effect.cpp
