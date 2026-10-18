@@ -1370,15 +1370,15 @@ OK	4E6763	Resources::FUN_004e6763	src/resource.cpp
 OK	4E6DE0	Resources::GetPathType	src/resource.cpp
 
 ## Sack (9)
-PENDING	553D5D	Sack::Sack	src/sack.cpp
-PENDING	553DF1	Sack::Sack	src/sack.cpp
-PENDING	553E8B	Sack::Sack	src/sack.cpp
-PENDING	553EEE	Sack::Init	src/sack.cpp
-PENDING	553F6A	Sack::~Sack	src/sack.cpp
-PENDING	55401E	Sack::sub_55401E	src/sack.cpp
-PENDING	55C889	Sack::Serialize	src/sack.cpp
-PENDING	57DD30	Sack::VMethod1	src/sack.cpp
-PENDING	57DD40	Sack::VMethod2	src/sack.cpp
+OK	553D5D	Sack::Sack	src/sack.cpp
+OK	553DF1	Sack::Sack	src/sack.cpp
+OK	553E8B	Sack::Sack	src/sack.cpp
+OK	553EEE	Sack::Init	src/sack.cpp
+OK	553F6A	Sack::~Sack	src/sack.cpp
+OK	55401E	Sack::sub_55401E	src/sack.cpp
+OK	55C889	Sack::Serialize	src/sack.cpp
+OK	57DD30	Sack::VMethod1	src/sack.cpp
+OK	57DD40	Sack::VMethod2	src/sack.cpp
 
 ## SackList (6)
 PENDING	5540ED	SackList::FUN_005540ed	src/server.cpp
