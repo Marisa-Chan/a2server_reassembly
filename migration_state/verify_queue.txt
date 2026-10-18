@@ -2568,22 +2568,22 @@ PENDING	4DFC43	VisScreen::OnKeyDown	src/visual.cpp
 PENDING	4DFEE7	VisScreen::OnLButtonDown	src/visual.cpp
 
 ## VisScrollBar (16)
-PENDING	4DDACF	VisScrollBar::UpdateRects	src/visual.cpp
-PENDING	4DDC41	VisScrollBar::UpdateHBoxes	src/visual.cpp
-PENDING	4DDDBE	VisScrollBar::GetValHPos	src/visual.cpp
-PENDING	4DE086	VisScrollBar::SetPos	src/visual.cpp
-PENDING	4DE0D0	VisScrollBar::VMethod9	src/visual.cpp
-PENDING	4DE6DF	VisScrollBar::SetCursorOver	src/visual.cpp
-PENDING	4DE701	VisScrollBar::OnLButtonDown	src/visual.cpp
-PENDING	4DEB32	VisScrollBar::OnMouseMove	src/visual.cpp
-PENDING	4DEEBD	VisScrollBar::OnWmUser	src/visual.cpp
-PENDING	4DEFC7	VisScrollBar::OnLButtonUp	src/visual.cpp
-PENDING	4DF055	VisScrollBar::MsgProc	src/visual.cpp
-PENDING	4DF087	VisScrollBar::OnKeyDown	src/visual.cpp
-PENDING	4E3D90	VisScrollBar::WriteData	src/visual.cpp
-PENDING	4E3DC0	VisScrollBar::ReadData	src/visual.cpp
-PENDING	4E3DF0	VisScrollBar::OnLButtonDblClk	src/visual.cpp
-PENDING	4E3E80	VisScrollBar::~VisScrollBar	src/visual.cpp
+OK	4DDACF	VisScrollBar::UpdateRects	src/visual.cpp
+OK	4DDC41	VisScrollBar::UpdateHBoxes	src/visual.cpp
+OK	4DDDBE	VisScrollBar::GetValHPos	src/visual.cpp
+OK	4DE086	VisScrollBar::SetPos	src/visual.cpp
+OK	4DE0D0	VisScrollBar::VMethod9	src/visual.cpp
+OK	4DE6DF	VisScrollBar::SetCursorOver	src/visual.cpp
+OK	4DE701	VisScrollBar::OnLButtonDown	src/visual.cpp
+OK	4DEB32	VisScrollBar::OnMouseMove	src/visual.cpp
+OK	4DEEBD	VisScrollBar::OnWmUser	src/visual.cpp
+OK	4DEFC7	VisScrollBar::OnLButtonUp	src/visual.cpp
+OK	4DF055	VisScrollBar::MsgProc	src/visual.cpp
+OK	4DF087	VisScrollBar::OnKeyDown	src/visual.cpp
+OK	4E3D90	VisScrollBar::WriteData	src/visual.cpp
+OK	4E3DC0	VisScrollBar::ReadData	src/visual.cpp
+OK	4E3DF0	VisScrollBar::OnLButtonDblClk	src/visual.cpp
+OK	4E3E80	VisScrollBar::~VisScrollBar	src/visual.cpp
 
 ## VisServerScreen (6)
 PENDING	44D909	VisServerScreen::VMethod26	src/visual.cpp
