@@ -1625,8 +1625,7 @@ OK	474FF0	StructEnter::FUN_00474ff0	src/gameobj.cpp
 OK	475010	StructEnter::FUN_00475010	src/gameobj.cpp
 OK	475080	StructEnter::FUN_00475080	src/gameobj.cpp
 
-## table (globals) (2)
-FIXED	50A26B	OpenText	src/table.cpp	original consumes the first (header) line via ReadString into write-only global 6cf388; return convention intentionally inverted in migration
+## table (globals) (1)
 OK	514085	sub_514085	src/table.cpp
 
 ## TableLine (4)
