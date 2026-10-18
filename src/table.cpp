@@ -990,10 +990,10 @@ void GameDataRes::sub_514BE7() {
     }
 }
 
-// 50a26b
 // The original returns an inverted convention (0 = ok, 1 = "not found"); the
 // migrated callers check !OpenText instead. It also consumes the first (header)
-// line via ReadString into a write-only global.
+// line via ReadString into a write-only global (DAT_006cf388 family), now a local.
+// 50a26b
 int OpenText(const CString& path, CStdioFile& file) {
     BOOL success = file.Open(path, CFile::modeRead | CFile::typeText | CFile::shareDenyWrite);
     if (!success) {
