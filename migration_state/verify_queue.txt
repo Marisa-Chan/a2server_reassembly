@@ -1291,18 +1291,18 @@ OK	55EE42	QuestMap::FUN_0055ee42	src/quest_map.cpp
 OK	55F441	QuestMap::sub_55F441	src/quest_map.cpp
 
 ## QuestRaiseGhosts (5)
-PENDING	56027D	QuestRaiseGhosts::VMethod1	src/quest.cpp
-PENDING	581B00	QuestRaiseGhosts::Kind	src/quest.cpp
-PENDING	581B10	QuestRaiseGhosts::Something2	src/quest.cpp
-PENDING	581B20	QuestRaiseGhosts::Something3	src/quest.cpp
-PENDING	581B70	QuestRaiseGhosts::~QuestRaiseGhosts	src/quest.cpp
+OK	56027D	QuestRaiseGhosts::VMethod1	src/quest.cpp
+OK	581B00	QuestRaiseGhosts::Kind	src/quest.cpp
+OK	581B10	QuestRaiseGhosts::Something2	src/quest.cpp
+OK	581B20	QuestRaiseGhosts::Something3	src/quest.cpp
+OK	581B70	QuestRaiseGhosts::~QuestRaiseGhosts	src/quest.cpp
 
 ## QuestRaiseSkeletons (5)
-PENDING	5601C7	QuestRaiseSkeletons::VMethod1	src/quest.cpp
-PENDING	581A70	QuestRaiseSkeletons::Kind	src/quest.cpp
-PENDING	581A80	QuestRaiseSkeletons::Something2	src/quest.cpp
-PENDING	581A90	QuestRaiseSkeletons::Something3	src/quest.cpp
-PENDING	581AE0	QuestRaiseSkeletons::~QuestRaiseSkeletons	src/quest.cpp
+OK	5601C7	QuestRaiseSkeletons::VMethod1	src/quest.cpp
+OK	581A70	QuestRaiseSkeletons::Kind	src/quest.cpp
+OK	581A80	QuestRaiseSkeletons::Something2	src/quest.cpp
+OK	581A90	QuestRaiseSkeletons::Something3	src/quest.cpp
+OK	581AE0	QuestRaiseSkeletons::~QuestRaiseSkeletons	src/quest.cpp
 
 ## QuestRaiseZombies (5)
 PENDING	560111	QuestRaiseZombies::VMethod1	src/quest.cpp
