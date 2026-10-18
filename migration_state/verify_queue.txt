@@ -1215,18 +1215,18 @@ OK	5817C0	QuestDeliverItem::Something3	src/quest.cpp
 OK	581810	QuestDeliverItem::~QuestDeliverItem	src/quest.cpp
 
 ## QuestDeliverMail (5)
-PENDING	55FB32	QuestDeliverMail::VMethod1	src/quest.cpp
-PENDING	581830	QuestDeliverMail::Kind	src/quest.cpp
-PENDING	581840	QuestDeliverMail::Something2	src/quest.cpp
-PENDING	581850	QuestDeliverMail::Something3	src/quest.cpp
-PENDING	5818A0	QuestDeliverMail::~QuestDeliverMail	src/quest.cpp
+OK	55FB32	QuestDeliverMail::VMethod1	src/quest.cpp
+OK	581830	QuestDeliverMail::Kind	src/quest.cpp
+OK	581840	QuestDeliverMail::Something2	src/quest.cpp
+OK	581850	QuestDeliverMail::Something3	src/quest.cpp
+OK	5818A0	QuestDeliverMail::~QuestDeliverMail	src/quest.cpp
 
 ## QuestEscort (5)
-PENDING	55F944	QuestEscort::VMethod1	src/quest.cpp
-PENDING	581710	QuestEscort::Kind	src/quest.cpp
-PENDING	581720	QuestEscort::Something2	src/quest.cpp
-PENDING	581730	QuestEscort::Something3	src/quest.cpp
-PENDING	581780	QuestEscort::~QuestEscort	src/quest.cpp
+OK	55F944	QuestEscort::VMethod1	src/quest.cpp
+OK	581710	QuestEscort::Kind	src/quest.cpp
+OK	581720	QuestEscort::Something2	src/quest.cpp
+OK	581730	QuestEscort::Something3	src/quest.cpp
+OK	581780	QuestEscort::~QuestEscort	src/quest.cpp
 
 ## QuestInnGlue (10)
 OK	55F589	QuestInnGlue::VMethod1	src/quest_glue.cpp
@@ -1237,7 +1237,7 @@ OK	5BABAA	QuestInnGlue::VMethod4	src/quest_glue.cpp
 OK	5BACFF	QuestInnGlue::VMethod5	src/quest_glue.cpp
 OK	5BAF04	QuestInnGlue::VMethod6	src/quest_glue.cpp
 OK	5BB10A	QuestInnGlue::VMethod7	src/quest_glue.cpp
-PENDING	5BB310	QuestInnGlue::VMethod8	src/quest_glue.cpp
+OK	5BB310	QuestInnGlue::VMethod8	src/quest_glue.cpp
 OK	5BB32B	QuestInnGlue::VMethod9	src/quest_glue.cpp
 
 ## QuestInterceptGroup (5)
