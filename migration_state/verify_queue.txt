@@ -1157,19 +1157,19 @@ PENDING	4F53EA	WritePlayerFile_4F53EA	src/player_file.cpp
 PENDING	4F62E6	ParsePlayerFile_4F62E6	src/player_file.cpp
 
 ## PlayersList (13)
-PENDING	534DDD	PlayersList::sub_534DDD	src/players_list.cpp
-PENDING	5357C6	PlayersList::sub_5357C6	src/players_list.cpp
-PENDING	535B50	PlayersList::sub_535B50	src/players_list.cpp
-PENDING	535C46	PlayersList::sub_535C46	src/players_list.cpp
-PENDING	535D39	PlayersList::sub_535D39	src/players_list.cpp
-PENDING	535E94	PlayersList::sub_535E94	src/players_list.cpp
-PENDING	535F97	PlayersList::sub_535F97	src/players_list.cpp
-PENDING	536092	PlayersList::CountCD	src/players_list.cpp
-PENDING	53618F	PlayersList::CountHumanPlayers	src/players_list.cpp
-PENDING	536286	PlayersList::sub_536286	src/players_list.cpp
-PENDING	53636E	PlayersList::sub_53636E	src/players_list.cpp
-PENDING	55AFB3	PlayersList::sub_55AFB3	src/players_list.cpp
-PENDING	5B70F0	PlayersList::GetHead	src/players_list.cpp
+OK	534DDD	PlayersList::sub_534DDD	src/players_list.cpp
+OK	5357C6	PlayersList::sub_5357C6	src/players_list.cpp
+OK	535B50	PlayersList::sub_535B50	src/players_list.cpp
+OK	535C46	PlayersList::sub_535C46	src/players_list.cpp
+OK	535D39	PlayersList::sub_535D39	src/players_list.cpp
+OK	535E94	PlayersList::sub_535E94	src/players_list.cpp
+OK	535F97	PlayersList::sub_535F97	src/players_list.cpp
+OK	536092	PlayersList::CountCD	src/players_list.cpp
+OK	53618F	PlayersList::CountHumanPlayers	src/players_list.cpp
+OK	536286	PlayersList::sub_536286	src/players_list.cpp
+OK	53636E	PlayersList::sub_53636E	src/players_list.cpp
+OK	55AFB3	PlayersList::sub_55AFB3	src/players_list.cpp
+OK	5B70F0	PlayersList::GetHead	src/players_list.cpp
 
 ## PointEffect (7)
 OK	5374FC	PointEffect::PointEffect	src/spell_effect.cpp
