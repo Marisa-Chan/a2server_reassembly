@@ -1821,18 +1821,18 @@ PENDING	528993	VirtualCaster::~VirtualCaster	src/virtual_caster.cpp
 PENDING	55D009	VirtualCaster::Serialize	src/virtual_caster.cpp
 
 ## Vis1200 (12)
-PENDING	43BB70	Vis1200::Vis1200	src/visual.cpp
-PENDING	43BC3C	Vis1200::VMethod26	src/visual.cpp
-PENDING	43BD2E	Vis1200::VMethod28	src/visual.cpp
-PENDING	43BD96	Vis1200::DoClose	src/visual.cpp
-PENDING	43BDCB	Vis1200::MsgProc	src/visual.cpp
-PENDING	43BDEC	Vis1200::OnKeyDown	src/visual.cpp
-PENDING	43BE73	Vis1200::VMethod8	src/visual.cpp
-PENDING	43BE80	Vis1200::VMethod7	src/visual.cpp
-PENDING	43BE9F	Vis1200::FUN_0043be9f	src/visual.cpp
-PENDING	43C000	Vis1200::~Vis1200	src/visual.cpp
-PENDING	4972D0	Vis1200::FUN_004972d0	src/visual.cpp
-PENDING	497310	Vis1200::FUN_00497310	src/visual.cpp
+OK	43BB70	Vis1200::Vis1200	src/visual.cpp
+OK	43BC3C	Vis1200::VMethod26	src/visual.cpp
+OK	43BD2E	Vis1200::VMethod28	src/visual.cpp
+OK	43BD96	Vis1200::DoClose	src/visual.cpp
+OK	43BDCB	Vis1200::MsgProc	src/visual.cpp
+OK	43BDEC	Vis1200::OnKeyDown	src/visual.cpp
+OK	43BE73	Vis1200::VMethod8	src/visual.cpp
+OK	43BE80	Vis1200::VMethod7	src/visual.cpp
+OK	43BE9F	Vis1200::FUN_0043be9f	src/visual.cpp
+OK	43C000	Vis1200::~Vis1200	src/visual.cpp
+OK	4972D0	Vis1200::FUN_004972d0	src/visual.cpp
+OK	497310	Vis1200::FUN_00497310	src/visual.cpp
 
 ## Vis1200obj (18)
 OK	43AB28	Vis1200obj::Vis1200obj	src/visual.cpp
