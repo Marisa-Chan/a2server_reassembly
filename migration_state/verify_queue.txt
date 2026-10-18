@@ -1877,25 +1877,25 @@ PENDING	4D9783	VisButton::OnKeyDown	src/visual.cpp
 PENDING	4D97D4	VisButton::OnChar	src/visual.cpp
 
 ## VisCharGen (19)
-PENDING	42DCD9	VisCharGen::VisCharGen	src/visual.cpp
-PENDING	42DD66	VisCharGen::~VisCharGen	src/visual.cpp
-PENDING	42DDEC	VisCharGen::VMethod26	src/visual.cpp
-PENDING	42E058	VisCharGen::MsgProc	src/visual.cpp
-PENDING	42E196	VisCharGen::OnMouseMove	src/visual.cpp
-PENDING	42E218	VisCharGen::VMethod28	src/visual.cpp
-PENDING	42E7BC	VisCharGen::DoClose	src/visual.cpp
-PENDING	42E92A	VisCharGen::RollStats	src/visual.cpp
-PENDING	42EA01	VisCharGen::OnLButtonUp	src/visual.cpp
-PENDING	42EA4F	VisCharGen::OnKeyDown	src/visual.cpp
-PENDING	42EA87	VisCharGen::ShowTipHint	src/visual.cpp
-PENDING	42EB29	VisCharGen::VMethod7	src/visual.cpp
-PENDING	42EB7F	VisCharGen::VMethod8	src/visual.cpp
-PENDING	42EB8C	VisCharGen::OnClickFwd	src/visual.cpp
-PENDING	42EBAB	VisCharGen::OnClickBack	src/visual.cpp
-PENDING	42EBE0	VisCharGen::OnNextFace	src/visual.cpp
-PENDING	42EDC2	VisCharGen::OnPrevFace	src/visual.cpp
-PENDING	42EFB4	VisCharGen::LoadSamples	src/visual.cpp
-PENDING	42F021	VisCharGen::FreeSamples	src/visual.cpp
+OK	42DCD9	VisCharGen::VisCharGen	src/visual.cpp
+OK	42DD66	VisCharGen::~VisCharGen	src/visual.cpp
+OK	42DDEC	VisCharGen::VMethod26	src/visual.cpp
+OK	42E058	VisCharGen::MsgProc	src/visual.cpp
+OK	42E196	VisCharGen::OnMouseMove	src/visual.cpp
+OK	42E218	VisCharGen::VMethod28	src/visual.cpp
+OK	42E7BC	VisCharGen::DoClose	src/visual.cpp
+OK	42E92A	VisCharGen::RollStats	src/visual.cpp
+OK	42EA01	VisCharGen::OnLButtonUp	src/visual.cpp
+OK	42EA4F	VisCharGen::OnKeyDown	src/visual.cpp
+OK	42EA87	VisCharGen::ShowTipHint	src/visual.cpp
+OK	42EB29	VisCharGen::VMethod7	src/visual.cpp
+OK	42EB7F	VisCharGen::VMethod8	src/visual.cpp
+OK	42EB8C	VisCharGen::OnClickFwd	src/visual.cpp
+OK	42EBAB	VisCharGen::OnClickBack	src/visual.cpp
+OK	42EBE0	VisCharGen::OnNextFace	src/visual.cpp
+OK	42EDC2	VisCharGen::OnPrevFace	src/visual.cpp
+OK	42EFB4	VisCharGen::LoadSamples	src/visual.cpp
+OK	42F021	VisCharGen::FreeSamples	src/visual.cpp
 
 ## VisCharGenAction (12)
 PENDING	42AD7D	VisCharGenAction::VisCharGenAction	src/visual.cpp
