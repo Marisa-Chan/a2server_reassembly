@@ -1089,18 +1089,18 @@ OK	5438ED	Outpost::VMethod1	src/outpost.cpp
 OK	543EC3	Outpost::sub_543EC3	src/outpost.cpp
 
 ## PackerDat (4)
-PENDING	5260FA	PackerDat::PackerDat	src/net.cpp
-PENDING	526115	PackerDat::~PackerDat	src/net.cpp
-PENDING	5265F7	PackerDat::Clear	src/net.cpp
-PENDING	526621	PackerDat::DeleteTail	src/net.cpp
+OK	5260FA	PackerDat::PackerDat	src/net.cpp
+OK	526115	PackerDat::~PackerDat	src/net.cpp
+OK	5265F7	PackerDat::Clear	src/net.cpp
+OK	526621	PackerDat::DeleteTail	src/net.cpp
 
 ## Packet (6)
-PENDING	52681F	Packet::Packet	src/packet.cpp
-PENDING	526856	Packet::Packet	src/packet.cpp
-PENDING	526887	Packet::VMethod3	src/packet.cpp
-PENDING	5268B7	Packet::VMethod4	src/packet.cpp
-PENDING	579940	Packet::Duplicate	src/packet.cpp
-PENDING	5799C0	Packet::GetDataSize	src/packet.cpp
+OK	52681F	Packet::Packet	src/packet.cpp
+OK	526856	Packet::Packet	src/packet.cpp
+OK	526887	Packet::VMethod3	src/packet.cpp
+OK	5268B7	Packet::VMethod4	src/packet.cpp
+OK	579940	Packet::Duplicate	src/packet.cpp
+OK	5799C0	Packet::GetDataSize	src/packet.cpp
 
 ## PacketInfo (5)
 PENDING	526B44	PacketInfo::PacketInfo	src/packet.cpp
