@@ -1120,13 +1120,13 @@ OK	57A390	PacketJoin::Duplicate	src/packet.cpp
 OK	57A410	PacketJoin::GetDataSize	src/packet.cpp
 
 ## PacketTerrain (7)
-PENDING	527346	PacketTerrain::PacketTerrain	src/packet.cpp
-PENDING	527365	PacketTerrain::PacketTerrain	src/packet.cpp
-PENDING	5273A7	PacketTerrain::VMethod3	src/packet.cpp
-PENDING	5273CE	PacketTerrain::VMethod4	src/packet.cpp
-PENDING	579AC0	PacketTerrain::~PacketTerrain	src/packet.cpp
-PENDING	57AAA0	PacketTerrain::Duplicate	src/packet.cpp
-PENDING	57AB20	PacketTerrain::GetDataSize	src/packet.cpp
+OK	527346	PacketTerrain::PacketTerrain	src/packet.cpp
+OK	527365	PacketTerrain::PacketTerrain	src/packet.cpp
+OK	5273A7	PacketTerrain::VMethod3	src/packet.cpp
+OK	5273CE	PacketTerrain::VMethod4	src/packet.cpp
+OK	579AC0	PacketTerrain::~PacketTerrain	src/packet.cpp
+OK	57AAA0	PacketTerrain::Duplicate	src/packet.cpp
+OK	57AB20	PacketTerrain::GetDataSize	src/packet.cpp
 
 ## PacketUnitStateVec (2)
 PENDING	5275F8	PacketUnitStateVec::AppendByteByte	src/packet.cpp
