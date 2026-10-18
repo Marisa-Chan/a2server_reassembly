@@ -1141,16 +1141,16 @@ PENDING	5B6E50	Perf::End	src/perf.cpp
 PENDING	43CF29	PhoneBook::Save	src/main_window.cpp
 
 ## Player (10)
-PENDING	534118	Player::Player	src/player.cpp
-PENDING	53442F	Player::~Player	src/player.cpp
-PENDING	5346AC	Player::sub_5346AC	src/player.cpp
-PENDING	534778	Player::FUN_00534778	src/player.cpp
-PENDING	5347A1	Player::sub_5347A1	src/player.cpp
-PENDING	534A74	Player::sub_534A74	src/player.cpp
-PENDING	534AC1	Player::sub_534AC1	src/player.cpp
-PENDING	534B17	Player::sub_534B17	src/player.cpp
-PENDING	534B59	Player::sub_534B59	src/player.cpp
-PENDING	55B343	Player::Serialize	src/player.cpp
+OK	534118	Player::Player	src/player.cpp
+OK	53442F	Player::~Player	src/player.cpp
+OK	5346AC	Player::sub_5346AC	src/player.cpp
+OK	534778	Player::FUN_00534778	src/player.cpp
+OK	5347A1	Player::sub_5347A1	src/player.cpp
+OK	534A74	Player::sub_534A74	src/player.cpp
+OK	534AC1	Player::sub_534AC1	src/player.cpp
+OK	534B17	Player::sub_534B17	src/player.cpp
+OK	534B59	Player::sub_534B59	src/player.cpp
+OK	55B343	Player::Serialize	src/player.cpp
 
 ## player_file (globals) (2)
 PENDING	4F53EA	WritePlayerFile_4F53EA	src/player_file.cpp
