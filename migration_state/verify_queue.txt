@@ -1660,9 +1660,9 @@ OK	57B2E0	Token::VMethod8	src/token.cpp
 OK	57B2F0	Token::VMethod9	src/token.cpp
 
 ## TokenEntry (3)
-PENDING	439102	TokenEntry::TokenEntry	src/gameobj.cpp
-PENDING	439465	TokenEntry::TokenEntry	src/gameobj.cpp
-PENDING	43A3CD	TokenEntry::operator=	src/gameobj.cpp
+OK	439102	TokenEntry::TokenEntry	src/gameobj.cpp
+OK	439465	TokenEntry::TokenEntry	src/gameobj.cpp
+OK	43A3CD	TokenEntry::operator=	src/gameobj.cpp
 
 ## TokenPos (15)
 OK	58A495	TokenPos::TokenPos	src/token.cpp
@@ -1699,16 +1699,16 @@ OK	4CCE04	TransientVisualEffectBuilder::FUN_004CCE04	src/gameobj.cpp
 OK	4CCED2	TransientVisualEffectBuilder::FUN_004CCED2	src/gameobj.cpp
 
 ## Trigger (3)
-PENDING	5AFD79	Trigger::Trigger	src/logic.cpp
-PENDING	5AFE3D	Trigger::~Trigger	src/logic.cpp
-PENDING	5B006E	Trigger::operator=	src/logic.cpp
+OK	5AFD79	Trigger::Trigger	src/logic.cpp
+OK	5AFE3D	Trigger::~Trigger	src/logic.cpp
+OK	5B006E	Trigger::operator=	src/logic.cpp
 
 ## TriggerAction (1)
-PENDING	5AFC9C	TriggerAction::TriggerAction	src/logic.cpp
+OK	5AFC9C	TriggerAction::TriggerAction	src/logic.cpp
 
 ## TriggerCheck (2)
-PENDING	5AFC1D	TriggerCheck::TriggerCheck	src/logic.cpp
-PENDING	5AFC6F	TriggerCheck::operator=	src/logic.cpp
+OK	5AFC1D	TriggerCheck::TriggerCheck	src/logic.cpp
+OK	5AFC6F	TriggerCheck::operator=	src/logic.cpp
 
 ## TxtFile (6)
 OK	43CCD0	TxtFile::~TxtFile	src/txtfile.cpp
