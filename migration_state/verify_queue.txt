@@ -1487,19 +1487,19 @@ PENDING	5A5047	Settings::Settings	src/player.cpp
 PENDING	5B051F	Settings::Serialize	src/player.cpp
 
 ## Shield (13)
-PENDING	54FE1B	Shield::Shield	src/item.cpp
-PENDING	54FE8E	Shield::Shield	src/item.cpp
-PENDING	5500FA	Shield::Shield	src/item.cpp
-PENDING	550183	Shield::LoadInfo	src/item.cpp
-PENDING	5502C7	Shield::VMethod15	src/item.cpp
-PENDING	55044B	Shield::~Shield	src/item.cpp
-PENDING	550467	Shield::Shield	src/item.cpp
-PENDING	5504DC	Shield::TakeOne	src/item.cpp
-PENDING	55056B	Shield::VMethod10	src/item.cpp
-PENDING	550686	Shield::VMethod11	src/item.cpp
-PENDING	5506FC	Shield::VMethod17	src/item.cpp
-PENDING	55AF5E	Shield::Serialize	src/item.cpp
-PENDING	57D660	Shield::VMethod13	src/item.cpp
+OK	54FE1B	Shield::Shield	src/item.cpp
+OK	54FE8E	Shield::Shield	src/item.cpp
+OK	5500FA	Shield::Shield	src/item.cpp
+OK	550183	Shield::LoadInfo	src/item.cpp
+OK	5502C7	Shield::VMethod15	src/item.cpp
+OK	55044B	Shield::~Shield	src/item.cpp
+OK	550467	Shield::Shield	src/item.cpp
+OK	5504DC	Shield::TakeOne	src/item.cpp
+OK	55056B	Shield::VMethod10	src/item.cpp
+OK	550686	Shield::VMethod11	src/item.cpp
+OK	5506FC	Shield::VMethod17	src/item.cpp
+OK	55AF5E	Shield::Serialize	src/item.cpp
+OK	57D660	Shield::VMethod13	src/item.cpp
 
 ## Shop (15)
 OK	5442CA	Shop::Shop	src/shop.cpp
