@@ -40809,27 +40809,6 @@ var_4           = dword ptr -4
 ; Attributes: bp-based frame
 
 ; HANDLE *__thiscall sub_522318(HANDLE *varThis)
-sub_522318      proc near               ; CODE XREF: ?MsgProc@VisNetDlg@@UAEHIII@Z+405↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+5D0h], 0
-                jz      short loc_52233B
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+5D0h]
-                push    edx             ; hEvent
-                call    SetEvent
-
-loc_52233B:                             ; CODE XREF: sub_522318+11↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_522318      endp
 
 
 
