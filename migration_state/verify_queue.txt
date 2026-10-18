@@ -1483,8 +1483,8 @@ OK	49583E	ServerControlDialog::sub_49583E	src/main_window.cpp
 OK	49585B	ServerControlDialog::sub_49585B	src/main_window.cpp
 
 ## Settings (2)
-PENDING	5A5047	Settings::Settings	src/player.cpp
-PENDING	5B051F	Settings::Serialize	src/player.cpp
+OK	5A5047	Settings::Settings	src/player.cpp
+OK	5B051F	Settings::Serialize	src/player.cpp	raw Write/Read of this, 0x24 bytes
 
 ## Shield (13)
 OK	54FE1B	Shield::Shield	src/item.cpp
@@ -1519,11 +1519,11 @@ OK	544793	Shop::sub_544793	src/shop.cpp
 OK	5447B7	Shop::Serialize	src/shop.cpp
 
 ## shop_assortment (globals) (5)
-PENDING	54C42A	sub_54C42A	src/shop_assortment.cpp
-PENDING	54C556	sub_54C556	src/shop_assortment.cpp
-PENDING	54C6DD	sub_54C6DD	src/shop_assortment.cpp
-PENDING	54EDE9	sub_54EDE9	src/shop_assortment.cpp
-PENDING	54F04F	sub_54F04F	src/shop_assortment.cpp
+OK	54C42A	sub_54C42A	src/shop_assortment.cpp	vanilla b-else zeroes warrior_a and leaves warrior_b UNINIT (disasm EBP-0x10/-0xc); C++ 0/0 is the deterministic reading
+OK	54C556	sub_54C556	src/shop_assortment.cpp
+OK	54C6DD	sub_54C6DD	src/shop_assortment.cpp
+OK	54EDE9	sub_54EDE9	src/shop_assortment.cpp	uninit result on early-exit lands on same nullptr outcome
+OK	54F04F	sub_54F04F	src/shop_assortment.cpp
 
 ## ShopAssortment (10)
 OK	54A13B	ShopAssortment::ShopAssortment	src/shop_assortment.cpp
