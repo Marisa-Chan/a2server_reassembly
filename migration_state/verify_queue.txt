@@ -1073,12 +1073,12 @@ OK	51682D	NetStru2::SetDrivers	src/net.cpp
 OK	518408	NetStru2::SendData	src/net.cpp
 
 ## NetStru3 (6)
-PENDING	5155C0	NetStru3::NetStru3	src/net.cpp
-PENDING	515625	NetStru3::CopyData	src/net.cpp
-PENDING	515694	NetStru3::~NetStru3	src/net.cpp
-PENDING	5156F6	NetStru3::Clear	src/net.cpp
-PENDING	51573E	NetStru3::WriteToBuffer	src/net.cpp
-PENDING	51579E	NetStru3::ReadFromBuffer	src/net.cpp
+FIXED	5155C0	NetStru3::NetStru3	src/net.cpp	ctor zeroed whole full_data union; original leaves csize (bytes D-E) uninitialized
+OK	515625	NetStru3::CopyData	src/net.cpp
+FIXED	515694	NetStru3::~NetStru3	src/net.cpp	same as ctor: csize left uninitialized by original
+OK	5156F6	NetStru3::Clear	src/net.cpp
+OK	51573E	NetStru3::WriteToBuffer	src/net.cpp
+OK	51579E	NetStru3::ReadFromBuffer	src/net.cpp
 
 ## Outpost (6)
 PENDING	54326A	Outpost::Outpost	src/outpost.cpp

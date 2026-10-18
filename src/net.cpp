@@ -1922,21 +1922,25 @@ void NetStru3::Clear()
 NetStru3::NetStru3()
 {
     //5155c0
-    memset(full_data, 0, sizeof(full_data));
-    datasz = -1;
-    readpos = -1;
-    timestamp = 0;
-    timestamp2 = 0;
+    this->pktid = 0;
+    this->cmode = 0;
+    this->pkt_num = 0;
+    this->datasz = -1;
+    this->readpos = -1;
+    this->timestamp = 0;
+    this->timestamp2 = 0;
 }
 
 NetStru3::~NetStru3()
 {
     //515694
-    datasz = -1;
-    readpos = -1;
-    timestamp = 0;
-    timestamp2 = 0;
-    memset(full_data, 0, sizeof(full_data));
+    this->datasz = -1;
+    this->readpos = -1;
+    this->timestamp = 0;
+    this->timestamp2 = 0;
+    this->pktid = 0;
+    this->cmode = 0;
+    this->pkt_num = 0;
 }
 
 void NetStru3::CopyData(const NetStru3* src)
