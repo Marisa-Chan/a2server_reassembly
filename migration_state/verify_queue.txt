@@ -2060,18 +2060,18 @@ PENDING	44604C	VisConnectionDlg::VMethod30	src/visual.cpp
 PENDING	44FA40	VisConnectionDlg::~VisConnectionDlg	src/visual.cpp
 
 ## VisCredits (12)
-PENDING	43C337	VisCredits::VisCredits	src/visual.cpp
-PENDING	43C3C6	VisCredits::~VisCredits	src/visual.cpp
-PENDING	43C438	VisCredits::VMethod26	src/visual.cpp
-PENDING	43C4D6	VisCredits::VMethod28	src/visual.cpp
-PENDING	43C553	VisCredits::DoClose	src/visual.cpp
-PENDING	43C595	VisCredits::MsgProc	src/visual.cpp
-PENDING	43C5D4	VisCredits::OnKeyDown	src/visual.cpp
-PENDING	43C5F5	VisCredits::OnLButtonDown	src/visual.cpp
-PENDING	43C60C	VisCredits::VMethod7	src/visual.cpp
-PENDING	43C9A8	VisCredits::VMethod8	src/visual.cpp
-PENDING	43C9B5	VisCredits::LoadContent	src/visual.cpp
-PENDING	43CB77	VisCredits::FreeContent	src/visual.cpp
+OK	43C337	VisCredits::VisCredits	src/visual.cpp
+OK	43C3C6	VisCredits::~VisCredits	src/visual.cpp
+OK	43C438	VisCredits::VMethod26	src/visual.cpp
+OK	43C4D6	VisCredits::VMethod28	src/visual.cpp
+OK	43C553	VisCredits::DoClose	src/visual.cpp
+OK	43C595	VisCredits::MsgProc	src/visual.cpp
+OK	43C5D4	VisCredits::OnKeyDown	src/visual.cpp
+OK	43C5F5	VisCredits::OnLButtonDown	src/visual.cpp
+OK	43C60C	VisCredits::VMethod7	src/visual.cpp
+OK	43C9A8	VisCredits::VMethod8	src/visual.cpp
+OK	43C9B5	VisCredits::LoadContent	src/visual.cpp
+OK	43CB77	VisCredits::FreeContent	src/visual.cpp
 
 ## VisCutScenesDlg (2)
 PENDING	44EABB	VisCutScenesDlg::VisCutScenesDlg	src/visual.cpp
