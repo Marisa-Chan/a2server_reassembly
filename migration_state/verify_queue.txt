@@ -2840,16 +2840,16 @@ PENDING	4A2873	VisTavKaarg::VMethod31	src/visual.cpp
 PENDING	4A4070	VisTavKaarg::~VisTavKaarg	src/visual.cpp
 
 ## VisTavLeftPanel (10)
-PENDING	497990	VisTavLeftPanel::VisTavLeftPanel	src/visual.cpp
-PENDING	497ACE	VisTavLeftPanel::FUN_00497ace	src/visual.cpp
-PENDING	497E06	VisTavLeftPanel::FUN_00497e06	src/visual.cpp
-PENDING	497EC1	VisTavLeftPanel::OnLButtonDown	src/visual.cpp
-PENDING	497ED0	VisTavLeftPanel::VMethod7	src/visual.cpp
-PENDING	497F82	VisTavLeftPanel::FUN_00497f82	src/visual.cpp
-PENDING	49934D	VisTavLeftPanel::GetHint	src/visual.cpp
-PENDING	4995D1	VisTavLeftPanel::FUN_004995d1	src/visual.cpp
-PENDING	4996AB	VisTavLeftPanel::FUN_004996ab	src/visual.cpp
-PENDING	4A3E10	VisTavLeftPanel::~VisTavLeftPanel	src/visual.cpp
+OK	497990	VisTavLeftPanel::VisTavLeftPanel	src/visual.cpp
+OK	497ACE	VisTavLeftPanel::FUN_00497ace	src/visual.cpp
+OK	497E06	VisTavLeftPanel::FUN_00497e06	src/visual.cpp
+OK	497EC1	VisTavLeftPanel::OnLButtonDown	src/visual.cpp
+OK	497ED0	VisTavLeftPanel::VMethod7	src/visual.cpp
+OK	497F82	VisTavLeftPanel::FUN_00497f82	src/visual.cpp
+OK	49934D	VisTavLeftPanel::GetHint	src/visual.cpp
+OK	4995D1	VisTavLeftPanel::FUN_004995d1	src/visual.cpp
+OK	4996AB	VisTavLeftPanel::FUN_004996ab	src/visual.cpp
+OK	4A3E10	VisTavLeftPanel::~VisTavLeftPanel	src/visual.cpp
 
 ## VisTavRightPanel (15)
 OK	4997C6	VisTavRightPanel::VisTavRightPanel	src/visual.cpp
