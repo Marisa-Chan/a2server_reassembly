@@ -1317,20 +1317,20 @@ PENDING	4E8585	RegFile::RegFile	src/resource.cpp
 PENDING	4E9989	RegFile::~RegFile	src/resource.cpp
 
 ## ResBase (34)
-PENDING	4E5D55	ResBase::FUN_004e5d55	src/resource.cpp
+OK	4E5D55	ResBase::FUN_004e5d55	src/resource.cpp
 OK	4E819C	ResBase::ReadFromFile	src/resource.cpp
 OK	4E8396	ResBase::WriteToFile	src/resource.cpp
 OK	4E99C4	ResBase::FUN_004e99c4	src/resource.cpp
 OK	4E9BB6	ResBase::AllocData	src/resource.cpp	 AllocData grow math (offset/8 slack, FUN_004e99c4 compact) matches
-PENDING	4EA183	ResBase::FUN_004ea183	src/resource.cpp
+OK	4EA183	ResBase::FUN_004ea183	src/resource.cpp
 FIXED	4EA2D2	ResBase::GetSizedString	src/resource.cpp	case 2 (double): vanilla sprintf is dead - _itoa(node->offset,10) overwrites buf; C++ had the _itoa commented out
 OK	4EA69D	ResBase::GetValueString	src/resource.cpp
 OK	4EA73D	ResBase::SetString	src/resource.cpp
-PENDING	4EA8AF	ResBase::GetInt	src/resource.cpp
+OK	4EA8AF	ResBase::GetInt	src/resource.cpp
 OK	4EA928	ResBase::SetInt	src/resource.cpp
 OK	4EAA06	ResBase::GetDouble	src/resource.cpp
 OK	4EAA8B	ResBase::SetDouble	src/resource.cpp
-PENDING	4EAB6B	ResBase::GetAllNodeNames	src/resource.cpp
+OK	4EAB6B	ResBase::GetAllNodeNames	src/resource.cpp
 OK	4EACA7	ResBase::GetInt8Array	src/resource.cpp	tp==3 loop reads byte at stride 4; C++ reads dword truncated to byte on SetAt - same result
 OK	4EAD9D	ResBase::GetInt16Array	src/resource.cpp
 OK	4EAE99	ResBase::GetInt32Array	src/resource.cpp	same template as 4EACA7/4EAD9D, verified by pattern + SetInt32Array disasm
@@ -1339,18 +1339,18 @@ OK	4EB0D3	ResBase::GetStringArray	src/resource.cpp
 OK	4EB2A3	ResBase::SetInt8Array	src/resource.cpp	setter template verified via 4EB5D2 disasm
 OK	4EB43A	ResBase::SetInt16Array	src/resource.cpp
 OK	4EB5D2	ResBase::SetInt32Array	src/resource.cpp
-PENDING	4EC438	ResBase::FUN_004ec438	src/resource.cpp
-PENDING	4EC553	ResBase::FUN_004ec553	src/resource.cpp
-PENDING	4EC736	ResBase::SortTree	src/resource.cpp
-PENDING	4EC7E0	ResBase::FUN_004ec7e0	src/resource.cpp
-PENDING	4EC8C6	ResBase::FUN_004ec8c6	src/resource.cpp
+OK	4EC438	ResBase::FUN_004ec438	src/resource.cpp
+OK	4EC553	ResBase::FUN_004ec553	src/resource.cpp
+OK	4EC736	ResBase::SortTree	src/resource.cpp
+OK	4EC7E0	ResBase::FUN_004ec7e0	src/resource.cpp
+OK	4EC8C6	ResBase::FUN_004ec8c6	src/resource.cpp
 OK	4EC8F4	ResBase::GrowFat	src/resource.cpp
 OK	4EC956	ResBase::TracePath	src/resource.cpp
-PENDING	4ECA16	ResBase::FUN_004eca16	src/resource.cpp
-PENDING	4ECA63	ResBase::FUN_004eca63	src/resource.cpp
+OK	4ECA16	ResBase::FUN_004eca16	src/resource.cpp
+OK	4ECA63	ResBase::FUN_004eca63	src/resource.cpp
 OK	4ECA9E	ResBase::Find	src/resource.cpp
 OK	4ECB78	ResBase::FindNext	src/resource.cpp
-PENDING	4ECC05	ResBase::FUN_004ecc05	src/resource.cpp
+OK	4ECC05	ResBase::FUN_004ecc05	src/resource.cpp
 
 ## ResFile (2)
 PENDING	4E5950	ResFile::ResFile	src/resource.cpp
