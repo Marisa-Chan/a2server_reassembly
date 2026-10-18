@@ -1922,6 +1922,7 @@ void NetStru3::Clear()
 NetStru3::NetStru3()
 {
     //5155c0
+    memset(this->full_data, 0, sizeof(this->full_data));
     this->pktid = 0;
     this->cmode = 0;
     this->pkt_num = 0;
@@ -1941,6 +1942,7 @@ NetStru3::~NetStru3()
     this->pktid = 0;
     this->cmode = 0;
     this->pkt_num = 0;
+    memset(this->full_data, 0, sizeof(this->full_data));
 }
 
 void NetStru3::CopyData(const NetStru3* src)
