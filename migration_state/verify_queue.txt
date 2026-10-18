@@ -3050,21 +3050,21 @@ PENDING	537AE8	WavePattern::sub_537AE8	src/spell_effect.cpp
 PENDING	537B2B	WavePattern::sub_537B2B	src/spell_effect.cpp
 
 ## Weapon (15)
-PENDING	550872	Weapon::Weapon	src/item.cpp
-PENDING	550929	Weapon::Weapon	src/item.cpp
-PENDING	550B8F	Weapon::Weapon	src/item.cpp
-PENDING	550C23	Weapon::LoadInfo	src/item.cpp
-PENDING	550FA6	Weapon::VMethod15	src/item.cpp
-PENDING	551159	Weapon::~Weapon	src/item.cpp
-PENDING	5511EE	Weapon::Weapon	src/item.cpp
-PENDING	5512E7	Weapon::VMethod10	src/item.cpp
-PENDING	5515B9	Weapon::VMethod11	src/item.cpp
-PENDING	5517C3	Weapon::TakeOne	src/item.cpp
-PENDING	551855	Weapon::VMethod17	src/item.cpp
-PENDING	551B12	Weapon::SetImbuedSpell	src/item.cpp
-PENDING	551BDB	Weapon::InitImbuedSpell	src/item.cpp
-PENDING	55929F	Weapon::Serialize	src/item.cpp
-PENDING	57D710	Weapon::VMethod13	src/item.cpp
+OK	550872	Weapon::Weapon	src/item.cpp
+OK	550929	Weapon::Weapon	src/item.cpp
+OK	550B8F	Weapon::Weapon	src/item.cpp
+OK	550C23	Weapon::LoadInfo	src/item.cpp
+OK	550FA6	Weapon::VMethod15	src/item.cpp
+OK	551159	Weapon::~Weapon	src/item.cpp
+OK	5511EE	Weapon::Weapon	src/item.cpp
+OK	5512E7	Weapon::VMethod10	src/item.cpp
+OK	5515B9	Weapon::VMethod11	src/item.cpp
+OK	5517C3	Weapon::TakeOne	src/item.cpp
+OK	551855	Weapon::VMethod17	src/item.cpp
+OK	551B12	Weapon::SetImbuedSpell	src/item.cpp
+OK	551BDB	Weapon::InitImbuedSpell	src/item.cpp
+OK	55929F	Weapon::Serialize	src/item.cpp
+OK	57D710	Weapon::VMethod13	src/item.cpp
 
 ## World (151)
 OK	5A3791	World::sub_5A3791	src/world.cpp
