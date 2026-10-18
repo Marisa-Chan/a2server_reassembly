@@ -2734,27 +2734,27 @@ PENDING	4B45BB	VisSideStatus::GetHint	src/visual.cpp
 PENDING	4B4810	VisSideStatus::~VisSideStatus	src/visual.cpp
 
 ## VisSpellBook (21)
-PENDING	41F9B0	VisSpellBook::sub_41F9B0	src/visual.cpp
-PENDING	41F9E0	VisSpellBook::sub_41F9E0	src/visual.cpp
-PENDING	4C99C7	VisSpellBook::VisSpellBook	src/visual.cpp
-PENDING	4C9A6F	VisSpellBook::GetHint	src/visual.cpp
-PENDING	4CA2A1	VisSpellBook::VMethod7	src/visual.cpp
-PENDING	4CA7C2	VisSpellBook::FUN_004ca7c2	src/visual.cpp
-PENDING	4CA89B	VisSpellBook::sub_4CA89B	src/visual.cpp
-PENDING	4CA8E0	VisSpellBook::sub_4CA8E0	src/visual.cpp
-PENDING	4CA925	VisSpellBook::sub_4CA925	src/visual.cpp
-PENDING	4CAA69	VisSpellBook::FUN_004caa69	src/visual.cpp
-PENDING	4CAAA7	VisSpellBook::sub_4CAAA7	src/visual.cpp
-PENDING	4CAAD7	VisSpellBook::MsgProc	src/visual.cpp
-PENDING	4CAC9B	VisSpellBook::OnKeyDown	src/visual.cpp
-PENDING	4CAD6A	VisSpellBook::OnLButtonDown	src/visual.cpp
-PENDING	4CADD2	VisSpellBook::OnRButtonDown	src/visual.cpp
-PENDING	4CADEE	VisSpellBook::OnLButtonDblClk	src/visual.cpp
-PENDING	4CAE94	VisSpellBook::OnRButtonDblClk	src/visual.cpp
-PENDING	4CAEA6	VisSpellBook::OnLButtonUp	src/visual.cpp
-PENDING	4CAF70	VisSpellBook::OnRButtonUp	src/visual.cpp
-PENDING	4CAF8C	VisSpellBook::OnMouseMove	src/visual.cpp
-PENDING	4CAFF5	VisSpellBook::OnWmUser	src/visual.cpp
+FIXED	41F9B0	VisSpellBook::sub_41F9B0	src/visual.cpp	C++ tested pressed>=0 fallback spell; vanilla tests selected<0 fallback pressed (fields 0x64/0x60 via disasm 41f9ba)
+FIXED	41F9E0	VisSpellBook::sub_41F9E0	src/visual.cpp	C++ tested pressed>=0; vanilla selected>=0 (CMP [this+0x64] SETGE, disasm 41f9ec)
+OK	4C99C7	VisSpellBook::VisSpellBook	src/visual.cpp
+OK	4C9A6F	VisSpellBook::GetHint	src/visual.cpp	uses byte_666590 static hint buffer (DAT_00666590)
+OK	4CA2A1	VisSpellBook::VMethod7	src/visual.cpp	draws spb800l/spb800r/spellbook bitmaps per g_ScreenSize.height branches
+OK	4CA7C2	VisSpellBook::FUN_004ca7c2	src/visual.cpp	slot hit test: x/0x26 + (y/0x26)*0xc for y<0x4b, rows above
+OK	4CA89B	VisSpellBook::sub_4CA89B	src/visual.cpp
+OK	4CA8E0	VisSpellBook::sub_4CA8E0	src/visual.cpp
+OK	4CA925	VisSpellBook::sub_4CA925	src/visual.cpp	sets spell=idx, selected=GetCastSpellId(tokenEntries[spell])-1
+OK	4CAA69	VisSpellBook::FUN_004caa69	src/visual.cpp
+OK	4CAAA7	VisSpellBook::sub_4CAAA7	src/visual.cpp	DAT_0062F8A8[pressed] when selected<0 else DAT_0062FA28[selected]
+OK	4CAAD7	VisSpellBook::MsgProc	src/visual.cpp	msg 0x411 clears pressed; 0x417 cast handling
+OK	4CAC9B	VisSpellBook::OnKeyDown	src/visual.cpp	ctrl+A/a with DAT_0062F968 castable filter
+OK	4CAD6A	VisSpellBook::OnLButtonDown	src/visual.cpp
+OK	4CADD2	VisSpellBook::OnRButtonDown	src/visual.cpp
+OK	4CADEE	VisSpellBook::OnLButtonDblClk	src/visual.cpp	dbl-clk gated by DAT_0062F9C8
+OK	4CAE94	VisSpellBook::OnRButtonDblClk	src/visual.cpp
+OK	4CAEA6	VisSpellBook::OnLButtonUp	src/visual.cpp
+OK	4CAF70	VisSpellBook::OnRButtonUp	src/visual.cpp
+OK	4CAF8C	VisSpellBook::OnMouseMove	src/visual.cpp
+OK	4CAFF5	VisSpellBook::OnWmUser	src/visual.cpp
 
 ## VisStartGame (28)
 OK	43305B	VisStartGame::VisStartGame	src/visual.cpp

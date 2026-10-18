@@ -24033,17 +24033,18 @@ VisMiniMap::~VisMiniMap()
 // 41F9B0
 int32_t VisSpellBook::sub_41F9B0()
 {
-    if (this->pressed >= 0) {
+    // Vanilla: selected < 0 ? pressed : selected  (fields 0x64 / 0x60).
+    if (this->selected < 0) {
         return this->pressed;
     }
-    return this->spell;
+    return this->selected;
 }
 
 
 // 41F9E0
 int32_t VisSpellBook::sub_41F9E0()
 {
-    return this->pressed >= 0;
+    return this->selected >= 0;
 }
 
 
