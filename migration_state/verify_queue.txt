@@ -1761,16 +1761,16 @@ OK	59A030	Unit::sub_59A030	src/unit.cpp
 OK	5B6FB0	Unit::sub_5B6FB0	src/unit.cpp
 
 ## unit (globals) (10)
-PENDING	528E24	Token	src/unit.cpp
-PENDING	528FB7	Token	src/unit.cpp
-PENDING	529167	Token	src/unit.cpp
-PENDING	52FFF2	Unit	src/unit.cpp
-PENDING	530DCB	sub_530DCB	src/unit.cpp
-PENDING	5364D5	sub_5364D5	src/unit.cpp
-PENDING	536630	sub_536630	src/unit.cpp
-PENDING	53678F	sub_53678F	src/unit.cpp
-PENDING	53685B	sub_53685B	src/unit.cpp
-PENDING	536A62	sub_536A62	src/unit.cpp
+OK	528E24	Token	src/unit.cpp
+OK	528FB7	Token	src/unit.cpp
+OK	529167	Token	src/unit.cpp
+OK	52FFF2	Unit	src/unit.cpp
+OK	530DCB	sub_530DCB	src/unit.cpp
+OK	5364D5	sub_5364D5	src/unit.cpp
+OK	536630	sub_536630	src/unit.cpp
+OK	53678F	sub_53678F	src/unit.cpp
+OK	53685B	sub_53685B	src/unit.cpp
+OK	536A62	sub_536A62	src/unit.cpp
 
 ## UnitEye (4)
 PENDING	58BE86	UnitEye::UnitEye	src/eye.cpp
