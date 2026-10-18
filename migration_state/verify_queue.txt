@@ -794,34 +794,34 @@ OK	5530A2	Inventory::sub_5530A2	src/inventory.cpp
 OK	55CCE4	Inventory::sub_55CCE4	src/inventory.cpp
 
 ## Item (28)
-PENDING	547F80	Item::Item	src/item.cpp
-PENDING	54800E	Item::Item	src/item.cpp
-PENDING	5480E3	Item::Item	src/item.cpp
-PENDING	5482AB	Item::InitFromTemplate	src/item.cpp
-PENDING	54840E	Item::~Item	src/item.cpp
-PENDING	54842A	Item::Item	src/item.cpp
-PENDING	54872B	Item::VMethod15	src/item.cpp
-PENDING	548817	Item::VMethod16	src/item.cpp
-PENDING	548A59	Item::VMethod10	src/item.cpp
-PENDING	548C04	Item::VMethod11	src/item.cpp
+OK	547F80	Item::Item	src/item.cpp
+OK	54800E	Item::Item	src/item.cpp
+OK	5480E3	Item::Item	src/item.cpp
+OK	5482AB	Item::InitFromTemplate	src/item.cpp
+OK	54840E	Item::~Item	src/item.cpp
+OK	54842A	Item::Item	src/item.cpp
+OK	54872B	Item::VMethod15	src/item.cpp
+OK	548817	Item::VMethod16	src/item.cpp
+OK	548A59	Item::VMethod10	src/item.cpp
+OK	548C04	Item::VMethod11	src/item.cpp
 OK	548C2E	Item::ApplyEffects	src/item.cpp
 OK	548CE4	Item::RemoveEffects	src/item.cpp
-PENDING	548D9A	Item::VMethod2	src/item.cpp
-PENDING	548DA5	Item::VMethod1	src/item.cpp
-PENDING	548DB0	Item::VMethod14	src/item.cpp
-PENDING	548DBF	Item::TakeOne	src/item.cpp
-PENDING	548E4E	Item::sub_548E4E	src/item.cpp
-PENDING	548F07	Item::sub_548F07	src/item.cpp
-PENDING	548F3F	Item::sub_548F3F	src/item.cpp
-PENDING	548F6A	Item::sub_548F6A	src/item.cpp
-PENDING	548FAA	Item::sub_548FAA	src/item.cpp
-PENDING	549AFB	Item::StoreToPacket	src/item.cpp
-PENDING	549E86	Item::VMethod17	src/item.cpp
+OK	548D9A	Item::VMethod2	src/item.cpp
+OK	548DA5	Item::VMethod1	src/item.cpp
+OK	548DB0	Item::VMethod14	src/item.cpp
+OK	548DBF	Item::TakeOne	src/item.cpp
+OK	548E4E	Item::sub_548E4E	src/item.cpp
+OK	548F07	Item::sub_548F07	src/item.cpp
+OK	548F3F	Item::sub_548F3F	src/item.cpp
+OK	548F6A	Item::sub_548F6A	src/item.cpp
+OK	548FAA	Item::sub_548FAA	src/item.cpp
+OK	549AFB	Item::StoreToPacket	src/item.cpp
+OK	549E86	Item::VMethod17	src/item.cpp
 OK	549F2C	Item::WriteEffects	src/item.cpp
-PENDING	54A0BE	Item::sub_54A0BE	src/item.cpp
-PENDING	55C2F1	Item::Serialize	src/item.cpp
-PENDING	57CDC0	Item::VMethod13	src/item.cpp
-PENDING	57CE40	Item::VMethod6	src/item.cpp
+OK	54A0BE	Item::sub_54A0BE	src/item.cpp
+OK	55C2F1	Item::Serialize	src/item.cpp
+OK	57CDC0	Item::VMethod13	src/item.cpp
+OK	57CE40	Item::VMethod6	src/item.cpp
 
 ## item (globals) (4)
 PENDING	475988	LoadItemNames	src/item.cpp
@@ -835,11 +835,11 @@ PENDING	572AC0	MagicInfo::~MagicInfo	src/table.cpp
 PENDING	578120	MagicInfo::ParseLine	src/table.cpp
 
 ## MagicItem (5)
-PENDING	513B68	MagicItem::ParseLine	src/table.cpp
-PENDING	513C13	MagicItem::Serialize	src/table.cpp
-PENDING	572740	MagicItem::MagicItem	src/table.cpp
-PENDING	572850	MagicItem::VMethod2	src/table.cpp
-PENDING	5728F0	MagicItem::~MagicItem	src/table.cpp
+OK	513B68	MagicItem::ParseLine	src/table.cpp
+OK	513C13	MagicItem::Serialize	src/table.cpp
+OK	572740	MagicItem::MagicItem	src/table.cpp
+OK	572850	MagicItem::VMethod2	src/table.cpp
+OK	5728F0	MagicItem::~MagicItem	src/table.cpp
 
 ## main_window (globals) (1)
 PENDING	441B1E	SaveSettings	src/main_window.cpp
@@ -1207,11 +1207,11 @@ PENDING	57FF30	Quest::Something2	src/quest.cpp
 PENDING	57FF40	Quest::Something3	src/quest.cpp
 
 ## QuestDeliverItem (5)
-PENDING	55FA1D	QuestDeliverItem::VMethod1	src/quest.cpp
-PENDING	5817A0	QuestDeliverItem::Kind	src/quest.cpp
-PENDING	5817B0	QuestDeliverItem::Something2	src/quest.cpp
-PENDING	5817C0	QuestDeliverItem::Something3	src/quest.cpp
-PENDING	581810	QuestDeliverItem::~QuestDeliverItem	src/quest.cpp
+FIXED	55FA1D	QuestDeliverItem::VMethod1	src/quest.cpp	note: vanilla has two delivery branches - owner delivers (player match, state != 1) -> war(1); DIFFERENT player delivers (player mismatch, landmark match, state != 2) -> war(2). C++ had merged both into a player-match branch, so third-party deliveries never progressed the quest
+OK	5817A0	QuestDeliverItem::Kind	src/quest.cpp
+OK	5817B0	QuestDeliverItem::Something2	src/quest.cpp
+OK	5817C0	QuestDeliverItem::Something3	src/quest.cpp
+OK	581810	QuestDeliverItem::~QuestDeliverItem	src/quest.cpp
 
 ## QuestDeliverMail (5)
 PENDING	55FB32	QuestDeliverMail::VMethod1	src/quest.cpp

@@ -210,12 +210,10 @@ QuestDeliverItem::~QuestDeliverItem() {}
 // 55FA1D
 int32_t QuestDeliverItem::VMethod1(int32_t param_2, int32_t param_3, int32_t param_4) {
     if (param_2 == 7) {
-        if (param_3 == this->quest_data.obj && (param_4 & 0xffff) == this->quest_data.player_id && (param_4 >> 16) == this->quest_data.landmark_id) {
-            if (this->quest_data.state != 1) {
-                this->quest_map->sub_55DD10(1, this->quest_data.some_id, 0);
-            } else if (this->quest_data.state != 2) {
-                this->quest_map->sub_55DD10(2, this->quest_data.some_id, 0);
-            }
+        if (param_3 == this->quest_data.obj && (param_4 & 0xffff) == this->quest_data.player_id && (param_4 >> 16) == this->quest_data.landmark_id && this->quest_data.state != 1) {
+            this->quest_map->sub_55DD10(1, this->quest_data.some_id, 0);
+        } else if (param_3 == this->quest_data.obj && (param_4 & 0xffff) != this->quest_data.player_id && (param_4 >> 16) == this->quest_data.landmark_id && this->quest_data.state != 2) {
+            this->quest_map->sub_55DD10(2, this->quest_data.some_id, 0);
         }
     } else if (param_2 == 14 && param_3 == this->quest_data.obj && this->quest_data.state == 0) {
         return this->quest_data.some_id;
