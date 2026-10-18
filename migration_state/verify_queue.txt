@@ -2117,24 +2117,24 @@ OK	4AEC7A	VisFameDocument::UpdateArrowStates	src/visual.cpp
 OK	4AEDA0	VisFameDocument::GetHint	src/visual.cpp
 
 ## VisFameHall (18)
-PENDING	45CD35	VisFameHall::VisFameHall	src/visual.cpp
-PENDING	45CE6E	VisFameHall::VMethod26	src/visual.cpp
-PENDING	45CFAE	VisFameHall::UpdateRects	src/visual.cpp
-PENDING	45D222	VisFameHall::VMethod28	src/visual.cpp
-PENDING	45D2D9	VisFameHall::DoClose	src/visual.cpp
-PENDING	45D32E	VisFameHall::LoadBitmaps	src/visual.cpp
-PENDING	45D44A	VisFameHall::FreeBitmaps	src/visual.cpp
-PENDING	45D542	VisFameHall::LoadSounds	src/visual.cpp
-PENDING	45D563	VisFameHall::FreeSounds	src/visual.cpp
-PENDING	45D57F	VisFameHall::MsgProc	src/visual.cpp
-PENDING	45D5BE	VisFameHall::OnKeyDown	src/visual.cpp
-PENDING	45D5D7	VisFameHall::OnChar	src/visual.cpp
-PENDING	45D5F0	VisFameHall::OnMouseMove	src/visual.cpp
-PENDING	45D6C3	VisFameHall::OnLButtonDown	src/visual.cpp
-PENDING	45D773	VisFameHall::OnLButtonUp	src/visual.cpp
-PENDING	45D7F9	VisFameHall::VMethod7	src/visual.cpp
-PENDING	45DA6A	VisFameHall::VMethod8	src/visual.cpp
-PENDING	45DB50	VisFameHall::GetHint	src/visual.cpp
+OK	45CD35	VisFameHall::VisFameHall	src/visual.cpp
+OK	45CE6E	VisFameHall::VMethod26	src/visual.cpp
+OK	45CFAE	VisFameHall::UpdateRects	src/visual.cpp
+OK	45D222	VisFameHall::VMethod28	src/visual.cpp
+OK	45D2D9	VisFameHall::DoClose	src/visual.cpp
+OK	45D32E	VisFameHall::LoadBitmaps	src/visual.cpp
+OK	45D44A	VisFameHall::FreeBitmaps	src/visual.cpp
+OK	45D542	VisFameHall::LoadSounds	src/visual.cpp
+OK	45D563	VisFameHall::FreeSounds	src/visual.cpp
+OK	45D57F	VisFameHall::MsgProc	src/visual.cpp
+OK	45D5BE	VisFameHall::OnKeyDown	src/visual.cpp
+OK	45D5D7	VisFameHall::OnChar	src/visual.cpp
+OK	45D5F0	VisFameHall::OnMouseMove	src/visual.cpp
+OK	45D6C3	VisFameHall::OnLButtonDown	src/visual.cpp
+OK	45D773	VisFameHall::OnLButtonUp	src/visual.cpp
+OK	45D7F9	VisFameHall::VMethod7	src/visual.cpp
+OK	45DA6A	VisFameHall::VMethod8	src/visual.cpp
+OK	45DB50	VisFameHall::GetHint	src/visual.cpp
 
 ## VisGlobalMap (24)
 OK	46FD7B	VisGlobalMap::VisGlobalMap	src/visual.cpp
