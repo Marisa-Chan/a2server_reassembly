@@ -2410,15 +2410,15 @@ PENDING	44500F	VisMessageBox::MsgProc	src/visual.cpp
 PENDING	445084	VisMessageBox::VMethod31	src/visual.cpp
 
 ## VisMiniMap (9)
-PENDING	4AEEC3	VisMiniMap::VisMiniMap	src/visual.cpp
-PENDING	4AF006	VisMiniMap::MsgProc	src/visual.cpp
-PENDING	4AF0DC	VisMiniMap::RebuildMap	src/visual.cpp
-PENDING	4AFB8E	VisMiniMap::VMethod7	src/visual.cpp
-PENDING	4B042E	VisMiniMap::UpdateCursor	src/visual.cpp
-PENDING	4B0788	VisMiniMap::OnLButtonDown	src/visual.cpp
-PENDING	4B0AAD	VisMiniMap::OnRButtonDown	src/visual.cpp
-PENDING	4B0C2F	VisMiniMap::OnMouseMove	src/visual.cpp
-PENDING	4B0C84	VisMiniMap::OnLButtonUp	src/visual.cpp
+OK	4AEEC3	VisMiniMap::VisMiniMap	src/visual.cpp
+OK	4AF006	VisMiniMap::MsgProc	src/visual.cpp
+OK	4AF0DC	VisMiniMap::RebuildMap	src/visual.cpp
+OK	4AFB8E	VisMiniMap::VMethod7	src/visual.cpp
+OK	4B042E	VisMiniMap::UpdateCursor	src/visual.cpp
+OK	4B0788	VisMiniMap::OnLButtonDown	src/visual.cpp
+OK	4B0AAD	VisMiniMap::OnRButtonDown	src/visual.cpp
+OK	4B0C2F	VisMiniMap::OnMouseMove	src/visual.cpp
+OK	4B0C84	VisMiniMap::OnLButtonUp	src/visual.cpp
 
 ## VisMissionFailed (2)
 PENDING	44E875	VisMissionFailed::VisMissionFailed	src/visual.cpp
