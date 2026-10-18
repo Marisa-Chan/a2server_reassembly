@@ -824,15 +824,15 @@ OK	57CDC0	Item::VMethod13	src/item.cpp
 OK	57CE40	Item::VMethod6	src/item.cpp
 
 ## item (globals) (4)
-PENDING	475988	LoadItemNames	src/item.cpp
-PENDING	4F499B	sub_4F499B	src/item.cpp
-PENDING	540DAA	sub_540DAA	src/item.cpp
-PENDING	54F176	sub_54F176	src/item.cpp
+OK	475988	LoadItemNames	src/item.cpp
+OK	4F499B	sub_4F499B	src/item.cpp
+OK	540DAA	sub_540DAA	src/item.cpp
+OK	54F176	sub_54F176	src/item.cpp
 
 ## MagicInfo (3)
-PENDING	5729E0	MagicInfo::MagicInfo	src/table.cpp
-PENDING	572AC0	MagicInfo::~MagicInfo	src/table.cpp
-PENDING	578120	MagicInfo::ParseLine	src/table.cpp
+OK	5729E0	MagicInfo::MagicInfo	src/table.cpp
+OK	572AC0	MagicInfo::~MagicInfo	src/table.cpp
+OK	578120	MagicInfo::ParseLine	src/table.cpp
 
 ## MagicItem (5)
 OK	513B68	MagicItem::ParseLine	src/table.cpp
