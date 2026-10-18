@@ -2726,12 +2726,12 @@ OK	4C6A50	VisShopKaarg::~VisShopKaarg	src/visual.cpp
 OK	4C6C10	VisShopKaarg::VMethod33	src/visual.cpp
 
 ## VisSideStatus (6)
-PENDING	4B3FA3	VisSideStatus::VisSideStatus	src/visual.cpp
-PENDING	4B4019	VisSideStatus::UpdateCursor	src/visual.cpp
-PENDING	4B4190	VisSideStatus::VMethod7	src/visual.cpp
-PENDING	4B4490	VisSideStatus::MsgProc	src/visual.cpp
-PENDING	4B45BB	VisSideStatus::GetHint	src/visual.cpp
-PENDING	4B4810	VisSideStatus::~VisSideStatus	src/visual.cpp
+OK	4B3FA3	VisSideStatus::VisSideStatus	src/visual.cpp
+OK	4B4019	VisSideStatus::UpdateCursor	src/visual.cpp
+OK	4B4190	VisSideStatus::VMethod7	src/visual.cpp
+OK	4B4490	VisSideStatus::MsgProc	src/visual.cpp
+OK	4B45BB	VisSideStatus::GetHint	src/visual.cpp
+OK	4B4810	VisSideStatus::~VisSideStatus	src/visual.cpp
 
 ## VisSpellBook (21)
 FIXED	41F9B0	VisSpellBook::sub_41F9B0	src/visual.cpp	C++ tested pressed>=0 fallback spell; vanilla tests selected<0 fallback pressed (fields 0x64/0x60 via disasm 41f9ba)
