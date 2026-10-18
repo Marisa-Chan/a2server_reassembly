@@ -2163,23 +2163,23 @@ OK	473175	VisGlobalMap::OnRButtonUp	src/visual.cpp
 OK	474F10	VisGlobalMap::OnLButtonUp	src/visual.cpp
 
 ## VisHatBrowserDlg (4)
-PENDING	44BC35	VisHatBrowserDlg::VisHatBrowserDlg	src/visual.cpp
-PENDING	44BC6C	VisHatBrowserDlg::VMethod26	src/visual.cpp
-PENDING	44C1A9	VisHatBrowserDlg::MsgProc	src/visual.cpp
-PENDING	44FED0	VisHatBrowserDlg::~VisHatBrowserDlg	src/visual.cpp
+OK	44BC35	VisHatBrowserDlg::VisHatBrowserDlg	src/visual.cpp
+OK	44BC6C	VisHatBrowserDlg::VMethod26	src/visual.cpp
+OK	44C1A9	VisHatBrowserDlg::MsgProc	src/visual.cpp
+OK	44FED0	VisHatBrowserDlg::~VisHatBrowserDlg	src/visual.cpp
 
 ## VisHatBrowserList (4)
-PENDING	44B460	VisHatBrowserList::IsItemEnabled	src/visual.cpp
-PENDING	44B60C	VisHatBrowserList::DrawItem	src/visual.cpp
-PENDING	44FF20	VisHatBrowserList::VisHatBrowserList	src/visual.cpp
-PENDING	44FFB0	VisHatBrowserList::~VisHatBrowserList	src/visual.cpp
+OK	44B460	VisHatBrowserList::IsItemEnabled	src/visual.cpp
+OK	44B60C	VisHatBrowserList::DrawItem	src/visual.cpp
+OK	44FF20	VisHatBrowserList::VisHatBrowserList	src/visual.cpp
+OK	44FFB0	VisHatBrowserList::~VisHatBrowserList	src/visual.cpp
 
 ## VisHatServerListDlg (5)
-PENDING	44A0E2	VisHatServerListDlg::VisHatServerListDlg	src/visual.cpp
-PENDING	44A140	VisHatServerListDlg::VMethod31	src/visual.cpp
-PENDING	44A34D	VisHatServerListDlg::VMethod30	src/visual.cpp
-PENDING	44A8A8	VisHatServerListDlg::MsgProc	src/visual.cpp
-PENDING	44FD90	VisHatServerListDlg::~VisHatServerListDlg	src/visual.cpp
+OK	44A0E2	VisHatServerListDlg::VisHatServerListDlg	src/visual.cpp
+OK	44A140	VisHatServerListDlg::VMethod31	src/visual.cpp
+OK	44A34D	VisHatServerListDlg::VMethod30	src/visual.cpp
+OK	44A8A8	VisHatServerListDlg::MsgProc	src/visual.cpp
+OK	44FD90	VisHatServerListDlg::~VisHatServerListDlg	src/visual.cpp
 
 ## Visibility (7)
 OK	58CD84	Visibility::sub_58CD84	src/visibility.cpp
