@@ -2469,24 +2469,24 @@ OK	44D275	VisNetMapSelection::MsgProc	src/visual.cpp
 OK	44D8F0	VisNetMapSelection::OnKeyDown	src/visual.cpp
 
 ## VisNetPhoneBook (4)
-PENDING	447EA8	VisNetPhoneBook::VisNetPhoneBook	src/visual.cpp
-PENDING	447EF2	VisNetPhoneBook::VMethod26	src/visual.cpp
-PENDING	448708	VisNetPhoneBook::sub_448708	src/visual.cpp
-PENDING	44878A	VisNetPhoneBook::MsgProc	src/visual.cpp
+OK	447EA8	VisNetPhoneBook::VisNetPhoneBook	src/visual.cpp
+OK	447EF2	VisNetPhoneBook::VMethod26	src/visual.cpp
+OK	448708	VisNetPhoneBook::sub_448708	src/visual.cpp
+OK	44878A	VisNetPhoneBook::MsgProc	src/visual.cpp
 
 ## VisNetPlayerList (1)
-PENDING	44C71D	VisNetPlayerList::DrawItem	src/visual.cpp
+OK	44C71D	VisNetPlayerList::DrawItem	src/visual.cpp
 
 ## VisNetSerialSettings (4)
-PENDING	448CD5	VisNetSerialSettings::VisNetSerialSettings	src/visual.cpp
-PENDING	448D15	VisNetSerialSettings::VMethod26	src/visual.cpp
-PENDING	449903	VisNetSerialSettings::SaveComSettings	src/visual.cpp
-PENDING	449C98	VisNetSerialSettings::MsgProc	src/visual.cpp
+OK	448CD5	VisNetSerialSettings::VisNetSerialSettings	src/visual.cpp
+OK	448D15	VisNetSerialSettings::VMethod26	src/visual.cpp
+OK	449903	VisNetSerialSettings::SaveComSettings	src/visual.cpp
+OK	449C98	VisNetSerialSettings::MsgProc	src/visual.cpp
 
 ## VisNetTcpIp (3)
-PENDING	449F06	VisNetTcpIp::VisNetTcpIp	src/visual.cpp
-PENDING	449F67	VisNetTcpIp::VMethod31	src/visual.cpp
-PENDING	44A014	VisNetTcpIp::VMethod30	src/visual.cpp
+OK	449F06	VisNetTcpIp::VisNetTcpIp	src/visual.cpp
+OK	449F67	VisNetTcpIp::VMethod31	src/visual.cpp
+OK	44A014	VisNetTcpIp::VMethod30	src/visual.cpp
 
 ## VisOrderToolbar (13)
 OK	4B0CFC	VisOrderToolbar::VisOrderToolbar	src/visual.cpp
