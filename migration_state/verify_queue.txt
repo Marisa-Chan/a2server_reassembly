@@ -1974,20 +1974,20 @@ OK	4B3A0D	VisCharInfo::VMethod27	src/visual.cpp
 OK	4B4830	VisCharInfo::VMethod28	src/visual.cpp
 
 ## VisCharSelect (14)
-PENDING	431EAC	VisCharSelect::VisCharSelect	src/visual.cpp
-PENDING	431F18	VisCharSelect::~VisCharSelect	src/visual.cpp
-PENDING	431FDF	VisCharSelect::VMethod26	src/visual.cpp
-PENDING	432280	VisCharSelect::LoadSfx	src/visual.cpp
-PENDING	4322ED	VisCharSelect::FreeSfx	src/visual.cpp
-PENDING	43233E	VisCharSelect::VMethod28	src/visual.cpp
-PENDING	43251C	VisCharSelect::DoClose	src/visual.cpp
-PENDING	432655	VisCharSelect::FUN_00432655	src/visual.cpp
-PENDING	4326A4	VisCharSelect::MsgProc	src/visual.cpp
-PENDING	4326EA	VisCharSelect::OnMouseMove	src/visual.cpp
-PENDING	4327F3	VisCharSelect::OpenRenameWindow	src/visual.cpp
-PENDING	432933	VisCharSelect::CloseRenameWindow	src/visual.cpp
-PENDING	438D30	VisCharSelect::GetSelectedMapUnit	src/visual.cpp
-PENDING	438D50	VisCharSelect::VMethod8	src/visual.cpp
+OK	431EAC	VisCharSelect::VisCharSelect	src/visual.cpp
+OK	431F18	VisCharSelect::~VisCharSelect	src/visual.cpp
+OK	431FDF	VisCharSelect::VMethod26	src/visual.cpp
+OK	432280	VisCharSelect::LoadSfx	src/visual.cpp
+OK	4322ED	VisCharSelect::FreeSfx	src/visual.cpp
+OK	43233E	VisCharSelect::VMethod28	src/visual.cpp
+OK	43251C	VisCharSelect::DoClose	src/visual.cpp
+OK	432655	VisCharSelect::FUN_00432655	src/visual.cpp
+OK	4326A4	VisCharSelect::MsgProc	src/visual.cpp
+OK	4326EA	VisCharSelect::OnMouseMove	src/visual.cpp
+OK	4327F3	VisCharSelect::OpenRenameWindow	src/visual.cpp
+OK	432933	VisCharSelect::CloseRenameWindow	src/visual.cpp
+OK	438D30	VisCharSelect::GetSelectedMapUnit	src/visual.cpp
+OK	438D50	VisCharSelect::VMethod8	src/visual.cpp
 
 ## VisCharSellectButtons (9)
 PENDING	42FD5C	VisCharSellectButtons::VisCharSellectButtons	src/visual.cpp
