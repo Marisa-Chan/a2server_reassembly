@@ -2191,31 +2191,31 @@ PENDING	58E1C1	Visibility::sub_58E1C1	src/visibility.cpp
 PENDING	58E1E4	Visibility::Visibility	src/visibility.cpp
 
 ## VisInvBase (25)
-PENDING	41F940	VisInvBase::sub_41F940	src/visual.cpp
-PENDING	46FB90	VisInvBase::FUN_0046fb90	src/visual.cpp
-PENDING	4A4938	VisInvBase::VisInvBase	src/visual.cpp
-PENDING	4A4ACC	VisInvBase::~VisInvBase	src/visual.cpp
-PENDING	4A4BCB	VisInvBase::sub_4A4BCB	src/visual.cpp
-PENDING	4A4C2F	VisInvBase::VMethod35	src/visual.cpp
-PENDING	4A4CF8	VisInvBase::GetHint	src/visual.cpp
-PENDING	4A4D05	VisInvBase::VMethod33	src/visual.cpp
-PENDING	4A4DA9	VisInvBase::VMethod32	src/visual.cpp
-PENDING	4A4E28	VisInvBase::VMethod34	src/visual.cpp
-PENDING	4A4EBC	VisInvBase::FUN_004a4ebc	src/visual.cpp
-PENDING	4A51C9	VisInvBase::sub_4A51C9	src/visual.cpp
-PENDING	4A5350	VisInvBase::sub_4A5350	src/visual.cpp
-PENDING	4A554F	VisInvBase::VMethod26	src/visual.cpp
-PENDING	4A56C3	VisInvBase::VMethod27	src/visual.cpp
-PENDING	4A57A1	VisInvBase::VMethod28	src/visual.cpp
-PENDING	4A58DC	VisInvBase::VMethod29	src/visual.cpp
-PENDING	4A5AAE	VisInvBase::VMethod36	src/visual.cpp
-PENDING	4A5C39	VisInvBase::VMethod37	src/visual.cpp
-PENDING	4A5DE0	VisInvBase::MsgProc	src/visual.cpp
-PENDING	4A5E12	VisInvBase::FUN_004a5e12	src/visual.cpp
-PENDING	4A5FAB	VisInvBase::sub_4A5FAB	src/visual.cpp
-PENDING	4A7990	VisInvBase::VMethod31	src/visual.cpp
-PENDING	4A79A0	VisInvBase::VMethod30	src/visual.cpp
-PENDING	4A79B0	VisInvBase::VMethod38	src/visual.cpp
+OK	41F940	VisInvBase::sub_41F940	src/visual.cpp
+OK	46FB90	VisInvBase::FUN_0046fb90	src/visual.cpp
+OK	4A4938	VisInvBase::VisInvBase	src/visual.cpp
+OK	4A4ACC	VisInvBase::~VisInvBase	src/visual.cpp
+OK	4A4BCB	VisInvBase::sub_4A4BCB	src/visual.cpp
+OK	4A4C2F	VisInvBase::VMethod35	src/visual.cpp
+OK	4A4CF8	VisInvBase::GetHint	src/visual.cpp
+OK	4A4D05	VisInvBase::VMethod33	src/visual.cpp
+OK	4A4DA9	VisInvBase::VMethod32	src/visual.cpp
+OK	4A4E28	VisInvBase::VMethod34	src/visual.cpp
+OK	4A4EBC	VisInvBase::FUN_004a4ebc	src/visual.cpp
+OK	4A51C9	VisInvBase::sub_4A51C9	src/visual.cpp
+OK	4A5350	VisInvBase::sub_4A5350	src/visual.cpp
+OK	4A554F	VisInvBase::VMethod26	src/visual.cpp
+OK	4A56C3	VisInvBase::VMethod27	src/visual.cpp
+OK	4A57A1	VisInvBase::VMethod28	src/visual.cpp
+OK	4A58DC	VisInvBase::VMethod29	src/visual.cpp
+OK	4A5AAE	VisInvBase::VMethod36	src/visual.cpp
+OK	4A5C39	VisInvBase::VMethod37	src/visual.cpp
+OK	4A5DE0	VisInvBase::MsgProc	src/visual.cpp
+OK	4A5E12	VisInvBase::FUN_004a5e12	src/visual.cpp
+OK	4A5FAB	VisInvBase::sub_4A5FAB	src/visual.cpp
+OK	4A7990	VisInvBase::VMethod31	src/visual.cpp
+OK	4A79A0	VisInvBase::VMethod30	src/visual.cpp
+OK	4A79B0	VisInvBase::VMethod38	src/visual.cpp
 
 ## VisInvExtBase (26)
 OK	4B4A0C	VisInvExtBase::VisInvExtBase	src/visual.cpp
