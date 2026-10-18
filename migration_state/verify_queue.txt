@@ -1538,15 +1538,15 @@ OK	54D423	ShopAssortment::ArrangeShelfs	src/shop_assortment.cpp
 OK	54EA76	ShopAssortment::sub_54EA76	src/shop_assortment.cpp
 
 ## sound (globals) (4)
-PENDING	438DD0	FUN_00438dd0	src/sound.cpp
-PENDING	438E40	FUN_00438e40	src/sound.cpp
-PENDING	476C0D	FUN_00476c0d	src/sound.cpp
-PENDING	4C86F5	FUN_004c86f5	src/sound.cpp
+OK	438DD0	FUN_00438dd0	src/sound.cpp
+OK	438E40	FUN_00438e40	src/sound.cpp
+OK	476C0D	FUN_00476c0d	src/sound.cpp
+OK	4C86F5	FUN_004c86f5	src/sound.cpp
 
 ## SoundSettings (3)
-PENDING	43D877	SoundSettings::Save	src/sound.cpp
-PENDING	477860	SoundSettings::SoundSettings	src/sound.cpp
-PENDING	477920	SoundSettings::~SoundSettings	src/sound.cpp
+OK	43D877	SoundSettings::Save	src/sound.cpp
+OK	477860	SoundSettings::SoundSettings	src/sound.cpp
+OK	477920	SoundSettings::~SoundSettings	src/sound.cpp
 
 ## Spell (8)
 OK	53939E	Spell::sub_53939E	src/spell.cpp
