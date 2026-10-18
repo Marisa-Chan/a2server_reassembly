@@ -1599,15 +1599,15 @@ PENDING	53E588	SpellTransport::Serialize	src/spell_effect.cpp
 PENDING	53E68D	SpellTransport::VMethod5	src/spell_effect.cpp
 
 ## Srv1 (9)
-PENDING	59B7EA	Srv1::sub_59B7EA	src/server.cpp
-PENDING	59BEDB	Srv1::sub_59BEDB	src/server.cpp
-PENDING	59C37A	Srv1::sub_59C37A	src/server.cpp
-PENDING	59C3FB	Srv1::sub_59C3FB	src/server.cpp
-PENDING	59C56E	Srv1::sub_59C56E	src/server.cpp
-PENDING	59CD45	Srv1::sub_59CD45	src/server.cpp
-PENDING	59D891	Srv1::sub_59D891	src/server.cpp
-PENDING	59F1BE	Srv1::sub_59F1BE	src/server.cpp
-PENDING	59FC97	Srv1::sub_59FC97	src/server.cpp
+OK	59B7EA	Srv1::sub_59B7EA	src/server.cpp
+OK	59BEDB	Srv1::sub_59BEDB	src/server.cpp
+OK	59C37A	Srv1::sub_59C37A	src/server.cpp
+OK	59C3FB	Srv1::sub_59C3FB	src/server.cpp
+OK	59C56E	Srv1::sub_59C56E	src/server.cpp
+OK	59CD45	Srv1::sub_59CD45	src/server.cpp
+OK	59D891	Srv1::sub_59D891	src/server.cpp
+OK	59F1BE	Srv1::sub_59F1BE	src/server.cpp
+OK	59FC97	Srv1::sub_59FC97	src/server.cpp
 
 ## SrvStru1 (2)
 PENDING	4FAEB4	SrvStru1::sub_4FAEB4	src/server.cpp
