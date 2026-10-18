@@ -2787,18 +2787,18 @@ OK	4386B0	VisStartGame::~VisStartGame	src/visual.cpp
 OK	438DC0	VisStartGame::VMethod8	src/visual.cpp
 
 ## VisStartGameTextBox (12)
-PENDING	4329F9	VisStartGameTextBox::VisStartGameTextBox	src/visual.cpp
-PENDING	432AD1	VisStartGameTextBox::FUN_00432ad1	src/visual.cpp
-PENDING	432B33	VisStartGameTextBox::FUN_00432b33	src/visual.cpp
-PENDING	432B80	VisStartGameTextBox::FUN_00432b80	src/visual.cpp
-PENDING	432C03	VisStartGameTextBox::SetText	src/visual.cpp
-PENDING	432C1F	VisStartGameTextBox::OnMouseMove	src/visual.cpp
-PENDING	432C9E	VisStartGameTextBox::OnLButtonDown	src/visual.cpp
-PENDING	432CE3	VisStartGameTextBox::OnKeyDown	src/visual.cpp
-PENDING	432D1B	VisStartGameTextBox::OnChar	src/visual.cpp
-PENDING	432D58	VisStartGameTextBox::VMethod7	src/visual.cpp
-PENDING	432EA3	VisStartGameTextBox::GetHint	src/visual.cpp
-PENDING	438D80	VisStartGameTextBox::GetText	src/visual.cpp
+OK	4329F9	VisStartGameTextBox::VisStartGameTextBox	src/visual.cpp
+OK	432AD1	VisStartGameTextBox::FUN_00432ad1	src/visual.cpp
+OK	432B33	VisStartGameTextBox::FUN_00432b33	src/visual.cpp
+OK	432B80	VisStartGameTextBox::FUN_00432b80	src/visual.cpp
+OK	432C03	VisStartGameTextBox::SetText	src/visual.cpp
+OK	432C1F	VisStartGameTextBox::OnMouseMove	src/visual.cpp
+OK	432C9E	VisStartGameTextBox::OnLButtonDown	src/visual.cpp
+OK	432CE3	VisStartGameTextBox::OnKeyDown	src/visual.cpp
+OK	432D1B	VisStartGameTextBox::OnChar	src/visual.cpp
+OK	432D58	VisStartGameTextBox::VMethod7	src/visual.cpp
+OK	432EA3	VisStartGameTextBox::GetHint	src/visual.cpp
+OK	438D80	VisStartGameTextBox::GetText	src/visual.cpp
 
 ## VisTav (19)
 OK	49DB79	VisTav::VisTav	src/visual.cpp
