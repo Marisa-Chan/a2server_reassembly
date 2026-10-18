@@ -1110,14 +1110,14 @@ PENDING	57A210	PacketInfo::Duplicate	src/packet.cpp
 PENDING	57A290	PacketInfo::GetDataSize	src/packet.cpp
 
 ## PacketJoin (8)
-PENDING	526C12	PacketJoin::PacketJoin	src/packet.cpp
-PENDING	526C52	PacketJoin::PacketJoin	src/packet.cpp
-PENDING	526D59	PacketJoin::PacketJoin	src/packet.cpp
-PENDING	526E4F	PacketJoin::~PacketJoin	src/packet.cpp
-PENDING	526EDE	PacketJoin::VMethod3	src/packet.cpp
-PENDING	526F1D	PacketJoin::VMethod4	src/packet.cpp
-PENDING	57A390	PacketJoin::Duplicate	src/packet.cpp
-PENDING	57A410	PacketJoin::GetDataSize	src/packet.cpp
+OK	526C12	PacketJoin::PacketJoin	src/packet.cpp
+OK	526C52	PacketJoin::PacketJoin	src/packet.cpp
+OK	526D59	PacketJoin::PacketJoin	src/packet.cpp
+OK	526E4F	PacketJoin::~PacketJoin	src/packet.cpp
+OK	526EDE	PacketJoin::VMethod3	src/packet.cpp
+OK	526F1D	PacketJoin::VMethod4	src/packet.cpp
+OK	57A390	PacketJoin::Duplicate	src/packet.cpp
+OK	57A410	PacketJoin::GetDataSize	src/packet.cpp
 
 ## PacketTerrain (7)
 PENDING	527346	PacketTerrain::PacketTerrain	src/packet.cpp
