@@ -1583,11 +1583,11 @@ OK	55BF31	SpellEffectList::sub_55BF31	src/server.cpp
 OK	55C213	SpellEffectList::VMethod1	src/server.cpp
 
 ## SpellInfo (5)
-PENDING	514F41	SpellInfo::VMethod2	src/table.cpp
-PENDING	51520F	SpellInfo::Serialize	src/table.cpp
-PENDING	573120	SpellInfo::SpellInfo	src/table.cpp
-PENDING	573210	SpellInfo::~SpellInfo	src/table.cpp
-PENDING	578320	SpellInfo::ParseLine	src/table.cpp
+OK	514F41	SpellInfo::VMethod2	src/table.cpp
+OK	51520F	SpellInfo::Serialize	src/table.cpp
+OK	573120	SpellInfo::SpellInfo	src/table.cpp
+OK	573210	SpellInfo::~SpellInfo	src/table.cpp
+OK	578320	SpellInfo::ParseLine	src/table.cpp	count 0x16 lives in .rdata DAT_006362e4
 
 ## SpellTransport (7)
 OK	5389E2	SpellTransport::SpellTransport	src/spell_effect.cpp
@@ -1610,11 +1610,11 @@ OK	59F1BE	Srv1::sub_59F1BE	src/server.cpp
 OK	59FC97	Srv1::sub_59FC97	src/server.cpp
 
 ## SrvStru1 (2)
-PENDING	4FAEB4	SrvStru1::sub_4FAEB4	src/server.cpp
-PENDING	4FB273	SrvStru1::sub_4FB273	src/server.cpp
+FIXED	4FAEB4	SrvStru1::sub_4FAEB4	src/server.cpp	some_unit_list drain must delete units (original calls UnitList::Remove = Find+RemoveAt+delete)
+OK	4FB273	SrvStru1::sub_4FB273	src/server.cpp
 
 ## strcore (globals) (1)
-PENDING	4018A0	LPCTSTR	src/strcore.cpp
+OK	4018A0	LPCTSTR	src/strcore.cpp
 
 ## StructEnter (7)
 OK	473B80	StructEnter::FUN_00473b80	src/gameobj.cpp

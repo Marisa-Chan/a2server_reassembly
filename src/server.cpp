@@ -5719,8 +5719,15 @@ void SrvStru1::sub_4FAEB4()
         delete caster;
     }
 
+    // The original calls UnitList::Remove here, which removes the unit from
+    // the list AND deletes it.
     while (!this->some_unit_list.IsEmpty()) {
-        this->some_unit_list.RemoveTail();
+        Unit* unit = this->some_unit_list.GetHead();
+        POSITION pos = this->some_unit_list.Find(unit);
+        if (pos != nullptr) {
+            this->some_unit_list.RemoveAt(pos);
+        }
+        delete unit;
     }
 }
 
