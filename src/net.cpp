@@ -593,7 +593,7 @@ void NetStru1::FUN_0051d6b4(uint16_t arg) {
     uint32_t* ptr = reinterpret_cast<uint32_t*>(packet.data);
     int32_t teams_started = g_PlayersList->sub_53636E();
     *ptr++ = teams_started;
-    *ptr++ = g_ServerConfig.chat_range;
+    *ptr++ = g_ServerConfig.frag_limit;
     *ptr++ = g_Server->ctf_carrying[0];
     *ptr++ = g_Server->ctf_carrying[1];
     *ptr++ = teams_started ? g_Server->ctf_score[0] : 0xF0000001u;
@@ -1433,6 +1433,8 @@ void NetStru1::OnClientDisconnect(NetStru2* cli)
                     if (pos != nullptr) {
                         g_PlayersList->list.RemoveAt(pos);
                     }
+
+                    delete pl;
 
                     g_Server->sub_4F4570();
                 }
