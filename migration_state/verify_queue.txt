@@ -1389,12 +1389,12 @@ OK	554B03	SackList::sub_554B03	src/server.cpp
 OK	55BC58	SackList::sub_55BC58	src/server.cpp
 
 ## ScanPresenceGrid (6)
-PENDING	5955B5	ScanPresenceGrid::ScanPresenceGrid	src/map_stuff.cpp
-PENDING	5957E2	ScanPresenceGrid::sub_5957E2	src/map_stuff.cpp
-PENDING	595F46	ScanPresenceGrid::sub_595F46	src/map_stuff.cpp
-PENDING	596047	ScanPresenceGrid::sub_596047	src/map_stuff.cpp
-PENDING	596131	ScanPresenceGrid::sub_596131	src/map_stuff.cpp
-PENDING	5963B9	ScanPresenceGrid::sub_5963B9	src/map_stuff.cpp
+OK	5955B5	ScanPresenceGrid::ScanPresenceGrid	src/map_stuff.cpp	ctor = FUN_005955d6 memset control 0x400
+OK	5957E2	ScanPresenceGrid::sub_5957E2	src/map_stuff.cpp	decomp 5x5 loop unrolled with folded negative columns ([c+0x21] etc = dy -2 under wrap of the flat offset)
+OK	595F46	ScanPresenceGrid::sub_595F46	src/map_stuff.cpp
+OK	596047	ScanPresenceGrid::sub_596047	src/map_stuff.cpp	decomp +2 indices == C++ x_sec+1
+OK	596131	ScanPresenceGrid::sub_596131	src/map_stuff.cpp
+OK	5963B9	ScanPresenceGrid::sub_5963B9	src/map_stuff.cpp
 
 ## Scenario (7)
 OK	41EF60	Scenario::sub_41EF60	src/map_stuff.cpp
