@@ -3223,8 +3223,8 @@ OK	5B6F60	World::sub_5B6F60	src/world.cpp
 OK	5B6F30	sub_5B6F30	src/world.cpp
 
 ## WorldEquip (5)
-PENDING	513268	WorldEquip::VMethod2	src/table.cpp
-PENDING	513AA3	WorldEquip::Serialize	src/table.cpp
-PENDING	571E50	WorldEquip::WorldEquip	src/table.cpp
-PENDING	5724B0	WorldEquip::~WorldEquip	src/table.cpp
-PENDING	578040	WorldEquip::ParseLine	src/table.cpp
+OK	513268	WorldEquip::VMethod2	src/table.cpp
+OK	513AA3	WorldEquip::Serialize	src/table.cpp
+OK	571E50	WorldEquip::WorldEquip	src/table.cpp
+OK	5724B0	WorldEquip::~WorldEquip	src/table.cpp
+OK	578040	WorldEquip::ParseLine	src/table.cpp
