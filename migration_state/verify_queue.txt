@@ -1469,18 +1469,18 @@ PENDING	5008CA	StatLevelPoints	src/server.cpp
 PENDING	4F6FC9	ServerConfig::ServerConfig	src/server.cpp
 
 ## ServerControlDialog (12)
-PENDING	4951BD	ServerControlDialog::ServerControlDialog	src/main_window.cpp
-PENDING	4952FA	ServerControlDialog::DoDataExchange	src/main_window.cpp
-PENDING	495429	ServerControlDialog::GetMessageMap	src/main_window.cpp
-PENDING	495439	ServerControlDialog::sub_495439	src/main_window.cpp
-PENDING	49544C	ServerControlDialog::sub_49544C	src/main_window.cpp
-PENDING	49549B	ServerControlDialog::sub_49549B	src/main_window.cpp
-PENDING	4956D5	ServerControlDialog::sub_4956D5	src/main_window.cpp
-PENDING	495774	ServerControlDialog::sub_495774	src/main_window.cpp
-PENDING	4957AD	ServerControlDialog::sub_4957AD	src/main_window.cpp
-PENDING	4957E2	ServerControlDialog::sub_4957E2	src/main_window.cpp
-PENDING	49583E	ServerControlDialog::sub_49583E	src/main_window.cpp
-PENDING	49585B	ServerControlDialog::sub_49585B	src/main_window.cpp
+OK	4951BD	ServerControlDialog::ServerControlDialog	src/main_window.cpp
+OK	4952FA	ServerControlDialog::DoDataExchange	src/main_window.cpp
+OK	495429	ServerControlDialog::GetMessageMap	src/main_window.cpp
+OK	495439	ServerControlDialog::sub_495439	src/main_window.cpp
+OK	49544C	ServerControlDialog::sub_49544C	src/main_window.cpp
+OK	49549B	ServerControlDialog::sub_49549B	src/main_window.cpp
+OK	4956D5	ServerControlDialog::sub_4956D5	src/main_window.cpp
+OK	495774	ServerControlDialog::sub_495774	src/main_window.cpp
+OK	4957AD	ServerControlDialog::sub_4957AD	src/main_window.cpp
+OK	4957E2	ServerControlDialog::sub_4957E2	src/main_window.cpp
+OK	49583E	ServerControlDialog::sub_49583E	src/main_window.cpp
+OK	49585B	ServerControlDialog::sub_49585B	src/main_window.cpp
 
 ## Settings (2)
 PENDING	5A5047	Settings::Settings	src/player.cpp
