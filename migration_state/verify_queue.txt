@@ -1773,14 +1773,14 @@ OK	53685B	sub_53685B	src/unit.cpp
 OK	536A62	sub_536A62	src/unit.cpp
 
 ## UnitEye (4)
-PENDING	58BE86	UnitEye::UnitEye	src/eye.cpp
-PENDING	58C00E	UnitEye::sub_58c00e	src/eye.cpp
-PENDING	5925C9	UnitEye::sub_5925C9	src/eye.cpp
-PENDING	59367D	UnitEye::sub_59367D	src/eye.cpp
+OK	58BE86	UnitEye::UnitEye	src/eye.cpp
+OK	58C00E	UnitEye::sub_58c00e	src/eye.cpp
+OK	5925C9	UnitEye::sub_5925C9	src/eye.cpp
+OK	59367D	UnitEye::sub_59367D	src/eye.cpp
 
 ## UnitEye2 (2)
-PENDING	5A4E83	UnitEye2::UnitEye2	src/eye.cpp
-PENDING	5A4F30	UnitEye2::~UnitEye2	src/eye.cpp
+OK	5A4E83	UnitEye2::UnitEye2	src/eye.cpp
+OK	5A4F30	UnitEye2::~UnitEye2	src/eye.cpp
 
 ## UnitList (13)
 OK	555A1D	UnitList::UnitList	src/unit_list.cpp
@@ -1816,9 +1816,9 @@ PENDING	51FD7D	XorData	src/util.cpp
 PENDING	527DE3	ReportWarning	src/util.cpp
 
 ## VirtualCaster (3)
-PENDING	528900	VirtualCaster::VirtualCaster	src/virtual_caster.cpp
-PENDING	528993	VirtualCaster::~VirtualCaster	src/virtual_caster.cpp
-PENDING	55D009	VirtualCaster::Serialize	src/virtual_caster.cpp
+OK	528900	VirtualCaster::VirtualCaster	src/virtual_caster.cpp
+OK	528993	VirtualCaster::~VirtualCaster	src/virtual_caster.cpp
+OK	55D009	VirtualCaster::Serialize	src/virtual_caster.cpp
 
 ## Vis1200 (12)
 OK	43BB70	Vis1200::Vis1200	src/visual.cpp
