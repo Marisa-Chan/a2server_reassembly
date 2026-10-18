@@ -1397,13 +1397,13 @@ PENDING	596131	ScanPresenceGrid::sub_596131	src/map_stuff.cpp
 PENDING	5963B9	ScanPresenceGrid::sub_5963B9	src/map_stuff.cpp
 
 ## Scenario (7)
-PENDING	41EF60	Scenario::sub_41EF60	src/map_stuff.cpp
-PENDING	44EC40	Scenario::FUN_0044ec40	src/map_stuff.cpp
-PENDING	4A7A50	Scenario::Scenario	src/map_stuff.cpp
-PENDING	4A7B79	Scenario::FUN_004a7b79	src/map_stuff.cpp
-PENDING	4A7BEC	Scenario::Scenario	src/map_stuff.cpp
-PENDING	4A9468	Scenario::~Scenario	src/map_stuff.cpp
-PENDING	4A952B	Scenario::sub_4A952B	src/map_stuff.cpp
+OK	41EF60	Scenario::sub_41EF60	src/map_stuff.cpp
+OK	44EC40	Scenario::FUN_0044ec40	src/map_stuff.cpp
+OK	4A7A50	Scenario::Scenario	src/map_stuff.cpp
+OK	4A7B79	Scenario::FUN_004a7b79	src/map_stuff.cpp
+OK	4A7BEC	Scenario::Scenario	src/map_stuff.cpp
+OK	4A9468	Scenario::~Scenario	src/map_stuff.cpp
+OK	4A952B	Scenario::sub_4A952B	src/map_stuff.cpp
 
 ## ScriptSettings (1)
 PENDING	5B681A	ScriptSettings::sub_5B681A	src/logic.cpp
