@@ -37507,39 +37507,6 @@ sub_4CD380      endp
 
 ; Attributes: bp-based frame
 
-sub_4CD3C0      proc near               ; CODE XREF: .text:004CB76B↑p
-
-var_4           = dword ptr -4
-arg_0           = word ptr  8
-arg_4           = word ptr  0Ch
-arg_8           = word ptr  10h
-arg_C           = byte ptr  14h
-arg_10          = byte ptr  18h
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     cx, [ebp+arg_0]
-                mov     [eax], cx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ax, [ebp+arg_4]
-                mov     [edx+2], ax
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dx, [ebp+arg_8]
-                mov     [ecx+4], dx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     cl, [ebp+arg_C]
-                mov     [eax+6], cl
-                mov     edx, dword ptr [ebp+var_4]
-                mov     al, [ebp+arg_10]
-                mov     [edx+7], al
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn    14h
-sub_4CD3C0      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
