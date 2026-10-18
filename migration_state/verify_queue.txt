@@ -1955,23 +1955,23 @@ PENDING	42A96D	VisCharGenStats::StatUpCost	src/visual.cpp
 PENDING	42A99D	VisCharGenStats::StatDownRefund	src/visual.cpp
 
 ## VisCharInfo (17)
-PENDING	4B16C3	VisCharInfo::VisCharInfo	src/visual.cpp
-PENDING	4B1909	VisCharInfo::~VisCharInfo	src/visual.cpp
-PENDING	4B19B0	VisCharInfo::GetHint	src/visual.cpp
-PENDING	4B201C	VisCharInfo::MsgProc	src/visual.cpp
-PENDING	4B2215	VisCharInfo::OnLButtonDown	src/visual.cpp
-PENDING	4B2227	VisCharInfo::OnRButtonDown	src/visual.cpp
-PENDING	4B2239	VisCharInfo::OnLButtonDblClk	src/visual.cpp
-PENDING	4B2334	VisCharInfo::OnRButtonDblClk	src/visual.cpp
-PENDING	4B2346	VisCharInfo::OnLButtonUp	src/visual.cpp
-PENDING	4B2857	VisCharInfo::OnRButtonUp	src/visual.cpp
-PENDING	4B289E	VisCharInfo::OnMouseMove	src/visual.cpp
-PENDING	4B2AD5	VisCharInfo::OnKeyDown	src/visual.cpp
-PENDING	4B2B3D	VisCharInfo::VMethod7	src/visual.cpp
-PENDING	4B36B4	VisCharInfo::sub_4B36B4	src/visual.cpp
-PENDING	4B38AF	VisCharInfo::VMethod26	src/visual.cpp
-PENDING	4B3A0D	VisCharInfo::VMethod27	src/visual.cpp
-PENDING	4B4830	VisCharInfo::VMethod28	src/visual.cpp
+OK	4B16C3	VisCharInfo::VisCharInfo	src/visual.cpp
+OK	4B1909	VisCharInfo::~VisCharInfo	src/visual.cpp
+OK	4B19B0	VisCharInfo::GetHint	src/visual.cpp
+OK	4B201C	VisCharInfo::MsgProc	src/visual.cpp
+OK	4B2215	VisCharInfo::OnLButtonDown	src/visual.cpp
+OK	4B2227	VisCharInfo::OnRButtonDown	src/visual.cpp
+OK	4B2239	VisCharInfo::OnLButtonDblClk	src/visual.cpp
+OK	4B2334	VisCharInfo::OnRButtonDblClk	src/visual.cpp
+OK	4B2346	VisCharInfo::OnLButtonUp	src/visual.cpp
+OK	4B2857	VisCharInfo::OnRButtonUp	src/visual.cpp
+OK	4B289E	VisCharInfo::OnMouseMove	src/visual.cpp
+OK	4B2AD5	VisCharInfo::OnKeyDown	src/visual.cpp
+OK	4B2B3D	VisCharInfo::VMethod7	src/visual.cpp
+OK	4B36B4	VisCharInfo::sub_4B36B4	src/visual.cpp
+OK	4B38AF	VisCharInfo::VMethod26	src/visual.cpp
+OK	4B3A0D	VisCharInfo::VMethod27	src/visual.cpp
+OK	4B4830	VisCharInfo::VMethod28	src/visual.cpp
 
 ## VisCharSelect (14)
 PENDING	431EAC	VisCharSelect::VisCharSelect	src/visual.cpp
