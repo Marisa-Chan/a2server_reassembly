@@ -2907,19 +2907,19 @@ PENDING	4A3B25	VisTavSceneKaarg::VMethod29	src/visual.cpp
 PENDING	4A40C0	VisTavSceneKaarg::~VisTavSceneKaarg	src/visual.cpp
 
 ## VisTextBox (13)
-PENDING	450410	VisTextBox::ReadData	src/visual.cpp
-PENDING	450430	VisTextBox::DataSize	src/visual.cpp
-PENDING	450440	VisTextBox::WriteData	src/visual.cpp
-PENDING	4D9A21	VisTextBox::VMethod7	src/visual.cpp
-PENDING	4D9EF2	VisTextBox::InsertChar	src/visual.cpp
-PENDING	4DA067	VisTextBox::DelSelection	src/visual.cpp
-PENDING	4DA153	VisTextBox::GetCursorPosByX	src/visual.cpp
-PENDING	4DA22E	VisTextBox::OnMouseMove	src/visual.cpp
-PENDING	4DA37C	VisTextBox::OnLButtonDown	src/visual.cpp
-PENDING	4DA3ED	VisTextBox::OnKeyDown	src/visual.cpp
-PENDING	4DA96A	VisTextBox::OnChar	src/visual.cpp
-PENDING	4DAA2B	VisTextBox::MsgProc	src/visual.cpp
-PENDING	4DAAB3	VisTextBox::ResetBlink	src/visual.cpp
+OK	450410	VisTextBox::ReadData	src/visual.cpp
+OK	450430	VisTextBox::DataSize	src/visual.cpp
+OK	450440	VisTextBox::WriteData	src/visual.cpp
+OK	4D9A21	VisTextBox::VMethod7	src/visual.cpp
+OK	4D9EF2	VisTextBox::InsertChar	src/visual.cpp
+OK	4DA067	VisTextBox::DelSelection	src/visual.cpp
+OK	4DA153	VisTextBox::GetCursorPosByX	src/visual.cpp
+OK	4DA22E	VisTextBox::OnMouseMove	src/visual.cpp
+OK	4DA37C	VisTextBox::OnLButtonDown	src/visual.cpp
+OK	4DA3ED	VisTextBox::OnKeyDown	src/visual.cpp
+OK	4DA96A	VisTextBox::OnChar	src/visual.cpp
+OK	4DAA2B	VisTextBox::MsgProc	src/visual.cpp
+OK	4DAAB3	VisTextBox::ResetBlink	src/visual.cpp
 
 ## VisTipsDialog (7)
 PENDING	4E2541	VisTipsDialog::VisTipsDialog	src/visual.cpp
