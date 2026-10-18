@@ -2383,8 +2383,8 @@ OK	4DD8C5	VisListBoxDiplomacy::OnKeyDown	src/visual.cpp
 OK	4E3D30	VisListBoxDiplomacy::VMethod30	src/visual.cpp
 
 ## VisListBoxPhoneBook (2)
-PENDING	44FB30	VisListBoxPhoneBook::VisListBoxPhoneBook	src/visual.cpp
-PENDING	44FB80	VisListBoxPhoneBook::OnKeyDown	src/visual.cpp
+OK	44FB30	VisListBoxPhoneBook::VisListBoxPhoneBook	src/visual.cpp
+OK	44FB80	VisListBoxPhoneBook::OnKeyDown	src/visual.cpp
 
 ## VisMainMenu (15)
 OK	4AA926	VisMainMenu::VisMainMenu	src/visual.cpp
@@ -2404,10 +2404,10 @@ OK	4ABB5E	VisMainMenu::LoadSfx	src/visual.cpp
 OK	4ABB87	VisMainMenu::FreeSfx	src/visual.cpp
 
 ## VisMessageBox (4)
-PENDING	444086	VisMessageBox::VMethod26	src/visual.cpp
-PENDING	444FF3	VisMessageBox::~VisMessageBox	src/visual.cpp
-PENDING	44500F	VisMessageBox::MsgProc	src/visual.cpp
-PENDING	445084	VisMessageBox::VMethod31	src/visual.cpp
+OK	444086	VisMessageBox::VMethod26	src/visual.cpp
+OK	444FF3	VisMessageBox::~VisMessageBox	src/visual.cpp
+OK	44500F	VisMessageBox::MsgProc	src/visual.cpp
+OK	445084	VisMessageBox::VMethod31	src/visual.cpp
 
 ## VisMiniMap (9)
 OK	4AEEC3	VisMiniMap::VisMiniMap	src/visual.cpp
@@ -2421,8 +2421,8 @@ OK	4B0C2F	VisMiniMap::OnMouseMove	src/visual.cpp
 OK	4B0C84	VisMiniMap::OnLButtonUp	src/visual.cpp
 
 ## VisMissionFailed (2)
-PENDING	44E875	VisMissionFailed::VisMissionFailed	src/visual.cpp
-PENDING	44E8CA	VisMissionFailed::VMethod26	src/visual.cpp
+OK	44E875	VisMissionFailed::VisMissionFailed	src/visual.cpp
+OK	44E8CA	VisMissionFailed::VMethod26	src/visual.cpp
 
 ## VisMultiText (9)
 OK	4D8816	VisMultiText::SetText	src/visual.cpp
@@ -2436,11 +2436,11 @@ OK	4D8C3F	VisMultiText::OnLButtonDown	src/visual.cpp
 OK	4D8C60	VisMultiText::OnKeyDown	src/visual.cpp
 
 ## VisNetChatList (1)
-PENDING	44C63D	VisNetChatList::DrawItem	src/visual.cpp
+OK	44C63D	VisNetChatList::DrawItem	src/visual.cpp
 
 ## VisNetChatTextBox (2)
-PENDING	450280	VisNetChatTextBox::VisNetChatTextBox	src/visual.cpp
-PENDING	4502C0	VisNetChatTextBox::OnKeyDown	src/visual.cpp
+OK	450280	VisNetChatTextBox::VisNetChatTextBox	src/visual.cpp
+OK	4502C0	VisNetChatTextBox::OnKeyDown	src/visual.cpp
 
 ## VisNetDlg (10)
 OK	4464C7	VisNetDlg::VisNetDlg	src/visual.cpp
@@ -2455,9 +2455,9 @@ OK	447C27	VisNetDlg::CachePlayerRows	src/visual.cpp
 OK	44FA90	VisNetDlg::~VisNetDlg	src/visual.cpp
 
 ## VisNetMapList (3)
-PENDING	44B09E	VisNetMapList::DrawItem	src/visual.cpp
-PENDING	44B2BF	VisNetMapList::GetHint	src/visual.cpp
-PENDING	44FFD0	VisNetMapList::VisNetMapList	src/visual.cpp
+OK	44B09E	VisNetMapList::DrawItem	src/visual.cpp
+OK	44B2BF	VisNetMapList::GetHint	src/visual.cpp
+OK	44FFD0	VisNetMapList::VisNetMapList	src/visual.cpp
 
 ## VisNetMapSelection (7)
 OK	44AAE5	VisNetMapSelection::FUN_0044aae5	src/visual.cpp
