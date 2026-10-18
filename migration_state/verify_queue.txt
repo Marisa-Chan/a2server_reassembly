@@ -1617,13 +1617,13 @@ PENDING	4FB273	SrvStru1::sub_4FB273	src/server.cpp
 PENDING	4018A0	LPCTSTR	src/strcore.cpp
 
 ## StructEnter (7)
-PENDING	473B80	StructEnter::FUN_00473b80	src/gameobj.cpp
-PENDING	473D10	StructEnter::FUN_00473d10	src/gameobj.cpp
-PENDING	474F20	StructEnter::StructEnter	src/gameobj.cpp
-PENDING	474F90	StructEnter::~StructEnter	src/gameobj.cpp
-PENDING	474FF0	StructEnter::FUN_00474ff0	src/gameobj.cpp
-PENDING	475010	StructEnter::FUN_00475010	src/gameobj.cpp
-PENDING	475080	StructEnter::FUN_00475080	src/gameobj.cpp
+OK	473B80	StructEnter::FUN_00473b80	src/gameobj.cpp
+OK	473D10	StructEnter::FUN_00473d10	src/gameobj.cpp
+OK	474F20	StructEnter::StructEnter	src/gameobj.cpp
+OK	474F90	StructEnter::~StructEnter	src/gameobj.cpp
+OK	474FF0	StructEnter::FUN_00474ff0	src/gameobj.cpp
+OK	475010	StructEnter::FUN_00475010	src/gameobj.cpp
+OK	475080	StructEnter::FUN_00475080	src/gameobj.cpp
 
 ## table (globals) (2)
 PENDING	50A26B	OpenText	src/table.cpp
