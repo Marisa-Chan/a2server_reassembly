@@ -2095,26 +2095,26 @@ PENDING	441FEE	VisDropGold::DoClose	src/visual.cpp
 PENDING	4A7A30	VisDropGold::FUN_004a7a30	src/visual.cpp
 
 ## VisFameDocument (20)
-PENDING	4AD961	VisFameDocument::VisFameDocument	src/visual.cpp
-PENDING	4ADAB6	VisFameDocument::VMethod26	src/visual.cpp
-PENDING	4ADD24	VisFameDocument::LoadBitmaps	src/visual.cpp
-PENDING	4AE17A	VisFameDocument::FreeBitmaps	src/visual.cpp
-PENDING	4AE3C6	VisFameDocument::LoadDocs	src/visual.cpp
-PENDING	4AE41B	VisFameDocument::ClearDocs	src/visual.cpp
-PENDING	4AE473	VisFameDocument::VMethod28	src/visual.cpp
-PENDING	4AE534	VisFameDocument::DoClose	src/visual.cpp
-PENDING	4AE57F	VisFameDocument::MsgProc	src/visual.cpp
-PENDING	4AE5BE	VisFameDocument::OnMouseMove	src/visual.cpp
-PENDING	4AE607	VisFameDocument::OnLButtonDown	src/visual.cpp
-PENDING	4AE638	VisFameDocument::NextDoc	src/visual.cpp
-PENDING	4AE6B3	VisFameDocument::PrevDoc	src/visual.cpp
-PENDING	4AE717	VisFameDocument::OnLButtonUp	src/visual.cpp
-PENDING	4AE791	VisFameDocument::OnKeyDown	src/visual.cpp
-PENDING	4AE7A3	VisFameDocument::VMethod7	src/visual.cpp
-PENDING	4AE926	VisFameDocument::VMethod8	src/visual.cpp
-PENDING	4AE952	VisFameDocument::UpdateButtons	src/visual.cpp
-PENDING	4AEC7A	VisFameDocument::UpdateArrowStates	src/visual.cpp
-PENDING	4AEDA0	VisFameDocument::GetHint	src/visual.cpp
+OK	4AD961	VisFameDocument::VisFameDocument	src/visual.cpp
+OK	4ADAB6	VisFameDocument::VMethod26	src/visual.cpp
+OK	4ADD24	VisFameDocument::LoadBitmaps	src/visual.cpp
+OK	4AE17A	VisFameDocument::FreeBitmaps	src/visual.cpp
+OK	4AE3C6	VisFameDocument::LoadDocs	src/visual.cpp
+OK	4AE41B	VisFameDocument::ClearDocs	src/visual.cpp
+OK	4AE473	VisFameDocument::VMethod28	src/visual.cpp
+OK	4AE534	VisFameDocument::DoClose	src/visual.cpp
+OK	4AE57F	VisFameDocument::MsgProc	src/visual.cpp
+OK	4AE5BE	VisFameDocument::OnMouseMove	src/visual.cpp
+OK	4AE607	VisFameDocument::OnLButtonDown	src/visual.cpp
+OK	4AE638	VisFameDocument::NextDoc	src/visual.cpp
+OK	4AE6B3	VisFameDocument::PrevDoc	src/visual.cpp
+OK	4AE717	VisFameDocument::OnLButtonUp	src/visual.cpp
+OK	4AE791	VisFameDocument::OnKeyDown	src/visual.cpp
+OK	4AE7A3	VisFameDocument::VMethod7	src/visual.cpp
+OK	4AE926	VisFameDocument::VMethod8	src/visual.cpp
+OK	4AE952	VisFameDocument::UpdateButtons	src/visual.cpp
+OK	4AEC7A	VisFameDocument::UpdateArrowStates	src/visual.cpp
+OK	4AEDA0	VisFameDocument::GetHint	src/visual.cpp
 
 ## VisFameHall (18)
 PENDING	45CD35	VisFameHall::VisFameHall	src/visual.cpp
