@@ -2460,13 +2460,13 @@ PENDING	44B2BF	VisNetMapList::GetHint	src/visual.cpp
 PENDING	44FFD0	VisNetMapList::VisNetMapList	src/visual.cpp
 
 ## VisNetMapSelection (7)
-PENDING	44AAE5	VisNetMapSelection::FUN_0044aae5	src/visual.cpp
-PENDING	44AEEF	VisNetMapSelection::StopThread	src/visual.cpp
-PENDING	44AF45	VisNetMapSelection::VisNetMapSelection	src/visual.cpp
-PENDING	44C788	VisNetMapSelection::VMethod26	src/visual.cpp
-PENDING	44D13D	VisNetMapSelection::AddNetMapInfo	src/visual.cpp
-PENDING	44D275	VisNetMapSelection::MsgProc	src/visual.cpp
-PENDING	44D8F0	VisNetMapSelection::OnKeyDown	src/visual.cpp
+OK	44AAE5	VisNetMapSelection::FUN_0044aae5	src/visual.cpp
+OK	44AEEF	VisNetMapSelection::StopThread	src/visual.cpp
+OK	44AF45	VisNetMapSelection::VisNetMapSelection	src/visual.cpp
+OK	44C788	VisNetMapSelection::VMethod26	src/visual.cpp
+OK	44D13D	VisNetMapSelection::AddNetMapInfo	src/visual.cpp
+OK	44D275	VisNetMapSelection::MsgProc	src/visual.cpp
+OK	44D8F0	VisNetMapSelection::OnKeyDown	src/visual.cpp
 
 ## VisNetPhoneBook (4)
 PENDING	447EA8	VisNetPhoneBook::VisNetPhoneBook	src/visual.cpp
