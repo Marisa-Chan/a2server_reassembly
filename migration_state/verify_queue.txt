@@ -2968,23 +2968,23 @@ OK	4D1723	VisTown::VMethod30	src/visual.cpp
 OK	4D184A	VisTown::VMethod31	src/visual.cpp
 
 ## VisTownDruid (17)
-PENDING	4D1AF8	VisTownDruid::VisTownDruid	src/visual.cpp
-PENDING	4D1E80	VisTownDruid::VMethod28	src/visual.cpp
-PENDING	4D2153	VisTownDruid::VMethod36	src/visual.cpp
-PENDING	4D27FF	VisTownDruid::VMethod37	src/visual.cpp
-PENDING	4D2AE3	VisTownDruid::VMethod32	src/visual.cpp
-PENDING	4D2AFF	VisTownDruid::VMethod30	src/visual.cpp
-PENDING	4D2D1B	VisTownDruid::VMethod31	src/visual.cpp
-PENDING	4D2E99	VisTownDruid::VMethod7	src/visual.cpp
-PENDING	4D3384	VisTownDruid::FUN_004d3384	src/visual.cpp
-PENDING	4D3435	VisTownDruid::FUN_004d3435	src/visual.cpp
-PENDING	4D34B6	VisTownDruid::FUN_004d34b6	src/visual.cpp
-PENDING	4D3520	VisTownDruid::FUN_004d3520	src/visual.cpp
-PENDING	4D359C	VisTownDruid::VMethod34	src/visual.cpp
-PENDING	4D3922	VisTownDruid::VMethod35	src/visual.cpp
-PENDING	4D3EA7	VisTownDruid::VMethod38	src/visual.cpp
-PENDING	4D3F18	VisTownDruid::OnLButtonDown	src/visual.cpp
-PENDING	4D6BE0	VisTownDruid::~VisTownDruid	src/visual.cpp
+OK	4D1AF8	VisTownDruid::VisTownDruid	src/visual.cpp
+OK	4D1E80	VisTownDruid::VMethod28	src/visual.cpp
+OK	4D2153	VisTownDruid::VMethod36	src/visual.cpp
+OK	4D27FF	VisTownDruid::VMethod37	src/visual.cpp
+OK	4D2AE3	VisTownDruid::VMethod32	src/visual.cpp
+OK	4D2AFF	VisTownDruid::VMethod30	src/visual.cpp
+OK	4D2D1B	VisTownDruid::VMethod31	src/visual.cpp
+OK	4D2E99	VisTownDruid::VMethod7	src/visual.cpp
+OK	4D3384	VisTownDruid::FUN_004d3384	src/visual.cpp
+OK	4D3435	VisTownDruid::FUN_004d3435	src/visual.cpp
+OK	4D34B6	VisTownDruid::FUN_004d34b6	src/visual.cpp
+OK	4D3520	VisTownDruid::FUN_004d3520	src/visual.cpp
+OK	4D359C	VisTownDruid::VMethod34	src/visual.cpp
+OK	4D3922	VisTownDruid::VMethod35	src/visual.cpp
+OK	4D3EA7	VisTownDruid::VMethod38	src/visual.cpp
+OK	4D3F18	VisTownDruid::OnLButtonDown	src/visual.cpp
+OK	4D6BE0	VisTownDruid::~VisTownDruid	src/visual.cpp
 
 ## VisTownKaarg (19)
 OK	4D423A	VisTownKaarg::VisTownKaarg	src/visual.cpp
