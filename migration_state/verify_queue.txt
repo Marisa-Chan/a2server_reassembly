@@ -2510,16 +2510,16 @@ PENDING	4E2F76	VisQuestStatus::VMethod7	src/visual.cpp
 PENDING	4E4530	VisQuestStatus::MsgProc	src/visual.cpp
 
 ## VisRadioBase (7)
-PENDING	450470	VisRadioBase::AddEntry	src/visual.cpp
-PENDING	4504E0	VisRadioBase::DataSize	src/visual.cpp
-PENDING	4504F0	VisRadioBase::WriteData	src/visual.cpp
-PENDING	4506C0	VisRadioBase::ReadData	src/visual.cpp
-PENDING	4DAC81	VisRadioBase::GetIndex	src/visual.cpp
-PENDING	4DACCD	VisRadioBase::SetCursorOver	src/visual.cpp
-PENDING	4DACEF	VisRadioBase::OnMouseMove	src/visual.cpp
+OK	450470	VisRadioBase::AddEntry	src/visual.cpp
+OK	4504E0	VisRadioBase::DataSize	src/visual.cpp
+OK	4504F0	VisRadioBase::WriteData	src/visual.cpp
+OK	4506C0	VisRadioBase::ReadData	src/visual.cpp
+OK	4DAC81	VisRadioBase::GetIndex	src/visual.cpp
+OK	4DACCD	VisRadioBase::SetCursorOver	src/visual.cpp
+OK	4DACEF	VisRadioBase::OnMouseMove	src/visual.cpp
 
 ## VisRadioType1 (7)
-PENDING	450510	VisRadioType1::ReadData	src/visual.cpp
+OK	450510	VisRadioType1::ReadData	src/visual.cpp
 PENDING	450530	VisRadioType1::OnLButtonDblClk	src/visual.cpp
 PENDING	4DADF8	VisRadioType1::VMethod7	src/visual.cpp
 PENDING	4DB062	VisRadioType1::OnLButtonDown	src/visual.cpp
