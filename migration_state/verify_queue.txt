@@ -2137,30 +2137,30 @@ PENDING	45DA6A	VisFameHall::VMethod8	src/visual.cpp
 PENDING	45DB50	VisFameHall::GetHint	src/visual.cpp
 
 ## VisGlobalMap (24)
-OK	46FD7B	VisGlobalMap::VisGlobalMap	src/visual.cpp
-OK	47031D	VisGlobalMap::VMethod26	src/visual.cpp
-OK	470504	VisGlobalMap::LoadSamples	src/visual.cpp
-OK	470571	VisGlobalMap::FreeSamples	src/visual.cpp
-OK	4705C2	VisGlobalMap::LoadBitmaps	src/visual.cpp
-OK	470CD9	VisGlobalMap::FreeBitmaps	src/visual.cpp
-OK	47115D	VisGlobalMap::VMethod28	src/visual.cpp
-OK	471367	VisGlobalMap::DoClose	src/visual.cpp
-OK	4714E7	VisGlobalMap::VMethod7	src/visual.cpp
-OK	471F08	VisGlobalMap::VMethod8	src/visual.cpp
-OK	472684	VisGlobalMap::FinishTravel	src/visual.cpp
-OK	4726CC	VisGlobalMap::OnChar	src/visual.cpp
-OK	4726E6	VisGlobalMap::OnKeyDown	src/visual.cpp
-OK	472729	VisGlobalMap::GetHint	src/visual.cpp
-OK	472820	VisGlobalMap::ComputeTravelRoute	src/visual.cpp
-OK	472ADA	VisGlobalMap::SearchRoute	src/visual.cpp
-OK	472CC5	VisGlobalMap::MsgProc	src/visual.cpp
-OK	472D4B	VisGlobalMap::UpdateHoveredLocation	src/visual.cpp
-OK	472D99	VisGlobalMap::OnMouseMove	src/visual.cpp
-OK	472DCA	VisGlobalMap::OnMapClick	src/visual.cpp
-OK	473038	VisGlobalMap::OnLButtonDown	src/visual.cpp
-OK	473077	VisGlobalMap::OnRButtonDown	src/visual.cpp
-OK	473175	VisGlobalMap::OnRButtonUp	src/visual.cpp
-OK	474F10	VisGlobalMap::OnLButtonUp	src/visual.cpp
+PENDING	46FD7B	VisGlobalMap::VisGlobalMap	src/visual.cpp
+PENDING	47031D	VisGlobalMap::VMethod26	src/visual.cpp
+PENDING	470504	VisGlobalMap::LoadSamples	src/visual.cpp
+PENDING	470571	VisGlobalMap::FreeSamples	src/visual.cpp
+PENDING	4705C2	VisGlobalMap::LoadBitmaps	src/visual.cpp
+PENDING	470CD9	VisGlobalMap::FreeBitmaps	src/visual.cpp
+PENDING	47115D	VisGlobalMap::VMethod28	src/visual.cpp
+PENDING	471367	VisGlobalMap::DoClose	src/visual.cpp
+PENDING	4714E7	VisGlobalMap::VMethod7	src/visual.cpp
+PENDING	471F08	VisGlobalMap::VMethod8	src/visual.cpp
+PENDING	472684	VisGlobalMap::FinishTravel	src/visual.cpp
+PENDING	4726CC	VisGlobalMap::OnChar	src/visual.cpp
+PENDING	4726E6	VisGlobalMap::OnKeyDown	src/visual.cpp
+PENDING	472729	VisGlobalMap::GetHint	src/visual.cpp
+PENDING	472820	VisGlobalMap::ComputeTravelRoute	src/visual.cpp
+PENDING	472ADA	VisGlobalMap::SearchRoute	src/visual.cpp
+PENDING	472CC5	VisGlobalMap::MsgProc	src/visual.cpp
+PENDING	472D4B	VisGlobalMap::UpdateHoveredLocation	src/visual.cpp
+PENDING	472D99	VisGlobalMap::OnMouseMove	src/visual.cpp
+PENDING	472DCA	VisGlobalMap::OnMapClick	src/visual.cpp
+PENDING	473038	VisGlobalMap::OnLButtonDown	src/visual.cpp
+PENDING	473077	VisGlobalMap::OnRButtonDown	src/visual.cpp
+PENDING	473175	VisGlobalMap::OnRButtonUp	src/visual.cpp
+PENDING	474F10	VisGlobalMap::OnLButtonUp	src/visual.cpp
 
 ## VisHatBrowserDlg (4)
 PENDING	44BC35	VisHatBrowserDlg::VisHatBrowserDlg	src/visual.cpp
