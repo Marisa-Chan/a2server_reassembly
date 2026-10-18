@@ -1924,37 +1924,6 @@ unknown_libname_410 endp
 ; Attributes: bp-based frame
 
 ; void __thiscall sub_41E493(void *)
-sub_41E493      proc near               ; DATA XREF: sub_49248A+2B↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+4], 0
-                jz      short loc_41E4CF
-                mov     ecx, dword ptr [ebp+var_4]
-                cmp     dword ptr [ecx+8], 0
-                jz      short loc_41E4BB
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+8]
-                push    eax             ; Block
-                call    _free
-                add     esp, 4
-
-loc_41E4BB:                             ; CODE XREF: sub_41E493+17↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+8], 0
-                mov     edx, dword ptr [ebp+var_4]
-                mov     dword ptr [edx+4], 0
-
-loc_41E4CF:                             ; CODE XREF: sub_41E493+E↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_41E493      endp
 
 
 

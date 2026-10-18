@@ -6461,14 +6461,14 @@ UserShortcut::UserShortcut()
 
 UserShortcut::~UserShortcut()
 { //41e493
-    if (mods_size)
+    if (this->mods_size)
     {
-        if (mods) {
-            free(mods);
+        if (this->mods) {
+            free(this->mods);
         }
 
-        mods_size = 0;
-        mods = nullptr;
+        this->mods_size = 0;
+        this->mods = nullptr;
     }
 }
 
