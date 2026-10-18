@@ -1275,20 +1275,20 @@ PENDING	581650	QuestKillN::Kind	src/quest.cpp
 PENDING	581690	QuestKillN::~QuestKillN	src/quest.cpp
 
 ## QuestMap (14)
-PENDING	4A47A0	QuestMap::FUN_004a47a0	src/quest_map.cpp
-PENDING	55D579	QuestMap::QuestMap	src/quest_map.cpp
-PENDING	55D6F7	QuestMap::sub_55D6F7	src/quest_map.cpp
-PENDING	55DD10	QuestMap::sub_55DD10	src/quest_map.cpp
-PENDING	55DE84	QuestMap::sub_55DE84	src/quest_map.cpp
-PENDING	55E00C	QuestMap::sub_55E00C	src/quest_map.cpp
-PENDING	55E027	QuestMap::sub_55E027	src/quest_map.cpp
-PENDING	55E129	QuestMap::VMethod1	src/quest_map.cpp
-PENDING	55E24A	QuestMap::sub_55E24A	src/quest_map.cpp
-PENDING	55E5FB	QuestMap::sub_55E5FB	src/quest_map.cpp
-PENDING	55EA81	QuestMap::sub_55EA81	src/quest_map.cpp
-PENDING	55ECFE	QuestMap::sub_55ECFE	src/quest_map.cpp
-PENDING	55EE42	QuestMap::FUN_0055ee42	src/quest_map.cpp
-PENDING	55F441	QuestMap::sub_55F441	src/quest_map.cpp
+OK	4A47A0	QuestMap::FUN_004a47a0	src/quest_map.cpp
+OK	55D579	QuestMap::QuestMap	src/quest_map.cpp
+OK	55D6F7	QuestMap::sub_55D6F7	src/quest_map.cpp
+OK	55DD10	QuestMap::sub_55DD10	src/quest_map.cpp
+OK	55DE84	QuestMap::sub_55DE84	src/quest_map.cpp
+OK	55E00C	QuestMap::sub_55E00C	src/quest_map.cpp
+OK	55E027	QuestMap::sub_55E027	src/quest_map.cpp
+OK	55E129	QuestMap::VMethod1	src/quest_map.cpp
+OK	55E24A	QuestMap::sub_55E24A	src/quest_map.cpp
+OK	55E5FB	QuestMap::sub_55E5FB	src/quest_map.cpp
+OK	55EA81	QuestMap::sub_55EA81	src/quest_map.cpp
+OK	55ECFE	QuestMap::sub_55ECFE	src/quest_map.cpp
+OK	55EE42	QuestMap::FUN_0055ee42	src/quest_map.cpp
+OK	55F441	QuestMap::sub_55F441	src/quest_map.cpp
 
 ## QuestRaiseGhosts (5)
 PENDING	56027D	QuestRaiseGhosts::VMethod1	src/quest.cpp
