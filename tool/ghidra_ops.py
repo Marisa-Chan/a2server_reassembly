@@ -470,15 +470,23 @@ SCALAR_NAMES = {"int", "uint", "short", "ushort", "char", "uchar", "byte", "sbyt
                 "undefined4", "undefined2", "undefined1", "undefined", "long", "ulong", "bool", "dword", "word"}
 
 
+def _snake_case(name):
+    """Unit -> unit, VisDropGold -> vis_drop_gold, CVisualObject -> c_visual_object."""
+    return re.sub(r"(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])", "_", name).lower()
+
+
 def _is_placeholder(dt, name):
     return str(dt.getName()) in SCALAR_NAMES and (not name or PLACEHOLDER_NAME.match(name))
 
 
-def _apply_signature(ctx, f, cc, ret_dt, params, names, keep_better=False):
+def _apply_signature(ctx, f, cc, ret_dt, params, names, keep_better=False, cls=None):
     """params: list of DataType (formal, without `this`). names: list of str or None.
     keep_better: where the new param is a placeholder scalar (e.g. `int32_t arg1`) and Ghidra
-    already has a user-typed pointer/struct of the same size there, keep Ghidra's type and name."""
+    already has a user-typed pointer/struct of the same size there, keep Ghidra's type and name.
+    cls: for __thiscall members, the class name - `this` becomes an explicit ECX parameter named
+    after the class in snake_case (unit, vis_drop_gold), which requires custom storage."""
     from ghidra.program.model.listing import ParameterImpl, ReturnParameterImpl, Function
+    from ghidra.program.model.data import PointerDataType
     from ghidra.program.model.symbol import SourceType
     from java.util import ArrayList
     # old params keyed by stack offset, so an explicit `this` (ECX) or a shift never misaligns them
@@ -489,9 +497,23 @@ def _apply_signature(ctx, f, cc, ret_dt, params, names, keep_better=False):
         vs = p.getVariableStorage()
         if vs.isStackStorage():
             old_by_stack[vs.getStackOffset()] = p
+    this_name = _snake_case(cls.split("::")[-1]) if cls and cc == "__thiscall" else None
     plist = ArrayList()
-    off = 4
     used = set()
+    if this_name:
+        this_dt = None
+        try:
+            this_dt = PointerDataType(ctx.find_struct(cls.split("::")[-1]), ctx.dtm)
+        except OpError:
+            for p in f.getParameters():  # no struct: reuse an existing register `this` type if any
+                if not p.getVariableStorage().isStackStorage():
+                    this_dt = p.getDataType()
+                    break
+            if this_dt is None:
+                this_dt = PointerDataType()
+        plist.add(ParameterImpl(this_name, this_dt, ctx.program.getRegister("ECX"), ctx.program))
+        used.add(this_name)
+    off = 4
     for i, dt in enumerate(params):
         name = None
         if names and i < len(names) and names[i]:
@@ -507,10 +529,15 @@ def _apply_signature(ctx, f, cc, ret_dt, params, names, keep_better=False):
             name = None
         name = name or f"param_{i + 1}"
         used.add(name)
-        plist.add(ParameterImpl(name, dt, ctx.program))
+        if this_name:
+            stack = ctx.program.getAddressFactory().getStackSpace().getAddress(off)
+            plist.add(ParameterImpl(name, dt, stack, ctx.program))
+        else:
+            plist.add(ParameterImpl(name, dt, ctx.program))
         off += max(4, (dt.getLength() + 3) // 4 * 4)
-    f.updateFunction(cc, ReturnParameterImpl(ret_dt, ctx.program), plist,
-                     Function.FunctionUpdateType.DYNAMIC_STORAGE_FORMAL_PARAMS, True, SourceType.USER_DEFINED)
+    update = Function.FunctionUpdateType.CUSTOM_STORAGE if this_name else \
+        Function.FunctionUpdateType.DYNAMIC_STORAGE_FORMAL_PARAMS
+    f.updateFunction(cc, ReturnParameterImpl(ret_dt, ctx.program), plist, update, True, SourceType.USER_DEFINED)
 
 
 def op_set_mangled(ctx, target, mangled, names=None):
@@ -535,7 +562,7 @@ def op_set_mangled(ctx, target, mangled, names=None):
         params = [p.getType().getDataType(ctx.dtm) for p in dobj.getParameters()]
         if len(params) == 1 and str(params[0].getName()) == "void":
             params = []
-        _apply_signature(ctx, f, cc, ret, params, names)
+        _apply_signature(ctx, f, cc, ret, params, names, cls=nsparts[-1] if nsparts else None)
         if dobj.isVirtual():
             f.setComment(_merge_comment(f.getComment(), "virtual"))
     return op_info(ctx, str(a))
@@ -588,7 +615,8 @@ def op_set_proto(ctx, target, ret, params, cc=None, cls=None, name=None, create=
             else:
                 dts.append(ctx.parse_type(p, create))
                 names.append(None)
-        _apply_signature(ctx, f, cc, ctx.parse_type(ret, create), dts, names, keep_better)
+        _apply_signature(ctx, f, cc, ctx.parse_type(ret, create), dts, names, keep_better,
+                         cls=cls if cls and not plain_ns else None)
     return op_info(ctx, target)
 
 
@@ -773,7 +801,7 @@ def op_vtable_apply(ctx, cls, slots):
             used.add(name)
             fd = FunctionDefinitionDataType(fcat, name, ctx.dtm)
             fd.setReturnType(_resolve_or_fallback(ctx, sl.get("ret") or "void"))
-            params = [ParameterDefinitionImpl("this", this_dt, None)]
+            params = [ParameterDefinitionImpl(_snake_case(cls.split("::")[-1]), this_dt, None)]
             for j, p in enumerate(sl.get("params") or []):
                 m = re.fullmatch(r"(.+?[\s\*\]])\s*([A-Za-z_]\w*)", p.strip())
                 ptype, pname = (m.group(1), m.group(2)) if m else (p, f"param_{j + 1}")
@@ -783,6 +811,11 @@ def op_vtable_apply(ctx, cls, slots):
                 fd.setCallingConvention("__thiscall")
             except Exception:
                 pass
+            old_fd = ctx.dtm.getDataType(fcat, name)
+            if old_fd is not None:
+                # param names are not part of datatype equivalence, so REPLACE_HANDLER alone
+                # would keep the old definition (e.g. with the old `this` param name)
+                ctx.dtm.remove(old_fd, ctx.monitor)
             fd = ctx.dtm.addDataType(fd, DataTypeConflictHandler.REPLACE_HANDLER)
             s.add(PointerDataType(fd, ctx.dtm), 4, name, None)
     return f"{vt_name}: {len(slots)} slots"
