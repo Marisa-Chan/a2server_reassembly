@@ -2670,7 +2670,7 @@ public:
 
 	void FUN_004a7a30(int32_t idx); //4a7a30 in asm
 
-	VisDropGold(int32_t _id, int32_t _x, int32_t _y); // 60a170 in asm
+	VisDropGold(int32_t _id, int32_t _x, int32_t _y); // 441bec in asm
 public:
 	int32_t selection;
 	char amount_text[100];
