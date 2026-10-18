@@ -1756,7 +1756,7 @@ PENDING	536B31	Unit::VMethod17	src/unit.cpp
 OK	5371F7	Unit::VMethod21	src/unit.cpp
 OK	537251	Unit::sub_537251	src/unit.cpp
 PENDING	5593B6	Unit::Serialize	src/unit.cpp
-PENDING	55A9C5	Unit::VMethod5	src/unit.cpp
+OK	55A9C5	Unit::VMethod5	src/unit.cpp
 OK	59A030	Unit::sub_59A030	src/unit.cpp
 OK	5B6FB0	Unit::sub_5B6FB0	src/unit.cpp
 
