@@ -1004,23 +1004,23 @@ OK	518A23	NetStru1::ReceivePacket	src/net.cpp
 OK	518A6B	NetStru1::GetClientsPktNum	src/net.cpp
 OK	518AC9	NetStru1::IsActive	src/net.cpp
 FIXED	519221	NetStru1::sub_519221	src/net.cpp	humanoid diplomacy check wrote & 0x10 == 0 (parses as & 0, always false); vanilla (diplomacy & 0x10) == 0 gates mask &= 0xc0c000fb
-PENDING	51A0EF	NetStru1::sub_51A0EF	src/net.cpp
-PENDING	51A6D5	NetStru1::sub_51A6D5	src/net.cpp
-PENDING	51A8B2	NetStru1::sub_51A8B2	src/net.cpp
-PENDING	51AA26	NetStru1::sub_51AA26	src/net.cpp
-PENDING	51AB99	NetStru1::sub_51AB99	src/net.cpp
-PENDING	51AC77	NetStru1::sub_51AC77	src/net.cpp
-PENDING	51B0F0	NetStru1::sub_51B0F0	src/net.cpp
-PENDING	51B370	NetStru1::sub_51B370	src/net.cpp
-PENDING	51B638	NetStru1::sub_51B638	src/net.cpp
-PENDING	51B870	NetStru1::sub_51B870	src/net.cpp
-PENDING	51B99E	NetStru1::sub_51B99E	src/net.cpp
-PENDING	51BA2F	NetStru1::sub_51BA2F	src/net.cpp
-PENDING	51BAB0	NetStru1::sub_51BAB0	src/net.cpp
-PENDING	51BB94	NetStru1::sub_51BB94	src/net.cpp
-PENDING	51BC6B	NetStru1::sub_51BC6B	src/net.cpp
-PENDING	51BDA4	NetStru1::sub_51BDA4	src/net.cpp
-PENDING	51BE0E	NetStru1::sub_51BE0E	src/net.cpp
+OK	51A0EF	NetStru1::sub_51A0EF	src/net.cpp
+OK	51A6D5	NetStru1::sub_51A6D5	src/net.cpp
+OK	51A8B2	NetStru1::sub_51A8B2	src/net.cpp
+OK	51AA26	NetStru1::sub_51AA26	src/net.cpp
+OK	51AB99	NetStru1::sub_51AB99	src/net.cpp
+OK	51AC77	NetStru1::sub_51AC77	src/net.cpp
+OK	51B0F0	NetStru1::sub_51B0F0	src/net.cpp
+OK	51B370	NetStru1::sub_51B370	src/net.cpp	IsVisibleTo treats MapStuff_Instance==nullptr as visible; vanilla 51b370 treats it as hidden (unreachable pre-map-load edge)
+OK	51B638	NetStru1::sub_51B638	src/net.cpp
+OK	51B870	NetStru1::sub_51B870	src/net.cpp
+OK	51B99E	NetStru1::sub_51B99E	src/net.cpp
+OK	51BA2F	NetStru1::sub_51BA2F	src/net.cpp
+FIXED	51BAB0	NetStru1::sub_51BAB0	src/net.cpp	last_action_tick gate called VMethod8 (IsHumanoid); vanilla VMethod7 (IsUnit)
+FIXED	51BB94	NetStru1::sub_51BB94	src/net.cpp	same VMethod8 vs VMethod7 slip as 51BAB0
+OK	51BC6B	NetStru1::sub_51BC6B	src/net.cpp
+OK	51BDA4	NetStru1::sub_51BDA4	src/net.cpp
+OK	51BE0E	NetStru1::sub_51BE0E	src/net.cpp
 PENDING	51BE8F	NetStru1::sub_51BE8F	src/net.cpp
 PENDING	51C0F7	NetStru1::sub_51C0F7	src/net.cpp
 PENDING	51C46E	NetStru1::sub_51C46E	src/net.cpp

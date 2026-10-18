@@ -4591,7 +4591,7 @@ void NetStru1::sub_51BAB0(Unit* caster, Spell* spell, Unit* target, int16_t dela
         *(uint16_t*)&packet.field_0xd = (uint16_t)target->building_id;
         packet.field_0xf = delay;
     }
-    if (caster->VMethod8()) {
+    if (caster->VMethod7()) {
         caster->last_action_tick = g_Server->tick;
     }
     packet.to_player_id = 0;
@@ -4612,7 +4612,7 @@ void NetStru1::sub_51BB94(Unit* caster, Spell* spell, TokenPos* pos, int16_t del
     packet.field_0xd = pos->GetX();
     packet.field_0xe = pos->GetY();
     packet.field_0xf = delay;
-    if (caster->VMethod8()) {
+    if (caster->VMethod7()) {
         caster->last_action_tick = g_Server->tick;
     }
     packet.to_player_id = 0;
