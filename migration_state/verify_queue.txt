@@ -1248,11 +1248,11 @@ OK	581970	QuestInterceptGroup::Something3	src/quest.cpp
 OK	5819C0	QuestInterceptGroup::~QuestInterceptGroup	src/quest.cpp
 
 ## QuestInterceptUnit (5)
-PENDING	55FC25	QuestInterceptUnit::VMethod1	src/quest.cpp
-PENDING	5818C0	QuestInterceptUnit::Kind	src/quest.cpp
-PENDING	5818D0	QuestInterceptUnit::Something2	src/quest.cpp
-PENDING	5818E0	QuestInterceptUnit::Something3	src/quest.cpp
-PENDING	581930	QuestInterceptUnit::~QuestInterceptUnit	src/quest.cpp
+OK	55FC25	QuestInterceptUnit::VMethod1	src/quest.cpp
+OK	5818C0	QuestInterceptUnit::Kind	src/quest.cpp
+OK	5818D0	QuestInterceptUnit::Something2	src/quest.cpp
+OK	5818E0	QuestInterceptUnit::Something3	src/quest.cpp
+OK	581930	QuestInterceptUnit::~QuestInterceptUnit	src/quest.cpp
 
 ## QuestKillGroup (3)
 OK	55F896	QuestKillGroup::VMethod1	src/quest.cpp
@@ -1265,14 +1265,14 @@ OK	581B90	QuestKillInnDefenders::Kind	src/quest.cpp
 OK	581BD0	QuestKillInnDefenders::~QuestKillInnDefenders	src/quest.cpp
 
 ## QuestKillMob (3)
-PENDING	55F736	QuestKillMob::VMethod1	src/quest.cpp
-PENDING	5815F0	QuestKillMob::Kind	src/quest.cpp
-PENDING	581630	QuestKillMob::~QuestKillMob	src/quest.cpp
+OK	55F736	QuestKillMob::VMethod1	src/quest.cpp
+OK	5815F0	QuestKillMob::Kind	src/quest.cpp
+OK	581630	QuestKillMob::~QuestKillMob	src/quest.cpp
 
 ## QuestKillN (3)
-PENDING	55F7E4	QuestKillN::VMethod1	src/quest.cpp
-PENDING	581650	QuestKillN::Kind	src/quest.cpp
-PENDING	581690	QuestKillN::~QuestKillN	src/quest.cpp
+OK	55F7E4	QuestKillN::VMethod1	src/quest.cpp
+OK	581650	QuestKillN::Kind	src/quest.cpp
+OK	581690	QuestKillN::~QuestKillN	src/quest.cpp
 
 ## QuestMap (14)
 OK	4A47A0	QuestMap::FUN_004a47a0	src/quest_map.cpp
