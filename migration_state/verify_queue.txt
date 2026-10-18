@@ -368,12 +368,13 @@ OK	546577	CMultiShopInstance::sub_546577	src/shelf.cpp
 OK	54668B	CMultiShopInstance::sub_54668B	src/shelf.cpp
 OK	546857	CMultiShopInstance::sub_546857	src/shelf.cpp
 
-## CMultiShopShelf (6)
+## CMultiShopShelf (7)
 OK	544A9D	CMultiShopShelf::CMultiShopShelf	src/shelf.cpp
 OK	544B0C	CMultiShopShelf::~CMultiShopShelf	src/shelf.cpp
 OK	544BCE	CMultiShopShelf::sub_544BCE	src/shelf.cpp
 OK	5453E8	CMultiShopShelf::sub_5453E8	src/shelf.cpp
 OK	54546E	CMultiShopShelf::sub_54546E	src/shelf.cpp
+PENDING	545528	CMultiShopShelf::sub_545528	src/shelf.cpp
 OK	545865	CMultiShopShelf::ClearItems	src/shelf.cpp
 
 ## CMultiShopTemplate (19)
@@ -1437,26 +1438,26 @@ OK	4FA4BB	Server::sub_4FA4BB	src/server.cpp
 OK	4FA551	Server::sub_4FA551	src/server.cpp
 OK	4FA5C4	Server::sub_4FA5C4	src/server.cpp
 OK	4FA78E	Server::sub_4FA78E	src/server.cpp
-PENDING	4FBB79	Server::ServerTic	src/server.cpp
-PENDING	4FC4F3	Server::JoinErrorSend	src/server.cpp
-PENDING	4FF439	Server::FUN_004ff439	src/server.cpp
-PENDING	4FF878	Server::sub_4FF878	src/server.cpp
-PENDING	4FF937	Server::sub_4FF937	src/server.cpp
-PENDING	500907	Server::sub_500907	src/server.cpp
-PENDING	5013D4	Server::sub_5013D4	src/server.cpp
-PENDING	502AD1	Server::sub_502AD1	src/server.cpp
-PENDING	502B4A	Server::sub_502B4A	src/server.cpp
-PENDING	502C50	Server::sub_502C50	src/server.cpp
-PENDING	502CB7	Server::sub_502CB7	src/server.cpp
+OK	4FBB79	Server::ServerTic	src/server.cpp
+OK	4FC4F3	Server::JoinErrorSend	src/server.cpp
+FIXED	4FF439	Server::FUN_004ff439	src/server.cpp	free-slot scan ran unconditionally; vanilla only scans when arg4 slot==0 && unit phased in (starts at 1)
+OK	4FF878	Server::sub_4FF878	src/server.cpp
+OK	4FF937	Server::sub_4FF937	src/server.cpp
+OK	500907	Server::sub_500907	src/server.cpp
+OK	5013D4	Server::sub_5013D4	src/server.cpp
+OK	502AD1	Server::sub_502AD1	src/server.cpp
+OK	502B4A	Server::sub_502B4A	src/server.cpp
+OK	502C50	Server::sub_502C50	src/server.cpp
+OK	502CB7	Server::sub_502CB7	src/server.cpp
 PENDING	502D0B	Server::CheatCommand	src/server.cpp
 PENDING	5088DF	Server::sub_5088DF	src/server.cpp
-PENDING	509010	Server::ProcessAvailPackets	src/server.cpp
-PENDING	509042	Server::sub_509042	src/server.cpp
-PENDING	50907E	Server::FUN_0050907e	src/server.cpp
-PENDING	5090A7	Server::sub_5090A7	src/server.cpp
-PENDING	5090FA	Server::sub_5090FA	src/server.cpp
-PENDING	5096E4	Server::sub_5096E4	src/server.cpp
-PENDING	50979A	Server::sub_50979A	src/server.cpp
+OK	509010	Server::ProcessAvailPackets	src/server.cpp
+OK	509042	Server::sub_509042	src/server.cpp
+OK	50907E	Server::FUN_0050907e	src/server.cpp
+OK	5090A7	Server::sub_5090A7	src/server.cpp
+OK	5090FA	Server::sub_5090FA	src/server.cpp
+OK	5096E4	Server::sub_5096E4	src/server.cpp
+OK	50979A	Server::sub_50979A	src/server.cpp
 PENDING	509879	Server::sub_509879	src/server.cpp
 
 ## server (globals) (3)

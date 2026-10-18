@@ -192,7 +192,7 @@ def main():
 
     groups = defaultdict(list)
     for addr, e in entries.items():
-        status, note = old.get(addr, ("PENDING", ""))
+        status, note = old.get(addr.upper(), ("PENDING", ""))
         groups[e["group"]].append((status, addr, e["name"], e["loc"], note))
 
     out = [
@@ -216,8 +216,8 @@ def main():
             out.append(line)
         out.append("")
 
-    new = sorted(set(entries) - set(old))
-    dropped = sorted(set(old) - set(entries))
+    new = sorted(set(entries) - {a.upper() for a in old})
+    dropped = sorted(set(old) - {a.upper() for a in entries})
     print(f"Scanned {len(files)} files: {len(entries)} migrated definitions "
           f"({sum(len(v) for v in dups.values())} duplicate addresses, {len(skipped)} address comments without a definition skipped)")
     print("Statuses: " + ", ".join(f"{s}={counts.get(s, 0)}" for s in STATUSES))

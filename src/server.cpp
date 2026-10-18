@@ -1836,27 +1836,25 @@ void Server::FUN_004ff439(Player* player, int32_t arg4)
     auto main_unit = player->main_unit;
     int phased_in = ((main_unit->unit_attrs & 8) != 0) ? 1 : 0;
     if (slot == 0 && phased_in != 0) {
-        slot = 1;
-    }
-
-    while (slot < 0x10) {
-        bool found = false;
-        auto* node = g_PlayersList->list.m_pNodeHead;
-        while (node != nullptr) {
-            Player* candidate = node->data;
-            if (candidate != nullptr) {
-                if (candidate->field_0xa44 == static_cast<uint8_t>(slot) && candidate->is_ai == 0) {
-                    found = true;
-                    break;
+        // Vanilla only scans for a free slot when arg4 gave none and the unit is phased in.
+        for (slot = 1; slot < 0x10; slot++) {
+            bool found = false;
+            auto* node = g_PlayersList->list.m_pNodeHead;
+            while (node != nullptr) {
+                Player* candidate = node->data;
+                if (candidate != nullptr) {
+                    if (candidate->field_0xa44 == static_cast<uint8_t>(slot) && candidate->is_ai == 0) {
+                        found = true;
+                        break;
+                    }
                 }
+                node = node->pNext;
             }
-            node = node->pNext;
-        }
 
-        if (!found) {
-            break;
+            if (!found) {
+                break;
+            }
         }
-        ++slot;
     }
 
     if (slot != 0) {
