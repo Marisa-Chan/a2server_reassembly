@@ -2278,22 +2278,22 @@ OK	4B6815	VisInvExtType1Kaarg::VMethod41	src/visual.cpp
 OK	4C6CD0	VisInvExtType1Kaarg::VisInvExtType1Kaarg	src/visual.cpp
 
 ## VisInvExtType2 (16)
-PENDING	4B7FE5	VisInvExtType2::VisInvExtType2	src/visual.cpp
-PENDING	4B80D9	VisInvExtType2::~VisInvExtType2	src/visual.cpp
-PENDING	4B8102	VisInvExtType2::VMethod39	src/visual.cpp
-PENDING	4B8339	VisInvExtType2::GetHint	src/visual.cpp
-PENDING	4B846C	VisInvExtType2::VMethod7	src/visual.cpp
-PENDING	4B860E	VisInvExtType2::sub_4B860E	src/visual.cpp
-PENDING	4B8666	VisInvExtType2::sub_4B8666	src/visual.cpp
-PENDING	4B86BE	VisInvExtType2::sub_4B86BE	src/visual.cpp
-PENDING	4B871C	VisInvExtType2::sub_4B871C	src/visual.cpp
-PENDING	4B877A	VisInvExtType2::OnWmUser	src/visual.cpp
-PENDING	4B87AD	VisInvExtType2::OnLButtonUp	src/visual.cpp
-PENDING	4B87CE	VisInvExtType2::OnLButtonDown	src/visual.cpp
-PENDING	4B88EC	VisInvExtType2::OnMouseMove	src/visual.cpp
-PENDING	4B9EA0	VisInvExtType2::VMethod27	src/visual.cpp
-PENDING	4B9ED0	VisInvExtType2::VMethod26	src/visual.cpp
-PENDING	4B9F00	VisInvExtType2::VMethod38	src/visual.cpp
+OK	4B7FE5	VisInvExtType2::VisInvExtType2	src/visual.cpp
+OK	4B80D9	VisInvExtType2::~VisInvExtType2	src/visual.cpp
+OK	4B8102	VisInvExtType2::VMethod39	src/visual.cpp
+OK	4B8339	VisInvExtType2::GetHint	src/visual.cpp
+OK	4B846C	VisInvExtType2::VMethod7	src/visual.cpp
+OK	4B860E	VisInvExtType2::sub_4B860E	src/visual.cpp
+OK	4B8666	VisInvExtType2::sub_4B8666	src/visual.cpp
+OK	4B86BE	VisInvExtType2::sub_4B86BE	src/visual.cpp
+OK	4B871C	VisInvExtType2::sub_4B871C	src/visual.cpp
+OK	4B877A	VisInvExtType2::OnWmUser	src/visual.cpp
+OK	4B87AD	VisInvExtType2::OnLButtonUp	src/visual.cpp
+OK	4B87CE	VisInvExtType2::OnLButtonDown	src/visual.cpp
+OK	4B88EC	VisInvExtType2::OnMouseMove	src/visual.cpp
+OK	4B9EA0	VisInvExtType2::VMethod27	src/visual.cpp
+OK	4B9ED0	VisInvExtType2::VMethod26	src/visual.cpp
+OK	4B9F00	VisInvExtType2::VMethod38	src/visual.cpp
 
 ## VisInvExtType3 (20)
 OK	4B8BBA	VisInvExtType3::VisInvExtType3	src/visual.cpp
