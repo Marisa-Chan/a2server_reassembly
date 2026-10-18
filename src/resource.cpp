@@ -905,7 +905,8 @@ int ResBase::GetSizedString(const char* fpath, const char* fname, const char* de
 
     case 2:
         sprintf(buf, "%f", *(double *)&node->offset);
-        //_itoa(node->offset, buf, 10);
+        // Vanilla overwrites buf with the decimal form of node->offset; the sprintf result is dead.
+        _itoa(node->offset, buf, 10);
         strncpy(out, buf, sz);
         break;
 
