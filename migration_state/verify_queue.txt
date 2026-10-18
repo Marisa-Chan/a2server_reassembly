@@ -1665,21 +1665,21 @@ PENDING	439465	TokenEntry::TokenEntry	src/gameobj.cpp
 PENDING	43A3CD	TokenEntry::operator=	src/gameobj.cpp
 
 ## TokenPos (15)
-PENDING	58A495	TokenPos::TokenPos	src/token.cpp
-PENDING	58A4F9	TokenPos::TokenPos	src/token.cpp
-PENDING	58A562	TokenPos::TokenPos	src/token.cpp
-PENDING	58A5B3	TokenPos::IsSameYX	src/token.cpp
-PENDING	58A6BF	TokenPos::Distance	src/token.cpp
-PENDING	58A737	TokenPos::SetCoords	src/token.cpp
-PENDING	58A781	TokenPos::SetCoords2	src/token.cpp
-PENDING	58A9EE	TokenPos::TokenPos	src/token.cpp
-PENDING	58AA46	TokenPos::operator=	src/token.cpp
-PENDING	58AA9B	TokenPos::GetXx	src/token.cpp
-PENDING	58AABC	TokenPos::GetYy	src/token.cpp
-PENDING	58AADE	TokenPos::CompatGetYX	src/token.cpp
-PENDING	58AAF0	TokenPos::GetX	src/token.cpp
-PENDING	58AB00	TokenPos::GetY	src/token.cpp
-PENDING	58AB11	TokenPos::Serialize	src/token.cpp
+OK	58A495	TokenPos::TokenPos	src/token.cpp
+OK	58A4F9	TokenPos::TokenPos	src/token.cpp
+OK	58A562	TokenPos::TokenPos	src/token.cpp
+OK	58A5B3	TokenPos::IsSameYX	src/token.cpp
+OK	58A6BF	TokenPos::Distance	src/token.cpp
+OK	58A737	TokenPos::SetCoords	src/token.cpp
+OK	58A781	TokenPos::SetCoords2	src/token.cpp
+OK	58A9EE	TokenPos::TokenPos	src/token.cpp
+OK	58AA46	TokenPos::operator=	src/token.cpp
+OK	58AA9B	TokenPos::GetXx	src/token.cpp
+OK	58AABC	TokenPos::GetYy	src/token.cpp
+OK	58AADE	TokenPos::CompatGetYX	src/token.cpp
+OK	58AAF0	TokenPos::GetX	src/token.cpp
+OK	58AB00	TokenPos::GetY	src/token.cpp
+OK	58AB11	TokenPos::Serialize	src/token.cpp
 
 ## TransientVisualEffectBuilder (15)
 OK	46F390	TransientVisualEffectBuilder::FUN_0046f390	src/gameobj.cpp
