@@ -2302,20 +2302,20 @@ OK	4B8D43	VisInvExtType3::VMethod41	src/visual.cpp
 OK	4B8E43	VisInvExtType3::VMethod42	src/visual.cpp
 OK	4B8E9A	VisInvExtType3::VMethod39	src/visual.cpp
 OK	4B90CF	VisInvExtType3::GetHint	src/visual.cpp
-PENDING	4B9155	VisInvExtType3::VMethod7	src/visual.cpp
-PENDING	4B91F9	VisInvExtType3::sub_4B91F9	src/visual.cpp
-PENDING	4B92F9	VisInvExtType3::OnMouseMove	src/visual.cpp
-PENDING	4B93AE	VisInvExtType3::OnLButtonDown	src/visual.cpp
-PENDING	4B93CF	VisInvExtType3::OnLButtonUp	src/visual.cpp
-PENDING	4B9436	VisInvExtType3::OnLButtonDblClk	src/visual.cpp
-PENDING	4B9457	VisInvExtType3::VMethod26	src/visual.cpp
-PENDING	4B949A	VisInvExtType3::VMethod27	src/visual.cpp
-PENDING	4B95C5	VisInvExtType3::VMethod43	src/visual.cpp
+OK	4B9155	VisInvExtType3::VMethod7	src/visual.cpp
+OK	4B91F9	VisInvExtType3::sub_4B91F9	src/visual.cpp
+OK	4B92F9	VisInvExtType3::OnMouseMove	src/visual.cpp
+OK	4B93AE	VisInvExtType3::OnLButtonDown	src/visual.cpp
+OK	4B93CF	VisInvExtType3::OnLButtonUp	src/visual.cpp
+OK	4B9436	VisInvExtType3::OnLButtonDblClk	src/visual.cpp
+OK	4B9457	VisInvExtType3::VMethod26	src/visual.cpp
+OK	4B949A	VisInvExtType3::VMethod27	src/visual.cpp
+OK	4B95C5	VisInvExtType3::VMethod43	src/visual.cpp
 OK	4B970E	VisInvExtType3::sub_4B970E	src/visual.cpp
-PENDING	4B9790	VisInvExtType3::VMethod37	src/visual.cpp
-PENDING	4B9B2F	VisInvExtType3::sub_4B9B2F	src/visual.cpp
-PENDING	4B9C3C	VisInvExtType3::VMethod36	src/visual.cpp
-PENDING	4B9F10	VisInvExtType3::VMethod38	src/visual.cpp
+OK	4B9790	VisInvExtType3::VMethod37	src/visual.cpp
+OK	4B9B2F	VisInvExtType3::sub_4B9B2F	src/visual.cpp
+OK	4B9C3C	VisInvExtType3::VMethod36	src/visual.cpp
+OK	4B9F10	VisInvExtType3::VMethod38	src/visual.cpp
 
 ## VisInvType1 (17)
 PENDING	4A630B	VisInvType1::VisInvType1	src/visual.cpp
