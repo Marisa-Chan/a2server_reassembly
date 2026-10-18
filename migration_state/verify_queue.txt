@@ -2085,14 +2085,14 @@ PENDING	445D34	VisDiplomacy::ReadData	src/visual.cpp
 PENDING	44F9E0	VisDiplomacy::~VisDiplomacy	src/visual.cpp
 
 ## VisDropGold (8)
-PENDING	441BEC	VisDropGold::VisDropGold	src/visual.cpp
-PENDING	441C63	VisDropGold::~VisDropGold	src/visual.cpp
-PENDING	441C7F	VisDropGold::VMethod26	src/visual.cpp
-PENDING	441F1F	VisDropGold::VMethod9	src/visual.cpp
-PENDING	441F3C	VisDropGold::OnKeyDown	src/visual.cpp
-PENDING	441FA3	VisDropGold::VMethod28	src/visual.cpp
-PENDING	441FEE	VisDropGold::DoClose	src/visual.cpp
-PENDING	4A7A30	VisDropGold::FUN_004a7a30	src/visual.cpp
+OK	441BEC	VisDropGold::VisDropGold	src/visual.cpp
+OK	441C63	VisDropGold::~VisDropGold	src/visual.cpp
+OK	441C7F	VisDropGold::VMethod26	src/visual.cpp
+OK	441F1F	VisDropGold::VMethod9	src/visual.cpp
+OK	441F3C	VisDropGold::OnKeyDown	src/visual.cpp
+OK	441FA3	VisDropGold::VMethod28	src/visual.cpp
+OK	441FEE	VisDropGold::DoClose	src/visual.cpp
+OK	4A7A30	VisDropGold::FUN_004a7a30	src/visual.cpp
 
 ## VisFameDocument (20)
 OK	4AD961	VisFameDocument::VisFameDocument	src/visual.cpp
@@ -2541,14 +2541,14 @@ PENDING	4AEE44	VisRightPanel::MsgProc	src/visual.cpp
 PENDING	4B46E0	VisRightPanel::~VisRightPanel	src/visual.cpp
 
 ## VisRoleKeyScreen (8)
-PENDING	4DFF5C	VisRoleKeyScreen::VisRoleKeyScreen	src/visual.cpp
-PENDING	4E0027	VisRoleKeyScreen::OnKeyDown	src/visual.cpp
-PENDING	4E0071	VisRoleKeyScreen::MsgProc	src/visual.cpp
-PENDING	4E012D	VisRoleKeyScreen::VMethod28	src/visual.cpp
-PENDING	4E0169	VisRoleKeyScreen::sub_4E0169	src/visual.cpp
-PENDING	4E0978	VisRoleKeyScreen::LoadText	src/visual.cpp
-PENDING	4E0B43	VisRoleKeyScreen::FUN_004e0b43	src/visual.cpp
-PENDING	4E3F60	VisRoleKeyScreen::~VisRoleKeyScreen	src/visual.cpp
+OK	4DFF5C	VisRoleKeyScreen::VisRoleKeyScreen	src/visual.cpp
+OK	4E0027	VisRoleKeyScreen::OnKeyDown	src/visual.cpp
+OK	4E0071	VisRoleKeyScreen::MsgProc	src/visual.cpp
+OK	4E012D	VisRoleKeyScreen::VMethod28	src/visual.cpp
+OK	4E0169	VisRoleKeyScreen::sub_4E0169	src/visual.cpp
+OK	4E0978	VisRoleKeyScreen::LoadText	src/visual.cpp
+OK	4E0B43	VisRoleKeyScreen::FUN_004e0b43	src/visual.cpp
+OK	4E3F60	VisRoleKeyScreen::~VisRoleKeyScreen	src/visual.cpp
 
 ## VisScreen (15)
 OK	4327B5	VisScreen::CloseOk	src/visual.cpp
@@ -2706,14 +2706,14 @@ OK	4C6800	VisShopCompassKaarg::GetHint	src/visual.cpp
 OK	4C6AD0	VisShopCompassKaarg::~VisShopCompassKaarg	src/visual.cpp
 
 ## VisShopDruid (8)
-PENDING	4C15AD	VisShopDruid::VisShopDruid	src/visual.cpp
-PENDING	4C15E6	VisShopDruid::VMethod26	src/visual.cpp
-PENDING	4C1958	VisShopDruid::VMethod30	src/visual.cpp
-PENDING	4C1B8B	VisShopDruid::VMethod31	src/visual.cpp
-PENDING	4C1D25	VisShopDruid::VMethod32	src/visual.cpp
-PENDING	4C1E5C	VisShopDruid::VMethod28	src/visual.cpp
-PENDING	4C69E0	VisShopDruid::~VisShopDruid	src/visual.cpp
-PENDING	4C6BE0	VisShopDruid::VMethod33	src/visual.cpp
+OK	4C15AD	VisShopDruid::VisShopDruid	src/visual.cpp
+OK	4C15E6	VisShopDruid::VMethod26	src/visual.cpp
+OK	4C1958	VisShopDruid::VMethod30	src/visual.cpp
+OK	4C1B8B	VisShopDruid::VMethod31	src/visual.cpp
+OK	4C1D25	VisShopDruid::VMethod32	src/visual.cpp
+OK	4C1E5C	VisShopDruid::VMethod28	src/visual.cpp
+OK	4C69E0	VisShopDruid::~VisShopDruid	src/visual.cpp
+OK	4C6BE0	VisShopDruid::VMethod33	src/visual.cpp
 
 ## VisShopKaarg (8)
 OK	4C37C5	VisShopKaarg::VisShopKaarg	src/visual.cpp
