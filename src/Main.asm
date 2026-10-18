@@ -18174,22 +18174,6 @@ sub_45A690      endp
 
 ; Attributes: bp-based frame
 
-sub_45A6EE      proc near               ; CODE XREF: sub_45A707+196↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    0               ; struct CWnd *
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     ecx, eax        ; varThis
-                call    ?SetMessageWnd@CMFCToolBarMenuButton@@QAEXPAVCWnd@@@Z ; CMFCToolBarMenuButton::SetMessageWnd(CWnd *)
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_45A6EE      endp
 
 
 
@@ -18264,32 +18248,6 @@ sub_45CA10      endp
 
 ; Attributes: bp-based frame
 
-sub_45CA45      proc near               ; CODE XREF: sub_43E6F0+233↑p
-
-var_C           = dword ptr -0Ch
-var_8           = qword ptr -8
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     eax, dword ptr [ebp+arg_0]
-                sub     eax, [ebp+arg_4]
-                mov     [ebp+var_C], eax
-                fild    [ebp+var_C]
-                fidiv   [ebp+arg_4]
-                fst     [ebp+var_8]
-                fchs
-                fmul    [ebp+var_8]
-                fstp    [ebp+var_8]
-                fild    [ebp+arg_4]
-                fmul    [ebp+var_8]
-                call    __ftol
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_45CA45      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -18355,46 +18313,6 @@ loc_45CB34:                             ; CODE XREF: CODBCFieldInfo::`vector del
 
 ; Attributes: bp-based frame
 
-sub_45CB40      proc near               ; CODE XREF: sub_45AE1D+2CA↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [eax+54h]
-                xor     edx, edx
-                div     dword ptr [ecx+90h]
-                imul    eax, 3E8h
-                shr     eax, 4
-                cmp     eax, 64h ; 'd'
-                jbe     short loc_45CB71
-                mov     [ebp+var_8], 64h ; 'd'
-                jmp     short loc_45CB8E
-; ---------------------------------------------------------------------------
-
-loc_45CB71:                             ; CODE XREF: sub_45CB40+26↑j
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+54h]
-                xor     edx, edx
-                div     dword ptr [ecx+90h]
-                imul    eax, 3E8h
-                shr     eax, 4
-                mov     [ebp+var_8], eax
-
-loc_45CB8E:                             ; CODE XREF: sub_45CB40+2F↑j
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [ebp+var_8]
-                mov     [edx+5Ch], eax
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_45CB40      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -18405,36 +18323,6 @@ sub_45CB40      endp
 
 ; Attributes: bp-based frame
 
-sub_45CBE0      proc near               ; CODE XREF: sub_45A9B3+75↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+9Ch], 0
-                jz      short loc_45CC0D
-                mov     ecx, dword ptr [ebp+var_4]
-                cmp     dword ptr [ecx+10h], 0
-                jz      short loc_45CC0D
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+70h]
-                xor     edx, edx
-                mov     ecx, 3E8h
-                div     ecx
-                jmp     short loc_45CC0F
-; ---------------------------------------------------------------------------
-
-loc_45CC0D:                             ; CODE XREF: sub_45CBE0+11↑j
-                xor     eax, eax
-
-loc_45CC0F:                             ; CODE XREF: sub_45CBE0+2B↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_45CBE0      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
