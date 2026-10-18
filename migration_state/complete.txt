@@ -50,10 +50,12 @@
 ?MakeLower@CString@@QAEXXZ
 ?Mid@CString@@QBE?AV1@H@Z
 ?Mid@CString@@QBE?AV1@HH@Z
+?Null@CellState@@QAEXXZ
 ?ReadObject@CArchive@@QAEPAVCObject@@PBUCRuntimeClass@@@Z
 ?ReleaseBuffer@CString@@QAEXH@Z
 ?Serialize@CObject@@UAEXAAVCArchive@@@Z
 ?SetAt@CString@@QAEXHD@Z
 ?TrimLeft@CString@@QAEXXZ
 ?WriteObject@CArchive@@QAEXPBVCObject@@@Z
+?XorRegString@@YA?AVCString@@ABV1@@Z
 _byte_659A5C
