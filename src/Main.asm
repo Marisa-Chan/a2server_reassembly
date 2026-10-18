@@ -1244,22 +1244,6 @@ unknown_libname_406 endp
 ; Attributes: bp-based frame
 
 ; int __thiscall sub_402830(_DWORD)
-sub_402830      proc near               ; CODE XREF: ?Clear@GM_a28@@QAEXXZ+23↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    0FFFFFFFFh
-                push    0
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_5DB12D      ; ?SetSize@CDWordArray@@QAEXHH@Z
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_402830      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -1268,30 +1252,6 @@ sub_402830      endp
 
 ; Attributes: bp-based frame
 
-sub_402850      proc near               ; CODE XREF: ?Add@GM_a28@@QAEXPBDPAGI@Z+125↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+8]
-                mov     [ebp+var_4], ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     eax, dword ptr [ebp+var_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_8]
-                call    sub_5DB2FC
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_402850      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -1300,23 +1260,6 @@ sub_402850      endp
 
 ; Attributes: bp-based frame
 
-sub_402880      proc near               ; CODE XREF: ?Update@GM_a28@@QAEXXZ+4B↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_4028A0
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_402880      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -1325,23 +1268,6 @@ sub_402880      endp
 
 ; Attributes: bp-based frame
 
-sub_4028A0      proc near               ; CODE XREF: sub_402880+E↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+4]
-                mov     edx, dword ptr [ebp+arg_0]
-                lea     eax, [ecx+edx*4]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_4028A0      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -1350,22 +1276,6 @@ sub_4028A0      endp
 
 ; Attributes: bp-based frame
 
-sub_4028C0      proc near               ; CODE XREF: ?Clear@GM_a28@@QAEXXZ+18↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    0FFFFFFFFh
-                push    0
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_5DB4F5      ; ?SetSize@CDWordArray@@QAEXHH@Z
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_4028C0      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -1374,30 +1284,6 @@ sub_4028C0      endp
 
 ; Attributes: bp-based frame
 
-sub_4028E0      proc near               ; CODE XREF: ?Add@GM_a28@@QAEXPBDPAGI@Z+116↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+8]
-                mov     [ebp+var_4], ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     eax, dword ptr [ebp+var_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_8]
-                call    sub_5DB6C4
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_4028E0      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -1406,23 +1292,6 @@ sub_4028E0      endp
 
 ; Attributes: bp-based frame
 
-sub_402910      proc near               ; CODE XREF: ?Draw@GM_a28@@QAEXXZ+E3↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_402930
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_402910      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -1431,23 +1300,6 @@ sub_402910      endp
 
 ; Attributes: bp-based frame
 
-sub_402930      proc near               ; CODE XREF: sub_402910+E↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+4]
-                mov     edx, dword ptr [ebp+arg_0]
-                lea     eax, [ecx+edx*4]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_402930      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -1457,21 +1309,6 @@ sub_402930      endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-unknown_libname_407 proc near           ; CODE XREF: ?AddWithCheck@GM_a28@@QAEXPBDPAGI@Z+E9↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [eax+8]
-                sub     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn
-unknown_libname_407 endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -1661,25 +1498,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-sub_402A90      proc near               ; CODE XREF: ?SetRect@GM_a28@@QAEXABVCRect@@@Z+59↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    0
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+4]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+4]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+24h]
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_402A90      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
