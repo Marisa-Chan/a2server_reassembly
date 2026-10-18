@@ -13879,82 +13879,7 @@ sub_43CCB0      endp
 
 ; Attributes: bp-based frame
 
-; int __cdecl sub_43D1A9(CString *, char)
-sub_43D1A9      proc near               ; CODE XREF: sub_43D249+14B↓p
-
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = byte ptr  0Ch
-
-; FUNCTION CHUNK AT 005F8DA7 SIZE 0000002A BYTES
-
-; __unwind { // SEH_43D1A9
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_43D1A9
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 8
-                mov     [ebp+var_14], 0
-;   try {
-                mov     [ebp+var_4], 1
-                mov     [ebp+var_10], 0
-                jmp     short loc_43D1E4
-; ---------------------------------------------------------------------------
-
-loc_43D1DB:                             ; CODE XREF: sub_43D1A9+6C↓j
-                mov     eax, dword ptr [ebp+var_10]
-                add     eax, 1
-                mov     [ebp+var_10], eax
-
-loc_43D1E4:                             ; CODE XREF: sub_43D1A9+30↑j
-                lea     ecx, [ebp+arg_4]
-                call    sub_4029A0
-                cmp     [ebp+var_10], eax
-                jge     short loc_43D217
-                mov     ecx, dword ptr [ebp+var_10]
-                push    ecx
-                lea     ecx, [ebp+arg_4]
-                call    sub_4029E0
-                movsx   edx, al
-                mov     eax, dword ptr [ebp+var_10]
-                add     eax, 1Ch
-                xor     edx, eax
-                push    edx             ; char
-                mov     ecx, dword ptr [ebp+var_10]
-                push    ecx             ; int
-                lea     ecx, [ebp+arg_4] ; varThis
-                call    ?SetAt@CString@@QAEXHD@Z ; CString::SetAt(int,char)
-                jmp     short loc_43D1DB
-; ---------------------------------------------------------------------------
-
-loc_43D217:                             ; CODE XREF: sub_43D1A9+46↑j
-                lea     edx, [ebp+arg_4]
-                push    edx             ; struct CString *
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ??0CString@@QAE@ABV0@@Z ; CString::CString(CString const &)
-                mov     eax, dword ptr [ebp+var_14]
-                or      eax, 1
-                mov     [ebp+var_14], eax
-;   } // starts at 43D1CB
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                lea     ecx, [ebp+arg_4] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-;   } // starts at 43D22C
-; } // starts at 43D1A9
-sub_43D1A9      endp
+; int __cdecl ?XorRegString@@YA?AVCString@@ABV1@@Z(CString *, char)
 
 
 
@@ -175400,36 +175325,6 @@ SEH_43CDEE:                             ; DATA XREF: sub_43CDEE+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F8D93
 ; END OF FUNCTION CHUNK FOR sub_43CDEE
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_43D1A9
-
-loc_5F8DA7:                             ; DATA XREF: .rdata:006196A8↓o
-; __unwind { // SEH_43D1A9              ; varThis
-;   cleanup() // owned by 43D1CB
-                lea     ecx, [ebp+arg_4]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F8DB0:                             ; DATA XREF: .rdata:stru_6196A0↓o
-;   cleanup() // owned by 43D22C
-                mov     eax, dword ptr [ebp+var_14]
-                and     eax, 1
-                test    eax, eax
-                jz      locret_5F8DC6
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-
-locret_5F8DC6:                          ; CODE XREF: sub_43D1A9+1BBC0F↑j
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_43D1A9:                             ; DATA XREF: sub_43D1A9+5↑o
-                mov     eax, offset stru_619680
-                jmp     ___CxxFrameHandler
-; } // starts at 5F8DA7
-; END OF FUNCTION CHUNK FOR sub_43D1A9
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_43D959
 ; END OF FUNCTION CHUNK FOR sub_43D959
 ; ---------------------------------------------------------------------------
@@ -199241,13 +199136,6 @@ stru_619658     FuncInfoV1 <19930520h, 1, offset stru_619678, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_619678     UnwindMapEntry <-1, offset loc_5F8D93>
-stru_619680     FuncInfoV1 <19930520h, 2, offset stru_6196A0, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_6196A0     UnwindMapEntry <-1, offset loc_5F8DB0>
-                UnwindMapEntry <0, offset loc_5F8DA7>
 stru_619850     FuncInfoV1 <19930520h, 5, offset stru_619870, 0, 0, 0, 0>
                 align 10h
 stru_619870     UnwindMapEntry <-1, offset loc_5F8F77>
