@@ -2387,21 +2387,21 @@ PENDING	44FB30	VisListBoxPhoneBook::VisListBoxPhoneBook	src/visual.cpp
 PENDING	44FB80	VisListBoxPhoneBook::OnKeyDown	src/visual.cpp
 
 ## VisMainMenu (15)
-PENDING	4AA926	VisMainMenu::VisMainMenu	src/visual.cpp
-PENDING	4AAB71	VisMainMenu::VMethod26	src/visual.cpp
-PENDING	4AADA7	VisMainMenu::LoadGraphics	src/visual.cpp
-PENDING	4AB07B	VisMainMenu::FreeGraphics	src/visual.cpp
-PENDING	4AB28F	VisMainMenu::VMethod7	src/visual.cpp
-PENDING	4AB411	VisMainMenu::VMethod8	src/visual.cpp
-PENDING	4AB41E	VisMainMenu::MsgProc	src/visual.cpp
-PENDING	4AB45D	VisMainMenu::UpdateButtonState	src/visual.cpp
-PENDING	4AB88C	VisMainMenu::OnMouseMove	src/visual.cpp
-PENDING	4AB8AF	VisMainMenu::OnLButtonDown	src/visual.cpp
-PENDING	4AB8F3	VisMainMenu::OnLButtonUp	src/visual.cpp
-PENDING	4ABA8D	VisMainMenu::VMethod28	src/visual.cpp
-PENDING	4ABB14	VisMainMenu::DoClose	src/visual.cpp
-PENDING	4ABB5E	VisMainMenu::LoadSfx	src/visual.cpp
-PENDING	4ABB87	VisMainMenu::FreeSfx	src/visual.cpp
+OK	4AA926	VisMainMenu::VisMainMenu	src/visual.cpp
+OK	4AAB71	VisMainMenu::VMethod26	src/visual.cpp
+OK	4AADA7	VisMainMenu::LoadGraphics	src/visual.cpp
+OK	4AB07B	VisMainMenu::FreeGraphics	src/visual.cpp
+OK	4AB28F	VisMainMenu::VMethod7	src/visual.cpp
+OK	4AB411	VisMainMenu::VMethod8	src/visual.cpp
+OK	4AB41E	VisMainMenu::MsgProc	src/visual.cpp
+OK	4AB45D	VisMainMenu::UpdateButtonState	src/visual.cpp
+OK	4AB88C	VisMainMenu::OnMouseMove	src/visual.cpp
+OK	4AB8AF	VisMainMenu::OnLButtonDown	src/visual.cpp
+OK	4AB8F3	VisMainMenu::OnLButtonUp	src/visual.cpp
+OK	4ABA8D	VisMainMenu::VMethod28	src/visual.cpp
+OK	4ABB14	VisMainMenu::DoClose	src/visual.cpp
+OK	4ABB5E	VisMainMenu::LoadSfx	src/visual.cpp
+OK	4ABB87	VisMainMenu::FreeSfx	src/visual.cpp
 
 ## VisMessageBox (4)
 PENDING	444086	VisMessageBox::VMethod26	src/visual.cpp
