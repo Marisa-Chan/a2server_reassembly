@@ -1898,18 +1898,18 @@ OK	42EFB4	VisCharGen::LoadSamples	src/visual.cpp
 OK	42F021	VisCharGen::FreeSamples	src/visual.cpp
 
 ## VisCharGenAction (12)
-PENDING	42AD7D	VisCharGenAction::VisCharGenAction	src/visual.cpp
-PENDING	42AE19	VisCharGenAction::~VisCharGenAction	src/visual.cpp
-PENDING	42AE83	VisCharGenAction::Init	src/visual.cpp
-PENDING	42B028	VisCharGenAction::VMethod7	src/visual.cpp
-PENDING	42B2E0	VisCharGenAction::OnMouseMove	src/visual.cpp
-PENDING	42B303	VisCharGenAction::OnLButtonDown	src/visual.cpp
-PENDING	42B392	VisCharGenAction::OnLButtonUp	src/visual.cpp
-PENDING	42B455	VisCharGenAction::ResetMouseBoxes	src/visual.cpp
-PENDING	42B47A	VisCharGenAction::HitTest	src/visual.cpp
-PENDING	42B505	VisCharGenAction::UpdateMouseOver	src/visual.cpp
-PENDING	42B57E	VisCharGenAction::LoadBitmaps	src/visual.cpp
-PENDING	42B7EE	VisCharGenAction::FreeBitmaps	src/visual.cpp
+OK	42AD7D	VisCharGenAction::VisCharGenAction	src/visual.cpp
+OK	42AE19	VisCharGenAction::~VisCharGenAction	src/visual.cpp
+OK	42AE83	VisCharGenAction::Init	src/visual.cpp
+OK	42B028	VisCharGenAction::VMethod7	src/visual.cpp
+OK	42B2E0	VisCharGenAction::OnMouseMove	src/visual.cpp
+OK	42B303	VisCharGenAction::OnLButtonDown	src/visual.cpp
+OK	42B392	VisCharGenAction::OnLButtonUp	src/visual.cpp
+OK	42B455	VisCharGenAction::ResetMouseBoxes	src/visual.cpp
+OK	42B47A	VisCharGenAction::HitTest	src/visual.cpp
+OK	42B505	VisCharGenAction::UpdateMouseOver	src/visual.cpp
+OK	42B57E	VisCharGenAction::LoadBitmaps	src/visual.cpp
+OK	42B7EE	VisCharGenAction::FreeBitmaps	src/visual.cpp
 
 ## VisCharGenFullStats (6)
 PENDING	42AA2B	VisCharGenFullStats::VisCharGenFullStats	src/visual.cpp
