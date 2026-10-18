@@ -2425,15 +2425,15 @@ PENDING	44E875	VisMissionFailed::VisMissionFailed	src/visual.cpp
 PENDING	44E8CA	VisMissionFailed::VMethod26	src/visual.cpp
 
 ## VisMultiText (9)
-PENDING	4D8816	VisMultiText::SetText	src/visual.cpp
-PENDING	4D889D	VisMultiText::SelectItem	src/visual.cpp
-PENDING	4D8994	VisMultiText::VMethod7	src/visual.cpp
-PENDING	4D8A3B	VisMultiText::SizesCheck	src/visual.cpp
-PENDING	4D8B99	VisMultiText::MsgProc	src/visual.cpp
-PENDING	4D8BBA	VisMultiText::OnMouseMove	src/visual.cpp
-PENDING	4D8BDB	VisMultiText::OnWmUser	src/visual.cpp
-PENDING	4D8C3F	VisMultiText::OnLButtonDown	src/visual.cpp
-PENDING	4D8C60	VisMultiText::OnKeyDown	src/visual.cpp
+OK	4D8816	VisMultiText::SetText	src/visual.cpp
+OK	4D889D	VisMultiText::SelectItem	src/visual.cpp
+OK	4D8994	VisMultiText::VMethod7	src/visual.cpp
+OK	4D8A3B	VisMultiText::SizesCheck	src/visual.cpp
+OK	4D8B99	VisMultiText::MsgProc	src/visual.cpp
+OK	4D8BBA	VisMultiText::OnMouseMove	src/visual.cpp
+OK	4D8BDB	VisMultiText::OnWmUser	src/visual.cpp
+OK	4D8C3F	VisMultiText::OnLButtonDown	src/visual.cpp
+OK	4D8C60	VisMultiText::OnKeyDown	src/visual.cpp
 
 ## VisNetChatList (1)
 PENDING	44C63D	VisNetChatList::DrawItem	src/visual.cpp
