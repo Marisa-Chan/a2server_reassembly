@@ -968,11 +968,11 @@ OK	572670	MatShape::~MatShape	src/table.cpp
 OK	5780B0	MatShape::ParseLine	src/table.cpp
 
 ## MonsterInfo (5)
-PENDING	513C82	MonsterInfo::VMethod2	src/table.cpp
-PENDING	513FF6	MonsterInfo::Serialize	src/table.cpp
-PENDING	572B90	MonsterInfo::MonsterInfo	src/table.cpp
-PENDING	572CA0	MonsterInfo::~MonsterInfo	src/table.cpp
-PENDING	578190	MonsterInfo::ParseLine	src/table.cpp
+OK	513C82	MonsterInfo::VMethod2	src/table.cpp
+OK	513FF6	MonsterInfo::Serialize	src/table.cpp
+OK	572B90	MonsterInfo::MonsterInfo	src/table.cpp
+OK	572CA0	MonsterInfo::~MonsterInfo	src/table.cpp
+OK	578190	MonsterInfo::ParseLine	src/table.cpp
 
 ## mouse (globals) (3)
 PENDING	4750D0	ApplyCursor	src/mouse.cpp
