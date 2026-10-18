@@ -1187,13 +1187,13 @@ PENDING	57C3F0	Pointer::~Pointer	src/building.cpp
 PENDING	5A3140	Pointer::Pointer	src/building.cpp
 
 ## Protections (7)
-PENDING	5339F8	Protections::Protections	src/protections.cpp
-PENDING	533A0E	Protections::Clear	src/protections.cpp
-PENDING	533A29	Protections::Protections	src/protections.cpp
-PENDING	533A48	Protections::operator+=	src/protections.cpp
-PENDING	533AF0	Protections::operator=	src/protections.cpp
-PENDING	533B77	Protections::operator-=	src/protections.cpp
-PENDING	533C1F	Protections::Serialize	src/protections.cpp
+OK	5339F8	Protections::Protections	src/protections.cpp
+OK	533A0E	Protections::Clear	src/protections.cpp
+OK	533A29	Protections::Protections	src/protections.cpp
+OK	533A48	Protections::operator+=	src/protections.cpp
+OK	533AF0	Protections::operator=	src/protections.cpp
+OK	533B77	Protections::operator-=	src/protections.cpp
+OK	533C1F	Protections::Serialize	src/protections.cpp
 
 ## Quest (10)
 OK	4A4780	Quest::FUN_004a4780	src/quest.cpp
