@@ -1357,17 +1357,17 @@ PENDING	4E5950	ResFile::ResFile	src/resource.cpp
 PENDING	4E5D0B	ResFile::~ResFile	src/resource.cpp
 
 ## Resources (11)
-PENDING	4E5E06	Resources::Resources	src/resource.cpp
-PENDING	4E5E9F	Resources::~Resources	src/resource.cpp
-PENDING	4E605A	Resources::AddResFile	src/resource.cpp
-PENDING	4E6211	Resources::StaticAddResFile	src/resource.cpp
-PENDING	4E6242	Resources::StaticAddPath	src/resource.cpp
-PENDING	4E6273	Resources::AddPath	src/resource.cpp
-PENDING	4E632D	Resources::FUN_004e632d	src/resource.cpp
-PENDING	4E6409	Resources::FUN_004e6409	src/resource.cpp
-PENDING	4E646D	Resources::FUN_004e646d	src/resource.cpp
+OK	4E5E06	Resources::Resources	src/resource.cpp
+OK	4E5E9F	Resources::~Resources	src/resource.cpp
+OK	4E605A	Resources::AddResFile	src/resource.cpp
+OK	4E6211	Resources::StaticAddResFile	src/resource.cpp
+OK	4E6242	Resources::StaticAddPath	src/resource.cpp
+OK	4E6273	Resources::AddPath	src/resource.cpp
+OK	4E632D	Resources::FUN_004e632d	src/resource.cpp
+OK	4E6409	Resources::FUN_004e6409	src/resource.cpp
+OK	4E646D	Resources::FUN_004e646d	src/resource.cpp
 OK	4E6763	Resources::FUN_004e6763	src/resource.cpp
-PENDING	4E6DE0	Resources::GetPathType	src/resource.cpp
+OK	4E6DE0	Resources::GetPathType	src/resource.cpp
 
 ## Sack (9)
 PENDING	553D5D	Sack::Sack	src/sack.cpp
