@@ -6561,24 +6561,24 @@ void UserShortcut::WriteToFile(CFile* f)
 
 void UserShortcut::ReadFromFile(CFile* f)
 { //41e53b
-    if (mods_size != 0)
+    if (this->mods_size != 0)
     {
-        if (mods) { 
-            free(mods);
+        if (this->mods) {
+            free(this->mods);
         }
 
-        mods = nullptr;
-        mods_size = 0;
+        this->mods = nullptr;
+        this->mods_size = 0;
     }
 
-    f->Read(&kind, 2);
-    f->Read(&item_id, 2);
-    f->Read(&mods_size, 4);
+    f->Read(&this->kind, 2);
+    f->Read(&this->item_id, 2);
+    f->Read(&this->mods_size, 4);
 
-    if (mods_size != 0)
+    if (this->mods_size != 0)
     {
-        mods = (uint8_t *)malloc(mods_size);
-        f->Read(mods, mods_size);
+        this->mods = (uint8_t *)malloc(this->mods_size);
+        f->Read(this->mods, this->mods_size);
     }
 }
 
