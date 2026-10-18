@@ -2230,7 +2230,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 		case 0xab:
 			if (wnd->field_0x404 == 0) {
-				MsgProc(0x406, packet_info->field_0xa - (field_0x64 / 2), packet_info->field_0xe - (field_0x68 / 2));
+				MsgProc(0x406, packet_info->field_0xa - (view_tiles_x / 2), packet_info->field_0xe - (view_tiles_y / 2));
 			}
 			break;
 
@@ -3798,9 +3798,9 @@ void BigStruct2::FUN_0041b6e0()
 	}
 
 	btm = ((btm - 1) & (~0x1f)) + 0x20;
-	field_0x68 = btm / 32;
+	view_tiles_y = btm / 32;
 	
-	int32_t vy = FUN_0041f6b0();
+	int32_t vy = MapMaxY();
 	if (vy < view_y) {
 		view_y = vy;
 	}
@@ -3809,7 +3809,7 @@ void BigStruct2::FUN_0041b6e0()
 		mwnd->vis_1200->FUN_0043be9f();
 	}
 
-	field_0x74 = 1;
+	force_full_redraw = 1;
 }
 
 void BigStruct2::FUN_0041b636()
@@ -3917,25 +3917,25 @@ void BigStruct2::SendAdjustPlayerGoldAction(int32_t goldDelta) const
 
 void BigStruct2::ScrollMapX(int32_t dx)
 { //403f4f
-	field_0x78 += dx;
-	if (field_0x78 + view_x < MapMinX()) {
-		field_0x78 = MapMinX() - view_x;
+	scroll_dx += dx;
+	if (scroll_dx + view_x < MapMinX()) {
+		scroll_dx = MapMinX() - view_x;
 	}
 
-	if (field_0x78 + view_x > MapMaxX()) {
-		field_0x78 = MapMaxX() - view_x;
+	if (scroll_dx + view_x > MapMaxX()) {
+		scroll_dx = MapMaxX() - view_x;
 	}
 }
 
 void BigStruct2::ScrollMapY(int32_t dy)
 { //403fc5
-	field_0x7c += dy;
-	if (field_0x7c + view_y < MapMinY()) {
-		field_0x7c = MapMinY() - view_y;
+	scroll_dy += dy;
+	if (scroll_dy + view_y < MapMinY()) {
+		scroll_dy = MapMinY() - view_y;
 	}
 
-	if (field_0x7c + view_y > MapMaxX()) {
-		field_0x7c = MapMaxX() - view_y;
+	if (scroll_dy + view_y > MapMaxY()) {
+		scroll_dy = MapMaxY() - view_y;
 	}
 }
 
@@ -4084,7 +4084,7 @@ void BigStruct2::sub_416B4A(int32_t digit)
 	if (count > 0) {
 		int32_t avg_x = sum_x / count;
 		int32_t avg_y = sum_y / count;
-		this->MsgProc(0x406, avg_x - this->field_0x64 / 2, avg_y - this->field_0x68 / 2);
+		this->MsgProc(0x406, avg_x - this->view_tiles_x / 2, avg_y - this->view_tiles_y / 2);
 	}
 }
 
@@ -4142,11 +4142,11 @@ void BigStruct2::sub_4167F7(int32_t wparam, int32_t lparam)
 	if (wparam > this->MapMaxX()) {
 		wparam = this->MapMaxX();
 	}
-	if (lparam > this->FUN_0041f6b0()) {
-		lparam = this->FUN_0041f6b0();
+	if (lparam > this->MapMaxY()) {
+		lparam = this->MapMaxY();
 	}
-	this->field_0x78 = wparam - this->view_x;
-	this->field_0x7c = lparam - this->view_y;
+	this->scroll_dx = wparam - this->view_x;
+	this->scroll_dy = lparam - this->view_y;
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	wnd->vis_minimap->MsgProc(0x408, 0, 0);
 }
@@ -4155,8 +4155,8 @@ void BigStruct2::sub_4167F7(int32_t wparam, int32_t lparam)
 void BigStruct2::sub_403F08(Scenario* scen)
 {
 	this->field_0x80 = scen;
-	this->field_0x84 = this->field_0x80->GetWidth();
-	this->field_0x88 = this->field_0x80->GetHeight();
+	this->map_width = this->field_0x80->GetWidth();
+	this->map_height = this->field_0x80->GetHeight();
 }
 
 // 418F93
@@ -4562,35 +4562,35 @@ void BigStruct2::sub_419BA1(uint16_t id, int32_t spell)
 // 40328E
 void BigStruct2::sub_40328E()
 {
-	free(this->field_0x8c);
-	free(this->field_0x90);
-	free(this->field_0x94);
-	free(this->field_0x98);
-	free(this->field_0x9c);
+	free(this->tile_units);
+	free(this->tile_air_units);
+	free(this->tile_structures);
+	free(this->tile_backpacks);
+	free(this->tile_special_units);
 	free(this->field_0xa0);
 	free(this->field_0xa4);
 	free(this->field_0xa8);
 	free(this->field_0xac);
-	free(this->field_0xb0);
-	free(this->field_0xb4);
-	free(this->field_0xb8);
-	free(this->field_0xbc);
-	free(this->field_0xc0);
+	free(this->tile_light);
+	free(this->tile_corner_y);
+	free(this->tile_top_y);
+	free(this->tile_bottom_y);
+	free(this->height_cells);
 }
 
 // 40403B
 void BigStruct2::sub_40403B()
 {
 	this->field_0xf4.SetRectEmpty();
-	memset(this->field_0x8c, 0, this->field_0x6c);
-	memset(this->field_0x90, 0, this->field_0x6c);
-	memset(this->field_0x94, 0, this->field_0x6c);
-	memset(this->field_0x98, 0, this->field_0x6c);
-	memset(this->field_0x9c, 0, this->field_0x6c);
+	memset(this->tile_units, 0, this->tile_grid_bytes);
+	memset(this->tile_air_units, 0, this->tile_grid_bytes);
+	memset(this->tile_structures, 0, this->tile_grid_bytes);
+	memset(this->tile_backpacks, 0, this->tile_grid_bytes);
+	memset(this->tile_special_units, 0, this->tile_grid_bytes);
 	if (g_DWORD_00659d18 == 2) {
-		memcpy(this->field_0xac, this->field_0xa8, this->field_0x70 / 4);
+		memcpy(this->field_0xac, this->field_0xa8, this->corner_grid_bytes / 4);
 	}
-	memset(this->field_0xa8, 0xFF, this->field_0x70 / 4);
+	memset(this->field_0xa8, 0xFF, this->corner_grid_bytes / 4);
 	this->field_0x108 = 0;
 	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
@@ -4600,27 +4600,27 @@ void BigStruct2::sub_40403B()
 		obj->VMethod10();
 		obj->VMethod12();
 	}
-	memset(this->field_0xa0, 0, this->field_0x70);
+	memset(this->field_0xa0, 0, this->corner_grid_bytes);
 	uint16_t* landscape = this->field_0x80->GetLandscape();
-	int32_t src_idx = (this->view_y - 3) * this->field_0x84 + this->view_x - 3;
+	int32_t src_idx = (this->view_y - 3) * this->map_width + this->view_x - 3;
 	int32_t out_idx = 0;
-	for (int32_t y = -3; y <= this->field_0x68 + 7; y++) {
-		for (int32_t x = -3; x <= this->field_0x64 + 3; x++) {
-			int32_t h_idx = x + 3 + (y + 3) * (this->field_0x64 + 6);
-			if (x == this->field_0x64 + 3) {
+	for (int32_t y = -3; y <= this->view_tiles_y + 7; y++) {
+		for (int32_t x = -3; x <= this->view_tiles_x + 3; x++) {
+			int32_t h_idx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
+			if (x == this->view_tiles_x + 3) {
 				h_idx--;
 			}
-			if (y == this->field_0x68 + 7) {
-				h_idx -= this->field_0x64 + 6;
+			if (y == this->view_tiles_y + 7) {
+				h_idx -= this->view_tiles_x + 6;
 			}
 			uint16_t tile = landscape[src_idx] & 0xC000;
 			src_idx++;
 			if (tile == 0xC000) {
 				if (g_Animation != 0) {
-					CRect rect((x - 3) * 0x20, this->field_0xb8[h_idx] - 0x60, (x + 3) * 0x20, this->field_0xbc[h_idx] + 0x60);
+					CRect rect((x - 3) * 0x20, this->tile_top_y[h_idx] - 0x60, (x + 3) * 0x20, this->tile_bottom_y[h_idx] + 0x60);
 					this->field_0xf4 |= rect;
 				} else if (this->field_0xdc != 0) {
-					CRect rect((x - 1) * 0x20, this->field_0xb8[h_idx] - 0x60, (x + 2) * 0x20, this->field_0xbc[h_idx] + 0x60);
+					CRect rect((x - 1) * 0x20, this->tile_top_y[h_idx] - 0x60, (x + 2) * 0x20, this->tile_bottom_y[h_idx] + 0x60);
 					this->field_0xf4 |= rect;
 				}
 				this->field_0xa0[out_idx] = 0;
@@ -4631,9 +4631,9 @@ void BigStruct2::sub_40403B()
 			}
 			out_idx++;
 		}
-		src_idx += this->field_0x84 - this->field_0x64 - 7;
+		src_idx += this->map_width - this->view_tiles_x - 7;
 	}
-	memcpy(this->field_0xa4, this->field_0xa0, this->field_0x70);
+	memcpy(this->field_0xa4, this->field_0xa0, this->corner_grid_bytes);
 	for (POSITION it = this->field_0x9ec.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
@@ -4699,8 +4699,8 @@ void BigStruct2::sub_40403B()
 		this->field_0xa08.GetNextAssoc(it, key, value);
 		int32_t lx = key & 0xFF;
 		int32_t ly = key >> 8;
-		if (this->view_x - 3 <= lx && lx < this->view_x + 3 + this->field_0x64 &&
-			this->view_y - 3 <= ly && ly < this->view_y + 7 + this->field_0x68 && value != 0) {
+		if (this->view_x - 3 <= lx && lx < this->view_x + 3 + this->view_tiles_x &&
+			this->view_y - 3 <= ly && ly < this->view_y + 7 + this->view_tiles_y && value != 0) {
 			lx -= this->view_x;
 			ly -= this->view_y;
 			if (g_Lightning == 0) {
@@ -4734,18 +4734,18 @@ void BigStruct2::sub_404912()
 		this->field_0xa08.GetNextAssoc(it, key, value);
 		int32_t x = key & 0xFF;
 		int32_t y = key >> 8;
-		int32_t idx = y * this->field_0x84 + x;
+		int32_t idx = y * this->map_width + x;
 		if (value & 0x8000) {
 			buf[idx] = 0;
 			buf[idx + 1] = 0;
-			buf[idx + this->field_0x84] = 0;
-			buf[idx + this->field_0x84 + 1] = 0;
+			buf[idx + this->map_width] = 0;
+			buf[idx + this->map_width + 1] = 0;
 		}
 		if (value & 0x4000) {
 			buf[idx] = 0x50;
 			buf[idx + 1] = 0x50;
-			buf[idx + this->field_0x84] = 0x50;
-			buf[idx + this->field_0x84 + 1] = 0x50;
+			buf[idx + this->map_width] = 0x50;
+			buf[idx + this->map_width + 1] = 0x50;
 		}
 	}
 }
@@ -4755,9 +4755,9 @@ int32_t BigStruct2::sub_403B8F(int32_t arg1, int32_t arg2, int32_t arg3, int32_t
 {
 	int32_t idx;
 	if (arg2 > 0) {
-		idx = arg2 * this->field_0x84 + arg1;
+		idx = arg2 * this->map_width + arg1;
 	} else {
-		idx = arg1 - (-arg2) * this->field_0x84;
+		idx = arg1 - (-arg2) * this->map_width;
 	}
 	int32_t nx = arg1 + (int8_t)this->field_0xac0[arg1][arg2][0];
 	int32_t ny = arg2 + (int8_t)this->field_0xac0[arg1][arg2][1];
@@ -4816,7 +4816,7 @@ void BigStruct2::sub_41AC88(int32_t arg1, int32_t arg2)
 void BigStruct2::sub_404A2C()
 {
 	int32_t delta = g_DeltaCLR.field_4;
-	memset(this->field_0xb0, delta >> 2, this->field_0x6c / 4);
+	memset(this->tile_light, delta >> 2, this->tile_grid_bytes / 4);
 	for (POSITION it = this->field_0xa08.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		uint32_t value;
@@ -4824,25 +4824,25 @@ void BigStruct2::sub_404A2C()
 		int32_t x = key & 0xFF;
 		int32_t y = key >> 8;
 		if (x < this->view_x - 3 || y < this->view_y - 3 ||
-			x >= this->view_x + this->field_0x64 + 3 || y >= this->view_y + this->field_0x68 + 7) {
+			x >= this->view_x + this->view_tiles_x + 3 || y >= this->view_y + this->view_tiles_y + 7) {
 			continue;
 		}
-		int32_t idx = (x - this->view_x) + ((y - this->view_y) + 3) * (this->field_0x64 + 6) + 3;
+		int32_t idx = (x - this->view_x) + ((y - this->view_y) + 3) * (this->view_tiles_x + 6) + 3;
 		if ((value & 0x8000) != 0) {
-			this->field_0xb0[idx] = 0;
+			this->tile_light[idx] = 0;
 		}
 		if ((value & 0x4000) != 0) {
-			this->field_0xb0[idx] = 0xC;
+			this->tile_light[idx] = 0xC;
 		}
 		if ((value & 8) != 0) {
 			int32_t brightness = (abs(this->field_0xa88 / 2 + x * y) % 5 & 1) != 0 ? 0xC : 0;
 			this->ApplyDynamicLight(x, y, 1, brightness);
 		}
 	}
-	for (int32_t ty = 0; ty < this->field_0x68 + 10; ty++) {
-		for (int32_t tx = 0; tx < this->field_0x64 + 6; tx++) {
-			int32_t idx = ty * (this->field_0x64 + 7) + tx;
-			int32_t idx_next = idx + this->field_0x64 + 7;
+	for (int32_t ty = 0; ty < this->view_tiles_y + 10; ty++) {
+		for (int32_t tx = 0; tx < this->view_tiles_x + 6; tx++) {
+			int32_t idx = ty * (this->view_tiles_x + 7) + tx;
+			int32_t idx_next = idx + this->view_tiles_x + 7;
 			int32_t v0 = this->field_0xa8[idx] - 0x20;
 			if (v0 < 0) {
 				v0 = 0;
@@ -4878,7 +4878,7 @@ void BigStruct2::sub_404A2C()
 			if (light >= delta >> 2) {
 				light = delta >> 2;
 			}
-			this->field_0xb0[ty * (this->field_0x64 + 6) + tx] = light;
+			this->tile_light[ty * (this->view_tiles_x + 6) + tx] = light;
 		}
 	}
 }
@@ -5051,23 +5051,23 @@ int32_t BigStruct2::sub_4184B8(int32_t x, int32_t y)
 {
 	int32_t tx = (x >> 5) + 3;
 	int32_t frac = x & 0x1F;
-	for (int32_t ty = -3; ty < this->field_0x68 + 7; ty++) {
-		int32_t idx6 = tx + (ty + 3) * (this->field_0x64 + 6);
-		int32_t h_min = this->field_0xb8[idx6];
+	for (int32_t ty = -3; ty < this->view_tiles_y + 7; ty++) {
+		int32_t idx6 = tx + (ty + 3) * (this->view_tiles_x + 6);
+		int32_t h_min = this->tile_top_y[idx6];
 		if (h_min > y) {
 			continue;
 		}
-		int32_t h_max = this->field_0xbc[idx6];
+		int32_t h_max = this->tile_bottom_y[idx6];
 		if (h_max < y) {
 			continue;
 		}
-		int32_t idx7 = tx + (ty + 3) * (this->field_0x64 + 7);
-		int32_t h1 = this->field_0xb4[idx7];
-		int32_t h2 = this->field_0xb4[idx7 + 1];
+		int32_t idx7 = tx + (ty + 3) * (this->view_tiles_x + 7);
+		int32_t h1 = this->tile_corner_y[idx7];
+		int32_t h2 = this->tile_corner_y[idx7 + 1];
 		int32_t top = h1 + (h2 - h1) * frac / 32;
-		int32_t idx7b = tx + (ty + 4) * (this->field_0x64 + 7);
-		int32_t h3 = this->field_0xb4[idx7b];
-		int32_t h4 = this->field_0xb4[idx7b + 1];
+		int32_t idx7b = tx + (ty + 4) * (this->view_tiles_x + 7);
+		int32_t h3 = this->tile_corner_y[idx7b];
+		int32_t h4 = this->tile_corner_y[idx7b + 1];
 		int32_t bottom = h3 + (h4 - h3) * frac / 32;
 		if (top > y) {
 			continue;
@@ -5077,7 +5077,7 @@ int32_t BigStruct2::sub_4184B8(int32_t x, int32_t y)
 		}
 		return ty;
 	}
-	return this->field_0x68 + 4;
+	return this->view_tiles_y + 4;
 }
 
 // 41864D
@@ -5189,10 +5189,10 @@ uint32_t BigStruct2::sub_41864D()
 	int32_t tile_x = g_mousept.x >> 5;
 	int32_t tile_y = this->sub_4184B8(g_mousept.x, g_mousept.y);
 	uint16_t* land = this->field_0x80->GetLandscape();
-	int32_t cell = tile_x + this->view_x + (tile_y + this->view_y) * this->field_0x84;
+	int32_t cell = tile_x + this->view_x + (tile_y + this->view_y) * this->map_width;
 	uint16_t land_flags = (land[cell] & 0xC000) | (land[cell + 1] & 0xC000) |
-		(land[cell + 1 + this->field_0x84] & 0xC000) | (land[cell + this->field_0x84] & 0xC000);
-	if (land_flags == 0xC000 && this->field_0x98[tile_x + 3 + (tile_y + 3) * (this->field_0x64 + 6)] != 0) {
+		(land[cell + 1 + this->map_width] & 0xC000) | (land[cell + this->map_width] & 0xC000);
+	if (land_flags == 0xC000 && this->tile_backpacks[tile_x + 3 + (tile_y + 3) * (this->view_tiles_x + 6)] != 0) {
 		avail |= 0x40;
 	}
 	if (land_flags != 0xC000) {
@@ -5440,19 +5440,19 @@ void BigStruct2::sub_404E1A()
 	uint16_t* landscape = this->field_0x80->GetLandscape();
 	CRect rect;
 	this->ClientRectToScreen(&rect, this->rect);
-	for (int32_t y = 0; y < this->field_0x68 + 4; y++) {
-		for (int32_t x = this->field_0x64 - 1; x >= 0; x--) {
+	for (int32_t y = 0; y < this->view_tiles_y + 4; y++) {
+		for (int32_t x = this->view_tiles_x - 1; x >= 0; x--) {
 			int32_t tile_x = x + this->view_x;
 			int32_t tile_y = y + this->view_y;
-			int32_t h_row = this->field_0x64 + 7;
-			int32_t cell = tile_x + tile_y * this->field_0x84;
+			int32_t h_row = this->view_tiles_x + 7;
+			int32_t cell = tile_x + tile_y * this->map_width;
 			int32_t h_idx = (y + 3) * h_row + 3;
-			int32_t cell2 = cell + this->field_0x84;
+			int32_t cell2 = cell + this->map_width;
 			int32_t h_idx2 = (y + 4) * h_row + 3;
-			int32_t h1 = this->field_0xb4[x + h_idx];
-			int32_t h2 = this->field_0xb4[x + h_idx + 1];
-			int32_t h3 = this->field_0xb4[x + h_idx2];
-			int32_t h4 = this->field_0xb4[x + h_idx2 + 1];
+			int32_t h1 = this->tile_corner_y[x + h_idx];
+			int32_t h2 = this->tile_corner_y[x + h_idx + 1];
+			int32_t h3 = this->tile_corner_y[x + h_idx2];
+			int32_t h4 = this->tile_corner_y[x + h_idx2 + 1];
 			uint16_t tile_id = landscape[cell] & 0x1FFF;
 			int32_t ter_type = tile_id >> 6;
 			int32_t ter_var = (tile_id >> 4) & 3;
@@ -5499,27 +5499,27 @@ void BigStruct2::sub_405399(int32_t arg)
 	uint16_t* landscape = this->field_0x80->GetLandscape();
 	CRect rect;
 	this->ClientRectToScreen(&rect, this->rect);
-	int32_t y_off = (this->field_0xe8 + arg) * 0x20;
-	for (int32_t y = 0; y < this->field_0x68 + 4; y++) {
-		for (int32_t x = this->field_0x64 - 1; x >= 0; x--) {
-			int32_t map_x = x + this->field_0xe4;
-			if (map_x >= this->field_0x64) {
-				map_x -= this->field_0x64;
+	int32_t y_off = (this->tile_scroll_y + arg) * 0x20;
+	for (int32_t y = 0; y < this->view_tiles_y + 4; y++) {
+		for (int32_t x = this->view_tiles_x - 1; x >= 0; x--) {
+			int32_t map_x = x + this->tile_scroll_x;
+			if (map_x >= this->view_tiles_x) {
+				map_x -= this->view_tiles_x;
 			}
 			int32_t tile_x = x + this->view_x;
 			int32_t tile_y = y + this->view_y;
-			int32_t cell = tile_x + tile_y * this->field_0x84;
+			int32_t cell = tile_x + tile_y * this->map_width;
 			if (((landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
-				(landscape[cell + this->field_0x84] & 0xC000) |
-				(landscape[cell + this->field_0x84 + 1] & 0xC000)) != 0xC000) {
+				(landscape[cell + this->map_width] & 0xC000) |
+				(landscape[cell + this->map_width + 1] & 0xC000)) != 0xC000) {
 				continue;
 			}
-			int32_t h_idx = x + 3 + (y + 3) * (this->field_0x64 + 7);
-			int32_t h1 = this->field_0xb4[h_idx] + y_off;
-			int32_t h2 = this->field_0xb4[h_idx + 1] + y_off;
-			int32_t h_idx2 = h_idx + this->field_0x64 + 7;
-			int32_t h3 = this->field_0xb4[h_idx2] + y_off;
-			int32_t h4 = this->field_0xb4[h_idx2 + 1] + y_off;
+			int32_t h_idx = x + 3 + (y + 3) * (this->view_tiles_x + 7);
+			int32_t h1 = this->tile_corner_y[h_idx] + y_off;
+			int32_t h2 = this->tile_corner_y[h_idx + 1] + y_off;
+			int32_t h_idx2 = h_idx + this->view_tiles_x + 7;
+			int32_t h3 = this->tile_corner_y[h_idx2] + y_off;
+			int32_t h4 = this->tile_corner_y[h_idx2 + 1] + y_off;
 			uint16_t tile_id = landscape[cell] & 0x1FFF;
 			int32_t ter_type = tile_id >> 6;
 			int32_t ter_var = (tile_id >> 4) & 3;
@@ -5533,7 +5533,7 @@ void BigStruct2::sub_405399(int32_t arg)
 			}
 			ter_type = frame + 8;
 			CGameBitmap* tile = g_ter_tiles(ter_var, ter_type);
-			int32_t cell2 = cell + this->field_0x84;
+			int32_t cell2 = cell + this->map_width;
 			int32_t l1 = f18map[cell];
 			int32_t l2 = f18map[cell + 1];
 			int32_t l3 = f18map[cell2];
@@ -5559,24 +5559,24 @@ void BigStruct2::sub_40587B(int32_t arg)
 	uint16_t* landscape = this->field_0x80->GetLandscape();
 	CRect rect;
 	this->ClientRectToScreen(&rect, this->rect);
-	int32_t y_off = (this->field_0xe8 + arg) * 0x20;
-	for (int32_t y = 0; y < this->field_0x68 + 4; y++) {
-		for (int32_t x = this->field_0x64 - 1; x >= 0; x--) {
-			int32_t map_x = x + this->field_0xe4;
-			if (map_x >= this->field_0x64) {
-				map_x -= this->field_0x64;
+	int32_t y_off = (this->tile_scroll_y + arg) * 0x20;
+	for (int32_t y = 0; y < this->view_tiles_y + 4; y++) {
+		for (int32_t x = this->view_tiles_x - 1; x >= 0; x--) {
+			int32_t map_x = x + this->tile_scroll_x;
+			if (map_x >= this->view_tiles_x) {
+				map_x -= this->view_tiles_x;
 			}
 			int32_t tile_x = x + this->view_x;
 			int32_t tile_y = y + this->view_y;
-			int32_t h_row = this->field_0x64 + 7;
-			int32_t cell = tile_x + tile_y * this->field_0x84;
+			int32_t h_row = this->view_tiles_x + 7;
+			int32_t cell = tile_x + tile_y * this->map_width;
 			int32_t h_idx = (y + 3) * h_row + 3;
-			int32_t cell2 = cell + this->field_0x84;
+			int32_t cell2 = cell + this->map_width;
 			int32_t h_idx2 = (y + 4) * h_row + 3;
-			int32_t h1 = this->field_0xb4[x + h_idx] + y_off;
-			int32_t h2 = this->field_0xb4[x + h_idx + 1] + y_off;
-			int32_t h3 = this->field_0xb4[x + h_idx2] + y_off;
-			int32_t h4 = this->field_0xb4[x + h_idx2 + 1] + y_off;
+			int32_t h1 = this->tile_corner_y[x + h_idx] + y_off;
+			int32_t h2 = this->tile_corner_y[x + h_idx + 1] + y_off;
+			int32_t h3 = this->tile_corner_y[x + h_idx2] + y_off;
+			int32_t h4 = this->tile_corner_y[x + h_idx2 + 1] + y_off;
 			uint16_t tile_id = landscape[cell] & 0x1FFF;
 			int32_t ter_type = tile_id >> 6;
 			int32_t ter_var = (tile_id >> 4) & 3;
@@ -5624,10 +5624,10 @@ void BigStruct2::sub_405D0E()
 	uint16_t* landscape = this->field_0x80->GetLandscape();
 	CRect rect;
 	this->ClientRectToScreen(&rect, this->rect);
-	for (int32_t y = 0; y < this->field_0x68 + 4; y++) {
-		for (int32_t x = this->field_0x64 - 1; x >= 0; x--) {
-			int32_t vis_idx = x + 3 + (y + 3) * (this->field_0x64 + 7);
-			int32_t vis_idx2 = vis_idx + this->field_0x64 + 7;
+	for (int32_t y = 0; y < this->view_tiles_y + 4; y++) {
+		for (int32_t x = this->view_tiles_x - 1; x >= 0; x--) {
+			int32_t vis_idx = x + 3 + (y + 3) * (this->view_tiles_x + 7);
+			int32_t vis_idx2 = vis_idx + this->view_tiles_x + 7;
 			int32_t l1 = this->field_0xa8[vis_idx];
 			int32_t l2 = this->field_0xa8[vis_idx + 1];
 			int32_t l3 = this->field_0xa8[vis_idx2];
@@ -5637,19 +5637,19 @@ void BigStruct2::sub_405D0E()
 			}
 			int32_t tile_x = x + this->view_x;
 			int32_t tile_y = y + this->view_y;
-			int32_t h_row = this->field_0x64 + 7;
-			int32_t cell = tile_x + tile_y * this->field_0x84;
+			int32_t h_row = this->view_tiles_x + 7;
+			int32_t cell = tile_x + tile_y * this->map_width;
 			int32_t h_idx = (y + 3) * h_row + 3;
-			int32_t cell2 = cell + this->field_0x84;
+			int32_t cell2 = cell + this->map_width;
 			int32_t h_idx2 = (y + 4) * h_row + 3;
 			l1 = (std::min)(l1, (int32_t)f18map[cell]);
 			l2 = (std::min)(l2, (int32_t)f18map[cell + 1]);
 			l3 = (std::min)(l3, (int32_t)f18map[cell2]);
 			l4 = (std::min)(l4, (int32_t)f18map[cell2 + 1]);
-			int32_t h1 = this->field_0xb4[x + h_idx];
-			int32_t h2 = this->field_0xb4[x + h_idx + 1];
-			int32_t h3 = this->field_0xb4[x + h_idx2];
-			int32_t h4 = this->field_0xb4[x + h_idx2 + 1];
+			int32_t h1 = this->tile_corner_y[x + h_idx];
+			int32_t h2 = this->tile_corner_y[x + h_idx + 1];
+			int32_t h3 = this->tile_corner_y[x + h_idx2];
+			int32_t h4 = this->tile_corner_y[x + h_idx2 + 1];
 			uint16_t tile_id = landscape[cell] & 0x1FFF;
 			int32_t ter_type = tile_id >> 6;
 			int32_t ter_var = (tile_id >> 4) & 3;
@@ -5699,13 +5699,13 @@ void BigStruct2::sub_406F7B()
 	this->field_0xa90++;
 	this->ClientRectToScreen(&local_rect, this->rect);
 	UpdateAmbientSounds();
-	if (abs(this->field_0x78) >= this->field_0x64 / 2 || abs(this->field_0x7c) >= this->field_0x68 / 2) {
-		this->field_0x74 = 1;
+	if (abs(this->scroll_dx) >= this->view_tiles_x / 2 || abs(this->scroll_dy) >= this->view_tiles_y / 2) {
+		this->force_full_redraw = 1;
 	}
-	this->view_x += this->field_0x78;
-	this->view_y += this->field_0x7c;
+	this->view_x += this->scroll_dx;
+	this->view_y += this->scroll_dy;
 	int32_t view_moved;
-	if (this->view_x == this->field_0xec && this->view_y == this->field_0xf0) {
+	if (this->view_x == this->prev_view_x && this->view_y == this->prev_view_y) {
 		view_moved = 0;
 	} else {
 		view_moved = 1;
@@ -5743,40 +5743,40 @@ void BigStruct2::sub_406F7B()
 	g_mousept.Update();
 	LockSurface3();
 	GetClipRect(&clip_rect);
-	if (this->field_0x74 != 0) {
+	if (this->force_full_redraw != 0) {
 		this->sub_404E1A();
-		this->field_0xe8 = 0;
-		this->field_0xe4 = 0;
-	} else if (this->field_0x78 != 0 || this->field_0x7c != 0) {
-		int32_t old_tx = this->field_0xe4;
-		int32_t old_ty = this->field_0xe8;
-		this->field_0xe4 += this->field_0x78;
-		if (this->field_0xe4 < 0) {
-			this->field_0xe4 += this->field_0x64;
+		this->tile_scroll_y = 0;
+		this->tile_scroll_x = 0;
+	} else if (this->scroll_dx != 0 || this->scroll_dy != 0) {
+		int32_t old_tx = this->tile_scroll_x;
+		int32_t old_ty = this->tile_scroll_y;
+		this->tile_scroll_x += this->scroll_dx;
+		if (this->tile_scroll_x < 0) {
+			this->tile_scroll_x += this->view_tiles_x;
 		}
-		if (this->field_0xe4 >= this->field_0x64) {
-			this->field_0xe4 -= this->field_0x64;
+		if (this->tile_scroll_x >= this->view_tiles_x) {
+			this->tile_scroll_x -= this->view_tiles_x;
 		}
-		this->field_0xe8 += this->field_0x7c;
-		if (this->field_0xe8 < 0) {
-			this->field_0xe8 += this->field_0x68;
+		this->tile_scroll_y += this->scroll_dy;
+		if (this->tile_scroll_y < 0) {
+			this->tile_scroll_y += this->view_tiles_y;
 		}
-		if (this->field_0xe8 >= this->field_0x68) {
-			this->field_0xe8 -= this->field_0x68;
+		if (this->tile_scroll_y >= this->view_tiles_y) {
+			this->tile_scroll_y -= this->view_tiles_y;
 		}
 		CRect rc1;
 		CRect rc2;
 		CRect rc3;
 		CRect rc4;
-		if (this->field_0x78 != 0) {
-			rc1.SetRect(old_tx << 5, 0, this->field_0xe4 << 5, this->field_0xe8 << 5);
-			rc2.SetRect(old_tx << 5, this->field_0xe8 << 5, this->field_0xe4 << 5, this->field_0x68 << 5);
+		if (this->scroll_dx != 0) {
+			rc1.SetRect(old_tx << 5, 0, this->tile_scroll_x << 5, this->tile_scroll_y << 5);
+			rc2.SetRect(old_tx << 5, this->tile_scroll_y << 5, this->tile_scroll_x << 5, this->view_tiles_y << 5);
 			rc1.NormalizeRect();
 			rc2.NormalizeRect();
-			if (abs(this->field_0xe4 - old_tx) < this->field_0x64 / 2) {
+			if (abs(this->tile_scroll_x - old_tx) < this->view_tiles_x / 2) {
 				if (!rc1.IsRectEmpty()) {
 					SetClipRect(rc1);
-					this->sub_40587B(-this->field_0x68);
+					this->sub_40587B(-this->view_tiles_y);
 				}
 				if (!rc2.IsRectEmpty()) {
 					SetClipRect(rc2);
@@ -5786,42 +5786,42 @@ void BigStruct2::sub_406F7B()
 				rc3.SetRect(0, rc1.TopLeft().y, rc1.TopLeft().x, rc1.BottomRight().y);
 				if (!rc3.IsRectEmpty()) {
 					SetClipRect(rc3);
-					this->sub_40587B(-this->field_0x68);
+					this->sub_40587B(-this->view_tiles_y);
 				}
-				rc3.SetRect(rc1.BottomRight().x, rc1.TopLeft().y, this->field_0x64 << 5, rc1.BottomRight().y);
+				rc3.SetRect(rc1.BottomRight().x, rc1.TopLeft().y, this->view_tiles_x << 5, rc1.BottomRight().y);
 				if (!rc3.IsRectEmpty()) {
 					SetClipRect(rc3);
-					this->sub_40587B(-this->field_0x68);
+					this->sub_40587B(-this->view_tiles_y);
 				}
 				rc3.SetRect(0, rc2.TopLeft().y, rc2.TopLeft().x, rc2.BottomRight().y);
 				if (!rc3.IsRectEmpty()) {
 					SetClipRect(rc3);
 					this->sub_40587B(0);
 				}
-				rc3.SetRect(rc2.BottomRight().x, rc2.TopLeft().y, this->field_0x64 << 5, rc2.BottomRight().y);
+				rc3.SetRect(rc2.BottomRight().x, rc2.TopLeft().y, this->view_tiles_x << 5, rc2.BottomRight().y);
 				if (!rc3.IsRectEmpty()) {
 					SetClipRect(rc3);
 					this->sub_40587B(0);
 				}
 			}
 		}
-		if (this->field_0x7c != 0) {
-			rc1.SetRect(0, old_ty << 5, this->field_0x64 << 5, this->field_0xe8 << 5);
+		if (this->scroll_dy != 0) {
+			rc1.SetRect(0, old_ty << 5, this->view_tiles_x << 5, this->tile_scroll_y << 5);
 			rc1.NormalizeRect();
-			if (abs(this->field_0xe8 - old_ty) < this->field_0x68 / 2) {
+			if (abs(this->tile_scroll_y - old_ty) < this->view_tiles_y / 2) {
 				SetClipRect(rc1);
-				if (this->field_0x7c < 0) {
+				if (this->scroll_dy < 0) {
 					this->sub_40587B(0);
 				} else {
-					this->sub_40587B(-this->field_0x68);
+					this->sub_40587B(-this->view_tiles_y);
 				}
 			} else {
-				rc2.SetRect(0, 0, this->field_0x64 << 5, rc1.TopLeft().y);
+				rc2.SetRect(0, 0, this->view_tiles_x << 5, rc1.TopLeft().y);
 				if (!rc2.IsRectEmpty()) {
 					SetClipRect(rc2);
-					this->sub_40587B(-this->field_0x68);
+					this->sub_40587B(-this->view_tiles_y);
 				}
-				rc2.SetRect(0, rc1.BottomRight().y, this->field_0x64 << 5, this->field_0x68 << 5);
+				rc2.SetRect(0, rc1.BottomRight().y, this->view_tiles_x << 5, this->view_tiles_y << 5);
 				if (!rc2.IsRectEmpty()) {
 					SetClipRect(rc2);
 					this->sub_40587B(0);
@@ -5830,17 +5830,17 @@ void BigStruct2::sub_406F7B()
 		}
 	} else {
 		if (anim_redraw != 0 && g_Animation != 0) {
-			FUN_004549e5(0, this->field_0xe8 << 5, this->field_0x64 << 5, this->field_0x68 << 5);
+			FUN_004549e5(0, this->tile_scroll_y << 5, this->view_tiles_x << 5, this->view_tiles_y << 5);
 			this->sub_405399(0);
-			FUN_004549e5(0, 0, this->field_0x64 << 5, this->field_0xe8 << 5);
-			this->sub_405399(-this->field_0x68);
+			FUN_004549e5(0, 0, this->view_tiles_x << 5, this->tile_scroll_y << 5);
+			this->sub_405399(-this->view_tiles_y);
 		}
 	}
 	SetClipRect(clip_rect);
 	UnlockSurface3();
 	g_mousept.Update();
 	SetClipRect(this->field_0xf4);
-	FUN_00454e40(this->field_0xe4, this->field_0xe8, this->field_0x64 << 5, this->field_0x68 << 5);
+	FUN_00454e40(this->tile_scroll_x, this->tile_scroll_y, this->view_tiles_x << 5, this->view_tiles_y << 5);
 	SetClipRect(clip_rect);
 	g_mousept.Update();
 	LockSurface2();
@@ -5857,15 +5857,15 @@ void BigStruct2::sub_406F7B()
 	this->field_0x134 = 0;
 
 	if (g_Shadows != 0) {
-		for (int32_t y = -4; y < this->field_0x68 + 7; y++) {
-			for (int32_t x = this->field_0x64 + 3; x > -5; x--) {
-				int32_t cell = x + this->view_x + this->field_0x84 * (y + this->view_y);
+		for (int32_t y = -4; y < this->view_tiles_y + 7; y++) {
+			for (int32_t x = this->view_tiles_x + 3; x > -5; x--) {
+				int32_t cell = x + this->view_x + this->map_width * (y + this->view_y);
 				uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
-					(landscape[cell + this->field_0x84] & 0xC000) | (landscape[cell + this->field_0x84 + 1] & 0xC000);
-				if (y > -4 && y < this->field_0x68 + 7 && x > -4 && x < this->field_0x64 + 3) {
-					int32_t idx = x + 3 + (y + 3) * (this->field_0x64 + 6);
-					CGameObject* obj = (CGameObject*)this->field_0x94[idx];
-					uint32_t hgt = this->field_0xc0[x + 4 + (y + 4) * (this->field_0x64 + 8)];
+					(landscape[cell + this->map_width] & 0xC000) | (landscape[cell + this->map_width + 1] & 0xC000);
+				if (y > -4 && y < this->view_tiles_y + 7 && x > -4 && x < this->view_tiles_x + 3) {
+					int32_t idx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
+					CGameObject* obj = this->tile_structures[idx];
+					uint32_t hgt = this->height_cells[x + 4 + (y + 4) * (this->view_tiles_x + 8)];
 					if (obj != nullptr && obj->FUN_0041f130() < 2) {
 						obj->VMethod7(x, y, hgt);
 					}
@@ -5874,19 +5874,19 @@ void BigStruct2::sub_406F7B()
 		}
 	}
 
-	for (int32_t y = -4; y < this->field_0x68 + 7; y++) {
-		for (int32_t x = this->field_0x64 + 3; x > -5; x--) {
-			int32_t cell = x + this->view_x + this->field_0x84 * (y + this->view_y);
+	for (int32_t y = -4; y < this->view_tiles_y + 7; y++) {
+		for (int32_t x = this->view_tiles_x + 3; x > -5; x--) {
+			int32_t cell = x + this->view_x + this->map_width * (y + this->view_y);
 			uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
-				(landscape[cell + this->field_0x84] & 0xC000) | (landscape[cell + this->field_0x84 + 1] & 0xC000);
-			if (y > -4 && y < this->field_0x68 + 7 && x > -4 && x < this->field_0x64 + 3) {
-				int32_t idx = x + 3 + (y + 3) * (this->field_0x64 + 6);
-				uint8_t light = this->field_0xb0[idx];
-				CGameObject* obj9c = (CGameObject*)this->field_0x9c[idx];
-				CGameObject* obj98 = (CGameObject*)this->field_0x98[idx];
-				CGameObject* obj8c = (CGameObject*)this->field_0x8c[idx];
-				CGameObject* obj94 = (CGameObject*)this->field_0x94[idx];
-				uint32_t hgt = this->field_0xc0[x + 4 + (y + 4) * (this->field_0x64 + 8)];
+				(landscape[cell + this->map_width] & 0xC000) | (landscape[cell + this->map_width + 1] & 0xC000);
+			if (y > -4 && y < this->view_tiles_y + 7 && x > -4 && x < this->view_tiles_x + 3) {
+				int32_t idx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
+				uint8_t light = this->tile_light[idx];
+				CGameObject* obj9c = this->tile_special_units[idx];
+				CGameObject* obj98 = this->tile_backpacks[idx];
+				CGameObject* obj8c = this->tile_units[idx];
+				CGameObject* obj94 = this->tile_structures[idx];
+				uint32_t hgt = this->height_cells[x + 4 + (y + 4) * (this->view_tiles_x + 8)];
 				if (obj94 != nullptr && obj94->FUN_0041f130() < 2 && g_StructuresInfo[obj94->typeId]->flat != 0) {
 					obj94->VMethod6(x, y, light);
 					StructureInfo* si = g_StructuresInfo[obj94->typeId];
@@ -5901,16 +5901,16 @@ void BigStruct2::sub_406F7B()
 		}
 	}
 
-	for (int32_t y = -4; y < this->field_0x68 + 7; y++) {
-		for (int32_t x = this->field_0x64 + 3; x > -5; x--) {
-			int32_t cell = x + this->view_x + this->field_0x84 * (y + this->view_y);
-			uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) | (landscape[cell + this->field_0x84] & 0xC000) | (landscape[cell + this->field_0x84 + 1] & 0xC000);
-			if (y > -4 && y < this->field_0x68 + 7 && x > -4 && x < this->field_0x64 + 3) {
-				int32_t idx = x + 3 + (y + 3) * (this->field_0x64 + 6);
-				uint8_t light = this->field_0xb0[idx];
-				CGameObject* obj9c = (CGameObject*)this->field_0x9c[idx];
-				CGameObject* obj98 = (CGameObject*)this->field_0x98[idx];
-				uint32_t hgt = this->field_0xc0[x + 4 + (y + 4) * (this->field_0x64 + 8)];
+	for (int32_t y = -4; y < this->view_tiles_y + 7; y++) {
+		for (int32_t x = this->view_tiles_x + 3; x > -5; x--) {
+			int32_t cell = x + this->view_x + this->map_width * (y + this->view_y);
+			uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) | (landscape[cell + this->map_width] & 0xC000) | (landscape[cell + this->map_width + 1] & 0xC000);
+			if (y > -4 && y < this->view_tiles_y + 7 && x > -4 && x < this->view_tiles_x + 3) {
+				int32_t idx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
+				uint8_t light = this->tile_light[idx];
+				CGameObject* obj9c = this->tile_special_units[idx];
+				CGameObject* obj98 = this->tile_backpacks[idx];
+				uint32_t hgt = this->height_cells[x + 4 + (y + 4) * (this->view_tiles_x + 8)];
 				if (obj9c != nullptr && obj9c->FUN_0041f130() == 0) {
 					if (g_Shadows != 0) {
 						obj9c->VMethod7(x, y, light);
@@ -5927,17 +5927,17 @@ void BigStruct2::sub_406F7B()
 		}
 	}
 
-	for (int32_t y = -4; y < this->field_0x68 + 7; y++) {
-		for (int32_t x = this->field_0x64 + 3; x > -5; x--) {
-			int32_t cell = x + this->view_x + this->field_0x84 * (y + this->view_y);
+	for (int32_t y = -4; y < this->view_tiles_y + 7; y++) {
+		for (int32_t x = this->view_tiles_x + 3; x > -5; x--) {
+			int32_t cell = x + this->view_x + this->map_width * (y + this->view_y);
 			uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
-				(landscape[cell + this->field_0x84] & 0xC000) | (landscape[cell + this->field_0x84 + 1] & 0xC000);
-			if (y > -4 && y < this->field_0x68 + 7 && x > -4 && x < this->field_0x64 + 3) {
-				int32_t idx = x + 3 + (y + 3) * (this->field_0x64 + 6);
-				uint8_t light = this->field_0xb0[idx];
-				CUnit* unit = (CUnit*)this->field_0x8c[idx];
-				CGameObject* bld = (CGameObject*)this->field_0x94[idx];
-				uint32_t hgt = this->field_0xc0[x + 4 + (y + 4) * (this->field_0x64 + 8)];
+				(landscape[cell + this->map_width] & 0xC000) | (landscape[cell + this->map_width + 1] & 0xC000);
+			if (y > -4 && y < this->view_tiles_y + 7 && x > -4 && x < this->view_tiles_x + 3) {
+				int32_t idx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
+				uint8_t light = this->tile_light[idx];
+				CUnit* unit = (CUnit*)this->tile_units[idx];
+				CGameObject* bld = this->tile_structures[idx];
+				uint32_t hgt = this->height_cells[x + 4 + (y + 4) * (this->view_tiles_x + 8)];
 				if (bld != nullptr && bld->FUN_0041f130() < 2 && g_StructuresInfo[bld->typeId]->flat == 0) {
 					bld->VMethod6(x, y, light);
 					StructureInfo* si = g_StructuresInfo[bld->typeId];
@@ -5976,11 +5976,11 @@ void BigStruct2::sub_406F7B()
 				}
 			}
 			uint8_t gfxb = gfx_cells[cell];
-			if (gfxb != 0 && x > -4 && y > -4 && x < field_0x64 + 3 && y < field_0x68 + 4) {
-				int32_t gidx = x + 3 + (y + 3) * (this->field_0x64 + 6);
-				uint8_t light2 = this->field_0xb0[gidx];
+			if (gfxb != 0 && x > -4 && y > -4 && x < view_tiles_x + 3 && y < view_tiles_y + 4) {
+				int32_t gidx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
+				uint8_t light2 = this->tile_light[gidx];
 				int32_t tanval = (int32_t)(tan(this->field_0x80->FUN_004a7b79()) * 65536.0);
-				uint32_t hgt2 = this->field_0xc0[x + 4 + (y + 4) * (this->field_0x64 + 8)];
+				uint32_t hgt2 = this->height_cells[x + 4 + (y + 4) * (this->view_tiles_x + 8)];
 				gfxb--;
 				if (this->sub_40B173(gfxb, x, y, hgt2) == 0) {
 					GfxObject* gobj = g_GfxObjects[gfxb];
@@ -6047,13 +6047,13 @@ void BigStruct2::sub_406F7B()
 					}
 				}
 			}
-			if (y > -4 && y < this->field_0x68 + 7 && x > -4 && x < this->field_0x64 + 3) {
+			if (y > -4 && y < this->view_tiles_y + 7 && x > -4 && x < this->view_tiles_x + 3) {
 				uint16_t tkey = (this->view_x + x) | ((this->view_y + y) << 8);
 				uint32_t tval;
 				if (this->field_0xa08.Lookup(tkey, tval) && tval != 0 && lflags == 0xC000) {
-					int32_t tidx = x + 3 + (y + 3) * (this->field_0x64 + 6);
+					int32_t tidx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
 					this->sub_40AFC5(x * 0x20 + 0x10,
-						(int32_t)(this->field_0xb8[tidx] + this->field_0xbc[tidx]) / 2, tval, 1);
+						(int32_t)(this->tile_top_y[tidx] + this->tile_bottom_y[tidx]) / 2, tval, 1);
 				}
 			}
 		}
@@ -6065,15 +6065,15 @@ void BigStruct2::sub_406F7B()
 	SetClipRect(this->field_0xf4);
 
 	if (g_Shadows != 0) {
-		for (int32_t y = -4; y < this->field_0x68 + 7; y++) {
-			for (int32_t x = this->field_0x64 + 3; x > -5; x--) {
-				int32_t cell = x + this->view_x + this->field_0x84 * (y + this->view_y);
+		for (int32_t y = -4; y < this->view_tiles_y + 7; y++) {
+			for (int32_t x = this->view_tiles_x + 3; x > -5; x--) {
+				int32_t cell = x + this->view_x + this->map_width * (y + this->view_y);
 				uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
-					(landscape[cell + this->field_0x84] & 0xC000) | (landscape[cell + this->field_0x84 + 1] & 0xC000);
-				if (y > -4 && y < this->field_0x68 + 7 && x > -4 && x < this->field_0x64 + 3) {
-					int32_t idx = x + 3 + (y + 3) * (this->field_0x64 + 6);
-					CGameObject* obj = (CGameObject*)this->field_0x90[idx];
-					uint32_t hgt = this->field_0xc0[x + 4 + (y + 4) * (this->field_0x64 + 8)];
+					(landscape[cell + this->map_width] & 0xC000) | (landscape[cell + this->map_width + 1] & 0xC000);
+				if (y > -4 && y < this->view_tiles_y + 7 && x > -4 && x < this->view_tiles_x + 3) {
+					int32_t idx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
+					CGameObject* obj = this->tile_air_units[idx];
+					uint32_t hgt = this->height_cells[x + 4 + (y + 4) * (this->view_tiles_x + 8)];
 					if (obj != nullptr && obj->FUN_0041f130() == 0) {
 						obj->VMethod7(x, y, hgt);
 					}
@@ -6090,33 +6090,33 @@ void BigStruct2::sub_406F7B()
 		obj->VMethod6(0, 0, 0);
 	}
 
-	for (int32_t y = -4; y < this->field_0x68 + 7; y++) {
-		for (int32_t x = this->field_0x64 + 3; x > -5; x--) {
-			int32_t cell = x + this->view_x + this->field_0x84 * (y + this->view_y);
+	for (int32_t y = -4; y < this->view_tiles_y + 7; y++) {
+		for (int32_t x = this->view_tiles_x + 3; x > -5; x--) {
+			int32_t cell = x + this->view_x + this->map_width * (y + this->view_y);
 			uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
-				(landscape[cell + this->field_0x84] & 0xC000) | (landscape[cell + this->field_0x84 + 1] & 0xC000);
-			if (y > -1 && y < this->field_0x68 + 4 && x > -1 && x < this->field_0x64) {
+				(landscape[cell + this->map_width] & 0xC000) | (landscape[cell + this->map_width + 1] & 0xC000);
+			if (y > -1 && y < this->view_tiles_y + 4 && x > -1 && x < this->view_tiles_x) {
 				uint16_t tkey = (this->view_x + x) | ((this->view_y + y) << 8);
 				uint32_t tval;
 				if (this->field_0xa08.Lookup(tkey, tval) && tval != 0 && lflags == 0xC000) {
-					int32_t tidx = x + 3 + (y + 3) * (this->field_0x64 + 6);
+					int32_t tidx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
 					this->sub_40AFC5(x * 0x20 + 0x10,
-						(int32_t)(this->field_0xb8[tidx] + this->field_0xbc[tidx]) / 2, tval, 0);
+						(int32_t)(this->tile_top_y[tidx] + this->tile_bottom_y[tidx]) / 2, tval, 0);
 				}
 			}
 		}
 	}
 
-	for (int32_t y = -4; y < this->field_0x68 + 7; y++) {
-		for (int32_t x = this->field_0x64 + 3; x > -5; x--) {
-			int32_t cell = x + this->view_x + this->field_0x84 * (y + this->view_y);
+	for (int32_t y = -4; y < this->view_tiles_y + 7; y++) {
+		for (int32_t x = this->view_tiles_x + 3; x > -5; x--) {
+			int32_t cell = x + this->view_x + this->map_width * (y + this->view_y);
 			uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
-				(landscape[cell + this->field_0x84] & 0xC000) | (landscape[cell + this->field_0x84 + 1] & 0xC000);
-			if (y > -4 && y < this->field_0x68 + 7 && x > -4 && x < this->field_0x64 + 3) {
-				int32_t idx = x + 3 + (y + 3) * (this->field_0x64 + 6);
-				uint8_t light = this->field_0xb0[idx];
-				CGameObject* obj = (CGameObject*)this->field_0x90[idx];
-				uint32_t hgt = this->field_0xc0[x + 4 + (y + 4) * (this->field_0x64 + 8)];
+				(landscape[cell + this->map_width] & 0xC000) | (landscape[cell + this->map_width + 1] & 0xC000);
+			if (y > -4 && y < this->view_tiles_y + 7 && x > -4 && x < this->view_tiles_x + 3) {
+				int32_t idx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
+				uint8_t light = this->tile_light[idx];
+				CGameObject* obj = this->tile_air_units[idx];
+				uint32_t hgt = this->height_cells[x + 4 + (y + 4) * (this->view_tiles_x + 8)];
 				if (obj != nullptr && obj->FUN_0041f130() == 0) {
 					UnitVFXUnfo* vfx = g_VFX_info[obj->typeId];
 					CRect sel = vfx->selection;
@@ -6131,13 +6131,13 @@ void BigStruct2::sub_406F7B()
 		}
 	}
 
-	for (int32_t y = -3; y < this->field_0x68 + 7; y++) {
-		for (int32_t x = this->field_0x64 + 2; x > -4; x--) {
-			int32_t idx = x + 3 + (y + 3) * (this->field_0x64 + 6);
-			CGameObject* obj8c = (CGameObject*)this->field_0x8c[idx];
-			CGameObject* obj90 = (CGameObject*)this->field_0x90[idx];
-			CGameObject* obj94 = (CGameObject*)this->field_0x94[idx];
-			uint32_t hgt = this->field_0xc0[x + 4 + (y + 4) * (this->field_0x64 + 8)];
+	for (int32_t y = -3; y < this->view_tiles_y + 7; y++) {
+		for (int32_t x = this->view_tiles_x + 2; x > -4; x--) {
+			int32_t idx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
+			CGameObject* obj8c = this->tile_units[idx];
+			CGameObject* obj90 = this->tile_air_units[idx];
+			CGameObject* obj94 = this->tile_structures[idx];
+			uint32_t hgt = this->height_cells[x + 4 + (y + 4) * (this->view_tiles_x + 8)];
 			if (obj94 != nullptr && obj94->IsSelected()) {
 				obj94->VMethod8(x, y, hgt);
 			}
@@ -6155,10 +6155,10 @@ void BigStruct2::sub_406F7B()
 	LockSurface2();
 	SetClipRect(this->field_0xf4);
 
-	for (int32_t x = 0; x < this->field_0x64; x++) {
+	for (int32_t x = 0; x < this->view_tiles_x; x++) {
 		int32_t y = 0;
-		while (y < this->field_0x68 + 4) {
-			int32_t stride = this->field_0x64 + 7;
+		while (y < this->view_tiles_y + 4) {
+			int32_t stride = this->view_tiles_x + 7;
 			int32_t idx = x + 3 + (y + 3) * stride;
 			uint32_t t0 = this->field_0xa0[idx];
 			uint32_t t1 = this->field_0xa0[idx + 1];
@@ -6166,14 +6166,14 @@ void BigStruct2::sub_406F7B()
 			uint32_t t3 = this->field_0xa0[idx + 1 + stride];
 			uint32_t t4 = this->field_0xa0[idx + stride * 2];
 			uint32_t t5 = this->field_0xa0[idx + 1 + stride * 2];
-			uint32_t h0 = this->field_0xb4[idx];
-			uint32_t h1 = this->field_0xb4[idx + 1];
-			uint32_t h2 = this->field_0xb4[idx + stride];
-			uint32_t h3 = this->field_0xb4[idx + 1 + stride];
-			for (; t0 == t2 && t1 == t3 && t2 == t4 && t3 == t5 && y != this->field_0x68 + 3; y++) {
+			uint32_t h0 = this->tile_corner_y[idx];
+			uint32_t h1 = this->tile_corner_y[idx + 1];
+			uint32_t h2 = this->tile_corner_y[idx + stride];
+			uint32_t h3 = this->tile_corner_y[idx + 1 + stride];
+			for (; t0 == t2 && t1 == t3 && t2 == t4 && t3 == t5 && y != this->view_tiles_y + 3; y++) {
 				idx += stride;
-				h2 = this->field_0xb4[idx + stride];
-				h3 = this->field_0xb4[idx + 1 + stride];
+				h2 = this->tile_corner_y[idx + stride];
+				h3 = this->tile_corner_y[idx + 1 + stride];
 				t4 = this->field_0xa0[idx + stride * 2];
 				t5 = this->field_0xa0[idx + 1 + stride * 2];
 			}
@@ -6320,17 +6320,17 @@ void BigStruct2::sub_406F7B()
 	if (DAT_00660f70 != 0 && wnd->sessionMode == 0) {
 		gfxFlushRect(net_flush);
 	}
-	this->field_0x74 = 0;
-	this->field_0x78 = 0;
-	this->field_0x7c = 0;
-	this->field_0xec = this->view_x;
-	this->field_0xf0 = this->view_y;
+	this->force_full_redraw = 0;
+	this->scroll_dx = 0;
+	this->scroll_dy = 0;
+	this->prev_view_x = this->view_x;
+	this->prev_view_y = this->view_y;
 }
 
 // 406F1A
 void BigStruct2::VMethod7()
 {
-	this->field_0x74 = 1;
+	this->force_full_redraw = 1;
 	this->sub_406F7B();
 }
 
@@ -6366,10 +6366,10 @@ BigStruct2::BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObje
 	this->field_0x49b8 = 40000;
 	this->field_0x49bc = 40000;
 	this->field_0x49c0 = 0;
-	this->field_0xe4 = 0;
-	this->field_0xe8 = 0;
-	this->field_0xec = -1;
-	this->field_0xf0 = -1;
+	this->tile_scroll_x = 0;
+	this->tile_scroll_y = 0;
+	this->prev_view_x = -1;
+	this->prev_view_y = -1;
 	this->field_0x104 = 1;
 	this->field_0x148 = 0;
 	this->field_0x150 = 0;
@@ -6428,8 +6428,8 @@ int32_t BigStruct2::sub_40B173(int32_t gfx_id, int32_t x, int32_t y, int32_t hei
 	if (min_tx < 0) {
 		min_tx = 0;
 	}
-	if (max_tx > this->field_0x64) {
-		max_tx = this->field_0x64;
+	if (max_tx > this->view_tiles_x) {
+		max_tx = this->view_tiles_x;
 	}
 	int32_t cy = (gobj->center_y - gobj->height / 2) + g_GfxFiles[gobj->file]->sub_41F870()->GetHeight(0) / 2;
 	int32_t min_ty = this->sub_4184B8(x * 0x20 + 0x10, ((y * 0x20 + 0x10) - cy) - height);
@@ -6438,12 +6438,12 @@ int32_t BigStruct2::sub_40B173(int32_t gfx_id, int32_t x, int32_t y, int32_t hei
 	if (min_ty < 0) {
 		min_ty = 0;
 	}
-	if (max_ty > this->field_0x68 + 4) {
-		max_ty = this->field_0x68 + 4;
+	if (max_ty > this->view_tiles_y + 4) {
+		max_ty = this->view_tiles_y + 4;
 	}
 	for (int32_t tx = min_tx; tx <= max_tx; tx++) {
 		for (int32_t ty = min_ty; ty <= max_ty; ty++) {
-			if (this->field_0xa0[tx + 3 + (ty + 3) * (this->field_0x64 + 7)] != 0x10) {
+			if (this->field_0xa0[tx + 3 + (ty + 3) * (this->view_tiles_x + 7)] != 0x10) {
 				return 0;
 			}
 		}
@@ -6454,37 +6454,37 @@ int32_t BigStruct2::sub_40B173(int32_t gfx_id, int32_t x, int32_t y, int32_t hei
 // 402FB8
 void BigStruct2::sub_402FB8()
 {
-	this->field_0x64 = this->rect.Width() / 32;
-	this->field_0x68 = this->rect.Height() / 32;
+	this->view_tiles_x = this->rect.Width() / 32;
+	this->view_tiles_y = this->rect.Height() / 32;
 	if (this->field_0x80 != nullptr) {
-		if (this->view_x + this->field_0x64 >= this->field_0x80->GetWidth() - 8) {
-			this->view_x = (this->field_0x80->GetWidth() - 8) - this->field_0x64;
+		if (this->view_x + this->view_tiles_x >= this->field_0x80->GetWidth() - 8) {
+			this->view_x = (this->field_0x80->GetWidth() - 8) - this->view_tiles_x;
 		}
-		if (this->view_y + this->field_0x68 >= this->field_0x80->GetHeight() - 8) {
-			this->view_y = (this->field_0x80->GetHeight() - 8) - this->field_0x68;
+		if (this->view_y + this->view_tiles_y >= this->field_0x80->GetHeight() - 8) {
+			this->view_y = (this->field_0x80->GetHeight() - 8) - this->view_tiles_y;
 		}
 	}
-	this->rect.bottom = this->field_0x68 * 0x20 + this->rect.top;
-	this->field_0x6c = (this->field_0x64 + 6) * (this->field_0x68 + 0xA) * 4;
-	this->field_0x70 = (this->field_0x64 + 7) * (this->field_0x68 + 0xB) * 4;
-	this->field_0x8c = (uint32_t*)malloc(this->field_0x6c);
-	this->field_0x90 = (uint32_t*)malloc(this->field_0x6c);
-	this->field_0x94 = (uint32_t*)malloc(this->field_0x6c);
-	this->field_0x98 = (uint32_t*)malloc(this->field_0x6c);
-	this->field_0x9c = (uint32_t*)malloc(this->field_0x6c);
-	this->field_0xa0 = (uint32_t*)malloc(this->field_0x70);
-	this->field_0xa4 = (uint32_t*)malloc(this->field_0x70);
-	this->field_0xa8 = (uint8_t*)malloc(this->field_0x70 / 4);
-	this->field_0xac = (uint8_t*)malloc(this->field_0x70 / 4);
-	memset(this->field_0xac, 0, this->field_0x70 / 4);
-	this->field_0xb0 = (uint8_t*)malloc(this->field_0x6c / 4);
-	this->field_0xb4 = (uint32_t*)malloc(this->field_0x70);
-	this->field_0xb8 = (uint32_t*)malloc(this->field_0x6c);
-	this->field_0xbc = (uint32_t*)malloc(this->field_0x6c);
-	this->field_0xc0 = (uint32_t*)malloc((this->field_0x64 + 8) * (this->field_0x68 + 0xC) * 4);
-	this->field_0x74 = 1;
-	this->field_0x78 = 0;
-	this->field_0x7c = 0;
+	this->rect.bottom = this->view_tiles_y * 0x20 + this->rect.top;
+	this->tile_grid_bytes = (this->view_tiles_x + 6) * (this->view_tiles_y + 0xA) * 4;
+	this->corner_grid_bytes = (this->view_tiles_x + 7) * (this->view_tiles_y + 0xB) * 4;
+	this->tile_units = (CGameObject**)malloc(this->tile_grid_bytes);
+	this->tile_air_units = (CGameObject**)malloc(this->tile_grid_bytes);
+	this->tile_structures = (CGameObject**)malloc(this->tile_grid_bytes);
+	this->tile_backpacks = (CGameObject**)malloc(this->tile_grid_bytes);
+	this->tile_special_units = (CGameObject**)malloc(this->tile_grid_bytes);
+	this->field_0xa0 = (uint32_t*)malloc(this->corner_grid_bytes);
+	this->field_0xa4 = (uint32_t*)malloc(this->corner_grid_bytes);
+	this->field_0xa8 = (uint8_t*)malloc(this->corner_grid_bytes / 4);
+	this->field_0xac = (uint8_t*)malloc(this->corner_grid_bytes / 4);
+	memset(this->field_0xac, 0, this->corner_grid_bytes / 4);
+	this->tile_light = (uint8_t*)malloc(this->tile_grid_bytes / 4);
+	this->tile_corner_y = (uint32_t*)malloc(this->corner_grid_bytes);
+	this->tile_top_y = (uint32_t*)malloc(this->tile_grid_bytes);
+	this->tile_bottom_y = (uint32_t*)malloc(this->tile_grid_bytes);
+	this->height_cells = (uint32_t*)malloc((this->view_tiles_x + 8) * (this->view_tiles_y + 0xC) * 4);
+	this->force_full_redraw = 1;
+	this->scroll_dx = 0;
+	this->scroll_dy = 0;
 	this->msglog.SetRect(this->rect);
 }
 
@@ -6539,10 +6539,10 @@ void BigStruct2::FUN_00403ca0(CGameObject* obj)
 {
 	int32_t base_x = obj->tileX - 20;
 	int32_t base_y = obj->tileY - 20;
-	int32_t base_idx = base_y * this->field_0x84 + base_x;
+	int32_t base_idx = base_y * this->map_width + base_x;
 	memset(this->field_0x17e4, 0, 0x1A44);
 	this->field_0x17e4[20][20] = (obj->scan_range >> (8 - this->field_0x3f50)) + (1 << (this->field_0x3f50 - 1));
-	int8_t base_height = (int8_t)this->field_0x80->GetMapHeights()[obj->tileY * this->field_0x84 + obj->tileX];
+	int8_t base_height = (int8_t)this->field_0x80->GetMapHeights()[obj->tileY * this->map_width + obj->tileX];
 	for (int32_t r = 1; r < 0x14; r++) {
 		int32_t ring_ok = 1;
 		for (int32_t d = -r; d < r + 1; d++) {
@@ -6591,17 +6591,17 @@ void BigStruct2::FUN_0041c74b(int32_t x, int32_t y, int32_t w, int32_t h, int32_
 			if (unk2 != 0) {
 				value |= 1 << unk1;
 				this->field_0xa08.SetAt(packed, value);
-				int32_t idx = (x + i) + (y + j) * this->field_0x84;
+				int32_t idx = (x + i) + (y + j) * this->map_width;
 				if (unk1 == 0xF) {
 					overlay[idx] = 0;
 					overlay[idx + 1] = 0;
-					overlay[idx + this->field_0x84] = 0;
-					overlay[idx + this->field_0x84 + 1] = 0;
+					overlay[idx + this->map_width] = 0;
+					overlay[idx + this->map_width + 1] = 0;
 				} else if (unk1 == 0xE) {
 					overlay[idx] = 0x50;
 					overlay[idx + 1] = 0x50;
-					overlay[idx + this->field_0x84] = 0x50;
-					overlay[idx + this->field_0x84 + 1] = 0x50;
+					overlay[idx + this->map_width] = 0x50;
+					overlay[idx + this->map_width + 1] = 0x50;
 				} else if (unk1 == 3) {
 					uint32_t zero_val = 0;
 					uint16_t* land = this->field_0x80->GetLandscape();
@@ -6627,7 +6627,7 @@ void BigStruct2::FUN_0041c74b(int32_t x, int32_t y, int32_t w, int32_t h, int32_
 					this->field_0x80->sub_4A952B(x + i, y + j, 2, 2);
 				}
 			}
-			this->field_0x74 = 1;
+			this->force_full_redraw = 1;
 		}
 	}
 }
@@ -6838,7 +6838,7 @@ void BigStruct2::FUN_0041d97e(int32_t arg)
 		this->sub_404912();
 		sub_47FA75();
 		this->field_0xdc = 1;
-		this->field_0x74 = 1;
+		this->force_full_redraw = 1;
 		wnd->vis_minimap->MsgProc(0x404, 0, 0);
 	}
 }
@@ -6865,10 +6865,10 @@ int32_t BigStruct2::OnMouseMove(uint32_t wparam, CPoint pos)
 // 41B7B7
 void BigStruct2::FUN_0041b7b7(int32_t xpos, int32_t ypos, int32_t* pvol, int32_t* ppan)
 {
-	int32_t center_x = (this->view_x << 8) + (this->field_0x64 << 7);
-	int32_t center_y = (this->view_y << 8) + (this->field_0x68 << 7);
+	int32_t center_x = (this->view_x << 8) + (this->view_tiles_x << 7);
+	int32_t center_y = (this->view_y << 8) + (this->view_tiles_y << 7);
 	double dx = xpos - center_x;
-	*ppan = (int32_t)(dx * 4000.0 / (this->field_0x64 << 8));
+	*ppan = (int32_t)(dx * 4000.0 / (this->view_tiles_x << 8));
 	if (*ppan < -10000) {
 		*ppan = -10000;
 	}
@@ -7375,7 +7375,7 @@ void BigStruct2::sub_40C18B()
 	this->field_0xdc = 1;
 	this->field_0xe0 = 1;
 	uint16_t* landscape = this->field_0x80->GetLandscape();
-	int32_t count = this->field_0x84 * this->field_0x88;
+	int32_t count = this->map_width * this->map_height;
 	for (int32_t i = 0; i < count; i++) {
 		landscape[i] &= 0xBFFF;
 	}
@@ -7507,10 +7507,10 @@ void BigStruct2::FUN_0041c630(CWordArray* data)
 	int32_t y = 8;
 	while (data->GetSize() != 0) {
 		for (int32_t i = 0; i < (*data)[0]; i++) {
-			uint16_t* cell = land + x + y * this->field_0x84;
+			uint16_t* cell = land + x + y * this->map_width;
 			*cell = (*cell & 0xDFFF) | flag;
 			x++;
-			if (x == this->field_0x84 - 8) {
+			if (x == this->map_width - 8) {
 				x = 8;
 				y++;
 			}
@@ -8035,24 +8035,24 @@ void BigStruct2::UpdateAmbientSounds()
 		int32_t local_28 = 0;
 		int32_t local_2c = 0;
 
-		int32_t minX = view_x - field_0x64;
+		int32_t minX = view_x - view_tiles_x;
 		if (minX < 8) {
 			minX = 8;
 		}
 		
-		int32_t maxX = view_x + field_0x64 * 2;
-		if (maxX > field_0x84 - 8) {
-			maxX = field_0x84 - 8;
+		int32_t maxX = view_x + view_tiles_x * 2;
+		if (maxX > map_width - 8) {
+			maxX = map_width - 8;
 		}
 		
-		int32_t minY = view_y - field_0x68;
+		int32_t minY = view_y - view_tiles_y;
 		if (minY < 8) {
 			minY = 8;
 		}
 		
-		int32_t maxY = view_y + field_0x68 * 2;
-		if (maxY > field_0x88 - 8) {
-			maxY = field_0x88 - 8;
+		int32_t maxY = view_y + view_tiles_y * 2;
+		if (maxY > map_height - 8) {
+			maxY = map_height - 8;
 		}
 		
 		uint16_t* landscape = field_0x80->GetLandscape();
@@ -8062,12 +8062,12 @@ void BigStruct2::UpdateAmbientSounds()
 		int32_t local_34 = 0;
 		int32_t local_58 = 0;
 		int32_t local_44 = 0;
-		int32_t centerX = view_x + (field_0x64 / 2);
-		int32_t centerY = view_y + (field_0x68 / 2);
+		int32_t centerX = view_x + (view_tiles_x / 2);
+		int32_t centerY = view_y + (view_tiles_y / 2);
 
 		for (int32_t yy = minY; yy <= maxY; yy++)
 		{
-			int32_t land_idx = minX + yy * field_0x84;
+			int32_t land_idx = minX + yy * map_width;
 			int32_t dy = yy - centerY;
 
 			for (int32_t xx = minX; xx <= maxX; xx++)
@@ -8077,7 +8077,7 @@ void BigStruct2::UpdateAmbientSounds()
 				uint16_t tmp = (landscape[land_idx] & 0x1fff) >> 6;
 				if (tmp > 7 && tmp < 12)
 				{
-					int32_t scale = (dx * 2000) / field_0x64;
+					int32_t scale = (dx * 2000) / view_tiles_x;
 					if (scale < -2000) {
 						scale = -2000;
 					}
@@ -8102,7 +8102,7 @@ void BigStruct2::UpdateAmbientSounds()
 				uint32_t local_88;
 				if (field_0xa08.Lookup(PosYX(xx, yy).val, local_88) != 0 && (local_88 & 8) != 0)
 				{
-					int32_t scale = (dx * 2000) / field_0x64;
+					int32_t scale = (dx * 2000) / view_tiles_x;
 					if (scale < -2000) {
 						scale = -2000;
 					}
@@ -8136,7 +8136,7 @@ void BigStruct2::UpdateAmbientSounds()
 						{
 							local_44++;
 
-							int32_t scale = (dx * 2000) / field_0x64;
+							int32_t scale = (dx * 2000) / view_tiles_x;
 							if (scale < -2000) {
 								scale = -2000;
 							}
@@ -8158,7 +8158,7 @@ void BigStruct2::UpdateAmbientSounds()
 							local_34++;
 						}
 
-						int32_t scale = (dx * 2000) / field_0x64;
+						int32_t scale = (dx * 2000) / view_tiles_x;
 						if (scale < -2000) {
 							scale = -2000;
 						}
@@ -8246,42 +8246,42 @@ void BigStruct2::UpdateAmbientSounds()
 void BigStruct2::MakeHeightCells()
 { //4065d3
 	uint8_t* hmap = field_0x80->GetMapHeights();
-	for (int32_t y = -3; y <= field_0x68 + 7; y++)
+	for (int32_t y = -3; y <= view_tiles_y + 7; y++)
 	{
-		for (int32_t x = -3; x <= field_0x64 + 3; x++)
+		for (int32_t x = -3; x <= view_tiles_x + 3; x++)
 		{
-			field_0xb4[x + 3 + (y + 3) * (field_0x64 + 7)] = y * 32 - hmap[x + view_x + (y + view_y) * field_0x84];
+			tile_corner_y[x + 3 + (y + 3) * (view_tiles_x + 7)] = y * 32 - hmap[x + view_x + (y + view_y) * map_width];
 		}
 	}
 
-	for (int32_t y = -3; y < field_0x68 + 7; y++)
+	for (int32_t y = -3; y < view_tiles_y + 7; y++)
 	{
-		for (int32_t x = -3; x < field_0x64 + 3; x++)
+		for (int32_t x = -3; x < view_tiles_x + 3; x++)
 		{
-			const int32_t idx = x + 3 + (y + 3) * (field_0x64 + 7);
-			const int32_t out_idx = x + 3 + (y + 3) * (field_0x64 + 6);
-			if (field_0xb4[idx] < field_0xb4[idx + 1]) {
-				field_0xb8[out_idx] = field_0xb4[idx];
+			const int32_t idx = x + 3 + (y + 3) * (view_tiles_x + 7);
+			const int32_t out_idx = x + 3 + (y + 3) * (view_tiles_x + 6);
+			if (tile_corner_y[idx] < tile_corner_y[idx + 1]) {
+				tile_top_y[out_idx] = tile_corner_y[idx];
 			} else {
-				field_0xb8[out_idx] = field_0xb4[idx + 1];
+				tile_top_y[out_idx] = tile_corner_y[idx + 1];
 			}
 			
-			if (field_0xb4[idx + field_0x64 + 8] < field_0xb4[idx + field_0x64 + 7]) {
-				field_0xbc[out_idx] = field_0xb4[idx + field_0x64 + 7];
+			if (tile_corner_y[idx + view_tiles_x + 8] < tile_corner_y[idx + view_tiles_x + 7]) {
+				tile_bottom_y[out_idx] = tile_corner_y[idx + view_tiles_x + 7];
 			} else {
-				field_0xbc[out_idx] = field_0xb4[idx + field_0x64 + 8];
+				tile_bottom_y[out_idx] = tile_corner_y[idx + view_tiles_x + 8];
 			}
 		}
 	}
 
-	for (int32_t y = -3; y < field_0x68 + 9; y++)
+	for (int32_t y = -3; y < view_tiles_y + 9; y++)
 	{
-		for (int32_t x = -3; x < field_0x64 + 5; x++)
+		for (int32_t x = -3; x < view_tiles_x + 5; x++)
 		{
-			int32_t idx = x - 1 + view_x + (y - 1 + view_y) * field_0x84;
-			if (y + view_y < field_0x88)
+			int32_t idx = x - 1 + view_x + (y - 1 + view_y) * map_width;
+			if (y + view_y < map_height)
 			{
-				field_0xc0[x + 3 + (y + 3) * (field_0x64 + 8)] = (hmap[idx] + hmap[idx + 1] + hmap[idx + field_0x84] + hmap[idx + 1 + field_0x84]) / 4;
+				height_cells[x + 3 + (y + 3) * (view_tiles_x + 8)] = (hmap[idx] + hmap[idx + 1] + hmap[idx + map_width] + hmap[idx + 1 + map_width]) / 4;
 			}
 		}
 	}
@@ -8308,9 +8308,9 @@ void BigStruct2::ApplyDynamicLight(int32_t tx, int32_t ty, int32_t radius, int32
 			mdist = 1;
 		}
 		
-		int32_t maxX = field_0x64 + 4;
-		int32_t out_w = field_0x64 + 7;
-		int32_t maxY = field_0x68 + 8;
+		int32_t maxX = view_tiles_x + 4;
+		int32_t out_w = view_tiles_x + 7;
+		int32_t maxY = view_tiles_y + 8;
 		int32_t dx = tx - view_x;
 		int32_t dy = ty - view_y;
 

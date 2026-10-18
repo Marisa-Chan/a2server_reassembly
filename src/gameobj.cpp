@@ -171,12 +171,12 @@ void CGameObject::AssertValid() const
 
     if ((mwnd->dialogsMask & 1) != 0 && 
         (x_pos < 1792 || y_pos < 1792 || 
-        (pMapObject->field_0x84 - 7) * 256 <= x_pos ||
-        (pMapObject->field_0x88 - 7) * 256 <= y_pos || 
+        (pMapObject->map_width - 7) * 256 <= x_pos ||
+        (pMapObject->map_height - 7) * 256 <= y_pos || 
          typeId < 0 || typeId > 256 ||
          action_x < -256 || action_y < -256 ||
-         (pMapObject->field_0x84 - 8) * 256 <= action_x || 
-         (pMapObject->field_0x88 - 8) * 256 <= action_y))
+         (pMapObject->map_width - 8) * 256 <= action_x || 
+         (pMapObject->map_height - 8) * 256 <= action_y))
     {
         CString str;
         str.Format("Shit! Invalid GameObject #%d coordinates X:%d Y:%d player:%d picture:%d", unit_id, x_pos >> 8, y_pos >> 8, map_player->index, typeId);
@@ -223,26 +223,26 @@ void CGameObject::FUN_0046190d()
     if (this->mapBoundsLeft < -3) {
         this->mapBoundsLeft = -3;
     }
-    if (this->mapBoundsLeft >= map->field_0x64 + 3) {
+    if (this->mapBoundsLeft >= map->view_tiles_x + 3) {
         this->mapLayerActive = 0;
     }
     if (this->mapBoundsRight < -3) {
         this->mapLayerActive = 0;
     }
-    if (this->mapBoundsRight >= map->field_0x64 + 3) {
-        this->mapBoundsRight = map->field_0x64 + 2;
+    if (this->mapBoundsRight >= map->view_tiles_x + 3) {
+        this->mapBoundsRight = map->view_tiles_x + 2;
     }
     if (this->mapBoundsTop < -3) {
         this->mapBoundsTop = -3;
     }
-    if (this->mapBoundsTop >= map->field_0x68 + 7) {
+    if (this->mapBoundsTop >= map->view_tiles_y + 7) {
         this->mapLayerActive = 0;
     }
     if (this->mapBoundsBottom < -3) {
         this->mapLayerActive = 0;
     }
-    if (this->mapBoundsBottom >= map->field_0x68 + 7) {
-        this->mapBoundsBottom = map->field_0x68 + 6;
+    if (this->mapBoundsBottom >= map->view_tiles_y + 7) {
+        this->mapBoundsBottom = map->view_tiles_y + 6;
     }
 
     this->screenX = (this->x_pos2 >> 3) - map->view_x * 32;
@@ -256,13 +256,13 @@ void CGameObject::FUN_0046190d()
 
     int32_t fracX = (this->centerWorldX8 >> 3) & 0x1f;
     int32_t fracY = (this->centerWorldY8 >> 3) & 0x1f;
-    int32_t idx = (this->centerWorldX8 >> 8) + (this->centerWorldY8 >> 8) * map->field_0x84;
+    int32_t idx = (this->centerWorldX8 >> 8) + (this->centerWorldY8 >> 8) * map->map_width;
     const uint8_t* heights = map->field_0x80->GetMapHeights();
 
     int32_t h00 = (int8_t)heights[idx];
     int32_t h10 = (int8_t)heights[idx + 1];
-    int32_t h01 = (int8_t)heights[idx + map->field_0x84];
-    int32_t h11 = (int8_t)heights[idx + 1 + map->field_0x84];
+    int32_t h01 = (int8_t)heights[idx + map->map_width];
+    int32_t h11 = (int8_t)heights[idx + 1 + map->map_width];
 
     int32_t top = h00 + (h10 - h00) * fracX / 32;
     int32_t bottom = h01 + (h11 - h01) * fracX / 32;
@@ -277,27 +277,27 @@ void CGameObject::FUN_00461c41(int32_t arg1, CGameObject* arg2)
     }
 
     BigStruct2* map = this->pMapObject;
-    uint32_t* layer;
+    CGameObject** layer;
     switch (arg1) {
     case 0:
-        layer = map->field_0x98;
+        layer = map->tile_backpacks;
         break;
     case 1:
-        layer = map->field_0x94;
+        layer = map->tile_structures;
         for (int32_t x = this->mapBoundsLeft; x <= this->mapBoundsRight; x++) {
             for (int32_t y = this->mapBoundsTop; y <= this->mapBoundsBottom; y++) {
-                layer[x + 3 + (y + 3) * (map->field_0x64 + 6)] = (uint32_t)arg2;
+                layer[x + 3 + (y + 3) * (map->view_tiles_x + 6)] = arg2;
             }
         }
         return;
     case 2:
-        layer = map->field_0x8c;
+        layer = map->tile_units;
         break;
     case 3:
-        layer = map->field_0x90;
+        layer = map->tile_air_units;
         break;
     case 4:
-        layer = map->field_0x9c;
+        layer = map->tile_special_units;
         break;
     default:
         return;
@@ -305,8 +305,8 @@ void CGameObject::FUN_00461c41(int32_t arg1, CGameObject* arg2)
 
     int32_t x = ((this->x_pos2 - 0x80 + this->VMethod4() * 0x80) >> 8) - map->view_x;
     int32_t y = ((this->y_pos2 - 0x80 + this->VMethod5() * 0x80) >> 8) - map->view_y;
-    if (x >= -4 && y >= -4 && x < map->field_0x64 + 3 && y < map->field_0x68 + 7) {
-        layer[x + 3 + (y + 3) * (map->field_0x64 + 6)] = (uint32_t)arg2;
+    if (x >= -4 && y >= -4 && x < map->view_tiles_x + 3 && y < map->view_tiles_y + 7) {
+        layer[x + 3 + (y + 3) * (map->view_tiles_x + 6)] = arg2;
     }
 }
 
@@ -484,14 +484,14 @@ void CGameObject::VMethod14()
         {
             for (int i = 0; i < 41; i++)
             {
-                int32_t idx = iVar2 + iVar6 / 2 - 20 + j + (iVar3 + iVar7 / 2 - 20 + i) * pMapObject->field_0x84;
+                int32_t idx = iVar2 + iVar6 / 2 - 20 + j + (iVar3 + iVar7 / 2 - 20 + i) * pMapObject->map_width;
                 if (pMapObject->field_0x17e4[j][i] > 0)
                 {
                     land[idx] |= 0xc000;
                     idx++;
 
                     land[idx] |= 0xc000;
-                    idx += pMapObject->field_0x84;
+                    idx += pMapObject->map_width;
 
                     land[idx] |= 0xc000;
                     land[idx - 1] |= 0xc000;
@@ -509,8 +509,8 @@ int32_t CGameObject::VMethod15()
 { //46207a
     uint16_t* land = pMapObject->field_0x80->GetLandscape();
 
-    int32_t idx = tileX + pMapObject->field_0x84 * tileY;
-    bIsBlocked = (land[idx] & 0xc000U | land[idx + 1] & 0xc000U | land[idx + pMapObject->field_0x84] & 0xc000U | land[idx + pMapObject->field_0x84 + 1] & 0xc000U) != 0xc000;
+    int32_t idx = tileX + pMapObject->map_width * tileY;
+    bIsBlocked = (land[idx] & 0xc000U | land[idx + 1] & 0xc000U | land[idx + pMapObject->map_width] & 0xc000U | land[idx + pMapObject->map_width + 1] & 0xc000U) != 0xc000;
 
     if (bIsBlocked == 0 || m_bSelected == 0) {
         return 0;
@@ -3240,9 +3240,9 @@ void CUnit::VMethod9(int32_t arg1, int32_t arg2, int32_t arg3)
     }
 
     uint16_t* land = map->field_0x80->GetLandscape();
-    int32_t idx = (this->x_pos >> 8) + map->field_0x84 * (this->y_pos >> 8);
+    int32_t idx = (this->x_pos >> 8) + map->map_width * (this->y_pos >> 8);
 
-    uint16_t mask = (land[idx] & 0xc000) | (land[idx + 1] & 0xc000) | (land[idx + map->field_0x84] & 0xc000) | (land[idx + map->field_0x84 + 1] & 0xc000);
+    uint16_t mask = (land[idx] & 0xc000) | (land[idx + 1] & 0xc000) | (land[idx + map->map_width] & 0xc000) | (land[idx + map->map_width + 1] & 0xc000);
     if (mask != 0xc000) {
         return;
     }
@@ -3284,8 +3284,8 @@ int32_t CUnit::VMethod15()
     }
 
     uint16_t* land = map->field_0x80->GetLandscape();
-    int32_t idx = this->tileX + map->field_0x84 * this->tileY;
-    this->bIsBlocked = (land[idx] & 0xc000 | land[idx + 1] & 0xc000 | land[idx + map->field_0x84] & 0xc000 | land[idx + map->field_0x84 + 1] & 0xc000) != 0xc000;
+    int32_t idx = this->tileX + map->map_width * this->tileY;
+    this->bIsBlocked = (land[idx] & 0xc000 | land[idx + 1] & 0xc000 | land[idx + map->map_width] & 0xc000 | land[idx + map->map_width + 1] & 0xc000) != 0xc000;
 
     if (this->bIsBlocked == 0 || this->m_bSelected == 0) {
         return 0;
@@ -4160,8 +4160,8 @@ void CStructure::VMethod12()
 
     for (int32_t x = this->mapBoundsLeft + info->light_radius - 1; x <= this->mapBoundsRight + info->light_radius; x++) {
         for (int32_t y = this->mapBoundsTop + info->light_radius - 1; y <= this->mapBoundsBottom + info->light_radius; y++) {
-            if (x > -4 && x < map->field_0x64 + 3 && y > -4 && y < map->field_0x68 + 3) {
-                map->field_0xa8[x + 3 + (y + 3) * (map->field_0x64 + 7)] = pulse_val;
+            if (x > -4 && x < map->view_tiles_x + 3 && y > -4 && y < map->view_tiles_y + 3) {
+                map->field_0xa8[x + 3 + (y + 3) * (map->view_tiles_x + 7)] = pulse_val;
             }
         }
     }
@@ -4178,9 +4178,9 @@ void CStructure::VMethod9(int32_t arg1, int32_t arg2, int32_t arg3)
     BigStruct2* map = this->pMapObject;
 
     uint16_t* land = map->field_0x80->GetLandscape();
-    int32_t idx = (this->x_pos >> 8) + map->field_0x84 * (this->y_pos >> 8);
+    int32_t idx = (this->x_pos >> 8) + map->map_width * (this->y_pos >> 8);
 
-    uint16_t mask = (land[idx] & 0xc000) | (land[idx + 1] & 0xc000) | (land[idx + map->field_0x84] & 0xc000) | (land[idx + map->field_0x84 + 1] & 0xc000);
+    uint16_t mask = (land[idx] & 0xc000) | (land[idx + 1] & 0xc000) | (land[idx + map->map_width] & 0xc000) | (land[idx + map->map_width + 1] & 0xc000);
     if (mask != 0xc000) {
         return;
     }
@@ -4219,8 +4219,8 @@ int32_t CStructure::VMethod15()
     for (int32_t x = 0; x < this->VMethod4(); x++) {
         StructureInfo* info = g_StructuresInfo[this->typeId];
         for (int32_t y = this->VMethod5() - info->full_height; y < this->VMethod5(); y++) {
-            int32_t idx = this->tileX + x + map->field_0x84 * (this->tileY + y);
-            uint16_t u = (land[idx] & 0xc000) | (land[idx + 1] & 0xc000) | (land[idx + map->field_0x84] & 0xc000) | (land[idx + map->field_0x84 + 1] & 0xc000);
+            int32_t idx = this->tileX + x + map->map_width * (this->tileY + y);
+            uint16_t u = (land[idx] & 0xc000) | (land[idx + 1] & 0xc000) | (land[idx + map->map_width] & 0xc000) | (land[idx + map->map_width + 1] & 0xc000);
             if (u == 0x8000) {
                 this->bIsBlocked = 1;
             }
@@ -4550,7 +4550,7 @@ int32_t CProjectile::VMethod11()
 
     if (this->action_segments == 0) {
         if (this->typeId == 13) {
-            map->field_0x74 = 1;
+            map->force_full_redraw = 1;
         }
         return 0;
     }
@@ -4585,7 +4585,7 @@ int32_t CProjectile::VMethod11()
                 for (int32_t i = -1; i < 2; i++) {
                     for (int32_t j = -1; j < 2; j++) {
                         uint16_t* landscape = map->field_0x80->GetLandscape();
-                        int32_t idx = this->tileX + i + (this->tileY + j) * map->field_0x84;
+                        int32_t idx = this->tileX + i + (this->tileY + j) * map->map_width;
                         int32_t height = (landscape[idx] & 0x1fff) >> 6;
                         uint8_t gfx_idx = map->field_0x80->FUN_0041eec0()[idx];
                         if (height < 8 || height >= 12 || gfx_idx != 0) {
@@ -4597,7 +4597,7 @@ int32_t CProjectile::VMethod11()
                 for (int32_t i = -1; i < 2; i++) {
                     for (int32_t j = -1; j < 2; j++) {
                         uint16_t* landscape = map->field_0x80->GetLandscape();
-                        int32_t idx = this->tileX + i + (this->tileY + j) * map->field_0x84;
+                        int32_t idx = this->tileX + i + (this->tileY + j) * map->map_width;
                         if ((landscape[idx] & 0x2000) == 0) {
                             uint16_t packed = (uint16_t)((this->tileX + i) | (this->tileY + j) << 8);
                             uint8_t gfx_idx = map->field_0x80->FUN_0041eec0()[idx];
@@ -4865,11 +4865,11 @@ void CProjectile::VMethod12()
             GO_11c& el = this->transientVisualElements.ElementAt(i);
             int32_t lx = el.field_0x0 >> 5;
             int32_t ly = map->sub_4184B8(el.field_0x0, el.field_0x2);
-            if (lx < 0 || ly < 0 || lx > map->field_0x64 || ly > map->field_0x68 + 4) {
+            if (lx < 0 || ly < 0 || lx > map->view_tiles_x || ly > map->view_tiles_y + 4) {
                 continue;
             }
-            int32_t idx1 = lx + 3 + (ly + 3) * (map->field_0x64 + 7);
-            int32_t idx2 = idx1 + 7 + map->field_0x64;
+            int32_t idx1 = lx + 3 + (ly + 3) * (map->view_tiles_x + 7);
+            int32_t idx2 = idx1 + 7 + map->view_tiles_x;
             lightmap[idx1] = this->phase * 10;
             lightmap[idx1 + 1] = this->phase * 10;
             lightmap[idx2] = this->phase * 10;

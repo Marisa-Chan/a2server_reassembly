@@ -1001,7 +1001,7 @@ public:
 	void FUN_0041ab74(); //41ab74
 
 	void FUN_0041b6e0(); //41b6e0
-	int32_t FUN_0041f6b0() { return (field_0x88 - 8) - field_0x68; } //41f6b0
+	int32_t MapMaxY() const { return (this->map_height - 8) - this->view_tiles_y; } //41f6b0
 
 	void FUN_0041b636(); //41b636
 
@@ -1024,7 +1024,7 @@ public:
 	int32_t MapMinX() const { return 8; } //41f670
 	int32_t MapMinY() const { return 8; } //41f680
 
-	int32_t MapMaxX() const { return field_0x88 - 8 - field_0x68; } //41f6b0
+	int32_t MapMaxX() const { return (this->map_width - 8) - this->view_tiles_x; } //41f690
 
 	void ScrollMapX(int32_t dx); //403f4f
 	void ScrollMapY(int32_t dy); //403fc5
@@ -1039,30 +1039,30 @@ public:
 public:
 	int32_t view_x;
 	int32_t view_y;
-	int32_t field_0x64; //unk type
-	int32_t field_0x68; //unk type
-	int32_t field_0x6c; //unk type
-	int32_t field_0x70; //unk type
-	int32_t field_0x74; //unk type
-	int32_t field_0x78; //unk type
-	int32_t field_0x7c; //unk type
+	int32_t view_tiles_x; // 0x64 - visible map width in tiles
+	int32_t view_tiles_y; // 0x68 - visible map height in tiles
+	int32_t tile_grid_bytes; // 0x6c - byte size of the per-tile arrays ((view_tiles_x + 6) * (view_tiles_y + 10) dwords)
+	int32_t corner_grid_bytes; // 0x70 - byte size of the per-corner arrays ((view_tiles_x + 7) * (view_tiles_y + 11) dwords)
+	int32_t force_full_redraw; // 0x74
+	int32_t scroll_dx; // 0x78
+	int32_t scroll_dy; // 0x7c
 	Scenario* field_0x80;
-	int32_t field_0x84; //unk type
-	int32_t field_0x88; //unk type
-	uint32_t* field_0x8c; //unk type
-	uint32_t* field_0x90; //unk type
-	uint32_t* field_0x94; //unk type
-	uint32_t* field_0x98; //unk type
-	uint32_t* field_0x9c; //unk type
+	int32_t map_width; // 0x84 - scenario width in cells
+	int32_t map_height; // 0x88 - scenario height in cells
+	CGameObject** tile_units; // 0x8c - per-tile ground units
+	CGameObject** tile_air_units; // 0x90 - per-tile air units
+	CGameObject** tile_structures; // 0x94 - per-tile structures
+	CGameObject** tile_backpacks; // 0x98 - per-tile backpacks
+	CGameObject** tile_special_units; // 0x9c - per-tile special units (CUnit::VMethod10 bucket 4)
 	uint32_t* field_0xa0; //unk type
 	uint32_t* field_0xa4; //unk type
 	uint8_t* field_0xa8; //unk type
 	uint8_t* field_0xac; //unk type
-	uint8_t* field_0xb0; //unk type
-	uint32_t* field_0xb4; //unk type
-	uint32_t* field_0xb8; //unk type
-	uint32_t* field_0xbc; //unk type
-	uint32_t* field_0xc0; //unk type
+	uint8_t* tile_light; // 0xb0 - per-tile light level
+	uint32_t* tile_corner_y; // 0xb4 - screen Y per tile corner (corner grid)
+	uint32_t* tile_top_y; // 0xb8 - screen Y of tile top edge (tile grid)
+	uint32_t* tile_bottom_y; // 0xbc - screen Y of tile bottom edge (tile grid)
+	uint32_t* height_cells; // 0xc0 - per-corner averaged terrain heights (stride view_tiles_x + 8)
 	int32_t field_0xc4; //unk type
 	int32_t field_0xc8; //unk type
 	int32_t field_0xcc; //unk type
@@ -1070,10 +1070,10 @@ public:
 	int32_t field_0xd8;
 	int32_t field_0xdc;
 	int32_t field_0xe0;
-	int32_t field_0xe4;//unk type
-	int32_t field_0xe8;//unk type
-	int32_t field_0xec;//unk type
-	int32_t field_0xf0;//unk type
+	int32_t tile_scroll_x; // 0xe4
+	int32_t tile_scroll_y; // 0xe8
+	int32_t prev_view_x; // 0xec
+	int32_t prev_view_y; // 0xf0
 	CRect field_0xf4;
 	int32_t field_0x104;//unk type
 	int32_t field_0x108;//unk type

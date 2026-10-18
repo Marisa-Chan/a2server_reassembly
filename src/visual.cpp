@@ -4767,8 +4767,8 @@ void VisQuestStatus::VMethod7()
         CGameObject* landmark;
         if (main_wnd->vis_map_context->field_0x9d0.Lookup((uint16_t)quest->GetLandmarkId(), landmark)) {
             building_name = txt_building.GetLine(landmark->typeId - 1);
-            int32_t cell_x = ((landmark->tileX - 8) * 5) / (main_wnd->vis_map_context->field_0x84 - 0x10);
-            int32_t cell_y = ((landmark->tileY - 8) * 5) / (main_wnd->vis_map_context->field_0x88 - 0x10);
+            int32_t cell_x = ((landmark->tileX - 8) * 5) / (main_wnd->vis_map_context->map_width - 0x10);
+            int32_t cell_y = ((landmark->tileY - 8) * 5) / (main_wnd->vis_map_context->map_height - 0x10);
             area_name = TxtFile::AllLines[cell_x + 0x13D + cell_y * 5];
         }
 
@@ -14581,8 +14581,8 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit)
         CGameObject* landmark;
         if (main_wnd->vis_map_context->field_0x9d0.Lookup((uint16_t)quest->GetLandmarkId(), landmark)) {
             building_name = txt_building.GetLine(landmark->typeId - 1);
-            int32_t cell_x = ((landmark->tileX - 8) * 5) / (main_wnd->vis_map_context->field_0x84 - 0x10);
-            int32_t cell_y = ((landmark->tileY - 8) * 5) / (main_wnd->vis_map_context->field_0x88 - 0x10);
+            int32_t cell_x = ((landmark->tileX - 8) * 5) / (main_wnd->vis_map_context->map_width - 0x10);
+            int32_t cell_y = ((landmark->tileY - 8) * 5) / (main_wnd->vis_map_context->map_height - 0x10);
             area_name = TxtFile::AllLines[cell_x + 0x13D + cell_y * 5];
         }
 
@@ -23552,8 +23552,8 @@ void VisMiniMap::UpdateCursor()
                 ox = 0x48 - ox;
                 CPoint pt2(g_mousept.GetX(), g_mousept.GetY());
                 if (pt2.x - ox < 0 || pt2.y - oy < 0
-                    || mc->field_0x84 - 0x10 < (pt2.x - ox) >> z
-                    || mc->field_0x88 - 0x10 < (pt2.y - oy) >> z) {
+                    || mc->map_width - 0x10 < (pt2.x - ox) >> z
+                    || mc->map_height - 0x10 < (pt2.y - oy) >> z) {
                     new_cursor = g_Cursors[0x11];
                 } else if (mc->field_0x140 == 0) {
                     new_cursor = g_Cursors[0x11];
@@ -23649,13 +23649,13 @@ int32_t VisMiniMap::OnRButtonDown(uint32_t wparam, CPoint pos)
     if (mode == 1) {
         int32_t ox = 0x48 - ((scen->GetWidth() - 0x10 << z) >> 1);
         int32_t oy = 0x52 - ((scen->GetHeight() - 0x10 << z) >> 1);
-        x = ((pos.x - ox) - rc.left >> z) - mc->field_0x64 / 2;
-        y = ((pos.y - oy) - rc.top >> z) - mc->field_0x68 / 2;
+        x = ((pos.x - ox) - rc.left >> z) - mc->view_tiles_x / 2;
+        y = ((pos.y - oy) - rc.top >> z) - mc->view_tiles_y / 2;
     } else {
         int32_t ox = 0x48 - (scen->GetWidth() - 0x10 >> 2);
         int32_t oy = 0x52 - (scen->GetHeight() - 0x10 >> 2);
-        x = ((pos.x - ox) - rc.left) * 2 - mc->field_0x64 / 2;
-        y = ((pos.y - oy) - rc.top) * 2 - mc->field_0x68 / 2;
+        x = ((pos.x - ox) - rc.left) * 2 - mc->view_tiles_x / 2;
+        y = ((pos.y - oy) - rc.top) * 2 - mc->view_tiles_y / 2;
     }
     x = x + 8;
     y = y + 8;
@@ -23682,13 +23682,13 @@ int32_t VisMiniMap::OnLButtonDown(uint32_t wparam, CPoint pos)
     if (mode == 1) {
         ox = 0x48 - ((scen->GetWidth() - 0x10 << z) >> 1);
         oy = 0x52 - ((scen->GetHeight() - 0x10 << z) >> 1);
-        x = ((pos.x - ox) - rc.left >> z) - mc->field_0x64 / 2;
-        y = ((pos.y - oy) - rc.top >> z) - mc->field_0x68 / 2;
+        x = ((pos.x - ox) - rc.left >> z) - mc->view_tiles_x / 2;
+        y = ((pos.y - oy) - rc.top >> z) - mc->view_tiles_y / 2;
     } else {
         ox = 0x48 - (scen->GetWidth() - 0x10 >> 2);
         oy = 0x52 - (scen->GetHeight() - 0x10 >> 2);
-        x = ((pos.x - ox) - rc.left) * 2 - mc->field_0x64 / 2;
-        y = ((pos.y - oy) - rc.top) * 2 - mc->field_0x68 / 2;
+        x = ((pos.x - ox) - rc.left) * 2 - mc->view_tiles_x / 2;
+        y = ((pos.y - oy) - rc.top) * 2 - mc->view_tiles_y / 2;
     }
     x = x + 8;
     y = y + 8;
@@ -24000,16 +24000,16 @@ void VisMiniMap::VMethod7()
     if (mode == 1) {
         DrawRectangleFrame((mc->view_x - 8) * step + rc.left + ox,
             (mc->view_y - 8) * step + rc.top + oy,
-            (mc->view_x - 8) * step + rc.left + ox - 1 + mc->field_0x64 * step,
-            (mc->view_y - 8) * step + rc.top + oy - 1 + mc->field_0x68 * step,
+            (mc->view_x - 8) * step + rc.left + ox - 1 + mc->view_tiles_x * step,
+            (mc->view_y - 8) * step + rc.top + oy - 1 + mc->view_tiles_y * step,
             (uint16_t)(((0xFF >> (8 - g_RBits & 0x1F)) << (g_RBitShift & 0x1F))
                 | ((0xFF >> (8 - g_GBits & 0x1F)) << (g_GBitShift & 0x1F))
                 | ((0xFF >> (8 - g_BBits & 0x1F)) << (g_BBitShift & 0x1F))));
     } else {
         DrawRectangleFrame((mc->view_x - 8) / 2 + rc.left + ox,
             (mc->view_y - 8) / 2 + rc.top + oy,
-            (mc->view_x - 8) / 2 + rc.left + ox - 1 + mc->field_0x64 / 2,
-            (mc->view_y - 8) / 2 + rc.top + oy - 1 + mc->field_0x68 / 2,
+            (mc->view_x - 8) / 2 + rc.left + ox - 1 + mc->view_tiles_x / 2,
+            (mc->view_y - 8) / 2 + rc.top + oy - 1 + mc->view_tiles_y / 2,
             (uint16_t)(((0xFF >> (8 - g_RBits & 0x1F)) << (g_RBitShift & 0x1F))
                 | ((0xFF >> (8 - g_GBits & 0x1F)) << (g_GBitShift & 0x1F))
                 | ((0xFF >> (8 - g_BBits & 0x1F)) << (g_BBitShift & 0x1F))));
