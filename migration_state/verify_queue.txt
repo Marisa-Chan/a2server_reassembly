@@ -982,28 +982,28 @@ PENDING	47DAF0	DeleteCursors	src/mouse.cpp
 PENDING	51FDF7	NetSockLatency::AddLatency	src/net.cpp
 
 ## NetStru1 (77)
-PENDING	4FB4CA	NetStru1::FUN_004fb4ca	src/net.cpp
-PENDING	51684B	NetStru1::NetStru1	src/net.cpp
-PENDING	516B44	NetStru1::~NetStru1	src/net.cpp
-PENDING	51703E	NetStru1::SetLinkedHLDriver	src/net.cpp
-PENDING	5170B6	NetStru1::DisconnectClient	src/net.cpp
-PENDING	51725B	NetStru1::ProcessDisconnectList	src/net.cpp
-PENDING	51755C	NetStru1::ProcessNewConnects	src/net.cpp
-PENDING	5177F5	NetStru1::GetFreeNet3	src/net.cpp
-PENDING	517B00	NetStru1::AddTailFreeNet3	src/net.cpp
-PENDING	517C99	NetStru1::AllocClientBufManager	src/net.cpp
-PENDING	517E91	NetStru1::AddTailNet2	src/net.cpp
-PENDING	517FF9	NetStru1::SetLLDriver	src/net.cpp
-PENDING	51800F	NetStru1::ProcessConnections	src/net.cpp
-PENDING	518544	NetStru1::GetClientByPlayerID	src/net.cpp
-PENDING	5185D5	NetStru1::GetClientByLowUid	src/net.cpp
-PENDING	5186CD	NetStru1::QueuePacketSend	src/net.cpp
-PENDING	5188DB	NetStru1::SendAllData	src/net.cpp
-PENDING	518980	NetStru1::ReceiveAnyPacket	src/net.cpp
-PENDING	518A23	NetStru1::ReceivePacket	src/net.cpp
-PENDING	518A6B	NetStru1::GetClientsPktNum	src/net.cpp
-PENDING	518AC9	NetStru1::IsActive	src/net.cpp
-PENDING	519221	NetStru1::sub_519221	src/net.cpp
+FIXED	4FB4CA	NetStru1::FUN_004fb4ca	src/net.cpp	missing g_World->sub_5ACDF4(new_group) after Group::AddUnit (vanilla 4fb53x)
+OK	51684B	NetStru1::NetStru1	src/net.cpp
+OK	516B44	NetStru1::~NetStru1	src/net.cpp
+OK	51703E	NetStru1::SetLinkedHLDriver	src/net.cpp
+OK	5170B6	NetStru1::DisconnectClient	src/net.cpp
+OK	51725B	NetStru1::ProcessDisconnectList	src/net.cpp
+OK	51755C	NetStru1::ProcessNewConnects	src/net.cpp
+OK	5177F5	NetStru1::GetFreeNet3	src/net.cpp
+FIXED	517B00	NetStru1::AddTailFreeNet3	src/net.cpp	free NetStru3 went to this->free_net3 tail; vanilla redirects to linked_hl when make_statistics==0 and AddHead (pool mismatch vs GetFreeNet3)
+OK	517C99	NetStru1::AllocClientBufManager	src/net.cpp
+OK	517E91	NetStru1::AddTailNet2	src/net.cpp
+OK	517FF9	NetStru1::SetLLDriver	src/net.cpp
+OK	51800F	NetStru1::ProcessConnections	src/net.cpp
+OK	518544	NetStru1::GetClientByPlayerID	src/net.cpp
+OK	5185D5	NetStru1::GetClientByLowUid	src/net.cpp
+OK	5186CD	NetStru1::QueuePacketSend	src/net.cpp
+OK	5188DB	NetStru1::SendAllData	src/net.cpp
+OK	518980	NetStru1::ReceiveAnyPacket	src/net.cpp
+OK	518A23	NetStru1::ReceivePacket	src/net.cpp
+OK	518A6B	NetStru1::GetClientsPktNum	src/net.cpp
+OK	518AC9	NetStru1::IsActive	src/net.cpp
+FIXED	519221	NetStru1::sub_519221	src/net.cpp	humanoid diplomacy check wrote & 0x10 == 0 (parses as & 0, always false); vanilla (diplomacy & 0x10) == 0 gates mask &= 0xc0c000fb
 PENDING	51A0EF	NetStru1::sub_51A0EF	src/net.cpp
 PENDING	51A6D5	NetStru1::sub_51A6D5	src/net.cpp
 PENDING	51A8B2	NetStru1::sub_51A8B2	src/net.cpp

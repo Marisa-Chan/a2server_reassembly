@@ -673,7 +673,9 @@ void NetStru1::FUN_004fb4ca(Unit* unit, Player* new_owner)
     
     // Associate the unit with the new group.
     new_group->AddUnit(unit);
-    
+
+    g_World->sub_5ACDF4(new_group);
+
     // Update unit's vision sharing flags.
     uint16_t old_vision_mask = ~old_owner->vision_sharing_id;
     unit->field_x18 = unit->field_x18 & old_vision_mask;
@@ -758,7 +760,7 @@ void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t par
             if (tid < 0x21 || tid > 0x3F) {
                 mask &= 0xc0c000fb;
             } else if (g_World != nullptr) {
-                if (g_World->diplomacy.diplomacy[unit->pOwner->player_id][player->player_id] & 0x10 == 0) {
+                if ((g_World->diplomacy.diplomacy[unit->pOwner->player_id][player->player_id] & 0x10) == 0) {
                     mask &= 0xc0c000fb;
                 }
             }
@@ -1238,7 +1240,11 @@ void NetStru1::AddTailFreeNet3(NetStru3* net3)
 {
     //517b00
     EnterCriticalSection(&critical_section2);
-    free_net3.AddTail(net3);
+    NetStru1* pool = this;
+    if (linked_hl && make_statistics == 0) {
+        pool = linked_hl;
+    }
+    pool->free_net3.AddHead(net3);
     LeaveCriticalSection(&critical_section2);
 }
 
