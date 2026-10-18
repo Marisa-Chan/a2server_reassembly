@@ -1433,10 +1433,10 @@ OK	4F9B9E	Server::sub_4F9B9E	src/server.cpp
 OK	4F9E55	Server::sub_4F9E55	src/server.cpp
 OK	4FA01F	Server::sub_4FA01F	src/server.cpp
 OK	4FA348	Server::sub_4FA348	src/server.cpp
-PENDING	4FA4BB	Server::sub_4FA4BB	src/server.cpp
-PENDING	4FA551	Server::sub_4FA551	src/server.cpp
-PENDING	4FA5C4	Server::sub_4FA5C4	src/server.cpp
-PENDING	4FA78E	Server::sub_4FA78E	src/server.cpp
+OK	4FA4BB	Server::sub_4FA4BB	src/server.cpp
+OK	4FA551	Server::sub_4FA551	src/server.cpp
+OK	4FA5C4	Server::sub_4FA5C4	src/server.cpp
+OK	4FA78E	Server::sub_4FA78E	src/server.cpp
 PENDING	4FBB79	Server::ServerTic	src/server.cpp
 PENDING	4FC4F3	Server::JoinErrorSend	src/server.cpp
 PENDING	4FF439	Server::FUN_004ff439	src/server.cpp
