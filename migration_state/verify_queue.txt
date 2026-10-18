@@ -1912,12 +1912,12 @@ OK	42B57E	VisCharGenAction::LoadBitmaps	src/visual.cpp
 OK	42B7EE	VisCharGenAction::FreeBitmaps	src/visual.cpp
 
 ## VisCharGenFullStats (6)
-PENDING	42AA2B	VisCharGenFullStats::VisCharGenFullStats	src/visual.cpp
-PENDING	42AAA0	VisCharGenFullStats::~VisCharGenFullStats	src/visual.cpp
-PENDING	42AB18	VisCharGenFullStats::LoadBitmaps	src/visual.cpp
-PENDING	42AB9C	VisCharGenFullStats::FreeBitmaps	src/visual.cpp
-PENDING	42ABEA	VisCharGenFullStats::VMethod7	src/visual.cpp
-PENDING	42AC85	VisCharGenFullStats::GetHint	src/visual.cpp
+OK	42AA2B	VisCharGenFullStats::VisCharGenFullStats	src/visual.cpp
+OK	42AAA0	VisCharGenFullStats::~VisCharGenFullStats	src/visual.cpp
+OK	42AB18	VisCharGenFullStats::LoadBitmaps	src/visual.cpp
+OK	42AB9C	VisCharGenFullStats::FreeBitmaps	src/visual.cpp
+OK	42ABEA	VisCharGenFullStats::VMethod7	src/visual.cpp
+OK	42AC85	VisCharGenFullStats::GetHint	src/visual.cpp
 
 ## VisCharGenSkills (14)
 OK	42B98C	VisCharGenSkills::VisCharGenSkills	src/visual.cpp
