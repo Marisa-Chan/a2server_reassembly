@@ -2801,25 +2801,25 @@ PENDING	432EA3	VisStartGameTextBox::GetHint	src/visual.cpp
 PENDING	438D80	VisStartGameTextBox::GetText	src/visual.cpp
 
 ## VisTav (19)
-PENDING	49DB79	VisTav::VisTav	src/visual.cpp
-PENDING	49DC33	VisTav::~VisTav	src/visual.cpp
-PENDING	49DDAF	VisTav::VMethod26	src/visual.cpp
-PENDING	49E044	VisTav::VMethod7	src/visual.cpp
-PENDING	49E075	VisTav::VMethod8	src/visual.cpp
-PENDING	49E082	VisTav::MsgProc	src/visual.cpp
-PENDING	49E233	VisTav::OnKeyDown	src/visual.cpp
-PENDING	49E261	VisTav::OnMouseMove	src/visual.cpp
-PENDING	49E2E3	VisTav::FUN_0049e2e3	src/visual.cpp
-PENDING	49E34F	VisTav::VMethod28	src/visual.cpp
-PENDING	49EB6C	VisTav::DoClose	src/visual.cpp
-PENDING	49EDEC	VisTav::FUN_0049edec	src/visual.cpp
-PENDING	49EE36	VisTav::FUN_0049ee36	src/visual.cpp
-PENDING	49EECD	VisTav::FUN_0049eecd	src/visual.cpp
-PENDING	49EF63	VisTav::FUN_0049ef63	src/visual.cpp
-PENDING	49F0DA	VisTav::FUN_0049f0da	src/visual.cpp
-PENDING	49F179	VisTav::FUN_0049f179	src/visual.cpp
-PENDING	49F298	VisTav::VMethod30	src/visual.cpp
-PENDING	49F3D7	VisTav::VMethod31	src/visual.cpp
+OK	49DB79	VisTav::VisTav	src/visual.cpp
+OK	49DC33	VisTav::~VisTav	src/visual.cpp
+OK	49DDAF	VisTav::VMethod26	src/visual.cpp
+OK	49E044	VisTav::VMethod7	src/visual.cpp
+OK	49E075	VisTav::VMethod8	src/visual.cpp
+OK	49E082	VisTav::MsgProc	src/visual.cpp
+OK	49E233	VisTav::OnKeyDown	src/visual.cpp
+OK	49E261	VisTav::OnMouseMove	src/visual.cpp
+OK	49E2E3	VisTav::FUN_0049e2e3	src/visual.cpp
+OK	49E34F	VisTav::VMethod28	src/visual.cpp
+OK	49EB6C	VisTav::DoClose	src/visual.cpp
+OK	49EDEC	VisTav::FUN_0049edec	src/visual.cpp
+OK	49EE36	VisTav::FUN_0049ee36	src/visual.cpp
+OK	49EECD	VisTav::FUN_0049eecd	src/visual.cpp
+OK	49EF63	VisTav::FUN_0049ef63	src/visual.cpp
+OK	49F0DA	VisTav::FUN_0049f0da	src/visual.cpp
+OK	49F179	VisTav::FUN_0049f179	src/visual.cpp
+OK	49F298	VisTav::VMethod30	src/visual.cpp
+OK	49F3D7	VisTav::VMethod31	src/visual.cpp
 
 ## VisTavDruid (7)
 PENDING	49F4E6	VisTavDruid::VisTavDruid	src/visual.cpp
