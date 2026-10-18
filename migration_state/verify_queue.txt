@@ -2987,25 +2987,25 @@ PENDING	4D3F18	VisTownDruid::OnLButtonDown	src/visual.cpp
 PENDING	4D6BE0	VisTownDruid::~VisTownDruid	src/visual.cpp
 
 ## VisTownKaarg (19)
-PENDING	4D423A	VisTownKaarg::VisTownKaarg	src/visual.cpp
-PENDING	4D4592	VisTownKaarg::VMethod28	src/visual.cpp
-PENDING	4D4866	VisTownKaarg::VMethod36	src/visual.cpp
-PENDING	4D5112	VisTownKaarg::VMethod37	src/visual.cpp
-PENDING	4D54B5	VisTownKaarg::VMethod32	src/visual.cpp
-PENDING	4D54CF	VisTownKaarg::VMethod30	src/visual.cpp
-PENDING	4D5682	VisTownKaarg::VMethod31	src/visual.cpp
-PENDING	4D57B9	VisTownKaarg::VMethod7	src/visual.cpp
-PENDING	4D5C9A	VisTownKaarg::VMethod34	src/visual.cpp
-PENDING	4D5EF0	VisTownKaarg::VMethod35	src/visual.cpp
-PENDING	4D6480	VisTownKaarg::FUN_004d6480	src/visual.cpp
-PENDING	4D65DD	VisTownKaarg::FUN_004d65dd	src/visual.cpp
-PENDING	4D6655	VisTownKaarg::FUN_004d6655	src/visual.cpp
-PENDING	4D66CA	VisTownKaarg::FUN_004d66ca	src/visual.cpp
-PENDING	4D6728	VisTownKaarg::FUN_004d6728	src/visual.cpp
-PENDING	4D6786	VisTownKaarg::VMethod38	src/visual.cpp
-PENDING	4D6802	VisTownKaarg::OnLButtonDown	src/visual.cpp
-PENDING	4D6A1C	VisTownKaarg::GetHint	src/visual.cpp
-PENDING	4D6C90	VisTownKaarg::~VisTownKaarg	src/visual.cpp
+OK	4D423A	VisTownKaarg::VisTownKaarg	src/visual.cpp
+OK	4D4592	VisTownKaarg::VMethod28	src/visual.cpp
+OK	4D4866	VisTownKaarg::VMethod36	src/visual.cpp
+OK	4D5112	VisTownKaarg::VMethod37	src/visual.cpp
+OK	4D54B5	VisTownKaarg::VMethod32	src/visual.cpp
+OK	4D54CF	VisTownKaarg::VMethod30	src/visual.cpp
+OK	4D5682	VisTownKaarg::VMethod31	src/visual.cpp
+OK	4D57B9	VisTownKaarg::VMethod7	src/visual.cpp
+OK	4D5C9A	VisTownKaarg::VMethod34	src/visual.cpp
+OK	4D5EF0	VisTownKaarg::VMethod35	src/visual.cpp
+OK	4D6480	VisTownKaarg::FUN_004d6480	src/visual.cpp
+OK	4D65DD	VisTownKaarg::FUN_004d65dd	src/visual.cpp
+OK	4D6655	VisTownKaarg::FUN_004d6655	src/visual.cpp
+OK	4D66CA	VisTownKaarg::FUN_004d66ca	src/visual.cpp
+OK	4D6728	VisTownKaarg::FUN_004d6728	src/visual.cpp
+OK	4D6786	VisTownKaarg::VMethod38	src/visual.cpp
+OK	4D6802	VisTownKaarg::OnLButtonDown	src/visual.cpp
+OK	4D6A1C	VisTownKaarg::GetHint	src/visual.cpp
+OK	4D6C90	VisTownKaarg::~VisTownKaarg	src/visual.cpp
 
 ## visual (globals) (32)
 PENDING	4386E0	IsDefaultNpcName	src/visual.cpp
