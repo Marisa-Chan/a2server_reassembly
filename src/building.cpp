@@ -198,7 +198,9 @@ Pointer::Pointer(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height)
 // 54235D
 Pointer::Pointer()
     : Building()
-{}
+{
+    this->script_instance_id = -1;
+}
 
 // 57C3F0
 Pointer::~Pointer() {}

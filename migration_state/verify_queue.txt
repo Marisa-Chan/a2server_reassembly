@@ -1138,7 +1138,7 @@ OK	599FD0	Perf::Begin	src/perf.cpp
 OK	5B6E50	Perf::End	src/perf.cpp
 
 ## PhoneBook (1)
-PENDING	43CF29	PhoneBook::Save	src/main_window.cpp
+OK	43CF29	PhoneBook::Save	src/main_window.cpp
 
 ## Player (10)
 OK	534118	Player::Player	src/player.cpp
@@ -1153,8 +1153,8 @@ OK	534B59	Player::sub_534B59	src/player.cpp
 OK	55B343	Player::Serialize	src/player.cpp
 
 ## player_file (globals) (2)
-PENDING	4F53EA	WritePlayerFile_4F53EA	src/player_file.cpp
-PENDING	4F62E6	ParsePlayerFile_4F62E6	src/player_file.cpp
+OK	4F53EA	WritePlayerFile_4F53EA	src/player_file.cpp	helpers inlined; section order+magics and stats scrambles all match
+OK	4F62E6	ParsePlayerFile_4F62E6	src/player_file.cpp
 
 ## PlayersList (13)
 OK	534DDD	PlayersList::sub_534DDD	src/players_list.cpp
@@ -1181,10 +1181,10 @@ OK	53E7F2	PointEffect::VMethod5	src/spell_effect.cpp
 OK	57C0A0	PointEffect::VMethod2	src/spell_effect.cpp
 
 ## Pointer (4)
-PENDING	54235D	Pointer::Pointer	src/building.cpp
-PENDING	5430FB	Pointer::Serialize	src/building.cpp
-PENDING	57C3F0	Pointer::~Pointer	src/building.cpp
-PENDING	5A3140	Pointer::Pointer	src/building.cpp
+FIXED	54235D	Pointer::Pointer	src/building.cpp	default ctor must set script_instance_id=-1 (54235D = IMPLEMENT_SERIAL CreateObject with inlined ctor)
+OK	5430FB	Pointer::Serialize	src/building.cpp
+OK	57C3F0	Pointer::~Pointer	src/building.cpp
+OK	5A3140	Pointer::Pointer	src/building.cpp
 
 ## Protections (7)
 OK	5339F8	Protections::Protections	src/protections.cpp
