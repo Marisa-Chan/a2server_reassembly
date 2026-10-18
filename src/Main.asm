@@ -14558,36 +14558,6 @@ unknown_libname_486 endp
 
 ; Attributes: bp-based frame
 
-sub_450830      proc near               ; CODE XREF: sub_43F63C+296↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    1               ; int
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 64h ; 'd'  ; varThis
-                call    ?RemoveAt@CStringArray@@QAEXHH@Z ; CStringArray::RemoveAt(int,int)
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 64h ; 'd'
-                call    ?GetSize@CStringArray@@QBEHXZ ; Microsoft VisualC 2-14/net runtime
-                neg     eax
-                sbb     eax, eax
-                inc     eax
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+88h]
-                sub     edx, eax
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+88h], edx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_450830      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
