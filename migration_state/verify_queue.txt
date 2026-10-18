@@ -2489,19 +2489,19 @@ PENDING	449F67	VisNetTcpIp::VMethod31	src/visual.cpp
 PENDING	44A014	VisNetTcpIp::VMethod30	src/visual.cpp
 
 ## VisOrderToolbar (13)
-PENDING	4B0CFC	VisOrderToolbar::VisOrderToolbar	src/visual.cpp
-PENDING	4B0D9A	VisOrderToolbar::GetHint	src/visual.cpp
-PENDING	4B0ED1	VisOrderToolbar::MsgProc	src/visual.cpp
-PENDING	4B107B	VisOrderToolbar::OnLButtonDown	src/visual.cpp
-PENDING	4B1201	VisOrderToolbar::OnRButtonDown	src/visual.cpp
-PENDING	4B1213	VisOrderToolbar::OnLButtonDblClk	src/visual.cpp
-PENDING	4B123A	VisOrderToolbar::OnRButtonDblClk	src/visual.cpp
-PENDING	4B124C	VisOrderToolbar::OnLButtonUp	src/visual.cpp
-PENDING	4B1287	VisOrderToolbar::OnRButtonUp	src/visual.cpp
-PENDING	4B12B3	VisOrderToolbar::OnMouseMove	src/visual.cpp
-PENDING	4B12E3	VisOrderToolbar::VMethod7	src/visual.cpp
-PENDING	4B1468	VisOrderToolbar::UpdateCursor	src/visual.cpp
-PENDING	4B4790	VisOrderToolbar::~VisOrderToolbar	src/visual.cpp
+OK	4B0CFC	VisOrderToolbar::VisOrderToolbar	src/visual.cpp
+OK	4B0D9A	VisOrderToolbar::GetHint	src/visual.cpp
+OK	4B0ED1	VisOrderToolbar::MsgProc	src/visual.cpp
+OK	4B107B	VisOrderToolbar::OnLButtonDown	src/visual.cpp
+OK	4B1201	VisOrderToolbar::OnRButtonDown	src/visual.cpp
+OK	4B1213	VisOrderToolbar::OnLButtonDblClk	src/visual.cpp
+OK	4B123A	VisOrderToolbar::OnRButtonDblClk	src/visual.cpp
+OK	4B124C	VisOrderToolbar::OnLButtonUp	src/visual.cpp
+OK	4B1287	VisOrderToolbar::OnRButtonUp	src/visual.cpp
+OK	4B12B3	VisOrderToolbar::OnMouseMove	src/visual.cpp
+OK	4B12E3	VisOrderToolbar::VMethod7	src/visual.cpp
+OK	4B1468	VisOrderToolbar::UpdateCursor	src/visual.cpp
+OK	4B4790	VisOrderToolbar::~VisOrderToolbar	src/visual.cpp
 
 ## VisQuestStatus (4)
 PENDING	4E2E3D	VisQuestStatus::VisQuestStatus	src/visual.cpp
