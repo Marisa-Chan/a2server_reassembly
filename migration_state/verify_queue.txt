@@ -2520,12 +2520,12 @@ OK	4DACEF	VisRadioBase::OnMouseMove	src/visual.cpp
 
 ## VisRadioType1 (7)
 OK	450510	VisRadioType1::ReadData	src/visual.cpp
-PENDING	450530	VisRadioType1::OnLButtonDblClk	src/visual.cpp
-PENDING	4DADF8	VisRadioType1::VMethod7	src/visual.cpp
-PENDING	4DB062	VisRadioType1::OnLButtonDown	src/visual.cpp
-PENDING	4DB134	VisRadioType1::OnMouseMove	src/visual.cpp
-PENDING	4DB20D	VisRadioType1::OnChar	src/visual.cpp
-PENDING	4DB2D3	VisRadioType1::OnKeyDown	src/visual.cpp
+OK	450530	VisRadioType1::OnLButtonDblClk	src/visual.cpp
+OK	4DADF8	VisRadioType1::VMethod7	src/visual.cpp
+OK	4DB062	VisRadioType1::OnLButtonDown	src/visual.cpp
+OK	4DB134	VisRadioType1::OnMouseMove	src/visual.cpp
+OK	4DB20D	VisRadioType1::OnChar	src/visual.cpp
+OK	4DB2D3	VisRadioType1::OnKeyDown	src/visual.cpp
 
 ## VisRadioType2 (5)
 PENDING	4DB680	VisRadioType2::VMethod7	src/visual.cpp
