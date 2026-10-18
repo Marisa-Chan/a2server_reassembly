@@ -887,7 +887,7 @@ OK	495B9C	MainWindow::_OnNcMouseMove	src/main_window.cpp
 OK	495C6E	MainWindow::_OnNcLButtonDown	src/main_window.cpp
 
 ## map_stuff (globals) (1)
-PENDING	4A7B3C	FUN_004a7b3c	src/map_stuff.cpp
+FIXED	4A7B3C	FUN_004a7b3c	src/map_stuff.cpp	note: block size is the SECOND dword of the 8-byte header (ASM: Read(&var_8,8) then Read(buf,var_4) where var_4 @ -4); C++ read header[0] (the first dword)
 
 ## MapAlm (2)
 PENDING	5693A3	MapAlm::MapAlm	src/alm.cpp
