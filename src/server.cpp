@@ -5938,19 +5938,22 @@ int32_t SackList::sub_554460(TokenPos* pos, Inventory* inventory, int money, int
     }
     
     // Calculate experience level for sack icon/name update
-    int32_t old_level;
+    double old_level;
     if (sack->_exp <= 0) {
-        old_level = -1;
+        old_level = -1.0;
     } else {
-        old_level = (int32_t)log10((double)sack->_exp);
+        old_level = log10((double)sack->_exp);
     }
-    
+    int32_t old_level_trunc = (int32_t)old_level;
+
     // Update sack name/icon based on contents
     sack->sub_55401E();
-    
-    // Check if level changed
-    int32_t new_level = (int32_t)log10((double)sack->_exp);
-    if (old_level != new_level) {
+
+    // Check if level changed; the original compares the truncated old value
+    // against the full-precision new value, so this broadcasts more often
+    // than an int-to-int comparison would.
+    double new_level = log10((double)sack->_exp);
+    if ((double)old_level_trunc != new_level) {
         // Broadcast sack update
         if (g_Server->field4_0x74 == 0) {
             g_NetStru1_main.sub_51AC77(sack, nullptr, 0);

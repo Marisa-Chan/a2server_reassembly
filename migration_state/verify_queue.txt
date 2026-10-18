@@ -1381,12 +1381,12 @@ OK	57DD30	Sack::VMethod1	src/sack.cpp
 OK	57DD40	Sack::VMethod2	src/sack.cpp
 
 ## SackList (6)
-PENDING	5540ED	SackList::FUN_005540ed	src/server.cpp
-PENDING	554460	SackList::sub_554460	src/server.cpp
-PENDING	554927	SackList::sub_554927	src/server.cpp
-PENDING	55496E	SackList::sub_55496E	src/server.cpp
-PENDING	554B03	SackList::sub_554B03	src/server.cpp
-PENDING	55BC58	SackList::sub_55BC58	src/server.cpp
+OK	5540ED	SackList::FUN_005540ed	src/server.cpp	spell/unit_attrs etc are stale Unit-typed names for Sack fields 0x44/0x4c; visibility gate = inlined sub_5287c4
+FIXED	554460	SackList::sub_554460	src/server.cpp	level check compares truncated old vs full-precision new log10, not int vs int
+OK	554927	SackList::sub_554927	src/server.cpp
+OK	55496E	SackList::sub_55496E	src/server.cpp
+OK	554B03	SackList::sub_554B03	src/server.cpp
+OK	55BC58	SackList::sub_55BC58	src/server.cpp
 
 ## ScanPresenceGrid (6)
 PENDING	5955B5	ScanPresenceGrid::ScanPresenceGrid	src/map_stuff.cpp
