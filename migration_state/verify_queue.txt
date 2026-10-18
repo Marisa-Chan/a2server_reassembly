@@ -1408,14 +1408,14 @@ PENDING	4A952B	Scenario::sub_4A952B	src/map_stuff.cpp
 PENDING	5B681A	ScriptSettings::sub_5B681A	src/logic.cpp
 
 ## Server (50)
-PENDING	4ED2DC	Server::sub_4ED2DC	src/server.cpp
-PENDING	4EDB83	Server::sub_4EDB83	src/server.cpp
-PENDING	4EE028	Server::sub_4EE028	src/server.cpp
-PENDING	4EF4E7	Server::LoadCharacter	src/server.cpp
-PENDING	4F06F5	Server::Start	src/server.cpp
-PENDING	4F0BEF	Server::sub_4F0BEF	src/server.cpp
-PENDING	4F0D58	Server::sub_4F0D58	src/server.cpp
-PENDING	4F0ECF	Server::sub_4F0ECF	src/server.cpp
+OK	4ED2DC	Server::sub_4ED2DC	src/server.cpp
+OK	4EDB83	Server::sub_4EDB83	src/server.cpp
+OK	4EE028	Server::sub_4EE028	src/server.cpp
+OK	4EF4E7	Server::LoadCharacter	src/server.cpp
+OK	4F06F5	Server::Start	src/server.cpp
+OK	4F0BEF	Server::sub_4F0BEF	src/server.cpp
+OK	4F0D58	Server::sub_4F0D58	src/server.cpp
+OK	4F0ECF	Server::sub_4F0ECF	src/server.cpp
 PENDING	4F1471	Server::sub_4F1471	src/server.cpp
 PENDING	4F1E2A	Server::sub_4F1E2A	src/server.cpp
 PENDING	4F2C26	Server::~Server	src/server.cpp
