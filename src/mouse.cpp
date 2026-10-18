@@ -665,6 +665,7 @@ void LoadCursors()
     g_Cursors[5] = new CCursor("graphics\\cursors\\select\\sprites.16a", 3, 3, 100);
     g_Cursors[6] = new CCursor("graphics\\cursors\\patrol\\sprites.16a", 8, 25, 100);
     g_Cursors[7] = new CCursor("graphics\\cursors\\cast\\sprites.16a", 16, 16, 100);
+    g_mousept.Update();
     g_Cursors[8] = new CCursor("graphics\\cursors\\pickup\\sprites.16a", 16, 12, 66);
     g_Cursors[9] = new CCursor("graphics\\cursors\\arrow0\\sprites.16a", 16, 6, 2000000000);
     g_Cursors[10] = new CCursor("graphics\\cursors\\arrow4\\sprites.16a", 16, 28, 2000000000);
@@ -674,6 +675,7 @@ void LoadCursors()
     g_Cursors[14] = new CCursor("graphics\\cursors\\arrow5\\sprites.16a", 8, 24, 2000000000);
     g_Cursors[15] = new CCursor("graphics\\cursors\\arrow1\\sprites.16a", 23, 9, 2000000000);
     g_Cursors[16] = new CCursor("graphics\\cursors\\arrow3\\sprites.16a", 23, 24, 2000000000);
+    g_mousept.Update();
     g_Cursors[17] = new CCursor("graphics\\cursors\\sdefault\\sprites.16a", 1, 1, 2000000000);
     g_Cursors[18] = new CCursor("graphics\\cursors\\smove.256", 0, 0, 2000000000);
     g_Cursors[19] = new CCursor("graphics\\cursors\\sattack.256", 0, 0, 2000000000);

@@ -975,12 +975,12 @@ OK	572CA0	MonsterInfo::~MonsterInfo	src/table.cpp
 OK	578190	MonsterInfo::ParseLine	src/table.cpp
 
 ## mouse (globals) (3)
-PENDING	4750D0	ApplyCursor	src/mouse.cpp
-PENDING	47D05D	LoadCursors	src/mouse.cpp
-PENDING	47DAF0	DeleteCursors	src/mouse.cpp
+OK	4750D0	ApplyCursor	src/mouse.cpp
+FIXED	47D05D	LoadCursors	src/mouse.cpp	restored 2 middle g_mousept.Update() calls (after cursors 7 and 16)
+OK	47DAF0	DeleteCursors	src/mouse.cpp
 
 ## NetSockLatency (1)
-PENDING	51FDF7	NetSockLatency::AddLatency	src/net.cpp
+OK	51FDF7	NetSockLatency::AddLatency	src/net.cpp
 
 ## NetStru1 (77)
 FIXED	4FB4CA	NetStru1::FUN_004fb4ca	src/net.cpp	missing g_World->sub_5ACDF4(new_group) after Group::AddUnit (vanilla 4fb53x)
