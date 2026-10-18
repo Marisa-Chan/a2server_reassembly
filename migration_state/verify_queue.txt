@@ -2182,13 +2182,13 @@ PENDING	44A8A8	VisHatServerListDlg::MsgProc	src/visual.cpp
 PENDING	44FD90	VisHatServerListDlg::~VisHatServerListDlg	src/visual.cpp
 
 ## Visibility (7)
-PENDING	58CD84	Visibility::sub_58CD84	src/visibility.cpp
-PENDING	58CE74	Visibility::sub_58CE74	src/visibility.cpp
-PENDING	58D638	Visibility::sub_58D638	src/visibility.cpp
-PENDING	58D768	Visibility::sub_58D768	src/visibility.cpp
-PENDING	58DE69	Visibility::sub_58DE69	src/visibility.cpp
-PENDING	58E1C1	Visibility::sub_58E1C1	src/visibility.cpp
-PENDING	58E1E4	Visibility::Visibility	src/visibility.cpp
+OK	58CD84	Visibility::sub_58CD84	src/visibility.cpp
+OK	58CE74	Visibility::sub_58CE74	src/visibility.cpp
+OK	58D638	Visibility::sub_58D638	src/visibility.cpp
+OK	58D768	Visibility::sub_58D768	src/visibility.cpp
+OK	58DE69	Visibility::sub_58DE69	src/visibility.cpp
+OK	58E1C1	Visibility::sub_58E1C1	src/visibility.cpp
+OK	58E1E4	Visibility::Visibility	src/visibility.cpp
 
 ## VisInvBase (25)
 OK	41F940	VisInvBase::sub_41F940	src/visual.cpp
