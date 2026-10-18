@@ -346,3 +346,4 @@ externdef ??0CWinThread@@QAE@P6AIPAX@Z0@Z : proc
 extern _byte_659A5C : byte  ; 659a5c zeroed buffer used to clear the net chat text box
 externdef ?CreateThread@CWinThread@@QAEHKIPAU_SECURITY_ATTRIBUTES@@@Z : proc
 extern ?XorRegString@@YA?AVCString@@ABV1@@Z : proc  ; CString XorRegString(const CString&) - 43d1a9
+extern ?Null@CellState@@QAEXXZ : proc  ; void CellState::Null() - 58a3da

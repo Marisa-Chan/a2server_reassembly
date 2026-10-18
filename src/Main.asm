@@ -75685,7 +75685,7 @@ var_4           = dword ptr -4
 ;   try {
                 mov     [ebp+var_4], 0
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_58A3DA
+                call    ?Null@CellState@@QAEXXZ
 ;   } // starts at 58A3B3
                 mov     [ebp+var_4], 0FFFFFFFFh
                 mov     eax, dword ptr [ebp+var_10]
@@ -75702,24 +75702,6 @@ sub_58A38C      endp
 
 ; Attributes: bp-based frame
 
-sub_58A3DA      proc near               ; CODE XREF: sub_58A38C+31↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    3Ch ; '<'       ; varSize
-                push    0               ; Val
-                mov     eax, dword ptr [ebp+var_4]
-                push    eax             ; void *
-                call    _memset
-                add     esp, 0Ch
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_58A3DA      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -75750,7 +75732,7 @@ var_4           = dword ptr -4
 ;   try {
                 mov     [ebp+var_4], 0
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_58A3DA
+                call    ?Null@CellState@@QAEXXZ
 ;   } // starts at 58A41C
                 mov     [ebp+var_4], 0FFFFFFFFh
                 mov     eax, dword ptr [ebp+var_10]
@@ -75791,7 +75773,7 @@ var_4           = dword ptr -4
 ;   try {
                 mov     [ebp+var_4], 0
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_58A3DA
+                call    ?Null@CellState@@QAEXXZ
 ;   } // starts at 58A46C
                 mov     [ebp+var_4], 0FFFFFFFFh
                 mov     eax, dword ptr [ebp+var_10]
