@@ -1081,12 +1081,12 @@ OK	51573E	NetStru3::WriteToBuffer	src/net.cpp
 OK	51579E	NetStru3::ReadFromBuffer	src/net.cpp
 
 ## Outpost (6)
-PENDING	54326A	Outpost::Outpost	src/outpost.cpp
-PENDING	5432DF	Outpost::Outpost	src/outpost.cpp
-PENDING	5433CA	Outpost::~Outpost	src/outpost.cpp
-PENDING	54361E	Outpost::FillUnits	src/outpost.cpp
-PENDING	5438ED	Outpost::VMethod1	src/outpost.cpp
-PENDING	543EC3	Outpost::sub_543EC3	src/outpost.cpp
+OK	54326A	Outpost::Outpost	src/outpost.cpp
+OK	5432DF	Outpost::Outpost	src/outpost.cpp
+OK	5433CA	Outpost::~Outpost	src/outpost.cpp
+OK	54361E	Outpost::FillUnits	src/outpost.cpp
+OK	5438ED	Outpost::VMethod1	src/outpost.cpp
+OK	543EC3	Outpost::sub_543EC3	src/outpost.cpp
 
 ## PackerDat (4)
 PENDING	5260FA	PackerDat::PackerDat	src/net.cpp
