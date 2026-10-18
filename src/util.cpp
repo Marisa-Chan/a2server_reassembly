@@ -84,9 +84,10 @@ void pathStrCpy(const char* src, char* dst)
 void __cdecl ReportWarning(const char* warn)
 {
 	//527de3
+	// The original formats the message into a local CString and destroys it
+	// without ever printing it - a vestigial logging stub.
 	CString str;
 	str.Format("WARNING!\n%s", warn);
-	puts(str);
 }
 
 void __cdecl XorData(void* data, uint32_t size)

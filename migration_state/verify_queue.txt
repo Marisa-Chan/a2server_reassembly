@@ -1808,12 +1808,12 @@ OK	533F3A	UnitToHit::operator-=	src/unit_to_hit.cpp
 OK	534021	UnitToHit::Serialize	src/unit_to_hit.cpp
 
 ## util (globals) (6)
-PENDING	45E181	DecodeChar	src/util.cpp
-PENDING	4763A9	EncodeChar	src/util.cpp
-PENDING	47641D	ToLowerChar	src/util.cpp
-PENDING	4E5FD9	pathStrCpy	src/util.cpp
-PENDING	51FD7D	XorData	src/util.cpp
-PENDING	527DE3	ReportWarning	src/util.cpp
+OK	45E181	DecodeChar	src/util.cpp
+OK	4763A9	EncodeChar	src/util.cpp
+OK	47641D	ToLowerChar	src/util.cpp
+OK	4E5FD9	pathStrCpy	src/util.cpp
+OK	51FD7D	XorData	src/util.cpp	local static key == Game::XorKey bytes verified at 0x636368
+FIXED	527DE3	ReportWarning	src/util.cpp	original formats into a CString and destroys it - no output; removed puts
 
 ## VirtualCaster (3)
 OK	528900	VirtualCaster::VirtualCaster	src/virtual_caster.cpp
@@ -3046,8 +3046,8 @@ PENDING	4DFE19	VisWindow::UpdateWinRect	src/visual.cpp
 PENDING	4DFEB2	VisWindow::OnKeyDown	src/visual.cpp
 
 ## WavePattern (2)
-PENDING	537AE8	WavePattern::sub_537AE8	src/spell_effect.cpp
-PENDING	537B2B	WavePattern::sub_537B2B	src/spell_effect.cpp
+OK	537AE8	WavePattern::sub_537AE8	src/spell_effect.cpp
+OK	537B2B	WavePattern::sub_537B2B	src/spell_effect.cpp
 
 ## Weapon (15)
 OK	550872	Weapon::Weapon	src/item.cpp
@@ -3220,7 +3220,7 @@ OK	5B6F40	World::sub_5B6F40	src/world.cpp
 OK	5B6F60	World::sub_5B6F60	src/world.cpp
 
 ## world (globals) (1)
-PENDING	5B6F30	sub_5B6F30	src/world.cpp
+OK	5B6F30	sub_5B6F30	src/world.cpp
 
 ## WorldEquip (5)
 PENDING	513268	WorldEquip::VMethod2	src/table.cpp
