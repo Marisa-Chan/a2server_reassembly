@@ -2632,16 +2632,16 @@ OK	4BD251	VisShop::VMethod32	src/visual.cpp
 OK	4C6B90	VisShop::VMethod33	src/visual.cpp
 
 ## VisShopButtons (10)
-PENDING	4BFA5A	VisShopButtons::VisShopButtons	src/visual.cpp
-PENDING	4C0020	VisShopButtons::~VisShopButtons	src/visual.cpp
-PENDING	4C0088	VisShopButtons::LoadBmp	src/visual.cpp
-PENDING	4C0352	VisShopButtons::ReleaseBmp	src/visual.cpp
-PENDING	4C04B1	VisShopButtons::VMethod7	src/visual.cpp
-PENDING	4C10C4	VisShopButtons::OnMouseMove	src/visual.cpp
-PENDING	4C1134	VisShopButtons::OnLButtonDown	src/visual.cpp
-PENDING	4C11C2	VisShopButtons::OnLButtonUp	src/visual.cpp
-PENDING	4C1358	VisShopButtons::ResetSelected	src/visual.cpp
-PENDING	4C6BD0	VisShopButtons::VMethod30	src/visual.cpp
+OK	4BFA5A	VisShopButtons::VisShopButtons	src/visual.cpp
+OK	4C0020	VisShopButtons::~VisShopButtons	src/visual.cpp
+OK	4C0088	VisShopButtons::LoadBmp	src/visual.cpp
+OK	4C0352	VisShopButtons::ReleaseBmp	src/visual.cpp
+OK	4C04B1	VisShopButtons::VMethod7	src/visual.cpp
+OK	4C10C4	VisShopButtons::OnMouseMove	src/visual.cpp
+OK	4C1134	VisShopButtons::OnLButtonDown	src/visual.cpp
+OK	4C11C2	VisShopButtons::OnLButtonUp	src/visual.cpp
+OK	4C1358	VisShopButtons::ResetSelected	src/visual.cpp
+OK	4C6BD0	VisShopButtons::VMethod30	src/visual.cpp
 
 ## VisShopCompass (21)
 OK	4BD495	VisShopCompass::VisShopCompass	src/visual.cpp
