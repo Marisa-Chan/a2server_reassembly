@@ -2893,18 +2893,18 @@ OK	401659	VisTavSceneAnim::NextFrame	src/visual.cpp
 OK	4016EF	VisTavSceneAnim::Draw	src/visual.cpp
 
 ## VisTavSceneDruid (5)
-PENDING	4A05A0	VisTavSceneDruid::VisTavSceneDruid	src/visual.cpp
-PENDING	4A0673	VisTavSceneDruid::VMethod7	src/visual.cpp
-PENDING	4A11E3	VisTavSceneDruid::VMethod28	src/visual.cpp
-PENDING	4A158F	VisTavSceneDruid::VMethod29	src/visual.cpp
-PENDING	4A3FC0	VisTavSceneDruid::~VisTavSceneDruid	src/visual.cpp
+OK	4A05A0	VisTavSceneDruid::VisTavSceneDruid	src/visual.cpp
+OK	4A0673	VisTavSceneDruid::VMethod7	src/visual.cpp
+OK	4A11E3	VisTavSceneDruid::VMethod28	src/visual.cpp
+OK	4A158F	VisTavSceneDruid::VMethod29	src/visual.cpp
+OK	4A3FC0	VisTavSceneDruid::~VisTavSceneDruid	src/visual.cpp
 
 ## VisTavSceneKaarg (5)
-PENDING	4A2AA4	VisTavSceneKaarg::VisTavSceneKaarg	src/visual.cpp
-PENDING	4A2BB8	VisTavSceneKaarg::VMethod7	src/visual.cpp
-PENDING	4A37E7	VisTavSceneKaarg::VMethod28	src/visual.cpp
-PENDING	4A3B25	VisTavSceneKaarg::VMethod29	src/visual.cpp
-PENDING	4A40C0	VisTavSceneKaarg::~VisTavSceneKaarg	src/visual.cpp
+OK	4A2AA4	VisTavSceneKaarg::VisTavSceneKaarg	src/visual.cpp
+OK	4A2BB8	VisTavSceneKaarg::VMethod7	src/visual.cpp	frame script 631E30 verified byte-for-byte; statics 665D40-block + 631FB4 init match
+OK	4A37E7	VisTavSceneKaarg::VMethod28	src/visual.cpp
+OK	4A3B25	VisTavSceneKaarg::VMethod29	src/visual.cpp
+OK	4A40C0	VisTavSceneKaarg::~VisTavSceneKaarg	src/visual.cpp
 
 ## VisTextBox (13)
 OK	450410	VisTextBox::ReadData	src/visual.cpp
