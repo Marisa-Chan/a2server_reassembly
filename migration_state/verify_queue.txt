@@ -2922,13 +2922,13 @@ OK	4DAA2B	VisTextBox::MsgProc	src/visual.cpp
 OK	4DAAB3	VisTextBox::ResetBlink	src/visual.cpp
 
 ## VisTipsDialog (7)
-PENDING	4E2541	VisTipsDialog::VisTipsDialog	src/visual.cpp
-PENDING	4E25C1	VisTipsDialog::FUN_004e25c1	src/visual.cpp
-PENDING	4E27CD	VisTipsDialog::VMethod8	src/visual.cpp
-PENDING	4E2B73	VisTipsDialog::SetText	src/visual.cpp
-PENDING	4E2B95	VisTipsDialog::MsgProc	src/visual.cpp
-PENDING	4E2C42	VisTipsDialog::OnLButtonUp	src/visual.cpp
-PENDING	4E4510	VisTipsDialog::~VisTipsDialog	src/visual.cpp
+OK	4E2541	VisTipsDialog::VisTipsDialog	src/visual.cpp
+OK	4E25C1	VisTipsDialog::FUN_004e25c1	src/visual.cpp
+OK	4E27CD	VisTipsDialog::VMethod8	src/visual.cpp
+OK	4E2B73	VisTipsDialog::SetText	src/visual.cpp
+OK	4E2B95	VisTipsDialog::MsgProc	src/visual.cpp
+OK	4E2C42	VisTipsDialog::OnLButtonUp	src/visual.cpp
+OK	4E4510	VisTipsDialog::~VisTipsDialog	src/visual.cpp
 
 ## VisTown (35)
 OK	4CDA5C	VisTown::VisTown	src/visual.cpp
