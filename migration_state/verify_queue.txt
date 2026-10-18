@@ -1783,19 +1783,19 @@ PENDING	5A4E83	UnitEye2::UnitEye2	src/eye.cpp
 PENDING	5A4F30	UnitEye2::~UnitEye2	src/eye.cpp
 
 ## UnitList (13)
-PENDING	555A1D	UnitList::UnitList	src/unit_list.cpp
-PENDING	555A8D	UnitList::~UnitList	src/unit_list.cpp
-PENDING	555C1B	UnitList::AddTail	src/unit_list.cpp
-PENDING	555D67	UnitList::AddTailAllocId	src/unit_list.cpp
-PENDING	555F1C	UnitList::AddTailId6xxx	src/unit_list.cpp
-PENDING	5560D2	UnitList::sub_5560D2	src/unit_list.cpp
-PENDING	5561A1	UnitList::sub_5561A1	src/unit_list.cpp
-PENDING	556345	UnitList::ProcessTick	src/unit_list.cpp
-PENDING	5574B5	UnitList::sub_5574B5	src/unit_list.cpp
-PENDING	5579D8	UnitList::sub_5579D8	src/unit_list.cpp
-PENDING	557AB0	UnitList::sub_557AB0	src/unit_list.cpp
-PENDING	558EF8	UnitList::Serialize	src/unit_list.cpp
-PENDING	5591DA	UnitList::CallMethod5	src/unit_list.cpp
+OK	555A1D	UnitList::UnitList	src/unit_list.cpp
+OK	555A8D	UnitList::~UnitList	src/unit_list.cpp
+OK	555C1B	UnitList::AddTail	src/unit_list.cpp
+OK	555D67	UnitList::AddTailAllocId	src/unit_list.cpp
+OK	555F1C	UnitList::AddTailId6xxx	src/unit_list.cpp
+OK	5560D2	UnitList::sub_5560D2	src/unit_list.cpp
+OK	5561A1	UnitList::sub_5561A1	src/unit_list.cpp
+OK	556345	UnitList::ProcessTick	src/unit_list.cpp
+OK	5574B5	UnitList::sub_5574B5	src/unit_list.cpp
+OK	5579D8	UnitList::sub_5579D8	src/unit_list.cpp
+OK	557AB0	UnitList::sub_557AB0	src/unit_list.cpp
+OK	558EF8	UnitList::Serialize	src/unit_list.cpp
+OK	5591DA	UnitList::CallMethod5	src/unit_list.cpp
 
 ## UnitToHit (8)
 PENDING	533C5C	UnitToHit::UnitToHit	src/unit_to_hit.cpp
