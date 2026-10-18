@@ -402,6 +402,7 @@ RegFile::RegFile(const char* fpath)
     }
 
     strncpy(root.name, pcur, cpylen);
+    memset(root.name + cpylen, 0, 16 - cpylen);
 
     file = nullptr;
     fat_data = nullptr;

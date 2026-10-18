@@ -1305,16 +1305,16 @@ OK	581A90	QuestRaiseSkeletons::Something3	src/quest.cpp
 OK	581AE0	QuestRaiseSkeletons::~QuestRaiseSkeletons	src/quest.cpp
 
 ## QuestRaiseZombies (5)
-PENDING	560111	QuestRaiseZombies::VMethod1	src/quest.cpp
-PENDING	5819E0	QuestRaiseZombies::Kind	src/quest.cpp
-PENDING	5819F0	QuestRaiseZombies::Something2	src/quest.cpp
-PENDING	581A00	QuestRaiseZombies::Something3	src/quest.cpp
-PENDING	581A50	QuestRaiseZombies::~QuestRaiseZombies	src/quest.cpp
+OK	560111	QuestRaiseZombies::VMethod1	src/quest.cpp
+OK	5819E0	QuestRaiseZombies::Kind	src/quest.cpp
+OK	5819F0	QuestRaiseZombies::Something2	src/quest.cpp
+OK	581A00	QuestRaiseZombies::Something3	src/quest.cpp
+OK	581A50	QuestRaiseZombies::~QuestRaiseZombies	src/quest.cpp
 
 ## RegFile (3)
-PENDING	4E84C0	RegFile::RegFile	src/resource.cpp
-PENDING	4E8585	RegFile::RegFile	src/resource.cpp
-PENDING	4E9989	RegFile::~RegFile	src/resource.cpp
+OK	4E84C0	RegFile::RegFile	src/resource.cpp
+FIXED	4E8585	RegFile::RegFile	src/resource.cpp	root.name must be NUL-padded after strncpy (name survives ReadFromFile)
+OK	4E9989	RegFile::~RegFile	src/resource.cpp
 
 ## ResBase (34)
 OK	4E5D55	ResBase::FUN_004e5d55	src/resource.cpp
@@ -1353,8 +1353,8 @@ OK	4ECB78	ResBase::FindNext	src/resource.cpp
 OK	4ECC05	ResBase::FUN_004ecc05	src/resource.cpp
 
 ## ResFile (2)
-PENDING	4E5950	ResFile::ResFile	src/resource.cpp
-PENDING	4E5D0B	ResFile::~ResFile	src/resource.cpp
+OK	4E5950	ResFile::ResFile	src/resource.cpp
+OK	4E5D0B	ResFile::~ResFile	src/resource.cpp
 
 ## Resources (11)
 OK	4E5E06	Resources::Resources	src/resource.cpp
