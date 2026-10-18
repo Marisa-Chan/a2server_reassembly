@@ -853,7 +853,7 @@ OK	485A41	MainWindow::FUN_00485a41	src/main_window.cpp
 OK	485AED	MainWindow::FUN_00485aed	src/main_window.cpp
 OK	486391	MainWindow::_OnSetCursor	src/main_window.cpp
 OK	4863C6	MainWindow::_OnSetFocus	src/main_window.cpp
-PENDING	4863F6	MainWindow::_OnKeyDown	src/main_window.cpp
+OK	4863F6	MainWindow::_OnKeyDown	src/main_window.cpp
 OK	486A2F	MainWindow::_OnSysKeyDown	src/main_window.cpp
 OK	486BB0	MainWindow::_OnKeyUp	src/main_window.cpp
 OK	486C25	MainWindow::_OnSysKeyUp	src/main_window.cpp
@@ -863,15 +863,15 @@ OK	48CB3C	MainWindow::FUN_0048cb3c	src/main_window.cpp
 OK	48CBC8	MainWindow::UpdateClipCursor	src/main_window.cpp
 OK	48CBE2	MainWindow::sub_48CBE2	src/main_window.cpp
 OK	48CC87	MainWindow::sub_48CC87	src/main_window.cpp
-PENDING	48CCA1	MainWindow::sub_48CCA1	src/main_window.cpp
+OK	48CCA1	MainWindow::sub_48CCA1	src/main_window.cpp
 OK	48CD44	MainWindow::ResetItemCursor	src/main_window.cpp
 PENDING	48D125	MainWindow::ShowFameHallDocDlg	src/main_window.cpp
 SUSPECT	48D49B	MainWindow::Proc_421	src/main_window.cpp	note: vanilla (live decompile) is only 4 stmts: field_0x3e0.field_10=0, field_14.Empty(), FUN_0048cb3c(), PostMessage(0x440). C++ has a full "return to main menu" body (field_0x0c=0, ZeroFactors, FindChild(0x3fc)->MsgProc(0x445), FUN_00485a41, vis_mainmenu AddChild+VMethod28+VMethod9, dialogsMask|=0x80, 48cb3c, FindChild(0x13) delete) - extra blocks not in vanilla 48D49B. Needs owner decision: either the extra body belongs to a different vanilla fn or the handler is a deliberate extension
-PENDING	48D815	MainWindow::ShowCurrentTownDialog	src/main_window.cpp
-PENDING	48DC02	MainWindow::SetSpeed	src/main_window.cpp
-PENDING	490F6C	MainWindow::WaitHatConnection	src/main_window.cpp
+OK	48D815	MainWindow::ShowCurrentTownDialog	src/main_window.cpp
+OK	48DC02	MainWindow::SetSpeed	src/main_window.cpp
+OK	490F6C	MainWindow::WaitHatConnection	src/main_window.cpp
 OK	491142	MainWindow::ConnectToServerAddress	src/main_window.cpp
-PENDING	49152F	MainWindow::WaitConnectionCharacterJoin	src/main_window.cpp
+OK	49152F	MainWindow::WaitConnectionCharacterJoin	src/main_window.cpp
 OK	4919B1	MainWindow::FUN_004919b1	src/main_window.cpp
 OK	4919C7	MainWindow::sub_4919C7	src/main_window.cpp
 OK	4949F9	MainWindow::_OnClose	src/main_window.cpp
