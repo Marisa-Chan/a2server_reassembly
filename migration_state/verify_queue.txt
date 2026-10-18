@@ -2054,10 +2054,10 @@ OK	4E4090	VisComboBoxList::OnKeyDown	src/visual.cpp
 OK	4E4170	VisComboBoxText::VMethod7	src/visual.cpp
 
 ## VisConnectionDlg (4)
-PENDING	445E52	VisConnectionDlg::VisConnectionDlg	src/visual.cpp
-PENDING	445EBD	VisConnectionDlg::VMethod31	src/visual.cpp
-PENDING	44604C	VisConnectionDlg::VMethod30	src/visual.cpp
-PENDING	44FA40	VisConnectionDlg::~VisConnectionDlg	src/visual.cpp
+OK	445E52	VisConnectionDlg::VisConnectionDlg	src/visual.cpp
+OK	445EBD	VisConnectionDlg::VMethod31	src/visual.cpp
+OK	44604C	VisConnectionDlg::VMethod30	src/visual.cpp
+OK	44FA40	VisConnectionDlg::~VisConnectionDlg	src/visual.cpp
 
 ## VisCredits (12)
 OK	43C337	VisCredits::VisCredits	src/visual.cpp
@@ -2074,15 +2074,15 @@ OK	43C9B5	VisCredits::LoadContent	src/visual.cpp
 OK	43CB77	VisCredits::FreeContent	src/visual.cpp
 
 ## VisCutScenesDlg (2)
-PENDING	44EABB	VisCutScenesDlg::VisCutScenesDlg	src/visual.cpp
-PENDING	44EB08	VisCutScenesDlg::VMethod30	src/visual.cpp
+OK	44EABB	VisCutScenesDlg::VisCutScenesDlg	src/visual.cpp
+OK	44EB08	VisCutScenesDlg::VMethod30	src/visual.cpp
 
 ## VisDiplomacy (5)
-PENDING	445BCB	VisDiplomacy::VisDiplomacy	src/visual.cpp
-PENDING	445C2E	VisDiplomacy::VMethod30	src/visual.cpp
-PENDING	445CF1	VisDiplomacy::VMethod31	src/visual.cpp
-PENDING	445D34	VisDiplomacy::ReadData	src/visual.cpp
-PENDING	44F9E0	VisDiplomacy::~VisDiplomacy	src/visual.cpp
+OK	445BCB	VisDiplomacy::VisDiplomacy	src/visual.cpp
+OK	445C2E	VisDiplomacy::VMethod30	src/visual.cpp
+OK	445CF1	VisDiplomacy::VMethod31	src/visual.cpp
+OK	445D34	VisDiplomacy::ReadData	src/visual.cpp
+OK	44F9E0	VisDiplomacy::~VisDiplomacy	src/visual.cpp
 
 ## VisDropGold (8)
 OK	441BEC	VisDropGold::VisDropGold	src/visual.cpp
