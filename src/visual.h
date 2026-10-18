@@ -1066,8 +1066,7 @@ public:
 	int32_t field_0xc4; //unk type
 	int32_t field_0xc8; //unk type
 	int32_t field_0xcc; //unk type
-	int32_t field_0xd0;
-	int32_t field_0xd4;
+	double field_0xd0;
 	int32_t field_0xd8;
 	int32_t field_0xdc;
 	int32_t field_0xe0;

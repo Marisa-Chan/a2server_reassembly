@@ -6239,7 +6239,7 @@ void BigStruct2::sub_406F7B()
 	this->field_0xc8 += now - this->field_0xcc;
 	this->field_0xcc = now;
 	if ((uint32_t)this->field_0xc8 > 1000) {
-		*(double*)&this->field_0xd0 = ((double)(uint32_t)this->field_0xc4 * 1000.0) / (double)(uint32_t)this->field_0xc8;
+		this->field_0xd0 = ((double)(uint32_t)this->field_0xc4 * 1000.0) / (double)(uint32_t)this->field_0xc8;
 		this->field_0xc8 -= 1000;
 		this->field_0xc4 = 0;
 	}
@@ -6247,7 +6247,7 @@ void BigStruct2::sub_406F7B()
 		FillRectColorSimple(local_rect.right - 0x78, local_rect.top, local_rect.right - 0x1e, local_rect.top + 0x18,
 			GetColorRGB(8, 8, 8));
 		char buf[32];
-		sprintf(buf, "%3.1f fps", *(double*)&this->field_0xd0);
+		sprintf(buf, "%3.1f fps", this->field_0xd0);
 		g_font1->DrawTextWithShadow(local_rect.right - 0x26, local_rect.top, buf, 1, clrsh_ShockingBlack, 1);
 	}
 	if (wnd->sessionMode == 0 && DAT_00660f70 != 0) {
@@ -6324,8 +6324,7 @@ BigStruct2::BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObje
 	this->field_0xc4 = 0;
 	this->field_0xc8 = 0;
 	this->field_0xcc = 0;
-	this->field_0xd0 = 0;
-	this->field_0xd4 = 0;
+	this->field_0xd0 = 0.0;
 	this->field_0x10c.SetSize(0x40, 0x20);
 	this->field_0x120.SetSize(0x40, 0x20);
 	this->field_0x134 = 0;
