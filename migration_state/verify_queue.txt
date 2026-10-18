@@ -913,8 +913,8 @@ OK	43C270	MapPlayerData::~MapPlayerData	src/alm.cpp	MSVC dtor boilerplate omitte
 OK	56EAC7	MapSackData::MapSackData	src/alm.cpp
 
 ## MapStuff (46)
-PENDING	587E19	MapStuff::MapStuff	src/map_stuff.cpp
-PENDING	587F70	MapStuff::~MapStuff	src/map_stuff.cpp
+OK	587E19	MapStuff::MapStuff	src/map_stuff.cpp
+OK	587F70	MapStuff::~MapStuff	src/map_stuff.cpp
 PENDING	58826D	MapStuff::sub_58826D	src/map_stuff.cpp
 PENDING	5897AA	MapStuff::sub_5897AA	src/map_stuff.cpp
 PENDING	58AD4A	MapStuff::sub_58AD4A	src/map_stuff.cpp
@@ -928,7 +928,7 @@ PENDING	58CBB9	MapStuff::sub_58CBB9	src/map_stuff.cpp
 PENDING	58E407	MapStuff::sub_58E407	src/map_stuff.cpp
 PENDING	58E5F3	MapStuff::sub_58E5F3	src/map_stuff.cpp
 PENDING	58E611	MapStuff::sub_58E611	src/map_stuff.cpp
-PENDING	58E891	MapStuff::sub_58E891	src/map_stuff.cpp
+OK	58E891	MapStuff::sub_58E891	src/map_stuff.cpp
 PENDING	58F166	MapStuff::sub_58F166	src/map_stuff.cpp
 PENDING	58FD2F	MapStuff::sub_58FD2F	src/map_stuff.cpp
 PENDING	58FE6D	MapStuff::sub_58FE6D	src/map_stuff.cpp
