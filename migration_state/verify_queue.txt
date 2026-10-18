@@ -1590,13 +1590,13 @@ PENDING	573210	SpellInfo::~SpellInfo	src/table.cpp
 PENDING	578320	SpellInfo::ParseLine	src/table.cpp
 
 ## SpellTransport (7)
-PENDING	5389E2	SpellTransport::SpellTransport	src/spell_effect.cpp
-PENDING	538A15	SpellTransport::SpellTransport	src/spell_effect.cpp
-PENDING	538A9E	SpellTransport::SpellTransport	src/spell_effect.cpp
-PENDING	538B27	SpellTransport::~SpellTransport	src/spell_effect.cpp
-PENDING	538BF4	SpellTransport::VMethod2	src/spell_effect.cpp
-PENDING	53E588	SpellTransport::Serialize	src/spell_effect.cpp
-PENDING	53E68D	SpellTransport::VMethod5	src/spell_effect.cpp
+OK	5389E2	SpellTransport::SpellTransport	src/spell_effect.cpp
+OK	538A15	SpellTransport::SpellTransport	src/spell_effect.cpp
+OK	538A9E	SpellTransport::SpellTransport	src/spell_effect.cpp
+OK	538B27	SpellTransport::~SpellTransport	src/spell_effect.cpp
+OK	538BF4	SpellTransport::VMethod2	src/spell_effect.cpp
+OK	53E588	SpellTransport::Serialize	src/spell_effect.cpp
+OK	53E68D	SpellTransport::VMethod5	src/spell_effect.cpp
 
 ## Srv1 (9)
 OK	59B7EA	Srv1::sub_59B7EA	src/server.cpp
