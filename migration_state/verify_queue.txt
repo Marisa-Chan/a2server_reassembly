@@ -3008,21 +3008,21 @@ OK	4D6A1C	VisTownKaarg::GetHint	src/visual.cpp
 OK	4D6C90	VisTownKaarg::~VisTownKaarg	src/visual.cpp
 
 ## visual (globals) (32)
-PENDING	4386E0	IsDefaultNpcName	src/visual.cpp
-PENDING	43AAE0	FUN_0043aae0	src/visual.cpp
-PENDING	44402B	VisWindow	src/visual.cpp
-PENDING	447105	EnumSessionsPump	src/visual.cpp
-PENDING	447842	ExtractFirstWord	src/visual.cpp
-PENDING	44791E	CompareSessionsByName	src/visual.cpp
-PENDING	44AAD6	VisNetMapThreadProc	src/visual.cpp
-PENDING	44B37A	GetFieldPos	src/visual.cpp
-PENDING	44E4CE	sub_44E4CE	src/visual.cpp
-PENDING	450490	VisRadioBase	src/visual.cpp
-PENDING	450670	VisRadioBase	src/visual.cpp
-PENDING	476236	FUN_00476236	src/visual.cpp
-PENDING	476987	FUN_00476987	src/visual.cpp
-PENDING	4B9F20	FUN_004b9f20	src/visual.cpp
-PENDING	4BA1CC	FUN_004ba1cc	src/visual.cpp
+OK	4386E0	IsDefaultNpcName	src/visual.cpp
+OK	43AAE0	FUN_0043aae0	src/visual.cpp
+OK	44402B	VisWindow	src/visual.cpp
+OK	447105	EnumSessionsPump	src/visual.cpp
+OK	447842	ExtractFirstWord	src/visual.cpp
+OK	44791E	CompareSessionsByName	src/visual.cpp
+OK	44AAD6	VisNetMapThreadProc	src/visual.cpp
+OK	44B37A	GetFieldPos	src/visual.cpp
+OK	44E4CE	sub_44E4CE	src/visual.cpp
+OK	450490	VisRadioBase	src/visual.cpp
+OK	450670	VisRadioBase	src/visual.cpp
+OK	476236	FUN_00476236	src/visual.cpp
+OK	476987	FUN_00476987	src/visual.cpp
+OK	4B9F20	FUN_004b9f20	src/visual.cpp
+OK	4BA1CC	FUN_004ba1cc	src/visual.cpp
 OK	4D83B6	CVisualObject	src/visual.cpp
 OK	4D8453	CVisualObject	src/visual.cpp
 OK	4D8CD0	CVisualObject	src/visual.cpp
@@ -3035,15 +3035,15 @@ OK	4DBD31	CVisualObject	src/visual.cpp
 OK	4DDE6A	CVisualObject	src/visual.cpp
 OK	4DF23D	CVisualObject	src/visual.cpp
 OK	4DF286	CVisualObject	src/visual.cpp
-PENDING	4DFDAB	VisScreen	src/visual.cpp
+OK	4DFDAB	VisScreen	src/visual.cpp
 OK	4E1B5C	VisButton	src/visual.cpp
 OK	4E1E10	CVisualObject	src/visual.cpp
 OK	4E4040	VisListBox	src/visual.cpp
 OK	4E4120	VisTextBox	src/visual.cpp
 
 ## VisWindow (2)
-PENDING	4DFE19	VisWindow::UpdateWinRect	src/visual.cpp
-PENDING	4DFEB2	VisWindow::OnKeyDown	src/visual.cpp
+OK	4DFE19	VisWindow::UpdateWinRect	src/visual.cpp
+OK	4DFEB2	VisWindow::OnKeyDown	src/visual.cpp
 
 ## WavePattern (2)
 OK	537AE8	WavePattern::sub_537AE8	src/spell_effect.cpp
