@@ -1559,14 +1559,14 @@ OK	539F21	Spell::sub_539F21	src/spell.cpp
 OK	539F5A	Spell::sub_539F5A	src/spell.cpp
 
 ## spell_effect (globals) (1)
-PENDING	5365AB	sub_5365AB	src/spell_effect.cpp
+OK	5365AB	sub_5365AB	src/spell_effect.cpp
 
 ## SpellBook (5)
-PENDING	53D368	SpellBook::~SpellBook	src/spell.cpp
-PENDING	53D7F0	SpellBook::sub_53D7F0	src/spell.cpp
+OK	53D368	SpellBook::~SpellBook	src/spell.cpp
+OK	53D7F0	SpellBook::sub_53D7F0	src/spell.cpp
 OK	53DBC5	SpellBook::RefreshForHumanoid	src/spell.cpp
-PENDING	53DD3D	SpellBook::sub_53DD3D	src/spell.cpp
-PENDING	53DDA4	SpellBook::Serialize	src/spell.cpp
+OK	53DD3D	SpellBook::sub_53DD3D	src/spell.cpp
+OK	53DDA4	SpellBook::Serialize	src/spell.cpp	real proc entry is 53DD9A (queued addr is 14 bytes in); Serialize loops start at index 1 in both
 
 ## SpellEffect (6)
 OK	537371	SpellEffect::SpellEffect	src/spell_effect.cpp
