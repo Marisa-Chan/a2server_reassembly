@@ -1103,11 +1103,11 @@ OK	579940	Packet::Duplicate	src/packet.cpp
 OK	5799C0	Packet::GetDataSize	src/packet.cpp
 
 ## PacketInfo (5)
-PENDING	526B44	PacketInfo::PacketInfo	src/packet.cpp
-PENDING	526B77	PacketInfo::PacketInfo	src/packet.cpp
-PENDING	579A80	PacketInfo::~PacketInfo	src/packet.cpp
-PENDING	57A210	PacketInfo::Duplicate	src/packet.cpp
-PENDING	57A290	PacketInfo::GetDataSize	src/packet.cpp
+OK	526B44	PacketInfo::PacketInfo	src/packet.cpp
+OK	526B77	PacketInfo::PacketInfo	src/packet.cpp
+OK	579A80	PacketInfo::~PacketInfo	src/packet.cpp
+OK	57A210	PacketInfo::Duplicate	src/packet.cpp
+OK	57A290	PacketInfo::GetDataSize	src/packet.cpp
 
 ## PacketJoin (8)
 OK	526C12	PacketJoin::PacketJoin	src/packet.cpp
@@ -1129,13 +1129,13 @@ OK	57AAA0	PacketTerrain::Duplicate	src/packet.cpp
 OK	57AB20	PacketTerrain::GetDataSize	src/packet.cpp
 
 ## PacketUnitStateVec (2)
-PENDING	5275F8	PacketUnitStateVec::AppendByteByte	src/packet.cpp
-PENDING	5276E0	PacketUnitStateVec::AppendByteInt	src/packet.cpp
+OK	5275F8	PacketUnitStateVec::AppendByteByte	src/packet.cpp
+OK	5276E0	PacketUnitStateVec::AppendByteInt	src/packet.cpp
 
 ## Perf (3)
-PENDING	599F90	Perf::Perf	src/perf.cpp
-PENDING	599FD0	Perf::Begin	src/perf.cpp
-PENDING	5B6E50	Perf::End	src/perf.cpp
+OK	599F90	Perf::Perf	src/perf.cpp
+OK	599FD0	Perf::Begin	src/perf.cpp
+OK	5B6E50	Perf::End	src/perf.cpp
 
 ## PhoneBook (1)
 PENDING	43CF29	PhoneBook::Save	src/main_window.cpp
