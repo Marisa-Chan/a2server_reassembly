@@ -11,6 +11,7 @@
 struct Inventory;
 
 
+// 60f640
 class Sack : public Token {
 public:
     DECLARE_SERIAL(Sack); // Runtime class definition at 637318.
@@ -18,7 +19,7 @@ public:
 public: // VTable at 60f640.
     virtual ~Sack(); // 553f6a
     virtual void Serialize(CArchive& ar) override; // 55c889
-    virtual void VMethod1() override; // 553f7c
+    virtual void VMethod1() override; // 57dd30
     virtual void VMethod2() override; // 553f8b
 
 public:
