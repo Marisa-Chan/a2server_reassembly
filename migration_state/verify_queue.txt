@@ -1920,20 +1920,20 @@ PENDING	42ABEA	VisCharGenFullStats::VMethod7	src/visual.cpp
 PENDING	42AC85	VisCharGenFullStats::GetHint	src/visual.cpp
 
 ## VisCharGenSkills (14)
-PENDING	42B98C	VisCharGenSkills::VisCharGenSkills	src/visual.cpp
-PENDING	42BA30	VisCharGenSkills::~VisCharGenSkills	src/visual.cpp
-PENDING	42BA81	VisCharGenSkills::Init	src/visual.cpp
-PENDING	42BB5A	VisCharGenSkills::VMethod7	src/visual.cpp
-PENDING	42BD41	VisCharGenSkills::DrawBlinkSlot	src/visual.cpp
-PENDING	42BFCC	VisCharGenSkills::OnMouseMove	src/visual.cpp
-PENDING	42C072	VisCharGenSkills::OnLButtonDown	src/visual.cpp
-PENDING	42C1AB	VisCharGenSkills::OnLButtonUp	src/visual.cpp
-PENDING	42C1CC	VisCharGenSkills::LoadBitmaps	src/visual.cpp
-PENDING	42D6ED	VisCharGenSkills::FreeBitmaps	src/visual.cpp
-PENDING	42D963	VisCharGenSkills::LoadSamples	src/visual.cpp
-PENDING	42DA5A	VisCharGenSkills::FreeSamples	src/visual.cpp
-PENDING	42DADF	VisCharGenSkills::HitTest	src/visual.cpp
-PENDING	42DBCE	VisCharGenSkills::GetHint	src/visual.cpp
+OK	42B98C	VisCharGenSkills::VisCharGenSkills	src/visual.cpp
+OK	42BA30	VisCharGenSkills::~VisCharGenSkills	src/visual.cpp
+OK	42BA81	VisCharGenSkills::Init	src/visual.cpp
+OK	42BB5A	VisCharGenSkills::VMethod7	src/visual.cpp
+OK	42BD41	VisCharGenSkills::DrawBlinkSlot	src/visual.cpp
+OK	42BFCC	VisCharGenSkills::OnMouseMove	src/visual.cpp
+OK	42C072	VisCharGenSkills::OnLButtonDown	src/visual.cpp
+OK	42C1AB	VisCharGenSkills::OnLButtonUp	src/visual.cpp
+OK	42C1CC	VisCharGenSkills::LoadBitmaps	src/visual.cpp
+OK	42D6ED	VisCharGenSkills::FreeBitmaps	src/visual.cpp
+OK	42D963	VisCharGenSkills::LoadSamples	src/visual.cpp
+OK	42DA5A	VisCharGenSkills::FreeSamples	src/visual.cpp
+OK	42DADF	VisCharGenSkills::HitTest	src/visual.cpp
+OK	42DBCE	VisCharGenSkills::GetHint	src/visual.cpp
 
 ## VisCharGenStats (17)
 OK	428E51	VisCharGenStats::VisCharGenStats	src/visual.cpp
