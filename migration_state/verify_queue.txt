@@ -2869,20 +2869,20 @@ OK	4A3E40	VisTavRightPanel::~VisTavRightPanel	src/visual.cpp
 OK	4A4710	VisTavRightPanel::GetHint	src/visual.cpp
 
 ## VisTavScene (14)
-PENDING	49AD56	VisTavScene::VisTavScene	src/visual.cpp
-PENDING	49AF8C	VisTavScene::FUN_0049af8c	src/visual.cpp
-PENDING	49B22F	VisTavScene::VMethod7	src/visual.cpp
-PENDING	49BC23	VisTavScene::FUN_0049bc23	src/visual.cpp
-PENDING	49CAB8	VisTavScene::FUN_0049cab8	src/visual.cpp
-PENDING	49CD2B	VisTavScene::GetHint	src/visual.cpp
-PENDING	49CED4	VisTavScene::VMethod26	src/visual.cpp
-PENDING	49D1B0	VisTavScene::VMethod27	src/visual.cpp
-PENDING	49D2BB	VisTavScene::VMethod28	src/visual.cpp
-PENDING	49D5F9	VisTavScene::VMethod29	src/visual.cpp
-PENDING	49D8D9	VisTavScene::OnMouseMove	src/visual.cpp
-PENDING	49D8E8	VisTavScene::OnLButtonDblClk	src/visual.cpp
-PENDING	49DA98	VisTavScene::OnLButtonDown	src/visual.cpp
-PENDING	4A3E70	VisTavScene::~VisTavScene	src/visual.cpp
+OK	49AD56	VisTavScene::VisTavScene	src/visual.cpp
+OK	49AF8C	VisTavScene::FUN_0049af8c	src/visual.cpp
+OK	49B22F	VisTavScene::VMethod7	src/visual.cpp
+OK	49BC23	VisTavScene::FUN_0049bc23	src/visual.cpp
+OK	49CAB8	VisTavScene::FUN_0049cab8	src/visual.cpp
+OK	49CD2B	VisTavScene::GetHint	src/visual.cpp
+OK	49CED4	VisTavScene::VMethod26	src/visual.cpp
+OK	49D1B0	VisTavScene::VMethod27	src/visual.cpp
+OK	49D2BB	VisTavScene::VMethod28	src/visual.cpp
+OK	49D5F9	VisTavScene::VMethod29	src/visual.cpp
+OK	49D8D9	VisTavScene::OnMouseMove	src/visual.cpp
+OK	49D8E8	VisTavScene::OnLButtonDblClk	src/visual.cpp
+OK	49DA98	VisTavScene::OnLButtonDown	src/visual.cpp
+OK	4A3E70	VisTavScene::~VisTavScene	src/visual.cpp
 
 ## VisTavSceneAnim (6)
 PENDING	4010EE	VisTavSceneAnim::FUN_004010ee	src/visual.cpp
