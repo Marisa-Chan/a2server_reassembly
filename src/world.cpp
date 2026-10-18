@@ -720,7 +720,7 @@ void World::sub_5B5CA8(Unit* caster, Unit* target, CList<Unit*>* units, uint32_t
     }
 
     while (units->GetCount() > ray_count) {
-        units->RemoveHead();
+        units->RemoveTail();
     }
 }
 
