@@ -1449,8 +1449,8 @@ OK	502AD1	Server::sub_502AD1	src/server.cpp
 OK	502B4A	Server::sub_502B4A	src/server.cpp
 OK	502C50	Server::sub_502C50	src/server.cpp
 OK	502CB7	Server::sub_502CB7	src/server.cpp
-PENDING	502D0B	Server::CheatCommand	src/server.cpp
-PENDING	5088DF	Server::sub_5088DF	src/server.cpp
+OK	502D0B	Server::CheatCommand	src/server.cpp
+OK	5088DF	Server::sub_5088DF	src/server.cpp
 OK	509010	Server::ProcessAvailPackets	src/server.cpp
 OK	509042	Server::sub_509042	src/server.cpp
 OK	50907E	Server::FUN_0050907e	src/server.cpp
@@ -1458,7 +1458,7 @@ OK	5090A7	Server::sub_5090A7	src/server.cpp
 OK	5090FA	Server::sub_5090FA	src/server.cpp
 OK	5096E4	Server::sub_5096E4	src/server.cpp
 OK	50979A	Server::sub_50979A	src/server.cpp
-PENDING	509879	Server::sub_509879	src/server.cpp
+OK	509879	Server::sub_509879	src/server.cpp
 
 ## server (globals) (3)
 PENDING	43A820	sub_43A820	src/server.cpp
