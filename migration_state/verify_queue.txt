@@ -1835,24 +1835,24 @@ PENDING	4972D0	Vis1200::FUN_004972d0	src/visual.cpp
 PENDING	497310	Vis1200::FUN_00497310	src/visual.cpp
 
 ## Vis1200obj (18)
-PENDING	43AB28	Vis1200obj::Vis1200obj	src/visual.cpp
-PENDING	43AC8C	Vis1200obj::FUN_0043ac8c	src/visual.cpp
-PENDING	43ACCA	Vis1200obj::ReadData	src/visual.cpp
-PENDING	43AD35	Vis1200obj::WriteData	src/visual.cpp
-PENDING	43AD86	Vis1200obj::FUN_0043ad86	src/visual.cpp
-PENDING	43ADA3	Vis1200obj::FUN_0043ada3	src/visual.cpp
-PENDING	43AE1C	Vis1200obj::FUN_0043ae1c	src/visual.cpp
-PENDING	43B03A	Vis1200obj::FUN_0043b03a	src/visual.cpp
-PENDING	43B159	Vis1200obj::OnKeyDown	src/visual.cpp
-PENDING	43B240	Vis1200obj::OnChar	src/visual.cpp
-PENDING	43B283	Vis1200obj::MsgProc	src/visual.cpp
-PENDING	43B32F	Vis1200obj::VMethod7	src/visual.cpp
-PENDING	43B504	Vis1200obj::FUN_0043b504	src/visual.cpp
-PENDING	43B724	Vis1200obj::FUN_0043b724	src/visual.cpp
-PENDING	43BA75	Vis1200obj::FUN_0043ba75	src/visual.cpp
-PENDING	43C020	Vis1200obj::DataSize	src/visual.cpp
-PENDING	4972F0	Vis1200obj::FUN_004972f0	src/visual.cpp
-PENDING	497330	Vis1200obj::FUN_00497330	src/visual.cpp
+OK	43AB28	Vis1200obj::Vis1200obj	src/visual.cpp
+OK	43AC8C	Vis1200obj::FUN_0043ac8c	src/visual.cpp
+OK	43ACCA	Vis1200obj::ReadData	src/visual.cpp
+OK	43AD35	Vis1200obj::WriteData	src/visual.cpp
+OK	43AD86	Vis1200obj::FUN_0043ad86	src/visual.cpp
+OK	43ADA3	Vis1200obj::FUN_0043ada3	src/visual.cpp
+OK	43AE1C	Vis1200obj::FUN_0043ae1c	src/visual.cpp
+OK	43B03A	Vis1200obj::FUN_0043b03a	src/visual.cpp
+OK	43B159	Vis1200obj::OnKeyDown	src/visual.cpp
+OK	43B240	Vis1200obj::OnChar	src/visual.cpp
+OK	43B283	Vis1200obj::MsgProc	src/visual.cpp
+OK	43B32F	Vis1200obj::VMethod7	src/visual.cpp
+OK	43B504	Vis1200obj::FUN_0043b504	src/visual.cpp
+OK	43B724	Vis1200obj::FUN_0043b724	src/visual.cpp
+OK	43BA75	Vis1200obj::FUN_0043ba75	src/visual.cpp
+OK	43C020	Vis1200obj::DataSize	src/visual.cpp
+OK	4972F0	Vis1200obj::FUN_004972f0	src/visual.cpp
+OK	497330	Vis1200obj::FUN_00497330	src/visual.cpp
 
 ## Vis2Action (4)
 PENDING	44F0A2	Vis2Action::Vis2Action	src/visual.cpp
