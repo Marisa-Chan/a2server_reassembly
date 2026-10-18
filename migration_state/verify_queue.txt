@@ -2885,12 +2885,12 @@ OK	49DA98	VisTavScene::OnLButtonDown	src/visual.cpp
 OK	4A3E70	VisTavScene::~VisTavScene	src/visual.cpp
 
 ## VisTavSceneAnim (6)
-PENDING	4010EE	VisTavSceneAnim::FUN_004010ee	src/visual.cpp
-PENDING	4014F2	VisTavSceneAnim::FUN_004014f2	src/visual.cpp
-PENDING	4015C6	VisTavSceneAnim::StepForward	src/visual.cpp
-PENDING	401613	VisTavSceneAnim::StepBackward	src/visual.cpp
-PENDING	401659	VisTavSceneAnim::NextFrame	src/visual.cpp
-PENDING	4016EF	VisTavSceneAnim::Draw	src/visual.cpp
+OK	4010EE	VisTavSceneAnim::FUN_004010ee	src/visual.cpp
+OK	4014F2	VisTavSceneAnim::FUN_004014f2	src/visual.cpp
+OK	4015C6	VisTavSceneAnim::StepForward	src/visual.cpp
+OK	401613	VisTavSceneAnim::StepBackward	src/visual.cpp
+OK	401659	VisTavSceneAnim::NextFrame	src/visual.cpp
+OK	4016EF	VisTavSceneAnim::Draw	src/visual.cpp
 
 ## VisTavSceneDruid (5)
 PENDING	4A05A0	VisTavSceneDruid::VisTavSceneDruid	src/visual.cpp
