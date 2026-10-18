@@ -1867,14 +1867,14 @@ PENDING	4E3FB0	VisBitmap::GetBitmap	src/visual.cpp
 PENDING	4E3FD0	VisBitmap::SetBitmap	src/visual.cpp
 
 ## VisButton (8)
-PENDING	450A40	VisButton::~VisButton	src/visual.cpp
-PENDING	4D8F7E	VisButton::VMethod7	src/visual.cpp
-PENDING	4D94B5	VisButton::SetDowned	src/visual.cpp
-PENDING	4D958F	VisButton::OnMouseMove	src/visual.cpp
-PENDING	4D96A1	VisButton::OnLButtonDown	src/visual.cpp
-PENDING	4D96E8	VisButton::OnLButtonUp	src/visual.cpp
-PENDING	4D9783	VisButton::OnKeyDown	src/visual.cpp
-PENDING	4D97D4	VisButton::OnChar	src/visual.cpp
+OK	450A40	VisButton::~VisButton	src/visual.cpp
+OK	4D8F7E	VisButton::VMethod7	src/visual.cpp
+OK	4D94B5	VisButton::SetDowned	src/visual.cpp
+OK	4D958F	VisButton::OnMouseMove	src/visual.cpp
+OK	4D96A1	VisButton::OnLButtonDown	src/visual.cpp
+OK	4D96E8	VisButton::OnLButtonUp	src/visual.cpp
+OK	4D9783	VisButton::OnKeyDown	src/visual.cpp
+OK	4D97D4	VisButton::OnChar	src/visual.cpp
 
 ## VisCharGen (19)
 OK	42DCD9	VisCharGen::VisCharGen	src/visual.cpp
