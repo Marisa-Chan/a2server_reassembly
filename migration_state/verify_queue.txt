@@ -374,7 +374,7 @@ OK	544B0C	CMultiShopShelf::~CMultiShopShelf	src/shelf.cpp
 OK	544BCE	CMultiShopShelf::sub_544BCE	src/shelf.cpp
 OK	5453E8	CMultiShopShelf::sub_5453E8	src/shelf.cpp
 OK	54546E	CMultiShopShelf::sub_54546E	src/shelf.cpp
-PENDING	545528	CMultiShopShelf::sub_545528	src/shelf.cpp
+OK	545528	CMultiShopShelf::sub_545528	src/shelf.cpp
 OK	545865	CMultiShopShelf::ClearItems	src/shelf.cpp
 
 ## CMultiShopTemplate (19)
@@ -962,10 +962,10 @@ OK	598BF0	MapStuff::sub_598BF0	src/map_stuff.cpp
 OK	599410	MapStuff::sub_599410	src/map_stuff.cpp
 
 ## MatShape (4)
-PENDING	513B05	MatShape::Serialize	src/table.cpp
-PENDING	572590	MatShape::MatShape	src/table.cpp
-PENDING	572670	MatShape::~MatShape	src/table.cpp
-PENDING	5780B0	MatShape::ParseLine	src/table.cpp
+OK	513B05	MatShape::Serialize	src/table.cpp
+OK	572590	MatShape::MatShape	src/table.cpp
+OK	572670	MatShape::~MatShape	src/table.cpp
+OK	5780B0	MatShape::ParseLine	src/table.cpp
 
 ## MonsterInfo (5)
 PENDING	513C82	MonsterInfo::VMethod2	src/table.cpp
