@@ -2551,21 +2551,21 @@ PENDING	4E0B43	VisRoleKeyScreen::FUN_004e0b43	src/visual.cpp
 PENDING	4E3F60	VisRoleKeyScreen::~VisRoleKeyScreen	src/visual.cpp
 
 ## VisScreen (15)
-PENDING	4327B5	VisScreen::CloseOk	src/visual.cpp
-PENDING	4327D4	VisScreen::CloseCancel	src/visual.cpp
-PENDING	4388C0	VisScreen::VMethod27	src/visual.cpp
-PENDING	4388D0	VisScreen::GetCloseCode	src/visual.cpp
-PENDING	450900	VisScreen::VMethod26	src/visual.cpp
-PENDING	4DF4D1	VisScreen::VisScreen	src/visual.cpp
-PENDING	4DF4FA	VisScreen::VisScreen	src/visual.cpp
-PENDING	4DF56D	VisScreen::VisScreen	src/visual.cpp
-PENDING	4DF5EC	VisScreen::~VisScreen	src/visual.cpp
-PENDING	4DF63D	VisScreen::VMethod7	src/visual.cpp
-PENDING	4DF67C	VisScreen::VMethod8	src/visual.cpp
-PENDING	4DFB4F	VisScreen::VMethod28	src/visual.cpp
-PENDING	4DFBCD	VisScreen::MsgProc	src/visual.cpp
-PENDING	4DFC43	VisScreen::OnKeyDown	src/visual.cpp
-PENDING	4DFEE7	VisScreen::OnLButtonDown	src/visual.cpp
+OK	4327B5	VisScreen::CloseOk	src/visual.cpp
+OK	4327D4	VisScreen::CloseCancel	src/visual.cpp
+OK	4388C0	VisScreen::VMethod27	src/visual.cpp
+OK	4388D0	VisScreen::GetCloseCode	src/visual.cpp
+OK	450900	VisScreen::VMethod26	src/visual.cpp
+OK	4DF4D1	VisScreen::VisScreen	src/visual.cpp
+OK	4DF4FA	VisScreen::VisScreen	src/visual.cpp
+OK	4DF56D	VisScreen::VisScreen	src/visual.cpp
+OK	4DF5EC	VisScreen::~VisScreen	src/visual.cpp
+OK	4DF63D	VisScreen::VMethod7	src/visual.cpp
+OK	4DF67C	VisScreen::VMethod8	src/visual.cpp
+OK	4DFB4F	VisScreen::VMethod28	src/visual.cpp
+OK	4DFBCD	VisScreen::MsgProc	src/visual.cpp
+OK	4DFC43	VisScreen::OnKeyDown	src/visual.cpp
+OK	4DFEE7	VisScreen::OnLButtonDown	src/visual.cpp
 
 ## VisScrollBar (16)
 OK	4DDACF	VisScrollBar::UpdateRects	src/visual.cpp
