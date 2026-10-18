@@ -2822,13 +2822,13 @@ OK	49F298	VisTav::VMethod30	src/visual.cpp
 OK	49F3D7	VisTav::VMethod31	src/visual.cpp
 
 ## VisTavDruid (7)
-PENDING	49F4E6	VisTavDruid::VisTavDruid	src/visual.cpp
-PENDING	49F51B	VisTavDruid::VMethod26	src/visual.cpp
-PENDING	49F7B0	VisTavDruid::VMethod30	src/visual.cpp
-PENDING	49F961	VisTavDruid::VMethod31	src/visual.cpp
-PENDING	49FAAA	VisTavDruid::VMethod28	src/visual.cpp
-PENDING	4A0278	VisTavDruid::DoClose	src/visual.cpp
-PENDING	4A3F70	VisTavDruid::~VisTavDruid	src/visual.cpp
+OK	49F4E6	VisTavDruid::VisTavDruid	src/visual.cpp
+OK	49F51B	VisTavDruid::VMethod26	src/visual.cpp
+OK	49F7B0	VisTavDruid::VMethod30	src/visual.cpp
+OK	49F961	VisTavDruid::VMethod31	src/visual.cpp
+OK	49FAAA	VisTavDruid::VMethod28	src/visual.cpp
+OK	4A0278	VisTavDruid::DoClose	src/visual.cpp
+OK	4A3F70	VisTavDruid::~VisTavDruid	src/visual.cpp
 
 ## VisTavKaarg (7)
 OK	4A18D8	VisTavKaarg::VisTavKaarg	src/visual.cpp
