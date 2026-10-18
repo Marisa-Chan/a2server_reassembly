@@ -2343,29 +2343,29 @@ FIXED	4D85E6	VisLabel::SetActiveColor	src/visual.cpp	missing VMethod9() repaint 
 PENDING	4E3BA0	VisLabel::~VisLabel	src/visual.cpp
 
 ## VisListBox (23)
-PENDING	4507A0	VisListBox::SetSelectedIndex	src/visual.cpp
-PENDING	4507C0	VisListBox::GetItemCount	src/visual.cpp
-PENDING	4507E0	VisListBox::DataSize	src/visual.cpp
-PENDING	4507F0	VisListBox::AddItem	src/visual.cpp
-PENDING	4508B0	VisListBox::GetItem	src/visual.cpp
-PENDING	4DBE45	VisListBox::YToIndex	src/visual.cpp
-PENDING	4DBE7F	VisListBox::SelectItem	src/visual.cpp
-PENDING	4DBF89	VisListBox::Up	src/visual.cpp
-PENDING	4DBFBB	VisListBox::Down	src/visual.cpp
-PENDING	4DBFE1	VisListBox::PageUp	src/visual.cpp
-PENDING	4DC03B	VisListBox::PageDown	src/visual.cpp
-PENDING	4DC0BC	VisListBox::WriteData	src/visual.cpp
-PENDING	4DC0EA	VisListBox::ReadData	src/visual.cpp
-PENDING	4DC11D	VisListBox::VMethod7	src/visual.cpp
-PENDING	4DC4EE	VisListBox::VMethod30	src/visual.cpp
-PENDING	4DC528	VisListBox::IsValidIndex	src/visual.cpp
-PENDING	4DC560	VisListBox::DrawItem	src/visual.cpp
-PENDING	4DC62F	VisListBox::MsgProc	src/visual.cpp
-PENDING	4DC73F	VisListBox::OnLButtonDown	src/visual.cpp
-PENDING	4DC832	VisListBox::OnLButtonUp	src/visual.cpp
-PENDING	4DC86B	VisListBox::OnLButtonDblClk	src/visual.cpp
-PENDING	4DC8A4	VisListBox::OnMouseMove	src/visual.cpp
-PENDING	4DC8F6	VisListBox::OnKeyDown	src/visual.cpp
+FIXED	4507A0	VisListBox::SetSelectedIndex	src/visual.cpp	C++ clamped idx to [0,size-1]; vanilla stores raw index (disasm 4507aa)
+OK	4507C0	VisListBox::GetItemCount	src/visual.cpp
+OK	4507E0	VisListBox::DataSize	src/visual.cpp
+OK	4507F0	VisListBox::AddItem	src/visual.cpp
+FIXED	4508B0	VisListBox::GetItem	src/visual.cpp	C++ had negative guard + size-1 clamp; vanilla i = (idx < size) ? idx : size (no negative guard, disasm 4508c4-08dc)
+OK	4DBE45	VisListBox::YToIndex	src/visual.cpp	decompile shows empty body (FPU IDIV artifact); disasm confirms (y - screenY - 1) / entry_height_full
+FIXED	4DBE7F	VisListBox::SelectItem	src/visual.cpp	C++ pre-clamped idx=0 for negative; vanilla clamps only upper bound and lets negative idx flow through vis_start logic into selected_index (disasm 4dbea9)
+OK	4DBF89	VisListBox::Up	src/visual.cpp
+OK	4DBFBB	VisListBox::Down	src/visual.cpp
+OK	4DBFE1	VisListBox::PageUp	src/visual.cpp
+OK	4DC03B	VisListBox::PageDown	src/visual.cpp
+OK	4DC0BC	VisListBox::WriteData	src/visual.cpp	RemoveAll+InsertAt(0,copy) == Copy()
+OK	4DC0EA	VisListBox::ReadData	src/visual.cpp	same
+OK	4DC11D	VisListBox::VMethod7	src/visual.cpp	FillRect colors are GetColorRGB(8,8,8)/(0x5e,0x73,0x65) via bit-shift macro in vanilla == C++ constants
+OK	4DC4EE	VisListBox::VMethod30	src/visual.cpp
+OK	4DC528	VisListBox::IsValidIndex	src/visual.cpp
+OK	4DC560	VisListBox::DrawItem	src/visual.cpp	C++ adds GetClipRect/SetClipRect clipping absent in vanilla (visual-only overflow guard, intentional)
+OK	4DC62F	VisListBox::MsgProc	src/visual.cpp	C++ routes through base MsgProc first; base returns 0 for these msgs so equivalent
+OK	4DC73F	VisListBox::OnLButtonDown	src/visual.cpp	vanilla local_8 uninitialized when YToIndex >= num_vis_entry (UB); C++ uses YToIndex value
+OK	4DC832	VisListBox::OnLButtonUp	src/visual.cpp
+OK	4DC86B	VisListBox::OnLButtonDblClk	src/visual.cpp
+OK	4DC8A4	VisListBox::OnMouseMove	src/visual.cpp
+OK	4DC8F6	VisListBox::OnKeyDown	src/visual.cpp
 
 ## VisListBoxDiplomacy (13)
 PENDING	4DC9FB	VisListBoxDiplomacy::VisListBoxDiplomacy	src/visual.cpp

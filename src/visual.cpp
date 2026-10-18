@@ -1953,10 +1953,8 @@ void VisListBox::DrawItem(int32_t idx, CPoint pos, uint16_t* clr)
 void VisListBox::SelectItem(int32_t idx)
 {
     //4dbe7f
-
-    if (idx < 0) {
-        idx = 0;
-    }
+    // Vanilla clamps only the upper bound; a negative idx keeps its value through
+    // the vis_start_index logic (selecting nothing) and lands in selected_index.
 
     if (idx >= entries.GetSize()) {
         idx = entries.GetSize() - 1;
@@ -2098,28 +2096,21 @@ void VisListBox::AddItem(const char* str)
 }
 
 void VisListBox::SetSelectedIndex(int32_t idx)
-{ 
+{
     //4507a0
-    if (idx < 0) {
-        idx = 0;
-    } else if (idx >= entries.GetSize()) {
-        idx = entries.GetSize() - 1;
-    }
+    // Vanilla stores the raw index with no clamping.
     selected_index = idx;
 }
 
 CString& VisListBox::GetItem(int32_t idx)
 {
     //4508b0
-    if (idx < 0) {
-        return entries[0];
+    // Vanilla: i = (idx < GetSize()) ? idx : GetSize(); no negative guard.
+    int32_t i = idx;
+    if (i >= entries.GetSize()) {
+        i = entries.GetSize();
     }
-
-    if (idx < entries.GetSize()) {
-        return entries[idx];
-    }
-
-    return entries[entries.GetSize() - 1];
+    return entries[i];
 }
 
 void VisListBox::RemoveItem(int32_t idx)
