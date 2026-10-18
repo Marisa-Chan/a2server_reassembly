@@ -6483,19 +6483,19 @@ void UserShortcut::SetNull()
 int UserShortcut::ToBuffer(uint8_t** buf)
 { //41e5ed
     uint8_t* data = *buf;
-    *(uint16_t*)data = kind;
+    *(uint16_t*)data = this->kind;
     data += 2;
-    *(uint16_t*)data = item_id;
+    *(uint16_t*)data = this->item_id;
     data += 2;
-    *(uint32_t*)data = mods_size;
+    *(uint32_t*)data = this->mods_size;
     data += 4;
-    if (mods_size)
+    if (this->mods_size)
     {
-        memcpy(data, mods, mods_size);
-        data += mods_size;
+        memcpy(data, this->mods, this->mods_size);
+        data += this->mods_size;
     }
     *buf = data;
-    return 8 + mods_size;
+    return 8 + this->mods_size;
 }
 
 
