@@ -2028,17 +2028,17 @@ PENDING	42F7B9	VisCharSellectStats::VMethod7	src/visual.cpp
 PENDING	42FC61	VisCharSellectStats::GetHint	src/visual.cpp
 
 ## VisComboBox (11)
-PENDING	4E201E	VisComboBox::VMethod9	src/visual.cpp
-PENDING	4E2031	VisComboBox::WriteData	src/visual.cpp
-PENDING	4E2053	VisComboBox::AddItem	src/visual.cpp
-PENDING	4E2097	VisComboBox::SelectItem	src/visual.cpp
-PENDING	4E20DB	VisComboBox::HideList	src/visual.cpp
-PENDING	4E2150	VisComboBox::ToggleList	src/visual.cpp
-PENDING	4E222A	VisComboBox::ProcSelectList	src/visual.cpp
-PENDING	4E22D8	VisComboBox::MsgProc	src/visual.cpp
-PENDING	4E2410	VisComboBox::OnLButtonDown	src/visual.cpp
-PENDING	4E2422	VisComboBox::OnKeyDown	src/visual.cpp
-PENDING	4E2481	VisComboBox::VMethod8	src/visual.cpp
+OK	4E201E	VisComboBox::VMethod9	src/visual.cpp
+OK	4E2031	VisComboBox::WriteData	src/visual.cpp
+OK	4E2053	VisComboBox::AddItem	src/visual.cpp
+OK	4E2097	VisComboBox::SelectItem	src/visual.cpp
+OK	4E20DB	VisComboBox::HideList	src/visual.cpp
+OK	4E2150	VisComboBox::ToggleList	src/visual.cpp
+OK	4E222A	VisComboBox::ProcSelectList	src/visual.cpp
+OK	4E22D8	VisComboBox::MsgProc	src/visual.cpp
+OK	4E2410	VisComboBox::OnLButtonDown	src/visual.cpp
+OK	4E2422	VisComboBox::OnKeyDown	src/visual.cpp
+OK	4E2481	VisComboBox::VMethod8	src/visual.cpp
 
 ## VisComboBoxButton (5)
 PENDING	4E1C16	VisComboBoxButton::OnLButtonUp	src/visual.cpp
