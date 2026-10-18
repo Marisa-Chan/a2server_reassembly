@@ -1196,16 +1196,16 @@ PENDING	533B77	Protections::operator-=	src/protections.cpp
 PENDING	533C1F	Protections::Serialize	src/protections.cpp
 
 ## Quest (10)
-PENDING	4A4780	Quest::FUN_004a4780	src/quest.cpp
-PENDING	55D0E0	Quest::Quest	src/quest.cpp
-PENDING	55D177	Quest::Initialize	src/quest.cpp
-PENDING	55D1E1	Quest::CopyFields	src/quest.cpp
-PENDING	55D221	Quest::MarkCompleted	src/quest.cpp
-PENDING	55D23F	Quest::MarkFailed	src/quest.cpp
-PENDING	55D25D	Quest::VMethod1	src/quest.cpp
-PENDING	57FF20	Quest::Kind	src/quest.cpp
-PENDING	57FF30	Quest::Something2	src/quest.cpp
-PENDING	57FF40	Quest::Something3	src/quest.cpp
+OK	4A4780	Quest::FUN_004a4780	src/quest.cpp
+OK	55D0E0	Quest::Quest	src/quest.cpp
+OK	55D177	Quest::Initialize	src/quest.cpp
+OK	55D1E1	Quest::CopyFields	src/quest.cpp
+OK	55D221	Quest::MarkCompleted	src/quest.cpp
+OK	55D23F	Quest::MarkFailed	src/quest.cpp
+OK	55D25D	Quest::VMethod1	src/quest.cpp
+OK	57FF20	Quest::Kind	src/quest.cpp
+OK	57FF30	Quest::Something2	src/quest.cpp
+OK	57FF40	Quest::Something3	src/quest.cpp
 
 ## QuestDeliverItem (5)
 FIXED	55FA1D	QuestDeliverItem::VMethod1	src/quest.cpp	note: vanilla has two delivery branches - owner delivers (player match, state != 1) -> war(1); DIFFERENT player delivers (player mismatch, landmark match, state != 2) -> war(2). C++ had merged both into a player-match branch, so third-party deliveries never progressed the quest
