@@ -2716,14 +2716,14 @@ PENDING	4C69E0	VisShopDruid::~VisShopDruid	src/visual.cpp
 PENDING	4C6BE0	VisShopDruid::VMethod33	src/visual.cpp
 
 ## VisShopKaarg (8)
-PENDING	4C37C5	VisShopKaarg::VisShopKaarg	src/visual.cpp
-PENDING	4C37FE	VisShopKaarg::VMethod26	src/visual.cpp
-PENDING	4C3B70	VisShopKaarg::VMethod28	src/visual.cpp
-PENDING	4C4170	VisShopKaarg::VMethod30	src/visual.cpp
-PENDING	4C43A3	VisShopKaarg::VMethod31	src/visual.cpp
-PENDING	4C453D	VisShopKaarg::VMethod32	src/visual.cpp
-PENDING	4C6A50	VisShopKaarg::~VisShopKaarg	src/visual.cpp
-PENDING	4C6C10	VisShopKaarg::VMethod33	src/visual.cpp
+OK	4C37C5	VisShopKaarg::VisShopKaarg	src/visual.cpp
+OK	4C37FE	VisShopKaarg::VMethod26	src/visual.cpp
+OK	4C3B70	VisShopKaarg::VMethod28	src/visual.cpp
+OK	4C4170	VisShopKaarg::VMethod30	src/visual.cpp
+OK	4C43A3	VisShopKaarg::VMethod31	src/visual.cpp
+OK	4C453D	VisShopKaarg::VMethod32	src/visual.cpp
+OK	4C6A50	VisShopKaarg::~VisShopKaarg	src/visual.cpp
+OK	4C6C10	VisShopKaarg::VMethod33	src/visual.cpp
 
 ## VisSideStatus (6)
 PENDING	4B3FA3	VisSideStatus::VisSideStatus	src/visual.cpp
