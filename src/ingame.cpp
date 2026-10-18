@@ -5904,6 +5904,32 @@ void BigStruct2::sub_406F7B()
 	for (int32_t y = -4; y < this->field_0x68 + 7; y++) {
 		for (int32_t x = this->field_0x64 + 3; x > -5; x--) {
 			int32_t cell = x + this->view_x + this->field_0x84 * (y + this->view_y);
+			uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) | (landscape[cell + this->field_0x84] & 0xC000) | (landscape[cell + this->field_0x84 + 1] & 0xC000);
+			if (y > -4 && y < this->field_0x68 + 7 && x > -4 && x < this->field_0x64 + 3) {
+				int32_t idx = x + 3 + (y + 3) * (this->field_0x64 + 6);
+				uint8_t light = this->field_0xb0[idx];
+				CGameObject* obj9c = (CGameObject*)this->field_0x9c[idx];
+				CGameObject* obj98 = (CGameObject*)this->field_0x98[idx];
+				uint32_t hgt = this->field_0xc0[x + 4 + (y + 4) * (this->field_0x64 + 8)];
+				if (obj9c != nullptr && obj9c->FUN_0041f130() == 0) {
+					if (g_Shadows != 0) {
+						obj9c->VMethod7(x, y, light);
+					}
+					obj9c->VMethod6(x, y, light);
+				}
+				if (obj98 != nullptr && obj98->FUN_0041f130() == 0) {
+					if (g_Shadows != 0) {
+						obj98->VMethod7(x, y, light);
+					}
+					obj98->VMethod6(x, y, light);
+				}
+			}
+		}
+	}
+
+	for (int32_t y = -4; y < this->field_0x68 + 7; y++) {
+		for (int32_t x = this->field_0x64 + 3; x > -5; x--) {
+			int32_t cell = x + this->view_x + this->field_0x84 * (y + this->view_y);
 			uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
 				(landscape[cell + this->field_0x84] & 0xC000) | (landscape[cell + this->field_0x84 + 1] & 0xC000);
 			if (y > -4 && y < this->field_0x68 + 7 && x > -4 && x < this->field_0x64 + 3) {
