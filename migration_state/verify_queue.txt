@@ -2443,16 +2443,16 @@ PENDING	450280	VisNetChatTextBox::VisNetChatTextBox	src/visual.cpp
 PENDING	4502C0	VisNetChatTextBox::OnKeyDown	src/visual.cpp
 
 ## VisNetDlg (10)
-PENDING	4464C7	VisNetDlg::VisNetDlg	src/visual.cpp
-PENDING	446567	VisNetDlg::CreateSessionList	src/visual.cpp
-PENDING	446E97	VisNetDlg::VMethod26	src/visual.cpp
-PENDING	447173	VisNetDlg::RefreshSessions	src/visual.cpp
-PENDING	447214	VisNetDlg::MsgProc	src/visual.cpp
-PENDING	4478E9	VisNetDlg::OnKeyDown	src/visual.cpp
-PENDING	44797E	VisNetDlg::FillServerList	src/visual.cpp
-PENDING	447B3C	VisNetDlg::UpdatePlayerList	src/visual.cpp
-PENDING	447C27	VisNetDlg::CachePlayerRows	src/visual.cpp
-PENDING	44FA90	VisNetDlg::~VisNetDlg	src/visual.cpp
+OK	4464C7	VisNetDlg::VisNetDlg	src/visual.cpp
+OK	446567	VisNetDlg::CreateSessionList	src/visual.cpp
+OK	446E97	VisNetDlg::VMethod26	src/visual.cpp
+OK	447173	VisNetDlg::RefreshSessions	src/visual.cpp
+OK	447214	VisNetDlg::MsgProc	src/visual.cpp
+OK	4478E9	VisNetDlg::OnKeyDown	src/visual.cpp
+OK	44797E	VisNetDlg::FillServerList	src/visual.cpp
+OK	447B3C	VisNetDlg::UpdatePlayerList	src/visual.cpp
+OK	447C27	VisNetDlg::CachePlayerRows	src/visual.cpp
+OK	44FA90	VisNetDlg::~VisNetDlg	src/visual.cpp
 
 ## VisNetMapList (3)
 PENDING	44B09E	VisNetMapList::DrawItem	src/visual.cpp
