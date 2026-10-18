@@ -2368,19 +2368,19 @@ OK	4DC8A4	VisListBox::OnMouseMove	src/visual.cpp
 OK	4DC8F6	VisListBox::OnKeyDown	src/visual.cpp
 
 ## VisListBoxDiplomacy (13)
-PENDING	4DC9FB	VisListBoxDiplomacy::VisListBoxDiplomacy	src/visual.cpp
-PENDING	4DCEBA	VisListBoxDiplomacy::~VisListBoxDiplomacy	src/visual.cpp
-PENDING	4DCF98	VisListBoxDiplomacy::SelectItem	src/visual.cpp
-PENDING	4DD098	VisListBoxDiplomacy::IsValidIndex	src/visual.cpp
-PENDING	4DD0BD	VisListBoxDiplomacy::DrawItem	src/visual.cpp
-PENDING	4DD1B2	VisListBoxDiplomacy::WriteRadioState	src/visual.cpp
-PENDING	4DD2C7	VisListBoxDiplomacy::UpdateScrollBar	src/visual.cpp
-PENDING	4DD424	VisListBoxDiplomacy::RestoreRect	src/visual.cpp
-PENDING	4DD44A	VisListBoxDiplomacy::OnLButtonDown	src/visual.cpp
-PENDING	4DD54C	VisListBoxDiplomacy::UpdateRadioPositions	src/visual.cpp
-PENDING	4DD7F3	VisListBoxDiplomacy::MsgProc	src/visual.cpp
-PENDING	4DD8C5	VisListBoxDiplomacy::OnKeyDown	src/visual.cpp
-PENDING	4E3D30	VisListBoxDiplomacy::VMethod30	src/visual.cpp
+OK	4DC9FB	VisListBoxDiplomacy::VisListBoxDiplomacy	src/visual.cpp
+OK	4DCEBA	VisListBoxDiplomacy::~VisListBoxDiplomacy	src/visual.cpp
+OK	4DCF98	VisListBoxDiplomacy::SelectItem	src/visual.cpp
+OK	4DD098	VisListBoxDiplomacy::IsValidIndex	src/visual.cpp
+OK	4DD0BD	VisListBoxDiplomacy::DrawItem	src/visual.cpp
+OK	4DD1B2	VisListBoxDiplomacy::WriteRadioState	src/visual.cpp
+OK	4DD2C7	VisListBoxDiplomacy::UpdateScrollBar	src/visual.cpp
+OK	4DD424	VisListBoxDiplomacy::RestoreRect	src/visual.cpp
+OK	4DD44A	VisListBoxDiplomacy::OnLButtonDown	src/visual.cpp
+OK	4DD54C	VisListBoxDiplomacy::UpdateRadioPositions	src/visual.cpp
+OK	4DD7F3	VisListBoxDiplomacy::MsgProc	src/visual.cpp
+OK	4DD8C5	VisListBoxDiplomacy::OnKeyDown	src/visual.cpp
+OK	4E3D30	VisListBoxDiplomacy::VMethod30	src/visual.cpp
 
 ## VisListBoxPhoneBook (2)
 PENDING	44FB30	VisListBoxPhoneBook::VisListBoxPhoneBook	src/visual.cpp
