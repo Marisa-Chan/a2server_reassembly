@@ -780,18 +780,18 @@ OK	567C21	Inn::sub_567C21	src/inn.cpp
 OK	567D74	Inn::VMethod1	src/inn.cpp
 
 ## Inventory (12)
-PENDING	551C0A	Inventory::Inventory	src/inventory.cpp
-PENDING	551C7A	Inventory::~Inventory	src/inventory.cpp
-PENDING	551E55	Inventory::Inventory	src/inventory.cpp
-PENDING	551FA3	Inventory::PutItemIntoBagAtDefault	src/inventory.cpp
-PENDING	551FC3	Inventory::PutItemIntoBag	src/inventory.cpp
-PENDING	5524FA	Inventory::sub_5524FA	src/inventory.cpp
-PENDING	552A42	Inventory::sub_552A42	src/inventory.cpp
-PENDING	552B6B	Inventory::sub_552B6B	src/inventory.cpp
-PENDING	552C37	Inventory::sub_552C37	src/inventory.cpp
-PENDING	552E42	Inventory::sub_552E42	src/inventory.cpp
-PENDING	5530A2	Inventory::sub_5530A2	src/inventory.cpp
-PENDING	55CCE4	Inventory::sub_55CCE4	src/inventory.cpp
+OK	551C0A	Inventory::Inventory	src/inventory.cpp
+OK	551C7A	Inventory::~Inventory	src/inventory.cpp
+OK	551E55	Inventory::Inventory	src/inventory.cpp
+OK	551FA3	Inventory::PutItemIntoBagAtDefault	src/inventory.cpp
+OK	551FC3	Inventory::PutItemIntoBag	src/inventory.cpp
+OK	5524FA	Inventory::sub_5524FA	src/inventory.cpp
+OK	552A42	Inventory::sub_552A42	src/inventory.cpp
+OK	552B6B	Inventory::sub_552B6B	src/inventory.cpp
+OK	552C37	Inventory::sub_552C37	src/inventory.cpp
+OK	552E42	Inventory::sub_552E42	src/inventory.cpp
+OK	5530A2	Inventory::sub_5530A2	src/inventory.cpp
+OK	55CCE4	Inventory::sub_55CCE4	src/inventory.cpp
 
 ## Item (28)
 PENDING	547F80	Item::Item	src/item.cpp
