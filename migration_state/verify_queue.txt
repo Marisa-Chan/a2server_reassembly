@@ -2831,13 +2831,13 @@ PENDING	4A0278	VisTavDruid::DoClose	src/visual.cpp
 PENDING	4A3F70	VisTavDruid::~VisTavDruid	src/visual.cpp
 
 ## VisTavKaarg (7)
-PENDING	4A18D8	VisTavKaarg::VisTavKaarg	src/visual.cpp
-PENDING	4A190D	VisTavKaarg::VMethod26	src/visual.cpp
-PENDING	4A1BA2	VisTavKaarg::VMethod28	src/visual.cpp
-PENDING	4A2448	VisTavKaarg::DoClose	src/visual.cpp
-PENDING	4A26D9	VisTavKaarg::VMethod30	src/visual.cpp
-PENDING	4A2873	VisTavKaarg::VMethod31	src/visual.cpp
-PENDING	4A4070	VisTavKaarg::~VisTavKaarg	src/visual.cpp
+OK	4A18D8	VisTavKaarg::VisTavKaarg	src/visual.cpp
+OK	4A190D	VisTavKaarg::VMethod26	src/visual.cpp
+OK	4A1BA2	VisTavKaarg::VMethod28	src/visual.cpp
+OK	4A2448	VisTavKaarg::DoClose	src/visual.cpp
+OK	4A26D9	VisTavKaarg::VMethod30	src/visual.cpp
+OK	4A2873	VisTavKaarg::VMethod31	src/visual.cpp
+OK	4A4070	VisTavKaarg::~VisTavKaarg	src/visual.cpp
 
 ## VisTavLeftPanel (10)
 OK	497990	VisTavLeftPanel::VisTavLeftPanel	src/visual.cpp
