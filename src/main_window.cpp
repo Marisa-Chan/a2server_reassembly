@@ -6456,7 +6456,7 @@ void CGameSession::FUN_004946ae()
 
 UserShortcut::UserShortcut()
 { //4971a0
-    SetNull();
+    this->SetNull();
 }
 
 UserShortcut::~UserShortcut()
@@ -6474,10 +6474,10 @@ UserShortcut::~UserShortcut()
 
 void UserShortcut::SetNull()
 { //4971c0
-    mods_size = 0;
-    item_id = 0;
-    kind = 0;
-    mods = nullptr;
+    this->mods_size = 0;
+    this->item_id = 0;
+    this->kind = 0;
+    this->mods = nullptr;
 }
 
 int UserShortcut::ToBuffer(uint8_t** buf)

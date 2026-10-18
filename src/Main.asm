@@ -31476,21 +31476,6 @@ sub_497130      endp
 ; Attributes: bp-based frame
 
 ; void __thiscall sub_4971A0(void *)
-sub_4971A0      proc near               ; DATA XREF: sub_49248A+30↑o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_4971C0
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_4971A0      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -31500,26 +31485,6 @@ sub_4971A0      endp
 ; Attributes: bp-based frame
 
 ; _DWORD *__thiscall sub_4971C0(_DWORD *varThis)
-sub_4971C0      proc near               ; CODE XREF: sub_4971A0+A↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+4], 0
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     word ptr [ecx+2], 0
-                mov     edx, dword ptr [ebp+var_4]
-                mov     word ptr [edx], 0
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+8], 0
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_4971C0      endp
 
 
 ; =============== S U B R O U T I N E =======================================
