@@ -2586,12 +2586,12 @@ OK	4E3DF0	VisScrollBar::OnLButtonDblClk	src/visual.cpp
 OK	4E3E80	VisScrollBar::~VisScrollBar	src/visual.cpp
 
 ## VisServerScreen (6)
-PENDING	44D909	VisServerScreen::VMethod26	src/visual.cpp
-PENDING	44DBAE	VisServerScreen::VMethod8	src/visual.cpp
-PENDING	44DBE0	VisServerScreen::VMethod7	src/visual.cpp
-PENDING	44E469	VisServerScreen::VisServerScreen	src/visual.cpp
-PENDING	44E6DE	VisServerScreen::OnKeyDown	src/visual.cpp
-PENDING	44E7C8	VisServerScreen::MsgProc	src/visual.cpp
+OK	44D909	VisServerScreen::VMethod26	src/visual.cpp
+OK	44DBAE	VisServerScreen::VMethod8	src/visual.cpp
+OK	44DBE0	VisServerScreen::VMethod7	src/visual.cpp
+OK	44E469	VisServerScreen::VisServerScreen	src/visual.cpp
+OK	44E6DE	VisServerScreen::OnKeyDown	src/visual.cpp
+OK	44E7C8	VisServerScreen::MsgProc	src/visual.cpp
 
 ## VisServerScreenRadio (3)
 PENDING	450920	VisServerScreenRadio::VisServerScreenRadio	src/visual.cpp
