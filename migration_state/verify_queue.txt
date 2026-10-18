@@ -915,8 +915,8 @@ OK	56EAC7	MapSackData::MapSackData	src/alm.cpp
 ## MapStuff (46)
 OK	587E19	MapStuff::MapStuff	src/map_stuff.cpp
 OK	587F70	MapStuff::~MapStuff	src/map_stuff.cpp
-PENDING	58826D	MapStuff::sub_58826D	src/map_stuff.cpp
-PENDING	5897AA	MapStuff::sub_5897AA	src/map_stuff.cpp
+OK	58826D	MapStuff::sub_58826D	src/map_stuff.cpp
+OK	5897AA	MapStuff::sub_5897AA	src/map_stuff.cpp
 PENDING	58AD4A	MapStuff::sub_58AD4A	src/map_stuff.cpp
 PENDING	58AEEF	MapStuff::sub_58AEEF	src/map_stuff.cpp
 PENDING	58B1D7	MapStuff::sub_58B1D7	src/map_stuff.cpp
