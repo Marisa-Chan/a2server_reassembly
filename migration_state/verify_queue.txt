@@ -2001,22 +2001,22 @@ PENDING	430850	VisCharSellectButtons::LoadBitmaps	src/visual.cpp
 PENDING	430A1A	VisCharSellectButtons::FreeBitmaps	src/visual.cpp
 
 ## VisCharSellectList (16)
-PENDING	430BBB	VisCharSellectList::VisCharSellectList	src/visual.cpp
-PENDING	430CB3	VisCharSellectList::Init	src/visual.cpp
-PENDING	430FAD	VisCharSellectList::FUN_00430fad	src/visual.cpp
-PENDING	430FEC	VisCharSellectList::VMethod7	src/visual.cpp
-PENDING	4312B7	VisCharSellectList::LoadBitmaps	src/visual.cpp
-PENDING	43148A	VisCharSellectList::FreeBitmaps	src/visual.cpp
-PENDING	431609	VisCharSellectList::OnMouseMove	src/visual.cpp
-PENDING	4316A0	VisCharSellectList::OnLButtonDblClk	src/visual.cpp
-PENDING	4316C4	VisCharSellectList::SelectRow	src/visual.cpp
-PENDING	431764	VisCharSellectList::OnLButtonDown	src/visual.cpp
-PENDING	43182C	VisCharSellectList::OnLButtonUp	src/visual.cpp
-PENDING	431872	VisCharSellectList::HitTest	src/visual.cpp
-PENDING	431A05	VisCharSellectList::SelectPrevRow	src/visual.cpp
-PENDING	431A93	VisCharSellectList::SelectNextRow	src/visual.cpp
-PENDING	431B95	VisCharSellectList::OnKeyDown	src/visual.cpp
-PENDING	431C97	VisCharSellectList::UpdateArrows	src/visual.cpp
+OK	430BBB	VisCharSellectList::VisCharSellectList	src/visual.cpp
+OK	430CB3	VisCharSellectList::Init	src/visual.cpp
+OK	430FAD	VisCharSellectList::FUN_00430fad	src/visual.cpp
+OK	430FEC	VisCharSellectList::VMethod7	src/visual.cpp
+OK	4312B7	VisCharSellectList::LoadBitmaps	src/visual.cpp
+OK	43148A	VisCharSellectList::FreeBitmaps	src/visual.cpp
+OK	431609	VisCharSellectList::OnMouseMove	src/visual.cpp
+OK	4316A0	VisCharSellectList::OnLButtonDblClk	src/visual.cpp
+OK	4316C4	VisCharSellectList::SelectRow	src/visual.cpp
+OK	431764	VisCharSellectList::OnLButtonDown	src/visual.cpp
+OK	43182C	VisCharSellectList::OnLButtonUp	src/visual.cpp
+OK	431872	VisCharSellectList::HitTest	src/visual.cpp
+OK	431A05	VisCharSellectList::SelectPrevRow	src/visual.cpp
+OK	431A93	VisCharSellectList::SelectNextRow	src/visual.cpp
+OK	431B95	VisCharSellectList::OnKeyDown	src/visual.cpp
+OK	431C97	VisCharSellectList::UpdateArrows	src/visual.cpp
 
 ## VisCharSellectStats (7)
 PENDING	42F0EC	VisCharSellectStats::VisCharSellectStats	src/visual.cpp
