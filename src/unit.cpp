@@ -992,7 +992,7 @@ void Unit::ReleaseObjects() {
 
 Item *Unit::UseItem(Item *item) {
     Item *itm = item->VMethod10(this);
-    this->VMethod19();
+    this->RecalcExperience();
     return itm;
 }
 
@@ -1000,14 +1000,14 @@ void Unit::UseItemOrStash(Item *item) {
     Item* itm = item->VMethod10(this);
     if (itm) {
         this->inventory->PutItemIntoBagAtDefault(itm);
-        this->VMethod19();
+        this->RecalcExperience();
     }
 }
 
 Item* Unit::Unequip(Item* item) {
     if (item) {
         item->VMethod11(this);
-        this->VMethod19();
+        this->RecalcExperience();
     }
     return item;
 }
@@ -1176,7 +1176,7 @@ void Unit::RecalcStats() {
     }
 }
 
-uint32_t Unit::VMethod19() {
+uint32_t Unit::RecalcExperience() {
     return this->_exp;
 }
 
@@ -2153,7 +2153,7 @@ void Unit::sub_52F601(const CString& name) {
 
     this->equipment_extra.AddToUnit(this);
 
-    this->VMethod19();
+    this->RecalcExperience();
 
     if (data.experience > 0) {
         this->_exp = data.experience;
@@ -2499,7 +2499,7 @@ void Humanoid::RecalcStats() {
     }
 }
 
-uint32_t Humanoid::VMethod19() {
+uint32_t Humanoid::RecalcExperience() {
     //537199
     uint32_t exps = 0;
     for (uint32_t ex : this->experience_per_sphere) {
@@ -3042,7 +3042,7 @@ void Human::FUN_00532587(CString hname, int32_t is_hero, const char* unk) {
     this->RecalcStats();
     this->hp = this->hp_max;
     this->mp = this->mp_max;
-    this->VMethod19();
+    this->RecalcExperience();
 
     if (this->typeId == 0) {
         LogMessage("Invalid human " + hname + " created");

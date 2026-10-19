@@ -272,7 +272,7 @@ Item* Item::VMethod10(Unit* pUnit) {
         e->VMethod11(pUnit);
     }
 
-    pUnit->VMethod19(); // WAT: what's this for? Does nothing.
+    pUnit->RecalcExperience(); // WAT: what's this for? Does nothing.
 
     int stat_bottle = this->world_equip->name.Find("ody") >= 0 ||
             this->world_equip->name.Find("ind") >= 0 ||
