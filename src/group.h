@@ -25,7 +25,7 @@ public:
     uint8_t gap_0x16[10];
     uint8_t order;
     uint8_t gap_0x21[3];
-    uint32_t field_0x24;
+    uint32_t avg_pos_yyxx;
     uint16_t field_0x28;
     uint8_t field_0x2a;
     uint8_t field_0x2b;

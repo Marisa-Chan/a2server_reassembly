@@ -861,7 +861,7 @@ uint32_t World::sub_5AB719(Group* group) {
     uint32_t position_yyxx = (avg_yy << 16) + avg_xx;
     PosYX position_yx = PosYX(avg_xx >> 8, avg_yy >> 8);
 
-    group->group_sub->field_0x24 = position_yyxx;
+    group->group_sub->avg_pos_yyxx = position_yyxx;
     group->group_sub->field_0x28 = position_yx.val;
 
     uint8_t max_distance = 0;
@@ -4154,7 +4154,7 @@ void World::sub_5AB92C(Group* group) {
     uint8_t avg_y = static_cast<uint8_t>(sum_y / count);
     PosYX avg_yx(avg_x, avg_y);
 
-    group->group_sub->field_0x24 = (avg_y << 16) | avg_x;
+    group->group_sub->avg_pos_yyxx = (avg_y << 16) | avg_x;
     group->group_sub->field_0x28 = avg_yx.val;
 
     uint8_t max_distance = 0;
