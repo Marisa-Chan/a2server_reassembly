@@ -496,3 +496,4 @@ World::sub_5AA9F6 -> CheckMoveArrival -- handles arrival at eye2->command_to
 World::sub_5AAA89 -> ChaseOrCast -- approach unit5 until in range, then StartCastAtUnit
 World::sub_5AAB08 -> ChaseOrAreaCast -- approach the cast position, then StartAreaCast
 World::sub_5AAB85 -> ApproachBuilding -- approach the command_to position for entering
+World::sub_5AAF84 -> TurnToFacing -- force-turn to facing, marking some_state when facing changed

@@ -1324,7 +1324,7 @@ void World::ChaseOrCast(Unit* unit) {
         this->StepTowardUnit(unit, unit->eye2->unit5);
         unit->some_state = 1;
     } else {
-        this->sub_5AA7CF(unit);
+        this->StartCastAtUnit(unit);
     }
 }
 
@@ -3001,7 +3001,7 @@ void World::DoTurnTo(Unit* unit, uint8_t facing) {
 }
 
 // 5AA7CF — commit a targeted spell cast from eye2 setup.
-void World::sub_5AA7CF(Unit* unit) {
+void World::StartCastAtUnit(Unit* unit) {
     unit->eye2->field4_0x9 = 2;
     unit->eye2->counter = 0;
     unit->some_state = 0xD;
