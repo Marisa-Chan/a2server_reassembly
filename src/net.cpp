@@ -1171,11 +1171,11 @@ Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
     pkt->id = cmd;
 
     if (this->make_statistics == 0) {
-        pkt->field_0x5 = 0;
+        pkt->from_player_id = 0;
     } else if (ns2->player_id == 0) {
-        pkt->field_0x5 = static_cast<uint16_t>((ns2->uid & 0x3FFF) | 0x4000);
+        pkt->from_player_id = static_cast<uint16_t>((ns2->uid & 0x3FFF) | 0x4000);
     } else {
-        pkt->field_0x5 = ns2->player_id;
+        pkt->from_player_id = ns2->player_id;
     }
 
     return pkt;

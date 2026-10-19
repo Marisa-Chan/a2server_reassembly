@@ -26,7 +26,7 @@ public:
 public:
 
     uint8_t order_mode;
-    uint16_t field_0x5;
+    uint16_t from_player_id;
     uint16_t to_player_id;
     uint8_t id;
 };

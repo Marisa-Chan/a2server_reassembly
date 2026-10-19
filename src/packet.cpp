@@ -9,7 +9,7 @@ Packet Packet::Inst;
 Packet::Packet() {
     //52681f
     this->order_mode = 0;
-    this->field_0x5 = 0;
+    this->from_player_id = 0;
     this->to_player_id = 0;
     this->id = 0;
 }
@@ -68,7 +68,7 @@ PacketJoin::PacketJoin(const PacketJoin *src) {
     //526c52
 
     this->id = src->id;
-    this->field_0x5 = src->field_0x5;
+    this->from_player_id = src->from_player_id;
 
     this->player_id = src->player_id;
     this->token_id = src->token_id;

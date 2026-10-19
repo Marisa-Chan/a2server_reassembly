@@ -2466,7 +2466,7 @@ void BigStruct2::FUN_0041b2a4(const char* nam, int32_t token, int32_t playerid) 
 
 	PacketJoin* join = &PacketJoin::Inst;
 	join->id = 0x91;
-	join->field_0x5 = this->my_main_unit->index;
+	join->from_player_id = this->my_main_unit->index;
 	join->to_player_id = 0;
 
 	strcpy(join->name, nam);
@@ -2497,7 +2497,7 @@ void BigStruct2::FUN_0041a8cc() {
 	PacketWord* pkt = &PacketWord::Inst;
 
 	pkt->id = 0x36;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->value = this->GetUnit_3f6c()->unit_id;
 
@@ -2629,7 +2629,7 @@ void BigStruct2::FUN_0041cbb8() {
 
 	PacketInfo* pkt = &PacketInfo::Inst;
 	pkt->id = 0x48;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->field_a1 = wnd->m_GameSession.body;
 	pkt->field_a2 = wnd->m_GameSession.reaction;
@@ -2647,7 +2647,7 @@ void BigStruct2::FUN_0041cc78(const CString& fname) {
 	PacketData* pkt = &PacketData::Inst;
 
 	pkt->id = 0xbe;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->count = 0;
 
@@ -2766,7 +2766,7 @@ int32_t BigStruct2::IsBagOpen() { // 41b495
 void BigStruct2::FUN_0041afcf(CString str) { //41afcf
 	PacketJoin* pkt = &PacketJoin::Inst;
 	pkt->id = 7;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	strcpy(pkt->name, str);
 
@@ -2776,7 +2776,7 @@ void BigStruct2::FUN_0041afcf(CString str) { //41afcf
 void BigStruct2::FUN_0041a735() { //41a735
 	PacketTerrain* pkt = &PacketTerrain::Inst;
 	pkt->id = 0x45;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	memcpy(pkt->buf, this->my_main_unit->diplomacy.GetData(), this->my_main_unit->diplomacy.GetSize() * 2);
 	pkt->count = this->my_main_unit->diplomacy.GetSize();
@@ -3354,7 +3354,7 @@ CSprite256* ProjectileInfo::FUN_0046f760() { //46f760
 void BigStruct2::FUN_0041cad0(int32_t m) { //41cad0
 	PacketInfo *pkt = &PacketInfo::Inst;
 	pkt->id = 4;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->field_0xa = m;
 	
@@ -3364,7 +3364,7 @@ void BigStruct2::FUN_0041cad0(int32_t m) { //41cad0
 void BigStruct2::FUN_0041aaaa(int32_t wim) { //41aaaa
 	PacketInfo* pkt = &PacketInfo::Inst;
 	pkt->id = 0x46;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->field_0xa = 1;
 	pkt->field_0xe = wim;
@@ -3375,7 +3375,7 @@ void BigStruct2::FUN_0041aaaa(int32_t wim) { //41aaaa
 void BigStruct2::FUN_0041abd2(int32_t form) { // 41abd2
 	PacketInfo* pkt = &PacketInfo::Inst;
 	pkt->id = 0x46;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->field_0xa = 2;
 	pkt->field_0xe = form;
@@ -3386,7 +3386,7 @@ void BigStruct2::FUN_0041abd2(int32_t form) { // 41abd2
 void BigStruct2::FUN_0041ab74() { //41ab74
 	PacketInfo* pkt = &PacketInfo::Inst;
 	pkt->id = 0x46;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->field_0xa = 3;
 	pkt->field_0xe = g_settings.AutoCasting;
@@ -3496,7 +3496,7 @@ void BigStruct2::FUN_0041b381() { // 41b381
 void BigStruct2::FUN_0041b10f() {
 	Packet* pkt = &Packet::Inst;
 	pkt->id = 0x4a;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
@@ -3506,7 +3506,7 @@ void BigStruct2::FUN_0041b064(int32_t arg1, int32_t arg2) {
 	pkt->id = 0x3f;
 	pkt->field_0xa = arg1;
 	pkt->field_0xe = arg2;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
@@ -3515,7 +3515,7 @@ void BigStruct2::SendAdjustPlayerGoldAction(int32_t goldDelta) const { //41b0be
 	PacketInfo* pkt = &PacketInfo::Inst;
 	pkt->id = 0x3e;
 	pkt->field_0xa = goldDelta;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
@@ -3544,7 +3544,7 @@ void BigStruct2::ScrollMapY(int32_t dy) { //403fc5
 
 void BigStruct2::OnOpenShopDialog() { //41a856
 	PacketWord* pkt = &PacketWord::Inst;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->id = 0x32;
 	pkt->value = this->GetUnit_3f6c()->unit_id;
@@ -3555,7 +3555,7 @@ void BigStruct2::OnOpenShopDialog() { //41a856
 
 void BigStruct2::NetOnOpenInnDialog() { //41adbb
 	PacketWord* pkt = &PacketWord::Inst;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->id = 0x38;
 	pkt->value = this->GetUnit_3f6c()->unit_id;
@@ -3793,7 +3793,7 @@ void BigStruct2::sub_419154(uint16_t x, uint16_t y) {
 	POSITION it = this->field_0x9d0.GetStartPosition();
 	PacketItemOperation* pkt = &PacketItemOperation::Inst;
 	pkt->id = 0x16;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->unit_id = x;
 	int32_t tile_y = this->sub_4184B8(g_mousept.x, g_mousept.y) + this->view_y;
@@ -3820,7 +3820,7 @@ void BigStruct2::sub_419246(uint16_t id) {
 	POSITION it = this->field_0x9d0.GetStartPosition();
 	PacketItemOperation* pkt = &PacketItemOperation::Inst;
 	pkt->id = 0x19;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->field_0xe = id;
 	pkt->count = 0;
@@ -3844,7 +3844,7 @@ void BigStruct2::sub_41930D(uint16_t x, uint16_t y) {
 	POSITION it = this->field_0x9d0.GetStartPosition();
 	PacketItemOperation* pkt = &PacketItemOperation::Inst;
 	pkt->id = 0x1A;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->unit_id = x;
 	pkt->field_0xc = y;
 	pkt->field_0xd = y >> 8;
@@ -3870,7 +3870,7 @@ void BigStruct2::sub_4193E8() {
 	POSITION it = this->field_0x9d0.GetStartPosition();
 	PacketItemOperation* pkt = &PacketItemOperation::Inst;
 	pkt->id = 0x17;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->count = 0;
 	while (it != nullptr) {
@@ -3893,7 +3893,7 @@ void BigStruct2::sub_4194A2() {
 	POSITION it = this->field_0x9d0.GetStartPosition();
 	PacketItemOperation* pkt = &PacketItemOperation::Inst;
 	pkt->id = 0x18;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->count = 0;
 	while (it != nullptr) {
@@ -3920,7 +3920,7 @@ void BigStruct2::sub_41955C(uint16_t id) {
 	}
 	PacketItemOperation* pkt = &PacketItemOperation::Inst;
 	pkt->id = 0x1B;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->field_0xe = id;
 	pkt->count = 0;
@@ -3943,7 +3943,7 @@ void BigStruct2::sub_41965D(uint16_t x, uint16_t y) {
 	POSITION it = this->field_0x9d0.GetStartPosition();
 	PacketItemOperation* pkt = &PacketItemOperation::Inst;
 	pkt->id = 0x1D;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->unit_id = x;
 	pkt->field_0xc = y;
@@ -3970,7 +3970,7 @@ void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	PacketItemOperation* pkt = &PacketItemOperation::Inst;
 	pkt->id = 0x1F;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->unit_id = x;
 	pkt->field_0xc = y;
@@ -4056,7 +4056,7 @@ void BigStruct2::sub_419BA1(uint16_t id, int32_t spell) {
 	POSITION it = this->field_0x9d0.GetStartPosition();
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	PacketItemOperation* pkt = &PacketItemOperation::Inst;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->field_0xe = id;
 	pkt->count = 0;
@@ -4344,7 +4344,7 @@ int32_t BigStruct2::sub_403B8F(int32_t arg1, int32_t arg2, int32_t arg3, int32_t
 void BigStruct2::sub_41B155() {
 	PacketInfo* pkt = &PacketInfo::Inst;
 	pkt->id = 0x4B;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
@@ -4353,7 +4353,7 @@ void BigStruct2::sub_41B155() {
 void BigStruct2::sub_41CE14() {
 	PacketInfo* pkt = &PacketInfo::Inst;
 	pkt->id = 0x4C;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
@@ -4362,7 +4362,7 @@ void BigStruct2::sub_41CE14() {
 void BigStruct2::sub_41AC2D(int32_t id) {
 	PacketInfo* pkt = &PacketInfo::Inst;
 	pkt->id = 0x46;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->field_0xa = 0x80;
 	pkt->field_0xe = id;
@@ -4373,7 +4373,7 @@ void BigStruct2::sub_41AC2D(int32_t id) {
 void BigStruct2::sub_41AC88(int32_t arg1, int32_t arg2) {
 	PacketInfo* pkt = &PacketInfo::Inst;
 	pkt->id = 0x23;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->field_0xa = arg1;
 	pkt->field_0xe = arg2;
@@ -4476,7 +4476,7 @@ void BigStruct2::sub_41A66E(uint16_t id) {
 	POSITION it = this->field_0x9d0.GetStartPosition();
 	PacketItemOperation* pkt = &PacketItemOperation::Inst;
 	pkt->id = 0x24;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->count = 0;
 	while (it != nullptr) {
@@ -4499,7 +4499,7 @@ void BigStruct2::sub_41A66E(uint16_t id) {
 void BigStruct2::sub_41A7C7(uint8_t arg1, uint16_t arg2, uint8_t arg3, uint16_t arg4, uint16_t arg5) {
 	PacketCmd* pkt = &PacketCmd::Inst;
 	pkt->id = 0x22;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->unit_id = this->field_0x138->unit_id;
 	pkt->type = arg1;
@@ -4514,7 +4514,7 @@ void BigStruct2::sub_41A7C7(uint8_t arg1, uint16_t arg2, uint8_t arg3, uint16_t 
 void BigStruct2::sub_41A5B4() {
 	PacketItemOperation* pkt = &PacketItemOperation::Inst;
 	pkt->id = 0x12;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->count = 0;
 	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
@@ -4537,7 +4537,7 @@ void BigStruct2::sub_41A33F(uint16_t x, uint16_t y) {
 	POSITION it = this->field_0x9d0.GetStartPosition();
 	PacketItemOperation* pkt = &PacketItemOperation::Inst;
 	pkt->id = 0x21;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->unit_id = x;
 	pkt->field_0xc = y;
@@ -4564,7 +4564,7 @@ void BigStruct2::sub_41A425() {
 	POSITION it = this->field_0x9d0.GetStartPosition();
 	PacketItemOperation* pkt = &PacketItemOperation::Inst;
 	pkt->id = 0x14;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->count = 0;
 	while (it != nullptr) {
@@ -4586,7 +4586,7 @@ void BigStruct2::sub_41A425() {
 void BigStruct2::sub_41A4DF() {
 	PacketItemOperation* pkt = &PacketItemOperation::Inst;
 	pkt->id = 0x13;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->count = 0;
 	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
@@ -6178,7 +6178,7 @@ void BigStruct2::FUN_0041c74b(int32_t x, int32_t y, int32_t w, int32_t h, int32_
 void BigStruct2::FUN_0041cb21() {
 	PacketInfo* pkt = &PacketInfo::Inst;
 	pkt->id = 0x39;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
@@ -6204,7 +6204,7 @@ int32_t BigStruct2::OnChar(uint32_t wparam) {
 void BigStruct2::FUN_0041cb67(int32_t val) {
 	PacketInfo* pkt = &PacketInfo::Inst;
 	pkt->id = 0x3b;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->field_0xa = val;
 	g_NetStru1_local.QueuePacketSend(pkt);
@@ -7837,7 +7837,7 @@ void BigStruct2::FUN_0041a001(int32_t idx) {
 			CGameObject* obj;
 			this->field_0x9d0.GetNextAssoc(it, key, obj);
 			if (obj->IsSelected() && (obj->availableSpellMask & (1 << (idx - 1))) != 0) {
-				pkt->field_0x5 = this->my_main_unit->index;
+				pkt->from_player_id = this->my_main_unit->index;
 				pkt->to_player_id = 0;
 				pkt->id = 0x1E;
 				pkt->field_0x10 = idx;
@@ -7917,7 +7917,7 @@ void BigStruct2::FUN_0041ae1c(int32_t serv_id) {
 		}
 	} else {
 		PacketInfo* pkt = &PacketInfo::Inst;
-		pkt->field_0x5 = this->my_main_unit->index;
+		pkt->from_player_id = this->my_main_unit->index;
 		pkt->to_player_id = 0;
 		pkt->id = 0x3A;
 		pkt->field_0xa = this->GetUnit_3f6c()->unit_id;
@@ -7935,7 +7935,7 @@ void BigStruct2::FUN_0041ace2(int32_t spell_id) {
 		this->field_0x9d0.GetNextAssoc(it, key, obj);
 		if (obj->IsSelected() && (obj->spells & (1 << spell_id)) != 0) {
 			pkt->id = 0x46;
-			pkt->field_0x5 = this->my_main_unit->index;
+			pkt->from_player_id = this->my_main_unit->index;
 			pkt->to_player_id = 0;
 			pkt->field_0xa = 4;
 			pkt->field_0xe = key | (spell_id << 16);
@@ -7981,7 +7981,7 @@ void BigStruct2::FUN_0041cda3(const char* mapname) {
 	PacketJoin* pkt = &PacketJoin::Inst;
 	pkt->id = 0xAE;
 	if (this->my_main_unit != nullptr) {
-		pkt->field_0x5 = this->my_main_unit->index;
+		pkt->from_player_id = this->my_main_unit->index;
 	}
 	pkt->to_player_id = 0;
 	strcpy(pkt->name, mapname);
@@ -7993,7 +7993,7 @@ void BigStruct2::FUN_0041cda3(const char* mapname) {
 void BigStruct2::sub_41A942() {
 	PacketWord* pkt = &PacketWord::Inst;
 	pkt->id = 0x33;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->value = this->field_0x138->unit_id;
 	g_NetStru1_local.QueuePacketSend(pkt);
@@ -8012,7 +8012,7 @@ CUnit* BigStruct2::FUN_0041dfa6(int32_t serv_id) {
 void BigStruct2::sub_41A9F6() {
 	PacketWord* pkt = &PacketWord::Inst;
 	pkt->id = 0x35;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->value = this->field_0x138->unit_id;
 	g_NetStru1_local.QueuePacketSend(pkt);
@@ -8022,7 +8022,7 @@ void BigStruct2::sub_41A9F6() {
 void BigStruct2::sub_41A99C() {
 	PacketWord* pkt = &PacketWord::Inst;
 	pkt->id = 0x34;
-	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->value = this->field_0x138->unit_id;
 	g_NetStru1_local.QueuePacketSend(pkt);

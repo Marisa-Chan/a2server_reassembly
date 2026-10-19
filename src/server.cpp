@@ -2960,7 +2960,7 @@ void Server::sub_504a96(Packet* pkt) {
     void* vtable = *reinterpret_cast<void**>(pkt);
     const char* packet_type = PacketType(pkt);
 
-    message.Format("sub_504a96: received item operation packet id=0x%02X, order_mode=%d, player_id=%d;  packet is '%s' --- 0x%x", pkt->id, pkt->order_mode, packet_item->field_0x5, packet_type, vtable);
+    message.Format("sub_504a96: received item operation packet id=0x%02X, order_mode=%d, player_id=%d;  packet is '%s' --- 0x%x", pkt->id, pkt->order_mode, packet_item->from_player_id, packet_type, vtable);
     LogMessage(message);
 
     // PATH 1: Group order (pkt->order_mode >= 1 means multiple units)
@@ -2972,7 +2972,7 @@ void Server::sub_504a96(Packet* pkt) {
             return;
         }
 
-        Unit* unit = this->sub_502AD1(packet_item->field_0x5, packet_item->entries[0]);
+        Unit* unit = this->sub_502AD1(packet_item->from_player_id, packet_item->entries[0]);
         if (!unit) {
             return;
         }
@@ -2984,7 +2984,7 @@ void Server::sub_504a96(Packet* pkt) {
         unit->sub_52C813();
 
         for (int i = 1; i < packet_item->count; ++i) {
-            Unit* u = this->sub_502AD1(packet_item->field_0x5, packet_item->entries[i]);
+            Unit* u = this->sub_502AD1(packet_item->from_player_id, packet_item->entries[i]);
             if (u) {
                 group->AddUnit(u);
                 u->sub_52C813();
@@ -3197,9 +3197,9 @@ void Server::sub_504a96(Packet* pkt) {
 #else
         CheckPacketType(pkt, "Packet3Dwords");
 
-        player = this->sub_502B4A(packet_3d->field_0x5);
+        player = this->sub_502B4A(packet_3d->from_player_id);
         if (player) {
-            NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(packet_3d->field_0x5);
+            NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(packet_3d->from_player_id);
             if (ns2 && ns2->field_0x2a8 != 0) {
                 this->FUN_004ff439(player, packet_3d->field_0x12);
             }
@@ -3209,7 +3209,7 @@ void Server::sub_504a96(Packet* pkt) {
 
     case 0x04: // Join mission.
         CheckPacketType(pkt, "PacketInfo");
-        player = g_PlayersList->sub_535B50(packet_info->field_0x5);
+        player = g_PlayersList->sub_535B50(packet_info->from_player_id);
         if (player) {
             this->sub_4FF937(player, (packet_info->field_0xa == 0) ? 1 : 0);
         }
@@ -3217,7 +3217,7 @@ void Server::sub_504a96(Packet* pkt) {
 
     case 0x05:
         CheckPacketType(pkt, "Packet");
-        player = this->sub_502B4A(pkt->field_0x5);
+        player = this->sub_502B4A(pkt->from_player_id);
         if (player) {
             player->field_0x43 = 0;
         }
@@ -3244,7 +3244,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x22: // Item operation.
         CheckPacketType(pkt, "PacketCmd");
         {
-            Unit* target_unit = this->sub_502AD1(packet_cmd->field_0x5, packet_cmd->unit_id);
+            Unit* target_unit = this->sub_502AD1(packet_cmd->from_player_id, packet_cmd->unit_id);
             if (!target_unit) {
                 break;
             }
@@ -3392,10 +3392,10 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x23: // Gold drop - create money sack on the ground
         CheckPacketType(pkt, "PacketInfo");
         {
-            player = g_PlayersList->sub_535B50(packet_info->field_0x5);
+            player = g_PlayersList->sub_535B50(packet_info->from_player_id);
             if (!player) {
                 CString msg;
-                msg.Format("Order error: no such Player %d", packet_info->field_0x5);
+                msg.Format("Order error: no such Player %d", packet_info->from_player_id);
                 LogMessage(msg);
                 break;
             }
@@ -3434,7 +3434,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x32: // Enter shop.
         CheckPacketType(pkt, "PacketWord");
         {
-            Unit* unit = this->sub_502AD1(packet_word->field_0x5, packet_word->value);
+            Unit* unit = this->sub_502AD1(packet_word->from_player_id, packet_word->value);
             if (!unit) {
                 break;
             }
@@ -3451,7 +3451,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x33:
         CheckPacketType(pkt, "PacketWord");
         {
-            Unit* unit = this->sub_502AD1(packet_word->field_0x5, packet_word->value);
+            Unit* unit = this->sub_502AD1(packet_word->from_player_id, packet_word->value);
             if (!unit) {
                 break;
             }
@@ -3469,7 +3469,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x34:
         CheckPacketType(pkt, "PacketWord");
         {
-            Unit* unit = this->sub_502AD1(packet_word->field_0x5, packet_word->value);
+            Unit* unit = this->sub_502AD1(packet_word->from_player_id, packet_word->value);
             if (!unit || !unit->position) {
                 break;
             }
@@ -3487,7 +3487,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x35:
         CheckPacketType(pkt, "PacketWord");
         {
-            Unit* unit = this->sub_502AD1(packet_word->field_0x5, packet_word->value);
+            Unit* unit = this->sub_502AD1(packet_word->from_player_id, packet_word->value);
             if (!unit) {
                 break;
             }
@@ -3502,7 +3502,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x36:
         CheckPacketType(pkt, "PacketWord");
         {
-            Unit* unit = this->sub_502AD1(packet_word->field_0x5, packet_word->value);
+            Unit* unit = this->sub_502AD1(packet_word->from_player_id, packet_word->value);
             if (!unit) {
                 break;
             }
@@ -3518,7 +3518,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x38: // Enter inn.
         CheckPacketType(pkt, "PacketWord");
         {
-            Unit* unit = this->sub_502AD1(packet_word->field_0x5, packet_word->value);
+            Unit* unit = this->sub_502AD1(packet_word->from_player_id, packet_word->value);
             if (!unit) {
                 break;
             }
@@ -3530,7 +3530,7 @@ void Server::sub_504a96(Packet* pkt) {
             unit->pOwner->building_entered_from_yx = unit->position->GetY() * 0x100 + unit->position->GetX();
             inn->sub_560C67(unit);
             CString m;
-            m.Format("Enter inn: player %d, unit %d, inn %d at (%d, %d)", packet_word->field_0x5, packet_word->value, inn->building_id, unit->position->GetX(), unit->position->GetY());
+            m.Format("Enter inn: player %d, unit %d, inn %d at (%d, %d)", packet_word->from_player_id, packet_word->value, inn->building_id, unit->position->GetX(), unit->position->GetY());
             LogMessage(m);
             break;
         }
@@ -3538,7 +3538,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x39:
         CheckPacketType(pkt, "PacketInfo");
         {
-            player = g_PlayersList->sub_535B50(packet_info->field_0x5);
+            player = g_PlayersList->sub_535B50(packet_info->from_player_id);
             if (player) {
                 this->sub_4FF878(player);
             }
@@ -3548,7 +3548,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x3A:
         CheckPacketType(pkt, "PacketInfo");
         {
-            Unit* unit = this->sub_502AD1(packet_info->field_0x5, packet_info->field_0xa);
+            Unit* unit = this->sub_502AD1(packet_info->from_player_id, packet_info->field_0xa);
             if (!unit) {
                 break;
             }
@@ -3558,7 +3558,7 @@ void Server::sub_504a96(Packet* pkt) {
             }
             inn->sub_560DC2(static_cast<Humanoid*>(unit), packet_info->field_0xe);
             CString m;
-            m.Format("Exit inn: player %d, unit %d, field: %x", packet_info->field_0x5, packet_info->field_0xa, packet_info->field_0xe);
+            m.Format("Exit inn: player %d, unit %d, field: %x", packet_info->from_player_id, packet_info->field_0xa, packet_info->field_0xe);
             LogMessage(m);
             break;
         }
@@ -3566,7 +3566,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x3B: // Map file chunk download --- send a chunk of current_map_name to the client
         CheckPacketType(pkt, "PacketInfo");
         {
-            player = this->sub_502B4A(packet_info->field_0x5);
+            player = this->sub_502B4A(packet_info->from_player_id);
             if (!player) {
                 break;
             }
@@ -3617,7 +3617,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (this->field4_0x74 != 0) {
                 break;
             }
-            player = this->sub_502B4A(packet_dword->field_0x5);
+            player = this->sub_502B4A(packet_dword->from_player_id);
             if (player) {
                 player->sub_534AC1(packet_dword->value, 1);
             }
@@ -3638,7 +3638,7 @@ void Server::sub_504a96(Packet* pkt) {
                 break;
             }
 
-            player = g_PlayersList->sub_535B50(packet_data->field_0x5);
+            player = g_PlayersList->sub_535B50(packet_data->from_player_id);
             if (!player) {
                 break;
             }
@@ -3694,7 +3694,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (!g_World) {
                 break;
             }
-            player = this->sub_502B4A(packet_info->field_0x5);
+            player = this->sub_502B4A(packet_info->from_player_id);
             if (!player) {
                 break;
             }
@@ -3727,7 +3727,7 @@ void Server::sub_504a96(Packet* pkt) {
                 }
                 break;
             case 4: {
-                    Unit* unit = this->sub_502AD1(packet_info->field_0x5, static_cast<uint16_t>(param_value));
+                    Unit* unit = this->sub_502AD1(packet_info->from_player_id, static_cast<uint16_t>(param_value));
                     if (unit && unit->eye2) {
                         uint8_t new_spell_id = static_cast<uint8_t>(param_value >> 16);
                         if (unit->eye2->spell_id == new_spell_id) {
@@ -3772,7 +3772,7 @@ void Server::sub_504a96(Packet* pkt) {
         break;
 #else
             CheckPacketType(pkt, "PacketInfo");
-            player = this->sub_502B4A(packet_info->field_0x5);
+            player = this->sub_502B4A(packet_info->from_player_id);
             if (!player) {
                 break;
             }
@@ -3853,7 +3853,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (this->field4_0x74 != 0) {
                 break;
             }
-            player = g_PlayersList->sub_535B50(packet_data->field_0x5);
+            player = g_PlayersList->sub_535B50(packet_data->from_player_id);
             if (!player || !player->main_unit) {
                 break;
             }
@@ -3874,7 +3874,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x4A:
         CheckPacketType(pkt, "Packet");
         {
-            player = g_PlayersList->sub_535B50(pkt->field_0x5);
+            player = g_PlayersList->sub_535B50(pkt->from_player_id);
             if (player) {
                 g_NetStru1_main.sub_51C46E(player);
             }
@@ -3884,7 +3884,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x4B: // Set respawn flag when unit is deeply dead (hp < -39)
         CheckPacketType(pkt, "Packet");
         {
-            player = this->sub_502B4A(pkt->field_0x5);
+            player = this->sub_502B4A(pkt->from_player_id);
             if (player && player->main_unit && player->main_unit->hp < -39) {
                 player->field_0xa64 = 1;
             }
@@ -3897,7 +3897,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (!g_World) {
                 break;
             }
-            player = this->sub_502B4A(pkt->field_0x5);
+            player = this->sub_502B4A(pkt->from_player_id);
             if (player) {
                 player->sub_534B59();
 
@@ -3917,7 +3917,7 @@ void Server::sub_504a96(Packet* pkt) {
                 break;
             }
 
-            player = g_PlayersList->sub_535B50(packet_join->field_0x5);
+            player = g_PlayersList->sub_535B50(packet_join->from_player_id);
             if (!player) {
                 break;
             }
@@ -3934,7 +3934,7 @@ void Server::sub_504a96(Packet* pkt) {
 
             PacketJoin out;
             out.id = packet_join->id;
-            out.__field_0xa = (uint32_t)(packet_join->field_0x5 & 0xFF) | ((uint32_t)chat_type << 8);
+            out.__field_0xa = (uint32_t)(packet_join->from_player_id & 0xFF) | ((uint32_t)chat_type << 8);
 
             switch (chat_type) {
             case 0: // Regular message: send to all non-AI players within range.
@@ -3958,7 +3958,7 @@ void Server::sub_504a96(Packet* pkt) {
                 }
                 break;
             case 2: // Private message.
-                out.field_0x5 = player->player_id;
+                out.from_player_id = player->player_id;
                 out.player_id = player->player_id;
                 out.token_id = chat_type;
                 // CC self.
@@ -3971,7 +3971,7 @@ void Server::sub_504a96(Packet* pkt) {
                 break;
             case 3: // Yell: global with cooldown.
                 if (player->field_0xa68 == 0) {
-                    out.field_0x5 = player->player_id;
+                    out.from_player_id = player->player_id;
                     out.player_id = player->player_id;
                     out.token_id = chat_type;
                     out.to_player_id = 0;
@@ -3983,7 +3983,7 @@ void Server::sub_504a96(Packet* pkt) {
                 }
                 break;
             case 4: // Global broadcast (no cooldown)
-                out.field_0x5 = player->player_id;
+                out.from_player_id = player->player_id;
                 out.player_id = player->player_id;
                 out.token_id = chat_type;
                 out.to_player_id = 0;
@@ -4007,7 +4007,7 @@ void Server::sub_504a96(Packet* pkt) {
 
     case 0xBE:
         CheckPacketType(pkt, "Packet");
-        player = this->sub_502B4A(pkt->field_0x5);
+        player = this->sub_502B4A(pkt->from_player_id);
         if (player->main_unit != nullptr) {
             g_NetStru1_main.sub_519221(player->main_unit, player, 0xffffffff, 0xffb, 0, 0);
         }
@@ -4018,7 +4018,7 @@ void Server::sub_504a96(Packet* pkt) {
         {
             int32_t latency = packet_dword->value;
             if (latency == 0 || (50 <= latency && latency <= 10000)) {
-                NetStru2* ns2 = g_NetStru1_main.GetClientByLowUid(packet_dword->field_0x5);
+                NetStru2* ns2 = g_NetStru1_main.GetClientByLowUid(packet_dword->from_player_id);
                 if (ns2) {
                     g_CLlDriver.SetLatency(ns2->uid, latency);
                 }
@@ -4030,7 +4030,7 @@ void Server::sub_504a96(Packet* pkt) {
         CheckPacketType(pkt, "PacketInfo");
         {
             // Only handle if this connection has not yet claimed a player (field_0x2a8 == 0)
-            NetStru2* ns2 = g_NetStru1_main.GetClientByLowUid(packet_info->field_0x5);
+            NetStru2* ns2 = g_NetStru1_main.GetClientByLowUid(packet_info->from_player_id);
             if (!ns2 || ns2->field_0x2a8 != 0) {
                 break;
             }
