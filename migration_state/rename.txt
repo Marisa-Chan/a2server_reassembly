@@ -94,3 +94,4 @@ MainWindow::field_0x140 -> vis_savegame -- matches its vis_savegame* type (load/
 MainWindow::field_0x144 -> vis_msgbox -- matches its vis_msgbox* type (load/save game screens, message box)
 MainWindow::field_0x148 -> last_save_info
 MainWindow::field_0x348 -> diplomacy_entries
+MainWindow::field_0x350 -> vis_connectiondlg

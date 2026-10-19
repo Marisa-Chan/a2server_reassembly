@@ -506,7 +506,7 @@ public:
     SaveFileInfo last_save_info;
     CArray<DiplomacyEntry*>* diplomacy_entries;
     VisScreen* field_0x34c;
-    VisConnectionDlg* field_0x350;
+    VisConnectionDlg* vis_connectiondlg;
     AvailNetSession net_sessions;
     int32_t last_protocol;
     VisCharGen* vis_chargen;

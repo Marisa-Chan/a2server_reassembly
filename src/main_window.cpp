@@ -2503,10 +2503,10 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         delete this->field_0x34c;
         this->field_0x34c = nullptr;
         return;
-    } else if (obj == this->field_0x350) {
+    } else if (obj == this->vis_connectiondlg) {
         this->dialogsMask &= ~8;
 
-        if (this->field_0x350->GetCloseCode() == 0x446) {
+        if (this->vis_connectiondlg->GetCloseCode() == 0x446) {
             if (this->sessionMode == 3) {
                 PostMessage(0x421, 0, 0);
             } else {
@@ -2514,8 +2514,8 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
             }
         }
 
-        delete this->field_0x350;
-        this->field_0x350 = nullptr;
+        delete this->vis_connectiondlg;
+        this->vis_connectiondlg = nullptr;
         return;
     } else if (obj == this->field_0x378) {
         this->dialogsMask &= ~8;
@@ -3472,32 +3472,32 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                 PostMessage(0x421, 0, 0);
             } else {
 
-                this->field_0x350 = new VisConnectionDlg(1, 0, 0, 640, 350, &this->last_protocol);
-                this->PopUpScreen(this->field_0x350);
+                this->vis_connectiondlg = new VisConnectionDlg(1, 0, 0, 640, 350, &this->last_protocol);
+                this->PopUpScreen(this->vis_connectiondlg);
 
                 if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol0")) {
-                    ((VisListBox*)this->field_0x350->FindChild(2))->SetSelectedIndex(0);
+                    ((VisListBox*)this->vis_connectiondlg->FindChild(2))->SetSelectedIndex(0);
                 }
                 if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol1")) {
-                    ((VisListBox*)this->field_0x350->FindChild(2))->SetSelectedIndex(1);
+                    ((VisListBox*)this->vis_connectiondlg->FindChild(2))->SetSelectedIndex(1);
                 }
                 if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol2")) {
-                    ((VisListBox*)this->field_0x350->FindChild(2))->SetSelectedIndex(2);
+                    ((VisListBox*)this->vis_connectiondlg->FindChild(2))->SetSelectedIndex(2);
                 }
                 if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol3")) {
-                    ((VisListBox*)this->field_0x350->FindChild(2))->SetSelectedIndex(3);
+                    ((VisListBox*)this->vis_connectiondlg->FindChild(2))->SetSelectedIndex(3);
                 }
                 if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol4")) {
-                    ((VisListBox*)this->field_0x350->FindChild(2))->SetSelectedIndex(4);
+                    ((VisListBox*)this->vis_connectiondlg->FindChild(2))->SetSelectedIndex(4);
                 }
 
                 if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol")) {
-                    this->field_0x350->MsgProc(0x445, 0, 0);
+                    this->vis_connectiondlg->MsgProc(0x445, 0, 0);
                 }
 
                 if (g_ServerConfig.protocol > -1 && g_ServerConfig.protocol < 2) {
-                    ((VisListBox*)this->field_0x350->FindChild(2))->SetSelectedIndex(g_ServerConfig.protocol);
-                    this->field_0x350->MsgProc(0x445, 0, 0);
+                    ((VisListBox*)this->vis_connectiondlg->FindChild(2))->SetSelectedIndex(g_ServerConfig.protocol);
+                    this->vis_connectiondlg->MsgProc(0x445, 0, 0);
                 }
             }
         }
