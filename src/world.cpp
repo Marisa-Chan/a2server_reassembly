@@ -2864,7 +2864,7 @@ void World::sub_5AC137(Group* group) {
     this->sub_5AB719(group);
     group->group_sub->field_0x0 = group->group_sub->avg_pos;
     group->group_sub->guard_range = group->group_sub->max_dist_plus_scan;
-    group->group_sub->field_0x38 = group->group_sub->max_dist_plus_scan;
+    group->group_sub->guard_range_base = group->group_sub->max_dist_plus_scan;
 }
 
 // Issue a move-to-point command to `group`.
@@ -2905,7 +2905,7 @@ void World::sub_5AC8A2(Group* group, uint8_t range) {
 
     if (group->group_sub->guard_range < range) {
         group->group_sub->guard_range = range;
-        group->group_sub->field_0x38 = range;
+        group->group_sub->guard_range_base = range;
     }
 
     group->group_sub->field_0x39 = 0;
@@ -3277,12 +3277,12 @@ void World::sub_5AC983(Group* group, int param) {
     if (param == 0) {
         if (group->group_sub->guard_range < this->MinimalGuardRange) {
             group->group_sub->guard_range = 20;
-            group->group_sub->field_0x38 = 20;
+            group->group_sub->guard_range_base = 20;
         }
     } else {
         if (group->group_sub->guard_range < param) {
             group->group_sub->guard_range = static_cast<uint8_t>(param);
-            group->group_sub->field_0x38 = static_cast<uint8_t>(param);
+            group->group_sub->guard_range_base = static_cast<uint8_t>(param);
         }
     }
 
@@ -4056,14 +4056,14 @@ void World::sub_5A51A1(Unit* unit) {
 
 // 5AE5C0
 void World::sub_5AE5C0(Group* group) {
-    uint8_t base = group->group_sub->field_0x38;
+    uint8_t base = group->group_sub->guard_range_base;
     int32_t r = this->sub_5B6F60(-1, 1);
     group->group_sub->guard_range = base + r + 4;
 }
 
 // 5AE5F5
 void World::sub_5AE5F5(Group* group) {
-    uint8_t base = group->group_sub->field_0x38;
+    uint8_t base = group->group_sub->guard_range_base;
     int32_t r = this->sub_5B6F60(-1, 1);
     group->group_sub->guard_range = base + r;
 }

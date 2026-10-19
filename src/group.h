@@ -34,7 +34,7 @@ public:
     uint8_t gap_0x2e[2];
     uint32_t was_empty;
     uint32_t phase_ticks;
-    uint8_t field_0x38;
+    uint8_t guard_range_base;
     uint8_t field_0x39;
     uint8_t gap_0x3a[10];
     uint8_t field_0x44; // Group movement speed?
