@@ -2060,7 +2060,7 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
                 hi = 0x10000;
             }
             memset(this->field3_0x30000 + lo, 0xFF, (hi - lo) * 2);
-            *this->sub_59A670(cur_x, cur_y) = 0;
+            *this->GetCostGridAt(cur_x, cur_y) = 0;
 
             while (this->field3_0x30000[dest.val] == 0xFFFF && this->field7_0x54008 != 0 && ring < ring_limit) {
                 this->field8_0x5400a = 0;
@@ -2075,9 +2075,9 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
             }
         } else {
             memset(this->field3_0x30000, 0xFF, 0x20000);
-            *this->sub_59A670(cur_x, cur_y) = 0;
+            *this->GetCostGridAt(cur_x, cur_y) = 0;
 
-            while (*this->sub_59A670(x, y) == 0xFFFF && this->field7_0x54008 != 0 && ring < distance + this->dynamic_scan_ahead) {
+            while (*this->GetCostGridAt(x, y) == 0xFFFF && this->field7_0x54008 != 0 && ring < distance + this->dynamic_scan_ahead) {
                 this->field8_0x5400a = 0;
                 for (int i = 0; i < this->field7_0x54008; i++) {
                     this->ExpandCostsDynamicQueue2(unit, this->path_queue_scratch[i], this->path_queue_scratch[0x1000 + i]);
@@ -2105,7 +2105,7 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
         if (unit->pOwner->is_ai == 0 && this->IsCellPassableStatic(unit, dest.val) != 0) {
             ring_limit = 1000;
             memset(this->field3_0x30000, 0xFF, 0x20000);
-            *this->sub_59A670(cur_x, cur_y) = 0;
+            *this->GetCostGridAt(cur_x, cur_y) = 0;
         } else {
             int32_t cur_packed = PosYX(cur_x, cur_y).val;
             int32_t half_width = (ring_limit << 8) + ring_limit + 0x200;
@@ -2118,7 +2118,7 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
                 hi = 0x10000;
             }
             memset(this->field3_0x30000 + lo, 0xFF, (hi - lo) * 2);
-            *this->sub_59A670(cur_x, cur_y) = 0;
+            *this->GetCostGridAt(cur_x, cur_y) = 0;
         }
 
         while (this->field3_0x30000[dest.val] == 0xFFFF && this->field7_0x54008 != 0 && (int32_t)ring < ring_limit) {
@@ -2134,9 +2134,9 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
         }
     } else {
         memset(this->field3_0x30000, 0xFF, 0x20000);
-        *this->sub_59A670(cur_x, cur_y) = 0;
+        *this->GetCostGridAt(cur_x, cur_y) = 0;
 
-        while (*this->sub_59A670(x, y) == 0xFFFF && this->field7_0x54008 != 0 && ring < distance + this->static_scan_ahead) {
+        while (*this->GetCostGridAt(x, y) == 0xFFFF && this->field7_0x54008 != 0 && ring < distance + this->static_scan_ahead) {
             this->field8_0x5400a = 0;
             for (int i = 0; i < this->field7_0x54008; i++) {
                 this->ExpandCostsStaticQueue2(unit, this->path_queue_scratch[i], this->path_queue_scratch[0x1000 + i]);
@@ -2149,7 +2149,7 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
         }
     }
 
-    if (*this->sub_59A670(x, y) == 0xFFFF) {
+    if (*this->GetCostGridAt(x, y) == 0xFFFF) {
         if (flag == 0) {
             uint16_t result_yx;
             if (target == nullptr) {
@@ -2210,21 +2210,21 @@ void MapStuff::ExpandCostGridNeighbors(Unit* unit, uint8_t x, uint8_t y, Passabl
             uint16_t cost;
             if (dx == 0 || dy == 0) {
                 if (unit->sub_59A030() == 1) {
-                    cost = *this->sub_59A670(x, y) + *this->sub_59A6F0(nx, ny);
+                    cost = *this->GetCostGridAt(x, y) + *this->sub_59A6F0(nx, ny);
                 } else {
-                    cost = *this->sub_59A670(x, y) + 2;
+                    cost = *this->GetCostGridAt(x, y) + 2;
                 }
             } else {
                 if (unit->sub_59A030() == 1) {
                     uint8_t walk_cost = *this->sub_59A6F0(nx, ny);
-                    cost = *this->sub_59A670(x, y) + walk_cost + (walk_cost / 2);
+                    cost = *this->GetCostGridAt(x, y) + walk_cost + (walk_cost / 2);
                 } else {
-                    cost = *this->sub_59A670(x, y) + 3;
+                    cost = *this->GetCostGridAt(x, y) + 3;
                 }
             }
 
-            if (cost < *this->sub_59A670(nx, ny)) {
-                *this->sub_59A670(nx, ny) = cost;
+            if (cost < *this->GetCostGridAt(nx, ny)) {
+                *this->GetCostGridAt(nx, ny) = cost;
                 out_x[out_count] = nx;
                 out_y[out_count] = ny;
                 out_count++;
@@ -2287,7 +2287,7 @@ void MapStuff::WalkCostPath(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x,
                     continue;
                 }
 
-                uint16_t cost = *this->sub_59A670((uint8_t)nx, (uint8_t)ny);
+                uint16_t cost = *this->GetCostGridAt((uint8_t)nx, (uint8_t)ny);
                 if (cost == 0xFFFF) {
                     continue;
                 }
@@ -2419,14 +2419,14 @@ uint16_t MapStuff::PickAttackPosition(Unit* unit, Unit* target) {
         int32_t perimeter_len = (box_max_x - box_min_x) + (box_max_y - box_min_y) + 1;
 
         for (int32_t step = 0; step < perimeter_len; step++) {
-            uint16_t cost_a = *this->sub_59A670((uint8_t)x_a, (uint8_t)y_a);
+            uint16_t cost_a = *this->GetCostGridAt((uint8_t)x_a, (uint8_t)y_a);
             if (cost_a < best_cost) {
                 best_cost = cost_a;
                 best_x = x_a;
                 best_y = y_a;
             }
 
-            uint16_t cost_b = *this->sub_59A670((uint8_t)x_b, (uint8_t)y_b);
+            uint16_t cost_b = *this->GetCostGridAt((uint8_t)x_b, (uint8_t)y_b);
             if (cost_b < best_cost) {
                 best_cost = cost_b;
                 best_x = x_b;
@@ -2573,7 +2573,7 @@ uint8_t* MapStuff::sub_59A6F0(uint8_t x, uint8_t y) {
 }
 
 // 59A670 --- get pointer into field3_0x30000 cost grid for (x, y)
-uint16_t* MapStuff::sub_59A670(uint8_t x, uint8_t y) {
+uint16_t* MapStuff::GetCostGridAt(uint8_t x, uint8_t y) {
     return &this->field3_0x30000[PosYX(x, y).val];
 }
 
