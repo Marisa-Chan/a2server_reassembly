@@ -1360,7 +1360,7 @@ void World::sub_5A9B6B(Unit* unit) {
             this->StepTowardUnit(unit, unit->eye2->unit3);
             break;
         case 5:
-            this->sub_5AA97E(unit);
+            this->ChaseOrAttack(unit);
             break;
         case 6:
             this->sub_5AAEBC(unit);
@@ -3326,7 +3326,7 @@ void World::OrderGuardPosition(Unit* unit) {
 }
 
 // 5AA97E
-void World::sub_5AA97E(Unit* unit) {
+void World::ChaseOrAttack(Unit* unit) {
     if (this->field24_0xa50->sub_58FE6D(unit, unit->eye2->unit, this->UnitMaxRange(unit)) == 0) {
         this->StepTowardUnit(unit, unit->eye2->unit);
         unit->some_state = 1;

@@ -176,7 +176,7 @@ public:
     void StartAttack(Unit* unit); // 5AA78C
     void sub_5AA8ED(Unit* unit); // 5AA8ED
     void StepTowardUnit(Unit* unit, Unit* target);
-    void sub_5AA97E(Unit* unit); // 5AA97E
+    void ChaseOrAttack(Unit* unit); // 5AA97E
     void sub_5AA9F6(Unit* unit); // 5AA9F6
     void sub_5AAA89(Unit* unit);
     void sub_5AAB08(Unit* unit); // 5AAB08

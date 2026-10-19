@@ -490,3 +490,4 @@ World::sub_5A6801 -> CastKnownSpell -- looks up spell_id in the book and starts 
 World::sub_5AA375 -> DoMoveStepTo -- movement executor toward yx within max_range
 World::sub_5AA426 -> DoTurnTo -- turns the unit to the given facing
 World::sub_5AA78C -> StartAttack -- begins a melee attack on eye2->unit (some_state 3)
+World::sub_5AA91B -> StepTowardUnit -- paths one step toward the target
