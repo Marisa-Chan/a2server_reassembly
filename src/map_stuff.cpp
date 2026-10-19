@@ -1464,7 +1464,7 @@ Unit* MapStuff::GetUnitAt(PosYX yx) {
 }
 
 // 5897AA
-UnitList* MapStuff::sub_5897AA(PosYX yx, uint8_t range) {
+UnitList* MapStuff::BuildNearbyUnitList(PosYX yx, uint8_t range) {
     this->field9_0x5400c.unit_list.RemoveAll();
 
     if (this->ObstacleAt(yx).TestBits(0x20)) {

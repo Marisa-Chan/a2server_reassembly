@@ -341,7 +341,7 @@ void World::sub_5A39AD(Unit* unit, UnitList* list) {
 // 5A3808
 UnitList* World::GetNearbyEnemies(Unit* caster, PosYX yx) {
     uint8_t range = caster->eye->field7_0x8;
-    UnitList* list = this->field24_0xa50->sub_5897AA(yx, range);
+    UnitList* list = this->field24_0xa50->BuildNearbyUnitList(yx, range);
     this->FilterByRelation(caster, list, 0);
     return list;
 }
@@ -350,7 +350,7 @@ UnitList* World::GetNearbyEnemies(Unit* caster, PosYX yx) {
 // 5A384F
 UnitList* World::GetNearbyAllies(Unit* caster, PosYX yx) {
     uint8_t range = caster->eye->field7_0x8;
-    UnitList* list = this->field24_0xa50->sub_5897AA(yx, range);
+    UnitList* list = this->field24_0xa50->BuildNearbyUnitList(yx, range);
     this->FilterByRelation(caster, list, 1);
     return list;
 }
@@ -739,7 +739,7 @@ uint8_t World::sub_5ABB32(Unit* unit, PosYX yx) {
     }
 
     if (unit_at_yx == nullptr) {
-        UnitList* nearby_list = this->field24_0xa50->sub_5897AA(yx, 1);
+        UnitList* nearby_list = this->field24_0xa50->BuildNearbyUnitList(yx, 1);
         CList<Unit*>* list = nearby_list != nullptr ? &nearby_list->unit_list : nullptr;
         if (list != nullptr) {
             POSITION unit_it = list->GetHeadPosition();
@@ -1011,7 +1011,7 @@ void World::CastSelfHealOrBuff(Unit* unit) {
     }
 
     PosYX yx = unit->position->GetYX();
-    UnitList* list = this->field24_0xa50->sub_5897AA(yx, spell->max_range);
+    UnitList* list = this->field24_0xa50->BuildNearbyUnitList(yx, spell->max_range);
     this->sub_5A39AD(unit, list);
 
     double best_ratio = 2.0;
@@ -1599,7 +1599,7 @@ int32_t World::sub_5A6ED9(Unit* caster, Unit* target) {
                     yx.y = yx.y + this->field24_0xa50->field49_0x58e90[dir];
                 }
             }
-            UnitList* list = this->field24_0xa50->sub_5897AA(yx, range);
+            UnitList* list = this->field24_0xa50->BuildNearbyUnitList(yx, range);
             int32_t enemy_count = 0;
             int32_t friendly_count = 0;
             POSITION it2 = (list != nullptr) ? list->unit_list.GetHeadPosition() : nullptr;
@@ -3658,7 +3658,7 @@ void World::DoTeleportHome(Unit* unit) {
 
     uint8_t range = unit->eye->field7_0x8 + 5;
     PosYX pos = unit->position->GetYX();
-    UnitList* list = this->field24_0xa50->sub_5897AA(pos, range);
+    UnitList* list = this->field24_0xa50->BuildNearbyUnitList(pos, range);
     this->FilterByRelation(unit, list, 0);
 
     uint8_t count = 0;
@@ -3726,7 +3726,7 @@ void World::sub_5A8A55(Unit* unit) {
 void World::sub_5A8DBC(Unit* unit) {
     uint8_t range = (unit->scan_range >> 8) - 1;
     PosYX pos = unit->position->GetYX();
-    UnitList* list = this->field24_0xa50->sub_5897AA(pos, 2);
+    UnitList* list = this->field24_0xa50->BuildNearbyUnitList(pos, 2);
     this->FilterByRelation(unit, list, 0);
     if (list->unit_list.GetCount() == 0) {
         this->DoGuardScan(unit);
@@ -3760,7 +3760,7 @@ int32_t World::sub_5A89D5(Unit* unit) {
 
     uint8_t range = unit->eye->field7_0x8 + 5;
     PosYX yx = unit->position->CompatGetYX();
-    UnitList* list = this->field24_0xa50->sub_5897AA(yx, range);
+    UnitList* list = this->field24_0xa50->BuildNearbyUnitList(yx, range);
     this->FilterByRelation(unit, list, 0);
     return list->unit_list.GetCount() != 0 ? 1 : 0;
 }
@@ -3774,7 +3774,7 @@ int32_t World::sub_5A8BDA(Unit* unit) {
     }
 
     PosYX yx = unit->position->CompatGetYX();
-    UnitList* list = this->field24_0xa50->sub_5897AA(yx, 2);
+    UnitList* list = this->field24_0xa50->BuildNearbyUnitList(yx, 2);
     this->FilterByRelation(unit, list, 0);
     return list->unit_list.GetCount() != 0 ? 1 : 0;
 }
@@ -3789,7 +3789,7 @@ void World::sub_5A8CD8(Unit* unit) {
     }
 
     PosYX pos = unit->position->GetYX();
-    UnitList* list = this->field24_0xa50->sub_5897AA(pos, 2);
+    UnitList* list = this->field24_0xa50->BuildNearbyUnitList(pos, 2);
     this->FilterByRelation(unit, list, 0);
     if (list->unit_list.GetCount() == 0) {
         this->DoGuardScan(unit);
@@ -3882,7 +3882,7 @@ void World::BeginPositionCast(Unit* unit, uint16_t pos_yx, Spell* spell) {
 UnitList* World::sub_5A3791(Unit* unit) {
     uint8_t range = unit->eye->field7_0x8;
     PosYX yx = unit->position->CompatGetYX();
-    return this->field24_0xa50->sub_5897AA(yx, range);
+    return this->field24_0xa50->BuildNearbyUnitList(yx, range);
 }
 
 // 5A37C5
