@@ -2275,7 +2275,7 @@ void World::ScriptOP_0x1c(TriggerAction* action) {
 // 5b455f — Tile Spell Duration: set duration of spell (data[2]) at tile (data[0], data[1])
 void World::ScriptOP_0x1d(TriggerAction* action) {
     uint16_t yx = (action->data[1] << 8) | action->data[0];
-    AreaEffect** slots = this->field24_0xa50->sub_59536C(yx);
+    AreaEffect** slots = this->field24_0xa50->GetAreaEffectsAt(yx);
     if (!slots) {
         return;
     }
@@ -4733,7 +4733,7 @@ void World::CheckOP_24(TriggerCheck* check) {
 // 5B369C
 void World::CheckOP_25(TriggerCheck* check) {
     PosYX yx(check->data[0], check->data[1]);
-    AreaEffect** effects = this->field24_0xa50->sub_59536C(yx.val);
+    AreaEffect** effects = this->field24_0xa50->GetAreaEffectsAt(yx.val);
     if (effects == nullptr) {
         this->trigger_variables[check->id] = 0;
     } else if (effects[check->data[2]] != nullptr) {

@@ -1911,7 +1911,7 @@ int MapStuff::RemoveAreaEffectAt(AreaEffect* ae, uint16_t yx) {
 }
 
 // 59536C --- get pointer to area_effects[6] array at cell yx
-AreaEffect** MapStuff::sub_59536C(uint32_t yx) {
+AreaEffect** MapStuff::GetAreaEffectsAt(uint32_t yx) {
     uint16_t key = (uint16_t)yx;
     if (!this->ObstacleAt(key).TestBits(0x20)) {
         return nullptr;

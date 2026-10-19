@@ -378,7 +378,7 @@ void AreaEffect::sub_538137(uint8_t x, uint8_t y, bool spread_damage) {
 
 // 53868D
 void AreaEffect::sub_53868D(uint8_t x, uint8_t y) {
-	AreaEffect** layers = MapStuff_Instance->sub_59536C(PosYX(x, y).val);
+	AreaEffect** layers = MapStuff_Instance->GetAreaEffectsAt(PosYX(x, y).val);
 	if (layers == nullptr) {
 		return;
 	}
