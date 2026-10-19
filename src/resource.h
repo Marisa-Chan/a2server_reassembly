@@ -35,7 +35,7 @@ struct ResBase {
     uint32_t size;
     FatEntry* fat_data;
     FatEntry* modify_fat;
-    uint32_t field_0x30;
+    uint32_t content_size;
     union {
         CFile* file;
         uint8_t* pdata;

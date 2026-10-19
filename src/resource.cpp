@@ -294,7 +294,7 @@ ResFile::ResFile(const char* fpath) {
     this->file->Read(this->fat_data, this->fat_size << 5);
 
     this->modify_fat = nullptr;
-    this->field_0x30 = 0;
+    this->content_size = 0;
 }
 
 ResFile::~ResFile() {
@@ -335,7 +335,7 @@ RegFile::RegFile() {
     this->root.offset = 0;
     this->root.size = 0;
     this->root.flags = 1;
-    this->field_0x30 = 0;
+    this->content_size = 0;
 }
 
 
@@ -506,7 +506,7 @@ void ResBase::FUN_004ecc05(FatEntry* node) {
 
         int8_t tmp = (node->flags & 0xe) >> 1;
         if (tmp != 1 && tmp != 2) {
-            this->field_0x30 += node->size;
+            this->content_size += node->size;
         }
     } else if ((node->flags & 0x40000001) == 1) {
         node->flags |= 0x40000000;
@@ -665,7 +665,7 @@ void ResBase::WriteToFile(CFile* cfile, int32_t offset) {
     cfile->Write(&this->root.size, 4);
     cfile->Write(&this->root.flags, 4);
     cfile->Write(&this->fat_size, 4);
-    cfile->Write(&this->field_0x30, 4);
+    cfile->Write(&this->content_size, 4);
     cfile->Write(this->fat_data, this->fat_size * sizeof(FatEntry));
     cfile->Write(&this->field_0x3c, 4);
     cfile->Write(this->pdata, this->field_0x3c);
@@ -687,7 +687,7 @@ void ResBase::ReadFromFile(CFile* cfile, int32_t offset) {
     cfile->Read(&this->root.size, 4);
     cfile->Read(&this->root.flags, 4);
     cfile->Read(&this->fat_size, 4);
-    cfile->Read(&this->field_0x30, 4);
+    cfile->Read(&this->content_size, 4);
 
     if (this->fat_data == nullptr) {
         this->fat_data = (FatEntry*)malloc(this->fat_size * sizeof(FatEntry));
@@ -904,7 +904,7 @@ int ResBase::GetSizedString(const char* fpath, const char* fname, const char* de
 void ResBase::FUN_004e99c4() {
     //4e99c4
     this->modify_fat = nullptr;
-    this->field_0x30 = 0;
+    this->content_size = 0;
 
     this->FUN_004ec438(&this->root);
 
@@ -947,7 +947,7 @@ void ResBase::FUN_004e99c4() {
     }
 
     this->field_0x3c = pnodes[idx]->offset + pnodes[idx]->size;
-    this->field_0x30 = 0;
+    this->content_size = 0;
 
     delete[] pnodes;
 }
@@ -956,7 +956,7 @@ uint8_t *ResBase::AllocData(uint32_t size) {
     //4e9bb6
 
     if (this->fat_offset <= this->field_0x3c + size) {
-        if (this->field_0x3c / 8 < this->field_0x30) {
+        if (this->field_0x3c / 8 < this->content_size) {
             this->FUN_004e99c4();
 
             if (this->fat_offset <= this->field_0x3c + size) {
@@ -1007,11 +1007,11 @@ void ResBase::SetString(const char* fpath, const char* fname, const char* str) {
     
     int ln = strlen(str) + 1;
     if (node->size < ln) {
-        this->field_0x30 += node->size;
+        this->content_size += node->size;
         node->size = ln;
         node->offset = this->AllocData(ln) - this->pdata;
     } else {
-        this->field_0x30 += (node->size - ln);
+        this->content_size += (node->size - ln);
     }
 
     strcpy((char *)this->pdata + node->offset, str);
@@ -1090,11 +1090,11 @@ void ResBase::SetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>
 
     uint32_t ln = array.GetSize() * 4;
     if (node->size < ln) {
-        this->field_0x30 += node->size;
+        this->content_size += node->size;
         node->size = ln;
         node->offset = this->AllocData(node->size) - this->pdata;
     } else {
-        this->field_0x30 += node->size - ln;
+        this->content_size += node->size - ln;
     }
 
     for (uint32_t i = 0; i < array.GetSize(); i++) {
@@ -1126,11 +1126,11 @@ void ResBase::SetInt16Array(const char* fpath, const char* fname, CArray<uint16_
 
     uint32_t ln = array.GetSize() * 4;
     if (node->size < ln) {
-        this->field_0x30 += node->size;
+        this->content_size += node->size;
         node->size = ln;
         node->offset = this->AllocData(node->size) - this->pdata;
     } else {
-        this->field_0x30 += node->size - ln;
+        this->content_size += node->size - ln;
     }
 
     for (uint32_t i = 0; i < array.GetSize(); i++) {
@@ -1162,11 +1162,11 @@ void ResBase::SetInt32Array(const char* fpath, const char* fname, CArray<uint32_
 
     uint32_t ln = array.GetSize() * 4;
     if (node->size < ln) {
-        this->field_0x30 += node->size;
+        this->content_size += node->size;
         node->size = ln;
         node->offset = this->AllocData(node->size) - this->pdata;
     } else {
-        this->field_0x30 += node->size - ln;
+        this->content_size += node->size - ln;
     }
 
     for (uint32_t i = 0; i < array.GetSize(); i++) {
