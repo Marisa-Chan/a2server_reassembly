@@ -481,3 +481,4 @@ World::sub_5B6632 -> PickAttackSpell -- AI mage spell selection: pick a random a
 World::sub_5A845B -> CastSelfHealOrBuff -- AI mage retreat helper: cast healing/buff on self or most-damaged ally
 World::sub_5A79D6 -> GetCastableSpell -- returns the spell by book number if the unit has enough MP
 World::sub_5A7A1C -> ShouldAutobuff -- diplomacy + autobuff_mask check whether caster should buff target
+World::sub_5A7B44 -> DoAutobuff -- autobuff handler: pick and cast buff spells on self or allies

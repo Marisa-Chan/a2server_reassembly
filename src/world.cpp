@@ -1771,7 +1771,7 @@ void World::DoAutobuff(Unit* unit) {
         POSITION pos = this->field28_0xaa4.unit_list.GetHeadPosition();
         while (pos) {
             Unit* other = this->field28_0xaa4.unit_list.GetNext(pos);
-            if (!this->ShouldAutobuff(unit, other) || !this->sub_5A7AF7(unit, other, spell)) {
+            if (!this->ShouldAutobuff(unit, other) || !this->IsSpellInRange(unit, other, spell)) {
                 continue;
             }
 
@@ -1816,7 +1816,7 @@ void World::DoAutobuff(Unit* unit) {
             spell = this->GetCastableSpell(unit, spell::bless, 0);
             if (spell != nullptr && (other->unit_attrs & 4) == 0 && (other->enchantments & (1 << spell::bless)) == 0) {
                 if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
-                    if (this->sub_5A7AF7(unit, other, spell) != 0) {
+                    if (this->IsSpellInRange(unit, other, spell) != 0) {
                         unit->eye2->field49_0x60 = 1;
                         this->sub_5A85F4(unit, other, spell);
                         return;
@@ -1828,7 +1828,7 @@ void World::DoAutobuff(Unit* unit) {
             spell = this->GetCastableSpell(unit, spell::haste, 0);
             if (spell != nullptr && (other->enchantments & (1 << spell::haste)) == 0) {
                 if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
-                    if (this->sub_5A7AF7(unit, other, spell) != 0) {
+                    if (this->IsSpellInRange(unit, other, spell) != 0) {
                         unit->eye2->field49_0x60 = 1;
                         this->sub_5A85F4(unit, other, spell);
                         return;
@@ -1862,7 +1862,7 @@ void World::DoAutobuff(Unit* unit) {
 
             // Protection from air: no matching enchantment.
             spell = this->GetCastableSpell(unit, spell::protection_from_air, 0);
-            if (spell != nullptr && this->sub_5A7AF7(unit, other, spell) != 0) {
+            if (spell != nullptr && this->IsSpellInRange(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::protection_from_air)) == 0) {
                     if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
                         unit->eye2->field49_0x60 = 1;
@@ -1874,7 +1874,7 @@ void World::DoAutobuff(Unit* unit) {
 
             // Protection from earth: no matching enchantment.
             spell = this->GetCastableSpell(unit, spell::protection_from_earth, 0);
-            if (spell != nullptr && this->sub_5A7AF7(unit, other, spell) != 0) {
+            if (spell != nullptr && this->IsSpellInRange(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::protection_from_earth)) == 0) {
                     if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
                         unit->eye2->field49_0x60 = 1;
@@ -1886,7 +1886,7 @@ void World::DoAutobuff(Unit* unit) {
 
             // Protection from fire: no matching enchantment.
             spell = this->GetCastableSpell(unit, spell::protection_from_fire, 0);
-            if (spell != nullptr && this->sub_5A7AF7(unit, other, spell) != 0) {
+            if (spell != nullptr && this->IsSpellInRange(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::protection_from_fire)) == 0) {
                     if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
                         unit->eye2->field49_0x60 = 1;
@@ -1898,7 +1898,7 @@ void World::DoAutobuff(Unit* unit) {
 
             // Protection from water: no matching enchantment.
             spell = this->GetCastableSpell(unit, spell::protection_from_water, 0);
-            if (spell != nullptr && this->sub_5A7AF7(unit, other, spell) != 0) {
+            if (spell != nullptr && this->IsSpellInRange(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::protection_from_water)) == 0) {
                     if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
                         unit->eye2->field49_0x60 = 1;
@@ -1910,7 +1910,7 @@ void World::DoAutobuff(Unit* unit) {
 
             // Invisibility: no matching enchantment, not self, diplomacy check.
             spell = this->GetCastableSpell(unit, spell::invisibility, 0);
-            if (spell != nullptr && this->sub_5A7AF7(unit, other, spell) != 0) {
+            if (spell != nullptr && this->IsSpellInRange(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::invisibility)) == 0 && unit != other) {
                     if ((this->diplomacy.diplomacy[unit->pOwner->player_id][other->pOwner->player_id] & 3) != 0) {
                         if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
@@ -2665,7 +2665,7 @@ Spell* World::GetCastableSpell(Unit* unit, int32_t spell_number, int32_t /*flag*
 
 // Check whether `other` is within `spell`'s max range from `unit`.
 // 5A7AF7
-int32_t World::sub_5A7AF7(Unit* unit, Unit* other, Spell* spell) {
+int32_t World::IsSpellInRange(Unit* unit, Unit* other, Spell* spell) {
     PosYX other_yx = other->position->GetYX();
     PosYX unit_yx = unit->position->GetYX();
     uint8_t distance = this->field24_0xa50->sub_593B29(unit_yx, other_yx);

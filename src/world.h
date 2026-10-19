@@ -333,7 +333,7 @@ public:
     Spell* GetCastableSpell(Unit* unit, int32_t spell_number, int32_t flag); // Pick spell by number if unit has enough MP.
     int32_t ShouldAutobuff(Unit* unit, Unit* other); // Check if `unit` should autobuff `other` (diplomacy/settings check).
     void DoAutobuff(Unit* unit); // Autobuff handler: pick and cast buff spells on self or allies.
-    int32_t sub_5A7AF7(Unit* unit, Unit* other, Spell* spell); // Check if `other` is in range of spell from `unit`.
+    int32_t IsSpellInRange(Unit* unit, Unit* other, Spell* spell); // Check if `other` is in range of spell from `unit`.
     void sub_5A85F4(Unit* caster, Unit* target, Spell* spell); // Set up autobuff cast action for caster.
     void sub_5A6DA3(Unit* unit, Building* building); // 5A6DA3
 
