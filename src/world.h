@@ -334,7 +334,7 @@ public:
     int32_t ShouldAutobuff(Unit* unit, Unit* other); // Check if `unit` should autobuff `other` (diplomacy/settings check).
     void DoAutobuff(Unit* unit); // Autobuff handler: pick and cast buff spells on self or allies.
     int32_t IsSpellInRange(Unit* unit, Unit* other, Spell* spell); // Check if `other` is in range of spell from `unit`.
-    void sub_5A85F4(Unit* caster, Unit* target, Spell* spell); // Set up autobuff cast action for caster.
+    void BeginAutobuffCast(Unit* caster, Unit* target, Spell* spell); // Set up autobuff cast action for caster.
     void sub_5A6DA3(Unit* unit, Building* building); // 5A6DA3
 
     // Helpers for the functions above; bodies remain in Main.asm for now.

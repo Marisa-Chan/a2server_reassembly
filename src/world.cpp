@@ -1006,7 +1006,7 @@ void World::CastSelfHealOrBuff(Unit* unit) {
 
     if (unit->hp != unit->hp_max) {
         unit->eye2->field49_0x60 = 1;
-        this->sub_5A85F4(unit, unit, spell);
+        this->BeginAutobuffCast(unit, unit, spell);
         return;
     }
 
@@ -1033,14 +1033,14 @@ void World::CastSelfHealOrBuff(Unit* unit) {
         this->sub_5B6862(unit, list);
     } else {
         unit->eye2->field49_0x60 = 1;
-        this->sub_5A85F4(unit, best_unit, spell);
+        this->BeginAutobuffCast(unit, best_unit, spell);
     }
 }
 
 // Set up an autobuff cast action on caster targeting target (or the nearest
 // eligible unit when target is null). If no target is found the caster idles.
 // 5A85F4
-void World::sub_5A85F4(Unit* caster, Unit* target, Spell* spell) {
+void World::BeginAutobuffCast(Unit* caster, Unit* target, Spell* spell) {
     if (target == nullptr) {
         PosYX yx = caster->position->GetYX();
         UnitList* list = (spell->is_defensive != 0) ? this->sub_5A384F(caster, yx) : this->sub_5A3808(caster, yx);
@@ -1072,7 +1072,7 @@ void World::sub_5B6862(Unit* unit, UnitList* list) {
         Spell* heal = unit->spell_book->sub_53DB79(spell::heal);
         if (heal != nullptr) {
             unit->eye2->field49_0x60 = 1;
-            this->sub_5A85F4(unit, unit, heal);
+            this->BeginAutobuffCast(unit, unit, heal);
             return;
         }
     }
@@ -1081,7 +1081,7 @@ void World::sub_5B6862(Unit* unit, UnitList* list) {
     Spell* shield = unit->spell_book->sub_53DB79(spell::shield);
     if (shield != nullptr && (unit->enchantments & (1 << shield->spell_id)) == 0) {
         unit->eye2->field49_0x60 = 1;
-        this->sub_5A85F4(unit, unit, shield);
+        this->BeginAutobuffCast(unit, unit, shield);
         return;
     }
 
@@ -1105,7 +1105,7 @@ void World::sub_5B6862(Unit* unit, UnitList* list) {
         Spell* heal = unit->spell_book->sub_53DB79(spell::heal);
         if (heal != nullptr) {
             unit->eye2->field49_0x60 = 1;
-            this->sub_5A85F4(unit, target, heal);
+            this->BeginAutobuffCast(unit, target, heal);
             return;
         }
     }
@@ -1134,7 +1134,7 @@ void World::sub_5B6862(Unit* unit, UnitList* list) {
     }
 
     unit->eye2->field49_0x60 = 1;
-    this->sub_5A85F4(unit, target, buff);
+    this->BeginAutobuffCast(unit, target, buff);
 }
 
 // Pick a spell from the caster's spellbook and start casting it at the
@@ -1156,7 +1156,7 @@ void World::sub_5A6801(Unit* caster, Unit* target, int32_t spell_id) {
         case spell::drain_life:
         case spell::curse:
         case spell::slow:
-            this->sub_5A85F4(caster, target, spell);
+            this->BeginAutobuffCast(caster, target, spell);
             break;
 
         case spell::protection_from_fire:
@@ -1169,7 +1169,7 @@ void World::sub_5A6801(Unit* caster, Unit* target, int32_t spell_id) {
         case spell::heal:
         case spell::summon:
         case spell::shield:
-            this->sub_5A85F4(caster, caster, spell);
+            this->BeginAutobuffCast(caster, caster, spell);
             break;
 
         case spell::fire_ball:
@@ -1573,7 +1573,7 @@ int32_t World::sub_5A6ED9(Unit* caster, Unit* target) {
     case spell::stone_missile:
     case spell::drain_life:
         caster->eye2->field49_0x60 = 1;
-        this->sub_5A85F4(caster, target, spell);
+        this->BeginAutobuffCast(caster, target, spell);
         return 1;
 
     case spell::fire_ball:
@@ -1623,7 +1623,7 @@ int32_t World::sub_5A6ED9(Unit* caster, Unit* target) {
             return 0;
         }
         caster->eye2->field49_0x60 = 1;
-        this->sub_5A85F4(caster, target, spell);
+        this->BeginAutobuffCast(caster, target, spell);
         return 1;
     }
 
@@ -1638,14 +1638,14 @@ int32_t World::sub_5A6ED9(Unit* caster, Unit* target) {
                 Unit* other = this->field29_0xac4.unit_list.GetNext(it);
                 if ((other->enchantments & mask) == 0) {
                     caster->eye2->field49_0x60 = 1;
-                    this->sub_5A85F4(caster, target, spell);
+                    this->BeginAutobuffCast(caster, target, spell);
                     return 1;
                 }
             }
             return 0;
         }
         caster->eye2->field49_0x60 = 1;
-        this->sub_5A85F4(caster, target, spell);
+        this->BeginAutobuffCast(caster, target, spell);
         return 1;
     }
 
@@ -1676,18 +1676,18 @@ int32_t World::sub_5A6ED9(Unit* caster, Unit* target) {
             return 1;
         }
         caster->eye2->field49_0x60 = 1;
-        this->sub_5A85F4(caster, best_unit, spell);
+        this->BeginAutobuffCast(caster, best_unit, spell);
         return 1;
     }
 
     case spell::summon:
-        this->sub_5A85F4(caster, caster, spell);
+        this->BeginAutobuffCast(caster, caster, spell);
         return 1;
 
     case spell::shield:
         if ((caster->enchantments & (1 << spell::shield)) == 0) {
             caster->eye2->field49_0x60 = 1;
-            this->sub_5A85F4(caster, caster, spell);
+            this->BeginAutobuffCast(caster, caster, spell);
             return 1;
         }
         return 0;
@@ -1743,7 +1743,7 @@ void World::DoAutobuff(Unit* unit) {
         Spell* spell = this->GetCastableSpell(unit, spell::heal, 0);
         if (spell != nullptr) {
             unit->eye2->field49_0x60 = 1;
-            this->sub_5A85F4(unit, unit, spell);
+            this->BeginAutobuffCast(unit, unit, spell);
             return;
         }
     }
@@ -1753,7 +1753,7 @@ void World::DoAutobuff(Unit* unit) {
         Spell* spell = this->GetCastableSpell(unit, spell::shield, 0);
         if (spell != nullptr) {
             unit->eye2->field49_0x60 = 1;
-            this->sub_5A85F4(unit, unit, spell);
+            this->BeginAutobuffCast(unit, unit, spell);
             return;
         }
     }
@@ -1785,7 +1785,7 @@ void World::DoAutobuff(Unit* unit) {
 
         if (best_ratio < 1.0) {
             unit->eye2->field49_0x60 = 1;
-            this->sub_5A85F4(unit, best_unit, spell);
+            this->BeginAutobuffCast(unit, best_unit, spell);
             return;
         }
     }
@@ -1818,7 +1818,7 @@ void World::DoAutobuff(Unit* unit) {
                 if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
                     if (this->IsSpellInRange(unit, other, spell) != 0) {
                         unit->eye2->field49_0x60 = 1;
-                        this->sub_5A85F4(unit, other, spell);
+                        this->BeginAutobuffCast(unit, other, spell);
                         return;
                     }
                 }
@@ -1830,7 +1830,7 @@ void World::DoAutobuff(Unit* unit) {
                 if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
                     if (this->IsSpellInRange(unit, other, spell) != 0) {
                         unit->eye2->field49_0x60 = 1;
-                        this->sub_5A85F4(unit, other, spell);
+                        this->BeginAutobuffCast(unit, other, spell);
                         return;
                     }
                 }
@@ -1866,7 +1866,7 @@ void World::DoAutobuff(Unit* unit) {
                 if ((other->enchantments & (1 << spell::protection_from_air)) == 0) {
                     if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
                         unit->eye2->field49_0x60 = 1;
-                        this->sub_5A85F4(unit, other, spell);
+                        this->BeginAutobuffCast(unit, other, spell);
                         return;
                     }
                 }
@@ -1878,7 +1878,7 @@ void World::DoAutobuff(Unit* unit) {
                 if ((other->enchantments & (1 << spell::protection_from_earth)) == 0) {
                     if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
                         unit->eye2->field49_0x60 = 1;
-                        this->sub_5A85F4(unit, other, spell);
+                        this->BeginAutobuffCast(unit, other, spell);
                         return;
                     }
                 }
@@ -1890,7 +1890,7 @@ void World::DoAutobuff(Unit* unit) {
                 if ((other->enchantments & (1 << spell::protection_from_fire)) == 0) {
                     if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
                         unit->eye2->field49_0x60 = 1;
-                        this->sub_5A85F4(unit, other, spell);
+                        this->BeginAutobuffCast(unit, other, spell);
                         return;
                     }
                 }
@@ -1902,7 +1902,7 @@ void World::DoAutobuff(Unit* unit) {
                 if ((other->enchantments & (1 << spell::protection_from_water)) == 0) {
                     if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
                         unit->eye2->field49_0x60 = 1;
-                        this->sub_5A85F4(unit, other, spell);
+                        this->BeginAutobuffCast(unit, other, spell);
                         return;
                     }
                 }
@@ -1915,7 +1915,7 @@ void World::DoAutobuff(Unit* unit) {
                     if ((this->diplomacy.diplomacy[unit->pOwner->player_id][other->pOwner->player_id] & 3) != 0) {
                         if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
                             unit->eye2->field49_0x60 = 1;
-                            this->sub_5A85F4(unit, other, spell);
+                            this->BeginAutobuffCast(unit, other, spell);
                             return;
                         }
                     }
@@ -1928,7 +1928,7 @@ void World::DoAutobuff(Unit* unit) {
     spell = this->GetCastableSpell(unit, spell::invisibility, 0);
     if (spell != nullptr && (unit->enchantments & (1 << spell::invisibility)) == 0) {
         unit->eye2->field49_0x60 = 1;
-        this->sub_5A85F4(unit, unit, spell);
+        this->BeginAutobuffCast(unit, unit, spell);
         return;
     }
 
@@ -2616,7 +2616,7 @@ int32_t World::PickAttackSpell(Unit* unit, Unit* target) {
     }
 
     unit->eye2->field49_0x60 = 1;
-    this->sub_5A85F4(unit, target, chosen);
+    this->BeginAutobuffCast(unit, target, chosen);
     return 1;
 }
 
@@ -3535,7 +3535,7 @@ void World::sub_5A57E8(Unit* unit, Unit* target) {
         Spell* spell = unit->spell_book->sub_53DB79(spell_id);
         if (spell != nullptr && spell->mana_cost <= unit->mp) {
             unit->eye2->field49_0x60 = 1;
-            this->sub_5A85F4(unit, target, spell);
+            this->BeginAutobuffCast(unit, target, spell);
             did_cast = true;
         }
     }
@@ -3714,7 +3714,7 @@ void World::sub_5A8A55(Unit* unit) {
             // Should this be "1 << 0xc" instead?
             if (spell != nullptr && (unit->enchantments & 0xC) == 0) {
                 unit->eye2->field49_0x60 = 1;
-                this->sub_5A85F4(unit, unit, spell);
+                this->BeginAutobuffCast(unit, unit, spell);
             } else {
                 this->sub_5A8778(unit, result);
             }
@@ -3742,7 +3742,7 @@ void World::sub_5A8DBC(Unit* unit) {
             // WAT: enchantments & 0xC makes no sense. Was it supposed to be (1 << 0xC)?
             if (spell != nullptr && (unit->enchantments & 0xC) == 0) {
                 unit->eye2->field49_0x60 = 1;
-                this->sub_5A85F4(unit, unit, spell);
+                this->BeginAutobuffCast(unit, unit, spell);
             } else {
                 this->sub_5A8778(unit, result);
             }
@@ -4021,7 +4021,7 @@ void World::ProcessUnitState(Unit* unit) {
         this->sub_5A607B(unit);
         break;
     case 13:
-        this->sub_5A85F4(unit, unit->eye2->unit5, unit->eye2->spell);
+        this->BeginAutobuffCast(unit, unit->eye2->unit5, unit->eye2->spell);
         break;
     case 14:
         this->sub_5A551C(unit, unit->eye2->field30_0x3c, unit->eye2->spell);
