@@ -208,7 +208,7 @@ public:
 
     void sub_5AB35B(Unit* unit); // 5AB35B
     void sub_5AB5E3(Unit* unit); // 5AB5E3
-    void sub_5AB92C(Group* group); // 5AB92C
+    void UpdateGroupCenter(Group* group); // 5AB92C
     void sub_5ADB16(Group* group); // 5ADB16
     int32_t sub_5AD2C1(Unit* unit, Unit* target); // 5AD2C1
     void sub_5AE471(Group* group); // 5AE471

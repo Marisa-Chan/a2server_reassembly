@@ -4136,7 +4136,7 @@ void World::ProcessGroupRecall(Group* group) {
 }
 
 // 5AB92C
-void World::sub_5AB92C(Group* group) {
+void World::UpdateGroupCenter(Group* group) {
     int32_t count = group->unit_list.GetCount();
     if (count == 0) {
         return;
@@ -4309,7 +4309,7 @@ void World::sub_5AE2D4(Group* group) {
 
 // 5AE628
 void World::AiGuardBrain(Group* group) {
-    this->sub_5AB92C(group);
+    this->UpdateGroupCenter(group);
     this->sub_5ADB16(group);
     this->sub_5A3D12(group->group_sub->avg_pos, group->group_sub->guard_range);
     this->sub_5AE2D4(group);
@@ -4349,7 +4349,7 @@ void World::AiGuardBrain(Group* group) {
 
 // 5AE7C3
 void World::AiDefendBrain(Group* group) {
-    this->sub_5AB92C(group);
+    this->UpdateGroupCenter(group);
     this->sub_5ADB16(group);
     this->sub_5A3D12(group->group_sub->avg_pos, group->group_sub->guard_range);
     this->sub_5AE2D4(group);
