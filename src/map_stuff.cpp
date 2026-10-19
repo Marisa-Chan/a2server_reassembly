@@ -929,7 +929,7 @@ int MapStuff::sub_58AD4A(Unit* unit) {
     unit->eye->field124_0x84 = unit->position->GetXx();
     unit->eye->field125_0x85 = unit->position->GetYy();
 
-    if (!this->sub_590F0A(unit)) {
+    if (!this->CanPlaceUnit(unit)) {
         if (unit->eye->field121_0x80.val != unit->position->CompatGetYX()) {
             // WAT: Original code calls an empty no-op stub function here.
         }
@@ -1715,7 +1715,7 @@ Sack* MapStuff::GetSackAtPos(TokenPos* pos) {
 }
 
 // 590F0A --- check if unit can be placed at current position
-int MapStuff::sub_590F0A(Unit* unit) {
+int MapStuff::CanPlaceUnit(Unit* unit) {
     PosYX yx = unit->position->CompatGetYX();
     if (!this->sub_597140(unit, yx, 0)) {
         return 0;

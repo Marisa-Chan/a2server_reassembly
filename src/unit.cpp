@@ -1861,7 +1861,7 @@ int Unit::PlaceOnMap(uint8_t x, uint8_t y, uint8_t size) {
         this->position->ClampToMap(try_x, try_y);
         uint8_t gy = this->position->GetY();
         if (gy > 11 || g_Server->field4_0x74 == 0) { // WAT: why don't we allow placing units at `y <= 11`?
-            if (MapStuff_Instance->sub_590F0A(this)) {
+            if (MapStuff_Instance->CanPlaceUnit(this)) {
                 placed = true;
                 break;
             }
@@ -1877,7 +1877,7 @@ int Unit::PlaceOnMap(uint8_t x, uint8_t y, uint8_t size) {
             for (int32_t ty = y_start; ty <= y_end; ty++) {
                 if (ty > 11 || g_Server->field4_0x74 == 0) {
                     this->position->ClampToMap((uint8_t)tx, (uint8_t)ty);
-                    if (MapStuff_Instance->sub_590F0A(this)) {
+                    if (MapStuff_Instance->CanPlaceUnit(this)) {
                         placed = true;
                         break;
                     }

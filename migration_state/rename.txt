@@ -585,3 +585,4 @@ MapStuff::sub_5948B0 -> EncodeTerrain -- encodes map terrain into the buffer
 MapStuff::sub_58E407 -> CanPlaceSack -- checks whether a sack can be placed on the map
 MapStuff::sub_58E525 -> RemoveSack -- removes a sack token from the map
 MapStuff::sub_58E5C7 -> GetSackAt -- looks up the sack at a yx position
+MapStuff::sub_58E5F3 -> GetSackAtPos -- looks up the sack at a TokenPos
