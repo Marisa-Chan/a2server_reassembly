@@ -74,6 +74,8 @@ def main():
         i = args.index("--lines")
         lines_args = args[i + 1:]
         args = args[:i]
+        if not lines_args:
+            sys.exit("ERROR: --lines given without file:line specs; refusing to fall back to a full-tree replace")
     if len(args) != 2:
         sys.exit(__doc__)
     old, new = args
