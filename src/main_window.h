@@ -194,7 +194,7 @@ public:
     int32_t spirit = 0;
     int32_t main_sphere = 0;
     int32_t face = 0;
-    int32_t field_0x64 = 0;
+    int32_t hat_id = 0;
     int32_t field_0x68 = 0;
     int32_t field_0x6c = 0;
     int32_t field_0x70 = 0;

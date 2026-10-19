@@ -118,3 +118,4 @@ MainWindow::field_0x450 -> last_event_id -- last game-event id received via mess
 MainWindow::field_0x454 -> inside_building -- set between building-enter (0xb7) and building-leave (0xb8) packets; routes idle messages
 MainWindow::field_0x458 -> enter_ack_received -- server handshake flag the 0x457 message loop waits on
 MainWindow::field_0x45c -> input_locked -- wrong building-enter reply locks all key input until a matching reply arrives
+CGameSession::field_0x64 -> hat_id -- --

@@ -5474,7 +5474,7 @@ void CGameSession::FUN_00493d8d() { //493d8d
     FileSectionBasicInfo local_40;
     local_40.id1 = this->sessionKeyPart1;
     local_40.id2 = this->sessionKeyPart2;
-    local_40.hat_id = this->field_0x64;
+    local_40.hat_id = this->hat_id;
 
     strcpy(local_40.nick, this->character_name);
 
@@ -5617,7 +5617,7 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx) { //492c66
             this->main_sphere = basic->main_sphere;
             this->flags = basic->flags;
             this->color = basic->color;
-            this->field_0x64 = basic->hat_id;
+            this->hat_id = basic->hat_id;
 
             this->sessionKeyPart1 = basic->id1;
             this->sessionKeyPart2 = basic->id2;
@@ -5756,7 +5756,7 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx) { //492c66
 void CGameSession::InitializeNewCharacterSession(int tp, const char* name) { //493ab6
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
-    this->field_0x64 = mwnd->field_0x3e0.field_0c;
+    this->hat_id = mwnd->field_0x3e0.field_0c;
 
     if (name) {
         strcpy(this->character_name, name);
@@ -5823,7 +5823,7 @@ void CGameSession::FUN_0049381c(char* name) { //49381c
 
     FileSectionBasicInfo info;
     memcpy(&info, &this->sessionKeyPart1, 8);
-    info.hat_id = this->field_0x64;
+    info.hat_id = this->hat_id;
     strcpy(info.nick, this->characterRosterNames[this->selectedCharacterRosterFileIndex]);
     info.character_class = (uint8_t)this->type;
     this->face = unit->face;
@@ -5850,7 +5850,7 @@ void CGameSession::FUN_004946e0() { //4946e0
 
     FileSectionBasicInfo info;
     memcpy(&info, &this->sessionKeyPart1, 8);
-    info.hat_id = this->field_0x64;
+    info.hat_id = this->hat_id;
     strcpy(info.nick, this->character_name);
     info.character_class = (uint8_t)this->type;
     this->face = unit->face;
