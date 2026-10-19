@@ -6090,7 +6090,7 @@ void Server::ProcessHatPackets() {
 }
 
 // 5090FA
-void Server::sub_5090FA(Player* player) {
+void Server::UpdateMissionResult(Player* player) {
     if (player->is_in_world == 0 || player->is_ai) {
         return;
     }
@@ -6158,7 +6158,7 @@ void Server::UpdateMissionResults() {
     POSITION pos = g_PlayersList->list.GetHeadPosition();
     while (pos != nullptr) {
         Player* player = g_PlayersList->list.GetNext(pos);
-        this->sub_5090FA(player);
+        this->UpdateMissionResult(player);
     }
 }
 

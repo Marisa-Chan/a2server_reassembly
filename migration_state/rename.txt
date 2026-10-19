@@ -394,3 +394,4 @@ Server::sub_509042 -> ProcessHatPackets -- services the HAT connector and dispat
 Server::sub_5096E4 -> UpdateMissionResults -- updates mission_result for every player
 Server::sub_5090A7 -> Tick -- main server tick: tick++, packets, effects, world ProcessTick, tick broadcast
 Server::sub_5088DF -> ProcessHatPacket -- handles one packet received from the HAT server
+Server::sub_4F950F -> LoadSavedSacks -- mission mode: reads info.map and respawns the saved sacks
