@@ -241,7 +241,7 @@ public:
     void DoTeleportHome(Unit* unit); // 5A8885
     void sub_5A8A55(Unit* unit); // 5A8A55
     uint32_t sub_5AB62E(UnitList* list); // 5AB62E
-    void sub_5ACDF4(Group* group); //5acdf4 // World callback for animate-dead group
+    void ProcessAnimateDeadGroup(Group* group); //5acdf4 // World callback for animate-dead group
     void DoScriptInstID(int32_t script_id); // Run script by instance ID
 
     // Trigger check handlers, called from `DispatchTriggerCheck`.

@@ -998,7 +998,7 @@ void Srv1::LoadTriggers(MapAlm* alm, int flag) {
                 
                 if (flag != 0 && g_Server->field4_0x74 == 0) {
                     if (player->player_id == 1) {
-                        g_World->sub_5ACDF4(group);
+                        g_World->ProcessAnimateDeadGroup(group);
                     } else {
                         g_World->PlaceRespawnedGroup(group, 0);
                     }
@@ -5019,7 +5019,7 @@ void Server::FUN_00501b9e(int32_t var300, CDWordArray& arr) { //501b9e
                 grp->AddUnit(hm);
 
                 g_World->ResetUnitToHold(hm);
-                g_World->sub_5ACDF4(grp);
+                g_World->ProcessAnimateDeadGroup(grp);
                 g_NetStru1_main.sub_519221(hm, pl, (uint32_t)-1, 0xffb, 0, 0);
             }
         } else {
@@ -5177,7 +5177,7 @@ void Server::EnsurePlayerGroup(Player* player) {
             unit->eye2 = new UnitEye2();
             unit->eye2->spell_id = spell_id;
 
-            g_World->sub_5ACDF4(unit->group);
+            g_World->ProcessAnimateDeadGroup(unit->group);
         }
         unit = unit_it ? player->unit_list->unit_list.GetNext(unit_it) : nullptr;
     }
@@ -6579,7 +6579,7 @@ Human* Server::SummonUnit(CString* unit_name, Unit* origin, int32_t is_hero) {
 
     group->AddUnit(unit);
     g_World->ResetUnitToHold(unit);
-    g_World->sub_5ACDF4(group);
+    g_World->ProcessAnimateDeadGroup(group);
 
     if (this->field18_0x94 == 0) {
         g_NetStru1_main.sub_519221(unit, player, 0xFFFFFFFF, 0xFFB, 0, 0);

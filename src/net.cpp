@@ -668,7 +668,7 @@ void NetStru1::FUN_004fb4ca(Unit* unit, Player* new_owner) {
     // Associate the unit with the new group.
     new_group->AddUnit(unit);
 
-    g_World->sub_5ACDF4(new_group);
+    g_World->ProcessAnimateDeadGroup(new_group);
 
     // Update unit's vision sharing flags.
     uint16_t old_vision_mask = ~old_owner->vision_sharing_id;

@@ -2775,7 +2775,7 @@ void World::GroupAggressiveStance(Group* grp) { //5aca54
     grp->group_sub->order = 3;
 }
 
-void World::sub_5ACDF4(Group* group) { // 5acdf4
+void World::ProcessAnimateDeadGroup(Group* group) { // 5acdf4
     this->ClearGroupOrders(group);
     this->GroupAggressiveStance(group);
 }
