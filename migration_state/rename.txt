@@ -387,3 +387,4 @@ Server::sub_4FF937 -> SendWorldState -- mission join: sends the full world state
 Server::sub_4F8F86 -> OnTeamsReady -- runs once all team-game players are ready
 Server::sub_4F8FBF -> UpdateQuestRune -- spawns/removes the team quest rune (RuneA/RuneF) when picked up or dropped
 Server::sub_4F8B74 -> SpawnRandomSack -- spawns one random sack on the map
+Server::sub_4F9B9E -> SaveSack -- saves a sack to file

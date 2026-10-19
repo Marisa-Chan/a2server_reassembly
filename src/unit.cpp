@@ -769,7 +769,7 @@ void Unit::ProcessEffects() {
     case 2: { // Pick up sack.
             Sack* sack = MapStuff_Instance->sub_58E5F3(this->position);
             if (sack) {
-                g_Server->sub_4F9AD3(sack);
+                g_Server->PrepareSackPickup(sack);
                 MapStuff_Instance->sub_58E525(sack);
                 POSITION pos = g_Server->srv_stru1->sack_list->list.Find(sack);
                 if (pos) {

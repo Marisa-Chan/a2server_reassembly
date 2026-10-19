@@ -2863,7 +2863,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         while (pos != nullptr) {
             POSITION cur_pos = pos;
             Sack* sack = sack_list->list.GetNext(pos); // advances pos
-            this->sub_4F9AD3(sack);
+            this->PrepareSackPickup(sack);
             MapStuff_Instance->sub_58E525(sack);
             g_Server->srv_stru1->sack_list->list.RemoveAt(cur_pos);
             player->main_unit->PickUpSack(sack);
@@ -5226,7 +5226,7 @@ void Server::OnTeamsReady() {
 }
 
 // 4F9AD3
-void Server::sub_4F9AD3(Sack* sack) {
+void Server::PrepareSackPickup(Sack* sack) {
     if (g_ServerConfig.gameType != 0) {
         return;
     }
