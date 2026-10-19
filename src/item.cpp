@@ -108,7 +108,7 @@ Item* __cdecl sub_4F499B(uint8_t** packet_data) {
 
     item->sub_54A0BE();
 
-    if (item->sub_548F07() == 0) {
+    if (item->IsArtifact() == 0) {
         while (item->magic_volume < 0) {
             Effect* first_effect = item->_effects.IsEmpty() ? nullptr : item->_effects.GetHead();
             if (first_effect == nullptr || first_effect->full_magic_value < 2) {
@@ -554,7 +554,7 @@ Effect* Item::sub_548E4E() {
 }
 
 // 548F07
-int Item::sub_548F07() {
+int Item::IsArtifact() {
     if (this->_effects.GetCount() != 0 && this->_exp == 2) {
         return 1;
     }
