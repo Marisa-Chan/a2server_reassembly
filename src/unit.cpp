@@ -1168,7 +1168,7 @@ uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
     return cumulative > 0 ? cumulative : 0;
 }
 
-void Unit::VMethod18() {
+void Unit::RecalcStats() {
     if (!this->pOwner) {
         this->mp2 = this->mp_max;
     } else {
@@ -1311,7 +1311,7 @@ void Unit::sub_52C98B(Sack* sack) {
                         human->experience_per_sphere[sphere - 1] = exp_val;
                         human->experience += exp_val;
                     }
-                    human->VMethod18();
+                    human->RecalcStats();
                     update_mask = 0x31f0f;
                     g_NetStru1_main.FUN_0051ce86(9, boost, human->pOwner);
                 } else {
@@ -1635,7 +1635,7 @@ void Unit::sub_52A790(int32_t delta_weight) {
     }
 
     if (this->carrying_weight_100g / this->carrying_body_100g != old_ratio) {
-        this->VMethod18();
+        this->RecalcStats();
     }
 }
 
@@ -1660,7 +1660,7 @@ void Unit::sub_52C58F() {
     this->some_state2 = 0;
     this->attack_ready = 1;
     this->protections.defense <<= 1;
-    this->VMethod18();
+    this->RecalcStats();
     this->hp = (this->hp < 1) ? 1 : this->hp;
     g_World->sub_5A9A6A(this);
 }
@@ -1787,7 +1787,7 @@ void Unit::FUN_0052931b(const CString& str) {
 void Unit::sub_537251() {
     this->equipment_extra.protections.magic_protections.fill(100);
     this->equipment_extra.protections.weapon_protections.fill(100);
-    this->VMethod18();
+    this->RecalcStats();
 }
 
 // 52C813
@@ -2347,7 +2347,7 @@ void Humanoid::AwardKillMoney(Unit* unit) {
     this->pOwner->sub_534AC1(unit->_exp, 1);
 }
 
-void Humanoid::VMethod18() {
+void Humanoid::RecalcStats() {
     // 005315ec
     const bool fighter = (this->unit_attrs & 4) == 0;
     const bool female = (this->typeId == 0x22 || this->typeId == 0x24);
@@ -2615,7 +2615,7 @@ void Humanoid::VMethod21(uint32_t new_exp, Unit* target, int32_t sphere) {
 
     // Post-processing: recalculate stats and notify clients.
     if (leveled_up) {
-        this->VMethod18();
+        this->RecalcStats();
         g_NetStru1_main.sub_519221(this, nullptr, update_mask | 0x3000C, 0xFFB, 0, 0);
     } else {
         if (new_exp != 0) {
@@ -3039,7 +3039,7 @@ void Human::FUN_00532587(CString hname, int32_t is_hero, const char* unk) {
     }
 
     this->sub_531418();
-    this->VMethod18();
+    this->RecalcStats();
     this->hp = this->hp_max;
     this->mp = this->mp_max;
     this->VMethod19();

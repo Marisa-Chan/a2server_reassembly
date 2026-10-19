@@ -3027,7 +3027,7 @@ Scenario::Scenario(const char* fname) {
                 human->face |= 0x80;
             }
             human->sub_531418();
-            human->VMethod18();
+            human->RecalcStats();
             if (unit_data->max_hp != -1 && unit_data->max_hp == unit_data->hp) {
                 unit_data->hp = -1;
                 unit_data->max_hp = -1;

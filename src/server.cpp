@@ -816,7 +816,7 @@ void Srv1::sub_59CD45(MapAlm* alm) {
             continue;
         }
 
-        unit->VMethod18();
+        unit->RecalcStats();
 
         if ((unit_data->flags1 & 0x10) != 0 && (int16_t)unit_data->max_hp != -1 && unit_data->max_hp == unit_data->hp) {
             unit_data->hp = -1;
@@ -2332,7 +2332,7 @@ Human* Server::sub_500907(Player* player, uint8_t body, uint8_t reaction, uint8_
     main_skill_level = 0;
     #endif
     unit->sub_533345(main_skill, main_skill_level);
-    unit->VMethod18();
+    unit->RecalcStats();
 
     unit->hp = unit->hp_max;
     unit->mp = unit->mp_max;
@@ -2449,7 +2449,7 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
         unit->experience += unit->experience_per_sphere[sphere - 1];
     }
 
-    unit->VMethod18();
+    unit->RecalcStats();
 
     if (unit->mp_max > 0) {
         unit->unit_attrs |= 6;
@@ -2553,7 +2553,7 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
     unit->hp = unit->hp_max;
     unit->mp = unit->mp_max;
     unit->decay = 0;
-    unit->VMethod18();
+    unit->RecalcStats();
     unit->unit_attrs &= ~0x08;
     unit->sent_to_mask = 0;
     unit->seen_by_mask = player->vision_sharing_id;

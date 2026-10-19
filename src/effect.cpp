@@ -541,7 +541,7 @@ void Effect::VMethod14(Unit* unit, int32_t param_3) {
             break;
     }
 
-    unit->VMethod18();
+    unit->RecalcStats();
 }
 
 // 53f92c

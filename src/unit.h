@@ -83,7 +83,7 @@ public: // VTable at 60efc0.
     virtual void UnequipAll();
     virtual void AwardKillMoney(Unit *);
     virtual uint32_t RollDamage(UnitToHit *, Unit *);
-    virtual void VMethod18();
+    virtual void RecalcStats();
     virtual uint32_t VMethod19();
     virtual void VMethod20();
     virtual void VMethod21(uint32_t, Unit *, int32_t);
@@ -262,7 +262,7 @@ public:
     virtual void UnequipAll() override;
     virtual void AwardKillMoney(Unit*) override;
     //virtual uint32_t VMethod17(UnitToHit*, Unit*) override;
-    virtual void VMethod18() override;
+    virtual void RecalcStats() override;
     virtual uint32_t VMethod19() override;
     //virtual void VMethod20() override;
     virtual void VMethod21(uint32_t newExp, Unit *target, int32_t sphere) override;

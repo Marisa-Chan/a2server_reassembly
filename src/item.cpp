@@ -1235,7 +1235,7 @@ Item* Weapon::VMethod10(Unit* unit) {
         unit->equipment_extra.hit_values.attack = unit->hit_values.skill_levels[0];
         unit->hit_values.physical_damage_type = 0;
     }
-    unit->VMethod18();
+    unit->RecalcStats();
     if (unit->IsHumanoid() != 0) {
         if (this->world_equip->Values()[0].relax != -1) {
             unit->charge = (uint8_t)this->world_equip->Values()[0].relax;
@@ -1269,7 +1269,7 @@ void Weapon::VMethod11(Unit* unit) {
     }
     unit->equipment_extra.hit_values.attack -= this->hit_values.attack;
     unit->hit_values.physical_damage_type = 0;
-    unit->VMethod18();
+    unit->RecalcStats();
     unit->max_range -= (uint8_t)(this->range - 1);
     unit->charge = 8;
     unit->relax = 4;

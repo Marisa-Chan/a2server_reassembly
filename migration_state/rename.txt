@@ -283,3 +283,4 @@ Unit::VMethod13 -> UseItemOrStash -- UseItem, then puts the unconsumed item into
 Unit::VMethod15 -> UnequipAll -- Humanoid: unequips slots 1..12 into the bag
 Unit::VMethod16 -> AwardKillMoney -- Humanoid: on unit death pays the killer's owner the victim's exp as money (sub_534AC1 = Player::AddMoney)
 Unit::VMethod17 -> RollDamage -- full attack roll of attacker vs this unit: to-hit vs defense, bless/curse, randomize, absorption, weapon protections; returns damage
+Unit::VMethod18 -> RecalcStats -- Unit: mp2 = mp_max scaled by owner stat; Humanoid: clamps stats to class/gender caps

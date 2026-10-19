@@ -5552,7 +5552,7 @@ void CGameSession::RecreateCUnit() { //4941c0
             hm->reaction = this->reaction;
             hm->mind = this->mind;
             hm->spirit = this->spirit;
-            hm->VMethod18();
+            hm->RecalcStats();
             hm->face = (byte)this->face;
         }
 
@@ -5706,7 +5706,7 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx) { //492c66
                 hum->experience += hum->experience_per_sphere[i - 1];
             }
 
-            hum->VMethod18();
+            hum->RecalcStats();
 
             if (equip != nullptr) {
                 uint8_t* eq_data = equip->data;
