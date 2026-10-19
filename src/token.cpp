@@ -230,7 +230,7 @@ int32_t Token::GetTokenSize() {
 	return 1;
 }
 
-int32_t Token::VMethod4() {
+int32_t Token::GetMovementType() {
 	// 57b2b0
 	return 0;
 }

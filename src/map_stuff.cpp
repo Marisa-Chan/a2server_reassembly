@@ -498,7 +498,7 @@ void MapStuff::sub_59028D(Unit* unit, Unit* target, uint8_t max_range) {
 
 // 5913BD
 int16_t MapStuff::sub_5913BD(Unit* unit, uint8_t x, uint8_t y) {
-    uint8_t type = (uint8_t)unit->VMethod4();
+    uint8_t type = (uint8_t)unit->GetMovementType();
     if (type == 1) {
         return unit->speed * 8 / this->walk_cost_map[y * 256 + x];
     }
@@ -1018,7 +1018,7 @@ int MapStuff::FUN_0058b4a6(PosYX yx) { //58b4a6
 
 void MapStuff::FUN_00596d3e(Unit* unit, PosYX yx) { //596d3e
     if (this->ObstacleAt(yx).TestBits(0x20) && this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
-        if ((unit->VMethod4() & 0xff) == 3) {
+        if ((unit->GetMovementType() & 0xff) == 3) {
             if (this->scratch_cell_state.dynamic_blocker == unit) {
                 this->scratch_cell_state.dynamic_blocker = nullptr;
             }
@@ -1057,7 +1057,7 @@ void MapStuff::FUN_00596e0e(Unit* unit, PosYX yx) { //596e0e
             return;
         }
     }
-    if ((unit->VMethod4() & 0xff) == 3) {
+    if ((unit->GetMovementType() & 0xff) == 3) {
         if (this->scratch_cell_state.dynamic_blocker && scratch_cell_state.dynamic_blocker != unit) {
             return;
         }
@@ -1551,7 +1551,7 @@ int MapStuff::sub_58B27F(Unit* unit, uint8_t x, uint8_t y) {
         return 0;
     }
 
-    uint32_t type = unit->VMethod4();
+    uint32_t type = unit->GetMovementType();
     if (type == 1 || type == 2) {
         if (!this->scratch_cell_state.small_unit) {
             return 0;

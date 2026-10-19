@@ -265,7 +265,7 @@ void AreaEffect::sub_53831D(Unit* unit) {
 		return;
 	}
 
-	if ((unit->VMethod4() & 0xFF) == 0 || this->caster == nullptr) {
+	if ((unit->GetMovementType() & 0xFF) == 0 || this->caster == nullptr) {
 		return;
 	}
 

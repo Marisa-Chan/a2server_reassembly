@@ -934,7 +934,7 @@ int32_t Unit::GetTokenSize() {
     return this->token_size;
 }
 
-int32_t Unit::VMethod4() {
+int32_t Unit::GetMovementType() {
     return this->movement_type;
 }
 
@@ -1580,7 +1580,7 @@ int32_t Unit::sub_52BABD() {
 
 // 59A030
 int32_t Unit::sub_59A030() {
-    return this->VMethod4();
+    return this->GetMovementType();
 }
 
 // 5B6FB0

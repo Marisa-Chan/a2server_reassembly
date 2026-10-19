@@ -71,7 +71,7 @@ public: // VTable at 60efc0.
     virtual void RegenTick() override;
     virtual void ProcessEffects() override;
     virtual int32_t GetTokenSize() override; // TokenSize
-    virtual int32_t VMethod4() override; // MovementType
+    virtual int32_t GetMovementType() override; // MovementType
     virtual void VMethod5() override;
     virtual int32_t VMethod7() override; // IsUnit
     virtual int32_t VMethod8() override; // IsHumanoid
