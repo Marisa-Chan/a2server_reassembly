@@ -5082,13 +5082,13 @@ void MainWindow::SpawnScenarioMissionUnits(int32_t id, const CDWordArray& array)
         int32_t unit_info_id = g_GameDataRes.FindHumanByServerId(uid * 10 + 10000);
         bool not_human = unit_info_id == 0;
         if (not_human) {
-            unit_info_id = g_GameDataRes.FUN_00512625(uid * 10 + 10000);
+            unit_info_id = g_GameDataRes.FindMonsterByServerId(uid * 10 + 10000);
         }
 
         for (int j = 1; j < 10; j += 1) {
             int32_t id_variant;
             if (not_human) {
-                id_variant = g_GameDataRes.FUN_00512625(uid * 10 + 10000 + j);
+                id_variant = g_GameDataRes.FindMonsterByServerId(uid * 10 + 10000 + j);
             } else {
                 id_variant = g_GameDataRes.FindHumanByServerId(uid * 10 + 10000 + j);
             }
@@ -5096,7 +5096,7 @@ void MainWindow::SpawnScenarioMissionUnits(int32_t id, const CDWordArray& array)
             if (id_variant > 0) {
                 int32_t tmp_id;
                 if (not_human) {
-                    tmp_id = g_GameDataRes.FUN_00512625(uid * 10 + 9998 + id / 10);
+                    tmp_id = g_GameDataRes.FindMonsterByServerId(uid * 10 + 9998 + id / 10);
                 } else {
                     tmp_id = g_GameDataRes.FindHumanByServerId(uid * 10 + 9998 + id / 10);
                 }

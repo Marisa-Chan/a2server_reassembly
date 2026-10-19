@@ -451,7 +451,7 @@ public:
     void PostProcessMagicData(); // 514BE7: post-process magic data after parsing Magic.txt
 
     int32_t FindHumanByServerId(int32_t id); //5125a8
-    int32_t FUN_00512625(int32_t id); //512625
+    int32_t FindMonsterByServerId(int32_t id); //512625
 };
 ASSERT_OFFSET(GameDataRes, magic_items, 0x64);
 ASSERT_OFFSET(GameDataRes, humans, 0xa0);

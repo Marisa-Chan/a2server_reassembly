@@ -782,7 +782,7 @@ void Srv1::CreateUnits(MapAlm* alm) {
 
         Unit* unit;
         if ((unit_data->flags1 & 0x10) == 0) {
-            int32_t idx = g_GameDataRes.FUN_00512625(unit_data->server_id);
+            int32_t idx = g_GameDataRes.FindMonsterByServerId(unit_data->server_id);
             unit = new Unit(g_GameDataRes.monsters[idx].name);
 
             if (g_Server->field22_0xd8 != 2 && g_Server->field4_0x74 == 0) {
@@ -4960,7 +4960,7 @@ void Server::FUN_00501b9e(int32_t var300, CDWordArray& arr) { //501b9e
         bool bVar2 = false;
         int32_t idx = g_GameDataRes.FindHumanByServerId(serverID * 10 + 10000);
         if (idx == 0) {
-            idx = g_GameDataRes.FUN_00512625(serverID * 10 + 10000);
+            idx = g_GameDataRes.FindMonsterByServerId(serverID * 10 + 10000);
             if (idx) {
                 bVar2 = true;
             }
@@ -4969,21 +4969,21 @@ void Server::FUN_00501b9e(int32_t var300, CDWordArray& arr) { //501b9e
         if (idx == 0) {
             idx = g_GameDataRes.FindHumanByServerId(serverID);
             if (idx == 0) {
-                idx = g_GameDataRes.FUN_00512625(serverID);
+                idx = g_GameDataRes.FindMonsterByServerId(serverID);
                 bVar2 = true;
             }
         } else {
             for (int i = 1; i < 10; i++) {
                 int32_t idd = 0;
                 if (bVar2) {
-                    idd = g_GameDataRes.FUN_00512625(serverID * 10 + 10000 + i);
+                    idd = g_GameDataRes.FindMonsterByServerId(serverID * 10 + 10000 + i);
                 } else {
                     idd = g_GameDataRes.FindHumanByServerId(serverID * 10 + 10000 + i);
                 }
 
                 if (idd != 0) {
                     if (bVar2) {
-                        idd = g_GameDataRes.FUN_00512625(serverID * 10 + 9998 + var300 / 10);
+                        idd = g_GameDataRes.FindMonsterByServerId(serverID * 10 + 9998 + var300 / 10);
                     } else {
                         idd = g_GameDataRes.FindHumanByServerId(serverID * 10 + 9998 + var300 / 10);
                     }
