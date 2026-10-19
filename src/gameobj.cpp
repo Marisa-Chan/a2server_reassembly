@@ -1614,7 +1614,7 @@ void CUnit::ReloadSprite() { // 46b91c
     }
 }
 
-void CGameObject::FUN_0046246b(int32_t left, int32_t right, int32_t y, int32_t fill_width, uint16_t color_lo, uint16_t color_mid, uint16_t color_hi) { // 46246B
+void CGameObject::DrawBarFill(int32_t left, int32_t right, int32_t y, int32_t fill_width, uint16_t color_lo, uint16_t color_mid, uint16_t color_hi) { // 46246B
     BigStruct2* map = this->pMapObject;
     if (map->show_hp != 0 && this->IsSelected() == 0) {
         ShadowRect(CRect(left + 4, y - 2, left + fill_width + 4, y + 2), 8);
@@ -1700,7 +1700,7 @@ void CUnit::DrawHealthBar(int32_t arg1, int32_t arg2, int32_t arg3) { // 466a78
     if (fill == 0 && this->hp != 0) {
         fill = 1;
     }
-    this->FUN_0046246b(left, right, y, fill, color_lo, color_mid, color_hi);
+    this->DrawBarFill(left, right, y, fill, color_lo, color_mid, color_hi);
 
     if (this->mp_max > 0) {
         y += 4;
@@ -1720,7 +1720,7 @@ void CUnit::DrawHealthBar(int32_t arg1, int32_t arg2, int32_t arg3) { // 466a78
 
         gfx_ball->VMethod10(left, y - 2, 0, 0, 4, 4);
         gfx_ball->VMethod10(right - 4, y - 2, 0, 0, 4, 4);
-        this->FUN_0046246b(left, right, y, mp_fill, color_lo, color_mid, color_hi);
+        this->DrawBarFill(left, right, y, mp_fill, color_lo, color_mid, color_hi);
     }
 
     this->FUN_004627bb(left, y + 4);
@@ -3872,7 +3872,7 @@ void CStructure::DrawHealthBar(int32_t arg1, int32_t arg2, int32_t arg3) {
         color_hi = (color_hi >> 1) & add_mask;
     }
 
-    this->FUN_0046246b(left, right, y, fill_width, color_lo, color_mid, color_hi);
+    this->DrawBarFill(left, right, y, fill_width, color_lo, color_mid, color_hi);
 }
 
 // 462f58
