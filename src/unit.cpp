@@ -1640,7 +1640,7 @@ void Unit::AddCarriedWeight(int32_t delta_weight) {
 }
 
 // 52C4DF
-void Unit::sub_52C4DF(int16_t amount) {
+void Unit::AddHp(int16_t amount) {
     this->item_op_dirty_flags |= 1;
     int16_t old_hp = this->hp;
     this->hp += amount;

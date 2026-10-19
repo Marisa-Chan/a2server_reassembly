@@ -309,3 +309,4 @@ Unit::sub_52C163 -> RemoveFromMap -- removes the unit from map/world lists and s
 Unit::sub_52C36D -> AddToMap -- places the unit (PlaceOnMap), appends to world unit_list, clears phased-out bit, notifies
 Unit::sub_52C58F -> Revive -- set flags, reset subcell, call RecalcStats, notify world
 Unit::sub_52C813 -> CancelQueuedSpell -- aborts a previously queued castspell modifier item when a different spell was queued
+Unit::sub_52D8D3 -> CreateSackFromInventory -- creates a sack from this unit's inventory and money

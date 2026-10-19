@@ -671,7 +671,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
                     heal = max_heal;
                 }
                 target->item_op_dirty_flags = 0;
-                target->sub_52C4DF(heal);
+                target->AddHp(heal);
                 g_NetStru1_main.sub_519221(target, nullptr, target->item_op_dirty_flags, 0xFFB, 0, 0);
                 return;
             }
@@ -763,7 +763,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 g_NetStru1_main.sub_519221(target, nullptr, 1, 0xFFB, 0, 0);
                 target->last_hit_by = caster;
                 target->last_hit_spell_id = this->spell_id;
-                caster->sub_52C4DF(drain);
+                caster->AddHp(drain);
                 g_NetStru1_main.sub_519221(caster, nullptr, 1, 0xFFB, 0, 0);
                 return;
             }
