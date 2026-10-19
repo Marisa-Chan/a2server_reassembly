@@ -169,7 +169,7 @@ public:
     void PutInt(uint32_t flag, uint32_t val){ this->flags_mask |= flag; *reinterpret_cast<uint32_t*>(this->data + this->data_offset) = val; this->data_offset += 4; }
 
     uint32_t CalcFlagsSize();
-    uint32_t FUN_00527c3b();
+    uint32_t CalcDataSize();
 };
 __pragma(pack(pop))
 ASSERT_SIZE(PacketUnitUpdate, 0x418);

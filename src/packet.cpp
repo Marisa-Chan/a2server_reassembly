@@ -251,7 +251,7 @@ void PacketUnitUpdate::ReadFrom(NetStru2* net) {
     }
     this->flags_mask = 0;
     net->ReadData(&this->unit_id, this->flags_size + 2);
-    net->ReadData(this->data, this->FUN_00527c3b());
+    net->ReadData(this->data, this->CalcDataSize());
 }
 
 uint32_t PacketUnitUpdate::GetDataSize() {
@@ -273,7 +273,7 @@ uint32_t PacketUnitUpdate::CalcFlagsSize() {
     return this->flags_size;
 }
 
-uint32_t PacketUnitUpdate::FUN_00527c3b() {
+uint32_t PacketUnitUpdate::CalcDataSize() {
     static uint32_t offsets[32]
     {   2, 2, 5, 4, 3, 2, 1, 2, 4, 4, 4, 4, 4, 2, 2, 1,
         2, 2, 2, 1, 5, 0, 0, 0, 5, 0x10, 0, 0, 0, 8, 0, 0x18

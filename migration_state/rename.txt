@@ -722,3 +722,4 @@ GameDataRes::sub_514BE7 -> PostProcessMagicData -- post-processes magic data aft
 GameDataRes::FUN_005125a8 -> FindHumanByServerId -- reverse lookup of humans table row by server_id
 GameDataRes::FUN_00512625 -> FindMonsterByServerId -- reverse lookup of monsters table row by server_id
 free::sub_514085 -> SplitCsvLine -- splits a CSV table line into a CStringArray
+PacketUnitUpdate::FUN_00527bd8 -> CalcFlagsSize -- derives flags_size (1..4) from flags_mask
