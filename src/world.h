@@ -70,7 +70,7 @@ struct World {
     UnitList field27_0xa84;
     UnitList field28_0xaa4; // Non-attack list?
     UnitList field29_0xac4; // Attack list?
-    uint32_t field_0xae4[10000];
+    uint32_t dist_scratch[10000];
     uint8_t field_0xa724;
     uint8_t gap_0xa725[3];
     uint8_t field32_0xa728[400];
@@ -80,8 +80,8 @@ struct World {
     CList<Action> action_list;
     uint8_t field39_0xbc08[400];
     Action scrape_action;
-    uint8_t field_0xbdec[16];
-    uint8_t field_0xbdfc;
+    uint8_t waypoint_table[16];
+    uint8_t patrol_counter;
     uint8_t gap_0xbdfd[3];
     Unit* field48_0xbe00;
     int32_t field49_0xbe04;

@@ -101,9 +101,9 @@ void World::sub_5A4757() {
     this->counter = 0;
 
     static constexpr uint8_t bdec_init[8] = {0, 0, 75, 65, 85, 65, 95, 65};
-    std::memcpy(this->field_0xbdec, bdec_init, sizeof(bdec_init));
+    std::memcpy(this->waypoint_table, bdec_init, sizeof(bdec_init));
 
-    this->field_0xbdfc = 0;
+    this->patrol_counter = 0;
     this->field49_0xbe04 = 0;
     this->field50_0xbe08 = 0;
     this->mission_complete = 0;
@@ -674,7 +674,7 @@ void World::sub_5B5CA8(Unit* caster, Unit* target, CList<Unit*>* units, uint32_t
     }
 
     int32_t max_shifted = (max_range & 0xFF) << 8;
-    uint32_t* dist_arr = &this->field_0xae4[100]; // Scratch distance array at this+0xC74.
+    uint32_t* dist_arr = &this->dist_scratch[100]; // Scratch distance array at this+0xC74.
     Unit* near_units[100];
     int32_t count = 0;
 
@@ -3459,7 +3459,7 @@ void World::sub_5A6EA5(Unit* unit) {
 
 // 5AB35B
 void World::sub_5AB35B(Unit* unit) {
-    uint8_t v14 = this->field_0xbdec[1];
+    uint8_t v14 = this->waypoint_table[1];
     bool nearby = false;
 
     if (unit->typeId == 0x18) {
@@ -3468,15 +3468,15 @@ void World::sub_5AB35B(Unit* unit) {
         unit->max_range = 5;
         this->sub_5A607B(unit);
         if (unit->eye2->cast_action == 6) {
-            this->field_0xbdfc++;
+            this->patrol_counter++;
         }
-        if (this->field_0xbdfc != 0) {
-            this->field_0xbdfc++;
+        if (this->patrol_counter != 0) {
+            this->patrol_counter++;
         }
-    } else if (this->field_0xbdfc == 0) {
+    } else if (this->patrol_counter == 0) {
         if (v14 != 0) {
-            uint8_t y2 = this->field_0xbdec[v14 * 2 + 1];
-            uint8_t x2 = this->field_0xbdec[v14 * 2];
+            uint8_t y2 = this->waypoint_table[v14 * 2 + 1];
+            uint8_t x2 = this->waypoint_table[v14 * 2];
             uint8_t y1 = unit->position->GetY();
             uint8_t x1 = unit->position->GetX();
             uint8_t dist = this->field24_0xa50->sub_58BFA3(x1, y1, x2, y2);
