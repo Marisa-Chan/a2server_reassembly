@@ -18,7 +18,7 @@ public: // VTable at 0060f170.
     virtual ~SpellEffect() override; // 57c080
     virtual void Serialize(CArchive& ar) override; // 53E44A
     virtual void ProcessEffects() override; // 53742d
-    virtual void VMethod10(Unit* unit); // 537438
+    virtual void ExpireOnUnit(Unit* unit); // 537438
 
 public:
     SpellEffect(); // 537371
@@ -66,7 +66,7 @@ public: // VTable at 60f1f0.
     virtual void Serialize(CArchive& ar) override; // 53E81F
     virtual void ProcessEffects() override; // 537964
     virtual void FixupPointers() override; // 53EB1E
-    virtual void VMethod10(Unit* unit) override; // 5382FB
+    virtual void ExpireOnUnit(Unit* unit) override; // 5382FB
 
 public:
     AreaEffect(); // 537846

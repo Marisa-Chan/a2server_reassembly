@@ -145,7 +145,7 @@ void SpellEffect::Serialize(CArchive& ar) {
 void SpellEffect::ProcessEffects() {}
 
 // 537438
-void SpellEffect::VMethod10(Unit* /*unit*/) {}
+void SpellEffect::ExpireOnUnit(Unit* /*unit*/) {}
 
 
 // 6364A0
@@ -240,7 +240,7 @@ void PointEffect::FixupPointers() {
 
 
 // 5382FB
-void AreaEffect::VMethod10(Unit* unit) {
+void AreaEffect::ExpireOnUnit(Unit* unit) {
 	this->effect->RemoveFromUnit(unit);
 }
 
