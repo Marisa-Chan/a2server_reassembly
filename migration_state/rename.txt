@@ -160,3 +160,4 @@ TriggerAction::field_0x3a -> ref_scope -- --
 TriggerAction::field_0x44 -> ref_page -- --
 TriggerAction::field_0x4e -> ref_index -- --
 TriggerAction::field_0x58 -> ref_count -- --
+AreaEffect::field_0x4c -> zone_active -- --

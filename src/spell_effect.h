@@ -85,7 +85,7 @@ public:
 
 public:
     Effect* effect;
-    uint8_t field_0x4c;
+    uint8_t zone_active;
     uint8_t field_0x4d; // radius
     uint8_t field_0x4e;
     uint8_t field_0x4f;

@@ -324,7 +324,7 @@ void AreaEffect::sub_53822C() {
 		}
 	}
 	g_NetStru1_main.sub_51BE8F(this, 0);
-	this->field_0x4c = 0;
+	this->zone_active = 0;
 }
 
 // 5384FF
@@ -441,7 +441,7 @@ void AreaEffect::sub_53801A() {
 		}
 	}
 	g_NetStru1_main.sub_51BE8F(this, 1);
-	this->field_0x4c = 1;
+	this->zone_active = 1;
 }
 
 // 537F2C
@@ -460,7 +460,7 @@ void AreaEffect::sub_537F2C() {
 		this->sub_538137(x + wave.x_mult * wave.x_offsets[i], y + wave.y_mult * wave.y_offsets[i], spread_damage);
 	}
 	g_NetStru1_main.sub_51BE8F(this, 1);
-	this->field_0x4c = 1;
+	this->zone_active = 1;
 }
 
 // 537CD6
@@ -509,14 +509,14 @@ IMPLEMENT_SERIAL(AreaEffect, SpellEffect, 1);
 AreaEffect::AreaEffect() : SpellEffect() {
 	this->effect = nullptr;
 	this->TokenID = 0;
-	this->field_0x4c = 0;
+	this->zone_active = 0;
 }
 
 // 537880
 AreaEffect::AreaEffect(Effect* effect, TokenPos* pos, uint8_t range) : SpellEffect(pos) {
 	this->effect = effect;
 	this->TokenID = 0;
-	this->field_0x4c = 0;
+	this->zone_active = 0;
 	this->field_0x4d = range;
 	this->field_0x4f = 0;
 	this->duration = 0;
@@ -532,14 +532,14 @@ AreaEffect::~AreaEffect() {
 void AreaEffect::Serialize(CArchive& ar) {
 	SpellEffect::Serialize(ar);
 	if (ar.IsStoring()) {
-		ar << this->field_0x4c;
+		ar << this->zone_active;
 		ar << this->field_0x4d;
 		ar << this->field_0x4e;
 		ar << this->field_0x4f;
 		ar << this->duration;
 		ar.WriteObject(this->effect);
 	} else {
-		ar >> this->field_0x4c;
+		ar >> this->zone_active;
 		ar >> this->field_0x4d;
 		ar >> this->field_0x4e;
 		ar >> this->field_0x4f;
@@ -558,7 +558,7 @@ void AreaEffect::VMethod2() {
 		this->sub_5384FF();
 		return;
 	}
-	if (this->field_0x4c == 0) {
+	if (this->zone_active == 0) {
 		this->sub_537C8C();
 		return;
 	}

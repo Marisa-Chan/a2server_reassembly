@@ -1747,7 +1747,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4) {
                 continue;
             }
             AreaEffect* ae = reinterpret_cast<AreaEffect*>(effect);
-            if (ae->field_0x4c != 0) {
+            if (ae->zone_active != 0) {
                 g_NetStru1_main.sub_51BE8F(ae, 1);
             }
         }
