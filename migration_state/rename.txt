@@ -405,3 +405,4 @@ Server::sub_4ED2DC -> SaveGame -- saves the game to file (drops empty groups fir
 Server::sub_4FF878 -> SendMapInfo -- sends the PacketJoin 0xBF carrying the current map name to the player
 Server::FUN_004ff439 -> AssignPlayerSlot -- join: assigns the player's 1-based color/slot (scans free slot when phased in)
 Server::FUN_004f94c0 -> SignalGameStart -- team games: resets lobby state, broadcasts 0xc3 and raises the started flag
+Server::sub_4FC644 -> JoinPlayer -- validates and creates a Player from a login packet (max players, name/login handling, team id)

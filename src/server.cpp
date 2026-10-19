@@ -6223,7 +6223,7 @@ void Server::SaveGame(CString* filename) {
 
     CMemFile mem_file;
     CArchive ar(&mem_file, CArchive::store);
-    this->sub_4F3188(ar);
+    this->SerializeGame(ar);
     ar.Close();
 
     uint32_t mem_size = mem_file.GetLength();
@@ -6299,7 +6299,7 @@ void Server::SaveGame(CString* filename) {
 }
 
 // 4F3188
-void Server::sub_4F3188(CArchive& ar) {
+void Server::SerializeGame(CArchive& ar) {
     if (ar.IsStoring()) {
         ar << this->tick;
         ar << this->tick16;
@@ -6529,7 +6529,7 @@ int32_t Server::sub_4EDB83(const CString& filename) {
 #ifdef A2SERVER_PATCH
     try {
 #endif
-        this->sub_4F3188(ar);
+        this->SerializeGame(ar);
         ar.Close();
         mem_file.Close();
 #ifdef A2SERVER_PATCH

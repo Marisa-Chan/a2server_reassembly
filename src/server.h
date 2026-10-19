@@ -283,7 +283,7 @@ public:
     int  JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1, CString name, CString login,
                     void* Block, int32_t block_size, int32_t team_id);
 
-    void sub_4F3188(CArchive& ar); // 4F3188 - deserialise saved game state from archive
+    void SerializeGame(CArchive& ar); // 4F3188 - deserialise saved game state from archive
 
     void Allods2_JoinPlayer(int32_t id, int32_t, CString name, NetStru2* client, uint32_t); //Allods2.exe 4f9a78    Join Player
     void JoinErrorSend(NetStru2* client, int32_t arg, const CString& str); //4fc4f3
