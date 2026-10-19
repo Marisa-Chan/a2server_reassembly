@@ -2338,9 +2338,9 @@ void TransientVisualEffectBuilder::FUN_004CB993(double x0, double y0, double x1,
         dir = -1.0;
     }
 
-    this->field_0xb8.RemoveAll();
+    this->jitter_progress.RemoveAll();
     this->field_0xcc.RemoveAll();
-    this->field_0xb8.Add(0.0);
+    this->jitter_progress.Add(0.0);
     this->field_0xcc.Add(0.0);
 
     do {
@@ -2358,32 +2358,32 @@ void TransientVisualEffectBuilder::FUN_004CB993(double x0, double y0, double x1,
         }
         this->field_0xcc.Add(x_accum);
         y_accum += jitter_y;
-        this->field_0xb8.Add(y_accum);
+        this->jitter_progress.Add(y_accum);
         dir = -dir;
     } while (y_accum < 0.7);
 
-    if (this->field_0xb8.GetAt(this->field_0xb8.GetUpperBound()) >= 1.0) {
-        this->field_0xb8.RemoveAt(this->field_0xb8.GetUpperBound());
+    if (this->jitter_progress.GetAt(this->jitter_progress.GetUpperBound()) >= 1.0) {
+        this->jitter_progress.RemoveAt(this->jitter_progress.GetUpperBound());
         this->field_0xcc.RemoveAt(this->field_0xcc.GetUpperBound());
     }
 
-    this->field_0xb8.Add(1.0);
+    this->jitter_progress.Add(1.0);
     this->field_0xcc.Add(0.0);
 
     xs.Add(x0);
     ys.Add(y0);
 
     int32_t n = 0;
-    double px = this->field_0xb8[1] * dx + x0;
+    double px = this->jitter_progress[1] * dx + x0;
     xs.Add(px);
-    double py = this->field_0xb8[1] * dy + y0;
+    double py = this->jitter_progress[1] * dy + y0;
     py = this->field_0xcc[1] * this->wobble_scale + py;
     ys.Add(py);
     n = 1;
 
-    for (int32_t i = 2; i < this->field_0xb8.GetSize() - 1; i++) {
-        px = this->field_0xb8[i] * dx + x0;
-        py = this->field_0xb8[i] * dy + y0;
+    for (int32_t i = 2; i < this->jitter_progress.GetSize() - 1; i++) {
+        px = this->jitter_progress[i] * dx + x0;
+        py = this->jitter_progress[i] * dy + y0;
         py = this->field_0xcc[i] * this->wobble_scale + py;
         double mid_x = (px - xs[n]) / 2.0 + xs[n];
         xs.Add(mid_x);

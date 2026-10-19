@@ -59,3 +59,4 @@ TransientVisualEffectBuilder::field_0x58 -> wobble_scale -- line_length * 0.03, 
 TransientVisualEffectBuilder::field_0x68 -> circle_points -- Bresenham-circle sample points used to place ring VFX
 TransientVisualEffectBuilder::field_0x90 -> arc_x -- sampled arc parameter (x along the line) for quadratic splines
 TransientVisualEffectBuilder::field_0xa4 -> arc_y -- sampled arc y value paired with arc_x
+TransientVisualEffectBuilder::field_0xb8 -> jitter_progress -- 0..1 progress profile of the lightning jitter walk

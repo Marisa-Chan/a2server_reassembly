@@ -358,7 +358,7 @@ public:
     CArray<GO_11c> visual_elements; // 0x7c
     CArray<double> arc_x;
     CArray<double> arc_y;
-    CArray<double> field_0xb8;
+    CArray<double> jitter_progress;
     CArray<double> field_0xcc;
 };
 ASSERT_SIZE(TransientVisualEffectBuilder, 0xe0);
