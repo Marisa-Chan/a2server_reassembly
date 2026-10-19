@@ -226,7 +226,7 @@ public:
     uint8_t ChebyshevDistance(PosYX yx1, PosYX yx2); // Chebyshev distance between two YX positions.
     void GatherUnitsNear(uint16_t yx, uint8_t range, Player* owner, UnitList* out_list); // Gather units near yx within range into out_list.
     int32_t CalcMoveStep(Unit* unit, uint16_t yx, uint8_t val); // Computes movement step magnitude/heading toward yx.
-    int sub_597140(Unit* unit, PosYX yx, int32_t flag);
+    int IsAreaClear(Unit* unit, PosYX yx, int32_t flag);
     int32_t sub_5945EF(class Building* building); // Remove building from map
     int32_t sub_59451F(class Building* building); // Place building on the map
     int sub_5943D0(Building* building, uint16_t yx); // 5943D0 — set building pointer in cell state at yx

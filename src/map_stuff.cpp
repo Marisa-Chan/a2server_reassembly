@@ -399,7 +399,7 @@ void MapStuff::MoveStepTowardPos(Unit* unit, PosYX yx, uint8_t max_range) {
         uint16_t next_yx = this->sub_593AA4(unit);
         ok = 0;
         if (next_yx != 0) {
-            if (this->sub_597140(unit, next_yx, 0) == 0) {
+            if (this->IsAreaClear(unit, next_yx, 0) == 0) {
                 ok = this->field41_0x58d80->sub_5ABB32(unit, next_yx);
             }
         }
@@ -837,7 +837,7 @@ int MapStuff::GetRangeTo(Unit* target, Unit* observer) {
 }
 
 // 597140
-int MapStuff::sub_597140(Unit* unit, PosYX yx, int32_t flag) {
+int MapStuff::IsAreaClear(Unit* unit, PosYX yx, int32_t flag) {
     int32_t size = unit->GetTokenSize();
 
     for (int32_t dx = 0; dx < size; dx++) {
@@ -1675,10 +1675,10 @@ int32_t MapStuff::sub_594C4B(Unit* unit, uint16_t yx) {
 
 // 595468
 int MapStuff::sub_595468(Unit* unit, PosYX yx) {
-    if (!this->sub_597140(unit, yx, 0)) {
+    if (!this->IsAreaClear(unit, yx, 0)) {
         return 0;
     }
-    if (!this->sub_597140(unit, yx, 1)) {
+    if (!this->IsAreaClear(unit, yx, 1)) {
         return 0;
     }
     return 1;
@@ -1717,10 +1717,10 @@ Sack* MapStuff::GetSackAtPos(TokenPos* pos) {
 // 590F0A --- check if unit can be placed at current position
 int MapStuff::CanPlaceUnit(Unit* unit) {
     PosYX yx = unit->position->CompatGetYX();
-    if (!this->sub_597140(unit, yx, 0)) {
+    if (!this->IsAreaClear(unit, yx, 0)) {
         return 0;
     }
-    if (!this->sub_597140(unit, yx, 1)) {
+    if (!this->IsAreaClear(unit, yx, 1)) {
         return 0;
     }
     return 1;

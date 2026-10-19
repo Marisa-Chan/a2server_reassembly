@@ -610,3 +610,4 @@ MapStuff::sub_5918B8 -> FaceTarget -- turn the unit toward the target
 MapStuff::sub_5918E2 -> FacePosition -- turn the unit toward yx
 MapStuff::sub_593B29 -> ChebyshevDistance -- Chebyshev distance between two YX positions
 MapStuff::sub_5964D7 -> GatherUnitsNear -- gathers units near yx within range into out_list
+MapStuff::sub_593CD5 -> CalcMoveStep -- movement step magnitude/heading toward yx
