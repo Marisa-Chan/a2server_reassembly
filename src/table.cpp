@@ -965,7 +965,7 @@ int32_t GameDataRes::FUN_00512625(int32_t id) { //512625
 }
 
 // 514BE7
-void GameDataRes::sub_514BE7() {
+void GameDataRes::PostProcessMagicData() {
     CArray<int32_t>& base_values = this->magics[0].values;
     base_values.SetSize(28, -1);
 
@@ -1111,7 +1111,7 @@ int GameDataRes::ParseTxtFiles(const CString& path) {
         index++;
     }
     file.Close();
-    this->sub_514BE7();
+    this->PostProcessMagicData();
 
     if (!OpenText(path + "Weapons.txt", file)) {
         return 1;
