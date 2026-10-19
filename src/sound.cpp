@@ -682,7 +682,7 @@ void MusicPlayer::Update(uint32_t tm) { // 45a9b3
 				memcpy(dbuf, this->samples, sample_count);
 				this->ds_buffer->Unlock(dbuf, dbufsz, dbuf2, dbufsz2);
 
-				if (this->field_0x6c != 0) {
+				if (this->track_wrap_pending != 0) {
 					this->end_pos += sample_count;
 				}
 			} else {
@@ -703,7 +703,7 @@ void MusicPlayer::Update(uint32_t tm) { // 45a9b3
 				memcpy(dbuf, this->samples, sample_count);
 				this->ds_buffer->Unlock(dbuf, dbufsz, dbuf2, dbufsz2);
 
-				if (this->field_0x6c != 0) {
+				if (this->track_wrap_pending != 0) {
 					this->end_pos += sample_count;
 				}
 			} else {
@@ -713,7 +713,7 @@ void MusicPlayer::Update(uint32_t tm) { // 45a9b3
 			}
 		}
 
-		this->field_0x6c = 0;
+		this->track_wrap_pending = 0;
 
 		if ((sample_count > play_cursor && sample_count > this->end_pos && play_cursor > this->end_pos) ||
 			(sample_count < play_cursor && sample_count < this->end_pos && play_cursor > this->end_pos)) {
@@ -779,7 +779,7 @@ void MusicPlayer::ReadPortion(uint8_t* buf) { //45a707
 		}
 
 		this->end_pos = (this->buffer_size / 2) - buffer_space;
-		this->field_0x6c = 1;
+		this->track_wrap_pending = 1;
 
 		if (g_CurrentMusicTrack < 0) {
 			if (this->play_mode == 0) {

@@ -179,7 +179,7 @@ public:
 	int32_t fade_length;
 	int32_t fade_to_volume;
 	int32_t play_notify;
-	int32_t field_0x6c;
+	int32_t track_wrap_pending;
 	int32_t elapsed_time;
 	int32_t fade_start_volume;
 	int32_t end_pos;
