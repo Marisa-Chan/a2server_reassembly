@@ -218,3 +218,4 @@ CUnit::VMethod19 -> SpawnSpellProjectile -- fires the spell projectile (action_s
 CUnit::VMethod20 -> PlayCastSound -- plays the spell-cast sfx g_SfxArray[action_spell + 500] at attack_delay of a cast
 CUnit::VMethod21 -> PlayAttackSound -- plays the weapon-impact sfx (g_VFX_info->sound[0]) at melee/ranged attack_delay
 CUnit::VMethod22 -> PlayAttackVoice -- plays a random SfxBank attack voice line (3s cooldown)
+CUnit::VMethod23 -> PlayMoveVoice -- plays a random SfxBank move voice line (3s cooldown)

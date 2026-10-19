@@ -3228,7 +3228,7 @@ void CUnit::PlayAttackVoice() {
 }
 
 // 46999f
-void CUnit::VMethod23() {
+void CUnit::PlayMoveVoice() {
     uint32_t now = timeGetTime();
     if (now - this->lastVoicePlaybackTick < 3000) {
         return;

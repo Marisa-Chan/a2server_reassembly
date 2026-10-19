@@ -3811,7 +3811,7 @@ void BigStruct2::sub_419154(uint16_t x, uint16_t y) {
 	g_NetStru1_local.QueuePacketSend(pkt);
 	CUnit* unit = this->sub_41DFDB();
 	if (unit != nullptr && unit->last_action != 1) {
-		unit->VMethod23();
+		unit->PlayMoveVoice();
 	}
 }
 
@@ -3960,7 +3960,7 @@ void BigStruct2::sub_41965D(uint16_t x, uint16_t y) {
 	g_NetStru1_local.QueuePacketSend(pkt);
 	CUnit* unit = this->sub_41DFDB();
 	if (unit != nullptr) {
-		unit->VMethod23();
+		unit->PlayMoveVoice();
 	}
 }
 
@@ -4491,7 +4491,7 @@ void BigStruct2::sub_41A66E(uint16_t id) {
 	g_NetStru1_local.QueuePacketSend(pkt);
 	CUnit* unit = this->sub_41DFDB();
 	if (unit != nullptr) {
-		unit->VMethod23();
+		unit->PlayMoveVoice();
 	}
 }
 
