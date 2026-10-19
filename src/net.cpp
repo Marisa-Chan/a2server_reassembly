@@ -300,7 +300,7 @@ void NetStru1::BroadcastEffectMove(Effect* effect, uint8_t type) {
     packet.unit_id = (uint16_t)effect->building_id;
     packet.type_id = (uint8_t)effect->typeId;
     packet.to_player_id = 0;
-    this->sub_51B370(&packet, effect->position);
+    this->BroadcastMoveCmd(&packet, effect->position);
 }
 
 // 51BE8F
@@ -314,7 +314,7 @@ void NetStru1::SendAreaEffect(AreaEffect* obj, int32_t flag) {
         packet.unit_id = (uint16_t)obj->building_id;
         packet.type_id = (uint8_t)obj->typeId;
         packet.to_player_id = 0;
-        this->sub_51B370(&packet, obj->position);
+        this->BroadcastMoveCmd(&packet, obj->position);
     } else {
         PacketAoeZone& packet = PacketAoeZone::Inst;
         packet.id = 0x87;
@@ -4171,7 +4171,7 @@ void NetStru1::sub_51B0F0(Packet* packet, Unit* unit) {
 }
 
 // 51B370
-void NetStru1::sub_51B370(PacketMoveCmd* packet, TokenPos* pos) {
+void NetStru1::BroadcastMoveCmd(PacketMoveCmd* packet, TokenPos* pos) {
     if (packet->to_player_id != 0) {
         Player* player = g_PlayersList->sub_535B50(packet->to_player_id);
         if (IsVisibleTo(pos, player)) {
@@ -4261,7 +4261,7 @@ void NetStru1::SendSpellCastAtUnit(Unit* caster, Spell* spell, Unit* target, int
         caster->last_action_tick = g_Server->tick;
     }
     packet.to_player_id = 0;
-    this->sub_51B370(&packet, caster->position);
+    this->BroadcastMoveCmd(&packet, caster->position);
 }
 
 // 51BB94
@@ -4282,7 +4282,7 @@ void NetStru1::SendSpellCastAtPos(Unit* caster, Spell* spell, TokenPos* pos, int
         caster->last_action_tick = g_Server->tick;
     }
     packet.to_player_id = 0;
-    this->sub_51B370(&packet, caster->position);
+    this->BroadcastMoveCmd(&packet, caster->position);
 }
 
 // 51BC6B
@@ -4306,8 +4306,8 @@ void NetStru1::SendSpellCastMulti(Unit* caster, Spell* spell, CList<Unit*>* unit
         caster->last_action_tick = g_Server->tick;
     }
     packet.to_player_id = 0;
-    // This reinterpret_cast is kinda weird, but it works, because `sub_51B370` only reads the 2-byte 0xa field from non-Packet fields.
-    this->sub_51B370(reinterpret_cast<PacketMoveCmd*>(&packet), caster->position);
+    // This reinterpret_cast is kinda weird, but it works, because `BroadcastMoveCmd` only reads the 2-byte 0xa field from non-Packet fields.
+    this->BroadcastMoveCmd(reinterpret_cast<PacketMoveCmd*>(&packet), caster->position);
 }
 
 // 51BDA4
@@ -4317,8 +4317,8 @@ void NetStru1::sub_51BDA4(Effect* effect, Unit* unit, uint8_t arg) {
     packet.unit_id = unit->building_id;
     packet.effect_type = effect->typeId;
     packet.to_player_id = 0;
-    // This reinterpret_cast is kinda weird, but it works, because `sub_51B370` only reads the 2-byte 0xa field from non-Packet fields.
-    this->sub_51B370(reinterpret_cast<PacketMoveCmd*>(&packet), unit->position);
+    // This reinterpret_cast is kinda weird, but it works, because `BroadcastMoveCmd` only reads the 2-byte 0xa field from non-Packet fields.
+    this->BroadcastMoveCmd(reinterpret_cast<PacketMoveCmd*>(&packet), unit->position);
 }
 
 // 51C822

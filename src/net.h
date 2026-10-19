@@ -190,7 +190,7 @@ public:
     void SendSpellCastAtUnit(Unit* caster, Spell* spell, Unit* target, int16_t delay); // Send targeted-unit spell packet
     void SendSpellCastAtPos(Unit* caster, Spell* spell, TokenPos* pos, int16_t delay); // Send point/area spell packet
     void SendSpellCastMulti(Unit* caster, Spell* spell, CList<Unit*>* units, int32_t flag); // 51BC6B: Send multi-target spell packet
-    void sub_51B370(PacketMoveCmd* pkt, TokenPos* pos);  // Broadcast move-cmd packet to all players in visibility
+    void BroadcastMoveCmd(PacketMoveCmd* pkt, TokenPos* pos);  // Broadcast move-cmd packet to all players in visibility
     void sub_51B638(PacketAoeZone* pkt, AreaEffect* area_effect);  // Broadcast AoE-zone packet to all players in visibility
     void sub_51B0F0(Packet* pkt, Unit* unit); // 51B0F0 - send unit action packet to relevant players (in asm)
 
