@@ -32,7 +32,7 @@ public:
     Building(TokenPos* pos); // sub_5424AC
     void InitFromTable(uint8_t width, uint8_t height); // Initialize building from info table and place on map.
     void InitByName(const CString& name); // Initialize building fields and look up type by name.
-    int32_t sub_542A31(UnitToHit* to_hit, Unit* caster); // Building attack.
+    int32_t RollDamage(UnitToHit* to_hit, Unit* caster); // Building attack.
 
 public:
     BuildingInfo* building_info;

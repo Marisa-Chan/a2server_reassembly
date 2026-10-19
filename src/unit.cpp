@@ -196,7 +196,7 @@ void __cdecl sub_536A62(Unit* self, Unit* target) {
 
     Building* building = (Building*)target;
     bool was_alive = building->hp > 0;
-    int32_t damage = building->sub_542A31(&self->hit_values, self);
+    int32_t damage = building->RollDamage(&self->hit_values, self);
     building->hp -= damage;
 
     if (was_alive || building->hp > -10) {

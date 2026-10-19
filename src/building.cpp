@@ -153,7 +153,7 @@ int32_t Building::IsOutpost() {
 }
 
 // 542A31
-int32_t Building::sub_542A31(UnitToHit* to_hit, Unit* /*caster*/) {
+int32_t Building::RollDamage(UnitToHit* to_hit, Unit* /*caster*/) {
     if (to_hit == nullptr || this->hp_max == 0) {
         return 0;
     }
