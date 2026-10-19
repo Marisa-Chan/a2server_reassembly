@@ -5360,7 +5360,7 @@ int32_t MainWindow::FUN_004e5466(const CString& addr) { //4e5466
 
 int32_t MainWindow::FUN_00490eb3() { //490eb3
 
-    g_NetStru1_main.FUN_0051d9a0();
+    g_NetStru1_main.SendHatLogout();
     INT_00660f8c = 0;
 
     uint32_t start_time = timeGetTime();

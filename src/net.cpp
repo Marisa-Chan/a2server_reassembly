@@ -4885,7 +4885,7 @@ void NetStru1::SendHatCharId(HatCharId chid) { //51d9d0
     this->QueuePacketSend(pkt);
 }
 
-void NetStru1::FUN_0051d9a0() { //51d9a0
+void NetStru1::SendHatLogout() { //51d9a0
     Packet* pkt = &Packet::Inst;
     pkt->id = 0xc8;
     pkt->to_player_id = 0;
