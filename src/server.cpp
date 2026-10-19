@@ -3876,7 +3876,7 @@ void Server::sub_504a96(Packet* pkt) {
         {
             player = g_PlayersList->sub_535B50(pkt->from_player_id);
             if (player) {
-                g_NetStru1_main.sub_51C46E(player);
+                g_NetStru1_main.ResendPlayerUnits(player);
             }
             break;
         }

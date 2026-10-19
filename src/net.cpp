@@ -396,7 +396,7 @@ void NetStru1::sub_51C0F7(Player* player) {
 }
 
 // 51C46E
-void NetStru1::sub_51C46E(Player* player) {
+void NetStru1::ResendPlayerUnits(Player* player) {
     if (player->main_unit != nullptr) {
         this->SendUnitUpdate(player->main_unit, player, 0xFFB, -1, 0, 0);
     }

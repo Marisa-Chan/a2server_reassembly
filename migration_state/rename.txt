@@ -528,3 +528,4 @@ NetStru1::FUN_0051cd89 -> AnnouncePlayerName -- sends PacketJoin 0x91 announcing
 NetStru1::FUN_0051d6b4 -> SendTeamState -- sends PacketData 0xC2 with teams-started state
 NetStru1::FUN_0051cefb -> SendInfoPacket -- queues PacketInfo(id, param1, param2) to a player or broadcast
 NetStru1::sub_519221 -> SendUnitUpdate -- broadcasts/per-player unit state update packet (mask = update flags, 0xFFB = all)
+NetStru1::sub_51EEB7 -> UpdateConnStats -- per-second connection statistics accumulation

@@ -176,7 +176,7 @@ public:
     void sub_51CD2A(Player* player, int32_t event_id, int32_t arg3); // Send in-game event trigger
     void sub_51CDFB(CString& name, uint32_t score, char type, Player* player); // 51CDFB - send arena score
 
-    void sub_51C46E(Player* player);
+    void ResendPlayerUnits(Player* player);
     void sub_51C601(Unit* unit, int unused);        // Send unit-level-up packet
     void sub_51C822(NetStru2* ns2);    // Send spectator/alliance state
 
