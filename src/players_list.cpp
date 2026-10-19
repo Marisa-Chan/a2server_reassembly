@@ -191,7 +191,7 @@ int PlayersList::sub_53636E() {
 		if (player->is_ai) {
 			continue;
 		}
-		if (player->field_0xa6c == 0) {
+		if (player->team_ready == 0) {
 			return 0;
 		}
 		if (player->field_0xa70 == 0) {

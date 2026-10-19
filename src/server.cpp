@@ -2096,7 +2096,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
 
     // Team game flags.
     if (g_ServerConfig.gameType == 2) {
-        player->field_0xa6c = 0;
+        player->team_ready = 0;
         player->field_0xa70 = (team_id == 1) ? 1 : 0;
     }
 
@@ -2618,8 +2618,8 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 }
             } else if (cheat_string.Find("#ready") == 0) {
                 if (g_ServerConfig.gameType == 2) {
-                    if (g_PlayersList->sub_53636E() == 0 && player->field_0xa6c == 0) {
-                        player->field_0xa6c = 1;
+                    if (g_PlayersList->sub_53636E() == 0 && player->team_ready == 0) {
+                        player->team_ready = 1;
                         g_NetStru1_main.FUN_0051d6b4(0);
                         if (g_PlayersList->sub_53636E() != 0) {
                             // All players now ready --- start the match.
@@ -4761,7 +4761,7 @@ void Server::ServerTic() {
             POSITION ppos = g_PlayersList->list.GetHeadPosition();
             while (ppos != nullptr) {
                 Player* player = g_PlayersList->list.GetNext(ppos);
-                if (player->is_ai == 0 && player->is_in_world != 0 && player->field_0xa6c == 0) {
+                if (player->is_ai == 0 && player->is_in_world != 0 && player->team_ready == 0) {
                     g_NetStru1_main.FUN_0051ce86(0xb, 0, player);
                 }
             }

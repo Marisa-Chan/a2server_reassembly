@@ -598,7 +598,7 @@ void NetStru1::FUN_0051d6b4(uint16_t arg) {
         if (p == nullptr) {
             *ptr++ = 0xF0000003u;
         } else {
-            *ptr++ = teams_started ? p->frags : p->field_0xa6c;
+            *ptr++ = teams_started ? p->frags : p->team_ready;
         }
     }
     this->QueuePacketSend(&packet);

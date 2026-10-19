@@ -54,7 +54,7 @@ Player::Player() {
     this->field_0xa80 = 0;
     this->max_server_level = 0;
     this->min_server_level = 0;
-    this->field_0xa6c = 1;
+    this->team_ready = 1;
     this->field_0xa70 = 0;
     this->field_0xa90 = 0;
     this->field_0xa94 = 0;

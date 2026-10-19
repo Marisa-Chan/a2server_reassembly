@@ -71,7 +71,7 @@ public:
     uint32_t field_0xa60;
     uint32_t respawn_requested;
     int32_t shout_cooldown;
-    uint32_t field_0xa6c;
+    uint32_t team_ready;
     uint32_t field_0xa70; // Team play: 0 for blue team, 1 for red team.
     uint16_t building_entered_from_yx;
     uint8_t field_0xa76;
