@@ -141,3 +141,4 @@ GroupSub::field_0x28 -> avg_pos -- --
 GroupSub::field_0x2a -> max_unit_dist -- --
 GroupSub::field_0x2b -> max_scan_range -- --
 GroupSub::field_0x2c -> max_dist_plus_scan -- --
+GroupSub::field_0x2d -> guard_range -- --

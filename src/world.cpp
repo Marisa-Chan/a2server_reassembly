@@ -2863,7 +2863,7 @@ void World::sub_5AA78C(Unit* unit) {
 void World::sub_5AC137(Group* group) {
     this->sub_5AB719(group);
     group->group_sub->field_0x0 = group->group_sub->avg_pos;
-    group->group_sub->field_0x2d = group->group_sub->max_dist_plus_scan;
+    group->group_sub->guard_range = group->group_sub->max_dist_plus_scan;
     group->group_sub->field_0x38 = group->group_sub->max_dist_plus_scan;
 }
 
@@ -2903,8 +2903,8 @@ void World::sub_5AC8A2(Group* group, uint8_t range) {
         range = this->MinimalGuardRange;
     }
 
-    if (group->group_sub->field_0x2d < range) {
-        group->group_sub->field_0x2d = range;
+    if (group->group_sub->guard_range < range) {
+        group->group_sub->guard_range = range;
         group->group_sub->field_0x38 = range;
     }
 
@@ -3275,13 +3275,13 @@ void World::sub_5AC983(Group* group, int param) {
     this->sub_5AC137(group);
 
     if (param == 0) {
-        if (group->group_sub->field_0x2d < this->MinimalGuardRange) {
-            group->group_sub->field_0x2d = 20;
+        if (group->group_sub->guard_range < this->MinimalGuardRange) {
+            group->group_sub->guard_range = 20;
             group->group_sub->field_0x38 = 20;
         }
     } else {
-        if (group->group_sub->field_0x2d < param) {
-            group->group_sub->field_0x2d = static_cast<uint8_t>(param);
+        if (group->group_sub->guard_range < param) {
+            group->group_sub->guard_range = static_cast<uint8_t>(param);
             group->group_sub->field_0x38 = static_cast<uint8_t>(param);
         }
     }
@@ -4058,14 +4058,14 @@ void World::sub_5A51A1(Unit* unit) {
 void World::sub_5AE5C0(Group* group) {
     uint8_t base = group->group_sub->field_0x38;
     int32_t r = this->sub_5B6F60(-1, 1);
-    group->group_sub->field_0x2d = base + r + 4;
+    group->group_sub->guard_range = base + r + 4;
 }
 
 // 5AE5F5
 void World::sub_5AE5F5(Group* group) {
     uint8_t base = group->group_sub->field_0x38;
     int32_t r = this->sub_5B6F60(-1, 1);
-    group->group_sub->field_0x2d = base + r;
+    group->group_sub->guard_range = base + r;
 }
 
 // 5AF623
@@ -4311,7 +4311,7 @@ void World::sub_5AE2D4(Group* group) {
 void World::sub_5AE628(Group* group) {
     this->sub_5AB92C(group);
     this->sub_5ADB16(group);
-    this->sub_5A3D12(group->group_sub->avg_pos, group->group_sub->field_0x2d);
+    this->sub_5A3D12(group->group_sub->avg_pos, group->group_sub->guard_range);
     this->sub_5AE2D4(group);
 
     POSITION it = group->unit_list.GetHeadPosition();
@@ -4351,7 +4351,7 @@ void World::sub_5AE628(Group* group) {
 void World::sub_5AE7C3(Group* group) {
     this->sub_5AB92C(group);
     this->sub_5ADB16(group);
-    this->sub_5A3D12(group->group_sub->avg_pos, group->group_sub->field_0x2d);
+    this->sub_5A3D12(group->group_sub->avg_pos, group->group_sub->guard_range);
     this->sub_5AE2D4(group);
 
     POSITION it = group->unit_list.GetHeadPosition();
