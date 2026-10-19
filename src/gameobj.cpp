@@ -530,7 +530,7 @@ TokenEntry::TokenEntry(const TokenEntry* obj) {
 
 TokenEntry::TokenEntry(uint8_t** data, int arg) {
     //439102
-    this->field_0x18 = 0;
+    this->slot_code = 0;
     this->field_0x14 = 0;
     this->field_0x1c = -1;
     this->field_0x20 = -1;
@@ -603,9 +603,9 @@ TokenEntry::TokenEntry(uint8_t** data, int arg) {
         pdata++;
 
         if (val == 0) {
-            this->field_0x18 = 2;
+            this->slot_code = 2;
         } else {
-            this->field_0x18 = val + 4;
+            this->slot_code = val + 4;
         }
     }
 
@@ -620,7 +620,7 @@ void TokenEntry::operator=(const TokenEntry& obj) {
     this->mods_count = obj.mods_count;
     this->count = obj.count;
     this->field_0x14 = obj.field_0x14;
-    this->field_0x18 = obj.field_0x18;
+    this->slot_code = obj.slot_code;
     this->mods_size = obj.mods_size;
 
     if (this->mods_size == 0) {
@@ -939,9 +939,9 @@ int32_t TokenEntry::sub_4A7900(TokenEntry* other) { //4a7900
         return 0;
     }
 
-    if (this->field_0x18 != other->field_0x18
-        && (this->field_0x18 < 5 || this->field_0x18 > 8
-            || other->field_0x18 < 5 || other->field_0x18 > 8)) {
+    if (this->slot_code != other->slot_code
+        && (this->slot_code < 5 || this->slot_code > 8
+            || other->slot_code < 5 || other->slot_code > 8)) {
         return 0;
     }
 
@@ -1446,7 +1446,7 @@ void CUnit::CopyFromUnit(const Unit& uni) { //46b0d7
                 delete te;
                 this->equipmentTokens[i] = nullptr;
             } else {
-                te->field_0x18 = 1;
+                te->slot_code = 1;
                 this->equipmentTokens[i] = te;
             }
         }

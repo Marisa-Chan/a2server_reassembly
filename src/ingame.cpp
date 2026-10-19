@@ -1118,7 +1118,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 								delete itm;
 								ct->equipmentTokens[i] = nullptr;
 							} else {
-								itm->field_0x18 = 1;
+								itm->slot_code = 1;
 								ct->equipmentTokens[i] = itm;
 
 								if (g_EnableTrace) {
@@ -1235,7 +1235,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					uint8_t* pdata = packet_state->data;
 					for (int i = 0; i < packet_state->entry_count; i++) {
 						TokenEntry* obj = new TokenEntry(&pdata, 0);
-						obj->field_0x18 = 2;
+						obj->slot_code = 2;
 
 						if (obj->FUN_004396d6()) {
 							ct->tokenEntries.InsertAt(i + packet_state->start_index, obj, 1);
@@ -1302,7 +1302,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						gt->count = this->my_main_unit->gold;
 						gt->flg = 0;
 						gt->mods_count = 0;
-						gt->field_0x18 = 2;
+						gt->slot_code = 2;
 						ct->tokenEntries.Add(gt);
 					}
 
@@ -1954,7 +1954,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							itm->flg = 0;
 							itm->mods_count = 0;
 							itm->mods_size = 0;
-							itm->field_0x18 = 1;
+							itm->slot_code = 1;
 
 							ct->equipmentTokens[i] = itm;
 						}

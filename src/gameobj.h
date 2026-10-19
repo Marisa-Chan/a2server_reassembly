@@ -90,7 +90,7 @@ public:
 	void* mods = nullptr;
 	uint32_t count = 1;
 	uint32_t field_0x14 = 0;
-	uint32_t field_0x18 = 0;
+	uint32_t slot_code = 0;
 	int32_t field_0x1c = -1;
 	int32_t field_0x20 = -1;
 };

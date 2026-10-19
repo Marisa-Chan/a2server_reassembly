@@ -9799,12 +9799,12 @@ int32_t VisCharInfo::OnLButtonUp(uint32_t wparam, CPoint pos) {
 
     if (main_wnd->field_0x408 != nullptr) {
         TokenEntry* token = main_wnd->field_0x408;
-        if (token->field_0x18 == 2 || token->field_0x18 == 1) {
+        if (token->slot_code == 2 || token->slot_code == 1) {
             g_Cursors[0]->Use();
             this->VMethod27(token->GetType() - 1);
             return 1;
         }
-        if (token->field_0x18 >= 5 && token->field_0x18 <= 8) {
+        if (token->slot_code >= 5 && token->slot_code <= 8) {
             ((VisShop*)main_wnd->vis_root->FindChild(0x3E8))->sub_4BC97B();
             return 1;
         }
@@ -10103,7 +10103,7 @@ void VisCharInfo::sub_4B36B4() {
         if (main_wnd->field_0x408 != nullptr) {
             VisShop* shop = (VisShop*)main_wnd->vis_root->FindChild(0x3E8);
             TokenEntry* token = main_wnd->field_0x408;
-            if (shop->placement_lock != 0 || token->field_0x18 == 1 || token->field_0x18 == 2) {
+            if (shop->placement_lock != 0 || token->slot_code == 1 || token->slot_code == 2) {
                 new_cursor = main_wnd->item_cursor;
             } else {
                 new_cursor = g_Cursors[CURSOR_CANTPUT];
@@ -10557,11 +10557,11 @@ int32_t VisShop::OnMouseMove(uint32_t wparam, CPoint pos) {
         bool reset = false;
 
         if ((this->to_sell->GetRect().PtInRect(pos) || this->select_info_panel->GetRect().PtInRect(pos))
-            && (int32_t)item->field_0x18 >= 5 && (int32_t)item->field_0x18 <= 8) {
+            && (int32_t)item->slot_code >= 5 && (int32_t)item->slot_code <= 8) {
             reset = true;
         }
         if (!reset && this->assortiment->GetRect().PtInRect(pos)
-            && (item->field_0x18 == 2 || (int32_t)item->field_0x18 <= 1)) {
+            && (item->slot_code == 2 || (int32_t)item->slot_code <= 1)) {
             reset = true;
         }
         if (!reset
@@ -10879,7 +10879,7 @@ void VisShop::sub_4BCC38() {
         TokenEntry* first = (*this->to_buy->grid_source)[0];
         removed = this->to_buy->VMethod36(0, first->count);
         if (removed != nullptr) {
-            if (removed->field_0x18 == 2) {
+            if (removed->slot_code == 2) {
                 this->to_sell->VMethod37(-1);
             } else {
                 this->assortiment->VMethod37(-1);
@@ -10921,7 +10921,7 @@ void VisShop::sub_4BCDA0() {
     this->buy_gold = 0;
     for (int32_t i = 0; i < this->to_buy->grid_source->GetSize(); i++) {
         TokenEntry* entry = (*this->to_buy->grid_source)[i];
-        if (entry->field_0x18 == 2) {
+        if (entry->slot_code == 2) {
             this->sell_gold += (int32_t)(entry->GetAttribute(1) + 1) / 2 * entry->count;
         } else {
             this->buy_gold -= entry->GetAttribute(1) * entry->count;
@@ -11084,7 +11084,7 @@ void __cdecl FUN_004ba1cc(CArray<TokenEntry*>* arr) {
 void VisShop::sub_4BBBD6(int32_t category, CArray<TokenEntry*>* arr) {
     AfxGetMainWnd();
     for (int32_t i = 0; i < arr->GetSize(); i++) {
-        (*arr)[i]->field_0x18 = category + 5;
+        (*arr)[i]->slot_code = category + 5;
         (*arr)[i]->field_0x14 = category;
     }
     CArray<TokenEntry*>& cat_arr = this->assortiment->field_0x2100[category];
@@ -16636,14 +16636,14 @@ int32_t VisInvType1::OnRButtonDblClk(uint32_t wparam, CPoint pos) {
 
 // 4A79C0
 int32_t VisInvType1::VMethod27(TokenEntry* o) {
-    o->field_0x18 = 2;
+    o->slot_code = 2;
     return VisInvBase::VMethod27(o);
 }
 
 
 // 4A79F0
 int32_t VisInvType1::VMethod26(TokenEntry* o, int32_t idx) {
-    o->field_0x18 = 2;
+    o->slot_code = 2;
     return VisInvBase::VMethod26(o, idx);
 }
 
@@ -16751,7 +16751,7 @@ void VisInvExtBase::VMethod7() {
         } else {
             CUnit* unit = shop->selected_units[shop->select_index];
             int32_t compatible = unit->FUN_0046c0c9(entry);
-            if (entry->field_0x18 >= 5 && entry->field_0x18 <= 8) {
+            if (entry->slot_code >= 5 && entry->slot_code <= 8) {
                 int32_t price = entry->GetAttribute(1);
                 if (shop->current_gold < price || compatible == 0) {
                     shop->bmp_backinvg->VMethod2(pos.x, pos.y + 1, 0, 0, 0);
@@ -16785,7 +16785,7 @@ void VisInvExtBase::VMethod7() {
         if (entry->FUN_0041f0d0() == 0 && entry->FUN_004a78c0() == 0) {
             CPoint cost_pos(this->field_0x20c4[i].right + off_x, this->field_0x20c4[i].top + off_y + 1);
             CArray<CBmp64*>* cost_arr;
-            if (entry->field_0x18 == 2) {
+            if (entry->slot_code == 2) {
                 cost_arr = &shop->bmp_cost_medium;
             } else {
                 cost_arr = &shop->bmp_cost_small;
@@ -16800,7 +16800,7 @@ void VisInvExtBase::VMethod7() {
             int32_t bmp_h = cost_bmp->GetHeight(0);
             cost_bmp->VMethod10(cost_pos.x, cost_pos.y, 0, 0, bmp_w, bmp_h);
             int32_t amount;
-            if (entry->field_0x18 == 2) {
+            if (entry->slot_code == 2) {
                 amount = (entry->GetAttribute(1) + 1) / 2;
             } else {
                 amount = entry->GetAttribute(1);
@@ -16829,7 +16829,7 @@ int32_t VisInvExtBase::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
             this->VMethod36(idx, 1);
             if (main_wnd->field_0x408 != nullptr) {
                 if (main_wnd->field_0x410 == 4) {
-                    switch (main_wnd->field_0x408->field_0x18) {
+                    switch (main_wnd->field_0x408->slot_code) {
                     case 1:
                         ((VisCharInfo*)shop->select_info_panel)->VMethod27(main_wnd->field_0x40c);
                         shop->dirty |= 8;
@@ -16842,7 +16842,7 @@ int32_t VisInvExtBase::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
                     case 6:
                     case 7:
                     case 8:
-                        shop->assortiment->grid_source = &shop->assortiment->field_0x2100[main_wnd->field_0x408->field_0x18 - 5];
+                        shop->assortiment->grid_source = &shop->assortiment->field_0x2100[main_wnd->field_0x408->slot_code - 5];
                         shop->assortiment->VMethod37(-1);
                         shop->assortiment->grid_source = &shop->assortiment->field_0x2100[shop->select_category];
                         shop->assortiment->sub_4B4D33();
@@ -16894,7 +16894,7 @@ int32_t VisInvExtBase::OnLButtonUp(uint32_t wparam, CPoint pos) {
     } else if (region < 4 || region > 8) {
         this->VMethod37(this->VMethod31(&pos));
     } else {
-        if (this->VMethod38() == main_wnd->field_0x408->field_0x18) {
+        if (this->VMethod38() == main_wnd->field_0x408->slot_code) {
             this->VMethod37(this->VMethod31(&pos));
         } else {
             shop->sub_4BC97B();
@@ -17058,7 +17058,7 @@ void VisInvExtBase::VMethod39() {
 void VisInvExtBase::VMethod40(CArray<TokenEntry*>* arr) {
     if (this->VMethod38() != 4) {
         for (int32_t i = 0; i < arr->GetSize(); i++) {
-            arr->GetAt(i)->field_0x18 = this->VMethod38();
+            arr->GetAt(i)->slot_code = this->VMethod38();
         }
     }
     while (this->grid_source->GetSize() != 0) {
@@ -17182,7 +17182,7 @@ TokenEntry* VisInvExtType1::VMethod29(TokenEntry* o, int32_t num) {
             entry->item_id = 0;
         }
         o->field_0x1c = i;
-        o->field_0x18 = this->VMethod38();
+        o->slot_code = this->VMethod38();
         return o;
     }
     return nullptr;
@@ -17228,8 +17228,8 @@ void VisInvExtType1::VMethod7() {
 
 // 4B790D
 int32_t VisInvExtType1::VMethod26(TokenEntry* o, int32_t idx) {
-    o->field_0x18 = o->field_0x14 + 5;
-    if (o->field_0x18 >= 5 && o->field_0x18 <= 8 && o->field_0x1c >= 0 && o->field_0x1c < this->grid_source->GetSize()) {
+    o->slot_code = o->field_0x14 + 5;
+    if (o->slot_code >= 5 && o->slot_code <= 8 && o->field_0x1c >= 0 && o->field_0x1c < this->grid_source->GetSize()) {
         TokenEntry* entry = this->grid_source->GetAt(o->field_0x1c);
         if (entry->FUN_004a78c0()) {
             *entry = *o;
@@ -17373,7 +17373,7 @@ int32_t VisInvExtType1::OnKeyDown(uint32_t wparam) {
 int32_t VisInvExtType1::OnMouseMove(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->field_0x408 != nullptr) {
-        switch (main_wnd->field_0x408->field_0x18) {
+        switch (main_wnd->field_0x408->slot_code) {
         case 5:
         case 6:
         case 7:
@@ -17698,7 +17698,7 @@ int32_t VisInvExtType2::OnLButtonDown(uint32_t wparam, CPoint pos) {
 int32_t VisInvExtType2::OnMouseMove(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->field_0x408 != nullptr) {
-        switch (main_wnd->field_0x408->field_0x18) {
+        switch (main_wnd->field_0x408->slot_code) {
         case 1:
         case 2:
             this->field_0x20ac->placement_lock = 1;
@@ -17731,22 +17731,22 @@ int32_t VisInvExtType2::OnLButtonUp(uint32_t wparam, CPoint pos) {
 
 // 4B9EA0
 int32_t VisInvExtType2::VMethod27(TokenEntry* o) {
-    o->field_0x18 = 2;
+    o->slot_code = 2;
     return VisInvBase::VMethod27(o);
 }
 
 
 // 4B9ED0
 int32_t VisInvExtType2::VMethod26(TokenEntry* o, int32_t idx) {
-    o->field_0x18 = 2;
+    o->slot_code = 2;
     return VisInvBase::VMethod26(o, idx);
 }
 
 
 // 4B9457
 int32_t VisInvExtType3::VMethod26(TokenEntry* o, int32_t idx) {
-    if (o->field_0x18 == 1) {
-        o->field_0x18 = 2;
+    if (o->slot_code == 1) {
+        o->slot_code = 2;
     }
     return VisInvBase::VMethod26(o, idx);
 }
@@ -17762,7 +17762,7 @@ TokenEntry* VisInvExtType3::VMethod43(int32_t id1, int32_t id2) {
         if (entry->field_0x4 != id1) {
             continue;
         }
-        if (entry->field_0x18 != id2) {
+        if (entry->slot_code != id2) {
             continue;
         }
         if (entry->sub_4A7880(1) == 0) {
@@ -17912,7 +17912,7 @@ int32_t VisInvExtType3::VMethod37(int32_t idx) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (GetRandS16(100) < 0x1E && main_wnd->sessionMode == 2 && main_wnd->field_0x408 != nullptr) {
         TokenEntry* entry = main_wnd->field_0x408;
-        if (entry->field_0x18 > 4 && entry->field_0x18 < 9) {
+        if (entry->slot_code > 4 && entry->slot_code < 9) {
             char shopname[80];
             if (main_wnd->vis_shopkaarg == this->field_0x20ac) {
                 strcpy(shopname, "shop_kaarg");
@@ -18024,8 +18024,8 @@ void VisInvExtType3::VMethod7() {
 // 4B91F9
 int32_t VisInvExtType3::sub_4B91F9(TokenEntry* o) {
     TokenEntry copy(o);
-    if (o->field_0x18 == 1) {
-        copy.field_0x18 = 2;
+    if (o->slot_code == 1) {
+        copy.slot_code = 2;
     }
     for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
         TokenEntry* entry = this->grid_source->GetAt(i);
@@ -18047,7 +18047,7 @@ int32_t VisInvExtType3::VMethod27(TokenEntry* o) {
         if (entry->field_0x4 != o->field_0x4) {
             continue;
         }
-        if (entry->field_0x18 != o->field_0x18) {
+        if (entry->slot_code != o->slot_code) {
             continue;
         }
         entry->sub_4A7850(o->count);
