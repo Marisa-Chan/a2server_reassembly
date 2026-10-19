@@ -192,7 +192,7 @@ public:
     void SendSpellCastMulti(Unit* caster, Spell* spell, CList<Unit*>* units, int32_t flag); // 51BC6B: Send multi-target spell packet
     void BroadcastMoveCmd(PacketMoveCmd* pkt, TokenPos* pos);  // Broadcast move-cmd packet to all players in visibility
     void BroadcastAoeZone(PacketAoeZone* pkt, AreaEffect* area_effect);  // Broadcast AoE-zone packet to all players in visibility
-    void sub_51B0F0(Packet* pkt, Unit* unit); // 51B0F0 - send unit action packet to relevant players (in asm)
+    void SendUnitAction(Packet* pkt, Unit* unit); // 51B0F0 - send unit action packet to relevant players (in asm)
 
 
     void AddTailNet2(NetStru2*& net2); //517e91

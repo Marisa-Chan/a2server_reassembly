@@ -265,7 +265,7 @@ void NetStru1::sub_51B99E(Unit* unit, uint8_t angle, uint8_t speed_dir, uint8_t 
     unit->last_action_tick = g_Server->tick + speed_dir;
     packet.unit_id = (uint16_t)unit->building_id;
     packet.to_player_id = 0;
-    this->sub_51B0F0(&packet, unit);
+    this->SendUnitAction(&packet, unit);
 }
 
 // 51BA2F
@@ -276,7 +276,7 @@ void NetStru1::sub_51BA2F(Unit* unit) {
     packet.target_id = (uint16_t)unit->cast_target->building_id;
     packet.to_player_id = 0;
     unit->last_action_tick = g_Server->tick + unit->charge + unit->relax;
-    this->sub_51B0F0(&packet, unit);
+    this->SendUnitAction(&packet, unit);
 }
 
 // 51C59C
@@ -4134,7 +4134,7 @@ void MarkUnitHiddenForPlayer(PacketMoveCmd* packet, Player* player) {
 }
 
 // 51B0F0
-void NetStru1::sub_51B0F0(Packet* packet, Unit* unit) {
+void NetStru1::SendUnitAction(Packet* packet, Unit* unit) {
     if (packet->to_player_id != 0) {
         Player* player = g_PlayersList->sub_535B50(packet->to_player_id);
         if ((unit->seen_by_mask & player->vision_sharing_id) == 0 && g_Server->field4_0x74 != 0) {
