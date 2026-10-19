@@ -328,7 +328,7 @@ void AreaEffect::ApplyRadiusRing() {
 }
 
 // 5384FF
-void AreaEffect::sub_5384FF() {
+void AreaEffect::BroadcastAndApply() {
 	g_NetStru1_main.SendAreaEffect(this, 1);
 
 	bool spread_damage = false;
@@ -555,7 +555,7 @@ void AreaEffect::ProcessEffects() {
 		return;
 	}
 	if (!(this->TokenID & 1)) {
-		this->sub_5384FF();
+		this->BroadcastAndApply();
 		return;
 	}
 	if (this->zone_active == 0) {

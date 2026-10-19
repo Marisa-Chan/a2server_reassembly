@@ -79,7 +79,7 @@ public:
     void ApplyWaveDistribution();
     void ApplyAroundPosition();
     void ApplyRadiusRing();
-    void sub_5384FF();
+    void BroadcastAndApply();
     void sub_53868D(uint8_t x, uint8_t y);
     uint32_t sub_538897() const; // Map area-effect layer index from effect type.
 
