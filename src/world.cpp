@@ -1224,7 +1224,7 @@ void World::CastKnownSpell(Unit* caster, Unit* target, int32_t spell_id) {
 // (is_defensive=1) of owner, skipping invisible units.
 // 5B61D0
 Unit* World::sub_5B61D0(uint16_t pos_yx, uint8_t byte_0x3c, Player* owner, int32_t is_defensive) {
-    this->field24_0xa50->sub_5964D7(pos_yx, byte_0x3c, owner, &this->field26_0xa64);
+    this->field24_0xa50->GatherUnitsNear(pos_yx, byte_0x3c, owner, &this->field26_0xa64);
 
     CList<Unit*>& list = this->field26_0xa64.unit_list;
     POSITION it = list.GetHeadPosition();

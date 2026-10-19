@@ -747,7 +747,7 @@ int MapStuff::ApplyTerrainMod(uint16_t yx, void* src) {
 }
 
 // 5964D7
-void MapStuff::sub_5964D7(uint16_t yx, uint8_t range, Player* owner, UnitList* out_list) {
+void MapStuff::GatherUnitsNear(uint16_t yx, uint8_t range, Player* owner, UnitList* out_list) {
     out_list->unit_list.RemoveAll();
     if (this->field69_0xa456c == nullptr) {
         return;
