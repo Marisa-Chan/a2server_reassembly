@@ -349,11 +349,11 @@ void Server::ProcessPlayers() {
 
     g_NetStru1_main.FUN_0051ceac(0xb8, nullptr);
     g_NetStru1_main.SendPacket_64(this->tick | 1, 0);
-    this->sub_4F9E55();
+    this->ScanSavedCharacters();
 }
 
 // 4F9E55
-void Server::sub_4F9E55() {
+void Server::ScanSavedCharacters() {
     if (g_ServerConfig.gameType != 0) {
         return;
     }

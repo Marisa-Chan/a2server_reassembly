@@ -157,7 +157,7 @@ public:
     void ServerTic();
     void ProcessPlayers();
     void AnnounceHatGameStart(); // 4f465e
-    void sub_4F9E55(); // 4f9e55
+    void ScanSavedCharacters(); // 4f9e55
     void sub_4FA5C4();
     void sub_4FA78E(int arg);
     void sub_4F8831();
