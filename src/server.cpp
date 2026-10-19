@@ -625,7 +625,7 @@ void Srv1::sub_59FC97(int count) {
             gold = Random0N(400) + 100;
         }
         TokenPos pos(x, y, MapStuff_Instance);
-        g_Server->srv_stru1->sack_list->sub_554460(&pos, inventory, gold, 0);
+        g_Server->srv_stru1->sack_list->DumpInventoryAt(&pos, inventory, gold, 0);
     }
 }
 
@@ -1530,7 +1530,7 @@ void Srv1::sub_59F1BE(MapAlm* alm) {
         // Create sack on map if this is a ground sack
         if (sack_data->unit_id == 0 && inventory != nullptr) {
             TokenPos pos(sack_data->x >> 8, sack_data->y >> 8, MapStuff_Instance);
-            this->srv_stru->sack_list->sub_554460(&pos, inventory, sack_data->gold, 0);
+            this->srv_stru->sack_list->DumpInventoryAt(&pos, inventory, sack_data->gold, 0);
         }
     }
 }
@@ -3420,9 +3420,9 @@ void Server::sub_504a96(Packet* pkt) {
 
             if (dx <= 2 && dy <= 2) {
                 TokenPos drop_pos(drop_x, drop_y, MapStuff_Instance);
-                this->srv_stru1->sack_list->sub_554460(&drop_pos, nullptr, amount, 1);
+                this->srv_stru1->sack_list->DumpInventoryAt(&drop_pos, nullptr, amount, 1);
             } else {
-                this->srv_stru1->sack_list->sub_554460(unit->position, nullptr, amount, 1);
+                this->srv_stru1->sack_list->DumpInventoryAt(unit->position, nullptr, amount, 1);
             }
 
             if (GetTickCount() - unit->pOwner->last_save_tick > 15000) {
@@ -5339,7 +5339,7 @@ void Server::sub_4F950F() {
         int32_t y = atoi(file_name.Mid(4));
 
         TokenPos pos(x, y, MapStuff_Instance);
-        this->srv_stru1->sack_list->sub_554460(&pos, inventory, money, 1);
+        this->srv_stru1->sack_list->DumpInventoryAt(&pos, inventory, money, 1);
     }
 
     this->field66_0x224 = 1;
@@ -5760,7 +5760,7 @@ void SackList::ClearSentToMask(Player* player) {
 
 // 554927
 void SackList::DropInventoryAt(TokenPos* pos, Inventory* inventory, int money, int is_main_player_unit) {
-    if (this->sub_554460(pos, inventory, money, is_main_player_unit)) {
+    if (this->DumpInventoryAt(pos, inventory, money, is_main_player_unit)) {
         Sack* sack = MapStuff_Instance->sub_58E5F3(pos);
         g_NetStru1_main.sub_51AC77(sack, nullptr, 0);
     }
@@ -5779,7 +5779,7 @@ int32_t SackList::sub_55496E(Sack* sack) {
 }
 
 // 554460
-int32_t SackList::sub_554460(TokenPos* pos, Inventory* inventory, int money, int param_5) {
+int32_t SackList::DumpInventoryAt(TokenPos* pos, Inventory* inventory, int money, int param_5) {
     Sack* sack = MapStuff_Instance->sub_58E5F3(pos);
     
     if (!sack) {
@@ -6609,7 +6609,7 @@ void Server::sub_4F8B74() {
     Inventory* inv = new Inventory();
     inv->PutItemIntoBagAtDefault(item);
     TokenPos pos(x, y, MapStuff_Instance);
-    this->srv_stru1->sack_list->sub_554460(&pos, inv, 0, 0);
+    this->srv_stru1->sack_list->DumpInventoryAt(&pos, inv, 0, 0);
 }
 
 // 4F8FBF

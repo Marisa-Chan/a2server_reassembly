@@ -352,3 +352,4 @@ SrvStru1::sub_4FBAE3 -> MakeTargetSpellEffect -- spawns a dummy caster unit with
 SrvStru1::sub_4FB4AA -> UpdateMapObjects -- runs building RegenTick + sack visibility update
 SrvStru1::sub_4FB273 -> ProcessTick -- per-tick: processes dummy units, removes finished ones, ticks effects and unit lists
 SackList::sub_554B03 -> ClearSentToMask -- clears the player's vision_sharing_id bit from every sack's sent_to_mask
+SackList::sub_554927 -> DropInventoryAt -- dumps inventory+money into a sack at pos (creating it) and broadcasts the sack
