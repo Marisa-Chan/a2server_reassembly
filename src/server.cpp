@@ -630,7 +630,7 @@ void Srv1::SpawnRandomSacks(int count) {
 }
 
 // 59BEDB
-void Srv1::sub_59BEDB(Group* group, MapAlm* alm) {
+void Srv1::SpawnGroupOutpost(Group* group, MapAlm* alm) {
     if (group->unit_list.GetCount() == 0) {
         return;
     }
@@ -722,7 +722,7 @@ void Srv1::SpawnAiGroupOutposts(MapAlm* alm) {
             POSITION group_iter = player->group_list->groups.GetHeadPosition();
             while (group_iter) {
                 Group* group = player->group_list->groups.GetNext(group_iter);
-                this->sub_59BEDB(group, alm);
+                this->SpawnGroupOutpost(group, alm);
             }
         }
     }
