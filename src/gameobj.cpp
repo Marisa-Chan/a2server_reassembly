@@ -409,7 +409,7 @@ void CGameObject::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) { //46f4b
 }
 
 
-void CGameObject::VMethod8(int32_t arg1, int32_t arg2, int32_t arg3) { //46f4c0
+void CGameObject::DrawHealthBar(int32_t arg1, int32_t arg2, int32_t arg3) { //46f4c0
 }
 
 
@@ -1650,7 +1650,7 @@ void CGameObject::FUN_004627bb(int32_t x, int32_t y) { // 4627BB
     g_font3->DrawTextWithShadow(x, y, buf, 0, shadow, 1);
 }
 
-void CUnit::VMethod8(int32_t arg1, int32_t arg2, int32_t arg3) { // 466a78
+void CUnit::DrawHealthBar(int32_t arg1, int32_t arg2, int32_t arg3) { // 466a78
     if (this->death_state >= 5) {
         return;
     }
@@ -3825,7 +3825,7 @@ StructEnter::~StructEnter() {
 StructEnter g_StructEnter;
 
 // 4631f3
-void CStructure::VMethod8(int32_t arg1, int32_t arg2, int32_t arg3) {
+void CStructure::DrawHealthBar(int32_t arg1, int32_t arg2, int32_t arg3) {
     if (arg1 != this->mapBoundsLeft || arg2 != this->mapBoundsTop) {
         return;
     }

@@ -5690,13 +5690,13 @@ void BigStruct2::sub_406F7B() {
 			CGameObject* obj94 = this->tile_structures[idx];
 			uint32_t hgt = this->height_cells[x + 4 + (y + 4) * (this->view_tiles_x + 8)];
 			if (obj94 != nullptr && obj94->IsSelected()) {
-				obj94->VMethod8(x, y, hgt);
+				obj94->DrawHealthBar(x, y, hgt);
 			}
 			if (obj8c != nullptr && (obj8c->IsSelected() || (this->show_hp != 0 && obj8c->FUN_0041f130() == 0))) {
-				obj8c->VMethod8(x, y, hgt);
+				obj8c->DrawHealthBar(x, y, hgt);
 			}
 			if (obj90 != nullptr && (obj90->IsSelected() || (this->show_hp != 0 && obj90->FUN_0041f130() == 0))) {
-				obj90->VMethod8(x, y, hgt);
+				obj90->DrawHealthBar(x, y, hgt);
 			}
 		}
 	}

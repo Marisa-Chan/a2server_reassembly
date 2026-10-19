@@ -203,3 +203,4 @@ CGameObject::VMethod4 -> GetTileWidth -- vtable slot: object footprint width in 
 CGameObject::VMethod5 -> GetTileHeight -- vtable slot: object footprint height in tiles (g_VFX_info.tile_size / g_StructuresInfo.tile_height / bridge_height)
 CGameObject::VMethod6 -> Draw -- vtable slot: draws the object sprite at the map tile (unit sprite with palette / building rows / backpack / projectile)
 CGameObject::VMethod7 -> DrawShadow -- vtable slot: sun-angle offset pass drawing the sprite with shade/lit delta tables (gated by g_Shadows, drawn before Draw)
+CGameObject::VMethod8 -> DrawHealthBar -- vtable slot: hp/mp bars + player-name/quest-marker text above the object (structures: anchor-tile-only hp bar)
