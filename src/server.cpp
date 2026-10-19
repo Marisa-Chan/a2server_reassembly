@@ -2505,7 +2505,7 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
     unit->inventory = new Inventory();
     uint8_t* eq_data = equipment->data;
     for (int32_t i = 0; i < 12; i++) {
-        Item* item = sub_4F499B(&eq_data);
+        Item* item = ReadItem(&eq_data);
         if (item->item_id != 0) {
             unit->UseItemOrStash(item);
         }
@@ -2518,7 +2518,7 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
     if (inventory != nullptr) {
         uint8_t* inv_data = inventory->data;
         while (inv_data < inventory->data + inventory->data_size) {
-            Item* item = sub_4F499B(&inv_data);
+            Item* item = ReadItem(&inv_data);
             if (g_ServerConfig.gameType == 3 && item->item_id != 0 && item->world_equip != nullptr) {
                 const auto& name = item->world_equip->name;
                 if (name == "Potion Big Healing" || name == "Potion Medium Healing" || name == "Potion Health Regeneration") {
@@ -5326,7 +5326,7 @@ void Server::sub_4F950F() {
 
         uint8_t* p = packet.data;
         while (p < packet.data + packet.data_size) {
-            Item* item = sub_4F499B(&p);
+            Item* item = ReadItem(&p);
             if (item->item_id == 0) {
                 delete item;
             } else {

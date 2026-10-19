@@ -5727,7 +5727,7 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx) { //492c66
 
                 hum->inventory = new Inventory();
                 for (int i = 1; i < 13; i++) {
-                    Item* itm = sub_4F499B(&eq_data);
+                    Item* itm = ReadItem(&eq_data);
 
                     if (itm->item_id != 0) {
                         hum->UseItemOrStash(itm);

@@ -1155,7 +1155,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 									delete this->field_0x4988[i];
 								}
 
-								this->field_0x4988[i] = sub_4F499B(&pdata);
+								this->field_0x4988[i] = ReadItem(&pdata);
 							}
 						}
 
@@ -1278,7 +1278,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 									}
 								}
 
-								Item * itm = sub_4F499B(&pdata);
+								Item * itm = ReadItem(&pdata);
 								this->field_0x4974.SetAtGrow(i + packet_state->start_index, itm);
 							}
 
