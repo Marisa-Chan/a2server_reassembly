@@ -280,7 +280,7 @@ public:
     void sub_504a96(Packet* packet);
 
     void SignalGameStart(int32_t arg);
-    int  sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1, CString name, CString login,
+    int  JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1, CString name, CString login,
                     void* Block, int32_t block_size, int32_t team_id);
 
     void sub_4F3188(CArchive& ar); // 4F3188 - deserialise saved game state from archive

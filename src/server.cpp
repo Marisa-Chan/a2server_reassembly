@@ -39,7 +39,7 @@
 #include "patch/allowed_picture.h"
 #include "patch/flags.h"
 
-// ---- Global variables used by sub_4FC644 ----
+// ---- Global variables used by JoinPlayer ----
 UnitList* dword_6CDB3C;  // pending-unit list
 Server* g_Server; // 642c2c
 int32_t g_IsServer; // 665d00
@@ -1883,13 +1883,13 @@ void Server::AssignPlayerSlot(Player* player, int32_t arg4) {
     }
 }
 
-// sub_4FC644 --- validate and process a player join request.
+// JoinPlayer --- validate and process a player join request.
 // Returns: 0=success, 1=server full, 2=duplicate name, 3=banned name,
 //          4=name too short, 5=invalid char data, 6=too strong, 7=too weak,
 //          8=team play started, 9=shutdown initiated.
 // Calling convention: __thiscall (ecx=this=Server*), args are stdcall-pushed.
 // `name` / `login` are CStrings passed by value (caller owns them; function may assign into them).
-int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
+int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
                        CString name,          // player display name (in/out)
                        CString login,         // player login credential
                        void* Block,           // raw network packet (heap-allocated, ownership transferred here)
@@ -5461,7 +5461,7 @@ void Server::ProcessHatPacket(Packet* pkt) {
             CString login(data + block_size, login_len);
             CString name(data + block_size + login_len, name_len);
 
-            int32_t result = this->sub_4FC644(id1, id2, name, login, block, block_size, team_id);
+            int32_t result = this->JoinPlayer(id1, id2, name, login, block, block_size, team_id);
             if (result == 0) {
                 LogMessage("New player " + name + " has logged in as " + login);
                 NetStru1::HatConnector.sub_51E5FB(id1, id2);
