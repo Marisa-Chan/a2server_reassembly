@@ -354,7 +354,7 @@ void NetStru1::sub_51BE8F(AreaEffect* obj, int32_t flag) {
 }
 
 // 51C0F7
-void NetStru1::sub_51C0F7(Player* player) {
+void NetStru1::SendPendingUnits(Player* player) {
     if (dword_6CDB3C != nullptr) {
         POSITION pos = dword_6CDB3C->unit_list.GetHeadPosition();
         while (pos != nullptr) {

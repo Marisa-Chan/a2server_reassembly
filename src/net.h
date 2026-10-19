@@ -159,7 +159,7 @@ public:
     void SendGameInfo(int32_t param1, Player* player); // Send server state / player list to player
     void SendExistingPlayers(Player* player);  // Send all existing players (PacketJoin) to new player
     void SendVisibilityState(Player* player);  // Send terrain/diplomacy visibility state to player
-    void sub_51C0F7(Player* player);  // Send units from pending unit list to player
+    void SendPendingUnits(Player* player);  // Send units from pending unit list to player
     void sub_51CA5D(Player* player);  // Send server state to player
     void sub_51D1A8(uint16_t player_id, Player* player);  // Send kill stats (pass 0,nullptr for all)
     void sub_51B870(Unit* unit); // Broadcast unit to all players
