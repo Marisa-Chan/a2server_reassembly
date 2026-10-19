@@ -126,7 +126,7 @@ struct MapStuff { // aka astruct_5
     uint16_t field3_0x30000[65536];
     int32_t map_width;
     int32_t map_height;
-    uint8_t field_0x50008[16384];
+    uint8_t path_queue_scratch[16384];
     uint16_t field7_0x54008;
     uint16_t field8_0x5400a;
     UnitList field9_0x5400c;

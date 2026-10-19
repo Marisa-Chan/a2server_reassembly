@@ -2029,8 +2029,8 @@ void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
     // Seed the BFS work queue with the unit's current tile.
     this->field7_0x54008 = 0;
     this->field8_0x5400a = 0;
-    this->field_0x50008[0] = cur_x;
-    this->field_0x50008[0x1000] = cur_y;
+    this->path_queue_scratch[0] = cur_x;
+    this->path_queue_scratch[0x1000] = cur_y;
     this->field7_0x54008 = 1;
 
     uint16_t ring = 0;
@@ -2080,11 +2080,11 @@ void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
             while (*this->sub_59A670(x, y) == 0xFFFF && this->field7_0x54008 != 0 && ring < distance + this->dynamic_scan_ahead) {
                 this->field8_0x5400a = 0;
                 for (int i = 0; i < this->field7_0x54008; i++) {
-                    this->sub_5976D0(unit, this->field_0x50008[i], this->field_0x50008[0x1000 + i]);
+                    this->sub_5976D0(unit, this->path_queue_scratch[i], this->path_queue_scratch[0x1000 + i]);
                 }
                 this->field7_0x54008 = 0;
                 for (int i = 0; i < this->field8_0x5400a; i++) {
-                    this->sub_597990(unit, this->field_0x50008[0x2000 + i], this->field_0x50008[0x3000 + i]);
+                    this->sub_597990(unit, this->path_queue_scratch[0x2000 + i], this->path_queue_scratch[0x3000 + i]);
                 }
                 ring += 2;
             }
@@ -2139,11 +2139,11 @@ void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
         while (*this->sub_59A670(x, y) == 0xFFFF && this->field7_0x54008 != 0 && ring < distance + this->static_scan_ahead) {
             this->field8_0x5400a = 0;
             for (int i = 0; i < this->field7_0x54008; i++) {
-                this->sub_597290(unit, this->field_0x50008[i], this->field_0x50008[0x1000 + i]);
+                this->sub_597290(unit, this->path_queue_scratch[i], this->path_queue_scratch[0x1000 + i]);
             }
             this->field7_0x54008 = 0;
             for (int i = 0; i < this->field8_0x5400a; i++) {
-                this->sub_5974B0(unit, this->field_0x50008[0x2000 + i], this->field_0x50008[0x3000 + i]);
+                this->sub_5974B0(unit, this->path_queue_scratch[0x2000 + i], this->path_queue_scratch[0x3000 + i]);
             }
             ring += 2;
         }
@@ -2236,25 +2236,25 @@ void MapStuff::ExpandCostGridNeighbors(Unit* unit, uint8_t x, uint8_t y, Passabl
 // 597290 --- expands the static-path cost grid from (x,y) using sub_596F80 as the passability
 // check, queueing improved neighbors into queue2 (field_0x50008[0x2000/0x3000], field8_0x5400a).
 void MapStuff::sub_597290(Unit* unit, uint8_t x, uint8_t y) {
-    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::sub_596F80, this->field_0x50008 + 0x2000, this->field_0x50008 + 0x3000, this->field8_0x5400a);
+    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::sub_596F80, this->path_queue_scratch + 0x2000, this->path_queue_scratch + 0x3000, this->field8_0x5400a);
 }
 
 // 5974B0 --- expands the static-path cost grid from (x,y) using sub_596F80 as the passability
 // check, queueing improved neighbors into queue1 (field_0x50008[0/0x1000], field7_0x54008).
 void MapStuff::sub_5974B0(Unit* unit, uint8_t x, uint8_t y) {
-    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::sub_596F80, this->field_0x50008, this->field_0x50008 + 0x1000, this->field7_0x54008);
+    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::sub_596F80, this->path_queue_scratch, this->path_queue_scratch + 0x1000, this->field7_0x54008);
 }
 
 // 5976D0 --- expands the dynamic-path cost grid from (x,y) using sub_5978F0 as the passability
 // check, queueing improved neighbors into queue2 (field_0x50008[0x2000/0x3000], field8_0x5400a).
 void MapStuff::sub_5976D0(Unit* unit, uint8_t x, uint8_t y) {
-    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::sub_5978F0, this->field_0x50008 + 0x2000, this->field_0x50008 + 0x3000, this->field8_0x5400a);
+    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::sub_5978F0, this->path_queue_scratch + 0x2000, this->path_queue_scratch + 0x3000, this->field8_0x5400a);
 }
 
 // 597990 --- expands the dynamic-path cost grid from (x,y) using sub_5978F0 as the passability
 // check, queueing improved neighbors into queue1 (field_0x50008[0/0x1000], field7_0x54008).
 void MapStuff::sub_597990(Unit* unit, uint8_t x, uint8_t y) {
-    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::sub_5978F0, this->field_0x50008, this->field_0x50008 + 0x1000, this->field7_0x54008);
+    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::sub_5978F0, this->path_queue_scratch, this->path_queue_scratch + 0x1000, this->field7_0x54008);
 }
 
 // Shared by sub_5890CC/sub_5893C6: walks backward from (x,y) toward (cur_x,cur_y) through the
