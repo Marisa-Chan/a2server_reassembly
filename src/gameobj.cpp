@@ -3753,7 +3753,7 @@ void CUnit::PlayCastSound() {
 }
 
 // 473b80
-void StructEnter::FUN_00473b80() {
+void StructEnter::RebuildFromMap() {
 	MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 	BigStruct2* map = main_wnd->vis_map_context;
 	POSITION it = map->field_0x9d0.GetStartPosition();

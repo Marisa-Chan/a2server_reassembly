@@ -373,7 +373,7 @@ struct StructEnter {
 
 	StructEnter(); //474f20 in asm
 	~StructEnter(); //474f90 in asm
-	void FUN_00473b80(); //473b80 in asm
+	void RebuildFromMap(); //473b80 in asm
 	int32_t FUN_00473d10(); //473d10 in asm
 	void FUN_00474ff0(CUnit* unit); //474ff0 in asm
 	void FUN_00475010(); //475010 in asm

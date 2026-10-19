@@ -10775,7 +10775,7 @@ void VisShop::VMethod28() {
     this->select_info_panel->SetRect(&panel_rect);
     this->AddChild(this->select_info_panel);
 
-    g_StructEnter.FUN_00473b80();
+    g_StructEnter.RebuildFromMap();
     this->selected_units.Copy(g_StructEnter.field_0x0);
     this->select_index = g_StructEnter.FUN_00473d10();
 
@@ -12659,7 +12659,7 @@ void VisShopDruid::VMethod28() {
     this->select_info_panel->SetRect(&panel_rect);
     this->AddChild(this->select_info_panel);
 
-    g_StructEnter.FUN_00473b80();
+    g_StructEnter.RebuildFromMap();
     this->selected_units.Copy(g_StructEnter.field_0x0);
     this->select_index = g_StructEnter.FUN_00473d10();
 
@@ -12939,7 +12939,7 @@ void VisShopKaarg::VMethod28() {
     this->select_info_panel->SetRect(&panel_rect);
     this->AddChild(this->select_info_panel);
 
-    g_StructEnter.FUN_00473b80();
+    g_StructEnter.RebuildFromMap();
     this->selected_units.Copy(g_StructEnter.field_0x0);
     this->select_index = g_StructEnter.FUN_00473d10();
 
@@ -13099,7 +13099,7 @@ void VisTav::VMethod28() {
         this->selection_index = -1;
     }
 
-    g_StructEnter.FUN_00473b80();
+    g_StructEnter.RebuildFromMap();
     this->selected_entries.Copy(g_StructEnter.field_0x0);
     this->select_party = g_StructEnter.FUN_00473d10();
 
@@ -15391,7 +15391,7 @@ void VisTavDruid::VMethod28() {
         this->selection_index = -1;
     }
 
-    g_StructEnter.FUN_00473b80();
+    g_StructEnter.RebuildFromMap();
     this->selected_entries.Copy(g_StructEnter.field_0x0);
     this->select_party = g_StructEnter.FUN_00473d10();
 
@@ -15647,7 +15647,7 @@ void VisTavKaarg::VMethod28() {
         this->selection_index = -1;
     }
 
-    g_StructEnter.FUN_00473b80();
+    g_StructEnter.RebuildFromMap();
     this->selected_entries.Copy(g_StructEnter.field_0x0);
     this->select_party = g_StructEnter.FUN_00473d10();
 
