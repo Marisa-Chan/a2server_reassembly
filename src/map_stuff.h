@@ -232,7 +232,7 @@ public:
     int SetCellBuilding(Building* building, uint16_t yx); // 5943D0 — set building pointer in cell state at yx
     int CanApplyAreaEffect(AreaEffect* ae, uint8_t x, uint8_t y); // Check if area effect can be applied at (x, y) — 595438
     uint8_t FacingDiff(uint8_t a, uint8_t b); // 595561 — smallest angular difference between two facing bytes.
-    AreaEffect* sub_5953CB(AreaEffect* ae, uint16_t coord);  // Check if area effect covers cell coord — 5953CB
+    AreaEffect* AreaEffectCovers(AreaEffect* ae, uint16_t coord);  // Check if area effect covers cell coord — 5953CB
     Unit* sub_58CA1B(PosYX yx); // Get unit at map coordinate yx — 58CA1B
     void sub_594E65(AreaEffect* ae, uint8_t x, uint8_t y); // 594E65
     int sub_594EBA(AreaEffect* ae, uint16_t yx); // 594EBA — register area effect into cell state at yx

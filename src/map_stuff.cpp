@@ -1923,7 +1923,7 @@ AreaEffect** MapStuff::GetAreaEffectsAt(uint32_t yx) {
 }
 
 // 5953CB --- check if area effect covers cell coord
-AreaEffect* MapStuff::sub_5953CB(AreaEffect* ae, uint16_t coord) {
+AreaEffect* MapStuff::AreaEffectCovers(AreaEffect* ae, uint16_t coord) {
     if (!this->ObstacleAt(coord).TestBits(0x20)) {
         return nullptr;
     }
@@ -1936,7 +1936,7 @@ AreaEffect* MapStuff::sub_5953CB(AreaEffect* ae, uint16_t coord) {
 
 // 595438 --- check if area effect can be applied at (x, y)
 int MapStuff::CanApplyAreaEffect(AreaEffect* ae, uint8_t x, uint8_t y) {
-    return this->sub_5953CB(ae, PosYX(x, y).val) != nullptr;
+    return this->AreaEffectCovers(ae, PosYX(x, y).val) != nullptr;
 }
 
 // 595561 --- smallest angular difference between two facing bytes.

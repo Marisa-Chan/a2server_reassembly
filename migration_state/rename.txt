@@ -616,3 +616,4 @@ MapStuff::sub_5945EF -> RemoveBuilding -- removes a building from the map
 MapStuff::sub_59451F -> PlaceBuilding -- places a building on the map
 MapStuff::sub_5943D0 -> SetCellBuilding -- sets the building pointer in the cell state at yx
 MapStuff::sub_59449A -> ClearCellBuilding -- clears the building from the cell state at yx
+MapStuff::sub_595438 -> CanApplyAreaEffect -- checks if the area effect can be applied at (x,y)
