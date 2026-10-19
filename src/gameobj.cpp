@@ -2186,7 +2186,7 @@ TransientVisualEffectBuilder::~TransientVisualEffectBuilder() {
 // 46f390
 void TransientVisualEffectBuilder::FUN_0046f390() {
     this->arc_x.RemoveAll();
-    this->field_0xa4.RemoveAll();
+    this->arc_y.RemoveAll();
     this->visual_elements.RemoveAll();
 }
 
@@ -2314,7 +2314,7 @@ void TransientVisualEffectBuilder::FUN_004CB85F(double px0, double py0, double p
     for (double t = px0; t < px2; t += 6.0) {
         double y = (quad * t + lin) * t + cst;
         this->arc_x.Add(t);
-        this->field_0xa4.Add(y);
+        this->arc_y.Add(y);
     }
 }
 
@@ -2403,7 +2403,7 @@ void TransientVisualEffectBuilder::FUN_004CB993(double x0, double y0, double x1,
     }
 
     for (int32_t i = 0; i < this->arc_x.GetSize(); i++) {
-        if (std::fabs(this->field_0xa4[i] - y0) > y_tolerance) {
+        if (std::fabs(this->arc_y[i] - y0) > y_tolerance) {
             this->FUN_004CB993(x0, y0, x1, y1);
             break;
         }
@@ -2423,9 +2423,9 @@ void TransientVisualEffectBuilder::FUN_004cc059(double x0, double y0, double x1,
 
     for (int32_t i = 0; i < this->arc_x.GetSize(); i++) {
         double px_f = (this->arc_x[i] - this->arc_x[0]) * step_x + this->arc_x[0];
-        int32_t px = (int32_t)(px_f - (this->field_0xa4[i] - this->field_0xa4[0]) * step_y);
-        double py_f = (this->arc_x[i] - this->arc_x[0]) * step_y + this->field_0xa4[0];
-        int32_t py = (int32_t)((this->field_0xa4[i] - this->field_0xa4[0]) * step_x + py_f);
+        int32_t px = (int32_t)(px_f - (this->arc_y[i] - this->arc_y[0]) * step_y);
+        double py_f = (this->arc_x[i] - this->arc_x[0]) * step_y + this->arc_y[0];
+        int32_t py = (int32_t)((this->arc_y[i] - this->arc_y[0]) * step_x + py_f);
         this->visual_elements.Add(GO_11c((int16_t)px, (int16_t)py, 0, arg5, 0));
     }
 }
