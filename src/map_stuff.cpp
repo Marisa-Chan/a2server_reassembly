@@ -2590,7 +2590,7 @@ void MapStuff::BlockCell(uint8_t x, uint8_t y) {
 }
 
 // 594E65 --- register area effect at (x, y)
-void MapStuff::sub_594E65(AreaEffect* ae, uint8_t x, uint8_t y) {
+void MapStuff::RegisterAreaEffectAt(AreaEffect* ae, uint8_t x, uint8_t y) {
     this->sub_594EBA(ae, PosYX(x, y).val);
 }
 

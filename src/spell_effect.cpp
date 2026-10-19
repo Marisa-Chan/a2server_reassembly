@@ -364,12 +364,12 @@ void AreaEffect::sub_538137(uint8_t x, uint8_t y, bool spread_damage) {
 
 	if (this->itemDataID == spell::wall_of_earth) {
 		if (MapStuff_Instance->GetUnitAt(yx) == nullptr) {
-			MapStuff_Instance->sub_594E65(this, x, y);
+			MapStuff_Instance->RegisterAreaEffectAt(this, x, y);
 		}
 		return;
 	}
 
-	MapStuff_Instance->sub_594E65(this, x, y);
+	MapStuff_Instance->RegisterAreaEffectAt(this, x, y);
 	this->sub_53868D(x, y);
 	if (spread_damage) {
 		MapStuff_Instance->BlockCell(x, y);
