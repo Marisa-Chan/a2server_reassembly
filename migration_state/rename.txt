@@ -672,3 +672,4 @@ Scenario::FUN_004a7b79 -> GetRenderSunAngle -- sun angle clamped and scaled for 
 Scenario::sub_41EF60 -> IsInShadedBounds -- in-bounds check with a 7-cell margin
 Scenario::FUN_0041eec0 -> GetObjectMap -- returns object_map (terrain gfx cells)
 Effect::VMethod10 -> TickOnUnit -- per-tick effect driver: periodic damage/stat refresh and expiry marking
+Effect::VMethod11 -> RemoveFromUnit -- removes the effect from the unit on unequip/expire (cancels bless/curse counterpart)
