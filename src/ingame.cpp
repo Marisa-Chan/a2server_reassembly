@@ -3795,9 +3795,9 @@ void BigStruct2::sub_419154(uint16_t x, uint16_t y) {
 	pkt->id = 0x16;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->unit_id = x;
+	pkt->x = x;
 	int32_t tile_y = this->sub_4184B8(g_mousept.x, g_mousept.y) + this->view_y;
-	pkt->field_0xc = tile_y;
+	pkt->y = tile_y;
 	pkt->field_0xd = tile_y >> 8;
 	pkt->count = 0;
 	while (it != nullptr) {
@@ -3845,8 +3845,8 @@ void BigStruct2::sub_41930D(uint16_t x, uint16_t y) {
 	PacketItemOperation* pkt = &PacketItemOperation::Inst;
 	pkt->id = 0x1A;
 	pkt->from_player_id = this->my_main_unit->index;
-	pkt->unit_id = x;
-	pkt->field_0xc = y;
+	pkt->x = x;
+	pkt->y = y;
 	pkt->field_0xd = y >> 8;
 	pkt->to_player_id = 0;
 	pkt->count = 0;
@@ -3945,8 +3945,8 @@ void BigStruct2::sub_41965D(uint16_t x, uint16_t y) {
 	pkt->id = 0x1D;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->unit_id = x;
-	pkt->field_0xc = y;
+	pkt->x = x;
+	pkt->y = y;
 	pkt->field_0xd = y >> 8;
 	pkt->count = 0;
 	while (it != nullptr) {
@@ -3972,8 +3972,8 @@ void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell) {
 	pkt->id = 0x1F;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->unit_id = x;
-	pkt->field_0xc = y;
+	pkt->x = x;
+	pkt->y = y;
 	pkt->field_0xd = y >> 8;
 	pkt->count = 0;
 	if (wnd->vis_spellbook->sub_4CA89B(spell - 1) != 0 && wnd->vis_spellbook->spell == -1) {
@@ -4539,8 +4539,8 @@ void BigStruct2::sub_41A33F(uint16_t x, uint16_t y) {
 	pkt->id = 0x21;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->unit_id = x;
-	pkt->field_0xc = y;
+	pkt->x = x;
+	pkt->y = y;
 	pkt->field_0xd = y >> 8;
 	pkt->count = 0;
 	while (it != nullptr) {

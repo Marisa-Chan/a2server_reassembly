@@ -330,8 +330,8 @@ PacketItemOperation::PacketItemOperation() {
 
 PacketItemOperation::PacketItemOperation(const PacketItemOperation* src) {
     this->id          = src->id;
-    this->unit_id   = src->unit_id;
-    this->field_0xc   = src->field_0xc;
+    this->x   = src->x;
+    this->y   = src->y;
     this->field_0xd   = src->field_0xd;
     this->field_0xe   = src->field_0xe;
     this->field_0x10  = src->field_0x10;
@@ -378,7 +378,7 @@ void PacketItemOperation::VMethod3(NetStru2* net) {
 
 void PacketItemOperation::VMethod4(NetStru2* net) {
     //sub_5269C3
-    net->ReadData(&this->unit_id, 9);
+    net->ReadData(&this->x, 9);
     if (this->count) {
         net->ReadData(this->entries, this->count * 2);
     }

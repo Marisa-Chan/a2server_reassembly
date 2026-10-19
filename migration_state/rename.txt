@@ -6,3 +6,4 @@ Packet::field_0x5 -> from_player_id -- sender player id (mirrors to_player_id); 
 PacketInfo::field_0xa/field_a1..a4 -> param1/param1_b0..b3 -- generic first dword parameter; bytes used for body/reaction/mind/spirit in the char-gen packet (0x48)
 PacketInfo::field_0xe/field_e1..e4 -> param2/param2_b0..b3 -- generic second dword parameter; bytes carry main_sphere/face/color in the char-gen packet (0x48)
 PacketJoin::field_0xc -> color -- player color sent in join-notify (0x96), read into MapPlayerData(index, color); overlaid by score dword for chat packets
+PacketItemOperation::field_0xc -> y -- low byte of the target tile y in group orders (paired with y_high); also renamed already-named unit_id (+0xA) to x for coherence: it holds the target x, server reads it as uint8_t x

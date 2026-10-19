@@ -219,8 +219,8 @@ public:
     virtual void VMethod4(NetStru2*) override; // sub_5269C3
     virtual uint32_t GetDataSize() override;   // sub_57A0E0
 public:
-    uint16_t unit_id;       // +0xA
-    uint8_t  field_0xc;       // +0xC
+    uint16_t x;       // +0xA
+    uint8_t  y;       // +0xC
     uint8_t  field_0xd;       // +0xD
     uint16_t field_0xe;       // +0xE  (= 0 in ctor)
     uint8_t  field_0x10;      // +0x10 (= 0 in ctor)

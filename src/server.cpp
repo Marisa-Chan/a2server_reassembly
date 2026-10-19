@@ -3020,8 +3020,8 @@ void Server::sub_504a96(Packet* pkt) {
         }
 
         // Group order dispatch
-        uint8_t x = packet_item->unit_id;
-        uint8_t y = packet_item->field_0xc;
+        uint8_t x = packet_item->x;
+        uint8_t y = packet_item->y;
 
         switch (pkt->id) {
         case 0x12: // move to position?
@@ -3095,7 +3095,7 @@ void Server::sub_504a96(Packet* pkt) {
             CheckPacketType(pkt, "PacketItemOperation");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
                 player->sub_534B59();
-                if (cast_spell && cast_spell->sub_53939E(packet_item->unit_id, packet_item->field_0xc)) {
+                if (cast_spell && cast_spell->sub_53939E(packet_item->x, packet_item->y)) {
                     g_World->sub_5AC206(group, x, y, cast_spell);
                 }
             }
@@ -3150,7 +3150,7 @@ void Server::sub_504a96(Packet* pkt) {
                     if (packet_item->id == 0x25) {
                         g_World->sub_5AC187(group, static_cast<Unit*>(target), spell);
                     } else {
-                        if (!spell->sub_53939E(packet_item->unit_id, packet_item->field_0xc)) {
+                        if (!spell->sub_53939E(packet_item->x, packet_item->y)) {
                             player->main_unit->inventory->PutItemIntoBag(packet_item->field_0x10, item);
                             player->main_unit->some_item = nullptr;
                             delete spell;
