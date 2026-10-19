@@ -737,7 +737,7 @@ void Unit::ProcessEffects() {
             }
             if (this->hp < -9) {
                 this->some_state = 0x10;
-                this->sub_52D94E(); // Kill the unit.
+                this->Die(); // Kill the unit.
             }
         } else {
             this->charge_countdown--;
@@ -1415,7 +1415,7 @@ void Unit::PickUpSack(Sack* sack) {
 }
 
 // 52D94E
-void Unit::sub_52D94E() {
+void Unit::Die() {
     // Summoned units: remove completely, don't leave a corpse.
     if (this->summon_id != 0) {
         this->hp = -10000;

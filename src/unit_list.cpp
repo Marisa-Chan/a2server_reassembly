@@ -379,7 +379,7 @@ void UnitList::sub_5574B5() {
 		if (unit->summon_id != 0) {
 			if (map[unit->summon_id] == -1) {
 				map[unit->summon_id] = -2;
-				unit->sub_52D94E();
+				unit->Die();
 			}
 		}
 		if (pos == NULL) {

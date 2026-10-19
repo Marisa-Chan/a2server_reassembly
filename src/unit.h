@@ -120,7 +120,7 @@ public:
     uint16_t GetBottomYy(); // Returns y bottom-right extent (sub-cell units).
     int32_t GetTicksSinceAction(); // Returns g_Server->tick - last_action_tick
     void ProcessMoveStep(uint16_t x, uint16_t y, uint8_t eye0, uint8_t eye1); // Process movement step
-    void sub_52D94E(); // Kill this unit (sets some_state to 0x10 and runs death cleanup)
+    void Die(); // Kill this unit (sets some_state to 0x10 and runs death cleanup)
     void sub_52E7FA(); // Corpse: decrement HP and recalculate decay.
     int32_t sub_52D904(); // Defense value for quests. Flyers get +25, mages get +50.
     int32_t sub_52C735(uint8_t spell_id); // 52C735: HasEnchantment.
