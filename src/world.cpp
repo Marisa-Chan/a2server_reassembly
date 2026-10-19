@@ -802,7 +802,7 @@ uint32_t World::sub_5AB62E(UnitList* list) {
 // 5AEC20
 void World::AiAttackBrain(Group* group, uint16_t param) {
     this->ScanNearbyUnits(group);
-    this->sub_5AE2D4(group);
+    this->AssignNearbyTargets(group);
 
     POSITION it = group->unit_list.GetHeadPosition();
     while (it != nullptr) {
@@ -825,7 +825,7 @@ void World::AiSwarmBrain(Group* group, uint16_t param) {
     if (this->field26_0xa64.unit_list.GetCount() == 0) {
         this->AiMoveBrain(group, param);
     } else {
-        this->sub_5AE2D4(group);
+        this->AssignNearbyTargets(group);
         POSITION it = group->unit_list.GetHeadPosition();
         while (it != nullptr) {
             Unit* unit = group->unit_list.GetNext(it);
@@ -4273,7 +4273,7 @@ void World::PruneNearbyUnits(uint16_t pos_yx, uint8_t max_distance) {
 }
 
 // 5AE2D4
-void World::sub_5AE2D4(Group* group) {
+void World::AssignNearbyTargets(Group* group) {
     if (group->unit_list.GetCount() == 0 || this->field26_0xa64.unit_list.GetCount() == 0) {
         for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
             Unit* unit = group->unit_list.GetNext(it);
@@ -4312,7 +4312,7 @@ void World::AiGuardBrain(Group* group) {
     this->UpdateGroupCenter(group);
     this->ScanNearbyUnits(group);
     this->PruneNearbyUnits(group->group_sub->avg_pos, group->group_sub->guard_range);
-    this->sub_5AE2D4(group);
+    this->AssignNearbyTargets(group);
 
     POSITION it = group->unit_list.GetHeadPosition();
     if (it == nullptr) {
@@ -4352,7 +4352,7 @@ void World::AiDefendBrain(Group* group) {
     this->UpdateGroupCenter(group);
     this->ScanNearbyUnits(group);
     this->PruneNearbyUnits(group->group_sub->avg_pos, group->group_sub->guard_range);
-    this->sub_5AE2D4(group);
+    this->AssignNearbyTargets(group);
 
     POSITION it = group->unit_list.GetHeadPosition();
     if (it == nullptr) {

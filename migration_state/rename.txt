@@ -473,3 +473,4 @@ World::sub_5AE7C3 -> AiDefendBrain -- group order 0x12 brain
 World::sub_5AEFE5 -> AiStandBrain -- group order 0x13 brain: hold all units
 World::sub_5AB92C -> UpdateGroupCenter -- recomputes the group centroid into group_sub
 World::sub_5ADB16 -> ScanNearbyUnits -- refills the field26_0xa64 nearby-units scratch list for the group
+World::sub_5A3D12 -> PruneNearbyUnits -- drops scanned units farther than max_distance from pos_yx
