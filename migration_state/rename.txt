@@ -467,3 +467,4 @@ World::sub_5A51A1 -> ProcessUnitState -- per-state unit action dispatcher (unit-
 World::sub_5AE628 -> AiGuardBrain -- group order 1 brain: guard area around anchor
 World::sub_5AEC20 -> AiAttackBrain -- group order 2 brain: engage assigned targets
 World::sub_5AEF66 -> AiAggroBrain -- group order 3 brain: engage or fall back
+World::sub_5AF061 -> AiMoveBrain -- group order 4 brain: move arrival checks

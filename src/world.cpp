@@ -820,7 +820,7 @@ void World::AiAttackBrain(Group* group, uint16_t param) {
 }
 
 // 5AECE7
-void World::sub_5AECE7(Group* group, uint16_t param) {
+void World::AiSwarmBrain(Group* group, uint16_t param) {
     this->sub_5ADB16(group);
     if (this->field26_0xa64.unit_list.GetCount() == 0) {
         this->AiMoveBrain(group, param);
@@ -3401,7 +3401,7 @@ void World::ProcessGroupAi(Group* group) {
             this->AiMoveBrain(group, group->group_sub->order_pos);
             break;
         case 5:
-            this->sub_5AECE7(group, group->group_sub->order_pos);
+            this->AiSwarmBrain(group, group->group_sub->order_pos);
             break;
         case 0x11:
             this->sub_5AED8D(group);
@@ -3444,7 +3444,7 @@ void World::sub_5AED8D(Group* group) {
         group->group_sub->order_age = 0;
     }
 
-    this->sub_5AECE7(group, group->group_sub->order_pos);
+    this->AiSwarmBrain(group, group->group_sub->order_pos);
     group->group_sub->order_age++;
 }
 

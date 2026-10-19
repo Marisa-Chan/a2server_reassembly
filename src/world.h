@@ -201,7 +201,7 @@ public:
     void AiAttackBrain(Group* group, uint16_t param); // 5AEC20
     void AiAggroBrain(Group* group); // 5AEF66
     void AiMoveBrain(Group* group, uint16_t param); // 5AF061
-    void sub_5AECE7(Group* group, uint16_t param); // 5AECE7
+    void AiSwarmBrain(Group* group, uint16_t param); // 5AECE7
     void sub_5AED8D(Group* group); // 5AED8D
     void sub_5AE7C3(Group* group); // 5AE7C3
     void sub_5AEFE5(Group* group); // 5AEFE5
