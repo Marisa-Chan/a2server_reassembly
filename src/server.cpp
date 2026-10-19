@@ -5846,7 +5846,7 @@ int32_t SackList::DumpInventoryAt(TokenPos* pos, Inventory* inventory, int money
 }
 
 // 55BC58
-void SackList::sub_55BC58(CArchive& ar) {
+void SackList::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
         ar << this->list.GetCount();
         for (POSITION pos = this->list.GetHeadPosition(); pos != nullptr;) {
@@ -6330,7 +6330,7 @@ void Server::SerializeGame(CArchive& ar) {
             this->srv_stru1->effects_list->sub_55BF31(ar);
             MapStuff_Instance->sub_58AB48(ar);
             g_World->sub_5B0556(ar);
-            this->srv_stru1->sack_list->sub_55BC58(ar);
+            this->srv_stru1->sack_list->Serialize(ar);
 
             int32_t caster_count = this->srv_stru1->virtual_casters_list.GetCount();
             ar << caster_count;
@@ -6421,7 +6421,7 @@ void Server::SerializeGame(CArchive& ar) {
             if (this->srv_stru1->sack_list == nullptr) {
                 this->srv_stru1->sack_list = new SackList();
             }
-            this->srv_stru1->sack_list->sub_55BC58(ar);
+            this->srv_stru1->sack_list->Serialize(ar);
 
             this->srv_stru1->virtual_casters_list.RemoveAll();
             int32_t caster_count = 0;
