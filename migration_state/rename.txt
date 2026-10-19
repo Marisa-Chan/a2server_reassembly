@@ -297,3 +297,4 @@ Item::VMethod15 -> CalcValue -- computes the item gold value into _exp (spell bo
 Item::VMethod16 -> IsSimpleItem -- 1 for potions/scrolls/items without effects; gates stack merging and shop handling of enchanted gear
 Item::VMethod17 -> WriteState -- writes the item's value/effects into a PacketUnitStateVec for the client sync
 Unit::FUN_0052931b -> InitDefaults -- unit field defaults + fresh UnitEye/UnitEye2
+Unit::sub_537251 -> ApplyInvincibility -- applies invincibility (god-mode) enchantments

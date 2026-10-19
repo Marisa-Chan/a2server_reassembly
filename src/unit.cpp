@@ -1405,7 +1405,7 @@ void Unit::sub_52C98B(Sack* sack) {
         // Transfer all remaining items from sack to this unit's inventory.
         this->inventory->sub_552A42(sack->inventory);
         sack->inventory = nullptr;
-        this->sub_52A790(0); // Add weight.
+        this->AddCarriedWeight(0); // Add weight.
     } // end if sack->inventory
 
     g_NetStru1_main.sub_51C61E(sack);
@@ -1621,7 +1621,7 @@ int32_t Unit::sub_52D904() {
 }
 
 // 52A790
-void Unit::sub_52A790(int32_t delta_weight) {
+void Unit::AddCarriedWeight(int32_t delta_weight) {
     int32_t old_ratio = this->carrying_weight_100g / this->carrying_body_100g;
 
     this->extra_carrying_weight += delta_weight;

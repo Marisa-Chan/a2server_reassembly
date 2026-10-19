@@ -2725,7 +2725,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
 
         item->count = (uint16_t)count;
         player->main_unit->inventory->PutItemIntoBagAtDefault(item);
-        player->main_unit->sub_52A790(0);
+        player->main_unit->AddCarriedWeight(0);
         g_NetStru1_main.sub_519221(player->main_unit, player, -1, 0xFFB, 0, 0);
         if (!is_reconnect) {
             g_NetStru1_main.FUN_0051ce86(7, player->player_id, 0);
@@ -3345,12 +3345,12 @@ void Server::sub_504a96(Packet* pkt) {
                     bag_pos = packet_cmd->param1;
                     bag_pos_delta = 1;
                 }
-                human->sub_52A790(0);
+                human->AddCarriedWeight(0);
                 update_mask |= 0x482000;
             } else if (to_type == 2) {
                 // Put item into bag slot.
                 human->inventory->PutItemIntoBag(packet_cmd->param2, item);
-                human->sub_52A790(0);
+                human->AddCarriedWeight(0);
                 update_mask |= 0x282000;
             } else if (to_type == 4) {
                 // Sell item to shop.
@@ -3375,7 +3375,7 @@ void Server::sub_504a96(Packet* pkt) {
                 } else {
                     this->srv_stru1->sack_list->sub_554927(human->position, sack_inv, 0, 1);
                 }
-                human->sub_52A790(0);
+                human->AddCarriedWeight(0);
                 update_mask |= 0x82000;
             }
 

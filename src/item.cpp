@@ -803,7 +803,7 @@ Item* Armor::Equip(Unit* unit) {
     humanoid->equipment[this->slot] = this;
     unit->equipment_extra.protections += this->protections;
     unit->protections += this->protections;
-    unit->sub_52A790(this->weight);
+    unit->AddCarriedWeight(this->weight);
     unit->item_op_dirty_flags |= 0xc000;
     this->ApplyEffects(unit);
     return old_armor;
@@ -815,7 +815,7 @@ void Armor::Unequip(Unit* unit) {
         return;
     }
     Humanoid* humanoid = static_cast<Humanoid*>(unit);
-    unit->sub_52A790(-this->weight);
+    unit->AddCarriedWeight(-this->weight);
     unit->equipment_extra.protections -= this->protections;
     unit->protections -= this->protections;
     humanoid->equipment[this->slot] = nullptr;
@@ -993,7 +993,7 @@ Item* Shield::Equip(Unit* unit) {
     unit->shield = this;
     unit->equipment_extra.protections += this->protections;
     unit->protections += this->protections;
-    unit->sub_52A790(this->weight);
+    unit->AddCarriedWeight(this->weight);
     this->ApplyEffects(unit);
     unit->item_op_dirty_flags |= 0xC000;
     return old_shield;
@@ -1001,7 +1001,7 @@ Item* Shield::Equip(Unit* unit) {
 
 // 550686
 void Shield::Unequip(Unit* unit) {
-    unit->sub_52A790(-this->weight);
+    unit->AddCarriedWeight(-this->weight);
     unit->equipment_extra.protections -= this->protections;
     unit->protections -= this->protections;
     this->RemoveEffects(unit);
@@ -1245,7 +1245,7 @@ Item* Weapon::Equip(Unit* unit) {
         }
     }
     unit->max_range += (uint8_t)(this->range - 1);
-    unit->sub_52A790(this->weight);
+    unit->AddCarriedWeight(this->weight);
     unit->item_op_dirty_flags |= 0x34000;
     this->ApplyEffects(unit);
     return old_weapon;
@@ -1273,7 +1273,7 @@ void Weapon::Unequip(Unit* unit) {
     unit->max_range -= (uint8_t)(this->range - 1);
     unit->charge = 8;
     unit->relax = 4;
-    unit->sub_52A790(-this->weight);
+    unit->AddCarriedWeight(-this->weight);
     unit->item_op_dirty_flags |= 0x34000;
     if (this->imbued_spell != nullptr) {
         delete this->imbued_spell;
