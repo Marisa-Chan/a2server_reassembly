@@ -2245,8 +2245,8 @@ void TransientVisualEffectBuilder::FUN_004CC798(int32_t x, int32_t y, int32_t he
 
     this->FUN_004CC5D1(x, y, (int32_t)radius, 4);
 
-    for (int32_t i = 0; i < this->field_0x68.GetSize(); i++) {
-        CPoint* pt = &this->field_0x68[i];
+    for (int32_t i = 0; i < this->circle_points.GetSize(); i++) {
+        CPoint* pt = &this->circle_points[i];
         int16_t cos_x = (int16_t)(pt->x * cos_a);
         int16_t sin_x = (int16_t)(pt->x * sin_a);
         int16_t y_pos = -(int16_t)(pt->y * y_scale);
@@ -2262,14 +2262,14 @@ void TransientVisualEffectBuilder::FUN_004CC5D1(int32_t x, int32_t y, int32_t ra
     int32_t py = radius;
     int32_t decision = (1 - radius) * 2;
     int32_t counter = step;
-    this->field_0x68.RemoveAll();
+    this->circle_points.RemoveAll();
 
     while (py > 0) {
         if (counter >= step) {
-            this->field_0x68.Add(CPoint(x + px, y + py));
-            this->field_0x68.Add(CPoint(x - px, y + py));
-            this->field_0x68.Add(CPoint(x + px, y - py));
-            this->field_0x68.Add(CPoint(x - px, y - py));
+            this->circle_points.Add(CPoint(x + px, y + py));
+            this->circle_points.Add(CPoint(x - px, y + py));
+            this->circle_points.Add(CPoint(x + px, y - py));
+            this->circle_points.Add(CPoint(x - px, y - py));
             counter = 0;
         }
         counter += 1;
@@ -2500,8 +2500,8 @@ void TransientVisualEffectBuilder::FUN_004CC944(int16_t height, float speed, flo
 
     this->FUN_004CC5D1(0, 0, span, anim_phase * 2);
 
-    for (int32_t i = 0; i < this->field_0x68.GetSize(); i++) {
-        CPoint* pt = &this->field_0x68[i];
+    for (int32_t i = 0; i < this->circle_points.GetSize(); i++) {
+        CPoint* pt = &this->circle_points[i];
         int16_t x = pt->x;
         int16_t z = pt->y;
         int16_t y_top = -(int16_t)(height + y_offset);

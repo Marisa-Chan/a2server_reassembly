@@ -354,7 +354,7 @@ public:
     int32_t field_0x54;
     double wobble_scale;
     double line_length;
-    CArray<CPoint> field_0x68;
+    CArray<CPoint> circle_points;
     CArray<GO_11c> visual_elements; // 0x7c
     CArray<double> field_0x90;
     CArray<double> field_0xa4;
