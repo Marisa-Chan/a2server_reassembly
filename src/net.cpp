@@ -48,8 +48,8 @@ CLlDriver g_HatLLDriver(Allods2GUID, &NetStru1::HatConnector); //6cdbc0
 void PackerDat::DeleteTail(PackerTail* node) {
     //526621
     if (node) {
-        if (node->field_0x0) {
-            this->DeleteTail(node->field_0x0);
+        if (node->child0) {
+            this->DeleteTail(node->child0);
         }
         if (node->field_0x4) {
             this->DeleteTail(node->field_0x4);
