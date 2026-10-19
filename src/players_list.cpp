@@ -58,7 +58,7 @@ void PlayersList::sub_5357C6(Player* player) {
 	this->list.AddTail(player);
 
 	if (g_World != nullptr) {
-		g_World->diplomacy.sub_5B545F(player);
+		g_World->diplomacy.RegisterPlayer(player);
 	}
 }
 

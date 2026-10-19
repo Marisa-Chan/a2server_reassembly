@@ -40,7 +40,7 @@ Diplomacy::Diplomacy() {
 }
 
 // 5B545F
-void Diplomacy::sub_5B545F(Player* player) {
+void Diplomacy::RegisterPlayer(Player* player) {
     int32_t player_id = player->player_id;
     
     this->diplomacy[player_id][0] = (player->is_ai == 2) ? 0 : static_cast<uint8_t>(player->is_ai);
