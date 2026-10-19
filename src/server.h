@@ -129,7 +129,7 @@ public:
     void CreateUnits(MapAlm* alm);
     void LoadTriggers(MapAlm* alm, int flag);
     void LoadSacks(MapAlm* alm);
-    void sub_59C37A(MapAlm* alm);
+    void SpawnAiGroupOutposts(MapAlm* alm);
     void sub_59BEDB(Group* group, MapAlm* alm);
 
     Unit* GetScenarioScriptUnit(CMap<int32_t, int32_t, Unit*, Unit*>& umap, uint32_t idx); //59d3c0

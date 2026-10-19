@@ -482,7 +482,7 @@ int Srv1::LoadMap(CString map_name) {
     this->LoadSacks(alm);
 
     if (g_Server->field4_0x74 != 0) {
-        this->sub_59C37A(alm);
+        this->SpawnAiGroupOutposts(alm);
     }
 
     if (alm != nullptr) {
@@ -714,7 +714,7 @@ void Srv1::sub_59BEDB(Group* group, MapAlm* alm) {
 }
 
 // 59C37A
-void Srv1::sub_59C37A(MapAlm* alm) {
+void Srv1::SpawnAiGroupOutposts(MapAlm* alm) {
     POSITION player_iter = g_PlayersList->list.GetHeadPosition();
     while (player_iter) {
         Player* player = g_PlayersList->list.GetNext(player_iter);
