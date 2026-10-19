@@ -275,3 +275,4 @@ Token::VMethod5 -> FixupPointers -- post-deserialize pointer fixup: remaps pInst
 Token::VMethod6 -> IsItem -- kind check: 1 for Item, 0 for Token/Unit/Building
 Token::VMethod7 -> IsUnit -- kind check: 1 for Unit/Humanoid
 Token::VMethod8 -> IsHumanoid -- kind check: 1 for Humanoid
+Token::VMethod9 -> IsBuilding -- kind check: 1 for Building

@@ -253,7 +253,7 @@ void __cdecl sub_53678F(Unit* self, Unit* target) {
         sub_53685B(self, target);
         return;
     }
-    if (target->VMethod9()) { // IsBuilding
+    if (target->IsBuilding()) { // IsBuilding
         sub_536A62(self, target);
         return;
     }

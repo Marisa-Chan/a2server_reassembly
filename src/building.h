@@ -22,7 +22,7 @@ public: // VTable at 60f378
     virtual ~Building();
     virtual void RegenTick() override;
     virtual void Serialize(CArchive& ar) override;
-    virtual int32_t VMethod9() override;
+    virtual int32_t IsBuilding() override;
     virtual int32_t IsOutpost();
 
 public:

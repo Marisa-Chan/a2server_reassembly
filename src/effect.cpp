@@ -915,7 +915,7 @@ void DirectDamage::Serialize(CArchive& ar) {
 // 540C77
 void DirectDamage::VMethod11(Unit* unit) {
     if (unit->IsUnit() == 0) { // TODO: that shouldn't be possible if the input is actually a `Unit*` and not a `Token*`.
-        if (unit->VMethod9() != 0) {
+        if (unit->IsBuilding() != 0) {
             Building* building = reinterpret_cast<Building*>(unit);
             int32_t damage = building->sub_542A31(&this->unit_to_hit, this->caster);
             building->hp -= damage;

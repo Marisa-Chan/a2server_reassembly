@@ -4732,7 +4732,7 @@ void NetStru1::sub_51AC77(Token* token, Player* player, uint8_t flag) {
         return;
     }
 
-    if (token->VMethod9()) {
+    if (token->IsBuilding()) {
         Building* building = static_cast<Building*>(token);
         building->sent_to_mask |= (player ? player->vision_sharing_id : 0xFFFF);
         if (building->typeId != 0 && building->hp_max != 0) {

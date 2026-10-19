@@ -121,7 +121,7 @@ public:
 	virtual int32_t IsItem(); // IsItem
 	virtual int32_t IsUnit(); // IsUnit
 	virtual int32_t IsHumanoid(); // IsHumanoid
-	virtual int32_t VMethod9(); // IsBuilding
+	virtual int32_t IsBuilding(); // IsBuilding
 
 public:
 	Token();

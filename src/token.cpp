@@ -255,7 +255,7 @@ int32_t Token::IsHumanoid() {
 	return 0;
 }
 
-int32_t Token::VMethod9() {
+int32_t Token::IsBuilding() {
 	// 57b2f0
 	return 0;
 }

@@ -143,7 +143,7 @@ void Building::RegenTick() {
 }
 
 // 57c3a0
-int32_t Building::VMethod9() {
+int32_t Building::IsBuilding() {
     return 1;
 }
 

@@ -159,7 +159,7 @@ void PointEffect::sub_5375A4() {
 	}
 
 	if (!this->target->IsUnit()) {
-		if (this->target->VMethod9()) {
+		if (this->target->IsBuilding()) {
 			this->effect->VMethod11(this->target);
 		}
 	} else {
