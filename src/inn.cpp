@@ -1248,7 +1248,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
                             target_unit->group->group_sub->active = 1;
                             uint8_t y = this->position->GetY();
                             uint8_t x = this->position->GetX();
-                            g_World->sub_5AC785(target_unit->group, x, y);
+                            g_World->GroupAttackMoveCommand(target_unit->group, x, y);
                         }
                         break;
                     }
@@ -1266,7 +1266,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
                                         grp->group_sub->active = 1;
                                         uint8_t y = this->position->GetY();
                                         uint8_t x = this->position->GetX();
-                                        g_World->sub_5AC785(grp, x, y);
+                                        g_World->GroupAttackMoveCommand(grp, x, y);
                                         pl = nullptr;
                                         found_group = true;
                                         break;

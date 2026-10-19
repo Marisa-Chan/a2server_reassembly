@@ -2071,7 +2071,7 @@ void World::ScriptOP_0x06(TriggerAction* action) {
             this->GroupGuardCommand(group, action->data[1]);
             break;
         case 2: // Swarm (x=data[1], y=data[2])
-            this->sub_5AC785(group, action->data[1], action->data[2]);
+            this->GroupAttackMoveCommand(group, action->data[1], action->data[2]);
             break;
         case 3: // Stand Ground
             this->GroupAggressiveStance(group);
@@ -2869,7 +2869,7 @@ void World::RefreshGroupGuardAnchor(Group* group) {
 
 // Issue a move-to-point command to `group`.
 // 5AC785
-void World::sub_5AC785(Group* group, uint8_t x, uint8_t y) {
+void World::GroupAttackMoveCommand(Group* group, uint8_t x, uint8_t y) {
     this->ClearGroupOrders(group);
     group->group_sub->order = 2;
     group->group_sub->order_pos = PosYX{x, y}.val;
