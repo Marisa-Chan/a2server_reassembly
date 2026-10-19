@@ -3648,7 +3648,7 @@ void World::sub_5A56D7(Unit* unit, Unit* target) {
 }
 
 // 5A8885
-void World::sub_5A8885(Unit* unit) {
+void World::DoTeleportHome(Unit* unit) {
     if (unit->spell_book != nullptr) {
         if (this->sub_5A79D6(unit, spell::teleport, 0) != nullptr) {
             this->sub_5A8A55(unit);
@@ -3955,7 +3955,7 @@ void World::sub_5AB5E3(Unit* unit) {
 // 5AF5DC
 void World::sub_5AF5DC(Unit* unit) {
     if (this->sub_5A89D5(unit) != 0) {
-        this->sub_5A8885(unit);
+        this->DoTeleportHome(unit);
     } else if (this->sub_5A8BDA(unit) != 0) {
         this->sub_5A8CD8(unit);
     }
@@ -4033,7 +4033,7 @@ void World::sub_5A51A1(Unit* unit) {
         this->sub_5A56D7(unit, unit->eye2->unit2);
         break;
     case 22:
-        this->sub_5A8885(unit);
+        this->DoTeleportHome(unit);
         break;
     case 24:
         this->sub_5AB35B(unit);
