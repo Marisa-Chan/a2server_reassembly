@@ -2045,7 +2045,7 @@ void World::ScriptOP_0x01(TriggerAction*) {
 
 // 5b3b11 — Send message
 void World::ScriptOP_0x02(TriggerAction* action) {
-    g_NetStru1_main.sub_51CD2A(nullptr, action->data[0], 0);
+    g_NetStru1_main.SendGameEvent(nullptr, action->data[0], 0);
 }
 
 // 5b3b33 — Set value to variable
@@ -2360,13 +2360,13 @@ void World::ScriptOP_0x24(TriggerAction* action) {
         case 2:
             if (ScenarioGetVar(subobjective_key) != 4) {
                 if (!(ScenarioGetVar(subobjective_key) & 2)) {
-                    g_NetStru1_main.sub_51CD2A(nullptr, 0xFD, 0);
+                    g_NetStru1_main.SendGameEvent(nullptr, 0xFD, 0);
                 }
                 ScenarioSetVar(subobjective_key, 3);
             }
             break;
         case 4:
-            g_NetStru1_main.sub_51CD2A(nullptr, 0xFE, 0);
+            g_NetStru1_main.SendGameEvent(nullptr, 0xFE, 0);
             ScenarioSetVar(subobjective_key, 5);
             break;
         default:

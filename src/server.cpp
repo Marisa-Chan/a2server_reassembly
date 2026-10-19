@@ -2890,7 +2890,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         cheat_string = cheat_string.Mid(7);
         cheat_string.TrimLeft();
         int32_t event_id = atoi(cheat_string);
-        g_NetStru1_main.sub_51CD2A(player, event_id, 0);
+        g_NetStru1_main.SendGameEvent(player, event_id, 0);
     }
 }
 

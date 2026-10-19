@@ -198,7 +198,7 @@ void NetStru1::SendLatency(int32_t latency, Player* player) {
 }
 
 // 51CD2A
-void NetStru1::sub_51CD2A(Player* player, int32_t event_id, int32_t arg3) {
+void NetStru1::SendGameEvent(Player* player, int32_t event_id, int32_t arg3) {
     PacketInfo& packet = PacketInfo::Inst;
     packet.id = 0xb6;
     packet.to_player_id = player ? player->player_id : 0;
