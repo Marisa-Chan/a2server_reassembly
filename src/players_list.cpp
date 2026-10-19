@@ -345,9 +345,9 @@ void PlayersList::sub_534DDD() {
 				}
 
 				if (team_counts[0] == 0) {
-					g_Server->FUN_004f94c0(3);
+					g_Server->SignalGameStart(3);
 				} else if (team_counts[1] == 0) {
-					g_Server->FUN_004f94c0(4);
+					g_Server->SignalGameStart(4);
 				}
 			}
 		}

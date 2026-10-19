@@ -2227,9 +2227,9 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     return 0;
 }
 
-void Server::FUN_004f94c0(int32_t arg) {
+void Server::SignalGameStart(int32_t arg) {
     //4F94C0
-    LogMessage("Server::FUN_004f94c0\n");
+    LogMessage("Server::SignalGameStart\n");
     if ((g_ServerConfig.gameType == 1) || (g_ServerConfig.gameType == 2)) {
         g_NetStru1_main.FUN_0051d6b4(0);
     }

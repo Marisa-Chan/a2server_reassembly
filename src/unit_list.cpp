@@ -227,13 +227,13 @@ void UnitList::ProcessTick() {
 								if (unit->last_hit_by->pOwner->frags < g_ServerConfig.frag_limit) {
 									g_NetStru1_main.FUN_0051d6b4(0);
 								} else { 
-									g_Server->FUN_004f94c0(1);
+									g_Server->SignalGameStart(1);
 								}
 							} else if (g_ServerConfig.gameType == 2) {
 								if (g_Server->ctf_score[unit->last_hit_by->pOwner->field_0xa70] < g_ServerConfig.frag_limit) {
 									g_NetStru1_main.FUN_0051d6b4(0);
 								} else {
-									g_Server->FUN_004f94c0(1);
+									g_Server->SignalGameStart(1);
 								}
 							} else if (g_ServerConfig.gameType == 3 && g_Server->tick > 50) {
 								g_Server->AddArenaFrags(&unit->last_hit_by->pOwner->name, 1);

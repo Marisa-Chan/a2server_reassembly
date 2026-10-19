@@ -279,7 +279,7 @@ public:
     void SendMapInfo(Player* player);
     void sub_504a96(Packet* packet);
 
-    void FUN_004f94c0(int32_t arg);
+    void SignalGameStart(int32_t arg);
     int  sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1, CString name, CString login,
                     void* Block, int32_t block_size, int32_t team_id);
 

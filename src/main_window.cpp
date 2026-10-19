@@ -1929,7 +1929,7 @@ void MainWindow::sub_48A756() {
                                 g_Server->SendArenaResults();
                             }
                             
-                            g_Server->FUN_004f94c0(0);
+                            g_Server->SignalGameStart(0);
 
                             return;
                         }
