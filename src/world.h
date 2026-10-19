@@ -130,7 +130,7 @@ public:
     void ProcessTriggers(); // 5B0724
     void EvaluateTriggerChecks(); // 5B0762
     void sub_5B081E(TriggerCheck* check); // 5B081E — trigger-check dispatcher.
-    void sub_5B0A6A(); // 5B0A6A
+    void ExecuteTriggerActions(); // 5B0A6A
     Unit* sub_5B61D0(uint16_t pos_yx, uint8_t byte_0x3c, Player* owner, int32_t is_defensive); // 5B61D0
     void sub_5B6346(); // 5B6346
     void sub_5B5CA8(Unit* caster, Unit* target, CList<Unit*>* units, uint32_t rays, uint32_t max_range); // 5B5CA8: collect units hit by a multi-ray spell

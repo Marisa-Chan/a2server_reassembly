@@ -941,13 +941,13 @@ void World::ProcessTick(PlayersList* players) {
 void World::ProcessTriggers() {
     this->trigger_variables[999] += 1;
     this->EvaluateTriggerChecks();
-    this->sub_5B0A6A();
+    this->ExecuteTriggerActions();
     this->action_list.RemoveAll();
 }
 
 // Evaluate map triggers and run their actions when all conditions pass.
 // 5B0A6A
-void World::sub_5B0A6A() {
+void World::ExecuteTriggerActions() {
     POSITION trigger_it = this->triggers->GetHeadPosition();
     while (trigger_it != nullptr) {
         Trigger& trigger = this->triggers->GetNext(trigger_it);

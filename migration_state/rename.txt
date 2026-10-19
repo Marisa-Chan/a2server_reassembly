@@ -451,3 +451,4 @@ World::sub_5AC137 -> RefreshGroupGuardAnchor -- recomputes group avg pos and set
 World::sub_5AC983 -> PlaceRespawnedGroup -- places a newly respawned group into the world
 World::sub_5ABD16 -> ProcessTick -- per-tick world processing: presence scan, trigger checks/actions, per-player group AI, virtual casters (Perf-profiled)
 World::sub_5B0724 -> ProcessTriggers -- ticks trigger_variables[999], runs all checks and actions, clears action list
+World::sub_5B0762 -> EvaluateTriggerChecks -- evaluates every TriggerCheck with ref_count 0
