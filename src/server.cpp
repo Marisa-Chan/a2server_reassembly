@@ -205,7 +205,7 @@ void Server::sub_4F465E() {
 }
 
 // 4F1E2A
-void Server::sub_4F1E2A() {
+void Server::ProcessPlayers() {
     this->sub_4F465E();
     this->field16_0x8c = 1;
 

@@ -367,3 +367,4 @@ Srv1::sub_59CD45 -> CreateUnits -- creates units from alm->units_datas
 Srv1::sub_59D891 -> LoadTriggers -- loads triggers/checks/actions from the alm into g_World->triggers
 Srv1::sub_59F1BE -> LoadSacks -- loads sacks/items/gold from the alm (bag or wielded per unit)
 Srv1::sub_59C37A -> SpawnAiGroupOutposts -- spawns an outpost for every AI group
+Srv1::sub_59BEDB -> SpawnGroupOutpost -- creates the group's outpost building at the group centroid, applies quest marks and script id

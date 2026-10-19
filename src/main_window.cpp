@@ -1298,7 +1298,7 @@ void MainWindow::FUN_004950c0() {
 
 // 4919b1
 void MainWindow::FUN_004919b1() {
-    g_Server->sub_4F1E2A();
+    g_Server->ProcessPlayers();
 }
 
 // 485aed
@@ -1879,7 +1879,7 @@ void MainWindow::sub_48A756() {
                 if (g_Server->field59_0x208 != 0) {
                     if (g_PlayersList->CountHumanPlayers() == 0) {
                         if (g_Server->FileList.GetSize() == 0) {
-                            g_Server->sub_4F1E2A();
+                            g_Server->ProcessPlayers();
 
                             this->vis_serverscreen->MsgProc(0x445, 0, 0);
                             return;
@@ -3034,7 +3034,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
     case 0x419:
         if (this->dialogsMask == 1) {
-            g_Server->sub_4F1E2A();
+            g_Server->ProcessPlayers();
         }
 
         this->FUN_0048cb3c();
@@ -3092,7 +3092,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                 this->FUN_0048f6f7();
             }
             
-            g_Server->sub_4F1E2A();
+            g_Server->ProcessPlayers();
             PostMessage(0x459, 0, 0);
         } else if (this->sessionMode == 0) {
             this->vis_map_context->FUN_0041d2da(1);
@@ -3108,7 +3108,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
             PostMessage(0x452, 0, 0);
         } else if (this->in_famehall_mission == 0) {
-            g_Server->sub_4F1E2A();
+            g_Server->ProcessPlayers();
             PostMessage(0x421, 0, 0);
         } else {
             this->m_FameHall.AddMissionElapsedTime(g_Server->tick / 16);
@@ -3119,7 +3119,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             }
             
             if (g_Server) {
-                g_Server->sub_4F1E2A();
+                g_Server->ProcessPlayers();
             }
             
             this->FUN_00485a41();
@@ -3163,7 +3163,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x41e:
-        g_Server->sub_4F1E2A();
+        g_Server->ProcessPlayers();
         PostMessage(MSG_421, 0, 0);
         break;
 
