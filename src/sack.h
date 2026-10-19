@@ -35,7 +35,7 @@ public:
     Inventory* inventory;
     uint32_t needs_save;
     uint16_t seen_by_mask;
-    uint16_t field_0x4a;
+    uint16_t seen_by_mask_prev;
     uint16_t field_0x4c;
     uint8_t gap_0x4e[2];
 };

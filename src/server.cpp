@@ -5894,10 +5894,10 @@ void SackList::FUN_005540ed() {
         sack->seen_by_mask = MapStuff_Instance->scan_presence_grid.sector_grid[1 + (x >> 3)][1 + (y >> 3)];
         
         // If field_0x48 changed and fog of war is enabled, broadcast to newly visible players
-        if (sack->seen_by_mask != sack->field_0x4a && g_Server->field4_0x74 != 0) {
+        if (sack->seen_by_mask != sack->seen_by_mask_prev && g_Server->field4_0x74 != 0) {
             for (int32_t i = 0; i < 16; i++) {
                 // Check if bit i is set in new mask but not in old mask
-                if ((sack->seen_by_mask & (1 << i)) && !(sack->field_0x4a & (1 << i))) {
+                if ((sack->seen_by_mask & (1 << i)) && !(sack->seen_by_mask_prev & (1 << i))) {
                     Player* player = g_PlayersList->sub_535B50(i + 0x10);
                     if (player) {
                         // Check if player can see this sack (not masked) or it's marked for visibility
@@ -5909,7 +5909,7 @@ void SackList::FUN_005540ed() {
                     }
                 }
             }
-            sack->field_0x4a = sack->seen_by_mask;
+            sack->seen_by_mask_prev = sack->seen_by_mask;
         }
         
         // Check if sack count exceeds limit and remove sacks with `field_0x44 == 0`.
