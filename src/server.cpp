@@ -3047,7 +3047,7 @@ void Server::sub_504a96(Packet* pkt) {
             }
             break;
         case 0x17:
-            g_World->sub_5AC8A2(group, 0);
+            g_World->GroupGuardCommand(group, 0);
             player->sub_534B59();
             break;
         case 0x18:

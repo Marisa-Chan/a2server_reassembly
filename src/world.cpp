@@ -2068,7 +2068,7 @@ void World::ScriptOP_0x06(TriggerAction* action) {
     Group* group = action->group;
     switch (action->data[0]) {
         case 1: // Guard (guard_range=data[1])
-            this->sub_5AC8A2(group, action->data[1]);
+            this->GroupGuardCommand(group, action->data[1]);
             break;
         case 2: // Swarm (x=data[1], y=data[2])
             this->sub_5AC785(group, action->data[1], action->data[2]);
@@ -2888,7 +2888,7 @@ void World::sub_5AC7C8(Group* group) {
 // Issue a guard/hold command to `group`.
 // range=0 means use the world's MinimalGuardRange.
 // 5AC8A2
-void World::sub_5AC8A2(Group* group, uint8_t range) {
+void World::GroupGuardCommand(Group* group, uint8_t range) {
     this->ClearGroupOrders(group);
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {

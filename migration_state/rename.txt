@@ -439,3 +439,4 @@ World::sub_5A8885 -> DoTeleportHome -- teleport-home behavior via the teleport s
 World::sub_5ACAA7 -> GroupStopCommand -- packet 0x12: clears orders and stands every unit down (order 0x13)
 World::sub_5ACAFA -> GroupGoHomeCommand -- packet 0x14: teleports the whole group home
 World::sub_5AC289 -> GroupMoveCommand -- packet 0x16/0x1C: formation-aware group move (order 4)
+World::sub_5AC507 -> GroupSwarmCommand -- same as move but order 5
