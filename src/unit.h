@@ -78,7 +78,7 @@ public: // VTable at 60efc0.
     virtual void ReleaseObjects();
     virtual void CopyFrom(Unit *);
     virtual Item* UseItem(Item *);
-    virtual void VMethod13(Item *);
+    virtual void UseItemOrStash(Item *);
     virtual Item* Unequip(Item *);
     virtual void VMethod15();
     virtual void VMethod16(Unit *);
@@ -257,7 +257,7 @@ public:
     virtual void ReleaseObjects() override;
     //virtual void VMethod11(Unit*) override;
     virtual Item* UseItem(Item*) override;
-    virtual void VMethod13(Item*) override;
+    virtual void UseItemOrStash(Item*) override;
     virtual Item* Unequip(Item*) override;
     virtual void VMethod15() override;
     virtual void VMethod16(Unit*) override;

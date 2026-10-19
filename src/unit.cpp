@@ -918,11 +918,11 @@ void Unit::ProcessEffects() {
                 if (near_building->object_info_id == 0x0f && near_building->hp > 0) {
                     near_building->hp--;
                     g_NetStru1_main.sub_51AC77(near_building, nullptr, 0);
-                    this->VMethod13(new Item(CString("Potion Big Healing")));
+                    this->UseItemOrStash(new Item(CString("Potion Big Healing")));
                 } else if (near_building->object_info_id == 0x10 && near_building->hp > 0) {
                     near_building->hp--;
                     g_NetStru1_main.sub_51AC77(near_building, nullptr, 0);
-                    this->VMethod13(new Item(CString("Potion Big Mana")));
+                    this->UseItemOrStash(new Item(CString("Potion Big Mana")));
                 }
             }
             break;
@@ -996,7 +996,7 @@ Item *Unit::UseItem(Item *item) {
     return itm;
 }
 
-void Unit::VMethod13(Item *item) {
+void Unit::UseItemOrStash(Item *item) {
     Item* itm = item->VMethod10(this);
     if (itm) {
         this->inventory->PutItemIntoBagAtDefault(itm);
@@ -2096,9 +2096,9 @@ void Unit::sub_52F601(const CString& name) {
             const CString& item_name = this->monster_info->equipped_items[i];
             if (!item_name.IsEmpty()) {
                 if (item_name.Find("Shield") != -1) {
-                    this->VMethod13(new Shield(item_name));
+                    this->UseItemOrStash(new Shield(item_name));
                 } else {
-                    this->VMethod13(new Weapon(item_name));
+                    this->UseItemOrStash(new Weapon(item_name));
                 }
             }
         }
@@ -2307,7 +2307,7 @@ Item* Humanoid::UseItem(Item* item) {
     return item->VMethod10(this);
 }
 
-void Humanoid::VMethod13(Item *item) {
+void Humanoid::UseItemOrStash(Item *item) {
     //5304b2
     Item *itm = this->UseItem(item);
     if (itm) {
@@ -2815,7 +2815,7 @@ void Humanoid::sub_533345(int8_t main_skill, int8_t skill_level) {
             weapon_name = "Uncommon Wood Staff {castSpell=" + spell_name + ":20}";
         }
 
-        this->VMethod13(new Weapon(weapon_name));
+        this->UseItemOrStash(new Weapon(weapon_name));
     } else {
         // Fighter: create appropriate weapon.
         Weapon* weapon = nullptr;
@@ -2826,7 +2826,7 @@ void Humanoid::sub_533345(int8_t main_skill, int8_t skill_level) {
             case 4: weapon = new Weapon("Iron Pike"); break;
             case 5: weapon = new Weapon("Uncommon Wood Long Bow"); break;
         }
-        this->VMethod13(weapon);
+        this->UseItemOrStash(weapon);
     }
 }
 
@@ -2998,11 +2998,11 @@ void Human::FUN_00532587(CString hname, int32_t is_hero, const char* unk) {
                     const CString& item_name = g_GameDataRes.humans[i].equipped_items[slot];
                     if (!item_name.IsEmpty()) {
                         if (slot == 0) {
-                            this->VMethod13(new Weapon(item_name));
+                            this->UseItemOrStash(new Weapon(item_name));
                         } else if (slot == 1) {
-                            this->VMethod13(new Shield(item_name));
+                            this->UseItemOrStash(new Shield(item_name));
                         } else {
-                            this->VMethod13(new Armor(item_name));
+                            this->UseItemOrStash(new Armor(item_name));
                         }
                     }
                 }

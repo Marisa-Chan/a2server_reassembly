@@ -5730,7 +5730,7 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx) { //492c66
                     Item* itm = sub_4F499B(&eq_data);
 
                     if (itm->item_id != 0) {
-                        hum->VMethod13(itm);
+                        hum->UseItemOrStash(itm);
                     }
                 }
             }

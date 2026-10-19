@@ -1521,7 +1521,7 @@ void Srv1::sub_59F1BE(MapAlm* alm) {
                     if (wielded == 0) {
                         unit->inventory->PutItemIntoBagAtDefault(item);
                     } else {
-                        unit->VMethod13(item);
+                        unit->UseItemOrStash(item);
                     }
                 }
             }
@@ -2507,7 +2507,7 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
     for (int32_t i = 0; i < 12; i++) {
         Item* item = sub_4F499B(&eq_data);
         if (item->item_id != 0) {
-            unit->VMethod13(item);
+            unit->UseItemOrStash(item);
         }
         if (item->field14_0x50 != 0) {
             unit->field_0x1bc = 1;

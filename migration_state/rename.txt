@@ -279,3 +279,4 @@ Token::VMethod9 -> IsBuilding -- kind check: 1 for Building
 Unit::VMethod10 -> ReleaseObjects -- deletes owned eye/eye2/inventory/shield/weapon/spell_book and pending spell item; called from ~Unit
 Unit::VMethod11 -> CopyFrom -- deep-copies another unit's state into this one (Humanoid::sub_530231 builds on it)
 Unit::VMethod12 -> UseItem -- equips/consumes the item on this unit; returns the unconsumed/displaced item (class-restricted gear returned unchanged)
+Unit::VMethod13 -> UseItemOrStash -- UseItem, then puts the unconsumed item into the bag

@@ -3046,11 +3046,11 @@ Scenario::Scenario(const char* fname) {
                 CString& item_name = info->equipped_items[j];
                 if (item_name.GetLength() > 0) {
                     if (j == 0) {
-                        human->VMethod13(new Weapon(item_name));
+                        human->UseItemOrStash(new Weapon(item_name));
                     } else if (j == 1) {
-                        human->VMethod13(new Shield(item_name));
+                        human->UseItemOrStash(new Shield(item_name));
                     } else {
-                        human->VMethod13(new Armor(item_name));
+                        human->UseItemOrStash(new Armor(item_name));
                     }
                 }
             }
