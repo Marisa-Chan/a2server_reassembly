@@ -388,7 +388,7 @@ void Server::sub_4F9E55() {
 
 
 // 59B7EA
-int Srv1::sub_59B7EA(CString map_name) {
+int Srv1::LoadMap(CString map_name) {
     if (this->field2_0x20 != 0) {
         map_name = "Scenario\\" + map_name;
     }
@@ -4664,7 +4664,7 @@ int Server::sub_4F1471(CString param_1) {
     this->srv_stru1->sack_list = new SackList();
 
     if (this->field40_0x1ac == 0) {
-        if (this->field19_0x98.sub_59B7EA(this->current_map_name) != 0) {
+        if (this->field19_0x98.LoadMap(this->current_map_name) != 0) {
             return 5;
         }
         this->tick16 = 0;
