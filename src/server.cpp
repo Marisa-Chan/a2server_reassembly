@@ -1047,7 +1047,7 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
                 const uint32_t arg_type = action_data->argument_types[arg_idx];
                 uint32_t& arg_value = action_data->argument_values[arg_idx];
 
-                action.field_0x30[arg_idx] = (byte)arg_type;
+                action.ref_kind[arg_idx] = (byte)arg_type;
                 if (
                     (arg_value < 8000 || 9999 < arg_value) ||
                     (arg_type != 2 && arg_type != 3 && arg_type != 4)
@@ -1185,7 +1185,7 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
                 const uint32_t arg_type = check_data->argument_types[arg_idx];
                 uint32_t& arg_value = check_data->argument_values[arg_idx];
 
-                check.field_0x30[arg_idx] = static_cast<uint8_t>(arg_type);
+                check.ref_kind[arg_idx] = static_cast<uint8_t>(arg_type);
 
                 if (
                     arg_value < 8000 || 9999 < arg_value ||

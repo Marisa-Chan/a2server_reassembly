@@ -27,7 +27,7 @@ struct TriggerAction {
     uint32_t id;
     uint32_t type;
     std::array<int32_t, 10> data;
-    std::array<uint8_t, 10> field_0x30;
+    std::array<uint8_t, 10> ref_kind;
     std::array<uint8_t, 10> field_0x3a;
     std::array<uint8_t, 10> field_0x44;
     std::array<uint8_t, 10> field_0x4e;

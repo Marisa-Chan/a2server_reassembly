@@ -155,3 +155,4 @@ CMultiShopTemplate::field_0x4 -> active_instances -- refcount of open shop sessi
 QuestInnGlue::field_0x2c -> current_quest -- quest currently processed by the VMethod1 iteration
 QuestInnGlue::field_0x30 -> current_quest_key -- id/key paired with current_quest
 QuestInnGlue::field_0x3c -> max_dist -- max unit distance for quest proximity checks (ctor param renamed too)
+TriggerAction::field_0x30 -> ref_kind -- --
