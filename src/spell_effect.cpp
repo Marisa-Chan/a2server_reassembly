@@ -489,7 +489,7 @@ void AreaEffect::sub_537CD6() {
 		uint8_t ny = y + wave.y_mult * wave.y_offsets[i];
 		this->effect->typeId = this->itemDataID * 2 + 9;
 		if (this->effect->position->ClampToMap(nx, ny)) {
-			g_NetStru1_main.sub_51BE0E(this->effect, packet_type);
+			g_NetStru1_main.BroadcastEffectMove(this->effect, packet_type);
 			uint16_t yx = PosYX(nx, ny).val;
 			this->sub_53831D(MapStuff_Instance->sub_58CB5A(yx));
 			this->sub_53831D(MapStuff_Instance->sub_58CBB9(yx));

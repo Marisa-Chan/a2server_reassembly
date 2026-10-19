@@ -291,7 +291,7 @@ void NetStru1::sub_51C59C(Unit* unit, Unit* target) {
 }
 
 // 51BE0E
-void NetStru1::sub_51BE0E(Effect* effect, uint8_t type) {
+void NetStru1::BroadcastEffectMove(Effect* effect, uint8_t type) {
     PacketMoveCmd& packet = PacketMoveCmd::Inst;
     packet.id = 0x86;
     packet.x = effect->position->GetX();
