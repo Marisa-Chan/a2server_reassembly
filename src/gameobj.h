@@ -226,7 +226,7 @@ public:
 	uint8_t active_spell; //autoCastSpellId
 	uint8_t __pad2[3];
 	CArray<GO_11c> transientVisualElements; // 11c
-	CDWordArray field_0x130;
+	CDWordArray effect_timers;
 };
 ASSERT_SIZE(CGameObject, 0x144);
 

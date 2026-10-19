@@ -52,3 +52,4 @@ GO_11c::field_0x0/2/4 -> x/y/z, field_0x6 -> vfx_type, field_0x7 -> phase -- tra
 CGameObject::field_0xa0 -> move_accum_x -- accumulated |dx| walked, drives walk-sway variant selection
 CGameObject::field_0xa4 -> move_accum_y -- accumulated |dy| walked, drives walk-sway variant selection
 CGameObject::field_0xc4 -> turn_angle -- interpolated facing in 1/16 dir units (dir = turn_angle >> 4)
+CGameObject::field_0x130 -> effect_timers -- active spell-effect list, entries (effect_type << 16) | ticks_left

@@ -760,7 +760,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						}
 
 						if (packet_unit->flags_mask & 0x800000) {
-							ct->field_0x130.RemoveAll();
+							ct->effect_timers.RemoveAll();
 						}
 
 						if (ct_exist && (wnd->dialogsMask & 0x200) != 0) {
@@ -863,7 +863,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							}
 
 							ct->controlGroupMask = 0;
-							ct->field_0x130.RemoveAll();
+							ct->effect_timers.RemoveAll();
 							ct->transientVisualElements.RemoveAll();
 							if (ct->IsSelected() != 0) {
 								ct->VMethod1(0);
@@ -874,7 +874,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 						case 5:
 							ct->controlGroupMask = 0;
-							ct->field_0x130.RemoveAll();
+							ct->effect_timers.RemoveAll();
 							ct->transientVisualElements.RemoveAll();
 							if (ct->IsSelected() != 0) {
 								ct->VMethod1(0);
@@ -1514,9 +1514,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			if (this->field_0x9d0.Lookup(packet_effect->unit_id, ct) != 0) {
 				int32_t idx = ct->FUN_00462405(packet_effect->effect_type);
 				if (idx < 0) {
-					ct->field_0x130.Add((packet_effect->effect_type << 0x10) | 0xffff);
+					ct->effect_timers.Add((packet_effect->effect_type << 0x10) | 0xffff);
 				} else {
-					ct->field_0x130[idx] = (packet_effect->effect_type << 0x10) | 0xffff;
+					ct->effect_timers[idx] = (packet_effect->effect_type << 0x10) | 0xffff;
 				}
 
 				ct->m_bSelectionDirty = 1;
@@ -1529,7 +1529,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			if (this->field_0x9d0.Lookup(packet_effect->unit_id, ct) != 0) {
 				int32_t idx = ct->FUN_00462405(packet_effect->effect_type);
 				if (idx > -1) {
-					ct->field_0x130.RemoveAt(idx);
+					ct->effect_timers.RemoveAt(idx);
 				}
 
 				ct->m_bSelectionDirty = 1;

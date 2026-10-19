@@ -150,7 +150,7 @@ CGameObject::CGameObject(const CGameObject* obj) {
     this->carrying_weight_100g = obj->carrying_weight_100g;
     this->m_bSelectionDirty = obj->m_bSelectionDirty;
 
-    this->field_0x130.Copy(obj->field_0x130);
+    this->effect_timers.Copy(obj->effect_timers);
     this->transientVisualElements.Copy(obj->transientVisualElements);
     this->actionTargets.Copy(obj->actionTargets);
 
@@ -339,8 +339,8 @@ int32_t CGameObject::FUN_00461f8e(int32_t x, int32_t y) { //461f8e
 
 
 int32_t CGameObject::FUN_00462405(int32_t effect_id) { //462405
-    for (int32_t i = 0; i < this->field_0x130.GetSize(); i++) {
-        if ((this->field_0x130[i] >> 16) == effect_id) {
+    for (int32_t i = 0; i < this->effect_timers.GetSize(); i++) {
+        if ((this->effect_timers[i] >> 16) == effect_id) {
             return i;
         }
     }
@@ -2542,8 +2542,8 @@ int __cdecl CompareVisualElements(const void* left, const void* right) {
 void CUnit::VMethod16() { // 468dcb
     CArray<GO_11c> visual_elements;
 
-    for (int32_t i = 0; i < this->field_0x130.GetSize();) {
-        uint32_t effect = this->field_0x130[i];
+    for (int32_t i = 0; i < this->effect_timers.GetSize();) {
+        uint32_t effect = this->effect_timers[i];
         uint16_t effect_timer = (uint16_t)effect;
         uint32_t effect_type = effect >> 16;
 
@@ -2606,9 +2606,9 @@ void CUnit::VMethod16() { // 468dcb
         }
 
         uint32_t remaining = (uint32_t)effect_timer - 1;
-        this->field_0x130[i] = (effect & 0xffff0000) | remaining;
+        this->effect_timers[i] = (effect & 0xffff0000) | remaining;
         if (remaining == 0) {
-            this->field_0x130.RemoveAt(i, 1);
+            this->effect_timers.RemoveAt(i, 1);
         } else {
             i++;
         }
@@ -2631,7 +2631,7 @@ int32_t CUnit::VMethod11() { // 46785f
     this->VMethod16();
 
     if (this->action_segments == 0) {
-        if (this->last_action != 0 || this->field_0x130.GetSize() != 0 || g_VFX_info[this->typeId]->idle_phases > 0) {
+        if (this->last_action != 0 || this->effect_timers.GetSize() != 0 || g_VFX_info[this->typeId]->idle_phases > 0) {
             this->m_bSelectionDirty = 1;
         }
         this->last_action = 0;
@@ -4445,7 +4445,7 @@ int32_t CProjectile::VMethod11() {
                 this->x_pos = this->action_x;
                 this->y_pos = this->action_y;
                 this->phase = this->action_phase;
-                target->field_0x130.Add(this->typeId << 0x10 | 0xffff);
+                target->effect_timers.Add(this->typeId << 0x10 | 0xffff);
             }
             break;
         case 23:
@@ -4504,9 +4504,9 @@ int32_t CProjectile::VMethod11() {
                 this->phase = this->action_phase;
                 int32_t idx = target->FUN_00462405(this->typeId);
                 if (idx < 0) {
-                    target->field_0x130.Add(this->typeId << 0x10 | 0x20);
+                    target->effect_timers.Add(this->typeId << 0x10 | 0x20);
                 } else {
-                    target->field_0x130.ElementAt(idx) = this->typeId << 0x10 | 0x20;
+                    target->effect_timers.ElementAt(idx) = this->typeId << 0x10 | 0x20;
                 }
             }
             break;
