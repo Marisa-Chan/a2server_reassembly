@@ -504,7 +504,7 @@ public:
     SaveGameWindow* vis_savegame;
     VisMessageBox* vis_msgbox;
     SaveFileInfo last_save_info;
-    CArray<DiplomacyEntry*>* field_0x348;
+    CArray<DiplomacyEntry*>* diplomacy_entries;
     VisScreen* field_0x34c;
     VisConnectionDlg* field_0x350;
     AvailNetSession net_sessions;

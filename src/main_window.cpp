@@ -737,20 +737,20 @@ int32_t MainWindow::WaitHatConnection() {
 
 // 494a9e
 void MainWindow::FUN_00494a9e() {
-    for (int32_t i = 0; i < this->field_0x348->GetSize(); i++) {
-        DiplomacyEntry* entry = (*this->field_0x348)[i];
+    for (int32_t i = 0; i < this->diplomacy_entries->GetSize(); i++) {
+        DiplomacyEntry* entry = (*this->diplomacy_entries)[i];
         if (entry != nullptr) {
             delete entry;
         }
     }
-    this->field_0x348->RemoveAll();
+    this->diplomacy_entries->RemoveAll();
 
     for (int32_t i = 0; i < this->vis_map_context->field_0x9b8.GetSize(); i++) {
         MapPlayerData* mpd = this->vis_map_context->field_0x9b8[i];
         if (mpd != nullptr && (mpd->flags & 1) == 0) {
             uint16_t dipl_flags = this->vis_map_context->my_main_unit->diplomacy[mpd->index];
             DiplomacyEntry* entry = new DiplomacyEntry(mpd->name, dipl_flags & 1, dipl_flags & 2, dipl_flags & 0x10, dipl_flags & 4);
-            this->field_0x348->Add(entry);
+            this->diplomacy_entries->Add(entry);
         }
     }
 }
@@ -1400,7 +1400,7 @@ void MainWindow::OnNcLButtonDown(UINT nHitTest, CPoint point) {
 
 
 MainWindow::MainWindow() { //4837e1
-    this->field_0x348 = new CArray<DiplomacyEntry*>; //avoid struct with only one this field
+    this->diplomacy_entries = new CArray<DiplomacyEntry*>; //avoid struct with only one this field
 
     this->vis_root = nullptr;
 
@@ -1491,7 +1491,7 @@ MainWindow::MainWindow() { //4837e1
 
 
 MainWindow::~MainWindow() { // 4961b0
-    delete this->field_0x348;
+    delete this->diplomacy_entries;
 }
 
 
@@ -2576,7 +2576,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
             for (int i = 0; i < this->vis_map_context->field_0x9b8.GetSize(); i++) {
                 MapPlayerData* mp = this->vis_map_context->field_0x9b8[i];
                 if (mp != nullptr && (mp->flags & 1) == 0) {
-                    DiplomacyEntry* visdp = (*this->field_0x348)[j];
+                    DiplomacyEntry* visdp = (*this->diplomacy_entries)[j];
 
                     uint16_t dpl = this->vis_map_context->my_main_unit->diplomacy[mp->index] & 0x68;
 
@@ -3415,7 +3415,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             this->FUN_00494a9e();
             // The original passes the address of the array pointer so the dialog
             // re-reads the current array on every ReadData (see VisDiplomacy::diplomacy).
-            this->vis_msgbox = new VisDiplomacy(1, 10, 0, 630, 480, (const CArray<DiplomacyEntry*>*)&this->field_0x348);
+            this->vis_msgbox = new VisDiplomacy(1, 10, 0, 630, 480, (const CArray<DiplomacyEntry*>*)&this->diplomacy_entries);
             this->PopUpScreen(this->vis_msgbox);
         }
         break;
