@@ -159,7 +159,7 @@ void Inn::InnCreateQuests(Player* player) {
                 }
 
                 // Defense range filter
-                int32_t def = u->sub_52D904();
+                int32_t def = u->GetQuestDefense();
                 if (def <= def_min || def >= def_max) {
                     continue;
                 }
@@ -246,7 +246,7 @@ void Inn::InnCreateQuests(Player* player) {
                     continue;
                 }
 
-                int def = u->sub_52D904();
+                int def = u->GetQuestDefense();
                 if (def <= def_min || def >= def_max) {
                     continue;
                 }
@@ -294,7 +294,7 @@ void Inn::InnCreateQuests(Player* player) {
                 POSITION upos = grp->unit_list.GetHeadPosition();
                 while (upos) {
                     Unit* u = grp->unit_list.GetNext(upos);
-                    int def = u->sub_52D904();
+                    int def = u->GetQuestDefense();
                     if (def <= def_min || def >= def_max) {
                         continue;
                     }
@@ -382,7 +382,7 @@ void Inn::InnCreateQuests(Player* player) {
                     continue;
                 }
 
-                int32_t def = u->sub_52D904();
+                int32_t def = u->GetQuestDefense();
                 if (def <= def_min || def >= def_max) {
                     continue;
                 }
@@ -438,7 +438,7 @@ void Inn::InnCreateQuests(Player* player) {
                 POSITION upos = grp->unit_list.GetHeadPosition();
                 while (upos) {
                     Unit* u = grp->unit_list.GetNext(upos);
-                    int32_t def = u->sub_52D904();
+                    int32_t def = u->GetQuestDefense();
                     if (def <= def_min || def >= def_max) {
                         continue;
                     }

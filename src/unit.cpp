@@ -1609,7 +1609,7 @@ void Unit::ClearRefreshFor(Player* player) {
 }
 
 // 52D904
-int32_t Unit::sub_52D904() {
+int32_t Unit::GetQuestDefense() {
     int32_t result = this->protections.defense;
     if (this->movement_type == 3) {
         result += 25;
