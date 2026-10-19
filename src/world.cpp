@@ -2158,12 +2158,12 @@ void World::ScriptOP_0x0d(TriggerAction* action) {
 
 // 5b408d — kill unit
 void World::ScriptOP_0x0e(TriggerAction* action) {
-    g_NetStru1_main.sub_51A0EF(action->unit, action->unit->pOwner, 0xffb);
+    g_NetStru1_main.SendHumanoidProps(action->unit, action->unit->pOwner, 0xffb);
 }
 
 // 5b40ba — kill unit (same as 0x0e)
 void World::ScriptOP_0x0f(TriggerAction* action) {
-    g_NetStru1_main.sub_51A0EF(action->unit, action->unit->pOwner, 0xffb);
+    g_NetStru1_main.SendHumanoidProps(action->unit, action->unit->pOwner, 0xffb);
 }
 
 // 5b40e7 — Phase out unit

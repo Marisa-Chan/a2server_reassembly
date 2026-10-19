@@ -152,7 +152,7 @@ public:
     void sub_51C59C(Unit* unit, Unit* target); // Notify clients about unit turning to face its target
     void SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t param4, int32_t param5, int32_t param6);
 
-    void sub_51A0EF(Unit* unit, Player* player, int32_t flags);
+    void SendHumanoidProps(Unit* unit, Player* player, int32_t flags);
     void sub_51A6D5(Unit* unit, Player* player, int32_t param5, int32_t param6);
     void sub_51BDA4(Effect* effect, Unit* unit, uint8_t arg);
 

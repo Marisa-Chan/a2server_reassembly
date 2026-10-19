@@ -959,7 +959,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
     }
 
     if (orig_mask & 0x400000) {
-        this->sub_51A0EF(unit, player, param5);
+        this->SendHumanoidProps(unit, player, param5);
     }
 
     // Owner-only: send inventory.
@@ -4497,7 +4497,7 @@ void NetStru1::sub_51A6D5(Unit* unit, Player* player, int32_t param5, int32_t pa
 }
 
 // 51A0EF
-void NetStru1::sub_51A0EF(Unit* unit, Player* player, int32_t flags) {
+void NetStru1::SendHumanoidProps(Unit* unit, Player* player, int32_t flags) {
     if (!unit->IsHumanoid()) {
         return;
     }
@@ -4512,7 +4512,7 @@ void NetStru1::sub_51A0EF(Unit* unit, Player* player, int32_t flags) {
         while (pos != nullptr) {
             Player* p = g_PlayersList->list.GetNext(pos);
             if (p->is_active || p == unit->pOwner) {
-                this->sub_51A0EF(unit, p, 0xFFB);
+                this->SendHumanoidProps(unit, p, 0xFFB);
             }
         }
         return;
