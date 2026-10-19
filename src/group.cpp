@@ -11,7 +11,7 @@ GroupSub::GroupSub() {
     memset(this, 0, sizeof(GroupSub));
     
     // Set specific fields (most are already 0 from memset).
-    this->field_0x45 = 1;
+    this->presence_detected = 1;
     
     this->list = new CList<uint16_t>();
 }

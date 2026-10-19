@@ -146,3 +146,4 @@ GroupSub::field_0x30 -> was_empty -- --
 GroupSub::field_0x34 -> phase_ticks -- --
 GroupSub::field_0x38 -> guard_range_base -- --
 GroupSub::field_0x44 -> speed_override -- --
+GroupSub::field_0x45 -> presence_detected -- --

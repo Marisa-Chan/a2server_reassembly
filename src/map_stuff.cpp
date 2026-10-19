@@ -1166,7 +1166,7 @@ void ScanPresenceGrid::sub_5957E2(Unit* unit) {
             }
         }
     } else if (unit->hp < unit->hp_max) {
-        unit->group->group_sub->field_0x45 = 1;
+        unit->group->group_sub->presence_detected = 1;
     }
 }
 
@@ -1174,11 +1174,11 @@ void ScanPresenceGrid::sub_5957E2(Unit* unit) {
 void ScanPresenceGrid::sub_595F46(Unit* unit) {
     uint32_t sector = this->sector_grid[(unit->position->GetX() >> 3) + 1][(unit->position->GetY() >> 3) + 1];
     if (sector != 0) {
-        unit->group->group_sub->field_0x45 = 1;
+        unit->group->group_sub->presence_detected = 1;
         this->num_detected++;
         unit->seen_by_mask = (uint16_t)sector;
     } else if (unit->group->group_sub->active != 0) {
-        unit->group->group_sub->field_0x45 = 1;
+        unit->group->group_sub->presence_detected = 1;
         this->num_detected++;
         this->field_0x1624++;
     }
@@ -1194,7 +1194,7 @@ void ScanPresenceGrid::sub_5963B9() {
             POSITION group_it = player->group_list->groups.GetHeadPosition();
             while (group_it != NULL) {
                 Group* group = player->group_list->groups.GetNext(group_it);
-                group->group_sub->field_0x45 = 0;
+                group->group_sub->presence_detected = 0;
             }
         }
     }

@@ -1330,7 +1330,7 @@ void World::sub_5AAA89(Unit* unit) {
 
 // 5A9B6B — AI tick for a monster unit.
 void World::sub_5A9B6B(Unit* unit) {
-    if (this->field37_0xbbe8 == 0 && unit->group->group_sub->field_0x45 == 0 && unit->eye2->field4_0x9 == 0) {
+    if (this->field37_0xbbe8 == 0 && unit->group->group_sub->presence_detected == 0 && unit->eye2->field4_0x9 == 0) {
         unit->some_state = 0x1B;
         return;
     }
@@ -3368,7 +3368,7 @@ void World::sub_5ABF50(Player* player) {
         Group* group = player->group_list->groups.GetNext(it);
         if (this->field37_0xbbe8 != 0) {
             this->sub_5ABFBC(group);
-        } else if (group->group_sub->field_0x45 != 0) {
+        } else if (group->group_sub->presence_detected != 0) {
             this->sub_5ABFBC(group);
         }
     }
