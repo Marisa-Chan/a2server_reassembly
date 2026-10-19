@@ -2320,7 +2320,7 @@ void TransientVisualEffectBuilder::FUN_004CB85F(double px0, double py0, double p
 
 // 4cb993
 void TransientVisualEffectBuilder::FUN_004CB993(double x0, double y0, double x1, double y1) {
-    double y_tolerance = this->field_0x60 * 0.15;
+    double y_tolerance = this->line_length * 0.15;
     double dx = x1 - x0;
     double dy = y1 - y0;
     double y_accum = 0.0;
@@ -2329,7 +2329,7 @@ void TransientVisualEffectBuilder::FUN_004CB993(double x0, double y0, double x1,
     CArray<double> ys;
 
     this->FUN_0046f390();
-    this->field_0x58 = this->field_0x60 * 0.03;
+    this->field_0x58 = this->line_length * 0.03;
 
     double dir;
     if (std::rand() & 1) {
@@ -2414,12 +2414,12 @@ void TransientVisualEffectBuilder::FUN_004CB993(double x0, double y0, double x1,
 void TransientVisualEffectBuilder::FUN_004cc059(double x0, double y0, double x1, double y1, uint8_t arg5) {
     double dx = x1 - x0;
     double dy = y1 - y0;
-    this->field_0x60 = std::hypot(dx, dy);
+    this->line_length = std::hypot(dx, dy);
 
-    this->FUN_004CB993(x0, y0, x0 + this->field_0x60, y0);
+    this->FUN_004CB993(x0, y0, x0 + this->line_length, y0);
 
-    double step_x = dx / this->field_0x60;
-    double step_y = dy / this->field_0x60;
+    double step_x = dx / this->line_length;
+    double step_y = dy / this->line_length;
 
     for (int32_t i = 0; i < this->field_0x90.GetSize(); i++) {
         double px_f = (this->field_0x90[i] - this->field_0x90[0]) * step_x + this->field_0x90[0];

@@ -54,3 +54,4 @@ CGameObject::field_0xa4 -> move_accum_y -- accumulated |dy| walked, drives walk-
 CGameObject::field_0xc4 -> turn_angle -- interpolated facing in 1/16 dir units (dir = turn_angle >> 4)
 CGameObject::field_0x130 -> effect_timers -- active spell-effect list, entries (effect_type << 16) | ticks_left
 CUnit::field_0x180[8] -> stat_body/stat_reaction/stat_mind/stat_spirit + death_state (+__gap_u5[3]) -- [0..3] mirror the char stats (player file/stat window), [4] is the dying/bone anim state; array split into named bytes, layout unchanged
+TransientVisualEffectBuilder::field_0x60 -> line_length -- hypot(dx,dy) of the lightning segment being built

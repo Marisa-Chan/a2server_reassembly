@@ -353,7 +353,7 @@ public:
     CPoint field_0x44[2];
     int32_t field_0x54;
     double field_0x58;
-    double field_0x60;
+    double line_length;
     CArray<CPoint> field_0x68;
     CArray<GO_11c> visual_elements; // 0x7c
     CArray<double> field_0x90;
