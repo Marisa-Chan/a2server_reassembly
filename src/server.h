@@ -172,7 +172,7 @@ public:
     void EnsurePlayerGroup(Player* player);
     void UpdateHatAnnounce();
     void ProcessHatConnections();
-    void sub_4FA4BB(CString* name, uint32_t* frags);
+    void GetArenaFrags(CString* name, uint32_t* frags);
     void sub_4FA348(CString* name, int32_t flag); // TODO: that's likely `CString&`
     void sub_4FA551(Player* player); // Arena mode player entry handler
     void sub_4FF937(Player* player, int32_t arg4); // Mission join: send full world state to connecting player

@@ -2217,7 +2217,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
 
     // Arena mode: name/stat lookup.
     if (g_ServerConfig.gameType == 3) {
-        this->sub_4FA4BB(&player->name, &player->frags);
+        this->GetArenaFrags(&player->name, &player->frags);
         this->sub_4FA348(&player->name, 0);
     }
 
@@ -5367,7 +5367,7 @@ void Server::sub_4FA348(CString* name, int32_t flag) {
 }
 
 // 4FA4BB
-void Server::sub_4FA4BB(CString* name, uint32_t* frags) {
+void Server::GetArenaFrags(CString* name, uint32_t* frags) {
     *frags = 0;
     for (int32_t i = 0; i < this->field67_0x228.GetSize(); i++) {
         if (this->field67_0x228[i] == *name) {

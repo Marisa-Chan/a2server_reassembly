@@ -379,3 +379,4 @@ Server::sub_500907 -> CreatePlayerCharacter -- returns or creates the player's m
 Server::sub_4EE028 -> SaveCharacter -- saves the humanoid: equipment+inventory state packets and character file (autosave gate for stat bottles)
 Server::sub_5013D4 -> EnsurePlayerGroup -- makes sure the player owns at least one Group
 Server::sub_4F4570 -> UpdateHatAnnounce -- every 5min announces player count/title/level to HAT
+Server::sub_4F0D58 -> ProcessHatConnections -- services the HAT connector; closes the listen socket after 30s unclaimed
