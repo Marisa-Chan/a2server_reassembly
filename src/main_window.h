@@ -500,7 +500,7 @@ public:
     VisCredits* vis_credits;
     VisLogoWnd* vis_logownd;
     Vis1200* vis_1200;
-    LoadGameWindow* field_0x13c;
+    LoadGameWindow* vis_loadgame;
     SaveGameWindow* field_0x140;
     VisMessageBox* field_0x144;
     SaveFileInfo field_0x148;

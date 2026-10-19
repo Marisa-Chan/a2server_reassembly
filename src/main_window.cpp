@@ -2460,10 +2460,10 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
 
         delete this->field_0x140;
         this->field_0x140 = nullptr;
-    } else if (obj == this->field_0x13c) { //load game
+    } else if (obj == this->vis_loadgame) { //load game
         this->dialogsMask &= ~8;
 
-        int32_t code = this->field_0x13c->GetCloseCode();
+        int32_t code = this->vis_loadgame->GetCloseCode();
         if (code == 0x445) {
             PostMessage(0x419, 0, 0);
         } else if (g_Server == nullptr) {
@@ -2478,8 +2478,8 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
             this->field_0x43c = 0;
         }
 
-        delete this->field_0x13c;
-        this->field_0x13c = nullptr;
+        delete this->vis_loadgame;
+        this->vis_loadgame = nullptr;
 
         if (code == 0x445) {
             return;
@@ -3028,8 +3028,8 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
     case 0x418:
         this->field_0x148.title[0] = 0;
         this->field_0x148.filename[0] = 0;
-        this->field_0x13c = new LoadGameWindow(1, 100, 30, 600, 450, 0, &this->field_0x148);
-        this->PopUpScreen(this->field_0x13c);
+        this->vis_loadgame = new LoadGameWindow(1, 100, 30, 600, 450, 0, &this->field_0x148);
+        this->PopUpScreen(this->vis_loadgame);
         break;
 
     case 0x419:
