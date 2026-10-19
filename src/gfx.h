@@ -213,7 +213,7 @@ struct ColorThing {
 	int32_t shade_delta;
 	int32_t lit_delta;
 	int32_t __pd2;
-	double field_18;
+	double sun_angle;
 };
 ASSERT_SIZE(ColorThing, 0x20);
 

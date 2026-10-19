@@ -189,3 +189,4 @@ ColorThing::field_4 -> brightness -- --
 ColorThing::field_8 -> contrast -- --
 ColorThing::field_c -> shade_delta -- --
 ColorThing::field_10 -> lit_delta -- --
+ColorThing::field_18 -> sun_angle -- --
