@@ -5560,7 +5560,7 @@ void CGameSession::RecreateCUnit() { //4941c0
             this->main_sphere = hm->main_sphere;
         }
 
-        hm->sub_533345(this->main_sphere, 0x14);
+        hm->InitCreationSkills(this->main_sphere, 0x14);
         cu->CopyFromUnit(*hm);
 
         this->body = cu->stat_body = cu->body;

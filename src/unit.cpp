@@ -2768,9 +2768,9 @@ void Humanoid::RecalcExperienceFromSkills() {
 }
 
 // 533345
-void Humanoid::sub_533345(int8_t main_skill, int8_t skill_level) {
+void Humanoid::InitCreationSkills(int8_t main_skill, int8_t skill_level) {
     CString m;
-    m.Format("sub_533345: (main skill %d, level %d)", main_skill, skill_level);
+    m.Format("InitCreationSkills: (main skill %d, level %d)", main_skill, skill_level);
     LogMessage(m);
     // Unequip and delete current weapon.
     Item* old_weapon = this->Unequip(this->weapon);

@@ -2331,7 +2331,7 @@ Human* Server::sub_500907(Player* player, uint8_t body, uint8_t reaction, uint8_
     #ifdef A2SERVER_TANGAR_HAT
     main_skill_level = 0;
     #endif
-    unit->sub_533345(main_skill, main_skill_level);
+    unit->InitCreationSkills(main_skill, main_skill_level);
     unit->RecalcStats();
 
     unit->hp = unit->hp_max;

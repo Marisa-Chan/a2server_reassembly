@@ -279,7 +279,7 @@ public:
     void ReviveWithPenalty(); // Reduce humanoid's skills and revive the unit.
     void RecalcExperienceFromSkills(); // Recalculate experience from skills.
     void CopyFrom(Humanoid* other); // 530231 - Copy stats and equipment from another humanoid.
-    void sub_533345(int8_t main_skill, int8_t skill_level);   // Character creation: set skills and give initial weapon.
+    void InitCreationSkills(int8_t main_skill, int8_t skill_level);   // Character creation: set skills and give initial weapon.
     void sub_532dde(CArray<HumanInfoData>* param_2);
 
 public:
