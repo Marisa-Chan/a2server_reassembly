@@ -208,7 +208,7 @@ void NetStru1::SendGameEvent(Player* player, int32_t event_id, int32_t arg3) {
 }
 
 // 51CDFB
-void NetStru1::sub_51CDFB(CString& name, uint32_t score, char type, Player* player) {
+void NetStru1::SendArenaScore(CString& name, uint32_t score, char type, Player* player) {
     PacketJoin& packet = PacketJoin::Inst;
     if (type != 0) {
         packet.id = type;

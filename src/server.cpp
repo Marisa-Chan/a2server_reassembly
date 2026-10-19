@@ -5350,7 +5350,7 @@ void Server::AddArenaFrags(CString* name, int32_t flag) {
     for (int32_t i = 0; i < this->field67_0x228.GetSize(); i++) {
         if (this->field67_0x228[i] == *name) {
             this->field68_0x23c[i] += flag;
-            g_NetStru1_main.sub_51CDFB(this->field67_0x228[i], this->field68_0x23c[i], '[', nullptr);
+            g_NetStru1_main.SendArenaScore(this->field67_0x228[i], this->field68_0x23c[i], '[', nullptr);
             return;
         }
     }
@@ -5362,7 +5362,7 @@ void Server::AddArenaFrags(CString* name, int32_t flag) {
     this->field68_0x23c.SetSize(idx_23c + 1, -1);
     this->field68_0x23c[idx_23c] = flag;
 
-    g_NetStru1_main.sub_51CDFB(this->field67_0x228[idx], this->field68_0x23c[idx_23c], '[', nullptr);
+    g_NetStru1_main.SendArenaScore(this->field67_0x228[idx], this->field68_0x23c[idx_23c], '[', nullptr);
     sub_4FA768(nullptr);
 }
 
@@ -5502,7 +5502,7 @@ void Server::ProcessHatPacket(Packet* pkt) {
 // 4FA551
 void Server::HandleArenaPlayer(Player* player) {
     for (int32_t i = 0; i < this->field67_0x228.GetSize(); i++) {
-        g_NetStru1_main.sub_51CDFB(this->field67_0x228[i], this->field68_0x23c[i], '[', player);
+        g_NetStru1_main.SendArenaScore(this->field67_0x228[i], this->field68_0x23c[i], '[', player);
     }
     sub_4FA768(player);
 }

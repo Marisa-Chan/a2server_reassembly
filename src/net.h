@@ -174,7 +174,7 @@ public:
 
     void SendLatency(int32_t latency, Player* player);  // Send latency update to player
     void SendGameEvent(Player* player, int32_t event_id, int32_t arg3); // Send in-game event trigger
-    void sub_51CDFB(CString& name, uint32_t score, char type, Player* player); // 51CDFB - send arena score
+    void SendArenaScore(CString& name, uint32_t score, char type, Player* player); // 51CDFB - send arena score
 
     void ResendPlayerUnits(Player* player);
     void sub_51C601(Unit* unit, int unused);        // Send unit-level-up packet
