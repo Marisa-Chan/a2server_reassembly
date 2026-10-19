@@ -4429,7 +4429,7 @@ void NetStru1::SendHatJoinOk(int32_t a, int32_t b) {
 }
 
 // 51E63F
-void NetStru1::sub_51E63F(int32_t a, int32_t b, int32_t error_code) {
+void NetStru1::SendHatJoinFail(int32_t a, int32_t b, int32_t error_code) {
     PacketData& packet = PacketData::Inst;
     packet.to_player_id = 0;
     packet.id = 0xD9;

@@ -5466,7 +5466,7 @@ void Server::ProcessHatPacket(Packet* pkt) {
                 LogMessage("New player " + name + " has logged in as " + login);
                 NetStru1::HatConnector.SendHatJoinOk(id1, id2);
             } else {
-                NetStru1::HatConnector.sub_51E63F(id1, id2, result);
+                NetStru1::HatConnector.SendHatJoinFail(id1, id2, result);
             }
             break;
         }
