@@ -152,7 +152,7 @@ int TokenPos::ClampToMap(uint8_t _x, uint8_t _y) { //58a7e8
 	return ok;
 }
 
-int32_t TokenPos::sub_58bec3() { // Check if we'in the middle of a cell (both subcell values are 0x80). //58bec3
+int32_t TokenPos::IsAtCellCenter() { // Check if we'in the middle of a cell (both subcell values are 0x80). //58bec3
 	if (this->x_subcell == 128 && this->y_subcell == 128) {
 		return 1;
 	}

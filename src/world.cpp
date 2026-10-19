@@ -745,7 +745,7 @@ uint8_t World::sub_5ABB32(Unit* unit, PosYX yx) {
             POSITION unit_it = list->GetHeadPosition();
             while (unit_it != nullptr) {
                 Unit* nearby_unit = list->GetNext(unit_it);
-                if (nearby_unit->eye->field111_0x70 == yx.val && nearby_unit->position->sub_58bec3() == 0) {
+                if (nearby_unit->eye->field111_0x70 == yx.val && nearby_unit->position->IsAtCellCenter() == 0) {
                     return 2;
                 }
             }
@@ -759,7 +759,7 @@ uint8_t World::sub_5ABB32(Unit* unit, PosYX yx) {
         return 0;
     }
 
-    if (unit_at_yx->position->sub_58bec3() == 0) {
+    if (unit_at_yx->position->IsAtCellCenter() == 0) {
         if (unit->eye->position1 == yx.val) {
             return 0;
         }
@@ -810,7 +810,7 @@ void World::sub_5AEC20(Group* group, uint16_t param) {
         if (unit->eye2->unit4 != nullptr) {
             this->sub_5A6B48(unit, unit->eye2->unit4);
         } else {
-            if (unit->position->CompatGetYX() == param && unit->position->sub_58bec3()) {
+            if (unit->position->CompatGetYX() == param && unit->position->IsAtCellCenter()) {
                 this->sub_5A6E2C(unit, 1);
             } else {
                 this->sub_5A8778(unit, param);
@@ -1344,7 +1344,7 @@ void World::sub_5A9B6B(Unit* unit) {
     }
 
     if (unit->eye2->field4_0x9 == 0) {
-        if (unit->eye2->field81_0xb0.val != 0 && unit->position->sub_58bec3()) {
+        if (unit->eye2->field81_0xb0.val != 0 && unit->position->IsAtCellCenter()) {
             this->field24_0xa50->sub_5954AC(unit, unit->eye2->field81_0xb0.x, unit->eye2->field81_0xb0.y);
             unit->eye2->field81_0xb0 = PosYX{0};
         }
@@ -1431,7 +1431,7 @@ void World::sub_5A9B6B(Unit* unit) {
         case 3:
             this->field24_0xa50->sub_590678(unit);
             unit->some_state = 1;
-            if (unit->position->sub_58bec3()) {
+            if (unit->position->IsAtCellCenter()) {
                 unit->eye2->field4_0x9 = 0;
                 unit->some_state = 0;
             }
@@ -1593,7 +1593,7 @@ int32_t World::sub_5A6ED9(Unit* caster, Unit* target) {
             Unit* nearby = this->field29_0xac4.unit_list.GetNext(it);
             PosYX yx = nearby->position->CompatGetYX();
             if (adjust_pos) {
-                if (nearby->position->sub_58bec3() == 0) {
+                if (nearby->position->IsAtCellCenter() == 0) {
                     uint8_t dir = nearby->eye->field0_0x0 >> 5;
                     yx.x = yx.x + this->field24_0xa50->field48_0x58e88[dir];
                     yx.y = yx.y + this->field24_0xa50->field49_0x58e90[dir];
@@ -2519,7 +2519,7 @@ void World::sub_5A607B(Unit* unit) {
         this->sub_5A6E59(unit);
     }
 
-    if (unit->position->sub_58bec3() && unit->eye->field121_0x80.val != 0) {
+    if (unit->position->IsAtCellCenter() && unit->eye->field121_0x80.val != 0) {
         PosYX current_yx = unit->position->CompatGetYX();
         if (unit->eye->field121_0x80 != current_yx) {
             this->field24_0xa50->FUN_005969c6(unit, PosYX(0), 1);
@@ -2689,7 +2689,7 @@ void World::FUN_005a9832(Unit* unit) { //5a9832
     }
 
     if (unit->eye->field121_0x80 != PosYX()) {
-        if (unit->position->sub_58bec3()) {
+        if (unit->position->IsAtCellCenter()) {
             if (unit->position->GetYX() != unit->eye->field121_0x80) {
                 this->field24_0xa50->FUN_005969c6(unit, PosYX(), 1);
             }
@@ -2740,7 +2740,7 @@ void World::sub_5AA8ED(Unit* unit) {
 // 5AA91B
 void World::sub_5AA91B(Unit* unit, Unit* target) {
     this->field24_0xa50->sub_59028D(unit, target, unit->eye2->max_range);
-    if (!unit->position->sub_58bec3()) {
+    if (!unit->position->IsAtCellCenter()) {
         unit->eye2->field4_0x9 = 3;
         unit->eye2->counter = 0;
     }
@@ -3150,7 +3150,7 @@ void World::sub_5AA375(Unit* unit, PosYX yx, uint8_t max_range) {
 
     this->field24_0xa50->sub_58FF51(unit, yx, max_range);
 
-    if (unit->position->sub_58bec3() == 0) {
+    if (unit->position->IsAtCellCenter() == 0) {
         unit->eye2->field4_0x9 = 3;
         unit->eye2->counter = 0;
     }
@@ -3317,7 +3317,7 @@ void World::sub_5AF6F5(Unit* unit) {
 void World::sub_5A9383(Unit* unit) {
     this->sub_5A9AC4(unit);
     unit->state = 0xB;
-    if (unit->position->sub_58bec3() == 0) {
+    if (unit->position->IsAtCellCenter() == 0) {
         unit->eye2->position1 = unit->eye->position1;
     } else {
         unit->eye2->position1 = unit->position->GetYX();
@@ -3338,7 +3338,7 @@ void World::sub_5AA97E(Unit* unit) {
 
 // 5AA9F6
 void World::sub_5AA9F6(Unit* unit) {
-    if (unit->position->CompatGetYX() == unit->eye2->command_to && unit->position->sub_58bec3() != 0) {
+    if (unit->position->CompatGetYX() == unit->eye2->command_to && unit->position->IsAtCellCenter() != 0) {
         if (unit->some_state == 2) {
             unit->some_state = 0;
             unit->eye2->cast_action = 0;
@@ -4098,7 +4098,7 @@ void World::sub_5AF061(Group* group, uint16_t yx) {
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
 
-        if (unit->position->CompatGetYX() == unit->eye2->command_to && unit->position->sub_58bec3() && unit->eye2->field43_0x50 == 0) {
+        if (unit->position->CompatGetYX() == unit->eye2->command_to && unit->position->IsAtCellCenter() && unit->eye2->field43_0x50 == 0) {
             this->sub_5A9A8F(unit);
             unit->eye->field136_0x90 = 0;
         } else {
@@ -4336,7 +4336,7 @@ void World::sub_5AE628(Group* group) {
     while (it != nullptr) {
         Unit* unit = group->unit_list.GetNext(it);
         if (unit->eye2->unit4 == nullptr) {
-            if (unit->position->GetYX() == unit->eye2->position1 && unit->position->sub_58bec3()) {
+            if (unit->position->GetYX() == unit->eye2->position1 && unit->position->IsAtCellCenter()) {
                 this->sub_5A6E2C(unit, 1);
             } else {
                 this->sub_5A8778(unit, unit->eye2->position1);
@@ -4387,7 +4387,7 @@ void World::sub_5AE7C3(Group* group) {
                 int32_t tick_diff = std::abs((int32_t)unit->eye2->tick - g_Server->tick);
                 if (unit->hp == unit->hp_max || tick_diff > 9) {
                     if (unit->eye2->counter3 == 0) {
-                        if (unit->position->GetYX() == unit->eye2->position1 && unit->position->sub_58bec3()) {
+                        if (unit->position->GetYX() == unit->eye2->position1 && unit->position->IsAtCellCenter()) {
                             this->sub_5A6E2C(unit, 1);
                         } else {
                             this->sub_5A8778(unit, unit->eye2->position1);
@@ -4755,7 +4755,7 @@ void World::CheckOP_26(TriggerCheck* check) {
 // 5B3776
 void World::CheckOP_27(TriggerCheck* check) {
     TokenPos* pos = check->unit->position;
-    if (pos->GetX() == check->data[1] && pos->GetY() == check->data[2] && pos->sub_58bec3() != 0) {
+    if (pos->GetX() == check->data[1] && pos->GetY() == check->data[2] && pos->IsAtCellCenter() != 0) {
         this->trigger_variables[check->id] = 1;
     } else {
         this->trigger_variables[check->id] = 0;

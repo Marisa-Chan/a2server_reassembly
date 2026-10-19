@@ -28,7 +28,7 @@ void Sack::Init() {
     this->money = 0;
     this->needs_save = 0;
     this->building_id = BldIdSet_AllocBit() & 0xFFFF;
-    if (!this->position->sub_58bec3()) {
+    if (!this->position->IsAtCellCenter()) {
         this->position->ClampToMap(this->position->GetX(), this->position->GetY());
     }
     this->seen_by_mask = 0;

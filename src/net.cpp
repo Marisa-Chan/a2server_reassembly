@@ -241,7 +241,7 @@ void NetStru1::sub_51B870(Unit* unit) {
     while (pos != nullptr) {
         Player* player = g_PlayersList->list.GetNext(pos);
         if (player->is_active && unit->NeedsRefreshFor(player)) {
-            unit->position->sub_58bec3(); // WAT: Useless call?
+            unit->position->IsAtCellCenter(); // WAT: Useless call?
             if (unit->IsUnit()) {
                 this->sub_519221(unit, player, 0xFFB, -1, 0, 0);
             } else {
@@ -802,7 +802,7 @@ void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t par
         uint8_t value = unit->eye->sub_58c00e();
         pkt->PutByte(0x10, value);
 
-        if (unit->position->sub_58bec3() == 0) {
+        if (unit->position->IsAtCellCenter() == 0) {
             uint16_t position1 = unit->eye->position1;
             pkt->PutByte(0x10, static_cast<uint8_t>(position1));
             pkt->PutByte(0x10, static_cast<uint8_t>(position1 >> 8));

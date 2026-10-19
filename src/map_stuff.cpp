@@ -328,7 +328,7 @@ uint8_t MapStuff::sub_59166C(Unit* unit, PosYX yx) {
 
 // 58FE6D
 int MapStuff::sub_58FE6D(Unit* unit, Unit* target, uint8_t max_range) {
-    unit->position->sub_58bec3();
+    unit->position->IsAtCellCenter();
     uint8_t current_facing = unit->eye->field0_0x0;
     uint8_t computed_facing = this->sub_591424(unit, target);
     if (current_facing != computed_facing) {
@@ -342,7 +342,7 @@ int MapStuff::sub_58FE6D(Unit* unit, Unit* target, uint8_t max_range) {
 
 // 58FEDA
 int MapStuff::sub_58FEDA(Unit* unit, PosYX yx, uint8_t max_range) {
-    unit->position->sub_58bec3();
+    unit->position->IsAtCellCenter();
     uint8_t current_facing = unit->eye->field0_0x0;
     uint8_t computed_facing = this->sub_59166C(unit, yx);
     if (current_facing != computed_facing) {
@@ -358,7 +358,7 @@ int MapStuff::sub_58FEDA(Unit* unit, PosYX yx, uint8_t max_range) {
 // 58FF51
 void MapStuff::sub_58FF51(Unit* unit, PosYX yx, uint8_t max_range) {
     uint8_t distance = this->sub_593B29(unit->position->GetYX(), yx);
-    int32_t in_cell_middle = unit->position->sub_58bec3();
+    int32_t in_cell_middle = unit->position->IsAtCellCenter();
 
     if (!in_cell_middle) {
         this->sub_590678(unit);
@@ -426,7 +426,7 @@ void MapStuff::sub_58FF51(Unit* unit, PosYX yx, uint8_t max_range) {
 void MapStuff::sub_59028D(Unit* unit, Unit* target, uint8_t max_range) {
     PosYX target_yx = target->position->GetYX();
     uint8_t range = this->sub_59190D(unit, target);
-    int32_t in_cell_middle = unit->position->sub_58bec3();
+    int32_t in_cell_middle = unit->position->IsAtCellCenter();
 
     if (!in_cell_middle) {
         this->sub_590678(unit);
@@ -551,7 +551,7 @@ void MapStuff::sub_590678(Unit* unit) {
         unit->eye->field113_0x72 = this->sub_5913BD(unit, unit->position->GetX(), unit->position->GetY());
     }
 
-    if (!unit->position->sub_58bec3()) {
+    if (!unit->position->IsAtCellCenter()) {
         return;
     }
 
