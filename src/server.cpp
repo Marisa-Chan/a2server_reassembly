@@ -1719,7 +1719,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4) {
         inf.id = 0xABu;
         inf.to_player_id = player->player_id;
         inf.param1 = player->main_unit->position->GetX() & 0xFF;
-        inf.field_0xe = player->main_unit->position->GetY() & 0xFF;
+        inf.param2 = player->main_unit->position->GetY() & 0xFF;
 
         g_NetStru1_main.QueuePacketSend(&inf);
 
@@ -3412,8 +3412,8 @@ void Server::sub_504a96(Packet* pkt) {
 
             player->money -= amount;
 
-            uint8_t drop_x = static_cast<uint8_t>(packet_info->field_0xe & 0xFF);
-            uint8_t drop_y = static_cast<uint8_t>((packet_info->field_0xe >> 8) & 0xFF);
+            uint8_t drop_x = static_cast<uint8_t>(packet_info->param2 & 0xFF);
+            uint8_t drop_y = static_cast<uint8_t>((packet_info->param2 >> 8) & 0xFF);
 
             int dx = std::abs(static_cast<int>(unit->position->GetX()) - static_cast<int>(drop_x));
             int dy = std::abs(static_cast<int>(unit->position->GetY()) - static_cast<int>(drop_y));
@@ -3556,9 +3556,9 @@ void Server::sub_504a96(Packet* pkt) {
             if (!inn) {
                 break;
             }
-            inn->sub_560DC2(static_cast<Humanoid*>(unit), packet_info->field_0xe);
+            inn->sub_560DC2(static_cast<Humanoid*>(unit), packet_info->param2);
             CString m;
-            m.Format("Exit inn: player %d, unit %d, field: %x", packet_info->from_player_id, packet_info->param1, packet_info->field_0xe);
+            m.Format("Exit inn: player %d, unit %d, field: %x", packet_info->from_player_id, packet_info->param1, packet_info->param2);
             LogMessage(m);
             break;
         }
@@ -3700,7 +3700,7 @@ void Server::sub_504a96(Packet* pkt) {
             }
 
             int32_t param_type  = packet_info->param1;
-            int32_t param_value = packet_info->field_0xe;
+            int32_t param_value = packet_info->param2;
 
             if (param_type >= 0x80) {
                 CString msg;
@@ -4036,7 +4036,7 @@ void Server::sub_504a96(Packet* pkt) {
             }
 
             // Find the target player by two identity fields carried in the packet
-            Player* target = g_PlayersList->sub_535E94(packet_info->param1, packet_info->field_0xe);
+            Player* target = g_PlayersList->sub_535E94(packet_info->param1, packet_info->param2);
             // Only proceed if the target player has no active NetStru2 yet
             if (target && g_NetStru1_main.GetClientByPlayerID(target->player_id) == nullptr) {
                 ns2->player_id = target->player_id;
@@ -5431,7 +5431,7 @@ void Server::sub_5088DF(Packet* pkt) {
         LogMessage("Login to hat successful.");
         this->field50_0x1d4 = 0;
         this->sub_4F4570();
-        if (pkt_info->field_0xe == 0 || g_ServerConfig.always_load_sacks != 0) {
+        if (pkt_info->param2 == 0 || g_ServerConfig.always_load_sacks != 0) {
             this->sub_4F950F();
         }
         this->field54_0x1f4 = pkt_info->param1;
@@ -5473,7 +5473,7 @@ void Server::sub_5088DF(Packet* pkt) {
 
     case 0xe1: { // 0xe1 - Player existence check from hat
             int32_t id1 = pkt_info->param1;
-            int32_t id2 = pkt_info->field_0xe;
+            int32_t id2 = pkt_info->param2;
             Player* player = g_PlayersList->sub_535E94(id1, id2);
             if (player == nullptr) {
                 NetStru1::HatConnector.sub_51E794(id1, id2, 1, 0);
@@ -6147,7 +6147,7 @@ void Server::sub_5090FA(Player* player) {
             packet_info.id = 0xAB;
             packet_info.to_player_id = player->player_id;
             packet_info.param1 = player->main_unit->position->GetX() & 0xFF;
-            packet_info.field_0xe = player->main_unit->position->GetY() & 0xFF;
+            packet_info.param2 = player->main_unit->position->GetY() & 0xFF;
             g_NetStru1_main.QueuePacketSend(&packet_info);
         }
     }

@@ -59,12 +59,12 @@ public:
     };
 
     union {
-        int32_t field_0xe;
+        int32_t param2;
         struct {
-            uint8_t field_e1;
-            uint8_t field_e2;
-            uint8_t field_e3;
-            uint8_t field_e4;
+            uint8_t param2_b0;
+            uint8_t param2_b1;
+            uint8_t param2_b2;
+            uint8_t param2_b3;
         };
     };
 };

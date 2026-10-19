@@ -125,14 +125,14 @@ PacketInfo PacketInfo::Inst;
 PacketInfo::PacketInfo() {
     //526b44
     this->param1 = 0;
-    this->field_0xe = 0;
+    this->param2 = 0;
 }
 
 PacketInfo::PacketInfo(const PacketInfo* src) {
     //526b77
     this->id = src->id;
     this->param1 = src->param1;
-    this->field_0xe = src->field_0xe;
+    this->param2 = src->param2;
 }
 
 PacketInfo::~PacketInfo() {
