@@ -1387,7 +1387,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
                         Item* equipped = item->Equip(humanoid);
                         if (equipped == nullptr || equipped->field15_0x54 == 0) {
                             // Failed --- burn the item.
-                            item->VMethod11(humanoid);
+                            item->Unequip(humanoid);
                             delete item;
                             if (equipped != nullptr) {
                                 delete equipped;

@@ -291,3 +291,4 @@ Unit::VMethod23 -> AwardDamageExperience -- Humanoid: caster gains exp proportio
 Unit::VMethod24 -> AwardCastExperience -- Humanoid: caster gains exp worth half the spell mana cost in the spell's sphere
 Unit::VMethod25 -> GetCorpseDecayTime -- ticks a fallen unit stays before further decay (monster dying_time; humanoid reads protection_magic[4])
 Item::VMethod10 -> Equip -- base: consume (apply effects, autosave on stat bottles, delete); Armor/Shield/Weapon: attach to the humanoid equipment slot and return the displaced item
+Item::VMethod11 -> Unequip -- removes the item from the unit (base logs 'Unknown item takeoff'; gear subclasses remove stat/protection mods)

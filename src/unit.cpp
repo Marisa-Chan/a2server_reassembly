@@ -1006,7 +1006,7 @@ void Unit::UseItemOrStash(Item *item) {
 
 Item* Unit::Unequip(Item* item) {
     if (item) {
-        item->VMethod11(this);
+        item->Unequip(this);
         this->RecalcExperience();
     }
     return item;
@@ -2318,7 +2318,7 @@ void Humanoid::UseItemOrStash(Item *item) {
 Item *Humanoid::Unequip(Item* item) {
     //5304e8
     if (item) {
-        item->VMethod11(this);
+        item->Unequip(this);
     }
     return item;
 }

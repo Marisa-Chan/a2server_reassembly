@@ -288,7 +288,7 @@ Item* Item::Equip(Unit* pUnit) {
 }
 
 // 548c04
-void Item::VMethod11(Unit*) {
+void Item::Unequip(Unit*) {
     LogMessage("Unknown item takeoff");
 }
 
@@ -798,7 +798,7 @@ Item* Armor::Equip(Unit* unit) {
     Armor* old_armor = nullptr;
     if (humanoid->equipment[this->slot] != nullptr) {
         old_armor = static_cast<Armor*>(humanoid->equipment[this->slot]);
-        old_armor->VMethod11(unit);
+        old_armor->Unequip(unit);
     }
     humanoid->equipment[this->slot] = this;
     unit->equipment_extra.protections += this->protections;
@@ -810,7 +810,7 @@ Item* Armor::Equip(Unit* unit) {
 }
 
 // 54FB7E
-void Armor::VMethod11(Unit* unit) {
+void Armor::Unequip(Unit* unit) {
     if (unit->IsHumanoid() == 0) {
         return;
     }
@@ -982,7 +982,7 @@ Item* Shield::Equip(Unit* unit) {
     Shield* old_shield = nullptr;
     if (unit->shield != nullptr) {
         old_shield = unit->shield;
-        old_shield->VMethod11(unit);
+        old_shield->Unequip(unit);
     }
     if (unit->weapon != nullptr) {
         if (unit->weapon->world_equip->Values()[0].suitable_for == 2) {
@@ -1000,7 +1000,7 @@ Item* Shield::Equip(Unit* unit) {
 }
 
 // 550686
-void Shield::VMethod11(Unit* unit) {
+void Shield::Unequip(Unit* unit) {
     unit->sub_52A790(-this->weight);
     unit->equipment_extra.protections -= this->protections;
     unit->protections -= this->protections;
@@ -1203,7 +1203,7 @@ Item* Weapon::Equip(Unit* unit) {
     Item* old_weapon = nullptr;
     if (unit->weapon != nullptr) {
         old_weapon = unit->weapon;
-        unit->weapon->VMethod11(unit);
+        unit->weapon->Unequip(unit);
     }
 
     if (this->world_equip->Values()[0].suitable_for == 2 && unit->shield != nullptr) {
@@ -1252,7 +1252,7 @@ Item* Weapon::Equip(Unit* unit) {
 }
 
 // 5515B9
-void Weapon::VMethod11(Unit* unit) {
+void Weapon::Unequip(Unit* unit) {
     this->RemoveEffects(unit);
     int32_t attack_type = this->world_equip->Values()[0].attack_type;
     if (attack_type < 10) {
