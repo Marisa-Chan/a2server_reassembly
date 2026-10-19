@@ -1545,7 +1545,7 @@ void MapStuff::sub_58826D(Unit* unit, uint8_t x, uint8_t y, int32_t flag, Unit* 
 }
 
 // 58B27F
-int MapStuff::sub_58B27F(Unit* unit, uint8_t x, uint8_t y) {
+int MapStuff::ClearUnitCell(Unit* unit, uint8_t x, uint8_t y) {
     PosYX yx(x, y);
     if (!this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
         return 0;
@@ -1585,7 +1585,7 @@ int MapStuff::UnitFitsAt(Unit* unit) {
 
     for (int32_t i = 0; i < size; i++) {
         for (int32_t j = 0; j < size; j++) {
-            if (!this->sub_58B27F(unit, x + j, y + i)) {
+            if (!this->ClearUnitCell(unit, x + j, y + i)) {
                 return 0;
             }
         }
