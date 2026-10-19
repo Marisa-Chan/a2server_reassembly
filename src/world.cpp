@@ -908,7 +908,7 @@ void World::ProcessTick(PlayersList* players) {
     }
 
     this->field4_0x68.Begin();
-    this->sub_5B0724();
+    this->ProcessTriggers();
     this->field4_0x68.End();
     this->duration2 = (int32_t)this->field4_0x68.period64;
     this->total2 += (int32_t)this->field4_0x68.period64;
@@ -938,7 +938,7 @@ void World::ProcessTick(PlayersList* players) {
     }
 }
 
-void World::sub_5B0724() {
+void World::ProcessTriggers() {
     this->trigger_variables[999] += 1;
     this->sub_5B0762();
     this->sub_5B0A6A();
