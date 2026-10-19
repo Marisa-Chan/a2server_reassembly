@@ -296,7 +296,7 @@ void NetStru1::sub_51BE0E(Effect* effect, uint8_t type) {
     packet.id = 0x86;
     packet.x = effect->position->GetX();
     packet.y = effect->position->GetY();
-    packet.field_0xf = type;
+    packet.segments = type;
     packet.unit_id = (uint16_t)effect->building_id;
     packet.type_id = (uint8_t)effect->typeId;
     packet.to_player_id = 0;
@@ -310,7 +310,7 @@ void NetStru1::sub_51BE8F(AreaEffect* obj, int32_t flag) {
         packet.id = 0x86;
         packet.x = obj->position->GetX();
         packet.y = obj->position->GetY();
-        packet.field_0xf = 0x16;
+        packet.segments = 0x16;
         packet.unit_id = (uint16_t)obj->building_id;
         packet.type_id = (uint8_t)obj->typeId;
         packet.to_player_id = 0;
@@ -4255,7 +4255,7 @@ void NetStru1::sub_51BAB0(Unit* caster, Spell* spell, Unit* target, int16_t dela
     packet.type_id = (spell->spell_id * 2 + 8);
     if (target != nullptr) {
         *(uint16_t*)&packet.x = (uint16_t)target->building_id;
-        packet.field_0xf = delay;
+        packet.segments = delay;
     }
     if (caster->VMethod7()) {
         caster->last_action_tick = g_Server->tick;
@@ -4277,7 +4277,7 @@ void NetStru1::sub_51BB94(Unit* caster, Spell* spell, TokenPos* pos, int16_t del
     packet.type_id = spell->spell_id * 2 + 8;
     packet.x = pos->GetX();
     packet.y = pos->GetY();
-    packet.field_0xf = delay;
+    packet.segments = delay;
     if (caster->VMethod7()) {
         caster->last_action_tick = g_Server->tick;
     }

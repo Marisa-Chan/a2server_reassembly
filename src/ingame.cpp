@@ -1474,7 +1474,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				pj->action_target = 0;
 				pj->action_phase = -1;
 				pj->map_player = this->my_main_unit;
-				pj->action_segments = packet_move->field_0xf;
+				pj->action_segments = packet_move->segments;
 				pj->action = 1;
 				pj->pMapObject = this;
 
@@ -1576,7 +1576,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			pj->action_z = pj->z_pos;
 			pj->action_phase = -1;
 			pj->map_player = this->my_main_unit;
-			pj->action_segments = packet_move->field_0xf;
+			pj->action_segments = packet_move->segments;
 			pj->action = 1;
 			pj->pMapObject = this;
 

@@ -388,7 +388,7 @@ public:
     uint8_t type_id;  // +0xC (= 0 in ctor)
     uint8_t x;  // +0xD (= 0 in ctor)
     uint8_t y;  // +0xE (= 0 in ctor)
-    uint16_t field_0xf;  // +0xF
+    uint16_t segments;  // +0xF
 };
 __pragma(pack(pop))
 ASSERT_SIZE(PacketMoveCmd, 0x11);
