@@ -252,7 +252,7 @@ public:
     void sub_5983D0(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map, queue into static ring buffer — 5983D0
     void sub_598BF0(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map2, queue into dynamic ring buffer — 598BF0
     void sub_599410(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map2, queue into static ring buffer — 599410
-    int32_t sub_58A158(Unit* unit, uint16_t yx); // Classifies direction/octant from unit's position toward yx.
+    int32_t ClassifyDirection8(Unit* unit, uint16_t yx); // Classifies direction/octant from unit's position toward yx.
     int32_t sub_58BFA3(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2); // Chebyshev distance between two (x,y) points.
     uint8_t sub_592831(Unit* target, Unit* unit); // Classifies 16-way direction/octant from target toward unit. `this` is unused.
 

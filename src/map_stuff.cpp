@@ -588,7 +588,7 @@ void MapStuff::sub_5907BE(Unit* unit) {
     this->FUN_005969c6(unit, 0, 2);
     this->FUN_005969c6(unit, unit->eye->position1, 0);
 
-    unit->eye->field1_0x1 = this->sub_58A158(unit, unit->eye->position1);
+    unit->eye->field1_0x1 = this->ClassifyDirection8(unit, unit->eye->position1);
 
     if (unit->eye->field0_0x0 == unit->eye->field1_0x1) {
         this->CalcMoveStep(unit, unit->position->CompatGetYX(), unit->eye->field0_0x0);
@@ -2744,7 +2744,7 @@ int32_t MapStuff::sub_5978F0(Unit* unit, uint16_t yx) {
 
 // 58A158 --- classifies direction/octant (0-7, shifted << 5) from unit's position toward yx.
 // If yx is exactly at the unit's current position, keeps the unit's current eye angle instead.
-int32_t MapStuff::sub_58A158(Unit* unit, uint16_t yx) {
+int32_t MapStuff::ClassifyDirection8(Unit* unit, uint16_t yx) {
     PosYX target(yx);
     int32_t dxx = (target.x << 8) + 0x80 - unit->position->GetXx();
     int32_t dyy = (target.y << 8) + 0x80 - unit->position->GetYy();
