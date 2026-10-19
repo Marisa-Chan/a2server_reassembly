@@ -13,7 +13,7 @@
 IMPLEMENT_SERIAL(Effect, Token, 1); // 637098.
 
 // 53f761
-void Effect::VMethod12(Unit* unit) {
+void Effect::ApplyToUnit(Unit* unit) {
     if (this->itemDataID == spell::poison_cloud) {
         int32_t damage = -this->spell_or_damage;
         if (unit->protections.magic_protections[2] != 0) {
@@ -42,7 +42,7 @@ void Effect::VMethod12(Unit* unit) {
             unit->item_op_dirty_flags |= 0x40000;
         }
     } else {
-        this->VMethod14(unit, 1);
+        this->ApplyStatDelta(unit, 1);
     }
 }
 
@@ -125,20 +125,20 @@ void Effect::Serialize(CArchive& ar) {
 
 
 // 53ee54
-void Effect::VMethod10(Unit* unit) {
+void Effect::TickOnUnit(Unit* unit) {
     if ((this->usage_type & 3) == 0) {
         return;
     }
     if ((this->usage_type & 2) != 0 && (this->spell_value & 7) == 0) {
         unit->item_op_dirty_flags = 0;
-        this->VMethod12(unit);
+        this->ApplyToUnit(unit);
         g_NetStru1_main.SendUnitUpdate(unit, nullptr, unit->item_op_dirty_flags, 0xffb, 0, 0);
     }
     this->spell_value -= 1;
     if (this->spell_value == 0) {
         if ((this->usage_type & 2) == 0) {
             unit->item_op_dirty_flags = 0;
-            this->VMethod13(unit);
+            this->ModifyVision(unit);
             g_NetStru1_main.SendUnitUpdate(unit, nullptr, unit->item_op_dirty_flags, 0xffb, 0, 0);
         }
         unit->enchantments &= ~(1u << (this->itemDataID & 0x1f));
@@ -150,7 +150,7 @@ void Effect::VMethod10(Unit* unit) {
 }
 
 // 53efb2
-void Effect::VMethod11(Unit* unit) {
+void Effect::RemoveFromUnit(Unit* unit) {
     unit->item_op_dirty_flags = 0;
     if ((this->usage_type & 3) != 0 && (this->itemDataID == spell::bless || this->itemDataID == spell::curse)) {
         Effect* counterpart = nullptr; // Note: can reuse Unit::FindEnchantment here.
@@ -168,7 +168,7 @@ void Effect::VMethod11(Unit* unit) {
 
         if (counterpart != nullptr) {
             unit->enchantments &= ~(1u << (counterpart->itemDataID & 0x1f));
-            counterpart->VMethod13(unit);
+            counterpart->ModifyVision(unit);
             g_NetStru1_main.BroadcastEffect(counterpart, unit, 0x89);
             POSITION found_pos = nullptr;
             for (POSITION pos = unit->_effects.GetHeadPosition(); pos != nullptr; ) {
@@ -189,7 +189,7 @@ void Effect::VMethod11(Unit* unit) {
     }
 
     if ((this->usage_type & 3) == 0) {
-        this->VMethod12(unit);
+        this->ApplyToUnit(unit);
     } else {
         Effect* existing = nullptr;
         for (POSITION pos = unit->_effects.GetHeadPosition(); pos != nullptr; ) {
@@ -202,7 +202,7 @@ void Effect::VMethod11(Unit* unit) {
         if (existing == nullptr) {
             Effect* new_effect = new Effect(this);
             if (new_effect->itemDataID != spell::poison_cloud) {
-                new_effect->VMethod12(unit);
+                new_effect->ApplyToUnit(unit);
             }
             unit->_effects.AddTail(new_effect);
             unit->enchantments |= 1u << (this->itemDataID & 0x1f);
@@ -210,7 +210,7 @@ void Effect::VMethod11(Unit* unit) {
                 g_NetStru1_main.BroadcastEffect(this, unit, 0);
             }
         } else {
-            existing->VMethod13(unit);
+            existing->ModifyVision(unit);
 
             const bool protection_or_shield = (
                     existing->itemDataID == spell::protection_from_fire ||
@@ -232,7 +232,7 @@ void Effect::VMethod11(Unit* unit) {
                 }
             }
             if (existing->itemDataID != spell::poison_cloud) {
-                existing->VMethod12(unit);
+                existing->ApplyToUnit(unit);
             }
         }
     }
@@ -240,7 +240,7 @@ void Effect::VMethod11(Unit* unit) {
 }
 
 // 53FA2B
-void Effect::VMethod14(Unit* unit, int32_t param_3) {
+void Effect::ApplyStatDelta(Unit* unit, int32_t param_3) {
     int32_t value;
     if (this->usage_type & 7) {
         value = param_3 * this->spell_or_damage;
@@ -545,7 +545,7 @@ void Effect::VMethod14(Unit* unit, int32_t param_3) {
 }
 
 // 53f92c
-void Effect::VMethod13(Unit* unit) {
+void Effect::ModifyVision(Unit* unit) {
     if (this->itemDataID == spell::light) {
         if (unit->IsHumanoid() == 0) {
             unit->scan_range += this->spell_or_damage * 256;
@@ -558,12 +558,12 @@ void Effect::VMethod13(Unit* unit) {
             unit->item_op_dirty_flags |= 0x40000;
         }
     } else if (this->itemDataID != spell::poison_cloud) {
-        this->VMethod14(unit, -1);
+        this->ApplyStatDelta(unit, -1);
     }
 }
 
 // 541c87
-int32_t Effect::VMethod15() {
+int32_t Effect::CalcScrollPrice() {
     if (this->effect_id == modifier::castspell) {
         if (this->spell_or_damage > spell::max_spell_id) {
             this->spell_or_damage = spell::drain_life;
@@ -579,7 +579,7 @@ int32_t Effect::VMethod15() {
 }
 
 // 541d59
-int32_t Effect::VMethod16(double param) {
+int32_t Effect::CalcChargePercent(double param) {
     int32_t result = 1;
     if ((this->usage_type & 3) == 0) {
         if (this->effect_id == modifier::castspell) {
@@ -607,7 +607,7 @@ int32_t Effect::VMethod16(double param) {
 }
 
 // 541eb5
-void Effect::VMethod17(int32_t power) {
+void Effect::RollStrength(int32_t power) {
     int32_t r = Random1N(power);
     if (this->effect_id == modifier::castspell) {
         this->spell_value = (uint16_t)r;
@@ -913,7 +913,7 @@ void DirectDamage::Serialize(CArchive& ar) {
 }
 
 // 540C77
-void DirectDamage::VMethod11(Unit* unit) {
+void DirectDamage::RemoveFromUnit(Unit* unit) {
     if (unit->IsUnit() == 0) { // TODO: that shouldn't be possible if the input is actually a `Unit*` and not a `Token*`.
         if (unit->IsBuilding() != 0) {
             Building* building = reinterpret_cast<Building*>(unit);

@@ -135,7 +135,7 @@ void UnitList::ProcessTick() {
 				Effect* effect = unit->_effects.GetNext(epos);
 				effect->spell_value = 1;
 				effect->caster = NULL;
-				effect->VMethod10(unit);
+				effect->TickOnUnit(unit);
 				if (effect->usage_type & 0x80) {
 					unit->_effects.RemoveAt(ecur_pos);
 					delete effect;

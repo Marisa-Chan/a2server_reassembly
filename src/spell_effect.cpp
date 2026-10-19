@@ -160,12 +160,12 @@ void PointEffect::sub_5375A4() {
 
 	if (!this->target->IsUnit()) {
 		if (this->target->IsBuilding()) {
-			this->effect->VMethod11(this->target);
+			this->effect->RemoveFromUnit(this->target);
 		}
 	} else {
 		Unit* attacker = this->target;
 		if (attacker != nullptr && attacker->pOwner != nullptr) {
-			this->effect->VMethod11(attacker);
+			this->effect->RemoveFromUnit(attacker);
 		}
 
 		if (this->caster != nullptr && this->field3_0x41 != 0) {
@@ -241,7 +241,7 @@ void PointEffect::FixupPointers() {
 
 // 5382FB
 void AreaEffect::VMethod10(Unit* unit) {
-	this->effect->VMethod11(unit);
+	this->effect->RemoveFromUnit(unit);
 }
 
 // 53831D
@@ -256,9 +256,9 @@ void AreaEffect::sub_53831D(Unit* unit) {
 		int32_t size_sq = size * size;
 		local_dd.unit_to_hit.some_damage2_min /= size_sq;
 		local_dd.unit_to_hit.some_damage2_spread /= size_sq;
-		local_dd.VMethod11(unit);
+		local_dd.RemoveFromUnit(unit);
 	} else {
-		this->effect->VMethod11(unit);
+		this->effect->RemoveFromUnit(unit);
 	}
 
 	if (this->itemDataID == 0xF) {

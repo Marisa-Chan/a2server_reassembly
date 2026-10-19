@@ -79,7 +79,7 @@ public:
 public: // VTable at 60f2e0.
     virtual ~DirectDamage() override; // 57C370
     virtual void Serialize(CArchive& ar) override; // 53E422
-    virtual void VMethod11(Unit* unit) override;
+    virtual void RemoveFromUnit(Unit* unit) override;
 
 public:
     DirectDamage(); // 540B21

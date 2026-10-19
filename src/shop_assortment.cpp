@@ -92,7 +92,7 @@ Effect* __cdecl sub_54F04F(int32_t is_warrior, int32_t magic_volume, int32_t bud
         return nullptr;
     }
 
-    effect->VMethod17(result);
+    effect->RollStrength(result);
     return effect;
 }
 
@@ -184,7 +184,7 @@ Effect* __cdecl sub_54EDE9(int32_t is_warrior, int32_t item_type, int32_t sub_ty
         return nullptr;
     }
 
-    effect->VMethod17(result);
+    effect->RollStrength(result);
     return effect;
 }
 

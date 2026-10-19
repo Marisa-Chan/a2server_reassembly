@@ -293,7 +293,7 @@ void Server::ProcessPlayers() {
 
                         effect->spell_value = 1;
                         effect->caster = nullptr;
-                        effect->VMethod10(unit);
+                        effect->TickOnUnit(unit);
                         unit->_effects.RemoveAt(current);
                         delete effect;
                     }
@@ -3784,7 +3784,7 @@ void Server::sub_504a96(Packet* pkt) {
                     eff->typeId      = 0x20;
                     eff->usage_type |= 1;
                     eff->spell_value = 0x140;
-                    eff->VMethod11(player->main_unit);
+                    eff->RemoveFromUnit(player->main_unit);
                 }
                 {
                     Effect* eff = new Effect("castSpell=Protection_from_Fire:200");
@@ -3794,7 +3794,7 @@ void Server::sub_504a96(Packet* pkt) {
                     eff->effect_id      = 0x15;
                     eff->spell_or_damage = 0x96;
                     eff->spell_value    = 0x140;
-                    eff->VMethod11(player->main_unit);
+                    eff->RemoveFromUnit(player->main_unit);
                 }
                 {
                     Effect* eff = new Effect("castSpell=Protection_from_Water:200");
@@ -3804,7 +3804,7 @@ void Server::sub_504a96(Packet* pkt) {
                     eff->effect_id      = 0x16;
                     eff->spell_or_damage = 0x96;
                     eff->spell_value    = 0x140;
-                    eff->VMethod11(player->main_unit);
+                    eff->RemoveFromUnit(player->main_unit);
                 }
                 {
                     Effect* eff = new Effect("castSpell=Protection_from_Earth:200");
@@ -3814,7 +3814,7 @@ void Server::sub_504a96(Packet* pkt) {
                     eff->effect_id      = 0x18;
                     eff->spell_or_damage = 0x96;
                     eff->spell_value    = 0x140;
-                    eff->VMethod11(player->main_unit);
+                    eff->RemoveFromUnit(player->main_unit);
                 }
                 {
                     Effect* eff = new Effect("castSpell=Protection_from_Air:200");
@@ -3824,7 +3824,7 @@ void Server::sub_504a96(Packet* pkt) {
                     eff->effect_id      = 0x17;
                     eff->spell_or_damage = 0x96;
                     eff->spell_value    = 0x140;
-                    eff->VMethod11(player->main_unit);
+                    eff->RemoveFromUnit(player->main_unit);
                 }
                 {
                     Effect* eff = new Effect("castSpell=Shield:200");
@@ -3834,7 +3834,7 @@ void Server::sub_504a96(Packet* pkt) {
                     eff->effect_id      = 0x10;
                     eff->spell_or_damage = 0x96;
                     eff->spell_value    = 0x140;
-                    eff->VMethod11(player->main_unit);
+                    eff->RemoveFromUnit(player->main_unit);
                 }
             }
 

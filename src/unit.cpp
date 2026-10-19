@@ -712,7 +712,7 @@ void Unit::ProcessEffects() {
             POSITION cur_pos = pos;
             Effect* effect = this->_effects.GetNext(pos); // returns cur, advances pos to next
 
-            effect->VMethod10(this);
+            effect->TickOnUnit(this);
 
             if (effect->usage_type & 0x80) {
                 this->_effects.RemoveAt(cur_pos);
@@ -1390,7 +1390,7 @@ void Unit::PickUpSack(Sack* sack) {
 
                             effect->spell_value = 1;
                             effect->caster = 0;
-                            effect->VMethod10(this);
+                            effect->TickOnUnit(this);
 
                             if (effect->usage_type & 0x80) {
                                 this->_effects.RemoveAt(cur_pos);
@@ -1546,7 +1546,7 @@ void Unit::Die() {
             // Inline sub_53EE08: check `usage_type & 3`.
             if (effect->usage_type & 3) {
                 effect->spell_value = 1;
-                effect->VMethod10(this);
+                effect->TickOnUnit(this);
 
                 if (effect->usage_type & 0x80) {
                     this->_effects.RemoveAt(cur_pos);

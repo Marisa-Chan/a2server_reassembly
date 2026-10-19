@@ -269,7 +269,7 @@ Item* Item::Equip(Unit* pUnit) {
         if (e->usage_type == 0) {
             e->usage_type |= 8;
         }
-        e->VMethod11(pUnit);
+        e->RemoveFromUnit(pUnit);
     }
 
     pUnit->RecalcExperience(); // WAT: what's this for? Does nothing.
@@ -528,7 +528,7 @@ void Item::ApplyEffects(Unit* unit) {
     POSITION pos = this->_effects.GetHeadPosition();
     while (pos != nullptr) {
         Effect* e = this->_effects.GetNext(pos);
-        e->VMethod12(unit);
+        e->ApplyToUnit(unit);
     }
 }
 
@@ -537,7 +537,7 @@ void Item::RemoveEffects(Unit* unit) {
     POSITION pos = this->_effects.GetHeadPosition();
     while (pos != nullptr) {
         Effect* e = this->_effects.GetNext(pos);
-        e->VMethod13(unit);
+        e->ModifyVision(unit);
     }
 }
 
@@ -1309,7 +1309,7 @@ int32_t Weapon::CalcValue() {
             this->_exp = e->full_magic_value;
             return this->_exp;
         } else if (e->effect_id == modifier::castspell) {
-            this->_exp += e->VMethod15();
+            this->_exp += e->CalcScrollPrice();
         } else {
             total += e->EffectPrice();
         }
