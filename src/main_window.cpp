@@ -2621,17 +2621,17 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
 
         delete this->field_0x3d4;
         this->field_0x3d4 = nullptr; // MUST BE DONE? WAT?
-    } else if (obj == this->field_0x124) {
+    } else if (obj == this->vis_missionfailed) {
         this->dialogsMask &= ~8;
 
-        if (this->field_0x124->GetCloseCode() == 0x445) {
+        if (this->vis_missionfailed->GetCloseCode() == 0x445) {
             PostMessage(0x41e, 0, 0);
         } else {
             PostMessage(0x418, 0, 0);
         }
 
-        delete this->field_0x124;
-        this->field_0x124 = nullptr; // MUST BE DONE? WAT?
+        delete this->vis_missionfailed;
+        this->vis_missionfailed = nullptr; // MUST BE DONE? WAT?
     } else if (obj == this->field_0x3dc) {
         this->dialogsMask &= ~0x8000;
 
@@ -3291,8 +3291,8 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
     case 0x431:
         if (this->field_0x3fc == 0 && this->sessionMode == 2) {
             this->field_0x3fc = 1;
-            this->field_0x124 = new VisMissionFailed(1, 32, 100, 608, 380, g_MissionFailures[wParam - 2]);
-            this->PopUpScreen(this->field_0x124);
+            this->vis_missionfailed = new VisMissionFailed(1, 32, 100, 608, 380, g_MissionFailures[wParam - 2]);
+            this->PopUpScreen(this->vis_missionfailed);
 
             if (!g_SfxArray[16]->FindPlayingChannel()) {
                 g_SfxArray[16]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);

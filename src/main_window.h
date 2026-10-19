@@ -494,7 +494,7 @@ public:
     VisTownKaarg* vis_townkaarg;
     VisFameHall* vis_famehall;
     VisDropGold* vis_dropgold;
-    VisScreen* field_0x124;
+    VisScreen* vis_missionfailed;
     Vis2Action* field_0x128;
     VisScreen* field_0x12c;
     VisCredits* vis_credits;
