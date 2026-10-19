@@ -2210,13 +2210,13 @@ void MapStuff::ExpandCostGridNeighbors(Unit* unit, uint8_t x, uint8_t y, Passabl
             uint16_t cost;
             if (dx == 0 || dy == 0) {
                 if (unit->sub_59A030() == 1) {
-                    cost = *this->GetCostGridAt(x, y) + *this->sub_59A6F0(nx, ny);
+                    cost = *this->GetCostGridAt(x, y) + *this->GetWalkCostMapAt(nx, ny);
                 } else {
                     cost = *this->GetCostGridAt(x, y) + 2;
                 }
             } else {
                 if (unit->sub_59A030() == 1) {
-                    uint8_t walk_cost = *this->sub_59A6F0(nx, ny);
+                    uint8_t walk_cost = *this->GetWalkCostMapAt(nx, ny);
                     cost = *this->GetCostGridAt(x, y) + walk_cost + (walk_cost / 2);
                 } else {
                     cost = *this->GetCostGridAt(x, y) + 3;
@@ -2294,7 +2294,7 @@ void MapStuff::WalkCostPath(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x,
 
                 if (dx == 0 || dy == 0) {
                     if (unit->sub_59A030() == 1) {
-                        cost += *this->sub_59A6F0(wx, wy);
+                        cost += *this->GetWalkCostMapAt(wx, wy);
                     } else {
                         cost += 2;
                     }
@@ -2305,7 +2305,7 @@ void MapStuff::WalkCostPath(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x,
                     }
                 } else {
                     if (unit->sub_59A030() == 1) {
-                        uint8_t wc = *this->sub_59A6F0(wx, wy);
+                        uint8_t wc = *this->GetWalkCostMapAt(wx, wy);
                         cost += wc + (wc / 2);
                     } else {
                         cost += 3;
@@ -2568,7 +2568,7 @@ int16_t MapStuff::sub_5936D2(Unit* unit, uint32_t packed_yyxx, uint8_t range) {
 }
 
 // 59A6F0 --- get pointer into walk_cost_map for (x, y)
-uint8_t* MapStuff::sub_59A6F0(uint8_t x, uint8_t y) {
+uint8_t* MapStuff::GetWalkCostMapAt(uint8_t x, uint8_t y) {
     return &this->WalkCostAt(PosYX(x, y));
 }
 

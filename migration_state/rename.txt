@@ -665,3 +665,4 @@ MapStuff::sub_590678 -> UpdateEyeMoveTime -- resyncs the eye state and recompute
 MapStuff::sub_5907BE -> AdvancePathList2 -- follows path list2 head or rotates when exhausted
 MapStuff::sub_592A48 -> PickAttackPosition -- picks a stand position around the target by attack direction
 MapStuff::sub_593134 -> FindCheapestCellNear -- finds the lowest-cost cell in expanding rings around yx
+MapStuff::sub_59A670 -> GetCostGridAt -- pointer into the field3_0x30000 cost grid

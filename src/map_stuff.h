@@ -273,7 +273,7 @@ public:
     int32_t IsCellPassableStatic(Unit* unit, uint16_t yx); // 596F80
     int32_t IsCellPassableDynamic(Unit* unit, uint16_t yx); // Passability check used by ExpandCostsDynamicQueue2/ExpandCostsDynamicQueue1 — 5978F0
     uint16_t* GetCostGridAt(uint8_t x, uint8_t y); // Get pointer into field3_0x30000 cost grid for (x,y) — 59A670
-    uint8_t* sub_59A6F0(uint8_t x, uint8_t y); // Get pointer into walk_cost_map for (x,y) — 59A6F0
+    uint8_t* GetWalkCostMapAt(uint8_t x, uint8_t y); // Get pointer into walk_cost_map for (x,y) — 59A6F0
 
     // Member function pointer to a passability check with the same shape as IsCellPassableStatic/IsCellPassableDynamic.
     using PassableCheckFn = int32_t (MapStuff::*)(Unit*, uint16_t);
