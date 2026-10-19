@@ -281,7 +281,7 @@ public:
     uint32_t value1;  // +0xA (= 0 in ctor)
     uint32_t value2;  // +0xE (= 0 in ctor)
     uint32_t value3; // +0x12 (= 0 in ctor)
-    char  field_0x16[32]; // +0x16 (= 0 in ctor)
+    char  text[32]; // +0x16 (= 0 in ctor)
 };
 __pragma(pack(pop))
 ASSERT_SIZE(Packet3Dwords, 0x36);

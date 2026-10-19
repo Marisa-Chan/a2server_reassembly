@@ -426,7 +426,7 @@ Packet3Dwords::Packet3Dwords() {
     this->value1  = 0;
     this->value2  = 0;
     this->value3 = 0;
-    this->field_0x16[0] = 0;
+    this->text[0] = 0;
 }
 
 Packet3Dwords::Packet3Dwords(const Packet3Dwords* src) {
