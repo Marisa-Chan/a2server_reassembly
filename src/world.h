@@ -135,7 +135,7 @@ public:
     void ProcessVirtualCasters(); // 5B6346
     void CollectRayTargets(Unit* caster, Unit* target, CList<Unit*>* units, uint32_t rays, uint32_t max_range); // 5B5CA8: collect units hit by a multi-ray spell
     uint16_t PackDistFacing(Unit* unit1, Unit* unit2); // 5B5C2B: packed distance/facing metric between two units
-    void sub_5ABF50(Player* player); // 5ABF50
+    void ProcessPlayerGroupAi(Player* player); // 5ABF50
 
     // Group-order dispatch helpers (called from Server::sub_504a96)
     void RefreshGroupGuardAnchor(Group* group); // Refresh group_sub position/range fields.

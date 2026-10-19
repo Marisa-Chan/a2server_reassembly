@@ -917,7 +917,7 @@ void World::ProcessTick(PlayersList* players) {
     POSITION players_iter = players->list.GetHeadPosition();
     while (players_iter != nullptr) {
         Player* player = players->list.GetNext(players_iter);
-        this->sub_5ABF50(player);
+        this->ProcessPlayerGroupAi(player);
     }
     this->ProcessVirtualCasters();
     this->field5_0x98.End();
@@ -3362,7 +3362,7 @@ void World::sub_5AAB08(Unit* unit) {
 }
 
 // 5ABF50
-void World::sub_5ABF50(Player* player) {
+void World::ProcessPlayerGroupAi(Player* player) {
     POSITION it = player->group_list->groups.GetHeadPosition();
     while (it != nullptr) {
         Group* group = player->group_list->groups.GetNext(it);

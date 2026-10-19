@@ -475,3 +475,4 @@ World::sub_5AB92C -> UpdateGroupCenter -- recomputes the group centroid into gro
 World::sub_5ADB16 -> ScanNearbyUnits -- refills the field26_0xa64 nearby-units scratch list for the group
 World::sub_5A3D12 -> PruneNearbyUnits -- drops scanned units farther than max_distance from pos_yx
 World::sub_5AE2D4 -> AssignNearbyTargets -- assigns eye2->unit4 targets from the scanned units (scrape_action kind 4)
+World::sub_5AD0B3 -> GetAttackDecision -- attack-feasibility lookup vs target (0xFFFFFF = cannot attack)
