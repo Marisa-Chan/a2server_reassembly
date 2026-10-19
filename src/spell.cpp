@@ -829,7 +829,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
             ae->TokenID = 2;
             ae->duration = 0;
         }
-        ae->wave_pattern = MapStuff_Instance->sub_59166C(caster, local_pos.GetYX()) / 32;
+        ae->wave_pattern = MapStuff_Instance->GetFacingFor(caster, local_pos.GetYX()) / 32;
         MapStuff_Instance->scan_presence_grid.RegisterAreaEffect(ae);
         container = ae;
     }

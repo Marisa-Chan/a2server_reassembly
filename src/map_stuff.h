@@ -199,7 +199,7 @@ public:
     int CanPlaceUnit(Unit* unit); // Check if unit can be placed at current position
     int PlaceUnit(Unit* unit); // Place unit on map at current TokenPos position
     int32_t CanOccupyCell(Unit* unit, uint8_t x, uint8_t y); // Checks whether unit can occupy cell (x,y), triggering any spell tile in the process.
-    uint8_t sub_59166C(Unit* unit, PosYX yx); // Pick rotation angle for the unit to look at `yx`.
+    uint8_t GetFacingFor(Unit* unit, PosYX yx); // Pick rotation angle for the unit to look at `yx`.
     void sub_5954AC(Unit* unit, uint8_t x, uint8_t y); // Teleport unit to (x, y)
     void sub_59501E(AreaEffect* ae, uint8_t x, uint8_t y); // 59501E
     int sub_595073(AreaEffect* ae, uint16_t yx); // 595073 — remove area effect from cell state at yx
@@ -314,11 +314,11 @@ public:
     // and pushes improved neighbors into the ring-buffer queue (queue_tail/queue).
     void PropagateNeighborCost(uint16_t yx, uint8_t flag_byte, int32_t cond_flag, Obstacle* obstacle_map, uint16_t& queue_tail, uint16_t* queue);
 
-    // Shared by sub_591424/sub_59166C/sub_592831: classifies the 16-point compass direction of a
+    // Shared by sub_591424/GetFacingFor/sub_592831: classifies the 16-point compass direction of a
     // signed (dx, dy) offset into a raw octant index (0-15).
     uint8_t ClassifyDirection16(int32_t dx, int32_t dy);
 
-    // Shared by sub_591424/sub_59166C: coarsens ClassifyDirection16's raw index into one of 8
+    // Shared by sub_591424/GetFacingFor: coarsens ClassifyDirection16's raw index into one of 8
     // facing-angle steps (0, 32, 64, ..., 224).
     uint8_t ClassifyFacing16(int32_t dx, int32_t dy);
 

@@ -274,7 +274,7 @@ uint8_t MapStuff::CalcTerrainWalkCost(uint16_t terrain_code, uint8_t* out_walk_c
     return result;
 }
 
-// Shared by sub_591424/sub_59166C/sub_592831
+// Shared by sub_591424/GetFacingFor/sub_592831
 uint8_t MapStuff::ClassifyDirection16(int32_t dx, int32_t dy) {
     uint16_t abs_dx = abs(dx);
     uint16_t abs_dy = abs(dy);
@@ -303,7 +303,7 @@ uint8_t MapStuff::ClassifyDirection16(int32_t dx, int32_t dy) {
     return (abs_dy <= abs_dx * 2) ? 14 : 15;
 }
 
-// Shared by sub_591424/sub_59166C
+// Shared by sub_591424/GetFacingFor
 uint8_t MapStuff::ClassifyFacing16(int32_t dx, int32_t dy) {
     uint8_t raw = this->ClassifyDirection16(dx, dy);
     if (raw != 0) {
@@ -320,7 +320,7 @@ uint8_t MapStuff::sub_591424(Unit* unit, Unit* target) {
 }
 
 // 59166C
-uint8_t MapStuff::sub_59166C(Unit* unit, PosYX yx) {
+uint8_t MapStuff::GetFacingFor(Unit* unit, PosYX yx) {
     int32_t dx = yx.x - unit->position->GetX();
     int32_t dy = yx.y - unit->position->GetY();
     return this->ClassifyFacing16(dx, dy);
@@ -344,7 +344,7 @@ int MapStuff::sub_58FE6D(Unit* unit, Unit* target, uint8_t max_range) {
 int MapStuff::sub_58FEDA(Unit* unit, PosYX yx, uint8_t max_range) {
     unit->position->IsAtCellCenter();
     uint8_t current_facing = unit->eye->field0_0x0;
-    uint8_t computed_facing = this->sub_59166C(unit, yx);
+    uint8_t computed_facing = this->GetFacingFor(unit, yx);
     if (current_facing != computed_facing) {
         return 0;
     }
@@ -404,7 +404,7 @@ void MapStuff::sub_58FF51(Unit* unit, PosYX yx, uint8_t max_range) {
             }
         }
         if (ok) {
-            uint8_t facing = this->sub_59166C(unit, next_yx);
+            uint8_t facing = this->GetFacingFor(unit, next_yx);
             if (unit->eye->field0_0x0 != facing) {
                 this->sub_5918E2(unit, next_yx);
                 unit->eye2->cast_action = 10;
@@ -1734,7 +1734,7 @@ void MapStuff::sub_5918B8(Unit* unit, Unit* target) {
 
 // 5918E2
 void MapStuff::sub_5918E2(Unit* unit, PosYX yx) {
-    uint8_t facing = this->sub_59166C(unit, yx);
+    uint8_t facing = this->GetFacingFor(unit, yx);
     this->sub_590F94(unit, facing);
 }
 
