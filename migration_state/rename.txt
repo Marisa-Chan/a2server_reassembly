@@ -698,3 +698,4 @@ AreaEffect::sub_537C8C -> ApplyDistribution -- dispatches by spell distribution 
 AreaEffect::sub_537F2C -> ApplyWaveDistribution -- wave-table based application (unk_636578 tables)
 AreaEffect::sub_53801A -> ApplyAroundPosition -- radial application around the effect position
 AreaEffect::sub_53822C -> ApplyRadiusRing -- applies the effect to all cells within radius
+AreaEffect::sub_5384FF -> BroadcastAndApply -- sends the area-effect packet then applies it

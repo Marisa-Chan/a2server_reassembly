@@ -346,7 +346,7 @@ void AreaEffect::BroadcastAndApply() {
 			this->DamageUnit(MapStuff_Instance->GetLargeUnitAt(yx));
 			this->DamageUnit(MapStuff_Instance->GetBuildingUnitAt(dx, dy));
 			if (spread_damage) {
-				this->sub_53868D(dx, dy);
+				this->ApplyCellLayer(dx, dy);
 				MapStuff_Instance->BlockCell(dx, dy);
 			}
 		}
@@ -370,14 +370,14 @@ void AreaEffect::ApplyAtCell(uint8_t x, uint8_t y, bool spread_damage) {
 	}
 
 	MapStuff_Instance->RegisterAreaEffectAt(this, x, y);
-	this->sub_53868D(x, y);
+	this->ApplyCellLayer(x, y);
 	if (spread_damage) {
 		MapStuff_Instance->BlockCell(x, y);
 	}
 }
 
 // 53868D
-void AreaEffect::sub_53868D(uint8_t x, uint8_t y) {
+void AreaEffect::ApplyCellLayer(uint8_t x, uint8_t y) {
 	AreaEffect** layers = MapStuff_Instance->GetAreaEffectsAt(PosYX(x, y).val);
 	if (layers == nullptr) {
 		return;
