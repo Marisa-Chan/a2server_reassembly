@@ -124,3 +124,4 @@ CGameSession::field_0x110 -> last_autosave_tick -- --
 CGameSession::field_0x130 -> hat_char_ids -- --
 Fame1::field_x4 -> score -- fame-hall leaderboard score (exp/time*difficulty weight), sorted descending
 Fame2::field_x0 -> doc_id -- fame document id (Docs\<id>.bmp or Docs\<id>.txt)
+Fame2::field_x4 -> is_text -- 0 = picture document (bmp), nonzero = text document (txt)

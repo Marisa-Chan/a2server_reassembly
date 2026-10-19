@@ -118,7 +118,7 @@ void CEdit2::OnKeyDown(UINT nChar, UINT nRepcnt, UINT nFlags) {
 Fame2::Fame2() {
     //4abdab
     this->doc_id = -1;
-    this->field_x4 = 1;
+    this->is_text = 1;
     this->field_x8 = nullptr;
     this->str.Empty();
     this->field_x34 = 1;
@@ -140,7 +140,7 @@ void Fame2::FUN_004abf0f(int32_t arg1, uint32_t arg2) {
     //4abf0f
     this->Clear();
     this->doc_id = arg1;
-    this->field_x4 = arg2;
+    this->is_text = arg2;
 }
 
 
@@ -151,13 +151,13 @@ int32_t Fame2::FUN_004ad880() {
 
 uint32_t Fame2::FUN_004ad890() {
     //4ad890
-    return this->field_x4;
+    return this->is_text;
 }
 
 void Fame2::operator=(const Fame2& b) {
     //4abd30
     this->doc_id = b.doc_id;
-    this->field_x4 = b.field_x4;
+    this->is_text = b.is_text;
     this->field_x8 = b.field_x8;
     this->str = b.str;
     this->rect = b.rect;
@@ -186,7 +186,7 @@ int32_t Fame2::FUN_004abf72() { //4abf72
 }
 
 void Fame2::FUN_004abfb1(int32_t x, int32_t y) { //4abfb1
-    if (this->field_x4 == 0) {
+    if (this->is_text == 0) {
         if (this->field_x8) {
             this->field_x8->VMethod2(x + this->rect.left, y + this->rect.top, 0, 0, 0);
         }
@@ -203,7 +203,7 @@ void Fame2::FUN_004ac0af() { //4ac0af
     this->rect = CRect(CPoint(0x5c, 0x48), CSize(0x1c8, 0x158));
 
     char buffer[1024];
-    if (this->field_x4 == 0) {
+    if (this->is_text == 0) {
         sprintf(buffer, "graphics\\interface\\Docs\\%d.bmp", this->doc_id);
         this->field_x8 = new CBmp64(buffer);
     } else {
@@ -331,7 +331,7 @@ void CFameHall::FUN_004ac706(CFile* file) { //  4ac706
         
         //inline 4ac04b
         file->Write(&fm.doc_id, 4);
-        file->Write(&fm.field_x4, 4);
+        file->Write(&fm.is_text, 4);
     }
     file->Write(&this->m_nTotalTime, 4);
     file->Write(&this->m_nDifficultyWeight, 4);
@@ -345,7 +345,7 @@ void CFameHall::FUN_004ac7a2(CFile* file) { // 4ac7a2
     for (int i = 0; i < cnt; i++) {
         Fame2& fame = this->m_Documents[i];
         file->Read(&fame.doc_id, 4);
-        file->Read(&fame.field_x4, 4);
+        file->Read(&fame.is_text, 4);
     }
 
     file->Read(&this->m_nTotalTime, 4);
