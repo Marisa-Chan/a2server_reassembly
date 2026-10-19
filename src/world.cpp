@@ -643,7 +643,7 @@ bool World::sub_5B5816(Unit* unit1, Unit* unit2) {
 // Packed distance/facing metric between two units:
 // high byte = distance, low byte = rotation for unit1 to unit2.
 // 5B5C2B
-uint16_t World::sub_5B5C2B(Unit* unit1, Unit* unit2) {
+uint16_t World::PackDistFacing(Unit* unit1, Unit* unit2) {
     uint16_t result = (uint8_t)this->field24_0xa50->sub_59190D(unit1, unit2);
     result = result << 8;
     uint8_t facing = this->field24_0xa50->sub_591424(unit1, unit2);
@@ -680,7 +680,7 @@ void World::CollectRayTargets(Unit* caster, Unit* target, CList<Unit*>* units, u
 
     for (POSITION it = this->field26_0xa64.unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = this->field26_0xa64.unit_list.GetNext(it);
-        uint16_t dist = this->sub_5B5C2B(caster, unit);
+        uint16_t dist = this->PackDistFacing(caster, unit);
         if (dist <= max_shifted) {
             dist_arr[count] = dist;
             near_units[count] = unit;
@@ -690,7 +690,7 @@ void World::CollectRayTargets(Unit* caster, Unit* target, CList<Unit*>* units, u
 
     for (POSITION it = this->field27_0xa84.unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = this->field27_0xa84.unit_list.GetNext(it);
-        uint16_t dist = this->sub_5B5C2B(caster, unit);
+        uint16_t dist = this->PackDistFacing(caster, unit);
         if (dist <= max_shifted) {
             dist_arr[count] = dist << 8;
             near_units[count] = unit;

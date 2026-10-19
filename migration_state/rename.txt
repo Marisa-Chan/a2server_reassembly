@@ -455,3 +455,4 @@ World::sub_5B0762 -> EvaluateTriggerChecks -- evaluates every TriggerCheck with 
 World::sub_5B0A6A -> ExecuteTriggerActions -- executes pending trigger actions (once-triggers honored)
 World::sub_5B081E -> DispatchTriggerCheck -- trigger-check dispatcher
 World::sub_5B6346 -> ProcessVirtualCasters -- casts queued spells for the virtual caster list
+World::sub_5B5CA8 -> CollectRayTargets -- collects units hit by a multi-ray spell
