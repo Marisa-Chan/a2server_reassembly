@@ -330,7 +330,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0xb: {
-			INT_00660f8c = packet_info->field_0xa | 0x1000;
+			INT_00660f8c = packet_info->param1 | 0x1000;
 
 			if ((wnd->dialogsMask & 1) == 0) {
 				while( g_NetStru1_local.ReceiveAnyPacket() != nullptr)
@@ -355,11 +355,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0x67: {
-			if (wnd->dialogsMask == 1 && this->my_main_unit->gold < packet_info->field_0xa && packet_info->field_0xe == 0) {
-				sprintf(buf, "%s %d %s", TxtFile::AllLines[0x58], packet_info->field_0xa - this->my_main_unit->gold, TxtFile::AllLines[0x59]);
+			if (wnd->dialogsMask == 1 && this->my_main_unit->gold < packet_info->param1 && packet_info->field_0xe == 0) {
+				sprintf(buf, "%s %d %s", TxtFile::AllLines[0x58], packet_info->param1 - this->my_main_unit->gold, TxtFile::AllLines[0x59]);
 				this->msglog.Add(buf, clr_log_tblack, 3000);
 			}
-			this->my_main_unit->gold = packet_info->field_0xa;
+			this->my_main_unit->gold = packet_info->param1;
 
 			CUnit* u = this->GetUnit_3f6c();
 			if (u) {
@@ -1425,11 +1425,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0x83:
-			wnd->PostMessage(0x42a, packet_info->field_0xa, 0);
+			wnd->PostMessage(0x42a, packet_info->param1, 0);
 			break;
 
 		case 0x84:
-			wnd->PostMessage(0x42b, packet_info->field_0xa, packet_info->field_0xe);
+			wnd->PostMessage(0x42b, packet_info->param1, packet_info->field_0xe);
 			break;
 
 		case 0x86:
@@ -1676,7 +1676,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		break;
 
 		case 0x92: {
-			switch (packet_info->field_0xa) {
+			switch (packet_info->param1) {
 			case 1:
 				if (g_EnableTrace) {
 					this->msglog.Add(TxtFile::AllLines[0x81], clr_log_sblack, 3000);
@@ -1821,12 +1821,12 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0x94:
-			if (packet_info->field_0xa != 0 && 
-				packet_info->field_0xa < this->field_0x9b8.GetSize() && this->field_0x9b8[packet_info->field_0xa] != nullptr &&
+			if (packet_info->param1 != 0 && 
+				packet_info->param1 < this->field_0x9b8.GetSize() && this->field_0x9b8[packet_info->param1] != nullptr &&
 				packet_info->field_0xe != 0 &&
 				packet_info->field_0xe < this->field_0x9b8.GetSize() && this->field_0x9b8[packet_info->field_0xe] != nullptr) {
 				CString str;
-				str.Format("%s %s %s %s %s", txt_patch.GetLine(0x50), this->field_0x9b8[packet_info->field_0xa]->name, txt_patch.GetLine(0x51), this->field_0x9b8[packet_info->field_0xe]->name, txt_patch.GetLine(0x52));
+				str.Format("%s %s %s %s %s", txt_patch.GetLine(0x50), this->field_0x9b8[packet_info->param1]->name, txt_patch.GetLine(0x51), this->field_0x9b8[packet_info->field_0xe]->name, txt_patch.GetLine(0x52));
 				this->msglog.Add(str, clr_log_sblack, 5000);
 			}
 			break;
@@ -1882,7 +1882,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0x97: {
-			if (packet_info->field_0xa == this->my_main_unit->index) {
+			if (packet_info->param1 == this->my_main_unit->index) {
 				wnd->PostMessage(0x45c, 0, 0);
 				g_CLlDriver.Close();
 				break;
@@ -1894,7 +1894,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				CGameObject* obj;
 				this->field_0x9d0.GetNextAssoc(it, key, obj);
 				
-				if (obj->map_player == this->field_0x9b8[packet_info->field_0xa]) {
+				if (obj->map_player == this->field_0x9b8[packet_info->param1]) {
 					tmp.Add(key);
 				}
 			}
@@ -1915,7 +1915,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 			this->UpdateSelectionState();
 
-			this->field_0x9b8[packet_info->field_0xa] = nullptr; //WAT ? not delete?
+			this->field_0x9b8[packet_info->param1] = nullptr; //WAT ? not delete?
 			wnd->vis_root->MsgProc(0x460, 0, 0);
 
 			wnd->FUN_00494a9e();
@@ -1969,7 +1969,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0xaa: {
-			switch(packet_info->field_0xa) {
+			switch(packet_info->param1) {
 			case 0:
 				INT_00660f74 = 0;
 				break;
@@ -1994,7 +1994,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0xab:
 			if (wnd->field_0x404 == 0) {
-				this->MsgProc(0x406, packet_info->field_0xa - (this->view_tiles_x / 2), packet_info->field_0xe - (this->view_tiles_y / 2));
+				this->MsgProc(0x406, packet_info->param1 - (this->view_tiles_x / 2), packet_info->field_0xe - (this->view_tiles_y / 2));
 			}
 			break;
 
@@ -2028,7 +2028,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0xb4:
-			wnd->PostMessage(0x433, 255, packet_info->field_0xa);
+			wnd->PostMessage(0x433, 255, packet_info->param1);
 			break;
 
 		case 0xb5:
@@ -2036,7 +2036,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0xb6:
-			wnd->PostMessage(0x433, packet_info->field_0xa, 0);
+			wnd->PostMessage(0x433, packet_info->param1, 0);
 			break;
 
 		case 0xb7:
@@ -2338,7 +2338,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0xd0:
-			wnd->m_GameSession.field_0x148 = packet_info->field_0xa;
+			wnd->m_GameSession.field_0x148 = packet_info->param1;
 			wnd->m_GameSession.field_0x14c = packet_info->field_0xe;
 
 			while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
@@ -2631,10 +2631,10 @@ void BigStruct2::FUN_0041cbb8() {
 	pkt->id = 0x48;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->field_a1 = wnd->m_GameSession.body;
-	pkt->field_a2 = wnd->m_GameSession.reaction;
-	pkt->field_a3 = wnd->m_GameSession.mind;
-	pkt->field_a4 = wnd->m_GameSession.spirit;
+	pkt->param1_b0 = wnd->m_GameSession.body;
+	pkt->param1_b1 = wnd->m_GameSession.reaction;
+	pkt->param1_b2 = wnd->m_GameSession.mind;
+	pkt->param1_b3 = wnd->m_GameSession.spirit;
 	pkt->field_e1 = wnd->m_GameSession.main_sphere;
 	pkt->field_e2 = wnd->m_GameSession.face | wnd->m_GameSession.type;
 	pkt->field_e3 = wnd->m_GameSession.color;
@@ -3356,7 +3356,7 @@ void BigStruct2::FUN_0041cad0(int32_t m) { //41cad0
 	pkt->id = 4;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->field_0xa = m;
+	pkt->param1 = m;
 	
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
@@ -3366,7 +3366,7 @@ void BigStruct2::FUN_0041aaaa(int32_t wim) { //41aaaa
 	pkt->id = 0x46;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->field_0xa = 1;
+	pkt->param1 = 1;
 	pkt->field_0xe = wim;
 
 	g_NetStru1_local.QueuePacketSend(pkt);
@@ -3377,7 +3377,7 @@ void BigStruct2::FUN_0041abd2(int32_t form) { // 41abd2
 	pkt->id = 0x46;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->field_0xa = 2;
+	pkt->param1 = 2;
 	pkt->field_0xe = form;
 
 	g_NetStru1_local.QueuePacketSend(pkt);
@@ -3388,7 +3388,7 @@ void BigStruct2::FUN_0041ab74() { //41ab74
 	pkt->id = 0x46;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->field_0xa = 3;
+	pkt->param1 = 3;
 	pkt->field_0xe = g_settings.AutoCasting;
 
 	g_NetStru1_local.QueuePacketSend(pkt);
@@ -3504,7 +3504,7 @@ void BigStruct2::FUN_0041b10f() {
 void BigStruct2::FUN_0041b064(int32_t arg1, int32_t arg2) {
 	PacketInfo* pkt = &PacketInfo::Inst;
 	pkt->id = 0x3f;
-	pkt->field_0xa = arg1;
+	pkt->param1 = arg1;
 	pkt->field_0xe = arg2;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -3514,7 +3514,7 @@ void BigStruct2::FUN_0041b064(int32_t arg1, int32_t arg2) {
 void BigStruct2::SendAdjustPlayerGoldAction(int32_t goldDelta) const { //41b0be
 	PacketInfo* pkt = &PacketInfo::Inst;
 	pkt->id = 0x3e;
-	pkt->field_0xa = goldDelta;
+	pkt->param1 = goldDelta;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	g_NetStru1_local.QueuePacketSend(pkt);
@@ -4364,7 +4364,7 @@ void BigStruct2::sub_41AC2D(int32_t id) {
 	pkt->id = 0x46;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->field_0xa = 0x80;
+	pkt->param1 = 0x80;
 	pkt->field_0xe = id;
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
@@ -4375,7 +4375,7 @@ void BigStruct2::sub_41AC88(int32_t arg1, int32_t arg2) {
 	pkt->id = 0x23;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->field_0xa = arg1;
+	pkt->param1 = arg1;
 	pkt->field_0xe = arg2;
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
@@ -6206,7 +6206,7 @@ void BigStruct2::FUN_0041cb67(int32_t val) {
 	pkt->id = 0x3b;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->field_0xa = val;
+	pkt->param1 = val;
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
 
@@ -7920,7 +7920,7 @@ void BigStruct2::FUN_0041ae1c(int32_t serv_id) {
 		pkt->from_player_id = this->my_main_unit->index;
 		pkt->to_player_id = 0;
 		pkt->id = 0x3A;
-		pkt->field_0xa = this->GetUnit_3f6c()->unit_id;
+		pkt->param1 = this->GetUnit_3f6c()->unit_id;
 		pkt->field_0xe = serv_id;
 		g_NetStru1_local.QueuePacketSend(pkt);
 	}
@@ -7937,7 +7937,7 @@ void BigStruct2::FUN_0041ace2(int32_t spell_id) {
 			pkt->id = 0x46;
 			pkt->from_player_id = this->my_main_unit->index;
 			pkt->to_player_id = 0;
-			pkt->field_0xa = 4;
+			pkt->param1 = 4;
 			pkt->field_0xe = key | (spell_id << 16);
 			g_NetStru1_local.QueuePacketSend(pkt);
 			obj->active_spell = spell_id;

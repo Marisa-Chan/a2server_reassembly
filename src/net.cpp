@@ -183,7 +183,7 @@ void NetStru1::FUN_0051cefb(uint8_t param_1, int32_t param_2, int32_t param_3, P
     PacketInfo& packet = PacketInfo::Inst;
     packet.id = param_1;
     packet.to_player_id = param_4 ? param_4->player_id : 0;
-    packet.field_0xa = param_2;
+    packet.param1 = param_2;
     packet.field_0xe = param_3;
     this->QueuePacketSend(&packet);
 }
@@ -202,7 +202,7 @@ void NetStru1::sub_51CD2A(Player* player, int32_t event_id, int32_t arg3) {
     PacketInfo& packet = PacketInfo::Inst;
     packet.id = 0xb6;
     packet.to_player_id = player ? player->player_id : 0;
-    packet.field_0xa = event_id;
+    packet.param1 = event_id;
     packet.field_0xe = arg3;
     this->QueuePacketSend(&packet);
 }
@@ -4422,7 +4422,7 @@ void NetStru1::sub_51E40C(const char* str, int32_t len) {
 void NetStru1::sub_51E5FB(int32_t a, int32_t b) {
     PacketInfo& packet = PacketInfo::Inst;
     packet.id = 0xD8;
-    packet.field_0xa = a;
+    packet.param1 = a;
     packet.field_0xe = b;
     packet.to_player_id = 0;
     this->QueuePacketSend(&packet);
@@ -4879,7 +4879,7 @@ void NetStru1::FUN_0051d8d6(const CString& login, const CString& password, uint3
 void NetStru1::FUN_0051d9d0(HatCharId chid) { //51d9d0
     PacketInfo* pkt = &PacketInfo::Inst;
     pkt->id = 0xca;
-    pkt->field_0xa = chid.id1;
+    pkt->param1 = chid.id1;
     pkt->field_0xe = chid.id2;
     pkt->to_player_id = 0;
     this->QueuePacketSend(pkt);

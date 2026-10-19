@@ -3,3 +3,4 @@ One line per commit: <Class>::<old> -> <new> -- reason.
 
 Packet::field_0x4 -> order_mode -- set by packet dispatcher from id: 0=single-unit op, 1/2=group order (no/xy params), 3=group order with unit/building target
 Packet::field_0x5 -> from_player_id -- sender player id (mirrors to_player_id); NOT player_id to avoid shadowing PacketJoin::player_id
+PacketInfo::field_0xa/field_a1..a4 -> param1/param1_b0..b3 -- generic first dword parameter; bytes used for body/reaction/mind/spirit in the char-gen packet (0x48)

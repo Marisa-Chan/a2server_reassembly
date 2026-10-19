@@ -49,12 +49,12 @@ public:
     virtual uint32_t GetDataSize() override;
 public:
     union {
-        int32_t field_0xa;
+        int32_t param1;
         struct {
-            uint8_t field_a1;
-            uint8_t field_a2;
-            uint8_t field_a3;
-            uint8_t field_a4;
+            uint8_t param1_b0;
+            uint8_t param1_b1;
+            uint8_t param1_b2;
+            uint8_t param1_b3;
         };
     };
 
