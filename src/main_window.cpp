@@ -2716,7 +2716,7 @@ void MainWindow::FUN_00491a49() { //491a49
 
 void MainWindow::FUN_0048f905() { // 48f905
     if (this->sessionMode == 2) {
-        CString local_2a4 = this->field_0x148.filename;
+        CString local_2a4 = this->last_save_info.filename;
         g_Server->sub_4ED2DC(&local_2a4);
 
         this->field_0x438 = timeGetTime();
@@ -2724,9 +2724,9 @@ void MainWindow::FUN_0048f905() { // 48f905
         this->field_0x43c = 0;
 
         CFile local_13c;
-        local_13c.Open(this->field_0x148.filename, CFile::modeReadWrite);
+        local_13c.Open(this->last_save_info.filename, CFile::modeReadWrite);
         local_13c.Seek(0, CFile::end);
-        local_13c.Write(this->field_0x148.title, 0x100);
+        local_13c.Write(this->last_save_info.title, 0x100);
         
         int inbattle = this->dialogsMask & 1;
 
@@ -2863,7 +2863,7 @@ void MainWindow::FUN_0048f905() { // 48f905
 
         local_13c.Close();
     } else {
-        this->vis_map_context->FUN_0041afcf(this->field_0x148.filename);
+        this->vis_map_context->FUN_0041afcf(this->last_save_info.filename);
     }
 }
 
@@ -3026,9 +3026,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x418:
-        this->field_0x148.title[0] = 0;
-        this->field_0x148.filename[0] = 0;
-        this->vis_loadgame = new LoadGameWindow(1, 100, 30, 600, 450, 0, &this->field_0x148);
+        this->last_save_info.title[0] = 0;
+        this->last_save_info.filename[0] = 0;
+        this->vis_loadgame = new LoadGameWindow(1, 100, 30, 600, 450, 0, &this->last_save_info);
         this->PopUpScreen(this->vis_loadgame);
         break;
 
@@ -3059,9 +3059,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
     case 0x41a:
         if (this->dialogsMask == 1 || this->dialogsMask == 0) {
-            this->field_0x148.title[0] = 0;
-            this->field_0x148.filename[0] = 0;
-            this->vis_savegame = new SaveGameWindow(1, 100, 30, 600, 450, 0, &this->field_0x148);
+            this->last_save_info.title[0] = 0;
+            this->last_save_info.filename[0] = 0;
+            this->vis_savegame = new SaveGameWindow(1, 100, 30, 600, 450, 0, &this->last_save_info);
             this->PopUpScreen(this->vis_savegame);
         }
         break;
@@ -3442,11 +3442,11 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
     case 0x442:
         if (wParam == 0) {
-            strcpy(this->field_0x148.title, txt_patch.GetLine(55));
+            strcpy(this->last_save_info.title, txt_patch.GetLine(55));
         } else {
-            strcpy(this->field_0x148.title, txt_patch.GetLine(95));
+            strcpy(this->last_save_info.title, txt_patch.GetLine(95));
         }
-        sprintf(this->field_0x148.filename, "game%d.sav", 9999 - wParam);
+        sprintf(this->last_save_info.filename, "game%d.sav", 9999 - wParam);
         this->FUN_0048f905();
         this->field_0x438 = timeGetTime();
         this->game_tic_counter = 0;
@@ -3895,7 +3895,7 @@ void MainWindow::FUN_0048f79d() { // 48f79d
 
     this->FUN_0048ca7e(this->sessionMode);
 
-    g_Server->sub_4EDB83(this->field_0x148.filename);
+    g_Server->sub_4EDB83(this->last_save_info.filename);
 
     if (!this->vis_map_context->ConnectAndJoinSession()) {
         PostMessage(0x421, 0, 0);
@@ -3919,7 +3919,7 @@ void MainWindow::FUN_0048f79d() { // 48f79d
 
 int MainWindow::GetSaveFileInBattle() { // 48de6f
     File2 f;
-    f.Open(this->field_0x148.filename, CFile::modeRead);
+    f.Open(this->last_save_info.filename, CFile::modeRead);
     f.Seek(4, 0);
 
     int32_t offset;
@@ -4021,7 +4021,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
 
     if (this->sessionMode == 2 && mode != 0) {
         File2 fil;
-        fil.Open(this->field_0x148.filename, CFile::modeRead);
+        fil.Open(this->last_save_info.filename, CFile::modeRead);
         fil.Seek(4, 0);
         int32_t offset;
         fil.Read(&offset, 4);
@@ -4470,7 +4470,7 @@ void MainWindow::FUN_0047e612() { //47e612
 void MainWindow::FUN_0048df44() { //48df44
     File2 fil;
 
-    fil.Open(this->field_0x148.filename, CFile::modeRead);
+    fil.Open(this->last_save_info.filename, CFile::modeRead);
     fil.Seek(4, 0);
 
     int32_t offset;

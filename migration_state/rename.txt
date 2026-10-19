@@ -92,3 +92,4 @@ MainWindow::field_0x128 -> vis_2action -- - Vis2Action action-menu popup (msg 0x
 MainWindow::field_0x13c -> vis_loadgame -- matches its vis_loadgame* type (load/save game screens, message box)
 MainWindow::field_0x140 -> vis_savegame -- matches its vis_savegame* type (load/save game screens, message box)
 MainWindow::field_0x144 -> vis_msgbox -- matches its vis_msgbox* type (load/save game screens, message box)
+MainWindow::field_0x148 -> last_save_info

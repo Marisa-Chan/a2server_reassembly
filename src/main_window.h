@@ -503,7 +503,7 @@ public:
     LoadGameWindow* vis_loadgame;
     SaveGameWindow* vis_savegame;
     VisMessageBox* vis_msgbox;
-    SaveFileInfo field_0x148;
+    SaveFileInfo last_save_info;
     CArray<DiplomacyEntry*>* field_0x348;
     VisScreen* field_0x34c;
     VisConnectionDlg* field_0x350;
