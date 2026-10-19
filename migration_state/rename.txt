@@ -184,3 +184,4 @@ World::field_0xa54 -> attack_decision_table -- --
 World::field_0xae4 -> dist_scratch -- --
 World::field_0xa724 -> relative_move_max_dist -- --
 World::field_0xae4 -> dist_scratch -- 10000-entry scratch array used as a distance list in target search
+World::field_0xa724 -> relative_move_max_dist -- units farther than this from the move origin fall back to absolute coordinates (init 2)

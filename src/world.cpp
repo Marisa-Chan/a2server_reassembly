@@ -187,7 +187,7 @@ void World::sub_5A3F9B() {
     this->field20_0xa48 = 0;
     this->field21_0xa49 = 0;
     this->counter = 0;
-    this->field_0xa724 = 2;
+    this->relative_move_max_dist = 2;
     this->field37_0xbbe8 = 0;
 
     // TODO: extract [0x8b8--0xa48] into a struct?
@@ -2798,7 +2798,7 @@ void World::sub_5AC289(Group* group, uint8_t x, uint8_t y) {
         for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
             Unit* unit = group->unit_list.GetNext(it);
             uint8_t dist = this->field24_0xa50->sub_593B29(PosYX(unit->position->CompatGetYX()), PosYX(origin_x, origin_y));
-            if (dist > this->field_0xa724) {
+            if (dist > this->relative_move_max_dist) {
                 use_relative = false;
             }
         }
