@@ -16217,7 +16217,7 @@ void VisInvBase::FUN_004a4ebc() {
         if (entry == nullptr) {
             continue;
         }
-        if (entry->IsEmpty() != 0 || entry->FUN_004a78c0() != 0) {
+        if (entry->IsEmpty() != 0 || entry->IsDepleted() != 0) {
             this->cell_update_counter.ElementAt(i) = 1;
             continue;
         }
@@ -16746,7 +16746,7 @@ void VisInvExtBase::VMethod7() {
             }
             g_bmp_backinv->VMethod2(pos.x, pos.y + 1, 0, 0, 0);
             g_ca16_money->VMethod2(pos.x, pos.y + 1, 0, 0, 0);
-        } else if (entry->FUN_004a78c0() != 0) {
+        } else if (entry->IsDepleted() != 0) {
             shop->bmp_backinvg->VMethod2(pos.x, pos.y + 1, 0, 0, 0);
         } else {
             CUnit* unit = shop->selected_units[shop->select_index];
@@ -16782,7 +16782,7 @@ void VisInvExtBase::VMethod7() {
         }
 
         entry = this->grid_source->GetAt(i + *this->visible_startref);
-        if (entry->IsEmpty() == 0 && entry->FUN_004a78c0() == 0) {
+        if (entry->IsEmpty() == 0 && entry->IsDepleted() == 0) {
             CPoint cost_pos(this->field_0x20c4[i].right + off_x, this->field_0x20c4[i].top + off_y + 1);
             CArray<CBmp64*>* cost_arr;
             if (entry->slot_code == 2) {
@@ -16966,7 +16966,7 @@ const char* VisInvExtBase::GetHint() {
     if (this->grid_source->GetAt(idx)->IsEmpty() != 0) {
         return TxtFile::AllLines.GetAt(0x4A);
     }
-    if (this->grid_source->GetAt(idx)->FUN_004a78c0() != 0) {
+    if (this->grid_source->GetAt(idx)->IsDepleted() != 0) {
         return nullptr;
     }
     return this->grid_source->GetAt(idx)->FUN_00439973();
@@ -17163,7 +17163,7 @@ TokenEntry* VisInvExtType1::VMethod29(TokenEntry* o, int32_t num) {
         if (!o->sub_4A7900(entry)) {
             continue;
         }
-        if (entry->FUN_004a78c0()) {
+        if (entry->IsDepleted()) {
             return nullptr;
         }
         if (entry->sub_4A7880(num)) {
@@ -17231,7 +17231,7 @@ int32_t VisInvExtType1::VMethod26(TokenEntry* o, int32_t idx) {
     o->slot_code = o->field_0x14 + 5;
     if (o->slot_code >= 5 && o->slot_code <= 8 && o->field_0x1c >= 0 && o->field_0x1c < this->grid_source->GetSize()) {
         TokenEntry* entry = this->grid_source->GetAt(o->field_0x1c);
-        if (entry->FUN_004a78c0()) {
+        if (entry->IsDepleted()) {
             *entry = *o;
         } else {
             entry->sub_4A7850(o->count);

@@ -891,7 +891,7 @@ int32_t TokenEntry::sub_4A7880(int32_t num) { //4a7880
 }
 
 
-int32_t TokenEntry::FUN_004a78c0() { //4a78c0
+int32_t TokenEntry::IsDepleted() { //4a78c0
     if (this->IsEmpty() == 0 && this->count == 0) {
         return 1;
     }
