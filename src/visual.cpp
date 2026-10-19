@@ -4616,7 +4616,7 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
                 if (idx != this->parent_screen->session->GetStringArray1Size() - 1) {
                     CString str = CString(txt_patch.GetLine(93)) + CString(this->parent_screen->session->character_name) + CString(txt_patch.GetLine(94));
                     VisScreen* box = new VisMessageBoxWithList(1, 64, 100, 380, 594, str, nullptr, 4);
-                    mwnd->field_0x3dc = box;
+                    mwnd->vis_msgbox_list = box;
                     mwnd->ModalScreen(box);
 
                     if (box->GetCloseCode() == 0x447) {
@@ -6208,9 +6208,9 @@ int32_t LoadGameWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) 
         int32_t idx = lb->GetSelectedIndex();
         if (idx > -1) {
             CString str = txt_patch.GetLine(50) + lb->GetItem(idx) + txt_patch.GetLine(51); // want to delete save ### ?
-            mwnd->field_0x3dc = new VisMessageBoxWithList(1, 64, 100, 380, 594, str, nullptr, 4);
-            mwnd->ModalScreen(mwnd->field_0x3dc);
-            if (mwnd->field_0x3dc->GetCloseCode() == 0x447) {
+            mwnd->vis_msgbox_list = new VisMessageBoxWithList(1, 64, 100, 380, 594, str, nullptr, 4);
+            mwnd->ModalScreen(mwnd->vis_msgbox_list);
+            if (mwnd->vis_msgbox_list->GetCloseCode() == 0x447) {
                 DeleteFileA(this->file_names[idx]);
                 this->file_names.RemoveAt(idx);
                 this->save_times.RemoveAt(idx);
@@ -6416,9 +6416,9 @@ int32_t SaveGameWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) 
         int32_t idx = lb->GetSelectedIndex();
         if (idx != 0) {
             CString str = txt_patch.GetLine(50) + lb->GetItem(idx) + txt_patch.GetLine(51); // want to delete save ### ?
-            mwnd->field_0x3dc = new VisMessageBoxWithList(1, 64, 100, 380, 594, str, nullptr, 4);
-            mwnd->ModalScreen(mwnd->field_0x3dc);
-            if (mwnd->field_0x3dc->GetCloseCode() == 0x447) {
+            mwnd->vis_msgbox_list = new VisMessageBoxWithList(1, 64, 100, 380, 594, str, nullptr, 4);
+            mwnd->ModalScreen(mwnd->vis_msgbox_list);
+            if (mwnd->vis_msgbox_list->GetCloseCode() == 0x447) {
                 DeleteFileA(this->file_names[idx]);
                 this->file_names.RemoveAt(idx);
                 this->save_times.RemoveAt(idx);

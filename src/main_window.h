@@ -521,7 +521,7 @@ public:
     VisScreen* vis_serverscreen;
     VisScreen* vis_cutscenes;
     VisFameDocument* vis_famedocument;
-    VisScreen* field_0x3dc;
+    VisScreen* vis_msgbox_list;
     Main3e0 field_0x3e0;
     int32_t field_0x3f8;
     int32_t field_0x3fc;

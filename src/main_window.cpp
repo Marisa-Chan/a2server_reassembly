@@ -1470,7 +1470,7 @@ MainWindow::MainWindow() { //4837e1
     this->vis_msgbox = nullptr;
     this->field_0x454 = 0;
     this->field_0x34c = nullptr;
-    this->field_0x3dc = nullptr;
+    this->vis_msgbox_list = nullptr;
     this->vis_netmapsel = nullptr;
     this->vis_hatbrowser = nullptr;
     this->vis_map_context = nullptr;
@@ -2632,11 +2632,11 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
 
         delete this->vis_missionfailed;
         this->vis_missionfailed = nullptr; // MUST BE DONE? WAT?
-    } else if (obj == this->field_0x3dc) {
+    } else if (obj == this->vis_msgbox_list) {
         this->dialogsMask &= ~0x8000;
 
-        delete this->field_0x3dc;
-        this->field_0x3dc = nullptr; // MUST BE DONE? WAT?
+        delete this->vis_msgbox_list;
+        this->vis_msgbox_list = nullptr; // MUST BE DONE? WAT?
 
         if ((this->dialogsMask & 1) == 0) {
             this->vis_root->cursor_over_obj_last = this->vis_root->FindChild(1020);
@@ -3833,7 +3833,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
 
 void MainWindow::PopUpScreen(VisScreen* screen) { //48d26a
-    if (screen == this->field_0x3dc) {
+    if (screen == this->vis_msgbox_list) {
         this->dialogsMask |= 0x8000;
     } else {
         this->dialogsMask |= 8;
