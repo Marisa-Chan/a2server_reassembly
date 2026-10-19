@@ -314,7 +314,7 @@ uint32_t AreaEffect::sub_538897() const {
 }
 
 // 53822C
-void AreaEffect::sub_53822C() {
+void AreaEffect::ApplyRadiusRing() {
 	uint8_t x = this->position->GetX();
 	uint8_t y = this->position->GetY();
 	int32_t radius = this->radius;
@@ -563,7 +563,7 @@ void AreaEffect::ProcessEffects() {
 		return;
 	}
 	if (this->duration == 0) {
-		this->sub_53822C();
+		this->ApplyRadiusRing();
 		this->field2_0x40 = 1;
 		return;
 	}
