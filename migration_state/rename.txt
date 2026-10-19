@@ -254,3 +254,4 @@ TokenEntry::FUN_004394f3 -> GetSpriteName -- builds the item graphics base name 
 TokenEntry::FUN_00439973 -> GetHintText -- formats the item tooltip (name + mod stat lines) into the g_Destination hint buffer
 TransientVisualEffectBuilder::FUN_004CC22D -> BuildRisingParticles -- ages existing 0x38 particles upward and spawns 3-5 new ones around the base ellipse
 TransientVisualEffectBuilder::FUN_004CC3FD -> BuildFallingParticles -- 0x3C variant: ages particles downward, spawns new ones at the top plane
+TransientVisualEffectBuilder::FUN_004CC944 -> BuildEnergyColumn -- hourglass column of 0x3E ring pairs at +/-y_offset around height plus a tilted base ring

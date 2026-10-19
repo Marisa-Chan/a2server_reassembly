@@ -2491,7 +2491,7 @@ int32_t TransientVisualEffectBuilder::BuildFallingParticles(CArray<GO_11c>* exis
 }
 
 // 4cc944
-void TransientVisualEffectBuilder::FUN_004CC944(int16_t height, float speed, float radius, uint32_t phase) {
+void TransientVisualEffectBuilder::BuildEnergyColumn(int16_t height, float speed, float radius, uint32_t phase) {
     this->FUN_004CC798(0, 0, height, speed, radius, (phase & 0xFF) << 2);
 
     int32_t y_offset = (int32_t)std::fabs(speed * ((int32_t)(phase & 0xFF) * 0.02222222222222222 - 1.0));
@@ -2593,7 +2593,7 @@ void CUnit::UpdateTransientVisualElements() { // 468dcb
             float radius = this->GetTileWidth() << 4;
             float speed = this->GetTileWidth() * 28;
             int16_t height = this->GetTileWidth() * 11;
-            builder.FUN_004CC944(height, speed, radius, phase);
+            builder.BuildEnergyColumn(height, speed, radius, phase);
             visual_elements.Append(builder.visual_elements);
             break;
         }
