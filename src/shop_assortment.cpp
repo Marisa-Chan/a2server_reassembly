@@ -542,7 +542,7 @@ int32_t ShopAssortment::sub_54EA76(Item* item) {
             return 0;
         }
 
-        item->sub_548FAA(effect);
+        item->AddEffect(effect);
         item->CalcValue();
         return 1;
     }
@@ -554,7 +554,7 @@ int32_t ShopAssortment::sub_54EA76(Item* item) {
         return 0;
     }
 
-    item->sub_548FAA(effect);
+    item->AddEffect(effect);
     item->CalcValue();
 
     if (effect->effect_id == modifier::castspell) {
@@ -574,7 +574,7 @@ int32_t ShopAssortment::sub_54EA76(Item* item) {
             delete effect;
             return 1;
         }
-        item->sub_548FAA(effect);
+        item->AddEffect(effect);
         item->CalcValue();
     }
 
@@ -591,7 +591,7 @@ int32_t ShopAssortment::sub_54EA76(Item* item) {
             delete effect;
             return 1;
         }
-        item->sub_548FAA(effect);
+        item->AddEffect(effect);
         item->CalcValue();
     }
 

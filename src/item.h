@@ -49,7 +49,7 @@ public:
     Item(uint8_t type, uint8_t subtype); // sub_54800E: construct item from type and subtype
     Item(const Item* src); // sub_54842A: copy constructor
     void InitFromTemplate(uint8_t slot); // 5482AB: init item fields from magic_items table
-    void sub_548FAA(Effect* effect); // Add effect to item
+    void AddEffect(Effect* effect); // Add effect to item
     int sub_548F07(); // IsArtifact: returns 1 if the item has magic and price 2. 548f07.
     int sub_548F6A(); // Returns 1 if this item template can be given via #create cheat
     void sub_548F3F(const CString& str); // Apply special property string to item effects, then call VMethod15

@@ -334,3 +334,4 @@ TokenPos::FUN_0058a7e8 -> ClampToMap -- clamps coords into map bounds [8, size-9
 TokenPos::sub_58bec3 -> IsAtCellCenter -- true when both subcell offsets are 0x80 (middle of a cell)
 Building::sub_5427AC -> InitFromTable -- initialize building from the info table and place on map
 Building::sub_542624 -> InitByName -- initialize building fields and look up type by name
+Building::sub_542A31 -> RollDamage -- building attack roll, same signature as Unit::RollDamage

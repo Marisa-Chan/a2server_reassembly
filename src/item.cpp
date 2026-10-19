@@ -605,7 +605,7 @@ int Item::sub_548F6A() {
 }
 
 // 548FAA
-void Item::sub_548FAA(Effect* effect) {
+void Item::AddEffect(Effect* effect) {
     int32_t usable_by = g_GameDataRes.magics[effect->effect_id].Values()[0].usable_by;
     if (usable_by != 3) {
         POSITION it = this->_effects.GetHeadPosition();
