@@ -9,3 +9,4 @@ PacketJoin::field_0xc -> color -- player color sent in join-notify (0x96), read 
 PacketItemOperation::field_0xc -> y -- low byte of the target tile y in group orders (paired with y_high); also renamed already-named unit_id (+0xA) to x for coherence: it holds the target x, server reads it as uint8_t x
 PacketItemOperation::field_0xd -> y_high -- high byte of the target tile y (writers store y>>8 here)
 PacketItemOperation::field_0xe -> param -- word parameter, meaning depends on op id: target unit/building id (0x19/1B/1E/24/25), bag slot (0x21)
+PacketItemOperation::field_0x10 -> slot -- spell book / inventory slot index (low byte; BOOK_POS_TO_SPELL_ID or inventory position)

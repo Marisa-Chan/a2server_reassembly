@@ -3007,8 +3007,8 @@ void Server::sub_504a96(Packet* pkt) {
 
         Spell* cast_spell = nullptr;
         if (pkt->id == 0x1E || pkt->id == 0x1F) {
-            uint8_t spell_id = BOOK_POS_TO_SPELL_ID[packet_item->field_0x10];
-            packet_item->field_0x10 = spell_id;
+            uint8_t spell_id = BOOK_POS_TO_SPELL_ID[packet_item->slot];
+            packet_item->slot = spell_id;
             // Find hero unit in group that matches the spell type
             for (POSITION node = group->unit_list.GetHeadPosition(); node; ) {
                 Unit* u = group->unit_list.GetNext(node);
@@ -3134,7 +3134,7 @@ void Server::sub_504a96(Packet* pkt) {
             CheckPacketType(pkt, "PacketItemOperation");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
                 player->sub_534B59();
-                auto* item = player->main_unit->inventory->sub_552E42(packet_item->field_0x10, 1);
+                auto* item = player->main_unit->inventory->sub_552E42(packet_item->slot, 1);
                 if (!item || item->_effects.IsEmpty()) {
                     break;
                 }
@@ -3151,7 +3151,7 @@ void Server::sub_504a96(Packet* pkt) {
                         g_World->sub_5AC187(group, static_cast<Unit*>(target), spell);
                     } else {
                         if (!spell->sub_53939E(packet_item->x, packet_item->y)) {
-                            player->main_unit->inventory->PutItemIntoBag(packet_item->field_0x10, item);
+                            player->main_unit->inventory->PutItemIntoBag(packet_item->slot, item);
                             player->main_unit->some_item = nullptr;
                             delete spell;
                             player->main_unit->spell = nullptr;

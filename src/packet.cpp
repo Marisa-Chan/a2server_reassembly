@@ -324,7 +324,7 @@ PacketItemOperation PacketItemOperation::Inst;
 PacketItemOperation::PacketItemOperation() {
     //sub_526924
     this->param  = 0;
-    this->field_0x10 = 0;
+    this->slot = 0;
     this->count      = 0;
 }
 
@@ -334,7 +334,7 @@ PacketItemOperation::PacketItemOperation(const PacketItemOperation* src) {
     this->y   = src->y;
     this->y_high   = src->y_high;
     this->param   = src->param;
-    this->field_0x10  = src->field_0x10;
+    this->slot  = src->slot;
     this->field_0x11  = src->field_0x11;
     this->count       = src->count;
     memcpy(this->entries, src->entries, src->count * 2);

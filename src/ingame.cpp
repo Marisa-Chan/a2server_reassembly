@@ -3978,7 +3978,7 @@ void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell) {
 	pkt->count = 0;
 	if (wnd->vis_spellbook->sub_4CA89B(spell - 1) != 0 && wnd->vis_spellbook->spell == -1) {
 		pkt->id = 0x1F;
-		pkt->field_0x10 = spell;
+		pkt->slot = spell;
 		while (it != nullptr) {
 			uint16_t key;
 			CGameObject* obj;
@@ -3994,7 +3994,7 @@ void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell) {
 		pkt->count = 0;
 		pkt->AppendWord(this->field_0x138->unit_id);
 		uint16_t slot = wnd->vis_spellbook->spell;
-		pkt->field_0x10 = slot;
+		pkt->slot = slot;
 		pkt->field_0x11 = slot >> 8;
 		g_NetStru1_local.QueuePacketSend(pkt);
 		TokenEntry* entry = this->field_0x138->tokenEntries[slot];
@@ -4029,7 +4029,7 @@ void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell) {
 						}
 					}
 				}
-				pkt->field_0x10 = slot;
+				pkt->slot = slot;
 				pkt->field_0x11 = slot >> 8;
 				if (slot == 0xFFFF) {
 					continue;
@@ -4062,7 +4062,7 @@ void BigStruct2::sub_419BA1(uint16_t id, int32_t spell) {
 	pkt->count = 0;
 	if (wnd->vis_spellbook->sub_4CA89B(spell - 1) != 0 && wnd->vis_spellbook->spell == -1) {
 		pkt->id = 0x1E;
-		pkt->field_0x10 = spell;
+		pkt->slot = spell;
 		while (it != nullptr) {
 			uint16_t key;
 			CGameObject* obj;
@@ -4077,7 +4077,7 @@ void BigStruct2::sub_419BA1(uint16_t id, int32_t spell) {
 		pkt->count = 0;
 		pkt->AppendWord(this->field_0x138->unit_id);
 		uint16_t slot = wnd->vis_spellbook->spell;
-		pkt->field_0x10 = slot;
+		pkt->slot = slot;
 		pkt->field_0x11 = slot >> 8;
 		pkt->id = 0x25;
 		g_NetStru1_local.QueuePacketSend(pkt);
@@ -4113,7 +4113,7 @@ void BigStruct2::sub_419BA1(uint16_t id, int32_t spell) {
 						}
 					}
 				}
-				pkt->field_0x10 = slot;
+				pkt->slot = slot;
 				pkt->field_0x11 = slot >> 8;
 				if (slot == 0xFFFF) {
 					continue;
@@ -7840,7 +7840,7 @@ void BigStruct2::FUN_0041a001(int32_t idx) {
 				pkt->from_player_id = this->my_main_unit->index;
 				pkt->to_player_id = 0;
 				pkt->id = 0x1E;
-				pkt->field_0x10 = idx;
+				pkt->slot = idx;
 				pkt->count = 0;
 				pkt->AppendWord(obj->unit_id);
 				pkt->param = obj->unit_id;
@@ -7871,7 +7871,7 @@ void BigStruct2::FUN_0041a001(int32_t idx) {
 					}
 				}
 			}
-			pkt->field_0x10 = slot;
+			pkt->slot = slot;
 			pkt->field_0x11 = slot >> 8;
 			if (slot == 0xFFFF) {
 				continue;
