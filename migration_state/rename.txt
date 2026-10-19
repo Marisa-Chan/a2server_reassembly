@@ -139,3 +139,4 @@ GroupSub::field_0x20 -> order -- --
 GroupSub::field_0x24 -> avg_pos_yyxx -- --
 GroupSub::field_0x28 -> avg_pos -- --
 GroupSub::field_0x2a -> max_unit_dist -- --
+GroupSub::field_0x2b -> max_scan_range -- --

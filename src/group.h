@@ -28,7 +28,7 @@ public:
     uint32_t avg_pos_yyxx;
     uint16_t avg_pos;
     uint8_t max_unit_dist;
-    uint8_t field_0x2b;
+    uint8_t max_scan_range;
     uint8_t field_0x2c;
     uint8_t field_0x2d;
     uint8_t gap_0x2e[2];

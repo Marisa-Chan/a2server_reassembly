@@ -888,7 +888,7 @@ uint32_t World::sub_5AB719(Group* group) {
     }
 
     group->group_sub->max_unit_dist = max_distance;
-    group->group_sub->field_0x2b = max_scan_range;
+    group->group_sub->max_scan_range = max_scan_range;
     group->group_sub->field_0x2c = max_sum;
 
     return position_yyxx;
@@ -4176,7 +4176,7 @@ void World::sub_5AB92C(Group* group) {
     }
 
     group->group_sub->max_unit_dist = max_distance;
-    group->group_sub->field_0x2b = max_scan_range;
+    group->group_sub->max_scan_range = max_scan_range;
     group->group_sub->field_0x2c = max_sum;
 }
 
