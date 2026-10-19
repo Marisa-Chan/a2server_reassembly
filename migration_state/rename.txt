@@ -469,3 +469,4 @@ World::sub_5AEC20 -> AiAttackBrain -- group order 2 brain: engage assigned targe
 World::sub_5AEF66 -> AiAggroBrain -- group order 3 brain: engage or fall back
 World::sub_5AF061 -> AiMoveBrain -- group order 4 brain: move arrival checks
 World::sub_5AECE7 -> AiSwarmBrain -- group order 5 brain: swarm movement
+World::sub_5AE7C3 -> AiDefendBrain -- group order 0x12 brain

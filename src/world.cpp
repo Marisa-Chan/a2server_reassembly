@@ -3410,7 +3410,7 @@ void World::ProcessGroupAi(Group* group) {
             this->AiDefendBrain(group);
             break;
         case 0x13:
-            this->sub_5AEFE5(group);
+            this->AiStandBrain(group);
             break;
         }
     }
@@ -4076,7 +4076,7 @@ void World::sub_5AF623(Group* group) {
 }
 
 // 5AEFE5
-void World::sub_5AEFE5(Group* group) {
+void World::AiStandBrain(Group* group) {
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
         this->DoRetreat(unit);
