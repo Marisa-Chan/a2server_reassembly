@@ -1786,7 +1786,7 @@ void Server::SendWorldState(Player* player, int32_t bool_arg4) {
 }
 
 
-void Server::FUN_004ff439(Player* player, int32_t arg4) {
+void Server::AssignPlayerSlot(Player* player, int32_t arg4) {
     //4FF439
     if (player->main_unit == nullptr) {
         return;
@@ -3201,7 +3201,7 @@ void Server::sub_504a96(Packet* pkt) {
         if (player) {
             NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(packet_3d->from_player_id);
             if (ns2 && ns2->is_claimed != 0) {
-                this->FUN_004ff439(player, packet_3d->value3);
+                this->AssignPlayerSlot(player, packet_3d->value3);
             }
         }
 #endif

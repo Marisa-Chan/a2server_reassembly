@@ -402,3 +402,4 @@ Server::sub_502C50 -> FindShopAt -- shop lookup by TokenPos
 Server::sub_502CB7 -> FindInnAt -- inn lookup by TokenPos
 Server::sub_502B4A -> FindPlayerById -- player lookup by player_id
 Server::sub_4ED2DC -> SaveGame -- saves the game to file (drops empty groups first)
+Server::sub_4FF878 -> SendMapInfo -- sends the PacketJoin 0xBF carrying the current map name to the player
