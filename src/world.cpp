@@ -1030,7 +1030,7 @@ void World::CastSelfHealOrBuff(Unit* unit) {
     }
 
     if (best_ratio >= 1.0) {
-        this->sub_5B6862(unit, list);
+        this->PickFallbackBuff(unit, list);
     } else {
         unit->eye2->field49_0x60 = 1;
         this->BeginAutobuffCast(unit, best_unit, spell);
@@ -1066,7 +1066,7 @@ void World::BeginAutobuffCast(Unit* caster, Unit* target, Spell* spell) {
 // Fallback buff selection for CastSelfHealOrBuff: pick a random allied unit from `list`
 // and attempt to cast heal/buff spells on it.
 // 5B6862
-void World::sub_5B6862(Unit* unit, UnitList* list) {
+void World::PickFallbackBuff(Unit* unit, UnitList* list) {
     // Heal self.
     if (unit->hp != unit->hp_max) {
         Spell* heal = unit->spell_book->sub_53DB79(spell::heal);

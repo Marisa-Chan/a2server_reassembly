@@ -507,3 +507,4 @@ World::sub_5A37C5 -> GetNearbyUnits -- get nearby UnitList around unit
 World::sub_5A3808 -> GetNearbyEnemies -- get nearby enemy UnitList for caster at yx
 World::sub_5A384F -> GetNearbyAllies -- get nearby ally UnitList for caster at yx
 World::sub_5A3896 -> FilterByRelation -- filter a UnitList by enemy/allied relationship
+World::sub_5A3C5F -> PruneUnconsciousTargets -- moves unconscious targets out of field26_0xa64 into field27_0xa84
