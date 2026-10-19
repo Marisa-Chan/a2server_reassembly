@@ -4171,7 +4171,7 @@ void BigStruct2::sub_40403B() {
 		CGameObject* obj;
 		this->field_0x9d0.GetNextAssoc(it, key, obj);
 		obj->FUN_0046190d();
-		obj->VMethod10();
+		obj->UpdateTileLayer();
 		obj->VMethod12();
 	}
 	memset(this->field_0xa0, 0, this->corner_grid_bytes);

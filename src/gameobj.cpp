@@ -417,7 +417,7 @@ void CGameObject::DrawMinimapRect(int32_t arg1, int32_t arg2, int32_t arg3) { //
 }
 
 
-void CGameObject::VMethod10() { //46f4e0
+void CGameObject::UpdateTileLayer() { //46f4e0
 }
 
 
@@ -3184,7 +3184,7 @@ int32_t CUnit::VMethod15() {
 }
 
 // 464765
-void CUnit::VMethod10() {
+void CUnit::UpdateTileLayer() {
     if (this->death_state < 2 && (this->unitFlags & 0x80) == 0) {
         this->FUN_00461c41(2, this);
     } else {
@@ -4114,7 +4114,7 @@ int32_t CStructure::GetTileHeight() {
 }
 
 // 462b0f
-void CStructure::VMethod10() {
+void CStructure::UpdateTileLayer() {
     this->FUN_00461c41(1, this);
 }
 
@@ -4299,7 +4299,7 @@ void CBackPack::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
 }
 
 // 462a98
-void CBackPack::VMethod10() {
+void CBackPack::UpdateTileLayer() {
     this->FUN_00461c41(0, this);
 }
 
@@ -4737,7 +4737,7 @@ void CProjectile::VMethod16() {
 }
 
 // 46d6fb
-void CAirUnit::VMethod10() {
+void CAirUnit::UpdateTileLayer() {
     this->FUN_00461c41(3, this);
 
     if (g_Animation != 0) {

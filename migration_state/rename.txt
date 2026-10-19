@@ -205,3 +205,4 @@ CGameObject::VMethod6 -> Draw -- vtable slot: draws the object sprite at the map
 CGameObject::VMethod7 -> DrawShadow -- vtable slot: sun-angle offset pass drawing the sprite with shade/lit delta tables (gated by g_Shadows, drawn before Draw)
 CGameObject::VMethod8 -> DrawHealthBar -- vtable slot: hp/mp bars + player-name/quest-marker text above the object (structures: anchor-tile-only hp bar)
 CGameObject::VMethod9 -> DrawMinimapRect -- vtable slot: fills the object's footprint with the owner color on the minimap (arg3 = zoom shift, negative = half-scale)
+CGameObject::VMethod10 -> UpdateTileLayer -- vtable slot: re-registers the object in its map tile lookup layer (0=backpacks,1=structures,2=units,3=air,4=special) and marks the dirty rect

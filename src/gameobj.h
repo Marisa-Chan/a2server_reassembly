@@ -134,7 +134,7 @@ public:
 	virtual void DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3);
 	virtual void DrawHealthBar(int32_t arg1, int32_t arg2, int32_t arg3);
 	virtual void DrawMinimapRect(int32_t arg1, int32_t arg2, int32_t arg3);
-	virtual void VMethod10();
+	virtual void UpdateTileLayer();
 	virtual int32_t VMethod11();
 	virtual void VMethod12();
 	virtual void VMethod13();
@@ -246,7 +246,7 @@ public:
 	virtual void DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) override;
 	virtual void DrawHealthBar(int32_t arg1, int32_t arg2, int32_t arg3) override;
 	virtual void DrawMinimapRect(int32_t arg1, int32_t arg2, int32_t arg3) override;
-	virtual void VMethod10() override;
+	virtual void UpdateTileLayer() override;
 	virtual int32_t VMethod11() override;
 
 	virtual void VMethod13() override;
@@ -391,7 +391,7 @@ public:
 
 	virtual void Dump(CDumpContext& dc) const override; // 46d7e8
 
-	virtual void VMethod10() override; // 46d6fb
+	virtual void UpdateTileLayer() override; // 46d6fb
 
 	CAirUnit(); // 46d6ad
 };
@@ -410,7 +410,7 @@ public:
 	virtual int32_t GetTileHeight() override; // 46f5d0
 	virtual void Draw(int32_t arg1, int32_t arg2, int32_t arg3) override; // 462887
 	virtual void DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) override; // 46295a
-	virtual void VMethod10() override; // 462a98
+	virtual void UpdateTileLayer() override; // 462a98
 
 	CBackPack(); // 462843
 };
@@ -456,7 +456,7 @@ public:
 	virtual void DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) override; //462f58
 	virtual void DrawHealthBar(int32_t arg1, int32_t arg2, int32_t arg3) override; //4631f3
 	virtual void DrawMinimapRect(int32_t arg1, int32_t arg2, int32_t arg3) override; //46380c
-	virtual void VMethod10() override; //462b0f
+	virtual void UpdateTileLayer() override; //462b0f
 	virtual int32_t VMethod11() override; //463a05
 	virtual void VMethod12() override; //463a58
 	virtual int32_t VMethod15() override; //462b28
