@@ -28,7 +28,7 @@ Player::Player() {
     this->monster_kills = 0;
     this->player_kills = 0;
     this->mission_result = 0;
-    this->field_0xa98 = 0;
+    this->gm_level = 0;
     this->field_0x20 = -10000;
     this->vision_sharing_id = 0;
     this->is_in_world = 0;

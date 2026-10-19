@@ -84,7 +84,7 @@ public:
     int32_t max_server_level;
     uint32_t afk_expire_tick;
     uint32_t afk_notify_tick;
-    uint8_t field_0xa98;
+    uint8_t gm_level;
     uint8_t gap_0xa99[7];
 
 public:

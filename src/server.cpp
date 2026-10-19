@@ -2669,11 +2669,11 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
     }
 
     // Players whose cheat level is not yet elevated must supply the activation secret.
-    if (player->field_0xa98 <= 50) {
+    if (player->gm_level <= 50) {
         if (this->coward_activation.sub_5A3498(cheat_string) == 1) {
             CString msg = "Player " + player->name + " enable cheating.";
             LogMessage(msg);
-            player->field_0xa98 = 0xFF;
+            player->gm_level = 0xFF;
             if (!is_reconnect) {
                 g_NetStru1_main.FUN_0051ce86(5, player->player_id, nullptr);
             }
@@ -2838,8 +2838,8 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
     } else if (cheat_string.Find("#kill cheaters") == 0) {
         for (POSITION node = g_PlayersList->list.GetHeadPosition(); node != nullptr;) {
             Player* p = g_PlayersList->list.GetNext(node);
-            if (p != nullptr && p->field_0xa98 > 50 && p != player) {
-                p->field_0xa98 = 0;
+            if (p != nullptr && p->gm_level > 50 && p != player) {
+                p->gm_level = 0;
                 p->sub_5346AC();
             }
         }

@@ -762,7 +762,7 @@ void Inn::InnReward(Player* player) {
         }
     }
 
-    if (reward == 0 && player->field_0xa98 <= 50) {
+    if (reward == 0 && player->gm_level <= 50) {
         return;
     }
 
@@ -899,7 +899,7 @@ void Inn::InnReward(Player* player) {
     }
 
     // --- Phase 7: Stat potions ---
-    if ((player->main_unit->experience > 18000000 && reward >= 1000000) || player->field_0xa98 > 50) {
+    if ((player->main_unit->experience > 18000000 && reward >= 1000000) || player->gm_level > 50) {
         bool is_fighter = (player->main_unit->unit_attrs & 4) == 0;
         bool is_female = (player->main_unit->typeId == 0x22 || player->main_unit->typeId == 0x24);
 
@@ -987,7 +987,7 @@ void Inn::InnReward(Player* player) {
             }
         }
 
-        if ((high_skills > 3 && reward >= 1000000) || player->field_0xa98 > 50) {
+        if ((high_skills > 3 && reward >= 1000000) || player->gm_level > 50) {
             temp_candidates.SetSize(0, -1);
 
             for (int slot = 1; slot < 13; slot++) {
