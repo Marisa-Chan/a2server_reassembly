@@ -34,7 +34,7 @@ public: // VTable at 60f498.
     virtual void RegenTick() override;
     virtual void ProcessEffects() override;
     virtual int32_t IsItem() override;
-    virtual Item* VMethod10(Unit*); // Equip.
+    virtual Item* Equip(Unit*); // Equip.
     virtual void VMethod11(Unit*); // Unequip.
     virtual Item* TakeOne();
     virtual Item* VMethod13();
@@ -99,7 +99,7 @@ public:
 public: // VTable at 60f508.
     virtual ~Armor() override; // 54F9D1
     virtual void Serialize(CArchive& ar) override; // 55CF2B
-    virtual Item* VMethod10(Unit* unit) override; // 54FA6E
+    virtual Item* Equip(Unit* unit) override; // 54FA6E
     virtual void VMethod11(Unit* unit) override; // 54FB7E
     virtual Item* TakeOne() override; // 54FC19
     virtual Item* VMethod13() override; // 57D5B0
@@ -128,7 +128,7 @@ public:
 public: // VTable at 60f560.
     virtual ~Shield() override; // 55044b
     virtual void Serialize(CArchive& ar) override; // 55AF5E
-    virtual Item* VMethod10(Unit*) override; // 55056B
+    virtual Item* Equip(Unit*) override; // 55056B
     virtual void VMethod11(Unit*) override; // 550686
     virtual Item* TakeOne() override; // 5504DC
     virtual Item* VMethod13() override; // 57D660
@@ -156,7 +156,7 @@ public:
 public: // VTable at 60f5b8.
     virtual ~Weapon() override; // 551159
     virtual void Serialize(CArchive& ar) override; // 55929F
-    virtual Item* VMethod10(Unit* unit) override; // 5512E7
+    virtual Item* Equip(Unit* unit) override; // 5512E7
     virtual void VMethod11(Unit* unit) override; // 5515B9
     virtual Item* TakeOne() override; // 5517C3
     virtual Item* VMethod13() override; // 57D710

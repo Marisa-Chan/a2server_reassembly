@@ -1384,7 +1384,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
                         g_NetStru1_main.sub_519221(humanoid, nullptr, 0x282000, 0xFFB, 0, 0);
                     } else {
                         // Last item вЂ” try to equip it, so `equipped` would be the item that was on the player before.
-                        Item* equipped = item->VMethod10(humanoid);
+                        Item* equipped = item->Equip(humanoid);
                         if (equipped == nullptr || equipped->field15_0x54 == 0) {
                             // Failed --- burn the item.
                             item->VMethod11(humanoid);

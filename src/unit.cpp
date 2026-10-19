@@ -991,13 +991,13 @@ void Unit::ReleaseObjects() {
 }
 
 Item *Unit::UseItem(Item *item) {
-    Item *itm = item->VMethod10(this);
+    Item *itm = item->Equip(this);
     this->RecalcExperience();
     return itm;
 }
 
 void Unit::UseItemOrStash(Item *item) {
-    Item* itm = item->VMethod10(this);
+    Item* itm = item->Equip(this);
     if (itm) {
         this->inventory->PutItemIntoBagAtDefault(itm);
         this->RecalcExperience();
@@ -2304,7 +2304,7 @@ Item* Humanoid::UseItem(Item* item) {
             return item;
         }
     }
-    return item->VMethod10(this);
+    return item->Equip(this);
 }
 
 void Humanoid::UseItemOrStash(Item *item) {

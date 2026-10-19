@@ -258,7 +258,7 @@ int32_t Item::IsItem() {
 }
 
 // 548a59
-Item* Item::VMethod10(Unit* pUnit) {
+Item* Item::Equip(Unit* pUnit) {
     if (pUnit->hp <= 0) {
         return this;
     }
@@ -786,7 +786,7 @@ void Armor::Serialize(CArchive& ar) {
 }
 
 // 54FA6E
-Item* Armor::VMethod10(Unit* unit) {
+Item* Armor::Equip(Unit* unit) {
     if (this->slot == 0) {
         LogMessage(CString("Illegal armor"));
         return this;
@@ -974,7 +974,7 @@ void Shield::Serialize(CArchive& ar) {
 }
 
 // 55056B
-Item* Shield::VMethod10(Unit* unit) {
+Item* Shield::Equip(Unit* unit) {
     if (this->itemDataID == 0) {
         LogMessage("Invalid shield");
         return this;
@@ -1197,7 +1197,7 @@ void Weapon::InitImbuedSpell() {
 }
 
 // 5512E7
-Item* Weapon::VMethod10(Unit* unit) {
+Item* Weapon::Equip(Unit* unit) {
     this->InitImbuedSpell();
 
     Item* old_weapon = nullptr;
