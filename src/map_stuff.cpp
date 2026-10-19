@@ -1516,7 +1516,7 @@ UnitList* MapStuff::BuildNearbyUnitList(PosYX yx, uint8_t range) {
 }
 
 // 58CB5A
-Unit* MapStuff::sub_58CB5A(uint16_t yx) {
+Unit* MapStuff::GetSmallUnitAt(uint16_t yx) {
     if (!this->ObstacleAt(yx).TestBits(0x20)) {
         return nullptr;
     }

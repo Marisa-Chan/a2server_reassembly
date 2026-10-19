@@ -4711,7 +4711,7 @@ void World::CheckOP_21(TriggerCheck* check) {
 // 5B35C6
 void World::CheckOP_22(TriggerCheck* check) {
     PosYX yx(check->data[0], check->data[1]);
-    Unit* unit = this->field24_0xa50->sub_58CB5A(yx.val);
+    Unit* unit = this->field24_0xa50->GetSmallUnitAt(yx.val);
     if (unit != nullptr) {
         this->field24_0xa50->TeleportUnit(unit, check->data[2], check->data[3]);
         this->trigger_variables[check->id] = 1;
