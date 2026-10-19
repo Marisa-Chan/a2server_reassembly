@@ -1727,7 +1727,7 @@ int32_t World::ShouldAutobuff(Unit* caster, Unit* target) {
 
 // Autobuff handler: pick and cast healing/buff spells on self or allies.
 // 5A7B44
-void World::sub_5A7B44(Unit* unit) {
+void World::DoAutobuff(Unit* unit) {
     if (unit->mp < 5) {
         unit->eye2->cast_action = 0;
         return;
@@ -2578,7 +2578,7 @@ void World::sub_5A6B48(Unit* unit, Unit* target) {
             unit->eye2->unit = chosen_target;
             unit->eye2->max_range = this->UnitMaxRange(unit);
             if (unit->IsMage() && unit->eye2->max_range < 2) {
-                this->sub_5A7B44(unit);
+                this->DoAutobuff(unit);
             }
         }
     } else {
@@ -3451,7 +3451,7 @@ void World::sub_5AED8D(Group* group) {
 // 5A6EA5
 void World::IdleSelfBuff(Unit* unit) {
     if (unit->IsMage()) {
-        this->sub_5A7B44(unit);
+        this->DoAutobuff(unit);
     } else {
         unit->eye2->cast_action = 0;
     }
