@@ -544,3 +544,4 @@ NetStru1::sub_51BE0E -> BroadcastEffectMove -- broadcasts the move-cmd packet fo
 NetStru1::sub_51D4F6 -> SendSrvStru1State -- sends the SrvStru1 state list from the packet
 NetStru1::sub_51A8B2 -> SendShopTable -- sends PacketUnitStateVec 0x76 with shop table contents
 NetStru1::sub_51AA26 -> SendShopShelf -- sends a single shop shelf's contents
+NetStru1::sub_51AB99 -> SendShopShelves -- sends a shop instance's shelf contents

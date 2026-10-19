@@ -189,7 +189,7 @@ void NetStru1::SendInfoPacket(uint8_t param_1, int32_t param_2, int32_t param_3,
 }
 
 // 51C7CC
-void NetStru1::sub_51C7CC(int32_t latency, Player* player) {
+void NetStru1::SendLatency(int32_t latency, Player* player) {
     PacketDword& packet = PacketDword::Inst;
     packet.id = 0xc1;
     packet.value = latency;

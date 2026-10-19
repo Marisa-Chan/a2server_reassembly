@@ -172,7 +172,7 @@ public:
     void SendShopShelves(CMultiShopInstance* inst, Player* player, int32_t param); // 51AB99 - send shop shelf contents
     void UpdateConnStats();
 
-    void sub_51C7CC(int32_t latency, Player* player);  // Send latency update to player
+    void SendLatency(int32_t latency, Player* player);  // Send latency update to player
     void sub_51CD2A(Player* player, int32_t event_id, int32_t arg3); // Send in-game event trigger
     void sub_51CDFB(CString& name, uint32_t score, char type, Player* player); // 51CDFB - send arena score
 

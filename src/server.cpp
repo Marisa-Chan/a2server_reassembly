@@ -2604,7 +2604,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                     NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(player->player_id);
                     if (ns2 != nullptr) {
                         g_CLlDriver.SetLatency(ns2->uid, lat);
-                        g_NetStru1_main.sub_51C7CC(lat, player);
+                        g_NetStru1_main.SendLatency(lat, player);
                     }
                 }
             } else if (cheat_string.Find("#show latency") == 0) {

@@ -2512,7 +2512,7 @@ int32_t BigStruct2::FUN_0040d7f3() {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
 	if (wnd->sessionMode == 0) {
-		g_NetStru1_local.sub_51C7CC(g_CmdLatency, 0);
+		g_NetStru1_local.SendLatency(g_CmdLatency, 0);
 
 		NetStru2* conn = g_NetStru1_local.GetFirstClient();
 		if (conn) {
