@@ -263,7 +263,7 @@ void World::sub_5A3AD6(Unit* unit, UnitList* pList) {
 // Removes units where diplomacy&1 == flag, and invisible units
 // that no member of unit's group can see.
 // 5A3896
-void World::sub_5A3896(Unit* unit, UnitList* list, int32_t flag) {
+void World::FilterByRelation(Unit* unit, UnitList* list, int32_t flag) {
     if (list == nullptr) {
         return;
     }
@@ -342,7 +342,7 @@ void World::sub_5A39AD(Unit* unit, UnitList* list) {
 UnitList* World::GetNearbyEnemies(Unit* caster, PosYX yx) {
     uint8_t range = caster->eye->field7_0x8;
     UnitList* list = this->field24_0xa50->sub_5897AA(yx, range);
-    this->sub_5A3896(caster, list, 0);
+    this->FilterByRelation(caster, list, 0);
     return list;
 }
 
@@ -351,7 +351,7 @@ UnitList* World::GetNearbyEnemies(Unit* caster, PosYX yx) {
 UnitList* World::GetNearbyAllies(Unit* caster, PosYX yx) {
     uint8_t range = caster->eye->field7_0x8;
     UnitList* list = this->field24_0xa50->sub_5897AA(yx, range);
-    this->sub_5A3896(caster, list, 1);
+    this->FilterByRelation(caster, list, 1);
     return list;
 }
 
@@ -508,7 +508,7 @@ void World::ScanNearbyUnits(Group* group) {
     }
 
     Unit* head = group->unit_list.GetHead();
-    this->sub_5A3896(head, &this->field26_0xa64, 0);
+    this->FilterByRelation(head, &this->field26_0xa64, 0);
     this->sub_5A3C5F();
 
     if (this->field26_0xa64.unit_list.GetCount() == 0 && this->field27_0xa84.unit_list.GetCount() != 0) {
@@ -1510,7 +1510,7 @@ void World::sub_5AAC17(Unit* unit) {
         }
     }
 
-    this->sub_5A3896(unit, &this->field26_0xa64, 0);
+    this->FilterByRelation(unit, &this->field26_0xa64, 0);
     this->sub_5A3C5F();
 
     if (this->field26_0xa64.unit_list.GetCount() == 0 && this->field27_0xa84.unit_list.GetCount() != 0) {
@@ -2438,7 +2438,7 @@ void World::BuildTargetLists(Unit* unit) {
         }
     }
 
-    this->sub_5A3896(unit, &this->field26_0xa64, 0);
+    this->FilterByRelation(unit, &this->field26_0xa64, 0);
     this->sub_5A3C5F();
 
     if (this->field26_0xa64.unit_list.GetCount() == 0 && this->field27_0xa84.unit_list.GetCount() != 0) {
@@ -3659,7 +3659,7 @@ void World::DoTeleportHome(Unit* unit) {
     uint8_t range = unit->eye->field7_0x8 + 5;
     PosYX pos = unit->position->GetYX();
     UnitList* list = this->field24_0xa50->sub_5897AA(pos, range);
-    this->sub_5A3896(unit, list, 0);
+    this->FilterByRelation(unit, list, 0);
 
     uint8_t count = 0;
     if (list != nullptr) {
@@ -3727,7 +3727,7 @@ void World::sub_5A8DBC(Unit* unit) {
     uint8_t range = (unit->scan_range >> 8) - 1;
     PosYX pos = unit->position->GetYX();
     UnitList* list = this->field24_0xa50->sub_5897AA(pos, 2);
-    this->sub_5A3896(unit, list, 0);
+    this->FilterByRelation(unit, list, 0);
     if (list->unit_list.GetCount() == 0) {
         this->DoGuardScan(unit);
     } else {
@@ -3761,7 +3761,7 @@ int32_t World::sub_5A89D5(Unit* unit) {
     uint8_t range = unit->eye->field7_0x8 + 5;
     PosYX yx = unit->position->CompatGetYX();
     UnitList* list = this->field24_0xa50->sub_5897AA(yx, range);
-    this->sub_5A3896(unit, list, 0);
+    this->FilterByRelation(unit, list, 0);
     return list->unit_list.GetCount() != 0 ? 1 : 0;
 }
 
@@ -3775,7 +3775,7 @@ int32_t World::sub_5A8BDA(Unit* unit) {
 
     PosYX yx = unit->position->CompatGetYX();
     UnitList* list = this->field24_0xa50->sub_5897AA(yx, 2);
-    this->sub_5A3896(unit, list, 0);
+    this->FilterByRelation(unit, list, 0);
     return list->unit_list.GetCount() != 0 ? 1 : 0;
 }
 
@@ -3790,7 +3790,7 @@ void World::sub_5A8CD8(Unit* unit) {
 
     PosYX pos = unit->position->GetYX();
     UnitList* list = this->field24_0xa50->sub_5897AA(pos, 2);
-    this->sub_5A3896(unit, list, 0);
+    this->FilterByRelation(unit, list, 0);
     if (list->unit_list.GetCount() == 0) {
         this->DoGuardScan(unit);
     } else {
@@ -3888,7 +3888,7 @@ UnitList* World::sub_5A3791(Unit* unit) {
 // 5A37C5
 UnitList* World::GetNearbyUnits(Unit* unit) {
     UnitList* list = this->sub_5A3791(unit);
-    this->sub_5A3896(unit, list, 0);
+    this->FilterByRelation(unit, list, 0);
     this->sub_5A3DC9(unit, list);
     return list;
 }
