@@ -192,7 +192,7 @@ Server::~Server() {
 }
 
 // 4F465E
-void Server::sub_4F465E() {
+void Server::AnnounceHatGameStart() {
     if (g_CLlDriver.provider != 4) {
         return;
     }
@@ -206,7 +206,7 @@ void Server::sub_4F465E() {
 
 // 4F1E2A
 void Server::ProcessPlayers() {
-    this->sub_4F465E();
+    this->AnnounceHatGameStart();
     this->field16_0x8c = 1;
 
     // First pass: handle each human player's main unit (shop/inn departure, decay respawn).
