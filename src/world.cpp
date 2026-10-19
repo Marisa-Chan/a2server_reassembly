@@ -2080,7 +2080,7 @@ void World::ScriptOP_0x06(TriggerAction* action) {
             this->GroupMoveCommand(group, action->data[1], action->data[2]);
             break;
         case 5: // Swarm 2 (x=data[1], y=data[2])
-            this->sub_5AC507(group, action->data[1], action->data[2]);
+            this->GroupSwarmCommand(group, action->data[1], action->data[2]);
             break;
         case 10: // Attack (victim=action->unit)
             this->sub_5AC80F(group, action->unit);
@@ -2835,7 +2835,7 @@ void World::GroupMoveCommand(Group* group, uint8_t x, uint8_t y) {
 
 // Group swarm command. Same as move, but mode is 5.
 // 5AC507
-void World::sub_5AC507(Group* group, uint8_t x, uint8_t y) {
+void World::GroupSwarmCommand(Group* group, uint8_t x, uint8_t y) {
     this->GroupMoveCommand(group, x, y);
     group->group_sub->order = 5;
 }
@@ -3054,7 +3054,7 @@ void World::OrderEnterBuilding(Unit* unit, Building* building) {
 
 // 5AC881
 void World::sub_5AC881(Group* group, uint8_t x, uint8_t y) {
-    this->sub_5AC507(group, x, y);
+    this->GroupSwarmCommand(group, x, y);
 }
 
 // 5AF683
