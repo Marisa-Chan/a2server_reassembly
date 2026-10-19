@@ -230,7 +230,7 @@ public:
     int32_t RemoveBuilding(class Building* building); // Remove building from map
     int32_t PlaceBuilding(class Building* building); // Place building on the map
     int SetCellBuilding(Building* building, uint16_t yx); // 5943D0 — set building pointer in cell state at yx
-    int sub_595438(AreaEffect* ae, uint8_t x, uint8_t y); // Check if area effect can be applied at (x, y) — 595438
+    int CanApplyAreaEffect(AreaEffect* ae, uint8_t x, uint8_t y); // Check if area effect can be applied at (x, y) — 595438
     uint8_t FacingDiff(uint8_t a, uint8_t b); // 595561 — smallest angular difference between two facing bytes.
     AreaEffect* sub_5953CB(AreaEffect* ae, uint16_t coord);  // Check if area effect covers cell coord — 5953CB
     Unit* sub_58CA1B(PosYX yx); // Get unit at map coordinate yx — 58CA1B

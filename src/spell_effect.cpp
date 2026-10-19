@@ -575,7 +575,7 @@ void AreaEffect::ProcessEffects() {
 		int32_t radius = this->radius;
 		for (int32_t dx = -radius; dx <= radius; dx++) {
 			for (int32_t dy = -radius; dy <= radius; dy++) {
-				if (MapStuff_Instance->sub_595438(this, x + dx, y + dy)) {
+				if (MapStuff_Instance->CanApplyAreaEffect(this, x + dx, y + dy)) {
 					uint16_t yx = ((y + dy) << 8) | (x + dx);
 					Unit* unit = MapStuff_Instance->sub_58CA1B(yx);
 					this->sub_53831D(unit);
