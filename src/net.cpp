@@ -346,7 +346,7 @@ void NetStru1::sub_51BE8F(AreaEffect* obj, int32_t flag) {
                 }
             }
         }
-        packet.field_0xf = (uint8_t)flag;
+        packet.set_flag = (uint8_t)flag;
         packet.type_id = (uint8_t)obj->typeId;
         packet.to_player_id = 0;
         this->sub_51B638(&packet, obj);
@@ -4206,7 +4206,7 @@ void NetStru1::sub_51B638(PacketAoeZone* packet, AreaEffect* area_effect) {
         } else {
             auto pid = player->player_id;
             if (pid >= 0x10 && pid < 0x20) {
-                if (packet->field_0xf != 0) {
+                if (packet->set_flag != 0) {
                     area_effect->field6_0x46 |= player->vision_sharing_id;
                 } else if ((area_effect->field6_0x46 & player->vision_sharing_id) == 0) {
                     this->QueuePacketSend(packet);
@@ -4228,7 +4228,7 @@ void NetStru1::sub_51B638(PacketAoeZone* packet, AreaEffect* area_effect) {
         } else {
             auto pid = player->player_id;
             if (pid >= 0x10 && pid < 0x20) {
-                if (packet->field_0xf != 0) {
+                if (packet->set_flag != 0) {
                     area_effect->field6_0x46 |= player->vision_sharing_id;
                 } else if ((area_effect->field6_0x46 & player->vision_sharing_id) == 0) {
                     packet->to_player_id = player->player_id;

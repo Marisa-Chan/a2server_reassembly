@@ -1503,8 +1503,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							packet_aoe->field_0xe,
 							(packet_aoe->type_id / 2) - 4,
 							packet_aoe->data,
-							packet_aoe->field_0xf);
-			if (packet_aoe->field_0xf == 0) {
+							packet_aoe->set_flag);
+			if (packet_aoe->set_flag == 0) {
 				this->field_0xe0 = 1;
 			}
 			break;

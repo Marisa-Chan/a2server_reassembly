@@ -28,3 +28,4 @@ PacketMoveCmd::field_0xe -> y -- target tile y (high byte of target unit id for 
 PacketMoveCmd::field_0xf -> segments -- projectile animation segments / cast delay (client stores to pj->action_segments)
 PacketEffect::field_0xa -> unit_id -- unit the effect plays on
 PacketAoeZone::field_0xa -> type_id -- AoE effect type id
+PacketAoeZone::field_0xf -> set_flag -- nonzero = mark zone cells as affected, 0 = unmark them
