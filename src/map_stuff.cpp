@@ -2859,7 +2859,7 @@ void Scenario::UpdateTerrainShading(int32_t x, int32_t y, uint32_t w, uint32_t h
 }
 
 // 4a7b79
-double Scenario::FUN_004a7b79() {
+double Scenario::GetRenderSunAngle() {
     double result;
     if (this->inv_sun_angle >= 0.0 || this->inv_sun_angle <= -0.05) {
         if (this->inv_sun_angle <= 0.0 || this->inv_sun_angle >= 0.05) {

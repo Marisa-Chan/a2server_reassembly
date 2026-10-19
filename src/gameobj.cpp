@@ -1781,7 +1781,7 @@ void CUnit::Draw(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     BigStruct2* map = this->pMapObject;
 
-    int32_t sun_angle = (int32_t)(std::tan(this->pMapObject->field_0x80->FUN_004a7b79()) * 65536.0);
+    int32_t sun_angle = (int32_t)(std::tan(this->pMapObject->field_0x80->GetRenderSunAngle()) * 65536.0);
     (void)sun_angle; // computed but never used in the original binary
 
     UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
@@ -1996,7 +1996,7 @@ void CUnit::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
 
     BigStruct2* map = this->pMapObject;
 
-    int32_t sun_angle = (int32_t)(std::tan(map->field_0x80->FUN_004a7b79()) * 65536.0);
+    int32_t sun_angle = (int32_t)(std::tan(map->field_0x80->GetRenderSunAngle()) * 65536.0);
 
     UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
     int32_t file_idx = vfx->file;
@@ -2115,7 +2115,7 @@ void CUnit::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
         if (this->sprite->GetFrameCount() <= frame) {
             return;
         }
-        int32_t shadow_offset = (int32_t)(std::tan(map->field_0x80->FUN_004a7b79()) * (this->sprite->GetHeight(frame) / 2 + draw_vfx->height / 2 - draw_vfx->center_y));
+        int32_t shadow_offset = (int32_t)(std::tan(map->field_0x80->GetRenderSunAngle()) * (this->sprite->GetHeight(frame) / 2 + draw_vfx->height / 2 - draw_vfx->center_y));
         int32_t cx = draw_vfx->center_x - draw_vfx->width / 2 + this->sprite->GetWidth(frame) / 2;
         int32_t cy = draw_vfx->center_y - draw_vfx->height / 2 + this->sprite->GetHeight(frame) / 2;
         int32_t x = this->centerScreenX - cx - shadow_offset;
@@ -2137,7 +2137,7 @@ void CUnit::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
         }
     } else {
         UnitGfxFile* gfx_file = g_UnitGfxFiles[file_idx];
-        int32_t shadow_offset = (int32_t)(std::tan(map->field_0x80->FUN_004a7b79()) * (gfx_file->FUN_0046f700()->GetHeight(frame) / 2 + draw_vfx->height / 2 - draw_vfx->center_y));
+        int32_t shadow_offset = (int32_t)(std::tan(map->field_0x80->GetRenderSunAngle()) * (gfx_file->FUN_0046f700()->GetHeight(frame) / 2 + draw_vfx->height / 2 - draw_vfx->center_y));
         int32_t is_air = this->IsKindOf(RUNTIME_CLASS(CAirUnit));
         int32_t cx = draw_vfx->center_x - draw_vfx->width / 2 + gfx_file->FUN_0046f700()->GetWidth(frame) / 2;
         int32_t cy = draw_vfx->center_y - draw_vfx->height / 2 + gfx_file->FUN_0046f700()->GetHeight(frame) / 2;
@@ -3879,7 +3879,7 @@ void CStructure::DrawHealthBar(int32_t arg1, int32_t arg2, int32_t arg3) {
 void CStructure::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) {
     BigStruct2* map = this->pMapObject;
 
-    int32_t sun_angle = (int32_t)(std::tan(map->field_0x80->FUN_004a7b79()) * 65536.0);
+    int32_t sun_angle = (int32_t)(std::tan(map->field_0x80->GetRenderSunAngle()) * 65536.0);
 
     StructureInfo* info = g_StructuresInfo[this->typeId];
     int32_t x_offset = (arg1 + map->view_x) - this->tileX;
@@ -3923,7 +3923,7 @@ void CStructure::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) {
             }
         }
 
-        int32_t shadow_offset = (int32_t)(std::tan(map->field_0x80->FUN_004a7b79()) * ((info->full_height - row) * 32.0 - info->shadow_y));
+        int32_t shadow_offset = (int32_t)(std::tan(map->field_0x80->GetRenderSunAngle()) * ((info->full_height - row) * 32.0 - info->shadow_y));
 
         info->GetSprite()->VMethod11(x + shadow_offset, y, frame, g_DeltaCLR.shade_delta, sun_angle, 0);
         if (g_settings.Smoothing != 0) {
@@ -4268,10 +4268,10 @@ CHorisontalWoodenBridge::CHorisontalWoodenBridge(int32_t width, int32_t height) 
 
 // 46295a
 void CBackPack::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) {
-    int32_t sun_angle = (int32_t)(std::tan(this->pMapObject->field_0x80->FUN_004a7b79()) * 65536.0);
+    int32_t sun_angle = (int32_t)(std::tan(this->pMapObject->field_0x80->GetRenderSunAngle()) * 65536.0);
 
     int32_t half_height = g_spr_backpack->GetHeight(0) / 2;
-    int32_t shadow_offset = (int32_t)(std::tan(this->pMapObject->field_0x80->FUN_004a7b79()) * half_height);
+    int32_t shadow_offset = (int32_t)(std::tan(this->pMapObject->field_0x80->GetRenderSunAngle()) * half_height);
 
     int32_t half_width = g_spr_backpack->GetWidth(0) / 2;
     int32_t half_height2 = g_spr_backpack->GetHeight(0) / 2;

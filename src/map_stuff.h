@@ -359,7 +359,7 @@ public:
     uint8_t* FUN_0041eee0() const { return this->overlay_map; }; //41eee0
     int32_t sub_41EF60(int32_t x, int32_t y); //41ef60
 
-    double FUN_004a7b79(); //4a7b79
+    double GetRenderSunAngle(); //4a7b79
 
     void UpdateTerrainShading(int32_t x, int32_t y, uint32_t w, uint32_t h); //4a952b
 public:

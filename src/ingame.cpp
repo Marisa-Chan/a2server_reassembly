@@ -5530,7 +5530,7 @@ void BigStruct2::sub_406F7B() {
 			if (gfxb != 0 && x > -4 && y > -4 && x < this->view_tiles_x + 3 && y < this->view_tiles_y + 4) {
 				int32_t gidx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
 				uint8_t light2 = this->tile_light[gidx];
-				int32_t tanval = (int32_t)(tan(this->field_0x80->FUN_004a7b79()) * 65536.0);
+				int32_t tanval = (int32_t)(tan(this->field_0x80->GetRenderSunAngle()) * 65536.0);
 				uint32_t hgt2 = this->height_cells[x + 4 + (y + 4) * (this->view_tiles_x + 8)];
 				gfxb--;
 				if (this->sub_40B173(gfxb, x, y, hgt2) == 0) {
@@ -5559,7 +5559,7 @@ void BigStruct2::sub_406F7B() {
 						frame = 0;
 					}
 					CSprite256* spr = g_GfxFiles[file]->sub_41F870();
-					int32_t yoff = (int32_t)(tan(this->field_0x80->FUN_004a7b79()) *
+					int32_t yoff = (int32_t)(tan(this->field_0x80->GetRenderSunAngle()) *
 						(double)((spr->GetHeight(frame) / 2 + gobj->height / 2) - gobj->center_y));
 					int32_t cx = (gobj->center_x - gobj->width / 2) + spr->GetWidth(0) / 2;
 					int32_t cy = (gobj->center_y - gobj->height / 2) + spr->GetHeight(0) / 2;
