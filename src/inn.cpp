@@ -229,7 +229,7 @@ void Inn::InnCreateQuests(Player* player) {
             POSITION upos = p->unit_list->unit_list.GetHeadPosition();
             while (upos) {
                 Unit* u = p->unit_list->unit_list.GetNext(upos);
-                if (!u || !u->field_0x194) {
+                if (!u || !u->quest_kill_mark) {
                     continue;
                 }
 

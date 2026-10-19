@@ -200,7 +200,7 @@ public:
     uint8_t gap_0x14e[2];
     uint32_t item_op_dirty_flags; // per-item-operation dirty/update flags
     uint32_t something_per_player[16];
-    int32_t field_0x194;
+    int32_t quest_kill_mark;
     int32_t field_0x198;
     int32_t field_0x19c;
     uint32_t summoned; // Summoned or raised from the dead units have this set to 1.

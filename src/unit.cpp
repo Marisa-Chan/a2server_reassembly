@@ -638,7 +638,7 @@ void Unit::VMethod11(Unit* unit) {
         this->token_pos = new TokenPos();
     }
 
-    this->field_0x194 = unit->field_0x194;
+    this->quest_kill_mark = unit->quest_kill_mark;
     this->field_0x198 = unit->field_0x198;
     this->field_0x19c = unit->field_0x19c;
     this->field_0x204 = unit->field_0x204;
@@ -1769,7 +1769,7 @@ void Unit::FUN_0052931b(const CString& str) {
     this->name = ""; // Originally it was set to `byte_70B460`, which was never populated, so it's always an empty string.
     this->last_action_tick = 0;
     this->summon_id = 0;
-    this->field_0x194 = 0;
+    this->quest_kill_mark = 0;
     this->field_0x198 = 0;
     this->field_0x19c = 0;
     this->summoned = 0;

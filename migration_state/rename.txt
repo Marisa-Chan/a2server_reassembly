@@ -79,3 +79,4 @@ Player::field_0xa94 -> afk_notify_tick -- next AFK countdown-notify deadline (5s
 Player::field_0xa98 -> gm_level -- cheat/GM privilege (>50 unlocks elevated commands, 0xFF = granted, revoked by other GMs)
 Unit::field_0x136 -> attack_ready -- attack/spell cycle complete flag: cleared on windup start, set again after the post-attack countdown
 Unit::field_0x150 -> item_op_dirty_flags -- per-item-operation dirty/update bitmask (was already described by its comment)
+Unit::field_0x194 -> quest_kill_mark -- unit template flag (flags2&1): eligible as kill-quest target in inn quest generation
