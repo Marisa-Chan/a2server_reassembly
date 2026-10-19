@@ -1216,7 +1216,7 @@ Effect* Unit::FindEnchantment(uint16_t effect_id) {
 }
 
 // 52A215
-void Unit::sub_52A215() {
+void Unit::InitDefaultStats() {
     this->state = 0x0B;
     this->body = 30;
     this->reaction = 30;
@@ -1777,7 +1777,7 @@ void Unit::InitDefaults(const CString& str) {
     this->seen_by_mask_prev = 0;
     this->ownership_changed = 0;
     memset(this->something_per_player, 0, 0x40);
-    this->sub_52A215();
+    this->InitDefaultStats();
     if (!str.IsEmpty()) {
         this->sub_52F601(str);
     }
