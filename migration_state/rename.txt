@@ -312,3 +312,4 @@ Unit::sub_52C813 -> CancelQueuedSpell -- aborts a previously queued castspell mo
 Unit::sub_52D8D3 -> CreateSackFromInventory -- creates a sack from this unit's inventory and money
 Unit::sub_52C4DF -> AddHp -- adds HP clamped to hp_max, triggers regen notification when newly positive
 Unit::sub_52BF3D -> PlaceOnMap -- places the unit footprint on the map; nonzero on success
+Unit::sub_528725 -> GetRightXx -- east edge x of the footprint in subcells

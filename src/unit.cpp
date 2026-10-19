@@ -133,7 +133,7 @@ Unit::~Unit() {
 // 5364D5
 int16_t __cdecl sub_5364D5(Unit* self, Unit* target) {
     int32_t dx = abs(self->GetRightXx() - target->GetRightXx());
-    int32_t dy = abs(self->sub_528763() - target->sub_528763());
+    int32_t dy = abs(self->GetBottomYy() - target->GetBottomYy());
     int32_t dist = (std::max)(dx, dy);
     dist -= (self->GetTokenSize() + target->GetTokenSize()) * 0x80 - 0x100;
     if (dist <= 0x180) {
@@ -1594,7 +1594,7 @@ uint16_t Unit::GetRightXx() {
 }
 
 // 528763
-uint16_t Unit::sub_528763() {
+uint16_t Unit::GetBottomYy() {
     return this->position->GetYy() + ((this->GetTokenSize() & 0xFF) - 1) * 0x80;
 }
 

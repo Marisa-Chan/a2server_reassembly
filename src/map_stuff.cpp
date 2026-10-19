@@ -315,7 +315,7 @@ uint8_t MapStuff::ClassifyFacing16(int32_t dx, int32_t dy) {
 // 591424
 uint8_t MapStuff::sub_591424(Unit* unit, Unit* target) {
     int32_t dx = target->GetRightXx() - unit->GetRightXx();
-    int32_t dy = target->sub_528763() - unit->sub_528763();
+    int32_t dy = target->GetBottomYy() - unit->GetBottomYy();
     return this->ClassifyFacing16(dx, dy);
 }
 
@@ -2341,7 +2341,7 @@ void MapStuff::sub_5893C6(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
 // 592831
 uint8_t MapStuff::sub_592831(Unit* target, Unit* unit) {
     int32_t dx = unit->GetRightXx() - target->GetRightXx();
-    int32_t dy = unit->sub_528763() - target->sub_528763();
+    int32_t dy = unit->GetBottomYy() - target->GetBottomYy();
     return this->ClassifyDirection16(dx, dy);
 }
 
@@ -2357,7 +2357,7 @@ uint16_t MapStuff::sub_592A48(Unit* unit, Unit* target) {
     int32_t quadrant = (((direction + 2) & 0xC) >> 2) + 4; // 4..7
     
     float dx = (int32_t)target->GetRightXx() - unit->GetRightXx();
-    float dy = (int32_t)target->sub_528763() - unit->sub_528763();
+    float dy = (int32_t)target->GetBottomYy() - unit->GetBottomYy();
 
     float slope;
     int32_t intercept;
@@ -2367,11 +2367,11 @@ uint16_t MapStuff::sub_592A48(Unit* unit, Unit* target) {
             dx = 1.0f;
         }
         slope = dy / dx;
-        intercept = target->sub_528763() - target->GetRightXx() * slope;
+        intercept = target->GetBottomYy() - target->GetRightXx() * slope;
     } else {
         // Quadrants 4,6: line expressed as X = slope*Y + intercept.
         slope = dx / dy;
-        intercept = target->GetRightXx() - target->sub_528763() * slope;
+        intercept = target->GetRightXx() - target->GetBottomYy() * slope;
     }
 
     uint16_t best_cost = 0xFFFF;
