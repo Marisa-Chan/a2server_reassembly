@@ -438,7 +438,7 @@ int Item::IsSimilar(Item* other) {
         Effect* e1 = this->_effects.GetNext(pos1);
         Effect* e2 = other->_effects.GetNext(pos2);
 
-        if (!e1->sub_53EDB0(e2)) {
+        if (!e1->Matches(e2)) {
             return 0;
         }
     }

@@ -40,7 +40,7 @@ public:
     static int32_t AtoI(CString* str); // 5419C3
     static int32_t ParseUsage(CString* str, int32_t* out_value); // 541A5D
 
-    int sub_53EDB0(Effect* other); // Returns true if both effects have matching effect_id, usage_type, and spell values
+    int Matches(Effect* other); // Returns true if both effects have matching effect_id, usage_type, and spell values
     int32_t sub_541FD7(int32_t budget, int32_t magic_volume); // Compute effect level from budget and magic volume
     int32_t EffectPrice(); // 540941
     static int64_t MagicPriceBonus(int32_t total); // 540A33

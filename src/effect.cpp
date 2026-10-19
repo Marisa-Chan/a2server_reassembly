@@ -48,7 +48,7 @@ void Effect::ApplyToUnit(Unit* unit) {
 
 
 // 53EDB0
-int Effect::sub_53EDB0(Effect* other) {
+int Effect::Matches(Effect* other) {
     return this->effect_id == other->effect_id &&
            usage_type == other->usage_type &&
            this->spell_or_damage == other->spell_or_damage &&
