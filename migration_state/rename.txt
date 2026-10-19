@@ -328,3 +328,4 @@ Humanoid::sub_53116B -> ReviveWithPenalty -- revive with penalties: skills set t
 Humanoid::sub_531418 -> RecalcExperienceFromSkills -- recomputes experience from skill levels
 Humanoid::sub_530231 -> CopyFrom -- copies stats and equipment from another humanoid
 Humanoid::sub_533345 -> InitCreationSkills -- character creation: set skills and give initial weapon
+Humanoid::sub_532dde -> ApplyHumanInfo -- copies HumanInfoData stats onto the humanoid

@@ -119,7 +119,7 @@ void TokenPos::SetCoords2(uint16_t Xx, uint16_t Yy) {
 	this->y_subcell = Yy & 0xff;
 }
 
-void TokenPos::FUN_00594200() { // 594200
+void TokenPos::FixupInstance() { // 594200
 	if (!this->pInstance) {
 		return;
 	}
@@ -237,7 +237,7 @@ int32_t Token::GetMovementType() {
 
 void Token::FixupPointers() {
 	// 55af48
-	this->position->FUN_00594200();
+	this->position->FixupInstance();
 }
 
 int32_t Token::IsItem() {
