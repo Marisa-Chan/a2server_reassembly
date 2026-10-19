@@ -1321,7 +1321,7 @@ void World::sub_5AA581(Unit* target, Unit* attacker, int32_t param_4) {
 // 5AAA89
 void World::sub_5AAA89(Unit* unit) {
     if (unit != unit->eye2->unit5 && this->field24_0xa50->sub_58FE6D(unit, unit->eye2->unit5, unit->eye2->max_range) == 0) {
-        this->sub_5AA91B(unit, unit->eye2->unit5);
+        this->StepTowardUnit(unit, unit->eye2->unit5);
         unit->some_state = 1;
     } else {
         this->sub_5AA7CF(unit);
@@ -1357,7 +1357,7 @@ void World::sub_5A9B6B(Unit* unit) {
             this->StartAttack(unit);
             break;
         case 4:
-            this->sub_5AA91B(unit, unit->eye2->unit3);
+            this->StepTowardUnit(unit, unit->eye2->unit3);
             break;
         case 5:
             this->sub_5AA97E(unit);
@@ -2738,7 +2738,7 @@ void World::sub_5AA8ED(Unit* unit) {
 
 // Set unit to pursue `target`; if not centered in a cell, mark it for movement.
 // 5AA91B
-void World::sub_5AA91B(Unit* unit, Unit* target) {
+void World::StepTowardUnit(Unit* unit, Unit* target) {
     this->field24_0xa50->sub_59028D(unit, target, unit->eye2->max_range);
     if (!unit->position->IsAtCellCenter()) {
         unit->eye2->field4_0x9 = 3;
@@ -3328,7 +3328,7 @@ void World::OrderGuardPosition(Unit* unit) {
 // 5AA97E
 void World::sub_5AA97E(Unit* unit) {
     if (this->field24_0xa50->sub_58FE6D(unit, unit->eye2->unit, this->UnitMaxRange(unit)) == 0) {
-        this->sub_5AA91B(unit, unit->eye2->unit);
+        this->StepTowardUnit(unit, unit->eye2->unit);
         unit->some_state = 1;
     } else {
         this->StartAttack(unit);
