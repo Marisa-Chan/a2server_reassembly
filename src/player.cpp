@@ -32,7 +32,7 @@ Player::Player() {
     this->field_0x20 = -10000;
     this->vision_sharing_id = 0;
     this->is_in_world = 0;
-    this->field_0x42 = 0;
+    this->is_logged_in = 0;
     this->field_0x43 = 0;
     this->deaths = 0;
     this->frags = 0;
@@ -220,7 +220,7 @@ void Player::sub_534B59() {
 void Player::FUN_00534778() {
     //534778
     this->field_0x43 = 0;
-    this->field_0x42 = 0;
+    this->is_logged_in = 0;
     this->field_0xa50 = g_Server->tick16;
 }
 

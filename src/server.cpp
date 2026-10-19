@@ -1794,7 +1794,7 @@ void Server::FUN_004ff439(Player* player, int32_t arg4) {
 
     int slot = (arg4 >> 8) & 0xFF;
     player->field_0xa50 = 0;
-    player->field_0x42 = 1;
+    player->is_logged_in = 1;
 
     auto main_unit = player->main_unit;
     int phased_in = ((main_unit->unit_attrs & 8) != 0) ? 1 : 0;
@@ -1828,7 +1828,7 @@ void Server::FUN_004ff439(Player* player, int32_t arg4) {
     while (node != nullptr) {
         Player* target = g_PlayersList->list.GetNext(node);
         if (target != nullptr) {
-            if (target->is_ai == 0 && target->field_0x42 != 0) {
+            if (target->is_ai == 0 && target->is_logged_in != 0) {
                 bool should_send = true;
                 if (target != player) {
                     #ifdef A2SERVER_PATCH
@@ -2092,7 +2092,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     unit->name = name;
     player->is_ai = 0;
     player->field_0xa50 = this->tick16 + 300;
-    player->field_0x42 = 0;
+    player->is_logged_in = 0;
 
     // Team game flags.
     if (g_ServerConfig.gameType == 2) {
@@ -4213,7 +4213,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
 
     client->player_id = player->player_id;
 
-    player->field_0x42 = 1;
+    player->is_logged_in = 1;
 
     if (some_id == 0 && player_not_exist) {
         for (int i = 0; i < 16; i++) {
@@ -6099,7 +6099,7 @@ void Server::sub_5090FA(Player* player) {
         if (player->main_unit == nullptr || player->main_unit->decay != 0) {
             player->mission_result = 2;
             g_NetStru1_main.FUN_0051cefb(0xB4, player->mission_result, 0, player);
-            if (player->field_0x42 != 0 && this->field4_0x74 == 0) {
+            if (player->is_logged_in != 0 && this->field4_0x74 == 0) {
                 g_NetStru1_main.FUN_0051cefb(0xB4, 0, 0, player);
             }
         } else if (g_World->mission_fail > 0) {

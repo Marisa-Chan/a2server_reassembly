@@ -2014,7 +2014,7 @@ void MainWindow::sub_484259() { //484259
         Player* pl = g_PlayersList->list.GetNext(it);
         if (pl->is_ai == 0) {
             CString s = pl->name;
-            if (pl->field_0x42 == 0) {
+            if (pl->is_logged_in == 0) {
                 s = "(-)" + s;
             }
             OemToCharA(s, buf);
