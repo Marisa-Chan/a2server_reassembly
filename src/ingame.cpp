@@ -1061,7 +1061,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					this->msglog.Add(buf, clrsh_TechBlack, 5000);
 				}
 			} else {
-				if (this->flying_hp && packet_ping->field_0xc < ct->hp) {
+				if (this->flying_hp && packet_ping->hp < ct->hp) {
 					bool not_me = ct->map_player != this->my_main_unit;
 
 					int32_t a = ct->VMethod4();
@@ -1071,9 +1071,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						dx = -dx;
 					}
 
-					TakeDamage::AddDamage(&this->damage_labels, TakeDamage(ct->hp - packet_ping->field_0xc, nullptr, not_me, dx, a * -48, ct) );
+					TakeDamage::AddDamage(&this->damage_labels, TakeDamage(ct->hp - packet_ping->hp, nullptr, not_me, dx, a * -48, ct) );
 				}
-				if (ct->hp == packet_ping->field_0xc) {
+				if (ct->hp == packet_ping->hp) {
 					ct->VMethod25(0);
 				} else if (ct->hp > -10) {
 					if (ct->hp < ct->hp_max / 2) {
@@ -1083,7 +1083,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					}
 				}
 
-				ct->hp = packet_ping->field_0xc;
+				ct->hp = packet_ping->hp;
 				if (this->field_0x138 == ct) {
 					wnd->vis_charinfo->MsgProc(0x408, 0, 0);
 					wnd->vis_sidestatus->MsgProc(0x408, 0, 0);

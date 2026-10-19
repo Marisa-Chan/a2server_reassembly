@@ -658,7 +658,7 @@ public:
     virtual uint32_t GetDataSize() override; // sub_57AE30
 public:
     uint16_t unit_id; // +0xA
-    int16_t field_0xc; // +0xC
+    int16_t hp; // +0xC
 };
 __pragma(pack(pop))
 ASSERT_SIZE(PacketPing, 0xE);
