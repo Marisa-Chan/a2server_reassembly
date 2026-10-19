@@ -195,7 +195,7 @@ public:
     int CanPlaceSack(class Sack* sack); // Check if sack can be placed on map
     void RemoveSack(class Sack* sack); // Remove a sack token from the map
     Sack* GetSackAt(uint16_t param_2, uint16_t param_3); // Look up sack at map position
-    Sack* sub_58E5F3(TokenPos* pos);
+    Sack* GetSackAtPos(TokenPos* pos);
     int sub_590F0A(Unit* unit); // Check if unit can be placed at current position
     int sub_58AD4A(Unit* unit); // Place unit on map at current TokenPos position
     int32_t sub_58AEEF(Unit* unit, uint8_t x, uint8_t y); // Checks whether unit can occupy cell (x,y), triggering any spell tile in the process.

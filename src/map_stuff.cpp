@@ -1710,7 +1710,7 @@ Sack* MapStuff::GetSackAt(uint16_t param_2, uint16_t param_3) {
 }
 
 // 58E5F3
-Sack* MapStuff::sub_58E5F3(TokenPos* pos) {
+Sack* MapStuff::GetSackAtPos(TokenPos* pos) {
     return this->sub_58E611(pos->CompatGetYX());
 }
 

@@ -767,7 +767,7 @@ void Unit::ProcessEffects() {
         break;
 
     case 2: { // Pick up sack.
-            Sack* sack = MapStuff_Instance->sub_58E5F3(this->position);
+            Sack* sack = MapStuff_Instance->GetSackAtPos(this->position);
             if (sack) {
                 g_Server->PrepareSackPickup(sack);
                 MapStuff_Instance->RemoveSack(sack);

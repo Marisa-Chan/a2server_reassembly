@@ -3270,7 +3270,7 @@ void Server::sub_504a96(Packet* pkt) {
 
             // from_type == 3: pickup sack from ground.
             if (from_type == 3) {
-                Sack* sack = MapStuff_Instance->sub_58E5F3(human->position);
+                Sack* sack = MapStuff_Instance->GetSackAtPos(human->position);
                 if (!sack) {
                     LogMessage("Invalid pickup order - no sack there.");
                 } else {
@@ -5761,7 +5761,7 @@ void SackList::ClearSentToMask(Player* player) {
 // 554927
 void SackList::DropInventoryAt(TokenPos* pos, Inventory* inventory, int money, int is_main_player_unit) {
     if (this->DumpInventoryAt(pos, inventory, money, is_main_player_unit)) {
-        Sack* sack = MapStuff_Instance->sub_58E5F3(pos);
+        Sack* sack = MapStuff_Instance->GetSackAtPos(pos);
         g_NetStru1_main.BroadcastTokenState(sack, nullptr, 0);
     }
 }
@@ -5780,7 +5780,7 @@ int32_t SackList::AddSack(Sack* sack) {
 
 // 554460
 int32_t SackList::DumpInventoryAt(TokenPos* pos, Inventory* inventory, int money, int param_5) {
-    Sack* sack = MapStuff_Instance->sub_58E5F3(pos);
+    Sack* sack = MapStuff_Instance->GetSackAtPos(pos);
     
     if (!sack) {
         // No sack exists at this position - create a new one
