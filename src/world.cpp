@@ -1140,7 +1140,7 @@ void World::sub_5B6862(Unit* unit, UnitList* list) {
 // Pick a spell from the caster's spellbook and start casting it at the
 // appropriate target (self, target unit, or target position).
 // 5A6801
-void World::sub_5A6801(Unit* caster, Unit* target, int32_t spell_id) {
+void World::CastKnownSpell(Unit* caster, Unit* target, int32_t spell_id) {
     Spell* spell = caster->spell_book->sub_53DB79(spell_id);
     if (spell == nullptr) {
         return;
@@ -2545,7 +2545,7 @@ void World::sub_5A6B48(Unit* unit, Unit* target) {
 
     if (chosen_spell != 0) {
         if (chosen_spell != spell::teleport) {
-            this->sub_5A6801(unit, target, chosen_spell);
+            this->CastKnownSpell(unit, target, chosen_spell);
             return;
         }
 
@@ -2553,7 +2553,7 @@ void World::sub_5A6B48(Unit* unit, Unit* target) {
         uint16_t unit_yx = unit->position->CompatGetYX();
         uint8_t distance = this->field24_0xa50->sub_593B29(unit_yx, target_yx);
         if (distance > 2) {
-            this->sub_5A6801(unit, target, chosen_spell);
+            this->CastKnownSpell(unit, target, chosen_spell);
             return;
         }
     }
