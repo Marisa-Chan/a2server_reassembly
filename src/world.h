@@ -157,7 +157,7 @@ public:
     void sub_5AC8A2(Group* group, uint8_t range); // Group guard command, range=0 means use world's MinimalGuardRange.
     void sub_5ACAFA(Group* group);
     void sub_5AC983(Group* group, int param); // Place a newly respawned group into the world.
-    void sub_5A930F(Unit* unit, uint8_t x, uint8_t y, Spell* spell); // 5A930F — group area-cast setup (ASM).
+    void OrderAreaCast(Unit* unit, uint8_t x, uint8_t y, Spell* spell); // 5A930F — group area-cast setup (ASM).
     void sub_5AC785(Group* group, uint8_t x, uint8_t y);
     void sub_5ACB9E(Group* group, Unit* target, uint8_t param_3);
     uint32_t sub_5AB719(Group* group); // Compute average position of units in a group.

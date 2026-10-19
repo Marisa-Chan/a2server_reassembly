@@ -2925,7 +2925,7 @@ void World::OrderEngageTarget(Unit* unit, Unit* target) {
 }
 
 // 5A930F — order `unit` to area-cast `spell` at (x, y).
-void World::sub_5A930F(Unit* unit, uint8_t x, uint8_t y, Spell* spell) {
+void World::OrderAreaCast(Unit* unit, uint8_t x, uint8_t y, Spell* spell) {
     this->BeginUnitOrder(unit);
     unit->state = 0xE;
     unit->eye2->field30_0x3c = PosYX(x, y).val;
@@ -3254,7 +3254,7 @@ void World::sub_5AC206(Group* group, uint8_t x, uint8_t y, Spell* spell) {
         if (unit->spell == nullptr) {
             this->ResetUnitToHold(unit);
         } else {
-            this->sub_5A930F(unit, x, y, spell);
+            this->OrderAreaCast(unit, x, y, spell);
         }
         unit->spell = nullptr;
     }
