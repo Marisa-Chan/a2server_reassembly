@@ -176,7 +176,7 @@ void Outpost::sub_543EC3(Group* group) {
             dword_6CDB3C->AddTailId6xxx(unit_original);
             group->AddUnit(unit_original);
             this->pOwner->unit_list->AddTail(unit_original);
-            g_NetStru1_main.sub_519221(unit_original, nullptr, 0x800000fb, 0xffb, 0, 0);
+            g_NetStru1_main.SendUnitUpdate(unit_original, nullptr, 0x800000fb, 0xffb, 0, 0);
         }
 
         unit_original = original_it ? this->units_original.unit_list.GetNext(original_it) : nullptr;

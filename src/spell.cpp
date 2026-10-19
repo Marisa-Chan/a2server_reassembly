@@ -569,7 +569,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 uint8_t corpse_decay = dead_unit->decay;
                 dead_unit->hp = -10001;
                 dead_unit->decay = 5;
-                g_NetStru1_main.sub_519221(dead_unit, nullptr, 1, 0xFFB, 0, 0);
+                g_NetStru1_main.SendUnitUpdate(dead_unit, nullptr, 1, 0xFFB, 0, 0);
                 Player* owner_player = caster->pOwner;
 
                 Unit* unit = nullptr;
@@ -644,7 +644,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 g_World->ProcessAnimateDeadGroup(group);
 
                 MapStuff_Instance->scan_presence_grid.sub_596131();
-                g_NetStru1_main.sub_519221(unit, nullptr, 0xA31FFFFF, 0xFFB, 0, 0);
+                g_NetStru1_main.SendUnitUpdate(unit, nullptr, 0xA31FFFFF, 0xFFB, 0, 0);
                 return;
             }
 
@@ -653,7 +653,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 return;
             }
             MapStuff_Instance->sub_5954AC(caster, local_pos.GetX(), local_pos.GetY());
-            g_NetStru1_main.sub_519221(caster, nullptr, 0x10, 0xFFB, 0, 0);
+            g_NetStru1_main.SendUnitUpdate(caster, nullptr, 0x10, 0xFFB, 0, 0);
             return;
 
         case spell::heal: {
@@ -672,7 +672,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 }
                 target->item_op_dirty_flags = 0;
                 target->AddHp(heal);
-                g_NetStru1_main.sub_519221(target, nullptr, target->item_op_dirty_flags, 0xFFB, 0, 0);
+                g_NetStru1_main.SendUnitUpdate(target, nullptr, target->item_op_dirty_flags, 0xFFB, 0, 0);
                 return;
             }
 
@@ -737,7 +737,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 g_World->GroupGuardCommand(group, 0);
 
                 MapStuff_Instance->scan_presence_grid.sub_596131();
-                g_NetStru1_main.sub_519221(unit, nullptr, 0xA31FFFFF, 0xFFB, 0, 0);
+                g_NetStru1_main.SendUnitUpdate(unit, nullptr, 0xA31FFFFF, 0xFFB, 0, 0);
                 return;
             }
 
@@ -760,11 +760,11 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
                     g_World->RecordUnitHit(caster, target, 0);
                 }
                 target->hp -= drain;
-                g_NetStru1_main.sub_519221(target, nullptr, 1, 0xFFB, 0, 0);
+                g_NetStru1_main.SendUnitUpdate(target, nullptr, 1, 0xFFB, 0, 0);
                 target->last_hit_by = caster;
                 target->last_hit_spell_id = this->spell_id;
                 caster->AddHp(drain);
-                g_NetStru1_main.sub_519221(caster, nullptr, 1, 0xFFB, 0, 0);
+                g_NetStru1_main.SendUnitUpdate(caster, nullptr, 1, 0xFFB, 0, 0);
                 return;
             }
 

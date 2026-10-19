@@ -96,7 +96,7 @@ void QuestInnGlue::VMethod3(Quest* quest) {
         if (item != nullptr) {
             delete item;
         }
-        g_NetStru1_main.sub_519221(player->main_unit, player, 0x202000, 0xFFB, 0, 0);
+        g_NetStru1_main.SendUnitUpdate(player->main_unit, player, 0x202000, 0xFFB, 0, 0);
         player_id = (int32_t)player->player_id;
     }
 

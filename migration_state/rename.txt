@@ -526,3 +526,4 @@ NetStru1::FUN_0051c748 -> SendTickPacket -- sends the 0x64 tick-count packet
 NetStru1::FUN_0051d49b -> AnnouncePlayer -- sends PacketJoin 0x93 announcing a player
 NetStru1::FUN_0051cd89 -> AnnouncePlayerName -- sends PacketJoin 0x91 announcing a player name
 NetStru1::FUN_0051d6b4 -> SendTeamState -- sends PacketData 0xC2 with teams-started state
+NetStru1::FUN_0051cefb -> SendInfoPacket -- queues PacketInfo(id, param1, param2) to a player or broadcast

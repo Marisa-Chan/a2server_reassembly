@@ -99,7 +99,7 @@ void UnitList::ProcessTick() {
 				if ((unit->seen_by_mask & (1 << i)) != 0 && (unit->seen_by_mask_prev & (1 << i)) == 0) {
 					Player* player = g_PlayersList->sub_535B50(i + 16);
 					if (player != NULL) {
-						g_NetStru1_main.sub_519221(unit, player, unit->something_per_player[i], 0xffb, 0, 0);
+						g_NetStru1_main.SendUnitUpdate(unit, player, unit->something_per_player[i], 0xffb, 0, 0);
 					}
 				}
 			}
@@ -244,7 +244,7 @@ void UnitList::ProcessTick() {
 						}
 					}
 					// Knowledge update for killer
-					g_NetStru1_main.sub_519221(unit->last_hit_by, unit->last_hit_by->pOwner, 0x2000000, 0xffb, 0, 0);
+					g_NetStru1_main.SendUnitUpdate(unit->last_hit_by, unit->last_hit_by->pOwner, 0x2000000, 0xffb, 0, 0);
 					// Update kill stats
 					if (unit->server_id != 0 && unit->server_id < 0xa00) {
 						uint8_t* kills = &unit->last_hit_by->pOwner->kill_stats[unit->server_id];
@@ -300,7 +300,7 @@ void UnitList::sub_5561A1() {
 				if ((unit->seen_by_mask & (1 << i)) != 0 && (unit->seen_by_mask_prev & (1 << i)) == 0) {
 					Player* player = g_PlayersList->sub_535B50(i + 16);
 					if (player != NULL) {
-						g_NetStru1_main.sub_519221(unit, player, unit->something_per_player[i], 0xffb, 0, 0);
+						g_NetStru1_main.SendUnitUpdate(unit, player, unit->something_per_player[i], 0xffb, 0, 0);
 					}
 				}
 			}

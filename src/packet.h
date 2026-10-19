@@ -141,7 +141,7 @@ ASSERT_SIZE(PacketTerrain, 0x2000e);
 
 
 // Unit-state update packet (static instance at _unk_6D1180).
-// Built incrementally by sub_519221; the flags_mask records which fields
+// Built incrementally by SendUnitUpdate; the flags_mask records which fields
 // are present and the data[] buffer holds their values.
 __pragma(pack(push, 1))
 class PacketUnitUpdate : public Packet {

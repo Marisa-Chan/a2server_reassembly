@@ -132,14 +132,14 @@ void Effect::VMethod10(Unit* unit) {
     if ((this->usage_type & 2) != 0 && (this->spell_value & 7) == 0) {
         unit->item_op_dirty_flags = 0;
         this->VMethod12(unit);
-        g_NetStru1_main.sub_519221(unit, nullptr, unit->item_op_dirty_flags, 0xffb, 0, 0);
+        g_NetStru1_main.SendUnitUpdate(unit, nullptr, unit->item_op_dirty_flags, 0xffb, 0, 0);
     }
     this->spell_value -= 1;
     if (this->spell_value == 0) {
         if ((this->usage_type & 2) == 0) {
             unit->item_op_dirty_flags = 0;
             this->VMethod13(unit);
-            g_NetStru1_main.sub_519221(unit, nullptr, unit->item_op_dirty_flags, 0xffb, 0, 0);
+            g_NetStru1_main.SendUnitUpdate(unit, nullptr, unit->item_op_dirty_flags, 0xffb, 0, 0);
         }
         unit->enchantments &= ~(1u << (this->itemDataID & 0x1f));
         if (this->itemDataID != 0) {
@@ -183,7 +183,7 @@ void Effect::VMethod11(Unit* unit) {
                 unit->_effects.RemoveAt(found_pos);
             }
             delete counterpart;
-            g_NetStru1_main.sub_519221(unit, nullptr, unit->item_op_dirty_flags, 0xffb, 0, 0);
+            g_NetStru1_main.SendUnitUpdate(unit, nullptr, unit->item_op_dirty_flags, 0xffb, 0, 0);
             return;
         }
     }
@@ -236,7 +236,7 @@ void Effect::VMethod11(Unit* unit) {
             }
         }
     }
-    g_NetStru1_main.sub_519221(unit, nullptr, unit->item_op_dirty_flags, 0xffb, 0, 0);
+    g_NetStru1_main.SendUnitUpdate(unit, nullptr, unit->item_op_dirty_flags, 0xffb, 0, 0);
 }
 
 // 53FA2B

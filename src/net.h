@@ -150,7 +150,7 @@ public:
     void sub_51B99E(Unit* unit, uint8_t angle, uint8_t speed_dir, uint8_t mode);
     void sub_51BA2F(Unit* unit);
     void sub_51C59C(Unit* unit, Unit* target); // Notify clients about unit turning to face its target
-    void sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t param4, int32_t param5, int32_t param6);
+    void SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t param4, int32_t param5, int32_t param6);
 
     void sub_51A0EF(Unit* unit, Player* player, int32_t flags);
     void sub_51A6D5(Unit* unit, Player* player, int32_t param5, int32_t param6);

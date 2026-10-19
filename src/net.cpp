@@ -243,7 +243,7 @@ void NetStru1::sub_51B870(Unit* unit) {
         if (player->is_active && unit->NeedsRefreshFor(player)) {
             unit->position->IsAtCellCenter(); // WAT: Useless call?
             if (unit->IsUnit()) {
-                this->sub_519221(unit, player, 0xFFB, -1, 0, 0);
+                this->SendUnitUpdate(unit, player, 0xFFB, -1, 0, 0);
             } else {
                 this->sub_51AC77(unit, player, 0);
             }
@@ -366,7 +366,7 @@ void NetStru1::sub_51C0F7(Player* player) {
             if (g_Server->field4_0x74 == 0 && 0x16 <= unit->server_id && unit->server_id <= 0x17) {
                 flags |= 0x200000;
             }
-            g_NetStru1_main.sub_519221(unit, player, flags, 0xFFB, 0, 0);
+            g_NetStru1_main.SendUnitUpdate(unit, player, flags, 0xFFB, 0, 0);
         }
     }
 
@@ -380,7 +380,7 @@ void NetStru1::sub_51C0F7(Player* player) {
                 flags |= 0x40;
             }
             if (unit->decay < 5) {
-                g_NetStru1_main.sub_519221(unit, player, flags, 0xFFB, 0, 0);
+                g_NetStru1_main.SendUnitUpdate(unit, player, flags, 0xFFB, 0, 0);
             }
         }
     }
@@ -398,14 +398,14 @@ void NetStru1::sub_51C0F7(Player* player) {
 // 51C46E
 void NetStru1::sub_51C46E(Player* player) {
     if (player->main_unit != nullptr) {
-        this->sub_519221(player->main_unit, player, 0xFFB, -1, 0, 0);
+        this->SendUnitUpdate(player->main_unit, player, 0xFFB, -1, 0, 0);
     }
     if (player->unit_list != nullptr) {
         POSITION pos = player->unit_list->unit_list.GetHeadPosition();
         while (pos != nullptr) {
             Unit* unit = player->unit_list->unit_list.GetNext(pos);
             unit->sent_to_mask &= ~player->vision_sharing_id;
-            g_NetStru1_main.sub_519221(unit, player, 0xFFB, -1, 0, 0);
+            g_NetStru1_main.SendUnitUpdate(unit, player, 0xFFB, -1, 0, 0);
         }
     }
     this->SendTickPacket(player);
@@ -678,22 +678,22 @@ void NetStru1::TransferUnitOwnership(Unit* unit, Player* new_owner) {
     unit->sent_to_mask = unit->sent_to_mask & new_vision_mask;
     
     // Send network packet about unit ownership change.
-    g_NetStru1_main.sub_519221(unit, 0, 0xFFFFFFFF, 0xFFB, 0, 0);
+    g_NetStru1_main.SendUnitUpdate(unit, 0, 0xFFFFFFFF, 0xFFB, 0, 0);
     
     // Mark unit as needing update?
     unit->ownership_changed = 1;
 }
 
-// sub_519221: send unit state to a player (or all players if player==nullptr)
+// SendUnitUpdate: send unit state to a player (or all players if player==nullptr)
 // 519221
-void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t param5, int32_t param6, int32_t param7) {
+void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t param5, int32_t param6, int32_t param7) {
     if (player == nullptr) {
         // Broadcast to all players.
         POSITION pos = g_PlayersList->list.GetHeadPosition();
         while (pos != nullptr) {
             Player* p = g_PlayersList->list.GetNext(pos);
             if (p->is_active != 0 || unit->pOwner == p) {
-                this->sub_519221(unit, p, mask, param5, param6, param7);
+                this->SendUnitUpdate(unit, p, mask, param5, param6, param7);
             }
         }
         return;

@@ -1958,7 +1958,7 @@ void MapStuff::sub_5954AC(Unit* unit, uint8_t x, uint8_t y) {
     unit->position->SetCoords(x, y);
     this->sub_58AD4A(unit);
     this->field41_0x58d80->ResetUnitToHold(unit);
-    g_NetStru1_main.sub_519221(unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
+    g_NetStru1_main.SendUnitUpdate(unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
 }
 
 // Shared by sub_597BB0/sub_5983D0/sub_598BF0/sub_599410.

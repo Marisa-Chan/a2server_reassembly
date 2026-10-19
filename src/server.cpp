@@ -1724,7 +1724,7 @@ void Server::SendWorldState(Player* player, int32_t bool_arg4) {
         g_NetStru1_main.QueuePacketSend(&inf);
 
         // Send all data for the main unit.
-        g_NetStru1_main.sub_519221(player->main_unit, nullptr, -1, 0xFFB, 0, 0);
+        g_NetStru1_main.SendUnitUpdate(player->main_unit, nullptr, -1, 0xFFB, 0, 0);
     }
 
     // Stream remaining server state to the joining player.
@@ -2360,7 +2360,7 @@ Human* Server::CreatePlayerCharacter(Player* player, uint8_t body, uint8_t react
     unit->seen_by_mask = player->vision_sharing_id;
 
 #ifdef A2CLIENT
-    g_NetStru1_main.sub_519221(unit, player, -1, 0xffb, 0, 0);
+    g_NetStru1_main.SendUnitUpdate(unit, player, -1, 0xffb, 0, 0);
 #else
     player->min_server_level = 1;
     player->max_server_level = 1;
@@ -2726,7 +2726,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         item->count = (uint16_t)count;
         player->main_unit->inventory->PutItemIntoBagAtDefault(item);
         player->main_unit->AddCarriedWeight(0);
-        g_NetStru1_main.sub_519221(player->main_unit, player, -1, 0xFFB, 0, 0);
+        g_NetStru1_main.SendUnitUpdate(player->main_unit, player, -1, 0xFFB, 0, 0);
         if (!is_reconnect) {
             g_NetStru1_main.FUN_0051ce86(7, player->player_id, 0);
         }
@@ -2750,13 +2750,13 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         if (cheat_string.Find("+god") == 0) {
             if (target_mode == 1) {
                 player->main_unit->ApplyInvincibility();
-                g_NetStru1_main.sub_519221(player->main_unit, 0, (int32_t)0xA31FFFFF, 0xFFB, 0, 0);
+                g_NetStru1_main.SendUnitUpdate(player->main_unit, 0, (int32_t)0xA31FFFFF, 0xFFB, 0, 0);
             } else if (target_mode == 2) {
                 for (POSITION node = player->unit_list->unit_list.GetHeadPosition(); node != nullptr;) {
                     Unit* unit = player->unit_list->unit_list.GetNext(node);
                     if (unit != nullptr) {
                         unit->ApplyInvincibility();
-                        g_NetStru1_main.sub_519221(unit, 0, (int32_t)0xA31FFFFF, 0xFFB, 0, 0);
+                        g_NetStru1_main.SendUnitUpdate(unit, 0, (int32_t)0xA31FFFFF, 0xFFB, 0, 0);
                     }
                 }
             }
@@ -2775,7 +2775,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                     spell_book->sub_53D7F0(spell_id, sp);
                 }
                 // FUN_00519221(&g_NetStru1_main,&pHStack_4c->_,(pHStack_4c->_)._.pOwner,0xa31fffff, 0xffb,0,0);
-                g_NetStru1_main.sub_519221(player->main_unit, player, 0xA31FFFFF, 0xFFB, 0, 0);
+                g_NetStru1_main.SendUnitUpdate(player->main_unit, player, 0xA31FFFFF, 0xFFB, 0, 0);
                 g_NetStru1_main.FUN_0051ce86(7, player->player_id, nullptr);
             }
         } else if (cheat_string.Find("+spells") == 0) {
@@ -2788,7 +2788,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                     Spell* sp = new Spell(i);
                     spell_book->sub_53D7F0(i, sp);
                 }
-                g_NetStru1_main.sub_519221(player->main_unit, player, (int32_t)0xA31FFFFF, 0xFFB, 0, 0);
+                g_NetStru1_main.SendUnitUpdate(player->main_unit, player, (int32_t)0xA31FFFFF, 0xFFB, 0, 0);
                 if (!is_reconnect) {
                     g_NetStru1_main.FUN_0051ce86(7, player->player_id, nullptr);
                 }
@@ -3379,7 +3379,7 @@ void Server::sub_504a96(Packet* pkt) {
                 update_mask |= 0x82000;
             }
 
-            g_NetStru1_main.sub_519221(human, nullptr,
+            g_NetStru1_main.SendUnitUpdate(human, nullptr,
                                     update_mask | human->item_op_dirty_flags,
                                     equip_mask, bag_pos, bag_pos + bag_pos_delta);
             DWORD tick = GetTickCount();
@@ -3669,7 +3669,7 @@ void Server::sub_504a96(Packet* pkt) {
                     player->vision_sharing_mask &= ~other->vision_sharing_id;
                     if (old_val & 0x10) {
                         // Was sharing before --- revoke visibility
-                        g_NetStru1_main.sub_519221(player->main_unit, other, 0x400000, 0xffb, 0, 0);
+                        g_NetStru1_main.SendUnitUpdate(player->main_unit, other, 0x400000, 0xffb, 0, 0);
                     }
                 } else {
                     // Vision sharing enabled with `other`
@@ -3678,7 +3678,7 @@ void Server::sub_504a96(Packet* pkt) {
                         // Wasn't sharing before --- send full unit state for each of player's units
                         if (player->unit_list) {
                             for (POSITION unode = player->unit_list->unit_list.GetHeadPosition(); unode;) {
-                                g_NetStru1_main.sub_519221(player->unit_list->unit_list.GetNext(unode), other, 0xa35fffff, 0xffb, 0, 0);
+                                g_NetStru1_main.SendUnitUpdate(player->unit_list->unit_list.GetNext(unode), other, 0xa35fffff, 0xffb, 0, 0);
                             }
                         }
                     }
@@ -3737,7 +3737,7 @@ void Server::sub_504a96(Packet* pkt) {
                         }
                         
                         Humanoid* human = static_cast<Humanoid*>(unit);
-                        g_NetStru1_main.sub_519221(human, human->pOwner, 0x100000, 0xffb, 0, 0);
+                        g_NetStru1_main.SendUnitUpdate(human, human->pOwner, 0x100000, 0xffb, 0, 0);
                     }
                     break;
                 }
@@ -3838,7 +3838,7 @@ void Server::sub_504a96(Packet* pkt) {
                 }
             }
 
-            g_NetStru1_main.sub_519221(player->main_unit, player, 0xFFFFFFFF, 0xFFB, 0, 0);
+            g_NetStru1_main.SendUnitUpdate(player->main_unit, player, 0xFFFFFFFF, 0xFFB, 0, 0);
             if ((player->main_unit->unit_attrs & 8) != 0) {
                 player->main_unit->ReturnToMap();
             }
@@ -3866,7 +3866,7 @@ void Server::sub_504a96(Packet* pkt) {
             Human* new_unit = this->SummonUnit(&g_GameDataRes.humans[idx].name, player->main_unit, 1);
             if (new_unit) {
                 new_unit->name = CString(packet_data->data);
-                g_NetStru1_main.sub_519221(new_unit, new_unit->pOwner, 0xFFFFFFFF, 0xFFB, 0, 0);
+                g_NetStru1_main.SendUnitUpdate(new_unit, new_unit->pOwner, 0xFFFFFFFF, 0xFFB, 0, 0);
             }
             break;
         }
@@ -4009,7 +4009,7 @@ void Server::sub_504a96(Packet* pkt) {
         CheckPacketType(pkt, "Packet");
         player = this->FindPlayerById(pkt->from_player_id);
         if (player->main_unit != nullptr) {
-            g_NetStru1_main.sub_519221(player->main_unit, player, 0xffffffff, 0xffb, 0, 0);
+            g_NetStru1_main.SendUnitUpdate(player->main_unit, player, 0xffffffff, 0xffb, 0, 0);
         }
         break;
 
@@ -5020,7 +5020,7 @@ void Server::FUN_00501b9e(int32_t var300, CDWordArray& arr) { //501b9e
 
                 g_World->ResetUnitToHold(hm);
                 g_World->ProcessAnimateDeadGroup(grp);
-                g_NetStru1_main.sub_519221(hm, pl, (uint32_t)-1, 0xffb, 0, 0);
+                g_NetStru1_main.SendUnitUpdate(hm, pl, (uint32_t)-1, 0xffb, 0, 0);
             }
         } else {
             Player* pl = g_PlayersList->list.GetHead();
@@ -5033,7 +5033,7 @@ void Server::FUN_00501b9e(int32_t var300, CDWordArray& arr) { //501b9e
             u->server_id = serverID;
             u->pOwner = pl;
             ulst.AddTailAllocId(u);
-            g_NetStru1_main.sub_519221(u, pl, (uint32_t)-1, 0xffb, 0, 0);
+            g_NetStru1_main.SendUnitUpdate(u, pl, (uint32_t)-1, 0xffb, 0, 0);
         }
     }
 
@@ -6142,7 +6142,7 @@ void Server::UpdateMissionResult(Player* player) {
                     g_NetStru1_main.sub_51CB21(player);
                 }
             }
-            g_NetStru1_main.sub_519221(unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
+            g_NetStru1_main.SendUnitUpdate(unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
             PacketInfo& packet_info = PacketInfo::Inst;
             packet_info.id = 0xAB;
             packet_info.to_player_id = player->player_id;
@@ -6582,9 +6582,9 @@ Human* Server::SummonUnit(CString* unit_name, Unit* origin, int32_t is_hero) {
     g_World->ProcessAnimateDeadGroup(group);
 
     if (this->field18_0x94 == 0) {
-        g_NetStru1_main.sub_519221(unit, player, 0xFFFFFFFF, 0xFFB, 0, 0);
+        g_NetStru1_main.SendUnitUpdate(unit, player, 0xFFFFFFFF, 0xFFB, 0, 0);
     } else {
-        g_NetStru1_main.sub_519221(unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
+        g_NetStru1_main.SendUnitUpdate(unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
     }
 
     return static_cast<Human*>(unit);

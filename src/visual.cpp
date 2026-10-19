@@ -23843,7 +23843,7 @@ void sub_44E4CE(const char* cmd) {
             player->main_unit->reaction = 10;
             player->main_unit->spirit = 1;
             player->main_unit->RecalcStats();
-            g_NetStru1_main.sub_519221(player->main_unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
+            g_NetStru1_main.SendUnitUpdate(player->main_unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
         }
     }
 }
