@@ -2155,7 +2155,7 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
             if (target == nullptr) {
                 result_yx = this->sub_593134(unit, 0, dest.val, 8);
             } else {
-                result_yx = this->sub_592A48(unit, target);
+                result_yx = this->PickAttackPosition(unit, target);
             }
             if (result_yx != 0) {
                 PosYX result(result_yx);
@@ -2347,7 +2347,7 @@ uint8_t MapStuff::ClassifyDirection16(Unit* target, Unit* unit) {
 
 // 592A48 --- find the lowest-cost cell in an expanding box around target, walking along the box
 // perimeter starting from where the unit->target line of sight crosses it.
-uint16_t MapStuff::sub_592A48(Unit* unit, Unit* target) {
+uint16_t MapStuff::PickAttackPosition(Unit* unit, Unit* target) {
     int32_t box_max_x = target->position->GetX() + target->GetTokenSize();
     int32_t box_max_y = target->position->GetY() + target->GetTokenSize();
     int32_t box_min_x = target->position->GetX() - unit->GetTokenSize();

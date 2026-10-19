@@ -140,7 +140,7 @@ struct MapStuff { // aka astruct_5
     uint16_t field28_0x54126[16];
     uint8_t walk_cost[11];
     uint8_t field_0x54151[5];
-    int8_t line_walk_delta[12][2]; // (dx,dy) steps cycling right,down,left,up x3; used by sub_592A48's box perimeter walk.
+    int8_t line_walk_delta[12][2]; // (dx,dy) steps cycling right,down,left,up x3; used by PickAttackPosition's box perimeter walk.
     uint8_t field_0x5416E[2];
     int32_t field31_0x54170[8];
     FieldBlock54190 field_0x54190;
@@ -262,7 +262,7 @@ public:
 
     void BuildPathList1(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // Builds unit->list1 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y) — 5890CC
     void BuildPathList2(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // Builds unit->list2 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y) — 5893C6
-    uint16_t sub_592A48(Unit* unit, Unit* target); // 592A48
+    uint16_t PickAttackPosition(Unit* unit, Unit* target); // 592A48
     int16_t sub_593134(Unit* unit, int32_t zero, uint16_t yx, uint32_t radius); // 593134
     Building* GetBuildingAt(uint16_t yx); // 594709
     uint8_t BoxDistance(uint16_t yx1, uint16_t yx2, int32_t size); // 591A96

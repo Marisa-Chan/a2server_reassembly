@@ -662,3 +662,4 @@ MapStuff::sub_598BF0 -> RelaxCostsMap2Queue2 -- relaxes 8-neighbor costs against
 MapStuff::sub_58826D -> FindPath -- pathfind entry from the unit's current cell
 MapStuff::sub_5882AE -> FindPathInternal -- pathfind core (uses the static/dynamic path lookup tables)
 MapStuff::sub_590678 -> UpdateEyeMoveTime -- resyncs the eye state and recomputes the tile move time
+MapStuff::sub_5907BE -> AdvancePathList2 -- follows path list2 head or rotates when exhausted
