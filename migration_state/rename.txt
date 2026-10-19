@@ -383,3 +383,4 @@ Server::sub_4F0D58 -> ProcessHatConnections -- services the HAT connector; close
 Server::sub_4FA4BB -> GetArenaFrags -- looks up a player's frags in the arena score arrays
 Server::sub_4FA348 -> AddArenaFrags -- adds/delta-updates an arena score entry and broadcasts it
 Server::sub_4FA551 -> HandleArenaPlayer -- arena mode player entry handler
+Server::sub_4FF937 -> SendWorldState -- mission join: sends the full world state to the connecting player

@@ -2624,7 +2624,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                         if (g_PlayersList->sub_53636E() != 0) {
                             // All players now ready --- start the match.
                             g_NetStru1_main.FUN_0051ce86(10, 0, nullptr);
-                            this->sub_4F8F86();
+                            this->OnTeamsReady();
                             this->sub_4F8FBF(0, 0);
                             this->sub_4F8FBF(1, 0);
                         }
@@ -5217,7 +5217,7 @@ void Server::KickAllPlayers() {
 }
 
 // 4F8F86
-void Server::sub_4F8F86() {
+void Server::OnTeamsReady() {
     this->ctf_score[0] = 0;
     this->ctf_score[1] = 0;
     if (g_PlayersList != nullptr) {
