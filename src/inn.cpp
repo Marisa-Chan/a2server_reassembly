@@ -968,7 +968,7 @@ void Inn::InnReward(Player* player) {
 
     // --- Phase 10: Mob reward ---
     if (player->unit_list->sub_557AB0() == 0) {
-        int mob_idx = g_GameDataRes.sub_50DF19(reward / 16);
+        int mob_idx = g_GameDataRes.GetRandomRecruitIndex(reward / 16);
         if (mob_idx != 0) {
             Item* mob = new Item();
             mob->item_id = 0xFFFD;

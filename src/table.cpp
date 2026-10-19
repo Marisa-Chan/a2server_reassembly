@@ -886,7 +886,7 @@ int GameDataRes::sub_50DDAE(uint8_t type_id, uint8_t face) {
 }
 
 // 50DF19
-int GameDataRes::sub_50DF19(int experience) {
+int GameDataRes::GetRandomRecruitIndex(int experience) {
     int result = 0;
     int best_exp = 1;
 

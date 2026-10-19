@@ -440,7 +440,7 @@ public:
     int GetMonsterTableIndex(uint8_t type, uint8_t face); // Get monster table index by type and face
     Item* CreateItem(uint8_t slot, uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // 510F88: Create an item.
     Item* CreateItemById(uint16_t item_id); // Create a new item instance by item data ID
-    int sub_50DF19(int experience); // Get random recruitable monster index for inn reward
+    int GetRandomRecruitIndex(int experience); // Get random recruitable monster index for inn reward
     int sub_50DDAE(uint8_t type_id, uint8_t face); // Get monster data index from encoded item type/face
 
     uint8_t sub_50D8BA(CString* name, CString* out); // 50D8BA: Find shape index by item name string
