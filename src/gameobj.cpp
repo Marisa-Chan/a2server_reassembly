@@ -3399,7 +3399,7 @@ SfxBank* CUnit::GetSfxBank() {
 }
 
 // 46C124
-void CUnit::FUN_0046c124(CRect* rect) {
+void CUnit::DrawStatsPanel(CRect* rect) {
     BigStruct2* map = this->pMapObject;
     uint16_t* label_color = clrsh_DullGold;
     uint16_t* value_color = clrsh_Oxley;

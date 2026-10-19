@@ -5760,7 +5760,7 @@ void VisCharSellectStats::VMethod7() {
         OffsetRect(&rc, 0xC, 0);
         rc.top = top_left.y + 0xEE;
         rc.bottom = top_left.y + 0x1E0;
-        this->parent_screen->selected_unit->FUN_0046c124(&rc);
+        this->parent_screen->selected_unit->DrawStatsPanel(&rc);
         UnlockSurface2();
     }
 }
@@ -8667,7 +8667,7 @@ void VisCharGenFullStats::VMethod7() {
     CRect unit_rect = screen_rect;
     unit_rect.left += 0xC;
     unit_rect.right += 0xC;
-    this->parent_screen->current_char->FUN_0046c124(&unit_rect);
+    this->parent_screen->current_char->DrawStatsPanel(&unit_rect);
     UnlockSurface2();
 }
 
@@ -9484,7 +9484,7 @@ void VisCharInfo::VMethod7() {
         }
     } else if (unit != nullptr) {
         if (this->info_mode == 0) {
-            unit->FUN_0046c124(&screen_rect);
+            unit->DrawStatsPanel(&screen_rect);
         } else {
             if ((unit->unitFlags & 0x11) != 0) {
                 char temp_path[0x100];
@@ -10246,7 +10246,7 @@ void VisSideStatus::VMethod7() {
             sprintf(hp_text, "%d/%d", structure->hp, structure->hp_max);
             g_font2->DrawTextWithShadow(screen_rect.right - 0x58, screen_rect.top + 0x36, hp_text, 2, clrsh_Oxley, 1);
         } else if (unit != nullptr) {
-            unit->FUN_0046c124(&screen_rect);
+            unit->DrawStatsPanel(&screen_rect);
         }
 
         screen_rect.OffsetRect(0, main_wnd->vis_charinfo->GetRect().Height() - screen_rect.Height());
@@ -13616,7 +13616,7 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
         } else {
             if ((unit->unitFlags & 0x40) == 0) {
                 CRect unit_rect = rect_1C + screen_rect.TopLeft();
-                unit->FUN_0046c124(&unit_rect);
+                unit->DrawStatsPanel(&unit_rect);
             }
             if ((unit->unitFlags & 0x11) == 0) {
                 char picture[0x100];

@@ -275,7 +275,7 @@ public:
 	void ReloadSprite(); //46b91c
 	SfxBank* GetSfxBank(); //46978b
 	const char* GetStatsHint(int32_t x, int32_t y); //46d0f7
-	void FUN_0046c124(CRect* rect); //46c124
+	void DrawStatsPanel(CRect* rect); //46c124
 	int32_t FUN_0046c0c9(TokenEntry* entry); //46c0c9
 
 public:
