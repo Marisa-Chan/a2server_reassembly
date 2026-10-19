@@ -653,3 +653,4 @@ MapStuff::sub_596F80 -> IsCellPassableStatic -- gate checking ObstacleAt (static
 MapStuff::sub_5978F0 -> IsCellPassableDynamic -- gate checking Obstacle2At (dynamic map) over the footprint
 MapStuff::sub_5974B0 -> ExpandCostsStaticQueue1 -- expands the cost grid gated by IsCellPassableStatic, queueing into queue1
 MapStuff::sub_597290 -> ExpandCostsStaticQueue2 -- expands the cost grid gated by IsCellPassableStatic, queueing into queue2
+MapStuff::sub_597990 -> ExpandCostsDynamicQueue1 -- expands the cost grid gated by IsCellPassableDynamic, queueing into queue1
