@@ -66,8 +66,7 @@ static Quest* MakeActiveQuest(Inn* inn, Quest* q) {
 }
 
 // Helper: register quest (initialize, set state, register in quest_map)
-static void RegisterQuest(Inn* inn, Quest* q, int some_id, int player_id, int building_id, int obj, int landmark_id, int limit, int reward)
-{
+static void RegisterQuest(Inn* inn, Quest* q, int some_id, int player_id, int building_id, int obj, int landmark_id, int limit, int reward) {
     q->Initialize(some_id, player_id, building_id, obj, landmark_id, limit, reward);
     q->quest_data.state = 3;
     inn->quest_map->sub_55E24A(q);
@@ -82,8 +81,7 @@ bool Inn::sub_567B4D(Player* player) {
 }
 
 // 562148
-void Inn::InnCreateQuests(Player* player)
-{
+void Inn::InnCreateQuests(Player* player) {
     // ---- QuestMap lookup / creation ----
     if (!this->quest_map_per_player.Lookup(player->player_id, this->quest_map)) {
         this->quest_map = new QuestMap();
@@ -1221,8 +1219,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
 
                 int32_t kind = this->active_quest->Kind();
                 switch (kind) {
-                    case 4: // Escort
-                    {
+                    case 4: { // Escort
                         Unit* escort_unit = dword_6CDB3C->sub_5560D2(this->active_quest->quest_data.obj);
                         if (escort_unit == nullptr || humanoid == nullptr) {
                             g_QuestMap.sub_55E5FB(this->active_quest);
@@ -1231,21 +1228,18 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
                         }
                         break;
                     }
-                    case 5: // DeliverItem
-                    {
+                    case 5: { // DeliverItem
                         uint8_t subtype = this->active_quest->quest_data.obj;
                         Item* new_item = new Item(0xE, subtype);
                         humanoid->inventory->PutItemIntoBagAtDefault(new_item);
                         g_NetStru1_main.sub_519221(humanoid, humanoid->pOwner, 0x202000, 0xFFB, 0, 0);
                         break;
                     }
-                    case 6: // DeliverMail
-                    {
+                    case 6: { // DeliverMail
                         this->active_quest->progress = GetTickCount();
                         break;
                     }
-                    case 11: // Intercept unit
-                    {
+                    case 11: { // Intercept unit
                         uint16_t unit_id = this->active_quest->quest_data.obj;
                         Unit* target_unit = dword_6CDB3C->sub_5560D2(unit_id);
                         if (target_unit == nullptr) {
@@ -1258,8 +1252,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
                         }
                         break;
                     }
-                    case 12: // Intercept group
-                    {
+                    case 12: { // Intercept group
                         POSITION ppos = g_PlayersList->list.GetHeadPosition();
                         Player* pl = nullptr;
                         while (ppos) {

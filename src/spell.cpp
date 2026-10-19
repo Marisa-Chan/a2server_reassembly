@@ -33,10 +33,8 @@ const std::array<uint32_t, 32> SpellBtB = {
      0,         0,              0,          0} };
 
 
-void Spell::Serialize(CArchive& ar)
-{ // 53cf8d
-    if (ar.IsStoring())
-    {
+void Spell::Serialize(CArchive& ar) { // 53cf8d
+    if (ar.IsStoring()) {
         ar.Write(&this->spell_id, 1);
         ar.Write(&this->max_range, 1);
         ar.Write(&this->is_defensive, 1);
@@ -57,15 +55,13 @@ void Spell::Serialize(CArchive& ar)
     }
 }
 
-Spell::Spell()
-{ // 538fa5
+Spell::Spell() { // 538fa5
     this->spell_info = nullptr;
     this->is_defensive = false;
     this->spell_id = 0;
 }
 
-Spell::Spell(uint8_t id)
-{ // 538fdd
+Spell::Spell(uint8_t id) { // 538fdd
     this->spell_info = nullptr;
     this->is_defensive = false;
     this->spell_id = 0;
@@ -74,25 +70,21 @@ Spell::Spell(uint8_t id)
     this->Init();
 }
 
-Spell::Spell(const CString& name)
-{ // 539055
+Spell::Spell(const CString& name) { // 539055
     this->spell_info = nullptr;
     this->is_defensive = false;
     this->spell_id = 0;
     this->max_range = 1;
     this->spell_id = 0;
 
-    for (int i = 0; i < g_GameDataRes.spells.GetSize(); i++)
-    {
-        if (g_GameDataRes.spells[i].name == name)
-        {
+    for (int i = 0; i < g_GameDataRes.spells.GetSize(); i++) {
+        if (g_GameDataRes.spells[i].name == name) {
             this->spell_id = i;
             break;
         }
     }
 
-    if (this->spell_id == 0)
-    {
+    if (this->spell_id == 0) {
         CString msg("Invalid spell ");
         LogMessage(msg + name);
     } else {
@@ -103,10 +95,8 @@ Spell::Spell(const CString& name)
 Spell::~Spell() //5392fe
 {}
 
-void Spell::Init()
-{ //5391ab
-    if (this->spell_id == 0)
-    {
+void Spell::Init() { //5391ab
+    if (this->spell_id == 0) {
         CString msg;
         msg.Format("Invalid spell #%d - no such ID", this->spell_id);
         LogMessage(msg);
@@ -119,20 +109,17 @@ void Spell::Init()
 }
 
 // 53939E
-int Spell::sub_53939E(uint8_t, uint8_t)
-{
+int Spell::sub_53939E(uint8_t, uint8_t) {
     return this->spell_info->Values().GetData()[0].spell_target == 2;
 }
 
 // 5393C7
-int Spell::sub_5393C7()
-{
+int Spell::sub_5393C7() {
     return this->spell_info->Values().GetData()[0].spell_target == 1;
 }
 
 // 53940D
-void Spell::sub_53940D(Unit* unit)
-{
+void Spell::sub_53940D(Unit* unit) {
     const SpellInfoData& info = this->spell_info->Values().GetData()[0];
     int32_t power = unit->hit_values.skill_levels[info.sphere] + unit->mind - 30;
     if (power < 0) {
@@ -145,8 +132,7 @@ void Spell::sub_53940D(Unit* unit)
 }
 
 // 539C49
-void Spell::sub_539C49(Unit* caster, Unit* target)
-{
+void Spell::sub_539C49(Unit* caster, Unit* target) {
     int32_t rays = 7;
     if (caster->some_item != nullptr) {
         for (POSITION it = caster->some_item->_effects.GetHeadPosition(); it != nullptr; ) {
@@ -173,16 +159,14 @@ void Spell::sub_539C49(Unit* caster, Unit* target)
 }
 
 // 539F21
-void Spell::sub_539F21(Unit* caster, Unit* target)
-{
+void Spell::sub_539F21(Unit* caster, Unit* target) {
     if (this->spell_id != spell::prismatic_spray) {
         this->sub_539F5A(caster, target, 0, 0);
     }
 }
 
 // 539541
-void Spell::sub_539541(uint32_t power)
-{
+void Spell::sub_539541(uint32_t power) {
     const SpellInfoData& info = this->spell_info->Values().GetData()[0];
     uint8_t power_byte = power;
 
@@ -227,8 +211,7 @@ void Spell::sub_539541(uint32_t power)
 uint32_t __cdecl sub_5365AB(TokenPos* a, TokenPos* b);
 
 // 539958
-int32_t Spell::sub_539958(Unit* caster, Unit* target, int8_t x, int8_t y)
-{
+int32_t Spell::sub_539958(Unit* caster, Unit* target, int8_t x, int8_t y) {
     if ((caster->unit_attrs & 4) && caster->some_item == nullptr) {
         if (this->mana_cost > caster->mp) {
             return 0;
@@ -290,8 +273,7 @@ int32_t Spell::sub_539958(Unit* caster, Unit* target, int8_t x, int8_t y)
 }
 
 // 53D368
-SpellBook::~SpellBook()
-{
+SpellBook::~SpellBook() {
     for (int i = 0; i < this->spells.GetSize(); ++i) {
         delete this->spells[i];
         this->spells[i] = nullptr;
@@ -339,8 +321,7 @@ void SpellBook::sub_53D7F0(int32_t spell_id, Spell* spell) {
     this->spells[spell_id] = spell;
 }
 
-void SpellBook::RefreshForHumanoid(Humanoid* humanoid)
-{
+void SpellBook::RefreshForHumanoid(Humanoid* humanoid) {
 	//53dbc5
 	for (int index = 1; index < this->spells.GetSize(); ++index) {
 		Spell* spell = this->spells[index];
@@ -361,8 +342,7 @@ void SpellBook::RefreshForHumanoid(Humanoid* humanoid)
 }
 
 // 539F5A
-void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
-{
+void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
     if (this->spell_info == nullptr) {
         return;
     }
@@ -562,8 +542,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
             effect->typeId = this->spell_id * 2 + 8;
             break;
 
-        case spell::animate_dead:
-            {
+        case spell::animate_dead: {
                 Unit* dead_unit = nullptr;
                 auto& unit_list = g_Server->srv_stru1->units_list->unit_list;
                 for (int decay_target = 2; decay_target <= 4 && dead_unit == nullptr; ++decay_target) {
@@ -677,8 +656,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
             g_NetStru1_main.sub_519221(caster, nullptr, 0x10, 0xFFB, 0, 0);
             return;
 
-        case spell::heal:
-            {
+        case spell::heal: {
                 if (g_World != nullptr && caster->pOwner != nullptr && target->pOwner != nullptr) {
                     if (g_World->diplomacy.diplomacy[caster->pOwner->player_id][target->pOwner->player_id] & 1) {
                         return;
@@ -698,8 +676,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
                 return;
             }
 
-        case spell::summon:
-            {
+        case spell::summon: {
                 Player* owner_player = caster->pOwner;
 
                 Unit* unit = nullptr;
@@ -764,8 +741,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
                 return;
             }
 
-        case spell::drain_life:
-            {
+        case spell::drain_life: {
                 if (target->VMethod7() == 0) {
                     return;
                 }
@@ -870,8 +846,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
     }
 }
 
-Spell* SpellBook::sub_53DB79(int spell_id)
-{ // 53db79 // Look up spell in book by id
+Spell* SpellBook::sub_53DB79(int spell_id) { // 53db79 // Look up spell in book by id
     if ((uint32_t)spell_id >= this->spells.GetSize()) {
         return nullptr;
     }

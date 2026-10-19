@@ -300,8 +300,7 @@ void ShopAssortment::sub_54A420(CArray<WorldEquip>* items, int32_t shape, int32_
                 item = new Armor(shape, mat, i);
             }
             break;
-        case 2:
-            {
+        case 2: {
                 Weapon* weapon = new Weapon(shape, mat, i);
                 if ((weapon->world_equip->Values()[0].other_param & 1) == 0) {
                     delete weapon;
@@ -313,8 +312,7 @@ void ShopAssortment::sub_54A420(CArray<WorldEquip>* items, int32_t shape, int32_
         case 7:
             item = new Shield(shape, mat, i);
             break;
-        case 8:
-            {
+        case 8: {
                 Weapon* weapon = new Weapon(shape, mat, i);
                 if ((weapon->world_equip->Values()[0].other_param & 1) != 0) {
                     delete weapon;

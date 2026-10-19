@@ -38,8 +38,7 @@ void FUN_004c86f5(); //4c86f5 in asm
 void FUN_0047619a(); //47619a in asm
 
 
-class SfxSample : public CObject
-{
+class SfxSample : public CObject {
 public:
 	SfxSample() {}; //45b7d7
 	SfxSample(const char* fname) { this->filename = fname; } //45b842
@@ -68,8 +67,7 @@ public:
 ASSERT_SIZE(SfxSample, 0x14);
 
 
-class SoundChannel : public CObject
-{
+class SoundChannel : public CObject {
 public:
 	SoundChannel() = default; //45cc20
 	~SoundChannel() = default; //45cc60
@@ -90,8 +88,7 @@ public:
 ASSERT_SIZE(SoundChannel, 0x10);
 
 
-struct CSound
-{
+struct CSound {
 	SfxSample* sample;
 
 	static void __cdecl Play(CSound &sound); //438ec0
@@ -101,8 +98,7 @@ ASSERT_SIZE(CSound, 4);
 bool FUN_00475110(CSound* sound); //475110 in asm
 
 
-struct SoundSettings
-{
+struct SoundSettings {
 	int32_t random;
 	CStringArray* tracklist;
 	int32_t mus_pos;
@@ -122,8 +118,7 @@ struct SoundSettings
 };
 ASSERT_SIZE(SoundSettings, 0x28);
 
-class MusicPlayer : public CObject
-{
+class MusicPlayer : public CObject {
 public:
 	static MusicPlayer *Player;
 public:
@@ -198,8 +193,7 @@ public:
 ASSERT_SIZE(MusicPlayer, 0xa0);
 
 //60d9d0
-class SfxBank : public CObject
-{
+class SfxBank : public CObject {
 public:
 	SfxBank() {}; //4c87ef
 	~SfxBank() {}; //4c9480

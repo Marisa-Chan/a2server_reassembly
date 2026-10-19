@@ -9,8 +9,7 @@ CCursor* g_Cursors[28]; //665420
 //GetRuntimeClass 423b5f
 IMPLEMENT_DYNAMIC(CMousePointer, CObject);
 
-CMousePointer::~CMousePointer()
-{
+CMousePointer::~CMousePointer() {
     //42693e
     if (this->saved_screen_rect) {
         delete this->saved_screen_rect;
@@ -24,8 +23,7 @@ CMousePointer::~CMousePointer()
         delete this->saved_screen_rect_hint;
     }
 
-    for (int i = 0; i < 8; i++)
-    {
+    for (int i = 0; i < 8; i++) {
         if (this->saved_rect_frame[i]) {
             delete this->saved_rect_frame[i];
         }
@@ -36,8 +34,7 @@ CMousePointer::~CMousePointer()
     }
 }
 
-CMousePointer::CMousePointer()
-{
+CMousePointer::CMousePointer() {
 	//4264eb
     this->cursor_sprite = nullptr;
     this->saved_screen_rect = nullptr;
@@ -48,8 +45,7 @@ CMousePointer::CMousePointer()
     this->y_offset = 0;
     this->frame = 0;
 
-    for (int i = 0; i < 8; i++)
-    {
+    for (int i = 0; i < 8; i++) {
         if ((i & 2) == 0) {
             this->saved_rect_frame[i] = new CBmp64(1600, 2);
         } else {
@@ -66,15 +62,13 @@ CMousePointer::CMousePointer()
     this->hint_enable = 0;
 }
 
-void CMousePointer::CheckHintValues()
-{
+void CMousePointer::CheckHintValues() {
     //42709f
     CString ht = this->hint_text;
     this->hint_lines = 1;
     this->hint_max_width = 0;
 
-    while (true)
-    {
+    while (true) {
         int fpos = ht.Find('#');
         if (fpos < 0) {
             break;
@@ -96,12 +90,10 @@ void CMousePointer::CheckHintValues()
     }
 }
 
-void CMousePointer::DrawToScreen()
-{
+void CMousePointer::DrawToScreen() {
     //426ce2
     uint32_t ts = timeGetTime();
-    if (this->frame_delay < ts - this->frame_ts)
-    {
+    if (this->frame_delay < ts - this->frame_ts) {
         this->frame_ts = ts;
         this->frame++;
         if (this->frame >= this->frame_count) {
@@ -117,26 +109,22 @@ void CMousePointer::DrawToScreen()
     UnlockSurface1();
 }
 
-void CMousePointer::EraseCursor()
-{
+void CMousePointer::EraseCursor() {
     //426df7
     LockSurface1();
     this->saved_screen_rect->VMethod9(this->x - this->x_offset, this->y - this->y_offset, 0, 0, this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0));
     UnlockSurface1();
 }
 
-void CMousePointer::ForceDisableHint()
-{
+void CMousePointer::ForceDisableHint() {
     //4287d9
-    if (this->hint_state)
-    {
+    if (this->hint_state) {
         this->hint_state = 0;
         this->RepaintHint();
     }
 }
 
-void CMousePointer::Paint()
-{
+void CMousePointer::Paint() {
     //426ca3
     if (g_IsServer) {
         return;
@@ -149,8 +137,7 @@ void CMousePointer::Paint()
     this->paint_call_count++;
 }
 
-void CMousePointer::PaintHint()
-{
+void CMousePointer::PaintHint() {
     //4282bb
     CRect r = this->hint_rect + CRect(1, 1, -1, -2);
 
@@ -177,8 +164,7 @@ void CMousePointer::PaintHint()
     
     int line = 0;
 
-    while (true)
-    {
+    while (true) {
         int fpos = ht.Find('#');
         if (fpos < 0) {
             break;
@@ -194,27 +180,22 @@ void CMousePointer::PaintHint()
     g_font2->DrawTextWithShadow(this->hint_rect.left + 5, this->hint_rect.top + 4 + line * 14, ht, 0, clrsh_LuxorGold, 1);
 }
 
-void CMousePointer::PaintSelectFrame()
-{
+void CMousePointer::PaintSelectFrame() {
     //427e71
-    if (this->select_frame_rect.Width() && this->select_frame_rect.Height())
-    {
+    if (this->select_frame_rect.Width() && this->select_frame_rect.Height()) {
         CRect r = this->select_frame_rect;
 
         r.NormalizeRect();
 
         LockSurface1();
 
-        if (r.Width() > 0)
-        {
-            if (r.Height() > 0)
-            {
+        if (r.Width() > 0) {
+            if (r.Height() > 0) {
                 CopyScreenRectToBmp64(r.left, r.top, r.Width(), 1, 1600, 2, (uint8_t*)this->saved_rect_frame[0]->GetData());
                 CopyScreenRectToBmp64(r.left, r.bottom - 1, r.Width(), 1, 1600, 2, (uint8_t*)this->saved_rect_frame[1]->GetData());
             }
 
-            if (r.Height() > 2)
-            {
+            if (r.Height() > 2) {
                 CopyScreenRectToBmp64(r.left, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)this->saved_rect_frame[2]->GetData());
                 CopyScreenRectToBmp64(r.right - 1, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)this->saved_rect_frame[3]->GetData());
             }
@@ -226,8 +207,7 @@ void CMousePointer::PaintSelectFrame()
     }
 }
 
-void CMousePointer::Repaint(CPoint point)
-{
+void CMousePointer::Repaint(CPoint point) {
     //426eb6
 
     this->mouse_hint_time = 0;
@@ -257,8 +237,7 @@ void CMousePointer::Repaint(CPoint point)
     this->Paint();
 }
 
-void CMousePointer::RepaintHint()
-{
+void CMousePointer::RepaintHint() {
     //428779
     this->Unpaint();
     LockSurface1();
@@ -269,15 +248,13 @@ void CMousePointer::RepaintHint()
     this->Paint();
 }
 
-void CMousePointer::ResetNext400msg()
-{
+void CMousePointer::ResetNext400msg() {
     //42707e
     this->user_msg_ts = timeGetTime();
     this->user_msg_delay = 150;
 }
 
-void CMousePointer::ResetStates()
-{
+void CMousePointer::ResetStates() {
     //427e23
     this->Unpaint();
     this->UnpaintSelectFrame();
@@ -288,19 +265,16 @@ void CMousePointer::ResetStates()
     this->mouse_hint_ts = timeGetTime();
 }
 
-void CMousePointer::SaveScreenParts(const CRect& rect)
-{
+void CMousePointer::SaveScreenParts(const CRect& rect) {
     //427912
-    if (this->cursor_sprite && paint_call_count)
-    {
+    if (this->cursor_sprite && paint_call_count) {
         CRect tmp(this->x - this->x_offset, this->y - this->y_offset, (this->x - this->x_offset) + this->cursor_sprite->GetWidth(0), (this->y - this->y_offset) + this->cursor_sprite->GetHeight(0));
 
         CRect r = this->select_frame_rect;
         r.NormalizeRect();
 
         CRect intr;
-        if (intr.IntersectRect(&rect, &tmp) != 0)
-        {
+        if (intr.IntersectRect(&rect, &tmp) != 0) {
             LockSurface2();
 
             this->saved_screen_rect2->VMethod9(this->x - this->x_offset, this->y - this->y_offset, 0, 0, this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0));
@@ -312,8 +286,7 @@ void CMousePointer::SaveScreenParts(const CRect& rect)
         }
 
 
-        if (intr.IntersectRect(&rect, &this->hint_rect) && this->hint_state)
-        {
+        if (intr.IntersectRect(&rect, &this->hint_rect) && this->hint_state) {
             LockSurface2();
 
             this->saved_screen_rect_hint->VMethod9(this->hint_rect.left, this->hint_rect.top, 0, 0, this->hint_rect.Width(), this->hint_rect.Height());
@@ -326,20 +299,16 @@ void CMousePointer::SaveScreenParts(const CRect& rect)
             return;
         }
 
-        if (intr.IntersectRect(&rect, &r) && this->select_frame_state)
-        {
+        if (intr.IntersectRect(&rect, &r) && this->select_frame_state) {
             LockSurface2();
 
-            if (r.Width() > 0)
-            {
-                if (r.Height() > 0)
-                {
+            if (r.Width() > 0) {
+                if (r.Height() > 0) {
                     this->saved_rect_frame[4]->VMethod9(r.left, r.top, 0, 0, r.Width(), 1);
                     this->saved_rect_frame[5]->VMethod9(r.left, r.bottom - 1, 0, 0, r.Width(), 1);
                 }
 
-                if (r.Height() > 2)
-                {
+                if (r.Height() > 2) {
                     this->saved_rect_frame[6]->VMethod9(r.left, r.top + 1, 0, 0, 1, r.Height() - 2);
                     this->saved_rect_frame[7]->VMethod9(r.right - 1, r.top + 1, 0, 0, 1, r.Height() - 2);
                 }
@@ -348,8 +317,7 @@ void CMousePointer::SaveScreenParts(const CRect& rect)
             CopyScreenRectToBmp64(r.left, r.top, r.Width(), 1, 1600, 2, (uint8_t*)this->saved_rect_frame[0]->GetData());
             CopyScreenRectToBmp64(r.left, r.bottom - 1, r.Width(), 1, 1600, 2, (uint8_t*)this->saved_rect_frame[1]->GetData());
 
-            if (r.Height() > 2)
-            {
+            if (r.Height() > 2) {
                 CopyScreenRectToBmp64(r.left, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)this->saved_rect_frame[2]->GetData());
                 CopyScreenRectToBmp64(r.right - 1, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)this->saved_rect_frame[3]->GetData());
             }
@@ -359,19 +327,16 @@ void CMousePointer::SaveScreenParts(const CRect& rect)
     }
 }
 
-void CMousePointer::SaveScreenParts2(const CRect& rect)
-{
+void CMousePointer::SaveScreenParts2(const CRect& rect) {
     //42751c
-    if (this->cursor_sprite && paint_call_count)
-    {
+    if (this->cursor_sprite && paint_call_count) {
         CRect tmp(this->x - this->x_offset, this->y - this->y_offset, (this->x - this->x_offset) + this->cursor_sprite->GetWidth(0), (this->y - this->y_offset) + this->cursor_sprite->GetHeight(0));
 
         CRect r = this->select_frame_rect;
         r.NormalizeRect();
 
         CRect intr;
-        if (intr.IntersectRect(&rect, &this->hint_rect) && this->hint_state)
-        {
+        if (intr.IntersectRect(&rect, &this->hint_rect) && this->hint_state) {
             LockSurface2();
 
             CopyScreenRectToBmp64(this->hint_rect.left, this->hint_rect.top, this->hint_rect.Width(), this->hint_rect.Height(),
@@ -379,20 +344,16 @@ void CMousePointer::SaveScreenParts2(const CRect& rect)
                                     (uint8_t*)this->saved_screen_rect_hint->GetData());
 
             UnlockSurface2();
-        } else if (intr.IntersectRect(&rect, &r) && this->select_frame_state)
-        {
+        } else if (intr.IntersectRect(&rect, &r) && this->select_frame_state) {
             LockSurface2();
 
-            if (r.Width() > 0)
-            {
-                if (r.Height() > 0)
-                {
+            if (r.Width() > 0) {
+                if (r.Height() > 0) {
                     CopyScreenRectToBmp64(r.left, r.top, r.Width(), 1, 1600, 2, (uint8_t*)this->saved_rect_frame[4]->GetData());
                     CopyScreenRectToBmp64(r.left, r.bottom - 1, r.Width(), 1, 1600, 2, (uint8_t*)this->saved_rect_frame[5]->GetData());
                 }
 
-                if (r.Height() > 2)
-                {
+                if (r.Height() > 2) {
                     CopyScreenRectToBmp64(r.left, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)this->saved_rect_frame[6]->GetData());
                     CopyScreenRectToBmp64(r.right - 1, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)this->saved_rect_frame[7]->GetData());
                 }
@@ -403,8 +364,7 @@ void CMousePointer::SaveScreenParts2(const CRect& rect)
             UnlockSurface2();
         }
 
-        if (intr.IntersectRect(&rect, &tmp))
-        {
+        if (intr.IntersectRect(&rect, &tmp)) {
             LockSurface2();
             CopyScreenRectToBmp64(this->x - this->x_offset, this->y - this->y_offset, this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0),
                                     this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0),
@@ -415,8 +375,7 @@ void CMousePointer::SaveScreenParts2(const CRect& rect)
     }
 }
 
-void CMousePointer::SetCursor(CSprite256* spr, int32_t off_x, int32_t off_y, int32_t count, int32_t delay)
-{
+void CMousePointer::SetCursor(CSprite256* spr, int32_t off_x, int32_t off_y, int32_t count, int32_t delay) {
     //426aa5
     if (g_IsServer) {
         return;
@@ -447,14 +406,12 @@ void CMousePointer::SetCursor(CSprite256* spr, int32_t off_x, int32_t off_y, int
     this->Paint();
 }
 
-void CMousePointer::StartSelect(const CPoint& point)
-{
+void CMousePointer::StartSelect(const CPoint& point) {
     //427db1
     this->select_frame_state = 1;
     this->select_frame_rect.SetRect(point, point);
 
-    if (this->hint_state)
-    {
+    if (this->hint_state) {
         this->hint_state = 0;
         this->RepaintHint();
     }
@@ -463,8 +420,7 @@ void CMousePointer::StartSelect(const CPoint& point)
     this->PaintSelectFrame();
     this->Paint();
 }
-void CMousePointer::Unpaint()
-{
+void CMousePointer::Unpaint() {
     //426c64
     if (g_IsServer) {
         return;
@@ -477,8 +433,7 @@ void CMousePointer::Unpaint()
     }
 }
 
-void CMousePointer::UnpaintSelectFrame()
-{
+void CMousePointer::UnpaintSelectFrame() {
     //428051
     if (this->select_frame_rect.Width() == 0 || this->select_frame_rect.Height() == 0) {
         return;
@@ -489,16 +444,13 @@ void CMousePointer::UnpaintSelectFrame()
 
     LockSurface1();
 
-    if (r.Width() > 0)
-    {
-        if (r.Height() > 0)
-        {
+    if (r.Width() > 0) {
+        if (r.Height() > 0) {
             this->saved_rect_frame[0]->VMethod9(r.left, r.top, 0, 0, r.Width(), 1);
             this->saved_rect_frame[1]->VMethod9(r.left, r.bottom - 1, 0, 0, r.Width(), 1);
         }
 
-        if (r.Height() > 2)
-        {
+        if (r.Height() > 2) {
             this->saved_rect_frame[2]->VMethod9(r.left, r.top + 1, 0, 0, 1, r.Height() - 2);
             this->saved_rect_frame[3]->VMethod9(r.right - 1, r.top + 1, 0, 0, 1, r.Height() - 2);
         }
@@ -507,8 +459,7 @@ void CMousePointer::UnpaintSelectFrame()
     UnlockSurface1();
 }
 
-void CMousePointer::Update()
-{
+void CMousePointer::Update() {
     //4271e6
     if (g_IsServer || GetLockCountSurf2()) {
         return;
@@ -518,8 +469,7 @@ void CMousePointer::Update()
 
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
-    if (GetAsyncKeyState(VK_RBUTTON) > -1 && wnd->field_0xbc != 0)
-    {
+    if (GetAsyncKeyState(VK_RBUTTON) > -1 && wnd->field_0xbc != 0) {
         POINT pt;
         GetCursorPos(&pt);
 
@@ -528,16 +478,14 @@ void CMousePointer::Update()
         }
     }
 
-    if (this->user_msg_delay < ts - this->user_msg_ts && g_LButtonDown != 0)
-    {
+    if (this->user_msg_delay < ts - this->user_msg_ts && g_LButtonDown != 0) {
         wnd->PostMessage(0x400, 1, (this->x & 0xFFFF) | (this->y << 16));
 
         this->user_msg_ts = ts;
         this->user_msg_delay = 66;
     }
 
-    if (this->frame_delay < ts - this->frame_ts && frame_count > 1 && wnd && wnd->field_0xbc != 0)
-    {
+    if (this->frame_delay < ts - this->frame_ts && frame_count > 1 && wnd && wnd->field_0xbc != 0) {
         this->frame_ts = ts;
         this->frame++;
 
@@ -558,14 +506,11 @@ void CMousePointer::Update()
         prev_time < 500 &&
         this->select_frame_state == 0 && 
         this->hint_enable != 0 &&
-        wnd && wnd->vis_root && wnd->field_0xbc != 0)
-    {
+        wnd && wnd->vis_root && wnd->field_0xbc != 0) {
         CVisualObject* vobj = wnd->vis_root->GetChildAt(CPoint(this->x, this->y));
-        if (vobj)
-        {
+        if (vobj) {
             this->hint_text = vobj->GetHint();
-            if (this->hint_text != "")
-            {
+            if (this->hint_text != "") {
                 this->hint_state = 1;
                 this->CheckHintValues();
                 this->UpdateHint();
@@ -574,8 +519,7 @@ void CMousePointer::Update()
     }
 
     if (this->mouse_hint_time > 25499 && this->hint_state != 0 && 
-        wnd && wnd->field_0xbc != 0)
-    {
+        wnd && wnd->field_0xbc != 0) {
         this->hint_state = 0;
         this->RepaintHint();
     }
@@ -585,8 +529,7 @@ void CMousePointer::Update()
     }
 }
 
-void CMousePointer::UpdateHint()
-{
+void CMousePointer::UpdateHint() {
     //42819d
     this->hint_rect.SetRect(this->x, this->y - 5 - this->hint_lines * 14, this->x + 11 + this->hint_max_width, this->y);
 
@@ -617,8 +560,7 @@ int32_t CMousePointer::GetX() { return this->x; } //41ecc0
 int32_t CMousePointer::GetY() { return this->y; } //41ece0
 
 
-CCursor::~CCursor()
-{
+CCursor::~CCursor() {
     //47cf99
     if (this->sprite) {
         delete this->sprite;
@@ -626,11 +568,9 @@ CCursor::~CCursor()
     this->sprite = nullptr;
 }
 
-CCursor::CCursor(const char* fname, int32_t xof, int32_t yof, int32_t _delay)
-{
+CCursor::CCursor(const char* fname, int32_t xof, int32_t yof, int32_t _delay) {
     //47ce66
-    if (strstr(fname, "16a") == nullptr)
-    {
+    if (strstr(fname, "16a") == nullptr) {
         this->sprite = new CSprite256(fname);
         this->sprite->ResetPalette(1, 1, 0);
     } else {
@@ -644,16 +584,14 @@ CCursor::CCursor(const char* fname, int32_t xof, int32_t yof, int32_t _delay)
     this->frames_count = this->sprite->GetFrameCount();
 }
 
-void CCursor::Use()
-{
+void CCursor::Use() {
     //47d025
     g_mousept.SetCursor(this->sprite, this->x_off, this->y_off, this->frames_count, this->delay);
 }
 
 
 
-void LoadCursors()
-{
+void LoadCursors() {
     //47d05d
     g_mousept.Update();
 
@@ -691,16 +629,14 @@ void LoadCursors()
     g_mousept.Update();
 }
 
-void DeleteCursors()
-{
+void DeleteCursors() {
     //47daf0
     for (int i = 0; i < 28; i++) {
         delete g_Cursors[i];
     }
 }
 
-int __cdecl ApplyCursor(CCursor* cur)
-{
+int __cdecl ApplyCursor(CCursor* cur) {
     //4750d0
     if (!cur) {
         return 0;

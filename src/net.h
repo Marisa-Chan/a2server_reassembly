@@ -36,8 +36,7 @@ struct Inventory;
 
 constexpr const bool IsDplayAvail = true;
 
-union HatCharId
-{
+union HatCharId {
     uint64_t id;
     struct {
         int32_t id1;
@@ -77,8 +76,7 @@ struct ConnStatInfo {
     uint32_t max_bs;
     uint32_t time;
 
-    ConnStatInfo()
-    {
+    ConnStatInfo() {
         memset(this, 0, sizeof(ConnStatInfo));
     }
 };
@@ -236,14 +234,10 @@ __pragma(pack(push, 1))
 struct NetStru3 {
     uint32_t timestamp;
     uint32_t timestamp2;
-    union
-    {
-        struct
-        {
-            union
-            {
-                struct
-                {
+    union {
+        struct {
+            union {
+                struct {
                     uint16_t pos;
                     uint16_t __padding_0xa;
                 };
@@ -324,8 +318,7 @@ ASSERT_OFFSET(NetStru2, player_id, 0x108);
 ASSERT_OFFSET(NetStru2, critical_section, 0x280);
 ASSERT_SIZE(NetStru2, 0x2c0);
 
-struct NetSockLatency
-{
+struct NetSockLatency {
     uint32_t lat_times[128];
     uint32_t num;
     uint32_t calc_latency;
@@ -364,29 +357,25 @@ struct SocketNm {
     uint32_t dpid;
     A2NetSock *sock;
 
-    SocketNm()
-    {
+    SocketNm() {
         this->dpid = 0;
         this->sock = nullptr;
     };
 
-    ~SocketNm()
-    {
+    ~SocketNm() {
         this->dpid = 0;
         this->sock = nullptr;
     };
 };
 
-struct ComSettings  //DPCOMPORTADDRESS
-{
+struct ComSettings { //DPCOMPORTADDRESS
     int32_t index;
     uint32_t speed;
     uint32_t stop_bits;
     uint32_t parity;
     uint32_t flow_control;
 
-    void Reset()
-    { //43cff2
+    void Reset() { //43cff2
         this->index = 1;
         this->speed = 14400;
         this->stop_bits = 0;
@@ -396,13 +385,11 @@ struct ComSettings  //DPCOMPORTADDRESS
 };
 ASSERT_SIZE(ComSettings, 0x14);
 
-struct CLlName 
-{
+struct CLlName {
     char name[256];
 };
 
-struct CLlAddress : CLlName
-{
+struct CLlAddress : CLlName {
     char address[256];
     union {
         struct {
@@ -418,14 +405,12 @@ struct CLlAddress : CLlName
 };
 ASSERT_SIZE(CLlAddress, 0x214);
 
-struct CLlNetSession : CLlName
-{
+struct CLlNetSession : CLlName {
     GUID guid;
 };
 ASSERT_SIZE(CLlNetSession, 0x110);
 
-struct CLlConn : CLlName
-{
+struct CLlConn : CLlName {
     int32_t typ;
 };
 ASSERT_SIZE(CLlConn, 0x104);
@@ -454,8 +439,7 @@ struct CLlDriver {
     uint32_t next_uid;
     uint32_t unused;
     GUID application_guid;
-    union
-    {
+    union {
         IDirectPlay4A* dplay4;
         IDirectPlay3A* dplay3;
     };

@@ -45,11 +45,9 @@ CLlDriver g_CLlDriver(Allods2GUID, &g_NetStru1_main); //6d07a0
 CLlDriver g_HatLLDriver(Allods2GUID, &NetStru1::HatConnector); //6cdbc0
 
 
-void PackerDat::DeleteTail(PackerTail* node)
-{
+void PackerDat::DeleteTail(PackerTail* node) {
     //526621
-    if (node)
-    {
+    if (node) {
         if (node->field_0x0) {
             this->DeleteTail(node->field_0x0);
         }
@@ -61,27 +59,23 @@ void PackerDat::DeleteTail(PackerTail* node)
     }
 }
 
-void PackerDat::Clear()
-{
+void PackerDat::Clear() {
     //5265f7
     this->DeleteTail(this->tail);
     this->tail = nullptr;
 }
 
-PackerDat::PackerDat()
-{
+PackerDat::PackerDat() {
     //5260fa
     this->tail = nullptr;
 }
 
-PackerDat::~PackerDat()
-{
+PackerDat::~PackerDat() {
     //526115
     this->Clear();
 }
 
-void NetStru1::FUN_0051cd89(const CString& name, Player* player)
-{
+void NetStru1::FUN_0051cd89(const CString& name, Player* player) {
 	PacketJoin& pkt = PacketJoin::Inst;
 	pkt.id = 0x91;
 	strcpy(pkt.name, name);
@@ -638,8 +632,7 @@ void NetStru1::sub_51E289(int32_t arg0, CString source, int32_t arg8, int32_t ar
 }
 
 // 4FB4CA
-void NetStru1::FUN_004fb4ca(Unit* unit, Player* new_owner)
-{
+void NetStru1::FUN_004fb4ca(Unit* unit, Player* new_owner) {
     #ifdef A2SERVER_PATCH
     if (unit == nullptr) {
         LogMessage("FUN_004fb4ca: unit is nullptr.");
@@ -693,8 +686,7 @@ void NetStru1::FUN_004fb4ca(Unit* unit, Player* new_owner)
 
 // sub_519221: send unit state to a player (or all players if player==nullptr)
 // 519221
-void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t param5, int32_t param6, int32_t param7)
-{
+void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t param5, int32_t param6, int32_t param7) {
     if (player == nullptr) {
         // Broadcast to all players.
         POSITION pos = g_PlayersList->list.GetHeadPosition();
@@ -900,8 +892,7 @@ void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t par
     }
 
     // bit 0x100000: spellbook bitmask + eye2 calibration byte
-    if ((mask & 0x100000) && unit->spell_book != nullptr)
-    {
+    if ((mask & 0x100000) && unit->spell_book != nullptr) {
         pkt->PutInt(0x100000, unit->spell_book->sub_53DD3D());
         pkt->PutByte(0x100000, unit->eye2->spell_id);
     }
@@ -1003,8 +994,7 @@ void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t par
 }
 
 // DecodePacket
-Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2)
-{
+Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
     Packet* pkt;
 
     switch (cmd) {
@@ -1191,8 +1181,7 @@ Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2)
     return pkt;
 }
 
-Packet* NetStru1::ReceivePacket(NetStru2* cli)
-{
+Packet* NetStru1::ReceivePacket(NetStru2* cli) {
     //518a23
     if (cli->GetBuffersPktNum() == 0) {
         return nullptr;
@@ -1203,19 +1192,14 @@ Packet* NetStru1::ReceivePacket(NetStru2* cli)
     return this->DecodePacket(id, cli);
 }
 
-Packet* NetStru1::ReceiveAnyPacket()
-{
+Packet* NetStru1::ReceiveAnyPacket() {
     //518980
-    for (POSITION it = this->active_connects.GetHeadPosition(); it != nullptr;)
-    {
+    for (POSITION it = this->active_connects.GetHeadPosition(); it != nullptr;) {
         NetStru2* cli = this->active_connects.GetNext(it);
-        if (cli)
-        {
+        if (cli) {
             Packet* pkt = this->ReceivePacket(cli);
-            if (pkt)
-            {
-                if (this->make_statistics == 0) // ????? bug?  fixme?
-                {
+            if (pkt) {
+                if (this->make_statistics == 0) { // ????? bug?  fixme?
                     this->AddStat1(cli, pkt->GetDataSize());
                     this->AddPacketStatistic(pkt);
                 }
@@ -1229,16 +1213,14 @@ Packet* NetStru1::ReceiveAnyPacket()
 
 
 
-void NetStru1::AddTailNet2(NetStru2*& net2)
-{
+void NetStru1::AddTailNet2(NetStru2*& net2) {
     //517e91
     EnterCriticalSection(&this->critical_section);
     this->disconnect_list.AddTail(net2);
     LeaveCriticalSection(&this->critical_section);
 }
 
-void NetStru1::AddTailFreeNet3(NetStru3* net3)
-{
+void NetStru1::AddTailFreeNet3(NetStru3* net3) {
     //517b00
     EnterCriticalSection(&this->critical_section2);
     NetStru1* pool = this;
@@ -1249,15 +1231,12 @@ void NetStru1::AddTailFreeNet3(NetStru3* net3)
     LeaveCriticalSection(&this->critical_section2);
 }
 
-void NetStru1::ProcessNewConnects()
-{
+void NetStru1::ProcessNewConnects() {
     //51755c
     EnterCriticalSection(&this->critical_section);
-    while (!this->new_connects.IsEmpty())
-    {
+    while (!this->new_connects.IsEmpty()) {
         NetStru2* cli = this->new_connects.RemoveHead();
-        if (cli)
-        {
+        if (cli) {
             if (this->compression_mode != 0) {
                 cli->compression_type = this->compression_type;
             } else {
@@ -1272,18 +1251,14 @@ void NetStru1::ProcessNewConnects()
     LeaveCriticalSection(&this->critical_section);
 }
 
-void NetStru1::ProcessDisconnectList()
-{
+void NetStru1::ProcessDisconnectList() {
     //51725b
     EnterCriticalSection(&this->critical_section);
-    while (!this->disconnect_list.IsEmpty())
-    {
+    while (!this->disconnect_list.IsEmpty()) {
         NetStru2* cli = this->disconnect_list.RemoveHead();
-        if (cli)
-        {
+        if (cli) {
             POSITION pos = this->active_connects.Find(cli);
-            if (pos)
-            {
+            if (pos) {
                 this->OnClientDisconnect(cli);
                 this->active_connects.RemoveAt(pos);
             }
@@ -1294,8 +1269,7 @@ void NetStru1::ProcessDisconnectList()
     LeaveCriticalSection(&this->critical_section);
 }
 
-void NetStru1::ProcessConnections()
-{
+void NetStru1::ProcessConnections() {
     // 51800f
     this->ProcessNewConnects();
     this->ProcessDisconnectList();
@@ -1304,11 +1278,9 @@ void NetStru1::ProcessConnections()
     }
 }
 
-void NetStru1::DisconnectClient(NetStru2* cli)
-{
+void NetStru1::DisconnectClient(NetStru2* cli) {
     //5170b6
-    if (cli == this->local_client)
-    {
+    if (cli == this->local_client) {
         this->AddTailNet2(this->local_client);
         this->local_client = nullptr;
     } else {
@@ -1316,8 +1288,7 @@ void NetStru1::DisconnectClient(NetStru2* cli)
     }
 }
 
-NetStru1::NetStru1(int param)
-{
+NetStru1::NetStru1(int param) {
     //51684b
     this->lldriver = nullptr;
     this->linked_hl = nullptr;
@@ -1335,8 +1306,7 @@ NetStru1::NetStru1(int param)
     memset(this->stat_pkt_size, 0, sizeof(this->stat_pkt_size));
 }
 
-NetStru1::~NetStru1()
-{
+NetStru1::~NetStru1() {
     //516b44
     if (this->local_client != nullptr) {
         this->DisconnectClient(this->local_client);
@@ -1346,8 +1316,7 @@ NetStru1::~NetStru1()
     this->ProcessDisconnectList();
 
     //inline 51710f 
-    while (!this->free_net3.IsEmpty())
-    {
+    while (!this->free_net3.IsEmpty()) {
         NetStru3* buf = this->free_net3.RemoveHead();
         delete buf;
     }
@@ -1367,11 +1336,9 @@ NetStru1::~NetStru1()
 }
 
 
-void NetStru1::OnClientConnect(NetStru2* cli)
-{
+void NetStru1::OnClientConnect(NetStru2* cli) {
     //51fc72
-    if (this != &HatConnector)
-    {
+    if (this != &HatConnector) {
         this->client_stat[cli->uid] = new ConnStatInfo;
 
         if (this->lldriver && lldriver->provider != 4) {
@@ -1382,11 +1349,9 @@ void NetStru1::OnClientConnect(NetStru2* cli)
     }
 }
 
-void NetStru1::OnClientDisconnect(NetStru2* cli)
-{
+void NetStru1::OnClientDisconnect(NetStru2* cli) {
     //51f561
-    if (this == &HatConnector)
-    {
+    if (this == &HatConnector) {
         LogMessage("Connection with hat has been lost.");
         if (g_Server) {
             g_Server->field51_0x1d8 = GetTickCount();
@@ -1398,15 +1363,12 @@ void NetStru1::OnClientDisconnect(NetStru2* cli)
         lldriver->RestartModemServerDp();
     }
 
-    if (g_Server)
-    {
+    if (g_Server) {
         Player* pl = g_PlayersList->sub_535B50(cli->player_id);
-        if (pl && pl->field_0xa50 == 0)
-        {
+        if (pl && pl->field_0xa50 == 0) {
             if (pl->is_ai == 1 || pl->player_id <= 15) {
                 LogMessage("Warning: trying to disconnect AI player " + pl->name);
-            } else
-            {
+            } else {
                 LogMessage("Player " + pl->name + " has disconnected.");
 
                 pl->FUN_00534778();
@@ -1414,10 +1376,8 @@ void NetStru1::OnClientDisconnect(NetStru2* cli)
                 if (lldriver && lldriver->provider == 4 &&
                     g_ServerConfig.gameType != 1 &&
                     g_ServerConfig.gameType != 3 &&
-                    g_Server->field59_0x208 == 0)
-                {
-                    if (g_ServerConfig.gameType == 2)
-                    {
+                    g_Server->field59_0x208 == 0) {
+                    if (g_ServerConfig.gameType == 2) {
                         if (g_PlayersList->sub_53636E()) {
                             pl->field_0xa50 = MAXINT32;
                         }
@@ -1425,8 +1385,7 @@ void NetStru1::OnClientDisconnect(NetStru2* cli)
                         pl->field_0xa50 = g_Server->tick16 + 300;
                     }
                 }
-                if (!MapStuff_Instance && g_Server->field4_0x74)
-                {
+                if (!MapStuff_Instance && g_Server->field4_0x74) {
                     this->FUN_0051cefb(0x97, pl->player_id, 0, nullptr);
                     LogMessage("Player " + pl->name + " has disconnected and leaved game.");
 
@@ -1444,8 +1403,7 @@ void NetStru1::OnClientDisconnect(NetStru2* cli)
     }
 
     ConnStatInfo* stat = nullptr;
-    if (this->client_stat.Lookup(cli->uid, stat))
-    {
+    if (this->client_stat.Lookup(cli->uid, stat)) {
         this->client_stat.RemoveKey(cli->uid);
         if (stat) {
             delete stat;
@@ -1454,8 +1412,7 @@ void NetStru1::OnClientDisconnect(NetStru2* cli)
 }
 
 
-NetStru2* NetStru1::AllocClientBufManager(uint32_t uid)
-{
+NetStru2* NetStru1::AllocClientBufManager(uint32_t uid) {
     //517c99
     EnterCriticalSection(&this->critical_section);
 
@@ -1470,8 +1427,7 @@ NetStru2* NetStru1::AllocClientBufManager(uint32_t uid)
 }
 
 
-NetStru3* NetStru1::GetFreeNet3()
-{
+NetStru3* NetStru1::GetFreeNet3() {
     //5177f5
     EnterCriticalSection(&this->critical_section2);
     NetStru1* pool = this;
@@ -1493,11 +1449,9 @@ NetStru3* NetStru1::GetFreeNet3()
     return buf;
 }
 
-NetStru2* NetStru1::GetClientByPlayerID(uint16_t player_id)
-{
+NetStru2* NetStru1::GetClientByPlayerID(uint16_t player_id) {
     //518544
-    for (POSITION it = this->active_connects.GetHeadPosition(); it != nullptr;)
-    {
+    for (POSITION it = this->active_connects.GetHeadPosition(); it != nullptr;) {
         NetStru2* cli = this->active_connects.GetNext(it);
         if (cli->player_id == player_id) {
             return cli;
@@ -1511,12 +1465,10 @@ NetStru2* NetStru1::GetClientByPlayerID(uint16_t player_id)
     return nullptr;
 }
 
-NetStru2* NetStru1::GetClientByLowUid(uint32_t low_uid)
-{
+NetStru2* NetStru1::GetClientByLowUid(uint32_t low_uid) {
     //5185d5
     uint32_t luid = low_uid & 0x3fff;
-    for (POSITION it = this->active_connects.GetHeadPosition(); it != nullptr;)
-    {
+    for (POSITION it = this->active_connects.GetHeadPosition(); it != nullptr;) {
         NetStru2* cli = this->active_connects.GetNext(it);
         if ((cli->uid & 0x3fff) == luid) {
             return cli;
@@ -1525,8 +1477,7 @@ NetStru2* NetStru1::GetClientByLowUid(uint32_t low_uid)
     return nullptr;
 }
 
-void NetStru1::AddStat1(NetStru2* client, int32_t value)
-{
+void NetStru1::AddStat1(NetStru2* client, int32_t value) {
     //51eff8
     ConnStatInfo* stat = nullptr;
     this->client_stat.Lookup(client->uid, stat);
@@ -1536,19 +1487,16 @@ void NetStru1::AddStat1(NetStru2* client, int32_t value)
     }
 }
 
-void NetStru1::AddPacketStatistic(Packet* pkt)
-{
+void NetStru1::AddPacketStatistic(Packet* pkt) {
     //51f0bb
     this->stat_pkt_num[pkt->id]++;
     this->stat_pkt_size[pkt->id] += pkt->GetDataSize();
 }
 
-void NetStru1::SendAllData()
-{
+void NetStru1::SendAllData() {
     //5188db
     //518927
-    for (POSITION it = this->active_connects.GetHeadPosition(); it != nullptr;)
-    {
+    for (POSITION it = this->active_connects.GetHeadPosition(); it != nullptr;) {
         NetStru2* cli = this->active_connects.GetNext(it);
         if (cli) {
             cli->SendData();
@@ -1556,8 +1504,7 @@ void NetStru1::SendAllData()
     }
 }
 
-void NetStru1::SendPacket_64(uint32_t val, uint16_t player_id)
-{
+void NetStru1::SendPacket_64(uint32_t val, uint16_t player_id) {
     //51d88d
     PacketDword& pkt = PacketDword::Inst;
     pkt.id = 0x64;
@@ -1573,14 +1520,12 @@ void NetStru1::SendPacket_64(uint32_t val, uint16_t player_id)
 #endif
 }
 
-void NetStru1::SetLLDriver(CLlDriver* drv)
-{
+void NetStru1::SetLLDriver(CLlDriver* drv) {
     //517ff9
     this->lldriver = drv;
 }
 
-void NetStru1::SetLinkedHLDriver(NetStru1* hl)
-{
+void NetStru1::SetLinkedHLDriver(NetStru1* hl) {
     //51703e
     this->linked_hl = hl;
     if (this->local_client) {
@@ -1591,22 +1536,17 @@ void NetStru1::SetLinkedHLDriver(NetStru1* hl)
     this->local_client->compression_type = 0;
 }
 
-void NetStru1::QueuePacketSend(Packet* pkt)
-{
+void NetStru1::QueuePacketSend(Packet* pkt) {
     //5186cd
 
     //uint32_t stime = GetTickCount();
     //printf("Send packet 0x%x\n", pkt->id);
-    if (pkt->to_player_id == 0)
-    {
-        for (POSITION it = this->active_connects.GetHeadPosition(); it != nullptr;)
-        {
+    if (pkt->to_player_id == 0) {
+        for (POSITION it = this->active_connects.GetHeadPosition(); it != nullptr;) {
             NetStru2* cli = this->active_connects.GetNext(it);
-            if (cli && (this->make_statistics == 0 || cli->player_id != 0))
-            {
+            if (cli && (this->make_statistics == 0 || cli->player_id != 0)) {
                 pkt->VMethod3(cli);
-                if (this->make_statistics != 0)
-                {
+                if (this->make_statistics != 0) {
                     this->AddStat1(cli, pkt->GetDataSize());
                     this->AddPacketStatistic(pkt);
                 }
@@ -1617,11 +1557,9 @@ void NetStru1::QueuePacketSend(Packet* pkt)
         }
     } else {
         NetStru2* cli = this->GetClientByPlayerID(pkt->to_player_id);
-        if (cli)
-        {
+        if (cli) {
             pkt->VMethod3(cli);
-            if (this->make_statistics != 0)
-            {
+            if (this->make_statistics != 0) {
                 this->AddStat1(cli, pkt->GetDataSize());
                 this->AddPacketStatistic(pkt);
             }
@@ -1631,8 +1569,7 @@ void NetStru1::QueuePacketSend(Packet* pkt)
         }
     }
 
-    if (this->make_statistics != 0 && pkt->id == 0x76)
-    {
+    if (this->make_statistics != 0 && pkt->id == 0x76) {
         //DAT_0070b410 += (GetTickCount() - stime);
     }
 
@@ -1642,12 +1579,10 @@ void NetStru1::QueuePacketSend(Packet* pkt)
 }
 
 
-uint32_t NetStru1::GetClientsPktNum()
-{
+uint32_t NetStru1::GetClientsPktNum() {
     //518a6b
     uint32_t sum = 0;
-    for (POSITION it = this->active_connects.GetHeadPosition(); it != nullptr;)
-    {
+    for (POSITION it = this->active_connects.GetHeadPosition(); it != nullptr;) {
         NetStru2* cli = this->active_connects.GetNext(it);
         if (cli) {
             sum += cli->GetBuffersPktNum();
@@ -1656,8 +1591,7 @@ uint32_t NetStru1::GetClientsPktNum()
     return sum;
 }
 
-int NetStru1::IsActive()
-{
+int NetStru1::IsActive() {
     //518ac9
     if (!this->lldriver) {
         return this->linked_hl != nullptr;
@@ -1668,8 +1602,7 @@ int NetStru1::IsActive()
 }
 
 
-NetStru2* NetStru1::FUN_0041f520()
-{
+NetStru2* NetStru1::FUN_0041f520() {
     if (this->active_connects.IsEmpty()) {
         return nullptr;
     }
@@ -1680,11 +1613,9 @@ NetStru2* NetStru1::FUN_0041f520()
 
 
 
-int NetStru2::WriteData(void* buf, uint32_t size)
-{
+int NetStru2::WriteData(void* buf, uint32_t size) {
     //515ef3
-    while(true)
-    {
+    while(true) {
         int32_t avail = 0x8e - this->out_buffers[this->out_buff_id].datasz;
         if (size <= avail) {
             break;
@@ -1701,17 +1632,14 @@ int NetStru2::WriteData(void* buf, uint32_t size)
     return 1;
 }
 
-int NetStru2::ReadData(void* buf, uint32_t size)
-{
+int NetStru2::ReadData(void* buf, uint32_t size) {
     //515f9c
     EnterCriticalSection(&this->critical_section);
-    while (!this->received_buffers.IsEmpty())
-    {
+    while (!this->received_buffers.IsEmpty()) {
         NetStru3* buffer = this->received_buffers.GetHead();
         int32_t remain = buffer->datasz - buffer->readpos;
         
-        if (size <= remain)
-        {
+        if (size <= remain) {
             buffer->ReadFromBuffer(buf, size);
             LeaveCriticalSection(&this->critical_section);
             return 1;
@@ -1731,15 +1659,13 @@ int NetStru2::ReadData(void* buf, uint32_t size)
 
 
 
-void NetStru2::SetDrivers(NetStru1* HlDriver, CLlDriver* LlDriver)
-{
+void NetStru2::SetDrivers(NetStru1* HlDriver, CLlDriver* LlDriver) {
     //51682d
     this->hldriver = HlDriver;
     this->lldriver = LlDriver;
 }
 
-int NetStru2::ReceiveData(NetStru3* buffer)
-{
+int NetStru2::ReceiveData(NetStru3* buffer) {
     //5161bf
     EnterCriticalSection(&this->critical_section);
 
@@ -1768,11 +1694,9 @@ int NetStru2::ReceiveData(NetStru3* buffer)
     return 1;
 }
 
-int NetStru2::SendData()
-{
+int NetStru2::SendData() {
     //518408
-    if (this->out_buffers[this->out_buff_id].datasz < 1)
-    {
+    if (this->out_buffers[this->out_buff_id].datasz < 1) {
         if (this->lldriver) {
             this->lldriver->CleanupInvalidTcpClient(this->uid);
         }
@@ -1792,18 +1716,15 @@ int NetStru2::SendData()
     this->out_buff_id = (this->out_buff_id + 1) & 1;
     this->out_buffers[this->out_buff_id].Clear();
 
-    if (this->is_local_player == 0)
-    {
-        if (!this->lldriver)
-        {
+    if (this->is_local_player == 0) {
+        if (!this->lldriver) {
             this->hldriver->AddTailFreeNet3(buffer);
             return 0;
         }
 
         this->lldriver->SendData(this->uid, buffer);
     } else {
-        if (!this->hldriver)
-        {
+        if (!this->hldriver) {
             this->hldriver->AddTailFreeNet3(buffer);
             return 0;
         }
@@ -1813,8 +1734,7 @@ int NetStru2::SendData()
             recv_cli = this->hldriver->linked_hl->local_client;
         }
         
-        if (!recv_cli)
-        {
+        if (!recv_cli) {
             this->hldriver->AddTailFreeNet3(buffer);
             return 0;
         }
@@ -1824,8 +1744,7 @@ int NetStru2::SendData()
     return 1;
 }
 
-NetStru2::NetStru2()
-{
+NetStru2::NetStru2() {
     //515831
     this->field_0x2a0 = 0;
     this->field_0x2a4 = 0;
@@ -1847,8 +1766,7 @@ NetStru2::NetStru2()
     InitializeCriticalSection(&this->critical_section);
 }
 
-NetStru2::~NetStru2()
-{
+NetStru2::~NetStru2() {
     //515c27
     this->ReturnBuffers();
     DeleteCriticalSection(&this->critical_section);
@@ -1860,8 +1778,7 @@ NetStru2::~NetStru2()
     this->buf[0] = 0;
 }
 
-void NetStru2::ReturnBuffers()
-{
+void NetStru2::ReturnBuffers() {
     //515d9d
     if (!this->hldriver) {
         return;
@@ -1877,15 +1794,12 @@ void NetStru2::ReturnBuffers()
 }
 
 
-void NetStru2::sub_5167A5()
-{
+void NetStru2::sub_5167A5() {
     //5167A5
     EnterCriticalSection(&this->critical_section);
-    for (POSITION pos = this->received_buffers.GetHeadPosition(); pos != nullptr;)
-    {
+    for (POSITION pos = this->received_buffers.GetHeadPosition(); pos != nullptr;) {
         NetStru3* buffer = this->received_buffers.GetNext(pos);
-        if (buffer->pkt_num != 0)
-        {
+        if (buffer->pkt_num != 0) {
             buffer->pkt_num--;
             break;
         }
@@ -1893,13 +1807,11 @@ void NetStru2::sub_5167A5()
     LeaveCriticalSection(&this->critical_section);
 }
 
-uint32_t NetStru2::GetBuffersPktNum()
-{
+uint32_t NetStru2::GetBuffersPktNum() {
     //51670a  Get received_buffers summary of pkt_num
     uint32_t sum = 0;
     EnterCriticalSection(&this->critical_section);
-    for (POSITION pos = this->received_buffers.GetHeadPosition(); pos != nullptr;)
-    {
+    for (POSITION pos = this->received_buffers.GetHeadPosition(); pos != nullptr;) {
        sum += this->received_buffers.GetNext(pos)->pkt_num;        
     }
     LeaveCriticalSection(&this->critical_section);
@@ -1909,8 +1821,7 @@ uint32_t NetStru2::GetBuffersPktNum()
 
 
 
-void NetStru3::Clear()
-{
+void NetStru3::Clear() {
     //5156f6
     this->datasz = 0;
     this->readpos = 0;
@@ -1920,8 +1831,7 @@ void NetStru3::Clear()
     this->csize = 0;
 }
 
-NetStru3::NetStru3()
-{
+NetStru3::NetStru3() {
     //5155c0
     memset(this->full_data, 0, sizeof(this->full_data));
     this->pktid = 0;
@@ -1933,8 +1843,7 @@ NetStru3::NetStru3()
     this->timestamp2 = 0;
 }
 
-NetStru3::~NetStru3()
-{
+NetStru3::~NetStru3() {
     //515694
     this->datasz = -1;
     this->readpos = -1;
@@ -1946,8 +1855,7 @@ NetStru3::~NetStru3()
     memset(this->full_data, 0, sizeof(this->full_data));
 }
 
-void NetStru3::CopyData(const NetStru3* src)
-{
+void NetStru3::CopyData(const NetStru3* src) {
     //515625
     memcpy(this->full_data, &src->full_data, src->datasz + 8);
     this->datasz = src->datasz;
@@ -1956,8 +1864,7 @@ void NetStru3::CopyData(const NetStru3* src)
     this->timestamp2 = src->timestamp2;
 }
 
-int NetStru3::WriteToBuffer(void* data, uint32_t sz)
-{
+int NetStru3::WriteToBuffer(void* data, uint32_t sz) {
     //51573e
     uint32_t newsz = this->datasz + sz;
     if (newsz >= 143) {
@@ -1969,8 +1876,7 @@ int NetStru3::WriteToBuffer(void* data, uint32_t sz)
     return true;
 }
 
-int NetStru3::ReadFromBuffer(void* out, uint32_t sz)
-{
+int NetStru3::ReadFromBuffer(void* out, uint32_t sz) {
     //51579e
     uint32_t newpos = this->readpos + sz;
     if (newpos > this->datasz) {
@@ -1983,8 +1889,7 @@ int NetStru3::ReadFromBuffer(void* out, uint32_t sz)
 }
 
 
-A2NetSock::A2NetSock()
-{
+A2NetSock::A2NetSock() {
     //520510
     this->is_in_use = 0;
     this->uid = 0;
@@ -2001,8 +1906,7 @@ A2NetSock::A2NetSock()
     this->field_0x264 = 0;
 }
 
-A2NetSock::~A2NetSock()
-{
+A2NetSock::~A2NetSock() {
     //520684
     this->is_in_use = 0;
     this->uid = 0;
@@ -2019,8 +1923,7 @@ A2NetSock::~A2NetSock()
     this->field_0x264 = 0;
 }
 
-void NetSockLatency::AddLatency(uint32_t lat_time)
-{
+void NetSockLatency::AddLatency(uint32_t lat_time) {
     //51fdf7
     static std::array<uint32_t, 128> storage;
 
@@ -2036,8 +1939,7 @@ void NetSockLatency::AddLatency(uint32_t lat_time)
     std::array<uint32_t, 256> count4;
     std::array<uint32_t*, 256> arrPos4;
 
-    if (this->num >= 128)
-    {
+    if (this->num >= 128) {
         this->num = 0;
 
         count1.fill(0);
@@ -2046,14 +1948,12 @@ void NetSockLatency::AddLatency(uint32_t lat_time)
         }
 
         uint32_t* ppos = storage.data();
-        for (int i = 0; i < 256; i++)
-        {
+        for (int i = 0; i < 256; i++) {
             arrPos1[i] = ppos;
             ppos += count1[i];
         }
 
-        for (int i = 0; i < 128; i++)
-        {
+        for (int i = 0; i < 128; i++) {
             int idx = ShiftToByte(this->lat_times[i], 0);
             *arrPos1[idx] = this->lat_times[i];
             arrPos1[idx]++;
@@ -2066,14 +1966,12 @@ void NetSockLatency::AddLatency(uint32_t lat_time)
         }
 
         ppos = this->lat_times;
-        for (int i = 0; i < 256; i++)
-        {
+        for (int i = 0; i < 256; i++) {
             arrPos2[i] = ppos;
             ppos += count2[i];
         }
 
-        for (int i = 0; i < 128; i++)
-        {
+        for (int i = 0; i < 128; i++) {
             int idx = ShiftToByte(storage[i], 8);
             *arrPos2[idx] = storage[i];
             arrPos2[idx]++;
@@ -2086,14 +1984,12 @@ void NetSockLatency::AddLatency(uint32_t lat_time)
         }
 
         ppos = storage.data();
-        for (int i = 0; i < 256; i++)
-        {
+        for (int i = 0; i < 256; i++) {
             arrPos3[i] = ppos;
             ppos += count3[i];
         }
 
-        for (int i = 0; i < 128; i++)
-        {
+        for (int i = 0; i < 128; i++) {
             int idx = ShiftToByte(this->lat_times[i], 16);
             *arrPos3[idx] = this->lat_times[i];
             arrPos3[idx]++;
@@ -2106,14 +2002,12 @@ void NetSockLatency::AddLatency(uint32_t lat_time)
         }
 
         ppos = this->lat_times;
-        for (int i = 0; i < 256; i++)
-        {
+        for (int i = 0; i < 256; i++) {
             arrPos4[i] = ppos;
             ppos += count4[i];
         }
 
-        for (int i = 0; i < 128; i++)
-        {
+        for (int i = 0; i < 128; i++) {
             int idx = ShiftToByte(storage[i], 24);
             *arrPos4[idx] = storage[i];
             arrPos4[idx]++;
@@ -2132,8 +2026,7 @@ void NetSockLatency::AddLatency(uint32_t lat_time)
 
 
 
-CLlDriver::CLlDriver(GUID _appid, NetStru1* net1)
-{
+CLlDriver::CLlDriver(GUID _appid, NetStru1* net1) {
     //5208ec
     this->application_guid = _appid;
     this->hl_driver = net1;
@@ -2167,8 +2060,7 @@ CLlDriver::CLlDriver(GUID _appid, NetStru1* net1)
     CoInitialize(NULL);
 }
 
-CLlDriver::~CLlDriver()
-{
+CLlDriver::~CLlDriver() {
     //520ad3
 
     this->Close();
@@ -2177,14 +2069,12 @@ CLlDriver::~CLlDriver()
     this->FreeEnumConns();
     this->FreeEnumPlayers();
 
-    if (this->connection_sockets)
-    {
+    if (this->connection_sockets) {
         delete[] this->connection_sockets;
         this->connection_sockets = nullptr;
     }
 
-    if (this->connections_info)
-    {
+    if (this->connections_info) {
         delete[] this->connections_info;
         this->connections_info = nullptr;
     }
@@ -2196,18 +2086,15 @@ CLlDriver::~CLlDriver()
     CoUninitialize();
 }
 
-void CLlDriver::SetHlDriver(NetStru1* drv)
-{
+void CLlDriver::SetHlDriver(NetStru1* drv) {
     //496e50
     this->hl_driver = drv;
 }
 
 
-void CLlDriver::Close()
-{
+void CLlDriver::Close() {
     //5225d0
-    if (this->listen_socket.is_in_use)
-    {
+    if (this->listen_socket.is_in_use) {
         if (this->provider == 4) {
             this->CloseTcp();
         } else {
@@ -2220,96 +2107,81 @@ void CLlDriver::Close()
 
 
 
-void CLlDriver::CloseTcp()
-{
+void CLlDriver::CloseTcp() {
     //523b01
     this->CloseTcpSocket(&this->listen_socket);
     this->CloseTcpSocket(&this->ping_socket);
-    if (this->is_server)
-    {
+    if (this->is_server) {
         for (uint32_t i = 0; i < this->max_connections; i++) {
             this->CloseTcpSocket(this->connection_sockets + i);
         }
     }
 }
 
-void CLlDriver::CloseTcpSocket(A2NetSock* sock)
-{
+void CLlDriver::CloseTcpSocket(A2NetSock* sock) {
     //523a16
     if (sock->is_in_use) {
         this->num_connections--;
     }
 
     sock->is_in_use = 0;
-    if (sock->socket != INVALID_SOCKET)
-    {
+    if (sock->socket != INVALID_SOCKET) {
         closesocket(sock->socket);
         sock->socket = INVALID_SOCKET;
     }
 
-    if (sock->wait_obj)
-    {
+    if (sock->wait_obj) {
         WaitForSingleObject(sock->wait_obj, -1);
         CloseHandle(sock->wait_obj);
         sock->wait_obj = nullptr;
     }
 
-    if (sock->current_buffer)
-    {
+    if (sock->current_buffer) {
         this->hl_driver->AddTailFreeNet3(sock->current_buffer);
         sock->current_buffer = nullptr;
         sock->copy_num = -1;
     }
 
-    if (sock->manager)
-    {
+    if (sock->manager) {
         this->hl_driver->AddTailNet2(sock->manager);
         sock->manager = nullptr;
     }
 }
 
 
-void CLlDriver::CloseDp()
-{
+void CLlDriver::CloseDp() {
     //525a09
-    if (this->listen_socket.wait_obj)
-    {
+    if (this->listen_socket.wait_obj) {
         SetEvent(this->ev_close);
         WaitForSingleObject(this->listen_socket.wait_obj, -1);
         CloseHandle(this->listen_socket.wait_obj);
         this->listen_socket.wait_obj = nullptr;
     }
 
-    if (this->is_server)
-    {
+    if (this->is_server) {
         for (uint32_t i = 0; i < this->max_connections; i++) {
             this->CloseDpSock(this->connection_sockets + i, -1);
         }
     } else {
         this->listen_socket.is_in_use = 0;
-        if (this->listen_socket.manager)
-        {
+        if (this->listen_socket.manager) {
             this->hl_driver->AddTailNet2(this->listen_socket.manager);
             this->listen_socket.manager = nullptr;
         }
     }
 
-    if (this->ev_create_player)
-    {
+    if (this->ev_create_player) {
         CloseHandle(this->ev_create_player);
         this->ev_create_player = nullptr;
     }
 
-    if (this->ev_close)
-    {
+    if (this->ev_close) {
         CloseHandle(this->ev_close);
         this->ev_close = nullptr;
     }
 
-    if (this->dplay4)
-    {
-        if (this->listen_socket.player_dpid != DPID_UNKNOWN)
-        {
+    if (this->dplay4) {
+        if (this->listen_socket.player_dpid != DPID_UNKNOWN) {
             this->dplay4->DestroyPlayer(this->listen_socket.player_dpid);
             this->listen_socket.player_dpid = DPID_UNKNOWN;
         }
@@ -2317,15 +2189,13 @@ void CLlDriver::CloseDp()
     }
 }
 
-void CLlDriver::CloseDpSock(A2NetSock* sock, int idx)
-{
+void CLlDriver::CloseDpSock(A2NetSock* sock, int idx) {
     //525bcd
     if (this->IsInUse(sock) == 0) {
         return;
     }
 
-    if (this->is_server == 0)
-    {
+    if (this->is_server == 0) {
         this->Close();
         return;
     }
@@ -2334,8 +2204,7 @@ void CLlDriver::CloseDpSock(A2NetSock* sock, int idx)
         this->dplay4->DestroyPlayer(sock->player_dpid);
     }
 
-    if (sock->manager)
-    {
+    if (sock->manager) {
         this->hl_driver->AddTailNet2(sock->manager);
         sock->manager = nullptr;
     }
@@ -2352,12 +2221,9 @@ void CLlDriver::CloseDpSock(A2NetSock* sock, int idx)
     }
     sock->list_0x30.RemoveAll();
 
-    if (idx == -1)
-    {
-        for (uint32_t i = 0; i < this->num_connections; i++)
-        {
-            if (this->connections_info[i].sock == sock)
-            {
+    if (idx == -1) {
+        for (uint32_t i = 0; i < this->num_connections; i++) {
+            if (this->connections_info[i].sock == sock) {
                 idx = i;
                 break;
             }
@@ -2368,11 +2234,9 @@ void CLlDriver::CloseDpSock(A2NetSock* sock, int idx)
 }
 
 
-CLlAddress* CLlDriver::AllocAddress()
-{
+CLlAddress* CLlDriver::AllocAddress() {
     //520d8c
-    if (this->enum_addresses == nullptr)
-    {
+    if (this->enum_addresses == nullptr) {
         this->enum_addresses = (CLlAddress*)malloc(sizeof(CLlAddress));
         this->enum_addresses_num = 1;
         return this->enum_addresses;
@@ -2383,11 +2247,9 @@ CLlAddress* CLlDriver::AllocAddress()
     }
 }
 
-void CLlDriver::FreeEnumAddresses()
-{
+void CLlDriver::FreeEnumAddresses() {
     //520c80
-    if (this->enum_addresses)
-    {
+    if (this->enum_addresses) {
         free(this->enum_addresses);
         this->enum_addresses = nullptr;
         this->enum_addresses_num = 0;
@@ -2395,12 +2257,10 @@ void CLlDriver::FreeEnumAddresses()
 }
 
 
-int CLlDriver::EnumAddresses(CLlAddress** addrs, int* num)
-{
+int CLlDriver::EnumAddresses(CLlAddress** addrs, int* num) {
     //52182f
     this->FreeEnumAddresses();
-    if (this->provider == 0)
-    {
+    if (this->provider == 0) {
         CLlAddress* addr = this->AllocAddress();
         strcpy(addr->name, "COM1");
         addr->com.index = 1;
@@ -2413,11 +2273,9 @@ int CLlDriver::EnumAddresses(CLlAddress** addrs, int* num)
         addr = this->AllocAddress();
         strcpy(addr->name, "COM4");
         addr->com.index = 4;
-    } else if (this->provider == 1)
-    {
+    } else if (this->provider == 1) {
         this->EnumAddressesDp();
-    } else if (this->provider == 4)
-    {
+    } else if (this->provider == 4) {
         this->EnumAddressesTcp();
     } else {
         return 0;
@@ -2429,8 +2287,7 @@ int CLlDriver::EnumAddresses(CLlAddress** addrs, int* num)
 }
 
 
-void CLlDriver::EnumAddressesTcp()
-{
+void CLlDriver::EnumAddressesTcp() {
     //5214c5
     OSVERSIONINFOA osver;
     osver.dwOSVersionInfoSize = sizeof(OSVERSIONINFOA);
@@ -2463,17 +2320,14 @@ void CLlDriver::EnumAddressesTcp()
     char buf[2048];
 
     FILE* f = fopen("IPINFO.$$$$$$", "r");
-    if (f)
-    {
-        while (true)
-        {
+    if (f) {
+        while (true) {
             if (fgets(buf, sizeof(buf), f) == NULL) {
                 break;
             }
 
             char* p = strchr(buf, ':');
-            if (p)
-            {
+            if (p) {
                 *p = 0;
                 p++;
                 while (isspace(*p)) {
@@ -2483,13 +2337,11 @@ void CLlDriver::EnumAddressesTcp()
                     *t = 0;
                 }
 
-                if (strstr(buf, "Description") != NULL)
-                {
+                if (strstr(buf, "Description") != NULL) {
                     addr = this->AllocAddress();
                     strcpy(addr->name, p);
                     strcpy(addr->address, "0.0.0.0");
-                } else if (addr && strstr(buf, "IP Address") != NULL)
-                {
+                } else if (addr && strstr(buf, "IP Address") != NULL) {
                     strcpy(addr->address, p);
                     addr = nullptr;
                 }
@@ -2500,8 +2352,7 @@ void CLlDriver::EnumAddressesTcp()
         _unlink("IPINFO.$$$$$$");
     }
 
-    if (this->enum_addresses_num == 0)
-    {
+    if (this->enum_addresses_num == 0) {
         if (!addr) {
             addr = this->AllocAddress();
         }
@@ -2511,19 +2362,16 @@ void CLlDriver::EnumAddressesTcp()
     }
 }
 
-void CLlDriver::EnumAddressesDp()
-{
+void CLlDriver::EnumAddressesDp() {
     //521200
     IDirectPlayLobby2A* lobby = nullptr;
-    if (CoCreateInstance(CLSID_DirectPlayLobby, NULL, 1, IID_IDirectPlayLobby2A, (LPVOID*)&lobby) != 0)
-    {
+    if (CoCreateInstance(CLSID_DirectPlayLobby, NULL, 1, IID_IDirectPlayLobby2A, (LPVOID*)&lobby) != 0) {
         ReportWarning("CLlDriver::GetPossibleModems.\nUnable to create DirectPlayLobby.\n");
         return;
     }
 
     IDirectPlay3A* dplay = nullptr;
-    if (CoCreateInstance(CLSID_DirectPlay, NULL, 1, IID_IDirectPlayLobby3A, (LPVOID*)&dplay) != 0)
-    {
+    if (CoCreateInstance(CLSID_DirectPlay, NULL, 1, IID_IDirectPlayLobby3A, (LPVOID*)&dplay) != 0) {
         ReportWarning("CLlDriver::GetPossibleModems.\nUnable to create DirectPlay.\n");
         lobby->Release();
         return;
@@ -2539,16 +2387,14 @@ void CLlDriver::EnumAddressesDp()
     elem[1].lpData = buf;
 
     DWORD AddrSize;
-    if (lobby->CreateCompoundAddress(elem, 2, NULL, &AddrSize) != DPERR_BUFFERTOOSMALL)
-    {
+    if (lobby->CreateCompoundAddress(elem, 2, NULL, &AddrSize) != DPERR_BUFFERTOOSMALL) {
         lobby->Release();
         dplay->Release();
         return;
     }
 
     uint8_t* dpaddr = new uint8_t[AddrSize];
-    if (lobby->CreateCompoundAddress(elem, 2, dpaddr, &AddrSize) != 0)
-    {
+    if (lobby->CreateCompoundAddress(elem, 2, dpaddr, &AddrSize) != 0) {
         delete[] dpaddr;
 
         lobby->Release();
@@ -2556,8 +2402,7 @@ void CLlDriver::EnumAddressesDp()
         return;
     }
 
-    if (dplay->InitializeConnection(dpaddr, 0) != 0)
-    {
+    if (dplay->InitializeConnection(dpaddr, 0) != 0) {
         delete[] dpaddr;
         ReportWarning("CLlDriver::GetPossibleModems.\nUnable to initialize DirectPlay.\n");
         lobby->Release();
@@ -2567,8 +2412,7 @@ void CLlDriver::EnumAddressesDp()
 
     delete[] dpaddr;
 
-    if (dplay->GetPlayerAddress(0, NULL, &AddrSize) != DPERR_BUFFERTOOSMALL)
-    {
+    if (dplay->GetPlayerAddress(0, NULL, &AddrSize) != DPERR_BUFFERTOOSMALL) {
         ReportWarning("CLlDriver::GetPossibleModems.\nUnable to enum modems.\n");
         lobby->Release();
         dplay->Release();
@@ -2577,8 +2421,7 @@ void CLlDriver::EnumAddressesDp()
 
     dpaddr = new uint8_t[AddrSize];
 
-    if (dplay->GetPlayerAddress(0, dpaddr, &AddrSize) != 0)
-    {
+    if (dplay->GetPlayerAddress(0, dpaddr, &AddrSize) != 0) {
         delete[] dpaddr;
         ReportWarning("CLlDriver::GetPossibleModems.\nUnable to enum modems(2).\n");
         lobby->Release();
@@ -2594,12 +2437,10 @@ void CLlDriver::EnumAddressesDp()
     dplay->Release();
 }
 
-BOOL __stdcall CLlDriver::cbEnumAddress(REFGUID guidDataType, DWORD dwDataSize, LPCVOID lpData, LPVOID lpContext)
-{
+BOOL __stdcall CLlDriver::cbEnumAddress(REFGUID guidDataType, DWORD dwDataSize, LPCVOID lpData, LPVOID lpContext) {
     //5211b2
     CLlDriver* drv = (CLlDriver*)lpContext;
-    if (memcmp(&guidDataType, &DPAID_Modem, sizeof(GUID)) == 0)
-    {
+    if (memcmp(&guidDataType, &DPAID_Modem, sizeof(GUID)) == 0) {
         CLlAddress* addr = drv->AllocAddress();
         strcpy(addr->name, (const char*)lpData);
     }
@@ -2609,11 +2450,9 @@ BOOL __stdcall CLlDriver::cbEnumAddress(REFGUID guidDataType, DWORD dwDataSize, 
 
 
 
-CLlNetSession* CLlDriver::AllocSession()
-{
+CLlNetSession* CLlDriver::AllocSession() {
     //520e2e
-    if (this->enum_sessions == nullptr)
-    {
+    if (this->enum_sessions == nullptr) {
         this->enum_sessions = (CLlNetSession*)malloc(sizeof(CLlNetSession));
         this->enum_sessions_num = 1;
         return this->enum_sessions;
@@ -2624,19 +2463,16 @@ CLlNetSession* CLlDriver::AllocSession()
     }
 }
 
-void CLlDriver::FreeEnumSessions()
-{
+void CLlDriver::FreeEnumSessions() {
     //520cc3
-    if (this->enum_sessions)
-    {
+    if (this->enum_sessions) {
         free(this->enum_sessions);
         this->enum_sessions = nullptr;
         this->enum_sessions_num = 0;
     }
 }
 
-int CLlDriver::EnumSessions(CLlNetSession** sessions, int* num, CBUPDATECALLBACK cbUpdate, uint32_t timeout)
-{
+int CLlDriver::EnumSessions(CLlNetSession** sessions, int* num, CBUPDATECALLBACK cbUpdate, uint32_t timeout) {
     //52210d
     this->FreeEnumSessions();
 
@@ -2650,12 +2486,10 @@ int CLlDriver::EnumSessions(CLlNetSession** sessions, int* num, CBUPDATECALLBACK
     desc.guidApplication = this->application_guid;
     this->ev_new_session = CreateEventA(NULL, FALSE, FALSE, NULL);
 
-    if (timeout == 0)
-    {
+    if (timeout == 0) {
         DPCAPS caps;
         caps.dwSize = sizeof(caps);
-        if (this->dplay4->GetCaps(&caps, (this->guaranteed != 0 ? DPGETCAPS_GUARANTEED : 0)) != 0)
-        {
+        if (this->dplay4->GetCaps(&caps, (this->guaranteed != 0 ? DPGETCAPS_GUARANTEED : 0)) != 0) {
             ReportWarning("CLlDriver::GetActiveServers().\nUnable to get caps.\n");
             return 1;
         }
@@ -2663,8 +2497,7 @@ int CLlDriver::EnumSessions(CLlNetSession** sessions, int* num, CBUPDATECALLBACK
     }
 
     uint32_t t1 = GetTickCount();
-    while (true)
-    {
+    while (true) {
         uint32_t t2 = GetTickCount();
         if (t2 - t1 >= timeout) {
             break;
@@ -2679,8 +2512,7 @@ int CLlDriver::EnumSessions(CLlNetSession** sessions, int* num, CBUPDATECALLBACK
             break;
         }
 
-        if (cbUpdate && cbUpdate() == 0)
-        {
+        if (cbUpdate && cbUpdate() == 0) {
             this->dplay4->EnumSessions(&desc, 0, cbEnumSessions, this, DPENUMSESSIONS_STOPASYNC);
             break;
         }
@@ -2695,8 +2527,7 @@ int CLlDriver::EnumSessions(CLlNetSession** sessions, int* num, CBUPDATECALLBACK
     return 1;
 }
 
-BOOL __stdcall CLlDriver::cbEnumSessions(LPCDPSESSIONDESC2 lpThisSD, LPDWORD lpdwTimeOut, DWORD dwFlags, LPVOID lpContext)
-{
+BOOL __stdcall CLlDriver::cbEnumSessions(LPCDPSESSIONDESC2 lpThisSD, LPDWORD lpdwTimeOut, DWORD dwFlags, LPVOID lpContext) {
     //522020
     CLlDriver* drv = (CLlDriver*)lpContext;
 
@@ -2708,8 +2539,7 @@ BOOL __stdcall CLlDriver::cbEnumSessions(LPCDPSESSIONDESC2 lpThisSD, LPDWORD lpd
         return FALSE;
     }
 
-    for (uint32_t i = 0; i < drv->enum_sessions_num; i++)
-    {
+    for (uint32_t i = 0; i < drv->enum_sessions_num; i++) {
         if (memcmp(&drv->enum_sessions[i].guid, &lpThisSD->guidInstance, sizeof(GUID)) == 0) {
             return TRUE;
         }
@@ -2731,11 +2561,9 @@ BOOL __stdcall CLlDriver::cbEnumSessions(LPCDPSESSIONDESC2 lpThisSD, LPDWORD lpd
 
 
 
-CLlConn* CLlDriver::AllocEnumConns()
-{
+CLlConn* CLlDriver::AllocEnumConns() {
     //520ed0
-    if (this->enum_conns == nullptr)
-    {
+    if (this->enum_conns == nullptr) {
         this->enum_conns = (CLlConn*)malloc(sizeof(CLlConn));
         this->enum_conns_num = 1;
         return this->enum_conns;
@@ -2746,19 +2574,16 @@ CLlConn* CLlDriver::AllocEnumConns()
     }
 }
 
-void CLlDriver::FreeEnumConns()
-{
+void CLlDriver::FreeEnumConns() {
     //520d06
-    if (this->enum_conns)
-    {
+    if (this->enum_conns) {
         free(this->enum_conns);
         this->enum_conns = nullptr;
         this->enum_conns_num = 0;
     }
 }
 
-void CLlDriver::EnumConnections(CLlConn** conns, int* num)
-{
+void CLlDriver::EnumConnections(CLlConn** conns, int* num) {
     //5210ea
     this->FreeEnumConns();
 
@@ -2784,8 +2609,7 @@ void CLlDriver::EnumConnections(CLlConn** conns, int* num)
     *num = this->enum_conns_num;
 }
 
-BOOL __stdcall CLlDriver::cbEnumConnections(LPCGUID lpguidSP, LPVOID lpConnection, DWORD dwConnectionSize, LPCDPNAME lpName, DWORD dwFlags, LPVOID lpContext)
-{
+BOOL __stdcall CLlDriver::cbEnumConnections(LPCGUID lpguidSP, LPVOID lpConnection, DWORD dwConnectionSize, LPCDPNAME lpName, DWORD dwFlags, LPVOID lpContext) {
     //52100e
     CLlDriver* drv = (CLlDriver*)lpContext;
 
@@ -2810,11 +2634,9 @@ BOOL __stdcall CLlDriver::cbEnumConnections(LPCGUID lpguidSP, LPVOID lpConnectio
 
 
 
-CLlName* CLlDriver::AllocEnumPlayers()
-{
+CLlName* CLlDriver::AllocEnumPlayers() {
     //520f72
-    if (this->enum_players == nullptr)
-    {
+    if (this->enum_players == nullptr) {
         this->enum_players = (CLlName*)malloc(sizeof(CLlName));
         this->enum_players_num = 1;
         return this->enum_players;
@@ -2825,19 +2647,16 @@ CLlName* CLlDriver::AllocEnumPlayers()
     }
 }
 
-void CLlDriver::FreeEnumPlayers()
-{
+void CLlDriver::FreeEnumPlayers() {
     //520d49
-    if (this->enum_players)
-    {
+    if (this->enum_players) {
         free(this->enum_players);
         this->enum_players = nullptr;
         this->enum_players_num = 0;
     }
 }
 
-void CLlDriver::EnumPlayers(CLlNetSession* ses, CLlName** names, int* num)
-{
+void CLlDriver::EnumPlayers(CLlNetSession* ses, CLlName** names, int* num) {
     //52238e
     this->FreeEnumPlayers();
     if (this->dplay4) {
@@ -2847,8 +2666,7 @@ void CLlDriver::EnumPlayers(CLlNetSession* ses, CLlName** names, int* num)
     *num = this->enum_players_num;
 }
 
-BOOL __stdcall CLlDriver::cbEnumPlayes(DPID dpId, DWORD dwPlayerType, LPCDPNAME lpName, DWORD dwFlags, LPVOID lpContext)
-{
+BOOL __stdcall CLlDriver::cbEnumPlayes(DPID dpId, DWORD dwPlayerType, LPCDPNAME lpName, DWORD dwFlags, LPVOID lpContext) {
     //52233f
     CLlDriver* drv = (CLlDriver*)lpContext;
 
@@ -2866,15 +2684,13 @@ BOOL __stdcall CLlDriver::cbEnumPlayes(DPID dpId, DWORD dwPlayerType, LPCDPNAME 
 }
 
 
-void CLlDriver::Free()
-{
+void CLlDriver::Free() {
     //5219af
     if (this->listen_socket.is_in_use == 1) {
         this->Close();
     }
 
-    if (this->provider != 5)
-    {
+    if (this->provider != 5) {
         if (this->provider == 4) {
             this->FreeTcp();
         } else {
@@ -2884,17 +2700,14 @@ void CLlDriver::Free()
     }
 }
 
-void CLlDriver::FreeTcp()
-{
+void CLlDriver::FreeTcp() {
     //523611
     WSACleanup();
 }
 
-void CLlDriver::FreeDp()
-{
+void CLlDriver::FreeDp() {
     //523d5a
-    if (this->dplay4)
-    {
+    if (this->dplay4) {
         this->dplay4->Release();
         this->dplay4 = nullptr;
     }
@@ -2904,14 +2717,12 @@ void CLlDriver::FreeDp()
 
 
 
-int CLlDriver::ResetProvider(int prov)
-{
+int CLlDriver::ResetProvider(int prov) {
     //52194f
     this->Free();
 
     this->provider = prov;
-    if (prov == 4)
-    {
+    if (prov == 4) {
         if (!this->CreateTcp()) {
             return 0;
         }
@@ -2925,8 +2736,7 @@ int CLlDriver::ResetProvider(int prov)
 }
 
 
-int CLlDriver::CreateTcp()
-{
+int CLlDriver::CreateTcp() {
     //52359b
     WSADATA wsa;
     if (WSAStartup(0x101, &wsa) != 0) {
@@ -2941,8 +2751,7 @@ int CLlDriver::CreateTcp()
     return 0;
 }
 
-int CLlDriver::CreateDp()
-{
+int CLlDriver::CreateDp() {
     //523ccf
     if (this->dplay4) {
         return 1;
@@ -2963,16 +2772,14 @@ int CLlDriver::CreateDp()
 }
 
 
-A2NetSock* CLlDriver::GetClientBySocketId(uint32_t uid)
-{
+A2NetSock* CLlDriver::GetClientBySocketId(uint32_t uid) {
     //5224c4
     if (!this->is_server) {
         return &this->listen_socket;
     }
     
     A2NetSock* sock = this->connection_sockets + (uid & 0xFFFF);
-    if (sock->uid != uid)
-    {
+    if (sock->uid != uid) {
         ReportWarning("CLlDriver::GetClientBySocketId().\nConnection with client lost.\n");
         return nullptr;
     }
@@ -2980,16 +2787,14 @@ A2NetSock* CLlDriver::GetClientBySocketId(uint32_t uid)
 }
 
 
-void CLlDriver::SetEventNewSession()
-{
+void CLlDriver::SetEventNewSession() {
     //522318
     if (this->ev_new_session) {
         SetEvent(this->ev_new_session);
     }
 }
 
-int CLlDriver::IsInUse(A2NetSock* sock)
-{
+int CLlDriver::IsInUse(A2NetSock* sock) {
     //52293a
     if (this->listen_socket.is_in_use == 1) {
         return sock->is_in_use;
@@ -3000,14 +2805,12 @@ int CLlDriver::IsInUse(A2NetSock* sock)
 
 
 
-int CLlDriver::MakeSockAddr(const char* address, sockaddr_in* out, int port, int resolve)
-{
+int CLlDriver::MakeSockAddr(const char* address, sockaddr_in* out, int port, int resolve) {
     //52343e
     char buf[1024];
     strcpy(buf, address);
 
-    if (buf[0] == 0)
-    {
+    if (buf[0] == 0) {
         out->sin_addr.S_un.S_addr = 0;
         out->sin_port = 0;
         return 0;
@@ -3015,10 +2818,8 @@ int CLlDriver::MakeSockAddr(const char* address, sockaddr_in* out, int port, int
 
     out->sin_port = htons(port);
 
-    for (char* p = buf + strlen(buf) - 1; p != buf; p--)
-    {
-        if (*p == ':')
-        {
+    for (char* p = buf + strlen(buf) - 1; p != buf; p--) {
+        if (*p == ':') {
             *p = 0;
             out->sin_port = htons(atoi(p + 1) + (port == 8001));
             break;
@@ -3028,11 +2829,9 @@ int CLlDriver::MakeSockAddr(const char* address, sockaddr_in* out, int port, int
     out->sin_family = AF_INET;
     InetPton(AF_INET, buf, &out->sin_addr.S_un.S_addr); //out->sin_addr.S_un.S_addr = inet_addr(buf);
 
-    if (out->sin_addr.S_un.S_addr == INADDR_NONE && resolve != 0)
-    {
+    if (out->sin_addr.S_un.S_addr == INADDR_NONE && resolve != 0) {
         addrinfo* res = nullptr;
-        if (GetAddrInfo(buf, nullptr, nullptr, &res) != 0 && res != nullptr)
-        {
+        if (GetAddrInfo(buf, nullptr, nullptr, &res) != 0 && res != nullptr) {
             out->sin_addr.S_un.S_addr = 0;
             out->sin_port = 0;
             return 0;
@@ -3055,16 +2854,14 @@ int CLlDriver::MakeSockAddr(const char* address, sockaddr_in* out, int port, int
 
 
 
-int CLlDriver::StartServerTcp()
-{
+int CLlDriver::StartServerTcp() {
     //523621
     this->listen_socket.socket = INVALID_SOCKET;
     this->listen_socket.wait_obj = nullptr;
     this->num_connections = 0;
 
     this->listen_socket.socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    if (this->listen_socket.socket == INVALID_SOCKET)
-    {
+    if (this->listen_socket.socket == INVALID_SOCKET) {
         this->CloseTcp();
         return 0;
     }
@@ -3072,28 +2869,24 @@ int CLlDriver::StartServerTcp()
     ioctlsocket(this->listen_socket.socket, FIONBIO, &nonblock);
 
     sockaddr addr;
-    if (this->MakeSockAddr(this->server_start_addr->address, (sockaddr_in*)&addr, 8000, 0) == 0)
-    {
+    if (this->MakeSockAddr(this->server_start_addr->address, (sockaddr_in*)&addr, 8000, 0) == 0) {
         this->CloseTcp();
         return 0;
     }
 
-    if (bind(this->listen_socket.socket, &addr, sizeof(addr)) != 0)
-    {
+    if (bind(this->listen_socket.socket, &addr, sizeof(addr)) != 0) {
         this->CloseTcp();
         return 0;
     }
 
-    if (listen(this->listen_socket.socket, this->max_connections) != 0)
-    {
+    if (listen(this->listen_socket.socket, this->max_connections) != 0) {
         this->CloseTcp();
         return 0;
     }
 
     this->listen_socket.wait_obj = CreateEventA(NULL, 0, 0, NULL);
 
-    if (_beginthread(AcceptThreadTcp, 0, this) == -1L || this->listen_socket.wait_obj == nullptr)
-    {
+    if (_beginthread(AcceptThreadTcp, 0, this) == -1L || this->listen_socket.wait_obj == nullptr) {
         CloseHandle(this->listen_socket.wait_obj);
         this->listen_socket.wait_obj = nullptr;
         this->CloseTcp();
@@ -3106,17 +2899,14 @@ int CLlDriver::StartServerTcp()
 }
 
 
-void __cdecl CLlDriver::AcceptThreadTcp(void* context)
-{
+void __cdecl CLlDriver::AcceptThreadTcp(void* context) {
     //522e8f
     CLlDriver* drv = (CLlDriver*)context;
 
     SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_ABOVE_NORMAL);
 
-    while (true)
-    {
-        if (drv->listen_socket.is_in_use != 1)
-        {
+    while (true) {
+        if (drv->listen_socket.is_in_use != 1) {
             SetEvent(drv->listen_socket.wait_obj);
             _endthread();
             return;
@@ -3126,13 +2916,10 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context)
         FD_ZERO(&fd);
         FD_SET(drv->listen_socket.socket, &fd);
 
-        if (drv->is_server)
-        {
-            for (int i = 0; i < drv->max_connections; i++)
-            {
+        if (drv->is_server) {
+            for (int i = 0; i < drv->max_connections; i++) {
                 A2NetSock* sock = drv->connection_sockets + i;
-                if (sock->is_in_use == 1)
-                {
+                if (sock->is_in_use == 1) {
                     FD_SET(sock->socket, &fd);
                 }
             }
@@ -3148,41 +2935,35 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context)
             continue;
         }
 
-        if (numfd == SOCKET_ERROR)
-        {
+        if (numfd == SOCKET_ERROR) {
             if (drv->listen_socket.is_in_use == 1) {
                 ReportWarning("CLlDriverAcceptThreadTcp().\nSelect error.\n");
             }
             continue;
         }
 
-        if (drv->is_server == 0)
-        {
+        if (drv->is_server == 0) {
             if (drv->listen_socket.is_in_use == 1 &&
                 FD_ISSET(drv->listen_socket.socket, &fd) &&
-                drv->RecvThreadTcp(&drv->listen_socket) == 0)
-            {
+                drv->RecvThreadTcp(&drv->listen_socket) == 0) {
                 closesocket(drv->listen_socket.socket);
                 drv->listen_socket.socket = INVALID_SOCKET;
             }
             continue;
         }
 
-        if (FD_ISSET(drv->listen_socket.socket, &fd))
-        {
+        if (FD_ISSET(drv->listen_socket.socket, &fd)) {
             sockaddr_in newcon;
             int newconln = sizeof(newcon);
             SOCKET nsock = accept(drv->listen_socket.socket, (sockaddr*)&newcon, &newconln);
-            if (nsock == INVALID_SOCKET)
-            {
+            if (nsock == INVALID_SOCKET) {
                 if (drv->listen_socket.is_in_use == 1) {
                     ReportWarning("CLlDriverAcceptThreadTcp().\nUnable to accept new connection.\n");
                 }
                 continue;
             }
             
-            if (drv->num_connections >= drv->max_connections)
-            {
+            if (drv->num_connections >= drv->max_connections) {
                 closesocket(nsock);
                 ReportWarning("CLlDriverAcceptThreadTcp().\nClient connection refused.\n");
                 continue;
@@ -3193,17 +2974,14 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context)
             EnterCriticalSection(&drv->critical_section);
 
             int32_t idx = -1;
-            for (int i = 0; i < drv->max_connections; i++)
-            {
-                if (!drv->IsInUse(drv->connection_sockets + i))
-                {
+            for (int i = 0; i < drv->max_connections; i++) {
+                if (!drv->IsInUse(drv->connection_sockets + i)) {
                     idx = i;
                     break;
                 }
             }
 
-            if (idx == -1)
-            {
+            if (idx == -1) {
                 closesocket(nsock);
                 ReportWarning("CLlDriverAcceptThreadTcp().\n No free slot.\n");
             } else {
@@ -3222,13 +3000,11 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context)
             LeaveCriticalSection(&drv->critical_section);
         }
 
-        for (uint32_t i = 0; i < drv->max_connections; i++)
-        {
+        for (uint32_t i = 0; i < drv->max_connections; i++) {
             A2NetSock* conn = drv->connection_sockets + i;
             if (conn->is_in_use == 1 &&
                 FD_ISSET(conn->socket, &fd) &&
-                drv->RecvThreadTcp(conn) == 0)
-            {
+                drv->RecvThreadTcp(conn) == 0) {
                 closesocket(conn->socket);
                 conn->socket = INVALID_SOCKET;
             }
@@ -3237,8 +3013,7 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context)
     }
 }
 
-void __cdecl CLlDriver::SetSockOptions(SOCKET s, int enlinger)
-{
+void __cdecl CLlDriver::SetSockOptions(SOCKET s, int enlinger) {
     //522af4
     int32_t flag = 1;
     setsockopt(s, IPPROTO_TCP, TCP_NODELAY, (const char*)&flag, 4);
@@ -3246,8 +3021,7 @@ void __cdecl CLlDriver::SetSockOptions(SOCKET s, int enlinger)
     setsockopt(s, SOL_SOCKET, SO_SNDBUF, (const char*)&bufsz, 4);
     setsockopt(s, SOL_SOCKET, SO_RCVBUF, (const char*)&bufsz, 4);
 
-    if (enlinger)
-    {
+    if (enlinger) {
         linger lngr;
         lngr.l_linger = 0;
         lngr.l_onoff = 1;
@@ -3259,8 +3033,7 @@ void __cdecl CLlDriver::SetSockOptions(SOCKET s, int enlinger)
 
 
 
-int CLlDriver::RecvThreadTcp(A2NetSock* sock)
-{
+int CLlDriver::RecvThreadTcp(A2NetSock* sock) {
     //522b95
     uint8_t databuf[0x2000];
     int rsz = recv(sock->socket, (char *)databuf, 0x2000, 0);
@@ -3269,16 +3042,13 @@ int CLlDriver::RecvThreadTcp(A2NetSock* sock)
     }
 
     uint8_t *pos = databuf;
-    while (true)
-    {
+    while (true) {
         if (rsz == 0) {
             return 1;
         }
 
-        if (sock->copy_num < 8)
-        {
-            if (sock->current_buffer == nullptr)
-            {
+        if (sock->copy_num < 8) {
+            if (sock->current_buffer == nullptr) {
                 sock->copy_num = 0;
                 sock->current_buffer = this->hl_driver->GetFreeNet3();
                 sock->current_buffer->Clear();
@@ -3293,8 +3063,7 @@ int CLlDriver::RecvThreadTcp(A2NetSock* sock)
             rsz -= copynum;
             sock->copy_num += copynum;
 
-            if (sock->copy_num >= 8 && (sock->current_buffer->pos == 0 || sock->current_buffer->pos >= 143))
-            {
+            if (sock->copy_num >= 8 && (sock->current_buffer->pos == 0 || sock->current_buffer->pos >= 143)) {
                 ReportWarning("CLlDriverRecvThreadTcp().\nReceived invalid message.\n");
                 this->hl_driver->AddTailFreeNet3(sock->current_buffer);
                 sock->copy_num = 0;
@@ -3313,8 +3082,7 @@ int CLlDriver::RecvThreadTcp(A2NetSock* sock)
             rsz -= cpynum;
             sock->copy_num += cpynum;
 
-            if (cpysz == cpynum)
-            {
+            if (cpysz == cpynum) {
                 sock->current_buffer->datasz = sock->current_buffer->pos;
                 XorData(sock->current_buffer->buf, sock->current_buffer->datasz);
                 sock->manager->ReceiveData(sock->current_buffer);
@@ -3328,8 +3096,7 @@ int CLlDriver::RecvThreadTcp(A2NetSock* sock)
 
 
 
-int CLlDriver::PrepareAddressDp(CLlAddress* addr)
-{
+int CLlDriver::PrepareAddressDp(CLlAddress* addr) {
     //523d96
     IDirectPlayLobby2A* lobby = nullptr;
     if (CoCreateInstance(CLSID_DirectPlayLobby, NULL, 1, IID_IDirectPlayLobby2A, (LPVOID *) &lobby) != DP_OK) {
@@ -3341,8 +3108,7 @@ int CLlDriver::PrepareAddressDp(CLlAddress* addr)
 
     char addrbuf[100];
 
-    switch (this->provider)
-    {
+    switch (this->provider) {
     case 0:
         elem[0].guidDataType = DPAID_ServiceProvider;
         elem[0].dwDataSize = sizeof(GUID);
@@ -3382,23 +3148,20 @@ int CLlDriver::PrepareAddressDp(CLlAddress* addr)
         break;
     }
     DWORD sz = 0;
-    if (lobby->CreateCompoundAddress(elem, numelem, nullptr, &sz) != DPERR_BUFFERTOOSMALL)
-    {
+    if (lobby->CreateCompoundAddress(elem, numelem, nullptr, &sz) != DPERR_BUFFERTOOSMALL) {
         lobby->Release();
         return 0;
     }
 
     uint8_t *dat = new uint8_t[sz];
-    if (lobby->CreateCompoundAddress(elem, numelem, dat, &sz) != DP_OK)
-    {
+    if (lobby->CreateCompoundAddress(elem, numelem, dat, &sz) != DP_OK) {
         delete[] dat;
         lobby->Release();
         return 0;
     }
 
     HRESULT res = this->dplay4->InitializeConnection(dat, 0);
-    if (res == DPERR_ALREADYINITIALIZED)
-    {
+    if (res == DPERR_ALREADYINITIALIZED) {
         this->FreeDp();
         this->CreateDp();
         if (this->dplay4) {
@@ -3411,15 +3174,13 @@ int CLlDriver::PrepareAddressDp(CLlAddress* addr)
     return res == DP_OK;
 }
 
-int CLlDriver::StartServerDp()
-{
+int CLlDriver::StartServerDp() {
     //5241ea
     this->ev_close = nullptr;
     this->ev_create_player = nullptr;
     this->listen_socket.player_dpid = -1;
 
-    if (this->PrepareAddressDp(this->server_start_addr) == 0)
-    {
+    if (this->PrepareAddressDp(this->server_start_addr) == 0) {
         ReportWarning("CLlDriver::StartServerDP.\nUnable to initialize DirectPlay connection.\n");
         this->CloseDp();
         return 0;
@@ -3427,14 +3188,12 @@ int CLlDriver::StartServerDp()
 
     DPCAPS caps;
     caps.dwSize = sizeof(DPCAPS);
-    if (this->dplay4->GetCaps(&caps, DPGETCAPS_GUARANTEED) != DP_OK)
-    {
+    if (this->dplay4->GetCaps(&caps, DPGETCAPS_GUARANTEED) != DP_OK) {
         ReportWarning("CLlDriver::StartServerDp.\nUnable to get caps.\n");
         return 0;
     }
 
-    if (caps.dwMaxPlayers < this->num_connections)
-    {
+    if (caps.dwMaxPlayers < this->num_connections) {
         ReportWarning("CLlDriver::StartServerDp().\nUnsupported number of connections.\n");
         this->num_connections = caps.dwMaxPlayers;
     }
@@ -3445,14 +3204,12 @@ int CLlDriver::StartServerDp()
         this->guaranteed = 0;
     }
     
-    if (this->provider == 1)
-    {
+    if (this->provider == 1) {
         this->latency = 1000;
         if (this->timeout < 16000) {
             this->timeout = 16000;
         }
-    } else if (this->provider == 3)
-    {
+    } else if (this->provider == 3) {
         this->guaranteed = 0;
         this->latency = 500;
         if (this->timeout < 16000) {
@@ -3465,8 +3222,7 @@ int CLlDriver::StartServerDp()
     this->ev_create_player = CreateEventA(NULL, 0, 0, NULL);
     this->ev_close = CreateEventA(NULL, 0, 0, NULL);
 
-    if (this->ev_create_player == nullptr || this->ev_close == nullptr)
-    {
+    if (this->ev_create_player == nullptr || this->ev_close == nullptr) {
         ReportWarning("CLlDriver::StartServerDp().\nUnable to create events.\n");
         this->CloseDp();
         return 0;
@@ -3485,8 +3241,7 @@ int CLlDriver::StartServerDp()
     session.lpszSessionNameA = this->comp_name;
     session.lpszPasswordA = (char*)"";
 
-    if (this->dplay4->Open(&session, DPOPEN_CREATE) != DP_OK)
-    {
+    if (this->dplay4->Open(&session, DPOPEN_CREATE) != DP_OK) {
         ReportWarning("CLlDriver::StartServerDp().\nUnable to create DirectPlay session.\n");
         this->CloseDp();
         return 0;
@@ -3497,8 +3252,7 @@ int CLlDriver::StartServerDp()
     pname.lpszShortNameA = this->comp_name;
     pname.lpszLongNameA = this->comp_name;
 
-    if (this->dplay4->CreatePlayer((LPDPID)&this->listen_socket.player_dpid, &pname, this->ev_create_player, nullptr, 0, DPPLAYER_SERVERPLAYER) != DP_OK)
-    {
+    if (this->dplay4->CreatePlayer((LPDPID)&this->listen_socket.player_dpid, &pname, this->ev_create_player, nullptr, 0, DPPLAYER_SERVERPLAYER) != DP_OK) {
         ReportWarning("CLlDriver::StartServerDp().\nUnable to create DirectPlay server player.\n");
         this->CloseDp();
         return 0;
@@ -3507,8 +3261,7 @@ int CLlDriver::StartServerDp()
     this->listen_socket.field_0x50 = 0;
     this->listen_socket.field_0x4c = 0;
     this->listen_socket.wait_obj = CreateEventA(NULL, 0, 0, NULL);
-    if (_beginthread(RecvThreadDp, 0, this) == -1L || this->listen_socket.wait_obj == nullptr)
-    {
+    if (_beginthread(RecvThreadDp, 0, this) == -1L || this->listen_socket.wait_obj == nullptr) {
         this->CloseDp();
         return 0;
     }
@@ -3521,8 +3274,7 @@ int CLlDriver::StartServerDp()
 
 
 
-void __cdecl CLlDriver::RecvThreadDp(void* context)
-{
+void __cdecl CLlDriver::RecvThreadDp(void* context) {
     //523b7a
     CLlDriver* drv = (CLlDriver*)context;
 
@@ -3532,23 +3284,19 @@ void __cdecl CLlDriver::RecvThreadDp(void* context)
 
     void* mem = malloc(0x96);
     DWORD memsz = 0x96;
-    while (true)
-    {
-        if (WaitForMultipleObjects(2, handles, 0, -1) != 1)
-        {
+    while (true) {
+        if (WaitForMultipleObjects(2, handles, 0, -1) != 1) {
             free(mem);
             SetEvent(drv->listen_socket.wait_obj);
             _endthread();
             return;
         }
         EnterCriticalSection(&drv->critical_section);
-        while (true)
-        {
+        while (true) {
             DPID from;
             DPID to;
             HRESULT res = drv->dplay4->Receive(&from, &to, DPRECEIVE_ALL, mem, &memsz);
-            if (res == DPERR_BUFFERTOOSMALL)
-            {
+            if (res == DPERR_BUFFERTOOSMALL) {
                 free(mem);
                 mem = malloc(memsz);
             } else if (res == DPERR_NOMESSAGES) {
@@ -3563,20 +3311,15 @@ void __cdecl CLlDriver::RecvThreadDp(void* context)
     }
 }
 
-void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t datasz)
-{
+void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t datasz) {
     //524abd
-    if (from == 0)
-    {
+    if (from == 0) {
         int dwType = ((DPMSG_GENERIC*)data)->dwType;
-        if (dwType == DPSYS_CREATEPLAYERORGROUP)
-        {
+        if (dwType == DPSYS_CREATEPLAYERORGROUP) {
             DPMSG_CREATEPLAYERORGROUP* createmsg = (DPMSG_CREATEPLAYERORGROUP*)data;
-            if (this->is_server != 0 && createmsg->dwPlayerType == DPPLAYERTYPE_PLAYER)
-            {
+            if (this->is_server != 0 && createmsg->dwPlayerType == DPPLAYERTYPE_PLAYER) {
                 int32_t idx = 0;
-                while (idx < this->max_connections)
-                {
+                while (idx < this->max_connections) {
                     if (!this->IsInUse(this->connection_sockets + idx)) {
                         break;
                     }
@@ -3608,40 +3351,33 @@ void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t
 
                 this->num_connections++;
             }
-        } else if (dwType == DPSYS_DESTROYPLAYERORGROUP)
-        {
+        } else if (dwType == DPSYS_DESTROYPLAYERORGROUP) {
             DPMSG_DESTROYPLAYERORGROUP* destroymsg = (DPMSG_DESTROYPLAYERORGROUP*)data;
-            if (this->is_server != 0 && destroymsg->dwPlayerType == DPPLAYERTYPE_PLAYER)
-            {
+            if (this->is_server != 0 && destroymsg->dwPlayerType == DPPLAYERTYPE_PLAYER) {
                 int infid;
                 A2NetSock* sock = this->FindDpSock(destroymsg->dpId, &infid);
                 this->CloseDpSock(sock, infid);
                 this->num_connections--;
             }
-        } else if (dwType == DPSYS_SESSIONLOST)
-        {
+        } else if (dwType == DPSYS_SESSIONLOST) {
             this->session_lost = 1;
         }
         return;
     }
     
-    if (datasz <= 7 || datasz >= 0x97)
-    {
+    if (datasz <= 7 || datasz >= 0x97) {
         ReportWarning("CLlDriver::HandleMessageDp().\nReceived invalid message.\n");
         return;
     }
 
     A2NetSock* sock = this->FindDpSock(from, nullptr);
-    if (!sock || !this->IsInUse(sock))
-    {
+    if (!sock || !this->IsInUse(sock)) {
         ReportWarning("CLlDriver::HandleMessageDp().\nMessage from disconnected client.\n");
         return;
     }
 
-    if (datasz == 8)
-    {
-        if (this->guaranteed != 0)
-        {
+    if (datasz == 8) {
+        if (this->guaranteed != 0) {
             ReportWarning("CLlDriver::HandleMessageDp().\nAcknoweledgement on guaranteed media.\n");
             return;
         }
@@ -3650,12 +3386,10 @@ void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t
             return;
         }
         
-        for (POSITION pos = sock->list_0x14.GetHeadPosition(); pos != nullptr;)
-        {
+        for (POSITION pos = sock->list_0x14.GetHeadPosition(); pos != nullptr;) {
             POSITION curpos = pos;
             NetStru3* buf = sock->list_0x14.GetNext(pos);
-            if (buf->pktid == *(uint32_t*)data)
-            {
+            if (buf->pktid == *(uint32_t*)data) {
                 uint32_t latency = 0;
                 const uint32_t ticks = GetTickCount();
                 if (buf->timestamp < ticks) {
@@ -3682,31 +3416,25 @@ void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t
 
     buf->datasz = datasz - 8;
     
-    if (this->guaranteed)
-    {
+    if (this->guaranteed) {
         sock->manager->ReceiveData(buf);
         return;
     }
 
-    while (this->dplay4->Send(this->listen_socket.player_dpid, from, 0, data, 8) == DPERR_BUSY)
-    {
+    while (this->dplay4->Send(this->listen_socket.player_dpid, from, 0, data, 8) == DPERR_BUSY) {
         ReportWarning("CLlDriver::HandleMessageDp().\nDirectPlay is busy, I go to sleep for 10ms.\n");
         Sleep(10);
     }
 
     uint32_t pktid = buf->pktid;
-    if (pktid == sock->field_0x50)
-    {
+    if (pktid == sock->field_0x50) {
         sock->manager->ReceiveData(buf);
         sock->field_0x50++;
-        if (!sock->list_0x30.IsEmpty())
-        {
-            for (POSITION pos = sock->list_0x30.GetHeadPosition(); pos != nullptr;)
-            {
+        if (!sock->list_0x30.IsEmpty()) {
+            for (POSITION pos = sock->list_0x30.GetHeadPosition(); pos != nullptr;) {
                 POSITION curpos = pos;
                 buf = sock->list_0x30.GetNext(pos);
-                if (buf->pktid == sock->field_0x50)
-                {
+                if (buf->pktid == sock->field_0x50) {
                     sock->manager->ReceiveData(buf);
                     sock->field_0x50++;
 
@@ -3715,21 +3443,17 @@ void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t
                 }
             }
         }
-    } else if (pktid < sock->field_0x50)
-    {
+    } else if (pktid < sock->field_0x50) {
         buf->Clear();
         this->hl_driver->AddTailFreeNet3(buf);
     } else {
-        if (sock->list_0x30.IsEmpty())
-        {
+        if (sock->list_0x30.IsEmpty()) {
             sock->list_0x30.AddTail(buf);
         } else {
-            for (POSITION pos = sock->list_0x30.GetHeadPosition(); pos != nullptr;)
-            {
+            for (POSITION pos = sock->list_0x30.GetHeadPosition(); pos != nullptr;) {
                 POSITION curpos = pos;
                 NetStru3 *cbuf = sock->list_0x30.GetNext(pos);
-                if (cbuf->pktid == pktid)
-                {
+                if (cbuf->pktid == pktid) {
                     buf->Clear();
                     this->hl_driver->AddTailFreeNet3(buf);
                     return;
@@ -3741,15 +3465,13 @@ void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t
     }
 }
 
-A2NetSock* CLlDriver::FindDpSock(uint32_t id, int* out_idx)
-{
+A2NetSock* CLlDriver::FindDpSock(uint32_t id, int* out_idx) {
     //524986
     if (this->is_server == 0) {
         return &this->listen_socket;
     }
 
-    if (this->num_connections < 1)
-    {
+    if (this->num_connections < 1) {
         if (out_idx) {
             *out_idx = 0;
         }
@@ -3758,13 +3480,11 @@ A2NetSock* CLlDriver::FindDpSock(uint32_t id, int* out_idx)
 
     int32_t lb = 0;
     int32_t rb = this->num_connections - 1;
-    while (lb < rb)
-    {
+    while (lb < rb) {
         int32_t cur = lb + (rb - lb) / 2;
         SocketNm* info = this->connections_info + cur;
 
-        if (info->dpid == id)
-        {
+        if (info->dpid == id) {
             if (out_idx) {
                 *out_idx = cur;
             }
@@ -3781,16 +3501,14 @@ A2NetSock* CLlDriver::FindDpSock(uint32_t id, int* out_idx)
 
     //if lb >= rb
     SocketNm* info = this->connections_info + rb;
-    if (info->dpid == id)
-    {
+    if (info->dpid == id) {
         if (out_idx) {
             *out_idx = rb;
         }
         return info->sock;
     }
 
-    if (out_idx)
-    {
+    if (out_idx) {
         if (info->dpid > id) {
             *out_idx = rb;
         } else {
@@ -3801,28 +3519,24 @@ A2NetSock* CLlDriver::FindDpSock(uint32_t id, int* out_idx)
 }
 
 
-int CLlDriver::StartServer(int maxconn, const char* name, CLlAddress* addr)
-{
+int CLlDriver::StartServer(int maxconn, const char* name, CLlAddress* addr) {
     //521a09
     this->is_server = 1;
     this->max_connections = maxconn;
     this->server_start_addr = addr;
-    if (!name)
-    {
+    if (!name) {
         DWORD sz = sizeof(this->comp_name);
         GetComputerNameA(this->comp_name, &sz);
     } else {
         strcpy(this->comp_name, name);
     }
 
-    if (this->connection_sockets)
-    {
+    if (this->connection_sockets) {
         delete[] this->connection_sockets;
         this->connection_sockets = nullptr;
     }
 
-    if (this->connections_info)
-    {
+    if (this->connections_info) {
         delete[] this->connections_info;
         this->connections_info = nullptr;
     }
@@ -3836,16 +3550,13 @@ int CLlDriver::StartServer(int maxconn, const char* name, CLlAddress* addr)
 
     this->num_connections = 0;
 
-    if (this->provider == 4)
-    {
-        if (this->StartServerTcp() == 0)
-        {
+    if (this->provider == 4) {
+        if (this->StartServerTcp() == 0) {
             ReportWarning("CLlDriver::StartServer().\nUnable to connect over TCP/IP.\n");
             return 0;
         }
     } else {
-        if (this->StartServerDp() == 0)
-        {
+        if (this->StartServerDp() == 0) {
             ReportWarning("CLlDriver::StartServer().\nUnable to connect over DirectPlay.\n");
             return 0;
         }
@@ -3856,20 +3567,17 @@ int CLlDriver::StartServer(int maxconn, const char* name, CLlAddress* addr)
 }
 
 
-int CLlDriver::PrepareForConnect(const char* name, CLlAddress* addr)
-{
+int CLlDriver::PrepareForConnect(const char* name, CLlAddress* addr) {
     //521d2a
     this->is_server = 0;
     this->max_connections = 1;
 
-    if (this->connection_sockets)
-    {
+    if (this->connection_sockets) {
         delete[] this->connection_sockets;
         this->connection_sockets = nullptr;
     }
 
-    if (this->connections_info)
-    {
+    if (this->connections_info) {
         delete[] this->connections_info;
         this->connections_info = nullptr;
     }
@@ -3882,14 +3590,12 @@ int CLlDriver::PrepareForConnect(const char* name, CLlAddress* addr)
         memset(&this->cur_address, 0, sizeof(this->cur_address));
     }
 
-    if (this->provider == 4)
-    {
+    if (this->provider == 4) {
         this->guaranteed = 1;
         return 1;
     }
 
-    if (this->PrepareAddressDp(addr) == 0)
-    {
+    if (this->PrepareAddressDp(addr) == 0) {
         ReportWarning("CLlDriver::PrepareForConnect().\nUnable to initialize DirectPlay connection.\n");
         this->CloseDp();
         return 0;
@@ -3898,8 +3604,7 @@ int CLlDriver::PrepareForConnect(const char* name, CLlAddress* addr)
     DPCAPS caps;
     caps.dwSize = sizeof(DPCAPS);
 
-    if (this->dplay4->GetCaps(&caps, DPGETCAPS_GUARANTEED) != DP_OK)
-    {
+    if (this->dplay4->GetCaps(&caps, DPGETCAPS_GUARANTEED) != DP_OK) {
         ReportWarning("CLlDriver::PrepareForConnect().\nUnable to get caps.\n");
         return 0;
     }
@@ -3910,14 +3615,12 @@ int CLlDriver::PrepareForConnect(const char* name, CLlAddress* addr)
         this->guaranteed = 0;
     }
 
-    if (this->provider == 1)
-    {
+    if (this->provider == 1) {
         this->latency = 1000;
         if (this->timeout < 16000) {
             this->timeout = 16000;
         }
-    } else if (this->provider == 3)
-    {
+    } else if (this->provider == 3) {
         this->guaranteed = 0;
         this->latency = 500;
         if (this->timeout < 16000) {
@@ -3930,8 +3633,7 @@ int CLlDriver::PrepareForConnect(const char* name, CLlAddress* addr)
 }
 
 
-int CLlDriver::ConnectDp(const char* name, CLlNetSession* session)
-{
+int CLlDriver::ConnectDp(const char* name, CLlNetSession* session) {
     //52465f
     this->ev_close = nullptr;
     this->ev_create_player = nullptr;
@@ -3941,8 +3643,7 @@ int CLlDriver::ConnectDp(const char* name, CLlNetSession* session)
     this->ev_create_player = CreateEventA(NULL, 0, 0, NULL);
     this->ev_close = CreateEventA(NULL, 0, 0, NULL);
 
-    if (this->ev_create_player == nullptr || this->ev_close == nullptr)
-    {
+    if (this->ev_create_player == nullptr || this->ev_close == nullptr) {
         ReportWarning("CLlDriver::ConnectDp().\nUnable to create events.\n");
         this->CloseDp();
         return 0;
@@ -3954,8 +3655,7 @@ int CLlDriver::ConnectDp(const char* name, CLlNetSession* session)
     desc.guidInstance = session->guid;
     desc.lpszPasswordA = (char *)"";
 
-    if (this->dplay4->Open(&desc, DPOPEN_JOIN) != DP_OK)
-    {
+    if (this->dplay4->Open(&desc, DPOPEN_JOIN) != DP_OK) {
         ReportWarning("CLlDriver::ConnectDp().\nUnable to join DirectPlay session.\n");
         this->CloseDp();
         return 0;
@@ -3971,8 +3671,7 @@ int CLlDriver::ConnectDp(const char* name, CLlNetSession* session)
     pname.dwSize = sizeof(DPNAME);
     pname.lpszShortNameA = (char *)name;
     pname.lpszLongNameA = (char*)name;
-    if (this->dplay4->CreatePlayer((LPDPID)&this->listen_socket.player_dpid, &pname, this->ev_create_player, nullptr, 0, 0) != DP_OK)
-    {
+    if (this->dplay4->CreatePlayer((LPDPID)&this->listen_socket.player_dpid, &pname, this->ev_create_player, nullptr, 0, 0) != DP_OK) {
         ReportWarning("CLlDriver::ConnectDp().\nUnable to create DirectPlay player.\n");
         this->CloseDp();
         return 0;
@@ -3989,8 +3688,7 @@ int CLlDriver::ConnectDp(const char* name, CLlNetSession* session)
     this->listen_socket.manager = this->hl_driver->AllocClientBufManager(this->listen_socket.uid);
     this->listen_socket.wait_obj = CreateEventA(NULL, 0, 0, NULL);
 
-    if (_beginthread(RecvThreadDp, 0, this) == -1L || this->listen_socket.wait_obj == nullptr)
-    {
+    if (_beginthread(RecvThreadDp, 0, this) == -1L || this->listen_socket.wait_obj == nullptr) {
         this->CloseDp();
         return 0;
     }
@@ -3999,16 +3697,14 @@ int CLlDriver::ConnectDp(const char* name, CLlNetSession* session)
 }
 
 
-int CLlDriver::ConnectTcp()
-{
+int CLlDriver::ConnectTcp() {
     //523794
     this->num_connections = 0;
     this->listen_socket.socket = INVALID_SOCKET;
     this->listen_socket.wait_obj = nullptr;
     this->listen_socket.socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     
-    if (this->listen_socket.socket == INVALID_SOCKET)
-    {
+    if (this->listen_socket.socket == INVALID_SOCKET) {
         this->CloseTcp();
         return 0;
     }
@@ -4016,20 +3712,17 @@ int CLlDriver::ConnectTcp()
     sockaddr connaddr;
     sockaddr bindaddr;
     if (this->MakeSockAddr(this->address_str, (sockaddr_in*)&connaddr, 8000, 1) == 0 ||
-        this->MakeSockAddr(this->cur_address.address, (sockaddr_in*)&bindaddr, 0, 0) == 0)
-    {
+        this->MakeSockAddr(this->cur_address.address, (sockaddr_in*)&bindaddr, 0, 0) == 0) {
         this->CloseTcp();
         return 0;
     }
 
-    if (bind(this->listen_socket.socket, &bindaddr, sizeof(bindaddr)) != 0)
-    {
+    if (bind(this->listen_socket.socket, &bindaddr, sizeof(bindaddr)) != 0) {
         this->CloseTcp();
         return 0;
     }
 
-    if (connect(this->listen_socket.socket, &connaddr, sizeof(connaddr)) != 0)
-    {
+    if (connect(this->listen_socket.socket, &connaddr, sizeof(connaddr)) != 0) {
         this->CloseTcp();
         return 0;
     }
@@ -4040,8 +3733,7 @@ int CLlDriver::ConnectTcp()
     this->listen_socket.manager = this->hl_driver->AllocClientBufManager(this->listen_socket.uid);
     this->listen_socket.wait_obj = CreateEventA(NULL, 0, 0, NULL);
 
-    if (_beginthread(AcceptThreadTcp, 0x400, this) == -1L && this->listen_socket.wait_obj != nullptr)
-    {
+    if (_beginthread(AcceptThreadTcp, 0x400, this) == -1L && this->listen_socket.wait_obj != nullptr) {
         CloseHandle(this->listen_socket.wait_obj);
         this->listen_socket.wait_obj = nullptr;
         this->CloseTcp();
@@ -4053,14 +3745,12 @@ int CLlDriver::ConnectTcp()
     return 1;
 }
 
-int CLlDriver::Connect(const char* name, CLlNetSession* session)
-{
+int CLlDriver::Connect(const char* name, CLlNetSession* session) {
     //5223fb
     char buf[16];
     memset(buf, 0, sizeof(buf));
 
-    if (!name)
-    {
+    if (!name) {
         DWORD sz = sizeof(buf);
         GetComputerNameA(buf, &sz);
         name = buf;
@@ -4070,16 +3760,13 @@ int CLlDriver::Connect(const char* name, CLlNetSession* session)
         this->Close();
     }
 
-    if (this->provider == 4)
-    {
-        if (this->ConnectTcp() == 0)
-        {
+    if (this->provider == 4) {
+        if (this->ConnectTcp() == 0) {
             ReportWarning("CLlDriver::Connect().\nUnable to connect over TCP/IP.\n");
             return 0;
         }
     } else {
-        if (this->ConnectDp(name, session) == 0)
-        {
+        if (this->ConnectDp(name, session) == 0) {
             ReportWarning("CLlDriver::Connect().\nUnable to connect over DirectPlay.\n");
             return 0;
         }
@@ -4089,8 +3776,7 @@ int CLlDriver::Connect(const char* name, CLlNetSession* session)
     return 1;
 }
 
-int CLlDriver::SendDataTcp(A2NetSock* sock, NetStru3* buffer)
-{
+int CLlDriver::SendDataTcp(A2NetSock* sock, NetStru3* buffer) {
     //52394a
     int len = buffer->datasz + 8;
     int sendlen = -1;
@@ -4100,8 +3786,7 @@ int CLlDriver::SendDataTcp(A2NetSock* sock, NetStru3* buffer)
 
     this->hl_driver->AddTailFreeNet3(buffer);
 
-    if (sendlen == -1 || sendlen != len)
-    {
+    if (sendlen == -1 || sendlen != len) {
         this->CloseTcpSocket(sock);
         return 0;
     }
@@ -4111,11 +3796,9 @@ int CLlDriver::SendDataTcp(A2NetSock* sock, NetStru3* buffer)
 
 
 
-int CLlDriver::SendDataDp(A2NetSock* sock, NetStru3* buffer)
-{
+int CLlDriver::SendDataDp(A2NetSock* sock, NetStru3* buffer) {
     //5255c6
-    if (this->session_lost != 0)
-    {
+    if (this->session_lost != 0) {
         if (buffer) {
             this->hl_driver->AddTailFreeNet3(buffer);
         }
@@ -4126,10 +3809,8 @@ int CLlDriver::SendDataDp(A2NetSock* sock, NetStru3* buffer)
     }
 
     uint32_t currentTick = GetTickCount();
-    if (this->guaranteed == 0)
-    {
-        if (buffer)
-        {
+    if (this->guaranteed == 0) {
+        if (buffer) {
             buffer->timestamp = currentTick;
             buffer->timestamp2 = 0;
             buffer->pktid = sock->field_0x4c;
@@ -4152,18 +3833,15 @@ int CLlDriver::SendDataDp(A2NetSock* sock, NetStru3* buffer)
         latency = sock->latency_check.GetLatency();
     }
     
-    if (this->guaranteed == 0)
-    {
+    if (this->guaranteed == 0) {
         uint32_t unsent_size = 0;
 
-        for (POSITION it = sock->list_0x14.GetHeadPosition(); it != nullptr;)
-        {
+        for (POSITION it = sock->list_0x14.GetHeadPosition(); it != nullptr;) {
             NetStru3* dat = sock->list_0x14.GetNext(it);
             unsent_size += 8 + dat->datasz;
         }
 
-        if (unsent_size > 0x10000)
-        {
+        if (unsent_size > 0x10000) {
             ReportWarning("CLlDriver::SendDataDp().\nOut of bandwidth.\n");
             this->CloseDpSock(sock, -1);
             return 0;
@@ -4178,10 +3856,8 @@ int CLlDriver::SendDataDp(A2NetSock* sock, NetStru3* buffer)
     }
 
     bool loop = true;
-    while (loop)
-    {
-        if (this->guaranteed == 0) 
-        {
+    while (loop) {
+        if (this->guaranteed == 0) {
             buffer = sock->list_0x14.GetNext(iter);
 
             if (iter == nullptr) { //not more nodes;
@@ -4200,8 +3876,7 @@ int CLlDriver::SendDataDp(A2NetSock* sock, NetStru3* buffer)
                 maxtime = mxticks - buffer->timestamp;
             }
             
-            if (this->timeout < maxtime)
-            {
+            if (this->timeout < maxtime) {
                 ReportWarning("CLlDriver::SendDataDp().\nCannot receive acknowledgement.\n");
                 this->CloseDpSock(sock, -1);
                 return 0;
@@ -4230,15 +3905,13 @@ int CLlDriver::SendDataDp(A2NetSock* sock, NetStru3* buffer)
         sock->field_0x264++;
 
         HRESULT res = this->dplay4->Send(this->listen_socket.player_dpid, to, (this->guaranteed != 0 ? DPSEND_GUARANTEED : 0), &buffer->full_data, tosentsz);
-        while (this->guaranteed != 0 && res == DPERR_BUSY) //if guaranteed try and try if BUSY
-        {
+        while (this->guaranteed != 0 && res == DPERR_BUSY) { //if guaranteed try and try if BUSY
             ReportWarning("CLlDriver::SendDataDp().\nDirectPlay is busy, I go to sleep for 10ms.\n");
             Sleep(10);
             res = this->dplay4->Send(this->listen_socket.player_dpid, to, (this->guaranteed != 0 ? DPSEND_GUARANTEED : 0), &buffer->full_data, tosentsz);
         }
 
-        if (res != DP_OK && res != DPERR_BUSY) // not send and not BUSY -> exit
-        {
+        if (res != DP_OK && res != DPERR_BUSY) { // not send and not BUSY -> exit
             if (this->guaranteed != 0) {
                 this->hl_driver->AddTailFreeNet3(buffer);
             }
@@ -4255,8 +3928,7 @@ int CLlDriver::SendDataDp(A2NetSock* sock, NetStru3* buffer)
 }
 
 
-int CLlDriver::SendData(uint32_t uid, NetStru3* buffer)
-{
+int CLlDriver::SendData(uint32_t uid, NetStru3* buffer) {
     //5226c4
     EnterCriticalSection(&this->critical_section);
 
@@ -4272,18 +3944,15 @@ int CLlDriver::SendData(uint32_t uid, NetStru3* buffer)
 
     buffer->pos = buffer->datasz;
 
-    if (this->provider == 4)
-    {
+    if (this->provider == 4) {
         XorData(buffer->buf, buffer->datasz);
 
-        if (this->SendDataTcp(sock, buffer) != 0)
-        {
+        if (this->SendDataTcp(sock, buffer) != 0) {
             LeaveCriticalSection(&this->critical_section);
             return 1;
         }
     } else {
-        if (this->SendDataDp(sock, buffer) != 0)
-        {
+        if (this->SendDataDp(sock, buffer) != 0) {
             LeaveCriticalSection(&this->critical_section);
             return 1;
         }
@@ -4299,13 +3968,10 @@ int CLlDriver::SendData(uint32_t uid, NetStru3* buffer)
     return 0;
 }
 
-void CLlDriver::SendAllPendingDp(A2NetSock* sock)
-{
+void CLlDriver::SendAllPendingDp(A2NetSock* sock) {
     //525b86
-    if (this->guaranteed == 0)
-    {
-        while (!sock->list_0x14.IsEmpty())
-        {
+    if (this->guaranteed == 0) {
+        while (!sock->list_0x14.IsEmpty()) {
             if (this->SendDataDp(sock, nullptr) == 0) {
                 break;
             }
@@ -4315,19 +3981,15 @@ void CLlDriver::SendAllPendingDp(A2NetSock* sock)
     }
 }
 
-void CLlDriver::DisconnectClient(uint32_t uid)
-{
+void CLlDriver::DisconnectClient(uint32_t uid) {
     //522526
     EnterCriticalSection(&this->critical_section);
     A2NetSock* sock = this->GetClientBySocketId(uid);
-    if (sock)
-    {
-        if (this->IsInUse(sock))
-        {
+    if (sock) {
+        if (this->IsInUse(sock)) {
             if (this->provider == 4) {
                 this->CloseTcpSocket(sock);
-            } else
-            {
+            } else {
                 this->SendAllPendingDp(sock);
                 this->CloseDpSock(sock, -1);
             }
@@ -4337,15 +3999,12 @@ void CLlDriver::DisconnectClient(uint32_t uid)
     LeaveCriticalSection(&this->critical_section);
 }
 
-void CLlDriver::CleanupInvalidTcpClient(uint32_t uid)
-{
+void CLlDriver::CleanupInvalidTcpClient(uint32_t uid) {
     //52262a
-    if (this->provider == 4)
-    {
+    if (this->provider == 4) {
         EnterCriticalSection(&this->critical_section);
         A2NetSock* sock = this->GetClientBySocketId(uid);
-        if (sock && IsInUse(sock))
-        {
+        if (sock && IsInUse(sock)) {
             if (sock->socket == INVALID_SOCKET) {
                 this->CloseTcpSocket(sock);
             }
@@ -4354,18 +4013,15 @@ void CLlDriver::CleanupInvalidTcpClient(uint32_t uid)
     }
 }
 
-void CLlDriver::CleanupAllInvalid()
-{
+void CLlDriver::CleanupAllInvalid() {
     //522809
     if (this->listen_socket.is_in_use != 1) {
         return;
     }
         
     EnterCriticalSection(&this->critical_section);
-    if (this->is_server == 0)
-    {
-        if (this->provider == 4)
-        {
+    if (this->is_server == 0) {
+        if (this->provider == 4) {
             if (this->listen_socket.socket == INVALID_SOCKET) {
                 this->CloseTcp();
             }
@@ -4373,13 +4029,10 @@ void CLlDriver::CleanupAllInvalid()
             this->SendDataDp(&this->listen_socket, nullptr);
         }
     } else {
-        for (int i = 0; i < this->num_connections; i++)
-        {
+        for (int i = 0; i < this->num_connections; i++) {
             A2NetSock* sock = this->connection_sockets + i;
-            if (this->IsInUse(sock))
-            {
-                if (this->provider == 4)
-                {
+            if (this->IsInUse(sock)) {
+                if (this->provider == 4) {
                     if (sock->socket == INVALID_SOCKET) {
                         this->CloseTcpSocket(sock);
                     }
@@ -4393,8 +4046,7 @@ void CLlDriver::CleanupAllInvalid()
 }
 
 
-int CLlDriver::RestartModemServerDp()
-{
+int CLlDriver::RestartModemServerDp() {
     //52460e
     if (this->provider != 1) {
         return 1;
@@ -4405,15 +4057,13 @@ int CLlDriver::RestartModemServerDp()
     return this->StartServerDp();
 }
 
-void CLlDriver::RecreateDp()
-{
+void CLlDriver::RecreateDp() {
     //524644
     this->CloseDp();
     this->CreateDp();
 }
 
-void CLlDriver::SetLatency(uint32_t conn_uid, int32_t latency_ms)
-{
+void CLlDriver::SetLatency(uint32_t conn_uid, int32_t latency_ms) {
     //5229cd
     A2NetSock* sock = this->GetClientBySocketId(conn_uid);
     if (sock) {
@@ -4421,8 +4071,7 @@ void CLlDriver::SetLatency(uint32_t conn_uid, int32_t latency_ms)
     }
 }
 
-int32_t CLlDriver::GetLatency(uint32_t conn_uid)
-{
+int32_t CLlDriver::GetLatency(uint32_t conn_uid) {
     //5229fd
     A2NetSock* sock = this->GetClientBySocketId(conn_uid);
     if (!sock) {
@@ -4436,16 +4085,14 @@ int32_t CLlDriver::GetLatency(uint32_t conn_uid)
     }
 }
 
-int32_t CLlDriver::GetPacketLoss(uint32_t conn_uid)
-{
+int32_t CLlDriver::GetPacketLoss(uint32_t conn_uid) {
     //522a51
     A2NetSock* sock = this->GetClientBySocketId(conn_uid);
     if (!sock) {
         return 0;
     }
 
-    if (sock->field_0x260 > 1000)
-    {
+    if (sock->field_0x260 > 1000) {
         sock->field_0x260 /= 10;
         sock->field_0x264 /= 10;
     }
@@ -5101,20 +4748,16 @@ void NetStru1::sub_51AC77(Token* token, Player* player, uint8_t flag) {
 
 
 
-void NetStru1::WriteStatsLog(CString fname)
-{ //51f124
+void NetStru1::WriteStatsLog(CString fname) { //51f124
     CStdioFile f(fname, CFile::modeCreate | CFile::modeWrite);
 
     f.WriteString("Cmd|Packets|Avg Size| Total Size |Comment\n");
     f.WriteString("-------------------------------------------\n");
 
-    for (int32_t i = 0; i < 0x100; i++)
-    {
-        if (this->stat_pkt_num[i] != 0)
-        {
+    for (int32_t i = 0; i < 0x100; i++) {
+        if (this->stat_pkt_num[i] != 0) {
             CString pname;
-            switch (i)
-            {
+            switch (i) {
             case 0x64:
                 pname = "GM_ReportNewSegment";
                 break;
@@ -5216,8 +4859,7 @@ void NetStru1::WriteStatsLog(CString fname)
     f.Close();
 }
 
-void NetStru1::FUN_0051d8d6(const CString& login, const CString& password, uint32_t flags)
-{ //51d8d6
+void NetStru1::FUN_0051d8d6(const CString& login, const CString& password, uint32_t flags) { //51d8d6
     PacketJoin* pkt = &PacketJoin::Inst;
     CString namepwd = login + password;
 
@@ -5234,8 +4876,7 @@ void NetStru1::FUN_0051d8d6(const CString& login, const CString& password, uint3
     this->QueuePacketSend(pkt);
 }
 
-void NetStru1::FUN_0051d9d0(HatCharId chid)
-{ //51d9d0
+void NetStru1::FUN_0051d9d0(HatCharId chid) { //51d9d0
     PacketInfo* pkt = &PacketInfo::Inst;
     pkt->id = 0xca;
     pkt->field_0xa = chid.id1;
@@ -5244,8 +4885,7 @@ void NetStru1::FUN_0051d9d0(HatCharId chid)
     this->QueuePacketSend(pkt);
 }
 
-void NetStru1::FUN_0051d9a0()
-{ //51d9a0
+void NetStru1::FUN_0051d9a0() { //51d9a0
     Packet* pkt = &Packet::Inst;
     pkt->id = 0xc8;
     pkt->to_player_id = 0;

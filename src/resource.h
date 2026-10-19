@@ -91,14 +91,12 @@ struct ResBase {
     static FatEntry *g_lastDstRoot;
 };
 
-struct ResFile : ResBase
-{
+struct ResFile : ResBase {
     ResFile(const char* fpath);
     ~ResFile();
 };
 
-struct RegFile : ResBase
-{
+struct RegFile : ResBase {
     RegFile();
     RegFile(const char* fpath);
     ~RegFile();

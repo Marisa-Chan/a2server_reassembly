@@ -18,13 +18,11 @@ void __cdecl XorData(void* data, uint32_t size); //51fd7d
 CString XorRegString(const CString& str); //43d1a9
 
 template<typename TYPE, class HLDR = CList<TYPE*> >
-struct Listerator
-{
+struct Listerator {
 	HLDR *holder = nullptr;
 	POSITION position = NULL;
 
-	TYPE* Begin(HLDR &hld)
-	{
+	TYPE* Begin(HLDR &hld) {
 		this->holder = &hld;
 		this->position = hld.GetHeadPosition();
 
@@ -35,8 +33,7 @@ struct Listerator
 		return this->GetNext();
 	}
 
-	TYPE* GetNext()
-	{
+	TYPE* GetNext() {
 		if (this->position == NULL) {
 			return nullptr;
 		}
@@ -59,14 +56,12 @@ inline void SetU32(void* buf, uint32_t value) {
 }
 
 
-inline uint16_t GetU16(const void* buf)
-{
+inline uint16_t GetU16(const void* buf) {
 	const uint8_t* cbuf = (const uint8_t*)buf;
 	return ((uint16_t)cbuf[0] | ((uint16_t)cbuf[1] << 8));
 }
 
-inline uint32_t GetU32(const void* buf)
-{
+inline uint32_t GetU32(const void* buf) {
 	const uint8_t* cbuf = (const uint8_t*)buf;
 	return ((uint32_t)cbuf[0] | ((uint32_t)cbuf[1] << 8) | ((uint32_t)cbuf[2] << 16) | ((uint32_t)cbuf[3] << 24));
 }

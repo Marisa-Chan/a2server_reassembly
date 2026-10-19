@@ -38,8 +38,7 @@ MapPlayerData::MapPlayerData(const MapPlayerData& other) {
 MapPlayerData::~MapPlayerData() {}
 
 // 43C225
-void MapPlayerData::Dump(CDumpContext& dc) const
-{
+void MapPlayerData::Dump(CDumpContext& dc) const {
     #ifdef _DEBUG // Only debug builds define `operator<<`.
     dc << "CPlayer";
     #endif
@@ -316,8 +315,7 @@ MapAlm::MapAlm(const char* filename) {
                 this->units_datas.SetAtGrow(this->units_datas.GetSize(), unit);
             }
             break;
-        case 7:
-            {
+        case 7: {
                 int32_t instance_count;
                 file->Read(&instance_count, 4);
                 for (int32_t i = 0; i < instance_count; i++) {
@@ -385,8 +383,7 @@ MapAlm::MapAlm(const char* filename) {
                 this->sacks.SetAtGrow(this->sacks.GetSize(), sack);
             }
             break;
-        case 9:
-            {
+        case 9: {
                 int32_t num_effects;
                 file->Read(&num_effects, 4);
                 for (int32_t i = 0; i < num_effects; i++) {

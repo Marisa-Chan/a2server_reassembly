@@ -10,8 +10,7 @@ class NetStru2;
 
 
 __pragma(pack(push, 1))
-class Packet
-{
+class Packet {
 public:
     static Packet Inst; //in asm 6b0c00
 public:
@@ -37,8 +36,7 @@ ASSERT_SIZE(Packet, 0xa);
 
 
 __pragma(pack(push, 1))
-class PacketInfo : public Packet
-{
+class PacketInfo : public Packet {
 public:
     static PacketInfo Inst; //in asm 6d0788
 public:
@@ -52,8 +50,7 @@ public:
 public:
     union {
         int32_t field_0xa;
-        struct
-        {
+        struct {
             uint8_t field_a1;
             uint8_t field_a2;
             uint8_t field_a3;
@@ -63,8 +60,7 @@ public:
 
     union {
         int32_t field_0xe;
-        struct
-        {
+        struct {
             uint8_t field_e1;
             uint8_t field_e2;
             uint8_t field_e3;
@@ -79,8 +75,7 @@ ASSERT_SIZE(PacketInfo, 0x12);
 
 
 __pragma(pack(push, 1))
-class PacketJoin : public Packet
-{
+class PacketJoin : public Packet {
 public:
     static PacketJoin Inst; //in asm 6ce560
 
@@ -120,8 +115,7 @@ ASSERT_SIZE(PacketJoin, 0x410);
 
 
 __pragma(pack(push, 1))
-class PacketTerrain : public Packet
-{
+class PacketTerrain : public Packet {
 public:
     static PacketTerrain Inst; //in asm 6e9db0
 
@@ -150,8 +144,7 @@ ASSERT_SIZE(PacketTerrain, 0x2000e);
 // Built incrementally by sub_519221; the flags_mask records which fields
 // are present and the data[] buffer holds their values.
 __pragma(pack(push, 1))
-class PacketUnitUpdate : public Packet
-{
+class PacketUnitUpdate : public Packet {
 public:
     static PacketUnitUpdate Inst; // _unk_6D1180
 public:
@@ -189,8 +182,7 @@ ASSERT_SIZE(PacketUnitUpdate, 0x418);
 // No custom Duplicate (inherits base); no custom VMethod3/VMethod4.
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketWord : public Packet
-{
+class PacketWord : public Packet {
 public:
     static PacketWord Inst; // unk_6E9B40
 public:
@@ -214,8 +206,7 @@ ASSERT_SIZE(PacketWord, 0xC);
 // VMethod4 reads 9 fixed bytes then count*2 variable bytes.
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketItemOperation : public Packet
-{
+class PacketItemOperation : public Packet {
 public:
     static PacketItemOperation Inst; // unk_6D1670
 public:
@@ -249,8 +240,7 @@ ASSERT_SIZE(PacketItemOperation, 0x20d);
 // Uses inherited Packet VMethod3/VMethod4 serialisation.
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketCmd : public Packet
-{
+class PacketCmd : public Packet {
 public:
     static PacketCmd Inst; // unk_6B1650
 public:
@@ -278,8 +268,7 @@ ASSERT_SIZE(PacketCmd, 0x14);
 // Uses inherited Packet VMethod3/VMethod4 serialisation.
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class Packet3Dwords : public Packet
-{
+class Packet3Dwords : public Packet {
 public:
     static Packet3Dwords Inst; // unk_6B1670
 public:
@@ -305,8 +294,7 @@ ASSERT_SIZE(Packet3Dwords, 0x36);
 // Copy ctor: sub_526BD9 (copies 5 bytes: id + dword).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketDword : public Packet
-{
+class PacketDword : public Packet {
 public:
     static PacketDword Inst; // unk_6CDB78
 public:
@@ -330,8 +318,7 @@ ASSERT_SIZE(PacketDword, 0xE);
 // Copy ctor: sub_526F8E (copies 5 bytes: id + 4 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketAbility : public Packet
-{
+class PacketAbility : public Packet {
 public:
     static PacketAbility Inst; // unk_70A7D0
 public:
@@ -357,8 +344,7 @@ ASSERT_SIZE(PacketAbility, 0xE);
 // Copy ctor: sub_526FE6 (copies 9 bytes: id + 8 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketEight : public Packet
-{
+class PacketEight : public Packet {
 public:
     static PacketEight Inst; // unk_6CE970
 public:
@@ -387,8 +373,7 @@ ASSERT_SIZE(PacketEight, 0x12);
 // Copy ctor: sub_52705A (copies 8 bytes: id + 7 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketMoveCmd : public Packet
-{
+class PacketMoveCmd : public Packet {
 public:
     static PacketMoveCmd Inst; // unk_6A6A70
 public:
@@ -416,8 +401,7 @@ ASSERT_SIZE(PacketMoveCmd, 0x11);
 // Copy ctor: sub_5270B9 (copies 4 bytes: id + 3 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketEffect : public Packet
-{
+class PacketEffect : public Packet {
 public:
     static PacketEffect Inst; // unk_6CDB28
 public:
@@ -442,8 +426,7 @@ ASSERT_SIZE(PacketEffect, 0xD);
 // Copy ctor: sub_527126 (copies 19 bytes: id + 18 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketAoeZone : public Packet
-{
+class PacketAoeZone : public Packet {
 public:
     static PacketAoeZone Inst; // unk_6B37A8
 public:
@@ -473,8 +456,7 @@ ASSERT_SIZE(PacketAoeZone, 0x1C);
 // Copy ctor: sub_527187 (copies 5 bytes: id + 4 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketMount : public Packet
-{
+class PacketMount : public Packet {
 public:
     static PacketMount Inst; // unk_6B37C8
 public:
@@ -503,8 +485,7 @@ ASSERT_SIZE(PacketMount, 0xE);
 // Copy ctor: sub_5271DF (memcpy id + preamble + count + var_data).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketPlayerInfo : public Packet
-{
+class PacketPlayerInfo : public Packet {
 public:
     static PacketPlayerInfo Inst; // unk_6D1888
 public:
@@ -540,8 +521,7 @@ ASSERT_SIZE(PacketPlayerInfo, 0x10036);
 // Copy ctor: sub_5272A2 (memcpy count+5 bytes from offset 9).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketData : public Packet
-{
+class PacketData : public Packet {
 public:
     static PacketData Inst; // unk_6B37D8
 public:
@@ -577,8 +557,7 @@ ASSERT_SIZE(PacketData, 0x1000e);
 // Copy ctor: sub_527473.
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketUnitStateVec : public Packet
-{
+class PacketUnitStateVec : public Packet {
 public:
     static PacketUnitStateVec Inst; // unk_6C5AF8
 public:
@@ -614,8 +593,7 @@ ASSERT_SIZE(PacketUnitStateVec, 0x8013);
 // Copy ctor: sub_527836 (copies 5 bytes: id + 4 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketSync : public Packet
-{
+class PacketSync : public Packet {
 public:
     static PacketSync Inst; // unk_6A6A88
 public:
@@ -642,8 +620,7 @@ ASSERT_SIZE(PacketSync, 0xE);
 // Copy ctor: sub_527895 (copies max 29 bytes: id + 28 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketUnitProperties : public Packet
-{
+class PacketUnitProperties : public Packet {
 public:
     static PacketUnitProperties Inst; // unk_6D0628
 public:
@@ -669,8 +646,7 @@ ASSERT_SIZE(PacketUnitProperties, 0x26);
 // Copy ctor: sub_52794E (copies 5 bytes: id + 4 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketPing : public Packet
-{
+class PacketPing : public Packet {
 public:
     static PacketPing Inst; // unk_6CDB88
 public:

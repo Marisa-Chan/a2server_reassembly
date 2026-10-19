@@ -262,8 +262,7 @@ MagicInfo::~MagicInfo() {
 }
 
 // 514085
-void __stdcall sub_514085(CString line, int count, CStringArray* items)
-{
+void __stdcall sub_514085(CString line, int count, CStringArray* items) {
     static char quote_buf[0xA00];
 
     for (int32_t i = 0; i < count; i++) {
@@ -947,10 +946,8 @@ int GameDataRes::sub_5126A2(uint8_t type, uint8_t face) {
     return 0;
 }
 
-int32_t GameDataRes::FUN_005125a8(int32_t id)
-{ //5125a8
-    for (int i = this->humans.GetSize() - 1; i > 0; i--)
-    {
+int32_t GameDataRes::FUN_005125a8(int32_t id) { //5125a8
+    for (int i = this->humans.GetSize() - 1; i > 0; i--) {
         if (this->humans[i].values.GetSize() && this->humans[i].Values()[0].server_id == id) {
             return i;
         }
@@ -958,10 +955,8 @@ int32_t GameDataRes::FUN_005125a8(int32_t id)
     return 0;
 }
 
-int32_t GameDataRes::FUN_00512625(int32_t id)
-{ //512625
-    for (int i = this->monsters.GetSize() - 1; i > 0; i--)
-    {
+int32_t GameDataRes::FUN_00512625(int32_t id) { //512625
+    for (int i = this->monsters.GetSize() - 1; i > 0; i--) {
         if (this->monsters[i].values.GetSize() && this->monsters[i].Values()[0].server_id == id) {
             return i;
         }

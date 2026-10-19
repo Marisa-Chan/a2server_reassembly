@@ -6,8 +6,7 @@
 #include <cstring>
 
 // 5A4F6E - GroupSub constructor
-GroupSub::GroupSub()
-{
+GroupSub::GroupSub() {
     // Clear the entire structure to zeroes.
     memset(this, 0, sizeof(GroupSub));
     
@@ -17,19 +16,16 @@ GroupSub::GroupSub()
     this->list = new CList<uint16_t>();
 }
 
-GroupSub::~GroupSub()
-{
+GroupSub::~GroupSub() {
     //5a500c
     if (this->list) {
         delete this->list;
     }
 }
 
-void GroupSub::Serialize(CArchive& ar)
-{
+void GroupSub::Serialize(CArchive& ar) {
     //5b0429
-    if (ar.IsLoading())
-    {
+    if (ar.IsLoading()) {
         ar.Read(this, 0x50);
         this->list = new CList<uint16_t>();
 
@@ -43,8 +39,7 @@ void GroupSub::Serialize(CArchive& ar)
 
 
 // 554D9E - Group constructor
-Group::Group()
-{
+Group::Group() {
     this->field_0x40 = 0;
     this->owner = nullptr;
     this->has_quest_kill = 0;
@@ -53,11 +48,9 @@ Group::Group()
     this->group_sub = new GroupSub();
 }
 
-Group::~Group()
-{
+Group::~Group() {
     //554eea
-    while (!this->unit_list.IsEmpty())
-    {
+    while (!this->unit_list.IsEmpty()) {
         Unit* unit = this->unit_list.RemoveHead();
         if (unit) {
             delete unit;
@@ -70,20 +63,17 @@ Group::~Group()
 }
 
 
-void Group::Serialize(CArchive& ar)
-{
+void Group::Serialize(CArchive& ar) {
     //55c94d
     this->some_list.Serialize(ar);
     this->group_sub->Serialize(ar);
 
-    if (ar.IsLoading())
-    {
+    if (ar.IsLoading()) {
         this->unit_list.RemoveAll();
         uint32_t tmp;
         ar >> tmp;
 
-        for (uint32_t i = 0; i < tmp; i++)
-        {
+        for (uint32_t i = 0; i < tmp; i++) {
             Unit* unit;
             ar >> unit;
             this->AddUnit(unit);
@@ -103,8 +93,7 @@ void Group::Serialize(CArchive& ar)
     } else {
         ar << (uint32_t)this->unit_list.GetCount();
 
-        for (POSITION pos = this->unit_list.GetHeadPosition(); pos != NULL;)
-        {
+        for (POSITION pos = this->unit_list.GetHeadPosition(); pos != NULL;) {
             Unit* obj = this->unit_list.GetNext(pos);
             ar << obj;
         }
@@ -117,8 +106,7 @@ void Group::Serialize(CArchive& ar)
 }
 
 
-void Group::RemoveUnit(Unit* unit)
-{
+void Group::RemoveUnit(Unit* unit) {
     //5552e6
     POSITION pos = this->unit_list.Find(unit);
     if (pos != NULL) {
@@ -128,8 +116,7 @@ void Group::RemoveUnit(Unit* unit)
     unit->group = nullptr;
 }
 
-void Group::AddUnit(Unit* unit)
-{
+void Group::AddUnit(Unit* unit) {
     //555176
     if (unit->group) {
         unit->group->RemoveUnit(unit);
@@ -168,33 +155,27 @@ Unit* Group::sub_599F20(Unit* unit) {
 
 
 
-GroupList::GroupList()
-{
+GroupList::GroupList() {
     //5555f2
 }
 
-GroupList::~GroupList()
-{
+GroupList::~GroupList() {
     //555874
-    while (this->groups.GetCount())
-    {
+    while (this->groups.GetCount()) {
         Group* grp = this->groups.RemoveHead();
         delete grp;
     }
 }
 
-Group* GroupList::AllocGroup()
-{
+Group* GroupList::AllocGroup() {
     //55564e
     
     POSITION pos = this->groups.GetHeadPosition();
-    while (pos != NULL)
-    {
+    while (pos != NULL) {
         POSITION curpos = pos; //save current position for RemoveAt
         Group* grp = this->groups.GetNext(pos); //get data and iterate to next
 
-        if (grp && grp->unit_list.GetCount() == 0)
-        {
+        if (grp && grp->unit_list.GetCount() == 0) {
             this->groups.RemoveAt(curpos);
             delete grp;
         }
@@ -208,8 +189,7 @@ Group* GroupList::AllocGroup()
 
 
 // 558BE1
-void GroupList::Serialize(CArchive& ar)
-{
+void GroupList::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
         int32_t count = this->groups.GetCount();
         ar.Write(&count, sizeof(count));

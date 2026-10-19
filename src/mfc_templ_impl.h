@@ -3,8 +3,7 @@
 
 
 template<class TYPE>
-inline void AFXAPI ConstructElements(TYPE* pElements, int nCount)
-{
+inline void AFXAPI ConstructElements(TYPE* pElements, int nCount) {
 	ASSERT(nCount == 0 ||
 		AfxIsValidAddress(pElements, nCount * sizeof(TYPE)));
 
@@ -18,8 +17,7 @@ inline void AFXAPI ConstructElements(TYPE* pElements, int nCount)
 }
 
 template<class TYPE>
-inline void AFXAPI DestructElements(TYPE* pElements, int nCount)
-{
+inline void AFXAPI DestructElements(TYPE* pElements, int nCount) {
 	ASSERT(nCount == 0 ||
 		AfxIsValidAddress(pElements, nCount * sizeof(TYPE)));
 
@@ -30,8 +28,7 @@ inline void AFXAPI DestructElements(TYPE* pElements, int nCount)
 }
 
 template<class TYPE>
-inline void AFXAPI CopyElements(TYPE* pDest, const TYPE* pSrc, int nCount)
-{
+inline void AFXAPI CopyElements(TYPE* pDest, const TYPE* pSrc, int nCount) {
 	ASSERT(nCount == 0 ||
 		AfxIsValidAddress(pDest, nCount * sizeof(TYPE)));
 	ASSERT(nCount == 0 ||
@@ -44,8 +41,7 @@ inline void AFXAPI CopyElements(TYPE* pDest, const TYPE* pSrc, int nCount)
 }
 
 template<class TYPE>
-void AFXAPI SerializeElements(CArchive& ar, TYPE* pElements, int nCount)
-{
+void AFXAPI SerializeElements(CArchive& ar, TYPE* pElements, int nCount) {
 	ASSERT(nCount == 0 ||
 		AfxIsValidAddress(pElements, nCount * sizeof(TYPE)));
 
@@ -59,8 +55,7 @@ void AFXAPI SerializeElements(CArchive& ar, TYPE* pElements, int nCount)
 
 #ifdef _DEBUG
 template<class TYPE>
-void AFXAPI DumpElements(CDumpContext& dc, const TYPE* pElements, int nCount)
-{
+void AFXAPI DumpElements(CDumpContext& dc, const TYPE* pElements, int nCount) {
 	ASSERT(nCount == 0 ||
 		AfxIsValidAddress(pElements, nCount * sizeof(TYPE), FALSE));
 	&dc; // not used
@@ -73,8 +68,7 @@ void AFXAPI DumpElements(CDumpContext& dc, const TYPE* pElements, int nCount)
 
 
 template<class TYPE, class ARG_TYPE>
-BOOL AFXAPI CompareElements(const TYPE* pElement1, const ARG_TYPE* pElement2)
-{
+BOOL AFXAPI CompareElements(const TYPE* pElement1, const ARG_TYPE* pElement2) {
 	ASSERT(AfxIsValidAddress(pElement1, sizeof(TYPE), FALSE));
 	ASSERT(AfxIsValidAddress(pElement2, sizeof(ARG_TYPE), FALSE));
 
@@ -82,8 +76,7 @@ BOOL AFXAPI CompareElements(const TYPE* pElement1, const ARG_TYPE* pElement2)
 }
 
 template<class ARG_KEY>
-inline UINT AFXAPI HashKey(ARG_KEY key)
-{
+inline UINT AFXAPI HashKey(ARG_KEY key) {
 	// default identity hash - works for most primitive values
 	return ((UINT)(void*)(DWORD)key) >> 4;
 }
@@ -145,63 +138,52 @@ UINT AFXAPI HashKey(const struct tagVARIANT& var);
 // CArray<TYPE, ARG_TYPE> inline functions
 
 template<class TYPE, class ARG_TYPE>
-inline int CArray<TYPE, ARG_TYPE>::GetSize() const
-{
+inline int CArray<TYPE, ARG_TYPE>::GetSize() const {
 	return m_nSize;
 }
 template<class TYPE, class ARG_TYPE>
-inline int CArray<TYPE, ARG_TYPE>::GetUpperBound() const
-{
+inline int CArray<TYPE, ARG_TYPE>::GetUpperBound() const {
 	return m_nSize - 1;
 }
 template<class TYPE, class ARG_TYPE>
-inline void CArray<TYPE, ARG_TYPE>::RemoveAll()
-{
+inline void CArray<TYPE, ARG_TYPE>::RemoveAll() {
 	SetSize(0, -1);
 }
 template<class TYPE, class ARG_TYPE>
-inline TYPE CArray<TYPE, ARG_TYPE>::GetAt(int nIndex) const
-{
+inline TYPE CArray<TYPE, ARG_TYPE>::GetAt(int nIndex) const {
 	ASSERT(nIndex >= 0 && nIndex < m_nSize);
 	return m_pData[nIndex];
 }
 template<class TYPE, class ARG_TYPE>
-inline void CArray<TYPE, ARG_TYPE>::SetAt(int nIndex, ARG_TYPE newElement)
-{
+inline void CArray<TYPE, ARG_TYPE>::SetAt(int nIndex, ARG_TYPE newElement) {
 	ASSERT(nIndex >= 0 && nIndex < m_nSize);
 	m_pData[nIndex] = newElement;
 }
 template<class TYPE, class ARG_TYPE>
-inline TYPE& CArray<TYPE, ARG_TYPE>::ElementAt(int nIndex)
-{
+inline TYPE& CArray<TYPE, ARG_TYPE>::ElementAt(int nIndex) {
 	ASSERT(nIndex >= 0 && nIndex < m_nSize);
 	return m_pData[nIndex];
 }
 template<class TYPE, class ARG_TYPE>
-inline const TYPE* CArray<TYPE, ARG_TYPE>::GetData() const
-{
+inline const TYPE* CArray<TYPE, ARG_TYPE>::GetData() const {
 	return (const TYPE*)m_pData;
 }
 template<class TYPE, class ARG_TYPE>
-inline TYPE* CArray<TYPE, ARG_TYPE>::GetData()
-{
+inline TYPE* CArray<TYPE, ARG_TYPE>::GetData() {
 	return (TYPE*)m_pData;
 }
 template<class TYPE, class ARG_TYPE>
-inline int CArray<TYPE, ARG_TYPE>::Add(ARG_TYPE newElement)
-{
+inline int CArray<TYPE, ARG_TYPE>::Add(ARG_TYPE newElement) {
 	int nIndex = m_nSize;
 	SetAtGrow(nIndex, newElement);
 	return nIndex;
 }
 template<class TYPE, class ARG_TYPE>
-inline TYPE CArray<TYPE, ARG_TYPE>::operator[](int nIndex) const
-{
+inline TYPE CArray<TYPE, ARG_TYPE>::operator[](int nIndex) const {
 	return GetAt(nIndex);
 }
 template<class TYPE, class ARG_TYPE>
-inline TYPE& CArray<TYPE, ARG_TYPE>::operator[](int nIndex)
-{
+inline TYPE& CArray<TYPE, ARG_TYPE>::operator[](int nIndex) {
 	return ElementAt(nIndex);
 }
 
@@ -209,27 +191,23 @@ inline TYPE& CArray<TYPE, ARG_TYPE>::operator[](int nIndex)
 // CArray<TYPE, ARG_TYPE> out-of-line functions
 
 template<class TYPE, class ARG_TYPE>
-CArray<TYPE, ARG_TYPE>::CArray()
-{
+CArray<TYPE, ARG_TYPE>::CArray() {
 	m_pData = NULL;
 	m_nSize = m_nMaxSize = m_nGrowBy = 0;
 }
 
 template<class TYPE, class ARG_TYPE>
-CArray<TYPE, ARG_TYPE>::~CArray()
-{
+CArray<TYPE, ARG_TYPE>::~CArray() {
 	ASSERT_VALID(this);
 
-	if (m_pData != NULL)
-	{
+	if (m_pData != NULL) {
 		DestructElements<TYPE>(m_pData, m_nSize);
 		delete[](BYTE*)m_pData;
 	}
 }
 
 template<class TYPE, class ARG_TYPE>
-void CArray<TYPE, ARG_TYPE>::SetSize(int nNewSize, int nGrowBy)
-{
+void CArray<TYPE, ARG_TYPE>::SetSize(int nNewSize, int nGrowBy) {
 	ASSERT_VALID(this);
 	ASSERT(nNewSize >= 0);
 
@@ -237,18 +215,15 @@ void CArray<TYPE, ARG_TYPE>::SetSize(int nNewSize, int nGrowBy)
 		m_nGrowBy = nGrowBy;  // set new size
 	}
 
-	if (nNewSize == 0)
-	{
+	if (nNewSize == 0) {
 		// shrink to nothing
-		if (m_pData != NULL)
-		{
+		if (m_pData != NULL) {
 			DestructElements<TYPE>(m_pData, m_nSize);
 			delete[](BYTE*)m_pData;
 			m_pData = NULL;
 		}
 		m_nSize = m_nMaxSize = 0;
-	} else if (m_pData == NULL)
-	{
+	} else if (m_pData == NULL) {
 		// create one with exact size
 #ifdef SIZE_T_MAX
 		ASSERT(nNewSize <= SIZE_T_MAX / sizeof(TYPE));    // no overflow
@@ -256,15 +231,12 @@ void CArray<TYPE, ARG_TYPE>::SetSize(int nNewSize, int nGrowBy)
 		m_pData = (TYPE*) new BYTE[nNewSize * sizeof(TYPE)];
 		ConstructElements<TYPE>(m_pData, nNewSize);
 		m_nSize = m_nMaxSize = nNewSize;
-	} else if (nNewSize <= m_nMaxSize)
-	{
+	} else if (nNewSize <= m_nMaxSize) {
 		// it fits
-		if (nNewSize > m_nSize)
-		{
+		if (nNewSize > m_nSize) {
 			// initialize the new elements
 			ConstructElements<TYPE>(&m_pData[m_nSize], nNewSize - m_nSize);
-		} else if (m_nSize > nNewSize)
-		{
+		} else if (m_nSize > nNewSize) {
 			// destroy the old elements
 			DestructElements<TYPE>(&m_pData[nNewSize], m_nSize - nNewSize);
 		}
@@ -272,8 +244,7 @@ void CArray<TYPE, ARG_TYPE>::SetSize(int nNewSize, int nGrowBy)
 	} else {
 		// otherwise, grow array
 		int nGrowBy = m_nGrowBy;
-		if (nGrowBy == 0)
-		{
+		if (nGrowBy == 0) {
 			// heuristically determine growth when nGrowBy == 0
 			//  (this avoids heap fragmentation in many situations)
 			nGrowBy = m_nSize / 8;
@@ -308,8 +279,7 @@ void CArray<TYPE, ARG_TYPE>::SetSize(int nNewSize, int nGrowBy)
 }
 
 template<class TYPE, class ARG_TYPE>
-int CArray<TYPE, ARG_TYPE>::Append(const CArray& src)
-{
+int CArray<TYPE, ARG_TYPE>::Append(const CArray& src) {
 	ASSERT_VALID(this);
 	ASSERT(this != &src);   // cannot append to itself
 
@@ -320,8 +290,7 @@ int CArray<TYPE, ARG_TYPE>::Append(const CArray& src)
 }
 
 template<class TYPE, class ARG_TYPE>
-void CArray<TYPE, ARG_TYPE>::Copy(const CArray& src)
-{
+void CArray<TYPE, ARG_TYPE>::Copy(const CArray& src) {
 	ASSERT_VALID(this);
 	ASSERT(this != &src);   // cannot append to itself
 
@@ -330,19 +299,16 @@ void CArray<TYPE, ARG_TYPE>::Copy(const CArray& src)
 }
 
 template<class TYPE, class ARG_TYPE>
-void CArray<TYPE, ARG_TYPE>::FreeExtra()
-{
+void CArray<TYPE, ARG_TYPE>::FreeExtra() {
 	ASSERT_VALID(this);
 
-	if (m_nSize != m_nMaxSize)
-	{
+	if (m_nSize != m_nMaxSize) {
 		// shrink to desired size
 #ifdef SIZE_T_MAX
 		ASSERT(m_nSize <= SIZE_T_MAX / sizeof(TYPE)); // no overflow
 #endif
 		TYPE* pNewData = NULL;
-		if (m_nSize != 0)
-		{
+		if (m_nSize != 0) {
 			pNewData = (TYPE*) new BYTE[m_nSize * sizeof(TYPE)];
 			// copy new data from old
 			memcpy(pNewData, m_pData, m_nSize * sizeof(TYPE));
@@ -356,8 +322,7 @@ void CArray<TYPE, ARG_TYPE>::FreeExtra()
 }
 
 template<class TYPE, class ARG_TYPE>
-void CArray<TYPE, ARG_TYPE>::SetAtGrow(int nIndex, ARG_TYPE newElement)
-{
+void CArray<TYPE, ARG_TYPE>::SetAtGrow(int nIndex, ARG_TYPE newElement) {
 	ASSERT_VALID(this);
 	ASSERT(nIndex >= 0);
 
@@ -368,14 +333,12 @@ void CArray<TYPE, ARG_TYPE>::SetAtGrow(int nIndex, ARG_TYPE newElement)
 }
 
 template<class TYPE, class ARG_TYPE>
-void CArray<TYPE, ARG_TYPE>::InsertAt(int nIndex, ARG_TYPE newElement, int nCount /*=1*/)
-{
+void CArray<TYPE, ARG_TYPE>::InsertAt(int nIndex, ARG_TYPE newElement, int nCount /*=1*/) {
 	ASSERT_VALID(this);
 	ASSERT(nIndex >= 0);    // will expand to meet need
 	ASSERT(nCount > 0);     // zero or negative size not allowed
 
-	if (nIndex >= m_nSize)
-	{
+	if (nIndex >= m_nSize) {
 		// adding after the end of the array
 		SetSize(nIndex + nCount, -1);   // grow so nIndex is valid
 	} else {
@@ -400,8 +363,7 @@ void CArray<TYPE, ARG_TYPE>::InsertAt(int nIndex, ARG_TYPE newElement, int nCoun
 }
 
 template<class TYPE, class ARG_TYPE>
-void CArray<TYPE, ARG_TYPE>::RemoveAt(int nIndex, int nCount)
-{
+void CArray<TYPE, ARG_TYPE>::RemoveAt(int nIndex, int nCount) {
 	ASSERT_VALID(this);
 	ASSERT(nIndex >= 0);
 	ASSERT(nCount >= 0);
@@ -418,15 +380,13 @@ void CArray<TYPE, ARG_TYPE>::RemoveAt(int nIndex, int nCount)
 }
 
 template<class TYPE, class ARG_TYPE>
-void CArray<TYPE, ARG_TYPE>::InsertAt(int nStartIndex, CArray* pNewArray)
-{
+void CArray<TYPE, ARG_TYPE>::InsertAt(int nStartIndex, CArray* pNewArray) {
 	ASSERT_VALID(this);
 	ASSERT(pNewArray != NULL);
 	ASSERT_VALID(pNewArray);
 	ASSERT(nStartIndex >= 0);
 
-	if (pNewArray->GetSize() > 0)
-	{
+	if (pNewArray->GetSize() > 0) {
 		InsertAt(nStartIndex, pNewArray->GetAt(0), pNewArray->GetSize());
 		for (int i = 0; i < pNewArray->GetSize(); i++) {
 			SetAt(nStartIndex + i, pNewArray->GetAt(i));
@@ -435,13 +395,11 @@ void CArray<TYPE, ARG_TYPE>::InsertAt(int nStartIndex, CArray* pNewArray)
 }
 
 template<class TYPE, class ARG_TYPE>
-void CArray<TYPE, ARG_TYPE>::Serialize(CArchive& ar)
-{
+void CArray<TYPE, ARG_TYPE>::Serialize(CArchive& ar) {
 	ASSERT_VALID(this);
 
 	CObject::Serialize(ar);
-	if (ar.IsStoring())
-	{
+	if (ar.IsStoring()) {
 		ar.WriteCount(m_nSize);
 	} else {
 		DWORD nOldSize = ar.ReadCount();
@@ -452,13 +410,11 @@ void CArray<TYPE, ARG_TYPE>::Serialize(CArchive& ar)
 
 #ifdef _DEBUG
 template<class TYPE, class ARG_TYPE>
-void CArray<TYPE, ARG_TYPE>::Dump(CDumpContext& dc) const
-{
+void CArray<TYPE, ARG_TYPE>::Dump(CDumpContext& dc) const {
 	CObject::Dump(dc);
 
 	dc << "with " << m_nSize << " elements";
-	if (dc.GetDepth() > 0)
-	{
+	if (dc.GetDepth() > 0) {
 		dc << "\n";
 		DumpElements<TYPE>(dc, m_pData, m_nSize);
 	}
@@ -467,12 +423,10 @@ void CArray<TYPE, ARG_TYPE>::Dump(CDumpContext& dc) const
 }
 
 template<class TYPE, class ARG_TYPE>
-void CArray<TYPE, ARG_TYPE>::AssertValid() const
-{
+void CArray<TYPE, ARG_TYPE>::AssertValid() const {
 	CObject::AssertValid();
 
-	if (m_pData == NULL)
-	{
+	if (m_pData == NULL) {
 		ASSERT(m_nSize == 0);
 		ASSERT(m_nMaxSize == 0);
 	} else {
@@ -495,106 +449,90 @@ void CArray<TYPE, ARG_TYPE>::AssertValid() const
 // CList<TYPE, ARG_TYPE> inline functions
 
 template<class TYPE, class ARG_TYPE>
-inline int CList<TYPE, ARG_TYPE>::GetCount() const
-{
+inline int CList<TYPE, ARG_TYPE>::GetCount() const {
 	return m_nCount;
 }
 template<class TYPE, class ARG_TYPE>
-inline BOOL CList<TYPE, ARG_TYPE>::IsEmpty() const
-{
+inline BOOL CList<TYPE, ARG_TYPE>::IsEmpty() const {
 	return m_nCount == 0;
 }
 template<class TYPE, class ARG_TYPE>
-inline TYPE& CList<TYPE, ARG_TYPE>::GetHead()
-{
+inline TYPE& CList<TYPE, ARG_TYPE>::GetHead() {
 	ASSERT(m_pNodeHead != NULL);
 	return m_pNodeHead->data;
 }
 template<class TYPE, class ARG_TYPE>
-inline TYPE CList<TYPE, ARG_TYPE>::GetHead() const
-{
+inline TYPE CList<TYPE, ARG_TYPE>::GetHead() const {
 	ASSERT(m_pNodeHead != NULL);
 	return m_pNodeHead->data;
 }
 template<class TYPE, class ARG_TYPE>
-inline TYPE& CList<TYPE, ARG_TYPE>::GetTail()
-{
+inline TYPE& CList<TYPE, ARG_TYPE>::GetTail() {
 	ASSERT(m_pNodeTail != NULL);
 	return m_pNodeTail->data;
 }
 template<class TYPE, class ARG_TYPE>
-inline TYPE CList<TYPE, ARG_TYPE>::GetTail() const
-{
+inline TYPE CList<TYPE, ARG_TYPE>::GetTail() const {
 	ASSERT(m_pNodeTail != NULL);
 	return m_pNodeTail->data;
 }
 template<class TYPE, class ARG_TYPE>
-inline POSITION CList<TYPE, ARG_TYPE>::GetHeadPosition() const
-{
+inline POSITION CList<TYPE, ARG_TYPE>::GetHeadPosition() const {
 	return (POSITION)m_pNodeHead;
 }
 template<class TYPE, class ARG_TYPE>
-inline POSITION CList<TYPE, ARG_TYPE>::GetTailPosition() const
-{
+inline POSITION CList<TYPE, ARG_TYPE>::GetTailPosition() const {
 	return (POSITION)m_pNodeTail;
 }
 template<class TYPE, class ARG_TYPE>
-inline TYPE& CList<TYPE, ARG_TYPE>::GetNext(POSITION& rPosition) // return *Position++
-{
+inline TYPE& CList<TYPE, ARG_TYPE>::GetNext(POSITION& rPosition) { // return *Position++
 	CNode* pNode = (CNode*)rPosition;
 	ASSERT(AfxIsValidAddress(pNode, sizeof(CNode)));
 	rPosition = (POSITION)pNode->pNext;
 	return pNode->data;
 }
 template<class TYPE, class ARG_TYPE>
-inline TYPE CList<TYPE, ARG_TYPE>::GetNext(POSITION& rPosition) const // return *Position++
-{
+inline TYPE CList<TYPE, ARG_TYPE>::GetNext(POSITION& rPosition) const { // return *Position++
 	CNode* pNode = (CNode*)rPosition;
 	ASSERT(AfxIsValidAddress(pNode, sizeof(CNode)));
 	rPosition = (POSITION)pNode->pNext;
 	return pNode->data;
 }
 template<class TYPE, class ARG_TYPE>
-inline TYPE& CList<TYPE, ARG_TYPE>::GetPrev(POSITION& rPosition) // return *Position--
-{
+inline TYPE& CList<TYPE, ARG_TYPE>::GetPrev(POSITION& rPosition) { // return *Position--
 	CNode* pNode = (CNode*)rPosition;
 	ASSERT(AfxIsValidAddress(pNode, sizeof(CNode)));
 	rPosition = (POSITION)pNode->pPrev;
 	return pNode->data;
 }
 template<class TYPE, class ARG_TYPE>
-inline TYPE CList<TYPE, ARG_TYPE>::GetPrev(POSITION& rPosition) const // return *Position--
-{
+inline TYPE CList<TYPE, ARG_TYPE>::GetPrev(POSITION& rPosition) const { // return *Position--
 	CNode* pNode = (CNode*)rPosition;
 	ASSERT(AfxIsValidAddress(pNode, sizeof(CNode)));
 	rPosition = (POSITION)pNode->pPrev;
 	return pNode->data;
 }
 template<class TYPE, class ARG_TYPE>
-inline TYPE& CList<TYPE, ARG_TYPE>::GetAt(POSITION position)
-{
+inline TYPE& CList<TYPE, ARG_TYPE>::GetAt(POSITION position) {
 	CNode* pNode = (CNode*)position;
 	ASSERT(AfxIsValidAddress(pNode, sizeof(CNode)));
 	return pNode->data;
 }
 template<class TYPE, class ARG_TYPE>
-inline TYPE CList<TYPE, ARG_TYPE>::GetAt(POSITION position) const
-{
+inline TYPE CList<TYPE, ARG_TYPE>::GetAt(POSITION position) const {
 	CNode* pNode = (CNode*)position;
 	ASSERT(AfxIsValidAddress(pNode, sizeof(CNode)));
 	return pNode->data;
 }
 template<class TYPE, class ARG_TYPE>
-inline void CList<TYPE, ARG_TYPE>::SetAt(POSITION pos, ARG_TYPE newElement)
-{
+inline void CList<TYPE, ARG_TYPE>::SetAt(POSITION pos, ARG_TYPE newElement) {
 	CNode* pNode = (CNode*)pos;
 	ASSERT(AfxIsValidAddress(pNode, sizeof(CNode)));
 	pNode->data = newElement;
 }
 
 template<class TYPE, class ARG_TYPE>
-CList<TYPE, ARG_TYPE>::CList(int nBlockSize)
-{
+CList<TYPE, ARG_TYPE>::CList(int nBlockSize) {
 	ASSERT(nBlockSize > 0);
 
 	m_nCount = 0;
@@ -604,8 +542,7 @@ CList<TYPE, ARG_TYPE>::CList(int nBlockSize)
 }
 
 template<class TYPE, class ARG_TYPE>
-void CList<TYPE, ARG_TYPE>::RemoveAll()
-{
+void CList<TYPE, ARG_TYPE>::RemoveAll() {
 	ASSERT_VALID(this);
 
 	// destroy elements
@@ -621,8 +558,7 @@ void CList<TYPE, ARG_TYPE>::RemoveAll()
 }
 
 template<class TYPE, class ARG_TYPE>
-CList<TYPE, ARG_TYPE>::~CList()
-{
+CList<TYPE, ARG_TYPE>::~CList() {
 	RemoveAll();
 	ASSERT(m_nCount == 0);
 }
@@ -644,10 +580,8 @@ CList<TYPE, ARG_TYPE>::~CList()
 
 template<class TYPE, class ARG_TYPE>
 typename CList<TYPE, ARG_TYPE>::CNode*
-CList<TYPE, ARG_TYPE>::NewNode(CList::CNode* pPrev, CList::CNode* pNext)
-{
-	if (m_pNodeFree == NULL)
-	{
+CList<TYPE, ARG_TYPE>::NewNode(CList::CNode* pPrev, CList::CNode* pNext) {
+	if (m_pNodeFree == NULL) {
 		// add another block
 		CPlex* pNewBlock = CPlex::Create(m_pBlocks, m_nBlockSize,
 			sizeof(CNode));
@@ -656,8 +590,7 @@ CList<TYPE, ARG_TYPE>::NewNode(CList::CNode* pPrev, CList::CNode* pNext)
 		CNode* pNode = (CNode*)pNewBlock->data();
 		// free in reverse order to make it easier to debug
 		pNode += m_nBlockSize - 1;
-		for (int i = m_nBlockSize - 1; i >= 0; i--, pNode--)
-		{
+		for (int i = m_nBlockSize - 1; i >= 0; i--, pNode--) {
 			pNode->pNext = m_pNodeFree;
 			m_pNodeFree = pNode;
 		}
@@ -676,8 +609,7 @@ CList<TYPE, ARG_TYPE>::NewNode(CList::CNode* pPrev, CList::CNode* pNext)
 }
 
 template<class TYPE, class ARG_TYPE>
-void CList<TYPE, ARG_TYPE>::FreeNode(CList::CNode* pNode)
-{
+void CList<TYPE, ARG_TYPE>::FreeNode(CList::CNode* pNode) {
 	DestructElements<TYPE>(&pNode->data, 1);
 	pNode->pNext = m_pNodeFree;
 	m_pNodeFree = pNode;
@@ -691,8 +623,7 @@ void CList<TYPE, ARG_TYPE>::FreeNode(CList::CNode* pNode)
 }
 
 template<class TYPE, class ARG_TYPE>
-POSITION CList<TYPE, ARG_TYPE>::AddHead(ARG_TYPE newElement)
-{
+POSITION CList<TYPE, ARG_TYPE>::AddHead(ARG_TYPE newElement) {
 	ASSERT_VALID(this);
 
 	CNode* pNewNode = NewNode(NULL, m_pNodeHead);
@@ -707,8 +638,7 @@ POSITION CList<TYPE, ARG_TYPE>::AddHead(ARG_TYPE newElement)
 }
 
 template<class TYPE, class ARG_TYPE>
-POSITION CList<TYPE, ARG_TYPE>::AddTail(ARG_TYPE newElement)
-{
+POSITION CList<TYPE, ARG_TYPE>::AddTail(ARG_TYPE newElement) {
 	ASSERT_VALID(this);
 
 	CNode* pNewNode = NewNode(m_pNodeTail, NULL);
@@ -723,8 +653,7 @@ POSITION CList<TYPE, ARG_TYPE>::AddTail(ARG_TYPE newElement)
 }
 
 template<class TYPE, class ARG_TYPE>
-void CList<TYPE, ARG_TYPE>::AddHead(CList* pNewList)
-{
+void CList<TYPE, ARG_TYPE>::AddHead(CList* pNewList) {
 	ASSERT_VALID(this);
 
 	ASSERT(pNewList != NULL);
@@ -738,8 +667,7 @@ void CList<TYPE, ARG_TYPE>::AddHead(CList* pNewList)
 }
 
 template<class TYPE, class ARG_TYPE>
-void CList<TYPE, ARG_TYPE>::AddTail(CList* pNewList)
-{
+void CList<TYPE, ARG_TYPE>::AddTail(CList* pNewList) {
 	ASSERT_VALID(this);
 	ASSERT(pNewList != NULL);
 	ASSERT_VALID(pNewList);
@@ -752,8 +680,7 @@ void CList<TYPE, ARG_TYPE>::AddTail(CList* pNewList)
 }
 
 template<class TYPE, class ARG_TYPE>
-TYPE CList<TYPE, ARG_TYPE>::RemoveHead()
-{
+TYPE CList<TYPE, ARG_TYPE>::RemoveHead() {
 	ASSERT_VALID(this);
 	ASSERT(m_pNodeHead != NULL);  // don't call on empty list !!!
 	ASSERT(AfxIsValidAddress(m_pNodeHead, sizeof(CNode)));
@@ -772,8 +699,7 @@ TYPE CList<TYPE, ARG_TYPE>::RemoveHead()
 }
 
 template<class TYPE, class ARG_TYPE>
-TYPE CList<TYPE, ARG_TYPE>::RemoveTail()
-{
+TYPE CList<TYPE, ARG_TYPE>::RemoveTail() {
 	ASSERT_VALID(this);
 	ASSERT(m_pNodeTail != NULL);  // don't call on empty list !!!
 	ASSERT(AfxIsValidAddress(m_pNodeTail, sizeof(CNode)));
@@ -792,8 +718,7 @@ TYPE CList<TYPE, ARG_TYPE>::RemoveTail()
 }
 
 template<class TYPE, class ARG_TYPE>
-POSITION CList<TYPE, ARG_TYPE>::InsertBefore(POSITION position, ARG_TYPE newElement)
-{
+POSITION CList<TYPE, ARG_TYPE>::InsertBefore(POSITION position, ARG_TYPE newElement) {
 	ASSERT_VALID(this);
 
 	if (position == NULL) {
@@ -805,8 +730,7 @@ POSITION CList<TYPE, ARG_TYPE>::InsertBefore(POSITION position, ARG_TYPE newElem
 	CNode* pNewNode = NewNode(pOldNode->pPrev, pOldNode);
 	pNewNode->data = newElement;
 
-	if (pOldNode->pPrev != NULL)
-	{
+	if (pOldNode->pPrev != NULL) {
 		ASSERT(AfxIsValidAddress(pOldNode->pPrev, sizeof(CNode)));
 		pOldNode->pPrev->pNext = pNewNode;
 	} else {
@@ -818,8 +742,7 @@ POSITION CList<TYPE, ARG_TYPE>::InsertBefore(POSITION position, ARG_TYPE newElem
 }
 
 template<class TYPE, class ARG_TYPE>
-POSITION CList<TYPE, ARG_TYPE>::InsertAfter(POSITION position, ARG_TYPE newElement)
-{
+POSITION CList<TYPE, ARG_TYPE>::InsertAfter(POSITION position, ARG_TYPE newElement) {
 	ASSERT_VALID(this);
 
 	if (position == NULL) {
@@ -832,8 +755,7 @@ POSITION CList<TYPE, ARG_TYPE>::InsertAfter(POSITION position, ARG_TYPE newEleme
 	CNode* pNewNode = NewNode(pOldNode, pOldNode->pNext);
 	pNewNode->data = newElement;
 
-	if (pOldNode->pNext != NULL)
-	{
+	if (pOldNode->pNext != NULL) {
 		ASSERT(AfxIsValidAddress(pOldNode->pNext, sizeof(CNode)));
 		pOldNode->pNext->pPrev = pNewNode;
 	} else {
@@ -845,23 +767,20 @@ POSITION CList<TYPE, ARG_TYPE>::InsertAfter(POSITION position, ARG_TYPE newEleme
 }
 
 template<class TYPE, class ARG_TYPE>
-void CList<TYPE, ARG_TYPE>::RemoveAt(POSITION position)
-{
+void CList<TYPE, ARG_TYPE>::RemoveAt(POSITION position) {
 	ASSERT_VALID(this);
 
 	CNode* pOldNode = (CNode*)position;
 	ASSERT(AfxIsValidAddress(pOldNode, sizeof(CNode)));
 
 	// remove pOldNode from list
-	if (pOldNode == m_pNodeHead)
-	{
+	if (pOldNode == m_pNodeHead) {
 		m_pNodeHead = pOldNode->pNext;
 	} else {
 		ASSERT(AfxIsValidAddress(pOldNode->pPrev, sizeof(CNode)));
 		pOldNode->pPrev->pNext = pOldNode->pNext;
 	}
-	if (pOldNode == m_pNodeTail)
-	{
+	if (pOldNode == m_pNodeTail) {
 		m_pNodeTail = pOldNode->pPrev;
 	} else {
 		ASSERT(AfxIsValidAddress(pOldNode->pNext, sizeof(CNode)));
@@ -871,8 +790,7 @@ void CList<TYPE, ARG_TYPE>::RemoveAt(POSITION position)
 }
 
 template<class TYPE, class ARG_TYPE>
-POSITION CList<TYPE, ARG_TYPE>::FindIndex(int nIndex) const
-{
+POSITION CList<TYPE, ARG_TYPE>::FindIndex(int nIndex) const {
 	ASSERT_VALID(this);
 	ASSERT(nIndex >= 0);
 
@@ -881,8 +799,7 @@ POSITION CList<TYPE, ARG_TYPE>::FindIndex(int nIndex) const
 	}
 
 	CNode* pNode = m_pNodeHead;
-	while (nIndex--)
-	{
+	while (nIndex--) {
 		ASSERT(AfxIsValidAddress(pNode, sizeof(CNode)));
 		pNode = pNode->pNext;
 	}
@@ -890,13 +807,11 @@ POSITION CList<TYPE, ARG_TYPE>::FindIndex(int nIndex) const
 }
 
 template<class TYPE, class ARG_TYPE>
-POSITION CList<TYPE, ARG_TYPE>::Find(ARG_TYPE searchValue, POSITION startAfter) const
-{
+POSITION CList<TYPE, ARG_TYPE>::Find(ARG_TYPE searchValue, POSITION startAfter) const {
 	ASSERT_VALID(this);
 
 	CNode* pNode = (CNode*)startAfter;
-	if (pNode == NULL)
-	{
+	if (pNode == NULL) {
 		pNode = m_pNodeHead;  // start at head
 	} else {
 		ASSERT(AfxIsValidAddress(pNode, sizeof(CNode)));
@@ -912,24 +827,20 @@ POSITION CList<TYPE, ARG_TYPE>::Find(ARG_TYPE searchValue, POSITION startAfter) 
 }
 
 template<class TYPE, class ARG_TYPE>
-void CList<TYPE, ARG_TYPE>::Serialize(CArchive& ar)
-{
+void CList<TYPE, ARG_TYPE>::Serialize(CArchive& ar) {
 	ASSERT_VALID(this);
 
 	CObject::Serialize(ar);
 
-	if (ar.IsStoring())
-	{
+	if (ar.IsStoring()) {
 		ar.WriteCount(m_nCount);
-		for (CNode* pNode = m_pNodeHead; pNode != NULL; pNode = pNode->pNext)
-		{
+		for (CNode* pNode = m_pNodeHead; pNode != NULL; pNode = pNode->pNext) {
 			ASSERT(AfxIsValidAddress(pNode, sizeof(CNode)));
 			SerializeElements<TYPE>(ar, &pNode->data, 1);
 		}
 	} else {
 		DWORD nNewCount = ar.ReadCount();
-		while (nNewCount--)
-		{
+		while (nNewCount--) {
 			TYPE newData;
 			SerializeElements<TYPE>(ar, &newData, 1);
 			AddTail(newData);
@@ -939,16 +850,13 @@ void CList<TYPE, ARG_TYPE>::Serialize(CArchive& ar)
 
 #ifdef _DEBUG
 template<class TYPE, class ARG_TYPE>
-void CList<TYPE, ARG_TYPE>::Dump(CDumpContext& dc) const
-{
+void CList<TYPE, ARG_TYPE>::Dump(CDumpContext& dc) const {
 	CObject::Dump(dc);
 
 	dc << "with " << m_nCount << " elements";
-	if (dc.GetDepth() > 0)
-	{
+	if (dc.GetDepth() > 0) {
 		POSITION pos = GetHeadPosition();
-		while (pos != NULL)
-		{
+		while (pos != NULL) {
 			dc << "\n";
 			DumpElements<TYPE>(dc, &((CList*)this)->GetNext(pos), 1);
 		}
@@ -958,12 +866,10 @@ void CList<TYPE, ARG_TYPE>::Dump(CDumpContext& dc) const
 }
 
 template<class TYPE, class ARG_TYPE>
-void CList<TYPE, ARG_TYPE>::AssertValid() const
-{
+void CList<TYPE, ARG_TYPE>::AssertValid() const {
 	CObject::AssertValid();
 
-	if (m_nCount == 0)
-	{
+	if (m_nCount == 0) {
 		// empty list
 		ASSERT(m_pNodeHead == NULL);
 		ASSERT(m_pNodeTail == NULL);
@@ -984,28 +890,23 @@ void CList<TYPE, ARG_TYPE>::AssertValid() const
 // CMap<KEY, ARG_KEY, VALUE, ARG_VALUE> inline functions
 
 template<class KEY, class ARG_KEY, class VALUE, class ARG_VALUE>
-inline int CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::GetCount() const
-{
+inline int CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::GetCount() const {
 	return m_nCount;
 }
 template<class KEY, class ARG_KEY, class VALUE, class ARG_VALUE>
-inline BOOL CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::IsEmpty() const
-{
+inline BOOL CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::IsEmpty() const {
 	return m_nCount == 0;
 }
 template<class KEY, class ARG_KEY, class VALUE, class ARG_VALUE>
-inline void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::SetAt(ARG_KEY key, ARG_VALUE newValue)
-{
+inline void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::SetAt(ARG_KEY key, ARG_VALUE newValue) {
 	(*this)[key] = newValue;
 }
 template<class KEY, class ARG_KEY, class VALUE, class ARG_VALUE>
-inline POSITION CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::GetStartPosition() const
-{
+inline POSITION CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::GetStartPosition() const {
 	return (m_nCount == 0) ? NULL : BEFORE_START_POSITION;
 }
 template<class KEY, class ARG_KEY, class VALUE, class ARG_VALUE>
-inline UINT CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::GetHashTableSize() const
-{
+inline UINT CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::GetHashTableSize() const {
 	return m_nHashTableSize;
 }
 
@@ -1013,8 +914,7 @@ inline UINT CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::GetHashTableSize() const
 // CMap<KEY, ARG_KEY, VALUE, ARG_VALUE> out-of-line functions
 
 template<class KEY, class ARG_KEY, class VALUE, class ARG_VALUE>
-CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::CMap(int nBlockSize)
-{
+CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::CMap(int nBlockSize) {
 	ASSERT(nBlockSize > 0);
 
 	m_pHashTable = NULL;
@@ -1036,15 +936,13 @@ void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::InitHashTable(
 	ASSERT(m_nCount == 0);
 	ASSERT(nHashSize > 0);
 
-	if (m_pHashTable != NULL)
-	{
+	if (m_pHashTable != NULL) {
 		// free hash table
 		delete[] m_pHashTable;
 		m_pHashTable = NULL;
 	}
 
-	if (bAllocNow)
-	{
+	if (bAllocNow) {
 		m_pHashTable = new CAssoc * [nHashSize];
 		memset(m_pHashTable, 0, sizeof(CAssoc*) * nHashSize);
 	}
@@ -1052,19 +950,15 @@ void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::InitHashTable(
 }
 
 template<class KEY, class ARG_KEY, class VALUE, class ARG_VALUE>
-void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::RemoveAll()
-{
+void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::RemoveAll() {
 	ASSERT_VALID(this);
 
-	if (m_pHashTable != NULL)
-	{
+	if (m_pHashTable != NULL) {
 		// destroy elements (values and keys)
-		for (UINT nHash = 0; nHash < m_nHashTableSize; nHash++)
-		{
+		for (UINT nHash = 0; nHash < m_nHashTableSize; nHash++) {
 			CAssoc* pAssoc;
 			for (pAssoc = m_pHashTable[nHash]; pAssoc != NULL;
-				pAssoc = pAssoc->pNext)
-			{
+				pAssoc = pAssoc->pNext) {
 				DestructElements<VALUE>(&pAssoc->value, 1);
 				DestructElements<KEY>(&pAssoc->key, 1);
 			}
@@ -1082,26 +976,22 @@ void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::RemoveAll()
 }
 
 template<class KEY, class ARG_KEY, class VALUE, class ARG_VALUE>
-CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::~CMap()
-{
+CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::~CMap() {
 	RemoveAll();
 	ASSERT(m_nCount == 0);
 }
 
 template<class KEY, class ARG_KEY, class VALUE, class ARG_VALUE>
 typename CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::CAssoc*
-CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::NewAssoc()
-{
-	if (m_pFreeList == NULL)
-	{
+CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::NewAssoc() {
+	if (m_pFreeList == NULL) {
 		// add another block
 		CPlex* newBlock = CPlex::Create(m_pBlocks, m_nBlockSize, sizeof(CMap::CAssoc));
 		// chain them into free list
 		CMap::CAssoc* pAssoc = (CMap::CAssoc*)newBlock->data();
 		// free in reverse order to make it easier to debug
 		pAssoc += m_nBlockSize - 1;
-		for (int i = m_nBlockSize - 1; i >= 0; i--, pAssoc--)
-		{
+		for (int i = m_nBlockSize - 1; i >= 0; i--, pAssoc--) {
 			pAssoc->pNext = m_pFreeList;
 			m_pFreeList = pAssoc;
 		}
@@ -1118,8 +1008,7 @@ CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::NewAssoc()
 }
 
 template<class KEY, class ARG_KEY, class VALUE, class ARG_VALUE>
-void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::FreeAssoc(CMap::CAssoc* pAssoc)
-{
+void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::FreeAssoc(CMap::CAssoc* pAssoc) {
 	DestructElements<VALUE>(&pAssoc->value, 1);
 	DestructElements<KEY>(&pAssoc->key, 1);
 	pAssoc->pNext = m_pFreeList;
@@ -1146,8 +1035,7 @@ CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::GetAssocAt(ARG_KEY key, UINT& nHash) const
 	// see if it exists
 	}
 	CAssoc* pAssoc;
-	for (pAssoc = m_pHashTable[nHash]; pAssoc != NULL; pAssoc = pAssoc->pNext)
-	{
+	for (pAssoc = m_pHashTable[nHash]; pAssoc != NULL; pAssoc = pAssoc->pNext) {
 		if (CompareElements(&pAssoc->key, &key)) {
 			return pAssoc;
 		}
@@ -1156,8 +1044,7 @@ CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::GetAssocAt(ARG_KEY key, UINT& nHash) const
 }
 
 template<class KEY, class ARG_KEY, class VALUE, class ARG_VALUE>
-BOOL CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::Lookup(ARG_KEY key, VALUE& rValue) const
-{
+BOOL CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::Lookup(ARG_KEY key, VALUE& rValue) const {
 	ASSERT_VALID(this);
 
 	UINT nHash;
@@ -1171,14 +1058,12 @@ BOOL CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::Lookup(ARG_KEY key, VALUE& rValue) co
 }
 
 template<class KEY, class ARG_KEY, class VALUE, class ARG_VALUE>
-VALUE& CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::operator[](ARG_KEY key)
-{
+VALUE& CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::operator[](ARG_KEY key) {
 	ASSERT_VALID(this);
 
 	UINT nHash;
 	CAssoc* pAssoc;
-	if ((pAssoc = GetAssocAt(key, nHash)) == NULL)
-	{
+	if ((pAssoc = GetAssocAt(key, nHash)) == NULL) {
 		if (m_pHashTable == NULL) {
 			InitHashTable(m_nHashTableSize);
 
@@ -1210,10 +1095,8 @@ BOOL CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::RemoveKey(ARG_KEY key)
 	ppAssocPrev = &m_pHashTable[HashKey<ARG_KEY>(key) % m_nHashTableSize];
 
 	CAssoc* pAssoc;
-	for (pAssoc = *ppAssocPrev; pAssoc != NULL; pAssoc = pAssoc->pNext)
-	{
-		if (CompareElements(&pAssoc->key, &key))
-		{
+	for (pAssoc = *ppAssocPrev; pAssoc != NULL; pAssoc = pAssoc->pNext) {
+		if (CompareElements(&pAssoc->key, &key)) {
 			// remove it
 			*ppAssocPrev = pAssoc->pNext;  // remove from list
 			FreeAssoc(pAssoc);
@@ -1226,16 +1109,14 @@ BOOL CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::RemoveKey(ARG_KEY key)
 
 template<class KEY, class ARG_KEY, class VALUE, class ARG_VALUE>
 void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::GetNextAssoc(POSITION& rNextPosition,
-	KEY& rKey, VALUE& rValue) const
-{
+	KEY& rKey, VALUE& rValue) const {
 	ASSERT_VALID(this);
 	ASSERT(m_pHashTable != NULL);  // never call on empty map
 
 	CAssoc* pAssocRet = (CAssoc*)rNextPosition;
 	ASSERT(pAssocRet != NULL);
 
-	if (pAssocRet == (CAssoc*)BEFORE_START_POSITION)
-	{
+	if (pAssocRet == (CAssoc*)BEFORE_START_POSITION) {
 		// find the first association
 		for (UINT nBucket = 0; nBucket < m_nHashTableSize; nBucket++) {
 			if ((pAssocRet = m_pHashTable[nBucket]) != NULL) {
@@ -1248,8 +1129,7 @@ void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::GetNextAssoc(POSITION& rNextPosition,
 	// find next association
 	ASSERT(AfxIsValidAddress(pAssocRet, sizeof(CAssoc)));
 	CAssoc* pAssocNext;
-	if ((pAssocNext = pAssocRet->pNext) == NULL)
-	{
+	if ((pAssocNext = pAssocRet->pNext) == NULL) {
 		// go to next bucket
 		for (UINT nBucket = pAssocRet->nHashValue + 1;
 			nBucket < m_nHashTableSize; nBucket++) {
@@ -1267,34 +1147,29 @@ void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::GetNextAssoc(POSITION& rNextPosition,
 }
 
 template<class KEY, class ARG_KEY, class VALUE, class ARG_VALUE>
-void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::Serialize(CArchive& ar)
-{
+void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::Serialize(CArchive& ar) {
 	ASSERT_VALID(this);
 
 	CObject::Serialize(ar);
 
-	if (ar.IsStoring())
-	{
+	if (ar.IsStoring()) {
 		ar.WriteCount(m_nCount);
 		if (m_nCount == 0) {
 			return;  // nothing more to do
 		}
 
 		ASSERT(m_pHashTable != NULL);
-		for (UINT nHash = 0; nHash < m_nHashTableSize; nHash++)
-		{
+		for (UINT nHash = 0; nHash < m_nHashTableSize; nHash++) {
 			CAssoc* pAssoc;
 			for (pAssoc = m_pHashTable[nHash]; pAssoc != NULL;
-				pAssoc = pAssoc->pNext)
-			{
+				pAssoc = pAssoc->pNext) {
 				SerializeElements<KEY>(ar, &pAssoc->key, 1);
 				SerializeElements<VALUE>(ar, &pAssoc->value, 1);
 			}
 		}
 	} else {
 		DWORD nNewCount = ar.ReadCount();
-		while (nNewCount--)
-		{
+		while (nNewCount--) {
 			KEY newKey;
 			VALUE newValue;
 			SerializeElements<KEY>(ar, &newKey, 1);
@@ -1306,20 +1181,17 @@ void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::Serialize(CArchive& ar)
 
 #ifdef _DEBUG
 template<class KEY, class ARG_KEY, class VALUE, class ARG_VALUE>
-void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::Dump(CDumpContext& dc) const
-{
+void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::Dump(CDumpContext& dc) const {
 	CObject::Dump(dc);
 
 	dc << "with " << m_nCount << " elements";
-	if (dc.GetDepth() > 0)
-	{
+	if (dc.GetDepth() > 0) {
 		// Dump in format "[key] -> value"
 		KEY key;
 		VALUE val;
 
 		POSITION pos = GetStartPosition();
-		while (pos != NULL)
-		{
+		while (pos != NULL) {
 			GetNextAssoc(pos, key, val);
 			dc << "\n\t[";
 			DumpElements<KEY>(dc, &key, 1);
@@ -1332,8 +1204,7 @@ void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::Dump(CDumpContext& dc) const
 }
 
 template<class KEY, class ARG_KEY, class VALUE, class ARG_VALUE>
-void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::AssertValid() const
-{
+void CMap<KEY, ARG_KEY, VALUE, ARG_VALUE>::AssertValid() const {
 	CObject::AssertValid();
 
 	ASSERT(m_nHashTableSize > 0);

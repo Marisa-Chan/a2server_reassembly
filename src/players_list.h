@@ -10,8 +10,7 @@
 class Player;
 
 
-class PlayersList
-{
+class PlayersList {
 public:
     CList<Player*> list;
 

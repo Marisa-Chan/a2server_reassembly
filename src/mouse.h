@@ -44,8 +44,7 @@ enum {
 };
 
 
-class CMousePointer : public CObject
-{
+class CMousePointer : public CObject {
 	DECLARE_DYNAMIC(CMousePointer);
 public:
 	virtual ~CMousePointer();
@@ -113,8 +112,7 @@ public:
 ASSERT_SIZE(CMousePointer, 0xa4);
 
 
-class CCursor : public CObject
-{
+class CCursor : public CObject {
 public:
 	virtual ~CCursor(); //47cf99
 	CCursor() = default; //47ce1f

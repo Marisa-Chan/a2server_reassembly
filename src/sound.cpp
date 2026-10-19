@@ -35,8 +35,7 @@ SfxBank SoundBank_other[12]; //665ec8
 WAVEFORMATEX g_SoundFmt; //65dd90
 
 
-SoundSettings::SoundSettings()
-{
+SoundSettings::SoundSettings() {
 	//477860
 	this->field_0xc = 5000;
 	this->mus_pos = -700;
@@ -51,16 +50,14 @@ SoundSettings::SoundSettings()
 	this->music_enabled = 1;
 }
 
-SoundSettings::~SoundSettings()
-{
+SoundSettings::~SoundSettings() {
 	//477920
 	if (this->tracklist) {
 		delete this->tracklist;
 	}
 }
 
-void SoundSettings::Load(HKEY& rkey)
-{ //43d7c4
+void SoundSettings::Load(HKEY& rkey) { //43d7c4
 	DWORD sz = 4;
 	RegQueryValueExA(rkey, "SoundRandom", nullptr, nullptr, (LPBYTE)&this->random, &sz);
 	RegQueryValueExA(rkey, "SoundMusPos", nullptr, nullptr, (LPBYTE)&this->mus_pos, &sz);
@@ -70,8 +67,7 @@ void SoundSettings::Load(HKEY& rkey)
 }
 
 // 43d877
-void SoundSettings::Save(HKEY& rkey)
-{
+void SoundSettings::Save(HKEY& rkey) {
 	DWORD cbData = 4;
 
 	RegSetValueExA(rkey, "SoundRandom", 0, REG_DWORD, (const BYTE*)&this->random, cbData);
@@ -82,8 +78,7 @@ void SoundSettings::Save(HKEY& rkey)
 }
 
 
-void SoundChannel::Clear()
-{ //41fdd0
+void SoundChannel::Clear() { //41fdd0
 	if (this->pbuffer) {
 		this->pbuffer->Stop();
 	}
@@ -93,24 +88,20 @@ void SoundChannel::Clear()
 	this->psample = nullptr;
 }
 
-void SoundChannel::Stop()
-{ //41ff90
-	if (this->pbuffer)
-	{
+void SoundChannel::Stop() { //41ff90
+	if (this->pbuffer) {
 		this->pbuffer->Stop();
 		this->pbuffer->SetCurrentPosition(0);
 	}
 }
 
-void SoundChannel::Play(bool bLoop)
-{ //45c408
+void SoundChannel::Play(bool bLoop) { //45c408
 	if (this->pbuffer) {
 		this->pbuffer->Play(0, 0, bLoop ? DSBPLAY_LOOPING : 0);
 	}
 }
 
-void SoundChannel::SetVolume(int32_t volume)
-{ //41fea0
+void SoundChannel::SetVolume(int32_t volume) { //41fea0
 	if (volume < -10000) {
 		volume = -10000;
 	}
@@ -124,8 +115,7 @@ void SoundChannel::SetVolume(int32_t volume)
 	}
 }
 
-void SoundChannel::SetPan(int32_t pan)
-{ //41ff60
+void SoundChannel::SetPan(int32_t pan) { //41ff60
 	if (this->pbuffer) {
 		this->pbuffer->SetPan(pan);
 	}
@@ -133,14 +123,11 @@ void SoundChannel::SetPan(int32_t pan)
 
 
 
-SoundChannel* __cdecl SoundChannel::GetChannel(int32_t priority)
-{ //45c23e
+SoundChannel* __cdecl SoundChannel::GetChannel(int32_t priority) { //45c23e
 	int i = 0;
-	for (int i = 0; i < g_dsound_channel_num; i++)
-	{
+	for (int i = 0; i < g_dsound_channel_num; i++) {
 		SoundChannel& chn = g_dsound_channels[i];
-		if (chn.pbuffer == nullptr)
-		{
+		if (chn.pbuffer == nullptr) {
 			chn.priority = 0;
 			chn.psample = nullptr;
 			return &chn;
@@ -149,8 +136,7 @@ SoundChannel* __cdecl SoundChannel::GetChannel(int32_t priority)
 		DWORD st;
 		chn.pbuffer->GetStatus(&st);
 
-		if ((st & DSBSTATUS_PLAYING) == 0)
-		{
+		if ((st & DSBSTATUS_PLAYING) == 0) {
 			chn.pbuffer = nullptr;
 			chn.priority = 0;
 			chn.psample = nullptr;
@@ -159,10 +145,8 @@ SoundChannel* __cdecl SoundChannel::GetChannel(int32_t priority)
 	}
 
 	int idx = -1;
-	for (int i = 0; i < g_dsound_channel_num; i++)
-	{
-		if (g_dsound_channels[i].priority < priority)
-		{
+	for (int i = 0; i < g_dsound_channel_num; i++) {
+		if (g_dsound_channels[i].priority < priority) {
 			priority = g_dsound_channels[i].priority;
 			idx = i;
 		}
@@ -183,8 +167,7 @@ SoundChannel* __cdecl SoundChannel::GetChannel(int32_t priority)
 }
 
 // 438dd0
-void FUN_00438dd0(SfxSample** sample)
-{
+void FUN_00438dd0(SfxSample** sample) {
 	if (*sample == nullptr) {
 		return;
 	}
@@ -200,21 +183,16 @@ void FUN_00438dd0(SfxSample** sample)
 }
 
 // 438e40
-void FUN_00438e40(SfxSample** sample, const char* fname)
-{
+void FUN_00438e40(SfxSample** sample, const char* fname) {
 	FUN_00438dd0(sample);
 	*sample = new SfxSample(fname);
 }
 
 
-SfxSample::~SfxSample()
-{ //45b8c2
-	if (g_dsound && loaded)
-	{
-		if (this->buffers)
-		{
-			for (int i = 0; i < g_dsound_channel_num; i++)
-			{
+SfxSample::~SfxSample() { //45b8c2
+	if (g_dsound && loaded) {
+		if (this->buffers) {
+			for (int i = 0; i < g_dsound_channel_num; i++) {
 				DWORD status;
 				this->buffers[i]->GetStatus(&status);
 
@@ -222,8 +200,7 @@ SfxSample::~SfxSample()
 					this->buffers[i]->Stop();
 				}
 
-				for (int j = 0; j < g_dsound_channel_num; j++)
-				{
+				for (int j = 0; j < g_dsound_channel_num; j++) {
 					if (g_dsound_channels[j].pbuffer == this->buffers[i]) {
 						g_dsound_channels[j].pbuffer = nullptr;
 					}
@@ -234,12 +211,9 @@ SfxSample::~SfxSample()
 	}
 }
 
-void SfxSample::Release()
-{ //45ba0f
-	if (this->loaded)
-	{
-		if (this->buffers)
-		{
+void SfxSample::Release() { //45ba0f
+	if (this->loaded) {
+		if (this->buffers) {
 			for (int i = 0; i < g_dsound_channel_num; i++) {
 				this->buffers[i]->Release();
 			}
@@ -252,20 +226,16 @@ void SfxSample::Release()
 	}
 }
 
-SoundChannel* SfxSample::FindPlayingChannel()
-{ //45c004
+SoundChannel* SfxSample::FindPlayingChannel() { //45c004
 	if (!g_dsound || !this->loaded) {
 		return nullptr;
 	}
 
-	for (int i = 0; i < g_dsound_channel_num; i++)
-	{
+	for (int i = 0; i < g_dsound_channel_num; i++) {
 		DWORD status;
 		this->buffers[i]->GetStatus(&status);
-		if (status & DSBSTATUS_PLAYING)
-		{
-			for (int j = 0; j < g_dsound_channel_num; j++)
-			{
+		if (status & DSBSTATUS_PLAYING) {
+			for (int j = 0; j < g_dsound_channel_num; j++) {
 				if (g_dsound_channels[j].pbuffer == this->buffers[i]) {
 					return &g_dsound_channels[j];
 				}
@@ -275,8 +245,7 @@ SoundChannel* SfxSample::FindPlayingChannel()
 	return nullptr;
 }
 
-void SfxSample::Play()
-{
+void SfxSample::Play() {
 	SoundChannel* chnl = FindPlayingChannel();
 	if (!chnl) {
 		Play(g_SoundSettings.sfx_pos, 0, 0, 0x80, 0);
@@ -284,8 +253,7 @@ void SfxSample::Play()
 }
 
 
-void FUN_00438f20(SfxSample** sample)
-{ //438f20
+void FUN_00438f20(SfxSample** sample) { //438f20
 	if (*sample != nullptr) {
 		SoundChannel* chnl = (*sample)->FindPlayingChannel();
 		if (chnl != nullptr) {
@@ -294,16 +262,14 @@ void FUN_00438f20(SfxSample** sample)
 	}
 }
 
-bool FUN_00475110(CSound* sound)
-{ //475110
+bool FUN_00475110(CSound* sound) { //475110
 	if (sound->sample == nullptr) {
 		return false;
 	}
 	return sound->sample->FindPlayingChannel() != nullptr;
 }
 
-void FUN_004a4740(SfxSample** sample)
-{ //4a4740
+void FUN_004a4740(SfxSample** sample) { //4a4740
 	if (*sample != nullptr) {
 		SoundChannel* chnl = (*sample)->FindPlayingChannel();
 		if (chnl == nullptr) {
@@ -312,8 +278,7 @@ void FUN_004a4740(SfxSample** sample)
 	}
 }
 
-void CSound::Play(CSound& sound)
-{ //438ec0
+void CSound::Play(CSound& sound) { //438ec0
 	if (sound.sample != nullptr) {
 		SoundChannel* chnl = sound.sample->FindPlayingChannel();
 		if (chnl == nullptr) {
@@ -323,8 +288,7 @@ void CSound::Play(CSound& sound)
 }
 
 
-void SfxSample::LoadSample()
-{ //45ba94
+void SfxSample::LoadSample() { //45ba94
 	if (!g_dsound) {
 		return;
 	}
@@ -346,25 +310,20 @@ void SfxSample::LoadSample()
 	f.Read(hdr.data(), sizeof(WAVEFORMAT));
 
 
-	if (pcm.wFormatTag == WAVE_FORMAT_PCM)
-	{
+	if (pcm.wFormatTag == WAVE_FORMAT_PCM) {
 		f.Read(&pcm.wBitsPerSample, 2);
-	} else if (pcm.wFormatTag == WAVE_FORMAT_ADPCM)
-	{
+	} else if (pcm.wFormatTag == WAVE_FORMAT_ADPCM) {
 		f.Read(&adpcm.wfx.wBitsPerSample, 4);
-		if (adpcm.wfx.cbSize != 0)
-		{
+		if (adpcm.wfx.cbSize != 0) {
 			f.Read(&adpcm.wSamplesPerBlock, 4);
-			if (adpcm.wNumCoef != 0)
-			{
+			if (adpcm.wNumCoef != 0) {
 				f.Read(&adpcm.aCoef, adpcm.wNumCoef * sizeof(ADPCMCOEFSET));
 			}
 		}
 	}
 
 	uint32_t datsz;
-	while (true)
-	{
+	while (true) {
 		uint32_t tmp;
 		f.Read(&tmp, 4);
 
@@ -383,8 +342,7 @@ void SfxSample::LoadSample()
 	g_dsound_buff_desc.dwBufferBytes = datsz;
 
 	HACMSTREAM acmstream = nullptr;
-	if (pcm.wFormatTag == WAVE_FORMAT_ADPCM)
-	{
+	if (pcm.wFormatTag == WAVE_FORMAT_ADPCM) {
 		g_dsound_buff_desc.lpwfxFormat = &g_SoundFmt;
 		acmStreamOpen(&acmstream, 0, &adpcm.wfx, &g_SoundFmt, nullptr, 0, 0, 0);
 		acmStreamSize(acmstream, datsz, &g_dsound_buff_desc.dwBufferBytes, 0);
@@ -393,8 +351,7 @@ void SfxSample::LoadSample()
 	}
 
 	HRESULT res = g_dsound->CreateSoundBuffer(&g_dsound_buff_desc, this->buffers, nullptr);
-	if (res != 0)
-	{
+	if (res != 0) {
 		memset(&g_dsound_buff_desc, 0, sizeof(g_dsound_buff_desc));
 		g_dsound_buff_desc.dwSize = sizeof(g_dsound_buff_desc);
 		g_dsound_buff_desc.dwFlags = (DSBCAPS_STATIC | DSBCAPS_LOCHARDWARE | DSBCAPS_CTRLFREQUENCY | DSBCAPS_CTRLPAN | DSBCAPS_CTRLVOLUME); 0xe6;
@@ -404,8 +361,7 @@ void SfxSample::LoadSample()
 		res = g_dsound->CreateSoundBuffer(&g_dsound_buff_desc, this->buffers, nullptr);
 	}
 
-	if (res == 0)
-	{
+	if (res == 0) {
 		ACMSTREAMHEADER acm;
 		void *bbuf1, *bbuf2;
 		DWORD dwbuf1, dwbuf2;
@@ -413,8 +369,7 @@ void SfxSample::LoadSample()
 		(*this->buffers)->Lock(0, datsz, &bbuf1, &dwbuf1, &bbuf2, &dwbuf2, 0);
 
 		uint8_t* dbuf = (uint8_t*)bbuf1;
-		if (pcm.wFormatTag == WAVE_FORMAT_ADPCM)
-		{
+		if (pcm.wFormatTag == WAVE_FORMAT_ADPCM) {
 			memset(&acm, 0, sizeof(ACMSTREAMHEADER));
 			acm.cbStruct = sizeof(ACMSTREAMHEADER);
 			acm.pbSrc = (LPBYTE)malloc(0x10000);
@@ -426,10 +381,8 @@ void SfxSample::LoadSample()
 		}
 
 		int32_t nnum = datsz;
-		while (nnum > 0x10000)
-		{
-			if (pcm.wFormatTag == WAVE_FORMAT_ADPCM)
-			{
+		while (nnum > 0x10000) {
+			if (pcm.wFormatTag == WAVE_FORMAT_ADPCM) {
 				f.Read(acm.pbSrc, 0x10000);
 				acm.cbSrcLength = 0x10000;
 				acmStreamConvert(acmstream, &acm, 4);
@@ -444,8 +397,7 @@ void SfxSample::LoadSample()
 			g_mousept.Update();
 		}
 
-		if (pcm.wFormatTag == WAVE_FORMAT_ADPCM)
-		{
+		if (pcm.wFormatTag == WAVE_FORMAT_ADPCM) {
 			f.Read(acm.pbSrc, nnum);
 			acm.cbSrcLength = nnum;
 			acmStreamConvert(acmstream, &acm, 0);
@@ -475,8 +427,7 @@ void SfxSample::LoadSample()
 	}
 }
 
-void SfxSample::Play(int volume, int pan, int loop, uint8_t priority, int freq)
-{ //45c0cf
+void SfxSample::Play(int volume, int pan, int loop, uint8_t priority, int freq) { //45c0cf
 	if (!g_dsound) {
 		return;
 	}
@@ -485,22 +436,18 @@ void SfxSample::Play(int volume, int pan, int loop, uint8_t priority, int freq)
 		LoadSample();
 	}
 
-	if (loaded && buffers)
-	{
+	if (loaded && buffers) {
 		if (volume < -10000) {
 			volume = -10000;
 		}
 
-		for (int i = 0; i < g_dsound_channel_num; i++)
-		{
+		for (int i = 0; i < g_dsound_channel_num; i++) {
 			DWORD st;
 			buffers[i]->GetStatus(&st);
 
-			if ((st & DSBSTATUS_PLAYING) == 0)
-			{
+			if ((st & DSBSTATUS_PLAYING) == 0) {
 				SoundChannel* chan = SoundChannel::GetChannel(priority);
-				if (chan)
-				{
+				if (chan) {
 					chan->pbuffer = buffers[i];
 					chan->psample = this;
 					chan->priority = priority;
@@ -521,13 +468,11 @@ void SfxSample::Play(int volume, int pan, int loop, uint8_t priority, int freq)
 }
 
 
-MusicPlayer::MusicPlayer(int32_t bufsz)
-{ // 45b16d
+MusicPlayer::MusicPlayer(int32_t bufsz) { // 45b16d
 	this->buffer_size = bufsz;
 	this->file_opened = 0;
 
-	if (!g_dsound)
-	{
+	if (!g_dsound) {
 		this->ds_buffer = nullptr;
 	} else {
 		memset(&g_dsound_buff_desc, 0, sizeof(g_dsound_buff_desc));
@@ -536,8 +481,7 @@ MusicPlayer::MusicPlayer(int32_t bufsz)
 		g_dsound_buff_desc.dwBufferBytes = this->buffer_size;
 		g_dsound_buff_desc.lpwfxFormat = &g_dsound_format;
 
-		if (g_dsound->CreateSoundBuffer(&g_dsound_buff_desc, &this->ds_buffer, 0) == DS_OK)
-		{
+		if (g_dsound->CreateSoundBuffer(&g_dsound_buff_desc, &this->ds_buffer, 0) == DS_OK) {
 			this->format.wFormatTag = g_dsound_format.wFormatTag;
 			this->format.nChannels = g_dsound_format.nChannels;
 			this->format.nSamplesPerSec = g_dsound_format.nSamplesPerSec;
@@ -560,10 +504,8 @@ MusicPlayer::MusicPlayer(int32_t bufsz)
 	}
 }
 
-MusicPlayer::~MusicPlayer()
-{ // 45b321
-	if (this->ds_buffer)
-	{
+MusicPlayer::~MusicPlayer() { // 45b321
+	if (this->ds_buffer) {
 		this->OnEndTrack();
 		if (this->file_opened && file) {
 			delete file;
@@ -573,8 +515,7 @@ MusicPlayer::~MusicPlayer()
 	}
 }
 
-int MusicPlayer::GetState()
-{ //451700
+int MusicPlayer::GetState() { //451700
 	if (!this->ds_buffer) {
 		return 5;
 	}
@@ -594,12 +535,9 @@ int MusicPlayer::GetState()
 	return 1;
 }
 
-void MusicPlayer::OnEndTrack()
-{ //45b5cf
-	if (this->ds_buffer && file_opened)
-	{
-		if (this->play_mode == 0)
-		{
+void MusicPlayer::OnEndTrack() { //45b5cf
+	if (this->ds_buffer && file_opened) {
+		if (this->play_mode == 0) {
 			this->UnsetUpdateProc();
 			this->update_disabled = 1;
 			this->ds_buffer->Stop();
@@ -612,13 +550,11 @@ void MusicPlayer::OnEndTrack()
 	}
 }
 
-void MusicPlayer::UnsetUpdateProc()
-{ //45a6ee
+void MusicPlayer::UnsetUpdateProc() { //45a6ee
 	((MainWindow*)AfxGetMainWnd())->SetMusicProc(nullptr);
 }
 
-void MusicPlayer::SetVolume(int32_t vol)
-{ // 451790
+void MusicPlayer::SetVolume(int32_t vol) { // 451790
 	if (vol > 0) {
 		vol = 0;
 	}
@@ -632,10 +568,8 @@ void MusicPlayer::SetVolume(int32_t vol)
 	}
 }
 
-void MusicPlayer::OpenTrack(int32_t track)
-{ //45ae1d
-	if (this->file_opened != 0)
-	{
+void MusicPlayer::OpenTrack(int32_t track) { //45ae1d
+	if (this->file_opened != 0) {
 		if (this->file) {
 			delete this->file;
 		}
@@ -648,13 +582,11 @@ void MusicPlayer::OpenTrack(int32_t track)
 	WAVEFORMATEX wav;
 	memset(&wav, 0, sizeof(wav));
 
-	if (this->file->Read(&wav, sizeof(wav)) == 0)
-	{
+	if (this->file->Read(&wav, sizeof(wav)) == 0) {
 		this->file_opened = 0;
 		PostMessageA(g_dsound_hwnd, 0x486, 0, 0);
 	} else {
-		if (memcmp(&this->format, &wav, 0x10) != 0)
-		{
+		if (memcmp(&this->format, &wav, 0x10) != 0) {
 			this->format.wFormatTag = wav.wFormatTag;
 			this->format.nChannels = wav.nChannels;
 			this->format.nSamplesPerSec = wav.nSamplesPerSec;
@@ -685,10 +617,8 @@ void MusicPlayer::OpenTrack(int32_t track)
 	}
 }
 
-void MusicPlayer::SetPlayList(const CStringArray& plist)
-{ //45b0ff
-	if (this->ds_buffer)
-	{
+void MusicPlayer::SetPlayList(const CStringArray& plist) { //45b0ff
+	if (this->ds_buffer) {
 		this->OnEndTrack();
 		this->playlist.Copy(plist);
 		int sz = this->playlist.GetSize();
@@ -697,10 +627,8 @@ void MusicPlayer::SetPlayList(const CStringArray& plist)
 	}
 }
 
-void MusicPlayer::Play()
-{ //45b565
-	if (g_SoundSettings.music_enabled != 0 && this->ds_buffer && file_opened)
-	{
+void MusicPlayer::Play() { //45b565
+	if (g_SoundSettings.music_enabled != 0 && this->ds_buffer && file_opened) {
 		this->UpdateBufferTime();
 		if (this->update_disabled) {
 			this->SetUpdateProc();
@@ -710,8 +638,7 @@ void MusicPlayer::Play()
 	}
 }
 
-void MusicPlayer::UpdateBufferTime()
-{ //45cb40
+void MusicPlayer::UpdateBufferTime() { //45cb40
 	int32_t tm = this->buffer_size / this->format.nAvgBytesPerSec * 1000 / 16;
 	if (tm < 101) {
 		this->buffer_time = tm;
@@ -720,18 +647,15 @@ void MusicPlayer::UpdateBufferTime()
 	}
 }
 
-void MusicPlayer::SetUpdateProc()
-{ //45a6c0
+void MusicPlayer::SetUpdateProc() { //45a6c0
 	MainWindow *mwnd = (MainWindow*)AfxGetMainWnd();
 	mwnd->SetMusicProc(MusicUpdaterProc);
 
 	this->next_update_time = timeGetTime() + this->buffer_time;
 }
 
-void MusicPlayer::Update(uint32_t tm)
-{ // 45a9b3
-	if (this->next_update_time <= tm)
-	{
+void MusicPlayer::Update(uint32_t tm) { // 45a9b3
+	if (this->next_update_time <= tm) {
 		void* dbuf, * dbuf2;
 		DWORD dbufsz, dbufsz2;
 
@@ -747,15 +671,13 @@ void MusicPlayer::Update(uint32_t tm)
 			PostMessageA(g_dsound_hwnd, 0x467, this->current_track_id, this->GetElapsedSeconds());
 		}
 		
-		if (play_cursor < sample_count && use_buffer[1] != 0)
-		{
+		if (play_cursor < sample_count && use_buffer[1] != 0) {
 			this->ReadPortion(this->samples);
 			use_buffer[0] = 1;
 			use_buffer[1] = 0;
 
 			this->ds_buffer->GetCurrentPosition(&play_cursor, &write_cursor);
-			if (play_cursor < sample_count)
-			{
+			if (play_cursor < sample_count) {
 				this->ds_buffer->Lock(sample_count, sample_count, &dbuf, &dbufsz, &dbuf2, &dbufsz2, 0);
 				memcpy(dbuf, this->samples, sample_count);
 				this->ds_buffer->Unlock(dbuf, dbufsz, dbuf2, dbufsz2);
@@ -770,15 +692,13 @@ void MusicPlayer::Update(uint32_t tm)
 			}
 		}
 
-		if (play_cursor >= sample_count && use_buffer[0] != 0)
-		{
+		if (play_cursor >= sample_count && use_buffer[0] != 0) {
 			this->ReadPortion(this->samples);
 			use_buffer[0] = 0;
 			use_buffer[1] = 1;
 
 			this->ds_buffer->GetCurrentPosition(&play_cursor, &write_cursor);
-			if (play_cursor < sample_count)
-			{
+			if (play_cursor < sample_count) {
 				this->ds_buffer->Lock(sample_count, sample_count, &dbuf, &dbufsz, &dbuf2, &dbufsz2, 0);
 				memcpy(dbuf, this->samples, sample_count);
 				this->ds_buffer->Unlock(dbuf, dbufsz, dbuf2, dbufsz2);
@@ -796,8 +716,7 @@ void MusicPlayer::Update(uint32_t tm)
 		this->field_0x6c = 0;
 
 		if ((sample_count > play_cursor && sample_count > this->end_pos && play_cursor > this->end_pos) ||
-			(sample_count < play_cursor && sample_count < this->end_pos && play_cursor > this->end_pos))
-		{
+			(sample_count < play_cursor && sample_count < this->end_pos && play_cursor > this->end_pos)) {
 			if (this->play_mode == 0) {
 				this->current_track_id = (this->current_track_id + 1) % this->playlist.GetSize();
 			}
@@ -805,8 +724,7 @@ void MusicPlayer::Update(uint32_t tm)
 			this->end_pos = this->buffer_size;
 		}
 
-		if (this->fadeout_enabled != 0)
-		{
+		if (this->fadeout_enabled != 0) {
 			LONG vol;
 			this->ds_buffer->GetVolume(&vol);
 			if (vol < this->fade_to_volume) {
@@ -818,21 +736,18 @@ void MusicPlayer::Update(uint32_t tm)
 	}
 }
 
-void MusicPlayer::MusicUpdaterProc()
-{ //45a99c
+void MusicPlayer::MusicUpdaterProc() { //45a99c
 	Player->Update(timeGetTime());
 }
 
-uint32_t MusicPlayer::GetElapsedSeconds()
-{ //45cbe0
+uint32_t MusicPlayer::GetElapsedSeconds() { //45cbe0
 	if (!this->ds_buffer || this->file_opened == 0) {
 		return 0;
 	}
 	return this->elapsed_time / 1000;
 }
 
-int32_t MusicPlayer::ComputeVolumeFade(int32_t cur_volume, uint32_t tm)
-{ //45a8cc
+int32_t MusicPlayer::ComputeVolumeFade(int32_t cur_volume, uint32_t tm) { //45a8cc
 	int32_t fade_val = this->fade_to_volume * tm / this->fade_length;
 	int32_t vol_diff = ( ((pow(this->fade_to_volume / 4.0 + cur_volume, 4.0) * 0.3) / 
 				          pow(this->fade_to_volume / 2.0, 4.0) + 0.9) *
@@ -840,11 +755,9 @@ int32_t MusicPlayer::ComputeVolumeFade(int32_t cur_volume, uint32_t tm)
 	return cur_volume - vol_diff;
 }
 
-void MusicPlayer::ReadPortion(uint8_t* buf)
-{ //45a707
+void MusicPlayer::ReadPortion(uint8_t* buf) { //45a707
 	int32_t buffer_space = this->buffer_size / 2;
-	while (true)
-	{
+	while (true) {
 		uint32_t fpos = this->file->GetPosition();
 		uint32_t remain = this->file->GetLength() - this->data_begin_pos;
 
@@ -854,8 +767,7 @@ void MusicPlayer::ReadPortion(uint8_t* buf)
 			rsz = remain - fpos;
 		}
 
-		if (this->file->Read(buf + (this->buffer_size / 2) - buffer_space, rsz) == 0)
-		{
+		if (this->file->Read(buf + (this->buffer_size / 2) - buffer_space, rsz) == 0) {
 			this->file_opened = 0;
 			PostMessageA(g_dsound_hwnd, 0x486, 0, 0);
 			break;
@@ -869,8 +781,7 @@ void MusicPlayer::ReadPortion(uint8_t* buf)
 		this->end_pos = (this->buffer_size / 2) - buffer_space;
 		this->field_0x6c = 1;
 
-		if (g_CurrentMusicTrack < 0)
-		{
+		if (g_CurrentMusicTrack < 0) {
 			if (this->play_mode == 0) {
 				this->OpenTrack((this->current_track_id + 1) % this->playlist.GetSize());
 			} else {
@@ -887,8 +798,7 @@ void MusicPlayer::ReadPortion(uint8_t* buf)
 	}
 }
 
-void MusicPlayer::StartPlayTrack(int32_t track)
-{ //45b6d0
+void MusicPlayer::StartPlayTrack(int32_t track) { //45b6d0
 	this->current_track_id = track;
 	this->use_buffer[0] = 0;
 	this->use_buffer[1] = 1;
@@ -907,17 +817,14 @@ void MusicPlayer::StartPlayTrack(int32_t track)
 	this->end_pos = this->buffer_size;
 }
 
-void MusicPlayer::SetRandom(int random)
-{ //45b655
-	if (this->ds_buffer)
-	{
+void MusicPlayer::SetRandom(int random) { //45b655
+	if (this->ds_buffer) {
 		this->field_0x20 = random;
 		this->play_mode = 0;
 	}
 }
 
-int32_t MusicPlayer::GetVolume()
-{ //451750
+int32_t MusicPlayer::GetVolume() { //451750
 	LONG vol = 0;
 	if (this->ds_buffer) {
 		this->ds_buffer->GetVolume(&vol);
@@ -925,8 +832,7 @@ int32_t MusicPlayer::GetVolume()
 	return vol;
 }
 
-int32_t MusicPlayer::GetBufPosition()
-{ //45cba0
+int32_t MusicPlayer::GetBufPosition() { //45cba0
 	DWORD pos = 0, wpos;
 	if (this->ds_buffer) {
 		this->ds_buffer->GetCurrentPosition(&pos, &wpos);
@@ -934,10 +840,8 @@ int32_t MusicPlayer::GetBufPosition()
 	return pos;
 }
 
-void MusicPlayer::BeginFadeOut(int32_t len, int32_t vol)
-{ //45b408
-	if (this->ds_buffer && file_opened != 0)
-	{
+void MusicPlayer::BeginFadeOut(int32_t len, int32_t vol) { //45b408
+	if (this->ds_buffer && file_opened != 0) {
 		this->fade_to_volume = vol;
 
 		LONG svol;
@@ -948,8 +852,7 @@ void MusicPlayer::BeginFadeOut(int32_t len, int32_t vol)
 		uint32_t ms_remain = remain_bytes * 1000 / this->format.nAvgBytesPerSec; //remain to the end in milliseconds
 
 		uint32_t ms_buffend = 0xffffffff;
-		if (this->end_pos != this->buffer_size)
-		{
+		if (this->end_pos != this->buffer_size) {
 			int32_t bpos = this->GetBufPosition();
 			if (this->end_pos < bpos) {
 				ms_buffend = (this->buffer_size - bpos) + this->end_pos;
@@ -976,52 +879,45 @@ void MusicPlayer::BeginFadeOut(int32_t len, int32_t vol)
 	}
 }
 
-void MusicPlayer::FUN_0045b681(int32_t track)
-{ //45b681
+void MusicPlayer::FUN_0045b681(int32_t track) { //45b681
 	this->play_mode = 1;
 	this->BeginFadeOut(2000, 8000);
 	this->track_to_play = track;
 }
 
-void SfxBank::Load(CString name)
-{ //4c880e
+void SfxBank::Load(CString name) { //4c880e
 	this->select_count = 0;
 	this->attack_count = 0;
 	this->move_count = 0;
 	this->swarm_count = 0;
 
 	File2 f;
-	for (int i = 0; i < 4; i++)
-	{
+	for (int i = 0; i < 4; i++) {
 		CString fname;
 		fname.Format("sfx\\characters\\%s\\select\\%d.wav", name, i + 1);
 		this->select[i] = new SfxSample(fname);
-		if (f.Open(fname, CFile::modeRead))
-		{
+		if (f.Open(fname, CFile::modeRead)) {
 			f.Close();
 			this->select_count++;
 		}
 
 		fname.Format("sfx\\characters\\%s\\attack\\%d.wav", name, i + 1);
 		this->attack[i] = new SfxSample(fname);
-		if (f.Open(fname, CFile::modeRead))
-		{
+		if (f.Open(fname, CFile::modeRead)) {
 			f.Close();
 			this->attack_count++;
 		}
 
 		fname.Format("sfx\\characters\\%s\\move\\%d.wav", name, i + 1);
 		this->move[i] = new SfxSample(fname);
-		if (f.Open(fname, CFile::modeRead))
-		{
+		if (f.Open(fname, CFile::modeRead)) {
 			f.Close();
 			this->move_count++;
 		}
 
 		fname.Format("sfx\\characters\\%s\\swarm\\%d.wav", name, i + 1);
 		this->swarm[i] = new SfxSample(fname);
-		if (f.Open(fname, CFile::modeRead))
-		{
+		if (f.Open(fname, CFile::modeRead)) {
 			f.Close();
 			this->swarm_count++;
 		}
@@ -1035,15 +931,13 @@ void SfxBank::Load(CString name)
 	this->dead = new SfxSample("sfx\\characters\\" + name + "\\dead\\1.wav");
 }
 
-void SfxBank::Unload()
-{ //4c926b
+void SfxBank::Unload() { //4c926b
 	this->select_count = 0;
 	this->attack_count = 0;
 	this->move_count = 0;
 	this->swarm_count = 0;
 
-	for (int i = 0; i < 4; i++)
-	{
+	for (int i = 0; i < 4; i++) {
 		if (this->select[i]) {
 			delete this->select[i];
 		}
@@ -1092,8 +986,7 @@ void SfxBank::Unload()
 }
 
 
-int InitSound(HWND hwnd, int channels)
-{ //45c489
+int InitSound(HWND hwnd, int channels) { //45c489
 	g_SoundFmt.wFormatTag = 1;
 	g_SoundFmt.nChannels = 1;
 	g_SoundFmt.nSamplesPerSec = 22050;
@@ -1109,14 +1002,12 @@ int InitSound(HWND hwnd, int channels)
 	g_dsound_channels = nullptr;
 	g_dsound_channel_num = channels;
 
-	if (FAILED(DirectSoundCreate(nullptr, &g_dsound, 0)))
-	{
+	if (FAILED(DirectSoundCreate(nullptr, &g_dsound, 0))) {
 		g_dsound = nullptr;
 		return -1;
 	}
 
-	if (FAILED(g_dsound->SetCooperativeLevel(g_dsound_hwnd, DSSCL_EXCLUSIVE)))
-	{
+	if (FAILED(g_dsound->SetCooperativeLevel(g_dsound_hwnd, DSSCL_EXCLUSIVE))) {
 		FreeDSound();
 		return -1;
 	}
@@ -1129,8 +1020,7 @@ int InitSound(HWND hwnd, int channels)
 	g_dsound_buff_desc.dwBufferBytes = 0;
 	g_dsound_buff_desc.lpwfxFormat = nullptr;
 
-	if (FAILED(g_dsound->CreateSoundBuffer(&g_dsound_buff_desc, &g_dsound_buffer, 0)))
-	{
+	if (FAILED(g_dsound->CreateSoundBuffer(&g_dsound_buff_desc, &g_dsound_buffer, 0))) {
 		FreeDSound();
 		return -1;
 	}
@@ -1143,24 +1033,20 @@ int InitSound(HWND hwnd, int channels)
 	g_dsound_format.wBitsPerSample = 16;
 	g_dsound_format.cbSize = 0;
 
-	if (FAILED(g_dsound_buffer->SetFormat(&g_dsound_format)))
-	{
+	if (FAILED(g_dsound_buffer->SetFormat(&g_dsound_format))) {
 		g_dsound_format.wBitsPerSample /= 2;
 		g_dsound_format.nAvgBytesPerSec /= 2;
 		g_dsound_format.nBlockAlign /= 2;
 
-		if (FAILED(g_dsound_buffer->SetFormat(&g_dsound_format)))
-		{
+		if (FAILED(g_dsound_buffer->SetFormat(&g_dsound_format))) {
 			g_dsound_format.nChannels /= 2;
 			g_dsound_format.nBlockAlign /= 2;
 			g_dsound_format.nAvgBytesPerSec /= 2;
 
-			if (FAILED(g_dsound_buffer->SetFormat(&g_dsound_format)))
-			{
+			if (FAILED(g_dsound_buffer->SetFormat(&g_dsound_format))) {
 				g_dsound_format.nSamplesPerSec /= 2;
 				g_dsound_format.nAvgBytesPerSec /= 2;
-				if (FAILED(g_dsound_buffer->SetFormat(&g_dsound_format)))
-				{
+				if (FAILED(g_dsound_buffer->SetFormat(&g_dsound_format))) {
 					FreeDSound();
 					return -1;
 				}
@@ -1171,8 +1057,7 @@ int InitSound(HWND hwnd, int channels)
 	return 0;
 }
 
-void FreeDSound()
-{ //45c7c5
+void FreeDSound() { //45c7c5
 	if (g_dsound) {
 		g_dsound->Release();
 	}
@@ -1183,8 +1068,7 @@ void FreeDSound()
 	g_dsound_channels = nullptr;
 }
 
-void LoadGameSounds()
-{ //4c8217
+void LoadGameSounds() { //4c8217
 	RegFile res("sfx\\sfx.reg");
 
 	int32_t sfx_count = res.GetInt("Global", "SfxCount", 0);
@@ -1192,23 +1076,20 @@ void LoadGameSounds()
 	g_SfxArray.SetSize(sfx_count + 1);
 
 	CString tmp;
-	for (int32_t i = 1; i <= sfx_count; i++)
-	{
+	for (int32_t i = 1; i <= sfx_count; i++) {
 		tmp.Format("Sfx%d", i);
 		char str[256];
 		str[0] = '\0';
 		res.GetSizedString("Sfx", tmp, "", str, sizeof(str));
 		CString sname = str;
-		if (!sname.IsEmpty())
-		{
+		if (!sname.IsEmpty()) {
 			CString fname = "sfx\\";
 			fname += sname;
 			fname += ".wav";
 			g_SfxArray.SetAt(i, new SfxSample(fname));
 		}
 	}
-	for (int i = 0; i < 2; i++)
-	{
+	for (int i = 0; i < 2; i++) {
 		static const char* names[] =
 		{"m_fighter",
 		 "f_fighter",
@@ -1237,8 +1118,7 @@ void LoadGameSounds()
 }
 
 // 4C86F5
-void FUN_004c86f5()
-{
+void FUN_004c86f5() {
 	for (int32_t i = 0; i < g_SfxArray.GetSize(); i++) {
 		SfxSample* sfx = g_SfxArray[i];
 		if (sfx != nullptr) {
@@ -1258,8 +1138,7 @@ void FUN_004c86f5()
 }
 
 // 476c0d
-void FUN_00476c0d(int32_t x, int32_t y)
-{
+void FUN_00476c0d(int32_t x, int32_t y) {
 	int32_t best = -1;
 	double best_dist = 1e20;
 

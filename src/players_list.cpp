@@ -147,8 +147,7 @@ Player* PlayersList::sub_535E94(int32_t a, int32_t b) {
 	return nullptr;
 }
 
-int PlayersList::CountHumanPlayers()
-{
+int PlayersList::CountHumanPlayers() {
 	//53618f
 
 	if (this->list.IsEmpty()) {
@@ -157,8 +156,7 @@ int PlayersList::CountHumanPlayers()
 
 	int count = 0;
 
-	for (POSITION it = this->list.GetHeadPosition(); it != nullptr;)
-	{
+	for (POSITION it = this->list.GetHeadPosition(); it != nullptr;) {
 		if (this->list.GetNext(it)->is_ai == 0) {
 			count++;
 		}
@@ -166,13 +164,11 @@ int PlayersList::CountHumanPlayers()
 	return count;
 }
 
-int PlayersList::CountCD()
-{
+int PlayersList::CountCD() {
 	//536092
 	int count = 0;
 
-	for (POSITION pos = this->list.GetHeadPosition(); pos != nullptr;)
-	{
+	for (POSITION pos = this->list.GetHeadPosition(); pos != nullptr;) {
 		if (this->list.GetNext(pos)->field_0xa45 != 0) {
 			count++;
 		}
@@ -386,10 +382,8 @@ Player* PlayersList::GetNext(Player* player) {
 	return this->list.GetAt(it);
 }
 
-PlayersList::~PlayersList()
-{ //534c02
-	for (POSITION it = this->list.GetHeadPosition(); it != nullptr;)
-	{
+PlayersList::~PlayersList() { //534c02
+	for (POSITION it = this->list.GetHeadPosition(); it != nullptr;) {
 		Player* pl = this->list.GetNext(it);
 		if (pl) {
 			delete pl;

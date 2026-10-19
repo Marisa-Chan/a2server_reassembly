@@ -2397,10 +2397,8 @@ void World::ScriptOP_0x27(TriggerAction* action) {
 }
 
 
-uint8_t World::UnitMaxRange(Unit* unit)
-{ //5a6adb
-    if (unit->eye2->spell_id != 0)
-    {
+uint8_t World::UnitMaxRange(Unit* unit) { //5a6adb
+    if (unit->eye2->spell_id != 0) {
         Spell* spell = unit->spell_book->sub_53DB79(unit->eye2->spell_id);
         if (spell && spell->mana_cost <= unit->mp) {
             return spell->max_range;
@@ -2685,16 +2683,13 @@ void World::sub_5A92AF(Unit* unit, Unit* target, Spell* spell) {
     unit->eye2->cast_action = 0;
 }
 
-void World::FUN_005a9832(Unit* unit)
-{ //5a9832
+void World::FUN_005a9832(Unit* unit) { //5a9832
     if (unit->eye->field0_0x0 != unit->eye->field1_0x1) {
         unit->eye->field1_0x1 = unit->eye->field0_0x0;
     }
 
-    if (unit->eye->field121_0x80 != PosYX())
-    {
-        if (unit->position->sub_58bec3())
-        {
+    if (unit->eye->field121_0x80 != PosYX()) {
+        if (unit->position->sub_58bec3()) {
             if (unit->position->GetYX() != unit->eye->field121_0x80) {
                 this->field24_0xa50->FUN_005969c6(unit, PosYX(), 1);
             }
@@ -2706,22 +2701,19 @@ void World::FUN_005a9832(Unit* unit)
     unit->some_state = 0;
 }
 
-void World::sub_5A9AC4(Unit* unit)
-{ //5a9ac4
+void World::sub_5A9AC4(Unit* unit) { //5a9ac4
     this->FUN_005a9832(unit);
     unit->eye2->field43_0x50 = 0;
 }
 
-void World::FUN_005a93f4(Unit* unit)
-{ //5a93f4
+void World::FUN_005a93f4(Unit* unit) { //5a93f4
     this->sub_5A9AC4(unit);
     unit->state = 0xc;
     unit->eye2->position1 = unit->position->GetYX();
     unit->eye2->cast_action = 0;
 }
 
-void World::sub_5A9A6A(Unit* unit)
-{ //5a9a6a
+void World::sub_5A9A6A(Unit* unit) { //5a9a6a
     this->sub_5A9AC4(unit);
     this->FUN_005a93f4(unit);
 }
@@ -2765,10 +2757,8 @@ void World::sub_5AAF84(Unit* unit, uint8_t facing) {
     }
 }
 
-void World::FUN_005acd4c(Group* grp)
-{ //5acd4c
-    for (POSITION it = grp->unit_list.GetHeadPosition(); it != nullptr;)
-    {
+void World::FUN_005acd4c(Group* grp) { //5acd4c
+    for (POSITION it = grp->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = grp->unit_list.GetNext(it);
         this->sub_5A9AC4(unit);
         unit->eye2->field29_0x38 = 0;
@@ -2776,27 +2766,23 @@ void World::FUN_005acd4c(Group* grp)
     grp->group_sub->field_0x20 = 0;
 }
 
-void World::sub_5ACA54(Group* grp)
-{ //5aca54
+void World::sub_5ACA54(Group* grp) { //5aca54
     this->FUN_005acd4c(grp);
-    for (POSITION it = grp->unit_list.GetHeadPosition(); it != nullptr;)
-    {
+    for (POSITION it = grp->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = grp->unit_list.GetNext(it);
         this->FUN_005a93f4(unit);
     }
     grp->group_sub->field_0x20 = 3;
 }
 
-void World::sub_5ACDF4(Group* group)
-{ // 5acdf4
+void World::sub_5ACDF4(Group* group) { // 5acdf4
     this->FUN_005acd4c(group);
     this->sub_5ACA54(group);
 }
 
 // Group move command.
 // 5AC289
-void World::sub_5AC289(Group* group, uint8_t x, uint8_t y)
-{
+void World::sub_5AC289(Group* group, uint8_t x, uint8_t y) {
     this->FUN_005acd4c(group);
 
     bool use_relative = true;
@@ -2849,8 +2835,7 @@ void World::sub_5AC289(Group* group, uint8_t x, uint8_t y)
 
 // Group swarm command. Same as move, but mode is 5.
 // 5AC507
-void World::sub_5AC507(Group* group, uint8_t x, uint8_t y)
-{ 
+void World::sub_5AC507(Group* group, uint8_t x, uint8_t y) {
     this->sub_5AC289(group, x, y);
     group->group_sub->field_0x20 = 5;
 }

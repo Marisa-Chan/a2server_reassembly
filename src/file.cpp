@@ -7,8 +7,7 @@
 #include "resource.h"
 
 
-int __cdecl sub_4F1D0D(CString filename)
-{
+int __cdecl sub_4F1D0D(CString filename) {
 	CFile file;
 	int checksum = 0;
 
@@ -37,36 +36,31 @@ int __cdecl sub_4F1D0D(CString filename)
 	return checksum;
 }
 
-File2::File2()
-{
+File2::File2() {
 	//4e67ea
 	this->file = nullptr;
 }
 
 
-File2::File2(LPCTSTR lpszFileName, UINT nOpenFlags)
-{
+File2::File2(LPCTSTR lpszFileName, UINT nOpenFlags) {
 	//4e6813
 	if (!this->Open(lpszFileName, nOpenFlags)) {
 		AfxThrowFileException(CFileException::accessDenied, -1, nullptr);
 	}
 }
 
-File2::~File2()
-{
+File2::~File2() {
 	//4e6882
 	this->Close();
 }
 
 
-ULONGLONG File2::GetPosition() const
-{
+ULONGLONG File2::GetPosition() const {
 	//4e6d04
 	return this->position;
 };
 
-BOOL File2::Open(LPCTSTR lpszFileName, UINT nOpenFlags, CFileException* pError) 
-{
+BOOL File2::Open(LPCTSTR lpszFileName, UINT nOpenFlags, CFileException* pError) {
 	//4e68d3
 	char fname[1024];
 	pathStrCpy(lpszFileName, fname);
@@ -81,8 +75,7 @@ BOOL File2::Open(LPCTSTR lpszFileName, UINT nOpenFlags, CFileException* pError)
 	strcpy(fbuf, fname);
 
 	FatInfo* inf = Resources::ResFiles.FUN_004e646d(fbuf);
-	if (inf == nullptr)
-	{
+	if (inf == nullptr) {
 		if (pError) {
 			pError->m_cause = 2;
 		}
@@ -105,34 +98,29 @@ BOOL File2::Open(LPCTSTR lpszFileName, UINT nOpenFlags, CFileException* pError)
 	return TRUE;
 };
 
-CFile* File2::Duplicate() const 
-{
+CFile* File2::Duplicate() const {
 	//4e6cec
 	AfxThrowFileException(CFileException::accessDenied);
 	return nullptr;
 };
 
-ULONGLONG File2::Seek(LONGLONG lOff, UINT nFrom)
-{
+ULONGLONG File2::Seek(LONGLONG lOff, UINT nFrom) {
 	//4e6acb
 	if (m_hFile == (HANDLE)-1) {
 		AfxThrowFileException(CFileException::invalidFile);
 	}
 
-	if (nFrom == 0)
-	{
+	if (nFrom == 0) {
 		if (this->size < lOff) {
 			AfxThrowFileException(CFileException::badSeek);
 		}
 		this->position = lOff;
-	} else if (nFrom == 1)
-	{
+	} else if (nFrom == 1) {
 		if (this->size < lOff + this->position) {
 			AfxThrowFileException(CFileException::badSeek);
 		}
 		this->position = this->position + lOff;
-	} else if (nFrom == 2)
-	{
+	} else if (nFrom == 2) {
 		if (-this->size != lOff && size <= -lOff) {
 			AfxThrowFileException(CFileException::badSeek);
 		}
@@ -141,20 +129,17 @@ ULONGLONG File2::Seek(LONGLONG lOff, UINT nFrom)
 	return this->position;
 };
 
-void File2::SetLength(ULONGLONG dwNewLen)
-{
+void File2::SetLength(ULONGLONG dwNewLen) {
 	//4e6b83
 	AfxThrowFileException(CFileException::accessDenied);
 };
 
-ULONGLONG File2::GetLength() const
-{
+ULONGLONG File2::GetLength() const {
 	//4e6b9b
 	return this->size;
 };
 
-UINT File2::Read(void* lpBuf, UINT nCount) 
-{
+UINT File2::Read(void* lpBuf, UINT nCount) {
 	//4e6bac
 	if (m_hFile == (HANDLE)-1) {
 		AfxThrowFileException(CFileException::invalidFile);
@@ -182,44 +167,37 @@ UINT File2::Read(void* lpBuf, UINT nCount)
 	return this->file->Read(lpBuf, toRead);
 };
 
-void File2::Write(const void* lpBuf, UINT nCount) 
-{
+void File2::Write(const void* lpBuf, UINT nCount) {
 	//4e6c68
 	AfxThrowFileException(CFileException::accessDenied);
 };
 
-void File2::LockRange(ULONGLONG dwPos, ULONGLONG dwCount)
-{
+void File2::LockRange(ULONGLONG dwPos, ULONGLONG dwCount) {
 	//4e6c80
 	AfxThrowFileException(CFileException::accessDenied);
 };
 
-void File2::UnlockRange(ULONGLONG dwPos, ULONGLONG dwCount)
-{
+void File2::UnlockRange(ULONGLONG dwPos, ULONGLONG dwCount) {
 	//4e6c98
 	AfxThrowFileException(CFileException::accessDenied);
 };
 
-void File2::Abort() 
-{
+void File2::Abort() {
 	//4e6cb0
 };
 
-void File2::Flush() 
-{
+void File2::Flush() {
 	//4e6cbb
 };
 
-void File2::Close() 
-{
+void File2::Close() {
 	//4e6cc6
 	Resources::ResFiles.FUN_004e6763(this->file);
 	this->file = nullptr;
 };
 
 
-void File2::Rewind()
-{
+void File2::Rewind() {
 	//4e6a97
 	this->Seek(0, 0);
 }

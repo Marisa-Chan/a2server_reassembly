@@ -33,8 +33,7 @@ class NetStru1;
 
 
 
-struct GameSettings
-{
+struct GameSettings {
 	int32_t* pGameSpeed = nullptr;
 	int32_t* pFormationMode = nullptr;
 	int32_t* pWimpyMode = nullptr;
@@ -63,8 +62,7 @@ extern CMapStringToString g_TunesMap; //660d80
 
 
 // Base address 0x65fbbc; consumed by CProjectile::VMethod6 (46e291) case 7 -> sub_4AA29B, freed by sub_47619A.
-class DistortMap
-{
+class DistortMap {
 public:
 	int16_t** offsets = nullptr; // 0x00 - grid of {dx, dy} pairs
 	int32_t outer = 0;           // 0x04
@@ -87,8 +85,7 @@ extern uint16_t g_DistTable[41][41]; // 660000
 extern uint32_t g_CpuFeatureFlags; // 660f84 - bit 1 = MMX available. We're hardcoding it to 1, because where would you get a non-MMX CPU nowadays?
 
 
-class GameApp : public CWinApp
-{
+class GameApp : public CWinApp {
 public:
 	static GameApp theApp;
 public:
@@ -149,8 +146,7 @@ void __stdcall ShowRoleKeyDialog(const char* str); //41d723
 
 
 
-struct ScenarioState
-{
+struct ScenarioState {
 	int32_t vars[512];
 	int32_t locationEntrySelectionFlags[20];
 	int32_t locationEntryStates[20];
@@ -176,8 +172,7 @@ struct ScenarioState
 };
 ASSERT_SIZE(ScenarioState, 0x1000);
 
-struct ScenarioLocation
-{
+struct ScenarioLocation {
 	int32_t kind = 0;
 	int32_t id = 0;
 	CRect rect;

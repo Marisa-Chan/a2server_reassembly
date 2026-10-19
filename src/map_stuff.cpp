@@ -947,8 +947,7 @@ int MapStuff::sub_58AD4A(Unit* unit) {
     return 1;
 }
 
-void MapStuff::FUN_0058b5d6(CellState& cell)
-{ //58b5d6
+void MapStuff::FUN_0058b5d6(CellState& cell) { //58b5d6
 
     PosYX pos = cell.cell_yx;
     Obstacle old = this->ObstacleAt(pos);
@@ -970,11 +969,9 @@ void MapStuff::FUN_0058b5d6(CellState& cell)
         ob2->SetBits(0x80);
     }
 
-    if (cell.building)
-    {
+    if (cell.building) {
         TokenPos* bldpos = cell.building->position;
-        if ((cell.building->unpassable_mask & (1 << (((pos.y - bldpos->GetY()) * cell.building->width) + pos.x - bldpos->GetX()))) == 0)
-        {
+        if ((cell.building->unpassable_mask & (1 << (((pos.y - bldpos->GetY()) * cell.building->width) + pos.x - bldpos->GetX()))) == 0) {
             ob1->UnsetBits(1 | 4);
             ob2->UnsetBits(1 | 4);
             this->WalkCostAt(pos) = this->walk_cost[5];
@@ -984,30 +981,25 @@ void MapStuff::FUN_0058b5d6(CellState& cell)
         }
     }
 
-    for (int i = 0; i < 6; i++)
-    {
-        if (cell.area_effects[i])
-        {
+    for (int i = 0; i < 6; i++) {
+        if (cell.area_effects[i]) {
             if (true) { //FUN_0059a050
                 this->WalkCostAt(pos) *= 4;
             }
         }
     }
-    if (cell.area_effects[3])
-    {
+    if (cell.area_effects[3]) {
         ob1->SetBits(1 | 4);
         ob2->SetBits(1 | 4);
     }
 
-    if (old.TestBits(0x10))
-    {
+    if (old.TestBits(0x10)) {
         ob1->SetBits(0x10);
         ob2->SetBits(0x10);
     }
 }
 
-int MapStuff::FUN_0058b4a6(PosYX yx)
-{ //58b4a6
+int MapStuff::FUN_0058b4a6(PosYX yx) { //58b4a6
     if (!this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
         return 0;
     }
@@ -1017,20 +1009,16 @@ int MapStuff::FUN_0058b4a6(PosYX yx)
     this->ObstacleAt(yx) = this->scratch_cell_state.obstacle;
     this->cell_states.RemoveKey(yx.val);
 
-    if (old.TestBits(0x10))
-    {
+    if (old.TestBits(0x10)) {
         this->ObstacleAt(yx).SetBits(0x10);
         this->Obstacle2At(yx).SetBits(0x10);
     }
     return 1;
 }
 
-void MapStuff::FUN_00596d3e(Unit* unit, PosYX yx)
-{ //596d3e
-    if (this->ObstacleAt(yx).TestBits(0x20) && this->cell_states.Lookup(yx.val, this->scratch_cell_state))
-    {
-        if ((unit->VMethod4() & 0xff) == 3)
-        {
+void MapStuff::FUN_00596d3e(Unit* unit, PosYX yx) { //596d3e
+    if (this->ObstacleAt(yx).TestBits(0x20) && this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
+        if ((unit->VMethod4() & 0xff) == 3) {
             if (this->scratch_cell_state.dynamic_blocker == unit) {
                 this->scratch_cell_state.dynamic_blocker = nullptr;
             }
@@ -1048,10 +1036,8 @@ void MapStuff::FUN_00596d3e(Unit* unit, PosYX yx)
     }
 }
 
-void MapStuff::FUN_0058b3e0(PosYX yx)
-{ //58b3e0
-    if (!this->cell_states.Lookup(yx.val, this->scratch_cell_state))
-    {
+void MapStuff::FUN_0058b3e0(PosYX yx) { //58b3e0
+    if (!this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
         this->scratch_cell_state.Null();
         this->scratch_cell_state.walk_cost = this->WalkCostAt(yx);
         this->scratch_cell_state.obstacle = this->ObstacleAt(yx);
@@ -1063,18 +1049,15 @@ void MapStuff::FUN_0058b3e0(PosYX yx)
     }
 }
 
-void MapStuff::FUN_00596e0e(Unit* unit, PosYX yx)
-{ //596e0e
-    if (this->ObstacleAt(yx).TestBits(0x20) == 0 || !this->cell_states.Lookup(yx.val, this->scratch_cell_state))
-    {
+void MapStuff::FUN_00596e0e(Unit* unit, PosYX yx) { //596e0e
+    if (this->ObstacleAt(yx).TestBits(0x20) == 0 || !this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
         this->FUN_0058b3e0(yx);
 
         if (!this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
             return;
         }
     }
-    if ((unit->VMethod4() & 0xff) == 3)
-    {
+    if ((unit->VMethod4() & 0xff) == 3) {
         if (this->scratch_cell_state.dynamic_blocker && scratch_cell_state.dynamic_blocker != unit) {
             return;
         }
@@ -1092,26 +1075,20 @@ void MapStuff::FUN_00596e0e(Unit* unit, PosYX yx)
     this->cell_states[yx.val] = scratch_cell_state;
 }
 
-void MapStuff::FUN_005969c6(Unit* unit, PosYX yx, uint8_t t)
-{ //5969c6
+void MapStuff::FUN_005969c6(Unit* unit, PosYX yx, uint8_t t) { //5969c6
     int sz = unit->VMethod3();
     this->field_0xa452c.fill(0);
-    for (int j = 0; j < sz + 2; j++)
-    {
-        for (int i = 0; i < sz + 2; i++)
-        {
+    for (int j = 0; j < sz + 2; j++) {
+        for (int i = 0; i < sz + 2; i++) {
             this->field_0xa452c(i, j) = 1;
         }
     }
 
-    if (t == 0)
-    {
+    if (t == 0) {
         int dx = unit->position->GetX();
         int dy = unit->position->GetY();
-        for (int j = 1; j < sz + 1; j++)
-        {
-            for (int i = 1; i < sz + 1; i++)
-            {
+        for (int j = 1; j < sz + 1; j++) {
+            for (int i = 1; i < sz + 1; i++) {
                 int x = j + yx.x - dx;
                 int y = i + yx.y - dy;
                 this->field_0xa452c(y, x) = 2; // y x for save order how it's in original
@@ -1119,12 +1096,9 @@ void MapStuff::FUN_005969c6(Unit* unit, PosYX yx, uint8_t t)
         }
     }
 
-    if (t != 2)
-    {
-        for (int j = 1; j < sz + 1; j++)
-        {
-            for (int i = 1; i < sz + 1; i++)
-            {
+    if (t != 2) {
+        for (int j = 1; j < sz + 1; j++) {
+            for (int i = 1; i < sz + 1; i++) {
                 this->field_0xa452c(i, j) = 3;
             }
         }
@@ -1133,12 +1107,9 @@ void MapStuff::FUN_005969c6(Unit* unit, PosYX yx, uint8_t t)
 
     int dx = unit->position->GetX() - 1;
     int dy = unit->position->GetY() - 1;
-    for (int j = 0; j < sz + 2; j++)
-    {
-        for (int i = 0; i < sz + 2; i++)
-        {
-            switch (this->field_0xa452c(i, j))
-            {
+    for (int j = 0; j < sz + 2; j++) {
+        for (int i = 0; i < sz + 2; i++) {
+            switch (this->field_0xa452c(i, j)) {
             case 0:
                 break;
 
@@ -1302,8 +1273,7 @@ FieldBlock5859c::FieldBlock5859c() {
     this->field_0xc = 0;
 }
 
-int CellState::IsEmpty() const
-{ //58bef6
+int CellState::IsEmpty() const { //58bef6
     if (this->small_unit != nullptr ||
         this->large_unit != nullptr ||
         this->building != nullptr ||
@@ -1317,8 +1287,7 @@ int CellState::IsEmpty() const
     return 1;
 }
 
-void CellState::Null()
-{ //58a3da
+void CellState::Null() { //58a3da
     this->walk_cost = 0;
     this->obstacle = 0;
     this->effect_count = 0;
@@ -1370,12 +1339,10 @@ void CellState::sub_59423F() {
 
 
 
-void __cdecl MissionGetBriefing(CString* out)
-{ //4e13db
+void __cdecl MissionGetBriefing(CString* out) { //4e13db
     out->Empty();
     int pos = g_MissionText.Find("#briefing");
-    if (pos != -1)
-    {
+    if (pos != -1) {
         CString txt = g_MissionText.Mid(pos + 11);
         pos = txt.Find('#');
         if (pos == -1) {
@@ -1386,16 +1353,14 @@ void __cdecl MissionGetBriefing(CString* out)
     }
 }
 
-void __cdecl MissionGetFailure(int32_t idx, CString* out)
-{ //4e14a4
+void __cdecl MissionGetFailure(int32_t idx, CString* out) { //4e14a4
     out->Empty();
 
     CString str;
     str.Format("#failure%d", idx);
 
     int pos = g_MissionText.Find(str);
-    if (pos != -1)
-    {
+    if (pos != -1) {
         CString txt = g_MissionText.Mid(pos + str.GetLength() + 2);
         pos = txt.Find('#');
         if (pos == -1) {
@@ -1406,16 +1371,14 @@ void __cdecl MissionGetFailure(int32_t idx, CString* out)
     }
 }
 
-void __cdecl MissionGetTips(int32_t idx, CString* out)
-{ //4e15b9
+void __cdecl MissionGetTips(int32_t idx, CString* out) { //4e15b9
     out->Empty();
 
     CString str;
     str.Format("#tips%d", idx);
 
     int pos = g_MissionText.Find(str);
-    if (pos != -1)
-    {
+    if (pos != -1) {
         CString txt = g_MissionText.Mid(pos + str.GetLength() + 2);
         pos = txt.Find('#');
         if (pos == -1) {
@@ -1426,16 +1389,14 @@ void __cdecl MissionGetTips(int32_t idx, CString* out)
     }
 }
 
-void __cdecl MissionGetSubj(int32_t idx, CString* out)
-{ //4e16ce
+void __cdecl MissionGetSubj(int32_t idx, CString* out) { //4e16ce
     out->Empty();
 
     CString str;
     str.Format("#subobjective%d", idx);
 
     int pos = g_MissionText.Find(str);
-    if (pos != -1)
-    {
+    if (pos != -1) {
         CString txt = g_MissionText.Mid(pos + str.GetLength() + 2);
         pos = txt.Find('#');
         if (pos == -1) {
@@ -1446,8 +1407,7 @@ void __cdecl MissionGetSubj(int32_t idx, CString* out)
     }
 }
 
-void __cdecl MissionGetLocName(int32_t t, int32_t idx, CString* out)
-{ //4e17e3
+void __cdecl MissionGetLocName(int32_t t, int32_t idx, CString* out) { //4e17e3
     out->Empty();
 
     CString str;
@@ -1458,8 +1418,7 @@ void __cdecl MissionGetLocName(int32_t t, int32_t idx, CString* out)
     }
 
     int pos = g_MissionText.Find(str);
-    if (pos != -1)
-    {
+    if (pos != -1) {
         CString txt = g_MissionText.Mid(pos + str.GetLength() + 2);
         pos = txt.Find('#');
         if (pos == -1) {
@@ -1471,8 +1430,7 @@ void __cdecl MissionGetLocName(int32_t t, int32_t idx, CString* out)
 }
 
 
-void __cdecl MissionGetDescription(int32_t t, int32_t idx, CString* out)
-{ //4e1915
+void __cdecl MissionGetDescription(int32_t t, int32_t idx, CString* out) { //4e1915
     out->Empty();
 
     CString str;
@@ -1483,8 +1441,7 @@ void __cdecl MissionGetDescription(int32_t t, int32_t idx, CString* out)
     }
 
     int pos = g_MissionText.Find(str);
-    if (pos != -1)
-    {
+    if (pos != -1) {
         CString txt = g_MissionText.Mid(pos + str.GetLength() + 2);
         pos = txt.Find('#');
         if (pos == -1) {
@@ -2843,8 +2800,7 @@ uint8_t MapStuff::sub_591A96(uint16_t yx1, uint16_t yx2, int32_t size) {
 }
 
 // 4a952b
-void Scenario::sub_4A952B(int32_t x, int32_t y, uint32_t w, uint32_t h)
-{
+void Scenario::sub_4A952B(int32_t x, int32_t y, uint32_t w, uint32_t h) {
     this->inv_sun_angle = g_DeltaCLR.field_18;
     this->abrightness = (uint8_t)g_DeltaCLR.field_4;
     this->contrast = (uint8_t)g_DeltaCLR.field_8;
@@ -2903,8 +2859,7 @@ void Scenario::sub_4A952B(int32_t x, int32_t y, uint32_t w, uint32_t h)
 }
 
 // 4a7b79
-double Scenario::FUN_004a7b79()
-{
+double Scenario::FUN_004a7b79() {
     double result;
     if (this->inv_sun_angle >= 0.0 || this->inv_sun_angle <= -0.05) {
         if (this->inv_sun_angle <= 0.0 || this->inv_sun_angle >= 0.05) {
@@ -2919,8 +2874,7 @@ double Scenario::FUN_004a7b79()
 }
 
 // 41ef60
-int32_t Scenario::sub_41EF60(int32_t x, int32_t y)
-{
+int32_t Scenario::sub_41EF60(int32_t x, int32_t y) {
     if (x < 7 || y < 7 || this->width - 7 <= x || this->height - 7 <= y) {
         return 0;
     }
@@ -2928,8 +2882,7 @@ int32_t Scenario::sub_41EF60(int32_t x, int32_t y)
 }
 
 // 4a9468
-Scenario::~Scenario()
-{
+Scenario::~Scenario() {
     if (this->landscape != nullptr) {
         free(this->landscape);
     }
@@ -2945,8 +2898,7 @@ Scenario::~Scenario()
 }
 
 // 4a7a50
-Scenario::Scenario()
-{
+Scenario::Scenario() {
     this->landscape = nullptr;
     this->map_heights = nullptr;
     this->field_0x14 = nullptr;
@@ -2954,8 +2906,7 @@ Scenario::Scenario()
 }
 
 // 4a7bec
-Scenario::Scenario(const char* fname)
-{
+Scenario::Scenario(const char* fname) {
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
     MapAlm* alm = new MapAlm(fname);
@@ -3150,8 +3101,7 @@ Scenario::Scenario(const char* fname)
 }
 
 // 44EC40
-bool Scenario::FUN_0044ec40(NetMapInfo* info)
-{
+bool Scenario::FUN_0044ec40(NetMapInfo* info) {
     File2* file = new File2();
     file->Open(info->mapid, 0, NULL);
 

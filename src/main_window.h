@@ -15,8 +15,7 @@ extern int32_t INT_00660f8c; //660f8c
 void SaveSettings(); //441b1e
 
 
-class CListBox2 : public CListBox
-{
+class CListBox2 : public CListBox {
 public:
     CListBox2();
     ~CListBox2();
@@ -31,8 +30,7 @@ public:
 };
 
 
-class CEdit2 : public CEdit
-{
+class CEdit2 : public CEdit {
 public:
     CEdit2();
     ~CEdit2();
@@ -46,21 +44,18 @@ public:
 };
 
 
-struct SaveFileInfo
-{
+struct SaveFileInfo {
     char title[256];
     char filename[256];
 
-    SaveFileInfo()
-    {
+    SaveFileInfo() {
         this->title[0] = 0;
         this->filename[0] = 0;
     }
 };
 
 
-struct Fame1
-{
+struct Fame1 {
     CString str;
     uint32_t field_x4 = 0;
     uint32_t field_x8 = 0;
@@ -69,8 +64,7 @@ struct Fame1
 
 ASSERT_SIZE(Fame1, 0x10);
 
-struct Fame2
-{
+struct Fame2 {
     int32_t field_x0;
     uint32_t field_x4;
     CBmp64* field_x8;
@@ -96,8 +90,7 @@ struct Fame2
 
 ASSERT_SIZE(Fame2, 0x3C);
 
-struct CFameHall
-{
+struct CFameHall {
     uint32_t difficulty;
     uint32_t m_nTotalTime;
     uint32_t m_nDifficultyWeight;
@@ -129,8 +122,7 @@ struct CFameHall
 ASSERT_SIZE(CFameHall, 0x38);
 
 
-struct UserShortcut
-{
+struct UserShortcut {
     uint16_t kind;
     uint16_t item_id;
     uint32_t mods_size;
@@ -156,8 +148,7 @@ struct UserShortcut
 
 
 //60c2a8
-class CGameSession : public CObject
-{
+class CGameSession : public CObject {
 public:
     CGameSession(); //49248a
     ~CGameSession(); //4960f0
@@ -230,8 +221,7 @@ public:
 };
 ASSERT_SIZE(CGameSession, 0x17c);
 
-struct PhoneBook
-{
+struct PhoneBook {
     CString entry;
     CString dial;
     CStringArray phones;
@@ -241,8 +231,7 @@ struct PhoneBook
 };
 ASSERT_SIZE(PhoneBook, 0x1c);
 
-struct HatSettings
-{
+struct HatSettings {
     CString hatip;
     CString hatprogip;
     int32_t ishat;
@@ -256,8 +245,7 @@ struct HatSettings
 };
 ASSERT_SIZE(HatSettings, 0x1c);
 
-struct Main3e0
-{
+struct Main3e0 {
     CString field_00;
     CString field_04;
     CString field_08;
@@ -267,8 +255,7 @@ struct Main3e0
 };
 ASSERT_SIZE(Main3e0, 0x18);
 
-struct DiplomacyEntry
-{
+struct DiplomacyEntry {
     char* name = nullptr;
     int32_t enemy = 0;
     int32_t ally = 0;
@@ -284,8 +271,7 @@ ASSERT_SIZE(DiplomacyEntry, 0x14);
 
 
 struct CLlNetSession;
-struct AvailNetSession
-{
+struct AvailNetSession {
     CString character_name;
     int32_t field_0x4;
     CLlNetSession* sessions;
@@ -298,8 +284,7 @@ ASSERT_SIZE(AvailNetSession, 0x14);
 
 
 // Server control dialog, resource 0x6b.
-class ServerControlDialog : public CDialog
-{
+class ServerControlDialog : public CDialog {
 public:
     CEdit edit_5c;       // 0x5c
     CStatic static_98;   // 0x98
@@ -343,11 +328,9 @@ public:
 ASSERT_SIZE(ServerControlDialog, 0x280);
 
 
-class MainWindow : public CFrameWnd
-{
+class MainWindow : public CFrameWnd {
 public:
-    enum
-    {
+    enum {
         MSG_421 = 0x421,
         MSG_428 = 0x428,
         MSG_42f = 0x42f,

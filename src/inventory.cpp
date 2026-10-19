@@ -218,24 +218,20 @@ Item* Inventory::sub_5530A2(const char* name) {
     return nullptr;
 }
 
-void Inventory::SerializeItems(CArchive& ar)
-{ //Serialize items list. from 55cce4
+void Inventory::SerializeItems(CArchive& ar) { //Serialize items list. from 55cce4
     uint32_t cnt;
-    if (ar.IsStoring())
-    {
+    if (ar.IsStoring()) {
         cnt = this->items.GetCount();
         ar.Write(&cnt, 4);
 
-        for (POSITION pos = this->items.GetHeadPosition(); pos != nullptr;)
-        {
+        for (POSITION pos = this->items.GetHeadPosition(); pos != nullptr;) {
             Item* itm = this->items.GetNext(pos);
             ar.WriteObject(itm);
         }
     } else {
         this->items.RemoveAll();
         ar.Read(&cnt, 4);
-        for (int i = 0; i < cnt; i++)
-        {
+        for (int i = 0; i < cnt; i++) {
             Item* itm = (Item*)ar.ReadObject(RUNTIME_CLASS(Item));
             this->items.AddTail(itm);
         }

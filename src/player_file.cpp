@@ -8,21 +8,17 @@
 #include "main_window.h"
 
 
-void __cdecl DecryptEncryptedData(uint8_t* data, int32_t size, uint16_t key)
-{ //4f535e
-	for (; size > 0; size--)
-	{
+void __cdecl DecryptEncryptedData(uint8_t* data, int32_t size, uint16_t key) { //4f535e
+	for (; size > 0; size--) {
 		*data ^= key;
 		data++;
 		key = (key << 1) | (key >> 15);
 	}
 }
 
-uint32_t __cdecl CalcChecksum(uint8_t* data, int32_t size)
-{ //4f5308
+uint32_t __cdecl CalcChecksum(uint8_t* data, int32_t size) { //4f5308
 	uint32_t sum = 0;
-	for (; size > 0; size--)
-	{
+	for (; size > 0; size--) {
 		sum = (sum << 1) + *data;
 		data++;
 	}
@@ -43,8 +39,7 @@ struct PlayerFileSectionHeader {
 	uint32_t checksum;
 };
 
-void WriteEncryptedSection(CFile& file, uint32_t tag, uint8_t* data, uint32_t size)
-{
+void WriteEncryptedSection(CFile& file, uint32_t tag, uint8_t* data, uint32_t size) {
 	PlayerFileSectionHeader header = {};
 	header.tag = tag;
 	header.size = size;
@@ -59,18 +54,15 @@ void WriteEncryptedSection(CFile& file, uint32_t tag, uint8_t* data, uint32_t si
 	DecryptEncryptedData(data, size, header.key);
 }
 
-uint8_t* GetPacketPayload(PacketUnitStateVec* packet)
-{
+uint8_t* GetPacketPayload(PacketUnitStateVec* packet) {
 	return reinterpret_cast<uint8_t*>(packet) + 0x0A;
 }
 
-uint32_t GetPacketPayloadSize(const PacketUnitStateVec* packet)
-{
+uint32_t GetPacketPayloadSize(const PacketUnitStateVec* packet) {
 	return packet->data_size + 9;
 }
 
-void MaybeWriteRandomByte(CFile& file, uint16_t key, uint16_t mask)
-{
+void MaybeWriteRandomByte(CFile& file, uint16_t key, uint16_t mask) {
 	if ((key & mask) == 0) {
 		return;
 	}
@@ -79,8 +71,7 @@ void MaybeWriteRandomByte(CFile& file, uint16_t key, uint16_t mask)
 	file.Write(&random_byte, sizeof(random_byte));
 }
 
-void WriteStatsSection(CFile& file, FileSectionStats* stats)
-{
+void WriteStatsSection(CFile& file, FileSectionStats* stats) {
 	PlayerFileSectionHeader header = {};
 	header.tag = 0x41392521;
 	header.key = GetRandS16(0x7FFF);
@@ -161,23 +152,20 @@ uint8_t s_section_40a_buf[kKillStatsSize];
 uint32_t s_section_40a_size;
 uint8_t s_compressed_buf[kKillStatsSize];
 
-void MaybeSkipRandomByte(CFile& file, uint16_t key, uint16_t mask)
-{
+void MaybeSkipRandomByte(CFile& file, uint16_t key, uint16_t mask) {
 	if ((key & mask) != 0) {
 		uint8_t dummy;
 		file.Read(&dummy, 1);
 	}
 }
 
-bool ReadDecryptAndVerify(CFile& file, const PlayerFileSectionHeader& header, uint8_t* buffer)
-{
+bool ReadDecryptAndVerify(CFile& file, const PlayerFileSectionHeader& header, uint8_t* buffer) {
 	file.Read(buffer, header.size);
 	DecryptEncryptedData(buffer, header.size, header.key);
 	return CalcChecksum(buffer, header.size) == static_cast<int32_t>(header.checksum);
 }
 
-bool ReadStatsSection(CFile& file, const PlayerFileSectionHeader& header)
-{
+bool ReadStatsSection(CFile& file, const PlayerFileSectionHeader& header) {
 	MaybeSkipRandomByte(file, header.key, 0x0001);
 	file.Read(&s_stats_buf.monster_kills, 4);
 	s_stats_buf.monster_kills ^= 0x01529251;
@@ -234,8 +222,7 @@ bool ReadStatsSection(CFile& file, const PlayerFileSectionHeader& header)
 	return CalcChecksum(reinterpret_cast<uint8_t*>(&s_stats_buf), sizeof(FileSectionStats)) == header.checksum;
 }
 
-bool ReadCompressedKillStats(CFile& file, const PlayerFileSectionHeader& header)
-{
+bool ReadCompressedKillStats(CFile& file, const PlayerFileSectionHeader& header) {
 	file.Read(s_compressed_buf, header.size);
 	DecryptEncryptedData(s_compressed_buf, header.size, header.key);
 	if (CalcChecksum(s_compressed_buf, header.size) != header.checksum) {
@@ -272,8 +259,7 @@ bool ReadCompressedKillStats(CFile& file, const PlayerFileSectionHeader& header)
 	return true;
 }
 
-void WriteKillStatsSection(CFile& file, uint8_t* kill_stats)
-{
+void WriteKillStatsSection(CFile& file, uint8_t* kill_stats) {
 	uint8_t* buffer = new uint8_t[kKillStatsSize];
 	if (buffer == nullptr) {
 		return;
@@ -327,8 +313,7 @@ void WriteKillStatsSection(CFile& file, uint8_t* kill_stats)
 } // namespace
 
 // 4F53EA
-int32_t __cdecl WritePlayerFile_4F53EA(const char* filename, FileSectionBasicInfo* basic_info, FileSectionStats* stats, uint8_t* kill_stats, PacketUnitStateVec* equip_pkt, PacketUnitStateVec* inv_pkt, uint8_t* section_40a, uint32_t size_40a)
-{
+int32_t __cdecl WritePlayerFile_4F53EA(const char* filename, FileSectionBasicInfo* basic_info, FileSectionStats* stats, uint8_t* kill_stats, PacketUnitStateVec* equip_pkt, PacketUnitStateVec* inv_pkt, uint8_t* section_40a, uint32_t size_40a) {
 	FileSectionBasicInfo* merged_basic_info = nullptr;
 	FileSectionStats* merged_stats = nullptr;
 	uint8_t* merged_kill_stats = nullptr;
@@ -406,8 +391,7 @@ int32_t __cdecl WritePlayerFile_4F53EA(const char* filename, FileSectionBasicInf
 }
 
 // 4F62E6
-int32_t __cdecl ParsePlayerFile_4F62E6(CFile* file, FileSectionBasicInfo** basic_info, FileSectionStats** stats, uint8_t** kill_stats, PacketUnitStateVec** equipment, PacketUnitStateVec** inventory, uint8_t** section_40a, uint32_t* size_40a)
-{
+int32_t __cdecl ParsePlayerFile_4F62E6(CFile* file, FileSectionBasicInfo** basic_info, FileSectionStats** stats, uint8_t** kill_stats, PacketUnitStateVec** equipment, PacketUnitStateVec** inventory, uint8_t** section_40a, uint32_t* size_40a) {
 	*basic_info = nullptr;
 	*stats = nullptr;
 	*kill_stats = nullptr;
@@ -427,40 +411,35 @@ int32_t __cdecl ParsePlayerFile_4F62E6(CFile* file, FileSectionBasicInfo** basic
 		file->Read(&header, sizeof(header));
 
 		switch (header.tag) {
-            case 0xAAAAAAAA:
-            {
+            case 0xAAAAAAAA: {
                 if (!ReadDecryptAndVerify(*file, header, reinterpret_cast<uint8_t*>(&s_basic_info_buf))) {
                     return 0;
                 }
                 *basic_info = &s_basic_info_buf;
                 break;
             }
-            case 0x41392521:
-            {
+            case 0x41392521: {
                 if (!ReadStatsSection(*file, header)) {
                     return 0;
                 }
                 *stats = &s_stats_buf;
                 break;
             }
-            case 0x55555555:
-            {
+            case 0x55555555: {
                 if (!ReadCompressedKillStats(*file, header)) {
                     return 0;
                 }
                 *kill_stats = s_kill_stats_buf;
                 break;
             }
-            case 0x3A5A3A5A:
-            {
+            case 0x3A5A3A5A: {
                 if (!ReadDecryptAndVerify(*file, header, GetPacketPayload(&s_inv_packet))) {
                     return 0;
                 }
                 *inventory = &s_inv_packet;
                 break;
             }
-            case 0x40A40A40:
-            {
+            case 0x40A40A40: {
                 if (!ReadDecryptAndVerify(*file, header, s_section_40a_buf)) {
                     return 0;
                 }
@@ -469,8 +448,7 @@ int32_t __cdecl ParsePlayerFile_4F62E6(CFile* file, FileSectionBasicInfo** basic
                 *size_40a = s_section_40a_size;
                 break;
             }
-            case 0xDE0DE0DE:
-            {
+            case 0xDE0DE0DE: {
                 if (!ReadDecryptAndVerify(*file, header, GetPacketPayload(&s_equip_packet))) {
                     return 0;
                 }
@@ -487,21 +465,18 @@ int32_t __cdecl ParsePlayerFile_4F62E6(CFile* file, FileSectionBasicInfo** basic
 
 
 
-void CGameSession::RefreshCharacterRosterFiles(int val)
-{ //49265a
+void CGameSession::RefreshCharacterRosterFiles(int val) { //49265a
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
 	this->characterRosterFilePaths.RemoveAll();
 	this->characterRosterNames.RemoveAll();
 	this->characterRosterHatId.RemoveAll();
 
-	if (mwnd->sessionMode != 2)
-	{
+	if (mwnd->sessionMode != 2) {
 		CArray<FILETIME> ftimes;
 		CFileFind ff;
 		BOOL found = ff.FindFile("*.a2c");
-		while (found)
-		{
+		while (found) {
 			found = ff.FindNextFileA();
 
 			CFile f;
@@ -509,8 +484,7 @@ void CGameSession::RefreshCharacterRosterFiles(int val)
 
 			uint32_t tag = 0;
 			f.Read(&tag, 4);
-			if (tag == kPlayerFileMagic)
-			{
+			if (tag == kPlayerFileMagic) {
 				PlayerFileSectionHeader hdr;
 				f.Read(&hdr, 0x10);
 
@@ -519,22 +493,19 @@ void CGameSession::RefreshCharacterRosterFiles(int val)
 
 				f.Read(data.data(), hdr.size);
 				DecryptEncryptedData(data.data(), hdr.size, hdr.key);
-				if (CalcChecksum(data.data(), hdr.size) == hdr.checksum)
-				{
+				if (CalcChecksum(data.data(), hdr.size) == hdr.checksum) {
 					FileSectionBasicInfo* sec = (FileSectionBasicInfo*)data.data();
 					if (sec->hat_id == 0x529c0291 || sec->hat_id == 0xbaadf00d) {
 						sec->hat_id = mwnd->field_0x3e0.field_0c;
 					}
-					if (sec->hat_id == mwnd->field_0x3e0.field_0c)
-					{
+					if (sec->hat_id == mwnd->field_0x3e0.field_0c) {
 						strcpy(this->character_name, sec->nick);
 
 						FILETIME tm;
 						ff.GetLastWriteTime(&tm);
 
 						int idx = 0;
-						for (; idx < ftimes.GetSize(); idx++)
-						{
+						for (; idx < ftimes.GetSize(); idx++) {
 							if (CompareFileTime(&tm, &ftimes[idx]) > 0) {
 								break;
 							}
@@ -550,12 +521,9 @@ void CGameSession::RefreshCharacterRosterFiles(int val)
 
 						if (val == 0) {
 							this->characterRosterHatId.InsertAt(idx, hatid);
-						} else
-						{
-							for (int i = 0; i < this->field_0x130.GetSize(); i++)
-							{
-								if (this->field_0x130[i].id == hatid.id)
-								{
+						} else {
+							for (int i = 0; i < this->field_0x130.GetSize(); i++) {
+								if (this->field_0x130[i].id == hatid.id) {
 									this->characterRosterHatId.InsertAt(idx, hatid);
 									break;
 								}

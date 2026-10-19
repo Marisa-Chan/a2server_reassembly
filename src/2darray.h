@@ -6,8 +6,7 @@
 #include <afx.h>
 
 template <class T, std::size_t XW, std::size_t XH>
-struct Array2D : protected std::array<T, (XW* XH)>
-{
+struct Array2D : protected std::array<T, (XW* XH)> {
 protected:
     typedef std::array<T, (XW* XH)> _BaseType;
 public:
@@ -22,80 +21,65 @@ public:
 
     Array2D() = default;
 
-    Array2D(T val)
-    {
+    Array2D(T val) {
         this->fill(val);
     }
 
-    Array2D<T, XW, XH>* Copy()
-    {
+    Array2D<T, XW, XH>* Copy() {
         Array2D<T, XW, XH>* tmp = new Array2D<T, XW, XH>;
         *tmp = *this;
         return tmp;
     }
 
-    T& At(uint32_t x, uint32_t y)
-    {
+    T& At(uint32_t x, uint32_t y) {
         return this->at(x + y * XW);
     }
 
-    T& At(const CPoint& p)
-    {
+    T& At(const CPoint& p) {
         return this->at(p.x + p.y * XW);
     }
 
-    T& At(size_t n)
-    {
+    T& At(size_t n) {
         return this->at(n);
     }
 
-    T& operator()(uint32_t x, uint32_t y)
-    {
+    T& operator()(uint32_t x, uint32_t y) {
         return this->at(x + y * XW);
     }
 
-    T& operator()(const CPoint& p)
-    {
+    T& operator()(const CPoint& p) {
         return this->at(p.x + p.y * XW);
     }
 
-    T& operator()(size_t n)
-    {
+    T& operator()(size_t n) {
         return this->at(n);
     }
 
-    T* Line(uint32_t y)
-    {
+    T* Line(uint32_t y) {
         return &(this->at(y * XW));
     }
 
-    const T* Line(uint32_t y) const
-    {
+    const T* Line(uint32_t y) const {
         return &(this->at(y * XW));
     }
 
-    T Get(uint32_t x, uint32_t y) const
-    {
+    T Get(uint32_t x, uint32_t y) const {
         return this->at(x + y * XW);
     }
 
-    T At(const CPoint& p) const
-    {
+    T At(const CPoint& p) const {
         return this->at(p.x + p.y * XW);
     }
 
-    T At(size_t n) const
-    {
+    T At(size_t n) const {
         return this->at(n);
     }
 
-    CPoint Size() const
-    {
+    CPoint Size() const {
         return CPoint(XW, XH);
     }
 
-    size_t GetID(uint32_t x, uint32_t y) const
-    {
+    size_t GetID(uint32_t x, uint32_t y) const {
         size_t n = x + y * XW;
         if (n < this->size()) {
             return n;
@@ -103,26 +87,22 @@ public:
         return -1;
     }
 
-    CPoint GetPos(size_t id) const
-    {
+    CPoint GetPos(size_t id) const {
         if (id >= 0 && id < this->size()) {
             return CPoint(id % XW, id / XW);
         }
         return CPoint(-1, -1);
     }
 
-    uint32_t Width() const
-    {
+    uint32_t Width() const {
         return XW;
     }
 
-    uint32_t Height() const
-    {
+    uint32_t Height() const {
         return XH;
     }
 
-    static constexpr Array2D ArrayInit(const T& val)
-    {
+    static constexpr Array2D ArrayInit(const T& val) {
         Array2D t;
         t.fill(val);
         return t;
@@ -132,8 +112,7 @@ public:
 
 
 template <class T>
-class Vector2D : protected std::vector<T>
-{
+class Vector2D : protected std::vector<T> {
 public:
     using std::vector<T>::data;
     using std::vector<T>::operator[];
@@ -151,84 +130,69 @@ public:
     Vector2D& operator=(const Vector2D&) = default;
     Vector2D& operator=(Vector2D&&) = default;
 
-    Vector2D(uint32_t w, uint32_t h)
-    {
+    Vector2D(uint32_t w, uint32_t h) {
         this->Resize(w, h);
     }
 
-    Vector2D(const CPoint& sz)
-    {
+    Vector2D(const CPoint& sz) {
         this->Resize(sz);
     }
 
-    Vector2D<T>* Copy()
-    {
+    Vector2D<T>* Copy() {
         Vector2D<this->T>* tmp = new Vector2D<this->T>;
         *tmp = *this;
         return tmp;
     }
 
-    void Resize(const CPoint& sz)
-    {
+    void Resize(const CPoint& sz) {
         this->_w = sz.x;
         this->_h = sz.y;
         this->resize(this->_w * _h);
     }
 
-    void Resize(uint32_t w, uint32_t h)
-    {
+    void Resize(uint32_t w, uint32_t h) {
         this->_w = w;
         this->_h = h;
         this->resize(w * h);
     }
 
-    T& At(uint32_t x, uint32_t y)
-    {
+    T& At(uint32_t x, uint32_t y) {
         return this->at(x + y * _w);
     }
 
-    T& At(const CPoint& p)
-    {
+    T& At(const CPoint& p) {
         return this->at(p.x + p.y * _w);
     }
 
-    T& At(size_t n)
-    {
+    T& At(size_t n) {
         return this->at(n);
     }
 
-    T& operator()(uint32_t x, uint32_t y)
-    {
+    T& operator()(uint32_t x, uint32_t y) {
         return this->at(x + y * _w);
     }
 
-    T& operator()(const CPoint& p)
-    {
+    T& operator()(const CPoint& p) {
         return this->at(p.x + p.y * _w);
     }
 
-    T& operator()(size_t n)
-    {
+    T& operator()(size_t n) {
         return this->at(n);
     }
 
-    T* Line(uint32_t y)
-    {
+    T* Line(uint32_t y) {
         return &(this->at(y * _w));
     }
 
-    const T* Line(uint32_t y) const
-    {
+    const T* Line(uint32_t y) const {
         return &(this->at(y * _w));
     }
 
-    CPoint Size() const
-    {
+    CPoint Size() const {
         return CPoint(this->_w, this->_h);
     }
 
-    size_t GetID(uint32_t x, uint32_t y) const
-    {
+    size_t GetID(uint32_t x, uint32_t y) const {
         size_t n = x + y * this->_w;
         if (n < this->size()) {
             return n;
@@ -236,43 +200,36 @@ public:
         return -1;
     }
 
-    CPoint GetPos(size_t id) const
-    {
+    CPoint GetPos(size_t id) const {
         if (id >= 0 && id < this->size()) {
             return CPoint(id % this->_w, id / this->_w);
         }
         return CPoint(-1, -1);
     }
 
-    uint32_t Width() const
-    {
+    uint32_t Width() const {
         return this->_w;
     }
 
-    uint32_t Height() const
-    {
+    uint32_t Height() const {
         return this->_h;
     }
 
-    void Clear()
-    {
+    void Clear() {
         this->_w = 0;
         this->_h = 0;
         std::vector<this->T>::clear();
     }
 
-    bool IsNotNull() const
-    {
+    bool IsNotNull() const {
         return this->_w > 0 && this->_h > 0;
     }
 
-    bool IsNull() const
-    {
+    bool IsNull() const {
         return this->_w == 0 || this->_h == 0;
     }
 
-    bool IsOk() const
-    {
+    bool IsOk() const {
         return this->_w > 0 && this->_h > 0 && (this->size() == this->_w * _h);
     }
 

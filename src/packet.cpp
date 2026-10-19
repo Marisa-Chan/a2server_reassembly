@@ -6,8 +6,7 @@
 
 Packet Packet::Inst;
 
-Packet::Packet()
-{
+Packet::Packet() {
     //52681f
     this->field_0x4 = 0;
     this->field_0x5 = 0;
@@ -15,32 +14,27 @@ Packet::Packet()
     this->id = 0;
 }
 
-Packet::Packet(const Packet* src)
-{
+Packet::Packet(const Packet* src) {
     //526856
     this->id = src->id;
 }
 
-Packet::~Packet()
-{
+Packet::~Packet() {
     //inlined in 5799da and many other places
 }
 
-Packet* Packet::Duplicate()
-{
+Packet* Packet::Duplicate() {
     //579940
     return new Packet(this);
 }
 
-void Packet::VMethod3(NetStru2* net)
-{
+void Packet::VMethod3(NetStru2* net) {
     //526887
     uint32_t sz = this->GetDataSize();
     net->WriteData(&this->id, sz);
 }
 
-void Packet::VMethod4(NetStru2* net)
-{
+void Packet::VMethod4(NetStru2* net) {
     //5268b7
     uint32_t sz = this->GetDataSize();
     if (sz != 1) {
@@ -48,8 +42,7 @@ void Packet::VMethod4(NetStru2* net)
     }
 }
 
-uint32_t Packet::GetDataSize()
-{
+uint32_t Packet::GetDataSize() {
     //5799c0
     return 1;
 }
@@ -58,8 +51,7 @@ uint32_t Packet::GetDataSize()
 
 PacketJoin PacketJoin::Inst;
 
-PacketJoin::PacketJoin()
-{
+PacketJoin::PacketJoin() {
     //526c12
     this->id = 0x91;
 
@@ -72,8 +64,7 @@ PacketJoin::PacketJoin()
 
 }
 
-PacketJoin::PacketJoin(const PacketJoin *src)
-{
+PacketJoin::PacketJoin(const PacketJoin *src) {
     //526c52
 
     this->id = src->id;
@@ -87,8 +78,7 @@ PacketJoin::PacketJoin(const PacketJoin *src)
     memcpy(this->name, src->name, this->name_len + 1);
 }
 
-PacketJoin::PacketJoin(CString _name)
-{
+PacketJoin::PacketJoin(CString _name) {
     //526d59
     this->id = 0x91;
 
@@ -101,34 +91,29 @@ PacketJoin::PacketJoin(CString _name)
     this->name_len = _name.GetLength();
 }
 
-PacketJoin::~PacketJoin()
-{
+PacketJoin::~PacketJoin() {
     //526e4f
 }
 
-Packet* PacketJoin::Duplicate()
-{
+Packet* PacketJoin::Duplicate() {
     //57a390
     return new PacketJoin(this);
 }
 
-void PacketJoin::VMethod3(NetStru2* net)
-{
+void PacketJoin::VMethod3(NetStru2* net) {
     //526ede
     this->name_len = strlen(this->name);
     net->WriteData(&this->id, this->name_len + 8);
 }
 
-void PacketJoin::VMethod4(NetStru2* net)
-{
+void PacketJoin::VMethod4(NetStru2* net) {
     //526f1d
     net->ReadData(&this->player_id, 6);
     net->ReadData(this->name, this->name_len + 1);
     this->name[this->name_len] = 0;
 }
 
-uint32_t PacketJoin::GetDataSize()
-{
+uint32_t PacketJoin::GetDataSize() {
     //57a410
     return this->name_len + 8;
 }
@@ -137,34 +122,29 @@ uint32_t PacketJoin::GetDataSize()
 
 PacketInfo PacketInfo::Inst;
 
-PacketInfo::PacketInfo()
-{
+PacketInfo::PacketInfo() {
     //526b44
     this->field_0xa = 0;
     this->field_0xe = 0;
 }
 
-PacketInfo::PacketInfo(const PacketInfo* src)
-{
+PacketInfo::PacketInfo(const PacketInfo* src) {
     //526b77
     this->id = src->id;
     this->field_0xa = src->field_0xa;
     this->field_0xe = src->field_0xe;
 }
 
-PacketInfo::~PacketInfo()
-{
+PacketInfo::~PacketInfo() {
     //579a80
 }
 
-Packet* PacketInfo::Duplicate()
-{
+Packet* PacketInfo::Duplicate() {
     //57a210
     return new PacketInfo(this);
 }
 
-uint32_t PacketInfo::GetDataSize()
-{
+uint32_t PacketInfo::GetDataSize() {
     //57a290
     return 9;
 }
@@ -172,35 +152,29 @@ uint32_t PacketInfo::GetDataSize()
 
 PacketTerrain PacketTerrain::Inst;
 
-PacketTerrain::PacketTerrain()
-{
+PacketTerrain::PacketTerrain() {
     //527346
 }
 
-PacketTerrain::PacketTerrain(const PacketTerrain* src)
-{
+PacketTerrain::PacketTerrain(const PacketTerrain* src) {
     //527365
     memcpy(&this->id, &src->id, this->count * 2 + 5);    
 }
-PacketTerrain::~PacketTerrain()
-{
+PacketTerrain::~PacketTerrain() {
     //579ac0
 }
 
-Packet* PacketTerrain::Duplicate()
-{
+Packet* PacketTerrain::Duplicate() {
     //57aaa0
     return new PacketTerrain(this);
 }
     
-void PacketTerrain::VMethod3(NetStru2* net)
-{
+void PacketTerrain::VMethod3(NetStru2* net) {
     //5273a7
     net->WriteData(&this->id, this->count * 2 + 5);
 }
 
-void PacketTerrain::VMethod4(NetStru2* net)
-{
+void PacketTerrain::VMethod4(NetStru2* net) {
     //5273ce
     net->ReadData(&this->count, 4);
     if (this->count) {
@@ -208,8 +182,7 @@ void PacketTerrain::VMethod4(NetStru2* net)
     }
 }
 
-uint32_t PacketTerrain::GetDataSize()
-{
+uint32_t PacketTerrain::GetDataSize() {
     //57ab20
     return this->count * 2 + 5;
 }
@@ -219,34 +192,28 @@ uint32_t PacketTerrain::GetDataSize()
 // ============================================================
 PacketUnitUpdate PacketUnitUpdate::Inst;
 
-PacketUnitUpdate::PacketUnitUpdate()
-{
+PacketUnitUpdate::PacketUnitUpdate() {
     //sub_527987
 }
 
 PacketUnitUpdate::PacketUnitUpdate(const PacketUnitUpdate* src)
-    :Packet(this)
-{
+    :Packet(this) {
     //sub_5279A6 – vtable-only ctor used in Duplicate; does NOT copy fields
 }
 
-PacketUnitUpdate::~PacketUnitUpdate()
-{
+PacketUnitUpdate::~PacketUnitUpdate() {
     //sub_57AF10
 }
 
-Packet* PacketUnitUpdate::Duplicate()
-{
+Packet* PacketUnitUpdate::Duplicate() {
     //sub_57AE70
     return new PacketUnitUpdate(this);
 }
 
-void PacketUnitUpdate::VMethod3(NetStru2* net)
-{
+void PacketUnitUpdate::VMethod3(NetStru2* net) {
     //sub_5279C7
 
-    switch (this->FUN_00527bd8())
-    {
+    switch (this->FUN_00527bd8()) {
     case 1:
         this->id = 0x6e;
         break;
@@ -266,11 +233,9 @@ void PacketUnitUpdate::VMethod3(NetStru2* net)
     net->WriteData(this->data, this->data_offset);
 }
 
-void PacketUnitUpdate::VMethod4(NetStru2* net)
-{
+void PacketUnitUpdate::VMethod4(NetStru2* net) {
     //sub_527A6C
-    switch (this->id)
-    {
+    switch (this->id) {
     case 0x6c:
         this->field_0xe = 4;
         break;
@@ -289,14 +254,12 @@ void PacketUnitUpdate::VMethod4(NetStru2* net)
     net->ReadData(this->data, this->FUN_00527c3b());
 }
 
-uint32_t PacketUnitUpdate::GetDataSize()
-{
+uint32_t PacketUnitUpdate::GetDataSize() {
     //sub_57AEF0
     return this->field_0xe + 3 + this->data_offset;
 }
 
-uint32_t PacketUnitUpdate::FUN_00527bd8()
-{
+uint32_t PacketUnitUpdate::FUN_00527bd8() {
     if (this->flags_mask < 0x100) {
         this->field_0xe = 1;
     } else if (this->flags_mask < 0x10000) {
@@ -310,8 +273,7 @@ uint32_t PacketUnitUpdate::FUN_00527bd8()
     return this->field_0xe;
 }
 
-uint32_t PacketUnitUpdate::FUN_00527c3b()
-{
+uint32_t PacketUnitUpdate::FUN_00527c3b() {
     static uint32_t offsets[32]
     {   2, 2, 5, 4, 3, 2, 1, 2, 4, 4, 4, 4, 4, 2, 2, 1,
         2, 2, 2, 1, 5, 0, 0, 0, 5, 0x10, 0, 0, 0, 8, 0, 0x18
@@ -320,8 +282,7 @@ uint32_t PacketUnitUpdate::FUN_00527c3b()
     this->data_offset = 0;
 
     uint32_t sh = 1;
-    for (int i = 0; i < 32; i++)
-    {
+    for (int i = 0; i < 32; i++) {
         if ((this->flags_mask & sh) != 0) {
             this->data_offset += offsets[i];
         }
@@ -336,25 +297,21 @@ uint32_t PacketUnitUpdate::FUN_00527c3b()
 // ============================================================
 PacketWord PacketWord::Inst;
 
-PacketWord::PacketWord()
-{
+PacketWord::PacketWord() {
     //sub_5268FC
     this->value = 0;
 }
 
-PacketWord::PacketWord(const PacketWord* src)
-{
+PacketWord::PacketWord(const PacketWord* src) {
     this->id      = src->id;
     this->value = src->value;
 }
 
-PacketWord::~PacketWord()
-{
+PacketWord::~PacketWord() {
     //sub_57A0B0
 }
 
-uint32_t PacketWord::GetDataSize()
-{
+uint32_t PacketWord::GetDataSize() {
     //sub_57A0A0
     return 3;
 }
@@ -364,16 +321,14 @@ uint32_t PacketWord::GetDataSize()
 // ============================================================
 PacketItemOperation PacketItemOperation::Inst;
 
-PacketItemOperation::PacketItemOperation()
-{
+PacketItemOperation::PacketItemOperation() {
     //sub_526924
     this->field_0xe  = 0;
     this->field_0x10 = 0;
     this->count      = 0;
 }
 
-PacketItemOperation::PacketItemOperation(const PacketItemOperation* src)
-{
+PacketItemOperation::PacketItemOperation(const PacketItemOperation* src) {
     this->id          = src->id;
     this->unit_id   = src->unit_id;
     this->field_0xc   = src->field_0xc;
@@ -385,8 +340,7 @@ PacketItemOperation::PacketItemOperation(const PacketItemOperation* src)
     memcpy(this->entries, src->entries, src->count * 2);
 }
 
-void PacketItemOperation::AppendWord(uint16_t val)
-{
+void PacketItemOperation::AppendWord(uint16_t val) {
     //sub_52695A
     if (this->count < 0xFD) {
         this->entries[this->count++] = val;
@@ -394,8 +348,7 @@ void PacketItemOperation::AppendWord(uint16_t val)
 }
 
 // 5275F8
-void PacketUnitStateVec::AppendByteByte(uint8_t a, uint8_t b, uint8_t* slot)
-{
+void PacketUnitStateVec::AppendByteByte(uint8_t a, uint8_t b, uint8_t* slot) {
     this->data[this->data_size] = a;
     this->data_size++;
     this->data[this->data_size] = b;
@@ -405,8 +358,7 @@ void PacketUnitStateVec::AppendByteByte(uint8_t a, uint8_t b, uint8_t* slot)
 }
 
 // 5276E0
-void PacketUnitStateVec::AppendByteInt(uint8_t a, int32_t v, uint8_t* slot)
-{
+void PacketUnitStateVec::AppendByteInt(uint8_t a, int32_t v, uint8_t* slot) {
     this->data[this->data_size] = a;
     this->data_size++;
     *reinterpret_cast<int32_t*>(&this->data[this->data_size]) = v;
@@ -415,19 +367,16 @@ void PacketUnitStateVec::AppendByteInt(uint8_t a, int32_t v, uint8_t* slot)
     slot[6] += 5;
 }
 
-PacketItemOperation::~PacketItemOperation()
-{
+PacketItemOperation::~PacketItemOperation() {
     //sub_57A100
 }
 
-void PacketItemOperation::VMethod3(NetStru2* net)
-{
+void PacketItemOperation::VMethod3(NetStru2* net) {
     //sub_52699A
     net->WriteData(&this->id, this->count * 2 + 0xA);
 }
 
-void PacketItemOperation::VMethod4(NetStru2* net)
-{
+void PacketItemOperation::VMethod4(NetStru2* net) {
     //sub_5269C3
     net->ReadData(&this->unit_id, 9);
     if (this->count) {
@@ -435,8 +384,7 @@ void PacketItemOperation::VMethod4(NetStru2* net)
     }
 }
 
-uint32_t PacketItemOperation::GetDataSize()
-{
+uint32_t PacketItemOperation::GetDataSize() {
     //sub_57A0E0
     return this->count * 2 + 10;
 }
@@ -446,8 +394,7 @@ uint32_t PacketItemOperation::GetDataSize()
 // ============================================================
 PacketCmd PacketCmd::Inst;
 
-PacketCmd::PacketCmd()
-{
+PacketCmd::PacketCmd() {
     //sub_526A07
     this->type       = 0;
     this->subtype    = 0;
@@ -456,18 +403,15 @@ PacketCmd::PacketCmd()
     this->field_0x12 = 1;
 }
 
-PacketCmd::PacketCmd(const PacketCmd* src)
-{
+PacketCmd::PacketCmd(const PacketCmd* src) {
     memcpy(&this->id, &src->id, 0xB); // id(1)+0xA+0xB+type+subtype+0xE(2)+0x10(2)+0x12(2) = 11
 }
 
-PacketCmd::~PacketCmd()
-{
+PacketCmd::~PacketCmd() {
     //sub_57A140
 }
 
-uint32_t PacketCmd::GetDataSize()
-{
+uint32_t PacketCmd::GetDataSize() {
     //sub_57A130  id(1) + 10 derived bytes = 0xB
     return 0xB;
 }
@@ -477,8 +421,7 @@ uint32_t PacketCmd::GetDataSize()
 // ============================================================
 Packet3Dwords Packet3Dwords::Inst;
 
-Packet3Dwords::Packet3Dwords()
-{
+Packet3Dwords::Packet3Dwords() {
     //sub_526A4F
     this->field_0xa  = 0;
     this->field_0xe  = 0;
@@ -486,18 +429,15 @@ Packet3Dwords::Packet3Dwords()
     this->field_0x16[0] = 0;
 }
 
-Packet3Dwords::Packet3Dwords(const Packet3Dwords* src)
-{
+Packet3Dwords::Packet3Dwords(const Packet3Dwords* src) {
     memcpy(&this->id, &src->id, 0xE); // id(1)+4+4+4+1 = 14
 }
 
-Packet3Dwords::~Packet3Dwords()
-{
+Packet3Dwords::~Packet3Dwords() {
     //sub_57A180
 }
 
-uint32_t Packet3Dwords::GetDataSize()
-{
+uint32_t Packet3Dwords::GetDataSize() {
     //sub_57A170  id(1) + 13 derived bytes = 0xE
     return 0x2D;
 }
@@ -507,32 +447,27 @@ uint32_t Packet3Dwords::GetDataSize()
 // ============================================================
 PacketDword PacketDword::Inst;
 
-PacketDword::PacketDword()
-{
+PacketDword::PacketDword() {
     //sub_526BB0
     this->value = 0;
 }
 
-PacketDword::PacketDword(const PacketDword* src)
-{
+PacketDword::PacketDword(const PacketDword* src) {
     //sub_526BD9
     this->id    = src->id;
     this->value = src->value;
 }
 
-PacketDword::~PacketDword()
-{
+PacketDword::~PacketDword() {
     //sub_57A360
 }
 
-Packet* PacketDword::Duplicate()
-{
+Packet* PacketDword::Duplicate() {
     //sub_57A2D0
     return new PacketDword(this);
 }
 
-uint32_t PacketDword::GetDataSize()
-{
+uint32_t PacketDword::GetDataSize() {
     //sub_57A350
     return 5; // id(1) + value(4)
 }
@@ -542,31 +477,26 @@ uint32_t PacketDword::GetDataSize()
 // ============================================================
 PacketAbility PacketAbility::Inst;
 
-PacketAbility::PacketAbility()
-{
+PacketAbility::PacketAbility() {
     //sub_526F68  id = 0x6B
     this->id = 0x6B;
 }
 
-PacketAbility::PacketAbility(const PacketAbility* src)
-{
+PacketAbility::PacketAbility(const PacketAbility* src) {
     //sub_526F8E
     memcpy(&this->id, &src->id, 5); // id + 4 bytes
 }
 
-PacketAbility::~PacketAbility()
-{
+PacketAbility::~PacketAbility() {
     //sub_57A510
 }
 
-Packet* PacketAbility::Duplicate()
-{
+Packet* PacketAbility::Duplicate() {
     //sub_57A480
     return new PacketAbility(this);
 }
 
-uint32_t PacketAbility::GetDataSize()
-{
+uint32_t PacketAbility::GetDataSize() {
     return 5; // id(1) + 4 bytes
 }
 
@@ -575,30 +505,25 @@ uint32_t PacketAbility::GetDataSize()
 // ============================================================
 PacketEight PacketEight::Inst;
 
-PacketEight::PacketEight()
-{
+PacketEight::PacketEight() {
     //sub_526FC7
 }
 
-PacketEight::PacketEight(const PacketEight* src)
-{
+PacketEight::PacketEight(const PacketEight* src) {
     //sub_526FE6
     memcpy(&this->id, &src->id, 9); // id + 8 bytes
 }
 
-PacketEight::~PacketEight()
-{
+PacketEight::~PacketEight() {
     //sub_57A5D0
 }
 
-Packet* PacketEight::Duplicate()
-{
+Packet* PacketEight::Duplicate() {
     //sub_57A540
     return new PacketEight(this);
 }
 
-uint32_t PacketEight::GetDataSize()
-{
+uint32_t PacketEight::GetDataSize() {
     //sub_57A5C0
     return 9; // id(1) + 8 bytes
 }
@@ -608,8 +533,7 @@ uint32_t PacketEight::GetDataSize()
 // ============================================================
 PacketMoveCmd PacketMoveCmd::Inst;
 
-PacketMoveCmd::PacketMoveCmd()
-{
+PacketMoveCmd::PacketMoveCmd() {
     //sub_52701F  id = 0x86
     this->id         = 0x86;
     this->field_0xc  = 0;
@@ -617,25 +541,21 @@ PacketMoveCmd::PacketMoveCmd()
     this->field_0xe  = 0;
 }
 
-PacketMoveCmd::PacketMoveCmd(const PacketMoveCmd* src)
-{
+PacketMoveCmd::PacketMoveCmd(const PacketMoveCmd* src) {
     //sub_52705A
     memcpy(&this->id, &src->id, 8); // id + 7 bytes
 }
 
-PacketMoveCmd::~PacketMoveCmd()
-{
+PacketMoveCmd::~PacketMoveCmd() {
     //sub_57A690
 }
 
-Packet* PacketMoveCmd::Duplicate()
-{
+Packet* PacketMoveCmd::Duplicate() {
     //sub_57A600
     return new PacketMoveCmd(this);
 }
 
-uint32_t PacketMoveCmd::GetDataSize()
-{
+uint32_t PacketMoveCmd::GetDataSize() {
     //sub_57A680
     return 8; // id(1) + 7 bytes
 }
@@ -645,31 +565,26 @@ uint32_t PacketMoveCmd::GetDataSize()
 // ============================================================
 PacketEffect PacketEffect::Inst;
 
-PacketEffect::PacketEffect()
-{
+PacketEffect::PacketEffect() {
     //sub_527093
     this->effect_type = 0;
 }
 
-PacketEffect::PacketEffect(const PacketEffect* src)
-{
+PacketEffect::PacketEffect(const PacketEffect* src) {
     //sub_5270B9
     memcpy(&this->id, &src->id, 4); // id + 3 bytes
 }
 
-PacketEffect::~PacketEffect()
-{
+PacketEffect::~PacketEffect() {
     //sub_57A750
 }
 
-Packet* PacketEffect::Duplicate()
-{
+Packet* PacketEffect::Duplicate() {
     //sub_57A6C0
     return new PacketEffect(this);
 }
 
-uint32_t PacketEffect::GetDataSize()
-{
+uint32_t PacketEffect::GetDataSize() {
     return 4; // id(1) + 3 bytes
 }
 
@@ -678,33 +593,28 @@ uint32_t PacketEffect::GetDataSize()
 // ============================================================
 PacketAoeZone PacketAoeZone::Inst;
 
-PacketAoeZone::PacketAoeZone()
-{
+PacketAoeZone::PacketAoeZone() {
     //sub_5270F2  id = 0x87
     this->id         = 0x87;
     this->field_0xd  = 0;
     this->field_0xe  = 0;
 }
 
-PacketAoeZone::PacketAoeZone(const PacketAoeZone* src)
-{
+PacketAoeZone::PacketAoeZone(const PacketAoeZone* src) {
     //sub_527126
     memcpy(&this->id, &src->id, 19); // id + 18 bytes
 }
 
-PacketAoeZone::~PacketAoeZone()
-{
+PacketAoeZone::~PacketAoeZone() {
     //sub_57A810
 }
 
-Packet* PacketAoeZone::Duplicate()
-{
+Packet* PacketAoeZone::Duplicate() {
     //sub_57A780
     return new PacketAoeZone(this);
 }
 
-uint32_t PacketAoeZone::GetDataSize()
-{
+uint32_t PacketAoeZone::GetDataSize() {
     //sub_57A800
     return 19; // id(1) + 18 bytes
 }
@@ -714,31 +624,26 @@ uint32_t PacketAoeZone::GetDataSize()
 // ============================================================
 PacketMount PacketMount::Inst;
 
-PacketMount::PacketMount()
-{
+PacketMount::PacketMount() {
     //sub_52715F
     this->unit_id = 0;
 }
 
-PacketMount::PacketMount(const PacketMount* src)
-{
+PacketMount::PacketMount(const PacketMount* src) {
     //sub_527187
     memcpy(&this->id, &src->id, 5); // id + 4 bytes
 }
 
-PacketMount::~PacketMount()
-{
+PacketMount::~PacketMount() {
     //sub_57A8D0
 }
 
-Packet* PacketMount::Duplicate()
-{
+Packet* PacketMount::Duplicate() {
     //sub_57A840
     return new PacketMount(this);
 }
 
-uint32_t PacketMount::GetDataSize()
-{
+uint32_t PacketMount::GetDataSize() {
     return 5; // id(1) + 4 bytes
 }
 
@@ -747,37 +652,31 @@ uint32_t PacketMount::GetDataSize()
 // ============================================================
 PacketPlayerInfo PacketPlayerInfo::Inst;
 
-PacketPlayerInfo::PacketPlayerInfo()
-{
+PacketPlayerInfo::PacketPlayerInfo() {
     //sub_5271C0
     this->count = 0;
 }
 
-PacketPlayerInfo::PacketPlayerInfo(const PacketPlayerInfo* src)
-{
+PacketPlayerInfo::PacketPlayerInfo(const PacketPlayerInfo* src) {
     //sub_5271DF
     memcpy(&this->id, &src->id, src->count + 0x2D);
 }
 
-PacketPlayerInfo::~PacketPlayerInfo()
-{
+PacketPlayerInfo::~PacketPlayerInfo() {
     //sub_57A9A0
 }
 
-Packet* PacketPlayerInfo::Duplicate()
-{
+Packet* PacketPlayerInfo::Duplicate() {
     //sub_57A900
     return new PacketPlayerInfo(this);
 }
 
-void PacketPlayerInfo::VMethod3(NetStru2* net)
-{
+void PacketPlayerInfo::VMethod3(NetStru2* net) {
     //sub_527220
     net->WriteData(&this->id, this->count + 0x2D);
 }
 
-void PacketPlayerInfo::VMethod4(NetStru2* net)
-{
+void PacketPlayerInfo::VMethod4(NetStru2* net) {
     //sub_527246  reads 0x2C bytes at +0xA, then optional count bytes at +0x36
     net->ReadData(&this->preamble[0], 0x2C);
     if (this->count > 0) {
@@ -785,8 +684,7 @@ void PacketPlayerInfo::VMethod4(NetStru2* net)
     }
 }
 
-uint32_t PacketPlayerInfo::GetDataSize()
-{
+uint32_t PacketPlayerInfo::GetDataSize() {
     //sub_57A980
     return this->count + 0x2D;
 }
@@ -796,37 +694,31 @@ uint32_t PacketPlayerInfo::GetDataSize()
 // ============================================================
 PacketData PacketData::Inst;
 
-PacketData::PacketData()
-{
+PacketData::PacketData() {
     //sub_527283
     this->count = 0;
 }
 
-PacketData::PacketData(const PacketData* src)
-{
+PacketData::PacketData(const PacketData* src) {
     //sub_5272A2
     memcpy(&this->id, &src->id, src->count + 5);
 }
 
-PacketData::~PacketData()
-{
+PacketData::~PacketData() {
     //sub_57AA70
 }
 
-Packet* PacketData::Duplicate()
-{
+Packet* PacketData::Duplicate() {
     //sub_57A9D0
     return new PacketData(this);
 }
 
-void PacketData::VMethod3(NetStru2* net)
-{
+void PacketData::VMethod3(NetStru2* net) {
     //sub_5272E3
     net->WriteData(&this->id, this->count + 5);
 }
 
-void PacketData::VMethod4(NetStru2* net)
-{
+void PacketData::VMethod4(NetStru2* net) {
     //sub_527309
     net->ReadData(&this->count, 4);
     if (this->count > 0) {
@@ -834,8 +726,7 @@ void PacketData::VMethod4(NetStru2* net)
     }
 }
 
-uint32_t PacketData::GetDataSize()
-{
+uint32_t PacketData::GetDataSize() {
     //sub_57AA50
     return this->count + 5;
 }
@@ -845,8 +736,7 @@ uint32_t PacketData::GetDataSize()
 // ============================================================
 PacketUnitStateVec PacketUnitStateVec::Inst;
 
-PacketUnitStateVec::PacketUnitStateVec()
-{
+PacketUnitStateVec::PacketUnitStateVec() {
     //sub_527415  id = 0x76
     this->id          = 0x76;
     this->entry_count = 0;
@@ -854,26 +744,22 @@ PacketUnitStateVec::PacketUnitStateVec()
     this->data_size   = 0;
 }
 
-PacketUnitStateVec::PacketUnitStateVec(const PacketUnitStateVec* src)
-{
+PacketUnitStateVec::PacketUnitStateVec(const PacketUnitStateVec* src) {
     //sub_527473
     memcpy(&this->id, &src->id, 10);
     memcpy(this->data, src->data, src->data_size);
 }
 
-PacketUnitStateVec::~PacketUnitStateVec()
-{
+PacketUnitStateVec::~PacketUnitStateVec() {
     //sub_57AC10
 }
 
-Packet* PacketUnitStateVec::Duplicate()
-{
+Packet* PacketUnitStateVec::Duplicate() {
     //sub_57AB70
     return new PacketUnitStateVec(this);
 }
 
-void PacketUnitStateVec::VMethod3(NetStru2* net)
-{
+void PacketUnitStateVec::VMethod3(NetStru2* net) {
     //sub_5274CC
     net->WriteData(&this->id, 0xA);
     if (this->entry_count > 0) {
@@ -882,8 +768,7 @@ void PacketUnitStateVec::VMethod3(NetStru2* net)
     }
 }
 
-void PacketUnitStateVec::VMethod4(NetStru2* net)
-{
+void PacketUnitStateVec::VMethod4(NetStru2* net) {
     //sub_527528
     net->ReadData(&this->building_id, 9);
     if (this->entry_count > 0) {
@@ -891,8 +776,7 @@ void PacketUnitStateVec::VMethod4(NetStru2* net)
     }
 }
 
-uint32_t PacketUnitStateVec::GetDataSize()
-{
+uint32_t PacketUnitStateVec::GetDataSize() {
     //sub_57ABF0
     return 0xA + (this->entry_count ? this->data_size : 0);
 }
@@ -902,31 +786,26 @@ uint32_t PacketUnitStateVec::GetDataSize()
 // ============================================================
 PacketSync PacketSync::Inst;
 
-PacketSync::PacketSync()
-{
+PacketSync::PacketSync() {
     //sub_527810  id = 0x82
     this->id = 0x82;
 }
 
-PacketSync::PacketSync(const PacketSync* src)
-{
+PacketSync::PacketSync(const PacketSync* src) {
     //sub_527836
     memcpy(&this->id, &src->id, 5); // id + 4 bytes
 }
 
-PacketSync::~PacketSync()
-{
+PacketSync::~PacketSync() {
     //sub_57ACD0
 }
 
-Packet* PacketSync::Duplicate()
-{
+Packet* PacketSync::Duplicate() {
     //sub_57AC40
     return new PacketSync(this);
 }
 
-uint32_t PacketSync::GetDataSize()
-{
+uint32_t PacketSync::GetDataSize() {
     return 5; // id(1) + 4 bytes
 }
 
@@ -935,32 +814,27 @@ uint32_t PacketSync::GetDataSize()
 // ============================================================
 PacketUnitProperties PacketUnitProperties::Inst;
 
-PacketUnitProperties::PacketUnitProperties()
-{
+PacketUnitProperties::PacketUnitProperties() {
     //sub_52786F  id = 0
     this->id    = 0;
     this->flags = 0;
 }
 
-PacketUnitProperties::PacketUnitProperties(const PacketUnitProperties* src)
-{
+PacketUnitProperties::PacketUnitProperties(const PacketUnitProperties* src) {
     //sub_527895
     memcpy(&this->id, &src->id, 0x1D); // id + 28 bytes (max)
 }
 
-PacketUnitProperties::~PacketUnitProperties()
-{
+PacketUnitProperties::~PacketUnitProperties() {
     //sub_57AD80
 }
 
-Packet* PacketUnitProperties::Duplicate()
-{
+Packet* PacketUnitProperties::Duplicate() {
     //sub_57AD00
     return new PacketUnitProperties(this);
 }
 
-uint32_t PacketUnitProperties::GetDataSize()
-{
+uint32_t PacketUnitProperties::GetDataSize() {
     //sub_5278CE  variable: 0x1D - (12 - popcount(flags)) * 2
     int popcount = 0;
     for (int i = 0; i < 12; i++) {
@@ -976,30 +850,25 @@ uint32_t PacketUnitProperties::GetDataSize()
 // ============================================================
 PacketPing PacketPing::Inst;
 
-PacketPing::PacketPing()
-{
+PacketPing::PacketPing() {
     //sub_52792F
 }
 
-PacketPing::PacketPing(const PacketPing* src)
-{
+PacketPing::PacketPing(const PacketPing* src) {
     //sub_52794E
     memcpy(&this->id, &src->id, 5); // id + 4 bytes
 }
 
-PacketPing::~PacketPing()
-{
+PacketPing::~PacketPing() {
     //sub_57AE40
 }
 
-Packet* PacketPing::Duplicate()
-{
+Packet* PacketPing::Duplicate() {
     //sub_57ADB0
     return new PacketPing(this);
 }
 
-uint32_t PacketPing::GetDataSize()
-{
+uint32_t PacketPing::GetDataSize() {
     // sub_57ae30
     return 5; // id(1) + 4 bytes
 }

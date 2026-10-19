@@ -12,21 +12,18 @@ Resources Resources::ResFiles;
 FatEntry* ResBase::g_lastDstRoot = nullptr;
 
 
-uint16_t Resources::GetPathType(const char* path)
-{
+uint16_t Resources::GetPathType(const char* path) {
 	// 4e6de0
 
 	WIN32_FIND_DATAA fnd;
 	HANDLE hfind = FindFirstFileA(path, &fnd);
 	FindClose(hfind);
-	if (hfind == INVALID_HANDLE_VALUE)
-	{
+	if (hfind == INVALID_HANDLE_VALUE) {
 		char letter = tolower(*path);
 
 		char buf[104];
 		DWORD num = GetLogicalDriveStringsA(100, buf);
-		for (DWORD i = 0; i < num; i++)
-		{
+		for (DWORD i = 0; i < num; i++) {
 			if (isalpha(buf[i])) {
 				buf[i] = tolower(buf[i]);
 			}
@@ -45,8 +42,7 @@ uint16_t Resources::GetPathType(const char* path)
 	return 2;
 }
 
-Resources::Resources()
-{
+Resources::Resources() {
 	//4e5e06
 
 	char path[260];
@@ -54,27 +50,23 @@ Resources::Resources()
 	this->AddPath(path);
 }
 
-Resources::~Resources()
-{
+Resources::~Resources() {
     //4e5e9f
 
-    for (uint32_t i = 0; i < this->res_files.GetSize(); i++)
-    {
+    for (uint32_t i = 0; i < this->res_files.GetSize(); i++) {
         if (this->res_files[i] != nullptr) {
             delete this->res_files[i];
         }
     }
 
-    for (uint32_t i = 0; i < this->files.GetSize(); i++)
-    {
+    for (uint32_t i = 0; i < this->files.GetSize(); i++) {
         if (this->files[i] != nullptr) {
             delete this->files[i];
         }
     }
 }
 
-void Resources::AddPath(const char* path)
-{
+void Resources::AddPath(const char* path) {
 	//4e6273
 	if (GetPathType(path) != 2) {
         #ifdef A2SERVER_PATCH
@@ -91,8 +83,7 @@ void Resources::AddPath(const char* path)
 	this->field_0x14.Add(buf);
 }
 
-void Resources::AddResFile(const char* path)
-{
+void Resources::AddResFile(const char* path) {
 	//4e605a
 	char buf[1024];
 	pathStrCpy(path, buf);
@@ -115,16 +106,14 @@ void Resources::AddResFile(const char* path)
 
 
 
-void Resources::StaticAddPath(const char* path)
-{
+void Resources::StaticAddPath(const char* path) {
 	//4e6242
 	char buf[1024];
 	pathStrCpy(path, buf);
 	ResFiles.AddPath(buf);
 }
 
-void Resources::StaticAddResFile(const char* path)
-{
+void Resources::StaticAddResFile(const char* path) {
 	//4e6211
 	char buf[1024];
 	pathStrCpy(path, buf);
@@ -132,17 +121,14 @@ void Resources::StaticAddResFile(const char* path)
 }
 
 
-FatInfo* Resources::FUN_004e646d(const char* fpath)
-{
+FatInfo* Resources::FUN_004e646d(const char* fpath) {
     //4e646d
     char buf[1024];
     pathStrCpy(fpath, buf);
 
-    for (uint32_t i = 0; i < this->res_files.GetSize(); i++)
-    {
+    for (uint32_t i = 0; i < this->res_files.GetSize(); i++) {
         FatInfo* inf = this->res_files[i]->FUN_004e5d55(buf);
-        if (inf != nullptr)
-        {
+        if (inf != nullptr) {
             if (inf != FATINFO_T1) {
                 return inf;
             }
@@ -151,8 +137,7 @@ FatInfo* Resources::FUN_004e646d(const char* fpath)
     }
 
     CFile* cfile = new CFile();
-    for (uint32_t i = 0; i < this->field_0x14.GetSize(); i++)
-    {
+    for (uint32_t i = 0; i < this->field_0x14.GetSize(); i++) {
         char dbuf[256];
         strcpy(dbuf, this->field_0x14[i]);
 
@@ -164,8 +149,7 @@ FatInfo* Resources::FUN_004e646d(const char* fpath)
         strcat(dbuf, buf);
 
         CFileException exc;
-        if (cfile->Open(dbuf, 0, &exc) == FALSE)
-        {
+        if (cfile->Open(dbuf, 0, &exc) == FALSE) {
             if (exc.m_cause != CFileException::fileNotFound && exc.m_cause != CFileException::badPath) {
                 AfxThrowFileException(exc.m_cause);
             }
@@ -186,13 +170,10 @@ FatInfo* Resources::FUN_004e646d(const char* fpath)
     return nullptr;
 }
 
-void Resources::FUN_004e6763(CFile* fil)
-{
+void Resources::FUN_004e6763(CFile* fil) {
     //4e6763
-    for (int i = 0; i < this->files.GetSize(); i++)
-    {
-        if (this->files[i] == fil)
-        {
+    for (int i = 0; i < this->files.GetSize(); i++) {
+        if (this->files[i] == fil) {
             delete fil;
             this->files.RemoveAt(i);
             break;
@@ -200,22 +181,18 @@ void Resources::FUN_004e6763(CFile* fil)
     }
 }
 
-void Resources::FUN_004e6409(const char* fname)
-{
+void Resources::FUN_004e6409(const char* fname) {
     //4e6409
-    for (int i = 0; i < this->res_files.GetSize(); i++)
-    {
+    for (int i = 0; i < this->res_files.GetSize(); i++) {
         FatEntry *fat = this->res_files[i]->FUN_004eca63(fname);
-        if (fat)
-        {
+        if (fat) {
             fat->flags |= 0x20000000;
             break;
         }
     }
 }
 
-void Resources::FUN_004e632d(const char* fname)
-{
+void Resources::FUN_004e632d(const char* fname) {
     //4e632d
     FILE* f = fopen(fname, "r");
     if (!f) {
@@ -223,8 +200,7 @@ void Resources::FUN_004e632d(const char* fname)
     }
 
     char bufline[256];
-    while (fgets(bufline, 255, f) && isprint(bufline[0]))
-    {
+    while (fgets(bufline, 255, f) && isprint(bufline[0])) {
         char* pc = strchr(bufline, '\n');
         if (pc) {
             *pc = 0;
@@ -243,8 +219,7 @@ void Resources::FUN_004e632d(const char* fname)
 
 
 
-ResFile::ResFile(const char* fpath)
-{
+ResFile::ResFile(const char* fpath) {
     //4e5950
     this->modify_fat = nullptr;
 
@@ -266,8 +241,7 @@ ResFile::ResFile(const char* fpath)
     *pext = 0;
 
     char* pchar = pext;
-    while (*pchar != '\\' && *pchar != '/' && pchar != buf)
-    {
+    while (*pchar != '\\' && *pchar != '/' && pchar != buf) {
         pchar--;
     }
 
@@ -297,8 +271,7 @@ ResFile::ResFile(const char* fpath)
         this->field_0x3c = 1;
     }
 
-    if (this->field_0x3c == 0)
-    {
+    if (this->field_0x3c == 0) {
         this->size = this->fat_size;
         this->fat_data = (FatEntry*)malloc(this->size * sizeof(FatEntry));
 
@@ -324,8 +297,7 @@ ResFile::ResFile(const char* fpath)
     this->field_0x30 = 0;
 }
 
-ResFile::~ResFile()
-{
+ResFile::~ResFile() {
     //4e5d0b
     if (this->fat_data) {
         free(this->fat_data);
@@ -337,8 +309,7 @@ ResFile::~ResFile()
 }
 
 
-RegFile::RegFile()
-{
+RegFile::RegFile() {
     //4e84c0
     this->modify_fat = nullptr;
     this->fat_offset = 0x20;
@@ -368,8 +339,7 @@ RegFile::RegFile()
 }
 
 
-RegFile::RegFile(const char* fpath)
-{
+RegFile::RegFile(const char* fpath) {
     //4e8585
 
     this->modify_fat = nullptr;
@@ -377,8 +347,7 @@ RegFile::RegFile(const char* fpath)
     File2 *cfile = new File2();
 
     CFileException exc;
-    if (cfile->Open(fpath, 0, &exc) == FALSE)
-    {
+    if (cfile->Open(fpath, 0, &exc) == FALSE) {
         if (cfile) {
             delete cfile;
         }
@@ -417,8 +386,7 @@ RegFile::RegFile(const char* fpath)
     }
 }
 
-RegFile::~RegFile()
-{
+RegFile::~RegFile() {
     //4e9989
     if (this->fat_data) {
         free(this->fat_data);
@@ -432,8 +400,7 @@ RegFile::~RegFile()
 
 
 
-FatEntry* ResBase::Find(FatEntry* node, const char* fname)
-{
+FatEntry* ResBase::Find(FatEntry* node, const char* fname) {
     //4eca9e
     if (!node) {
         return nullptr;
@@ -441,15 +408,13 @@ FatEntry* ResBase::Find(FatEntry* node, const char* fname)
 
     FatEntry* searchBase = this->fat_data + node->offset;
 
-    if ((node->flags & 0x10) != 0 && node->size != 0)
-    {
+    if ((node->flags & 0x10) != 0 && node->size != 0) {
         FatEntry tmp;
         tmp.SetName(fname);
         return (FatEntry*)bsearch(&tmp, searchBase, node->size, sizeof(FatEntry), FatEntry::NameCompare);
     }
 
-    for (int i = 0; i < node->size; i++)
-    {
+    for (int i = 0; i < node->size; i++) {
         if (_strnicmp(fname, searchBase[i].name, 15) == 0) {
             return &searchBase[i];
         }
@@ -459,8 +424,7 @@ FatEntry* ResBase::Find(FatEntry* node, const char* fname)
 }
 
 
-FatEntry* ResBase::FindNext(FatEntry* node, const char** fpath)
-{
+FatEntry* ResBase::FindNext(FatEntry* node, const char** fpath) {
     //4ecb78
     
     // 10.02.2026
@@ -469,8 +433,7 @@ FatEntry* ResBase::FindNext(FatEntry* node, const char** fpath)
     int buflen = 0;
 
     const char* pchar = *fpath;
-    while (*pchar != '\\' && *pchar != '/' && *pchar != 0)
-    {
+    while (*pchar != '\\' && *pchar != '/' && *pchar != 0) {
         buf[buflen] = *pchar;
         buflen++;
 
@@ -490,11 +453,9 @@ FatEntry* ResBase::FindNext(FatEntry* node, const char** fpath)
     return node_find;
 }
 
-FatEntry* ResBase::TracePath(const char* fpath)
-{
+FatEntry* ResBase::TracePath(const char* fpath) {
     //4ec956
-    for (char* pchar = this->root.name; *fpath != '\\' && *fpath != '/' && *fpath != 0 && *pchar != 0; fpath++, pchar++)
-    {
+    for (char* pchar = this->root.name; *fpath != '\\' && *fpath != '/' && *fpath != 0 && *pchar != 0; fpath++, pchar++) {
         if (*fpath != *pchar) {
             return nullptr;
         }
@@ -506,8 +467,7 @@ FatEntry* ResBase::TracePath(const char* fpath)
 
     FatEntry* node = &this->root;
 
-    while (true)
-    {
+    while (true) {
         if (*fpath == 0) {
             return node;
         }
@@ -525,12 +485,10 @@ FatEntry* ResBase::TracePath(const char* fpath)
     return nullptr;
 }
 
-void ResBase::GrowFat()
-{
+void ResBase::GrowFat() {
     //4ec8f4
 
-    if (this->fat_size + 1 >= this->size)
-    {
+    if (this->fat_size + 1 >= this->size) {
         this->size += 1 + (this->size / 4);
         this->fat_data = (FatEntry*)realloc(this->fat_data, this->size * sizeof(FatEntry));
         if (this->fat_data == nullptr) {
@@ -539,26 +497,22 @@ void ResBase::GrowFat()
     }
 }
 
-void ResBase::FUN_004ecc05(FatEntry* node)
-{
+void ResBase::FUN_004ecc05(FatEntry* node) {
     //4ecc05
     static int DAT_006a6a64 = 0;
 
-    if ((node->flags & 0x40000001) == 0)
-    {
+    if ((node->flags & 0x40000001) == 0) {
         node->flags |= 0x40000000;
 
         int8_t tmp = (node->flags & 0xe) >> 1;
         if (tmp != 1 && tmp != 2) {
             this->field_0x30 += node->size;
         }
-    } else if ((node->flags & 0x40000001) == 1)
-    {
+    } else if ((node->flags & 0x40000001) == 1) {
         node->flags |= 0x40000000;
         
         uint32_t cnt = 0;
-        while (cnt < node->size)
-        {
+        while (cnt < node->size) {
             this->FUN_004ecc05(this->fat_data + node->offset + cnt);
 
             if (DAT_006a6a64) {
@@ -570,15 +524,13 @@ void ResBase::FUN_004ecc05(FatEntry* node)
     }
 }
 
-void ResBase::FUN_004ec553(FatEntry* newFat, int* pCount, const FatEntry* srcFat, const FatEntry* srcRoot, FatEntry* node, FatEntry* dstRoot)
-{
+void ResBase::FUN_004ec553(FatEntry* newFat, int* pCount, const FatEntry* srcFat, const FatEntry* srcRoot, FatEntry* node, FatEntry* dstRoot) {
     //4ec553
 
     int32_t newSize = 0;
     int32_t fatOffset = *pCount;
 
-    if (srcRoot == node)
-    {
+    if (srcRoot == node) {
         fatOffset = this->fat_size - node->size;
         g_lastDstRoot = dstRoot;
     }
@@ -590,10 +542,8 @@ void ResBase::FUN_004ec553(FatEntry* newFat, int* pCount, const FatEntry* srcFat
     dstRoot->flags = srcRoot->flags & (~0x10);
     dstRoot->magic = srcRoot->magic;
 
-    for (uint32_t i = 0; i < srcRoot->size; i++)
-    {
-        if ((srcFat[srcOffset + i].flags & 0x40000001) == 0)
-        {            
+    for (uint32_t i = 0; i < srcRoot->size; i++) {
+        if ((srcFat[srcOffset + i].flags & 0x40000001) == 0) {
             newFat[fatOffset] = srcFat[srcOffset + i];
 
             fatOffset++;
@@ -601,8 +551,7 @@ void ResBase::FUN_004ec553(FatEntry* newFat, int* pCount, const FatEntry* srcFat
         }
     }
 
-    for (uint32_t i = 0; i < srcRoot->size; i++)
-    {
+    for (uint32_t i = 0; i < srcRoot->size; i++) {
         if ((srcFat[srcOffset + i].flags & 0x40000001) == 1) {
             newSize++;
         }
@@ -612,10 +561,8 @@ void ResBase::FUN_004ec553(FatEntry* newFat, int* pCount, const FatEntry* srcFat
         *pCount += newSize;
     }
 
-    for (uint32_t i = 0; i < srcRoot->size; i++)
-    {
-        if ((srcFat[srcOffset + i].flags & 0x40000001) == 1)
-        {
+    for (uint32_t i = 0; i < srcRoot->size; i++) {
+        if ((srcFat[srcOffset + i].flags & 0x40000001) == 1) {
             this->FUN_004ec553(newFat, pCount, srcFat, srcFat + srcOffset + i, node, newFat + fatOffset);
             fatOffset++;
         }
@@ -624,8 +571,7 @@ void ResBase::FUN_004ec553(FatEntry* newFat, int* pCount, const FatEntry* srcFat
     dstRoot->size = newSize;
 }
 
-FatEntry* ResBase::FUN_004ec438(FatEntry* node)
-{
+FatEntry* ResBase::FUN_004ec438(FatEntry* node) {
     // 4ec438
     if (node == this->modify_fat) {
         return node;
@@ -633,8 +579,7 @@ FatEntry* ResBase::FUN_004ec438(FatEntry* node)
 
     FatEntry *newFat = (FatEntry*)malloc(this->size * sizeof(FatEntry));
 
-    if (newFat == nullptr)
-    {
+    if (newFat == nullptr) {
         AfxThrowMemoryException();
         return nullptr;
     }
@@ -644,8 +589,7 @@ FatEntry* ResBase::FUN_004ec438(FatEntry* node)
 
     this->FUN_004ec553(newFat, &exactSize, this->fat_data, &this->root, node, &this->root);
 
-    if (aproxSize != exactSize)
-    {
+    if (aproxSize != exactSize) {
         for (uint32_t i = 0; i < g_lastDstRoot->size; i++) {
             newFat[exactSize + i] = newFat[aproxSize + i];
         }
@@ -667,8 +611,7 @@ FatEntry* ResBase::FUN_004ec438(FatEntry* node)
 
 
 
-FatEntry* ResBase::FUN_004ec7e0(FatEntry** pOldNode, const char* fname)
-{
+FatEntry* ResBase::FUN_004ec7e0(FatEntry** pOldNode, const char* fname) {
     //4ec7e0
     FatEntry* oldFat = this->fat_data; // save old pointer
 
@@ -696,24 +639,20 @@ FatEntry* ResBase::FUN_004ec7e0(FatEntry** pOldNode, const char* fname)
 }
 
 
-void ResBase::SortTree(FatEntry* root)
-{
+void ResBase::SortTree(FatEntry* root) {
     //4ec736
-    for (uint32_t i = 0; i < root->size; i++)
-    {
+    for (uint32_t i = 0; i < root->size; i++) {
         if ((this->fat_data[root->offset + root->size].flags & 0x40000001) == 1) {
             this->SortTree(this->fat_data + root->offset + root->size);
         }
     }
-    if (root->size != 0)
-    {
+    if (root->size != 0) {
         qsort(this->fat_data + root->offset, root->size, sizeof(FatEntry), FatEntry::NameCompare);
         root->flags |= 0x10;
     }
 }
 
-void ResBase::WriteToFile(CFile* cfile, int32_t offset)
-{
+void ResBase::WriteToFile(CFile* cfile, int32_t offset) {
     //4e8396
     this->SortTree(&this->root);
 
@@ -732,8 +671,7 @@ void ResBase::WriteToFile(CFile* cfile, int32_t offset)
     cfile->Write(this->pdata, this->field_0x3c);
 }
 
-void ResBase::ReadFromFile(CFile* cfile, int32_t offset)
-{
+void ResBase::ReadFromFile(CFile* cfile, int32_t offset) {
     //4e819c
     if (offset != -1) { 
         this->file->Seek(offset, 0);
@@ -753,8 +691,7 @@ void ResBase::ReadFromFile(CFile* cfile, int32_t offset)
 
     if (this->fat_data == nullptr) {
         this->fat_data = (FatEntry*)malloc(this->fat_size * sizeof(FatEntry));
-    } else
-    {
+    } else {
         if (this->fat_size == 0) {
             this->fat_data = (FatEntry*)realloc(this->fat_data, 1 * sizeof(FatEntry));
         } else {
@@ -762,8 +699,7 @@ void ResBase::ReadFromFile(CFile* cfile, int32_t offset)
         }
     }
 
-    if (this->fat_data == nullptr)
-    {
+    if (this->fat_data == nullptr) {
         AfxThrowMemoryException();
         return;
     }
@@ -778,8 +714,7 @@ void ResBase::ReadFromFile(CFile* cfile, int32_t offset)
 
     if (this->pdata == nullptr) {
         this->pdata = (uint8_t *)malloc(this->field_0x3c);
-    } else
-    {
+    } else {
         if (this->field_0x3c == 0) {
             this->pdata = (uint8_t*)realloc(this->pdata, 1);
         } else {
@@ -787,8 +722,7 @@ void ResBase::ReadFromFile(CFile* cfile, int32_t offset)
         }
     }
 
-    if (this->pdata == nullptr)
-    {
+    if (this->pdata == nullptr) {
         AfxThrowMemoryException();
         return;
     }
@@ -798,15 +732,13 @@ void ResBase::ReadFromFile(CFile* cfile, int32_t offset)
     }
 }
 
-FatEntry* ResBase::FUN_004ec8c6(const char* fpath, const char* fname)
-{
+FatEntry* ResBase::FUN_004ec8c6(const char* fpath, const char* fname) {
     //4ec8c6
     FatEntry* pathNode = this->TracePath(fpath);
     return this->FUN_004ec7e0(&pathNode, fname);
 }
 
-FatEntry* ResBase::FUN_004ea183(const char* fpath, const char* fname)
-{
+FatEntry* ResBase::FUN_004ea183(const char* fpath, const char* fname) {
     //4ea183
     FatEntry *pathNode = this->TracePath(fpath);
     if (pathNode == nullptr) {
@@ -822,8 +754,7 @@ FatEntry* ResBase::FUN_004ea183(const char* fpath, const char* fname)
     return node;
 }
 
-FatEntry* ResBase::FUN_004eca16(const char* fpath)
-{
+FatEntry* ResBase::FUN_004eca16(const char* fpath) {
     //4eca16
     FatEntry* node = this->TracePath(fpath);
     if (node == nullptr) {
@@ -837,8 +768,7 @@ FatEntry* ResBase::FUN_004eca16(const char* fpath)
     return node;
 }
 
-FatEntry* ResBase::FUN_004eca63(const char* fpath)
-{
+FatEntry* ResBase::FUN_004eca63(const char* fpath) {
     //4eca63
     FatEntry* node = this->TracePath(fpath);
 
@@ -849,8 +779,7 @@ FatEntry* ResBase::FUN_004eca63(const char* fpath)
     return node;
 }
 
-FatInfo* ResBase::FUN_004e5d55(const char* fpath)
-{
+FatInfo* ResBase::FUN_004e5d55(const char* fpath) {
     //4e5d55
     FatEntry* node = this->FUN_004eca63(fpath);
     if (node == nullptr) {
@@ -870,14 +799,12 @@ FatInfo* ResBase::FUN_004e5d55(const char* fpath)
 }
 
 
-int ResBase::GetSizedString(const char* fpath, const char* fname, const char* defval, char* out, uint32_t sz)
-{
+int ResBase::GetSizedString(const char* fpath, const char* fname, const char* defval, char* out, uint32_t sz) {
     //4ea2d2
     FatEntry *nodepath = this->Find(&this->root, fpath);
     FatEntry *node = this->Find(nodepath, fname);
 
-    if (node == nullptr) 
-    {
+    if (node == nullptr) {
         uint32_t copylen = strlen(defval);
 
         if (sz < copylen + 1) {
@@ -893,8 +820,7 @@ int ResBase::GetSizedString(const char* fpath, const char* fname, const char* de
     char buf[32];
 
     int ntype = (node->flags & 0xe) >> 1;
-    switch (ntype)
-    {
+    switch (ntype) {
     case 0:
         if (sz < node->size) {
             strncpy(out, (char *)this->pdata + node->offset, sz);
@@ -915,11 +841,9 @@ int ResBase::GetSizedString(const char* fpath, const char* fname, const char* de
         strncpy(out, buf, sz);
         break;
 
-    case 3:
-    {
+    case 3: {
         char *pout = out;
-        for (uint32_t i = 0; i < node->size / 4; i++)
-        {
+        for (uint32_t i = 0; i < node->size / 4; i++) {
             _itoa(*((int *)(this->pdata + node->offset) + i), buf, 10);
 
             if (i < (node->size / 4) - 1) {
@@ -949,11 +873,9 @@ int ResBase::GetSizedString(const char* fpath, const char* fname, const char* de
         out[sz - 1] = 0;
         break;
 
-    case 5:
-    {
+    case 5: {
         char *pout = out;
-        for (uint32_t i = 0; i < node->size / 8; i++)
-        {
+        for (uint32_t i = 0; i < node->size / 8; i++) {
             sprintf(buf, "%f", *((double*)(this->pdata + node->offset) + i));
 
             if (i < (node->size / 8) - 1) {
@@ -979,8 +901,7 @@ int ResBase::GetSizedString(const char* fpath, const char* fname, const char* de
 }
 
 
-void ResBase::FUN_004e99c4()
-{
+void ResBase::FUN_004e99c4() {
     //4e99c4
     this->modify_fat = nullptr;
     this->field_0x30 = 0;
@@ -989,8 +910,7 @@ void ResBase::FUN_004e99c4()
 
     FatEntry** pnodes = new FatEntry*[this->fat_size]();
 
-    if (pnodes == nullptr)
-    {
+    if (pnodes == nullptr) {
         AfxThrowMemoryException();
         return;
     }
@@ -1003,28 +923,22 @@ void ResBase::FUN_004e99c4()
 
     uint32_t idx = 0;
     uint32_t n = 1;
-    for ( idx = 0; idx < this->fat_size; idx++)
-    {
-        if ((this->fat_data[idx].flags & 0x40000001) == 0)
-        {
+    for ( idx = 0; idx < this->fat_size; idx++) {
+        if ((this->fat_data[idx].flags & 0x40000001) == 0) {
             int tp = (this->fat_data[idx].flags & 0xe) >> 1;
-            if (tp != 1 && tp != 2)
-            {
+            if (tp != 1 && tp != 2) {
                 pnodes[n] = this->fat_data + idx;
                 n++;
             }
         }
     }
 
-    if (n > 1)
-    {
+    if (n > 1) {
         qsort(pnodes, n, sizeof(FatEntry *), FatEntry::SortCompare);
 
-        for (idx = 0; idx < n - 1; idx++)
-        {
+        for (idx = 0; idx < n - 1; idx++) {
             uint32_t of = pnodes[idx + 1]->offset - (pnodes[idx]->offset + pnodes[idx]->size);
-            if (of != 0)
-            {
+            if (of != 0) {
                 FatEntry* nd = pnodes[idx + 1];
                 memcpy(this->pdata + nd->offset, this->pdata + of + nd->offset, nd->size);
                 nd->offset -= of;
@@ -1038,23 +952,18 @@ void ResBase::FUN_004e99c4()
     delete[] pnodes;
 }
 
-uint8_t *ResBase::AllocData(uint32_t size)
-{
+uint8_t *ResBase::AllocData(uint32_t size) {
     //4e9bb6
 
-    if (this->fat_offset <= this->field_0x3c + size)
-    {
-        if (this->field_0x3c / 8 < this->field_0x30)
-        {
+    if (this->fat_offset <= this->field_0x3c + size) {
+        if (this->field_0x3c / 8 < this->field_0x30) {
             this->FUN_004e99c4();
 
-            if (this->fat_offset <= this->field_0x3c + size)
-            {
+            if (this->fat_offset <= this->field_0x3c + size) {
                 this->fat_offset += size + (this->fat_offset / 8);
                 this->pdata = (uint8_t *)realloc(this->pdata, this->fat_offset);
 
-                if (this->pdata == nullptr)
-                {
+                if (this->pdata == nullptr) {
                     AfxThrowMemoryException();
                     return nullptr;
                 }
@@ -1064,8 +973,7 @@ uint8_t *ResBase::AllocData(uint32_t size)
 
             this->pdata = (uint8_t*)realloc(this->pdata, this->fat_offset);
 
-            if (this->pdata == nullptr)
-            {
+            if (this->pdata == nullptr) {
                 AfxThrowMemoryException();
                 return nullptr;
             }
@@ -1076,14 +984,12 @@ uint8_t *ResBase::AllocData(uint32_t size)
     return this->pdata + off;
 }
 
-void ResBase::SetString(const char* fpath, const char* fname, const char* str)
-{
+void ResBase::SetString(const char* fpath, const char* fname, const char* str) {
     //4ea73d
     FatEntry* nodePath = this->Find(&this->root, fpath);
     FatEntry* node = this->Find(nodePath, fname);
 
-    if (node == nullptr)
-    {
+    if (node == nullptr) {
         if (nodePath == nullptr) {
             nodePath = this->FUN_004ea183(this->root.name, fpath);
         }
@@ -1100,8 +1006,7 @@ void ResBase::SetString(const char* fpath, const char* fname, const char* str)
     }
     
     int ln = strlen(str) + 1;
-    if (node->size < ln)
-    {
+    if (node->size < ln) {
         this->field_0x30 += node->size;
         node->size = ln;
         node->offset = this->AllocData(ln) - this->pdata;
@@ -1113,14 +1018,12 @@ void ResBase::SetString(const char* fpath, const char* fname, const char* str)
 }
 
 
-void ResBase::SetInt(const char* fpath, const char* fname, int32_t val)
-{
+void ResBase::SetInt(const char* fpath, const char* fname, int32_t val) {
     //4ea928
     FatEntry* nodePath = this->Find(&this->root, fpath);
     FatEntry* node = this->Find(nodePath, fname);
 
-    if (node == nullptr)
-    {
+    if (node == nullptr) {
         if (nodePath == nullptr) {
             nodePath = this->FUN_004ea183(this->root.name, fpath);
         }
@@ -1138,14 +1041,12 @@ void ResBase::SetInt(const char* fpath, const char* fname, int32_t val)
     }
 }
 
-void ResBase::SetDouble(const char* fpath, const char* fname, double val)
-{
+void ResBase::SetDouble(const char* fpath, const char* fname, double val) {
     //4eaa8b
     FatEntry* nodePath = this->Find(&this->root, fpath);
     FatEntry* node = this->Find(nodePath, fname);
 
-    if (node == nullptr)
-    {
+    if (node == nullptr) {
         if (nodePath == nullptr) {
             nodePath = this->FUN_004ea183(this->root.name, fpath);
         }
@@ -1166,14 +1067,12 @@ void ResBase::SetDouble(const char* fpath, const char* fname, double val)
 }
 
 
-void ResBase::SetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>& array)
-{
+void ResBase::SetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>& array) {
     //4eb2a3
     FatEntry* nodePath = this->Find(&this->root, fpath);
     FatEntry* node = this->Find(nodePath, fname);
 
-    if (node == nullptr)
-    {
+    if (node == nullptr) {
         if (nodePath == nullptr) {
             nodePath = this->FUN_004ea183(this->root.name, fpath);
         }
@@ -1190,8 +1089,7 @@ void ResBase::SetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>
     }
 
     uint32_t ln = array.GetSize() * 4;
-    if (node->size < ln)
-    {
+    if (node->size < ln) {
         this->field_0x30 += node->size;
         node->size = ln;
         node->offset = this->AllocData(node->size) - this->pdata;
@@ -1205,14 +1103,12 @@ void ResBase::SetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>
 }
 
 
-void ResBase::SetInt16Array(const char* fpath, const char* fname, CArray<uint16_t>& array)
-{
+void ResBase::SetInt16Array(const char* fpath, const char* fname, CArray<uint16_t>& array) {
     //4eb43a
     FatEntry* nodePath = this->Find(&this->root, fpath);
     FatEntry* node = this->Find(nodePath, fname);
 
-    if (node == nullptr)
-    {
+    if (node == nullptr) {
         if (nodePath == nullptr) {
             nodePath = this->FUN_004ea183(this->root.name, fpath);
         }
@@ -1229,8 +1125,7 @@ void ResBase::SetInt16Array(const char* fpath, const char* fname, CArray<uint16_
     }
 
     uint32_t ln = array.GetSize() * 4;
-    if (node->size < ln)
-    {
+    if (node->size < ln) {
         this->field_0x30 += node->size;
         node->size = ln;
         node->offset = this->AllocData(node->size) - this->pdata;
@@ -1244,14 +1139,12 @@ void ResBase::SetInt16Array(const char* fpath, const char* fname, CArray<uint16_
 }
 
 
-void ResBase::SetInt32Array(const char* fpath, const char* fname, CArray<uint32_t>& array)
-{
+void ResBase::SetInt32Array(const char* fpath, const char* fname, CArray<uint32_t>& array) {
     //4eb5d2
     FatEntry* nodePath = this->Find(&this->root, fpath);
     FatEntry* node = this->Find(nodePath, fname);
 
-    if (node == nullptr)
-    {
+    if (node == nullptr) {
         if (nodePath == nullptr) {
             nodePath = this->FUN_004ea183(this->root.name, fpath);
         }
@@ -1268,8 +1161,7 @@ void ResBase::SetInt32Array(const char* fpath, const char* fname, CArray<uint32_
     }
 
     uint32_t ln = array.GetSize() * 4;
-    if (node->size < ln)
-    {
+    if (node->size < ln) {
         this->field_0x30 += node->size;
         node->size = ln;
         node->offset = this->AllocData(node->size) - this->pdata;
@@ -1283,8 +1175,7 @@ void ResBase::SetInt32Array(const char* fpath, const char* fname, CArray<uint32_
 }
 
 
-CString ResBase::GetValueString(const char* fpath, const char* fname, const char* defval)
-{
+CString ResBase::GetValueString(const char* fpath, const char* fname, const char* defval) {
     //4ea69d
 
     char buf[0x800];
@@ -1292,8 +1183,7 @@ CString ResBase::GetValueString(const char* fpath, const char* fname, const char
     return buf;
 }
 
-int32_t ResBase::GetInt(const char* fpath, const char* fname, int32_t defval)
-{
+int32_t ResBase::GetInt(const char* fpath, const char* fname, int32_t defval) {
     //4ea8af
 
     FatEntry* nodePath = this->Find(&this->root, fpath);
@@ -1310,8 +1200,7 @@ int32_t ResBase::GetInt(const char* fpath, const char* fname, int32_t defval)
     return node->offset;
 }
 
-double ResBase::GetDouble(const char* fpath, const char* fname, double defval)
-{
+double ResBase::GetDouble(const char* fpath, const char* fname, double defval) {
     //4eaa06
 
     FatEntry* nodePath = this->Find(&this->root, fpath);
@@ -1328,12 +1217,10 @@ double ResBase::GetDouble(const char* fpath, const char* fname, double defval)
     return *(double *)&node->offset;
 }
 
-int ResBase::GetAllNodeNames(char* pbuf, int bufsz)
-{
+int ResBase::GetAllNodeNames(char* pbuf, int bufsz) {
     //4eab6b
     int out_len = 0;
-    for (int i = 0; i < this->root.size; i++)
-    {
+    for (int i = 0; i < this->root.size; i++) {
         const char* name = this->fat_data[this->root.offset + i].name;
         int ln = strlen(name);
         if (ln + 1 < bufsz - out_len) {
@@ -1342,8 +1229,7 @@ int ResBase::GetAllNodeNames(char* pbuf, int bufsz)
             ln = bufsz - out_len;
         }
 
-        if (ln <= 1)
-        {
+        if (ln <= 1) {
             *pbuf = 0;
             return bufsz - 2;
         }
@@ -1358,8 +1244,7 @@ int ResBase::GetAllNodeNames(char* pbuf, int bufsz)
 }
 
 
-int ResBase::GetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>* array)
-{
+int ResBase::GetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>* array) {
     //4eaca7
     FatEntry* nodePath = this->Find(&this->root, fpath);
     FatEntry* node = this->Find(nodePath, fname);
@@ -1369,8 +1254,7 @@ int ResBase::GetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>*
     }
 
     int tp = (node->flags & 0xe) >> 1;
-    if (tp == 3)
-    {
+    if (tp == 3) {
         array->SetSize(node->size / 4);
         for (int i = 0; i < node->size / 4; i++) {
             array->SetAt(i, *(int32_t*)(this->pdata + node->offset + i * 4));
@@ -1379,8 +1263,7 @@ int ResBase::GetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>*
         return 1;
     }
 
-    if (tp == 1)
-    {
+    if (tp == 1) {
         array->SetSize(1);
         array->SetAt(0, node->offset);
         return 1;
@@ -1390,8 +1273,7 @@ int ResBase::GetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>*
     return 0;
 }
 
-int ResBase::GetInt16Array(const char* fpath, const char* fname, CArray<uint16_t>* array)
-{
+int ResBase::GetInt16Array(const char* fpath, const char* fname, CArray<uint16_t>* array) {
     //4ead9d
     FatEntry* nodePath = this->Find(&this->root, fpath);
     FatEntry* node = this->Find(nodePath, fname);
@@ -1401,8 +1283,7 @@ int ResBase::GetInt16Array(const char* fpath, const char* fname, CArray<uint16_t
     }
 
     int tp = (node->flags & 0xe) >> 1;
-    if (tp == 3)
-    {
+    if (tp == 3) {
         array->SetSize(node->size / 4);
         for (int i = 0; i < node->size / 4; i++) {
             array->SetAt(i, *(int32_t*)(this->pdata + node->offset + i * 4));
@@ -1411,8 +1292,7 @@ int ResBase::GetInt16Array(const char* fpath, const char* fname, CArray<uint16_t
         return 1;
     }
 
-    if (tp == 1)
-    {
+    if (tp == 1) {
         array->SetSize(1);
         array->SetAt(0, node->offset);
         return 1;
@@ -1422,8 +1302,7 @@ int ResBase::GetInt16Array(const char* fpath, const char* fname, CArray<uint16_t
     return 0;
 }
 
-int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<uint32_t>* array)
-{
+int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<uint32_t>* array) {
     //4eae99
     //same as 4eafb6?
     FatEntry* nodePath = this->Find(&this->root, fpath);
@@ -1434,8 +1313,7 @@ int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<uint32_t
     }
 
     int tp = (node->flags & 0xe) >> 1;
-    if (tp == 3)
-    {
+    if (tp == 3) {
         array->SetSize(node->size / 4);
         for (int i = 0; i < node->size / 4; i++) {
             array->SetAt(i, *(uint32_t*)(this->pdata + node->offset + i * 4));
@@ -1444,15 +1322,13 @@ int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<uint32_t
         return 1;
     }
 
-    if (tp == 1)
-    {
+    if (tp == 1) {
         array->SetSize(1);
         array->SetAt(0, node->offset);
         return 1;
     }
 
-    if (tp == 0 && node->size <= 1)
-    {
+    if (tp == 0 && node->size <= 1) {
         array->RemoveAll();
         return 1;
     }
@@ -1461,8 +1337,7 @@ int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<uint32_t
     return 0;
 }
 
-int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<int32_t>* array)
-{
+int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<int32_t>* array) {
     //4eafb6
     //same as 4eae99?
     FatEntry* nodePath = this->Find(&this->root, fpath);
@@ -1473,8 +1348,7 @@ int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<int32_t>
     }
 
     int tp = (node->flags & 0xe) >> 1;
-    if (tp == 3)
-    {
+    if (tp == 3) {
         array->SetSize(node->size / 4);
         for (int i = 0; i < node->size / 4; i++) {
             array->SetAt(i, *(int32_t*)(this->pdata + node->offset + i * 4));
@@ -1483,15 +1357,13 @@ int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<int32_t>
         return 1;
     }
 
-    if (tp == 1)
-    {
+    if (tp == 1) {
         array->SetSize(1);
         array->SetAt(0, node->offset);
         return 1;
     }
 
-    if (tp == 0 && node->size <= 1)
-    {
+    if (tp == 0 && node->size <= 1) {
         array->RemoveAll();
         return 1;
     }
@@ -1501,8 +1373,7 @@ int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<int32_t>
 }
 
 
-int ResBase::GetStringArray(const char* fpath, const char* fname, CStringArray* array)
-{
+int ResBase::GetStringArray(const char* fpath, const char* fname, CStringArray* array) {
     //4eb0d3
     FatEntry* nodePath = this->Find(&this->root, fpath);
     FatEntry* node = this->Find(nodePath, fname);
@@ -1513,8 +1384,7 @@ int ResBase::GetStringArray(const char* fpath, const char* fname, CStringArray* 
 
     int tp = (node->flags & 0xe) >> 1;
 
-    if (tp != 4 && tp != 0)
-    {
+    if (tp != 4 && tp != 0) {
         throw std::runtime_error("not an string array associated with specified key");
         return 0;
     }
@@ -1522,8 +1392,7 @@ int ResBase::GetStringArray(const char* fpath, const char* fname, CStringArray* 
     int32_t count = 0;
     char* dat = (char *)this->pdata + node->offset;
     char* datstart = dat;
-    if (tp == 0)
-    {
+    if (tp == 0) {
         array->SetSize(1);
         count = 1;
     } else {
@@ -1532,8 +1401,7 @@ int ResBase::GetStringArray(const char* fpath, const char* fname, CStringArray* 
         array->SetSize(count);
     }
 
-    for (int i = 0; i < count; i++)
-    {
+    for (int i = 0; i < count; i++) {
         if ((dat - datstart) >= node->size) {
             break;
         }
@@ -1551,8 +1419,7 @@ int ResBase::GetStringArray(const char* fpath, const char* fname, CStringArray* 
 
 
 
-void FatEntry::SetName(const char* resname)
-{
+void FatEntry::SetName(const char* resname) {
     //4e6f30
     size_t sVar1;
     int local_8;
@@ -1572,21 +1439,18 @@ void FatEntry::SetName(const char* resname)
     }
 }
 
-int FatEntry::NameCompare(const void* key, const void* datum)
-{
+int FatEntry::NameCompare(const void* key, const void* datum) {
     // 4ecd2a
     return strcmp(((FatEntry*)key)->name, ((FatEntry*)datum)->name);
 }
 
-int FatEntry::SortCompare(const void* a, const void* b)
-{
+int FatEntry::SortCompare(const void* a, const void* b) {
     //4eccd1
     const FatEntry *_a = *(const FatEntry**)a;
     const FatEntry *_b = *(const FatEntry**)b;
     if (_b->offset < _a->offset) {
         return 1;
-    } else if (_a->offset == _b->offset)
-    {
+    } else if (_a->offset == _b->offset) {
         if (_b->size < _a->size) {
             return 1;
         } else {

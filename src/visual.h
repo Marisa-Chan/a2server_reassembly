@@ -51,18 +51,15 @@ struct HatSettings;
 
 
 
-class CVisualObject : public CObject
-{
+class CVisualObject : public CObject {
 public:
-	enum
-	{
+	enum {
 		MSG_409 = 0x409,
 		MSG_40a = 0x40a,
 		MSG_410 = 0x410,
 	};
 
-	enum
-	{
+	enum {
 		FLAG_ENABLED = 1,
 		FLAG_NOTFOCUS = 2,
 		FLAG_FOCUS = 4,
@@ -165,8 +162,7 @@ ASSERT_SIZE(CVisualObject, 0x5C);
 
 
 
-class VisLabel : public CVisualObject
-{
+class VisLabel : public CVisualObject {
 public:
 	~VisLabel();
 
@@ -190,8 +186,7 @@ ASSERT_SIZE(VisLabel, 0x6C);
 
 
 //60df40
-class VisButton : public CVisualObject
-{
+class VisButton : public CVisualObject {
 public:
 	virtual ~VisButton();
 
@@ -219,8 +214,7 @@ ASSERT_SIZE(VisButton, 0x78);
 
 
 //60e1d0
-class VisScrollBar : public CVisualObject
-{
+class VisScrollBar : public CVisualObject {
 public:
 	virtual ~VisScrollBar();
 
@@ -262,8 +256,7 @@ public:
 	int32_t val_max;
 
 public:
-	struct Data
-	{
+	struct Data {
 		int32_t v;
 		int32_t vmax;
 	};
@@ -271,8 +264,7 @@ public:
 ASSERT_SIZE(VisScrollBar, 0xcc);
 
 //60e0b0
-class VisListBox : public CVisualObject
-{
+class VisListBox : public CVisualObject {
 public:
 	~VisListBox();
 
@@ -325,8 +317,7 @@ public:
 ASSERT_SIZE(VisListBox, 0x94);
 
 //60dfb8
-class VisTextBox : public CVisualObject
-{
+class VisTextBox : public CVisualObject {
 public:
 	virtual ~VisTextBox();
 
@@ -362,8 +353,7 @@ ASSERT_SIZE(VisTextBox, 0x7c);
 
 
 //60e030
-class VisRadioBase : public CVisualObject
-{
+class VisRadioBase : public CVisualObject {
 public:
 	virtual ~VisRadioBase();
 
@@ -391,8 +381,7 @@ public:
 ASSERT_SIZE(VisRadioBase, 0x8c);
 
 //60acf8
-class VisRadioType1 : public VisRadioBase
-{
+class VisRadioType1 : public VisRadioBase {
 public:
 	virtual ~VisRadioType1();
 	virtual void VMethod7() override;
@@ -407,8 +396,7 @@ public:
 };
 
 //60ad78
-class VisRadioType2 : public VisRadioBase
-{
+class VisRadioType2 : public VisRadioBase {
 public:
 	virtual ~VisRadioType2();
 	virtual void VMethod7() override;
@@ -422,8 +410,7 @@ public:
 
 
 //60e248
-class VisBitmap : public CVisualObject
-{
+class VisBitmap : public CVisualObject {
 public:
 	virtual ~VisBitmap();
 	virtual void VMethod7() override;
@@ -441,8 +428,7 @@ ASSERT_SIZE(VisBitmap, 0x64);
 
 
 //60e4d0
-class VisComboBox : public CVisualObject
-{
+class VisComboBox : public CVisualObject {
 public:
 	virtual ~VisComboBox() = default;
 
@@ -470,8 +456,7 @@ public:
 ASSERT_SIZE(VisComboBox, 0x6c);
 
 //60e5d8
-class VisComboBoxText : public VisTextBox
-{
+class VisComboBoxText : public VisTextBox {
 public:
 	virtual ~VisComboBoxText() = default;
 	virtual void VMethod7() override;
@@ -480,8 +465,7 @@ public:
 };
 
 //60e548
-class VisComboBoxList : public VisListBox
-{
+class VisComboBoxList : public VisListBox {
 public:
 	virtual ~VisComboBoxList() = default;
 	virtual int32_t OnKeyDown(uint32_t wparam) override;
@@ -490,8 +474,7 @@ public:
 };
 
 //60e458
-class VisComboBoxButton : public VisButton
-{
+class VisComboBoxButton : public VisButton {
 public:
 	virtual ~VisComboBoxButton() = default;
 
@@ -509,8 +492,7 @@ public:
 ASSERT_SIZE(VisComboBoxButton, 0x80);
 
 //60deb0
-class VisMultiText : public VisListBox
-{
+class VisMultiText : public VisListBox {
 public:
 	virtual ~VisMultiText() = default; //4e3c20
 
@@ -539,8 +521,7 @@ ASSERT_SIZE(VisMultiText, 0x98);
 
 
 //60e2c0
-class VisScreen : public CVisualObject
-{
+class VisScreen : public CVisualObject {
 public:
 	virtual ~VisScreen(); // 4df5ec
 	virtual void VMethod7() override; // 4df63d
@@ -570,8 +551,7 @@ ASSERT_SIZE(VisScreen, 0x68);
 
 
 //60e348
-class VisWindow : public VisScreen
-{
+class VisWindow : public VisScreen {
 public:
 	virtual ~VisWindow();
 	virtual int32_t OnKeyDown(uint32_t wparam) override;
@@ -584,8 +564,7 @@ ASSERT_SIZE(VisWindow, 0x68);
 
 
 //60e3d0 — role/NPC speech dialog screen shown by ShowRoleKeyDialog
-class VisRoleKeyScreen : public VisWindow
-{
+class VisRoleKeyScreen : public VisWindow {
 public:
 	virtual ~VisRoleKeyScreen(); //4e3f60
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; //4e0071
@@ -612,8 +591,7 @@ ASSERT_SIZE(VisRoleKeyScreen, 0x88);
 
 
 //60a288
-class VisMessageBox : public VisWindow
-{
+class VisMessageBox : public VisWindow {
 public:
 	virtual ~VisMessageBox(); // 444ff3
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 44500f
@@ -633,8 +611,7 @@ public:
 ASSERT_SIZE(VisMessageBox, 0x78);
 
 //60a318
-class VisMessageBoxWithList : public VisMessageBox
-{
+class VisMessageBoxWithList : public VisMessageBox {
 public:
 	virtual ~VisMessageBoxWithList() {}; //44f930
 	virtual CVisualObject* VMethod30(const void* str, const RECT& r); //4450d4
@@ -644,8 +621,7 @@ public:
 ASSERT_SIZE(VisMessageBoxWithList, 0x78);
 
 //60a3a8
-class QuestObjectivesHeaderDialogVisualObject : public VisMessageBoxWithList
-{
+class QuestObjectivesHeaderDialogVisualObject : public VisMessageBoxWithList {
 public:
 	QuestObjectivesHeaderDialogVisualObject(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b);  //445173
 
@@ -655,8 +631,7 @@ ASSERT_SIZE(QuestObjectivesHeaderDialogVisualObject, 0x78);
 
 
 //609898
-class VisCharSelect : public VisScreen
-{
+class VisCharSelect : public VisScreen {
 public:
 	virtual ~VisCharSelect(); // 438650
 
@@ -700,8 +675,7 @@ ASSERT_SIZE(VisCharSelect, 0x9c);
 
 
 //6097a8
-class VisCharSellectButtons : public CVisualObject
-{
+class VisCharSellectButtons : public CVisualObject {
 public:
 	virtual ~VisCharSellectButtons(); // 4385B0
 
@@ -734,8 +708,7 @@ public:
 ASSERT_SIZE(VisCharSellectButtons, 0xe0);
 
 //609820
-class VisCharSellectList : public CVisualObject
-{
+class VisCharSellectList : public CVisualObject {
 public:
 	virtual ~VisCharSellectList(); // 4385E0
 
@@ -783,8 +756,7 @@ public:
 ASSERT_SIZE(VisCharSellectList, 0xdc);
 
 //609730
-class VisCharSellectStats : public CVisualObject
-{
+class VisCharSellectStats : public CVisualObject {
 public:
 	virtual ~VisCharSellectStats(); // 438580
 
@@ -815,8 +787,7 @@ public:
 ASSERT_SIZE(VisCharSellectStats, 0xd0);
 
 
-struct TakeDamage
-{
+struct TakeDamage {
 	CString txt;
 	int32_t dmg = 0;
 	uint16_t* color = nullptr;
@@ -846,8 +817,7 @@ ASSERT_SIZE(TakeDamage, 0x24);
 
 
 
-class GM_a28 : public CObject
-{
+class GM_a28 : public CObject {
 public:
 	virtual ~GM_a28(); //4020ad
 	GM_a28(); //401f50
@@ -869,8 +839,7 @@ public:
 	int32_t field_0x5c; //unk type
 };
 
-class BigStruct2 : public CVisualObject
-{
+class BigStruct2 : public CVisualObject {
 public:
 	BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b); // 402af6
 	~BigStruct2(); // 403395
@@ -1165,8 +1134,7 @@ ASSERT_OFFSET(BigStruct2, damage_labels, 0x3f54);
 ASSERT_SIZE(BigStruct2, 0x49c8);
 
 //60ce80
-class VisRightPanel : public CVisualObject
-{
+class VisRightPanel : public CVisualObject {
 public:
 	virtual ~VisRightPanel(); // 4B46E0
 
@@ -1179,8 +1147,7 @@ ASSERT_SIZE(VisRightPanel, 0x5c);
 
 
 //60cef8
-class VisMiniMap : public CVisualObject
-{
+class VisMiniMap : public CVisualObject {
 public:
 	virtual ~VisMiniMap(); // 4B4730
 
@@ -1207,8 +1174,7 @@ ASSERT_SIZE(VisMiniMap, 0x70);
 
 
 //60cf70
-class VisOrderToolbar : public CVisualObject
-{
+class VisOrderToolbar : public CVisualObject {
 public:
 	virtual ~VisOrderToolbar(); // 4b4790
 
@@ -1241,8 +1207,7 @@ ASSERT_SIZE(VisOrderToolbar, 0x70);
 
 
 //60c9b0
-class VisInvBase : public CVisualObject
-{
+class VisInvBase : public CVisualObject {
 public:
 	VisInvBase(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4a4938
 
@@ -1287,8 +1252,7 @@ public:
 ASSERT_SIZE(VisInvBase, 0x20ac);
 
 //60ca60
-class VisInvType1 : public VisInvBase
-{
+class VisInvType1 : public VisInvBase {
 public:
 	virtual ~VisInvType1(); // 4A7830
 
@@ -1316,8 +1280,7 @@ public:
 ASSERT_SIZE(VisInvType1, 0x20ac);
 
 //60d0e8
-class VisInvExtBase : public VisInvBase
-{
+class VisInvExtBase : public VisInvBase {
 public:
 	VisInvExtBase(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4b4a0c in asm
 	virtual ~VisInvExtBase(); // 4B4AEC
@@ -1362,8 +1325,7 @@ public:
 ASSERT_SIZE(VisInvExtBase, 0x20c8);
 
 //60d1a8
-class VisInvExtType1 : public VisInvExtBase
-{
+class VisInvExtType1 : public VisInvExtBase {
 public:
 	virtual ~VisInvExtType1(); // 4B9CB0
 
@@ -1410,8 +1372,7 @@ ASSERT_SIZE(VisInvExtType1, 0x2150);
 
 
 //60d910
-class VisInvExtType1Kaarg : public VisInvExtType1
-{
+class VisInvExtType1Kaarg : public VisInvExtType1 {
 public:
 	virtual void VMethod41() override; //4b69ee in asm
 
@@ -1421,8 +1382,7 @@ ASSERT_SIZE(VisInvExtType1Kaarg, 0x2150);
 
 
 //60d850
-class VisInvExtType1Druid : public VisInvExtType1
-{
+class VisInvExtType1Druid : public VisInvExtType1 {
 public:
 	virtual void VMethod41() override; //4b6815 in asm
 
@@ -1432,8 +1392,7 @@ ASSERT_SIZE(VisInvExtType1Druid, 0x2150);
 
 
 //60d268
-class VisInvExtType2 : public VisInvExtBase
-{
+class VisInvExtType2 : public VisInvExtBase {
 public:
 	virtual ~VisInvExtType2(); // 4B9CE0
 
@@ -1466,8 +1425,7 @@ ASSERT_SIZE(VisInvExtType2, 0x20ec);
 
 
 //60d328
-class VisInvExtType3 : public VisInvExtBase
-{
+class VisInvExtType3 : public VisInvExtBase {
 public:
 	virtual ~VisInvExtType3(); // 4B9D10
 
@@ -1509,8 +1467,7 @@ public:
 ASSERT_SIZE(VisInvExtType3, 0x2108);
 
 
-class VisTavSceneAnim
-{
+class VisTavSceneAnim {
 public:
 	void FUN_004010ee(CStringArray* names); //4010ee in asm
 	void FUN_004014f2(); //4014f2 in asm
@@ -1529,8 +1486,7 @@ ASSERT_SIZE(VisTavSceneAnim, 0x30);
 
 
 //60c5d8
-class VisTavRightPanel : public CVisualObject
-{
+class VisTavRightPanel : public CVisualObject {
 public:
 	virtual ~VisTavRightPanel(); // 4A3E40
 
@@ -1565,8 +1521,7 @@ ASSERT_SIZE(VisTavRightPanel, 0xc8);
 
 
 // 60c560
-class VisTavLeftPanel : public CVisualObject
-{
+class VisTavLeftPanel : public CVisualObject {
 public:
 	virtual ~VisTavLeftPanel(); // 4A3E10
 
@@ -1596,8 +1551,7 @@ ASSERT_SIZE(VisTavLeftPanel, 0x190);
 
 
 //60c650
-class VisTavScene : public CVisualObject
-{
+class VisTavScene : public CVisualObject {
 public:
 	virtual ~VisTavScene(); // 4A3E70
 
@@ -1641,8 +1595,7 @@ ASSERT_SIZE(VisTavScene, 0x3cc);
 
 
 //60c7f8
-class VisTavSceneDruid : public VisTavScene
-{
+class VisTavSceneDruid : public VisTavScene {
 public:
 	virtual ~VisTavSceneDruid(); // 4A3F90
 
@@ -1662,8 +1615,7 @@ ASSERT_SIZE(VisTavSceneDruid, 0x468);
 
 
 //60c910
-class VisTavSceneKaarg : public VisTavScene
-{
+class VisTavSceneKaarg : public VisTavScene {
 public:
 	virtual ~VisTavSceneKaarg(); // 4A4090
 
@@ -1685,8 +1637,7 @@ ASSERT_SIZE(VisTavSceneKaarg, 0x4d0);
 
 
 //60c6d8
-class VisTav : public VisScreen
-{
+class VisTav : public VisScreen {
 public:
 	virtual ~VisTav(); // 4A3F10
 
@@ -1740,8 +1691,7 @@ public:
 ASSERT_SIZE(VisTav, 0x140);
 
 //60c768
-class VisTavDruid : public VisTav
-{
+class VisTavDruid : public VisTav {
 public:
 	virtual ~VisTavDruid(); // 4A3F40
 
@@ -1758,8 +1708,7 @@ public:
 ASSERT_SIZE(VisTavDruid, 0x16c);
 
 //60c880
-class VisTavKaarg : public VisTav
-{
+class VisTavKaarg : public VisTav {
 public:
 	virtual ~VisTavKaarg(); // 4A4040
 
@@ -1777,8 +1726,7 @@ ASSERT_SIZE(VisTavKaarg, 0x168);
 
 
 // VTable at 60da00
-class VisSpellBook : public CVisualObject
-{
+class VisSpellBook : public CVisualObject {
 public:
 	virtual ~VisSpellBook(); // 4CB020
 
@@ -1817,8 +1765,7 @@ ASSERT_SIZE(VisSpellBook, 0x6c);
 
 
 //60d480
-class VisShopCompass : public CVisualObject
-{
+class VisShopCompass : public CVisualObject {
 public:
 	virtual ~VisShopCompass(); //4be1df in asm
 	virtual const char* GetHint() override; //4bea64 in asm
@@ -1868,8 +1815,7 @@ ASSERT_SIZE(VisShopCompass, 0x258);
 
 
 //60d658
-class VisShopCompassDruid : public VisShopCompass
-{
+class VisShopCompassDruid : public VisShopCompass {
 public:
 	virtual ~VisShopCompassDruid(); // 4C6A30
 
@@ -1905,8 +1851,7 @@ ASSERT_SIZE(VisShopCompassDruid, 0x270);
 
 
 //60d7a0
-class VisShopCompassKaarg : public VisShopCompass
-{
+class VisShopCompassKaarg : public VisShopCompass {
 public:
 	virtual ~VisShopCompassKaarg(); // 4C6AD0
 
@@ -1943,8 +1888,7 @@ ASSERT_SIZE(VisShopCompassKaarg, 0x304);
 
 
 //60d540
-class VisShopButtons : public CVisualObject
-{
+class VisShopButtons : public CVisualObject {
 public:
 	virtual ~VisShopButtons(); //4c0020
 	virtual const char* GetHint() override { return nullptr; } //4c04a4
@@ -1980,8 +1924,7 @@ void __cdecl FUN_00476987(CString* str); //476987 - insert thousands separators
 
 
 //60d3e8
-class VisShop : public VisScreen
-{
+class VisShop : public VisScreen {
 public:
 	virtual ~VisShop(); // 4BA5A0
 
@@ -2075,8 +2018,7 @@ ASSERT_SIZE(VisShop, 0x164);
 
 
 //60d5c0
-class VisShopDruid : public VisShop
-{
+class VisShopDruid : public VisShop {
 public:
 	virtual ~VisShopDruid(); // 4C69B0
 
@@ -2100,8 +2042,7 @@ ASSERT_SIZE(VisShopDruid, 0x190);
 
 
 //60d708
-class VisShopKaarg : public VisShop
-{
+class VisShopKaarg : public VisShop {
 public:
 	virtual ~VisShopKaarg(); // 4C6A50
 
@@ -2127,8 +2068,7 @@ ASSERT_SIZE(VisShopKaarg, 0x190);
 
 
 //60dbb0
-class VisTown : public VisScreen
-{
+class VisTown : public VisScreen {
 public:
 	virtual ~VisTown(); // 4D6B80
 
@@ -2240,8 +2180,7 @@ ASSERT_SIZE(VisTown, 0x20c);
 
 
 //60dc60
-class VisTownDruid : public VisTown
-{
+class VisTownDruid : public VisTown {
 public:
 	virtual ~VisTownDruid(); // 4D6BB0
 
@@ -2300,8 +2239,7 @@ ASSERT_SIZE(VisTownDruid, 0x320);
 
 
 //60dd10
-class VisTownKaarg : public VisTown
-{
+class VisTownKaarg : public VisTown {
 public:
 	virtual ~VisTownKaarg(); // 4D6C60
 
@@ -2357,8 +2295,7 @@ ASSERT_SIZE(VisTownKaarg, 0x314);
 
 
 // VTable at 609b88
-class VisCredits : public VisScreen
-{
+class VisCredits : public VisScreen {
 public:
 	virtual ~VisCredits(); // 43c3c6
 
@@ -2389,8 +2326,7 @@ class VisCharGen;
 class VisTipsDialog;
 
 //6094c8
-class VisCharGenStats : public CVisualObject
-{
+class VisCharGenStats : public CVisualObject {
 public:
 	virtual ~VisCharGenStats(); // 428f12 in asm
 
@@ -2434,8 +2370,7 @@ public:
 ASSERT_SIZE(VisCharGenStats, 0x1f4);
 
 //609540
-class VisCharGenFullStats : public CVisualObject
-{
+class VisCharGenFullStats : public CVisualObject {
 public:
 	virtual ~VisCharGenFullStats(); // 42aaa0 in asm
 
@@ -2454,8 +2389,7 @@ public:
 ASSERT_SIZE(VisCharGenFullStats, 0xa8);
 
 //6095b8
-class VisCharGenAction : public CVisualObject
-{
+class VisCharGenAction : public CVisualObject {
 public:
 	virtual ~VisCharGenAction(); // 42ae19 in asm
 
@@ -2486,8 +2420,7 @@ public:
 ASSERT_SIZE(VisCharGenAction, 0xc8);
 
 //609630
-class VisCharGenSkills : public CVisualObject
-{
+class VisCharGenSkills : public CVisualObject {
 public:
 	virtual ~VisCharGenSkills(); // 42ba30 in asm
 
@@ -2528,8 +2461,7 @@ public:
 ASSERT_SIZE(VisCharGenSkills, 0x138);
 
 //6096a8
-class VisCharGen : public VisScreen
-{
+class VisCharGen : public VisScreen {
 public:
 	virtual ~VisCharGen(); // 4383F0
 
@@ -2583,8 +2515,7 @@ ASSERT_SIZE(VisCharGen, 0x108);
 
 
 //609a58 - console-style input line used by Vis1200
-class Vis1200obj : public CVisualObject
-{
+class Vis1200obj : public CVisualObject {
 public:
 	virtual ~Vis1200obj();
 
@@ -2628,8 +2559,7 @@ ASSERT_SIZE(Vis1200obj, 0xa4);
 	void FUN_00476236(CString* str); // 476236 - lowercase respecting DOS CP
 
 //609ad0
-class Vis1200 : public VisScreen
-{
+class Vis1200 : public VisScreen {
 public:
 	virtual ~Vis1200(); // 43c000
 
@@ -2658,8 +2588,7 @@ ASSERT_SIZE(Vis1200, 0x170);
 
 
 //60a170
-class VisDropGold : public VisScreen
-{
+class VisDropGold : public VisScreen {
 public:
 	virtual ~VisDropGold(); // 441c63 (44F870 is the ??_G thunk)
 
@@ -2683,8 +2612,7 @@ ASSERT_SIZE(VisDropGold, 0xd0);
 
 
 //60cfe8
-class VisCharInfo : public CVisualObject
-{
+class VisCharInfo : public CVisualObject {
 public:
 	virtual ~VisCharInfo(); // 4B47B0
 
@@ -2722,8 +2650,7 @@ ASSERT_SIZE(VisCharInfo, 0x17c);
 
 
 //60d070
-class VisSideStatus : public CVisualObject
-{
+class VisSideStatus : public CVisualObject {
 public:
 	virtual ~VisSideStatus(); // 4B4810
 
@@ -2741,8 +2668,7 @@ ASSERT_SIZE(VisSideStatus, 0x60);
 
 
 //60cd30
-class VisMainMenu : public VisScreen
-{
+class VisMainMenu : public VisScreen {
 public:
 	virtual ~VisMainMenu(); // 4AAAB6
 
@@ -2788,8 +2714,7 @@ ASSERT_SIZE(VisMainMenu, 0x100);
 
 class VisStartGame;
 
-class VisStartGameTextBox : public CVisualObject
-{
+class VisStartGameTextBox : public CVisualObject {
 public:
 	VisStartGameTextBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisStartGame* screen); // 4329f9
 
@@ -2820,8 +2745,7 @@ ASSERT_SIZE(VisStartGameTextBox, 0x78);
 
 
 //609998
-class VisStartGame : public VisScreen
-{
+class VisStartGame : public VisScreen {
 public:
 	virtual ~VisStartGame(); // 4386B0
 
@@ -2925,8 +2849,7 @@ public:
 ASSERT_SIZE(VisStartGame, 0x220);
 
 //60b180
-class VisMenuWnd : public VisWindow
-{
+class VisMenuWnd : public VisWindow {
 public:
 	virtual ~VisMenuWnd();
 
@@ -2944,8 +2867,7 @@ ASSERT_SIZE(VisMenuWnd, 0x7c);
 
 
 //609f50
-class IngameMenu : public VisMenuWnd
-{
+class IngameMenu : public VisMenuWnd {
 public:
 	IngameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, uint32_t unk, const CRect& _r); //451990
 };
@@ -2953,8 +2875,7 @@ ASSERT_SIZE(IngameMenu, 0x7c);
 
 
 //60ae78
-class MenuButton : public VisButton
-{
+class MenuButton : public VisButton {
 public:
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; //4dd933
 	virtual int32_t OnKeyDown(uint32_t wparam) override { return 0; } //4dda31
@@ -2967,8 +2888,7 @@ ASSERT_SIZE(MenuButton, 0x78);
 
 
 //609dc8
-class LoadGameWindow : public VisWindow
-{
+class LoadGameWindow : public VisWindow {
 public:
 	virtual ~LoadGameWindow() {} //44f4b0
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; //43f63c
@@ -2984,8 +2904,7 @@ public:
 ASSERT_SIZE(LoadGameWindow, 0x98);
 
 //609e50
-class SaveGameWindow : public VisWindow
-{
+class SaveGameWindow : public VisWindow {
 public:
 	virtual ~SaveGameWindow() {} //44f540
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; //440726
@@ -3005,8 +2924,7 @@ public:
 ASSERT_SIZE(SaveGameWindow, 0x9c);
 
 //609ed8
-class VisButtonSaveGame : public VisButton
-{
+class VisButtonSaveGame : public VisButton {
 public:
 	virtual ~VisButtonSaveGame(); //44f650
 
@@ -3018,8 +2936,7 @@ ASSERT_SIZE(VisButtonSaveGame, 0x78);
 
 
 //609d38
-class HintedListBox : public VisListBox
-{
+class HintedListBox : public VisListBox {
 public:
 	virtual ~HintedListBox() {} //44f410
 
@@ -3035,8 +2952,7 @@ ASSERT_SIZE(HintedListBox, 0x98);
 
 
 //60a2000
-class GameOptionsWindow : public VisWindow
-{
+class GameOptionsWindow : public VisWindow {
 public:
 	virtual ~GameOptionsWindow() {} //443cbb
 
@@ -3048,23 +2964,20 @@ public:
 ASSERT_SIZE(GameOptionsWindow, 0x68);
 
 
-class EndGameMenu : public VisMenuWnd
-{
+class EndGameMenu : public VisMenuWnd {
 public:
 	EndGameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitm, uint32_t unk, const CRect& _r, int32_t unk2); //441357
 };
 ASSERT_SIZE(EndGameMenu, 0x7c);
 
-class ExitGameMenu : public VisMenuWnd
-{
+class ExitGameMenu : public VisMenuWnd {
 public:
 	ExitGameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CRect& _r); //44186e
 };
 ASSERT_SIZE(ExitGameMenu, 0x7c);
 
 
-class TownMenuListDialogVisualObject : public VisMenuWnd
-{
+class TownMenuListDialogVisualObject : public VisMenuWnd {
 public:
 	TownMenuListDialogVisualObject(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CRect& _r); //44160e
 };
@@ -3075,8 +2988,7 @@ ASSERT_SIZE(TownMenuListDialogVisualObject, 0x7c);
 void sub_44E4CE(const char* cmd);
 
 // Radio checkbox on the server screen ("save on server" toggle). 60adf8
-class VisServerScreenRadio : public VisRadioType1
-{
+class VisServerScreenRadio : public VisRadioType1 {
 public:
 	virtual ~VisServerScreenRadio(); // 450970 (complete dtor 4509a0)
 
@@ -3088,8 +3000,7 @@ public:
 ASSERT_SIZE(VisServerScreenRadio, 0x8c);
 
 //60aef0
-class VisServerScreen : public VisScreen
-{
+class VisServerScreen : public VisScreen {
 public:
 	virtual ~VisServerScreen(); // 450AB0
 
@@ -3109,8 +3020,7 @@ public:
 ASSERT_SIZE(VisServerScreen, 0x78);
 
 
-class GlobalMapRouteArray : public CWordArray
-{
+class GlobalMapRouteArray : public CWordArray {
 public:
 public:
 	int32_t routeCost = 0;
@@ -3118,8 +3028,7 @@ public:
 ASSERT_SIZE(GlobalMapRouteArray, 0x18);
 
 // Pathmap/graph builder state allocated by VisGlobalMap::VMethod28.
-class GMapThing
-{
+class GMapThing {
 public:
 	GMapThing(); // 473195
 	~GMapThing(); // 4733cf
@@ -3142,8 +3051,7 @@ public:
 ASSERT_SIZE(GMapThing, 0x9602c);
 
 //60b760
-class VisGlobalMap : public VisScreen
-{
+class VisGlobalMap : public VisScreen {
 public:
 	virtual ~VisGlobalMap(); // 473D70
 
@@ -3226,8 +3134,7 @@ public:
 ASSERT_SIZE(VisGlobalMap, 0x1b4);
 
 //609cb0
-class SoundPreferencesDialogVisualObject : public VisWindow
-{
+class SoundPreferencesDialogVisualObject : public VisWindow {
 public:
 	SoundPreferencesDialogVisualObject(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, SoundSettings* pset); //43d917
 
@@ -3235,8 +3142,7 @@ public:
 	virtual void VMethod26() override; //43d959
 
 	int32_t ConvVolumeToSlider(int32_t vol, int32_t max_val) { return max_val - (sqrt((float)-vol / (float)max_val) * (float)max_val); } //45ca10
-	int32_t ConvSliderToVolume(int32_t pos, int32_t max_val) //45ca45
-	{
+	int32_t ConvSliderToVolume(int32_t pos, int32_t max_val) { //45ca45
 		float v = (float)(pos - max_val) / (float)max_val;
 		return max_val * (v * v);
 	}
@@ -3249,8 +3155,7 @@ ASSERT_SIZE(SoundPreferencesDialogVisualObject, 0x74);
 
 
 //60db28
-class VisLogoWnd : public VisScreen
-{
+class VisLogoWnd : public VisScreen {
 public:
 	VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4cd4d0
 	~VisLogoWnd(); //4cd53c
@@ -3275,8 +3180,7 @@ ASSERT_SIZE(VisLogoWnd, 0x7c);
 
 
 //60b288
-class VisFameHall : public VisScreen
-{
+class VisFameHall : public VisScreen {
 public:
 	virtual ~VisFameHall(); // 45CDE2 body (??_G deleting dtor at 45DA90)
 
@@ -3317,8 +3221,7 @@ public:
 ASSERT_SIZE(VisFameHall, 0xd0);
 
 //60cdf8
-class VisFameDocument : public VisScreen
-{
+class VisFameDocument : public VisScreen {
 public:
 	virtual ~VisFameDocument(); // 4AED50
 
@@ -3366,8 +3269,7 @@ ASSERT_SIZE(VisFameDocument, 0xf8);
 
 
 //60b098
-class Vis2Action : public VisMenuWnd
-{
+class Vis2Action : public VisMenuWnd {
 public:
 	virtual ~Vis2Action(); // 450bd0
 
@@ -3383,8 +3285,7 @@ ASSERT_SIZE(Vis2Action, 0x80);
 
 
 //60af78
-class VisMissionFailed : public VisMessageBoxWithList
-{
+class VisMissionFailed : public VisMessageBoxWithList {
 public:
 	virtual ~VisMissionFailed(); // 450B00
 	virtual void VMethod26() override; // 44E8CA
@@ -3394,8 +3295,7 @@ public:
 ASSERT_SIZE(VisMissionFailed, 0x78);
 
 //60b008
-class VisCutScenesDlg : public VisMessageBox
-{
+class VisCutScenesDlg : public VisMessageBox {
 public:
 	virtual ~VisCutScenesDlg(); // 450B50
 
@@ -3407,8 +3307,7 @@ public:
 ASSERT_SIZE(VisCutScenesDlg, 0x78);
 
 //60e140
-class VisListBoxDiplomacy : public VisListBox
-{
+class VisListBoxDiplomacy : public VisListBox {
 public:
 	virtual ~VisListBoxDiplomacy(); // 4dceba
 
@@ -3437,8 +3336,7 @@ public:
 ASSERT_SIZE(VisListBoxDiplomacy, 0xa8);
 
 //60a4c8
-class VisDiplomacy : public VisMessageBox
-{
+class VisDiplomacy : public VisMessageBox {
 public:
 	virtual ~VisDiplomacy(); // 44F9E0
 
@@ -3456,8 +3354,7 @@ ASSERT_SIZE(VisDiplomacy, 0x7c);
 
 
 //60a558
-class VisConnectionDlg : public VisMessageBox
-{
+class VisConnectionDlg : public VisMessageBox {
 public:
 	virtual ~VisConnectionDlg(); // 44fa40
 
@@ -3473,8 +3370,7 @@ ASSERT_SIZE(VisConnectionDlg, 0x80);
 
 
 //60a5e8
-class VisNetDlg : public VisWindow
-{
+class VisNetDlg : public VisWindow {
 public:
 	virtual ~VisNetDlg(); // 44FA60
 
@@ -3501,8 +3397,7 @@ ASSERT_SIZE(VisNetDlg, 0x94);
 
 
 //60a810
-class VisNetTcpIp : public VisMessageBox
-{
+class VisNetTcpIp : public VisMessageBox {
 public:
 	virtual ~VisNetTcpIp(); // 44FD10
 
@@ -3517,8 +3412,7 @@ ASSERT_SIZE(VisNetTcpIp, 0x7c);
 
 
 //60a788
-class VisNetSerialSettings : public VisWindow
-{
+class VisNetSerialSettings : public VisWindow {
 public:
 	virtual ~VisNetSerialSettings(); // 44FCC0
 
@@ -3535,8 +3429,7 @@ public:
 ASSERT_SIZE(VisNetSerialSettings, 0x6c);
 
 //60a6f8
-class VisListBoxPhoneBook : public VisListBox
-{
+class VisListBoxPhoneBook : public VisListBox {
 public:
 	virtual ~VisListBoxPhoneBook(); // 44fca0
 
@@ -3550,8 +3443,7 @@ public:
 ASSERT_SIZE(VisListBoxPhoneBook, 0x98);
 
 //60a670
-class VisNetPhoneBook : public VisWindow
-{
+class VisNetPhoneBook : public VisWindow {
 public:
 	virtual ~VisNetPhoneBook(); // 44FAE0
 
@@ -3570,8 +3462,7 @@ public:
 ASSERT_SIZE(VisNetPhoneBook, 0x74);
 
 
-struct NetMapInfo
-{
+struct NetMapInfo {
 	CString mapid;
 	CString name;
 	CString tooltip;
@@ -3583,8 +3474,7 @@ struct NetMapInfo
 ASSERT_SIZE(NetMapInfo, 0x1c);
 
 //60aad0 — map list box on the net map-selection screen
-class VisNetMapList : public VisListBox
-{
+class VisNetMapList : public VisListBox {
 public:
 	virtual ~VisNetMapList(); // 450030 (complete dtor 450060)
 
@@ -3598,8 +3488,7 @@ public:
 ASSERT_SIZE(VisNetMapList, 0x98);
 
 //60ab60 — chat log list box
-class VisNetChatList : public VisListBox
-{
+class VisNetChatList : public VisListBox {
 public:
 	virtual ~VisNetChatList(); // 450100 (complete dtor 450130)
 
@@ -3612,8 +3501,7 @@ public:
 ASSERT_SIZE(VisNetChatList, 0xa8);
 
 //60abf0 — player list box
-class VisNetPlayerList : public VisListBox
-{
+class VisNetPlayerList : public VisListBox {
 public:
 	virtual ~VisNetPlayerList(); // 450200 (complete dtor 450230)
 
@@ -3626,8 +3514,7 @@ public:
 ASSERT_SIZE(VisNetPlayerList, 0xa8);
 
 //60ac80 — chat input line
-class VisNetChatTextBox : public VisTextBox
-{
+class VisNetChatTextBox : public VisTextBox {
 public:
 	virtual ~VisNetChatTextBox(); // 450350 (complete dtor 450380)
 
@@ -3640,8 +3527,7 @@ ASSERT_SIZE(VisNetChatTextBox, 0x7c);
 //60a930
 UINT AFX_CDECL VisNetMapThreadProc(LPVOID pParam); // 44aad6
 
-class VisNetMapSelection : public VisWindow
-{
+class VisNetMapSelection : public VisWindow {
 public:
 	virtual ~VisNetMapSelection(); // 44FEA0
 
@@ -3668,8 +3554,7 @@ public:
 ASSERT_SIZE(VisNetMapSelection, 0xfc);
 
 //60e650
-class VisTipsDialog : public VisScreen
-{
+class VisTipsDialog : public VisScreen {
 public:
 	virtual ~VisTipsDialog(); // 4e4510
 
@@ -3690,8 +3575,7 @@ ASSERT_SIZE(VisTipsDialog, 0x74);
 
 
 //60e6d8
-class VisQuestStatus : public VisScreen
-{
+class VisQuestStatus : public VisScreen {
 public:
 	virtual ~VisQuestStatus(); // 4E4540
 
@@ -3706,8 +3590,7 @@ public:
 ASSERT_SIZE(VisQuestStatus, 0x6c);
 
 //60a8a0
-class VisHatServerListDlg : public VisMessageBox
-{
+class VisHatServerListDlg : public VisMessageBox {
 public:
 	virtual ~VisHatServerListDlg(); // 44fd90
 
@@ -3723,8 +3606,7 @@ ASSERT_SIZE(VisHatServerListDlg, 0x7c);
 
 
 //60aa40
-class VisHatBrowserList : public VisListBox
-{
+class VisHatBrowserList : public VisListBox {
 public:
 	virtual ~VisHatBrowserList(); // 44ffb0
 
@@ -3743,8 +3625,7 @@ ASSERT_SIZE(VisHatBrowserList, 0x98);
 int32_t GetFieldPos(CString str, int32_t field); // 44b37a
 
 //60a9b8
-class VisHatBrowserDlg : public VisWindow
-{
+class VisHatBrowserDlg : public VisWindow {
 public:
 	virtual ~VisHatBrowserDlg(); // 44FED0
 

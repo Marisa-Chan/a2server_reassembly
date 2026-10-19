@@ -22,8 +22,7 @@ void* a2_pioinfo[64];
 FILE* a2_stdout;
 FILE* a2_stderr;
 
-void Traceback(EXCEPTION_POINTERS *info)
-{
+void Traceback(EXCEPTION_POINTERS *info) {
 	CONTEXT* ctx = info->ContextRecord;
 
     HANDLE hProcess = GetCurrentProcess();
@@ -89,8 +88,7 @@ void Traceback(EXCEPTION_POINTERS *info)
     printf("=== Stack Trace End ===\n");
 }
 
-DWORD ExceptionHandler(EXCEPTION_POINTERS *info)
-{
+DWORD ExceptionHandler(EXCEPTION_POINTERS *info) {
     __try {
         Traceback(info);
 
@@ -104,15 +102,13 @@ DWORD ExceptionHandler(EXCEPTION_POINTERS *info)
     return EXCEPTION_EXECUTE_HANDLER;
 }
 
-void SetExceptionFilter()
-{
+void SetExceptionFilter() {
     SetUnhandledExceptionFilter((LPTOP_LEVEL_EXCEPTION_FILTER)&ExceptionHandler);
 }
 
 int AFXAPI AfxWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow);
 
-int main(int argc, const char* argv[])
-{
+int main(int argc, const char* argv[]) {
 	memset(a2_pioinfo, 0, sizeof(a2_pioinfo));
 	memset(a2_mbctype, 0, sizeof(a2_mbctype));
 	a2_stdout = stdout;

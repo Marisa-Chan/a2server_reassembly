@@ -22,8 +22,7 @@ CMapWordToPtr unk_660DA8;
 
 // Deserialize item.
 // 4F499B
-Item* __cdecl sub_4F499B(uint8_t** packet_data)
-{
+Item* __cdecl sub_4F499B(uint8_t** packet_data) {
     uint8_t* data = *packet_data;
     uint16_t encoded_item_id = *reinterpret_cast<uint16_t*>(data);
     data += sizeof(uint16_t);
@@ -418,8 +417,7 @@ void Item::Serialize(CArchive& ar) {
 }
 
 // sub_548860
-int Item::IsSimilar(Item* other)
-{
+int Item::IsSimilar(Item* other) {
     if (this->item_id != other->item_id) {
         return 0;
     }
@@ -449,8 +447,7 @@ int Item::IsSimilar(Item* other)
 }
 
 
-void Item::StoreToPacket(PacketUnitStateVec* pkt, int arg)
-{
+void Item::StoreToPacket(PacketUnitStateVec* pkt, int arg) {
     //549afb
     uint8_t *pdata = pkt->data + pkt->data_size;
 
@@ -460,10 +457,8 @@ void Item::StoreToPacket(PacketUnitStateVec* pkt, int arg)
 
     pdata[2] = 0;
 
-    if (this->_effects.IsEmpty() || this->item_type == 3 || this->item_type == 4 || this->count == 0)
-    {
-        if (this->count < 0x40)
-        {
+    if (this->_effects.IsEmpty() || this->item_type == 3 || this->item_type == 4 || this->count == 0) {
+        if (this->count < 0x40) {
             pdata[2] = this->count | 0x80;
             pkt->data_size += 3;
         } else {
@@ -478,19 +473,16 @@ void Item::StoreToPacket(PacketUnitStateVec* pkt, int arg)
 
         pkt->data_size += 7;
 
-        for (POSITION pos = this->_effects.GetHeadPosition(); pos != nullptr;)
-        {
+        for (POSITION pos = this->_effects.GetHeadPosition(); pos != nullptr;) {
             Effect* eff = this->_effects.GetNext(pos);
-            if (eff->effect_id != 1)
-            {
+            if (eff->effect_id != 1) {
                 pkt->data[pkt->data_size] = eff->effect_id;
                 pkt->data_size++;
 
                 pkt->data[pkt->data_size] = eff->spell_or_damage & 0xff;
                 pkt->data_size++;
 
-                if (eff->effect_id == 0x29)
-                {
+                if (eff->effect_id == 0x29) {
                     pdata[2] |= 0x10;
 
                     pkt->data[pkt->data_size] = 0x32;
@@ -504,8 +496,7 @@ void Item::StoreToPacket(PacketUnitStateVec* pkt, int arg)
                         eff->effect_id == 0x2d ||
                         eff->effect_id == 0x2e ||
                         eff->effect_id == 0x2f || 
-                        eff->effect_id == 0x30) 
-                {
+                        eff->effect_id == 0x30) {
                         pkt->data[pkt->data_size] = eff->effect_id;
                         pkt->data_size++;
 
@@ -521,14 +512,12 @@ void Item::StoreToPacket(PacketUnitStateVec* pkt, int arg)
         pdata[2] = (pdata[2] & 0xf0) | cnt_flg;
     }
 
-    if (this->TokenID != 0)
-    {
+    if (this->TokenID != 0) {
         pdata[2] |= 0x40;
         this->TokenID = 0;
     }
 
-    if (arg != 0)
-    {
+    if (arg != 0) {
         pkt->data[pkt->data_size] = this->field11_0x4d;
         pkt->data_size++;
     }
@@ -729,8 +718,7 @@ Armor::Armor(const Armor* src) : Item(src) {
 }
 
 // sub_54F634
-void Armor::LoadInfo()
-{
+void Armor::LoadInfo() {
     this->slot = 0;
     this->world_equip = &g_GameDataRes.armors[this->itemDataID];
 
@@ -759,8 +747,7 @@ void Armor::LoadInfo()
 }
 
 // sub_550E26
-void Weapon::LoadEquipInfo(WorldEquip* params)
-{
+void Weapon::LoadEquipInfo(WorldEquip* params) {
     MatShape* shape = &g_GameDataRes.shapes[this->shape_id];
     MatShape* mat = &g_GameDataRes.materials[this->material_id];
     EquipData* data = &params->Values()[0];

@@ -41,23 +41,17 @@ void __cdecl sub_47FA75(); //47fa75
 void __cdecl sub_477B59(uint32_t val); //477b59
 
 
-class UnitVFXUnfo : public CObject
-{
+class UnitVFXUnfo : public CObject {
 public:
-	virtual ~UnitVFXUnfo()
-	{ //47ccb4
-		if (this->palette)
-		{
-			for (int i = 0; i < 8; i++)
-			{
-				if (this->palettes[i])
-				{
+	virtual ~UnitVFXUnfo() { //47ccb4
+		if (this->palette) {
+			for (int i = 0; i < 8; i++) {
+				if (this->palettes[i]) {
 					delete this->palettes[i];
 					this->palettes[i] = nullptr;
 				}
 
-				if (this->palette_datas[i])
-				{
+				if (this->palette_datas[i]) {
 					delete[] this->palette_datas[i];
 					this->palette_datas[i] = nullptr;
 				}
@@ -65,8 +59,7 @@ public:
 		}
 	}
 
-	UnitVFXUnfo()
-	{ //47cb20
+	UnitVFXUnfo() { //47cb20
 		this->palettes.fill(nullptr);
 		this->palette_datas.fill(nullptr);
 	}
@@ -114,8 +107,7 @@ public:
 ASSERT_SIZE(UnitVFXUnfo, 0x14c);
 
 //60b880
-class GfxFile : public CObject
-{
+class GfxFile : public CObject {
 public:
 	GfxFile(const char* _fname); //47ae53
 	~GfxFile();
@@ -136,8 +128,7 @@ ASSERT_SIZE(GfxFile, 0x14);
 
 
 //60b898
-class GfxObject : public CObject
-{
+class GfxObject : public CObject {
 public:
 	GfxObject() = default;  //47b127
 	~GfxObject() = default; //47b1ef
@@ -162,8 +153,7 @@ public:
 ASSERT_SIZE(GfxObject, 0x6c);
 
 //60b8b0
-class UnitGfxFile : public CObject
-{
+class UnitGfxFile : public CObject {
 public:
 	UnitGfxFile() = default;  //47c806
 	UnitGfxFile(const char* _fname); //47c85d
@@ -184,8 +174,7 @@ ASSERT_SIZE(UnitGfxFile, 0x14);
 
 
 //60b910
-class StructureInfo : public CObject
-{
+class StructureInfo : public CObject {
 public:
 	StructureInfo(const char *fname); //47eca2
 	~StructureInfo(); //47ed4e
@@ -223,8 +212,7 @@ public:
 ASSERT_SIZE(StructureInfo, 0xa4);
 
 
-class ProjectileInfo : public CObject
-{
+class ProjectileInfo : public CObject {
 public:
 	ProjectileInfo(const char* fname, int32_t a16); //47e1ec
 	virtual ~ProjectileInfo(); //47e50b

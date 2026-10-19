@@ -1,14 +1,12 @@
 #include "protections.h"
 
 
-Protections::Protections()
-{
+Protections::Protections() {
     //5339f8
     this->Clear();
 }
 
-void Protections::Clear()
-{
+void Protections::Clear() {
     //533a0e
     this->defense = 0;
     this->absorption = 0;
@@ -24,8 +22,7 @@ Protections::Protections(Protections&&) = default;
 //533af0
 Protections& Protections::operator=(const Protections&) = default;
 
-Protections& Protections::operator+=(const Protections &b)
-{
+Protections& Protections::operator+=(const Protections &b) {
     //533a48
     for (int32_t i = 0; i < this->magic_protections.size(); i++) {
         this->magic_protections[i] += b.magic_protections[i];
@@ -38,8 +35,7 @@ Protections& Protections::operator+=(const Protections &b)
     return *this;
 }
 
-Protections& Protections::operator-=(const Protections &b)
-{
+Protections& Protections::operator-=(const Protections &b) {
     //533b77
     for (int32_t i = 0; i < this->magic_protections.size(); i++) {
         this->magic_protections[i] -= b.magic_protections[i];
@@ -52,11 +48,9 @@ Protections& Protections::operator-=(const Protections &b)
     return *this;
 }
 
-void Protections::Serialize(CArchive& ar)
-{
+void Protections::Serialize(CArchive& ar) {
     //533c1f
-    if (ar.IsStoring())
-    {
+    if (ar.IsStoring()) {
         //ar.Write(this, sizeof(Protections));
         ar.Write(this, 0x16);
     } else {

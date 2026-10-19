@@ -13,8 +13,7 @@
 IMPLEMENT_SERIAL(Effect, Token, 1); // 637098.
 
 // 53f761
-void Effect::VMethod12(Unit* unit)
-{
+void Effect::VMethod12(Unit* unit) {
     if (this->itemDataID == spell::poison_cloud) {
         int32_t damage = -this->spell_or_damage;
         if (unit->protections.magic_protections[2] != 0) {
@@ -49,8 +48,7 @@ void Effect::VMethod12(Unit* unit)
 
 
 // 53EDB0
-int Effect::sub_53EDB0(Effect* other)
-{
+int Effect::sub_53EDB0(Effect* other) {
     return this->effect_id == other->effect_id &&
            usage_type == other->usage_type &&
            this->spell_or_damage == other->spell_or_damage &&
@@ -58,8 +56,7 @@ int Effect::sub_53EDB0(Effect* other)
 }
 
 
-Effect::Effect()
-{
+Effect::Effect() {
     //53ec02
     this->typeId = 0;
     this->effect_id = 0;
@@ -71,12 +68,10 @@ Effect::Effect()
 }
 
 
-Effect::Effect(const CString& name)
-{
+Effect::Effect(const CString& name) {
     //53ec55
     Effect* tmp = CreateFromString(name);
-    if (tmp)
-    {
+    if (tmp) {
         this->effect_id = tmp->effect_id;
         this->usage_type = tmp->usage_type;
         this->spell_or_damage = tmp->spell_or_damage;
@@ -96,8 +91,7 @@ Effect::Effect(const CString& name)
 }
 
 Effect::Effect(const Effect* src)
-: Token(*src)
-{
+: Token(*src) {
     //53ed4d
     this->effect_id = src->effect_id;
     this->usage_type = src->usage_type;
@@ -107,17 +101,14 @@ Effect::Effect(const Effect* src)
     this->caster = src->caster;
 }
 
-Effect::~Effect()
-{
+Effect::~Effect() {
     //57c350
 }
 
-void Effect::Serialize(CArchive& ar)
-{
+void Effect::Serialize(CArchive& ar) {
     //53e1ce
     Token::Serialize(ar);
-    if (ar.IsStoring())
-    {
+    if (ar.IsStoring()) {
         ar << this->effect_id;
         ar << this->usage_type;
         ar << this->spell_or_damage;

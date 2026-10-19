@@ -92,8 +92,7 @@ DistortMap::~DistortMap() {
 }
 
 // 47619a
-void FUN_0047619a()
-{
+void FUN_0047619a() {
 	free(dword_65FBB8);
 	if (g_DistortMap != nullptr) {
 		delete g_DistortMap;
@@ -129,8 +128,7 @@ void DistortMap::sub_4AA0AF() {
 }
 
 // 4AA29B
-void DistortMap::sub_4AA29B(int32_t x, int32_t y)
-{
+void DistortMap::sub_4AA29B(int32_t x, int32_t y) {
 	CRect clip;
 	GetClipRect(&clip);
 	uint16_t* surface = (uint16_t*)g_selDrawBitmap.lpSurface;
@@ -249,13 +247,11 @@ void __cdecl sub_43A857(const char* source) {
 }
 
 // 43AA23
-void LogMessage(CString message)
-{
+void LogMessage(CString message) {
 	sub_43A857(message);
 }
 
-void ReadFileToString(const char* fname, CString* str)
-{
+void ReadFileToString(const char* fname, CString* str) {
 	//4758cd
 
 	File2 f;
@@ -276,8 +272,7 @@ void ReadFileToString(const char* fname, CString* str)
 }
 
 // 476b21
-void ParseTunes()
-{
+void ParseTunes() {
 	for (int32_t i = 0; i < txt_tunes.GetCount(); i++) {
 		CString line(txt_tunes.GetLine(i));
 		int32_t pos = line.Find('=');
@@ -288,14 +283,12 @@ void ParseTunes()
 }
 
 
-int32_t GetRandS16(int32_t range)
-{
+int32_t GetRandS16(int32_t range) {
 	//4a4720
 	return ((rand() * range) / 32767) % range;
 }
 
-int32_t ParseConfig(const char* fname) // 4f7188
-{
+int32_t ParseConfig(const char* fname) { // 4f7188
 	CStdioFile file;
 	if (!file.Open(fname, 0, nullptr)) {
 		return -1;
@@ -323,8 +316,7 @@ int32_t ParseConfig(const char* fname) // 4f7188
 		}
 
 
-		if (lowered.IsEmpty())
-		{
+		if (lowered.IsEmpty()) {
 			line_num++;
 			continue;
 		}
@@ -509,8 +501,7 @@ int32_t ParseConfig(const char* fname) // 4f7188
 
 
 
-BOOL GameApp::InitInstance()
-{
+BOOL GameApp::InitInstance() {
 	//4823bd
 #ifdef A2CLIENT
 	g_IsServer = 0;
@@ -519,8 +510,7 @@ BOOL GameApp::InitInstance()
 #endif
 
 	const char* stmp = strstr(m_lpCmdLine, "-latency");
-	if (stmp)
-	{
+	if (stmp) {
 		g_CmdLatency = atoi(stmp + 8);
 		if (g_CmdLatency && (g_CmdLatency < 50 || g_CmdLatency > 10000)) {
 			g_CmdLatency = 0;
@@ -528,8 +518,7 @@ BOOL GameApp::InitInstance()
 	}
 
 	stmp = strstr(m_lpCmdLine, "-timeout");
-	if (stmp)
-	{
+	if (stmp) {
 		g_CmdTimeout = atoi(stmp + 8);
 		if (g_CmdTimeout == 0 || g_CmdTimeout > 120) {
 			g_CmdTimeout = 15;
@@ -539,8 +528,7 @@ BOOL GameApp::InitInstance()
 	}
 
 	HKEY regkey;
-	if (RegOpenKeyA(HKEY_LOCAL_MACHINE, "SOFTWARE\\1C\\Allods 2", &regkey) != ERROR_SUCCESS)
-	{
+	if (RegOpenKeyA(HKEY_LOCAL_MACHINE, "SOFTWARE\\1C\\Allods 2", &regkey) != ERROR_SUCCESS) {
 		char buf[1024];
 		sprintf(buf, "%s\\%s", "SOFTWARE", "1C");
 		RegCreateKeyA(HKEY_LOCAL_MACHINE, buf, &regkey);
@@ -597,8 +585,7 @@ BOOL GameApp::InitInstance()
 	g_IsCdPresent = 1;
 
 	bufsz = 255;
-	if (RegQueryValueExA(regkey, "CD", NULL, NULL, (uint8_t*)path, &bufsz) == ERROR_SUCCESS)
-	{
+	if (RegQueryValueExA(regkey, "CD", NULL, NULL, (uint8_t*)path, &bufsz) == ERROR_SUCCESS) {
 		strcat(path, "\\");
 
 		DWORD a, b, c;
@@ -666,15 +653,12 @@ BOOL GameApp::InitInstance()
 	}
 
 	stmp = strstr(m_lpCmdLine, "-cfg\"");
-	if (stmp)
-	{
+	if (stmp) {
 		const char* qend = strchr(stmp + 5, '\"');
-		if (qend)
-		{
+		if (qend) {
 			CString confname(stmp + 5, qend - (stmp + 5));
 			int32_t ierr = ParseConfig( confname );
-			if (ierr != 0)
-			{
+			if (ierr != 0) {
 				CString msg;
 				if (ierr < 1) {
 					msg = "Error loading " + confname + ".";
@@ -687,8 +671,7 @@ BOOL GameApp::InitInstance()
 		}
 	} else {
 		int32_t ierr = ParseConfig("server.cfg");
-		if (ierr > 0)
-		{
+		if (ierr > 0) {
 			CString msg;
 			msg.Format("Error in server.cfg. Line %d.", ierr);
 
@@ -697,8 +680,7 @@ BOOL GameApp::InitInstance()
 	}
 
 #ifndef A2CLIENT
-	if (g_ServerConfig.chr_base.IsEmpty())
-	{
+	if (g_ServerConfig.chr_base.IsEmpty()) {
 		AfxMessageBox("Missing \'ChrBase\' parameter in config file.");
 		exit(1);
 	}
@@ -706,19 +688,16 @@ BOOL GameApp::InitInstance()
 	CString ffdir = g_ServerConfig.chr_base.Left(g_ServerConfig.chr_base.GetLength() - 1);
 
 	CFileFind fnd;
-	if (fnd.FindFile(ffdir))
-	{
+	if (fnd.FindFile(ffdir)) {
 		fnd.FindNextFileA();
 
-		if (!fnd.IsDirectory())
-		{
+		if (!fnd.IsDirectory()) {
 			CString msg = "Invalid ChrBase directory \"" + ffdir + "\"";
 			AfxMessageBox(msg);
 			exit(1);
 		}
 	} else {
-		if (!CreateDirectoryA(ffdir, NULL))
-		{
+		if (!CreateDirectoryA(ffdir, NULL)) {
 			CString msg = "ChrBase directory \"" + ffdir + "\" does not exist and can't be created";
 			AfxMessageBox(msg);
 			exit(1);
@@ -727,14 +706,12 @@ BOOL GameApp::InitInstance()
 	fnd.Close();
 #endif
 
-	if (!InitVideo())
-	{
+	if (!InitVideo()) {
 		AfxMessageBox("Unable to initialize video");
 		exit(1);
 	}
 
-	if (strstr(m_lpCmdLine, "-window") == NULL && !SetVideoMode())
-	{
+	if (strstr(m_lpCmdLine, "-window") == NULL && !SetVideoMode()) {
 		AfxMessageBox("Unable to set video mode");
 		exit(1);
 	}
@@ -759,8 +736,7 @@ BOOL GameApp::InitInstance()
 	ParseTunes();
 
 	CFile ffame;
-	if (!ffame.Open("famehall.dat", 0))
-	{
+	if (!ffame.Open("famehall.dat", 0)) {
 		mwnd->m_FameHall.FUN_004acafa();
 	} else {
 		if (!ffame.GetLength()) {
@@ -796,19 +772,15 @@ BOOL GameApp::InitInstance()
 	return TRUE;
 }
 
-BOOL GameApp::OnIdle(LONG lCount)
-{ //4835b0
+BOOL GameApp::OnIdle(LONG lCount) { //4835b0
 	static uint32_t idle_tick = 0;
 
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
-	if (mwnd->sessionMode == 3 && g_Server)
-	{
+	if (mwnd->sessionMode == 3 && g_Server) {
 		mwnd->sub_48A756();
-	} else if ((mwnd->dialogsMask & 1) == 0)
-	{
-		if (mwnd->serverBootstrapEnabled == 0 || !g_Server)
-		{
+	} else if ((mwnd->dialogsMask & 1) == 0) {
+		if (mwnd->serverBootstrapEnabled == 0 || !g_Server) {
 			if (mwnd->field_0x378 && g_NetStru1_local.IsActive() == 0) {
 				mwnd->field_0x378->MsgProc(0x446, 0, 0);
 			}
@@ -816,8 +788,7 @@ BOOL GameApp::OnIdle(LONG lCount)
 			mwnd->vis_map_context->ProcessPackets(0);
 		} else {
 			uint32_t tick = GetTickCount();
-			if (tick - idle_tick > 62)
-			{
+			if (tick - idle_tick > 62) {
 				g_Server->FUN_0050907e();
 				mwnd->vis_map_context->ProcessPackets(0);
 				idle_tick = tick;
@@ -830,11 +801,9 @@ BOOL GameApp::OnIdle(LONG lCount)
 
 		g_mousept.Update();
 	} else {
-		if (mwnd->serverBootstrapEnabled == 0)
-		{
+		if (mwnd->serverBootstrapEnabled == 0) {
 			mwnd->RemoteGameIdle();
-		} else if ((mwnd->dialogsMask & 1) != 0 && (mwnd->sessionMode != 2 || (mwnd->dialogsMask & 0x4008) == 0))
-		{
+		} else if ((mwnd->dialogsMask & 1) != 0 && (mwnd->sessionMode != 2 || (mwnd->dialogsMask & 0x4008) == 0)) {
 			if (mwnd->field_0x448 == 0) {
 				mwnd->SingleGameTimedIdle();
 			} else {
@@ -851,8 +820,7 @@ BOOL GameApp::OnIdle(LONG lCount)
 	return 1;
 }
 
-int GameApp::ExitInstance()
-{ //4833f1
+int GameApp::ExitInstance() { //4833f1
 	if (g_EnableTrace != 0) {
 		g_NetStru1_main.WriteStatsLog("pkt.log");
 	}
@@ -890,10 +858,8 @@ int GameApp::ExitInstance()
 
 	WIN32_FIND_DATAA fnd;
 	HANDLE fhndl = FindFirstFileA(fpath, &fnd);
-	if (fhndl != INVALID_HANDLE_VALUE)
-	{
-		while (true)
-		{
+	if (fhndl != INVALID_HANDLE_VALUE) {
+		while (true) {
 			fpath = path;
 			fpath += fnd.cFileName;
 
@@ -911,14 +877,12 @@ int GameApp::ExitInstance()
 
 
 
-int FUN_00497490()
-{ //497490
+int FUN_00497490() { //497490
 	return ScenarioGetVar(0x300) > 0x77;
 }
 
 
-void SrandInit()
-{ //5421e9
+void SrandInit() { //5421e9
 	srand(timeGetTime());
 }
 
@@ -1053,8 +1017,7 @@ Item* __cdecl sub_549372(CString category, int32_t min_price, int32_t max_price)
 }
 
 // 41D723
-void __stdcall ShowRoleKeyDialog(const char* str)
-{
+void __stdcall ShowRoleKeyDialog(const char* str) {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     VisRoleKeyScreen* screen = new VisRoleKeyScreen(9, 0x1E, 0x78, 0x262, 0x168, CString(str));
     if (screen->is_npc != 0) {
@@ -1085,8 +1048,7 @@ Item* __cdecl sub_5499A6(int32_t level, int32_t max_gold) {
 }
 
 
-int32_t __cdecl AppGetWorkingDir(int maxchar, char* buf)
-{ //4761dd
+int32_t __cdecl AppGetWorkingDir(int maxchar, char* buf) { //4761dd
 	int ln = strlen(g_WorkingDir);
 	if (ln > maxchar) {
 		ln = maxchar;
@@ -1097,8 +1059,7 @@ int32_t __cdecl AppGetWorkingDir(int maxchar, char* buf)
 	return ln;
 }
 
-int __cdecl AppHasAnySaveFile()
-{ // 440d96
+int __cdecl AppHasAnySaveFile() { // 440d96
 	char buf[260];
 	AppGetWorkingDir(260 - 1, buf);
 
@@ -1114,13 +1075,11 @@ int __cdecl AppHasAnySaveFile()
 	return 1;
 }
 
-int __cdecl SaveListCompare(const void* data1, const void* data2)
-{ // 43ea5b
+int __cdecl SaveListCompare(const void* data1, const void* data2) { // 43ea5b
 	return CompareFileTime(&((WIN32_FIND_DATAA*)data1)->ftLastWriteTime, &((WIN32_FIND_DATAA*)data2)->ftLastWriteTime);
 }
 
-void __cdecl AppFindSavesList(CArray<WIN32_FIND_DATAA>* list, int p)
-{ //43eaa0
+void __cdecl AppFindSavesList(CArray<WIN32_FIND_DATAA>* list, int p) { //43eaa0
 	char buf[260];
 	AppGetWorkingDir(260 - 1, buf);
 
@@ -1131,12 +1090,9 @@ void __cdecl AppFindSavesList(CArray<WIN32_FIND_DATAA>* list, int p)
 		return;
 	}
 
-	while (true)
-	{
-		if ((fnd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0)
-		{
-			if (p == 0)
-			{
+	while (true) {
+		if ((fnd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0) {
+			if (p == 0) {
 				if (strcmp(fnd.cFileName, "game9999.sav") != 0 && strcmp(fnd.cFileName, "game9998.sav") != 0) {
 					list->Add(fnd);
 				}
@@ -1159,8 +1115,7 @@ void __cdecl AppFindSavesList(CArray<WIN32_FIND_DATAA>* list, int p)
 }
 
 
-void LogWarning(const CString& msg)
-{ //59b753
+void LogWarning(const CString& msg) { //59b753
 	CString str("WARNING! : ");
 	str += msg;
 	if (g_Server->field4_0x74 == 0) {
@@ -1171,22 +1126,17 @@ void LogWarning(const CString& msg)
 }
 
 // 5e64bd - MFC AfxWinMain; the _a2WinMain@16 stdcall thunk (5d9d58) is folded in
-extern "C" int32_t WINAPI a2WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int32_t nShowCmd)
-{
+extern "C" int32_t WINAPI a2WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int32_t nShowCmd) {
 	int32_t exitCode = -1;
 
 	CWinApp* pApp = AfxGetModuleState()->m_pCurrentWinApp;
 
-	if (AfxWinInit(hInstance, hPrevInstance, lpCmdLine, nShowCmd))
-	{
-		if (pApp->InitApplication())
-		{
-			if (pApp->InitInstance())
-			{
+	if (AfxWinInit(hInstance, hPrevInstance, lpCmdLine, nShowCmd)) {
+		if (pApp->InitApplication()) {
+			if (pApp->InitInstance()) {
 				exitCode = pApp->Run();
 			} else {
-				if (pApp->m_pMainWnd != nullptr)
-				{
+				if (pApp->m_pMainWnd != nullptr) {
 					pApp->m_pMainWnd->DestroyWindow();
 				}
 				exitCode = pApp->ExitInstance();

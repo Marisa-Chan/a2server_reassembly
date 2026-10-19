@@ -36,11 +36,9 @@ EquipmentExtra::EquipmentExtra() = default;
 //52eaa3
 EquipmentExtra& EquipmentExtra::operator=(const EquipmentExtra&) = default;
 
-void EquipmentExtra::Serialize(CArchive& ar)
-{
+void EquipmentExtra::Serialize(CArchive& ar) {
     //52ec3d
-    if (ar.IsStoring())
-    {
+    if (ar.IsStoring()) {
         //ar.Write(this, sizeof(EquipmentExtra));
         ar.Write(this, 0x40);
     } else {
@@ -49,8 +47,7 @@ void EquipmentExtra::Serialize(CArchive& ar)
     }
 }
 
-void EquipmentExtra::SetToUnit(Unit *unit)
-{
+void EquipmentExtra::SetToUnit(Unit *unit) {
     //52ea17
     unit->speed = this->speed;
     unit->carrying_body_100g = this->carrying_body_100g;
@@ -61,8 +58,7 @@ void EquipmentExtra::SetToUnit(Unit *unit)
     unit->protections = this->protections;
 }
 
-void EquipmentExtra::AddToUnit(Unit *unit)
-{
+void EquipmentExtra::AddToUnit(Unit *unit) {
     //52eb64
     unit->speed += this->speed;
 
@@ -84,8 +80,7 @@ void EquipmentExtra::AddToUnit(Unit *unit)
 
 
 /***************   Unit   *******************/
-Unit::Unit()
-{
+Unit::Unit() {
     //528aef
     this->FUN_0052931b("");
     this->last_hit_by = nullptr;
@@ -93,8 +88,7 @@ Unit::Unit()
     this->spell = nullptr;
 }
 
-Unit::Unit(const CString &str)
-{
+Unit::Unit(const CString &str) {
     //528c97
     this->FUN_0052931b(str);
     this->last_hit_by = nullptr;
@@ -103,8 +97,7 @@ Unit::Unit(const CString &str)
 }
 
 Unit::Unit(const CString &str, const TokenPos *pos)
-    : Token(pos)
-{
+    : Token(pos) {
     //528e24
     this->FUN_0052931b(str);
     this->last_hit_by = nullptr;
@@ -113,8 +106,7 @@ Unit::Unit(const CString &str, const TokenPos *pos)
 }
 
 Unit::Unit(const TokenPos *pos)
-    : Token(pos)
-{
+    : Token(pos) {
     //528fb7
     this->FUN_0052931b("");
     this->last_hit_by = nullptr;
@@ -123,8 +115,7 @@ Unit::Unit(const TokenPos *pos)
 }
 
 Unit::Unit(const TokenPos *pos, Player *player)
-    : Token(pos, player)
-{
+    : Token(pos, player) {
     //529167
     this->FUN_0052931b("");
     this->last_hit_by = nullptr;
@@ -132,8 +123,7 @@ Unit::Unit(const TokenPos *pos, Player *player)
     this->spell = nullptr;
 }
 
-Unit::~Unit()
-{
+Unit::~Unit() {
     Unit::VMethod10();
 }
 
@@ -141,8 +131,7 @@ Unit::~Unit()
 // Free functions called from VMethod2.
 // Distance to target in sub-cells (1/256), adjusted for both units' sizes.
 // 5364D5
-int16_t __cdecl sub_5364D5(Unit* self, Unit* target)
-{
+int16_t __cdecl sub_5364D5(Unit* self, Unit* target) {
     int32_t dx = abs(self->sub_528725() - target->sub_528725());
     int32_t dy = abs(self->sub_528763() - target->sub_528763());
     int32_t dist = (std::max)(dx, dy);
@@ -155,8 +144,7 @@ int16_t __cdecl sub_5364D5(Unit* self, Unit* target)
 
 // Attack a unit.
 // 53685B
-void __cdecl sub_53685B(Unit* self, Unit* target)
-{
+void __cdecl sub_53685B(Unit* self, Unit* target) {
     if (target == nullptr || target->pOwner == nullptr || self == nullptr || self->pOwner == nullptr) {
         return;
     }
@@ -198,8 +186,7 @@ void __cdecl sub_53685B(Unit* self, Unit* target)
 
 // Attack a building. TODO: retype `target` to `Building*`.
 // 536A62
-void __cdecl sub_536A62(Unit* self, Unit* target)
-{
+void __cdecl sub_536A62(Unit* self, Unit* target) {
     if (target == nullptr || self == nullptr || self->hp <= 0 || self->pOwner == nullptr) {
         return;
     }
@@ -219,8 +206,7 @@ void __cdecl sub_536A62(Unit* self, Unit* target)
 
 // Clamps experience gain to the max gain for the given skill level.
 // 530DCB
-uint32_t __cdecl sub_530DCB(uint32_t experience, int32_t skill_level)
-{
+uint32_t __cdecl sub_530DCB(uint32_t experience, int32_t skill_level) {
     int32_t max_gain = ExperienceTable::GetExp(skill_level + 1) - ExperienceTable::GetExp(skill_level);
     if (g_Server->field4_0x74 != 0) {
         max_gain /= 5;
@@ -233,8 +219,7 @@ uint32_t __cdecl sub_530DCB(uint32_t experience, int32_t skill_level)
 
 // Start attack.
 // 536630
-void __cdecl sub_536630(Unit* self, Unit* target, int32_t* out_charge)
-{
+void __cdecl sub_536630(Unit* self, Unit* target, int32_t* out_charge) {
     *out_charge = 0;
     if (target == nullptr || target->pOwner == nullptr || self == nullptr || self->pOwner == nullptr || self->hp <= 0) {
         return;
@@ -260,8 +245,7 @@ void __cdecl sub_536630(Unit* self, Unit* target, int32_t* out_charge)
 
 // Execute attack.
 // 53678F
-void __cdecl sub_53678F(Unit* self, Unit* target)
-{
+void __cdecl sub_53678F(Unit* self, Unit* target) {
     if (target == nullptr) {
         return;
     }
@@ -278,8 +262,7 @@ void __cdecl sub_53678F(Unit* self, Unit* target)
 
 
 // 5593b6
-void Unit::Serialize(CArchive& ar)
-{
+void Unit::Serialize(CArchive& ar) {
     Token::Serialize(ar);
 
     // Serialize effects.
@@ -459,8 +442,7 @@ void Unit::Serialize(CArchive& ar)
 
 
 // 55A9C5
-void Unit::VMethod5()
-{
+void Unit::VMethod5() {
     Token::VMethod5();
 
     void* result;
@@ -718,8 +700,7 @@ void Unit::VMethod1() {
 }
 
 // 52A857
-void Unit::VMethod2()
-{
+void Unit::VMethod2() {
     if (this->some_state == 0x10) {
         return;
     }
@@ -785,8 +766,7 @@ void Unit::VMethod2()
         this->some_state2 = 0;
         break;
 
-    case 2: // Pick up sack.
-        {
+    case 2: { // Pick up sack.
             Sack* sack = MapStuff_Instance->sub_58E5F3(this->position);
             if (sack) {
                 g_Server->sub_4F9AD3(sack);
@@ -802,8 +782,7 @@ void Unit::VMethod2()
 
     case 3: // Attack.
     case 0xd: // Spell cast.
-    case 0xe: // Area spell cast.
-        {
+    case 0xe: { // Area spell cast.
             if (this->some_state2 == 0) {
                 int32_t charge_extra = 0;
                 if (this->some_state == 3) {
@@ -898,8 +877,7 @@ void Unit::VMethod2()
             break;
         }
 
-    case 0xf: // Interact with building
-        {
+    case 0xf: { // Interact with building
             BuildingsList* building_list = g_Server->srv_stru1->building_list;
 
             Building* building = building_list->sub_558128(this->position);
@@ -952,28 +930,23 @@ void Unit::VMethod2()
     }
 }
 
-int32_t Unit::VMethod3()
-{
+int32_t Unit::VMethod3() {
     return this->token_size;
 }
 
-int32_t Unit::VMethod4()
-{
+int32_t Unit::VMethod4() {
     return this->movement_type;
 }
 
-int32_t Unit::VMethod7()
-{
+int32_t Unit::VMethod7() {
     return 1;
 }
 
-int32_t Unit::VMethod8()
-{
+int32_t Unit::VMethod8() {
     return 0;
 }
 
-void Unit::VMethod10()
-{
+void Unit::VMethod10() {
     // 52a504
     if (this->some_item && ((this->some_item->item_id >> 8) & 0xF) == 0xE) {
         delete this->some_item;
@@ -1017,27 +990,22 @@ void Unit::VMethod10()
     }
 }
 
-Item *Unit::VMethod12(Item *item)
-{
+Item *Unit::VMethod12(Item *item) {
     Item *itm = item->VMethod10(this);
     this->VMethod19();
     return itm;
 }
 
-void Unit::VMethod13(Item *item)
-{
+void Unit::VMethod13(Item *item) {
     Item* itm = item->VMethod10(this);
-    if (itm)
-    {
+    if (itm) {
         this->inventory->PutItemIntoBagAtDefault(itm);
         this->VMethod19();
     }
 }
 
-Item* Unit::Unequip(Item* item)
-{
-    if (item)
-    {
+Item* Unit::Unequip(Item* item) {
+    if (item) {
         item->VMethod11(this);
         this->VMethod19();
     }
@@ -1051,8 +1019,7 @@ void Unit::VMethod16(Unit*)
 {}
 
 // 536B31
-uint32_t Unit::VMethod17(UnitToHit* unit_to_hit, Unit* attacker)
-{
+uint32_t Unit::VMethod17(UnitToHit* unit_to_hit, Unit* attacker) {
     if (this->pOwner) {
         this->pOwner->sub_534B59();
     }
@@ -1201,8 +1168,7 @@ uint32_t Unit::VMethod17(UnitToHit* unit_to_hit, Unit* attacker)
     return cumulative > 0 ? cumulative : 0;
 }
 
-void Unit::VMethod18()
-{
+void Unit::VMethod18() {
     if (!this->pOwner) {
         this->mp2 = this->mp_max;
     } else {
@@ -1210,8 +1176,7 @@ void Unit::VMethod18()
     }
 }
 
-uint32_t Unit::VMethod19()
-{
+uint32_t Unit::VMethod19() {
     return this->_exp;
 }
 
@@ -1219,8 +1184,7 @@ void Unit::VMethod20()
 {}
 
 // 5371F7
-void Unit::VMethod21(uint32_t newExp, Unit *target, int32_t sphere)
-{
+void Unit::VMethod21(uint32_t newExp, Unit *target, int32_t sphere) {
     this->experience += newExp;
     if (target && target->hp < 0) {
         this->pOwner->monster_kills += 1;
@@ -1236,14 +1200,12 @@ void Unit::VMethod23(Unit*, uint32_t, int32_t)
 void Unit::VMethod24(Unit*, int32_t)
 {}
 
-int32_t Unit::VMethod25()
-{
+int32_t Unit::VMethod25() {
     return this->monster_info->Values()[0].dying_time;
 }
 
 // 52C757
-Effect* Unit::FindEnchantment(uint16_t effect_id)
-{
+Effect* Unit::FindEnchantment(uint16_t effect_id) {
     for (POSITION p = this->_effects.GetHeadPosition(); p != nullptr; ) {
         Effect* e = this->_effects.GetNext(p);
         if ((uint16_t)e->itemDataID == effect_id) {
@@ -1301,8 +1263,7 @@ int32_t Unit::sub_52C409() {
 }
 
 // 52C98B
-void Unit::sub_52C98B(Sack* sack)
-{
+void Unit::sub_52C98B(Sack* sack) {
     if (sack == nullptr) {
         return;
     }
@@ -1454,8 +1415,7 @@ void Unit::sub_52C98B(Sack* sack)
 }
 
 // 52D94E
-void Unit::sub_52D94E()
-{
+void Unit::sub_52D94E() {
     // Summoned units: remove completely, don't leave a corpse.
     if (this->summon_id != 0) {
         this->hp = -10000;
@@ -1614,50 +1574,42 @@ void Unit::sub_52D94E()
 }
 
 // 52BABD
-int32_t Unit::sub_52BABD()
-{
+int32_t Unit::sub_52BABD() {
     return g_Server->tick - this->last_action_tick;
 }
 
 // 59A030
-int32_t Unit::sub_59A030()
-{
+int32_t Unit::sub_59A030() {
     return this->VMethod4();
 }
 
 // 5B6FB0
-int32_t Unit::sub_5B6FB0()
-{
+int32_t Unit::sub_5B6FB0() {
     return this->unit_attrs & 4;
 }
 
 // 528725
-uint16_t Unit::sub_528725()
-{
+uint16_t Unit::sub_528725() {
     return this->position->GetXx() + ((this->VMethod3() & 0xFF) - 1) * 0x80;
 }
 
 // 528763
-uint16_t Unit::sub_528763()
-{
+uint16_t Unit::sub_528763() {
     return this->position->GetYy() + ((this->VMethod3() & 0xFF) - 1) * 0x80;
 }
 
 // 5287C4
-int Unit::sub_5287c4(Player* player)
-{
+int Unit::sub_5287c4(Player* player) {
     return (this->field_x18 & player->vision_sharing_id) == 0;
 }
 
 // 5287EC
-void Unit::sub_5287ec(Player* player)
-{
+void Unit::sub_5287ec(Player* player) {
     this->field_x18 |= player->vision_sharing_id;
 }
 
 // 52D904
-int32_t Unit::sub_52D904()
-{
+int32_t Unit::sub_52D904() {
     int32_t result = this->protections.defense;
     if (this->movement_type == 3) {
         result += 25;
@@ -1669,8 +1621,7 @@ int32_t Unit::sub_52D904()
 }
 
 // 52A790
-void Unit::sub_52A790(int32_t delta_weight)
-{
+void Unit::sub_52A790(int32_t delta_weight) {
     int32_t old_ratio = this->carrying_weight_100g / this->carrying_body_100g;
 
     this->extra_carrying_weight += delta_weight;
@@ -1689,8 +1640,7 @@ void Unit::sub_52A790(int32_t delta_weight)
 }
 
 // 52C4DF
-void Unit::sub_52C4DF(int16_t amount)
-{
+void Unit::sub_52C4DF(int16_t amount) {
     this->field_0x150 |= 1;
     int16_t old_hp = this->hp;
     this->hp += amount;
@@ -1701,8 +1651,7 @@ void Unit::sub_52C4DF(int16_t amount)
 }
 
 // 52C58F
-void Unit::sub_52C58F()
-{
+void Unit::sub_52C58F() {
     this->field_0x150 |= 0x4011;
     // Inline sub_58FD16: reset subcell position to cell center.
     this->position->x_subcell = 0x80;
@@ -1717,8 +1666,7 @@ void Unit::sub_52C58F()
 }
 
 // 52C641
-void Unit::sub_52C641()
-{
+void Unit::sub_52C641() {
     this->sub_52C813();
     if (this->field_0x136 == 0 && this->some_item != nullptr && ((this->some_item->item_id >> 8) & 0xF) == 0xE) {
         delete this->some_item;
@@ -1734,8 +1682,7 @@ void Unit::sub_52C641()
 }
 
 // 52E7FA
-void Unit::sub_52E7FA()
-{
+void Unit::sub_52E7FA() {
     if (this->hp < -10000) {
         return;
     }
@@ -1783,8 +1730,7 @@ void Unit::sub_52E7FA()
 }
 
 // 52931B
-void Unit::FUN_0052931b(const CString& str)
-{
+void Unit::FUN_0052931b(const CString& str) {
     this->last_hit_by = nullptr;
     this->last_hit_spell_id = 0;
     this->spell = nullptr;
@@ -1838,16 +1784,14 @@ void Unit::FUN_0052931b(const CString& str)
 }
 
 // 537251
-void Unit::sub_537251()
-{
+void Unit::sub_537251() {
     this->equipment_extra.protections.magic_protections.fill(100);
     this->equipment_extra.protections.weapon_protections.fill(100);
     this->VMethod18();
 }
 
 // 52C813
-void Unit::sub_52C813()
-{
+void Unit::sub_52C813() {
     if (this->some_item == nullptr || this->some_item->item_type == Item::ItemType::WEAPON) {
         return;
     }
@@ -1869,14 +1813,12 @@ void Unit::sub_52C813()
 }
 
 // 52D8D3
-void Unit::sub_52D8D3(Inventory* inventory, int32_t money, int32_t is_main_player_unit)
-{
+void Unit::sub_52D8D3(Inventory* inventory, int32_t money, int32_t is_main_player_unit) {
     g_Server->srv_stru1->sack_list->sub_554927(this->position, inventory, money, is_main_player_unit);
 }
 
 // 52C163
-void Unit::sub_52C163()
-{
+void Unit::sub_52C163() {
     if ((this->unit_attrs & 8) != 0) {
         return;
     }
@@ -1892,8 +1834,7 @@ void Unit::sub_52C163()
 }
 
 // 52C36D
-void Unit::sub_52C36D(uint8_t x, uint8_t y, uint8_t flags)
-{
+void Unit::sub_52C36D(uint8_t x, uint8_t y, uint8_t flags) {
     if (!this->sub_52BF3D(x, y, flags)) {
         CString msg("Unit can't enter map - no free place");
         LogMessage(msg);
@@ -1906,8 +1847,7 @@ void Unit::sub_52C36D(uint8_t x, uint8_t y, uint8_t flags)
 }
 
 // 52BF3D
-int Unit::sub_52BF3D(uint8_t x, uint8_t y, uint8_t size)
-{
+int Unit::sub_52BF3D(uint8_t x, uint8_t y, uint8_t size) {
     uint32_t size_u32 = size;
     int32_t max_tries = size_u32 * size_u32 / 2 + 1;
     uint8_t radius = size / 2;
@@ -1957,8 +1897,7 @@ int Unit::sub_52BF3D(uint8_t x, uint8_t y, uint8_t size)
 }
 
 // 52BDD7
-void Unit::sub_52BDD7(uint16_t xx, uint16_t yy, uint8_t eye0, uint8_t eye1)
-{
+void Unit::sub_52BDD7(uint16_t xx, uint16_t yy, uint8_t eye0, uint8_t eye1) {
     uint16_t cur_xx = this->position->GetXx();
     uint16_t cur_yy = this->position->GetYy();
     if (cur_xx == xx && cur_yy == yy) {
@@ -1978,8 +1917,7 @@ void Unit::sub_52BDD7(uint16_t xx, uint16_t yy, uint8_t eye0, uint8_t eye1)
 }
 
 // 52ec7a
-void Unit::FUN_0052ec7a(const CArray<MonsterInfoData>& values)
-{
+void Unit::FUN_0052ec7a(const CArray<MonsterInfoData>& values) {
     const MonsterInfoData& data = values[0];
 
     if (data.body != -1) {
@@ -2110,8 +2048,7 @@ int32_t Unit::sub_52C735(uint8_t spell_id) {
 }
 
 // 52F5BB
-uint8_t Unit::sub_52F5BB(uint8_t sphere)
-{
+uint8_t Unit::sub_52F5BB(uint8_t sphere) {
     int32_t power = this->hit_values.skill_levels[sphere & 0xFF] + this->mind - 30;
     if (power < 0) {
         power = 0;
@@ -2120,8 +2057,7 @@ uint8_t Unit::sub_52F5BB(uint8_t sphere)
 }
 
 // 52F601
-void Unit::sub_52F601(const CString& name)
-{
+void Unit::sub_52F601(const CString& name) {
     this->typeId = 0;
 
     // Search for monster by name in g_GameDataRes.monsters array
@@ -2228,8 +2164,7 @@ void Unit::sub_52F601(const CString& name)
     g_World->sub_5AF6F5(this);
 }
 
-Inventory* Unit::DetachInventory()
-{
+Inventory* Unit::DetachInventory() {
     Inventory* tmp = this->inventory;
     this->inventory = new Inventory();
     return tmp;
@@ -2287,22 +2222,19 @@ void Humanoid::Serialize(CArchive& ar) {
     }
 }
 
-Humanoid::Humanoid()
-{
+Humanoid::Humanoid() {
     //52ff9e
     this->InitStats();
 }
 
 Humanoid::Humanoid(const TokenPos *tpos)
- :Unit(tpos)
-{
+ :Unit(tpos) {
     //52fff2
     this->InitStats();
 }
 
 // 53004c
-void Humanoid::InitStats()
-{
+void Humanoid::InitStats() {
     for (int32_t i = 0; i < 13; i++) {
         this->equipment[i] = nullptr;
     }
@@ -2329,39 +2261,32 @@ void Humanoid::InitStats()
     this->eye->sub_5925C9(this);
 }
 
-Humanoid::~Humanoid()
-{
+Humanoid::~Humanoid() {
     //53015b
     Humanoid::VMethod10();
 }
 
-void Humanoid::VMethod5()
-{
+void Humanoid::VMethod5() {
     //55ab26
     Unit::VMethod5();
 }
 
-int32_t Humanoid::VMethod7()
-{
+int32_t Humanoid::VMethod7() {
     //57bb50
     return 1;
 }
 
-int32_t Humanoid::VMethod8()
-{
+int32_t Humanoid::VMethod8() {
     //57bb60
     return 1;
 }
 
-void Humanoid::VMethod10()
-{
+void Humanoid::VMethod10() {
     //5301ac
     Unit::VMethod10();
-    for (int i = 1; i < this->equipment.size(); i++)
-    {
+    for (int i = 1; i < this->equipment.size(); i++) {
         Item*& rEq = this->equipment[i];
-        if (rEq)
-        {
+        if (rEq) {
             delete rEq;
             rEq = nullptr;
         }
@@ -2382,8 +2307,7 @@ Item* Humanoid::VMethod12(Item* item) {
     return item->VMethod10(this);
 }
 
-void Humanoid::VMethod13(Item *item)
-{
+void Humanoid::VMethod13(Item *item) {
     //5304b2
     Item *itm = this->VMethod12(item);
     if (itm) {
@@ -2391,8 +2315,7 @@ void Humanoid::VMethod13(Item *item)
     }
 }
 
-Item *Humanoid::Unequip(Item* item)
-{
+Item *Humanoid::Unequip(Item* item) {
     //5304e8
     if (item) {
         item->VMethod11(this);
@@ -2401,11 +2324,9 @@ Item *Humanoid::Unequip(Item* item)
 }
 
 
-void Humanoid::VMethod15()
-{
+void Humanoid::VMethod15() {
     //530511
-    for (int i = 1; i < this->equipment.size(); i++)
-    {
+    for (int i = 1; i < this->equipment.size(); i++) {
         Item *itm = this->equipment[i];
         this->Unequip(itm);
         this->inventory->PutItemIntoBagAtDefault(itm);
@@ -2426,8 +2347,7 @@ void Humanoid::VMethod16(Unit* unit) {
     this->pOwner->sub_534AC1(unit->_exp, 1);
 }
 
-void Humanoid::VMethod18()
-{
+void Humanoid::VMethod18() {
     // 005315ec
     const bool fighter = (this->unit_attrs & 4) == 0;
     const bool female = (this->typeId == 0x22 || this->typeId == 0x24);
@@ -2579,8 +2499,7 @@ void Humanoid::VMethod18()
     }
 }
 
-uint32_t Humanoid::VMethod19()
-{
+uint32_t Humanoid::VMethod19() {
     //537199
     uint32_t exps = 0;
     for (uint32_t ex : this->experience_per_sphere) {
@@ -2592,8 +2511,7 @@ uint32_t Humanoid::VMethod19()
 }
 
 // 530745
-void Humanoid::VMethod21(uint32_t new_exp, Unit* target, int32_t sphere)
-{
+void Humanoid::VMethod21(uint32_t new_exp, Unit* target, int32_t sphere) {
     if (g_ServerConfig.gameType != 0) {
         return;
     }
@@ -2913,8 +2831,7 @@ void Humanoid::sub_533345(int8_t main_skill, int8_t skill_level) {
 }
 
 // 532DDE
-void Humanoid::sub_532dde(CArray<HumanInfoData>* data)
-{
+void Humanoid::sub_532dde(CArray<HumanInfoData>* data) {
     HumanInfoData& d = data->GetData()[0];
 
     if (d.body != -1) {
@@ -3006,21 +2923,18 @@ IMPLEMENT_SERIAL(Human, Humanoid, 1);
 * operator>>       532311
 */
 
-Human::Human()
-{
+Human::Human() {
     //53232d
     this->FUN_00532587(CString("Man_Unarmed"), 0, nullptr);
 }
 
-Human::Human(const CString& hname, int32_t t, const char* unk)
-{
+Human::Human(const CString& hname, int32_t t, const char* unk) {
     //53239a
     this->FUN_00532587(hname, t, unk);
 }
 
 // 532587
-void Human::FUN_00532587(CString hname, int32_t is_hero, const char* unk)
-{
+void Human::FUN_00532587(CString hname, int32_t is_hero, const char* unk) {
     this->typeId = 0;
     bool load_equipment = (unk == nullptr);
     int32_t face_index = -1;

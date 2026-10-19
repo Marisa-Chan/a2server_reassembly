@@ -61,8 +61,7 @@ Player::Player() {
 }
 
 // 5B051F
-void Settings::Serialize(CArchive& ar)
-{
+void Settings::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
         ar.Write(this, sizeof(Settings));
     } else {
@@ -71,8 +70,7 @@ void Settings::Serialize(CArchive& ar)
 }
 
 // 55B343
-void Player::Serialize(CArchive& ar)
-{
+void Player::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
         ar << this->name;
         ar << this->player_id;
@@ -219,8 +217,7 @@ void Player::sub_534B59() {
     }
 }
 
-void Player::FUN_00534778()
-{
+void Player::FUN_00534778() {
     //534778
     this->field_0x43 = 0;
     this->field_0x42 = 0;
@@ -267,21 +264,17 @@ void Player::sub_534A74(Unit* unit) {
 
 
 
-namespace ExperienceTable
-{
+namespace ExperienceTable {
 static int32_t g_ExperienceLevelTable[150];
 
-void InitTable()
-{ //53069e
+void InitTable() { //53069e
     for (int i = 0; i < 150; i++) {
         g_ExperienceLevelTable[i] = (pow(1.1, i) - 1.0) * 1000.0;
     }
 }
 
-int32_t __cdecl GetLevel(uint32_t ex)
-{ //5306ea
-    for (int i = 0; i < 150; i++)
-    {
+int32_t __cdecl GetLevel(uint32_t ex) { //5306ea
+    for (int i = 0; i < 150; i++) {
         if (ex < g_ExperienceLevelTable[i + 1]) {
             return i;
         }
@@ -289,8 +282,7 @@ int32_t __cdecl GetLevel(uint32_t ex)
     return g_ExperienceLevelTable[149];  // WAT !?   may be return index(149)?
 }
 
-int32_t __cdecl GetExp(uint32_t lvl)
-{ //530726
+int32_t __cdecl GetExp(uint32_t lvl) { //530726
     if (lvl >= 150) {
         lvl = 149;
     }

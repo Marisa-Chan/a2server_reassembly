@@ -37,8 +37,7 @@ class VirtualCaster;
 extern UnitList* dword_6B37C4;   // Pool of server units for summoning/reuse (0x6B37C4)
 extern UnitList* dword_6CDB3C;  // Global server unit list (0x6CDB3C) - used for AddTailAllocId
 
-struct PasswordManager
-{
+struct PasswordManager {
     CStringArray content;
     CString fname;
     CTime date;
@@ -295,8 +294,7 @@ ASSERT_OFFSET(Server, script_settings, 0x170);
 ASSERT_SIZE(Server, 0x258);
 
 
-struct ServerConfig
-{
+struct ServerConfig {
     uint32_t repop_delay;
     int32_t protocol; // Legacy protocol setting? Unset when reading the config. Only relevant values are 0 and 1. Default: 2.
     uint32_t game_speed;

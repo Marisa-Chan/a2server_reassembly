@@ -9,8 +9,7 @@ int32_t g_isDosCP = 0; //660f64
 
 
 // dos -> 1251
-uint8_t __cdecl DecodeChar(uint8_t ch)
-{
+uint8_t __cdecl DecodeChar(uint8_t ch) {
 	//45e181
 	if (g_isDosCP == 0) {
 		return ch;
@@ -26,11 +25,9 @@ uint8_t __cdecl DecodeChar(uint8_t ch)
 }
 
 // 1251 -> dos
-uint8_t __cdecl EncodeChar(uint8_t c)
-{
+uint8_t __cdecl EncodeChar(uint8_t c) {
 	//4763a9
-	if (g_isDosCP == 1 && c >= 0x80)
-	{
+	if (g_isDosCP == 1 && c >= 0x80) {
 		if (c >= 0xc0 && c < 0xf0) {
 			c -= 0x40;
 		} else if (c >= 0xf0) {
@@ -40,8 +37,7 @@ uint8_t __cdecl EncodeChar(uint8_t c)
 	return c;
 }
 
-uint8_t __cdecl ToLowerChar(uint8_t c)
-{
+uint8_t __cdecl ToLowerChar(uint8_t c) {
 	//47641d
 	if (g_isDosCP == 0) {
 		return tolower((char)c);
@@ -57,8 +53,7 @@ uint8_t __cdecl ToLowerChar(uint8_t c)
 }
 
 
-CString XorRegString(const CString& str)
-{ //43d1a9
+CString XorRegString(const CString& str) { //43d1a9
 	CString tmp = str;
 	for (int i = 0; i < str.GetLength(); i++) {
 		tmp.SetAt(i, tmp[i] ^ (i + 0x1c)); //0x9c in Allods2.exe
@@ -66,11 +61,9 @@ CString XorRegString(const CString& str)
 	return tmp;
 }
 
-void pathStrCpy(const char* src, char* dst)
-{
+void pathStrCpy(const char* src, char* dst) {
 	//4e5fd9
-	if (g_PathLower)
-	{
+	if (g_PathLower) {
 		for (const char* a = src; *a != 0; a++, dst++) {
 			*dst = tolower(*a);
 		}
@@ -81,8 +74,7 @@ void pathStrCpy(const char* src, char* dst)
 }
 
 
-void __cdecl ReportWarning(const char* warn)
-{
+void __cdecl ReportWarning(const char* warn) {
 	//527de3
 	CString str;
 	str.Format("WARNING!\n%s", warn);
@@ -91,8 +83,7 @@ void __cdecl ReportWarning(const char* warn)
 	puts(str);
 }
 
-void __cdecl XorData(void* data, uint32_t size)
-{
+void __cdecl XorData(void* data, uint32_t size) {
 	//51fd7d
 	static const uint8_t xorkey[80] =
 	{ 0x2e, 0xc7, 0xc4, 0x8d, 0xff, 0xe5, 0x5d, 0x0b,
@@ -108,16 +99,14 @@ void __cdecl XorData(void* data, uint32_t size)
 
 	uint8_t* p = (uint8_t*)data;
 
-	while (size != 0)
-	{
+	while (size != 0) {
 		uint32_t num = size;
 		if (num > 80) {
 			num = 80;
 		}
 
 		const uint8_t* pkey = xorkey;
-		for (int i = num; i != 0; i--)
-		{
+		for (int i = num; i != 0; i--) {
 			*p ^= *pkey;
 			p++;
 			pkey++;

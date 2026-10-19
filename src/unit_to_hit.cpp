@@ -1,13 +1,11 @@
 #include "unit_to_hit.h"
 
-UnitToHit::UnitToHit()
-{
+UnitToHit::UnitToHit() {
     //533c5c
     this->Clear(); 
 }
 
-void UnitToHit::Clear()
-{
+void UnitToHit::Clear() {
 	//533c72
     this->skill_levels.fill(0);
 
@@ -30,8 +28,7 @@ UnitToHit::UnitToHit(UnitToHit&&) = default;
 //533e02
 UnitToHit& UnitToHit::operator=(const UnitToHit&) = default;
 
-UnitToHit& UnitToHit::operator+=(const UnitToHit &b)
-{
+UnitToHit& UnitToHit::operator+=(const UnitToHit &b) {
     //533d2c
     for (int32_t i = 0; i < this->skill_levels.size(); i++) {
         this->skill_levels[i] += b.skill_levels[i];
@@ -47,8 +44,7 @@ UnitToHit& UnitToHit::operator+=(const UnitToHit &b)
     return *this;
 }
 
-UnitToHit& UnitToHit::operator-=(const UnitToHit &b)
-{
+UnitToHit& UnitToHit::operator-=(const UnitToHit &b) {
     //533f3a
     for (int32_t i = 0; i < this->skill_levels.size(); i++){
         this->skill_levels[i] -= b.skill_levels[i];
@@ -67,8 +63,7 @@ UnitToHit& UnitToHit::operator-=(const UnitToHit &b)
     return *this;
 }
 
-void UnitToHit::AddHits(const UnitToHit &b)
-{
+void UnitToHit::AddHits(const UnitToHit &b) {
     //533ea3
     this->attack += b.attack;
     this->hand_damage_min += b.hand_damage_min;
@@ -80,11 +75,9 @@ void UnitToHit::AddHits(const UnitToHit &b)
     this->spell_id = b.spell_id;
 }
 
-void UnitToHit::Serialize(CArchive& ar)
-{
+void UnitToHit::Serialize(CArchive& ar) {
     //534021
-    if (ar.IsStoring())
-    {
+    if (ar.IsStoring()) {
         //ar.Write(this, sizeof(UnitToHit));
         ar.Write(this, 0x18);
     } else {

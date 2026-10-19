@@ -7,8 +7,7 @@
 
 
 
-class TxtFile : public CObject
-{
+class TxtFile : public CObject {
 public:
 	char* buffer = nullptr;
 	uint32_t line_count = 0;

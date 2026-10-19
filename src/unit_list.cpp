@@ -14,63 +14,53 @@ UnitList::UnitList() = default;
 //555a8d
 UnitList::~UnitList() = default;
 
-void UnitList::Serialize(CArchive& ar)
-{
+void UnitList::Serialize(CArchive& ar) {
 	//558ef8
-	if (ar.IsStoring())
-	{
+	if (ar.IsStoring()) {
 		ar.WriteCount(this->unit_list.GetCount());
 
 		POSITION pos = this->unit_list.GetHeadPosition();
-		while (pos != NULL)
-		{
+		while (pos != NULL) {
 			Unit *unit = this->unit_list.GetNext(pos);
 			ar.WriteObject(unit);
 		}
 	} else {
 		DWORD nNewCount = ar.ReadCount();
 		Unit* unit;
-		while (nNewCount--)
-		{
+		while (nNewCount--) {
 			ar >> unit;
 			this->unit_list.AddTail(unit);
 		}
 	}
 }
 
-void UnitList::CallMethod5()
-{
+void UnitList::CallMethod5() {
 	//5591da
 	POSITION pos = this->unit_list.GetHeadPosition();
-	while (pos != NULL)
-	{
+	while (pos != NULL) {
 		Unit* unit = this->unit_list.GetNext(pos);
 		unit->VMethod5();
 	}
 }
 
-void UnitList::AddTail(Unit* unit)
-{
+void UnitList::AddTail(Unit* unit) {
 	//555c1b
 	this->unit_list.AddTail(unit);
 }
 
-void UnitList::AddTailAllocId(Unit* unit)
-{
+void UnitList::AddTailAllocId(Unit* unit) {
 	//555d67
 	this->unit_list.AddTail(unit);
 	unit->building_id = g_buildingIdSet.AllocBit();
 }
 
-void UnitList::AddTailId6xxx(Unit* unit)
-{
+void UnitList::AddTailId6xxx(Unit* unit) {
 	//555f1c
 	this->unit_list.AddTail(unit);
 	unit->building_id = 0x6000 + unit->TokenID;
 }
 
-void UnitList::Remove(Unit* unit)
-{  //575aa0
+void UnitList::Remove(Unit* unit) { //575aa0
 	POSITION pos = this->unit_list.Find(unit);
 	if (pos) {
 		this->unit_list.RemoveAt(pos);
@@ -80,8 +70,7 @@ void UnitList::Remove(Unit* unit)
 }
 
 // 5560D2
-Unit* UnitList::sub_5560D2(uint16_t id)
-{
+Unit* UnitList::sub_5560D2(uint16_t id) {
 	POSITION it = this->unit_list.GetHeadPosition();
 	while (it) {
 		Unit* unit = this->unit_list.GetNext(it);
@@ -93,8 +82,7 @@ Unit* UnitList::sub_5560D2(uint16_t id)
 }
 
 // 556345
-void UnitList::ProcessTick()
-{
+void UnitList::ProcessTick() {
 	POSITION pos = this->unit_list.GetHeadPosition();
 	while (pos != NULL) {
 		POSITION cur_pos = pos;

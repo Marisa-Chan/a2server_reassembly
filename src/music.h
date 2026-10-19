@@ -7,8 +7,7 @@
 #include <dsound.h>
 
 
-class MusicPlayer : public CObject
-{ 
+class MusicPlayer : public CObject {
 public:
 public:
 	int32_t field_0x4;

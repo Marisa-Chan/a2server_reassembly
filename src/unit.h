@@ -61,8 +61,7 @@ struct SessionMobKill {
 };
 ASSERT_SIZE(SessionMobKill, 0x4);
 
-class Unit : public Token
-{
+class Unit : public Token {
 public:
     DECLARE_SERIAL(Unit); // Runtime class definition at 6363e8.
 

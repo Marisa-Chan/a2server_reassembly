@@ -10,8 +10,7 @@ IMPLEMENT_SERIAL(Building, Token, 1);
 
 // 542599
 Building::Building(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height)
-    : Token(pos)
-{
+    : Token(pos) {
     this->typeId = 0;
     this->object_info_id = type_id;
     this->building_info = nullptr;
@@ -20,8 +19,7 @@ Building::Building(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height
 
 // 5424AC
 Building::Building(TokenPos* pos)
-    : Token(pos)
-{
+    : Token(pos) {
     this->sub_542624("");
 }
 
@@ -190,15 +188,13 @@ IMPLEMENT_SERIAL(Pointer, Building, 1);
 
 // 5A3140
 Pointer::Pointer(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height)
-    : Building(type_id, pos, width, height)
-{
+    : Building(type_id, pos, width, height) {
     this->script_instance_id = -1;
 }
 
 // 54235D
 Pointer::Pointer()
-    : Building()
-{
+    : Building() {
     this->script_instance_id = -1;
 }
 

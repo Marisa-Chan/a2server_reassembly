@@ -162,14 +162,12 @@ CGameFont* g_font4 = nullptr; //65f530
 
 
 //454a0c
-void GetClipRect(CRect* r)
-{
+void GetClipRect(CRect* r) {
 	*r = g_clipRect;
 }
 
 //4549ba
-void SetClipRect(CRect& r)
-{
+void SetClipRect(CRect& r) {
 	g_clipRect = r;
 }
 
@@ -188,10 +186,8 @@ void __cdecl FUN_00454a1e(int32_t l, int32_t t, int32_t r, int32_t b) {
 }
 
 
-void __cdecl Convert24To16(uint8_t* src, uint16_t* dst, int32_t num)
-{ //4255a6
-	for (; num; num--)
-	{
+void __cdecl Convert24To16(uint8_t* src, uint16_t* dst, int32_t num) { //4255a6
+	for (; num; num--) {
 		*dst = (uint16_t)((src[2] >> (8 - g_RBits)) << g_RBitShift) |
 			(uint16_t)((src[1] >> (8 - g_GBits)) << g_GBitShift) |
 			(uint16_t)((src[0] >> (8 - g_BBits)) << g_BBitShift);
@@ -201,10 +197,8 @@ void __cdecl Convert24To16(uint8_t* src, uint16_t* dst, int32_t num)
 	}
 }
 
-void __cdecl Convert16To24(uint16_t* src, uint8_t* dst, int32_t num)
-{ //425688
-	for (; num; num--)
-	{
+void __cdecl Convert16To24(uint16_t* src, uint8_t* dst, int32_t num) { //425688
+	for (; num; num--) {
 		uint16_t c = *src;
 		dst[0] = (c >> g_BBitShift) << (8 - g_BBits);
 		dst[1] = (c >> g_GBitShift) << (8 - g_GBits);
@@ -215,20 +209,17 @@ void __cdecl Convert16To24(uint16_t* src, uint8_t* dst, int32_t num)
 	}
 }
 
-void BlitPaletted(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, uint8_t* src_data, int32_t src_width, int32_t src_height, const uint16_t *palette)
-{ //4553db
+void BlitPaletted(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, uint8_t* src_data, int32_t src_width, int32_t src_height, const uint16_t *palette) { //4553db
 	int32_t w = r - l;
 	int32_t h = b - t;
 
-	if (x < g_clipRect.left)
-	{
+	if (x < g_clipRect.left) {
 		w -= g_clipRect.left - x;
 		l += g_clipRect.left - x;
 		x = g_clipRect.left;
 	}
 
-	if (y < g_clipRect.top)
-	{
+	if (y < g_clipRect.top) {
 		h -= g_clipRect.top - y;
 		t += g_clipRect.top - y;
 		y = g_clipRect.top;
@@ -254,10 +245,8 @@ void BlitPaletted(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t
 	uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + y * g_selDrawBitmap.lPitch + x * 2);
 	uint8_t* src = src_data + l + t * src_width;
 
-	while (t < h)
-	{
-		for (int32_t n = w - l; n; n--)
-		{
+	while (t < h) {
+		for (int32_t n = w - l; n; n--) {
 			*dst = palette[*src];
 			src++;
 			dst++;
@@ -267,20 +256,17 @@ void BlitPaletted(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t
 	}
 }
 
-void BlitFlipPalettedAdd(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, uint8_t* src_data, int32_t src_width, int32_t src_height, const uint16_t* palette)
-{ //4555f9
+void BlitFlipPalettedAdd(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, uint8_t* src_data, int32_t src_width, int32_t src_height, const uint16_t* palette) { //4555f9
 	int32_t w = r - l;
 	int32_t h = b - t;
 
-	if (x < g_clipRect.left)
-	{
+	if (x < g_clipRect.left) {
 		w -= g_clipRect.left - x;
 		l += g_clipRect.left - x;
 		x = g_clipRect.left;
 	}
 
-	if (y < g_clipRect.top)
-	{
+	if (y < g_clipRect.top) {
 		h -= g_clipRect.top - y;
 		t += g_clipRect.top - y;
 		y = g_clipRect.top;
@@ -303,10 +289,8 @@ void BlitFlipPalettedAdd(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, 
 	uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + y * g_selDrawBitmap.lPitch + x * 2);
 	uint8_t* src = src_data + l + (src_height - 1 - t) * src_width;
 
-	while (t < h)
-	{
-		for (int32_t n = w; n; n--)
-		{
+	while (t < h) {
+		for (int32_t n = w; n; n--) {
 			*dst += palette[*src];
 			src++;
 			dst++;
@@ -317,19 +301,16 @@ void BlitFlipPalettedAdd(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, 
 }
 
 
-void Blit16(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, uint8_t* src_data, int32_t src_width, int32_t src_height)
-{ //454f6d
+void Blit16(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, uint8_t* src_data, int32_t src_width, int32_t src_height) { //454f6d
 	int32_t w = r - l;
 	int32_t h = b - t;
 
-	if (x < g_clipRect.left)
-	{
+	if (x < g_clipRect.left) {
 		w -= g_clipRect.left - x;
 		l += g_clipRect.left - x;
 		x = g_clipRect.left;
 	}
-	if (y < g_clipRect.top)
-	{
+	if (y < g_clipRect.top) {
 		h -= g_clipRect.top - y;
 		t += g_clipRect.top - y;
 		y = g_clipRect.top;
@@ -348,27 +329,23 @@ void Blit16(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, ui
 
 	uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + y * g_selDrawBitmap.lPitch + x * 2;
 	uint8_t* src = src_data + (((src_height - 1) - t) * src_width + l) * 2;
-	for (int32_t yy = t; yy < t + h; yy++)
-	{
+	for (int32_t yy = t; yy < t + h; yy++) {
 		memcpy(dst, src, w * 2);
 		dst += g_selDrawBitmap.lPitch;
 		src -= src_width * 2;
 	}
 }
 
-void Blit16Masked(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, uint8_t* src_data, int32_t src_width, int32_t src_height)
-{ //45525a
+void Blit16Masked(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, uint8_t* src_data, int32_t src_width, int32_t src_height) { //45525a
 	int32_t w = r - l;
 	int32_t h = b - t;
 
-	if (x < g_clipRect.left)
-	{
+	if (x < g_clipRect.left) {
 		w -= g_clipRect.left - x;
 		l += g_clipRect.left - x;
 		x = g_clipRect.left;
 	}
-	if (y < g_clipRect.top)
-	{
+	if (y < g_clipRect.top) {
 		h -= g_clipRect.top - y;
 		t += g_clipRect.top - y;
 		y = g_clipRect.top;
@@ -387,10 +364,8 @@ void Blit16Masked(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t
 
 	uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + y * g_selDrawBitmap.lPitch + x * 2;
 	uint16_t* src = (uint16_t*)(src_data + (((src_height - 1) - t) * src_width + l) * 2);
-	for (; h; h--)
-	{
-		for (int32_t ww = w; ww; ww--)
-		{
+	for (; h; h--) {
+		for (int32_t ww = w; ww; ww--) {
 			if (*src != 0) {
 				*(uint16_t*)dst = *src;
 			}
@@ -404,19 +379,16 @@ void Blit16Masked(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t
 	}
 }
 
-void Blit16Add(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, uint8_t* src_data, int32_t src_width, int32_t src_height)
-{ //4550e8
+void Blit16Add(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, uint8_t* src_data, int32_t src_width, int32_t src_height) { //4550e8
 	int32_t w = r - l;
 	int32_t h = b - t;
 
-	if (x < g_clipRect.left)
-	{
+	if (x < g_clipRect.left) {
 		w -= g_clipRect.left - x;
 		l += g_clipRect.left - x;
 		x = g_clipRect.left;
 	}
-	if (y < g_clipRect.top)
-	{
+	if (y < g_clipRect.top) {
 		h -= g_clipRect.top - y;
 		t += g_clipRect.top - y;
 		y = g_clipRect.top;
@@ -435,10 +407,8 @@ void Blit16Add(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b,
 
 	uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + y * g_selDrawBitmap.lPitch + x * 2;
 	uint16_t* src = (uint16_t*)(src_data + (((src_height - 1) - t) * src_width + l) * 2);
-	for (; h; h--)
-	{
-		for (int32_t ww = w; ww; ww--)
-		{
+	for (; h; h--) {
+		for (int32_t ww = w; ww; ww--) {
 			*(uint16_t*)dst += *src;
 			src++;
 			dst += 2;
@@ -451,8 +421,7 @@ void Blit16Add(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b,
 
 
 
-void __cdecl BlitRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr)
-{ // 4559d4
+void __cdecl BlitRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr) { // 4559d4
 	if (x + w <= g_clipRect.left) {
 		return;
 	}
@@ -468,29 +437,23 @@ void __cdecl BlitRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 
-	if (x < g_clipRect.left || x + w > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom)
-	{
+	if (x < g_clipRect.left || x + w > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom) {
 		uint16_t* dst = (uint16_t*)((uint8_t *)g_selDrawBitmap.lpSurface + x * 2 + y * dstpitch);
 		int32_t yy = y;
 		int32_t xx = x;
-		while (h != 0)
-		{
-			while (xx - x < w)
-			{
+		while (h != 0) {
+			while (xx - x < w) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
-					if (yy < g_clipRect.top || yy >= g_clipRect.bottom)
-					{
+				if (flags == 0) {
+					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst += count;
 						xx += count;
 					} else {
-						while (count)
-						{
+						while (count) {
 							if (xx >= g_clipRect.left && xx < g_clipRect.right) {
 								*dst = clr[*src];
 							}
@@ -500,8 +463,7 @@ void __cdecl BlitRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 							count--;
 						}
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -521,32 +483,26 @@ void __cdecl BlitRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 		}
 	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + x * 2 + y * dstpitch);
-		while (h > 0)
-		{
+		while (h > 0) {
 			int32_t xx = 0;
-			while (xx < w)
-			{
+			while (xx < w) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				const uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
+				if (flags == 0) {
 					xx += count;
-					for (int i = count / 2; i > 0; i--)
-					{
+					for (int i = count / 2; i > 0; i--) {
 						*(uint32_t*)dst = (clr[src[1]] << 16) | clr[src[0]];
 						src += 2;
 						dst += 2;
 					}
-					if (count & 1)
-					{
+					if (count & 1) {
 						*dst = clr[*src];
 						src++;
 						dst++;
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					if (h <= count) {
 						return;
 					}
@@ -566,8 +522,7 @@ void __cdecl BlitRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 }
 
 
-void __cdecl BlitRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr)
-{ //456a0d
+void __cdecl BlitRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr) { //456a0d
 	if (x + w <= g_clipRect.left) {
 		return;
 	}
@@ -583,29 +538,23 @@ void __cdecl BlitRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 
-	if (x < g_clipRect.left || x + w > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom)
-	{
+	if (x < g_clipRect.left || x + w > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom) {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (x + w - 1) * 2 + y * dstpitch);
 		int32_t yy = y;
 		int32_t xx = x + w - 1;
-		while (h != 0)
-		{
-			while (xx >= x)
-			{
+		while (h != 0) {
+			while (xx >= x) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
-					if (yy < g_clipRect.top || yy >= g_clipRect.bottom)
-					{
+				if (flags == 0) {
+					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst -= count;
 						xx -= count;
 					} else {
-						while (count)
-						{
+						while (count) {
 							if (xx >= g_clipRect.left && xx < g_clipRect.right) {
 								*dst = clr[*src];
 							}
@@ -615,8 +564,7 @@ void __cdecl BlitRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 							count--;
 						}
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -636,26 +584,21 @@ void __cdecl BlitRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 		}
 	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (x + w - 1) * 2 + y * dstpitch);
-		while (h > 0)
-		{
+		while (h > 0) {
 			int32_t xx = 0;
-			while (xx < w)
-			{
+			while (xx < w) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				const uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
+				if (flags == 0) {
 					xx += count;
-					for (int i = count; i > 0; i--)
-					{
+					for (int i = count; i > 0; i--) {
 						*dst = clr[ *src ];
 						src++;
 						dst--;
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					if (h <= count) {
 						return;
 					}
@@ -675,8 +618,7 @@ void __cdecl BlitRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 }
 
 
-void __cdecl BlitLightRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl)
-{ //45614c
+void __cdecl BlitLightRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl) { //45614c
 	if (x + w <= g_clipRect.left) {
 		return;
 	}
@@ -693,30 +635,24 @@ void __cdecl BlitLightRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 	int32_t bl = blvl * g_brightnessLookupCount;
 
-	if (x < g_clipRect.left || x + w > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom)
-	{
+	if (x < g_clipRect.left || x + w > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom) {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + x * 2 + y * dstpitch);
 		int32_t yy = y;
 		int32_t xx = x;
-		while (h != 0)
-		{
-			while (xx - x < w)
-			{
+		while (h != 0) {
+			while (xx - x < w) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
-					if (yy < g_clipRect.top || yy >= g_clipRect.bottom)
-					{
+				if (flags == 0) {
+					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst += count;
 						xx += count;
 					} else {
 						src += count;
-						while (count)
-						{
+						while (count) {
 							if (xx >= g_clipRect.left && xx < g_clipRect.right) {
 								*dst = g_brightnessLookup[bl + *dst];
 							}
@@ -725,8 +661,7 @@ void __cdecl BlitLightRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 							count--;
 						}
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -746,26 +681,21 @@ void __cdecl BlitLightRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 		}
 	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + x * 2 + y * dstpitch);
-		while (h > 0)
-		{
+		while (h > 0) {
 			int32_t xx = 0;
-			while (xx < w)
-			{
+			while (xx < w) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				const uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
+				if (flags == 0) {
 					xx += count;
 					src += count;
-					for (int i = count; i > 0; i--)
-					{
+					for (int i = count; i > 0; i--) {
 						*dst = g_brightnessLookup[bl + *dst];
 						dst++;
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					if (h <= count) {
 						return;
 					}
@@ -785,8 +715,7 @@ void __cdecl BlitLightRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 }
 
 
-void __cdecl BlitLightRle8Low(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl)
-{ //455f1c
+void __cdecl BlitLightRle8Low(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl) { //455f1c
 	if (x + w <= g_clipRect.left) {
 		return;
 	}
@@ -803,30 +732,24 @@ void __cdecl BlitLightRle8Low(int32_t x, int32_t y, int32_t w, int32_t h, uint8_
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 	int32_t bl = blvl * g_brightnessLookupCount;
 
-	if (x < g_clipRect.left || x + w > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom)
-	{
+	if (x < g_clipRect.left || x + w > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom) {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + x * 2 + y * dstpitch);
 		int32_t yy = y;
 		int32_t xx = x;
-		while (h != 0)
-		{
-			while (xx - x < w)
-			{
+		while (h != 0) {
+			while (xx - x < w) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
-					if (yy < g_clipRect.top || yy >= g_clipRect.bottom)
-					{
+				if (flags == 0) {
+					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst += count;
 						xx += count;
 					} else {
 						src += count;
-						while (count)
-						{
+						while (count) {
 							if (xx >= g_clipRect.left && xx < g_clipRect.right) {
 								*dst = g_brightnessLookup[bl + (*dst >> 3)];
 							}
@@ -835,8 +758,7 @@ void __cdecl BlitLightRle8Low(int32_t x, int32_t y, int32_t w, int32_t h, uint8_
 							count--;
 						}
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -856,26 +778,21 @@ void __cdecl BlitLightRle8Low(int32_t x, int32_t y, int32_t w, int32_t h, uint8_
 		}
 	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + x * 2 + y * dstpitch);
-		while (h > 0)
-		{
+		while (h > 0) {
 			int32_t xx = 0;
-			while (xx < w)
-			{
+			while (xx < w) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				const uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
+				if (flags == 0) {
 					xx += count;
 					src += count;
-					for (int i = count; i > 0; i--)
-					{
+					for (int i = count; i > 0; i--) {
 						*dst = g_brightnessLookup[bl + (*dst >> 3)];
 						dst++;
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					if (h <= count) {
 						return;
 					}
@@ -894,8 +811,7 @@ void __cdecl BlitLightRle8Low(int32_t x, int32_t y, int32_t w, int32_t h, uint8_
 	}
 }
 
-void __cdecl BlitLightRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl)
-{ //457141
+void __cdecl BlitLightRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl) { //457141
 	if (x + w <= g_clipRect.left) {
 		return;
 	}
@@ -912,30 +828,24 @@ void __cdecl BlitLightRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 	int32_t bl = blvl * g_brightnessLookupCount;
 
-	if (x < g_clipRect.left || x + w > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom)
-	{
+	if (x < g_clipRect.left || x + w > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom) {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (x + w - 1) * 2 + y * dstpitch);
 		int32_t yy = y;
 		int32_t xx = x + w - 1;
-		while (h != 0)
-		{
-			while (xx >= x)
-			{
+		while (h != 0) {
+			while (xx >= x) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
-					if (yy < g_clipRect.top || yy >= g_clipRect.bottom)
-					{
+				if (flags == 0) {
+					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst -= count;
 						xx -= count;
 					} else {
 						src += count;
-						while (count)
-						{
+						while (count) {
 							if (xx >= g_clipRect.left && xx < g_clipRect.right) {
 								*dst = g_brightnessLookup[bl + *dst];
 							}
@@ -944,8 +854,7 @@ void __cdecl BlitLightRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint
 							count--;
 						}
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -965,26 +874,21 @@ void __cdecl BlitLightRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint
 		}
 	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (x + w - 1) * 2 + y * dstpitch);
-		while (h > 0)
-		{
+		while (h > 0) {
 			int32_t xx = 0;
-			while (xx < w)
-			{
+			while (xx < w) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				const uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
+				if (flags == 0) {
 					xx += count;
 					src += count;
-					for (int i = count; i > 0; i--)
-					{
+					for (int i = count; i > 0; i--) {
 						*dst = g_brightnessLookup[bl + *dst];
 						dst--;
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					if (h <= count) {
 						return;
 					}
@@ -1003,8 +907,7 @@ void __cdecl BlitLightRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint
 	}
 }
 
-void __cdecl BlitLightRle8FlipXLow(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl)
-{ //457141
+void __cdecl BlitLightRle8FlipXLow(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl) { //457141
 	if (x + w <= g_clipRect.left) {
 		return;
 	}
@@ -1021,30 +924,24 @@ void __cdecl BlitLightRle8FlipXLow(int32_t x, int32_t y, int32_t w, int32_t h, u
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 	int32_t bl = blvl * g_brightnessLookupCount;
 
-	if (x < g_clipRect.left || x + w > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom)
-	{
+	if (x < g_clipRect.left || x + w > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom) {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (x + w - 1) * 2 + y * dstpitch);
 		int32_t yy = y;
 		int32_t xx = x + w - 1;
-		while (h != 0)
-		{
-			while (xx >= x)
-			{
+		while (h != 0) {
+			while (xx >= x) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
-					if (yy < g_clipRect.top || yy >= g_clipRect.bottom)
-					{
+				if (flags == 0) {
+					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst -= count;
 						xx -= count;
 					} else {
 						src += count;
-						while (count)
-						{
+						while (count) {
 							if (xx >= g_clipRect.left && xx < g_clipRect.right) {
 								*dst = g_brightnessLookup[bl + (*dst >> 3)];
 							}
@@ -1053,8 +950,7 @@ void __cdecl BlitLightRle8FlipXLow(int32_t x, int32_t y, int32_t w, int32_t h, u
 							count--;
 						}
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -1074,26 +970,21 @@ void __cdecl BlitLightRle8FlipXLow(int32_t x, int32_t y, int32_t w, int32_t h, u
 		}
 	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (x + w - 1) * 2 + y * dstpitch);
-		while (h > 0)
-		{
+		while (h > 0) {
 			int32_t xx = 0;
-			while (xx < w)
-			{
+			while (xx < w) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				const uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
+				if (flags == 0) {
 					xx += count;
 					src += count;
-					for (int i = count; i > 0; i--)
-					{
+					for (int i = count; i > 0; i--) {
 						*dst = g_brightnessLookup[bl + (*dst >> 3)];
 						dst--;
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					if (h <= count) {
 						return;
 					}
@@ -1113,8 +1004,7 @@ void __cdecl BlitLightRle8FlipXLow(int32_t x, int32_t y, int32_t w, int32_t h, u
 }
 
 
-void __cdecl BlitRle8Blend(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr)
-{ // 455ce6
+void __cdecl BlitRle8Blend(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr) { // 455ce6
 	if (x + w <= g_clipRect.left) {
 		return;
 	}
@@ -1130,29 +1020,23 @@ void __cdecl BlitRle8Blend(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 
-	if (x < g_clipRect.left || x + w > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom)
-	{
+	if (x < g_clipRect.left || x + w > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom) {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + x * 2 + y * dstpitch);
 		int32_t yy = y;
 		int32_t xx = x;
-		while (h != 0)
-		{
-			while (xx - x < w)
-			{
+		while (h != 0) {
+			while (xx - x < w) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
-					if (yy < g_clipRect.top || yy >= g_clipRect.bottom)
-					{
+				if (flags == 0) {
+					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst += count;
 						xx += count;
 					} else {
-						while (count)
-						{
+						while (count) {
 							if (xx >= g_clipRect.left && xx < g_clipRect.right) {
 								*dst = ((clr[*src] >> 1) & g_ColorAddMask) + ((*dst >> 1) & g_ColorAddMask);
 							}
@@ -1162,8 +1046,7 @@ void __cdecl BlitRle8Blend(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 							count--;
 						}
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -1183,26 +1066,21 @@ void __cdecl BlitRle8Blend(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 		}
 	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + x * 2 + y * dstpitch);
-		while (h > 0)
-		{
+		while (h > 0) {
 			int32_t xx = 0;
-			while (xx < w)
-			{
+			while (xx < w) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				const uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
+				if (flags == 0) {
 					xx += count;
-					for (int i = count; i > 0; i--)
-					{
+					for (int i = count; i > 0; i--) {
 						*dst = ((clr[*src] >> 1) & g_ColorAddMask) + ((*dst >> 1) & g_ColorAddMask);
 						src++;
 						dst++;
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					if (h <= count) {
 						return;
 					}
@@ -1222,8 +1100,7 @@ void __cdecl BlitRle8Blend(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 }
 
 
-void __cdecl BlitRle8BlendFlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr)
-{ // 456ca7
+void __cdecl BlitRle8BlendFlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr) { // 456ca7
 	if (x + w <= g_clipRect.left) {
 		return;
 	}
@@ -1239,29 +1116,23 @@ void __cdecl BlitRle8BlendFlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint
 
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 
-	if (x < g_clipRect.left || x + w > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom)
-	{
+	if (x < g_clipRect.left || x + w > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom) {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (x + w - 1) * 2 + y * dstpitch);
 		int32_t yy = y;
 		int32_t xx = x + w - 1;
-		while (h != 0)
-		{
-			while (xx >= x)
-			{
+		while (h != 0) {
+			while (xx >= x) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
-					if (yy < g_clipRect.top || yy >= g_clipRect.bottom)
-					{
+				if (flags == 0) {
+					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst -= count;
 						xx -= count;
 					} else {
-						while (count)
-						{
+						while (count) {
 							if (xx >= g_clipRect.left && xx < g_clipRect.right) {
 								*dst = ((clr[*src] >> 1) & g_ColorAddMask) + ((*dst >> 1) & g_ColorAddMask);
 							}
@@ -1271,8 +1142,7 @@ void __cdecl BlitRle8BlendFlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint
 							count--;
 						}
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -1292,26 +1162,21 @@ void __cdecl BlitRle8BlendFlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint
 		}
 	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (x + w - 1) * 2 + y * dstpitch);
-		while (h > 0)
-		{
+		while (h > 0) {
 			int32_t xx = 0;
-			while (xx < w)
-			{
+			while (xx < w) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				const uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
+				if (flags == 0) {
 					xx += count;
-					for (int i = count; i > 0; i--)
-					{
+					for (int i = count; i > 0; i--) {
 						*dst = ((clr[*src] >> 1) & g_ColorAddMask) + ((*dst >> 1) & g_ColorAddMask);
 						src++;
 						dst--;
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					if (h <= count) {
 						return;
 					}
@@ -1332,8 +1197,7 @@ void __cdecl BlitRle8BlendFlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint
 
 
 
-void __cdecl BlitLightRle8Tilt(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl, int32_t tilt)
-{ //4566ff
+void __cdecl BlitLightRle8Tilt(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl, int32_t tilt) { //4566ff
 	int32_t off = (int16_t)((tilt * h) >> 16);
 	int32_t aoff = abs(off);
 
@@ -1355,30 +1219,24 @@ void __cdecl BlitLightRle8Tilt(int32_t x, int32_t y, int32_t w, int32_t h, uint8
 
 	int32_t tl = 0;
 
-	if (x - aoff < g_clipRect.left || x + w + aoff > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom)
-	{
+	if (x - aoff < g_clipRect.left || x + w + aoff > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom) {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (off + x) * 2 + y * dstpitch);
 		int32_t yy = y;
 		int32_t xx = x;
-		while (h != 0)
-		{
-			while (xx - x < w)
-			{
+		while (h != 0) {
+			while (xx - x < w) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
-					if (yy < g_clipRect.top || yy >= g_clipRect.bottom)
-					{
+				if (flags == 0) {
+					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst += count;
 						xx += count;
 					} else {
 						src += count;
-						while (count)
-						{
+						while (count) {
 							if (xx + off >= g_clipRect.left && xx + off < g_clipRect.right) {
 								*dst = g_brightnessLookup[bl + *dst];
 							}
@@ -1387,8 +1245,7 @@ void __cdecl BlitLightRle8Tilt(int32_t x, int32_t y, int32_t w, int32_t h, uint8
 							count--;
 						}
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -1419,26 +1276,21 @@ void __cdecl BlitLightRle8Tilt(int32_t x, int32_t y, int32_t w, int32_t h, uint8
 		}
 	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (off + x) * 2 + y * dstpitch);
-		while (h > 0)
-		{
+		while (h > 0) {
 			int32_t xx = 0;
-			while (xx < w)
-			{
+			while (xx < w) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				const uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
+				if (flags == 0) {
 					xx += count;
 					src += count;
-					for (int i = count; i > 0; i--)
-					{
+					for (int i = count; i > 0; i--) {
 						*dst = g_brightnessLookup[bl + *dst];
 						dst++;
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					if (h <= count) {
 						return;
 					}
@@ -1464,8 +1316,7 @@ void __cdecl BlitLightRle8Tilt(int32_t x, int32_t y, int32_t w, int32_t h, uint8
 	}
 }
 
-void __cdecl BlitLightRle8TiltLow(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl, int32_t tilt)
-{ //4563e7
+void __cdecl BlitLightRle8TiltLow(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl, int32_t tilt) { //4563e7
 	int32_t off = (int16_t)((tilt * h) >> 16);
 	int32_t aoff = abs(off);
 
@@ -1487,30 +1338,24 @@ void __cdecl BlitLightRle8TiltLow(int32_t x, int32_t y, int32_t w, int32_t h, ui
 
 	int32_t tl = 0;
 
-	if (x - aoff < g_clipRect.left || x + w + aoff > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom)
-	{
+	if (x - aoff < g_clipRect.left || x + w + aoff > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom) {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (off + x) * 2 + y * dstpitch);
 		int32_t yy = y;
 		int32_t xx = x;
-		while (h != 0)
-		{
-			while (xx - x < w)
-			{
+		while (h != 0) {
+			while (xx - x < w) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
-					if (yy < g_clipRect.top || yy >= g_clipRect.bottom)
-					{
+				if (flags == 0) {
+					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst += count;
 						xx += count;
 					} else {
 						src += count;
-						while (count)
-						{
+						while (count) {
 							if (xx + off >= g_clipRect.left && xx + off < g_clipRect.right) {
 								*dst = g_brightnessLookup[bl + (*dst >> 3)];
 							}
@@ -1519,8 +1364,7 @@ void __cdecl BlitLightRle8TiltLow(int32_t x, int32_t y, int32_t w, int32_t h, ui
 							count--;
 						}
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -1551,26 +1395,21 @@ void __cdecl BlitLightRle8TiltLow(int32_t x, int32_t y, int32_t w, int32_t h, ui
 		}
 	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (off + x) * 2 + y * dstpitch);
-		while (h > 0)
-		{
+		while (h > 0) {
 			int32_t xx = 0;
-			while (xx < w)
-			{
+			while (xx < w) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				const uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
+				if (flags == 0) {
 					xx += count;
 					src += count;
-					for (int i = count; i > 0; i--)
-					{
+					for (int i = count; i > 0; i--) {
 						*dst = g_brightnessLookup[bl + (*dst >> 3)];
 						dst++;
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					if (h <= count) {
 						return;
 					}
@@ -1597,8 +1436,7 @@ void __cdecl BlitLightRle8TiltLow(int32_t x, int32_t y, int32_t w, int32_t h, ui
 }
 
 
-void __cdecl BlitLightRle8TiltFlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl, int32_t tilt)
-{ //4576b1
+void __cdecl BlitLightRle8TiltFlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl, int32_t tilt) { //4576b1
 	int32_t off = (int16_t)((tilt * h) >> 16);
 	int32_t aoff = abs(off);
 
@@ -1620,30 +1458,24 @@ void __cdecl BlitLightRle8TiltFlipX(int32_t x, int32_t y, int32_t w, int32_t h, 
 
 	int32_t tl = 0;
 
-	if (x - aoff < g_clipRect.left || x + w + aoff > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom)
-	{
+	if (x - aoff < g_clipRect.left || x + w + aoff > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom) {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (off + x + w - 1) * 2 + y * dstpitch);
 		int32_t yy = y;
 		int32_t xx = x + w - 1;
-		while (h != 0)
-		{
-			while (xx >= x)
-			{
+		while (h != 0) {
+			while (xx >= x) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
-					if (yy < g_clipRect.top || yy >= g_clipRect.bottom)
-					{
+				if (flags == 0) {
+					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst -= count;
 						xx -= count;
 					} else {
 						src += count;
-						while (count)
-						{
+						while (count) {
 							if (xx + off >= g_clipRect.left && xx + off < g_clipRect.right) {
 								*dst = g_brightnessLookup[bl + *dst];
 							}
@@ -1652,8 +1484,7 @@ void __cdecl BlitLightRle8TiltFlipX(int32_t x, int32_t y, int32_t w, int32_t h, 
 							count--;
 						}
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -1684,26 +1515,21 @@ void __cdecl BlitLightRle8TiltFlipX(int32_t x, int32_t y, int32_t w, int32_t h, 
 		}
 	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (off + x + w - 1) * 2 + y * dstpitch);
-		while (h > 0)
-		{
+		while (h > 0) {
 			int32_t xx = 0;
-			while (xx < w)
-			{
+			while (xx < w) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				const uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
+				if (flags == 0) {
 					xx += count;
 					src += count;
-					for (int i = count; i > 0; i--)
-					{
+					for (int i = count; i > 0; i--) {
 						*dst = g_brightnessLookup[bl + *dst];
 						dst--;
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					if (h <= count) {
 						return;
 					}
@@ -1729,8 +1555,7 @@ void __cdecl BlitLightRle8TiltFlipX(int32_t x, int32_t y, int32_t w, int32_t h, 
 	}
 }
 
-void __cdecl BlitLightRle8TiltFlipXLow(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl, int32_t tilt)
-{ //457380
+void __cdecl BlitLightRle8TiltFlipXLow(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl, int32_t tilt) { //457380
 	int32_t off = (int16_t)((tilt * h) >> 16);
 	int32_t aoff = abs(off);
 
@@ -1752,30 +1577,24 @@ void __cdecl BlitLightRle8TiltFlipXLow(int32_t x, int32_t y, int32_t w, int32_t 
 
 	int32_t tl = 0;
 
-	if (x - aoff < g_clipRect.left || x + w + aoff > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom)
-	{
+	if (x - aoff < g_clipRect.left || x + w + aoff > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom) {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (off + x + w - 1) * 2 + y * dstpitch);
 		int32_t yy = y;
 		int32_t xx = x + w - 1;
-		while (h != 0)
-		{
-			while (xx >= x)
-			{
+		while (h != 0) {
+			while (xx >= x) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
-					if (yy < g_clipRect.top || yy >= g_clipRect.bottom)
-					{
+				if (flags == 0) {
+					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst -= count;
 						xx -= count;
 					} else {
 						src += count;
-						while (count)
-						{
+						while (count) {
 							if (xx + off >= g_clipRect.left && xx + off < g_clipRect.right) {
 								*dst = g_brightnessLookup[bl + (*dst >> 3)];
 							}
@@ -1784,8 +1603,7 @@ void __cdecl BlitLightRle8TiltFlipXLow(int32_t x, int32_t y, int32_t w, int32_t 
 							count--;
 						}
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -1816,26 +1634,21 @@ void __cdecl BlitLightRle8TiltFlipXLow(int32_t x, int32_t y, int32_t w, int32_t 
 		}
 	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (off + x + w - 1) * 2 + y * dstpitch);
-		while (h > 0)
-		{
+		while (h > 0) {
 			int32_t xx = 0;
-			while (xx < w)
-			{
+			while (xx < w) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				const uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
+				if (flags == 0) {
 					xx += count;
 					src += count;
-					for (int i = count; i > 0; i--)
-					{
+					for (int i = count; i > 0; i--) {
 						*dst = g_brightnessLookup[bl + (*dst >> 3)];
 						dst--;
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					if (h <= count) {
 						return;
 					}
@@ -1863,32 +1676,26 @@ void __cdecl BlitLightRle8TiltFlipXLow(int32_t x, int32_t y, int32_t w, int32_t 
 
 
 
-void __cdecl BlitRle8IndexMask(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, uint8_t mv)
-{ // 455c55
+void __cdecl BlitRle8IndexMask(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, uint8_t mv) { // 455c55
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 
 	uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + x + y * dstpitch;
-	while (h > 0)
-	{
+	while (h > 0) {
 		int32_t xx = 0;
-		while (xx < w)
-		{
+		while (xx < w) {
 			const uint8_t b = *src;
 			src++;
 			const uint8_t flags = b & 0xc0;
 			const uint8_t count = b & 0x3f;
-			if (flags == 0)
-			{
+			if (flags == 0) {
 				xx += count;
 				src += count;
 
-				for (int i = count; i > 0; i--)
-				{
+				for (int i = count; i > 0; i--) {
 					*dst = mv;
 					dst++;
 				}
-			} else if (flags == 0x40)
-			{
+			} else if (flags == 0x40) {
 				if (h <= count) {
 					return;
 				}
@@ -1907,8 +1714,7 @@ void __cdecl BlitRle8IndexMask(int32_t x, int32_t y, int32_t w, int32_t h, uint8
 }
 
 
-void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src, const uint16_t* clr)
-{ // 
+void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src, const uint16_t* clr) { //
 	if (x + w <= g_clipRect.left) {
 		return;
 	}
@@ -1924,33 +1730,25 @@ void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src
 
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 
-	if (x < g_clipRect.left || x + w > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom)
-	{
+	if (x < g_clipRect.left || x + w > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom) {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + x * 2 + y * dstpitch);
 		int32_t yy = y;
 		int32_t xx = x;
-		while (h != 0)
-		{
-			while (xx - x < w)
-			{
+		while (h != 0) {
+			while (xx - x < w) {
 				const uint16_t b = *src;
 				src++;
 				const uint16_t flags = b & 0xc000;
 				uint16_t count = b & 0x3fff;
-				if (flags == 0)
-				{
-					if (yy < g_clipRect.top || yy >= g_clipRect.bottom)
-					{
+				if (flags == 0) {
+					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst += count;
 						xx += count;
 					} else {
-						if (g_isLowMemory == 0)
-						{
-							while (count)
-							{
-								if (xx >= g_clipRect.left && xx < g_clipRect.right)
-								{
+						if (g_isLowMemory == 0) {
+							while (count) {
+								if (xx >= g_clipRect.left && xx < g_clipRect.right) {
 									const uint16_t px = *src;
 									*dst = clr[px / 2] + g_brightnessLookup[g_brightnessLookupCount + ((px & 0x1e00) << (8 - 1)) + *dst];
 								}
@@ -1960,10 +1758,8 @@ void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src
 								count--;
 							}
 						} else {
-							while (count)
-							{
-								if (xx >= g_clipRect.left && xx < g_clipRect.right)
-								{
+							while (count) {
+								if (xx >= g_clipRect.left && xx < g_clipRect.right) {
 									const uint16_t px = *src;
 									*dst = clr[px / 2] + g_brightnessLookup[((px & 0x1e00) << (8 - 1 - 3)) + (*dst >> 3)];
 								}
@@ -1974,8 +1770,7 @@ void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src
 							}
 						}
 					}
-				} else if (flags == 0x4000)
-				{
+				} else if (flags == 0x4000) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -1983,8 +1778,7 @@ void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				} else if (flags == 0x8000)
-				{
+				} else if (flags == 0x8000) {
 					dst += count;
 					xx += count;
 				}
@@ -1996,46 +1790,38 @@ void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src
 		}
 	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + x * 2 + y * dstpitch);
-		while (h > 0)
-		{
+		while (h > 0) {
 			int32_t xx = 0;
-			while (xx < w)
-			{
+			while (xx < w) {
 				const uint16_t b = *src;
 				src++;
 				const uint16_t flags = b & 0xc000;
 				const uint16_t count = b & 0x3fff;
-				if (flags == 0)
-				{
+				if (flags == 0) {
 					xx += count;
-					if (g_isLowMemory == 0)
-					{
-						for (int i = count; i > 0; i--)
-						{
+					if (g_isLowMemory == 0) {
+						for (int i = count; i > 0; i--) {
 							const uint16_t px = *src;
 							*dst = clr[px / 2] + g_brightnessLookup[g_brightnessLookupCount + ((px & 0x1e00) << (8 - 1)) + *dst];
 							src++;
 							dst++;
 						}
 					} else {
-						for (int i = count; i > 0; i--)
-						{
+						for (int i = count; i > 0; i--) {
 							const uint16_t px = *src;
 							*dst = clr[px / 2] + g_brightnessLookup[((px & 0x1e00) << (8 - 1 - 3)) + (*dst >> 3)];
 							src++;
 							dst++;
 						}
 					}
-				} else if (flags == 0x4000)
-				{
+				} else if (flags == 0x4000) {
 					if (h <= count) {
 						return;
 					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				} else if (flags == 0x8000)
-				{
+				} else if (flags == 0x8000) {
 					dst += count;
 					xx += count;
 				}
@@ -2047,8 +1833,7 @@ void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src
 	}
 }
 
-void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src, const uint16_t* clr)
-{ //
+void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src, const uint16_t* clr) { //
 	if (x + w <= g_clipRect.left) {
 		return;
 	}
@@ -2064,33 +1849,25 @@ void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t
 
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 
-	if (x < g_clipRect.left || x + w > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom)
-	{
+	if (x < g_clipRect.left || x + w > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom) {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (x + w - 1) * 2 + y * dstpitch);
 		int32_t yy = y;
 		int32_t xx = x + w - 1;
-		while (h != 0)
-		{
-			while (xx >= x)
-			{
+		while (h != 0) {
+			while (xx >= x) {
 				const uint16_t b = *src;
 				src++;
 				const uint16_t flags = b & 0xc000;
 				uint16_t count = b & 0x3fff;
-				if (flags == 0)
-				{
-					if (yy < g_clipRect.top || yy >= g_clipRect.bottom)
-					{
+				if (flags == 0) {
+					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst -= count;
 						xx -= count;
 					} else {
-						if (g_isLowMemory == 0)
-						{
-							while (count)
-							{
-								if (xx >= g_clipRect.left && xx < g_clipRect.right)
-								{
+						if (g_isLowMemory == 0) {
+							while (count) {
+								if (xx >= g_clipRect.left && xx < g_clipRect.right) {
 									const uint16_t px = *src;
 									*dst = clr[px / 2] + g_brightnessLookup[g_brightnessLookupCount + ((px & 0x1e00) << (8 - 1)) + *dst];
 								}
@@ -2100,10 +1877,8 @@ void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t
 								count--;
 							}
 						} else {
-							while (count)
-							{
-								if (xx >= g_clipRect.left && xx < g_clipRect.right)
-								{
+							while (count) {
+								if (xx >= g_clipRect.left && xx < g_clipRect.right) {
 									const uint16_t px = *src;
 									*dst = clr[px / 2] + g_brightnessLookup[((px & 0x1e00) << (8 - 1 - 3)) + (*dst >> 3)];
 								}
@@ -2114,8 +1889,7 @@ void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t
 							}
 						}
 					}
-				} else if (flags == 0x4000)
-				{
+				} else if (flags == 0x4000) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -2123,8 +1897,7 @@ void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				} else if (flags == 0x8000)
-				{
+				} else if (flags == 0x8000) {
 					dst -= count;
 					xx -= count;
 				}
@@ -2136,46 +1909,38 @@ void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t
 		}
 	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + (x + w - 1) * 2 + y * dstpitch);
-		while (h > 0)
-		{
+		while (h > 0) {
 			int32_t xx = 0;
-			while (xx < w)
-			{
+			while (xx < w) {
 				const uint16_t b = *src;
 				src++;
 				const uint16_t flags = b & 0xc000;
 				const uint16_t count = b & 0x3fff;
-				if (flags == 0)
-				{
+				if (flags == 0) {
 					xx += count;
-					if (g_isLowMemory == 0)
-					{
-						for (int i = count; i > 0; i--)
-						{
+					if (g_isLowMemory == 0) {
+						for (int i = count; i > 0; i--) {
 							const uint16_t px = *src;
 							*dst = clr[px / 2] + g_brightnessLookup[g_brightnessLookupCount + ((px & 0x1e00) << (8 - 1)) + *dst];
 							src++;
 							dst--;
 						}
 					} else {
-						for (int i = count; i > 0; i--)
-						{
+						for (int i = count; i > 0; i--) {
 							const uint16_t px = *src;
 							*dst = clr[px / 2] + g_brightnessLookup[((px & 0x1e00) << (8 - 1 - 3)) + (*dst >> 3)];
 							src++;
 							dst--;
 						}
 					}
-				} else if (flags == 0x4000)
-				{
+				} else if (flags == 0x4000) {
 					if (h <= count) {
 						return;
 					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				} else if(flags == 0x8000)
-				{
+				} else if(flags == 0x8000) {
 					dst -= count;
 					xx += count;
 				}
@@ -2187,8 +1952,7 @@ void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t
 	}
 }
 
-void __cdecl BlitRle4(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr)
-{ // 455761
+void __cdecl BlitRle4(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr) { // 455761
 	if (x + w <= g_clipRect.left) {
 		return;
 	}
@@ -2204,35 +1968,28 @@ void __cdecl BlitRle4(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 
 	const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 
-	if (x < g_clipRect.left || x + w > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom)
-	{
+	if (x < g_clipRect.left || x + w > g_clipRect.right || y < g_clipRect.top || y + h > g_clipRect.bottom) {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + x * 2 + y * dstpitch);
 		int32_t yy = y;
 		int32_t xx = x;
-		while (h != 0)
-		{
-			while (xx - x < w)
-			{
+		while (h != 0) {
+			while (xx - x < w) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
-					if (yy < g_clipRect.top || yy >= g_clipRect.bottom)
-					{
+				if (flags == 0) {
+					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst += count * 2;
 						xx += count * 2;
 
-						if ((src[-1] & 0xf0) == 0)
-						{
+						if ((src[-1] & 0xf0) == 0) {
 							dst--;
 							xx--;
 						}
 					} else {
-						while (count)
-						{
+						while (count) {
 							uint8_t bb = *src;
 							src++;
 
@@ -2255,8 +2012,7 @@ void __cdecl BlitRle4(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 							count--;
 						}
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -2276,19 +2032,15 @@ void __cdecl BlitRle4(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 		}
 	} else {
 		uint16_t* dst = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + x * 2 + y * dstpitch);
-		while (h > 0)
-		{
+		while (h > 0) {
 			int32_t xx = 0;
-			while (xx < w)
-			{
+			while (xx < w) {
 				const uint8_t b = *src;
 				src++;
 				const uint8_t flags = b & 0xc0;
 				const uint8_t count = b & 0x3f;
-				if (flags == 0)
-				{
-					for (int i = count; i > 0; i--)
-					{
+				if (flags == 0) {
+					for (int i = count; i > 0; i--) {
 						uint8_t bb = *src;
 						src++;
 
@@ -2304,8 +2056,7 @@ void __cdecl BlitRle4(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 						dst++;
 						xx++;
 					}
-				} else if (flags == 0x40)
-				{
+				} else if (flags == 0x40) {
 					if (h <= count) {
 						return;
 					}
@@ -2326,8 +2077,7 @@ void __cdecl BlitRle4(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 
 
 
-void __cdecl SetPixelColor(int32_t x, int32_t y, uint32_t clr)
-{
+void __cdecl SetPixelColor(int32_t x, int32_t y, uint32_t clr) {
 	//4586a4
 	if (x >= g_clipRect.left && x < g_clipRect.right &&
 		y >= g_clipRect.top && y < g_clipRect.bottom) {
@@ -2336,8 +2086,7 @@ void __cdecl SetPixelColor(int32_t x, int32_t y, uint32_t clr)
 }
 
 // 457aa6
-void __cdecl FUN_00457aa6(int32_t l, int32_t t, int32_t r, int32_t b, uint16_t clr)
-{
+void __cdecl FUN_00457aa6(int32_t l, int32_t t, int32_t r, int32_t b, uint16_t clr) {
 	if (l < g_clipRect.left) {
 		l = g_clipRect.left;
 	}
@@ -2370,8 +2119,7 @@ void __cdecl FUN_00457aa6(int32_t l, int32_t t, int32_t r, int32_t b, uint16_t c
 }
 
 // 457c5d
-void __cdecl sub_457C5D(int32_t l, int32_t t, int32_t r, int32_t b, int32_t brightness)
-{
+void __cdecl sub_457C5D(int32_t l, int32_t t, int32_t r, int32_t b, int32_t brightness) {
 	uint16_t add = (uint16_t)(((((brightness << 4) - 1) >> (8 - g_RBits)) << g_RBitShift) |
 	                          ((((brightness << 4) - 1) >> (8 - g_GBits)) << g_GBitShift) |
 	                          ((((brightness << 4) - 1) >> (8 - g_BBits)) << g_BBitShift));
@@ -2411,8 +2159,7 @@ void __cdecl sub_457C5D(int32_t l, int32_t t, int32_t r, int32_t b, int32_t brig
 }
 
 // 4586fe
-void __cdecl sub_4586FE(int32_t x, int32_t y, int32_t r, int32_t g, int32_t b, int32_t alpha)
-{
+void __cdecl sub_4586FE(int32_t x, int32_t y, int32_t r, int32_t g, int32_t b, int32_t alpha) {
 	if (x < g_clipRect.left || x >= g_clipRect.right || y < g_clipRect.top || y >= g_clipRect.bottom) {
 		return;
 	}
@@ -2436,8 +2183,7 @@ void __cdecl sub_4586FE(int32_t x, int32_t y, int32_t r, int32_t g, int32_t b, i
 }
 
 // 4588EC
-void __cdecl sub_4588EC(int32_t x, int32_t y, int32_t r, int32_t g, int32_t b, int32_t alpha)
-{
+void __cdecl sub_4588EC(int32_t x, int32_t y, int32_t r, int32_t g, int32_t b, int32_t alpha) {
 	sub_4586FE(x, y, r, g, b, alpha);
 	sub_4586FE(x + 1, y, r, g, b, alpha * 3 / 4);
 	sub_4586FE(x, y + 1, r, g, b, alpha * 3 / 4);
@@ -2453,8 +2199,7 @@ void __cdecl sub_4588EC(int32_t x, int32_t y, int32_t r, int32_t g, int32_t b, i
 	sub_4586FE(x - 1, y - 1, r, g, b, alpha / 4);
 }
 
-void __cdecl FillRectColor(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr)
-{
+void __cdecl FillRectColor(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr) {
 	//457dcc
 	uint16_t* sp = (uint16_t*)g_selDrawBitmap.lpSurface;
 
@@ -2467,8 +2212,7 @@ void __cdecl FillRectColor(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t 
 	int32_t dd;
 	int32_t dp;
 
-	if (h < w)
-	{
+	if (h < w) {
 		dp = h * 2 - w;
 		dl = h - w;
 		rr = r;
@@ -2501,14 +2245,11 @@ void __cdecl FillRectColor(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t 
 		sp[l + t * (g_selDrawBitmap.lPitch / 2)] = clr;
 	}
 
-	if (h < w)
-	{
-		while (xx != rr)
-		{
+	if (h < w) {
+		while (xx != rr) {
 			xx += dx;
 			w = dd;
-			if (dp > -1)
-			{
+			if (dp > -1) {
 				yy += dy;
 				w = dl;
 			}
@@ -2520,12 +2261,10 @@ void __cdecl FillRectColor(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t 
 			}
 		}
 	} else {
-		while (yy != bb)
-		{
+		while (yy != bb) {
 			yy += dy;
 			w = dd;
-			if (dp > -1)
-			{
+			if (dp > -1) {
 				xx += dx;
 				w = dl;
 			}
@@ -2539,8 +2278,7 @@ void __cdecl FillRectColor(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t 
 	}
 }
 
-void __cdecl FillRectColorSimple(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr)
-{
+void __cdecl FillRectColorSimple(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr) {
 	//4579d8
 	if (g_IsServer != 0) {
 		return;
@@ -2561,14 +2299,12 @@ void __cdecl FillRectColorSimple(int32_t l, int32_t t, int32_t r, int32_t b, uin
 
 	const uint32_t dcolor = (clr << 16) | clr;
 
-	for (int32_t y = t; y < b; y++)
-	{
+	for (int32_t y = t; y < b; y++) {
 		uint16_t* dout = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + y * g_selDrawBitmap.lPitch + l * 2);
 
 		int32_t num = r - l;
 
-		while (num >= 2)
-		{
+		while (num >= 2) {
 			*(uint32_t*)dout = dcolor;
 			dout += 2;
 			num -= 2;
@@ -2580,8 +2316,7 @@ void __cdecl FillRectColorSimple(int32_t l, int32_t t, int32_t r, int32_t b, uin
 	}
 }
 
-void __cdecl ShadowRect(CRect rect, int shadow)
-{
+void __cdecl ShadowRect(CRect rect, int shadow) {
 	//457b6f
 	uint16_t* lookup = g_brightnessLookup + shadow * g_brightnessLookupCount;
 
@@ -2592,11 +2327,9 @@ void __cdecl ShadowRect(CRect rect, int shadow)
 	}
 
 	uint16_t* px = (uint16_t*)g_selDrawBitmap.lpSurface + (g_selDrawBitmap.lPitch / 2) * rect.top + rect.left;
-	for (int32_t y = rect.top; y < rect.bottom; y++)
-	{
+	for (int32_t y = rect.top; y < rect.bottom; y++) {
 		uint16_t* row = px;
-		for (int32_t x = rect.left; x < rect.right; x++)
-		{
+		for (int32_t x = rect.left; x < rect.right; x++) {
 			if (g_isLowMemory) {
 				*row = lookup[(*row) >> 3];
 			} else {
@@ -2609,10 +2342,8 @@ void __cdecl ShadowRect(CRect rect, int shadow)
 }
 
 
-void CopyIndexedSkip0(uint8_t* dst, uint8_t* src, int32_t size)
-{ //45424d
-	while (size > 0)
-	{
+void CopyIndexedSkip0(uint8_t* dst, uint8_t* src, int32_t size) { //45424d
+	while (size > 0) {
 		uint8_t px = *src;
 		if (px != 0) {
 			*dst = px;
@@ -2624,8 +2355,7 @@ void CopyIndexedSkip0(uint8_t* dst, uint8_t* src, int32_t size)
 }
 
 
-void DrawFlatTile(int32_t x, int32_t y, int32_t l1, int32_t l2, int32_t l3, int32_t l4, uint8_t* src, uint16_t* pal)
-{ //458b29
+void DrawFlatTile(int32_t x, int32_t y, int32_t l1, int32_t l2, int32_t l3, int32_t l4, uint8_t* src, uint16_t* pal) { //458b29
 	if (x < g_clipRect.left || x + 32 > g_clipRect.right || y >= g_clipRect.bottom || y + 32 < g_clipRect.top) {
 		return;
 	}
@@ -2637,8 +2367,7 @@ void DrawFlatTile(int32_t x, int32_t y, int32_t l1, int32_t l2, int32_t l3, int3
 	l3 *= 32;
 	
 	uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + y * g_selDrawBitmap.lPitch + x * 2;
-	for (int32_t i = 0; i < 32; i++)
-	{
+	for (int32_t i = 0; i < 32; i++) {
 		int32_t num_row = 32;
 		int32_t lstep = (l3 - l1) / 32; // 256 / 32 lines
 
@@ -2656,10 +2385,8 @@ void DrawFlatTile(int32_t x, int32_t y, int32_t l1, int32_t l2, int32_t l3, int3
 		int32_t yy = y;
 		uint8_t* out_dst = dst;
 
-		while (num_row > 0)
-		{
-			if (yy >= g_clipRect.top)
-			{
+		while (num_row > 0) {
+			if (yy >= g_clipRect.top) {
 				const int32_t pal_idx = (lght & ~(32-1)) << 3; //256
 				*(uint16_t*)out_dst = pal[pal_idx + *srcpx];
 			}
@@ -2680,8 +2407,7 @@ void DrawFlatTile(int32_t x, int32_t y, int32_t l1, int32_t l2, int32_t l3, int3
 }
 
 
-void DrawDeformedTile(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3, int32_t l1, int32_t l2, int32_t l3, int32_t l4, uint8_t* src, uint16_t* pal)
-{ //458ca0
+void DrawDeformedTile(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3, int32_t l1, int32_t l2, int32_t l3, int32_t l4, uint8_t* src, uint16_t* pal) { //458ca0
 	if (x0 < g_clipRect.left || x1 > g_clipRect.right || 
 		(h0 >= g_clipRect.bottom && h1 >= g_clipRect.bottom) ||
 		(h2 < g_clipRect.top && h3 < g_clipRect.top)) {
@@ -2710,22 +2436,17 @@ void DrawDeformedTile(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 	bool bVar2 = false;
 	bool bVar3 = false;
 
-	for (int i = 0; i < 32; i++)
-	{
+	for (int i = 0; i < 32; i++) {
 		uint8_t* srcpx = src + i;
 
-		if (!bVar2)
-		{
-			if (h0 < h1)
-			{
-				while (g_TerrainHelper[dtop][tidx] <= i && tidx < dtop)
-				{
+		if (!bVar2) {
+			if (h0 < h1) {
+				while (g_TerrainHelper[dtop][tidx] <= i && tidx < dtop) {
 					h0++;
 					tidx++;
 				}
 			} else {
-				while (32 - g_TerrainHelper[dtop][tidx] <= i && tidx > -1)
-				{
+				while (32 - g_TerrainHelper[dtop][tidx] <= i && tidx > -1) {
 					h0--;
 					tidx--;
 				}
@@ -2736,18 +2457,14 @@ void DrawDeformedTile(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 			}
 		}
 
-		if (!bVar3)
-		{
-			if (h2 < h3)
-			{
-				while (32 - g_TerrainHelper[dbtm][bidx] <= i && bidx > -1)
-				{
+		if (!bVar3) {
+			if (h2 < h3) {
+				while (32 - g_TerrainHelper[dbtm][bidx] <= i && bidx > -1) {
 					h2++;
 					bidx--;
 				}
 			} else {
-				while (g_TerrainHelper[dbtm][bidx] <= i && bidx < dbtm)
-				{
+				while (g_TerrainHelper[dbtm][bidx] <= i && bidx < dbtm) {
 					h2--;
 					bidx++;
 				}
@@ -2761,8 +2478,7 @@ void DrawDeformedTile(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 		uint8_t* out_dst = (uint8_t*)g_selDrawBitmap.lpSurface + h0 * g_selDrawBitmap.lPitch + i * 2 + x0 * 2;
 		int32_t num_rows = h2 - h0;
 
-		if (num_rows > 0)
-		{
+		if (num_rows > 0) {
 			int32_t pix_step = (32 << 16) / num_rows;
 			int32_t light_step = ((l3 - l1) / num_rows) / 2;
 			if (g_clipRect.bottom < h2) {
@@ -2775,10 +2491,8 @@ void DrawDeformedTile(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 			int32_t lght = l1 + 32 / 2;
 			int32_t yy = h0;
 
-			while (num_rows > 0)
-			{
-				if (yy >= g_clipRect.top)
-				{
+			while (num_rows > 0) {
+				if (yy >= g_clipRect.top) {
 					const int32_t pal_idx = (lght & ~(32-1)) << 3; //256
 					const int32_t pixuse = (pix_float >> 16) * 32;
 					*(uint16_t*)out_dst = pal[pal_idx + *(srcpx + pixuse)];
@@ -2799,8 +2513,7 @@ void DrawDeformedTile(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 
 
 
-void FillFlatTerrain(int32_t x, int32_t h0, int32_t h2)
-{ //458fe6
+void FillFlatTerrain(int32_t x, int32_t h0, int32_t h2) { //458fe6
 	if (h0 >= g_clipRect.bottom || h2 < g_clipRect.top) {
 		return;
 	}
@@ -2815,8 +2528,7 @@ void FillFlatTerrain(int32_t x, int32_t h0, int32_t h2)
 	}
 
 	uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + h0 * g_selDrawBitmap.lPitch + x * 2;
-	while (num_rows > 0)
-	{
+	while (num_rows > 0) {
 		memset(dst, 0, 32 * 2);
 
 		dst += g_selDrawBitmap.lPitch;
@@ -2824,8 +2536,7 @@ void FillFlatTerrain(int32_t x, int32_t h0, int32_t h2)
 	}
 }
 
-void FillDeformedTerrain(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3)
-{ // 4590ef
+void FillDeformedTerrain(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3) { // 4590ef
 	if (x0 < g_clipRect.left || x1 > g_clipRect.right ||
 		(h0 >= g_clipRect.bottom && h1 >= g_clipRect.bottom) ||
 		(h2 < g_clipRect.top && h3 < g_clipRect.top)) {
@@ -2842,17 +2553,13 @@ void FillDeformedTerrain(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t
 		local_34 = h0;
 	}
 
-	if (local_34 < local_30)
-	{
-		if (h0 < h1)
-		{
+	if (local_34 < local_30) {
+		if (h0 < h1) {
 			uint8_t* out_dst = (uint8_t*)g_selDrawBitmap.lpSurface + h0 * g_selDrawBitmap.lPitch + x0 * 2;
 			const int32_t hid = h1 - h0;
 			int32_t idx = 0;
-			while (h0 < h1)
-			{
-				if (h0 >= g_clipRect.top && h0 < g_clipRect.bottom)
-				{
+			while (h0 < h1) {
+				if (h0 >= g_clipRect.top && h0 < g_clipRect.bottom) {
 					uint8_t num = g_TerrainHelper[hid][idx];
 					memset(out_dst, 0, num * 2);
 				}
@@ -2860,15 +2567,12 @@ void FillDeformedTerrain(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t
 				h0++;
 				idx++;
 			}
-		} else if (h1 < h0)
-		{
+		} else if (h1 < h0) {
 			uint8_t* out_dst = (uint8_t*)g_selDrawBitmap.lpSurface + h1 * g_selDrawBitmap.lPitch + x0 * 2;
 			const int32_t hid = h0 - h1;
 			int32_t idx = 0;
-			while (h1 < h0)
-			{
-				if (h1 >= g_clipRect.top && h1 < g_clipRect.bottom)
-				{
+			while (h1 < h0) {
+				if (h1 >= g_clipRect.top && h1 < g_clipRect.bottom) {
 					uint8_t num = g_TerrainHelper[hid][idx];
 					memset(out_dst + 32 * 2 - num * 2, 0, num * 2);
 				}
@@ -2882,15 +2586,12 @@ void FillDeformedTerrain(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t
 			FillFlatTerrain(x0, local_34, local_30);
 		}
 
-		if (h3 < h2)
-		{
+		if (h3 < h2) {
 			uint8_t* out_dst = (uint8_t*)g_selDrawBitmap.lpSurface + h3 * g_selDrawBitmap.lPitch + x0 * 2;
 			const int32_t hid = h2 - h3;
 			int32_t idx = hid - 1;
-			while (h3 < h2) 
-			{
-				if (h3 >= g_clipRect.top && h3 < g_clipRect.bottom)
-				{
+			while (h3 < h2) {
+				if (h3 >= g_clipRect.top && h3 < g_clipRect.bottom) {
 					uint8_t num = g_TerrainHelper[hid][idx];
 					memset(out_dst, 0, num * 2);
 				}
@@ -2898,15 +2599,12 @@ void FillDeformedTerrain(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t
 				h3++;
 				idx--;
 			}
-		} else if (h2 < h3)
-		{
+		} else if (h2 < h3) {
 			uint8_t* out_dst = (uint8_t*)g_selDrawBitmap.lpSurface + h2 * g_selDrawBitmap.lPitch + x0 * 2;
 			const int32_t hid = h3 - h2;
 			int32_t idx = hid - 1;
-			while (h2 < h3)
-			{
-				if (h2 >= g_clipRect.top && h2 < g_clipRect.bottom)
-				{
+			while (h2 < h3) {
+				if (h2 >= g_clipRect.top && h2 < g_clipRect.bottom) {
 					uint8_t num = g_TerrainHelper[hid][idx];
 					memset(out_dst + 32 * 2 - num * 2, 0, num * 2);
 				}
@@ -2921,8 +2619,7 @@ void FillDeformedTerrain(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t
 }
 
 
-void FillFlatLight(int32_t x, int32_t y, int32_t t0, int32_t t1, int32_t t2, int32_t t3)
-{ //459449
+void FillFlatLight(int32_t x, int32_t y, int32_t t0, int32_t t1, int32_t t2, int32_t t3) { //459449
 	if (x < g_clipRect.left || x + 32 > g_clipRect.right || y >= g_clipRect.bottom || y + 32 < g_clipRect.top) {
 		return;
 	}
@@ -2934,8 +2631,7 @@ void FillFlatLight(int32_t x, int32_t y, int32_t t0, int32_t t1, int32_t t2, int
 	t2 *= 32;
 
 	uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + y * g_selDrawBitmap.lPitch + x * 2;
-	for (int32_t i = 0; i < 32; i++)
-	{
+	for (int32_t i = 0; i < 32; i++) {
 		int32_t num_row = 32;
 		int32_t lstep = (t2 - t0) / 32;
 
@@ -2951,12 +2647,9 @@ void FillFlatLight(int32_t x, int32_t y, int32_t t0, int32_t t1, int32_t t2, int
 		int32_t yy = y;
 		uint8_t* pix = dst;
 
-		if (g_isLowMemory)
-		{
-			while (num_row > 0)
-			{
-				if (yy >= g_clipRect.top)
-				{
+		if (g_isLowMemory) {
+			while (num_row > 0) {
+				if (yy >= g_clipRect.top) {
 					const uint32_t page = (lght >> 5) * g_brightnessLookupCount;
 					*(uint16_t*)pix = g_brightnessLookup[page + (*(uint16_t*)pix >> 3)];
 				}
@@ -2968,10 +2661,8 @@ void FillFlatLight(int32_t x, int32_t y, int32_t t0, int32_t t1, int32_t t2, int
 				num_row--;
 			}
 		} else {
-			while (num_row > 0)
-			{
-				if (yy >= g_clipRect.top)
-				{
+			while (num_row > 0) {
+				if (yy >= g_clipRect.top) {
 					const uint32_t page = (lght >> 5) * g_brightnessLookupCount;
 					*(uint16_t*)pix = g_brightnessLookup[page + *(uint16_t*)pix];
 				}
@@ -2992,8 +2683,7 @@ void FillFlatLight(int32_t x, int32_t y, int32_t t0, int32_t t1, int32_t t2, int
 	}
 }
 
-void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3, int32_t t0, int32_t t1, int32_t t2, int32_t t3)
-{ //4595fd
+void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3, int32_t t0, int32_t t1, int32_t t2, int32_t t3) { //4595fd
 
 	if (x0 < g_clipRect.left || x1 > g_clipRect.right ||
 		(h0 >= g_clipRect.bottom && h1 >= g_clipRect.bottom) ||
@@ -3021,20 +2711,15 @@ void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h
 
 	bool bVar2 = false;
 	bool bVar3 = false;
-	for (int i = 0; i < 32; i++)
-	{
-		if (!bVar2)
-		{
-			if (h0 < h1)
-			{
-				while (i >= g_TerrainHelper[dtop][tidx] && tidx < dtop)
-				{
+	for (int i = 0; i < 32; i++) {
+		if (!bVar2) {
+			if (h0 < h1) {
+				while (i >= g_TerrainHelper[dtop][tidx] && tidx < dtop) {
 					h0++;
 					tidx++;
 				}
 			} else {
-				while (i >= 32 - g_TerrainHelper[dtop][tidx] && tidx > -1)
-				{
+				while (i >= 32 - g_TerrainHelper[dtop][tidx] && tidx > -1) {
 					h0--;
 					tidx--;
 				}
@@ -3044,18 +2729,14 @@ void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h
 				bVar2 = true;
 			}
 		}
-		if (!bVar3)
-		{
-			if (h2 < h3)
-			{
-				while (i >= 32 - g_TerrainHelper[dbtm][bidx] && bidx > -1)
-				{
+		if (!bVar3) {
+			if (h2 < h3) {
+				while (i >= 32 - g_TerrainHelper[dbtm][bidx] && bidx > -1) {
 					h2++;
 					bidx--;
 				}
 			} else {
-				while (i >= g_TerrainHelper[dbtm][bidx] && bidx < dbtm)
-				{
+				while (i >= g_TerrainHelper[dbtm][bidx] && bidx < dbtm) {
 					h2--;
 					bidx++;
 				}
@@ -3067,8 +2748,7 @@ void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h
 		}
 
 		int32_t num_rows = h2 - h0;
-		if (num_rows > 0)
-		{
+		if (num_rows > 0) {
 			int32_t light_step = (t2 - t0) / num_rows;
 
 			uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + h0 * g_selDrawBitmap.lPitch + (x0 + i) * 2;
@@ -3083,10 +2763,8 @@ void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h
 
 			int32_t uVar10 = t0 + 32 / 2;
 			int32_t yy = h0;
-			while (num_rows > 0)
-			{
-				if (yy >= g_clipRect.top)
-				{
+			while (num_rows > 0) {
+				if (yy >= g_clipRect.top) {
 					const uint32_t page = (uVar10 >> 5) * g_brightnessLookupCount;
 					if (g_isLowMemory == 1) {
 						*(uint16_t*)dst = g_brightnessLookup[page + ((*(uint16_t*)dst) >> 3)];
@@ -3108,8 +2786,7 @@ void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h
 }
 
 
-void FillFlatGrey(int32_t x, int32_t h0, int32_t h2)
-{ //45995e
+void FillFlatGrey(int32_t x, int32_t h0, int32_t h2) { //45995e
 	if (h0 >= g_clipRect.bottom || h2 < g_clipRect.top) {
 		return;
 	}
@@ -3124,11 +2801,9 @@ void FillFlatGrey(int32_t x, int32_t h0, int32_t h2)
 	}
 
 	uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + h0 * g_selDrawBitmap.lPitch + x * 2;
-	while (num_rows > 0)
-	{
+	while (num_rows > 0) {
 		uint16_t* pix = (uint16_t*)dst;
-		for (int num = 0; num < 32; num++)
-		{
+		for (int num = 0; num < 32; num++) {
 			*pix = (*pix >> 1) & g_ColorAddMask;
 			pix++;
 		}
@@ -3138,8 +2813,7 @@ void FillFlatGrey(int32_t x, int32_t h0, int32_t h2)
 	}
 }
 
-void FillDeformedGrey(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3)
-{ //459b72
+void FillDeformedGrey(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3) { //459b72
 	if (x0 < g_clipRect.left || x1 > g_clipRect.right ||
 		(h0 >= g_clipRect.bottom && h1 >= g_clipRect.bottom) ||
 		(h2 < g_clipRect.top && h3 < g_clipRect.top)) {
@@ -3156,20 +2830,15 @@ void FillDeformedGrey(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 		h_top = h0;
 	}
 
-	if (h_top < h_bottom)
-	{
-		if (h0 < h1)
-		{
+	if (h_top < h_bottom) {
+		if (h0 < h1) {
 			uint8_t* out_dst = (uint8_t*)g_selDrawBitmap.lpSurface + h0 * g_selDrawBitmap.lPitch + x0 * 2;
 			const int32_t hid = h1 - h0;
 			int32_t idx = 0;
-			while (h0 < h1)
-			{
-				if (h0 >= g_clipRect.top && h0 < g_clipRect.bottom)
-				{
+			while (h0 < h1) {
+				if (h0 >= g_clipRect.top && h0 < g_clipRect.bottom) {
 					uint16_t* pix = (uint16_t*)out_dst;
-					for (int num = g_TerrainHelper[hid][idx]; num > 0; num--)
-					{
+					for (int num = g_TerrainHelper[hid][idx]; num > 0; num--) {
 						*pix = (*pix >> 1) & g_ColorAddMask;
 						pix++;
 					}
@@ -3178,19 +2847,15 @@ void FillDeformedGrey(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 				h0++;
 				idx++;
 			}
-		} else if (h1 < h0)
-		{
+		} else if (h1 < h0) {
 			uint8_t* out_dst = (uint8_t*)g_selDrawBitmap.lpSurface + h1 * g_selDrawBitmap.lPitch + x0 * 2;
 			const int32_t hid = h0 - h1;
 			int32_t idx = 0;
-			while (h1 < h0)
-			{
-				if (h1 >= g_clipRect.top && h1 < g_clipRect.bottom)
-				{
+			while (h1 < h0) {
+				if (h1 >= g_clipRect.top && h1 < g_clipRect.bottom) {
 					int num = g_TerrainHelper[hid][idx];
 					uint16_t* pix = (uint16_t*)(out_dst + 32 * 2 - num * 2);
-					for (; num > 0; num--)
-					{
+					for (; num > 0; num--) {
 						*pix = (*pix >> 1) & g_ColorAddMask;
 						pix++;
 					}
@@ -3205,18 +2870,14 @@ void FillDeformedGrey(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 			FillFlatGrey(x0, h_top, h_bottom);
 		}
 
-		if (h3 < h2)
-		{
+		if (h3 < h2) {
 			uint8_t* out_dst = (uint8_t*)g_selDrawBitmap.lpSurface + h3 * g_selDrawBitmap.lPitch + x0 * 2;
 			const int32_t hid = h2 - h3;
 			int32_t idx = hid - 1;
-			while (h3 < h2)
-			{
-				if (h3 >= g_clipRect.top && h3 < g_clipRect.bottom)
-				{
+			while (h3 < h2) {
+				if (h3 >= g_clipRect.top && h3 < g_clipRect.bottom) {
 					uint16_t* pix = (uint16_t*)out_dst;
-					for (int num = g_TerrainHelper[hid][idx]; num > 0; num--)
-					{
+					for (int num = g_TerrainHelper[hid][idx]; num > 0; num--) {
 						*pix = (*pix >> 1) & g_ColorAddMask;
 						pix++;
 					}
@@ -3225,19 +2886,15 @@ void FillDeformedGrey(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 				h3++;
 				idx--;
 			}
-		} else if (h2 < h3)
-		{
+		} else if (h2 < h3) {
 			uint8_t* out_dst = (uint8_t*)g_selDrawBitmap.lpSurface + h2 * g_selDrawBitmap.lPitch + x0 * 2;
 			const int32_t hid = h3 - h2;
 			int32_t idx = hid - 1;
-			while (h2 < h3)
-			{
-				if (h2 >= g_clipRect.top && h2 < g_clipRect.bottom)
-				{
+			while (h2 < h3) {
+				if (h2 >= g_clipRect.top && h2 < g_clipRect.bottom) {
 					int num = g_TerrainHelper[hid][idx];
 					uint16_t* pix = (uint16_t*)(out_dst + 32 * 2 - num * 2);
-					for (; num > 0; num--)
-					{
+					for (; num > 0; num--) {
 						*pix = (*pix >> 1) & g_ColorAddMask;
 						pix++;
 					}
@@ -3253,8 +2910,7 @@ void FillDeformedGrey(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 }
 
 
-void __cdecl DrawRectangleFrame(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr)
-{
+void __cdecl DrawRectangleFrame(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr) {
 	//458035
 	FillRectColor(l, t, r, t, clr); //up
 	FillRectColor(l, b, r, b, clr); //down
@@ -3262,11 +2918,9 @@ void __cdecl DrawRectangleFrame(int32_t l, int32_t t, int32_t r, int32_t b, uint
 	FillRectColor(l, t, l, b, clr); //left
 }
 
-void __cdecl CopySurface16Rect(uint8_t* src, int32_t sx, int32_t sy, uint8_t* dst, int32_t dx, int32_t dy, int32_t w, int32_t h, int32_t sp, int32_t dp)
-{ //454a54
+void __cdecl CopySurface16Rect(uint8_t* src, int32_t sx, int32_t sy, uint8_t* dst, int32_t dx, int32_t dy, int32_t w, int32_t h, int32_t sp, int32_t dp) { //454a54
 	int32_t t = g_clipRect.left - dx;
-	if (t > 0)
-	{
+	if (t > 0) {
 		sx += t;
 		dx += t;
 		w -= t;
@@ -3277,8 +2931,7 @@ void __cdecl CopySurface16Rect(uint8_t* src, int32_t sx, int32_t sy, uint8_t* ds
 	}
 
 	t = g_clipRect.top - dy;
-	if (t > 0)
-	{
+	if (t > 0) {
 		sy += t;
 		dy += t;
 		h -= t;
@@ -3296,8 +2949,7 @@ void __cdecl CopySurface16Rect(uint8_t* src, int32_t sx, int32_t sy, uint8_t* ds
 	uint8_t* s = src + sy * sp + sx * 2;
 	uint8_t* d = dst + dy * dp + dx * 2;
 
-	for (; h; h--)
-	{
+	for (; h; h--) {
 		memcpy(d, s, w * 2);
 		s += sp;
 		d += dp;
@@ -3305,8 +2957,7 @@ void __cdecl CopySurface16Rect(uint8_t* src, int32_t sx, int32_t sy, uint8_t* ds
 }
 
 // 454e40
-void __cdecl FUN_00454e40(int32_t sx, int32_t sy, int32_t w, int32_t h)
-{
+void __cdecl FUN_00454e40(int32_t sx, int32_t sy, int32_t w, int32_t h) {
 	LockSurface3();
 	uint8_t* src = (uint8_t*)g_selDrawBitmap.lpSurface;
 	int32_t spitch = g_selDrawBitmap.lPitch;
@@ -3326,17 +2977,14 @@ void __cdecl FUN_00454e40(int32_t sx, int32_t sy, int32_t w, int32_t h)
 	UnlockSurface3();
 }
 
-void __cdecl gfxFlushRect(const CRect& rect)
-{ //454c74
+void __cdecl gfxFlushRect(const CRect& rect) { //454c74
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
-	if (mwnd->field_0xbc != 0 && g_IsServer == 0)
-	{
+	if (mwnd->field_0xbc != 0 && g_IsServer == 0) {
 		CRect r;
 		r.IntersectRect(&rect, &g_ScreenSize);
 
-		while (g_ddsurface->IsLost() == DDERR_SURFACELOST)
-		{
+		while (g_ddsurface->IsLost() == DDERR_SURFACELOST) {
 			g_ddraw->SetCooperativeLevel(mwnd->m_hWnd, DDSCL_EXCLUSIVE || DDSCL_FULLSCREEN);
 			g_ddraw->SetDisplayMode(g_ScreenSize.right, g_ScreenSize.bottom, gfx_bits);
 			g_ddsurface->Restore();
@@ -3346,8 +2994,7 @@ void __cdecl gfxFlushRect(const CRect& rect)
 		int32_t w = r.Width();
 		int32_t h = r.Height();
 
-		if (w < 1 || h < 1)
-		{
+		if (w < 1 || h < 1) {
 			g_mousept.SaveScreenParts(r);
 		} else {
 			LockSurface2();
@@ -3375,23 +3022,20 @@ void __cdecl gfxFlushRect(const CRect& rect)
 	}
 }
 
-void __cdecl FlushScreen()
-{
+void __cdecl FlushScreen() {
 	//454e18
 	gfxFlushRect(CRect(g_ScreenSize));
 }
 
 
 
-uint32_t LockSurface1()
-{ //45431c
+uint32_t LockSurface1() { //45431c
 	if (g_IsServer) {
 		return 0;
 	}
 
 	int res = 0;
-	if (g_ddsurf_lock == 0)
-	{
+	if (g_ddsurf_lock == 0) {
 		g_selDrawBitmap.dwSize = sizeof(DDSURFACEDESC);
 		res = SUCCEEDED( g_ddsurface->Lock(nullptr, &g_selDrawBitmap, DDLOCK_WAIT, nullptr) );
 		g_ddsurf_lock++;
@@ -3400,15 +3044,13 @@ uint32_t LockSurface1()
 }
 
 
-uint32_t UnlockSurface1()
-{ //454378
+uint32_t UnlockSurface1() { //454378
 	if (g_IsServer) {
 		return 0;
 	}
 
 	int res = 0;
-	if (g_ddsurf_lock != 0)
-	{
+	if (g_ddsurf_lock != 0) {
 		res = SUCCEEDED(g_ddsurface->Unlock(g_selDrawBitmap.lpSurface));
 		g_ddsurf_lock--;
 	}
@@ -3416,15 +3058,13 @@ uint32_t UnlockSurface1()
 }
 
 
-uint32_t LockSurface2()
-{ //45431c
+uint32_t LockSurface2() { //45431c
 	if (g_IsServer) {
 		return 0;
 	}
 
 	int res = 0;
-	if (g_ddsurf_lock2 == 0)
-	{
+	if (g_ddsurf_lock2 == 0) {
 		g_selDrawBitmap.dwSize = sizeof(DDSURFACEDESC);
 		res = SUCCEEDED(g_ddsurface2->Lock(nullptr, &g_selDrawBitmap, DDLOCK_WAIT, nullptr));
 		g_ddsurf_lock2++;
@@ -3432,23 +3072,20 @@ uint32_t LockSurface2()
 	return res;
 }
 
-uint32_t UnlockSurface2()
-{ //4542ca
+uint32_t UnlockSurface2() { //4542ca
 	if (g_IsServer) {
 		return 0;
 	}
 
 	int res = 0;
-	if (g_ddsurf_lock2 != 0)
-	{
+	if (g_ddsurf_lock2 != 0) {
 		res = SUCCEEDED(g_ddsurface2->Unlock(g_selDrawBitmap.lpSurface));
 		g_ddsurf_lock2--;
 	}
 	return res;
 }
 
-uint32_t LockSurface3()
-{ //4543ca
+uint32_t LockSurface3() { //4543ca
 	if (g_IsServer) {
 		return 0;
 	}
@@ -3458,8 +3095,7 @@ uint32_t LockSurface3()
 	}
 
 	int res = 0;
-	if (g_ddsurf_lock3 == 0)
-	{
+	if (g_ddsurf_lock3 == 0) {
 		g_selDrawBitmap.dwSize = sizeof(DDSURFACEDESC);
 		res = SUCCEEDED(g_ddsurface3->Lock(nullptr, &g_selDrawBitmap, DDLOCK_WAIT, nullptr));
 		g_ddsurf_lock3++;
@@ -3468,8 +3104,7 @@ uint32_t LockSurface3()
 }
 
 
-uint32_t UnlockSurface3()
-{ //45444f
+uint32_t UnlockSurface3() { //45444f
 	if (g_IsServer) {
 		return 0;
 	}
@@ -3479,8 +3114,7 @@ uint32_t UnlockSurface3()
 	}
 
 	int res = 0;
-	if (g_ddsurf_lock3 != 0)
-	{
+	if (g_ddsurf_lock3 != 0) {
 		res = SUCCEEDED(g_ddsurface3->Unlock(g_selDrawBitmap.lpSurface));
 		g_ddsurf_lock3--;
 	}
@@ -3489,18 +3123,15 @@ uint32_t UnlockSurface3()
 
 uint32_t GetLockCountSurf2() { return g_ddsurf_lock2; }//4538e1
 
-void __cdecl CopyScreenRectToBmp64(int32_t x, int32_t y, int32_t w, int32_t h, int32_t dw, int32_t dh, uint8_t* dst)
-{ //45455e
+void __cdecl CopyScreenRectToBmp64(int32_t x, int32_t y, int32_t w, int32_t h, int32_t dw, int32_t dh, uint8_t* dst) { //45455e
 	int32_t dy = 0;
 	int32_t dx = 0;
-	if (x < g_clipRect.left)
-	{
+	if (x < g_clipRect.left) {
 		w -= g_clipRect.left - x;
 		dx = g_clipRect.left - x;
 		x = g_clipRect.left;
 	}
-	if (y < g_clipRect.top)
-	{
+	if (y < g_clipRect.top) {
 		h -= g_clipRect.top - y;
 		dy = g_clipRect.top - y;
 		y = g_clipRect.top;
@@ -3518,18 +3149,15 @@ void __cdecl CopyScreenRectToBmp64(int32_t x, int32_t y, int32_t w, int32_t h, i
 
 	uint8_t* s = (uint8_t*)g_selDrawBitmap.lpSurface + y * g_selDrawBitmap.lPitch + x * 2;
 	uint8_t* d = (uint8_t*)dst + dx * 2 + ((dh - dy) - 1) * dw * 2;
-	for (int32_t yy = y; yy < y + h; yy++)
-	{
+	for (int32_t yy = y; yy < y + h; yy++) {
 		memcpy(d, s, w * 2);
 		s += g_selDrawBitmap.lPitch;
 		d -= dw * 2;
 	}
 }
 
-int BitmaskLowBound(uint32_t bm)
-{ //453f5c
-	for (int32_t i = 0; i < 32; i++)
-	{
+int BitmaskLowBound(uint32_t bm) { //453f5c
+	for (int32_t i = 0; i < 32; i++) {
 		if (bm & (1 << i)) {
 			return i;
 		}
@@ -3537,15 +3165,13 @@ int BitmaskLowBound(uint32_t bm)
 	return -1;
 }
 
-int BitmaskHighBound(uint32_t bm)
-{ //453f94
+int BitmaskHighBound(uint32_t bm) { //453f94
 	int32_t max = 15;
 	#ifdef A2CLIENT_PATCH
 	max = 31;
 	#endif
 
-	for (int32_t i = max; i >= 0; i--)
-	{
+	for (int32_t i = max; i >= 0; i--) {
 		if (bm & (1 << i)) {
 			return i;
 		}
@@ -3553,16 +3179,14 @@ int BitmaskHighBound(uint32_t bm)
 	return -1;
 }
 
-void FreeBrightnessLookup()
-{ //453cf9
+void FreeBrightnessLookup() { //453cf9
 	if (g_brightnessLookup) {
 		delete[] g_brightnessLookup;
 	}
 	g_brightnessLookup = nullptr;
 }
 
-void CalculateBrightness()
-{ //4538eb
+void CalculateBrightness() { //4538eb
 	MEMORYSTATUS ms;
 	GlobalMemoryStatus(&ms);
 	
@@ -3582,21 +3206,16 @@ void CalculateBrightness()
 
 	int db = 1;
 	int sb = 0;
-	if (g_isLowMemory)
-	{
+	if (g_isLowMemory) {
 		db = 1 << 3;
 		sb = (1 << 3) / 2;
 	}
 
-	for (int32_t br = 16; br >= 0; br--)
-	{
+	for (int32_t br = 16; br >= 0; br--) {
 		int32_t off = g_brightnessLookupCount * (16 - br);
-		for (int32_t ri = 0; ri < maxR; ri++)
-		{
-			for (int32_t gi = 0; gi < maxG; gi++)
-			{
-				for (int32_t bi = sb; bi < maxB; bi += db)
-				{
+		for (int32_t ri = 0; ri < maxR; ri++) {
+			for (int32_t gi = 0; gi < maxG; gi++) {
+				for (int32_t bi = sb; bi < maxB; bi += db) {
 					int32_t r = (ri * br / 16) << (8 - g_RBits);
 					int32_t g = (gi * br / 16) << (8 - g_GBits);
 					int32_t b = (bi * br / 16) << (8 - g_BBits);
@@ -3619,11 +3238,9 @@ void CalculateBrightness()
 		}
 	}
 
-	for (int32_t i = 1; i < 128; i++)
-	{
+	for (int32_t i = 1; i < 128; i++) {
 		int32_t val = 0;
-		for (int32_t j = 0; j < i; j++)
-		{
+		for (int32_t j = 0; j < i; j++) {
 			val += 32 * 0x10000 / (i + 1);
 			g_TerrainHelper[i][j] = (val + 0x8000) >> 16; //  (val + 0x8000) / 0x10000    --- 0.5 round to ceil
 		}
@@ -3632,10 +3249,8 @@ void CalculateBrightness()
 	g_ColorAddMask = GetColorRGB(0x7f, 0x7f, 0x7f);
 }
 
-void CalcColorsAndPalettes()
-{ //46011e
-	for (int32_t i = 0; i < 0x10; i++)
-	{
+void CalcColorsAndPalettes() { //46011e
+	for (int32_t i = 0; i < 0x10; i++) {
 		clrsh_Black[i] = GetColorRGB(8, 8, 8);
 		clrsh_ShockingBlack[i] = GetColorRGB(i * 0x11, i * 0x11, i * 0x11);
 		clrsh_TechBlack[i] = GetColorRGB(i * 0xe, i * 0xe, i * 0xe);
@@ -3659,8 +3274,7 @@ void CalcColorsAndPalettes()
 	std::vector<RGBQUAD>clrs_brown_derby(256);
 	std::vector<RGBQUAD>clrs_tawny_port(256);
 
-	for (int32_t i = 0; i < 0x100; i++)
-	{
+	for (int32_t i = 0; i < 0x100; i++) {
 		clrs_husk[i].rgbRed = (i * 0xb9) / 0xff;
 		clrs_husk[i].rgbGreen = (i * 0x9f) / 0xff;
 		clrs_husk[i].rgbBlue = (i * 0x49) / 0xff;
@@ -3695,8 +3309,7 @@ void CalcColorsAndPalettes()
 }
 
 
-uint32_t InitPixelColors()
-{ //45488c
+uint32_t InitPixelColors() { //45488c
 	DDPIXELFORMAT pfmt;
 	pfmt.dwSize = sizeof(DDPIXELFORMAT);
 	g_ddsurface->GetPixelFormat(&pfmt);
@@ -3705,8 +3318,7 @@ uint32_t InitPixelColors()
 	g_GBitMask = pfmt.dwGBitMask;
 	g_BBitMask = pfmt.dwBBitMask;
 
-	if (pfmt.dwRBitMask != 0)
-	{
+	if (pfmt.dwRBitMask != 0) {
 		g_RBitShift = BitmaskLowBound(g_RBitMask);
 		g_GBitShift = BitmaskLowBound(g_GBitMask);
 		g_BBitShift = BitmaskLowBound(g_BBitMask);
@@ -3724,10 +3336,8 @@ uint32_t InitPixelColors()
 	return g_RBitMask;
 }
 
-int32_t InitVideo()
-{ //453fcc
-	if (g_IsServer)
-	{
+int32_t InitVideo() { //453fcc
+	if (g_IsServer) {
 		CalcColorsAndPalettes();
 		return 1;
 	}
@@ -3767,8 +3377,7 @@ int32_t InitVideo()
 
 	//if we can't init pixel colors then try force video mode set which also call InitPixelColors
 	}
-	if (InitPixelColors() == 0 && SetVideoMode() == 0)
-	{
+	if (InitPixelColors() == 0 && SetVideoMode() == 0) {
 		AfxMessageBox("Unable to set video mode", 0, 0);
 		exit(-1);
 	}
@@ -3811,8 +3420,7 @@ int32_t InitVideo()
 	return 1;
 }
 
-int32_t SetVideoMode()
-{ //4546c6
+int32_t SetVideoMode() { //4546c6
 	if (g_IsServer) {
 		return 1;
 	}
@@ -3845,15 +3453,13 @@ int32_t SetVideoMode()
 
 
 
-CGameFont::CGameFont()
-{
+CGameFont::CGameFont() {
 	//45e0d0
 	this->bitmap = nullptr;
 	this->char_widths = nullptr;
 }
 
-CGameFont::~CGameFont()
-{
+CGameFont::~CGameFont() {
 	//45e0f9
 	if (this->char_widths) {
 		delete[] this->char_widths;
@@ -3864,19 +3470,16 @@ CGameFont::~CGameFont()
 	}
 }
 
-void CGameFont::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colosh)
-{
+void CGameFont::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colosh) {
 	//460f60
 }
 
-uint16_t* CGameFont::GetShadowColors()
-{
+uint16_t* CGameFont::GetShadowColors() {
 	//460f70
 	return nullptr;
 }
 
-void CGameFont::DrawTextWithShadow(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colorsh, int32_t shadow_dxy)
-{
+void CGameFont::DrawTextWithShadow(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colorsh, int32_t shadow_dxy) {
 	//45ebda
 	uint16_t* shdow = this->GetShadowColors();
 	this->DrawTxt(x + shadow_dxy, y + shadow_dxy, txt, align, shdow);
@@ -3884,21 +3487,16 @@ void CGameFont::DrawTextWithShadow(int32_t x, int32_t y, const char* txt, uint32
 }
 
 
-int32_t CGameFont::GetStrWidth(const char* str)
-{
+int32_t CGameFont::GetStrWidth(const char* str) {
 	//45e1f9
 	int32_t wi = 0;
 	int ln = strlen(str);
 
-	for (int i = 0; i < ln; i++)
-	{
+	for (int i = 0; i < ln; i++) {
 		char c = str[i];
-		if ((uint8_t)c >= ' ') // 0x20
-		{
-			if (c == '~')
-			{
-				if ((i != ln - 1) && str[i + 1] == '~')
-				{
+		if ((uint8_t)c >= ' ') { // 0x20
+			if (c == '~') {
+				if ((i != ln - 1) && str[i + 1] == '~') {
 					i++;
 
 					uint8_t n = DecodeChar('~') - 0x20;
@@ -3921,15 +3519,13 @@ int32_t CGameFont::GetStrWidth(const char* str)
 }
 
 
-int32_t CGameFont::GetHeight()
-{
+int32_t CGameFont::GetHeight() {
 	//402a90
 	return this->bitmap->GetHeight(0);
 }
 
 
-CStringArray& CGameFont::StrToArray(const char* str)
-{
+CStringArray& CGameFont::StrToArray(const char* str) {
 	//45e959
 	static CStringArray out;  //static for return
 
@@ -3938,15 +3534,13 @@ CStringArray& CGameFont::StrToArray(const char* str)
 
 	CString tmp;
 
-	while (!s.IsEmpty())
-	{
+	while (!s.IsEmpty()) {
 		int pos = s.Find('\r');
 		if (pos == -1) {
 			break;
 		}
 
-		if (s[pos + 1] == '\n')
-		{
+		if (s[pos + 1] == '\n') {
 			tmp = s.Left(pos + 1);
 			tmp.TrimLeft();
 			out.Add( tmp );
@@ -3963,8 +3557,7 @@ CStringArray& CGameFont::StrToArray(const char* str)
 	return out;
 }
 
-CStringArray& CGameFont::StrSplitToFitWidth(const CRect& r, const char* str)
-{
+CStringArray& CGameFont::StrSplitToFitWidth(const CRect& r, const char* str) {
 	//45e35f
 	static CStringArray out;  //static for return
 
@@ -3980,14 +3573,11 @@ CStringArray& CGameFont::StrSplitToFitWidth(const CRect& r, const char* str)
 	int32_t split_pos;
 
 	const int32_t w = r.Width();
-	while (!s.IsEmpty())
-	{
+	while (!s.IsEmpty()) {
 		int32_t x = 0;
-		if (this->GetStrWidth(s) >= w)
-		{
+		if (this->GetStrWidth(s) >= w) {
 			tmp2 = s;
-			while (true)
-			{
+			while (true) {
 				split_pos = x;
 
 				int32_t pos = tmp2.Find(' ');
@@ -4001,10 +3591,8 @@ CStringArray& CGameFont::StrSplitToFitWidth(const CRect& r, const char* str)
 
 				tmp2 = s.Right(s.GetLength() - x);
 
-				if (tmp2.IsEmpty())
-				{
-					if (this->GetStrWidth(tmp1) < w)
-					{
+				if (tmp2.IsEmpty()) {
+					if (this->GetStrWidth(tmp1) < w) {
 						split_pos = x;
 						break;
 					}
@@ -4035,8 +3623,7 @@ CStringArray& CGameFont::StrSplitToFitWidth(const CRect& r, const char* str)
 	return out;
 }
 
-CStringArray& CGameFont::StringArrayForRect(const CRect& r, const char* str)
-{
+CStringArray& CGameFont::StringArrayForRect(const CRect& r, const char* str) {
 	//45eb1d
 
 	static CStringArray out;
@@ -4045,16 +3632,14 @@ CStringArray& CGameFont::StringArrayForRect(const CRect& r, const char* str)
 
 	CStringArray& lines = this->StrToArray(str);
 	
-	for (int i = 0; i < lines.GetSize(); i++)
-	{
+	for (int i = 0; i < lines.GetSize(); i++) {
 		CStringArray& spl = this->StrSplitToFitWidth(r, lines[i]);
 		out.Append(spl);
 	}
 	return out;
 }
 
-void CGameFont::DrawTextLinesShadow(const CRect& r, int32_t first, int32_t last, const CStringArray& lines, uint16_t* clr, int32_t dy)
-{ //45f6c2
+void CGameFont::DrawTextLinesShadow(const CRect& r, int32_t first, int32_t last, const CStringArray& lines, uint16_t* clr, int32_t dy) { //45f6c2
 	if (last > lines.GetSize()) {
 		last = lines.GetSize();
 	}
@@ -4062,19 +3647,16 @@ void CGameFont::DrawTextLinesShadow(const CRect& r, int32_t first, int32_t last,
 		dy = this->GetHeight();
 	}
 
-	for (int32_t i = first; i < last; i++)
-	{
+	for (int32_t i = first; i < last; i++) {
 		uint8_t flags = 0;
 		CString line = lines[i];
-		if (i != lines.GetSize() - 1)
-		{
+		if (i != lines.GetSize() - 1) {
 			if (line[line.GetLength() - 1] != '\r') {
 				flags |= 2;
 			}
 		}
 
-		if (i == 0)
-		{
+		if (i == 0) {
 			flags |= 1;
 			if (this->GetStrWidth(line + ' ') > r.Width()) {
 				flags |= 2;
@@ -4082,8 +3664,7 @@ void CGameFont::DrawTextLinesShadow(const CRect& r, int32_t first, int32_t last,
 		} else {
 			const CString& s = lines[i - 1];
 
-			if (s[s.GetLength() - 1] == '\r')
-			{
+			if (s[s.GetLength() - 1] == '\r') {
 				flags |= 1;
 				if (this->GetStrWidth(line + ' ') > r.Width()) {
 					flags |= 2;
@@ -4093,8 +3674,7 @@ void CGameFont::DrawTextLinesShadow(const CRect& r, int32_t first, int32_t last,
 
 		if (i == lines.GetSize() - 1) {
 			flags |= 4;
-		} else
-		{
+		} else {
 			if (line[line.GetLength() - 1] != '\r') {
 				flags |= 4;
 			}
@@ -4104,8 +3684,7 @@ void CGameFont::DrawTextLinesShadow(const CRect& r, int32_t first, int32_t last,
 			line.SetAt(line.GetLength() - 1, 0);
 		}
 
-		if ((flags & 2) == 0)
-		{
+		if ((flags & 2) == 0) {
 			if ((flags & 1) == 0) {
 				this->DrawTextWithShadow(r.left, r.top + (i - first) * dy, line, 0, clr, 1);
 			} else {
@@ -4119,8 +3698,7 @@ void CGameFont::DrawTextLinesShadow(const CRect& r, int32_t first, int32_t last,
 	}
 }
 
-void CGameFont::DrawTextLines(const CRect& r, int32_t first, int32_t last, const CStringArray& lines, uint16_t* clr, int32_t dy)
-{ //45f33e
+void CGameFont::DrawTextLines(const CRect& r, int32_t first, int32_t last, const CStringArray& lines, uint16_t* clr, int32_t dy) { //45f33e
 	if (last > lines.GetSize()) {
 		last = lines.GetSize();
 	}
@@ -4128,19 +3706,16 @@ void CGameFont::DrawTextLines(const CRect& r, int32_t first, int32_t last, const
 		dy = this->GetHeight();
 	}
 
-	for (int32_t i = first; i < last; i++)
-	{
+	for (int32_t i = first; i < last; i++) {
 		uint8_t flags = 0;
 		CString line = lines[i];
-		if (i != lines.GetSize() - 1)
-		{
+		if (i != lines.GetSize() - 1) {
 			if (line[line.GetLength() - 1] != '\r') {
 				flags |= 2;
 			}
 		}
 
-		if (i == 0)
-		{
+		if (i == 0) {
 			flags |= 1;
 			if (this->GetStrWidth(line + ' ') > r.Width()) {
 				flags |= 2;
@@ -4148,8 +3723,7 @@ void CGameFont::DrawTextLines(const CRect& r, int32_t first, int32_t last, const
 		} else {
 			const CString& s = lines[i - 1];
 
-			if (s[s.GetLength() - 1] == '\r')
-			{
+			if (s[s.GetLength() - 1] == '\r') {
 				flags |= 1;
 				if (this->GetStrWidth(line + ' ') > r.Width()) {
 					flags |= 2;
@@ -4159,8 +3733,7 @@ void CGameFont::DrawTextLines(const CRect& r, int32_t first, int32_t last, const
 
 		if (i == lines.GetSize() - 1) {
 			flags |= 4;
-		} else
-		{
+		} else {
 			if (line[line.GetLength() - 1] != '\r') {
 				flags |= 4;
 			}
@@ -4170,8 +3743,7 @@ void CGameFont::DrawTextLines(const CRect& r, int32_t first, int32_t last, const
 			line.SetAt(line.GetLength() - 1, 0);
 		}
 
-		if ((flags & 2) == 0)
-		{
+		if ((flags & 2) == 0) {
 			if ((flags & 1) == 0) {
 				this->DrawTxt(r.left, r.top + (i - first) * dy, line, 0, clr);
 			} else {
@@ -4186,8 +3758,7 @@ void CGameFont::DrawTextLines(const CRect& r, int32_t first, int32_t last, const
 }
 
 
-void CGameFont::DrawTextJustifyShadow(int32_t x, int32_t y, int32_t w, CString txt, uint16_t* clr)
-{ //45f10b
+void CGameFont::DrawTextJustifyShadow(int32_t x, int32_t y, int32_t w, CString txt, uint16_t* clr) { //45f10b
 	int32_t space_width = this->char_widths[' '];
 
 	CStringArray words;
@@ -4195,8 +3766,7 @@ void CGameFont::DrawTextJustifyShadow(int32_t x, int32_t y, int32_t w, CString t
 
 	txt.TrimRight();
 	int32_t words_width = 0;
-	while (txt.GetLength() != 0)
-	{
+	while (txt.GetLength() != 0) {
 		txt.TrimLeft();
 
 		int32_t word_end = txt.Find(' ');
@@ -4223,15 +3793,13 @@ void CGameFont::DrawTextJustifyShadow(int32_t x, int32_t y, int32_t w, CString t
 	}
 
 	int32_t xx = x << 8;
-	for (int i = 0; i < words.GetSize(); i++)
-	{
+	for (int i = 0; i < words.GetSize(); i++) {
 		this->DrawTextWithShadow(xx >> 8, y, words[i], 0, clr, 1);
 		xx += (wordssz[i] << 8) + word_space;
 	}
 }
 
-void CGameFont::DrawTextJustify(int32_t x, int32_t y, int32_t w, CString txt, uint16_t* clr)
-{ //45eed7
+void CGameFont::DrawTextJustify(int32_t x, int32_t y, int32_t w, CString txt, uint16_t* clr) { //45eed7
 	int32_t space_width = this->char_widths[' '];
 
 	CStringArray words;
@@ -4239,8 +3807,7 @@ void CGameFont::DrawTextJustify(int32_t x, int32_t y, int32_t w, CString txt, ui
 
 	txt.TrimRight();
 	int32_t words_width = 0;
-	while (txt.GetLength() != 0)
-	{
+	while (txt.GetLength() != 0) {
 		txt.TrimLeft();
 
 		int32_t word_end = txt.Find(' ');
@@ -4267,24 +3834,21 @@ void CGameFont::DrawTextJustify(int32_t x, int32_t y, int32_t w, CString txt, ui
 	}
 
 	int32_t xx = x << 8;
-	for (int i = 0; i < words.GetSize(); i++)
-	{
+	for (int i = 0; i < words.GetSize(); i++) {
 		this->DrawTxt(xx >> 8, y, words[i], 0, clr);
 		xx += (wordssz[i] << 8) + word_space;
 	}
 }
 
 
-void CGameFont::DrawTextJustifyInRectShadow(const CRect& r, const char* str, uint16_t* clr, int32_t dy)
-{ //45ed37
+void CGameFont::DrawTextJustifyInRectShadow(const CRect& r, const char* str, uint16_t* clr, int32_t dy) { //45ed37
 	CStringArray& array = this->StringArrayForRect(r, str);
 
 	if (dy == 0) {
 		dy = this->GetHeight();
 	}
 
-	for (int32_t i = 0; i < array.GetSize(); i++)
-	{
+	for (int32_t i = 0; i < array.GetSize(); i++) {
 		if (i * dy + this->GetHeight() > r.Height()) {
 			break;
 		}
@@ -4297,8 +3861,7 @@ void CGameFont::DrawTextJustifyInRectShadow(const CRect& r, const char* str, uin
 
 
 
-void CGamePalette::operator=(const CGamePalette& b)
-{
+void CGamePalette::operator=(const CGamePalette& b) {
 	this->Free();
 
 	this->count = b.count;
@@ -4306,18 +3869,15 @@ void CGamePalette::operator=(const CGamePalette& b)
 	memcpy(this->colors, b.colors, this->count * 256 * sizeof(uint16_t));
 }
 
-CGamePalette::~CGamePalette()
-{ //423c6d
+CGamePalette::~CGamePalette() { //423c6d
 	this->Free();
 }
 
-void CGamePalette::Dump(CDumpContext& dc) const
-{ //4245a7
+void CGamePalette::Dump(CDumpContext& dc) const { //4245a7
 	//dc << "CGamePalette";
 }
 
-void CGamePalette::Free()
-{ //42457a
+void CGamePalette::Free() { //42457a
 	if (this->colors) {
 		delete[] this->colors;
 	}
@@ -4327,8 +3887,7 @@ void CGamePalette::Free()
 	this->count = 0;
 }
 
-void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useColor)
-{ //423cbe
+void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useColor) { //423cbe
 	this->count = _count;
 	this->colors = new uint16_t[256 * this->count];
 
@@ -4336,8 +3895,7 @@ void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useCo
 	uint32_t db = g_DeltaCLR.b;
 	uint32_t dr = g_DeltaCLR.r;
 
-	if (useColor == 0)
-	{
+	if (useColor == 0) {
 		db = 0;
 		dg = 0;
 		dr = 0;
@@ -4345,8 +3903,7 @@ void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useCo
 
 	uint16_t* clrs = this->colors;
 
-	switch (mode)
-	{
+	switch (mode) {
 	case 0:
 		this->colors[0] = 0;
 		for (int i = 1; i < 256; i++) {
@@ -4355,8 +3912,7 @@ void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useCo
 		break;
 
 	case 1:
-		for (int i = 0; i < 256; i++)
-		{
+		for (int i = 0; i < 256; i++) {
 			uint32_t r = rgb[i].rgbRed + dr;
 
 			if (dr > 255) {
@@ -4380,10 +3936,8 @@ void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useCo
 		break;
 
 	case 2:
-		for (int j = this->count; j > 0; j--)
-		{
-			for (int i = 0; i < 256; i++)
-			{
+		for (int j = this->count; j > 0; j--) {
+			for (int i = 0; i < 256; i++) {
 				int r = (rgb[i].rgbRed + dr) * j * 2 / this->count;
 				if (r < 0) {
 					r = 0;
@@ -4412,10 +3966,8 @@ void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useCo
 		break;
 
 	case 3:
-		for (int j = this->count; j > 0; j--)
-		{
-			for (int i = 0; i < 256; i++)
-			{
+		for (int j = this->count; j > 0; j--) {
+			for (int i = 0; i < 256; i++) {
 				int r = (rgb[i].rgbRed + dr) * j / 32;
 				if (r < 0) {
 					r = 0;
@@ -4444,13 +3996,10 @@ void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useCo
 		break;
 
 	case 4:
-		for (int j = 1; j < 17; j++)
-		{
-			for (int i = 0; i < 256; i++)
-			{
+		for (int j = 1; j < 17; j++) {
+			for (int i = 0; i < 256; i++) {
 				int r, g, b;
-				if (g_isLowMemory == 0)
-				{
+				if (g_isLowMemory == 0) {
 					r = rgb[i].rgbRed * j / 16;
 					g = rgb[i].rgbGreen * j / 16;
 					b = rgb[i].rgbBlue * j / 16;
@@ -4484,10 +4033,8 @@ void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useCo
 		break;
 
 	case 5:
-		for (int j = this->count; j> 0; j--)
-		{
-			for (int i = 0; i < 256; i++)
-			{
+		for (int j = this->count; j> 0; j--) {
+			for (int i = 0; i < 256; i++) {
 				int v = ((rgb[i].rgbRed + rgb[i].rgbGreen + rgb[i].rgbBlue) * j * 2) / 3 / this->count;
 				if (v > 255) {
 					v = 255;
@@ -4500,8 +4047,7 @@ void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useCo
 	}
 }
 
-uint16_t* CGamePalette::GetPalette(int32_t idx)
-{ //41ec40
+uint16_t* CGamePalette::GetPalette(int32_t idx) { //41ec40
 	return this->colors + 256 * idx; 
 }
 
@@ -4511,11 +4057,9 @@ uint16_t* CGamePalette::GetPalette(int32_t idx)
 
 CGameBitmap::CGameBitmap() {} //4247a6
 
-CGameBitmap::CGameBitmap(const char* fname)
-{ //4245c1
+CGameBitmap::CGameBitmap(const char* fname) { //4245c1
 	File2 f;
-	if (!f.Open(fname, CFile::modeRead))
-	{
+	if (!f.Open(fname, CFile::modeRead)) {
 		CString s = "FATAL ERROR: can't load ";
 		s += fname;
 		AfxMessageBox(s);
@@ -4537,16 +4081,14 @@ CGameBitmap::CGameBitmap(const char* fname)
 	this->frames = new void*[this->frames_count];
 
 	uint8_t* dpos = this->pdata;
-	for (int i = 0; i < this->frames_count; i++)
-	{
+	for (int i = 0; i < this->frames_count; i++) {
 		SpriteFrame* frm = (SpriteFrame*)dpos;
 		this->frames[i] = frm;
 		dpos = frm->data + frm->datasize;
 	}
 }
 
-CGameBitmap::CGameBitmap(const CGameBitmap& src)
-{ // 4247fd
+CGameBitmap::CGameBitmap(const CGameBitmap& src) { // 4247fd
 	this->frames_count = src.frames_count;
 	this->data_size = src.data_size;
 
@@ -4557,8 +4099,7 @@ CGameBitmap::CGameBitmap(const CGameBitmap& src)
 	memcpy(this->pdata, src.pdata, this->data_size);
 
 	uint8_t* dpos = this->pdata;
-	for (int i = 0; i < this->frames_count; i++)
-	{
+	for (int i = 0; i < this->frames_count; i++) {
 		SpriteFrame* frm = (SpriteFrame*)dpos;
 		this->frames[i] = frm;
 		dpos = frm->data + frm->datasize;
@@ -4569,8 +4110,7 @@ CGameBitmap::CGameBitmap(const CGameBitmap& src)
 	this->palette_data = src.palette_data; //FIXME
 }
 
-CGameBitmap::~CGameBitmap()
-{ //42496a
+CGameBitmap::~CGameBitmap() { //42496a
 	if (this->frames) {
 		delete[] this->frames;
 	}
@@ -4581,67 +4121,55 @@ CGameBitmap::~CGameBitmap()
 	this->palette.Free();
 }
 
-void CGameBitmap::Dump(CDumpContext& dc) const
-{ //424d3d
+void CGameBitmap::Dump(CDumpContext& dc) const { //424d3d
 	//dc << "CGameBitmap";
 }
 
-void CGameBitmap::VMethod1(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode)
-{
+void CGameBitmap::VMethod1(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode) {
 	//428d60
 }
 
-void CGameBitmap::VMethod2(int32_t x, int32_t y, int frame, int mode, int palid)
-{
+void CGameBitmap::VMethod2(int32_t x, int32_t y, int frame, int mode, int palid) {
 	//428d50
 }
 
-void CGameBitmap::VMethod3(int32_t x, int32_t y, int frame, int blevel, int mode)
-{
+void CGameBitmap::VMethod3(int32_t x, int32_t y, int frame, int blevel, int mode) {
 	//428d70
 }
 
-int32_t CGameBitmap::GetWidth(int frame)
-{ //424ce6
+int32_t CGameBitmap::GetWidth(int frame) { //424ce6
 	return ((SpriteFrame**)this->frames)[frame]->width;
 }
 
-int32_t CGameBitmap::GetHeight(int frame)
-{ //424d11
+int32_t CGameBitmap::GetHeight(int frame) { //424d11
 	return ((SpriteFrame**)this->frames)[frame]->height;
 }
 
-void CGameBitmap::SelectBitmapForDraw()
-{ //424d57
+void CGameBitmap::SelectBitmapForDraw() { //424d57
 	g_selDrawBitmap.lpSurface = CGameBitmap::GetData();
 	g_selDrawBitmap.dwWidth = this->GetWidth(0);
 	g_selDrawBitmap.dwHeight = this->GetHeight(0);
 	g_selDrawBitmap.lPitch = this->GetWidth(0) * this->GetPixelSize();
 }
 
-void CGameBitmap::VMethod7()
-{
+void CGameBitmap::VMethod7() {
 	//428d80
 }
 
-int CGameBitmap::GetPixelSize()
-{ //428d90
+int CGameBitmap::GetPixelSize() { //428d90
 	return 2;
 }
 
-void* CGameBitmap::GetData() 
-{ //41ec60
+void* CGameBitmap::GetData() { //41ec60
 	return this->pdata + sizeof(BmpFrame); 
 }
 
-void CGameBitmap::ResetPalette(uint32_t count, int mode, int useColor)
-{ //424cb0
+void CGameBitmap::ResetPalette(uint32_t count, int mode, int useColor) { //424cb0
 	this->palette.Free();
 	this->palette.SetPalette((RGBQUAD*)this->palette_data, count, mode, useColor);
 }
 
-int32_t CGameBitmap::GetFrameCount() 
-{//4387f0
+int32_t CGameBitmap::GetFrameCount() { //4387f0
 	return this->frames_count; 
 }
 
@@ -4654,11 +4182,9 @@ int32_t CGameBitmap::GetFrameCount()
 
 
 
-CBmp256::CBmp256(const char* fname)
-{ //425f8c
+CBmp256::CBmp256(const char* fname) { //425f8c
 	File2 f;
-	if (!f.Open(fname, CFile::modeRead))
-	{
+	if (!f.Open(fname, CFile::modeRead)) {
 		CString s = "FATAL ERROR: can't load ";
 		s += fname;
 		AfxMessageBox(s);
@@ -4701,8 +4227,7 @@ CBmp256::CBmp256(const char* fname)
 	this->frames[0] = this->pdata + sizeof(BmpFrame);
 }
 
-CBmp256::CBmp256(uint32_t w, uint32_t h)
-{ //4262d1
+CBmp256::CBmp256(uint32_t w, uint32_t h) { //4262d1
 
 	this->data_size = w * h + sizeof(BmpFrame);
 	this->pdata = new uint8_t[this->data_size];
@@ -4719,38 +4244,31 @@ CBmp256::CBmp256(uint32_t w, uint32_t h)
 	this->frames[0] = this->pdata + sizeof(BmpFrame);
 }
 
-CBmp256::~CBmp256()
-{ //428a40
+CBmp256::~CBmp256() { //428a40
 }
 
-void CBmp256::Dump(CDumpContext& dc) const
-{ //42649a
+void CBmp256::Dump(CDumpContext& dc) const { //42649a
 }
 
-void CBmp256::VMethod2(int32_t x, int32_t y, int frame, int mode, int palid)
-{ //4263df
+void CBmp256::VMethod2(int32_t x, int32_t y, int frame, int mode, int palid) { //4263df
 	const uint16_t* pal = this->palette.GetPalette(palid);
 	const BmpFrame* frm = (BmpFrame*)this->pdata;
 	BlitPaletted(x, y, 0, 0, frm->width, frm->height, this->pdata + sizeof(BmpFrame), frm->width, frm->height, pal);
 }
 
-int32_t CBmp256::GetWidth(int frame)
-{ //4264c0
+int32_t CBmp256::GetWidth(int frame) { //4264c0
 	return ((BmpFrame*)this->pdata)->width;
 }
 
-int32_t CBmp256::GetHeight(int frame)
-{ //4264d5
+int32_t CBmp256::GetHeight(int frame) { //4264d5
 	return ((BmpFrame*)this->pdata)->height;
 }
 
-void CBmp256::VMethod7()
-{ //4261a6
+void CBmp256::VMethod7() { //4261a6
 	const BmpFrame* frm = (BmpFrame*)this->pdata;
 	uint8_t* a = this->pdata + sizeof(BmpFrame);
 	uint8_t* b = this->pdata + sizeof(BmpFrame) + (frm->height - 1) * frm->width;
-	for (int i = 0; i < frm->height / 2; i++)
-	{
+	for (int i = 0; i < frm->height / 2; i++) {
 		memcpy(g_GfxTempBuffer, a, frm->width);
 		memcpy(a, b, frm->width);
 		memcpy(b, g_GfxTempBuffer, frm->width);
@@ -4760,20 +4278,17 @@ void CBmp256::VMethod7()
 	}
 }
 
-int CBmp256::GetPixelSize()
-{ //428da0
+int CBmp256::GetPixelSize() { //428da0
 	return 1;
 }
 
-void CBmp256::VMethod9(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, int palid)
-{ //426385
+void CBmp256::VMethod9(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, int palid) { //426385
 	const uint16_t* pal = this->palette.GetPalette(palid);
 	const BmpFrame* frm = (BmpFrame*)this->pdata;
 	BlitPaletted(x, y, l, t, r, b, this->pdata + sizeof(BmpFrame), frm->width, frm->height, pal);
 }
 
-void CBmp256::VMethod10(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, int palid)
-{ //426440
+void CBmp256::VMethod10(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, int palid) { //426440
 	const uint16_t* pal = this->palette.GetPalette(palid);
 	const BmpFrame* frm = (BmpFrame*)this->pdata;
 	BlitFlipPalettedAdd(x, y, l, t, r, b, this->pdata + sizeof(BmpFrame), frm->width, frm->height, pal);
@@ -4784,11 +4299,9 @@ void CBmp256::VMethod10(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, i
 
 
 
-CBmp64::CBmp64(const char* fname)
-{ //42576d
+CBmp64::CBmp64(const char* fname) { //42576d
 	File2 f;
-	if (!f.Open(fname, CFile::modeRead))
-	{
+	if (!f.Open(fname, CFile::modeRead)) {
 		CString s = "FATAL ERROR: can't load ";
 		s += fname;
 		AfxMessageBox(s);
@@ -4819,8 +4332,7 @@ CBmp64::CBmp64(const char* fname)
 	this->frames[0] = this->pdata + sizeof(BmpFrame);
 
 	uint16_t* dat = (uint16_t*)this->frames[0];
-	for (int32_t rawdata = binf.biWidth * binf.biHeight * 3; rawdata; )
-	{
+	for (int32_t rawdata = binf.biWidth * binf.biHeight * 3; rawdata; ) {
 		int32_t rsz = sizeof(g_GfxTempBuffer);
 		if (rawdata < rsz) {
 			rsz = rawdata;
@@ -4835,8 +4347,7 @@ CBmp64::CBmp64(const char* fname)
 	f.Close();
 }
 
-CBmp64::CBmp64(uint32_t w, uint32_t h)
-{ //42597e
+CBmp64::CBmp64(uint32_t w, uint32_t h) { //42597e
 	this->data_size = w * h * 2 + sizeof(BmpFrame);
 	this->pdata = new uint8_t[this->data_size];
 	
@@ -4850,37 +4361,30 @@ CBmp64::CBmp64(uint32_t w, uint32_t h)
 	this->frames[0] = this->pdata + sizeof(BmpFrame);
 }
 
-CBmp64::~CBmp64()
-{ //4289f0
+CBmp64::~CBmp64() { //4289f0
 }
 
-void CBmp64::Dump(CDumpContext& dc) const
-{ //425f3b
+void CBmp64::Dump(CDumpContext& dc) const { //425f3b
 }
 
-void CBmp64::VMethod2(int32_t x, int32_t y, int frame, int mode, int palid)
-{ //425e0c
+void CBmp64::VMethod2(int32_t x, int32_t y, int frame, int mode, int palid) { //425e0c
 	const BmpFrame* frm = (BmpFrame*)this->pdata;
 	Blit16(x, y, 0, 0, frm->width, frm->height, this->pdata + sizeof(BmpFrame), frm->width, frm->height);
 }
 
-int32_t CBmp64::GetWidth(int frame)
-{ //425f61
+int32_t CBmp64::GetWidth(int frame) { //425f61
 	return ((BmpFrame*)this->pdata)->width;
 }
 
-int32_t CBmp64::GetHeight(int frame)
-{ //425f76
+int32_t CBmp64::GetHeight(int frame) { //425f76
 	return ((BmpFrame*)this->pdata)->height;
 }
 
-void CBmp64::VMethod7()
-{ //425cdb
+void CBmp64::VMethod7() { //425cdb
 	const BmpFrame* frm = (BmpFrame*)this->pdata;
 	uint16_t* a = (uint16_t*)((uint8_t*)this->pdata + sizeof(BmpFrame));
 	uint16_t* b = (uint16_t*)((uint8_t*)this->pdata + sizeof(BmpFrame)) + (frm->height - 1) * frm->width;
-	for (int i = 0; i < frm->height / 2; i++)
-	{
+	for (int i = 0; i < frm->height / 2; i++) {
 		memcpy(g_GfxTempBuffer, a, frm->width * 2);
 		memcpy(a, b, frm->width * 2);
 		memcpy(b, g_GfxTempBuffer, frm->width * 2);
@@ -4890,29 +4394,24 @@ void CBmp64::VMethod7()
 	}
 }
 
-void CBmp64::VMethod9(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b)
-{ //425e5d
+void CBmp64::VMethod9(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b) { //425e5d
 	const BmpFrame* frm = (BmpFrame*)this->pdata;
 	Blit16(x, y, l, t, r, b, this->pdata + sizeof(BmpFrame), frm->width, frm->height);
 }
 
-void CBmp64::VMethod10(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b)
-{ //425ea7
+void CBmp64::VMethod10(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b) { //425ea7
 	const BmpFrame* frm = (BmpFrame*)this->pdata;
 	Blit16Masked(x, y, l, t, r, b, this->pdata + sizeof(BmpFrame), frm->width, frm->height);
 }
 
-void CBmp64::VMethod11(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b)
-{ //425ef1
+void CBmp64::VMethod11(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b) { //425ef1
 	const BmpFrame* frm = (BmpFrame*)this->pdata;
 	Blit16Add(x, y, l, t, r, b, this->pdata + sizeof(BmpFrame), frm->width, frm->height);
 }
 
-void CBmp64::LoadFile(const char* fname, CGameBitmap* bmp2)
-{ //425a17
+void CBmp64::LoadFile(const char* fname, CGameBitmap* bmp2) { //425a17
 	File2 f;
-	if (!f.Open(fname, CFile::modeRead))
-	{
+	if (!f.Open(fname, CFile::modeRead)) {
 		CString s = "FATAL ERROR: can't load ";
 		s += fname;
 		AfxMessageBox(s);
@@ -4926,8 +4425,7 @@ void CBmp64::LoadFile(const char* fname, CGameBitmap* bmp2)
 	f.Read(&binf, sizeof(binf)); //0x28
 
 	uint16_t* dat = (uint16_t*)(this->pdata + sizeof(BmpFrame));
-	for (int32_t rawdata = binf.biWidth * binf.biHeight * 3; rawdata; )
-	{
+	for (int32_t rawdata = binf.biWidth * binf.biHeight * 3; rawdata; ) {
 		int32_t rsz = sizeof(g_GfxTempBuffer);
 		if (rawdata < rsz) {
 			rsz = rawdata;
@@ -4947,8 +4445,7 @@ void CBmp64::LoadFile(const char* fname, CGameBitmap* bmp2)
 	f.Close();
 }
 
-void CBmp64::WriteFile(const char* fname, CGameBitmap* bmp2)
-{ //425b95
+void CBmp64::WriteFile(const char* fname, CGameBitmap* bmp2) { //425b95
 	CFile f;
 	f.Open(fname, CFile::modeCreate | CFile::modeWrite);
 
@@ -4961,8 +4458,7 @@ void CBmp64::WriteFile(const char* fname, CGameBitmap* bmp2)
 	f.Write(&binf, sizeof(binf)); //0x28
 
 	uint16_t* dat = (uint16_t*)(this->pdata + sizeof(BmpFrame));
-	for (int32_t rawdata = binf.biWidth * binf.biHeight * 3; rawdata; )
-	{
+	for (int32_t rawdata = binf.biWidth * binf.biHeight * 3; rawdata; ) {
 		int32_t rsz = sizeof(g_GfxTempBuffer);
 		if (rawdata < rsz) {
 			rsz = rawdata;
@@ -4985,12 +4481,10 @@ void CBmp64::WriteFile(const char* fname, CGameBitmap* bmp2)
 
 
 
-CSprite256::CSprite256(const char* fname)
-{ //424e79
+CSprite256::CSprite256(const char* fname) { //424e79
 
 	File2 f;
-	if (!f.Open(fname, CFile::modeRead))
-	{
+	if (!f.Open(fname, CFile::modeRead)) {
 		CString s = "FATAL ERROR: can't load ";
 		s += fname;
 		AfxMessageBox(s);
@@ -5011,8 +4505,7 @@ CSprite256::CSprite256(const char* fname)
 
 	this->palette_data = this->pdata + this->data_size - 4 * 256;
 
-	if (has_pal)
-	{
+	if (has_pal) {
 		f.Read(this->palette_data, 4 * 256);
 		this->data_size -= 4 * 256;
 	}
@@ -5023,8 +4516,7 @@ CSprite256::CSprite256(const char* fname)
 	this->frames = new void*[this->frames_count];
 
 	uint8_t* dpos = this->pdata;
-	for (int i = 0; i < this->frames_count; i++)
-	{
+	for (int i = 0; i < this->frames_count; i++) {
 		SpriteFrame* frm = (SpriteFrame*)dpos;
 		this->frames[i] = frm;
 		dpos = frm->data + frm->datasize;
@@ -5033,20 +4525,16 @@ CSprite256::CSprite256(const char* fname)
 
 
 CSprite256::CSprite256(const CSprite256& b)
-: CGameBitmap(b)
-{ //4250bf
+: CGameBitmap(b) { //4250bf
 }
 
-CSprite256::~CSprite256()
-{ //4289a0
+CSprite256::~CSprite256() { //4289a0
 }
 
-void CSprite256::Dump(CDumpContext& dc) const
-{ //425558
+void CSprite256::Dump(CDumpContext& dc) const { //425558
 }
 
-void CSprite256::VMethod1(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode)
-{ //425210
+void CSprite256::VMethod1(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode) { //425210
 	const uint16_t* pal = ppalette->GetPalette(palid);
 	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 	if (mode == 0) {
@@ -5056,8 +4544,7 @@ void CSprite256::VMethod1(int32_t x, int32_t y, int frame, int palid, CGamePalet
 	}
 }
 
-void CSprite256::VMethod2(int32_t x, int32_t y, int frame, int palid, int mode)
-{ //4250e4
+void CSprite256::VMethod2(int32_t x, int32_t y, int frame, int palid, int mode) { //4250e4
 	const uint16_t* pal = this->palette.GetPalette(palid);
 	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 	if (mode == 0) {
@@ -5067,11 +4554,9 @@ void CSprite256::VMethod2(int32_t x, int32_t y, int frame, int palid, int mode)
 	}
 }
 
-void CSprite256::VMethod3(int32_t x, int32_t y, int frame, int blevel, int mode)
-{ //425330
+void CSprite256::VMethod3(int32_t x, int32_t y, int frame, int blevel, int mode) { //425330
 	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
-	if (mode == 0)
-	{
+	if (mode == 0) {
 		if (g_isLowMemory == 0) {
 			BlitLightRle8(x, y, frm->width, frm->height, frm->data, blevel);
 		} else {
@@ -5086,8 +4571,7 @@ void CSprite256::VMethod3(int32_t x, int32_t y, int frame, int blevel, int mode)
 	}
 }
 
-void CSprite256::VMethod9(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode)
-{ //4252a0
+void CSprite256::VMethod9(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode) { //4252a0
 	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 	if (mode == 0) {
 		BlitRle8Blend(x, y, frm->width, frm->height, frm->data, ppalette->GetPalette(palid));
@@ -5096,8 +4580,7 @@ void CSprite256::VMethod9(int32_t x, int32_t y, int frame, int palid, CGamePalet
 	}
 }
 
-void CSprite256::VMethod10(int32_t x, int32_t y, int frame, int palid, int mode)
-{ //42517a
+void CSprite256::VMethod10(int32_t x, int32_t y, int frame, int palid, int mode) { //42517a
 	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 	if (mode == 0) {
 		BlitRle8Blend(x, y, frm->width, frm->height, frm->data, this->palette.GetPalette(palid));
@@ -5106,11 +4589,9 @@ void CSprite256::VMethod10(int32_t x, int32_t y, int frame, int palid, int mode)
 	}
 }
 
-void CSprite256::VMethod11(int32_t x, int32_t y, int frame, int blevel, int32_t tilt, int mode)
-{ //425414
+void CSprite256::VMethod11(int32_t x, int32_t y, int frame, int blevel, int32_t tilt, int mode) { //425414
 	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
-	if (mode == 0)
-	{
+	if (mode == 0) {
 		if (g_isLowMemory == 0) {
 			BlitLightRle8Tilt(x, y, frm->width, frm->height, frm->data, blevel, tilt);
 		} else {
@@ -5125,8 +4606,7 @@ void CSprite256::VMethod11(int32_t x, int32_t y, int frame, int blevel, int32_t 
 	}
 }
 
-void CSprite256::VMethod12(int32_t x, int32_t y, int frame, uint32_t mv)
-{ //425508
+void CSprite256::VMethod12(int32_t x, int32_t y, int frame, uint32_t mv) { //425508
 	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 	BlitRle8IndexMask(x, y, frm->width, frm->height, frm->data, mv);
 }
@@ -5140,8 +4620,7 @@ CA16::CA16(const char* fname)
 {} //4287ff
 
 
-void CA16::VMethod2(int32_t x, int32_t y, int frame, int palid, int mode)
-{ //428824
+void CA16::VMethod2(int32_t x, int32_t y, int frame, int palid, int mode) { //428824
 	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 
 	uint16_t* pal = (uint16_t*)palid;
@@ -5165,8 +4644,7 @@ CSprite16::CSprite16(const char* fname)
 {} //424db8
 
 
-void CSprite16::VMethod9(int32_t x, int32_t y, int frame, uint16_t* pcolor)
-{ //424ddd
+void CSprite16::VMethod9(int32_t x, int32_t y, int frame, uint16_t* pcolor) { //424ddd
 	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 	BlitRle4(x, y, frm->width, frm->height, frm->data, pcolor);
 }
@@ -5175,8 +4653,7 @@ void CSprite16::VMethod9(int32_t x, int32_t y, int frame, uint16_t* pcolor)
 
 
 
-CSpriteFont16::CSpriteFont16(const char* fname, int32_t _space)
-{ //45fa44
+CSpriteFont16::CSpriteFont16(const char* fname, int32_t _space) { //45fa44
 	CString buf = fname;
 	buf += ".16";
 
@@ -5196,8 +4673,7 @@ CSpriteFont16::CSpriteFont16(const char* fname, int32_t _space)
 	this->space = _space;
 }
 
-void CSpriteFont16::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* clr)
-{ //45fbd7
+void CSpriteFont16::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* clr) { //45fbd7
 	if ((align & 1) != 0) {
 		x -= this->GetStrWidth(txt);
 	}
@@ -5215,13 +4691,11 @@ void CSpriteFont16::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t alig
 	}
 
 	int32_t tlen = strlen(txt);
-	for (int32_t i = 0; i < tlen; i++)
-	{
+	for (int32_t i = 0; i < tlen; i++) {
 		uint8_t chr1 = DecodeChar(txt[i]) - 0x20;
 		uint8_t chr2 = DecodeChar(txt[i + 1]) - 0x20;
 
-		if (chr1 == 0x5e && chr2 != 0x5e)
-		{
+		if (chr1 == 0x5e && chr2 != 0x5e) {
 			FillRectColor(x, y + this->bitmap->GetHeight(), x + this->char_widths[chr2], y + this->bitmap->GetHeight(), clr[15]);
 		} else {
 			if (chr1 == 0) {
@@ -5239,15 +4713,13 @@ void CSpriteFont16::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t alig
 	}
 }
 
-uint16_t* CSpriteFont16::GetShadowColors()
-{ // 45fdf2
+uint16_t* CSpriteFont16::GetShadowColors() { // 45fdf2
 	return clrsh_Black;
 }
 
 
 
-CSpriteFont16a::CSpriteFont16a(const char* fname, int32_t _space)
-{ // 45fe02
+CSpriteFont16a::CSpriteFont16a(const char* fname, int32_t _space) { // 45fe02
 	CString buf = fname;
 	buf += ".16a";
 
@@ -5269,12 +4741,10 @@ CSpriteFont16a::CSpriteFont16a(const char* fname, int32_t _space)
 	this->bitmap->ResetPalette(16, 4, 0);
 }
 
-CSpriteFont16a::~CSpriteFont16a()
-{ // 461000
+CSpriteFont16a::~CSpriteFont16a() { // 461000
 }
 
-void CSpriteFont16a::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* clr)
-{ // 45ffa9
+void CSpriteFont16a::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* clr) { // 45ffa9
 	if ((align & 1) != 0) {
 		x -= this->GetStrWidth(txt);
 	}
@@ -5292,8 +4762,7 @@ void CSpriteFont16a::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t ali
 	}
 
 	int32_t tlen = strlen(txt);
-	for (int32_t i = 0; i < tlen; i++)
-	{
+	for (int32_t i = 0; i < tlen; i++) {
 		uint8_t chr1 = DecodeChar(txt[i]) - 0x20;
 		if (chr1 == 0) {
 			x += this->bitmap->GetHeight() / 2;
@@ -5305,8 +4774,7 @@ void CSpriteFont16a::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t ali
 	}
 }
 
-uint16_t* CSpriteFont16a::GetShadowColors()
-{ // 460106
+uint16_t* CSpriteFont16a::GetShadowColors() { // 460106
 	return palette_black->GetPalette(0);
 }
 
@@ -5321,8 +4789,7 @@ uint16_t* CSpriteFont16a::GetShadowColors()
 
 
 
-void LoadGraphics()
-{ //47819d
+void LoadGraphics() { //47819d
 		g_bmp_crystalr = new CBmp64("graphics\\interface\\CrystalR.bmp");
 		g_bmp_crystall = new CBmp64("graphics\\interface\\CrystalL.bmp");
 		g_bmp_headsr = new CBmp64("graphics\\interface\\HeadsR.bmp");
@@ -5375,10 +4842,8 @@ void LoadGraphics()
 
 		g_mousept.Update();
 
-		if (g_ScreenSize.bottom < 601)
-		{
-			if (g_ScreenSize.bottom > 480)
-			{
+		if (g_ScreenSize.bottom < 601) {
+			if (g_ScreenSize.bottom > 480) {
 				g_bmp_spb800l = new CBmp64("graphics\\interface\\spb800l.bmp");
 				g_bmp_spb800r = new CBmp64("graphics\\interface\\spb800r.bmp");
 				g_bmp_extra800l = new CBmp64("graphics\\interface\\extra800l.bmp");
@@ -5429,8 +4894,7 @@ void LoadGraphics()
 }
 
 
-void UnloadGraphics()
-{ //47961c
+void UnloadGraphics() { //47961c
 	if (g_bmp_crystalr) {
 		delete g_bmp_crystalr;
 	}
@@ -5654,8 +5118,7 @@ void UnloadGraphics()
 	g_bmp_testiva = nullptr;
 }
 
-void FUN_0047c6cd()
-{ //47c6cd
+void FUN_0047c6cd() { //47c6cd
 	for (int32_t i = 0; i < g_UnitGfxFiles.GetSize(); i++) {
 		UnitGfxFile* gfx = g_UnitGfxFiles[i];
 		if (gfx != nullptr) {
@@ -5679,16 +5142,14 @@ void FUN_0047c6cd()
 	g_Human_palettes.RemoveAll();
 }
 
-void LoadFonts()
-{ //460c37
+void LoadFonts() { //460c37
 	g_font1 = new CSpriteFont16("graphics\\font1\\font1", 2);
 	g_font2 = new CSpriteFont16("graphics\\font2\\font2", 2);
 	g_font3 = new CSpriteFont16("graphics\\font3\\font3", 2);
 	g_font4 = new CSpriteFont16a("graphics\\font4\\font4", 2);
 }
 
-void FreeFontData()
-{ //460d7f
+void FreeFontData() { //460d7f
 	if (g_font1) {
 		delete g_font1;
 	}
@@ -5727,18 +5188,15 @@ void FreeFontData()
 	palette_tawny_port = nullptr;
 }
 
-void FreeDDraw()
-{ //454219
-	if (g_IsServer == 0 && g_ddraw)
-	{
+void FreeDDraw() { //454219
+	if (g_IsServer == 0 && g_ddraw) {
 		g_ddraw->Release();
 		g_ddraw = nullptr;
 	}
 }
 
 
-void SaveScreenshot()
-{ //453d33
+void SaveScreenshot() { //453d33
 	static int32_t screenshot_num = 0; //65dd24
 	CString fname;
 	fname.Format("Allods%04d.bmp", screenshot_num);
@@ -5749,11 +5207,9 @@ void SaveScreenshot()
 
 	LockSurface1();
 	uint8_t* dst = data;
-	for (int32_t y = g_ScreenSize.bottom - 1; y >= 0; y--)
-	{
+	for (int32_t y = g_ScreenSize.bottom - 1; y >= 0; y--) {
 		uint16_t* src = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + y * g_ScreenSize.bottom * 2);
-		for (int32_t x = 0; x < g_ScreenSize.right; x++)
-		{
+		for (int32_t x = 0; x < g_ScreenSize.right; x++) {
 			uint16_t clr = *src;
 			dst[0] = ((clr & g_BBitMask) >> g_BBitShift) << (8 - g_BBits);
 			dst[1] = ((clr & g_GBitMask) >> g_GBitShift) << (8 - g_GBits);

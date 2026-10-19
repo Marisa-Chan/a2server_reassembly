@@ -9,14 +9,12 @@ extern "C" {
     volatile int32_t testvar = 5;
 };
 
-class TestClass
-{
+class TestClass {
 public:
     int TestField();
 };
 
-int main(int argc, const char *argv[])
-{
+int main(int argc, const char *argv[]) {
     TestClass a;
     printf("%x\n", testvar);
     printf("%x\n", a.TestField());

@@ -39,50 +39,43 @@ public:
     void sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y); // Execute area spell
 
 
-    uint8_t GetSpeed(uint8_t v) const //539926
-    {
+    uint8_t GetSpeed(uint8_t v) const { //539926
         if (this->spell_id != 21) { //HASTE
             return 0;
         }
         return (v / 15) + 1;
     }
 
-    uint8_t GetResistance(uint8_t v) const //53985f
-    {
+    uint8_t GetResistance(uint8_t v) const { //53985f
         if (this->spell_id == 4 || this->spell_id == 8 || this->spell_id == 13 || this->spell_id == 19) {
             return v / 2;
         }
         return 0;
     }
 
-    int16_t GetSight(uint8_t v) const //5398e2
-    {
+    int16_t GetSight(uint8_t v) const { //5398e2
         if (this->spell_id == 15 || this->spell_id == 14) {
             return -(v / 30) - 1;
         }
         return 0;
     }
 
-    uint8_t GetMaximumDamageProbability(uint8_t v) const //5397f7
-    {
+    uint8_t GetMaximumDamageProbability(uint8_t v) const { //5397f7
         if (this->spell_id == 20) {
             return (v * 4 / 5) + 20;
         }
         return 0;
     }
 
-    uint8_t GetMinimumDamageProbability(uint8_t v) const //53982b
-    {
+    uint8_t GetMinimumDamageProbability(uint8_t v) const { //53982b
         if (this->spell_id == 28) {
             return (v * 4 / 5) + 20;
         }
         return 0;
     }
 
-    uint8_t GetRays(uint8_t v) const //5397a3
-    {
-        if (this->spell_id == 11)
-        {
+    uint8_t GetRays(uint8_t v) const { //5397a3
+        if (this->spell_id == 11) {
             uint8_t r = v / 20 + 2;
             if (r > 7) {
                 r = 7;
@@ -92,8 +85,7 @@ public:
         return 0;
     }
 
-    uint8_t GetBonusType5(uint8_t v) const //5397a3
-    {
+    uint8_t GetBonusType5(uint8_t v) const { //5397a3
         if (this->spell_id == 27) {
             return v / 10 + 3;
         }

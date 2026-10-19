@@ -23,8 +23,7 @@ __pragma(pack(push, 1))
 struct MapStuff;
 extern MapStuff *MapStuff_Instance;
 
-struct PosYX
-{
+struct PosYX {
 	union {
 		uint16_t val;
 		struct {
@@ -33,21 +32,18 @@ struct PosYX
 		};
 	};
 
-	inline void Set(uint8_t _x, uint8_t _y)
-	{
+	inline void Set(uint8_t _x, uint8_t _y) {
 		this->x = _x;
 		this->y = _y;
 	}
 
-	inline void Set(uint16_t _val)
-	{
+	inline void Set(uint16_t _val) {
 		this->val = _val;
 	}
 
 	inline PosYX() { this->val = 0; }
 	inline PosYX(uint16_t _val) { this->val = _val; }
-	inline PosYX(uint8_t _x, uint8_t _y)
-	{
+	inline PosYX(uint8_t _x, uint8_t _y) {
 		this->x = _x;
 		this->y = _y;
 	}
@@ -59,8 +55,7 @@ struct PosYX
 	inline operator uint16_t() { return this->val; }
 };
 
-struct TokenPos
-{
+struct TokenPos {
 public:
 	uint8_t x;
 	uint8_t y;
@@ -109,8 +104,7 @@ ASSERT_SIZE(TokenPos, 0xC);
 
 
 
-class Token : public CObject
-{
+class Token : public CObject {
 public:
 	DECLARE_SERIAL(Token); // Runtime class definition at 6363b8.
 

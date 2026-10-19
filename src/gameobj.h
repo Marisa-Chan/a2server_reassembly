@@ -18,8 +18,7 @@ class Unit;
 extern CStringArray g_CUnitMaterialSpritePaths; //660e70
 
 
-class TokenEntry : public CObject
-{
+class TokenEntry : public CObject {
 public:
 	enum {
 		TYPE_SPELL = 0x0E,
@@ -55,8 +54,7 @@ public:
 	int GetMaterial() const { return (this->item_id >> 0xc); } //43a7c0
 	int GetShape() const { return (this->item_id >> 5) & 7; } //43a7e0
 
-	uint32_t GetAttribute(uint8_t aid) const //4397de
-	{
+	uint32_t GetAttribute(uint8_t aid) const { //4397de
 		if (!this->mods || this->mods_count == 0 || this->mods_size == 0) {
 			return 0;
 		}
@@ -66,11 +64,9 @@ public:
 
 		const uint8_t* cmods = (const uint8_t*)this->mods;
 
-		for (int i = 0; i < this->mods_count; i++)
-		{
+		for (int i = 0; i < this->mods_count; i++) {
 			uint8_t k = cmods[pos];
-			if (k == aid)
-			{
+			if (k == aid) {
 				if (k == 1) {
 					result = GetU32(cmods + pos + 1);
 				} else {
@@ -100,12 +96,10 @@ public:
 };
 ASSERT_SIZE(TokenEntry, 0x24);
 
-struct GO_11c
-{
+struct GO_11c {
 	GO_11c() = default;
 
-	GO_11c(int16_t f0, int16_t f2, int16_t f4, uint8_t f6, uint8_t f7) // 4cd3c0
-	{
+	GO_11c(int16_t f0, int16_t f2, int16_t f4, uint8_t f6, uint8_t f7) { // 4cd3c0
 		this->field_0x0 = f0;
 		this->field_0x2 = f2;
 		this->field_0x4 = f4;
@@ -122,8 +116,7 @@ struct GO_11c
 ASSERT_SIZE(GO_11c, 8);
 
 
-class CGameObject : public CObject
-{
+class CGameObject : public CObject {
 	DECLARE_DYNAMIC(CGameObject);
 public:
 
@@ -238,8 +231,7 @@ public:
 ASSERT_SIZE(CGameObject, 0x144);
 
 
-class CUnit : public CGameObject
-{
+class CUnit : public CGameObject {
 	DECLARE_DYNAMIC(CUnit);
 public:
 
@@ -324,8 +316,7 @@ public:
 ASSERT_SIZE(CUnit, 0x1e4);
 
 
-class TransientVisualEffectBuilder
-{
+class TransientVisualEffectBuilder {
 public:
     TransientVisualEffectBuilder(); // 4cb0a0
     ~TransientVisualEffectBuilder(); // 4cb190
@@ -369,8 +360,7 @@ ASSERT_SIZE(TransientVisualEffectBuilder, 0xe0);
 
 
 // Enterable structures collection (global at 65fa38)
-struct StructEnter
-{
+struct StructEnter {
 	CArray<CUnit*> field_0x0;
 	CArray<CUnit*> field_0x14;
 	int32_t field_0x28;
@@ -389,8 +379,7 @@ ASSERT_SIZE(StructEnter, 0x30);
 extern StructEnter g_StructEnter; //65fa38 in asm
 
 
-class CAirUnit : public CUnit
-{
+class CAirUnit : public CUnit {
 	DECLARE_DYNAMIC(CAirUnit);
 public:
 	virtual ~CAirUnit(); // 46f010
@@ -404,8 +393,7 @@ public:
 ASSERT_SIZE(CAirUnit, 0x1e4);
 
 
-class CBackPack : public CGameObject
-{
+class CBackPack : public CGameObject {
 	DECLARE_DYNAMIC(CBackPack);
 public:
 
@@ -423,8 +411,7 @@ public:
 };
 ASSERT_SIZE(CBackPack, 0x144);
 
-class CProjectile : public CGameObject
-{
+class CProjectile : public CGameObject {
 	DECLARE_DYNAMIC(CProjectile);
 public:
 	virtual ~CProjectile(); // 46f060
@@ -451,8 +438,7 @@ ASSERT_SIZE(CProjectile, 0x158);
 
 
 //60b520
-class CStructure : public CGameObject
-{
+class CStructure : public CGameObject {
 	DECLARE_DYNAMIC(CStructure);
 public:
 	virtual ~CStructure(); //46f5a0
@@ -477,8 +463,7 @@ public:
 ASSERT_SIZE(CStructure, 0x144);
 
 //60b578
-class CBridge : public CStructure
-{
+class CBridge : public CStructure {
 	DECLARE_DYNAMIC(CBridge);
 public:
 	virtual ~CBridge(); //46f580
@@ -495,8 +480,7 @@ public:
 ASSERT_SIZE(CBridge, 0x14c);
 
 //60cb70
-class CVerticalWoodenBridge : public CBridge
-{
+class CVerticalWoodenBridge : public CBridge {
 	DECLARE_DYNAMIC(CVerticalWoodenBridge);
 public:
 	virtual ~CVerticalWoodenBridge(); //4a9ef0
@@ -509,8 +493,7 @@ public:
 ASSERT_SIZE(CVerticalWoodenBridge, 0x14c);
 
 //60cbc8
-class CHorisontalWoodenBridge : public CBridge
-{
+class CHorisontalWoodenBridge : public CBridge {
 	DECLARE_DYNAMIC(CHorisontalWoodenBridge);
 public:
 	virtual ~CHorisontalWoodenBridge(); //4a9f70

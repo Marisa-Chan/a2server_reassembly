@@ -7,23 +7,18 @@ CArray<char*> TxtFile::AllLines;
 //475c6c
 TxtFile::TxtFile() = default;
 
-TxtFile::~TxtFile()
-{
+TxtFile::~TxtFile() {
 	//43ccd0
 
 	this->Free();
 }
 
-void TxtFile::Free()
-{
+void TxtFile::Free() {
 	//475de9
 	
-	if (this->buffer)
-	{
-		for (int i = 0; i < AllLines.GetSize(); i++)
-		{
-			if (AllLines[i] == this->buffer)
-			{
+	if (this->buffer) {
+		for (int i = 0; i < AllLines.GetSize(); i++) {
+			if (AllLines[i] == this->buffer) {
 				AllLines.RemoveAt(i, this->line_count);
 				free(this->buffer);
 				this->buffer = nullptr;
@@ -33,8 +28,7 @@ void TxtFile::Free()
 	}
 }
 
-void TxtFile::LoadChunkFile(const char* fname)
-{
+void TxtFile::LoadChunkFile(const char* fname) {
 	//475ca9
 
 	File2 fil;
@@ -50,8 +44,7 @@ void TxtFile::LoadChunkFile(const char* fname)
 	this->line_count = 0;
 	this->start_index = AllLines.GetSize();
 
-	for (char *pcur = this->buffer; pcur < this->buffer + fsize; )
-	{
+	for (char *pcur = this->buffer; pcur < this->buffer + fsize; ) {
 		char* linestart = pcur;
 		AllLines.Add(linestart);
 
@@ -70,15 +63,13 @@ void TxtFile::LoadChunkFile(const char* fname)
 	}
 }
 
-char* TxtFile::GetLine(int index)
-{
+char* TxtFile::GetLine(int index) {
 	//475e57
 	return AllLines[this->start_index + index];
 }
 
 
-int TxtFile::GetCount()
-{
+int TxtFile::GetCount() {
 	//43cd30
 	return this->line_count;
 }

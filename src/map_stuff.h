@@ -29,8 +29,7 @@ extern CStringArray g_MissionFailures; //660f18
 extern CStringArray g_MissionSubjs; //660ea8
 
 
-struct Obstacle
-{
+struct Obstacle {
     uint8_t bits;
 
     inline void SetBits(uint8_t _bits) { this->bits |= _bits; } //5970a0
@@ -343,8 +342,7 @@ class File2;
 // Reads one length-prefixed record from the scenario file into buf.
 void __cdecl FUN_004a7b3c(char* buf, File2* file); //4a7b3c
 
-class Scenario : public CObject
-{
+class Scenario : public CObject {
 public:
     ~Scenario(); //4a9468
 

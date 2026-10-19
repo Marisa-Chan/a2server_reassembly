@@ -156,8 +156,7 @@ void FillFlatGrey(int32_t x, int32_t h0, int32_t h2); //45995e
 void FillDeformedGrey(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3); //459b72
 
 
-inline uint32_t GetColorRGB(uint8_t r, uint8_t g, uint8_t b)
-{
+inline uint32_t GetColorRGB(uint8_t r, uint8_t g, uint8_t b) {
 	return ((r >> (8 - g_RBits)) << g_RBitShift) | ((g >> (8 - g_GBits)) << g_GBitShift) | ((b >> (8 - g_BBits)) << g_BBitShift);
 }
 
@@ -204,8 +203,7 @@ void FUN_00454a1e(int32_t l, int32_t t, int32_t r, int32_t b); //454a1e in asm
 extern IDirectDraw* g_ddraw; //659bec
 
 
-struct ColorThing
-{
+struct ColorThing {
 	uint8_t r;
 	uint8_t g;
 	uint8_t b;
@@ -223,8 +221,7 @@ extern ColorThing g_DeltaCLR; //660e28
 
 
 
-class CGameFont : public CObject
-{
+class CGameFont : public CObject {
 public:
 	virtual ~CGameFont();
 
@@ -259,8 +256,7 @@ public:
 ASSERT_SIZE(CGameFont, 0x10);
 
 
-class CGamePalette : public CObject
-{
+class CGamePalette : public CObject {
 	DECLARE_DYNAMIC(CGamePalette);
 public:
 	virtual ~CGamePalette(); //423c6d
@@ -280,16 +276,14 @@ public:
 
 ASSERT_SIZE(CGamePalette, 0xC);
 
-struct BmpFrame
-{
+struct BmpFrame {
 	uint32_t width;
 	uint32_t height;
 	uint8_t data[];
 };
 ASSERT_SIZE(BmpFrame, 8);
 
-struct SpriteFrame
-{
+struct SpriteFrame {
 	uint32_t width;
 	uint32_t height;
 	uint32_t datasize;
@@ -298,8 +292,7 @@ struct SpriteFrame
 ASSERT_SIZE(SpriteFrame, 0xc);
 
 
-class CGameBitmap : public CObject
-{
+class CGameBitmap : public CObject {
 	DECLARE_DYNAMIC(CGameBitmap);
 public:
 	virtual ~CGameBitmap();
@@ -336,8 +329,7 @@ public:
 ASSERT_SIZE(CGameBitmap, 0x24);
 
 
-class CBmp256 : public CGameBitmap
-{
+class CBmp256 : public CGameBitmap {
 	DECLARE_DYNAMIC(CBmp256);
 public:
 	virtual ~CBmp256();
@@ -357,8 +349,7 @@ public:
 };
 
 
-class CBmp64 : public CGameBitmap
-{
+class CBmp64 : public CGameBitmap {
 	DECLARE_DYNAMIC(CBmp64);
 public:
 	virtual ~CBmp64();
@@ -381,8 +372,7 @@ public:
 	void WriteFile(const char* fname, CGameBitmap* bmp2 = nullptr);
 };
 
-class CSprite256 : public CGameBitmap
-{
+class CSprite256 : public CGameBitmap {
 	DECLARE_DYNAMIC(CSprite256);
 public:
 	virtual ~CSprite256();
@@ -401,8 +391,7 @@ public:
 	CSprite256(const CSprite256& b);
 };
 
-class CA16 : public CSprite256
-{
+class CA16 : public CSprite256 {
 	DECLARE_DYNAMIC(CA16);
 public:
 	virtual ~CA16() {}; //428ae0
@@ -412,8 +401,7 @@ public:
 	CA16(const char* fname);
 };
 
-class CSprite16 : public CGameBitmap
-{
+class CSprite16 : public CGameBitmap {
 	DECLARE_DYNAMIC(CSprite16);
 public:
 	virtual ~CSprite16() {}; //428950
@@ -429,8 +417,7 @@ public:
 
 
 //CSprite16 based
-class CSpriteFont16 : public CGameFont
-{
+class CSpriteFont16 : public CGameFont {
 public:
 	virtual ~CSpriteFont16() {}; //460fb0
 	virtual void DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* clr) override;
@@ -441,8 +428,7 @@ public:
 };
 
 //CA16 based
-class CSpriteFont16a : public CGameFont
-{
+class CSpriteFont16a : public CGameFont {
 public:
 	virtual ~CSpriteFont16a();
 	virtual void DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colosh) override;

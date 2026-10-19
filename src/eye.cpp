@@ -49,8 +49,7 @@ UnitEye2::UnitEye2() {
 }
 
 // 5A4F30
-UnitEye2::~UnitEye2()
-{
+UnitEye2::~UnitEye2() {
     delete this->positions_list;
     this->positions_list = nullptr;
 }
