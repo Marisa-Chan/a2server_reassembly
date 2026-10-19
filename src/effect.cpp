@@ -927,7 +927,7 @@ void DirectDamage::VMethod11(Unit* unit) {
             }
         }
     } else {
-        int32_t damage = unit->VMethod17(&this->unit_to_hit, this->caster);
+        int32_t damage = unit->RollDamage(&this->unit_to_hit, this->caster);
         unit->hp -= (int16_t)damage;
         if (damage > 0) {
             if (this->caster != nullptr && this->itemDataID != 0) {

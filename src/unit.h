@@ -82,7 +82,7 @@ public: // VTable at 60efc0.
     virtual Item* Unequip(Item *);
     virtual void UnequipAll();
     virtual void AwardKillMoney(Unit *);
-    virtual uint32_t VMethod17(UnitToHit *, Unit *);
+    virtual uint32_t RollDamage(UnitToHit *, Unit *);
     virtual void VMethod18();
     virtual uint32_t VMethod19();
     virtual void VMethod20();

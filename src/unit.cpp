@@ -161,7 +161,7 @@ void __cdecl sub_53685B(Unit* self, Unit* target) {
     }
 
     bool was_alive = target->hp > 0;
-    int32_t damage = target->VMethod17(&self->hit_values, self);
+    int32_t damage = target->RollDamage(&self->hit_values, self);
     target->hp -= damage;
 
     // On a hit, non-mage units trigger the weapon's imbued spell.
@@ -1019,7 +1019,7 @@ void Unit::AwardKillMoney(Unit*)
 {}
 
 // 536B31
-uint32_t Unit::VMethod17(UnitToHit* unit_to_hit, Unit* attacker) {
+uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
     if (this->pOwner) {
         this->pOwner->sub_534B59();
     }
