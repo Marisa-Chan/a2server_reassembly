@@ -434,7 +434,7 @@ int Srv1::LoadMap(CString map_name) {
     g_Server->current_map_title = alm->map_name;
     g_Server->MapLevel = alm->map_level;
 
-    this->sub_59C3FB(alm);
+    this->CreatePlayers(alm);
 
     MapStuff* map_stuff = new MapStuff(alm, dword_6CDB3C);
     MapStuff_Instance = map_stuff;
@@ -729,7 +729,7 @@ void Srv1::sub_59C37A(MapAlm* alm) {
 }
 
 // 59C3FB
-void Srv1::sub_59C3FB(MapAlm* alm) {
+void Srv1::CreatePlayers(MapAlm* alm) {
     for (int32_t i = 1; i <= alm->map_players.GetSize(); i++) {
         MapPlayerData* player_data = alm->map_players[i - 1];
         if (player_data == nullptr) {

@@ -361,3 +361,4 @@ SpellEffectList::sub_5585F2 -> ProcessTick -- per-tick: drops dead casters, diff
 BuildingsList::FUN_0055817b -> RegenTick -- calls RegenTick on every building
 Srv1::sub_59C56E -> CreateBuildings -- creates buildings from the alm
 Srv1::sub_59FC97 -> SpawnRandomSacks -- spawns count random sacks (0 = max(10, map_width/4))
+Srv1::sub_59B7EA -> LoadMap -- loads the ALM map file
