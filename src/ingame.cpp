@@ -3822,7 +3822,7 @@ void BigStruct2::sub_419246(uint16_t id) {
 	pkt->id = 0x19;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->field_0xe = id;
+	pkt->param = id;
 	pkt->count = 0;
 	while (it != nullptr) {
 		uint16_t key;
@@ -3922,7 +3922,7 @@ void BigStruct2::sub_41955C(uint16_t id) {
 	pkt->id = 0x1B;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->field_0xe = id;
+	pkt->param = id;
 	pkt->count = 0;
 	while (it != nullptr) {
 		uint16_t key;
@@ -4058,7 +4058,7 @@ void BigStruct2::sub_419BA1(uint16_t id, int32_t spell) {
 	PacketItemOperation* pkt = &PacketItemOperation::Inst;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->field_0xe = id;
+	pkt->param = id;
 	pkt->count = 0;
 	if (wnd->vis_spellbook->sub_4CA89B(spell - 1) != 0 && wnd->vis_spellbook->spell == -1) {
 		pkt->id = 0x1E;
@@ -4484,7 +4484,7 @@ void BigStruct2::sub_41A66E(uint16_t id) {
 		CGameObject* obj;
 		this->field_0x9d0.GetNextAssoc(it, key, obj);
 		if (obj->IsSelected()) {
-			pkt->field_0xe = id;
+			pkt->param = id;
 			pkt->AppendWord(obj->unit_id);
 		}
 	}
@@ -4548,7 +4548,7 @@ void BigStruct2::sub_41A33F(uint16_t x, uint16_t y) {
 		CGameObject* obj;
 		this->field_0x9d0.GetNextAssoc(it, key, obj);
 		if (obj->IsSelected()) {
-			pkt->field_0xe = obj->shopInventoryVisibleStart;
+			pkt->param = obj->shopInventoryVisibleStart;
 			pkt->AppendWord(obj->unit_id);
 		}
 	}
@@ -7843,7 +7843,7 @@ void BigStruct2::FUN_0041a001(int32_t idx) {
 				pkt->field_0x10 = idx;
 				pkt->count = 0;
 				pkt->AppendWord(obj->unit_id);
-				pkt->field_0xe = obj->unit_id;
+				pkt->param = obj->unit_id;
 				g_NetStru1_local.QueuePacketSend(pkt);
 			}
 		}

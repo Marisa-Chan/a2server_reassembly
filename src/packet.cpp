@@ -323,7 +323,7 @@ PacketItemOperation PacketItemOperation::Inst;
 
 PacketItemOperation::PacketItemOperation() {
     //sub_526924
-    this->field_0xe  = 0;
+    this->param  = 0;
     this->field_0x10 = 0;
     this->count      = 0;
 }
@@ -333,7 +333,7 @@ PacketItemOperation::PacketItemOperation(const PacketItemOperation* src) {
     this->x   = src->x;
     this->y   = src->y;
     this->y_high   = src->y_high;
-    this->field_0xe   = src->field_0xe;
+    this->param   = src->param;
     this->field_0x10  = src->field_0x10;
     this->field_0x11  = src->field_0x11;
     this->count       = src->count;

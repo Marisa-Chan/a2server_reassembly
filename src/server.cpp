@@ -2995,10 +2995,10 @@ void Server::sub_504a96(Packet* pkt) {
         Token* target = nullptr; // Unit or building.
         if (pkt->order_mode == 3) {
             // Unit target.
-            target = dword_6CDB3C->sub_5560D2(packet_item->field_0xe);
+            target = dword_6CDB3C->sub_5560D2(packet_item->param);
             if (!target) {
                 // Building target.
-                target = this->srv_stru1->building_list->sub_557DB2(packet_item->field_0xe);
+                target = this->srv_stru1->building_list->sub_557DB2(packet_item->param);
             }
             if (!target) {
                 return;
@@ -3111,7 +3111,7 @@ void Server::sub_504a96(Packet* pkt) {
                     LogMessage(msg);
                     break;
                 }
-                unit->inventory->default_position = packet_item->field_0xe;
+                unit->inventory->default_position = packet_item->param;
                 g_World->sub_5A9961(unit, x, y);
             }
             break;
@@ -3119,10 +3119,10 @@ void Server::sub_504a96(Packet* pkt) {
             CheckPacketType(pkt, "PacketItemOperation");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
                 player->sub_534B59();
-                auto* building = this->srv_stru1->building_list->sub_557DB2(packet_item->field_0xe);
+                auto* building = this->srv_stru1->building_list->sub_557DB2(packet_item->param);
                 if (!building) {
                     CString msg;
-                    msg.Format("No building #%d", packet_item->field_0xe);
+                    msg.Format("No building #%d", packet_item->param);
                     LogMessage(msg);
                     break;
                 }

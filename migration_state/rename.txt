@@ -8,3 +8,4 @@ PacketInfo::field_0xe/field_e1..e4 -> param2/param2_b0..b3 -- generic second dwo
 PacketJoin::field_0xc -> color -- player color sent in join-notify (0x96), read into MapPlayerData(index, color); overlaid by score dword for chat packets
 PacketItemOperation::field_0xc -> y -- low byte of the target tile y in group orders (paired with y_high); also renamed already-named unit_id (+0xA) to x for coherence: it holds the target x, server reads it as uint8_t x
 PacketItemOperation::field_0xd -> y_high -- high byte of the target tile y (writers store y>>8 here)
+PacketItemOperation::field_0xe -> param -- word parameter, meaning depends on op id: target unit/building id (0x19/1B/1E/24/25), bag slot (0x21)
