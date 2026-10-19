@@ -919,7 +919,7 @@ void World::ProcessTick(PlayersList* players) {
         Player* player = players->list.GetNext(players_iter);
         this->sub_5ABF50(player);
     }
-    this->sub_5B6346();
+    this->ProcessVirtualCasters();
     this->field5_0x98.End();
     this->duration3 = (int32_t)this->field5_0x98.period64;
     this->total3 += (int32_t)this->field5_0x98.period64;
@@ -1254,7 +1254,7 @@ Unit* World::sub_5B61D0(uint16_t pos_yx, uint8_t byte_0x3c, Player* owner, int32
 
 // Process pending virtual casters and fire their spells into the world.
 // 5B6346
-void World::sub_5B6346() {
+void World::ProcessVirtualCasters() {
     CList<VirtualCaster*>& vc_list = g_Server->srv_stru1->virtual_casters_list;
     POSITION it = vc_list.GetHeadPosition();
     while (it != nullptr) {
