@@ -166,3 +166,4 @@ AreaEffect::field_0x4e -> wave_pattern -- --
 AreaEffect::field_0x4f -> wave_step -- --
 Scenario::field_0x14 -> object_map -- per-cell static-object layer copied from alm->map_objects (terrain gfx cells)
 Scenario::field_0x18 -> overlay_map -- per-cell render overlay buffer (AoE/visibility marks), zero-initialized
+Scenario::field_0x28 -- terrain tile-set bitmask (0x1FFF default; bit i keeps terrain tile group i loaded, see sub_477B59)

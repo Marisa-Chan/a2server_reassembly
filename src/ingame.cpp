@@ -7054,7 +7054,7 @@ void BigStruct2::FUN_0041c4a1(const char* name) {
 	this->sub_403F08(this->field_0x80);
 	wnd->vis_right_panel->MsgProc(0x403, (uint32_t)this, 0);
 	this->FUN_0041d97e(1);
-	sub_477B59(this->field_0x80->field_0x28);
+	sub_477B59(this->field_0x80->terrain_tile_mask);
 	this->field_0x4970->sub_55ECFE(0);
 }
 

@@ -374,7 +374,7 @@ public:
     uint8_t field_0x1e;
     uint8_t field_0x1f;
     double inv_sun_angle;
-    int32_t field_0x28;
+    int32_t terrain_tile_mask;
     int32_t daytime_minutes;
 };
 ASSERT_SIZE(Scenario, 0x30);

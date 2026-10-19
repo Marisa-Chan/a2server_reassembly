@@ -2917,7 +2917,7 @@ Scenario::Scenario(const char* fname) {
     this->daytime_minutes = alm->day_time_minutes;
     this->abrightness = (uint8_t)alm->a_brightness;
     this->contrast = (uint8_t)alm->contrast;
-    this->field_0x28 = 0x1FFF;
+    this->terrain_tile_mask = 0x1FFF;
 
     this->landscape = (uint16_t*)malloc(this->width * this->height * 2);
     memcpy(this->landscape, alm->landscape, this->width * this->height * 2);
