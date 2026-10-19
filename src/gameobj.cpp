@@ -208,7 +208,7 @@ void CGameObject::FUN_0046190d() { //46190d
 
     this->mapBoundsLeft = ((this->x_pos2 - 0x80) >> 8) - map->view_x;
     this->mapBoundsTop = ((this->y_pos2 - 0x80) >> 8) - map->view_y;
-    this->mapBoundsRight = ((this->x_pos2 + 127 + (this->VMethod4() - 1) * 0x100) >> 8) - map->view_x;
+    this->mapBoundsRight = ((this->x_pos2 + 127 + (this->GetTileWidth() - 1) * 0x100) >> 8) - map->view_x;
     this->mapBoundsBottom = ((this->y_pos2 + 127 + (this->VMethod5() - 1) * 0x100) >> 8) - map->view_y;
 
     this->mapLayerActive = 1;
@@ -240,7 +240,7 @@ void CGameObject::FUN_0046190d() { //46190d
     this->screenX = (this->x_pos2 >> 3) - map->view_x * 32;
     this->screenY = (this->y_pos2 >> 3) - map->view_y * 32;
 
-    this->centerWorldX8 = this->x_pos2 - 128 + this->VMethod4() * 128;
+    this->centerWorldX8 = this->x_pos2 - 128 + this->GetTileWidth() * 128;
     this->centerWorldY8 = this->y_pos2 - 128 + this->VMethod5() * 128;
 
     this->centerScreenX = (this->centerWorldX8 >> 3) - map->view_x * 32;
@@ -294,7 +294,7 @@ void CGameObject::FUN_00461c41(int32_t arg1, CGameObject* arg2) { //461c41
         return;
     }
 
-    int32_t x = ((this->x_pos2 - 0x80 + this->VMethod4() * 0x80) >> 8) - map->view_x;
+    int32_t x = ((this->x_pos2 - 0x80 + this->GetTileWidth() * 0x80) >> 8) - map->view_x;
     int32_t y = ((this->y_pos2 - 0x80 + this->VMethod5() * 0x80) >> 8) - map->view_y;
     if (x >= -4 && y >= -4 && x < map->view_tiles_x + 3 && y < map->view_tiles_y + 7) {
         layer[x + 3 + (y + 3) * (map->view_tiles_x + 6)] = arg2;
@@ -391,7 +391,7 @@ int32_t CGameObject::VMethod3() { //46f470
 }
 
 
-int32_t CGameObject::VMethod4() { //46f480
+int32_t CGameObject::GetTileWidth() { //46f480
     return 0;
 }
 
@@ -443,7 +443,7 @@ void CGameObject::VMethod14() { //462226
         this->pMapObject->field_0xdc = 1;
 
         uint16_t* land = this->pMapObject->field_0x80->GetLandscape();
-        int32_t iVar6 = this->VMethod4();
+        int32_t iVar6 = this->GetTileWidth();
         int32_t iVar2 = this->tileX;
         int32_t iVar7 = this->VMethod5();
         int32_t iVar3 = this->tileY;
@@ -2553,36 +2553,36 @@ void CUnit::VMethod16() { // 468dcb
         case 0x22:
         case 0x2e: {
             TransientVisualEffectBuilder builder;
-            builder.FUN_004CCE04(this->VMethod4() << 5, effect_type, effect_timer % 6);
+            builder.FUN_004CCE04(this->GetTileWidth() << 5, effect_type, effect_timer % 6);
             visual_elements.Append(builder.visual_elements);
             break;
         }
         case 0x14: {
             TransientVisualEffectBuilder builder;
-            builder.FUN_004CCED2(this->VMethod4() << 5, effect_timer % 6);
+            builder.FUN_004CCED2(this->GetTileWidth() << 5, effect_timer % 6);
             visual_elements.Append(builder.visual_elements);
             break;
         }
         case 0x30: {
             TransientVisualEffectBuilder builder;
-            builder.FUN_004CCAF2(this->VMethod4() << 5, 20.0f, effect_timer % 5);
+            builder.FUN_004CCAF2(this->GetTileWidth() << 5, 20.0f, effect_timer % 5);
             visual_elements.Append(builder.visual_elements);
             break;
         }
         case 0x38: {
             TransientVisualEffectBuilder builder;
-            int16_t z_radius = this->VMethod4() << 5;
-            int16_t y_radius = this->VMethod4() << 3;
-            int16_t x_radius = this->VMethod4() << 4;
+            int16_t z_radius = this->GetTileWidth() << 5;
+            int16_t y_radius = this->GetTileWidth() << 3;
+            int16_t x_radius = this->GetTileWidth() << 4;
             builder.FUN_004CC22D(&this->transientVisualElements, x_radius, y_radius, z_radius, effect_timer);
             visual_elements.Append(builder.visual_elements);
             break;
         }
         case 0x3c: {
             TransientVisualEffectBuilder builder;
-            int16_t z_radius = this->VMethod4() << 5;
-            int16_t y_radius = this->VMethod4() << 3;
-            int16_t x_radius = this->VMethod4() << 4;
+            int16_t z_radius = this->GetTileWidth() << 5;
+            int16_t y_radius = this->GetTileWidth() << 3;
+            int16_t x_radius = this->GetTileWidth() << 4;
             builder.FUN_004CC3FD(&this->transientVisualElements, x_radius, y_radius, z_radius, effect_timer);
             visual_elements.Append(builder.visual_elements);
             break;
@@ -2590,16 +2590,16 @@ void CUnit::VMethod16() { // 468dcb
         case 0x3e: {
             TransientVisualEffectBuilder builder;
             uint32_t phase = effect_timer % 90;
-            float radius = this->VMethod4() << 4;
-            float speed = this->VMethod4() * 28;
-            int16_t height = this->VMethod4() * 11;
+            float radius = this->GetTileWidth() << 4;
+            float speed = this->GetTileWidth() * 28;
+            int16_t height = this->GetTileWidth() * 11;
             builder.FUN_004CC944(height, speed, radius, phase);
             visual_elements.Append(builder.visual_elements);
             break;
         }
         case 0x40: {
             TransientVisualEffectBuilder builder;
-            builder.FUN_004CCC7B(this->VMethod4() << 5, 20.0f, effect_timer % 5);
+            builder.FUN_004CCC7B(this->GetTileWidth() << 5, 20.0f, effect_timer % 5);
             visual_elements.Append(builder.visual_elements);
             break;
         }
@@ -3349,7 +3349,7 @@ void CUnit::VMethod14() {
 }
 
 // 4648a1
-int32_t CUnit::VMethod4() {
+int32_t CUnit::GetTileWidth() {
     return g_VFX_info[this->typeId]->tile_size;
 }
 
@@ -4043,12 +4043,12 @@ void CStructure::VMethod9(int32_t arg1, int32_t arg2, int32_t arg3) {
     if (arg3 < 0) {
         arg1 += ((this->x_pos >> 8) - map->MapMinX()) >> 1;
         arg2 += ((this->y_pos >> 8) - map->MapMinX()) >> 1;
-        width = this->VMethod4();
+        width = this->GetTileWidth();
         height = this->VMethod5();
     } else {
         arg1 += ((this->x_pos >> 8) - map->MapMinX()) << arg3;
         arg2 += ((this->y_pos >> 8) - map->MapMinX()) << arg3;
-        width = this->VMethod4() << arg3;
+        width = this->GetTileWidth() << arg3;
         height = this->VMethod5() << arg3;
     }
 
@@ -4068,7 +4068,7 @@ int32_t CStructure::VMethod15() {
     uint16_t* land = map->field_0x80->GetLandscape();
     this->bIsBlocked = 2;
 
-    for (int32_t x = 0; x < this->VMethod4(); x++) {
+    for (int32_t x = 0; x < this->GetTileWidth(); x++) {
         StructureInfo* info = g_StructuresInfo[this->typeId];
         for (int32_t y = this->VMethod5() - info->full_height; y < this->VMethod5(); y++) {
             int32_t idx = this->tileX + x + map->map_width * (this->tileY + y);
@@ -4104,7 +4104,7 @@ int32_t CStructure::VMethod11() {
 }
 
 // 4637ca
-int32_t CStructure::VMethod4() {
+int32_t CStructure::GetTileWidth() {
     return g_StructuresInfo[this->typeId]->tile_width;
 }
 
@@ -4142,7 +4142,7 @@ void CBridge::VMethod17(int32_t width, int32_t height) {
 }
 
 // 46f510
-int32_t CBridge::VMethod4() {
+int32_t CBridge::GetTileWidth() {
     return this->bridge_width;
 }
 
@@ -4327,12 +4327,12 @@ CProjectile::~CProjectile() {
 }
 
 // 46f5c0
-int32_t CBackPack::VMethod4() {
+int32_t CBackPack::GetTileWidth() {
     return 1;
 }
 
 // 46f660
-int32_t CProjectile::VMethod4() {
+int32_t CProjectile::GetTileWidth() {
     return 1;
 }
 

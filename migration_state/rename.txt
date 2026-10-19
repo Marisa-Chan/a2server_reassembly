@@ -199,3 +199,4 @@ CProjectile::field_0x144 -> path_history -- ring of past (x|y<<16) positions (ma
 FUNCTIONS
 =========
 CGameObject::VMethod1 -> SetSelected -- vtable slot: sets m_bSelected + marks selection dirty (CUnit override also cancels a pending item-drag on deselect)
+CGameObject::VMethod4 -> GetTileWidth -- vtable slot: object footprint width in tiles (g_VFX_info.tile_size / g_StructuresInfo.tile_width / bridge_width)

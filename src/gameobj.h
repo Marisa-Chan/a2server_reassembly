@@ -128,7 +128,7 @@ public:
 	virtual void SetSelected(int32_t arg1);
 	virtual int32_t VMethod2();
 	virtual int32_t VMethod3();
-	virtual int32_t VMethod4();
+	virtual int32_t GetTileWidth();
 	virtual int32_t VMethod5();
 	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3);
 	virtual void VMethod7(int32_t arg1, int32_t arg2, int32_t arg3);
@@ -240,7 +240,7 @@ public:
 	virtual void SetSelected(int32_t arg1) override; //4648e9
 	virtual int32_t VMethod2() override;
 	virtual int32_t VMethod3() override;
-	virtual int32_t VMethod4() override;
+	virtual int32_t GetTileWidth() override;
 	virtual int32_t VMethod5() override;
 	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) override;
 	virtual void VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) override;
@@ -406,7 +406,7 @@ public:
 
 	virtual void Dump(CDumpContext& dc) const override; // 462ab1
 
-	virtual int32_t VMethod4() override; // 46f5c0
+	virtual int32_t GetTileWidth() override; // 46f5c0
 	virtual int32_t VMethod5() override; // 46f5d0
 	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) override; // 462887
 	virtual void VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) override; // 46295a
@@ -423,7 +423,7 @@ public:
 
 	virtual void Dump(CDumpContext& dc) const override; // 46eeb4
 
-	virtual int32_t VMethod4() override; // 46f660
+	virtual int32_t GetTileWidth() override; // 46f660
 	virtual int32_t VMethod5() override; // 46f670
 	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) override; // 46e291
 
@@ -450,7 +450,7 @@ public:
 
 	virtual void Dump(CDumpContext& dc) const override; //4637b0
 
-	virtual int32_t VMethod4() override; //4637ca
+	virtual int32_t GetTileWidth() override; //4637ca
 	virtual int32_t VMethod5() override; //4637eb
 	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) override; //462d11
 	virtual void VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) override; //462f58
@@ -473,7 +473,7 @@ class CBridge : public CStructure {
 public:
 	virtual ~CBridge(); //46f580
 
-	virtual int32_t VMethod4() override; //46f510 (returns bridge_width)
+	virtual int32_t GetTileWidth() override; //46f510 (returns bridge_width)
 	virtual int32_t VMethod5() override; //46f530 (returns bridge_height)
 	virtual void VMethod17(int32_t width, int32_t height); //46f550
 

@@ -1064,7 +1064,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				if (this->flying_hp && packet_ping->hp < ct->hp) {
 					bool not_me = ct->map_player != this->my_main_unit;
 
-					int32_t a = ct->VMethod4();
+					int32_t a = ct->GetTileWidth();
 					int32_t dx = a * 16;
 
 					if (not_me) {
