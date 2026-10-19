@@ -88,7 +88,7 @@ void NetStru1::FUN_0051cd89(const CString& name, Player* player) {
 
 	pkt.player_id = 0;
 	pkt.token_id = 0;
-	pkt.field_0xc = 0;
+	pkt.color = 0;
 	pkt.flags = 0;
 
 	this->QueuePacketSend(&pkt);
@@ -111,7 +111,7 @@ void NetStru1::sub_51C8B1(Player* player) {
 		packet.to_player_id = player->player_id;
 		packet.player_id = p->player_id;
 		packet.token_id = p->token_id;
-		packet.field_0xc = p->field_0xa44 - 1;
+		packet.color = p->field_0xa44 - 1;
 		packet.flags = p->is_ai != 0;
 		this->QueuePacketSend(&packet);
 
@@ -4869,7 +4869,7 @@ void NetStru1::FUN_0051d8d6(const CString& login, const CString& password, uint3
 
     pkt->player_id = login.GetLength();
     pkt->token_id = 0;
-    pkt->field_0xc = flags;
+    pkt->color = flags;
     pkt->flags = 7;
     pkt->to_player_id = 0;
 

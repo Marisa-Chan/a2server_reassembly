@@ -1847,7 +1847,7 @@ void Server::FUN_004ff439(Player* player, int32_t arg4) {
                     packet.id = 0x96;
                     packet.player_id = player->player_id;
                     packet.token_id = player->token_id;
-                    packet.field_0xc = player->field_0xa44 - 1;
+                    packet.color = player->field_0xa44 - 1;
                     packet.flags = 0;
 
                     if (phased_in != 0) {
@@ -4244,7 +4244,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
     pkt.to_player_id = 0;
     pkt.player_id = player->player_id;
     pkt.token_id = player->token_id;
-    pkt.field_0xc = player->field_0xa44 - 1;
+    pkt.color = player->field_0xa44 - 1;
     pkt.flags = (player_not_exist ? 2 : 0) | (player->is_ai != 0 ? 1 : 0);
 
     g_NetStru1_main.QueuePacketSend(&pkt);

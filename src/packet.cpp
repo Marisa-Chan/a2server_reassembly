@@ -57,7 +57,7 @@ PacketJoin::PacketJoin() {
 
     this->player_id = 0;
     this->token_id = 0;
-    this->field_0xc = 0;
+    this->color = 0;
     this->flags = 0;
     this->name_len = 0;
     this->name[0] = 0;
@@ -72,7 +72,7 @@ PacketJoin::PacketJoin(const PacketJoin *src) {
 
     this->player_id = src->player_id;
     this->token_id = src->token_id;
-    this->field_0xc = src->field_0xc;
+    this->color = src->color;
     this->flags = src->flags;
     this->name_len = src->name_len;
     memcpy(this->name, src->name, this->name_len + 1);
@@ -84,7 +84,7 @@ PacketJoin::PacketJoin(CString _name) {
 
     this->player_id = 0;
     this->token_id = 0;
-    this->field_0xc = 0;
+    this->color = 0;
     this->flags = 0;
 
     strcpy(this->name, _name);

@@ -1840,7 +1840,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			}
 			MapPlayerData* mp = nullptr;
 			if (!isin) {
-				mp = new MapPlayerData(packet_join->player_id, packet_join->field_0xc);
+				mp = new MapPlayerData(packet_join->player_id, packet_join->color);
 				mp->field2_0x8 = packet_join->token_id;
 			} else {
 				mp = this->field_0x9b8[packet_join->player_id];
@@ -2474,7 +2474,7 @@ void BigStruct2::FUN_0041b2a4(const char* nam, int32_t token, int32_t playerid) 
 	if (playerid == 0) {
 		join->player_id = 0;
 		join->token_id = 0;
-		join->field_0xc = 0;
+		join->color = 0;
 		join->flags = 0;
 	} else {
 		join->__field_0xa = this->field_0x9b8[playerid]->index;

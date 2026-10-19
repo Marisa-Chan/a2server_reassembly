@@ -96,7 +96,7 @@ public:
         struct {
             uint8_t player_id;
             uint8_t token_id;
-            uint8_t field_0xc;
+            uint8_t color;
             uint8_t flags;
         };
         uint32_t __field_0xa;
