@@ -280,3 +280,4 @@ Unit::VMethod10 -> ReleaseObjects -- deletes owned eye/eye2/inventory/shield/wea
 Unit::VMethod11 -> CopyFrom -- deep-copies another unit's state into this one (Humanoid::sub_530231 builds on it)
 Unit::VMethod12 -> UseItem -- equips/consumes the item on this unit; returns the unconsumed/displaced item (class-restricted gear returned unchanged)
 Unit::VMethod13 -> UseItemOrStash -- UseItem, then puts the unconsumed item into the bag
+Unit::VMethod15 -> UnequipAll -- Humanoid: unequips slots 1..12 into the bag

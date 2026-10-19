@@ -2492,7 +2492,7 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
     }
 
     // Equip the 12 fixed equipment slots.
-    unit->VMethod15();
+    unit->UnequipAll();
     if (unit->weapon != nullptr) {
         unit->inventory->PutItemIntoBagAtDefault(unit->Unequip(unit->weapon));
     }

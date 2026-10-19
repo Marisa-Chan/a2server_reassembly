@@ -1012,7 +1012,7 @@ Item* Unit::Unequip(Item* item) {
     return item;
 }
 
-void Unit::VMethod15()
+void Unit::UnequipAll()
 {}
 
 void Unit::VMethod16(Unit*)
@@ -1442,7 +1442,7 @@ void Unit::sub_52D94E() {
         }
 
         // VMethod15: unequip all remaining equipped items.
-        this->VMethod15();
+        this->UnequipAll();
 
         bool is_npc = (this->monster_info->name.Find("NPC") != -1);
         bool should_drop = false;
@@ -2324,7 +2324,7 @@ Item *Humanoid::Unequip(Item* item) {
 }
 
 
-void Humanoid::VMethod15() {
+void Humanoid::UnequipAll() {
     //530511
     for (int i = 1; i < this->equipment.size(); i++) {
         Item *itm = this->equipment[i];

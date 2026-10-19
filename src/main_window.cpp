@@ -5711,7 +5711,7 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx) { //492c66
             if (equip != nullptr) {
                 uint8_t* eq_data = equip->data;
 
-                hum->VMethod15();
+                hum->UnequipAll();
 
                 if (hum->weapon) {
                     hum->inventory->PutItemIntoBagAtDefault(hum->Unequip(hum->weapon));
