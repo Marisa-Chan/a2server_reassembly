@@ -382,3 +382,4 @@ Server::sub_4F4570 -> UpdateHatAnnounce -- every 5min announces player count/tit
 Server::sub_4F0D58 -> ProcessHatConnections -- services the HAT connector; closes the listen socket after 30s unclaimed
 Server::sub_4FA4BB -> GetArenaFrags -- looks up a player's frags in the arena score arrays
 Server::sub_4FA348 -> AddArenaFrags -- adds/delta-updates an arena score entry and broadcasts it
+Server::sub_4FA551 -> HandleArenaPlayer -- arena mode player entry handler

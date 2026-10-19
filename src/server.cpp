@@ -1537,7 +1537,7 @@ void Srv1::LoadSacks(MapAlm* alm) {
 
 // Called when a player enters a map; streams the current game state to them.
 // 4FF937
-void Server::sub_4FF937(Player* player, int32_t bool_arg4) {
+void Server::SendWorldState(Player* player, int32_t bool_arg4) {
     // Send existing players' PacketJoin data to the new player.
     g_NetStru1_main.sub_51C8B1(player);
 
@@ -3211,7 +3211,7 @@ void Server::sub_504a96(Packet* pkt) {
         CheckPacketType(pkt, "PacketInfo");
         player = g_PlayersList->sub_535B50(packet_info->from_player_id);
         if (player) {
-            this->sub_4FF937(player, (packet_info->param1 == 0) ? 1 : 0);
+            this->SendWorldState(player, (packet_info->param1 == 0) ? 1 : 0);
         }
         break;
 
