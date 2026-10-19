@@ -999,7 +999,7 @@ void MapStuff::ApplyCellState(CellState& cell) { //58b5d6
     }
 }
 
-int MapStuff::FUN_0058b4a6(PosYX yx) { //58b4a6
+int MapStuff::RestoreCellState(PosYX yx) { //58b4a6
     if (!this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
         return 0;
     }
@@ -1031,7 +1031,7 @@ void MapStuff::FUN_00596d3e(Unit* unit, PosYX yx) { //596d3e
         this->ApplyCellState(this->scratch_cell_state);
         this->cell_states[yx.val] = this->scratch_cell_state;
         if (this->scratch_cell_state.IsEmpty()) {
-            this->FUN_0058b4a6(yx);
+            this->RestoreCellState(yx);
         }
     }
 }
@@ -1567,7 +1567,7 @@ int MapStuff::sub_58B27F(Unit* unit, uint8_t x, uint8_t y) {
     this->cell_states[yx.val] = this->scratch_cell_state;
     this->RefreshCellObstacles(yx);
     if (this->scratch_cell_state.IsEmpty()) {
-        this->FUN_0058b4a6(yx);
+        this->RestoreCellState(yx);
     }
 
     unit->eye->field126_0x86 = unit->position->GetX();
@@ -1621,7 +1621,7 @@ int MapStuff::ClearCellBuilding(Building* building, PosYX yx) {
     this->cell_states[yx.val] = this->scratch_cell_state;
     this->RefreshCellObstacles(yx);
     if (this->scratch_cell_state.IsEmpty()) {
-        this->FUN_0058b4a6(yx);
+        this->RestoreCellState(yx);
     }
     return 1;
 }
@@ -1698,7 +1698,7 @@ void MapStuff::RemoveSack(Sack* sack) {
         this->cell_states[yx.val] = this->scratch_cell_state;
         this->RefreshCellObstacles(yx);
         if (!this->scratch_cell_state.IsEmpty()) {
-            this->FUN_0058b4a6(yx);
+            this->RestoreCellState(yx);
         }
     }
 }
@@ -1905,7 +1905,7 @@ int MapStuff::RemoveAreaEffectAt(AreaEffect* ae, uint16_t yx) {
     this->cell_states[yx] = this->scratch_cell_state;
     this->RefreshCellObstacles(yx);
     if (this->scratch_cell_state.IsEmpty()) {
-        this->FUN_0058b4a6(yx);
+        this->RestoreCellState(yx);
     }
     return 1;
 }
