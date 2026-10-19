@@ -1539,7 +1539,7 @@ void Srv1::LoadSacks(MapAlm* alm) {
 // 4FF937
 void Server::SendWorldState(Player* player, int32_t bool_arg4) {
     // Send existing players' PacketJoin data to the new player.
-    g_NetStru1_main.sub_51C8B1(player);
+    g_NetStru1_main.SendExistingPlayers(player);
 
     // Reconnect check?
     #ifdef A2SERVER_PATCH
@@ -4259,7 +4259,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
 
     player->sub_534AC1(0, 1);
 
-    g_NetStru1_main.sub_51C8B1(player);
+    g_NetStru1_main.SendExistingPlayers(player);
 
     if (this->field18_0x94 != 0) {
         g_NetStru1_main.SendBarePacket(0xb7, player);

@@ -157,7 +157,7 @@ public:
     void sub_51BDA4(Effect* effect, Unit* unit, uint8_t arg);
 
     void SendGameInfo(int32_t param1, Player* player); // Send server state / player list to player
-    void sub_51C8B1(Player* player);  // Send all existing players (PacketJoin) to new player
+    void SendExistingPlayers(Player* player);  // Send all existing players (PacketJoin) to new player
     void sub_51CB21(Player* player);  // Send terrain/diplomacy visibility state to player
     void sub_51C0F7(Player* player);  // Send units from pending unit list to player
     void sub_51CA5D(Player* player);  // Send server state to player

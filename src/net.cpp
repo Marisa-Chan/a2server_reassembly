@@ -95,8 +95,8 @@ void NetStru1::AnnouncePlayerName(const CString& name, Player* player) {
 }
 
 // 51C8B1
-void NetStru1::sub_51C8B1(Player* player) {
-    LogMessage("NetStru1::sub_51C8B1");
+void NetStru1::SendExistingPlayers(Player* player) {
+    LogMessage("NetStru1::SendExistingPlayers");
 	POSITION pos = g_PlayersList->list.GetHeadPosition();
 	while (pos != nullptr) {
 		Player* p = g_PlayersList->list.GetNext(pos);
