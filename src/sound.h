@@ -151,7 +151,7 @@ public:
 	void SetRandom(int random); //45b655
 
 	void SetFadeout(int fade) { this->fadeout_enabled = fade; } //451830
-	int32_t GetCurrentTrackIndex() const { return this->field_0x2c[this->current_track_id]; } //451850
+	int32_t GetCurrentTrackIndex() const { return this->track_ids[this->current_track_id]; } //451850
 
 	int32_t GetVolume(); //451750
 	int32_t GetBufPosition(); //45cba0
@@ -171,7 +171,7 @@ public:
 	int32_t track_to_play; //in 1 mode
 	int32_t field_0x20;
 	int32_t use_buffer[2];
-	CDWordArray field_0x2c;
+	CDWordArray track_ids;
 	CStringArray playlist;
 	int32_t buffer_size;
 	int32_t current_track_id;

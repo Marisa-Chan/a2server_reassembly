@@ -622,7 +622,7 @@ void MusicPlayer::SetPlayList(const CStringArray& plist) { //45b0ff
 		this->OnEndTrack();
 		this->playlist.Copy(plist);
 		int sz = this->playlist.GetSize();
-		this->field_0x2c.SetSize(sz);
+		this->track_ids.SetSize(sz);
 		this->StartPlayTrack(rand() % sz);
 	}
 }
