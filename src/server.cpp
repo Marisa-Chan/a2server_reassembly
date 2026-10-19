@@ -1877,7 +1877,7 @@ void Server::AssignPlayerSlot(Player* player, int32_t arg4) {
         g_NetStru1_main.SendBarePacket(0xB7, player);
     }
 
-    g_NetStru1_main.FUN_0051c748(nullptr);
+    g_NetStru1_main.SendTickPacket(nullptr);
     if (this->field3_0x70 != 0) {
         g_NetStru1_main.SendAllData();
     }
@@ -3607,7 +3607,7 @@ void Server::sub_504a96(Packet* pkt) {
                 f.Close();
             }
             g_NetStru1_main.QueuePacketSend(&resp);
-            g_NetStru1_main.FUN_0051c748(player);
+            g_NetStru1_main.SendTickPacket(player);
             break;
         }
 
@@ -3761,7 +3761,7 @@ void Server::sub_504a96(Packet* pkt) {
                                             (packet_info->field_0xa >> 24) & 0xff,
                                             (packet_info->field_0xe) & 0xff,
                                             (packet_info->field_0xe >> 8) & 0xff );
-            g_NetStru1_main.FUN_0051c748(human->pOwner);
+            g_NetStru1_main.SendTickPacket(human->pOwner);
 
             if (GetTickCount() - human->pOwner->field_0xa7c > 15000) {
 #pragma message("REVERSE IT");
@@ -4265,7 +4265,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
         g_NetStru1_main.SendBarePacket(0xb7, player);
     }
     
-    g_NetStru1_main.FUN_0051c748(nullptr);
+    g_NetStru1_main.SendTickPacket(nullptr);
 
     if (this->field3_0x70 != 0) {
         g_NetStru1_main.SendAllData();
@@ -4282,7 +4282,7 @@ void Server::JoinErrorSend(NetStru2* client, int32_t arg, const CString& str) {
         g_NetStru1_main.FUN_0051cd89(str, &pl);
     }
     g_NetStru1_main.FUN_0051cefb(0xb, arg, 0, &pl);
-    g_NetStru1_main.FUN_0051c748(&pl);
+    g_NetStru1_main.SendTickPacket(&pl);
     g_NetStru1_main.SendAllData();
     pl.player_id = 0;
 }
@@ -4876,7 +4876,7 @@ void Server::ProcessAvailPackets() {
 void Server::PumpNetwork() {
     //50907e
     this->ProcessAvailPackets();
-    g_NetStru1_main.FUN_0051c748(nullptr);
+    g_NetStru1_main.SendTickPacket(nullptr);
     g_NetStru1_main.SendAllData();
 }
 
@@ -5047,7 +5047,7 @@ void Server::FUN_00501b9e(int32_t var300, CDWordArray& arr) { //501b9e
     }
     ulst.unit_list.RemoveAll();
 
-    g_NetStru1_main.FUN_0051c748(nullptr);
+    g_NetStru1_main.SendTickPacket(nullptr);
     g_NetStru1_main.SendAllData();
 }
 

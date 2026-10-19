@@ -123,7 +123,7 @@ public:
 public:
     void FUN_0051ce86(uint32_t msg_type, uint32_t player_id, Player* recpt);
     void SendBarePacket(uint8_t id, Player* recpt);
-    void FUN_0051c748(Player* recpt);
+    void SendTickPacket(Player* recpt);
     void UntrackToken(Token* token); // Remove unit/sack from network tracking
     void FUN_0051d49b(Player* recpt);
 

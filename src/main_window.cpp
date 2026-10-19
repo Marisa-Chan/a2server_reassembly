@@ -5134,7 +5134,7 @@ break;
         g_NetStru1_main.sub_519221(unit, unit->pOwner, 0xffffffff, 0xffb, 0, 0);
     }
 
-    g_NetStru1_main.FUN_0051c748(nullptr);
+    g_NetStru1_main.SendTickPacket(nullptr);
     g_NetStru1_main.SendAllData();
 }
 

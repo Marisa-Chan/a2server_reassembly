@@ -138,7 +138,7 @@ void NetStru1::UntrackToken(Token* token) {
 }
 
 // 51c748
-void NetStru1::FUN_0051c748(Player* player) {
+void NetStru1::SendTickPacket(Player* player) {
     PacketDword& packet = PacketDword::Inst;
     packet.to_player_id = 0;
     packet.id = 0x64;
@@ -408,7 +408,7 @@ void NetStru1::sub_51C46E(Player* player) {
             g_NetStru1_main.sub_519221(unit, player, 0xFFB, -1, 0, 0);
         }
     }
-    this->FUN_0051c748(player);
+    this->SendTickPacket(player);
 }
 
 // 51CB21
