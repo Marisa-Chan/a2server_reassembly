@@ -2617,7 +2617,7 @@ int32_t MapStuff::sub_58BFA3(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
 
 // 593C9A --- Returns unit's speed, overridden by group_sub->field_0x44 if nonzero. `this` is unused.
 int32_t MapStuff::sub_593C9A(Unit* unit) {
-    uint8_t override_speed = unit->group->group_sub->field_0x44;
+    uint8_t override_speed = unit->group->group_sub->speed_override;
     if (override_speed != 0) {
         return override_speed;
     }

@@ -37,7 +37,7 @@ public:
     uint8_t guard_range_base;
     uint8_t field_0x39;
     uint8_t gap_0x3a[10];
-    uint8_t field_0x44; // Group movement speed?
+    uint8_t speed_override; // Group movement speed?
     uint8_t field_0x45;
     uint8_t gap_0x46[2];
     uint32_t active; // Modified by the "Suspend group" trigger action.

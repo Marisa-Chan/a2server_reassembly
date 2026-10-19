@@ -2827,7 +2827,7 @@ void World::sub_5AC289(Group* group, uint8_t x, uint8_t y) {
     }
 
     if (use_relative) {
-        group->group_sub->field_0x44 = min_speed;
+        group->group_sub->speed_override = min_speed;
     }
     group->group_sub->order = 4;
     group->group_sub->order_pos = PosYX(x, y).val;
@@ -4111,7 +4111,7 @@ void World::sub_5AF061(Group* group, uint16_t yx) {
         if (unit->eye2->field43_0x50 != 0) {
             this->sub_5A6E2C(unit, 0);
         } else {
-            if (group->group_sub->field_0x44 != 0) {
+            if (group->group_sub->speed_override != 0) {
                 unit->eye2->field52_0x6c = 1;
             }
 
