@@ -554,3 +554,4 @@ NetStru1::sub_51AC77 -> BroadcastTokenState -- broadcasts the token state to pla
 NetStru1::sub_51BAB0 -> SendSpellCastAtUnit -- targeted-unit spell packet
 NetStru1::sub_51BB94 -> SendSpellCastAtPos -- point/area spell packet
 NetStru1::sub_51BC6B -> SendSpellCastMulti -- multi-target spell packet
+NetStru1::sub_51B370 -> BroadcastMoveCmd -- broadcasts a move-cmd packet to players in visibility

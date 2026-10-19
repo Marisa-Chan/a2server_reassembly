@@ -349,7 +349,7 @@ void NetStru1::SendAreaEffect(AreaEffect* obj, int32_t flag) {
         packet.set_flag = (uint8_t)flag;
         packet.type_id = (uint8_t)obj->typeId;
         packet.to_player_id = 0;
-        this->sub_51B638(&packet, obj);
+        this->BroadcastAoeZone(&packet, obj);
     }
 }
 
@@ -4198,7 +4198,7 @@ void NetStru1::BroadcastMoveCmd(PacketMoveCmd* packet, TokenPos* pos) {
 }
 
 // 51B638
-void NetStru1::sub_51B638(PacketAoeZone* packet, AreaEffect* area_effect) {
+void NetStru1::BroadcastAoeZone(PacketAoeZone* packet, AreaEffect* area_effect) {
     if (packet->to_player_id != 0) {
         Player* player = g_PlayersList->sub_535B50(packet->to_player_id);
         if ((area_effect->field4_0x42 & player->vision_sharing_id) != 0 || g_Server->field4_0x74 == 0) {
