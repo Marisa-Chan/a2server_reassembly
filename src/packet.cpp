@@ -8,7 +8,7 @@ Packet Packet::Inst;
 
 Packet::Packet() {
     //52681f
-    this->field_0x4 = 0;
+    this->order_mode = 0;
     this->field_0x5 = 0;
     this->to_player_id = 0;
     this->id = 0;

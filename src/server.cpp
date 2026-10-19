@@ -2945,7 +2945,7 @@ void CheckPacketType(Packet* pkt, const char* want_type) {
     const char* got_type = PacketType(pkt);
     if (strcmp(got_type, want_type) != 0) {
         CString msg;
-        if (pkt->field_0x4 != 0) {
+        if (pkt->order_mode != 0) {
             msg.Format("sub_504a96 [group 0x%x]: Packet type mismatch: incoming packet is '%s', but handler is '%s'", pkt->id, got_type, want_type);
         } else {
             msg.Format("sub_504a96 [0x%x]: Packet type mismatch: incoming packet is '%s', but handler is '%s'", pkt->id, got_type, want_type);
@@ -2960,11 +2960,11 @@ void Server::sub_504a96(Packet* pkt) {
     void* vtable = *reinterpret_cast<void**>(pkt);
     const char* packet_type = PacketType(pkt);
 
-    message.Format("sub_504a96: received item operation packet id=0x%02X, field_0x4=%d, player_id=%d;  packet is '%s' --- 0x%x", pkt->id, pkt->field_0x4, packet_item->field_0x5, packet_type, vtable);
+    message.Format("sub_504a96: received item operation packet id=0x%02X, order_mode=%d, player_id=%d;  packet is '%s' --- 0x%x", pkt->id, pkt->order_mode, packet_item->field_0x5, packet_type, vtable);
     LogMessage(message);
 
-    // PATH 1: Group order (pkt->field_0x4 >= 1 means multiple units)
-    if (pkt->field_0x4 != 0) {
+    // PATH 1: Group order (pkt->order_mode >= 1 means multiple units)
+    if (pkt->order_mode != 0) {
         if (!g_World) {
             return;
         }
@@ -2993,7 +2993,7 @@ void Server::sub_504a96(Packet* pkt) {
         group_list->groups.AddTail(group);
 
         Token* target = nullptr; // Unit or building.
-        if (pkt->field_0x4 == 3) {
+        if (pkt->order_mode == 3) {
             // Unit target.
             target = dword_6CDB3C->sub_5560D2(packet_item->field_0xe);
             if (!target) {

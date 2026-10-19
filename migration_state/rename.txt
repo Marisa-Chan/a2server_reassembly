@@ -1,0 +1,4 @@
+Field rename log (field_*/gap_* -> proper names), newest at the bottom.
+One line per commit: <Class>::<old> -> <new> -- reason.
+
+Packet::field_0x4 -> order_mode -- set by packet dispatcher from id: 0=single-unit op, 1/2=group order (no/xy params), 3=group order with unit/building target
