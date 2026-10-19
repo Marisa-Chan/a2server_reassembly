@@ -1873,7 +1873,7 @@ int MapStuff::RegisterAreaEffectCell(AreaEffect* ae, uint16_t yx) {
             return 0;
         }
     }
-    uint8_t idx = ae->sub_538897();
+    uint8_t idx = ae->GetLayerIndex();
     this->scratch_cell_state.area_effects[idx] = ae;
     this->scratch_cell_state.effect_count = 0;
     for (int32_t i = 0; i < 6; i++) {
@@ -1891,7 +1891,7 @@ int MapStuff::RemoveAreaEffectAt(AreaEffect* ae, uint16_t yx) {
     if (!this->cell_states.Lookup(yx, this->scratch_cell_state)) {
         return 0;
     }
-    uint8_t idx = ae->sub_538897();
+    uint8_t idx = ae->GetLayerIndex();
     if (this->scratch_cell_state.area_effects[idx] != ae) {
         return 0;
     }
@@ -1930,7 +1930,7 @@ AreaEffect* MapStuff::AreaEffectCovers(AreaEffect* ae, uint16_t coord) {
     if (!this->cell_states.Lookup(coord, this->scratch_cell_state)) {
         return nullptr;
     }
-    uint8_t idx = ae->sub_538897();
+    uint8_t idx = ae->GetLayerIndex();
     return this->scratch_cell_state.area_effects[idx];
 }
 

@@ -295,7 +295,7 @@ void AreaEffect::ApplyDistribution() {
 }
 
 // 538897
-uint32_t AreaEffect::sub_538897() const {
+uint32_t AreaEffect::GetLayerIndex() const {
 	switch (this->itemDataID) {
 	case spell::wall_of_fire:
 		return 0;

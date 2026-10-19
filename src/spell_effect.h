@@ -81,7 +81,7 @@ public:
     void ApplyRadiusRing();
     void BroadcastAndApply();
     void ApplyCellLayer(uint8_t x, uint8_t y);
-    uint32_t sub_538897() const; // Map area-effect layer index from effect type.
+    uint32_t GetLayerIndex() const; // Map area-effect layer index from effect type.
 
 public:
     Effect* effect;
