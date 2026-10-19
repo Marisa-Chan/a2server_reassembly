@@ -506,3 +506,4 @@ World::sub_5A5E54 -> BuildTargetLists -- builds active/alternate target lists ar
 World::sub_5A37C5 -> GetNearbyUnits -- get nearby UnitList around unit
 World::sub_5A3808 -> GetNearbyEnemies -- get nearby enemy UnitList for caster at yx
 World::sub_5A384F -> GetNearbyAllies -- get nearby ally UnitList for caster at yx
+World::sub_5A3896 -> FilterByRelation -- filter a UnitList by enemy/allied relationship

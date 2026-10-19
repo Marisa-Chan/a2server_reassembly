@@ -452,7 +452,7 @@ void World::sub_5ADD64(Group* group) {
         }
     }
 
-    this->sub_5A3C5F();
+    this->PruneUnconsciousTargets();
 
     if (this->field26_0xa64.unit_list.GetCount() == 0 && this->field27_0xa84.unit_list.GetCount() != 0) {
         this->field26_0xa64.unit_list.RemoveAll();
@@ -509,7 +509,7 @@ void World::ScanNearbyUnits(Group* group) {
 
     Unit* head = group->unit_list.GetHead();
     this->FilterByRelation(head, &this->field26_0xa64, 0);
-    this->sub_5A3C5F();
+    this->PruneUnconsciousTargets();
 
     if (this->field26_0xa64.unit_list.GetCount() == 0 && this->field27_0xa84.unit_list.GetCount() != 0) {
         this->field26_0xa64.unit_list.RemoveAll();
@@ -1511,7 +1511,7 @@ void World::sub_5AAC17(Unit* unit) {
     }
 
     this->FilterByRelation(unit, &this->field26_0xa64, 0);
-    this->sub_5A3C5F();
+    this->PruneUnconsciousTargets();
 
     if (this->field26_0xa64.unit_list.GetCount() == 0 && this->field27_0xa84.unit_list.GetCount() != 0) {
         CList<Unit*>* alt = &this->field27_0xa84.unit_list;
@@ -2439,7 +2439,7 @@ void World::BuildTargetLists(Unit* unit) {
     }
 
     this->FilterByRelation(unit, &this->field26_0xa64, 0);
-    this->sub_5A3C5F();
+    this->PruneUnconsciousTargets();
 
     if (this->field26_0xa64.unit_list.GetCount() == 0 && this->field27_0xa84.unit_list.GetCount() != 0) {
         this->field26_0xa64.unit_list.RemoveAll();
@@ -3211,7 +3211,7 @@ void World::sub_5AAEBC(Unit* unit) {
 }
 
 // 5A3C5F — move unconscious targets out of the active target list into the alternate list.
-void World::sub_5A3C5F() {
+void World::PruneUnconsciousTargets() {
     this->field27_0xa84.unit_list.RemoveAll();
 
     POSITION it = this->field26_0xa64.unit_list.GetHeadPosition();
