@@ -225,7 +225,7 @@ void Server::ProcessPlayers() {
                     }
                 }
 
-                Inn* inn = this->sub_502CB7(player->main_unit->position);
+                Inn* inn = this->FindInnAt(player->main_unit->position);
                 if (inn != nullptr) {
                     inn->sub_560DC2(player->main_unit, -1);
                 }
@@ -3522,7 +3522,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (!unit) {
                 break;
             }
-            Inn* inn = this->sub_502CB7(unit->position);
+            Inn* inn = this->FindInnAt(unit->position);
             if (!inn) {
                 break;
             }
@@ -3552,7 +3552,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (!unit) {
                 break;
             }
-            Inn* inn = this->sub_502CB7(unit->position);
+            Inn* inn = this->FindInnAt(unit->position);
             if (!inn) {
                 break;
             }
@@ -6042,7 +6042,7 @@ Unit* Server::FindPlayerUnit(uint16_t player_ref, uint16_t unit_id) {
 }
 
 // 502CB7
-Inn* Server::sub_502CB7(TokenPos* pos) {
+Inn* Server::FindInnAt(TokenPos* pos) {
     if (!this->srv_stru1->building_list) {
         return nullptr;
     }
