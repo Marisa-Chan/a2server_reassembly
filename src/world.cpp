@@ -2247,7 +2247,7 @@ void World::ScriptOP_0x19(TriggerAction* action) {
         src[5] = target_y;
     }
     uint16_t trigger_yx = (trigger_y << 8) | trigger_x;
-    this->field24_0xa50->sub_596576(trigger_yx, src);
+    this->field24_0xa50->ApplyTerrainMod(trigger_yx, src);
 }
 
 // 5b4428 — Set building's health

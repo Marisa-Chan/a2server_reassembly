@@ -1395,7 +1395,7 @@ void Srv1::LoadSacks(MapAlm* alm) {
             data[5] = effect_data->modifiers_data[1].y;
 
             uint16_t yx = (effect_data->trap_y << 8) | effect_data->trap_x;
-            MapStuff_Instance->sub_596576(yx, data);
+            MapStuff_Instance->ApplyTerrainMod(yx, data);
         }
 
         // Process spellbook entries for units

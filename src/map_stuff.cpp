@@ -722,7 +722,7 @@ int MapStuff::CanPlaceSack(Sack* sack) {
 }
 
 // 596576
-int MapStuff::sub_596576(uint16_t yx, void* src) {
+int MapStuff::ApplyTerrainMod(uint16_t yx, void* src) {
     if (this->Obstacle2At(yx).TestBits(1)) {
         return 0;
     }
