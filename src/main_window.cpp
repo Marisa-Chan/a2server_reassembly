@@ -3277,8 +3277,8 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
             CRect local_8d0(128, 200, 512, 380);
             CRect local_8c0(local_8d0.Width() / 8, local_8d0.Height() - 120, local_8d0.Width() * 7 / 8, local_8d0.Height() - 96);
-            this->field_0x128 = new Vis2Action(1, local_8d0.left, local_8d0.top, local_8d0.right, local_8d0.bottom, txt_main.GetLine(140), local_8c0);
-            this->PopUpScreen(this->field_0x128);
+            this->vis_2action = new Vis2Action(1, local_8d0.left, local_8d0.top, local_8d0.right, local_8d0.bottom, txt_main.GetLine(140), local_8c0);
+            this->PopUpScreen(this->vis_2action);
             if (!g_SfxArray[14]->FindPlayingChannel()) {
                 g_SfxArray[14]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
             }
