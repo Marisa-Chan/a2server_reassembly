@@ -3104,7 +3104,7 @@ void Server::sub_504a96(Packet* pkt) {
             CheckPacketType(pkt, "PacketItemOperation");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
                 player->sub_534B59();
-                Sack* sack = MapStuff_Instance->sub_58E5C7(x, y);
+                Sack* sack = MapStuff_Instance->GetSackAt(x, y);
                 if (!sack) {
                     CString msg;
                     msg.Format("Sack not found at %d,%d", x, y);

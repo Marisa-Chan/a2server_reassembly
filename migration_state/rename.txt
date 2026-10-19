@@ -583,3 +583,4 @@ MapStuff::sub_58E3D1 -> AddUnitToMap -- adds a unit to the map
 MapStuff::sub_58AB48 -> Serialize -- serialises the map state
 MapStuff::sub_5948B0 -> EncodeTerrain -- encodes map terrain into the buffer
 MapStuff::sub_58E407 -> CanPlaceSack -- checks whether a sack can be placed on the map
+MapStuff::sub_58E525 -> RemoveSack -- removes a sack token from the map

@@ -4636,7 +4636,7 @@ void World::CheckOP_12(TriggerCheck* check) {
 
 // 5B32CF
 void World::CheckOP_14(TriggerCheck* check) {
-    if (this->field24_0xa50->sub_58E5C7(check->data[0], check->data[1]) != nullptr) {
+    if (this->field24_0xa50->GetSackAt(check->data[0], check->data[1]) != nullptr) {
         this->trigger_variables[check->id] = 1;
     } else {
         this->trigger_variables[check->id] = 0;
