@@ -221,7 +221,7 @@ public:
 public:
     uint16_t x;       // +0xA
     uint8_t  y;       // +0xC
-    uint8_t  field_0xd;       // +0xD
+    uint8_t  y_high;       // +0xD
     uint16_t field_0xe;       // +0xE  (= 0 in ctor)
     uint8_t  field_0x10;      // +0x10 (= 0 in ctor)
     uint8_t  field_0x11;      // +0x11

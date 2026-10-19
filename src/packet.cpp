@@ -332,7 +332,7 @@ PacketItemOperation::PacketItemOperation(const PacketItemOperation* src) {
     this->id          = src->id;
     this->x   = src->x;
     this->y   = src->y;
-    this->field_0xd   = src->field_0xd;
+    this->y_high   = src->y_high;
     this->field_0xe   = src->field_0xe;
     this->field_0x10  = src->field_0x10;
     this->field_0x11  = src->field_0x11;
