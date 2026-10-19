@@ -179,7 +179,7 @@ public:
     void ChaseOrAttack(Unit* unit); // 5AA97E
     void CheckMoveArrival(Unit* unit); // 5AA9F6
     void ChaseOrCast(Unit* unit);
-    void sub_5AAB08(Unit* unit); // 5AAB08
+    void ChaseOrAreaCast(Unit* unit); // 5AAB08
     void sub_5AAB85(Unit* unit, Unit* target); // 5AAB85
     void OrderEngageTarget(Unit* unit, Unit* target); // 5A9087
     void OrderCastAtUnit(Unit* unit, Unit* target, Spell* spell); // 5A92AF

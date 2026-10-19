@@ -1372,7 +1372,7 @@ void World::sub_5A9B6B(Unit* unit) {
             this->ChaseOrCast(unit);
             break;
         case 9:
-            this->sub_5AAB08(unit);
+            this->ChaseOrAreaCast(unit);
             break;
         case 10:
             this->DoTurnTo(unit, unit->eye->field1_0x1);
@@ -3352,7 +3352,7 @@ void World::CheckMoveArrival(Unit* unit) {
 }
 
 // 5AAB08
-void World::sub_5AAB08(Unit* unit) {
+void World::ChaseOrAreaCast(Unit* unit) {
     if (this->field24_0xa50->sub_58FEDA(unit, PosYX(unit->eye2->field30_0x3c), unit->eye2->max_range) == 0) {
         this->DoMoveStepTo(unit, PosYX(unit->eye2->field30_0x3c), unit->eye2->max_range);
         unit->some_state = 1;
