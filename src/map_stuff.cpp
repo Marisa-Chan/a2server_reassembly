@@ -356,7 +356,7 @@ int MapStuff::FacesPosInRange(Unit* unit, PosYX yx, uint8_t max_range) {
 }
 
 // 58FF51
-void MapStuff::sub_58FF51(Unit* unit, PosYX yx, uint8_t max_range) {
+void MapStuff::MoveStepTowardPos(Unit* unit, PosYX yx, uint8_t max_range) {
     uint8_t distance = this->sub_593B29(unit->position->GetYX(), yx);
     int32_t in_cell_middle = unit->position->IsAtCellCenter();
 

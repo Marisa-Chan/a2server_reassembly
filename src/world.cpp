@@ -3148,7 +3148,7 @@ void World::DoMoveStepTo(Unit* unit, PosYX yx, uint8_t max_range) {
         unit->eye->field8_0x9 = 0xFF;
     }
 
-    this->field24_0xa50->sub_58FF51(unit, yx, max_range);
+    this->field24_0xa50->MoveStepTowardPos(unit, yx, max_range);
 
     if (unit->position->IsAtCellCenter() == 0) {
         unit->eye2->field4_0x9 = 3;

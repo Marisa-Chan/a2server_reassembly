@@ -601,3 +601,4 @@ MapStuff::sub_5913BD -> GetTileMoveTime -- movement time for the unit entering t
 MapStuff::sub_59190D -> GetRangeTo -- visibility/range check between two units
 MapStuff::sub_591424 -> GetFacingTo -- 16-way facing direction from unit to target
 MapStuff::sub_58FE6D -> FacesTargetInRange -- 1 when the unit faces the target and is within max_range
+MapStuff::sub_58FEDA -> FacesPosInRange -- 1 when the unit faces yx and is within max_range
