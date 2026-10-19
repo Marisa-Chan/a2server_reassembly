@@ -95,3 +95,4 @@ MainWindow::field_0x144 -> vis_msgbox -- matches its vis_msgbox* type (load/save
 MainWindow::field_0x148 -> last_save_info
 MainWindow::field_0x348 -> diplomacy_entries
 MainWindow::field_0x350 -> vis_connectiondlg
+MainWindow::field_0x378 -> vis_netmapsel

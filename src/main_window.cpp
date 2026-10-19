@@ -1471,7 +1471,7 @@ MainWindow::MainWindow() { //4837e1
     this->field_0x454 = 0;
     this->field_0x34c = nullptr;
     this->field_0x3dc = nullptr;
-    this->field_0x378 = nullptr;
+    this->vis_netmapsel = nullptr;
     this->field_0x37c = nullptr;
     this->vis_map_context = nullptr;
 
@@ -2517,18 +2517,18 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         delete this->vis_connectiondlg;
         this->vis_connectiondlg = nullptr;
         return;
-    } else if (obj == this->field_0x378) {
+    } else if (obj == this->vis_netmapsel) {
         this->dialogsMask &= ~8;
 
-        if (this->field_0x378->GetCloseCode() == 0x446) {
+        if (this->vis_netmapsel->GetCloseCode() == 0x446) {
             this->vis_root->MsgProc(0x446, 0, 0);
             PostMessage(0x45c, 0, 0);
         } else {
             PostMessage(0x457, 0, 0);
         }
         
-        delete this->field_0x378;
-        this->field_0x378 = nullptr;
+        delete this->vis_netmapsel;
+        this->vis_netmapsel = nullptr;
         return;
     } else if (obj == this->field_0x37c) {
         this->dialogsMask &= ~8;
@@ -3611,8 +3611,8 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         char* token = strstr(afxCurrentWinApp->m_lpCmdLine, "-map\"");
         if (!token) {
             if (g_ServerConfig.map_names.GetSize() == 0) {
-                this->field_0x378 = new VisNetMapSelection(1, 0, -64, 640, 480, &this->current_map_name);
-                this->PopUpScreen(this->field_0x378);
+                this->vis_netmapsel = new VisNetMapSelection(1, 0, -64, 640, 480, &this->current_map_name);
+                this->PopUpScreen(this->vis_netmapsel);
             } else {
                 this->current_map_name = g_ServerConfig.map_names[g_ServerConfig.current_map_index];
                 PostMessage(0x457, 0, 0);

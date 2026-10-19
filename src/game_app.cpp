@@ -781,8 +781,8 @@ BOOL GameApp::OnIdle(LONG lCount) { //4835b0
 		mwnd->sub_48A756();
 	} else if ((mwnd->dialogsMask & 1) == 0) {
 		if (mwnd->serverBootstrapEnabled == 0 || !g_Server) {
-			if (mwnd->field_0x378 && g_NetStru1_local.IsActive() == 0) {
-				mwnd->field_0x378->MsgProc(0x446, 0, 0);
+			if (mwnd->vis_netmapsel && g_NetStru1_local.IsActive() == 0) {
+				mwnd->vis_netmapsel->MsgProc(0x446, 0, 0);
 			}
 
 			mwnd->vis_map_context->ProcessPackets(0);

@@ -512,7 +512,7 @@ public:
     VisCharGen* vis_chargen;
     VisCharSelect* vis_charsel;
     VisStartGame* vis_startgame; //0x374
-    VisNetMapSelection* field_0x378; // BigStruct1*
+    VisNetMapSelection* vis_netmapsel; // BigStruct1*
     VisHatBrowserDlg* field_0x37c;
     PhoneBook phone_book; //380
     ComSettings com_settings; //39c
