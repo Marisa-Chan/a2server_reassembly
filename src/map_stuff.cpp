@@ -138,7 +138,7 @@ void MapStuff::sub_58E891(UnitList* unit_list) {
 }
 
 // Marks an 8-tile-thick obstacle border around the map edges — 58E670
-void MapStuff::sub_58E670() {
+void MapStuff::MarkMapBorder() {
     if (this->map_width == this->map_height) {
         for (int32_t i = 0; i < this->map_width; i++) {
             for (int32_t j = 0; j < 8; j++) {
@@ -219,7 +219,7 @@ void MapStuff::sub_58F166(MapAlm* alm) {
         }
     }
 
-    this->sub_58E670();
+    this->MarkMapBorder();
     memcpy(this->obstacle_map2, this->obstacle_map, sizeof(this->obstacle_map));
 }
 

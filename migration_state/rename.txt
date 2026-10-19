@@ -577,3 +577,4 @@ MapStuff::sub_595F46 -> DetectWatchedUnit -- marks the unit detected when its se
 MapStuff::sub_5963B9 -> ClearPresenceGrid -- clears the sector grid and resets per-unit/per-group detection state
 MapStuff::sub_59423F -> RelinkPointers -- remaps stale on-disk pointer fields through g_Server's remap table
 MapStuff::sub_594125 -> RelinkAfterLoad -- post-load map relink helper
+MapStuff::sub_58F48D -> CalcTerrainWalkCost -- edge-blended walk cost + classification code for a terrain cell
