@@ -4240,7 +4240,7 @@ void NetStru1::sub_51B638(PacketAoeZone* packet, AreaEffect* area_effect) {
 }
 
 // 51BAB0
-void NetStru1::sub_51BAB0(Unit* caster, Spell* spell, Unit* target, int16_t delay) {
+void NetStru1::SendSpellCastAtUnit(Unit* caster, Spell* spell, Unit* target, int16_t delay) {
     PacketMoveCmd& packet = PacketMoveCmd::Inst;
     packet.id = 0x86;
     packet.unit_id = caster->building_id;
