@@ -1156,7 +1156,7 @@ void ScanPresenceGrid::RegisterAreaEffect(AreaEffect* ae) {
 }
 
 // 5957E2
-void ScanPresenceGrid::sub_5957E2(Unit* unit) {
+void ScanPresenceGrid::MarkWatchedSector(Unit* unit) {
     if (!unit->pOwner->is_ai) {
         int32_t x_sec = (unit->position->GetX() >> 3) + 1;
         int32_t y_sec = (unit->position->GetY() >> 3) + 1;
@@ -1216,14 +1216,14 @@ void ScanPresenceGrid::RebuildPresenceGrid() {
     POSITION unit_it = this->unit_list->unit_list.GetHeadPosition();
     while (unit_it != NULL) {
         Unit* unit = this->unit_list->unit_list.GetNext(unit_it);
-        this->sub_5957E2(unit);
+        this->MarkWatchedSector(unit);
     }
 
     POSITION player_it = g_PlayersList->list.GetHeadPosition();
     while (player_it != NULL) {
         Player* player = g_PlayersList->list.GetNext(player_it);
         if (!player->is_ai && player->main_unit != nullptr) {
-            this->sub_5957E2(player->main_unit);
+            this->MarkWatchedSector(player->main_unit);
         }
     }
 

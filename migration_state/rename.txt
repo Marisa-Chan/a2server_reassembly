@@ -571,3 +571,4 @@ NetStru1::sub_51A6D5 -> SendMonsterInventory -- sends a monster inventory range 
 NetStru1::sub_51BDA4 -> BroadcastEffect -- broadcasts a PacketEffect via the move-cmd visibility path
 NetStru1::sub_5167A5 -> ReleaseNetBuf -- walks the free_net3 list decrementing the first live entry's ref-count
 MapStuff::sub_596047 -> RegisterAreaEffect -- registers an area effect into the scan grid
+MapStuff::sub_596131 -> RebuildPresenceGrid -- rebuilds presence grid from all active units/players
