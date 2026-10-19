@@ -170,7 +170,7 @@ public:
     void sub_51A8B2(Token* token, Inventory* inventory, Player* player, int32_t param);
     void sub_51AA26(Shop* shop, CMultiShopShelf* shelf, Player* player, uint8_t slot); // 51AA26 - send single shop shelf contents
     void sub_51AB99(CMultiShopInstance* inst, Player* player, int32_t param); // 51AB99 - send shop shelf contents
-    void sub_51EEB7();
+    void UpdateConnStats();
 
     void sub_51C7CC(int32_t latency, Player* player);  // Send latency update to player
     void sub_51CD2A(Player* player, int32_t event_id, int32_t arg3); // Send in-game event trigger

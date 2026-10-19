@@ -4813,7 +4813,7 @@ void Server::ServerTic() {
         dword_6CDB3C->sub_5574B5();
         this->srv_stru1->UpdateMapObjects();
         g_PlayersList->sub_534DDD();
-        g_NetStru1_main.sub_51EEB7();
+        g_NetStru1_main.UpdateConnStats();
         g_QuestMap.sub_55E00C();
 
         POSITION pos = g_QuestMap.flags.GetStartPosition();

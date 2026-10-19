@@ -605,7 +605,7 @@ void NetStru1::SendTeamState(uint16_t arg) {
 }
 
 // 51EEB7
-void NetStru1::sub_51EEB7() {
+void NetStru1::UpdateConnStats() {
     int32_t key;
     ConnStatInfo* info;
     POSITION pos = this->client_stat.GetStartPosition();

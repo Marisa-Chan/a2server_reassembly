@@ -4901,7 +4901,7 @@ void MainWindow::RemoteGameIdle() { //48acac
                 this->game_tic_counter &= 0xf;
 
                 if (this->game_tic_counter == 0) {
-                    g_NetStru1_local.sub_51EEB7();
+                    g_NetStru1_local.UpdateConnStats();
                 }
 
                 this->vis_map_context->ProcessPackets(100);
