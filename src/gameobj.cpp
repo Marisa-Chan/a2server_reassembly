@@ -472,7 +472,7 @@ void CGameObject::MarkOccupancy() { //462226
 }
 
 
-int32_t CGameObject::VMethod15() { //46207a
+int32_t CGameObject::UpdateBlockedState() { //46207a
     uint16_t* land = this->pMapObject->field_0x80->GetLandscape();
 
     int32_t idx = this->tileX + this->pMapObject->map_width * this->tileY;
@@ -3152,7 +3152,7 @@ void CUnit::DrawMinimapRect(int32_t arg1, int32_t arg2, int32_t arg3) {
 }
 
 // 469e67
-int32_t CUnit::VMethod15() {
+int32_t CUnit::UpdateBlockedState() {
     BigStruct2* map = this->pMapObject;
 
     if ((this->unitFlags & 0x80) != 0) {
@@ -4057,7 +4057,7 @@ void CStructure::DrawMinimapRect(int32_t arg1, int32_t arg2, int32_t arg3) {
 }
 
 // 462b28
-int32_t CStructure::VMethod15() {
+int32_t CStructure::UpdateBlockedState() {
     BigStruct2* map = this->pMapObject;
 
     if (map->my_main_unit->FUN_0041ee50(this->map_player->index) != 0) {

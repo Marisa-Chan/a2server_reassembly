@@ -139,7 +139,7 @@ public:
 	virtual void UpdateLight();
 	virtual void UpdateOccupancy();
 	virtual void MarkOccupancy();
-	virtual int32_t VMethod15();
+	virtual int32_t UpdateBlockedState();
 	virtual void VMethod16();
 
 	CGameObject();
@@ -251,7 +251,7 @@ public:
 
 	virtual void UpdateOccupancy() override;
 	virtual void MarkOccupancy() override;
-	virtual int32_t VMethod15() override;
+	virtual int32_t UpdateBlockedState() override;
 	virtual void VMethod16() override;
 	virtual void VMethod17(int16_t arg1, int32_t arg2, int32_t arg3, int32_t arg4, int32_t arg5, MapPlayerData* arg6, int32_t arg7, int32_t arg8, int16_t arg9, int16_t arg10);
 	virtual void VMethod18();
@@ -459,7 +459,7 @@ public:
 	virtual void UpdateTileLayer() override; //462b0f
 	virtual int32_t Update() override; //463a05
 	virtual void UpdateLight() override; //463a58
-	virtual int32_t VMethod15() override; //462b28
+	virtual int32_t UpdateBlockedState() override; //462b28
 	// no VMethod16 override: the binary vtable keeps CGameObject's here
 
 	CStructure(); //462acb

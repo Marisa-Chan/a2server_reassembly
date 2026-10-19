@@ -6694,7 +6694,7 @@ void BigStruct2::sub_40BD34() {
 		uint16_t key;
 		CGameObject* obj;
 		this->field_0x9d0.GetNextAssoc(it, key, obj);
-		update_selection = update_selection | obj->VMethod15();
+		update_selection = update_selection | obj->UpdateBlockedState();
 	}
 	if (update_selection != 0) {
 		this->UpdateSelectionState();

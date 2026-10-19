@@ -210,3 +210,4 @@ CGameObject::VMethod11 -> Update -- vtable slot: per-tick state update; returns 
 CGameObject::VMethod12 -> UpdateLight -- vtable slot: applies the object's dynamic light to the tile lightmap (building light_radius pulse / projectile glow), marks dirty rect
 CGameObject::VMethod13 -> UpdateOccupancy -- vtable slot: when visible, grid-aligned and moved off its last occupied tile, refreshes the landscape occupancy marks (CUnit: alive units only)
 CGameObject::VMethod14 -> MarkOccupancy -- vtable slot: re-marks the 0xC000 occupied-cell bits on the landscape around the footprint and remembers occupiedLocation
+CGameObject::VMethod15 -> UpdateBlockedState -- vtable slot: recomputes bIsBlocked from the landscape occupancy bits and deselects the object when it became blocked (returns 1 if deselected)
