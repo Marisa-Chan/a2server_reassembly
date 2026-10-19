@@ -74,7 +74,7 @@ public:
 
     void DamageUnit(Unit* unit);
     void ApplyAtCell(uint8_t x, uint8_t y, bool spread_damage);
-    void sub_537CD6(); // Acid stream and blizzard effects. 537CD6
+    void TickAcidBlizzard(); // Acid stream and blizzard effects. 537CD6
     void sub_537C8C();
     void sub_537F2C();
     void sub_53801A();

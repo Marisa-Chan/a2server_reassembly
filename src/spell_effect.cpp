@@ -464,7 +464,7 @@ void AreaEffect::sub_537F2C() {
 }
 
 // 537CD6
-void AreaEffect::sub_537CD6() {
+void AreaEffect::TickAcidBlizzard() {
 	if (this->duration--) {
 		return;
 	}
@@ -551,7 +551,7 @@ void AreaEffect::Serialize(CArchive& ar) {
 // 537964
 void AreaEffect::ProcessEffects() {
 	if (this->TokenID & 2) {
-		this->sub_537CD6();
+		this->TickAcidBlizzard();
 		return;
 	}
 	if (!(this->TokenID & 1)) {
