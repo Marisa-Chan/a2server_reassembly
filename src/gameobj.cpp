@@ -559,7 +559,7 @@ TokenEntry::TokenEntry(uint8_t** data, int arg) {
 
     if ((this->flg & 0x80) == 0) {
         if ((this->flg & 0x20) == 0) {
-            this->field_0x10 =  *(uint16_t*)pdata;
+            this->count =  *(uint16_t*)pdata;
             pdata += 2;
 
             this->mods = malloc(this->mods_size);
@@ -585,10 +585,10 @@ TokenEntry::TokenEntry(uint8_t** data, int arg) {
             memcpy((uint8_t *)this->mods + 1, &local_18, 4);
 
             this->flg &= 0x60;
-            this->field_0x10 = 1;
+            this->count = 1;
         }
     } else {
-        this->field_0x10 = this->flg & 0x3f;
+        this->count = this->flg & 0x3f;
         this->mods = malloc(this->mods_size);
         memcpy(this->mods, pkt->data, this->mods_size);
         this->flg &= 0x40;
@@ -618,7 +618,7 @@ void TokenEntry::operator=(const TokenEntry& obj) {
     this->item_id = obj.item_id;
     this->flg = obj.flg;
     this->mods_count = obj.mods_count;
-    this->field_0x10 = obj.field_0x10;
+    this->count = obj.count;
     this->field_0x14 = obj.field_0x14;
     this->field_0x18 = obj.field_0x18;
     this->mods_size = obj.mods_size;
@@ -880,19 +880,19 @@ int32_t TokenEntry::sub_43A6D5() { //43a6d5
 
 
 int32_t TokenEntry::sub_4A7880(int32_t num) { //4a7880
-    this->field_0x10 -= num;
+    this->count -= num;
 
-    if ((int32_t)this->field_0x10 > 0) {
+    if ((int32_t)this->count > 0) {
         return 1;
     }
 
-    this->field_0x10 += num;
+    this->count += num;
     return 0;
 }
 
 
 int32_t TokenEntry::FUN_004a78c0() { //4a78c0
-    if (this->FUN_0041f0d0() == 0 && this->field_0x10 == 0) {
+    if (this->FUN_0041f0d0() == 0 && this->count == 0) {
         return 1;
     }
 
@@ -912,7 +912,7 @@ int32_t TokenEntry::FUN_0041f0d0() { //41f0d0
 
 
 int32_t TokenEntry::sub_4A7850(int32_t num) { //4a7850
-    this->field_0x10 += num;
+    this->count += num;
     return 1;
 }
 

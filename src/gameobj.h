@@ -88,7 +88,7 @@ public:
 	uint8_t mods_size = 0;
 	uint8_t field_0xb = 0;
 	void* mods = nullptr;
-	uint32_t field_0x10 = 1;
+	uint32_t count = 1;
 	uint32_t field_0x14 = 0;
 	uint32_t field_0x18 = 0;
 	int32_t field_0x1c = -1;

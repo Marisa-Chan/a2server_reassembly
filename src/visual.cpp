@@ -9722,13 +9722,13 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
 
     if ((token->flg & 1) != 0) {
         TokenEntry* split = nullptr;
-        if (token->field_0x10 > 1) {
+        if (token->count > 1) {
             split = new TokenEntry(token);
-            split->field_0x10 -= 1;
-            token->field_0x10 = 1;
+            split->count -= 1;
+            token->count = 1;
         }
 
-        int32_t amount = token->field_0x10;
+        int32_t amount = token->count;
         map->sub_41A7C7(main_wnd->field_0x410, main_wnd->field_0x40c, this->VMethod28(), a + 1, amount);
 
         if (split != nullptr) {
@@ -9768,7 +9768,7 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
     this->MsgProc(0x408, 0, 0);
     unit->equipmentTokens[a] = main_wnd->field_0x408;
 
-    int32_t amount = main_wnd->field_0x408->field_0x10;
+    int32_t amount = main_wnd->field_0x408->count;
     map->sub_41A7C7(main_wnd->field_0x410, main_wnd->field_0x40c, this->VMethod28(), a + 1, amount);
 
     main_wnd->ResetItemCursor();
@@ -10877,7 +10877,7 @@ void VisShop::sub_4BCC38() {
     this->sub_4BCDA0();
     while (this->to_buy->grid_source->GetSize() != 0) {
         TokenEntry* first = (*this->to_buy->grid_source)[0];
-        removed = this->to_buy->VMethod36(0, first->field_0x10);
+        removed = this->to_buy->VMethod36(0, first->count);
         if (removed != nullptr) {
             if (removed->field_0x18 == 2) {
                 this->to_sell->VMethod37(-1);
@@ -10922,9 +10922,9 @@ void VisShop::sub_4BCDA0() {
     for (int32_t i = 0; i < this->to_buy->grid_source->GetSize(); i++) {
         TokenEntry* entry = (*this->to_buy->grid_source)[i];
         if (entry->field_0x18 == 2) {
-            this->sell_gold += (int32_t)(entry->GetAttribute(1) + 1) / 2 * entry->field_0x10;
+            this->sell_gold += (int32_t)(entry->GetAttribute(1) + 1) / 2 * entry->count;
         } else {
-            this->buy_gold -= entry->GetAttribute(1) * entry->field_0x10;
+            this->buy_gold -= entry->GetAttribute(1) * entry->count;
         }
     }
     this->result_gold = this->current_gold + this->buy_gold + this->sell_gold;
@@ -13812,9 +13812,9 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
             char picture[0x100];
             picture[0] = 0;
             char suffix[0x50];
-            strcpy(picture, g_VFX_info[this->vis_tav->rewards[this->vis_tav->quest_id]->field_0x10 & 0xFF]->info_picture);
-            sprintf(suffix, "%d", (int32_t)this->vis_tav->rewards[this->vis_tav->quest_id]->field_0x10 >> 8);
-            if ((int32_t)this->vis_tav->rewards[this->vis_tav->quest_id]->field_0x10 >> 8 > 1) {
+            strcpy(picture, g_VFX_info[this->vis_tav->rewards[this->vis_tav->quest_id]->count & 0xFF]->info_picture);
+            sprintf(suffix, "%d", (int32_t)this->vis_tav->rewards[this->vis_tav->quest_id]->count >> 8);
+            if ((int32_t)this->vis_tav->rewards[this->vis_tav->quest_id]->count >> 8 > 1) {
                 strcat(picture, suffix);
             }
             if (picture[0] != 0) {
@@ -14644,13 +14644,13 @@ void VisTavScene::FUN_0049bc23() {
         } else if (entry->item_id == 0xFFFE) {
             g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 0x28, tav_topleft.y + pt.y + 0x23, TxtFile::AllLines[0x2E], 2, clrsh_DullGold, 1);
             CString text;
-            text.Format("%d", entry->field_0x10 * 250);
+            text.Format("%d", entry->count * 250);
             FUN_00476987(&text);
             g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 3, tav_topleft.y + pt.y + 0x42, text, 0, clrsh_DullGold, 1);
         } else if (entry->item_id == 0xFFFF) {
             g_ca16_money->VMethod2(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
             CString text;
-            text.Format("%d", entry->field_0x10 * 250);
+            text.Format("%d", entry->count * 250);
             FUN_00476987(&text);
             g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 3, tav_topleft.y + pt.y + 0x42, text, 0, clrsh_DullGold, 1);
         } else {
@@ -14663,9 +14663,9 @@ void VisTavScene::FUN_0049bc23() {
                 this->field_0x210[i]->ResetPalette(0x10, 4, 0);
             }
             this->field_0x210[i]->VMethod2(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
-            if (entry->field_0x10 > 1) {
+            if (entry->count > 1) {
                 char buf[80];
-                sprintf(buf, "%d", entry->field_0x10);
+                sprintf(buf, "%d", entry->count);
                 g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 3, tav_topleft.y + pt.y + 0x42, buf, 0, clrsh_DullGold, 1);
             }
 
@@ -15891,18 +15891,18 @@ TokenEntry* VisInvBase::VMethod29(TokenEntry* o, int32_t num) {
         if (entry->sub_4A7880(num)) {
             o = new TokenEntry();
             *o = *entry;
-            o->field_0x10 = num;
+            o->count = num;
             return o;
         }
         if (entry->FUN_0041f0d0()) {
             o = new TokenEntry();
             *o = *entry;
-            entry->field_0x10 = 0;
+            entry->count = 0;
             return o;
         }
         o = entry;
         this->grid_source->RemoveAt(i, 1);
-        o->field_0x10 = num;
+        o->count = num;
         return o;
     }
     return nullptr;
@@ -15916,7 +15916,7 @@ int32_t VisInvBase::VMethod26(TokenEntry* o, int32_t idx) {
         if (!o->sub_4A7900(entry)) {
             continue;
         }
-        entry->sub_4A7850(o->field_0x10);
+        entry->sub_4A7850(o->count);
         delete o;
         return i;
     }
@@ -15943,11 +15943,11 @@ TokenEntry* VisInvBase::VMethod28(uint32_t id) {
         if (entry->sub_4A7880(1)) {
             TokenEntry* result = new TokenEntry();
             *result = *entry;
-            result->field_0x10 = 1;
+            result->count = 1;
             return result;
         }
         this->grid_source->RemoveAt(i, 1);
-        entry->field_0x10 = 1;
+        entry->count = 1;
         return entry;
     }
     return nullptr;
@@ -15964,7 +15964,7 @@ int32_t VisInvBase::VMethod27(TokenEntry* o) {
         if (!entry->sub_4A7900(o)) {
             continue;
         }
-        entry->sub_4A7850(o->field_0x10);
+        entry->sub_4A7850(o->count);
         delete o;
         return i;
     }
@@ -16045,9 +16045,9 @@ int32_t VisInvBase::VMethod37(int32_t idx) {
         return -1;
     }
     if (main_wnd->field_0x408->FUN_0041f0d0()) {
-        main_wnd->vis_map_context->my_main_unit->gold += main_wnd->field_0x408->field_0x10;
+        main_wnd->vis_map_context->my_main_unit->gold += main_wnd->field_0x408->count;
     }
-    int32_t count = main_wnd->field_0x408->field_0x10;
+    int32_t count = main_wnd->field_0x408->count;
 
     int32_t same_tab;
     int32_t tab = this->VMethod38();
@@ -16122,7 +16122,7 @@ void VisInvBase::FUN_004a5e12() {
             continue;
         }
         TokenEntry* entry = this->grid_source->GetAt(i + *this->visible_startref);
-        if (main_wnd->field_0x408 == entry && main_wnd->field_0x408 != nullptr && main_wnd->field_0x408->field_0x10 == 1) {
+        if (main_wnd->field_0x408 == entry && main_wnd->field_0x408 != nullptr && main_wnd->field_0x408->count == 1) {
             continue;
         }
         if (entry == nullptr || !(entry->flg & 0x20)) {
@@ -16351,7 +16351,7 @@ void VisInvType1::VMethod7() {
         }
 
         TokenEntry* entry = this->grid_source->GetAt(i + *this->visible_startref);
-        if (main_wnd->field_0x408 == entry && main_wnd->field_0x408 != nullptr && main_wnd->field_0x408->field_0x10 == 1) {
+        if (main_wnd->field_0x408 == entry && main_wnd->field_0x408 != nullptr && main_wnd->field_0x408->count == 1) {
             continue;
         }
 
@@ -16379,9 +16379,9 @@ void VisInvType1::VMethod7() {
         sprite->VMethod2(cell_x, cell_y, 0, 0, 0);
 
         entry = this->grid_source->GetAt(i + *this->visible_startref);
-        if (entry->field_0x10 > 1) {
+        if (entry->count > 1) {
             char buf[0x50];
-            sprintf(buf, "%d", entry->field_0x10);
+            sprintf(buf, "%d", entry->count);
             g_font2->DrawTextWithShadow(cell_x + 3, screen_rect.bottom - 0xe, buf, 0, clrsh_DullGold, 1);
         }
 
@@ -16434,13 +16434,13 @@ int32_t VisInvType1::OnMouseMove(uint32_t wparam, CPoint pos) {
         } else if (g_kbShiftState == 0) {
             count = 1000;
         } else {
-            count = this->grid_source->GetAt(idx)->field_0x10;
+            count = this->grid_source->GetAt(idx)->count;
         }
     } else {
         if (g_kbShiftState == 0) {
             count = 1;
         } else {
-            count = this->grid_source->GetAt(idx)->field_0x10;
+            count = this->grid_source->GetAt(idx)->count;
         }
     }
 
@@ -16453,7 +16453,7 @@ int32_t VisInvType1::OnMouseMove(uint32_t wparam, CPoint pos) {
     }
 
     if (main_wnd->field_0x408->FUN_0041f0d0() != 0) {
-        main_wnd->vis_map_context->my_main_unit->gold -= main_wnd->field_0x408->field_0x10;
+        main_wnd->vis_map_context->my_main_unit->gold -= main_wnd->field_0x408->count;
         main_wnd->sub_48CCA1(main_wnd->field_0x408, main_wnd->field_0x40c, "graphics\\interface\\money\\money.16a", main_wnd->field_0x410);
     } else {
         CString name = main_wnd->field_0x408->FUN_004394f3();
@@ -16742,7 +16742,7 @@ void VisInvExtBase::VMethod7() {
         TokenEntry* entry = this->grid_source->GetAt(i + *this->visible_startref);
         if (entry->FUN_0041f0d0() != 0) {
             if (shop->gameplay != nullptr) {
-                entry->field_0x10 = shop->gameplay->my_main_unit->gold;
+                entry->count = shop->gameplay->my_main_unit->gold;
             }
             g_bmp_backinv->VMethod2(pos.x, pos.y + 1, 0, 0, 0);
             g_ca16_money->VMethod2(pos.x, pos.y + 1, 0, 0, 0);
@@ -16773,10 +16773,10 @@ void VisInvExtBase::VMethod7() {
         }
 
         entry = this->grid_source->GetAt(i + *this->visible_startref);
-        if (entry->field_0x10 > 1) {
+        if (entry->count > 1) {
             CPoint bottom_right(this->field_0x20c4[i].right + off_x, this->field_0x20c4[i].bottom + off_y);
             CString text;
-            text.Format("%d", entry->field_0x10);
+            text.Format("%d", entry->count);
             FUN_00476987(&text);
             g_font2->DrawTextWithShadow(pos.x + 10, bottom_right.y - 15, text, 0, clrsh_DullGold, 1);
         }
@@ -16919,7 +16919,7 @@ int32_t VisInvExtBase::OnMouseMove(uint32_t wparam, CPoint pos) {
         if (main_wnd->field_0x40c >= 0 && main_wnd->field_0x40c < this->grid_source->GetSize() && main_wnd->field_0x408 == nullptr) {
             int32_t count;
             if (g_kbShiftState != 0) {
-                count = this->grid_source->GetAt(main_wnd->field_0x40c)->field_0x10;
+                count = this->grid_source->GetAt(main_wnd->field_0x40c)->count;
             } else {
                 count = 1;
             }
@@ -17169,16 +17169,16 @@ TokenEntry* VisInvExtType1::VMethod29(TokenEntry* o, int32_t num) {
         if (entry->sub_4A7880(num)) {
             o = new TokenEntry();
             *o = *entry;
-            o->field_0x10 = num;
+            o->count = num;
         } else if (entry->FUN_0041f0d0()) {
             o = new TokenEntry();
             *o = *entry;
-            entry->field_0x10 = 0;
+            entry->count = 0;
         } else {
             o = new TokenEntry();
             *o = *entry;
-            o->field_0x10 = num;
-            entry->field_0x10 = 0;
+            o->count = num;
+            entry->count = 0;
             entry->item_id = 0;
         }
         o->field_0x1c = i;
@@ -17234,7 +17234,7 @@ int32_t VisInvExtType1::VMethod26(TokenEntry* o, int32_t idx) {
         if (entry->FUN_004a78c0()) {
             *entry = *o;
         } else {
-            entry->sub_4A7850(o->field_0x10);
+            entry->sub_4A7850(o->count);
         }
         return o->field_0x1c;
     }
@@ -17548,7 +17548,7 @@ int32_t VisInvExtType1::VMethod37(int32_t idx) {
     if (main_wnd->field_0x408 == nullptr) {
         return -1;
     }
-    int32_t count = main_wnd->field_0x408->field_0x10;
+    int32_t count = main_wnd->field_0x408->count;
     int32_t tab_before = this->VMethod38();
     int32_t new_idx = this->VMethod26(main_wnd->field_0x408, idx);
     TokenEntry* entry = this->grid_source->GetAt(new_idx);
@@ -17767,13 +17767,13 @@ TokenEntry* VisInvExtType3::VMethod43(int32_t id1, int32_t id2) {
         }
         if (entry->sub_4A7880(1) == 0) {
             this->grid_source->RemoveAt(i, 1);
-            entry->field_0x10 = 1;
+            entry->count = 1;
             this->sub_4B4FD1();
             return entry;
         }
         TokenEntry* copy = new TokenEntry();
         *copy = *entry;
-        copy->field_0x10 = 1;
+        copy->count = 1;
         this->sub_4B4FD1();
         return copy;
     }
@@ -17828,7 +17828,7 @@ int32_t VisInvExtType3::sub_4B9B2F(int32_t idx) {
         return -1;
     }
     TokenEntry* entry = main_wnd->field_0x408;
-    int32_t amount = entry->field_0x10;
+    int32_t amount = entry->count;
     int32_t grade = -1;
     if (main_wnd->field_0x410 >= 5 && main_wnd->field_0x410 <= 8) {
         grade = entry->field_0x20;
@@ -18050,7 +18050,7 @@ int32_t VisInvExtType3::VMethod27(TokenEntry* o) {
         if (entry->field_0x18 != o->field_0x18) {
             continue;
         }
-        entry->sub_4A7850(o->field_0x10);
+        entry->sub_4A7850(o->count);
         delete o;
         return i;
     }
@@ -25797,8 +25797,8 @@ void VisDropGold::DoClose(uint32_t code) {
         }
 
         TokenEntry* entry = main_wnd->vis_invtype1->VMethod36(this->selection, (int32_t)amount);
-        main_wnd->vis_map_context->my_main_unit->gold -= entry->field_0x10;
-        main_wnd->vis_map_context->sub_41AC88(entry->field_0x10, main_wnd->vis_map_context->field_0x3f6c->tileX | (main_wnd->vis_map_context->field_0x3f6c->tileY << 8));
+        main_wnd->vis_map_context->my_main_unit->gold -= entry->count;
+        main_wnd->vis_map_context->sub_41AC88(entry->count, main_wnd->vis_map_context->field_0x3f6c->tileX | (main_wnd->vis_map_context->field_0x3f6c->tileY << 8));
         main_wnd->ResetItemCursor();
 
         if (entry != nullptr) {

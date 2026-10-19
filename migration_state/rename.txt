@@ -46,3 +46,4 @@ A2NetSock::field_0x4c -> next_out_pktid -- packet id assigned to the next outgoi
 A2NetSock::field_0x50 -> next_in_pktid -- next incoming packet id expected (out-of-order ones buffered in list_0x30)
 A2NetSock::field_0x260 -> stat_pkts_queued -- total packets queued (divisor of GetPacketLoss ratio)
 A2NetSock::field_0x264 -> stat_pkts_sent -- total dplay Send calls made (numerator of GetPacketLoss ratio)
+TokenEntry::field_0x10 -> count -- stack count/quantity (init 1; gold pile stores gold amount here)

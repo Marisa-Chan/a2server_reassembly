@@ -367,7 +367,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				if (u->tokenEntries.GetSize()) {
 					TokenEntry* gitem = u->tokenEntries[u->tokenEntries.GetUpperBound()];
 					if (gitem->FUN_0041f0d0()) {
-						gitem->field_0x10 = this->my_main_unit->gold;
+						gitem->count = this->my_main_unit->gold;
 					}
 				}
 			}
@@ -1258,10 +1258,10 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							char* itmname = nullptr;
 							unk_660DA8.Lookup(obj->item_id, *(void **)&itmname);
 
-							if (obj->field_0x10 < 2) {
+							if (obj->count < 2) {
 								sprintf(buf, "%s %s", TxtFile::AllLines[85], itmname);
 							} else {
-								sprintf(buf, "%s %s (%s %d %s)", TxtFile::AllLines[85], itmname, TxtFile::AllLines[86], obj->field_0x10, TxtFile::AllLines[87]);
+								sprintf(buf, "%s %s (%s %d %s)", TxtFile::AllLines[85], itmname, TxtFile::AllLines[86], obj->count, TxtFile::AllLines[87]);
 							}
 							this->msglog.Add(buf, clr_log_tblack, 3000);
 						}
@@ -1299,7 +1299,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 						TokenEntry* gt = new TokenEntry(0);
 						gt->item_id = 0xffff;
-						gt->field_0x10 = this->my_main_unit->gold;
+						gt->count = this->my_main_unit->gold;
 						gt->flg = 0;
 						gt->mods_count = 0;
 						gt->field_0x18 = 2;
@@ -1950,7 +1950,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						} else {
 							TokenEntry* itm = new TokenEntry(0);
 							itm->item_id = packet_props->prop[pr];
-							itm->field_0x10 = 1;
+							itm->count = 1;
 							itm->flg = 0;
 							itm->mods_count = 0;
 							itm->mods_size = 0;
@@ -3998,11 +3998,11 @@ void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell) {
 		pkt->slot_high = slot >> 8;
 		g_NetStru1_local.QueuePacketSend(pkt);
 		TokenEntry* entry = this->field_0x138->tokenEntries[slot];
-		if (entry->field_0x10 == 1) {
+		if (entry->count == 1) {
 			this->field_0x138->tokenEntries.RemoveAt(slot, 1);
 			delete entry;
 		} else {
-			entry->field_0x10--;
+			entry->count--;
 		}
 		wnd->vis_spellbook->spell = -1;
 		wnd->vis_spellbook->selected = -1;
@@ -4037,11 +4037,11 @@ void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell) {
 				pkt->id = 0x26;
 				g_NetStru1_local.QueuePacketSend(pkt);
 				TokenEntry* entry = obj->tokenEntries[slot];
-				if (entry->field_0x10 == 1) {
+				if (entry->count == 1) {
 					obj->tokenEntries.RemoveAt(slot, 1);
 					delete entry;
 				} else {
-					entry->field_0x10--;
+					entry->count--;
 				}
 				wnd->vis_spellbook->spell = -1;
 				wnd->vis_spellbook->selected = -1;
@@ -4082,11 +4082,11 @@ void BigStruct2::sub_419BA1(uint16_t id, int32_t spell) {
 		pkt->id = 0x25;
 		g_NetStru1_local.QueuePacketSend(pkt);
 		TokenEntry* entry = this->field_0x138->tokenEntries[slot];
-		if (entry->field_0x10 == 1) {
+		if (entry->count == 1) {
 			this->field_0x138->tokenEntries.RemoveAt(slot, 1);
 			delete entry;
 		} else {
-			entry->field_0x10--;
+			entry->count--;
 		}
 		wnd->vis_spellbook->spell = -1;
 		wnd->vis_spellbook->selected = -1;
@@ -4121,11 +4121,11 @@ void BigStruct2::sub_419BA1(uint16_t id, int32_t spell) {
 				pkt->id = 0x25;
 				g_NetStru1_local.QueuePacketSend(pkt);
 				TokenEntry* entry = obj->tokenEntries[slot];
-				if (entry->field_0x10 == 1) {
+				if (entry->count == 1) {
 					obj->tokenEntries.RemoveAt(slot, 1);
 					delete entry;
 				} else {
-					entry->field_0x10--;
+					entry->count--;
 				}
 				wnd->vis_spellbook->spell = -1;
 				wnd->vis_spellbook->selected = -1;
@@ -7004,9 +7004,9 @@ int32_t BigStruct2::OnLButtonUp(uint32_t wparam, CPoint pos) {
 				tile_y = this->field_0x994->tileY;
 			}
 			if (wnd->field_0x408->FUN_0041f0d0() != 0) {
-				this->sub_41AC88(wnd->field_0x408->field_0x10, tile_x | (tile_y << 8));
+				this->sub_41AC88(wnd->field_0x408->count, tile_x | (tile_y << 8));
 			} else {
-				this->sub_41A7C7(wnd->field_0x410, wnd->field_0x40c, 3, tile_x | (tile_y << 8), wnd->field_0x408->field_0x10);
+				this->sub_41A7C7(wnd->field_0x410, wnd->field_0x40c, 3, tile_x | (tile_y << 8), wnd->field_0x408->count);
 			}
 		}
 		delete wnd->field_0x408;
@@ -7879,11 +7879,11 @@ void BigStruct2::FUN_0041a001(int32_t idx) {
 			pkt->id = 0x25;
 			g_NetStru1_local.QueuePacketSend(pkt);
 			TokenEntry* entry = obj->tokenEntries[slot];
-			if (entry->field_0x10 == 1) {
+			if (entry->count == 1) {
 				obj->tokenEntries.RemoveAt(slot, 1);
 				delete entry;
 			} else {
-				entry->field_0x10--;
+				entry->count--;
 			}
 			wnd->vis_spellbook->spell = -1;
 			wnd->vis_spellbook->selected = -1;
