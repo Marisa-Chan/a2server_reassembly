@@ -536,7 +536,7 @@ PacketMoveCmd PacketMoveCmd::Inst;
 PacketMoveCmd::PacketMoveCmd() {
     //sub_52701F  id = 0x86
     this->id         = 0x86;
-    this->field_0xc  = 0;
+    this->type_id  = 0;
     this->field_0xd  = 0;
     this->field_0xe  = 0;
 }

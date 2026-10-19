@@ -1433,7 +1433,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0x86:
-			if ((packet_move->field_0xc & 1) == 0 || packet_move->field_0xc >= g_ProjectileInfos.GetSize() || g_ProjectileInfos[packet_move->field_0xc] == nullptr) {
+			if ((packet_move->type_id & 1) == 0 || packet_move->type_id >= g_ProjectileInfos.GetSize() || g_ProjectileInfos[packet_move->type_id] == nullptr) {
 				CUnit* ct = nullptr;
 				if (this->field_0x9d0.Lookup(packet_move->unit_id, *(CGameObject**)&ct) == 0) {
 					if (g_EnableTrace != 0) {
@@ -1445,8 +1445,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					ct->action = 8;
 					ct->action_phase = 0;
 
-					if (packet_move->field_0xc < g_ProjectileInfos.GetSize() && g_ProjectileInfos[packet_move->field_0xc] != nullptr) {
-						if (g_ProjectileInfos[packet_move->field_0xc]->homing == 0) {
+					if (packet_move->type_id < g_ProjectileInfos.GetSize() && g_ProjectileInfos[packet_move->type_id] != nullptr) {
+						if (g_ProjectileInfos[packet_move->type_id]->homing == 0) {
 							ct->action_x = packet_move->field_0xd * 0x100 + 0x80;
 							ct->action_y = packet_move->field_0xe * 0x100 + 0x80;
 							ct->action_target = 0;
@@ -1458,11 +1458,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						ct->action_y = ct->y_pos;
 						ct->action_target = 0;
 					}
-					ct->action_spell = packet_move->field_0xc;
+					ct->action_spell = packet_move->type_id;
 				}
 			} else {
 				CProjectile* pj = new CProjectile();
-				pj->typeId = packet_move->field_0xc;
+				pj->typeId = packet_move->type_id;
 				pj->x_pos = packet_move->field_0xd * 0x100 + 0x80;
 				pj->y_pos = packet_move->field_0xe * 0x100 + 0x80;
 				pj->z_pos = 0;
@@ -1483,8 +1483,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				this->field_0x9ec[this->field_0xa24] = pj;
 				this->field_0xa24++;
 
-				SfxSample* snd = g_SfxArray[packet_move->field_0xc + 500];
-				if (packet_move->field_0xc != 23 && snd) {
+				SfxSample* snd = g_SfxArray[packet_move->type_id + 500];
+				if (packet_move->type_id != 23 && snd) {
 					int32_t vol = 0;
 					int32_t pan = 0;
 					this->FUN_0041b7b7(pj->x_pos, pj->y_pos, &vol, &pan);
@@ -1558,14 +1558,14 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x8b: {
 			CProjectile* pj = new CProjectile();
-			pj->typeId = packet_move->field_0xc;
+			pj->typeId = packet_move->type_id;
 			pj->x_pos = (packet_move->unit_id & 0xFF) * 0x100 + 0x80;
 			pj->y_pos = (packet_move->unit_id >> 8) * 0x100 + 0x80;
 			pj->z_pos = 0;
 			pj->x_pos2 = pj->x_pos;
 			pj->y_pos2 = pj->y_pos;
 			
-			if (g_ProjectileInfos[packet_move->field_0xc]->homing == 0) {
+			if (g_ProjectileInfos[packet_move->type_id]->homing == 0) {
 				pj->action_x = packet_move->field_0xd * 0x100 + 0x80;
 				pj->action_y = packet_move->field_0xe * 0x100 + 0x80;
 				pj->action_target = 0;
@@ -1585,8 +1585,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			this->field_0x9ec[this->field_0xa24] = pj;
 			this->field_0xa24++;
 
-			SfxSample* snd = g_SfxArray[packet_move->field_0xc + 500];
-			if (packet_move->field_0xc != 23 && snd) {
+			SfxSample* snd = g_SfxArray[packet_move->type_id + 500];
+			if (packet_move->type_id != 23 && snd) {
 				int32_t vol = 0;
 				int32_t pan = 0;
 				this->FUN_0041b7b7(pj->x_pos, pj->y_pos, &vol, &pan);

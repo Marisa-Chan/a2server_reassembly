@@ -385,7 +385,7 @@ public:
     virtual uint32_t GetDataSize() override; // sub_57A680
 public:
     uint16_t unit_id;  // +0xA
-    uint8_t field_0xc;  // +0xC (= 0 in ctor)
+    uint8_t type_id;  // +0xC (= 0 in ctor)
     uint8_t field_0xd;  // +0xD (= 0 in ctor)
     uint8_t field_0xe;  // +0xE (= 0 in ctor)
     uint16_t field_0xf;  // +0xF

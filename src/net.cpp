@@ -298,7 +298,7 @@ void NetStru1::sub_51BE0E(Effect* effect, uint8_t type) {
     packet.field_0xe = effect->position->GetY();
     packet.field_0xf = type;
     packet.unit_id = (uint16_t)effect->building_id;
-    packet.field_0xc = (uint8_t)effect->typeId;
+    packet.type_id = (uint8_t)effect->typeId;
     packet.to_player_id = 0;
     this->sub_51B370(&packet, effect->position);
 }
@@ -312,7 +312,7 @@ void NetStru1::sub_51BE8F(AreaEffect* obj, int32_t flag) {
         packet.field_0xe = obj->position->GetY();
         packet.field_0xf = 0x16;
         packet.unit_id = (uint16_t)obj->building_id;
-        packet.field_0xc = (uint8_t)obj->typeId;
+        packet.type_id = (uint8_t)obj->typeId;
         packet.to_player_id = 0;
         this->sub_51B370(&packet, obj->position);
     } else {
@@ -4244,7 +4244,7 @@ void NetStru1::sub_51BAB0(Unit* caster, Spell* spell, Unit* target, int16_t dela
     PacketMoveCmd& packet = PacketMoveCmd::Inst;
     packet.id = 0x86;
     packet.unit_id = caster->building_id;
-    packet.field_0xc = 0;
+    packet.type_id = 0;
     packet.field_0xd = 0;
     packet.field_0xe = 0;
     if (caster->typeId == 0) {
@@ -4252,7 +4252,7 @@ void NetStru1::sub_51BAB0(Unit* caster, Spell* spell, Unit* target, int16_t dela
         // Original code was writing the X and Y separately into +0xa and +0xb. I hope it's the same.
         packet.unit_id = caster->position->GetX() | (caster->position->GetY() << 8);
     }
-    packet.field_0xc = (spell->spell_id * 2 + 8);
+    packet.type_id = (spell->spell_id * 2 + 8);
     if (target != nullptr) {
         *(uint16_t*)&packet.field_0xd = (uint16_t)target->building_id;
         packet.field_0xf = delay;
@@ -4274,7 +4274,7 @@ void NetStru1::sub_51BB94(Unit* caster, Spell* spell, TokenPos* pos, int16_t del
         // Original code was writing the X and Y separately into +0xa and +0xb. I hope it's the same.
         packet.unit_id = caster->position->GetX() | (caster->position->GetY() << 8);
     }
-    packet.field_0xc = spell->spell_id * 2 + 8;
+    packet.type_id = spell->spell_id * 2 + 8;
     packet.field_0xd = pos->GetX();
     packet.field_0xe = pos->GetY();
     packet.field_0xf = delay;
