@@ -3026,7 +3026,7 @@ Scenario::Scenario(const char* fname) {
             if (human->monster_info->values[0x12] != 0) {
                 human->face |= 0x80;
             }
-            human->sub_531418();
+            human->RecalcExperienceFromSkills();
             human->RecalcStats();
             if (unit_data->max_hp != -1 && unit_data->max_hp == unit_data->hp) {
                 unit_data->hp = -1;

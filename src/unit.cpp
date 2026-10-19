@@ -2756,7 +2756,7 @@ void Humanoid::ReviveWithPenalty() {
 }
 
 // 531418
-void Humanoid::sub_531418() {
+void Humanoid::RecalcExperienceFromSkills() {
     this->experience = 0;
     for (int32_t i = 0; i < this->experience_per_sphere.size(); i++) {
         this->experience_per_sphere[i] = ExperienceTable::GetExp(this->hit_values.skill_levels[i+1]);
@@ -2785,7 +2785,7 @@ void Humanoid::sub_533345(int8_t main_skill, int8_t skill_level) {
     this->hit_values.skill_levels[main_skill] = skill_level;
     this->hit_values.skill_levels[5] = skill_level / 2;
 
-    // Recalculate experience from skills (inline sub_531418).
+    // Recalculate experience from skills (inline RecalcExperienceFromSkills).
     this->experience = 0;
     for (int32_t i = 1; i < 6; i++) {
         this->experience_per_sphere[i - 1] = ExperienceTable::GetExp(this->hit_values.skill_levels[i]);
@@ -3038,7 +3038,7 @@ void Human::FUN_00532587(CString hname, int32_t is_hero, const char* unk) {
         }
     }
 
-    this->sub_531418();
+    this->RecalcExperienceFromSkills();
     this->RecalcStats();
     this->hp = this->hp_max;
     this->mp = this->mp_max;
