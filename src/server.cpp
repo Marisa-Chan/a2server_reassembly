@@ -3081,7 +3081,7 @@ void Server::sub_504a96(Packet* pkt) {
             break;
         case 0x1D: // patrol?
             if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
-                g_World->sub_5ACBEF(group, x, y);
+                g_World->GroupPatrolCommand(group, x, y);
                 player->sub_534B59();
             }
             break;
