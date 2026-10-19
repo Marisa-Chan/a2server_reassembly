@@ -2163,7 +2163,7 @@ void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
             }
         } else {
             uint16_t step = this->sub_593134(unit, 0, dest.val, (distance >> 2) + 4);
-            Building* reached = this->sub_594709(dest.val);
+            Building* reached = this->GetBuildingAt(dest.val);
             if (reached == nullptr) {
                 if (this->ChebyshevDistance(PosYX(step), dest) > 1) {
                     g_NetStru1_main.FUN_0051ce86(1, 0, unit->pOwner);
@@ -2579,7 +2579,7 @@ uint16_t* MapStuff::sub_59A670(uint8_t x, uint8_t y) {
 
 // 5946BF --- get building at (x, y); callers use the result as Unit*
 Unit* MapStuff::GetBuildingUnitAt(uint8_t x, uint8_t y) {
-    return (Unit*)this->sub_594709(PosYX(x, y).val);
+    return (Unit*)this->GetBuildingAt(PosYX(x, y).val);
 }
 
 // 594768 --- set bit 0x10 in both obstacle maps at (x, y)
@@ -2600,7 +2600,7 @@ void MapStuff::PlaceAreaEffectAt(AreaEffect* ae, uint8_t x, uint8_t y) {
 }
 
 // 594709
-Building* MapStuff::sub_594709(uint16_t yx) {
+Building* MapStuff::GetBuildingAt(uint16_t yx) {
     if (!this->ObstacleAt(yx).TestBits(0x20)) {
         return nullptr;
     }

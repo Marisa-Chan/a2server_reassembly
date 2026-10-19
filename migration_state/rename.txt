@@ -637,3 +637,4 @@ MapStuff::sub_58FB12 -> SyncEyeState -- reconciles eye position1/rotation-target
 MapStuff::sub_593C9A -> GetEffectiveSpeed -- unit speed with group speed_override applied
 MapStuff::sub_594C87 -> GetWalkCost -- walk cost at yx adjusted for area effects when occupied
 MapStuff::sub_5890CC -> BuildPathList1 -- builds unit->list1 cost-guided path from (x,y) back to current
+MapStuff::sub_5893C6 -> BuildPathList2 -- builds unit->list2 cost-guided path

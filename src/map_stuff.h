@@ -264,7 +264,7 @@ public:
     void BuildPathList2(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // Builds unit->list2 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y) — 5893C6
     uint16_t sub_592A48(Unit* unit, Unit* target); // 592A48
     int16_t sub_593134(Unit* unit, int32_t zero, uint16_t yx, uint32_t radius); // 593134
-    Building* sub_594709(uint16_t yx); // 594709
+    Building* GetBuildingAt(uint16_t yx); // 594709
     uint8_t sub_591A96(uint16_t yx1, uint16_t yx2, int32_t size); // 591A96
     void sub_597290(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by sub_596F80, queueing improved cells into queue2 — 597290
     void sub_5974B0(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by sub_596F80, queueing improved cells into queue1 — 5974B0
