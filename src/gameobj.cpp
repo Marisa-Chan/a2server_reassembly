@@ -917,7 +917,7 @@ int32_t TokenEntry::AddCount(int32_t num) { //4a7850
 }
 
 
-CString TokenEntry::FUN_004394f3() { //4394f3
+CString TokenEntry::GetSpriteName() { //4394f3
     char buffer[0x50];
 
     if (this->GetType() == TYPE_SPELL) {
@@ -1074,8 +1074,8 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
         if (this->equipmentTokens[i] != nullptr) {
             CString base_name = sprite_prefix;
             CString extra_name = sprite_prefix;
-            CString item_name = this->equipmentTokens[i]->FUN_004394f3();
-            CString item_name2 = this->equipmentTokens[i]->FUN_004394f3();
+            CString item_name = this->equipmentTokens[i]->GetSpriteName();
+            CString item_name2 = this->equipmentTokens[i]->GetSpriteName();
 
             base_name += "primary\\";
             base_name += item_name;

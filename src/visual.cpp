@@ -9892,7 +9892,7 @@ int32_t VisCharInfo::OnMouseMove(uint32_t wparam, CPoint pos) {
         return 0;
     }
 
-    CString name = main_wnd->drag_entry->FUN_004394f3();
+    CString name = main_wnd->drag_entry->GetSpriteName();
     CString path = "graphics\\inventory\\" + name + ".16a";
     main_wnd->sub_48CCA1(main_wnd->drag_entry, main_wnd->drag_src_slot, path, main_wnd->drag_src_tab);
 
@@ -14658,7 +14658,7 @@ void VisTavScene::FUN_0049bc23() {
                 if (this->field_0x210.GetSize() <= i) {
                     this->field_0x210.SetSize(i + 1, -1);
                 }
-                CString path = "graphics\\inventory\\" + entry->FUN_004394f3() + ".16a";
+                CString path = "graphics\\inventory\\" + entry->GetSpriteName() + ".16a";
                 this->field_0x210[i] = new CA16(path);
                 this->field_0x210[i]->ResetPalette(0x10, 4, 0);
             }
@@ -16225,7 +16225,7 @@ void VisInvBase::FUN_004a4ebc() {
         if (sprite != nullptr) {
             delete sprite;
         }
-        CString name = entry->FUN_004394f3();
+        CString name = entry->GetSpriteName();
         sprite = new CA16("graphics\\inventory\\" + name + ".16a");
         this->spr_cells.ElementAt(i) = sprite;
         sprite->ResetPalette(0x10, 4, 0);
@@ -16456,7 +16456,7 @@ int32_t VisInvType1::OnMouseMove(uint32_t wparam, CPoint pos) {
         main_wnd->vis_map_context->my_main_unit->gold -= main_wnd->drag_entry->count;
         main_wnd->sub_48CCA1(main_wnd->drag_entry, main_wnd->drag_src_slot, "graphics\\interface\\money\\money.16a", main_wnd->drag_src_tab);
     } else {
-        CString name = main_wnd->drag_entry->FUN_004394f3();
+        CString name = main_wnd->drag_entry->GetSpriteName();
         CString path = "graphics\\inventory\\" + name + ".16a";
         main_wnd->sub_48CCA1(main_wnd->drag_entry, main_wnd->drag_src_slot, path, main_wnd->drag_src_tab);
     }
@@ -17136,7 +17136,7 @@ int32_t VisInvExtBase::sub_4B5A6C(int32_t idx) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     TokenEntry* entry = main_wnd->drag_entry;
     int32_t region = this->VMethod38();
-    CString name = entry->FUN_004394f3();
+    CString name = entry->GetSpriteName();
     CString cs1 = "graphics\\inventory\\" + name;
     CString cs2 = cs1 + ".16a";
     main_wnd->sub_48CCA1(entry, idx, cs2, region);

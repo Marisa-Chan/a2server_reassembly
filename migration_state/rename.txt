@@ -250,3 +250,4 @@ TokenEntry::sub_4A7850 -> AddCount -- stack count += num
 TokenEntry::sub_4A7880 -> RemoveCount -- stack count -= num, restored and 0 returned when it would go below 1
 TokenEntry::sub_4A7900 -> IsStackableWith -- same item_id and compatible slot_code (5..8 interchangeable) / flg for stack merging
 TokenEntry::sub_43988E -> GetFirstModAttrId -- first non-cast-spell attribute id in the mods blob (0 if none)
+TokenEntry::FUN_004394f3 -> GetSpriteName -- builds the item graphics base name MM+TT+.. from material/type/shape/id

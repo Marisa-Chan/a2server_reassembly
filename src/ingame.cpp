@@ -1122,7 +1122,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 								ct->equipmentTokens[i] = itm;
 
 								if (g_EnableTrace) {
-									CString logstr = "Invalid item weared " + ct->equipmentTokens[i]->FUN_004394f3();
+									CString logstr = "Invalid item weared " + ct->equipmentTokens[i]->GetSpriteName();
 
 									if (ct->equipmentTokens[i]->FUN_004396d6() == 0 && g_EnableTrace != 0) {
 										CStdioFile f;
@@ -1242,7 +1242,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						}
 
 						if (g_EnableTrace) {
-							CString logstr = "Invalid item in inventory " + obj->FUN_004394f3();
+							CString logstr = "Invalid item in inventory " + obj->GetSpriteName();
 
 							CStdioFile f;
 							f.Open("error.log", CFile::modeNoTruncate | CFile::modeCreate | CFile::modeWrite);
@@ -1341,7 +1341,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						tmp.Add(d0);
 					} else {
 						if (g_EnableTrace) {
-							CString logstr = "Invalid item in shop " + d0->FUN_004394f3();
+							CString logstr = "Invalid item in shop " + d0->GetSpriteName();
 
 							CStdioFile f;
 							f.Open("error.log", CFile::modeNoTruncate | CFile::modeCreate | CFile::modeWrite);

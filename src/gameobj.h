@@ -45,7 +45,7 @@ public:
 
 	void operator=(const TokenEntry& obj);
 
-	CString FUN_004394f3(); //4394f3
+	CString GetSpriteName(); //4394f3
 	int FUN_004396d6(); //4396d6
 	const char* FUN_00439973(); //439973
 
