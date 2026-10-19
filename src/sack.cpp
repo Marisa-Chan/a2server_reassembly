@@ -31,7 +31,7 @@ void Sack::Init() {
     if (!this->position->sub_58bec3()) {
         this->position->FUN_0058a7e8(this->position->GetX(), this->position->GetY());
     }
-    this->field_0x48 = 0;
+    this->seen_by_mask = 0;
     this->field_0x4a = 0;
     this->field_0x4c = 0xFFFF;
 }
