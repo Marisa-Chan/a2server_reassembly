@@ -1830,7 +1830,7 @@ int MapStuff::sub_5943D0(Building* building, uint16_t yx) {
 }
 
 // 5945EF --- remove building from map
-int32_t MapStuff::sub_5945EF(Building* building) {
+int32_t MapStuff::RemoveBuilding(Building* building) {
     int bit_index = 0;
     for (int row = 0; row < building->height; row++) {
         for (int col = 0; col < building->width; col++) {

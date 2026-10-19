@@ -89,7 +89,7 @@ Building::~Building() {
         BldIdSet_Unset((uint16_t)this->building_id);
     }
     if (MapStuff_Instance != nullptr) {
-        MapStuff_Instance->sub_5945EF(this);
+        MapStuff_Instance->RemoveBuilding(this);
     }
 }
 
