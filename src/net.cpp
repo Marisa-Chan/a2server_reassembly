@@ -319,7 +319,7 @@ void NetStru1::sub_51BE8F(AreaEffect* obj, int32_t flag) {
         PacketAoeZone& packet = PacketAoeZone::Inst;
         packet.id = 0x87;
 
-        const int8_t radius = obj->field_0x4d;
+        const int8_t radius = obj->radius;
         packet.field_0xb = obj->position->GetX() - radius;
         packet.field_0xc = obj->position->GetY() - radius;
 

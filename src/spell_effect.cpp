@@ -317,7 +317,7 @@ uint32_t AreaEffect::sub_538897() const {
 void AreaEffect::sub_53822C() {
 	uint8_t x = this->position->GetX();
 	uint8_t y = this->position->GetY();
-	int32_t radius = this->field_0x4d;
+	int32_t radius = this->radius;
 	for (int32_t dx = x - radius; dx <= x + radius; dx++) {
 		for (int32_t dy = y - radius; dy <= y + radius; dy++) {
 			MapStuff_Instance->sub_59501E(this, dx, dy);
@@ -338,7 +338,7 @@ void AreaEffect::sub_5384FF() {
 
 	uint8_t x = this->position->GetX();
 	uint8_t y = this->position->GetY();
-	int32_t radius = this->field_0x4d;
+	int32_t radius = this->radius;
 	for (int32_t dx = x - radius; dx <= x + radius; dx++) {
 		for (int32_t dy = y - radius; dy <= y + radius; dy++) {
 			uint16_t yx = PosYX(dx, dy).val;
@@ -432,7 +432,7 @@ void AreaEffect::sub_53801A() {
 		spread_damage = static_cast<DirectDamage*>(this->effect)->unit_to_hit.some_damage2_spread > 0;
 	}
 
-	int32_t radius = this->field_0x4d;
+	int32_t radius = this->radius;
 	for (int32_t dx = -radius; dx <= radius; dx++) {
 		for (int32_t dy = -radius; dy <= radius; dy++) {
 			if (abs(dx) + abs(dy) <= radius + 1) {
@@ -517,7 +517,7 @@ AreaEffect::AreaEffect(Effect* effect, TokenPos* pos, uint8_t range) : SpellEffe
 	this->effect = effect;
 	this->TokenID = 0;
 	this->zone_active = 0;
-	this->field_0x4d = range;
+	this->radius = range;
 	this->field_0x4f = 0;
 	this->duration = 0;
 }
@@ -533,14 +533,14 @@ void AreaEffect::Serialize(CArchive& ar) {
 	SpellEffect::Serialize(ar);
 	if (ar.IsStoring()) {
 		ar << this->zone_active;
-		ar << this->field_0x4d;
+		ar << this->radius;
 		ar << this->field_0x4e;
 		ar << this->field_0x4f;
 		ar << this->duration;
 		ar.WriteObject(this->effect);
 	} else {
 		ar >> this->zone_active;
-		ar >> this->field_0x4d;
+		ar >> this->radius;
 		ar >> this->field_0x4e;
 		ar >> this->field_0x4f;
 		ar >> this->duration;
@@ -572,7 +572,7 @@ void AreaEffect::VMethod2() {
 	if ((this->duration & 0xF) == 0) {
 		uint8_t x = this->position->GetX();
 		uint8_t y = this->position->GetY();
-		int32_t radius = this->field_0x4d;
+		int32_t radius = this->radius;
 		for (int32_t dx = -radius; dx <= radius; dx++) {
 			for (int32_t dy = -radius; dy <= radius; dy++) {
 				if (MapStuff_Instance->sub_595438(this, x + dx, y + dy)) {
