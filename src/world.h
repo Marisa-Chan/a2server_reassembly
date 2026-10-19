@@ -138,7 +138,7 @@ public:
     void sub_5ABF50(Player* player); // 5ABF50
 
     // Group-order dispatch helpers (called from Server::sub_504a96)
-    void sub_5AC137(Group* group); // Refresh group_sub position/range fields.
+    void RefreshGroupGuardAnchor(Group* group); // Refresh group_sub position/range fields.
     void GroupStopCommand(Group* group);
     void sub_5A99C7(Unit* unit);
     void GroupAggressiveStance(Group* group); //5aca54

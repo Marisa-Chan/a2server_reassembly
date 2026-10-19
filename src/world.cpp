@@ -2860,7 +2860,7 @@ void World::sub_5AA78C(Unit* unit) {
 
 // Refresh group_sub position/range fields from sub_5AB719 results.
 // 5AC137
-void World::sub_5AC137(Group* group) {
+void World::RefreshGroupGuardAnchor(Group* group) {
     this->sub_5AB719(group);
     group->group_sub->field_0x0 = group->group_sub->avg_pos;
     group->group_sub->guard_range = group->group_sub->max_dist_plus_scan;
@@ -2897,7 +2897,7 @@ void World::GroupGuardCommand(Group* group, uint8_t range) {
     }
 
     group->group_sub->order = 1;
-    this->sub_5AC137(group);
+    this->RefreshGroupGuardAnchor(group);
 
     if (range == 0) {
         range = this->MinimalGuardRange;
@@ -3272,7 +3272,7 @@ void World::sub_5AC983(Group* group, int param) {
     }
 
     group->group_sub->order = 0x12;
-    this->sub_5AC137(group);
+    this->RefreshGroupGuardAnchor(group);
 
     if (param == 0) {
         if (group->group_sub->guard_range < this->MinimalGuardRange) {

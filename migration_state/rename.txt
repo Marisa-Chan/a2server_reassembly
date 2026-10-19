@@ -446,3 +446,4 @@ World::sub_5AC80F -> GroupAttackCommand -- packet 0x19: attack target, holds unr
 World::sub_5ACB4D -> GroupAttackTargetCommand -- packet 0x1B: state 8 attack on every unit
 World::sub_5ACBEF -> GroupPatrolCommand -- packet 0x1D: patrol to x/y
 World::sub_5AC187 -> GroupCastAtUnitCommand -- packet 0x1E: cast at target unit
+World::sub_5AC206 -> GroupCastAtPositionCommand -- packet 0x1F: cast at x/y
