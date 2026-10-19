@@ -1466,7 +1466,7 @@ MainWindow::MainWindow() { //4837e1
     this->last_tic_time = 0x7fffffff;
     this->field_0x448 = 0;
     this->serverBootstrapEnabled = 0;
-    this->field_0x404 = 0;
+    this->pending_game_mode = 0;
     this->vis_msgbox = nullptr;
     this->field_0x454 = 0;
     this->field_0x34c = nullptr;
@@ -3976,7 +3976,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
         this->FUN_0047efdf();
         this->FUN_0047e612();
 
-        this->field_0x404 = mode;
+        this->pending_game_mode = mode;
 
         this->vis_map_context->FUN_0041cad0(mode);
         this->vis_map_context->FUN_0041aaaa(this->vis_map_context->wimpy);
@@ -3990,7 +3990,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
         uint32_t tm = timeGetTime();
         while (true) {
             if (this->vis_map_context->field_0x80) {
-                this->field_0x404 = 0;
+                this->pending_game_mode = 0;
                 break;
             }
 

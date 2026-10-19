@@ -1993,7 +1993,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0xab:
-			if (wnd->field_0x404 == 0) {
+			if (wnd->pending_game_mode == 0) {
 				this->MsgProc(0x406, packet_info->param1 - (this->view_tiles_x / 2), packet_info->param2 - (this->view_tiles_y / 2));
 			}
 			break;

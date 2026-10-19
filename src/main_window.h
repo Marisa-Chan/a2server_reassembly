@@ -526,7 +526,7 @@ public:
     int32_t in_famehall_mission;
     int32_t mission_failed_reported;
     int32_t field_0x400;
-    int32_t field_0x404;
+    int32_t pending_game_mode;
 
     TokenEntry* field_0x408;
     int32_t field_0x40c;
