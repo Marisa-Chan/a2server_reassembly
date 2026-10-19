@@ -361,7 +361,7 @@ public:
 
     double FUN_004a7b79(); //4a7b79
 
-    void sub_4A952B(int32_t x, int32_t y, uint32_t w, uint32_t h); //4a952b
+    void UpdateTerrainShading(int32_t x, int32_t y, uint32_t w, uint32_t h); //4a952b
 public:
     int32_t width;
     int32_t height;

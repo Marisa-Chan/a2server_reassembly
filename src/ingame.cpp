@@ -6166,7 +6166,7 @@ void BigStruct2::FUN_0041c74b(int32_t x, int32_t y, int32_t w, int32_t h, int32_
 				if (unk1 == 3) {
 					this->field_0x49b8++;
 				} else if (unk1 == 0xE || unk1 == 0xF) {
-					this->field_0x80->sub_4A952B(x + i, y + j, 2, 2);
+					this->field_0x80->UpdateTerrainShading(x + i, y + j, 2, 2);
 				}
 			}
 			this->force_full_redraw = 1;
@@ -6366,7 +6366,7 @@ void BigStruct2::FUN_0041d97e(int32_t arg) {
 	int32_t time_of_day = ((uint32_t)wnd->serverLoopCounter >> 4) + 0x168;
 	if (((wnd->serverLoopCounter & 0xF) == 0 && time_of_day % 20 == 0 && g_settings.ShowTimeFlow != 0) || arg != 0) {
 		sub_4764BC(time_of_day);
-		this->field_0x80->sub_4A952B(1, 1, 0, 0);
+		this->field_0x80->UpdateTerrainShading(1, 1, 0, 0);
 		this->sub_404912();
 		sub_47FA75();
 		this->field_0xdc = 1;

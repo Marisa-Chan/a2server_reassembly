@@ -2800,7 +2800,7 @@ uint8_t MapStuff::BoxDistance(uint16_t yx1, uint16_t yx2, int32_t size) {
 }
 
 // 4a952b
-void Scenario::sub_4A952B(int32_t x, int32_t y, uint32_t w, uint32_t h) {
+void Scenario::UpdateTerrainShading(int32_t x, int32_t y, uint32_t w, uint32_t h) {
     this->inv_sun_angle = g_DeltaCLR.sun_angle;
     this->abrightness = (uint8_t)g_DeltaCLR.brightness;
     this->contrast = (uint8_t)g_DeltaCLR.contrast;
