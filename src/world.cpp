@@ -2180,7 +2180,7 @@ void World::ScriptOP_0x11(TriggerAction* action) {
 void World::ScriptOP_0x12(TriggerAction* action) {
     action->unit->RemoveFromMap();
     Unit* polymorh_as = (Unit*)action->multi;
-    polymorh_as->sub_52C36D(action->unit->position->GetX(), action->unit->position->GetY(), 3);
+    polymorh_as->AddToMap(action->unit->position->GetX(), action->unit->position->GetY(), 3);
 }
 
 // 5b415a — Change unit's owner

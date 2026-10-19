@@ -1834,7 +1834,7 @@ void Unit::RemoveFromMap() {
 }
 
 // 52C36D
-void Unit::sub_52C36D(uint8_t x, uint8_t y, uint8_t flags) {
+void Unit::AddToMap(uint8_t x, uint8_t y, uint8_t flags) {
     if (!this->sub_52BF3D(x, y, flags)) {
         CString msg("Unit can't enter map - no free place");
         LogMessage(msg);

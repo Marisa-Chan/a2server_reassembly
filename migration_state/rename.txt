@@ -305,3 +305,4 @@ Unit::sub_5287c4 -> NeedsRefreshFor -- 1 when the unit needs a state refresh for
 Unit::sub_5287ec -> ClearRefreshFor -- clears the per-player refresh flag
 Unit::sub_52C409 -> ReturnToMap -- returns the unit to the map from a structure
 Unit::sub_52C641 -> ResetActionState -- cancels pending spell item and clears action/attack state (attack_ready=1)
+Unit::sub_52C163 -> RemoveFromMap -- removes the unit from map/world lists and sets the phased-out unit_attrs bit, notifies clients
