@@ -2982,7 +2982,7 @@ void World::OrderPatrolTo(Unit* unit, uint8_t x, uint8_t y) {
     this->field24_0xa50->visibility.sub_58D768(unit, unit->position->CompatGetYX());
 }
 
-// 5A9918 — helper used by sub_5ACAFA: set unit to idle/wander state 0x16.
+// 5A9918 — helper used by GroupGoHomeCommand: set unit to idle/wander state 0x16.
 void World::OrderTeleportHome(Unit* unit) {
     this->BeginUnitOrder(unit);
     unit->state = 0x16;
@@ -4481,7 +4481,7 @@ void World::GroupStopCommand(Group* group) {
 }
 
 // 5ACAFA — order group to idle/wander (state 0).
-void World::sub_5ACAFA(Group* group) {
+void World::GroupGoHomeCommand(Group* group) {
     this->ClearGroupOrders(group);
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {

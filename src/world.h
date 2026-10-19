@@ -155,7 +155,7 @@ public:
     void OrderEnterBuilding(Unit* unit, Building* bldg);
     void sub_5AC881(Group* group, uint8_t x, uint8_t y);
     void sub_5AC8A2(Group* group, uint8_t range); // Group guard command, range=0 means use world's MinimalGuardRange.
-    void sub_5ACAFA(Group* group);
+    void GroupGoHomeCommand(Group* group);
     void sub_5AC983(Group* group, int param); // Place a newly respawned group into the world.
     void OrderAreaCast(Unit* unit, uint8_t x, uint8_t y, Spell* spell); // 5A930F — group area-cast setup (ASM).
     void sub_5AC785(Group* group, uint8_t x, uint8_t y);
@@ -165,7 +165,7 @@ public:
     void sub_5AC7C8(Group* group);
     void OrderGuardPosition(Unit* unit);
     void OrderStandGround(Unit* unit); // 5A943B — helper for GroupStopCommand.
-    void OrderTeleportHome(Unit* unit); // 5A9918 — helper for sub_5ACAFA.
+    void OrderTeleportHome(Unit* unit); // 5A9918 — helper for GroupGoHomeCommand.
     void sub_5AF805(int32_t a, int32_t b, int32_t c, Player* player);
     void sub_5AFA01(int32_t a, int32_t b, int32_t c, Player* player);
     void sub_5AF683(Player* player, uint8_t param);
