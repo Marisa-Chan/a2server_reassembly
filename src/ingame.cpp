@@ -4555,7 +4555,7 @@ void BigStruct2::sub_41A33F(uint16_t x, uint16_t y) {
 	g_NetStru1_local.QueuePacketSend(pkt);
 	CUnit* unit = this->sub_41DFDB();
 	if (unit != nullptr) {
-		unit->VMethod29();
+		unit->PlayPickupVoice();
 	}
 }
 
@@ -4601,7 +4601,7 @@ void BigStruct2::sub_41A4DF() {
 	g_NetStru1_local.QueuePacketSend(pkt);
 	CUnit* unit = this->sub_41DFDB();
 	if (unit != nullptr) {
-		unit->VMethod29();
+		unit->PlayPickupVoice();
 	}
 }
 

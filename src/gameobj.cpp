@@ -3721,7 +3721,7 @@ void CUnit::PlayRetreatVoice() {
 }
 
 // 469dae
-void CUnit::VMethod29() {
+void CUnit::PlayPickupVoice() {
     uint32_t now = timeGetTime();
     if (now - this->lastVoicePlaybackTick < 3000) {
         return;
