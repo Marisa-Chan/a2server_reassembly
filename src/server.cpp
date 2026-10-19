@@ -5378,7 +5378,7 @@ void Server::GetArenaFrags(CString* name, uint32_t* frags) {
 }
 
 // 5088DF
-void Server::sub_5088DF(Packet* pkt) {
+void Server::ProcessHatPacket(Packet* pkt) {
     if (NetStru1::HatConnector.active_connects.IsEmpty()) {
         return;
     }
@@ -6085,7 +6085,7 @@ void Server::ProcessHatPackets() {
     NetStru1::HatConnector.ProcessConnections();
     Packet* pkt;
     while ((pkt = NetStru1::HatConnector.ReceiveAnyPacket()) != nullptr) {
-        this->sub_5088DF(pkt);
+        this->ProcessHatPacket(pkt);
     }
 }
 
