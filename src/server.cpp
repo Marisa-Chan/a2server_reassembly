@@ -3719,7 +3719,7 @@ void Server::sub_504a96(Packet* pkt) {
                 break;
             case 2:
                 val = (param_value == 0) ? 0 : (param_value == 1) ? 2 : 1;
-                g_World->sub_5AF683(player, val);
+                g_World->SetFormation(player, val);
                 break;
             case 3: // Autobuff mask
                 if (player->settings) {

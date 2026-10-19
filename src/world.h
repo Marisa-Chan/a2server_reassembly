@@ -168,7 +168,7 @@ public:
     void OrderTeleportHome(Unit* unit); // 5A9918 — helper for GroupGoHomeCommand.
     void sub_5AF805(int32_t a, int32_t b, int32_t c, Player* player);
     void sub_5AFA01(int32_t a, int32_t b, int32_t c, Player* player);
-    void sub_5AF683(Player* player, uint8_t param);
+    void SetFormation(Player* player, uint8_t param);
     void sub_5A9B6B(Unit* unit); // AI tick for a monster unit? 5A9B6B
     void DoMoveStepTo(Unit* unit, PosYX yx, uint8_t max_range); // 5AA375
     void DoTurnTo(Unit* unit, uint8_t facing); // 5AA426

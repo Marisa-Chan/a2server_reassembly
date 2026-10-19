@@ -2105,7 +2105,7 @@ void World::ScriptOP_0x06(TriggerAction* action) {
 
 // 5b3b56 — Set formation
 void World::ScriptOP_0x07(TriggerAction* action) {
-    this->sub_5AF683(action->player, action->data[0]);
+    this->SetFormation(action->player, action->data[0]);
 }
 
 // 5b3ae1 — Increment variable
@@ -3058,7 +3058,7 @@ void World::sub_5AC881(Group* group, uint8_t x, uint8_t y) {
 }
 
 // 5AF683
-void World::sub_5AF683(Player* player, uint8_t param) {
+void World::SetFormation(Player* player, uint8_t param) {
     player->settings->formation = param;
 }
 
