@@ -1627,7 +1627,7 @@ int MapStuff::ClearCellBuilding(Building* building, PosYX yx) {
 }
 
 // 594A2D --- collect passable sack cells in expanding rings around the unit, up to its scan range
-void MapStuff::sub_594A2D(Unit* unit, int32_t flag) {
+void MapStuff::CollectSackCells(Unit* unit, int32_t flag) {
     uint16_t yx = unit->position->CompatGetYX();
     uint8_t range = unit->scan_range >> 8;
     this->field67_0xa4510.RemoveAll();

@@ -3926,7 +3926,7 @@ void World::sub_5A8829(Unit* unit, Unit* target, uint8_t range) {
 
 // 5A6789
 void World::sub_5A6789(Unit* unit) {
-    this->field24_0xa50->sub_594A2D(unit, 1);
+    this->field24_0xa50->CollectSackCells(unit, 1);
     if (this->field24_0xa50->field67_0xa4510.GetCount() == 0) {
         this->OrderHoldPosition(unit);
     } else {
