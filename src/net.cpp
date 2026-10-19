@@ -4859,7 +4859,7 @@ void NetStru1::WriteStatsLog(CString fname) { //51f124
     f.Close();
 }
 
-void NetStru1::FUN_0051d8d6(const CString& login, const CString& password, uint32_t flags) { //51d8d6
+void NetStru1::SendHatCredentials(const CString& login, const CString& password, uint32_t flags) { //51d8d6
     PacketJoin* pkt = &PacketJoin::Inst;
     CString namepwd = login + password;
 

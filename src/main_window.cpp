@@ -5178,7 +5178,7 @@ int32_t MainWindow::FUN_0049057b() { //49057b
 
     g_NetStru1_local.ProcessConnections();
 
-    g_NetStru1_local.FUN_0051d8d6(this->hat_settings.login, this->hat_settings.password, this->hat_settings.deathmatch);
+    g_NetStru1_local.SendHatCredentials(this->hat_settings.login, this->hat_settings.password, this->hat_settings.deathmatch);
     this->field_0x3e0.hat_id = 0;
 
     uint32_t start_time = timeGetTime();
