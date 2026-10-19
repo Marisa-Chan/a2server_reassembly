@@ -74,3 +74,4 @@ Player::field_0xa6c -> team_ready -- team game readiness flag (#ready command se
 Player::field_0xa7c -> last_save_tick -- GetTickCount() of the last character save (sub_4EE028); item ops re-save after 15s
 Player::field_0xa80 -> hat_char_id1 -- low dword of the HAT character id (HatCharId), used to find the player by char id
 Player::field_0xa84 -> hat_char_id2 -- high dword of the HAT character id (HatCharId)
+Player::field_0xa90 -> afk_expire_tick -- GetTickCount() deadline of the AFK logout timer (sub_534B17/B59); expiry logs the player out

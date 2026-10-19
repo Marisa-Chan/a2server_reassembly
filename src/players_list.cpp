@@ -216,16 +216,16 @@ void PlayersList::sub_534DDD() {
 
 	while (player != nullptr) {
 		// Inactivity timer check.
-		if (player->field_0xa90 != 0) {
+		if (player->afk_expire_tick != 0) {
 			uint32_t now = GetTickCount();
-			if (now > player->field_0xa90) {
+			if (now > player->afk_expire_tick) {
 				// Timer expired.
 				player->FUN_00534778();
 				player->drop_deadline_tick16--;
-				player->field_0xa90 = 0;
+				player->afk_expire_tick = 0;
 			} else if (now - player->field_0xa94 >= 5000) {
 				// Send countdown notification every 5 seconds.
-				g_NetStru1_main.FUN_0051ce86(0xE, (player->field_0xa90 - now) / 1000, player);
+				g_NetStru1_main.FUN_0051ce86(0xE, (player->afk_expire_tick - now) / 1000, player);
 				player->field_0xa94 += 5000;
 			}
 		}
