@@ -2102,7 +2102,7 @@ void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
         }
         int32_t ring_limit = distance + extra;
 
-        if (unit->pOwner->is_ai == 0 && this->sub_596F80(unit, dest.val) != 0) {
+        if (unit->pOwner->is_ai == 0 && this->IsCellPassableStatic(unit, dest.val) != 0) {
             ring_limit = 1000;
             memset(this->field3_0x30000, 0xFF, 0x20000);
             *this->sub_59A670(cur_x, cur_y) = 0;
@@ -2233,16 +2233,16 @@ void MapStuff::ExpandCostGridNeighbors(Unit* unit, uint8_t x, uint8_t y, Passabl
     }
 }
 
-// 597290 --- expands the static-path cost grid from (x,y) using sub_596F80 as the passability
+// 597290 --- expands the static-path cost grid from (x,y) using IsCellPassableStatic as the passability
 // check, queueing improved neighbors into queue2 (field_0x50008[0x2000/0x3000], field8_0x5400a).
 void MapStuff::sub_597290(Unit* unit, uint8_t x, uint8_t y) {
-    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::sub_596F80, this->path_queue_scratch + 0x2000, this->path_queue_scratch + 0x3000, this->field8_0x5400a);
+    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::IsCellPassableStatic, this->path_queue_scratch + 0x2000, this->path_queue_scratch + 0x3000, this->field8_0x5400a);
 }
 
-// 5974B0 --- expands the static-path cost grid from (x,y) using sub_596F80 as the passability
+// 5974B0 --- expands the static-path cost grid from (x,y) using IsCellPassableStatic as the passability
 // check, queueing improved neighbors into queue1 (field_0x50008[0/0x1000], field7_0x54008).
 void MapStuff::sub_5974B0(Unit* unit, uint8_t x, uint8_t y) {
-    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::sub_596F80, this->path_queue_scratch, this->path_queue_scratch + 0x1000, this->field7_0x54008);
+    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::IsCellPassableStatic, this->path_queue_scratch, this->path_queue_scratch + 0x1000, this->field7_0x54008);
 }
 
 // 5976D0 --- expands the dynamic-path cost grid from (x,y) using sub_5978F0 as the passability
@@ -2717,7 +2717,7 @@ int32_t MapStuff::CalcMoveStep(Unit* unit, uint16_t yx, uint8_t val) {
 }
 
 // 596F80 --- checks whether unit can occupy the size x size box of cells at yx, per obstacle_map
-int32_t MapStuff::sub_596F80(Unit* unit, uint16_t yx) {
+int32_t MapStuff::IsCellPassableStatic(Unit* unit, uint16_t yx) {
     int8_t size = unit->GetTokenSize();
     for (int32_t i = 0; i < size; i++) {
         for (int32_t j = 0; j < size; j++) {
@@ -2729,7 +2729,7 @@ int32_t MapStuff::sub_596F80(Unit* unit, uint16_t yx) {
     return 1;
 }
 
-// 5978F0 --- Passability check used by sub_5976D0/sub_597990; same as sub_596F80 but against obstacle_map2
+// 5978F0 --- Passability check used by sub_5976D0/sub_597990; same as IsCellPassableStatic but against obstacle_map2
 int32_t MapStuff::sub_5978F0(Unit* unit, uint16_t yx) {
     int8_t size = unit->GetTokenSize();
     for (int32_t i = 0; i < size; i++) {

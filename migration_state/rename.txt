@@ -648,3 +648,4 @@ MapStuff::FUN_00596d3e -> ClearBlockerAt -- clears the unit's blocker mark at yx
 MapStuff::FUN_0058b3e0 -> SnapshotCellState -- creates/stores a CellState from the current map bits
 MapStuff::FUN_00596e0e -> SetBlockerAt -- marks the unit as blocker at yx (creating the cell state if needed)
 MapStuff::FUN_005969c6 -> MoveUnitBlockers -- clears old blocker cells and marks new ones, updating the eye anchor
+MapStuff::sub_58B27F -> ClearUnitCell -- clears unit occupancy from cell (x,y) and refreshes state
