@@ -1896,7 +1896,7 @@ A2NetSock::A2NetSock() {
     this->socket = INVALID_SOCKET;
     this->player_dpid = 0;
     this->manager = nullptr;
-    this->field_0x50 = 0;
+    this->next_in_pktid = 0;
     this->next_out_pktid = 0;
     this->current_buffer = nullptr;
     this->copy_num = -1;
@@ -1914,7 +1914,7 @@ A2NetSock::~A2NetSock() {
     this->wait_obj = nullptr;
     this->player_dpid = 0;
     this->manager = nullptr;
-    this->field_0x50 = 0;
+    this->next_in_pktid = 0;
     this->next_out_pktid = 0;
     this->current_buffer = nullptr;
     this->copy_num = -1;
@@ -3258,7 +3258,7 @@ int CLlDriver::StartServerDp() {
         return 0;
     }
 
-    this->listen_socket.field_0x50 = 0;
+    this->listen_socket.next_in_pktid = 0;
     this->listen_socket.next_out_pktid = 0;
     this->listen_socket.wait_obj = CreateEventA(NULL, 0, 0, NULL);
     if (_beginthread(RecvThreadDp, 0, this) == -1L || this->listen_socket.wait_obj == nullptr) {
@@ -3334,7 +3334,7 @@ void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t
                 A2NetSock* sock = this->connection_sockets + idx;
                 inf->dpid = createmsg->dpId;
                 inf->sock = sock;
-                sock->field_0x50 = 0;
+                sock->next_in_pktid = 0;
                 sock->next_out_pktid = 0;
                 sock->uid = this->next_uid | idx;
 
@@ -3427,23 +3427,23 @@ void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t
     }
 
     uint32_t pktid = buf->pktid;
-    if (pktid == sock->field_0x50) {
+    if (pktid == sock->next_in_pktid) {
         sock->manager->ReceiveData(buf);
-        sock->field_0x50++;
+        sock->next_in_pktid++;
         if (!sock->list_0x30.IsEmpty()) {
             for (POSITION pos = sock->list_0x30.GetHeadPosition(); pos != nullptr;) {
                 POSITION curpos = pos;
                 buf = sock->list_0x30.GetNext(pos);
-                if (buf->pktid == sock->field_0x50) {
+                if (buf->pktid == sock->next_in_pktid) {
                     sock->manager->ReceiveData(buf);
-                    sock->field_0x50++;
+                    sock->next_in_pktid++;
 
                     sock->list_0x30.RemoveAt(curpos);
                     return;
                 }
             }
         }
-    } else if (pktid < sock->field_0x50) {
+    } else if (pktid < sock->next_in_pktid) {
         buf->Clear();
         this->hl_driver->AddTailFreeNet3(buf);
     } else {
@@ -3677,7 +3677,7 @@ int CLlDriver::ConnectDp(const char* name, CLlNetSession* session) {
         return 0;
     }
 
-    this->listen_socket.field_0x50 = 0;
+    this->listen_socket.next_in_pktid = 0;
     this->listen_socket.next_out_pktid = 0;
 
     this->listen_socket.uid = this->next_uid;
