@@ -1409,7 +1409,7 @@ void CUnit::CopyFromUnit(const Unit& uni) { //46b0d7
 
         PacketUnitStateVec* local_20 = &PacketUnitStateVec::Inst;
         local_20->entry_count = 0;
-        local_20->field_0xf = 0;
+        local_20->start_index = 0;
         local_20->data_size = 0;
 
         if (uni.weapon) {

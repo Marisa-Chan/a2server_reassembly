@@ -740,7 +740,7 @@ PacketUnitStateVec::PacketUnitStateVec() {
     //sub_527415  id = 0x76
     this->id          = 0x76;
     this->entry_count = 0;
-    this->field_0xf   = 0;
+    this->start_index   = 0;
     this->data_size   = 0;
 }
 

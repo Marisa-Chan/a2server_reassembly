@@ -1108,7 +1108,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				if (this->field_0x9d0.Lookup(packet_state->building_id, *(CGameObject**)&ct) != 0) {
 					uint8_t *pdata = packet_state->data;
 					for (int i = 0; i < 12; i++) {
-						if ((packet_state->field_0xf & (1 << i)) != 0) {
+						if ((packet_state->start_index & (1 << i)) != 0) {
 							if (ct->equipmentTokens[i]) {
 								delete ct->equipmentTokens[i];
 							}
@@ -1150,7 +1150,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					if ((ct->unitFlags & 0x2U) != 0 && wnd->sessionMode != 2) {
 						uint8_t* pdata = packet_state->data;
 						for (int i = 0; i < 12; i++) {
-							if ((packet_state->field_0xf & (1 << i)) != 0) {
+							if ((packet_state->start_index & (1 << i)) != 0) {
 								if (this->field_0x4988[i]) {
 									delete this->field_0x4988[i];
 								}
@@ -1187,7 +1187,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							num--;
 						}
 
-						if (num <= packet_state->field_0xf) {
+						if (num <= packet_state->start_index) {
 							if (g_EnableTrace) {
 								CString logstr = "Invalid inventory update! all items ignored.";
 
@@ -1201,7 +1201,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							break;
 						}
 
-						if (num < (packet_state->field_0xf + packet_state->entry_count)) {
+						if (num < (packet_state->start_index + packet_state->entry_count)) {
 							if (g_EnableTrace) {
 								CString logstr = "Invalid inventory update! some items ignored.";
 
@@ -1212,20 +1212,20 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 								f.Close();
 								wnd->vis_map_context->msglog.Add(logstr, clrsh_TechBlack, 30000);
 							}
-							packet_state->entry_count = num - packet_state->field_0xf;
+							packet_state->entry_count = num - packet_state->start_index;
 						}
 
 						for (int i = 0; i < packet_state->entry_count; i++) {
-							if ((i + packet_state->field_0xf) < ct->tokenEntries.GetSize()) {
-								TokenEntry* o = ct->tokenEntries[i + packet_state->field_0xf];
+							if ((i + packet_state->start_index) < ct->tokenEntries.GetSize()) {
+								TokenEntry* o = ct->tokenEntries[i + packet_state->start_index];
 								if (o) {
 									delete o;
-									ct->tokenEntries[i + packet_state->field_0xf] = nullptr;
+									ct->tokenEntries[i + packet_state->start_index] = nullptr;
 								}
 							}
 						}
 
-						ct->tokenEntries.RemoveAt(packet_state->field_0xf, packet_state->entry_count);
+						ct->tokenEntries.RemoveAt(packet_state->start_index, packet_state->entry_count);
 
 						if ((ct->unitFlags & 0x20) != 0) {
 							ct->tokenEntries.RemoveAt(ct->tokenEntries.GetUpperBound());
@@ -1238,7 +1238,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						obj->field_0x18 = 2;
 
 						if (obj->FUN_004396d6()) {
-							ct->tokenEntries.InsertAt(i + packet_state->field_0xf, obj, 1);
+							ct->tokenEntries.InsertAt(i + packet_state->start_index, obj, 1);
 						}
 
 						if (g_EnableTrace) {
@@ -1271,15 +1271,15 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						if (wnd->sessionMode != 2) {
 							uint8_t *pdata = packet_state->data;
 							for (int i = 0; i < packet_state->entry_count; i++) {
-								if (i + packet_state->field_0xf < this->field_0x4974.GetSize()) {
-									Item* itm = this->field_0x4974[i + packet_state->field_0xf];
+								if (i + packet_state->start_index < this->field_0x4974.GetSize()) {
+									Item* itm = this->field_0x4974[i + packet_state->start_index];
 									if (itm) {
 										delete itm;
 									}
 								}
 
 								Item * itm = sub_4F499B(&pdata);
-								this->field_0x4974.SetAtGrow(i + packet_state->field_0xf, itm);
+								this->field_0x4974.SetAtGrow(i + packet_state->start_index, itm);
 							}
 
 							if ((packet_state->mode & 0x80) == 0) {

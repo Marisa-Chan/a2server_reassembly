@@ -4468,7 +4468,7 @@ void NetStru1::sub_51A6D5(Unit* unit, Player* player, int32_t param5, int32_t pa
     PacketUnitStateVec& packet = PacketUnitStateVec::Inst;
     packet.id = 0x76;
     packet.entry_count = (uint16_t)(param6 - param5);
-    packet.field_0xf = (uint16_t)param5;
+    packet.start_index = (uint16_t)param5;
     packet.data_size = 0;
 
     packet.mode = 2;
@@ -4552,7 +4552,7 @@ void NetStru1::sub_51A0EF(Unit* unit, Player* player, int32_t flags) {
     PacketUnitStateVec& packet = PacketUnitStateVec::Inst;
     packet.id = 0x76;
     packet.entry_count = 0;
-    packet.field_0xf = (uint16_t)flags;
+    packet.start_index = (uint16_t)flags;
     packet.data_size = 0;
     packet.mode = 1;
     packet.building_id = unit->building_id;
@@ -4595,7 +4595,7 @@ void NetStru1::sub_51A8B2(Token* token, Inventory* inventory, Player* player, in
     PacketUnitStateVec& packet = PacketUnitStateVec::Inst;
     packet.id = 0x76;
     packet.entry_count = 0;
-    packet.field_0xf = 0;
+    packet.start_index = 0;
     packet.data_size = 0;
     packet.building_id = token->building_id;
     if (player == nullptr) {
@@ -4620,7 +4620,7 @@ void NetStru1::sub_51AA26(Shop* shop, CMultiShopShelf* shelf, Player* player, ui
     PacketUnitStateVec& packet = PacketUnitStateVec::Inst;
     packet.id = 0x76;
     packet.entry_count = 0;
-    packet.field_0xf = 0;
+    packet.start_index = 0;
     packet.data_size = 0;
     packet.building_id = shop->building_id;
     if (player == nullptr) {
