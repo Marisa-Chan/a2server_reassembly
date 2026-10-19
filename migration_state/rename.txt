@@ -460,3 +460,4 @@ World::sub_5B5C2B -> PackDistFacing -- packs distance<<8 + facing delta between 
 World::sub_5B545F -> RegisterPlayer -- registers a player in the diplomacy matrix
 World::sub_5ABFBC -> ProcessGroupAi -- per-group AI brain switch on group_sub->order
 World::sub_5AF022 -> IdleGroupUnits -- sets every unit of the group to idle/wander
+World::sub_5AF646 -> ProcessGroupRecall -- per-unit recall processing (teleport home / return helpers)

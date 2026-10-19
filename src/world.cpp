@@ -3953,7 +3953,7 @@ void World::sub_5AB5E3(Unit* unit) {
 }
 
 // 5AF5DC
-void World::sub_5AF5DC(Unit* unit) {
+void World::ProcessUnitRecall(Unit* unit) {
     if (this->sub_5A89D5(unit) != 0) {
         this->DoTeleportHome(unit);
     } else if (this->sub_5A8BDA(unit) != 0) {
@@ -4131,7 +4131,7 @@ void World::sub_5AF061(Group* group, uint16_t yx) {
 void World::ProcessGroupRecall(Group* group) {
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
-        this->sub_5AF5DC(unit);
+        this->ProcessUnitRecall(unit);
     }
 }
 

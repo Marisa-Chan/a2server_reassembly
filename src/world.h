@@ -191,7 +191,7 @@ public:
     void ProcessGroupAi(Group* group); // 5ABFBC
     void sub_5AF623(Group* group); // 5AF623
     void ProcessGroupRecall(Group* group); // 5AF646
-    void sub_5AF5DC(Unit* unit); // 5AF5DC — helper for ProcessGroupRecall.
+    void ProcessUnitRecall(Unit* unit); // 5AF5DC — helper for ProcessGroupRecall.
     void IdleGroupUnits(Group* group); // 5AF022
     void sub_5ABCFD(Unit* unit); // 5ABCFD
     void sub_5A5155(Unit* unit); // 5A5155 — helper for sub_5ABCFD.
@@ -340,9 +340,9 @@ public:
     // Helpers for the functions above; bodies remain in Main.asm for now.
     UnitList* sub_5A3791(Unit* unit); // 5A3791 — helper for sub_5A37C5 (ASM).
     void sub_5A3DC9(Unit* unit, UnitList* list); // 5A3DC9 — helper for sub_5A37C5 (ASM).
-    int32_t sub_5A89D5(Unit* unit); // 5A89D5 — helper for sub_5AF5DC (ASM).
-    int32_t sub_5A8BDA(Unit* unit); // 5A8BDA — helper for sub_5AF5DC (ASM).
-    void sub_5A8CD8(Unit* unit); // 5A8CD8 — helper for sub_5AF5DC.
+    int32_t sub_5A89D5(Unit* unit); // 5A89D5 — helper for ProcessUnitRecall (ASM).
+    int32_t sub_5A8BDA(Unit* unit); // 5A8BDA — helper for ProcessUnitRecall (ASM).
+    void sub_5A8CD8(Unit* unit); // 5A8CD8 — helper for ProcessUnitRecall.
     void sub_5A8DBC(Unit* unit); // 5A8DBC — helper for sub_5A8CD8 (ASM).
     void sub_5A925C(Unit* unit, uint8_t a, uint8_t b); // 5A925C — helper for sub_5AB5E3 (ASM).
 
