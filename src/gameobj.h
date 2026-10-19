@@ -301,7 +301,12 @@ public:
 	int16_t field_0x164;
 	uint8_t __gap_u3[6];
 	int32_t experience_per_sphere[5];
-	uint8_t field_0x180[8];
+	uint8_t stat_body; // 0x180
+	uint8_t stat_reaction; // 0x181
+	uint8_t stat_mind; // 0x182
+	uint8_t stat_spirit; // 0x183
+	uint8_t death_state; // 0x184: 0=alive, 1=dying, 2..4 bone phases, >=5 fully dead
+	uint8_t __gap_u5[3];
 	std::array<TokenEntry*, 12> equipmentTokens; // 0x188
 	int32_t unitFlags; // 0x1b8
 	int32_t lastVoicePlaybackTick; // 1bc

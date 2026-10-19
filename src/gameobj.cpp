@@ -1012,7 +1012,7 @@ CUnit::CUnit() { //46411c
     this->y_pos2 = 0;
     this->x_pos2 = 0;
     this->unitFlags = 0;
-    this->field_0x180[4] = 0;
+    this->death_state = 0;
     this->heroSpriteArmorMaterial = -1;
     this->field_0x161 = 0;
     this->field_0x162 = 0;
@@ -1651,7 +1651,7 @@ void CGameObject::FUN_004627bb(int32_t x, int32_t y) { // 4627BB
 }
 
 void CUnit::VMethod8(int32_t arg1, int32_t arg2, int32_t arg3) { // 466a78
-    if (this->field_0x180[4] >= 5) {
+    if (this->death_state >= 5) {
         return;
     }
 
@@ -1774,7 +1774,7 @@ void CUnit::VMethod8(int32_t arg1, int32_t arg2, int32_t arg3) { // 466a78
 }
 
 void CUnit::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
-    if (this->field_0x180[4] >= 5) {
+    if (this->death_state >= 5) {
         return;
     }
 
@@ -1819,7 +1819,7 @@ void CUnit::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
             if (vfx->flip != 0) {
                 frame = (base_phases + vfx->attack_phases + vfx->dying_phases) * 5 + dir8 * vfx->idle_phases + 9 + vfx->idle_anim_frames[this->phase];
             }
-        } else if (this->field_0x180[4] == 1) {
+        } else if (this->death_state == 1) {
             vfx_idx = vfx->dying;
             UnitVFXUnfo* dying_vfx = g_VFX_info[vfx_idx];
             file_idx = dying_vfx->file;
@@ -1834,7 +1834,7 @@ void CUnit::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
             } else {
                 frame = (dir8 + 1) * dying_vfx->dying_phases + (base_phases + dying_vfx->attack_phases) * 8 + 0xF;
             }
-        } else if (this->field_0x180[4] <= 1 || g_VFX_info[vfx->dying]->bone_phases == 0) {
+        } else if (this->death_state <= 1 || g_VFX_info[vfx->dying]->bone_phases == 0) {
             frame = (this->dir - 8) & 0xF;
             if (vfx->flip != 0 && frame > 8) {
                 frame = 0x10 - frame;
@@ -1851,9 +1851,9 @@ void CUnit::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
                 flip = 1;
             }
             if (dying_vfx->flip != 0) {
-                frame = (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 5 + dir8 * dying_vfx->bone_phases + 9 + this->field_0x180[4] - 2;
+                frame = (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 5 + dir8 * dying_vfx->bone_phases + 9 + this->death_state - 2;
             } else {
-                frame = dir8 * dying_vfx->bone_phases + (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 8 + 0x10 + this->field_0x180[4] - 2;
+                frame = dir8 * dying_vfx->bone_phases + (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 8 + 0x10 + this->death_state - 2;
             }
         }
         break;
@@ -1899,7 +1899,7 @@ void CUnit::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
     }
     }
 
-    if (this->FUN_00462405(0x2C) >= 0 && this->field_0x180[4] <= 2) {
+    if (this->FUN_00462405(0x2C) >= 0 && this->death_state <= 2) {
         frame = (this->dir - 8) & 0xF;
         if (vfx->flip != 0 && frame > 8) {
             frame = 0x10 - frame;
@@ -1917,7 +1917,7 @@ void CUnit::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
         palette = g_VFX_info[vfx_idx]->FUN_0046f680(this->face - 1);
     }
 
-    if (this->FUN_00462405(0x2C) >= 0 && this->field_0x180[4] <= 2) {
+    if (this->FUN_00462405(0x2C) >= 0 && this->death_state <= 2) {
         if (palette_id == 0) {
             palette = g_Human_palettes[0x10];
         } else {
@@ -1990,7 +1990,7 @@ void CUnit::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
 }
 
 void CUnit::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
-    if (this->field_0x180[4] >= 5) {
+    if (this->death_state >= 5) {
         return;
     }
 
@@ -2022,7 +2022,7 @@ void CUnit::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
             if (vfx->flip != 0) {
                 frame = (base_phases + vfx->attack_phases + vfx->dying_phases) * 5 + dir8 * vfx->idle_phases + 9 + vfx->idle_anim_frames[this->phase];
             }
-        } else if (this->field_0x180[4] == 1) {
+        } else if (this->death_state == 1) {
             vfx_idx = vfx->dying;
             UnitVFXUnfo* dying_vfx = g_VFX_info[vfx_idx];
             file_idx = dying_vfx->file;
@@ -2037,7 +2037,7 @@ void CUnit::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
             } else {
                 frame = (dir8 + 1) * dying_vfx->dying_phases + (base_phases + dying_vfx->attack_phases) * 8 + 15;
             }
-        } else if (this->field_0x180[4] <= 1 || g_VFX_info[vfx->dying]->bone_phases == 0) {
+        } else if (this->death_state <= 1 || g_VFX_info[vfx->dying]->bone_phases == 0) {
             frame = (this->dir - 8) & 0xF;
             if (vfx->flip != 0 && frame > 8) {
                 frame = 16 - frame;
@@ -2054,9 +2054,9 @@ void CUnit::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
                 flip = 1;
             }
             if (dying_vfx->flip != 0) {
-                frame = (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 5 + dir8 * dying_vfx->bone_phases + 7 + this->field_0x180[4];
+                frame = (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 5 + dir8 * dying_vfx->bone_phases + 7 + this->death_state;
             } else {
-                frame = dir8 * dying_vfx->bone_phases + (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 8 + 14 + this->field_0x180[4];
+                frame = dir8 * dying_vfx->bone_phases + (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 8 + 14 + this->death_state;
             }
         }
         break;
@@ -2102,7 +2102,7 @@ void CUnit::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
     }
     }
 
-    if (this->FUN_00462405(0x2C) >= 0 && this->field_0x180[4] <= 2) {
+    if (this->FUN_00462405(0x2C) >= 0 && this->death_state <= 2) {
         frame = (this->dir - 8) & 0xF;
         if (vfx->flip != 0 && frame > 8) {
             frame = 16 - frame;
@@ -2624,7 +2624,7 @@ int32_t CUnit::VMethod11() { // 46785f
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
 
-    if (this->field_0x180[4] >= 5) {
+    if (this->death_state >= 5) {
         return 1;
     }
 
@@ -3113,7 +3113,7 @@ void CUnit::VMethod18() {
 
 // 46761e
 void CUnit::VMethod9(int32_t arg1, int32_t arg2, int32_t arg3) {
-    if (this->field_0x180[4] > 1) {
+    if (this->death_state > 1) {
         return;
     }
 
@@ -3185,7 +3185,7 @@ int32_t CUnit::VMethod15() {
 
 // 464765
 void CUnit::VMethod10() {
-    if (this->field_0x180[4] < 2 && (this->unitFlags & 0x80) == 0) {
+    if (this->death_state < 2 && (this->unitFlags & 0x80) == 0) {
         this->FUN_00461c41(2, this);
     } else {
         this->FUN_00461c41(4, this);
@@ -3336,14 +3336,14 @@ void CUnit::VMethod17(int16_t arg1, int32_t arg2, int32_t arg3, int32_t arg4, in
 
 // 46f600
 void CUnit::VMethod13() {
-    if (this->field_0x180[4] < 3) {
+    if (this->death_state < 3) {
         CGameObject::VMethod13();
     }
 }
 
 // 46f630
 void CUnit::VMethod14() {
-    if (this->field_0x180[4] < 3) {
+    if (this->death_state < 3) {
         CGameObject::VMethod14();
     }
 }
@@ -3769,9 +3769,9 @@ void StructEnter::FUN_00473b80() {
 		if (unit->map_player != map->my_main_unit) {
 			continue;
 		}
-		if ((unit->unitFlags & 1) != 0 && unit->field_0x180[4] == 0) {
+		if ((unit->unitFlags & 1) != 0 && unit->death_state == 0) {
 			this->FUN_00474ff0(unit);
-		} else if ((unit->unitFlags & 0x10) != 0 && unit->field_0x180[4] == 0) {
+		} else if ((unit->unitFlags & 0x10) != 0 && unit->death_state == 0) {
 			this->FUN_00475080(unit);
 		}
 	}

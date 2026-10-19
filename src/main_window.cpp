@@ -5488,10 +5488,10 @@ void CGameSession::FUN_00493d8d() { //493d8d
     local_40.color = this->color;
 
     FileSectionStats local_74;
-    local_74.body = cu->field_0x180[0];
-    local_74.reaction = cu->field_0x180[1];
-    local_74.mind = cu->field_0x180[2];
-    local_74.spirit = cu->field_0x180[3];
+    local_74.body = cu->stat_body;
+    local_74.reaction = cu->stat_reaction;
+    local_74.mind = cu->stat_mind;
+    local_74.spirit = cu->stat_spirit;
     local_74.money = 1000;
     local_74.monster_kills = 0;
     local_74.player_kills = 0;
@@ -5563,10 +5563,10 @@ void CGameSession::RecreateCUnit() { //4941c0
         hm->sub_533345(this->main_sphere, 0x14);
         cu->CopyFromUnit(*hm);
 
-        this->body = cu->field_0x180[0] = cu->body;
-        this->reaction = cu->field_0x180[1] = cu->reaction;
-        this->mind = cu->field_0x180[2] = cu->mind;
-        this->spirit = cu->field_0x180[3] = cu->spirit;
+        this->body = cu->stat_body = cu->body;
+        this->reaction = cu->stat_reaction = cu->reaction;
+        this->mind = cu->stat_mind = cu->mind;
+        this->spirit = cu->stat_spirit = cu->spirit;
 
         this->face = cu->face;
 
@@ -5737,10 +5737,10 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx) { //492c66
 
             unit->CopyFromUnit(*hum);
 
-            unit->field_0x180[0] = stats->body;
-            unit->field_0x180[1] = stats->reaction;
-            unit->field_0x180[2] = stats->mind;
-            unit->field_0x180[3] = stats->spirit;
+            unit->stat_body = stats->body;
+            unit->stat_reaction = stats->reaction;
+            unit->stat_mind = stats->mind;
+            unit->stat_spirit = stats->spirit;
 
             unit->map_player = mwnd->vis_map_context->field_0x9b8[0];
 
@@ -5860,10 +5860,10 @@ void CGameSession::FUN_004946e0() { //4946e0
     info.color = (uint8_t)this->color;
 
     FileSectionStats stats;
-    stats.body = unit->field_0x180[0];
-    stats.reaction = unit->field_0x180[1];
-    stats.mind = unit->field_0x180[2];
-    stats.spirit = unit->field_0x180[3];
+    stats.body = unit->stat_body;
+    stats.reaction = unit->stat_reaction;
+    stats.mind = unit->stat_mind;
+    stats.spirit = unit->stat_spirit;
     stats.money = map->my_main_unit->gold;
     stats.monster_kills = this->monster_killed;
     stats.player_kills = this->player_killed;

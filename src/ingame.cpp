@@ -610,7 +610,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							ct->mp_max = g_CUnitStatic.mp_max;
 						}
 
-						uint8_t sval = ct->field_0x180[4];
+						uint8_t sval = ct->death_state;
 
 						if (packet_unit->flags_mask & 0x10) {
 							ct->dir = g_CUnitStatic.last_action;
@@ -718,10 +718,10 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							ct->mind = pdata[2];
 							ct->spirit = pdata[3];
 
-							ct->field_0x180[0] = pdata[4];
-							ct->field_0x180[1] = pdata[5];
-							ct->field_0x180[2] = pdata[6];
-							ct->field_0x180[3] = pdata[7];
+							ct->stat_body = pdata[4];
+							ct->stat_reaction = pdata[5];
+							ct->stat_mind = pdata[6];
+							ct->stat_spirit = pdata[7];
 
 							pdata += 8;
 						}
@@ -783,22 +783,22 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						}
 
 						if (ct->hp < -600) {
-							ct->field_0x180[4] = 5;
+							ct->death_state = 5;
 						} else if (ct->hp < -40) {
-							ct->field_0x180[4] = 4;
+							ct->death_state = 4;
 						} else if (ct->hp < -20) {
-							ct->field_0x180[4] = 3;
+							ct->death_state = 3;
 						} else if (ct->hp < -10) {
-							ct->field_0x180[4] = 2;
+							ct->death_state = 2;
 						} else if (ct->hp < 1) {
-							ct->field_0x180[4] = 1;
+							ct->death_state = 1;
 						} else {
-							ct->field_0x180[4] = 0;
+							ct->death_state = 0;
 						}
 
-						g_CUnitStatic.field_0x180[4] = ct->field_0x180[4];
+						g_CUnitStatic.death_state = ct->death_state;
 
-						if (ct->serverId != 0 && ct->serverId < 21 && ct->field_0x180[4] > 1) {
+						if (ct->serverId != 0 && ct->serverId < 21 && ct->death_state > 1) {
 							ScenarioSetVar(ct->serverId + 0x213, 0);
 						}
 
@@ -812,7 +812,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							}
 						}
 
-						switch (ct->field_0x180[4]) {
+						switch (ct->death_state) {
 						case 0:
 							if (sval != 0) {
 								ct->action = 0;
@@ -853,7 +853,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						case 2:
 						case 3:
 						case 4:
-							if (wnd->sessionMode != 2 && ct == this->field_0x3f6c && ct->field_0x180[4] == 4 && sval < 4) {
+							if (wnd->sessionMode != 2 && ct == this->field_0x3f6c && ct->death_state == 4 && sval < 4) {
 								this->msglog.Add(txt_patch.GetLine(0x44), clr_log_sblack, 10000);
 								this->msglog.Add(txt_patch.GetLine(0x45), clr_log_sblack, 10000);
 							}
@@ -889,7 +889,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							}
 							break;
 						}
-						if (g_CUnitStatic.field_0x180[4] < 5) {
+						if (g_CUnitStatic.death_state < 5) {
 							if ((wnd->dialogsMask & 1) != 0 && this->field_0x80) {
 								ct->FUN_0046190d();
 							}
@@ -2809,7 +2809,7 @@ void BigStruct2::CleanupCompletedMissionMapState() { //41ce5a
 		} else {
 			CUnit* uni = (CUnit*)obj;
 			if ((uni->unitFlags & 1) != 0 && uni->hp >= -10 && uni->map_player == this->my_main_unit) {
-				uni->field_0x180[4] = 0;
+				uni->death_state = 0;
 				uni->action = 0;
 				uni->action_segments = 0;
 				uni->VMethod1(0);
@@ -3685,7 +3685,7 @@ void BigStruct2::sub_416C4C() {
 		CGameObject* obj;
 		this->field_0x9d0.GetNextAssoc(it, key, obj);
 		if (obj->IsKindOf(RUNTIME_CLASS(CUnit)) && obj->map_player == this->my_main_unit &&
-			((CUnit*)obj)->field_0x180[4] <= 1 && !(((CUnit*)obj)->unitFlags & 0x80)) {
+			((CUnit*)obj)->death_state <= 1 && !(((CUnit*)obj)->unitFlags & 0x80)) {
 			obj->VMethod1(1);
 		} else {
 			obj->VMethod1(0);
@@ -5505,7 +5505,7 @@ void BigStruct2::sub_406F7B() {
 					CRect sel = vfx->selection;
 					sel.OffsetRect(unit->centerScreenX - vfx->center_x,
 						(unit->centerScreenY - vfx->center_y) - unit->terrainHeightOffset - unit->z_pos);
-					if (unit->field_0x180[4] < 2) {
+					if (unit->death_state < 2) {
 						this->sub_404DA3(&sel, unit->unit_id);
 					}
 					if (g_Shadows != 0) {
@@ -5673,7 +5673,7 @@ void BigStruct2::sub_406F7B() {
 					CRect sel = vfx->selection;
 					sel.OffsetRect(obj->centerScreenX - vfx->center_x,
 						(obj->centerScreenY - vfx->center_y) - obj->terrainHeightOffset - obj->z_pos);
-					if (((CUnit*)obj)->field_0x180[4] < 2) {
+					if (((CUnit*)obj)->death_state < 2) {
 						this->sub_404DA3(&sel, obj->unit_id);
 					}
 					obj->VMethod6(x, y, light);
