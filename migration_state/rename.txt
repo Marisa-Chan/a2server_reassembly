@@ -566,3 +566,4 @@ NetStru1::sub_51E40C -> SendHatRawString -- sends raw string data to HAT
 NetStru1::FUN_0051d8d6 -> SendHatCredentials -- sends 0xC9 login+password credentials to HAT
 NetStru1::FUN_0051d9d0 -> SendHatCharId -- sends the HAT character id
 NetStru1::FUN_0051d9a0 -> SendHatLogout -- sends 0xC8 to HAT
+NetStru1::sub_51A0EF -> SendHumanoidProps -- humanoid equipment/property update (0xFFF flag mask)

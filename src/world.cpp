@@ -2130,11 +2130,11 @@ void World::ScriptOP_0x0a(TriggerAction* action) {
 // 5b3e56 — Give item from one unit (action->unit) to another (action->multi)
 void World::ScriptOP_0x0b(TriggerAction* action) {
     Item* item = action->unit->inventory->sub_552C37(action->item_id);
-    g_NetStru1_main.sub_51A6D5(action->unit, action->unit->pOwner, 0, 0);
+    g_NetStru1_main.SendMonsterInventory(action->unit, action->unit->pOwner, 0, 0);
     if (item) {
         Unit* recipient = (Unit*)action->multi;
         recipient->inventory->PutItemIntoBagAtDefault(item);
-        g_NetStru1_main.sub_51A6D5(recipient, recipient->pOwner, 0, 0);
+        g_NetStru1_main.SendMonsterInventory(recipient, recipient->pOwner, 0, 0);
     }
 }
 
@@ -2144,7 +2144,7 @@ void World::ScriptOP_0x0c(TriggerAction* action) {
     if (item) {
         action->unit->inventory->PutItemIntoBagAtDefault(item);
     }
-    g_NetStru1_main.sub_51A6D5(action->unit, action->unit->pOwner, 0, 0);
+    g_NetStru1_main.SendMonsterInventory(action->unit, action->unit->pOwner, 0, 0);
 }
 
 // 5b3f2f — Remove item from unit's inventory
@@ -2153,7 +2153,7 @@ void World::ScriptOP_0x0d(TriggerAction* action) {
     if (item) {
         delete item;
     }
-    g_NetStru1_main.sub_51A6D5(action->unit, action->unit->pOwner, 0, 0);
+    g_NetStru1_main.SendMonsterInventory(action->unit, action->unit->pOwner, 0, 0);
 }
 
 // 5b408d — kill unit
@@ -2268,8 +2268,8 @@ void World::ScriptOP_0x1c(TriggerAction* action) {
     Unit* target = (Unit*)action->multi;
     target->inventory->sub_552A42(action->unit->inventory);
     action->unit->inventory = new Inventory();
-    g_NetStru1_main.sub_51A6D5(action->unit, action->unit->pOwner, 0, 0);
-    g_NetStru1_main.sub_51A6D5(target, target->pOwner, 0, 0);
+    g_NetStru1_main.SendMonsterInventory(action->unit, action->unit->pOwner, 0, 0);
+    g_NetStru1_main.SendMonsterInventory(target, target->pOwner, 0, 0);
 }
 
 // 5b455f — Tile Spell Duration: set duration of spell (data[2]) at tile (data[0], data[1])
@@ -2386,7 +2386,7 @@ void World::ScriptOP_0x26(TriggerAction* action) {
         Item* item = unit->inventory->sub_552C37(action->item_id);
         if (item) {
             delete item;
-            g_NetStru1_main.sub_51A6D5(unit, unit->pOwner, 0, 0);
+            g_NetStru1_main.SendMonsterInventory(unit, unit->pOwner, 0, 0);
         }
     }
 }

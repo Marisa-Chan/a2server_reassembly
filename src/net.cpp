@@ -964,7 +964,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
 
     // Owner-only: send inventory.
     if (orig_mask & 0x200000 && unit->pOwner == player) {
-        this->sub_51A6D5(unit, player, param6, param7);
+        this->SendMonsterInventory(unit, player, param6, param7);
     }
 
     bool needs_refresh = unit->NeedsRefreshFor(player);
@@ -4455,7 +4455,7 @@ void NetStru1::SendHatPlayerCheck(int32_t a, int32_t b, uint8_t status, int16_t 
 }
 
 // 51A6D5
-void NetStru1::sub_51A6D5(Unit* unit, Player* player, int32_t param5, int32_t param6) {
+void NetStru1::SendMonsterInventory(Unit* unit, Player* player, int32_t param5, int32_t param6) {
     if (unit->typeId < 0x21 || unit->typeId >= 0x40) {
         return;
     }

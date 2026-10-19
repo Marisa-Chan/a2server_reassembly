@@ -153,7 +153,7 @@ public:
     void SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t param4, int32_t param5, int32_t param6);
 
     void SendHumanoidProps(Unit* unit, Player* player, int32_t flags);
-    void sub_51A6D5(Unit* unit, Player* player, int32_t param5, int32_t param6);
+    void SendMonsterInventory(Unit* unit, Player* player, int32_t param5, int32_t param6);
     void sub_51BDA4(Effect* effect, Unit* unit, uint8_t arg);
 
     void SendGameInfo(int32_t param1, Player* player); // Send server state / player list to player
