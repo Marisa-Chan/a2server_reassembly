@@ -519,7 +519,7 @@ public:
     CString last_ip; //3b0
     HatSettings hat_settings; //3b4
     VisScreen* vis_serverscreen;
-    VisScreen* field_0x3d4;
+    VisScreen* vis_cutscenes;
     VisFameDocument* vis_famedocument;
     VisScreen* field_0x3dc;
     Main3e0 field_0x3e0;

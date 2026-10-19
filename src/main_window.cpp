@@ -2608,19 +2608,19 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         }
 
         delete obj;
-    } else if (obj == this->field_0x3d4) {
+    } else if (obj == this->vis_cutscenes) {
         this->dialogsMask &= ~8;
 
-        if (this->field_0x3d4->GetCloseCode() == 0x445) {
-            DAT_00660f88 = ((VisListBox*)this->field_0x3d4->FindChild(2))->GetSelectedIndex();
+        if (this->vis_cutscenes->GetCloseCode() == 0x445) {
+            DAT_00660f88 = ((VisListBox*)this->vis_cutscenes->FindChild(2))->GetSelectedIndex();
             this->FUN_00491f7d(DAT_00660f88);
             PostMessage(0x43b, 0, 0);
         } else {
             PostMessage(0x421, 0, 0);
         }
 
-        delete this->field_0x3d4;
-        this->field_0x3d4 = nullptr; // MUST BE DONE? WAT?
+        delete this->vis_cutscenes;
+        this->vis_cutscenes = nullptr; // MUST BE DONE? WAT?
     } else if (obj == this->vis_missionfailed) {
         this->dialogsMask &= ~8;
 
@@ -3405,8 +3405,8 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                     local_934.Add(txt_cutscene.GetLine(i));
                 }
             }
-            this->field_0x3d4 = new VisCutScenesDlg(17, 100, 30, 540, 450, local_934);
-            this->PopUpScreen(this->field_0x3d4);
+            this->vis_cutscenes = new VisCutScenesDlg(17, 100, 30, 540, 450, local_934);
+            this->PopUpScreen(this->vis_cutscenes);
         }
         break;
 
