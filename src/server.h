@@ -276,7 +276,7 @@ public:
     Inn* FindInnAt(TokenPos* pos);   // Inn lookup by TokenPos
     Player* FindPlayerById(uint16_t player_id);
     void SaveGame(CString* str);
-    void sub_4FF878(Player* player);
+    void SendMapInfo(Player* player);
     void sub_504a96(Packet* packet);
 
     void FUN_004f94c0(int32_t arg);

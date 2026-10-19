@@ -401,3 +401,4 @@ Server::sub_502AD1 -> FindPlayerUnit -- player_ref+unit_id lookup of a live (not
 Server::sub_502C50 -> FindShopAt -- shop lookup by TokenPos
 Server::sub_502CB7 -> FindInnAt -- inn lookup by TokenPos
 Server::sub_502B4A -> FindPlayerById -- player lookup by player_id
+Server::sub_4ED2DC -> SaveGame -- saves the game to file (drops empty groups first)

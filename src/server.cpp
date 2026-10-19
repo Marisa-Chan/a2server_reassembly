@@ -3540,7 +3540,7 @@ void Server::sub_504a96(Packet* pkt) {
         {
             player = g_PlayersList->sub_535B50(packet_info->from_player_id);
             if (player) {
-                this->sub_4FF878(player);
+                this->SendMapInfo(player);
             }
             break;
         }
@@ -6057,7 +6057,7 @@ Inn* Server::FindInnAt(TokenPos* pos) {
 }
 
 // 4FF878
-void Server::sub_4FF878(Player* player) {
+void Server::SendMapInfo(Player* player) {
     PacketJoin* pkt = new PacketJoin(this->current_map_name);
     pkt->id = 0xBF;
     pkt->__field_0xa = (uint32_t)dword_6CDB38;
