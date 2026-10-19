@@ -3289,8 +3289,8 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x431:
-        if (this->field_0x3fc == 0 && this->sessionMode == 2) {
-            this->field_0x3fc = 1;
+        if (this->mission_failed_reported == 0 && this->sessionMode == 2) {
+            this->mission_failed_reported = 1;
             this->vis_missionfailed = new VisMissionFailed(1, 32, 100, 608, 380, g_MissionFailures[wParam - 2]);
             this->PopUpScreen(this->vis_missionfailed);
 
@@ -4157,7 +4157,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
         this->FUN_00494c91();
         this->field_0x450 = -1;
         this->in_famehall_mission = 0;
-        this->field_0x3fc = 0;
+        this->mission_failed_reported = 0;
     }
 
     if (this->sessionMode == 2) {
@@ -4542,7 +4542,7 @@ void MainWindow::FUN_0048df44() { //48df44
 
     this->field_0x450 = -1;
     this->in_famehall_mission = 0;
-    this->field_0x3fc = 0;
+    this->mission_failed_reported = 0;
 
     this->SetSpeed(this->game_speed);
 }

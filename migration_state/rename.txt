@@ -101,3 +101,4 @@ MainWindow::field_0x3d0 -> vis_serverscreen
 MainWindow::field_0x3d4 -> vis_cutscenes
 MainWindow::field_0x3dc -> vis_msgbox_list
 MainWindow::field_0x3f8 -> in_famehall_mission -- --
+MainWindow::field_0x3fc -> mission_failed_reported -- --
