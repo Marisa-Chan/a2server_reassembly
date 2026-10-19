@@ -1086,7 +1086,7 @@ Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
     case 0x64:
         pkt = &PacketDword::Inst;
         pkt->VMethod4(ns2);
-        ns2->sub_5167A5();
+        ns2->ReleaseNetBuf();
         break;
 
     case 0x65: case 0x67: case 0x97: case 0xab: case 0xac: case 0xad:
@@ -1794,7 +1794,7 @@ void NetStru2::ReturnBuffers() {
 }
 
 
-void NetStru2::sub_5167A5() {
+void NetStru2::ReleaseNetBuf() {
     //5167A5
     EnterCriticalSection(&this->critical_section);
     for (POSITION pos = this->received_buffers.GetHeadPosition(); pos != nullptr;) {

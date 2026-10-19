@@ -295,9 +295,9 @@ public:
     int WriteData(void* buf, uint32_t size);
     int ReadData(void* buf, uint32_t size);
 
-    // sub_5167A5 – walks the free_net3 linked list and decrements the
+    // ReleaseNetBuf – walks the free_net3 linked list and decrements the
     // ref-count byte (field_0xF) of the first live entry it finds.
-    void sub_5167A5();
+    void ReleaseNetBuf();
 
     void SetDrivers(NetStru1* HlDriver, CLlDriver* LlDriver); //51682d
     int ReceiveData(NetStru3* buffer); //5161bf
