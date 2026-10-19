@@ -261,3 +261,4 @@ TransientVisualEffectBuilder::FUN_004CC5D1 -> BuildCirclePoints -- Bresenham cir
 TransientVisualEffectBuilder::FUN_004CC798 -> BuildTiltedRing -- circle points rotated by angle and y-scaled by speed/radius into a tilted 0x3E ring
 TransientVisualEffectBuilder::FUN_004cc059 -> BuildLightningLine -- jitter wobble line from (x0,y0) to (x1,y1) via rotated base arc
 TransientVisualEffectBuilder::FUN_004CB993 -> BuildJitterWalk -- random-walk wobble profile (jitter_progress/jitter_wobble) along the line length
+TransientVisualEffectBuilder::FUN_004CB85F -> SampleQuadraticArc -- fits a parabola through 3 points and samples it into arc_x/arc_y

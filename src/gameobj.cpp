@@ -2302,7 +2302,7 @@ void TransientVisualEffectBuilder::BuildCirclePoints(int32_t x, int32_t y, int32
 }
 
 // 4cb85f
-void TransientVisualEffectBuilder::FUN_004CB85F(double px0, double py0, double px1, double py1, double px2, double py2) {
+void TransientVisualEffectBuilder::SampleQuadraticArc(double px0, double py0, double px1, double py1, double px2, double py2) {
     double x0_sq = px0 * px0;
     double x1_sq = px1 * px1;
     double x2_sq = px2 * px2;
@@ -2399,7 +2399,7 @@ void TransientVisualEffectBuilder::BuildJitterWalk(double x0, double y0, double 
     ys.Add(y1);
 
     for (int32_t i = 2; i < xs.GetSize(); i += 2) {
-        this->FUN_004CB85F(xs[i - 2], ys[i - 2], xs[i - 1], ys[i - 1], xs[i], ys[i]);
+        this->SampleQuadraticArc(xs[i - 2], ys[i - 2], xs[i - 1], ys[i - 1], xs[i], ys[i]);
     }
 
     for (int32_t i = 0; i < this->arc_x.GetSize(); i++) {

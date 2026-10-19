@@ -338,7 +338,7 @@ public:
     void BuildTiltedRing(int32_t x, int32_t y, int32_t height, float speed, float radius, int32_t angle); // 4cc798
     void BuildLightningLine(double x0, double y0, double x1, double y1, uint8_t arg5); // 4cc059
     void BuildJitterWalk(double x0, double y0, double x1, double y1); // 4cb993
-    void FUN_004CB85F(double px0, double py0, double px1, double py1, double px2, double py2); // 4cb85f
+    void SampleQuadraticArc(double px0, double py0, double px1, double py1, double px2, double py2); // 4cb85f
 
     void FUN_0046f390(); // 46f390
 
