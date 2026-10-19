@@ -688,3 +688,4 @@ Effect::VMethod15 -> CalcScrollPrice -- scroll price of the castspell effect
 Effect::VMethod16 -> CalcChargePercent -- charge/quality percent vs the book cost
 Effect::VMethod17 -> RollStrength -- randomizes the effect strength from power
 SpellEffect::VMethod10 -> ExpireOnUnit -- AreaEffect override removes the enchantment from the unit when the area effect reaches it (base no-op)
+Effect::sub_53EDB0 -> Matches -- 1 when effect_id, usage_type and spell values all match

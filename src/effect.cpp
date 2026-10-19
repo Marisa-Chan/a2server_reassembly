@@ -631,7 +631,7 @@ void Effect::RollStrength(int32_t power) {
 }
 
 // 541FD7
-int32_t Effect::sub_541FD7(int32_t budget, int32_t magic_volume) {
+int32_t Effect::CalcEffectLevel(int32_t budget, int32_t magic_volume) {
     const MagicInfoData* magic_data = &g_GameDataRes.magics[this->effect_id].Values()[0];
     int32_t max_level = magic_volume / magic_data->mana_cost;
     int32_t level;

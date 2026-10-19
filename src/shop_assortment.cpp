@@ -81,7 +81,7 @@ Effect* __cdecl sub_54F04F(int32_t is_warrior, int32_t magic_volume, int32_t bud
         } else {
             effect->spell_or_damage = mage_spells[Random0N(6)];
         }
-        result = effect->sub_541FD7(budget, magic_volume);
+        result = effect->CalcEffectLevel(budget, magic_volume);
         if (result >= 0) {
             break;
         }
@@ -176,7 +176,7 @@ Effect* __cdecl sub_54EDE9(int32_t is_warrior, int32_t item_type, int32_t sub_ty
             }
         }
 
-        result = effect->sub_541FD7(budget, magic_volume);
+        result = effect->CalcEffectLevel(budget, magic_volume);
     }
 
     if (attempts == max_attempts || result == -1) {
