@@ -348,3 +348,4 @@ free: sub_54F176 -> TotalEffectPrice -- sums EffectPrice of all effects on the i
 CowardActivation::sub_5A3498 -> CheckActivationKey -- decodes activation key rows against the input string
 SrvStru1::sub_4FAEB4 -> FreeLists -- deletes sack/building/effects/unit lists (map teardown without unit deletion)
 SrvStru1::sub_4FBB24 -> MakeAreaSpellEffect -- spawns a dummy caster unit with some_state=14 for an area spell effect
+SrvStru1::sub_4FBAE3 -> MakeTargetSpellEffect -- spawns a dummy caster unit with some_state=13 targeting a unit

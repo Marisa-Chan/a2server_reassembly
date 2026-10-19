@@ -4811,7 +4811,7 @@ void Server::ServerTic() {
 
     if ((this->tick & 0xf) == 12) {
         dword_6CDB3C->sub_5574B5();
-        this->srv_stru1->sub_4FB4AA();
+        this->srv_stru1->UpdateMapObjects();
         g_PlayersList->sub_534DDD();
         g_NetStru1_main.sub_51EEB7();
         g_QuestMap.sub_55E00C();
@@ -5715,7 +5715,7 @@ void SrvStru1::MakeTargetSpellEffect(uint8_t a0, uint8_t a1, Unit* unit, uint32_
     u->cast_target = unit;
 }
 
-void SrvStru1::sub_4FB4AA() { // 4FB4AA
+void SrvStru1::UpdateMapObjects() { // 4FB4AA
     this->building_list->FUN_0055817b();
     this->sack_list->FUN_005540ed();
 }
