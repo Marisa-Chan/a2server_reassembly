@@ -227,7 +227,7 @@ public:
     void sub_5A54B8(Unit* unit, uint16_t command_to); // 5A54B8
 
     void sub_5AAEBC(Unit* unit); // 5AAEBC
-    void sub_5AAF84(Unit* unit, uint8_t facing); // 5AAF84 — turn unit to face target (ASM).
+    void TurnToFacing(Unit* unit, uint8_t facing); // 5AAF84 — turn unit to face target (ASM).
     void sub_5AAC17(Unit* unit); // 5AAC17
     void sub_5AA7CF(Unit* unit); // 5AA7CF
     int32_t sub_5B6F40(int32_t multiplier); // 5B6F40

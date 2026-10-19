@@ -2749,7 +2749,7 @@ void World::StepTowardUnit(Unit* unit, Unit* target) {
 
 // Turn unit to face `facing`; if the facing changed, mark state as 1.
 // 5AAF84
-void World::sub_5AAF84(Unit* unit, uint8_t facing) {
+void World::TurnToFacing(Unit* unit, uint8_t facing) {
     uint8_t old_facing = unit->eye->field0_0x0;
     this->field24_0xa50->sub_590F94(unit, facing);
     if (unit->eye->field0_0x0 != old_facing) {
@@ -3205,7 +3205,7 @@ void World::sub_5AAEBC(Unit* unit) {
         unit->some_state = 3;
     } else {
         uint8_t facing = this->field24_0xa50->sub_591424(unit, unit->eye2->unit);
-        this->sub_5AAF84(unit, facing);
+        this->TurnToFacing(unit, facing);
         unit->some_state = 1;
     }
 }
