@@ -108,7 +108,7 @@ public:
     void ClearRefreshFor(Player* player); // Mark this unit as not needing the refresh for the given player.
     int32_t ReturnToMap(); // Return unit to map.
     void ResetActionState(); // 52c641
-    void sub_52C163();
+    void RemoveFromMap();
     void sub_52C36D(uint8_t x, uint8_t y, uint8_t flags);
     void sub_52C58F(); // Revive unit (set flags, reset subcell, call VMethod18, notify world)
     void sub_52C813();

@@ -1818,7 +1818,7 @@ void Unit::sub_52D8D3(Inventory* inventory, int32_t money, int32_t is_main_playe
 }
 
 // 52C163
-void Unit::sub_52C163() {
+void Unit::RemoveFromMap() {
     if ((this->unit_attrs & 8) != 0) {
         return;
     }

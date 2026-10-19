@@ -2168,7 +2168,7 @@ void World::ScriptOP_0x0f(TriggerAction* action) {
 
 // 5b40e7 — Phase out unit
 void World::ScriptOP_0x10(TriggerAction* action) {
-    action->unit->sub_52C163();
+    action->unit->RemoveFromMap();
 }
 
 // 5b40ff — Phase in unit
@@ -2178,7 +2178,7 @@ void World::ScriptOP_0x11(TriggerAction* action) {
 
 // 5b4117 — Polymorph unit: phase out true form (action->unit), place polymorphed form (action->multi) at same position
 void World::ScriptOP_0x12(TriggerAction* action) {
-    action->unit->sub_52C163();
+    action->unit->RemoveFromMap();
     Unit* polymorh_as = (Unit*)action->multi;
     polymorh_as->sub_52C36D(action->unit->position->GetX(), action->unit->position->GetY(), 3);
 }
@@ -2315,7 +2315,7 @@ void World::ScriptOP_0x1f(TriggerAction* action) {
 void World::ScriptOP_0x20(TriggerAction* action) {
     for (POSITION pos = action->group->unit_list.GetHeadPosition(); pos != nullptr; ) {
         Unit* unit = action->group->unit_list.GetNext(pos);
-        unit->sub_52C163();
+        unit->RemoveFromMap();
     }
 }
 

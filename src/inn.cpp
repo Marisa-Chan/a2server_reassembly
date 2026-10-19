@@ -1144,7 +1144,7 @@ void Inn::sub_560C67(Unit* unit) {
     }
     this->unit_list.AddTail(unit);
     if (g_Server->field4_0x74 != 0) {
-        unit->sub_52C163();
+        unit->RemoveFromMap();
     }
 }
 

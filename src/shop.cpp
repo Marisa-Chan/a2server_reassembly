@@ -77,7 +77,7 @@ void Shop::sub_54463F() {
 void Shop::sub_544655(Unit* unit) {
     this->shop_template->sub_547644(unit);
     if (g_Server->field4_0x74 != 0) {
-        unit->sub_52C163();
+        unit->RemoveFromMap();
     }
 }
 
