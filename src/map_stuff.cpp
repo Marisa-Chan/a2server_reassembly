@@ -509,7 +509,7 @@ int16_t MapStuff::GetTileMoveTime(Unit* unit, uint8_t x, uint8_t y) {
 }
 
 // 58FB12 --- Reconciles eye position1/rotation-target state against the unit's current tile.
-void MapStuff::sub_58FB12(Unit* unit) {
+void MapStuff::SyncEyeState(Unit* unit) {
     uint16_t old_x = unit->position->GetXx();
     uint16_t old_y = unit->position->GetYy();
 
@@ -545,7 +545,7 @@ void MapStuff::sub_58FB12(Unit* unit) {
 // 590678
 void MapStuff::sub_590678(Unit* unit) {
     uint16_t prev_yx = unit->position->CompatGetYX();
-    this->sub_58FB12(unit);
+    this->SyncEyeState(unit);
 
     if (prev_yx != unit->position->CompatGetYX()) {
         unit->eye->field113_0x72 = this->GetTileMoveTime(unit, unit->position->GetX(), unit->position->GetY());
@@ -593,7 +593,7 @@ void MapStuff::sub_5907BE(Unit* unit) {
     if (unit->eye->field0_0x0 == unit->eye->field1_0x1) {
         this->CalcMoveStep(unit, unit->position->CompatGetYX(), unit->eye->field0_0x0);
         unit->eye->field156_0xac = 0;
-        this->sub_58FB12(unit);
+        this->SyncEyeState(unit);
     } else {
         this->SetFacing(unit, unit->eye->field1_0x1);
     }
