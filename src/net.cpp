@@ -1342,9 +1342,9 @@ void NetStru1::OnClientConnect(NetStru2* cli) {
         this->client_stat[cli->uid] = new ConnStatInfo;
 
         if (this->lldriver && lldriver->provider != 4) {
-            cli->field_0x2a8 = 1;
+            cli->is_claimed = 1;
         } else {
-            cli->field_0x2a8 = 0;
+            cli->is_claimed = 0;
         }
     }
 }
@@ -1748,7 +1748,7 @@ NetStru2::NetStru2() {
     //515831
     this->field_0x2a0 = 0;
     this->field_0x2a4 = 0;
-    this->field_0x2a8 = 0;
+    this->is_claimed = 0;
     this->field_0x2ac = 0;
     this->field_0x2b4 = -1;
     this->str.Empty();

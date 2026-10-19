@@ -3200,7 +3200,7 @@ void Server::sub_504a96(Packet* pkt) {
         player = this->sub_502B4A(packet_3d->from_player_id);
         if (player) {
             NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(packet_3d->from_player_id);
-            if (ns2 && ns2->field_0x2a8 != 0) {
+            if (ns2 && ns2->is_claimed != 0) {
                 this->FUN_004ff439(player, packet_3d->value3);
             }
         }
@@ -4031,7 +4031,7 @@ void Server::sub_504a96(Packet* pkt) {
         {
             // Only handle if this connection has not yet claimed a player (field_0x2a8 == 0)
             NetStru2* ns2 = g_NetStru1_main.GetClientByLowUid(packet_info->from_player_id);
-            if (!ns2 || ns2->field_0x2a8 != 0) {
+            if (!ns2 || ns2->is_claimed != 0) {
                 break;
             }
 
@@ -4040,7 +4040,7 @@ void Server::sub_504a96(Packet* pkt) {
             // Only proceed if the target player has no active NetStru2 yet
             if (target && g_NetStru1_main.GetClientByPlayerID(target->player_id) == nullptr) {
                 ns2->player_id = target->player_id;
-                ns2->field_0x2a8 = 1;
+                ns2->is_claimed = 1;
                 ns2->str = target->login;
                 g_NetStru1_main.sub_51C822(ns2);
             }
@@ -5062,7 +5062,7 @@ void Server::sub_4F0D58() {
             } else {
                 first_client = NetStru1::HatConnector.active_connects.GetHead();
             }
-            if ((first_client == nullptr || first_client->field_0x2a8 == 0) && GetTickCount() - this->field50_0x1d4 > 30000) {
+            if ((first_client == nullptr || first_client->is_claimed == 0) && GetTickCount() - this->field50_0x1d4 > 30000) {
                 g_HatLLDriver.Close();
                 NetStru1::HatConnector.ProcessConnections();
                 this->field51_0x1d8 = GetTickCount();
@@ -5427,7 +5427,7 @@ void Server::sub_5088DF(Packet* pkt) {
         }
         
     case 0xd5: // Login to hat successful
-        hat_connection->field_0x2a8 = 1;
+        hat_connection->is_claimed = 1;
         LogMessage("Login to hat successful.");
         this->field50_0x1d4 = 0;
         this->sub_4F4570();

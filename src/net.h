@@ -283,7 +283,7 @@ struct NetStru2 {
     uint32_t is_local_player;
     uint32_t field_0x2a0;
     uint32_t field_0x2a4;
-    uint32_t field_0x2a8;
+    uint32_t is_claimed;
     uint32_t field_0x2ac;
     CString str;
     int32_t field_0x2b4;
