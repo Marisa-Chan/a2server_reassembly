@@ -3895,7 +3895,7 @@ void MainWindow::FUN_0048f79d() { // 48f79d
 
     this->FUN_0048ca7e(this->sessionMode);
 
-    g_Server->sub_4EDB83(this->last_save_info.filename);
+    g_Server->LoadSavedGame(this->last_save_info.filename);
 
     if (!this->vis_map_context->ConnectAndJoinSession()) {
         PostMessage(0x421, 0, 0);

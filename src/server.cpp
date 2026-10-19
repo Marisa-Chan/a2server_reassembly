@@ -4670,7 +4670,7 @@ int Server::LoadGame(CString param_1) {
         this->tick16 = 0;
         this->tick = 0;
     } else {
-        if (this->sub_4EDB83("game0000.sav") != 0) {
+        if (this->LoadSavedGame("game0000.sav") != 0) {
             return 4;
         }
     }
@@ -6470,7 +6470,7 @@ void Server::SerializeGame(CArchive& ar) {
 }
 
 // 4EDB83
-int32_t Server::sub_4EDB83(const CString& filename) {
+int32_t Server::LoadSavedGame(const CString& filename) {
     LogMessage("Loading from:" + filename);
     CFile file;
     if (!file.Open(filename, CFile::modeRead, nullptr)) {

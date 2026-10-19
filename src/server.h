@@ -163,7 +163,7 @@ public:
     void KickAllPlayers();
     void HatKeepaliveTick();
     int LoadGame(CString param_1); // Load map / saved game
-    int sub_4EDB83(const CString& filename); // Load saved game file
+    int LoadSavedGame(const CString& filename); // Load saved game file
     void sub_4FA01F(); // Arena mode file list setup
 
     Human* LoadCharacter(void* data, int32_t size, Player* player); // 4ef4e7: Load character from saved packet.
