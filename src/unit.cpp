@@ -1646,12 +1646,12 @@ void Unit::sub_52C4DF(int16_t amount) {
     this->hp += amount;
     this->hp = (this->hp < this->hp_max) ? this->hp : this->hp_max;
     if (old_hp < 1 && this->hp > 0) {
-        this->sub_52C58F();
+        this->Revive();
     }
 }
 
 // 52C58F
-void Unit::sub_52C58F() {
+void Unit::Revive() {
     this->item_op_dirty_flags |= 0x4011;
     // Inline sub_58FD16: reset subcell position to cell center.
     this->position->x_subcell = 0x80;
@@ -2752,7 +2752,7 @@ void Humanoid::sub_53116B() {
         delete this->eye2;
     }
     this->eye2 = new UnitEye2();
-    this->sub_52C58F();
+    this->Revive();
 }
 
 // 531418
