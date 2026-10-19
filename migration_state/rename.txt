@@ -85,3 +85,5 @@ Unit::field_0x19c -> quest_intercept_mark -- unit template flag (flags2&2): elig
 Unit::field_0x1a4 -> seen_by_mask -- bitmask of vision_sharing ids the unit has been made visible to (also reused by the AI presence scan for watcher sectors)
 Unit::field_0x1a6 -> seen_by_mask_prev -- snapshot of seen_by_mask used to diff newly-visible players in unit_list processing
 Unit::field_0x204 -> ownership_changed -- set on ownership change; adds update-flag 0x40 when pending units are sent to a joining player
+MainWindow::field_0xbc -> has_focus -- OnSetFocus/OnKillFocus tracker
+MainWindow::field_0xc0 -> console_active -- console input line (Vis1200) captures keys while set

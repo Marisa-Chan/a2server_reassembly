@@ -2980,7 +2980,7 @@ void __cdecl FUN_00454e40(int32_t sx, int32_t sy, int32_t w, int32_t h) {
 void __cdecl gfxFlushRect(const CRect& rect) { //454c74
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
-	if (mwnd->field_0xbc != 0 && g_IsServer == 0) {
+	if (mwnd->has_focus != 0 && g_IsServer == 0) {
 		CRect r;
 		r.IntersectRect(&rect, &g_ScreenSize);
 

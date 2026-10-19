@@ -469,7 +469,7 @@ void CMousePointer::Update() {
 
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
-    if (GetAsyncKeyState(VK_RBUTTON) > -1 && wnd->field_0xbc != 0) {
+    if (GetAsyncKeyState(VK_RBUTTON) > -1 && wnd->has_focus != 0) {
         POINT pt;
         GetCursorPos(&pt);
 
@@ -485,7 +485,7 @@ void CMousePointer::Update() {
         this->user_msg_delay = 66;
     }
 
-    if (this->frame_delay < ts - this->frame_ts && frame_count > 1 && wnd && wnd->field_0xbc != 0) {
+    if (this->frame_delay < ts - this->frame_ts && frame_count > 1 && wnd && wnd->has_focus != 0) {
         this->frame_ts = ts;
         this->frame++;
 
@@ -506,7 +506,7 @@ void CMousePointer::Update() {
         prev_time < 500 &&
         this->select_frame_state == 0 && 
         this->hint_enable != 0 &&
-        wnd && wnd->vis_root && wnd->field_0xbc != 0) {
+        wnd && wnd->vis_root && wnd->has_focus != 0) {
         CVisualObject* vobj = wnd->vis_root->GetChildAt(CPoint(this->x, this->y));
         if (vobj) {
             this->hint_text = vobj->GetHint();
@@ -519,7 +519,7 @@ void CMousePointer::Update() {
     }
 
     if (this->mouse_hint_time > 25499 && this->hint_state != 0 && 
-        wnd && wnd->field_0xbc != 0) {
+        wnd && wnd->has_focus != 0) {
         this->hint_state = 0;
         this->RepaintHint();
     }

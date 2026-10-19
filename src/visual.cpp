@@ -25391,7 +25391,7 @@ int32_t Vis1200::OnKeyDown(uint32_t wparam) {
 // 43BD2E
 void Vis1200::VMethod28() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    main_wnd->field_0xc0 = 1;
+    main_wnd->console_active = 1;
     memset(this->buffer, 0, 0x100);
     this->text_block->FUN_0043ac8c();
     VisScreen::VMethod28();
@@ -25407,7 +25407,7 @@ int32_t Vis1200::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 // 43BD96
 void Vis1200::DoClose(uint32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    main_wnd->field_0xc0 = 0;
+    main_wnd->console_active = 0;
     this->active = 0;
     VisScreen::DoClose(code);
 }

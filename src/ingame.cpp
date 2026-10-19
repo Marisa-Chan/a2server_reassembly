@@ -2205,7 +2205,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 					UnlockSurface2();
 
-					if (wnd->field_0xbc != 0) {
+					if (wnd->has_focus != 0) {
 						FlushScreen();
 					}
 
@@ -2225,7 +2225,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 				UnlockSurface2();
 
-				if (wnd->field_0xbc != 0) {
+				if (wnd->has_focus != 0) {
 					gfxFlushRect(CRect(0, g_ScreenSize.bottom / 2 + 20, g_ScreenSize.right, g_ScreenSize.bottom / 2 + 40));
 				}
 
@@ -6418,7 +6418,7 @@ void BigStruct2::FUN_0041b7b7(int32_t xpos, int32_t ypos, int32_t* pvol, int32_t
 int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	if (wnd->dialogsMask == 1 && this->field_0x80 != nullptr) {
-		if (wnd->field_0xc0 != 0) {
+		if (wnd->console_active != 0) {
 			wnd->vis_1200->OnKeyDown(wparam);
 			return 0;
 		}
@@ -6528,7 +6528,7 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 				}
 				switch (wparam) {
 				case 0x20:
-					if (wnd->dialogsMask == 1 && wnd->field_0xc0 == 0) {
+					if (wnd->dialogsMask == 1 && wnd->console_active == 0) {
 						if (this->field_0x3f6c == nullptr || this->field_0x3f6c->hp > -40) {
 							if (this->IsBagOpen() == 0 && this->IsBookOpen() == 0) {
 								wnd->vis_right_panel->MsgProc(0x40E, 0, 0);

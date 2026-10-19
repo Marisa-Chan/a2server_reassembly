@@ -795,7 +795,7 @@ BOOL GameApp::OnIdle(LONG lCount) { //4835b0
 			}
 		}
 
-		if (mwnd->field_0xbc != 0) {
+		if (mwnd->has_focus != 0) {
 			mwnd->vis_root->MsgProc(0x402, 0, 0);
 		}
 

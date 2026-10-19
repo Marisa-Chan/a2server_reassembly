@@ -1035,7 +1035,7 @@ void MainWindow::FUN_00495010() {
 
 // 4863c6
 void MainWindow::OnSetFocus(CWnd* pOldWnd) {
-    this->field_0xbc = 1;
+    this->has_focus = 1;
     g_kbMenuState = 0;
     CFrameWnd::OnSetFocus(pOldWnd);
 }
@@ -1048,7 +1048,7 @@ void MainWindow::sub_48CC87() {
 // 48b01d
 void MainWindow::OnKillFocus(CWnd* pNewWnd) {
     this->Default();
-    this->field_0xbc = 0;
+    this->has_focus = 0;
     g_kbMenuState = 0;
     g_kbControlState = 0;
     g_kbShiftState = 0;
@@ -1112,7 +1112,7 @@ void MainWindow::sub_4919C7() {
     this->vis_1200->FUN_0043be9f();
     this->vis_1200->VMethod28();
     this->vis_root->VMethod9();
-    this->field_0xc0 = 1;
+    this->console_active = 1;
 }
 
 // 478130
@@ -1528,7 +1528,7 @@ void MainWindow::CreateUI() { //484ab0
     this->vis_famedocument = new VisFameDocument(1210, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
     this->vis_1200 = new Vis1200(1200, 0, 0, g_ScreenSize.right - 160, 30);
 
-    this->field_0xc0 = 0;
+    this->console_active = 0;
 
     this->vis_dropgold = new VisDropGold(1000000000, 100, g_ScreenSize.bottom - 200);
 
@@ -1949,7 +1949,7 @@ void MainWindow::sub_48A756() {
             
             // Client mode processing (g_IsServer == 0 means client mode).
             if (g_IsServer == 0) {
-                if (this->field_0xbc != 0) {
+                if (this->has_focus != 0) {
                     if (this->field_0x3d0 != nullptr) {
                         if (this->game_tic_counter == 1) {
                             this->field_0x3d0->VMethod9();
@@ -4934,7 +4934,7 @@ void MainWindow::RemoteGameIdle() { //48acac
             }
         }
 
-        if (this->field_0xbc != 0) {
+        if (this->has_focus != 0) {
             this->vis_root->MsgProc(0x402, 0, 0);
         }
 
@@ -4994,7 +4994,7 @@ void MainWindow::SingleGameTimedIdle() { //48a543
         }
     }
 
-    if (this->field_0xbc != 0) {
+    if (this->has_focus != 0) {
         this->vis_root->MsgProc(0x402, 0, 0);
     }
 
@@ -5043,7 +5043,7 @@ void MainWindow::SingleGameIdle() { //48a3a2
         }
     }
 
-    if (this->field_0xbc != 0) {
+    if (this->has_focus != 0) {
         this->vis_root->MsgProc(0x402, 0, 0);
         SaveScreenshot();
     }

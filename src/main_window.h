@@ -468,8 +468,8 @@ public:
     int32_t FUN_00490eb3(); //490eb3
 
 public:
-    int32_t field_0xbc;
-    int32_t field_0xc0;
+    int32_t has_focus;
+    int32_t console_active;
     void (*music_update_proc)();
     MusicPlayer* music_player;
     CVisualObject* vis_root;
