@@ -2084,7 +2084,7 @@ void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
                 }
                 this->field7_0x54008 = 0;
                 for (int i = 0; i < this->field8_0x5400a; i++) {
-                    this->sub_597990(unit, this->path_queue_scratch[0x2000 + i], this->path_queue_scratch[0x3000 + i]);
+                    this->ExpandCostsDynamicQueue1(unit, this->path_queue_scratch[0x2000 + i], this->path_queue_scratch[0x3000 + i]);
                 }
                 ring += 2;
             }
@@ -2195,7 +2195,7 @@ void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
     }
 }
 
-// Shared by ExpandCostsStaticQueue2/ExpandCostsStaticQueue1/sub_597990/sub_5976D0: recomputes movement cost to each
+// Shared by ExpandCostsStaticQueue2/ExpandCostsStaticQueue1/ExpandCostsDynamicQueue1/sub_5976D0: recomputes movement cost to each
 // of the 9 neighbor cells (including self) around (x,y) in the field3_0x30000 cost grid,
 // gated by the given passability check, and enqueues improved cells into the given queue.
 void MapStuff::ExpandCostGridNeighbors(Unit* unit, uint8_t x, uint8_t y, PassableCheckFn passable, uint8_t* out_x, uint8_t* out_y, uint16_t& out_count) {
@@ -2253,7 +2253,7 @@ void MapStuff::sub_5976D0(Unit* unit, uint8_t x, uint8_t y) {
 
 // 597990 --- expands the dynamic-path cost grid from (x,y) using IsCellPassableDynamic as the passability
 // check, queueing improved neighbors into queue1 (field_0x50008[0/0x1000], field7_0x54008).
-void MapStuff::sub_597990(Unit* unit, uint8_t x, uint8_t y) {
+void MapStuff::ExpandCostsDynamicQueue1(Unit* unit, uint8_t x, uint8_t y) {
     this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::IsCellPassableDynamic, this->path_queue_scratch, this->path_queue_scratch + 0x1000, this->field7_0x54008);
 }
 
@@ -2729,7 +2729,7 @@ int32_t MapStuff::IsCellPassableStatic(Unit* unit, uint16_t yx) {
     return 1;
 }
 
-// 5978F0 --- Passability check used by sub_5976D0/sub_597990; same as IsCellPassableStatic but against obstacle_map2
+// 5978F0 --- Passability check used by sub_5976D0/ExpandCostsDynamicQueue1; same as IsCellPassableStatic but against obstacle_map2
 int32_t MapStuff::IsCellPassableDynamic(Unit* unit, uint16_t yx) {
     int8_t size = unit->GetTokenSize();
     for (int32_t i = 0; i < size; i++) {

@@ -268,17 +268,17 @@ public:
     uint8_t BoxDistance(uint16_t yx1, uint16_t yx2, int32_t size); // 591A96
     void ExpandCostsStaticQueue2(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableStatic, queueing improved cells into queue2 — 597290
     void ExpandCostsStaticQueue1(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableStatic, queueing improved cells into queue1 — 5974B0
-    void sub_597990(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableDynamic, queueing improved cells into queue1 — 597990
+    void ExpandCostsDynamicQueue1(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableDynamic, queueing improved cells into queue1 — 597990
     void sub_5976D0(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableDynamic, queueing improved cells into queue2 — 5976D0
     int32_t IsCellPassableStatic(Unit* unit, uint16_t yx); // 596F80
-    int32_t IsCellPassableDynamic(Unit* unit, uint16_t yx); // Passability check used by sub_5976D0/sub_597990 — 5978F0
+    int32_t IsCellPassableDynamic(Unit* unit, uint16_t yx); // Passability check used by sub_5976D0/ExpandCostsDynamicQueue1 — 5978F0
     uint16_t* sub_59A670(uint8_t x, uint8_t y); // Get pointer into field3_0x30000 cost grid for (x,y) — 59A670
     uint8_t* sub_59A6F0(uint8_t x, uint8_t y); // Get pointer into walk_cost_map for (x,y) — 59A6F0
 
     // Member function pointer to a passability check with the same shape as IsCellPassableStatic/IsCellPassableDynamic.
     using PassableCheckFn = int32_t (MapStuff::*)(Unit*, uint16_t);
 
-    // Shared by ExpandCostsStaticQueue2/ExpandCostsStaticQueue1/sub_597990/sub_5976D0: recomputes movement cost to each
+    // Shared by ExpandCostsStaticQueue2/ExpandCostsStaticQueue1/ExpandCostsDynamicQueue1/sub_5976D0: recomputes movement cost to each
     // of the 9 neighbor cells (including self) around (x,y) in the field3_0x30000 cost grid,
     // gated by the given passability check, and enqueues improved cells into the given queue.
     void ExpandCostGridNeighbors(Unit* unit, uint8_t x, uint8_t y, PassableCheckFn passable, uint8_t* out_x, uint8_t* out_y, uint16_t& out_count);
