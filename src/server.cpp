@@ -706,7 +706,7 @@ void Srv1::SpawnGroupOutpost(Group* group, MapAlm* alm) {
     }
 
     this->srv_stru->building_list->sub_558228(outpost);
-    g_World->sub_5AC983(group, 0);
+    g_World->PlaceRespawnedGroup(group, 0);
 
     if (outpost->script_id >= 0) {
         g_World->DoScriptInstID(outpost->script_id);
@@ -1000,7 +1000,7 @@ void Srv1::LoadTriggers(MapAlm* alm, int flag) {
                     if (player->player_id == 1) {
                         g_World->sub_5ACDF4(group);
                     } else {
-                        g_World->sub_5AC983(group, 0);
+                        g_World->PlaceRespawnedGroup(group, 0);
                     }
                 }
             }

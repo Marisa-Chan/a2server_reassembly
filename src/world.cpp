@@ -2098,7 +2098,7 @@ void World::ScriptOP_0x06(TriggerAction* action) {
             this->sub_5AC7C8(group);
             break;
         case 18: // Dwell (guard_range=data[1])
-            this->sub_5AC983(group, action->data[1]);
+            this->PlaceRespawnedGroup(group, action->data[1]);
             break;
     }
 }
@@ -3263,7 +3263,7 @@ void World::GroupCastAtPositionCommand(Group* group, uint8_t x, uint8_t y, Spell
 }
 
 // 5AC983 — place a newly respawned group into the world.
-void World::sub_5AC983(Group* group, int param) {
+void World::PlaceRespawnedGroup(Group* group, int param) {
     this->ClearGroupOrders(group);
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {

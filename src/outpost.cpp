@@ -185,7 +185,7 @@ void Outpost::sub_543EC3(Group* group) {
 
     group->has_quest_kill = this->has_quest_kill;
     group->has_quest_intercept = this->has_quest_intercept;
-    g_World->sub_5AC983(group, 0);
+    g_World->PlaceRespawnedGroup(group, 0);
     if (this->script_id >= 0) {
         g_World->DoScriptInstID(this->script_id);
     }
