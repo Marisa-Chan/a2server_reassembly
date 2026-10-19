@@ -2468,7 +2468,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
             PostMessage(0x419, 0, 0);
         } else if (g_Server == nullptr) {
             PostMessage(0x421, 0, 0);
-        } else if (this->field_0x450 == 0xff) {
+        } else if (this->last_event_id == 0xff) {
             PostMessage(0x41e, 0, 0);
         }
 
@@ -3305,29 +3305,29 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x433:
-        this->field_0x450 = wParam;
+        this->last_event_id = wParam;
 
-        if (this->field_0x450 == 255) {
+        if (this->last_event_id == 255) {
             PostMessage(0x431, lParam, 0);
-        } else if (this->field_0x450 == 254) {
+        } else if (this->last_event_id == 254) {
             if (!g_SfxArray[16]->FindPlayingChannel()) {
                 g_SfxArray[16]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
             }
-        } else if (this->field_0x450 == 253) {
+        } else if (this->last_event_id == 253) {
             if (!g_SfxArray[14]->FindPlayingChannel()) {
                 g_SfxArray[14]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
             }
-        } else if (this->field_0x450 == 250) {
+        } else if (this->last_event_id == 250) {
             if (!g_SfxArray[14]->FindPlayingChannel()) {
                 g_SfxArray[14]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
             }
             this->vis_map_context->msglog.Add(txt_patch.GetLine(97), clr_log_sblack, 30000);
         } else if ((this->dialogsMask & 8) == 0) {
             CString local_850;
-            local_850.Format("event%d", this->field_0x450);
+            local_850.Format("event%d", this->last_event_id);
             ShowRoleKeyDialog(local_850);
         } else {
-            DAT_006658d8.Add(this->field_0x450);
+            DAT_006658d8.Add(this->last_event_id);
         }
         break;
 
@@ -4155,7 +4155,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
 
     if (this->sessionMode != 3) {
         this->FUN_00494c91();
-        this->field_0x450 = -1;
+        this->last_event_id = -1;
         this->in_famehall_mission = 0;
         this->mission_failed_reported = 0;
     }
@@ -4540,7 +4540,7 @@ void MainWindow::FUN_0048df44() { //48df44
 
     this->vis_map_context->UpdateSelectionState();
 
-    this->field_0x450 = -1;
+    this->last_event_id = -1;
     this->in_famehall_mission = 0;
     this->mission_failed_reported = 0;
 

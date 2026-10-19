@@ -547,7 +547,7 @@ public:
     int32_t field_0x444;
     int32_t unlimited_speed;
     int32_t field_0x44c;
-    int32_t field_0x450;
+    int32_t last_event_id;
     int32_t field_0x454;
     int32_t field_0x458;
     int32_t field_0x45c;

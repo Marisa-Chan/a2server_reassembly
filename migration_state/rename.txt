@@ -114,3 +114,4 @@ MainWindow::field_0x7fc -> server_ctrl_dlg -- the ServerControlDialog instance
 MainWindow::field_0x800 -> server_ctrl_shown -- server-control dialog created/visible flag
 (recommitted together after an empty-commit fixup dropped them)
 MainWindow::field_0x448 -> unlimited_speed -- Ctrl+speed key toggles untimed idle mode (SingleGameIdle vs TimedIdle)
+MainWindow::field_0x450 -> last_event_id -- last game-event id received via message 0x433 (255=mission failed, else event rolekey)
