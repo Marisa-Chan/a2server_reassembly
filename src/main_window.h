@@ -72,7 +72,7 @@ struct Fame2 {
     CStringArray str_arr;
     CRect rect;
     uint32_t field_x34;
-    uint32_t field_x38;
+    uint32_t top_line;
 
     Fame2();
     void operator=(const Fame2& b);

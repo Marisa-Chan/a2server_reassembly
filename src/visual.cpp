@@ -21977,14 +21977,14 @@ int32_t VisFameDocument::UpdateButtons(CPoint pos, bool is_down) {
 // 4AEC7A
 void VisFameDocument::UpdateArrowStates() {
     if (this->selected_doc == 0) {
-        if (this->fame->m_Documents[0].field_x38 == 0) {
+        if (this->fame->m_Documents[0].top_line == 0) {
             this->bmp_cur_left = this->bmp_leftarrow[0];
         }
     }
     int32_t last = this->fame->m_Documents.GetUpperBound();
     if (this->selected_doc == last) {
         Fame2& doc = this->fame->m_Documents[this->selected_doc];
-        if (doc.str_arr.GetSize() <= (int32_t)doc.field_x38 + 0x15) {
+        if (doc.str_arr.GetSize() <= (int32_t)doc.top_line + 0x15) {
             this->bmp_cur_right = this->bmp_rightarrow[0];
         }
     }

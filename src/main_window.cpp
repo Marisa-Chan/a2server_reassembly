@@ -122,7 +122,7 @@ Fame2::Fame2() {
     this->picture = nullptr;
     this->str.Empty();
     this->field_x34 = 1;
-    this->field_x38 = 0;
+    this->top_line = 0;
 }
 
 void Fame2::Clear() {
@@ -162,25 +162,25 @@ void Fame2::operator=(const Fame2& b) {
     this->str = b.str;
     this->rect = b.rect;
     this->field_x34 = b.field_x34;
-    this->field_x38 = b.field_x38;
+    this->top_line = b.top_line;
 }
 
 bool Fame2::FUN_004abf35() { //4abf35
-    int32_t next = this->field_x38 + 0x15;
+    int32_t next = this->top_line + 0x15;
     if (next < this->str_arr.GetSize()) {
-        this->field_x38 = next;
+        this->top_line = next;
         return true;
     }
     return false;
 }
 
 int32_t Fame2::FUN_004abf72() { //4abf72
-    if (this->field_x38 == 0) {
+    if (this->top_line == 0) {
         return 0;
     }
-    this->field_x38 -= 0x15;
-    if ((int32_t)this->field_x38 < 0) {
-        this->field_x38 = 0;
+    this->top_line -= 0x15;
+    if ((int32_t)this->top_line < 0) {
+        this->top_line = 0;
     }
     return 1;
 }
@@ -195,7 +195,7 @@ void Fame2::FUN_004abfb1(int32_t x, int32_t y) { //4abfb1
 
     uint16_t* clr = palette_brown_derby->GetPalette(0);
     CRect r = this->rect + CPoint(x, y);
-    g_font4->DrawTextLines(r, this->field_x38, this->field_x38 + 0x15, this->str_arr, clr, 0);
+    g_font4->DrawTextLines(r, this->top_line, this->top_line + 0x15, this->str_arr, clr, 0);
 }
 
 void Fame2::FUN_004ac0af() { //4ac0af
@@ -211,7 +211,7 @@ void Fame2::FUN_004ac0af() { //4ac0af
         ReadFileToString(buffer, &this->str);
         this->str_arr.Copy(g_font4->StringArrayForRect(this->rect, this->str));
     }
-    this->field_x38 = 0;
+    this->top_line = 0;
 }
 
 
