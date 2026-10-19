@@ -2411,7 +2411,7 @@ void TransientVisualEffectBuilder::FUN_004CB993(double x0, double y0, double x1,
 }
 
 // 4cc059
-void TransientVisualEffectBuilder::FUN_004cc059(double x0, double y0, double x1, double y1, uint8_t arg5) {
+void TransientVisualEffectBuilder::BuildLightningLine(double x0, double y0, double x1, double y1, uint8_t arg5) {
     double dx = x1 - x0;
     double dy = y1 - y0;
     this->line_length = std::hypot(dx, dy);
@@ -4716,7 +4716,7 @@ void CProjectile::UpdateTransientVisualElements() {
         if (map->field_0x9d0.Lookup(this->action_target, target) && target != nullptr) {
             int32_t x1 = target->centerScreenX;
             int32_t y1 = target->centerScreenY - target->terrainHeightOffset - target->z_pos;
-            builder.FUN_004cc059(x0, y0, x1, y1, 28);
+            builder.BuildLightningLine(x0, y0, x1, y1, 28);
             this->transientVisualElements.Copy(*builder.GetVisualElements());
         }
     } else if (this->typeId == 30) {
@@ -4728,7 +4728,7 @@ void CProjectile::UpdateTransientVisualElements() {
         for (int32_t i = 0; i < this->actionTargets.GetSize(); i++) {
             CGameObject* target = nullptr;
             if (map->field_0x9d0.Lookup(this->actionTargets[i], target) && target != nullptr) {
-                builder.FUN_004cc059(x0, y0, target->centerScreenX, target->centerScreenY - target->terrainHeightOffset - target->z_pos, i % 7);
+                builder.BuildLightningLine(x0, y0, target->centerScreenX, target->centerScreenY - target->terrainHeightOffset - target->z_pos, i % 7);
                 this->transientVisualElements.Append(*builder.GetVisualElements());
                 builder.FUN_0046f390();
             }
