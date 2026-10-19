@@ -1961,7 +1961,7 @@ void MapStuff::TeleportUnit(Unit* unit, uint8_t x, uint8_t y) {
     g_NetStru1_main.SendUnitUpdate(unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
 }
 
-// Shared by sub_597BB0/RelaxCostsMap1Queue1/sub_598BF0/sub_599410.
+// Shared by RelaxCostsMap1Queue2/RelaxCostsMap1Queue1/sub_598BF0/sub_599410.
 void MapStuff::PropagateNeighborCost(uint16_t yx, uint8_t flag_byte, int32_t cond_flag, Obstacle* obstacle_map, uint16_t& queue_tail, uint16_t* queue) {
     static const int32_t offsets[8] = { -0x101, -0xFF, 0xFF, 0x101, -0x100, -1, 1, 0x100 };
     uint16_t source_cost = this->field3_0x30000[yx];
@@ -1992,7 +1992,7 @@ void MapStuff::PropagateNeighborCost(uint16_t yx, uint8_t flag_byte, int32_t con
 }
 
 // 597BB0
-void MapStuff::sub_597BB0(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag) {
+void MapStuff::RelaxCostsMap1Queue2(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag) {
     this->PropagateNeighborCost(yx, flag_byte, cond_flag, this->obstacle_map, this->field8_0x5400a, this->field_0x56584);
 }
 
@@ -2124,7 +2124,7 @@ void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
         while (this->field3_0x30000[dest.val] == 0xFFFF && this->field7_0x54008 != 0 && (int32_t)ring < ring_limit) {
             this->field8_0x5400a = 0;
             for (int i = 0; i < this->field7_0x54008; i++) {
-                this->sub_597BB0(unit, this->field_0x54584[i], flag_byte, cond_flag);
+                this->RelaxCostsMap1Queue2(unit, this->field_0x54584[i], flag_byte, cond_flag);
             }
             this->field7_0x54008 = 0;
             for (int i = 0; i < this->field8_0x5400a; i++) {

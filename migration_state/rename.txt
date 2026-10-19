@@ -655,3 +655,4 @@ MapStuff::sub_5974B0 -> ExpandCostsStaticQueue1 -- expands the cost grid gated b
 MapStuff::sub_597290 -> ExpandCostsStaticQueue2 -- expands the cost grid gated by IsCellPassableStatic, queueing into queue2
 MapStuff::sub_597990 -> ExpandCostsDynamicQueue1 -- expands the cost grid gated by IsCellPassableDynamic, queueing into queue1
 MapStuff::sub_5976D0 -> ExpandCostsDynamicQueue2 -- expands the cost grid gated by IsCellPassableDynamic, queueing into queue2
+MapStuff::sub_5983D0 -> RelaxCostsMap1Queue1 -- relaxes 8-neighbor costs against obstacle_map into the static queue
