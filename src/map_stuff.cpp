@@ -34,7 +34,7 @@ MapStuff::MapStuff(MapAlm* alm, UnitList* unit_list) {
     this->scratch_cell_state.Null();
     this->field_0x58d88.Null();
     this->InitFromUnitList(unit_list);
-    this->sub_58F166(alm);
+    this->InitFromAlm(alm);
 }
 
 // 587F70
@@ -171,7 +171,7 @@ void MapStuff::MarkMapBorder() {
 }
 
 // 58F166
-void MapStuff::sub_58F166(MapAlm* alm) {
+void MapStuff::InitFromAlm(MapAlm* alm) {
     this->map_width = alm->map_width;
     this->map_height = alm->map_height;
 

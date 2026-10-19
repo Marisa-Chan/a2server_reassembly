@@ -640,3 +640,4 @@ MapStuff::sub_5890CC -> BuildPathList1 -- builds unit->list1 cost-guided path fr
 MapStuff::sub_5893C6 -> BuildPathList2 -- builds unit->list2 cost-guided path
 MapStuff::sub_594709 -> GetBuildingAt -- building pointer from the cell state at yx
 MapStuff::sub_591A96 -> BoxDistance -- footprint-aware box distance between two yx positions
+MapStuff::sub_58E891 -> InitFromUnitList -- binds the unit list and resets grid dims

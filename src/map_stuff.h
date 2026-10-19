@@ -183,7 +183,7 @@ public:
     ~MapStuff(); // 587f70
 
     void InitFromUnitList(UnitList* unit_list); // 58E891
-    void sub_58F166(MapAlm* alm); // 58F166
+    void InitFromAlm(MapAlm* alm); // 58F166
     uint8_t CalcTerrainWalkCost(uint16_t terrain_code, uint8_t* out_walk_cost); // Computes edge-blended walk cost + classification code for a terrain cell — 58F48D
     void MarkMapBorder(); // Marks an 8-tile-thick obstacle border around the map edges — 58E670
 
