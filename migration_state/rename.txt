@@ -281,3 +281,4 @@ Unit::VMethod11 -> CopyFrom -- deep-copies another unit's state into this one (H
 Unit::VMethod12 -> UseItem -- equips/consumes the item on this unit; returns the unconsumed/displaced item (class-restricted gear returned unchanged)
 Unit::VMethod13 -> UseItemOrStash -- UseItem, then puts the unconsumed item into the bag
 Unit::VMethod15 -> UnequipAll -- Humanoid: unequips slots 1..12 into the bag
+Unit::VMethod16 -> AwardKillMoney -- Humanoid: on unit death pays the killer's owner the victim's exp as money (sub_534AC1 = Player::AddMoney)

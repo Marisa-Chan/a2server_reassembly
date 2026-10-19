@@ -81,7 +81,7 @@ public: // VTable at 60efc0.
     virtual void UseItemOrStash(Item *);
     virtual Item* Unequip(Item *);
     virtual void UnequipAll();
-    virtual void VMethod16(Unit *);
+    virtual void AwardKillMoney(Unit *);
     virtual uint32_t VMethod17(UnitToHit *, Unit *);
     virtual void VMethod18();
     virtual uint32_t VMethod19();
@@ -260,7 +260,7 @@ public:
     virtual void UseItemOrStash(Item*) override;
     virtual Item* Unequip(Item*) override;
     virtual void UnequipAll() override;
-    virtual void VMethod16(Unit*) override;
+    virtual void AwardKillMoney(Unit*) override;
     //virtual uint32_t VMethod17(UnitToHit*, Unit*) override;
     virtual void VMethod18() override;
     virtual uint32_t VMethod19() override;

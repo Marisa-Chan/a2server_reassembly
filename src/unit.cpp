@@ -1015,7 +1015,7 @@ Item* Unit::Unequip(Item* item) {
 void Unit::UnequipAll()
 {}
 
-void Unit::VMethod16(Unit*)
+void Unit::AwardKillMoney(Unit*)
 {}
 
 // 536B31
@@ -2334,7 +2334,7 @@ void Humanoid::UnequipAll() {
 }
 
 // 53111b
-void Humanoid::VMethod16(Unit* unit) {
+void Humanoid::AwardKillMoney(Unit* unit) {
     if (g_Server->field4_0x74 == 0) {
         return;
     }
