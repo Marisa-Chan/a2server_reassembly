@@ -163,7 +163,7 @@ public:
     uint32_t sub_5AB719(Group* group); // Compute average position of units in a group.
     uint8_t sub_5ABB32(Unit* unit, PosYX yx); // 5ABB32
     void sub_5AC7C8(Group* group);
-    void sub_5A9383(Unit* unit);
+    void OrderGuardPosition(Unit* unit);
     void OrderStandGround(Unit* unit); // 5A943B — helper for sub_5ACAA7.
     void OrderTeleportHome(Unit* unit); // 5A9918 — helper for sub_5ACAFA.
     void sub_5AF805(int32_t a, int32_t b, int32_t c, Player* player);

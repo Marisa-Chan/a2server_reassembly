@@ -2259,7 +2259,7 @@ void World::ScriptOP_0x1a(TriggerAction* action) {
 void World::ScriptOP_0x1b(TriggerAction* action) {
     this->field24_0xa50->sub_5954AC(action->unit, action->data[0], action->data[1]);
     if (action->unit->pOwner->is_ai) {
-        this->sub_5A9383(action->unit);
+        this->OrderGuardPosition(action->unit);
     }
 }
 
@@ -2893,7 +2893,7 @@ void World::sub_5AC8A2(Group* group, uint8_t range) {
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
-        this->sub_5A9383(unit);
+        this->OrderGuardPosition(unit);
     }
 
     group->group_sub->order = 1;
@@ -3268,7 +3268,7 @@ void World::sub_5AC983(Group* group, int param) {
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
-        this->sub_5A9383(unit);
+        this->OrderGuardPosition(unit);
     }
 
     group->group_sub->order = 0x12;
@@ -3314,7 +3314,7 @@ void World::sub_5AF6F5(Unit* unit) {
 }
 
 // 5A9383
-void World::sub_5A9383(Unit* unit) {
+void World::OrderGuardPosition(Unit* unit) {
     this->BeginUnitOrder(unit);
     unit->state = 0xB;
     if (unit->position->IsAtCellCenter() == 0) {
