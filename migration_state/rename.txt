@@ -619,3 +619,4 @@ MapStuff::sub_59449A -> ClearCellBuilding -- clears the building from the cell s
 MapStuff::sub_595438 -> CanApplyAreaEffect -- checks if the area effect can be applied at (x,y)
 MapStuff::sub_5953CB -> AreaEffectCovers -- checks if the area effect covers cell coord
 MapStuff::sub_58CA1B -> GetUnitAt -- gets the unit at map coordinate yx
+MapStuff::sub_594E65 -> RegisterAreaEffectAt -- registers the area effect into cell state at (x,y)

@@ -1866,7 +1866,7 @@ int32_t MapStuff::PlaceBuilding(Building* building) {
 }
 
 // 594EBA --- register area effect into cell state at yx
-int MapStuff::sub_594EBA(AreaEffect* ae, uint16_t yx) {
+int MapStuff::RegisterAreaEffectCell(AreaEffect* ae, uint16_t yx) {
     if (!this->cell_states.Lookup(yx, this->scratch_cell_state)) {
         this->FUN_0058b3e0(yx);
         if (!this->cell_states.Lookup(yx, this->scratch_cell_state)) {
@@ -2591,7 +2591,7 @@ void MapStuff::BlockCell(uint8_t x, uint8_t y) {
 
 // 594E65 --- register area effect at (x, y)
 void MapStuff::RegisterAreaEffectAt(AreaEffect* ae, uint8_t x, uint8_t y) {
-    this->sub_594EBA(ae, PosYX(x, y).val);
+    this->RegisterAreaEffectCell(ae, PosYX(x, y).val);
 }
 
 // 59501E --- remove area effect from (x, y)

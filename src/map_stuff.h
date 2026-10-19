@@ -235,7 +235,7 @@ public:
     AreaEffect* AreaEffectCovers(AreaEffect* ae, uint16_t coord);  // Check if area effect covers cell coord — 5953CB
     Unit* GetUnitAt(PosYX yx); // Get unit at map coordinate yx — 58CA1B
     void RegisterAreaEffectAt(AreaEffect* ae, uint8_t x, uint8_t y); // 594E65
-    int sub_594EBA(AreaEffect* ae, uint16_t yx); // 594EBA — register area effect into cell state at yx
+    int RegisterAreaEffectCell(AreaEffect* ae, uint16_t yx); // 594EBA — register area effect into cell state at yx
     UnitList* sub_5897AA(PosYX yx, uint8_t range); // Build a temporary UnitList of units around yx — 5897AA
     int16_t sub_5936D2(Unit* unit, uint32_t packed_yyxx, uint8_t param_3); // 5936D2
 
