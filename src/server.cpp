@@ -5807,10 +5807,10 @@ int32_t SackList::sub_554460(TokenPos* pos, Inventory* inventory, int money, int
     // Update money
     sack->money += money;
     
-    if (sack->field_0x44 == 0 && param_5 == 0) {
-        sack->field_0x44 = 0;
+    if (sack->needs_save == 0 && param_5 == 0) {
+        sack->needs_save = 0;
     } else {
-        sack->field_0x44 = 1;
+        sack->needs_save = 1;
     }
     
     // Calculate experience level for sack icon/name update
@@ -5838,7 +5838,7 @@ int32_t SackList::sub_554460(TokenPos* pos, Inventory* inventory, int money, int
         }
     }
 
-    if (sack->field_0x44) {
+    if (sack->needs_save) {
         g_Server->sub_4F9B9E(sack);
     }
     
@@ -5914,7 +5914,7 @@ void SackList::FUN_005540ed() {
         
         // Check if sack count exceeds limit and remove sacks with `field_0x44 == 0`.
         if (g_Server->field4_0x74 != 0) {
-            if (this->list.GetCount() > max_sacks && sack->field_0x44 == 0) {
+            if (this->list.GetCount() > max_sacks && sack->needs_save == 0) {
                 MapStuff_Instance->sub_58E525(sack);
                 g_NetStru1_main.sub_51C61E(sack);
                 this->list.RemoveAt(it_before);

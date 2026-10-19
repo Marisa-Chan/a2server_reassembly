@@ -33,7 +33,7 @@ public:
 public:
     int32_t money;
     Inventory* inventory;
-    uint32_t field_0x44;
+    uint32_t needs_save;
     uint16_t field_0x48;
     uint16_t field_0x4a;
     uint16_t field_0x4c;
