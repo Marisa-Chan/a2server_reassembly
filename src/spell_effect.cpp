@@ -455,7 +455,7 @@ void AreaEffect::sub_537F2C() {
 	}
 
 	WavePattern wave;
-	wave.sub_537B2B(unk_636578, unk_636620, this->field_0x4e);
+	wave.sub_537B2B(unk_636578, unk_636620, this->wave_pattern);
 	for (int32_t i = 0; i < wave.count; i++) {
 		this->sub_538137(x + wave.x_mult * wave.x_offsets[i], y + wave.y_mult * wave.y_offsets[i], spread_damage);
 	}
@@ -480,7 +480,7 @@ void AreaEffect::sub_537CD6() {
 		wave.sub_537AE8(unk_6364D0);
 		count = 32;
 	} else if (this->itemDataID == spell::acid_stream) {
-		wave.sub_537B2B(dword_6366C8[this->field_0x4f], dword_636AA0[this->field_0x4f], this->field_0x4e);
+		wave.sub_537B2B(dword_6366C8[this->field_0x4f], dword_636AA0[this->field_0x4f], this->wave_pattern);
 		count = dword_6366C4;
 		packet_type = 0x12;
 	}
@@ -534,14 +534,14 @@ void AreaEffect::Serialize(CArchive& ar) {
 	if (ar.IsStoring()) {
 		ar << this->zone_active;
 		ar << this->radius;
-		ar << this->field_0x4e;
+		ar << this->wave_pattern;
 		ar << this->field_0x4f;
 		ar << this->duration;
 		ar.WriteObject(this->effect);
 	} else {
 		ar >> this->zone_active;
 		ar >> this->radius;
-		ar >> this->field_0x4e;
+		ar >> this->wave_pattern;
 		ar >> this->field_0x4f;
 		ar >> this->duration;
 		ar >> this->effect;

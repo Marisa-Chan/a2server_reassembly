@@ -162,3 +162,4 @@ TriggerAction::field_0x4e -> ref_index -- --
 TriggerAction::field_0x58 -> ref_count -- --
 AreaEffect::field_0x4c -> zone_active -- --
 AreaEffect::field_0x4d -> radius -- --
+AreaEffect::field_0x4e -> wave_pattern -- --
