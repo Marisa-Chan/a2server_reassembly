@@ -701,7 +701,7 @@ void GameDataRes::Serialize(CArchive& ar) {
 }
 
 // 50D8BA
-uint8_t GameDataRes::sub_50D8BA(CString* name, CString* out) {
+uint8_t GameDataRes::FindShapeIndex(CString* name, CString* out) {
     for (int32_t i = this->shapes.GetSize() - 1; i >= 0; i--) {
         int32_t pos = name->Find(this->shapes[i].name);
         if (pos != -1) {
@@ -764,7 +764,7 @@ Item* GameDataRes::FindItemTemplate(CString* name) {
     CString extra;
     this->sub_50DB4E(&extra, name, &base_name);
 
-    uint8_t shape_id = this->sub_50D8BA(&base_name, &base_name);
+    uint8_t shape_id = this->FindShapeIndex(&base_name, &base_name);
     uint8_t material_id = this->sub_50DA04(&base_name, &base_name);
 
     CString stripped_name = base_name;

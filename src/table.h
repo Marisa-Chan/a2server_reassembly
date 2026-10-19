@@ -443,7 +443,7 @@ public:
     int GetRandomRecruitIndex(int experience); // Get random recruitable monster index for inn reward
     int GetMonsterDataIndex(uint8_t type_id, uint8_t face); // Get monster data index from encoded item type/face
 
-    uint8_t sub_50D8BA(CString* name, CString* out); // 50D8BA: Find shape index by item name string
+    uint8_t FindShapeIndex(CString* name, CString* out); // 50D8BA: Find shape index by item name string
     uint8_t sub_50DA04(CString* name, CString* out); // 50DA04: Find material index by item name string
     CString* sub_50DB4E(CString* out1, const CString* in_name, CString* base_name_out); // 50DB4E: Extract base name and braced property from item name
     void sub_50DC69(int material_id, CString* name); // 50DC69: Strip material-specific prefix from item name

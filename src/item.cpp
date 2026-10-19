@@ -678,7 +678,7 @@ Armor::Armor(const CString& name) : Item() {
     CString extra;
     g_GameDataRes.sub_50DB4E(&extra, &name, &base_name);
 
-    this->shape_id = g_GameDataRes.sub_50D8BA(&base_name, &base_name);
+    this->shape_id = g_GameDataRes.FindShapeIndex(&base_name, &base_name);
     this->material_id = g_GameDataRes.sub_50DA04(&base_name, &base_name);
     g_GameDataRes.sub_50DC69(this->material_id, &base_name);
 
@@ -896,7 +896,7 @@ Shield::Shield(const CString& name) : Item() {
     CString extra;
     g_GameDataRes.sub_50DB4E(&extra, &name, &base_name);
 
-    this->shape_id = g_GameDataRes.sub_50D8BA(&base_name, &base_name);
+    this->shape_id = g_GameDataRes.FindShapeIndex(&base_name, &base_name);
     this->material_id = g_GameDataRes.sub_50DA04(&base_name, &base_name);
     g_GameDataRes.sub_50DC69(this->material_id, &base_name);
 
@@ -1087,7 +1087,7 @@ Weapon::Weapon(const CString& name) : Item() {
     CString extra;
     g_GameDataRes.sub_50DB4E(&extra, &name, &base_name);
 
-    this->shape_id = g_GameDataRes.sub_50D8BA(&base_name, &base_name);
+    this->shape_id = g_GameDataRes.FindShapeIndex(&base_name, &base_name);
     this->material_id = g_GameDataRes.sub_50DA04(&base_name, &base_name);
 
     int32_t count = g_GameDataRes.weapons.GetSize();

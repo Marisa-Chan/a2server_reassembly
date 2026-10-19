@@ -713,3 +713,4 @@ GameDataRes::sub_5126A2 -> GetMonsterTableIndex -- monster table index by type a
 GameDataRes::sub_510F88 -> CreateItem -- creates an item from slot/shape/material/data id
 GameDataRes::sub_510EE6 -> CreateItemById -- creates a new item instance by item data id
 GameDataRes::sub_50DF19 -> GetRandomRecruitIndex -- random recruitable monster index for inn reward
+GameDataRes::sub_50DDAE -> GetMonsterDataIndex -- monster data index from encoded item type/face
