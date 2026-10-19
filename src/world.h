@@ -212,7 +212,7 @@ public:
     void ScanNearbyUnits(Group* group); // 5ADB16
     int32_t sub_5AD2C1(Unit* unit, Unit* target); // 5AD2C1
     void sub_5AE471(Group* group); // 5AE471
-    void sub_5A3D12(uint16_t param1, uint8_t param2); // 5A3D12
+    void PruneNearbyUnits(uint16_t param1, uint8_t param2); // 5A3D12
     void sub_5AE2D4(Group* group); // 5AE2D4
     void sub_5AE5C0(Group* group); // 5AE5C0
     void sub_5AE5F5(Group* group); // 5AE5F5

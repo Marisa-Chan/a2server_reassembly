@@ -4258,7 +4258,7 @@ void World::sub_5AE471(Group* group) {
 }
 
 // 5A3D12
-void World::sub_5A3D12(uint16_t pos_yx, uint8_t max_distance) {
+void World::PruneNearbyUnits(uint16_t pos_yx, uint8_t max_distance) {
     CList<Unit*>& unit_list = this->field26_0xa64.unit_list;
     POSITION it = unit_list.GetHeadPosition();
     while (it != nullptr) {
@@ -4311,7 +4311,7 @@ void World::sub_5AE2D4(Group* group) {
 void World::AiGuardBrain(Group* group) {
     this->UpdateGroupCenter(group);
     this->ScanNearbyUnits(group);
-    this->sub_5A3D12(group->group_sub->avg_pos, group->group_sub->guard_range);
+    this->PruneNearbyUnits(group->group_sub->avg_pos, group->group_sub->guard_range);
     this->sub_5AE2D4(group);
 
     POSITION it = group->unit_list.GetHeadPosition();
@@ -4351,7 +4351,7 @@ void World::AiGuardBrain(Group* group) {
 void World::AiDefendBrain(Group* group) {
     this->UpdateGroupCenter(group);
     this->ScanNearbyUnits(group);
-    this->sub_5A3D12(group->group_sub->avg_pos, group->group_sub->guard_range);
+    this->PruneNearbyUnits(group->group_sub->avg_pos, group->group_sub->guard_range);
     this->sub_5AE2D4(group);
 
     POSITION it = group->unit_list.GetHeadPosition();
