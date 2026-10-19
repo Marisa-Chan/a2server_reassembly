@@ -1180,7 +1180,7 @@ void ScanPresenceGrid::sub_595F46(Unit* unit) {
     } else if (unit->group->group_sub->active != 0) {
         unit->group->group_sub->presence_detected = 1;
         this->num_detected++;
-        this->field_0x1624++;
+        this->unwatched_active_detections++;
     }
 }
 
@@ -1211,7 +1211,7 @@ void ScanPresenceGrid::sub_5963B9() {
 void ScanPresenceGrid::sub_596131() {
     this->sub_5963B9();
     this->num_detected = 0;
-    this->field_0x1624 = 0;
+    this->unwatched_active_detections = 0;
 
     POSITION unit_it = this->unit_list->unit_list.GetHeadPosition();
     while (unit_it != NULL) {

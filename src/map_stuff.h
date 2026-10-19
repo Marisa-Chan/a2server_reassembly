@@ -55,7 +55,7 @@ struct ScanPresenceGrid {
     int32_t  num_detected;        // count of server units flagged as detected this scan
     int32_t  scan_delta;
     uint8_t  gap_0x161c[8];
-    int32_t  field_0x1624;        // count of units detected via active group while in an unwatched sector
+    int32_t  unwatched_active_detections;        // count of units detected via active group while in an unwatched sector
 
 public:
     ScanPresenceGrid(); // 5955B5
