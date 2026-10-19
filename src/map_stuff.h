@@ -303,7 +303,7 @@ public:
 
     void ApplyCellState(CellState& cell); //58b5d6
     int RestoreCellState(PosYX yx); //58b4a6
-    void FUN_00596d3e(Unit* unit, PosYX yx); //596d3e
+    void ClearBlockerAt(Unit* unit, PosYX yx); //596d3e
     void FUN_0058b3e0(PosYX yx); //58b3e0
     void FUN_00596e0e(Unit* unit, PosYX yx); //596e0e
     void FUN_005969c6(Unit* unit, PosYX yx, uint8_t t); //5969c6

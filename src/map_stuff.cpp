@@ -1016,7 +1016,7 @@ int MapStuff::RestoreCellState(PosYX yx) { //58b4a6
     return 1;
 }
 
-void MapStuff::FUN_00596d3e(Unit* unit, PosYX yx) { //596d3e
+void MapStuff::ClearBlockerAt(Unit* unit, PosYX yx) { //596d3e
     if (this->ObstacleAt(yx).TestBits(0x20) && this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
         if ((unit->GetMovementType() & 0xff) == 3) {
             if (this->scratch_cell_state.dynamic_blocker == unit) {
@@ -1114,7 +1114,7 @@ void MapStuff::FUN_005969c6(Unit* unit, PosYX yx, uint8_t t) { //5969c6
                 break;
 
             case 1:
-                this->FUN_00596d3e(unit, PosYX(dx + j, dy + i));
+                this->ClearBlockerAt(unit, PosYX(dx + j, dy + i));
                 break;
 
             case 2:

@@ -643,3 +643,4 @@ MapStuff::sub_591A96 -> BoxDistance -- footprint-aware box distance between two 
 MapStuff::sub_58E891 -> InitFromUnitList -- binds the unit list and resets grid dims
 MapStuff::sub_58F166 -> InitFromAlm -- loads map dimensions/bounds from the alm
 MapStuff::FUN_0058b5d6 -> ApplyCellState -- applies a CellState to the obstacle/walk-cost maps
+MapStuff::FUN_0058b4a6 -> RestoreCellState -- restores a stored CellState back into the maps
