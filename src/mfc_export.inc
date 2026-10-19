@@ -220,9 +220,9 @@ externdef ?OnSize@CFrameWnd@@IAEXIHH@Z : proc  ; CFrameWnd::OnSize(UINT,int,int)
 externdef ??0CPaintDC@@QAE@PAVCWnd@@@Z : proc  ; CPaintDC::CPaintDC(CWnd*) - 5e8049
 externdef ??1CPaintDC@@UAE@XZ : proc  ; CPaintDC::~CPaintDC(void) - 5e80bb
 externdef ?OnCreate@CFrameWnd@@IAEHPAUtagCREATESTRUCTA@@@Z : proc  ; CFrameWnd::OnCreate(LPCREATESTRUCT) - 5f0e80
-externdef ?Create@CListBox@@UAEHKABUtagRECT@@PAVCWnd@@I@Z : proc  ; CListBox::Create(DWORD,const RECT&,CWnd*,UINT) - 5f27ed
-externdef ?Create@CStatic@@UAEHPBDKABUtagRECT@@PAVCWnd@@I@Z : proc  ; CStatic::Create(LPCTSTR,DWORD,const RECT&,CWnd*,UINT) - 5f26e0
-externdef ?Create@CEdit@@UAEHKABUtagRECT@@PAVCWnd@@I@Z : proc  ; CEdit::Create(DWORD,const RECT&,CWnd*,UINT) - 5f2a89
+externdef ?Create@CListBox@@QAEHKABUtagRECT@@PAVCWnd@@I@Z : proc  ; CListBox::Create(DWORD,const RECT&,CWnd*,UINT) - 5f27ed (non-virtual MFC inline wrapper)
+externdef ?Create@CStatic@@QAEHPBDKABUtagRECT@@PAVCWnd@@I@Z : proc  ; CStatic::Create(LPCTSTR,DWORD,const RECT&,CWnd*,UINT) - 5f26e0 (non-virtual MFC inline wrapper)
+externdef ?Create@CEdit@@QAEHKABUtagRECT@@PAVCWnd@@I@Z : proc  ; CEdit::Create(DWORD,const RECT&,CWnd*,UINT) - 5f2a89 (non-virtual MFC inline wrapper)
 externdef ?Create@CStatusBar@@QAEHPAVCWnd@@KI@Z : proc  ; CStatusBar::Create(CWnd*,DWORD,UINT) - 5f5696
 externdef ?SetActiveWindow@CWnd@@QAEPAV1@XZ : proc  ; CWnd::SetActiveWindow(void) - 496830
 externdef ?Create@CDialog@@QAEHPBDPAVCWnd@@@Z : proc  ; CDialog::Create(LPCTSTR,CWnd*) - 5dfe8a

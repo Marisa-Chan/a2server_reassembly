@@ -162572,7 +162572,7 @@ loc_5F26DC:                             ; CODE XREF: CControlBar::IsFloating(voi
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-?Create@CStatic@@UAEHPBDKABUtagRECT@@PAVCWnd@@I@Z proc near           ; CODE XREF: .text:004840B5↑p
+?Create@CStatic@@QAEHPBDKABUtagRECT@@PAVCWnd@@I@Z proc near           ; CODE XREF: .text:004840B5↑p
 
 arg_0           = dword ptr  8
 arg_4           = dword ptr  0Ch
@@ -162593,7 +162593,7 @@ arg_10          = dword ptr  18h
                 call    dword ptr [eax+5Ch]
                 pop     ebp
                 retn    14h
-?Create@CStatic@@UAEHPBDKABUtagRECT@@PAVCWnd@@I@Z endp
+?Create@CStatic@@QAEHPBDKABUtagRECT@@PAVCWnd@@I@Z endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -162791,7 +162791,7 @@ sub_5F27BF      endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function
 
-?Create@CListBox@@UAEHKABUtagRECT@@PAVCWnd@@I@Z proc near           ; CODE XREF: .text:00484090↑p
+?Create@CListBox@@QAEHKABUtagRECT@@PAVCWnd@@I@Z proc near           ; CODE XREF: .text:00484090↑p
 
 arg_0           = dword ptr  4
 arg_4           = dword ptr  8
@@ -162808,7 +162808,7 @@ arg_C           = dword ptr  10h
                 push    offset aListbox ; "LISTBOX"
                 call    dword ptr [eax+5Ch]
                 retn    10h
-?Create@CListBox@@UAEHKABUtagRECT@@PAVCWnd@@I@Z endp
+?Create@CListBox@@QAEHKABUtagRECT@@PAVCWnd@@I@Z endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -163255,7 +163255,7 @@ arg_4           = dword ptr  8
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function
 
-?Create@CEdit@@UAEHKABUtagRECT@@PAVCWnd@@I@Z proc near           ; CODE XREF: .text:004840FA↑p
+?Create@CEdit@@QAEHKABUtagRECT@@PAVCWnd@@I@Z proc near           ; CODE XREF: .text:004840FA↑p
 
 arg_0           = dword ptr  4
 arg_4           = dword ptr  8
@@ -163272,7 +163272,7 @@ arg_C           = dword ptr  10h
                 push    offset aEdit    ; "EDIT"
                 call    dword ptr [eax+5Ch]
                 retn    10h
-?Create@CEdit@@UAEHKABUtagRECT@@PAVCWnd@@I@Z endp
+?Create@CEdit@@QAEHKABUtagRECT@@PAVCWnd@@I@Z endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -191481,7 +191481,7 @@ aClistbox       db 'CListBox',0         ; DATA XREF: .rdata:stru_611870↑o
                 align 4
 aCbutton        db 'CButton',0          ; DATA XREF: .rdata:stru_611858↑o
 aCstatic        db 'CStatic',0          ; DATA XREF: .rdata:stru_611840↑o
-aStatic         db 'STATIC',0           ; DATA XREF: ?Create@CStatic@@UAEHPBDKABUtagRECT@@PAVCWnd@@I@Z+16↑o
+aStatic         db 'STATIC',0           ; DATA XREF: ?Create@CStatic@@QAEHPBDKABUtagRECT@@PAVCWnd@@I@Z+16↑o
                 align 8
                 dd offset ??_R4CStatic@@6B@ ; const CStatic::`RTTI Complete Object Locator'
 ; const CStatic::`vftable'
@@ -191586,7 +191586,7 @@ aButton         db 'BUTTON',0           ; DATA XREF: unknown_libname_945+16↑o
                 dd offset ?IsFrameWnd@CWnd@@UBEHXZ
                 dd offset ?SetOccDialogInfo@CWnd@@UAEHPAU_AFX_OCC_DIALOG_INFO@@@Z
                 dd offset nullsub_19
-aListbox        db 'LISTBOX',0          ; DATA XREF: ?Create@CListBox@@UAEHKABUtagRECT@@PAVCWnd@@I@Z+16↑o
+aListbox        db 'LISTBOX',0          ; DATA XREF: ?Create@CListBox@@QAEHKABUtagRECT@@PAVCWnd@@I@Z+16↑o
                 dd offset ??_R4CListBox@@6B@ ; const CListBox::`RTTI Complete Object Locator'
 ; const CListBox::`vftable'
 ??_7CListBox@@6B@ dd offset ?GetRuntimeClass@CListBox@@UBEPAUCRuntimeClass@@XZ  ; DATA XREF: ??0CListBox@@QAE@XZ+12↑o
@@ -191699,7 +191699,7 @@ aCombobox_0     db 'COMBOBOX',0         ; DATA XREF: .text:005F298E↑o
                 dd offset nullsub_21
                 dd offset sub_5F29D7
                 dd offset nullsub_22
-aEdit           db 'EDIT',0             ; DATA XREF: ?Create@CEdit@@UAEHKABUtagRECT@@PAVCWnd@@I@Z+16↑o
+aEdit           db 'EDIT',0             ; DATA XREF: ?Create@CEdit@@QAEHKABUtagRECT@@PAVCWnd@@I@Z+16↑o
                 align 10h
                 dd offset ??_R4CEdit@@6B@ ; const CEdit::`RTTI Complete Object Locator'
 ; const CEdit::`vftable'

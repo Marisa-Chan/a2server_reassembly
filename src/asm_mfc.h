@@ -4150,7 +4150,8 @@ public:
 
 public:
 
-	virtual BOOL Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID); // 5f27ed
+	// MFC inline wrapper materialized in the binary; does the virtual CWnd::Create call itself. Not virtual.
+	BOOL Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID); // 5f27ed
 	int GetCurSel() const; //496590
 	int GetText(int nIndex, LPTSTR lpszBuffer) const;
 	void GetText(int nIndex, CString& rString) const; //5f28fd
@@ -4263,7 +4264,8 @@ class CStatic : public CWnd
 
 public:
 	CStatic();
-	virtual BOOL Create(LPCTSTR lpszText, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID); // 5f26e0
+	// MFC inline wrapper materialized in the binary; does the virtual CWnd::Create call itself. Not virtual.
+	BOOL Create(LPCTSTR lpszText, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID); // 5f26e0
 
 public:
 	virtual ~CStatic();
@@ -4298,7 +4300,8 @@ class CEdit : public CWnd
 
 public:
 	CEdit();
-	virtual BOOL Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID); // 5f2a89
+	// MFC inline wrapper materialized in the binary; does the virtual CWnd::Create call itself. Not virtual.
+	BOOL Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID); // 5f2a89
 
 public:
 	virtual ~CEdit();

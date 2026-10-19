@@ -212,3 +212,6 @@ unknown_libname_448
 ?DDV_MaxChars@@YGXPAVCDataExchange@@ABVCString@@H@Z
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
 ??0_AFX_THREAD_STATE@@QAE@XZ
+?Create@CListBox@@QAEHKABUtagRECT@@PAVCWnd@@I@Z
+?Create@CStatic@@QAEHPBDKABUtagRECT@@PAVCWnd@@I@Z
+?Create@CEdit@@QAEHKABUtagRECT@@PAVCWnd@@I@Z
