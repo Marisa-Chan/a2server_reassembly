@@ -79,7 +79,7 @@ public:
     CString login;
     uint32_t last_save_tick;
     uint32_t hat_char_id1;
-    uint32_t field_0xa84;
+    uint32_t hat_char_id2;
     int32_t min_server_level;
     int32_t max_server_level;
     uint32_t field_0xa90;

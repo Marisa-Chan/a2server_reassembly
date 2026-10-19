@@ -50,7 +50,7 @@ Player::Player() {
     this->respawn_requested = 0;
     this->shout_cooldown = 0;
     this->last_save_tick = 0;
-    this->field_0xa84 = 0;
+    this->hat_char_id2 = 0;
     this->hat_char_id1 = 0;
     this->max_server_level = 0;
     this->min_server_level = 0;
