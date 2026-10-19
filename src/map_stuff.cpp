@@ -1146,7 +1146,7 @@ ScanPresenceGrid::ScanPresenceGrid() {
 }
 
 // 596047
-void ScanPresenceGrid::sub_596047(AreaEffect* ae) {
+void ScanPresenceGrid::RegisterAreaEffect(AreaEffect* ae) {
     int32_t x_sec = (ae->position->GetX() >> 3) + 1;
     int32_t y_sec = (ae->position->GetY() >> 3) + 1;
     ae->field4_0x42 = (uint16_t)this->sector_grid[x_sec + 1][y_sec + 1];
@@ -1245,7 +1245,7 @@ void ScanPresenceGrid::sub_596131() {
     POSITION effect_it = g_Server->srv_stru1->effects_list->list.GetHeadPosition();
     while (effect_it != NULL) {
         SpellEffect* effect = g_Server->srv_stru1->effects_list->list.GetNext(effect_it);
-        this->sub_596047(static_cast<AreaEffect*>(effect));
+        this->RegisterAreaEffect(static_cast<AreaEffect*>(effect));
     }
 
     this->scan_delta = this->unit_list->unit_list.GetCount() - this->num_detected;

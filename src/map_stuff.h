@@ -59,7 +59,7 @@ struct ScanPresenceGrid {
 
 public:
     ScanPresenceGrid(); // 5955B5
-    void sub_596047(AreaEffect* ae); // Register area effect into the scan grid (sub_596047)
+    void RegisterAreaEffect(AreaEffect* ae); // Register area effect into the scan grid (RegisterAreaEffect)
     void sub_596131();                 // Rebuild presence grid from all active units/players
     void sub_5957E2(Unit* unit); // OR the unit owner's vision mask into the 5x5 sector block around the unit (5957E2)
     void sub_595F46(Unit* unit); // Mark unit detected when its sector is watched (595F46)
