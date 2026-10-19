@@ -302,3 +302,4 @@ Unit::sub_52A790 -> AddCarriedWeight -- adds delta to carried weight and notifie
 Unit::sub_52A215 -> InitDefaultStats -- initializes default unit stats for newly created units
 Unit::sub_52C98B -> PickUpSack -- Pick up a sack into this unit's bag
 Unit::sub_5287c4 -> NeedsRefreshFor -- 1 when the unit needs a state refresh for the given player
+Unit::sub_5287ec -> ClearRefreshFor -- clears the per-player refresh flag

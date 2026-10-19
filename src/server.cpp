@@ -220,7 +220,7 @@ void Server::sub_4F1E2A() {
                     if (shop->shop_template->sub_547468(player->main_unit) != nullptr) {
                         shop->shop_template->sub_5479C6(player->main_unit);
                         if (this->field4_0x74 != 0) {
-                            player->main_unit->sub_52C409();
+                            player->main_unit->ReturnToMap();
                         }
                     }
                 }
@@ -3840,7 +3840,7 @@ void Server::sub_504a96(Packet* pkt) {
 
             g_NetStru1_main.sub_519221(player->main_unit, player, 0xFFFFFFFF, 0xFFB, 0, 0);
             if ((player->main_unit->unit_attrs & 8) != 0) {
-                player->main_unit->sub_52C409();
+                player->main_unit->ReturnToMap();
             }
             g_NetStru1_main.sub_51D837(g_ServerConfig.game_speed, player);
             break;

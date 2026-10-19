@@ -1187,7 +1187,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
 
     // Notify if server field is set
     if (g_Server->field4_0x74 != 0) {
-        humanoid->sub_52C409();
+        humanoid->ReturnToMap();
     }
 
     // Special cancel sentinel?

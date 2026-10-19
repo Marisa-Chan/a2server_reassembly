@@ -2173,7 +2173,7 @@ void World::ScriptOP_0x10(TriggerAction* action) {
 
 // 5b40ff — Phase in unit
 void World::ScriptOP_0x11(TriggerAction* action) {
-    action->unit->sub_52C409();
+    action->unit->ReturnToMap();
 }
 
 // 5b4117 — Polymorph unit: phase out true form (action->unit), place polymorphed form (action->multi) at same position
@@ -2323,7 +2323,7 @@ void World::ScriptOP_0x20(TriggerAction* action) {
 void World::ScriptOP_0x21(TriggerAction* action) {
     for (POSITION pos = action->group->unit_list.GetHeadPosition(); pos != nullptr; ) {
         Unit* unit = action->group->unit_list.GetNext(pos);
-        unit->sub_52C409();
+        unit->ReturnToMap();
     }
 }
 

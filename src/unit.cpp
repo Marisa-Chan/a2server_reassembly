@@ -1241,7 +1241,7 @@ void Unit::InitDefaultStats() {
 }
 
 // 52C409
-int32_t Unit::sub_52C409() {
+int32_t Unit::ReturnToMap() {
     // First try to place unit at the exact position.
     uint8_t y = this->position->GetY();
     uint8_t x = this->position->GetX();

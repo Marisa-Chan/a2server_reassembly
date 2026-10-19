@@ -85,7 +85,7 @@ void Shop::sub_544655(Unit* unit) {
 void Shop::sub_544685(Unit* unit) {
     this->shop_template->sub_5479C6(static_cast<Humanoid*>(unit));
     if (g_Server->field4_0x74 != 0) {
-        unit->sub_52C409();
+        unit->ReturnToMap();
     }
     g_NetStru1_main.sub_51AC77(unit, nullptr, 0);
 }

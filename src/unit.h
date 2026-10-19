@@ -106,7 +106,7 @@ public:
     void PickUpSack(class Sack* sack); // Pick up a sack into this unit's bag
     int NeedsRefreshFor(Player* player); // Check if this unit needs a refresh for the given player.
     void ClearRefreshFor(Player* player); // Mark this unit as not needing the refresh for the given player.
-    int32_t sub_52C409(); // Return unit to map.
+    int32_t ReturnToMap(); // Return unit to map.
     void sub_52C641(); // 52c641
     void sub_52C163();
     void sub_52C36D(uint8_t x, uint8_t y, uint8_t flags);
