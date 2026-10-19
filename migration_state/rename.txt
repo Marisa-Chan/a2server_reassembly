@@ -424,3 +424,4 @@ World::sub_5A8EFB -> OrderMoveTo -- sets state 1 with a map-clamped move target
 World::sub_5A9961 -> OrderSwarmTo -- sets state 2 (swarm) toward x/y
 World::sub_5A9087 -> OrderEngageTarget -- sets state 3 (pursue/attack target) used by AI decisions
 World::sub_5A9482 -> OrderAttackTarget -- sets state 8 (attack target with range) used by the group attack order
+World::sub_5A930F -> OrderAreaCast -- sets state 0x0E: cast spell at x/y

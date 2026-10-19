@@ -2674,7 +2674,7 @@ int32_t World::sub_5A7AF7(Unit* unit, Unit* other, Spell* spell) {
 
 // Set up a single-target cast action for `unit` on `target` using `spell`.
 // 5A92AF
-void World::sub_5A92AF(Unit* unit, Unit* target, Spell* spell) {
+void World::OrderCastAtUnit(Unit* unit, Unit* target, Spell* spell) {
     this->BeginUnitOrder(unit);
     unit->state = 0xD;
     unit->eye2->unit5 = target;
@@ -4460,7 +4460,7 @@ void World::sub_5AC187(Group* group, Unit* target, Spell*) {
         if (unit->spell == nullptr) {
             this->ResetUnitToHold(unit);
         } else {
-            this->sub_5A92AF(unit, target, unit->spell);
+            this->OrderCastAtUnit(unit, target, unit->spell);
         }
         unit->spell = nullptr;
     }
