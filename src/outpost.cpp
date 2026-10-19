@@ -100,7 +100,7 @@ void Outpost::RegenTick() {
             Unit* u = this->units_original.unit_list.GetNext(pos);
             if (u->decay < 5) {
                 this->hp = -601;
-                u->sub_52E7FA();
+                u->DecayTick();
             }
         }
     }

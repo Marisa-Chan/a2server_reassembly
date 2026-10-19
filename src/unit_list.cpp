@@ -333,7 +333,7 @@ void UnitList::sub_5574B5() {
 	pos = dead_list.GetHeadPosition();
 	while (pos != NULL) {
 		Unit* unit = dead_list.GetNext(pos);
-		unit->sub_52E7FA();
+		unit->DecayTick();
 	}
 
 	// Count summons per summon_id in the summon pool

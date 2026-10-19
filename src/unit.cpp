@@ -1570,7 +1570,7 @@ void Unit::Die() {
         g_NetStru1_main.FUN_0051cefb(0xb4, this->pOwner->mission_result, 0, this->pOwner);
     }
 
-    this->sub_52E7FA();
+    this->DecayTick();
 }
 
 // 52BABD
@@ -1682,7 +1682,7 @@ void Unit::ResetActionState() {
 }
 
 // 52E7FA
-void Unit::sub_52E7FA() {
+void Unit::DecayTick() {
     if (this->hp < -10000) {
         return;
     }
