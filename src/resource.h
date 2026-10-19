@@ -41,7 +41,7 @@ struct ResBase {
         uint8_t* pdata;
     };
     uint32_t fat_offset;
-    uint32_t field_0x3c;
+    uint32_t memory_size;
 
     FatEntry* Find(FatEntry* node, const char* fname);
     FatEntry* FindNext(FatEntry* node, const char** fpath);

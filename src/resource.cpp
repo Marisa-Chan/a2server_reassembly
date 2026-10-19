@@ -232,10 +232,10 @@ ResFile::ResFile(const char* fpath) {
         strcat(buf, ".res");    
     }
 
-    this->field_0x3c = 0;
+    this->memory_size = 0;
 
     
-    this->file = new CFile(buf, this->field_0x3c | CFile::shareDenyNone);
+    this->file = new CFile(buf, this->memory_size | CFile::shareDenyNone);
 
     char *pext = strchr(buf, '.');
     *pext = 0;
@@ -265,13 +265,13 @@ ResFile::ResFile(const char* fpath) {
     this->file->Read(&this->fat_offset, 4);
     this->file->Read(&this->fat_size, 4);
 
-    if ((this->field_0x3c & 0xf) == 0) {
-        this->field_0x3c = 0;
+    if ((this->memory_size & 0xf) == 0) {
+        this->memory_size = 0;
     } else {
-        this->field_0x3c = 1;
+        this->memory_size = 1;
     }
 
-    if (this->field_0x3c == 0) {
+    if (this->memory_size == 0) {
         this->size = this->fat_size;
         this->fat_data = (FatEntry*)malloc(this->size * sizeof(FatEntry));
 
@@ -320,7 +320,7 @@ RegFile::RegFile() {
         AfxThrowMemoryException();
     }
 
-    this->field_0x3c = 0;
+    this->memory_size = 0;
     this->size = 4;
 
     this->fat_data = (FatEntry *)malloc(this->size * sizeof(FatEntry));
@@ -667,8 +667,8 @@ void ResBase::WriteToFile(CFile* cfile, int32_t offset) {
     cfile->Write(&this->fat_size, 4);
     cfile->Write(&this->content_size, 4);
     cfile->Write(this->fat_data, this->fat_size * sizeof(FatEntry));
-    cfile->Write(&this->field_0x3c, 4);
-    cfile->Write(this->pdata, this->field_0x3c);
+    cfile->Write(&this->memory_size, 4);
+    cfile->Write(this->pdata, this->memory_size);
 }
 
 void ResBase::ReadFromFile(CFile* cfile, int32_t offset) {
@@ -708,17 +708,17 @@ void ResBase::ReadFromFile(CFile* cfile, int32_t offset) {
 
     this->size = this->fat_size;
 
-    cfile->Read(&this->field_0x3c, 4);
+    cfile->Read(&this->memory_size, 4);
 
-    this->fat_offset = this->field_0x3c;
+    this->fat_offset = this->memory_size;
 
     if (this->pdata == nullptr) {
-        this->pdata = (uint8_t *)malloc(this->field_0x3c);
+        this->pdata = (uint8_t *)malloc(this->memory_size);
     } else {
-        if (this->field_0x3c == 0) {
+        if (this->memory_size == 0) {
             this->pdata = (uint8_t*)realloc(this->pdata, 1);
         } else {
-            this->pdata = (uint8_t*)realloc(this->pdata, this->field_0x3c);
+            this->pdata = (uint8_t*)realloc(this->pdata, this->memory_size);
         }
     }
 
@@ -727,8 +727,8 @@ void ResBase::ReadFromFile(CFile* cfile, int32_t offset) {
         return;
     }
 
-    if (this->field_0x3c != 0) {
-        cfile->Read(this->pdata, this->field_0x3c);
+    if (this->memory_size != 0) {
+        cfile->Read(this->pdata, this->memory_size);
     }
 }
 
@@ -946,7 +946,7 @@ void ResBase::FUN_004e99c4() {
         }
     }
 
-    this->field_0x3c = pnodes[idx]->offset + pnodes[idx]->size;
+    this->memory_size = pnodes[idx]->offset + pnodes[idx]->size;
     this->content_size = 0;
 
     delete[] pnodes;
@@ -955,11 +955,11 @@ void ResBase::FUN_004e99c4() {
 uint8_t *ResBase::AllocData(uint32_t size) {
     //4e9bb6
 
-    if (this->fat_offset <= this->field_0x3c + size) {
-        if (this->field_0x3c / 8 < this->content_size) {
+    if (this->fat_offset <= this->memory_size + size) {
+        if (this->memory_size / 8 < this->content_size) {
             this->FUN_004e99c4();
 
-            if (this->fat_offset <= this->field_0x3c + size) {
+            if (this->fat_offset <= this->memory_size + size) {
                 this->fat_offset += size + (this->fat_offset / 8);
                 this->pdata = (uint8_t *)realloc(this->pdata, this->fat_offset);
 
@@ -979,8 +979,8 @@ uint8_t *ResBase::AllocData(uint32_t size) {
             }
         }
     }
-    uint32_t off = this->field_0x3c;
-    this->field_0x3c += size;
+    uint32_t off = this->memory_size;
+    this->memory_size += size;
     return this->pdata + off;
 }
 

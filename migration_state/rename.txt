@@ -171,3 +171,4 @@ ScanPresenceGrid::field_0x1624 -> unwatched_active_detections -- count of units 
 MapStuff::field_0x50008 -> path_queue_scratch -- BFS wave-expansion queues: [0]/[0x1000] queue1 x/y, [0x2000]/[0x3000] queue2 x/y
 MapStuff::field_0xa452c -> footprint_scratch -- 8x8 scratch mask used when adding/removing a unit footprint on the cell grid
 ResBase::field_0x30 -> content_size -- --
+ResBase::field_0x3c -> memory_size -- --
