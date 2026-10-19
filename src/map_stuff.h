@@ -210,7 +210,7 @@ public:
     int16_t GetTileMoveTime(Unit* unit, uint8_t x, uint8_t y); // Movement time for unit entering tile (x,y).
     int GetRangeTo(Unit* target, Unit* observer); // Visibility/range check between two units.
     uint8_t GetFacingTo(Unit* unit, Unit* target); // Compute facing direction from unit to target.
-    int sub_58FE6D(Unit* unit, Unit* target, uint8_t max_range); // Check if unit faces target and is in range.
+    int FacesTargetInRange(Unit* unit, Unit* target, uint8_t max_range); // Check if unit faces target and is in range.
     int sub_58FEDA(Unit* unit, PosYX yx, uint8_t max_range); // Check if unit faces yx and is in range.
     void sub_58FF51(Unit* unit, PosYX yx, uint8_t max_range); // AI movement tick for unit toward yx.
     void sub_59028D(Unit* unit, Unit* target, uint8_t max_range); // AI movement tick for unit pursuing target.

@@ -327,7 +327,7 @@ uint8_t MapStuff::GetFacingFor(Unit* unit, PosYX yx) {
 }
 
 // 58FE6D
-int MapStuff::sub_58FE6D(Unit* unit, Unit* target, uint8_t max_range) {
+int MapStuff::FacesTargetInRange(Unit* unit, Unit* target, uint8_t max_range) {
     unit->position->IsAtCellCenter();
     uint8_t current_facing = unit->eye->field0_0x0;
     uint8_t computed_facing = this->GetFacingTo(unit, target);

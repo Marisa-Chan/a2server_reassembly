@@ -1320,7 +1320,7 @@ void World::RecordUnitHit(Unit* target, Unit* attacker, int32_t param_4) {
 
 // 5AAA89
 void World::ChaseOrCast(Unit* unit) {
-    if (unit != unit->eye2->unit5 && this->field24_0xa50->sub_58FE6D(unit, unit->eye2->unit5, unit->eye2->max_range) == 0) {
+    if (unit != unit->eye2->unit5 && this->field24_0xa50->FacesTargetInRange(unit, unit->eye2->unit5, unit->eye2->max_range) == 0) {
         this->StepTowardUnit(unit, unit->eye2->unit5);
         unit->some_state = 1;
     } else {
@@ -3200,7 +3200,7 @@ void World::sub_5AAEBC(Unit* unit) {
         }
     }
 
-    if (this->field24_0xa50->sub_58FE6D(unit, unit->eye2->unit, this->UnitMaxRange(unit))) {
+    if (this->field24_0xa50->FacesTargetInRange(unit, unit->eye2->unit, this->UnitMaxRange(unit))) {
         this->StartAttack(unit);
         unit->some_state = 3;
     } else {
@@ -3327,7 +3327,7 @@ void World::OrderGuardPosition(Unit* unit) {
 
 // 5AA97E
 void World::ChaseOrAttack(Unit* unit) {
-    if (this->field24_0xa50->sub_58FE6D(unit, unit->eye2->unit, this->UnitMaxRange(unit)) == 0) {
+    if (this->field24_0xa50->FacesTargetInRange(unit, unit->eye2->unit, this->UnitMaxRange(unit)) == 0) {
         this->StepTowardUnit(unit, unit->eye2->unit);
         unit->some_state = 1;
     } else {

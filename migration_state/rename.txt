@@ -599,3 +599,4 @@ MapStuff::sub_596576 -> ApplyTerrainMod -- applies a 6-byte terrain modification
 MapStuff::sub_59536C -> GetAreaEffectsAt -- pointer to the area_effects[6] array at cell yx
 MapStuff::sub_5913BD -> GetTileMoveTime -- movement time for the unit entering tile (x,y)
 MapStuff::sub_59190D -> GetRangeTo -- visibility/range check between two units
+MapStuff::sub_591424 -> GetFacingTo -- 16-way facing direction from unit to target
