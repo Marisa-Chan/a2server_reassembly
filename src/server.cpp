@@ -6328,7 +6328,7 @@ void Server::SerializeGame(CArchive& ar) {
         if (this->field18_0x94 != 0) {
             this->srv_stru1->building_list->sub_558908(ar);
             this->srv_stru1->effects_list->Serialize(ar);
-            MapStuff_Instance->sub_58AB48(ar);
+            MapStuff_Instance->Serialize(ar);
             g_World->sub_5B0556(ar);
             this->srv_stru1->sack_list->Serialize(ar);
 
@@ -6411,7 +6411,7 @@ void Server::SerializeGame(CArchive& ar) {
 
             MapAlm* alm = new MapAlm((const char*)map_name);
             MapStuff_Instance = new MapStuff(alm, dword_6CDB3C);
-            MapStuff_Instance->sub_58AB48(ar);
+            MapStuff_Instance->Serialize(ar);
 
             if (g_World == nullptr) {
                 g_World = new World(MapStuff_Instance, g_PlayersList);

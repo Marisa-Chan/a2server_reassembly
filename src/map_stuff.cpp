@@ -1760,7 +1760,7 @@ uint8_t MapStuff::sub_593B29(PosYX yx1, PosYX yx2) {
 }
 
 // 58AB48 --- serialize obstacle/cell state
-void MapStuff::sub_58AB48(CArchive& ar) {
+void MapStuff::Serialize(CArchive& ar) {
     CList<uint32_t> obstacle_diffs;
 
     if (ar.IsStoring()) {

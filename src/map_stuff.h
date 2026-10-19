@@ -188,7 +188,7 @@ public:
     void MarkMapBorder(); // Marks an 8-tile-thick obstacle border around the map edges — 58E670
 
     int AddUnitToMap(Unit* unit); // add unit to map
-    void sub_58AB48(CArchive& ar); // Serialize
+    void Serialize(CArchive& ar); // Serialize
     void sub_5948B0(CWordArray* encode_buf); // encode map terrain into encode_buf
     bool IsInMapBounds(uint8_t x, uint8_t y) const; // 594076
     void RelinkAfterLoad(); // Post-load map relink helper
