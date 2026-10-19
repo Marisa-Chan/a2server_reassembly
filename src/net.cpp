@@ -4419,7 +4419,7 @@ void NetStru1::sub_51E40C(const char* str, int32_t len) {
 }
 
 // 51E5FB
-void NetStru1::sub_51E5FB(int32_t a, int32_t b) {
+void NetStru1::SendHatJoinOk(int32_t a, int32_t b) {
     PacketInfo& packet = PacketInfo::Inst;
     packet.id = 0xD8;
     packet.param1 = a;

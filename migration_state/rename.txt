@@ -556,3 +556,4 @@ NetStru1::sub_51BB94 -> SendSpellCastAtPos -- point/area spell packet
 NetStru1::sub_51BC6B -> SendSpellCastMulti -- multi-target spell packet
 NetStru1::sub_51B370 -> BroadcastMoveCmd -- broadcasts a move-cmd packet to players in visibility
 NetStru1::sub_51B638 -> BroadcastAoeZone -- broadcasts an AoE-zone packet to players in visibility
+NetStru1::sub_51B0F0 -> SendUnitAction -- sends a unit action packet to relevant players

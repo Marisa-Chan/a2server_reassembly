@@ -5464,7 +5464,7 @@ void Server::ProcessHatPacket(Packet* pkt) {
             int32_t result = this->JoinPlayer(id1, id2, name, login, block, block_size, team_id);
             if (result == 0) {
                 LogMessage("New player " + name + " has logged in as " + login);
-                NetStru1::HatConnector.sub_51E5FB(id1, id2);
+                NetStru1::HatConnector.SendHatJoinOk(id1, id2);
             } else {
                 NetStru1::HatConnector.sub_51E63F(id1, id2, result);
             }
