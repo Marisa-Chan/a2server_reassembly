@@ -1345,7 +1345,7 @@ void World::MonsterAiTick(Unit* unit) {
 
     if (unit->eye2->field4_0x9 == 0) {
         if (unit->eye2->field81_0xb0.val != 0 && unit->position->IsAtCellCenter()) {
-            this->field24_0xa50->sub_5954AC(unit, unit->eye2->field81_0xb0.x, unit->eye2->field81_0xb0.y);
+            this->field24_0xa50->TeleportUnit(unit, unit->eye2->field81_0xb0.x, unit->eye2->field81_0xb0.y);
             unit->eye2->field81_0xb0 = PosYX{0};
         }
 
@@ -2257,7 +2257,7 @@ void World::ScriptOP_0x1a(TriggerAction* action) {
 
 // 5b4446 — Teleport unit
 void World::ScriptOP_0x1b(TriggerAction* action) {
-    this->field24_0xa50->sub_5954AC(action->unit, action->data[0], action->data[1]);
+    this->field24_0xa50->TeleportUnit(action->unit, action->data[0], action->data[1]);
     if (action->unit->pOwner->is_ai) {
         this->OrderGuardPosition(action->unit);
     }
@@ -4713,7 +4713,7 @@ void World::CheckOP_22(TriggerCheck* check) {
     PosYX yx(check->data[0], check->data[1]);
     Unit* unit = this->field24_0xa50->sub_58CB5A(yx.val);
     if (unit != nullptr) {
-        this->field24_0xa50->sub_5954AC(unit, check->data[2], check->data[3]);
+        this->field24_0xa50->TeleportUnit(unit, check->data[2], check->data[3]);
         this->trigger_variables[check->id] = 1;
     } else {
         this->trigger_variables[check->id] = 0;

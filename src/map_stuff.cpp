@@ -568,7 +568,7 @@ void MapStuff::sub_590678(Unit* unit) {
     }
 
     if (this->scratch_cell_state.spell_id == spell::teleport) {
-        this->sub_5954AC(unit, this->scratch_cell_state.teleport_x, this->scratch_cell_state.teleport_y);
+        this->TeleportUnit(unit, this->scratch_cell_state.teleport_x, this->scratch_cell_state.teleport_y);
     }
 }
 
@@ -1949,7 +1949,7 @@ uint8_t MapStuff::FacingDiff(uint8_t a, uint8_t b) {
 }
 
 // 5954AC --- teleport unit to (x, y)
-void MapStuff::sub_5954AC(Unit* unit, uint8_t x, uint8_t y) {
+void MapStuff::TeleportUnit(Unit* unit, uint8_t x, uint8_t y) {
     PosYX yx(x, y);
     if (!this->sub_595468(unit, yx)) {
         return;

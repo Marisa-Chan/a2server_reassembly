@@ -200,7 +200,7 @@ public:
     int PlaceUnit(Unit* unit); // Place unit on map at current TokenPos position
     int32_t CanOccupyCell(Unit* unit, uint8_t x, uint8_t y); // Checks whether unit can occupy cell (x,y), triggering any spell tile in the process.
     uint8_t GetFacingFor(Unit* unit, PosYX yx); // Pick rotation angle for the unit to look at `yx`.
-    void sub_5954AC(Unit* unit, uint8_t x, uint8_t y); // Teleport unit to (x, y)
+    void TeleportUnit(Unit* unit, uint8_t x, uint8_t y); // Teleport unit to (x, y)
     void sub_59501E(AreaEffect* ae, uint8_t x, uint8_t y); // 59501E
     int sub_595073(AreaEffect* ae, uint16_t yx); // 595073 — remove area effect from cell state at yx
     Unit* sub_5946BF(uint8_t x, uint8_t y); // 5946BF

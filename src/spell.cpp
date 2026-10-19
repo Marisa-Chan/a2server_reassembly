@@ -652,7 +652,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
             if (is_arena_blocked()) {
                 return;
             }
-            MapStuff_Instance->sub_5954AC(caster, local_pos.GetX(), local_pos.GetY());
+            MapStuff_Instance->TeleportUnit(caster, local_pos.GetX(), local_pos.GetY());
             g_NetStru1_main.SendUnitUpdate(caster, nullptr, 0x10, 0xFFB, 0, 0);
             return;
 
