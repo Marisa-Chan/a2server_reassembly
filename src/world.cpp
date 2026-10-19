@@ -274,7 +274,7 @@ void World::FilterByRelation(Unit* unit, UnitList* list, int32_t flag) {
         Unit* other = list->unit_list.GetNext(it);
 
         bool should_remove = false;
-        if ((int)this->sub_5B5816(unit, other) == flag) {
+        if ((int)this->AreAtWar(unit, other) == flag) {
             should_remove = true;
         } else if ((other->enchantments & (1u << spell::invisibility)) != 0) {
             bool can_see = false;
@@ -636,7 +636,7 @@ void Diplomacy::sub_5B5643(Unit* attacker, Unit* target, int32_t hit_flag) {
 
 // Check if two units are at war.
 // 5B5816
-bool World::sub_5B5816(Unit* unit1, Unit* unit2) {
+bool World::AreAtWar(Unit* unit1, Unit* unit2) {
     return (this->diplomacy.diplomacy[unit1->pOwner->player_id][unit2->pOwner->player_id] & 1) != 0;
 }
 
@@ -1605,7 +1605,7 @@ int32_t World::sub_5A6ED9(Unit* caster, Unit* target) {
             POSITION it2 = (list != nullptr) ? list->unit_list.GetHeadPosition() : nullptr;
             while (it2 != nullptr) {
                 Unit* other = list->unit_list.GetNext(it2);
-                if (this->sub_5B5816(caster, other)) {
+                if (this->AreAtWar(caster, other)) {
                     enemy_count++;
                 } else if (other == caster) {
                     friendly_count += 100;
