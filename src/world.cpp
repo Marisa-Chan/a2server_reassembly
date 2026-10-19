@@ -1381,7 +1381,7 @@ void World::sub_5A9B6B(Unit* unit) {
             this->sub_5AA485(unit);
             break;
         case 12:
-            this->sub_5AA9F6(unit);
+            this->CheckMoveArrival(unit);
             break;
         case 15:
             this->sub_5AAB85(unit, unit);
@@ -3337,7 +3337,7 @@ void World::ChaseOrAttack(Unit* unit) {
 }
 
 // 5AA9F6
-void World::sub_5AA9F6(Unit* unit) {
+void World::CheckMoveArrival(Unit* unit) {
     if (unit->position->CompatGetYX() == unit->eye2->command_to && unit->position->IsAtCellCenter() != 0) {
         if (unit->some_state == 2) {
             unit->some_state = 0;

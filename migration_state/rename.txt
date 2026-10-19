@@ -491,3 +491,4 @@ World::sub_5AA375 -> DoMoveStepTo -- movement executor toward yx within max_rang
 World::sub_5AA426 -> DoTurnTo -- turns the unit to the given facing
 World::sub_5AA78C -> StartAttack -- begins a melee attack on eye2->unit (some_state 3)
 World::sub_5AA91B -> StepTowardUnit -- paths one step toward the target
+World::sub_5AA97E -> ChaseOrAttack -- approach the target until in range, then StartAttack
