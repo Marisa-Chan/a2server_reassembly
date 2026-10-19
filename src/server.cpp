@@ -2972,7 +2972,7 @@ void Server::sub_504a96(Packet* pkt) {
             return;
         }
 
-        Unit* unit = this->sub_502AD1(packet_item->from_player_id, packet_item->entries[0]);
+        Unit* unit = this->FindPlayerUnit(packet_item->from_player_id, packet_item->entries[0]);
         if (!unit) {
             return;
         }
@@ -2984,7 +2984,7 @@ void Server::sub_504a96(Packet* pkt) {
         unit->CancelQueuedSpell();
 
         for (int i = 1; i < packet_item->count; ++i) {
-            Unit* u = this->sub_502AD1(packet_item->from_player_id, packet_item->entries[i]);
+            Unit* u = this->FindPlayerUnit(packet_item->from_player_id, packet_item->entries[i]);
             if (u) {
                 group->AddUnit(u);
                 u->CancelQueuedSpell();
@@ -3244,7 +3244,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x22: // Item operation.
         CheckPacketType(pkt, "PacketCmd");
         {
-            Unit* target_unit = this->sub_502AD1(packet_cmd->from_player_id, packet_cmd->unit_id);
+            Unit* target_unit = this->FindPlayerUnit(packet_cmd->from_player_id, packet_cmd->unit_id);
             if (!target_unit) {
                 break;
             }
@@ -3434,7 +3434,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x32: // Enter shop.
         CheckPacketType(pkt, "PacketWord");
         {
-            Unit* unit = this->sub_502AD1(packet_word->from_player_id, packet_word->value);
+            Unit* unit = this->FindPlayerUnit(packet_word->from_player_id, packet_word->value);
             if (!unit) {
                 break;
             }
@@ -3451,7 +3451,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x33:
         CheckPacketType(pkt, "PacketWord");
         {
-            Unit* unit = this->sub_502AD1(packet_word->from_player_id, packet_word->value);
+            Unit* unit = this->FindPlayerUnit(packet_word->from_player_id, packet_word->value);
             if (!unit) {
                 break;
             }
@@ -3469,7 +3469,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x34:
         CheckPacketType(pkt, "PacketWord");
         {
-            Unit* unit = this->sub_502AD1(packet_word->from_player_id, packet_word->value);
+            Unit* unit = this->FindPlayerUnit(packet_word->from_player_id, packet_word->value);
             if (!unit || !unit->position) {
                 break;
             }
@@ -3487,7 +3487,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x35:
         CheckPacketType(pkt, "PacketWord");
         {
-            Unit* unit = this->sub_502AD1(packet_word->from_player_id, packet_word->value);
+            Unit* unit = this->FindPlayerUnit(packet_word->from_player_id, packet_word->value);
             if (!unit) {
                 break;
             }
@@ -3502,7 +3502,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x36:
         CheckPacketType(pkt, "PacketWord");
         {
-            Unit* unit = this->sub_502AD1(packet_word->from_player_id, packet_word->value);
+            Unit* unit = this->FindPlayerUnit(packet_word->from_player_id, packet_word->value);
             if (!unit) {
                 break;
             }
@@ -3518,7 +3518,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x38: // Enter inn.
         CheckPacketType(pkt, "PacketWord");
         {
-            Unit* unit = this->sub_502AD1(packet_word->from_player_id, packet_word->value);
+            Unit* unit = this->FindPlayerUnit(packet_word->from_player_id, packet_word->value);
             if (!unit) {
                 break;
             }
@@ -3548,7 +3548,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x3A:
         CheckPacketType(pkt, "PacketInfo");
         {
-            Unit* unit = this->sub_502AD1(packet_info->from_player_id, packet_info->param1);
+            Unit* unit = this->FindPlayerUnit(packet_info->from_player_id, packet_info->param1);
             if (!unit) {
                 break;
             }
@@ -3727,7 +3727,7 @@ void Server::sub_504a96(Packet* pkt) {
                 }
                 break;
             case 4: {
-                    Unit* unit = this->sub_502AD1(packet_info->from_player_id, static_cast<uint16_t>(param_value));
+                    Unit* unit = this->FindPlayerUnit(packet_info->from_player_id, static_cast<uint16_t>(param_value));
                     if (unit && unit->eye2) {
                         uint8_t new_spell_id = static_cast<uint8_t>(param_value >> 16);
                         if (unit->eye2->spell_id == new_spell_id) {
@@ -6026,7 +6026,7 @@ Player* Server::sub_502B4A(uint16_t player_id) {
 }
 
 // 502AD1
-Unit* Server::sub_502AD1(uint16_t player_ref, uint16_t unit_id) {
+Unit* Server::FindPlayerUnit(uint16_t player_ref, uint16_t unit_id) {
     Player* player = this->sub_502B4A(player_ref);
     if (!player) {
         return nullptr;

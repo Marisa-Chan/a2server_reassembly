@@ -271,7 +271,7 @@ public:
     void FUN_004ff439(Player* player, int32_t arg4);
 
     // sub_504a96 helpers
-    Unit* sub_502AD1(uint16_t player_ref, uint16_t unit_id);
+    Unit* FindPlayerUnit(uint16_t player_ref, uint16_t unit_id);
     Shop* sub_502C50(TokenPos* pos);
     Inn* sub_502CB7(TokenPos* pos);   // Inn lookup by TokenPos
     Player* sub_502B4A(uint16_t player_id);
