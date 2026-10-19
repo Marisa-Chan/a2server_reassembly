@@ -56,10 +56,10 @@ void Visibility::sub_58CE74() {
                 p3 = 0x01FF;
                 p4 = 0xFF01;
             }
-            this->field_0x22000[y + Visibility::CENTER][x + Visibility::CENTER] = p1;
-            this->field_0x22000[Visibility::CENTER - y][Visibility::CENTER - x] = p2;
-            this->field_0x22000[y + Visibility::CENTER][Visibility::CENTER - x] = p3;
-            this->field_0x22000[Visibility::CENTER - y][x + Visibility::CENTER] = p4;
+            this->ray_dir_table[y + Visibility::CENTER][x + Visibility::CENTER] = p1;
+            this->ray_dir_table[Visibility::CENTER - y][Visibility::CENTER - x] = p2;
+            this->ray_dir_table[y + Visibility::CENTER][Visibility::CENTER - x] = p3;
+            this->ray_dir_table[Visibility::CENTER - y][x + Visibility::CENTER] = p4;
 
             int32_t max_val = (y > x) ? y : x;
             int16_t value = 0;
@@ -73,8 +73,8 @@ void Visibility::sub_58CE74() {
         }
     }
 
-    this->field_0x22000[Visibility::CENTER + 1][Visibility::CENTER] = 0x00FF;
-    this->field_0x22000[Visibility::CENTER - 1][Visibility::CENTER] = 0x0001;
+    this->ray_dir_table[Visibility::CENTER + 1][Visibility::CENTER] = 0x00FF;
+    this->ray_dir_table[Visibility::CENTER - 1][Visibility::CENTER] = 0x0001;
 }
 
 // 58E1E4
@@ -99,7 +99,7 @@ Visibility::Visibility() {
 // 58D638
 int32_t Visibility::sub_58D638(int32_t x, int32_t y, int32_t base_yx, int32_t base_height) {
     PosYX pos = PosYX(x, y);
-    PosYX direction = PosYX(this->field_0x22000[x][y]);
+    PosYX direction = PosYX(this->ray_dir_table[x][y]);
     PosYX with_offset = PosYX(base_yx + pos.val);
     int32_t height = this->map_stuff->height_map[with_offset.val];
 
