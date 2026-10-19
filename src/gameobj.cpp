@@ -375,7 +375,7 @@ int32_t CGameObject::FUN_0041f130() { //41f130
 
 
 
-void CGameObject::VMethod1(int32_t arg1) { //46f430
+void CGameObject::SetSelected(int32_t arg1) { //46f430
     this->m_bSelected = arg1;
     this->m_bSelectionDirty = 1;
 }
@@ -3671,7 +3671,7 @@ int32_t CUnit::FUN_0046c0c9(TokenEntry* entry) {
 }
 
 // 4648e9
-void CUnit::VMethod1(int32_t arg1) {
+void CUnit::SetSelected(int32_t arg1) {
     BigStruct2* map = this->pMapObject;
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     if (arg1 == 0 && map->field_0x138 == this && wnd->drag_entry != nullptr) {
@@ -3679,7 +3679,7 @@ void CUnit::VMethod1(int32_t arg1) {
         wnd->vis_invtype1->VMethod37(wnd->vis_invtype1->FUN_0046fb90());
         wnd->ResetItemCursor();
     }
-    CGameObject::VMethod1(arg1);
+    CGameObject::SetSelected(arg1);
 }
 
 // 469c3c

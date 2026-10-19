@@ -4628,7 +4628,7 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
                             this->parent_screen->FUN_00432655(this->parent_screen->selected_unit);
                         } else {
                             this->parent_screen->roster_list->field_0xd0 = this->parent_screen->session->GetStringArray1Size() - 1;
-                            this->parent_screen->selected_unit->VMethod1(0);
+                            this->parent_screen->selected_unit->SetSelected(0);
                             this->parent_screen->map_context->UpdateSelectionState();
                         }
                     }
@@ -4905,7 +4905,7 @@ void VisCharSellectList::LoadBitmaps() {
 void VisCharSellectList::SelectRow(int32_t row) {
     if (row != -1) {
         if (row == this->parent_screen->session->GetStringArray1Size() - 1) {
-            this->parent_screen->selected_unit->VMethod1(0);
+            this->parent_screen->selected_unit->SetSelected(0);
             this->parent_screen->map_context->UpdateSelectionState();
         } else {
             this->parent_screen->session->LoadCharacterRosterEntry(row);
@@ -5986,7 +5986,7 @@ int32_t VisCharSelect::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 // 432655
 void VisCharSelect::FUN_00432655(CUnit* unit) {
     if (unit != nullptr) {
-        unit->VMethod1(1);
+        unit->SetSelected(1);
         unit->unitFlags |= 8;
     }
     this->map_context->field_0x138 = unit;
@@ -10788,7 +10788,7 @@ void VisShop::VMethod28() {
     this->assortiment->sub_4B7859();
     this->to_buy->sub_4B970E();
     this->gameplay->MsgProc(0x405, 0, 0);
-    this->selected_units[this->select_index]->VMethod1(1);
+    this->selected_units[this->select_index]->SetSelected(1);
     this->gameplay->UpdateSelectionState();
     this->selected_units[this->select_index]->unitFlags |= 8;
     this->to_sell->sub_4B4D33();
@@ -10939,7 +10939,7 @@ void VisShop::sub_4BB895() {
         this->select_index = 0;
     }
     CUnit* unit = this->selected_units[this->select_index];
-    unit->VMethod1(1);
+    unit->SetSelected(1);
     this->gameplay->UpdateSelectionState();
     this->to_sell->VMethod32(&this->selected_units[this->select_index]->tokenEntries);
     this->to_sell->visible_startref = &this->selected_units[this->select_index]->shopInventoryVisibleStart;
@@ -10959,7 +10959,7 @@ void VisShop::sub_4BBA06() {
         this->select_index = this->selected_units.GetUpperBound();
     }
     CUnit* unit = this->selected_units[this->select_index];
-    unit->VMethod1(1);
+    unit->SetSelected(1);
     this->gameplay->UpdateSelectionState();
     this->to_sell->VMethod32(&this->selected_units[this->select_index]->tokenEntries);
     this->to_sell->visible_startref = &this->selected_units[this->select_index]->shopInventoryVisibleStart;
@@ -12672,7 +12672,7 @@ void VisShopDruid::VMethod28() {
     this->assortiment->sub_4B7859();
     this->to_buy->sub_4B970E();
     this->gameplay->MsgProc(0x405, 0, 0);
-    this->selected_units[this->select_index]->VMethod1(1);
+    this->selected_units[this->select_index]->SetSelected(1);
     this->gameplay->UpdateSelectionState();
     this->selected_units[this->select_index]->unitFlags |= 8;
     this->to_sell->sub_4B4D33();
@@ -12952,7 +12952,7 @@ void VisShopKaarg::VMethod28() {
     this->assortiment->sub_4B7859();
     this->to_buy->sub_4B970E();
     this->gameplay->MsgProc(0x405, 0, 0);
-    this->selected_units[this->select_index]->VMethod1(1);
+    this->selected_units[this->select_index]->SetSelected(1);
     this->gameplay->UpdateSelectionState();
     this->selected_units[this->select_index]->unitFlags |= 8;
     this->to_sell->sub_4B4D33();
@@ -13104,7 +13104,7 @@ void VisTav::VMethod28() {
     this->select_party = g_StructEnter.FUN_00473d10();
 
     this->map_context->MsgProc(0x405, 0, 0);
-    this->selected_entries[this->select_party]->VMethod1(1);
+    this->selected_entries[this->select_party]->SetSelected(1);
     this->map_context->UpdateSelectionState();
     this->selected_entries[this->select_party]->unitFlags |= 8;
 
@@ -13343,7 +13343,7 @@ void VisTav::FUN_0049eecd() {
         this->select_party = this->selected_entries.GetUpperBound();
     }
 
-    this->selected_entries[this->select_party]->VMethod1(1);
+    this->selected_entries[this->select_party]->SetSelected(1);
     this->map_context->UpdateSelectionState();
 }
 
@@ -13357,7 +13357,7 @@ void VisTav::FUN_0049ee36() {
         this->select_party = 0;
     }
 
-    this->selected_entries[this->select_party]->VMethod1(1);
+    this->selected_entries[this->select_party]->SetSelected(1);
     this->map_context->UpdateSelectionState();
 }
 
@@ -15396,7 +15396,7 @@ void VisTavDruid::VMethod28() {
     this->select_party = g_StructEnter.FUN_00473d10();
 
     this->map_context->MsgProc(0x405, 0, 0);
-    this->selected_entries[this->select_party]->VMethod1(1);
+    this->selected_entries[this->select_party]->SetSelected(1);
     this->map_context->UpdateSelectionState();
     this->selected_entries[this->select_party]->unitFlags |= 8;
 
@@ -15652,7 +15652,7 @@ void VisTavKaarg::VMethod28() {
     this->select_party = g_StructEnter.FUN_00473d10();
 
     this->map_context->MsgProc(0x405, 0, 0);
-    this->selected_entries[this->select_party]->VMethod1(1);
+    this->selected_entries[this->select_party]->SetSelected(1);
     this->map_context->UpdateSelectionState();
     this->selected_entries[this->select_party]->unitFlags |= 8;
 

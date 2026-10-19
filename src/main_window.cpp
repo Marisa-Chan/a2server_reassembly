@@ -2696,7 +2696,7 @@ void MainWindow::FUN_00491a49() { //491a49
 
     this->vis_right_panel->MsgProc(0x403, (uint32_t)this->vis_map_context, 0);
     
-    this->vis_map_context->GetUnit_3f6c()->VMethod1(1); // select
+    this->vis_map_context->GetUnit_3f6c()->SetSelected(1); // select
 
     this->vis_map_context->UpdateSelectionState();
 
@@ -4073,7 +4073,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
         for (int i = 0; i < sel_ids.GetSize(); i++) {
             CGameObject* obj;
             if (this->vis_map_context->field_0x9d0.Lookup(sel_ids[i], obj)) {
-                obj->VMethod1(1);
+                obj->SetSelected(1);
             }
         }
 
@@ -4519,7 +4519,7 @@ void MainWindow::FUN_0048df44() { //48df44
     for (int i = 0; i < sel_objs.GetSize(); i++) {
         CGameObject* obj = nullptr;
         if (this->vis_map_context->field_0x9d0.Lookup(sel_objs[i], obj) && obj) {
-            obj->VMethod1(1);
+            obj->SetSelected(1);
         }
     }
 

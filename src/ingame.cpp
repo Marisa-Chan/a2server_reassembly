@@ -866,7 +866,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							ct->effect_timers.RemoveAll();
 							ct->transientVisualElements.RemoveAll();
 							if (ct->IsSelected() != 0) {
-								ct->VMethod1(0);
+								ct->SetSelected(0);
 								this->UpdateSelectionState();
 							}
 
@@ -877,7 +877,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							ct->effect_timers.RemoveAll();
 							ct->transientVisualElements.RemoveAll();
 							if (ct->IsSelected() != 0) {
-								ct->VMethod1(0);
+								ct->SetSelected(0);
 								this->UpdateSelectionState();
 							}
 
@@ -2812,14 +2812,14 @@ void BigStruct2::CleanupCompletedMissionMapState() { //41ce5a
 				uni->death_state = 0;
 				uni->action = 0;
 				uni->action_segments = 0;
-				uni->VMethod1(0);
+				uni->SetSelected(0);
 			} else {
 				arr.Add(key);
 			}
 		}
 	}
 
-	this->field_0x3f6c->VMethod1(1);
+	this->field_0x3f6c->SetSelected(1);
 
 	//Remove it here or while iteration
 	for (int i = 0; i < arr.GetSize(); i++) {
@@ -3606,9 +3606,9 @@ void BigStruct2::sub_416983(int32_t digit) {
 		CGameObject* obj;
 		this->field_0x9d0.GetNextAssoc(it, key, obj);
 		if (obj->FUN_0041f1c0(digit)) {
-			obj->VMethod1(1);
+			obj->SetSelected(1);
 		} else if (g_kbShiftState == 0) {
-			obj->VMethod1(0);
+			obj->SetSelected(0);
 		}
 	}
 	this->UpdateSelectionState();
@@ -3662,12 +3662,12 @@ void BigStruct2::sub_416B4A(int32_t digit) {
 		CGameObject* obj;
 		this->field_0x9d0.GetNextAssoc(it, key, obj);
 		if (obj->FUN_0041f1c0(digit)) {
-			obj->VMethod1(1);
+			obj->SetSelected(1);
 			count++;
 			sum_x += obj->x_pos >> 8;
 			sum_y += obj->y_pos >> 8;
 		} else {
-			obj->VMethod1(0);
+			obj->SetSelected(0);
 		}
 	}
 	this->UpdateSelectionState();
@@ -3686,9 +3686,9 @@ void BigStruct2::sub_416C4C() {
 		this->field_0x9d0.GetNextAssoc(it, key, obj);
 		if (obj->IsKindOf(RUNTIME_CLASS(CUnit)) && obj->map_player == this->my_main_unit &&
 			((CUnit*)obj)->death_state <= 1 && !(((CUnit*)obj)->unitFlags & 0x80)) {
-			obj->VMethod1(1);
+			obj->SetSelected(1);
 		} else {
-			obj->VMethod1(0);
+			obj->SetSelected(0);
 		}
 	}
 	this->UpdateSelectionState();
@@ -3709,7 +3709,7 @@ void BigStruct2::sub_4168BD() {
 			uint16_t key;
 			CGameObject* obj;
 			this->field_0x9d0.GetNextAssoc(it, key, obj);
-			obj->VMethod1(0);
+			obj->SetSelected(0);
 		}
 		this->UpdateSelectionState();
 	}
@@ -6828,7 +6828,7 @@ void BigStruct2::sub_417F09(CRect* rect) {
 			uint16_t key;
 			CGameObject* obj;
 			this->field_0x9d0.GetNextAssoc(it, key, obj);
-			obj->VMethod1(0);
+			obj->SetSelected(0);
 		}
 	}
 	for (int32_t i = this->field_0x134 - 1; i >= 0; i--) {
@@ -6851,14 +6851,14 @@ void BigStruct2::sub_417F09(CRect* rect) {
 		}
 		if (g_kbShiftState != 0) {
 			if (obj->map_player == this->my_main_unit && (this->field_0x144 & 4) == 0) {
-				obj->VMethod1(obj->IsSelected() == 0);
+				obj->SetSelected(obj->IsSelected() == 0);
 			}
 		} else if (small_rect == 0) {
 			if (obj->map_player == this->my_main_unit && !obj->IsKindOf(RUNTIME_CLASS(CStructure))) {
-				obj->VMethod1(1);
+				obj->SetSelected(1);
 			}
 		} else if (!obj->IsKindOf(RUNTIME_CLASS(CStructure))) {
-			obj->VMethod1(1);
+			obj->SetSelected(1);
 		}
 		if (small_rect != 0) {
 			break;
