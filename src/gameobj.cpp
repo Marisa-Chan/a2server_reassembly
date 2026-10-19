@@ -427,7 +427,7 @@ int32_t CGameObject::Update() { //461f73
 }
 
 
-void CGameObject::VMethod12() { //46f4f0
+void CGameObject::UpdateLight() { //46f4f0
 }
 
 
@@ -3990,7 +3990,7 @@ void CStructure::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
 }
 
 // 463a58
-void CStructure::VMethod12() {
+void CStructure::UpdateLight() {
     if (g_Lightning == 0) {
         return;
     }
@@ -4623,7 +4623,7 @@ void CProjectile::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
 }
 
 // 46e805
-void CProjectile::VMethod12() {
+void CProjectile::UpdateLight() {
     BigStruct2* map = this->pMapObject;
 
     switch (this->typeId) {

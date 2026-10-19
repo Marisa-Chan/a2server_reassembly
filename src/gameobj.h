@@ -136,7 +136,7 @@ public:
 	virtual void DrawMinimapRect(int32_t arg1, int32_t arg2, int32_t arg3);
 	virtual void UpdateTileLayer();
 	virtual int32_t Update();
-	virtual void VMethod12();
+	virtual void UpdateLight();
 	virtual void VMethod13();
 	virtual void VMethod14();
 	virtual int32_t VMethod15();
@@ -428,7 +428,7 @@ public:
 	virtual void Draw(int32_t arg1, int32_t arg2, int32_t arg3) override; // 46e291
 
 	virtual int32_t Update() override; // 46d8d8
-	virtual void VMethod12() override; // 46e805
+	virtual void UpdateLight() override; // 46e805
 	virtual void VMethod16() override; // 46eb80
 
 	CProjectile(); // 46d802
@@ -458,7 +458,7 @@ public:
 	virtual void DrawMinimapRect(int32_t arg1, int32_t arg2, int32_t arg3) override; //46380c
 	virtual void UpdateTileLayer() override; //462b0f
 	virtual int32_t Update() override; //463a05
-	virtual void VMethod12() override; //463a58
+	virtual void UpdateLight() override; //463a58
 	virtual int32_t VMethod15() override; //462b28
 	// no VMethod16 override: the binary vtable keeps CGameObject's here
 

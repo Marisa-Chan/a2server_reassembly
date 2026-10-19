@@ -4172,7 +4172,7 @@ void BigStruct2::sub_40403B() {
 		this->field_0x9d0.GetNextAssoc(it, key, obj);
 		obj->FUN_0046190d();
 		obj->UpdateTileLayer();
-		obj->VMethod12();
+		obj->UpdateLight();
 	}
 	memset(this->field_0xa0, 0, this->corner_grid_bytes);
 	uint16_t* landscape = this->field_0x80->GetLandscape();
@@ -4213,7 +4213,7 @@ void BigStruct2::sub_40403B() {
 		CGameObject* obj;
 		this->field_0x9ec.GetNextAssoc(it, key, obj);
 		obj->FUN_0046190d();
-		obj->VMethod12();
+		obj->UpdateLight();
 	}
 	for (POSITION it = this->field_0xa94.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
