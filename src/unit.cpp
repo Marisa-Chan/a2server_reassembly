@@ -226,7 +226,7 @@ void __cdecl sub_536630(Unit* self, Unit* target, int32_t* out_charge) {
     }
 
     int16_t dist = sub_5364D5(self, target);
-    if (self->sub_52C735(spell::invisibility)) {
+    if (self->HasEnchantment(spell::invisibility)) {
         // Attacker is invisible: reset its spell_value to 1 so the invisibility finishes.
         for (POSITION pos = self->_effects.GetHeadPosition(); pos != nullptr; ) {
             Effect* effect = self->_effects.GetNext(pos);
@@ -2043,7 +2043,7 @@ void Unit::FUN_0052ec7a(const CArray<MonsterInfoData>& values) {
 
 // HasEnchantment.
 // 52C735
-int32_t Unit::sub_52C735(uint8_t spell_id) {
+int32_t Unit::HasEnchantment(uint8_t spell_id) {
     return (this->enchantments & (1 << spell_id));
 }
 
