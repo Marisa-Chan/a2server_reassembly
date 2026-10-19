@@ -2739,7 +2739,7 @@ void World::sub_5AA8ED(Unit* unit) {
 // Set unit to pursue `target`; if not centered in a cell, mark it for movement.
 // 5AA91B
 void World::StepTowardUnit(Unit* unit, Unit* target) {
-    this->field24_0xa50->sub_59028D(unit, target, unit->eye2->max_range);
+    this->field24_0xa50->MoveStepTowardUnit(unit, target, unit->eye2->max_range);
     if (!unit->position->IsAtCellCenter()) {
         unit->eye2->field4_0x9 = 3;
         unit->eye2->counter = 0;

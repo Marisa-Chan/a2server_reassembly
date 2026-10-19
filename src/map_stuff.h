@@ -213,7 +213,7 @@ public:
     int FacesTargetInRange(Unit* unit, Unit* target, uint8_t max_range); // Check if unit faces target and is in range.
     int FacesPosInRange(Unit* unit, PosYX yx, uint8_t max_range); // Check if unit faces yx and is in range.
     void MoveStepTowardPos(Unit* unit, PosYX yx, uint8_t max_range); // AI movement tick for unit toward yx.
-    void sub_59028D(Unit* unit, Unit* target, uint8_t max_range); // AI movement tick for unit pursuing target.
+    void MoveStepTowardUnit(Unit* unit, Unit* target, uint8_t max_range); // AI movement tick for unit pursuing target.
     void sub_58826D(Unit* unit, uint8_t x, uint8_t y, int32_t flag, Unit* target);
     void sub_590678(Unit* unit);
     void sub_5907BE(Unit* unit);

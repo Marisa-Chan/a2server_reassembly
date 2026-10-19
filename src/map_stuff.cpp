@@ -423,7 +423,7 @@ void MapStuff::MoveStepTowardPos(Unit* unit, PosYX yx, uint8_t max_range) {
 }
 
 // 59028D
-void MapStuff::sub_59028D(Unit* unit, Unit* target, uint8_t max_range) {
+void MapStuff::MoveStepTowardUnit(Unit* unit, Unit* target, uint8_t max_range) {
     PosYX target_yx = target->position->GetYX();
     uint8_t range = this->GetRangeTo(unit, target);
     int32_t in_cell_middle = unit->position->IsAtCellCenter();
