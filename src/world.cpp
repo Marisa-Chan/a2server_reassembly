@@ -1354,7 +1354,7 @@ void World::sub_5A9B6B(Unit* unit) {
             this->DoMoveStepTo(unit, unit->eye2->command_to, 0);
             break;
         case 2:
-            this->sub_5AA78C(unit);
+            this->StartAttack(unit);
             break;
         case 4:
             this->sub_5AA91B(unit, unit->eye2->unit3);
@@ -2851,7 +2851,7 @@ void World::sub_5A4590() {
 }
 
 // 5AA78C
-void World::sub_5AA78C(Unit* unit) {
+void World::StartAttack(Unit* unit) {
     unit->eye2->field4_0x9 = 1;
     unit->eye2->counter = 0;
     unit->some_state = 3;
@@ -3201,7 +3201,7 @@ void World::sub_5AAEBC(Unit* unit) {
     }
 
     if (this->field24_0xa50->sub_58FE6D(unit, unit->eye2->unit, this->UnitMaxRange(unit))) {
-        this->sub_5AA78C(unit);
+        this->StartAttack(unit);
         unit->some_state = 3;
     } else {
         uint8_t facing = this->field24_0xa50->sub_591424(unit, unit->eye2->unit);
@@ -3331,7 +3331,7 @@ void World::sub_5AA97E(Unit* unit) {
         this->sub_5AA91B(unit, unit->eye2->unit);
         unit->some_state = 1;
     } else {
-        this->sub_5AA78C(unit);
+        this->StartAttack(unit);
         unit->some_state = 3;
     }
 }

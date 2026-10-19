@@ -173,7 +173,7 @@ public:
     void DoMoveStepTo(Unit* unit, PosYX yx, uint8_t max_range); // 5AA375
     void DoTurnTo(Unit* unit, uint8_t facing); // 5AA426
     void sub_5AA485(Unit* unit); // 5AA485
-    void sub_5AA78C(Unit* unit); // 5AA78C
+    void StartAttack(Unit* unit); // 5AA78C
     void sub_5AA8ED(Unit* unit); // 5AA8ED
     void sub_5AA91B(Unit* unit, Unit* target);
     void sub_5AA97E(Unit* unit); // 5AA97E
