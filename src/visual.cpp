@@ -22833,7 +22833,7 @@ void VisMiniMap::VMethod7() {
         uint16_t key;
         CGameObject* obj;
         mc->field_0x9d0.GetNextAssoc(pos, key, obj);
-        obj->VMethod9(rc.left + ox, rc.top + oy, this->zoom);
+        obj->DrawMinimapRect(rc.left + ox, rc.top + oy, this->zoom);
     }
     if (mode == 1) {
         DrawRectangleFrame((mc->view_x - 8) * step + rc.left + ox,

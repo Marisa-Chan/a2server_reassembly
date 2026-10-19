@@ -413,7 +413,7 @@ void CGameObject::DrawHealthBar(int32_t arg1, int32_t arg2, int32_t arg3) { //46
 }
 
 
-void CGameObject::VMethod9(int32_t arg1, int32_t arg2, int32_t arg3) { //46f4d0
+void CGameObject::DrawMinimapRect(int32_t arg1, int32_t arg2, int32_t arg3) { //46f4d0
 }
 
 
@@ -3112,7 +3112,7 @@ void CUnit::VMethod18() {
 }
 
 // 46761e
-void CUnit::VMethod9(int32_t arg1, int32_t arg2, int32_t arg3) {
+void CUnit::DrawMinimapRect(int32_t arg1, int32_t arg2, int32_t arg3) {
     if (this->death_state > 1) {
         return;
     }
@@ -4027,7 +4027,7 @@ void CStructure::VMethod12() {
 }
 
 // 46380c
-void CStructure::VMethod9(int32_t arg1, int32_t arg2, int32_t arg3) {
+void CStructure::DrawMinimapRect(int32_t arg1, int32_t arg2, int32_t arg3) {
     BigStruct2* map = this->pMapObject;
 
     uint16_t* land = map->field_0x80->GetLandscape();
