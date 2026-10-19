@@ -161,7 +161,7 @@ public:
     void SendArenaResults();
     void ResetArenaRound(int arg);
     void KickAllPlayers();
-    void sub_4F0ECF();
+    void HatKeepaliveTick();
     int sub_4F1471(CString param_1); // Load map / saved game
     int sub_4EDB83(const CString& filename); // Load saved game file
     void sub_4FA01F(); // Arena mode file list setup

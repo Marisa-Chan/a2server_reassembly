@@ -316,7 +316,7 @@ void PlayersList::sub_534DDD() {
 				g_Server->FileList.SetAtGrow(g_Server->FileList.GetSize(), player->login);
 			}
 
-			g_Server->sub_4F0ECF();
+			g_Server->HatKeepaliveTick();
 			g_NetStru1_main.FUN_0051cefb(0x97, player->player_id, 0, nullptr);
 			LogMessage("Player " + player->name + " has left the game");
 

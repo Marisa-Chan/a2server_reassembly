@@ -4349,7 +4349,7 @@ int32_t Server::sub_4F0BEF() {
 }
 
 // 4f0ecf
-void Server::sub_4F0ECF() {
+void Server::HatKeepaliveTick() {
     if (this->field51_0x1d8 != 0 || this->field50_0x1d4 != 0) {
         return;
     }
@@ -4752,7 +4752,7 @@ void Server::ServerTic() {
 
     if ((this->tick & 0xf) == 10) {
         this->sub_4F0D58();
-        this->sub_4F0ECF();
+        this->HatKeepaliveTick();
     }
 
     if (g_ServerConfig.gameType == 2) {

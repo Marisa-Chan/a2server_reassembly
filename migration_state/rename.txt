@@ -373,3 +373,4 @@ Server::sub_4F465E -> AnnounceHatGameStart -- announces the game to the HAT serv
 Server::sub_4F9E55 -> ScanSavedCharacters -- scans chr_base/*.sck into the saved character list (mission mode)
 Server::sub_4FA5C4 -> SendArenaResults -- formats and sends the arena score report to HAT
 Server::sub_4FA78E -> ResetArenaRound -- broadcasts frag limit, sends arena results, resets tick/frags/name list
+Server::sub_4F8831 -> KickAllPlayers -- disconnects every human client and expires their drop deadlines
