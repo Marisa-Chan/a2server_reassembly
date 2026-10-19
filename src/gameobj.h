@@ -204,7 +204,7 @@ public:
 	int32_t action_z; // 98
 	int32_t action_phase; // 9c
 	int32_t move_accum_x; // a0
-	int32_t field_0xa4; // a4
+	int32_t move_accum_y; // a4
 	int32_t action_segments; // a8
 	int32_t action_spell; // ac
 	CArray<uint16_t> actionTargets; // b0

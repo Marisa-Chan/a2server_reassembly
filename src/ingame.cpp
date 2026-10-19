@@ -829,7 +829,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 								ct->action = 6;
 								ct->action_dir = ct->dir;
 								ct->action_phase = 0;
-								ct->field_0xa4 = 0;
+								ct->move_accum_y = 0;
 								ct->move_accum_x = 0;
 								ct->action_x = ct->x_pos;
 								ct->action_y = ct->y_pos;
@@ -841,7 +841,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 								ct->action = 6;
 								ct->action_dir = ct->dir;
 								ct->action_phase = dying->dying_phases * 2 - 4;
-								ct->field_0xa4 = 0;
+								ct->move_accum_y = 0;
 								ct->move_accum_x = 0;
 								ct->action_x = ct->x_pos;
 								ct->action_y = ct->y_pos;
@@ -951,7 +951,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					ct->action_dir = packet_abil->angle;
 					ct->field_0xc4 = ct->dir * 16;
 					ct->action_phase = 0;
-					ct->field_0xa4 = 0;
+					ct->move_accum_y = 0;
 					ct->move_accum_x = 0;
 				}
 			}
@@ -973,7 +973,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						ct->action = 3;
 						ct->action_dir = packet_abil->angle;
 						ct->action_phase = 0;
-						ct->field_0xa4 = 0;
+						ct->move_accum_y = 0;
 						ct->move_accum_x = 0;
 						break;
 					}
@@ -1020,7 +1020,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				ct->action_segments = g_VFX_info[ct->typeId]->attack_anim_frame_cnt;
 				ct->action = 7;
 				ct->action_phase = 0;
-				ct->field_0xa4 = 0;
+				ct->move_accum_y = 0;
 				ct->move_accum_x = 0;
 				ct->action_target = packet_mount->target_id;
 				ct->action_dir = ct->dir;
