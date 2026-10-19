@@ -52,7 +52,7 @@ void Outpost::FillUnits(Group* group) {
         this->units_original.AddTail(unit);
         if (unit->IsHumanoid()) { // IsHumanoid
             Human* human = new Human();
-            human->sub_530231((Humanoid*)unit);
+            human->CopyFrom((Humanoid*)unit);
             this->units_copy.AddTail(human);
         } else {
             Unit* unit_copy = new Unit();
@@ -157,7 +157,7 @@ void Outpost::sub_543EC3(Group* group) {
         }
 
         if (unit_copy->IsHumanoid()) {
-            ((Humanoid*)unit_original)->sub_530231((Humanoid*)unit_copy);
+            ((Humanoid*)unit_original)->CopyFrom((Humanoid*)unit_copy);
         } else {
             unit_original->CopyFrom(unit_copy);
         }

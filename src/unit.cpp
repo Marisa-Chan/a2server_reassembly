@@ -2709,7 +2709,7 @@ int32_t Humanoid::GetCorpseDecayTime() {
 
 // Copy stats and equipment from another humanoid.
 // 530231
-void Humanoid::sub_530231(Humanoid* other) {
+void Humanoid::CopyFrom(Humanoid* other) {
     this->Unit::CopyFrom(other);
 
     for (int32_t i = 0; i < this->equipment.size(); i++) {

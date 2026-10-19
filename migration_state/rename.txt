@@ -325,3 +325,4 @@ Unit::sub_52F601 -> InitFromMonsterName -- looks up the monster template by name
 Unit::sub_5B6FB0 -> IsMage -- unit_attrs fighter/mage bit check
 Unit::FUN_0052ec7a -> ApplyMonsterInfo -- copies MonsterInfoData stats (body/reaction/mind/spirit/hp_max/...) onto the unit
 Humanoid::sub_53116B -> ReviveWithPenalty -- revive with penalties: skills set to 70 or exp decayed 10%% per sphere, fresh UnitEye
+Humanoid::sub_531418 -> RecalcExperienceFromSkills -- recomputes experience from skill levels
