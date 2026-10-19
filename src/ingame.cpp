@@ -5401,7 +5401,7 @@ void BigStruct2::sub_406F7B() {
 		this->sub_405D0E();
 	}
 	int32_t tick = this->field_0xa88;
-	uint8_t* gfx_cells = this->field_0x80->FUN_0041eec0();
+	uint8_t* gfx_cells = this->field_0x80->GetObjectMap();
 	uint8_t* f18map = this->field_0x80->FUN_0041eee0();
 	uint8_t* hmap = this->field_0x80->GetMapHeights();
 	uint16_t* landscape = this->field_0x80->GetLandscape();
@@ -6148,7 +6148,7 @@ void BigStruct2::FUN_0041c74b(int32_t x, int32_t y, int32_t w, int32_t h, int32_
 					uint32_t zero_val = 0;
 					uint16_t* land = this->field_0x80->GetLandscape();
 					if ((land[idx] & 0x2000) == 0) {
-						uint8_t gfx_id = this->field_0x80->FUN_0041eec0()[idx];
+						uint8_t gfx_id = this->field_0x80->GetObjectMap()[idx];
 						if (gfx_id != 0 && g_GfxObjects[gfx_id - 1]->in_map_editor != -1) {
 							this->field_0xa94.SetAt(packed, zero_val);
 						}
@@ -7557,7 +7557,7 @@ void BigStruct2::UpdateAmbientSounds() { //41b8d0
 		}
 		
 		uint16_t* landscape = this->field_0x80->GetLandscape();
-		uint8_t* local_78 = this->field_0x80->FUN_0041eec0();
+		uint8_t* local_78 = this->field_0x80->GetObjectMap();
 		int32_t count_50 = 0;
 		int32_t count_90 = 0;
 		int32_t local_34 = 0;

@@ -4403,7 +4403,7 @@ int32_t CProjectile::Update() {
                         uint16_t* landscape = map->field_0x80->GetLandscape();
                         int32_t idx = this->tileX + i + (this->tileY + j) * map->map_width;
                         int32_t height = (landscape[idx] & 0x1fff) >> 6;
-                        uint8_t gfx_idx = map->field_0x80->FUN_0041eec0()[idx];
+                        uint8_t gfx_idx = map->field_0x80->GetObjectMap()[idx];
                         if (height < 8 || height >= 12 || gfx_idx != 0) {
                             landscape[idx] |= 0x2000;
                         }
@@ -4416,7 +4416,7 @@ int32_t CProjectile::Update() {
                         int32_t idx = this->tileX + i + (this->tileY + j) * map->map_width;
                         if ((landscape[idx] & 0x2000) == 0) {
                             uint16_t packed = (uint16_t)((this->tileX + i) | (this->tileY + j) << 8);
-                            uint8_t gfx_idx = map->field_0x80->FUN_0041eec0()[idx];
+                            uint8_t gfx_idx = map->field_0x80->GetObjectMap()[idx];
                             if (gfx_idx != 0 && g_GfxObjects[gfx_idx - 1]->dead_object != -1) {
                                 map->field_0xa94.SetAt(packed, 0);
                             }

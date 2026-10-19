@@ -669,3 +669,4 @@ MapStuff::sub_59A670 -> GetCostGridAt -- pointer into the field3_0x30000 cost gr
 MapStuff::sub_59A6F0 -> GetWalkCostMapAt -- pointer into walk_cost_map
 Scenario::sub_4A952B -> UpdateTerrainShading -- recomputes terrain light/shade values for a rect from sun angle and brightness/contrast
 Scenario::FUN_004a7b79 -> GetRenderSunAngle -- sun angle clamped and scaled for rendering shadows
+Scenario::sub_41EF60 -> IsInShadedBounds -- in-bounds check with a 7-cell margin
