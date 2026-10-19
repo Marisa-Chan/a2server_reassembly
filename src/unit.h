@@ -70,7 +70,7 @@ public: // VTable at 60efc0.
     virtual void Serialize(CArchive& ar) override;
     virtual void RegenTick() override;
     virtual void ProcessEffects() override;
-    virtual int32_t VMethod3() override; // TokenSize
+    virtual int32_t GetTokenSize() override; // TokenSize
     virtual int32_t VMethod4() override; // MovementType
     virtual void VMethod5() override;
     virtual int32_t VMethod7() override; // IsUnit

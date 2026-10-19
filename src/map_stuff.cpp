@@ -814,8 +814,8 @@ bool MapStuff::IsInMapBounds(uint8_t x, uint8_t y) const {
 
 // 59190D
 int MapStuff::sub_59190D(Unit* target, Unit* observer) {
-    int32_t target_size = target->VMethod3();
-    int32_t observer_size = observer->VMethod3();
+    int32_t target_size = target->GetTokenSize();
+    int32_t observer_size = observer->GetTokenSize();
 
     int32_t x1 = target->position->GetXx() + (target_size - 1) * 0x80;
     int32_t y1 = target->position->GetYy() + (target_size - 1) * 0x80;
@@ -838,7 +838,7 @@ int MapStuff::sub_59190D(Unit* target, Unit* observer) {
 
 // 597140
 int MapStuff::sub_597140(Unit* unit, PosYX yx, int32_t flag) {
-    int32_t size = unit->VMethod3();
+    int32_t size = unit->GetTokenSize();
 
     for (int32_t dx = 0; dx < size; dx++) {
         for (int32_t dy = 0; dy < size; dy++) {
@@ -918,7 +918,7 @@ int32_t MapStuff::sub_58AEEF(Unit* unit, uint8_t x, uint8_t y) {
 
 // 58AD4A
 int MapStuff::sub_58AD4A(Unit* unit) {
-    int32_t size = unit->VMethod3();
+    int32_t size = unit->GetTokenSize();
 
     uint8_t x = unit->position->GetX();
     uint8_t y = unit->position->GetY();
@@ -1076,7 +1076,7 @@ void MapStuff::FUN_00596e0e(Unit* unit, PosYX yx) { //596e0e
 }
 
 void MapStuff::FUN_005969c6(Unit* unit, PosYX yx, uint8_t t) { //5969c6
-    int sz = unit->VMethod3();
+    int sz = unit->GetTokenSize();
     this->footprint_scratch.fill(0);
     for (int j = 0; j < sz + 2; j++) {
         for (int i = 0; i < sz + 2; i++) {
@@ -1579,7 +1579,7 @@ int MapStuff::sub_58B27F(Unit* unit, uint8_t x, uint8_t y) {
 
 // 58B1D7
 int MapStuff::sub_58B1D7(Unit* unit) {
-    int32_t size = unit->VMethod3() & 0xFF;
+    int32_t size = unit->GetTokenSize() & 0xFF;
     uint8_t x = unit->position->GetX();
     uint8_t y = unit->position->GetY();
 
@@ -2014,7 +2014,7 @@ void MapStuff::sub_599410(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t co
 // 5882AE --- pathfinding BFS from (cur_x, cur_y) to (x, y)
 void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y, int32_t flag, Unit* target) {
     PosYX dest(x, y);
-    int32_t unit_size = unit->VMethod3();
+    int32_t unit_size = unit->GetTokenSize();
 
     if (flag != 0) {
         unit->list1.RemoveAll();
@@ -2175,7 +2175,7 @@ void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
             }
 
             if (unit->group->group_sub->order == 0x12 && unit->eye2->cast_action == 5) {
-                int32_t size = unit->VMethod3();
+                int32_t size = unit->GetTokenSize();
                 uint8_t range = this->sub_591A96(step, dest.val, size);
                 if (this->field41_0x58d80->UnitMaxRange(unit) < range) {
                     unit->eye2->tick16 = g_Server->tick16;
@@ -2348,10 +2348,10 @@ uint8_t MapStuff::sub_592831(Unit* target, Unit* unit) {
 // 592A48 --- find the lowest-cost cell in an expanding box around target, walking along the box
 // perimeter starting from where the unit->target line of sight crosses it.
 uint16_t MapStuff::sub_592A48(Unit* unit, Unit* target) {
-    int32_t box_max_x = target->position->GetX() + target->VMethod3();
-    int32_t box_max_y = target->position->GetY() + target->VMethod3();
-    int32_t box_min_x = target->position->GetX() - unit->VMethod3();
-    int32_t box_min_y = target->position->GetY() - unit->VMethod3();
+    int32_t box_max_x = target->position->GetX() + target->GetTokenSize();
+    int32_t box_max_y = target->position->GetY() + target->GetTokenSize();
+    int32_t box_min_x = target->position->GetX() - unit->GetTokenSize();
+    int32_t box_min_y = target->position->GetY() - unit->GetTokenSize();
 
     uint8_t direction = this->sub_592831(target, unit);
     int32_t quadrant = (((direction + 2) & 0xC) >> 2) + 4; // 4..7
@@ -2718,7 +2718,7 @@ int32_t MapStuff::sub_593CD5(Unit* unit, uint16_t yx, uint8_t val) {
 
 // 596F80 --- checks whether unit can occupy the size x size box of cells at yx, per obstacle_map
 int32_t MapStuff::sub_596F80(Unit* unit, uint16_t yx) {
-    int8_t size = unit->VMethod3();
+    int8_t size = unit->GetTokenSize();
     for (int32_t i = 0; i < size; i++) {
         for (int32_t j = 0; j < size; j++) {
             if (this->ObstacleAt(PosYX(yx + PosYX(i, j).val)).TestBits(unit->eye->field5_0x5)) {
@@ -2731,7 +2731,7 @@ int32_t MapStuff::sub_596F80(Unit* unit, uint16_t yx) {
 
 // 5978F0 --- Passability check used by sub_5976D0/sub_597990; same as sub_596F80 but against obstacle_map2
 int32_t MapStuff::sub_5978F0(Unit* unit, uint16_t yx) {
-    int8_t size = unit->VMethod3();
+    int8_t size = unit->GetTokenSize();
     for (int32_t i = 0; i < size; i++) {
         for (int32_t j = 0; j < size; j++) {
             if (this->Obstacle2At(PosYX(yx + PosYX(i, j).val)).TestBits(unit->eye->field5_0x5)) {

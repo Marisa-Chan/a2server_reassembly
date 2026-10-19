@@ -224,7 +224,7 @@ int32_t Spell::sub_539958(Unit* caster, Unit* target, int8_t x, int8_t y) {
         local_pos = TokenPos(x, y, MapStuff_Instance);
     } else {
         local_pos = *target->position;
-        if (target->VMethod3() > 1) {
+        if (target->GetTokenSize() > 1) {
             local_pos.SetCoords2(target->sub_528725() - 1, target->sub_528763() - 1);
 		}
     }
@@ -387,7 +387,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
         local_pos = TokenPos(x, y, MapStuff_Instance);
     } else {
         local_pos = *target->position;
-        if (target->VMethod3() > 1) {
+        if (target->GetTokenSize() > 1) {
             local_pos.SetCoords2(target->sub_528725() - 1, target->sub_528763() - 1);
         }
         if (target->VMethod7() != 0 && (target->unit_attrs & 8)) {

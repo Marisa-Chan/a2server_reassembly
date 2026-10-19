@@ -389,11 +389,11 @@ int32_t World::sub_5AD0B3(Unit* unit, Unit* target) {
         score = 0xFFFFFF;
     } else {
         if (lookup_value == 1) {
-            if (unit->VMethod3() < 2 && unit->mind >= 15) {
+            if (unit->GetTokenSize() < 2 && unit->mind >= 15) {
                 score = score + (score >> 1);
             }
         } else if (lookup_value == 4) {
-            if (unit->VMethod3() < 2 && unit->mind >= 15) {
+            if (unit->GetTokenSize() < 2 && unit->mind >= 15) {
                 score = score - (score >> 2);
             }
         }
@@ -728,7 +728,7 @@ void World::sub_5B5CA8(Unit* caster, Unit* target, CList<Unit*>* units, uint32_t
 uint8_t World::sub_5ABB32(Unit* unit, PosYX yx) {
     Unit* unit_at_yx = this->field24_0xa50->sub_58CA1B(yx);
 
-    if (unit->VMethod3() != 1) {
+    if (unit->GetTokenSize() != 1) {
         return 0;
     }
     if (unit->pOwner->is_ai) {

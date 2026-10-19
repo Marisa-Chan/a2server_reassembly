@@ -135,7 +135,7 @@ int16_t __cdecl sub_5364D5(Unit* self, Unit* target) {
     int32_t dx = abs(self->sub_528725() - target->sub_528725());
     int32_t dy = abs(self->sub_528763() - target->sub_528763());
     int32_t dist = (std::max)(dx, dy);
-    dist -= (self->VMethod3() + target->VMethod3()) * 0x80 - 0x100;
+    dist -= (self->GetTokenSize() + target->GetTokenSize()) * 0x80 - 0x100;
     if (dist <= 0x180) {
         return 1;
     }
@@ -930,7 +930,7 @@ void Unit::ProcessEffects() {
     }
 }
 
-int32_t Unit::VMethod3() {
+int32_t Unit::GetTokenSize() {
     return this->token_size;
 }
 
@@ -1590,12 +1590,12 @@ int32_t Unit::sub_5B6FB0() {
 
 // 528725
 uint16_t Unit::sub_528725() {
-    return this->position->GetXx() + ((this->VMethod3() & 0xFF) - 1) * 0x80;
+    return this->position->GetXx() + ((this->GetTokenSize() & 0xFF) - 1) * 0x80;
 }
 
 // 528763
 uint16_t Unit::sub_528763() {
-    return this->position->GetYy() + ((this->VMethod3() & 0xFF) - 1) * 0x80;
+    return this->position->GetYy() + ((this->GetTokenSize() & 0xFF) - 1) * 0x80;
 }
 
 // 5287C4

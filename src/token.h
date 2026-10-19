@@ -115,7 +115,7 @@ public:
 	// CObject Dump
 	virtual void RegenTick();
 	virtual void ProcessEffects();
-	virtual int32_t VMethod3(); // TokenSize
+	virtual int32_t GetTokenSize(); // TokenSize
 	virtual int32_t VMethod4(); // MovementType
 	virtual void VMethod5();
 	virtual int32_t VMethod6(); // IsItem

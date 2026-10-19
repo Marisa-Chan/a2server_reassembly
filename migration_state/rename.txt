@@ -269,3 +269,4 @@ StructEnter::FUN_00473b80 -> RebuildFromMap -- clears groups and re-adds every a
 StructEnter::FUN_00475010 -> ClearGroups -- empties both unit group lists and counters
 Token::VMethod1 -> RegenTick -- periodic regen tick: Unit = hp/mp regen + corpse hp decay, Building = magic-well hp regen, others no-op
 Token::VMethod2 -> ProcessEffects -- ticks the unit's _effects list, removing expired ones (Building/Item no-op)
+Token::VMethod3 -> GetTokenSize -- footprint size in cells (token_size field; large units 2+)

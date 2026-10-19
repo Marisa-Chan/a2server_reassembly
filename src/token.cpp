@@ -225,7 +225,7 @@ void Token::ProcessEffects() {
 	// 52871a
 }
 
-int32_t Token::VMethod3() {
+int32_t Token::GetTokenSize() {
 	// 57b2a0
 	return 1;
 }
