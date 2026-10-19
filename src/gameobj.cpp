@@ -4136,7 +4136,7 @@ CStructure::CStructure(const CStructure* obj) : CGameObject(obj) {
 }
 
 // 46f550
-void CBridge::VMethod17(int32_t width, int32_t height) {
+void CBridge::SetSize(int32_t width, int32_t height) {
     this->bridge_width = width;
     this->bridge_height = height;
 }
@@ -4157,7 +4157,7 @@ CBridge::~CBridge() {
 
 // 463c7f
 CBridge::CBridge(int32_t width, int32_t height) {
-    this->VMethod17(width, height);
+    this->SetSize(width, height);
 }
 
 // 463d26

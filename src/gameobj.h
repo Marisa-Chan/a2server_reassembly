@@ -475,7 +475,7 @@ public:
 
 	virtual int32_t GetTileWidth() override; //46f510 (returns bridge_width)
 	virtual int32_t GetTileHeight() override; //46f530 (returns bridge_height)
-	virtual void VMethod17(int32_t width, int32_t height); //46f550
+	virtual void SetSize(int32_t width, int32_t height); //46f550
 
 	CBridge(int32_t width, int32_t height); //463c7f
 

@@ -226,3 +226,4 @@ CUnit::VMethod27 -> PlayRetreatVoice -- plays the SfxBank retreat voice line (3s
 CUnit::VMethod28 -> PlaySelectVoice -- plays a random SfxBank select voice line (2s cooldown)
 CUnit::VMethod29 -> PlayPickupVoice -- plays the SfxBank pickup voice line (3s cooldown)
 CUnit::VMethod30 -> RenderHeroPortrait -- composites the hero body + equipment .256 sprites onto the portrait bitmaps (paperdoll render for the info window)
+CBridge::VMethod17 -> SetSize -- sets bridge_width/bridge_height (not part of the CGameObject vtable family)
