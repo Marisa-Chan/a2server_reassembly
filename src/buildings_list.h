@@ -22,6 +22,6 @@ public:
     void sub_558228(Building* building); // AddTailAndSetID
     void sub_558908(CArchive& ar); // Serialize
 
-    void FUN_0055817b(); //55817b
+    void RegenTick(); //55817b
 };
 ASSERT_SIZE(BuildingsList, 0x1c);

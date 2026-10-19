@@ -5716,7 +5716,7 @@ void SrvStru1::MakeTargetSpellEffect(uint8_t a0, uint8_t a1, Unit* unit, uint32_
 }
 
 void SrvStru1::UpdateMapObjects() { // 4FB4AA
-    this->building_list->FUN_0055817b();
+    this->building_list->RegenTick();
     this->sack_list->UpdateSackVisibility();
 }
 
