@@ -2912,7 +2912,7 @@ void World::sub_5AC8A2(Group* group, uint8_t range) {
 }
 
 // 5A9087 — order `unit` to attack `target`.
-void World::sub_5A9087(Unit* unit, Unit* target) {
+void World::OrderEngageTarget(Unit* unit, Unit* target) {
     if (unit == target) {
         this->ResetUnitToHold(unit);
     } else {
@@ -4416,7 +4416,7 @@ void World::sub_5AC80F(Group* group, Unit* target) {
         if (this->sub_5AD0B3(unit, target) == 0xFFFFFF) {
             this->ResetUnitToHold(unit);
         } else {
-            this->sub_5A9087(unit, target);
+            this->OrderEngageTarget(unit, target);
         }
     }
 }
