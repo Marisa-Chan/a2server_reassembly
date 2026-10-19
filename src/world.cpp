@@ -3963,11 +3963,11 @@ void World::ProcessUnitRecall(Unit* unit) {
 
 // 5ABCFD
 void World::sub_5ABCFD(Unit* unit) {
-    this->sub_5A5155(unit);
+    this->ProcessUnitAi(unit);
 }
 
 // 5A5155
-void World::sub_5A5155(Unit* unit) {
+void World::ProcessUnitAi(Unit* unit) {
     if (!unit->pOwner->is_ai) {
         this->sub_5A51A1(unit);
     } else {
