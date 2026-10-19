@@ -70,7 +70,7 @@ public:
     void sub_547D7F(Unit* unit); // 547D7F
 
 public:
-    uint32_t field_0x4;
+    uint32_t active_instances;
     int32_t refresh_assortment_counter;
     std::array<CMultiShopShelf, 4> shelves;
     CArray<CMultiShopInstance*> shop_instances;

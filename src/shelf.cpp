@@ -101,7 +101,7 @@ CMultiShopInstance::~CMultiShopInstance() {
     this->unit = nullptr;
 
     if (this->shop_template != nullptr) {
-        this->shop_template->field_0x4 -= 1;
+        this->shop_template->active_instances -= 1;
         this->shop_template = nullptr;
     }
 }
@@ -302,7 +302,7 @@ IMPLEMENT_SERIAL(CMultiShopTemplate, CObject, 1); // 6372a0
 
 // 54687B
 CMultiShopTemplate::CMultiShopTemplate() {
-    this->field_0x4 = 0;
+    this->active_instances = 0;
     this->refresh_assortment_counter = 0;
     this->field_0x90 = 1000;
     this->shop = nullptr;
@@ -314,7 +314,7 @@ CMultiShopTemplate::CMultiShopTemplate() {
 
 // 546C72
 CMultiShopTemplate::CMultiShopTemplate(Shop* shop) {
-    this->field_0x4 = 0;
+    this->active_instances = 0;
     this->refresh_assortment_counter = 0;
     this->field_0x90 = shop->field_0xc0;
     this->shop = shop;
@@ -361,7 +361,7 @@ int CMultiShopTemplate::sub_54740C(Unit* unit) {
 
 // 547E91
 int CMultiShopTemplate::sub_547E91() {
-    if (this->refresh_assortment_counter <= 0 || this->field_0x4 != 0) {
+    if (this->refresh_assortment_counter <= 0 || this->active_instances != 0) {
         return 0;
     }
     this->sub_5474D8();
@@ -454,7 +454,7 @@ void CMultiShopTemplate::sub_547644(Unit* unit) {
 
 // 5474D8
 void CMultiShopTemplate::sub_5474D8() {
-    if (this->field_0x4 > 0) {
+    if (this->active_instances > 0) {
         return;
     }
     ShopAssortment assort;
@@ -480,7 +480,7 @@ CMultiShopInstance* CMultiShopTemplate::sub_546F8D(Unit* unit) {
     CMultiShopInstance* instance = new CMultiShopInstance();
     instance->unit = unit;
     instance->shop_template = this;
-    this->field_0x4 += 1;
+    this->active_instances += 1;
     for (int32_t i = 0; i < 4; i++) {
         instance->shelves[i].items.SetSize(this->shelves[i].items.GetSize(), -1);
         int32_t added_items = 0;
