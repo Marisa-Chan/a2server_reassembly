@@ -658,7 +658,7 @@ uint16_t World::PackDistFacing(Unit* unit1, Unit* unit2) {
 // 5B5CA8
 void World::CollectRayTargets(Unit* caster, Unit* target, CList<Unit*>* units, uint32_t rays, uint32_t max_range) {
     units->RemoveAll();
-    this->sub_5AA581(caster, target, 0);
+    this->RecordUnitHit(caster, target, 0);
     this->ScanNearbyUnits(caster->group);
 
     if (this->field26_0xa64.unit_list.GetCount() == 0) {
@@ -1288,7 +1288,7 @@ void World::sub_5A99C7(Unit* unit) {
 // Record a PvP hit: mark the attacker in UnitEye2, update diplomacy, push a combat
 // action onto the world's action list, and store the retaliation cell.
 // 5AA581
-void World::sub_5AA581(Unit* target, Unit* attacker, int32_t param_4) {
+void World::RecordUnitHit(Unit* target, Unit* attacker, int32_t param_4) {
     attacker->eye2->field44_0x54 = 1;
     attacker->eye2->position3 = target->position->CompatGetYX();
     attacker->eye2->counter2 = 0;

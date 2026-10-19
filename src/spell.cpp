@@ -757,7 +757,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 }
                 caster->AwardDamageExperience(target, drain, this->spell_id);
                 if (target->pOwner != nullptr && caster->pOwner != nullptr) {
-                    g_World->sub_5AA581(caster, target, 0);
+                    g_World->RecordUnitHit(caster, target, 0);
                 }
                 target->hp -= drain;
                 g_NetStru1_main.sub_519221(target, nullptr, 1, 0xFFB, 0, 0);

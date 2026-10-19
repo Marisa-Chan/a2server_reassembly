@@ -1160,7 +1160,7 @@ uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
         }
         if (attacker->pOwner != nullptr && this->pOwner != nullptr) {
             if (g_Server->field4_0x74 == 0 || attacker->pOwner->is_ai == 0 || this->pOwner->is_ai != 0) {
-                g_World->sub_5AA581(attacker, this, 0);
+                g_World->RecordUnitHit(attacker, this, 0);
             }
         }
     }

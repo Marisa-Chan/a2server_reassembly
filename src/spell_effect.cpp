@@ -178,7 +178,7 @@ void PointEffect::sub_5375A4() {
 
 			if (attacker != nullptr && this->caster != nullptr &&
 				this->caster->pOwner != nullptr && attacker->pOwner != nullptr) {
-				g_World->sub_5AA581(this->caster, attacker, 0);
+				g_World->RecordUnitHit(this->caster, attacker, 0);
 			}
 		}
 	}
@@ -280,7 +280,7 @@ void AreaEffect::sub_53831D(Unit* unit) {
 
 	if (this->caster->pOwner != nullptr && unit->pOwner != nullptr) {
 		if (g_Server->field4_0x74 == 0 || !this->caster->pOwner->is_ai || unit->pOwner->is_ai) {
-			g_World->sub_5AA581(this->caster, unit, 1);
+			g_World->RecordUnitHit(this->caster, unit, 1);
 		}
 	}
 }
