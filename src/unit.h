@@ -204,7 +204,7 @@ public:
     int32_t quest_escort_mark;
     int32_t quest_intercept_mark;
     uint32_t summoned; // Summoned or raised from the dead units have this set to 1.
-    uint16_t field_0x1a4;
+    uint16_t seen_by_mask;
     uint16_t field_0x1a6;
     CArray<SessionMobKill> mob_kills_in_session;
     int32_t field_0x1bc;

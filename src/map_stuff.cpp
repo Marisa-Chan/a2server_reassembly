@@ -1176,7 +1176,7 @@ void ScanPresenceGrid::sub_595F46(Unit* unit) {
     if (sector != 0) {
         unit->group->group_sub->field_0x45 = 1;
         this->num_detected++;
-        unit->field_0x1a4 = (uint16_t)sector;
+        unit->seen_by_mask = (uint16_t)sector;
     } else if (unit->group->group_sub->active != 0) {
         unit->group->group_sub->field_0x45 = 1;
         this->num_detected++;
@@ -1202,7 +1202,7 @@ void ScanPresenceGrid::sub_5963B9() {
         POSITION it = dword_6CDB3C->unit_list.GetHeadPosition();
         while (it != NULL) {
             Unit* unit = dword_6CDB3C->unit_list.GetNext(it);
-            unit->field_0x1a4 = 0;
+            unit->seen_by_mask = 0;
         }
     }
 }
@@ -1238,7 +1238,7 @@ void ScanPresenceGrid::sub_596131() {
         Unit* unit = g_Server->srv_stru1->units_list->unit_list.GetNext(unit_it);
         uint32_t sector = this->sector_grid[(unit->position->GetX() >> 3) + 1][(unit->position->GetY() >> 3) + 1];
         if (sector != 0) {
-            unit->field_0x1a4 = (uint16_t)sector;
+            unit->seen_by_mask = (uint16_t)sector;
         }
     }
 

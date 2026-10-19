@@ -454,7 +454,7 @@ void NetStru1::sub_51CF5C(Unit* unit, int32_t flag, Player* player) {
     if (player != nullptr) {
         packet.to_player_id = player->player_id;
         if (g_Server->field4_0x74 != 0) {
-            if ((unit->field_0x1a4 & player->vision_sharing_id) == 0) {
+            if ((unit->seen_by_mask & player->vision_sharing_id) == 0) {
                 int32_t pid = player->player_id;
                 if (pid >= 0x10 && pid < 0x20) {
                     unit->something_per_player[pid - 0x10] |= 0x40000000;
@@ -476,7 +476,7 @@ void NetStru1::sub_51CF5C(Unit* unit, int32_t flag, Player* player) {
         }
         packet.to_player_id = p->player_id;
         if (g_Server->field4_0x74 != 0) {
-            if ((unit->field_0x1a4 & p->vision_sharing_id) == 0) {
+            if ((unit->seen_by_mask & p->vision_sharing_id) == 0) {
                 int32_t pid = p->player_id;
                 if (pid >= 0x10 && pid < 0x20) {
                     unit->something_per_player[pid - 0x10] |= 0x40000000;
@@ -700,7 +700,7 @@ void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t par
     }
 
     // Check unit visibility to this player (unit->field_0x1a4 & player->vision_sharing_id).
-    if (!(unit->field_0x1a4 & player->vision_sharing_id)) {
+    if (!(unit->seen_by_mask & player->vision_sharing_id)) {
         if (g_Server->field4_0x74 != 0) {
             int16_t pid = player->player_id;
             if (pid >= 0x10 && pid < 0x20) {
@@ -4137,7 +4137,7 @@ void MarkUnitHiddenForPlayer(PacketMoveCmd* packet, Player* player) {
 void NetStru1::sub_51B0F0(Packet* packet, Unit* unit) {
     if (packet->to_player_id != 0) {
         Player* player = g_PlayersList->sub_535B50(packet->to_player_id);
-        if ((unit->field_0x1a4 & player->vision_sharing_id) == 0 && g_Server->field4_0x74 != 0) {
+        if ((unit->seen_by_mask & player->vision_sharing_id) == 0 && g_Server->field4_0x74 != 0) {
             int32_t pid = player->player_id;
             if (pid >= 0x10 && pid < 0x20 && packet->id == 0x6B &&
                 (unit->something_per_player[pid - 0x10] & 0x40000000) == 0) {
@@ -4156,7 +4156,7 @@ void NetStru1::sub_51B0F0(Packet* packet, Unit* unit) {
         if (!player->is_active) {
             continue;
         }
-        if ((unit->field_0x1a4 & player->vision_sharing_id) == 0 && g_Server->field4_0x74 != 0) {
+        if ((unit->seen_by_mask & player->vision_sharing_id) == 0 && g_Server->field4_0x74 != 0) {
             int32_t pid = player->player_id;
             if (pid >= 0x10 && pid < 0x20 && packet->id == 0x6B &&
                 (unit->something_per_player[pid - 0x10] & 0x40000000) == 0) {
@@ -4684,7 +4684,7 @@ void NetStru1::sub_51AC77(Token* token, Player* player, uint8_t flag) {
     if (token->VMethod7()) {
         Unit* unit = static_cast<Unit*>(token);
         if (flag == 0x73) {
-            if (!(unit->field_0x1a4 & player->vision_sharing_id) && g_Server->field4_0x74 != 0) {
+            if (!(unit->seen_by_mask & player->vision_sharing_id) && g_Server->field4_0x74 != 0) {
                 int32_t pid = player->player_id;
                 if (0x10 <= pid && pid < 0x20) {
                     unit->something_per_player[pid - 0x10] |= 1;

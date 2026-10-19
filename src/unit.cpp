@@ -1773,7 +1773,7 @@ void Unit::FUN_0052931b(const CString& str) {
     this->quest_escort_mark = 0;
     this->quest_intercept_mark = 0;
     this->summoned = 0;
-    this->field_0x1a4 = 0;
+    this->seen_by_mask = 0;
     this->field_0x1a6 = 0;
     this->field_0x204 = 0;
     memset(this->something_per_player, 0, 0x40);

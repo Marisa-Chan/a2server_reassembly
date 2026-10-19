@@ -2357,7 +2357,7 @@ Human* Server::sub_500907(Player* player, uint8_t body, uint8_t reaction, uint8_
     }
 
     // Copy the player's vision-sharing ID into unit.
-    unit->field_0x1a4 = player->vision_sharing_id;
+    unit->seen_by_mask = player->vision_sharing_id;
 
 #ifdef A2CLIENT
     g_NetStru1_main.sub_519221(unit, player, -1, 0xffb, 0, 0);
@@ -2556,7 +2556,7 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
     unit->VMethod18();
     unit->unit_attrs &= ~0x08;
     unit->field_x18 = 0;
-    unit->field_0x1a4 = player->vision_sharing_id;
+    unit->seen_by_mask = player->vision_sharing_id;
 
     return unit;
 }
