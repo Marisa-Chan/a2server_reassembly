@@ -3014,7 +3014,7 @@ void World::StartCastAtUnit(Unit* unit) {
 }
 
 // 5AA84F — commit an area spell cast from eye2 setup.
-void World::sub_5AA84F(Unit* unit) {
+void World::StartAreaCast(Unit* unit) {
     unit->eye2->field4_0x9 = 2;
     unit->eye2->counter = 0;
     unit->some_state = 0xE;
@@ -3357,7 +3357,7 @@ void World::ChaseOrAreaCast(Unit* unit) {
         this->DoMoveStepTo(unit, PosYX(unit->eye2->field30_0x3c), unit->eye2->max_range);
         unit->some_state = 1;
     } else {
-        this->sub_5AA84F(unit);
+        this->StartAreaCast(unit);
     }
 }
 
