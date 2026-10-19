@@ -1697,12 +1697,12 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4) {
     // Clear vision mask bits for this player across every unit list.
     // Three separate lists are processed:
     //   a) The global pending unit list (dword_6CDB3C).
-    //   b) srv_stru1->sack_list --- clears Token::field_x18 word bits (sub_554B03).
+    //   b) srv_stru1->sack_list --- clears Token::field_x18 word bits (ClearSentToMask).
     //   c) srv_stru1->units_list.
     // Then for each player in g_PlayersList, also clear their per-player unit list.
     dword_6CDB3C->sub_5579D8(player);
 
-    this->srv_stru1->sack_list->sub_554B03(player);
+    this->srv_stru1->sack_list->ClearSentToMask(player);
     this->srv_stru1->units_list->sub_5579D8(player);
 
     // Per-player unit lists.
@@ -5748,7 +5748,7 @@ SrvStru1::~SrvStru1() { //4fa981
 }
 
 // 554B03
-void SackList::sub_554B03(Player* player) {
+void SackList::ClearSentToMask(Player* player) {
     for (POSITION pos = this->list.GetHeadPosition(); pos != nullptr;) {
         Sack* sack = this->list.GetNext(pos);
         

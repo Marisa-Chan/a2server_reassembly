@@ -92,7 +92,7 @@ struct SackList {
     CList<Sack*> list;
 
 public:
-    void sub_554B03(Player* player); // Clear unit vision mask bits for player across this sack list
+    void ClearSentToMask(Player* player); // Clear unit vision mask bits for player across this sack list
     void sub_554927(TokenPos* pos, Inventory* inventory, int money, int is_main_player_unit);
     int32_t sub_554460(TokenPos* pos, Inventory* inventory, int money, int param_5);
     int32_t sub_55496E(Sack* sack); // Add sack to list and map

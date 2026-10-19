@@ -350,3 +350,4 @@ SrvStru1::sub_4FAEB4 -> FreeLists -- deletes sack/building/effects/unit lists (m
 SrvStru1::sub_4FBB24 -> MakeAreaSpellEffect -- spawns a dummy caster unit with some_state=14 for an area spell effect
 SrvStru1::sub_4FBAE3 -> MakeTargetSpellEffect -- spawns a dummy caster unit with some_state=13 targeting a unit
 SrvStru1::sub_4FB4AA -> UpdateMapObjects -- runs building RegenTick + sack visibility update
+SrvStru1::sub_4FB273 -> ProcessTick -- per-tick: processes dummy units, removes finished ones, ticks effects and unit lists
