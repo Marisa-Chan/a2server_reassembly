@@ -5508,7 +5508,7 @@ void Server::sub_4FA551(Player* player) {
 }
 
 // 4FA78E
-void Server::sub_4FA78E(int32_t arg) {
+void Server::ResetArenaRound(int32_t arg) {
     g_NetStru1_main.FUN_0051cefb(0x5c, g_ServerConfig.frag_limit, arg, nullptr);
     this->SendArenaResults();
     this->tick = 0;

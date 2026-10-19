@@ -371,3 +371,4 @@ Srv1::sub_59BEDB -> SpawnGroupOutpost -- creates the group's outpost building at
 Server::sub_4F1E2A -> ProcessPlayers -- per-round player processing: shop/inn departure, decay respawn, then team/mission logic
 Server::sub_4F465E -> AnnounceHatGameStart -- announces the game to the HAT server (count -1) and resets team-game lobby state
 Server::sub_4F9E55 -> ScanSavedCharacters -- scans chr_base/*.sck into the saved character list (mission mode)
+Server::sub_4FA5C4 -> SendArenaResults -- formats and sends the arena score report to HAT

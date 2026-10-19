@@ -159,7 +159,7 @@ public:
     void AnnounceHatGameStart(); // 4f465e
     void ScanSavedCharacters(); // 4f9e55
     void SendArenaResults();
-    void sub_4FA78E(int arg);
+    void ResetArenaRound(int arg);
     void sub_4F8831();
     void sub_4F0ECF();
     int sub_4F1471(CString param_1); // Load map / saved game

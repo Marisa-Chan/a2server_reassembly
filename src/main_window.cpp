@@ -1941,7 +1941,7 @@ void MainWindow::sub_48A756() {
                 if (timeout_threshold <= g_Server->map_elapsed_time2) {
                     if (g_ServerConfig.gameType == 3) {
                         if (g_Server->field59_0x208 == 0) {
-                            g_Server->sub_4FA78E(2);
+                            g_Server->ResetArenaRound(2);
                         }
                     }
                 }

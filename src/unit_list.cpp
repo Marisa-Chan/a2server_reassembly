@@ -238,7 +238,7 @@ void UnitList::ProcessTick() {
 							} else if (g_ServerConfig.gameType == 3 && g_Server->tick > 50) {
 								g_Server->sub_4FA348(&unit->last_hit_by->pOwner->name, 1);
 								if (g_ServerConfig.frag_limit <= unit->last_hit_by->pOwner->frags) {
-									g_Server->sub_4FA78E(1);
+									g_Server->ResetArenaRound(1);
 								}
 							}
 						}
