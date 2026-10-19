@@ -717,7 +717,7 @@ int MapStuff::CanPlaceSack(Sack* sack) {
 
     this->scratch_cell_state.sack = sack;
     this->cell_states.SetAt(sack->position->CompatGetYX(), this->scratch_cell_state);
-    this->sub_58B593(sack->position->CompatGetYX());
+    this->RefreshCellObstacles(sack->position->CompatGetYX());
     return 1;
 }
 
@@ -742,7 +742,7 @@ int MapStuff::ApplyTerrainMod(uint16_t yx, void* src) {
 
     memcpy(&this->scratch_cell_state.spell_id, src, 6);
     this->cell_states.SetAt(yx, this->scratch_cell_state);
-    this->sub_58B593(yx);
+    this->RefreshCellObstacles(yx);
     return 1;
 }
 
@@ -878,7 +878,7 @@ int32_t MapStuff::CanOccupyCell(Unit* unit, uint8_t x, uint8_t y) {
             }
             cell.small_unit = unit;
             this->cell_states.SetAt(yx, cell);
-            this->sub_58B593(yx);
+            this->RefreshCellObstacles(yx);
             return 1;
         }
 
@@ -888,7 +888,7 @@ int32_t MapStuff::CanOccupyCell(Unit* unit, uint8_t x, uint8_t y) {
         }
         cell.small_unit = unit;
         this->cell_states.SetAt(yx, cell);
-        this->sub_58B593(yx);
+        this->RefreshCellObstacles(yx);
         return 1;
     }
 
@@ -899,7 +899,7 @@ int32_t MapStuff::CanOccupyCell(Unit* unit, uint8_t x, uint8_t y) {
             }
             cell.large_unit = unit;
             this->cell_states.SetAt(yx, cell);
-            this->sub_58B593(yx);
+            this->RefreshCellObstacles(yx);
             return 1;
         }
 
@@ -909,7 +909,7 @@ int32_t MapStuff::CanOccupyCell(Unit* unit, uint8_t x, uint8_t y) {
         }
         cell.large_unit = unit;
         this->cell_states.SetAt(yx, cell);
-        this->sub_58B593(yx);
+        this->RefreshCellObstacles(yx);
         return 1;
     }
 
@@ -1565,7 +1565,7 @@ int MapStuff::sub_58B27F(Unit* unit, uint8_t x, uint8_t y) {
     }
 
     this->cell_states[yx.val] = this->scratch_cell_state;
-    this->sub_58B593(yx);
+    this->RefreshCellObstacles(yx);
     if (this->scratch_cell_state.IsEmpty()) {
         this->FUN_0058b4a6(yx);
     }
@@ -1594,7 +1594,7 @@ int MapStuff::UnitFitsAt(Unit* unit) {
 }
 
 // 58B593
-void MapStuff::sub_58B593(PosYX yx) {
+void MapStuff::RefreshCellObstacles(PosYX yx) {
     if (this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
         this->FUN_0058b5d6(this->scratch_cell_state);
     }
@@ -1619,7 +1619,7 @@ int MapStuff::ClearCellBuilding(Building* building, PosYX yx) {
 
     this->scratch_cell_state.building = nullptr;
     this->cell_states[yx.val] = this->scratch_cell_state;
-    this->sub_58B593(yx);
+    this->RefreshCellObstacles(yx);
     if (this->scratch_cell_state.IsEmpty()) {
         this->FUN_0058b4a6(yx);
     }
@@ -1696,7 +1696,7 @@ void MapStuff::RemoveSack(Sack* sack) {
     if (this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
         this->scratch_cell_state.sack = nullptr;
         this->cell_states[yx.val] = this->scratch_cell_state;
-        this->sub_58B593(yx);
+        this->RefreshCellObstacles(yx);
         if (!this->scratch_cell_state.IsEmpty()) {
             this->FUN_0058b4a6(yx);
         }
@@ -1825,7 +1825,7 @@ int MapStuff::SetCellBuilding(Building* building, uint16_t yx) {
     }
     this->scratch_cell_state.building = building;
     this->cell_states[yx] = this->scratch_cell_state;
-    this->sub_58B593(yx);
+    this->RefreshCellObstacles(yx);
     return 1;
 }
 
@@ -1882,7 +1882,7 @@ int MapStuff::RegisterAreaEffectCell(AreaEffect* ae, uint16_t yx) {
         }
     }
     this->cell_states[yx] = this->scratch_cell_state;
-    this->sub_58B593(yx);
+    this->RefreshCellObstacles(yx);
     return 1;
 }
 
@@ -1903,7 +1903,7 @@ int MapStuff::RemoveAreaEffectAt(AreaEffect* ae, uint16_t yx) {
         }
     }
     this->cell_states[yx] = this->scratch_cell_state;
-    this->sub_58B593(yx);
+    this->RefreshCellObstacles(yx);
     if (this->scratch_cell_state.IsEmpty()) {
         this->FUN_0058b4a6(yx);
     }
