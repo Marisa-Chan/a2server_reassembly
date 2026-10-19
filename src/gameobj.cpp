@@ -3757,7 +3757,7 @@ void StructEnter::RebuildFromMap() {
 	MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 	BigStruct2* map = main_wnd->vis_map_context;
 	POSITION it = map->field_0x9d0.GetStartPosition();
-	this->FUN_00475010();
+	this->ClearGroups();
 	while (it != NULL) {
 		uint16_t key;
 		CGameObject* value;
@@ -3799,7 +3799,7 @@ void StructEnter::FUN_00475080(CUnit* unit) {
 }
 
 // 475010
-void StructEnter::FUN_00475010() {
+void StructEnter::ClearGroups() {
 	this->field_0x0.SetSize(0);
 	this->field_0x14.SetSize(0);
 	this->field_0x2c = 0;
@@ -3819,7 +3819,7 @@ StructEnter::StructEnter() {
 
 // 474f90
 StructEnter::~StructEnter() {
-	this->FUN_00475010();
+	this->ClearGroups();
 }
 
 StructEnter g_StructEnter;
