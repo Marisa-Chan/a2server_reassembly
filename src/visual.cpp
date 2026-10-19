@@ -9690,7 +9690,7 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
         main_wnd->PostMessageA(0x463, 0, 0);
     }
 
-    if (unit->FUN_0046c0c9(token) == 0) {
+    if (unit->IsItemRestricted(token) == 0) {
         disallow = 1;
     }
     if (token->sub_43A6D5() == 0) {
@@ -16750,7 +16750,7 @@ void VisInvExtBase::VMethod7() {
             shop->bmp_backinvg->VMethod2(pos.x, pos.y + 1, 0, 0, 0);
         } else {
             CUnit* unit = shop->selected_units[shop->select_index];
-            int32_t compatible = unit->FUN_0046c0c9(entry);
+            int32_t compatible = unit->IsItemRestricted(entry);
             if (entry->slot_code >= 5 && entry->slot_code <= 8) {
                 int32_t price = entry->GetAttribute(1);
                 if (shop->current_gold < price || compatible == 0) {

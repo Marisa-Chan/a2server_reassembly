@@ -3660,7 +3660,7 @@ const char* CUnit::GetStatsHint(int32_t x, int32_t y) {
 }
 
 // 46C0C9
-int32_t CUnit::FUN_0046c0c9(TokenEntry* entry) {
+int32_t CUnit::IsItemRestricted(TokenEntry* entry) {
     if ((entry->flg & 2) != 0 && (this->unitFlags & 2) == 0) {
         return 1;
     }
