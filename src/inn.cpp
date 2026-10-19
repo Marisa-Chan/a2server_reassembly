@@ -885,7 +885,7 @@ void Inn::InnReward(Player* player) {
                 CString book_name(TeachSpellBooks[i]);
                 Item* book = new Item(book_name);
 
-                book->sub_548F3F(TeachSpellMagics[i]);
+                book->ApplyPropertyString(TeachSpellMagics[i]);
                 book->CalcValue();
 
                 if (reward / 2 < book->_exp && book->_exp < reward * 5 / 4) {

@@ -214,7 +214,7 @@ void Item::InitFromTemplate(uint8_t slot) {
     }
     this->item_id = (this->material_id << 12) | (slot << 8) | (this->shape_id << 5) | (uint8_t)this->itemDataID;
     if (!magic_item.effect.IsEmpty()) {
-        this->sub_548F3F(magic_item.effect);
+        this->ApplyPropertyString(magic_item.effect);
     }
     this->CalcValue();
 }
@@ -591,7 +591,7 @@ void sub_540DAA(const CString& effect_str, CList<Effect*>* effects) {
 }
 
 // 548F3F
-void Item::sub_548F3F(const CString& str) {
+void Item::ApplyPropertyString(const CString& str) {
     sub_540DAA(str, &this->_effects);
     this->CalcValue();
 }
@@ -699,7 +699,7 @@ Armor::Armor(const CString& name) : Item() {
 
     this->LoadInfo();
     if (extra.GetLength() > 0) {
-        this->sub_548F3F(extra);
+        this->ApplyPropertyString(extra);
     }
 }
 
@@ -922,7 +922,7 @@ Shield::Shield(const CString& name) : Item() {
 
     this->LoadInfo();
     if (extra.GetLength() > 0) {
-        this->sub_548F3F(extra);
+        this->ApplyPropertyString(extra);
     }
 }
 
@@ -1107,7 +1107,7 @@ Weapon::Weapon(const CString& name) : Item() {
 
     this->LoadInfo();
     if (extra.GetLength() > 0) {
-        this->sub_548F3F(extra);
+        this->ApplyPropertyString(extra);
     }
 }
 

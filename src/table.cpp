@@ -774,7 +774,7 @@ Item* GameDataRes::sub_510502(CString* name) {
         if (stripped_name == this->armors[i].name) {
             Item* item = new Armor(shape_id, material_id, (uint8_t)i);
             if (extra.GetLength() > 0) {
-                item->sub_548F3F(extra);
+                item->ApplyPropertyString(extra);
             }
             return item;
         }
@@ -784,7 +784,7 @@ Item* GameDataRes::sub_510502(CString* name) {
         if (base_name == this->weapons[i].name) {
             Item* item = new Weapon(shape_id, material_id, (uint8_t)i);
             if (extra.GetLength() > 0) {
-                item->sub_548F3F(extra);
+                item->ApplyPropertyString(extra);
             }
             return item;
         }
@@ -802,7 +802,7 @@ Item* GameDataRes::sub_510502(CString* name) {
         if (stripped_name == this->shields[i].name) {
             Item* item = new Shield(shape_id, material_id, (uint8_t)i);
             if (extra.GetLength() > 0) {
-                item->sub_548F3F(extra);
+                item->ApplyPropertyString(extra);
             }
             return item;
         }
@@ -813,7 +813,7 @@ Item* GameDataRes::sub_510502(CString* name) {
             Item* item = new Item(0xE, (uint8_t)i);
             if (extra.GetLength() > 0) {
                 item->_effects.RemoveAll();
-                item->sub_548F3F(extra);
+                item->ApplyPropertyString(extra);
             }
             return item;
         }
