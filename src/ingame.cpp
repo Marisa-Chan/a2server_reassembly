@@ -440,7 +440,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				if (unit->hp > 0) {
 					unit->action_segments = packet_abil->field_0xd;
 					unit->action = 1;
-					unit->action_dir = packet_abil->field_0xc;
+					unit->action_dir = packet_abil->angle;
 					unit->action_x = INT_6362e8[unit->action_dir] << 8;
 					unit->action_y = INT_636328[unit->action_dir] << 8;
 				}
@@ -948,7 +948,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				if (ct->hp > 0) {
 					ct->action_segments = packet_abil->field_0xd;
 					ct->action = 5;
-					ct->action_dir = packet_abil->field_0xc;
+					ct->action_dir = packet_abil->angle;
 					ct->field_0xc4 = ct->dir * 16;
 					ct->action_phase = 0;
 					ct->field_0xa4 = 0;
@@ -971,7 +971,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					if (vfx->attack_phases != 0 && ct->hp > 0) {
 						ct->action_segments = vfx->attack_anim_frame_cnt;
 						ct->action = 3;
-						ct->action_dir = packet_abil->field_0xc;
+						ct->action_dir = packet_abil->angle;
 						ct->action_phase = 0;
 						ct->field_0xa4 = 0;
 						ct->field_0xa0 = 0;

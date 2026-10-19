@@ -19,3 +19,4 @@ Packet3Dwords::field_0xe -> value2 -- second dword payload
 Packet3Dwords::field_0x12 -> value3 -- third dword payload (player params word in join-compat 0x02)
 Packet3Dwords::field_0x16 -> text -- 32-byte char payload, player name in join-compat 0x02
 PacketAbility::field_0xa -> unit_id -- attacking unit id (word, from unit->building_id)
+PacketAbility::field_0xc -> angle -- attack direction angle (client stores to unit->action_dir)

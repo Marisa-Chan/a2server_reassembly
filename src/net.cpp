@@ -260,7 +260,7 @@ void NetStru1::sub_51B99E(Unit* unit, uint8_t angle, uint8_t speed_dir, uint8_t 
         packet.id = mode;
     }
     packet.field_0xd = speed_dir;
-    packet.field_0xc = angle;
+    packet.angle = angle;
     unit->sub_52BABD();
     unit->last_action_tick = g_Server->tick + speed_dir;
     packet.unit_id = (uint16_t)unit->building_id;
