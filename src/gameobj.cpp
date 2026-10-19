@@ -2319,7 +2319,7 @@ void TransientVisualEffectBuilder::FUN_004CB85F(double px0, double py0, double p
 }
 
 // 4cb993
-void TransientVisualEffectBuilder::FUN_004CB993(double x0, double y0, double x1, double y1) {
+void TransientVisualEffectBuilder::BuildJitterWalk(double x0, double y0, double x1, double y1) {
     double y_tolerance = this->line_length * 0.15;
     double dx = x1 - x0;
     double dy = y1 - y0;
@@ -2404,7 +2404,7 @@ void TransientVisualEffectBuilder::FUN_004CB993(double x0, double y0, double x1,
 
     for (int32_t i = 0; i < this->arc_x.GetSize(); i++) {
         if (std::fabs(this->arc_y[i] - y0) > y_tolerance) {
-            this->FUN_004CB993(x0, y0, x1, y1);
+            this->BuildJitterWalk(x0, y0, x1, y1);
             break;
         }
     }
@@ -2416,7 +2416,7 @@ void TransientVisualEffectBuilder::BuildLightningLine(double x0, double y0, doub
     double dy = y1 - y0;
     this->line_length = std::hypot(dx, dy);
 
-    this->FUN_004CB993(x0, y0, x0 + this->line_length, y0);
+    this->BuildJitterWalk(x0, y0, x0 + this->line_length, y0);
 
     double step_x = dx / this->line_length;
     double step_y = dy / this->line_length;
