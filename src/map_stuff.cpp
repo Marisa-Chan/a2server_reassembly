@@ -2625,7 +2625,7 @@ int32_t MapStuff::GetEffectiveSpeed(Unit* unit) {
 }
 
 // 594C87 --- Walk cost at yx, adjusted for area effects when the cell is occupied.
-uint8_t MapStuff::sub_594C87(uint16_t yx) {
+uint8_t MapStuff::GetWalkCost(uint16_t yx) {
     if (!this->ObstacleAt(yx).TestBits(0x20)) {
         return this->WalkCostAt(yx);
     }
@@ -2667,8 +2667,8 @@ int32_t MapStuff::CalcMoveStep(Unit* unit, uint16_t yx, uint8_t val) {
             speed += speed * height_delta >> 6;
         }
 
-        uint8_t walk_cost1 = this->sub_594C87(yx);
-        uint8_t walk_cost2 = this->sub_594C87(yx2);
+        uint8_t walk_cost1 = this->GetWalkCost(yx);
+        uint8_t walk_cost2 = this->GetWalkCost(yx2);
         uint8_t avg_walk_cost = (walk_cost1 + walk_cost2) / 2;
         if (avg_walk_cost == 0) {
             avg_walk_cost = 8;
