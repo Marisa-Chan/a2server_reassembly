@@ -129,7 +129,7 @@ public:
     int32_t sub_59A030(); // Returns movement type.
     int32_t IsMage(); // 5B6FB0 — IsMage.
 
-    void FUN_0052ec7a(const CArray<MonsterInfoData>& values);
+    void ApplyMonsterInfo(const CArray<MonsterInfoData>& values);
 
     Inventory* DetachInventory();
     

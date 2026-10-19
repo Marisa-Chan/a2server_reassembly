@@ -1917,7 +1917,7 @@ void Unit::ProcessMoveStep(uint16_t xx, uint16_t yy, uint8_t eye0, uint8_t eye1)
 }
 
 // 52ec7a
-void Unit::FUN_0052ec7a(const CArray<MonsterInfoData>& values) {
+void Unit::ApplyMonsterInfo(const CArray<MonsterInfoData>& values) {
     const MonsterInfoData& data = values[0];
 
     if (data.body != -1) {
@@ -2082,7 +2082,7 @@ void Unit::InitFromMonsterName(const CString& name) {
     this->monster_info = &g_GameDataRes.monsters[idx];
 
     // Set base stats from monster data
-    this->FUN_0052ec7a(this->monster_info->Values());
+    this->ApplyMonsterInfo(this->monster_info->Values());
 
     // Set server_id if extended data exists
     if (this->monster_info->Values().GetSize() > 55) {

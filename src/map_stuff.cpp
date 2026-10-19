@@ -2984,7 +2984,7 @@ Scenario::Scenario(const char* fname) {
             temp_unit = new Unit();
             temp_unit->itemDataID = (int16_t)g_GameDataRes.FUN_00512625(unit_data->server_id);
             temp_unit->monster_info = &g_GameDataRes.monsters[(uint16_t)temp_unit->itemDataID];
-            temp_unit->FUN_0052ec7a(temp_unit->monster_info->Values());
+            temp_unit->ApplyMonsterInfo(temp_unit->monster_info->Values());
             if (temp_unit->monster_info->values.GetUpperBound() > 0x36) {
                 temp_unit->server_id = (uint16_t)temp_unit->monster_info->values[0x37];
             }
