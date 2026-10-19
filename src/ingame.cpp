@@ -4578,7 +4578,7 @@ void BigStruct2::sub_41A425() {
 	g_NetStru1_local.QueuePacketSend(pkt);
 	CUnit* unit = this->sub_41DFDB();
 	if (unit != nullptr) {
-		unit->VMethod27();
+		unit->PlayRetreatVoice();
 	}
 }
 

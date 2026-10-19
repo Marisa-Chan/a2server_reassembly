@@ -3702,7 +3702,7 @@ void CUnit::PlayDefendVoice() {
 }
 
 // 469cf5
-void CUnit::VMethod27() {
+void CUnit::PlayRetreatVoice() {
     uint32_t now = timeGetTime();
     if (now - this->lastVoicePlaybackTick < 3000) {
         return;
