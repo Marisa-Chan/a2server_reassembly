@@ -41,7 +41,7 @@ public: // VTable at 60f498.
     virtual int32_t VMethod14(int, int);
     virtual int32_t CalcValue();
     virtual int32_t IsSimpleItem();
-    virtual void VMethod17(PacketUnitStateVec* pkt, uint8_t* slot);
+    virtual void WriteState(PacketUnitStateVec* pkt, uint8_t* slot);
 
 public:
     Item(); // sub_547F80: default constructor (blank item)
@@ -104,7 +104,7 @@ public: // VTable at 60f508.
     virtual Item* TakeOne() override; // 54FC19
     virtual Item* Clone() override; // 57D5B0
     virtual int32_t CalcValue() override; // 54F84D
-    virtual void VMethod17(PacketUnitStateVec* pkt, uint8_t* slot) override; // 54FCA8
+    virtual void WriteState(PacketUnitStateVec* pkt, uint8_t* slot) override; // 54FCA8
 
 public:
     Armor(); // 54F2E9: default constructor
@@ -133,7 +133,7 @@ public: // VTable at 60f560.
     virtual Item* TakeOne() override; // 5504DC
     virtual Item* Clone() override; // 57D660
     virtual int32_t CalcValue() override; // 5502C7
-    virtual void VMethod17(PacketUnitStateVec* pkt, uint8_t* slot) override; // 5506FC
+    virtual void WriteState(PacketUnitStateVec* pkt, uint8_t* slot) override; // 5506FC
 
 public:
     Shield(); // 54FE1B: default constructor
@@ -161,7 +161,7 @@ public: // VTable at 60f5b8.
     virtual Item* TakeOne() override; // 5517C3
     virtual Item* Clone() override; // 57D710
     virtual int32_t CalcValue() override; // 550FA6
-    virtual void VMethod17(PacketUnitStateVec* pkt, uint8_t* slot) override; // 551855
+    virtual void WriteState(PacketUnitStateVec* pkt, uint8_t* slot) override; // 551855
 
 public:
     Weapon(); // 550872: default constructor

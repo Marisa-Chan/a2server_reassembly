@@ -336,7 +336,7 @@ int32_t Item::IsSimpleItem() {
 }
 
 // 549e86
-void Item::VMethod17(PacketUnitStateVec* packet, uint8_t* slot) {
+void Item::WriteState(PacketUnitStateVec* packet, uint8_t* slot) {
     if (this->_exp == -1) {
         slot[4] = 1;
         packet->AppendByteInt(1, 0, slot);
@@ -860,7 +860,7 @@ int32_t Armor::CalcValue() {
 }
 
 // 54FCA8
-void Armor::VMethod17(PacketUnitStateVec* pkt, uint8_t* slot) {
+void Armor::WriteState(PacketUnitStateVec* pkt, uint8_t* slot) {
     pkt->AppendByteInt(1, this->_exp, slot);
     slot[4] = 0;
     int32_t other_param = this->world_equip->Values()[0].other_param;
@@ -1046,7 +1046,7 @@ int32_t Shield::CalcValue() {
 }
 
 // 5506FC
-void Shield::VMethod17(PacketUnitStateVec* pkt, uint8_t* slot) {
+void Shield::WriteState(PacketUnitStateVec* pkt, uint8_t* slot) {
     pkt->AppendByteInt(1, this->_exp, slot);
     slot[4] = 0;
     int32_t other_param = this->world_equip->Values()[0].other_param;
@@ -1322,7 +1322,7 @@ int32_t Weapon::CalcValue() {
 }
 
 // 551855
-void Weapon::VMethod17(PacketUnitStateVec* pkt, uint8_t* slot) {
+void Weapon::WriteState(PacketUnitStateVec* pkt, uint8_t* slot) {
     pkt->AppendByteInt(1, this->_exp, slot);
     slot[4] = 0;
     int32_t other_param = this->world_equip->Values()[0].other_param;
