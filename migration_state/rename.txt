@@ -187,3 +187,4 @@ World::field_0xae4 -> dist_scratch -- 10000-entry scratch array used as a distan
 World::field_0xa724 -> relative_move_max_dist -- units farther than this from the move origin fall back to absolute coordinates (init 2)
 ColorThing::field_4 -> brightness -- --
 ColorThing::field_8 -> contrast -- --
+ColorThing::field_c -> shade_delta -- --

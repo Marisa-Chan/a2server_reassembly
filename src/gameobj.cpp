@@ -2121,7 +2121,7 @@ void CUnit::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
         int32_t x = this->centerScreenX - cx - shadow_offset;
         int32_t y = this->centerScreenY - cy - this->terrainHeightOffset;
         if (this->FUN_00462405(0x20) < 0) {
-            this->sprite->VMethod11(x, y, frame, g_DeltaCLR.field_c, sun_angle, flip);
+            this->sprite->VMethod11(x, y, frame, g_DeltaCLR.shade_delta, sun_angle, flip);
         } else {
             if (map->my_main_unit->FUN_0041ee50(this->map_player->index) == 0) {
                 return;
@@ -2145,9 +2145,9 @@ void CUnit::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
         int32_t y = this->centerScreenY - cy - this->terrainHeightOffset;
         if (this->FUN_00462405(0x20) < 0) {
             if (is_air) {
-                gfx_file->FUN_0046f700()->VMethod3(x + shadow_offset + sun_angle / 2000, y, frame, g_DeltaCLR.field_c, flip);
+                gfx_file->FUN_0046f700()->VMethod3(x + shadow_offset + sun_angle / 2000, y, frame, g_DeltaCLR.shade_delta, flip);
             } else {
-                gfx_file->FUN_0046f700()->VMethod11(x, y, frame, g_DeltaCLR.field_c, sun_angle, flip);
+                gfx_file->FUN_0046f700()->VMethod11(x, y, frame, g_DeltaCLR.shade_delta, sun_angle, flip);
             }
         } else {
             if (map->my_main_unit->FUN_0041ee50(this->map_player->index) == 0) {
@@ -3925,7 +3925,7 @@ void CStructure::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) {
 
         int32_t shadow_offset = (int32_t)(std::tan(map->field_0x80->FUN_004a7b79()) * ((info->full_height - row) * 32.0 - info->shadow_y));
 
-        info->GetSprite()->VMethod11(x + shadow_offset, y, frame, g_DeltaCLR.field_c, sun_angle, 0);
+        info->GetSprite()->VMethod11(x + shadow_offset, y, frame, g_DeltaCLR.shade_delta, sun_angle, 0);
         if (g_settings.Smoothing != 0) {
             info->GetSpriteB()->VMethod11(x + shadow_offset, y, frame, g_DeltaCLR.field_10, sun_angle, 0);
         }
@@ -4279,7 +4279,7 @@ void CBackPack::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) {
     int32_t x = this->centerScreenX - half_width - shadow_offset;
     int32_t y = this->centerScreenY - half_height2 - this->terrainHeightOffset - 4;
 
-    g_spr_backpack->VMethod11(x, y, this->typeId, g_DeltaCLR.field_c, sun_angle, 0);
+    g_spr_backpack->VMethod11(x, y, this->typeId, g_DeltaCLR.shade_delta, sun_angle, 0);
     g_spr_backpackb->VMethod11(x, y, this->typeId, g_DeltaCLR.field_10, sun_angle, 0);
 }
 
