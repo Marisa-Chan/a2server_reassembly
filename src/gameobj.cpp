@@ -879,7 +879,7 @@ int32_t TokenEntry::IsQuestTreasure() { //43a6d5
 }
 
 
-int32_t TokenEntry::sub_4A7880(int32_t num) { //4a7880
+int32_t TokenEntry::RemoveCount(int32_t num) { //4a7880
     this->count -= num;
 
     if ((int32_t)this->count > 0) {

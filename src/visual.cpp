@@ -15888,7 +15888,7 @@ TokenEntry* VisInvBase::VMethod29(TokenEntry* o, int32_t num) {
         if (!o->sub_4A7900(entry)) {
             continue;
         }
-        if (entry->sub_4A7880(num)) {
+        if (entry->RemoveCount(num)) {
             o = new TokenEntry();
             *o = *entry;
             o->count = num;
@@ -15940,7 +15940,7 @@ TokenEntry* VisInvBase::VMethod28(uint32_t id) {
         if (id != entry->field_0x4) {
             continue;
         }
-        if (entry->sub_4A7880(1)) {
+        if (entry->RemoveCount(1)) {
             TokenEntry* result = new TokenEntry();
             *result = *entry;
             result->count = 1;
@@ -17166,7 +17166,7 @@ TokenEntry* VisInvExtType1::VMethod29(TokenEntry* o, int32_t num) {
         if (entry->IsDepleted()) {
             return nullptr;
         }
-        if (entry->sub_4A7880(num)) {
+        if (entry->RemoveCount(num)) {
             o = new TokenEntry();
             *o = *entry;
             o->count = num;
@@ -17765,7 +17765,7 @@ TokenEntry* VisInvExtType3::VMethod43(int32_t id1, int32_t id2) {
         if (entry->slot_code != id2) {
             continue;
         }
-        if (entry->sub_4A7880(1) == 0) {
+        if (entry->RemoveCount(1) == 0) {
             this->grid_source->RemoveAt(i, 1);
             entry->count = 1;
             this->sub_4B4FD1();
