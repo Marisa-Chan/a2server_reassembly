@@ -212,7 +212,7 @@ public:
     void SendHatPlayerCheck(int32_t a, int32_t b, uint8_t status, int16_t player_id); // 51E794 - Send HAT player-check reply (pkt 0xE1)
 
     void SendHatLogin(CString name); //51e205 - Send hat login packet
-    void sub_51E289(int32_t arg0, CString source, int32_t arg8, int32_t argC, int32_t arg10); //51e289 - Send hat lobby info packet
+    void SendHatLobbyInfo(int32_t arg0, CString source, int32_t arg8, int32_t argC, int32_t arg10); //51e289 - Send hat lobby info packet
     void sub_51DFA7(int32_t param1, int32_t param2, CString name, void* data, uint32_t size, uint16_t player_id);
     void sub_51E0B7(int32_t param1, int32_t param2, CString name, void* data, uint32_t size, uint16_t player_id);
     void sub_51E1C7(uint16_t player_id);

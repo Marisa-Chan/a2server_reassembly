@@ -622,7 +622,7 @@ void NetStru1::UpdateConnStats() {
 }
 
 // 51E289
-void NetStru1::sub_51E289(int32_t arg0, CString source, int32_t arg8, int32_t argC, int32_t arg10) {
+void NetStru1::SendHatLobbyInfo(int32_t arg0, CString source, int32_t arg8, int32_t argC, int32_t arg10) {
 	PacketJoin& pkt = PacketJoin::Inst;
 	pkt.id = 0xd2;
 	pkt.__field_0xa = arg0 | (arg8 << 8) | (argC << 16) | (arg10 << 24);

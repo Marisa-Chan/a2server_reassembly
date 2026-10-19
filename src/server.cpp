@@ -197,7 +197,7 @@ void Server::AnnounceHatGameStart() {
         return;
     }
     if (g_HatLLDriver.IsListen()) {
-        NetStru1::HatConnector.sub_51E289(-1, this->current_map_title, this->MapLevel, g_ServerConfig.gameType, 0);
+        NetStru1::HatConnector.SendHatLobbyInfo(-1, this->current_map_title, this->MapLevel, g_ServerConfig.gameType, 0);
     }
     if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
         g_NetStru1_main.SendTeamState(0);
@@ -5193,7 +5193,7 @@ void Server::UpdateHatAnnounce() {
         map_range = MapStuff_Instance->GetWidth() - 16;
     }
     if (g_HatLLDriver.IsListen()) {
-        NetStru1::HatConnector.sub_51E289(g_PlayersList->CountHumanPlayers(), this->current_map_title, this->MapLevel, g_ServerConfig.gameType, map_range);
+        NetStru1::HatConnector.SendHatLobbyInfo(g_PlayersList->CountHumanPlayers(), this->current_map_title, this->MapLevel, g_ServerConfig.gameType, map_range);
     }
     if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
         g_NetStru1_main.SendTeamState(0);
