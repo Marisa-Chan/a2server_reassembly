@@ -5762,7 +5762,7 @@ void SackList::ClearSentToMask(Player* player) {
 void SackList::DropInventoryAt(TokenPos* pos, Inventory* inventory, int money, int is_main_player_unit) {
     if (this->DumpInventoryAt(pos, inventory, money, is_main_player_unit)) {
         Sack* sack = MapStuff_Instance->sub_58E5F3(pos);
-        g_NetStru1_main.sub_51AC77(sack, nullptr, 0);
+        g_NetStru1_main.BroadcastTokenState(sack, nullptr, 0);
     }
 }
 
@@ -5832,7 +5832,7 @@ int32_t SackList::DumpInventoryAt(TokenPos* pos, Inventory* inventory, int money
     if ((double)old_level_trunc != new_level) {
         // Broadcast sack update
         if (g_Server->field4_0x74 == 0) {
-            g_NetStru1_main.sub_51AC77(sack, nullptr, 0);
+            g_NetStru1_main.BroadcastTokenState(sack, nullptr, 0);
         } else {
             sack->resend_mask = 0xFFFF;
         }
@@ -5904,7 +5904,7 @@ void SackList::UpdateSackVisibility() {
                         bool player_cannot_see = !(sack->sent_to_mask & player->vision_sharing_id);
                         bool marked_visible = (sack->resend_mask & player->vision_sharing_id) != 0;
                         if (player_cannot_see || marked_visible) {
-                            g_NetStru1_main.sub_51AC77(sack, player, 0);
+                            g_NetStru1_main.BroadcastTokenState(sack, player, 0);
                         }
                     }
                 }
@@ -6649,7 +6649,7 @@ void Server::UpdateQuestRune(int32_t arg1, int32_t arg2) {
                 }
                 delete sack;
             } else {
-                g_NetStru1_main.sub_51AC77(sack, nullptr, 0);
+                g_NetStru1_main.BroadcastTokenState(sack, nullptr, 0);
             }
         }
     }

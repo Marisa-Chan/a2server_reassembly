@@ -87,7 +87,7 @@ void Shop::sub_544685(Unit* unit) {
     if (g_Server->field4_0x74 != 0) {
         unit->ReturnToMap();
     }
-    g_NetStru1_main.sub_51AC77(unit, nullptr, 0);
+    g_NetStru1_main.BroadcastTokenState(unit, nullptr, 0);
 }
 
 // 54471B

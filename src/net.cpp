@@ -226,13 +226,13 @@ void NetStru1::SendServerState(Player* player) {
     POSITION pos = g_Server->srv_stru1->sack_list->list.GetHeadPosition();
     while (pos != nullptr) {
         Sack* sack = g_Server->srv_stru1->sack_list->list.GetNext(pos);
-        this->sub_51AC77(sack, player, 0);
+        this->BroadcastTokenState(sack, player, 0);
     }
 }
 
 // 51C601
 void NetStru1::SendLevelUp(Unit* unit, int unused) {
-    this->sub_51AC77(unit, nullptr, 0x73);
+    this->BroadcastTokenState(unit, nullptr, 0x73);
 }
 
 // 51B870
@@ -245,7 +245,7 @@ void NetStru1::BroadcastUnitState(Unit* unit) {
             if (unit->IsUnit()) {
                 this->SendUnitUpdate(unit, player, 0xFFB, -1, 0, 0);
             } else {
-                this->sub_51AC77(unit, player, 0);
+                this->BroadcastTokenState(unit, player, 0);
             }
         }
     }
@@ -390,7 +390,7 @@ void NetStru1::SendPendingUnits(Player* player) {
     while (pos != nullptr) {
         Building* building = building_list->GetNext(pos);
         if (building->hp != building->hp_max) {
-            g_NetStru1_main.sub_51AC77(building, player, 0);
+            g_NetStru1_main.BroadcastTokenState(building, player, 0);
         }
     }
 }
@@ -4664,13 +4664,13 @@ void NetStru1::SendShopShelves(CMultiShopInstance* inst, Player* player, int32_t
 }
 
 // 51AC77
-void NetStru1::sub_51AC77(Token* token, Player* player, uint8_t flag) {
+void NetStru1::BroadcastTokenState(Token* token, Player* player, uint8_t flag) {
     if (player == nullptr) {
         POSITION pos = g_PlayersList->list.GetHeadPosition();
         while (pos != nullptr) {
             Player* p = g_PlayersList->list.GetNext(pos);
             if (p->is_active || p == token->pOwner) {
-                this->sub_51AC77(token, p, flag);
+                this->BroadcastTokenState(token, p, flag);
             }
         }
         return;

@@ -549,3 +549,4 @@ NetStru1::sub_51C7CC -> SendLatency -- sends the latency update to the player
 NetStru1::sub_51CD2A -> SendGameEvent -- sends an in-game event trigger
 NetStru1::sub_51CDFB -> SendArenaScore -- sends an arena score update
 NetStru1::sub_51C601 -> SendLevelUp -- sends the unit level-up packet
+NetStru1::sub_51C822 -> SendSpectatorState -- sends the spectator/alliance state

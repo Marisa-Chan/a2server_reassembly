@@ -909,7 +909,7 @@ void Unit::ProcessEffects() {
                 // Toggles.
                 if (building->typeId == 0x1c || building->typeId == 0x1d || building->typeId == 0x4c || building->typeId == 0x4d) {
                     building->hp = (building->hp == 0) ? 1 : 0;
-                    g_NetStru1_main.sub_51AC77(building, nullptr, 0);
+                    g_NetStru1_main.BroadcastTokenState(building, nullptr, 0);
                 }
             }
 
@@ -917,11 +917,11 @@ void Unit::ProcessEffects() {
             if (near_building) {
                 if (near_building->object_info_id == 0x0f && near_building->hp > 0) {
                     near_building->hp--;
-                    g_NetStru1_main.sub_51AC77(near_building, nullptr, 0);
+                    g_NetStru1_main.BroadcastTokenState(near_building, nullptr, 0);
                     this->UseItemOrStash(new Item(CString("Potion Big Healing")));
                 } else if (near_building->object_info_id == 0x10 && near_building->hp > 0) {
                     near_building->hp--;
-                    g_NetStru1_main.sub_51AC77(near_building, nullptr, 0);
+                    g_NetStru1_main.BroadcastTokenState(near_building, nullptr, 0);
                     this->UseItemOrStash(new Item(CString("Potion Big Mana")));
                 }
             }

@@ -2340,7 +2340,7 @@ void World::ScriptOP_0x22(TriggerAction* action) {
             action->unit->protections.absorption = action->data[1];
             break;
     }
-    g_NetStru1_main.sub_51AC77(action->unit, action->unit->pOwner, 0);
+    g_NetStru1_main.BroadcastTokenState(action->unit, action->unit->pOwner, 0);
 }
 
 // 5b382a — Set Scenario Variable

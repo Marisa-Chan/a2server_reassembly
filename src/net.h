@@ -186,7 +186,7 @@ public:
     Packet* ReceivePacket(NetStru2* cli); //518a23 //receive packet from client
     Packet* ReceiveAnyPacket(); //518980 iterate over active connections and try receive packet
 
-    void sub_51AC77(Token* token, Player* player, uint8_t flag); // Broadcast token state to players
+    void BroadcastTokenState(Token* token, Player* player, uint8_t flag); // Broadcast token state to players
     void sub_51BAB0(Unit* caster, Spell* spell, Unit* target, int16_t delay); // Send targeted-unit spell packet
     void sub_51BB94(Unit* caster, Spell* spell, TokenPos* pos, int16_t delay); // Send point/area spell packet
     void sub_51BC6B(Unit* caster, Spell* spell, CList<Unit*>* units, int32_t flag); // 51BC6B: Send multi-target spell packet

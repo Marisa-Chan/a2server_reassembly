@@ -139,7 +139,7 @@ void Building::RegenTick() {
         return;
     }
     this->hp++;
-    g_NetStru1_main.sub_51AC77(this, nullptr, 0);
+    g_NetStru1_main.BroadcastTokenState(this, nullptr, 0);
 }
 
 // 57c3a0
