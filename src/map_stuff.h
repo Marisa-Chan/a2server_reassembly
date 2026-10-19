@@ -240,7 +240,7 @@ public:
     int16_t sub_5936D2(Unit* unit, uint32_t packed_yyxx, uint8_t param_3); // 5936D2
 
     Unit* GetSmallUnitAt(uint16_t yx); // Get small unit occupying cell yx — 58CB5A
-    Unit* sub_58CBB9(uint16_t yx); // Get large unit occupying cell yx — 58CBB9
+    Unit* GetLargeUnitAt(uint16_t yx); // Get large unit occupying cell yx — 58CBB9
     void sub_594A2D(Unit* unit, int32_t flag); // 594A2D — collect passable sack cells in expanding rings around the unit.
     int32_t sub_594C4B(Unit* unit, uint16_t yx); // 594C4B — check whether cell yx holds a sack and is passable for unit.
     int sub_58B1D7(Unit* unit); // Check if unit fits/can be placed over all cells at its current position — 58B1D7

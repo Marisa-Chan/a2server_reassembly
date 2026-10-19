@@ -343,7 +343,7 @@ void AreaEffect::sub_5384FF() {
 		for (int32_t dy = y - radius; dy <= y + radius; dy++) {
 			uint16_t yx = PosYX(dx, dy).val;
 			this->sub_53831D(MapStuff_Instance->GetSmallUnitAt(yx));
-			this->sub_53831D(MapStuff_Instance->sub_58CBB9(yx));
+			this->sub_53831D(MapStuff_Instance->GetLargeUnitAt(yx));
 			this->sub_53831D(MapStuff_Instance->GetBuildingUnitAt(dx, dy));
 			if (spread_damage) {
 				this->sub_53868D(dx, dy);
@@ -492,7 +492,7 @@ void AreaEffect::sub_537CD6() {
 			g_NetStru1_main.BroadcastEffectMove(this->effect, packet_type);
 			uint16_t yx = PosYX(nx, ny).val;
 			this->sub_53831D(MapStuff_Instance->GetSmallUnitAt(yx));
-			this->sub_53831D(MapStuff_Instance->sub_58CBB9(yx));
+			this->sub_53831D(MapStuff_Instance->GetLargeUnitAt(yx));
 			this->sub_53831D(MapStuff_Instance->GetBuildingUnitAt(nx, ny));
 		}
 	}

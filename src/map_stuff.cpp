@@ -1527,7 +1527,7 @@ Unit* MapStuff::GetSmallUnitAt(uint16_t yx) {
 }
 
 // 58CBB9
-Unit* MapStuff::sub_58CBB9(uint16_t yx) {
+Unit* MapStuff::GetLargeUnitAt(uint16_t yx) {
     if (!this->ObstacleAt(yx).TestBits(0x20)) {
         return nullptr;
     }

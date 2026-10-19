@@ -5153,7 +5153,7 @@ void Server::EnsurePlayerGroup(Player* player) {
     Unit* unit = player->unit_list->unit_list.GetNext(unit_it);
     while (unit != nullptr) {
         uint16_t yx = unit->position->CompatGetYX();
-        if (MapStuff_Instance->GetSmallUnitAt(yx) != unit && MapStuff_Instance->sub_58CBB9(yx) != unit) {
+        if (MapStuff_Instance->GetSmallUnitAt(yx) != unit && MapStuff_Instance->GetLargeUnitAt(yx) != unit) {
             *unit->position = TokenPos(x, y, MapStuff_Instance);
 
             int32_t placed = 0;
