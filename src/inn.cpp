@@ -1304,7 +1304,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
                     if (new_unit != nullptr) {
                         uint8_t y = humanoid->position->GetY();
                         uint8_t x = humanoid->position->GetX();
-                        int placed = new_unit->sub_52BF3D(x, y, 5);
+                        int placed = new_unit->PlaceOnMap(x, y, 5);
                         if (placed != 0) {
                             dword_6CDB3C->AddTailAllocId(new_unit);
                             new_unit->pOwner = humanoid->pOwner;

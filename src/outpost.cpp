@@ -165,9 +165,9 @@ void Outpost::sub_543EC3(Group* group) {
 
         int32_t placed;
         if (this->spread != 0) {
-            placed = unit_original->sub_52BF3D(this->position->GetX(), this->position->GetY(), this->spread);
+            placed = unit_original->PlaceOnMap(this->position->GetX(), this->position->GetY(), this->spread);
         } else {
-            placed = unit_original->sub_52BF3D(unit_original->position->GetX(), unit_original->position->GetY(), 0);
+            placed = unit_original->PlaceOnMap(unit_original->position->GetX(), unit_original->position->GetY(), 0);
         }
 
         if (placed != 0) {

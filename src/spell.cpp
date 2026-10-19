@@ -628,7 +628,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
                     break;
                 }
 
-                if (!unit->sub_52BF3D(dead_unit->position->GetX(), dead_unit->position->GetY(), 0)) {
+                if (!unit->PlaceOnMap(dead_unit->position->GetX(), dead_unit->position->GetY(), 0)) {
                     return;
                 }
                 unit->summoned = 1;
@@ -722,7 +722,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 unit->InitDefaults(name);
                 unit->summoned = 1;
 
-                if (!unit->sub_52BF3D(caster->position->GetX(), caster->position->GetY(), 6)) {
+                if (!unit->PlaceOnMap(caster->position->GetX(), caster->position->GetY(), 6)) {
                     return;
                 }
                 dword_6CDB3C->AddTailAllocId(unit);

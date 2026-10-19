@@ -114,7 +114,7 @@ public:
     void CancelQueuedSpell();
     void CreateSackFromInventory(Inventory* inventory, int32_t money, int32_t is_main_player_unit); // Create a sack from this unit's inventory and money.
     void AddHp(int16_t amount);  // Add HP (clamped to hp_max, triggers regen if newly positive)
-    int sub_52BF3D(uint8_t x, uint8_t y, uint8_t size);  // Place unit on map; returns nonzero on success
+    int PlaceOnMap(uint8_t x, uint8_t y, uint8_t size);  // Place unit on map; returns nonzero on success
     Effect* FindEnchantment(uint16_t effect_id); // Find first Effect in _effects list matching the given itemDataID.
     uint16_t sub_528725(); // Returns x bottom-right extent (sub-cell units).
     uint16_t sub_528763(); // Returns y bottom-right extent (sub-cell units).

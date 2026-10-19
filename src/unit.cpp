@@ -1245,11 +1245,11 @@ int32_t Unit::ReturnToMap() {
     // First try to place unit at the exact position.
     uint8_t y = this->position->GetY();
     uint8_t x = this->position->GetX();
-    if (!this->sub_52BF3D(x, y, 0)) {
+    if (!this->PlaceOnMap(x, y, 0)) {
         // If that fails, try to find a nearby free position (at max distance 3).
         y = this->position->GetY();
         x = this->position->GetX();
-        if (!this->sub_52BF3D(x, y, 3)) {
+        if (!this->PlaceOnMap(x, y, 3)) {
             LogMessage(CString("Unit can't return to map - no free place"));
             return 0;
         }
@@ -1835,7 +1835,7 @@ void Unit::RemoveFromMap() {
 
 // 52C36D
 void Unit::AddToMap(uint8_t x, uint8_t y, uint8_t flags) {
-    if (!this->sub_52BF3D(x, y, flags)) {
+    if (!this->PlaceOnMap(x, y, flags)) {
         CString msg("Unit can't enter map - no free place");
         LogMessage(msg);
         return;
@@ -1847,7 +1847,7 @@ void Unit::AddToMap(uint8_t x, uint8_t y, uint8_t flags) {
 }
 
 // 52BF3D
-int Unit::sub_52BF3D(uint8_t x, uint8_t y, uint8_t size) {
+int Unit::PlaceOnMap(uint8_t x, uint8_t y, uint8_t size) {
     uint32_t size_u32 = size;
     int32_t max_tries = size_u32 * size_u32 / 2 + 1;
     uint8_t radius = size / 2;

@@ -310,3 +310,4 @@ Unit::sub_52C36D -> AddToMap -- places the unit (PlaceOnMap), appends to world u
 Unit::sub_52C58F -> Revive -- set flags, reset subcell, call RecalcStats, notify world
 Unit::sub_52C813 -> CancelQueuedSpell -- aborts a previously queued castspell modifier item when a different spell was queued
 Unit::sub_52D8D3 -> CreateSackFromInventory -- creates a sack from this unit's inventory and money
+Unit::sub_52C4DF -> AddHp -- adds HP clamped to hp_max, triggers regen notification when newly positive

@@ -831,7 +831,7 @@ void Srv1::sub_59CD45(MapAlm* alm) {
             unit->hp = unit_data->hp;
         }
 
-        int32_t placed = unit->sub_52BF3D(unit_data->x >> 8, unit_data->y >> 8, 0);
+        int32_t placed = unit->PlaceOnMap(unit_data->x >> 8, unit_data->y >> 8, 0);
         if (!placed) {
             CString msg;
             msg.Format("Can't place unit %d during loading on the tile(%d, %d).", unit_data->unit_id, unit_data->x >> 8, unit_data->y >> 8);
@@ -5158,10 +5158,10 @@ void Server::sub_5013D4(Player* player) {
 
             int32_t placed = 0;
             if (unit == player->main_unit) {
-                placed = unit->sub_52BF3D(x, y, 0);
+                placed = unit->PlaceOnMap(x, y, 0);
             }
             if (placed == 0) {
-                placed = unit->sub_52BF3D(x, y, radius);
+                placed = unit->PlaceOnMap(x, y, radius);
             }
             if (placed == 0) {
                 LogMessage(CString("Error - can't place hero from previous mission on map."));
@@ -6561,7 +6561,7 @@ Human* Server::sub_509879(CString* unit_name, Unit* origin, int32_t is_hero) {
     if (this->field18_0x94 != 0) {
         uint8_t x = origin->position->GetX();
         uint8_t y = origin->position->GetY();
-        if (unit->sub_52BF3D(x, y, 3) == 0) {
+        if (unit->PlaceOnMap(x, y, 3) == 0) {
             delete unit;
             return nullptr;
         }
