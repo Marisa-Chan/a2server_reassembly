@@ -5717,7 +5717,7 @@ void SrvStru1::MakeTargetSpellEffect(uint8_t a0, uint8_t a1, Unit* unit, uint32_
 
 void SrvStru1::UpdateMapObjects() { // 4FB4AA
     this->building_list->FUN_0055817b();
-    this->sack_list->FUN_005540ed();
+    this->sack_list->UpdateSackVisibility();
 }
 
 // 4FB273
@@ -5877,7 +5877,7 @@ SackList::~SackList() { //554bc3
 }
 
 // 5540ed
-void SackList::FUN_005540ed() {
+void SackList::UpdateSackVisibility() {
     const int32_t max_sacks = g_Server->field19_0x98.GetMapCenterX() / (g_ServerConfig.gameType == 0 ? 1 : 8);
 
     for (POSITION it = this->list.GetHeadPosition(); it != nullptr;) {

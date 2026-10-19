@@ -98,7 +98,7 @@ public:
     int32_t AddSack(Sack* sack); // Add sack to list and map
     void sub_55BC58(CArchive& ar);  // Serialize
 
-    void FUN_005540ed(); //5540ed
+    void UpdateSackVisibility(); //5540ed
 
     ~SackList(); //554bc3
 };
