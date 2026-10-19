@@ -1263,7 +1263,7 @@ void World::sub_5B6346() {
         uint16_t pos_yx = PosYX{vc->properties[2], vc->properties[3]}.val;
         Unit* unit = this->sub_5B61D0(pos_yx, vc->byte_0x3c, vc->pOwner, spell->is_defensive);
         if (unit != nullptr) {
-            g_Server->srv_stru1->sub_4FBAE3(vc->properties[2], vc->properties[3], unit, vc->properties[0], vc->properties[1]);
+            g_Server->srv_stru1->MakeTargetSpellEffect(vc->properties[2], vc->properties[3], unit, vc->properties[0], vc->properties[1]);
         }
     }
 }
@@ -2223,7 +2223,7 @@ void World::ScriptOP_0x18(TriggerAction* action) {
     uint8_t from_x = action->data[0], from_y = action->data[1];
     uint32_t spell_id = action->data[2];
     uint32_t power = action->data[3];
-    g_Server->srv_stru1->sub_4FBAE3(from_x, from_y, action->unit, spell_id, power);
+    g_Server->srv_stru1->MakeTargetSpellEffect(from_x, from_y, action->unit, spell_id, power);
 }
 
 // 5b4347 — Set trap: spell=data[0], power=data[1], trigger=(data[2],data[3]), source=(data[4],data[5]), target=(gap[0],gap[4])

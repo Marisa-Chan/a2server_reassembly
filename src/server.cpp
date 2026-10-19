@@ -5709,7 +5709,7 @@ void SrvStru1::MakeAreaSpellEffect(uint8_t from_x, uint8_t from_y, uint8_t to_x,
     unit->area_cast_y = to_y;
 }
 
-void SrvStru1::sub_4FBAE3(uint8_t a0, uint8_t a1, Unit* unit, uint32_t a3, uint32_t a4) { // 4FBAE3
+void SrvStru1::MakeTargetSpellEffect(uint8_t a0, uint8_t a1, Unit* unit, uint32_t a3, uint32_t a4) { // 4FBAE3
     Unit* u = this->AddDummyUnitWithSpell(a0, a1, a3, a4);
     u->some_state = 13;
     u->cast_target = unit;
