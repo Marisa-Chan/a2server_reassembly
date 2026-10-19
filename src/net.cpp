@@ -4876,7 +4876,7 @@ void NetStru1::SendHatCredentials(const CString& login, const CString& password,
     this->QueuePacketSend(pkt);
 }
 
-void NetStru1::FUN_0051d9d0(HatCharId chid) { //51d9d0
+void NetStru1::SendHatCharId(HatCharId chid) { //51d9d0
     PacketInfo* pkt = &PacketInfo::Inst;
     pkt->id = 0xca;
     pkt->param1 = chid.id1;

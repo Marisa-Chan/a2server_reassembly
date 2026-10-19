@@ -219,7 +219,7 @@ public:
     void SendHatRawString(const char* str, int32_t len); // 51E40C - Send raw string data to HAT
 
     void SendHatCredentials(const CString& login, const CString& password, uint32_t flags); //51d8d6
-    void FUN_0051d9d0(HatCharId charid); //51d9d0
+    void SendHatCharId(HatCharId charid); //51d9d0
     void FUN_0051d9a0(); //51d9a0
 
     void WriteStatsLog(CString fname);//51f124

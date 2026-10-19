@@ -5229,7 +5229,7 @@ int32_t MainWindow::FUN_0049057b() { //49057b
         }
 
         if (!has_file) {
-            g_NetStru1_local.FUN_0051d9d0(this->m_GameSession.hat_char_ids[j]);
+            g_NetStru1_local.SendHatCharId(this->m_GameSession.hat_char_ids[j]);
             INT_00660f8c = 0;
 
             while (true) {
