@@ -171,7 +171,7 @@ public:
     void sub_5AF683(Player* player, uint8_t param);
     void sub_5A9B6B(Unit* unit); // AI tick for a monster unit? 5A9B6B
     void DoMoveStepTo(Unit* unit, PosYX yx, uint8_t max_range); // 5AA375
-    void sub_5AA426(Unit* unit, uint8_t facing); // 5AA426
+    void DoTurnTo(Unit* unit, uint8_t facing); // 5AA426
     void sub_5AA485(Unit* unit); // 5AA485
     void sub_5AA78C(Unit* unit); // 5AA78C
     void sub_5AA8ED(Unit* unit); // 5AA8ED

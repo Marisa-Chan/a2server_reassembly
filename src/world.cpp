@@ -1375,7 +1375,7 @@ void World::sub_5A9B6B(Unit* unit) {
             this->sub_5AAB08(unit);
             break;
         case 10:
-            this->sub_5AA426(unit, unit->eye->field1_0x1);
+            this->DoTurnTo(unit, unit->eye->field1_0x1);
             break;
         case 11:
             this->sub_5AA485(unit);
@@ -2990,7 +2990,7 @@ void World::OrderTeleportHome(Unit* unit) {
 }
 
 // 5AA426 — turn unit to face `facing`; if already facing, clear cast action.
-void World::sub_5AA426(Unit* unit, uint8_t facing) {
+void World::DoTurnTo(Unit* unit, uint8_t facing) {
     if (unit->eye->field0_0x0 != facing) {
         this->field24_0xa50->sub_590F94(unit, facing);
         unit->some_state = 1;
