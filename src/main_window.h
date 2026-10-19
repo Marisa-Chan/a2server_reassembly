@@ -501,7 +501,7 @@ public:
     VisLogoWnd* vis_logownd;
     Vis1200* vis_1200;
     LoadGameWindow* vis_loadgame;
-    SaveGameWindow* field_0x140;
+    SaveGameWindow* vis_savegame;
     VisMessageBox* field_0x144;
     SaveFileInfo field_0x148;
     CArray<DiplomacyEntry*>* field_0x348;

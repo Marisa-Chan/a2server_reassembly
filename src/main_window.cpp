@@ -2445,10 +2445,10 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
 
         delete this->field_0x12c;
         this->field_0x12c = nullptr;
-    } else if (obj == this->field_0x140) { //save game
+    } else if (obj == this->vis_savegame) { //save game
         this->dialogsMask &= ~0x8;
 
-        if (this->field_0x140->GetCloseCode() == 0x445) {
+        if (this->vis_savegame->GetCloseCode() == 0x445) {
             this->FUN_0048f905();
         }
 
@@ -2458,8 +2458,8 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
             this->field_0x43c = 0;
         }
 
-        delete this->field_0x140;
-        this->field_0x140 = nullptr;
+        delete this->vis_savegame;
+        this->vis_savegame = nullptr;
     } else if (obj == this->vis_loadgame) { //load game
         this->dialogsMask &= ~8;
 
@@ -3061,8 +3061,8 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         if (this->dialogsMask == 1 || this->dialogsMask == 0) {
             this->field_0x148.title[0] = 0;
             this->field_0x148.filename[0] = 0;
-            this->field_0x140 = new SaveGameWindow(1, 100, 30, 600, 450, 0, &this->field_0x148);
-            this->PopUpScreen(this->field_0x140);
+            this->vis_savegame = new SaveGameWindow(1, 100, 30, 600, 450, 0, &this->field_0x148);
+            this->PopUpScreen(this->vis_savegame);
         }
         break;
 

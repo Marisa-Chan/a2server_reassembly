@@ -90,3 +90,4 @@ MainWindow::field_0xc0 -> console_active -- console input line (Vis1200) capture
 MainWindow::field_0x124 -> vis_missionfailed -- - VisMissionFailed popup screen (msg 0x431)
 MainWindow::field_0x128 -> vis_2action -- - Vis2Action action-menu popup (msg 0x430)
 MainWindow::field_0x13c -> vis_loadgame -- matches its vis_loadgame* type (load/save game screens, message box)
+MainWindow::field_0x140 -> vis_savegame -- matches its vis_savegame* type (load/save game screens, message box)
