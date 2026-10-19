@@ -4042,7 +4042,7 @@ void Server::sub_504a96(Packet* pkt) {
                 ns2->player_id = target->player_id;
                 ns2->is_claimed = 1;
                 ns2->str = target->login;
-                g_NetStru1_main.sub_51C822(ns2);
+                g_NetStru1_main.SendSpectatorState(ns2);
             }
                 break;
         }

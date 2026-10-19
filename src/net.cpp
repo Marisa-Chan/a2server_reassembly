@@ -4322,7 +4322,7 @@ void NetStru1::sub_51BDA4(Effect* effect, Unit* unit, uint8_t arg) {
 }
 
 // 51C822
-void NetStru1::sub_51C822(NetStru2* ns2) {
+void NetStru1::SendSpectatorState(NetStru2* ns2) {
     PacketDword& packet = PacketDword::Inst;
     packet.id = 0x0E;
     packet.value = dword_665CFC;

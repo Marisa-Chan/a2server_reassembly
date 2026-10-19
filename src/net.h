@@ -178,7 +178,7 @@ public:
 
     void ResendPlayerUnits(Player* player);
     void SendLevelUp(Unit* unit, int unused);        // Send unit-level-up packet
-    void sub_51C822(NetStru2* ns2);    // Send spectator/alliance state
+    void SendSpectatorState(NetStru2* ns2);    // Send spectator/alliance state
 
     // DecodePacket – decode an incoming network message into the appropriate Packet singleton,
     // populate it via VMethod4, and stamp it with the sender id.
