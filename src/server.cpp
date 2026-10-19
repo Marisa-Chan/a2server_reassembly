@@ -310,7 +310,7 @@ void Server::sub_4F1E2A() {
             Player* player = g_PlayersList->list.GetNext(player_it);
 
             if (!player->is_ai && player->name != "Self") {
-                player->field_0x41 = 0;
+                player->is_in_world = 0;
                 CList<Unit*>& unit_list = player->unit_list->unit_list;
                 POSITION unit_it = unit_list.GetHeadPosition();
                 while (unit_it != nullptr) {
@@ -1684,12 +1684,12 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4) {
     }
 
     // If `bool_arg4` is set and field_0x41 is not yet set, put the unit on the map (sub_5013D4).
-    if (bool_arg4 != 0 && player->field_0x41 == 0) {
+    if (bool_arg4 != 0 && player->is_in_world == 0) {
         this->sub_5013D4(player);
     }
 
     // Mark the player as fully active and refresh world / map state.
-    player->field_0x41 = 1;
+    player->is_in_world = 1;
     player->field_0x43 = 1;
     g_World->sub_5AFBFD(); // increment some counter (number of joined players?).
     MapStuff_Instance->scan_presence_grid.sub_596131();  // refresh scan grid
@@ -2177,7 +2177,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     this->sub_5013D4(player);
 
     // Mark player as active.
-    player->field_0x41 = 1;
+    player->is_in_world = 1;
     player->field_0x43 = 1;
 
     // Increment World::field65_0xc780
@@ -4761,7 +4761,7 @@ void Server::ServerTic() {
             POSITION ppos = g_PlayersList->list.GetHeadPosition();
             while (ppos != nullptr) {
                 Player* player = g_PlayersList->list.GetNext(ppos);
-                if (player->is_ai == 0 && player->field_0x41 != 0 && player->field_0xa6c == 0) {
+                if (player->is_ai == 0 && player->is_in_world != 0 && player->field_0xa6c == 0) {
                     g_NetStru1_main.FUN_0051ce86(0xb, 0, player);
                 }
             }
@@ -6091,7 +6091,7 @@ void Server::sub_509042() {
 
 // 5090FA
 void Server::sub_5090FA(Player* player) {
-    if (player->field_0x41 == 0 || player->is_ai) {
+    if (player->is_in_world == 0 || player->is_ai) {
         return;
     }
 

@@ -237,7 +237,7 @@ void PlayersList::sub_534DDD() {
 
 		// Check if player has timed out.
 		if (0 < player->field_0xa50 && player->field_0xa50 < g_Server->tick16) {
-			if (player->field_0x41 != 0) {
+			if (player->is_in_world != 0) {
 				// Tournament mode: save player's main unit.
 				if (g_Server->field4_0x74 != 0 && player->main_unit != nullptr) {
 					g_Server->sub_4EE028(player->main_unit);
