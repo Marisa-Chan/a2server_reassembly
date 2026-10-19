@@ -720,3 +720,4 @@ GameDataRes::sub_50DB4E -> SplitItemName -- extracts base name and braced proper
 GameDataRes::sub_50DC69 -> StripMaterialPrefix -- strips material-specific prefix from item name
 GameDataRes::sub_514BE7 -> PostProcessMagicData -- post-processes magic data after parsing Magic.txt
 GameDataRes::FUN_005125a8 -> FindHumanByServerId -- reverse lookup of humans table row by server_id
+GameDataRes::FUN_00512625 -> FindMonsterByServerId -- reverse lookup of monsters table row by server_id

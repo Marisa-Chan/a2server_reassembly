@@ -262,7 +262,7 @@ MagicInfo::~MagicInfo() {
 }
 
 // 514085
-void __stdcall sub_514085(CString line, int count, CStringArray* items) {
+void __stdcall SplitCsvLine(CString line, int count, CStringArray* items) {
     static char quote_buf[0xA00];
 
     for (int32_t i = 0; i < count; i++) {
@@ -307,7 +307,7 @@ void __stdcall sub_514085(CString line, int count, CStringArray* items) {
 // 578190
 void MonsterInfo::ParseLine(CString line) {
     this->ParseValues(line, 0x3e, nullptr);
-    sub_514085(line, 2, &this->equipped_items);
+    SplitCsvLine(line, 2, &this->equipped_items);
 }
 
 // 572B90
@@ -382,7 +382,7 @@ void MonsterInfo::Serialize(CArchive& ar) {
 // 578220
 void HumanInfo::ParseLine(CString line) {
     this->ParseValues(line, 0x1a, nullptr);
-    sub_514085(line, 10, &this->equipped_items);
+    SplitCsvLine(line, 10, &this->equipped_items);
 }
 
 // 572D80
