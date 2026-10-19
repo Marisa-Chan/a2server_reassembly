@@ -192,7 +192,7 @@ public:
     void UpdateMissionResult(Player* player); // 5090FA
     void CheatCommand(Player* player, CString param_2);
 
-    int sub_4F0BEF(); //4f0bef - Connect to hat server
+    int ConnectToHat(); //4f0bef - Connect to hat server
     int Start(int mode); //4f06f5
 
     void ProcessAvailPackets(); //509010

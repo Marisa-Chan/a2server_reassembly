@@ -4314,7 +4314,7 @@ Player* Server::Allods2_CreatePlayer(CString name) {
 }
 
 // 4f0bef
-int32_t Server::sub_4F0BEF() {
+int32_t Server::ConnectToHat() {
     if (g_CLlDriver.provider != 4) {
         return 0;
     }
@@ -5076,7 +5076,7 @@ void Server::ProcessHatConnections() {
         }
     } else {
         if (this->field51_0x1d8 != 0 && GetTickCount() - this->field51_0x1d8 > g_ServerConfig.reconnect_delay * 60000) {
-            if (!this->sub_4F0BEF()) {
+            if (!this->ConnectToHat()) {
                 this->field51_0x1d8 = GetTickCount();
             } else {
                 this->field51_0x1d8 = 0;
