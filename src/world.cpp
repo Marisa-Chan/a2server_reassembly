@@ -2830,7 +2830,7 @@ void World::sub_5AC289(Group* group, uint8_t x, uint8_t y) {
         group->group_sub->field_0x44 = min_speed;
     }
     group->group_sub->field_0x20 = 4;
-    group->group_sub->field_0xa = PosYX(x, y).val;
+    group->group_sub->order_pos = PosYX(x, y).val;
 }
 
 // Group swarm command. Same as move, but mode is 5.
@@ -2872,7 +2872,7 @@ void World::sub_5AC137(Group* group) {
 void World::sub_5AC785(Group* group, uint8_t x, uint8_t y) {
     this->FUN_005acd4c(group);
     group->group_sub->field_0x20 = 2;
-    group->group_sub->field_0xa = PosYX{x, y}.val;
+    group->group_sub->order_pos = PosYX{x, y}.val;
 }
 
 // Issue a respawn/return command to `group` using the lead unit's position.
@@ -2881,7 +2881,7 @@ void World::sub_5AC7C8(Group* group) {
     this->FUN_005acd4c(group);
     group->group_sub->field_0x20 = 0x11;
     Unit* head = group->unit_list.GetHead();
-    group->group_sub->field_0xa = head->position->CompatGetYX();
+    group->group_sub->order_pos = head->position->CompatGetYX();
     group->group_sub->field_0x15 = 0;
 }
 
@@ -3392,16 +3392,16 @@ void World::sub_5ABFBC(Group* group) {
             this->sub_5AE628(group);
             break;
         case 2:
-            this->sub_5AEC20(group, group->group_sub->field_0xa);
+            this->sub_5AEC20(group, group->group_sub->order_pos);
             break;
         case 3:
             this->sub_5AEF66(group);
             break;
         case 4:
-            this->sub_5AF061(group, group->group_sub->field_0xa);
+            this->sub_5AF061(group, group->group_sub->order_pos);
             break;
         case 5:
-            this->sub_5AECE7(group, group->group_sub->field_0xa);
+            this->sub_5AECE7(group, group->group_sub->order_pos);
             break;
         case 0x11:
             this->sub_5AED8D(group);
@@ -3422,7 +3422,7 @@ void World::sub_5AED8D(Group* group) {
     uint8_t max_distance = 0;
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
-        uint8_t distance = this->field24_0xa50->sub_593B29(unit->position->GetYX(), PosYX(group->group_sub->field_0xa));
+        uint8_t distance = this->field24_0xa50->sub_593B29(unit->position->GetYX(), PosYX(group->group_sub->order_pos));
         if (distance > max_distance) {
             max_distance = distance;
         }
@@ -3436,15 +3436,15 @@ void World::sub_5AED8D(Group* group) {
             int32_t idx = this->sub_5B6F60(0, 7);
             int32_t dx = this->field24_0xa50->field48_0x58e88[idx] * 20;
             int32_t dy = this->field24_0xa50->field49_0x58e90[idx] * 20;
-            new_x = group->group_sub->field_0xa + dx;
-            new_y = (group->group_sub->field_0xa >> 8) + dy;
+            new_x = group->group_sub->order_pos + dx;
+            new_y = (group->group_sub->order_pos >> 8) + dy;
             retry = (new_x < this->field24_0xa50->map_min_x || new_x > this->field24_0xa50->map_max_x || new_y < this->field24_0xa50->map_min_y || new_y > this->field24_0xa50->map_max_y);
         }
-        group->group_sub->field_0xa = PosYX{new_x, new_y}.val;
+        group->group_sub->order_pos = PosYX{new_x, new_y}.val;
         group->group_sub->field_0x15 = 0;
     }
 
-    this->sub_5AECE7(group, group->group_sub->field_0xa);
+    this->sub_5AECE7(group, group->group_sub->order_pos);
     group->group_sub->field_0x15++;
 }
 

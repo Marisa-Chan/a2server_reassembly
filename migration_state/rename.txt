@@ -133,3 +133,4 @@ SoundSettings::field_0x20 -> music_allowed -- cleared by -nomusic; gates loading
 MusicPlayer::field_0x2c -> track_ids -- per-playlist-entry track ids (returned by GetCurrentTrackIndex, sent in 0x467 notify)
 MusicPlayer::field_0x68 -> play_notify -- when set, posts 0x467 track/elapsed notifications each update
 MusicPlayer::field_0x6c -> track_wrap_pending -- set when ReadPortion hit the track end (loop seam in end_pos), consumed by Update
+GroupSub::field_0xa -> order_pos -- --
