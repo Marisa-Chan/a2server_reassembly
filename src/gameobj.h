@@ -31,7 +31,7 @@ public:
 	int32_t IsQuestItem(); //43a5e5
 	int32_t IsQuestTreasure(); //43a6d5
 	int32_t IsTwoHandedWeapon(); //4396fb
-	int32_t sub_4A7850(int32_t num); //4a7850
+	int32_t AddCount(int32_t num); //4a7850
 	int32_t sub_4A7880(int32_t num); //4a7880
 	int32_t sub_4A7900(TokenEntry* other); //4a7900
 	int32_t sub_43988E(); //43988e in asm

@@ -911,7 +911,7 @@ int32_t TokenEntry::IsEmpty() { //41f0d0
 }
 
 
-int32_t TokenEntry::sub_4A7850(int32_t num) { //4a7850
+int32_t TokenEntry::AddCount(int32_t num) { //4a7850
     this->count += num;
     return 1;
 }

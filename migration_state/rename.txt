@@ -246,3 +246,4 @@ TokenEntry::FUN_004a78c0 -> IsDepleted -- item present but count reached 0 (stac
 TokenEntry::sub_43A5E5 -> IsQuestItem -- spell-type item named Crown/Documents/Treasure counts as a quest item (except Treasure in tournament mode)
 TokenEntry::sub_43A6D5 -> IsQuestTreasure -- item is the magic item literally named 'Quest Treasure'
 TokenEntry::sub_4396FB -> IsTwoHandedWeapon -- weapon hero-class is bowman/archer/xbowman/2H; equipping it empties the other hand
+TokenEntry::sub_4A7850 -> AddCount -- stack count += num

@@ -15916,7 +15916,7 @@ int32_t VisInvBase::VMethod26(TokenEntry* o, int32_t idx) {
         if (!o->sub_4A7900(entry)) {
             continue;
         }
-        entry->sub_4A7850(o->count);
+        entry->AddCount(o->count);
         delete o;
         return i;
     }
@@ -15964,7 +15964,7 @@ int32_t VisInvBase::VMethod27(TokenEntry* o) {
         if (!entry->sub_4A7900(o)) {
             continue;
         }
-        entry->sub_4A7850(o->count);
+        entry->AddCount(o->count);
         delete o;
         return i;
     }
@@ -17234,7 +17234,7 @@ int32_t VisInvExtType1::VMethod26(TokenEntry* o, int32_t idx) {
         if (entry->IsDepleted()) {
             *entry = *o;
         } else {
-            entry->sub_4A7850(o->count);
+            entry->AddCount(o->count);
         }
         return o->field_0x1c;
     }
@@ -18050,7 +18050,7 @@ int32_t VisInvExtType3::VMethod27(TokenEntry* o) {
         if (entry->slot_code != o->slot_code) {
             continue;
         }
-        entry->sub_4A7850(o->count);
+        entry->AddCount(o->count);
         delete o;
         return i;
     }
