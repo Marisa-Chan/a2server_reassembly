@@ -5834,7 +5834,7 @@ int32_t SackList::sub_554460(TokenPos* pos, Inventory* inventory, int money, int
         if (g_Server->field4_0x74 == 0) {
             g_NetStru1_main.sub_51AC77(sack, nullptr, 0);
         } else {
-            sack->field_0x4c = 0xFFFF;
+            sack->resend_mask = 0xFFFF;
         }
     }
 
@@ -5902,7 +5902,7 @@ void SackList::FUN_005540ed() {
                     if (player) {
                         // Check if player can see this sack (not masked) or it's marked for visibility
                         bool player_cannot_see = !(sack->field_x18 & player->vision_sharing_id);
-                        bool marked_visible = (sack->field_0x4c & player->vision_sharing_id) != 0;
+                        bool marked_visible = (sack->resend_mask & player->vision_sharing_id) != 0;
                         if (player_cannot_see || marked_visible) {
                             g_NetStru1_main.sub_51AC77(sack, player, 0);
                         }

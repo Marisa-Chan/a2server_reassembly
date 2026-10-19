@@ -150,3 +150,4 @@ GroupSub::field_0x45 -> presence_detected -- --
 Sack::field_0x44 -> needs_save -- --
 Sack::field_0x48 -> seen_by_mask -- --
 Sack::field_0x4a -> seen_by_mask_prev -- --
+Sack::field_0x4c -> resend_mask -- --

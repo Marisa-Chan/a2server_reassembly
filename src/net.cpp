@@ -4727,7 +4727,7 @@ void NetStru1::sub_51AC77(Token* token, Player* player, uint8_t flag) {
         }
 
         sack->field_x18 |= player->vision_sharing_id;
-        sack->field_0x4c &= ~player->vision_sharing_id;
+        sack->resend_mask &= ~player->vision_sharing_id;
         this->QueuePacketSend(&packet);
         return;
     }

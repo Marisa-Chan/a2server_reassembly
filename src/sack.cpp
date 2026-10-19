@@ -33,7 +33,7 @@ void Sack::Init() {
     }
     this->seen_by_mask = 0;
     this->seen_by_mask_prev = 0;
-    this->field_0x4c = 0xFFFF;
+    this->resend_mask = 0xFFFF;
 }
 
 // 55401E
