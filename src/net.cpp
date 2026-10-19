@@ -236,7 +236,7 @@ void NetStru1::sub_51C601(Unit* unit, int unused) {
 }
 
 // 51B870
-void NetStru1::sub_51B870(Unit* unit) {
+void NetStru1::BroadcastUnitState(Unit* unit) {
     POSITION pos = g_PlayersList->list.GetHeadPosition();
     while (pos != nullptr) {
         Player* player = g_PlayersList->list.GetNext(pos);

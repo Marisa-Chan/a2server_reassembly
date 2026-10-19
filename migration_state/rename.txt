@@ -536,3 +536,4 @@ NetStru1::sub_51C8B1 -> SendExistingPlayers -- sends PacketJoin of every existin
 NetStru1::sub_51CB21 -> SendVisibilityState -- sends terrain/diplomacy visibility state
 NetStru1::sub_51C0F7 -> SendPendingUnits -- sends units from the pending unit list
 NetStru1::sub_51CA5D -> SendServerState -- sends the server state packet
+NetStru1::sub_51D1A8 -> SendKillStats -- sends kill stats (0/nullptr = all)

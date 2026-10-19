@@ -1256,7 +1256,7 @@ int32_t Unit::ReturnToMap() {
     }
     dword_6CDB3C->AddTail(this);
     this->unit_attrs &= ~0x08;
-    g_NetStru1_main.sub_51B870(this);
+    g_NetStru1_main.BroadcastUnitState(this);
     g_NetStru1_main.SendUnitUpdate(this, nullptr, 0x10, 0xFFB, 0, 0);
     g_NetStru1_main.sub_51CF5C(this, 0, nullptr);
     return 1;
