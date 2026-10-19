@@ -319,3 +319,4 @@ Unit::sub_52BDD7 -> ProcessMoveStep -- processes one movement step toward x/y wi
 Unit::sub_52D94E -> Die -- marks the unit fully dead (some_state=0x10) and runs death cleanup
 Unit::sub_52E7FA -> DecayTick -- corpse: decrements HP and recalculates the decay stage
 Unit::sub_52D904 -> GetQuestDefense -- defense value for quests; flyers +25, mages +50
+Unit::sub_52C735 -> HasEnchantment -- checks the enchantments mask/_effects for a spell id

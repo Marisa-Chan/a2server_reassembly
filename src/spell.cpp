@@ -143,7 +143,7 @@ void Spell::sub_539C49(Unit* caster, Unit* target) {
             }
         }
     } else {
-        rays = caster->sub_52F5BB(this->spell_info->Values().GetData()[0].sphere) / 20 + 2;
+        rays = caster->GetSpellPower(this->spell_info->Values().GetData()[0].sphere) / 20 + 2;
     }
     if (rays > 7) {
         rays = 7;

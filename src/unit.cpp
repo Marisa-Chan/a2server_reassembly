@@ -2048,7 +2048,7 @@ int32_t Unit::HasEnchantment(uint8_t spell_id) {
 }
 
 // 52F5BB
-uint8_t Unit::sub_52F5BB(uint8_t sphere) {
+uint8_t Unit::GetSpellPower(uint8_t sphere) {
     int32_t power = this->hit_values.skill_levels[sphere & 0xFF] + this->mind - 30;
     if (power < 0) {
         power = 0;
