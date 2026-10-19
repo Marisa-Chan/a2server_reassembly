@@ -3909,7 +3909,7 @@ void CStructure::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) {
             frame = tile_idx + bmp->GetFrameCount() - info->tile_width * info->full_height;
         } else {
             if (anim_frame != 0) {
-                frame = info->tile_width * info->full_height + (anim_frame - 1) * info->field_0x38;
+                frame = info->tile_width * info->full_height + (anim_frame - 1) * info->anim_frame_stride;
                 char* anim_mask = info->anim_mask;
                 if (anim_mask[tile_idx] == '-') {
                     frame = tile_idx;
@@ -3966,7 +3966,7 @@ void CStructure::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) {
             frame = tile_idx + info->GetSprite()->GetFrameCount() - info->tile_width * info->full_height;
         } else {
             if (anim_frame != 0) {
-                frame = info->tile_width * info->full_height + (anim_frame - 1) * info->field_0x38;
+                frame = info->tile_width * info->full_height + (anim_frame - 1) * info->anim_frame_stride;
                 char* anim_mask = info->anim_mask;
                 if (anim_mask[tile_idx] == '-') {
                     frame = tile_idx;

@@ -4366,7 +4366,7 @@ void MainWindow::FUN_0047efdf() { //47efdf
         bld->shadow_y = reg.GetInt(buf, "ShadowY", 0);
         bld->anim_mask = nullptr;
         bld->frame_count = 0;
-        bld->field_0x38 = 0;
+        bld->anim_frame_stride = 0;
 
         reg.GetSizedString(buf, "Picture", "", bld->picture, sizeof(bld->picture));
 
@@ -4400,7 +4400,7 @@ void MainWindow::FUN_0047efdf() { //47efdf
             int sz = strlen(bld->anim_mask);
             for (int j = 0; j < sz; j++) {
                 if (bld->anim_mask[j] != '-') {
-                    bld->field_0x38++;
+                    bld->anim_frame_stride++;
                 }
             }
         }

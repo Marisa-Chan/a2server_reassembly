@@ -195,7 +195,7 @@ public:
 	CRect selection;
 	int32_t shadow_y;
 	char* anim_mask = nullptr;
-	int32_t field_0x38;
+	int32_t anim_frame_stride;
 	int32_t frame_count;
 	CDWordArray frames;
 	char picture[16];
