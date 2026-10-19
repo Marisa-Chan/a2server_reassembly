@@ -335,7 +335,7 @@ public:
     void DoAutobuff(Unit* unit); // Autobuff handler: pick and cast buff spells on self or allies.
     int32_t IsSpellInRange(Unit* unit, Unit* other, Spell* spell); // Check if `other` is in range of spell from `unit`.
     void BeginAutobuffCast(Unit* caster, Unit* target, Spell* spell); // Set up autobuff cast action for caster.
-    void sub_5A6DA3(Unit* unit, Building* building); // 5A6DA3
+    void BeginEnterBuilding(Unit* unit, Building* building); // 5A6DA3
 
     // Helpers for the functions above; bodies remain in Main.asm for now.
     UnitList* sub_5A3791(Unit* unit); // 5A3791 — helper for sub_5A37C5 (ASM).

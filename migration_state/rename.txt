@@ -483,3 +483,4 @@ World::sub_5A79D6 -> GetCastableSpell -- returns the spell by book number if the
 World::sub_5A7A1C -> ShouldAutobuff -- diplomacy + autobuff_mask check whether caster should buff target
 World::sub_5A7B44 -> DoAutobuff -- autobuff handler: pick and cast buff spells on self or allies
 World::sub_5A7AF7 -> IsSpellInRange -- 1 when other is within the spell max_range from unit
+World::sub_5A85F4 -> BeginAutobuffCast -- state 0x0D executor: pick target if none and start the cast

@@ -3864,7 +3864,7 @@ void World::AdvancePatrol(Unit* unit) {
 }
 
 // 5A6DA3
-void World::sub_5A6DA3(Unit* unit, Building* building) {
+void World::BeginEnterBuilding(Unit* unit, Building* building) {
     unit->eye2->cast_action = 0xF;
     unit->eye2->field51_0x68 = building;
 }
@@ -4027,7 +4027,7 @@ void World::ProcessUnitState(Unit* unit) {
         this->sub_5A551C(unit, unit->eye2->field30_0x3c, unit->eye2->spell);
         break;
     case 15:
-        this->sub_5A6DA3(unit, unit->eye2->field51_0x68);
+        this->BeginEnterBuilding(unit, unit->eye2->field51_0x68);
         break;
     case 17:
         this->sub_5A56D7(unit, unit->eye2->unit2);
