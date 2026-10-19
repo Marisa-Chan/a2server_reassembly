@@ -105,9 +105,9 @@ int32_t Visibility::sub_58D638(int32_t x, int32_t y, int32_t base_yx, int32_t ba
 
     PosYX with_direction = PosYX(x + direction.x, y + direction.y);
 
-    this->field_0x24000[x][y] = this->field_0x24000[with_direction.x][with_direction.y] - (this->field_0x28000[x][y] + height - base_height);
+    this->vis_budget_scratch[x][y] = this->vis_budget_scratch[with_direction.x][with_direction.y] - (this->field_0x28000[x][y] + height - base_height);
 
-    if (this->field_0x24000[x][y] >= 1) {
+    if (this->vis_budget_scratch[x][y] >= 1) {
         this->field_0x2a008[with_offset.val] = 1;
         return 0;
     }
@@ -120,8 +120,8 @@ void Visibility::sub_58D768(Unit* unit, uint16_t yx) {
     PosYX pos = PosYX(yx);
     int32_t base_yx = PosYX(pos.x - Visibility::CENTER, pos.y - Visibility::CENTER).val;
 
-    memset(this->field_0x24000, 0, sizeof(this->field_0x24000));
-    this->field_0x24000[Visibility::CENTER][Visibility::CENTER] = ((unit->scan_range >> 8) << this->scan_shift) + (1 << (this->scan_shift - 1));
+    memset(this->vis_budget_scratch, 0, sizeof(this->vis_budget_scratch));
+    this->vis_budget_scratch[Visibility::CENTER][Visibility::CENTER] = ((unit->scan_range >> 8) << this->scan_shift) + (1 << (this->scan_shift - 1));
 
     uint16_t unit_yx = unit->position->CompatGetYX();
     this->field_0x2a008[unit_yx] = 1;

@@ -176,3 +176,4 @@ Resources::field_0x14 -> search_paths -- resource directories scanned by AddResF
 Token::field_x18 -> sent_to_mask -- bitmask of players this token has already been broadcast to (per vision_sharing_id)
 Visibility::field_0x20000 -> dist_sq_table -- --
 Visibility::field_0x22000 -> ray_dir_table -- --
+Visibility::field_0x24000 -> vis_budget_scratch -- --
