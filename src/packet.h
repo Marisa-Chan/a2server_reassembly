@@ -168,7 +168,7 @@ public:
     void PutWord(uint32_t flag, uint16_t val) { this->flags_mask |= flag; *reinterpret_cast<uint16_t*>(this->data + this->data_offset) = val; this->data_offset += 2; }
     void PutInt(uint32_t flag, uint32_t val){ this->flags_mask |= flag; *reinterpret_cast<uint32_t*>(this->data + this->data_offset) = val; this->data_offset += 4; }
 
-    uint32_t FUN_00527bd8();
+    uint32_t CalcFlagsSize();
     uint32_t FUN_00527c3b();
 };
 __pragma(pack(pop))

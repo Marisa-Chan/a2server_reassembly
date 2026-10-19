@@ -213,7 +213,7 @@ Packet* PacketUnitUpdate::Duplicate() {
 void PacketUnitUpdate::WriteTo(NetStru2* net) {
     //sub_5279C7
 
-    switch (this->FUN_00527bd8()) {
+    switch (this->CalcFlagsSize()) {
     case 1:
         this->id = 0x6e;
         break;
@@ -259,7 +259,7 @@ uint32_t PacketUnitUpdate::GetDataSize() {
     return this->flags_size + 3 + this->data_offset;
 }
 
-uint32_t PacketUnitUpdate::FUN_00527bd8() {
+uint32_t PacketUnitUpdate::CalcFlagsSize() {
     if (this->flags_mask < 0x100) {
         this->flags_size = 1;
     } else if (this->flags_mask < 0x10000) {
