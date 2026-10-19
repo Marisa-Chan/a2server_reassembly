@@ -196,7 +196,7 @@ public:
     int Start(int mode); //4f06f5
 
     void ProcessAvailPackets(); //509010
-    void FUN_0050907e(); //50907e
+    void PumpNetwork(); //50907e
 
     void FUN_00497470(int32_t val) { this->field22_0xd8 = val; }; //497470
 

@@ -2542,7 +2542,7 @@ int32_t BigStruct2::FUN_0040d7f3() {
 	g_NetStru1_local.QueuePacketSend(pkt);
 
 	if (wnd->serverBootstrapEnabled != 0) {
-		g_Server->FUN_0050907e();
+		g_Server->PumpNetwork();
 	}
 	
 	uint32_t stime = timeGetTime();

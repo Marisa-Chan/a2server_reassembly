@@ -4873,7 +4873,7 @@ void Server::ProcessAvailPackets() {
     }
 }
 
-void Server::FUN_0050907e() {
+void Server::PumpNetwork() {
     //50907e
     this->ProcessAvailPackets();
     g_NetStru1_main.FUN_0051c748(nullptr);

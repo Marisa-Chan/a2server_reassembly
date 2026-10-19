@@ -789,7 +789,7 @@ BOOL GameApp::OnIdle(LONG lCount) { //4835b0
 		} else {
 			uint32_t tick = GetTickCount();
 			if (tick - idle_tick > 62) {
-				g_Server->FUN_0050907e();
+				g_Server->PumpNetwork();
 				mwnd->vis_map_context->ProcessPackets(0);
 				idle_tick = tick;
 			}

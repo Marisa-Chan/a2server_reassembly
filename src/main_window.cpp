@@ -3903,7 +3903,7 @@ void MainWindow::FUN_0048f79d() { // 48f79d
         this->RunSessionBootstrap(1);
     } else {
         this->vis_map_context->FUN_0041b10f();
-        g_Server->FUN_0050907e();
+        g_Server->PumpNetwork();
 
         while (g_NetStru1_local.GetClientsPktNum()) {
             this->vis_map_context->ProcessPackets(0x64);
@@ -5422,7 +5422,7 @@ int CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit() {
     }
 
     if (wnd->sessionMode == 1 || wnd->sessionMode == 2) {
-        g_Server->FUN_0050907e();
+        g_Server->PumpNetwork();
     }
 
     uint32_t stime = timeGetTime();

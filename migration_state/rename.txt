@@ -409,3 +409,4 @@ Server::sub_4FC644 -> JoinPlayer -- validates and creates a Player from a login 
 Server::sub_4F3188 -> SerializeGame -- serialises the saved game state to/from the archive
 Server::sub_4F1471 -> LoadGame -- loads a map or saved game
 Server::sub_4EDB83 -> LoadSavedGame -- loads a saved game file
+Server::sub_4FA01F -> SetupArenaFileList -- arena mode file list setup
