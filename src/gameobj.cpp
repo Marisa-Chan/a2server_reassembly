@@ -3317,7 +3317,7 @@ void CUnit::VMethod21() {
 }
 
 // 4646c1
-void CUnit::VMethod17(int16_t arg1, int32_t arg2, int32_t arg3, int32_t arg4, int32_t arg5, MapPlayerData* arg6, int32_t arg7, int32_t arg8, int16_t arg9, int16_t arg10) {
+void CUnit::InitState(int16_t arg1, int32_t arg2, int32_t arg3, int32_t arg4, int32_t arg5, MapPlayerData* arg6, int32_t arg7, int32_t arg8, int16_t arg9, int16_t arg10) {
     this->unit_id = arg1;
     this->x_pos = arg3;
     this->y_pos = arg4;

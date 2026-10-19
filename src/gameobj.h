@@ -253,7 +253,7 @@ public:
 	virtual void MarkOccupancy() override;
 	virtual int32_t UpdateBlockedState() override;
 	virtual void UpdateTransientVisualElements() override;
-	virtual void VMethod17(int16_t arg1, int32_t arg2, int32_t arg3, int32_t arg4, int32_t arg5, MapPlayerData* arg6, int32_t arg7, int32_t arg8, int16_t arg9, int16_t arg10);
+	virtual void InitState(int16_t arg1, int32_t arg2, int32_t arg3, int32_t arg4, int32_t arg5, MapPlayerData* arg6, int32_t arg7, int32_t arg8, int16_t arg9, int16_t arg10);
 	virtual void VMethod18();
 	virtual void VMethod19();
 	virtual void VMethod20();

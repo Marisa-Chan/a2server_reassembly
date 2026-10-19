@@ -5583,7 +5583,7 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx) { //492c66
 
     if (unit == nullptr) {
         unit = new CUnit();
-        unit->VMethod17(1, 1, 0, 0, 0, mwnd->vis_map_context->field_0x9b8[0], 0, 0, 0, 1);
+        unit->InitState(1, 1, 0, 0, 0, mwnd->vis_map_context->field_0x9b8[0], 0, 0, 0, 1);
         mwnd->vis_map_context->field_0x9d0[1] = unit;
         mwnd->vis_map_context->field_0x3f6c = unit;
         mwnd->vis_map_context->MsgProc(0x405, 0, 0);
@@ -5783,7 +5783,7 @@ void CGameSession::InitializeNewCharacterSession(int tp, const char* name) { //4
 
     if (mwnd->vis_map_context->GetUnit_3f6c() == nullptr) {
         CUnit* cunit = new CUnit();
-        cunit->VMethod17(1, 1, 0, 0, 0, mwnd->vis_map_context->field_0x9b8[0], 0, 0, 0, 1);
+        cunit->InitState(1, 1, 0, 0, 0, mwnd->vis_map_context->field_0x9b8[0], 0, 0, 0, 1);
 
         mwnd->vis_map_context->field_0x9d0[1] = cunit;
         mwnd->vis_map_context->field_0x3f6c = cunit;
