@@ -625,3 +625,4 @@ MapStuff::sub_5897AA -> BuildNearbyUnitList -- builds a temporary UnitList of un
 MapStuff::sub_58CB5A -> GetSmallUnitAt -- gets the small unit occupying cell yx
 MapStuff::sub_58CBB9 -> GetLargeUnitAt -- gets the large unit occupying cell yx
 MapStuff::sub_594A2D -> CollectSackCells -- collects passable sack cells in expanding rings around the unit
+MapStuff::sub_594C4B -> IsPassableSackCell -- whether cell yx holds a sack and is passable for the unit

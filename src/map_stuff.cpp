@@ -529,7 +529,7 @@ void MapStuff::sub_58FB12(Unit* unit) {
     } else {
         PosYX old_yx = unit->position->CompatGetYX();
         this->FUN_005969c6(unit, 0, 2);
-        this->sub_58B1D7(unit);
+        this->UnitFitsAt(unit);
         unit->position->SetCoords2(new_x, new_y);
         this->PlaceUnit(unit);
         this->FUN_005969c6(unit, old_yx, 0);
@@ -1578,7 +1578,7 @@ int MapStuff::sub_58B27F(Unit* unit, uint8_t x, uint8_t y) {
 }
 
 // 58B1D7
-int MapStuff::sub_58B1D7(Unit* unit) {
+int MapStuff::UnitFitsAt(Unit* unit) {
     int32_t size = unit->GetTokenSize() & 0xFF;
     uint8_t x = unit->position->GetX();
     uint8_t y = unit->position->GetY();
@@ -1687,7 +1687,7 @@ int MapStuff::sub_595468(Unit* unit, PosYX yx) {
 // 58E3D1 --- add unit to map
 int MapStuff::AddUnitToMap(Unit* unit) {
     this->FUN_005969c6(unit, PosYX(0, 0), 2);
-    return this->sub_58B1D7(unit) != 0;
+    return this->UnitFitsAt(unit) != 0;
 }
 
 // 58E525 --- remove a sack token from the map
