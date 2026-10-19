@@ -4391,7 +4391,7 @@ void NetStru1::sub_51E1C7(uint16_t player_id) {
 }
 
 // 51E205
-void NetStru1::sub_51E205(CString name) {
+void NetStru1::SendHatLogin(CString name) {
     PacketJoin& packet = PacketJoin::Inst;
     packet.id = 0xD1;
     packet.__field_0xa = 0;

@@ -4344,7 +4344,7 @@ int32_t Server::ConnectToHat() {
 
     LogMessage("Connected. Logging in...");
     NetStru1::HatConnector.ProcessConnections();
-    NetStru1::HatConnector.sub_51E205(g_ServerConfig.ip_address);
+    NetStru1::HatConnector.SendHatLogin(g_ServerConfig.ip_address);
     return 1;
 }
 

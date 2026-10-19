@@ -559,3 +559,4 @@ NetStru1::sub_51B638 -> BroadcastAoeZone -- broadcasts an AoE-zone packet to pla
 NetStru1::sub_51B0F0 -> SendUnitAction -- sends a unit action packet to relevant players
 NetStru1::sub_51E5FB -> SendHatJoinOk -- HAT join-success reply (0xD8)
 NetStru1::sub_51E63F -> SendHatJoinFail -- HAT join-failure reply (0xD9)
+NetStru1::sub_51E794 -> SendHatPlayerCheck -- HAT player-check reply (0xE1)
