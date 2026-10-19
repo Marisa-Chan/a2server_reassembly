@@ -86,7 +86,7 @@ public: // VTable at 60efc0.
     virtual void RecalcStats();
     virtual uint32_t RecalcExperience();
     virtual void VMethod20();
-    virtual void VMethod21(uint32_t, Unit *, int32_t);
+    virtual void AddExperience(uint32_t, Unit *, int32_t);
     virtual void VMethod22(Unit*, int32_t);
     virtual void VMethod23(Unit*, uint32_t, int32_t);
     virtual void VMethod24(Unit*, int32_t spell_id);
@@ -265,7 +265,7 @@ public:
     virtual void RecalcStats() override;
     virtual uint32_t RecalcExperience() override;
     //virtual void VMethod20() override;
-    virtual void VMethod21(uint32_t newExp, Unit *target, int32_t sphere) override;
+    virtual void AddExperience(uint32_t newExp, Unit *target, int32_t sphere) override;
     virtual void VMethod22(Unit*, int32_t spell_id) override;
     virtual void VMethod23(Unit*, uint32_t damage, int32_t spell_id) override;
     virtual void VMethod24(Unit*, int32_t spell_id) override;

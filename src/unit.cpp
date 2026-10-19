@@ -1184,7 +1184,7 @@ void Unit::VMethod20()
 {}
 
 // 5371F7
-void Unit::VMethod21(uint32_t newExp, Unit *target, int32_t sphere) {
+void Unit::AddExperience(uint32_t newExp, Unit *target, int32_t sphere) {
     this->experience += newExp;
     if (target && target->hp < 0) {
         this->pOwner->monster_kills += 1;
@@ -2511,7 +2511,7 @@ uint32_t Humanoid::RecalcExperience() {
 }
 
 // 530745
-void Humanoid::VMethod21(uint32_t new_exp, Unit* target, int32_t sphere) {
+void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
     if (g_ServerConfig.gameType != 0) {
         return;
     }
@@ -2643,7 +2643,7 @@ void Humanoid::VMethod22(Unit* unit, int32_t spell_id) {
     if (spell_id != 0 && (this->unit_attrs & 4) != 0) {
         sphere = g_GameDataRes.spells[spell_id].Values().GetData()->sphere;
     }
-    this->VMethod21((int32_t)(unit->_exp * 0.5), unit, sphere);
+    this->AddExperience((int32_t)(unit->_exp * 0.5), unit, sphere);
     if (!unit) {
         return;
     }
@@ -2677,7 +2677,7 @@ void Humanoid::VMethod23(Unit* unit, uint32_t damage, int32_t spell_id) {
     }
     if (unit != nullptr && unit->pOwner != nullptr && unit->pOwner->is_ai) {
         int32_t xp = (int32_t)(unit->_exp * 0.5 * damage / unit->hp_max + 1.0);
-        this->VMethod21(xp, unit, sphere);
+        this->AddExperience(xp, unit, sphere);
     }
 }
 
@@ -2692,7 +2692,7 @@ void Humanoid::VMethod24(Unit*, int32_t spell_id) {
     }
     int32_t mana_cost = g_GameDataRes.spells[spell_id].Values().GetData()->mana_cost;
     int32_t xp = (int32_t)(mana_cost * 0.5 + 0.5);
-    this->VMethod21(xp, nullptr, sphere);
+    this->AddExperience(xp, nullptr, sphere);
 }
 
 // 530394

@@ -285,3 +285,4 @@ Unit::VMethod16 -> AwardKillMoney -- Humanoid: on unit death pays the killer's o
 Unit::VMethod17 -> RollDamage -- full attack roll of attacker vs this unit: to-hit vs defense, bless/curse, randomize, absorption, weapon protections; returns damage
 Unit::VMethod18 -> RecalcStats -- Unit: mp2 = mp_max scaled by owner stat; Humanoid: clamps stats to class/gender caps
 Unit::VMethod19 -> RecalcExperience -- Unit: returns _exp unchanged; Humanoid: recomputes _exp = sum(experience_per_sphere)/100
+Unit::VMethod21 -> AddExperience -- adds exp (Humanoid: mind scaling, diminishing returns per repeated victim, no exp from summons/tournaments)
