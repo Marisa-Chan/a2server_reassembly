@@ -2104,7 +2104,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     g_PlayersList->sub_5357C6(player);
 
     // Notify existing players (send join packets).
-    this->sub_4EE028(unit);
+    this->SaveCharacter(unit);
 
     // Clear state fields.
     player->building_entered_from_yx = 0;
@@ -3384,7 +3384,7 @@ void Server::sub_504a96(Packet* pkt) {
                                     equip_mask, bag_pos, bag_pos + bag_pos_delta);
             DWORD tick = GetTickCount();
             if (tick - human->pOwner->last_save_tick > 15000 || to_type == 3) {
-                this->sub_4EE028(human);
+                this->SaveCharacter(human);
             }
             break;
         }
@@ -3426,7 +3426,7 @@ void Server::sub_504a96(Packet* pkt) {
             }
 
             if (GetTickCount() - unit->pOwner->last_save_tick > 15000) {
-                this->sub_4EE028((Humanoid*)unit);
+                this->SaveCharacter((Humanoid*)unit);
             }
             break;
         }
@@ -3461,7 +3461,7 @@ void Server::sub_504a96(Packet* pkt) {
             }
             shop->sub_54471B(unit);
             if (GetTickCount() - unit->pOwner->last_save_tick > 15000) {
-                this->sub_4EE028((Humanoid*)unit);
+                this->SaveCharacter((Humanoid*)unit);
             }
             break;
         }
@@ -3479,7 +3479,7 @@ void Server::sub_504a96(Packet* pkt) {
             }
             shop->sub_544737(unit);
             if (GetTickCount() - unit->pOwner->last_save_tick > 15000) {
-                this->sub_4EE028((Humanoid*)unit);
+                this->SaveCharacter((Humanoid*)unit);
             }
             break;
         }
@@ -3765,7 +3765,7 @@ void Server::sub_504a96(Packet* pkt) {
 
             if (GetTickCount() - human->pOwner->field_0xa7c > 15000) {
 #pragma message("REVERSE IT");
-                this->sub_4EE028(human); // similar to FUN_004f2c57, so need reverse it!
+                this->SaveCharacter(human); // similar to FUN_004f2c57, so need reverse it!
                 //FUN_004f2c57(local_104);
             }
         }
@@ -4531,7 +4531,7 @@ int Server::Start(int mode) {
 
 // Save a player's character data to file.
 // 4EE028
-void Server::sub_4EE028(Humanoid* humanoid) {
+void Server::SaveCharacter(Humanoid* humanoid) {
     Player* player = humanoid->pOwner;
     player->last_save_tick = GetTickCount();
 

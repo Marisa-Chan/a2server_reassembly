@@ -375,3 +375,4 @@ Server::sub_4FA5C4 -> SendArenaResults -- formats and sends the arena score repo
 Server::sub_4FA78E -> ResetArenaRound -- broadcasts frag limit, sends arena results, resets tick/frags/name list
 Server::sub_4F8831 -> KickAllPlayers -- disconnects every human client and expires their drop deadlines
 Server::sub_4F0ECF -> HatKeepaliveTick -- every 60s reports empty/player state to the HAT server
+Server::sub_500907 -> CreatePlayerCharacter -- returns or creates the player's main Human from the given stats/class

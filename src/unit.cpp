@@ -1560,7 +1560,7 @@ void Unit::Die() {
     if (this->pOwner != nullptr && this->pOwner->main_unit == this) {
         this->pOwner->deaths += 1;
         g_NetStru1_main.sub_519221(this, this->pOwner, 0x2400000, 0xFFB, 0, 0);
-        g_Server->sub_4EE028(this->pOwner->main_unit);
+        g_Server->SaveCharacter(this->pOwner->main_unit);
         this->hp = -50;
     }
 
@@ -2630,7 +2630,7 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
 
     // Trigger periodic save when XP is gained in tournament mode.
     if (new_exp != 0 && g_Server->field4_0x74 != 0 && GetTickCount() - this->pOwner->last_save_tick > 15000) {
-        g_Server->sub_4EE028(this);
+        g_Server->SaveCharacter(this);
     }
 }
 

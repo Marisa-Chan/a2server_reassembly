@@ -240,7 +240,7 @@ void PlayersList::sub_534DDD() {
 			if (player->is_in_world != 0) {
 				// Tournament mode: save player's main unit.
 				if (g_Server->field4_0x74 != 0 && player->main_unit != nullptr) {
-					g_Server->sub_4EE028(player->main_unit);
+					g_Server->SaveCharacter(player->main_unit);
 				}
 
 				g_QuestMap.sub_55ECFE(player->player_id);

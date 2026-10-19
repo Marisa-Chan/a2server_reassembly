@@ -280,7 +280,7 @@ Item* Item::Equip(Unit* pUnit) {
             this->world_equip->name.Find("pirit") >= 0;
 
     if (stat_bottle && (GetTickCount() - pUnit->pOwner->last_save_tick > 15000)) {
-        g_Server->sub_4EE028(static_cast<Humanoid*>(pUnit));
+        g_Server->SaveCharacter(static_cast<Humanoid*>(pUnit));
     }
 
     delete this;

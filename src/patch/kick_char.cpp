@@ -14,7 +14,7 @@ void KickPlayer(Player* player)
         return;
     }
 
-    g_Server->sub_4EE028(player->main_unit);
+    g_Server->SaveCharacter(player->main_unit);
 
     NetStru2* node = g_NetStru1_main.GetClientByPlayerID(player->player_id);
     if (node == nullptr) {
