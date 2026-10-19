@@ -4694,7 +4694,7 @@ void NetStru1::sub_51AC77(Token* token, Player* player, uint8_t flag) {
             PacketPing& packet = PacketPing::Inst;
             packet.id = flag;
             packet.to_player_id = player->player_id;
-            packet.field_0xa = (uint16_t)unit->building_id;
+            packet.unit_id = (uint16_t)unit->building_id;
             packet.field_0xc = unit->hp;
             this->QueuePacketSend(&packet);
         }

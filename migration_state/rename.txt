@@ -36,3 +36,4 @@ PacketUnitStateVec::field_0xf -> start_index -- first inventory/tokenEntries ind
 PacketSync::field_0xa -> building_id -- synced building id
 PacketSync::field_0xc -> hp -- synced building hp
 PacketUnitProperties::field_0xa -> unit_id -- unit whose equip props follow
+PacketPing::field_0xa -> unit_id -- unit whose hp is reported

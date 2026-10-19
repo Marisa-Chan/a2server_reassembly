@@ -1055,9 +1055,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x73: {
 			CUnit* ct = nullptr;
-			if (this->field_0x9d0.Lookup(packet_ping->field_0xa, *(CGameObject**)&ct) == 0) {
+			if (this->field_0x9d0.Lookup(packet_ping->unit_id, *(CGameObject**)&ct) == 0) {
 				if (g_EnableTrace) {
-					sprintf(buf, "Invalid unit #%d. Command Take damage.", packet_ping->field_0xa);
+					sprintf(buf, "Invalid unit #%d. Command Take damage.", packet_ping->unit_id);
 					this->msglog.Add(buf, clrsh_TechBlack, 5000);
 				}
 			} else {
