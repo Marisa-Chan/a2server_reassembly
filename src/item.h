@@ -37,7 +37,7 @@ public: // VTable at 60f498.
     virtual Item* Equip(Unit*); // Equip.
     virtual void Unequip(Unit*); // Unequip.
     virtual Item* TakeOne();
-    virtual Item* VMethod13();
+    virtual Item* Clone();
     virtual int32_t VMethod14(int, int);
     virtual int32_t VMethod15();
     virtual int32_t VMethod16();
@@ -102,7 +102,7 @@ public: // VTable at 60f508.
     virtual Item* Equip(Unit* unit) override; // 54FA6E
     virtual void Unequip(Unit* unit) override; // 54FB7E
     virtual Item* TakeOne() override; // 54FC19
-    virtual Item* VMethod13() override; // 57D5B0
+    virtual Item* Clone() override; // 57D5B0
     virtual int32_t VMethod15() override; // 54F84D
     virtual void VMethod17(PacketUnitStateVec* pkt, uint8_t* slot) override; // 54FCA8
 
@@ -131,7 +131,7 @@ public: // VTable at 60f560.
     virtual Item* Equip(Unit*) override; // 55056B
     virtual void Unequip(Unit*) override; // 550686
     virtual Item* TakeOne() override; // 5504DC
-    virtual Item* VMethod13() override; // 57D660
+    virtual Item* Clone() override; // 57D660
     virtual int32_t VMethod15() override; // 5502C7
     virtual void VMethod17(PacketUnitStateVec* pkt, uint8_t* slot) override; // 5506FC
 
@@ -159,7 +159,7 @@ public: // VTable at 60f5b8.
     virtual Item* Equip(Unit* unit) override; // 5512E7
     virtual void Unequip(Unit* unit) override; // 5515B9
     virtual Item* TakeOne() override; // 5517C3
-    virtual Item* VMethod13() override; // 57D710
+    virtual Item* Clone() override; // 57D710
     virtual int32_t VMethod15() override; // 550FA6
     virtual void VMethod17(PacketUnitStateVec* pkt, uint8_t* slot) override; // 551855
 

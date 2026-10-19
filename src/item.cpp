@@ -301,7 +301,7 @@ Item* Item::TakeOne() {
 }
 
 // 57cdc0
-Item* Item::VMethod13() {
+Item* Item::Clone() {
     return new Item(this);
 }
 
@@ -832,7 +832,7 @@ Item* Armor::TakeOne() {
 }
 
 // 57D5B0
-Item* Armor::VMethod13() {
+Item* Armor::Clone() {
     return new Armor(this);
 }
 
@@ -1018,7 +1018,7 @@ Item* Shield::TakeOne() {
 }
 
 // 57D660
-Item* Shield::VMethod13() {
+Item* Shield::Clone() {
     return new Shield(this);
 }
 
@@ -1291,7 +1291,7 @@ Item* Weapon::TakeOne() {
 }
 
 // 57D710
-Item* Weapon::VMethod13() {
+Item* Weapon::Clone() {
     return new Weapon(this);
 }
 
