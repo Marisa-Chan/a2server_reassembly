@@ -3495,7 +3495,7 @@ void World::sub_5AB35B(Unit* unit) {
             if (unit->eye2->position1.val == 0) {
                 unit->eye2->position1 = unit->position->GetYX();
             }
-            this->sub_5A647C(unit);
+            this->AdvancePatrol(unit);
         }
     } else {
         if (unit->eye2->field4_0x9 == 0xFF) {
@@ -3508,7 +3508,7 @@ void World::sub_5AB35B(Unit* unit) {
             unit->eye2->position1 = pos;
             unit->eye2->positions_list->AddTail(pos.val);
         }
-        this->sub_5A647C(unit);
+        this->AdvancePatrol(unit);
     }
 }
 
@@ -3807,7 +3807,7 @@ void World::sub_5A59E2(Unit* unit) {
         unit->eye2->position1 = unit->position->CompatGetYX();
         unit->eye2->field2_0x4 = 0;
     }
-    this->sub_5A647C(unit);
+    this->AdvancePatrol(unit);
     if (unit->eye2->cast_action == 0 || unit->eye2->cast_action == 0xB) {
         unit->eye2->field2_0x4 = 1;
         uint16_t pos = unit->eye2->position2.val;
@@ -3832,11 +3832,11 @@ void World::sub_5A59E2(Unit* unit) {
 
 // 5A5B49
 void World::sub_5A5B49(Unit* unit) {
-    this->sub_5A647C(unit);
+    this->AdvancePatrol(unit);
 }
 
 // 5A647C — helper for state 10/24 unit actions.
-void World::sub_5A647C(Unit* unit) {
+void World::AdvancePatrol(Unit* unit) {
     if (unit->eye2->position1.val == 0) {
         unit->eye2->position1 = unit->position->GetYX();
     }

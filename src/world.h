@@ -323,7 +323,7 @@ public:
     void sub_5A6801(Unit* unit, Unit* target, int32_t spell_id); // 5A6801 — pick and start casting a known spell.
     void SetIdleOrRetreat(Unit* unit, int param);           // Set unit to idle/wander (param=0) or retreat (param!=0).
     void sub_5A607B(Unit* unit); // 5A607B — idle/wander helper.
-    void sub_5A647C(Unit* unit); // 5A647C — helper for state 10/24 unit actions.
+    void AdvancePatrol(Unit* unit); // 5A647C — helper for state 10/24 unit actions.
     void sub_5A6E59(Unit* unit); // 5A6E59 — retreat helper.
     void sub_5A8709(Unit* unit, Unit* target); // 5A8709 — set unit to pursue the chosen target.
     void sub_5A6EA5(Unit* unit); // 5A6EA5 — idle/wander helper (ASM).

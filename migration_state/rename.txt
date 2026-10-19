@@ -430,3 +430,4 @@ World::sub_5A90F4 -> OrderEnterBuilding -- sets state 0x0F with the target build
 World::sub_5A9580 -> OrderPatrolTo -- sets state 10 with a two-waypoint patrol route [current, target]
 World::sub_5A9918 -> OrderTeleportHome -- sets state 0x16 (teleport back to owner town)
 World::sub_5A9383 -> OrderGuardPosition -- sets state 0x0B anchored at current (or eye) position
+World::sub_5A6E2C -> SetIdleOrRetreat -- param=0 -> idle/wander, else retreat
