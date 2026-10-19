@@ -2159,7 +2159,7 @@ void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
             }
             if (result_yx != 0) {
                 PosYX result(result_yx);
-                this->sub_5893C6(unit, cur_x, cur_y, result.x, result.y);
+                this->BuildPathList2(unit, cur_x, cur_y, result.x, result.y);
             }
         } else {
             uint16_t step = this->sub_593134(unit, 0, dest.val, (distance >> 2) + 4);
@@ -2189,7 +2189,7 @@ void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
             }
         }
     } else if (flag == 0) {
-        this->sub_5893C6(unit, cur_x, cur_y, x, y);
+        this->BuildPathList2(unit, cur_x, cur_y, x, y);
     } else {
         this->BuildPathList1(unit, cur_x, cur_y, x, y);
     }
@@ -2257,7 +2257,7 @@ void MapStuff::sub_597990(Unit* unit, uint8_t x, uint8_t y) {
     this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::sub_5978F0, this->path_queue_scratch, this->path_queue_scratch + 0x1000, this->field7_0x54008);
 }
 
-// Shared by BuildPathList1/sub_5893C6: walks backward from (x,y) toward (cur_x,cur_y) through the
+// Shared by BuildPathList1/BuildPathList2: walks backward from (x,y) toward (cur_x,cur_y) through the
 // field3_0x30000 cost grid, picking the cheapest neighbor at each step (its cost weighted by
 // walk_cost_map at the current work position), appending each visited cell to `path`. On
 // success (reached (cur_x,cur_y) within 1000 steps) drops the initial (x,y) entry from the
@@ -2334,7 +2334,7 @@ void MapStuff::BuildPathList1(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t 
 
 // 5893C6 --- builds unit->list2 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y).
 // Similar to BuildPathList1, but uses list2 instead of list1.
-void MapStuff::sub_5893C6(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y) {
+void MapStuff::BuildPathList2(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y) {
     this->WalkCostPath(unit, cur_x, cur_y, x, y, unit->list2);
 }
 

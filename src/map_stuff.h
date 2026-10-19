@@ -261,7 +261,7 @@ public:
     uint8_t GetWalkCost(uint16_t yx); // Walk cost at yx, adjusted for area effects when the cell is occupied.
 
     void BuildPathList1(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // Builds unit->list1 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y) — 5890CC
-    void sub_5893C6(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // Builds unit->list2 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y) — 5893C6
+    void BuildPathList2(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // Builds unit->list2 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y) — 5893C6
     uint16_t sub_592A48(Unit* unit, Unit* target); // 592A48
     int16_t sub_593134(Unit* unit, int32_t zero, uint16_t yx, uint32_t radius); // 593134
     Building* sub_594709(uint16_t yx); // 594709
@@ -283,7 +283,7 @@ public:
     // gated by the given passability check, and enqueues improved cells into the given queue.
     void ExpandCostGridNeighbors(Unit* unit, uint8_t x, uint8_t y, PassableCheckFn passable, uint8_t* out_x, uint8_t* out_y, uint16_t& out_count);
 
-    // Shared by BuildPathList1/sub_5893C6: walks backward from (x,y) toward (cur_x,cur_y) through the
+    // Shared by BuildPathList1/BuildPathList2: walks backward from (x,y) toward (cur_x,cur_y) through the
     // field3_0x30000 cost grid, picking the cheapest neighbor at each step (its cost weighted by
     // walk_cost_map at the current work position), appending each visited cell to `path`. On
     // success (reached (cur_x,cur_y) within 1000 steps) drops the initial (x,y) entry from the
