@@ -2512,7 +2512,7 @@ void TransientVisualEffectBuilder::BuildEnergyColumn(int16_t height, float speed
 }
 
 // 4ccc7b
-void TransientVisualEffectBuilder::FUN_004CCC7B(int16_t height, float radius, uint32_t phase) {
+void TransientVisualEffectBuilder::BuildGroundRingReversed(int16_t height, float radius, uint32_t phase) {
     for (int32_t angle = 0; angle < 0x5A; angle += 0x12) {
         double rad = FUN_004CD4B0(angle + (phase & 0xFF) * 0x12);
         int16_t x = (int16_t)(std::cos(rad) * radius);
@@ -2599,7 +2599,7 @@ void CUnit::UpdateTransientVisualElements() { // 468dcb
         }
         case 0x40: {
             TransientVisualEffectBuilder builder;
-            builder.FUN_004CCC7B(this->GetTileWidth() << 5, 20.0f, effect_timer % 5);
+            builder.BuildGroundRingReversed(this->GetTileWidth() << 5, 20.0f, effect_timer % 5);
             visual_elements.Append(builder.visual_elements);
             break;
         }
