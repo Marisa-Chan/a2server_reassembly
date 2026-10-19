@@ -198,7 +198,7 @@ public:
     uint32_t summon_id; // All summoned mobs of one player will have the same non-null value of this field.
     uint16_t server_id;
     uint8_t gap_0x14e[2];
-    uint32_t field_0x150; // per-item-operation dirty/update flags
+    uint32_t item_op_dirty_flags; // per-item-operation dirty/update flags
     uint32_t something_per_player[16];
     int32_t field_0x194;
     int32_t field_0x198;

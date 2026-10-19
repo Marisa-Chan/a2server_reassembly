@@ -33,13 +33,13 @@ void Effect::VMethod12(Unit* unit) {
     } else if (this->itemDataID == spell::light) {
         if (unit->VMethod8() == 0) {
             unit->scan_range -= this->spell_or_damage * 256;
-            unit->field_0x150 |= 0x40000;
+            unit->item_op_dirty_flags |= 0x40000;
         }
     } else if (this->itemDataID == spell::darkness) {
         if (unit->VMethod8() != 0) {
             unit->equipment_extra.scan_range += this->spell_or_damage * 256;
             unit->scan_range += this->spell_or_damage * 256;
-            unit->field_0x150 |= 0x40000;
+            unit->item_op_dirty_flags |= 0x40000;
         }
     } else {
         this->VMethod14(unit, 1);
@@ -130,16 +130,16 @@ void Effect::VMethod10(Unit* unit) {
         return;
     }
     if ((this->usage_type & 2) != 0 && (this->spell_value & 7) == 0) {
-        unit->field_0x150 = 0;
+        unit->item_op_dirty_flags = 0;
         this->VMethod12(unit);
-        g_NetStru1_main.sub_519221(unit, nullptr, unit->field_0x150, 0xffb, 0, 0);
+        g_NetStru1_main.sub_519221(unit, nullptr, unit->item_op_dirty_flags, 0xffb, 0, 0);
     }
     this->spell_value -= 1;
     if (this->spell_value == 0) {
         if ((this->usage_type & 2) == 0) {
-            unit->field_0x150 = 0;
+            unit->item_op_dirty_flags = 0;
             this->VMethod13(unit);
-            g_NetStru1_main.sub_519221(unit, nullptr, unit->field_0x150, 0xffb, 0, 0);
+            g_NetStru1_main.sub_519221(unit, nullptr, unit->item_op_dirty_flags, 0xffb, 0, 0);
         }
         unit->enchantments &= ~(1u << (this->itemDataID & 0x1f));
         if (this->itemDataID != 0) {
@@ -151,7 +151,7 @@ void Effect::VMethod10(Unit* unit) {
 
 // 53efb2
 void Effect::VMethod11(Unit* unit) {
-    unit->field_0x150 = 0;
+    unit->item_op_dirty_flags = 0;
     if ((this->usage_type & 3) != 0 && (this->itemDataID == spell::bless || this->itemDataID == spell::curse)) {
         Effect* counterpart = nullptr; // Note: can reuse Unit::FindEnchantment here.
         for (POSITION pos = unit->_effects.GetHeadPosition(); pos != nullptr; ) {
@@ -183,7 +183,7 @@ void Effect::VMethod11(Unit* unit) {
                 unit->_effects.RemoveAt(found_pos);
             }
             delete counterpart;
-            g_NetStru1_main.sub_519221(unit, nullptr, unit->field_0x150, 0xffb, 0, 0);
+            g_NetStru1_main.sub_519221(unit, nullptr, unit->item_op_dirty_flags, 0xffb, 0, 0);
             return;
         }
     }
@@ -236,7 +236,7 @@ void Effect::VMethod11(Unit* unit) {
             }
         }
     }
-    g_NetStru1_main.sub_519221(unit, nullptr, unit->field_0x150, 0xffb, 0, 0);
+    g_NetStru1_main.sub_519221(unit, nullptr, unit->item_op_dirty_flags, 0xffb, 0, 0);
 }
 
 // 53FA2B
@@ -261,7 +261,7 @@ void Effect::VMethod14(Unit* unit, int32_t param_3) {
                 unit->equipment_extra.body += value;
             }
             unit->body = (std::min)((int32_t)unit->body, 100);
-            unit->field_0x150 |= 0x20030009;
+            unit->item_op_dirty_flags |= 0x20030009;
             break;
         case modifier::mind:
             unit->mind += value;
@@ -269,7 +269,7 @@ void Effect::VMethod14(Unit* unit, int32_t param_3) {
                 unit->equipment_extra.mind += value;
             }
             unit->mind = (std::min)((int32_t)unit->mind, 100);
-            unit->field_0x150 |= 0x20040000;
+            unit->item_op_dirty_flags |= 0x20040000;
             break;
         case modifier::reaction:
             unit->reaction += value;
@@ -277,7 +277,7 @@ void Effect::VMethod14(Unit* unit, int32_t param_3) {
                 unit->equipment_extra.reaction += value;
             }
             unit->reaction = (std::min)((int32_t)unit->reaction, 100);
-            unit->field_0x150 |= 0x20074000;
+            unit->item_op_dirty_flags |= 0x20074000;
             break;
         case modifier::spirit:
             unit->spirit += value;
@@ -285,7 +285,7 @@ void Effect::VMethod14(Unit* unit, int32_t param_3) {
                 unit->equipment_extra.spirit += value;
             }
             unit->spirit = (std::min)((int32_t)unit->spirit, 100);
-            unit->field_0x150 |= 0x2100000A;
+            unit->item_op_dirty_flags |= 0x2100000A;
             break;
         case modifier::health:
             new_value = unit->hp + value;
@@ -293,12 +293,12 @@ void Effect::VMethod14(Unit* unit, int32_t param_3) {
                 new_value = unit->hp_max;
             }
             unit->hp = new_value;
-            unit->field_0x150 |= 1;
+            unit->item_op_dirty_flags |= 1;
             break;
         case modifier::healthmax:
             unit->hp += value;
             unit->equipment_extra.hp_max += value;
-            unit->field_0x150 |= 9;
+            unit->item_op_dirty_flags |= 9;
             break;
         case modifier::healthregeneration:
             unit->equipment_extra.hp_regen += value;
@@ -309,13 +309,13 @@ void Effect::VMethod14(Unit* unit, int32_t param_3) {
                 new_value = unit->mp_max;
             }
             unit->mp = new_value;
-            unit->field_0x150 |= 2;
+            unit->item_op_dirty_flags |= 2;
             break;
         case modifier::manamax:
             if (unit->unit_attrs & 4) { // mage-only
                 unit->mp += value;
                 unit->equipment_extra.mp_max += value;
-                unit->field_0x150 |= 0x0A;
+                unit->item_op_dirty_flags |= 0x0A;
             }
             break;
         case modifier::manaregeneration: 
@@ -325,17 +325,17 @@ void Effect::VMethod14(Unit* unit, int32_t param_3) {
             break;
         case modifier::tohit:
             unit->equipment_extra.hit_values.attack += value;
-            unit->field_0x150 |= 0x10000;
+            unit->item_op_dirty_flags |= 0x10000;
             break;
         case modifier::damagemin:
         case modifier::damage:
         case modifier::damagebonus:
             unit->equipment_extra.hit_values.hand_damage_min += value;
-            unit->field_0x150 |= 0x20000;
+            unit->item_op_dirty_flags |= 0x20000;
             break;
         case modifier::damagemax:
             unit->equipment_extra.hit_values.hand_damage_spread += value;
-            unit->field_0x150 |= 0x20000;
+            unit->item_op_dirty_flags |= 0x20000;
             break;
         case modifier::defence:
             if (unit->VMethod8()) {
@@ -346,7 +346,7 @@ void Effect::VMethod14(Unit* unit, int32_t param_3) {
                     unit->protections.defense = 0;
                 }
             }
-            unit->field_0x150 |= 0x4000;
+            unit->item_op_dirty_flags |= 0x4000;
             break;
         case modifier::absorbtion:
             if (unit->VMethod8()) {
@@ -357,7 +357,7 @@ void Effect::VMethod14(Unit* unit, int32_t param_3) {
             } else {
                 unit->protections.absorption += value;
             }
-            unit->field_0x150 |= 0x8000;
+            unit->item_op_dirty_flags |= 0x8000;
             break;
         case modifier::speed:
             if (unit->VMethod8()) {
@@ -365,7 +365,7 @@ void Effect::VMethod14(Unit* unit, int32_t param_3) {
             } else {
                 unit->speed += value;
             }
-            unit->field_0x150 |= 0x80000;
+            unit->item_op_dirty_flags |= 0x80000;
             break;
         case modifier::rotationspeed:
             unit->eye->rotation_speed += value;
@@ -376,49 +376,49 @@ void Effect::VMethod14(Unit* unit, int32_t param_3) {
             } else {
                 unit->scan_range += value << 8;
             }
-            unit->field_0x150 |= 0x40000;
+            unit->item_op_dirty_flags |= 0x40000;
             break;
         case modifier::protection0:
             unit->equipment_extra.protections.magic_protections[0] += value;
             if (unit->equipment_extra.protections.magic_protections[0] < 0) {
                 unit->equipment_extra.protections.magic_protections[0] = 0;
             }
-            unit->field_0x150 |= 0x1000000;
+            unit->item_op_dirty_flags |= 0x1000000;
             break;
         case modifier::protectionfire:
             unit->equipment_extra.protections.magic_protections[1] += value;
             if (unit->equipment_extra.protections.magic_protections[1] < 0) {
                 unit->equipment_extra.protections.magic_protections[1] = 0;
             }
-            unit->field_0x150 |= 0x1000000;
+            unit->item_op_dirty_flags |= 0x1000000;
             break;
         case modifier::protectionwater:
             unit->equipment_extra.protections.magic_protections[2] += value;
             if (unit->equipment_extra.protections.magic_protections[2] < 0) {
                 unit->equipment_extra.protections.magic_protections[2] = 0;
             }
-            unit->field_0x150 |= 0x1000000;
+            unit->item_op_dirty_flags |= 0x1000000;
             break;
         case modifier::protectionair:
             unit->equipment_extra.protections.magic_protections[3] += value;
             if (unit->equipment_extra.protections.magic_protections[3] < 0) {
                 unit->equipment_extra.protections.magic_protections[3] = 0;
             }
-            unit->field_0x150 |= 0x1000000;
+            unit->item_op_dirty_flags |= 0x1000000;
             break;
         case modifier::protectionearth:
             unit->equipment_extra.protections.magic_protections[4] += value;
             if (unit->equipment_extra.protections.magic_protections[4] < 0) {
                 unit->equipment_extra.protections.magic_protections[4] = 0;
             }
-            unit->field_0x150 |= 0x1000000;
+            unit->item_op_dirty_flags |= 0x1000000;
             break;
         case modifier::protectionastral:
             unit->equipment_extra.protections.magic_protections[5] += value;
             if (unit->equipment_extra.protections.magic_protections[5] < 0) {
                 unit->equipment_extra.protections.magic_protections[5] = 0;
             }
-            unit->field_0x150 |= 0x1000000;
+            unit->item_op_dirty_flags |= 0x1000000;
             break;
         case modifier::fighterskill0:
             if (!(unit->unit_attrs & 4)) {
@@ -429,31 +429,31 @@ void Effect::VMethod14(Unit* unit, int32_t param_3) {
             if (!(unit->unit_attrs & 4)) {
                 unit->equipment_extra.hit_values.skill_levels[1] += value;
             }
-            unit->field_0x150 |= 0x30004;
+            unit->item_op_dirty_flags |= 0x30004;
             break;
         case modifier::skillaxe:
             if (!(unit->unit_attrs & 4)) {
                 unit->equipment_extra.hit_values.skill_levels[2] += value;
             }
-            unit->field_0x150 |= 0x30004;
+            unit->item_op_dirty_flags |= 0x30004;
             break;
         case modifier::skillbludgeon:
             if (!(unit->unit_attrs & 4)) {
                 unit->equipment_extra.hit_values.skill_levels[3] += value;
             }
-            unit->field_0x150 |= 0x30004;
+            unit->item_op_dirty_flags |= 0x30004;
             break;
         case modifier::skillpike:
             if (!(unit->unit_attrs & 4)) {
                 unit->equipment_extra.hit_values.skill_levels[4] += value;
             }
-            unit->field_0x150 |= 0x30004;
+            unit->item_op_dirty_flags |= 0x30004;
             break;
         case modifier::skillshooting:
             if (!(unit->unit_attrs & 4)) {
                 unit->equipment_extra.hit_values.skill_levels[5] += value;
             }
-            unit->field_0x150 |= 0x30004;
+            unit->item_op_dirty_flags |= 0x30004;
             break;
         case modifier::mageskill0:
             if (unit->unit_attrs & 4) {
@@ -464,31 +464,31 @@ void Effect::VMethod14(Unit* unit, int32_t param_3) {
             if (unit->unit_attrs & 4) {
                 unit->equipment_extra.hit_values.skill_levels[1] += value;
             }
-            unit->field_0x150 |= 4;
+            unit->item_op_dirty_flags |= 4;
             break;
         case modifier::skillwater:
             if (unit->unit_attrs & 4) {
                 unit->equipment_extra.hit_values.skill_levels[2] += value;
             }
-            unit->field_0x150 |= 4;
+            unit->item_op_dirty_flags |= 4;
             break;
         case modifier::skillair:
             if (unit->unit_attrs & 4) {
                 unit->equipment_extra.hit_values.skill_levels[3] += value;
             }
-            unit->field_0x150 |= 4;
+            unit->item_op_dirty_flags |= 4;
             break;
         case modifier::skillearth:
             if (unit->unit_attrs & 4) {
                 unit->equipment_extra.hit_values.skill_levels[4] += value;
             }
-            unit->field_0x150 |= 4;
+            unit->item_op_dirty_flags |= 4;
             break;
         case modifier::skillastral:
             if (unit->unit_attrs & 4) {
                 unit->equipment_extra.hit_values.skill_levels[5] += value;
             }
-            unit->field_0x150 |= 4;
+            unit->item_op_dirty_flags |= 4;
             break;
         case modifier::itemlore:
         case modifier::magiclore:
@@ -504,37 +504,37 @@ void Effect::VMethod14(Unit* unit, int32_t param_3) {
                     unit->spell_book->sub_53D7F0(value, spell);
                 }
             }
-            unit->field_0x150 |= 0x100000;
+            unit->item_op_dirty_flags |= 0x100000;
             break;
         case modifier::damagefire:
             unit->equipment_extra.hit_values.spell_id = 1;
             unit->equipment_extra.hit_values.some_damage2_min = this->damage_min;
             unit->equipment_extra.hit_values.some_damage2_spread = this->damage_spread;
-            unit->field_0x150 |= 0x20000;
+            unit->item_op_dirty_flags |= 0x20000;
             break;
         case modifier::damagewater:
             unit->equipment_extra.hit_values.spell_id = 2;
             unit->equipment_extra.hit_values.some_damage2_min = this->damage_min;
             unit->equipment_extra.hit_values.some_damage2_spread = this->damage_spread;
-            unit->field_0x150 |= 0x20000;
+            unit->item_op_dirty_flags |= 0x20000;
             break;
         case modifier::damageair:
             unit->equipment_extra.hit_values.spell_id = 3;
             unit->equipment_extra.hit_values.some_damage2_min = this->damage_min;
             unit->equipment_extra.hit_values.some_damage2_spread = this->damage_spread;
-            unit->field_0x150 |= 0x20000;
+            unit->item_op_dirty_flags |= 0x20000;
             break;
         case modifier::damageearth:
             unit->equipment_extra.hit_values.spell_id = 4;
             unit->equipment_extra.hit_values.some_damage2_min = this->damage_min;
             unit->equipment_extra.hit_values.some_damage2_spread = this->damage_spread;
-            unit->field_0x150 |= 0x20000;
+            unit->item_op_dirty_flags |= 0x20000;
             break;
         case modifier::damageastral:
             unit->equipment_extra.hit_values.spell_id = 5;
             unit->equipment_extra.hit_values.some_damage2_min = this->damage_min;
             unit->equipment_extra.hit_values.some_damage2_spread = this->damage_spread;
-            unit->field_0x150 |= 0x20000;
+            unit->item_op_dirty_flags |= 0x20000;
             break;
         default:
             LogMessage("Oops - unknown Effect case");
@@ -549,13 +549,13 @@ void Effect::VMethod13(Unit* unit) {
     if (this->itemDataID == spell::light) {
         if (unit->VMethod8() == 0) {
             unit->scan_range += this->spell_or_damage * 256;
-            unit->field_0x150 |= 0x40000;
+            unit->item_op_dirty_flags |= 0x40000;
         }
     } else if (this->itemDataID == spell::darkness) {
         if (unit->VMethod8() != 0) {
             unit->equipment_extra.scan_range -= this->spell_or_damage * 256;
             unit->scan_range -= this->spell_or_damage * 256;
-            unit->field_0x150 |= 0x40000;
+            unit->item_op_dirty_flags |= 0x40000;
         }
     } else if (this->itemDataID != spell::poison_cloud) {
         this->VMethod14(unit, -1);

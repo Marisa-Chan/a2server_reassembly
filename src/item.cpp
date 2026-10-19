@@ -804,7 +804,7 @@ Item* Armor::VMethod10(Unit* unit) {
     unit->equipment_extra.protections += this->protections;
     unit->protections += this->protections;
     unit->sub_52A790(this->weight);
-    unit->field_0x150 |= 0xc000;
+    unit->item_op_dirty_flags |= 0xc000;
     this->ApplyEffects(unit);
     return old_armor;
 }
@@ -819,7 +819,7 @@ void Armor::VMethod11(Unit* unit) {
     unit->equipment_extra.protections -= this->protections;
     unit->protections -= this->protections;
     humanoid->equipment[this->slot] = nullptr;
-    unit->field_0x150 |= 0xc000;
+    unit->item_op_dirty_flags |= 0xc000;
     this->RemoveEffects(unit);
 }
 
@@ -995,7 +995,7 @@ Item* Shield::VMethod10(Unit* unit) {
     unit->protections += this->protections;
     unit->sub_52A790(this->weight);
     this->ApplyEffects(unit);
-    unit->field_0x150 |= 0xC000;
+    unit->item_op_dirty_flags |= 0xC000;
     return old_shield;
 }
 
@@ -1005,7 +1005,7 @@ void Shield::VMethod11(Unit* unit) {
     unit->equipment_extra.protections -= this->protections;
     unit->protections -= this->protections;
     this->RemoveEffects(unit);
-    unit->field_0x150 |= 0xC000;
+    unit->item_op_dirty_flags |= 0xC000;
     unit->shield = nullptr;
 }
 
@@ -1246,7 +1246,7 @@ Item* Weapon::VMethod10(Unit* unit) {
     }
     unit->max_range += (uint8_t)(this->range - 1);
     unit->sub_52A790(this->weight);
-    unit->field_0x150 |= 0x34000;
+    unit->item_op_dirty_flags |= 0x34000;
     this->ApplyEffects(unit);
     return old_weapon;
 }
@@ -1274,7 +1274,7 @@ void Weapon::VMethod11(Unit* unit) {
     unit->charge = 8;
     unit->relax = 4;
     unit->sub_52A790(-this->weight);
-    unit->field_0x150 |= 0x34000;
+    unit->item_op_dirty_flags |= 0x34000;
     if (this->imbued_spell != nullptr) {
         delete this->imbued_spell;
         this->imbued_spell = nullptr;

@@ -617,7 +617,7 @@ void Unit::VMethod11(Unit* unit) {
     this->enchantments = 0;
     this->summon_id = this->summon_id;
     this->server_id = unit->server_id;
-    this->field_0x150 = 0;
+    this->item_op_dirty_flags = 0;
     memset(this->something_per_player, 0, sizeof(this->something_per_player));
 
     // Create fresh eye/eye2. WAT: old ones are leaked?
@@ -1641,7 +1641,7 @@ void Unit::sub_52A790(int32_t delta_weight) {
 
 // 52C4DF
 void Unit::sub_52C4DF(int16_t amount) {
-    this->field_0x150 |= 1;
+    this->item_op_dirty_flags |= 1;
     int16_t old_hp = this->hp;
     this->hp += amount;
     this->hp = (this->hp < this->hp_max) ? this->hp : this->hp_max;
@@ -1652,7 +1652,7 @@ void Unit::sub_52C4DF(int16_t amount) {
 
 // 52C58F
 void Unit::sub_52C58F() {
-    this->field_0x150 |= 0x4011;
+    this->item_op_dirty_flags |= 0x4011;
     // Inline sub_58FD16: reset subcell position to cell center.
     this->position->x_subcell = 0x80;
     this->position->y_subcell = 0x80;

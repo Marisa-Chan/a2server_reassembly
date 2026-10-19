@@ -3285,7 +3285,7 @@ void Server::sub_504a96(Packet* pkt) {
             int32_t bag_pos = 0;
             int32_t bag_pos_delta = 0;
             int32_t count_before = 0;
-            human->field_0x150 = 0;
+            human->item_op_dirty_flags = 0;
 
             Item* item = nullptr;
             if (from_type == 2) {
@@ -3380,7 +3380,7 @@ void Server::sub_504a96(Packet* pkt) {
             }
 
             g_NetStru1_main.sub_519221(human, nullptr,
-                                    update_mask | human->field_0x150,
+                                    update_mask | human->item_op_dirty_flags,
                                     equip_mask, bag_pos, bag_pos + bag_pos_delta);
             DWORD tick = GetTickCount();
             if (tick - human->pOwner->last_save_tick > 15000 || to_type == 3) {
