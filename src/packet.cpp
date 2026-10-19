@@ -335,7 +335,7 @@ PacketItemOperation::PacketItemOperation(const PacketItemOperation* src) {
     this->y_high   = src->y_high;
     this->param   = src->param;
     this->slot  = src->slot;
-    this->field_0x11  = src->field_0x11;
+    this->slot_high  = src->slot_high;
     this->count       = src->count;
     memcpy(this->entries, src->entries, src->count * 2);
 }

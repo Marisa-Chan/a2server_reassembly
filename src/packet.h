@@ -224,7 +224,7 @@ public:
     uint8_t  y_high;       // +0xD
     uint16_t param;       // +0xE  (= 0 in ctor)
     uint8_t  slot;      // +0x10 (= 0 in ctor)
-    uint8_t  field_0x11;      // +0x11
+    uint8_t  slot_high;      // +0x11
     uint8_t  count;           // +0x12 (= 0 in ctor, max 0xFD)
     uint16_t entries[253];    // +0x13 variable word array
 };

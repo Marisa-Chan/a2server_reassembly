@@ -3995,7 +3995,7 @@ void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell) {
 		pkt->AppendWord(this->field_0x138->unit_id);
 		uint16_t slot = wnd->vis_spellbook->spell;
 		pkt->slot = slot;
-		pkt->field_0x11 = slot >> 8;
+		pkt->slot_high = slot >> 8;
 		g_NetStru1_local.QueuePacketSend(pkt);
 		TokenEntry* entry = this->field_0x138->tokenEntries[slot];
 		if (entry->field_0x10 == 1) {
@@ -4030,7 +4030,7 @@ void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell) {
 					}
 				}
 				pkt->slot = slot;
-				pkt->field_0x11 = slot >> 8;
+				pkt->slot_high = slot >> 8;
 				if (slot == 0xFFFF) {
 					continue;
 				}
@@ -4078,7 +4078,7 @@ void BigStruct2::sub_419BA1(uint16_t id, int32_t spell) {
 		pkt->AppendWord(this->field_0x138->unit_id);
 		uint16_t slot = wnd->vis_spellbook->spell;
 		pkt->slot = slot;
-		pkt->field_0x11 = slot >> 8;
+		pkt->slot_high = slot >> 8;
 		pkt->id = 0x25;
 		g_NetStru1_local.QueuePacketSend(pkt);
 		TokenEntry* entry = this->field_0x138->tokenEntries[slot];
@@ -4114,7 +4114,7 @@ void BigStruct2::sub_419BA1(uint16_t id, int32_t spell) {
 					}
 				}
 				pkt->slot = slot;
-				pkt->field_0x11 = slot >> 8;
+				pkt->slot_high = slot >> 8;
 				if (slot == 0xFFFF) {
 					continue;
 				}
@@ -7872,7 +7872,7 @@ void BigStruct2::FUN_0041a001(int32_t idx) {
 				}
 			}
 			pkt->slot = slot;
-			pkt->field_0x11 = slot >> 8;
+			pkt->slot_high = slot >> 8;
 			if (slot == 0xFFFF) {
 				continue;
 			}
