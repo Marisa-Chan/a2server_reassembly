@@ -598,3 +598,4 @@ MapStuff::sub_594768 -> BlockCell -- sets the 0x10 obstacle bit on both obstacle
 MapStuff::sub_596576 -> ApplyTerrainMod -- applies a 6-byte terrain modification at yx
 MapStuff::sub_59536C -> GetAreaEffectsAt -- pointer to the area_effects[6] array at cell yx
 MapStuff::sub_5913BD -> GetTileMoveTime -- movement time for the unit entering tile (x,y)
+MapStuff::sub_59190D -> GetRangeTo -- visibility/range check between two units

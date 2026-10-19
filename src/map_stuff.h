@@ -209,7 +209,7 @@ public:
     AreaEffect** GetAreaEffectsAt(uint32_t yx); // Get pointer to area_effects[6] array at cell yx.
     int16_t GetTileMoveTime(Unit* unit, uint8_t x, uint8_t y); // Movement time for unit entering tile (x,y).
     int GetRangeTo(Unit* target, Unit* observer); // Visibility/range check between two units.
-    uint8_t sub_591424(Unit* unit, Unit* target); // Compute facing direction from unit to target.
+    uint8_t GetFacingTo(Unit* unit, Unit* target); // Compute facing direction from unit to target.
     int sub_58FE6D(Unit* unit, Unit* target, uint8_t max_range); // Check if unit faces target and is in range.
     int sub_58FEDA(Unit* unit, PosYX yx, uint8_t max_range); // Check if unit faces yx and is in range.
     void sub_58FF51(Unit* unit, PosYX yx, uint8_t max_range); // AI movement tick for unit toward yx.
@@ -314,11 +314,11 @@ public:
     // and pushes improved neighbors into the ring-buffer queue (queue_tail/queue).
     void PropagateNeighborCost(uint16_t yx, uint8_t flag_byte, int32_t cond_flag, Obstacle* obstacle_map, uint16_t& queue_tail, uint16_t* queue);
 
-    // Shared by sub_591424/GetFacingFor/sub_592831: classifies the 16-point compass direction of a
+    // Shared by GetFacingTo/GetFacingFor/sub_592831: classifies the 16-point compass direction of a
     // signed (dx, dy) offset into a raw octant index (0-15).
     uint8_t ClassifyDirection16(int32_t dx, int32_t dy);
 
-    // Shared by sub_591424/GetFacingFor: coarsens ClassifyDirection16's raw index into one of 8
+    // Shared by GetFacingTo/GetFacingFor: coarsens ClassifyDirection16's raw index into one of 8
     // facing-angle steps (0, 32, 64, ..., 224).
     uint8_t ClassifyFacing16(int32_t dx, int32_t dy);
 

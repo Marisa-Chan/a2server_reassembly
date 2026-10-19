@@ -274,7 +274,7 @@ uint8_t MapStuff::CalcTerrainWalkCost(uint16_t terrain_code, uint8_t* out_walk_c
     return result;
 }
 
-// Shared by sub_591424/GetFacingFor/sub_592831
+// Shared by GetFacingTo/GetFacingFor/sub_592831
 uint8_t MapStuff::ClassifyDirection16(int32_t dx, int32_t dy) {
     uint16_t abs_dx = abs(dx);
     uint16_t abs_dy = abs(dy);
@@ -303,7 +303,7 @@ uint8_t MapStuff::ClassifyDirection16(int32_t dx, int32_t dy) {
     return (abs_dy <= abs_dx * 2) ? 14 : 15;
 }
 
-// Shared by sub_591424/GetFacingFor
+// Shared by GetFacingTo/GetFacingFor
 uint8_t MapStuff::ClassifyFacing16(int32_t dx, int32_t dy) {
     uint8_t raw = this->ClassifyDirection16(dx, dy);
     if (raw != 0) {
@@ -313,7 +313,7 @@ uint8_t MapStuff::ClassifyFacing16(int32_t dx, int32_t dy) {
 }
 
 // 591424
-uint8_t MapStuff::sub_591424(Unit* unit, Unit* target) {
+uint8_t MapStuff::GetFacingTo(Unit* unit, Unit* target) {
     int32_t dx = target->GetRightXx() - unit->GetRightXx();
     int32_t dy = target->GetBottomYy() - unit->GetBottomYy();
     return this->ClassifyFacing16(dx, dy);
@@ -330,7 +330,7 @@ uint8_t MapStuff::GetFacingFor(Unit* unit, PosYX yx) {
 int MapStuff::sub_58FE6D(Unit* unit, Unit* target, uint8_t max_range) {
     unit->position->IsAtCellCenter();
     uint8_t current_facing = unit->eye->field0_0x0;
-    uint8_t computed_facing = this->sub_591424(unit, target);
+    uint8_t computed_facing = this->GetFacingTo(unit, target);
     if (current_facing != computed_facing) {
         return 0;
     }
@@ -1728,7 +1728,7 @@ int MapStuff::CanPlaceUnit(Unit* unit) {
 
 // 5918B8
 void MapStuff::sub_5918B8(Unit* unit, Unit* target) {
-    uint8_t facing = this->sub_591424(unit, target);
+    uint8_t facing = this->GetFacingTo(unit, target);
     this->sub_590F94(unit, facing);
 }
 

@@ -381,7 +381,7 @@ int32_t World::GetAttackDecision(Unit* unit, Unit* target) {
         }
     }
 
-    uint8_t facing = this->field24_0xa50->sub_591424(unit, target);
+    uint8_t facing = this->field24_0xa50->GetFacingTo(unit, target);
     uint8_t angle_diff = this->field24_0xa50->FacingDiff(unit->eye->field0_0x0, facing);
     int32_t score = distance * 256 + angle_diff;
 
@@ -646,7 +646,7 @@ bool World::AreAtWar(Unit* unit1, Unit* unit2) {
 uint16_t World::PackDistFacing(Unit* unit1, Unit* unit2) {
     uint16_t result = (uint8_t)this->field24_0xa50->GetRangeTo(unit1, unit2);
     result = result << 8;
-    uint8_t facing = this->field24_0xa50->sub_591424(unit1, unit2);
+    uint8_t facing = this->field24_0xa50->GetFacingTo(unit1, unit2);
     result += this->field24_0xa50->FacingDiff(unit1->eye->field0_0x0, facing);
     return result;
 }
@@ -1183,7 +1183,7 @@ void World::CastKnownSpell(Unit* caster, Unit* target, int32_t spell_id) {
             break;
 
         case spell::acid_stream: {
-            uint8_t facing = this->field24_0xa50->sub_591424(caster, target);
+            uint8_t facing = this->field24_0xa50->GetFacingTo(caster, target);
             uint8_t new_x = caster->position->GetX() + this->field24_0xa50->field48_0x58e88[facing >> 5];
             uint8_t new_y = caster->position->GetY() + this->field24_0xa50->field49_0x58e90[facing >> 5];
             uint16_t pos_yx = PosYX(new_x, new_y);
@@ -1529,7 +1529,7 @@ void World::sub_5AAC17(Unit* unit) {
         POSITION unit_it = this->field26_0xa64.unit_list.GetHeadPosition();
         while (unit_it != nullptr) {
             Unit* other = this->field26_0xa64.unit_list.GetNext(unit_it);
-            uint8_t facing = this->field24_0xa50->sub_591424(unit, other);
+            uint8_t facing = this->field24_0xa50->GetFacingTo(unit, other);
             uint8_t diff = this->field24_0xa50->FacingDiff(unit->eye->field0_0x0, facing);
             if (diff <= best_diff) {
                 best_target = other;
@@ -2472,7 +2472,7 @@ void World::DoGuardScan(Unit* unit) {
         if (other->sub_59A030() == 3 && unit->sub_59A030() != 3) {
             range += 1;
         }
-        uint8_t facing = this->field24_0xa50->sub_591424(unit, other);
+        uint8_t facing = this->field24_0xa50->GetFacingTo(unit, other);
         uint8_t score = this->field24_0xa50->FacingDiff(facing, unit->eye->field0_0x0);
         if (range < best_range) {
             best_target = other;
@@ -2496,7 +2496,7 @@ void World::DoGuardScan(Unit* unit) {
         while (it != nullptr) {
             Unit* other = this->field27_0xa84.unit_list.GetNext(it);
             int32_t range = this->field24_0xa50->GetRangeTo(unit, other);
-            uint8_t facing = this->field24_0xa50->sub_591424(unit, other);
+            uint8_t facing = this->field24_0xa50->GetFacingTo(unit, other);
             uint8_t score = this->field24_0xa50->FacingDiff(facing, unit->eye->field0_0x0);
             if (range < best_range) {
                 best_target = other;
@@ -3204,7 +3204,7 @@ void World::sub_5AAEBC(Unit* unit) {
         this->StartAttack(unit);
         unit->some_state = 3;
     } else {
-        uint8_t facing = this->field24_0xa50->sub_591424(unit, unit->eye2->unit);
+        uint8_t facing = this->field24_0xa50->GetFacingTo(unit, unit->eye2->unit);
         this->TurnToFacing(unit, facing);
         unit->some_state = 1;
     }
@@ -4208,7 +4208,7 @@ int32_t World::sub_5AD2C1(Unit* unit, Unit* target) {
         }
     }
 
-    uint8_t facing = this->field24_0xa50->sub_591424(unit, target);
+    uint8_t facing = this->field24_0xa50->GetFacingTo(unit, target);
     uint8_t facing_diff = this->field24_0xa50->FacingDiff(unit->eye->field0_0x0, facing);
 
     if (distance > 1) {
