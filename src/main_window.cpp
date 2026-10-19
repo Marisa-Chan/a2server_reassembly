@@ -1234,7 +1234,7 @@ void MainWindow::sub_48CCA1(TokenEntry* entry, int32_t idx, const char* str, int
     this->item_cursor = new CCursor(str, 0x28, 0x28, 1000000000);
     this->field_0x40c = idx;
     this->field_0x410 = tab;
-    this->field_0x408 = entry;
+    this->drag_entry = entry;
 }
 
 // 484a1a
@@ -1455,7 +1455,7 @@ MainWindow::MainWindow() { //4837e1
     this->field_0x7fc = 0;
     this->field_0x800 = 0;
     this->music_player = nullptr;
-    this->field_0x408 = nullptr;
+    this->drag_entry = nullptr;
     this->field_0x40c = -1;
     this->item_cursor = nullptr;
     this->music_update_proc = nullptr;
@@ -2231,7 +2231,7 @@ int32_t CGameSession::GetStringArray1Size() {
 
 void MainWindow::ResetItemCursor() {
     //48cd44
-    if (!this->field_0x408) {
+    if (!this->drag_entry) {
         return;
     }
 
@@ -2240,7 +2240,7 @@ void MainWindow::ResetItemCursor() {
     }
 
     this->item_cursor = nullptr;
-    this->field_0x408 = nullptr;
+    this->drag_entry = nullptr;
     this->field_0x40c = -1;
     this->field_0x410 = -1;
 }

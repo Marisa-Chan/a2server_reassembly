@@ -1095,10 +1095,10 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		
 
 		case 0x76: {
-			if (wnd->field_0x408 && packet_state->mode == wnd->field_0x410) {
+			if (wnd->drag_entry && packet_state->mode == wnd->field_0x410) {
 				g_Cursors[CURSOR_DEFAULT]->Use();
-				if (wnd->field_0x408) {
-					delete wnd->field_0x408;
+				if (wnd->drag_entry) {
+					delete wnd->drag_entry;
 				}
 				wnd->ResetItemCursor();
 			}
@@ -4967,7 +4967,7 @@ void BigStruct2::sub_40B314() {
 	if (child3 != nullptr && child3->GetRect().PtInRect(mouse_pt)) {
 		cursor = g_Cursors[CURSOR_DEFAULT];
 	}
-	if (wnd->field_0x408 != nullptr) {
+	if (wnd->drag_entry != nullptr) {
 		uint32_t avail = this->sub_41864D();
 		cursor = wnd->item_cursor;
 		if (wnd->dialogsMask == 1 && this->field_0x140 == 1 &&
@@ -6994,7 +6994,7 @@ int32_t BigStruct2::OnLButtonUp(uint32_t wparam, CPoint pos) {
 		this->sub_40B314();
 		this->sub_417B42(&pos);
 	}
-	if (wnd->field_0x408 != nullptr) {
+	if (wnd->drag_entry != nullptr) {
 		if (this->field_0x140 == 1 && this->field_0x138 != nullptr) {
 			int32_t tile_x = this->field_0x138->tileX;
 			int32_t tile_y = this->field_0x138->tileY;
@@ -7003,13 +7003,13 @@ int32_t BigStruct2::OnLButtonUp(uint32_t wparam, CPoint pos) {
 				tile_x = this->field_0x994->tileX;
 				tile_y = this->field_0x994->tileY;
 			}
-			if (wnd->field_0x408->FUN_0041f0d0() != 0) {
-				this->sub_41AC88(wnd->field_0x408->count, tile_x | (tile_y << 8));
+			if (wnd->drag_entry->FUN_0041f0d0() != 0) {
+				this->sub_41AC88(wnd->drag_entry->count, tile_x | (tile_y << 8));
 			} else {
-				this->sub_41A7C7(wnd->field_0x410, wnd->field_0x40c, 3, tile_x | (tile_y << 8), wnd->field_0x408->count);
+				this->sub_41A7C7(wnd->field_0x410, wnd->field_0x40c, 3, tile_x | (tile_y << 8), wnd->drag_entry->count);
 			}
 		}
-		delete wnd->field_0x408;
+		delete wnd->drag_entry;
 		g_Cursors[0]->Use();
 		wnd->ResetItemCursor();
 	}

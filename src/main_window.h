@@ -528,7 +528,7 @@ public:
     int32_t field_0x400;
     int32_t pending_game_mode;
 
-    TokenEntry* field_0x408;
+    TokenEntry* drag_entry;
     int32_t field_0x40c;
     int32_t field_0x410;
     CCursor* item_cursor;

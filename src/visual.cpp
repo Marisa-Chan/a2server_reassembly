@@ -4527,7 +4527,7 @@ int32_t VisTipsDialog::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 // 4e2c42
 int32_t VisTipsDialog::OnLButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 != nullptr) {
+    if (main_wnd->drag_entry != nullptr) {
         if ((main_wnd->dialogsMask & 2) != 0) {
             CVisualObject* obj = main_wnd->vis_root->FindChild(1000);
             if (obj != nullptr) {
@@ -9438,7 +9438,7 @@ void VisCharInfo::VMethod7() {
     uint16_t selected_id = (uint16_t)map->field_0x9a8;
     CGameObject* found_obj = nullptr;
     int32_t found = 0;
-    if (selected_id != 0 && main_wnd->field_0x408 == nullptr && main_wnd->dialogsMask == 1) {
+    if (selected_id != 0 && main_wnd->drag_entry == nullptr && main_wnd->dialogsMask == 1) {
         found = map->field_0x9d0.Lookup(selected_id, found_obj);
     }
     if (selected_id != 0 && found != 0) {
@@ -9549,7 +9549,7 @@ void VisCharInfo::VMethod7() {
 // 4B19B0
 const char* VisCharInfo::GetHint() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 != nullptr) {
+    if (main_wnd->drag_entry != nullptr) {
         return nullptr;
     }
     if ((main_wnd->dialogsMask & 8) != 0) {
@@ -9667,7 +9667,7 @@ const char* VisCharInfo::GetHint() {
 int32_t VisCharInfo::VMethod27(int32_t a) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     int32_t disallow = 0;
-    if (main_wnd->field_0x408 == nullptr) {
+    if (main_wnd->drag_entry == nullptr) {
         disallow = 1;
     }
 
@@ -9685,7 +9685,7 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
         disallow = 1;
     }
 
-    TokenEntry* token = main_wnd->field_0x408;
+    TokenEntry* token = main_wnd->drag_entry;
     if ((token->flg & 6) == 0 && token->item_id == 0xE4D) {
         main_wnd->PostMessageA(0x463, 0, 0);
     }
@@ -9735,8 +9735,8 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
             main_wnd->vis_invtype1->VMethod37(main_wnd->field_0x40c);
             return 0;
         }
-        if (main_wnd->field_0x408 != nullptr) {
-            delete main_wnd->field_0x408;
+        if (main_wnd->drag_entry != nullptr) {
+            delete main_wnd->drag_entry;
         }
         main_wnd->ResetItemCursor();
         return 0;
@@ -9766,9 +9766,9 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
 
     unit->unitFlags |= 8;
     this->MsgProc(0x408, 0, 0);
-    unit->equipmentTokens[a] = main_wnd->field_0x408;
+    unit->equipmentTokens[a] = main_wnd->drag_entry;
 
-    int32_t amount = main_wnd->field_0x408->count;
+    int32_t amount = main_wnd->drag_entry->count;
     map->sub_41A7C7(main_wnd->field_0x410, main_wnd->field_0x40c, this->VMethod28(), a + 1, amount);
 
     main_wnd->ResetItemCursor();
@@ -9797,8 +9797,8 @@ int32_t VisCharInfo::OnLButtonUp(uint32_t wparam, CPoint pos) {
     CRect ar2_rect(screen_rect.left + 0x77, screen_rect.top + 0xCD, screen_rect.left + 0x97, screen_rect.top + 0xED);
     CRect diskette_rect(screen_rect.left + 0x7E, screen_rect.top + 0xCE, screen_rect.left + 0x9E, screen_rect.top + 0xEE);
 
-    if (main_wnd->field_0x408 != nullptr) {
-        TokenEntry* token = main_wnd->field_0x408;
+    if (main_wnd->drag_entry != nullptr) {
+        TokenEntry* token = main_wnd->drag_entry;
         if (token->slot_code == 2 || token->slot_code == 1) {
             g_Cursors[0]->Use();
             this->VMethod27(token->GetType() - 1);
@@ -9867,7 +9867,7 @@ int32_t VisCharInfo::OnMouseMove(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     BigStruct2* map = this->map_context;
 
-    if (main_wnd->field_0x408 != nullptr) {
+    if (main_wnd->drag_entry != nullptr) {
         return 0;
     }
     if (this->info_mode == 0) {
@@ -9892,9 +9892,9 @@ int32_t VisCharInfo::OnMouseMove(uint32_t wparam, CPoint pos) {
         return 0;
     }
 
-    CString name = main_wnd->field_0x408->FUN_004394f3();
+    CString name = main_wnd->drag_entry->FUN_004394f3();
     CString path = "graphics\\inventory\\" + name + ".16a";
-    main_wnd->sub_48CCA1(main_wnd->field_0x408, main_wnd->field_0x40c, path, main_wnd->field_0x410);
+    main_wnd->sub_48CCA1(main_wnd->drag_entry, main_wnd->field_0x40c, path, main_wnd->field_0x410);
 
     unit->unitFlags |= 8;
     this->MsgProc(0x408, 0, 0);
@@ -9906,7 +9906,7 @@ int32_t VisCharInfo::OnMouseMove(uint32_t wparam, CPoint pos) {
 // 4B38AF
 int32_t VisCharInfo::VMethod26(int32_t a) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 != nullptr) {
+    if (main_wnd->drag_entry != nullptr) {
         return 0;
     }
     if ((main_wnd->dialogsMask & 2) == 0 && main_wnd->dialogsMask != 1) {
@@ -9929,13 +9929,13 @@ int32_t VisCharInfo::VMethod26(int32_t a) {
 
     unit->unitFlags |= 8;
     this->MsgProc(0x408, 0, 0);
-    main_wnd->field_0x408 = unit->equipmentTokens[a];
+    main_wnd->drag_entry = unit->equipmentTokens[a];
     unit->equipmentTokens[a] = nullptr;
     main_wnd->field_0x40c = a;
     main_wnd->field_0x410 = this->VMethod28();
     unit->ReloadSprite();
     main_wnd->vis_root->MsgProc(0x46E, this->id, 0);
-    return (int32_t)main_wnd->field_0x408;
+    return (int32_t)main_wnd->drag_entry;
 }
 
 // 4B2239
@@ -10100,9 +10100,9 @@ void VisCharInfo::sub_4B36B4() {
     }
 
     if ((main_wnd->dialogsMask & 2) != 0) {
-        if (main_wnd->field_0x408 != nullptr) {
+        if (main_wnd->drag_entry != nullptr) {
             VisShop* shop = (VisShop*)main_wnd->vis_root->FindChild(0x3E8);
-            TokenEntry* token = main_wnd->field_0x408;
+            TokenEntry* token = main_wnd->drag_entry;
             if (shop->placement_lock != 0 || token->slot_code == 1 || token->slot_code == 2) {
                 new_cursor = main_wnd->item_cursor;
             } else {
@@ -10125,7 +10125,7 @@ void VisCharInfo::sub_4B36B4() {
                 new_cursor = g_Cursors[CURSOR_DEFAULT];
             }
         }
-        if (main_wnd->field_0x408 != nullptr) {
+        if (main_wnd->drag_entry != nullptr) {
             new_cursor = main_wnd->item_cursor;
         }
     }
@@ -10187,7 +10187,7 @@ void VisSideStatus::UpdateCursor() {
                 new_cursor = g_Cursors[CURSOR_DEFAULT];
             }
         }
-        if (main_wnd->field_0x408 != nullptr) {
+        if (main_wnd->drag_entry != nullptr) {
             new_cursor = main_wnd->item_cursor;
         }
     }
@@ -10222,7 +10222,7 @@ void VisSideStatus::VMethod7() {
         uint16_t selected_id = (uint16_t)map->field_0x9a8;
         CGameObject* found_obj = nullptr;
         int32_t found = 0;
-        if (selected_id != 0 && main_wnd->field_0x408 == nullptr) {
+        if (selected_id != 0 && main_wnd->drag_entry == nullptr) {
             found = map->field_0x9d0.Lookup(selected_id, found_obj);
         }
         if (selected_id != 0 && found != 0) {
@@ -10293,7 +10293,7 @@ int32_t VisSideStatus::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 // 4B45BB
 const char* VisSideStatus::GetHint() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 != nullptr) {
+    if (main_wnd->drag_entry != nullptr) {
         return nullptr;
     }
 
@@ -10394,13 +10394,13 @@ int32_t VisShop::OnKeyDown(uint32_t wparam) {
 // 4BB045
 int32_t VisShop::OnLButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 != nullptr && this->spell_panel != nullptr) {
+    if (main_wnd->drag_entry != nullptr && this->spell_panel != nullptr) {
         if (this->spell_panel->GetRect().PtInRect(pos)) {
             this->sub_4BC97B();
             return 1;
         }
     }
-    if (main_wnd->field_0x408 != nullptr && !this->rect.PtInRect(pos)) {
+    if (main_wnd->drag_entry != nullptr && !this->rect.PtInRect(pos)) {
         this->sub_4BC97B();
         return 1;
     }
@@ -10498,7 +10498,7 @@ void VisShop::DoClose(uint32_t code) {
     this->dialog_active = 0;
     this->VMethod32();
 
-    if (main_wnd->field_0x408 != nullptr) {
+    if (main_wnd->drag_entry != nullptr) {
         this->sub_4BC97B();
         ApplyCursor(g_Cursors[0]);
         main_wnd->ResetItemCursor();
@@ -10552,8 +10552,8 @@ int32_t VisShop::OnMouseMove(uint32_t wparam, CPoint pos) {
 
     pos -= CPoint(this->rect.left, this->rect.top);
 
-    if (main_wnd->field_0x408 != nullptr) {
-        TokenEntry* item = main_wnd->field_0x408;
+    if (main_wnd->drag_entry != nullptr) {
+        TokenEntry* item = main_wnd->drag_entry;
         bool reset = false;
 
         if ((this->to_sell->GetRect().PtInRect(pos) || this->select_info_panel->GetRect().PtInRect(pos))
@@ -11536,7 +11536,7 @@ VisShopCompass::~VisShopCompass() {
 // 4BFA01
 int32_t VisShopCompass::OnLButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 != nullptr) {
+    if (main_wnd->drag_entry != nullptr) {
         this->shop->placement_lock = 0;
         ApplyCursor(g_Cursors[0]);
         this->shop->sub_4BC97B();
@@ -12279,7 +12279,7 @@ int32_t VisShopButtons::OnLButtonDown(uint32_t wparam, CPoint pos) {
 // 4C11C2
 int32_t VisShopButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 != nullptr) {
+    if (main_wnd->drag_entry != nullptr) {
         this->shop->sub_4BC97B();
         this->pressed_btn = -1;
         this->UpdateHoveredState(wparam, pos);
@@ -16041,13 +16041,13 @@ VisInvBase::~VisInvBase() {
 // 4A5C39
 int32_t VisInvBase::VMethod37(int32_t idx) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 == nullptr) {
+    if (main_wnd->drag_entry == nullptr) {
         return -1;
     }
-    if (main_wnd->field_0x408->FUN_0041f0d0()) {
-        main_wnd->vis_map_context->my_main_unit->gold += main_wnd->field_0x408->count;
+    if (main_wnd->drag_entry->FUN_0041f0d0()) {
+        main_wnd->vis_map_context->my_main_unit->gold += main_wnd->drag_entry->count;
     }
-    int32_t count = main_wnd->field_0x408->count;
+    int32_t count = main_wnd->drag_entry->count;
 
     int32_t same_tab;
     int32_t tab = this->VMethod38();
@@ -16057,7 +16057,7 @@ int32_t VisInvBase::VMethod37(int32_t idx) {
         same_tab = 1;
     }
 
-    idx = this->VMethod26(main_wnd->field_0x408, idx);
+    idx = this->VMethod26(main_wnd->drag_entry, idx);
     if (this->VMethod38() == 2) {
         this->VMethod33(main_wnd->vis_map_context->field_0x138);
     } else {
@@ -16075,7 +16075,7 @@ int32_t VisInvBase::VMethod37(int32_t idx) {
 // 4A5AAE
 TokenEntry* VisInvBase::VMethod36(int32_t idx, int32_t num) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 != nullptr || this->grid_source->GetSize() <= idx) {
+    if (main_wnd->drag_entry != nullptr || this->grid_source->GetSize() <= idx) {
         return nullptr;
     }
     CGameObject* selected = main_wnd->vis_map_context->field_0x138;
@@ -16089,7 +16089,7 @@ TokenEntry* VisInvBase::VMethod36(int32_t idx, int32_t num) {
     if (entry->GetType() < 2 && (selected->last_action == 3 || selected->last_action == 7 || selected->last_action == 8)) {
         return nullptr;
     }
-    main_wnd->field_0x408 = this->VMethod29(entry, num);
+    main_wnd->drag_entry = this->VMethod29(entry, num);
     main_wnd->field_0x40c = idx;
     main_wnd->field_0x410 = this->VMethod38();
     if (this->VMethod38() == 2) {
@@ -16098,7 +16098,7 @@ TokenEntry* VisInvBase::VMethod36(int32_t idx, int32_t num) {
         this->VMethod32(this->grid_source);
     }
     main_wnd->vis_root->MsgProc(0x46E, this->id, 0);
-    return main_wnd->field_0x408;
+    return main_wnd->drag_entry;
 }
 
 
@@ -16122,7 +16122,7 @@ void VisInvBase::FUN_004a5e12() {
             continue;
         }
         TokenEntry* entry = this->grid_source->GetAt(i + *this->visible_startref);
-        if (main_wnd->field_0x408 == entry && main_wnd->field_0x408 != nullptr && main_wnd->field_0x408->count == 1) {
+        if (main_wnd->drag_entry == entry && main_wnd->drag_entry != nullptr && main_wnd->drag_entry->count == 1) {
             continue;
         }
         if (entry == nullptr || !(entry->flg & 0x20)) {
@@ -16351,7 +16351,7 @@ void VisInvType1::VMethod7() {
         }
 
         TokenEntry* entry = this->grid_source->GetAt(i + *this->visible_startref);
-        if (main_wnd->field_0x408 == entry && main_wnd->field_0x408 != nullptr && main_wnd->field_0x408->count == 1) {
+        if (main_wnd->drag_entry == entry && main_wnd->drag_entry != nullptr && main_wnd->drag_entry->count == 1) {
             continue;
         }
 
@@ -16418,7 +16418,7 @@ int32_t VisInvType1::OnMouseMove(uint32_t wparam, CPoint pos) {
     }
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 != nullptr) {
+    if (main_wnd->drag_entry != nullptr) {
         return 0;
     }
 
@@ -16452,13 +16452,13 @@ int32_t VisInvType1::OnMouseMove(uint32_t wparam, CPoint pos) {
         return 0;
     }
 
-    if (main_wnd->field_0x408->FUN_0041f0d0() != 0) {
-        main_wnd->vis_map_context->my_main_unit->gold -= main_wnd->field_0x408->count;
-        main_wnd->sub_48CCA1(main_wnd->field_0x408, main_wnd->field_0x40c, "graphics\\interface\\money\\money.16a", main_wnd->field_0x410);
+    if (main_wnd->drag_entry->FUN_0041f0d0() != 0) {
+        main_wnd->vis_map_context->my_main_unit->gold -= main_wnd->drag_entry->count;
+        main_wnd->sub_48CCA1(main_wnd->drag_entry, main_wnd->field_0x40c, "graphics\\interface\\money\\money.16a", main_wnd->field_0x410);
     } else {
-        CString name = main_wnd->field_0x408->FUN_004394f3();
+        CString name = main_wnd->drag_entry->FUN_004394f3();
         CString path = "graphics\\inventory\\" + name + ".16a";
-        main_wnd->sub_48CCA1(main_wnd->field_0x408, main_wnd->field_0x40c, path, main_wnd->field_0x410);
+        main_wnd->sub_48CCA1(main_wnd->drag_entry, main_wnd->field_0x40c, path, main_wnd->field_0x410);
     }
 
     return 0;
@@ -16507,7 +16507,7 @@ int32_t VisInvType1::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 // 4A765D
 const char* VisInvType1::GetHint() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 != nullptr) {
+    if (main_wnd->drag_entry != nullptr) {
         return nullptr;
     }
     if (main_wnd->dialogsMask != 1) {
@@ -16601,7 +16601,7 @@ int32_t VisInvType1::OnLButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (this->grid_source != nullptr) {
         int32_t idx = this->VMethod30(pos.x, pos.y);
-        if (main_wnd->field_0x408 != nullptr) {
+        if (main_wnd->drag_entry != nullptr) {
             ApplyCursor(g_Cursors[0]);
             this->VMethod37(idx);
         }
@@ -16827,9 +16827,9 @@ int32_t VisInvExtBase::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
         TokenEntry* entry = this->grid_source->GetAt(idx);
         if (entry->sub_43A6D5() == 0) {
             this->VMethod36(idx, 1);
-            if (main_wnd->field_0x408 != nullptr) {
+            if (main_wnd->drag_entry != nullptr) {
                 if (main_wnd->field_0x410 == 4) {
-                    switch (main_wnd->field_0x408->slot_code) {
+                    switch (main_wnd->drag_entry->slot_code) {
                     case 1:
                         ((VisCharInfo*)shop->select_info_panel)->VMethod27(main_wnd->field_0x40c);
                         shop->dirty |= 8;
@@ -16842,7 +16842,7 @@ int32_t VisInvExtBase::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
                     case 6:
                     case 7:
                     case 8:
-                        shop->assortiment->grid_source = &shop->assortiment->field_0x2100[main_wnd->field_0x408->slot_code - 5];
+                        shop->assortiment->grid_source = &shop->assortiment->field_0x2100[main_wnd->drag_entry->slot_code - 5];
                         shop->assortiment->VMethod37(-1);
                         shop->assortiment->grid_source = &shop->assortiment->field_0x2100[shop->select_category];
                         shop->assortiment->sub_4B4D33();
@@ -16852,9 +16852,9 @@ int32_t VisInvExtBase::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
                     shop->sub_4BCDA0();
                     shop->dirty |= 0x20;
                 } else if (main_wnd->field_0x410 == 2) {
-                    ((VisCharInfo*)shop->select_info_panel)->VMethod27(main_wnd->field_0x408->GetType() - 1);
+                    ((VisCharInfo*)shop->select_info_panel)->VMethod27(main_wnd->drag_entry->GetType() - 1);
                 } else {
-                    if (shop->to_buy->sub_4B91F9(main_wnd->field_0x408) == 0) {
+                    if (shop->to_buy->sub_4B91F9(main_wnd->drag_entry) == 0) {
                         shop->to_buy->VMethod37(*shop->to_buy->visible_startref);
                         this->sub_4B4D33();
                         this->VMethod9();
@@ -16874,11 +16874,11 @@ int32_t VisInvExtBase::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
 int32_t VisInvExtBase::OnLButtonUp(uint32_t wparam, CPoint pos) {
     VisShop* shop = this->field_0x20ac;
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 == nullptr) {
+    if (main_wnd->drag_entry == nullptr) {
         return 1;
     }
     ApplyCursor(g_Cursors[0]);
-    if (main_wnd->field_0x408->GetAttribute(1) == 0 && this->VMethod38() != 2) {
+    if (main_wnd->drag_entry->GetAttribute(1) == 0 && this->VMethod38() != 2) {
         shop->placement_lock = 0;
     }
     if (shop->placement_lock == 0) {
@@ -16894,7 +16894,7 @@ int32_t VisInvExtBase::OnLButtonUp(uint32_t wparam, CPoint pos) {
     } else if (region < 4 || region > 8) {
         this->VMethod37(this->VMethod31(&pos));
     } else {
-        if (this->VMethod38() == main_wnd->field_0x408->slot_code) {
+        if (this->VMethod38() == main_wnd->drag_entry->slot_code) {
             this->VMethod37(this->VMethod31(&pos));
         } else {
             shop->sub_4BC97B();
@@ -16916,7 +16916,7 @@ int32_t VisInvExtBase::OnMouseMove(uint32_t wparam, CPoint pos) {
     }
     if (wparam & 1) {
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-        if (main_wnd->field_0x40c >= 0 && main_wnd->field_0x40c < this->grid_source->GetSize() && main_wnd->field_0x408 == nullptr) {
+        if (main_wnd->field_0x40c >= 0 && main_wnd->field_0x40c < this->grid_source->GetSize() && main_wnd->drag_entry == nullptr) {
             int32_t count;
             if (g_kbShiftState != 0) {
                 count = this->grid_source->GetAt(main_wnd->field_0x40c)->count;
@@ -17008,7 +17008,7 @@ void VisInvExtBase::sub_4B4BC5() {
 // 4B5D19
 int32_t VisInvExtBase::OnLButtonDown(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 == nullptr) {
+    if (main_wnd->drag_entry == nullptr) {
         main_wnd->field_0x40c = this->VMethod31(&pos);
     }
     return 1;
@@ -17134,7 +17134,7 @@ VisInvExtBase::~VisInvExtBase() {
 // 4B5A6C
 int32_t VisInvExtBase::sub_4B5A6C(int32_t idx) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    TokenEntry* entry = main_wnd->field_0x408;
+    TokenEntry* entry = main_wnd->drag_entry;
     int32_t region = this->VMethod38();
     CString name = entry->FUN_004394f3();
     CString cs1 = "graphics\\inventory\\" + name;
@@ -17258,7 +17258,7 @@ const char* VisInvExtType1::GetHint() {
         return nullptr;
     }
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 != nullptr) {
+    if (main_wnd->drag_entry != nullptr) {
         return nullptr;
     }
     CPoint mouse(g_mousept.GetX(), g_mousept.GetY());
@@ -17372,8 +17372,8 @@ int32_t VisInvExtType1::OnKeyDown(uint32_t wparam) {
 // 4B7690
 int32_t VisInvExtType1::OnMouseMove(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 != nullptr) {
-        switch (main_wnd->field_0x408->slot_code) {
+    if (main_wnd->drag_entry != nullptr) {
+        switch (main_wnd->drag_entry->slot_code) {
         case 5:
         case 6:
         case 7:
@@ -17545,12 +17545,12 @@ void VisInvExtType1::VMethod42() {
 // 4B7D1C
 int32_t VisInvExtType1::VMethod37(int32_t idx) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 == nullptr) {
+    if (main_wnd->drag_entry == nullptr) {
         return -1;
     }
-    int32_t count = main_wnd->field_0x408->count;
+    int32_t count = main_wnd->drag_entry->count;
     int32_t tab_before = this->VMethod38();
-    int32_t new_idx = this->VMethod26(main_wnd->field_0x408, idx);
+    int32_t new_idx = this->VMethod26(main_wnd->drag_entry, idx);
     TokenEntry* entry = this->grid_source->GetAt(new_idx);
     if (this->VMethod38() == 2) {
         this->VisInvBase::VMethod33(main_wnd->vis_map_context->field_0x138);
@@ -17652,7 +17652,7 @@ const char* VisInvExtType2::GetHint() {
         return nullptr;
     }
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 != nullptr) {
+    if (main_wnd->drag_entry != nullptr) {
         return nullptr;
     }
     CPoint mouse(g_mousept.GetX(), g_mousept.GetY());
@@ -17697,8 +17697,8 @@ int32_t VisInvExtType2::OnLButtonDown(uint32_t wparam, CPoint pos) {
 // 4B88EC
 int32_t VisInvExtType2::OnMouseMove(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 != nullptr) {
-        switch (main_wnd->field_0x408->slot_code) {
+    if (main_wnd->drag_entry != nullptr) {
+        switch (main_wnd->drag_entry->slot_code) {
         case 1:
         case 2:
             this->field_0x20ac->placement_lock = 1;
@@ -17800,7 +17800,7 @@ const char* VisInvExtType3::GetHint() {
         return nullptr;
     }
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 != nullptr) {
+    if (main_wnd->drag_entry != nullptr) {
         return nullptr;
     }
     CPoint mouse(g_mousept.GetX(), g_mousept.GetY());
@@ -17824,10 +17824,10 @@ void VisInvExtType3::VMethod42() {
 // 4B9B2F
 int32_t VisInvExtType3::sub_4B9B2F(int32_t idx) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 == nullptr) {
+    if (main_wnd->drag_entry == nullptr) {
         return -1;
     }
-    TokenEntry* entry = main_wnd->field_0x408;
+    TokenEntry* entry = main_wnd->drag_entry;
     int32_t amount = entry->count;
     int32_t grade = -1;
     if (main_wnd->field_0x410 >= 5 && main_wnd->field_0x410 <= 8) {
@@ -17910,8 +17910,8 @@ int32_t VisInvExtType3::VMethod38() {
 // 4B9790
 int32_t VisInvExtType3::VMethod37(int32_t idx) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (GetRandS16(100) < 0x1E && main_wnd->sessionMode == 2 && main_wnd->field_0x408 != nullptr) {
-        TokenEntry* entry = main_wnd->field_0x408;
+    if (GetRandS16(100) < 0x1E && main_wnd->sessionMode == 2 && main_wnd->drag_entry != nullptr) {
+        TokenEntry* entry = main_wnd->drag_entry;
         if (entry->slot_code > 4 && entry->slot_code < 9) {
             char shopname[80];
             if (main_wnd->vis_shopkaarg == this->field_0x20ac) {
@@ -17972,10 +17972,10 @@ int32_t VisInvExtType3::OnLButtonDown(uint32_t wparam, CPoint pos) {
 // 4B93CF
 int32_t VisInvExtType3::OnLButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 == nullptr) {
+    if (main_wnd->drag_entry == nullptr) {
         return 1;
     }
-    if (this->sub_4B91F9(main_wnd->field_0x408) != 0) {
+    if (this->sub_4B91F9(main_wnd->drag_entry) != 0) {
         this->field_0x20ac->placement_lock = 0;
     }
     return VisInvExtBase::OnLButtonUp(wparam, pos);
@@ -17986,9 +17986,9 @@ int32_t VisInvExtType3::OnLButtonUp(uint32_t wparam, CPoint pos) {
 int32_t VisInvExtType3::OnMouseMove(uint32_t wparam, CPoint pos) {
     if (wparam & 1) {
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-        if (main_wnd->field_0x408 != nullptr) {
-            if (this->sub_4B91F9(main_wnd->field_0x408) == 0) {
-                if (main_wnd->field_0x408->GetAttribute(1) > 0) {
+        if (main_wnd->drag_entry != nullptr) {
+            if (this->sub_4B91F9(main_wnd->drag_entry) == 0) {
+                if (main_wnd->drag_entry->GetAttribute(1) > 0) {
                     this->field_0x20ac->placement_lock = 1;
                     ApplyCursor(main_wnd->item_cursor);
                 }
@@ -22339,7 +22339,7 @@ int32_t VisMiniMap::OnLButtonUp(uint32_t wparam, CPoint pos) {
     (void)wparam;
     (void)pos;
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 != nullptr) {
+    if (main_wnd->drag_entry != nullptr) {
         g_Cursors[0]->Use();
         main_wnd->ResetItemCursor();
     }
@@ -22433,7 +22433,7 @@ void VisMiniMap::UpdateCursor() {
                 new_cursor = g_Cursors[0x10];
             }
         }
-        if (main_wnd->field_0x408 != nullptr) {
+        if (main_wnd->drag_entry != nullptr) {
             new_cursor = main_wnd->item_cursor;
         }
         if (new_cursor != nullptr && cur_sprite != new_cursor->GetSprite()) {
@@ -23024,7 +23024,7 @@ int32_t VisSpellBook::OnLButtonUp(uint32_t wparam, CPoint pos) {
     (void)wparam;
     (void)pos;
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 != nullptr) {
+    if (main_wnd->drag_entry != nullptr) {
         g_Cursors[0]->Use();
         if ((main_wnd->dialogsMask & 2) == 0) {
             if (main_wnd->field_0x410 == 2) {
@@ -25478,7 +25478,7 @@ void VisOrderToolbar::VMethod7() {
 int32_t VisOrderToolbar::OnLButtonDown(uint32_t wparam, CPoint pos) {
     CRect screen_rect;
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 != nullptr) {
+    if (main_wnd->drag_entry != nullptr) {
         return 1;
     }
     this->ClientRectToScreen(&screen_rect, this->rect);
@@ -25567,7 +25567,7 @@ int32_t VisOrderToolbar::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 const char* VisOrderToolbar::GetHint() {
     if (this->enabled != 0) {
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-        if ((main_wnd->dialogsMask & 0xe) == 0 && main_wnd->field_0x408 == nullptr) {
+        if ((main_wnd->dialogsMask & 0xe) == 0 && main_wnd->drag_entry == nullptr) {
             CPoint mouse_pt(g_mousept.GetX(), g_mousept.GetY());
             CRect screen_rect;
             this->ClientRectToScreen(&screen_rect, this->rect);
@@ -25614,7 +25614,7 @@ int32_t VisOrderToolbar::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
 // 4B124C
 int32_t VisOrderToolbar::OnLButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x408 != nullptr) {
+    if (main_wnd->drag_entry != nullptr) {
         g_Cursors[0]->Use();
         main_wnd->ResetItemCursor();
     }
@@ -25660,7 +25660,7 @@ void VisOrderToolbar::UpdateCursor() {
                 new_cursor = g_Cursors[CURSOR_DEFAULT];
             }
         }
-        if (main_wnd->field_0x408 != nullptr) {
+        if (main_wnd->drag_entry != nullptr) {
             new_cursor = main_wnd->item_cursor;
         }
     }

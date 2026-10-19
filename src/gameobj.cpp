@@ -1926,7 +1926,7 @@ void CUnit::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
         }
     }
 
-    if (map->field_0x994 == this && main_wnd->field_0x408 == NULL) {
+    if (map->field_0x994 == this && main_wnd->drag_entry == NULL) {
         arg3 = 0;
     }
 
@@ -3674,7 +3674,7 @@ int32_t CUnit::FUN_0046c0c9(TokenEntry* entry) {
 void CUnit::VMethod1(int32_t arg1) {
     BigStruct2* map = this->pMapObject;
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-    if (arg1 == 0 && map->field_0x138 == this && wnd->field_0x408 != nullptr) {
+    if (arg1 == 0 && map->field_0x138 == this && wnd->drag_entry != nullptr) {
         g_Cursors[CURSOR_DEFAULT]->Use();
         wnd->vis_invtype1->VMethod37(wnd->vis_invtype1->FUN_0046fb90());
         wnd->ResetItemCursor();

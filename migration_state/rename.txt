@@ -103,3 +103,4 @@ MainWindow::field_0x3dc -> vis_msgbox_list
 MainWindow::field_0x3f8 -> in_famehall_mission -- --
 MainWindow::field_0x3fc -> mission_failed_reported -- --
 MainWindow::field_0x404 -> pending_game_mode -- --
+MainWindow::field_0x408 -> drag_entry -- --
