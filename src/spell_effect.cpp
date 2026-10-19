@@ -344,7 +344,7 @@ void AreaEffect::sub_5384FF() {
 			uint16_t yx = PosYX(dx, dy).val;
 			this->sub_53831D(MapStuff_Instance->sub_58CB5A(yx));
 			this->sub_53831D(MapStuff_Instance->sub_58CBB9(yx));
-			this->sub_53831D(MapStuff_Instance->sub_5946BF(dx, dy));
+			this->sub_53831D(MapStuff_Instance->GetBuildingUnitAt(dx, dy));
 			if (spread_damage) {
 				this->sub_53868D(dx, dy);
 				MapStuff_Instance->sub_594768(dx, dy);
@@ -357,7 +357,7 @@ void AreaEffect::sub_5384FF() {
 // 538137
 void AreaEffect::sub_538137(uint8_t x, uint8_t y, bool spread_damage) {
 	uint16_t yx = PosYX(x, y).val;
-	Unit* unit = MapStuff_Instance->sub_5946BF(x, y);
+	Unit* unit = MapStuff_Instance->GetBuildingUnitAt(x, y);
 	if (unit != nullptr && (MapStuff_Instance->obstacle_map[yx].bits & 4) != 0) {
 		return;
 	}
@@ -493,7 +493,7 @@ void AreaEffect::sub_537CD6() {
 			uint16_t yx = PosYX(nx, ny).val;
 			this->sub_53831D(MapStuff_Instance->sub_58CB5A(yx));
 			this->sub_53831D(MapStuff_Instance->sub_58CBB9(yx));
-			this->sub_53831D(MapStuff_Instance->sub_5946BF(nx, ny));
+			this->sub_53831D(MapStuff_Instance->GetBuildingUnitAt(nx, ny));
 		}
 	}
 	this->wave_step++;

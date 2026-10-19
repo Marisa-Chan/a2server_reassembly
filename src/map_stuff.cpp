@@ -2578,7 +2578,7 @@ uint16_t* MapStuff::sub_59A670(uint8_t x, uint8_t y) {
 }
 
 // 5946BF --- get building at (x, y); callers use the result as Unit*
-Unit* MapStuff::sub_5946BF(uint8_t x, uint8_t y) {
+Unit* MapStuff::GetBuildingUnitAt(uint8_t x, uint8_t y) {
     return (Unit*)this->sub_594709(PosYX(x, y).val);
 }
 

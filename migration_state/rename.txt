@@ -592,3 +592,4 @@ MapStuff::sub_58AEEF -> CanOccupyCell -- whether the unit can occupy (x,y), trig
 MapStuff::sub_59166C -> GetFacingFor -- picks the rotation angle for the unit to look at yx
 MapStuff::sub_5954AC -> TeleportUnit -- teleports the unit to (x,y)
 MapStuff::sub_59501E -> PlaceAreaEffectAt -- applies an area effect at (x,y)
+MapStuff::sub_595073 -> RemoveAreaEffectAt -- removes the area effect from cell state at yx
