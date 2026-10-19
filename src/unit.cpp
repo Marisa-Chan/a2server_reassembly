@@ -727,7 +727,7 @@ void Unit::ProcessEffects() {
         this->some_state = 0;
         if (this->decay == 0) {
             this->decay = 1;
-            this->sub_52C813();
+            this->CancelQueuedSpell();
             this->protections.defense /= 2;
             this->charge_countdown = (int8_t)(this->GetCorpseDecayTime() - 1);
             g_NetStru1_main.sub_519221(this, nullptr, 0x4001, 0xffb, 0, 0);
@@ -1667,7 +1667,7 @@ void Unit::Revive() {
 
 // 52C641
 void Unit::ResetActionState() {
-    this->sub_52C813();
+    this->CancelQueuedSpell();
     if (this->attack_ready == 0 && this->some_item != nullptr && ((this->some_item->item_id >> 8) & 0xF) == 0xE) {
         delete this->some_item;
         this->some_item = nullptr;
@@ -1791,7 +1791,7 @@ void Unit::ApplyInvincibility() {
 }
 
 // 52C813
-void Unit::sub_52C813() {
+void Unit::CancelQueuedSpell() {
     if (this->some_item == nullptr || this->some_item->item_type == Item::ItemType::WEAPON) {
         return;
     }

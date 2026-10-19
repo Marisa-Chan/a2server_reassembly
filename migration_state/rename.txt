@@ -307,3 +307,4 @@ Unit::sub_52C409 -> ReturnToMap -- returns the unit to the map from a structure
 Unit::sub_52C641 -> ResetActionState -- cancels pending spell item and clears action/attack state (attack_ready=1)
 Unit::sub_52C163 -> RemoveFromMap -- removes the unit from map/world lists and sets the phased-out unit_attrs bit, notifies clients
 Unit::sub_52C36D -> AddToMap -- places the unit (PlaceOnMap), appends to world unit_list, clears phased-out bit, notifies
+Unit::sub_52C58F -> Revive -- set flags, reset subcell, call RecalcStats, notify world

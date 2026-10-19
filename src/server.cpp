@@ -2981,13 +2981,13 @@ void Server::sub_504a96(Packet* pkt) {
         GroupList* group_list = player->group_list;
         Group* group = group_list->AllocGroup();
         group->AddUnit(unit);
-        unit->sub_52C813();
+        unit->CancelQueuedSpell();
 
         for (int i = 1; i < packet_item->count; ++i) {
             Unit* u = this->sub_502AD1(packet_item->from_player_id, packet_item->entries[i]);
             if (u) {
                 group->AddUnit(u);
-                u->sub_52C813();
+                u->CancelQueuedSpell();
             }
         }
         group_list->groups.AddTail(group);
@@ -3442,7 +3442,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (!shop) {
                 break;
             }
-            unit->sub_52C813();
+            unit->CancelQueuedSpell();
             unit->pOwner->building_entered_from_yx = unit->position->GetY() * 0x100 + unit->position->GetX();
             shop->sub_544655(unit);
             break;
@@ -3526,7 +3526,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (!inn) {
                 break;
             }
-            unit->sub_52C813();
+            unit->CancelQueuedSpell();
             unit->pOwner->building_entered_from_yx = unit->position->GetY() * 0x100 + unit->position->GetX();
             inn->sub_560C67(unit);
             CString m;
