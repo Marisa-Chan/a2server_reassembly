@@ -862,7 +862,7 @@ uint32_t World::sub_5AB719(Group* group) {
     PosYX position_yx = PosYX(avg_xx >> 8, avg_yy >> 8);
 
     group->group_sub->avg_pos_yyxx = position_yyxx;
-    group->group_sub->field_0x28 = position_yx.val;
+    group->group_sub->avg_pos = position_yx.val;
 
     uint8_t max_distance = 0;
     uint8_t max_scan_range = 0;
@@ -2862,7 +2862,7 @@ void World::sub_5AA78C(Unit* unit) {
 // 5AC137
 void World::sub_5AC137(Group* group) {
     this->sub_5AB719(group);
-    group->group_sub->field_0x0 = group->group_sub->field_0x28;
+    group->group_sub->field_0x0 = group->group_sub->avg_pos;
     group->group_sub->field_0x2d = group->group_sub->field_0x2c;
     group->group_sub->field_0x38 = group->group_sub->field_0x2c;
 }
@@ -4155,7 +4155,7 @@ void World::sub_5AB92C(Group* group) {
     PosYX avg_yx(avg_x, avg_y);
 
     group->group_sub->avg_pos_yyxx = (avg_y << 16) | avg_x;
-    group->group_sub->field_0x28 = avg_yx.val;
+    group->group_sub->avg_pos = avg_yx.val;
 
     uint8_t max_distance = 0;
     uint8_t max_scan_range = 0;
@@ -4311,7 +4311,7 @@ void World::sub_5AE2D4(Group* group) {
 void World::sub_5AE628(Group* group) {
     this->sub_5AB92C(group);
     this->sub_5ADB16(group);
-    this->sub_5A3D12(group->group_sub->field_0x28, group->group_sub->field_0x2d);
+    this->sub_5A3D12(group->group_sub->avg_pos, group->group_sub->field_0x2d);
     this->sub_5AE2D4(group);
 
     POSITION it = group->unit_list.GetHeadPosition();
@@ -4351,7 +4351,7 @@ void World::sub_5AE628(Group* group) {
 void World::sub_5AE7C3(Group* group) {
     this->sub_5AB92C(group);
     this->sub_5ADB16(group);
-    this->sub_5A3D12(group->group_sub->field_0x28, group->group_sub->field_0x2d);
+    this->sub_5A3D12(group->group_sub->avg_pos, group->group_sub->field_0x2d);
     this->sub_5AE2D4(group);
 
     POSITION it = group->unit_list.GetHeadPosition();

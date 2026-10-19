@@ -137,3 +137,4 @@ GroupSub::field_0xa -> order_pos -- --
 GroupSub::field_0x15 -> order_age -- --
 GroupSub::field_0x20 -> order -- --
 GroupSub::field_0x24 -> avg_pos_yyxx -- --
+GroupSub::field_0x28 -> avg_pos -- --
