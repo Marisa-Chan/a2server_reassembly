@@ -3371,9 +3371,9 @@ void Server::sub_504a96(Packet* pkt) {
                 int dy = std::abs((int)human->position->GetY() - (int)drop_y);
                 if (dx <= 2 && dy <= 2) {
                     TokenPos new_pos(drop_x, drop_y, MapStuff_Instance);
-                    this->srv_stru1->sack_list->sub_554927(&new_pos, sack_inv, 0, 1);
+                    this->srv_stru1->sack_list->DropInventoryAt(&new_pos, sack_inv, 0, 1);
                 } else {
-                    this->srv_stru1->sack_list->sub_554927(human->position, sack_inv, 0, 1);
+                    this->srv_stru1->sack_list->DropInventoryAt(human->position, sack_inv, 0, 1);
                 }
                 human->AddCarriedWeight(0);
                 update_mask |= 0x82000;
@@ -5759,7 +5759,7 @@ void SackList::ClearSentToMask(Player* player) {
 }
 
 // 554927
-void SackList::sub_554927(TokenPos* pos, Inventory* inventory, int money, int is_main_player_unit) {
+void SackList::DropInventoryAt(TokenPos* pos, Inventory* inventory, int money, int is_main_player_unit) {
     if (this->sub_554460(pos, inventory, money, is_main_player_unit)) {
         Sack* sack = MapStuff_Instance->sub_58E5F3(pos);
         g_NetStru1_main.sub_51AC77(sack, nullptr, 0);
@@ -6664,5 +6664,5 @@ void Server::sub_4F8FBF(int32_t arg1, int32_t arg2) {
     uint8_t x = yx & 0xFF;
     uint8_t y = (yx >> 8) & 0xFF;
     TokenPos pos(x, y, MapStuff_Instance);
-    this->srv_stru1->sack_list->sub_554927(&pos, inv, 0, 1);
+    this->srv_stru1->sack_list->DropInventoryAt(&pos, inv, 0, 1);
 }

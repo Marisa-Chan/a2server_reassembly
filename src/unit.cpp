@@ -1500,7 +1500,7 @@ void Unit::Die() {
             int is_main = (this->pOwner->main_unit == this) ? 1 : 0;
             // Inline CreateSackFromInventory: drop inventory as a sack on the map.
             Inventory* sack_items = this->DetachInventory();
-            g_Server->srv_stru1->sack_list->sub_554927(this->position, sack_items, gold, is_main);
+            g_Server->srv_stru1->sack_list->DropInventoryAt(this->position, sack_items, gold, is_main);
         }
     } else if (this->pOwner != nullptr && g_ServerConfig.gameType != 3) {
         if (g_ServerConfig.gameType == 2) {
@@ -1533,7 +1533,7 @@ void Unit::Die() {
         if (this->inventory->items.GetSize() > 0) {
             int is_main = (this->pOwner->main_unit == this) ? 1 : 0;
             Inventory* sack_inventory = this->DetachInventory();
-            g_Server->srv_stru1->sack_list->sub_554927(this->position, sack_inventory, 0, is_main);
+            g_Server->srv_stru1->sack_list->DropInventoryAt(this->position, sack_inventory, 0, is_main);
         }
     }
 
@@ -1814,7 +1814,7 @@ void Unit::CancelQueuedSpell() {
 
 // 52D8D3
 void Unit::CreateSackFromInventory(Inventory* inventory, int32_t money, int32_t is_main_player_unit) {
-    g_Server->srv_stru1->sack_list->sub_554927(this->position, inventory, money, is_main_player_unit);
+    g_Server->srv_stru1->sack_list->DropInventoryAt(this->position, inventory, money, is_main_player_unit);
 }
 
 // 52C163
