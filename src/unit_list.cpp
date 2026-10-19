@@ -94,16 +94,16 @@ void UnitList::ProcessTick() {
 		}
 
 		// Send knowledge flag updates to players when visibility tracking diverges
-		if (unit->seen_by_mask != unit->field_0x1a6 && g_Server->field4_0x74 != 0) {
+		if (unit->seen_by_mask != unit->seen_by_mask_prev && g_Server->field4_0x74 != 0) {
 			for (int i = 0; i < 16; i++) {
-				if ((unit->seen_by_mask & (1 << i)) != 0 && (unit->field_0x1a6 & (1 << i)) == 0) {
+				if ((unit->seen_by_mask & (1 << i)) != 0 && (unit->seen_by_mask_prev & (1 << i)) == 0) {
 					Player* player = g_PlayersList->sub_535B50(i + 16);
 					if (player != NULL) {
 						g_NetStru1_main.sub_519221(unit, player, unit->something_per_player[i], 0xffb, 0, 0);
 					}
 				}
 			}
-			unit->field_0x1a6 = unit->seen_by_mask;
+			unit->seen_by_mask_prev = unit->seen_by_mask;
 		}
 
 		// Tick alive unit
@@ -295,16 +295,16 @@ void UnitList::sub_5561A1() {
 		Unit* unit = this->unit_list.GetNext(it);
 
 		// Update the unit for a player if visibility tracking diverges
-		if (unit->seen_by_mask != unit->field_0x1a6 && g_Server->field4_0x74 != 0) {
+		if (unit->seen_by_mask != unit->seen_by_mask_prev && g_Server->field4_0x74 != 0) {
 			for (int32_t i = 0; i < 16; i++) {
-				if ((unit->seen_by_mask & (1 << i)) != 0 && (unit->field_0x1a6 & (1 << i)) == 0) {
+				if ((unit->seen_by_mask & (1 << i)) != 0 && (unit->seen_by_mask_prev & (1 << i)) == 0) {
 					Player* player = g_PlayersList->sub_535B50(i + 16);
 					if (player != NULL) {
 						g_NetStru1_main.sub_519221(unit, player, unit->something_per_player[i], 0xffb, 0, 0);
 					}
 				}
 			}
-			unit->field_0x1a6 = unit->seen_by_mask;
+			unit->seen_by_mask_prev = unit->seen_by_mask;
 		}
 	}
 }

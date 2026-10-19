@@ -83,3 +83,4 @@ Unit::field_0x194 -> quest_kill_mark -- unit template flag (flags2&1): eligible 
 Unit::field_0x198 -> quest_escort_mark -- unit template flag (flags2&4): eligible as escort-quest target
 Unit::field_0x19c -> quest_intercept_mark -- unit template flag (flags2&2): eligible as intercept-quest target
 Unit::field_0x1a4 -> seen_by_mask -- bitmask of vision_sharing ids the unit has been made visible to (also reused by the AI presence scan for watcher sectors)
+Unit::field_0x1a6 -> seen_by_mask_prev -- snapshot of seen_by_mask used to diff newly-visible players in unit_list processing
