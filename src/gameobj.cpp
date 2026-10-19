@@ -953,7 +953,7 @@ int32_t TokenEntry::IsStackableWith(TokenEntry* other) { //4a7900
 }
 
 
-int32_t TokenEntry::sub_43988E() { //43988e
+int32_t TokenEntry::GetFirstModAttrId() { //43988e
     const uint8_t* p = (const uint8_t*)this->mods;
 
     for (int32_t i = 0; i < this->mods_count; i++) {

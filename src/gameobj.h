@@ -34,7 +34,7 @@ public:
 	int32_t AddCount(int32_t num); //4a7850
 	int32_t RemoveCount(int32_t num); //4a7880
 	int32_t IsStackableWith(TokenEntry* other); //4a7900
-	int32_t sub_43988E(); //43988e in asm
+	int32_t GetFirstModAttrId(); //43988e in asm
 
 	virtual ~TokenEntry(); //4394bf
 

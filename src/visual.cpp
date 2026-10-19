@@ -17922,7 +17922,7 @@ int32_t VisInvExtType3::VMethod37(int32_t idx) {
                 strcpy(shopname, "shop");
             }
             char path[1024];
-            int32_t effect = entry->sub_43988E();
+            int32_t effect = entry->GetFirstModAttrId();
             if (effect != 0) {
                 sprintf(path, "speech\\%s\\effects\\%.2d.wav", shopname, effect);
             } else if (entry->GetAttribute(0x2A) != 0) {
