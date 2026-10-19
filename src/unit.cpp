@@ -1191,7 +1191,7 @@ void Unit::AddExperience(uint32_t newExp, Unit *target, int32_t sphere) {
     }
 }
 
-void Unit::VMethod22(Unit*, int32_t)
+void Unit::AwardKillExperience(Unit*, int32_t)
 {}
 
 void Unit::VMethod23(Unit*, uint32_t, int32_t)
@@ -2635,7 +2635,7 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
 }
 
 // 530e52   
-void Humanoid::VMethod22(Unit* unit, int32_t spell_id) {
+void Humanoid::AwardKillExperience(Unit* unit, int32_t spell_id) {
     if (spell_id != 0 && (this->unit_attrs & 4) == 0) {
         return;
     }

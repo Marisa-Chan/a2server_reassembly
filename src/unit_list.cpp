@@ -196,7 +196,7 @@ void UnitList::ProcessTick() {
 				} else {
 					// Normal pkill --- killer (a monster) is alive
 					unit->last_hit_by->AwardKillMoney(unit);
-					unit->last_hit_by->VMethod22(unit, unit->last_hit_spell_id);
+					unit->last_hit_by->AwardKillExperience(unit, unit->last_hit_spell_id);
 					if (unit->typeId < 0x21 || unit->typeId > 0x3f) {
 						// Victim is a monster
 						unit->last_hit_by->pOwner->monster_kills++;
