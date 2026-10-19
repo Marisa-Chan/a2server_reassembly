@@ -2222,7 +2222,7 @@ double FUN_004CD4B0(int32_t degrees) {
 }
 
 // 4ccaf2
-void TransientVisualEffectBuilder::FUN_004CCAF2(int16_t height, float radius, uint32_t phase) {
+void TransientVisualEffectBuilder::BuildGroundRing(int16_t height, float radius, uint32_t phase) {
     for (int32_t angle = 0x59; angle > 0; angle -= 0x12) {
         double rad = FUN_004CD4B0(angle + (phase & 0xFF) * 0x12);
         int16_t x = (int16_t)(std::cos(rad) * radius);
@@ -2565,7 +2565,7 @@ void CUnit::UpdateTransientVisualElements() { // 468dcb
         }
         case 0x30: {
             TransientVisualEffectBuilder builder;
-            builder.FUN_004CCAF2(this->GetTileWidth() << 5, 20.0f, effect_timer % 5);
+            builder.BuildGroundRing(this->GetTileWidth() << 5, 20.0f, effect_timer % 5);
             visual_elements.Append(builder.visual_elements);
             break;
         }
