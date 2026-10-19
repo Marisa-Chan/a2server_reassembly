@@ -1478,7 +1478,7 @@ void Srv1::sub_59F1BE(MapAlm* alm) {
                         effect->damage_min = effect_data->values[1];
                         effect->damage_spread = effect_data->values[2];
                         item->_effects.AddTail(effect);
-                        item->VMethod15();
+                        item->CalcValue();
                     }
                     
                     // Add secondary effect (spell)
@@ -1492,7 +1492,7 @@ void Srv1::sub_59F1BE(MapAlm* alm) {
                         effect->spell_or_damage = effect_data->type_id;
                         effect->spell_value = effect_data->spell_strength;
                         item->_effects.AddTail(effect);
-                        item->VMethod15();
+                        item->CalcValue();
                     }
                     
                     // Add modifier effects
@@ -1509,7 +1509,7 @@ void Srv1::sub_59F1BE(MapAlm* alm) {
                         effect->spell_or_damage = mod->y;
                         effect->spell_value = mod->flags;
                         item->_effects.AddTail(effect);
-                        item->VMethod15();
+                        item->CalcValue();
                     }
                 }
                 

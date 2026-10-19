@@ -385,7 +385,7 @@ void ShopAssortment::sub_54AF21(CArray<MagicItem>* items) {
         } else {
             item = new Item(0xE, (uint8_t)(spell_id + 34));
         }
-        item->VMethod15();
+        item->CalcValue();
 
         if (item->_exp < this->min_cost || item->_exp > this->max_cost) {
             delete item;
@@ -543,7 +543,7 @@ int32_t ShopAssortment::sub_54EA76(Item* item) {
         }
 
         item->sub_548FAA(effect);
-        item->VMethod15();
+        item->CalcValue();
         return 1;
     }
 
@@ -555,7 +555,7 @@ int32_t ShopAssortment::sub_54EA76(Item* item) {
     }
 
     item->sub_548FAA(effect);
-    item->VMethod15();
+    item->CalcValue();
 
     if (effect->effect_id == modifier::castspell) {
         return 1;
@@ -575,7 +575,7 @@ int32_t ShopAssortment::sub_54EA76(Item* item) {
             return 1;
         }
         item->sub_548FAA(effect);
-        item->VMethod15();
+        item->CalcValue();
     }
 
     // Third effect attempt (25% chance)
@@ -592,7 +592,7 @@ int32_t ShopAssortment::sub_54EA76(Item* item) {
             return 1;
         }
         item->sub_548FAA(effect);
-        item->VMethod15();
+        item->CalcValue();
     }
 
     item->magic_volume -= sub_54F176(item);

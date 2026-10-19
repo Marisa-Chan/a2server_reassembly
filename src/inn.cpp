@@ -886,7 +886,7 @@ void Inn::InnReward(Player* player) {
                 Item* book = new Item(book_name);
 
                 book->sub_548F3F(TeachSpellMagics[i]);
-                book->VMethod15();
+                book->CalcValue();
 
                 if (reward / 2 < book->_exp && book->_exp < reward * 5 / 4) {
                     temp_candidates.Add(book);

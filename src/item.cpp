@@ -95,7 +95,7 @@ Item* __cdecl sub_4F499B(uint8_t** packet_data) {
         }
     }
 
-    item->VMethod15();
+    item->CalcValue();
 
     if (stored_price == 2 && !item->_effects.IsEmpty()) {
         Effect* effect = new Effect();
@@ -103,7 +103,7 @@ Item* __cdecl sub_4F499B(uint8_t** packet_data) {
         effect->spell_or_damage = 2;
         effect->spell_value = 0;
         item->_effects.AddTail(effect);
-        item->VMethod15();
+        item->CalcValue();
     }
 
     item->sub_54A0BE();
@@ -216,7 +216,7 @@ void Item::InitFromTemplate(uint8_t slot) {
     if (!magic_item.effect.IsEmpty()) {
         this->sub_548F3F(magic_item.effect);
     }
-    this->VMethod15();
+    this->CalcValue();
 }
 
 // 54842A
@@ -311,7 +311,7 @@ int32_t Item::VMethod14(int, int) {
 }
 
 // 54872b
-int32_t Item::VMethod15() {
+int32_t Item::CalcValue() {
     this->_exp = this->world_equip->Values()[0].shape;
     if (this->item_type == 5) {
         Effect* first_effect = this->_effects.IsEmpty() ? nullptr : this->_effects.GetHead();
@@ -593,7 +593,7 @@ void sub_540DAA(const CString& effect_str, CList<Effect*>* effects) {
 // 548F3F
 void Item::sub_548F3F(const CString& str) {
     sub_540DAA(str, &this->_effects);
-    this->VMethod15();
+    this->CalcValue();
 }
 
 // 548F6A
@@ -741,7 +741,7 @@ void Armor::LoadInfo() {
     this->magic_volume = (int16_t)(mat->data.magic_volume * shape->data.magic_volume);
     this->weight = (int16_t)((double)data->weight * mat->data.weight * shape->data.weight + 0.5);
 
-    this->VMethod15();
+    this->CalcValue();
 
     this->item_id = (this->material_id << 12) | (this->slot << 8) | (this->shape_id << 5) | this->itemDataID;
 }
@@ -837,7 +837,7 @@ Item* Armor::Clone() {
 }
 
 // 54F84D
-int32_t Armor::VMethod15() {
+int32_t Armor::CalcValue() {
     double shape_price = g_GameDataRes.shapes[this->shape_id].data.price;
     double material_price = g_GameDataRes.materials[this->material_id].data.price;
     this->_exp = (int32_t)((double)this->world_equip->Values()[0].price * material_price * shape_price + 0.5);
@@ -954,7 +954,7 @@ void Shield::LoadInfo() {
     this->magic_volume = (int16_t)(material->data.magic_volume * shape->data.magic_volume);
     this->weight = (int16_t)((double)data->weight * material->data.weight * shape->data.weight + 0.5);
 
-    this->VMethod15();
+    this->CalcValue();
 
     const int slot = 2;
     this->item_id = (this->material_id << 12) | (slot << 8) | (this->shape_id << 5) | (uint8_t)this->itemDataID;
@@ -1023,7 +1023,7 @@ Item* Shield::Clone() {
 }
 
 // 5502C7
-int32_t Shield::VMethod15() {
+int32_t Shield::CalcValue() {
     double shape_price = g_GameDataRes.shapes[this->shape_id].data.price;
     double material_price = g_GameDataRes.materials[this->material_id].data.price;
     this->_exp = (int32_t)((double)this->world_equip->Values()[0].price * material_price * shape_price + 0.5);
@@ -1136,7 +1136,7 @@ void Weapon::LoadInfo() {
     this->world_equip = &g_GameDataRes.weapons[this->itemDataID];
     this->item_type = ItemType::WEAPON;
     this->LoadEquipInfo(this->world_equip);
-    this->VMethod15();
+    this->CalcValue();
 
     const int slot = 1;
     this->item_id = (this->material_id << 12) | (slot << 8) | (this->shape_id << 5) | (uint8_t)this->itemDataID;
@@ -1296,7 +1296,7 @@ Item* Weapon::Clone() {
 }
 
 // 550FA6
-int32_t Weapon::VMethod15() {
+int32_t Weapon::CalcValue() {
     double shape_price = g_GameDataRes.shapes[this->shape_id].data.price;
     double material_price = g_GameDataRes.materials[this->material_id].data.price;
     this->_exp = (int32_t)((double)this->world_equip->Values()[0].price * material_price * shape_price + 0.5);
