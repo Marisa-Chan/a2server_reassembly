@@ -3029,7 +3029,7 @@ void World::sub_5AA84F(Unit* unit) {
 
 // Order a unit to interact with/enter a building.
 // 5A90F4
-void World::sub_5A90F4(Unit* unit, Building* building) {
+void World::OrderEnterBuilding(Unit* unit, Building* building) {
     this->BeginUnitOrder(unit);
     unit->state = 0xF;
     unit->eye2->field51_0x68 = building;

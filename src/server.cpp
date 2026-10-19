@@ -3126,7 +3126,7 @@ void Server::sub_504a96(Packet* pkt) {
                     LogMessage(msg);
                     break;
                 }
-                g_World->sub_5A90F4(unit, building);
+                g_World->OrderEnterBuilding(unit, building);
             }
             break;
         case 0x25: // Cast point spell with a scroll.
