@@ -61,3 +61,4 @@ TransientVisualEffectBuilder::field_0x90 -> arc_x -- sampled arc parameter (x al
 TransientVisualEffectBuilder::field_0xa4 -> arc_y -- sampled arc y value paired with arc_x
 TransientVisualEffectBuilder::field_0xb8 -> jitter_progress -- 0..1 progress profile of the lightning jitter walk
 TransientVisualEffectBuilder::field_0xcc -> jitter_wobble -- perpendicular wobble offsets paired with jitter_progress
+Player::field_0x40 -> mission_result -- 0=none, 1=mission complete, 2=unit decayed, else mission_fail code; sent to client via 0xB4

@@ -1566,8 +1566,8 @@ void Unit::sub_52D94E() {
 
     // Respawn notification for player character types (typeId 0x21-0x3F).
     if (!g_Server->field4_0x74 && this->pOwner != nullptr && !this->pOwner->is_ai && 0x21 <= this->typeId && this->typeId <= 0x3F) {
-        this->pOwner->field_0x40 = (uint8_t)(this->server_id - 0x13);
-        g_NetStru1_main.FUN_0051cefb(0xb4, this->pOwner->field_0x40, 0, this->pOwner);
+        this->pOwner->mission_result = (uint8_t)(this->server_id - 0x13);
+        g_NetStru1_main.FUN_0051cefb(0xb4, this->pOwner->mission_result, 0, this->pOwner);
     }
 
     this->sub_52E7FA();

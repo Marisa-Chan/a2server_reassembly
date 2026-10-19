@@ -244,7 +244,7 @@ void Server::sub_4F1E2A() {
                     main_unit->field_x18 = 0;
                     this->sub_500907(player, 0, 0, 0, 0, 0, 0);
                     this->sub_5013D4(player);
-                    player->field_0x40 = 0;
+                    player->mission_result = 0;
 
                     Player* self = g_PlayersList->sub_535D39("Self");
                     if (self != nullptr && (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3)) {
@@ -1594,7 +1594,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4) {
     }
 
     // Reset the rejoining flag.
-    player->field_0x40 = 0;
+    player->mission_result = 0;
 
     // Early-out for some game types.
     if (this->field4_0x74 != 0 && bool_arg4 != 0) {
@@ -2108,7 +2108,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
 
     // Clear state fields.
     player->building_entered_from_yx = 0;
-    player->field_0x40 = 0;
+    player->mission_result = 0;
 
     // Initialize diplomacy.
     Player* self = g_PlayersList->sub_535D39("Self");
@@ -6095,23 +6095,23 @@ void Server::sub_5090FA(Player* player) {
         return;
     }
 
-    if (player->field_0x40 < 2) {
+    if (player->mission_result < 2) {
         if (player->main_unit == nullptr || player->main_unit->decay != 0) {
-            player->field_0x40 = 2;
-            g_NetStru1_main.FUN_0051cefb(0xB4, player->field_0x40, 0, player);
+            player->mission_result = 2;
+            g_NetStru1_main.FUN_0051cefb(0xB4, player->mission_result, 0, player);
             if (player->field_0x42 != 0 && this->field4_0x74 == 0) {
                 g_NetStru1_main.FUN_0051cefb(0xB4, 0, 0, player);
             }
         } else if (g_World->mission_fail > 0) {
-            if (player->field_0x40 < 2) {
+            if (player->mission_result < 2) {
                 LogMessage("Logic - Mission Failed");
                 g_NetStru1_main.FUN_0051cefb(0xB4, g_World->mission_fail, 0, player);
-                player->field_0x40 = (uint8_t)g_World->mission_fail;
+                player->mission_result = (uint8_t)g_World->mission_fail;
             }
-        } else if (g_World->mission_complete != 0 && player->field_0x40 != 1) {
+        } else if (g_World->mission_complete != 0 && player->mission_result != 1) {
             LogMessage("Logic - Mission Complete");
             g_NetStru1_main.FUN_0051cefb(0xB5, 0, 0, player);
-            player->field_0x40 = 1;
+            player->mission_result = 1;
         }
     } else {
         if (this->field4_0x74 != 0 && player->field_0x43 != 0 && player->main_unit->hp <= -40 && player->field_0xa64 != 0) {
@@ -6128,7 +6128,7 @@ void Server::sub_5090FA(Player* player) {
             uint8_t saved_spell_id = unit->eye2->spell_id;
             this->sub_500907(player, 0, 0, 0, 0, 0, 0);
             this->sub_5013D4(player);
-            player->field_0x40 = 0;
+            player->mission_result = 0;
             unit->eye2->spell_id = saved_spell_id;
             if (g_Server->field4_0x74 != 0 && (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3)) {
                 Player* self_player = g_PlayersList->sub_535D39("Self");

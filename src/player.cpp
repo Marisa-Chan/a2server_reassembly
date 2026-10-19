@@ -27,7 +27,7 @@ Player::Player() {
     this->field_0xa44 = 0;
     this->monster_kills = 0;
     this->player_kills = 0;
-    this->field_0x40 = 0;
+    this->mission_result = 0;
     this->field_0xa98 = 0;
     this->field_0x20 = -10000;
     this->vision_sharing_id = 0;
@@ -82,7 +82,7 @@ void Player::Serialize(CArchive& ar) {
         ar << this->vision_sharing_id;
 
         ar << ((uint32_t)this->money ^ 0x5C073F4D);
-        ar << this->field_0x40;
+        ar << this->mission_result;
         ar << this->field_0x41;
 
         ar << ((uint32_t)this->monster_kills ^ 0x5C073F4D);
@@ -109,7 +109,7 @@ void Player::Serialize(CArchive& ar) {
 
         ar >> this->money;
         this->money ^= 0x5C073F4D;
-        ar >> this->field_0x40;
+        ar >> this->mission_result;
         ar >> this->field_0x41;
 
         ar >> this->monster_kills;

@@ -54,7 +54,7 @@ public:
     Settings* settings;
     Human* main_unit;
     int32_t money;
-    uint8_t field_0x40;
+    uint8_t mission_result;
     uint8_t field_0x41;
     uint8_t field_0x42;
     uint8_t field_0x43;
