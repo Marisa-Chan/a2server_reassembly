@@ -24618,8 +24618,8 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
             VisHatBrowserList* list = (VisHatBrowserList*)this->FindChild(1);
             CString item = list->GetItem(list->GetSelectedIndex());
             int32_t field_pos = GetFieldPos(item, 7);
-            main_wnd->field_0x3e0.field_14 = item.Mid(field_pos);
-            main_wnd->field_0x3e0.field_14 = main_wnd->field_0x3e0.field_14.Left(main_wnd->field_0x3e0.field_14.Find('|'));
+            main_wnd->field_0x3e0.connect_address = item.Mid(field_pos);
+            main_wnd->field_0x3e0.connect_address = main_wnd->field_0x3e0.connect_address.Left(main_wnd->field_0x3e0.connect_address.Find('|'));
             VisScreen::MsgProc(0x445, 0, 0);
         }
         return 1;
@@ -24888,7 +24888,7 @@ void VisNetTcpIp::VMethod31(int32_t code) {
         this->FindChild(2)->WriteData(buffer);
         *this->ip = buffer;
         main_wnd->PostMessage(0x452, 0, 0);
-        main_wnd->field_0x3e0.field_14 = buffer;
+        main_wnd->field_0x3e0.connect_address = buffer;
     } else {
         g_CLlDriver.Close();
         main_wnd->PostMessage(0x451, 0, 0);

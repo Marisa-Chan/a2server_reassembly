@@ -251,7 +251,7 @@ struct Main3e0 {
     CString field_08;
     int32_t hat_id;
     int32_t field_10;
-    CString field_14;
+    CString connect_address;
 };
 ASSERT_SIZE(Main3e0, 0x18);
 

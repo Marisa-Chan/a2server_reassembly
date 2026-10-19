@@ -828,7 +828,7 @@ int32_t MainWindow::ConnectToServerAddress() {
 
     CLlAddress addr;
     strcpy(addr.address, "0.0.0.0");
-    int result = g_CLlDriver.PrepareForConnect(this->field_0x3e0.field_14, &addr);
+    int result = g_CLlDriver.PrepareForConnect(this->field_0x3e0.connect_address, &addr);
     if (result != 0) {
         result = g_CLlDriver.Connect(this->m_GameSession.character_name, nullptr);
     }
@@ -2201,7 +2201,7 @@ void MainWindow::Proc_421()
     //48d49b
 
     field_0x3e0.field_10 = 0;
-    field_0x3e0.field_14.Empty();
+    field_0x3e0.connect_address.Empty();
     FUN_0048cb3c();
     PostMessage(0x440, 0, 0);
 }
@@ -3515,7 +3515,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                 int num;
                 g_CLlDriver.EnumAddresses(&addresses, &num);
 
-                g_CLlDriver.PrepareForConnect(this->field_0x3e0.field_14, nullptr);
+                g_CLlDriver.PrepareForConnect(this->field_0x3e0.connect_address, nullptr);
             }
         }
 
