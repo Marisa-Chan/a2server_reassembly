@@ -1779,7 +1779,7 @@ void Unit::InitDefaults(const CString& str) {
     memset(this->something_per_player, 0, 0x40);
     this->InitDefaultStats();
     if (!str.IsEmpty()) {
-        this->sub_52F601(str);
+        this->InitFromMonsterName(str);
     }
 }
 
@@ -2057,7 +2057,7 @@ uint8_t Unit::GetSpellPower(uint8_t sphere) {
 }
 
 // 52F601
-void Unit::sub_52F601(const CString& name) {
+void Unit::InitFromMonsterName(const CString& name) {
     this->typeId = 0;
 
     // Search for monster by name in g_GameDataRes.monsters array

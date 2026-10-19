@@ -125,7 +125,7 @@ public:
     int32_t GetQuestDefense(); // Defense value for quests. Flyers get +25, mages get +50.
     int32_t HasEnchantment(uint8_t spell_id); // 52C735: HasEnchantment.
     uint8_t GetSpellPower(uint8_t sphere); // 52F5BB: clamped spell power for sphere: max(0, skill_levels[sphere] + mind - 30)
-    void sub_52F601(const CString& value);
+    void InitFromMonsterName(const CString& value);
     int32_t sub_59A030(); // Returns movement type.
     int32_t sub_5B6FB0(); // 5B6FB0 — IsMage.
 
