@@ -4335,7 +4335,7 @@ void NetStru1::sub_51C822(NetStru2* ns2) {
 }
 
 // 51D837
-void NetStru1::sub_51D837(int32_t param1, Player* player) {
+void NetStru1::SendGameInfo(int32_t param1, Player* player) {
     PacketDword& packet = PacketDword::Inst;
     packet.id = 0x10;
     if (player != nullptr) {

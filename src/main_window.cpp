@@ -457,7 +457,7 @@ void ServerControlDialog::sub_49544C() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->SetSpeed(main_wnd->game_speed - 1)) {
         g_ServerConfig.game_speed = main_wnd->game_speed;
-        g_NetStru1_main.sub_51D837(g_ServerConfig.game_speed, nullptr);
+        g_NetStru1_main.SendGameInfo(g_ServerConfig.game_speed, nullptr);
     }
 }
 
@@ -466,7 +466,7 @@ void ServerControlDialog::sub_49549B() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->SetSpeed(main_wnd->game_speed + 1)) {
         g_ServerConfig.game_speed = main_wnd->game_speed;
-        g_NetStru1_main.sub_51D837(g_ServerConfig.game_speed, nullptr);
+        g_NetStru1_main.SendGameInfo(g_ServerConfig.game_speed, nullptr);
     }
 }
 

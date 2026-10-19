@@ -3842,7 +3842,7 @@ void Server::sub_504a96(Packet* pkt) {
             if ((player->main_unit->unit_attrs & 8) != 0) {
                 player->main_unit->ReturnToMap();
             }
-            g_NetStru1_main.sub_51D837(g_ServerConfig.game_speed, player);
+            g_NetStru1_main.SendGameInfo(g_ServerConfig.game_speed, player);
             break;
 #endif
         }
