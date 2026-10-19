@@ -207,7 +207,7 @@ public:
     UserShortcut shortcuts[9];
     CStringArray characterRosterNames;
     int32_t phased_in = 0;
-    int32_t field_0x110 = 0;
+    int32_t last_autosave_tick = 0;
     int32_t field_0x114 = 1;
     int32_t field_0x118 = 1;
     CArray<HatCharId> characterRosterHatId;

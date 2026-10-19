@@ -5879,7 +5879,7 @@ void CGameSession::FUN_004946e0() { //4946e0
 
     WritePlayerFile_4F53EA(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], &info, &stats, nullptr, nullptr, nullptr, nullptr, 0);
 
-    this->field_0x110 = GetTickCount();
+    this->last_autosave_tick = GetTickCount();
 }
 
 void CGameSession::FUN_004948b2() { //4948b2
@@ -5947,7 +5947,7 @@ CString CGameSession::FUN_00420070() { //420070
 
 void CGameSession::FUN_004946ae() { //4946ae
     DWORD tick = GetTickCount();
-    if (15000 < tick - this->field_0x110) {
+    if (15000 < tick - this->last_autosave_tick) {
         this->FUN_004946e0();
     }
 }

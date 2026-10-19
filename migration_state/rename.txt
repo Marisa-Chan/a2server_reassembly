@@ -120,3 +120,4 @@ MainWindow::field_0x458 -> enter_ack_received -- server handshake flag the 0x457
 MainWindow::field_0x45c -> input_locked -- wrong building-enter reply locks all key input until a matching reply arrives
 CGameSession::field_0x64 -> hat_id -- --
 CGameSession::field_0x10c -> phased_in -- --
+CGameSession::field_0x110 -> last_autosave_tick -- --
