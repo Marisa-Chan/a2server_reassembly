@@ -6182,7 +6182,7 @@ void Server::SendArenaResults() {
         result += line;
     }
     result += "\n";
-    NetStru1::HatConnector.sub_51E40C(result, result.GetLength());
+    NetStru1::HatConnector.SendHatRawString(result, result.GetLength());
 }
 
 // 4FA01F

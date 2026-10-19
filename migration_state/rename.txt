@@ -561,3 +561,4 @@ NetStru1::sub_51E5FB -> SendHatJoinOk -- HAT join-success reply (0xD8)
 NetStru1::sub_51E63F -> SendHatJoinFail -- HAT join-failure reply (0xD9)
 NetStru1::sub_51E794 -> SendHatPlayerCheck -- HAT player-check reply (0xE1)
 NetStru1::sub_51E205 -> SendHatLogin -- sends the hat login packet
+NetStru1::sub_51E289 -> SendHatLobbyInfo -- sends the hat lobby info packet

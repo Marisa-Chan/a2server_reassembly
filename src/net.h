@@ -216,7 +216,7 @@ public:
     void sub_51DFA7(int32_t param1, int32_t param2, CString name, void* data, uint32_t size, uint16_t player_id);
     void sub_51E0B7(int32_t param1, int32_t param2, CString name, void* data, uint32_t size, uint16_t player_id);
     void sub_51E1C7(uint16_t player_id);
-    void sub_51E40C(const char* str, int32_t len); // 51E40C - Send raw string data to HAT
+    void SendHatRawString(const char* str, int32_t len); // 51E40C - Send raw string data to HAT
 
     void FUN_0051d8d6(const CString& login, const CString& password, uint32_t flags); //51d8d6
     void FUN_0051d9d0(HatCharId charid); //51d9d0

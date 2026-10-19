@@ -4401,7 +4401,7 @@ void NetStru1::SendHatLogin(CString name) {
 }
 
 // 51E40C
-void NetStru1::sub_51E40C(const char* str, int32_t len) {
+void NetStru1::SendHatRawString(const char* str, int32_t len) {
     PacketData& packet = PacketData::Inst;
     packet.to_player_id = 0;
     packet.id = 0xD4;
