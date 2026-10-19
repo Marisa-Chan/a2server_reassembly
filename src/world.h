@@ -188,7 +188,7 @@ public:
     void OrderPatrolTo(Unit* unit, uint8_t x, uint8_t y); // 5A9580
     void sub_5AA84F(Unit* unit); // 5AA84F
     int32_t sub_5AD0B3(Unit* unit, Unit* target); // 5AD0B3
-    void sub_5ABFBC(Group* group); // 5ABFBC
+    void ProcessGroupAi(Group* group); // 5ABFBC
     void sub_5AF623(Group* group); // 5AF623
     void sub_5AF646(Group* group); // 5AF646
     void sub_5AF5DC(Unit* unit); // 5AF5DC — helper for sub_5AF646.

@@ -3367,15 +3367,15 @@ void World::sub_5ABF50(Player* player) {
     while (it != nullptr) {
         Group* group = player->group_list->groups.GetNext(it);
         if (this->field37_0xbbe8 != 0) {
-            this->sub_5ABFBC(group);
+            this->ProcessGroupAi(group);
         } else if (group->group_sub->presence_detected != 0) {
-            this->sub_5ABFBC(group);
+            this->ProcessGroupAi(group);
         }
     }
 }
 
 // 5ABFBC
-void World::sub_5ABFBC(Group* group) {
+void World::ProcessGroupAi(Group* group) {
     this->sub_5AF623(group);
     uint8_t cmd = group->group_sub->order;
     if (cmd == 0xFF) {

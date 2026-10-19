@@ -457,3 +457,4 @@ World::sub_5B081E -> DispatchTriggerCheck -- trigger-check dispatcher
 World::sub_5B6346 -> ProcessVirtualCasters -- casts queued spells for the virtual caster list
 World::sub_5B5CA8 -> CollectRayTargets -- collects units hit by a multi-ray spell
 World::sub_5B5C2B -> PackDistFacing -- packs distance<<8 + facing delta between two units
+World::sub_5B545F -> RegisterPlayer -- registers a player in the diplomacy matrix
