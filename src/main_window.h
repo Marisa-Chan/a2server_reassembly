@@ -513,7 +513,7 @@ public:
     VisCharSelect* vis_charsel;
     VisStartGame* vis_startgame; //0x374
     VisNetMapSelection* vis_netmapsel; // BigStruct1*
-    VisHatBrowserDlg* field_0x37c;
+    VisHatBrowserDlg* vis_hatbrowser;
     PhoneBook phone_book; //380
     ComSettings com_settings; //39c
     CString last_ip; //3b0

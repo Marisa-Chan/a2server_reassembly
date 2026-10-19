@@ -1472,7 +1472,7 @@ MainWindow::MainWindow() { //4837e1
     this->field_0x34c = nullptr;
     this->field_0x3dc = nullptr;
     this->vis_netmapsel = nullptr;
-    this->field_0x37c = nullptr;
+    this->vis_hatbrowser = nullptr;
     this->vis_map_context = nullptr;
 
     this->field_0x3e0.field_08.Empty();
@@ -2530,10 +2530,10 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         delete this->vis_netmapsel;
         this->vis_netmapsel = nullptr;
         return;
-    } else if (obj == this->field_0x37c) {
+    } else if (obj == this->vis_hatbrowser) {
         this->dialogsMask &= ~8;
 
-        if (this->field_0x37c->GetCloseCode() == 0x446) {
+        if (this->vis_hatbrowser->GetCloseCode() == 0x446) {
             if (this->hat_settings.ishat == 0) {
                 this->vis_root->MsgProc(0x446, 0, 0);
                 this->ShowCharacterLoaderDialog();
@@ -2551,8 +2551,8 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
             PostMessage(0x441, 0, 0);
         }
         
-        delete this->field_0x37c;
-        this->field_0x37c = nullptr;
+        delete this->vis_hatbrowser;
+        this->vis_hatbrowser = nullptr;
         return;
     } else if (obj == this->field_0x3d0) {
         this->dialogsMask &= ~8;
@@ -3809,8 +3809,8 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x489: {
-        this->field_0x37c = new VisHatBrowserDlg(1, 0, -64, 640, 480);
-        this->PopUpScreen(this->field_0x37c);
+        this->vis_hatbrowser = new VisHatBrowserDlg(1, 0, -64, 640, 480);
+        this->PopUpScreen(this->vis_hatbrowser);
 
         int32_t res;
         if (this->hat_settings.ishat == 0) {
