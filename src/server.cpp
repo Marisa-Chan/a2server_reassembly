@@ -5942,7 +5942,7 @@ void SackList::UpdateSackVisibility() {
 SpellEffectList::SpellEffectList() {}
 
 // 55c213
-void SpellEffectList::VMethod1() {
+void SpellEffectList::FixupPointers() {
     for (POSITION pos = this->list.GetHeadPosition(); pos != nullptr;) {
         SpellEffect* eff = this->list.GetNext(pos);
         if (eff != nullptr) {
@@ -6442,7 +6442,7 @@ void Server::sub_4F3188(CArchive& ar) {
             this->srv_stru1->units_list->CallMethod5();
             MapStuff_Instance->sub_594125();
             g_World->sub_5B2E7A();
-            this->srv_stru1->effects_list->VMethod1();
+            this->srv_stru1->effects_list->FixupPointers();
         } else {
             POSITION player_it = g_PlayersList->list.GetHeadPosition();
             while (player_it != nullptr) {

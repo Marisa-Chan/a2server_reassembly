@@ -105,7 +105,7 @@ public:
 
 class SpellEffectList {
 public: // VTable at 0060f6dc.
-    virtual void VMethod1(); // 55c213
+    virtual void FixupPointers(); // 55c213
 
     void sub_5585F2(); //5585f2
     void sub_55BF31(CArchive& ar); // Serialize
