@@ -4645,7 +4645,7 @@ void NetStru1::SendShopShelf(Shop* shop, CMultiShopShelf* shelf, Player* player,
 }
 
 // 51AB99
-void NetStru1::sub_51AB99(CMultiShopInstance* inst, Player* player, int32_t param) {
+void NetStru1::SendShopShelves(CMultiShopInstance* inst, Player* player, int32_t param) {
     if (param == -1) {
         for (int32_t i = 0; i < 4; i++) {
             Shop* shop = nullptr;

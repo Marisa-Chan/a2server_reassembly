@@ -190,7 +190,7 @@ void CMultiShopInstance::sub_5464B6(int32_t param) {
         }
         g_NetStru1_main.SendShopTable(shop_token, &this->inventory, this->unit->pOwner, 4);
     } else {
-        g_NetStru1_main.sub_51AB99(this, this->unit->pOwner, param);
+        g_NetStru1_main.SendShopShelves(this, this->unit->pOwner, param);
     }
 }
 

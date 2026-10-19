@@ -169,7 +169,7 @@ public:
     void SendSrvStru1State(QuestMap* quest_map, Player* player, int flag); // Send SrvStru1 state list from packet
     void SendShopTable(Token* token, Inventory* inventory, Player* player, int32_t param);
     void SendShopShelf(Shop* shop, CMultiShopShelf* shelf, Player* player, uint8_t slot); // 51AA26 - send single shop shelf contents
-    void sub_51AB99(CMultiShopInstance* inst, Player* player, int32_t param); // 51AB99 - send shop shelf contents
+    void SendShopShelves(CMultiShopInstance* inst, Player* player, int32_t param); // 51AB99 - send shop shelf contents
     void UpdateConnStats();
 
     void sub_51C7CC(int32_t latency, Player* player);  // Send latency update to player
