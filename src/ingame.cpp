@@ -1501,7 +1501,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							packet_aoe->field_0xc,
 							packet_aoe->field_0xd,
 							packet_aoe->field_0xe,
-							(packet_aoe->field_0xa / 2) - 4,
+							(packet_aoe->type_id / 2) - 4,
 							packet_aoe->data,
 							packet_aoe->field_0xf);
 			if (packet_aoe->field_0xf == 0) {

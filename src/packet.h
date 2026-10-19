@@ -437,7 +437,7 @@ public:
     virtual Packet* Duplicate() override; // sub_57A780
     virtual uint32_t GetDataSize() override; // sub_57A800
 public:
-    uint8_t field_0xa;    // +0xA
+    uint8_t type_id;    // +0xA
     uint8_t field_0xb;    // +0xB; `x` coordinate of top-left corner of AoE zone
     uint8_t field_0xc;    // +0xC; `y` coordinate of top-left corner of AoE zone
     uint8_t field_0xd;    // +0xD (= 0 in ctor); width of AoE zone in cells

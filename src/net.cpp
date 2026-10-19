@@ -347,7 +347,7 @@ void NetStru1::sub_51BE8F(AreaEffect* obj, int32_t flag) {
             }
         }
         packet.field_0xf = (uint8_t)flag;
-        packet.field_0xa = (uint8_t)obj->typeId;
+        packet.type_id = (uint8_t)obj->typeId;
         packet.to_player_id = 0;
         this->sub_51B638(&packet, obj);
     }
