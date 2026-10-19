@@ -27,7 +27,7 @@ public:
     uint8_t gap_0x21[3];
     uint32_t avg_pos_yyxx;
     uint16_t avg_pos;
-    uint8_t field_0x2a;
+    uint8_t max_unit_dist;
     uint8_t field_0x2b;
     uint8_t field_0x2c;
     uint8_t field_0x2d;
