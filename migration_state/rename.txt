@@ -486,3 +486,4 @@ World::sub_5A7AF7 -> IsSpellInRange -- 1 when other is within the spell max_rang
 World::sub_5A85F4 -> BeginAutobuffCast -- state 0x0D executor: pick target if none and start the cast
 World::sub_5A6DA3 -> BeginEnterBuilding -- sets cast_action 0x0F toward the building
 World::sub_5A551C -> BeginPositionCast -- sets cast_action 9 with spell and range at pos_yx
+World::sub_5A6801 -> CastKnownSpell -- looks up spell_id in the book and starts the cast by spell kind

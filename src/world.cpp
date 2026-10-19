@@ -1351,7 +1351,7 @@ void World::sub_5A9B6B(Unit* unit) {
 
         switch (unit->eye2->cast_action) {
         case 1:
-            this->sub_5AA375(unit, unit->eye2->command_to, 0);
+            this->DoMoveStepTo(unit, unit->eye2->command_to, 0);
             break;
         case 2:
             this->sub_5AA78C(unit);
@@ -3141,7 +3141,7 @@ void World::OrderMoveTo(Unit* unit, uint8_t x, uint8_t y) {
 }
 
 // 5AA375 — set a unit to move/cast toward `yx`.
-void World::sub_5AA375(Unit* unit, PosYX yx, uint8_t max_range) {
+void World::DoMoveStepTo(Unit* unit, PosYX yx, uint8_t max_range) {
     unit->eye->field107_0x6c = 1;
 
     if (unit->eye->field114_0x74.val != yx.val) {
@@ -3185,7 +3185,7 @@ void World::sub_5AAB85(Unit* unit_same, Unit* unit) {
             unit->some_state = 0xF;
         }
     } else {
-        this->sub_5AA375(unit, unit->eye2->command_to, unit->eye2->max_range);
+        this->DoMoveStepTo(unit, unit->eye2->command_to, unit->eye2->max_range);
         unit->some_state = 1;
     }
 }
@@ -3346,7 +3346,7 @@ void World::sub_5AA9F6(Unit* unit) {
             unit->some_state = 2;
         }
     } else {
-        this->sub_5AA375(unit, unit->eye2->command_to, 0);
+        this->DoMoveStepTo(unit, unit->eye2->command_to, 0);
         unit->some_state = 1;
     }
 }
@@ -3354,7 +3354,7 @@ void World::sub_5AA9F6(Unit* unit) {
 // 5AAB08
 void World::sub_5AAB08(Unit* unit) {
     if (this->field24_0xa50->sub_58FEDA(unit, PosYX(unit->eye2->field30_0x3c), unit->eye2->max_range) == 0) {
-        this->sub_5AA375(unit, PosYX(unit->eye2->field30_0x3c), unit->eye2->max_range);
+        this->DoMoveStepTo(unit, PosYX(unit->eye2->field30_0x3c), unit->eye2->max_range);
         unit->some_state = 1;
     } else {
         this->sub_5AA84F(unit);
