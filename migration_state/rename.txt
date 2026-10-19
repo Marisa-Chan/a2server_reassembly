@@ -257,3 +257,4 @@ TransientVisualEffectBuilder::FUN_004CC3FD -> BuildFallingParticles -- 0x3C vari
 TransientVisualEffectBuilder::FUN_004CC944 -> BuildEnergyColumn -- hourglass column of 0x3E ring pairs at +/-y_offset around height plus a tilted base ring
 TransientVisualEffectBuilder::FUN_004CCAF2 -> BuildGroundRing -- 4-fold symmetric 0x30 ring on the ground plane, anim phase running one way
 TransientVisualEffectBuilder::FUN_004CCC7B -> BuildGroundRingReversed -- 0x40 ground ring with the opposite point/anim-phase orientation of BuildGroundRing
+TransientVisualEffectBuilder::FUN_004CC5D1 -> BuildCirclePoints -- Bresenham circle (4-fold symmetry) sampled into circle_points

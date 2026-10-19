@@ -2243,7 +2243,7 @@ void TransientVisualEffectBuilder::FUN_004CC798(int32_t x, int32_t y, int32_t he
     double sin_a = std::sin(rad);
     double anim_scale = 5.0 / speed;
 
-    this->FUN_004CC5D1(x, y, (int32_t)radius, 4);
+    this->BuildCirclePoints(x, y, (int32_t)radius, 4);
 
     for (int32_t i = 0; i < this->circle_points.GetSize(); i++) {
         CPoint* pt = &this->circle_points[i];
@@ -2257,7 +2257,7 @@ void TransientVisualEffectBuilder::FUN_004CC798(int32_t x, int32_t y, int32_t he
 }
 
 // 4cc5d1
-void TransientVisualEffectBuilder::FUN_004CC5D1(int32_t x, int32_t y, int32_t radius, int32_t step) {
+void TransientVisualEffectBuilder::BuildCirclePoints(int32_t x, int32_t y, int32_t radius, int32_t step) {
     int32_t px = 0;
     int32_t py = radius;
     int32_t decision = (1 - radius) * 2;
@@ -2498,7 +2498,7 @@ void TransientVisualEffectBuilder::BuildEnergyColumn(int16_t height, float speed
     int32_t span = (int32_t)(std::sin(std::acos(y_offset / (double)speed)) * radius);
     uint8_t anim_phase = 4 - std::abs((int32_t)(phase & 0xFF) - 0x2D) / 9;
 
-    this->FUN_004CC5D1(0, 0, span, anim_phase * 2);
+    this->BuildCirclePoints(0, 0, span, anim_phase * 2);
 
     for (int32_t i = 0; i < this->circle_points.GetSize(); i++) {
         CPoint* pt = &this->circle_points[i];
