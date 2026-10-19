@@ -1365,7 +1365,7 @@ void NetStru1::OnClientDisconnect(NetStru2* cli) {
 
     if (g_Server) {
         Player* pl = g_PlayersList->sub_535B50(cli->player_id);
-        if (pl && pl->field_0xa50 == 0) {
+        if (pl && pl->drop_deadline_tick16 == 0) {
             if (pl->is_ai == 1 || pl->player_id <= 15) {
                 LogMessage("Warning: trying to disconnect AI player " + pl->name);
             } else {
@@ -1379,10 +1379,10 @@ void NetStru1::OnClientDisconnect(NetStru2* cli) {
                     g_Server->field59_0x208 == 0) {
                     if (g_ServerConfig.gameType == 2) {
                         if (g_PlayersList->sub_53636E()) {
-                            pl->field_0xa50 = MAXINT32;
+                            pl->drop_deadline_tick16 = MAXINT32;
                         }
                     } else {
-                        pl->field_0xa50 = g_Server->tick16 + 300;
+                        pl->drop_deadline_tick16 = g_Server->tick16 + 300;
                     }
                 }
                 if (!MapStuff_Instance && g_Server->field4_0x74) {

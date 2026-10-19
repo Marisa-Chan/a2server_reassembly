@@ -36,7 +36,7 @@ Player::Player() {
     this->is_active = 0;
     this->deaths = 0;
     this->frags = 0;
-    this->field_0xa50 = 0;
+    this->drop_deadline_tick16 = 0;
     this->field_0xa5c = 0x5F; // '_'
     this->has_cd = 0;
     this->unit_list = new UnitList();
@@ -86,7 +86,7 @@ void Player::Serialize(CArchive& ar) {
         ar << this->is_in_world;
 
         ar << ((uint32_t)this->monster_kills ^ 0x5C073F4D);
-        ar << this->field_0xa50;
+        ar << this->drop_deadline_tick16;
 
         ar << (this->deaths > 0x7FFF ? (uint16_t)0x7FFF : (uint16_t)this->deaths);
         ar << (this->player_kills > 0x7FFF ? (uint16_t)0x7FFF : (uint16_t)this->player_kills);
@@ -114,7 +114,7 @@ void Player::Serialize(CArchive& ar) {
 
         ar >> this->monster_kills;
         this->monster_kills ^= 0x5C073F4D;        
-        ar >> this->field_0xa50;
+        ar >> this->drop_deadline_tick16;
 
         int16_t t16;
         ar >> t16;
@@ -221,7 +221,7 @@ void Player::FUN_00534778() {
     //534778
     this->is_active = 0;
     this->is_logged_in = 0;
-    this->field_0xa50 = g_Server->tick16;
+    this->drop_deadline_tick16 = g_Server->tick16;
 }
 
 // 5346AC

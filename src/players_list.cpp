@@ -221,7 +221,7 @@ void PlayersList::sub_534DDD() {
 			if (now > player->field_0xa90) {
 				// Timer expired.
 				player->FUN_00534778();
-				player->field_0xa50--;
+				player->drop_deadline_tick16--;
 				player->field_0xa90 = 0;
 			} else if (now - player->field_0xa94 >= 5000) {
 				// Send countdown notification every 5 seconds.
@@ -236,7 +236,7 @@ void PlayersList::sub_534DDD() {
 		}
 
 		// Check if player has timed out.
-		if (0 < player->field_0xa50 && player->field_0xa50 < g_Server->tick16) {
+		if (0 < player->drop_deadline_tick16 && player->drop_deadline_tick16 < g_Server->tick16) {
 			if (player->is_in_world != 0) {
 				// Tournament mode: save player's main unit.
 				if (g_Server->field4_0x74 != 0 && player->main_unit != nullptr) {

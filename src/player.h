@@ -64,7 +64,7 @@ public:
     uint8_t gap_0xa46[2];
     uint32_t monster_kills;
     uint32_t player_kills;
-    int32_t field_0xa50;
+    int32_t drop_deadline_tick16;
     uint32_t deaths;
     uint32_t frags;
     uint32_t field_0xa5c;

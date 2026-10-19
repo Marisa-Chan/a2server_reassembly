@@ -1793,7 +1793,7 @@ void Server::FUN_004ff439(Player* player, int32_t arg4) {
     }
 
     int slot = (arg4 >> 8) & 0xFF;
-    player->field_0xa50 = 0;
+    player->drop_deadline_tick16 = 0;
     player->is_logged_in = 1;
 
     auto main_unit = player->main_unit;
@@ -2091,7 +2091,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     player->name = name;
     unit->name = name;
     player->is_ai = 0;
-    player->field_0xa50 = this->tick16 + 300;
+    player->drop_deadline_tick16 = this->tick16 + 300;
     player->is_logged_in = 0;
 
     // Team game flags.
@@ -4159,7 +4159,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
         str.Format("Player %s returns to game.", player->name);
         LogMessage(str);
 
-        player->field_0xa50 = 0;
+        player->drop_deadline_tick16 = 0;
     } else {
         player_not_exist = true;
 
@@ -5209,7 +5209,7 @@ void Server::sub_4F8831() {
             if (client != nullptr) {
                 g_NetStru1_main.DisconnectClient(client);
             }
-            player->field_0xa50 = this->tick16 - 1;
+            player->drop_deadline_tick16 = this->tick16 - 1;
         }
     }
     g_NetStru1_main.ProcessConnections();
@@ -5485,7 +5485,7 @@ void Server::sub_5088DF(Packet* pkt) {
                 NetStru1::HatConnector.sub_51E794(id1, id2, 2, 0);
             } else {
                 NetStru1::HatConnector.sub_51E794(id1, id2, 0, 0);
-                player->field_0xa50 = this->tick16 + 300;
+                player->drop_deadline_tick16 = this->tick16 + 300;
             }
             break;
         }

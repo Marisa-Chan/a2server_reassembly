@@ -904,7 +904,7 @@ void Unit::VMethod2() {
                         g_NetStru1_main.DisconnectClient(ns2);
                     }
                     g_NetStru1_main.ProcessConnections();
-                    this->pOwner->field_0xa50 = (uint32_t)g_Server->tick16;
+                    this->pOwner->drop_deadline_tick16 = (uint32_t)g_Server->tick16;
                 }
                 // Toggles.
                 if (building->typeId == 0x1c || building->typeId == 0x1d || building->typeId == 0x4c || building->typeId == 0x4d) {
