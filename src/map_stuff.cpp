@@ -2889,8 +2889,8 @@ Scenario::~Scenario() {
     if (this->map_heights != nullptr) {
         free(this->map_heights);
     }
-    if (this->field_0x14 != nullptr) {
-        free(this->field_0x14);
+    if (this->object_map != nullptr) {
+        free(this->object_map);
     }
     if (this->field_0x18 != nullptr) {
         free(this->field_0x18);
@@ -2901,7 +2901,7 @@ Scenario::~Scenario() {
 Scenario::Scenario() {
     this->landscape = nullptr;
     this->map_heights = nullptr;
-    this->field_0x14 = nullptr;
+    this->object_map = nullptr;
     this->field_0x18 = nullptr;
 }
 
@@ -2923,11 +2923,11 @@ Scenario::Scenario(const char* fname) {
     memcpy(this->landscape, alm->landscape, this->width * this->height * 2);
 
     this->map_heights = (uint8_t*)malloc(this->width * this->height);
-    this->field_0x14 = (uint8_t*)malloc(this->width * this->height);
-    memset(this->field_0x14, 0, this->width * this->height);
+    this->object_map = (uint8_t*)malloc(this->width * this->height);
+    memset(this->object_map, 0, this->width * this->height);
     memcpy(this->map_heights, alm->map_heights, this->width * this->height);
     for (int32_t i = 8; i < this->height - 4; i++) {
-        memcpy(this->field_0x14 + i * this->width + 8, alm->map_objects + i * this->width + 8, this->width - 0x10);
+        memcpy(this->object_map + i * this->width + 8, alm->map_objects + i * this->width + 8, this->width - 0x10);
     }
 
     this->field_0x18 = (uint8_t*)malloc(this->width * this->height);

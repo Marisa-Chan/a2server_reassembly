@@ -164,3 +164,4 @@ AreaEffect::field_0x4c -> zone_active -- --
 AreaEffect::field_0x4d -> radius -- --
 AreaEffect::field_0x4e -> wave_pattern -- --
 AreaEffect::field_0x4f -> wave_step -- --
+Scenario::field_0x14 -> object_map -- per-cell static-object layer copied from alm->map_objects (terrain gfx cells)
