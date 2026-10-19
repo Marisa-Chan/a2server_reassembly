@@ -1799,11 +1799,11 @@ void CUnit::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
 
     for (int32_t i = 0; i < this->transientVisualElements.GetSize(); i++) {
         GO_11c* elem = &this->transientVisualElements[i];
-        if (elem->field_0x4 > 0) {
-            ProjectileInfo* proj = g_ProjectileInfos[elem->field_0x6];
-            int32_t x = this->centerScreenX + elem->field_0x0 - proj->width / 2;
-            int32_t y = this->centerScreenY - this->terrainHeightOffset - this->z_pos + elem->field_0x2 - proj->height / 2 - elem->field_0x4;
-            proj->FUN_0041f8f0()->VMethod2(x, y, elem->field_0x7, 0, 0);
+        if (elem->z > 0) {
+            ProjectileInfo* proj = g_ProjectileInfos[elem->vfx_type];
+            int32_t x = this->centerScreenX + elem->x - proj->width / 2;
+            int32_t y = this->centerScreenY - this->terrainHeightOffset - this->z_pos + elem->y - proj->height / 2 - elem->z;
+            proj->FUN_0041f8f0()->VMethod2(x, y, elem->phase, 0, 0);
         }
     }
 
@@ -1980,11 +1980,11 @@ void CUnit::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
 
     for (int32_t i = 0; i < this->transientVisualElements.GetSize(); i++) {
         GO_11c* elem = &this->transientVisualElements[i];
-        if (elem->field_0x4 <= 0) {
-            ProjectileInfo* proj = g_ProjectileInfos[elem->field_0x6];
-            int32_t x = this->centerScreenX + elem->field_0x0 - proj->width / 2;
-            int32_t y = this->centerScreenY - this->terrainHeightOffset - this->z_pos + elem->field_0x2 - proj->height / 2 - elem->field_0x4;
-            proj->FUN_0041f8f0()->VMethod2(x, y, elem->field_0x7, 0, 0);
+        if (elem->z <= 0) {
+            ProjectileInfo* proj = g_ProjectileInfos[elem->vfx_type];
+            int32_t x = this->centerScreenX + elem->x - proj->width / 2;
+            int32_t y = this->centerScreenY - this->terrainHeightOffset - this->z_pos + elem->y - proj->height / 2 - elem->z;
+            proj->FUN_0041f8f0()->VMethod2(x, y, elem->phase, 0, 0);
         }
     }
 }
@@ -2435,9 +2435,9 @@ int32_t TransientVisualEffectBuilder::FUN_004CC22D(CArray<GO_11c>* existing, int
     int16_t age_step = (int16_t)(z_radius / 7.0 + 1.0);
     for (int32_t i = 0; i < existing->GetSize(); i++) {
         GO_11c* elem = &(*existing)[i];
-        if (elem->field_0x6 == 0x38 && elem->field_0x7 < 7) {
-            elem->field_0x7 += 1;
-            elem->field_0x2 -= age_step;
+        if (elem->vfx_type == 0x38 && elem->phase < 7) {
+            elem->phase += 1;
+            elem->y -= age_step;
             this->visual_elements.Add(*elem);
         }
     }
@@ -2450,11 +2450,11 @@ int32_t TransientVisualEffectBuilder::FUN_004CC22D(CArray<GO_11c>* existing, int
     for (int32_t i = 0; i < count; i++) {
         double rad = FUN_004CD4B0(std::rand() % 360);
         GO_11c elem;
-        elem.field_0x0 = (int16_t)(std::cos(rad) * x_radius);
-        elem.field_0x2 = 0;
-        elem.field_0x4 = (int16_t)(std::sin(rad) * y_radius);
-        elem.field_0x6 = 0x38;
-        elem.field_0x7 = 0;
+        elem.x = (int16_t)(std::cos(rad) * x_radius);
+        elem.y = 0;
+        elem.z = (int16_t)(std::sin(rad) * y_radius);
+        elem.vfx_type = 0x38;
+        elem.phase = 0;
         this->visual_elements.Add(elem);
     }
     return 1;
@@ -2465,9 +2465,9 @@ int32_t TransientVisualEffectBuilder::FUN_004CC3FD(CArray<GO_11c>* existing, int
     int16_t age_step = (int16_t)(z_radius / 7.0 + 1.0);
     for (int32_t i = 0; i < existing->GetSize(); i++) {
         GO_11c* elem = &(*existing)[i];
-        if (elem->field_0x6 == 0x3C && elem->field_0x7 < 7) {
-            elem->field_0x7 += 1;
-            elem->field_0x2 += age_step;
+        if (elem->vfx_type == 0x3C && elem->phase < 7) {
+            elem->phase += 1;
+            elem->y += age_step;
             this->visual_elements.Add(*elem);
         }
     }
@@ -2480,11 +2480,11 @@ int32_t TransientVisualEffectBuilder::FUN_004CC3FD(CArray<GO_11c>* existing, int
     for (int32_t i = 0; i < count; i++) {
         double rad = FUN_004CD4B0(std::rand() % 0x168);
         GO_11c elem;
-        elem.field_0x0 = (int16_t)(std::cos(rad) * x_radius);
-        elem.field_0x2 = -z_radius;
-        elem.field_0x4 = (int16_t)(std::sin(rad) * y_radius);
-        elem.field_0x6 = 0x3C;
-        elem.field_0x7 = 0;
+        elem.x = (int16_t)(std::cos(rad) * x_radius);
+        elem.y = -z_radius;
+        elem.z = (int16_t)(std::sin(rad) * y_radius);
+        elem.vfx_type = 0x3C;
+        elem.phase = 0;
         this->visual_elements.Add(elem);
     }
     return 1;
@@ -2530,10 +2530,10 @@ int __cdecl CompareVisualElements(const void* left, const void* right) {
     const GO_11c* lhs = (const GO_11c*)left;
     const GO_11c* rhs = (const GO_11c*)right;
 
-    if (lhs->field_0x2 < rhs->field_0x2) {
+    if (lhs->y < rhs->y) {
         return 1;
     }
-    if (rhs->field_0x2 < lhs->field_0x2) {
+    if (rhs->y < lhs->y) {
         return -1;
     }
     return 0;
@@ -4582,13 +4582,13 @@ void CProjectile::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) {
     case 28:
         for (int32_t i = 0; i < this->transientVisualElements.GetSize(); i++) {
             GO_11c& el = this->transientVisualElements.ElementAt(i);
-            g_ProjectileInfos[28]->FUN_0041f8f0()->VMethod2(el.field_0x0 - 8, el.field_0x2 - 8, this->phase, 0, 0);
+            g_ProjectileInfos[28]->FUN_0041f8f0()->VMethod2(el.x - 8, el.y - 8, this->phase, 0, 0);
         }
         break;
     case 30:
         for (int32_t i = 0; i < this->transientVisualElements.GetSize(); i++) {
             GO_11c& el = this->transientVisualElements.ElementAt(i);
-            g_ProjectileInfos[30]->FUN_0041f8f0()->VMethod2(el.field_0x0 - 8, el.field_0x2 - 8, this->phase + el.field_0x6 * 5, 0, 0);
+            g_ProjectileInfos[30]->FUN_0041f8f0()->VMethod2(el.x - 8, el.y - 8, this->phase + el.vfx_type * 5, 0, 0);
         }
         break;
     case 54:
@@ -4677,8 +4677,8 @@ void CProjectile::VMethod12() {
         uint8_t* lightmap = map->field_0xa8;
         for (int32_t i = 0; i < this->transientVisualElements.GetSize(); i++) {
             GO_11c& el = this->transientVisualElements.ElementAt(i);
-            int32_t lx = el.field_0x0 >> 5;
-            int32_t ly = map->sub_4184B8(el.field_0x0, el.field_0x2);
+            int32_t lx = el.x >> 5;
+            int32_t ly = map->sub_4184B8(el.x, el.y);
             if (lx < 0 || ly < 0 || lx > map->view_tiles_x || ly > map->view_tiles_y + 4) {
                 continue;
             }
