@@ -869,7 +869,7 @@ int32_t MapStuff::sub_58AEEF(Unit* unit, uint8_t x, uint8_t y) {
                     unit->eye2->field81_0xb0 = PosYX{cell.teleport_x, cell.teleport_y}.val;
                 } else {
                     // WAT: original code guards this call with a stub that always returns true here,
-                    // so the else branch (SrvStru1::sub_4FBB24) is unreachable.
+                    // so the else branch (SrvStru1::MakeAreaSpellEffect) is unreachable.
                     g_Server->srv_stru1->sub_4FBAE3(cell.spell_x, cell.spell_y, unit, cell.spell_id, cell.spell_damage);
                 }
             }

@@ -2202,7 +2202,7 @@ void World::ScriptOP_0x15(TriggerAction* action) {
 
     uint32_t power = action->data[5] ? action->data[5] : 99;
 
-    g_Server->srv_stru1->sub_4FBB24(from_x, from_y, to_x, to_y, spell_id, power);
+    g_Server->srv_stru1->MakeAreaSpellEffect(from_x, from_y, to_x, to_y, spell_id, power);
 }
 
 // 5b4183 — Change group's owner

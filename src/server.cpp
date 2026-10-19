@@ -5702,7 +5702,7 @@ Unit* SrvStru1::AddDummyUnitWithSpell(int32_t xpos, int32_t ypos, int32_t spellI
     return unit;
 }
 
-void SrvStru1::sub_4FBB24(uint8_t from_x, uint8_t from_y, uint8_t to_x, uint8_t to_y, uint32_t spell_id, uint32_t power) { // 4FBB24
+void SrvStru1::MakeAreaSpellEffect(uint8_t from_x, uint8_t from_y, uint8_t to_x, uint8_t to_y, uint32_t spell_id, uint32_t power) { // 4FBB24
     Unit* unit = this->AddDummyUnitWithSpell(from_x, from_y, spell_id, power);
     unit->some_state = 14;
     unit->area_cast_x = to_x;
