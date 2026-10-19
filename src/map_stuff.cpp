@@ -1612,7 +1612,7 @@ Sack* MapStuff::sub_58E611(uint16_t yx) {
 }
 
 // 59449A
-int MapStuff::sub_59449A(Building* building, PosYX yx) {
+int MapStuff::ClearCellBuilding(Building* building, PosYX yx) {
     if (!this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
         return 0;
     }
@@ -1837,7 +1837,7 @@ int32_t MapStuff::RemoveBuilding(Building* building) {
             if (building->tiles_mask & (1u << bit_index)) {
                 uint8_t x = building->position->GetX() + col;
                 uint8_t y = building->position->GetY() + row;
-                if (!this->sub_59449A(building, PosYX(x, y))) {
+                if (!this->ClearCellBuilding(building, PosYX(x, y))) {
                     return 0;
                 }
             }
