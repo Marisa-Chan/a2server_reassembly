@@ -591,7 +591,7 @@ void MapStuff::sub_5907BE(Unit* unit) {
     unit->eye->field1_0x1 = this->sub_58A158(unit, unit->eye->position1);
 
     if (unit->eye->field0_0x0 == unit->eye->field1_0x1) {
-        this->sub_593CD5(unit, unit->position->CompatGetYX(), unit->eye->field0_0x0);
+        this->CalcMoveStep(unit, unit->position->CompatGetYX(), unit->eye->field0_0x0);
         unit->eye->field156_0xac = 0;
         this->sub_58FB12(unit);
     } else {
@@ -2649,7 +2649,7 @@ uint8_t MapStuff::sub_594C87(uint16_t yx) {
 }
 
 // 593CD5 --- Computes movement step magnitude/heading toward yx.
-int32_t MapStuff::sub_593CD5(Unit* unit, uint16_t yx, uint8_t val) {
+int32_t MapStuff::CalcMoveStep(Unit* unit, uint16_t yx, uint8_t val) {
     uint8_t dir = (val + 0x10) >> 5;
     uint16_t yx2 = yx + this->field50_0x58e98[dir];
 

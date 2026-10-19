@@ -609,3 +609,4 @@ MapStuff::sub_590F94 -> SetFacing -- sets the unit facing
 MapStuff::sub_5918B8 -> FaceTarget -- turn the unit toward the target
 MapStuff::sub_5918E2 -> FacePosition -- turn the unit toward yx
 MapStuff::sub_593B29 -> ChebyshevDistance -- Chebyshev distance between two YX positions
+MapStuff::sub_5964D7 -> GatherUnitsNear -- gathers units near yx within range into out_list
