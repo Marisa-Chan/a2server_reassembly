@@ -759,7 +759,7 @@ CString* GameDataRes::sub_50DB4E(CString* out1, const CString* in_name, CString*
 }
 
 // 510502
-Item* GameDataRes::sub_510502(CString* name) {
+Item* GameDataRes::FindItemTemplate(CString* name) {
     CString base_name;
     CString extra;
     this->sub_50DB4E(&extra, name, &base_name);

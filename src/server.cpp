@@ -2706,7 +2706,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             return;
         }
 
-        Item* item = g_GameDataRes.sub_510502(&cheat_string);
+        Item* item = g_GameDataRes.FindItemTemplate(&cheat_string);
         if (item == nullptr) {
             if (!is_reconnect) {
                 g_NetStru1_main.FUN_0051ce86(6, player->player_id, nullptr);
