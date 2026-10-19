@@ -55,7 +55,7 @@ public:
     void ApplyPropertyString(const CString& str); // Apply special property string to item effects, then call VMethod15
     void RecalcFromTemplate(); // Recalculate item properties from template data
 
-    Effect* sub_548E4E(); // Find the cast-spell Effect on this item (returns nullptr if none)
+    Effect* FindCastSpellEffect(); // Find the cast-spell Effect on this item (returns nullptr if none)
     int IsSimilar(Item* other); // 548860. Is this item similar to another? Same non-magic item or same base with same magic.
 
     void StoreToPacket(PacketUnitStateVec* pkt, int arg); // 549afb

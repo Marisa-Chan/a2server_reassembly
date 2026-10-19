@@ -362,7 +362,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
         }
         power = raw;
     } else {
-        Effect* cast_effect = caster->some_item->sub_548E4E();
+        Effect* cast_effect = caster->some_item->FindCastSpellEffect();
         power = (cast_effect != nullptr) ? cast_effect->spell_value : 0;
     }
     this->sub_539541((uint8_t)power);

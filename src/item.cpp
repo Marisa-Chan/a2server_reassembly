@@ -542,7 +542,7 @@ void Item::RemoveEffects(Unit* unit) {
 }
 
 // 548E4E
-Effect* Item::sub_548E4E() {
+Effect* Item::FindCastSpellEffect() {
     POSITION it = this->_effects.GetHeadPosition();
     while (it != nullptr) {
         Effect* e = this->_effects.GetNext(it);
@@ -1190,7 +1190,7 @@ void Weapon::SetImbuedSpell(uint8_t spell_id) {
 
 // 551BDB
 void Weapon::InitImbuedSpell() {
-    Effect* effect = this->sub_548E4E();
+    Effect* effect = this->FindCastSpellEffect();
     if (effect != nullptr) {
         this->SetImbuedSpell(effect->damage_min);
     }
