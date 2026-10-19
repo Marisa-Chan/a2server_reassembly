@@ -1498,7 +1498,7 @@ void Unit::sub_52D94E() {
         // Create sack if inventory has items or gold was dropped.
         if ((this->inventory->items.GetSize() > 0 || gold > 0) && this->pOwner != nullptr) {
             int is_main = (this->pOwner->main_unit == this) ? 1 : 0;
-            // Inline sub_52D8D3: drop inventory as a sack on the map.
+            // Inline CreateSackFromInventory: drop inventory as a sack on the map.
             Inventory* sack_items = this->DetachInventory();
             g_Server->srv_stru1->sack_list->sub_554927(this->position, sack_items, gold, is_main);
         }
@@ -1813,7 +1813,7 @@ void Unit::CancelQueuedSpell() {
 }
 
 // 52D8D3
-void Unit::sub_52D8D3(Inventory* inventory, int32_t money, int32_t is_main_player_unit) {
+void Unit::CreateSackFromInventory(Inventory* inventory, int32_t money, int32_t is_main_player_unit) {
     g_Server->srv_stru1->sack_list->sub_554927(this->position, inventory, money, is_main_player_unit);
 }
 

@@ -2190,7 +2190,7 @@ void World::ScriptOP_0x13(TriggerAction* action) {
 
 // 5b41f9 — Drop all: destroy all items in unit's inventory
 void World::ScriptOP_0x14(TriggerAction* action) {
-    action->unit->sub_52D8D3(action->unit->inventory, 0, 0);
+    action->unit->CreateSackFromInventory(action->unit->inventory, 0, 0);
     action->unit->inventory = new Inventory();
 }
 
