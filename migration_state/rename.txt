@@ -314,3 +314,4 @@ Unit::sub_52C4DF -> AddHp -- adds HP clamped to hp_max, triggers regen notificat
 Unit::sub_52BF3D -> PlaceOnMap -- places the unit footprint on the map; nonzero on success
 Unit::sub_528725 -> GetRightXx -- east edge x of the footprint in subcells
 Unit::sub_528763 -> GetBottomYy -- south edge y of the footprint in subcells
+Unit::sub_52BABD -> GetTicksSinceAction -- g_Server->tick - last_action_tick (idle time)

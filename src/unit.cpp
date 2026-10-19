@@ -762,7 +762,7 @@ void Unit::ProcessEffects() {
 
     switch (this->some_state) {
     case 1: // Move?
-        this->sub_52BDD7(x_wide, y_wide, eye_f0, eye_f1);
+        this->ProcessMoveStep(x_wide, y_wide, eye_f0, eye_f1);
         this->some_state2 = 0;
         break;
 
@@ -1897,7 +1897,7 @@ int Unit::PlaceOnMap(uint8_t x, uint8_t y, uint8_t size) {
 }
 
 // 52BDD7
-void Unit::sub_52BDD7(uint16_t xx, uint16_t yy, uint8_t eye0, uint8_t eye1) {
+void Unit::ProcessMoveStep(uint16_t xx, uint16_t yy, uint8_t eye0, uint8_t eye1) {
     uint16_t cur_xx = this->position->GetXx();
     uint16_t cur_yy = this->position->GetYy();
     if (cur_xx == xx && cur_yy == yy) {
