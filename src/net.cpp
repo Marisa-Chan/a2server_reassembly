@@ -1902,7 +1902,7 @@ A2NetSock::A2NetSock() {
     this->copy_num = -1;
     this->wait_obj = nullptr;
     this->latency = 0;
-    this->field_0x260 = 0;
+    this->stat_pkts_queued = 0;
     this->field_0x264 = 0;
 }
 
@@ -1919,7 +1919,7 @@ A2NetSock::~A2NetSock() {
     this->current_buffer = nullptr;
     this->copy_num = -1;
     this->latency = 0;
-    this->field_0x260 = 0;
+    this->stat_pkts_queued = 0;
     this->field_0x264 = 0;
 }
 
@@ -3345,7 +3345,7 @@ void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t
                 sock->latency_check.num = 0;
                 sock->latency_check.calc_latency = sock->latency;
                 sock->latency = 0;
-                sock->field_0x260 = 0;
+                sock->stat_pkts_queued = 0;
                 sock->field_0x264 = 0;
                 sock->manager = this->hl_driver->AllocClientBufManager(sock->uid);
 
@@ -3817,7 +3817,7 @@ int CLlDriver::SendDataDp(A2NetSock* sock, NetStru3* buffer) {
             sock->next_out_pktid++;
             sock->list_0x14.AddTail(buffer);
 
-            sock->field_0x260++;
+            sock->stat_pkts_queued++;
             sock->field_0x264--;
         }
     } else {
@@ -4092,8 +4092,8 @@ int32_t CLlDriver::GetPacketLoss(uint32_t conn_uid) {
         return 0;
     }
 
-    if (sock->field_0x260 > 1000) {
-        sock->field_0x260 /= 10;
+    if (sock->stat_pkts_queued > 1000) {
+        sock->stat_pkts_queued /= 10;
         sock->field_0x264 /= 10;
     }
 
@@ -4101,7 +4101,7 @@ int32_t CLlDriver::GetPacketLoss(uint32_t conn_uid) {
         return 0;
     }
 
-    return ((float)sock->field_0x264 * 100000.0) / (float)sock->field_0x260;
+    return ((float)sock->field_0x264 * 100000.0) / (float)sock->stat_pkts_queued;
 }
 
 // Helper: check if a map visibility grid cell is visible to a player.

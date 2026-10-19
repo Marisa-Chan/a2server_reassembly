@@ -44,3 +44,4 @@ PackerTail::field_0x4 -> child1 -- second child pointer of the (unused) Huffman 
 NetStru2::field_0x2a8 -> is_claimed -- connection already bound to a player/login (guard for 0xD0 reconnect claim, set on HAT login and non-DPlay connect)
 A2NetSock::field_0x4c -> next_out_pktid -- packet id assigned to the next outgoing non-guaranteed packet
 A2NetSock::field_0x50 -> next_in_pktid -- next incoming packet id expected (out-of-order ones buffered in list_0x30)
+A2NetSock::field_0x260 -> stat_pkts_queued -- total packets queued (divisor of GetPacketLoss ratio)
