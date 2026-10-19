@@ -76,9 +76,13 @@ Resources::~Resources()
 void Resources::AddPath(const char* path)
 {
 	//4e6273
-
 	if (GetPathType(path) != 2) {
+        #ifdef A2SERVER_PATCH
+        ::MessageBoxA(NULL, path, "Ignoring resource path", MB_OK);
+        return;
+        #else
 		AfxThrowFileException(CFileException::badPath);
+        #endif
 	}
 
 	char buf[1024];
