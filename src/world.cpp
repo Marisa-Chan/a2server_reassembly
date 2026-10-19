@@ -2408,7 +2408,7 @@ uint8_t World::UnitMaxRange(Unit* unit) { //5a6adb
 }
 
 // 5A5E54 — build active/alternate target lists around unit.
-void World::sub_5A5E54(Unit* unit) {
+void World::BuildTargetLists(Unit* unit) {
     Visibility* visibility = &this->field24_0xa50->visibility;
     visibility->sub_58E1C1();
     uint8_t* scratch = visibility->vis_scratch;
@@ -2459,7 +2459,7 @@ void World::DoGuardScan(Unit* unit) {
     uint8_t best_score_diff = 0xFF;
     Unit* best_target = nullptr;
 
-    this->sub_5A5E54(unit);
+    this->BuildTargetLists(unit);
 
     POSITION it = this->field26_0xa64.unit_list.GetHeadPosition();
     while (it != nullptr) {

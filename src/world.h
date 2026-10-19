@@ -318,7 +318,7 @@ public:
     UnitList* sub_5A384F(Unit* caster, PosYX yx); // Get nearby ally UnitList for caster at yx.
     void sub_5A4590(); // 5A4590
     uint8_t UnitMaxRange(Unit* unit);                  // Get effective max cast range for unit.
-    void sub_5A5E54(Unit* unit); // 5A5E54 — build active/alternate target lists around unit.
+    void BuildTargetLists(Unit* unit); // 5A5E54 — build active/alternate target lists around unit.
     void BeginPositionCast(Unit* caster, uint16_t pos_yx, Spell* spell); // 5A551C — set up a position-targeted cast action (ASM).
     void CastKnownSpell(Unit* unit, Unit* target, int32_t spell_id); // 5A6801 — pick and start casting a known spell.
     void SetIdleOrRetreat(Unit* unit, int param);           // Set unit to idle/wander (param=0) or retreat (param!=0).
