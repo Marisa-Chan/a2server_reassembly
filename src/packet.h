@@ -387,7 +387,7 @@ public:
     uint16_t unit_id;  // +0xA
     uint8_t type_id;  // +0xC (= 0 in ctor)
     uint8_t x;  // +0xD (= 0 in ctor)
-    uint8_t field_0xe;  // +0xE (= 0 in ctor)
+    uint8_t y;  // +0xE (= 0 in ctor)
     uint16_t field_0xf;  // +0xF
 };
 __pragma(pack(pop))

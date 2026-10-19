@@ -1448,10 +1448,10 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					if (packet_move->type_id < g_ProjectileInfos.GetSize() && g_ProjectileInfos[packet_move->type_id] != nullptr) {
 						if (g_ProjectileInfos[packet_move->type_id]->homing == 0) {
 							ct->action_x = packet_move->x * 0x100 + 0x80;
-							ct->action_y = packet_move->field_0xe * 0x100 + 0x80;
+							ct->action_y = packet_move->y * 0x100 + 0x80;
 							ct->action_target = 0;
 						} else {
-							ct->action_target = packet_move->x | (packet_move->field_0xe << 8);
+							ct->action_target = packet_move->x | (packet_move->y << 8);
 						}
 					} else {
 						ct->action_x = ct->x_pos;
@@ -1464,7 +1464,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				CProjectile* pj = new CProjectile();
 				pj->typeId = packet_move->type_id;
 				pj->x_pos = packet_move->x * 0x100 + 0x80;
-				pj->y_pos = packet_move->field_0xe * 0x100 + 0x80;
+				pj->y_pos = packet_move->y * 0x100 + 0x80;
 				pj->z_pos = 0;
 				pj->x_pos2 = pj->x_pos;
 				pj->y_pos2 = pj->y_pos;
@@ -1567,10 +1567,10 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			
 			if (g_ProjectileInfos[packet_move->type_id]->homing == 0) {
 				pj->action_x = packet_move->x * 0x100 + 0x80;
-				pj->action_y = packet_move->field_0xe * 0x100 + 0x80;
+				pj->action_y = packet_move->y * 0x100 + 0x80;
 				pj->action_target = 0;
 			} else {
-				pj->action_target = packet_move->x | (packet_move->field_0xe << 8);
+				pj->action_target = packet_move->x | (packet_move->y << 8);
 			}
 
 			pj->action_z = pj->z_pos;

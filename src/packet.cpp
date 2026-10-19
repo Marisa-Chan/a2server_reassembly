@@ -538,7 +538,7 @@ PacketMoveCmd::PacketMoveCmd() {
     this->id         = 0x86;
     this->type_id  = 0;
     this->x  = 0;
-    this->field_0xe  = 0;
+    this->y  = 0;
 }
 
 PacketMoveCmd::PacketMoveCmd(const PacketMoveCmd* src) {

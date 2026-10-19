@@ -24,3 +24,4 @@ PacketAbility::field_0xd -> segments -- attack animation segments/ticks (charge+
 PacketMoveCmd::field_0xa -> unit_id -- caster/effect owner unit id (word)
 PacketMoveCmd::field_0xc -> type_id -- projectile/effect type (g_ProjectileInfos index, spell_id*2+8)
 PacketMoveCmd::field_0xd -> x -- target tile x (low byte of target unit id for homing projectiles)
+PacketMoveCmd::field_0xe -> y -- target tile y (high byte of target unit id for homing projectiles)
