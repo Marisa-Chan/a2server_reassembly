@@ -499,3 +499,4 @@ World::sub_5AAB85 -> ApproachBuilding -- approach the command_to position for en
 World::sub_5AAF84 -> TurnToFacing -- force-turn to facing, marking some_state when facing changed
 World::sub_5AA7CF -> StartCastAtUnit -- begins the cast at unit5 (some_state 0x0D)
 World::sub_5AA84F -> StartAreaCast -- begins the area cast at the queued position (some_state 0x0E)
+World::sub_5AA581 -> RecordUnitHit -- marks attacker intent and updates the diplomacy/combat record

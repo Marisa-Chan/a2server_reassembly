@@ -234,7 +234,7 @@ public:
     int32_t sub_5B6F60(int32_t min, int32_t max); // 5B6F60
     void RecordUnitHit(Unit* target, Unit* attacker, int32_t param_4); // Record PvP hit and update combat log
     void ResetUnitToHold(Unit* unit); // World callback: register newly summoned/placed unit
-    void sub_5A59E2(Unit* unit); // 5A59E2
+    void DoPatrolTick(Unit* unit); // 5A59E2
     void sub_5A5B49(Unit* unit); // 5A5B49
     void ResetUnitToIdle(Unit* unit); // 5A9A8F — reset unit to idle (ASM).
     void sub_5A6789(Unit* unit); // 5A6789

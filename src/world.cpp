@@ -3801,7 +3801,7 @@ void World::sub_5A8CD8(Unit* unit) {
 }
 
 // 5A59E2
-void World::sub_5A59E2(Unit* unit) {
+void World::DoPatrolTick(Unit* unit) {
     unit->eye2->cast_action = 0;
     if (unit->eye2->field2_0x4 != 0) {
         unit->eye2->position1 = unit->position->CompatGetYX();
@@ -4012,7 +4012,7 @@ void World::ProcessUnitState(Unit* unit) {
         this->sub_5A5568(unit, unit->eye2->unit2);
         break;
     case 10:
-        this->sub_5A59E2(unit);
+        this->DoPatrolTick(unit);
         break;
     case 11:
         this->sub_5A5B49(unit);
