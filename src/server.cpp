@@ -5964,7 +5964,7 @@ SpellEffectList::~SpellEffectList() { //5583ed
 }
 
 // 55BF31
-void SpellEffectList::sub_55BF31(CArchive& ar) {
+void SpellEffectList::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
         ar << this->list.GetCount();
         for (POSITION it = this->list.GetHeadPosition(); it != nullptr;) {
@@ -6327,7 +6327,7 @@ void Server::SerializeGame(CArchive& ar) {
 
         if (this->field18_0x94 != 0) {
             this->srv_stru1->building_list->sub_558908(ar);
-            this->srv_stru1->effects_list->sub_55BF31(ar);
+            this->srv_stru1->effects_list->Serialize(ar);
             MapStuff_Instance->sub_58AB48(ar);
             g_World->sub_5B0556(ar);
             this->srv_stru1->sack_list->Serialize(ar);
@@ -6402,7 +6402,7 @@ void Server::SerializeGame(CArchive& ar) {
             if (this->srv_stru1->effects_list == nullptr) {
                 this->srv_stru1->effects_list = new SpellEffectList();
             }
-            this->srv_stru1->effects_list->sub_55BF31(ar);
+            this->srv_stru1->effects_list->Serialize(ar);
 
             CString map_name = this->current_map_name;
             if (this->field21_0xd4 != 0) {
