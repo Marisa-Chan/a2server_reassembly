@@ -124,7 +124,7 @@ Unit::Unit(const TokenPos *pos, Player *player)
 }
 
 Unit::~Unit() {
-    Unit::VMethod10();
+    Unit::ReleaseObjects();
 }
 
 
@@ -946,7 +946,7 @@ int32_t Unit::IsHumanoid() {
     return 0;
 }
 
-void Unit::VMethod10() {
+void Unit::ReleaseObjects() {
     // 52a504
     if (this->some_item && ((this->some_item->item_id >> 8) & 0xF) == 0xE) {
         delete this->some_item;
@@ -2263,7 +2263,7 @@ void Humanoid::InitStats() {
 
 Humanoid::~Humanoid() {
     //53015b
-    Humanoid::VMethod10();
+    Humanoid::ReleaseObjects();
 }
 
 void Humanoid::FixupPointers() {
@@ -2281,9 +2281,9 @@ int32_t Humanoid::IsHumanoid() {
     return 1;
 }
 
-void Humanoid::VMethod10() {
+void Humanoid::ReleaseObjects() {
     //5301ac
-    Unit::VMethod10();
+    Unit::ReleaseObjects();
     for (int i = 1; i < this->equipment.size(); i++) {
         Item*& rEq = this->equipment[i];
         if (rEq) {

@@ -75,7 +75,7 @@ public: // VTable at 60efc0.
     virtual void FixupPointers() override;
     virtual int32_t IsUnit() override; // IsUnit
     virtual int32_t IsHumanoid() override; // IsHumanoid
-    virtual void VMethod10();
+    virtual void ReleaseObjects();
     virtual void VMethod11(Unit *);
     virtual Item* VMethod12(Item *);
     virtual void VMethod13(Item *);
@@ -254,7 +254,7 @@ public:
     virtual int32_t IsUnit() override;
     virtual int32_t IsHumanoid() override;
     //virtual int32_t VMethod9() override;
-    virtual void VMethod10() override;
+    virtual void ReleaseObjects() override;
     //virtual void VMethod11(Unit*) override;
     virtual Item* VMethod12(Item*) override;
     virtual void VMethod13(Item*) override;

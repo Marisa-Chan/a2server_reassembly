@@ -591,7 +591,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
                     unit = new Unit();
                     dword_6B37C4->AddTail(unit);
                 }
-                unit->VMethod10();
+                unit->ReleaseObjects();
 
                 switch (corpse_decay) {
                 case 2:
@@ -698,7 +698,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
                     unit = new Unit();
                     dword_6B37C4->AddTail(unit);
                 }
-                unit->VMethod10();
+                unit->ReleaseObjects();
 
                 int32_t roll = Random1N(3);
                 int32_t tier = caster->hit_values.skill_levels[5] / 25 + 1;
