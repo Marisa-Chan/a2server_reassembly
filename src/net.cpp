@@ -360,7 +360,7 @@ void NetStru1::sub_51C0F7(Player* player) {
         while (pos != nullptr) {
             Unit* unit = dword_6CDB3C->unit_list.GetNext(pos);
             uint32_t flags = (unit->building_id < 0x6000) ? 0xA35FFFFF : 0x100013;
-            if (unit->field_0x204 != 0) {
+            if (unit->ownership_changed != 0) {
                 flags |= 0x40;
             }
             if (g_Server->field4_0x74 == 0 && 0x16 <= unit->server_id && unit->server_id <= 0x17) {
@@ -376,7 +376,7 @@ void NetStru1::sub_51C0F7(Player* player) {
         while (pos != nullptr) {
             Unit* unit = units_list->unit_list.GetNext(pos);
             uint32_t flags = (unit->building_id < 0x6000) ? 0xA35FFFFF : 0x13;
-            if (unit->field_0x204 != 0) {
+            if (unit->ownership_changed != 0) {
                 flags |= 0x40;
             }
             if (unit->decay < 5) {
@@ -681,7 +681,7 @@ void NetStru1::FUN_004fb4ca(Unit* unit, Player* new_owner) {
     g_NetStru1_main.sub_519221(unit, 0, 0xFFFFFFFF, 0xFFB, 0, 0);
     
     // Mark unit as needing update?
-    unit->field_0x204 = 1;
+    unit->ownership_changed = 1;
 }
 
 // sub_519221: send unit state to a player (or all players if player==nullptr)

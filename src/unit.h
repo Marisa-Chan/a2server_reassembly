@@ -213,7 +213,7 @@ public:
     CList<PosYX> list1;
     CList<PosYX> list2;
     TokenPos* token_pos;
-    int32_t field_0x204;
+    int32_t ownership_changed;
 };
 
 ASSERT_OFFSET(Unit, inventory, 0x7C);

@@ -348,7 +348,7 @@ void Unit::Serialize(CArchive& ar) {
         ar << this->last_action_tick;
         ar << this->decay;
         uint32_t packed = this->server_id
-            | ((this->field_0x204 & 0xFF) << 16)
+            | ((this->ownership_changed & 0xFF) << 16)
             | ((this->summoned & 0xFF) << 24);
         ar << packed;
         ar << this->enchantments;
@@ -430,7 +430,7 @@ void Unit::Serialize(CArchive& ar) {
         ar.Read(&this->last_hit_by, 4);
         ar.Read(&this->last_hit_spell_id, 1);
         this->server_id = (uint16_t)(packed & 0xFFFF);
-        this->field_0x204 = (packed & 0xFF0000) != 0 ? 1 : 0;
+        this->ownership_changed = (packed & 0xFF0000) != 0 ? 1 : 0;
         this->summoned = (packed & 0xFF000000) != 0 ? 1 : 0;
         if (!this->VMethod8()) {
             this->monster_info = &g_GameDataRes.monsters[this->itemDataID];
@@ -641,7 +641,7 @@ void Unit::VMethod11(Unit* unit) {
     this->quest_kill_mark = unit->quest_kill_mark;
     this->quest_escort_mark = unit->quest_escort_mark;
     this->quest_intercept_mark = unit->quest_intercept_mark;
-    this->field_0x204 = unit->field_0x204;
+    this->ownership_changed = unit->ownership_changed;
 }
 
 
@@ -1775,7 +1775,7 @@ void Unit::FUN_0052931b(const CString& str) {
     this->summoned = 0;
     this->seen_by_mask = 0;
     this->seen_by_mask_prev = 0;
-    this->field_0x204 = 0;
+    this->ownership_changed = 0;
     memset(this->something_per_player, 0, 0x40);
     this->sub_52A215();
     if (!str.IsEmpty()) {
