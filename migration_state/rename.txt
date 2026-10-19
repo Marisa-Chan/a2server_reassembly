@@ -345,3 +345,4 @@ Human: FUN_00532587 -> InitFromName -- human ctor body: parses Name.fN face/fema
 free: sub_4F499B -> ReadItem -- reads one Item (with effects) from a byte cursor
 free: sub_540DAA -> ParseEffectString -- parses an effect string like '+3 fire' into an effects list
 free: sub_54F176 -> TotalEffectPrice -- sums EffectPrice of all effects on the item
+CowardActivation::sub_5A3498 -> CheckActivationKey -- decodes activation key rows against the input string

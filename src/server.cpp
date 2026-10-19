@@ -261,7 +261,7 @@ void Server::sub_4F1E2A() {
         }
     }
 
-    this->srv_stru1->sub_4FAEB4();
+    this->srv_stru1->FreeLists();
 
     if (g_World != nullptr) {
         delete g_World;
@@ -5574,7 +5574,7 @@ int32_t CowardActivation::CheckActivationKey(const char* str) {
 }
 
 // 4FAEB4
-void SrvStru1::sub_4FAEB4() {
+void SrvStru1::FreeLists() {
     if (this->sack_list) {
         delete this->sack_list;
         this->sack_list = nullptr;
