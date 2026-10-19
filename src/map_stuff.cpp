@@ -2583,7 +2583,7 @@ Unit* MapStuff::GetBuildingUnitAt(uint8_t x, uint8_t y) {
 }
 
 // 594768 --- set bit 0x10 in both obstacle maps at (x, y)
-void MapStuff::sub_594768(uint8_t x, uint8_t y) {
+void MapStuff::BlockCell(uint8_t x, uint8_t y) {
     PosYX yx(x, y);
     this->ObstacleAt(yx).SetBits(0x10);
     this->Obstacle2At(yx).SetBits(0x10);

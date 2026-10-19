@@ -347,7 +347,7 @@ void AreaEffect::sub_5384FF() {
 			this->sub_53831D(MapStuff_Instance->GetBuildingUnitAt(dx, dy));
 			if (spread_damage) {
 				this->sub_53868D(dx, dy);
-				MapStuff_Instance->sub_594768(dx, dy);
+				MapStuff_Instance->BlockCell(dx, dy);
 			}
 		}
 	}
@@ -372,7 +372,7 @@ void AreaEffect::sub_538137(uint8_t x, uint8_t y, bool spread_damage) {
 	MapStuff_Instance->sub_594E65(this, x, y);
 	this->sub_53868D(x, y);
 	if (spread_damage) {
-		MapStuff_Instance->sub_594768(x, y);
+		MapStuff_Instance->BlockCell(x, y);
 	}
 }
 

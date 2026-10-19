@@ -204,7 +204,7 @@ public:
     void PlaceAreaEffectAt(AreaEffect* ae, uint8_t x, uint8_t y); // 59501E
     int RemoveAreaEffectAt(AreaEffect* ae, uint16_t yx); // 595073 — remove area effect from cell state at yx
     Unit* GetBuildingUnitAt(uint8_t x, uint8_t y); // 5946BF
-    void sub_594768(uint8_t x, uint8_t y); // 594768
+    void BlockCell(uint8_t x, uint8_t y); // 594768
     int sub_596576(uint16_t yx, void* src); // Apply terrain modification from 6-byte src buffer at yx
     AreaEffect** sub_59536C(uint32_t yx); // Get pointer to area_effects[6] array at cell yx.
     int16_t sub_5913BD(Unit* unit, uint8_t x, uint8_t y); // Movement time for unit entering tile (x,y).
