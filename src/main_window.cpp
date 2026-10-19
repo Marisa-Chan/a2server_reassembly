@@ -1881,7 +1881,7 @@ void MainWindow::sub_48A756() {
                         if (g_Server->FileList.GetSize() == 0) {
                             g_Server->sub_4F1E2A();
 
-                            this->field_0x3d0->MsgProc(0x445, 0, 0);
+                            this->vis_serverscreen->MsgProc(0x445, 0, 0);
                             return;
                         }
                     }
@@ -1950,9 +1950,9 @@ void MainWindow::sub_48A756() {
             // Client mode processing (g_IsServer == 0 means client mode).
             if (g_IsServer == 0) {
                 if (this->has_focus != 0) {
-                    if (this->field_0x3d0 != nullptr) {
+                    if (this->vis_serverscreen != nullptr) {
                         if (this->game_tic_counter == 1) {
-                            this->field_0x3d0->VMethod9();
+                            this->vis_serverscreen->VMethod9();
                         }
                     }
                 }
@@ -2554,16 +2554,16 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         delete this->vis_hatbrowser;
         this->vis_hatbrowser = nullptr;
         return;
-    } else if (obj == this->field_0x3d0) {
+    } else if (obj == this->vis_serverscreen) {
         this->dialogsMask &= ~8;
         this->dialogsMask = 0;
 
-        if (this->field_0x3d0->GetCloseCode() == 0x445) {
+        if (this->vis_serverscreen->GetCloseCode() == 0x445) {
             PostMessage(0x421, 0, 0);
         }
 
-        delete this->field_0x3d0;
-        this->field_0x3d0 = nullptr;
+        delete this->vis_serverscreen;
+        this->vis_serverscreen = nullptr;
     } else if (obj == this->vis_msgbox) {
         this->dialogsMask &= ~8;
 
@@ -3954,8 +3954,8 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
 
         g_Server->field41_0x1b0 = 1;
 
-        this->field_0x3d0 = new VisServerScreen(1, 0, 0, g_ScreenSize.right, g_ScreenSize.bottom, &this->vis_map_context->msglog);
-        this->PopUpScreen(this->field_0x3d0);
+        this->vis_serverscreen = new VisServerScreen(1, 0, 0, g_ScreenSize.right, g_ScreenSize.bottom, &this->vis_map_context->msglog);
+        this->PopUpScreen(this->vis_serverscreen);
     }
 
     char buf[128];

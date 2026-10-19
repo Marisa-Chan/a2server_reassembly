@@ -518,7 +518,7 @@ public:
     ComSettings com_settings; //39c
     CString last_ip; //3b0
     HatSettings hat_settings; //3b4
-    VisScreen* field_0x3d0;
+    VisScreen* vis_serverscreen;
     VisScreen* field_0x3d4;
     VisFameDocument* vis_famedocument;
     VisScreen* field_0x3dc;

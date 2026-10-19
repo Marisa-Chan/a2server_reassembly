@@ -97,3 +97,4 @@ MainWindow::field_0x348 -> diplomacy_entries
 MainWindow::field_0x350 -> vis_connectiondlg
 MainWindow::field_0x378 -> vis_netmapsel
 MainWindow::field_0x37c -> vis_hatbrowser
+MainWindow::field_0x3d0 -> vis_serverscreen
