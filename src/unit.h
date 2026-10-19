@@ -89,7 +89,7 @@ public: // VTable at 60efc0.
     virtual void AddExperience(uint32_t, Unit *, int32_t);
     virtual void AwardKillExperience(Unit*, int32_t);
     virtual void AwardDamageExperience(Unit*, uint32_t, int32_t);
-    virtual void VMethod24(Unit*, int32_t spell_id);
+    virtual void AwardCastExperience(Unit*, int32_t spell_id);
     virtual int32_t VMethod25();
 
 public:
@@ -268,7 +268,7 @@ public:
     virtual void AddExperience(uint32_t newExp, Unit *target, int32_t sphere) override;
     virtual void AwardKillExperience(Unit*, int32_t spell_id) override;
     virtual void AwardDamageExperience(Unit*, uint32_t damage, int32_t spell_id) override;
-    virtual void VMethod24(Unit*, int32_t spell_id) override;
+    virtual void AwardCastExperience(Unit*, int32_t spell_id) override;
     virtual int32_t VMethod25() override;
 
 public:

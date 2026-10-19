@@ -378,7 +378,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
     }
 
     if ((caster->unit_attrs & 2) != 0 && caster->some_item == nullptr) {
-        caster->VMethod24(target, this->spell_id);
+        caster->AwardCastExperience(target, this->spell_id);
     }
 
     // Phase 3: Setup local position from target or coordinates

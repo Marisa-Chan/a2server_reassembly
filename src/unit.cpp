@@ -1197,7 +1197,7 @@ void Unit::AwardKillExperience(Unit*, int32_t)
 void Unit::AwardDamageExperience(Unit*, uint32_t, int32_t)
 {}
 
-void Unit::VMethod24(Unit*, int32_t)
+void Unit::AwardCastExperience(Unit*, int32_t)
 {}
 
 int32_t Unit::VMethod25() {
@@ -2682,7 +2682,7 @@ void Humanoid::AwardDamageExperience(Unit* unit, uint32_t damage, int32_t spell_
 }
 
 // 531090
-void Humanoid::VMethod24(Unit*, int32_t spell_id) {
+void Humanoid::AwardCastExperience(Unit*, int32_t spell_id) {
     int32_t sphere = 0;
     if (spell_id != 0 && (this->unit_attrs & 4) != 0) {
         sphere = g_GameDataRes.spells[spell_id].Values().GetData()->sphere;
