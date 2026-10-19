@@ -1589,7 +1589,7 @@ void Server::SendWorldState(Player* player, int32_t bool_arg4) {
     // Require the player to have a main unit.
     if (player->main_unit == nullptr) {
         LogMessage("Client " + player->name + " tries to enter mission without Hero. Return");
-        g_NetStru1_main.FUN_0051cd89("You can't enter mission without Hero", player);
+        g_NetStru1_main.AnnouncePlayerName("You can't enter mission without Hero", player);
         return;
     }
 
@@ -2614,7 +2614,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                     int32_t loss = g_CLlDriver.GetPacketLoss(ns2->uid);
                     cheat_string.Format("%s: latency %dms, packet loss %d.%03d%%",
                         player->name, lat, loss / 1000, loss % 1000);
-                    g_NetStru1_main.FUN_0051cd89(cheat_string, player);
+                    g_NetStru1_main.AnnouncePlayerName(cheat_string, player);
                 }
             } else if (cheat_string.Find("#ready") == 0) {
                 if (g_ServerConfig.gameType == 2) {
@@ -2655,7 +2655,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                             (LPCTSTR)target->name,
                             target->main_unit->position->GetX(),
                             target->main_unit->position->GetY());
-                        g_NetStru1_main.FUN_0051cd89(msg, player);
+                        g_NetStru1_main.AnnouncePlayerName(msg, player);
                     }
                 }
             }
@@ -4279,7 +4279,7 @@ void Server::JoinErrorSend(NetStru2* client, int32_t arg, const CString& str) {
     pl.player_id = 9999;
     client->player_id = 9999;
     if (!str.IsEmpty()) {
-        g_NetStru1_main.FUN_0051cd89(str, &pl);
+        g_NetStru1_main.AnnouncePlayerName(str, &pl);
     }
     g_NetStru1_main.FUN_0051cefb(0xb, arg, 0, &pl);
     g_NetStru1_main.SendTickPacket(&pl);

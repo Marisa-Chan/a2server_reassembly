@@ -102,7 +102,7 @@ void CEdit2::OnKeyDown(UINT nChar, UINT nRepcnt, UINT nFlags) {
 		char buf[1024];
 		CharToOemA(txt, buf);
 
-		g_NetStru1_main.FUN_0051cd89(buf, nullptr);
+		g_NetStru1_main.AnnouncePlayerName(buf, nullptr);
 
 		LogMessage(buf);
 
@@ -968,7 +968,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
                     if (this->SetSpeed(this->game_speed + 1) == 0) {
                         this->vis_map_context->msglog.AddWithCheck(TxtFile::AllLines[this->game_speed + 0x6c], clr_log_sblack, 5000);
                     } else {
-                        g_NetStru1_main.FUN_0051cd89(TxtFile::AllLines[this->game_speed + 0x6c], nullptr);
+                        g_NetStru1_main.AnnouncePlayerName(TxtFile::AllLines[this->game_speed + 0x6c], nullptr);
                     }
                 }
             } else {
@@ -982,7 +982,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
                     if (this->SetSpeed(this->game_speed - 1) == 0) {
                         this->vis_map_context->msglog.AddWithCheck(TxtFile::AllLines[this->game_speed + 0x6c], clr_log_sblack, 5000);
                     } else {
-                        g_NetStru1_main.FUN_0051cd89(TxtFile::AllLines[this->game_speed + 0x6c], nullptr);
+                        g_NetStru1_main.AnnouncePlayerName(TxtFile::AllLines[this->game_speed + 0x6c], nullptr);
                     }
                 }
             } else {

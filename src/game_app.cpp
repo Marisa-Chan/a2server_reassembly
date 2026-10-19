@@ -1119,7 +1119,7 @@ void LogWarning(const CString& msg) { //59b753
 	CString str("WARNING! : ");
 	str += msg;
 	if (g_Server->field4_0x74 == 0) {
-		g_NetStru1_main.FUN_0051cd89(str, nullptr);
+		g_NetStru1_main.AnnouncePlayerName(str, nullptr);
 	} else {
 		LogMessage(str);
 	}

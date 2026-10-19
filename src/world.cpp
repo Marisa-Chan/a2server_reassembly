@@ -934,7 +934,7 @@ void World::ProcessTick(PlayersList* players) {
     if (g_Server->script_settings->turn_tracing != 0) {
         CString str;
         str.Format("Stats: last turn - %d, average: %d.\n", this->duration5, this->total5 / this->counter);
-        g_NetStru1_main.FUN_0051cd89(str, nullptr);
+        g_NetStru1_main.AnnouncePlayerName(str, nullptr);
     }
 }
 
@@ -978,7 +978,7 @@ void World::ExecuteTriggerActions() {
             if (trigger.once != 0 && g_Server->script_settings->script_tracing != 0) {
                 CString msg;
                 msg.Format("Script: Trigger %d ( %d ifs, %d instants ).\n", trigger.trigger_id, trigger.checks->GetCount(), trigger.actions->GetCount());
-                g_NetStru1_main.FUN_0051cd89(msg, nullptr);
+                g_NetStru1_main.AnnouncePlayerName(msg, nullptr);
             }
             POSITION action_it = trigger.actions->GetHeadPosition();
             while (action_it != nullptr) {
@@ -1944,7 +1944,7 @@ void World::DoScriptInstID(int32_t script_id) {
         char buf[100];
         sprintf(buf, "Script: Instant %d ( type: %d ).\n", script_id, (int)action.type);
         CString msg(buf);
-        g_NetStru1_main.FUN_0051cd89(msg, nullptr);
+        g_NetStru1_main.AnnouncePlayerName(msg, nullptr);
     }
 
     if ((action.ref_count & 0xFF) != 0) {
@@ -2031,7 +2031,7 @@ void World::DoScriptInstID(int32_t script_id) {
                 char buf[100];
                 sprintf(buf, "Script: Bad instant %d.\n", (int)action.type);
                 CString msg(buf);
-                g_NetStru1_main.FUN_0051cd89(msg, nullptr);
+                g_NetStru1_main.AnnouncePlayerName(msg, nullptr);
             }
         }
     }

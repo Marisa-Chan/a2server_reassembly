@@ -127,7 +127,7 @@ public:
     void UntrackToken(Token* token); // Remove unit/sack from network tracking
     void AnnouncePlayer(Player* recpt);
 
-    void FUN_0051cd89(const CString& name, Player* player);
+    void AnnouncePlayerName(const CString& name, Player* player);
 
     NetStru2* GetClientByPlayerID(uint16_t player_id);//518544
     NetStru2* GetClientByLowUid(uint32_t low_uid); //5185d5
