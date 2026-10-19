@@ -626,7 +626,7 @@ PacketMount PacketMount::Inst;
 
 PacketMount::PacketMount() {
     //sub_52715F
-    this->unit_id = 0;
+    this->target_id = 0;
 }
 
 PacketMount::PacketMount(const PacketMount* src) {

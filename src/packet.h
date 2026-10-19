@@ -468,7 +468,7 @@ public:
     virtual uint32_t GetDataSize() override;
 public:
     uint16_t  field_0xa; // +0xA
-    uint16_t unit_id;   // +0xC (= 0 in ctor)
+    uint16_t target_id;   // +0xC (= 0 in ctor)
 };
 __pragma(pack(pop))
 ASSERT_SIZE(PacketMount, 0xE);

@@ -1022,7 +1022,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				ct->action_phase = 0;
 				ct->field_0xa4 = 0;
 				ct->field_0xa0 = 0;
-				ct->action_target = packet_mount->unit_id;
+				ct->action_target = packet_mount->target_id;
 				ct->action_dir = ct->dir;
 			} else if (ct->action_segments != 0) {
 				if (g_EnableTrace) {

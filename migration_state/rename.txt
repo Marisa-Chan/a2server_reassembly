@@ -29,3 +29,4 @@ PacketMoveCmd::field_0xf -> segments -- projectile animation segments / cast del
 PacketEffect::field_0xa -> unit_id -- unit the effect plays on
 PacketAoeZone::field_0xa -> type_id -- AoE effect type id
 PacketAoeZone::field_0xf -> set_flag -- nonzero = mark zone cells as affected, 0 = unmark them
+PacketMount::unit_id (+0xC) -> target_id -- holds the mount/ride TARGET unit id (writer sets cast_target->building_id); freed the unit_id name for +0xA
