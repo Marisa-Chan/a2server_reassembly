@@ -3204,7 +3204,7 @@ void CUnit::UpdateTileLayer() {
 }
 
 // 4698c0
-void CUnit::VMethod22() {
+void CUnit::PlayAttackVoice() {
     uint32_t now = timeGetTime();
     if (now - this->lastVoicePlaybackTick < 3000) {
         return;

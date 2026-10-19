@@ -217,3 +217,4 @@ CUnit::VMethod18 -> SpawnAttackProjectile -- fires the unit's ranged-attack proj
 CUnit::VMethod19 -> SpawnSpellProjectile -- fires the spell projectile (action_spell) with per-type speed; type 0x36 also spawns an impact ghost projectile
 CUnit::VMethod20 -> PlayCastSound -- plays the spell-cast sfx g_SfxArray[action_spell + 500] at attack_delay of a cast
 CUnit::VMethod21 -> PlayAttackSound -- plays the weapon-impact sfx (g_VFX_info->sound[0]) at melee/ranged attack_delay
+CUnit::VMethod22 -> PlayAttackVoice -- plays a random SfxBank attack voice line (3s cooldown)
