@@ -175,7 +175,7 @@ struct MapStuff { // aka astruct_5
     uint8_t height_map[65536];
     CList<void*> field66_0xa44f4;
     CList<uint16_t> field67_0xa4510;
-    Array2D<uint8_t, 8, 8> field_0xa452c;
+    Array2D<uint8_t, 8, 8> footprint_scratch;
     UnitList* field69_0xa456c;
 
 public:

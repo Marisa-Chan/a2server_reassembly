@@ -169,3 +169,4 @@ Scenario::field_0x18 -> overlay_map -- per-cell render overlay buffer (AoE/visib
 Scenario::field_0x28 -- terrain tile-set bitmask (0x1FFF default; bit i keeps terrain tile group i loaded, see sub_477B59)
 ScanPresenceGrid::field_0x1624 -> unwatched_active_detections -- count of units with an active group detected while in an unwatched sector
 MapStuff::field_0x50008 -> path_queue_scratch -- BFS wave-expansion queues: [0]/[0x1000] queue1 x/y, [0x2000]/[0x3000] queue2 x/y
+MapStuff::field_0xa452c -> footprint_scratch -- 8x8 scratch mask used when adding/removing a unit footprint on the cell grid

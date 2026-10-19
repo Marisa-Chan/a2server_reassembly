@@ -1077,10 +1077,10 @@ void MapStuff::FUN_00596e0e(Unit* unit, PosYX yx) { //596e0e
 
 void MapStuff::FUN_005969c6(Unit* unit, PosYX yx, uint8_t t) { //5969c6
     int sz = unit->VMethod3();
-    this->field_0xa452c.fill(0);
+    this->footprint_scratch.fill(0);
     for (int j = 0; j < sz + 2; j++) {
         for (int i = 0; i < sz + 2; i++) {
-            this->field_0xa452c(i, j) = 1;
+            this->footprint_scratch(i, j) = 1;
         }
     }
 
@@ -1091,7 +1091,7 @@ void MapStuff::FUN_005969c6(Unit* unit, PosYX yx, uint8_t t) { //5969c6
             for (int i = 1; i < sz + 1; i++) {
                 int x = j + yx.x - dx;
                 int y = i + yx.y - dy;
-                this->field_0xa452c(y, x) = 2; // y x for save order how it's in original
+                this->footprint_scratch(y, x) = 2; // y x for save order how it's in original
             }
         }
     }
@@ -1099,7 +1099,7 @@ void MapStuff::FUN_005969c6(Unit* unit, PosYX yx, uint8_t t) { //5969c6
     if (t != 2) {
         for (int j = 1; j < sz + 1; j++) {
             for (int i = 1; i < sz + 1; i++) {
-                this->field_0xa452c(i, j) = 3;
+                this->footprint_scratch(i, j) = 3;
             }
         }
     }
@@ -1109,7 +1109,7 @@ void MapStuff::FUN_005969c6(Unit* unit, PosYX yx, uint8_t t) { //5969c6
     int dy = unit->position->GetY() - 1;
     for (int j = 0; j < sz + 2; j++) {
         for (int i = 0; i < sz + 2; i++) {
-            switch (this->field_0xa452c(i, j)) {
+            switch (this->footprint_scratch(i, j)) {
             case 0:
                 break;
 
