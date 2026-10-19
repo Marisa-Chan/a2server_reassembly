@@ -355,7 +355,7 @@ void AreaEffect::sub_5384FF() {
 }
 
 // 538137
-void AreaEffect::sub_538137(uint8_t x, uint8_t y, bool spread_damage) {
+void AreaEffect::ApplyAtCell(uint8_t x, uint8_t y, bool spread_damage) {
 	uint16_t yx = PosYX(x, y).val;
 	Unit* unit = MapStuff_Instance->GetBuildingUnitAt(x, y);
 	if (unit != nullptr && (MapStuff_Instance->obstacle_map[yx].bits & 4) != 0) {
@@ -436,7 +436,7 @@ void AreaEffect::sub_53801A() {
 	for (int32_t dx = -radius; dx <= radius; dx++) {
 		for (int32_t dy = -radius; dy <= radius; dy++) {
 			if (abs(dx) + abs(dy) <= radius + 1) {
-				this->sub_538137(x + dx, y + dy, spread_damage);
+				this->ApplyAtCell(x + dx, y + dy, spread_damage);
 			}
 		}
 	}
@@ -457,7 +457,7 @@ void AreaEffect::sub_537F2C() {
 	WavePattern wave;
 	wave.sub_537B2B(unk_636578, unk_636620, this->wave_pattern);
 	for (int32_t i = 0; i < wave.count; i++) {
-		this->sub_538137(x + wave.x_mult * wave.x_offsets[i], y + wave.y_mult * wave.y_offsets[i], spread_damage);
+		this->ApplyAtCell(x + wave.x_mult * wave.x_offsets[i], y + wave.y_mult * wave.y_offsets[i], spread_damage);
 	}
 	g_NetStru1_main.SendAreaEffect(this, 1);
 	this->zone_active = 1;
