@@ -6907,7 +6907,7 @@ void BigStruct2::sub_40C18B() {
 		uint16_t key;
 		CGameObject* obj;
 		this->field_0x9d0.GetNextAssoc(it, key, obj);
-		obj->VMethod14();
+		obj->MarkOccupancy();
 	}
 }
 

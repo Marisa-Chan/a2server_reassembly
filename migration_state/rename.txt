@@ -209,3 +209,4 @@ CGameObject::VMethod10 -> UpdateTileLayer -- vtable slot: re-registers the objec
 CGameObject::VMethod11 -> Update -- vtable slot: per-tick state update; returns 0 when the object is finished and should be deleted (projectile landed, unit anim done)
 CGameObject::VMethod12 -> UpdateLight -- vtable slot: applies the object's dynamic light to the tile lightmap (building light_radius pulse / projectile glow), marks dirty rect
 CGameObject::VMethod13 -> UpdateOccupancy -- vtable slot: when visible, grid-aligned and moved off its last occupied tile, refreshes the landscape occupancy marks (CUnit: alive units only)
+CGameObject::VMethod14 -> MarkOccupancy -- vtable slot: re-marks the 0xC000 occupied-cell bits on the landscape around the footprint and remembers occupiedLocation

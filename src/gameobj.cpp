@@ -433,12 +433,12 @@ void CGameObject::UpdateLight() { //46f4f0
 
 void CGameObject::UpdateOccupancy() { //462190
     if (this->pMapObject->my_main_unit->FUN_0041ee50(this->map_player->index) != 0 && this->scan_range != 0 && (this->screenX & 0x1f) == 0x10 && (this->screenY & 0x1f) == 0x10 && (this->x_pos != this->occupiedLocation.x || this->y_pos != this->occupiedLocation.y)) {
-        this->VMethod14();
+        this->MarkOccupancy();
     }
 }
 
 
-void CGameObject::VMethod14() { //462226
+void CGameObject::MarkOccupancy() { //462226
     if (this->pMapObject->my_main_unit->FUN_0041ee50(this->map_player->index) != 0 && this->scan_range != 0) {
         this->pMapObject->field_0xdc = 1;
 
@@ -3342,9 +3342,9 @@ void CUnit::UpdateOccupancy() {
 }
 
 // 46f630
-void CUnit::VMethod14() {
+void CUnit::MarkOccupancy() {
     if (this->death_state < 3) {
-        CGameObject::VMethod14();
+        CGameObject::MarkOccupancy();
     }
 }
 

@@ -138,7 +138,7 @@ public:
 	virtual int32_t Update();
 	virtual void UpdateLight();
 	virtual void UpdateOccupancy();
-	virtual void VMethod14();
+	virtual void MarkOccupancy();
 	virtual int32_t VMethod15();
 	virtual void VMethod16();
 
@@ -250,7 +250,7 @@ public:
 	virtual int32_t Update() override;
 
 	virtual void UpdateOccupancy() override;
-	virtual void VMethod14() override;
+	virtual void MarkOccupancy() override;
 	virtual int32_t VMethod15() override;
 	virtual void VMethod16() override;
 	virtual void VMethod17(int16_t arg1, int32_t arg2, int32_t arg3, int32_t arg4, int32_t arg5, MapPlayerData* arg6, int32_t arg7, int32_t arg8, int16_t arg9, int16_t arg10);
