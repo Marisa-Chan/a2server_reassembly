@@ -59,7 +59,7 @@ void QuestInnGlue::VMethod2(Quest* quest) {
     }
     uint16_t pos2 = this->position->GetYX();
     uint16_t pos1 = unit->position->GetYX();
-    uint8_t dist = this->world->field24_0xa50->sub_593B29(pos1, pos2);
+    uint8_t dist = this->world->field24_0xa50->ChebyshevDistance(pos1, pos2);
     if (dist > this->max_dist) {
         return;
     }
@@ -84,7 +84,7 @@ void QuestInnGlue::VMethod3(Quest* quest) {
         }
         uint16_t pos2 = this->position->GetYX();
         uint16_t pos1 = player->main_unit->position->GetYX();
-        uint8_t dist = this->world->field24_0xa50->sub_593B29(pos1, pos2);
+        uint8_t dist = this->world->field24_0xa50->ChebyshevDistance(pos1, pos2);
         if (dist > this->max_dist) {
             continue;
         }
@@ -139,7 +139,7 @@ void QuestInnGlue::VMethod4(Quest* quest) {
         Unit* unit = group->unit_list.GetNext(pos);
         uint16_t pos2 = this->position->GetYX();
         uint16_t pos1 = unit->position->GetYX();
-        uint8_t dist = this->world->field24_0xa50->sub_593B29(pos1, pos2);
+        uint8_t dist = this->world->field24_0xa50->ChebyshevDistance(pos1, pos2);
         if (dist <= this->max_dist) {
             found = true;
         }
@@ -172,7 +172,7 @@ void QuestInnGlue::VMethod5(Quest* quest) {
             }
             uint16_t pos2 = this->position->GetYX();
             uint16_t pos1 = unit->position->GetYX();
-            uint8_t dist = this->world->field24_0xa50->sub_593B29(pos1, pos2);
+            uint8_t dist = this->world->field24_0xa50->ChebyshevDistance(pos1, pos2);
             if (dist > this->max_dist) {
                 continue;
             }
@@ -196,7 +196,7 @@ void QuestInnGlue::VMethod5(Quest* quest) {
             }
             uint16_t pos2 = this->position->GetYX();
             uint16_t pos1 = unit->position->GetYX();
-            uint8_t dist = this->world->field24_0xa50->sub_593B29(pos1, pos2);
+            uint8_t dist = this->world->field24_0xa50->ChebyshevDistance(pos1, pos2);
             if (dist <= this->max_dist) {
                 unit->hp = -50;
             }
@@ -226,7 +226,7 @@ void QuestInnGlue::VMethod6(Quest* quest) {
             }
             uint16_t pos2 = this->position->GetYX();
             uint16_t pos1 = unit->position->GetYX();
-            uint8_t dist = this->world->field24_0xa50->sub_593B29(pos1, pos2);
+            uint8_t dist = this->world->field24_0xa50->ChebyshevDistance(pos1, pos2);
             if (dist > this->max_dist) {
                 continue;
             }
@@ -248,7 +248,7 @@ void QuestInnGlue::VMethod6(Quest* quest) {
             }
             uint16_t pos2 = this->position->GetYX();
             uint16_t pos1 = unit->position->GetYX();
-            uint8_t dist = this->world->field24_0xa50->sub_593B29(pos1, pos2);
+            uint8_t dist = this->world->field24_0xa50->ChebyshevDistance(pos1, pos2);
             if (dist <= this->max_dist) {
                 unit->hp = -50;
             }
@@ -279,7 +279,7 @@ void QuestInnGlue::VMethod7(Quest* quest) {
             }
             uint16_t pos2 = this->position->GetYX();
             uint16_t pos1 = unit->position->GetYX();
-            uint8_t dist = this->world->field24_0xa50->sub_593B29(pos1, pos2);
+            uint8_t dist = this->world->field24_0xa50->ChebyshevDistance(pos1, pos2);
             if (dist > this->max_dist) {
                 continue;
             }
@@ -301,7 +301,7 @@ void QuestInnGlue::VMethod7(Quest* quest) {
             }
             uint16_t pos2 = this->position->GetYX();
             uint16_t pos1 = unit->position->GetYX();
-            uint8_t dist = this->world->field24_0xa50->sub_593B29(pos1, pos2);
+            uint8_t dist = this->world->field24_0xa50->ChebyshevDistance(pos1, pos2);
             if (dist <= this->max_dist) {
                 unit->hp = -50;
             }

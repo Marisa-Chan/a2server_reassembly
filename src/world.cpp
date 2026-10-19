@@ -360,7 +360,7 @@ UnitList* World::GetNearbyAllies(Unit* caster, PosYX yx) {
 int32_t World::GetAttackDecision(Unit* unit, Unit* target) {
     PosYX target_yx = target->position->CompatGetYX();
     PosYX unit_yx = unit->position->CompatGetYX();
-    uint8_t distance = this->field24_0xa50->sub_593B29(unit_yx, target_yx);
+    uint8_t distance = this->field24_0xa50->ChebyshevDistance(unit_yx, target_yx);
 
     uint8_t target_movement = target->sub_59A030();
     if (target_movement == 1 && this->UnitMaxRange(target) > 1) {
@@ -871,7 +871,7 @@ uint32_t World::sub_5AB719(Group* group) {
     unit_it = group->unit_list.GetHeadPosition();
     while (unit_it != nullptr) {
         Unit* unit = group->unit_list.GetNext(unit_it);
-        uint8_t distance = this->field24_0xa50->sub_593B29(unit->position->GetYX(), position_yx);
+        uint8_t distance = this->field24_0xa50->ChebyshevDistance(unit->position->GetYX(), position_yx);
         if (max_distance < distance) {
             max_distance = distance;
         }
@@ -1194,7 +1194,7 @@ void World::CastKnownSpell(Unit* caster, Unit* target, int32_t spell_id) {
         case spell::teleport: {
             uint16_t target_yx = target->position->CompatGetYX();
             uint16_t caster_yx = caster->position->CompatGetYX();
-            uint8_t distance = this->field24_0xa50->sub_593B29(caster_yx, target_yx);
+            uint8_t distance = this->field24_0xa50->ChebyshevDistance(caster_yx, target_yx);
             if (distance > 2) {
                 uint16_t found_yx = 0;
                 for (uint8_t dy = 0; dy <= 2; dy++) {
@@ -2551,7 +2551,7 @@ void World::sub_5A6B48(Unit* unit, Unit* target) {
 
         uint16_t target_yx = target->position->CompatGetYX();
         uint16_t unit_yx = unit->position->CompatGetYX();
-        uint8_t distance = this->field24_0xa50->sub_593B29(unit_yx, target_yx);
+        uint8_t distance = this->field24_0xa50->ChebyshevDistance(unit_yx, target_yx);
         if (distance > 2) {
             this->CastKnownSpell(unit, target, chosen_spell);
             return;
@@ -2668,7 +2668,7 @@ Spell* World::GetCastableSpell(Unit* unit, int32_t spell_number, int32_t /*flag*
 int32_t World::IsSpellInRange(Unit* unit, Unit* other, Spell* spell) {
     PosYX other_yx = other->position->GetYX();
     PosYX unit_yx = unit->position->GetYX();
-    uint8_t distance = this->field24_0xa50->sub_593B29(unit_yx, other_yx);
+    uint8_t distance = this->field24_0xa50->ChebyshevDistance(unit_yx, other_yx);
     return distance <= spell->max_range ? 1 : 0;
 }
 
@@ -2797,7 +2797,7 @@ void World::GroupMoveCommand(Group* group, uint8_t x, uint8_t y) {
 
         for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
             Unit* unit = group->unit_list.GetNext(it);
-            uint8_t dist = this->field24_0xa50->sub_593B29(PosYX(unit->position->CompatGetYX()), PosYX(origin_x, origin_y));
+            uint8_t dist = this->field24_0xa50->ChebyshevDistance(PosYX(unit->position->CompatGetYX()), PosYX(origin_x, origin_y));
             if (dist > this->relative_move_max_dist) {
                 use_relative = false;
             }
@@ -3422,7 +3422,7 @@ void World::sub_5AED8D(Group* group) {
     uint8_t max_distance = 0;
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
-        uint8_t distance = this->field24_0xa50->sub_593B29(unit->position->GetYX(), PosYX(group->group_sub->order_pos));
+        uint8_t distance = this->field24_0xa50->ChebyshevDistance(unit->position->GetYX(), PosYX(group->group_sub->order_pos));
         if (distance > max_distance) {
             max_distance = distance;
         }
@@ -4118,7 +4118,7 @@ void World::AiMoveBrain(Group* group, uint16_t yx) {
             this->sub_5A8778(unit, unit->eye2->command_to);
 
             if (!this->field24_0xa50->sub_5978F0(unit, yx) && unit->eye2->command_to == yx) {
-                uint8_t distance = this->field24_0xa50->sub_593B29(yx, unit->position->CompatGetYX());
+                uint8_t distance = this->field24_0xa50->ChebyshevDistance(yx, unit->position->CompatGetYX());
                 if (distance < 2) {
                     this->DoGuardScan(unit);
                 }
@@ -4162,7 +4162,7 @@ void World::UpdateGroupCenter(Group* group) {
     uint8_t max_sum = 0;
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
-        uint8_t distance = this->field24_0xa50->sub_593B29(unit->position->GetYX(), avg_yx);
+        uint8_t distance = this->field24_0xa50->ChebyshevDistance(unit->position->GetYX(), avg_yx);
         uint8_t scan_range = unit->scan_range >> 8;
         if (distance > max_distance) {
             max_distance = distance;
@@ -4184,7 +4184,7 @@ void World::UpdateGroupCenter(Group* group) {
 int32_t World::sub_5AD2C1(Unit* unit, Unit* target) {
     PosYX unit_yx = unit->position->GetYX();
     PosYX target_yx = target->position->GetYX();
-    uint8_t distance = this->field24_0xa50->sub_593B29(unit_yx, target_yx);
+    uint8_t distance = this->field24_0xa50->ChebyshevDistance(unit_yx, target_yx);
 
     uint8_t target_movement = 0;
     uint8_t target_range = this->UnitMaxRange(target);
@@ -4265,7 +4265,7 @@ void World::PruneNearbyUnits(uint16_t pos_yx, uint8_t max_distance) {
         POSITION current_it = it;
         Unit* unit = unit_list.GetNext(it);
         uint16_t unit_pos = unit->position->CompatGetYX();
-        uint8_t distance = this->field24_0xa50->sub_593B29(pos_yx, unit_pos);
+        uint8_t distance = this->field24_0xa50->ChebyshevDistance(pos_yx, unit_pos);
         if (distance > max_distance) {
             unit_list.RemoveAt(current_it);
         }

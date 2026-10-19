@@ -348,7 +348,7 @@ int MapStuff::FacesPosInRange(Unit* unit, PosYX yx, uint8_t max_range) {
     if (current_facing != computed_facing) {
         return 0;
     }
-    uint8_t distance = this->sub_593B29(unit->position->GetYX(), yx);
+    uint8_t distance = this->ChebyshevDistance(unit->position->GetYX(), yx);
     if (distance <= max_range) {
         return 1;
     }
@@ -357,7 +357,7 @@ int MapStuff::FacesPosInRange(Unit* unit, PosYX yx, uint8_t max_range) {
 
 // 58FF51
 void MapStuff::MoveStepTowardPos(Unit* unit, PosYX yx, uint8_t max_range) {
-    uint8_t distance = this->sub_593B29(unit->position->GetYX(), yx);
+    uint8_t distance = this->ChebyshevDistance(unit->position->GetYX(), yx);
     int32_t in_cell_middle = unit->position->IsAtCellCenter();
 
     if (!in_cell_middle) {
@@ -758,7 +758,7 @@ void MapStuff::sub_5964D7(uint16_t yx, uint8_t range, Player* owner, UnitList* o
     POSITION it = list.GetHeadPosition();
     while (it != nullptr) {
         Unit* unit = list.GetNext(it);
-        uint8_t distance = this->sub_593B29(yx, unit->position->GetYX());
+        uint8_t distance = this->ChebyshevDistance(yx, unit->position->GetYX());
         if (distance <= range) {
             out_list->AddTail(unit);
         }
@@ -1746,14 +1746,14 @@ uint16_t MapStuff::sub_593AA4(Unit* unit) {
     PosYX tail = unit->list1.GetHead();
     uint8_t x = unit->position->GetX();
     uint8_t y = unit->position->GetY();
-    if (this->sub_593B29(PosYX(x, y), tail) == 1) {
+    if (this->ChebyshevDistance(PosYX(x, y), tail) == 1) {
         return tail.val;
     }
     return 0;
 }
 
 // 593B29 --- Chebyshev distance between two YX positions
-uint8_t MapStuff::sub_593B29(PosYX yx1, PosYX yx2) {
+uint8_t MapStuff::ChebyshevDistance(PosYX yx1, PosYX yx2) {
     uint8_t dx = abs(yx1.x - yx2.x);
     uint8_t dy = abs(yx1.y - yx2.y);
     return (std::max)(dx, dy);
@@ -2165,11 +2165,11 @@ void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
             uint16_t step = this->sub_593134(unit, 0, dest.val, (distance >> 2) + 4);
             Building* reached = this->sub_594709(dest.val);
             if (reached == nullptr) {
-                if (this->sub_593B29(PosYX(step), dest) > 1) {
+                if (this->ChebyshevDistance(PosYX(step), dest) > 1) {
                     g_NetStru1_main.FUN_0051ce86(1, 0, unit->pOwner);
                 }
             } else {
-                if (this->sub_593B29(PosYX(step), dest) > 2) {
+                if (this->ChebyshevDistance(PosYX(step), dest) > 2) {
                     g_NetStru1_main.FUN_0051ce86(1, 0, unit->pOwner);
                 }
             }
