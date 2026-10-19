@@ -375,7 +375,7 @@ void MapStuff::MoveStepTowardPos(Unit* unit, PosYX yx, uint8_t max_range) {
     unit->eye->counter++;
 
     if (unit->eye->field114_0x74 != yx || unit->eye->field8_0x9 > this->static_refresh_rate) {
-        this->sub_58826D(unit, yx.x, yx.y, 1, nullptr);
+        this->FindPath(unit, yx.x, yx.y, 1, nullptr);
         unit->eye->field136_0x90 = 0;
         unit->eye->field114_0x74 = yx;
 
@@ -451,7 +451,7 @@ void MapStuff::MoveStepTowardUnit(Unit* unit, Unit* target, uint8_t max_range) {
 
     if (unit->eye->field8_0x9 > unit->list1.GetCount() / 3 + 1) {
         if (unit->eye->field130_0x8a > this->static_isnt_needed) {
-            this->sub_58826D(unit, target_yx.x, target_yx.y, 1, target);
+            this->FindPath(unit, target_yx.x, target_yx.y, 1, target);
         } else {
             unit->list1.RemoveAll();
             unit->list1.AddTail(unit->eye->field115_0x76);
@@ -683,7 +683,7 @@ void MapStuff::sub_590902(Unit* unit, Unit* target) {
         kind = 3;
     }
 
-    this->sub_58826D(unit, target_yx.x, target_yx.y, 0, target);
+    this->FindPath(unit, target_yx.x, target_yx.y, 0, target);
 
     if (unit->list2.GetCount() == 0 && kind == 1) {
         unit->eye->field139_0x98 = 1;
@@ -1538,7 +1538,7 @@ Unit* MapStuff::GetLargeUnitAt(uint16_t yx) {
 }
 
 // 58826D
-void MapStuff::sub_58826D(Unit* unit, uint8_t x, uint8_t y, int32_t flag, Unit* target) {
+void MapStuff::FindPath(Unit* unit, uint8_t x, uint8_t y, int32_t flag, Unit* target) {
     uint8_t cur_x = unit->position->GetX();
     uint8_t cur_y = unit->position->GetY();
     this->sub_5882AE(unit, cur_x, cur_y, x, y, flag, target);
