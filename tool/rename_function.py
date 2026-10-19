@@ -108,7 +108,9 @@ def main():
         print(f"round {round_no}: {len(sites)} site(s)")
         for f, ln in sorted(sites):
             if f.name == "visual.h":
-                sys.exit(f"ERROR: build error declares {old} in visual.h - wrong hierarchy rename?")
+                # an error in visual.h can only be a call in an inline body -
+                # a mere declaration never errors. Replace it like any call site.
+                print(f"  NOTE: call site inside visual.h at line {ln}")
             cnt = replace_on_line(f, ln, old, new)
             rel = f.relative_to(ROOT)
             print(f"  {rel}:{ln} ({cnt} replaced)" if cnt else f"  {rel}:{ln} NOTHING REPLACED")

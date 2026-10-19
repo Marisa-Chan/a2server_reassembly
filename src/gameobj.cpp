@@ -369,7 +369,7 @@ void CGameObject::FUN_0041f150(int32_t grp) { //41f150
 }
 
 
-int32_t CGameObject::FUN_0041f130() { //41f130
+int32_t CGameObject::IsBlocked() { //41f130
     return this->bIsBlocked;
 }
 
@@ -3191,7 +3191,7 @@ void CUnit::UpdateTileLayer() {
         this->FUN_00461c41(4, this);
     }
 
-    if (g_Animation == 0 && this->FUN_0041f130() == 0 && this->m_bSelectionDirty != 0) {
+    if (g_Animation == 0 && this->IsBlocked() == 0 && this->m_bSelectionDirty != 0) {
         BigStruct2* map = this->pMapObject;
         UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
         int32_t x = this->centerScreenX - vfx->center_x;
@@ -4096,7 +4096,7 @@ int32_t CStructure::UpdateBlockedState() {
 int32_t CStructure::Update() {
     StructureInfo* info = g_StructuresInfo[this->typeId];
     if (info->frame_count != 0) {
-        if (this->FUN_0041f130() == 0) {
+        if (this->IsBlocked() == 0) {
             this->phase = (this->phase + 1) % info->frame_count;
         }
     }
@@ -4744,7 +4744,7 @@ void CAirUnit::UpdateTileLayer() {
         return;
     }
 
-    if (this->FUN_0041f130() != 0) {
+    if (this->IsBlocked() != 0) {
         return;
     }
 

@@ -5417,7 +5417,7 @@ void BigStruct2::sub_406F7B() {
 					int32_t idx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
 					CGameObject* obj = this->tile_structures[idx];
 					uint32_t hgt = this->height_cells[x + 4 + (y + 4) * (this->view_tiles_x + 8)];
-					if (obj != nullptr && obj->FUN_0041f130() < 2) {
+					if (obj != nullptr && obj->IsBlocked() < 2) {
 						obj->DrawShadow(x, y, hgt);
 					}
 				}
@@ -5438,13 +5438,13 @@ void BigStruct2::sub_406F7B() {
 				CGameObject* obj8c = this->tile_units[idx];
 				CGameObject* obj94 = this->tile_structures[idx];
 				uint32_t hgt = this->height_cells[x + 4 + (y + 4) * (this->view_tiles_x + 8)];
-				if (obj94 != nullptr && obj94->FUN_0041f130() < 2 && g_StructuresInfo[obj94->typeId]->flat != 0) {
+				if (obj94 != nullptr && obj94->IsBlocked() < 2 && g_StructuresInfo[obj94->typeId]->flat != 0) {
 					obj94->Draw(x, y, light);
 					StructureInfo* si = g_StructuresInfo[obj94->typeId];
 					CRect sel = si->selection;
 					sel.OffsetRect(obj94->mapBoundsLeft << 5,
 						((obj94->mapBoundsTop + si->tile_height) - si->full_height) * 0x20 - hgt);
-					if (obj94->FUN_0041f130() == 0) {
+					if (obj94->IsBlocked() == 0) {
 						this->sub_404DA3(&sel, obj94->unit_id);
 					}
 				}
@@ -5462,13 +5462,13 @@ void BigStruct2::sub_406F7B() {
 				CGameObject* obj9c = this->tile_special_units[idx];
 				CGameObject* obj98 = this->tile_backpacks[idx];
 				uint32_t hgt = this->height_cells[x + 4 + (y + 4) * (this->view_tiles_x + 8)];
-				if (obj9c != nullptr && obj9c->FUN_0041f130() == 0) {
+				if (obj9c != nullptr && obj9c->IsBlocked() == 0) {
 					if (g_Shadows != 0) {
 						obj9c->DrawShadow(x, y, light);
 					}
 					obj9c->Draw(x, y, light);
 				}
-				if (obj98 != nullptr && obj98->FUN_0041f130() == 0) {
+				if (obj98 != nullptr && obj98->IsBlocked() == 0) {
 					if (g_Shadows != 0) {
 						obj98->DrawShadow(x, y, light);
 					}
@@ -5489,17 +5489,17 @@ void BigStruct2::sub_406F7B() {
 				CUnit* unit = (CUnit*)this->tile_units[idx];
 				CGameObject* bld = this->tile_structures[idx];
 				uint32_t hgt = this->height_cells[x + 4 + (y + 4) * (this->view_tiles_x + 8)];
-				if (bld != nullptr && bld->FUN_0041f130() < 2 && g_StructuresInfo[bld->typeId]->flat == 0) {
+				if (bld != nullptr && bld->IsBlocked() < 2 && g_StructuresInfo[bld->typeId]->flat == 0) {
 					bld->Draw(x, y, light);
 					StructureInfo* si = g_StructuresInfo[bld->typeId];
 					CRect sel = si->selection;
 					sel.OffsetRect(bld->mapBoundsLeft << 5,
 						((bld->mapBoundsTop + si->tile_height) - si->full_height) * 0x20 - hgt);
-					if (bld->FUN_0041f130() == 0) {
+					if (bld->IsBlocked() == 0) {
 						this->sub_404DA3(&sel, bld->unit_id);
 					}
 				}
-				if (unit != nullptr && unit->FUN_0041f130() == 0 &&
+				if (unit != nullptr && unit->IsBlocked() == 0 &&
 					(unit->FUN_00462405(0x20) < 0 || this->my_main_unit->FUN_0041ee50(unit->map_player->index) != 0)) {
 					UnitVFXUnfo* vfx = g_VFX_info[unit->typeId];
 					CRect sel = vfx->selection;
@@ -5625,7 +5625,7 @@ void BigStruct2::sub_406F7B() {
 					int32_t idx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
 					CGameObject* obj = this->tile_air_units[idx];
 					uint32_t hgt = this->height_cells[x + 4 + (y + 4) * (this->view_tiles_x + 8)];
-					if (obj != nullptr && obj->FUN_0041f130() == 0) {
+					if (obj != nullptr && obj->IsBlocked() == 0) {
 						obj->DrawShadow(x, y, hgt);
 					}
 				}
@@ -5668,7 +5668,7 @@ void BigStruct2::sub_406F7B() {
 				uint8_t light = this->tile_light[idx];
 				CGameObject* obj = this->tile_air_units[idx];
 				uint32_t hgt = this->height_cells[x + 4 + (y + 4) * (this->view_tiles_x + 8)];
-				if (obj != nullptr && obj->FUN_0041f130() == 0) {
+				if (obj != nullptr && obj->IsBlocked() == 0) {
 					UnitVFXUnfo* vfx = g_VFX_info[obj->typeId];
 					CRect sel = vfx->selection;
 					sel.OffsetRect(obj->centerScreenX - vfx->center_x,
@@ -5692,10 +5692,10 @@ void BigStruct2::sub_406F7B() {
 			if (obj94 != nullptr && obj94->IsSelected()) {
 				obj94->DrawHealthBar(x, y, hgt);
 			}
-			if (obj8c != nullptr && (obj8c->IsSelected() || (this->show_hp != 0 && obj8c->FUN_0041f130() == 0))) {
+			if (obj8c != nullptr && (obj8c->IsSelected() || (this->show_hp != 0 && obj8c->IsBlocked() == 0))) {
 				obj8c->DrawHealthBar(x, y, hgt);
 			}
-			if (obj90 != nullptr && (obj90->IsSelected() || (this->show_hp != 0 && obj90->FUN_0041f130() == 0))) {
+			if (obj90 != nullptr && (obj90->IsSelected() || (this->show_hp != 0 && obj90->IsBlocked() == 0))) {
 				obj90->DrawHealthBar(x, y, hgt);
 			}
 		}
