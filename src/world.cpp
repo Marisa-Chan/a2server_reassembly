@@ -3379,7 +3379,7 @@ void World::ProcessGroupAi(Group* group) {
     this->sub_5AF623(group);
     uint8_t cmd = group->group_sub->order;
     if (cmd == 0xFF) {
-        this->sub_5AF022(group);
+        this->IdleGroupUnits(group);
     } else {
         switch (cmd) {
         case 0:
@@ -4084,7 +4084,7 @@ void World::sub_5AEFE5(Group* group) {
 }
 
 // 5AF022
-void World::sub_5AF022(Group* group) {
+void World::IdleGroupUnits(Group* group) {
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
         this->SetIdleOrRetreat(unit, 0);
