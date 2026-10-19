@@ -262,3 +262,4 @@ TransientVisualEffectBuilder::FUN_004CC798 -> BuildTiltedRing -- circle points r
 TransientVisualEffectBuilder::FUN_004cc059 -> BuildLightningLine -- jitter wobble line from (x0,y0) to (x1,y1) via rotated base arc
 TransientVisualEffectBuilder::FUN_004CB993 -> BuildJitterWalk -- random-walk wobble profile (jitter_progress/jitter_wobble) along the line length
 TransientVisualEffectBuilder::FUN_004CB85F -> SampleQuadraticArc -- fits a parabola through 3 points and samples it into arc_x/arc_y
+TransientVisualEffectBuilder::FUN_004CCE04 -> AddOffsetElement -- single 0x10/18/22/2e element placed at its type-specific offset

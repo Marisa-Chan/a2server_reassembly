@@ -2196,7 +2196,7 @@ void TransientVisualEffectBuilder::FUN_004CCED2(int16_t height, uint8_t phase) {
 }
 
 // 4cce04
-void TransientVisualEffectBuilder::FUN_004CCE04(int16_t height, uint8_t effect_type, uint8_t phase) {
+void TransientVisualEffectBuilder::AddOffsetElement(int16_t height, uint8_t effect_type, uint8_t phase) {
     int16_t x_offset = 0;
     int16_t y_offset = 0;
     switch (effect_type) {
@@ -2553,7 +2553,7 @@ void CUnit::UpdateTransientVisualElements() { // 468dcb
         case 0x22:
         case 0x2e: {
             TransientVisualEffectBuilder builder;
-            builder.FUN_004CCE04(this->GetTileWidth() << 5, effect_type, effect_timer % 6);
+            builder.AddOffsetElement(this->GetTileWidth() << 5, effect_type, effect_timer % 6);
             visual_elements.Append(builder.visual_elements);
             break;
         }
