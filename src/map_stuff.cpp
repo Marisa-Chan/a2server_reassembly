@@ -361,7 +361,7 @@ void MapStuff::MoveStepTowardPos(Unit* unit, PosYX yx, uint8_t max_range) {
     int32_t in_cell_middle = unit->position->IsAtCellCenter();
 
     if (!in_cell_middle) {
-        this->sub_590678(unit);
+        this->UpdateEyeMoveTime(unit);
         return;
     }
 
@@ -429,7 +429,7 @@ void MapStuff::MoveStepTowardUnit(Unit* unit, Unit* target, uint8_t max_range) {
     int32_t in_cell_middle = unit->position->IsAtCellCenter();
 
     if (!in_cell_middle) {
-        this->sub_590678(unit);
+        this->UpdateEyeMoveTime(unit);
         return;
     }
 
@@ -543,7 +543,7 @@ void MapStuff::SyncEyeState(Unit* unit) {
 }
 
 // 590678
-void MapStuff::sub_590678(Unit* unit) {
+void MapStuff::UpdateEyeMoveTime(Unit* unit) {
     uint16_t prev_yx = unit->position->CompatGetYX();
     this->SyncEyeState(unit);
 

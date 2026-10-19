@@ -1429,7 +1429,7 @@ void World::MonsterAiTick(Unit* unit) {
             }
             break;
         case 3:
-            this->field24_0xa50->sub_590678(unit);
+            this->field24_0xa50->UpdateEyeMoveTime(unit);
             unit->some_state = 1;
             if (unit->position->IsAtCellCenter()) {
                 unit->eye2->field4_0x9 = 0;
