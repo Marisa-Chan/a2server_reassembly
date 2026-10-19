@@ -693,3 +693,4 @@ Effect::sub_541FD7 -> CalcEffectLevel -- effect level from budget and magic volu
 PointEffect::sub_5375A4 -> FinishHit -- removes the effect from the target, records last_hit_by and awards the hit
 AreaEffect::sub_53831D -> DamageUnit -- applies the area spell's damage/effect to one unit
 AreaEffect::sub_538137 -> ApplyAtCell -- applies the area effect at one cell (building/unit gates)
+AreaEffect::sub_537CD6 -> TickAcidBlizzard -- acid stream and blizzard ongoing-area ticks (per header comment)
