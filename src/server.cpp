@@ -3260,7 +3260,7 @@ void Server::sub_504a96(Packet* pkt) {
                 if (shop) {
                     shop->sub_5446EB(
                         human,
-                        from_type, packet_cmd->field_0xe,
+                        from_type, packet_cmd->param1,
                         to_type, packet_cmd->field_0x10,
                         packet_cmd->field_0x12
                     );
@@ -3274,7 +3274,7 @@ void Server::sub_504a96(Packet* pkt) {
                 if (!sack) {
                     LogMessage("Invalid pickup order - no sack there.");
                 } else {
-                    human->inventory->default_position = packet_cmd->field_0xe;
+                    human->inventory->default_position = packet_cmd->param1;
                     human->state = 2;
                 }
                 break;
@@ -3291,7 +3291,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (from_type == 2) {
                 // Pick item from bag.
                 count_before = human->inventory->items.GetSize();
-                item = human->inventory->sub_552E42(packet_cmd->field_0xe, packet_cmd->field_0x12);
+                item = human->inventory->sub_552E42(packet_cmd->param1, packet_cmd->field_0x12);
                 if (item) {
                     update_mask |= 0x282000;
                     item->field15_0x54 = 0;
@@ -3302,13 +3302,13 @@ void Server::sub_504a96(Packet* pkt) {
                 if (!shop) {
                     break;
                 }
-                item = shop->sub_5446C7(human, packet_cmd->field_0xe, packet_cmd->field_0x12);
+                item = shop->sub_5446C7(human, packet_cmd->param1, packet_cmd->field_0x12);
             } else if (from_type == 1) {
                 // Unequip item from body slot.
                 if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
                     break;
                 }
-                int32_t slot = (int16_t)packet_cmd->field_0xe + 1;
+                int32_t slot = (int16_t)packet_cmd->param1 + 1;
                 if (slot == 1) {
                     item = human->Unequip(human->weapon);
                 } else if (slot == 2) {
@@ -3333,16 +3333,16 @@ void Server::sub_504a96(Packet* pkt) {
 
             if (to_type == 1) {
                 // Equip item.
-                human->inventory->default_position = packet_cmd->field_0xe;
+                human->inventory->default_position = packet_cmd->param1;
                 uint16_t item_slot_type = (item->item_id >> 8) & 0xF;
                 equip_mask |= (item_slot_type < 3) ? 3 : (1 << (item_slot_type - 1));
                 Item* prev = item;
                 item = human->VMethod12(item); // equip; returns displaced item if any
                 if (item) {
-                    human->inventory->PutItemIntoBag(packet_cmd->field_0xe, item);
+                    human->inventory->PutItemIntoBag(packet_cmd->param1, item);
                 }
                 if (from_type == 2 && human->inventory->items.GetSize() == count_before && item != prev) {
-                    bag_pos = packet_cmd->field_0xe;
+                    bag_pos = packet_cmd->param1;
                     bag_pos_delta = 1;
                 }
                 human->sub_52A790(0);

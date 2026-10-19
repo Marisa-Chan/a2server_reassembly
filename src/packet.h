@@ -253,7 +253,7 @@ public:
     uint16_t unit_id;     // +0xA
     uint8_t  type;        // +0xC (= 0 in ctor)
     uint8_t  subtype;     // +0xD (= 0 in ctor)
-    uint16_t field_0xe;   // +0xE  (= 0 in ctor)
+    uint16_t param1;   // +0xE  (= 0 in ctor)
     uint16_t field_0x10;  // +0x10 (= 0 in ctor)
     uint16_t field_0x12;  // +0x12 (= 1 in ctor)
 };
