@@ -114,7 +114,7 @@ struct CellState {
 
     int IsEmpty() const; //58bef6
     void Null(); //58a3da
-    void sub_59423F(); // Remaps stale on-disk pointer fields through g_Server's pointer remap table.
+    void RelinkPointers(); // Remaps stale on-disk pointer fields through g_Server's pointer remap table.
 };
 ASSERT_OFFSET(CellState, area_effects, 0x14);
 ASSERT_SIZE(CellState, 0x3c);

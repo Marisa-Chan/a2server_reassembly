@@ -1309,7 +1309,7 @@ void CellState::Null() { //58a3da
 }
 
 // 59423F
-void CellState::sub_59423F() {
+void CellState::RelinkPointers() {
     void* remapped;
 
     if (this->small_unit != nullptr && g_Server->field23_0xdc.Lookup(this->small_unit, remapped)) {
@@ -1796,14 +1796,14 @@ void MapStuff::sub_58AB48(CArchive& ar) {
 }
 
 // 594125 --- post-load map relink helper: remaps stale on-disk pointers in
-// each cell_states entry via g_Server's pointer remap table (sub_59423F).
+// each cell_states entry via g_Server's pointer remap table (RelinkPointers).
 void MapStuff::sub_594125() {
     POSITION pos = this->cell_states.GetStartPosition();
     while (pos != nullptr) {
         uint16_t key;
         CellState val;
         this->cell_states.GetNextAssoc(pos, key, val);
-        val.sub_59423F();
+        val.RelinkPointers();
         this->cell_states.SetAt(key, val);
     }
 }

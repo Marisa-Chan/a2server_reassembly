@@ -574,3 +574,4 @@ MapStuff::sub_596047 -> RegisterAreaEffect -- registers an area effect into the 
 MapStuff::sub_596131 -> RebuildPresenceGrid -- rebuilds presence grid from all active units/players
 MapStuff::sub_5957E2 -> MarkWatchedSector -- ORs the unit owner's vision mask into the 5x5 sector block around the unit
 MapStuff::sub_595F46 -> DetectWatchedUnit -- marks the unit detected when its sector is watched
+MapStuff::sub_5963B9 -> ClearPresenceGrid -- clears the sector grid and resets per-unit/per-group detection state
