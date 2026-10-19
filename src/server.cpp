@@ -6077,7 +6077,7 @@ void Server::sub_5090A7() {
 
 // 50979A
 void Server::sub_50979A() {
-    this->sub_5096E4();
+    this->UpdateMissionResults();
 }
 
 // 509042
@@ -6154,7 +6154,7 @@ void Server::sub_5090FA(Player* player) {
 }
 
 // 5096E4
-void Server::sub_5096E4() {
+void Server::UpdateMissionResults() {
     POSITION pos = g_PlayersList->list.GetHeadPosition();
     while (pos != nullptr) {
         Player* player = g_PlayersList->list.GetNext(pos);

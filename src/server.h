@@ -184,7 +184,7 @@ public:
     void PrepareSackPickup(class Sack* sack); // Pre-process a sack before pickup
     Human* SummonUnit(CString* unit_name, class Unit* origin, int is_hero); // Summon a unit; returns the new unit (or nullptr on failure)
     void ProcessHatPackets(); // 509042
-    void sub_5096E4(); // 5096E4
+    void UpdateMissionResults(); // 5096E4
     void sub_5090A7();
     void sub_50979A();
     void sub_5088DF(Packet* pkt); // 5088DF

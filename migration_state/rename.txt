@@ -390,3 +390,4 @@ Server::sub_4F8B74 -> SpawnRandomSack -- spawns one random sack on the map
 Server::sub_4F9B9E -> SaveSack -- saves a sack to file
 Server::sub_4F9AD3 -> PrepareSackPickup -- pre-processes a sack before pickup
 Server::sub_509879 -> SummonUnit -- summons a unit by name near origin; returns the new unit or nullptr
+Server::sub_509042 -> ProcessHatPackets -- services the HAT connector and dispatches received packets
