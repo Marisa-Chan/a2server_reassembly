@@ -729,7 +729,7 @@ void Unit::ProcessEffects() {
             this->decay = 1;
             this->sub_52C813();
             this->protections.defense /= 2;
-            this->charge_countdown = (int8_t)(this->VMethod25() - 1);
+            this->charge_countdown = (int8_t)(this->GetCorpseDecayTime() - 1);
             g_NetStru1_main.sub_519221(this, nullptr, 0x4001, 0xffb, 0, 0);
         } else if (this->charge_countdown < 1) {
             if (this->movement_type > 1) {
@@ -1200,7 +1200,7 @@ void Unit::AwardDamageExperience(Unit*, uint32_t, int32_t)
 void Unit::AwardCastExperience(Unit*, int32_t)
 {}
 
-int32_t Unit::VMethod25() {
+int32_t Unit::GetCorpseDecayTime() {
     return this->monster_info->Values()[0].dying_time;
 }
 
@@ -2696,7 +2696,7 @@ void Humanoid::AwardCastExperience(Unit*, int32_t spell_id) {
 }
 
 // 530394
-int32_t Humanoid::VMethod25() {
+int32_t Humanoid::GetCorpseDecayTime() {
     if (this->monster_info->Values().GetSize() == 0) {
         return 8;
     }

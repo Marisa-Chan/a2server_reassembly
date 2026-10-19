@@ -289,3 +289,4 @@ Unit::VMethod21 -> AddExperience -- adds exp (Humanoid: mind scaling, diminishin
 Unit::VMethod22 -> AwardKillExperience -- Humanoid: killer gains half the victim's exp and records the mob kill in mob_kills_in_session
 Unit::VMethod23 -> AwardDamageExperience -- Humanoid: caster gains exp proportional to damage dealt to AI-owned units
 Unit::VMethod24 -> AwardCastExperience -- Humanoid: caster gains exp worth half the spell mana cost in the spell's sphere
+Unit::VMethod25 -> GetCorpseDecayTime -- ticks a fallen unit stays before further decay (monster dying_time; humanoid reads protection_magic[4])

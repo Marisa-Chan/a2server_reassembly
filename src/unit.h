@@ -90,7 +90,7 @@ public: // VTable at 60efc0.
     virtual void AwardKillExperience(Unit*, int32_t);
     virtual void AwardDamageExperience(Unit*, uint32_t, int32_t);
     virtual void AwardCastExperience(Unit*, int32_t spell_id);
-    virtual int32_t VMethod25();
+    virtual int32_t GetCorpseDecayTime();
 
 public:
     Unit();
@@ -269,7 +269,7 @@ public:
     virtual void AwardKillExperience(Unit*, int32_t spell_id) override;
     virtual void AwardDamageExperience(Unit*, uint32_t damage, int32_t spell_id) override;
     virtual void AwardCastExperience(Unit*, int32_t spell_id) override;
-    virtual int32_t VMethod25() override;
+    virtual int32_t GetCorpseDecayTime() override;
 
 public:
     Humanoid();
