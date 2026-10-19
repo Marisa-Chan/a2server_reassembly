@@ -512,7 +512,7 @@ void Unit::FixupPointers() {
 
 
 // 52963B
-void Unit::VMethod11(Unit* unit) {
+void Unit::CopyFrom(Unit* unit) {
     // Copy Token base fields
     this->building_id = unit->building_id;
     this->TokenID = unit->TokenID;
@@ -2710,7 +2710,7 @@ int32_t Humanoid::VMethod25() {
 // Copy stats and equipment from another humanoid.
 // 530231
 void Humanoid::sub_530231(Humanoid* other) {
-    this->Unit::VMethod11(other);
+    this->Unit::CopyFrom(other);
 
     for (int32_t i = 0; i < this->equipment.size(); i++) {
         delete this->equipment[i];
