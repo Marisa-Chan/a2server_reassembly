@@ -1185,7 +1185,7 @@ void ScanPresenceGrid::DetectWatchedUnit(Unit* unit) {
 }
 
 // 5963B9
-void ScanPresenceGrid::sub_5963B9() {
+void ScanPresenceGrid::ClearPresenceGrid() {
     memset(this->sector_grid, 0, sizeof(this->sector_grid));
     POSITION player_it = g_PlayersList->list.GetHeadPosition();
     while (player_it != NULL) {
@@ -1209,7 +1209,7 @@ void ScanPresenceGrid::sub_5963B9() {
 
 // 596131
 void ScanPresenceGrid::RebuildPresenceGrid() {
-    this->sub_5963B9();
+    this->ClearPresenceGrid();
     this->num_detected = 0;
     this->unwatched_active_detections = 0;
 

@@ -573,3 +573,4 @@ NetStru1::sub_5167A5 -> ReleaseNetBuf -- walks the free_net3 list decrementing t
 MapStuff::sub_596047 -> RegisterAreaEffect -- registers an area effect into the scan grid
 MapStuff::sub_596131 -> RebuildPresenceGrid -- rebuilds presence grid from all active units/players
 MapStuff::sub_5957E2 -> MarkWatchedSector -- ORs the unit owner's vision mask into the 5x5 sector block around the unit
+MapStuff::sub_595F46 -> DetectWatchedUnit -- marks the unit detected when its sector is watched
