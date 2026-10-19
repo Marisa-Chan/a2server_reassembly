@@ -5129,7 +5129,7 @@ break;
         pl->group_list->groups.AddTail(grp);
 
         grp->AddUnit(unit);
-        g_World->sub_5A9A6A(unit);
+        g_World->ResetUnitToHold(unit);
         g_World->sub_5ACDF4(grp);
         g_NetStru1_main.sub_519221(unit, unit->pOwner, 0xffffffff, 0xffb, 0, 0);
     }

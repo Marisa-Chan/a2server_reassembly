@@ -5018,7 +5018,7 @@ void Server::FUN_00501b9e(int32_t var300, CDWordArray& arr) { //501b9e
                 pl->group_list->groups.AddTail(grp);
                 grp->AddUnit(hm);
 
-                g_World->sub_5A9A6A(hm);
+                g_World->ResetUnitToHold(hm);
                 g_World->sub_5ACDF4(grp);
                 g_NetStru1_main.sub_519221(hm, pl, (uint32_t)-1, 0xffb, 0, 0);
             }
@@ -6578,7 +6578,7 @@ Human* Server::SummonUnit(CString* unit_name, Unit* origin, int32_t is_hero) {
     player->group_list->groups.AddTail(group);
 
     group->AddUnit(unit);
-    g_World->sub_5A9A6A(unit);
+    g_World->ResetUnitToHold(unit);
     g_World->sub_5ACDF4(group);
 
     if (this->field18_0x94 == 0) {

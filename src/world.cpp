@@ -1456,7 +1456,7 @@ void World::sub_5A9B6B(Unit* unit) {
         unit->eye->field139_0x98 = 0;
         if (unit->state == 1) {
             this->PrepareUnitOrder(unit);
-            this->sub_5A9A6A(unit);
+            this->ResetUnitToHold(unit);
         } else if (unit->state == 0xA) {
             unit->eye2->field2_0x4 = 1;
             unit->eye2->cast_action = 0;
@@ -2713,7 +2713,7 @@ void World::FUN_005a93f4(Unit* unit) { //5a93f4
     unit->eye2->cast_action = 0;
 }
 
-void World::sub_5A9A6A(Unit* unit) { //5a9a6a
+void World::ResetUnitToHold(Unit* unit) { //5a9a6a
     this->BeginUnitOrder(unit);
     this->FUN_005a93f4(unit);
 }
@@ -2722,7 +2722,7 @@ void World::sub_5A9A6A(Unit* unit) { //5a9a6a
 // 5A9A8F
 void World::sub_5A9A8F(Unit* unit) {
     this->PrepareUnitOrder(unit);
-    this->sub_5A9A6A(unit);
+    this->ResetUnitToHold(unit);
     unit->eye2->field43_0x50 = 1;
 }
 
@@ -2914,7 +2914,7 @@ void World::sub_5AC8A2(Group* group, uint8_t range) {
 // 5A9087 — order `unit` to attack `target`.
 void World::sub_5A9087(Unit* unit, Unit* target) {
     if (unit == target) {
-        this->sub_5A9A6A(unit);
+        this->ResetUnitToHold(unit);
     } else {
         this->BeginUnitOrder(unit);
         unit->state = 3;
@@ -2946,7 +2946,7 @@ void World::sub_5A943B(Unit* unit) {
 void World::sub_5A9482(Unit* unit, Unit* target, uint8_t range) {
     this->BeginUnitOrder(unit);
     if (unit == target) {
-        this->sub_5A9A6A(unit);
+        this->ResetUnitToHold(unit);
     } else {
         unit->state = 8;
         unit->eye2->unit2 = target;
@@ -2959,7 +2959,7 @@ void World::sub_5A9482(Unit* unit, Unit* target, uint8_t range) {
 void World::sub_5A9501(Unit* unit, Unit* target, uint8_t range) {
     this->BeginUnitOrder(unit);
     if (unit == target) {
-        this->sub_5A9A6A(unit);
+        this->ResetUnitToHold(unit);
     } else {
         unit->state = 0x11;
         unit->eye2->unit2 = target;
@@ -3252,7 +3252,7 @@ void World::sub_5AC206(Group* group, uint8_t x, uint8_t y, Spell* spell) {
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
         if (unit->spell == nullptr) {
-            this->sub_5A9A6A(unit);
+            this->ResetUnitToHold(unit);
         } else {
             this->sub_5A930F(unit, x, y, spell);
         }
@@ -4414,7 +4414,7 @@ void World::sub_5AC80F(Group* group, Unit* target) {
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
         if (this->sub_5AD0B3(unit, target) == 0xFFFFFF) {
-            this->sub_5A9A6A(unit);
+            this->ResetUnitToHold(unit);
         } else {
             this->sub_5A9087(unit, target);
         }
@@ -4458,7 +4458,7 @@ void World::sub_5AC187(Group* group, Unit* target, Spell*) {
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
         if (unit->spell == nullptr) {
-            this->sub_5A9A6A(unit);
+            this->ResetUnitToHold(unit);
         } else {
             this->sub_5A92AF(unit, target, unit->spell);
         }

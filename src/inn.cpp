@@ -1315,7 +1315,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
                             POSITION node = grp_list.AddTail(new_group);
 
                             new_group->AddUnit(new_unit);
-                            g_World->sub_5A9A6A(new_unit);
+                            g_World->ResetUnitToHold(new_unit);
                             g_World->sub_5ACDF4(new_group);
                             g_NetStru1_main.sub_519221(new_unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
                         } else {

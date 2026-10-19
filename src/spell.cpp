@@ -640,7 +640,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 Group* group = new Group();
                 owner_player->group_list->groups.AddTail(group);
                 group->AddUnit(unit);
-                g_World->sub_5A9A6A(unit);
+                g_World->ResetUnitToHold(unit);
                 g_World->sub_5ACDF4(group);
 
                 MapStuff_Instance->scan_presence_grid.sub_596131();
@@ -733,7 +733,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 Group* group = new Group();
                 owner_player->group_list->groups.AddTail(group);
                 group->AddUnit(unit);
-                g_World->sub_5A9A6A(unit);
+                g_World->ResetUnitToHold(unit);
                 g_World->sub_5AC8A2(group, 0);
 
                 MapStuff_Instance->scan_presence_grid.sub_596131();

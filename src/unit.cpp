@@ -1662,7 +1662,7 @@ void Unit::Revive() {
     this->protections.defense <<= 1;
     this->RecalcStats();
     this->hp = (this->hp < 1) ? 1 : this->hp;
-    g_World->sub_5A9A6A(this);
+    g_World->ResetUnitToHold(this);
 }
 
 // 52C641

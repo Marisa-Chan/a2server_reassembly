@@ -1957,7 +1957,7 @@ void MapStuff::sub_5954AC(Unit* unit, uint8_t x, uint8_t y) {
     this->sub_58E3D1(unit);
     unit->position->SetCoords(x, y);
     this->sub_58AD4A(unit);
-    this->field41_0x58d80->sub_5A9A6A(unit);
+    this->field41_0x58d80->ResetUnitToHold(unit);
     g_NetStru1_main.sub_519221(unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
 }
 
