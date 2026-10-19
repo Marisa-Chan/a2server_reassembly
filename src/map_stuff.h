@@ -356,7 +356,7 @@ public:
 
     uint8_t* GetMapHeights() const { return this->map_heights; }; //41eea0
     uint8_t* FUN_0041eec0() const { return this->object_map; }; //41eec0
-    uint8_t* FUN_0041eee0() const { return this->field_0x18; }; //41eee0
+    uint8_t* FUN_0041eee0() const { return this->overlay_map; }; //41eee0
     int32_t sub_41EF60(int32_t x, int32_t y); //41ef60
 
     double FUN_004a7b79(); //4a7b79
@@ -368,7 +368,7 @@ public:
     uint16_t* landscape;
     uint8_t* map_heights;
     uint8_t* object_map;
-    uint8_t* field_0x18;
+    uint8_t* overlay_map;
     uint8_t abrightness;
     uint8_t contrast;
     uint8_t field_0x1e;

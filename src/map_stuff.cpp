@@ -2853,7 +2853,7 @@ void Scenario::sub_4A952B(int32_t x, int32_t y, uint32_t w, uint32_t h) {
                 light2 = 0.0;
             }
 
-            this->field_0x18[i + j * this->width] = (uint8_t)((light1 + light2) / 2.0);
+            this->overlay_map[i + j * this->width] = (uint8_t)((light1 + light2) / 2.0);
         }
     }
 }
@@ -2892,8 +2892,8 @@ Scenario::~Scenario() {
     if (this->object_map != nullptr) {
         free(this->object_map);
     }
-    if (this->field_0x18 != nullptr) {
-        free(this->field_0x18);
+    if (this->overlay_map != nullptr) {
+        free(this->overlay_map);
     }
 }
 
@@ -2902,7 +2902,7 @@ Scenario::Scenario() {
     this->landscape = nullptr;
     this->map_heights = nullptr;
     this->object_map = nullptr;
-    this->field_0x18 = nullptr;
+    this->overlay_map = nullptr;
 }
 
 // 4a7bec
@@ -2930,8 +2930,8 @@ Scenario::Scenario(const char* fname) {
         memcpy(this->object_map + i * this->width + 8, alm->map_objects + i * this->width + 8, this->width - 0x10);
     }
 
-    this->field_0x18 = (uint8_t*)malloc(this->width * this->height);
-    memset(this->field_0x18, 0, this->width * this->height);
+    this->overlay_map = (uint8_t*)malloc(this->width * this->height);
+    memset(this->overlay_map, 0, this->width * this->height);
 
     for (int32_t i = 0; i < alm->map_buildings.GetSize(); i++) {
         MapBuildingData* bld = alm->map_buildings[i];
