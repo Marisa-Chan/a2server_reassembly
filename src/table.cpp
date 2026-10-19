@@ -867,7 +867,7 @@ void GameDataRes::sub_50DC69(int material_id, CString* name) {
 }
 
 // 50DDAE
-int GameDataRes::sub_50DDAE(uint8_t type_id, uint8_t face) {
+int GameDataRes::GetMonsterDataIndex(uint8_t type_id, uint8_t face) {
     if (type_id < 0x40 && type_id != 0x1A && type_id != 0x1B) {
         for (int32_t i = 1; i < this->humans.GetSize(); i++) {
             if (this->humans[i].name.GetLength() != 0 && this->humans[i].Values()[0].type_id == type_id) {

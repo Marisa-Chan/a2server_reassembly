@@ -1297,7 +1297,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
                     // ---- Monster reward ----
                     uint8_t low_byte = item->count & 0xFF;
                     uint8_t high_byte = (item->count >> 8) & 0xFF;
-                    int monster_index = g_GameDataRes.sub_50DDAE(low_byte, high_byte);
+                    int monster_index = g_GameDataRes.GetMonsterDataIndex(low_byte, high_byte);
 
                     Unit* new_unit = new Unit(g_GameDataRes.monsters[monster_index].name);
 
