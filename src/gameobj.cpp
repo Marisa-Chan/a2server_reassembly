@@ -2919,10 +2919,10 @@ int32_t CUnit::Update() { // 46785f
         }
         if (this->action_spell == 0x36) {
             if (this->action_phase == 0) {
-                this->VMethod19();
+                this->SpawnSpellProjectile();
             }
         } else if (this->action_phase == vfx->shoot_delay) {
-            this->VMethod19();
+            this->SpawnSpellProjectile();
         }
         this->phase = this->action_phase;
         this->action_phase = this->action_phase + 1;
@@ -2943,7 +2943,7 @@ int32_t CUnit::Update() { // 46785f
     return 1;
 }
 
-void CUnit::VMethod19() { // 468765
+void CUnit::SpawnSpellProjectile() { // 468765
     BigStruct2* map = this->pMapObject;
     CGameObject* xd90_target = nullptr;
     if (this->action_target != 0 && map->field_0x9d0.Lookup(this->action_target, xd90_target) == 0) {
