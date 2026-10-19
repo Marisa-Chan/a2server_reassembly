@@ -595,7 +595,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
 
                 switch (corpse_decay) {
                 case 2:
-                    unit->FUN_0052931b(CString("F_Zombie.1"));
+                    unit->InitDefaults(CString("F_Zombie.1"));
                     unit->body = dead_unit->body;
                     unit->reaction = dead_unit->reaction / 2 + 1;
                     unit->mind = dead_unit->mind;
@@ -606,7 +606,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
                     unit->protections.defense = dead_unit->protections.defense;
                     break;
                 case 3:
-                    unit->FUN_0052931b(CString("F_Skeleton.1"));
+                    unit->InitDefaults(CString("F_Skeleton.1"));
                     unit->body = dead_unit->body / 2 + 1;
                     unit->reaction = dead_unit->reaction / 2 + 1;
                     unit->mind = dead_unit->mind;
@@ -617,7 +617,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
                     unit->protections.defense = dead_unit->protections.defense;
                     break;
                 case 4:
-                    unit->FUN_0052931b(CString("Ghost"));
+                    unit->InitDefaults(CString("Ghost"));
                     unit->reaction = dead_unit->reaction / 2 + 1;
                     unit->mind = dead_unit->mind;
                     unit->spirit = dead_unit->spirit;
@@ -719,7 +719,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
                     CString dot_tier = "." + CString((char)('0' + tier), 1);
                     name += dot_tier;
                 }
-                unit->FUN_0052931b(name);
+                unit->InitDefaults(name);
                 unit->summoned = 1;
 
                 if (!unit->sub_52BF3D(caster->position->GetX(), caster->position->GetY(), 6)) {

@@ -99,7 +99,7 @@ public:
     Unit(const TokenPos*);
     Unit(const TokenPos*, Player*);
 
-    void FUN_0052931b(const CString& str);
+    void InitDefaults(const CString& str);
     void sub_537251();    // Apply invincibility (god-mode) enchantments to unit
     void sub_52A790(int32_t delta_weight); // Add inventory weight and notify clients after item change.
     void sub_52A215(); // Initialize default unit stats (for newly created units)

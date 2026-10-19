@@ -82,7 +82,7 @@ void EquipmentExtra::AddToUnit(Unit *unit) {
 /***************   Unit   *******************/
 Unit::Unit() {
     //528aef
-    this->FUN_0052931b("");
+    this->InitDefaults("");
     this->last_hit_by = nullptr;
     this->last_hit_spell_id = 0;
     this->spell = nullptr;
@@ -90,7 +90,7 @@ Unit::Unit() {
 
 Unit::Unit(const CString &str) {
     //528c97
-    this->FUN_0052931b(str);
+    this->InitDefaults(str);
     this->last_hit_by = nullptr;
     this->last_hit_spell_id = 0;
     this->spell = nullptr;
@@ -99,7 +99,7 @@ Unit::Unit(const CString &str) {
 Unit::Unit(const CString &str, const TokenPos *pos)
     : Token(pos) {
     //528e24
-    this->FUN_0052931b(str);
+    this->InitDefaults(str);
     this->last_hit_by = nullptr;
     this->last_hit_spell_id = 0;
     this->spell = nullptr;
@@ -108,7 +108,7 @@ Unit::Unit(const CString &str, const TokenPos *pos)
 Unit::Unit(const TokenPos *pos)
     : Token(pos) {
     //528fb7
-    this->FUN_0052931b("");
+    this->InitDefaults("");
     this->last_hit_by = nullptr;
     this->last_hit_spell_id = 0;
     this->spell = nullptr;
@@ -117,7 +117,7 @@ Unit::Unit(const TokenPos *pos)
 Unit::Unit(const TokenPos *pos, Player *player)
     : Token(pos, player) {
     //529167
-    this->FUN_0052931b("");
+    this->InitDefaults("");
     this->last_hit_by = nullptr;
     this->last_hit_spell_id = 0;
     this->spell = nullptr;
@@ -1730,7 +1730,7 @@ void Unit::sub_52E7FA() {
 }
 
 // 52931B
-void Unit::FUN_0052931b(const CString& str) {
+void Unit::InitDefaults(const CString& str) {
     this->last_hit_by = nullptr;
     this->last_hit_spell_id = 0;
     this->spell = nullptr;
