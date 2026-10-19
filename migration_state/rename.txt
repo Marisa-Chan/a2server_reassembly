@@ -191,3 +191,4 @@ ColorThing::field_c -> shade_delta -- --
 ColorThing::field_10 -> lit_delta -- --
 ColorThing::field_18 -> sun_angle -- --
 StructureInfo::field_0x38 -> anim_frame_stride -- stride between animation frames in the frame index calc (tile_width*full_height + (frame-1)*stride)
+CProjectile::field_0x144 -> path_history -- ring of past (x|y<<16) positions (max 5) used by projectile types 10/12

@@ -435,7 +435,7 @@ public:
 	CProjectile(CProjectile* obj); //46d85c
 
 public:
-	CDWordArray field_0x144;
+	CDWordArray path_history;
 };
 ASSERT_SIZE(CProjectile, 0x158);
 

@@ -4319,7 +4319,7 @@ CProjectile::CProjectile() {
 
 // 46d85c
 CProjectile::CProjectile(CProjectile* obj) : CGameObject(obj) {
-    this->field_0x144.Copy(obj->field_0x144);
+    this->path_history.Copy(obj->path_history);
 }
 
 // 46f060
@@ -4524,10 +4524,10 @@ int32_t CProjectile::VMethod11() {
         }
 
         if (this->typeId == 10 || this->typeId == 12) {
-            if (this->field_0x144.GetSize() > 5) {
-                this->field_0x144.RemoveAt(0, 1);
+            if (this->path_history.GetSize() > 5) {
+                this->path_history.RemoveAt(0, 1);
             }
-            this->field_0x144.Add(old_x | old_y << 0x10);
+            this->path_history.Add(old_x | old_y << 0x10);
         }
 
         this->VMethod16();
@@ -4605,13 +4605,13 @@ void CProjectile::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) {
             if (sprite2 != nullptr) {
                 sprite2->VMethod10(x, y, sprite_idx, arg3, flip);
             }
-            if (this->field_0x144.GetSize() != 0) {
+            if (this->path_history.GetSize() != 0) {
                 int32_t smoke_idx = 0;
                 if (this->typeId == 12) {
                     smoke_idx = 1;
                 }
-                for (int32_t i = 0; i < this->field_0x144.GetSize(); i++) {
-                    uint32_t packed = this->field_0x144[i];
+                for (int32_t i = 0; i < this->path_history.GetSize(); i++) {
+                    uint32_t packed = this->path_history[i];
                     int32_t sx = ((packed & 0xffff) >> 3) - map->view_x * 0x20 - g_spr_smoke[smoke_idx]->GetWidth(0) / 2;
                     int32_t sy = (packed >> 0x13) - map->view_y * 0x20 - g_spr_smoke[smoke_idx]->GetHeight(0) / 2 - this->terrainHeightOffset - this->z_pos;
                     g_spr_smoke[smoke_idx]->VMethod2(sx, sy, i, arg3, 0);
