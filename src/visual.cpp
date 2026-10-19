@@ -9709,12 +9709,12 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
     }
 
     if (disallow != 0) {
-        main_wnd->vis_invtype1->VMethod37(main_wnd->field_0x40c);
+        main_wnd->vis_invtype1->VMethod37(main_wnd->drag_src_slot);
         return 0;
     }
 
     if ((token->flg & 0x10) != 0 && (token->flg & 1) != 0) {
-        int32_t removed = main_wnd->vis_invtype1->VMethod37(main_wnd->field_0x40c);
+        int32_t removed = main_wnd->vis_invtype1->VMethod37(main_wnd->drag_src_slot);
         main_wnd->vis_spellbook->sub_4CA925(removed);
         map->sub_418F93(0xA);
         return 0;
@@ -9729,10 +9729,10 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
         }
 
         int32_t amount = token->count;
-        map->sub_41A7C7(main_wnd->field_0x410, main_wnd->field_0x40c, this->VMethod28(), a + 1, amount);
+        map->sub_41A7C7(main_wnd->field_0x410, main_wnd->drag_src_slot, this->VMethod28(), a + 1, amount);
 
         if (split != nullptr) {
-            main_wnd->vis_invtype1->VMethod37(main_wnd->field_0x40c);
+            main_wnd->vis_invtype1->VMethod37(main_wnd->drag_src_slot);
             return 0;
         }
         if (main_wnd->drag_entry != nullptr) {
@@ -9744,13 +9744,13 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
 
     TokenEntry* old_token = unit->equipmentTokens[a];
     if (old_token != nullptr) {
-        main_wnd->vis_invtype1->VMethod26(old_token, main_wnd->field_0x40c);
+        main_wnd->vis_invtype1->VMethod26(old_token, main_wnd->drag_src_slot);
         main_wnd->vis_invtype1->VMethod33(unit);
     }
 
     if (a == 0) {
         if (token->sub_4396FB() != 0 && unit->equipmentTokens[1] != nullptr) {
-            main_wnd->vis_invtype1->VMethod26(unit->equipmentTokens[1], main_wnd->field_0x40c);
+            main_wnd->vis_invtype1->VMethod26(unit->equipmentTokens[1], main_wnd->drag_src_slot);
             main_wnd->vis_invtype1->VMethod33(unit);
             unit->equipmentTokens[1] = nullptr;
         }
@@ -9758,7 +9758,7 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
 
     if (a == 1) {
         if (unit->equipmentTokens[0] != nullptr && unit->equipmentTokens[0]->sub_4396FB() != 0) {
-            main_wnd->vis_invtype1->VMethod26(unit->equipmentTokens[0], main_wnd->field_0x40c);
+            main_wnd->vis_invtype1->VMethod26(unit->equipmentTokens[0], main_wnd->drag_src_slot);
             main_wnd->vis_invtype1->VMethod33(unit);
             unit->equipmentTokens[0] = nullptr;
         }
@@ -9769,7 +9769,7 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
     unit->equipmentTokens[a] = main_wnd->drag_entry;
 
     int32_t amount = main_wnd->drag_entry->count;
-    map->sub_41A7C7(main_wnd->field_0x410, main_wnd->field_0x40c, this->VMethod28(), a + 1, amount);
+    map->sub_41A7C7(main_wnd->field_0x410, main_wnd->drag_src_slot, this->VMethod28(), a + 1, amount);
 
     main_wnd->ResetItemCursor();
     unit->ReloadSprite();
@@ -9894,7 +9894,7 @@ int32_t VisCharInfo::OnMouseMove(uint32_t wparam, CPoint pos) {
 
     CString name = main_wnd->drag_entry->FUN_004394f3();
     CString path = "graphics\\inventory\\" + name + ".16a";
-    main_wnd->sub_48CCA1(main_wnd->drag_entry, main_wnd->field_0x40c, path, main_wnd->field_0x410);
+    main_wnd->sub_48CCA1(main_wnd->drag_entry, main_wnd->drag_src_slot, path, main_wnd->field_0x410);
 
     unit->unitFlags |= 8;
     this->MsgProc(0x408, 0, 0);
@@ -9931,7 +9931,7 @@ int32_t VisCharInfo::VMethod26(int32_t a) {
     this->MsgProc(0x408, 0, 0);
     main_wnd->drag_entry = unit->equipmentTokens[a];
     unit->equipmentTokens[a] = nullptr;
-    main_wnd->field_0x40c = a;
+    main_wnd->drag_src_slot = a;
     main_wnd->field_0x410 = this->VMethod28();
     unit->ReloadSprite();
     main_wnd->vis_root->MsgProc(0x46E, this->id, 0);
@@ -10976,16 +10976,16 @@ void VisShop::sub_4BC97B() {
     ApplyCursor(g_Cursors[0]);
     switch (main_wnd->field_0x410) {
     case 1:
-        ((VisCharInfo*)this->select_info_panel)->VMethod27(main_wnd->field_0x40c);
+        ((VisCharInfo*)this->select_info_panel)->VMethod27(main_wnd->drag_src_slot);
         this->dirty |= 8;
         break;
     case 2:
-        this->to_sell->VMethod37(main_wnd->field_0x40c);
+        this->to_sell->VMethod37(main_wnd->drag_src_slot);
         this->to_sell->sub_4B4D33();
         this->dirty |= 1;
         break;
     case 4:
-        this->to_buy->VMethod37(main_wnd->field_0x40c);
+        this->to_buy->VMethod37(main_wnd->drag_src_slot);
         this->to_buy->sub_4B4D33();
         if (this->spell_panel == nullptr) {
             this->dirty |= 4;
@@ -10995,7 +10995,7 @@ void VisShop::sub_4BC97B() {
     case 6:
     case 7:
     case 8:
-        this->assortiment->VMethod37(main_wnd->field_0x40c);
+        this->assortiment->VMethod37(main_wnd->drag_src_slot);
         this->assortiment->sub_4B4D33();
         this->dirty |= 2;
         break;
@@ -16064,7 +16064,7 @@ int32_t VisInvBase::VMethod37(int32_t idx) {
         this->VMethod32(this->grid_source);
     }
     if (same_tab != 0) {
-        main_wnd->vis_map_context->sub_41A7C7(main_wnd->field_0x410, main_wnd->field_0x40c, this->VMethod38(), idx, count);
+        main_wnd->vis_map_context->sub_41A7C7(main_wnd->field_0x410, main_wnd->drag_src_slot, this->VMethod38(), idx, count);
     }
     main_wnd->ResetItemCursor();
     main_wnd->vis_root->MsgProc(0x46E, this->id, 0);
@@ -16090,7 +16090,7 @@ TokenEntry* VisInvBase::VMethod36(int32_t idx, int32_t num) {
         return nullptr;
     }
     main_wnd->drag_entry = this->VMethod29(entry, num);
-    main_wnd->field_0x40c = idx;
+    main_wnd->drag_src_slot = idx;
     main_wnd->field_0x410 = this->VMethod38();
     if (this->VMethod38() == 2) {
         this->VMethod33(selected);
@@ -16454,11 +16454,11 @@ int32_t VisInvType1::OnMouseMove(uint32_t wparam, CPoint pos) {
 
     if (main_wnd->drag_entry->FUN_0041f0d0() != 0) {
         main_wnd->vis_map_context->my_main_unit->gold -= main_wnd->drag_entry->count;
-        main_wnd->sub_48CCA1(main_wnd->drag_entry, main_wnd->field_0x40c, "graphics\\interface\\money\\money.16a", main_wnd->field_0x410);
+        main_wnd->sub_48CCA1(main_wnd->drag_entry, main_wnd->drag_src_slot, "graphics\\interface\\money\\money.16a", main_wnd->field_0x410);
     } else {
         CString name = main_wnd->drag_entry->FUN_004394f3();
         CString path = "graphics\\inventory\\" + name + ".16a";
-        main_wnd->sub_48CCA1(main_wnd->drag_entry, main_wnd->field_0x40c, path, main_wnd->field_0x410);
+        main_wnd->sub_48CCA1(main_wnd->drag_entry, main_wnd->drag_src_slot, path, main_wnd->field_0x410);
     }
 
     return 0;
@@ -16831,7 +16831,7 @@ int32_t VisInvExtBase::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
                 if (main_wnd->field_0x410 == 4) {
                     switch (main_wnd->drag_entry->slot_code) {
                     case 1:
-                        ((VisCharInfo*)shop->select_info_panel)->VMethod27(main_wnd->field_0x40c);
+                        ((VisCharInfo*)shop->select_info_panel)->VMethod27(main_wnd->drag_src_slot);
                         shop->dirty |= 8;
                         break;
                     case 2:
@@ -16916,16 +16916,16 @@ int32_t VisInvExtBase::OnMouseMove(uint32_t wparam, CPoint pos) {
     }
     if (wparam & 1) {
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-        if (main_wnd->field_0x40c >= 0 && main_wnd->field_0x40c < this->grid_source->GetSize() && main_wnd->drag_entry == nullptr) {
+        if (main_wnd->drag_src_slot >= 0 && main_wnd->drag_src_slot < this->grid_source->GetSize() && main_wnd->drag_entry == nullptr) {
             int32_t count;
             if (g_kbShiftState != 0) {
-                count = this->grid_source->GetAt(main_wnd->field_0x40c)->count;
+                count = this->grid_source->GetAt(main_wnd->drag_src_slot)->count;
             } else {
                 count = 1;
             }
-            if (this->grid_source->GetAt(main_wnd->field_0x40c)->sub_43A5E5() == 0) {
-                if (this->VMethod36(main_wnd->field_0x40c, count) != 0) {
-                    this->sub_4B5A6C(main_wnd->field_0x40c);
+            if (this->grid_source->GetAt(main_wnd->drag_src_slot)->sub_43A5E5() == 0) {
+                if (this->VMethod36(main_wnd->drag_src_slot, count) != 0) {
+                    this->sub_4B5A6C(main_wnd->drag_src_slot);
                     this->sub_4B4FD1();
                     this->sub_4B4D33();
                     this->VMethod9();
@@ -17009,7 +17009,7 @@ void VisInvExtBase::sub_4B4BC5() {
 int32_t VisInvExtBase::OnLButtonDown(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->drag_entry == nullptr) {
-        main_wnd->field_0x40c = this->VMethod31(&pos);
+        main_wnd->drag_src_slot = this->VMethod31(&pos);
     }
     return 1;
 }
@@ -17558,7 +17558,7 @@ int32_t VisInvExtType1::VMethod37(int32_t idx) {
         this->VMethod32(this->grid_source);
     }
     if (tab_before != main_wnd->field_0x410) {
-        main_wnd->vis_map_context->sub_41A7C7(main_wnd->field_0x410, main_wnd->field_0x40c, this->VMethod38(), entry->field_0x20, count);
+        main_wnd->vis_map_context->sub_41A7C7(main_wnd->field_0x410, main_wnd->drag_src_slot, this->VMethod38(), entry->field_0x20, count);
     }
     main_wnd->ResetItemCursor();
     main_wnd->vis_root->MsgProc(0x46E, this->id, 0);
@@ -17833,7 +17833,7 @@ int32_t VisInvExtType3::sub_4B9B2F(int32_t idx) {
     if (main_wnd->field_0x410 >= 5 && main_wnd->field_0x410 <= 8) {
         grade = entry->field_0x20;
     } else {
-        grade = main_wnd->field_0x40c;
+        grade = main_wnd->drag_src_slot;
     }
     int32_t result = this->VMethod26(entry, idx);
     this->VMethod32(this->grid_source);
@@ -23028,7 +23028,7 @@ int32_t VisSpellBook::OnLButtonUp(uint32_t wparam, CPoint pos) {
         g_Cursors[0]->Use();
         if ((main_wnd->dialogsMask & 2) == 0) {
             if (main_wnd->field_0x410 == 2) {
-                main_wnd->vis_invtype1->VMethod37(main_wnd->field_0x40c);
+                main_wnd->vis_invtype1->VMethod37(main_wnd->drag_src_slot);
             } else if (main_wnd->field_0x410 == 1) {
                 main_wnd->vis_invtype1->VMethod37(main_wnd->vis_invtype1->FUN_0046fb90());
             }

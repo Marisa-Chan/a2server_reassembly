@@ -1232,7 +1232,7 @@ void MainWindow::OnNcMouseMove(UINT nHitTest, CPoint point) {
 // 48cca1
 void MainWindow::sub_48CCA1(TokenEntry* entry, int32_t idx, const char* str, int32_t tab) {
     this->item_cursor = new CCursor(str, 0x28, 0x28, 1000000000);
-    this->field_0x40c = idx;
+    this->drag_src_slot = idx;
     this->field_0x410 = tab;
     this->drag_entry = entry;
 }
@@ -1456,7 +1456,7 @@ MainWindow::MainWindow() { //4837e1
     this->field_0x800 = 0;
     this->music_player = nullptr;
     this->drag_entry = nullptr;
-    this->field_0x40c = -1;
+    this->drag_src_slot = -1;
     this->item_cursor = nullptr;
     this->music_update_proc = nullptr;
     this->dialogsMask = 0;
@@ -2241,7 +2241,7 @@ void MainWindow::ResetItemCursor() {
 
     this->item_cursor = nullptr;
     this->drag_entry = nullptr;
-    this->field_0x40c = -1;
+    this->drag_src_slot = -1;
     this->field_0x410 = -1;
 }
 

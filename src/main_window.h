@@ -529,7 +529,7 @@ public:
     int32_t pending_game_mode;
 
     TokenEntry* drag_entry;
-    int32_t field_0x40c;
+    int32_t drag_src_slot;
     int32_t field_0x410;
     CCursor* item_cursor;
 
