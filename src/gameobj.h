@@ -137,7 +137,7 @@ public:
 	virtual void UpdateTileLayer();
 	virtual int32_t Update();
 	virtual void UpdateLight();
-	virtual void VMethod13();
+	virtual void UpdateOccupancy();
 	virtual void VMethod14();
 	virtual int32_t VMethod15();
 	virtual void VMethod16();
@@ -249,7 +249,7 @@ public:
 	virtual void UpdateTileLayer() override;
 	virtual int32_t Update() override;
 
-	virtual void VMethod13() override;
+	virtual void UpdateOccupancy() override;
 	virtual void VMethod14() override;
 	virtual int32_t VMethod15() override;
 	virtual void VMethod16() override;

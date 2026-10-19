@@ -422,7 +422,7 @@ void CGameObject::UpdateTileLayer() { //46f4e0
 
 
 int32_t CGameObject::Update() { //461f73
-    this->VMethod13();
+    this->UpdateOccupancy();
     return 1;
 }
 
@@ -431,7 +431,7 @@ void CGameObject::UpdateLight() { //46f4f0
 }
 
 
-void CGameObject::VMethod13() { //462190
+void CGameObject::UpdateOccupancy() { //462190
     if (this->pMapObject->my_main_unit->FUN_0041ee50(this->map_player->index) != 0 && this->scan_range != 0 && (this->screenX & 0x1f) == 0x10 && (this->screenY & 0x1f) == 0x10 && (this->x_pos != this->occupiedLocation.x || this->y_pos != this->occupiedLocation.y)) {
         this->VMethod14();
     }
@@ -2643,7 +2643,7 @@ int32_t CUnit::Update() { // 46785f
             this->action_phase = this->action_phase + 1;
             this->phase = this->action_phase % vfx->idle_anim_frame_cnt;
         }
-        this->VMethod13();
+        this->UpdateOccupancy();
         this->x_pos2 = this->x_pos;
         this->y_pos2 = this->y_pos;
         return 1;
@@ -2933,7 +2933,7 @@ int32_t CUnit::Update() { // 46785f
 
     this->last_action = this->action;
     this->action_segments = this->action_segments - 1;
-    this->VMethod13();
+    this->UpdateOccupancy();
 
     if (this->m_bSelected != 0) {
         main_wnd->vis_charinfo->MsgProc(0x408, 0, 0);
@@ -3335,9 +3335,9 @@ void CUnit::VMethod17(int16_t arg1, int32_t arg2, int32_t arg3, int32_t arg4, in
 }
 
 // 46f600
-void CUnit::VMethod13() {
+void CUnit::UpdateOccupancy() {
     if (this->death_state < 3) {
-        CGameObject::VMethod13();
+        CGameObject::UpdateOccupancy();
     }
 }
 
