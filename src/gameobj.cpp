@@ -209,7 +209,7 @@ void CGameObject::FUN_0046190d() { //46190d
     this->mapBoundsLeft = ((this->x_pos2 - 0x80) >> 8) - map->view_x;
     this->mapBoundsTop = ((this->y_pos2 - 0x80) >> 8) - map->view_y;
     this->mapBoundsRight = ((this->x_pos2 + 127 + (this->GetTileWidth() - 1) * 0x100) >> 8) - map->view_x;
-    this->mapBoundsBottom = ((this->y_pos2 + 127 + (this->VMethod5() - 1) * 0x100) >> 8) - map->view_y;
+    this->mapBoundsBottom = ((this->y_pos2 + 127 + (this->GetTileHeight() - 1) * 0x100) >> 8) - map->view_y;
 
     this->mapLayerActive = 1;
     if (this->mapBoundsLeft < -3) {
@@ -241,7 +241,7 @@ void CGameObject::FUN_0046190d() { //46190d
     this->screenY = (this->y_pos2 >> 3) - map->view_y * 32;
 
     this->centerWorldX8 = this->x_pos2 - 128 + this->GetTileWidth() * 128;
-    this->centerWorldY8 = this->y_pos2 - 128 + this->VMethod5() * 128;
+    this->centerWorldY8 = this->y_pos2 - 128 + this->GetTileHeight() * 128;
 
     this->centerScreenX = (this->centerWorldX8 >> 3) - map->view_x * 32;
     this->centerScreenY = (this->centerWorldY8 >> 3) - map->view_y * 32;
@@ -295,7 +295,7 @@ void CGameObject::FUN_00461c41(int32_t arg1, CGameObject* arg2) { //461c41
     }
 
     int32_t x = ((this->x_pos2 - 0x80 + this->GetTileWidth() * 0x80) >> 8) - map->view_x;
-    int32_t y = ((this->y_pos2 - 0x80 + this->VMethod5() * 0x80) >> 8) - map->view_y;
+    int32_t y = ((this->y_pos2 - 0x80 + this->GetTileHeight() * 0x80) >> 8) - map->view_y;
     if (x >= -4 && y >= -4 && x < map->view_tiles_x + 3 && y < map->view_tiles_y + 7) {
         layer[x + 3 + (y + 3) * (map->view_tiles_x + 6)] = arg2;
     }
@@ -396,7 +396,7 @@ int32_t CGameObject::GetTileWidth() { //46f480
 }
 
 
-int32_t CGameObject::VMethod5() { // 46f490
+int32_t CGameObject::GetTileHeight() { // 46f490
     return 0;
 }
 
@@ -445,7 +445,7 @@ void CGameObject::VMethod14() { //462226
         uint16_t* land = this->pMapObject->field_0x80->GetLandscape();
         int32_t iVar6 = this->GetTileWidth();
         int32_t iVar2 = this->tileX;
-        int32_t iVar7 = this->VMethod5();
+        int32_t iVar7 = this->GetTileHeight();
         int32_t iVar3 = this->tileY;
 
         this->pMapObject->FUN_00403ca0(this);
@@ -3354,7 +3354,7 @@ int32_t CUnit::GetTileWidth() {
 }
 
 // 4648c5
-int32_t CUnit::VMethod5() {
+int32_t CUnit::GetTileHeight() {
     return g_VFX_info[this->typeId]->tile_size;
 }
 
@@ -4044,12 +4044,12 @@ void CStructure::VMethod9(int32_t arg1, int32_t arg2, int32_t arg3) {
         arg1 += ((this->x_pos >> 8) - map->MapMinX()) >> 1;
         arg2 += ((this->y_pos >> 8) - map->MapMinX()) >> 1;
         width = this->GetTileWidth();
-        height = this->VMethod5();
+        height = this->GetTileHeight();
     } else {
         arg1 += ((this->x_pos >> 8) - map->MapMinX()) << arg3;
         arg2 += ((this->y_pos >> 8) - map->MapMinX()) << arg3;
         width = this->GetTileWidth() << arg3;
-        height = this->VMethod5() << arg3;
+        height = this->GetTileHeight() << arg3;
     }
 
     uint16_t color = g_Human_palettes[this->map_player->color]->GetPalette(8)[0xa4];
@@ -4070,7 +4070,7 @@ int32_t CStructure::VMethod15() {
 
     for (int32_t x = 0; x < this->GetTileWidth(); x++) {
         StructureInfo* info = g_StructuresInfo[this->typeId];
-        for (int32_t y = this->VMethod5() - info->full_height; y < this->VMethod5(); y++) {
+        for (int32_t y = this->GetTileHeight() - info->full_height; y < this->GetTileHeight(); y++) {
             int32_t idx = this->tileX + x + map->map_width * (this->tileY + y);
             uint16_t u = (land[idx] & 0xc000) | (land[idx + 1] & 0xc000) | (land[idx + map->map_width] & 0xc000) | (land[idx + map->map_width + 1] & 0xc000);
             if (u == 0x8000) {
@@ -4109,7 +4109,7 @@ int32_t CStructure::GetTileWidth() {
 }
 
 // 4637eb
-int32_t CStructure::VMethod5() {
+int32_t CStructure::GetTileHeight() {
     return g_StructuresInfo[this->typeId]->tile_height;
 }
 
@@ -4147,7 +4147,7 @@ int32_t CBridge::GetTileWidth() {
 }
 
 // 46f530
-int32_t CBridge::VMethod5() {
+int32_t CBridge::GetTileHeight() {
     return this->bridge_height;
 }
 
@@ -4337,12 +4337,12 @@ int32_t CProjectile::GetTileWidth() {
 }
 
 // 46f5d0
-int32_t CBackPack::VMethod5() {
+int32_t CBackPack::GetTileHeight() {
     return 1;
 }
 
 // 46f670
-int32_t CProjectile::VMethod5() {
+int32_t CProjectile::GetTileHeight() {
     return 1;
 }
 
