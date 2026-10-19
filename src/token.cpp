@@ -16,31 +16,31 @@ uint32_t BldIdSet_AllocBit() { return g_buildingIdSet.AllocBit(); }
 
 void TokenPos::Set(uint8_t _x, uint8_t _y, MapStuff* _inst)
 { //58a4b1
-	x = _x;
-	y = _y;
-	YX.Set(_x, _y);
-	x_subcell = 128;
-	y_subcell = 128;
-	pInstance = _inst;
+	this->x = _x;
+	this->y = _y;
+	this->YX.Set(_x, _y);
+	this->x_subcell = 128;
+	this->y_subcell = 128;
+	this->pInstance = _inst;
 }
 
 TokenPos::TokenPos(uint8_t _x, uint8_t _y, MapStuff* _inst)
 {
 	//58a4f9
-	Set(_x, _y, _inst);
+	this->Set(_x, _y, _inst);
 }
 
 TokenPos::TokenPos()
 { 
 	//58a495
-	Set(0, 0, nullptr);
+	this->Set(0, 0, nullptr);
 }
 
 TokenPos::TokenPos(uint16_t _YX, MapStuff* _inst) 
 {
 	//58a562
 	//58a583
-	Set(_YX & 8, _YX >> 8, _inst);
+	this->Set(_YX & 8, _YX >> 8, _inst);
 }
 
 //58a9ee
@@ -66,43 +66,43 @@ void TokenPos::Serialize(CArchive& ar)
 uint8_t TokenPos::GetX() const
 {
 	//58aaf0
-	return x;
+	return this->x;
 }
 
 uint8_t TokenPos::GetY() const
 {
 	//58ab00
-	return y;
+	return this->y;
 }
 
 PosYX TokenPos::GetYX() const
 {
-	return YX;
+	return this->YX;
 }
 
 uint16_t TokenPos::CompatGetYX() const
 {
 	//58aade
-	return YX.val;
+	return this->YX.val;
 }
 
 uint16_t TokenPos::GetXx() const
 {
 	//58aa9b
-	return (x << 8) | x_subcell;
+	return (this->x << 8) | this->x_subcell;
 }
 
 uint16_t TokenPos::GetYy() const
 {
 	//58aabc
-	return (y << 8) | y_subcell;
+	return (this->y << 8) | this->y_subcell;
 }
 
 uint8_t TokenPos::Distance(const TokenPos* b) const
 {
 	//58a6bf
-	uint8_t xLen = abs((int32_t)x - (int32_t)b->x);
-	uint8_t yLen = abs((int32_t)y - (int32_t)b->y);
+	uint8_t xLen = abs((int32_t)this->x - (int32_t)b->x);
+	uint8_t yLen = abs((int32_t)this->y - (int32_t)b->y);
 	if (xLen <= yLen) {
 		return yLen;
 	}
@@ -112,38 +112,38 @@ uint8_t TokenPos::Distance(const TokenPos* b) const
 int TokenPos::IsSameYX(const TokenPos* b) const
 {
 	//58a5b3
-	return YX == b->YX;
+	return this->YX == b->YX;
 }
 
 void TokenPos::SetCoords(uint8_t _x, uint8_t _y)
 {
 	//58a737
-	x = _x;
-	y = _y;
-	YX.Set(_x, _y);
-	x_subcell = 128;
-	y_subcell = 128;
+	this->x = _x;
+	this->y = _y;
+	this->YX.Set(_x, _y);
+	this->x_subcell = 128;
+	this->y_subcell = 128;
 }
 
 void TokenPos::SetCoords2(uint16_t Xx, uint16_t Yy)
 {
 	//58a781
-	x = Xx >> 8;
-	y = Yy >> 8;
-	YX.Set(x, y);
-	x_subcell = Xx & 0xff;
-	y_subcell = Yy & 0xff;
+	this->x = Xx >> 8;
+	this->y = Yy >> 8;
+	this->YX.Set(this->x, this->y);
+	this->x_subcell = Xx & 0xff;
+	this->y_subcell = Yy & 0xff;
 }
 
 void TokenPos::FUN_00594200()
 { // 594200
-	if (!pInstance) {
+	if (!this->pInstance) {
 		return;
 	}
 
 	MapStuff* stuf = nullptr;
-	if (g_Server->field23_0xdc.Lookup(pInstance, *(void**)&stuf)) {
-		pInstance = stuf;
+	if (g_Server->field23_0xdc.Lookup(this->pInstance, *(void**)&stuf)) {
+		this->pInstance = stuf;
 	}
 }
 
@@ -160,23 +160,23 @@ int TokenPos::FUN_0058a7e8(uint8_t _x, uint8_t _y)
 		_y = 8;
 		ok = 0;
 	}
-	if (_x > pInstance->GetWidth() - 9)
+	if (_x > this->pInstance->GetWidth() - 9)
 	{
-		_x = pInstance->GetWidth() - 9;
+		_x = this->pInstance->GetWidth() - 9;
 		ok = 0;
 	}
-	if (_y > pInstance->GetHeight() - 9)
+	if (_y > this->pInstance->GetHeight() - 9)
 	{
-		_y = pInstance->GetHeight() - 9;
+		_y = this->pInstance->GetHeight() - 9;
 		ok = 0;
 	}
-	SetCoords(_x, _y);
+	this->SetCoords(_x, _y);
 	return ok;
 }
 
 int32_t TokenPos::sub_58bec3() // Check if we'in the middle of a cell (both subcell values are 0x80).
 { //58bec3
-	if (x_subcell == 128 && y_subcell == 128) {
+	if (this->x_subcell == 128 && this->y_subcell == 128) {
 		return 1;
 	}
 	return 0;
@@ -188,27 +188,27 @@ int32_t TokenPos::sub_58bec3() // Check if we'in the middle of a cell (both subc
 Token::Token()
 {
 	// 5280ad
-	pOwner = nullptr;
-	position = new TokenPos(0, MapStuff_Instance);
-	field_x18 = 0;
-	_exp = 0;
-	building_id = 0;
+	this->pOwner = nullptr;
+	this->position = new TokenPos(0, MapStuff_Instance);
+	this->field_x18 = 0;
+	this->_exp = 0;
+	this->building_id = 0;
 }
 
 Token::Token(const Token& b)
 {
 	// 5285c6
-	itemDataID = b.itemDataID;
-	typeId = b.typeId;
-	pOwner = b.pOwner;
-	TokenID = b.TokenID;
-	field_x18 = b.field_x18;
-	_exp = b._exp;
+	this->itemDataID = b.itemDataID;
+	this->typeId = b.typeId;
+	this->pOwner = b.pOwner;
+	this->TokenID = b.TokenID;
+	this->field_x18 = b.field_x18;
+	this->_exp = b._exp;
 	//building_id = b.building_id;  // No copy in vanilla?
 	if (b.position == nullptr) {
-		position = nullptr;
+		this->position = nullptr;
 	} else {
-		position = new TokenPos(*b.position);
+		this->position = new TokenPos(*b.position);
 	}
 }
 
@@ -217,21 +217,21 @@ Token::Token(const Token& b)
 Token::Token(const TokenPos* tpos)
 {
 	// 5281af
-	pOwner = nullptr;
-	position = new TokenPos(*tpos);
-	field_x18 = 0;
-	_exp = 0;
-	building_id = 0;
+	this->pOwner = nullptr;
+	this->position = new TokenPos(*tpos);
+	this->field_x18 = 0;
+	this->_exp = 0;
+	this->building_id = 0;
 }
 
 Token::Token(const TokenPos* tpos, Player* pl)
 {
 	// 5282af
-	pOwner = pl;
-	position = new TokenPos(*tpos);
-	field_x18 = 0;
-	_exp = 0;
-	building_id = 0;
+	this->pOwner = pl;
+	this->position = new TokenPos(*tpos);
+	this->field_x18 = 0;
+	this->_exp = 0;
+	this->building_id = 0;
 }
 
 // 6363b8
@@ -240,8 +240,8 @@ IMPLEMENT_SERIAL(Token, CObject, 1);
 Token::~Token()
 {
 	// 5283d6
-	if (position) {
-		delete position;
+	if (this->position) {
+		delete this->position;
 	}
 }
 
@@ -270,7 +270,7 @@ int32_t Token::VMethod4()
 void Token::VMethod5()
 {
 	// 55af48
-	position->FUN_00594200();
+	this->position->FUN_00594200();
 }
 
 int32_t Token::VMethod6()
@@ -300,26 +300,26 @@ int32_t Token::VMethod9()
 
 void Token::Serialize(CArchive& ar)
 { //55ab39
-	position->Serialize(ar);
+	this->position->Serialize(ar);
 	if (ar.IsStoring()) 
 	{
-		ar.Write(&building_id, 4);
-		ar.Write(&itemDataID, 2);
-		ar.Write(&typeId, 2);
-		ar.Write(&TokenID, 4);
-		ar.Write(&field_x18, 2);
-		ar.Write(&_exp, 4);
+		ar.Write(&this->building_id, 4);
+		ar.Write(&this->itemDataID, 2);
+		ar.Write(&this->typeId, 2);
+		ar.Write(&this->TokenID, 4);
+		ar.Write(&this->field_x18, 2);
+		ar.Write(&this->_exp, 4);
 		void* ptr = this;
 		ar.Write(&ptr, 4); //32
-		ar.Write(&pOwner, 4); //32
+		ar.Write(&this->pOwner, 4); //32
 	} else {
-		ar.Read(&building_id, 4);
-		ar.Read(&itemDataID, 2);
-		ar.Read(&typeId, 2);
-		ar.Read(&TokenID, 4);
-		ar.Read(&field_x18, 2);
-		field_x18 = 0; //WTF?
-		ar.Read(&_exp, 4);
+		ar.Read(&this->building_id, 4);
+		ar.Read(&this->itemDataID, 2);
+		ar.Read(&this->typeId, 2);
+		ar.Read(&this->TokenID, 4);
+		ar.Read(&this->field_x18, 2);
+		this->field_x18 = 0; //WTF?
+		ar.Read(&this->_exp, 4);
 		void* ptr = nullptr;
 		ar.Read(&ptr, 4); //32
 		g_Server->field23_0xdc[ptr] = this;
@@ -327,6 +327,6 @@ void Token::Serialize(CArchive& ar)
 		ar.Read(&ptr, 4);//32
 
 		g_Server->field23_0xdc.Lookup(ptr, ptr);
-		pOwner = (Player*)ptr;
+		this->pOwner = (Player*)ptr;
 	}
 }

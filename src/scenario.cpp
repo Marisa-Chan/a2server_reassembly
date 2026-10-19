@@ -1034,14 +1034,14 @@ void __stdcall ScenarioTalkTo(uint32_t t)
 
 void ScenarioLocation::Read(CFile* fl)
 { //10003a20
-    fl->Read(&id, 4);
-    fl->Read(&kind, 4);
-    fl->Read(&rect, sizeof(CRect));
+    fl->Read(&this->id, 4);
+    fl->Read(&this->kind, 4);
+    fl->Read(&this->rect, sizeof(CRect));
 }
 
 void ScenarioLocation::Write(CFile* fl)
 { //10003990
-    fl->Write(&id, 4);
-    fl->Write(&kind, 4);
-    fl->Write(&rect, sizeof(CRect));
+    fl->Write(&this->id, 4);
+    fl->Write(&this->kind, 4);
+    fl->Write(&this->rect, sizeof(CRect));
 }

@@ -51,24 +51,24 @@ Resources::Resources()
 
 	char path[260];
 	GetCurrentDirectoryA(256, path);
-	AddPath(path);
+	this->AddPath(path);
 }
 
 Resources::~Resources()
 {
     //4e5e9f
 
-    for (uint32_t i = 0; i < res_files.GetSize(); i++)
+    for (uint32_t i = 0; i < this->res_files.GetSize(); i++)
     {
-        if (res_files[i] != nullptr) {
-            delete res_files[i];
+        if (this->res_files[i] != nullptr) {
+            delete this->res_files[i];
         }
     }
 
-    for (uint32_t i = 0; i < files.GetSize(); i++)
+    for (uint32_t i = 0; i < this->files.GetSize(); i++)
     {
-        if (files[i] != nullptr) {
-            delete files[i];
+        if (this->files[i] != nullptr) {
+            delete this->files[i];
         }
     }
 }
@@ -88,7 +88,7 @@ void Resources::AddPath(const char* path)
 	char buf[1024];
 	pathStrCpy(path, buf);
 
-	field_0x14.Add(buf);
+	this->field_0x14.Add(buf);
 }
 
 void Resources::AddResFile(const char* path)
@@ -97,19 +97,19 @@ void Resources::AddResFile(const char* path)
 	char buf[1024];
 	pathStrCpy(path, buf);
 
-	if (field_0x14.GetSize() <= 0) {
+	if (this->field_0x14.GetSize() <= 0) {
 		AfxThrowFileException(CFileException::fileNotFound);
 	}
 
 	char pbuf[256];
-	strcpy(pbuf, (const char*)field_0x14[0]);
+	strcpy(pbuf, (const char*)this->field_0x14[0]);
 	size_t len = strlen(pbuf);
 	if (pbuf[len - 1] != '\\' || pbuf[len - 2] != ':') {
 		strcat(pbuf, "\\");
 	}
 	strcat(pbuf, buf);
 
-	res_files.Add(new ResFile(pbuf));
+	this->res_files.Add(new ResFile(pbuf));
 }
 
 
@@ -138,9 +138,9 @@ FatInfo* Resources::FUN_004e646d(const char* fpath)
     char buf[1024];
     pathStrCpy(fpath, buf);
 
-    for (uint32_t i = 0; i < res_files.GetSize(); i++)
+    for (uint32_t i = 0; i < this->res_files.GetSize(); i++)
     {
-        FatInfo* inf = res_files[i]->FUN_004e5d55(buf);
+        FatInfo* inf = this->res_files[i]->FUN_004e5d55(buf);
         if (inf != nullptr)
         {
             if (inf != FATINFO_T1) {
@@ -151,10 +151,10 @@ FatInfo* Resources::FUN_004e646d(const char* fpath)
     }
 
     CFile* cfile = new CFile();
-    for (uint32_t i = 0; i < field_0x14.GetSize(); i++)
+    for (uint32_t i = 0; i < this->field_0x14.GetSize(); i++)
     {
         char dbuf[256];
-        strcpy(dbuf, field_0x14[i]);
+        strcpy(dbuf, this->field_0x14[i]);
 
         int ln = strlen(dbuf);
         if (dbuf[ln - 1] != '\\' || dbuf[ln - 2] != ':') {
@@ -170,7 +170,7 @@ FatInfo* Resources::FUN_004e646d(const char* fpath)
                 AfxThrowFileException(exc.m_cause);
             }
         } else {
-            files.Add(cfile);
+            this->files.Add(cfile);
             FatInfo* inf = new FatInfo();
             inf->file = cfile;
             inf->offset = 0;
@@ -189,12 +189,12 @@ FatInfo* Resources::FUN_004e646d(const char* fpath)
 void Resources::FUN_004e6763(CFile* fil)
 {
     //4e6763
-    for (int i = 0; i < files.GetSize(); i++)
+    for (int i = 0; i < this->files.GetSize(); i++)
     {
-        if (files[i] == fil)
+        if (this->files[i] == fil)
         {
             delete fil;
-            files.RemoveAt(i);
+            this->files.RemoveAt(i);
             break;
         }
     }
@@ -203,9 +203,9 @@ void Resources::FUN_004e6763(CFile* fil)
 void Resources::FUN_004e6409(const char* fname)
 {
     //4e6409
-    for (int i = 0; i < res_files.GetSize(); i++)
+    for (int i = 0; i < this->res_files.GetSize(); i++)
     {
-        FatEntry *fat = res_files[i]->FUN_004eca63(fname);
+        FatEntry *fat = this->res_files[i]->FUN_004eca63(fname);
         if (fat)
         {
             fat->flags |= 0x20000000;
@@ -246,7 +246,7 @@ void Resources::FUN_004e632d(const char* fname)
 ResFile::ResFile(const char* fpath)
 {
     //4e5950
-    modify_fat = nullptr;
+    this->modify_fat = nullptr;
 
     char buf[260];
     strcpy(buf, fpath);
@@ -257,10 +257,10 @@ ResFile::ResFile(const char* fpath)
         strcat(buf, ".res");    
     }
 
-    field_0x3c = 0;
+    this->field_0x3c = 0;
 
     
-    file = new CFile(buf, field_0x3c | CFile::shareDenyNone);
+    this->file = new CFile(buf, this->field_0x3c | CFile::shareDenyNone);
 
     char *pext = strchr(buf, '.');
     *pext = 0;
@@ -275,64 +275,64 @@ ResFile::ResFile(const char* fpath)
         pchar++;
     }
 
-    root.SetName(pchar);
+    this->root.SetName(pchar);
 
     *pext = '.';
 
-    file->Read(&root.magic, 4);
+    this->file->Read(&this->root.magic, 4);
 
-    if (root.magic != 0x31415926) {
+    if (this->root.magic != 0x31415926) {
         AfxThrowFileException(CFileException::genericException);
     }
     
-    file->Read(&root.offset, 4);
-    file->Read(&root.size, 4);
-    file->Read(&root.flags, 4);
-    file->Read(&fat_offset, 4);
-    file->Read(&fat_size, 4);
+    this->file->Read(&this->root.offset, 4);
+    this->file->Read(&this->root.size, 4);
+    this->file->Read(&this->root.flags, 4);
+    this->file->Read(&this->fat_offset, 4);
+    this->file->Read(&this->fat_size, 4);
 
-    if ((field_0x3c & 0xf) == 0) {
-        field_0x3c = 0;
+    if ((this->field_0x3c & 0xf) == 0) {
+        this->field_0x3c = 0;
     } else {
-        field_0x3c = 1;
+        this->field_0x3c = 1;
     }
 
-    if (field_0x3c == 0)
+    if (this->field_0x3c == 0)
     {
-        size = fat_size;
-        fat_data = (FatEntry*)malloc(size * sizeof(FatEntry));
+        this->size = this->fat_size;
+        this->fat_data = (FatEntry*)malloc(this->size * sizeof(FatEntry));
 
-        if (fat_data == nullptr) {
+        if (this->fat_data == nullptr) {
             AfxThrowMemoryException();
         }
     } else {
-        size = fat_size + 10000 + (fat_size / 4);
-        fat_data = (FatEntry*)malloc(size * sizeof(FatEntry));
+        this->size = this->fat_size + 10000 + (this->fat_size / 4);
+        this->fat_data = (FatEntry*)malloc(this->size * sizeof(FatEntry));
 
-        if (fat_data == nullptr) {
+        if (this->fat_data == nullptr) {
             AfxThrowMemoryException();
         }
     }
 
-    if ((root.flags & 0x80000000) == 0) {
-        file->Seek(fat_offset, 0);
+    if ((this->root.flags & 0x80000000) == 0) {
+        this->file->Seek(this->fat_offset, 0);
     }
 
-    file->Read(fat_data, fat_size << 5);
+    this->file->Read(this->fat_data, this->fat_size << 5);
 
-    modify_fat = nullptr;
-    field_0x30 = 0;
+    this->modify_fat = nullptr;
+    this->field_0x30 = 0;
 }
 
 ResFile::~ResFile()
 {
     //4e5d0b
-    if (fat_data) {
-        free(fat_data);
+    if (this->fat_data) {
+        free(this->fat_data);
     }
 
-    if (file) {
-        delete file;
+    if (this->file) {
+        delete this->file;
     }
 }
 
@@ -340,31 +340,31 @@ ResFile::~ResFile()
 RegFile::RegFile()
 {
     //4e84c0
-    modify_fat = nullptr;
-    fat_offset = 0x20;
+    this->modify_fat = nullptr;
+    this->fat_offset = 0x20;
 
-    pdata = (uint8_t *)malloc(fat_offset);
+    this->pdata = (uint8_t *)malloc(this->fat_offset);
 
-    if (pdata == nullptr) {
+    if (this->pdata == nullptr) {
         AfxThrowMemoryException();
     }
 
-    field_0x3c = 0;
-    size = 4;
+    this->field_0x3c = 0;
+    this->size = 4;
 
-    fat_data = (FatEntry *)malloc(size * sizeof(FatEntry));
+    this->fat_data = (FatEntry *)malloc(this->size * sizeof(FatEntry));
 
-    if (fat_data == nullptr) {
+    if (this->fat_data == nullptr) {
         AfxThrowMemoryException();
     }
 
-    fat_size = 0;
-    root.SetName("");
-    root.magic = 0x31415926;
-    root.offset = 0;
-    root.size = 0;
-    root.flags = 1;
-    field_0x30 = 0;
+    this->fat_size = 0;
+    this->root.SetName("");
+    this->root.magic = 0x31415926;
+    this->root.offset = 0;
+    this->root.size = 0;
+    this->root.flags = 1;
+    this->field_0x30 = 0;
 }
 
 
@@ -372,7 +372,7 @@ RegFile::RegFile(const char* fpath)
 {
     //4e8585
 
-    modify_fat = nullptr;
+    this->modify_fat = nullptr;
 
     File2 *cfile = new File2();
 
@@ -405,12 +405,12 @@ RegFile::RegFile(const char* fpath)
         cpylen = 15;
     }
 
-    strncpy(root.name, pcur, cpylen);
+    strncpy(this->root.name, pcur, cpylen);
 
-    file = nullptr;
-    fat_data = nullptr;
+    this->file = nullptr;
+    this->fat_data = nullptr;
 
-    ReadFromFile(cfile);
+    this->ReadFromFile(cfile);
 
     if (cfile != nullptr) {
         delete cfile;
@@ -420,12 +420,12 @@ RegFile::RegFile(const char* fpath)
 RegFile::~RegFile()
 {
     //4e9989
-    if (fat_data) {
-        free(fat_data);
+    if (this->fat_data) {
+        free(this->fat_data);
     }
 
-    if (pdata) {
-        free(pdata);
+    if (this->pdata) {
+        free(this->pdata);
     }
 }
 
@@ -439,7 +439,7 @@ FatEntry* ResBase::Find(FatEntry* node, const char* fname)
         return nullptr;
     }
 
-    FatEntry* searchBase = fat_data + node->offset;
+    FatEntry* searchBase = this->fat_data + node->offset;
 
     if ((node->flags & 0x10) != 0 && node->size != 0)
     {
@@ -479,7 +479,7 @@ FatEntry* ResBase::FindNext(FatEntry* node, const char** fpath)
 
     buf[buflen] = 0;
 
-    FatEntry *node_find = Find(node, buf);
+    FatEntry *node_find = this->Find(node, buf);
 
     if (*pchar == 0) {
         *fpath = pchar;
@@ -493,7 +493,7 @@ FatEntry* ResBase::FindNext(FatEntry* node, const char** fpath)
 FatEntry* ResBase::TracePath(const char* fpath)
 {
     //4ec956
-    for (char* pchar = root.name; *fpath != '\\' && *fpath != '/' && *fpath != 0 && *pchar != 0; fpath++, pchar++)
+    for (char* pchar = this->root.name; *fpath != '\\' && *fpath != '/' && *fpath != 0 && *pchar != 0; fpath++, pchar++)
     {
         if (*fpath != *pchar) {
             return nullptr;
@@ -504,7 +504,7 @@ FatEntry* ResBase::TracePath(const char* fpath)
         fpath++;
     }
 
-    FatEntry* node = &root;
+    FatEntry* node = &this->root;
 
     while (true)
     {
@@ -520,7 +520,7 @@ FatEntry* ResBase::TracePath(const char* fpath)
             return nullptr;
         }
 
-        node = FindNext(node, &fpath);
+        node = this->FindNext(node, &fpath);
     }
     return nullptr;
 }
@@ -529,11 +529,11 @@ void ResBase::GrowFat()
 {
     //4ec8f4
 
-    if (fat_size + 1 >= size)
+    if (this->fat_size + 1 >= this->size)
     {
-        size += 1 + (size / 4);
-        fat_data = (FatEntry*)realloc(fat_data, size * sizeof(FatEntry));
-        if (fat_data == nullptr) {
+        this->size += 1 + (this->size / 4);
+        this->fat_data = (FatEntry*)realloc(this->fat_data, this->size * sizeof(FatEntry));
+        if (this->fat_data == nullptr) {
             AfxThrowMemoryException();
         }
     }
@@ -550,7 +550,7 @@ void ResBase::FUN_004ecc05(FatEntry* node)
 
         int8_t tmp = (node->flags & 0xe) >> 1;
         if (tmp != 1 && tmp != 2) {
-            field_0x30 += node->size;
+            this->field_0x30 += node->size;
         }
     } else if ((node->flags & 0x40000001) == 1)
     {
@@ -559,7 +559,7 @@ void ResBase::FUN_004ecc05(FatEntry* node)
         uint32_t cnt = 0;
         while (cnt < node->size)
         {
-            FUN_004ecc05(fat_data + node->offset + cnt);
+            this->FUN_004ecc05(this->fat_data + node->offset + cnt);
 
             if (DAT_006a6a64) {
                 break;
@@ -579,7 +579,7 @@ void ResBase::FUN_004ec553(FatEntry* newFat, int* pCount, const FatEntry* srcFat
 
     if (srcRoot == node)
     {
-        fatOffset = fat_size - node->size;
+        fatOffset = this->fat_size - node->size;
         g_lastDstRoot = dstRoot;
     }
 
@@ -616,7 +616,7 @@ void ResBase::FUN_004ec553(FatEntry* newFat, int* pCount, const FatEntry* srcFat
     {
         if ((srcFat[srcOffset + i].flags & 0x40000001) == 1)
         {
-            FUN_004ec553(newFat, pCount, srcFat, srcFat + srcOffset + i, node, newFat + fatOffset);
+            this->FUN_004ec553(newFat, pCount, srcFat, srcFat + srcOffset + i, node, newFat + fatOffset);
             fatOffset++;
         }
     }
@@ -627,11 +627,11 @@ void ResBase::FUN_004ec553(FatEntry* newFat, int* pCount, const FatEntry* srcFat
 FatEntry* ResBase::FUN_004ec438(FatEntry* node)
 {
     // 4ec438
-    if (node == modify_fat) {
+    if (node == this->modify_fat) {
         return node;
     }
 
-    FatEntry *newFat = (FatEntry*)malloc(size * sizeof(FatEntry));
+    FatEntry *newFat = (FatEntry*)malloc(this->size * sizeof(FatEntry));
 
     if (newFat == nullptr)
     {
@@ -640,9 +640,9 @@ FatEntry* ResBase::FUN_004ec438(FatEntry* node)
     }
 
     int exactSize = 0;
-    int aproxSize = fat_size - node->size;
+    int aproxSize = this->fat_size - node->size;
 
-    FUN_004ec553(newFat, &exactSize, fat_data, &root, node, &root);
+    this->FUN_004ec553(newFat, &exactSize, this->fat_data, &this->root, node, &this->root);
 
     if (aproxSize != exactSize)
     {
@@ -655,12 +655,12 @@ FatEntry* ResBase::FUN_004ec438(FatEntry* node)
 
     exactSize += g_lastDstRoot->size;
 
-    fat_size = exactSize;
-    free(fat_data);
+    this->fat_size = exactSize;
+    free(this->fat_data);
 
-    fat_data = newFat;
+    this->fat_data = newFat;
 
-    modify_fat = node;
+    this->modify_fat = node;
 
     return g_lastDstRoot;
 }
@@ -670,22 +670,22 @@ FatEntry* ResBase::FUN_004ec438(FatEntry* node)
 FatEntry* ResBase::FUN_004ec7e0(FatEntry** pOldNode, const char* fname)
 {
     //4ec7e0
-    FatEntry* oldFat = fat_data; // save old pointer
+    FatEntry* oldFat = this->fat_data; // save old pointer
 
-    GrowFat();
+    this->GrowFat();
 
-    if (*pOldNode != &root) {
-        *pOldNode = fat_data + (*pOldNode - oldFat);
+    if (*pOldNode != &this->root) {
+        *pOldNode = this->fat_data + (*pOldNode - oldFat);
     }
 
-    FatEntry *fndNode = Find(*pOldNode, fname);
+    FatEntry *fndNode = this->Find(*pOldNode, fname);
     if (fndNode != nullptr) {
-        FUN_004ecc05(fndNode);
+        this->FUN_004ecc05(fndNode);
     }
     
-    fat_size++;
+    this->fat_size++;
 
-    FatEntry *node = fat_data + (*pOldNode)->offset + (*pOldNode)->size;
+    FatEntry *node = this->fat_data + (*pOldNode)->offset + (*pOldNode)->size;
 
     (*pOldNode)->size++;
     (*pOldNode)->flags &= ~0x10;
@@ -701,13 +701,13 @@ void ResBase::SortTree(FatEntry* root)
     //4ec736
     for (uint32_t i = 0; i < root->size; i++)
     {
-        if ((fat_data[root->offset + root->size].flags & 0x40000001) == 1) {
-            SortTree(fat_data + root->offset + root->size);
+        if ((this->fat_data[root->offset + root->size].flags & 0x40000001) == 1) {
+            this->SortTree(this->fat_data + root->offset + root->size);
         }
     }
     if (root->size != 0)
     {
-        qsort(fat_data + root->offset, root->size, sizeof(FatEntry), FatEntry::NameCompare);
+        qsort(this->fat_data + root->offset, root->size, sizeof(FatEntry), FatEntry::NameCompare);
         root->flags |= 0x10;
     }
 }
@@ -715,108 +715,108 @@ void ResBase::SortTree(FatEntry* root)
 void ResBase::WriteToFile(CFile* cfile, int32_t offset)
 {
     //4e8396
-    SortTree(&root);
+    this->SortTree(&this->root);
 
     if (offset != -1) {
         cfile->Seek(offset, 0);
     }
 
-    cfile->Write(&root.magic, 4);
-    cfile->Write(&root.offset, 4);
-    cfile->Write(&root.size, 4);
-    cfile->Write(&root.flags, 4);
-    cfile->Write(&fat_size, 4);
-    cfile->Write(&field_0x30, 4);
-    cfile->Write(fat_data, fat_size * sizeof(FatEntry));
-    cfile->Write(&field_0x3c, 4);
-    cfile->Write(pdata, field_0x3c);
+    cfile->Write(&this->root.magic, 4);
+    cfile->Write(&this->root.offset, 4);
+    cfile->Write(&this->root.size, 4);
+    cfile->Write(&this->root.flags, 4);
+    cfile->Write(&this->fat_size, 4);
+    cfile->Write(&this->field_0x30, 4);
+    cfile->Write(this->fat_data, this->fat_size * sizeof(FatEntry));
+    cfile->Write(&this->field_0x3c, 4);
+    cfile->Write(this->pdata, this->field_0x3c);
 }
 
 void ResBase::ReadFromFile(CFile* cfile, int32_t offset)
 {
     //4e819c
     if (offset != -1) { 
-        file->Seek(offset, 0);
+        this->file->Seek(offset, 0);
     }
     
-    cfile->Read(&root.magic, 4);
+    cfile->Read(&this->root.magic, 4);
 
-    if (root.magic != 0x31415926) {
+    if (this->root.magic != 0x31415926) {
         throw std::runtime_error("bad signature");
     }
 
-    cfile->Read(&root.offset, 4);
-    cfile->Read(&root.size, 4);
-    cfile->Read(&root.flags, 4);
-    cfile->Read(&fat_size, 4);
-    cfile->Read(&field_0x30, 4);
+    cfile->Read(&this->root.offset, 4);
+    cfile->Read(&this->root.size, 4);
+    cfile->Read(&this->root.flags, 4);
+    cfile->Read(&this->fat_size, 4);
+    cfile->Read(&this->field_0x30, 4);
 
-    if (fat_data == nullptr) {
-        fat_data = (FatEntry*)malloc(fat_size * sizeof(FatEntry));
+    if (this->fat_data == nullptr) {
+        this->fat_data = (FatEntry*)malloc(this->fat_size * sizeof(FatEntry));
     } else
     {
-        if (fat_size == 0) {
-            fat_data = (FatEntry*)realloc(fat_data, 1 * sizeof(FatEntry));
+        if (this->fat_size == 0) {
+            this->fat_data = (FatEntry*)realloc(this->fat_data, 1 * sizeof(FatEntry));
         } else {
-            fat_data = (FatEntry*)realloc(fat_data, fat_size * sizeof(FatEntry));
+            this->fat_data = (FatEntry*)realloc(this->fat_data, this->fat_size * sizeof(FatEntry));
         }
     }
 
-    if (fat_data == nullptr)
+    if (this->fat_data == nullptr)
     {
         AfxThrowMemoryException();
         return;
     }
 
-    cfile->Read(fat_data, fat_size * sizeof(FatEntry));
+    cfile->Read(this->fat_data, this->fat_size * sizeof(FatEntry));
 
-    size = fat_size;
+    this->size = this->fat_size;
 
-    cfile->Read(&field_0x3c, 4);
+    cfile->Read(&this->field_0x3c, 4);
 
-    fat_offset = field_0x3c;
+    this->fat_offset = this->field_0x3c;
 
-    if (pdata == nullptr) {
-        pdata = (uint8_t *)malloc(field_0x3c);
+    if (this->pdata == nullptr) {
+        this->pdata = (uint8_t *)malloc(this->field_0x3c);
     } else
     {
-        if (field_0x3c == 0) {
-            pdata = (uint8_t*)realloc(pdata, 1);
+        if (this->field_0x3c == 0) {
+            this->pdata = (uint8_t*)realloc(this->pdata, 1);
         } else {
-            pdata = (uint8_t*)realloc(pdata, field_0x3c);
+            this->pdata = (uint8_t*)realloc(this->pdata, this->field_0x3c);
         }
     }
 
-    if (pdata == nullptr)
+    if (this->pdata == nullptr)
     {
         AfxThrowMemoryException();
         return;
     }
 
-    if (field_0x3c != 0) {
-        cfile->Read(pdata, field_0x3c);
+    if (this->field_0x3c != 0) {
+        cfile->Read(this->pdata, this->field_0x3c);
     }
 }
 
 FatEntry* ResBase::FUN_004ec8c6(const char* fpath, const char* fname)
 {
     //4ec8c6
-    FatEntry* pathNode = TracePath(fpath);
-    return FUN_004ec7e0(&pathNode, fname);
+    FatEntry* pathNode = this->TracePath(fpath);
+    return this->FUN_004ec7e0(&pathNode, fname);
 }
 
 FatEntry* ResBase::FUN_004ea183(const char* fpath, const char* fname)
 {
     //4ea183
-    FatEntry *pathNode = TracePath(fpath);
+    FatEntry *pathNode = this->TracePath(fpath);
     if (pathNode == nullptr) {
         return nullptr;
     }
 
-    FUN_004ec438(pathNode);
+    this->FUN_004ec438(pathNode);
 
-    FatEntry* node = FUN_004ec8c6(fpath, fname);
-    node->offset = fat_size;
+    FatEntry* node = this->FUN_004ec8c6(fpath, fname);
+    node->offset = this->fat_size;
     node->size = 0;
     node->flags = 1;
     return node;
@@ -825,7 +825,7 @@ FatEntry* ResBase::FUN_004ea183(const char* fpath, const char* fname)
 FatEntry* ResBase::FUN_004eca16(const char* fpath)
 {
     //4eca16
-    FatEntry* node = TracePath(fpath);
+    FatEntry* node = this->TracePath(fpath);
     if (node == nullptr) {
         AfxThrowFileException(CFileException::fileNotFound);
     }
@@ -840,7 +840,7 @@ FatEntry* ResBase::FUN_004eca16(const char* fpath)
 FatEntry* ResBase::FUN_004eca63(const char* fpath)
 {
     //4eca63
-    FatEntry* node = TracePath(fpath);
+    FatEntry* node = this->TracePath(fpath);
 
     if (node != nullptr && (node->flags & 0x40000010) != 0) {
         return nullptr;
@@ -852,7 +852,7 @@ FatEntry* ResBase::FUN_004eca63(const char* fpath)
 FatInfo* ResBase::FUN_004e5d55(const char* fpath)
 {
     //4e5d55
-    FatEntry* node = FUN_004eca63(fpath);
+    FatEntry* node = this->FUN_004eca63(fpath);
     if (node == nullptr) {
         return nullptr;
     }
@@ -862,7 +862,7 @@ FatInfo* ResBase::FUN_004e5d55(const char* fpath)
     }
 
     FatInfo *info = new FatInfo();
-    info->file = file;
+    info->file = this->file;
     info->offset = node->offset;
     info->size = node->size;
 
@@ -873,8 +873,8 @@ FatInfo* ResBase::FUN_004e5d55(const char* fpath)
 int ResBase::GetSizedString(const char* fpath, const char* fname, const char* defval, char* out, uint32_t sz)
 {
     //4ea2d2
-    FatEntry *nodepath = Find(&root, fpath);
-    FatEntry *node = Find(nodepath, fname);
+    FatEntry *nodepath = this->Find(&this->root, fpath);
+    FatEntry *node = this->Find(nodepath, fname);
 
     if (node == nullptr) 
     {
@@ -897,9 +897,9 @@ int ResBase::GetSizedString(const char* fpath, const char* fname, const char* de
     {
     case 0:
         if (sz < node->size) {
-            strncpy(out, (char *)pdata + node->offset, sz);
+            strncpy(out, (char *)this->pdata + node->offset, sz);
         } else {
-            strncpy(out, (char *)pdata + node->offset, node->size);
+            strncpy(out, (char *)this->pdata + node->offset, node->size);
         }
         break;
 
@@ -920,7 +920,7 @@ int ResBase::GetSizedString(const char* fpath, const char* fname, const char* de
         char *pout = out;
         for (uint32_t i = 0; i < node->size / 4; i++)
         {
-            _itoa(*((int *)(pdata + node->offset) + i), buf, 10);
+            _itoa(*((int *)(this->pdata + node->offset) + i), buf, 10);
 
             if (i < (node->size / 4) - 1) {
                 strcat(buf, ",");
@@ -941,9 +941,9 @@ int ResBase::GetSizedString(const char* fpath, const char* fname, const char* de
 
     case 4:
         if (sz - 2 < node->size - 4) {
-            memcpy(out, (uint8_t *)pdata + 4 + node->offset, sz - 2);
+            memcpy(out, (uint8_t *)this->pdata + 4 + node->offset, sz - 2);
         } else {
-            memcpy(out, (uint8_t*)pdata + 4 + node->offset, node->size - 4);
+            memcpy(out, (uint8_t*)this->pdata + 4 + node->offset, node->size - 4);
         }
         out[sz - 2] = 0;
         out[sz - 1] = 0;
@@ -954,7 +954,7 @@ int ResBase::GetSizedString(const char* fpath, const char* fname, const char* de
         char *pout = out;
         for (uint32_t i = 0; i < node->size / 8; i++)
         {
-            sprintf(buf, "%f", *((double*)(pdata + node->offset) + i));
+            sprintf(buf, "%f", *((double*)(this->pdata + node->offset) + i));
 
             if (i < (node->size / 8) - 1) {
                 strcat(buf, ",");
@@ -982,12 +982,12 @@ int ResBase::GetSizedString(const char* fpath, const char* fname, const char* de
 void ResBase::FUN_004e99c4()
 {
     //4e99c4
-    modify_fat = nullptr;
-    field_0x30 = 0;
+    this->modify_fat = nullptr;
+    this->field_0x30 = 0;
 
-    FUN_004ec438(&root);
+    this->FUN_004ec438(&this->root);
 
-    FatEntry** pnodes = new FatEntry*[fat_size]();
+    FatEntry** pnodes = new FatEntry*[this->fat_size]();
 
     if (pnodes == nullptr)
     {
@@ -1003,14 +1003,14 @@ void ResBase::FUN_004e99c4()
 
     uint32_t idx = 0;
     uint32_t n = 1;
-    for ( idx = 0; idx < fat_size; idx++)
+    for ( idx = 0; idx < this->fat_size; idx++)
     {
-        if ((fat_data[idx].flags & 0x40000001) == 0)
+        if ((this->fat_data[idx].flags & 0x40000001) == 0)
         {
-            int tp = (fat_data[idx].flags & 0xe) >> 1;
+            int tp = (this->fat_data[idx].flags & 0xe) >> 1;
             if (tp != 1 && tp != 2)
             {
-                pnodes[n] = fat_data + idx;
+                pnodes[n] = this->fat_data + idx;
                 n++;
             }
         }
@@ -1026,14 +1026,14 @@ void ResBase::FUN_004e99c4()
             if (of != 0)
             {
                 FatEntry* nd = pnodes[idx + 1];
-                memcpy(pdata + nd->offset, pdata + of + nd->offset, nd->size);
+                memcpy(this->pdata + nd->offset, this->pdata + of + nd->offset, nd->size);
                 nd->offset -= of;
             }
         }
     }
 
-    field_0x3c = pnodes[idx]->offset + pnodes[idx]->size;
-    field_0x30 = 0;
+    this->field_0x3c = pnodes[idx]->offset + pnodes[idx]->size;
+    this->field_0x30 = 0;
 
     delete[] pnodes;
 }
@@ -1042,57 +1042,57 @@ uint8_t *ResBase::AllocData(uint32_t size)
 {
     //4e9bb6
 
-    if (fat_offset <= field_0x3c + size)
+    if (this->fat_offset <= this->field_0x3c + size)
     {
-        if (field_0x3c / 8 < field_0x30)
+        if (this->field_0x3c / 8 < this->field_0x30)
         {
-            FUN_004e99c4();
+            this->FUN_004e99c4();
 
-            if (fat_offset <= field_0x3c + size)
+            if (this->fat_offset <= this->field_0x3c + size)
             {
-                fat_offset += size + (fat_offset / 8);
-                pdata = (uint8_t *)realloc(pdata, fat_offset);
+                this->fat_offset += size + (this->fat_offset / 8);
+                this->pdata = (uint8_t *)realloc(this->pdata, this->fat_offset);
 
-                if (pdata == nullptr)
+                if (this->pdata == nullptr)
                 {
                     AfxThrowMemoryException();
                     return nullptr;
                 }
             }
         } else {
-            fat_offset += size + (fat_offset / 8);
+            this->fat_offset += size + (this->fat_offset / 8);
 
-            pdata = (uint8_t*)realloc(pdata, fat_offset);
+            this->pdata = (uint8_t*)realloc(this->pdata, this->fat_offset);
 
-            if (pdata == nullptr)
+            if (this->pdata == nullptr)
             {
                 AfxThrowMemoryException();
                 return nullptr;
             }
         }
     }
-    uint32_t off = field_0x3c;
-    field_0x3c += size;
-    return pdata + off;
+    uint32_t off = this->field_0x3c;
+    this->field_0x3c += size;
+    return this->pdata + off;
 }
 
 void ResBase::SetString(const char* fpath, const char* fname, const char* str)
 {
     //4ea73d
-    FatEntry* nodePath = Find(&root, fpath);
-    FatEntry* node = Find(nodePath, fname);
+    FatEntry* nodePath = this->Find(&this->root, fpath);
+    FatEntry* node = this->Find(nodePath, fname);
 
     if (node == nullptr)
     {
         if (nodePath == nullptr) {
-            nodePath = FUN_004ea183(root.name, fpath);
+            nodePath = this->FUN_004ea183(this->root.name, fpath);
         }
 
-        node = FUN_004ec438(nodePath);
-        node = FUN_004ec7e0(&node, fname);
+        node = this->FUN_004ec438(nodePath);
+        node = this->FUN_004ec7e0(&node, fname);
         node->flags = 0;
         node->size = 0;
-        node->offset = pdata - AllocData(node->size); //??? BUG
+        node->offset = this->pdata - this->AllocData(node->size); //??? BUG
     }
 
     if ((node->flags & 0xe) != 0) {
@@ -1102,31 +1102,31 @@ void ResBase::SetString(const char* fpath, const char* fname, const char* str)
     int ln = strlen(str) + 1;
     if (node->size < ln)
     {
-        field_0x30 += node->size;
+        this->field_0x30 += node->size;
         node->size = ln;
-        node->offset = AllocData(ln) - pdata;
+        node->offset = this->AllocData(ln) - this->pdata;
     } else {
-        field_0x30 += (node->size - ln);
+        this->field_0x30 += (node->size - ln);
     }
 
-    strcpy((char *)pdata + node->offset, str);
+    strcpy((char *)this->pdata + node->offset, str);
 }
 
 
 void ResBase::SetInt(const char* fpath, const char* fname, int32_t val)
 {
     //4ea928
-    FatEntry* nodePath = Find(&root, fpath);
-    FatEntry* node = Find(nodePath, fname);
+    FatEntry* nodePath = this->Find(&this->root, fpath);
+    FatEntry* node = this->Find(nodePath, fname);
 
     if (node == nullptr)
     {
         if (nodePath == nullptr) {
-            nodePath = FUN_004ea183(root.name, fpath);
+            nodePath = this->FUN_004ea183(this->root.name, fpath);
         }
 
-        node = FUN_004ec438(nodePath);
-        node = FUN_004ec7e0(&node, fname);
+        node = this->FUN_004ec438(nodePath);
+        node = this->FUN_004ec7e0(&node, fname);
         node->flags = 1 << 1;
         node->size = 0;
         node->offset = val;
@@ -1141,17 +1141,17 @@ void ResBase::SetInt(const char* fpath, const char* fname, int32_t val)
 void ResBase::SetDouble(const char* fpath, const char* fname, double val)
 {
     //4eaa8b
-    FatEntry* nodePath = Find(&root, fpath);
-    FatEntry* node = Find(nodePath, fname);
+    FatEntry* nodePath = this->Find(&this->root, fpath);
+    FatEntry* node = this->Find(nodePath, fname);
 
     if (node == nullptr)
     {
         if (nodePath == nullptr) {
-            nodePath = FUN_004ea183(root.name, fpath);
+            nodePath = this->FUN_004ea183(this->root.name, fpath);
         }
 
-        node = FUN_004ec438(nodePath);
-        node = FUN_004ec7e0(&node, fname);
+        node = this->FUN_004ec438(nodePath);
+        node = this->FUN_004ec7e0(&node, fname);
         node->flags = 2 << 1;
         //node->size = 0;
         *(double *)&node->offset = val;
@@ -1169,20 +1169,20 @@ void ResBase::SetDouble(const char* fpath, const char* fname, double val)
 void ResBase::SetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>& array)
 {
     //4eb2a3
-    FatEntry* nodePath = Find(&root, fpath);
-    FatEntry* node = Find(nodePath, fname);
+    FatEntry* nodePath = this->Find(&this->root, fpath);
+    FatEntry* node = this->Find(nodePath, fname);
 
     if (node == nullptr)
     {
         if (nodePath == nullptr) {
-            nodePath = FUN_004ea183(root.name, fpath);
+            nodePath = this->FUN_004ea183(this->root.name, fpath);
         }
 
-        node = FUN_004ec438(nodePath);
-        node = FUN_004ec7e0(&node, fname);
+        node = this->FUN_004ec438(nodePath);
+        node = this->FUN_004ec7e0(&node, fname);
         node->flags = 3 << 1;
         node->size = 0;
-        node->offset = AllocData(node->size) - pdata;
+        node->offset = this->AllocData(node->size) - this->pdata;
     }
 
     if ((node->flags & 0xe) >> 1 != 3) {
@@ -1192,15 +1192,15 @@ void ResBase::SetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>
     uint32_t ln = array.GetSize() * 4;
     if (node->size < ln)
     {
-        field_0x30 += node->size;
+        this->field_0x30 += node->size;
         node->size = ln;
-        node->offset = AllocData(node->size) - pdata;
+        node->offset = this->AllocData(node->size) - this->pdata;
     } else {
-        field_0x30 += node->size - ln;
+        this->field_0x30 += node->size - ln;
     }
 
     for (uint32_t i = 0; i < array.GetSize(); i++) {
-        *(uint32_t*)(pdata + node->offset + i * 4) = array[i];
+        *(uint32_t*)(this->pdata + node->offset + i * 4) = array[i];
     }
 }
 
@@ -1208,20 +1208,20 @@ void ResBase::SetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>
 void ResBase::SetInt16Array(const char* fpath, const char* fname, CArray<uint16_t>& array)
 {
     //4eb43a
-    FatEntry* nodePath = Find(&root, fpath);
-    FatEntry* node = Find(nodePath, fname);
+    FatEntry* nodePath = this->Find(&this->root, fpath);
+    FatEntry* node = this->Find(nodePath, fname);
 
     if (node == nullptr)
     {
         if (nodePath == nullptr) {
-            nodePath = FUN_004ea183(root.name, fpath);
+            nodePath = this->FUN_004ea183(this->root.name, fpath);
         }
 
-        node = FUN_004ec438(nodePath);
-        node = FUN_004ec7e0(&node, fname);
+        node = this->FUN_004ec438(nodePath);
+        node = this->FUN_004ec7e0(&node, fname);
         node->flags = 3 << 1;
         node->size = 0;
-        node->offset = AllocData(node->size) - pdata;
+        node->offset = this->AllocData(node->size) - this->pdata;
     }
 
     if ((node->flags & 0xe) >> 1 != 3) {
@@ -1231,15 +1231,15 @@ void ResBase::SetInt16Array(const char* fpath, const char* fname, CArray<uint16_
     uint32_t ln = array.GetSize() * 4;
     if (node->size < ln)
     {
-        field_0x30 += node->size;
+        this->field_0x30 += node->size;
         node->size = ln;
-        node->offset = AllocData(node->size) - pdata;
+        node->offset = this->AllocData(node->size) - this->pdata;
     } else {
-        field_0x30 += node->size - ln;
+        this->field_0x30 += node->size - ln;
     }
 
     for (uint32_t i = 0; i < array.GetSize(); i++) {
-        *(uint32_t*)(pdata + node->offset + i * 4) = array[i];
+        *(uint32_t*)(this->pdata + node->offset + i * 4) = array[i];
     }
 }
 
@@ -1247,20 +1247,20 @@ void ResBase::SetInt16Array(const char* fpath, const char* fname, CArray<uint16_
 void ResBase::SetInt32Array(const char* fpath, const char* fname, CArray<uint32_t>& array)
 {
     //4eb5d2
-    FatEntry* nodePath = Find(&root, fpath);
-    FatEntry* node = Find(nodePath, fname);
+    FatEntry* nodePath = this->Find(&this->root, fpath);
+    FatEntry* node = this->Find(nodePath, fname);
 
     if (node == nullptr)
     {
         if (nodePath == nullptr) {
-            nodePath = FUN_004ea183(root.name, fpath);
+            nodePath = this->FUN_004ea183(this->root.name, fpath);
         }
 
-        node = FUN_004ec438(nodePath);
-        node = FUN_004ec7e0(&node, fname);
+        node = this->FUN_004ec438(nodePath);
+        node = this->FUN_004ec7e0(&node, fname);
         node->flags = 3 << 1;
         node->size = 0;
-        node->offset = AllocData(node->size) - pdata;
+        node->offset = this->AllocData(node->size) - this->pdata;
     }
 
     if ((node->flags & 0xe) >> 1 != 3) {
@@ -1270,15 +1270,15 @@ void ResBase::SetInt32Array(const char* fpath, const char* fname, CArray<uint32_
     uint32_t ln = array.GetSize() * 4;
     if (node->size < ln)
     {
-        field_0x30 += node->size;
+        this->field_0x30 += node->size;
         node->size = ln;
-        node->offset = AllocData(node->size) - pdata;
+        node->offset = this->AllocData(node->size) - this->pdata;
     } else {
-        field_0x30 += node->size - ln;
+        this->field_0x30 += node->size - ln;
     }
 
     for (uint32_t i = 0; i < array.GetSize(); i++) {
-        *(uint32_t*)(pdata + node->offset + i * 4) = array[i];
+        *(uint32_t*)(this->pdata + node->offset + i * 4) = array[i];
     }
 }
 
@@ -1288,7 +1288,7 @@ CString ResBase::GetValueString(const char* fpath, const char* fname, const char
     //4ea69d
 
     char buf[0x800];
-    GetSizedString(fpath, fname, defval, buf, 0x800);
+    this->GetSizedString(fpath, fname, defval, buf, 0x800);
     return buf;
 }
 
@@ -1296,8 +1296,8 @@ int32_t ResBase::GetInt(const char* fpath, const char* fname, int32_t defval)
 {
     //4ea8af
 
-    FatEntry* nodePath = Find(&root, fpath);
-    FatEntry* node = Find(nodePath, fname);
+    FatEntry* nodePath = this->Find(&this->root, fpath);
+    FatEntry* node = this->Find(nodePath, fname);
 
     if (node == nullptr) {
         return defval;
@@ -1314,8 +1314,8 @@ double ResBase::GetDouble(const char* fpath, const char* fname, double defval)
 {
     //4eaa06
 
-    FatEntry* nodePath = Find(&root, fpath);
-    FatEntry* node = Find(nodePath, fname);
+    FatEntry* nodePath = this->Find(&this->root, fpath);
+    FatEntry* node = this->Find(nodePath, fname);
 
     if (node == nullptr) {
         return defval;
@@ -1332,9 +1332,9 @@ int ResBase::GetAllNodeNames(char* pbuf, int bufsz)
 {
     //4eab6b
     int out_len = 0;
-    for (int i = 0; i < root.size; i++)
+    for (int i = 0; i < this->root.size; i++)
     {
-        const char* name = fat_data[root.offset + i].name;
+        const char* name = this->fat_data[this->root.offset + i].name;
         int ln = strlen(name);
         if (ln + 1 < bufsz - out_len) {
             ln++;
@@ -1361,8 +1361,8 @@ int ResBase::GetAllNodeNames(char* pbuf, int bufsz)
 int ResBase::GetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>* array)
 {
     //4eaca7
-    FatEntry* nodePath = Find(&root, fpath);
-    FatEntry* node = Find(nodePath, fname);
+    FatEntry* nodePath = this->Find(&this->root, fpath);
+    FatEntry* node = this->Find(nodePath, fname);
 
     if (node == nullptr) {
         return 0;
@@ -1373,7 +1373,7 @@ int ResBase::GetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>*
     {
         array->SetSize(node->size / 4);
         for (int i = 0; i < node->size / 4; i++) {
-            array->SetAt(i, *(int32_t*)(pdata + node->offset + i * 4));
+            array->SetAt(i, *(int32_t*)(this->pdata + node->offset + i * 4));
         }
 
         return 1;
@@ -1393,8 +1393,8 @@ int ResBase::GetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>*
 int ResBase::GetInt16Array(const char* fpath, const char* fname, CArray<uint16_t>* array)
 {
     //4ead9d
-    FatEntry* nodePath = Find(&root, fpath);
-    FatEntry* node = Find(nodePath, fname);
+    FatEntry* nodePath = this->Find(&this->root, fpath);
+    FatEntry* node = this->Find(nodePath, fname);
 
     if (node == nullptr) {
         return 0;
@@ -1405,7 +1405,7 @@ int ResBase::GetInt16Array(const char* fpath, const char* fname, CArray<uint16_t
     {
         array->SetSize(node->size / 4);
         for (int i = 0; i < node->size / 4; i++) {
-            array->SetAt(i, *(int32_t*)(pdata + node->offset + i * 4));
+            array->SetAt(i, *(int32_t*)(this->pdata + node->offset + i * 4));
         }
 
         return 1;
@@ -1426,8 +1426,8 @@ int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<uint32_t
 {
     //4eae99
     //same as 4eafb6?
-    FatEntry* nodePath = Find(&root, fpath);
-    FatEntry* node = Find(nodePath, fname);
+    FatEntry* nodePath = this->Find(&this->root, fpath);
+    FatEntry* node = this->Find(nodePath, fname);
 
     if (node == nullptr) {
         return 0;
@@ -1438,7 +1438,7 @@ int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<uint32_t
     {
         array->SetSize(node->size / 4);
         for (int i = 0; i < node->size / 4; i++) {
-            array->SetAt(i, *(uint32_t*)(pdata + node->offset + i * 4));
+            array->SetAt(i, *(uint32_t*)(this->pdata + node->offset + i * 4));
         }
 
         return 1;
@@ -1465,8 +1465,8 @@ int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<int32_t>
 {
     //4eafb6
     //same as 4eae99?
-    FatEntry* nodePath = Find(&root, fpath);
-    FatEntry* node = Find(nodePath, fname);
+    FatEntry* nodePath = this->Find(&this->root, fpath);
+    FatEntry* node = this->Find(nodePath, fname);
 
     if (node == nullptr) {
         return 0;
@@ -1477,7 +1477,7 @@ int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<int32_t>
     {
         array->SetSize(node->size / 4);
         for (int i = 0; i < node->size / 4; i++) {
-            array->SetAt(i, *(int32_t*)(pdata + node->offset + i * 4));
+            array->SetAt(i, *(int32_t*)(this->pdata + node->offset + i * 4));
         }
 
         return 1;
@@ -1504,8 +1504,8 @@ int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<int32_t>
 int ResBase::GetStringArray(const char* fpath, const char* fname, CStringArray* array)
 {
     //4eb0d3
-    FatEntry* nodePath = Find(&root, fpath);
-    FatEntry* node = Find(nodePath, fname);
+    FatEntry* nodePath = this->Find(&this->root, fpath);
+    FatEntry* node = this->Find(nodePath, fname);
 
     if (node == nullptr) {
         return 0;
@@ -1520,7 +1520,7 @@ int ResBase::GetStringArray(const char* fpath, const char* fname, CStringArray* 
     }
 
     int32_t count = 0;
-    char* dat = (char *)pdata + node->offset;
+    char* dat = (char *)this->pdata + node->offset;
     char* datstart = dat;
     if (tp == 0)
     {
@@ -1557,18 +1557,18 @@ void FatEntry::SetName(const char* resname)
     size_t sVar1;
     int local_8;
 
-    if (resname != name) {
+    if (resname != this->name) {
         size_t len = strlen(resname);
         if (len > 15) {
-            flags |= 0x10000000;
+            this->flags |= 0x10000000;
         }
 
         if (len + 1 > 15) {
             len = 15;
         }
 
-        name[len] = 0;
-        strncpy(name, resname, len);
+        this->name[len] = 0;
+        strncpy(this->name, resname, len);
     }
 }
 

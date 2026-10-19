@@ -11,22 +11,22 @@ TxtFile::~TxtFile()
 {
 	//43ccd0
 
-	Free();
+	this->Free();
 }
 
 void TxtFile::Free()
 {
 	//475de9
 	
-	if (buffer)
+	if (this->buffer)
 	{
 		for (int i = 0; i < AllLines.GetSize(); i++)
 		{
-			if (AllLines[i] == buffer)
+			if (AllLines[i] == this->buffer)
 			{
-				AllLines.RemoveAt(i, line_count);
-				free(buffer);
-				buffer = nullptr;
+				AllLines.RemoveAt(i, this->line_count);
+				free(this->buffer);
+				this->buffer = nullptr;
 				return;
 			}
 		}
@@ -42,30 +42,30 @@ void TxtFile::LoadChunkFile(const char* fname)
 
 	uint32_t fsize = fil.GetLength();
 
-	buffer = (char*)malloc(fsize + 1);
-	buffer[fsize] = 0;
+	this->buffer = (char*)malloc(fsize + 1);
+	this->buffer[fsize] = 0;
 
-	fil.Read(buffer, fsize);
+	fil.Read(this->buffer, fsize);
 
-	line_count = 0;
-	start_index = AllLines.GetSize();
+	this->line_count = 0;
+	this->start_index = AllLines.GetSize();
 
-	for (char *pcur = buffer; pcur < buffer + fsize; )
+	for (char *pcur = this->buffer; pcur < this->buffer + fsize; )
 	{
 		char* linestart = pcur;
 		AllLines.Add(linestart);
 
-		for(; *pcur != '\r' && pcur < buffer + fsize; pcur++ )
+		for(; *pcur != '\r' && pcur < this->buffer + fsize; pcur++ )
 		{}
 
-		if (pcur >= buffer + fsize) {
+		if (pcur >= this->buffer + fsize) {
 			break;
 		}
 
 		*pcur = 0;
 		pcur += 2;
 
-		line_count++;
+		this->line_count++;
 		CharToOemA(linestart, linestart);
 	}
 }
@@ -73,12 +73,12 @@ void TxtFile::LoadChunkFile(const char* fname)
 char* TxtFile::GetLine(int index)
 {
 	//475e57
-	return AllLines[start_index + index];
+	return AllLines[this->start_index + index];
 }
 
 
 int TxtFile::GetCount()
 {
 	//43cd30
-	return line_count;
+	return this->line_count;
 }

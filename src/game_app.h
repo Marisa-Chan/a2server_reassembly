@@ -182,9 +182,9 @@ struct ScenarioLocation
 	int32_t id = 0;
 	CRect rect;
 
-	int GetId() { return id; } //475150
-	CRect& GetRect() { return rect; } //475170
-	int32_t GetKind() { return kind; }
+	int GetId() { return this->id; } //475150
+	CRect& GetRect() { return this->rect; } //475170
+	int32_t GetKind() { return this->kind; }
 
 	void Read(CFile* fl);
 	void Write(CFile* fl);

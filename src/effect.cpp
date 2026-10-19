@@ -51,23 +51,23 @@ void Effect::VMethod12(Unit* unit)
 // 53EDB0
 int Effect::sub_53EDB0(Effect* other)
 {
-    return effect_id == other->effect_id &&
+    return this->effect_id == other->effect_id &&
            usage_type == other->usage_type &&
-           spell_or_damage == other->spell_or_damage &&
-           spell_value == other->spell_value;
+           this->spell_or_damage == other->spell_or_damage &&
+           this->spell_value == other->spell_value;
 }
 
 
 Effect::Effect()
 {
     //53ec02
-    typeId = 0;
-    effect_id = 0;
-    usage_type = 0;
-    spell_or_damage = 0;
-    spell_value = 0;
-    itemDataID = 0;
-    caster = nullptr;
+    this->typeId = 0;
+    this->effect_id = 0;
+    this->usage_type = 0;
+    this->spell_or_damage = 0;
+    this->spell_value = 0;
+    this->itemDataID = 0;
+    this->caster = nullptr;
 }
 
 
@@ -77,21 +77,21 @@ Effect::Effect(const CString& name)
     Effect* tmp = CreateFromString(name);
     if (tmp)
     {
-        effect_id = tmp->effect_id;
-        usage_type = tmp->usage_type;
-        spell_or_damage = tmp->spell_or_damage;
-        spell_value = tmp->spell_value;
-        itemDataID = tmp->itemDataID;
+        this->effect_id = tmp->effect_id;
+        this->usage_type = tmp->usage_type;
+        this->spell_or_damage = tmp->spell_or_damage;
+        this->spell_value = tmp->spell_value;
+        this->itemDataID = tmp->itemDataID;
 
         delete tmp;
 
-        caster = 0;
+        this->caster = 0;
     } else {
-        effect_id = 0;
-        usage_type = 0;
-        spell_or_damage = 0;
-        spell_value = 0;
-        itemDataID = 0;
+        this->effect_id = 0;
+        this->usage_type = 0;
+        this->spell_or_damage = 0;
+        this->spell_value = 0;
+        this->itemDataID = 0;
     }
 }
 
@@ -99,12 +99,12 @@ Effect::Effect(const Effect* src)
 : Token(*src)
 {
     //53ed4d
-    effect_id = src->effect_id;
-    usage_type = src->usage_type;
-    spell_or_damage = src->spell_or_damage;
-    spell_value = src->spell_value;
-    itemDataID = src->itemDataID;
-    caster = src->caster;
+    this->effect_id = src->effect_id;
+    this->usage_type = src->usage_type;
+    this->spell_or_damage = src->spell_or_damage;
+    this->spell_value = src->spell_value;
+    this->itemDataID = src->itemDataID;
+    this->caster = src->caster;
 }
 
 Effect::~Effect()
@@ -118,17 +118,17 @@ void Effect::Serialize(CArchive& ar)
     Token::Serialize(ar);
     if (ar.IsStoring())
     {
-        ar << effect_id;
-        ar << usage_type;
-        ar << spell_or_damage;
-        ar << spell_value;
-        ar << itemDataID;
+        ar << this->effect_id;
+        ar << this->usage_type;
+        ar << this->spell_or_damage;
+        ar << this->spell_value;
+        ar << this->itemDataID;
     } else {
-        ar >> effect_id;
-        ar >> usage_type;
-        ar >> spell_or_damage;
-        ar >> spell_value;
-        ar >> itemDataID;
+        ar >> this->effect_id;
+        ar >> this->usage_type;
+        ar >> this->spell_or_damage;
+        ar >> this->spell_value;
+        ar >> this->itemDataID;
     }
 }
 

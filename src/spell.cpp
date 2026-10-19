@@ -37,66 +37,66 @@ void Spell::Serialize(CArchive& ar)
 { // 53cf8d
     if (ar.IsStoring())
     {
-        ar.Write(&spell_id, 1);
-        ar.Write(&max_range, 1);
-        ar.Write(&is_defensive, 1);
-        ar.Write(&mana_cost, 2);
+        ar.Write(&this->spell_id, 1);
+        ar.Write(&this->max_range, 1);
+        ar.Write(&this->is_defensive, 1);
+        ar.Write(&this->mana_cost, 2);
         ar.Write(this, 4);
     } else {
-        ar.Read(&spell_id, 1);
-        ar.Read(&max_range, 1);
-        ar.Read(&is_defensive, 1);
-        ar.Read(&mana_cost, 2);
+        ar.Read(&this->spell_id, 1);
+        ar.Read(&this->max_range, 1);
+        ar.Read(&this->is_defensive, 1);
+        ar.Read(&this->mana_cost, 2);
 
         void* oldptr;
         ar.Read(&oldptr, 4);
 
         g_Server->field23_0xdc[oldptr] = this;
 
-        spell_info = &g_GameDataRes.spells[spell_id];
+        this->spell_info = &g_GameDataRes.spells[this->spell_id];
     }
 }
 
 Spell::Spell()
 { // 538fa5
-    spell_info = nullptr;
-    is_defensive = false;
-    spell_id = 0;
+    this->spell_info = nullptr;
+    this->is_defensive = false;
+    this->spell_id = 0;
 }
 
 Spell::Spell(uint8_t id)
 { // 538fdd
-    spell_info = nullptr;
-    is_defensive = false;
-    spell_id = 0;
-    max_range = 1;
-    spell_id = id;
-    Init();
+    this->spell_info = nullptr;
+    this->is_defensive = false;
+    this->spell_id = 0;
+    this->max_range = 1;
+    this->spell_id = id;
+    this->Init();
 }
 
 Spell::Spell(const CString& name)
 { // 539055
-    spell_info = nullptr;
-    is_defensive = false;
-    spell_id = 0;
-    max_range = 1;
-    spell_id = 0;
+    this->spell_info = nullptr;
+    this->is_defensive = false;
+    this->spell_id = 0;
+    this->max_range = 1;
+    this->spell_id = 0;
 
     for (int i = 0; i < g_GameDataRes.spells.GetSize(); i++)
     {
         if (g_GameDataRes.spells[i].name == name)
         {
-            spell_id = i;
+            this->spell_id = i;
             break;
         }
     }
 
-    if (spell_id == 0)
+    if (this->spell_id == 0)
     {
         CString msg("Invalid spell ");
         LogMessage(msg + name);
     } else {
-        Init();
+        this->Init();
     }
 }
 
@@ -105,35 +105,35 @@ Spell::~Spell() //5392fe
 
 void Spell::Init()
 { //5391ab
-    if (spell_id == 0)
+    if (this->spell_id == 0)
     {
         CString msg;
-        msg.Format("Invalid spell #%d - no such ID", spell_id);
+        msg.Format("Invalid spell #%d - no such ID", this->spell_id);
         LogMessage(msg);
     } else {
-        spell_info = &g_GameDataRes.spells[spell_id];
-        mana_cost = spell_info->Values()[0].mana_cost;
-        max_range = spell_info->Values()[0].max_range;
-        is_defensive = spell_info->Values()[0].defensive == 1;
+        this->spell_info = &g_GameDataRes.spells[this->spell_id];
+        this->mana_cost = this->spell_info->Values()[0].mana_cost;
+        this->max_range = this->spell_info->Values()[0].max_range;
+        this->is_defensive = this->spell_info->Values()[0].defensive == 1;
     }
 }
 
 // 53939E
 int Spell::sub_53939E(uint8_t, uint8_t)
 {
-    return spell_info->Values().GetData()[0].spell_target == 2;
+    return this->spell_info->Values().GetData()[0].spell_target == 2;
 }
 
 // 5393C7
 int Spell::sub_5393C7()
 {
-    return spell_info->Values().GetData()[0].spell_target == 1;
+    return this->spell_info->Values().GetData()[0].spell_target == 1;
 }
 
 // 53940D
 void Spell::sub_53940D(Unit* unit)
 {
-    const SpellInfoData& info = spell_info->Values().GetData()[0];
+    const SpellInfoData& info = this->spell_info->Values().GetData()[0];
     int32_t power = unit->hit_values.skill_levels[info.sphere] + unit->mind - 30;
     if (power < 0) {
         power = 0;
@@ -157,7 +157,7 @@ void Spell::sub_539C49(Unit* caster, Unit* target)
             }
         }
     } else {
-        rays = caster->sub_52F5BB(spell_info->Values().GetData()[0].sphere) / 20 + 2;
+        rays = caster->sub_52F5BB(this->spell_info->Values().GetData()[0].sphere) / 20 + 2;
     }
     if (rays > 7) {
         rays = 7;
@@ -183,7 +183,7 @@ void Spell::sub_539F21(Unit* caster, Unit* target)
 // 539541
 void Spell::sub_539541(uint32_t power)
 {
-    const SpellInfoData& info = spell_info->Values().GetData()[0];
+    const SpellInfoData& info = this->spell_info->Values().GetData()[0];
     uint8_t power_byte = power;
 
     this->max_range = info.max_range;
@@ -263,18 +263,18 @@ int32_t Spell::sub_539958(Unit* caster, Unit* target, int8_t x, int8_t y)
         return 0;
 	}
 
-    const SpellInfoData& info = spell_info->Values().GetData()[0];
+    const SpellInfoData& info = this->spell_info->Values().GetData()[0];
     int32_t delay = 0;
     if (info.delivery_system == 2) {
         delay = sub_5365AB(caster->position, &local_pos) / info.effect_speed;
-        if (spell_id == spell::lightning || spell_id == spell::prismatic_spray) {
+        if (this->spell_id == spell::lightning || this->spell_id == spell::prismatic_spray) {
             delay = 5;
 		}
     } else if (caster->monster_info == nullptr) {
         return 1;
     }
 
-    if (spell_id == spell::prismatic_spray) {
+    if (this->spell_id == spell::prismatic_spray) {
         this->sub_53940D(caster);
         this->sub_539C49(caster, target);
         return 1;
@@ -292,9 +292,9 @@ int32_t Spell::sub_539958(Unit* caster, Unit* target, int8_t x, int8_t y)
 // 53D368
 SpellBook::~SpellBook()
 {
-    for (int i = 0; i < spells.GetSize(); ++i) {
-        delete spells[i];
-        spells[i] = nullptr;
+    for (int i = 0; i < this->spells.GetSize(); ++i) {
+        delete this->spells[i];
+        this->spells[i] = nullptr;
     }
 }
 
@@ -342,15 +342,15 @@ void SpellBook::sub_53D7F0(int32_t spell_id, Spell* spell) {
 void SpellBook::RefreshForHumanoid(Humanoid* humanoid)
 {
 	//53dbc5
-	for (int index = 1; index < spells.GetSize(); ++index) {
-		Spell* spell = spells[index];
+	for (int index = 1; index < this->spells.GetSize(); ++index) {
+		Spell* spell = this->spells[index];
 		if (spell != nullptr) {
 			uint8_t spell_id = spell->spell_id;
 			SpellInfo& expected_info = g_GameDataRes.spells[spell_id];
 			if (spell->spell_info != &expected_info) {
 				spell = new Spell(index);
 
-				spells[index] = spell;
+				this->spells[index] = spell;
 
 				LogMessage("Bad spell data, restoring spell");
 			}
@@ -367,7 +367,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
         return;
     }
 
-    const SpellInfoData& info = spell_info->Values().GetData()[0];
+    const SpellInfoData& info = this->spell_info->Values().GetData()[0];
     int32_t sphere = info.sphere;
 
     // Phase 1: Power calculation.
@@ -452,7 +452,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
         case spell::protection_from_water:
         case spell::protection_from_air:
         case spell::protection_from_earth:
-            effect = new Effect(spell_info->effect);
+            effect = new Effect(this->spell_info->effect);
             effect->usage_type |= 1;
             effect->spell_or_damage = power / 2;
             if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
@@ -465,7 +465,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
             break;
 
         case spell::poison_cloud:
-            effect = new Effect(spell_info->effect);
+            effect = new Effect(this->spell_info->effect);
             effect->spell_or_damage = effect->spell_or_damage * power_div_45;
             effect->itemDataID = this->spell_id;
             effect->typeId = this->spell_id * 2 + 8;
@@ -488,14 +488,14 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
             break;
 
         case spell::darkness:
-            effect = new Effect(spell_info->effect);
+            effect = new Effect(this->spell_info->effect);
             effect->itemDataID = this->spell_id;
             effect->spell_or_damage = -1 - power / 30;
             effect->typeId = this->spell_id * 2 + 8;
             break;
 
         case spell::light:
-            effect = new Effect(spell_info->effect);
+            effect = new Effect(this->spell_info->effect);
             effect->itemDataID = this->spell_id;
             effect->spell_or_damage = power / 30 + 1;
             effect->typeId = this->spell_id * 2 + 8;
@@ -509,7 +509,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
             if (is_arena_blocked()) {
                 return;
             }
-            effect = new Effect(spell_info->effect);
+            effect = new Effect(this->spell_info->effect);
             effect->usage_type |= 1;
             {
                 int32_t factor = (caster->some_item == nullptr) ? 2 : 1;
@@ -546,7 +546,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
 
         case spell::haste:
         case spell::slow:
-            effect = new Effect(spell_info->effect);
+            effect = new Effect(this->spell_info->effect);
             effect->usage_type |= 1;
             if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
                 effect->spell_or_damage = power / 10;
@@ -793,7 +793,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
             }
 
         case spell::shield:
-            effect = new Effect(spell_info->effect);
+            effect = new Effect(this->spell_info->effect);
             effect->usage_type |= 1;
             if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
                 effect->spell_or_damage = power * 30 / 100;
@@ -872,14 +872,14 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
 
 Spell* SpellBook::sub_53DB79(int spell_id)
 { // 53db79 // Look up spell in book by id
-    if ((uint32_t)spell_id >= spells.GetSize()) {
+    if ((uint32_t)spell_id >= this->spells.GetSize()) {
         return nullptr;
     }
     
-    if (spells[spell_id] == nullptr) {
+    if (this->spells[spell_id] == nullptr) {
         return nullptr;
     }
 
-    current_spell_index = spell_id;
-    return spells[spell_id];
+    this->current_spell_index = spell_id;
+    return this->spells[spell_id];
 }

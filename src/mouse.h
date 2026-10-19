@@ -122,7 +122,7 @@ public:
 
 	void Use(); //47d025
 
-	CSprite256* GetSprite() const { return sprite; }; //41f8d0
+	CSprite256* GetSprite() const { return this->sprite; }; //41f8d0
 public:
 	CSprite256* sprite = nullptr;
 	int32_t x_off = 0;

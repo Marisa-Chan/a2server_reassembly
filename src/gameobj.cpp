@@ -54,114 +54,114 @@ IMPLEMENT_DYNAMIC(CHorisontalWoodenBridge, CBridge);
 CGameObject::CGameObject()
 {
     //4610b0
-    unit_id = 0;
-    x_pos = 0;
-    y_pos = 0;
-    x_pos2 = 0;
-    y_pos2 = 0;
-    z_pos = 0;
-    dir = 0;
-    phase = 0;
-    speed = 0;
-    hp = 0;
-    hp_max = 0;
-    field_0x84 = -1;
-    controlGroupMask = 0;
-    m_bSelected = 0;
-    bIsBlocked = 0;
-    action_segments = 0;
-    last_action = 0;
-    action = 0;
-    scan_range = 0;
-    action_x = 0;
-    action_y = 0;
-    action_z = 0;
-    action_dir = 0;
-    action_phase = 0;
-    field_0xa0 = 0;
-    field_0xa4 = 0;
-    action_spell = 0;
-    availableSpellMask = 0;
-    spells = 0;
-    activeSpellEffectMask = 0;
-    m_bSelectionDirty = 1;
-    active_spell = 0;
+    this->unit_id = 0;
+    this->x_pos = 0;
+    this->y_pos = 0;
+    this->x_pos2 = 0;
+    this->y_pos2 = 0;
+    this->z_pos = 0;
+    this->dir = 0;
+    this->phase = 0;
+    this->speed = 0;
+    this->hp = 0;
+    this->hp_max = 0;
+    this->field_0x84 = -1;
+    this->controlGroupMask = 0;
+    this->m_bSelected = 0;
+    this->bIsBlocked = 0;
+    this->action_segments = 0;
+    this->last_action = 0;
+    this->action = 0;
+    this->scan_range = 0;
+    this->action_x = 0;
+    this->action_y = 0;
+    this->action_z = 0;
+    this->action_dir = 0;
+    this->action_phase = 0;
+    this->field_0xa0 = 0;
+    this->field_0xa4 = 0;
+    this->action_spell = 0;
+    this->availableSpellMask = 0;
+    this->spells = 0;
+    this->activeSpellEffectMask = 0;
+    this->m_bSelectionDirty = 1;
+    this->active_spell = 0;
 
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     if (wnd) {
-        pMapObject = wnd->vis_map_context;
+        this->pMapObject = wnd->vis_map_context;
     }
 
-    shopInventoryVisibleStart = 0;
-    str1[0] = 0;
-    str2[0] = 0;
+    this->shopInventoryVisibleStart = 0;
+    this->str1[0] = 0;
+    this->str2[0] = 0;
 }
 
 CGameObject::CGameObject(const CGameObject* obj)
 {
     //4612f2
-    unit_id = obj->unit_id;
-    x_pos = obj->x_pos;
-    y_pos = obj->y_pos;
-    z_pos = obj->z_pos;
-    map_player = obj->map_player;
-    typeId = obj->typeId;
-    face = obj->face;
-    x_pos2 = obj->x_pos2;
-    y_pos2 = obj->y_pos2;
-    field_0x34 = obj->field_0x34;
-    tileX = obj->tileX;
-    tileY = obj->tileY;
-    mapBoundsLeft = obj->mapBoundsLeft;
-    mapBoundsTop = obj->mapBoundsTop;
-    mapBoundsRight = obj->mapBoundsRight;
-    mapBoundsBottom = obj->mapBoundsBottom;
-    mapLayerActive = obj->mapLayerActive;
-    centerScreenX = obj->centerScreenX;
-    centerScreenY = obj->centerScreenY;
-    screenX = obj->screenX;
-    screenY = obj->screenY;
-    terrainHeightOffset = obj->terrainHeightOffset;
-    dir = obj->dir;
-    phase = obj->phase;
-    last_action = obj->last_action;
-    bIsBlocked = obj->bIsBlocked;
-    m_bSelected = obj->m_bSelected;
-    field_0x84 = obj->field_0x84;
-    controlGroupMask = obj->controlGroupMask;
-    action = obj->action;
-    action_x = obj->action_x;
-    action_y = obj->action_y;
-    action_z = obj->action_z;
-    action_dir = obj->action_dir;
-    action_phase = obj->action_phase;
-    action_target = obj->action_target;
-    field_0xa0 = obj->field_0xa0;
-    field_0xa4 = obj->field_0xa4;
-    action_spell = obj->action_spell;
-    availableSpellMask = obj->availableSpellMask;
-    action_segments = obj->action_segments;
-    field_0xc4 = obj->field_0xc4;
-    shopInventoryVisibleStart = obj->shopInventoryVisibleStart;
-    pMapObject = obj->pMapObject;
-    hp = obj->hp;
-    field_0x106 = obj->field_0x106;
-    hp_max = obj->hp_max;
-    scan_range = obj->scan_range;
-    speed = obj->speed;
-    carrying_weight_100g = obj->carrying_weight_100g;
-    m_bSelectionDirty = obj->m_bSelectionDirty;
+    this->unit_id = obj->unit_id;
+    this->x_pos = obj->x_pos;
+    this->y_pos = obj->y_pos;
+    this->z_pos = obj->z_pos;
+    this->map_player = obj->map_player;
+    this->typeId = obj->typeId;
+    this->face = obj->face;
+    this->x_pos2 = obj->x_pos2;
+    this->y_pos2 = obj->y_pos2;
+    this->field_0x34 = obj->field_0x34;
+    this->tileX = obj->tileX;
+    this->tileY = obj->tileY;
+    this->mapBoundsLeft = obj->mapBoundsLeft;
+    this->mapBoundsTop = obj->mapBoundsTop;
+    this->mapBoundsRight = obj->mapBoundsRight;
+    this->mapBoundsBottom = obj->mapBoundsBottom;
+    this->mapLayerActive = obj->mapLayerActive;
+    this->centerScreenX = obj->centerScreenX;
+    this->centerScreenY = obj->centerScreenY;
+    this->screenX = obj->screenX;
+    this->screenY = obj->screenY;
+    this->terrainHeightOffset = obj->terrainHeightOffset;
+    this->dir = obj->dir;
+    this->phase = obj->phase;
+    this->last_action = obj->last_action;
+    this->bIsBlocked = obj->bIsBlocked;
+    this->m_bSelected = obj->m_bSelected;
+    this->field_0x84 = obj->field_0x84;
+    this->controlGroupMask = obj->controlGroupMask;
+    this->action = obj->action;
+    this->action_x = obj->action_x;
+    this->action_y = obj->action_y;
+    this->action_z = obj->action_z;
+    this->action_dir = obj->action_dir;
+    this->action_phase = obj->action_phase;
+    this->action_target = obj->action_target;
+    this->field_0xa0 = obj->field_0xa0;
+    this->field_0xa4 = obj->field_0xa4;
+    this->action_spell = obj->action_spell;
+    this->availableSpellMask = obj->availableSpellMask;
+    this->action_segments = obj->action_segments;
+    this->field_0xc4 = obj->field_0xc4;
+    this->shopInventoryVisibleStart = obj->shopInventoryVisibleStart;
+    this->pMapObject = obj->pMapObject;
+    this->hp = obj->hp;
+    this->field_0x106 = obj->field_0x106;
+    this->hp_max = obj->hp_max;
+    this->scan_range = obj->scan_range;
+    this->speed = obj->speed;
+    this->carrying_weight_100g = obj->carrying_weight_100g;
+    this->m_bSelectionDirty = obj->m_bSelectionDirty;
 
-    field_0x130.Copy(obj->field_0x130);
-    transientVisualElements.Copy(obj->transientVisualElements);
-    actionTargets.Copy(obj->actionTargets);
+    this->field_0x130.Copy(obj->field_0x130);
+    this->transientVisualElements.Copy(obj->transientVisualElements);
+    this->actionTargets.Copy(obj->actionTargets);
 
     for (int i = 0; i < obj->tokenEntries.GetSize(); i++) {
-        tokenEntries.Add(new TokenEntry(obj->tokenEntries[i]));
+        this->tokenEntries.Add(new TokenEntry(obj->tokenEntries[i]));
     }
 
-    strcpy(str1, obj->str1);
-    strcpy(str2, obj->str2);
+    strcpy(this->str1, obj->str1);
+    strcpy(this->str2, obj->str2);
 }
 
 
@@ -170,16 +170,16 @@ void CGameObject::AssertValid() const
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
     if ((mwnd->dialogsMask & 1) != 0 && 
-        (x_pos < 1792 || y_pos < 1792 || 
-        (pMapObject->map_width - 7) * 256 <= x_pos ||
-        (pMapObject->map_height - 7) * 256 <= y_pos || 
-         typeId < 0 || typeId > 256 ||
-         action_x < -256 || action_y < -256 ||
-         (pMapObject->map_width - 8) * 256 <= action_x || 
-         (pMapObject->map_height - 8) * 256 <= action_y))
+        (this->x_pos < 1792 || this->y_pos < 1792 || 
+        (this->pMapObject->map_width - 7) * 256 <= this->x_pos ||
+        (this->pMapObject->map_height - 7) * 256 <= this->y_pos || 
+         this->typeId < 0 || this->typeId > 256 ||
+         this->action_x < -256 || this->action_y < -256 ||
+         (this->pMapObject->map_width - 8) * 256 <= this->action_x || 
+         (this->pMapObject->map_height - 8) * 256 <= this->action_y))
     {
         CString str;
-        str.Format("Shit! Invalid GameObject #%d coordinates X:%d Y:%d player:%d picture:%d", unit_id, x_pos >> 8, y_pos >> 8, map_player->index, typeId);
+        str.Format("Shit! Invalid GameObject #%d coordinates X:%d Y:%d player:%d picture:%d", this->unit_id, this->x_pos >> 8, this->y_pos >> 8, this->map_player->index, this->typeId);
 
         AfxMessageBox(str);
     }
@@ -192,18 +192,18 @@ void CGameObject::Dump(CDumpContext& dc) const
 
 CGameObject::~CGameObject()
 { //46178a
-    for (int i = 0; i < tokenEntries.GetSize(); i++) {
-        delete tokenEntries[i];
+    for (int i = 0; i < this->tokenEntries.GetSize(); i++) {
+        delete this->tokenEntries[i];
     }
 
-    tokenEntries.RemoveAll();
+    this->tokenEntries.RemoveAll();
 }
 
 
 void CGameObject::FUN_0041f180(int32_t grp)
 {  //41f180
-    controlGroupMask |= 1 << grp;
-    m_bSelectionDirty = 1;
+    this->controlGroupMask |= 1 << grp;
+    this->m_bSelectionDirty = 1;
 }
 
 
@@ -392,8 +392,8 @@ int32_t CGameObject::FUN_0041f130()
 
 void CGameObject::VMethod1(int32_t arg1)
 { //46f430
-    m_bSelected = arg1;
-    m_bSelectionDirty = 1;
+    this->m_bSelected = arg1;
+    this->m_bSelectionDirty = 1;
 }
 
 
@@ -448,7 +448,7 @@ void CGameObject::VMethod10()
 
 int32_t CGameObject::VMethod11()
 { //461f73
-    VMethod13();
+    this->VMethod13();
     return 1;
 }
 
@@ -460,38 +460,38 @@ void CGameObject::VMethod12()
 
 void CGameObject::VMethod13()
 { //462190
-    if (pMapObject->my_main_unit->FUN_0041ee50(map_player->index) != 0 && scan_range != 0 && (screenX & 0x1f) == 0x10 && (screenY & 0x1f) == 0x10 && (x_pos != occupiedLocation.x || y_pos != occupiedLocation.y)) {
-        VMethod14();
+    if (this->pMapObject->my_main_unit->FUN_0041ee50(this->map_player->index) != 0 && this->scan_range != 0 && (this->screenX & 0x1f) == 0x10 && (this->screenY & 0x1f) == 0x10 && (this->x_pos != this->occupiedLocation.x || this->y_pos != this->occupiedLocation.y)) {
+        this->VMethod14();
     }
 }
 
 
 void CGameObject::VMethod14()
 { //462226
-    if (pMapObject->my_main_unit->FUN_0041ee50(map_player->index) != 0 && scan_range != 0)
+    if (this->pMapObject->my_main_unit->FUN_0041ee50(this->map_player->index) != 0 && this->scan_range != 0)
     {
-        pMapObject->field_0xdc = 1;
+        this->pMapObject->field_0xdc = 1;
 
-        uint16_t* land = pMapObject->field_0x80->GetLandscape();
-        int32_t iVar6 = VMethod4();
-        int32_t iVar2 = tileX;
-        int32_t iVar7 = VMethod5();
-        int32_t iVar3 = tileY;
+        uint16_t* land = this->pMapObject->field_0x80->GetLandscape();
+        int32_t iVar6 = this->VMethod4();
+        int32_t iVar2 = this->tileX;
+        int32_t iVar7 = this->VMethod5();
+        int32_t iVar3 = this->tileY;
 
-        pMapObject->FUN_00403ca0(this);
+        this->pMapObject->FUN_00403ca0(this);
 
         for (int j = 0; j < 41; j++)
         {
             for (int i = 0; i < 41; i++)
             {
-                int32_t idx = iVar2 + iVar6 / 2 - 20 + j + (iVar3 + iVar7 / 2 - 20 + i) * pMapObject->map_width;
-                if (pMapObject->field_0x17e4[j][i] > 0)
+                int32_t idx = iVar2 + iVar6 / 2 - 20 + j + (iVar3 + iVar7 / 2 - 20 + i) * this->pMapObject->map_width;
+                if (this->pMapObject->field_0x17e4[j][i] > 0)
                 {
                     land[idx] |= 0xc000;
                     idx++;
 
                     land[idx] |= 0xc000;
-                    idx += pMapObject->map_width;
+                    idx += this->pMapObject->map_width;
 
                     land[idx] |= 0xc000;
                     land[idx - 1] |= 0xc000;
@@ -499,25 +499,25 @@ void CGameObject::VMethod14()
             }
         }
 
-        occupiedLocation.x = x_pos;
-        occupiedLocation.y = y_pos;
+        this->occupiedLocation.x = this->x_pos;
+        this->occupiedLocation.y = this->y_pos;
     }
 }
 
 
 int32_t CGameObject::VMethod15()
 { //46207a
-    uint16_t* land = pMapObject->field_0x80->GetLandscape();
+    uint16_t* land = this->pMapObject->field_0x80->GetLandscape();
 
-    int32_t idx = tileX + pMapObject->map_width * tileY;
-    bIsBlocked = (land[idx] & 0xc000U | land[idx + 1] & 0xc000U | land[idx + pMapObject->map_width] & 0xc000U | land[idx + pMapObject->map_width + 1] & 0xc000U) != 0xc000;
+    int32_t idx = this->tileX + this->pMapObject->map_width * this->tileY;
+    this->bIsBlocked = (land[idx] & 0xc000U | land[idx + 1] & 0xc000U | land[idx + this->pMapObject->map_width] & 0xc000U | land[idx + this->pMapObject->map_width + 1] & 0xc000U) != 0xc000;
 
-    if (bIsBlocked == 0 || m_bSelected == 0) {
+    if (this->bIsBlocked == 0 || this->m_bSelected == 0) {
         return 0;
     }
 
-    m_bSelected = 0;
-    m_bSelectionDirty = 1;
+    this->m_bSelected = 0;
+    this->m_bSelectionDirty = 1;
     return 1;
 }
 
@@ -527,18 +527,18 @@ void CGameObject::VMethod16()
 
 void CGameObject::SetVals(uint16_t uni_id, int type_id, int32_t xpos, int32_t ypos, int32_t unk1, int32_t unk2, int32_t _phase, int32_t _speed, int32_t _hp)
 { //46187d
-    unit_id = uni_id;
-    x_pos = xpos;
-    x_pos2 = xpos;
-    y_pos = ypos;
-    y_pos2 = ypos;
-    z_pos = unk1;
-    dir = unk2;
-    phase = _phase;
-    speed = _speed;
-    hp_max = _hp;
-    hp = _hp;
-    typeId = type_id;
+    this->unit_id = uni_id;
+    this->x_pos = xpos;
+    this->x_pos2 = xpos;
+    this->y_pos = ypos;
+    this->y_pos2 = ypos;
+    this->z_pos = unk1;
+    this->dir = unk2;
+    this->phase = _phase;
+    this->speed = _speed;
+    this->hp_max = _hp;
+    this->hp = _hp;
+    this->typeId = type_id;
 }
 
 
@@ -547,8 +547,8 @@ void CGameObject::SetVals(uint16_t uni_id, int type_id, int32_t xpos, int32_t yp
 
 TokenEntry::~TokenEntry()
 { //4394bf
-    if (mods) {
-        free(mods);
+    if (this->mods) {
+        free(this->mods);
     }
 }
 
@@ -557,7 +557,7 @@ TokenEntry::TokenEntry() = default; //438f90
 
 TokenEntry::TokenEntry(int arg)
 { //439009
-    field_0x4 = arg;
+    this->field_0x4 = arg;
 }
 
 
@@ -570,76 +570,76 @@ TokenEntry::TokenEntry(const TokenEntry* obj)
 TokenEntry::TokenEntry(uint8_t** data, int arg)
 {
     //439102
-    field_0x18 = 0;
-    field_0x14 = 0;
-    field_0x1c = -1;
-    field_0x20 = -1;
-    mods_count = 0;
-    mods_size = 0;
-    mods = nullptr;
+    this->field_0x18 = 0;
+    this->field_0x14 = 0;
+    this->field_0x1c = -1;
+    this->field_0x20 = -1;
+    this->mods_count = 0;
+    this->mods_size = 0;
+    this->mods = nullptr;
 
     uint8_t* pdata = *data;
 
-    item_id = *(uint16_t*)pdata;
+    this->item_id = *(uint16_t*)pdata;
     pdata += 2;
 
-    flg = *pdata;
+    this->flg = *pdata;
     pdata++;
 
     ItemNamePktEntry* pkt = nullptr;
-    if (item_id < 0xfff0)
+    if (this->item_id < 0xfff0)
     {
-        if (unk_660D28.Lookup(item_id, *(void**)&pkt) == 0)
+        if (unk_660D28.Lookup(this->item_id, *(void**)&pkt) == 0)
         {
             *data = pdata;
             return;
         }
 
-        mods_size = pkt->data_len;
-        mods_count = pkt->field_5;
+        this->mods_size = pkt->data_len;
+        this->mods_count = pkt->field_5;
     }
 
-    if ((flg & 0x80) == 0)
+    if ((this->flg & 0x80) == 0)
     {
-        if ((flg & 0x20) == 0)
+        if ((this->flg & 0x20) == 0)
         {
-            field_0x10 =  *(uint16_t*)pdata;
+            this->field_0x10 =  *(uint16_t*)pdata;
             pdata += 2;
 
-            mods = malloc(mods_size);
-            memcpy(mods, pkt->data, mods_size);
+            this->mods = malloc(this->mods_size);
+            memcpy(this->mods, pkt->data, this->mods_size);
         } else {
-            int esz = flg & 0xf;
-            mods_count += esz + 1;
-            mods_size += (esz + 1) * 2;
+            int esz = this->flg & 0xf;
+            this->mods_count += esz + 1;
+            this->mods_size += (esz + 1) * 2;
             
             int local_18 = *(uint32_t*)pdata;
             pdata += 4;
 
-            mods = malloc(mods_size);
-            memcpy(mods, pkt->data, mods_size);
+            this->mods = malloc(this->mods_size);
+            memcpy(this->mods, pkt->data, this->mods_size);
 
-            uint8_t* ot = (uint8_t*)mods + pkt->data_len;
+            uint8_t* ot = (uint8_t*)this->mods + pkt->data_len;
             ot[0] = 0x33;
             ot[1] = 0;
             memcpy(ot + 2, pdata, esz * 2);
 
             pdata += esz * 2;
 
-            memcpy((uint8_t *)mods + 1, &local_18, 4);
+            memcpy((uint8_t *)this->mods + 1, &local_18, 4);
 
-            flg &= 0x60;
-            field_0x10 = 1;
+            this->flg &= 0x60;
+            this->field_0x10 = 1;
         }
     } else {
-        field_0x10 = flg & 0x3f;
-        mods = malloc(mods_size);
-        memcpy(mods, pkt->data, mods_size);
-        flg &= 0x40;
+        this->field_0x10 = this->flg & 0x3f;
+        this->mods = malloc(this->mods_size);
+        memcpy(this->mods, pkt->data, this->mods_size);
+        this->flg &= 0x40;
     }
 
     if (pkt) {
-        flg |= pkt->flags;
+        this->flg |= pkt->flags;
     }
 
     if (arg != 0)
@@ -648,9 +648,9 @@ TokenEntry::TokenEntry(uint8_t** data, int arg)
         pdata++;
 
         if (val == 0) {
-            field_0x18 = 2;
+            this->field_0x18 = 2;
         } else {
-            field_0x18 = val + 4;
+            this->field_0x18 = val + 4;
         }
     }
 
@@ -660,24 +660,24 @@ TokenEntry::TokenEntry(uint8_t** data, int arg)
 void TokenEntry::operator=(const TokenEntry& obj)
 {
     //43a3cd
-    field_0x4 = obj.field_0x4;
-    item_id = obj.item_id;
-    flg = obj.flg;
-    mods_count = obj.mods_count;
-    field_0x10 = obj.field_0x10;
-    field_0x14 = obj.field_0x14;
-    field_0x18 = obj.field_0x18;
-    mods_size = obj.mods_size;
+    this->field_0x4 = obj.field_0x4;
+    this->item_id = obj.item_id;
+    this->flg = obj.flg;
+    this->mods_count = obj.mods_count;
+    this->field_0x10 = obj.field_0x10;
+    this->field_0x14 = obj.field_0x14;
+    this->field_0x18 = obj.field_0x18;
+    this->mods_size = obj.mods_size;
 
-    if (mods_size == 0) {
-        mods = nullptr;
+    if (this->mods_size == 0) {
+        this->mods = nullptr;
     } else {
-        mods = malloc(mods_size);
-        memcpy(mods, obj.mods, mods_size);
+        this->mods = malloc(this->mods_size);
+        memcpy(this->mods, obj.mods, this->mods_size);
     }
 
-    field_0x1c = obj.field_0x1c;
-    field_0x20 = obj.field_0x20;
+    this->field_0x1c = obj.field_0x1c;
+    this->field_0x20 = obj.field_0x20;
 
 }
 
@@ -1066,41 +1066,41 @@ int32_t TokenEntry::sub_43988E()
 
 CUnit::CUnit()
 { //46411c
-    mp_max = 0;
-    mp = 0;
-    lastVoicePlaybackTick = 0;
-    equipmentTokens.fill(nullptr);
-    sprite = nullptr;
-    sprite_b = nullptr;
-    heroSpritePictureName[0] = 0;
-    y_pos2 = 0;
-    x_pos2 = 0;
-    unitFlags = 0;
-    field_0x180[4] = 0;
-    heroSpriteArmorMaterial = -1;
-    field_0x161 = 0;
-    field_0x162 = 0;
-    field_0x164 = 0;
-    serverId = 0;
-    questFlags = -1;
-    field_0x156 = 0;
+    this->mp_max = 0;
+    this->mp = 0;
+    this->lastVoicePlaybackTick = 0;
+    this->equipmentTokens.fill(nullptr);
+    this->sprite = nullptr;
+    this->sprite_b = nullptr;
+    this->heroSpritePictureName[0] = 0;
+    this->y_pos2 = 0;
+    this->x_pos2 = 0;
+    this->unitFlags = 0;
+    this->field_0x180[4] = 0;
+    this->heroSpriteArmorMaterial = -1;
+    this->field_0x161 = 0;
+    this->field_0x162 = 0;
+    this->field_0x164 = 0;
+    this->serverId = 0;
+    this->questFlags = -1;
+    this->field_0x156 = 0;
 }
 
 CUnit::~CUnit()
 { //46459d
-    for (TokenEntry* eq : equipmentTokens)
+    for (TokenEntry* eq : this->equipmentTokens)
     {
         if (eq) {
             delete eq;
         }
     }
 
-    if (sprite) {
-        delete sprite;
+    if (this->sprite) {
+        delete this->sprite;
     }
 
-    if (sprite_b) {
-        delete sprite_b;
+    if (this->sprite_b) {
+        delete this->sprite_b;
     }
 }
 
@@ -1138,11 +1138,11 @@ void CUnit::VMethod30(const char* str, CGameBitmap* bmp1, CGameBitmap* bmp2)
     CSprite256* extra_sprites[12] = { nullptr };
 
     for (int i = 0; i < 12; ++i) {
-        if (equipmentTokens[i] != nullptr) {
+        if (this->equipmentTokens[i] != nullptr) {
             CString base_name = sprite_prefix;
             CString extra_name = sprite_prefix;
-            CString item_name = equipmentTokens[i]->FUN_004394f3();
-            CString item_name2 = equipmentTokens[i]->FUN_004394f3();
+            CString item_name = this->equipmentTokens[i]->FUN_004394f3();
+            CString item_name2 = this->equipmentTokens[i]->FUN_004394f3();
 
             base_name += "primary\\";
             base_name += item_name;
@@ -1433,48 +1433,48 @@ void CUnit::VMethod30(const char* str, CGameBitmap* bmp1, CGameBitmap* bmp2)
 
 void CUnit::CopyFromUnit(const Unit& uni)
 { //46b0d7
-    typeId = uni.typeId;
-    ApplyFace(uni.face);
-    body = uni.body;
-    mind = uni.mind;
-    reaction = uni.reaction;
-    spirit = uni.spirit;
-    hp = uni.hp;
-    hp_max = uni.hp_max;
-    mp = uni.mp;
-    mp_max = uni.mp_max;
-    attack = uni.hit_values.attack;
-    defence = uni.protections.defense;
-    absorb = uni.protections.absorption;
-    hand_dmg_min = uni.hit_values.hand_damage_min;
-    hand_dmg_spread = uni.hit_values.hand_damage_spread;
-    speed = uni.speed;
-    scan_range = uni.scan_range;
-    serverId = uni.server_id;
-    carrying_weight_100g = uni.carrying_weight_100g;
+    this->typeId = uni.typeId;
+    this->ApplyFace(uni.face);
+    this->body = uni.body;
+    this->mind = uni.mind;
+    this->reaction = uni.reaction;
+    this->spirit = uni.spirit;
+    this->hp = uni.hp;
+    this->hp_max = uni.hp_max;
+    this->mp = uni.mp;
+    this->mp_max = uni.mp_max;
+    this->attack = uni.hit_values.attack;
+    this->defence = uni.protections.defense;
+    this->absorb = uni.protections.absorption;
+    this->hand_dmg_min = uni.hit_values.hand_damage_min;
+    this->hand_dmg_spread = uni.hit_values.hand_damage_spread;
+    this->speed = uni.speed;
+    this->scan_range = uni.scan_range;
+    this->serverId = uni.server_id;
+    this->carrying_weight_100g = uni.carrying_weight_100g;
 
     if (((Unit&)uni).VMethod8() == 0) //FIXME when this method become const
     {
-        skill_levels[0] = uni.protections.weapon_protections[1];
-        skill_levels[1] = uni.protections.weapon_protections[2];
-        skill_levels[2] = uni.protections.weapon_protections[3];
-        skill_levels[3] = uni.protections.weapon_protections[4];
-        skill_levels[4] = uni.protections.weapon_protections[5];
+        this->skill_levels[0] = uni.protections.weapon_protections[1];
+        this->skill_levels[1] = uni.protections.weapon_protections[2];
+        this->skill_levels[2] = uni.protections.weapon_protections[3];
+        this->skill_levels[3] = uni.protections.weapon_protections[4];
+        this->skill_levels[4] = uni.protections.weapon_protections[5];
     } else {
         Humanoid& hum = (Humanoid&)uni;
-        skill_levels[0] = hum.hit_values.skill_levels[1];
-        skill_levels[1] = hum.hit_values.skill_levels[2];
-        skill_levels[2] = hum.hit_values.skill_levels[3];
-        skill_levels[3] = hum.hit_values.skill_levels[4];
-        skill_levels[4] = hum.hit_values.skill_levels[5];
+        this->skill_levels[0] = hum.hit_values.skill_levels[1];
+        this->skill_levels[1] = hum.hit_values.skill_levels[2];
+        this->skill_levels[2] = hum.hit_values.skill_levels[3];
+        this->skill_levels[3] = hum.hit_values.skill_levels[4];
+        this->skill_levels[4] = hum.hit_values.skill_levels[5];
 
-        experience_per_sphere[0] = hum.experience_per_sphere[0];
-        experience_per_sphere[1] = hum.experience_per_sphere[1];
-        experience_per_sphere[2] = hum.experience_per_sphere[2];
-        experience_per_sphere[3] = hum.experience_per_sphere[3];
-        experience_per_sphere[4] = hum.experience_per_sphere[4];
+        this->experience_per_sphere[0] = hum.experience_per_sphere[0];
+        this->experience_per_sphere[1] = hum.experience_per_sphere[1];
+        this->experience_per_sphere[2] = hum.experience_per_sphere[2];
+        this->experience_per_sphere[3] = hum.experience_per_sphere[3];
+        this->experience_per_sphere[4] = hum.experience_per_sphere[4];
 
-        exp_summary = experience_per_sphere[0] + experience_per_sphere[1] + experience_per_sphere[2] + experience_per_sphere[3] + experience_per_sphere[4];
+        this->exp_summary = this->experience_per_sphere[0] + this->experience_per_sphere[1] + this->experience_per_sphere[2] + this->experience_per_sphere[3] + this->experience_per_sphere[4];
 
         PacketUnitStateVec* local_20 = &PacketUnitStateVec::Inst;
         local_20->entry_count = 0;
@@ -1511,140 +1511,140 @@ void CUnit::CopyFromUnit(const Unit& uni)
         uint8_t* pdata = local_20->data;
         for (int i = 0; i < 12; i++)
         {
-            if (equipmentTokens[i]) {
-                delete equipmentTokens[i];
+            if (this->equipmentTokens[i]) {
+                delete this->equipmentTokens[i];
             }
 
             TokenEntry* te = new TokenEntry(&pdata, 0);
             if (te->item_id == 0)
             {
                 delete te;
-                equipmentTokens[i] = nullptr;
+                this->equipmentTokens[i] = nullptr;
             } else {
                 te->field_0x18 = 1;
-                equipmentTokens[i] = te;
+                this->equipmentTokens[i] = te;
             }
         }
     }
 
-    magic_protect[0] = uni.protections.magic_protections[1];
-    magic_protect[1] = uni.protections.magic_protections[2];
-    magic_protect[2] = uni.protections.magic_protections[3];
-    magic_protect[3] = uni.protections.magic_protections[4];
-    magic_protect[4] = uni.protections.magic_protections[5];
+    this->magic_protect[0] = uni.protections.magic_protections[1];
+    this->magic_protect[1] = uni.protections.magic_protections[2];
+    this->magic_protect[2] = uni.protections.magic_protections[3];
+    this->magic_protect[3] = uni.protections.magic_protections[4];
+    this->magic_protect[4] = uni.protections.magic_protections[5];
 
-    if (typeId == 0x49 || typeId == 0x68 || typeId == 0x46) {
-        field_0x156 = 2;
+    if (this->typeId == 0x49 || this->typeId == 0x68 || this->typeId == 0x46) {
+        this->field_0x156 = 2;
     } else {
-        field_0x156 = 0;
+        this->field_0x156 = 0;
     }
 
-    ReloadSprite();
+    this->ReloadSprite();
 }
 
 void CUnit::ApplyFace(int32_t _face)
 { //46b7d2
 
-    face = _face;
+    this->face = _face;
 
-    if (typeId > 0x1f && typeId < 0x40)
+    if (this->typeId > 0x1f && this->typeId < 0x40)
     {
-        unitFlags &= 0x80;
-        unitFlags |= 1 | 8;
+        this->unitFlags &= 0x80;
+        this->unitFlags |= 1 | 8;
 
-        typeId -= 0x21;
+        this->typeId -= 0x21;
 
-        if ((typeId & 1) != 0) {
-            unitFlags |= 4;
+        if ((this->typeId & 1) != 0) {
+            this->unitFlags |= 4;
         }
 
-        if ((typeId & 2) != 0) {
-            unitFlags |= 2;
+        if ((this->typeId & 2) != 0) {
+            this->unitFlags |= 2;
         }
 
-        typeId = 1;
-    } else if (typeId < 0x1a)
+        this->typeId = 1;
+    } else if (this->typeId < 0x1a)
     {
-        unitFlags &= 0x80;
-        unitFlags |= 0x10 | 8;
+        this->unitFlags &= 0x80;
+        this->unitFlags |= 0x10 | 8;
 
-        if ((face & 0x80) != 0) {
-            unitFlags |= 4;
+        if ((this->face & 0x80) != 0) {
+            this->unitFlags |= 4;
         }
 
-        face &= ~0x80;
+        this->face &= ~0x80;
 
-        if (typeId > 0x16 && typeId < 0x19) {
-            unitFlags |= 2;
+        if (this->typeId > 0x16 && this->typeId < 0x19) {
+            this->unitFlags |= 2;
         }
     }
 }
 
 void CUnit::ReloadSprite()
 { // 46b91c
-    if ((unitFlags & 1) != 0)
+    if ((this->unitFlags & 1) != 0)
     {
         CString sname;
 
-        if (action == 6)
+        if (this->action == 6)
         {
             sname = "unarmed";
-            if ((unitFlags & 2) != 0 /* && strcmp(local_c8, "unarmed") == 0 */) {
+            if ((this->unitFlags & 2) != 0 /* && strcmp(local_c8, "unarmed") == 0 */) {
                 sname = "mage_st";
             }
         } else {
             int32_t hero_id = 0;
 
-            if (equipmentTokens[0] != nullptr) {
-                hero_id = equipmentTokens[0]->GetId() - 1;
+            if (this->equipmentTokens[0] != nullptr) {
+                hero_id = this->equipmentTokens[0]->GetId() - 1;
             }
 
             sname = txt_heropicture.GetLine(hero_id);
 
-            if (equipmentTokens[1] != NULL) {
+            if (this->equipmentTokens[1] != NULL) {
                 sname += "_";
             }
 
-            if ((unitFlags & 2) != 0 && sname == "unarmed") {
+            if ((this->unitFlags & 2) != 0 && sname == "unarmed") {
                 sname = "mage";
             }
         }
 
-        bool do_reload = sname != heroSpritePictureName;
+        bool do_reload = sname != this->heroSpritePictureName;
 
-        if ((unitFlags & 2) == 0)
+        if ((this->unitFlags & 2) == 0)
         {
-            if (equipmentTokens[7] == nullptr)
+            if (this->equipmentTokens[7] == nullptr)
             {
-                if (heroSpriteArmorMaterial != -1) {
+                if (this->heroSpriteArmorMaterial != -1) {
                     do_reload = true;
                 }
-            } else if (heroSpriteArmorMaterial == -1) {
+            } else if (this->heroSpriteArmorMaterial == -1) {
                 do_reload = true;
             }
         }
 
         if (do_reload)
         {
-            if (sprite) {
-                delete sprite;
+            if (this->sprite) {
+                delete this->sprite;
             }
 
-            if (sprite_b) {
-                delete sprite_b;
+            if (this->sprite_b) {
+                delete this->sprite_b;
             }
 
             CString sprite_name = "graphics\\units\\";
 
-            if (unitFlags & 2) {
+            if (this->unitFlags & 2) {
                 sprite_name += "heroes";
-            } else if (equipmentTokens[7] == nullptr)
+            } else if (this->equipmentTokens[7] == nullptr)
             {
-                heroSpriteArmorMaterial = -1;
+                this->heroSpriteArmorMaterial = -1;
                 sprite_name += "heroes_l";
             } else {
-                sprite_name += g_CUnitMaterialSpritePaths[equipmentTokens[7]->GetMaterial()];
-                heroSpriteArmorMaterial = equipmentTokens[7]->GetMaterial();
+                sprite_name += g_CUnitMaterialSpritePaths[this->equipmentTokens[7]->GetMaterial()];
+                this->heroSpriteArmorMaterial = this->equipmentTokens[7]->GetMaterial();
             }
 
             sprite_name += "\\";
@@ -1655,45 +1655,45 @@ void CUnit::ReloadSprite()
             sprite_name += "\\sprites.256";
             sprite_name_b += "\\spritesb.256";
 
-            sprite = new CSprite256(sprite_name);
-            sprite_b = new CSprite256(sprite_name_b);
+            this->sprite = new CSprite256(sprite_name);
+            this->sprite_b = new CSprite256(sprite_name_b);
 
-            strcpy(heroSpritePictureName, sname);
+            strcpy(this->heroSpritePictureName, sname);
 
-            if (strcmp(heroSpritePictureName, "unarmed") == 0) {
-                typeId = 1;
-            } else if (strcmp(heroSpritePictureName, "unarmed_") == 0) {
-                typeId = 2;
-            } else if (strcmp(heroSpritePictureName, "swordsman") == 0) {
-                typeId = 3;
-            } else if (strcmp(heroSpritePictureName, "swordsman_") == 0) {
-                typeId = 4;
-            } else if (strcmp(heroSpritePictureName, "swordsman2h") == 0) {
-                typeId = 5;
-            } else if (strcmp(heroSpritePictureName, "axeman") == 0) {
-                typeId = 7;
-            } else if (strcmp(heroSpritePictureName, "axeman_") == 0) {
-                typeId = 8;
-            } else if (strcmp(heroSpritePictureName, "axeman2h") == 0) {
-                typeId = 9;
-            } else if (strcmp(heroSpritePictureName, "clubman") == 0) {
-                typeId = 10;
-            } else if (strcmp(heroSpritePictureName, "clubman_") == 0) {
-                typeId = 11;
-            } else if (strcmp(heroSpritePictureName, "pikeman") == 0) {
-                typeId = 12;
-            } else if (strcmp(heroSpritePictureName, "pikeman_") == 0) {
-                typeId = 13;
-            } else if (strcmp(heroSpritePictureName, "archer") == 0) {
-                typeId = 14;
-            } else if (strcmp(heroSpritePictureName, "bowman") == 0) {
-                typeId = 14;
-            } else if (strcmp(heroSpritePictureName, "xbowman") == 0) {
-                typeId = 15;
-            } else if (strcmp(heroSpritePictureName, "mage") == 0) {
-                typeId = 23;
-            } else if (strcmp(heroSpritePictureName, "mage_st") == 0) {
-                typeId = 24;
+            if (strcmp(this->heroSpritePictureName, "unarmed") == 0) {
+                this->typeId = 1;
+            } else if (strcmp(this->heroSpritePictureName, "unarmed_") == 0) {
+                this->typeId = 2;
+            } else if (strcmp(this->heroSpritePictureName, "swordsman") == 0) {
+                this->typeId = 3;
+            } else if (strcmp(this->heroSpritePictureName, "swordsman_") == 0) {
+                this->typeId = 4;
+            } else if (strcmp(this->heroSpritePictureName, "swordsman2h") == 0) {
+                this->typeId = 5;
+            } else if (strcmp(this->heroSpritePictureName, "axeman") == 0) {
+                this->typeId = 7;
+            } else if (strcmp(this->heroSpritePictureName, "axeman_") == 0) {
+                this->typeId = 8;
+            } else if (strcmp(this->heroSpritePictureName, "axeman2h") == 0) {
+                this->typeId = 9;
+            } else if (strcmp(this->heroSpritePictureName, "clubman") == 0) {
+                this->typeId = 10;
+            } else if (strcmp(this->heroSpritePictureName, "clubman_") == 0) {
+                this->typeId = 11;
+            } else if (strcmp(this->heroSpritePictureName, "pikeman") == 0) {
+                this->typeId = 12;
+            } else if (strcmp(this->heroSpritePictureName, "pikeman_") == 0) {
+                this->typeId = 13;
+            } else if (strcmp(this->heroSpritePictureName, "archer") == 0) {
+                this->typeId = 14;
+            } else if (strcmp(this->heroSpritePictureName, "bowman") == 0) {
+                this->typeId = 14;
+            } else if (strcmp(this->heroSpritePictureName, "xbowman") == 0) {
+                this->typeId = 15;
+            } else if (strcmp(this->heroSpritePictureName, "mage") == 0) {
+                this->typeId = 23;
+            } else if (strcmp(this->heroSpritePictureName, "mage_st") == 0) {
+                this->typeId = 24;
             }
         }
     }

@@ -33,15 +33,15 @@ struct Obstacle
 {
     uint8_t bits;
 
-    inline void SetBits(uint8_t _bits) { bits |= _bits; } //5970a0
-    inline void UnsetBits(uint8_t _bits) { bits &= ~_bits; } //
+    inline void SetBits(uint8_t _bits) { this->bits |= _bits; } //5970a0
+    inline void UnsetBits(uint8_t _bits) { this->bits &= ~_bits; } //
 
-    inline void AndBits(uint8_t _bits) { bits &= _bits; } //
+    inline void AndBits(uint8_t _bits) { this->bits &= _bits; } //
 
-    inline uint8_t TestBits(uint8_t _bits) { return bits & _bits; } //5970f0
+    inline uint8_t TestBits(uint8_t _bits) { return this->bits & _bits; } //5970f0
 
-    inline operator uint8_t() const { return bits; }
-    inline void operator=(uint8_t val) { bits = val; }
+    inline operator uint8_t() const { return this->bits; }
+    inline void operator=(uint8_t val) { this->bits = val; }
 };
 
 // Player presence scan grid, embedded in MapStuff at offset 0x92ecc.
@@ -293,14 +293,14 @@ public:
 
     void sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y, int32_t flag, Unit* target); // 5882AE
 
-    inline Obstacle& ObstacleAt(PosYX yx) { return obstacle_map[yx.val]; } //59a7a0
-    inline Obstacle& Obstacle2At(PosYX yx) { return obstacle_map2[yx.val]; } //59a7c0
-    inline uint8_t& WalkCostAt(PosYX yx) { return walk_cost_map[yx.val]; } //59a780
+    inline Obstacle& ObstacleAt(PosYX yx) { return this->obstacle_map[yx.val]; } //59a7a0
+    inline Obstacle& Obstacle2At(PosYX yx) { return this->obstacle_map2[yx.val]; } //59a7c0
+    inline uint8_t& WalkCostAt(PosYX yx) { return this->walk_cost_map[yx.val]; } //59a780
 
-    int IsObstacle2_40(PosYX yx) { return Obstacle2At(yx).TestBits(0x40); } //58b9ee
-    void SetObstacle2_40(PosYX yx) { Obstacle2At(yx).SetBits(0x40); } //58b920
-    int IsObstacle2_80(PosYX yx) { return Obstacle2At(yx).TestBits(0x80); } //58ba15
-    void SetObstacle2_80(PosYX yx) { Obstacle2At(yx).SetBits(0x80); } //58b952
+    int IsObstacle2_40(PosYX yx) { return this->Obstacle2At(yx).TestBits(0x40); } //58b9ee
+    void SetObstacle2_40(PosYX yx) { this->Obstacle2At(yx).SetBits(0x40); } //58b920
+    int IsObstacle2_80(PosYX yx) { return this->Obstacle2At(yx).TestBits(0x80); } //58ba15
+    void SetObstacle2_80(PosYX yx) { this->Obstacle2At(yx).SetBits(0x80); } //58b952
 
     void FUN_0058b5d6(CellState& cell); //58b5d6
     int FUN_0058b4a6(PosYX yx); //58b4a6
@@ -323,8 +323,8 @@ public:
     // facing-angle steps (0, 32, 64, ..., 224).
     uint8_t ClassifyFacing16(int32_t dx, int32_t dy);
 
-    int32_t GetWidth() const { return map_width; } //58b8df
-    int32_t GetHeight() const { return map_height; } //58b8f3
+    int32_t GetWidth() const { return this->map_width; } //58b8df
+    int32_t GetHeight() const { return this->map_height; } //58b8f3
 };
 ASSERT_OFFSET(MapStuff, map_width, 0x50000);
 ASSERT_OFFSET(MapStuff, scratch_cell_state, 0x5402c);
@@ -352,13 +352,13 @@ public:
     Scenario(const char* fname); //4a7bec
     bool FUN_0044ec40(NetMapInfo* info); //44ec40
 
-    uint16_t* GetLandscape() const { return landscape; }; //41ee80
-    int32_t GetWidth() const { return width; }; //41ef20
-    int32_t GetHeight() const { return height; }; //41ef40
+    uint16_t* GetLandscape() const { return this->landscape; }; //41ee80
+    int32_t GetWidth() const { return this->width; }; //41ef20
+    int32_t GetHeight() const { return this->height; }; //41ef40
 
-    uint8_t* GetMapHeights() const { return map_heights; }; //41eea0
-    uint8_t* FUN_0041eec0() const { return field_0x14; }; //41eec0
-    uint8_t* FUN_0041eee0() const { return field_0x18; }; //41eee0
+    uint8_t* GetMapHeights() const { return this->map_heights; }; //41eea0
+    uint8_t* FUN_0041eec0() const { return this->field_0x14; }; //41eec0
+    uint8_t* FUN_0041eee0() const { return this->field_0x18; }; //41eee0
     int32_t sub_41EF60(int32_t x, int32_t y); //41ef60
 
     double FUN_004a7b79(); //4a7b79

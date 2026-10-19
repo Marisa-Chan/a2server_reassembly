@@ -12,66 +12,66 @@ IMPLEMENT_DYNAMIC(CMousePointer, CObject);
 CMousePointer::~CMousePointer()
 {
     //42693e
-    if (saved_screen_rect) {
-        delete saved_screen_rect;
+    if (this->saved_screen_rect) {
+        delete this->saved_screen_rect;
     }
 
-    if (saved_screen_rect2) {
-        delete saved_screen_rect2;
+    if (this->saved_screen_rect2) {
+        delete this->saved_screen_rect2;
     }
 
-    if (saved_screen_rect_hint) {
-        delete saved_screen_rect_hint;
+    if (this->saved_screen_rect_hint) {
+        delete this->saved_screen_rect_hint;
     }
 
     for (int i = 0; i < 8; i++)
     {
-        if (saved_rect_frame[i]) {
-            delete saved_rect_frame[i];
+        if (this->saved_rect_frame[i]) {
+            delete this->saved_rect_frame[i];
         }
     }
 
-    if (hint_image) {
-        delete hint_image;
+    if (this->hint_image) {
+        delete this->hint_image;
     }
 }
 
 CMousePointer::CMousePointer()
 {
 	//4264eb
-    cursor_sprite = nullptr;
-    saved_screen_rect = nullptr;
-    paint_call_count = 0;
-    x = 0;
-    y = 0;
-    x_offset = 0;
-    y_offset = 0;
-    frame = 0;
+    this->cursor_sprite = nullptr;
+    this->saved_screen_rect = nullptr;
+    this->paint_call_count = 0;
+    this->x = 0;
+    this->y = 0;
+    this->x_offset = 0;
+    this->y_offset = 0;
+    this->frame = 0;
 
     for (int i = 0; i < 8; i++)
     {
         if ((i & 2) == 0) {
-            saved_rect_frame[i] = new CBmp64(1600, 2);
+            this->saved_rect_frame[i] = new CBmp64(1600, 2);
         } else {
-            saved_rect_frame[i] = new CBmp64(2, 1600);
+            this->saved_rect_frame[i] = new CBmp64(2, 1600);
         }
     }
 
-    hint_image = new CBmp64(640, 117);
-    saved_screen_rect_hint = new CBmp64(640, 117);
+    this->hint_image = new CBmp64(640, 117);
+    this->saved_screen_rect_hint = new CBmp64(640, 117);
 
-    mouse_hint_time = 0;
-    mouse_hint_ts = 0;
-    hint_state = 0;
-    hint_enable = 0;
+    this->mouse_hint_time = 0;
+    this->mouse_hint_ts = 0;
+    this->hint_state = 0;
+    this->hint_enable = 0;
 }
 
 void CMousePointer::CheckHintValues()
 {
     //42709f
-    CString ht = hint_text;
-    hint_lines = 1;
-    hint_max_width = 0;
+    CString ht = this->hint_text;
+    this->hint_lines = 1;
+    this->hint_max_width = 0;
 
     while (true)
     {
@@ -81,18 +81,18 @@ void CMousePointer::CheckHintValues()
         }
 
         int32_t sw = g_font2->GetStrWidth(ht.Left(fpos));
-        if (hint_max_width < sw) {
-            hint_max_width = sw;
+        if (this->hint_max_width < sw) {
+            this->hint_max_width = sw;
         }
 
         ht = ht.Mid(fpos + 1);
 
-        hint_lines++;
+        this->hint_lines++;
     }
 
     int32_t sw = g_font2->GetStrWidth(ht);
-    if (hint_max_width < sw) {
-        hint_max_width = sw;
+    if (this->hint_max_width < sw) {
+        this->hint_max_width = sw;
     }
 }
 
@@ -100,19 +100,19 @@ void CMousePointer::DrawToScreen()
 {
     //426ce2
     uint32_t ts = timeGetTime();
-    if (frame_delay < ts - frame_ts)
+    if (this->frame_delay < ts - this->frame_ts)
     {
-        frame_ts = ts;
-        frame++;
-        if (frame >= frame_count) {
-            frame = 0;
+        this->frame_ts = ts;
+        this->frame++;
+        if (this->frame >= this->frame_count) {
+            this->frame = 0;
         }
     }
 
     LockSurface1();
 
-    CopyScreenRectToBmp64(x - x_offset, y - y_offset, cursor_sprite->GetWidth(0), cursor_sprite->GetHeight(0), cursor_sprite->GetWidth(0), cursor_sprite->GetHeight(0), (uint8_t*)saved_screen_rect->GetData());
-    cursor_sprite->VMethod2(x - x_offset, y - y_offset, frame, 0, 0);
+    CopyScreenRectToBmp64(this->x - this->x_offset, this->y - this->y_offset, this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0), this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0), (uint8_t*)this->saved_screen_rect->GetData());
+    this->cursor_sprite->VMethod2(this->x - this->x_offset, this->y - this->y_offset, this->frame, 0, 0);
 
     UnlockSurface1();
 }
@@ -121,17 +121,17 @@ void CMousePointer::EraseCursor()
 {
     //426df7
     LockSurface1();
-    saved_screen_rect->VMethod9(x - x_offset, y - y_offset, 0, 0, cursor_sprite->GetWidth(0), cursor_sprite->GetHeight(0));
+    this->saved_screen_rect->VMethod9(this->x - this->x_offset, this->y - this->y_offset, 0, 0, this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0));
     UnlockSurface1();
 }
 
 void CMousePointer::ForceDisableHint()
 {
     //4287d9
-    if (hint_state)
+    if (this->hint_state)
     {
-        hint_state = 0;
-        RepaintHint();
+        this->hint_state = 0;
+        this->RepaintHint();
     }
 }
 
@@ -142,17 +142,17 @@ void CMousePointer::Paint()
         return;
     }
 
-    if (paint_call_count == 0 && cursor_sprite) {
-        DrawToScreen();
+    if (this->paint_call_count == 0 && this->cursor_sprite) {
+        this->DrawToScreen();
     }
     
-    paint_call_count++;
+    this->paint_call_count++;
 }
 
 void CMousePointer::PaintHint()
 {
     //4282bb
-    CRect r = hint_rect + CRect(1, 1, -1, -2);
+    CRect r = this->hint_rect + CRect(1, 1, -1, -2);
 
     FillRectColorSimple(r.left, r.top, r.right, r.bottom, GetColorRGB(0x24, 0x2c, 0x27));
 
@@ -173,7 +173,7 @@ void CMousePointer::PaintHint()
     FillRectColor(r.right - 1, r.top + 2, r.right - 1, r.bottom - 2, c1);
     FillRectColor(r.right, r.top + 2, r.right, r.bottom - 2, c2);
 
-    CString ht = hint_text;
+    CString ht = this->hint_text;
     
     int line = 0;
 
@@ -184,22 +184,22 @@ void CMousePointer::PaintHint()
             break;
         }
 
-        g_font2->DrawTextWithShadow(hint_rect.left + 5, hint_rect.top + 4 + line * 14, ht.Left(fpos), 0, clrsh_LuxorGold, 1);
+        g_font2->DrawTextWithShadow(this->hint_rect.left + 5, this->hint_rect.top + 4 + line * 14, ht.Left(fpos), 0, clrsh_LuxorGold, 1);
 
         ht = ht.Mid(fpos + 1);
 
         line++;
     }
 
-    g_font2->DrawTextWithShadow(hint_rect.left + 5, hint_rect.top + 4 + line * 14, ht, 0, clrsh_LuxorGold, 1);
+    g_font2->DrawTextWithShadow(this->hint_rect.left + 5, this->hint_rect.top + 4 + line * 14, ht, 0, clrsh_LuxorGold, 1);
 }
 
 void CMousePointer::PaintSelectFrame()
 {
     //427e71
-    if (select_frame_rect.Width() && select_frame_rect.Height())
+    if (this->select_frame_rect.Width() && this->select_frame_rect.Height())
     {
-        CRect r = select_frame_rect;
+        CRect r = this->select_frame_rect;
 
         r.NormalizeRect();
 
@@ -209,14 +209,14 @@ void CMousePointer::PaintSelectFrame()
         {
             if (r.Height() > 0)
             {
-                CopyScreenRectToBmp64(r.left, r.top, r.Width(), 1, 1600, 2, (uint8_t*)saved_rect_frame[0]->GetData());
-                CopyScreenRectToBmp64(r.left, r.bottom - 1, r.Width(), 1, 1600, 2, (uint8_t*)saved_rect_frame[1]->GetData());
+                CopyScreenRectToBmp64(r.left, r.top, r.Width(), 1, 1600, 2, (uint8_t*)this->saved_rect_frame[0]->GetData());
+                CopyScreenRectToBmp64(r.left, r.bottom - 1, r.Width(), 1, 1600, 2, (uint8_t*)this->saved_rect_frame[1]->GetData());
             }
 
             if (r.Height() > 2)
             {
-                CopyScreenRectToBmp64(r.left, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)saved_rect_frame[2]->GetData());
-                CopyScreenRectToBmp64(r.right - 1, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)saved_rect_frame[3]->GetData());
+                CopyScreenRectToBmp64(r.left, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)this->saved_rect_frame[2]->GetData());
+                CopyScreenRectToBmp64(r.right - 1, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)this->saved_rect_frame[3]->GetData());
             }
         }
 
@@ -230,72 +230,72 @@ void CMousePointer::Repaint(CPoint point)
 {
     //426eb6
 
-    mouse_hint_time = 0;
-    mouse_hint_ts = timeGetTime();
+    this->mouse_hint_time = 0;
+    this->mouse_hint_ts = timeGetTime();
 
-    if (hint_state != 0) {
-        RepaintHint();
+    if (this->hint_state != 0) {
+        this->RepaintHint();
     }
 
-    hint_state = 0;
+    this->hint_state = 0;
 
-    Unpaint();
+    this->Unpaint();
 
-    if (select_frame_state != 0) {
-        UnpaintSelectFrame();
+    if (this->select_frame_state != 0) {
+        this->UnpaintSelectFrame();
     }
 
-    x = point.x;
-    y = point.y;
+    this->x = point.x;
+    this->y = point.y;
 
-    select_frame_rect.SetRect(select_frame_rect.left, select_frame_rect.top, x, y);
+    this->select_frame_rect.SetRect(this->select_frame_rect.left, this->select_frame_rect.top, this->x, this->y);
 
-    if (select_frame_state != 0) {
-        PaintSelectFrame();
+    if (this->select_frame_state != 0) {
+        this->PaintSelectFrame();
     }
     
-    Paint();
+    this->Paint();
 }
 
 void CMousePointer::RepaintHint()
 {
     //428779
-    Unpaint();
+    this->Unpaint();
     LockSurface1();
 
-    hint_image->VMethod9(hint_rect.left, hint_rect.top, 0, 0, hint_rect.Width(), hint_rect.Height());
+    this->hint_image->VMethod9(this->hint_rect.left, this->hint_rect.top, 0, 0, this->hint_rect.Width(), this->hint_rect.Height());
 
     UnlockSurface1();
-    Paint();
+    this->Paint();
 }
 
 void CMousePointer::ResetNext400msg()
 {
     //42707e
-    user_msg_ts = timeGetTime();
-    user_msg_delay = 150;
+    this->user_msg_ts = timeGetTime();
+    this->user_msg_delay = 150;
 }
 
 void CMousePointer::ResetStates()
 {
     //427e23
-    Unpaint();
-    UnpaintSelectFrame();
-    Paint();
+    this->Unpaint();
+    this->UnpaintSelectFrame();
+    this->Paint();
 
-    select_frame_state = 0;
-    mouse_hint_time = 0;
-    mouse_hint_ts = timeGetTime();
+    this->select_frame_state = 0;
+    this->mouse_hint_time = 0;
+    this->mouse_hint_ts = timeGetTime();
 }
 
 void CMousePointer::SaveScreenParts(const CRect& rect)
 {
     //427912
-    if (cursor_sprite && paint_call_count)
+    if (this->cursor_sprite && paint_call_count)
     {
-        CRect tmp(x - x_offset, y - y_offset, (x - x_offset) + cursor_sprite->GetWidth(0), (y - y_offset) + cursor_sprite->GetHeight(0));
+        CRect tmp(this->x - this->x_offset, this->y - this->y_offset, (this->x - this->x_offset) + this->cursor_sprite->GetWidth(0), (this->y - this->y_offset) + this->cursor_sprite->GetHeight(0));
 
-        CRect r = select_frame_rect;
+        CRect r = this->select_frame_rect;
         r.NormalizeRect();
 
         CRect intr;
@@ -303,30 +303,30 @@ void CMousePointer::SaveScreenParts(const CRect& rect)
         {
             LockSurface2();
 
-            saved_screen_rect2->VMethod9(x - x_offset, y - y_offset, 0, 0, cursor_sprite->GetWidth(0), cursor_sprite->GetHeight(0));
-            CopyScreenRectToBmp64(x - x_offset, y - y_offset, 
-                                  cursor_sprite->GetWidth(0), cursor_sprite->GetHeight(0), 
-                                  cursor_sprite->GetWidth(0), cursor_sprite->GetHeight(0), 
-                                  (uint8_t*)saved_screen_rect->GetData());
+            this->saved_screen_rect2->VMethod9(this->x - this->x_offset, this->y - this->y_offset, 0, 0, this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0));
+            CopyScreenRectToBmp64(this->x - this->x_offset, this->y - this->y_offset, 
+                                  this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0), 
+                                  this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0), 
+                                  (uint8_t*)this->saved_screen_rect->GetData());
             UnlockSurface2();
         }
 
 
-        if (intr.IntersectRect(&rect, &hint_rect) && hint_state)
+        if (intr.IntersectRect(&rect, &this->hint_rect) && this->hint_state)
         {
             LockSurface2();
 
-            saved_screen_rect_hint->VMethod9(hint_rect.left, hint_rect.top, 0, 0, hint_rect.Width(), hint_rect.Height());
-            CopyScreenRectToBmp64(hint_rect.left, hint_rect.top, 
-                                    hint_rect.Width(), hint_rect.Height(), 
-                                    hint_image->GetWidth(0), hint_image->GetHeight(0), 
-                                    (uint8_t*)hint_image->GetData());
+            this->saved_screen_rect_hint->VMethod9(this->hint_rect.left, this->hint_rect.top, 0, 0, this->hint_rect.Width(), this->hint_rect.Height());
+            CopyScreenRectToBmp64(this->hint_rect.left, this->hint_rect.top, 
+                                    this->hint_rect.Width(), this->hint_rect.Height(), 
+                                    this->hint_image->GetWidth(0), this->hint_image->GetHeight(0), 
+                                    (uint8_t*)this->hint_image->GetData());
             UnlockSurface2();
 
             return;
         }
 
-        if (intr.IntersectRect(&rect, &r) && select_frame_state)
+        if (intr.IntersectRect(&rect, &r) && this->select_frame_state)
         {
             LockSurface2();
 
@@ -334,24 +334,24 @@ void CMousePointer::SaveScreenParts(const CRect& rect)
             {
                 if (r.Height() > 0)
                 {
-                    saved_rect_frame[4]->VMethod9(r.left, r.top, 0, 0, r.Width(), 1);
-                    saved_rect_frame[5]->VMethod9(r.left, r.bottom - 1, 0, 0, r.Width(), 1);
+                    this->saved_rect_frame[4]->VMethod9(r.left, r.top, 0, 0, r.Width(), 1);
+                    this->saved_rect_frame[5]->VMethod9(r.left, r.bottom - 1, 0, 0, r.Width(), 1);
                 }
 
                 if (r.Height() > 2)
                 {
-                    saved_rect_frame[6]->VMethod9(r.left, r.top + 1, 0, 0, 1, r.Height() - 2);
-                    saved_rect_frame[7]->VMethod9(r.right - 1, r.top + 1, 0, 0, 1, r.Height() - 2);
+                    this->saved_rect_frame[6]->VMethod9(r.left, r.top + 1, 0, 0, 1, r.Height() - 2);
+                    this->saved_rect_frame[7]->VMethod9(r.right - 1, r.top + 1, 0, 0, 1, r.Height() - 2);
                 }
             }
 
-            CopyScreenRectToBmp64(r.left, r.top, r.Width(), 1, 1600, 2, (uint8_t*)saved_rect_frame[0]->GetData());
-            CopyScreenRectToBmp64(r.left, r.bottom - 1, r.Width(), 1, 1600, 2, (uint8_t*)saved_rect_frame[1]->GetData());
+            CopyScreenRectToBmp64(r.left, r.top, r.Width(), 1, 1600, 2, (uint8_t*)this->saved_rect_frame[0]->GetData());
+            CopyScreenRectToBmp64(r.left, r.bottom - 1, r.Width(), 1, 1600, 2, (uint8_t*)this->saved_rect_frame[1]->GetData());
 
             if (r.Height() > 2)
             {
-                CopyScreenRectToBmp64(r.left, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)saved_rect_frame[2]->GetData());
-                CopyScreenRectToBmp64(r.right - 1, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)saved_rect_frame[3]->GetData());
+                CopyScreenRectToBmp64(r.left, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)this->saved_rect_frame[2]->GetData());
+                CopyScreenRectToBmp64(r.right - 1, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)this->saved_rect_frame[3]->GetData());
             }
 
             UnlockSurface2();
@@ -362,24 +362,24 @@ void CMousePointer::SaveScreenParts(const CRect& rect)
 void CMousePointer::SaveScreenParts2(const CRect& rect)
 {
     //42751c
-    if (cursor_sprite && paint_call_count)
+    if (this->cursor_sprite && paint_call_count)
     {
-        CRect tmp(x - x_offset, y - y_offset, (x - x_offset) + cursor_sprite->GetWidth(0), (y - y_offset) + cursor_sprite->GetHeight(0));
+        CRect tmp(this->x - this->x_offset, this->y - this->y_offset, (this->x - this->x_offset) + this->cursor_sprite->GetWidth(0), (this->y - this->y_offset) + this->cursor_sprite->GetHeight(0));
 
-        CRect r = select_frame_rect;
+        CRect r = this->select_frame_rect;
         r.NormalizeRect();
 
         CRect intr;
-        if (intr.IntersectRect(&rect, &hint_rect) && hint_state)
+        if (intr.IntersectRect(&rect, &this->hint_rect) && this->hint_state)
         {
             LockSurface2();
 
-            CopyScreenRectToBmp64(hint_rect.left, hint_rect.top, hint_rect.Width(), hint_rect.Height(),
-                                    saved_screen_rect_hint->GetWidth(0), saved_screen_rect_hint->GetHeight(0),
-                                    (uint8_t*)saved_screen_rect_hint->GetData());
+            CopyScreenRectToBmp64(this->hint_rect.left, this->hint_rect.top, this->hint_rect.Width(), this->hint_rect.Height(),
+                                    this->saved_screen_rect_hint->GetWidth(0), this->saved_screen_rect_hint->GetHeight(0),
+                                    (uint8_t*)this->saved_screen_rect_hint->GetData());
 
             UnlockSurface2();
-        } else if (intr.IntersectRect(&rect, &r) && select_frame_state)
+        } else if (intr.IntersectRect(&rect, &r) && this->select_frame_state)
         {
             LockSurface2();
 
@@ -387,14 +387,14 @@ void CMousePointer::SaveScreenParts2(const CRect& rect)
             {
                 if (r.Height() > 0)
                 {
-                    CopyScreenRectToBmp64(r.left, r.top, r.Width(), 1, 1600, 2, (uint8_t*)saved_rect_frame[4]->GetData());
-                    CopyScreenRectToBmp64(r.left, r.bottom - 1, r.Width(), 1, 1600, 2, (uint8_t*)saved_rect_frame[5]->GetData());
+                    CopyScreenRectToBmp64(r.left, r.top, r.Width(), 1, 1600, 2, (uint8_t*)this->saved_rect_frame[4]->GetData());
+                    CopyScreenRectToBmp64(r.left, r.bottom - 1, r.Width(), 1, 1600, 2, (uint8_t*)this->saved_rect_frame[5]->GetData());
                 }
 
                 if (r.Height() > 2)
                 {
-                    CopyScreenRectToBmp64(r.left, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)saved_rect_frame[6]->GetData());
-                    CopyScreenRectToBmp64(r.right - 1, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)saved_rect_frame[7]->GetData());
+                    CopyScreenRectToBmp64(r.left, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)this->saved_rect_frame[6]->GetData());
+                    CopyScreenRectToBmp64(r.right - 1, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)this->saved_rect_frame[7]->GetData());
                 }
             }
 
@@ -406,10 +406,10 @@ void CMousePointer::SaveScreenParts2(const CRect& rect)
         if (intr.IntersectRect(&rect, &tmp))
         {
             LockSurface2();
-            CopyScreenRectToBmp64(x - x_offset, y - y_offset, cursor_sprite->GetWidth(0), cursor_sprite->GetHeight(0),
-                                    cursor_sprite->GetWidth(0), cursor_sprite->GetHeight(0),
-                                    (uint8_t*)saved_screen_rect2->GetData());
-            cursor_sprite->VMethod2(x - x_offset, y - y_offset, frame, 0, 0);
+            CopyScreenRectToBmp64(this->x - this->x_offset, this->y - this->y_offset, this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0),
+                                    this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0),
+                                    (uint8_t*)this->saved_screen_rect2->GetData());
+            this->cursor_sprite->VMethod2(this->x - this->x_offset, this->y - this->y_offset, this->frame, 0, 0);
             UnlockSurface2();
         }
     }
@@ -422,46 +422,46 @@ void CMousePointer::SetCursor(CSprite256* spr, int32_t off_x, int32_t off_y, int
         return;
     }
 
-    Unpaint();
+    this->Unpaint();
 
-    if (saved_screen_rect) {
-        delete saved_screen_rect;
+    if (this->saved_screen_rect) {
+        delete this->saved_screen_rect;
     }
 
-    if (saved_screen_rect2) {
-        delete saved_screen_rect2;
+    if (this->saved_screen_rect2) {
+        delete this->saved_screen_rect2;
     }
 
-    cursor_sprite = spr;
-    x_offset = off_x;
-    y_offset = off_y;
-    frame = 0;
-    frame_ts = 0;
-    user_msg_ts = 0;
-    frame_delay = delay;
-    frame_count = count;
+    this->cursor_sprite = spr;
+    this->x_offset = off_x;
+    this->y_offset = off_y;
+    this->frame = 0;
+    this->frame_ts = 0;
+    this->user_msg_ts = 0;
+    this->frame_delay = delay;
+    this->frame_count = count;
 
-    saved_screen_rect = new CBmp64(spr->GetWidth(0), spr->GetHeight(0));
-    saved_screen_rect2 = new CBmp64(spr->GetWidth(0), spr->GetHeight(0));
+    this->saved_screen_rect = new CBmp64(spr->GetWidth(0), spr->GetHeight(0));
+    this->saved_screen_rect2 = new CBmp64(spr->GetWidth(0), spr->GetHeight(0));
 
-    Paint();
+    this->Paint();
 }
 
 void CMousePointer::StartSelect(const CPoint& point)
 {
     //427db1
-    select_frame_state = 1;
-    select_frame_rect.SetRect(point, point);
+    this->select_frame_state = 1;
+    this->select_frame_rect.SetRect(point, point);
 
-    if (hint_state)
+    if (this->hint_state)
     {
-        hint_state = 0;
-        RepaintHint();
+        this->hint_state = 0;
+        this->RepaintHint();
     }
 
-    Unpaint();
-    PaintSelectFrame();
-    Paint();
+    this->Unpaint();
+    this->PaintSelectFrame();
+    this->Paint();
 }
 void CMousePointer::Unpaint()
 {
@@ -470,21 +470,21 @@ void CMousePointer::Unpaint()
         return;
     }
 
-    paint_call_count--;
+    this->paint_call_count--;
 
-    if (paint_call_count == 0 && cursor_sprite) {
-        EraseCursor();
+    if (this->paint_call_count == 0 && this->cursor_sprite) {
+        this->EraseCursor();
     }
 }
 
 void CMousePointer::UnpaintSelectFrame()
 {
     //428051
-    if (select_frame_rect.Width() == 0 || select_frame_rect.Height() == 0) {
+    if (this->select_frame_rect.Width() == 0 || this->select_frame_rect.Height() == 0) {
         return;
     }
 
-    CRect r = select_frame_rect;
+    CRect r = this->select_frame_rect;
     r.NormalizeRect();
 
     LockSurface1();
@@ -493,14 +493,14 @@ void CMousePointer::UnpaintSelectFrame()
     {
         if (r.Height() > 0)
         {
-            saved_rect_frame[0]->VMethod9(r.left, r.top, 0, 0, r.Width(), 1);
-            saved_rect_frame[1]->VMethod9(r.left, r.bottom - 1, 0, 0, r.Width(), 1);
+            this->saved_rect_frame[0]->VMethod9(r.left, r.top, 0, 0, r.Width(), 1);
+            this->saved_rect_frame[1]->VMethod9(r.left, r.bottom - 1, 0, 0, r.Width(), 1);
         }
 
         if (r.Height() > 2)
         {
-            saved_rect_frame[2]->VMethod9(r.left, r.top + 1, 0, 0, 1, r.Height() - 2);
-            saved_rect_frame[3]->VMethod9(r.right - 1, r.top + 1, 0, 0, 1, r.Height() - 2);
+            this->saved_rect_frame[2]->VMethod9(r.left, r.top + 1, 0, 0, 1, r.Height() - 2);
+            this->saved_rect_frame[3]->VMethod9(r.right - 1, r.top + 1, 0, 0, 1, r.Height() - 2);
         }
     }
 
@@ -523,61 +523,61 @@ void CMousePointer::Update()
         POINT pt;
         GetCursorPos(&pt);
 
-        if ((pt.x != x  || pt.y != y) && cursor_sprite ) {
-            Repaint(pt);
+        if ((pt.x != this->x  || pt.y != this->y) && this->cursor_sprite ) {
+            this->Repaint(pt);
         }
     }
 
-    if (user_msg_delay < ts - user_msg_ts && g_LButtonDown != 0)
+    if (this->user_msg_delay < ts - this->user_msg_ts && g_LButtonDown != 0)
     {
-        wnd->PostMessage(0x400, 1, (x & 0xFFFF) | (y << 16));
+        wnd->PostMessage(0x400, 1, (this->x & 0xFFFF) | (this->y << 16));
 
-        user_msg_ts = ts;
-        user_msg_delay = 66;
+        this->user_msg_ts = ts;
+        this->user_msg_delay = 66;
     }
 
-    if (frame_delay < ts - frame_ts && frame_count > 1 && wnd && wnd->field_0xbc != 0)
+    if (this->frame_delay < ts - this->frame_ts && frame_count > 1 && wnd && wnd->field_0xbc != 0)
     {
-        frame_ts = ts;
-        frame++;
+        this->frame_ts = ts;
+        this->frame++;
 
-        if (frame >= frame_count) {
-            frame = 0;
+        if (this->frame >= frame_count) {
+            this->frame = 0;
         }
 
-        Unpaint();
-        Paint();
+        this->Unpaint();
+        this->Paint();
     }
 
-    int32_t prev_time = mouse_hint_time;
+    int32_t prev_time = this->mouse_hint_time;
 
-    mouse_hint_time += ts - mouse_hint_ts;
-    mouse_hint_ts = ts;
+    this->mouse_hint_time += ts - this->mouse_hint_ts;
+    this->mouse_hint_ts = ts;
 
-    if (mouse_hint_time >= 500 && mouse_hint_time < 25500 && 
+    if (this->mouse_hint_time >= 500 && this->mouse_hint_time < 25500 && 
         prev_time < 500 &&
-        select_frame_state == 0 && 
-        hint_enable != 0 &&
+        this->select_frame_state == 0 && 
+        this->hint_enable != 0 &&
         wnd && wnd->vis_root && wnd->field_0xbc != 0)
     {
-        CVisualObject* vobj = wnd->vis_root->GetChildAt(CPoint(x, y));
+        CVisualObject* vobj = wnd->vis_root->GetChildAt(CPoint(this->x, this->y));
         if (vobj)
         {
-            hint_text = vobj->GetHint();
-            if (hint_text != "")
+            this->hint_text = vobj->GetHint();
+            if (this->hint_text != "")
             {
-                hint_state = 1;
-                CheckHintValues();
-                UpdateHint();
+                this->hint_state = 1;
+                this->CheckHintValues();
+                this->UpdateHint();
             }
         }
     }
 
-    if (mouse_hint_time > 25499 && hint_state != 0 && 
+    if (this->mouse_hint_time > 25499 && this->hint_state != 0 && 
         wnd && wnd->field_0xbc != 0)
     {
-        hint_state = 0;
-        RepaintHint();
+        this->hint_state = 0;
+        this->RepaintHint();
     }
 
     if (wnd->music_update_proc) {
@@ -588,42 +588,42 @@ void CMousePointer::Update()
 void CMousePointer::UpdateHint()
 {
     //42819d
-    hint_rect.SetRect(x, y - 5 - hint_lines * 14, x + 11 + hint_max_width, y);
+    this->hint_rect.SetRect(this->x, this->y - 5 - this->hint_lines * 14, this->x + 11 + this->hint_max_width, this->y);
 
-    if (hint_rect.right > g_ScreenSize.right) {
-        hint_rect.OffsetRect(g_ScreenSize.right - hint_rect.right, 0);
+    if (this->hint_rect.right > g_ScreenSize.right) {
+        this->hint_rect.OffsetRect(g_ScreenSize.right - this->hint_rect.right, 0);
     }
 
-    if (hint_rect.top < g_ScreenSize.top) {
-        hint_rect.OffsetRect(0, g_ScreenSize.top - hint_rect.top);
+    if (this->hint_rect.top < g_ScreenSize.top) {
+        this->hint_rect.OffsetRect(0, g_ScreenSize.top - this->hint_rect.top);
     }
 
-    Unpaint();
+    this->Unpaint();
     LockSurface1();
-    CopyScreenRectToBmp64(hint_rect.left, hint_rect.top, hint_rect.Width(), hint_rect.Height(), hint_image->GetWidth(0), hint_image->GetHeight(0), (uint8_t*)hint_image->GetData());
-    PaintHint();
+    CopyScreenRectToBmp64(this->hint_rect.left, this->hint_rect.top, this->hint_rect.Width(), this->hint_rect.Height(), this->hint_image->GetWidth(0), this->hint_image->GetHeight(0), (uint8_t*)this->hint_image->GetData());
+    this->PaintHint();
     UnlockSurface1();
 
-    Paint();
+    this->Paint();
 }
 
 
-void CMousePointer::DisableHint() { hint_enable = 0; } //438830
-void CMousePointer::EnableHint() { hint_enable = 1; } //438810
-CSprite256* CMousePointer::GetCursorSprite() { return cursor_sprite; } //438810
-CRect& CMousePointer::GetSelectFrame() { return select_frame_rect; } //41ed20
-int32_t CMousePointer::GetSelectState() { return select_frame_state; } //41ed00
-int32_t CMousePointer::GetX() { return x; } //41ecc0
-int32_t CMousePointer::GetY() { return y; } //41ece0
+void CMousePointer::DisableHint() { this->hint_enable = 0; } //438830
+void CMousePointer::EnableHint() { this->hint_enable = 1; } //438810
+CSprite256* CMousePointer::GetCursorSprite() { return this->cursor_sprite; } //438810
+CRect& CMousePointer::GetSelectFrame() { return this->select_frame_rect; } //41ed20
+int32_t CMousePointer::GetSelectState() { return this->select_frame_state; } //41ed00
+int32_t CMousePointer::GetX() { return this->x; } //41ecc0
+int32_t CMousePointer::GetY() { return this->y; } //41ece0
 
 
 CCursor::~CCursor()
 {
     //47cf99
-    if (sprite) {
-        delete sprite;
+    if (this->sprite) {
+        delete this->sprite;
     }
-    sprite = nullptr;
+    this->sprite = nullptr;
 }
 
 CCursor::CCursor(const char* fname, int32_t xof, int32_t yof, int32_t _delay)
@@ -631,23 +631,23 @@ CCursor::CCursor(const char* fname, int32_t xof, int32_t yof, int32_t _delay)
     //47ce66
     if (strstr(fname, "16a") == nullptr)
     {
-        sprite = new CSprite256(fname);
-        sprite->ResetPalette(1, 1, 0);
+        this->sprite = new CSprite256(fname);
+        this->sprite->ResetPalette(1, 1, 0);
     } else {
-        sprite = new CA16(fname);
-        sprite->ResetPalette(16, 4, 0);
+        this->sprite = new CA16(fname);
+        this->sprite->ResetPalette(16, 4, 0);
     }
 
-    x_off = xof;
-    y_off = yof;
-    delay = _delay;
-    frames_count = sprite->GetFrameCount();
+    this->x_off = xof;
+    this->y_off = yof;
+    this->delay = _delay;
+    this->frames_count = this->sprite->GetFrameCount();
 }
 
 void CCursor::Use()
 {
     //47d025
-    g_mousept.SetCursor(sprite, x_off, y_off, frames_count, delay);
+    g_mousept.SetCursor(this->sprite, this->x_off, this->y_off, this->frames_count, this->delay);
 }
 
 

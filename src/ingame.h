@@ -46,20 +46,20 @@ class UnitVFXUnfo : public CObject
 public:
 	virtual ~UnitVFXUnfo()
 	{ //47ccb4
-		if (palette)
+		if (this->palette)
 		{
 			for (int i = 0; i < 8; i++)
 			{
-				if (palettes[i])
+				if (this->palettes[i])
 				{
-					delete palettes[i];
-					palettes[i] = nullptr;
+					delete this->palettes[i];
+					this->palettes[i] = nullptr;
 				}
 
-				if (palette_datas[i])
+				if (this->palette_datas[i])
 				{
-					delete[] palette_datas[i];
-					palette_datas[i] = nullptr;
+					delete[] this->palette_datas[i];
+					this->palette_datas[i] = nullptr;
 				}
 			}
 		}
@@ -67,8 +67,8 @@ public:
 
 	UnitVFXUnfo()
 	{ //47cb20
-		palettes.fill(nullptr);
-		palette_datas.fill(nullptr);
+		this->palettes.fill(nullptr);
+		this->palette_datas.fill(nullptr);
 	}
 
 	CGamePalette* FUN_0046f680(int32_t idx); //46f680

@@ -223,28 +223,28 @@ void Inventory::SerializeItems(CArchive& ar)
     uint32_t cnt;
     if (ar.IsStoring())
     {
-        cnt = items.GetCount();
+        cnt = this->items.GetCount();
         ar.Write(&cnt, 4);
 
-        for (POSITION pos = items.GetHeadPosition(); pos != nullptr;)
+        for (POSITION pos = this->items.GetHeadPosition(); pos != nullptr;)
         {
-            Item* itm = items.GetNext(pos);
+            Item* itm = this->items.GetNext(pos);
             ar.WriteObject(itm);
         }
     } else {
-        items.RemoveAll();
+        this->items.RemoveAll();
         ar.Read(&cnt, 4);
         for (int i = 0; i < cnt; i++)
         {
             Item* itm = (Item*)ar.ReadObject(RUNTIME_CLASS(Item));
-            items.AddTail(itm);
+            this->items.AddTail(itm);
         }
     }
 }
 
 // 55CCE4
 void Inventory::sub_55CCE4(CArchive& ar) {
-    SerializeItems(ar);
+    this->SerializeItems(ar);
 
     if (ar.IsStoring()) {
         // Write default_position and total_weight

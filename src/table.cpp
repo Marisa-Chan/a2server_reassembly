@@ -949,9 +949,9 @@ int GameDataRes::sub_5126A2(uint8_t type, uint8_t face) {
 
 int32_t GameDataRes::FUN_005125a8(int32_t id)
 { //5125a8
-    for (int i = humans.GetSize() - 1; i > 0; i--)
+    for (int i = this->humans.GetSize() - 1; i > 0; i--)
     {
-        if (humans[i].values.GetSize() && humans[i].Values()[0].server_id == id) {
+        if (this->humans[i].values.GetSize() && this->humans[i].Values()[0].server_id == id) {
             return i;
         }
     }
@@ -960,9 +960,9 @@ int32_t GameDataRes::FUN_005125a8(int32_t id)
 
 int32_t GameDataRes::FUN_00512625(int32_t id)
 { //512625
-    for (int i = monsters.GetSize() - 1; i > 0; i--)
+    for (int i = this->monsters.GetSize() - 1; i > 0; i--)
     {
-        if (monsters[i].values.GetSize() && monsters[i].Values()[0].server_id == id) {
+        if (this->monsters[i].values.GetSize() && this->monsters[i].Values()[0].server_id == id) {
             return i;
         }
     }

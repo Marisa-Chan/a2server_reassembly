@@ -420,11 +420,11 @@ void Item::Serialize(CArchive& ar) {
 // sub_548860
 int Item::IsSimilar(Item* other)
 {
-    if (item_id != other->item_id) {
+    if (this->item_id != other->item_id) {
         return 0;
     }
 
-    int v1 = VMethod16();
+    int v1 = this->VMethod16();
     int v2 = other->VMethod16();
     if (v1 != 0 && v2 != 0) {
         return 1;
@@ -454,33 +454,33 @@ void Item::StoreToPacket(PacketUnitStateVec* pkt, int arg)
     //549afb
     uint8_t *pdata = pkt->data + pkt->data_size;
 
-    SetU16(pdata, item_id);
+    SetU16(pdata, this->item_id);
 
     //printf("StoreToPacket item_id %x item_type %d count %d\n", item_id, item_type, count);
 
     pdata[2] = 0;
 
-    if (_effects.IsEmpty() || item_type == 3 || item_type == 4 || count == 0)
+    if (this->_effects.IsEmpty() || this->item_type == 3 || this->item_type == 4 || this->count == 0)
     {
-        if (count < 0x40)
+        if (this->count < 0x40)
         {
-            pdata[2] = count | 0x80;
+            pdata[2] = this->count | 0x80;
             pkt->data_size += 3;
         } else {
-            SetU16(pdata + 3, count);
+            SetU16(pdata + 3, this->count);
             pkt->data_size += 5;
         }
     } else {
         pdata[2] |= 0x20;
-        SetU32(pdata + 3, _exp);
+        SetU32(pdata + 3, this->_exp);
 
         int32_t cnt_flg = 0;
 
         pkt->data_size += 7;
 
-        for (POSITION pos = _effects.GetHeadPosition(); pos != nullptr;)
+        for (POSITION pos = this->_effects.GetHeadPosition(); pos != nullptr;)
         {
-            Effect* eff = _effects.GetNext(pos);
+            Effect* eff = this->_effects.GetNext(pos);
             if (eff->effect_id != 1)
             {
                 pkt->data[pkt->data_size] = eff->effect_id;
@@ -521,15 +521,15 @@ void Item::StoreToPacket(PacketUnitStateVec* pkt, int arg)
         pdata[2] = (pdata[2] & 0xf0) | cnt_flg;
     }
 
-    if (TokenID != 0)
+    if (this->TokenID != 0)
     {
         pdata[2] |= 0x40;
-        TokenID = 0;
+        this->TokenID = 0;
     }
 
     if (arg != 0)
     {
-        pkt->data[pkt->data_size] = field11_0x4d;
+        pkt->data[pkt->data_size] = this->field11_0x4d;
         pkt->data_size++;
     }
 }

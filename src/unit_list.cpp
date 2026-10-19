@@ -19,12 +19,12 @@ void UnitList::Serialize(CArchive& ar)
 	//558ef8
 	if (ar.IsStoring())
 	{
-		ar.WriteCount(unit_list.GetCount());
+		ar.WriteCount(this->unit_list.GetCount());
 
-		POSITION pos = unit_list.GetHeadPosition();
+		POSITION pos = this->unit_list.GetHeadPosition();
 		while (pos != NULL)
 		{
-			Unit *unit = unit_list.GetNext(pos);
+			Unit *unit = this->unit_list.GetNext(pos);
 			ar.WriteObject(unit);
 		}
 	} else {
@@ -33,7 +33,7 @@ void UnitList::Serialize(CArchive& ar)
 		while (nNewCount--)
 		{
 			ar >> unit;
-			unit_list.AddTail(unit);
+			this->unit_list.AddTail(unit);
 		}
 	}
 }
@@ -41,10 +41,10 @@ void UnitList::Serialize(CArchive& ar)
 void UnitList::CallMethod5()
 {
 	//5591da
-	POSITION pos = unit_list.GetHeadPosition();
+	POSITION pos = this->unit_list.GetHeadPosition();
 	while (pos != NULL)
 	{
-		Unit* unit = unit_list.GetNext(pos);
+		Unit* unit = this->unit_list.GetNext(pos);
 		unit->VMethod5();
 	}
 }
@@ -52,28 +52,28 @@ void UnitList::CallMethod5()
 void UnitList::AddTail(Unit* unit)
 {
 	//555c1b
-	unit_list.AddTail(unit);
+	this->unit_list.AddTail(unit);
 }
 
 void UnitList::AddTailAllocId(Unit* unit)
 {
 	//555d67
-	unit_list.AddTail(unit);
+	this->unit_list.AddTail(unit);
 	unit->building_id = g_buildingIdSet.AllocBit();
 }
 
 void UnitList::AddTailId6xxx(Unit* unit)
 {
 	//555f1c
-	unit_list.AddTail(unit);
+	this->unit_list.AddTail(unit);
 	unit->building_id = 0x6000 + unit->TokenID;
 }
 
 void UnitList::Remove(Unit* unit)
 {  //575aa0
-	POSITION pos = unit_list.Find(unit);
+	POSITION pos = this->unit_list.Find(unit);
 	if (pos) {
-		unit_list.RemoveAt(pos);
+		this->unit_list.RemoveAt(pos);
 	}
 
 	delete unit;
@@ -95,10 +95,10 @@ Unit* UnitList::sub_5560D2(uint16_t id)
 // 556345
 void UnitList::ProcessTick()
 {
-	POSITION pos = unit_list.GetHeadPosition();
+	POSITION pos = this->unit_list.GetHeadPosition();
 	while (pos != NULL) {
 		POSITION cur_pos = pos;
-		Unit* unit = unit_list.GetNext(pos);
+		Unit* unit = this->unit_list.GetNext(pos);
 
 		// Validate last_hit_by: clear if killer has no owner
 		if (unit->last_hit_by != NULL && unit->last_hit_by->pOwner == NULL) {
@@ -137,7 +137,7 @@ void UnitList::ProcessTick()
 			}
 
 			// Remove from this list and add to dead units pool
-			unit_list.RemoveAt(cur_pos);
+			this->unit_list.RemoveAt(cur_pos);
 			g_Server->srv_stru1->units_list->AddTail(unit);
 
 			// Clean up effects

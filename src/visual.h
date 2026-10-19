@@ -140,8 +140,8 @@ public:
 	void SetRect(const RECT* r);
 	void SetRect(int32_t l, int32_t t, int32_t r, int32_t b);
 
-	int32_t GetId() { return id; } //4503f0
-	CRect& GetRect() { return rect; } //41ed40
+	int32_t GetId() { return this->id; } //4503f0
+	CRect& GetRect() { return this->rect; } //41ed40
 
 public:
 	int32_t id;
@@ -306,7 +306,7 @@ public:
 	void AddItem(const char* str);
 
 	void SetSelectedIndex(int32_t idx); //4507a0
-	int32_t GetSelectedIndex() { return selected_index; } //450780
+	int32_t GetSelectedIndex() { return this->selected_index; } //450780
 	CString& GetItem(int32_t idx); //4508b0
 	void RemoveItem(int32_t idx); //450830
 
@@ -963,7 +963,7 @@ public:
 	void FUN_0041c4a1(const char* name); //41c4a1
 
 	CUnit* GetUnit_3f6c(); //41f830
-	void SetUnit_3f6c(CUnit* uni) { field_0x3f6c = uni; };
+	void SetUnit_3f6c(CUnit* uni) { this->field_0x3f6c = uni; };
 
 	int32_t ProcessPackets(uint8_t breakid); //40da14
 
@@ -1007,7 +1007,7 @@ public:
 
 	void FUN_0041b636(); //41b636
 
-	int FUN_0041b495() { return FindChild(2) != nullptr; } //41b495
+	int FUN_0041b495() { return this->FindChild(2) != nullptr; } //41b495
 	void FUN_0041b509(); //41b509
 	void FUN_0041b40e(); //41b40e
 	void FUN_0041b381(); //41b381
@@ -2859,13 +2859,13 @@ public:
 
 	VisStartGame(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //43305b in asm
 
-	CString GetName() { return char_name; } // 4973f0
-	CString GetClan() { return clan_name; } // 497430
-	int32_t GetSelectedDifficulty() { return selectedDifficultyIndex; } //4973d0
-	void SetSelectedDifficulty(int diff) { selectedDifficultyIndex = diff; } //497370
-	int32_t GetSelectedPortraitPlayerType() { return DWORD_0060bd60[selectedPortraitIndex]; } //4973b0
-	void SetSelectedPortraitPlayerType(int id) { selectedPortraitIndex = id; } //497350
-	void SetCharName(const CString& name) { char_name = name; } //497390
+	CString GetName() { return this->char_name; } // 4973f0
+	CString GetClan() { return this->clan_name; } // 497430
+	int32_t GetSelectedDifficulty() { return this->selectedDifficultyIndex; } //4973d0
+	void SetSelectedDifficulty(int diff) { this->selectedDifficultyIndex = diff; } //497370
+	int32_t GetSelectedPortraitPlayerType() { return DWORD_0060bd60[this->selectedPortraitIndex]; } //4973b0
+	void SetSelectedPortraitPlayerType(int id) { this->selectedPortraitIndex = id; } //497350
+	void SetCharName(const CString& name) { this->char_name = name; } //497390
 
 public:
 	CBmp64* mainAreaBitmap; //0x68
@@ -3027,7 +3027,7 @@ public:
 
 	HintedListBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint); //43ec05
 
-	void SetHints(CStringArray* names) { hints = names; } //43ec4e
+	void SetHints(CStringArray* names) { this->hints = names; } //43ec4e
 public:
 	CStringArray* hints = nullptr;
 };
@@ -3163,7 +3163,7 @@ public:
 	virtual void VMethod28() override; // 47115D
 	virtual void DoClose(uint32_t code) override; // 471367
 
-	void SetTravelOrigin(const CPoint& pt) { currentLocationPoint = pt; } //4972a0
+	void SetTravelOrigin(const CPoint& pt) { this->currentLocationPoint = pt; } //4972a0
 
 	void RebuildScenarioLocations(); //47024a
 	void PopulateScenarioLocationFlags(); //47025d

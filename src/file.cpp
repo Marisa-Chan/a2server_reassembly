@@ -40,14 +40,14 @@ int __cdecl sub_4F1D0D(CString filename)
 File2::File2()
 {
 	//4e67ea
-	file = nullptr;
+	this->file = nullptr;
 }
 
 
 File2::File2(LPCTSTR lpszFileName, UINT nOpenFlags)
 {
 	//4e6813
-	if (!Open(lpszFileName, nOpenFlags)) {
+	if (!this->Open(lpszFileName, nOpenFlags)) {
 		AfxThrowFileException(CFileException::accessDenied, -1, nullptr);
 	}
 }
@@ -55,14 +55,14 @@ File2::File2(LPCTSTR lpszFileName, UINT nOpenFlags)
 File2::~File2()
 {
 	//4e6882
-	Close();
+	this->Close();
 }
 
 
 ULONGLONG File2::GetPosition() const
 {
 	//4e6d04
-	return position;
+	return this->position;
 };
 
 BOOL File2::Open(LPCTSTR lpszFileName, UINT nOpenFlags, CFileException* pError) 
@@ -89,14 +89,14 @@ BOOL File2::Open(LPCTSTR lpszFileName, UINT nOpenFlags, CFileException* pError)
 		return FALSE;
 	}
 	
-	file = inf->file;
-	offset = inf->offset;
-	size = inf->size;
+	this->file = inf->file;
+	this->offset = inf->offset;
+	this->size = inf->size;
 
 	delete inf;
 
-	position = 0;
-	m_hFile = file->m_hFile;
+	this->position = 0;
+	m_hFile = this->file->m_hFile;
 
 	if (pError) {
 		pError->m_cause = 0;
@@ -121,24 +121,24 @@ ULONGLONG File2::Seek(LONGLONG lOff, UINT nFrom)
 
 	if (nFrom == 0)
 	{
-		if (size < lOff) {
+		if (this->size < lOff) {
 			AfxThrowFileException(CFileException::badSeek);
 		}
-		position = lOff;
+		this->position = lOff;
 	} else if (nFrom == 1)
 	{
-		if (size < lOff + position) {
+		if (this->size < lOff + this->position) {
 			AfxThrowFileException(CFileException::badSeek);
 		}
-		position = position + lOff;
+		this->position = this->position + lOff;
 	} else if (nFrom == 2)
 	{
-		if (-size != lOff && size <= -lOff) {
+		if (-this->size != lOff && size <= -lOff) {
 			AfxThrowFileException(CFileException::badSeek);
 		}
-		position = size + lOff;
+		this->position = size + lOff;
 	}
-	return position;
+	return this->position;
 };
 
 void File2::SetLength(ULONGLONG dwNewLen)
@@ -150,7 +150,7 @@ void File2::SetLength(ULONGLONG dwNewLen)
 ULONGLONG File2::GetLength() const
 {
 	//4e6b9b
-	return size;
+	return this->size;
 };
 
 UINT File2::Read(void* lpBuf, UINT nCount) 
@@ -161,25 +161,25 @@ UINT File2::Read(void* lpBuf, UINT nCount)
 	}
 
 	UINT toRead = 0;
-	if (nCount < size - position) {
+	if (nCount < this->size - this->position) {
 		toRead = nCount;
 	} else {
-		toRead = size - position;
+		toRead = this->size - this->position;
 	}
 
-	file->Seek(offset + position, 0);
+	this->file->Seek(this->offset + this->position, 0);
 
 	if (toRead == 0) {
 		return 0;
 	}
 
-	position += toRead;
+	this->position += toRead;
 	
-	if (size < position) {
+	if (this->size < this->position) {
 		AfxThrowFileException(CFileException::endOfFile);
 	}
 
-	return file->Read(lpBuf, toRead);
+	return this->file->Read(lpBuf, toRead);
 };
 
 void File2::Write(const void* lpBuf, UINT nCount) 
@@ -213,13 +213,13 @@ void File2::Flush()
 void File2::Close() 
 {
 	//4e6cc6
-	Resources::ResFiles.FUN_004e6763(file);
-	file = nullptr;
+	Resources::ResFiles.FUN_004e6763(this->file);
+	this->file = nullptr;
 };
 
 
 void File2::Rewind()
 {
 	//4e6a97
-	Seek(0, 0);
+	this->Seek(0, 0);
 }

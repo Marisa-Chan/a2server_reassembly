@@ -151,15 +151,15 @@ int PlayersList::CountHumanPlayers()
 {
 	//53618f
 
-	if (list.IsEmpty()) {
+	if (this->list.IsEmpty()) {
 		return 0;
 	}
 
 	int count = 0;
 
-	for (POSITION it = list.GetHeadPosition(); it != nullptr;)
+	for (POSITION it = this->list.GetHeadPosition(); it != nullptr;)
 	{
-		if (list.GetNext(it)->is_ai == 0) {
+		if (this->list.GetNext(it)->is_ai == 0) {
 			count++;
 		}
 	}
@@ -171,9 +171,9 @@ int PlayersList::CountCD()
 	//536092
 	int count = 0;
 
-	for (POSITION pos = list.GetHeadPosition(); pos != nullptr;)
+	for (POSITION pos = this->list.GetHeadPosition(); pos != nullptr;)
 	{
-		if (list.GetNext(pos)->field_0xa45 != 0) {
+		if (this->list.GetNext(pos)->field_0xa45 != 0) {
 			count++;
 		}
 	}
@@ -211,11 +211,11 @@ int PlayersList::sub_53636E() {
 
 // 534DDD
 void PlayersList::sub_534DDD() {
-	POSITION pos = list.GetHeadPosition();
+	POSITION pos = this->list.GetHeadPosition();
 	Player* player = nullptr;
 
 	if (pos != nullptr) {
-		player = list.GetNext(pos);
+		player = this->list.GetNext(pos);
 	}
 
 	while (player != nullptr) {
@@ -388,14 +388,14 @@ Player* PlayersList::GetNext(Player* player) {
 
 PlayersList::~PlayersList()
 { //534c02
-	for (POSITION it = list.GetHeadPosition(); it != nullptr;)
+	for (POSITION it = this->list.GetHeadPosition(); it != nullptr;)
 	{
-		Player* pl = list.GetNext(it);
+		Player* pl = this->list.GetNext(it);
 		if (pl) {
 			delete pl;
 		}
 	}
-	list.RemoveAll();
+	this->list.RemoveAll();
 }
 
 // 55AFB3

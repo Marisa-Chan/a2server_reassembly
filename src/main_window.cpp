@@ -58,12 +58,12 @@ const AFX_MSGMAP_ENTRY CListBox2::_messageEntries[] =
 
 void CListBox2::OnKeyDown(UINT, UINT, UINT)
 {
-	Default();
+	this->Default();
 }
 
 void CListBox2::OnLButtonDblClk(UINT, CPoint)
 {
-	Default();
+	this->Default();
 }
 
 
@@ -98,7 +98,7 @@ const AFX_MSGMAP_ENTRY CEdit2::_messageEntries[] =
 
 void CEdit2::OnKeyDown(UINT nChar, UINT nRepcnt, UINT nFlags)
 {
-	Default();
+	this->Default();
 
 	if (nChar == VK_RETURN)
 	{
@@ -124,57 +124,57 @@ void CEdit2::OnKeyDown(UINT nChar, UINT nRepcnt, UINT nFlags)
 Fame2::Fame2()
 {
     //4abdab
-    field_x0 = -1;
-    field_x4 = 1;
-    field_x8 = nullptr;
-    str.Empty();
-    field_x34 = 1;
-    field_x38 = 0;
+    this->field_x0 = -1;
+    this->field_x4 = 1;
+    this->field_x8 = nullptr;
+    this->str.Empty();
+    this->field_x34 = 1;
+    this->field_x38 = 0;
 }
 
 void Fame2::Clear()
 {
     //4ac27f
-    if (field_x8) {
-        delete field_x8;
+    if (this->field_x8) {
+        delete this->field_x8;
     }
 
-    field_x8 = nullptr;
-    str.Empty();
-    str_arr.RemoveAll();
+    this->field_x8 = nullptr;
+    this->str.Empty();
+    this->str_arr.RemoveAll();
 }
 
 void Fame2::FUN_004abf0f(int32_t arg1, uint32_t arg2)
 {
     //4abf0f
-    Clear();
-    field_x0 = arg1;
-    field_x4 = arg2;
+    this->Clear();
+    this->field_x0 = arg1;
+    this->field_x4 = arg2;
 }
 
 
 int32_t Fame2::FUN_004ad880()
 {
     //4ad880
-    return field_x0;
+    return this->field_x0;
 }
 
 uint32_t Fame2::FUN_004ad890()
 {
     //4ad890
-    return field_x4;
+    return this->field_x4;
 }
 
 void Fame2::operator=(const Fame2& b)
 {
     //4abd30
-    field_x0 = b.field_x0;
-    field_x4 = b.field_x4;
-    field_x8 = b.field_x8;
-    str = b.str;
-    rect = b.rect;
-    field_x34 = b.field_x34;
-    field_x38 = b.field_x38;
+    this->field_x0 = b.field_x0;
+    this->field_x4 = b.field_x4;
+    this->field_x8 = b.field_x8;
+    this->str = b.str;
+    this->rect = b.rect;
+    this->field_x34 = b.field_x34;
+    this->field_x38 = b.field_x38;
 }
 
 bool Fame2::FUN_004abf35()
@@ -240,9 +240,9 @@ void Fame2::FUN_004ac0af()
 CFameHall::CFameHall()
 {
     //4ac2e3
-    m_nTotalTime = 0;
-    m_nDifficultyWeight = 0;
-    m_nMaxEntries = 10;
+    this->m_nTotalTime = 0;
+    this->m_nDifficultyWeight = 0;
+    this->m_nMaxEntries = 10;
 }
 
 CFameHall::~CFameHall()
@@ -253,22 +253,22 @@ CFameHall::~CFameHall()
 void CFameHall::ZeroFactors()
 {
     //4ac3af
-    m_nTotalTime = 0;
-    m_nDifficultyWeight = 0;
+    this->m_nTotalTime = 0;
+    this->m_nDifficultyWeight = 0;
 }
 
 void CFameHall::SetDifficulty(uint32_t arg)
 {
     //497270
-    difficulty = arg;
+    this->difficulty = arg;
 }
 
 uint32_t CFameHall::FUN_004ac566(int32_t arg)
 {
     //4ac566
-    for (uint32_t i = 0; i < m_Documents.GetSize(); i++)
+    for (uint32_t i = 0; i < this->m_Documents.GetSize(); i++)
     {
-        Fame2& fame = m_Documents[i];
+        Fame2& fame = this->m_Documents[i];
         if (fame.FUN_004ad880() == arg && fame.FUN_004ad890() != 0) {
             return 0;
         }
@@ -276,7 +276,7 @@ uint32_t CFameHall::FUN_004ac566(int32_t arg)
 
     Fame2 f;
     f.FUN_004abf0f(arg, 1);
-    m_Documents.Add(f);
+    this->m_Documents.Add(f);
 
     return 1;
 }
@@ -291,13 +291,13 @@ void CFameHall::FUN_004acafa()
     {
         fame.field_x4 = tval + GetRandS16(5000);
         fame.str = TxtFile::AllLines[i + 0x107];
-        FUN_004ac3ce(fame);
+        this->FUN_004ac3ce(fame);
         tval -= 7000;
     }
 
     fame.field_x4 = 0;
     fame.str = TxtFile::AllLines[0x110];
-    FUN_004ac3ce(fame);
+    this->FUN_004ac3ce(fame);
 }
 
 
@@ -327,10 +327,10 @@ void CFameHall::FUN_004ac945(CFile* file)
     file->Read(&num, 4);
     
     if (num == 0) {
-        m_Entries.RemoveAll();
+        this->m_Entries.RemoveAll();
     } else
     {
-        m_Entries.SetSize(num);
+        this->m_Entries.SetSize(num);
         for (uint32_t i = 0; i < num; i++)
         {
             uint32_t t;
@@ -339,7 +339,7 @@ void CFameHall::FUN_004ac945(CFile* file)
             char buf[1024];
             file->Read(buf, t);
 
-            Fame1& fame = m_Entries[i];
+            Fame1& fame = this->m_Entries[i];
 
             fame.str = buf;
 
@@ -352,70 +352,70 @@ void CFameHall::FUN_004ac945(CFile* file)
 
 void CFameHall::FUN_004ac706(CFile* file)
 { //  4ac706
-    int32_t num = m_Documents.GetSize();
+    int32_t num = this->m_Documents.GetSize();
     file->Write(&num, 4);
 
     for (uint32_t i = 0; i < num; i++)
     {
-        Fame2& fm = m_Documents[i];
+        Fame2& fm = this->m_Documents[i];
         
         //inline 4ac04b
         file->Write(&fm.field_x0, 4);
         file->Write(&fm.field_x4, 4);
     }
-    file->Write(&m_nTotalTime, 4);
-    file->Write(&m_nDifficultyWeight, 4);
+    file->Write(&this->m_nTotalTime, 4);
+    file->Write(&this->m_nDifficultyWeight, 4);
 }
 
 void CFameHall::FUN_004ac7a2(CFile* file)
 { // 4ac7a2
     int32_t cnt;
     file->Read(&cnt, 4);
-    m_Documents.SetSize(cnt);
+    this->m_Documents.SetSize(cnt);
 
     for (int i = 0; i < cnt; i++)
     {
-        Fame2& fame = m_Documents[i];
+        Fame2& fame = this->m_Documents[i];
         file->Read(&fame.field_x0, 4);
         file->Read(&fame.field_x4, 4);
     }
 
-    file->Read(&m_nTotalTime, 4);
-    file->Read(&m_nDifficultyWeight, 4);
+    file->Read(&this->m_nTotalTime, 4);
+    file->Read(&this->m_nDifficultyWeight, 4);
 }
 
 
 void CFameHall::FUN_004ac3ce(const Fame1& fame)
 {
     //4ac3ce
-    if (m_Entries.GetSize() == 0) {
-        m_Entries.Add(fame);
+    if (this->m_Entries.GetSize() == 0) {
+        this->m_Entries.Add(fame);
     } else
     {
         int32_t i = 0;
-        for (i = 0; i < m_Entries.GetSize(); i++)
+        for (i = 0; i < this->m_Entries.GetSize(); i++)
         {
-            Fame1& f = m_Entries[i];
+            Fame1& f = this->m_Entries[i];
             if (f.field_x4 <= fame.field_x4)
             {
-                m_Entries.InsertAt(i, fame);
+                this->m_Entries.InsertAt(i, fame);
                 break;
             }
         }
-        if (i == m_Entries.GetSize()) {
-            m_Entries.Add(fame);
+        if (i == this->m_Entries.GetSize()) {
+            this->m_Entries.Add(fame);
         }
     }
 
-    if (m_Entries.GetSize() > m_nMaxEntries) {
-        m_Entries.SetSize(m_nMaxEntries);
+    if (this->m_Entries.GetSize() > this->m_nMaxEntries) {
+        this->m_Entries.SetSize(this->m_nMaxEntries);
     }
 }
 
 void CFameHall::FUN_00420050()
 {
     //420050
-    m_nDifficultyWeight++;
+    this->m_nDifficultyWeight++;
 }
 
 void CFameHall::SubmitScore()
@@ -426,13 +426,13 @@ void CFameHall::SubmitScore()
     if (unit)
     {
         fm.str = unit->str1;
-        if (m_nTotalTime == 0) {
-            fm.field_x4 = unit->exp_summary / 500000.0 * m_nDifficultyWeight;
+        if (this->m_nTotalTime == 0) {
+            fm.field_x4 = unit->exp_summary / 500000.0 * this->m_nDifficultyWeight;
         } else {
-            fm.field_x4 = unit->exp_summary / (m_nTotalTime * 10.0) * m_nDifficultyWeight;
+            fm.field_x4 = unit->exp_summary / (this->m_nTotalTime * 10.0) * this->m_nDifficultyWeight;
         }
 
-        FUN_004ac3ce(fm);
+        this->FUN_004ac3ce(fm);
     }
 }
 
@@ -655,7 +655,7 @@ void MainWindow::OnSysKeyDown(UINT key, UINT repeat, UINT flags)
     if (this->field_0x45c == 0) {
         if (key == 0x79) {
             this->vis_root->MsgProc(0x100, key, 0);
-            Default();
+            this->Default();
             g_mousept.ForceDisableHint();
             return;
         }
@@ -679,7 +679,7 @@ void MainWindow::OnSysKeyDown(UINT key, UINT repeat, UINT flags)
         }
     }
 
-    Default();
+    this->Default();
     g_mousept.ForceDisableHint();
 }
 
@@ -1084,7 +1084,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags)
         }
     }
 
-    Default();
+    this->Default();
     g_mousept.ForceDisableHint();
 }
 
@@ -1112,7 +1112,7 @@ void MainWindow::sub_48CC87()
 // 48b01d
 void MainWindow::OnKillFocus(CWnd* pNewWnd)
 {
-    Default();
+    this->Default();
     this->field_0xbc = 0;
     g_kbMenuState = 0;
     g_kbControlState = 0;
@@ -1165,7 +1165,7 @@ void MainWindow::OnSysKeyUp(UINT key, UINT repeat, UINT flags)
     if (this->field_0x45c == 0 && key == 0x12) {
         g_kbMenuState = 0;
     }
-    Default();
+    this->Default();
     g_mousept.ForceDisableHint();
 }
 
@@ -1173,7 +1173,7 @@ void MainWindow::OnSysKeyUp(UINT key, UINT repeat, UINT flags)
 void MainWindow::OnChar(UINT ch, UINT repeat, UINT flags)
 {
     this->vis_root->MsgProc(0x102, ch, 0);
-    Default();
+    this->Default();
 }
 
 // 4919c7
@@ -1209,7 +1209,7 @@ void MainWindow::OnKeyUp(UINT key, UINT repeat, UINT flags)
             g_kbMenuState = 0;
         }
     }
-    Default();
+    this->Default();
     g_mousept.ForceDisableHint();
 }
 
@@ -1305,7 +1305,7 @@ void MainWindow::OnNcMouseMove(UINT nHitTest, CPoint point)
         break;
     }
 
-    Default();
+    this->Default();
 }
 
 // 48cca1
@@ -1326,7 +1326,7 @@ void MainWindow::OnPaint()
         rect = dc.m_ps.rcPaint;
         FUN_00454a1e(rect.left, rect.top, rect.right, rect.bottom);
     } else if (g_IsServer != 0) {
-        Default();
+        this->Default();
     }
 }
 
@@ -1482,15 +1482,15 @@ void MainWindow::OnNcLButtonDown(UINT nHitTest, CPoint point)
         break;
     }
 
-    Default();
+    this->Default();
 }
 
 
 MainWindow::MainWindow()
 { //4837e1
-    field_0x348 = new CArray<DiplomacyEntry*>; //avoid struct with only one this field
+    this->field_0x348 = new CArray<DiplomacyEntry*>; //avoid struct with only one this field
 
-    vis_root = nullptr;
+    this->vis_root = nullptr;
 
     CPoint resolution;
 
@@ -1543,98 +1543,98 @@ MainWindow::MainWindow()
     } else {
         CFrameWnd::LoadFrame(0x65, WS_TILEDWINDOW, NULL, NULL);
         SetWindowPos(0, 0, 0, resolution.x, resolution.y, SWP_NOREPOSITION | SWP_NOMOVE);
-        SetControlPositions();
+        this->SetControlPositions();
         ModifyStyle(0, 0, 0);
     }
 
-    field_0x7fc = 0;
-    field_0x800 = 0;
-    music_player = nullptr;
-    field_0x408 = nullptr;
-    field_0x40c = -1;
-    item_cursor = nullptr;
-    music_update_proc = nullptr;
-    dialogsMask = 0;
-    field_0x44c = 0;
-    game_speed = 4;
-    field_0x438 = 0x7fffffff;
-    last_tic_time = 0x7fffffff;
-    field_0x448 = 0;
-    serverBootstrapEnabled = 0;
-    field_0x404 = 0;
-    field_0x144 = nullptr;
-    field_0x454 = 0;
-    field_0x34c = nullptr;
-    field_0x3dc = nullptr;
-    field_0x378 = nullptr;
-    field_0x37c = nullptr;
-    vis_map_context = nullptr;
+    this->field_0x7fc = 0;
+    this->field_0x800 = 0;
+    this->music_player = nullptr;
+    this->field_0x408 = nullptr;
+    this->field_0x40c = -1;
+    this->item_cursor = nullptr;
+    this->music_update_proc = nullptr;
+    this->dialogsMask = 0;
+    this->field_0x44c = 0;
+    this->game_speed = 4;
+    this->field_0x438 = 0x7fffffff;
+    this->last_tic_time = 0x7fffffff;
+    this->field_0x448 = 0;
+    this->serverBootstrapEnabled = 0;
+    this->field_0x404 = 0;
+    this->field_0x144 = nullptr;
+    this->field_0x454 = 0;
+    this->field_0x34c = nullptr;
+    this->field_0x3dc = nullptr;
+    this->field_0x378 = nullptr;
+    this->field_0x37c = nullptr;
+    this->vis_map_context = nullptr;
 
-    field_0x3e0.field_08.Empty();
-    field_0x3e0.field_00.Empty();
-    field_0x3e0.field_0c = 0;
-    field_0x3e0.field_10 = 0;
+    this->field_0x3e0.field_08.Empty();
+    this->field_0x3e0.field_00.Empty();
+    this->field_0x3e0.field_0c = 0;
+    this->field_0x3e0.field_10 = 0;
 
-    field_0x624 = 0;
+    this->field_0x624 = 0;
 
-    cursor_sizewe = LoadCursorA(0, IDC_SIZEWE);
-    cursor_sizens = LoadCursorA(0, IDC_SIZENS);
-    cursor_sizenwse = LoadCursorA(0, IDC_SIZENWSE);
-    cursor_sizenesw = LoadCursorA(0, IDC_SIZENESW);
-    cursor_arrow = LoadCursorA(0, IDC_ARROW);
+    this->cursor_sizewe = LoadCursorA(0, IDC_SIZEWE);
+    this->cursor_sizens = LoadCursorA(0, IDC_SIZENS);
+    this->cursor_sizenwse = LoadCursorA(0, IDC_SIZENWSE);
+    this->cursor_sizenesw = LoadCursorA(0, IDC_SIZENESW);
+    this->cursor_arrow = LoadCursorA(0, IDC_ARROW);
 }
 
 
 MainWindow::~MainWindow()
 { // 4961b0
-    delete field_0x348;
+    delete this->field_0x348;
 }
 
 
 void MainWindow::CreateUI()
 { //484ab0
-    vis_root = new CVisualObject(0, 0, 0, g_ScreenSize.right, g_ScreenSize.bottom, nullptr);
-    vis_map_context = new BigStruct2(0, 0, g_ScreenSize.right - 160, g_ScreenSize.bottom);
-    vis_right_panel = new VisRightPanel(4, g_ScreenSize.right - 160, 0, g_ScreenSize.right, g_ScreenSize.bottom);
-    vis_minimap = new VisMiniMap(5, 0, 0, 160, 158);
-    vis_ordertoolbar = new VisOrderToolbar(6, 0, 158, 160, 238);
-    vis_charinfo = new VisCharInfo(7, 0, 238, 160, 480);
-    vis_sidestatus = new VisSideStatus(8, 0, 480, 160, g_ScreenSize.bottom);
-    vis_invtype1 = new VisInvType1(2, 0, vis_map_context->GetRect().bottom - 90, g_ScreenSize.right - 160, vis_map_context->GetRect().bottom);
+    this->vis_root = new CVisualObject(0, 0, 0, g_ScreenSize.right, g_ScreenSize.bottom, nullptr);
+    this->vis_map_context = new BigStruct2(0, 0, g_ScreenSize.right - 160, g_ScreenSize.bottom);
+    this->vis_right_panel = new VisRightPanel(4, g_ScreenSize.right - 160, 0, g_ScreenSize.right, g_ScreenSize.bottom);
+    this->vis_minimap = new VisMiniMap(5, 0, 0, 160, 158);
+    this->vis_ordertoolbar = new VisOrderToolbar(6, 0, 158, 160, 238);
+    this->vis_charinfo = new VisCharInfo(7, 0, 238, 160, 480);
+    this->vis_sidestatus = new VisSideStatus(8, 0, 480, 160, g_ScreenSize.bottom);
+    this->vis_invtype1 = new VisInvType1(2, 0, this->vis_map_context->GetRect().bottom - 90, g_ScreenSize.right - 160, this->vis_map_context->GetRect().bottom);
 
-    vis_spellbook = new VisSpellBook(3, 0, vis_map_context->GetRect().bottom - 90, g_ScreenSize.right - 160, vis_map_context->GetRect().bottom);
-    vis_spellbook->MsgProc(0x411, 0, 0);
+    this->vis_spellbook = new VisSpellBook(3, 0, this->vis_map_context->GetRect().bottom - 90, g_ScreenSize.right - 160, this->vis_map_context->GetRect().bottom);
+    this->vis_spellbook->MsgProc(0x411, 0, 0);
 
-    vis_shop = new VisShop(1000, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
-    vis_shopdruid = new VisShopDruid(1000, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
-    vis_shopkaarg = new VisShopKaarg(1000, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
-    vis_globalmap = new VisGlobalMap(1050, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
-    vis_mainmenu = new VisMainMenu(1090, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
-    vis_tav = new VisTav(1100, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
-    vis_tavdruid = new VisTavDruid(1100, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
-    vis_tavkaarg = new VisTavKaarg(1100, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
-    vis_town = new VisTown(1020, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
-    vis_towndruid = new VisTownDruid(1020, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
-    vis_townkaarg = new VisTownKaarg(1020, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
-    vis_credits = new VisCredits(1110, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
-    vis_logownd = new VisLogoWnd(1200, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
-    vis_chargen = new VisCharGen(1110, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
-    vis_charsel = new VisCharSelect(1120, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
-    vis_startgame = new VisStartGame(1126, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
-    vis_famehall = new VisFameHall(1200, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
-    vis_famedocument = new VisFameDocument(1210, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
-    vis_1200 = new Vis1200(1200, 0, 0, g_ScreenSize.right - 160, 30);
+    this->vis_shop = new VisShop(1000, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
+    this->vis_shopdruid = new VisShopDruid(1000, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
+    this->vis_shopkaarg = new VisShopKaarg(1000, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
+    this->vis_globalmap = new VisGlobalMap(1050, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
+    this->vis_mainmenu = new VisMainMenu(1090, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
+    this->vis_tav = new VisTav(1100, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
+    this->vis_tavdruid = new VisTavDruid(1100, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
+    this->vis_tavkaarg = new VisTavKaarg(1100, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
+    this->vis_town = new VisTown(1020, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
+    this->vis_towndruid = new VisTownDruid(1020, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
+    this->vis_townkaarg = new VisTownKaarg(1020, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
+    this->vis_credits = new VisCredits(1110, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
+    this->vis_logownd = new VisLogoWnd(1200, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
+    this->vis_chargen = new VisCharGen(1110, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
+    this->vis_charsel = new VisCharSelect(1120, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
+    this->vis_startgame = new VisStartGame(1126, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
+    this->vis_famehall = new VisFameHall(1200, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
+    this->vis_famedocument = new VisFameDocument(1210, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
+    this->vis_1200 = new Vis1200(1200, 0, 0, g_ScreenSize.right - 160, 30);
 
-    field_0xc0 = 0;
+    this->field_0xc0 = 0;
 
-    vis_dropgold = new VisDropGold(1000000000, 100, g_ScreenSize.bottom - 200);
+    this->vis_dropgold = new VisDropGold(1000000000, 100, g_ScreenSize.bottom - 200);
 
-    vis_shop->VMethod26();
-    vis_shopdruid->VMethod26();
-    vis_shopkaarg->VMethod26();
-    vis_tav->VMethod26();
-    vis_tavdruid->VMethod26();
-    vis_tavkaarg->VMethod26();
+    this->vis_shop->VMethod26();
+    this->vis_shopdruid->VMethod26();
+    this->vis_shopkaarg->VMethod26();
+    this->vis_tav->VMethod26();
+    this->vis_tavdruid->VMethod26();
+    this->vis_tavkaarg->VMethod26();
 }
 
 void MainWindow::LoadData()
@@ -1652,8 +1652,8 @@ void MainWindow::LoadData()
         g_SoundSettings.field_0x20 = 0;
     }
 
-    music_player = new MusicPlayer(g_isLowMemory == 0 ? 0xac000 : 0x56000);
-    music_player->SetVolume(g_SoundSettings.mus_pos);
+    this->music_player = new MusicPlayer(g_isLowMemory == 0 ? 0xac000 : 0x56000);
+    this->music_player->SetVolume(g_SoundSettings.mus_pos);
 }
 
 
@@ -1661,35 +1661,35 @@ void MainWindow::LoadData()
 void GameSettings::Init()
 { // 442386
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
-    pGameSpeed = &mwnd->game_speed;
-    pFormationMode = &mwnd->vis_map_context->formation;
-    pWimpyMode = &mwnd->vis_map_context->wimpy;
-    pShowAllHitPoints = &mwnd->vis_map_context->show_hp;
-    pShowFlyingHP = &mwnd->vis_map_context->flying_hp;
-    pShadows = &g_Shadows;
-    pLightning = &g_Lightning;
-    pAnimation = &g_Animation;
-    pMessageColors = &g_MessageColors;
+    this->pGameSpeed = &mwnd->game_speed;
+    this->pFormationMode = &mwnd->vis_map_context->formation;
+    this->pWimpyMode = &mwnd->vis_map_context->wimpy;
+    this->pShowAllHitPoints = &mwnd->vis_map_context->show_hp;
+    this->pShowFlyingHP = &mwnd->vis_map_context->flying_hp;
+    this->pShadows = &g_Shadows;
+    this->pLightning = &g_Lightning;
+    this->pAnimation = &g_Animation;
+    this->pMessageColors = &g_MessageColors;
 }
 
 void GameSettings::Load(HKEY& rkey)
 { //442420
     DWORD sz = 4;
-    RegQueryValueExA(rkey, "GameSpeed", nullptr, nullptr, (LPBYTE)pGameSpeed, &sz);
-    RegQueryValueExA(rkey, "FormationMode", nullptr, nullptr, (LPBYTE)pFormationMode, &sz);
-    RegQueryValueExA(rkey, "WimpyMode", nullptr, nullptr, (LPBYTE)pWimpyMode, &sz);
-    RegQueryValueExA(rkey, "ShowAllHitPoints", nullptr, nullptr, (LPBYTE)pShowAllHitPoints, &sz);
+    RegQueryValueExA(rkey, "GameSpeed", nullptr, nullptr, (LPBYTE)this->pGameSpeed, &sz);
+    RegQueryValueExA(rkey, "FormationMode", nullptr, nullptr, (LPBYTE)this->pFormationMode, &sz);
+    RegQueryValueExA(rkey, "WimpyMode", nullptr, nullptr, (LPBYTE)this->pWimpyMode, &sz);
+    RegQueryValueExA(rkey, "ShowAllHitPoints", nullptr, nullptr, (LPBYTE)this->pShowAllHitPoints, &sz);
     RegQueryValueExA(rkey, "Smoothing", nullptr, nullptr, (LPBYTE)&g_settings.Smoothing, &sz);
-    RegQueryValueExA(rkey, "ShowFlyingHP", nullptr, nullptr, (LPBYTE)pShowFlyingHP, &sz);
+    RegQueryValueExA(rkey, "ShowFlyingHP", nullptr, nullptr, (LPBYTE)this->pShowFlyingHP, &sz);
     RegQueryValueExA(rkey, "ShowTimeFlow", nullptr, nullptr, (LPBYTE)&g_settings.ShowTimeFlow, &sz);
     RegQueryValueExA(rkey, "TipsMode", nullptr, nullptr, (LPBYTE)&g_settings.TipsMode, &sz);
-    RegQueryValueExA(rkey, "AutoCasting", nullptr, nullptr, (LPBYTE)&AutoCasting, &sz);
-    RegQueryValueExA(rkey, "Acknowledgement", nullptr, nullptr, (LPBYTE)&Acknowledgement, &sz);
-    RegQueryValueExA(rkey, "Shadows", nullptr, nullptr, (LPBYTE)pShadows, &sz);
-    RegQueryValueExA(rkey, "Lighting", nullptr, nullptr, (LPBYTE)pLightning, &sz);
-    RegQueryValueExA(rkey, "Animation", nullptr, nullptr, (LPBYTE)pAnimation, &sz);
-    RegQueryValueExA(rkey, "ClanNames", nullptr, nullptr, (LPBYTE)&ClanNames, &sz);
-    RegQueryValueExA(rkey, "MessageColors", nullptr, nullptr, (LPBYTE)pMessageColors, &sz);
+    RegQueryValueExA(rkey, "AutoCasting", nullptr, nullptr, (LPBYTE)&this->AutoCasting, &sz);
+    RegQueryValueExA(rkey, "Acknowledgement", nullptr, nullptr, (LPBYTE)&this->Acknowledgement, &sz);
+    RegQueryValueExA(rkey, "Shadows", nullptr, nullptr, (LPBYTE)this->pShadows, &sz);
+    RegQueryValueExA(rkey, "Lighting", nullptr, nullptr, (LPBYTE)this->pLightning, &sz);
+    RegQueryValueExA(rkey, "Animation", nullptr, nullptr, (LPBYTE)this->pAnimation, &sz);
+    RegQueryValueExA(rkey, "ClanNames", nullptr, nullptr, (LPBYTE)&this->ClanNames, &sz);
+    RegQueryValueExA(rkey, "MessageColors", nullptr, nullptr, (LPBYTE)this->pMessageColors, &sz);
 }
 
 // 4421be
@@ -1728,7 +1728,7 @@ void PhoneBook::Load(HKEY& rkey)
         char data[64];
         sz = sizeof(data);
         RegQueryValueExA(rkey, name, nullptr, nullptr, (LPBYTE)data, &sz);
-        phones.Add(data);
+        this->phones.Add(data);
     }
 }
 
@@ -1757,41 +1757,41 @@ void HatSettings::Load(HKEY& rkey)
     DWORD sz = 255;
     RegQueryValueExA(rkey, "hatip", nullptr, nullptr, (LPBYTE)buf, &sz);
 
-    hatip = buf;
-    if (hatip.IsEmpty()) {
-        hatip = txt_patch.GetLine(118);
+    this->hatip = buf;
+    if (this->hatip.IsEmpty()) {
+        this->hatip = txt_patch.GetLine(118);
     }
 
     buf[0] = '\0';
     sz = 255;
     RegQueryValueExA(rkey, "hatprogip", nullptr, nullptr, (LPBYTE)buf, &sz);
 
-    hatprogip = buf;
-    if (hatprogip.IsEmpty()) {
-        hatprogip = txt_patch.GetLine(119);
+    this->hatprogip = buf;
+    if (this->hatprogip.IsEmpty()) {
+        this->hatprogip = txt_patch.GetLine(119);
     }
 
     buf[0] = '\0';
     sz = 255;
     RegQueryValueExA(rkey, "login", nullptr, nullptr, (LPBYTE)buf, &sz);
 
-    login = XorRegString(buf);
+    this->login = XorRegString(buf);
 
     buf[0] = '\0';
     sz = 255;
     RegQueryValueExA(rkey, "password", nullptr, nullptr, (LPBYTE)buf, &sz);
 
-    password = XorRegString(buf);
+    this->password = XorRegString(buf);
 
     sz = 4;
-    ishat = 0;
-    RegQueryValueExA(rkey, "ishat", nullptr, nullptr, (LPBYTE)&ishat, &sz);
+    this->ishat = 0;
+    RegQueryValueExA(rkey, "ishat", nullptr, nullptr, (LPBYTE)&this->ishat, &sz);
 
-    deathmatch = 0;
-    RegQueryValueExA(rkey, "deathmatch", nullptr, nullptr, (LPBYTE)&deathmatch, &sz);
+    this->deathmatch = 0;
+    RegQueryValueExA(rkey, "deathmatch", nullptr, nullptr, (LPBYTE)&this->deathmatch, &sz);
 
-    store = 1;
-    RegQueryValueExA(rkey, "store", nullptr, nullptr, (LPBYTE)&store, &sz);
+    this->store = 1;
+    RegQueryValueExA(rkey, "store", nullptr, nullptr, (LPBYTE)&this->store, &sz);
 }
 
 // 43d51b
@@ -1830,8 +1830,8 @@ void HatSettings::Save(HKEY& rkey)
 void MainWindow::LoadSettings()
 { //441a03
     g_settings.Init();
-    last_protocol = 0;
-    com_settings.Reset();
+    this->last_protocol = 0;
+    this->com_settings.Reset();
 
     HKEY regkey;
     if (RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\1C\\Allods 2", 0, KEY_READ, &regkey) != 0) {
@@ -1842,21 +1842,21 @@ void MainWindow::LoadSettings()
     g_settings.Load(regkey);
 
     DWORD sz = 4;
-    last_protocol = 0;
-    RegQueryValueExA(regkey, "lastprotocol", nullptr, nullptr, (LPBYTE)&last_protocol, &sz); //inline 43d091
+    this->last_protocol = 0;
+    RegQueryValueExA(regkey, "lastprotocol", nullptr, nullptr, (LPBYTE)&this->last_protocol, &sz); //inline 43d091
 
-    phone_book.Load(regkey);
+    this->phone_book.Load(regkey);
 
     sz = 0x14;
-    RegQueryValueExA(regkey, "comportsetting", nullptr, nullptr, (LPBYTE)&com_settings, &sz); //inline 43d02e
+    RegQueryValueExA(regkey, "comportsetting", nullptr, nullptr, (LPBYTE)&this->com_settings, &sz); //inline 43d02e
 
     char buf[256];
     sz = 255;
     buf[0] = 0;
     RegQueryValueExA(regkey, "lastip", nullptr, nullptr, (LPBYTE)buf, &sz); //inline 43d0f5
-    last_ip = buf;
+    this->last_ip = buf;
 
-    hat_settings.Load(regkey);
+    this->hat_settings.Load(regkey);
 
     sz = 4;
     RegQueryValueExA(regkey, "Using VxD", nullptr, nullptr, (LPBYTE)&g_using_vxd, &sz);
@@ -1898,21 +1898,21 @@ void MainWindow::SetControlPositions()
 { //484127
     CRect r;
     GetClientRect(&r);
-    static2.SetWindowPos(NULL, 0, 0, r.right, 40, SWP_NOREPOSITION);
-    list_box2.SetWindowPos(NULL, 0, 40, 200, 240, SWP_NOREPOSITION);
+    this->static2.SetWindowPos(NULL, 0, 0, r.right, 40, SWP_NOREPOSITION);
+    this->list_box2.SetWindowPos(NULL, 0, 40, 200, 240, SWP_NOREPOSITION);
 
     CRect rl2;
-    list_box2.GetClientRect(&rl2);
+    this->list_box2.GetClientRect(&rl2);
     rl2.bottom += 6;
 
-    static1.SetWindowPos(NULL, 200, 40, r.right - 200, rl2.bottom, SWP_NOREPOSITION);
-    list_box1.SetWindowPos(NULL, 0, rl2.bottom + 40, r.right, r.bottom - rl2.bottom - 80, SWP_NOREPOSITION);
+    this->static1.SetWindowPos(NULL, 200, 40, r.right - 200, rl2.bottom, SWP_NOREPOSITION);
+    this->list_box1.SetWindowPos(NULL, 0, rl2.bottom + 40, r.right, r.bottom - rl2.bottom - 80, SWP_NOREPOSITION);
 
     CRect rl1;
-    list_box1.GetClientRect(&rl1);
+    this->list_box1.GetClientRect(&rl1);
     rl1.bottom += 6;
 
-    edit.SetWindowPos(NULL, 0, rl2.bottom + 40 + rl1.bottom, r.right, r.bottom - rl2.bottom - rl1.bottom - 60, SWP_NOREPOSITION);
+    this->edit.SetWindowPos(NULL, 0, rl2.bottom + 40 + rl1.bottom, r.right, r.bottom - rl2.bottom - rl1.bottom - 60, SWP_NOREPOSITION);
 }
 
 
@@ -1992,7 +1992,7 @@ void MainWindow::sub_48A756()
                         if (g_Server->FileList.GetSize() == 0) {
                             g_Server->sub_4F1E2A();
 
-                            field_0x3d0->MsgProc(0x445, 0, 0);
+                            this->field_0x3d0->MsgProc(0x445, 0, 0);
                             return;
                         }
                     }
@@ -2061,9 +2061,9 @@ void MainWindow::sub_48A756()
             // Client mode processing (g_IsServer == 0 means client mode).
             if (g_IsServer == 0) {
                 if (this->field_0xbc != 0) {
-                    if (field_0x3d0 != nullptr) {
+                    if (this->field_0x3d0 != nullptr) {
                         if (this->game_tic_counter == 1) {
-                            field_0x3d0->VMethod9();
+                            this->field_0x3d0->VMethod9();
                         }
                     }
                 }
@@ -2109,19 +2109,19 @@ void MainWindow::sub_484259()
                                             g_Server->srv_stru1->sack_list->list.GetCount(),
                                             g_Server->field42_0x1b4 / 10,
                                             sredne,
-                                            current_map_name,
-                                            txt_main.GetLine(108 + game_speed));
+                                            this->current_map_name,
+                                            txt_main.GetLine(108 + this->game_speed));
         OemToCharA(str, buf);
         SetDlgItemText(0x7de0, buf);
     }
 
     CString t;
-    int sel = list_box2.GetCurSel();
+    int sel = this->list_box2.GetCurSel();
     if (sel >= 0) {
-        list_box2.GetText(sel, t);
+        this->list_box2.GetText(sel, t);
     }
 
-    list_box2.ResetContent();
+    this->list_box2.ResetContent();
 
     for (POSITION it = g_PlayersList->list.GetHeadPosition(); it; )
     {
@@ -2133,15 +2133,15 @@ void MainWindow::sub_484259()
                 s = "(-)" + s;
             }
             OemToCharA(s, buf);
-            list_box2.AddString(buf);
+            this->list_box2.AddString(buf);
         }
     }
 
     if (!t.IsEmpty()) {
-        list_box2.SelectString(0, t);
+        this->list_box2.SelectString(0, t);
     }
 
-    sel = list_box2.GetCurSel();
+    sel = this->list_box2.GetCurSel();
 
     Player* selpl = nullptr;
     
@@ -2228,7 +2228,7 @@ void MainWindow::sub_484259()
 int MainWindow::SetSpeed(int speed)
 {
     //48dc02
-    int32_t old_speed = game_speed;
+    int32_t old_speed = this->game_speed;
 
     if (speed < 0) {
         speed = 0;
@@ -2238,10 +2238,10 @@ int MainWindow::SetSpeed(int speed)
         speed = 8;
     }
 
-    game_speed = speed;
+    this->game_speed = speed;
 
     int ticks_per_second = 16;
-    switch (game_speed)
+    switch (this->game_speed)
     {
     case 0:
         ticks_per_second = 8;
@@ -2271,13 +2271,13 @@ int MainWindow::SetSpeed(int speed)
         ticks_per_second = 32;
     }
 
-    game_tic_time = 1000 / ticks_per_second;
-    game_tic_counter = 0;
-    field_0x43c = 0;
-    field_0x438 = timeGetTime();
-    last_tic_time = timeGetTime(); //GetTickCount??
-    field_0x440 = 0;
-    return old_speed != game_speed;
+    this->game_tic_time = 1000 / ticks_per_second;
+    this->game_tic_counter = 0;
+    this->field_0x43c = 0;
+    this->field_0x438 = timeGetTime();
+    this->last_tic_time = timeGetTime(); //GetTickCount??
+    this->field_0x440 = 0;
+    return old_speed != this->game_speed;
 }
 
 
@@ -2285,7 +2285,7 @@ int MainWindow::SetSpeed(int speed)
 BOOL MainWindow::UpdateClipCursor()
 {
     //48cbc8
-    return GetClipCursor(&clip_cursor_rect);
+    return GetClipCursor(&this->clip_cursor_rect);
 }
 
 
@@ -2296,30 +2296,30 @@ void MainWindow::Proc_421()
 #pragma message("REVERSE IT, it's not FULL");
 
     //48d49b Allods2.exe
-    field_0x3e0.field_10 = 0;
-    field_0x3e0.field_14.Empty();
-    field_0x3e0.field_0c = 0;
+    this->field_0x3e0.field_10 = 0;
+    this->field_0x3e0.field_14.Empty();
+    this->field_0x3e0.field_0c = 0;
 
-    m_FameHall.ZeroFactors();
+    this->m_FameHall.ZeroFactors();
 
-    CVisualObject* elm = vis_root->FindChild(0x3fc);
+    CVisualObject* elm = this->vis_root->FindChild(0x3fc);
     if (elm) {
         elm->MsgProc(0x445, 0, 0);
     }
 
-    FUN_00485a41();
+    this->FUN_00485a41();
 
-    vis_root->AddChild(vis_mainmenu);
-    vis_mainmenu->VMethod28();
-    vis_root->VMethod9();
-    field_0x460 = 0;
-    dialogsMask |= 0x80;
-    FUN_0048cb3c();
+    this->vis_root->AddChild(this->vis_mainmenu);
+    this->vis_mainmenu->VMethod28();
+    this->vis_root->VMethod9();
+    this->field_0x460 = 0;
+    this->dialogsMask |= 0x80;
+    this->FUN_0048cb3c();
 
-    elm = vis_map_context->FindChild(0x13);
+    elm = this->vis_map_context->FindChild(0x13);
     if (elm)
     {
-        vis_map_context->RemoveChild(elm);
+        this->vis_map_context->RemoveChild(elm);
         delete elm;
     }
 
@@ -2340,41 +2340,41 @@ void MainWindow::Proc_421()
 void MainWindow::FUN_00485a41()
 {
     //485a41
-    vis_right_panel->RemoveAllChilds();
-    vis_right_panel->AddChild(vis_charinfo);
+    this->vis_right_panel->RemoveAllChilds();
+    this->vis_right_panel->AddChild(this->vis_charinfo);
 
-    vis_root->RemoveAllChilds();
-    vis_root->AddChild(vis_map_context);
-    vis_root->AddChild(vis_right_panel);
+    this->vis_root->RemoveAllChilds();
+    this->vis_root->AddChild(this->vis_map_context);
+    this->vis_root->AddChild(this->vis_right_panel);
 
-    dialogsMask &= ~1;
+    this->dialogsMask &= ~1;
 
-    vis_right_panel->MsgProc(0x403, (uint32_t)vis_map_context, 0);
+    this->vis_right_panel->MsgProc(0x403, (uint32_t)this->vis_map_context, 0);
 }
 
 
 int32_t CGameSession::GetStringArray1Size()
 {
     //438d10
-    return characterRosterNames.GetSize();
+    return this->characterRosterNames.GetSize();
 }
 
 
 void MainWindow::ResetItemCursor()
 {
     //48cd44
-    if (!field_0x408) {
+    if (!this->field_0x408) {
         return;
     }
 
-    if (item_cursor) {
-        delete item_cursor;
+    if (this->item_cursor) {
+        delete this->item_cursor;
     }
 
-    item_cursor = nullptr;
-    field_0x408 = nullptr;
-    field_0x40c = -1;
-    field_0x410 = -1;
+    this->item_cursor = nullptr;
+    this->field_0x408 = nullptr;
+    this->field_0x40c = -1;
+    this->field_0x410 = -1;
 }
 
 
@@ -2392,128 +2392,128 @@ DiplomacyEntry::DiplomacyEntry(const char* _name, int e, int a, int s, int m)
 //445aa9
 DiplomacyEntry::~DiplomacyEntry()
 {
-    if (name) {
-        delete name;
+    if (this->name) {
+        delete this->name;
     }
 }
 
 void MainWindow::Proc_44c(CVisualObject* obj)
 {
-    field_0x460 = 1;
+    this->field_0x460 = 1;
 
-    vis_root->RemoveChild(obj);
+    this->vis_root->RemoveChild(obj);
 
-    vis_map_context->field_0xe0 = 1;
+    this->vis_map_context->field_0xe0 = 1;
 
-    if (obj == vis_shop || obj == vis_shopdruid || obj == vis_shopkaarg)
+    if (obj == this->vis_shop || obj == this->vis_shopdruid || obj == this->vis_shopkaarg)
     {
-        vis_map_context->FUN_0041a8cc();
-        vis_map_context->UpdateSelectionState();
-        if (sessionMode != 2) {
-            FUN_00494c91();
+        this->vis_map_context->FUN_0041a8cc();
+        this->vis_map_context->UpdateSelectionState();
+        if (this->sessionMode != 2) {
+            this->FUN_00494c91();
         }
-    } else if (obj == vis_1200)
+    } else if (obj == this->vis_1200)
     {
-        vis_map_context->RemoveChild(vis_1200);
+        this->vis_map_context->RemoveChild(this->vis_1200);
 
-        if (vis_1200->GetCloseCode() == 0x445)
+        if (this->vis_1200->GetCloseCode() == 0x445)
         {
 
             CString str;
-            vis_1200->WriteData(&str);
+            this->vis_1200->WriteData(&str);
             if (str[0] == '=') {
-                vis_map_context->FUN_0041b2a4(str.Mid(1), 3, 0);
+                this->vis_map_context->FUN_0041b2a4(str.Mid(1), 3, 0);
             } else if (str[0] == '-')
             {
-                int val = vis_1200->FUN_004972d0();
+                int val = this->vis_1200->FUN_004972d0();
                 if (val == -1) {
-                    vis_map_context->FUN_0041b2a4(str.Mid(1), 1, 0);
+                    this->vis_map_context->FUN_0041b2a4(str.Mid(1), 1, 0);
                 } else {
-                    vis_map_context->FUN_0041b2a4(str.Mid(vis_1200->FUN_00497310()), 2, val);
+                    this->vis_map_context->FUN_0041b2a4(str.Mid(this->vis_1200->FUN_00497310()), 2, val);
                 }
             } else {
-                vis_map_context->FUN_0041b2a4(str, 0, 0);
+                this->vis_map_context->FUN_0041b2a4(str, 0, 0);
             }
         }
-    } else if (obj == vis_logownd) {
-        dialogsMask &= ~0x100;
-    } else if (obj == vis_famedocument) {
-        dialogsMask &= ~0x4000;
-    } else if (obj == vis_famehall)
+    } else if (obj == this->vis_logownd) {
+        this->dialogsMask &= ~0x100;
+    } else if (obj == this->vis_famedocument) {
+        this->dialogsMask &= ~0x4000;
+    } else if (obj == this->vis_famehall)
     {
-        dialogsMask &= ~0x1000;
+        this->dialogsMask &= ~0x1000;
         PostMessage(0x421, 0, 0);
-    } else if (obj == vis_mainmenu) {
-        dialogsMask &= ~0x80;
-    } else if (obj == vis_town || obj == vis_towndruid || obj == vis_townkaarg)
+    } else if (obj == this->vis_mainmenu) {
+        this->dialogsMask &= ~0x80;
+    } else if (obj == this->vis_town || obj == this->vis_towndruid || obj == this->vis_townkaarg)
     {}
-    else if (obj == vis_tav || obj == vis_tavdruid || obj == vis_tavkaarg)
+    else if (obj == this->vis_tav || obj == this->vis_tavdruid || obj == this->vis_tavkaarg)
     {
-        if (sessionMode != 2) {
-            FUN_00494c91();
+        if (this->sessionMode != 2) {
+            this->FUN_00494c91();
         }
 
-        dialogsMask &= ~4;
-        vis_map_context->UpdateSelectionState();
-    } else if (obj == vis_chargen)
+        this->dialogsMask &= ~4;
+        this->vis_map_context->UpdateSelectionState();
+    } else if (obj == this->vis_chargen)
     { //charget 2step
-        dialogsMask &= ~0x200;
+        this->dialogsMask &= ~0x200;
 
-        if (vis_chargen->GetCloseCode() == 0x446) {
-            ShowStartGameSetupForNewSession();
+        if (this->vis_chargen->GetCloseCode() == 0x446) {
+            this->ShowStartGameSetupForNewSession();
         } else
         {
-            m_GameSession.flags |= 4;
+            this->m_GameSession.flags |= 4;
 
-            if (sessionMode == 2)
+            if (this->sessionMode == 2)
             {
-                vis_map_context->ConnectAndJoinSession();
-                m_GameSession.SubmitCharacterSetupAndWaitForSelectedUnit();
+                this->vis_map_context->ConnectAndJoinSession();
+                this->m_GameSession.SubmitCharacterSetupAndWaitForSelectedUnit();
 
-                ScenarioSetVar(0x308, (m_GameSession.type & 0x40) != 0);
-                ScenarioSetVar(0x30d, (m_GameSession.type & 0x80) != 0);
+                ScenarioSetVar(0x308, (this->m_GameSession.type & 0x40) != 0);
+                ScenarioSetVar(0x30d, (this->m_GameSession.type & 0x80) != 0);
 
                 if (g_Server) {
-                    g_Server->FUN_00497470(m_FameHall.GetDifficulty() + 1);
+                    g_Server->FUN_00497470(this->m_FameHall.GetDifficulty() + 1);
                 }
 
                 PostMessage(0x42e, 0, 0);
             } else {
-                m_GameSession.FUN_00493d8d();
+                this->m_GameSession.FUN_00493d8d();
 
-                if (field_0x3e0.field_10 == 0) {
+                if (this->field_0x3e0.field_10 == 0) {
                     PostMessage(0x451, 0, 0);
                 } else {
                     PostMessage(0x489, 0, 0);
                 }
             }
         }
-    } else if (obj == vis_startgame)
+    } else if (obj == this->vis_startgame)
     { // chargen 1step
-        dialogsMask &= ~0x800;
+        this->dialogsMask &= ~0x800;
 
-        if (vis_startgame->GetCloseCode() == 0x446)
+        if (this->vis_startgame->GetCloseCode() == 0x446)
         {
-            if (!vis_map_context->field_0x9d0.IsEmpty())
+            if (!this->vis_map_context->field_0x9d0.IsEmpty())
             {
-                vis_map_context->field_0x9d0.RemoveAll();
+                this->vis_map_context->field_0x9d0.RemoveAll();
 
-                CUnit *uni = vis_map_context->GetUnit_3f6c();
+                CUnit *uni = this->vis_map_context->GetUnit_3f6c();
                 if (uni) {
                     delete uni;
                 }
 
-                vis_map_context->SetUnit_3f6c(nullptr);
+                this->vis_map_context->SetUnit_3f6c(nullptr);
             }
 
-            if (sessionMode == 2) {
+            if (this->sessionMode == 2) {
                 PostMessage(0x421, 0, 0);
             } else {
-                ShowCharacterLoaderDialog();
+                this->ShowCharacterLoaderDialog();
             }
         } else {
-            CString name = vis_startgame->GetName();
-            strcpy(m_GameSession.character_name, name);
+            CString name = this->vis_startgame->GetName();
+            strcpy(this->m_GameSession.character_name, name);
 
             if (!name.IsEmpty())
             {
@@ -2522,196 +2522,196 @@ void MainWindow::Proc_44c(CVisualObject* obj)
                 {
                     name = name.Mid(pos + 1);
 
-                    m_GameSession.color = atoi(name);
+                    this->m_GameSession.color = atoi(name);
 
-                    if (m_GameSession.color == 0 || m_GameSession.color > 16) {
-                        m_GameSession.color = 0;
+                    if (this->m_GameSession.color == 0 || this->m_GameSession.color > 16) {
+                        this->m_GameSession.color = 0;
                     }
 
-                    name = vis_startgame->GetClan().Left(pos);
+                    name = this->vis_startgame->GetClan().Left(pos);
                 }
             }
 
             if (!name.IsEmpty())
             {
-                strcat(m_GameSession.character_name, "|");
-                strcat(m_GameSession.character_name, name);
+                strcat(this->m_GameSession.character_name, "|");
+                strcat(this->m_GameSession.character_name, name);
             }
 
-            m_FameHall.SetDifficulty(vis_startgame->GetSelectedDifficulty());
+            this->m_FameHall.SetDifficulty(this->vis_startgame->GetSelectedDifficulty());
 
-            m_GameSession.type = vis_startgame->GetSelectedPortraitPlayerType() << 6; // 0x40 and 0x80 bits
+            this->m_GameSession.type = this->vis_startgame->GetSelectedPortraitPlayerType() << 6; // 0x40 and 0x80 bits
 
-            name = vis_startgame->GetName();
-            strncpy(vis_map_context->GetUnit_3f6c()->str1, name, 12);
+            name = this->vis_startgame->GetName();
+            strncpy(this->vis_map_context->GetUnit_3f6c()->str1, name, 12);
 
-            name = vis_startgame->GetClan();
-            strncpy(vis_map_context->GetUnit_3f6c()->str2, name, 12);
+            name = this->vis_startgame->GetClan();
+            strncpy(this->vis_map_context->GetUnit_3f6c()->str2, name, 12);
 
-            m_GameSession.FUN_00494687();
-            FUN_00491a49();
+            this->m_GameSession.FUN_00494687();
+            this->FUN_00491a49();
         }
-    } else if (obj == vis_charsel)
+    } else if (obj == this->vis_charsel)
     {
-        dialogsMask &= ~0x400;
+        this->dialogsMask &= ~0x400;
 
-        if (vis_charsel->GetCloseCode() == 0x446)
+        if (this->vis_charsel->GetCloseCode() == 0x446)
         {
-            if (!field_0x3e0.field_08.IsEmpty()) {
+            if (!this->field_0x3e0.field_08.IsEmpty()) {
                 PostMessage(WM_CLOSE, 0, 0);
             } else {
                 PostMessage(0x421, 0, 0);
             }
-        } else if ((m_GameSession.flags & 4) == 0) {
-            ShowStartGameSetupForNewSession();
-        } else if (field_0x3e0.field_10 == 0) {
+        } else if ((this->m_GameSession.flags & 4) == 0) {
+            this->ShowStartGameSetupForNewSession();
+        } else if (this->field_0x3e0.field_10 == 0) {
             PostMessage(0x451, 0, 0);
         } else {
             PostMessage(0x489, 0, 0);
         }
-    } else if (obj == vis_globalmap) {
-        dialogsMask &= ~0x20;
-    } else if (obj == vis_credits)
+    } else if (obj == this->vis_globalmap) {
+        this->dialogsMask &= ~0x20;
+    } else if (obj == this->vis_credits)
     {
-        dialogsMask &= ~0x40;
+        this->dialogsMask &= ~0x40;
 
         if (FUN_00497490() == 0) {
             CWnd::PostMessage(0x421, 0, 0);
         } else {
             CWnd::PostMessage(0x429, 0, 0);
         }
-    } else if (obj == vis_dropgold)
+    } else if (obj == this->vis_dropgold)
     {
-        dialogsMask &= ~0x8;
+        this->dialogsMask &= ~0x8;
 
-        field_0x438 = timeGetTime();
-        game_tic_counter = 0;
-        field_0x43c = 0;
-    } else if (obj == field_0x12c)
+        this->field_0x438 = timeGetTime();
+        this->game_tic_counter = 0;
+        this->field_0x43c = 0;
+    } else if (obj == this->field_0x12c)
     {
-        dialogsMask &= ~0x8;
+        this->dialogsMask &= ~0x8;
 
-        if (field_0x12c->GetCloseCode() == 0x447)
+        if (this->field_0x12c->GetCloseCode() == 0x447)
         {
-            vis_map_context->FUN_0041d2da(1);
+            this->vis_map_context->FUN_0041d2da(1);
             PostMessage(0x421, 0, 0);
         } else {
             PostMessage(0x42e, 0, 0);
         }
 
-        delete field_0x12c;
-        field_0x12c = nullptr;
-    } else if (obj == field_0x140)
+        delete this->field_0x12c;
+        this->field_0x12c = nullptr;
+    } else if (obj == this->field_0x140)
     { //save game
-        dialogsMask &= ~0x8;
+        this->dialogsMask &= ~0x8;
 
-        if (field_0x140->GetCloseCode() == 0x445) {
-            FUN_0048f905();
+        if (this->field_0x140->GetCloseCode() == 0x445) {
+            this->FUN_0048f905();
         }
 
-        if (dialogsMask == 1 && serverBootstrapEnabled != 0)
+        if (this->dialogsMask == 1 && this->serverBootstrapEnabled != 0)
         {
-            field_0x438 = timeGetTime();
-            game_tic_counter = 0;
-            field_0x43c = 0;
+            this->field_0x438 = timeGetTime();
+            this->game_tic_counter = 0;
+            this->field_0x43c = 0;
         }
 
-        delete field_0x140;
-        field_0x140 = nullptr;
-    } else if (obj == field_0x13c)
+        delete this->field_0x140;
+        this->field_0x140 = nullptr;
+    } else if (obj == this->field_0x13c)
     { //load game
-        dialogsMask &= ~8;
+        this->dialogsMask &= ~8;
 
-        int32_t code = field_0x13c->GetCloseCode();
+        int32_t code = this->field_0x13c->GetCloseCode();
         if (code == 0x445) {
             PostMessage(0x419, 0, 0);
         } else if (g_Server == nullptr) {
             PostMessage(0x421, 0, 0);
-        } else if (field_0x450 == 0xff) {
+        } else if (this->field_0x450 == 0xff) {
             PostMessage(0x41e, 0, 0);
         }
 
-        if (dialogsMask == 1 && serverBootstrapEnabled != 0)
+        if (this->dialogsMask == 1 && this->serverBootstrapEnabled != 0)
         {
-            field_0x438 = timeGetTime();
-            game_tic_counter = 0;
-            field_0x43c = 0;
+            this->field_0x438 = timeGetTime();
+            this->game_tic_counter = 0;
+            this->field_0x43c = 0;
         }
 
-        delete field_0x13c;
-        field_0x13c = nullptr;
+        delete this->field_0x13c;
+        this->field_0x13c = nullptr;
 
         if (code == 0x445) {
             return;
         }
-    } else if (obj == field_0x34c)
+    } else if (obj == this->field_0x34c)
     {
-        dialogsMask &= ~8;
+        this->dialogsMask &= ~8;
 
-        int32_t code = field_0x34c->GetCloseCode();
+        int32_t code = this->field_0x34c->GetCloseCode();
 
         if (code == 0x44f)
         {
-            serverBootstrapEnabled = 0;
-            FUN_004903d0();
+            this->serverBootstrapEnabled = 0;
+            this->FUN_004903d0();
         } else if (code == 0x44d) {
-            FUN_00491822();
+            this->FUN_00491822();
         } else if (code == 0x44e) {
-            FUN_004918ae();
+            this->FUN_004918ae();
         } else {
             PostMessage(0x421, 0, 0);
         }
             
-        delete field_0x34c;
-        field_0x34c = nullptr;
+        delete this->field_0x34c;
+        this->field_0x34c = nullptr;
         return;
-    } else if (obj == field_0x350)
+    } else if (obj == this->field_0x350)
     {
-        dialogsMask &= ~8;
+        this->dialogsMask &= ~8;
 
-        if (field_0x350->GetCloseCode() == 0x446)
+        if (this->field_0x350->GetCloseCode() == 0x446)
         {
-            if (sessionMode == 3) {
+            if (this->sessionMode == 3) {
                 PostMessage(0x421, 0, 0);
             } else {
-                ShowCharacterLoaderDialog();
+                this->ShowCharacterLoaderDialog();
             }
         }
 
-        delete field_0x350;
-        field_0x350 = nullptr;
+        delete this->field_0x350;
+        this->field_0x350 = nullptr;
         return;
-    } else if (obj == field_0x378)
+    } else if (obj == this->field_0x378)
     {
-        dialogsMask &= ~8;
+        this->dialogsMask &= ~8;
 
-        if (field_0x378->GetCloseCode() == 0x446)
+        if (this->field_0x378->GetCloseCode() == 0x446)
         {
-            vis_root->MsgProc(0x446, 0, 0);
+            this->vis_root->MsgProc(0x446, 0, 0);
             PostMessage(0x45c, 0, 0);
         } else {
             PostMessage(0x457, 0, 0);
         }
         
-        delete field_0x378;
-        field_0x378 = nullptr;
+        delete this->field_0x378;
+        this->field_0x378 = nullptr;
         return;
-    } else if (obj == field_0x37c)
+    } else if (obj == this->field_0x37c)
     {
-        dialogsMask &= ~8;
+        this->dialogsMask &= ~8;
 
-        if (field_0x37c->GetCloseCode() == 0x446)
+        if (this->field_0x37c->GetCloseCode() == 0x446)
         {
-            if (hat_settings.ishat == 0)
+            if (this->hat_settings.ishat == 0)
             {
-                vis_root->MsgProc(0x446, 0, 0);
-                ShowCharacterLoaderDialog();
+                this->vis_root->MsgProc(0x446, 0, 0);
+                this->ShowCharacterLoaderDialog();
             } else if (g_CLlDriver.IsListen()) {
-                ShowCharacterLoaderDialog();
+                this->ShowCharacterLoaderDialog();
             } else {
                 PostMessage(0x487, 0, 0);
             }
-        } else if (hat_settings.ishat == 0)
+        } else if (this->hat_settings.ishat == 0)
         {
             g_NetStru1_local.SetLLDriver(&g_CLlDriver);
             g_CLlDriver.SetHlDriver(&g_NetStru1_local);
@@ -2721,39 +2721,39 @@ void MainWindow::Proc_44c(CVisualObject* obj)
             PostMessage(0x441, 0, 0);
         }
         
-        delete field_0x37c;
-        field_0x37c = nullptr;
+        delete this->field_0x37c;
+        this->field_0x37c = nullptr;
         return;
-    } else if (obj == field_0x3d0)
+    } else if (obj == this->field_0x3d0)
     {
-        dialogsMask &= ~8;
-        dialogsMask = 0;
+        this->dialogsMask &= ~8;
+        this->dialogsMask = 0;
 
-        if (field_0x3d0->GetCloseCode() == 0x445) {
+        if (this->field_0x3d0->GetCloseCode() == 0x445) {
             PostMessage(0x421, 0, 0);
         }
 
-        delete field_0x3d0;
-        field_0x3d0 = nullptr;
-    } else if (obj == field_0x144)
+        delete this->field_0x3d0;
+        this->field_0x3d0 = nullptr;
+    } else if (obj == this->field_0x144)
     {
-        dialogsMask &= ~8;
+        this->dialogsMask &= ~8;
 
-        int32_t code = field_0x144->GetCloseCode();
+        int32_t code = this->field_0x144->GetCloseCode();
 
-        field_0x144 = nullptr;
+        this->field_0x144 = nullptr;
 
         if (code == 0x445)
         {
             int j = 0;
-            for (int i = 0; i < vis_map_context->field_0x9b8.GetSize(); i++)
+            for (int i = 0; i < this->vis_map_context->field_0x9b8.GetSize(); i++)
             {
-                MapPlayerData* mp = vis_map_context->field_0x9b8[i];
+                MapPlayerData* mp = this->vis_map_context->field_0x9b8[i];
                 if (mp != nullptr && (mp->flags & 1) == 0)
                 {
-                    DiplomacyEntry* visdp = (*field_0x348)[j];
+                    DiplomacyEntry* visdp = (*this->field_0x348)[j];
 
-                    uint16_t dpl = vis_map_context->my_main_unit->diplomacy[mp->index] & 0x68;
+                    uint16_t dpl = this->vis_map_context->my_main_unit->diplomacy[mp->index] & 0x68;
 
                     if (visdp->enemy != 0) {
                         dpl |= 1;
@@ -2771,80 +2771,80 @@ void MainWindow::Proc_44c(CVisualObject* obj)
                         dpl |= 4;
                     }
 
-                    vis_map_context->my_main_unit->diplomacy[mp->index] = dpl;
+                    this->vis_map_context->my_main_unit->diplomacy[mp->index] = dpl;
 
-                    vis_map_context->my_main_unit->diplomacy[vis_map_context->my_main_unit->index] = 0x3a;
+                    this->vis_map_context->my_main_unit->diplomacy[this->vis_map_context->my_main_unit->index] = 0x3a;
 
                     j++;
                 }
             }
 
-            vis_map_context->FUN_0041a735();
+            this->vis_map_context->FUN_0041a735();
         }
 
         delete obj;
-    } else if (obj == field_0x3d4)
+    } else if (obj == this->field_0x3d4)
     {
-        dialogsMask &= ~8;
+        this->dialogsMask &= ~8;
 
-        if (field_0x3d4->GetCloseCode() == 0x445)
+        if (this->field_0x3d4->GetCloseCode() == 0x445)
         {
-            DAT_00660f88 = ((VisListBox*)field_0x3d4->FindChild(2))->GetSelectedIndex();
-            FUN_00491f7d(DAT_00660f88);
+            DAT_00660f88 = ((VisListBox*)this->field_0x3d4->FindChild(2))->GetSelectedIndex();
+            this->FUN_00491f7d(DAT_00660f88);
             PostMessage(0x43b, 0, 0);
         } else {
             PostMessage(0x421, 0, 0);
         }
 
-        delete field_0x3d4;
-        field_0x3d4 = nullptr; // MUST BE DONE? WAT?
-    } else if (obj == field_0x124)
+        delete this->field_0x3d4;
+        this->field_0x3d4 = nullptr; // MUST BE DONE? WAT?
+    } else if (obj == this->field_0x124)
     {
-        dialogsMask &= ~8;
+        this->dialogsMask &= ~8;
 
-        if (field_0x124->GetCloseCode() == 0x445) {
+        if (this->field_0x124->GetCloseCode() == 0x445) {
             PostMessage(0x41e, 0, 0);
         } else {
             PostMessage(0x418, 0, 0);
         }
 
-        delete field_0x124;
-        field_0x124 = nullptr; // MUST BE DONE? WAT?
-    } else if (obj == field_0x3dc)
+        delete this->field_0x124;
+        this->field_0x124 = nullptr; // MUST BE DONE? WAT?
+    } else if (obj == this->field_0x3dc)
     {
-        dialogsMask &= ~0x8000;
+        this->dialogsMask &= ~0x8000;
 
-        delete field_0x3dc;
-        field_0x3dc = nullptr; // MUST BE DONE? WAT?
+        delete this->field_0x3dc;
+        this->field_0x3dc = nullptr; // MUST BE DONE? WAT?
 
-        if ((dialogsMask & 1) == 0) {
-            vis_root->cursor_over_obj_last = vis_root->FindChild(1020);
+        if ((this->dialogsMask & 1) == 0) {
+            this->vis_root->cursor_over_obj_last = this->vis_root->FindChild(1020);
         }
-    } else if ((dialogsMask & 8) != 0)
+    } else if ((this->dialogsMask & 8) != 0)
     {
-        dialogsMask &= ~8;
+        this->dialogsMask &= ~8;
 
-        if (dialogsMask == 1 && sessionMode == 2)
+        if (this->dialogsMask == 1 && this->sessionMode == 2)
         {
-            field_0x438 = timeGetTime();
-            game_tic_counter = 0;
-            field_0x43c = 0;
+            this->field_0x438 = timeGetTime();
+            this->game_tic_counter = 0;
+            this->field_0x43c = 0;
         }
 
         delete obj;
     }
 
-    if (dialogsMask == 0x80) {
+    if (this->dialogsMask == 0x80) {
         g_Cursors[CURSOR_SELECT]->Use();
     }
 
-    vis_right_panel->MsgProc(0x408, 0, 0);
+    this->vis_right_panel->MsgProc(0x408, 0, 0);
 
-    if (dialogsMask != 1 || vis_map_context->field_0x80 != nullptr) {
-        vis_root->VMethod9();
+    if (this->dialogsMask != 1 || this->vis_map_context->field_0x80 != nullptr) {
+        this->vis_root->VMethod9();
     }
 
-    if (dialogsMask == 1 && DAT_006658d8.GetSize() != 0)
+    if (this->dialogsMask == 1 && DAT_006658d8.GetSize() != 0)
     {
         PostMessage(0x433, DAT_006658d8[0], 0);
         DAT_006658d8.RemoveAt(0);
@@ -2856,16 +2856,16 @@ void MainWindow::ShowCharacterLoaderDialog()
 { //48cff7
     g_Cursors[CURSOR_WAIT]->Use();
 
-    vis_charinfo->info_mode = 1;
-    vis_root->AddChild(vis_charsel);
+    this->vis_charinfo->info_mode = 1;
+    this->vis_root->AddChild(this->vis_charsel);
 
-    vis_charsel->VMethod28();
+    this->vis_charsel->VMethod28();
 
-    dialogsMask |= 0x400;
+    this->dialogsMask |= 0x400;
     
-    vis_root->VMethod9();
+    this->vis_root->VMethod9();
 
-    field_0x460 = 0;
+    this->field_0x460 = 0;
 
     g_Cursors[CURSOR_DEFAULT]->Use();
     return;
@@ -2876,21 +2876,21 @@ void MainWindow::FUN_00491a49()
 {   //491a49
     g_Cursors[CURSOR_WAIT]->Use();
 
-    vis_charinfo->info_mode = 1;
+    this->vis_charinfo->info_mode = 1;
 
-    vis_right_panel->MsgProc(0x403, (uint32_t)vis_map_context, 0);
+    this->vis_right_panel->MsgProc(0x403, (uint32_t)this->vis_map_context, 0);
     
-    vis_map_context->GetUnit_3f6c()->VMethod1(1); // select
+    this->vis_map_context->GetUnit_3f6c()->VMethod1(1); // select
 
-    vis_map_context->UpdateSelectionState();
+    this->vis_map_context->UpdateSelectionState();
 
-    vis_root->AddChild(vis_chargen);
-    vis_chargen->VMethod28();
+    this->vis_root->AddChild(this->vis_chargen);
+    this->vis_chargen->VMethod28();
 
-    vis_root->VMethod9();
+    this->vis_root->VMethod9();
 
-    field_0x460 = 0;
-    dialogsMask |= 0x200;
+    this->field_0x460 = 0;
+    this->dialogsMask |= 0x200;
 
     g_Cursors[CURSOR_DEFAULT]->Use();
 }
@@ -2900,36 +2900,36 @@ void MainWindow::FUN_00491a49()
 
 void MainWindow::FUN_0048f905()
 {  // 48f905
-    if (sessionMode == 2)
+    if (this->sessionMode == 2)
     {
-        CString local_2a4 = field_0x148.filename;
+        CString local_2a4 = this->field_0x148.filename;
         g_Server->sub_4ED2DC(&local_2a4);
 
-        field_0x438 = timeGetTime();
-        game_tic_counter = 0;
-        field_0x43c = 0;
+        this->field_0x438 = timeGetTime();
+        this->game_tic_counter = 0;
+        this->field_0x43c = 0;
 
         CFile local_13c;
-        local_13c.Open(field_0x148.filename, CFile::modeReadWrite);
+        local_13c.Open(this->field_0x148.filename, CFile::modeReadWrite);
         local_13c.Seek(0, CFile::end);
-        local_13c.Write(field_0x148.title, 0x100);
+        local_13c.Write(this->field_0x148.title, 0x100);
         
-        int inbattle = dialogsMask & 1;
+        int inbattle = this->dialogsMask & 1;
 
         RegFile local_180;
         local_180.SetInt("CurrentState", "InBattle", inbattle);
-        local_180.SetString("Character", "Name", m_GameSession.character_name);
-        local_180.SetInt("GameOptions", "Wimpy", vis_map_context->wimpy);
-        local_180.SetInt("GameOptions", "ShowHP", vis_map_context->show_hp);
-        local_180.SetInt("GameOptions", "FlyingHP", vis_map_context->flying_hp);
-        local_180.SetInt("GameOptions", "Formation", vis_map_context->formation);
-        local_180.SetInt("GameOptions", "Speed", game_speed);
+        local_180.SetString("Character", "Name", this->m_GameSession.character_name);
+        local_180.SetInt("GameOptions", "Wimpy", this->vis_map_context->wimpy);
+        local_180.SetInt("GameOptions", "ShowHP", this->vis_map_context->show_hp);
+        local_180.SetInt("GameOptions", "FlyingHP", this->vis_map_context->flying_hp);
+        local_180.SetInt("GameOptions", "Formation", this->vis_map_context->formation);
+        local_180.SetInt("GameOptions", "Speed", this->game_speed);
         local_180.SetInt("GameOptions", "ShowTimeFlow", g_settings.ShowTimeFlow);
-        local_180.SetInt("View", "X", vis_map_context->view_x);
-        local_180.SetInt("View", "Y", vis_map_context->view_y);
+        local_180.SetInt("View", "X", this->vis_map_context->view_x);
+        local_180.SetInt("View", "Y", this->vis_map_context->view_y);
 
-        local_180.SetInt("SpellBook", "IsOpen", vis_map_context->IsBookOpen());
-        local_180.SetInt("SpellBook", "Pressed", vis_spellbook->pressed);
+        local_180.SetInt("SpellBook", "IsOpen", this->vis_map_context->IsBookOpen());
+        local_180.SetInt("SpellBook", "Pressed", this->vis_spellbook->pressed);
 
         CArray<uint32_t> local_25c;
         local_180.SetInt32Array("SpellBook", "Shortcuts", local_25c);
@@ -2937,14 +2937,14 @@ void MainWindow::FUN_0048f905()
         CArray<uint16_t> local_12c;
         CArray<uint16_t> local_248[10];
 
-        if (!vis_map_context->field_0x9d0.IsEmpty())
+        if (!this->vis_map_context->field_0x9d0.IsEmpty())
         {
-            for (POSITION pos = vis_map_context->field_0x9d0.GetStartPosition(); pos != nullptr;)
+            for (POSITION pos = this->vis_map_context->field_0x9d0.GetStartPosition(); pos != nullptr;)
             {
                 uint16_t key;
                 CGameObject* obj;
 
-                vis_map_context->field_0x9d0.GetNextAssoc(pos, key, obj);
+                this->vis_map_context->field_0x9d0.GetNextAssoc(pos, key, obj);
 
                 if (obj->IsSelected() != 0) {
                     local_12c.Add(key);
@@ -2972,21 +2972,21 @@ void MainWindow::FUN_0048f905()
             }
         }
 
-        local_180.SetInt("Inventory", "IsOpen", vis_map_context->IsBagOpen());
+        local_180.SetInt("Inventory", "IsOpen", this->vis_map_context->IsBagOpen());
 
         if (inbattle)
         {
             CArray<uint16_t> local_27c;
 
-            local_180.SetInt("Projectiles", "FreeIndex", vis_map_context->field_0xa24);
+            local_180.SetInt("Projectiles", "FreeIndex", this->vis_map_context->field_0xa24);
 
-            if (!vis_map_context->field_0x9ec.IsEmpty())
+            if (!this->vis_map_context->field_0x9ec.IsEmpty())
             {
-                for (POSITION pos = vis_map_context->field_0x9ec.GetStartPosition(); pos != nullptr;)
+                for (POSITION pos = this->vis_map_context->field_0x9ec.GetStartPosition(); pos != nullptr;)
                 {
                     uint16_t key;
                     CGameObject* obj;
-                    vis_map_context->field_0x9ec.GetNextAssoc(pos, key, obj);
+                    this->vis_map_context->field_0x9ec.GetNextAssoc(pos, key, obj);
 
                     local_27c.Add(key);
 
@@ -3017,8 +3017,8 @@ void MainWindow::FUN_0048f905()
         {
             CArray<uint32_t> local_2a0;
 
-            uint16_t* land = vis_map_context->field_0x80->GetLandscape();
-            int numcells = vis_map_context->field_0x80->GetWidth() * vis_map_context->field_0x80->GetHeight();
+            uint16_t* land = this->vis_map_context->field_0x80->GetLandscape();
+            int numcells = this->vis_map_context->field_0x80->GetWidth() * this->vis_map_context->field_0x80->GetHeight();
 
             uint16_t state = *land & 0x8000;
             local_180.SetInt("Fog", "FirstState", state);
@@ -3051,17 +3051,17 @@ void MainWindow::FUN_0048f905()
 
         local_180.WriteToFile(&local_13c);
 
-        m_FameHall.FUN_004ac706(&local_13c);
+        this->m_FameHall.FUN_004ac706(&local_13c);
 
         ScenarioSave(&local_13c);
 
         for (int i = 0; i < 9; i++) {
-            m_GameSession.shortcuts[i].WriteToFile(&local_13c);
+            this->m_GameSession.shortcuts[i].WriteToFile(&local_13c);
         }
 
         local_13c.Close();
     } else {
-        vis_map_context->FUN_0041afcf(field_0x148.filename);
+        this->vis_map_context->FUN_0041afcf(this->field_0x148.filename);
     }
 }
 
@@ -3069,7 +3069,7 @@ void MainWindow::FUN_0048f905()
 void MainWindow::FUN_004903d0()
 { // 4903d0
 
-    sessionMode = 0;
+    this->sessionMode = 0;
 
     g_NetStru1_local.SetLLDriver(&g_CLlDriver);
     g_CLlDriver.SetHlDriver(&g_NetStru1_local);
@@ -3084,15 +3084,15 @@ void MainWindow::FUN_004903d0()
         g_CLlDriver.SetTimeout(g_CmdTimeout);
     }
 
-    if (vis_map_context->ConnectAndJoinSession() == 0)
+    if (this->vis_map_context->ConnectAndJoinSession() == 0)
     {
         g_CLlDriver.Close();
         PostMessage(0x41d, 0, 0);
     } else {
-        if (m_GameSession.field_0x10c == 0)
+        if (this->m_GameSession.field_0x10c == 0)
         {
             VisMessageBoxWithList* mwnd = new VisMessageBoxWithList(1, 64, 100, 428, 594, TxtFile::AllLines[210], nullptr, 4);
-            ModalScreen(mwnd);
+            this->ModalScreen(mwnd);
 
             if (mwnd->GetCloseCode() != 0x447)
             {
@@ -3101,7 +3101,7 @@ void MainWindow::FUN_004903d0()
             }
         }
 
-        if (field_0x454 == 0) {
+        if (this->field_0x454 == 0) {
             PostMessage(0x459, 0, 0);
         } else {
             PostMessage(0x457, 0, 0);
@@ -3111,16 +3111,16 @@ void MainWindow::FUN_004903d0()
 
 void MainWindow::FUN_00491822()
 {  //491822
-    sessionMode = 3;
+    this->sessionMode = 3;
 
     g_NetStru1_main.SetLLDriver(&g_CLlDriver);
     g_CLlDriver.SetHlDriver(&g_NetStru1_main);
 
     if (g_CLlDriver.GetProvider() == 3 || g_CLlDriver.GetProvider() == 2) {
-        g_CLlDriver.StartServer(g_ServerConfig.max_players, m_GameSession.character_name, nullptr);
+        g_CLlDriver.StartServer(g_ServerConfig.max_players, this->m_GameSession.character_name, nullptr);
     }
 
-    FUN_0048ca7e(0);
+    this->FUN_0048ca7e(0);
 
     PostMessage(0x459, 0, 0);
 }
@@ -3132,10 +3132,10 @@ int MainWindow::FUN_0048ca7e(int mode)
     g_Server = new Server();
     if (g_Server->Start(mode) == 0)
     {
-        serverBootstrapEnabled = 1;
+        this->serverBootstrapEnabled = 1;
         return 0;
     } else {
-        serverBootstrapEnabled = 0;
+        this->serverBootstrapEnabled = 0;
         return 1;
     }
 }
@@ -3144,7 +3144,7 @@ int MainWindow::FUN_0048ca7e(int mode)
 void MainWindow::FUN_004918ae()
 { // 4918ae
 
-    sessionMode = 1;
+    this->sessionMode = 1;
 
     g_NetStru1_main.SetLLDriver(&g_CLlDriver);
     g_CLlDriver.SetHlDriver(&g_NetStru1_main);
@@ -3156,14 +3156,14 @@ void MainWindow::FUN_004918ae()
     }
 
     if (g_CLlDriver.GetProvider() == 3 || g_CLlDriver.GetProvider() == 2) {
-        g_CLlDriver.StartServer(g_ServerConfig.max_players, m_GameSession.character_name, nullptr);
+        g_CLlDriver.StartServer(g_ServerConfig.max_players, this->m_GameSession.character_name, nullptr);
     }
 
-    FUN_0048ca7e(sessionMode);
+    this->FUN_0048ca7e(this->sessionMode);
 
-    if (vis_map_context->ConnectAndJoinSession() == 0)
+    if (this->vis_map_context->ConnectAndJoinSession() == 0)
     {
-        vis_root->MsgProc(0x446, 0, 0);
+        this->vis_root->MsgProc(0x446, 0, 0);
         PostMessage(0x45c, 0, 0);
     } else {
         PostMessage(0x459, 0, 0);
@@ -3183,7 +3183,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
     switch (message)
     {
     default:
-        if (vis_root && vis_root->MsgProc(message, wParam, lParam) != 0) {
+        if (this->vis_root && vis_root->MsgProc(message, wParam, lParam) != 0) {
             return DefWindowProc(message, wParam, lParam);
         }
         break;
@@ -3230,117 +3230,117 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         break;
 
     case 0x416:
-        if (dialogsMask == 1) {
-            PopUpScreen(new IngameMenu(1, 100, 60, 440, 400, nullptr, 0, CRect(0, 0, 240, 40)));
+        if (this->dialogsMask == 1) {
+            this->PopUpScreen(new IngameMenu(1, 100, 60, 440, 400, nullptr, 0, CRect(0, 0, 240, 40)));
         }
         break;
 
     case 0x418:
-        field_0x148.title[0] = 0;
-        field_0x148.filename[0] = 0;
-        field_0x13c = new LoadGameWindow(1, 100, 30, 600, 450, 0, &field_0x148);
-        PopUpScreen(field_0x13c);
+        this->field_0x148.title[0] = 0;
+        this->field_0x148.filename[0] = 0;
+        this->field_0x13c = new LoadGameWindow(1, 100, 30, 600, 450, 0, &this->field_0x148);
+        this->PopUpScreen(this->field_0x13c);
         break;
 
     case 0x419:
-        if (dialogsMask == 1) {
+        if (this->dialogsMask == 1) {
             g_Server->sub_4F1E2A();
         }
 
-        FUN_0048cb3c();
+        this->FUN_0048cb3c();
 
-        if (dialogsMask == 0 && vis_root->FindChild(1020) != nullptr)
+        if (this->dialogsMask == 0 && vis_root->FindChild(1020) != nullptr)
         {
-            vis_map_context->FUN_0041d2da(1);
+            this->vis_map_context->FUN_0041d2da(1);
 
             ScenarioLocation* cur_location = ScenarioGetCurrentLocation();
             if (cur_location != nullptr)
             {
                 int loc_type = cur_location->GetId();
                 if (loc_type == 1) {
-                    vis_town->MsgProc(0x445, 0, 0);
+                    this->vis_town->MsgProc(0x445, 0, 0);
                 } else if (loc_type == 2) {
-                    vis_townkaarg->MsgProc(0x445, 0, 0);
+                    this->vis_townkaarg->MsgProc(0x445, 0, 0);
                 } else if (loc_type == 3) {
-                    vis_towndruid->MsgProc(0x445, 0, 0);
+                    this->vis_towndruid->MsgProc(0x445, 0, 0);
                 }
             }
         }
-        FUN_0048f79d();
+        this->FUN_0048f79d();
         break;
 
     case 0x41a:
-        if (dialogsMask == 1 || dialogsMask == 0)
+        if (this->dialogsMask == 1 || this->dialogsMask == 0)
         {
-            field_0x148.title[0] = 0;
-            field_0x148.filename[0] = 0;
-            field_0x140 = new SaveGameWindow(1, 100, 30, 600, 450, 0, &field_0x148);
-            PopUpScreen(field_0x140);
+            this->field_0x148.title[0] = 0;
+            this->field_0x148.filename[0] = 0;
+            this->field_0x140 = new SaveGameWindow(1, 100, 30, 600, 450, 0, &this->field_0x148);
+            this->PopUpScreen(this->field_0x140);
         }
         break;
 
     case 0x41b:
-        if (dialogsMask == 1 || dialogsMask == 0) {
-            PopUpScreen(new GameOptionsWindow(1, 20, 0, 620, 480));
+        if (this->dialogsMask == 1 || this->dialogsMask == 0) {
+            this->PopUpScreen(new GameOptionsWindow(1, 20, 0, 620, 480));
         }
         break;
 
     case 0x41c:
-        if (dialogsMask == 1) {
-            PopUpScreen(new EndGameMenu(1, 100, 100, 440, 340, nullptr, 0, CRect(0, 0, 300, 50), field_0x3f8));
-        } else if (dialogsMask == 0) {
-            PopUpScreen(new ExitGameMenu(1, 100, 100, 440, 340, CRect(0, 0, 300, 70)));
+        if (this->dialogsMask == 1) {
+            this->PopUpScreen(new EndGameMenu(1, 100, 100, 440, 340, nullptr, 0, CRect(0, 0, 300, 50), this->field_0x3f8));
+        } else if (this->dialogsMask == 0) {
+            this->PopUpScreen(new ExitGameMenu(1, 100, 100, 440, 340, CRect(0, 0, 300, 70)));
         }
         break;
 
     case 0x41d:
-        if (sessionMode == 1 || sessionMode == 3)
+        if (this->sessionMode == 1 || this->sessionMode == 3)
         {
-            if (sessionMode == 1) {
-                vis_map_context->FUN_0041d2da(0);
+            if (this->sessionMode == 1) {
+                this->vis_map_context->FUN_0041d2da(0);
             } else {
-                vis_map_context->FUN_0041d2da(1);
+                this->vis_map_context->FUN_0041d2da(1);
             }
 
-            if ((dialogsMask & 1) != 0) {
-                FUN_0048f6f7();
+            if ((this->dialogsMask & 1) != 0) {
+                this->FUN_0048f6f7();
             }
             
             g_Server->sub_4F1E2A();
             PostMessage(0x459, 0, 0);
-        } else if (sessionMode == 0)
+        } else if (this->sessionMode == 0)
         {
-            vis_map_context->FUN_0041d2da(1);
+            this->vis_map_context->FUN_0041d2da(1);
 
-            if ((dialogsMask & 1) != 0) {
-                FUN_0048f6f7();
+            if ((this->dialogsMask & 1) != 0) {
+                this->FUN_0048f6f7();
             }
 
             g_CLlDriver.Close();
 
-            field_0x438 = 0x7fffffff;
-            last_tic_time = 0x7fffffff;
+            this->field_0x438 = 0x7fffffff;
+            this->last_tic_time = 0x7fffffff;
 
             PostMessage(0x452, 0, 0);
-        } else if (field_0x3f8 == 0)
+        } else if (this->field_0x3f8 == 0)
         {
             g_Server->sub_4F1E2A();
             PostMessage(0x421, 0, 0);
         } else {
-            m_FameHall.AddMissionElapsedTime(g_Server->tick / 16);
-            vis_map_context->CleanupCompletedMissionMapState();
+            this->m_FameHall.AddMissionElapsedTime(g_Server->tick / 16);
+            this->vis_map_context->CleanupCompletedMissionMapState();
 
-            if ((dialogsMask & 1) != 0) {
-                FUN_0048f6f7();
+            if ((this->dialogsMask & 1) != 0) {
+                this->FUN_0048f6f7();
             }
             
             if (g_Server) {
                 g_Server->sub_4F1E2A();
             }
             
-            FUN_00485a41();
+            this->FUN_00485a41();
 
-            vis_globalmap->SetTravelOrigin(ScenarioGetCurrentLocation()->rect.TopLeft());
+            this->vis_globalmap->SetTravelOrigin(ScenarioGetCurrentLocation()->rect.TopLeft());
 
             int32_t loc;
             int32_t local_894 = ScenarioLeaveLocation(&loc);
@@ -3351,17 +3351,17 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
             {
                 local_8ac.Add(var);
                 g_Server->FUN_00501b9e(ScenarioGetVar(0x300), local_8ac);
-                vis_map_context->ProcessPackets(0);
+                this->vis_map_context->ProcessPackets(0);
             }
 
             if (loc > -1) {
-                FUN_00491f7d(loc);
+                this->FUN_00491f7d(loc);
             }
 
             if (FUN_00497490() == 0)
             {
                 if (local_894 != 0) {
-                    vis_map_context->SendAdjustPlayerGoldAction(local_894);
+                    this->vis_map_context->SendAdjustPlayerGoldAction(local_894);
                 }
 
                 if (ScenarioIsTownAvailable(0) == 0)
@@ -3370,12 +3370,12 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
                     ScenarioEnterLocation(locs->GetHead());
                     PostMessage(0x468, 0, 0);
                 } else {
-                    vis_globalmap->umoirMapMode = 0;
-                    ShowGlobalMapDialog();
+                    this->vis_globalmap->umoirMapMode = 0;
+                    this->ShowGlobalMapDialog();
                 }
             } else {
-                m_FameHall.SubmitScore();
-                vis_map_context->FUN_0041d2da(1);
+                this->m_FameHall.SubmitScore();
+                this->vis_map_context->FUN_0041d2da(1);
                 PostMessage(MSG_428, 0 ,0);
             }
         }
@@ -3387,24 +3387,24 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         break;
 
     case 0x41f:
-        PopUpScreen(new TownMenuListDialogVisualObject(1, 100, 100, 440, 340, CRect(0, 0, 240, 40)));
+        this->PopUpScreen(new TownMenuListDialogVisualObject(1, 100, 100, 440, 340, CRect(0, 0, 240, 40)));
         break;
 
     case 0x420:
-        PopUpScreen(new QuestObjectivesHeaderDialogVisualObject(1, 20, 0, 620, 500));
+        this->PopUpScreen(new QuestObjectivesHeaderDialogVisualObject(1, 20, 0, 620, 500));
         break;
 
     case 0x421:
-        if (dialogsMask == 0) {
-            Proc_421();
+        if (this->dialogsMask == 0) {
+            this->Proc_421();
         }
         break;
 
     case 0x422:
-        if (dialogsMask == 1 || (dialogsMask == 0 && g_Server != nullptr))
+        if (this->dialogsMask == 1 || (this->dialogsMask == 0 && g_Server != nullptr))
         {
-            PopUpScreen(new SoundPreferencesDialogVisualObject(1, 100, 30, 640, 450, nullptr, &g_SoundSettings));
-        } else if (dialogsMask == 0) {
+            this->PopUpScreen(new SoundPreferencesDialogVisualObject(1, 100, 30, 640, 450, nullptr, &g_SoundSettings));
+        } else if (this->dialogsMask == 0) {
             PostMessage(MSG_487, 0, 0);
         }
         break;
@@ -3412,111 +3412,111 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
     case 0x425:
         ReadFileToString("main\\text\\town.txt", &g_MissionText);
         ScenarioNewGame();
-        serverLoopCounter = 0;
-        serverBootstrapEnabled = 1;
-        InitNewCampaignSession();
-        m_FameHall.ZeroFactors();
-        vis_globalmap->RebuildScenarioLocations();
-        m_FameHall.SetDifficulty(1);
+        this->serverLoopCounter = 0;
+        this->serverBootstrapEnabled = 1;
+        this->InitNewCampaignSession();
+        this->m_FameHall.ZeroFactors();
+        this->vis_globalmap->RebuildScenarioLocations();
+        this->m_FameHall.SetDifficulty(1);
 
-        if (sessionMode == 3) {
+        if (this->sessionMode == 3) {
             PostMessage(MSG_42f, 0, 0);
         } else {
-            m_GameSession.RefreshCharacterRosterFiles(1);
+            this->m_GameSession.RefreshCharacterRosterFiles(1);
         }
-            m_GameSession.InitializeNewCharacterSession(0, nullptr);
-            ShowStartGameSetupForNewSession();
+            this->m_GameSession.InitializeNewCharacterSession(0, nullptr);
+            this->ShowStartGameSetupForNewSession();
         break;
 
     case 0x426:
         ReadFileToString("main\\text\\town.txt", &g_MissionText);
-        serverLoopCounter = 0;
-        sessionMode = 0;
-        ShowCharacterLoaderDialog();
+        this->serverLoopCounter = 0;
+        this->sessionMode = 0;
+        this->ShowCharacterLoaderDialog();
         break;
 
     case 0x427:
-        ShowStartupLogoDialog();
-        vis_logownd->MsgProc(0x43a, 1, 0);
-        vis_logownd->MsgProc(0x439, 4000, 0);
+        this->ShowStartupLogoDialog();
+        this->vis_logownd->MsgProc(0x43a, 1, 0);
+        this->vis_logownd->MsgProc(0x439, 4000, 0);
         vis_root->VMethod9();
         break;
 
     case 0x428:
-        ShowCreditsDialog();
+        this->ShowCreditsDialog();
         break;
 
     case 0x429:
-        ShowFameHallDialog();
+        this->ShowFameHallDialog();
         break;
 
     case 0x42a:
-        if (dialogsMask == 0 || (sessionMode < 2 && dialogsMask == 1)) {
-            ShowShopDialog(wParam);
+        if (this->dialogsMask == 0 || (this->sessionMode < 2 && this->dialogsMask == 1)) {
+            this->ShowShopDialog(wParam);
         }
         break;
 
     case 0x42b:
-        if (dialogsMask == 0 || (sessionMode < 2 && dialogsMask == 1)) {
-            ShowInnDialog(wParam, lParam);
+        if (this->dialogsMask == 0 || (this->sessionMode < 2 && this->dialogsMask == 1)) {
+            this->ShowInnDialog(wParam, lParam);
         }
         break;
 
     case 0x42d:
     {
-        vis_globalmap->umoirMapMode = 0;
+        this->vis_globalmap->umoirMapMode = 0;
         ScenarioLocation* cloc = ScenarioGetCurrentLocation();
         if (cloc->GetKind() == 2)
         {
-            vis_globalmap->SetTravelOrigin(cloc->GetRect().TopLeft());
+            this->vis_globalmap->SetTravelOrigin(cloc->GetRect().TopLeft());
 
             int32_t loc = -1;
             ScenarioLeaveLocation(&loc);
 
             if (loc > -1) {
-                FUN_00491f7d(loc);
+                this->FUN_00491f7d(loc);
             }
 
             if (cloc->GetId() == 1) {
-                vis_globalmap->umoirMapMode = 1;
+                this->vis_globalmap->umoirMapMode = 1;
             }
         }
-        ShowGlobalMapDialog();
+        this->ShowGlobalMapDialog();
     }
         break;
 
     case 0x42e:
-        ShowCurrentTownDialog();
+        this->ShowCurrentTownDialog();
         break;
 
     case 0x42f:
-        RunSessionBootstrap(0);
+        this->RunSessionBootstrap(0);
         break;
 
     case 0x430:
         if (FUN_00497490() == 0)
         {
-            field_0x3f8 = 1;
+            this->field_0x3f8 = 1;
 
             CRect local_8d0(128, 200, 512, 380);
             CRect local_8c0(local_8d0.Width() / 8, local_8d0.Height() - 120, local_8d0.Width() * 7 / 8, local_8d0.Height() - 96);
-            field_0x128 = new Vis2Action(1, local_8d0.left, local_8d0.top, local_8d0.right, local_8d0.bottom, txt_main.GetLine(140), local_8c0);
-            PopUpScreen(field_0x128);
+            this->field_0x128 = new Vis2Action(1, local_8d0.left, local_8d0.top, local_8d0.right, local_8d0.bottom, txt_main.GetLine(140), local_8c0);
+            this->PopUpScreen(this->field_0x128);
             if (!g_SfxArray[14]->FindPlayingChannel()) {
                 g_SfxArray[14]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
             }
         } else {
-            field_0x3f8 = 1;
+            this->field_0x3f8 = 1;
             PostMessage(0x41d, 0, 0);
         }
         break;
 
     case 0x431:
-        if (field_0x3fc == 0 && sessionMode == 2)
+        if (this->field_0x3fc == 0 && this->sessionMode == 2)
         {
-            field_0x3fc = 1;
-            field_0x124 = new VisMissionFailed(1, 32, 100, 608, 380, g_MissionFailures[wParam - 2]);
-            PopUpScreen(field_0x124);
+            this->field_0x3fc = 1;
+            this->field_0x124 = new VisMissionFailed(1, 32, 100, 608, 380, g_MissionFailures[wParam - 2]);
+            this->PopUpScreen(this->field_0x124);
 
             if (!g_SfxArray[16]->FindPlayingChannel()) {
                 g_SfxArray[16]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
@@ -3529,48 +3529,48 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         break;
 
     case 0x433:
-        field_0x450 = wParam;
+        this->field_0x450 = wParam;
 
-        if (field_0x450 == 255) {
+        if (this->field_0x450 == 255) {
             PostMessage(0x431, lParam, 0);
-        } else if (field_0x450 == 254)
+        } else if (this->field_0x450 == 254)
         {
             if (!g_SfxArray[16]->FindPlayingChannel()) {
                 g_SfxArray[16]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
             }
-        } else if (field_0x450 == 253)
+        } else if (this->field_0x450 == 253)
         {
             if (!g_SfxArray[14]->FindPlayingChannel()) {
                 g_SfxArray[14]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
             }
-        } else if (field_0x450 == 250)
+        } else if (this->field_0x450 == 250)
         {
             if (!g_SfxArray[14]->FindPlayingChannel()) {
                 g_SfxArray[14]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
             }
-            vis_map_context->msglog.Add(txt_patch.GetLine(97), clr_log_sblack, 30000);
-        } else if ((dialogsMask & 8) == 0)
+            this->vis_map_context->msglog.Add(txt_patch.GetLine(97), clr_log_sblack, 30000);
+        } else if ((this->dialogsMask & 8) == 0)
         {
             CString local_850;
-            local_850.Format("event%d", field_0x450);
+            local_850.Format("event%d", this->field_0x450);
             ShowRoleKeyDialog(local_850);
         } else {
-            DAT_006658d8.Add(field_0x450);
+            DAT_006658d8.Add(this->field_0x450);
         }
         break;
 
     case 0x434:
-        if (dialogsMask == 1) {
-            PopUpScreen(new VisMessageBoxWithList(1, 32, 48, 608, 432, g_HelpStr, nullptr, 0));
+        if (this->dialogsMask == 1) {
+            this->PopUpScreen(new VisMessageBoxWithList(1, 32, 48, 608, 432, g_HelpStr, nullptr, 0));
         }
         break;
 
     case 0x435:
-        LoadData();
+        this->LoadData();
         break;
 
     case 0x436:
-        FUN_00491f7d(0);
+        this->FUN_00491f7d(0);
         PostMessage(WM_CLOSE, 0, 0);
         break;
 
@@ -3579,35 +3579,35 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         {
         case 0:
         case 1:
-            vis_logownd->MsgProc(0x43a, wParam + 1, 0);
-            vis_logownd->MsgProc(0x439, 4000, 0);
+            this->vis_logownd->MsgProc(0x43a, wParam + 1, 0);
+            this->vis_logownd->MsgProc(0x439, 4000, 0);
             vis_root->VMethod9();
             break;
 
         case 2:
-            vis_logownd->MsgProc(0x43a, wParam + 1, 0);
-            vis_logownd->MsgProc(0x439, 6000, 0);
+            this->vis_logownd->MsgProc(0x43a, wParam + 1, 0);
+            this->vis_logownd->MsgProc(0x439, 6000, 0);
             vis_root->VMethod9();
-            LoadData();
+            this->LoadData();
             break;
 
         case 3:
-            vis_logownd->MsgProc(0x43a, wParam + 1, 0);
-            vis_logownd->MsgProc(0x439, 30000, 0);
+            this->vis_logownd->MsgProc(0x43a, wParam + 1, 0);
+            this->vis_logownd->MsgProc(0x439, 30000, 0);
             vis_root->VMethod9();
             break;
 
         case 4:
-            vis_logownd->DoClose(0x445);
-            vis_root->RemoveChild(vis_logownd);
-            dialogsMask &= ~0x100;
+            this->vis_logownd->DoClose(0x445);
+            vis_root->RemoveChild(this->vis_logownd);
+            this->dialogsMask &= ~0x100;
             PostMessage(0x421, 0, 0);
             break;
 
         case 5:
-            vis_logownd->DoClose(0x445);
-            vis_root->RemoveChild(vis_logownd);
-            dialogsMask &= ~0x100;
+            this->vis_logownd->DoClose(0x445);
+            vis_root->RemoveChild(this->vis_logownd);
+            this->dialogsMask &= ~0x100;
             PostMessage(WM_CLOSE, 0, 0);
             break;
 
@@ -3615,9 +3615,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         case 7:
         case 8:
         case 9:
-            vis_logownd->DoClose(0x445);
-            vis_root->RemoveChild(vis_logownd);
-            dialogsMask &= ~0x100;
+            this->vis_logownd->DoClose(0x445);
+            vis_root->RemoveChild(this->vis_logownd);
+            this->dialogsMask &= ~0x100;
             PostMessage(0x425, 0, 0);
             break;
         }
@@ -3635,28 +3635,28 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
                     local_934.Add(txt_cutscene.GetLine(i));
                 }
             }
-            field_0x3d4 = new VisCutScenesDlg(17, 100, 30, 540, 450, local_934);
-            PopUpScreen(field_0x3d4);
+            this->field_0x3d4 = new VisCutScenesDlg(17, 100, 30, 540, 450, local_934);
+            this->PopUpScreen(this->field_0x3d4);
         }
         break;
 
     case 0x43c:
-        if (dialogsMask == 1)
+        if (this->dialogsMask == 1)
         {
-            FUN_00494a9e();
+            this->FUN_00494a9e();
             // The original passes the address of the array pointer so the dialog
             // re-reads the current array on every ReadData (see VisDiplomacy::diplomacy).
-            field_0x144 = new VisDiplomacy(1, 10, 0, 630, 480, (const CArray<DiplomacyEntry*>*)&field_0x348);
-            PopUpScreen(field_0x144);
+            this->field_0x144 = new VisDiplomacy(1, 10, 0, 630, 480, (const CArray<DiplomacyEntry*>*)&this->field_0x348);
+            this->PopUpScreen(this->field_0x144);
         }
         break;
 
     case 0x440:
-        StartHatDedicatedServer();
+        this->StartHatDedicatedServer();
         break;
 
     case 0x441:
-        if (WaitHatConnection() == 0)
+        if (this->WaitHatConnection() == 0)
         {
             if (g_CLlDriver.IsListen() == 0) {
                 CWnd::PostMessage(0x487, 0, 0);
@@ -3664,76 +3664,76 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
                 CWnd::PostMessage(0x489, 0, 0);
             }
         } else {
-            if (ConnectToServerAddress() == 0) {
+            if (this->ConnectToServerAddress() == 0) {
                 PostMessage(0x487, 0, 0);
             } else {
-                WaitConnectionCharacterJoin();
+                this->WaitConnectionCharacterJoin();
             }
         }
         break;
 
     case 0x442:
         if (wParam == 0) {
-            strcpy(field_0x148.title, txt_patch.GetLine(55));
+            strcpy(this->field_0x148.title, txt_patch.GetLine(55));
         } else {
-            strcpy(field_0x148.title, txt_patch.GetLine(95));
+            strcpy(this->field_0x148.title, txt_patch.GetLine(95));
         }
-        sprintf(field_0x148.filename, "game%d.sav", 9999 - wParam);
-        FUN_0048f905();
-        field_0x438 = timeGetTime();
-        game_tic_counter = 0;
-        field_0x43c = 0;
+        sprintf(this->field_0x148.filename, "game%d.sav", 9999 - wParam);
+        this->FUN_0048f905();
+        this->field_0x438 = timeGetTime();
+        this->game_tic_counter = 0;
+        this->field_0x43c = 0;
         break;
 
     case 0x443:
-        dialogsMask |= 8;
+        this->dialogsMask |= 8;
         g_Cursors[CURSOR_DEFAULT]->Use();
         break;
 
     case 0x44c:
-        Proc_44c((CVisualObject*)wParam);  // FIXME
+        this->Proc_44c((CVisualObject*)wParam);  // FIXME
         break;
 
     case 0x451:
-        if (field_0x3e0.field_08.IsEmpty() == 0)
+        if (this->field_0x3e0.field_08.IsEmpty() == 0)
         {
-            WaitConnectionCharacterJoin();
+            this->WaitConnectionCharacterJoin();
         } else if (this->dialogsMask == 0)
         {
-            music_player->OnEndTrack();
+            this->music_player->OnEndTrack();
             if (!IsDplayAvail)
             {
-                ModalScreen(new VisMessageBoxWithList(1, 100, 100, 540, 380, txt_main.GetLine(152), nullptr, 0));
+                this->ModalScreen(new VisMessageBoxWithList(1, 100, 100, 540, 380, txt_main.GetLine(152), nullptr, 0));
                 PostMessage(0x421, 0, 0);
             } else {
 
-                field_0x350 = new VisConnectionDlg(1, 0, 0, 640, 350, &last_protocol);
-                PopUpScreen(field_0x350);
+                this->field_0x350 = new VisConnectionDlg(1, 0, 0, 640, 350, &this->last_protocol);
+                this->PopUpScreen(this->field_0x350);
 
                 if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol0")) {
-                    ((VisListBox*)field_0x350->FindChild(2))->SetSelectedIndex(0);
+                    ((VisListBox*)this->field_0x350->FindChild(2))->SetSelectedIndex(0);
                 }
                 if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol1")) {
-                    ((VisListBox*)field_0x350->FindChild(2))->SetSelectedIndex(1);
+                    ((VisListBox*)this->field_0x350->FindChild(2))->SetSelectedIndex(1);
                 }
                 if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol2")) {
-                    ((VisListBox*)field_0x350->FindChild(2))->SetSelectedIndex(2);
+                    ((VisListBox*)this->field_0x350->FindChild(2))->SetSelectedIndex(2);
                 }
                 if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol3")) {
-                    ((VisListBox*)field_0x350->FindChild(2))->SetSelectedIndex(3);
+                    ((VisListBox*)this->field_0x350->FindChild(2))->SetSelectedIndex(3);
                 }
                 if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol4")) {
-                    ((VisListBox*)field_0x350->FindChild(2))->SetSelectedIndex(4);
+                    ((VisListBox*)this->field_0x350->FindChild(2))->SetSelectedIndex(4);
                 }
 
                 if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol")) {
-                    field_0x350->MsgProc(0x445, 0, 0);
+                    this->field_0x350->MsgProc(0x445, 0, 0);
                 }
 
                 if (g_ServerConfig.protocol > -1 && g_ServerConfig.protocol < 2)
                 {
-                    ((VisListBox*)field_0x350->FindChild(2))->SetSelectedIndex(g_ServerConfig.protocol);
-                    field_0x350->MsgProc(0x445, 0, 0);
+                    ((VisListBox*)this->field_0x350->FindChild(2))->SetSelectedIndex(g_ServerConfig.protocol);
+                    this->field_0x350->MsgProc(0x445, 0, 0);
                 }
             }
         }
@@ -3753,44 +3753,44 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
                 int num;
                 g_CLlDriver.EnumAddresses(&addresses, &num);
 
-                g_CLlDriver.PrepareForConnect(field_0x3e0.field_14, nullptr);
+                g_CLlDriver.PrepareForConnect(this->field_0x3e0.field_14, nullptr);
             }
         }
 
-        if (sessionMode == 3)
+        if (this->sessionMode == 3)
         {
-            FUN_00491822();
+            this->FUN_00491822();
         } else {
-            field_0x34c = new VisNetDlg(1, 0, 30, 640, 450, &net_sessions);
-            PopUpScreen(field_0x34c);
+            this->field_0x34c = new VisNetDlg(1, 0, 30, 640, 450, &this->net_sessions);
+            this->PopUpScreen(this->field_0x34c);
         }
         break;
 
     case 0x453:
-        PopUpScreen( new VisNetTcpIp(1, 0, 100, 640, 300, &last_ip) );
+        this->PopUpScreen( new VisNetTcpIp(1, 0, 100, 640, 300, &this->last_ip) );
         if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol") != nullptr || g_ServerConfig.protocol > -1) {
             PostMessage(0x445, 0, 0);
         }
         break;
 
     case 0x454:
-        PopUpScreen(new VisNetSerialSettings(1, 0, 100, 540, 480, &com_settings));
+        this->PopUpScreen(new VisNetSerialSettings(1, 0, 100, 540, 480, &this->com_settings));
         break;
 
     case 0x455:
-        PopUpScreen(new VisNetPhoneBook(1, 0, 100, 650, 400, &phone_book));
+        this->PopUpScreen(new VisNetPhoneBook(1, 0, 100, 650, 400, &this->phone_book));
         break;
 
     case 0x457:
-        if (sessionMode != 3)
+        if (this->sessionMode != 3)
         {
-            if (sessionMode == 0)
+            if (this->sessionMode == 0)
             {
                 INT_00660f8c = 0;
-                field_0x458 = 0;
-                vis_map_context->FUN_0041cb21();
+                this->field_0x458 = 0;
+                this->vis_map_context->FUN_0041cb21();
 
-                while (field_0x458 == 0)
+                while (this->field_0x458 == 0)
                 {
                     if (g_NetStru1_local.GetClientsPktNum() == 0)
                     {
@@ -3801,7 +3801,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
                             g_RemoteTimestamp = ticks;
                         }
                     } else {
-                        vis_map_context->ProcessPackets(0x64);
+                        this->vis_map_context->ProcessPackets(0x64);
                     }
 
                     MSG msg;
@@ -3826,31 +3826,31 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 
                     if (INT_00660f8c)
                     {
-                        ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
+                        this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
                         PostMessage(0x45c, 0, 0);
                         break;
                     }
                 }
             }
 
-            if (m_GameSession.SubmitCharacterSetupAndWaitForSelectedUnit() == 0)
+            if (this->m_GameSession.SubmitCharacterSetupAndWaitForSelectedUnit() == 0)
             {
                 if ((INT_00660f8c & 0xff) < 11) {
-                    ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_main.GetLine(192 + (INT_00660f8c & 0xff)), nullptr, 0));
+                    this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_main.GetLine(192 + (INT_00660f8c & 0xff)), nullptr, 0));
                 } else {
-                    ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
+                    this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
                 }
                 PostMessage(0x45c, 0, 0);
                 break;
             }
         }
 
-        if (RunSessionBootstrap(0) == 0)
+        if (this->RunSessionBootstrap(0) == 0)
         {
             if ((INT_00660f8c & 0xff) < 11) {
-                ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_main.GetLine(192 + (INT_00660f8c & 0xff)), nullptr, 0));
+                this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_main.GetLine(192 + (INT_00660f8c & 0xff)), nullptr, 0));
             } else {
-                ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
+                this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
             }
             PostMessage(0x45c, 0, 0);
         }
@@ -3863,17 +3863,17 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         {
             if (g_ServerConfig.map_names.GetSize() == 0)
             {
-                field_0x378 = new VisNetMapSelection(1, 0, -64, 640, 480, &current_map_name);
-                PopUpScreen(field_0x378);
+                this->field_0x378 = new VisNetMapSelection(1, 0, -64, 640, 480, &this->current_map_name);
+                this->PopUpScreen(this->field_0x378);
             } else {
-                current_map_name = g_ServerConfig.map_names[g_ServerConfig.current_map_index];
+                this->current_map_name = g_ServerConfig.map_names[g_ServerConfig.current_map_index];
                 PostMessage(0x457, 0, 0);
             }
         } else {
-            current_map_name = token + 5;
-            int nidx = current_map_name.Find('"');
+            this->current_map_name = token + 5;
+            int nidx = this->current_map_name.Find('"');
             if (nidx != 0) {
-                current_map_name = current_map_name.Left(nidx);
+                this->current_map_name = this->current_map_name.Left(nidx);
             }
 
             PostMessage(0x457, 0, 0);
@@ -3884,12 +3884,12 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 
     case 0x45a:
     {
-        CVisualObject* local_96c = vis_map_context->FindChild(16);
+        CVisualObject* local_96c = this->vis_map_context->FindChild(16);
         if (!local_96c) {
             vis_root->MsgProc(message, wParam, lParam);
         } else
         {
-            vis_map_context->RemoveChild(local_96c);
+            this->vis_map_context->RemoveChild(local_96c);
             delete local_96c;
         }
     }
@@ -3901,42 +3901,42 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
             CString tip;
             MissionGetTips(wParam, &tip);
 
-            CVisualObject* local_960 = vis_map_context->FindChild(16);
+            CVisualObject* local_960 = this->vis_map_context->FindChild(16);
             if (local_960)
             {
-                vis_map_context->RemoveChild(local_960);
+                this->vis_map_context->RemoveChild(local_960);
                 delete local_960;
             }
 
-            vis_map_context->AddChild(new VisTipsDialog(16, 10, 20, 370, 188, tip));
+            this->vis_map_context->AddChild(new VisTipsDialog(16, 10, 20, 370, 188, tip));
         }
         break;
 
     case 0x45c:
-        if (field_0x3e0.field_08.IsEmpty() == 0)
+        if (this->field_0x3e0.field_08.IsEmpty() == 0)
         {
             PostMessage(WM_CLOSE, 0, 0);
-        } else if (sessionMode == 0 || sessionMode == 1)
+        } else if (this->sessionMode == 0 || this->sessionMode == 1)
         {
-            if (dialogsMask & 8) {
+            if (this->dialogsMask & 8) {
                 vis_root->MsgProc(0x446, 0, 0);
             }
 
-            if (dialogsMask & 2) {
+            if (this->dialogsMask & 2) {
                 vis_root->MsgProc(0x445, 0, 0);
             }
 
-            if (dialogsMask & 4) {
+            if (this->dialogsMask & 4) {
                 vis_root->MsgProc(0x445, 0, 0);
             }
             
-            vis_map_context->FUN_0041d2da(1);
+            this->vis_map_context->FUN_0041d2da(1);
 
-            if (dialogsMask & 1) {
-                FUN_0048f6f7();
+            if (this->dialogsMask & 1) {
+                this->FUN_0048f6f7();
             }
             
-            FUN_0048cb3c();
+            this->FUN_0048cb3c();
 
             if (g_CLlDriver.GetProvider() == 0) {
                 PostMessage(0x454, 0, 0);
@@ -3945,40 +3945,40 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
             } else {
                 PostMessage(0x452, 0, 0);
             }
-        } else if (sessionMode == 3)
+        } else if (this->sessionMode == 3)
         {
             if (g_CLlDriver.GetProvider() == 3)
             {
                 PostMessage(0x453, 0, 0);
-                FUN_0048cb3c();
+                this->FUN_0048cb3c();
             } else {
                 PostMessage(0x451, 0, 0);
-                FUN_0048cb3c();
+                this->FUN_0048cb3c();
             }
         }
         break;
 
     case 0x45d:
-        if (sessionMode == 0)
+        if (this->sessionMode == 0)
         {
-            vis_map_context->FUN_0041d2da(0);
-            if (dialogsMask & 1) {
-                FUN_0048f6f7();
+            this->vis_map_context->FUN_0041d2da(0);
+            if (this->dialogsMask & 1) {
+                this->FUN_0048f6f7();
             }
             PostMessage(0x459, 0, 0);
         }
         break;
 
     case 0x463:
-        if (dialogsMask == 1) {
-            ShowFameHallDocDlg();
+        if (this->dialogsMask == 1) {
+            this->ShowFameHallDocDlg();
         }
         break;
 
     case 0x464:
     {
         VisMessageBoxWithList* msgbox = new VisMessageBoxWithList(1, 100, 100, 540, 480, txt_main.GetLine(151), nullptr, 1);
-        ModalScreen(msgbox);
+        this->ModalScreen(msgbox);
 
         if (msgbox->GetCloseCode() == 0x445)
         {
@@ -3993,7 +3993,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
     case 0x465: 
     {
         VisMessageBoxWithList* msgbox = new VisMessageBoxWithList(1, 100, 100, 540, 480, txt_main.GetLine(181), nullptr, 1);
-        ModalScreen(msgbox);
+        this->ModalScreen(msgbox);
 
         if (msgbox->GetCloseCode() == 0x445) {
             PostMessage(0x421, 0, 0);
@@ -4005,15 +4005,15 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 
     case 0x466:
     {
-        CVisualObject* obj = vis_map_context->FindChild(18);
+        CVisualObject* obj = this->vis_map_context->FindChild(18);
         if (obj)
         {
-            vis_map_context->RemoveChild(obj);
+            this->vis_map_context->RemoveChild(obj);
             delete obj;
         } else {
-            vis_map_context->AddChild(new VisQuestStatus(18, 10, 20, 370, 188));
+            this->vis_map_context->AddChild(new VisQuestStatus(18, 10, 20, 370, 188));
         }
-        vis_map_context->field_0xe0 = 1;
+        this->vis_map_context->field_0xe0 = 1;
     }
         break;
 
@@ -4029,38 +4029,38 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
             }
             if (local_95c.GetSize() != 0)
             {
-                SpawnScenarioMissionUnits(ScenarioGetVar(0x300), local_95c);
-                vis_map_context->ProcessPackets(0);
+                this->SpawnScenarioMissionUnits(ScenarioGetVar(0x300), local_95c);
+                this->vis_map_context->ProcessPackets(0);
             }
 
-            RunSessionBootstrap(0);
+            this->RunSessionBootstrap(0);
         } else {
-            vis_map_context->FUN_0041b064(0, 0);
-            ShowCurrentTownDialog();
+            this->vis_map_context->FUN_0041b064(0, 0);
+            this->ShowCurrentTownDialog();
         }
         break;
 
     case 0x472:
         if (g_IsServer == 0)
         {
-            if (sessionMode == 3)
+            if (this->sessionMode == 3)
             {
-                vis_map_context->msglog.Add((const char*)wParam, clrsh_ShockingBlack, 30000);
+                this->vis_map_context->msglog.Add((const char*)wParam, clrsh_ShockingBlack, 30000);
                 free((void*)wParam);
             }
         } else {
             char buf[2048];
             OemToCharA((const char*)wParam, buf);
-            list_box1.SetCurSel(list_box1.AddString(buf));
+            this->list_box1.SetCurSel(this->list_box1.AddString(buf));
         }
         break;
 
     case 0x47f:
-        FUN_004918ae();
+        this->FUN_004918ae();
         break;
 
     case 0x482:
-        FUN_004918ae();
+        this->FUN_004918ae();
         break;
 
     case 0x486:
@@ -4068,11 +4068,11 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         break;
 
     case 0x487:
-        PopUpScreen(new VisHatServerListDlg(1, 40, 100, 600, 480, &hat_settings));
+        this->PopUpScreen(new VisHatServerListDlg(1, 40, 100, 600, 480, &this->hat_settings));
         break;
 
     case 0x488:
-        if (FUN_0049057b() == 0) {
+        if (this->FUN_0049057b() == 0) {
             PostMessage(0x422, 0, 0);
         } else {
             PostMessage(0x426, 0, 0);
@@ -4081,15 +4081,15 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 
     case 0x489:
     {
-        field_0x37c = new VisHatBrowserDlg(1, 0, -64, 640, 480);
-        PopUpScreen(field_0x37c);
+        this->field_0x37c = new VisHatBrowserDlg(1, 0, -64, 640, 480);
+        this->PopUpScreen(this->field_0x37c);
 
         int32_t res;
-        if (hat_settings.ishat == 0) {
-            res = FUN_004e5466(hat_settings.hatip);
+        if (this->hat_settings.ishat == 0) {
+            res = this->FUN_004e5466(this->hat_settings.hatip);
         } else
         {
-            res = FUN_00490eb3();
+            res = this->FUN_00490eb3();
             if (res == 0)
             {
                 g_CLlDriver.Close();
@@ -4108,13 +4108,13 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 void MainWindow::PopUpScreen(VisScreen* screen)
 { //48d26a
-    if (screen == field_0x3dc) {
-        dialogsMask |= 0x8000;
+    if (screen == this->field_0x3dc) {
+        this->dialogsMask |= 0x8000;
     } else {
-        dialogsMask |= 8;
+        this->dialogsMask |= 8;
     }
 
-    vis_root->AddChild(screen);
+    this->vis_root->AddChild(screen);
 
     screen->VMethod26();
     screen->VMethod28();
@@ -4129,7 +4129,7 @@ void MainWindow::PopUpScreen(VisScreen* screen)
 
     screen->VMethod9();
 
-    field_0x460 = 0;
+    this->field_0x460 = 0;
 
     g_Cursors[CURSOR_DEFAULT]->Use();
 
@@ -4137,7 +4137,7 @@ void MainWindow::PopUpScreen(VisScreen* screen)
     {
         g_mousept.ResetStates();
 
-        sub_48CC87();
+        this->sub_48CC87();
     }
 }
 
@@ -4145,20 +4145,20 @@ void MainWindow::ShowGlobalMapDialog()
 { //48d34b
     g_Cursors[CURSOR_WAIT]->Use();
 
-    vis_root->AddChild(vis_globalmap);
-    vis_globalmap->VMethod28();
-    vis_root->VMethod9();
+    this->vis_root->AddChild(this->vis_globalmap);
+    this->vis_globalmap->VMethod28();
+    this->vis_root->VMethod9();
 
-    field_0x460 = 0;
-    dialogsMask |= 0x10;
+    this->field_0x460 = 0;
+    this->dialogsMask |= 0x10;
 
     if (g_SoundSettings.field_0x20 != 0)
     {
         CStringArray playlist;
         playlist.Add("music\\map.wav");
 
-        music_player->SetPlayList(playlist);
-        music_player->Play();
+        this->music_player->SetPlayList(playlist);
+        this->music_player->Play();
     }
 
     g_Cursors[CURSOR_DEFAULT]->Use();
@@ -4168,40 +4168,40 @@ void MainWindow::FUN_0048f79d()
 { // 48f79d
     g_mousept.DisableHint();
 
-    strcpy(m_GameSession.character_name, "Self");
-    field_0x400 = 1;
-    sessionMode = 2;
+    strcpy(this->m_GameSession.character_name, "Self");
+    this->field_0x400 = 1;
+    this->sessionMode = 2;
 
-    FUN_0048ca7e(sessionMode);
+    this->FUN_0048ca7e(this->sessionMode);
 
-    g_Server->sub_4EDB83(field_0x148.filename);
+    g_Server->sub_4EDB83(this->field_0x148.filename);
 
-    if (!vis_map_context->ConnectAndJoinSession()) {
+    if (!this->vis_map_context->ConnectAndJoinSession()) {
         PostMessage(0x421, 0, 0);
-    } else if (GetSaveFileInBattle()) {
-        RunSessionBootstrap(1);
+    } else if (this->GetSaveFileInBattle()) {
+        this->RunSessionBootstrap(1);
     } else
     {
-        vis_map_context->FUN_0041b10f();
+        this->vis_map_context->FUN_0041b10f();
         g_Server->FUN_0050907e();
 
         while (g_NetStru1_local.GetClientsPktNum())
         {
-            vis_map_context->ProcessPackets(0x64);
+            this->vis_map_context->ProcessPackets(0x64);
         }
 
-        FUN_0048df44();
-        vis_map_context->FUN_0041b064(0, 0);
+        this->FUN_0048df44();
+        this->vis_map_context->FUN_0041b064(0, 0);
         PostMessage(0x42e, 0, 0);
     }
     g_mousept.EnableHint();
-    vis_globalmap->RebuildScenarioLocations();
+    this->vis_globalmap->RebuildScenarioLocations();
 }
 
 int MainWindow::GetSaveFileInBattle()
 { // 48de6f
     File2 f;
-    f.Open(field_0x148.filename, CFile::modeRead);
+    f.Open(this->field_0x148.filename, CFile::modeRead);
     f.Seek(4, 0);
 
     int32_t offset;
@@ -4218,19 +4218,19 @@ int MainWindow::GetSaveFileInBattle()
 int MainWindow::RunSessionBootstrap(int mode)
 { // 48e502
 
-    vis_map_context->field_0x80 = nullptr;
+    this->vis_map_context->field_0x80 = nullptr;
     g_Cursors[CURSOR_WAIT]->Use();
 
     if (g_SoundSettings.field_0x20 != 0) {
-        music_player->OnEndTrack();
+        this->music_player->OnEndTrack();
     }
 
-    if (sessionMode == 3)
+    if (this->sessionMode == 3)
     {
         CRect r = g_ScreenSize;
         r.bottom -= 72;
 
-        vis_map_context->msglog.SetRect(r);
+        this->vis_map_context->msglog.SetRect(r);
 
         LockSurface2();
         FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
@@ -4238,47 +4238,47 @@ int MainWindow::RunSessionBootstrap(int mode)
 
         g_Server->field41_0x1b0 = 1;
 
-        field_0x3d0 = new VisServerScreen(1, 0, 0, g_ScreenSize.right, g_ScreenSize.bottom, &vis_map_context->msglog);
-        PopUpScreen(field_0x3d0);
+        this->field_0x3d0 = new VisServerScreen(1, 0, 0, g_ScreenSize.right, g_ScreenSize.bottom, &this->vis_map_context->msglog);
+        this->PopUpScreen(this->field_0x3d0);
     }
 
     char buf[128];
-    if (sessionMode == 2 && mode == 0) {
+    if (this->sessionMode == 2 && mode == 0) {
         sprintf(buf, "%d.alm", ScenarioGetCurrentLocation()->GetId());
     } else {
-        strcpy(buf, current_map_name);
+        strcpy(buf, this->current_map_name);
     }
 
-    if (mode == 0 && serverBootstrapEnabled != 0)
+    if (mode == 0 && this->serverBootstrapEnabled != 0)
     {
         g_Server->field40_0x1ac = 0;
         g_Server->sub_4F1471(buf);
     }
 
-    if (sessionMode != 3)
+    if (this->sessionMode != 3)
     {
-        FUN_00485969();
-        FUN_0047a5e6();
-        FUN_0047efdf();
-        FUN_0047e612();
+        this->FUN_00485969();
+        this->FUN_0047a5e6();
+        this->FUN_0047efdf();
+        this->FUN_0047e612();
 
-        field_0x404 = mode;
+        this->field_0x404 = mode;
 
-        vis_map_context->FUN_0041cad0(mode);
-        vis_map_context->FUN_0041aaaa(vis_map_context->wimpy);
-        vis_map_context->FUN_0041abd2(vis_map_context->formation);
-        vis_map_context->FUN_0041ab74();
+        this->vis_map_context->FUN_0041cad0(mode);
+        this->vis_map_context->FUN_0041aaaa(this->vis_map_context->wimpy);
+        this->vis_map_context->FUN_0041abd2(this->vis_map_context->formation);
+        this->vis_map_context->FUN_0041ab74();
 
-        if (serverBootstrapEnabled != 0) {
+        if (this->serverBootstrapEnabled != 0) {
             g_Server->ServerTic();
         }
 
         uint32_t tm = timeGetTime();
         while (true)
         {
-            if (vis_map_context->field_0x80)
+            if (this->vis_map_context->field_0x80)
             {
-                field_0x404 = 0;
+                this->field_0x404 = 0;
                 break;
             }
 
@@ -4304,16 +4304,16 @@ int MainWindow::RunSessionBootstrap(int mode)
                 g_mousept.Update();
             }
 
-            if (vis_map_context->ProcessPackets(0x64) == 0) {
+            if (this->vis_map_context->ProcessPackets(0x64) == 0) {
                 return 0;
             }
         }
     }
 
-    if (sessionMode == 2 && mode != 0)
+    if (this->sessionMode == 2 && mode != 0)
     {
         File2 fil;
-        fil.Open(field_0x148.filename, CFile::modeRead);
+        fil.Open(this->field_0x148.filename, CFile::modeRead);
         fil.Seek(4, 0);
         int32_t offset;
         fil.Read(&offset, 4);
@@ -4322,41 +4322,41 @@ int MainWindow::RunSessionBootstrap(int mode)
         RegFile reg;
 
         reg.ReadFromFile(&fil);
-        m_FameHall.FUN_004ac7a2(&fil);
+        this->m_FameHall.FUN_004ac7a2(&fil);
         ScenarioLoad(&fil);
 
         for (int i = 0; i < 9; i++) {
-            m_GameSession.shortcuts[i].ReadFromFile(&fil);
+            this->m_GameSession.shortcuts[i].ReadFromFile(&fil);
         }
 
         fil.Close();
 
         int inbattle = reg.GetInt("CurrentState", "InBattle", 1);
 
-        reg.GetSizedString("Character", "Name", "No name", m_GameSession.character_name, sizeof(m_GameSession.character_name));
-        m_GameSession.character_name[31] = 0;
+        reg.GetSizedString("Character", "Name", "No name", this->m_GameSession.character_name, sizeof(this->m_GameSession.character_name));
+        this->m_GameSession.character_name[31] = 0;
 
-        vis_map_context->wimpy = reg.GetInt("GameOptions", "Wimpy", vis_map_context->wimpy);
-        vis_map_context->show_hp = reg.GetInt("GameOptions", "ShowHP", vis_map_context->show_hp);
-        vis_map_context->flying_hp = reg.GetInt("GameOptions", "FlyingHP", vis_map_context->flying_hp);
-        vis_map_context->formation = reg.GetInt("GameOptions", "Formation", vis_map_context->formation);
-        game_speed = reg.GetInt("GameOptions", "Speed", game_speed);
+        this->vis_map_context->wimpy = reg.GetInt("GameOptions", "Wimpy", this->vis_map_context->wimpy);
+        this->vis_map_context->show_hp = reg.GetInt("GameOptions", "ShowHP", this->vis_map_context->show_hp);
+        this->vis_map_context->flying_hp = reg.GetInt("GameOptions", "FlyingHP", this->vis_map_context->flying_hp);
+        this->vis_map_context->formation = reg.GetInt("GameOptions", "Formation", this->vis_map_context->formation);
+        this->game_speed = reg.GetInt("GameOptions", "Speed", this->game_speed);
         g_settings.ShowTimeFlow = reg.GetInt("GameOptions", "ShowTimeFlow", g_settings.ShowTimeFlow);
-        vis_map_context->view_x = reg.GetInt("View", "X", vis_map_context->view_x);
-        vis_map_context->view_y = reg.GetInt("View", "Y", vis_map_context->view_y);
+        this->vis_map_context->view_x = reg.GetInt("View", "X", this->vis_map_context->view_x);
+        this->vis_map_context->view_y = reg.GetInt("View", "Y", this->vis_map_context->view_y);
 
         if (reg.GetInt("SpellBook", "IsOpen", 0) == 0)
         {
-            if (vis_map_context->IsBagOpen() != 0) {
-                vis_map_context->FUN_0041b636();
+            if (this->vis_map_context->IsBagOpen() != 0) {
+                this->vis_map_context->FUN_0041b636();
             }
         } else {
-            if (vis_map_context->IsBagOpen() == 0) {
-                vis_map_context->FUN_0041b509();
+            if (this->vis_map_context->IsBagOpen() == 0) {
+                this->vis_map_context->FUN_0041b509();
             }
         }
 
-        vis_spellbook->pressed = reg.GetInt("SpellBook", "Pressed", vis_spellbook->pressed);
+        this->vis_spellbook->pressed = reg.GetInt("SpellBook", "Pressed", this->vis_spellbook->pressed);
 
         CArray<uint16_t> sel_ids;
         CArray<uint16_t> grp_ids;
@@ -4366,7 +4366,7 @@ int MainWindow::RunSessionBootstrap(int mode)
         for (int i = 0; i < sel_ids.GetSize(); i++)
         {
             CGameObject* obj;
-            if (vis_map_context->field_0x9d0.Lookup(sel_ids[i], obj)) {
+            if (this->vis_map_context->field_0x9d0.Lookup(sel_ids[i], obj)) {
                 obj->VMethod1(1);
             }
         }
@@ -4381,7 +4381,7 @@ int MainWindow::RunSessionBootstrap(int mode)
             for (int j = 0; j < grp_ids.GetSize(); j++)
             {
                 CGameObject* obj;
-                if (vis_map_context->field_0x9d0.Lookup(grp_ids[i], obj) != 0) {
+                if (this->vis_map_context->field_0x9d0.Lookup(grp_ids[i], obj) != 0) {
                     obj->FUN_0041f180(i);
                 }
             }
@@ -4389,18 +4389,18 @@ int MainWindow::RunSessionBootstrap(int mode)
 
         if (reg.GetInt("Inventory", "IsOpen", 0) == 0)
         {
-            if (vis_map_context->FUN_0041b495() != 0) {
-                vis_map_context->FUN_0041b40e();
+            if (this->vis_map_context->FUN_0041b495() != 0) {
+                this->vis_map_context->FUN_0041b40e();
             }
         } else {
-            if (vis_map_context->FUN_0041b495() == 0) {
-                vis_map_context->FUN_0041b381();
+            if (this->vis_map_context->FUN_0041b495() == 0) {
+                this->vis_map_context->FUN_0041b381();
             }
         }
 
         CArray<uint16_t> proj_ids;
 
-        vis_map_context->field_0xa24 = reg.GetInt("Projectiles", "FreeIndex", 0);
+        this->vis_map_context->field_0xa24 = reg.GetInt("Projectiles", "FreeIndex", 0);
         reg.GetInt16Array("Projectiles", "IDs", &proj_ids);
 
         for (int i = 0; i < proj_ids.GetSize(); i++)
@@ -4424,18 +4424,18 @@ int MainWindow::RunSessionBootstrap(int mode)
             proj->action_phase = reg.GetInt(buf, "actionphase", proj->action_phase);
             proj->action_segments = reg.GetInt(buf, "actionsegments", proj->action_segments);
             proj->action_spell = reg.GetInt(buf, "actionspell", proj->action_spell);
-            proj->pMapObject = vis_map_context;
-            proj->map_player = vis_map_context->my_main_unit;
+            proj->pMapObject = this->vis_map_context;
+            proj->map_player = this->vis_map_context->my_main_unit;
 
             proj->unit_id = proj_ids[i];
-            vis_map_context->field_0x9ec[proj->unit_id] = proj;
+            this->vis_map_context->field_0x9ec[proj->unit_id] = proj;
             proj->FUN_0046190d();
         }
 
         CArray<uint32_t> fog_data;
         if (inbattle != 0)
         {
-            uint16_t* land = vis_map_context->field_0x80->GetLandscape();
+            uint16_t* land = this->vis_map_context->field_0x80->GetLandscape();
             uint32_t st = reg.GetInt("Fog", "FirstState", 0);
             reg.GetInt32Array("Fog", "Data", &fog_data);
 
@@ -4451,24 +4451,24 @@ int MainWindow::RunSessionBootstrap(int mode)
         }
     }
 
-    vis_right_panel->MsgProc(0x408, 0, 0);
-    vis_root->VMethod9();
+    this->vis_right_panel->MsgProc(0x408, 0, 0);
+    this->vis_root->VMethod9();
 
-    if (sessionMode != 3)
+    if (this->sessionMode != 3)
     {
-        FUN_00494c91();
-        field_0x450 = -1;
-        field_0x3f8 = 0;
-        field_0x3fc = 0;
+        this->FUN_00494c91();
+        this->field_0x450 = -1;
+        this->field_0x3f8 = 0;
+        this->field_0x3fc = 0;
     }
 
-    if (sessionMode == 2) {
-        SetSpeed(game_speed);
+    if (this->sessionMode == 2) {
+        this->SetSpeed(this->game_speed);
     } else {
-        SetSpeed(g_ServerConfig.game_speed);
+        this->SetSpeed(g_ServerConfig.game_speed);
     }
 
-    if (sessionMode == 2)
+    if (this->sessionMode == 2)
     {
         sprintf(buf, "main\\text\\mission%d.txt", ScenarioGetCurrentLocation()->GetId());
         ReadFileToString(buf, &g_MissionText);
@@ -4514,18 +4514,18 @@ int MainWindow::RunSessionBootstrap(int mode)
 
 void MainWindow::FUN_00485969()
 { // 485969
-    vis_right_panel->RemoveAllChilds();
-    vis_right_panel->AddChild(vis_minimap);
-    vis_right_panel->AddChild(vis_ordertoolbar);
-    vis_right_panel->AddChild(vis_charinfo);
-    vis_right_panel->AddChild(vis_sidestatus);
+    this->vis_right_panel->RemoveAllChilds();
+    this->vis_right_panel->AddChild(this->vis_minimap);
+    this->vis_right_panel->AddChild(this->vis_ordertoolbar);
+    this->vis_right_panel->AddChild(this->vis_charinfo);
+    this->vis_right_panel->AddChild(this->vis_sidestatus);
 
-    vis_root->RemoveAllChilds();
-    vis_map_context->msglog.Clear();
-    vis_root->AddChild(vis_map_context);
-    vis_root->AddChild(vis_right_panel);
+    this->vis_root->RemoveAllChilds();
+    this->vis_map_context->msglog.Clear();
+    this->vis_root->AddChild(this->vis_map_context);
+    this->vis_root->AddChild(this->vis_right_panel);
 
-    dialogsMask = 1;
+    this->dialogsMask = 1;
 }
 
 void MainWindow::FUN_0047a5e6()
@@ -4792,7 +4792,7 @@ void MainWindow::FUN_0048df44()
 { //48df44
     File2 fil;
 
-    fil.Open(field_0x148.filename, CFile::modeRead);
+    fil.Open(this->field_0x148.filename, CFile::modeRead);
     fil.Seek(4, 0);
 
     int32_t offset;
@@ -4803,35 +4803,35 @@ void MainWindow::FUN_0048df44()
 
     reg.ReadFromFile(&fil);
 
-    m_FameHall.FUN_004ac7a2(&fil);
+    this->m_FameHall.FUN_004ac7a2(&fil);
 
     ScenarioLoad(&fil);
 
     for (int i = 0; i < 9; i++) {
-        m_GameSession.shortcuts[i].ReadFromFile(&fil);
+        this->m_GameSession.shortcuts[i].ReadFromFile(&fil);
     }
 
     fil.Close();
 
     int local_128 = reg.GetInt("CurrentState", "InBattle", 1);
 
-    reg.GetSizedString("Character", "Name", "No name", m_GameSession.character_name, sizeof(m_GameSession.character_name));
-    m_GameSession.character_name[31] = 0;
+    reg.GetSizedString("Character", "Name", "No name", this->m_GameSession.character_name, sizeof(this->m_GameSession.character_name));
+    this->m_GameSession.character_name[31] = 0;
 
-    vis_map_context->wimpy = reg.GetInt("GameOptions", "Wimpy", vis_map_context->wimpy);
-    vis_map_context->show_hp = reg.GetInt("GameOptions", "ShowHP", vis_map_context->show_hp);
-    vis_map_context->flying_hp = reg.GetInt("GameOptions", "FlyingHP", vis_map_context->flying_hp);
-    vis_map_context->formation = reg.GetInt("GameOptions", "Formation", vis_map_context->formation);
+    this->vis_map_context->wimpy = reg.GetInt("GameOptions", "Wimpy", this->vis_map_context->wimpy);
+    this->vis_map_context->show_hp = reg.GetInt("GameOptions", "ShowHP", this->vis_map_context->show_hp);
+    this->vis_map_context->flying_hp = reg.GetInt("GameOptions", "FlyingHP", this->vis_map_context->flying_hp);
+    this->vis_map_context->formation = reg.GetInt("GameOptions", "Formation", this->vis_map_context->formation);
 
-    game_speed = reg.GetInt("GameOptions", "Speed", game_speed);
+    this->game_speed = reg.GetInt("GameOptions", "Speed", this->game_speed);
     g_settings.ShowTimeFlow = reg.GetInt("GameOptions", "ShowTimeFlow", g_settings.ShowTimeFlow);
 
-    vis_map_context->view_x = reg.GetInt("View", "X", vis_map_context->view_x);
-    vis_map_context->view_y = reg.GetInt("View", "Y", vis_map_context->view_y);
+    this->vis_map_context->view_x = reg.GetInt("View", "X", this->vis_map_context->view_x);
+    this->vis_map_context->view_y = reg.GetInt("View", "Y", this->vis_map_context->view_y);
 
     reg.GetInt("SpellBook", "IsOpen", 0);
 
-    vis_spellbook->pressed = reg.GetInt("SpellBook", "Pressed", vis_spellbook->pressed);
+    this->vis_spellbook->pressed = reg.GetInt("SpellBook", "Pressed", this->vis_spellbook->pressed);
 
     CArray<uint16_t> sel_objs;
     CArray<uint16_t> grp_objs;
@@ -4841,7 +4841,7 @@ void MainWindow::FUN_0048df44()
     for (int i = 0; i < sel_objs.GetSize(); i++)
     {
         CGameObject* obj = nullptr;
-        if (vis_map_context->field_0x9d0.Lookup(sel_objs[i], obj) && obj) {
+        if (this->vis_map_context->field_0x9d0.Lookup(sel_objs[i], obj) && obj) {
             obj->VMethod1(1);
         }
     }
@@ -4857,19 +4857,19 @@ void MainWindow::FUN_0048df44()
         for(int j = 0; j < grp_objs.GetSize(); j++)
         {
             CGameObject* obj = nullptr;
-            if (vis_map_context->field_0x9d0.Lookup(grp_objs[j], obj)) {
+            if (this->vis_map_context->field_0x9d0.Lookup(grp_objs[j], obj)) {
                 obj->FUN_0041f180(i);
             }
         }
     }
 
-    vis_map_context->UpdateSelectionState();
+    this->vis_map_context->UpdateSelectionState();
 
-    field_0x450 = -1;
-    field_0x3f8 = 0;
-    field_0x3fc = 0;
+    this->field_0x450 = -1;
+    this->field_0x3f8 = 0;
+    this->field_0x3fc = 0;
 
-    SetSpeed(game_speed);
+    this->SetSpeed(this->game_speed);
 }
 
 
@@ -4877,22 +4877,22 @@ void MainWindow::FUN_0048df44()
 void MainWindow::FUN_0048f6f7()
 { //48f6f7
 
-    vis_map_context->FUN_0041c39c();
+    this->vis_map_context->FUN_0041c39c();
     if (g_SoundSettings.field_0x20 != 0) {
-        music_player->OnEndTrack();
+        this->music_player->OnEndTrack();
     }
 
-    FUN_0047ad28();
+    this->FUN_0047ad28();
 
     for (int i = 0; i < g_UnitGfxFiles.GetSize(); i++) {
         g_UnitGfxFiles[i]->Deinit();
     }
     
-    FUN_00478130();
-    FUN_0047eab6();
-    FUN_0047f5e4();
+    this->FUN_00478130();
+    this->FUN_0047eab6();
+    this->FUN_0047f5e4();
 
-    dialogsMask &= ~1;
+    this->dialogsMask &= ~1;
 }
 
 void MainWindow::FUN_0047eab6()
@@ -4956,27 +4956,27 @@ void MainWindow::FUN_0047ad28()
 
 void MainWindow::InitNewCampaignSession()
 { //48dd3a
-    field_0x400 = 1;
-    sessionMode = 2;
+    this->field_0x400 = 1;
+    this->sessionMode = 2;
 
-    if (FUN_0048ca7e(sessionMode) == 0)
+    if (this->FUN_0048ca7e(this->sessionMode) == 0)
     {
-        m_GameSession.type = 0;
+        this->m_GameSession.type = 0;
         if (strstr(afxCurrentWinApp->m_lpCmdLine, "-female") != nullptr) {
-            m_GameSession.type |= 0x80;
+            this->m_GameSession.type |= 0x80;
         }
         if (strstr(afxCurrentWinApp->m_lpCmdLine, "-mage") != nullptr) {
-            m_GameSession.type |= 0x40;
+            this->m_GameSession.type |= 0x40;
         }
         const char* nm = strstr(afxCurrentWinApp->m_lpCmdLine, "-name");
 
         if (!nm) {
-            strcpy(m_GameSession.character_name, "Unnamed");
+            strcpy(this->m_GameSession.character_name, "Unnamed");
         } else
         {
-            strncpy(m_GameSession.character_name, nm + 5, 32 - 1);
-            m_GameSession.type |= 0x80;
-            char* nm_sp = strstr(m_GameSession.character_name, " ");
+            strncpy(this->m_GameSession.character_name, nm + 5, 32 - 1);
+            this->m_GameSession.type |= 0x80;
+            char* nm_sp = strstr(this->m_GameSession.character_name, " ");
             if (nm_sp) {
                 *nm_sp = 0;
             }
@@ -4992,23 +4992,23 @@ void MainWindow::ShowStartGameSetupForNewSession()
 { //491b3e
     g_Cursors[CURSOR_WAIT]->Use();
 
-    vis_right_panel->MsgProc(0x403, (uint32_t)vis_map_context, 0); //FIXME
+    this->vis_right_panel->MsgProc(0x403, (uint32_t)this->vis_map_context, 0); //FIXME
 
-    vis_root->AddChild(vis_startgame);
+    this->vis_root->AddChild(this->vis_startgame);
 
-    if (sessionMode != 2) {
-        m_GameSession.character_name[0] = '\0';
+    if (this->sessionMode != 2) {
+        this->m_GameSession.character_name[0] = '\0';
     }
 
-    vis_startgame->SetCharName(m_GameSession.character_name);
+    this->vis_startgame->SetCharName(this->m_GameSession.character_name);
 
-    vis_startgame->SetSelectedDifficulty(m_FameHall.GetDifficulty());
-    vis_startgame->SetSelectedPortraitPlayerType(m_GameSession.type >> 6);
-    vis_startgame->VMethod28();
-    vis_root->VMethod9();
+    this->vis_startgame->SetSelectedDifficulty(this->m_FameHall.GetDifficulty());
+    this->vis_startgame->SetSelectedPortraitPlayerType(this->m_GameSession.type >> 6);
+    this->vis_startgame->VMethod28();
+    this->vis_root->VMethod9();
 
-    field_0x460 = 0;
-    dialogsMask |= 0x800;
+    this->field_0x460 = 0;
+    this->dialogsMask |= 0x800;
 
     g_Cursors[CURSOR_DEFAULT]->Use();
 
@@ -5017,42 +5017,42 @@ void MainWindow::ShowStartGameSetupForNewSession()
         CStringArray lst;
         lst.Add("music\\chrgen.wav");
 
-        CStringArray& playing = music_player->GetPlaylist();
-        if (music_player->GetPlaylistSize() == 0 || music_player->GetPlaylist()[0] != lst[0]) {
-            music_player->SetPlayList(lst);
+        CStringArray& playing = this->music_player->GetPlaylist();
+        if (this->music_player->GetPlaylistSize() == 0 || this->music_player->GetPlaylist()[0] != lst[0]) {
+            this->music_player->SetPlayList(lst);
         }
 
-        music_player->Play();
+        this->music_player->Play();
     }
 }
 
 
 void MainWindow::ShowStartupLogoDialog()
 { // 48dba0
-    vis_root->AddChild(vis_logownd);
-    vis_logownd->VMethod28();
+    this->vis_root->AddChild(this->vis_logownd);
+    this->vis_logownd->VMethod28();
 
-    field_0x460 = 0;
-    dialogsMask |= 0x100;
+    this->field_0x460 = 0;
+    this->dialogsMask |= 0x100;
 }
 
 
 void MainWindow::ShowCreditsDialog()
 { // 48da66
-    vis_root->AddChild(vis_credits);
-    vis_credits->VMethod28();
-    vis_root->VMethod9();
+    this->vis_root->AddChild(this->vis_credits);
+    this->vis_credits->VMethod28();
+    this->vis_root->VMethod9();
 
-    field_0x460 = 0;
-    dialogsMask |= 0x40;
+    this->field_0x460 = 0;
+    this->dialogsMask |= 0x40;
 
     if (g_SoundSettings.field_0x20 != 0)
     {
         CStringArray playlist;
         playlist.Add("music\\credit.wav");
 
-        music_player->SetPlayList(playlist);
-        music_player->Play();
+        this->music_player->SetPlayList(playlist);
+        this->music_player->Play();
     }
 }
 
@@ -5060,14 +5060,14 @@ void MainWindow::ShowFameHallDialog()
 { //48d096
     g_Cursors[CURSOR_WAIT]->Use();
 
-    vis_root->AddChild(vis_famehall);
+    this->vis_root->AddChild(this->vis_famehall);
 
-    vis_famehall->VMethod28();
+    this->vis_famehall->VMethod28();
 
-    vis_root->VMethod9();
+    this->vis_root->VMethod9();
 
-    field_0x460 = 0;
-    dialogsMask |= 0x1000;
+    this->field_0x460 = 0;
+    this->dialogsMask |= 0x1000;
 
     g_Cursors[CURSOR_DEFAULT]->Use();
 }
@@ -5078,17 +5078,17 @@ void MainWindow::ShowShopDialog(uint32_t id)
     if (g_mousept.GetSelectState() != 0)
     {
         g_mousept.ResetStates();
-        sub_48CC87();
+        this->sub_48CC87();
     }
 
-    if (vis_map_context->IsBookOpen() != 0) {
-        vis_map_context->FUN_0041b636();
+    if (this->vis_map_context->IsBookOpen() != 0) {
+        this->vis_map_context->FUN_0041b636();
     }
 
     g_Cursors[CURSOR_WAIT]->Use();
 
     int locid = 1;
-    if (sessionMode == 2) {
+    if (this->sessionMode == 2) {
         locid = ScenarioGetCurrentLocation()->GetId();
     } else
     {
@@ -5115,23 +5115,23 @@ void MainWindow::ShowShopDialog(uint32_t id)
 
     if (locid == 1)
     {
-        vis_root->AddChild(vis_shop);
-        vis_shop->VMethod28();
+        this->vis_root->AddChild(this->vis_shop);
+        this->vis_shop->VMethod28();
     } else if (locid == 2)
     {
-        vis_root->AddChild(vis_shopkaarg);
-        vis_shopkaarg->VMethod28();
+        this->vis_root->AddChild(this->vis_shopkaarg);
+        this->vis_shopkaarg->VMethod28();
     } else if (locid == 3)
     {
-        vis_root->AddChild(vis_shopdruid);
-        vis_shopdruid->VMethod28();
+        this->vis_root->AddChild(this->vis_shopdruid);
+        this->vis_shopdruid->VMethod28();
     }
 
-    dialogsMask |= 2;
-    vis_map_context->UpdateSelectionState();
-    vis_map_context->OnOpenShopDialog();
-    vis_root->VMethod9();
-    field_0x460 = 0;
+    this->dialogsMask |= 2;
+    this->vis_map_context->UpdateSelectionState();
+    this->vis_map_context->OnOpenShopDialog();
+    this->vis_root->VMethod9();
+    this->field_0x460 = 0;
 
     g_Cursors[CURSOR_DEFAULT]->Use();
 }
@@ -5143,17 +5143,17 @@ void MainWindow::ShowInnDialog(uint32_t id, int32_t interact_target)
     if (g_mousept.GetSelectState() != 0)
     {
         g_mousept.ResetStates();
-        sub_48CC87();
+        this->sub_48CC87();
     }
 
-    if (vis_map_context->IsBookOpen() != 0) {
-        vis_map_context->FUN_0041b636();
+    if (this->vis_map_context->IsBookOpen() != 0) {
+        this->vis_map_context->FUN_0041b636();
     }
 
     g_Cursors[CURSOR_WAIT]->Use();
 
     int locid = 1;
-    if (sessionMode == 2) {
+    if (this->sessionMode == 2) {
         locid = ScenarioGetCurrentLocation()->GetId();
     } else
     {
@@ -5181,16 +5181,16 @@ void MainWindow::ShowInnDialog(uint32_t id, int32_t interact_target)
 
     VisTav* inn = nullptr;
     if (locid == 1) {
-        inn = vis_tav;
+        inn = this->vis_tav;
     } else if (locid == 2) {
-        inn = vis_tavkaarg;
+        inn = this->vis_tavkaarg;
     } else if (locid == 3) {
-        inn = vis_tavdruid;
+        inn = this->vis_tavdruid;
     }
 
-    vis_root->AddChild(inn);
+    this->vis_root->AddChild(inn);
 
-    if (sessionMode == 2)
+    if (this->sessionMode == 2)
     {
         int32_t ids[32];
         int32_t num = 0;
@@ -5205,21 +5205,21 @@ void MainWindow::ShowInnDialog(uint32_t id, int32_t interact_target)
 
         g_Server->FUN_00501b9e(ScenarioGetVar(0x300), arr);
 
-        vis_map_context->ProcessPackets(0);
+        this->vis_map_context->ProcessPackets(0);
     } else {
-        vis_map_context->NetOnOpenInnDialog();
+        this->vis_map_context->NetOnOpenInnDialog();
     }
 
     inn->field_0x138 = interact_target;
     inn->VMethod28();
 
-    dialogsMask |= 4;
+    this->dialogsMask |= 4;
 
-    vis_map_context->UpdateSelectionState();
+    this->vis_map_context->UpdateSelectionState();
 
-    vis_root->VMethod9();
+    this->vis_root->VMethod9();
 
-    field_0x460 = 0;
+    this->field_0x460 = 0;
 
     g_Cursors[CURSOR_DEFAULT]->Use();
 }
@@ -5229,7 +5229,7 @@ void MainWindow::RemoteGameIdle()
 { //48acac
     if (g_NetStru1_local.IsActive() == 0)
     {
-        vis_root->MsgProc(0x446, 0, 0);
+        this->vis_root->MsgProc(0x446, 0, 0);
         PostMessage(0x45c, 0, 0);
 
         if (g_EnableTrace != 0)
@@ -5243,7 +5243,7 @@ void MainWindow::RemoteGameIdle()
             
             f.Close();
 
-            vis_map_context->msglog.Add("Connection lost", clrsh_TechBlack, 30000);
+            this->vis_map_context->msglog.Add("Connection lost", clrsh_TechBlack, 30000);
         }
     } else {
         g_mousept.Update();
@@ -5259,15 +5259,15 @@ void MainWindow::RemoteGameIdle()
         } else {
             while(true)
             {
-                game_tic_counter++;
-                game_tic_counter &= 0xf;
+                this->game_tic_counter++;
+                this->game_tic_counter &= 0xf;
 
-                if (game_tic_counter == 0) {
+                if (this->game_tic_counter == 0) {
                     g_NetStru1_local.sub_51EEB7();
                 }
 
-                vis_map_context->ProcessPackets(100);
-                vis_root->MsgProc(0x401, 0, 0);
+                this->vis_map_context->ProcessPackets(100);
+                this->vis_root->MsgProc(0x401, 0, 0);
 
                 g_mousept.Update();
 
@@ -5278,27 +5278,27 @@ void MainWindow::RemoteGameIdle()
             g_RemoteTimestamp = GetTickCount();
         }
 
-        if (g_mousept.GetSelectState() == 0 && dialogsMask == 1)
+        if (g_mousept.GetSelectState() == 0 && this->dialogsMask == 1)
         {
             if (g_mousept.GetX() <= 0) {
-                vis_map_context->ScrollMapX(-1);
+                this->vis_map_context->ScrollMapX(-1);
             }
 
             if (g_mousept.GetY() <= 0) {
-                vis_map_context->ScrollMapY(-1);
+                this->vis_map_context->ScrollMapY(-1);
             }
 
             if (g_mousept.GetX() >= g_ScreenSize.right - 2) {
-                vis_map_context->ScrollMapX(1);
+                this->vis_map_context->ScrollMapX(1);
             }
 
             if (g_mousept.GetY() >= g_ScreenSize.bottom - 2) {
-                vis_map_context->ScrollMapY(1);
+                this->vis_map_context->ScrollMapY(1);
             }
         }
 
-        if (field_0xbc != 0) {
-            vis_root->MsgProc(0x402, 0, 0);
+        if (this->field_0xbc != 0) {
+            this->vis_root->MsgProc(0x402, 0, 0);
         }
 
         g_mousept.Update();
@@ -5310,19 +5310,19 @@ void MainWindow::SingleGameTimedIdle()
     g_mousept.Update();
 
     uint32_t ticks = timeGetTime();
-    while (ticks >= last_tic_time + game_tic_time * (game_tic_counter + 1))
+    while (ticks >= this->last_tic_time + this->game_tic_time * (this->game_tic_counter + 1))
     {
-        if (game_tic_counter == 0) {
-            last_tic_time = ticks;
+        if (this->game_tic_counter == 0) {
+            this->last_tic_time = ticks;
         }
 
-        game_tic_counter++;
-        game_tic_counter &= 0xf;
+        this->game_tic_counter++;
+        this->game_tic_counter &= 0xf;
 
         g_Server->ServerTic();
 
-        vis_map_context->ProcessPackets(0x64);
-        vis_root->MsgProc(0x401, 0, 0);
+        this->vis_map_context->ProcessPackets(0x64);
+        this->vis_root->MsgProc(0x401, 0, 0);
 
         g_mousept.Update();
 
@@ -5330,42 +5330,42 @@ void MainWindow::SingleGameTimedIdle()
     }
 
 
-    if (g_mousept.GetSelectState() == 0 && dialogsMask == 1)
+    if (g_mousept.GetSelectState() == 0 && this->dialogsMask == 1)
     {
         bool scroll = false;
 
         if (g_mousept.GetX() <= 0)
         {
-            vis_map_context->ScrollMapX(-1);
+            this->vis_map_context->ScrollMapX(-1);
             scroll = true;
         }
 
 
         if (g_mousept.GetY() <= 0)
         {
-            vis_map_context->ScrollMapY(-1);
+            this->vis_map_context->ScrollMapY(-1);
             scroll = true;
         }
 
         if (g_mousept.GetX() >= g_ScreenSize.right - 2)
         {
-            vis_map_context->ScrollMapX(1);
+            this->vis_map_context->ScrollMapX(1);
             scroll = true;
         }
 
         if (g_mousept.GetY() >= g_ScreenSize.bottom - 2)
         {
-            vis_map_context->ScrollMapY(1);
+            this->vis_map_context->ScrollMapY(1);
             scroll = true;
         }
 
         if (scroll) {
-            vis_minimap->MsgProc(0x408, 0, 0);
+            this->vis_minimap->MsgProc(0x408, 0, 0);
         }
     }
 
-    if (field_0xbc != 0) {
-        vis_root->MsgProc(0x402, 0, 0);
+    if (this->field_0xbc != 0) {
+        this->vis_root->MsgProc(0x402, 0, 0);
     }
 
     g_mousept.Update();
@@ -5377,51 +5377,51 @@ void MainWindow::SingleGameIdle()
 
     g_Server->ServerTic();
 
-    vis_map_context->ProcessPackets(0x64);
+    this->vis_map_context->ProcessPackets(0x64);
 
-    vis_root->MsgProc(0x401, 0, 0);
+    this->vis_root->MsgProc(0x401, 0, 0);
 
-    game_tic_counter++;
+    this->game_tic_counter++;
     g_mousept.Update();
 
 
-    if (g_mousept.GetSelectState() == 0 && dialogsMask == 1)
+    if (g_mousept.GetSelectState() == 0 && this->dialogsMask == 1)
     {
         bool scroll = false;
 
         if (g_mousept.GetX() <= 0)
         {
-            vis_map_context->ScrollMapX(-1);
+            this->vis_map_context->ScrollMapX(-1);
             scroll = true;
         }
             
 
         if (g_mousept.GetY() <= 0)
         {
-            vis_map_context->ScrollMapY(-1);
+            this->vis_map_context->ScrollMapY(-1);
             scroll = true;
         }
 
         if (g_mousept.GetX() >= g_ScreenSize.right - 2)
         {
-            vis_map_context->ScrollMapX(1);
+            this->vis_map_context->ScrollMapX(1);
             scroll = true;
         }
 
         if (g_mousept.GetY() >= g_ScreenSize.bottom - 2)
         {
-            vis_map_context->ScrollMapY(1);
+            this->vis_map_context->ScrollMapY(1);
             scroll = true;
         }
 
         if (scroll) {
-            vis_minimap->MsgProc(0x408, 0, 0);
+            this->vis_minimap->MsgProc(0x408, 0, 0);
         }
     }
 
-    if (field_0xbc != 0)
+    if (this->field_0xbc != 0)
     {
-        vis_root->MsgProc(0x402, 0, 0);
+        this->vis_root->MsgProc(0x402, 0, 0);
         SaveScreenshot();
     }
 
@@ -5431,7 +5431,7 @@ void MainWindow::SingleGameIdle()
 void MainWindow::StartHatDedicatedServer()
 { //49172d
     //CHECK IN Allods2.exe
-    sessionMode = 3;
+    this->sessionMode = 3;
     g_NetStru1_main.SetLLDriver(&g_CLlDriver);
     g_CLlDriver.SetHlDriver(&g_NetStru1_main);
     g_CLlDriver.ResetProvider(4);
@@ -5439,13 +5439,13 @@ void MainWindow::StartHatDedicatedServer()
     CLlAddress addr;
     strcpy(addr.address, g_ServerConfig.ip_address);
 
-    if (g_CLlDriver.StartServer(g_ServerConfig.max_players, m_GameSession.character_name, &addr) == 0)
+    if (g_CLlDriver.StartServer(g_ServerConfig.max_players, this->m_GameSession.character_name, &addr) == 0)
     {
         AfxMessageBox("Error initializing TCP/IP connection", 0, 0);
         exit(1);
     }
 
-    if (FUN_0048ca7e(0) != 0) {
+    if (this->FUN_0048ca7e(0) != 0) {
         AfxMessageBox("Missing or invalid world.res", 0, 0);
         exit(1);
     }
@@ -5533,7 +5533,7 @@ int32_t MainWindow::FUN_0049057b()
     UnlockSurface2();
     FlushScreen();
 
-    sessionMode = 0;
+    this->sessionMode = 0;
 
     g_NetStru1_local.SetLLDriver(&g_CLlDriver);
     g_CLlDriver.SetHlDriver(&g_NetStru1_local);
@@ -5546,16 +5546,16 @@ int32_t MainWindow::FUN_0049057b()
     CLlAddress local_224;
     strcpy(local_224.address, "0.0.0.0");
 
-    int local_230 = g_CLlDriver.PrepareForConnect(hat_settings.hatprogip, &local_224);
+    int local_230 = g_CLlDriver.PrepareForConnect(this->hat_settings.hatprogip, &local_224);
     if (local_230) {
-        local_230 = g_CLlDriver.Connect(m_GameSession.character_name, nullptr);
+        local_230 = g_CLlDriver.Connect(this->m_GameSession.character_name, nullptr);
     }
 
     if (local_230 == 0)
     {
         g_CLlDriver.Close();
 
-        ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(19), nullptr, 0));
+        this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(19), nullptr, 0));
         PostMessage(WM_CLOSE, 0, 0);
 
         return 0;
@@ -5563,12 +5563,12 @@ int32_t MainWindow::FUN_0049057b()
 
     g_NetStru1_local.ProcessConnections();
 
-    g_NetStru1_local.FUN_0051d8d6(hat_settings.login, hat_settings.password, hat_settings.deathmatch);
-    field_0x3e0.field_0c = 0;
+    g_NetStru1_local.FUN_0051d8d6(this->hat_settings.login, this->hat_settings.password, this->hat_settings.deathmatch);
+    this->field_0x3e0.field_0c = 0;
 
     uint32_t start_time = timeGetTime();
     INT_00660f8c = 0;
-    while(field_0x3e0.field_0c == 0)
+    while(this->field_0x3e0.field_0c == 0)
     {
         if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0)
         {
@@ -5584,15 +5584,15 @@ int32_t MainWindow::FUN_0049057b()
         {
             if (g_CmdTimeout < timeGetTime() - start_time)
             {
-                ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(18), nullptr, 0));
+                this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(18), nullptr, 0));
                 PostMessage(WM_CLOSE, 0, 0);
                 return 0;
             }
 
             g_mousept.Update();
-        } else if (vis_map_context->ProcessPackets(100) == 0)
+        } else if (this->vis_map_context->ProcessPackets(100) == 0)
         {
-            ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
+            this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
             PostMessage(WM_CLOSE, 0, 0);
             return 0;
         }
@@ -5604,17 +5604,17 @@ int32_t MainWindow::FUN_0049057b()
     UnlockSurface2();
     FlushScreen();
 
-    m_GameSession.RefreshCharacterRosterFiles(0);
+    this->m_GameSession.RefreshCharacterRosterFiles(0);
 
-    for (int j = 0; j < m_GameSession.field_0x130.GetSize(); j++)
+    for (int j = 0; j < this->m_GameSession.field_0x130.GetSize(); j++)
     {
-        HatCharId& curid = m_GameSession.field_0x130[j];
+        HatCharId& curid = this->m_GameSession.field_0x130[j];
 
         bool has_file = false;
 
-        for (int k = 0; k < m_GameSession.characterRosterHatId.GetSize(); k++)
+        for (int k = 0; k < this->m_GameSession.characterRosterHatId.GetSize(); k++)
         {
-            if (curid.id == m_GameSession.characterRosterHatId[k].id)
+            if (curid.id == this->m_GameSession.characterRosterHatId[k].id)
             {
                 has_file = true;
                 break;
@@ -5623,7 +5623,7 @@ int32_t MainWindow::FUN_0049057b()
 
         if (!has_file)
         {
-            g_NetStru1_local.FUN_0051d9d0(m_GameSession.field_0x130[j]);
+            g_NetStru1_local.FUN_0051d9d0(this->m_GameSession.field_0x130[j]);
             INT_00660f8c = 0;
 
             while (true)
@@ -5640,9 +5640,9 @@ int32_t MainWindow::FUN_0049057b()
 
                 if (g_NetStru1_local.GetClientsPktNum() != 0)
                 {
-                    if (vis_map_context->ProcessPackets(100) == 0)
+                    if (this->vis_map_context->ProcessPackets(100) == 0)
                     {
-                        ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(17), nullptr, 0));
+                        this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(17), nullptr, 0));
                         PostMessage(WM_CLOSE, 0, 0);
                         return 0;
                     }
@@ -5651,7 +5651,7 @@ int32_t MainWindow::FUN_0049057b()
 
                 if (g_CmdTimeout < timeGetTime() - start_time)
                 {
-                    ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(18), nullptr, 0));
+                    this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(18), nullptr, 0));
                     PostMessage(WM_CLOSE, 0, 0);
                     return 0;
                 }
@@ -5663,7 +5663,7 @@ int32_t MainWindow::FUN_0049057b()
         FillRectColorSimple(0, g_ScreenSize.bottom / 2 + 20, g_ScreenSize.right, g_ScreenSize.bottom / 2 + 40, 0);
 
         CString local_260;
-        local_260.Format("%d / %d", j, m_GameSession.field_0x130.GetSize());
+        local_260.Format("%d / %d", j, this->m_GameSession.field_0x130.GetSize());
         g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2 + 20, local_260, 2, clrsh_ShockingBlack, 1);
         UnlockSurface2();
         FlushScreen();
@@ -5799,7 +5799,7 @@ int32_t MainWindow::FUN_00490eb3()
         g_mousept.Update();
     }
 
-    int32_t res = vis_map_context->ProcessPackets(100);
+    int32_t res = this->vis_map_context->ProcessPackets(100);
 
     if (res != 0) {
         return res;
@@ -5813,7 +5813,7 @@ int32_t MainWindow::FUN_00490eb3()
 CGameSession::CGameSession()
 { //49248a
     //fields init in defination
-    strcpy(character_name, "Self");
+    strcpy(this->character_name, "Self");
 }
 
 CGameSession::~CGameSession()
@@ -5827,8 +5827,8 @@ int CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit()
 
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
-    if ((flags & 1) == 0 && wnd->sessionMode != 2) {
-        wnd->vis_map_context->FUN_0041cc78(characterRosterFilePaths[selectedCharacterRosterFileIndex]);
+    if ((this->flags & 1) == 0 && wnd->sessionMode != 2) {
+        wnd->vis_map_context->FUN_0041cc78(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex]);
     } else {
         wnd->vis_map_context->FUN_0041cbb8();
     }
@@ -5882,27 +5882,27 @@ void CGameSession::FUN_00493d8d()
     }
 
     CUnit* cu = wnd->vis_map_context->GetUnit_3f6c();
-    money = 1000;
-    monster_killed = 0;
-    player_killed = 0;
-    death_count = 0;
-    fragCount = 0;
+    this->money = 1000;
+    this->monster_killed = 0;
+    this->player_killed = 0;
+    this->death_count = 0;
+    this->fragCount = 0;
 
     FileSectionBasicInfo local_40;
-    local_40.id1 = sessionKeyPart1;
-    local_40.id2 = sessionKeyPart2;
-    local_40.hat_id = field_0x64;
+    local_40.id1 = this->sessionKeyPart1;
+    local_40.id2 = this->sessionKeyPart2;
+    local_40.hat_id = this->field_0x64;
 
-    strcpy(local_40.nick, character_name);
+    strcpy(local_40.nick, this->character_name);
 
-    local_40.character_class = type;
+    local_40.character_class = this->type;
 
-    face = cu->face;
+    this->face = cu->face;
 
-    local_40.picture = face;
-    local_40.main_sphere = main_sphere;
-    local_40.flags = flags;
-    local_40.color = color;
+    local_40.picture = this->face;
+    local_40.main_sphere = this->main_sphere;
+    local_40.flags = this->flags;
+    local_40.color = this->color;
 
     FileSectionStats local_74;
     local_74.body = cu->field_0x180[0];
@@ -5926,18 +5926,18 @@ void CGameSession::FUN_00493d8d()
     uint8_t* bufpos = buffer;
 
     for (int i = 0; i < 9; i++) {
-        shortcuts[i].ToBuffer(&bufpos);
+        this->shortcuts[i].ToBuffer(&bufpos);
     }
     
-    WritePlayerFile_4F53EA(characterRosterFilePaths[selectedCharacterRosterFileIndex], &local_40, &local_74, wnd->vis_map_context->kill_stats.data(), &PacketUnitStateVec::Inst, nullptr, buffer, bufpos - buffer);
+    WritePlayerFile_4F53EA(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], &local_40, &local_74, wnd->vis_map_context->kill_stats.data(), &PacketUnitStateVec::Inst, nullptr, buffer, bufpos - buffer);
 }
 
 
 void CGameSession::FUN_00494687()
 {
-    body = 0;
-    main_sphere = 0;
-    RecreateCUnit();
+    this->body = 0;
+    this->main_sphere = 0;
+    this->RecreateCUnit();
 }
 
 
@@ -5948,7 +5948,7 @@ void CGameSession::RecreateCUnit()
     if (cu)
     {
         Human* hm = nullptr;
-        switch (type & 0xc0)
+        switch (this->type & 0xc0)
         {
         default:
         case 0:
@@ -5968,29 +5968,29 @@ void CGameSession::RecreateCUnit()
             break;
         }
 
-        if (body != 0)
+        if (this->body != 0)
         {
-            hm->body = body;
-            hm->reaction = reaction;
-            hm->mind = mind;
-            hm->spirit = spirit;
+            hm->body = this->body;
+            hm->reaction = this->reaction;
+            hm->mind = this->mind;
+            hm->spirit = this->spirit;
             hm->VMethod18();
-            hm->face = (byte)face;
+            hm->face = (byte)this->face;
         }
 
-        if (main_sphere == 0) {
-            main_sphere = hm->main_sphere;
+        if (this->main_sphere == 0) {
+            this->main_sphere = hm->main_sphere;
         }
 
-        hm->sub_533345(main_sphere, 0x14);
+        hm->sub_533345(this->main_sphere, 0x14);
         cu->CopyFromUnit(*hm);
 
-        body = cu->field_0x180[0] = cu->body;
-        reaction = cu->field_0x180[1] = cu->reaction;
-        mind = cu->field_0x180[2] = cu->mind;
-        spirit = cu->field_0x180[3] = cu->spirit;
+        this->body = cu->field_0x180[0] = cu->body;
+        this->reaction = cu->field_0x180[1] = cu->reaction;
+        this->mind = cu->field_0x180[2] = cu->mind;
+        this->spirit = cu->field_0x180[3] = cu->spirit;
 
-        face = cu->face;
+        this->face = cu->face;
 
         delete hm;
     }
@@ -5999,7 +5999,7 @@ void CGameSession::RecreateCUnit()
 
 void CGameSession::LoadCharacterRosterEntry(int32_t idx)
 { //492c66
-    selectedCharacterRosterFileIndex = idx;
+    this->selectedCharacterRosterFileIndex = idx;
 
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
     CUnit* unit = mwnd->vis_map_context->GetUnit_3f6c();
@@ -6013,9 +6013,9 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx)
         mwnd->vis_map_context->MsgProc(0x405, 0, 0);
     }
 
-    if (idx >= 0 && idx < characterRosterFilePaths.GetSize())
+    if (idx >= 0 && idx < this->characterRosterFilePaths.GetSize())
     {
-        CFile f(characterRosterFilePaths[selectedCharacterRosterFileIndex], CFile::modeRead);
+        CFile f(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], CFile::modeRead);
 
         FileSectionStats* stats = nullptr;
         FileSectionBasicInfo* basic = nullptr;
@@ -6026,37 +6026,37 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx)
         uint32_t size_40a = 0;
         if (ParsePlayerFile_4F62E6(&f, &basic, &stats, &kills, &equip, &inv, &sec40a, &size_40a) != 0 && basic != nullptr && stats != nullptr)
         {
-            strcpy(character_name, basic->nick);
+            strcpy(this->character_name, basic->nick);
 
             memset(unit->str1, 0, 12);
 
-            char* delim = strchr(character_name, '|');
+            char* delim = strchr(this->character_name, '|');
             if (delim == NULL)
             {
-                memcpy(unit->str1, character_name, 11);
+                memcpy(unit->str1, this->character_name, 11);
                 unit->str2[0] = 0;
             } else {
-                memcpy(unit->str1, character_name, delim - character_name);
+                memcpy(unit->str1, this->character_name, delim - this->character_name);
                 memcpy(unit->str2, delim + 1, 12);
             }
 
-            type = basic->character_class;
-            main_sphere = basic->main_sphere;
-            flags = basic->flags;
-            color = basic->color;
-            field_0x64 = basic->hat_id;
+            this->type = basic->character_class;
+            this->main_sphere = basic->main_sphere;
+            this->flags = basic->flags;
+            this->color = basic->color;
+            this->field_0x64 = basic->hat_id;
 
-            sessionKeyPart1 = basic->id1;
-            sessionKeyPart2 = basic->id2;
+            this->sessionKeyPart1 = basic->id1;
+            this->sessionKeyPart2 = basic->id2;
 
-            money = stats->money;
-            monster_killed = stats->monster_kills;
-            player_killed = stats->player_kills;
-            death_count = stats->deaths;
-            fragCount = stats->frags;
+            this->money = stats->money;
+            this->monster_killed = stats->monster_kills;
+            this->player_killed = stats->player_kills;
+            this->death_count = stats->deaths;
+            this->fragCount = stats->frags;
 
             Human* hum;
-            switch (type & 0xc0)
+            switch (this->type & 0xc0)
             {
             default:
             case 0:
@@ -6073,20 +6073,20 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx)
                 break;
             }
 
-            body = stats->body;
-            hum->body = body;
+            this->body = stats->body;
+            hum->body = this->body;
 
-            reaction = stats->reaction;
-            hum->reaction = reaction;
+            this->reaction = stats->reaction;
+            hum->reaction = this->reaction;
 
-            mind = stats->mind;
-            hum->mind = mind;
+            this->mind = stats->mind;
+            hum->mind = this->mind;
 
-            spirit = stats->spirit;
-            hum->spirit = spirit;
+            this->spirit = stats->spirit;
+            hum->spirit = this->spirit;
 
-            face = basic->picture;
-            hum->face = face;
+            this->face = basic->picture;
+            hum->face = this->face;
 
             hum->experience_per_sphere[0] = stats->experience[0];
             hum->experience_per_sphere[1] = stats->experience[1];
@@ -6110,23 +6110,23 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx)
             }
 
             if (maxlvl >= 96) {
-                field_0x114 = 4;
+                this->field_0x114 = 4;
             } else if (maxlvl >= 76) {
-                field_0x114 = 3;
+                this->field_0x114 = 3;
             } else if (maxlvl >= 51) {
-                field_0x114 = 2;
+                this->field_0x114 = 2;
             } else {
-                field_0x114 = 1;
+                this->field_0x114 = 1;
             }
 
             if (maxlvl >= 90) {
-                field_0x118 = 4;
+                this->field_0x118 = 4;
             } else if (maxlvl >= 51) {
-                field_0x118 = 3;
+                this->field_0x118 = 3;
             } else if (maxlvl >= 26) {
-                field_0x118 = 2;
+                this->field_0x118 = 2;
             } else {
-                field_0x118 = 1;
+                this->field_0x118 = 1;
             }
 
             hum->experience = 0;
@@ -6178,7 +6178,7 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx)
             if (sec40a != nullptr)
             {
                 for (int i = 0; i < 9; i++) {
-                    shortcuts[i].LoadFromBuffer(&sec40a);
+                    this->shortcuts[i].LoadFromBuffer(&sec40a);
                 }
             }
         }
@@ -6189,30 +6189,30 @@ void CGameSession::InitializeNewCharacterSession(int tp, const char* name)
 { //493ab6
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
-    field_0x64 = mwnd->field_0x3e0.field_0c;
+    this->field_0x64 = mwnd->field_0x3e0.field_0c;
 
     if (name)
     {
-        strcpy(character_name, name);
-        type = tp;
+        strcpy(this->character_name, name);
+        this->type = tp;
     }
 
     LARGE_INTEGER k;
     if (QueryPerformanceCounter(&k) == 0)
     {
-        sessionKeyPart2 = k.LowPart;
-        sessionKeyPart1 = timeGetTime();
+        this->sessionKeyPart2 = k.LowPart;
+        this->sessionKeyPart1 = timeGetTime();
     }
 
-    characterRosterNames.InsertAt(characterRosterNames.GetSize() - 1, character_name);
+    this->characterRosterNames.InsertAt(this->characterRosterNames.GetSize() - 1, this->character_name);
 
     CString fname;
-    fname.Format("%u%u.a2c", sessionKeyPart1, sessionKeyPart2);
-    characterRosterFilePaths.Add(fname);
+    fname.Format("%u%u.a2c", this->sessionKeyPart1, this->sessionKeyPart2);
+    this->characterRosterFilePaths.Add(fname);
 
-    selectedCharacterRosterFileIndex = characterRosterFilePaths.GetSize() - 1;
+    this->selectedCharacterRosterFileIndex = this->characterRosterFilePaths.GetSize() - 1;
 
-    flags = 1;
+    this->flags = 1;
 
     mwnd->vis_map_context->kill_stats.fill(0);
 
@@ -6225,11 +6225,11 @@ void CGameSession::InitializeNewCharacterSession(int tp, const char* name)
         mwnd->vis_map_context->field_0x3f6c = cunit;
     }
 
-    field_0x118 = 1;
-    field_0x114 = 1;
-    main_sphere = 0;
+    this->field_0x118 = 1;
+    this->field_0x114 = 1;
+    this->main_sphere = 0;
 
-    RecreateCUnit();
+    this->RecreateCUnit();
 }
 
 void CGameSession::FUN_0049381c(char* name)
@@ -6493,11 +6493,11 @@ void UserShortcut::FUN_0041e323(short spell_id)
 
 void UserShortcut::WriteToFile(CFile* f)
 { //41e4d3
-    f->Write(&kind, 2);
-    f->Write(&item_id, 2);
-    f->Write(&mods_size, 4);
-    if (mods_size != 0) {
-        f->Write(mods, mods_size);
+    f->Write(&this->kind, 2);
+    f->Write(&this->item_id, 2);
+    f->Write(&this->mods_size, 4);
+    if (this->mods_size != 0) {
+        f->Write(this->mods, this->mods_size);
     }
 }
 
@@ -6529,28 +6529,28 @@ void UserShortcut::LoadFromBuffer(uint8_t** buf)
 { //41e689
     uint8_t* data = *buf;
 
-    if (mods_size != 0)
+    if (this->mods_size != 0)
     {
-        if (mods != nullptr) {
-            free(mods);
+        if (this->mods != nullptr) {
+            free(this->mods);
         }
 
-        mods = nullptr;
-        mods_size = 0;
+        this->mods = nullptr;
+        this->mods_size = 0;
     }
 
-    kind = *(uint16_t*)data;
+    this->kind = *(uint16_t*)data;
     data += 2;
-    item_id = *(uint16_t*)data;
+    this->item_id = *(uint16_t*)data;
     data += 2;
-    mods_size = *(uint32_t*)data;
+    this->mods_size = *(uint32_t*)data;
     data += 4;
 
-    if (mods_size != 0)
+    if (this->mods_size != 0)
     {
-        mods = (uint8_t*)malloc(mods_size);
-        memcpy(mods, data, mods_size);
-        data += mods_size;
+        this->mods = (uint8_t*)malloc(this->mods_size);
+        memcpy(this->mods, data, this->mods_size);
+        data += this->mods_size;
     }
 
     *buf = data;

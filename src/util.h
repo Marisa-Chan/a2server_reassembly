@@ -25,23 +25,23 @@ struct Listerator
 
 	TYPE* Begin(HLDR &hld)
 	{
-		holder = &hld;
-		position = hld.GetHeadPosition();
+		this->holder = &hld;
+		this->position = hld.GetHeadPosition();
 
-		if (position = NULL) {
+		if (this->position = NULL) {
 			return nullptr;
 		}
 
-		return GetNext();
+		return this->GetNext();
 	}
 
 	TYPE* GetNext()
 	{
-		if (position == NULL) {
+		if (this->position == NULL) {
 			return nullptr;
 		}
 
-		return holder->GetNext(position);
+		return this->holder->GetNext(this->position);
 	}
 };
 

@@ -50,23 +50,23 @@ public:
 	int FUN_004396d6(); //4396d6
 	const char* FUN_00439973(); //439973
 
-	int GetType() const { return (item_id >> 8) & 0xf; } //41f0b0
-	int GetId() const { return item_id & 0x1f; } //43a800
-	int GetMaterial() const { return (item_id >> 0xc); } //43a7c0
-	int GetShape() const { return (item_id >> 5) & 7; } //43a7e0
+	int GetType() const { return (this->item_id >> 8) & 0xf; } //41f0b0
+	int GetId() const { return this->item_id & 0x1f; } //43a800
+	int GetMaterial() const { return (this->item_id >> 0xc); } //43a7c0
+	int GetShape() const { return (this->item_id >> 5) & 7; } //43a7e0
 
 	uint32_t GetAttribute(uint8_t aid) const //4397de
 	{
-		if (!mods || mods_count == 0 || mods_size == 0) {
+		if (!this->mods || this->mods_count == 0 || this->mods_size == 0) {
 			return 0;
 		}
 
 		int pos = 0;
 		uint32_t result = 0;
 
-		const uint8_t* cmods = (const uint8_t*)mods;
+		const uint8_t* cmods = (const uint8_t*)this->mods;
 
-		for (int i = 0; i < mods_count; i++)
+		for (int i = 0; i < this->mods_count; i++)
 		{
 			uint8_t k = cmods[pos];
 			if (k == aid)
@@ -83,7 +83,7 @@ public:
 		return result;
 	}
 
-	uint32_t GetCastSpellId() const { return GetAttribute(CAST_SPELL_ATTRIBUTE_ID); } //41f0f0
+	uint32_t GetCastSpellId() const { return this->GetAttribute(CAST_SPELL_ATTRIBUTE_ID); } //41f0f0
 public:
 	uint16_t field_0x4 = 0;
 	uint16_t item_id = 0;
@@ -152,8 +152,8 @@ public:
 	CGameObject();
 	CGameObject(const CGameObject *obj);
 
-	int32_t IsSelected() { return m_bSelected; } //41f110
-	uint32_t FUN_0041f1c0(uint32_t t) { return (1 << t) & controlGroupMask; } //41f1c0
+	int32_t IsSelected() { return this->m_bSelected; } //41f110
+	uint32_t FUN_0041f1c0(uint32_t t) { return (1 << t) & this->controlGroupMask; } //41f1c0
 	void FUN_0046190d();
 	void SetVals(uint16_t uni_id, int type_id, int32_t xpos, int32_t ypos, int32_t unk1, int32_t unk2, int32_t _phase, int32_t _speed, int32_t hp); //46187d
 

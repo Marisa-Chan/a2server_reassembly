@@ -12,16 +12,16 @@ GroupSub::GroupSub()
     memset(this, 0, sizeof(GroupSub));
     
     // Set specific fields (most are already 0 from memset).
-    field_0x45 = 1;
+    this->field_0x45 = 1;
     
-    list = new CList<uint16_t>();
+    this->list = new CList<uint16_t>();
 }
 
 GroupSub::~GroupSub()
 {
     //5a500c
-    if (list) {
-        delete list;
+    if (this->list) {
+        delete this->list;
     }
 }
 
@@ -31,13 +31,13 @@ void GroupSub::Serialize(CArchive& ar)
     if (ar.IsLoading())
     {
         ar.Read(this, 0x50);
-        list = new CList<uint16_t>();
+        this->list = new CList<uint16_t>();
 
-        list->Serialize(ar);
+        this->list->Serialize(ar);
     } else {
         ar.Write(this, 0x50);
 
-        list->Serialize(ar);
+        this->list->Serialize(ar);
     }
 }
 
@@ -45,27 +45,27 @@ void GroupSub::Serialize(CArchive& ar)
 // 554D9E - Group constructor
 Group::Group()
 {
-    field_0x40 = 0;
-    owner = nullptr;
-    has_quest_kill = 0;
-    has_quest_intercept = 0;
+    this->field_0x40 = 0;
+    this->owner = nullptr;
+    this->has_quest_kill = 0;
+    this->has_quest_intercept = 0;
     
-    group_sub = new GroupSub();
+    this->group_sub = new GroupSub();
 }
 
 Group::~Group()
 {
     //554eea
-    while (!unit_list.IsEmpty())
+    while (!this->unit_list.IsEmpty())
     {
-        Unit* unit = unit_list.RemoveHead();
+        Unit* unit = this->unit_list.RemoveHead();
         if (unit) {
             delete unit;
         }
     }
 
-    if (group_sub) {
-        delete group_sub;
+    if (this->group_sub) {
+        delete this->group_sub;
     }
 }
 
@@ -73,12 +73,12 @@ Group::~Group()
 void Group::Serialize(CArchive& ar)
 {
     //55c94d
-    some_list.Serialize(ar);
-    group_sub->Serialize(ar);
+    this->some_list.Serialize(ar);
+    this->group_sub->Serialize(ar);
 
     if (ar.IsLoading())
     {
-        unit_list.RemoveAll();
+        this->unit_list.RemoveAll();
         uint32_t tmp;
         ar >> tmp;
 
@@ -86,33 +86,33 @@ void Group::Serialize(CArchive& ar)
         {
             Unit* unit;
             ar >> unit;
-            AddUnit(unit);
+            this->AddUnit(unit);
         }
 
-        ar >> group_id;
+        ar >> this->group_id;
 
         ar >> tmp;
-        if (!g_Server->field23_0xdc.Lookup((void *)tmp, *(void**)&field_0x40)) {
-            field_0x40 = 0;
+        if (!g_Server->field23_0xdc.Lookup((void *)tmp, *(void**)&this->field_0x40)) {
+            this->field_0x40 = 0;
         }
 
         ar >> tmp;
-        if (!g_Server->field23_0xdc.Lookup((void*)tmp, *(void**)&owner)) {
-            owner = nullptr;
+        if (!g_Server->field23_0xdc.Lookup((void*)tmp, *(void**)&this->owner)) {
+            this->owner = nullptr;
         }
     } else {
-        ar << (uint32_t)unit_list.GetCount();
+        ar << (uint32_t)this->unit_list.GetCount();
 
-        for (POSITION pos = unit_list.GetHeadPosition(); pos != NULL;)
+        for (POSITION pos = this->unit_list.GetHeadPosition(); pos != NULL;)
         {
-            Unit* obj = unit_list.GetNext(pos);
+            Unit* obj = this->unit_list.GetNext(pos);
             ar << obj;
         }
 
-        ar << group_id;
+        ar << this->group_id;
 
-        ar << (uint32_t)field_0x40;
-        ar << (uint32_t)owner;
+        ar << (uint32_t)this->field_0x40;
+        ar << (uint32_t)this->owner;
     }
 }
 
@@ -120,9 +120,9 @@ void Group::Serialize(CArchive& ar)
 void Group::RemoveUnit(Unit* unit)
 {
     //5552e6
-    POSITION pos = unit_list.Find(unit);
+    POSITION pos = this->unit_list.Find(unit);
     if (pos != NULL) {
-        unit_list.RemoveAt(pos);
+        this->unit_list.RemoveAt(pos);
     }
 
     unit->group = nullptr;
@@ -135,10 +135,10 @@ void Group::AddUnit(Unit* unit)
         unit->group->RemoveUnit(unit);
     }
 
-    unit_list.AddTail(unit);
+    this->unit_list.AddTail(unit);
 
     unit->group = this;
-    owner = unit->pOwner;
+    this->owner = unit->pOwner;
 }
 
 
@@ -176,9 +176,9 @@ GroupList::GroupList()
 GroupList::~GroupList()
 {
     //555874
-    while (groups.GetCount())
+    while (this->groups.GetCount())
     {
-        Group* grp = groups.RemoveHead();
+        Group* grp = this->groups.RemoveHead();
         delete grp;
     }
 }
@@ -187,15 +187,15 @@ Group* GroupList::AllocGroup()
 {
     //55564e
     
-    POSITION pos = groups.GetHeadPosition();
+    POSITION pos = this->groups.GetHeadPosition();
     while (pos != NULL)
     {
         POSITION curpos = pos; //save current position for RemoveAt
-        Group* grp = groups.GetNext(pos); //get data and iterate to next
+        Group* grp = this->groups.GetNext(pos); //get data and iterate to next
 
         if (grp && grp->unit_list.GetCount() == 0)
         {
-            groups.RemoveAt(curpos);
+            this->groups.RemoveAt(curpos);
             delete grp;
         }
     }
@@ -211,10 +211,10 @@ Group* GroupList::AllocGroup()
 void GroupList::Serialize(CArchive& ar)
 {
     if (ar.IsStoring()) {
-        int32_t count = groups.GetCount();
+        int32_t count = this->groups.GetCount();
         ar.Write(&count, sizeof(count));
-        for (POSITION pos = groups.GetHeadPosition(); pos != nullptr;) {
-            Group* grp = groups.GetNext(pos);
+        for (POSITION pos = this->groups.GetHeadPosition(); pos != nullptr;) {
+            Group* grp = this->groups.GetNext(pos);
             grp->Serialize(ar);
         }
     } else {
@@ -223,7 +223,7 @@ void GroupList::Serialize(CArchive& ar)
         for (int32_t i = 0; i < count; ++i) {
             Group* grp = new Group();
             grp->Serialize(ar);
-            groups.AddTail(grp);
+            this->groups.AddTail(grp);
         }
     }
 }

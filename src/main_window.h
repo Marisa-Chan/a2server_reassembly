@@ -53,8 +53,8 @@ struct SaveFileInfo
 
     SaveFileInfo()
     {
-        title[0] = 0;
-        filename[0] = 0;
+        this->title[0] = 0;
+        this->filename[0] = 0;
     }
 };
 
@@ -122,8 +122,8 @@ struct CFameHall
 
     void SubmitScore(); //4ac498
 
-    int32_t GetDifficulty() { return difficulty; }; //497290
-    void AddMissionElapsedTime(int32_t t) { m_nTotalTime += t; } //497250
+    int32_t GetDifficulty() { return this->difficulty; }; //497290
+    void AddMissionElapsedTime(int32_t t) { this->m_nTotalTime += t; } //497250
 };
 
 ASSERT_SIZE(CFameHall, 0x38);
@@ -171,8 +171,8 @@ public:
     CString FUN_00420070(); //420070
     void FUN_00494982(); //494982
 
-    int32_t FUN_00420110() { return field_0x118; }; //420110
-    int32_t FUN_004200f0() { return field_0x114; }; //4200f0
+    int32_t FUN_00420110() { return this->field_0x118; }; //420110
+    int32_t FUN_004200f0() { return this->field_0x114; }; //4200f0
 
     int SubmitCharacterSetupAndWaitForSelectedUnit(); //493ffe
     void FUN_00493d8d(); //493d8d
@@ -467,7 +467,7 @@ public:
     void ShowInnDialog(uint32_t id, int32_t interact_target); //48d4da
 
     void PopUpScreen(VisScreen* screen); //48d26a   popup screen
-    void SetMusicProc(void (*func)()) { music_update_proc = func; } //45cc80
+    void SetMusicProc(void (*func)()) { this->music_update_proc = func; } //45cc80
 
     void SetControlPositions(); //484127
 

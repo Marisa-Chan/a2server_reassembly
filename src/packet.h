@@ -171,9 +171,9 @@ public:
     uint8_t  data[0x400];  // +0x18  packed field values
 
     // Helpers mirroring sub_527B25 / sub_527B60 / sub_527B9D in asm
-    void PutByte(uint32_t flag, uint8_t  val) { flags_mask |= flag; data[data_offset++] = val; }
-    void PutWord(uint32_t flag, uint16_t val) { flags_mask |= flag; *reinterpret_cast<uint16_t*>(data + data_offset) = val; data_offset += 2; }
-    void PutInt(uint32_t flag, uint32_t val){ flags_mask |= flag; *reinterpret_cast<uint32_t*>(data + data_offset) = val; data_offset += 4; }
+    void PutByte(uint32_t flag, uint8_t  val) { this->flags_mask |= flag; this->data[this->data_offset++] = val; }
+    void PutWord(uint32_t flag, uint16_t val) { this->flags_mask |= flag; *reinterpret_cast<uint16_t*>(this->data + this->data_offset) = val; this->data_offset += 2; }
+    void PutInt(uint32_t flag, uint32_t val){ this->flags_mask |= flag; *reinterpret_cast<uint32_t*>(this->data + this->data_offset) = val; this->data_offset += 4; }
 
     uint32_t FUN_00527bd8();
     uint32_t FUN_00527c3b();

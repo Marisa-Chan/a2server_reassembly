@@ -24,7 +24,7 @@ public:
 
     Array2D(T val)
     {
-        fill(val);
+        this->fill(val);
     }
 
     Array2D<T, XW, XH>* Copy()
@@ -97,7 +97,7 @@ public:
     size_t GetID(uint32_t x, uint32_t y) const
     {
         size_t n = x + y * XW;
-        if (n < size()) {
+        if (n < this->size()) {
             return n;
         }
         return -1;
@@ -105,7 +105,7 @@ public:
 
     CPoint GetPos(size_t id) const
     {
-        if (id >= 0 && id < size()) {
+        if (id >= 0 && id < this->size()) {
             return CPoint(id % XW, id / XW);
         }
         return CPoint(-1, -1);
@@ -153,32 +153,32 @@ public:
 
     Vector2D(uint32_t w, uint32_t h)
     {
-        Resize(w, h);
+        this->Resize(w, h);
     }
 
     Vector2D(const CPoint& sz)
     {
-        Resize(sz);
+        this->Resize(sz);
     }
 
     Vector2D<T>* Copy()
     {
-        Vector2D<T>* tmp = new Vector2D<T>;
+        Vector2D<this->T>* tmp = new Vector2D<this->T>;
         *tmp = *this;
         return tmp;
     }
 
     void Resize(const CPoint& sz)
     {
-        _w = sz.x;
-        _h = sz.y;
-        this->resize(_w * _h);
+        this->_w = sz.x;
+        this->_h = sz.y;
+        this->resize(this->_w * _h);
     }
 
     void Resize(uint32_t w, uint32_t h)
     {
-        _w = w;
-        _h = h;
+        this->_w = w;
+        this->_h = h;
         this->resize(w * h);
     }
 
@@ -224,13 +224,13 @@ public:
 
     CPoint Size() const
     {
-        return CPoint(_w, _h);
+        return CPoint(this->_w, this->_h);
     }
 
     size_t GetID(uint32_t x, uint32_t y) const
     {
-        size_t n = x + y * _w;
-        if (n < size()) {
+        size_t n = x + y * this->_w;
+        if (n < this->size()) {
             return n;
         }
         return -1;
@@ -238,42 +238,42 @@ public:
 
     CPoint GetPos(size_t id) const
     {
-        if (id >= 0 && id < size()) {
-            return CPoint(id % _w, id / _w);
+        if (id >= 0 && id < this->size()) {
+            return CPoint(id % this->_w, id / this->_w);
         }
         return CPoint(-1, -1);
     }
 
     uint32_t Width() const
     {
-        return _w;
+        return this->_w;
     }
 
     uint32_t Height() const
     {
-        return _h;
+        return this->_h;
     }
 
     void Clear()
     {
-        _w = 0;
-        _h = 0;
-        std::vector<T>::clear();
+        this->_w = 0;
+        this->_h = 0;
+        std::vector<this->T>::clear();
     }
 
     bool IsNotNull() const
     {
-        return _w > 0 && _h > 0;
+        return this->_w > 0 && this->_h > 0;
     }
 
     bool IsNull() const
     {
-        return _w == 0 || _h == 0;
+        return this->_w == 0 || this->_h == 0;
     }
 
     bool IsOk() const
     {
-        return _w > 0 && _h > 0 && (size() == _w * _h);
+        return this->_w > 0 && this->_h > 0 && (this->size() == this->_w * _h);
     }
 
 protected:

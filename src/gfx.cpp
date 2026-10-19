@@ -3848,19 +3848,19 @@ int32_t SetVideoMode()
 CGameFont::CGameFont()
 {
 	//45e0d0
-	bitmap = nullptr;
-	char_widths = nullptr;
+	this->bitmap = nullptr;
+	this->char_widths = nullptr;
 }
 
 CGameFont::~CGameFont()
 {
 	//45e0f9
-	if (char_widths) {
-		delete[] char_widths;
+	if (this->char_widths) {
+		delete[] this->char_widths;
 	}
 
-	if (bitmap) {
-		delete bitmap;
+	if (this->bitmap) {
+		delete this->bitmap;
 	}
 }
 
@@ -3878,9 +3878,9 @@ uint16_t* CGameFont::GetShadowColors()
 void CGameFont::DrawTextWithShadow(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colorsh, int32_t shadow_dxy)
 {
 	//45ebda
-	uint16_t* shdow = GetShadowColors();
-	DrawTxt(x + shadow_dxy, y + shadow_dxy, txt, align, shdow);
-	DrawTxt(x, y, txt, align, colorsh);
+	uint16_t* shdow = this->GetShadowColors();
+	this->DrawTxt(x + shadow_dxy, y + shadow_dxy, txt, align, shdow);
+	this->DrawTxt(x, y, txt, align, colorsh);
 }
 
 
@@ -3902,16 +3902,16 @@ int32_t CGameFont::GetStrWidth(const char* str)
 					i++;
 
 					uint8_t n = DecodeChar('~') - 0x20;
-					wi += char_widths[n] + space;
+					wi += this->char_widths[n] + this->space;
 					if (n == 0) {
-						wi += bitmap->GetHeight(0) / 2;
+						wi += this->bitmap->GetHeight(0) / 2;
 					}
 				}
 			} else {
 				uint8_t n = DecodeChar(c) - 0x20;
-				wi += char_widths[n] + space;
+				wi += this->char_widths[n] + this->space;
 				if (n == 0) {
-					wi += bitmap->GetHeight(0) / 2;
+					wi += this->bitmap->GetHeight(0) / 2;
 				}
 			}
 		}
@@ -3924,7 +3924,7 @@ int32_t CGameFont::GetStrWidth(const char* str)
 int32_t CGameFont::GetHeight()
 {
 	//402a90
-	return bitmap->GetHeight(0);
+	return this->bitmap->GetHeight(0);
 }
 
 
@@ -3983,7 +3983,7 @@ CStringArray& CGameFont::StrSplitToFitWidth(const CRect& r, const char* str)
 	while (!s.IsEmpty())
 	{
 		int32_t x = 0;
-		if (GetStrWidth(s) >= w)
+		if (this->GetStrWidth(s) >= w)
 		{
 			tmp2 = s;
 			while (true)
@@ -4003,14 +4003,14 @@ CStringArray& CGameFont::StrSplitToFitWidth(const CRect& r, const char* str)
 
 				if (tmp2.IsEmpty())
 				{
-					if (GetStrWidth(tmp1) < w)
+					if (this->GetStrWidth(tmp1) < w)
 					{
 						split_pos = x;
 						break;
 					}
 				}
 
-				if (GetStrWidth(tmp1) >= w) {
+				if (this->GetStrWidth(tmp1) >= w) {
 					break;
 				}
 			}
@@ -4019,7 +4019,7 @@ CStringArray& CGameFont::StrSplitToFitWidth(const CRect& r, const char* str)
 			split_pos = s.GetLength();
 		}
 
-		if (w < GetStrWidth(tmp1) && split_pos == 0) {
+		if (w < this->GetStrWidth(tmp1) && split_pos == 0) {
 			split_pos = x;
 		}
 
@@ -4043,11 +4043,11 @@ CStringArray& CGameFont::StringArrayForRect(const CRect& r, const char* str)
 
 	out.RemoveAll();
 
-	CStringArray& lines = StrToArray(str);
+	CStringArray& lines = this->StrToArray(str);
 	
 	for (int i = 0; i < lines.GetSize(); i++)
 	{
-		CStringArray& spl = StrSplitToFitWidth(r, lines[i]);
+		CStringArray& spl = this->StrSplitToFitWidth(r, lines[i]);
 		out.Append(spl);
 	}
 	return out;
@@ -4059,7 +4059,7 @@ void CGameFont::DrawTextLinesShadow(const CRect& r, int32_t first, int32_t last,
 		last = lines.GetSize();
 	}
 	if (dy == 0) {
-		dy = GetHeight();
+		dy = this->GetHeight();
 	}
 
 	for (int32_t i = first; i < last; i++)
@@ -4076,7 +4076,7 @@ void CGameFont::DrawTextLinesShadow(const CRect& r, int32_t first, int32_t last,
 		if (i == 0)
 		{
 			flags |= 1;
-			if (GetStrWidth(line + ' ') > r.Width()) {
+			if (this->GetStrWidth(line + ' ') > r.Width()) {
 				flags |= 2;
 			}
 		} else {
@@ -4085,7 +4085,7 @@ void CGameFont::DrawTextLinesShadow(const CRect& r, int32_t first, int32_t last,
 			if (s[s.GetLength() - 1] == '\r')
 			{
 				flags |= 1;
-				if (GetStrWidth(line + ' ') > r.Width()) {
+				if (this->GetStrWidth(line + ' ') > r.Width()) {
 					flags |= 2;
 				}
 			}
@@ -4107,14 +4107,14 @@ void CGameFont::DrawTextLinesShadow(const CRect& r, int32_t first, int32_t last,
 		if ((flags & 2) == 0)
 		{
 			if ((flags & 1) == 0) {
-				DrawTextWithShadow(r.left, r.top + (i - first) * dy, line, 0, clr, 1);
+				this->DrawTextWithShadow(r.left, r.top + (i - first) * dy, line, 0, clr, 1);
 			} else {
-				DrawTextWithShadow(r.left + char_widths[' '], r.top + (i - first) * dy, line, 0, clr, 1);
+				this->DrawTextWithShadow(r.left + this->char_widths[' '], r.top + (i - first) * dy, line, 0, clr, 1);
 			}
 		} else if ((flags & 1) == 0) {
-			DrawTextJustifyShadow(r.left, r.top + (i - first) * dy, r.Width(), line, clr);
+			this->DrawTextJustifyShadow(r.left, r.top + (i - first) * dy, r.Width(), line, clr);
 		} else {
-			DrawTextJustifyShadow(r.left + char_widths[' '], r.top + (i - first) * dy, r.Width() - char_widths[' '], line, clr);
+			this->DrawTextJustifyShadow(r.left + this->char_widths[' '], r.top + (i - first) * dy, r.Width() - this->char_widths[' '], line, clr);
 		}
 	}
 }
@@ -4125,7 +4125,7 @@ void CGameFont::DrawTextLines(const CRect& r, int32_t first, int32_t last, const
 		last = lines.GetSize();
 	}
 	if (dy == 0) {
-		dy = GetHeight();
+		dy = this->GetHeight();
 	}
 
 	for (int32_t i = first; i < last; i++)
@@ -4142,7 +4142,7 @@ void CGameFont::DrawTextLines(const CRect& r, int32_t first, int32_t last, const
 		if (i == 0)
 		{
 			flags |= 1;
-			if (GetStrWidth(line + ' ') > r.Width()) {
+			if (this->GetStrWidth(line + ' ') > r.Width()) {
 				flags |= 2;
 			}
 		} else {
@@ -4151,7 +4151,7 @@ void CGameFont::DrawTextLines(const CRect& r, int32_t first, int32_t last, const
 			if (s[s.GetLength() - 1] == '\r')
 			{
 				flags |= 1;
-				if (GetStrWidth(line + ' ') > r.Width()) {
+				if (this->GetStrWidth(line + ' ') > r.Width()) {
 					flags |= 2;
 				}
 			}
@@ -4173,14 +4173,14 @@ void CGameFont::DrawTextLines(const CRect& r, int32_t first, int32_t last, const
 		if ((flags & 2) == 0)
 		{
 			if ((flags & 1) == 0) {
-				DrawTxt(r.left, r.top + (i - first) * dy, line, 0, clr);
+				this->DrawTxt(r.left, r.top + (i - first) * dy, line, 0, clr);
 			} else {
-				DrawTxt(r.left + char_widths[' '], r.top + (i - first) * dy, line, 0, clr);
+				this->DrawTxt(r.left + this->char_widths[' '], r.top + (i - first) * dy, line, 0, clr);
 			}
 		} else if ((flags & 1) == 0) {
-			DrawTextJustify(r.left, r.top + (i - first) * dy, r.Width(), line, clr);
+			this->DrawTextJustify(r.left, r.top + (i - first) * dy, r.Width(), line, clr);
 		} else {
-			DrawTextJustify(r.left + char_widths[' '], r.top + (i - first) * dy, r.Width() - char_widths[' '], line, clr);
+			this->DrawTextJustify(r.left + this->char_widths[' '], r.top + (i - first) * dy, r.Width() - this->char_widths[' '], line, clr);
 		}
 	}
 }
@@ -4188,7 +4188,7 @@ void CGameFont::DrawTextLines(const CRect& r, int32_t first, int32_t last, const
 
 void CGameFont::DrawTextJustifyShadow(int32_t x, int32_t y, int32_t w, CString txt, uint16_t* clr)
 { //45f10b
-	int32_t space_width = char_widths[' '];
+	int32_t space_width = this->char_widths[' '];
 
 	CStringArray words;
 	CDWordArray wordssz;
@@ -4209,7 +4209,7 @@ void CGameFont::DrawTextJustifyShadow(int32_t x, int32_t y, int32_t w, CString t
 
 		words.Add(wrd);
 
-		int32_t sz = GetStrWidth(wrd);
+		int32_t sz = this->GetStrWidth(wrd);
 		words_width += sz;
 
 		wordssz.Add(sz);
@@ -4225,14 +4225,14 @@ void CGameFont::DrawTextJustifyShadow(int32_t x, int32_t y, int32_t w, CString t
 	int32_t xx = x << 8;
 	for (int i = 0; i < words.GetSize(); i++)
 	{
-		DrawTextWithShadow(xx >> 8, y, words[i], 0, clr, 1);
+		this->DrawTextWithShadow(xx >> 8, y, words[i], 0, clr, 1);
 		xx += (wordssz[i] << 8) + word_space;
 	}
 }
 
 void CGameFont::DrawTextJustify(int32_t x, int32_t y, int32_t w, CString txt, uint16_t* clr)
 { //45eed7
-	int32_t space_width = char_widths[' '];
+	int32_t space_width = this->char_widths[' '];
 
 	CStringArray words;
 	CDWordArray wordssz;
@@ -4253,7 +4253,7 @@ void CGameFont::DrawTextJustify(int32_t x, int32_t y, int32_t w, CString txt, ui
 
 		words.Add(wrd);
 
-		int32_t sz = GetStrWidth(wrd);
+		int32_t sz = this->GetStrWidth(wrd);
 		words_width += sz;
 
 		wordssz.Add(sz);
@@ -4269,7 +4269,7 @@ void CGameFont::DrawTextJustify(int32_t x, int32_t y, int32_t w, CString txt, ui
 	int32_t xx = x << 8;
 	for (int i = 0; i < words.GetSize(); i++)
 	{
-		DrawTxt(xx >> 8, y, words[i], 0, clr);
+		this->DrawTxt(xx >> 8, y, words[i], 0, clr);
 		xx += (wordssz[i] << 8) + word_space;
 	}
 }
@@ -4277,18 +4277,18 @@ void CGameFont::DrawTextJustify(int32_t x, int32_t y, int32_t w, CString txt, ui
 
 void CGameFont::DrawTextJustifyInRectShadow(const CRect& r, const char* str, uint16_t* clr, int32_t dy)
 { //45ed37
-	CStringArray& array = StringArrayForRect(r, str);
+	CStringArray& array = this->StringArrayForRect(r, str);
 
 	if (dy == 0) {
-		dy = GetHeight();
+		dy = this->GetHeight();
 	}
 
 	for (int32_t i = 0; i < array.GetSize(); i++)
 	{
-		if (i * dy + GetHeight() > r.Height()) {
+		if (i * dy + this->GetHeight() > r.Height()) {
 			break;
 		}
-		DrawTextJustifyShadow(r.left, r.top + i * dy, r.Width(), array[i], clr);
+		this->DrawTextJustifyShadow(r.left, r.top + i * dy, r.Width(), array[i], clr);
 	}
 
 	array.RemoveAll();
@@ -4299,16 +4299,16 @@ void CGameFont::DrawTextJustifyInRectShadow(const CRect& r, const char* str, uin
 
 void CGamePalette::operator=(const CGamePalette& b)
 {
-	Free();
+	this->Free();
 
-	count = b.count;
-	colors = new uint16_t[256 * count];
-	memcpy(colors, b.colors, count * 256 * sizeof(uint16_t));
+	this->count = b.count;
+	this->colors = new uint16_t[256 * this->count];
+	memcpy(this->colors, b.colors, this->count * 256 * sizeof(uint16_t));
 }
 
 CGamePalette::~CGamePalette()
 { //423c6d
-	Free();
+	this->Free();
 }
 
 void CGamePalette::Dump(CDumpContext& dc) const
@@ -4318,19 +4318,19 @@ void CGamePalette::Dump(CDumpContext& dc) const
 
 void CGamePalette::Free()
 { //42457a
-	if (colors) {
-		delete[] colors;
+	if (this->colors) {
+		delete[] this->colors;
 	}
 
-	colors = nullptr;
+	this->colors = nullptr;
 
-	count = 0;
+	this->count = 0;
 }
 
 void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useColor)
 { //423cbe
-	count = _count;
-	colors = new uint16_t[256 * count];
+	this->count = _count;
+	this->colors = new uint16_t[256 * this->count];
 
 	uint32_t dg = g_DeltaCLR.g;
 	uint32_t db = g_DeltaCLR.b;
@@ -4343,14 +4343,14 @@ void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useCo
 		dr = 0;
 	}
 
-	uint16_t* clrs = colors;
+	uint16_t* clrs = this->colors;
 
 	switch (mode)
 	{
 	case 0:
-		colors[0] = 0;
+		this->colors[0] = 0;
 		for (int i = 1; i < 256; i++) {
-			colors[i] = 0xffff;
+			this->colors[i] = 0xffff;
 		}
 		break;
 
@@ -4375,30 +4375,30 @@ void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useCo
 				db = 255;
 			}
 
-			colors[i] = GetColorRGB(r, g, b);
+			this->colors[i] = GetColorRGB(r, g, b);
 		}
 		break;
 
 	case 2:
-		for (int j = count; j > 0; j--)
+		for (int j = this->count; j > 0; j--)
 		{
 			for (int i = 0; i < 256; i++)
 			{
-				int r = (rgb[i].rgbRed + dr) * j * 2 / count;
+				int r = (rgb[i].rgbRed + dr) * j * 2 / this->count;
 				if (r < 0) {
 					r = 0;
 				} else if (r > 255) {
 					r = 255;
 				}
 
-				int g = (rgb[i].rgbGreen + dg) * j * 2 / count;
+				int g = (rgb[i].rgbGreen + dg) * j * 2 / this->count;
 				if (g < 0) {
 					g = 0;
 				} else if (g > 255) {
 					g = 255;
 				}
 
-				int b = (rgb[i].rgbBlue + db) * j * 2 / count;
+				int b = (rgb[i].rgbBlue + db) * j * 2 / this->count;
 				if (b < 0) {
 					b = 0;
 				} else if (b > 255) {
@@ -4412,7 +4412,7 @@ void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useCo
 		break;
 
 	case 3:
-		for (int j = count; j > 0; j--)
+		for (int j = this->count; j > 0; j--)
 		{
 			for (int i = 0; i < 256; i++)
 			{
@@ -4484,11 +4484,11 @@ void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useCo
 		break;
 
 	case 5:
-		for (int j = count; j> 0; j--)
+		for (int j = this->count; j> 0; j--)
 		{
 			for (int i = 0; i < 256; i++)
 			{
-				int v = ((rgb[i].rgbRed + rgb[i].rgbGreen + rgb[i].rgbBlue) * j * 2) / 3 / count;
+				int v = ((rgb[i].rgbRed + rgb[i].rgbGreen + rgb[i].rgbBlue) * j * 2) / 3 / this->count;
 				if (v > 255) {
 					v = 255;
 				}
@@ -4502,7 +4502,7 @@ void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useCo
 
 uint16_t* CGamePalette::GetPalette(int32_t idx)
 { //41ec40
-	return colors + 256 * idx; 
+	return this->colors + 256 * idx; 
 }
 
 
@@ -4523,62 +4523,62 @@ CGameBitmap::CGameBitmap(const char* fname)
 	}
 
 	f.Seek(-4, CFile::end);
-	f.Read(&frames_count, 4);
-	data_size = f.GetLength();
+	f.Read(&this->frames_count, 4);
+	this->data_size = f.GetLength();
 
 	f.Rewind();
 
-	palette_data = nullptr;
+	this->palette_data = nullptr;
 
-	pdata = new uint8_t[data_size];
-	f.Read(pdata, data_size);
+	this->pdata = new uint8_t[this->data_size];
+	f.Read(this->pdata, this->data_size);
 	f.Close();
 
-	frames = new void*[frames_count];
+	this->frames = new void*[this->frames_count];
 
-	uint8_t* dpos = pdata;
-	for (int i = 0; i < frames_count; i++)
+	uint8_t* dpos = this->pdata;
+	for (int i = 0; i < this->frames_count; i++)
 	{
 		SpriteFrame* frm = (SpriteFrame*)dpos;
-		frames[i] = frm;
+		this->frames[i] = frm;
 		dpos = frm->data + frm->datasize;
 	}
 }
 
 CGameBitmap::CGameBitmap(const CGameBitmap& src)
 { // 4247fd
-	frames_count = src.frames_count;
-	data_size = src.data_size;
+	this->frames_count = src.frames_count;
+	this->data_size = src.data_size;
 
-	frames = new void* [frames_count];
+	this->frames = new void* [this->frames_count];
 
-	pdata = new uint8_t[data_size];
+	this->pdata = new uint8_t[this->data_size];
 
-	memcpy(pdata, src.pdata, data_size);
+	memcpy(this->pdata, src.pdata, this->data_size);
 
-	uint8_t* dpos = pdata;
-	for (int i = 0; i < frames_count; i++)
+	uint8_t* dpos = this->pdata;
+	for (int i = 0; i < this->frames_count; i++)
 	{
 		SpriteFrame* frm = (SpriteFrame*)dpos;
-		frames[i] = frm;
+		this->frames[i] = frm;
 		dpos = frm->data + frm->datasize;
 	}
 
-	palette = src.palette;
+	this->palette = src.palette;
 
-	palette_data = src.palette_data; //FIXME
+	this->palette_data = src.palette_data; //FIXME
 }
 
 CGameBitmap::~CGameBitmap()
 { //42496a
-	if (frames) {
-		delete[] frames;
+	if (this->frames) {
+		delete[] this->frames;
 	}
-	if (pdata) {
-		delete[] pdata;
+	if (this->pdata) {
+		delete[] this->pdata;
 	}
 
-	palette.Free();
+	this->palette.Free();
 }
 
 void CGameBitmap::Dump(CDumpContext& dc) const
@@ -4603,20 +4603,20 @@ void CGameBitmap::VMethod3(int32_t x, int32_t y, int frame, int blevel, int mode
 
 int32_t CGameBitmap::GetWidth(int frame)
 { //424ce6
-	return ((SpriteFrame**)frames)[frame]->width;
+	return ((SpriteFrame**)this->frames)[frame]->width;
 }
 
 int32_t CGameBitmap::GetHeight(int frame)
 { //424d11
-	return ((SpriteFrame**)frames)[frame]->height;
+	return ((SpriteFrame**)this->frames)[frame]->height;
 }
 
 void CGameBitmap::SelectBitmapForDraw()
 { //424d57
 	g_selDrawBitmap.lpSurface = CGameBitmap::GetData();
-	g_selDrawBitmap.dwWidth = GetWidth(0);
-	g_selDrawBitmap.dwHeight = GetHeight(0);
-	g_selDrawBitmap.lPitch = GetWidth(0) * GetPixelSize();
+	g_selDrawBitmap.dwWidth = this->GetWidth(0);
+	g_selDrawBitmap.dwHeight = this->GetHeight(0);
+	g_selDrawBitmap.lPitch = this->GetWidth(0) * this->GetPixelSize();
 }
 
 void CGameBitmap::VMethod7()
@@ -4631,18 +4631,18 @@ int CGameBitmap::GetPixelSize()
 
 void* CGameBitmap::GetData() 
 { //41ec60
-	return pdata + sizeof(BmpFrame); 
+	return this->pdata + sizeof(BmpFrame); 
 }
 
 void CGameBitmap::ResetPalette(uint32_t count, int mode, int useColor)
 { //424cb0
-	palette.Free();
-	palette.SetPalette((RGBQUAD*)palette_data, count, mode, useColor);
+	this->palette.Free();
+	this->palette.SetPalette((RGBQUAD*)this->palette_data, count, mode, useColor);
 }
 
 int32_t CGameBitmap::GetFrameCount() 
 {//4387f0
-	return frames_count; 
+	return this->frames_count; 
 }
 
 
@@ -4675,48 +4675,48 @@ CBmp256::CBmp256(const char* fname)
 
 	const uint32_t pixsz = binf.biWidth * binf.biHeight; //pixel data size
 
-	data_size = pixsz + 256 * 4 + sizeof(BmpFrame);
+	this->data_size = pixsz + 256 * 4 + sizeof(BmpFrame);
 
-	pdata = new uint8_t[data_size];
+	this->pdata = new uint8_t[this->data_size];
 
-	palette_data = pdata + pixsz + sizeof(BmpFrame);
-	memset(palette_data, 0, 256 * 4);
+	this->palette_data = this->pdata + pixsz + sizeof(BmpFrame);
+	memset(this->palette_data, 0, 256 * 4);
 
 	if (binf.biClrUsed == 0) {
-		f.Read(palette_data, 256 * 4);
+		f.Read(this->palette_data, 256 * 4);
 	} else {
-		f.Read(palette_data, binf.biClrUsed * 4);
+		f.Read(this->palette_data, binf.biClrUsed * 4);
 	}
 
-	BmpFrame* frm = (BmpFrame*)pdata;
+	BmpFrame* frm = (BmpFrame*)this->pdata;
 	frm->width = binf.biWidth;
 	frm->height = binf.biHeight;
 
-	f.Read(pdata + sizeof(BmpFrame), pixsz);
+	f.Read(this->pdata + sizeof(BmpFrame), pixsz);
 	f.Close();
 
 	CBmp256::VMethod7();
 
-	frames = new void*[1];
-	frames[0] = pdata + sizeof(BmpFrame);
+	this->frames = new void*[1];
+	this->frames[0] = this->pdata + sizeof(BmpFrame);
 }
 
 CBmp256::CBmp256(uint32_t w, uint32_t h)
 { //4262d1
 
-	data_size = w * h + sizeof(BmpFrame);
-	pdata = new uint8_t[data_size];
+	this->data_size = w * h + sizeof(BmpFrame);
+	this->pdata = new uint8_t[this->data_size];
 
-	memset(pdata, 0, data_size);
+	memset(this->pdata, 0, this->data_size);
 
-	palette_data = nullptr;
+	this->palette_data = nullptr;
 
-	BmpFrame* frm = (BmpFrame*)pdata;
+	BmpFrame* frm = (BmpFrame*)this->pdata;
 	frm->width = w;
 	frm->height = h;
 
-	frames = new void* [1];
-	frames[0] = pdata + sizeof(BmpFrame);
+	this->frames = new void* [1];
+	this->frames[0] = this->pdata + sizeof(BmpFrame);
 }
 
 CBmp256::~CBmp256()
@@ -4729,26 +4729,26 @@ void CBmp256::Dump(CDumpContext& dc) const
 
 void CBmp256::VMethod2(int32_t x, int32_t y, int frame, int mode, int palid)
 { //4263df
-	const uint16_t* pal = palette.GetPalette(palid);
-	const BmpFrame* frm = (BmpFrame*)pdata;
-	BlitPaletted(x, y, 0, 0, frm->width, frm->height, pdata + sizeof(BmpFrame), frm->width, frm->height, pal);
+	const uint16_t* pal = this->palette.GetPalette(palid);
+	const BmpFrame* frm = (BmpFrame*)this->pdata;
+	BlitPaletted(x, y, 0, 0, frm->width, frm->height, this->pdata + sizeof(BmpFrame), frm->width, frm->height, pal);
 }
 
 int32_t CBmp256::GetWidth(int frame)
 { //4264c0
-	return ((BmpFrame*)pdata)->width;
+	return ((BmpFrame*)this->pdata)->width;
 }
 
 int32_t CBmp256::GetHeight(int frame)
 { //4264d5
-	return ((BmpFrame*)pdata)->height;
+	return ((BmpFrame*)this->pdata)->height;
 }
 
 void CBmp256::VMethod7()
 { //4261a6
-	const BmpFrame* frm = (BmpFrame*)pdata;
-	uint8_t* a = pdata + sizeof(BmpFrame);
-	uint8_t* b = pdata + sizeof(BmpFrame) + (frm->height - 1) * frm->width;
+	const BmpFrame* frm = (BmpFrame*)this->pdata;
+	uint8_t* a = this->pdata + sizeof(BmpFrame);
+	uint8_t* b = this->pdata + sizeof(BmpFrame) + (frm->height - 1) * frm->width;
 	for (int i = 0; i < frm->height / 2; i++)
 	{
 		memcpy(g_GfxTempBuffer, a, frm->width);
@@ -4767,16 +4767,16 @@ int CBmp256::GetPixelSize()
 
 void CBmp256::VMethod9(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, int palid)
 { //426385
-	const uint16_t* pal = palette.GetPalette(palid);
-	const BmpFrame* frm = (BmpFrame*)pdata;
-	BlitPaletted(x, y, l, t, r, b, pdata + sizeof(BmpFrame), frm->width, frm->height, pal);
+	const uint16_t* pal = this->palette.GetPalette(palid);
+	const BmpFrame* frm = (BmpFrame*)this->pdata;
+	BlitPaletted(x, y, l, t, r, b, this->pdata + sizeof(BmpFrame), frm->width, frm->height, pal);
 }
 
 void CBmp256::VMethod10(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, int palid)
 { //426440
-	const uint16_t* pal = palette.GetPalette(palid);
-	const BmpFrame* frm = (BmpFrame*)pdata;
-	BlitFlipPalettedAdd(x, y, l, t, r, b, pdata + sizeof(BmpFrame), frm->width, frm->height, pal);
+	const uint16_t* pal = this->palette.GetPalette(palid);
+	const BmpFrame* frm = (BmpFrame*)this->pdata;
+	BlitFlipPalettedAdd(x, y, l, t, r, b, this->pdata + sizeof(BmpFrame), frm->width, frm->height, pal);
 }
 
 
@@ -4805,20 +4805,20 @@ CBmp64::CBmp64(const char* fname)
 
 	const uint32_t pixsz = binf.biWidth * binf.biHeight; //pixel data size
 
-	data_size = pixsz * 2 + sizeof(BmpFrame);
+	this->data_size = pixsz * 2 + sizeof(BmpFrame);
 
-	pdata = new uint8_t[data_size];
+	this->pdata = new uint8_t[this->data_size];
 
-	palette_data = nullptr;
+	this->palette_data = nullptr;
 
-	BmpFrame* frm = (BmpFrame*)pdata;
+	BmpFrame* frm = (BmpFrame*)this->pdata;
 	frm->width = binf.biWidth;
 	frm->height = binf.biHeight;
 
-	frames = new void*[1];
-	frames[0] = pdata + sizeof(BmpFrame);
+	this->frames = new void*[1];
+	this->frames[0] = this->pdata + sizeof(BmpFrame);
 
-	uint16_t* dat = (uint16_t*)frames[0];
+	uint16_t* dat = (uint16_t*)this->frames[0];
 	for (int32_t rawdata = binf.biWidth * binf.biHeight * 3; rawdata; )
 	{
 		int32_t rsz = sizeof(g_GfxTempBuffer);
@@ -4837,17 +4837,17 @@ CBmp64::CBmp64(const char* fname)
 
 CBmp64::CBmp64(uint32_t w, uint32_t h)
 { //42597e
-	data_size = w * h * 2 + sizeof(BmpFrame);
-	pdata = new uint8_t[data_size];
+	this->data_size = w * h * 2 + sizeof(BmpFrame);
+	this->pdata = new uint8_t[this->data_size];
 	
-	palette_data = nullptr;
+	this->palette_data = nullptr;
 
-	BmpFrame* frm = (BmpFrame*)pdata;
+	BmpFrame* frm = (BmpFrame*)this->pdata;
 	frm->width = w;
 	frm->height = h;
 
-	frames = new void*[1];
-	frames[0] = pdata + sizeof(BmpFrame);
+	this->frames = new void*[1];
+	this->frames[0] = this->pdata + sizeof(BmpFrame);
 }
 
 CBmp64::~CBmp64()
@@ -4860,25 +4860,25 @@ void CBmp64::Dump(CDumpContext& dc) const
 
 void CBmp64::VMethod2(int32_t x, int32_t y, int frame, int mode, int palid)
 { //425e0c
-	const BmpFrame* frm = (BmpFrame*)pdata;
-	Blit16(x, y, 0, 0, frm->width, frm->height, pdata + sizeof(BmpFrame), frm->width, frm->height);
+	const BmpFrame* frm = (BmpFrame*)this->pdata;
+	Blit16(x, y, 0, 0, frm->width, frm->height, this->pdata + sizeof(BmpFrame), frm->width, frm->height);
 }
 
 int32_t CBmp64::GetWidth(int frame)
 { //425f61
-	return ((BmpFrame*)pdata)->width;
+	return ((BmpFrame*)this->pdata)->width;
 }
 
 int32_t CBmp64::GetHeight(int frame)
 { //425f76
-	return ((BmpFrame*)pdata)->height;
+	return ((BmpFrame*)this->pdata)->height;
 }
 
 void CBmp64::VMethod7()
 { //425cdb
-	const BmpFrame* frm = (BmpFrame*)pdata;
-	uint16_t* a = (uint16_t*)((uint8_t*)pdata + sizeof(BmpFrame));
-	uint16_t* b = (uint16_t*)((uint8_t*)pdata + sizeof(BmpFrame)) + (frm->height - 1) * frm->width;
+	const BmpFrame* frm = (BmpFrame*)this->pdata;
+	uint16_t* a = (uint16_t*)((uint8_t*)this->pdata + sizeof(BmpFrame));
+	uint16_t* b = (uint16_t*)((uint8_t*)this->pdata + sizeof(BmpFrame)) + (frm->height - 1) * frm->width;
 	for (int i = 0; i < frm->height / 2; i++)
 	{
 		memcpy(g_GfxTempBuffer, a, frm->width * 2);
@@ -4892,20 +4892,20 @@ void CBmp64::VMethod7()
 
 void CBmp64::VMethod9(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b)
 { //425e5d
-	const BmpFrame* frm = (BmpFrame*)pdata;
-	Blit16(x, y, l, t, r, b, pdata + sizeof(BmpFrame), frm->width, frm->height);
+	const BmpFrame* frm = (BmpFrame*)this->pdata;
+	Blit16(x, y, l, t, r, b, this->pdata + sizeof(BmpFrame), frm->width, frm->height);
 }
 
 void CBmp64::VMethod10(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b)
 { //425ea7
-	const BmpFrame* frm = (BmpFrame*)pdata;
-	Blit16Masked(x, y, l, t, r, b, pdata + sizeof(BmpFrame), frm->width, frm->height);
+	const BmpFrame* frm = (BmpFrame*)this->pdata;
+	Blit16Masked(x, y, l, t, r, b, this->pdata + sizeof(BmpFrame), frm->width, frm->height);
 }
 
 void CBmp64::VMethod11(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b)
 { //425ef1
-	const BmpFrame* frm = (BmpFrame*)pdata;
-	Blit16Add(x, y, l, t, r, b, pdata + sizeof(BmpFrame), frm->width, frm->height);
+	const BmpFrame* frm = (BmpFrame*)this->pdata;
+	Blit16Add(x, y, l, t, r, b, this->pdata + sizeof(BmpFrame), frm->width, frm->height);
 }
 
 void CBmp64::LoadFile(const char* fname, CGameBitmap* bmp2)
@@ -4925,7 +4925,7 @@ void CBmp64::LoadFile(const char* fname, CGameBitmap* bmp2)
 	BITMAPINFOHEADER binf;
 	f.Read(&binf, sizeof(binf)); //0x28
 
-	uint16_t* dat = (uint16_t*)(pdata + sizeof(BmpFrame));
+	uint16_t* dat = (uint16_t*)(this->pdata + sizeof(BmpFrame));
 	for (int32_t rawdata = binf.biWidth * binf.biHeight * 3; rawdata; )
 	{
 		int32_t rsz = sizeof(g_GfxTempBuffer);
@@ -4956,11 +4956,11 @@ void CBmp64::WriteFile(const char* fname, CGameBitmap* bmp2)
 	f.Write(&fhdr, sizeof(fhdr)); //0xe
 
 	BITMAPINFOHEADER binf;
-	binf.biWidth = GetWidth();
-	binf.biHeight = GetHeight();
+	binf.biWidth = this->GetWidth();
+	binf.biHeight = this->GetHeight();
 	f.Write(&binf, sizeof(binf)); //0x28
 
-	uint16_t* dat = (uint16_t*)(pdata + sizeof(BmpFrame));
+	uint16_t* dat = (uint16_t*)(this->pdata + sizeof(BmpFrame));
 	for (int32_t rawdata = binf.biWidth * binf.biHeight * 3; rawdata; )
 	{
 		int32_t rsz = sizeof(g_GfxTempBuffer);
@@ -4998,35 +4998,35 @@ CSprite256::CSprite256(const char* fname)
 	}
 
 	f.Seek(-4, CFile::end);
-	f.Read(&frames_count, 4);
-	data_size = f.GetLength();
+	f.Read(&this->frames_count, 4);
+	this->data_size = f.GetLength();
 
 	f.Rewind();
 
-	bool has_pal = (frames_count & 0x80000000) != 0;
+	bool has_pal = (this->frames_count & 0x80000000) != 0;
 
-	frames_count &= 0x7fffffff;
+	this->frames_count &= 0x7fffffff;
 
-	pdata = new uint8_t[data_size];
+	this->pdata = new uint8_t[this->data_size];
 
-	palette_data = pdata + data_size - 4 * 256;
+	this->palette_data = this->pdata + this->data_size - 4 * 256;
 
 	if (has_pal)
 	{
-		f.Read(palette_data, 4 * 256);
-		data_size -= 4 * 256;
+		f.Read(this->palette_data, 4 * 256);
+		this->data_size -= 4 * 256;
 	}
 
-	f.Read(pdata, data_size);
+	f.Read(this->pdata, this->data_size);
 	f.Close();
 
-	frames = new void*[frames_count];
+	this->frames = new void*[this->frames_count];
 
-	uint8_t* dpos = pdata;
-	for (int i = 0; i < frames_count; i++)
+	uint8_t* dpos = this->pdata;
+	for (int i = 0; i < this->frames_count; i++)
 	{
 		SpriteFrame* frm = (SpriteFrame*)dpos;
-		frames[i] = frm;
+		this->frames[i] = frm;
 		dpos = frm->data + frm->datasize;
 	}
 }
@@ -5048,7 +5048,7 @@ void CSprite256::Dump(CDumpContext& dc) const
 void CSprite256::VMethod1(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode)
 { //425210
 	const uint16_t* pal = ppalette->GetPalette(palid);
-	SpriteFrame* frm = ((SpriteFrame**)frames)[frame];
+	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 	if (mode == 0) {
 		BlitRle8(x, y, frm->width, frm->height, frm->data, pal);
 	} else {
@@ -5058,8 +5058,8 @@ void CSprite256::VMethod1(int32_t x, int32_t y, int frame, int palid, CGamePalet
 
 void CSprite256::VMethod2(int32_t x, int32_t y, int frame, int palid, int mode)
 { //4250e4
-	const uint16_t* pal = palette.GetPalette(palid);
-	SpriteFrame* frm = ((SpriteFrame**)frames)[frame];
+	const uint16_t* pal = this->palette.GetPalette(palid);
+	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 	if (mode == 0) {
 		BlitRle8(x, y, frm->width, frm->height, frm->data, pal);
 	} else {
@@ -5069,7 +5069,7 @@ void CSprite256::VMethod2(int32_t x, int32_t y, int frame, int palid, int mode)
 
 void CSprite256::VMethod3(int32_t x, int32_t y, int frame, int blevel, int mode)
 { //425330
-	SpriteFrame* frm = ((SpriteFrame**)frames)[frame];
+	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 	if (mode == 0)
 	{
 		if (g_isLowMemory == 0) {
@@ -5088,7 +5088,7 @@ void CSprite256::VMethod3(int32_t x, int32_t y, int frame, int blevel, int mode)
 
 void CSprite256::VMethod9(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode)
 { //4252a0
-	SpriteFrame* frm = ((SpriteFrame**)frames)[frame];
+	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 	if (mode == 0) {
 		BlitRle8Blend(x, y, frm->width, frm->height, frm->data, ppalette->GetPalette(palid));
 	} else {
@@ -5098,17 +5098,17 @@ void CSprite256::VMethod9(int32_t x, int32_t y, int frame, int palid, CGamePalet
 
 void CSprite256::VMethod10(int32_t x, int32_t y, int frame, int palid, int mode)
 { //42517a
-	SpriteFrame* frm = ((SpriteFrame**)frames)[frame];
+	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 	if (mode == 0) {
-		BlitRle8Blend(x, y, frm->width, frm->height, frm->data, palette.GetPalette(palid));
+		BlitRle8Blend(x, y, frm->width, frm->height, frm->data, this->palette.GetPalette(palid));
 	} else {
-		BlitRle8BlendFlipX(x, y, frm->width, frm->height, frm->data, palette.GetPalette(palid));
+		BlitRle8BlendFlipX(x, y, frm->width, frm->height, frm->data, this->palette.GetPalette(palid));
 	}
 }
 
 void CSprite256::VMethod11(int32_t x, int32_t y, int frame, int blevel, int32_t tilt, int mode)
 { //425414
-	SpriteFrame* frm = ((SpriteFrame**)frames)[frame];
+	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 	if (mode == 0)
 	{
 		if (g_isLowMemory == 0) {
@@ -5127,7 +5127,7 @@ void CSprite256::VMethod11(int32_t x, int32_t y, int frame, int blevel, int32_t 
 
 void CSprite256::VMethod12(int32_t x, int32_t y, int frame, uint32_t mv)
 { //425508
-	SpriteFrame* frm = ((SpriteFrame**)frames)[frame];
+	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 	BlitRle8IndexMask(x, y, frm->width, frm->height, frm->data, mv);
 }
 
@@ -5142,11 +5142,11 @@ CA16::CA16(const char* fname)
 
 void CA16::VMethod2(int32_t x, int32_t y, int frame, int palid, int mode)
 { //428824
-	SpriteFrame* frm = ((SpriteFrame**)frames)[frame];
+	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 
 	uint16_t* pal = (uint16_t*)palid;
 	if (!pal) {
-		pal = palette.GetPalette(0);
+		pal = this->palette.GetPalette(0);
 	}
 
 	if (mode == 0) {
@@ -5167,7 +5167,7 @@ CSprite16::CSprite16(const char* fname)
 
 void CSprite16::VMethod9(int32_t x, int32_t y, int frame, uint16_t* pcolor)
 { //424ddd
-	SpriteFrame* frm = ((SpriteFrame**)frames)[frame];
+	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 	BlitRle4(x, y, frm->width, frm->height, frm->data, pcolor);
 }
 
@@ -5180,7 +5180,7 @@ CSpriteFont16::CSpriteFont16(const char* fname, int32_t _space)
 	CString buf = fname;
 	buf += ".16";
 
-	bitmap = new CSprite16(buf);
+	this->bitmap = new CSprite16(buf);
 
 	buf = fname;
 	buf += ".dat";
@@ -5188,30 +5188,30 @@ CSpriteFont16::CSpriteFont16(const char* fname, int32_t _space)
 	File2 f;
 	f.Open(buf, CFile::modeRead);
 
-	char_widths = new int32_t[f.GetLength() / 4];
-	f.Read(char_widths, f.GetLength());
+	this->char_widths = new int32_t[f.GetLength() / 4];
+	f.Read(this->char_widths, f.GetLength());
 
 	f.Close();
 
-	space = _space;
+	this->space = _space;
 }
 
 void CSpriteFont16::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* clr)
 { //45fbd7
 	if ((align & 1) != 0) {
-		x -= GetStrWidth(txt);
+		x -= this->GetStrWidth(txt);
 	}
 
 	if ((align & 2) != 0) {
-		x -= GetStrWidth(txt) / 2;
+		x -= this->GetStrWidth(txt) / 2;
 	}
 
 	if ((align & 4) != 0) {
-		y -= bitmap->GetWidth();
+		y -= this->bitmap->GetWidth();
 	}
 
 	if ((align & 8) != 0) {
-		y -= bitmap->GetWidth() / 2;
+		y -= this->bitmap->GetWidth() / 2;
 	}
 
 	int32_t tlen = strlen(txt);
@@ -5222,15 +5222,15 @@ void CSpriteFont16::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t alig
 
 		if (chr1 == 0x5e && chr2 != 0x5e)
 		{
-			FillRectColor(x, y + bitmap->GetHeight(), x + char_widths[chr2], y + bitmap->GetHeight(), clr[15]);
+			FillRectColor(x, y + this->bitmap->GetHeight(), x + this->char_widths[chr2], y + this->bitmap->GetHeight(), clr[15]);
 		} else {
 			if (chr1 == 0) {
-				x += bitmap->GetHeight() / 2;
+				x += this->bitmap->GetHeight() / 2;
 			} else {
-				((CSprite16*)bitmap)->VMethod9(x, y, chr1, clr);
+				((CSprite16*)this->bitmap)->VMethod9(x, y, chr1, clr);
 			}
 
-			x += char_widths[chr1] + space;
+			x += this->char_widths[chr1] + this->space;
 		}
 
 		if (chr1 == 0x5e && chr2 == 0x5e) {
@@ -5251,7 +5251,7 @@ CSpriteFont16a::CSpriteFont16a(const char* fname, int32_t _space)
 	CString buf = fname;
 	buf += ".16a";
 
-	bitmap = new CA16(buf);
+	this->bitmap = new CA16(buf);
 
 	buf = fname;
 	buf += ".dat";
@@ -5259,14 +5259,14 @@ CSpriteFont16a::CSpriteFont16a(const char* fname, int32_t _space)
 	File2 f;
 	f.Open(buf, CFile::modeRead);
 
-	char_widths = new int32_t[f.GetLength() / 4];
-	f.Read(char_widths, f.GetLength());
+	this->char_widths = new int32_t[f.GetLength() / 4];
+	f.Read(this->char_widths, f.GetLength());
 
 	f.Close();
 
-	space = _space;
+	this->space = _space;
 
-	bitmap->ResetPalette(16, 4, 0);
+	this->bitmap->ResetPalette(16, 4, 0);
 }
 
 CSpriteFont16a::~CSpriteFont16a()
@@ -5276,19 +5276,19 @@ CSpriteFont16a::~CSpriteFont16a()
 void CSpriteFont16a::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* clr)
 { // 45ffa9
 	if ((align & 1) != 0) {
-		x -= GetStrWidth(txt);
+		x -= this->GetStrWidth(txt);
 	}
 
 	if ((align & 2) != 0) {
-		x -= GetStrWidth(txt) / 2;
+		x -= this->GetStrWidth(txt) / 2;
 	}
 
 	if ((align & 4) != 0) {
-		y -= bitmap->GetWidth();
+		y -= this->bitmap->GetWidth();
 	}
 
 	if ((align & 8) != 0) {
-		y -= bitmap->GetWidth() / 2;
+		y -= this->bitmap->GetWidth() / 2;
 	}
 
 	int32_t tlen = strlen(txt);
@@ -5296,12 +5296,12 @@ void CSpriteFont16a::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t ali
 	{
 		uint8_t chr1 = DecodeChar(txt[i]) - 0x20;
 		if (chr1 == 0) {
-			x += bitmap->GetHeight() / 2;
+			x += this->bitmap->GetHeight() / 2;
 		} else {
-			((CA16*)bitmap)->VMethod2(x, y, chr1, (int)clr, 0); //FIXME
+			((CA16*)this->bitmap)->VMethod2(x, y, chr1, (int)clr, 0); //FIXME
 		}
 
-		x += char_widths[chr1] + space;
+		x += this->char_widths[chr1] + this->space;
 	}
 }
 

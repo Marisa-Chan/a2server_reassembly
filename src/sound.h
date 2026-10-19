@@ -42,7 +42,7 @@ class SfxSample : public CObject
 {
 public:
 	SfxSample() {}; //45b7d7
-	SfxSample(const char* fname) { filename = fname; } //45b842
+	SfxSample(const char* fname) { this->filename = fname; } //45b842
 
 	~SfxSample(); //45b8c2
 
@@ -148,15 +148,15 @@ public:
 
 	int32_t ComputeVolumeFade(int32_t volume, uint32_t tm); //45a8cc
 
-	int32_t GetPlaylistSize() const { return playlist.GetSize(); } //451890
-	CString& GetPlaylistEntry(int32_t idx) { return playlist[idx]; } //451870
-	CStringArray& GetPlaylist() { return playlist; } //4517f0
+	int32_t GetPlaylistSize() const { return this->playlist.GetSize(); } //451890
+	CString& GetPlaylistEntry(int32_t idx) { return this->playlist[idx]; } //451870
+	CStringArray& GetPlaylist() { return this->playlist; } //4517f0
 
-	void SetPlayNotify(int _notify) { field_0x68 = _notify; } //451810
+	void SetPlayNotify(int _notify) { this->field_0x68 = _notify; } //451810
 	void SetRandom(int random); //45b655
 
-	void SetFadeout(int fade) { fadeout_enabled = fade; } //451830
-	int32_t GetCurrentTrackIndex() const { return field_0x2c[current_track_id]; } //451850
+	void SetFadeout(int fade) { this->fadeout_enabled = fade; } //451830
+	int32_t GetCurrentTrackIndex() const { return this->field_0x2c[this->current_track_id]; } //451850
 
 	int32_t GetVolume(); //451750
 	int32_t GetBufPosition(); //45cba0

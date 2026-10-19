@@ -2696,11 +2696,11 @@ void World::FUN_005a9832(Unit* unit)
         if (unit->position->sub_58bec3())
         {
             if (unit->position->GetYX() != unit->eye->field121_0x80) {
-                field24_0xa50->FUN_005969c6(unit, PosYX(), 1);
+                this->field24_0xa50->FUN_005969c6(unit, PosYX(), 1);
             }
         }
     }
-    unit->eye2->max_range = UnitMaxRange(unit);
+    unit->eye2->max_range = this->UnitMaxRange(unit);
     unit->eye2->field49_0x60 = 0;
     unit->eye->field120_0x7c = 0;
     unit->some_state = 0;
@@ -2708,13 +2708,13 @@ void World::FUN_005a9832(Unit* unit)
 
 void World::sub_5A9AC4(Unit* unit)
 { //5a9ac4
-    FUN_005a9832(unit);
+    this->FUN_005a9832(unit);
     unit->eye2->field43_0x50 = 0;
 }
 
 void World::FUN_005a93f4(Unit* unit)
 { //5a93f4
-    sub_5A9AC4(unit);
+    this->sub_5A9AC4(unit);
     unit->state = 0xc;
     unit->eye2->position1 = unit->position->GetYX();
     unit->eye2->cast_action = 0;
@@ -2722,8 +2722,8 @@ void World::FUN_005a93f4(Unit* unit)
 
 void World::sub_5A9A6A(Unit* unit)
 { //5a9a6a
-    sub_5A9AC4(unit);
-    FUN_005a93f4(unit);
+    this->sub_5A9AC4(unit);
+    this->FUN_005a93f4(unit);
 }
 
 // Reset unit to idle and register it in the world.
@@ -2770,7 +2770,7 @@ void World::FUN_005acd4c(Group* grp)
     for (POSITION it = grp->unit_list.GetHeadPosition(); it != nullptr;)
     {
         Unit* unit = grp->unit_list.GetNext(it);
-        sub_5A9AC4(unit);
+        this->sub_5A9AC4(unit);
         unit->eye2->field29_0x38 = 0;
     }
     grp->group_sub->field_0x20 = 0;
@@ -2778,19 +2778,19 @@ void World::FUN_005acd4c(Group* grp)
 
 void World::sub_5ACA54(Group* grp)
 { //5aca54
-    FUN_005acd4c(grp);
+    this->FUN_005acd4c(grp);
     for (POSITION it = grp->unit_list.GetHeadPosition(); it != nullptr;)
     {
         Unit* unit = grp->unit_list.GetNext(it);
-        FUN_005a93f4(unit);
+        this->FUN_005a93f4(unit);
     }
     grp->group_sub->field_0x20 = 3;
 }
 
 void World::sub_5ACDF4(Group* group)
 { // 5acdf4
-    FUN_005acd4c(group);
-    sub_5ACA54(group);
+    this->FUN_005acd4c(group);
+    this->sub_5ACA54(group);
 }
 
 // Group move command.

@@ -35,7 +35,7 @@ struct BitSet
 			{}
 
 		uint32_t index = (i << 5) + j;
-		Set(index);
+		this->Set(index);
 		return index;
 	}
 

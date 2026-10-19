@@ -491,9 +491,9 @@ void CGameSession::RefreshCharacterRosterFiles(int val)
 { //49265a
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
-	characterRosterFilePaths.RemoveAll();
-	characterRosterNames.RemoveAll();
-	characterRosterHatId.RemoveAll();
+	this->characterRosterFilePaths.RemoveAll();
+	this->characterRosterNames.RemoveAll();
+	this->characterRosterHatId.RemoveAll();
 
 	if (mwnd->sessionMode != 2)
 	{
@@ -527,7 +527,7 @@ void CGameSession::RefreshCharacterRosterFiles(int val)
 					}
 					if (sec->hat_id == mwnd->field_0x3e0.field_0c)
 					{
-						strcpy(character_name, sec->nick);
+						strcpy(this->character_name, sec->nick);
 
 						FILETIME tm;
 						ff.GetLastWriteTime(&tm);
@@ -541,22 +541,22 @@ void CGameSession::RefreshCharacterRosterFiles(int val)
 						}
 
 						ftimes.InsertAt(idx, tm);
-						characterRosterFilePaths.InsertAt(idx, ff.GetFileName());
-						characterRosterNames.InsertAt(idx, character_name);
+						this->characterRosterFilePaths.InsertAt(idx, ff.GetFileName());
+						this->characterRosterNames.InsertAt(idx, this->character_name);
 
 						HatCharId hatid;
 						hatid.id1 = sec->id1;
 						hatid.id2 = sec->id2;
 
 						if (val == 0) {
-							characterRosterHatId.InsertAt(idx, hatid);
+							this->characterRosterHatId.InsertAt(idx, hatid);
 						} else
 						{
-							for (int i = 0; i < field_0x130.GetSize(); i++)
+							for (int i = 0; i < this->field_0x130.GetSize(); i++)
 							{
-								if (field_0x130[i].id == hatid.id)
+								if (this->field_0x130[i].id == hatid.id)
 								{
-									characterRosterHatId.InsertAt(idx, hatid);
+									this->characterRosterHatId.InsertAt(idx, hatid);
 									break;
 								}
 							}
@@ -568,9 +568,9 @@ void CGameSession::RefreshCharacterRosterFiles(int val)
 		}
 		ff.Close();
 
-		selectedCharacterRosterFileIndex = 0;
-		LoadCharacterRosterEntry(selectedCharacterRosterFileIndex);
+		this->selectedCharacterRosterFileIndex = 0;
+		this->LoadCharacterRosterEntry(this->selectedCharacterRosterFileIndex);
 	}
 
-	characterRosterNames.Add(txt_main.GetLine(120)); // New character
+	this->characterRosterNames.Add(txt_main.GetLine(120)); // New character
 }

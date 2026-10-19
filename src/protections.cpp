@@ -4,16 +4,16 @@
 Protections::Protections()
 {
     //5339f8
-    Clear();
+    this->Clear();
 }
 
 void Protections::Clear()
 {
     //533a0e
-    defense = 0;
-    absorption = 0;
-    magic_protections.fill(0);
-    weapon_protections.fill(0);
+    this->defense = 0;
+    this->absorption = 0;
+    this->magic_protections.fill(0);
+    this->weapon_protections.fill(0);
 }
 
 //533a29
@@ -27,28 +27,28 @@ Protections& Protections::operator=(const Protections&) = default;
 Protections& Protections::operator+=(const Protections &b)
 {
     //533a48
-    for (int32_t i = 0; i < magic_protections.size(); i++) {
-        magic_protections[i] += b.magic_protections[i];
+    for (int32_t i = 0; i < this->magic_protections.size(); i++) {
+        this->magic_protections[i] += b.magic_protections[i];
     }
-    for (int32_t i = 0; i < weapon_protections.size(); i++) {
-        weapon_protections[i] += b.weapon_protections[i];
+    for (int32_t i = 0; i < this->weapon_protections.size(); i++) {
+        this->weapon_protections[i] += b.weapon_protections[i];
     }
-    defense += b.defense;
-    absorption += b.absorption;
+    this->defense += b.defense;
+    this->absorption += b.absorption;
     return *this;
 }
 
 Protections& Protections::operator-=(const Protections &b)
 {
     //533b77
-    for (int32_t i = 0; i < magic_protections.size(); i++) {
-        magic_protections[i] -= b.magic_protections[i];
+    for (int32_t i = 0; i < this->magic_protections.size(); i++) {
+        this->magic_protections[i] -= b.magic_protections[i];
     }
-    for (int32_t i = 0; i < weapon_protections.size(); i++) {
-        weapon_protections[i] -= b.weapon_protections[i];
+    for (int32_t i = 0; i < this->weapon_protections.size(); i++) {
+        this->weapon_protections[i] -= b.weapon_protections[i];
     }
-    defense -= b.defense;
-    absorption -= b.absorption;
+    this->defense -= b.defense;
+    this->absorption -= b.absorption;
     return *this;
 }
 

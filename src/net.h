@@ -316,7 +316,7 @@ public:
 
     uint32_t GetBuffersPktNum(); //51670a  Get received_buffers summary of pkt_num
 
-    uint32_t GetUid() { return uid; }; //41f500
+    uint32_t GetUid() { return this->uid; }; //41f500
 };
 __pragma(pack(pop))
 
@@ -332,7 +332,7 @@ struct NetSockLatency
 
     void AddLatency(uint32_t lat_time); //51fdf7
     static inline uint32_t ShiftToByte(uint32_t val, int shift) { return (val >> shift) & 0xFF; };
-    uint32_t GetLatency() const { return calc_latency * 2; }; //5204fa
+    uint32_t GetLatency() const { return this->calc_latency * 2; }; //5204fa
 };
 
 struct A2NetSock {
@@ -366,14 +366,14 @@ struct SocketNm {
 
     SocketNm()
     {
-        dpid = 0;
-        sock = nullptr;
+        this->dpid = 0;
+        this->sock = nullptr;
     };
 
     ~SocketNm()
     {
-        dpid = 0;
-        sock = nullptr;
+        this->dpid = 0;
+        this->sock = nullptr;
     };
 };
 
@@ -387,11 +387,11 @@ struct ComSettings  //DPCOMPORTADDRESS
 
     void Reset()
     { //43cff2
-        index = 1;
-        speed = 14400;
-        stop_bits = 0;
-        parity = 0;
-        flow_control = 4;
+        this->index = 1;
+        this->speed = 14400;
+        this->stop_bits = 0;
+        this->parity = 0;
+        this->flow_control = 4;
     }
 };
 ASSERT_SIZE(ComSettings, 0x14);
@@ -522,7 +522,7 @@ public:
     int CreateTcp(); //52359b
     int CreateDp(); //523ccf
 
-    int IsListen() { return listen_socket.is_in_use == 1; }; //496ed0
+    int IsListen() { return this->listen_socket.is_in_use == 1; }; //496ed0
 
     int IsInUse(A2NetSock* sock); //52293a
     void SetEventNewSession(); //522318
@@ -569,8 +569,8 @@ public:
     int32_t GetLatency(uint32_t conn_uid);  //5229FD  Get current measured latency (ms)
     int32_t GetPacketLoss(uint32_t conn_uid);  //522A51 Get current packet-loss figure
 
-    void SetTimeout(uint32_t t) { timeout = t; } //496f20
-    int GetProvider() { return provider; } //451610
+    void SetTimeout(uint32_t t) { this->timeout = t; } //496f20
+    int GetProvider() { return this->provider; } //451610
 };
 ASSERT_OFFSET(CLlDriver, connection_sockets, 0x57c);
 ASSERT_OFFSET(CLlDriver, critical_section, 0x7ec);

@@ -52,32 +52,32 @@ void EquipmentExtra::Serialize(CArchive& ar)
 void EquipmentExtra::SetToUnit(Unit *unit)
 {
     //52ea17
-    unit->speed = speed;
-    unit->carrying_body_100g = carrying_body_100g;
-    unit->hp_max = hp_max;
-    unit->mp_max = mp_max;
-    unit->scan_range = scan_range;
-    unit->hit_values = hit_values;
-    unit->protections = protections;
+    unit->speed = this->speed;
+    unit->carrying_body_100g = this->carrying_body_100g;
+    unit->hp_max = this->hp_max;
+    unit->mp_max = this->mp_max;
+    unit->scan_range = this->scan_range;
+    unit->hit_values = this->hit_values;
+    unit->protections = this->protections;
 }
 
 void EquipmentExtra::AddToUnit(Unit *unit)
 {
     //52eb64
-    unit->speed += speed;
+    unit->speed += this->speed;
 
     if (unit->speed < 6) {
         unit->speed = 6;
     }
 
-    unit->carrying_body_100g += carrying_body_100g;
-    unit->hp_max += hp_max;
-    unit->mp_max += mp_max;
-    unit->scan_range += scan_range;
+    unit->carrying_body_100g += this->carrying_body_100g;
+    unit->hp_max += this->hp_max;
+    unit->mp_max += this->mp_max;
+    unit->scan_range += this->scan_range;
 
-    unit->protections += protections;
+    unit->protections += this->protections;
 
-    unit->hit_values.AddHits(hit_values);
+    unit->hit_values.AddHits(this->hit_values);
 }
 
 
@@ -87,49 +87,49 @@ void EquipmentExtra::AddToUnit(Unit *unit)
 Unit::Unit()
 {
     //528aef
-    FUN_0052931b("");
-    last_hit_by = nullptr;
-    last_hit_spell_id = 0;
-    spell = nullptr;
+    this->FUN_0052931b("");
+    this->last_hit_by = nullptr;
+    this->last_hit_spell_id = 0;
+    this->spell = nullptr;
 }
 
 Unit::Unit(const CString &str)
 {
     //528c97
-    FUN_0052931b(str);
-    last_hit_by = nullptr;
-    last_hit_spell_id = 0;
-    spell = nullptr;
+    this->FUN_0052931b(str);
+    this->last_hit_by = nullptr;
+    this->last_hit_spell_id = 0;
+    this->spell = nullptr;
 }
 
 Unit::Unit(const CString &str, const TokenPos *pos)
     : Token(pos)
 {
     //528e24
-    FUN_0052931b(str);
-    last_hit_by = nullptr;
-    last_hit_spell_id = 0;
-    spell = nullptr;
+    this->FUN_0052931b(str);
+    this->last_hit_by = nullptr;
+    this->last_hit_spell_id = 0;
+    this->spell = nullptr;
 }
 
 Unit::Unit(const TokenPos *pos)
     : Token(pos)
 {
     //528fb7
-    FUN_0052931b("");
-    last_hit_by = nullptr;
-    last_hit_spell_id = 0;
-    spell = nullptr;
+    this->FUN_0052931b("");
+    this->last_hit_by = nullptr;
+    this->last_hit_spell_id = 0;
+    this->spell = nullptr;
 }
 
 Unit::Unit(const TokenPos *pos, Player *player)
     : Token(pos, player)
 {
     //529167
-    FUN_0052931b("");
-    last_hit_by = nullptr;
-    last_hit_spell_id = 0;
-    spell = nullptr;
+    this->FUN_0052931b("");
+    this->last_hit_by = nullptr;
+    this->last_hit_spell_id = 0;
+    this->spell = nullptr;
 }
 
 Unit::~Unit()
@@ -741,7 +741,7 @@ void Unit::VMethod2()
     }
 
     // Decay.
-    if (hp < 1) {
+    if (this->hp < 1) {
         this->state = 0;
         this->some_state = 0;
         if (this->decay == 0) {
@@ -781,7 +781,7 @@ void Unit::VMethod2()
 
     switch (this->some_state) {
     case 1: // Move?
-        sub_52BDD7(x_wide, y_wide, eye_f0, eye_f1);
+        this->sub_52BDD7(x_wide, y_wide, eye_f0, eye_f1);
         this->some_state2 = 0;
         break;
 
@@ -795,7 +795,7 @@ void Unit::VMethod2()
                 if (pos) {
                     g_Server->srv_stru1->sack_list->list.RemoveAt(pos);
                 }
-                sub_52C98B(sack);
+                this->sub_52C98B(sack);
             }
             break;
         }
@@ -807,11 +807,11 @@ void Unit::VMethod2()
             if (this->some_state2 == 0) {
                 int32_t charge_extra = 0;
                 if (this->some_state == 3) {
-                    if (!weapon || !weapon->imbued_spell || !(unit_attrs & 4)) {
-                        sub_536630(this, cast_target, &charge_extra);
+                    if (!this->weapon || !this->weapon->imbued_spell || !(this->unit_attrs & 4)) {
+                        sub_536630(this, this->cast_target, &charge_extra);
                     } else {
-                        this->some_spell = weapon->imbued_spell;
-                        this->some_item  = static_cast<Item*>(weapon);
+                        this->some_spell = this->weapon->imbued_spell;
+                        this->some_item  = static_cast<Item*>(this->weapon);
                         this->some_state = 0xd;
                     }
                 }
@@ -838,11 +838,11 @@ void Unit::VMethod2()
                 this->charge_countdown--;
                 if (this->charge_countdown == 0) {
                     if (this->some_state == 3) {
-                        if (!weapon || !weapon->imbued_spell || !(unit_attrs & 4)) {
-                            sub_53678F(this, cast_target);
+                        if (!this->weapon || !this->weapon->imbued_spell || !(this->unit_attrs & 4)) {
+                            sub_53678F(this, this->cast_target);
                         } else {
-                            this->some_spell = weapon->imbued_spell;
-                            this->some_item  = static_cast<Item*>(weapon);
+                            this->some_spell = this->weapon->imbued_spell;
+                            this->some_item  = static_cast<Item*>(this->weapon);
                             this->some_state = 0xd;
                         }
                     }
@@ -954,12 +954,12 @@ void Unit::VMethod2()
 
 int32_t Unit::VMethod3()
 {
-    return token_size;
+    return this->token_size;
 }
 
 int32_t Unit::VMethod4()
 {
-    return movement_type;
+    return this->movement_type;
 }
 
 int32_t Unit::VMethod7()
@@ -975,52 +975,52 @@ int32_t Unit::VMethod8()
 void Unit::VMethod10()
 {
     // 52a504
-    if (some_item && ((some_item->item_id >> 8) & 0xF) == 0xE) {
-        delete some_item;
-        some_item = nullptr;
-        if (some_spell) {
-            delete some_spell;
+    if (this->some_item && ((this->some_item->item_id >> 8) & 0xF) == 0xE) {
+        delete this->some_item;
+        this->some_item = nullptr;
+        if (this->some_spell) {
+            delete this->some_spell;
         }
-        some_spell = nullptr;
+        this->some_spell = nullptr;
     }
 
-    if (eye) {
-        ::operator delete(eye);
-        eye = nullptr;
+    if (this->eye) {
+        ::operator delete(this->eye);
+        this->eye = nullptr;
     }
 
-    if (eye2) {
-        delete eye2;
-        eye2 = nullptr;
+    if (this->eye2) {
+        delete this->eye2;
+        this->eye2 = nullptr;
     }
 
-    if (inventory) {
-        delete inventory;
-        inventory = nullptr;
+    if (this->inventory) {
+        delete this->inventory;
+        this->inventory = nullptr;
     }
 
-    if (shield) {
-        delete shield;
-        shield = nullptr;
+    if (this->shield) {
+        delete this->shield;
+        this->shield = nullptr;
     }
 
-    if (weapon) {
-        delete weapon;
-        weapon = nullptr;
+    if (this->weapon) {
+        delete this->weapon;
+        this->weapon = nullptr;
     }
 
-    spell = nullptr;
+    this->spell = nullptr;
 
-    if (spell_book) {
-        delete spell_book;
-        spell_book = nullptr;
+    if (this->spell_book) {
+        delete this->spell_book;
+        this->spell_book = nullptr;
     }
 }
 
 Item *Unit::VMethod12(Item *item)
 {
     Item *itm = item->VMethod10(this);
-    VMethod19();
+    this->VMethod19();
     return itm;
 }
 
@@ -1029,8 +1029,8 @@ void Unit::VMethod13(Item *item)
     Item* itm = item->VMethod10(this);
     if (itm)
     {
-        inventory->PutItemIntoBagAtDefault(itm);
-        VMethod19();
+        this->inventory->PutItemIntoBagAtDefault(itm);
+        this->VMethod19();
     }
 }
 
@@ -1039,7 +1039,7 @@ Item* Unit::Unequip(Item* item)
     if (item)
     {
         item->VMethod11(this);
-        VMethod19();
+        this->VMethod19();
     }
     return item;
 }
@@ -1203,16 +1203,16 @@ uint32_t Unit::VMethod17(UnitToHit* unit_to_hit, Unit* attacker)
 
 void Unit::VMethod18()
 {
-    if (!pOwner) {
-        mp2 = mp_max;
+    if (!this->pOwner) {
+        this->mp2 = this->mp_max;
     } else {
-        mp2 = (pOwner->field_0xa5c * mp_max) / 100;
+        this->mp2 = (this->pOwner->field_0xa5c * mp_max) / 100;
     }
 }
 
 uint32_t Unit::VMethod19()
 {
-    return _exp;
+    return this->_exp;
 }
 
 void Unit::VMethod20()
@@ -1221,9 +1221,9 @@ void Unit::VMethod20()
 // 5371F7
 void Unit::VMethod21(uint32_t newExp, Unit *target, int32_t sphere)
 {
-    experience += newExp;
+    this->experience += newExp;
     if (target && target->hp < 0) {
-        pOwner->monster_kills += 1;
+        this->pOwner->monster_kills += 1;
     }
 }
 
@@ -1238,7 +1238,7 @@ void Unit::VMethod24(Unit*, int32_t)
 
 int32_t Unit::VMethod25()
 {
-    return monster_info->Values()[0].dying_time;
+    return this->monster_info->Values()[0].dying_time;
 }
 
 // 52C757
@@ -1539,7 +1539,7 @@ void Unit::sub_52D94E()
         if ((this->inventory->items.GetSize() > 0 || gold > 0) && this->pOwner != nullptr) {
             int is_main = (this->pOwner->main_unit == this) ? 1 : 0;
             // Inline sub_52D8D3: drop inventory as a sack on the map.
-            Inventory* sack_items = DetachInventory();
+            Inventory* sack_items = this->DetachInventory();
             g_Server->srv_stru1->sack_list->sub_554927(this->position, sack_items, gold, is_main);
         }
     } else if (this->pOwner != nullptr && g_ServerConfig.gameType != 3) {
@@ -1572,7 +1572,7 @@ void Unit::sub_52D94E()
         // Create sack if inventory has items.
         if (this->inventory->items.GetSize() > 0) {
             int is_main = (this->pOwner->main_unit == this) ? 1 : 0;
-            Inventory* sack_inventory = DetachInventory();
+            Inventory* sack_inventory = this->DetachInventory();
             g_Server->srv_stru1->sack_list->sub_554927(this->position, sack_inventory, 0, is_main);
         }
     }
@@ -2230,8 +2230,8 @@ void Unit::sub_52F601(const CString& name)
 
 Inventory* Unit::DetachInventory()
 {
-    Inventory* tmp = inventory;
-    inventory = new Inventory();
+    Inventory* tmp = this->inventory;
+    this->inventory = new Inventory();
     return tmp;
 }
 
@@ -2290,14 +2290,14 @@ void Humanoid::Serialize(CArchive& ar) {
 Humanoid::Humanoid()
 {
     //52ff9e
-    InitStats();
+    this->InitStats();
 }
 
 Humanoid::Humanoid(const TokenPos *tpos)
  :Unit(tpos)
 {
     //52fff2
-    InitStats();
+    this->InitStats();
 }
 
 // 53004c
@@ -2357,9 +2357,9 @@ void Humanoid::VMethod10()
 {
     //5301ac
     Unit::VMethod10();
-    for (int i = 1; i < equipment.size(); i++)
+    for (int i = 1; i < this->equipment.size(); i++)
     {
-        Item*& rEq = equipment[i];
+        Item*& rEq = this->equipment[i];
         if (rEq)
         {
             delete rEq;
@@ -2385,9 +2385,9 @@ Item* Humanoid::VMethod12(Item* item) {
 void Humanoid::VMethod13(Item *item)
 {
     //5304b2
-    Item *itm = VMethod12(item);
+    Item *itm = this->VMethod12(item);
     if (itm) {
-        inventory->PutItemIntoBagAtDefault(itm);
+        this->inventory->PutItemIntoBagAtDefault(itm);
     }
 }
 
@@ -2404,11 +2404,11 @@ Item *Humanoid::Unequip(Item* item)
 void Humanoid::VMethod15()
 {
     //530511
-    for (int i = 1; i < equipment.size(); i++)
+    for (int i = 1; i < this->equipment.size(); i++)
     {
-        Item *itm = equipment[i];
-        Unequip(itm);
-        inventory->PutItemIntoBagAtDefault(itm);
+        Item *itm = this->equipment[i];
+        this->Unequip(itm);
+        this->inventory->PutItemIntoBagAtDefault(itm);
     }
 }
 
@@ -2429,8 +2429,8 @@ void Humanoid::VMethod16(Unit* unit) {
 void Humanoid::VMethod18()
 {
     // 005315ec
-    const bool fighter = (unit_attrs & 4) == 0;
-    const bool female = (typeId == 0x22 || typeId == 0x24);
+    const bool fighter = (this->unit_attrs & 4) == 0;
+    const bool female = (this->typeId == 0x22 || this->typeId == 0x24);
 
     uint16_t max_body, max_reaction, max_mind, max_spirit;
 
@@ -2460,122 +2460,122 @@ void Humanoid::VMethod18()
         }
     }
 
-    body = min(body, max_body + equipment_extra.body);
-    reaction = min(reaction, max_reaction + equipment_extra.reaction);
-    mind = min(mind, max_mind + equipment_extra.mind);
-    spirit = min(spirit, max_spirit + equipment_extra.spirit);
+    this->body = min(this->body, max_body + this->equipment_extra.body);
+    this->reaction = min(this->reaction, max_reaction + this->equipment_extra.reaction);
+    this->mind = min(this->mind, max_mind + this->equipment_extra.mind);
+    this->spirit = min(this->spirit, max_spirit + this->equipment_extra.spirit);
 
-    hp_max = static_cast<int16_t>(body * (fighter ? 2 : 1));
-    if (hp_max > 0) {
-        const double exp_factor = std::log(static_cast<double>(experience) / 5000.0 + 1.0) / std::log(1.1);
-        hp_max = static_cast<int16_t>(hp_max + (fighter ? 2.0 : 1.0) * exp_factor);
-        const double body_factor = std::pow(1.1, static_cast<double>(body)) / 100.0 + 1.0;
-        hp_max = static_cast<int16_t>(hp_max * body_factor);
+    this->hp_max = static_cast<int16_t>(this->body * (fighter ? 2 : 1));
+    if (this->hp_max > 0) {
+        const double exp_factor = std::log(static_cast<double>(this->experience) / 5000.0 + 1.0) / std::log(1.1);
+        this->hp_max = static_cast<int16_t>(this->hp_max + (fighter ? 2.0 : 1.0) * exp_factor);
+        const double body_factor = std::pow(1.1, static_cast<double>(this->body)) / 100.0 + 1.0;
+        this->hp_max = static_cast<int16_t>(this->hp_max * body_factor);
     }
 
-    if (mp_max == 0) {
-        mp = 0;
+    if (this->mp_max == 0) {
+        this->mp = 0;
     } else {
-        mp_max = static_cast<int16_t>(spirit * 2);
-        const double exp_factor = std::log(static_cast<double>(experience) / 5000.0 + 1.0) / std::log(1.1);
-        mp_max = static_cast<int16_t>(mp_max + (fighter ? 1.0 : 2.0) * exp_factor);
-        const double spirit_factor = std::pow(1.1, static_cast<double>(spirit)) / 100.0 + 1.0;
-        mp_max = static_cast<int16_t>(mp_max * spirit_factor);
+        this->mp_max = static_cast<int16_t>(this->spirit * 2);
+        const double exp_factor = std::log(static_cast<double>(this->experience) / 5000.0 + 1.0) / std::log(1.1);
+        this->mp_max = static_cast<int16_t>(this->mp_max + (fighter ? 1.0 : 2.0) * exp_factor);
+        const double spirit_factor = std::pow(1.1, static_cast<double>(this->spirit)) / 100.0 + 1.0;
+        this->mp_max = static_cast<int16_t>(this->mp_max * spirit_factor);
     }
 
-    scan_range = static_cast<uint16_t>(((mind + reaction) / 25.0 + 4.0) * 256.0);
-    carrying_body_100g = static_cast<uint16_t>(body * 10 + 1);
+    this->scan_range = static_cast<uint16_t>(((this->mind + this->reaction) / 25.0 + 4.0) * 256.0);
+    this->carrying_body_100g = static_cast<uint16_t>(this->body * 10 + 1);
 
-    speed = (reaction < 12) ? reaction : reaction / 5 + 12;
-    if (typeId == 0x13 || typeId == 0x15) { // Horse-riders, with sword and with lance.
-        speed += 10;
+    this->speed = (this->reaction < 12) ? this->reaction : this->reaction / 5 + 12;
+    if (this->typeId == 0x13 || this->typeId == 0x15) { // Horse-riders, with sword and with lance.
+        this->speed += 10;
     }
 
-    carrying_weight_100g = extra_carrying_weight;
-    if (inventory) {
-        if (inventory->total_weight < 64000) {
-            carrying_weight_100g = static_cast<uint16_t>(carrying_weight_100g + (inventory->total_weight / 2));
+    this->carrying_weight_100g = this->extra_carrying_weight;
+    if (this->inventory) {
+        if (this->inventory->total_weight < 64000) {
+            this->carrying_weight_100g = static_cast<uint16_t>(this->carrying_weight_100g + (this->inventory->total_weight / 2));
         }  else {
-            carrying_weight_100g = 32000;
+            this->carrying_weight_100g = 32000;
         }
     }
 
-    if (carrying_body_100g != 0 && carrying_body_100g <= carrying_weight_100g) {
-        const uint16_t penalty = carrying_weight_100g / carrying_body_100g;
-        const int16_t adjusted = static_cast<int16_t>(speed) - penalty;
-        speed = static_cast<uint16_t>(adjusted < 6 ? 6 : adjusted);
+    if (this->carrying_body_100g != 0 && this->carrying_body_100g <= this->carrying_weight_100g) {
+        const uint16_t penalty = this->carrying_weight_100g / this->carrying_body_100g;
+        const int16_t adjusted = static_cast<int16_t>(this->speed) - penalty;
+        this->speed = static_cast<uint16_t>(adjusted < 6 ? 6 : adjusted);
     }
 
-    const double body_pow = std::pow(1.1, static_cast<double>(body));
-    hit_values.hand_damage_spread = static_cast<uint8_t>(body_pow / 20.0);
-    hit_values.hand_damage_min = hit_values.hand_damage_spread;
+    const double body_pow = std::pow(1.1, static_cast<double>(this->body));
+    this->hit_values.hand_damage_spread = static_cast<uint8_t>(body_pow / 20.0);
+    this->hit_values.hand_damage_min = this->hit_values.hand_damage_spread;
 
-    const double reaction_pow = std::pow(1.1, static_cast<double>(reaction));
-    hit_values.attack = static_cast<uint16_t>((body_pow + reaction_pow) / 5.0);
+    const double reaction_pow = std::pow(1.1, static_cast<double>(this->reaction));
+    this->hit_values.attack = static_cast<uint16_t>((body_pow + reaction_pow) / 5.0);
 
-    for (int i = 1; i < static_cast<int>(hit_values.skill_levels.size()); i++) {
-        hit_values.skill_levels[i] = hit_values2.skill_levels[i];
+    for (int i = 1; i < static_cast<int>(this->hit_values.skill_levels.size()); i++) {
+        this->hit_values.skill_levels[i] = this->hit_values2.skill_levels[i];
     }
 
-    for (int i = 1; i < static_cast<int>(hit_values.skill_levels.size()); i++) {
-        if (hit_values.skill_levels[i] > 100) {
-            hit_values.skill_levels[i] = 100;
+    for (int i = 1; i < static_cast<int>(this->hit_values.skill_levels.size()); i++) {
+        if (this->hit_values.skill_levels[i] > 100) {
+            this->hit_values.skill_levels[i] = 100;
         }
     }
 
-    if (hit_values.physical_damage_type != 0 && hit_values.physical_damage_type < hit_values.skill_levels.size()) {
-        const uint16_t lvl = hit_values.skill_levels[hit_values.physical_damage_type];
-        hit_values.attack = hit_values.attack + lvl * 3;
-        hit_values.hand_damage_min = static_cast<uint8_t>(hit_values.hand_damage_min + (lvl / 5));
+    if (this->hit_values.physical_damage_type != 0 && this->hit_values.physical_damage_type < this->hit_values.skill_levels.size()) {
+        const uint16_t lvl = this->hit_values.skill_levels[this->hit_values.physical_damage_type];
+        this->hit_values.attack = this->hit_values.attack + lvl * 3;
+        this->hit_values.hand_damage_min = static_cast<uint8_t>(this->hit_values.hand_damage_min + (lvl / 5));
     }
 
-    hit_values.some_damage_min = 0;
-    hit_values.some_damage_spread = 0;
-    hit_values.some_damage2_min = 0;
-    hit_values.some_damage2_spread = 0;
+    this->hit_values.some_damage_min = 0;
+    this->hit_values.some_damage_spread = 0;
+    this->hit_values.some_damage2_min = 0;
+    this->hit_values.some_damage2_spread = 0;
 
-    protections.Clear();
-    protections.defense = reaction / 3;
-    for (size_t i = 1; i < protections.magic_protections.size(); i++) {
-        protections.magic_protections[i] = spirit / 2;
+    this->protections.Clear();
+    this->protections.defense = this->reaction / 3;
+    for (size_t i = 1; i < this->protections.magic_protections.size(); i++) {
+        this->protections.magic_protections[i] = this->spirit / 2;
     }
 
-    equipment_extra.AddToUnit(this);
+    this->equipment_extra.AddToUnit(this);
 
-    if (hp > hp_max) {
-        hp = hp_max;
+    if (this->hp > this->hp_max) {
+        this->hp = this->hp_max;
     }
 
-    if (mp > mp_max) {
-        mp = mp_max;
+    if (this->mp > this->mp_max) {
+        this->mp = this->mp_max;
     }
-    if (mp < 0) {
-        mp = 0;
+    if (this->mp < 0) {
+        this->mp = 0;
     }
 
-    if (!pOwner) {
-        mp2 = mp_max;
+    if (!this->pOwner) {
+        this->mp2 = this->mp_max;
     } else {
-        mp2 = static_cast<int16_t>((pOwner->field_0xa5c * mp_max) / 100);
+        this->mp2 = static_cast<int16_t>((this->pOwner->field_0xa5c * mp_max) / 100);
     }
 
-    if (eye) {
-        eye->rotation_speed = static_cast<uint8_t>(speed);
+    if (this->eye) {
+        this->eye->rotation_speed = static_cast<uint8_t>(this->speed);
     }
 
-    protections.defense = max(0, protections.defense);
-    protections.absorption = max(0, protections.absorption);
-    carrying_weight_100g = max(0, carrying_weight_100g);
+    this->protections.defense = max(0, this->protections.defense);
+    this->protections.absorption = max(0, this->protections.absorption);
+    this->carrying_weight_100g = max(0, this->carrying_weight_100g);
 
-    const uint16_t max_magic = spirit / 2 + 70;
+    const uint16_t max_magic = this->spirit / 2 + 70;
     const uint16_t ceiling = min(100, max_magic);
-    for (size_t i = 1; i < protections.magic_protections.size(); i++) {
-        uint16_t value = protections.magic_protections[i];
-        protections.magic_protections[i] = min(value, ceiling);
+    for (size_t i = 1; i < this->protections.magic_protections.size(); i++) {
+        uint16_t value = this->protections.magic_protections[i];
+        this->protections.magic_protections[i] = min(value, ceiling);
     }
 
-    if (spell_book != nullptr) {
-        spell_book->RefreshForHumanoid(this);
+    if (this->spell_book != nullptr) {
+        this->spell_book->RefreshForHumanoid(this);
     }
 }
 
@@ -2583,12 +2583,12 @@ uint32_t Humanoid::VMethod19()
 {
     //537199
     uint32_t exps = 0;
-    for (uint32_t ex : experience_per_sphere) {
+    for (uint32_t ex : this->experience_per_sphere) {
         exps += ex;
     }
 
-    _exp = (exps * 0.01);
-    return _exp;
+    this->_exp = (exps * 0.01);
+    return this->_exp;
 }
 
 // 530745
@@ -3009,13 +3009,13 @@ IMPLEMENT_SERIAL(Human, Humanoid, 1);
 Human::Human()
 {
     //53232d
-    FUN_00532587(CString("Man_Unarmed"), 0, nullptr);
+    this->FUN_00532587(CString("Man_Unarmed"), 0, nullptr);
 }
 
 Human::Human(const CString& hname, int32_t t, const char* unk)
 {
     //53239a
-    FUN_00532587(hname, t, unk);
+    this->FUN_00532587(hname, t, unk);
 }
 
 // 532587

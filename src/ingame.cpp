@@ -80,14 +80,14 @@ GM_a28::~GM_a28() = default; //4020ad
 GM_a28::GM_a28()
 {
 	//401f50
-	elapsed_time = 0;
-	field_0x5c = 1;
+	this->elapsed_time = 0;
+	this->field_0x5c = 1;
 }
 
 void GM_a28::Add(const char* msg, uint16_t* clr, uint32_t t)
 {
 	//4021fe
-	field_0x5c = 1;
+	this->field_0x5c = 1;
 
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	
@@ -96,9 +96,9 @@ void GM_a28::Add(const char* msg, uint16_t* clr, uint32_t t)
 		fnt = g_font2;
 	}
 
-	bool restart = text.GetSize() == 0;
+	bool restart = this->text.GetSize() == 0;
 
-	CStringArray& lines = fnt->StringArrayForRect(out_area, msg);
+	CStringArray& lines = fnt->StringArrayForRect(this->out_area, msg);
 	for (int i = 0; i < lines.GetSize(); i++)
 	{
 		CString& s = lines[i];
@@ -109,31 +109,31 @@ void GM_a28::Add(const char* msg, uint16_t* clr, uint32_t t)
 			}
 		}
 
-		text.Add(s);
-		color.Add(clr);
-		times.Add(t);
+		this->text.Add(s);
+		this->color.Add(clr);
+		this->times.Add(t);
 	}
 
 	if (restart)
 	{
-		timestamp = timeGetTime();
-		elapsed_time = 0;
+		this->timestamp = timeGetTime();
+		this->elapsed_time = 0;
 	}
 
-	while (text.GetSize() > max_size)
+	while (this->text.GetSize() > this->max_size)
 	{
-		text.RemoveAt(0);
-		color.RemoveAt(0);
-		times.RemoveAt(0);
+		this->text.RemoveAt(0);
+		this->color.RemoveAt(0);
+		this->times.RemoveAt(0);
 	}
 }
 
 void GM_a28::AddWithCheck(const char* msg, uint16_t* clr, uint32_t t)
 {
 	//4023aa
-	field_0x5c = 1;
+	this->field_0x5c = 1;
 
-	CStringArray& lines = g_font1->StringArrayForRect(out_area, msg);
+	CStringArray& lines = g_font1->StringArrayForRect(this->out_area, msg);
 	for (int i = 0; i < lines.GetSize(); i++)
 	{
 		CString& s = lines[i];
@@ -144,38 +144,38 @@ void GM_a28::AddWithCheck(const char* msg, uint16_t* clr, uint32_t t)
 			}
 		}
 
-		if (lines.GetSize() == 1 && text.GetSize() != 0)
+		if (lines.GetSize() == 1 && this->text.GetSize() != 0)
 		{
-			if (text[text.GetUpperBound()] == s) {
+			if (this->text[this->text.GetUpperBound()] == s) {
 				return;
 			}
 		}
 
-		text.Add(s);
-		color.Add(clr);
-		times.Add(t);
+		this->text.Add(s);
+		this->color.Add(clr);
+		this->times.Add(t);
 	}
 
-	if (text.GetSize() == 1)
+	if (this->text.GetSize() == 1)
 	{
-		timestamp = timeGetTime();
-		elapsed_time = 0;
+		this->timestamp = timeGetTime();
+		this->elapsed_time = 0;
 	}
 
-	while (text.GetSize() > max_size)
+	while (this->text.GetSize() > this->max_size)
 	{
-		text.RemoveAt(0);
-		color.RemoveAt(0);
-		times.RemoveAt(0);
+		this->text.RemoveAt(0);
+		this->color.RemoveAt(0);
+		this->times.RemoveAt(0);
 	}
 }
 
 void GM_a28::Clear()
 {
 	//4021d2
-	text.RemoveAll();
-	color.RemoveAll();
-	times.RemoveAll();
+	this->text.RemoveAll();
+	this->color.RemoveAll();
+	this->times.RemoveAll();
 }
 
 void GM_a28::Draw()
@@ -195,9 +195,9 @@ void GM_a28::Draw()
 		fnt = g_font2;
 	}
 
-	for (int i = 0; i < text.GetSize(); i++)
+	for (int i = 0; i < this->text.GetSize(); i++)
 	{
-		CString s = text[i];
+		CString s = this->text[i];
 
 		while (true)
 		{
@@ -205,12 +205,12 @@ void GM_a28::Draw()
 
 			if (rpos < 0)
 			{
-				fnt->DrawTextWithShadow(out_x, out_y, s, 0, (uint16_t*)color[i], 1);
+				fnt->DrawTextWithShadow(out_x, out_y, s, 0, (uint16_t*)this->color[i], 1);
 				out_y += 2 + fnt->GetHeight();
 				break;
 			}
 			
-			fnt->DrawTextWithShadow(out_x, out_y, s.Left(rpos), 0, (uint16_t*)color[i], 1);
+			fnt->DrawTextWithShadow(out_x, out_y, s.Left(rpos), 0, (uint16_t*)this->color[i], 1);
 			out_y += 2 + fnt->GetHeight();
 			s = s.Mid(rpos + 1);
 		}
@@ -220,36 +220,36 @@ void GM_a28::Draw()
 void GM_a28::SetRect(const CRect& r)
 {
 	//40212b
-	out_area = r;
+	this->out_area = r;
 
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
 	if (wnd->sessionMode == 3) {
-		max_size = (g_ScreenSize.bottom - 480) / (g_font2->GetHeight() + 2) + 14;
+		this->max_size = (g_ScreenSize.bottom - 480) / (g_font2->GetHeight() + 2) + 14;
 	} else {
-		max_size = (out_area.Height() / (g_font1->GetHeight() + 2)) / 2;
+		this->max_size = (this->out_area.Height() / (g_font1->GetHeight() + 2)) / 2;
 	}
 }
 
 void GM_a28::Update()
 {
 	//402585
-	if (text.GetSize() == 0) {
+	if (this->text.GetSize() == 0) {
 		return;
 	}
 
 	uint32_t ts = timeGetTime();
 
-	elapsed_time += (ts - timestamp);
-	timestamp = ts;
+	this->elapsed_time += (ts - this->timestamp);
+	this->timestamp = ts;
 
-	if (times[0] < elapsed_time)
+	if (this->times[0] < this->elapsed_time)
 	{
-		elapsed_time = 0;
+		this->elapsed_time = 0;
 
-		text.RemoveAt(0);
-		color.RemoveAt(0);
-		times.RemoveAt(0);
+		this->text.RemoveAt(0);
+		this->color.RemoveAt(0);
+		this->times.RemoveAt(0);
 	}
 }
 
@@ -346,11 +346,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			break;
 
 		case 6:
-			if (!field_0x80) {
-				FUN_0041c4a1(packet_join->name);
+			if (!this->field_0x80) {
+				this->FUN_0041c4a1(packet_join->name);
 			}
 
-			if (!field_0x80)
+			if (!this->field_0x80)
 			{
 				INT_00660f8c = 0x1004;
 				return 0;
@@ -388,14 +388,14 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 		case 0x67:
 		{
-			if (wnd->dialogsMask == 1 && my_main_unit->gold < packet_info->field_0xa && packet_info->field_0xe == 0)
+			if (wnd->dialogsMask == 1 && this->my_main_unit->gold < packet_info->field_0xa && packet_info->field_0xe == 0)
 			{
-				sprintf(buf, "%s %d %s", TxtFile::AllLines[0x58], packet_info->field_0xa - my_main_unit->gold, TxtFile::AllLines[0x59]);
-				msglog.Add(buf, clr_log_tblack, 3000);
+				sprintf(buf, "%s %d %s", TxtFile::AllLines[0x58], packet_info->field_0xa - this->my_main_unit->gold, TxtFile::AllLines[0x59]);
+				this->msglog.Add(buf, clr_log_tblack, 3000);
 			}
-			my_main_unit->gold = packet_info->field_0xa;
+			this->my_main_unit->gold = packet_info->field_0xa;
 
-			CUnit* u = GetUnit_3f6c();
+			CUnit* u = this->GetUnit_3f6c();
 			if (u)
 			{
 				wnd->m_GameSession.FUN_004946e0();
@@ -403,7 +403,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				{
 					TokenEntry* gitem = u->tokenEntries[u->tokenEntries.GetUpperBound()];
 					if (gitem->FUN_0041f0d0()) {
-						gitem->field_0x10 = my_main_unit->gold;
+						gitem->field_0x10 = this->my_main_unit->gold;
 					}
 				}
 			}
@@ -414,7 +414,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		case 0x74:
 		{
 			CUnit* unit;
-			if (field_0x9d0.Lookup(packet_word->value, *(CGameObject**)&unit))
+			if (this->field_0x9d0.Lookup(packet_word->value, *(CGameObject**)&unit))
 			{
 				if (pkt->id == 0x74) {
 					unit->unitFlags |= 0x80;
@@ -429,9 +429,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		case 0x6a:
 		{
 			CUnit* unit;
-			if (field_0x9d0.Lookup(packet_word->value, *(CGameObject**)&unit))
+			if (this->field_0x9d0.Lookup(packet_word->value, *(CGameObject**)&unit))
 			{
-				field_0x9d0.RemoveKey(packet_word->value);
+				this->field_0x9d0.RemoveKey(packet_word->value);
 				delete unit;
 			}
 		}
@@ -440,11 +440,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		case 0x6b:
 		{
 			CUnit* unit;
-			if (!field_0x9d0.Lookup(packet_abil->field_0xa, *(CGameObject**)&unit))
+			if (!this->field_0x9d0.Lookup(packet_abil->field_0xa, *(CGameObject**)&unit))
 			{
 				sprintf(buf, "Invalid unit #%d. Command Move.", packet_abil->field_0xa);
 				if (g_EnableTrace) {
-					msglog.Add(buf, clrsh_TechBlack, 5000);
+					this->msglog.Add(buf, clrsh_TechBlack, 5000);
 				}
 			} else {
 				if (unit->action_segments)
@@ -477,7 +477,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 					}
 
 					if (g_EnableTrace) {
-						msglog.Add(buf, clrsh_TechBlack, 5000);
+						this->msglog.Add(buf, clrsh_TechBlack, 5000);
 					}
 				}
 
@@ -504,7 +504,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				if (g_EnableTrace)
 				{
 					sprintf(buf, "Invalid index id=%d", packet_unit->unit_id);
-					msglog.Add(buf, clrsh_TechBlack, 30000);
+					this->msglog.Add(buf, clrsh_TechBlack, 30000);
 				}
 			} else {
 				uint8_t* pdata = packet_unit->data;
@@ -564,21 +564,21 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 					pdata += 2;
 				}
 
-				if (ownerid >= field_0x9b8.GetSize())
+				if (ownerid >= this->field_0x9b8.GetSize())
 				{
 					if (g_EnableTrace != 0)
 					{
 						sprintf(buf, "Invalid owner. Unit(ext) id=%d", packet_unit->unit_id);
-						msglog.Add(buf, clrsh_TechBlack, 30000);
+						this->msglog.Add(buf, clrsh_TechBlack, 30000);
 					}
 				} else {
-					MapPlayerData* mpl = field_0x9b8[ownerid];
+					MapPlayerData* mpl = this->field_0x9b8[ownerid];
 					if (!mpl)
 					{
 						if (g_EnableTrace != 0)
 						{
 							sprintf(buf, "Invalid owner. Unit(ext) id=%d", packet_unit->unit_id);
-							msglog.Add(buf, clrsh_TechBlack, 30000);
+							this->msglog.Add(buf, clrsh_TechBlack, 30000);
 						}
 					} else {
 						bool groundunit = false;
@@ -625,7 +625,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 						CUnit* ct = nullptr;
 						bool ct_exist = true;
 
-						if (field_0x9d0.Lookup(packet_unit->unit_id, *(CGameObject**)&ct) == 0)
+						if (this->field_0x9d0.Lookup(packet_unit->unit_id, *(CGameObject**)&ct) == 0)
 						{
 							ct_exist = false;
 
@@ -648,7 +648,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 								ct->ReloadSprite();
 							}
 
-							field_0x9d0.SetAt(packet_unit->unit_id, ct);
+							this->field_0x9d0.SetAt(packet_unit->unit_id, ct);
 							ct->unit_id = packet_unit->unit_id;
 						}
 
@@ -838,13 +838,13 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 						{
 							if (ct->serverId == 0x15)
 							{
-								field_0x3f6c = ct;
-								field_0x3f6c->unitFlags |= 0x20;
+								this->field_0x3f6c = ct;
+								this->field_0x3f6c->unitFlags |= 0x20;
 							}
-						} else if (ct->map_player == my_main_unit && (ct->unitFlags & 1) != 0)
+						} else if (ct->map_player == this->my_main_unit && (ct->unitFlags & 1) != 0)
 						{
-							field_0x3f6c = ct;
-							field_0x3f6c->unitFlags |= 0x20;
+							this->field_0x3f6c = ct;
+							this->field_0x3f6c->unitFlags |= 0x20;
 						}
 
 						if (ct->str1[0] == 0 && ct->serverId != 0) {
@@ -861,13 +861,13 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 								ct->face = g_CUnitStatic.face;
 							}
 
-							field_0x3f6c->unitFlags |= 8;
+							this->field_0x3f6c->unitFlags |= 8;
 						}
 
 						if ((packet_unit->flags_mask & 0x100000) != 0)
 						{
 							ct->availableSpellMask = 0;
-							if (ct->map_player == my_main_unit && ct->spells != 0)
+							if (ct->map_player == this->my_main_unit && ct->spells != 0)
 							{
 								for (int i = 0; i < 32; i++)
 								{
@@ -955,13 +955,13 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 						case 2:
 						case 3:
 						case 4:
-							if (wnd->sessionMode != 2 && ct == field_0x3f6c && ct->field_0x180[4] == 4 && sval < 4)
+							if (wnd->sessionMode != 2 && ct == this->field_0x3f6c && ct->field_0x180[4] == 4 && sval < 4)
 							{
-								msglog.Add(txt_patch.GetLine(0x44), clr_log_sblack, 10000);
-								msglog.Add(txt_patch.GetLine(0x45), clr_log_sblack, 10000);
+								this->msglog.Add(txt_patch.GetLine(0x44), clr_log_sblack, 10000);
+								this->msglog.Add(txt_patch.GetLine(0x45), clr_log_sblack, 10000);
 							}
 
-							if (sval < 2 && my_main_unit->FUN_0041ee20(ct->map_player->index) != 0) {
+							if (sval < 2 && this->my_main_unit->FUN_0041ee20(ct->map_player->index) != 0) {
 								wnd->m_FameHall.FUN_00420050();
 							}
 
@@ -971,7 +971,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 							if (ct->IsSelected() != 0)
 							{
 								ct->VMethod1(0);
-								UpdateSelectionState();
+								this->UpdateSelectionState();
 							}
 
 							break;
@@ -983,12 +983,12 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 							if (ct->IsSelected() != 0)
 							{
 								ct->VMethod1(0);
-								UpdateSelectionState();
+								this->UpdateSelectionState();
 							}
 
 							if (ct->unit_id < 0x6000)
 							{
-								field_0x9d0.RemoveKey(packet_unit->unit_id);
+								this->field_0x9d0.RemoveKey(packet_unit->unit_id);
 								if (ct) {
 									delete ct;
 								}
@@ -997,18 +997,18 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 						}
 						if (g_CUnitStatic.field_0x180[4] < 5)
 						{
-							if ((wnd->dialogsMask & 1) != 0 && field_0x80) {
+							if ((wnd->dialogsMask & 1) != 0 && this->field_0x80) {
 								ct->FUN_0046190d();
 							}
 
-							if (field_0x138 == ct)
+							if (this->field_0x138 == ct)
 							{
 								wnd->vis_charinfo->MsgProc(0x408, 0, 0);
 								wnd->vis_sidestatus->MsgProc(0x408, 0, 0);
 							}
 
 							if (ct->IsSelected() != 0 && ((ct->unitFlags & 2) != 0 || (packet_unit->flags_mask & 0x100000) != 0)) {
-								UpdateSelectionState();
+								this->UpdateSelectionState();
 							}
 
 							ct->m_bSelectionDirty = 1;
@@ -1022,12 +1022,12 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		case 0x6d:
 		{
 			CUnit* ct = nullptr;
-			if (field_0x9d0.Lookup(packet_abil->field_0xa, *(CGameObject**)&ct) == 0)
+			if (this->field_0x9d0.Lookup(packet_abil->field_0xa, *(CGameObject**)&ct) == 0)
 			{
 				if (g_EnableTrace != 0)
 				{
 					sprintf(buf, "Invalid unit #%d. Command Turn.", packet_abil->field_0xa);
-					msglog.Add(buf, clrsh_TechBlack, 5000);
+					this->msglog.Add(buf, clrsh_TechBlack, 5000);
 				}
 			} else {
 				if (ct->action_segments != 0)
@@ -1055,7 +1055,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 							sprintf(buf, "Overriding <Command %d> by \'Turn\'. %d segments lost.", ct->action, ct->action_segments);
 							break;
 						}
-						msglog.Add(buf, clrsh_TechBlack, 5000);
+						this->msglog.Add(buf, clrsh_TechBlack, 5000);
 					}
 				}
 				if (ct->hp > 0)
@@ -1075,12 +1075,12 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		case 0x71:
 		{
 			CUnit* ct = nullptr;
-			if (field_0x9d0.Lookup(packet_abil->field_0xa, *(CGameObject**)&ct) == 0)
+			if (this->field_0x9d0.Lookup(packet_abil->field_0xa, *(CGameObject**)&ct) == 0)
 			{
 				if (g_EnableTrace != 0)
 				{
 					sprintf(buf, "Invalid unit #%d. Command Attack.", packet_abil->field_0xa);
-					msglog.Add(buf, clrsh_TechBlack, 5000);
+					this->msglog.Add(buf, clrsh_TechBlack, 5000);
 				}
 			} else {
 				if (ct->action_segments == 0)
@@ -1124,7 +1124,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 							break;
 						}
 
-						msglog.Add(buf, clrsh_TechBlack, 5000);
+						this->msglog.Add(buf, clrsh_TechBlack, 5000);
 					}
 				}
 			}
@@ -1134,12 +1134,12 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		case 0x72:
 		{
 			CUnit* ct = nullptr;
-			if (field_0x9d0.Lookup(packet_mount->field_0xa, *(CGameObject**)&ct) == 0)
+			if (this->field_0x9d0.Lookup(packet_mount->field_0xa, *(CGameObject**)&ct) == 0)
 			{
 				if (g_EnableTrace)
 				{
 					sprintf(buf, "Invalid unit #%d. Command Ranged Attack.", packet_mount->field_0xa);
-					msglog.Add(buf, clrsh_TechBlack, 5000);
+					this->msglog.Add(buf, clrsh_TechBlack, 5000);
 				}
 			} else if (ct->action_segments == 0 && ct->hp > 0)
 			{
@@ -1176,7 +1176,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 						break;
 					}
 
-					msglog.Add(buf, clrsh_TechBlack, 5000);
+					this->msglog.Add(buf, clrsh_TechBlack, 5000);
 				}
 			}
 		}
@@ -1185,17 +1185,17 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		case 0x73:
 		{
 			CUnit* ct = nullptr;
-			if (field_0x9d0.Lookup(packet_ping->field_0xa, *(CGameObject**)&ct) == 0)
+			if (this->field_0x9d0.Lookup(packet_ping->field_0xa, *(CGameObject**)&ct) == 0)
 			{
 				if (g_EnableTrace)
 				{
 					sprintf(buf, "Invalid unit #%d. Command Take damage.", packet_ping->field_0xa);
-					msglog.Add(buf, clrsh_TechBlack, 5000);
+					this->msglog.Add(buf, clrsh_TechBlack, 5000);
 				}
 			} else {
-				if (flying_hp && packet_ping->field_0xc < ct->hp)
+				if (this->flying_hp && packet_ping->field_0xc < ct->hp)
 				{
-					bool not_me = ct->map_player != my_main_unit;
+					bool not_me = ct->map_player != this->my_main_unit;
 
 					int32_t a = ct->VMethod4();
 					int32_t dx = a * 16;
@@ -1204,7 +1204,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 						dx = -dx;
 					}
 
-					TakeDamage::AddDamage(&damage_labels, TakeDamage(ct->hp - packet_ping->field_0xc, nullptr, not_me, dx, a * -48, ct) );
+					TakeDamage::AddDamage(&this->damage_labels, TakeDamage(ct->hp - packet_ping->field_0xc, nullptr, not_me, dx, a * -48, ct) );
 				}
 				if (ct->hp == packet_ping->field_0xc) {
 					ct->VMethod25(0);
@@ -1218,7 +1218,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				}
 
 				ct->hp = packet_ping->field_0xc;
-				if (field_0x138 == ct)
+				if (this->field_0x138 == ct)
 				{
 					wnd->vis_charinfo->MsgProc(0x408, 0, 0);
 					wnd->vis_sidestatus->MsgProc(0x408, 0, 0);
@@ -1243,7 +1243,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			switch (packet_state->field_0xc & 0x7f)
 			{
 			case 1:
-				if (field_0x9d0.Lookup(packet_state->building_id, *(CGameObject**)&ct) != 0)
+				if (this->field_0x9d0.Lookup(packet_state->building_id, *(CGameObject**)&ct) != 0)
 				{
 					uint8_t *pdata = packet_state->data;
 					for (int i = 0; i < 12; i++)
@@ -1298,11 +1298,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 						{
 							if ((packet_state->field_0xf & (1 << i)) != 0)
 							{
-								if (field_0x4988[i]) {
-									delete field_0x4988[i];
+								if (this->field_0x4988[i]) {
+									delete this->field_0x4988[i];
 								}
 
-								field_0x4988[i] = sub_4F499B(&pdata);
+								this->field_0x4988[i] = sub_4F499B(&pdata);
 							}
 						}
 
@@ -1310,12 +1310,12 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 						for (int i = 0; i < 12; i++)
 						{
-							if (!field_0x4988[i])
+							if (!this->field_0x4988[i])
 							{
 								Item item;
 								item.StoreToPacket(packet_state, 0);
 							} else {
-								field_0x4988[i]->StoreToPacket(packet_state, 0);
+								this->field_0x4988[i]->StoreToPacket(packet_state, 0);
 							}
 						}
 
@@ -1327,7 +1327,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 			case 2:
 			{
-				if (field_0x9d0.Lookup(packet_state->building_id, *(CGameObject**)&ct) != 0)
+				if (this->field_0x9d0.Lookup(packet_state->building_id, *(CGameObject**)&ct) != 0)
 				{
 					if ((packet_state->field_0xc & 0x80) == 0)
 					{
@@ -1425,7 +1425,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 							} else {
 								sprintf(buf, "%s %s (%s %d %s)", TxtFile::AllLines[85], itmname, TxtFile::AllLines[86], obj->field_0x10, TxtFile::AllLines[87]);
 							}
-							msglog.Add(buf, clr_log_tblack, 3000);
+							this->msglog.Add(buf, clr_log_tblack, 3000);
 						}
 					}
 
@@ -1436,26 +1436,26 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 							uint8_t *pdata = packet_state->data;
 							for (int i = 0; i < packet_state->entry_count; i++)
 							{								
-								if (i + packet_state->field_0xf < field_0x4974.GetSize())
+								if (i + packet_state->field_0xf < this->field_0x4974.GetSize())
 								{
-									Item* itm = field_0x4974[i + packet_state->field_0xf];
+									Item* itm = this->field_0x4974[i + packet_state->field_0xf];
 									if (itm) {
 										delete itm;
 									}
 								}
 
 								Item * itm = sub_4F499B(&pdata);
-								field_0x4974.SetAtGrow(i + packet_state->field_0xf, itm);
+								this->field_0x4974.SetAtGrow(i + packet_state->field_0xf, itm);
 							}
 
 							if ((packet_state->field_0xc & 0x80) == 0) {
-								field_0x4974.SetSize(packet_state->entry_count);
+								this->field_0x4974.SetSize(packet_state->entry_count);
 							}
 							
 							packet_state->data_size = 0;
 
-							for (int i = 0; i < field_0x4974.GetSize(); i++) {
-								field_0x4974[i]->StoreToPacket(packet_state, 0);
+							for (int i = 0; i < this->field_0x4974.GetSize(); i++) {
+								this->field_0x4974[i]->StoreToPacket(packet_state, 0);
 							}
 
 
@@ -1465,20 +1465,20 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 						TokenEntry* gt = new TokenEntry(0);
 						gt->item_id = 0xffff;
-						gt->field_0x10 = my_main_unit->gold;
+						gt->field_0x10 = this->my_main_unit->gold;
 						gt->flg = 0;
 						gt->mods_count = 0;
 						gt->field_0x18 = 2;
 						ct->tokenEntries.Add(gt);
 					}
 
-					UpdateSelectionState();
+					this->UpdateSelectionState();
 
 					if (wnd->dialogsMask & 2) {
 						wnd->vis_root->FindChild(1000)->MsgProc(0x413, packet_state->field_0xc & 0x7f, 0);
 					} else
 					{
-						if (field_0x140 == 1 && field_0x138 == ct) {
+						if (this->field_0x140 == 1 && this->field_0x138 == ct) {
 							wnd->vis_invtype1->VMethod33(ct);
 						}
 					}
@@ -1564,7 +1564,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		case 0x7a:
 		{
 			CGameObject* ct = nullptr;
-			if (field_0x9d0.Lookup(packet_eight->unit_id, ct))
+			if (this->field_0x9d0.Lookup(packet_eight->unit_id, ct))
 			{
 				ct->typeId = packet_eight->type_id;
 				if (ct->typeId > 5) {
@@ -1572,17 +1572,17 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				}
 			} else {
 				CBackPack* pak = new CBackPack();
-				field_0x9d0[packet_eight->unit_id] = pak;
+				this->field_0x9d0[packet_eight->unit_id] = pak;
 
 				pak->SetVals(packet_eight->unit_id, 1, packet_eight->xpos, packet_eight->ypos, 0, 0, 0, 0, 1);
 
-				pak->map_player = my_main_unit;
+				pak->map_player = this->my_main_unit;
 				pak->typeId = packet_eight->type_id;
 				if (pak->typeId > 5) {
 					pak->typeId = 5;
 				}
 
-				if ((wnd->dialogsMask & 1) != 0 && field_0x80 != nullptr) {
+				if ((wnd->dialogsMask & 1) != 0 && this->field_0x80 != nullptr) {
 					pak->FUN_0046190d();
 				}
 			}
@@ -1593,10 +1593,10 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		case 0x82:
 		{
 			CUnit* ct = nullptr;
-			if (field_0x9d0.Lookup(packet_sync->field_0xa, *(CGameObject**)&ct))
+			if (this->field_0x9d0.Lookup(packet_sync->field_0xa, *(CGameObject**)&ct))
 			{
 				ct->hp = packet_sync->field_0xc;
-				if (field_0x138 == ct)
+				if (this->field_0x138 == ct)
 				{
 					wnd->vis_charinfo->MsgProc(0x408, 0, 0);
 					wnd->vis_sidestatus->MsgProc(0x408, 0, 0);
@@ -1617,12 +1617,12 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			if ((packet_move->field_0xc & 1) == 0 || packet_move->field_0xc >= g_ProjectileInfos.GetSize() || g_ProjectileInfos[packet_move->field_0xc] == nullptr)
 			{
 				CUnit* ct = nullptr;
-				if (field_0x9d0.Lookup(packet_move->field_0xa, *(CGameObject**)&ct) == 0)
+				if (this->field_0x9d0.Lookup(packet_move->field_0xa, *(CGameObject**)&ct) == 0)
 				{
 					if (g_EnableTrace != 0)
 					{
 						sprintf(buf, "Invalid unit #%d. Command Cast spell.", packet_move->field_0xa);
-						msglog.Add(buf, clrsh_TechBlack, 5000);
+						this->msglog.Add(buf, clrsh_TechBlack, 5000);
 					}
 				} else if (ct->action_segments == 0 && g_VFX_info[ct->typeId]->attack_phases != 0)
 				{
@@ -1660,22 +1660,22 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				pj->action_z = pj->z_pos;
 				pj->action_target = 0;
 				pj->action_phase = -1;
-				pj->map_player = my_main_unit;
+				pj->map_player = this->my_main_unit;
 				pj->action_segments = packet_move->field_0xf;
 				pj->action = 1;
 				pj->pMapObject = this;
 
 				pj->FUN_0046190d();
 
-				field_0x9ec[field_0xa24] = pj;
-				field_0xa24++;
+				this->field_0x9ec[this->field_0xa24] = pj;
+				this->field_0xa24++;
 
 				SfxSample* snd = g_SfxArray[packet_move->field_0xc + 500];
 				if (packet_move->field_0xc != 23 && snd)
 				{
 					int32_t vol = 0;
 					int32_t pan = 0;
-					FUN_0041b7b7(pj->x_pos, pj->y_pos, &vol, &pan);
+					this->FUN_0041b7b7(pj->x_pos, pj->y_pos, &vol, &pan);
 
 					int priority = (10000 - ::abs(vol)) / 100;
 
@@ -1685,7 +1685,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			break;
 
 		case 0x87:
-			FUN_0041c74b(packet_aoe->field_0xb,
+			this->FUN_0041c74b(packet_aoe->field_0xb,
 							packet_aoe->field_0xc,
 							packet_aoe->field_0xd,
 							packet_aoe->field_0xe,
@@ -1693,14 +1693,14 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 							packet_aoe->data,
 							packet_aoe->field_0xf);
 			if (packet_aoe->field_0xf == 0) {
-				field_0xe0 = 1;
+				this->field_0xe0 = 1;
 			}
 			break;
 
 		case 0x88:
 		{
 			CGameObject* ct = nullptr;
-			if (field_0x9d0.Lookup(packet_effect->field_0xa, ct) != 0)
+			if (this->field_0x9d0.Lookup(packet_effect->field_0xa, ct) != 0)
 			{
 				int32_t idx = ct->FUN_00462405(packet_effect->effect_type);
 				if (idx < 0) {
@@ -1717,7 +1717,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		case 0x89:
 		{
 			CGameObject* ct = nullptr;
-			if (field_0x9d0.Lookup(packet_effect->field_0xa, ct) != 0)
+			if (this->field_0x9d0.Lookup(packet_effect->field_0xa, ct) != 0)
 			{
 				int32_t idx = ct->FUN_00462405(packet_effect->effect_type);
 				if (idx > -1) {
@@ -1732,7 +1732,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		case 0x8a:
 		{
 			CGameObject* ct = nullptr;
-			field_0x9d0.Lookup(packet_terrain->buf[0], ct);
+			this->field_0x9d0.Lookup(packet_terrain->buf[0], ct);
 			if (ct->action_segments == 0 && g_VFX_info[ct->typeId]->attack_phases != 0)
 			{
 				ct->action_segments = g_VFX_info[ct->typeId]->attack_anim_frame_cnt;
@@ -1771,22 +1771,22 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 			pj->action_z = pj->z_pos;
 			pj->action_phase = -1;
-			pj->map_player = my_main_unit;
+			pj->map_player = this->my_main_unit;
 			pj->action_segments = packet_move->field_0xf;
 			pj->action = 1;
 			pj->pMapObject = this;
 
 			pj->FUN_0046190d();
 			
-			field_0x9ec[field_0xa24] = pj;
-			field_0xa24++;
+			this->field_0x9ec[this->field_0xa24] = pj;
+			this->field_0xa24++;
 
 			SfxSample* snd = g_SfxArray[packet_move->field_0xc + 500];
 			if (packet_move->field_0xc != 23 && snd)
 			{
 				int32_t vol = 0;
 				int32_t pan = 0;
-				FUN_0041b7b7(pj->x_pos, pj->y_pos, &vol, &pan);
+				this->FUN_0041b7b7(pj->x_pos, pj->y_pos, &vol, &pan);
 
 				int priority = (10000 - ::abs(vol)) / 100;
 
@@ -1814,22 +1814,22 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			pj->action_target = packet_terrain->buf[1];
 			pj->action_z = pj->z_pos;
 			pj->action_phase = -1;
-			pj->map_player = my_main_unit;
+			pj->map_player = this->my_main_unit;
 			pj->action_segments = 13;
 			pj->action = 1;
 			pj->pMapObject = this;
 
 			pj->FUN_0046190d();
 
-			field_0x9ec[field_0xa24] = pj;
-			field_0xa24++;
+			this->field_0x9ec[this->field_0xa24] = pj;
+			this->field_0xa24++;
 
 			SfxSample* snd = g_SfxArray[pj->typeId + 500];
 			if (pj->typeId != 23 && snd)
 			{
 				int32_t vol = 0;
 				int32_t pan = 0;
-				FUN_0041b7b7(pj->x_pos, pj->y_pos, &vol, &pan);
+				this->FUN_0041b7b7(pj->x_pos, pj->y_pos, &vol, &pan);
 
 				int priority = (10000 - ::abs(vol)) / 100;
 
@@ -1840,16 +1840,16 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 		case 0x91:
 		{
-			if (packet_join->player_id == 0 || packet_join->player_id >= field_0x9b8.GetSize() || field_0x9b8[packet_join->player_id] == nullptr)
+			if (packet_join->player_id == 0 || packet_join->player_id >= this->field_0x9b8.GetSize() || this->field_0x9b8[packet_join->player_id] == nullptr)
 			{
-				msglog.Add(packet_join->name, clr_log_sblack, 10000);
-			} else if (my_main_unit->FUN_0041edf0(packet_join->player_id) == 0 || packet_join->token_id == 4)
+				this->msglog.Add(packet_join->name, clr_log_sblack, 10000);
+			} else if (this->my_main_unit->FUN_0041edf0(packet_join->player_id) == 0 || packet_join->token_id == 4)
 			{
-				MapPlayerData* dat = field_0x9b8[packet_join->player_id];
+				MapPlayerData* dat = this->field_0x9b8[packet_join->player_id];
 
 				if (g_MessageColors == 0 || (wnd->dialogsMask & 1) == 0)
 				{
-					msglog.Add(CString(dat->name) + ": " + packet_join->name, g_colors_human_pals[dat->color], 10000);
+					this->msglog.Add(CString(dat->name) + ": " + packet_join->name, g_colors_human_pals[dat->color], 10000);
 				} else {
 					uint16_t* clr = nullptr;
 					switch (packet_join->token_id)
@@ -1869,7 +1869,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 						break;
 					}
 
-					msglog.Add(CString(dat->name) + ": " + packet_join->name, clr, 10000);
+					this->msglog.Add(CString(dat->name) + ": " + packet_join->name, clr, 10000);
 				}
 
 				g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
@@ -1885,7 +1885,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			{
 			case 1:
 				if (g_EnableTrace) {
-					msglog.Add(TxtFile::AllLines[0x81], clr_log_sblack, 3000);
+					this->msglog.Add(TxtFile::AllLines[0x81], clr_log_sblack, 3000);
 				}
 				break;
 
@@ -1896,7 +1896,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 				CString txt;
 
-				if ((field_0x3f6c->unitFlags & 2) == 0) {
+				if ((this->field_0x3f6c->unitFlags & 2) == 0) {
 					txt = TxtFile::AllLines[texid + 0x81];
 				} else {
 					txt = TxtFile::AllLines[texid + 0x86];
@@ -1904,7 +1904,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 				if (wnd->sessionMode == 2)
 				{
-					CUnit* ct = FUN_0041df23(serv_id);
+					CUnit* ct = this->FUN_0041df23(serv_id);
 					if (ct)
 					{
 						if ((ct->unitFlags & 2) == 0) {
@@ -1915,7 +1915,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 					}
 				}
 
-				msglog.Add(txt, clr_log_sblack, 3000);
+				this->msglog.Add(txt, clr_log_sblack, 3000);
 
 				if ((wnd->dialogsMask & 1) != 0) {
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
@@ -1924,25 +1924,25 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				break;
 
 			case 3:
-				if (packet_info->field_0xe != my_main_unit->index)
+				if (packet_info->field_0xe != this->my_main_unit->index)
 				{
-					sprintf(buf, "%s %s %s", TxtFile::AllLines[0xcc], field_0x9b8[packet_info->field_0xe]->name, TxtFile::AllLines[0xcd]);
-					msglog.Add(buf, clr_log_sblack, 5000);
+					sprintf(buf, "%s %s %s", TxtFile::AllLines[0xcc], this->field_0x9b8[packet_info->field_0xe]->name, TxtFile::AllLines[0xcd]);
+					this->msglog.Add(buf, clr_log_sblack, 5000);
 				}
 				break;
 
 			case 4:
-				if (packet_info->field_0xe == my_main_unit->index) {
-					sprintf(buf, "%s %s %s", TxtFile::AllLines[0xd0], field_0x9b8[packet_info->field_0xe]->name, TxtFile::AllLines[0xd1]);
+				if (packet_info->field_0xe == this->my_main_unit->index) {
+					sprintf(buf, "%s %s %s", TxtFile::AllLines[0xd0], this->field_0x9b8[packet_info->field_0xe]->name, TxtFile::AllLines[0xd1]);
 				} else {
-					sprintf(buf, "%s %s %s", TxtFile::AllLines[0xce], field_0x9b8[packet_info->field_0xe]->name, TxtFile::AllLines[0xcf]);
+					sprintf(buf, "%s %s %s", TxtFile::AllLines[0xce], this->field_0x9b8[packet_info->field_0xe]->name, TxtFile::AllLines[0xcf]);
 				}
-				msglog.Add(buf, clr_log_sblack, 5000);
+				this->msglog.Add(buf, clr_log_sblack, 5000);
 				break;
 
 			case 5:
-				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xdd], field_0x9b8[packet_info->field_0xe]->name, TxtFile::AllLines[0xde]);
-				msglog.Add(buf, clr_log_sblack, 5000);
+				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xdd], this->field_0x9b8[packet_info->field_0xe]->name, TxtFile::AllLines[0xde]);
+				this->msglog.Add(buf, clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & 1) != 0) {
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
@@ -1950,8 +1950,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				break;
 
 			case 6:
-				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xdf], field_0x9b8[packet_info->field_0xe]->name, TxtFile::AllLines[0xe0]);
-				msglog.Add(buf, clr_log_sblack, 5000);
+				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xdf], this->field_0x9b8[packet_info->field_0xe]->name, TxtFile::AllLines[0xe0]);
+				this->msglog.Add(buf, clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & 1) != 0) {
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
@@ -1959,8 +1959,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				break;
 
 			case 7:
-				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xe1], field_0x9b8[packet_info->field_0xe]->name, TxtFile::AllLines[0xe2]);
-				msglog.Add(buf, clr_log_sblack, 5000);
+				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xe1], this->field_0x9b8[packet_info->field_0xe]->name, TxtFile::AllLines[0xe2]);
+				this->msglog.Add(buf, clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & 1) != 0) {
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
@@ -1969,7 +1969,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 			case 8:
 				sprintf(buf, "%s %d %s", txt_patch.GetLine(0x53), packet_info->field_0xe, txt_patch.GetLine(0x54));
-				msglog.Add(buf, clr_log_sblack, 5000);
+				this->msglog.Add(buf, clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & 1) != 0) {
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
@@ -1977,7 +1977,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				break;
 
 			case 0x10:
-				msglog.Add(txt_patch.GetLine(0x58), clr_log_sblack, 5000);
+				this->msglog.Add(txt_patch.GetLine(0x58), clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & 1) != 0) {
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
@@ -1985,8 +1985,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				break;
 
 			case 0x20:
-				msglog.Add(txt_patch.GetLine(0x59), clr_log_sblack, 5000);
-				msglog.Add(txt_patch.GetLine(0x5a), clr_log_sblack, 5000);
+				this->msglog.Add(txt_patch.GetLine(0x59), clr_log_sblack, 5000);
+				this->msglog.Add(txt_patch.GetLine(0x5a), clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & 1) != 0) {
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
@@ -1994,7 +1994,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				break;
 
 			case 0x40:
-				msglog.Add(txt_patch.GetLine(0x5b), clr_log_sblack, 5000);
+				this->msglog.Add(txt_patch.GetLine(0x5b), clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & 1) != 0) {
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
@@ -2002,7 +2002,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				break;
 
 			case 0x80:
-				msglog.Add(txt_patch.GetLine(0x5c), clr_log_sblack, 5000);
+				this->msglog.Add(txt_patch.GetLine(0x5c), clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & 1) != 0) {
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
@@ -2014,10 +2014,10 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 		case 0x93:
 		{
-			msglog.Add(txt_patch.GetLine(0x4e) + CString(" ") + packet_join->name + CString(" ") + txt_patch.GetLine(0x4f), clr_log_sblack, 5000);
+			this->msglog.Add(txt_patch.GetLine(0x4e) + CString(" ") + packet_join->name + CString(" ") + txt_patch.GetLine(0x4f), clr_log_sblack, 5000);
 			g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 
-			if (packet_join->__field_0xa == my_main_unit->index)
+			if (packet_join->__field_0xa == this->my_main_unit->index)
 			{
 				if ((wnd->dialogsMask & 1) == 0)
 				{
@@ -2035,22 +2035,22 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 		case 0x94:
 			if (packet_info->field_0xa != 0 && 
-				packet_info->field_0xa < field_0x9b8.GetSize() && field_0x9b8[packet_info->field_0xa] != nullptr &&
+				packet_info->field_0xa < this->field_0x9b8.GetSize() && this->field_0x9b8[packet_info->field_0xa] != nullptr &&
 				packet_info->field_0xe != 0 &&
-				packet_info->field_0xe < field_0x9b8.GetSize() && field_0x9b8[packet_info->field_0xe] != nullptr)
+				packet_info->field_0xe < this->field_0x9b8.GetSize() && this->field_0x9b8[packet_info->field_0xe] != nullptr)
 			{
 				CString str;
-				str.Format("%s %s %s %s %s", txt_patch.GetLine(0x50), field_0x9b8[packet_info->field_0xa]->name, txt_patch.GetLine(0x51), field_0x9b8[packet_info->field_0xe]->name, txt_patch.GetLine(0x52));
-				msglog.Add(str, clr_log_sblack, 5000);
+				str.Format("%s %s %s %s %s", txt_patch.GetLine(0x50), this->field_0x9b8[packet_info->field_0xa]->name, txt_patch.GetLine(0x51), this->field_0x9b8[packet_info->field_0xe]->name, txt_patch.GetLine(0x52));
+				this->msglog.Add(str, clr_log_sblack, 5000);
 			}
 			break;
 
 		case 0x96:
 		{
-			bool isin = packet_join->player_id < field_0x9b8.GetSize();
+			bool isin = packet_join->player_id < this->field_0x9b8.GetSize();
 			if (isin)
 			{
-				if (field_0x9b8[packet_join->player_id] == nullptr) {
+				if (this->field_0x9b8[packet_join->player_id] == nullptr) {
 					isin = false;
 				}
 			}
@@ -2060,7 +2060,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				mp = new MapPlayerData(packet_join->player_id, packet_join->field_0xc);
 				mp->field2_0x8 = packet_join->token_id;
 			} else {
-				mp = field_0x9b8[packet_join->player_id];
+				mp = this->field_0x9b8[packet_join->player_id];
 			}
 
 			if ((packet_join->flags & 1) == 0) {
@@ -2072,22 +2072,22 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			strncpy(mp->name, packet_join->name, 31);
 			mp->name[31] = 0;
 
-			if (field_0x9b8.GetSize() == 1)
+			if (this->field_0x9b8.GetSize() == 1)
 			{
 				wnd->m_GameSession.field_0x10c = (packet_join->flags & 2) != 0;
-				my_main_unit = mp;
-				my_main_unit->diplomacy.SetAtGrow(0, 0);
-				my_main_unit->diplomacy.SetAtGrow(mp->index, 0x3a);
+				this->my_main_unit = mp;
+				this->my_main_unit->diplomacy.SetAtGrow(0, 0);
+				this->my_main_unit->diplomacy.SetAtGrow(mp->index, 0x3a);
 			} else if ((mp->flags & 1) == 0)
 			{
-				if (mp != my_main_unit) {
-					my_main_unit->diplomacy.SetAtGrow(mp->index, 0);
+				if (mp != this->my_main_unit) {
+					this->my_main_unit->diplomacy.SetAtGrow(mp->index, 0);
 				}
 			} else {
-				my_main_unit->diplomacy.SetAtGrow(mp->index, 1);
+				this->my_main_unit->diplomacy.SetAtGrow(mp->index, 1);
 			}
 
-			field_0x9b8.SetAtGrow(mp->index, mp);
+			this->field_0x9b8.SetAtGrow(mp->index, mp);
 
 			wnd->FUN_00494a9e();
 
@@ -2103,7 +2103,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 		case 0x97:
 		{
-			if (packet_info->field_0xa == my_main_unit->index)
+			if (packet_info->field_0xa == this->my_main_unit->index)
 			{
 				wnd->PostMessage(0x45c, 0, 0);
 				g_CLlDriver.Close();
@@ -2111,13 +2111,13 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			}
 
 			CArray<uint16_t> tmp;
-			for (POSITION it = field_0x9d0.GetStartPosition(); it != nullptr;)
+			for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;)
 			{
 				uint16_t key;
 				CGameObject* obj;
-				field_0x9d0.GetNextAssoc(it, key, obj);
+				this->field_0x9d0.GetNextAssoc(it, key, obj);
 				
-				if (obj->map_player == field_0x9b8[packet_info->field_0xa]) {
+				if (obj->map_player == this->field_0x9b8[packet_info->field_0xa]) {
 					tmp.Add(key);
 				}
 			}
@@ -2125,12 +2125,12 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			for (int i = 0; i < tmp.GetSize(); i++)
 			{
 				CGameObject* obj;
-				field_0x9d0.Lookup(tmp[i], obj);
-				field_0x9d0.RemoveKey(tmp[i]);
+				this->field_0x9d0.Lookup(tmp[i], obj);
+				this->field_0x9d0.RemoveKey(tmp[i]);
 
 				if (obj->IsSelected() != 0)
 				{
-					field_0x9b4 = 0;
+					this->field_0x9b4 = 0;
 					wnd->vis_spellbook->FUN_004caa69();
 					wnd->vis_ordertoolbar->MsgProc(0x40b, 0, 0);
 				}
@@ -2138,9 +2138,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				delete obj;
 			}
 
-			UpdateSelectionState();
+			this->UpdateSelectionState();
 
-			field_0x9b8[packet_info->field_0xa] = nullptr; //WAT ? not delete?
+			this->field_0x9b8[packet_info->field_0xa] = nullptr; //WAT ? not delete?
 			wnd->vis_root->MsgProc(0x460, 0, 0);
 
 			wnd->FUN_00494a9e();
@@ -2158,14 +2158,14 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			CWordArray tmp;
 			tmp.SetSize(packet_terrain->count);
 			memcpy(tmp.GetData(), packet_terrain->buf, packet_terrain->count * 2);
-			FUN_0041c630(&tmp);
+			this->FUN_0041c630(&tmp);
 		}
 			break;
 
 		case 0x9c:
 		{
 			CUnit* ct = nullptr;
-			if (packet_props->field_0xa != 0 && field_0x9d0.Lookup(packet_props->field_0xa, *(CGameObject**)&ct) != 0)
+			if (packet_props->field_0xa != 0 && this->field_0x9d0.Lookup(packet_props->field_0xa, *(CGameObject**)&ct) != 0)
 			{
 				int pr = 0;
 				for (int i = 0; i < 12; i++)
@@ -2211,11 +2211,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			case 1:
 			{
 				INT_00660f74 = 1;
-				uint16_t* landscape = field_0x80->GetLandscape();
+				uint16_t* landscape = this->field_0x80->GetLandscape();
 
-				for (int i = 0; i < field_0x80->GetWidth(); i++)
+				for (int i = 0; i < this->field_0x80->GetWidth(); i++)
 				{
-					for (int j = 0; j < field_0x80->GetHeight(); j++) {
+					for (int j = 0; j < this->field_0x80->GetHeight(); j++) {
 						landscape[i + j * field_0x80->GetWidth()] |= 0xc000;
 					}
 				}
@@ -2230,12 +2230,12 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 		case 0xab:
 			if (wnd->field_0x404 == 0) {
-				MsgProc(0x406, packet_info->field_0xa - (view_tiles_x / 2), packet_info->field_0xe - (view_tiles_y / 2));
+				this->MsgProc(0x406, packet_info->field_0xa - (this->view_tiles_x / 2), packet_info->field_0xe - (this->view_tiles_y / 2));
 			}
 			break;
 
 		case 0xae:
-			MsgProc(0x484, (uint32_t)&(packet_join->__field_0xa), 0); ///???????????
+			this->MsgProc(0x484, (uint32_t)&(packet_join->__field_0xa), 0); ///???????????
 			break;
 
 		case 0xaf:
@@ -2258,7 +2258,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			break;
 
 		case 0xb3:
-			kill_stats[packet_dword->value & 0xffff] = (packet_dword->value >> 16) & 0xff;
+			this->kill_stats[packet_dword->value & 0xffff] = (packet_dword->value >> 16) & 0xff;
 
 			if (wnd->sessionMode != 2) {
 				wnd->m_GameSession.FUN_00494982();
@@ -2310,12 +2310,12 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		case 0xb9:
 			for (int i = 16; i < packet_terrain->count; i++)
 			{
-				MapPlayerData* mp = field_0x9b8[i];
-				if (mp && (mp->flags & 1) == 0 && i < my_main_unit->diplomacy.GetSize())
+				MapPlayerData* mp = this->field_0x9b8[i];
+				if (mp && (mp->flags & 1) == 0 && i < this->my_main_unit->diplomacy.GetSize())
 				{
 					buf[0] = 0;
 
-					uint16_t& diplo = my_main_unit->diplomacy[i];
+					uint16_t& diplo = this->my_main_unit->diplomacy[i];
 
 					if ((diplo & 8) != 0 && (packet_terrain->buf[i] & 8) == 0) {
 						sprintf(buf, "%s %s %s", txt_patch.GetLine(0x48), mp->name, txt_patch.GetLine(0x49));
@@ -2325,7 +2325,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 					if (buf[0] != 0)
 					{
-						msglog.Add(buf, clr_log_sblack, 3000);
+						this->msglog.Add(buf, clr_log_sblack, 3000);
 						g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 					}
 
@@ -2339,7 +2339,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 					if (buf[0] != 0)
 					{
-						msglog.Add(buf, clr_log_sblack, 3000);
+						this->msglog.Add(buf, clr_log_sblack, 3000);
 						g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 					}
 
@@ -2353,14 +2353,14 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 					if (buf[0] != 0)
 					{
-						msglog.Add(buf, clr_log_sblack, 3000);
+						this->msglog.Add(buf, clr_log_sblack, 3000);
 						g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 					}
 				}
 			}
 
-			my_main_unit->diplomacy.SetSize(packet_terrain->count);
-			memcpy(my_main_unit->diplomacy.GetData(), packet_terrain->buf, packet_terrain->count * 2);
+			this->my_main_unit->diplomacy.SetSize(packet_terrain->count);
+			memcpy(this->my_main_unit->diplomacy.GetData(), packet_terrain->buf, packet_terrain->count * 2);
 
 			wnd->FUN_00494a9e();
 
@@ -2377,7 +2377,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			int32_t stats_sz = 0;
 
 			ReadKillStats(packet_data->data, packet_data->count, &stats, &stats_sz);
-			memcpy(kill_stats.data(), stats, stats_sz);
+			memcpy(this->kill_stats.data(), stats, stats_sz);
 
 			delete[] stats;
 
@@ -2389,21 +2389,21 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 		case 0xbb:
 		{
-			bool isnull = field_0x4970->FUN_0041ec00() == 0;
+			bool isnull = this->field_0x4970->FUN_0041ec00() == 0;
 
-			field_0x4970->sub_55ECFE(0);
+			this->field_0x4970->sub_55ECFE(0);
 
 			uint16_t* dat = packet_terrain->buf + 1;
 
 			for (int i = 0; i < packet_terrain->buf[0]; i++)
 			{
-				Quest* qwa = field_0x4970->FUN_0055ee42(*dat);
+				Quest* qwa = this->field_0x4970->FUN_0055ee42(*dat);
 				dat++;
 
 				qwa->CopyFields((QuestData*)dat);
 				dat = (uint16_t*)(((QuestData*)dat) + 1);
 
-				field_0x4970->sub_55E24A(qwa);
+				this->field_0x4970->sub_55E24A(qwa);
 			}
 
 			if (isnull && field_0x4970->FUN_0041ec00() != 0) {
@@ -2441,7 +2441,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				wnd->field_0x458 = 1;
 				wnd->field_0x45c = 0;
 			} else {
-				FUN_0041cb67(0);
+				this->FUN_0041cb67(0);
 				wnd->field_0x45c = 1;
 			}
 			break;
@@ -2491,7 +2491,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			{}
 
 			if (packet_player->offset + packet_player->count < packet_player->total_length) {
-				FUN_0041cb67(packet_player->offset + packet_player->count);
+				this->FUN_0041cb67(packet_player->offset + packet_player->count);
 			} else
 			{
 				
@@ -2509,7 +2509,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				catch (...)
 				{}
 
-				FUN_0041cb21();
+				this->FUN_0041cb21();
 			}
 		}
 			break;
@@ -2634,25 +2634,25 @@ TakeDamage::~TakeDamage() = default; //45dd08
 TakeDamage::TakeDamage(int32_t _dmg, uint16_t* clr, int32_t unk, int32_t _dx, int32_t _dy, CUnit* ct)
 {
 	//45db8a
-	dmg = _dmg;
+	this->dmg = _dmg;
 
-	txt.Format("%d", dmg);
+	this->txt.Format("%d", this->dmg);
 
-	field_0x18 = unk;
-	dx = _dx;
-	dy = _dy;
-	cunit = ct;
+	this->field_0x18 = unk;
+	this->dx = _dx;
+	this->dy = _dy;
+	this->cunit = ct;
 
 	if (!clr) {
-		color = g_colors_human_pals[ct->map_player->color];
+		this->color = g_colors_human_pals[ct->map_player->color];
 	} else {
-		color = clr;
+		this->color = clr;
 	}
 
-	timestamp = timeGetTime();
+	this->timestamp = timeGetTime();
 
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	field_0x20 = wnd->serverLoopCounter;
+	this->field_0x20 = wnd->serverLoopCounter;
 }
 
 
@@ -2660,13 +2660,13 @@ TakeDamage::TakeDamage(int32_t _dmg, uint16_t* clr, int32_t unk, int32_t _dx, in
 void TakeDamage::Update()
 {
 	//45dd1b
-	if (field_0x18 == 0)
+	if (this->field_0x18 == 0)
 	{
-		dx += 1;
-		dy -= 2;
+		this->dx += 1;
+		this->dy -= 2;
 	} else {
-		dx -= 1;
-		dy -= 2;
+		this->dx -= 1;
+		this->dy -= 2;
 	}
 }
 
@@ -2674,12 +2674,12 @@ int TakeDamage::Draw()
 {
 	//45dd6d
 	uint32_t t = timeGetTime();
-	if (t - timestamp > 1000) {
+	if (t - this->timestamp > 1000) {
 		return 0;
 	}
 
-	if (cunit->bIsBlocked == 0) {
-		g_font2->DrawTextWithShadow(cunit->centerScreenX + dx, cunit->centerScreenY + dy - cunit->terrainHeightOffset, txt, 0, color, 1);
+	if (this->cunit->bIsBlocked == 0) {
+		g_font2->DrawTextWithShadow(this->cunit->centerScreenX + this->dx, this->cunit->centerScreenY + this->dy - this->cunit->terrainHeightOffset, this->txt, 0, this->color, 1);
 	}
 	return 1;
 }
@@ -2749,7 +2749,7 @@ void BigStruct2::FUN_0041b2a4(const char* nam, int32_t token, int32_t playerid)
 
 	PacketJoin* join = &PacketJoin::Inst;
 	join->id = 0x91;
-	join->field_0x5 = my_main_unit->index;
+	join->field_0x5 = this->my_main_unit->index;
 	join->to_player_id = 0;
 
 	strcpy(join->name, nam);
@@ -2761,7 +2761,7 @@ void BigStruct2::FUN_0041b2a4(const char* nam, int32_t token, int32_t playerid)
 		join->field_0xc = 0;
 		join->flags = 0;
 	} else {
-		join->__field_0xa = field_0x9b8[playerid]->index;
+		join->__field_0xa = this->field_0x9b8[playerid]->index;
 	}
 
 	join->__field_0xa |= token << 8;
@@ -2784,9 +2784,9 @@ void BigStruct2::FUN_0041a8cc()
 	PacketWord* pkt = &PacketWord::Inst;
 
 	pkt->id = 0x36;
-	pkt->field_0x5 = my_main_unit->index;
+	pkt->field_0x5 = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->value = GetUnit_3f6c()->unit_id;
+	pkt->value = this->GetUnit_3f6c()->unit_id;
 
 	g_NetStru1_local.QueuePacketSend(pkt);
 
@@ -2818,15 +2818,15 @@ int32_t BigStruct2::FUN_0040d7f3()
 	pkt->field_0x12 = g_IsCdPresent | (wnd->m_GameSession.color << 8) | (wnd->m_GameSession.FUN_004200f0() << 0x10) | (wnd->m_GameSession.FUN_00420110() << 0x18);
 	pkt->to_player_id = 0;
 
-	field_0x9d0.RemoveAll();
+	this->field_0x9d0.RemoveAll();
 
-	if (field_0x3f6c) {
-		delete field_0x3f6c;
+	if (this->field_0x3f6c) {
+		delete this->field_0x3f6c;
 	}
 
-	field_0x3f6c = nullptr;
+	this->field_0x3f6c = nullptr;
 
-	UpdateSelectionState();
+	this->UpdateSelectionState();
 
 	g_NetStru1_local.QueuePacketSend(pkt);
 
@@ -2839,11 +2839,11 @@ int32_t BigStruct2::FUN_0040d7f3()
 	{
 		if (g_NetStru1_local.GetClientsPktNum())
 		{
-			if (ProcessPackets(0x64) == 0) {
+			if (this->ProcessPackets(0x64) == 0) {
 				return 0;
 			}
 
-			if (field_0x9b8.GetSize() < 2)
+			if (this->field_0x9b8.GetSize() < 2)
 			{
 				INT_00660f8c = 0x1007;
 				return 0;
@@ -2905,7 +2905,7 @@ int BigStruct2::ConnectAndJoinSession()
 
 	g_NetStru1_local.ProcessConnections();
 
-	if (FUN_0040d7f3()) {
+	if (this->FUN_0040d7f3()) {
 		return 1;
 	}
 
@@ -2926,7 +2926,7 @@ void BigStruct2::FUN_0041cbb8()
 
 	PacketInfo* pkt = &PacketInfo::Inst;
 	pkt->id = 0x48;
-	pkt->field_0x5 = my_main_unit->index;
+	pkt->field_0x5 = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->field_a1 = wnd->m_GameSession.body;
 	pkt->field_a2 = wnd->m_GameSession.reaction;
@@ -2945,7 +2945,7 @@ void BigStruct2::FUN_0041cc78(const CString& fname)
 	PacketData* pkt = &PacketData::Inst;
 
 	pkt->id = 0xbe;
-	pkt->field_0x5 = my_main_unit->index;
+	pkt->field_0x5 = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->count = 0;
 
@@ -2968,72 +2968,72 @@ void BigStruct2::FUN_0041cc78(const CString& fname)
 
 void BigStruct2::FUN_0041d2da(int32_t arg)
 { // 41d2da
-	field_0x3f6c = nullptr;
+	this->field_0x3f6c = nullptr;
 
-	if (!field_0x9d0.IsEmpty())
+	if (!this->field_0x9d0.IsEmpty())
 	{
-		POSITION it = field_0x9d0.GetStartPosition();
+		POSITION it = this->field_0x9d0.GetStartPosition();
 		while (it != nullptr)
 		{
 			uint16_t key;
 			CGameObject* obj;
-			field_0x9d0.GetNextAssoc(it, key, obj);
+			this->field_0x9d0.GetNextAssoc(it, key, obj);
 			if (obj) {
 				delete obj;
 			}
 		}
 
-		field_0x9d0.RemoveAll();
+		this->field_0x9d0.RemoveAll();
 	}
 
-	if (!field_0x9ec.IsEmpty())
+	if (!this->field_0x9ec.IsEmpty())
 	{
-		POSITION it = field_0x9ec.GetStartPosition();
+		POSITION it = this->field_0x9ec.GetStartPosition();
 		while (it != nullptr)
 		{
 			uint16_t key;
 			CGameObject* obj;
-			field_0x9ec.GetNextAssoc(it, key, obj);
+			this->field_0x9ec.GetNextAssoc(it, key, obj);
 			if (obj) {
 				delete obj;
 			}
 		}
 
-		field_0x9ec.RemoveAll();
+		this->field_0x9ec.RemoveAll();
 	}
 
-	damage_labels.RemoveAll();
+	this->damage_labels.RemoveAll();
 
 	if (arg == 0)
 	{
 		for (int i = 1; i < 17; i++)
 		{
-			MapPlayerData* mp = field_0x9b8[i];
+			MapPlayerData* mp = this->field_0x9b8[i];
 			if (mp && (mp->flags & 1) != 0)
 			{
 				delete mp;
-				field_0x9b8[i] = nullptr;
+				this->field_0x9b8[i] = nullptr;
 			}
 		}
 	} else {
-		for (int i = 1; i < field_0x9b8.GetSize(); i++)
+		for (int i = 1; i < this->field_0x9b8.GetSize(); i++)
 		{
-			MapPlayerData* mp = field_0x9b8[i];
+			MapPlayerData* mp = this->field_0x9b8[i];
 			if (mp) {
 				delete mp;
 			}
 		}
-		if (field_0x9b8.GetSize()) {
-			field_0x9b8.SetSize(1);
+		if (this->field_0x9b8.GetSize()) {
+			this->field_0x9b8.SetSize(1);
 		}
 	}
 
-	field_0xa08.RemoveAll();
+	this->field_0xa08.RemoveAll();
 
-	if (field_0x80)
+	if (this->field_0x80)
 	{
-		delete field_0x80;
-		field_0x80 = nullptr;
+		delete this->field_0x80;
+		this->field_0x80 = nullptr;
 	}
 
 	while (g_NetStru1_local.ReceiveAnyPacket())
@@ -3068,19 +3068,19 @@ int32_t BigStruct2::IsBookOpen()
 		return wnd->vis_root->FindChild(1000)->FindChild(3) != nullptr;
 	}
 
-	return FindChild(3) != nullptr;
+	return this->FindChild(3) != nullptr;
 }
 
 int32_t BigStruct2::IsBagOpen()
 { // 41b495
-	return FindChild(2) != nullptr;
+	return this->FindChild(2) != nullptr;
 }
 
 void BigStruct2::FUN_0041afcf(CString str)
 { //41afcf
 	PacketJoin* pkt = &PacketJoin::Inst;
 	pkt->id = 7;
-	pkt->field_0x5 = my_main_unit->index;
+	pkt->field_0x5 = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	strcpy(pkt->name, str);
 
@@ -3091,17 +3091,17 @@ void BigStruct2::FUN_0041a735()
 { //41a735
 	PacketTerrain* pkt = &PacketTerrain::Inst;
 	pkt->id = 0x45;
-	pkt->field_0x5 = my_main_unit->index;
+	pkt->field_0x5 = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	memcpy(pkt->buf, my_main_unit->diplomacy.GetData(), my_main_unit->diplomacy.GetSize() * 2);
-	pkt->count = my_main_unit->diplomacy.GetSize();
+	memcpy(pkt->buf, this->my_main_unit->diplomacy.GetData(), this->my_main_unit->diplomacy.GetSize() * 2);
+	pkt->count = this->my_main_unit->diplomacy.GetSize();
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
 
 void BigStruct2::FUN_0041c39c()
 { //41c39c
-	field_0x49b8 = -1;
-	field_0x49bc = -1;
+	this->field_0x49b8 = -1;
+	this->field_0x49bc = -1;
 	SoundChannel* ch1 = g_SfxArray[50]->FindPlayingChannel();
 	SoundChannel* ch2 = g_SfxArray[90]->FindPlayingChannel();
 	if (ch1) {
@@ -3116,18 +3116,18 @@ void BigStruct2::FUN_0041c39c()
 void BigStruct2::CleanupCompletedMissionMapState()
 { //41ce5a
 	CDWordArray arr;
-	for (POSITION it = field_0x9d0.GetStartPosition(); it != nullptr;)
+	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;)
 	{
 		uint16_t key;
 		CGameObject* obj;
-		field_0x9d0.GetNextAssoc(it, key, obj);
+		this->field_0x9d0.GetNextAssoc(it, key, obj);
 
 		if (obj->IsKindOf(RUNTIME_CLASS(CUnit)) == 0)
 		{
 			arr.Add(key);
 		} else {
 			CUnit* uni = (CUnit*)obj;
-			if ((uni->unitFlags & 1) != 0 && uni->hp >= -10 && uni->map_player == my_main_unit)
+			if ((uni->unitFlags & 1) != 0 && uni->hp >= -10 && uni->map_player == this->my_main_unit)
 			{
 				uni->field_0x180[4] = 0;
 				uni->action = 0;
@@ -3139,44 +3139,44 @@ void BigStruct2::CleanupCompletedMissionMapState()
 		}
 	}
 
-	field_0x3f6c->VMethod1(1);
+	this->field_0x3f6c->VMethod1(1);
 
 	//Remove it here or while iteration
 	for (int i = 0; i < arr.GetSize(); i++)
 	{
-		delete field_0x9d0[arr[i]];
-		field_0x9d0.RemoveKey(arr[i]);
+		delete this->field_0x9d0[arr[i]];
+		this->field_0x9d0.RemoveKey(arr[i]);
 	}
 	arr.RemoveAll();
 
-	for (POSITION it = field_0x9ec.GetStartPosition(); it != nullptr;)
+	for (POSITION it = this->field_0x9ec.GetStartPosition(); it != nullptr;)
 	{
 		uint16_t key;
 		CGameObject* obj;
-		field_0x9ec.GetNextAssoc(it, key, obj);
+		this->field_0x9ec.GetNextAssoc(it, key, obj);
 
 		delete obj;
-		field_0x9ec.RemoveKey(key);
+		this->field_0x9ec.RemoveKey(key);
 	}
 
-	damage_labels.RemoveAll();
+	this->damage_labels.RemoveAll();
 
-	if (field_0x80) {
-		delete field_0x80;
+	if (this->field_0x80) {
+		delete this->field_0x80;
 	}
-	field_0x80 = nullptr;
+	this->field_0x80 = nullptr;
 
-	for (int i = 0; i < field_0x9b8.GetSize(); i++)
+	for (int i = 0; i < this->field_0x9b8.GetSize(); i++)
 	{
-		if (field_0x9b8[i] != my_main_unit) {
-			delete field_0x9b8[i];
+		if (this->field_0x9b8[i] != this->my_main_unit) {
+			delete this->field_0x9b8[i];
 		}
 	}
-	field_0x9b8.RemoveAll();
+	this->field_0x9b8.RemoveAll();
 
-	field_0x9b8.SetAtGrow(my_main_unit->index, my_main_unit);
+	this->field_0x9b8.SetAtGrow(this->my_main_unit->index, this->my_main_unit);
 
-	field_0xa08.RemoveAll();
+	this->field_0xa08.RemoveAll();
 
 	while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
 	{}
@@ -3196,7 +3196,7 @@ void BigStruct2::CleanupCompletedMissionMapState()
 		g_SfxArray[16]->Release();
 	}
 
-	UpdateSelectionState();
+	this->UpdateSelectionState();
 
 	for (int i = 0; i < g_mapmusicinfos.GetSize(); i++) {
 		delete g_mapmusicinfos[i];
@@ -3208,62 +3208,62 @@ void BigStruct2::UpdateSelectionState()
 { //416cf7
 
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
-	field_0x140 = 0;
-	field_0x144 = 0;
-	field_0x148 = 0;
-	field_0x150 = 0;
-	field_0x14c = 0;
+	this->field_0x140 = 0;
+	this->field_0x144 = 0;
+	this->field_0x148 = 0;
+	this->field_0x150 = 0;
+	this->field_0x14c = 0;
 
 	for (int i = 0; i < 24; i++)
 	{
-		spell_damage_min[i] = 0;
-		spell_damage_max[i] = 0;
-		spell_range_min[i] = 0xffff;
-		spell_range_max[i] = 0;
-		spell_mana_cost1[i] = 0xffff;
-		spell_mana_cost2[i] = 0;
-		spell_power_min[i] = 0xffff;
-		spell_power_max[i] = 0;
-		spell_val1_min[i] = 0xffff;
-		spell_val1_max[i] = -0xffff;
-		spell_val2_min[i] = 0xffff;
-		spell_val2_max[i] = 0;
-		spell_val3_min[i] = 0xffff;
-		spell_val3_max[i] = -0xffff;
-		spell_val4_min[i] = 0xffff;
-		spell_val4_max[i] = 0;
-		spell_val5_min[i] = 0xffff;
-		spell_val5_max[i] = 0;
-		spell_val6_min[i] = 0xffff;
-		spell_val6_max[i] = 0;
-		spell_val7_min[i] = 0xffff;
-		spell_val7_max[i] = 0;
+		this->spell_damage_min[i] = 0;
+		this->spell_damage_max[i] = 0;
+		this->spell_range_min[i] = 0xffff;
+		this->spell_range_max[i] = 0;
+		this->spell_mana_cost1[i] = 0xffff;
+		this->spell_mana_cost2[i] = 0;
+		this->spell_power_min[i] = 0xffff;
+		this->spell_power_max[i] = 0;
+		this->spell_val1_min[i] = 0xffff;
+		this->spell_val1_max[i] = -0xffff;
+		this->spell_val2_min[i] = 0xffff;
+		this->spell_val2_max[i] = 0;
+		this->spell_val3_min[i] = 0xffff;
+		this->spell_val3_max[i] = -0xffff;
+		this->spell_val4_min[i] = 0xffff;
+		this->spell_val4_max[i] = 0;
+		this->spell_val5_min[i] = 0xffff;
+		this->spell_val5_max[i] = 0;
+		this->spell_val6_min[i] = 0xffff;
+		this->spell_val6_max[i] = 0;
+		this->spell_val7_min[i] = 0xffff;
+		this->spell_val7_max[i] = 0;
 	}
 
 	bool firstsel = false;
 
-	for (POSITION it = field_0x9d0.GetStartPosition(); it;)
+	for (POSITION it = this->field_0x9d0.GetStartPosition(); it;)
 	{
 		POSITION curpos = it;
 		uint16_t key;
 		CGameObject* obj;
-		field_0x9d0.GetNextAssoc(it, key, obj);
+		this->field_0x9d0.GetNextAssoc(it, key, obj);
 
 		if (obj->IsSelected() == 0) {
 			continue;
 
 		// if selected
 		}
-		field_0x140++;
-		field_0x148 |= obj->availableSpellMask;
+		this->field_0x140++;
+		this->field_0x148 |= obj->availableSpellMask;
 		if (obj->active_spell != 0) {
-			field_0x14c |= SpellBtB[obj->active_spell];
+			this->field_0x14c |= SpellBtB[obj->active_spell];
 		}
 
 		if (!firstsel)
 		{
-			field_0x138 = obj;
-			field_0x13c = curpos;
+			this->field_0x138 = obj;
+			this->field_0x13c = curpos;
 			firstsel = true;
 		}
 
@@ -3273,45 +3273,45 @@ void BigStruct2::UpdateSelectionState()
 			{
 				CUnit* unit = (CUnit*)obj;
 
-				field_0x144 |= 1;
+				this->field_0x144 |= 1;
 
 				if ((unit->typeId == 0x17 || unit->typeId == 0x18) && unit->availableSpellMask != 0)
 				{
-					field_0x144 |= 0x200;
-					UpdateSpellModifiers(unit);
+					this->field_0x144 |= 0x200;
+					this->UpdateSpellModifiers(unit);
 				}
 
 				if (unit->unitFlags & 1) {
-					field_0x144 |= 8;
+					this->field_0x144 |= 8;
 				}
 
-				UpdateSpellEffects(unit);
+				this->UpdateSpellEffects(unit);
 			} else if (obj->GetRuntimeClass() == RUNTIME_CLASS(CAirUnit))
 			{
-				field_0x144 |= 2;
+				this->field_0x144 |= 2;
 			} else if (obj->GetRuntimeClass() == RUNTIME_CLASS(CStructure))
 			{
-				field_0x144 |= 0x20;
+				this->field_0x144 |= 0x20;
 			} else {
-				field_0x144 = 8;
+				this->field_0x144 = 8;
 			}
 		}
 	}
 
-	if (field_0x140 > 0 && field_0x138->map_player != my_main_unit) {
-		field_0x144 |= 4;
+	if (this->field_0x140 > 0 && this->field_0x138->map_player != this->my_main_unit) {
+		this->field_0x144 |= 4;
 	}
 	
-	if (field_0x140 == 0 || (field_0x140 & 0x24) != 0) {
+	if (this->field_0x140 == 0 || (this->field_0x140 & 0x24) != 0) {
 		mwnd->vis_right_panel->MsgProc(CVisualObject::MSG_40a, 0, 0);
 	} else {
-		mwnd->vis_right_panel->MsgProc(CVisualObject::MSG_409, AvailableOrderMask(), 0);
+		mwnd->vis_right_panel->MsgProc(CVisualObject::MSG_409, this->AvailableOrderMask(), 0);
 	}
 
 	mwnd->vis_charinfo->MsgProc(CVisualObject::MSG_410, 0, 0);
 	mwnd->vis_sidestatus->MsgProc(CVisualObject::MSG_410, 0, 0);
-	if (field_0x140 == 1 && (field_0x144 & 8) != 0) {
-		mwnd->vis_invtype1->VMethod33(field_0x138);
+	if (this->field_0x140 == 1 && (this->field_0x144 & 8) != 0) {
+		mwnd->vis_invtype1->VMethod33(this->field_0x138);
 	} else {
 		mwnd->vis_invtype1->VMethod33(nullptr);
 	}
@@ -3333,7 +3333,7 @@ void BigStruct2::UpdateSpellEffects(CUnit* unit)
 		}
 
 		unit->activeSpellEffectMask |= SpellBtB[cast_spell];
-		field_0x150 |= SpellBtB[cast_spell];
+		this->field_0x150 |= SpellBtB[cast_spell];
 	}
 }
 
@@ -3358,100 +3358,100 @@ void BigStruct2::UpdateSpellModifiers(CUnit* unit)
 
 		s.sub_539541(v);
 
-		spell_damage_min[i] += s.damage_min;
-		spell_damage_max[i] += s.damage_min + s.damage_spread;
-		spell_mana_cost1[i] += s.mana_cost;
-		spell_mana_cost2[i] += s.mana_cost;
+		this->spell_damage_min[i] += s.damage_min;
+		this->spell_damage_max[i] += s.damage_min + s.damage_spread;
+		this->spell_mana_cost1[i] += s.mana_cost;
+		this->spell_mana_cost2[i] += s.mana_cost;
 
-		if (spell_range_min[i] > s.max_range) {
-			spell_range_min[i] = s.max_range;
+		if (this->spell_range_min[i] > s.max_range) {
+			this->spell_range_min[i] = s.max_range;
 		}
 
-		if (spell_range_max[i] < s.max_range) {
-			spell_range_max[i] = s.max_range;
+		if (this->spell_range_max[i] < s.max_range) {
+			this->spell_range_max[i] = s.max_range;
 		}
 
-		if (spell_power_min[i] > s.spell_power) {
-			spell_power_min[i] = s.spell_power;
+		if (this->spell_power_min[i] > s.spell_power) {
+			this->spell_power_min[i] = s.spell_power;
 		}
 		
-		if (spell_power_max[i] < s.spell_power) {
-			spell_power_max[i] = s.spell_power;
+		if (this->spell_power_max[i] < s.spell_power) {
+			this->spell_power_max[i] = s.spell_power;
 		}
 		
 		if (BOOK_POS_TO_SPELL_ID[i + 1] == 0x12) { // STONE_CURSE
-			spell_power_min[i] = 0;
+			this->spell_power_min[i] = 0;
 		}
 
 		const uint8_t spd = s.GetSpeed(v);
 		if (spd != 0)
 		{
-			if (spell_val1_min[i] > spd) {
-				spell_val1_min[i] = spd;
+			if (this->spell_val1_min[i] > spd) {
+				this->spell_val1_min[i] = spd;
 			}
-			if (spell_val1_max[i] < spd) {
-				spell_val1_max[i] = spd;
+			if (this->spell_val1_max[i] < spd) {
+				this->spell_val1_max[i] = spd;
 			}
 		}
 
 		const uint8_t res = s.GetResistance(v);
-		if (spell_val2_min[i] > res) {
-			spell_val2_min[i] = res;
+		if (this->spell_val2_min[i] > res) {
+			this->spell_val2_min[i] = res;
 		}
-		if (spell_val2_max[i] < res) {
-			spell_val2_max[i] = res;
+		if (this->spell_val2_max[i] < res) {
+			this->spell_val2_max[i] = res;
 		}
 
 		const int16_t sigh = s.GetSight(v);
 		if (sigh != 0)
 		{
-			if (spell_val3_min[i] > sigh) {
-				spell_val3_min[i] = sigh;
+			if (this->spell_val3_min[i] > sigh) {
+				this->spell_val3_min[i] = sigh;
 			}
-			if (spell_val3_max[i] < sigh) {
-				spell_val3_max[i] = sigh;
+			if (this->spell_val3_max[i] < sigh) {
+				this->spell_val3_max[i] = sigh;
 			}
 		}
 
 		const uint8_t mxprob = s.GetMaximumDamageProbability(v);
-		if (spell_val4_min[i] > mxprob) {
-			spell_val4_min[i] = mxprob;
+		if (this->spell_val4_min[i] > mxprob) {
+			this->spell_val4_min[i] = mxprob;
 		}
-		if (spell_val4_max[i] < mxprob) {
-			spell_val4_max[i] = mxprob;
+		if (this->spell_val4_max[i] < mxprob) {
+			this->spell_val4_max[i] = mxprob;
 		}
 
 		const uint8_t mnprob = s.GetMinimumDamageProbability(v);
-		if (spell_val5_min[i] > mnprob) {
-			spell_val5_min[i] = mnprob;
+		if (this->spell_val5_min[i] > mnprob) {
+			this->spell_val5_min[i] = mnprob;
 		}
-		if (spell_val5_max[i] < mnprob) {
-			spell_val5_max[i] = mnprob;
+		if (this->spell_val5_max[i] < mnprob) {
+			this->spell_val5_max[i] = mnprob;
 		}
 
 		const uint8_t rs = s.GetRays(v);
-		if (spell_val6_min[i] > rs) {
-			spell_val6_min[i] = rs;
+		if (this->spell_val6_min[i] > rs) {
+			this->spell_val6_min[i] = rs;
 		}
-		if (spell_val6_max[i] < rs) {
-			spell_val6_max[i] = rs;
+		if (this->spell_val6_max[i] < rs) {
+			this->spell_val6_max[i] = rs;
 		}
 
 		const uint8_t bn5 = s.GetBonusType5(v);
-		if (spell_val7_min[i] > bn5) {
-			spell_val7_min[i] = bn5;
+		if (this->spell_val7_min[i] > bn5) {
+			this->spell_val7_min[i] = bn5;
 		}
-		if (spell_val7_max[i] < bn5) {
-			spell_val7_max[i] = bn5;
+		if (this->spell_val7_max[i] < bn5) {
+			this->spell_val7_max[i] = bn5;
 		}
 	}
 }
 
 uint32_t BigStruct2::AvailableOrderMask() const
 {
-	if ((field_0x144 & 4) == 0)
+	if ((this->field_0x144 & 4) == 0)
 	{
-		if (field_0x148 != 0 || field_0x150 != 0) {
+		if (this->field_0x148 != 0 || this->field_0x150 != 0) {
 			return 0xff; // ~0
 		}
 
@@ -3466,40 +3466,40 @@ uint32_t BigStruct2::AvailableOrderMask() const
 
 GfxFile::GfxFile(const char* _fname)
 { //47ae53
-	spr = nullptr;
-	spr_b = nullptr;
-	fname = CString("graphics\\objects\\") + _fname;
-	inited = 0;
+	this->spr = nullptr;
+	this->spr_b = nullptr;
+	this->fname = CString("graphics\\objects\\") + _fname;
+	this->inited = 0;
 }
 
 GfxFile::~GfxFile()
 { //47aed9
-	Deinit();
+	this->Deinit();
 }
 
 void GfxFile::Init()
 { // 47af39
-	spr = new CSprite256(fname + ".256");
-	spr_b = new CSprite256(fname + "b.256");
-	spr->ResetPalette(0x10, 2, 1);
-	inited = 1;
+	this->spr = new CSprite256(this->fname + ".256");
+	this->spr_b = new CSprite256(this->fname + "b.256");
+	this->spr->ResetPalette(0x10, 2, 1);
+	this->inited = 1;
 }
 
 void GfxFile::Deinit()
 { //47b0ab
-	if (inited)
+	if (this->inited)
 	{
-		if (spr)
+		if (this->spr)
 		{
-			delete spr;
-			spr = nullptr;
+			delete this->spr;
+			this->spr = nullptr;
 		}
-		if (spr_b)
+		if (this->spr_b)
 		{
-			delete spr_b;
-			spr_b = nullptr;
+			delete this->spr_b;
+			this->spr_b = nullptr;
 		}
-		inited = 0;
+		this->inited = 0;
 	}
 }
 
@@ -3522,40 +3522,40 @@ CSprite256* GfxFile::sub_41F8A0()
 
 UnitGfxFile::UnitGfxFile(const char* _fname)
 { //47c85d
-	spr = nullptr;
-	spr_b = nullptr;
-	fname = CString("graphics\\units\\") + _fname;
-	inited = 0;
+	this->spr = nullptr;
+	this->spr_b = nullptr;
+	this->fname = CString("graphics\\units\\") + _fname;
+	this->inited = 0;
 }
 
 UnitGfxFile::~UnitGfxFile()
 { //47c8e3
-	Deinit();
+	this->Deinit();
 }
 
 void UnitGfxFile::Init()
 { // 47c943
-	spr = new CSprite256(fname + ".256");
-	spr_b = new CSprite256(fname + "b.256");
-	spr->ResetPalette(0x10, 2, 1);
-	inited = 1;
+	this->spr = new CSprite256(this->fname + ".256");
+	this->spr_b = new CSprite256(this->fname + "b.256");
+	this->spr->ResetPalette(0x10, 2, 1);
+	this->inited = 1;
 }
 
 void UnitGfxFile::Deinit()
 { //47caa4
-	if (inited)
+	if (this->inited)
 	{
-		if (spr)
+		if (this->spr)
 		{
-			delete spr;
-			spr = nullptr;
+			delete this->spr;
+			this->spr = nullptr;
 		}
-		if (spr_b)
+		if (this->spr_b)
 		{
-			delete spr_b;
-			spr_b = nullptr;
+			delete this->spr_b;
+			this->spr_b = nullptr;
 		}
-		inited = 0;
+		this->inited = 0;
 	}
 }
 
@@ -3592,46 +3592,46 @@ uint8_t* UnitVFXUnfo::FUN_0046f6e0(int32_t idx)
 
 StructureInfo::StructureInfo(const char* _fname)
 { //47eca2
-	inited = 0;
-	fname = CString("graphics\\structures\\") + _fname;
+	this->inited = 0;
+	this->fname = CString("graphics\\structures\\") + _fname;
 }
 
 
 StructureInfo::~StructureInfo()
 { //47ed4e
-	Deinit();
-	if (anim_mask)
+	this->Deinit();
+	if (this->anim_mask)
 	{
-		delete[] anim_mask;
-		anim_mask = nullptr;
+		delete[] this->anim_mask;
+		this->anim_mask = nullptr;
 	}
 }
 
 
 void StructureInfo::Init()
 { //47edd8
-	spr = new CSprite256(fname + ".256");
-	spr_b = new CSprite256(fname + "b.256");
-	spr->ResetPalette(0x10, 2, 1);
-	inited = 1;
+	this->spr = new CSprite256(this->fname + ".256");
+	this->spr_b = new CSprite256(this->fname + "b.256");
+	this->spr->ResetPalette(0x10, 2, 1);
+	this->inited = 1;
 }
 
 
 void StructureInfo::Deinit()
 { //47ef52
-	if (inited)
+	if (this->inited)
 	{
-		if (spr)
+		if (this->spr)
 		{
-			delete spr;
-			spr = nullptr;
+			delete this->spr;
+			this->spr = nullptr;
 		}
-		if (spr_b)
+		if (this->spr_b)
 		{
-			delete spr_b;
-			spr_b = nullptr;
+			delete this->spr_b;
+			this->spr_b = nullptr;
 		}
-		inited = 0;
+		this->inited = 0;
 	}
 }
 
@@ -3654,66 +3654,66 @@ CSprite256* StructureInfo::GetSpriteB()
 
 ProjectileInfo::ProjectileInfo(const char* fname, int32_t _a16)
 { //47e1ec
-	a16 = _a16;
-	filename = fname;
-	inited = 0;
+	this->a16 = _a16;
+	this->filename = fname;
+	this->inited = 0;
 }
 
 ProjectileInfo::~ProjectileInfo()
 { //47e50b
-	Deinit();
+	this->Deinit();
 }
 
 
 void ProjectileInfo::Init()
 { //47e26b
-	if (inited) {
+	if (this->inited) {
 		return;
 	}
 
-	CString str = CString("graphics\\projectiles\\") + filename;
-	if (a16)
+	CString str = CString("graphics\\projectiles\\") + this->filename;
+	if (this->a16)
 	{
-		sprite1 = new CA16(str + ".16a");
-		sprite2 = nullptr;
+		this->sprite1 = new CA16(str + ".16a");
+		this->sprite2 = nullptr;
 	} else {
-		sprite1 = new CSprite256(str + ".256");
-		sprite2 = new CSprite256(str + "b.256");
+		this->sprite1 = new CSprite256(str + ".256");
+		this->sprite2 = new CSprite256(str + "b.256");
 	}
 
-	if (palette)
+	if (this->palette)
 	{
-		if (a16) {
-			sprite1->ResetPalette(16, 4, 0);
+		if (this->a16) {
+			this->sprite1->ResetPalette(16, 4, 0);
 		} else
 		{
-			sprite1->ResetPalette(16, 2, 1);
-			sprite2->ResetPalette(16, 2, 1);
+			this->sprite1->ResetPalette(16, 2, 1);
+			this->sprite2->ResetPalette(16, 2, 1);
 		}
 	}
 
-	inited = 1;
+	this->inited = 1;
 }
 
 void ProjectileInfo::Deinit()
 { //47e56b
-	if (!inited) {
+	if (!this->inited) {
 		return;
 	}
 
-	if (sprite1)
+	if (this->sprite1)
 	{
-		delete sprite1;
-		sprite1 = nullptr;
+		delete this->sprite1;
+		this->sprite1 = nullptr;
 	}
 
-	if (sprite2)
+	if (this->sprite2)
 	{
-		delete sprite2;
-		sprite2 = nullptr;
+		delete this->sprite2;
+		this->sprite2 = nullptr;
 	}
 
-	inited = 0;
+	this->inited = 0;
 }
 
 CSprite256* ProjectileInfo::FUN_0041f8f0()
@@ -3737,7 +3737,7 @@ void BigStruct2::FUN_0041cad0(int32_t m)
 { //41cad0
 	PacketInfo *pkt = &PacketInfo::Inst;
 	pkt->id = 4;
-	pkt->field_0x5 = my_main_unit->index;
+	pkt->field_0x5 = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->field_0xa = m;
 	
@@ -3748,7 +3748,7 @@ void BigStruct2::FUN_0041aaaa(int32_t wim)
 { //41aaaa
 	PacketInfo* pkt = &PacketInfo::Inst;
 	pkt->id = 0x46;
-	pkt->field_0x5 = my_main_unit->index;
+	pkt->field_0x5 = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->field_0xa = 1;
 	pkt->field_0xe = wim;
@@ -3760,7 +3760,7 @@ void BigStruct2::FUN_0041abd2(int32_t form)
 { // 41abd2
 	PacketInfo* pkt = &PacketInfo::Inst;
 	pkt->id = 0x46;
-	pkt->field_0x5 = my_main_unit->index;
+	pkt->field_0x5 = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->field_0xa = 2;
 	pkt->field_0xe = form;
@@ -3772,7 +3772,7 @@ void BigStruct2::FUN_0041ab74()
 { //41ab74
 	PacketInfo* pkt = &PacketInfo::Inst;
 	pkt->id = 0x46;
-	pkt->field_0x5 = my_main_unit->index;
+	pkt->field_0x5 = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->field_0xa = 3;
 	pkt->field_0xe = g_settings.AutoCasting;
@@ -3785,9 +3785,9 @@ void BigStruct2::FUN_0041b6e0()
 { //41b6e0
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
-	int32_t btm = rect.bottom & (~0x1f);
-	CVisualObject* obj2 = FindChild(2);
-	CVisualObject* obj3 = FindChild(3);
+	int32_t btm = this->rect.bottom & (~0x1f);
+	CVisualObject* obj2 = this->FindChild(2);
+	CVisualObject* obj3 = this->FindChild(3);
 
 	if (obj2) {
 		btm = obj2->GetRect().top;
@@ -3798,18 +3798,18 @@ void BigStruct2::FUN_0041b6e0()
 	}
 
 	btm = ((btm - 1) & (~0x1f)) + 0x20;
-	view_tiles_y = btm / 32;
+	this->view_tiles_y = btm / 32;
 	
-	int32_t vy = MapMaxY();
-	if (vy < view_y) {
-		view_y = vy;
+	int32_t vy = this->MapMaxY();
+	if (vy < this->view_y) {
+		this->view_y = vy;
 	}
 
 	if (CVisualObject::FindChild(1200)) {
 		mwnd->vis_1200->FUN_0043be9f();
 	}
 
-	force_full_redraw = 1;
+	this->force_full_redraw = 1;
 }
 
 void BigStruct2::FUN_0041b636()
@@ -3817,7 +3817,7 @@ void BigStruct2::FUN_0041b636()
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
 	if ((mwnd->dialogsMask & 2) == 0) {
-		RemoveChild(mwnd->vis_spellbook);
+		this->RemoveChild(mwnd->vis_spellbook);
 	} else {
 		mwnd->vis_root->FindChild(1000)->RemoveChild(mwnd->vis_spellbook);
 	}
@@ -3826,7 +3826,7 @@ void BigStruct2::FUN_0041b636()
 
 	mwnd->vis_right_panel->MsgProc(0x408, 0, 0);
 
-	FUN_0041b6e0();
+	this->FUN_0041b6e0();
 }
 
 
@@ -3835,14 +3835,14 @@ void BigStruct2::FUN_0041b509()
 
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
-	if (FUN_0041b495() == 0) {
-		mwnd->vis_spellbook->SetRect(0, rect.bottom - 85, rect.right, rect.bottom);
+	if (this->FUN_0041b495() == 0) {
+		mwnd->vis_spellbook->SetRect(0, this->rect.bottom - 85, this->rect.right, this->rect.bottom);
 	} else {
-		mwnd->vis_spellbook->SetRect(0, rect.bottom - 175, rect.right, rect.bottom - 90);
+		mwnd->vis_spellbook->SetRect(0, this->rect.bottom - 175, this->rect.right, this->rect.bottom - 90);
 	}
 
 	if ((mwnd->dialogsMask & 2) == 0) {
-		AddChild(mwnd->vis_spellbook);
+		this->AddChild(mwnd->vis_spellbook);
 	} else
 	{
 		mwnd->vis_spellbook->SetRect(0, 305, 480, 390);
@@ -3853,43 +3853,43 @@ void BigStruct2::FUN_0041b509()
 
 	mwnd->vis_right_panel->MsgProc(0x408, 0, 0);
 
-	FUN_0041b6e0();
+	this->FUN_0041b6e0();
 }
 
 void BigStruct2::FUN_0041b40e()
 { //41b40e
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
-	if (IsBookOpen()) {
-		mwnd->vis_spellbook->SetRect(0, rect.bottom - 85, rect.right, rect.bottom);
+	if (this->IsBookOpen()) {
+		mwnd->vis_spellbook->SetRect(0, this->rect.bottom - 85, this->rect.right, this->rect.bottom);
 	}
 
-	RemoveChild(mwnd->vis_invtype1);
+	this->RemoveChild(mwnd->vis_invtype1);
 
 	g_SfxArray[7]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
 
-	FUN_0041b6e0();
+	this->FUN_0041b6e0();
 }
 
 void BigStruct2::FUN_0041b381()
 { // 41b381
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
-	if (IsBookOpen()) {
-		mwnd->vis_spellbook->SetRect(0, rect.bottom - 175, rect.right, rect.bottom - 90);
+	if (this->IsBookOpen()) {
+		mwnd->vis_spellbook->SetRect(0, this->rect.bottom - 175, this->rect.right, this->rect.bottom - 90);
 	}
 	
-	AddChild(mwnd->vis_invtype1);
+	this->AddChild(mwnd->vis_invtype1);
 
 	g_SfxArray[7]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
-	FUN_0041b6e0();
+	this->FUN_0041b6e0();
 }
 
 void BigStruct2::FUN_0041b10f()
 {
 	Packet* pkt = &Packet::Inst;
 	pkt->id = 0x4a;
-	pkt->field_0x5 = my_main_unit->index;
+	pkt->field_0x5 = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
@@ -3900,7 +3900,7 @@ void BigStruct2::FUN_0041b064(int32_t arg1, int32_t arg2)
 	pkt->id = 0x3f;
 	pkt->field_0xa = arg1;
 	pkt->field_0xe = arg2;
-	pkt->field_0x5 = my_main_unit->index;
+	pkt->field_0x5 = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
@@ -3910,42 +3910,42 @@ void BigStruct2::SendAdjustPlayerGoldAction(int32_t goldDelta) const
 	PacketInfo* pkt = &PacketInfo::Inst;
 	pkt->id = 0x3e;
 	pkt->field_0xa = goldDelta;
-	pkt->field_0x5 = my_main_unit->index;
+	pkt->field_0x5 = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
 
 void BigStruct2::ScrollMapX(int32_t dx)
 { //403f4f
-	scroll_dx += dx;
-	if (scroll_dx + view_x < MapMinX()) {
-		scroll_dx = MapMinX() - view_x;
+	this->scroll_dx += dx;
+	if (this->scroll_dx + this->view_x < this->MapMinX()) {
+		this->scroll_dx = this->MapMinX() - this->view_x;
 	}
 
-	if (scroll_dx + view_x > MapMaxX()) {
-		scroll_dx = MapMaxX() - view_x;
+	if (this->scroll_dx + this->view_x > this->MapMaxX()) {
+		this->scroll_dx = this->MapMaxX() - this->view_x;
 	}
 }
 
 void BigStruct2::ScrollMapY(int32_t dy)
 { //403fc5
-	scroll_dy += dy;
-	if (scroll_dy + view_y < MapMinY()) {
-		scroll_dy = MapMinY() - view_y;
+	this->scroll_dy += dy;
+	if (this->scroll_dy + this->view_y < this->MapMinY()) {
+		this->scroll_dy = this->MapMinY() - this->view_y;
 	}
 
-	if (scroll_dy + view_y > MapMaxY()) {
-		scroll_dy = MapMaxY() - view_y;
+	if (this->scroll_dy + this->view_y > this->MapMaxY()) {
+		this->scroll_dy = this->MapMaxY() - this->view_y;
 	}
 }
 
 void BigStruct2::OnOpenShopDialog()
 { //41a856
 	PacketWord* pkt = &PacketWord::Inst;
-	pkt->field_0x5 = my_main_unit->index;
+	pkt->field_0x5 = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->id = 0x32;
-	pkt->value = GetUnit_3f6c()->unit_id;
+	pkt->value = this->GetUnit_3f6c()->unit_id;
 	g_NetStru1_local.QueuePacketSend(pkt);
 
 	((MainWindow*)AfxGetMainWnd())->dialogsMask |= 2;
@@ -3954,10 +3954,10 @@ void BigStruct2::OnOpenShopDialog()
 void BigStruct2::NetOnOpenInnDialog()
 { //41adbb
 	PacketWord* pkt = &PacketWord::Inst;
-	pkt->field_0x5 = my_main_unit->index;
+	pkt->field_0x5 = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->id = 0x38;
-	pkt->value = GetUnit_3f6c()->unit_id;
+	pkt->value = this->GetUnit_3f6c()->unit_id;
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
 
@@ -5698,7 +5698,7 @@ void BigStruct2::sub_406F7B()
 
 	this->field_0xa90++;
 	this->ClientRectToScreen(&local_rect, this->rect);
-	UpdateAmbientSounds();
+	this->UpdateAmbientSounds();
 	if (abs(this->scroll_dx) >= this->view_tiles_x / 2 || abs(this->scroll_dy) >= this->view_tiles_y / 2) {
 		this->force_full_redraw = 1;
 	}
@@ -5710,7 +5710,7 @@ void BigStruct2::sub_406F7B()
 	} else {
 		view_moved = 1;
 	}
-	MakeHeightCells();
+	this->MakeHeightCells();
 	this->sub_40403B();
 	this->field_0xf4.IntersectRect(&this->field_0xf4, &local_rect);
 	if (view_moved != 0) {
@@ -5976,7 +5976,7 @@ void BigStruct2::sub_406F7B()
 				}
 			}
 			uint8_t gfxb = gfx_cells[cell];
-			if (gfxb != 0 && x > -4 && y > -4 && x < view_tiles_x + 3 && y < view_tiles_y + 4) {
+			if (gfxb != 0 && x > -4 && y > -4 && x < this->view_tiles_x + 3 && y < this->view_tiles_y + 4) {
 				int32_t gidx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
 				uint8_t light2 = this->tile_light[gidx];
 				int32_t tanval = (int32_t)(tan(this->field_0x80->FUN_004a7b79()) * 65536.0);
@@ -8008,19 +8008,19 @@ void BigStruct2::UpdateAmbientSounds()
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
 	bool local_d8;
-	if (view_x == field_0x49b8 && view_y == field_0x49bc) {
+	if (this->view_x == this->field_0x49b8 && view_y == this->field_0x49bc) {
 		local_d8 = false;
 	} else {
 		local_d8 = true;
 	}
 
-	bool local_10 = timeGetTime() > field_0x49c0;
+	bool local_10 = timeGetTime() > this->field_0x49c0;
 	if (local_d8 || local_10)
 	{
 		if (local_d8)
 		{
-			field_0x49b8 = view_x;
-			field_0x49bc = view_y;
+			this->field_0x49b8 = this->view_x;
+			this->field_0x49bc = view_y;
 		}
 
 		SfxSample* smpl_50 = g_SfxArray[50];
@@ -8035,39 +8035,39 @@ void BigStruct2::UpdateAmbientSounds()
 		int32_t local_28 = 0;
 		int32_t local_2c = 0;
 
-		int32_t minX = view_x - view_tiles_x;
+		int32_t minX = this->view_x - this->view_tiles_x;
 		if (minX < 8) {
 			minX = 8;
 		}
 		
-		int32_t maxX = view_x + view_tiles_x * 2;
-		if (maxX > map_width - 8) {
-			maxX = map_width - 8;
+		int32_t maxX = this->view_x + this->view_tiles_x * 2;
+		if (maxX > this->map_width - 8) {
+			maxX = this->map_width - 8;
 		}
 		
-		int32_t minY = view_y - view_tiles_y;
+		int32_t minY = view_y - this->view_tiles_y;
 		if (minY < 8) {
 			minY = 8;
 		}
 		
-		int32_t maxY = view_y + view_tiles_y * 2;
-		if (maxY > map_height - 8) {
-			maxY = map_height - 8;
+		int32_t maxY = view_y + this->view_tiles_y * 2;
+		if (maxY > this->map_height - 8) {
+			maxY = this->map_height - 8;
 		}
 		
-		uint16_t* landscape = field_0x80->GetLandscape();
-		uint8_t* local_78 = field_0x80->FUN_0041eec0();
+		uint16_t* landscape = this->field_0x80->GetLandscape();
+		uint8_t* local_78 = this->field_0x80->FUN_0041eec0();
 		int32_t count_50 = 0;
 		int32_t count_90 = 0;
 		int32_t local_34 = 0;
 		int32_t local_58 = 0;
 		int32_t local_44 = 0;
-		int32_t centerX = view_x + (view_tiles_x / 2);
-		int32_t centerY = view_y + (view_tiles_y / 2);
+		int32_t centerX = this->view_x + (this->view_tiles_x / 2);
+		int32_t centerY = view_y + (this->view_tiles_y / 2);
 
 		for (int32_t yy = minY; yy <= maxY; yy++)
 		{
-			int32_t land_idx = minX + yy * map_width;
+			int32_t land_idx = minX + yy * this->map_width;
 			int32_t dy = yy - centerY;
 
 			for (int32_t xx = minX; xx <= maxX; xx++)
@@ -8077,7 +8077,7 @@ void BigStruct2::UpdateAmbientSounds()
 				uint16_t tmp = (landscape[land_idx] & 0x1fff) >> 6;
 				if (tmp > 7 && tmp < 12)
 				{
-					int32_t scale = (dx * 2000) / view_tiles_x;
+					int32_t scale = (dx * 2000) / this->view_tiles_x;
 					if (scale < -2000) {
 						scale = -2000;
 					}
@@ -8100,9 +8100,9 @@ void BigStruct2::UpdateAmbientSounds()
 				}
 
 				uint32_t local_88;
-				if (field_0xa08.Lookup(PosYX(xx, yy).val, local_88) != 0 && (local_88 & 8) != 0)
+				if (this->field_0xa08.Lookup(PosYX(xx, yy).val, local_88) != 0 && (local_88 & 8) != 0)
 				{
-					int32_t scale = (dx * 2000) / view_tiles_x;
+					int32_t scale = (dx * 2000) / this->view_tiles_x;
 					if (scale < -2000) {
 						scale = -2000;
 					}
@@ -8136,7 +8136,7 @@ void BigStruct2::UpdateAmbientSounds()
 						{
 							local_44++;
 
-							int32_t scale = (dx * 2000) / view_tiles_x;
+							int32_t scale = (dx * 2000) / this->view_tiles_x;
 							if (scale < -2000) {
 								scale = -2000;
 							}
@@ -8158,7 +8158,7 @@ void BigStruct2::UpdateAmbientSounds()
 							local_34++;
 						}
 
-						int32_t scale = (dx * 2000) / view_tiles_x;
+						int32_t scale = (dx * 2000) / this->view_tiles_x;
 						if (scale < -2000) {
 							scale = -2000;
 						}
@@ -8238,50 +8238,50 @@ void BigStruct2::UpdateAmbientSounds()
 			}
 
 			smpl->Play(g_SoundSettings.sfx_pos, local_28, 0, 220);
-			field_0x49c0 = timeGetTime() + 5000 + rand() / 7;
+			this->field_0x49c0 = timeGetTime() + 5000 + rand() / 7;
 		}
 	}
 }
 
 void BigStruct2::MakeHeightCells()
 { //4065d3
-	uint8_t* hmap = field_0x80->GetMapHeights();
-	for (int32_t y = -3; y <= view_tiles_y + 7; y++)
+	uint8_t* hmap = this->field_0x80->GetMapHeights();
+	for (int32_t y = -3; y <= this->view_tiles_y + 7; y++)
 	{
-		for (int32_t x = -3; x <= view_tiles_x + 3; x++)
+		for (int32_t x = -3; x <= this->view_tiles_x + 3; x++)
 		{
-			tile_corner_y[x + 3 + (y + 3) * (view_tiles_x + 7)] = y * 32 - hmap[x + view_x + (y + view_y) * map_width];
+			this->tile_corner_y[x + 3 + (y + 3) * (this->view_tiles_x + 7)] = y * 32 - hmap[x + this->view_x + (y + this->view_y) * this->map_width];
 		}
 	}
 
-	for (int32_t y = -3; y < view_tiles_y + 7; y++)
+	for (int32_t y = -3; y < this->view_tiles_y + 7; y++)
 	{
-		for (int32_t x = -3; x < view_tiles_x + 3; x++)
+		for (int32_t x = -3; x < this->view_tiles_x + 3; x++)
 		{
-			const int32_t idx = x + 3 + (y + 3) * (view_tiles_x + 7);
-			const int32_t out_idx = x + 3 + (y + 3) * (view_tiles_x + 6);
-			if (tile_corner_y[idx] < tile_corner_y[idx + 1]) {
-				tile_top_y[out_idx] = tile_corner_y[idx];
+			const int32_t idx = x + 3 + (y + 3) * (this->view_tiles_x + 7);
+			const int32_t out_idx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
+			if (this->tile_corner_y[idx] < this->tile_corner_y[idx + 1]) {
+				this->tile_top_y[out_idx] = this->tile_corner_y[idx];
 			} else {
-				tile_top_y[out_idx] = tile_corner_y[idx + 1];
+				this->tile_top_y[out_idx] = this->tile_corner_y[idx + 1];
 			}
 			
-			if (tile_corner_y[idx + view_tiles_x + 8] < tile_corner_y[idx + view_tiles_x + 7]) {
-				tile_bottom_y[out_idx] = tile_corner_y[idx + view_tiles_x + 7];
+			if (this->tile_corner_y[idx + this->view_tiles_x + 8] < this->tile_corner_y[idx + this->view_tiles_x + 7]) {
+				this->tile_bottom_y[out_idx] = this->tile_corner_y[idx + this->view_tiles_x + 7];
 			} else {
-				tile_bottom_y[out_idx] = tile_corner_y[idx + view_tiles_x + 8];
+				this->tile_bottom_y[out_idx] = this->tile_corner_y[idx + this->view_tiles_x + 8];
 			}
 		}
 	}
 
-	for (int32_t y = -3; y < view_tiles_y + 9; y++)
+	for (int32_t y = -3; y < this->view_tiles_y + 9; y++)
 	{
-		for (int32_t x = -3; x < view_tiles_x + 5; x++)
+		for (int32_t x = -3; x < this->view_tiles_x + 5; x++)
 		{
-			int32_t idx = x - 1 + view_x + (y - 1 + view_y) * map_width;
-			if (y + view_y < map_height)
+			int32_t idx = x - 1 + this->view_x + (y - 1 + this->view_y) * this->map_width;
+			if (y + this->view_y < this->map_height)
 			{
-				height_cells[x + 3 + (y + 3) * (view_tiles_x + 8)] = (hmap[idx] + hmap[idx + 1] + hmap[idx + map_width] + hmap[idx + 1 + map_width]) / 4;
+				this->height_cells[x + 3 + (y + 3) * (this->view_tiles_x + 8)] = (hmap[idx] + hmap[idx + 1] + hmap[idx + this->map_width] + hmap[idx + 1 + this->map_width]) / 4;
 			}
 		}
 	}
@@ -8293,11 +8293,11 @@ void BigStruct2::ApplyDynamicLight(int32_t tx, int32_t ty, int32_t radius, int32
 { //406340
 	if (g_Animation == 0)
 	{
-		CRect local_2c((tx - view_x - 1 - radius) * 32, 
-			           (ty - view_y - 1 - radius) * 32,
-			           (tx - view_x + 2 + radius) * 32, 
-			           (ty - view_y + 2 + radius) * 32);
-		field_0xf4.UnionRect(field_0xf4, local_2c);
+		CRect local_2c((tx - this->view_x - 1 - radius) * 32, 
+			           (ty - this->view_y - 1 - radius) * 32,
+			           (tx - this->view_x + 2 + radius) * 32, 
+			           (ty - this->view_y + 2 + radius) * 32);
+		this->field_0xf4.UnionRect(this->field_0xf4, local_2c);
 	}
 
 	if (g_Lightning != 0)
@@ -8308,11 +8308,11 @@ void BigStruct2::ApplyDynamicLight(int32_t tx, int32_t ty, int32_t radius, int32
 			mdist = 1;
 		}
 		
-		int32_t maxX = view_tiles_x + 4;
-		int32_t out_w = view_tiles_x + 7;
-		int32_t maxY = view_tiles_y + 8;
-		int32_t dx = tx - view_x;
-		int32_t dy = ty - view_y;
+		int32_t maxX = this->view_tiles_x + 4;
+		int32_t out_w = this->view_tiles_x + 7;
+		int32_t maxY = this->view_tiles_y + 8;
+		int32_t dx = tx - this->view_x;
+		int32_t dy = ty - this->view_y;
 
 		for (int32_t y = 0; y <= radius; y++)
 		{
@@ -8329,26 +8329,26 @@ void BigStruct2::ApplyDynamicLight(int32_t tx, int32_t ty, int32_t radius, int32
 					{
 						if (out_y > 2 && out_y <= maxY)
 						{
-							field_0xa8[out_x + out_y * out_w] = brightness;
-							field_0x108++;
+							this->field_0xa8[out_x + out_y * out_w] = brightness;
+							this->field_0x108++;
 						}
 						if (out_y2 > 2 && out_y2 <= maxY)
 						{
-							field_0xa8[out_x + out_y2 * out_w] = brightness;
-							field_0x108++;
+							this->field_0xa8[out_x + out_y2 * out_w] = brightness;
+							this->field_0x108++;
 						}
 					}
 					if (out_x2 > 2 && out_x2 <= maxX)
 					{
 						if (out_y > 2 && out_y <= maxY)
 						{
-							field_0xa8[out_x2 + out_y * out_w] = brightness;
-							field_0x108++;
+							this->field_0xa8[out_x2 + out_y * out_w] = brightness;
+							this->field_0x108++;
 						}
 						if (out_y2 > 2 && out_y2 <= maxY)
 						{
-							field_0xa8[out_x2 + out_y2 * out_w] = brightness;
-							field_0x108++;
+							this->field_0xa8[out_x2 + out_y2 * out_w] = brightness;
+							this->field_0x108++;
 						}
 					}
 				}

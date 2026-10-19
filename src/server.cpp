@@ -142,14 +142,14 @@ SrvStru1 SrvStru1::Instance; //6cf390
 Server::~Server()
 {
     g_NetStru1_main.FUN_0051ceac(0xaf, nullptr);
-    g_NetStru1_main.SendPacket_64(tick | 1, 0);
+    g_NetStru1_main.SendPacket_64(this->tick | 1, 0);
     g_NetStru1_main.SendAllData();
 
-    if (field15_0x88) {
-        ResumeThread(field15_0x88);
+    if (this->field15_0x88) {
+        ResumeThread(this->field15_0x88);
     }
 
-    while (WaitForSingleObject(field15_0x88, 50) == WAIT_TIMEOUT)
+    while (WaitForSingleObject(this->field15_0x88, 50) == WAIT_TIMEOUT)
     {}
 
     if (g_World)
@@ -164,7 +164,7 @@ Server::~Server()
         MapStuff_Instance = nullptr;
     }
 
-    srv_stru1->Deinit();
+    this->srv_stru1->Deinit();
 
     if (g_PlayersList)
     {
@@ -184,19 +184,19 @@ Server::~Server()
         dword_6B37C4 = nullptr;
     }
 
-    for (int i = 1; i < spells.size(); i++)
+    for (int i = 1; i < this->spells.size(); i++)
     {
-        if (spells[i])
+        if (this->spells[i])
         {
-            delete spells[i];
-            spells[i] = nullptr;
+            delete this->spells[i];
+            this->spells[i] = nullptr;
         }
     }
 
-    if (script_settings)
+    if (this->script_settings)
     {
-        delete script_settings;
-        script_settings = nullptr;
+        delete this->script_settings;
+        this->script_settings = nullptr;
     }
 
     LogMessage("Server closed\n");
@@ -937,10 +937,10 @@ Unit* Srv1::GetScenarioScriptUnit(CMap<int32_t, int32_t, Unit*, Unit*>& umap, ui
         result = umap[idx];
     } else if (idx < 11001)
     {
-        result = GetScenarioScriptHero(idx - 10001);
+        result = this->GetScenarioScriptHero(idx - 10001);
     } else {
         static const char* PCUnitNames[] = { "Danath", "Reniesta", "Fergard", "Naira", "Treyrak", "Brian", "Glaen", "Woman" }; //63d5d8
-        result = GetScenarioScriptPCUnit(PCUnitNames[idx - 11001]);
+        result = this->GetScenarioScriptPCUnit(PCUnitNames[idx - 11001]);
     }
     if (!result)
     {
@@ -1085,12 +1085,12 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
                     switch(arg_type) {
                     case 2: // Group
                         if (!has_group) {
-                            action.group = GetScenarioScriptGroup(groups_map, arg_value);
+                            action.group = this->GetScenarioScriptGroup(groups_map, arg_value);
                             if (action.group == nullptr) {
                                 valid = 0;
                             }
                         } else {
-                            action.multi = GetScenarioScriptGroup(groups_map, arg_value);
+                            action.multi = this->GetScenarioScriptGroup(groups_map, arg_value);
                             if (action.multi == nullptr) {
                                 valid = 0;
                             }
@@ -1106,12 +1106,12 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
 
                     case 3: // Player
                         if (!has_player) {
-                            action.player = GetScenarioScriptPlayer(players_map, arg_value);
+                            action.player = this->GetScenarioScriptPlayer(players_map, arg_value);
                             if (action.player == nullptr) {
                                 valid = 0;
                             }
                         } else {
-                            action.multi = GetScenarioScriptPlayer(players_map, arg_value);
+                            action.multi = this->GetScenarioScriptPlayer(players_map, arg_value);
                             if (action.multi == nullptr) {
                                 valid = 0;
                             }
@@ -1121,12 +1121,12 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
                         
                     case 4: // Unit
                         if (!has_unit) {
-                            action.unit = GetScenarioScriptUnit(units_map, arg_value);
+                            action.unit = this->GetScenarioScriptUnit(units_map, arg_value);
                             if (action.unit == nullptr) {
                                 valid = 0;
                             }
                         } else {
-                            action.multi = GetScenarioScriptUnit(units_map, arg_value);
+                            action.multi = this->GetScenarioScriptUnit(units_map, arg_value);
                             if (action.multi == nullptr) {
                                 valid = 0;
                             }
@@ -1224,12 +1224,12 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
                     switch (arg_type) {
                     case 2: // Group
                         if (!has_group) {
-                            check.group = GetScenarioScriptGroup(groups_map, arg_value);
+                            check.group = this->GetScenarioScriptGroup(groups_map, arg_value);
                             if (check.group == nullptr) {
                                 valid = false;
                             }
                         } else {
-                            check.multi = GetScenarioScriptGroup(groups_map, arg_value);
+                            check.multi = this->GetScenarioScriptGroup(groups_map, arg_value);
                             if (check.multi == nullptr) {
                                 valid = false;
                             }
@@ -1246,12 +1246,12 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
                         
                     case 3: // Player
                         if (!has_player) {
-                            check.player = GetScenarioScriptPlayer(players_map, arg_value);
+                            check.player = this->GetScenarioScriptPlayer(players_map, arg_value);
                             if (check.player == nullptr) {
                                 valid = false;
                             }
                         } else {
-                            check.multi = GetScenarioScriptPlayer(players_map, arg_value);
+                            check.multi = this->GetScenarioScriptPlayer(players_map, arg_value);
                             if (check.multi == nullptr) {
                                 valid = false;
                             }
@@ -1261,12 +1261,12 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
                         
                     case 4: // Unit
                         if (!has_unit) {
-                            check.unit = GetScenarioScriptUnit(units_map, arg_value);
+                            check.unit = this->GetScenarioScriptUnit(units_map, arg_value);
                             if (check.unit == nullptr) {
                                 valid = false;
                             }
                         } else {
-                            check.multi = GetScenarioScriptUnit(units_map, arg_value);
+                            check.multi = this->GetScenarioScriptUnit(units_map, arg_value);
                             if (check.multi == nullptr) {
                                 valid = false;
                             }
@@ -1601,17 +1601,17 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
 
     // Arena mode: run the arena entry handler for this player.
     if (g_ServerConfig.gameType == 3) {
-        sub_4FA551(player);
+        this->sub_4FA551(player);
     }
 
     // Broadcast a PacketJoin for the new player to all existing players.
     {
-        PacketJoin* pkt = new PacketJoin(current_map_name);
+        PacketJoin* pkt = new PacketJoin(this->current_map_name);
         pkt->id = 6;
         // [pkt+0xA] = Server::field21_0xd4.  Offset 0xA within PacketJoin is
         // the first uint32_t after the base Packet (Packet = 0xA bytes, pkt+0xA =
         // player_id of PacketJoin, but the ASM stores field21_0xd4 there as a dword).
-        pkt->__field_0xa = field21_0xd4;
+        pkt->__field_0xa = this->field21_0xd4;
         pkt->to_player_id = player->player_id;
         g_NetStru1_main.QueuePacketSend(pkt);
         delete pkt;
@@ -1628,7 +1628,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
     player->field_0x40 = 0;
 
     // Early-out for some game types.
-    if (field4_0x74 != 0 && bool_arg4 != 0) {
+    if (this->field4_0x74 != 0 && bool_arg4 != 0) {
         if (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3)
         {
             // Diplomacy and vision-mask setup with the "Self" map player.
@@ -1717,7 +1717,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
 
     // If `bool_arg4` is set and field_0x41 is not yet set, put the unit on the map (sub_5013D4).
     if (bool_arg4 != 0 && player->field_0x41 == 0) {
-        sub_5013D4(player);
+        this->sub_5013D4(player);
     }
 
     // Mark the player as fully active and refresh world / map state.
@@ -1907,12 +1907,12 @@ void Server::FUN_004ff439(Player* player, int32_t arg4)
 
     player->sub_534AC1(0, 1);
 
-    if (field18_0x94 != 0) {
+    if (this->field18_0x94 != 0) {
         g_NetStru1_main.FUN_0051ceac(0xB7, player);
     }
 
     g_NetStru1_main.FUN_0051c748(nullptr);
-    if (field3_0x70 != 0) {
+    if (this->field3_0x70 != 0) {
         g_NetStru1_main.SendAllData();
     }
 }
@@ -2209,7 +2209,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     }
 
     // Player group setup.
-    sub_5013D4(player);
+    this->sub_5013D4(player);
 
     // Mark player as active.
     player->field_0x41 = 1;
@@ -2252,12 +2252,12 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
 
     // Arena mode: name/stat lookup.
     if (g_ServerConfig.gameType == 3) {
-        sub_4FA4BB(&player->name, &player->frags);
-        sub_4FA348(&player->name, 0);
+        this->sub_4FA4BB(&player->name, &player->frags);
+        this->sub_4FA348(&player->name, 0);
     }
 
     // Server state update.
-    sub_4F4570();
+    this->sub_4F4570();
 
     return 0;
 }
@@ -2708,7 +2708,7 @@ void Server::CheatCommand(Player* player, CString cheat_string)
 
     // Players whose cheat level is not yet elevated must supply the activation secret.
     if (player->field_0xa98 <= 50) {
-        if (coward_activation.sub_5A3498(cheat_string) == 1) {
+        if (this->coward_activation.sub_5A3498(cheat_string) == 1) {
             CString msg = "Player " + player->name + " enable cheating.";
             LogMessage(msg);
             player->field_0xa98 = 0xFF;
@@ -3231,7 +3231,7 @@ void Server::sub_504a96(Packet* pkt)
         //allods2 50001c
     {
         NetStru2* cli = g_NetStru1_main.GetClientByLowUid(packet_3d->field_0x5);
-        Allods2_JoinPlayer(packet_3d->field_0xa, packet_3d->field_0xe, packet_3d->field_0x16, cli, packet_3d->field_0x12);
+        this->Allods2_JoinPlayer(packet_3d->field_0xa, packet_3d->field_0xe, packet_3d->field_0x16, cli, packet_3d->field_0x12);
     }
 #else
         CheckPacketType(pkt, "Packet3Dwords");
@@ -3794,10 +3794,10 @@ void Server::sub_504a96(Packet* pkt)
     case 0x48: // Join map.
         {
 #ifdef A2CLIENT
-        Player* player = sub_502B4A(packet_info->field_0x5);
+        Player* player = this->sub_502B4A(packet_info->field_0x5);
         if (player)
         {
-            Human* human = sub_500907(player, packet_info->field_0xa & 0xff, 
+            Human* human = this->sub_500907(player, packet_info->field_0xa & 0xff, 
                                             (packet_info->field_0xa >> 8) & 0xff, 
                                             (packet_info->field_0xa >> 16) & 0xff, 
                                             (packet_info->field_0xa >> 24) & 0xff,
@@ -3808,7 +3808,7 @@ void Server::sub_504a96(Packet* pkt)
             if (GetTickCount() - human->pOwner->field_0xa7c > 15000)
             {
 #pragma message("REVERSE IT");
-                sub_4EE028(human); // similar to FUN_004f2c57, so need reverse it!
+                this->sub_4EE028(human); // similar to FUN_004f2c57, so need reverse it!
                 //FUN_004f2c57(local_104);
             }
         }
@@ -4105,11 +4105,11 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
         str.Format("Illegal player %s ID: %d", name, id);
         LogMessage(str);
 
-        JoinErrorSend(client, 1, "Your name too short. At least 1 letter required.");
+        this->JoinErrorSend(client, 1, "Your name too short. At least 1 letter required.");
         return;
     }
 
-    if (name == "Self" && field4_0x74 == 0) {
+    if (name == "Self" && this->field4_0x74 == 0) {
         name = g_PlayersList->list.GetHead()->name;
     }
 
@@ -4121,7 +4121,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
         nickname = nickname.Left(pipe_pos);
     }
 
-    if (field4_0x74)
+    if (this->field4_0x74)
     {
         for (int i = 0; i < g_ServerConfig.banned_names.GetSize(); i++)
         {
@@ -4131,7 +4131,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
                 str.Format("Player %s rejected (banned name)", name);
                 LogMessage(str);
 
-                JoinErrorSend(client, 2, "Restricted name. Try different.");
+                this->JoinErrorSend(client, 2, "Restricted name. Try different.");
                 return;
             }
         }
@@ -4147,7 +4147,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
                     str.Format("Player %s rejected (banned ip)", name);
                     LogMessage(str);
 
-                    JoinErrorSend(client, 2, "Restricted ip.");
+                    this->JoinErrorSend(client, 2, "Restricted ip.");
                     return;
                 }
             }
@@ -4163,7 +4163,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
 
     if (cd_flag != 0 && cd_flag != g_IsCdPresent)
     {
-        JoinErrorSend(client, 8, "Demo & Release are incompatible");
+        this->JoinErrorSend(client, 8, "Demo & Release are incompatible");
         return;
     }
 
@@ -4175,11 +4175,11 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
         if (pl->name == name)
         {
             if ((pl->hat_player_id != id || pl->flags != arg || g_NetStru1_main.GetClientByPlayerID(pl->player_id) != nullptr) 
-                && field4_0x74 != 0)
+                && this->field4_0x74 != 0)
             {
                 LogMessage("Warning - other player with same name joined");
 
-                JoinErrorSend(client, 3, "This name already used. Try different.");
+                this->JoinErrorSend(client, 3, "This name already used. Try different.");
                 return;
             }
             
@@ -4192,20 +4192,20 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
     {
         player_not_exist = false;
 
-        if (MapLevel != -1 && g_CLlDriver.provider != 4)
+        if (this->MapLevel != -1 && g_CLlDriver.provider != 4)
         {
-            if (strong > MapLevel)
+            if (strong > this->MapLevel)
             {
-                JoinErrorSend(client, 14, "Character is too strong for this map.");
+                this->JoinErrorSend(client, 14, "Character is too strong for this map.");
 
                 CString str;
                 str.Format("Player %s rejected(too strong for this map)", name);
                 LogMessage(str);                
                 return;
             }
-            if (weak < MapLevel)
+            if (weak < this->MapLevel)
             {
-                JoinErrorSend(client, 15, "Character is too weak for this map.");
+                this->JoinErrorSend(client, 15, "Character is too weak for this map.");
 
                 CString str;
                 str.Format("Player %s rejected (too weak for this map)", name);
@@ -4222,20 +4222,20 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
     } else {
         player_not_exist = true;
 
-        if (MapLevel != -1)
+        if (this->MapLevel != -1)
         {
-            if (strong > MapLevel)
+            if (strong > this->MapLevel)
             {
-                JoinErrorSend(client, 14, "Character is too strong for this map.");
+                this->JoinErrorSend(client, 14, "Character is too strong for this map.");
 
                 CString str;
                 str.Format("Player %s rejected(too strong for this map)", name);
                 LogMessage(str);
                 return;
             }
-            if (weak < MapLevel)
+            if (weak < this->MapLevel)
             {
-                JoinErrorSend(client, 15, "Character is too weak for this map.");
+                this->JoinErrorSend(client, 15, "Character is too weak for this map.");
 
                 CString str;
                 str.Format("Player %s rejected (too weak for this map)", name);
@@ -4247,7 +4247,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
         if (cd_flag == 0)
         {
             int cds = g_PlayersList->CountCD();
-            if (field3_0x70 == 0) {
+            if (this->field3_0x70 == 0) {
                 cds++;
             }
 
@@ -4264,12 +4264,12 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
 
             if (cds < neededCD[humans])
             {
-                JoinErrorSend(client, 6, "too few CDs");
+                this->JoinErrorSend(client, 6, "too few CDs");
                 return;
             }
         }
 
-        player = Allods2_CreatePlayer(name);
+        player = this->Allods2_CreatePlayer(name);
         player->hat_player_id = id;
         player->flags = arg;
         player->field_0xa45 = cd_flag;
@@ -4330,13 +4330,13 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
 
     g_NetStru1_main.sub_51C8B1(player);
 
-    if (field18_0x94 != 0) {
+    if (this->field18_0x94 != 0) {
         g_NetStru1_main.FUN_0051ceac(0xb7, player);
     }
     
     g_NetStru1_main.FUN_0051c748(nullptr);
 
-    if (field3_0x70 != 0) {
+    if (this->field3_0x70 != 0) {
         g_NetStru1_main.SendAllData();
     }
 }
@@ -4361,7 +4361,7 @@ void Server::JoinErrorSend(NetStru2* client, int32_t arg, const CString& str)
 Player* Server::Allods2_CreatePlayer(CString name)
 {
     Player* player = nullptr;
-    if (field4_0x74 == 0) {
+    if (this->field4_0x74 == 0) {
         player = g_PlayersList->sub_535D39("Self");
     }
 
@@ -4526,19 +4526,19 @@ int Server::Start(int mode)
 #ifdef A2CLIENT
     char tmpbuf[256];
     GetProfileStringA("Allods Server", "BaseDir", "", tmpbuf, 255);
-    field5_0x78 = tmpbuf;
+    this->field5_0x78 = tmpbuf;
 #endif
 
-    field4_0x74 = mode < 2;
-    field3_0x70 = mode > 0;
+    this->field4_0x74 = mode < 2;
+    this->field3_0x70 = mode > 0;
 
-    if (field4_0x74 == 0) {
-        field39_0x1a8 = 0;
+    if (this->field4_0x74 == 0) {
+        this->field39_0x1a8 = 0;
     } else {
-        field39_0x1a8 = 1;
+        this->field39_0x1a8 = 1;
     }
 
-    field16_0x8c = 0;
+    this->field16_0x8c = 0;
 
     g_Server = this;
 
@@ -4563,16 +4563,16 @@ int Server::Start(int mode)
     }
 #endif
 
-    spells[0] = nullptr;
+    this->spells[0] = nullptr;
 
     for (int i = 1; i < 30; i++) {
-        spells[i] = new Spell(i);
+        this->spells[i] = new Spell(i);
     }
 
     dword_6CDB3C = new UnitList();
     dword_6B37C4 = new UnitList();
 
-    srv_stru1->units_list = new UnitList();
+    this->srv_stru1->units_list = new UnitList();
 
     g_PlayersList = new PlayersList();
 
@@ -4584,7 +4584,7 @@ int Server::Start(int mode)
     }
 
 #ifndef A2CLIENT
-    FileList.RemoveAll();
+    this->FileList.RemoveAll();
 
     CFileFind fnd;
     bool res = fnd.FindFile(g_ServerConfig.chr_base + "*.");
@@ -4592,14 +4592,14 @@ int Server::Start(int mode)
     {
         res = fnd.FindNextFileA();
         if (!fnd.IsDirectory()) {
-            FileList.Add(fnd.GetFileName());
+            this->FileList.Add(fnd.GetFileName());
         }
     }
 
-    if (FileList.GetSize())
+    if (this->FileList.GetSize())
     {
         CString str;
-        str.Format("%d unsent characters found. Ordered to return to hat.", FileList.GetSize());
+        str.Format("%d unsent characters found. Ordered to return to hat.", this->FileList.GetSize());
         LogMessage(str);
     }
 #endif
@@ -4949,14 +4949,14 @@ void Server::ProcessAvailPackets()
             break;
         }
 
-        sub_504a96(pkt);
+        this->sub_504a96(pkt);
     }
 }
 
 void Server::FUN_0050907e()
 {
     //50907e
-    ProcessAvailPackets();
+    this->ProcessAvailPackets();
     g_NetStru1_main.FUN_0051c748(nullptr);
     g_NetStru1_main.SendAllData();
 }
@@ -4970,63 +4970,63 @@ Server::Server()
     g_PlayersList = nullptr;
     MapStuff_Instance = nullptr;
 
-    field19_0x98.srv_stru = srv_stru1;
+    this->field19_0x98.srv_stru = this->srv_stru1;
 
-    field18_0x94 = 0;
-    field3_0x70 = 0;
-    field4_0x74 = 0;
-    field15_0x88 = nullptr;
+    this->field18_0x94 = 0;
+    this->field3_0x70 = 0;
+    this->field4_0x74 = 0;
+    this->field15_0x88 = nullptr;
 
-    current_map_name = "1.alm";
+    this->current_map_name = "1.alm";
 
-    tick = 0;
-    tick16 = 0;
+    this->tick = 0;
+    this->tick16 = 0;
 
-    script_settings = new ScriptSettings();
-    field26_0x174 = 0;
-    field27_0x178 = 0;
-    field28_0x17c = 0;
-    field29_0x180 = 0;
-    field30_0x184 = 0;
-    field31_0x188 = 0;
-    field32_0x18c = 0;
-    field33_0x190 = 0;
-    field34_0x194 = 0;
-    field37_0x1a0 = 0;
-    field36_0x19c = 0;
-    field38_0x1a4 = 1;
-    field39_0x1a8 = 1;
-    field40_0x1ac = 0;
-    field35_0x198 = 0;
-    field21_0xd4 = 0;
-    field22_0xd8 = 2;
-    field41_0x1b0 = 0;
+    this->script_settings = new ScriptSettings();
+    this->field26_0x174 = 0;
+    this->field27_0x178 = 0;
+    this->field28_0x17c = 0;
+    this->field29_0x180 = 0;
+    this->field30_0x184 = 0;
+    this->field31_0x188 = 0;
+    this->field32_0x18c = 0;
+    this->field33_0x190 = 0;
+    this->field34_0x194 = 0;
+    this->field37_0x1a0 = 0;
+    this->field36_0x19c = 0;
+    this->field38_0x1a4 = 1;
+    this->field39_0x1a8 = 1;
+    this->field40_0x1ac = 0;
+    this->field35_0x198 = 0;
+    this->field21_0xd4 = 0;
+    this->field22_0xd8 = 2;
+    this->field41_0x1b0 = 0;
 
     SrandInit();
 
-    spells.fill(nullptr);
+    this->spells.fill(nullptr);
 
-    MapLevel = -1;
-    field49_0x1d0 = 0;
-    field50_0x1d4 = 0;
-    field51_0x1d8 = 1;
-    field53_0x1f0 = 0;
-    field64_0x21c = 0;
-    field65_0x220 = 15;
-    field54_0x1f4 = 0;
-    field55_0x1f8 = 0;
-    field56_0x1fc = 0;
-    field59_0x208 = 0;
+    this->MapLevel = -1;
+    this->field49_0x1d0 = 0;
+    this->field50_0x1d4 = 0;
+    this->field51_0x1d8 = 1;
+    this->field53_0x1f0 = 0;
+    this->field64_0x21c = 0;
+    this->field65_0x220 = 15;
+    this->field54_0x1f4 = 0;
+    this->field55_0x1f8 = 0;
+    this->field56_0x1fc = 0;
+    this->field59_0x208 = 0;
     this->ctf_score[0] = 0;
     this->ctf_score[1] = 0;
     this->ctf_carrying[0] = 0;
     this->ctf_carrying[1] = 0;
     this->ctf_dropped[0] = 0;
     this->ctf_dropped[1] = 0;
-    field66_0x224 = 0;
+    this->field66_0x224 = 0;
     g_ShutdownIn = 0x7fffffff;
-    map_elapsed_time = 0;
-    map_elapsed_time2 = 0;
+    this->map_elapsed_time = 0;
+    this->map_elapsed_time2 = 0;
 }
 
 void Server::FUN_00501b9e(int32_t var300, CDWordArray& arr)
@@ -5624,30 +5624,30 @@ void Server::sub_4FA78E(int32_t arg) {
 
 CowardActivation::CowardActivation()
 { // 5a335c
-    memset(key, 0, sizeof(key));
-    enabled = 0;
+    memset(this->key, 0, sizeof(this->key));
+    this->enabled = 0;
 
-    key[0] = 0x39;
-    key[1] = 0x20;
-    key[2] = 0x59;
-    key[3] = 0x7c;
-    key[4] = 0x2;
-    key[5] = 0x11;
-    key[6] = 0x5d;
-    key[7] = 0x40;
-    key[8] = 0x46;
-    key[9] = 0x0;
-    key[10] = 0x23 - key[0];
-    key[0xb] = 0x23 - key[1];
-    key[0xc] = 0x43 - key[2];
-    key[0xd] = 0x6f - key[3];
-    key[0xe] = 0x77 - key[4];
-    key[0xf] = 0x61 - key[5];
-    key[0x10] = 0x72 - key[6];
-    key[0x11] = 0x64 - key[7];
-    key[0x12] = 0x20 - key[8];
-    key[0x13] = 0x20 - key[9];
-    key[0x11] = 0;
+    this->key[0] = 0x39;
+    this->key[1] = 0x20;
+    this->key[2] = 0x59;
+    this->key[3] = 0x7c;
+    this->key[4] = 0x2;
+    this->key[5] = 0x11;
+    this->key[6] = 0x5d;
+    this->key[7] = 0x40;
+    this->key[8] = 0x46;
+    this->key[9] = 0x0;
+    this->key[10] = 0x23 - this->key[0];
+    this->key[0xb] = 0x23 - this->key[1];
+    this->key[0xc] = 0x43 - this->key[2];
+    this->key[0xd] = 0x6f - this->key[3];
+    this->key[0xe] = 0x77 - this->key[4];
+    this->key[0xf] = 0x61 - this->key[5];
+    this->key[0x10] = 0x72 - this->key[6];
+    this->key[0x11] = 0x64 - this->key[7];
+    this->key[0x12] = 0x20 - this->key[8];
+    this->key[0x13] = 0x20 - this->key[9];
+    this->key[0x11] = 0;
 }
 
 // 5A3498
@@ -5725,70 +5725,70 @@ void SrvStru1::sub_4FAEB4()
 
 void SrvStru1::Deinit()
 { //4fab1d
-    if (sack_list)
+    if (this->sack_list)
     {
-        delete sack_list;
-        sack_list = nullptr;
+        delete this->sack_list;
+        this->sack_list = nullptr;
     }
 
-    if (units_list)
+    if (this->units_list)
     {
-        for (POSITION pos = units_list->unit_list.GetHeadPosition(); pos != nullptr;)
+        for (POSITION pos = this->units_list->unit_list.GetHeadPosition(); pos != nullptr;)
         {
-            Unit* unit = units_list->unit_list.GetNext(pos);
+            Unit* unit = this->units_list->unit_list.GetNext(pos);
             if (unit) {
                 delete unit;
             }
         }
-        units_list->unit_list.RemoveAll();
+        this->units_list->unit_list.RemoveAll();
 
-        delete units_list;
-        units_list = nullptr;
+        delete this->units_list;
+        this->units_list = nullptr;
     }
 
-    if (effects_list)
+    if (this->effects_list)
     {
-        delete effects_list;
-        effects_list = nullptr;
+        delete this->effects_list;
+        this->effects_list = nullptr;
     }
 
-    if (building_list)
+    if (this->building_list)
     {
-        for (POSITION pos = building_list->GetHeadPosition(); pos != nullptr;)
+        for (POSITION pos = this->building_list->GetHeadPosition(); pos != nullptr;)
         {
-            Building* bld = building_list->GetNext(pos);
+            Building* bld = this->building_list->GetNext(pos);
             if (bld) {
                 delete bld;
             }
         }
-        building_list->RemoveAll();
+        this->building_list->RemoveAll();
 
-        delete building_list;
-        building_list = nullptr;
+        delete this->building_list;
+        this->building_list = nullptr;
     }
 
-    if (!virtual_casters_list.IsEmpty())
+    if (!this->virtual_casters_list.IsEmpty())
     {
-        for (POSITION pos = virtual_casters_list.GetHeadPosition(); pos != nullptr;)
+        for (POSITION pos = this->virtual_casters_list.GetHeadPosition(); pos != nullptr;)
         {
-            VirtualCaster* caster = virtual_casters_list.GetNext(pos);
+            VirtualCaster* caster = this->virtual_casters_list.GetNext(pos);
             if (caster) {
                 delete caster;
             }
         }
-        virtual_casters_list.RemoveAll();
+        this->virtual_casters_list.RemoveAll();
     }
 
-    if (!some_unit_list.IsEmpty())
+    if (!this->some_unit_list.IsEmpty())
     {
-        for (POSITION pos = some_unit_list.GetHeadPosition(); pos != nullptr;)
+        for (POSITION pos = this->some_unit_list.GetHeadPosition(); pos != nullptr;)
         {
-            Unit* unit = some_unit_list.GetNext(pos);
+            Unit* unit = this->some_unit_list.GetNext(pos);
             if (unit) {
                 delete unit;
             }
         }
-        some_unit_list.RemoveAll();
+        this->some_unit_list.RemoveAll();
     }
 }
 
@@ -5797,7 +5797,7 @@ Unit* SrvStru1::AddDummyUnitWithSpell(int32_t xpos, int32_t ypos, int32_t spellI
     Unit* unit = new Unit();
     unit->building_id = 0;
 
-    some_unit_list.AddTail(unit);
+    this->some_unit_list.AddTail(unit);
 
     unit->position->Set(xpos, ypos, MapStuff_Instance);
 
@@ -5818,7 +5818,7 @@ Unit* SrvStru1::AddDummyUnitWithSpell(int32_t xpos, int32_t ypos, int32_t spellI
 
 void SrvStru1::sub_4FBB24(uint8_t from_x, uint8_t from_y, uint8_t to_x, uint8_t to_y, uint32_t spell_id, uint32_t power)
 { // 4FBB24
-    Unit* unit = AddDummyUnitWithSpell(from_x, from_y, spell_id, power);
+    Unit* unit = this->AddDummyUnitWithSpell(from_x, from_y, spell_id, power);
     unit->some_state = 14;
     unit->area_cast_x = to_x;
     unit->area_cast_y = to_y;
@@ -5826,15 +5826,15 @@ void SrvStru1::sub_4FBB24(uint8_t from_x, uint8_t from_y, uint8_t to_x, uint8_t 
 
 void SrvStru1::sub_4FBAE3(uint8_t a0, uint8_t a1, Unit* unit, uint32_t a3, uint32_t a4)
 { // 4FBAE3
-    Unit* u = AddDummyUnitWithSpell(a0, a1, a3, a4);
+    Unit* u = this->AddDummyUnitWithSpell(a0, a1, a3, a4);
     u->some_state = 13;
     u->cast_target = unit;
 }
 
 void SrvStru1::sub_4FB4AA()
 { // 4FB4AA
-    building_list->FUN_0055817b();
-    sack_list->FUN_005540ed();
+    this->building_list->FUN_0055817b();
+    this->sack_list->FUN_005540ed();
 }
 
 // 4FB273
@@ -5855,15 +5855,15 @@ void SrvStru1::sub_4FB273() {
 
 SrvStru1::SrvStru1()
 { //4fa89c
-    sack_list = nullptr;
-    units_list = nullptr;
-    effects_list = nullptr;
-    building_list = nullptr;
+    this->sack_list = nullptr;
+    this->units_list = nullptr;
+    this->effects_list = nullptr;
+    this->building_list = nullptr;
 }
 
 SrvStru1::~SrvStru1()
 {  //4fa981
-    Deinit();
+    this->Deinit();
 }
 
 // 554B03
@@ -5990,16 +5990,16 @@ void SackList::sub_55BC58(CArchive& ar)
 
 SackList::~SackList()
 { //554bc3
-    for (POSITION pos = list.GetHeadPosition(); pos != nullptr;)
+    for (POSITION pos = this->list.GetHeadPosition(); pos != nullptr;)
     {
-        Sack* sac = list.GetNext(pos);
+        Sack* sac = this->list.GetNext(pos);
         
         if (sac) {
             delete sac;
         }
     }
 
-    list.RemoveAll();
+    this->list.RemoveAll();
 }
 
 // 5540ed
@@ -6080,16 +6080,16 @@ void SpellEffectList::VMethod1() {
 
 SpellEffectList::~SpellEffectList()
 { //5583ed
-    for (POSITION pos = list.GetHeadPosition(); pos != nullptr;)
+    for (POSITION pos = this->list.GetHeadPosition(); pos != nullptr;)
     {
-        SpellEffect* eff = list.GetNext(pos);
+        SpellEffect* eff = this->list.GetNext(pos);
 
         if (eff) {
             delete eff;
         }
     }
 
-    list.RemoveAll();
+    this->list.RemoveAll();
 }
 
 // 55BF31

@@ -47,7 +47,7 @@ public:
 
     Quest* FUN_0055ee42(int quest_kind);
 
-    int32_t FUN_0041ec00() { return quests_map.GetCount(); }; //41ec00
+    int32_t FUN_0041ec00() { return this->quests_map.GetCount(); }; //41ec00
 
 public:
     CMap<uint32_t, uint32_t, Quest*, Quest*> quests_map;

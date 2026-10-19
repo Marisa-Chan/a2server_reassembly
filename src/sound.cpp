@@ -38,35 +38,35 @@ WAVEFORMATEX g_SoundFmt; //65dd90
 SoundSettings::SoundSettings()
 {
 	//477860
-	field_0xc = 5000;
-	mus_pos = -700;
-	field_0x14 = 5000;
-	sfx_pos = -700;
-	field_0x1c = 5000;
-	speech_pos = -700;
+	this->field_0xc = 5000;
+	this->mus_pos = -700;
+	this->field_0x14 = 5000;
+	this->sfx_pos = -700;
+	this->field_0x1c = 5000;
+	this->speech_pos = -700;
 
-	tracklist = new CStringArray();
+	this->tracklist = new CStringArray();
 
-	field_0x20 = 1;
-	music_enabled = 1;
+	this->field_0x20 = 1;
+	this->music_enabled = 1;
 }
 
 SoundSettings::~SoundSettings()
 {
 	//477920
-	if (tracklist) {
-		delete tracklist;
+	if (this->tracklist) {
+		delete this->tracklist;
 	}
 }
 
 void SoundSettings::Load(HKEY& rkey)
 { //43d7c4
 	DWORD sz = 4;
-	RegQueryValueExA(rkey, "SoundRandom", nullptr, nullptr, (LPBYTE)&random, &sz);
-	RegQueryValueExA(rkey, "SoundMusPos", nullptr, nullptr, (LPBYTE)&mus_pos, &sz);
-	RegQueryValueExA(rkey, "SoundSfxPos", nullptr, nullptr, (LPBYTE)&sfx_pos, &sz);
-	RegQueryValueExA(rkey, "SoundSpeechPos", nullptr, nullptr, (LPBYTE)&speech_pos, &sz);
-	RegQueryValueExA(rkey, "MusicEnabled", nullptr, nullptr, (LPBYTE)&music_enabled, &sz);
+	RegQueryValueExA(rkey, "SoundRandom", nullptr, nullptr, (LPBYTE)&this->random, &sz);
+	RegQueryValueExA(rkey, "SoundMusPos", nullptr, nullptr, (LPBYTE)&this->mus_pos, &sz);
+	RegQueryValueExA(rkey, "SoundSfxPos", nullptr, nullptr, (LPBYTE)&this->sfx_pos, &sz);
+	RegQueryValueExA(rkey, "SoundSpeechPos", nullptr, nullptr, (LPBYTE)&this->speech_pos, &sz);
+	RegQueryValueExA(rkey, "MusicEnabled", nullptr, nullptr, (LPBYTE)&this->music_enabled, &sz);
 }
 
 // 43d877
@@ -84,28 +84,28 @@ void SoundSettings::Save(HKEY& rkey)
 
 void SoundChannel::Clear()
 { //41fdd0
-	if (pbuffer) {
-		pbuffer->Stop();
+	if (this->pbuffer) {
+		this->pbuffer->Stop();
 	}
 
-	pbuffer = nullptr;
-	priority = 0;
-	psample = nullptr;
+	this->pbuffer = nullptr;
+	this->priority = 0;
+	this->psample = nullptr;
 }
 
 void SoundChannel::Stop()
 { //41ff90
-	if (pbuffer)
+	if (this->pbuffer)
 	{
-		pbuffer->Stop();
-		pbuffer->SetCurrentPosition(0);
+		this->pbuffer->Stop();
+		this->pbuffer->SetCurrentPosition(0);
 	}
 }
 
 void SoundChannel::Play(bool bLoop)
 { //45c408
-	if (pbuffer) {
-		pbuffer->Play(0, 0, bLoop ? DSBPLAY_LOOPING : 0);
+	if (this->pbuffer) {
+		this->pbuffer->Play(0, 0, bLoop ? DSBPLAY_LOOPING : 0);
 	}
 }
 
@@ -119,15 +119,15 @@ void SoundChannel::SetVolume(int32_t volume)
 		volume = 0;
 	}
 
-	if (pbuffer) {
-		pbuffer->SetVolume(volume);
+	if (this->pbuffer) {
+		this->pbuffer->SetVolume(volume);
 	}
 }
 
 void SoundChannel::SetPan(int32_t pan)
 { //41ff60
-	if (pbuffer) {
-		pbuffer->SetPan(pan);
+	if (this->pbuffer) {
+		this->pbuffer->SetPan(pan);
 	}
 }
 
@@ -211,62 +211,62 @@ SfxSample::~SfxSample()
 { //45b8c2
 	if (g_dsound && loaded)
 	{
-		if (buffers)
+		if (this->buffers)
 		{
 			for (int i = 0; i < g_dsound_channel_num; i++)
 			{
 				DWORD status;
-				buffers[i]->GetStatus(&status);
+				this->buffers[i]->GetStatus(&status);
 
 				if (status & DSBSTATUS_PLAYING) {
-					buffers[i]->Stop();
+					this->buffers[i]->Stop();
 				}
 
 				for (int j = 0; j < g_dsound_channel_num; j++)
 				{
-					if (g_dsound_channels[j].pbuffer == buffers[i]) {
+					if (g_dsound_channels[j].pbuffer == this->buffers[i]) {
 						g_dsound_channels[j].pbuffer = nullptr;
 					}
 				}
 			}
 		}
-		Release();
+		this->Release();
 	}
 }
 
 void SfxSample::Release()
 { //45ba0f
-	if (loaded)
+	if (this->loaded)
 	{
-		if (buffers)
+		if (this->buffers)
 		{
 			for (int i = 0; i < g_dsound_channel_num; i++) {
-				buffers[i]->Release();
+				this->buffers[i]->Release();
 			}
 
-			delete[] buffers;
+			delete[] this->buffers;
 
-			buffers = nullptr;
+			this->buffers = nullptr;
 		}
-		loaded = 0;
+		this->loaded = 0;
 	}
 }
 
 SoundChannel* SfxSample::FindPlayingChannel()
 { //45c004
-	if (!g_dsound || !loaded) {
+	if (!g_dsound || !this->loaded) {
 		return nullptr;
 	}
 
 	for (int i = 0; i < g_dsound_channel_num; i++)
 	{
 		DWORD status;
-		buffers[i]->GetStatus(&status);
+		this->buffers[i]->GetStatus(&status);
 		if (status & DSBSTATUS_PLAYING)
 		{
 			for (int j = 0; j < g_dsound_channel_num; j++)
 			{
-				if (g_dsound_channels[j].pbuffer == buffers[i]) {
+				if (g_dsound_channels[j].pbuffer == this->buffers[i]) {
 					return &g_dsound_channels[j];
 				}
 			}
@@ -331,11 +331,11 @@ void SfxSample::LoadSample()
 
 	File2 f;
 
-	if (f.Open(filename, CFile::modeRead) == 0) {
+	if (f.Open(this->filename, CFile::modeRead) == 0) {
 		return;
 	}
 
-	buffers = new IDirectSoundBuffer*[g_dsound_channel_num];
+	this->buffers = new IDirectSoundBuffer*[g_dsound_channel_num];
 
 	std::array<uint8_t, sizeof(ADPCMWAVEFORMAT) + sizeof(ADPCMCOEFSET) * 16> hdr;
 
@@ -392,7 +392,7 @@ void SfxSample::LoadSample()
 		g_dsound_buff_desc.lpwfxFormat = &pcm;
 	}
 
-	HRESULT res = g_dsound->CreateSoundBuffer(&g_dsound_buff_desc, buffers, nullptr);
+	HRESULT res = g_dsound->CreateSoundBuffer(&g_dsound_buff_desc, this->buffers, nullptr);
 	if (res != 0)
 	{
 		memset(&g_dsound_buff_desc, 0, sizeof(g_dsound_buff_desc));
@@ -401,7 +401,7 @@ void SfxSample::LoadSample()
 		g_dsound_buff_desc.dwBufferBytes = datsz;
 		g_dsound_buff_desc.lpwfxFormat = &pcm;
 
-		res = g_dsound->CreateSoundBuffer(&g_dsound_buff_desc, buffers, nullptr);
+		res = g_dsound->CreateSoundBuffer(&g_dsound_buff_desc, this->buffers, nullptr);
 	}
 
 	if (res == 0)
@@ -410,7 +410,7 @@ void SfxSample::LoadSample()
 		void *bbuf1, *bbuf2;
 		DWORD dwbuf1, dwbuf2;
 
-		(*buffers)->Lock(0, datsz, &bbuf1, &dwbuf1, &bbuf2, &dwbuf2, 0);
+		(*this->buffers)->Lock(0, datsz, &bbuf1, &dwbuf1, &bbuf2, &dwbuf2, 0);
 
 		uint8_t* dbuf = (uint8_t*)bbuf1;
 		if (pcm.wFormatTag == WAVE_FORMAT_ADPCM)
@@ -463,13 +463,13 @@ void SfxSample::LoadSample()
 
 		g_mousept.Update();
 
-		(*buffers)->Unlock(bbuf1, dwbuf1, bbuf2, dwbuf2);
+		(*this->buffers)->Unlock(bbuf1, dwbuf1, bbuf2, dwbuf2);
 
 		for (int i = 1; i < g_dsound_channel_num; i++) {
-			g_dsound->DuplicateSoundBuffer(*buffers, buffers + i);
+			g_dsound->DuplicateSoundBuffer(*this->buffers, this->buffers + i);
 		}
 
-		loaded = 1;
+		this->loaded = 1;
 	} else {
 		acmStreamClose(acmstream, 0);
 	}
@@ -523,71 +523,71 @@ void SfxSample::Play(int volume, int pan, int loop, uint8_t priority, int freq)
 
 MusicPlayer::MusicPlayer(int32_t bufsz)
 { // 45b16d
-	buffer_size = bufsz;
-	file_opened = 0;
+	this->buffer_size = bufsz;
+	this->file_opened = 0;
 
 	if (!g_dsound)
 	{
-		ds_buffer = nullptr;
+		this->ds_buffer = nullptr;
 	} else {
 		memset(&g_dsound_buff_desc, 0, sizeof(g_dsound_buff_desc));
 		g_dsound_buff_desc.dwSize = sizeof(g_dsound_buff_desc);
 		g_dsound_buff_desc.dwFlags = (DSBCAPS_CTRLVOLUME | DSBCAPS_CTRLPAN | DSBCAPS_CTRLFREQUENCY | DSBCAPS_STATIC);
-		g_dsound_buff_desc.dwBufferBytes = buffer_size;
+		g_dsound_buff_desc.dwBufferBytes = this->buffer_size;
 		g_dsound_buff_desc.lpwfxFormat = &g_dsound_format;
 
-		if (g_dsound->CreateSoundBuffer(&g_dsound_buff_desc, &ds_buffer, 0) == DS_OK)
+		if (g_dsound->CreateSoundBuffer(&g_dsound_buff_desc, &this->ds_buffer, 0) == DS_OK)
 		{
-			format.wFormatTag = g_dsound_format.wFormatTag;
-			format.nChannels = g_dsound_format.nChannels;
-			format.nSamplesPerSec = g_dsound_format.nSamplesPerSec;
-			format.nAvgBytesPerSec = g_dsound_format.nAvgBytesPerSec;
-			format.nBlockAlign = g_dsound_format.nBlockAlign;
-			format.wBitsPerSample = g_dsound_format.wBitsPerSample;
-			format.cbSize = g_dsound_format.cbSize;
-			update_disabled = 1;
-			fadeout_enabled = 0;
-			field_0x20 = 1;
-			play_mode = 0;
-			file_opened = 0;
-			field_0x68 = 0;
+			this->format.wFormatTag = g_dsound_format.wFormatTag;
+			this->format.nChannels = g_dsound_format.nChannels;
+			this->format.nSamplesPerSec = g_dsound_format.nSamplesPerSec;
+			this->format.nAvgBytesPerSec = g_dsound_format.nAvgBytesPerSec;
+			this->format.nBlockAlign = g_dsound_format.nBlockAlign;
+			this->format.wBitsPerSample = g_dsound_format.wBitsPerSample;
+			this->format.cbSize = g_dsound_format.cbSize;
+			this->update_disabled = 1;
+			this->fadeout_enabled = 0;
+			this->field_0x20 = 1;
+			this->play_mode = 0;
+			this->file_opened = 0;
+			this->field_0x68 = 0;
 			Player = this;
-			samples = new uint8_t[buffer_size / 2];
-			end_pos = buffer_size;
+			this->samples = new uint8_t[this->buffer_size / 2];
+			this->end_pos = this->buffer_size;
 		} else {
-			ds_buffer = nullptr;
+			this->ds_buffer = nullptr;
 		}
 	}
 }
 
 MusicPlayer::~MusicPlayer()
 { // 45b321
-	if (ds_buffer)
+	if (this->ds_buffer)
 	{
-		OnEndTrack();
-		if (file_opened && file) {
+		this->OnEndTrack();
+		if (this->file_opened && file) {
 			delete file;
 		}
-		ds_buffer->Release();
-		delete[] samples;
+		this->ds_buffer->Release();
+		delete[] this->samples;
 	}
 }
 
 int MusicPlayer::GetState()
 { //451700
-	if (!ds_buffer) {
+	if (!this->ds_buffer) {
 		return 5;
 	}
 
-	if (!file_opened) {
+	if (!this->file_opened) {
 		return 4;
 	}
 	
-	if (update_disabled) {
+	if (this->update_disabled) {
 		return 3;
 	}
 
-	if (fadeout_enabled) {
+	if (this->fadeout_enabled) {
 		return 2;
 	}
 
@@ -596,18 +596,18 @@ int MusicPlayer::GetState()
 
 void MusicPlayer::OnEndTrack()
 { //45b5cf
-	if (ds_buffer && file_opened)
+	if (this->ds_buffer && file_opened)
 	{
-		if (play_mode == 0)
+		if (this->play_mode == 0)
 		{
-			UnsetUpdateProc();
-			update_disabled = 1;
-			ds_buffer->Stop();
+			this->UnsetUpdateProc();
+			this->update_disabled = 1;
+			this->ds_buffer->Stop();
 		} else {
-			fadeout_enabled = 0;
-			StartPlayTrack(track_to_play);
-			SetVolume(g_SoundSettings.mus_pos);
-			play_mode = 1;
+			this->fadeout_enabled = 0;
+			this->StartPlayTrack(this->track_to_play);
+			this->SetVolume(g_SoundSettings.mus_pos);
+			this->play_mode = 1;
 		}
 	}
 }
@@ -627,96 +627,96 @@ void MusicPlayer::SetVolume(int32_t vol)
 		vol = -10000;
 	}
 	
-	if (ds_buffer) {
-		ds_buffer->SetVolume(vol);
+	if (this->ds_buffer) {
+		this->ds_buffer->SetVolume(vol);
 	}
 }
 
 void MusicPlayer::OpenTrack(int32_t track)
 { //45ae1d
-	if (file_opened != 0)
+	if (this->file_opened != 0)
 	{
-		if (file) {
-			delete file;
+		if (this->file) {
+			delete this->file;
 		}
-		file_opened = 0;
+		this->file_opened = 0;
 	}
 
-	file = new File2(playlist[track], CFile::modeRead);
-	file->Seek(0x14, 0);
+	this->file = new File2(this->playlist[track], CFile::modeRead);
+	this->file->Seek(0x14, 0);
 
 	WAVEFORMATEX wav;
 	memset(&wav, 0, sizeof(wav));
 
-	if (file->Read(&wav, sizeof(wav)) == 0)
+	if (this->file->Read(&wav, sizeof(wav)) == 0)
 	{
-		file_opened = 0;
+		this->file_opened = 0;
 		PostMessageA(g_dsound_hwnd, 0x486, 0, 0);
 	} else {
-		if (memcmp(&format, &wav, 0x10) != 0)
+		if (memcmp(&this->format, &wav, 0x10) != 0)
 		{
-			format.wFormatTag = wav.wFormatTag;
-			format.nChannels = wav.nChannels;
-			format.nSamplesPerSec = wav.nSamplesPerSec;
-			format.nAvgBytesPerSec = wav.nAvgBytesPerSec;
-			format.nBlockAlign = wav.nBlockAlign;
-			format.wBitsPerSample = wav.wBitsPerSample;
-			format.cbSize = wav.cbSize;
+			this->format.wFormatTag = wav.wFormatTag;
+			this->format.nChannels = wav.nChannels;
+			this->format.nSamplesPerSec = wav.nSamplesPerSec;
+			this->format.nAvgBytesPerSec = wav.nAvgBytesPerSec;
+			this->format.nBlockAlign = wav.nBlockAlign;
+			this->format.wBitsPerSample = wav.wBitsPerSample;
+			this->format.cbSize = wav.cbSize;
 
-			ds_buffer->Release();
+			this->ds_buffer->Release();
 
 			memset(&g_dsound_buff_desc, 0, sizeof(g_dsound_buff_desc));
 			g_dsound_buff_desc.dwSize = sizeof(g_dsound_buff_desc);
 			g_dsound_buff_desc.dwFlags = (DSBCAPS_CTRLVOLUME | DSBCAPS_CTRLPAN | DSBCAPS_CTRLFREQUENCY | DSBCAPS_STATIC);
-			g_dsound_buff_desc.dwBufferBytes = buffer_size;
+			g_dsound_buff_desc.dwBufferBytes = this->buffer_size;
 			g_dsound_buff_desc.lpwfxFormat = &wav;
 
-			g_dsound->CreateSoundBuffer(&g_dsound_buff_desc, &ds_buffer, 0);
+			g_dsound->CreateSoundBuffer(&g_dsound_buff_desc, &this->ds_buffer, 0);
 		}
 
-		file->Seek(0x28, 0);
+		this->file->Seek(0x28, 0);
 
 		uint32_t data_length;
-		file->Read(&data_length, 4);
+		this->file->Read(&data_length, 4);
 
-		data_begin_pos = file->GetLength() - data_length;
-		file_opened = 1;
-		UpdateBufferTime();
+		this->data_begin_pos = this->file->GetLength() - data_length;
+		this->file_opened = 1;
+		this->UpdateBufferTime();
 	}
 }
 
 void MusicPlayer::SetPlayList(const CStringArray& plist)
 { //45b0ff
-	if (ds_buffer)
+	if (this->ds_buffer)
 	{
-		OnEndTrack();
-		playlist.Copy(plist);
-		int sz = playlist.GetSize();
-		field_0x2c.SetSize(sz);
-		StartPlayTrack(rand() % sz);
+		this->OnEndTrack();
+		this->playlist.Copy(plist);
+		int sz = this->playlist.GetSize();
+		this->field_0x2c.SetSize(sz);
+		this->StartPlayTrack(rand() % sz);
 	}
 }
 
 void MusicPlayer::Play()
 { //45b565
-	if (g_SoundSettings.music_enabled != 0 && ds_buffer && file_opened)
+	if (g_SoundSettings.music_enabled != 0 && this->ds_buffer && file_opened)
 	{
-		UpdateBufferTime();
-		if (update_disabled) {
-			SetUpdateProc();
+		this->UpdateBufferTime();
+		if (this->update_disabled) {
+			this->SetUpdateProc();
 		}
-		update_disabled = 0;
-		ds_buffer->Play(0, 0, DSBPLAY_LOOPING);
+		this->update_disabled = 0;
+		this->ds_buffer->Play(0, 0, DSBPLAY_LOOPING);
 	}
 }
 
 void MusicPlayer::UpdateBufferTime()
 { //45cb40
-	int32_t tm = buffer_size / format.nAvgBytesPerSec * 1000 / 16;
+	int32_t tm = this->buffer_size / this->format.nAvgBytesPerSec * 1000 / 16;
 	if (tm < 101) {
-		buffer_time = tm;
+		this->buffer_time = tm;
 	} else {
-		buffer_time = 100;
+		this->buffer_time = 100;
 	}
 }
 
@@ -725,94 +725,94 @@ void MusicPlayer::SetUpdateProc()
 	MainWindow *mwnd = (MainWindow*)AfxGetMainWnd();
 	mwnd->SetMusicProc(MusicUpdaterProc);
 
-	next_update_time = timeGetTime() + buffer_time;
+	this->next_update_time = timeGetTime() + this->buffer_time;
 }
 
 void MusicPlayer::Update(uint32_t tm)
 { // 45a9b3
-	if (next_update_time <= tm)
+	if (this->next_update_time <= tm)
 	{
 		void* dbuf, * dbuf2;
 		DWORD dbufsz, dbufsz2;
 
-		next_update_time += buffer_time;
+		this->next_update_time += this->buffer_time;
 
 		DWORD play_cursor, write_cursor;
-		ds_buffer->GetCurrentPosition(&play_cursor, &write_cursor);
-		uint32_t sample_count = buffer_size / 2;
+		this->ds_buffer->GetCurrentPosition(&play_cursor, &write_cursor);
+		uint32_t sample_count = this->buffer_size / 2;
 
-		elapsed_time += buffer_time;
+		this->elapsed_time += this->buffer_time;
 
-		if (field_0x68 != 0) {
-			PostMessageA(g_dsound_hwnd, 0x467, current_track_id, GetElapsedSeconds());
+		if (this->field_0x68 != 0) {
+			PostMessageA(g_dsound_hwnd, 0x467, this->current_track_id, this->GetElapsedSeconds());
 		}
 		
 		if (play_cursor < sample_count && use_buffer[1] != 0)
 		{
-			ReadPortion(samples);
+			this->ReadPortion(this->samples);
 			use_buffer[0] = 1;
 			use_buffer[1] = 0;
 
-			ds_buffer->GetCurrentPosition(&play_cursor, &write_cursor);
+			this->ds_buffer->GetCurrentPosition(&play_cursor, &write_cursor);
 			if (play_cursor < sample_count)
 			{
-				ds_buffer->Lock(sample_count, sample_count, &dbuf, &dbufsz, &dbuf2, &dbufsz2, 0);
-				memcpy(dbuf, samples, sample_count);
-				ds_buffer->Unlock(dbuf, dbufsz, dbuf2, dbufsz2);
+				this->ds_buffer->Lock(sample_count, sample_count, &dbuf, &dbufsz, &dbuf2, &dbufsz2, 0);
+				memcpy(dbuf, this->samples, sample_count);
+				this->ds_buffer->Unlock(dbuf, dbufsz, dbuf2, dbufsz2);
 
-				if (field_0x6c != 0) {
-					end_pos += sample_count;
+				if (this->field_0x6c != 0) {
+					this->end_pos += sample_count;
 				}
 			} else {
-				ds_buffer->Lock(0, sample_count, &dbuf, &dbufsz, &dbuf2, &dbufsz2, 0);
-				memcpy(dbuf, samples, sample_count);
-				ds_buffer->Unlock(dbuf, dbufsz, dbuf2, dbufsz2);
+				this->ds_buffer->Lock(0, sample_count, &dbuf, &dbufsz, &dbuf2, &dbufsz2, 0);
+				memcpy(dbuf, this->samples, sample_count);
+				this->ds_buffer->Unlock(dbuf, dbufsz, dbuf2, dbufsz2);
 			}
 		}
 
 		if (play_cursor >= sample_count && use_buffer[0] != 0)
 		{
-			ReadPortion(samples);
+			this->ReadPortion(this->samples);
 			use_buffer[0] = 0;
 			use_buffer[1] = 1;
 
-			ds_buffer->GetCurrentPosition(&play_cursor, &write_cursor);
+			this->ds_buffer->GetCurrentPosition(&play_cursor, &write_cursor);
 			if (play_cursor < sample_count)
 			{
-				ds_buffer->Lock(sample_count, sample_count, &dbuf, &dbufsz, &dbuf2, &dbufsz2, 0);
-				memcpy(dbuf, samples, sample_count);
-				ds_buffer->Unlock(dbuf, dbufsz, dbuf2, dbufsz2);
+				this->ds_buffer->Lock(sample_count, sample_count, &dbuf, &dbufsz, &dbuf2, &dbufsz2, 0);
+				memcpy(dbuf, this->samples, sample_count);
+				this->ds_buffer->Unlock(dbuf, dbufsz, dbuf2, dbufsz2);
 
-				if (field_0x6c != 0) {
-					end_pos += sample_count;
+				if (this->field_0x6c != 0) {
+					this->end_pos += sample_count;
 				}
 			} else {
-				ds_buffer->Lock(0, sample_count, &dbuf, &dbufsz, &dbuf2, &dbufsz2, 0);
-				memcpy(dbuf, samples, sample_count);
-				ds_buffer->Unlock(dbuf, dbufsz, dbuf2, dbufsz2);
+				this->ds_buffer->Lock(0, sample_count, &dbuf, &dbufsz, &dbuf2, &dbufsz2, 0);
+				memcpy(dbuf, this->samples, sample_count);
+				this->ds_buffer->Unlock(dbuf, dbufsz, dbuf2, dbufsz2);
 			}
 		}
 
-		field_0x6c = 0;
+		this->field_0x6c = 0;
 
-		if ((sample_count > play_cursor && sample_count > end_pos && play_cursor > end_pos) ||
-			(sample_count < play_cursor && sample_count < end_pos && play_cursor > end_pos))
+		if ((sample_count > play_cursor && sample_count > this->end_pos && play_cursor > this->end_pos) ||
+			(sample_count < play_cursor && sample_count < this->end_pos && play_cursor > this->end_pos))
 		{
-			if (play_mode == 0) {
-				current_track_id = (current_track_id + 1) % playlist.GetSize();
+			if (this->play_mode == 0) {
+				this->current_track_id = (this->current_track_id + 1) % this->playlist.GetSize();
 			}
-			elapsed_time = 0;
-			end_pos = buffer_size;
+			this->elapsed_time = 0;
+			this->end_pos = this->buffer_size;
 		}
 
-		if (fadeout_enabled != 0)
+		if (this->fadeout_enabled != 0)
 		{
 			LONG vol;
-			ds_buffer->GetVolume(&vol);
-			if (vol < fade_to_volume) {
-				OnEndTrack();
+			this->ds_buffer->GetVolume(&vol);
+			if (vol < this->fade_to_volume) {
+				this->OnEndTrack();
 			} else {
-				ds_buffer->SetVolume(ComputeVolumeFade(vol, buffer_time));
+				this->ds_buffer->SetVolume(this->ComputeVolumeFade(vol, this->buffer_time));
 			}
 		}
 	}
@@ -825,28 +825,28 @@ void MusicPlayer::MusicUpdaterProc()
 
 uint32_t MusicPlayer::GetElapsedSeconds()
 { //45cbe0
-	if (!ds_buffer || file_opened == 0) {
+	if (!this->ds_buffer || this->file_opened == 0) {
 		return 0;
 	}
-	return elapsed_time / 1000;
+	return this->elapsed_time / 1000;
 }
 
 int32_t MusicPlayer::ComputeVolumeFade(int32_t cur_volume, uint32_t tm)
 { //45a8cc
-	int32_t fade_val = fade_to_volume * tm / fade_length;
-	int32_t vol_diff = ( ((pow(fade_to_volume / 4.0 + cur_volume, 4.0) * 0.3) / 
-				          pow(fade_to_volume / 2.0, 4.0) + 0.9) *
-				(((fade_to_volume + fade_start_volume) / (float)fade_to_volume) * (float)fade_val));
+	int32_t fade_val = this->fade_to_volume * tm / this->fade_length;
+	int32_t vol_diff = ( ((pow(this->fade_to_volume / 4.0 + cur_volume, 4.0) * 0.3) / 
+				          pow(this->fade_to_volume / 2.0, 4.0) + 0.9) *
+				(((this->fade_to_volume + this->fade_start_volume) / (float)this->fade_to_volume) * (float)fade_val));
 	return cur_volume - vol_diff;
 }
 
 void MusicPlayer::ReadPortion(uint8_t* buf)
 { //45a707
-	int32_t buffer_space = buffer_size / 2;
+	int32_t buffer_space = this->buffer_size / 2;
 	while (true)
 	{
-		uint32_t fpos = file->GetPosition();
-		uint32_t remain = file->GetLength() - data_begin_pos;
+		uint32_t fpos = this->file->GetPosition();
+		uint32_t remain = this->file->GetLength() - this->data_begin_pos;
 
 		uint32_t rsz = buffer_space;
 
@@ -854,9 +854,9 @@ void MusicPlayer::ReadPortion(uint8_t* buf)
 			rsz = remain - fpos;
 		}
 
-		if (file->Read(buf + (buffer_size / 2) - buffer_space, rsz) == 0)
+		if (this->file->Read(buf + (this->buffer_size / 2) - buffer_space, rsz) == 0)
 		{
-			file_opened = 0;
+			this->file_opened = 0;
 			PostMessageA(g_dsound_hwnd, 0x486, 0, 0);
 			break;
 		}
@@ -866,61 +866,61 @@ void MusicPlayer::ReadPortion(uint8_t* buf)
 			break;
 		}
 
-		end_pos = (buffer_size / 2) - buffer_space;
-		field_0x6c = 1;
+		this->end_pos = (this->buffer_size / 2) - buffer_space;
+		this->field_0x6c = 1;
 
 		if (g_CurrentMusicTrack < 0)
 		{
-			if (play_mode == 0) {
-				OpenTrack((current_track_id + 1) % playlist.GetSize());
+			if (this->play_mode == 0) {
+				this->OpenTrack((this->current_track_id + 1) % this->playlist.GetSize());
 			} else {
-				OpenTrack(current_track_id);
+				this->OpenTrack(this->current_track_id);
 			}
 		} else {
-			OpenTrack(g_CurrentMusicTrack);
+			this->OpenTrack(g_CurrentMusicTrack);
 		}
 
-		if (update_disabled == 0) {
-			UnsetUpdateProc();
+		if (this->update_disabled == 0) {
+			this->UnsetUpdateProc();
 		}
-		SetUpdateProc();
+		this->SetUpdateProc();
 	}
 }
 
 void MusicPlayer::StartPlayTrack(int32_t track)
 { //45b6d0
-	current_track_id = track;
-	use_buffer[0] = 0;
-	use_buffer[1] = 1;
+	this->current_track_id = track;
+	this->use_buffer[0] = 0;
+	this->use_buffer[1] = 1;
 
-	OpenTrack(current_track_id);
-	ReadPortion(samples);
+	this->OpenTrack(this->current_track_id);
+	this->ReadPortion(this->samples);
 
 	void* dbuf, * dbuf2;
 	DWORD dbufsz, dbufsz2;
-	ds_buffer->Lock(0, buffer_size / 2, &dbuf, &dbufsz, &dbuf2, &dbufsz2, 0);
-	memcpy(dbuf, samples, buffer_size / 2);
-	ds_buffer->Unlock(dbuf, dbufsz, dbuf2, dbufsz2);
-	ds_buffer->SetCurrentPosition(0);
+	this->ds_buffer->Lock(0, this->buffer_size / 2, &dbuf, &dbufsz, &dbuf2, &dbufsz2, 0);
+	memcpy(dbuf, this->samples, this->buffer_size / 2);
+	this->ds_buffer->Unlock(dbuf, dbufsz, dbuf2, dbufsz2);
+	this->ds_buffer->SetCurrentPosition(0);
 
-	elapsed_time = 0;
-	end_pos = buffer_size;
+	this->elapsed_time = 0;
+	this->end_pos = this->buffer_size;
 }
 
 void MusicPlayer::SetRandom(int random)
 { //45b655
-	if (ds_buffer)
+	if (this->ds_buffer)
 	{
-		field_0x20 = random;
-		play_mode = 0;
+		this->field_0x20 = random;
+		this->play_mode = 0;
 	}
 }
 
 int32_t MusicPlayer::GetVolume()
 { //451750
 	LONG vol = 0;
-	if (ds_buffer) {
-		ds_buffer->GetVolume(&vol);
+	if (this->ds_buffer) {
+		this->ds_buffer->GetVolume(&vol);
 	}
 	return vol;
 }
@@ -928,37 +928,37 @@ int32_t MusicPlayer::GetVolume()
 int32_t MusicPlayer::GetBufPosition()
 { //45cba0
 	DWORD pos = 0, wpos;
-	if (ds_buffer) {
-		ds_buffer->GetCurrentPosition(&pos, &wpos);
+	if (this->ds_buffer) {
+		this->ds_buffer->GetCurrentPosition(&pos, &wpos);
 	}
 	return pos;
 }
 
 void MusicPlayer::BeginFadeOut(int32_t len, int32_t vol)
 { //45b408
-	if (ds_buffer && file_opened != 0)
+	if (this->ds_buffer && file_opened != 0)
 	{
-		fade_to_volume = vol;
+		this->fade_to_volume = vol;
 
 		LONG svol;
-		ds_buffer->GetVolume(&svol);
-		fade_start_volume = svol;
+		this->ds_buffer->GetVolume(&svol);
+		this->fade_start_volume = svol;
 
-		int32_t remain_bytes = (file->GetLength() - data_begin_pos) - file->GetPosition(); //Error because of remain!
-		uint32_t ms_remain = remain_bytes * 1000 / format.nAvgBytesPerSec; //remain to the end in milliseconds
+		int32_t remain_bytes = (this->file->GetLength() - this->data_begin_pos) - this->file->GetPosition(); //Error because of remain!
+		uint32_t ms_remain = remain_bytes * 1000 / this->format.nAvgBytesPerSec; //remain to the end in milliseconds
 
 		uint32_t ms_buffend = 0xffffffff;
-		if (end_pos != buffer_size)
+		if (this->end_pos != this->buffer_size)
 		{
-			int32_t bpos = GetBufPosition();
-			if (end_pos < bpos) {
-				ms_buffend = (buffer_size - bpos) + end_pos;
+			int32_t bpos = this->GetBufPosition();
+			if (this->end_pos < bpos) {
+				ms_buffend = (this->buffer_size - bpos) + this->end_pos;
 			} else {
-				ms_buffend = end_pos - bpos;
+				ms_buffend = this->end_pos - bpos;
 
 			//convert bytes count to milliseconds
 			}
-			ms_buffend = ms_buffend * 1000 / format.nAvgBytesPerSec;
+			ms_buffend = ms_buffend * 1000 / this->format.nAvgBytesPerSec;
 		}
 
 		uint32_t ms_tofade = ms_remain;
@@ -967,12 +967,12 @@ void MusicPlayer::BeginFadeOut(int32_t len, int32_t vol)
 		}
 
 		if (ms_tofade < ms_buffend) {
-			fade_length = ms_tofade;
+			this->fade_length = ms_tofade;
 		} else {
-			fade_length = ms_buffend;
+			this->fade_length = ms_buffend;
 		}
 
-		fadeout_enabled = 1;
+		this->fadeout_enabled = 1;
 	}
 }
 
@@ -985,110 +985,110 @@ void MusicPlayer::FUN_0045b681(int32_t track)
 
 void SfxBank::Load(CString name)
 { //4c880e
-	select_count = 0;
-	attack_count = 0;
-	move_count = 0;
-	swarm_count = 0;
+	this->select_count = 0;
+	this->attack_count = 0;
+	this->move_count = 0;
+	this->swarm_count = 0;
 
 	File2 f;
 	for (int i = 0; i < 4; i++)
 	{
 		CString fname;
 		fname.Format("sfx\\characters\\%s\\select\\%d.wav", name, i + 1);
-		select[i] = new SfxSample(fname);
+		this->select[i] = new SfxSample(fname);
 		if (f.Open(fname, CFile::modeRead))
 		{
 			f.Close();
-			select_count++;
+			this->select_count++;
 		}
 
 		fname.Format("sfx\\characters\\%s\\attack\\%d.wav", name, i + 1);
-		attack[i] = new SfxSample(fname);
+		this->attack[i] = new SfxSample(fname);
 		if (f.Open(fname, CFile::modeRead))
 		{
 			f.Close();
-			attack_count++;
+			this->attack_count++;
 		}
 
 		fname.Format("sfx\\characters\\%s\\move\\%d.wav", name, i + 1);
-		move[i] = new SfxSample(fname);
+		this->move[i] = new SfxSample(fname);
 		if (f.Open(fname, CFile::modeRead))
 		{
 			f.Close();
-			move_count++;
+			this->move_count++;
 		}
 
 		fname.Format("sfx\\characters\\%s\\swarm\\%d.wav", name, i + 1);
-		swarm[i] = new SfxSample(fname);
+		this->swarm[i] = new SfxSample(fname);
 		if (f.Open(fname, CFile::modeRead))
 		{
 			f.Close();
-			swarm_count++;
+			this->swarm_count++;
 		}
 	}
 
-	retreat = new SfxSample("sfx\\characters\\" + name + "\\retreat\\1.wav");
-	defend = new SfxSample("sfx\\characters\\" + name + "\\defend\\1.wav");
-	pickup = new SfxSample("sfx\\characters\\" + name + "\\pickup\\1.wav");
-	easy = new SfxSample("sfx\\characters\\" + name + "\\easy\\1.wav");
-	hard = new SfxSample("sfx\\characters\\" + name + "\\hard\\1.wav");
-	dead = new SfxSample("sfx\\characters\\" + name + "\\dead\\1.wav");
+	this->retreat = new SfxSample("sfx\\characters\\" + name + "\\retreat\\1.wav");
+	this->defend = new SfxSample("sfx\\characters\\" + name + "\\defend\\1.wav");
+	this->pickup = new SfxSample("sfx\\characters\\" + name + "\\pickup\\1.wav");
+	this->easy = new SfxSample("sfx\\characters\\" + name + "\\easy\\1.wav");
+	this->hard = new SfxSample("sfx\\characters\\" + name + "\\hard\\1.wav");
+	this->dead = new SfxSample("sfx\\characters\\" + name + "\\dead\\1.wav");
 }
 
 void SfxBank::Unload()
 { //4c926b
-	select_count = 0;
-	attack_count = 0;
-	move_count = 0;
-	swarm_count = 0;
+	this->select_count = 0;
+	this->attack_count = 0;
+	this->move_count = 0;
+	this->swarm_count = 0;
 
 	for (int i = 0; i < 4; i++)
 	{
-		if (select[i]) {
-			delete select[i];
+		if (this->select[i]) {
+			delete this->select[i];
 		}
-		select[i] = nullptr;
+		this->select[i] = nullptr;
 
-		if (attack[i]) {
-			delete attack[i];
+		if (this->attack[i]) {
+			delete this->attack[i];
 		}
-		attack[i] = nullptr;
+		this->attack[i] = nullptr;
 
-		if (move[i]) {
-			delete move[i];
+		if (this->move[i]) {
+			delete this->move[i];
 		}
-		move[i] = nullptr;
+		this->move[i] = nullptr;
 
-		if (swarm[i]) {
-			delete swarm[i];
+		if (this->swarm[i]) {
+			delete this->swarm[i];
 		}
-		swarm[i] = nullptr;
+		this->swarm[i] = nullptr;
 	}
 
-	if (retreat) {
-		delete retreat;
+	if (this->retreat) {
+		delete this->retreat;
 	}
-	retreat = nullptr;
-	if (defend) {
-		delete defend;
+	this->retreat = nullptr;
+	if (this->defend) {
+		delete this->defend;
 	}
-	defend = nullptr;
-	if (pickup) {
-		delete pickup;
+	this->defend = nullptr;
+	if (this->pickup) {
+		delete this->pickup;
 	}
-	pickup = nullptr;
-	if (easy) {
-		delete easy;
+	this->pickup = nullptr;
+	if (this->easy) {
+		delete this->easy;
 	}
-	easy = nullptr;
-	if (hard) {
-		delete hard;
+	this->easy = nullptr;
+	if (this->hard) {
+		delete this->hard;
 	}
-	hard = nullptr;
-	if (dead) {
-		delete dead;
+	this->hard = nullptr;
+	if (this->dead) {
+		delete this->dead;
 	}
-	dead = nullptr;
+	this->dead = nullptr;
 }
 
 

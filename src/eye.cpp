@@ -51,6 +51,6 @@ UnitEye2::UnitEye2() {
 // 5A4F30
 UnitEye2::~UnitEye2()
 {
-    delete positions_list;
-    positions_list = nullptr;
+    delete this->positions_list;
+    this->positions_list = nullptr;
 }

@@ -35,28 +35,28 @@ struct PosYX
 
 	inline void Set(uint8_t _x, uint8_t _y)
 	{
-		x = _x;
-		y = _y;
+		this->x = _x;
+		this->y = _y;
 	}
 
 	inline void Set(uint16_t _val)
 	{
-		val = _val;
+		this->val = _val;
 	}
 
-	inline PosYX() { val = 0; }
-	inline PosYX(uint16_t _val) { val = _val; }
+	inline PosYX() { this->val = 0; }
+	inline PosYX(uint16_t _val) { this->val = _val; }
 	inline PosYX(uint8_t _x, uint8_t _y)
 	{
-		x = _x;
-		y = _y;
+		this->x = _x;
+		this->y = _y;
 	}
 
-	inline bool operator==(const PosYX b) const { return val == b.val; }
-	inline bool operator!=(const PosYX b) const { return val != b.val; }
+	inline bool operator==(const PosYX b) const { return this->val == b.val; }
+	inline bool operator!=(const PosYX b) const { return this->val != b.val; }
 
-	inline void operator=(uint16_t _val) { val = _val; }
-	inline operator uint16_t() { return val; }
+	inline void operator=(uint16_t _val) { this->val = _val; }
+	inline operator uint16_t() { return this->val; }
 };
 
 struct TokenPos
