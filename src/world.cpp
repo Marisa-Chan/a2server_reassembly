@@ -2751,7 +2751,7 @@ void World::StepTowardUnit(Unit* unit, Unit* target) {
 // 5AAF84
 void World::TurnToFacing(Unit* unit, uint8_t facing) {
     uint8_t old_facing = unit->eye->field0_0x0;
-    this->field24_0xa50->sub_590F94(unit, facing);
+    this->field24_0xa50->SetFacing(unit, facing);
     if (unit->eye->field0_0x0 != old_facing) {
         unit->some_state = 1;
     }
@@ -2992,7 +2992,7 @@ void World::OrderTeleportHome(Unit* unit) {
 // 5AA426 — turn unit to face `facing`; if already facing, clear cast action.
 void World::DoTurnTo(Unit* unit, uint8_t facing) {
     if (unit->eye->field0_0x0 != facing) {
-        this->field24_0xa50->sub_590F94(unit, facing);
+        this->field24_0xa50->SetFacing(unit, facing);
         unit->some_state = 1;
     } else {
         unit->eye2->cast_action = 0;
@@ -3171,7 +3171,7 @@ void World::sub_5AA485(Unit* unit) {
         unit->eye2->field44_0x54 = 0;
     }
 
-    this->field24_0xa50->sub_590F94(unit, unit->eye->field1_0x1);
+    this->field24_0xa50->SetFacing(unit, unit->eye->field1_0x1);
     unit->some_state = 1;
 }
 

@@ -595,7 +595,7 @@ void MapStuff::sub_5907BE(Unit* unit) {
         unit->eye->field156_0xac = 0;
         this->sub_58FB12(unit);
     } else {
-        this->sub_590F94(unit, unit->eye->field1_0x1);
+        this->SetFacing(unit, unit->eye->field1_0x1);
     }
 }
 
@@ -621,7 +621,7 @@ void MapStuff::StepRotateToTarget(Unit* unit) {
 }
 
 // 590F94
-void MapStuff::sub_590F94(Unit* unit, uint8_t facing) {
+void MapStuff::SetFacing(Unit* unit, uint8_t facing) {
     unit->eye->field1_0x1 = facing;
 
     uint8_t diff = abs(unit->eye->field0_0x0 - unit->eye->field1_0x1);
@@ -1729,13 +1729,13 @@ int MapStuff::CanPlaceUnit(Unit* unit) {
 // 5918B8
 void MapStuff::sub_5918B8(Unit* unit, Unit* target) {
     uint8_t facing = this->GetFacingTo(unit, target);
-    this->sub_590F94(unit, facing);
+    this->SetFacing(unit, facing);
 }
 
 // 5918E2
 void MapStuff::sub_5918E2(Unit* unit, PosYX yx) {
     uint8_t facing = this->GetFacingFor(unit, yx);
-    this->sub_590F94(unit, facing);
+    this->SetFacing(unit, facing);
 }
 
 // 593AA4
