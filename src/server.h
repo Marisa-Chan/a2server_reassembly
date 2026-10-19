@@ -158,7 +158,7 @@ public:
     void ProcessPlayers();
     void AnnounceHatGameStart(); // 4f465e
     void ScanSavedCharacters(); // 4f9e55
-    void sub_4FA5C4();
+    void SendArenaResults();
     void sub_4FA78E(int arg);
     void sub_4F8831();
     void sub_4F0ECF();

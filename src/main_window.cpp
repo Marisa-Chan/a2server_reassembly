@@ -1926,7 +1926,7 @@ void MainWindow::sub_48A756() {
                             }
                             
                             if (g_ServerConfig.gameType == 3) {
-                                g_Server->sub_4FA5C4();
+                                g_Server->SendArenaResults();
                             }
                             
                             g_Server->FUN_004f94c0(0);

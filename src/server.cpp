@@ -5510,7 +5510,7 @@ void Server::sub_4FA551(Player* player) {
 // 4FA78E
 void Server::sub_4FA78E(int32_t arg) {
     g_NetStru1_main.FUN_0051cefb(0x5c, g_ServerConfig.frag_limit, arg, nullptr);
-    this->sub_4FA5C4();
+    this->SendArenaResults();
     this->tick = 0;
     this->sub_4FA01F();
     for (POSITION pos = g_PlayersList->list.GetHeadPosition(); pos != nullptr;) {
@@ -6163,7 +6163,7 @@ void Server::sub_5096E4() {
 }
 
 // 4FA5C4
-void Server::sub_4FA5C4() {
+void Server::SendArenaResults() {
     LogMessage("Sending arena results to hat");
     CTime now = CTime::GetTickCount();
     struct tm* t = now.GetLocalTm(nullptr);
