@@ -327,7 +327,7 @@ public:
     ~TransientVisualEffectBuilder(); // 4cb190
 
     int32_t BuildRisingParticles(CArray<GO_11c>* existing, int16_t x_radius, int16_t y_radius, int16_t z_radius, uint16_t visual_id); // 4cc22d
-    int32_t FUN_004CC3FD(CArray<GO_11c>* existing, int16_t x_radius, int16_t y_radius, int16_t z_radius, uint16_t visual_id); // 4cc3fd
+    int32_t BuildFallingParticles(CArray<GO_11c>* existing, int16_t x_radius, int16_t y_radius, int16_t z_radius, uint16_t visual_id); // 4cc3fd
     void FUN_004CC944(int16_t height, float speed, float radius, uint32_t phase); // 4cc944
     void FUN_004CCAF2(int16_t height, float radius, uint32_t phase); // 4ccaf2
     void FUN_004CCC7B(int16_t height, float radius, uint32_t phase); // 4ccc7b
