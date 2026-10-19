@@ -6441,7 +6441,7 @@ void Server::SerializeGame(CArchive& ar) {
             dword_6CDB3C->CallMethod5();
             this->srv_stru1->units_list->CallMethod5();
             MapStuff_Instance->sub_594125();
-            g_World->sub_5B2E7A();
+            g_World->RelinkPointers();
             this->srv_stru1->effects_list->FixupPointers();
         } else {
             POSITION player_it = g_PlayersList->list.GetHeadPosition();

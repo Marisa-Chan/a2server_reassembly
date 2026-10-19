@@ -3068,7 +3068,7 @@ void World::sub_5AFBFD() {
 }
 
 // 5B2E7A
-void World::sub_5B2E7A() {
+void World::RelinkPointers() {
     this->diplomacy.world = this;
 }
 

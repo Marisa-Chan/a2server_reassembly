@@ -123,7 +123,7 @@ public:
     void sub_5A4284(); // 5A4284
     void ResetMatchState(); // 5A4757
     void sub_5B0556(CArchive& ar); // Serialize
-    void sub_5B2E7A(); // Post-load world relink helper
+    void RelinkPointers(); // Post-load world relink helper
 
     void sub_5AFBFD(); // increments field65_0xc780
     void ProcessTick(class PlayersList* players);
