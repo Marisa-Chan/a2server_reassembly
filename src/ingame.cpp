@@ -1856,7 +1856,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			mp->name[31] = 0;
 
 			if (this->field_0x9b8.GetSize() == 1) {
-				wnd->m_GameSession.field_0x10c = (packet_join->flags & 2) != 0;
+				wnd->m_GameSession.phased_in = (packet_join->flags & 2) != 0;
 				this->my_main_unit = mp;
 				this->my_main_unit->diplomacy.SetAtGrow(0, 0);
 				this->my_main_unit->diplomacy.SetAtGrow(mp->index, 0x3a);

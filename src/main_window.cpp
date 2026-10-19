@@ -767,7 +767,7 @@ void MainWindow::WaitConnectionCharacterJoin() {
         this->ModalScreen(mbox);
         this->PostMessage(0x10, 0, 0);
     } else {
-        if (this->m_GameSession.field_0x10c == 0) {
+        if (this->m_GameSession.phased_in == 0) {
             VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x1ac, 0x252, TxtFile::AllLines[0xD2], nullptr, 4);
             this->ModalScreen(mbox);
             if (mbox->GetCloseCode() != 0x447) {
@@ -2889,7 +2889,7 @@ void MainWindow::FUN_004903d0() { // 4903d0
         g_CLlDriver.Close();
         PostMessage(0x41d, 0, 0);
     } else {
-        if (this->m_GameSession.field_0x10c == 0) {
+        if (this->m_GameSession.phased_in == 0) {
             VisMessageBoxWithList* mwnd = new VisMessageBoxWithList(1, 64, 100, 428, 594, TxtFile::AllLines[210], nullptr, 4);
             this->ModalScreen(mwnd);
 
