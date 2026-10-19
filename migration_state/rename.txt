@@ -684,3 +684,4 @@ Effect::VMethod11 -> RemoveFromUnit -- removes the effect from the unit on unequ
 Effect::VMethod12 -> ApplyToUnit -- applies the effect's actual value (poison damage, stat mods) to the unit
 Effect::VMethod13 -> ModifyVision -- light/darkness scan-range changes
 Effect::VMethod14 -> ApplyStatDelta -- adds param*strength to the stat selected by effect_id (tracks equipment_extra)
+Effect::VMethod15 -> CalcScrollPrice -- scroll price of the castspell effect
