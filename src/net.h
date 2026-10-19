@@ -46,7 +46,7 @@ union HatCharId {
 
 struct PackerTail {
     PackerTail* child0;
-    PackerTail* field_0x4;
+    PackerTail* child1;
     int32_t field_0x8;
     int32_t field_0xc;
     int32_t field_0x10;

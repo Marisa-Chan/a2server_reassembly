@@ -51,8 +51,8 @@ void PackerDat::DeleteTail(PackerTail* node) {
         if (node->child0) {
             this->DeleteTail(node->child0);
         }
-        if (node->field_0x4) {
-            this->DeleteTail(node->field_0x4);
+        if (node->child1) {
+            this->DeleteTail(node->child1);
         }
 
         delete node;
