@@ -685,3 +685,4 @@ Effect::VMethod12 -> ApplyToUnit -- applies the effect's actual value (poison da
 Effect::VMethod13 -> ModifyVision -- light/darkness scan-range changes
 Effect::VMethod14 -> ApplyStatDelta -- adds param*strength to the stat selected by effect_id (tracks equipment_extra)
 Effect::VMethod15 -> CalcScrollPrice -- scroll price of the castspell effect
+Effect::VMethod16 -> CalcChargePercent -- charge/quality percent vs the book cost
