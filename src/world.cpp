@@ -2969,7 +2969,7 @@ void World::sub_5A9501(Unit* unit, Unit* target, uint8_t range) {
 }
 
 // 5A9580 — order `unit` to move to (x, y) using path-list.
-void World::sub_5A9580(Unit* unit, uint8_t x, uint8_t y) {
+void World::OrderPatrolTo(Unit* unit, uint8_t x, uint8_t y) {
     this->BeginUnitOrder(unit);
     unit->state = 10;
     unit->eye2->position1 = unit->position->CompatGetYX();
@@ -4447,7 +4447,7 @@ void World::sub_5ACBEF(Group* group, uint8_t x, uint8_t y) {
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
-        this->sub_5A9580(unit, x, y);
+        this->OrderPatrolTo(unit, x, y);
     }
 }
 

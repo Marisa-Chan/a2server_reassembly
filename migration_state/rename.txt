@@ -426,3 +426,4 @@ World::sub_5A9087 -> OrderEngageTarget -- sets state 3 (pursue/attack target) us
 World::sub_5A9482 -> OrderAttackTarget -- sets state 8 (attack target with range) used by the group attack order
 World::sub_5A930F -> OrderAreaCast -- sets state 0x0E: cast spell at x/y
 World::sub_5A92AF -> OrderCastAtUnit -- sets state 0x0D: cast spell at target unit
+World::sub_5A90F4 -> OrderEnterBuilding -- sets state 0x0F with the target building
