@@ -1385,7 +1385,7 @@ void CUnit::CopyFromUnit(const Unit& uni) { //46b0d7
     this->serverId = uni.server_id;
     this->carrying_weight_100g = uni.carrying_weight_100g;
 
-    if (((Unit&)uni).VMethod8() == 0) { //FIXME when this method become const
+    if (((Unit&)uni).IsHumanoid() == 0) { //FIXME when this method become const
         this->skill_levels[0] = uni.protections.weapon_protections[1];
         this->skill_levels[1] = uni.protections.weapon_protections[2];
         this->skill_levels[2] = uni.protections.weapon_protections[3];

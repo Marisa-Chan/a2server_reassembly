@@ -719,7 +719,7 @@ void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t par
     pkt->flags_mask = 0;
     pkt->data_offset = 0;
 
-    int is_humanoid = unit->VMethod8();
+    int is_humanoid = unit->IsHumanoid();
 
     if (is_humanoid == 0) {
         if (unit->building_id < 0x6000) {
@@ -4498,7 +4498,7 @@ void NetStru1::sub_51A6D5(Unit* unit, Player* player, int32_t param5, int32_t pa
 
 // 51A0EF
 void NetStru1::sub_51A0EF(Unit* unit, Player* player, int32_t flags) {
-    if (!unit->VMethod8()) {
+    if (!unit->IsHumanoid()) {
         return;
     }
 
@@ -4573,7 +4573,7 @@ void NetStru1::sub_51A0EF(Unit* unit, Player* player, int32_t flags) {
         }
         packet.entry_count++;
     }
-    if (unit->VMethod8()) {
+    if (unit->IsHumanoid()) {
         Humanoid* h = static_cast<Humanoid*>(unit);
         for (int32_t slot = 3; slot <= 12; slot++) {
             if (flags & (1 << (slot - 1))) {

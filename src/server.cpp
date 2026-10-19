@@ -3314,7 +3314,7 @@ void Server::sub_504a96(Packet* pkt) {
                 } else if (slot == 2) {
                     item = human->Unequip(human->shield);
                 } else if (slot >= 3 && slot <= 12) {
-                    if (human->VMethod8() == 0) {
+                    if (human->IsHumanoid() == 0) {
                         LogMessage("Error - Trying to takeoff armor from non humanoid ");
                     } else {
                         item = human->Unequip(human->equipment[slot]);

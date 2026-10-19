@@ -156,7 +156,7 @@ void __cdecl sub_53685B(Unit* self, Unit* target) {
     }
 
     // Melee humanoid fighters cannot hit flying targets.
-    if (self->VMethod8() && (self->unit_attrs & 4) == 0 && self->hit_values.physical_damage_type != 5 && target->movement_type == 3) {
+    if (self->IsHumanoid() && (self->unit_attrs & 4) == 0 && self->hit_values.physical_damage_type != 5 && target->movement_type == 3) {
         return;
     }
 
@@ -432,7 +432,7 @@ void Unit::Serialize(CArchive& ar) {
         this->server_id = (uint16_t)(packed & 0xFFFF);
         this->ownership_changed = (packed & 0xFF0000) != 0 ? 1 : 0;
         this->summoned = (packed & 0xFF000000) != 0 ? 1 : 0;
-        if (!this->VMethod8()) {
+        if (!this->IsHumanoid()) {
             this->monster_info = &g_GameDataRes.monsters[this->itemDataID];
         } else {
             this->monster_info = nullptr;
@@ -854,7 +854,7 @@ void Unit::ProcessEffects() {
 
                     this->some_state2 = 7;
                     int32_t relax_extra = 0;
-                    if (this->weapon && this->VMethod8()) {
+                    if (this->weapon && this->IsHumanoid()) {
                         relax_extra = (this->weapon->weight + (30 - (int)this->reaction) * 5) / 12;
                         if (relax_extra < 0) {
                             relax_extra = 0;
@@ -942,7 +942,7 @@ int32_t Unit::IsUnit() {
     return 1;
 }
 
-int32_t Unit::VMethod8() {
+int32_t Unit::IsHumanoid() {
     return 0;
 }
 
@@ -1032,14 +1032,14 @@ uint32_t Unit::VMethod17(UnitToHit* unit_to_hit, Unit* attacker) {
     int32_t dmg_spread = unit_to_hit->hand_damage_spread;
 
     // If top bit of `hand_damage_min` is set and target is not a humanoid -> damage x15??
-    if ((dmg_min & 0x80) && attacker->VMethod8() == 0) {
+    if ((dmg_min & 0x80) && attacker->IsHumanoid() == 0) {
         dmg_min = (dmg_min & 0x7F) * 15;
         dmg_spread = dmg_spread * 15;
     }
 
     // Target has bless AND is a humanoid -> damage x4??
     if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
-        if ((attacker->enchantments & (1u << 0x14)) && attacker->VMethod8() != 0) {
+        if ((attacker->enchantments & (1u << 0x14)) && attacker->IsHumanoid() != 0) {
             dmg_min *= 4;
             dmg_spread *= 4;
         }
@@ -2276,7 +2276,7 @@ int32_t Humanoid::IsUnit() {
     return 1;
 }
 
-int32_t Humanoid::VMethod8() {
+int32_t Humanoid::IsHumanoid() {
     //57bb60
     return 1;
 }
@@ -2338,7 +2338,7 @@ void Humanoid::VMethod16(Unit* unit) {
     if (g_Server->field4_0x74 == 0) {
         return;
     }
-    if (unit->VMethod8() != 0) {
+    if (unit->IsHumanoid() != 0) {
         return;
     }
     if (this->hp < 0) {

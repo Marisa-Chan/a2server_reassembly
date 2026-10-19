@@ -3291,7 +3291,7 @@ void World::sub_5AC983(Group* group, int param) {
 
 // 5AF6F5 — initialize combat withdrawal thresholds for a unit.
 void World::sub_5AF6F5(Unit* unit) {
-    if (unit->VMethod8() == 0) {
+    if (unit->IsHumanoid() == 0) {
         return;
     }
 

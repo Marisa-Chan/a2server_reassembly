@@ -74,7 +74,7 @@ public: // VTable at 60efc0.
     virtual int32_t GetMovementType() override; // MovementType
     virtual void FixupPointers() override;
     virtual int32_t IsUnit() override; // IsUnit
-    virtual int32_t VMethod8() override; // IsHumanoid
+    virtual int32_t IsHumanoid() override; // IsHumanoid
     virtual void VMethod10();
     virtual void VMethod11(Unit *);
     virtual Item* VMethod12(Item *);
@@ -252,7 +252,7 @@ public:
     virtual void FixupPointers() override;
     //virtual int32_t VMethod6() override;
     virtual int32_t IsUnit() override;
-    virtual int32_t VMethod8() override;
+    virtual int32_t IsHumanoid() override;
     //virtual int32_t VMethod9() override;
     virtual void VMethod10() override;
     //virtual void VMethod11(Unit*) override;

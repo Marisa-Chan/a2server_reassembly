@@ -50,7 +50,7 @@ void Outpost::FillUnits(Group* group) {
     while (it != nullptr) {
         Unit* unit = group->unit_list.GetNext(it);
         this->units_original.AddTail(unit);
-        if (unit->VMethod8()) { // IsHumanoid
+        if (unit->IsHumanoid()) { // IsHumanoid
             Human* human = new Human();
             human->sub_530231((Humanoid*)unit);
             this->units_copy.AddTail(human);
@@ -156,7 +156,7 @@ void Outpost::sub_543EC3(Group* group) {
             server_units.RemoveAt(found);
         }
 
-        if (unit_copy->VMethod8()) {
+        if (unit_copy->IsHumanoid()) {
             ((Humanoid*)unit_original)->sub_530231((Humanoid*)unit_copy);
         } else {
             unit_original->VMethod11(unit_copy);

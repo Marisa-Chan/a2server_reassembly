@@ -791,7 +791,7 @@ Item* Armor::VMethod10(Unit* unit) {
         LogMessage(CString("Illegal armor"));
         return this;
     }
-    if (unit->VMethod8() == 0) {
+    if (unit->IsHumanoid() == 0) {
         return this;
     }
     Humanoid* humanoid = static_cast<Humanoid*>(unit);
@@ -811,7 +811,7 @@ Item* Armor::VMethod10(Unit* unit) {
 
 // 54FB7E
 void Armor::VMethod11(Unit* unit) {
-    if (unit->VMethod8() == 0) {
+    if (unit->IsHumanoid() == 0) {
         return;
     }
     Humanoid* humanoid = static_cast<Humanoid*>(unit);
@@ -1236,7 +1236,7 @@ Item* Weapon::VMethod10(Unit* unit) {
         unit->hit_values.physical_damage_type = 0;
     }
     unit->VMethod18();
-    if (unit->VMethod8() != 0) {
+    if (unit->IsHumanoid() != 0) {
         if (this->world_equip->Values()[0].relax != -1) {
             unit->charge = (uint8_t)this->world_equip->Values()[0].relax;
         }

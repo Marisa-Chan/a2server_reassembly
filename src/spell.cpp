@@ -576,7 +576,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 if (dword_6B37C4 != nullptr) {
                     for (POSITION p = dword_6B37C4->unit_list.GetHeadPosition(); p != nullptr; ) {
                         Unit* u = dword_6B37C4->unit_list.GetNext(p);
-                        if (u->decay < 5 || u->VMethod8() != 0) {
+                        if (u->decay < 5 || u->IsHumanoid() != 0) {
                             continue;
                         }
                         POSITION rm = g_Server->srv_stru1->units_list->unit_list.Find(u);
@@ -683,7 +683,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 if (dword_6B37C4 != nullptr) {
                     for (POSITION p = dword_6B37C4->unit_list.GetHeadPosition(); p != nullptr; ) {
                         Unit* u = dword_6B37C4->unit_list.GetNext(p);
-                        if (u->decay < 5 || u->VMethod8() != 0) {
+                        if (u->decay < 5 || u->IsHumanoid() != 0) {
                             continue;
                         }
                         POSITION rm = g_Server->srv_stru1->units_list->unit_list.Find(u);

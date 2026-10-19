@@ -250,7 +250,7 @@ int32_t Token::IsUnit() {
 	return 0;
 }
 
-int32_t Token::VMethod8() {
+int32_t Token::IsHumanoid() {
 	// 57b2e0
 	return 0;
 }

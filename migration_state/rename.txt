@@ -274,3 +274,4 @@ Token::VMethod4 -> GetMovementType -- movement_type field (0 ground, >1 flying e
 Token::VMethod5 -> FixupPointers -- post-deserialize pointer fixup: remaps pInstance (Token) and cast_target/some_spell/spell/some_item (Unit) via the id->object map
 Token::VMethod6 -> IsItem -- kind check: 1 for Item, 0 for Token/Unit/Building
 Token::VMethod7 -> IsUnit -- kind check: 1 for Unit/Humanoid
+Token::VMethod8 -> IsHumanoid -- kind check: 1 for Humanoid

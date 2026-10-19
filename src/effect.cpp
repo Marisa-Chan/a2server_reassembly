@@ -31,12 +31,12 @@ void Effect::VMethod12(Unit* unit) {
             g_NetStru1_main.sub_51C601(unit, 0);
         }
     } else if (this->itemDataID == spell::light) {
-        if (unit->VMethod8() == 0) {
+        if (unit->IsHumanoid() == 0) {
             unit->scan_range -= this->spell_or_damage * 256;
             unit->item_op_dirty_flags |= 0x40000;
         }
     } else if (this->itemDataID == spell::darkness) {
-        if (unit->VMethod8() != 0) {
+        if (unit->IsHumanoid() != 0) {
             unit->equipment_extra.scan_range += this->spell_or_damage * 256;
             unit->scan_range += this->spell_or_damage * 256;
             unit->item_op_dirty_flags |= 0x40000;
@@ -338,7 +338,7 @@ void Effect::VMethod14(Unit* unit, int32_t param_3) {
             unit->item_op_dirty_flags |= 0x20000;
             break;
         case modifier::defence:
-            if (unit->VMethod8()) {
+            if (unit->IsHumanoid()) {
                 unit->equipment_extra.protections.defense += value;
             } else {
                 unit->protections.defense += value;
@@ -349,7 +349,7 @@ void Effect::VMethod14(Unit* unit, int32_t param_3) {
             unit->item_op_dirty_flags |= 0x4000;
             break;
         case modifier::absorbtion:
-            if (unit->VMethod8()) {
+            if (unit->IsHumanoid()) {
                 unit->equipment_extra.protections.absorption += value;
                 if (unit->equipment_extra.protections.absorption < 0) {
                     unit->equipment_extra.protections.absorption = 0;
@@ -360,7 +360,7 @@ void Effect::VMethod14(Unit* unit, int32_t param_3) {
             unit->item_op_dirty_flags |= 0x8000;
             break;
         case modifier::speed:
-            if (unit->VMethod8()) {
+            if (unit->IsHumanoid()) {
                 unit->equipment_extra.speed += value;
             } else {
                 unit->speed += value;
@@ -371,7 +371,7 @@ void Effect::VMethod14(Unit* unit, int32_t param_3) {
             unit->eye->rotation_speed += value;
             break;
         case modifier::scanrange:
-            if (unit->VMethod8()) {
+            if (unit->IsHumanoid()) {
                 unit->equipment_extra.scan_range += value << 8;
             } else {
                 unit->scan_range += value << 8;
@@ -547,12 +547,12 @@ void Effect::VMethod14(Unit* unit, int32_t param_3) {
 // 53f92c
 void Effect::VMethod13(Unit* unit) {
     if (this->itemDataID == spell::light) {
-        if (unit->VMethod8() == 0) {
+        if (unit->IsHumanoid() == 0) {
             unit->scan_range += this->spell_or_damage * 256;
             unit->item_op_dirty_flags |= 0x40000;
         }
     } else if (this->itemDataID == spell::darkness) {
-        if (unit->VMethod8() != 0) {
+        if (unit->IsHumanoid() != 0) {
             unit->equipment_extra.scan_range -= this->spell_or_damage * 256;
             unit->scan_range -= this->spell_or_damage * 256;
             unit->item_op_dirty_flags |= 0x40000;
