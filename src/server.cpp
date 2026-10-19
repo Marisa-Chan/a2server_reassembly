@@ -1570,7 +1570,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4) {
 
     // Arena mode: run the arena entry handler for this player.
     if (g_ServerConfig.gameType == 3) {
-        this->sub_4FA551(player);
+        this->HandleArenaPlayer(player);
     }
 
     // Broadcast a PacketJoin for the new player to all existing players.
@@ -5500,7 +5500,7 @@ void Server::sub_5088DF(Packet* pkt) {
 }
 
 // 4FA551
-void Server::sub_4FA551(Player* player) {
+void Server::HandleArenaPlayer(Player* player) {
     for (int32_t i = 0; i < this->field67_0x228.GetSize(); i++) {
         g_NetStru1_main.sub_51CDFB(this->field67_0x228[i], this->field68_0x23c[i], '[', player);
     }
