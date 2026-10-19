@@ -305,7 +305,7 @@ public:
     int RestoreCellState(PosYX yx); //58b4a6
     void ClearBlockerAt(Unit* unit, PosYX yx); //596d3e
     void SnapshotCellState(PosYX yx); //58b3e0
-    void FUN_00596e0e(Unit* unit, PosYX yx); //596e0e
+    void SetBlockerAt(Unit* unit, PosYX yx); //596e0e
     void FUN_005969c6(Unit* unit, PosYX yx, uint8_t t); //5969c6
     int sub_58B27F(Unit* unit, uint8_t x, uint8_t y); // Clear unit occupancy from cell (x,y), refresh state, cache eye position — 58B27F
 

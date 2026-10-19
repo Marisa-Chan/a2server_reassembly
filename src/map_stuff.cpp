@@ -1049,7 +1049,7 @@ void MapStuff::SnapshotCellState(PosYX yx) { //58b3e0
     }
 }
 
-void MapStuff::FUN_00596e0e(Unit* unit, PosYX yx) { //596e0e
+void MapStuff::SetBlockerAt(Unit* unit, PosYX yx) { //596e0e
     if (this->ObstacleAt(yx).TestBits(0x20) == 0 || !this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
         this->SnapshotCellState(yx);
 
@@ -1118,11 +1118,11 @@ void MapStuff::FUN_005969c6(Unit* unit, PosYX yx, uint8_t t) { //5969c6
                 break;
 
             case 2:
-                this->FUN_00596e0e(unit, PosYX(dx + j, dy + i));
+                this->SetBlockerAt(unit, PosYX(dx + j, dy + i));
                 break;
 
             case 3:
-                this->FUN_00596e0e(unit, PosYX(dx + j, dy + i));
+                this->SetBlockerAt(unit, PosYX(dx + j, dy + i));
                 break;
             }
         }
