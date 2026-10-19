@@ -163,7 +163,7 @@ public:
     void SendServerState(Player* player);  // Send server state to player
     void SendKillStats(uint16_t player_id, Player* player);  // Send kill stats (pass 0,nullptr for all)
     void BroadcastUnitState(Unit* unit); // Broadcast unit to all players
-    void sub_51CF5C(Unit* unit, int flag, Player* player); // Send unit visibility packet (retn 0Ch)
+    void SendUnitVisibility(Unit* unit, int flag, Player* player); // Send unit visibility packet (retn 0Ch)
     void sub_51BE8F(AreaEffect* obj, int flag); // Send area-effect packet
     void sub_51BE0E(Effect* effect, uint8_t type); // Broadcast move-cmd packet for an effect token
     void sub_51D4F6(QuestMap* quest_map, Player* player, int flag); // Send SrvStru1 state list from packet

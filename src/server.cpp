@@ -1731,7 +1731,7 @@ void Server::SendWorldState(Player* player, int32_t bool_arg4) {
     g_NetStru1_main.SendPendingUnits(player);          // send units from dword_6CDB3C
     g_NetStru1_main.SendServerState(player);          // send server state
     g_NetStru1_main.SendKillStats(0, player);       // send kill stats
-    g_NetStru1_main.sub_51CF5C(player->main_unit, 0, nullptr); // hero visibility packet
+    g_NetStru1_main.SendUnitVisibility(player->main_unit, 0, nullptr); // hero visibility packet
 
     // Send any active area effects to the player.
     if (this->srv_stru1->effects_list != nullptr) {

@@ -1258,7 +1258,7 @@ int32_t Unit::ReturnToMap() {
     this->unit_attrs &= ~0x08;
     g_NetStru1_main.BroadcastUnitState(this);
     g_NetStru1_main.SendUnitUpdate(this, nullptr, 0x10, 0xFFB, 0, 0);
-    g_NetStru1_main.sub_51CF5C(this, 0, nullptr);
+    g_NetStru1_main.SendUnitVisibility(this, 0, nullptr);
     return 1;
 }
 
@@ -1829,8 +1829,8 @@ void Unit::RemoveFromMap() {
     if (pos != nullptr) {
         dword_6CDB3C->unit_list.RemoveAt(pos);
     }
-    g_NetStru1_main.sub_51CF5C(this, 1, nullptr);
-    g_NetStru1_main.sub_51CF5C(this, 0, this->pOwner);
+    g_NetStru1_main.SendUnitVisibility(this, 1, nullptr);
+    g_NetStru1_main.SendUnitVisibility(this, 0, this->pOwner);
 }
 
 // 52C36D
@@ -1843,7 +1843,7 @@ void Unit::AddToMap(uint8_t x, uint8_t y, uint8_t flags) {
     dword_6CDB3C->AddTail(this);
     this->unit_attrs &= ~8;
     g_NetStru1_main.SendUnitUpdate(this, nullptr, 0x10, 0xFFB, 0, 0);
-    g_NetStru1_main.sub_51CF5C(this, 0, nullptr);
+    g_NetStru1_main.SendUnitVisibility(this, 0, nullptr);
 }
 
 // 52BF3D

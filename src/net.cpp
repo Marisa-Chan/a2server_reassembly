@@ -446,7 +446,7 @@ void NetStru1::SendVisibilityState(Player* player) {
 }
 
 // 51CF5C
-void NetStru1::sub_51CF5C(Unit* unit, int32_t flag, Player* player) {
+void NetStru1::SendUnitVisibility(Unit* unit, int32_t flag, Player* player) {
     PacketWord& packet = PacketWord::Inst;
     packet.id = flag ? 0x74 : 0x69;
     packet.value = unit->building_id;
@@ -981,7 +981,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
     }
 
     if ((needs_refresh && (unit->unit_attrs & 8) != 0) || (mask & 0x40000000) != 0) {
-        g_NetStru1_main.sub_51CF5C(unit, (unit->unit_attrs & 8) ? 1 : 0, player);
+        g_NetStru1_main.SendUnitVisibility(unit, (unit->unit_attrs & 8) ? 1 : 0, player);
     }
 
     // Mark unit as not needing the refresh in the "field_x18" bitmask.
@@ -4142,7 +4142,7 @@ void NetStru1::sub_51B0F0(Packet* packet, Unit* unit) {
             if (pid >= 0x10 && pid < 0x20 && packet->id == 0x6B &&
                 (unit->something_per_player[pid - 0x10] & 0x40000000) == 0) {
                 unit->something_per_player[pid - 0x10] |= 0x40000010;
-                g_NetStru1_main.sub_51CF5C(unit, 1, player);
+                g_NetStru1_main.SendUnitVisibility(unit, 1, player);
             }
         } else {
             this->QueuePacketSend(packet);
@@ -4161,7 +4161,7 @@ void NetStru1::sub_51B0F0(Packet* packet, Unit* unit) {
             if (pid >= 0x10 && pid < 0x20 && packet->id == 0x6B &&
                 (unit->something_per_player[pid - 0x10] & 0x40000000) == 0) {
                 unit->something_per_player[pid - 0x10] |= 0x40000010;
-                g_NetStru1_main.sub_51CF5C(unit, 1, player);
+                g_NetStru1_main.SendUnitVisibility(unit, 1, player);
             }
         } else {
             packet->to_player_id = player->player_id;
