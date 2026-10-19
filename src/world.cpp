@@ -800,7 +800,7 @@ uint32_t World::sub_5AB62E(UnitList* list) {
 }
 
 // 5AEC20
-void World::sub_5AEC20(Group* group, uint16_t param) {
+void World::AiAttackBrain(Group* group, uint16_t param) {
     this->sub_5ADB16(group);
     this->sub_5AE2D4(group);
 
@@ -3392,7 +3392,7 @@ void World::ProcessGroupAi(Group* group) {
             this->AiGuardBrain(group);
             break;
         case 2:
-            this->sub_5AEC20(group, group->group_sub->order_pos);
+            this->AiAttackBrain(group, group->group_sub->order_pos);
             break;
         case 3:
             this->sub_5AEF66(group);
