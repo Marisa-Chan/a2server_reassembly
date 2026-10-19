@@ -254,7 +254,7 @@ public:
     void sub_599410(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map2, queue into static ring buffer — 599410
     int32_t ClassifyDirection8(Unit* unit, uint16_t yx); // Classifies direction/octant from unit's position toward yx.
     int32_t ChebyshevDistanceXY(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2); // Chebyshev distance between two (x,y) points.
-    uint8_t sub_592831(Unit* target, Unit* unit); // Classifies 16-way direction/octant from target toward unit. `this` is unused.
+    uint8_t ClassifyDirection16(Unit* target, Unit* unit); // Classifies 16-way direction/octant from target toward unit. `this` is unused.
 
     void sub_58FB12(Unit* unit); // Reconciles eye position1/rotation-target state against the unit's current tile.
     int32_t sub_593C9A(Unit* unit); // Returns unit's speed, overridden by group_sub->field_0x44 if nonzero. `this` is unused.
@@ -314,7 +314,7 @@ public:
     // and pushes improved neighbors into the ring-buffer queue (queue_tail/queue).
     void PropagateNeighborCost(uint16_t yx, uint8_t flag_byte, int32_t cond_flag, Obstacle* obstacle_map, uint16_t& queue_tail, uint16_t* queue);
 
-    // Shared by GetFacingTo/GetFacingFor/sub_592831: classifies the 16-point compass direction of a
+    // Shared by GetFacingTo/GetFacingFor/ClassifyDirection16: classifies the 16-point compass direction of a
     // signed (dx, dy) offset into a raw octant index (0-15).
     uint8_t ClassifyDirection16(int32_t dx, int32_t dy);
 

@@ -274,7 +274,7 @@ uint8_t MapStuff::CalcTerrainWalkCost(uint16_t terrain_code, uint8_t* out_walk_c
     return result;
 }
 
-// Shared by GetFacingTo/GetFacingFor/sub_592831
+// Shared by GetFacingTo/GetFacingFor/ClassifyDirection16
 uint8_t MapStuff::ClassifyDirection16(int32_t dx, int32_t dy) {
     uint16_t abs_dx = abs(dx);
     uint16_t abs_dy = abs(dy);
@@ -2339,7 +2339,7 @@ void MapStuff::sub_5893C6(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
 }
 
 // 592831
-uint8_t MapStuff::sub_592831(Unit* target, Unit* unit) {
+uint8_t MapStuff::ClassifyDirection16(Unit* target, Unit* unit) {
     int32_t dx = unit->GetRightXx() - target->GetRightXx();
     int32_t dy = unit->GetBottomYy() - target->GetBottomYy();
     return this->ClassifyDirection16(dx, dy);
@@ -2353,7 +2353,7 @@ uint16_t MapStuff::sub_592A48(Unit* unit, Unit* target) {
     int32_t box_min_x = target->position->GetX() - unit->GetTokenSize();
     int32_t box_min_y = target->position->GetY() - unit->GetTokenSize();
 
-    uint8_t direction = this->sub_592831(target, unit);
+    uint8_t direction = this->ClassifyDirection16(target, unit);
     int32_t quadrant = (((direction + 2) & 0xC) >> 2) + 4; // 4..7
     
     float dx = (int32_t)target->GetRightXx() - unit->GetRightXx();
