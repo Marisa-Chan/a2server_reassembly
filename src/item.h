@@ -31,7 +31,7 @@ public:
 public: // VTable at 60f498.
     virtual ~Item();
     virtual void Serialize(CArchive& ar) override;
-    virtual void VMethod1() override;
+    virtual void RegenTick() override;
     virtual void VMethod2() override;
     virtual int32_t VMethod6() override;
     virtual Item* VMethod10(Unit*); // Equip.

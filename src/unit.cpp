@@ -646,7 +646,7 @@ void Unit::VMethod11(Unit* unit) {
 
 
 // 52BAD9
-void Unit::VMethod1() {
+void Unit::RegenTick() {
     if (this->some_state == 0x10) {
         return;
     }

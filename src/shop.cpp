@@ -54,7 +54,7 @@ void Shop::Serialize(CArchive& ar) {
 }
 
 // 544629
-void Shop::VMethod1() {
+void Shop::RegenTick() {
     this->shop_template->sub_547DD4();
 }
 

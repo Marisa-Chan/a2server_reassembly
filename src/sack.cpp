@@ -64,7 +64,7 @@ void Sack::Serialize(CArchive& ar) {
 }
 
 // 57dd30
-void Sack::VMethod1() {
+void Sack::RegenTick() {
 }
 
 // 57dd40

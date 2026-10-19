@@ -245,7 +245,7 @@ Item::~Item() {
 }
 
 // 548da5
-void Item::VMethod1() {
+void Item::RegenTick() {
 }
 
 // 548d9a

@@ -127,7 +127,7 @@ void Building::Serialize(CArchive& ar) {
 
 // Replenishes magic wells every 60 ticks.
 // 5429b6
-void Building::VMethod1() {
+void Building::RegenTick() {
     if (g_Server->tick % 60 != 0) {
         return;
     }

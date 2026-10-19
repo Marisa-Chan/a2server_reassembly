@@ -267,3 +267,4 @@ TransientVisualEffectBuilder::FUN_004CCED2 -> AddElement -- single 0x14 element 
 TransientVisualEffectBuilder::FUN_0046f390 -> Clear -- removes all arc/visual element arrays
 StructEnter::FUN_00473b80 -> RebuildFromMap -- clears groups and re-adds every alive owned unit from the map by its unitFlags (1 -> group0, 0x10 -> group1)
 StructEnter::FUN_00475010 -> ClearGroups -- empties both unit group lists and counters
+Token::VMethod1 -> RegenTick -- periodic regen tick: Unit = hp/mp regen + corpse hp decay, Building = magic-well hp regen, others no-op

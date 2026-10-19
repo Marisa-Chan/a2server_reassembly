@@ -43,7 +43,7 @@ public:
     uint8_t gap_0xe8[4];
 
 public:
-    virtual void VMethod1() override;
+    virtual void RegenTick() override;
 
     void sub_560DC2(Humanoid* humanoid, int32_t id);
     void sub_560C67(Unit* inn);

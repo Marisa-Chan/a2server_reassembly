@@ -22,7 +22,7 @@ public: // VTable at 60f3b8.
 
 public:
     virtual int32_t IsOutpost() override;
-    virtual void VMethod1() override;
+    virtual void RegenTick() override;
 
 public:
     void sub_543EC3(Group* group); // Repop the group.

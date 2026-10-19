@@ -631,7 +631,7 @@ void Inn::InnCreateQuests(Player* player) {
 }
 
 // 567D74
-void Inn::VMethod1() {
+void Inn::RegenTick() {
     // Phase 1: Remove visitors whose owner has disconnected (field_0x43 == 0).
     POSITION pos = this->unit_list.unit_list.GetHeadPosition();
     while (pos) {

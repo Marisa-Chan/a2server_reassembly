@@ -63,8 +63,8 @@ void Outpost::FillUnits(Group* group) {
 }
 
 // 5438ED
-void Outpost::VMethod1() {
-    Building::VMethod1();
+void Outpost::RegenTick() {
+    Building::RegenTick();
 
     Group* found_group = nullptr;
 

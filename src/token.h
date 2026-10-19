@@ -113,7 +113,7 @@ public:
 	virtual void Serialize(CArchive& ar); //55ab39
 	// CObject AssertValid
 	// CObject Dump
-	virtual void VMethod1();
+	virtual void RegenTick();
 	virtual void VMethod2();
 	virtual int32_t VMethod3(); // TokenSize
 	virtual int32_t VMethod4(); // MovementType

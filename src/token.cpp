@@ -217,7 +217,7 @@ Token::~Token() {
 	}
 }
 
-void Token::VMethod1() {
+void Token::RegenTick() {
 	// 57b290
 }
 

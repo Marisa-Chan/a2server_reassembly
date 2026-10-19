@@ -325,7 +325,7 @@ void UnitList::sub_5574B5() {
 	POSITION pos = this->unit_list.GetHeadPosition();
 	while (pos != NULL) {
 		Unit* unit = this->unit_list.GetNext(pos);
-		unit->VMethod1();
+		unit->RegenTick();
 	}
 
 	// Process corpse decay on dead units
