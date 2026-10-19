@@ -359,3 +359,4 @@ SackList::FUN_005540ed -> UpdateSackVisibility -- per-tick: updates sack seen_by
 SpellEffectList::VMethod1 -> FixupPointers -- post-load remap of every SpellEffect's pointers
 SpellEffectList::sub_5585F2 -> ProcessTick -- per-tick: drops dead casters, diffs area-effect seen masks and notifies
 BuildingsList::FUN_0055817b -> RegenTick -- calls RegenTick on every building
+Srv1::sub_59C56E -> CreateBuildings -- creates buildings from the alm

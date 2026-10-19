@@ -606,7 +606,7 @@ void Srv1::CreateBuildings(MapAlm* alm) {
 }
 
 // 59FC97
-void Srv1::sub_59FC97(int count) {
+void Srv1::SpawnRandomSacks(int count) {
     uint8_t x_range = (uint8_t)(MapStuff_Instance->map_width - 20);
     uint8_t y_range = (uint8_t)(MapStuff_Instance->map_height - 20);
     if (count == 0) {
@@ -5928,7 +5928,7 @@ void SackList::UpdateSackVisibility() {
     if (g_Server->field4_0x74 != 0 && Random0N(20) == 0) {
         if (g_ServerConfig.gameType == 0) {
             if (this->list.GetCount() < max_sacks) {
-                g_Server->field19_0x98.sub_59FC97(1);
+                g_Server->field19_0x98.SpawnRandomSacks(1);
             }
         } else {
             if (this->list.GetCount() < max_sacks) {
