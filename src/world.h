@@ -324,7 +324,7 @@ public:
     void SetIdleOrRetreat(Unit* unit, int param);           // Set unit to idle/wander (param=0) or retreat (param!=0).
     void sub_5A607B(Unit* unit); // 5A607B — idle/wander helper.
     void AdvancePatrol(Unit* unit); // 5A647C — helper for state 10/24 unit actions.
-    void sub_5A6E59(Unit* unit); // 5A6E59 — retreat helper.
+    void DoRetreat(Unit* unit); // 5A6E59 — retreat helper.
     void sub_5A8709(Unit* unit, Unit* target); // 5A8709 — set unit to pursue the chosen target.
     void sub_5A6EA5(Unit* unit); // 5A6EA5 — idle/wander helper (ASM).
     int32_t sub_5A6ED9(Unit* unit, Unit* target); // 5A6ED9 — target-pursuit check (ASM).

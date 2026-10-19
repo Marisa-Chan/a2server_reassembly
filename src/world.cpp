@@ -529,7 +529,7 @@ void World::sub_5AEF66(Group* group) {
     while (it != nullptr) {
         Unit* unit = group->unit_list.GetNext(it);
         if (unit->eye2->unit4 == nullptr) {
-            this->sub_5A6E59(unit);
+            this->DoRetreat(unit);
         } else {
             this->sub_5A6B48(unit, unit->eye2->unit4);
         }
@@ -2516,7 +2516,7 @@ void World::sub_5A607B(Unit* unit) {
     if (best_target != nullptr) {
         this->sub_5A8709(unit, best_target);
     } else {
-        this->sub_5A6E59(unit);
+        this->DoRetreat(unit);
     }
 
     if (unit->position->IsAtCellCenter() && unit->eye->field121_0x80.val != 0) {
@@ -2626,12 +2626,12 @@ void World::SetIdleOrRetreat(Unit* unit, int param) {
     if (param == 0) {
         this->sub_5A607B(unit);
     } else {
-        this->sub_5A6E59(unit);
+        this->DoRetreat(unit);
     }
 }
 
 // 5A6E59
-void World::sub_5A6E59(Unit* unit) {
+void World::DoRetreat(Unit* unit) {
     if (unit->pOwner->is_ai) {
         unit->eye2->cast_action = 0x0B;
         if (unit->IsMage()) {
@@ -4079,7 +4079,7 @@ void World::sub_5AF623(Group* group) {
 void World::sub_5AEFE5(Group* group) {
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
-        this->sub_5A6E59(unit);
+        this->DoRetreat(unit);
     }
 }
 
