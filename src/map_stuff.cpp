@@ -1453,7 +1453,7 @@ void __cdecl MissionGetDescription(int32_t t, int32_t idx, CString* out) { //4e1
 }
 
 // 58CA1B
-Unit* MapStuff::sub_58CA1B(PosYX yx) {
+Unit* MapStuff::GetUnitAt(PosYX yx) {
     if (!this->ObstacleAt(yx).TestBits(0x20)) {
         return nullptr;
     }
@@ -1468,7 +1468,7 @@ UnitList* MapStuff::sub_5897AA(PosYX yx, uint8_t range) {
     this->field9_0x5400c.unit_list.RemoveAll();
 
     if (this->ObstacleAt(yx).TestBits(0x20)) {
-        Unit* unit = this->sub_58CA1B(yx);
+        Unit* unit = this->GetUnitAt(yx);
         if (unit != nullptr) {
             this->field9_0x5400c.AddTail(unit);
         }
@@ -1478,7 +1478,7 @@ UnitList* MapStuff::sub_5897AA(PosYX yx, uint8_t range) {
         for (int32_t offset = -(int32_t)ring; offset < ring + 1; offset++) {
             uint16_t cell = (ring << 8) + offset + yx.val;
             if (this->obstacle_map[cell].TestBits(0x20)) {
-                Unit* unit = this->sub_58CA1B(cell);
+                Unit* unit = this->GetUnitAt(cell);
                 if (unit != nullptr) {
                     this->field9_0x5400c.AddTail(unit);
                 }
@@ -1486,7 +1486,7 @@ UnitList* MapStuff::sub_5897AA(PosYX yx, uint8_t range) {
 
             cell = yx.val - (ring << 8) + offset;
             if (this->obstacle_map[cell].TestBits(0x20)) {
-                Unit* unit = this->sub_58CA1B(cell);
+                Unit* unit = this->GetUnitAt(cell);
                 if (unit != nullptr) {
                     this->field9_0x5400c.AddTail(unit);
                 }
@@ -1495,7 +1495,7 @@ UnitList* MapStuff::sub_5897AA(PosYX yx, uint8_t range) {
             if (std::abs(offset) != ring) {
                 cell = yx.val + (offset << 8) + ring;
                 if (this->obstacle_map[cell].TestBits(0x20)) {
-                    Unit* unit = this->sub_58CA1B(cell);
+                    Unit* unit = this->GetUnitAt(cell);
                     if (unit != nullptr) {
                         this->field9_0x5400c.AddTail(unit);
                     }
@@ -1503,7 +1503,7 @@ UnitList* MapStuff::sub_5897AA(PosYX yx, uint8_t range) {
 
                 cell = yx.val + (offset << 8) - ring;
                 if (this->obstacle_map[cell].TestBits(0x20)) {
-                    Unit* unit = this->sub_58CA1B(cell);
+                    Unit* unit = this->GetUnitAt(cell);
                     if (unit != nullptr) {
                         this->field9_0x5400c.AddTail(unit);
                     }

@@ -363,7 +363,7 @@ void AreaEffect::sub_538137(uint8_t x, uint8_t y, bool spread_damage) {
 	}
 
 	if (this->itemDataID == spell::wall_of_earth) {
-		if (MapStuff_Instance->sub_58CA1B(yx) == nullptr) {
+		if (MapStuff_Instance->GetUnitAt(yx) == nullptr) {
 			MapStuff_Instance->sub_594E65(this, x, y);
 		}
 		return;
@@ -577,7 +577,7 @@ void AreaEffect::ProcessEffects() {
 			for (int32_t dy = -radius; dy <= radius; dy++) {
 				if (MapStuff_Instance->CanApplyAreaEffect(this, x + dx, y + dy)) {
 					uint16_t yx = ((y + dy) << 8) | (x + dx);
-					Unit* unit = MapStuff_Instance->sub_58CA1B(yx);
+					Unit* unit = MapStuff_Instance->GetUnitAt(yx);
 					this->sub_53831D(unit);
 				}
 			}
