@@ -2431,7 +2431,7 @@ void TransientVisualEffectBuilder::FUN_004cc059(double x0, double y0, double x1,
 }
 
 // 4cc22d
-int32_t TransientVisualEffectBuilder::FUN_004CC22D(CArray<GO_11c>* existing, int16_t x_radius, int16_t y_radius, int16_t z_radius, uint16_t visual_id) {
+int32_t TransientVisualEffectBuilder::BuildRisingParticles(CArray<GO_11c>* existing, int16_t x_radius, int16_t y_radius, int16_t z_radius, uint16_t visual_id) {
     int16_t age_step = (int16_t)(z_radius / 7.0 + 1.0);
     for (int32_t i = 0; i < existing->GetSize(); i++) {
         GO_11c* elem = &(*existing)[i];
@@ -2574,7 +2574,7 @@ void CUnit::UpdateTransientVisualElements() { // 468dcb
             int16_t z_radius = this->GetTileWidth() << 5;
             int16_t y_radius = this->GetTileWidth() << 3;
             int16_t x_radius = this->GetTileWidth() << 4;
-            builder.FUN_004CC22D(&this->transientVisualElements, x_radius, y_radius, z_radius, effect_timer);
+            builder.BuildRisingParticles(&this->transientVisualElements, x_radius, y_radius, z_radius, effect_timer);
             visual_elements.Append(builder.visual_elements);
             break;
         }

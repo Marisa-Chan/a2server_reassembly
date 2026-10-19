@@ -252,3 +252,4 @@ TokenEntry::sub_4A7900 -> IsStackableWith -- same item_id and compatible slot_co
 TokenEntry::sub_43988E -> GetFirstModAttrId -- first non-cast-spell attribute id in the mods blob (0 if none)
 TokenEntry::FUN_004394f3 -> GetSpriteName -- builds the item graphics base name MM+TT+.. from material/type/shape/id
 TokenEntry::FUN_00439973 -> GetHintText -- formats the item tooltip (name + mod stat lines) into the g_Destination hint buffer
+TransientVisualEffectBuilder::FUN_004CC22D -> BuildRisingParticles -- ages existing 0x38 particles upward and spawns 3-5 new ones around the base ellipse
