@@ -15894,7 +15894,7 @@ TokenEntry* VisInvBase::VMethod29(TokenEntry* o, int32_t num) {
             o->count = num;
             return o;
         }
-        if (entry->FUN_0041f0d0()) {
+        if (entry->IsEmpty()) {
             o = new TokenEntry();
             *o = *entry;
             entry->count = 0;
@@ -15924,7 +15924,7 @@ int32_t VisInvBase::VMethod26(TokenEntry* o, int32_t idx) {
         this->grid_source->InsertAt(idx, o, 1);
         return idx;
     }
-    if (this->grid_source->GetSize() != 0 && this->grid_source->GetAt(this->grid_source->GetUpperBound())->FUN_0041f0d0()) {
+    if (this->grid_source->GetSize() != 0 && this->grid_source->GetAt(this->grid_source->GetUpperBound())->IsEmpty()) {
         this->grid_source->InsertAt(this->grid_source->GetUpperBound(), o, 1);
         return this->grid_source->GetUpperBound() - 1;
     }
@@ -16044,7 +16044,7 @@ int32_t VisInvBase::VMethod37(int32_t idx) {
     if (main_wnd->drag_entry == nullptr) {
         return -1;
     }
-    if (main_wnd->drag_entry->FUN_0041f0d0()) {
+    if (main_wnd->drag_entry->IsEmpty()) {
         main_wnd->vis_map_context->my_main_unit->gold += main_wnd->drag_entry->count;
     }
     int32_t count = main_wnd->drag_entry->count;
@@ -16217,7 +16217,7 @@ void VisInvBase::FUN_004a4ebc() {
         if (entry == nullptr) {
             continue;
         }
-        if (entry->FUN_0041f0d0() != 0 || entry->FUN_004a78c0() != 0) {
+        if (entry->IsEmpty() != 0 || entry->FUN_004a78c0() != 0) {
             this->cell_update_counter.ElementAt(i) = 1;
             continue;
         }
@@ -16363,7 +16363,7 @@ void VisInvType1::VMethod7() {
         int32_t cell_x = edge_width + screen_rect.left + 0x20 + i * 0x50;
         int32_t cell_y = screen_rect.top + 6;
 
-        if (entry->FUN_0041f0d0() != 0) {
+        if (entry->IsEmpty() != 0) {
             g_bmp_backinv->VMethod2(cell_x, cell_y, 0, 0, 0);
             g_ca16_money->VMethod2(cell_x, cell_y, 0, 0, 0);
 
@@ -16428,7 +16428,7 @@ int32_t VisInvType1::OnMouseMove(uint32_t wparam, CPoint pos) {
     }
 
     int32_t count;
-    if (this->grid_source->GetAt(idx)->FUN_0041f0d0() != 0) {
+    if (this->grid_source->GetAt(idx)->IsEmpty() != 0) {
         if (main_wnd->vis_map_context->my_main_unit->gold < 1) {
             count = 0;
         } else if (g_kbShiftState == 0) {
@@ -16452,7 +16452,7 @@ int32_t VisInvType1::OnMouseMove(uint32_t wparam, CPoint pos) {
         return 0;
     }
 
-    if (main_wnd->drag_entry->FUN_0041f0d0() != 0) {
+    if (main_wnd->drag_entry->IsEmpty() != 0) {
         main_wnd->vis_map_context->my_main_unit->gold -= main_wnd->drag_entry->count;
         main_wnd->sub_48CCA1(main_wnd->drag_entry, main_wnd->drag_src_slot, "graphics\\interface\\money\\money.16a", main_wnd->drag_src_tab);
     } else {
@@ -16535,7 +16535,7 @@ const char* VisInvType1::GetHint() {
     if (entry == nullptr) {
         return nullptr;
     }
-    if (entry->FUN_0041f0d0() != 0) {
+    if (entry->IsEmpty() != 0) {
         return TxtFile::AllLines[0x4a];
     }
     return entry->FUN_00439973();
@@ -16680,7 +16680,7 @@ int32_t VisInvType1::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
     }
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (this->grid_source->GetAt(idx)->FUN_0041f0d0() != 0) {
+    if (this->grid_source->GetAt(idx)->IsEmpty() != 0) {
         if (main_wnd->vis_map_context->my_main_unit->gold > 0) {
             main_wnd->dialogsMask |= 8;
             main_wnd->vis_root->AddChild(main_wnd->vis_dropgold);
@@ -16740,7 +16740,7 @@ void VisInvExtBase::VMethod7() {
             continue;
         }
         TokenEntry* entry = this->grid_source->GetAt(i + *this->visible_startref);
-        if (entry->FUN_0041f0d0() != 0) {
+        if (entry->IsEmpty() != 0) {
             if (shop->gameplay != nullptr) {
                 entry->count = shop->gameplay->my_main_unit->gold;
             }
@@ -16782,7 +16782,7 @@ void VisInvExtBase::VMethod7() {
         }
 
         entry = this->grid_source->GetAt(i + *this->visible_startref);
-        if (entry->FUN_0041f0d0() == 0 && entry->FUN_004a78c0() == 0) {
+        if (entry->IsEmpty() == 0 && entry->FUN_004a78c0() == 0) {
             CPoint cost_pos(this->field_0x20c4[i].right + off_x, this->field_0x20c4[i].top + off_y + 1);
             CArray<CBmp64*>* cost_arr;
             if (entry->slot_code == 2) {
@@ -16963,7 +16963,7 @@ const char* VisInvExtBase::GetHint() {
     if (this->grid_source->GetAt(idx) == nullptr) {
         return nullptr;
     }
-    if (this->grid_source->GetAt(idx)->FUN_0041f0d0() != 0) {
+    if (this->grid_source->GetAt(idx)->IsEmpty() != 0) {
         return TxtFile::AllLines.GetAt(0x4A);
     }
     if (this->grid_source->GetAt(idx)->FUN_004a78c0() != 0) {
@@ -17170,7 +17170,7 @@ TokenEntry* VisInvExtType1::VMethod29(TokenEntry* o, int32_t num) {
             o = new TokenEntry();
             *o = *entry;
             o->count = num;
-        } else if (entry->FUN_0041f0d0()) {
+        } else if (entry->IsEmpty()) {
             o = new TokenEntry();
             *o = *entry;
             entry->count = 0;
@@ -17242,7 +17242,7 @@ int32_t VisInvExtType1::VMethod26(TokenEntry* o, int32_t idx) {
         this->grid_source->InsertAt(idx, o, 1);
         return idx;
     }
-    if (this->grid_source->GetSize() != 0 && this->grid_source->GetAt(this->grid_source->GetUpperBound())->FUN_0041f0d0()) {
+    if (this->grid_source->GetSize() != 0 && this->grid_source->GetAt(this->grid_source->GetUpperBound())->IsEmpty()) {
         this->grid_source->InsertAt(this->grid_source->GetUpperBound(), o, 1);
         return this->grid_source->GetUpperBound() - 1;
     }

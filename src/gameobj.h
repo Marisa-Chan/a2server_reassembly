@@ -26,7 +26,7 @@ public:
 	};
 public:
 
-	int32_t FUN_0041f0d0();
+	int32_t IsEmpty();
 	int32_t FUN_004a78c0(); //4a78c0 in asm
 	int32_t sub_43A5E5(); //43a5e5
 	int32_t sub_43A6D5(); //43a6d5

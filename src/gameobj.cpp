@@ -892,7 +892,7 @@ int32_t TokenEntry::sub_4A7880(int32_t num) { //4a7880
 
 
 int32_t TokenEntry::FUN_004a78c0() { //4a78c0
-    if (this->FUN_0041f0d0() == 0 && this->count == 0) {
+    if (this->IsEmpty() == 0 && this->count == 0) {
         return 1;
     }
 
@@ -906,7 +906,7 @@ int TokenEntry::FUN_004396d6() { //4396d6
 }
 
 
-int32_t TokenEntry::FUN_0041f0d0() { //41f0d0
+int32_t TokenEntry::IsEmpty() { //41f0d0
     return this->item_id == 0xffff;
 }
 

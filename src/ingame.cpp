@@ -366,7 +366,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				wnd->m_GameSession.FUN_004946e0();
 				if (u->tokenEntries.GetSize()) {
 					TokenEntry* gitem = u->tokenEntries[u->tokenEntries.GetUpperBound()];
-					if (gitem->FUN_0041f0d0()) {
+					if (gitem->IsEmpty()) {
 						gitem->count = this->my_main_unit->gold;
 					}
 				}
@@ -7003,7 +7003,7 @@ int32_t BigStruct2::OnLButtonUp(uint32_t wparam, CPoint pos) {
 				tile_x = this->field_0x994->tileX;
 				tile_y = this->field_0x994->tileY;
 			}
-			if (wnd->drag_entry->FUN_0041f0d0() != 0) {
+			if (wnd->drag_entry->IsEmpty() != 0) {
 				this->sub_41AC88(wnd->drag_entry->count, tile_x | (tile_y << 8));
 			} else {
 				this->sub_41A7C7(wnd->drag_src_tab, wnd->drag_src_slot, 3, tile_x | (tile_y << 8), wnd->drag_entry->count);
