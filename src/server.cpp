@@ -231,7 +231,7 @@ void Server::sub_4F1E2A() {
                 }
 
                 if (player->main_unit->decay != 0 && g_Server->field4_0x74 != 0) {
-                    player->field_0xa64 = 0;
+                    player->respawn_requested = 0;
                     Human* main_unit = player->main_unit;
                     if (main_unit->inventory == nullptr) {
                         main_unit->inventory = new Inventory();
@@ -3886,7 +3886,7 @@ void Server::sub_504a96(Packet* pkt) {
         {
             player = this->sub_502B4A(pkt->from_player_id);
             if (player && player->main_unit && player->main_unit->hp < -39) {
-                player->field_0xa64 = 1;
+                player->respawn_requested = 1;
             }
             break;
         }
@@ -6114,8 +6114,8 @@ void Server::sub_5090FA(Player* player) {
             player->mission_result = 1;
         }
     } else {
-        if (this->field4_0x74 != 0 && player->is_active != 0 && player->main_unit->hp <= -40 && player->field_0xa64 != 0) {
-            player->field_0xa64 = 0;
+        if (this->field4_0x74 != 0 && player->is_active != 0 && player->main_unit->hp <= -40 && player->respawn_requested != 0) {
+            player->respawn_requested = 0;
             Humanoid* unit = player->main_unit;
             if (unit->inventory == nullptr) {
                 unit->inventory = new Inventory();

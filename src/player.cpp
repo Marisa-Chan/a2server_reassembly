@@ -47,7 +47,7 @@ Player::Player() {
     this->building_entered_from_yx = 0;
     this->login.Empty();
     this->field_0xa60 = 0;
-    this->field_0xa64 = 0;
+    this->respawn_requested = 0;
     this->field_0xa68 = 0;
     this->field_0xa7c = 0;
     this->field_0xa84 = 0;

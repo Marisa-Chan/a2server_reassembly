@@ -69,7 +69,7 @@ public:
     uint32_t frags;
     uint32_t field_0xa5c;
     uint32_t field_0xa60;
-    uint32_t field_0xa64;
+    uint32_t respawn_requested;
     int32_t field_0xa68;
     uint32_t field_0xa6c;
     uint32_t field_0xa70; // Team play: 0 for blue team, 1 for red team.
