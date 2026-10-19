@@ -513,3 +513,4 @@ World::sub_5ADD64 -> BuildAllyList -- builds nearby friendly unit list from the 
 World::sub_5B5816 -> AreAtWar -- 1 when unit1's owner is at war with unit2's owner
 World::sub_5ACDF4 -> ProcessAnimateDeadGroup -- world callback for the animate-dead group
 World::sub_5AB62E -> ComputeListAvgPos -- average xx/yy position of a unit list
+World::sub_5AF6F5 -> InitUnitCombatProfile -- sets eye2 withdraw/wimpy and aggression for the unit (humanoid vs fighter)

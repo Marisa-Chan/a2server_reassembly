@@ -121,7 +121,7 @@ public:
     void sub_5A3F88(); // 5A3F88
     void sub_5A3F9B(); // 5A3F9B
     void sub_5A4284(); // 5A4284
-    void sub_5A4757(); // 5A4757
+    void ResetMatchState(); // 5A4757
     void sub_5B0556(CArchive& ar); // Serialize
     void sub_5B2E7A(); // Post-load world relink helper
 

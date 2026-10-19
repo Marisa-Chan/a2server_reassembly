@@ -73,7 +73,7 @@ void Diplomacy::RegisterPlayer(Player* player) {
 // 5A4B1A
 World::World(MapStuff* map_stuff, PlayersList* players_list) {
     this->sub_5A457A();
-    this->sub_5A4757();
+    this->ResetMatchState();
     std::memset(this->field57_0xc554, 0, sizeof(this->field57_0xc554));
     this->field24_0xa50 = map_stuff;
     this->field24_0xa50->field41_0x58d80 = this;
@@ -93,7 +93,7 @@ World::~World() {
 }
 
 // 5A4757
-void World::sub_5A4757() {
+void World::ResetMatchState() {
     this->duration4 = 0;
     this->duration4_low = 0;
     this->field20_0xa48 = 0;
