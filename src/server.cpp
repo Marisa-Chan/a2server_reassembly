@@ -5721,7 +5721,7 @@ void SrvStru1::UpdateMapObjects() { // 4FB4AA
 }
 
 // 4FB273
-void SrvStru1::sub_4FB273() {
+void SrvStru1::ProcessTick() {
     POSITION unit_it = this->some_unit_list.GetHeadPosition();
     while (unit_it != nullptr) {
         POSITION cur = unit_it;
@@ -6070,7 +6070,7 @@ void Server::sub_5090A7() {
     this->tick++;
     this->ProcessAvailPackets();
     this->sub_509042();
-    this->srv_stru1->sub_4FB273();
+    this->srv_stru1->ProcessTick();
     dword_6CDB3C->ProcessTick();
     g_NetStru1_main.SendPacket_64(this->tick, 0);
 }

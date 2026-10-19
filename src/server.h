@@ -79,7 +79,7 @@ public:
     void MakeTargetSpellEffect(uint8_t a0, uint8_t a1, Unit* unit, uint32_t a3, uint32_t a4);
 
     void UpdateMapObjects();
-    void sub_4FB273(); // 4fb273
+    void ProcessTick(); // 4fb273
 
     Unit* AddDummyUnitWithSpell(int32_t xpos, int32_t ypos, int32_t spellID, int16_t SpellDmg); //4fb8cd
 
