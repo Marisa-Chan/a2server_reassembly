@@ -2161,7 +2161,7 @@ void Unit::InitFromMonsterName(const CString& name) {
 
     // Initialize eye and world state
     this->eye->sub_5925C9(this);
-    g_World->sub_5AF6F5(this);
+    g_World->InitUnitCombatProfile(this);
 }
 
 Inventory* Unit::DetachInventory() {

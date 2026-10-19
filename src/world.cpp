@@ -3290,7 +3290,7 @@ void World::PlaceRespawnedGroup(Group* group, int param) {
 }
 
 // 5AF6F5 — initialize combat withdrawal thresholds for a unit.
-void World::sub_5AF6F5(Unit* unit) {
+void World::InitUnitCombatProfile(Unit* unit) {
     if (unit->IsHumanoid() == 0) {
         return;
     }
