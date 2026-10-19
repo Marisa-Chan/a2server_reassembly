@@ -176,7 +176,7 @@ void __cdecl sub_53685B(Unit* self, Unit* target) {
     }
 
     if (was_alive || target->hp > -10) {
-        g_NetStru1_main.sub_51C601(target, damage);
+        g_NetStru1_main.SendLevelUp(target, damage);
     }
 
     if (damage > 0 && was_alive && target->hp > -10) {
@@ -200,7 +200,7 @@ void __cdecl sub_536A62(Unit* self, Unit* target) {
     building->hp -= damage;
 
     if (was_alive || building->hp > -10) {
-        g_NetStru1_main.sub_51C601(target, damage);
+        g_NetStru1_main.SendLevelUp(target, damage);
     }
 }
 

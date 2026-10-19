@@ -177,7 +177,7 @@ public:
     void SendArenaScore(CString& name, uint32_t score, char type, Player* player); // 51CDFB - send arena score
 
     void ResendPlayerUnits(Player* player);
-    void sub_51C601(Unit* unit, int unused);        // Send unit-level-up packet
+    void SendLevelUp(Unit* unit, int unused);        // Send unit-level-up packet
     void sub_51C822(NetStru2* ns2);    // Send spectator/alliance state
 
     // DecodePacket – decode an incoming network message into the appropriate Packet singleton,

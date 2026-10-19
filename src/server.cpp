@@ -3903,7 +3903,7 @@ void Server::sub_504a96(Packet* pkt) {
 
                 if (player->main_unit && player->main_unit->hp > -1) {
                     player->main_unit->hp -= 1;
-                    g_NetStru1_main.sub_51C601(player->main_unit, 1);
+                    g_NetStru1_main.SendLevelUp(player->main_unit, 1);
                 }
             }
             break;

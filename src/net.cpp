@@ -231,7 +231,7 @@ void NetStru1::SendServerState(Player* player) {
 }
 
 // 51C601
-void NetStru1::sub_51C601(Unit* unit, int unused) {
+void NetStru1::SendLevelUp(Unit* unit, int unused) {
     this->sub_51AC77(unit, nullptr, 0x73);
 }
 
