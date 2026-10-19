@@ -307,7 +307,7 @@ public:
     Human();
     Human(const CString& hname, int32_t is_hero, const char* unk);
 
-    void FUN_00532587(CString hname, int32_t is_hero, const char* unk);
+    void InitFromName(CString hname, int32_t is_hero, const char* unk);
 };
 
 ASSERT_SIZE(Human, 0x254);

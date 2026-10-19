@@ -2925,16 +2925,16 @@ IMPLEMENT_SERIAL(Human, Humanoid, 1);
 
 Human::Human() {
     //53232d
-    this->FUN_00532587(CString("Man_Unarmed"), 0, nullptr);
+    this->InitFromName(CString("Man_Unarmed"), 0, nullptr);
 }
 
 Human::Human(const CString& hname, int32_t t, const char* unk) {
     //53239a
-    this->FUN_00532587(hname, t, unk);
+    this->InitFromName(hname, t, unk);
 }
 
 // 532587
-void Human::FUN_00532587(CString hname, int32_t is_hero, const char* unk) {
+void Human::InitFromName(CString hname, int32_t is_hero, const char* unk) {
     this->typeId = 0;
     bool load_equipment = (unk == nullptr);
     int32_t face_index = -1;

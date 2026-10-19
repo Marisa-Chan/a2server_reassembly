@@ -340,3 +340,4 @@ Item::sub_548F07 -> IsArtifact -- 1 when the item has magic and price 2 (artifac
 Item::sub_548F6A -> IsCheatCreatable -- 1 when this item template can be given via the #create cheat
 Item::sub_548F3F -> ApplyPropertyString -- applies a special property string to item effects, then recalculates value
 Item::sub_54A0BE -> RecalcFromTemplate -- recalculates item properties from its template data
+Item::sub_548E4E -> FindCastSpellEffect -- finds the cast-spell Effect on this item or nullptr
