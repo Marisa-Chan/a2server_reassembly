@@ -990,7 +990,7 @@ void Unit::ReleaseObjects() {
     }
 }
 
-Item *Unit::VMethod12(Item *item) {
+Item *Unit::UseItem(Item *item) {
     Item *itm = item->VMethod10(this);
     this->VMethod19();
     return itm;
@@ -2294,7 +2294,7 @@ void Humanoid::ReleaseObjects() {
 }
 
 // 5303e3
-Item* Humanoid::VMethod12(Item* item) {
+Item* Humanoid::UseItem(Item* item) {
     if (item->IsKindOf(RUNTIME_CLASS(Armor)) || item->IsKindOf(RUNTIME_CLASS(Weapon)) || item->IsKindOf(RUNTIME_CLASS(Shield))) {
         int32_t other_param = item->world_equip->Values().GetData()->other_param;
         if ((other_param & 1) == 0 && (this->unit_attrs & 4) == 0) {
@@ -2309,7 +2309,7 @@ Item* Humanoid::VMethod12(Item* item) {
 
 void Humanoid::VMethod13(Item *item) {
     //5304b2
-    Item *itm = this->VMethod12(item);
+    Item *itm = this->UseItem(item);
     if (itm) {
         this->inventory->PutItemIntoBagAtDefault(itm);
     }

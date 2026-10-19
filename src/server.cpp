@@ -3337,7 +3337,7 @@ void Server::sub_504a96(Packet* pkt) {
                 uint16_t item_slot_type = (item->item_id >> 8) & 0xF;
                 equip_mask |= (item_slot_type < 3) ? 3 : (1 << (item_slot_type - 1));
                 Item* prev = item;
-                item = human->VMethod12(item); // equip; returns displaced item if any
+                item = human->UseItem(item); // equip; returns displaced item if any
                 if (item) {
                     human->inventory->PutItemIntoBag(packet_cmd->param1, item);
                 }

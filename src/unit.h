@@ -77,7 +77,7 @@ public: // VTable at 60efc0.
     virtual int32_t IsHumanoid() override; // IsHumanoid
     virtual void ReleaseObjects();
     virtual void CopyFrom(Unit *);
-    virtual Item* VMethod12(Item *);
+    virtual Item* UseItem(Item *);
     virtual void VMethod13(Item *);
     virtual Item* Unequip(Item *);
     virtual void VMethod15();
@@ -256,7 +256,7 @@ public:
     //virtual int32_t VMethod9() override;
     virtual void ReleaseObjects() override;
     //virtual void VMethod11(Unit*) override;
-    virtual Item* VMethod12(Item*) override;
+    virtual Item* UseItem(Item*) override;
     virtual void VMethod13(Item*) override;
     virtual Item* Unequip(Item*) override;
     virtual void VMethod15() override;
