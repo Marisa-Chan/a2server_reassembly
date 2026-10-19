@@ -132,7 +132,7 @@ Unit::~Unit() {
 // Distance to target in sub-cells (1/256), adjusted for both units' sizes.
 // 5364D5
 int16_t __cdecl sub_5364D5(Unit* self, Unit* target) {
-    int32_t dx = abs(self->sub_528725() - target->sub_528725());
+    int32_t dx = abs(self->GetRightXx() - target->GetRightXx());
     int32_t dy = abs(self->sub_528763() - target->sub_528763());
     int32_t dist = (std::max)(dx, dy);
     dist -= (self->GetTokenSize() + target->GetTokenSize()) * 0x80 - 0x100;
@@ -1589,7 +1589,7 @@ int32_t Unit::sub_5B6FB0() {
 }
 
 // 528725
-uint16_t Unit::sub_528725() {
+uint16_t Unit::GetRightXx() {
     return this->position->GetXx() + ((this->GetTokenSize() & 0xFF) - 1) * 0x80;
 }
 
