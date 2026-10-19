@@ -2616,7 +2616,7 @@ int32_t MapStuff::ChebyshevDistanceXY(uint8_t x1, uint8_t y1, uint8_t x2, uint8_
 }
 
 // 593C9A --- Returns unit's speed, overridden by group_sub->field_0x44 if nonzero. `this` is unused.
-int32_t MapStuff::sub_593C9A(Unit* unit) {
+int32_t MapStuff::GetEffectiveSpeed(Unit* unit) {
     uint8_t override_speed = unit->group->group_sub->speed_override;
     if (override_speed != 0) {
         return override_speed;
@@ -2660,7 +2660,7 @@ int32_t MapStuff::CalcMoveStep(Unit* unit, uint16_t yx, uint8_t val) {
             height_delta = (height_delta < 0) ? -32 : 32;
         }
 
-        speed = this->sub_593C9A(unit) * this->speed_multiplier;
+        speed = this->GetEffectiveSpeed(unit) * this->speed_multiplier;
         if (height_delta < 0) {
             speed -= speed * abs(height_delta) >> 6;
         } else {
@@ -2675,7 +2675,7 @@ int32_t MapStuff::CalcMoveStep(Unit* unit, uint16_t yx, uint8_t val) {
         }
         speed /= avg_walk_cost;
     } else {
-        speed = this->sub_593C9A(unit);
+        speed = this->GetEffectiveSpeed(unit);
     }
 
     if (speed < 1) {

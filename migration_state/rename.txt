@@ -633,3 +633,4 @@ MapStuff::sub_595468 -> CanTraverseCell -- whether the unit can move onto and of
 MapStuff::sub_58A158 -> ClassifyDirection8 -- classifies the direction/octant from the unit toward yx
 MapStuff::sub_58BFA3 -> ChebyshevDistanceXY -- Chebyshev distance between two (x,y) points
 MapStuff::sub_592831 -> ClassifyDirection16 -- classifies the 16-way direction from target toward unit
+MapStuff::sub_58FB12 -> SyncEyeState -- reconciles eye position1/rotation-target state against the unit tile

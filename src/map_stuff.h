@@ -257,7 +257,7 @@ public:
     uint8_t ClassifyDirection16(Unit* target, Unit* unit); // Classifies 16-way direction/octant from target toward unit. `this` is unused.
 
     void SyncEyeState(Unit* unit); // Reconciles eye position1/rotation-target state against the unit's current tile.
-    int32_t sub_593C9A(Unit* unit); // Returns unit's speed, overridden by group_sub->field_0x44 if nonzero. `this` is unused.
+    int32_t GetEffectiveSpeed(Unit* unit); // Returns unit's speed, overridden by group_sub->field_0x44 if nonzero. `this` is unused.
     uint8_t sub_594C87(uint16_t yx); // Walk cost at yx, adjusted for area effects when the cell is occupied.
 
     void sub_5890CC(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // Builds unit->list1 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y) — 5890CC
