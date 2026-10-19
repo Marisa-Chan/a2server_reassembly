@@ -624,3 +624,4 @@ MapStuff::sub_594EBA -> RegisterAreaEffectCell -- registers the area effect into
 MapStuff::sub_5897AA -> BuildNearbyUnitList -- builds a temporary UnitList of units around yx
 MapStuff::sub_58CB5A -> GetSmallUnitAt -- gets the small unit occupying cell yx
 MapStuff::sub_58CBB9 -> GetLargeUnitAt -- gets the large unit occupying cell yx
+MapStuff::sub_594A2D -> CollectSackCells -- collects passable sack cells in expanding rings around the unit

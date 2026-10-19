@@ -1641,20 +1641,20 @@ void MapStuff::CollectSackCells(Unit* unit, int32_t flag) {
     for (uint8_t ring = 1; ring < range + 1; ring++) {
         for (int8_t offset = -ring; offset <= ring; offset++) {
             uint16_t pos = yx + (ring << 8) + offset;
-            if (this->sub_594C4B(unit, pos) != 0) {
+            if (this->IsPassableSackCell(unit, pos) != 0) {
                 this->field67_0xa4510.AddHead(pos);
             }
             pos = yx - (ring << 8) + offset;
-            if (this->sub_594C4B(unit, pos) != 0) {
+            if (this->IsPassableSackCell(unit, pos) != 0) {
                 this->field67_0xa4510.AddHead(pos);
             }
             if (abs(offset) != ring) {
                 pos = yx + (offset << 8) + ring;
-                if (this->sub_594C4B(unit, pos) != 0) {
+                if (this->IsPassableSackCell(unit, pos) != 0) {
                     this->field67_0xa4510.AddHead(pos);
                 }
                 pos = yx + (offset << 8) - ring;
-                if (this->sub_594C4B(unit, pos) != 0) {
+                if (this->IsPassableSackCell(unit, pos) != 0) {
                     this->field67_0xa4510.AddHead(pos);
                 }
             }
@@ -1666,7 +1666,7 @@ void MapStuff::CollectSackCells(Unit* unit, int32_t flag) {
 }
 
 // 594C4B --- check whether cell yx holds a sack and is passable for unit
-int32_t MapStuff::sub_594C4B(Unit* unit, uint16_t yx) {
+int32_t MapStuff::IsPassableSackCell(Unit* unit, uint16_t yx) {
     if (this->sub_58E611(yx) != nullptr && this->sub_5978F0(unit, yx) != 0) {
         return 1;
     }
