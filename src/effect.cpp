@@ -143,7 +143,7 @@ void Effect::VMethod10(Unit* unit) {
         }
         unit->enchantments &= ~(1u << (this->itemDataID & 0x1f));
         if (this->itemDataID != 0) {
-            g_NetStru1_main.sub_51BDA4(this, unit, 0x89);
+            g_NetStru1_main.BroadcastEffect(this, unit, 0x89);
         }
         this->usage_type |= 0x80;
     }
@@ -169,7 +169,7 @@ void Effect::VMethod11(Unit* unit) {
         if (counterpart != nullptr) {
             unit->enchantments &= ~(1u << (counterpart->itemDataID & 0x1f));
             counterpart->VMethod13(unit);
-            g_NetStru1_main.sub_51BDA4(counterpart, unit, 0x89);
+            g_NetStru1_main.BroadcastEffect(counterpart, unit, 0x89);
             POSITION found_pos = nullptr;
             for (POSITION pos = unit->_effects.GetHeadPosition(); pos != nullptr; ) {
                 POSITION cur_pos = pos;
@@ -207,7 +207,7 @@ void Effect::VMethod11(Unit* unit) {
             unit->_effects.AddTail(new_effect);
             unit->enchantments |= 1u << (this->itemDataID & 0x1f);
             if (this->itemDataID != 0) {
-                g_NetStru1_main.sub_51BDA4(this, unit, 0);
+                g_NetStru1_main.BroadcastEffect(this, unit, 0);
             }
         } else {
             existing->VMethod13(unit);

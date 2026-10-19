@@ -975,7 +975,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
         while (iter != nullptr) { 
             Effect* effect = unit->_effects.GetNext(iter);
             if (effect && effect->itemDataID != 0) {
-                this->sub_51BDA4(effect, unit, 0);
+                this->BroadcastEffect(effect, unit, 0);
             }
         }
     }
@@ -4311,7 +4311,7 @@ void NetStru1::SendSpellCastMulti(Unit* caster, Spell* spell, CList<Unit*>* unit
 }
 
 // 51BDA4
-void NetStru1::sub_51BDA4(Effect* effect, Unit* unit, uint8_t arg) {
+void NetStru1::BroadcastEffect(Effect* effect, Unit* unit, uint8_t arg) {
     PacketEffect& packet = PacketEffect::Inst;
     packet.id = arg ? arg : 0x88;
     packet.unit_id = unit->building_id;
