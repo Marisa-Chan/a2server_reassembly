@@ -747,7 +747,7 @@ void Srv1::sub_59C3FB(MapAlm* alm) {
             g_PlayersList->sub_5357C6(player);
         }
 
-        player->field_0xa44 = player_data->color + 1;
+        player->color_slot = player_data->color + 1;
         player->is_ai = 1;
         if (g_Server->field4_0x74 == 0 && i == 1) {
             player->is_ai = 0;
@@ -1806,7 +1806,7 @@ void Server::FUN_004ff439(Player* player, int32_t arg4) {
             while (node != nullptr) {
                 Player* candidate = g_PlayersList->list.GetNext(node);
                 if (candidate != nullptr) {
-                    if (candidate->field_0xa44 == static_cast<uint8_t>(slot) && candidate->is_ai == 0) {
+                    if (candidate->color_slot == static_cast<uint8_t>(slot) && candidate->is_ai == 0) {
                         found = true;
                         break;
                     }
@@ -1820,7 +1820,7 @@ void Server::FUN_004ff439(Player* player, int32_t arg4) {
     }
 
     if (slot != 0) {
-        player->field_0xa44 = static_cast<uint8_t>(slot);
+        player->color_slot = static_cast<uint8_t>(slot);
     }
 
     PacketJoin& packet = PacketJoin::Inst;
@@ -1847,7 +1847,7 @@ void Server::FUN_004ff439(Player* player, int32_t arg4) {
                     packet.id = 0x96;
                     packet.player_id = player->player_id;
                     packet.token_id = player->token_id;
-                    packet.color = player->field_0xa44 - 1;
+                    packet.color = player->color_slot - 1;
                     packet.flags = 0;
 
                     if (phased_in != 0) {
@@ -4221,7 +4221,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
 
             for (POSITION pos = g_PlayersList->list.GetHeadPosition(); pos != nullptr;) {
                 Player* pl = g_PlayersList->list.GetNext(pos);
-                if (pl->field_0xa44 == i && pl->is_ai == 0) {
+                if (pl->color_slot == i && pl->is_ai == 0) {
                     used = true;
                     break;
                 }
@@ -4235,7 +4235,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
     }
 
     if (some_id != 0) {
-        player->field_0xa44 = some_id;
+        player->color_slot = some_id;
     }
 
     PacketJoin& pkt = PacketJoin::Inst;
@@ -4244,7 +4244,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
     pkt.to_player_id = 0;
     pkt.player_id = player->player_id;
     pkt.token_id = player->token_id;
-    pkt.color = player->field_0xa44 - 1;
+    pkt.color = player->color_slot - 1;
     pkt.flags = (player_not_exist ? 2 : 0) | (player->is_ai != 0 ? 1 : 0);
 
     g_NetStru1_main.QueuePacketSend(&pkt);
@@ -4557,7 +4557,7 @@ void Server::sub_4EE028(Humanoid* humanoid) {
     basic_info.picture = humanoid->face;
     basic_info.main_sphere = humanoid->main_sphere;
     basic_info.flags = 4;
-    basic_info.color = player->field_0xa44;
+    basic_info.color = player->color_slot;
 
     // Build stats block
     FileSectionStats stats = {};

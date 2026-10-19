@@ -111,7 +111,7 @@ void NetStru1::sub_51C8B1(Player* player) {
 		packet.to_player_id = player->player_id;
 		packet.player_id = p->player_id;
 		packet.token_id = p->token_id;
-		packet.color = p->field_0xa44 - 1;
+		packet.color = p->color_slot - 1;
 		packet.flags = p->is_ai != 0;
 		this->QueuePacketSend(&packet);
 

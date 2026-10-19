@@ -24,7 +24,7 @@ Player::Player() {
     this->main_unit = nullptr;
     this->money = 0;
     this->token_id = 1;
-    this->field_0xa44 = 0;
+    this->color_slot = 0;
     this->monster_kills = 0;
     this->player_kills = 0;
     this->mission_result = 0;
@@ -77,7 +77,7 @@ void Player::Serialize(CArchive& ar) {
         ar << this->token_id;
 
         ar.Write(&this->hat_player_id, 8);      // hat_player_id + flags (4+4 bytes)
-        ar << this->field_0xa44;
+        ar << this->color_slot;
         ar << this->is_ai;
         ar << this->vision_sharing_id;
 
@@ -102,7 +102,7 @@ void Player::Serialize(CArchive& ar) {
         ar >> this->token_id;
 
         ar.Read(&this->hat_player_id, 8);
-        ar >> this->field_0xa44;
+        ar >> this->color_slot;
         ar >> this->is_ai;
         ar >> this->vision_sharing_id;
         this->vision_sharing_mask = this->vision_sharing_id;

@@ -65,3 +65,4 @@ Player::field_0x40 -> mission_result -- 0=none, 1=mission complete, 2=unit decay
 Player::field_0x41 -> is_in_world -- set when the player is placed into the world; gates spawn-on-join and the mission-state machine
 Player::field_0x42 -> is_logged_in -- player finished login; receives join announcements; cleared on logout
 Player::field_0x43 -> is_active -- set with is_in_world, cleared on leave packet; gate for world broadcast/visibility updates
+Player::field_0xa44 -> color_slot -- 1-based player color/slot index (packet color = slot-1; slot scan in FUN_004ff439)
