@@ -2126,14 +2126,14 @@ void CUnit::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
             if (map->my_main_unit->FUN_0041ee50(this->map_player->index) == 0) {
                 return;
             }
-            this->sprite->VMethod11(x, y, frame, g_DeltaCLR.field_10, sun_angle, flip);
+            this->sprite->VMethod11(x, y, frame, g_DeltaCLR.lit_delta, sun_angle, flip);
         }
         cx = draw_vfx->center_x - draw_vfx->width / 2 + this->sprite_b->GetWidth(frame) / 2;
         cy = draw_vfx->center_y - draw_vfx->height / 2 + this->sprite_b->GetHeight(frame) / 2;
         x = this->centerScreenX - cx - shadow_offset;
         y = this->centerScreenY - cy - this->terrainHeightOffset;
         if (this->FUN_00462405(0x20) < 0 && g_settings.Smoothing != 0) {
-            this->sprite_b->VMethod11(x, y, frame, g_DeltaCLR.field_10, sun_angle, flip);
+            this->sprite_b->VMethod11(x, y, frame, g_DeltaCLR.lit_delta, sun_angle, flip);
         }
     } else {
         UnitGfxFile* gfx_file = g_UnitGfxFiles[file_idx];
@@ -2154,9 +2154,9 @@ void CUnit::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
                 return;
             }
             if (is_air) {
-                gfx_file->FUN_0046f700()->VMethod3(x + shadow_offset + sun_angle / 2000, y, frame, g_DeltaCLR.field_10, flip);
+                gfx_file->FUN_0046f700()->VMethod3(x + shadow_offset + sun_angle / 2000, y, frame, g_DeltaCLR.lit_delta, flip);
             } else {
-                gfx_file->FUN_0046f700()->VMethod11(x, y, frame, g_DeltaCLR.field_10, sun_angle, flip);
+                gfx_file->FUN_0046f700()->VMethod11(x, y, frame, g_DeltaCLR.lit_delta, sun_angle, flip);
             }
         }
         cx = draw_vfx->center_x - draw_vfx->width / 2 + gfx_file->FUN_0046f730()->GetWidth(frame) / 2;
@@ -2165,9 +2165,9 @@ void CUnit::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
         y = this->centerScreenY - cy - this->terrainHeightOffset;
         if (this->FUN_00462405(0x20) < 0 && g_settings.Smoothing != 0) {
             if (is_air) {
-                gfx_file->FUN_0046f730()->VMethod3(x + shadow_offset + sun_angle / 2000, y, frame, g_DeltaCLR.field_10, flip);
+                gfx_file->FUN_0046f730()->VMethod3(x + shadow_offset + sun_angle / 2000, y, frame, g_DeltaCLR.lit_delta, flip);
             } else {
-                gfx_file->FUN_0046f730()->VMethod11(x, y, frame, g_DeltaCLR.field_10, sun_angle, flip);
+                gfx_file->FUN_0046f730()->VMethod11(x, y, frame, g_DeltaCLR.lit_delta, sun_angle, flip);
             }
         }
     }
@@ -3927,7 +3927,7 @@ void CStructure::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) {
 
         info->GetSprite()->VMethod11(x + shadow_offset, y, frame, g_DeltaCLR.shade_delta, sun_angle, 0);
         if (g_settings.Smoothing != 0) {
-            info->GetSpriteB()->VMethod11(x + shadow_offset, y, frame, g_DeltaCLR.field_10, sun_angle, 0);
+            info->GetSpriteB()->VMethod11(x + shadow_offset, y, frame, g_DeltaCLR.lit_delta, sun_angle, 0);
         }
 
         y -= 0x20;
@@ -4280,7 +4280,7 @@ void CBackPack::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) {
     int32_t y = this->centerScreenY - half_height2 - this->terrainHeightOffset - 4;
 
     g_spr_backpack->VMethod11(x, y, this->typeId, g_DeltaCLR.shade_delta, sun_angle, 0);
-    g_spr_backpackb->VMethod11(x, y, this->typeId, g_DeltaCLR.field_10, sun_angle, 0);
+    g_spr_backpackb->VMethod11(x, y, this->typeId, g_DeltaCLR.lit_delta, sun_angle, 0);
 }
 
 // 462887

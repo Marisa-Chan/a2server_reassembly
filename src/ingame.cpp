@@ -5575,7 +5575,7 @@ void BigStruct2::sub_406F7B() {
 					draw_x = ((x * 0x20 + 0x10) - cx) - yoff;
 					draw_y = ((y * 0x20 + 0x10) - cy) - hgt2;
 					if (g_settings.Smoothing != 0 && g_Shadows != 0) {
-						spr_b->VMethod11(draw_x, draw_y, frame, g_DeltaCLR.field_10, tanval, 0);
+						spr_b->VMethod11(draw_x, draw_y, frame, g_DeltaCLR.lit_delta, tanval, 0);
 					}
 					cx = (gobj->center_x - gobj->width / 2) + spr->GetWidth(frame) / 2;
 					cy = (gobj->center_y - gobj->height / 2) + spr->GetHeight(frame) / 2;
@@ -7107,7 +7107,7 @@ uint8_t* __cdecl sub_4764BC(int32_t val) {
 		g_DeltaCLR.brightness = 0xE;
 		g_DeltaCLR.contrast = 0x20;
 		g_DeltaCLR.shade_delta = 4;
-		g_DeltaCLR.field_10 = 2;
+		g_DeltaCLR.lit_delta = 2;
 		g_DeltaCLR.field_18 = 0.78539815;
 		return &g_DeltaCLR.r;
 	}
@@ -7120,7 +7120,7 @@ uint8_t* __cdecl sub_4764BC(int32_t val) {
 		g_DeltaCLR.brightness = 0xE;
 		g_DeltaCLR.contrast = 0x20;
 		g_DeltaCLR.shade_delta = 4;
-		g_DeltaCLR.field_10 = 2;
+		g_DeltaCLR.lit_delta = 2;
 		g_DeltaCLR.field_18 = ((double)((val + 0x168) % 0x2D0) * 3.1415926) / 2.0 / 720.0 - 0.78539815;
 	} else if (hour < 2 || hour >= 22) {
 		g_DeltaCLR.r = 0;
@@ -7129,7 +7129,7 @@ uint8_t* __cdecl sub_4764BC(int32_t val) {
 		g_DeltaCLR.brightness = 0x20;
 		g_DeltaCLR.contrast = 8;
 		g_DeltaCLR.shade_delta = 8;
-		g_DeltaCLR.field_10 = 4;
+		g_DeltaCLR.lit_delta = 4;
 		g_DeltaCLR.field_18 = 0.78539815 - (((double)((val + 0x78) % 0xF0) * 3.1415926) / 2.0) / 240.0;
 	} else {
 		int32_t delta = val % 0x78;
@@ -7140,7 +7140,7 @@ uint8_t* __cdecl sub_4764BC(int32_t val) {
 			g_DeltaCLR.brightness = 0x20 - (delta * 4) / 0x78;
 			g_DeltaCLR.contrast = (delta * 0xC) / 0x78 + 8;
 			g_DeltaCLR.shade_delta = 6;
-			g_DeltaCLR.field_10 = 3;
+			g_DeltaCLR.lit_delta = 3;
 			g_DeltaCLR.field_18 = -0.78539815;
 		} else if (hour < 6) {
 			g_DeltaCLR.r = (uint8_t)(0x18 - (delta * 0x18) / 0x78);
@@ -7149,7 +7149,7 @@ uint8_t* __cdecl sub_4764BC(int32_t val) {
 			g_DeltaCLR.brightness = 0x1C - (delta * 0xE) / 0x78;
 			g_DeltaCLR.contrast = (delta * 0xC) / 0x78 + 0x14;
 			g_DeltaCLR.shade_delta = 6;
-			g_DeltaCLR.field_10 = 3;
+			g_DeltaCLR.lit_delta = 3;
 			g_DeltaCLR.field_18 = -0.78539815;
 		} else if (hour < 20) {
 			g_DeltaCLR.r = (uint8_t)((delta * 0x18) / 0x78);
@@ -7158,7 +7158,7 @@ uint8_t* __cdecl sub_4764BC(int32_t val) {
 			g_DeltaCLR.brightness = (delta * 10) / 0x78 + 0xE;
 			g_DeltaCLR.contrast = 0x20 - (delta * 0xC) / 0x78;
 			g_DeltaCLR.shade_delta = 6;
-			g_DeltaCLR.field_10 = 3;
+			g_DeltaCLR.lit_delta = 3;
 			g_DeltaCLR.field_18 = 0.78539815;
 		} else {
 			g_DeltaCLR.r = (uint8_t)(0x18 - (delta * 0x18) / 0x78);
@@ -7167,7 +7167,7 @@ uint8_t* __cdecl sub_4764BC(int32_t val) {
 			g_DeltaCLR.brightness = ((delta * 8) / 0x78) + 0x18;
 			g_DeltaCLR.contrast = 0x14 - (delta * 0xC) / 0x78;
 			g_DeltaCLR.shade_delta = 6;
-			g_DeltaCLR.field_10 = 3;
+			g_DeltaCLR.lit_delta = 3;
 			g_DeltaCLR.field_18 = 0.78539815;
 		}
 	}
