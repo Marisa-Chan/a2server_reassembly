@@ -1759,7 +1759,7 @@ void Server::SendWorldState(Player* player, int32_t bool_arg4) {
 
     // Encode and send the full map-terrain packet to the player.
     // encode_list is a stack-local CArray<uint16_t> (= CWordArray, var_88 in ASM).
-    // MapStuff_Instance->sub_5948B0 fills it with run-length encoded terrain data.
+    // MapStuff_Instance->EncodeTerrain fills it with run-length encoded terrain data.
     // The result is copied into unk_6E9DB0 (the large static packet buffer)
     // beginning at offset 0xE, then the packet is sent.
     {
@@ -1769,7 +1769,7 @@ void Server::SendWorldState(Player* player, int32_t bool_arg4) {
         pkt.to_player_id = player->player_id;
 
         CWordArray encode_list;
-        MapStuff_Instance->sub_5948B0(&encode_list);
+        MapStuff_Instance->EncodeTerrain(&encode_list);
 
         int32_t count = encode_list.GetSize();
         uint16_t* src_ptr = encode_list.GetData();

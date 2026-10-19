@@ -189,7 +189,7 @@ public:
 
     int AddUnitToMap(Unit* unit); // add unit to map
     void Serialize(CArchive& ar); // Serialize
-    void sub_5948B0(CWordArray* encode_buf); // encode map terrain into encode_buf
+    void EncodeTerrain(CWordArray* encode_buf); // encode map terrain into encode_buf
     bool IsInMapBounds(uint8_t x, uint8_t y) const; // 594076
     void RelinkAfterLoad(); // Post-load map relink helper
     int sub_58E407(class Sack* sack); // Check if sack can be placed on map

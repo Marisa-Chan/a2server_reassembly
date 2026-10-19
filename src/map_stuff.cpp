@@ -766,7 +766,7 @@ void MapStuff::sub_5964D7(uint16_t yx, uint8_t range, Player* owner, UnitList* o
 }
 
 // 5948B0
-void MapStuff::sub_5948B0(CWordArray* encode_buf) {
+void MapStuff::EncodeTerrain(CWordArray* encode_buf) {
     encode_buf->RemoveAll();
 
     uint8_t max_x = this->map_max_x;
