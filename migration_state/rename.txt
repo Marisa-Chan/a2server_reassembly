@@ -703,3 +703,5 @@ AreaEffect::sub_53868D -> ApplyCellLayer -- per-cell area-effect layer update by
 AreaEffect::sub_538897 -> GetLayerIndex -- maps the effect type to its area-effect layer index
 WavePattern::sub_537AE8 -> SetWaveTable -- loads offsets/count/multipliers from one wave table
 WavePattern::sub_537B2B -> SetWaveTables -- picks/blends two wave tables by direction
+TableLine::VMethod1 -> ParseValues -- parses one table row into typed values; named ParseValues to avoid the existing 1-arg ParseLine helpers
+TableLine::VMethod2 -> ParseValue -- parses one field string into int/double (per-table overrides: WorldEquip/MagicItem/BuildingInfo/MonsterInfo/HumanInfo/SpellInfo)
