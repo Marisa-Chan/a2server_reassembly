@@ -695,7 +695,7 @@ void MapStuff::sub_590902(Unit* unit, Unit* target) {
 }
 
 // 58E407
-int MapStuff::sub_58E407(Sack* sack) {
+int MapStuff::CanPlaceSack(Sack* sack) {
     if (this->Obstacle2At(sack->position->CompatGetYX()).TestBits(1)) {
         return 0;
     }

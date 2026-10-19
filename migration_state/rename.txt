@@ -581,3 +581,4 @@ MapStuff::sub_58F48D -> CalcTerrainWalkCost -- edge-blended walk cost + classifi
 MapStuff::sub_58E670 -> MarkMapBorder -- marks an 8-tile-thick obstacle border around the map edges
 MapStuff::sub_58E3D1 -> AddUnitToMap -- adds a unit to the map
 MapStuff::sub_58AB48 -> Serialize -- serialises the map state
+MapStuff::sub_5948B0 -> EncodeTerrain -- encodes map terrain into the buffer

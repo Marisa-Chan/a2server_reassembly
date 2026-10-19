@@ -5769,7 +5769,7 @@ void SackList::DropInventoryAt(TokenPos* pos, Inventory* inventory, int money, i
 // 55496E
 int32_t SackList::AddSack(Sack* sack) {
     // Validate sack can be placed on map
-    if (!MapStuff_Instance->sub_58E407(sack)) {
+    if (!MapStuff_Instance->CanPlaceSack(sack)) {
         delete sack;
         return 0;
     }
