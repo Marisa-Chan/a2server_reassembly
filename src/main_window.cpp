@@ -496,7 +496,7 @@ void ServerControlDialog::sub_495774() {
 // 4957ad
 void ServerControlDialog::sub_4957AD() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    g_Server->sub_4F8831();
+    g_Server->KickAllPlayers();
     main_wnd->shutdown_pending = 1;
     this->sub_49585B();
 }
@@ -1029,7 +1029,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
 
 // 495010
 void MainWindow::FUN_00495010() {
-    g_Server->sub_4F8831();
+    g_Server->KickAllPlayers();
     this->shutdown_pending = 1;
 }
 
@@ -1860,7 +1860,7 @@ void MainWindow::sub_48A756() {
                         
                     if (g_ShutdownIn < 0) {
                         g_ShutdownIn = 0;
-                        g_Server->sub_4F8831();
+                        g_Server->KickAllPlayers();
                         this->shutdown_pending = 1;
                     }
                 }

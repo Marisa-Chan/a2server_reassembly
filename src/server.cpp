@@ -5201,7 +5201,7 @@ void Server::sub_4F4570() {
 }
 
 // 4F8831
-void Server::sub_4F8831() {
+void Server::KickAllPlayers() {
     for (POSITION it = g_PlayersList->list.GetHeadPosition(); it != nullptr;) {
         Player* player = g_PlayersList->list.GetNext(it);
         if (!player->is_ai) {

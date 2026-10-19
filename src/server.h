@@ -160,7 +160,7 @@ public:
     void ScanSavedCharacters(); // 4f9e55
     void SendArenaResults();
     void ResetArenaRound(int arg);
-    void sub_4F8831();
+    void KickAllPlayers();
     void sub_4F0ECF();
     int sub_4F1471(CString param_1); // Load map / saved game
     int sub_4EDB83(const CString& filename); // Load saved game file
