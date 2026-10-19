@@ -262,7 +262,7 @@ void CGameObject::UpdateMapPosition() { //46190d
 }
 
 
-void CGameObject::FUN_00461c41(int32_t arg1, CGameObject* arg2) { //461c41
+void CGameObject::SetTileLayerCell(int32_t arg1, CGameObject* arg2) { //461c41
     if (this->mapLayerActive == 0) {
         return;
     }
@@ -3186,9 +3186,9 @@ int32_t CUnit::UpdateBlockedState() {
 // 464765
 void CUnit::UpdateTileLayer() {
     if (this->death_state < 2 && (this->unitFlags & 0x80) == 0) {
-        this->FUN_00461c41(2, this);
+        this->SetTileLayerCell(2, this);
     } else {
-        this->FUN_00461c41(4, this);
+        this->SetTileLayerCell(4, this);
     }
 
     if (g_Animation == 0 && this->IsBlocked() == 0 && this->m_bSelectionDirty != 0) {
@@ -4115,7 +4115,7 @@ int32_t CStructure::GetTileHeight() {
 
 // 462b0f
 void CStructure::UpdateTileLayer() {
-    this->FUN_00461c41(1, this);
+    this->SetTileLayerCell(1, this);
 }
 
 // 4637b0
@@ -4300,7 +4300,7 @@ void CBackPack::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
 
 // 462a98
 void CBackPack::UpdateTileLayer() {
-    this->FUN_00461c41(0, this);
+    this->SetTileLayerCell(0, this);
 }
 
 // 462ab1
@@ -4738,7 +4738,7 @@ void CProjectile::UpdateTransientVisualElements() {
 
 // 46d6fb
 void CAirUnit::UpdateTileLayer() {
-    this->FUN_00461c41(3, this);
+    this->SetTileLayerCell(3, this);
 
     if (g_Animation != 0) {
         return;
