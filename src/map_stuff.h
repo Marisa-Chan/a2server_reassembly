@@ -245,7 +245,7 @@ public:
     int32_t IsPassableSackCell(Unit* unit, uint16_t yx); // 594C4B — check whether cell yx holds a sack and is passable for unit.
     int UnitFitsAt(Unit* unit); // Check if unit fits/can be placed over all cells at its current position — 58B1D7
     void RefreshCellObstacles(PosYX yx); // Refresh derived obstacle bits for cell yx from its stored cell state — 58B593
-    Sack* sub_58E611(uint16_t yx); // Get sack at cell yx if the cell has a stored state — 58E611
+    Sack* GetSackInCell(uint16_t yx); // Get sack at cell yx if the cell has a stored state — 58E611
     int ClearCellBuilding(class Building* building, PosYX yx); // Clear building from the cell state at yx — 59449A
     int sub_595468(Unit* unit, PosYX yx); // Check if unit can move onto and off of yx (both directions clear) — 595468
     void sub_597BB0(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map, queue into dynamic ring buffer — 597BB0

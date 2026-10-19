@@ -1601,7 +1601,7 @@ void MapStuff::RefreshCellObstacles(PosYX yx) {
 }
 
 // 58E611
-Sack* MapStuff::sub_58E611(uint16_t yx) {
+Sack* MapStuff::GetSackInCell(uint16_t yx) {
     if (!this->ObstacleAt(yx).TestBits(0x20)) {
         return nullptr;
     }
@@ -1631,7 +1631,7 @@ void MapStuff::CollectSackCells(Unit* unit, int32_t flag) {
     uint16_t yx = unit->position->CompatGetYX();
     uint8_t range = unit->scan_range >> 8;
     this->field67_0xa4510.RemoveAll();
-    if (this->sub_58E611(yx) != nullptr) {
+    if (this->GetSackInCell(yx) != nullptr) {
         this->field67_0xa4510.AddHead(yx);
         if (flag != 0) {
             return;
@@ -1667,7 +1667,7 @@ void MapStuff::CollectSackCells(Unit* unit, int32_t flag) {
 
 // 594C4B --- check whether cell yx holds a sack and is passable for unit
 int32_t MapStuff::IsPassableSackCell(Unit* unit, uint16_t yx) {
-    if (this->sub_58E611(yx) != nullptr && this->sub_5978F0(unit, yx) != 0) {
+    if (this->GetSackInCell(yx) != nullptr && this->sub_5978F0(unit, yx) != 0) {
         return 1;
     }
     return 0;
@@ -1706,12 +1706,12 @@ void MapStuff::RemoveSack(Sack* sack) {
 // 58E5C7 --- look up sack at map position
 Sack* MapStuff::GetSackAt(uint16_t param_2, uint16_t param_3) {
     PosYX yx((uint8_t)param_2, (uint8_t)param_3);
-    return this->sub_58E611(yx.val);
+    return this->GetSackInCell(yx.val);
 }
 
 // 58E5F3
 Sack* MapStuff::GetSackAtPos(TokenPos* pos) {
-    return this->sub_58E611(pos->CompatGetYX());
+    return this->GetSackInCell(pos->CompatGetYX());
 }
 
 // 590F0A --- check if unit can be placed at current position

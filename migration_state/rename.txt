@@ -627,3 +627,4 @@ MapStuff::sub_58CBB9 -> GetLargeUnitAt -- gets the large unit occupying cell yx
 MapStuff::sub_594A2D -> CollectSackCells -- collects passable sack cells in expanding rings around the unit
 MapStuff::sub_594C4B -> IsPassableSackCell -- whether cell yx holds a sack and is passable for the unit
 MapStuff::sub_58B1D7 -> UnitFitsAt -- whether the unit fits over all cells at its current position
+MapStuff::sub_58B593 -> RefreshCellObstacles -- refreshes derived obstacle bits for cell yx from its cell state
