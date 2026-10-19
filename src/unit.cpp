@@ -884,11 +884,11 @@ void Unit::ProcessEffects() {
             if (building) {
                 // TODO: also check C++ runtime class.
                 if (building->IsKindOf(RUNTIME_CLASS(Shop))) { // Shop
-                    g_NetStru1_main.FUN_0051cefb(0x83, building->object_info_id, 0, this->pOwner);
+                    g_NetStru1_main.SendInfoPacket(0x83, building->object_info_id, 0, this->pOwner);
                     break;
                 }
                 if (building->IsKindOf(RUNTIME_CLASS(Inn))) { // Inn
-                    g_NetStru1_main.FUN_0051cefb(0x84, building->object_info_id, building->building_id, this->pOwner);
+                    g_NetStru1_main.SendInfoPacket(0x84, building->object_info_id, building->building_id, this->pOwner);
                     break;
                 }
                 if (building->IsKindOf(&Pointer::classPointer)) { // Pointer
@@ -1567,7 +1567,7 @@ void Unit::Die() {
     // Respawn notification for player character types (typeId 0x21-0x3F).
     if (!g_Server->field4_0x74 && this->pOwner != nullptr && !this->pOwner->is_ai && 0x21 <= this->typeId && this->typeId <= 0x3F) {
         this->pOwner->mission_result = (uint8_t)(this->server_id - 0x13);
-        g_NetStru1_main.FUN_0051cefb(0xb4, this->pOwner->mission_result, 0, this->pOwner);
+        g_NetStru1_main.SendInfoPacket(0xb4, this->pOwner->mission_result, 0, this->pOwner);
     }
 
     this->DecayTick();

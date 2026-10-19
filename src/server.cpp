@@ -127,7 +127,7 @@ int dword_6CDB38; // File checksum global
 // 4FA768
 // Send game-end broadcast to all clients
 static void sub_4FA768(Player* player) {
-    g_NetStru1_main.FUN_0051cefb(0x5C, g_ServerConfig.frag_limit, 0, player);
+    g_NetStru1_main.SendInfoPacket(0x5C, g_ServerConfig.frag_limit, 0, player);
 }
 
 uint16_t Server::somewords[32][32];
@@ -2233,7 +2233,7 @@ void Server::SignalGameStart(int32_t arg) {
     if ((g_ServerConfig.gameType == 1) || (g_ServerConfig.gameType == 2)) {
         g_NetStru1_main.SendTeamState(0);
     }
-    g_NetStru1_main.FUN_0051cefb(0xc3, arg, 0, nullptr);
+    g_NetStru1_main.SendInfoPacket(0xc3, arg, 0, nullptr);
     this->field59_0x208 = 1;
 }
 
@@ -2875,17 +2875,17 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
 
         LogMessage("All sacks picked up");
     } else if (cheat_string.Find("#show map") == 0) {
-        g_NetStru1_main.FUN_0051cefb(0xAA, 1, 0, player);
+        g_NetStru1_main.SendInfoPacket(0xAA, 1, 0, player);
         if (!is_reconnect) {
             g_NetStru1_main.FUN_0051ce86(7, player->player_id, nullptr);
         }
     } else if (cheat_string.Find("#hide map") == 0) {
-        g_NetStru1_main.FUN_0051cefb(0xAA, 0, 0, player);
+        g_NetStru1_main.SendInfoPacket(0xAA, 0, 0, player);
         if (!is_reconnect) {
             g_NetStru1_main.FUN_0051ce86(7, player->player_id, nullptr);
         }
     } else if (cheat_string.Find("#victory") == 0) {
-        g_NetStru1_main.FUN_0051cefb(0xAA, 2, 0, player);
+        g_NetStru1_main.SendInfoPacket(0xAA, 2, 0, player);
     } else if (cheat_string.Find("#event ") == 0) {
         cheat_string = cheat_string.Mid(7);
         cheat_string.TrimLeft();
@@ -4281,7 +4281,7 @@ void Server::JoinErrorSend(NetStru2* client, int32_t arg, const CString& str) {
     if (!str.IsEmpty()) {
         g_NetStru1_main.AnnouncePlayerName(str, &pl);
     }
-    g_NetStru1_main.FUN_0051cefb(0xb, arg, 0, &pl);
+    g_NetStru1_main.SendInfoPacket(0xb, arg, 0, &pl);
     g_NetStru1_main.SendTickPacket(&pl);
     g_NetStru1_main.SendAllData();
     pl.player_id = 0;
@@ -5509,7 +5509,7 @@ void Server::HandleArenaPlayer(Player* player) {
 
 // 4FA78E
 void Server::ResetArenaRound(int32_t arg) {
-    g_NetStru1_main.FUN_0051cefb(0x5c, g_ServerConfig.frag_limit, arg, nullptr);
+    g_NetStru1_main.SendInfoPacket(0x5c, g_ServerConfig.frag_limit, arg, nullptr);
     this->SendArenaResults();
     this->tick = 0;
     this->SetupArenaFileList();
@@ -6098,19 +6098,19 @@ void Server::UpdateMissionResult(Player* player) {
     if (player->mission_result < 2) {
         if (player->main_unit == nullptr || player->main_unit->decay != 0) {
             player->mission_result = 2;
-            g_NetStru1_main.FUN_0051cefb(0xB4, player->mission_result, 0, player);
+            g_NetStru1_main.SendInfoPacket(0xB4, player->mission_result, 0, player);
             if (player->is_logged_in != 0 && this->field4_0x74 == 0) {
-                g_NetStru1_main.FUN_0051cefb(0xB4, 0, 0, player);
+                g_NetStru1_main.SendInfoPacket(0xB4, 0, 0, player);
             }
         } else if (g_World->mission_fail > 0) {
             if (player->mission_result < 2) {
                 LogMessage("Logic - Mission Failed");
-                g_NetStru1_main.FUN_0051cefb(0xB4, g_World->mission_fail, 0, player);
+                g_NetStru1_main.SendInfoPacket(0xB4, g_World->mission_fail, 0, player);
                 player->mission_result = (uint8_t)g_World->mission_fail;
             }
         } else if (g_World->mission_complete != 0 && player->mission_result != 1) {
             LogMessage("Logic - Mission Complete");
-            g_NetStru1_main.FUN_0051cefb(0xB5, 0, 0, player);
+            g_NetStru1_main.SendInfoPacket(0xB5, 0, 0, player);
             player->mission_result = 1;
         }
     } else {

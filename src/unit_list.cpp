@@ -167,10 +167,10 @@ void UnitList::ProcessTick() {
 								unit->pOwner->frags--;
 							}
 							if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
-								g_NetStru1_main.FUN_0051cefb(0x94, unit->pOwner->player_id, 0xb0000, nullptr);
+								g_NetStru1_main.SendInfoPacket(0x94, unit->pOwner->player_id, 0xb0000, nullptr);
 								g_NetStru1_main.SendTeamState(0);
 							} else if (g_ServerConfig.gameType == 3 && g_Server->tick > 50) {
-								g_NetStru1_main.FUN_0051cefb(0x94, unit->pOwner->player_id, 0xb0000, nullptr);
+								g_NetStru1_main.SendInfoPacket(0x94, unit->pOwner->player_id, 0xb0000, nullptr);
 								g_Server->AddArenaFrags(&unit->pOwner->name, -1);
 							}
 						}
@@ -186,7 +186,7 @@ void UnitList::ProcessTick() {
 					if (g_ServerConfig.gameType != 0 && unit->pOwner->is_ai == 0 && g_Server->tick > 50) {
 						unit->pOwner->frags--;
 						g_Server->ctf_score[unit->pOwner->field_0xa70]--;
-						g_NetStru1_main.FUN_0051cefb(0x94, unit->pOwner->player_id, 0xc0000, nullptr);
+						g_NetStru1_main.SendInfoPacket(0x94, unit->pOwner->player_id, 0xc0000, nullptr);
 						if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
 							g_NetStru1_main.SendTeamState(0);
 						} else {
@@ -216,7 +216,7 @@ void UnitList::ProcessTick() {
 							}
 						}
 						if (g_Server->field4_0x74 != 0 && kill_sphere != 0) {
-							g_NetStru1_main.FUN_0051cefb(0x94, unit->pOwner->player_id, unit->last_hit_by->pOwner->player_id | (kill_sphere << 16), nullptr);
+							g_NetStru1_main.SendInfoPacket(0x94, unit->pOwner->player_id, unit->last_hit_by->pOwner->player_id | (kill_sphere << 16), nullptr);
 						}
 						if (g_ServerConfig.gameType == 0) {
 							unit->last_hit_by->pOwner->player_kills++;

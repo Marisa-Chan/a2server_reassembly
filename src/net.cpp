@@ -157,7 +157,7 @@ void NetStru1::SendTickPacket(Player* player) {
 
 // 51ce86
 void NetStru1::FUN_0051ce86(uint32_t msg_type, uint32_t player_id, Player* recpt) {
-    this->FUN_0051cefb(0x92, msg_type, player_id, recpt);
+    this->SendInfoPacket(0x92, msg_type, player_id, recpt);
 }
 
 // 51ceac
@@ -179,7 +179,7 @@ void NetStru1::AnnouncePlayer(Player* player) {
 }
 
 // 51cefb
-void NetStru1::FUN_0051cefb(uint8_t param_1, int32_t param_2, int32_t param_3, Player* param_4) {
+void NetStru1::SendInfoPacket(uint8_t param_1, int32_t param_2, int32_t param_3, Player* param_4) {
     PacketInfo& packet = PacketInfo::Inst;
     packet.id = param_1;
     packet.to_player_id = param_4 ? param_4->player_id : 0;
@@ -1386,7 +1386,7 @@ void NetStru1::OnClientDisconnect(NetStru2* cli) {
                     }
                 }
                 if (!MapStuff_Instance && g_Server->field4_0x74) {
-                    this->FUN_0051cefb(0x97, pl->player_id, 0, nullptr);
+                    this->SendInfoPacket(0x97, pl->player_id, 0, nullptr);
                     LogMessage("Player " + pl->name + " has disconnected and leaved game.");
 
                     POSITION pos = g_PlayersList->list.Find(pl);

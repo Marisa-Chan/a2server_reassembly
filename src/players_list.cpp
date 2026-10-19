@@ -317,7 +317,7 @@ void PlayersList::sub_534DDD() {
 			}
 
 			g_Server->HatKeepaliveTick();
-			g_NetStru1_main.FUN_0051cefb(0x97, player->player_id, 0, nullptr);
+			g_NetStru1_main.SendInfoPacket(0x97, player->player_id, 0, nullptr);
 			LogMessage("Player " + player->name + " has left the game");
 
 			// Decrement next_player_id if this was the last assigned.
