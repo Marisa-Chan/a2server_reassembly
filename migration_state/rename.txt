@@ -152,3 +152,6 @@ Sack::field_0x48 -> seen_by_mask -- --
 Sack::field_0x4a -> seen_by_mask_prev -- --
 Sack::field_0x4c -> resend_mask -- --
 CMultiShopTemplate::field_0x4 -> active_instances -- refcount of open shop sessions; blocks assortment refresh while nonzero
+QuestInnGlue::field_0x2c -> current_quest -- quest currently processed by the VMethod1 iteration
+QuestInnGlue::field_0x30 -> current_quest_key -- id/key paired with current_quest
+QuestInnGlue::field_0x3c -> max_dist -- max unit distance for quest proximity checks (ctor param renamed too)

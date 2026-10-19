@@ -15,11 +15,11 @@
 #include "world.h"
 
 // 5BA8E0
-QuestInnGlue::QuestInnGlue(int32_t building_id, TokenPos* pos, World* world, int32_t field_0x3c) {
+QuestInnGlue::QuestInnGlue(int32_t building_id, TokenPos* pos, World* world, int32_t max_dist) {
     this->building_id = building_id;
     this->position = pos;
     this->world = world;
-    this->field_0x3c = field_0x3c;
+    this->max_dist = max_dist;
 }
 
 // 5BB350 / 5BB380
@@ -33,15 +33,15 @@ void QuestInnGlue::VMethod1() {
         uint32_t key;
         Quest* quest;
         this->map.GetNextAssoc(pos, key, quest);
-        this->field_0x30 = key;
-        this->field_0x2c = quest;
+        this->current_quest_key = key;
+        this->current_quest = quest;
         switch (quest->Something2()) {
-        case 6:  this->VMethod2(this->field_0x2c); break;
-        case 7:  this->VMethod3(this->field_0x2c); break;
-        case 8:  this->VMethod5(this->field_0x2c); break;
-        case 9:  this->VMethod6(this->field_0x2c); break;
-        case 10: this->VMethod7(this->field_0x2c); break;
-        case 11: this->VMethod4(this->field_0x2c); break;
+        case 6:  this->VMethod2(this->current_quest); break;
+        case 7:  this->VMethod3(this->current_quest); break;
+        case 8:  this->VMethod5(this->current_quest); break;
+        case 9:  this->VMethod6(this->current_quest); break;
+        case 10: this->VMethod7(this->current_quest); break;
+        case 11: this->VMethod4(this->current_quest); break;
         }
     }
 }
@@ -60,7 +60,7 @@ void QuestInnGlue::VMethod2(Quest* quest) {
     uint16_t pos2 = this->position->GetYX();
     uint16_t pos1 = unit->position->GetYX();
     uint8_t dist = this->world->field24_0xa50->sub_593B29(pos1, pos2);
-    if (dist > this->field_0x3c) {
+    if (dist > this->max_dist) {
         return;
     }
     if (quest->Kind() == 4) {
@@ -85,7 +85,7 @@ void QuestInnGlue::VMethod3(Quest* quest) {
         uint16_t pos2 = this->position->GetYX();
         uint16_t pos1 = player->main_unit->position->GetYX();
         uint8_t dist = this->world->field24_0xa50->sub_593B29(pos1, pos2);
-        if (dist > this->field_0x3c) {
+        if (dist > this->max_dist) {
             continue;
         }
         if (!player->main_unit->inventory->sub_552B6B(item_type)) {
@@ -140,7 +140,7 @@ void QuestInnGlue::VMethod4(Quest* quest) {
         uint16_t pos2 = this->position->GetYX();
         uint16_t pos1 = unit->position->GetYX();
         uint8_t dist = this->world->field24_0xa50->sub_593B29(pos1, pos2);
-        if (dist <= this->field_0x3c) {
+        if (dist <= this->max_dist) {
             found = true;
         }
     }
@@ -173,7 +173,7 @@ void QuestInnGlue::VMethod5(Quest* quest) {
             uint16_t pos2 = this->position->GetYX();
             uint16_t pos1 = unit->position->GetYX();
             uint8_t dist = this->world->field24_0xa50->sub_593B29(pos1, pos2);
-            if (dist > this->field_0x3c) {
+            if (dist > this->max_dist) {
                 continue;
             }
             count++;
@@ -197,7 +197,7 @@ void QuestInnGlue::VMethod5(Quest* quest) {
             uint16_t pos2 = this->position->GetYX();
             uint16_t pos1 = unit->position->GetYX();
             uint8_t dist = this->world->field24_0xa50->sub_593B29(pos1, pos2);
-            if (dist <= this->field_0x3c) {
+            if (dist <= this->max_dist) {
                 unit->hp = -50;
             }
         }
@@ -227,7 +227,7 @@ void QuestInnGlue::VMethod6(Quest* quest) {
             uint16_t pos2 = this->position->GetYX();
             uint16_t pos1 = unit->position->GetYX();
             uint8_t dist = this->world->field24_0xa50->sub_593B29(pos1, pos2);
-            if (dist > this->field_0x3c) {
+            if (dist > this->max_dist) {
                 continue;
             }
             count++;
@@ -249,7 +249,7 @@ void QuestInnGlue::VMethod6(Quest* quest) {
             uint16_t pos2 = this->position->GetYX();
             uint16_t pos1 = unit->position->GetYX();
             uint8_t dist = this->world->field24_0xa50->sub_593B29(pos1, pos2);
-            if (dist <= this->field_0x3c) {
+            if (dist <= this->max_dist) {
                 unit->hp = -50;
             }
         }
@@ -280,7 +280,7 @@ void QuestInnGlue::VMethod7(Quest* quest) {
             uint16_t pos2 = this->position->GetYX();
             uint16_t pos1 = unit->position->GetYX();
             uint8_t dist = this->world->field24_0xa50->sub_593B29(pos1, pos2);
-            if (dist > this->field_0x3c) {
+            if (dist > this->max_dist) {
                 continue;
             }
             count++;
@@ -302,7 +302,7 @@ void QuestInnGlue::VMethod7(Quest* quest) {
             uint16_t pos2 = this->position->GetYX();
             uint16_t pos1 = unit->position->GetYX();
             uint8_t dist = this->world->field24_0xa50->sub_593B29(pos1, pos2);
-            if (dist <= this->field_0x3c) {
+            if (dist <= this->max_dist) {
                 unit->hp = -50;
             }
         }
