@@ -2706,7 +2706,7 @@ void World::BeginUnitOrder(Unit* unit) { //5a9ac4
     unit->eye2->field43_0x50 = 0;
 }
 
-void World::FUN_005a93f4(Unit* unit) { //5a93f4
+void World::OrderHoldPosition(Unit* unit) { //5a93f4
     this->BeginUnitOrder(unit);
     unit->state = 0xc;
     unit->eye2->position1 = unit->position->GetYX();
@@ -2715,7 +2715,7 @@ void World::FUN_005a93f4(Unit* unit) { //5a93f4
 
 void World::ResetUnitToHold(Unit* unit) { //5a9a6a
     this->BeginUnitOrder(unit);
-    this->FUN_005a93f4(unit);
+    this->OrderHoldPosition(unit);
 }
 
 // Reset unit to idle and register it in the world.
@@ -2770,7 +2770,7 @@ void World::sub_5ACA54(Group* grp) { //5aca54
     this->ClearGroupOrders(grp);
     for (POSITION it = grp->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = grp->unit_list.GetNext(it);
-        this->FUN_005a93f4(unit);
+        this->OrderHoldPosition(unit);
     }
     grp->group_sub->order = 3;
 }
@@ -3928,7 +3928,7 @@ void World::sub_5A8829(Unit* unit, Unit* target, uint8_t range) {
 void World::sub_5A6789(Unit* unit) {
     this->field24_0xa50->sub_594A2D(unit, 1);
     if (this->field24_0xa50->field67_0xa4510.GetCount() == 0) {
-        this->FUN_005a93f4(unit);
+        this->OrderHoldPosition(unit);
     } else {
         unit->eye2->command_to = this->field24_0xa50->field67_0xa4510.GetHead();
         unit->eye2->cast_action = 0xC;

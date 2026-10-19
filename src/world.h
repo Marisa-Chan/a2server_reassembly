@@ -353,7 +353,7 @@ public:
     bool sub_5B5816(Unit* unit1, Unit* unit2); // Check if unit1's owner is at war with unit2's owner.
 
     void PrepareUnitOrder(Unit* unit); //5a9832
-    void FUN_005a93f4(Unit* unit); //5a93f4
+    void OrderHoldPosition(Unit* unit); //5a93f4
     void ClearGroupOrders(Group* grp); //5acd4c
 };
 ASSERT_OFFSET(World, duration4, 0x8b0);
