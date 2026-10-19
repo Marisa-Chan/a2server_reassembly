@@ -681,3 +681,4 @@ Effect::VMethod16 -> CalcChargePercent -- charge/quality percent vs the book cos
 Effect::VMethod17 -> RollStrength -- randomizes the effect strength from power
 Effect::VMethod10 -> TickOnUnit -- per-tick effect driver: periodic damage/stat refresh and expiry marking
 Effect::VMethod11 -> RemoveFromUnit -- removes the effect from the unit on unequip/expire (cancels bless/curse counterpart)
+Effect::VMethod12 -> ApplyToUnit -- applies the effect's actual value (poison damage, stat mods) to the unit
