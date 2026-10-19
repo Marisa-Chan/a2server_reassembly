@@ -5716,11 +5716,10 @@ void SrvStru1::sub_4FAEB4()
     // The original calls UnitList::Remove here, which removes the unit from
     // the list AND deletes it.
     while (!this->some_unit_list.IsEmpty()) {
-        for (POSITION it = this->units_list->unit_list.GetHeadPosition(); it != nullptr;) {
-            Unit* unit = this->units_list->unit_list.GetNext(it);
-            delete unit;
-        }
-        this->units_list->unit_list.RemoveAll();
+        Unit* unit = this->some_unit_list.GetHead();
+        delete unit;
+
+        this->units_list->unit_list.RemoveHead();
     }
 }
 
