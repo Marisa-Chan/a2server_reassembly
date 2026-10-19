@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.20)
-project(rea2 LANGUAGES CXX RC ASM_MASM)
+project(rea2 LANGUAGES CXX RC)
 
 set(CMAKE_CXX_STANDARD 17)
+
+set(CMAKE_MFC_FLAG 2)
 
 set(A2_SOURCES
   action.cpp
@@ -68,14 +70,13 @@ set(A2SERVER_SOURCES
 add_executable(rea2s ${A2_SOURCES} ${A2SERVER_SOURCES})
 add_executable(rea2c ${A2_SOURCES})
 
+# Pin to what the build already defaulted to (26100 SDK MAXVER) — silences
+# the "_WIN32_WINNT not defined" warning in every TU.
 set(A2_COMPILE_DEFS
-  _AFXDLL;FKG_FORCED_USAGE;_USE_32BIT_TIME_T;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS
+  _AFXDLL;FKG_FORCED_USAGE;_USE_32BIT_TIME_T;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;_WIN32_WINNT=0x0A00
 )
 
 foreach(TARGET rea2s rea2c)
-  target_include_directories(${TARGET} PRIVATE
-    "${CMAKE_CURRENT_SOURCE_DIR}/mfc/include"
-  )
   set_property(TARGET ${TARGET} PROPERTY
     MSVC_RUNTIME_LIBRARY "MultiThreadedDLL"
   )
@@ -122,7 +123,7 @@ set(A2_LINK_LIBS
     dxguid.lib
     vcruntime.lib
     legacy_stdio_wide_specifiers.lib
-	mfc140.lib
+    mfc140.lib
 )
 
 set(A2_LINK_OPTS
@@ -139,29 +140,12 @@ set(A2_LINK_OPTS
     /ERRORREPORT:PROMPT
 )
 
-# When mfc_export.inc changes, touch the ASM source files so MSBuild's timestamp
-# check sees them as newer than their .obj outputs and recompiles them.
-set(_MFC_EXPORT_STAMP "${CMAKE_CURRENT_BINARY_DIR}/mfc_export_dep.stamp")
-add_custom_command(
-  OUTPUT "${_MFC_EXPORT_STAMP}"
-  COMMAND "${CMAKE_COMMAND}" -E touch "${CMAKE_CURRENT_SOURCE_DIR}/Main.asm"
-  COMMAND "${CMAKE_COMMAND}" -E touch "${CMAKE_CURRENT_SOURCE_DIR}/a2_ucrt.asm"
-  COMMAND "${CMAKE_COMMAND}" -E touch "${_MFC_EXPORT_STAMP}"
-  DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/mfc_export.inc"
-  COMMENT "mfc_export.inc changed — forcing ASM recompile"
-)
-add_custom_target(mfc_export_dep DEPENDS "${_MFC_EXPORT_STAMP}")
-
 foreach(TARGET rea2s rea2c)
-  add_dependencies(${TARGET} mfc_export_dep)
   target_link_libraries(${TARGET} PRIVATE ${A2_LINK_LIBS})
   target_link_options(${TARGET} PRIVATE ${A2_LINK_OPTS})
 
-  # Enable MASM51 compatibility and SAFESEH.
   target_compile_options(${TARGET} PRIVATE
     $<$<COMPILE_LANGUAGE:CXX>:/MP>
-    $<$<COMPILE_LANGUAGE:ASM_MASM>:/Zm;/safeseh>
-    $<$<AND:$<COMPILE_LANGUAGE:ASM_MASM>,$<CONFIG:Debug>>:/Zi>
   )
 
   target_link_options(${TARGET} PRIVATE

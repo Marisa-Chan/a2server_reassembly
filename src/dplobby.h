@@ -20,6 +20,10 @@
 #ifndef __WINE_DPLOBBY_H
 #define __WINE_DPLOBBY_H
 
+#ifdef INTERFACE
+#undef INTERFACE
+#endif
+
 #include "dplay.h"
 
 #ifdef __cplusplus
