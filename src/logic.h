@@ -29,7 +29,7 @@ struct TriggerAction {
     std::array<int32_t, 10> data;
     std::array<uint8_t, 10> ref_kind;
     std::array<uint8_t, 10> ref_scope;
-    std::array<uint8_t, 10> field_0x44;
+    std::array<uint8_t, 10> ref_page;
     std::array<uint8_t, 10> field_0x4e;
     uint8_t field_0x58;
     uint8_t gap_0x59[3];

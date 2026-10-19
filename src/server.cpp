@@ -1138,7 +1138,7 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
                         action.ref_scope[arg_idx] = 2;
                         arg_value = arg_value - 9000;
                     }
-                    action.field_0x44[arg_idx] = (arg_value / 100);
+                    action.ref_page[arg_idx] = (arg_value / 100);
                     action.field_0x4e[arg_idx] = (arg_value % 100);
                     action.field_0x58++;
                 }
@@ -1278,7 +1278,7 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
                         check.ref_scope[arg_idx] = 2;
                         arg_value = arg_value + -9000;
                     }
-                    check.field_0x44[arg_idx] = (byte)(arg_value / 100);
+                    check.ref_page[arg_idx] = (byte)(arg_value / 100);
                     check.field_0x4e[arg_idx] = (byte)(arg_value % 100);
                     check.field_0x58++;
                 }
