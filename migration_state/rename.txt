@@ -603,3 +603,4 @@ MapStuff::sub_591424 -> GetFacingTo -- 16-way facing direction from unit to targ
 MapStuff::sub_58FE6D -> FacesTargetInRange -- 1 when the unit faces the target and is within max_range
 MapStuff::sub_58FEDA -> FacesPosInRange -- 1 when the unit faces yx and is within max_range
 MapStuff::sub_58FF51 -> MoveStepTowardPos -- AI movement tick toward yx
+MapStuff::sub_59028D -> MoveStepTowardUnit -- AI movement tick pursuing target

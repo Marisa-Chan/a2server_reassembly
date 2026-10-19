@@ -575,7 +575,7 @@ void MapStuff::sub_590678(Unit* unit) {
 // 5907BE
 void MapStuff::sub_5907BE(Unit* unit) {
     if (unit->list2.IsEmpty()) {
-        this->sub_58FD2F(unit);
+        this->StepRotateToTarget(unit);
         return;
     }
 
@@ -600,7 +600,7 @@ void MapStuff::sub_5907BE(Unit* unit) {
 }
 
 // 58FD2F
-void MapStuff::sub_58FD2F(Unit* unit) {
+void MapStuff::StepRotateToTarget(Unit* unit) {
     uint8_t orig_facing = unit->eye->field0_0x0;
 
     uint8_t diff = abs(unit->eye->field0_0x0 - unit->eye->field1_0x1);
@@ -634,7 +634,7 @@ void MapStuff::sub_590F94(Unit* unit, uint8_t facing) {
         unit->eye->field0_0x0 = unit->eye->field1_0x1;
         unit->eye->field148_0xa4 = 1;
     } else {
-        this->sub_58FD2F(unit);
+        this->StepRotateToTarget(unit);
 
         if (diff > 0x80) {
             diff = 0x100 - diff;

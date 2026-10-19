@@ -217,7 +217,7 @@ public:
     void sub_58826D(Unit* unit, uint8_t x, uint8_t y, int32_t flag, Unit* target);
     void sub_590678(Unit* unit);
     void sub_5907BE(Unit* unit);
-    void sub_58FD2F(Unit* unit); // Rotates eye->field0_0x0 toward eye->field1_0x1 by up to rotation_speed.
+    void StepRotateToTarget(Unit* unit); // Rotates eye->field0_0x0 toward eye->field1_0x1 by up to rotation_speed.
     void sub_590F94(Unit* unit, uint8_t facing);
     void sub_590902(Unit* unit, Unit* target);
     void sub_5918B8(Unit* unit, Unit* target);
