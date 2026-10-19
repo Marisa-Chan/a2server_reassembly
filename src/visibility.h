@@ -14,7 +14,7 @@ public:
 
 public:
     uint16_t field_0x0[65536];      // 0x0
-    uint16_t field_0x20000[64][64]; // 0x20000
+    uint16_t dist_sq_table[64][64]; // 0x20000
     uint16_t field_0x22000[64][64]; // 0x22000
     int32_t field_0x24000[64][64];  // 0x24000
     uint16_t field_0x28000[64][64]; // 0x28000

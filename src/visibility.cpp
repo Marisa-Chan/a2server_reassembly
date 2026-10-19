@@ -24,10 +24,10 @@ void Visibility::sub_58CD84() {
     for (int32_t y = 0; y <= Visibility::CENTER; y++) {
         for (int32_t x = 0; x <= Visibility::CENTER; x++) {
             int16_t dist_sq = static_cast<int16_t>(y * y + x * x);
-            this->field_0x20000[y + Visibility::CENTER][x + Visibility::CENTER] = dist_sq;
-            this->field_0x20000[y + Visibility::CENTER][Visibility::CENTER - x] = dist_sq;
-            this->field_0x20000[Visibility::CENTER - y][x + Visibility::CENTER] = dist_sq;
-            this->field_0x20000[Visibility::CENTER - y][Visibility::CENTER - x] = dist_sq;
+            this->dist_sq_table[y + Visibility::CENTER][x + Visibility::CENTER] = dist_sq;
+            this->dist_sq_table[y + Visibility::CENTER][Visibility::CENTER - x] = dist_sq;
+            this->dist_sq_table[Visibility::CENTER - y][x + Visibility::CENTER] = dist_sq;
+            this->dist_sq_table[Visibility::CENTER - y][Visibility::CENTER - x] = dist_sq;
         }
     }
 }
