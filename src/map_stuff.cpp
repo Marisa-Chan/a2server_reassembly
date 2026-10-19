@@ -2802,7 +2802,7 @@ uint8_t MapStuff::sub_591A96(uint16_t yx1, uint16_t yx2, int32_t size) {
 // 4a952b
 void Scenario::sub_4A952B(int32_t x, int32_t y, uint32_t w, uint32_t h) {
     this->inv_sun_angle = g_DeltaCLR.field_18;
-    this->abrightness = (uint8_t)g_DeltaCLR.field_4;
+    this->abrightness = (uint8_t)g_DeltaCLR.brightness;
     this->contrast = (uint8_t)g_DeltaCLR.field_8;
 
     double tan_abs_angle = tan(fabs(this->inv_sun_angle));
