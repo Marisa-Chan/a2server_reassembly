@@ -4747,7 +4747,7 @@ void Server::ServerTic() {
     }
 
     if ((this->tick & 0xf) == 6) {
-        g_World->sub_5ABD16(g_PlayersList);
+        g_World->ProcessTick(g_PlayersList);
     }
 
     if ((this->tick & 0xf) == 10) {

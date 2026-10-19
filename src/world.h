@@ -126,7 +126,7 @@ public:
     void sub_5B2E7A(); // Post-load world relink helper
 
     void sub_5AFBFD(); // increments field65_0xc780
-    void sub_5ABD16(class PlayersList* players);
+    void ProcessTick(class PlayersList* players);
     void sub_5B0724(); // 5B0724
     void sub_5B0762(); // 5B0762
     void sub_5B081E(TriggerCheck* check); // 5B081E — trigger-check dispatcher.

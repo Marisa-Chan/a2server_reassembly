@@ -897,7 +897,7 @@ uint32_t World::sub_5AB719(Group* group) {
 // Server turn tick: rebuild presence grid, run world updates, process each
 // player's groups, and log turn timing statistics when tracing is enabled.
 // 5ABD16
-void World::sub_5ABD16(PlayersList* players) {
+void World::ProcessTick(PlayersList* players) {
     this->field2_0x8.Begin();
     if (this->field37_0xbbe8 == 0) {
         this->field3_0x38.Begin();
