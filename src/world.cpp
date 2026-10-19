@@ -1200,7 +1200,7 @@ void World::CastKnownSpell(Unit* caster, Unit* target, int32_t spell_id) {
                 for (uint8_t dy = 0; dy <= 2; dy++) {
                     for (uint8_t dx = 0; dx <= 2; dx++) {
                         uint16_t check_yx = target_yx + PosYX{dx, dy}.val - PosYX{1, 1}.val;
-                        if (this->field24_0xa50->sub_5978F0(caster, check_yx) != 0) {
+                        if (this->field24_0xa50->IsCellPassableDynamic(caster, check_yx) != 0) {
                             found_yx = check_yx;
                             break;
                         }
@@ -4117,7 +4117,7 @@ void World::AiMoveBrain(Group* group, uint16_t yx) {
 
             this->sub_5A8778(unit, unit->eye2->command_to);
 
-            if (!this->field24_0xa50->sub_5978F0(unit, yx) && unit->eye2->command_to == yx) {
+            if (!this->field24_0xa50->IsCellPassableDynamic(unit, yx) && unit->eye2->command_to == yx) {
                 uint8_t distance = this->field24_0xa50->ChebyshevDistance(yx, unit->position->CompatGetYX());
                 if (distance < 2) {
                     this->DoGuardScan(unit);

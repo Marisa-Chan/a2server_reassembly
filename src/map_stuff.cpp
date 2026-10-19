@@ -1667,7 +1667,7 @@ void MapStuff::CollectSackCells(Unit* unit, int32_t flag) {
 
 // 594C4B --- check whether cell yx holds a sack and is passable for unit
 int32_t MapStuff::IsPassableSackCell(Unit* unit, uint16_t yx) {
-    if (this->GetSackInCell(yx) != nullptr && this->sub_5978F0(unit, yx) != 0) {
+    if (this->GetSackInCell(yx) != nullptr && this->IsCellPassableDynamic(unit, yx) != 0) {
         return 1;
     }
     return 0;
@@ -2245,16 +2245,16 @@ void MapStuff::sub_5974B0(Unit* unit, uint8_t x, uint8_t y) {
     this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::IsCellPassableStatic, this->path_queue_scratch, this->path_queue_scratch + 0x1000, this->field7_0x54008);
 }
 
-// 5976D0 --- expands the dynamic-path cost grid from (x,y) using sub_5978F0 as the passability
+// 5976D0 --- expands the dynamic-path cost grid from (x,y) using IsCellPassableDynamic as the passability
 // check, queueing improved neighbors into queue2 (field_0x50008[0x2000/0x3000], field8_0x5400a).
 void MapStuff::sub_5976D0(Unit* unit, uint8_t x, uint8_t y) {
-    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::sub_5978F0, this->path_queue_scratch + 0x2000, this->path_queue_scratch + 0x3000, this->field8_0x5400a);
+    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::IsCellPassableDynamic, this->path_queue_scratch + 0x2000, this->path_queue_scratch + 0x3000, this->field8_0x5400a);
 }
 
-// 597990 --- expands the dynamic-path cost grid from (x,y) using sub_5978F0 as the passability
+// 597990 --- expands the dynamic-path cost grid from (x,y) using IsCellPassableDynamic as the passability
 // check, queueing improved neighbors into queue1 (field_0x50008[0/0x1000], field7_0x54008).
 void MapStuff::sub_597990(Unit* unit, uint8_t x, uint8_t y) {
-    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::sub_5978F0, this->path_queue_scratch, this->path_queue_scratch + 0x1000, this->field7_0x54008);
+    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::IsCellPassableDynamic, this->path_queue_scratch, this->path_queue_scratch + 0x1000, this->field7_0x54008);
 }
 
 // Shared by BuildPathList1/BuildPathList2: walks backward from (x,y) toward (cur_x,cur_y) through the
@@ -2730,7 +2730,7 @@ int32_t MapStuff::IsCellPassableStatic(Unit* unit, uint16_t yx) {
 }
 
 // 5978F0 --- Passability check used by sub_5976D0/sub_597990; same as IsCellPassableStatic but against obstacle_map2
-int32_t MapStuff::sub_5978F0(Unit* unit, uint16_t yx) {
+int32_t MapStuff::IsCellPassableDynamic(Unit* unit, uint16_t yx) {
     int8_t size = unit->GetTokenSize();
     for (int32_t i = 0; i < size; i++) {
         for (int32_t j = 0; j < size; j++) {
