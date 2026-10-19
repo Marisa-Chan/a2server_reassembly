@@ -180,3 +180,4 @@ Visibility::field_0x24000 -> vis_budget_scratch -- --
 Visibility::field_0x28000 -> dist_scale_table -- --
 Visibility::field_0x2a000 -> scan_radius -- --
 Visibility::field_0x2a008 -> vis_scratch -- --
+World::field_0xa54 -> attack_decision_table -- --
