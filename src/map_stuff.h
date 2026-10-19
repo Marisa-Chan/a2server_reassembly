@@ -266,7 +266,7 @@ public:
     int16_t sub_593134(Unit* unit, int32_t zero, uint16_t yx, uint32_t radius); // 593134
     Building* GetBuildingAt(uint16_t yx); // 594709
     uint8_t BoxDistance(uint16_t yx1, uint16_t yx2, int32_t size); // 591A96
-    void sub_597290(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableStatic, queueing improved cells into queue2 — 597290
+    void ExpandCostsStaticQueue2(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableStatic, queueing improved cells into queue2 — 597290
     void ExpandCostsStaticQueue1(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableStatic, queueing improved cells into queue1 — 5974B0
     void sub_597990(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableDynamic, queueing improved cells into queue1 — 597990
     void sub_5976D0(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableDynamic, queueing improved cells into queue2 — 5976D0
@@ -278,7 +278,7 @@ public:
     // Member function pointer to a passability check with the same shape as IsCellPassableStatic/IsCellPassableDynamic.
     using PassableCheckFn = int32_t (MapStuff::*)(Unit*, uint16_t);
 
-    // Shared by sub_597290/ExpandCostsStaticQueue1/sub_597990/sub_5976D0: recomputes movement cost to each
+    // Shared by ExpandCostsStaticQueue2/ExpandCostsStaticQueue1/sub_597990/sub_5976D0: recomputes movement cost to each
     // of the 9 neighbor cells (including self) around (x,y) in the field3_0x30000 cost grid,
     // gated by the given passability check, and enqueues improved cells into the given queue.
     void ExpandCostGridNeighbors(Unit* unit, uint8_t x, uint8_t y, PassableCheckFn passable, uint8_t* out_x, uint8_t* out_y, uint16_t& out_count);

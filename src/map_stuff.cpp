@@ -2139,7 +2139,7 @@ void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
         while (*this->sub_59A670(x, y) == 0xFFFF && this->field7_0x54008 != 0 && ring < distance + this->static_scan_ahead) {
             this->field8_0x5400a = 0;
             for (int i = 0; i < this->field7_0x54008; i++) {
-                this->sub_597290(unit, this->path_queue_scratch[i], this->path_queue_scratch[0x1000 + i]);
+                this->ExpandCostsStaticQueue2(unit, this->path_queue_scratch[i], this->path_queue_scratch[0x1000 + i]);
             }
             this->field7_0x54008 = 0;
             for (int i = 0; i < this->field8_0x5400a; i++) {
@@ -2195,7 +2195,7 @@ void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
     }
 }
 
-// Shared by sub_597290/ExpandCostsStaticQueue1/sub_597990/sub_5976D0: recomputes movement cost to each
+// Shared by ExpandCostsStaticQueue2/ExpandCostsStaticQueue1/sub_597990/sub_5976D0: recomputes movement cost to each
 // of the 9 neighbor cells (including self) around (x,y) in the field3_0x30000 cost grid,
 // gated by the given passability check, and enqueues improved cells into the given queue.
 void MapStuff::ExpandCostGridNeighbors(Unit* unit, uint8_t x, uint8_t y, PassableCheckFn passable, uint8_t* out_x, uint8_t* out_y, uint16_t& out_count) {
@@ -2235,7 +2235,7 @@ void MapStuff::ExpandCostGridNeighbors(Unit* unit, uint8_t x, uint8_t y, Passabl
 
 // 597290 --- expands the static-path cost grid from (x,y) using IsCellPassableStatic as the passability
 // check, queueing improved neighbors into queue2 (field_0x50008[0x2000/0x3000], field8_0x5400a).
-void MapStuff::sub_597290(Unit* unit, uint8_t x, uint8_t y) {
+void MapStuff::ExpandCostsStaticQueue2(Unit* unit, uint8_t x, uint8_t y) {
     this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::IsCellPassableStatic, this->path_queue_scratch + 0x2000, this->path_queue_scratch + 0x3000, this->field8_0x5400a);
 }
 
