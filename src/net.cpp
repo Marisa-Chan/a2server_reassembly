@@ -4616,7 +4616,7 @@ void NetStru1::SendShopTable(Token* token, Inventory* inventory, Player* player,
 }
 
 // 51AA26
-void NetStru1::sub_51AA26(Shop* shop, CMultiShopShelf* shelf, Player* player, uint8_t slot) {
+void NetStru1::SendShopShelf(Shop* shop, CMultiShopShelf* shelf, Player* player, uint8_t slot) {
     PacketUnitStateVec& packet = PacketUnitStateVec::Inst;
     packet.id = 0x76;
     packet.entry_count = 0;
@@ -4652,14 +4652,14 @@ void NetStru1::sub_51AB99(CMultiShopInstance* inst, Player* player, int32_t para
             if (inst->shop_template != nullptr) {
                 shop = inst->shop_template->shop;
             }
-            this->sub_51AA26(shop, &inst->shelves[i], player, i + 5);
+            this->SendShopShelf(shop, &inst->shelves[i], player, i + 5);
         }
     } else if (param > 0) {
         Shop* shop = nullptr;
         if (inst->shop_template != nullptr) {
             shop = inst->shop_template->shop;
         }
-        this->sub_51AA26(shop, &inst->shelves[param - 1], player, param + 4);
+        this->SendShopShelf(shop, &inst->shelves[param - 1], player, param + 4);
     }
 }
 

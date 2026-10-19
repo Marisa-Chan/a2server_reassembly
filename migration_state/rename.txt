@@ -542,3 +542,4 @@ NetStru1::sub_51CF5C -> SendUnitVisibility -- sends the unit visibility packet
 NetStru1::sub_51BE8F -> SendAreaEffect -- sends the area-effect packet
 NetStru1::sub_51BE0E -> BroadcastEffectMove -- broadcasts the move-cmd packet for an effect token
 NetStru1::sub_51D4F6 -> SendSrvStru1State -- sends the SrvStru1 state list from the packet
+NetStru1::sub_51A8B2 -> SendShopTable -- sends PacketUnitStateVec 0x76 with shop table contents
