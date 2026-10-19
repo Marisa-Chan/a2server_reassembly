@@ -339,7 +339,7 @@ void World::sub_5A39AD(Unit* unit, UnitList* list) {
 
 // Build a temporary UnitList of enemy units near `yx` that `caster` can see.
 // 5A3808
-UnitList* World::sub_5A3808(Unit* caster, PosYX yx) {
+UnitList* World::GetNearbyEnemies(Unit* caster, PosYX yx) {
     uint8_t range = caster->eye->field7_0x8;
     UnitList* list = this->field24_0xa50->sub_5897AA(yx, range);
     this->sub_5A3896(caster, list, 0);
@@ -1043,7 +1043,7 @@ void World::CastSelfHealOrBuff(Unit* unit) {
 void World::BeginAutobuffCast(Unit* caster, Unit* target, Spell* spell) {
     if (target == nullptr) {
         PosYX yx = caster->position->GetYX();
-        UnitList* list = (spell->is_defensive != 0) ? this->sub_5A384F(caster, yx) : this->sub_5A3808(caster, yx);
+        UnitList* list = (spell->is_defensive != 0) ? this->sub_5A384F(caster, yx) : this->GetNearbyEnemies(caster, yx);
         if (list->unit_list.GetCount() != 0) {
             target = list->unit_list.GetHead();
         }
@@ -2564,7 +2564,7 @@ void World::sub_5A6B48(Unit* unit, Unit* target) {
 
     if (chosen_target == nullptr) {
         uint16_t unit_yx = unit->position->CompatGetYX();
-        UnitList* nearby_list = this->sub_5A3808(unit, unit_yx);
+        UnitList* nearby_list = this->GetNearbyEnemies(unit, unit_yx);
         if (nearby_list->unit_list.GetCount() != 0) {
             chosen_target = nearby_list->unit_list.GetHead();
         }
@@ -3685,7 +3685,7 @@ void World::DoTeleportHome(Unit* unit) {
 void World::sub_5A8A55(Unit* unit) {
     uint8_t range = (unit->scan_range >> 8) + 1;
     PosYX pos = unit->position->GetYX();
-    UnitList* list = this->sub_5A3808(unit, pos);
+    UnitList* list = this->GetNearbyEnemies(unit, pos);
 
     uint8_t count = 0;
     if (list != nullptr) {
@@ -3850,7 +3850,7 @@ void World::AdvancePatrol(Unit* unit) {
         this->sub_5A8778(unit, unit->eye2->position1.val);
     }
 
-    UnitList* list = this->sub_5A3808(unit, unit->eye2->position1);
+    UnitList* list = this->GetNearbyEnemies(unit, unit->eye2->position1);
     if (list->unit_list.GetCount() != 0) {
         this->sub_5A6B48(unit, list->unit_list.GetHead());
     } else {
@@ -3895,7 +3895,7 @@ UnitList* World::GetNearbyUnits(Unit* unit) {
 
 // 5A54B8
 void World::sub_5A54B8(Unit* unit, uint16_t command_to) {
-    UnitList* list = this->sub_5A3808(unit, unit->position->GetYX());
+    UnitList* list = this->GetNearbyEnemies(unit, unit->position->GetYX());
     if (list != nullptr && list->unit_list.GetCount() != 0) {
         this->sub_5A6B48(unit, list->unit_list.GetHead());
     } else {
