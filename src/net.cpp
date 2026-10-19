@@ -240,7 +240,7 @@ void NetStru1::sub_51B870(Unit* unit) {
     POSITION pos = g_PlayersList->list.GetHeadPosition();
     while (pos != nullptr) {
         Player* player = g_PlayersList->list.GetNext(pos);
-        if (player->field_0x43 && unit->sub_5287c4(player)) {
+        if (player->is_active && unit->sub_5287c4(player)) {
             unit->position->sub_58bec3(); // WAT: Useless call?
             if (unit->VMethod7()) {
                 this->sub_519221(unit, player, 0xFFB, -1, 0, 0);
@@ -471,7 +471,7 @@ void NetStru1::sub_51CF5C(Unit* unit, int32_t flag, Player* player) {
     POSITION pos = g_PlayersList->list.GetHeadPosition();
     while (pos != nullptr) {
         Player* p = g_PlayersList->list.GetNext(pos);
-        if (!p->field_0x43) {
+        if (!p->is_active) {
             continue;
         }
         packet.to_player_id = p->player_id;
@@ -692,7 +692,7 @@ void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t par
         POSITION pos = g_PlayersList->list.GetHeadPosition();
         while (pos != nullptr) {
             Player* p = g_PlayersList->list.GetNext(pos);
-            if (p->field_0x43 != 0 || unit->pOwner == p) {
+            if (p->is_active != 0 || unit->pOwner == p) {
                 this->sub_519221(unit, p, mask, param5, param6, param7);
             }
         }
@@ -4153,7 +4153,7 @@ void NetStru1::sub_51B0F0(Packet* packet, Unit* unit) {
     POSITION it = g_PlayersList->list.GetHeadPosition();
     while (it != nullptr) {
         Player* player = g_PlayersList->list.GetNext(it);
-        if (!player->field_0x43) {
+        if (!player->is_active) {
             continue;
         }
         if ((unit->field_0x1a4 & player->vision_sharing_id) == 0 && g_Server->field4_0x74 != 0) {
@@ -4185,7 +4185,7 @@ void NetStru1::sub_51B370(PacketMoveCmd* packet, TokenPos* pos) {
     POSITION iter = g_PlayersList->list.GetHeadPosition();
     while (iter != nullptr) {
         Player* player = g_PlayersList->list.GetNext(iter);
-        if (!player->field_0x43) {
+        if (!player->is_active) {
             continue;
         }
         packet->to_player_id = player->player_id;
@@ -4219,7 +4219,7 @@ void NetStru1::sub_51B638(PacketAoeZone* packet, AreaEffect* area_effect) {
     POSITION iter = g_PlayersList->list.GetHeadPosition();
     while (iter != nullptr) {
         Player* player = g_PlayersList->list.GetNext(iter);
-        if (!player->field_0x43) {
+        if (!player->is_active) {
             continue;
         }
         if ((area_effect->field4_0x42 & player->vision_sharing_id) != 0 || g_Server->field4_0x74 == 0) {
@@ -4511,7 +4511,7 @@ void NetStru1::sub_51A0EF(Unit* unit, Player* player, int32_t flags) {
         POSITION pos = g_PlayersList->list.GetHeadPosition();
         while (pos != nullptr) {
             Player* p = g_PlayersList->list.GetNext(pos);
-            if (p->field_0x43 || p == unit->pOwner) {
+            if (p->is_active || p == unit->pOwner) {
                 this->sub_51A0EF(unit, p, 0xFFB);
             }
         }
@@ -4669,7 +4669,7 @@ void NetStru1::sub_51AC77(Token* token, Player* player, uint8_t flag) {
         POSITION pos = g_PlayersList->list.GetHeadPosition();
         while (pos != nullptr) {
             Player* p = g_PlayersList->list.GetNext(pos);
-            if (p->field_0x43 || p == token->pOwner) {
+            if (p->is_active || p == token->pOwner) {
                 this->sub_51AC77(token, p, flag);
             }
         }

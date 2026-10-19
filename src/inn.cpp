@@ -636,7 +636,7 @@ void Inn::VMethod1() {
     POSITION pos = this->unit_list.unit_list.GetHeadPosition();
     while (pos) {
         Unit* unit = this->unit_list.unit_list.GetNext(pos);
-        if (unit->pOwner->field_0x43 == 0) {
+        if (unit->pOwner->is_active == 0) {
             this->sub_560DC2(static_cast<Humanoid*>(unit), 0xFFFF);
         }
     }

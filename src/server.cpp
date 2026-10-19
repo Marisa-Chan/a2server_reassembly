@@ -1690,7 +1690,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4) {
 
     // Mark the player as fully active and refresh world / map state.
     player->is_in_world = 1;
-    player->field_0x43 = 1;
+    player->is_active = 1;
     g_World->sub_5AFBFD(); // increment some counter (number of joined players?).
     MapStuff_Instance->scan_presence_grid.sub_596131();  // refresh scan grid
 
@@ -2178,7 +2178,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
 
     // Mark player as active.
     player->is_in_world = 1;
-    player->field_0x43 = 1;
+    player->is_active = 1;
 
     // Increment World::field65_0xc780
     g_World->sub_5AFBFD();
@@ -3219,7 +3219,7 @@ void Server::sub_504a96(Packet* pkt) {
         CheckPacketType(pkt, "Packet");
         player = this->sub_502B4A(pkt->from_player_id);
         if (player) {
-            player->field_0x43 = 0;
+            player->is_active = 0;
         }
         break;
 
@@ -6114,7 +6114,7 @@ void Server::sub_5090FA(Player* player) {
             player->mission_result = 1;
         }
     } else {
-        if (this->field4_0x74 != 0 && player->field_0x43 != 0 && player->main_unit->hp <= -40 && player->field_0xa64 != 0) {
+        if (this->field4_0x74 != 0 && player->is_active != 0 && player->main_unit->hp <= -40 && player->field_0xa64 != 0) {
             player->field_0xa64 = 0;
             Humanoid* unit = player->main_unit;
             if (unit->inventory == nullptr) {

@@ -57,7 +57,7 @@ public:
     uint8_t mission_result;
     uint8_t is_in_world;
     uint8_t is_logged_in;
-    uint8_t field_0x43;
+    uint8_t is_active;
     uint8_t kill_stats[2560]; // Indexed by monster type ID.
     uint8_t field_0xa44;
     uint8_t field_0xa45;

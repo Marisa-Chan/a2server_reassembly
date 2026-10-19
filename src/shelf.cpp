@@ -544,7 +544,7 @@ void CMultiShopTemplate::sub_547DD4() {
             this->sub_5479C6(static_cast<Humanoid*>(unit));
             continue;
         }
-        if (unit->pOwner->field_0x43 == 0) {
+        if (unit->pOwner->is_active == 0) {
             this->shop->sub_544685(unit);
         }
         i++;
