@@ -3624,7 +3624,7 @@ void BigStruct2::sub_416A02(int32_t digit) {
 		CGameObject* obj;
 		this->field_0x9d0.GetNextAssoc(it, key, obj);
 		if (obj->FUN_0041f1c0(digit)) {
-			obj->FUN_0041f1f0(digit);
+			obj->RemoveControlGroup(digit);
 		}
 		if (obj->IsSelected() && obj->map_player == this->my_main_unit) {
 			obj->SetControlGroup(digit);
@@ -3643,7 +3643,7 @@ void BigStruct2::sub_416AA6(int32_t digit) {
 		CGameObject* obj;
 		this->field_0x9d0.GetNextAssoc(it, key, obj);
 		if (obj->FUN_0041f1c0(digit)) {
-			obj->FUN_0041f1f0(digit);
+			obj->RemoveControlGroup(digit);
 		}
 		if (obj->IsSelected() && obj->map_player == this->my_main_unit) {
 			obj->AddControlGroup(digit);

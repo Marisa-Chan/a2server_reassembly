@@ -358,7 +358,7 @@ int32_t CGameObject::GetControlGroup() { //41f220
 }
 
 
-void CGameObject::FUN_0041f1f0(int32_t grp) { //41f1f0
+void CGameObject::RemoveControlGroup(int32_t grp) { //41f1f0
     this->controlGroupMask &= ~(1 << grp);
 }
 
