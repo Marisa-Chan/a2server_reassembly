@@ -215,7 +215,7 @@ void Server::ProcessPlayers() {
         while (player_it != nullptr) {
             Player* player = g_PlayersList->list.GetNext(player_it);
             if (!player->is_ai && player->main_unit != nullptr) {
-                Shop* shop = this->sub_502C50(player->main_unit->position);
+                Shop* shop = this->FindShopAt(player->main_unit->position);
                 if (shop != nullptr && shop->shop_template != nullptr) {
                     if (shop->shop_template->sub_547468(player->main_unit) != nullptr) {
                         shop->shop_template->sub_5479C6(player->main_unit);
@@ -2897,7 +2897,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
 Shop g_DefaultShop;     // unk_6D10B8
 
 // 502C50
-Shop* Server::sub_502C50(TokenPos* pos) {
+Shop* Server::FindShopAt(TokenPos* pos) {
     if (this->field38_0x1a4 != 0) {
         return &g_DefaultShop;
     }
@@ -3256,7 +3256,7 @@ void Server::sub_504a96(Packet* pkt) {
 
             // Both types in [4..8]: shop-slot interaction --- delegate entirely.
             if (from_type >= 4 && from_type <= 8 && to_type >= 4 && to_type <= 8) {
-                Shop* shop = this->sub_502C50(human->position);
+                Shop* shop = this->FindShopAt(human->position);
                 if (shop) {
                     shop->sub_5446EB(
                         human,
@@ -3298,7 +3298,7 @@ void Server::sub_504a96(Packet* pkt) {
                 }
             } else if (from_type == 4) {
                 // Buy item from shop.
-                Shop* shop = this->sub_502C50(human->position);
+                Shop* shop = this->FindShopAt(human->position);
                 if (!shop) {
                     break;
                 }
@@ -3355,7 +3355,7 @@ void Server::sub_504a96(Packet* pkt) {
             } else if (to_type == 4) {
                 // Sell item to shop.
                 item->pOwner = human->pOwner;
-                Shop* shop = this->sub_502C50(human->position);
+                Shop* shop = this->FindShopAt(human->position);
                 if (!shop) {
                     break;
                 }
@@ -3438,7 +3438,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (!unit) {
                 break;
             }
-            Shop* shop = this->sub_502C50(unit->position);
+            Shop* shop = this->FindShopAt(unit->position);
             if (!shop) {
                 break;
             }
@@ -3455,7 +3455,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (!unit) {
                 break;
             }
-            Shop* shop = this->sub_502C50(unit->position);
+            Shop* shop = this->FindShopAt(unit->position);
             if (!shop) {
                 break;
             }
@@ -3473,7 +3473,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (!unit || !unit->position) {
                 break;
             }
-            Shop* shop = this->sub_502C50(unit->position);
+            Shop* shop = this->FindShopAt(unit->position);
             if (!shop) {
                 break;
             }
@@ -3491,7 +3491,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (!unit) {
                 break;
             }
-            Shop* shop = this->sub_502C50(unit->position);
+            Shop* shop = this->FindShopAt(unit->position);
             if (!shop) {
                 break;
             }
@@ -3506,7 +3506,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (!unit) {
                 break;
             }
-            Shop* shop = this->sub_502C50(unit->position);
+            Shop* shop = this->FindShopAt(unit->position);
             if (!shop) {
                 break;
             }
