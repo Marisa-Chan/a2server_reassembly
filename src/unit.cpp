@@ -640,7 +640,7 @@ void Unit::VMethod11(Unit* unit) {
 
     this->quest_kill_mark = unit->quest_kill_mark;
     this->quest_escort_mark = unit->quest_escort_mark;
-    this->field_0x19c = unit->field_0x19c;
+    this->quest_intercept_mark = unit->quest_intercept_mark;
     this->field_0x204 = unit->field_0x204;
 }
 
@@ -1771,7 +1771,7 @@ void Unit::FUN_0052931b(const CString& str) {
     this->summon_id = 0;
     this->quest_kill_mark = 0;
     this->quest_escort_mark = 0;
-    this->field_0x19c = 0;
+    this->quest_intercept_mark = 0;
     this->summoned = 0;
     this->field_0x1a4 = 0;
     this->field_0x1a6 = 0;

@@ -81,3 +81,4 @@ Unit::field_0x136 -> attack_ready -- attack/spell cycle complete flag: cleared o
 Unit::field_0x150 -> item_op_dirty_flags -- per-item-operation dirty/update bitmask (was already described by its comment)
 Unit::field_0x194 -> quest_kill_mark -- unit template flag (flags2&1): eligible as kill-quest target in inn quest generation
 Unit::field_0x198 -> quest_escort_mark -- unit template flag (flags2&4): eligible as escort-quest target
+Unit::field_0x19c -> quest_intercept_mark -- unit template flag (flags2&2): eligible as intercept-quest target

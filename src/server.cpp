@@ -804,7 +804,7 @@ void Srv1::sub_59CD45(MapAlm* alm) {
         }
 
         unit->quest_kill_mark = (unit_data->flags2 & 1) ? 1 : 0;
-        unit->field_0x19c = (unit_data->flags2 & 2) ? 1 : 0;
+        unit->quest_intercept_mark = (unit_data->flags2 & 2) ? 1 : 0;
         unit->quest_escort_mark = (unit_data->flags2 & 4) ? 1 : 0;
         unit->summoned   = (unit_data->flags2 & 8) ? 1 : 0;
 

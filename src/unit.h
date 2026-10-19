@@ -202,7 +202,7 @@ public:
     uint32_t something_per_player[16];
     int32_t quest_kill_mark;
     int32_t quest_escort_mark;
-    int32_t field_0x19c;
+    int32_t quest_intercept_mark;
     uint32_t summoned; // Summoned or raised from the dead units have this set to 1.
     uint16_t field_0x1a4;
     uint16_t field_0x1a6;

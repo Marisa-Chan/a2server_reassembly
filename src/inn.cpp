@@ -367,7 +367,7 @@ void Inn::InnCreateQuests(Player* player) {
             POSITION upos = p->unit_list->unit_list.GetHeadPosition();
             while (upos) {
                 Unit* u = p->unit_list->unit_list.GetNext(upos);
-                if (!u->field_0x19c) {
+                if (!u->quest_intercept_mark) {
                     continue;
                 }
 
