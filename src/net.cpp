@@ -4265,7 +4265,7 @@ void NetStru1::SendSpellCastAtUnit(Unit* caster, Spell* spell, Unit* target, int
 }
 
 // 51BB94
-void NetStru1::sub_51BB94(Unit* caster, Spell* spell, TokenPos* pos, int16_t delay) {
+void NetStru1::SendSpellCastAtPos(Unit* caster, Spell* spell, TokenPos* pos, int16_t delay) {
     PacketMoveCmd& packet = PacketMoveCmd::Inst;
     packet.id = 0x86;
     packet.unit_id = caster->building_id;

@@ -551,3 +551,4 @@ NetStru1::sub_51CDFB -> SendArenaScore -- sends an arena score update
 NetStru1::sub_51C601 -> SendLevelUp -- sends the unit level-up packet
 NetStru1::sub_51C822 -> SendSpectatorState -- sends the spectator/alliance state
 NetStru1::sub_51AC77 -> BroadcastTokenState -- broadcasts the token state to players
+NetStru1::sub_51BAB0 -> SendSpellCastAtUnit -- targeted-unit spell packet

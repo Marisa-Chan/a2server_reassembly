@@ -266,7 +266,7 @@ int32_t Spell::sub_539958(Unit* caster, Unit* target, int8_t x, int8_t y) {
     if (this->sub_5393C7()) {
         g_NetStru1_main.SendSpellCastAtUnit(caster, this, target, delay);
     } else {
-        g_NetStru1_main.sub_51BB94(caster, this, &local_pos, delay);
+        g_NetStru1_main.SendSpellCastAtPos(caster, this, &local_pos, delay);
     }
 
     return 1;
