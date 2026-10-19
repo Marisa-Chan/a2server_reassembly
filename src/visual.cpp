@@ -5773,7 +5773,7 @@ const char* VisCharSellectStats::GetHint() {
     }
     CRect rc = this->ClientRectToScreen(this->rect);
     CPoint pos(g_mousept.GetX() - rc.left - 0xC, g_mousept.GetY() - rc.top - 0xEE);
-    return this->parent_screen->selected_unit->FUN_0046d0f7(pos.x, pos.y);
+    return this->parent_screen->selected_unit->GetStatsHint(pos.x, pos.y);
 }
 
 
@@ -8688,7 +8688,7 @@ const char* VisCharGenFullStats::GetHint() {
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
     CPoint pt(g_mousept.GetX() - screen_rect.left - 0xC, g_mousept.GetY() - screen_rect.top - 0xC);
-    return this->parent_screen->current_char->FUN_0046d0f7(pt.x, pt.y);
+    return this->parent_screen->current_char->GetStatsHint(pt.x, pt.y);
 }
 
 
@@ -9643,12 +9643,12 @@ const char* VisCharInfo::GetHint() {
             if (this->info_mode != 0) {
                 return nullptr;
             }
-            return unit->FUN_0046d0f7(mouse_pt.x - screen_rect.left, mouse_pt.y - screen_rect.top - 2);
+            return unit->GetStatsHint(mouse_pt.x - screen_rect.left, mouse_pt.y - screen_rect.top - 2);
         }
     }
 
     if (this->info_mode == 0) {
-        return unit->FUN_0046d0f7(mouse_pt.x - screen_rect.left, mouse_pt.y - screen_rect.top - 2);
+        return unit->GetStatsHint(mouse_pt.x - screen_rect.left, mouse_pt.y - screen_rect.top - 2);
     }
 
     uint8_t* data = (uint8_t*)this->hitmap->GetData();
@@ -10313,7 +10313,7 @@ const char* VisSideStatus::GetHint() {
 
     int32_t hint_y = mouse_pt.y - screen_rect.TopLeft().y - 2 - (this->rect.Height() - main_wnd->vis_charinfo->GetRect().Height());
     int32_t hint_x = mouse_pt.x - screen_rect.TopLeft().x;
-    return unit->FUN_0046d0f7(hint_x, hint_y);
+    return unit->GetStatsHint(hint_x, hint_y);
 }
 
 // 4B3FA3
@@ -13510,7 +13510,7 @@ const char* VisTavLeftPanel::GetHint() {
         if (unit->unitFlags & 0x40) {
             return nullptr;
         }
-        return unit->FUN_0046d0f7(pt.x, pt.y);
+        return unit->GetStatsHint(pt.x, pt.y);
     }
 
     client_rect.TopLeft().x -= 4;
