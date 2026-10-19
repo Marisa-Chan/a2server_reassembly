@@ -129,7 +129,7 @@ public:
     void ProcessTick(class PlayersList* players);
     void ProcessTriggers(); // 5B0724
     void EvaluateTriggerChecks(); // 5B0762
-    void sub_5B081E(TriggerCheck* check); // 5B081E — trigger-check dispatcher.
+    void DispatchTriggerCheck(TriggerCheck* check); // 5B081E — trigger-check dispatcher.
     void ExecuteTriggerActions(); // 5B0A6A
     Unit* sub_5B61D0(uint16_t pos_yx, uint8_t byte_0x3c, Player* owner, int32_t is_defensive); // 5B61D0
     void sub_5B6346(); // 5B6346
@@ -244,7 +244,7 @@ public:
     void sub_5ACDF4(Group* group); //5acdf4 // World callback for animate-dead group
     void DoScriptInstID(int32_t script_id); // Run script by instance ID
 
-    // Trigger check handlers, called from `sub_5B081E`.
+    // Trigger check handlers, called from `DispatchTriggerCheck`.
     void CheckOP_1(TriggerCheck* check); // 5B2E91. How many units contains this group
     void CheckOP_2(TriggerCheck* check); // 5B2EF9. Is unit in a box
     void CheckOP_3(TriggerCheck* check); // 5B2F9A. Is unit in a circle

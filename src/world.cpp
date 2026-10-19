@@ -4499,13 +4499,13 @@ void World::EvaluateTriggerChecks() {
     for (POSITION it = this->trigger_checks->GetHeadPosition(); it != nullptr;) {
         TriggerCheck trigger_check = this->trigger_checks->GetNext(it); // Copies the value.
         if (trigger_check.ref_count == 0) {
-            this->sub_5B081E(&trigger_check);
+            this->DispatchTriggerCheck(&trigger_check);
         }
     }
 }
 
 // 5B081E — trigger-check dispatcher.
-void World::sub_5B081E(TriggerCheck* check) {
+void World::DispatchTriggerCheck(TriggerCheck* check) {
     switch (check->type) {
     case 1: this->CheckOP_1(check); break;
     case 2: this->CheckOP_2(check); break;
