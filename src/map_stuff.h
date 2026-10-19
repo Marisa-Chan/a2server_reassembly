@@ -265,7 +265,7 @@ public:
     uint16_t sub_592A48(Unit* unit, Unit* target); // 592A48
     int16_t sub_593134(Unit* unit, int32_t zero, uint16_t yx, uint32_t radius); // 593134
     Building* GetBuildingAt(uint16_t yx); // 594709
-    uint8_t sub_591A96(uint16_t yx1, uint16_t yx2, int32_t size); // 591A96
+    uint8_t BoxDistance(uint16_t yx1, uint16_t yx2, int32_t size); // 591A96
     void sub_597290(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by sub_596F80, queueing improved cells into queue2 — 597290
     void sub_5974B0(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by sub_596F80, queueing improved cells into queue1 — 5974B0
     void sub_597990(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by sub_5978F0, queueing improved cells into queue1 — 597990

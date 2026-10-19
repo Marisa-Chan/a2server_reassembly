@@ -2176,7 +2176,7 @@ void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
 
             if (unit->group->group_sub->order == 0x12 && unit->eye2->cast_action == 5) {
                 int32_t size = unit->GetTokenSize();
-                uint8_t range = this->sub_591A96(step, dest.val, size);
+                uint8_t range = this->BoxDistance(step, dest.val, size);
                 if (this->field41_0x58d80->UnitMaxRange(unit) < range) {
                     unit->eye2->tick16 = g_Server->tick16;
                 }
@@ -2778,7 +2778,7 @@ int32_t MapStuff::ClassifyDirection8(Unit* unit, uint16_t yx) {
 }
 
 // 591A96 --- Chebyshev-like distance between yx1 and yx2 for a unit of a given size.
-uint8_t MapStuff::sub_591A96(uint16_t yx1, uint16_t yx2, int32_t size) {
+uint8_t MapStuff::BoxDistance(uint16_t yx1, uint16_t yx2, int32_t size) {
     PosYX p1(yx1);
     PosYX p2(yx2);
 
