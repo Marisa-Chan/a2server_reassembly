@@ -3414,7 +3414,7 @@ void World::ProcessGroupAi(Group* group) {
             break;
         }
     }
-    this->sub_5AF646(group);
+    this->ProcessGroupRecall(group);
 }
 
 // 5AED8D
@@ -4128,7 +4128,7 @@ void World::sub_5AF061(Group* group, uint16_t yx) {
 }
 
 // 5AF646
-void World::sub_5AF646(Group* group) {
+void World::ProcessGroupRecall(Group* group) {
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
         this->sub_5AF5DC(unit);
