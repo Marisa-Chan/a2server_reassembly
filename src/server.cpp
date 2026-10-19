@@ -1692,7 +1692,7 @@ void Server::SendWorldState(Player* player, int32_t bool_arg4) {
     player->is_in_world = 1;
     player->is_active = 1;
     g_World->sub_5AFBFD(); // increment some counter (number of joined players?).
-    MapStuff_Instance->scan_presence_grid.sub_596131();  // refresh scan grid
+    MapStuff_Instance->scan_presence_grid.RebuildPresenceGrid();  // refresh scan grid
 
     // Clear vision mask bits for this player across every unit list.
     // Three separate lists are processed:
@@ -2184,7 +2184,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
     g_World->sub_5AFBFD();
 
     // Notify MapStuff section
-    MapStuff_Instance->scan_presence_grid.sub_596131();
+    MapStuff_Instance->scan_presence_grid.RebuildPresenceGrid();
 
     // Add character unit to map.
     MapStuff_Instance->sub_58E3D1(player->main_unit);

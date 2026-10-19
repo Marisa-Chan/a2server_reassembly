@@ -643,7 +643,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 g_World->ResetUnitToHold(unit);
                 g_World->ProcessAnimateDeadGroup(group);
 
-                MapStuff_Instance->scan_presence_grid.sub_596131();
+                MapStuff_Instance->scan_presence_grid.RebuildPresenceGrid();
                 g_NetStru1_main.SendUnitUpdate(unit, nullptr, 0xA31FFFFF, 0xFFB, 0, 0);
                 return;
             }
@@ -736,7 +736,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 g_World->ResetUnitToHold(unit);
                 g_World->GroupGuardCommand(group, 0);
 
-                MapStuff_Instance->scan_presence_grid.sub_596131();
+                MapStuff_Instance->scan_presence_grid.RebuildPresenceGrid();
                 g_NetStru1_main.SendUnitUpdate(unit, nullptr, 0xA31FFFFF, 0xFFB, 0, 0);
                 return;
             }

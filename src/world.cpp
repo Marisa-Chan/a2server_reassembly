@@ -901,7 +901,7 @@ void World::ProcessTick(PlayersList* players) {
     this->field2_0x8.Begin();
     if (this->field37_0xbbe8 == 0) {
         this->field3_0x38.Begin();
-        this->field24_0xa50->scan_presence_grid.sub_596131();
+        this->field24_0xa50->scan_presence_grid.RebuildPresenceGrid();
         this->field3_0x38.End();
         this->duration1 = (int32_t)this->field3_0x38.period64;
         this->total1 += (int32_t)this->field3_0x38.period64;

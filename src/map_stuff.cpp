@@ -1208,7 +1208,7 @@ void ScanPresenceGrid::sub_5963B9() {
 }
 
 // 596131
-void ScanPresenceGrid::sub_596131() {
+void ScanPresenceGrid::RebuildPresenceGrid() {
     this->sub_5963B9();
     this->num_detected = 0;
     this->unwatched_active_detections = 0;
