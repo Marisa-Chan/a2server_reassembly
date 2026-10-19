@@ -127,7 +127,7 @@ public:
     int LoadMap(CString mapName); // Load ALM map file
     void CreatePlayers(MapAlm* alm);
     void CreateUnits(MapAlm* alm);
-    void sub_59D891(MapAlm* alm, int flag);
+    void LoadTriggers(MapAlm* alm, int flag);
     void sub_59F1BE(MapAlm* alm);
     void sub_59C37A(MapAlm* alm);
     void sub_59BEDB(Group* group, MapAlm* alm);

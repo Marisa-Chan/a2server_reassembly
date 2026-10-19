@@ -478,7 +478,7 @@ int Srv1::LoadMap(CString map_name) {
         }
     }
 
-    this->sub_59D891(alm, 1);
+    this->LoadTriggers(alm, 1);
     this->sub_59F1BE(alm);
 
     if (g_Server->field4_0x74 != 0) {
@@ -951,7 +951,7 @@ Player* Srv1::GetScenarioScriptPlayer(CMap<int32_t, int32_t, Player*, Player*>& 
 }
 
 // 59D891
-void Srv1::sub_59D891(MapAlm* alm, int flag) {
+void Srv1::LoadTriggers(MapAlm* alm, int flag) {
     CMap<int32_t, int32_t, Unit*, Unit*> units_map;
     CMap<int32_t, int32_t, Group*, Group*> groups_map;
     CMap<int32_t, int32_t, Player*, Player*> players_map;
@@ -6431,7 +6431,7 @@ void Server::sub_4F3188(CArchive& ar) {
                 this->srv_stru1->virtual_casters_list.AddTail(static_cast<VirtualCaster*>(obj));
             }
 
-            this->field19_0x98.sub_59D891(alm, 0);
+            this->field19_0x98.LoadTriggers(alm, 0);
             delete alm;
 
             this->field18_0x94 = 1;
