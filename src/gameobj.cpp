@@ -302,7 +302,7 @@ void CGameObject::SetTileLayerCell(int32_t arg1, CGameObject* arg2) { //461c41
 }
 
 
-int32_t CGameObject::FUN_00461f8e(int32_t x, int32_t y) { //461f8e
+int32_t CGameObject::GetDirTo(int32_t x, int32_t y) { //461f8e
     int32_t dx = x - this->x_pos;
     int32_t dy = y - this->y_pos;
     int32_t adx = abs(dx);
@@ -2976,7 +2976,7 @@ void CUnit::SpawnSpellProjectile() { // 468765
         proj->action_x = target->centerWorldX8;
         proj->action_y = target->centerWorldY8;
         proj->action_z = target->z_pos;
-        proj->action_dir = (uint8_t)this->FUN_00461f8e(this->action_x, this->action_y);
+        proj->action_dir = (uint8_t)this->GetDirTo(this->action_x, this->action_y);
     } else {
         proj->action_x = this->action_x;
         proj->action_y = this->action_y;
@@ -4386,7 +4386,7 @@ int32_t CProjectile::Update() {
             this->action_x = target->centerWorldX8;
             this->action_y = target->centerWorldY8;
             this->action_z = target->z_pos;
-            this->action_dir = (int8_t)this->FUN_00461f8e(this->action_x, this->action_y);
+            this->action_dir = (int8_t)this->GetDirTo(this->action_x, this->action_y);
         }
 
         int32_t dx = (this->action_x - this->x_pos) / this->action_segments;
