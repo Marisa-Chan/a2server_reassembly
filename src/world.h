@@ -325,7 +325,7 @@ public:
     void sub_5A607B(Unit* unit); // 5A607B — idle/wander helper.
     void AdvancePatrol(Unit* unit); // 5A647C — helper for state 10/24 unit actions.
     void DoRetreat(Unit* unit); // 5A6E59 — retreat helper.
-    void sub_5A8709(Unit* unit, Unit* target); // 5A8709 — set unit to pursue the chosen target.
+    void PursueTarget(Unit* unit, Unit* target); // 5A8709 — set unit to pursue the chosen target.
     void sub_5A6EA5(Unit* unit); // 5A6EA5 — idle/wander helper (ASM).
     int32_t sub_5A6ED9(Unit* unit, Unit* target); // 5A6ED9 — target-pursuit check (ASM).
     int32_t sub_5B6632(Unit* unit, Unit* target); // 5B6632 — AI mage spell selection: pick a random affordable non-defensive spell.

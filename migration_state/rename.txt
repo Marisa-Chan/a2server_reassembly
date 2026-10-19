@@ -432,3 +432,4 @@ World::sub_5A9918 -> OrderTeleportHome -- sets state 0x16 (teleport back to owne
 World::sub_5A9383 -> OrderGuardPosition -- sets state 0x0B anchored at current (or eye) position
 World::sub_5A6E2C -> SetIdleOrRetreat -- param=0 -> idle/wander, else retreat
 World::sub_5A647C -> AdvancePatrol -- advances the unit's patrol waypoint (states 10/24 helper)
+World::sub_5A6E59 -> DoRetreat -- retreat behavior: casts 0x0B, mages self-heal/buff first

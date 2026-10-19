@@ -2514,7 +2514,7 @@ void World::sub_5A607B(Unit* unit) {
     }
 
     if (best_target != nullptr) {
-        this->sub_5A8709(unit, best_target);
+        this->PursueTarget(unit, best_target);
     } else {
         this->DoRetreat(unit);
     }
@@ -2643,7 +2643,7 @@ void World::DoRetreat(Unit* unit) {
 }
 
 // 5A8709
-void World::sub_5A8709(Unit* unit, Unit* target) {
+void World::PursueTarget(Unit* unit, Unit* target) {
     if (unit->IsMage() && !unit->pOwner->is_ai && this->sub_5A6ED9(unit, target)) {
         return;
     }
