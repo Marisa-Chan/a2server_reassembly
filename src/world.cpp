@@ -777,7 +777,7 @@ uint8_t World::sub_5ABB32(Unit* unit, PosYX yx) {
 }
 
 // 5AB62E
-uint32_t World::sub_5AB62E(UnitList* list) {
+uint32_t World::ComputeListAvgPos(UnitList* list) {
     int count = list->unit_list.GetCount();
     if (count == 0) {
         return 0;
@@ -3675,7 +3675,7 @@ void World::DoTeleportHome(Unit* unit) {
     if (count == 0) {
         this->SetIdleOrRetreat(unit, 0);
     } else {
-        uint32_t packed_yyxx = this->sub_5AB62E(list);
+        uint32_t packed_yyxx = this->ComputeListAvgPos(list);
         int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, 3);
         this->sub_5A8778(unit, result);
     }
@@ -3701,7 +3701,7 @@ void World::sub_5A8A55(Unit* unit) {
     if (count == 0) {
         this->SetIdleOrRetreat(unit, 0);
     } else {
-        uint32_t packed_yyxx = this->sub_5AB62E(list);
+        uint32_t packed_yyxx = this->ComputeListAvgPos(list);
         int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, range);
 
         Spell* spell = this->GetCastableSpell(unit, spell::teleport, 0);
@@ -3731,7 +3731,7 @@ void World::sub_5A8DBC(Unit* unit) {
     if (list->unit_list.GetCount() == 0) {
         this->DoGuardScan(unit);
     } else {
-        uint32_t packed_yyxx = this->sub_5AB62E(list);
+        uint32_t packed_yyxx = this->ComputeListAvgPos(list);
         int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, range);
         Spell* spell = this->GetCastableSpell(unit, spell::teleport, 0);
         if (spell != nullptr) {
@@ -3794,7 +3794,7 @@ void World::sub_5A8CD8(Unit* unit) {
     if (list->unit_list.GetCount() == 0) {
         this->DoGuardScan(unit);
     } else {
-        uint32_t packed_yyxx = this->sub_5AB62E(list);
+        uint32_t packed_yyxx = this->ComputeListAvgPos(list);
         int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, 3);
         this->sub_5A8778(unit, result);
     }

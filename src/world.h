@@ -240,7 +240,7 @@ public:
     void sub_5A6789(Unit* unit); // 5A6789
     void DoTeleportHome(Unit* unit); // 5A8885
     void sub_5A8A55(Unit* unit); // 5A8A55
-    uint32_t sub_5AB62E(UnitList* list); // 5AB62E
+    uint32_t ComputeListAvgPos(UnitList* list); // 5AB62E
     void ProcessAnimateDeadGroup(Group* group); //5acdf4 // World callback for animate-dead group
     void DoScriptInstID(int32_t script_id); // Run script by instance ID
 

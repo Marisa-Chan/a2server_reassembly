@@ -511,3 +511,4 @@ World::sub_5A3C5F -> PruneUnconsciousTargets -- moves unconscious targets out of
 World::sub_5B6862 -> PickFallbackBuff -- fallback buff selection for CastSelfHealOrBuff
 World::sub_5ADD64 -> BuildAllyList -- builds nearby friendly unit list from the group
 World::sub_5B5816 -> AreAtWar -- 1 when unit1's owner is at war with unit2's owner
+World::sub_5ACDF4 -> ProcessAnimateDeadGroup -- world callback for the animate-dead group
