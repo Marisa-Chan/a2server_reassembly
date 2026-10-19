@@ -33,3 +33,4 @@ PacketMount::unit_id (+0xC) -> target_id -- holds the mount/ride TARGET unit id 
 PacketMount::field_0xa -> unit_id -- acting (riding) unit id
 PacketUnitStateVec::field_0xc -> mode -- update kind: 1=equipment TLV entries, 2=inventory range; bit 0x80 marks a partial inventory range
 PacketUnitStateVec::field_0xf -> start_index -- first inventory/tokenEntries index covered by this update
+PacketSync::field_0xa -> building_id -- synced building id

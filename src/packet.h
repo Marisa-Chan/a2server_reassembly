@@ -604,7 +604,7 @@ public:
     virtual Packet* Duplicate() override; // sub_57AC40
     virtual uint32_t GetDataSize() override;
 public:
-    uint16_t field_0xa; // +0xA
+    uint16_t building_id; // +0xA
     int16_t field_0xc; // +0xC
 };
 __pragma(pack(pop))
