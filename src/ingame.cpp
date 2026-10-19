@@ -1872,9 +1872,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 			wnd->FUN_00494a9e();
 
-			if (wnd->field_0x144) {
-				wnd->field_0x144->ReadData(&wnd->field_0x348);
-				wnd->field_0x144->VMethod9();
+			if (wnd->vis_msgbox) {
+				wnd->vis_msgbox->ReadData(&wnd->field_0x348);
+				wnd->vis_msgbox->VMethod9();
 			}
 
 			wnd->vis_root->MsgProc(0x460, 0, 0);
@@ -1920,9 +1920,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 			wnd->FUN_00494a9e();
 
-			if (wnd->field_0x144) {
-				wnd->field_0x144->ReadData(&wnd->field_0x348);
-				wnd->field_0x144->VMethod9();
+			if (wnd->vis_msgbox) {
+				wnd->vis_msgbox->ReadData(&wnd->field_0x348);
+				wnd->vis_msgbox->VMethod9();
 			}
 		}
 		break;
@@ -2117,9 +2117,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 			wnd->FUN_00494a9e();
 
-			if (wnd->field_0x144) {
-				wnd->field_0x144->ReadData(&wnd->field_0x348);
-				wnd->field_0x144->VMethod9();
+			if (wnd->vis_msgbox) {
+				wnd->vis_msgbox->ReadData(&wnd->field_0x348);
+				wnd->vis_msgbox->VMethod9();
 			}
 			break;
 

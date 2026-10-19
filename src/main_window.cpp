@@ -1467,7 +1467,7 @@ MainWindow::MainWindow() { //4837e1
     this->field_0x448 = 0;
     this->serverBootstrapEnabled = 0;
     this->field_0x404 = 0;
-    this->field_0x144 = nullptr;
+    this->vis_msgbox = nullptr;
     this->field_0x454 = 0;
     this->field_0x34c = nullptr;
     this->field_0x3dc = nullptr;
@@ -2564,12 +2564,12 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
 
         delete this->field_0x3d0;
         this->field_0x3d0 = nullptr;
-    } else if (obj == this->field_0x144) {
+    } else if (obj == this->vis_msgbox) {
         this->dialogsMask &= ~8;
 
-        int32_t code = this->field_0x144->GetCloseCode();
+        int32_t code = this->vis_msgbox->GetCloseCode();
 
-        this->field_0x144 = nullptr;
+        this->vis_msgbox = nullptr;
 
         if (code == 0x445) {
             int j = 0;
@@ -3415,8 +3415,8 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             this->FUN_00494a9e();
             // The original passes the address of the array pointer so the dialog
             // re-reads the current array on every ReadData (see VisDiplomacy::diplomacy).
-            this->field_0x144 = new VisDiplomacy(1, 10, 0, 630, 480, (const CArray<DiplomacyEntry*>*)&this->field_0x348);
-            this->PopUpScreen(this->field_0x144);
+            this->vis_msgbox = new VisDiplomacy(1, 10, 0, 630, 480, (const CArray<DiplomacyEntry*>*)&this->field_0x348);
+            this->PopUpScreen(this->vis_msgbox);
         }
         break;
 

@@ -502,7 +502,7 @@ public:
     Vis1200* vis_1200;
     LoadGameWindow* vis_loadgame;
     SaveGameWindow* vis_savegame;
-    VisMessageBox* field_0x144;
+    VisMessageBox* vis_msgbox;
     SaveFileInfo field_0x148;
     CArray<DiplomacyEntry*>* field_0x348;
     VisScreen* field_0x34c;
