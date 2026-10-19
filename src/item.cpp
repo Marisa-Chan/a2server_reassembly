@@ -680,7 +680,7 @@ Armor::Armor(const CString& name) : Item() {
 
     this->shape_id = g_GameDataRes.FindShapeIndex(&base_name, &base_name);
     this->material_id = g_GameDataRes.FindMaterialIndex(&base_name, &base_name);
-    g_GameDataRes.sub_50DC69(this->material_id, &base_name);
+    g_GameDataRes.StripMaterialPrefix(this->material_id, &base_name);
 
     int32_t count = g_GameDataRes.armors.GetSize();
     int16_t item_data_id = 0;
@@ -898,7 +898,7 @@ Shield::Shield(const CString& name) : Item() {
 
     this->shape_id = g_GameDataRes.FindShapeIndex(&base_name, &base_name);
     this->material_id = g_GameDataRes.FindMaterialIndex(&base_name, &base_name);
-    g_GameDataRes.sub_50DC69(this->material_id, &base_name);
+    g_GameDataRes.StripMaterialPrefix(this->material_id, &base_name);
 
     int32_t pos = base_name.Find(" Shield");
     if (pos > 0) {

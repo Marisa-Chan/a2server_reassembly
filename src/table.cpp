@@ -768,7 +768,7 @@ Item* GameDataRes::FindItemTemplate(CString* name) {
     uint8_t material_id = this->FindMaterialIndex(&base_name, &base_name);
 
     CString stripped_name = base_name;
-    this->sub_50DC69(material_id, &stripped_name);
+    this->StripMaterialPrefix(material_id, &stripped_name);
 
     for (int32_t i = this->armors.GetSize() - 1; i >= 1; i--) {
         if (stripped_name == this->armors[i].name) {
@@ -796,7 +796,7 @@ Item* GameDataRes::FindItemTemplate(CString* name) {
     } else {
         stripped_name = base_name;
     }
-    this->sub_50DC69(material_id, &stripped_name);
+    this->StripMaterialPrefix(material_id, &stripped_name);
 
     for (int32_t i = this->shields.GetSize() - 1; i >= 1; i--) {
         if (stripped_name == this->shields[i].name) {
@@ -856,7 +856,7 @@ Item* GameDataRes::CreateItemById(uint16_t item_id) {
 }
 
 // 50DC69
-void GameDataRes::sub_50DC69(int material_id, CString* name) {
+void GameDataRes::StripMaterialPrefix(int material_id, CString* name) {
     if (this->materials[material_id].name.Find("Leather") != -1) {
         name->TrimLeft();
         *name = "Soft " + *name;

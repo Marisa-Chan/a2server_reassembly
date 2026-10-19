@@ -716,3 +716,4 @@ GameDataRes::sub_50DF19 -> GetRandomRecruitIndex -- random recruitable monster i
 GameDataRes::sub_50DDAE -> GetMonsterDataIndex -- monster data index from encoded item type/face
 GameDataRes::sub_50D8BA -> FindShapeIndex -- finds shape index by item name string
 GameDataRes::sub_50DA04 -> FindMaterialIndex -- finds material index by item name string
+GameDataRes::sub_50DB4E -> SplitItemName -- extracts base name and braced property from item name
