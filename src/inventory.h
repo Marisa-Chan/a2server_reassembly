@@ -3,10 +3,10 @@
 
 #include <cstdint>
 
-#include "asm_mfc.h"
+#include <afx.h>
 #include "assert_offset.h"
 #include "item.h"
-#include "mfc_templ.h"
+#include <afxtempl.h>
 
 
 struct Inventory {

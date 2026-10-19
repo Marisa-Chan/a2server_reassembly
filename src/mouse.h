@@ -1,8 +1,8 @@
 #pragma once
 
-#include "asm_mfc.h"
+#include <afx.h>
 #include <inttypes.h>
-
+#include "assert_offset.h"
 
 class CSprite256;
 class CBmp64;

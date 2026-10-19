@@ -1,8 +1,8 @@
 #pragma once
 #include <inttypes.h>
 #include <array>
-#include "asm_mfc.h"
-#include "mfc_templ.h"
+#include <afx.h>
+#include <afxtempl.h>
 #include "gfx.h"
 
 class UnitVFXUnfo;

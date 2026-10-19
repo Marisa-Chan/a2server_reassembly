@@ -739,7 +739,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
                 case 3: name = "Foot_Animated"; break;
                 }
                 if (tier > 1) {
-                    CString dot_tier = "." + CString('0' + tier, 1);
+                    CString dot_tier = "." + CString((char)('0' + tier), 1);
                     name += dot_tier;
                 }
                 unit->FUN_0052931b(name);

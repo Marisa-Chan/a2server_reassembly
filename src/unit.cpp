@@ -284,7 +284,7 @@ void Unit::Serialize(CArchive& ar)
 
     // Serialize effects.
     if (ar.IsStoring()) {
-        ar << this->_effects.m_nCount;
+        ar << this->_effects.GetSize();
         for (POSITION pos = this->_effects.GetHeadPosition(); pos != nullptr; ) {
             Effect* effect = this->_effects.GetNext(pos);
             ar.WriteObject(effect);
@@ -1369,7 +1369,7 @@ void Unit::sub_52C98B(Sack* sack)
 
                 // Apply buff scroll effect to self.
                 if (apply_buff && item != nullptr) {
-                    Effect* effect = item->_effects.m_nCount > 0 ? item->_effects.m_pNodeHead->data : nullptr;
+                    Effect* effect = item->_effects.GetSize() > 0 ? item->_effects.GetHead() : nullptr;
                     if (effect != nullptr) {
                         this->some_item = item;
                         Spell* spl = new Spell(static_cast<uint8_t>(effect->spell_or_damage));
@@ -1536,7 +1536,7 @@ void Unit::sub_52D94E()
         }
 
         // Create sack if inventory has items or gold was dropped.
-        if ((this->inventory->items.m_nCount > 0 || gold > 0) && this->pOwner != nullptr) {
+        if ((this->inventory->items.GetSize() > 0 || gold > 0) && this->pOwner != nullptr) {
             int is_main = (this->pOwner->main_unit == this) ? 1 : 0;
             // Inline sub_52D8D3: drop inventory as a sack on the map.
             Inventory* sack_items = DetachInventory();
@@ -1570,7 +1570,7 @@ void Unit::sub_52D94E()
         }
 
         // Create sack if inventory has items.
-        if (this->inventory->items.m_nCount > 0) {
+        if (this->inventory->items.GetSize() > 0) {
             int is_main = (this->pOwner->main_unit == this) ? 1 : 0;
             Inventory* sack_inventory = DetachInventory();
             g_Server->srv_stru1->sack_list->sub_554927(this->position, sack_inventory, 0, is_main);

@@ -35,7 +35,7 @@ public:
 
     // Helpers for CreateFromString
     static void ParseDmg(CString* str, uint8_t* dmg_min, uint8_t* dmg_spread); // 54180C
-    static int32_t StrToInt(CString* str); // 5418F1
+    static int32_t _StrToInt(CString* str); // 5418F1
     static int32_t GetSpellIDByName(CString* name); // 541963
     static int32_t AtoI(CString* str); // 5419C3
     static int32_t ParseUsage(CString* str, int32_t* out_value); // 541A5D

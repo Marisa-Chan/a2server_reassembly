@@ -1,6 +1,8 @@
 #pragma once
-
-#include "asm_mfc.h"
+#include <winsock2.h>
+#include <afx.h>
+#include <afxwin.h>
+#include <afxext.h>
 #include "assert_offset.h"
 #include "visual.h"
 #include "mouse.h"
@@ -24,11 +26,8 @@ public:
     static const AFX_MSGMAP_ENTRY _messageEntries[];
     static AFX_DATA const AFX_MSGMAP messageMap;
 
-    static void __fastcall OnKeyDown(CListBox2*, void* edx, UINT, UINT, UINT);
-    static void __fastcall OnLButtonDblClk(CListBox2*, void* edx, UINT, CPoint);
-
-    void _OnKeyDown(UINT, UINT, UINT);
-    void _OnLButtonDblClk(UINT, CPoint);
+    void OnKeyDown(UINT, UINT, UINT);
+    void OnLButtonDblClk(UINT, CPoint);
 };
 
 
@@ -43,8 +42,7 @@ public:
     static const AFX_MSGMAP_ENTRY _messageEntries[];
     static AFX_DATA const AFX_MSGMAP messageMap;
 
-    static void __fastcall OnKeyDown(CEdit2*, void* edx, UINT, UINT, UINT);
-    void _OnKeyDown(UINT, UINT, UINT);
+    void OnKeyDown(UINT, UINT, UINT);
 };
 
 
@@ -334,21 +332,12 @@ public:
     void sub_495439(); // 495439 — ON_WM_DESTROY
     void sub_49544C(); // 49544C — ON_COMMAND 0x3f5
     void sub_49549B(); // 49549B — ON_COMMAND 0x3f6
+    void sub_4954EA(); // 4954EA
     void sub_4956D5(); // 4956D5 — ON_WM_CLOSE
     void sub_495774(); // 495774 — ON_COMMAND 0x3ff
     void sub_4957AD(); // 4957AD — ON_COMMAND 0x3f7
     void sub_4957E2(); // 4957E2 — ON_COMMAND 0x3fb
     void sub_49583E(); // 49583E — ON_COMMAND 0x3fe
-
-    // Message-map thunks (plain function pointers for AFX_PMSG).
-    static void __fastcall MsgThunk495439(ServerControlDialog* _this, void* edx);
-    static void __fastcall MsgThunk49544C(ServerControlDialog* _this, void* edx);
-    static void __fastcall MsgThunk49549B(ServerControlDialog* _this, void* edx);
-    static void __fastcall MsgThunk4956D5(ServerControlDialog* _this, void* edx);
-    static void __fastcall MsgThunk495774(ServerControlDialog* _this, void* edx);
-    static void __fastcall MsgThunk4957AD(ServerControlDialog* _this, void* edx);
-    static void __fastcall MsgThunk4957E2(ServerControlDialog* _this, void* edx);
-    static void __fastcall MsgThunk49583E(ServerControlDialog* _this, void* edx);
 };
 
 ASSERT_SIZE(ServerControlDialog, 0x280);
@@ -383,62 +372,25 @@ public: // VTable at 0060c1a8.
     void SingleGameTimedIdle(); //48a543
     void SingleGameIdle(); //48a3a2
 
-    static void __fastcall OnDestroy(MainWindow*); //483ea8
-    void _OnDestroy(); //483ea8
-
-    static int __fastcall OnCreate(MainWindow*, void*, LPCREATESTRUCT lpCreateStruct); //484022
-    int _OnCreate(LPCREATESTRUCT lpCreateStruct); //484022
-
-    static void __fastcall OnPaint(MainWindow*); //484a1a
-    void _OnPaint(); //484a1a
-
-    static BOOL __fastcall OnSetCursor(MainWindow*, void*, CWnd*, UINT, UINT); //486391
-    BOOL _OnSetCursor(CWnd*, UINT, UINT); //486391
-
-    static void __fastcall OnSetFocus(MainWindow*, void*, CWnd*); //4863c6
-    void _OnSetFocus(CWnd*); //4863c6
-
-    static void __fastcall OnKeyDown(MainWindow*, void*, UINT, UINT, UINT); //4863f6
-    void _OnKeyDown(UINT, UINT, UINT); //4863f6
-
-    static void __fastcall OnSysKeyDown(MainWindow*, void*, UINT, UINT, UINT); //486a2f
-    void _OnSysKeyDown(UINT, UINT, UINT); //486a2f
-
-    static void __fastcall OnKeyUp(MainWindow*, void*, UINT, UINT, UINT); //486bb0
-    void _OnKeyUp(UINT, UINT, UINT); //486bb0
-
-    static void __fastcall OnSysKeyUp(MainWindow*, void*, UINT, UINT, UINT); //486c25
-    void _OnSysKeyUp(UINT, UINT, UINT); //486c25
-
-    static void __fastcall OnChar(MainWindow*, void*, UINT, UINT, UINT); //48a35f
-    void _OnChar(UINT, UINT, UINT); //48a35f
-
-    static void __fastcall OnKillFocus(MainWindow*, void*, CWnd*); //48b01d
-    void _OnKillFocus(CWnd*); //48b01d
-
-    static void __fastcall OnClose(MainWindow*); //4949f9
-    void _OnClose(); //4949f9
-
-    static void __fastcall OnSize(MainWindow*, void*, UINT, int, int); //494e8e
-    void _OnSize(UINT, int, int); //494e8e
-
-    static void __fastcall FUN_00495010(MainWindow*); //495010
-    void _FUN_00495010(); //495010
-
-    static void __fastcall FUN_004950c0(MainWindow*); //4950c0
-    void _FUN_004950c0(); //4950c0
-
-    static void __fastcall FUN_00495743(MainWindow*); //495743
-    void _FUN_00495743(); //495743
-
-    static void __fastcall OnSizing(MainWindow*, void*, UINT, LPRECT); //495ab2
-    void _OnSizing(UINT, LPRECT); //495ab2
-
-    static void __fastcall OnNcMouseMove(MainWindow*, void*, UINT, CPoint); //495b9c
-    void _OnNcMouseMove(UINT, CPoint); //495b9c
-
-    static void __fastcall OnNcLButtonDown(MainWindow*, void*, UINT, CPoint); //495c6e
-    void _OnNcLButtonDown(UINT, CPoint); //495c6e
+    void OnDestroy(); //483ea8
+    int OnCreate(LPCREATESTRUCT lpCreateStruct); //484022
+    void OnPaint(); //484a1a
+    BOOL OnSetCursor(CWnd*, UINT, UINT); //486391
+    void OnSetFocus(CWnd*); //4863c6
+    void OnKeyDown(UINT, UINT, UINT); //4863f6
+    void OnSysKeyDown(UINT, UINT, UINT); //486a2f
+    void OnKeyUp(UINT, UINT, UINT); //486bb0
+    void OnSysKeyUp(UINT, UINT, UINT); //486c25
+    void OnChar(UINT, UINT, UINT); //48a35f
+    void OnKillFocus(CWnd*); //48b01d
+    void OnClose(); //4949f9
+    void OnSize(UINT, int, int); //494e8e
+    void FUN_00495010(); //495010
+    void FUN_004950c0(); //4950c0
+    void FUN_00495743(); //495743
+    void OnSizing(UINT, LPRECT); //495ab2
+    void OnNcMouseMove(UINT, CPoint); //495b9c
+    void OnNcLButtonDown(UINT, CPoint); //495c6e
     
 public:
     void sub_48A756(); // Game loop tick processing function, called from GameApp::OnIdle when server is active.

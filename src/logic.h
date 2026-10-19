@@ -5,7 +5,7 @@
 #include <cstdint>
 
 #include "assert_offset.h"
-#include "mfc_templ.h"
+#include <afxtempl.h>
 
 
 struct Check {

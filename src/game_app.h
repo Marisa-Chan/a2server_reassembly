@@ -1,8 +1,11 @@
 #ifndef GAME_APP_H
 #define GAME_APP_H
 
-#include "asm_mfc.h"
-#include "mfc_templ.h"
+#include <winsock2.h>
+#include <afx.h>
+#include <afxtempl.h>
+#include <afxwin.h>
+
 #include "net.h"
 #include "table.h"
 #include "txtfile.h"

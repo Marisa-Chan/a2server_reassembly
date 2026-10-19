@@ -226,8 +226,8 @@ void World::sub_5A3AD6(Unit* unit, UnitList* pList) {
     this->field28_0xaa4.unit_list.RemoveAll();
 
     CList<Unit*>* src = pList ? &pList->unit_list : nullptr;
-    for (auto* node = src ? src->m_pNodeHead : nullptr; node != nullptr; node = node->pNext) {
-        Unit* u = node->data;
+    for (POSITION node = src ? src->GetHeadPosition() : nullptr; node != nullptr; ) {
+        Unit* u = src->GetNext(node);
 
         // Skip dead/decaying units.
         if (u->some_state == 0x10) {
@@ -238,8 +238,8 @@ void World::sub_5A3AD6(Unit* unit, UnitList* pList) {
         // unit in `unit`'s group can see it before including it.
         if ((u->enchantments & (1 << spell::invisibility)) != 0 && this->diplomacy.diplomacy[unit->pOwner->player_id][u->pOwner->player_id] != 2) {
             bool can_see = false;
-            for (auto* gn = unit->group->unit_list.m_pNodeHead; gn != nullptr; gn = gn->pNext) {
-                Unit* gu = gn->data;
+            for (POSITION gn = unit->group->unit_list.GetHeadPosition(); gn != nullptr;) {
+                Unit* gu = unit->group->unit_list.GetNext(gn);
                 int32_t range = this->field24_0xa50->sub_59190D(u, gu);
                 if ((range & 0xFF) <= gu->eye2->seeInvisible) {
                     can_see = true;

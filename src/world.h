@@ -3,11 +3,11 @@
 #include <cstdint>
 
 #include "action.h"
-#include "asm_mfc.h"
+#include <afx.h>
 #include "assert_offset.h"
 #include "logic.h"
 #include "map_stuff.h"
-#include "mfc_templ.h"
+#include <afxtempl.h>
 #include "perf.h"
 #include "unit_list.h"
 #include "token.h"

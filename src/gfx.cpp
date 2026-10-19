@@ -1,11 +1,10 @@
 #include <inttypes.h>
-#include <ddraw.h>
 #include <stdio.h>
-#include "asm_mfc.h"
+#include "game_app.h"
+#include <ddraw.h>
 #include "gfx.h"
 #include "ingame.h"
 #include "util.h"
-#include "game_app.h"
 #include "file.h"
 #include "main_window.h"
 

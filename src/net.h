@@ -1,11 +1,11 @@
 #pragma once
-
+#include <winsock2.h>
 #include <array>
 #include <cstdint>
 
-#include "asm_mfc.h"
+#include <afx.h>
 #include "assert_offset.h"
-#include "mfc_templ.h"
+#include <afxtempl.h>
 
 #pragma warning(push)
 #pragma warning(disable: 4005) // dplay.h redefines INTERFACE without a guard

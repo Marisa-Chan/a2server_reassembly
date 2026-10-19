@@ -22,7 +22,6 @@
 #include "outpost.h"
 #include "spell_effect.h"
 #include "effect.h"
-#include "mfc_plex.h"
 #include "quest_glue.h"
 #include "quest_map.h"
 #include "group.h"
@@ -636,7 +635,7 @@ void Srv1::sub_59FC97(int count) {
         uint8_t x = (uint8_t)(Random0N(x_range) + 10);
         uint8_t y = (uint8_t)(Random0N(y_range) + 10);
         int gold = 0;
-        if (inventory->items.m_nCount == 0) {
+        if (inventory->items.GetSize() == 0) {
             gold = Random0N(400) + 100;
         }
         TokenPos pos(x, y, MapStuff_Instance);
@@ -1590,14 +1589,12 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
         Player* found_player = g_PlayersList->sub_535D39(player_nick);
         if (found_player != nullptr && dword_6CDB3C != nullptr) {
             // Transfer any unit from the original player to the re-connecting player.
-            auto* node = dword_6CDB3C->unit_list.m_pNodeHead;
+            POSITION node = dword_6CDB3C->unit_list.GetHeadPosition();
             while (node != nullptr) {
-                auto* next = node->pNext;
-                Unit* unit = node->data;
+                Unit* unit = dword_6CDB3C->unit_list.GetNext(node);
                 if (unit != nullptr && unit->pOwner == found_player) {
                     g_NetStru1_main.FUN_004fb4ca(unit, player);
                 }
-                node = next;
             }
         }
     }
@@ -1650,8 +1647,8 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
                 g_World->diplomacy.diplomacy[self_id][player_id] = 0x12;
 
                 // Walk all non-AI players and update alliance / vision masks.
-                for (auto* node = g_PlayersList->list.m_pNodeHead; node != nullptr; node = node->pNext) {
-                    Player* p = node->data;
+                for (POSITION node = g_PlayersList->list.GetHeadPosition(); node != nullptr;) {
+                    Player* p = g_PlayersList->list.GetNext(node);
                     auto p_id = p->player_id;
                     if (p->is_ai != 0 || p_id == player_id) {
                         continue;
@@ -1711,8 +1708,8 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
     }
 
     // Send updated terrain/diplomacy state to every non-AI player.
-    for (auto* node = g_PlayersList->list.m_pNodeHead; node != nullptr; node = node->pNext) {
-        Player* p = node->data;
+    for (POSITION node = g_PlayersList->list.GetHeadPosition(); node != nullptr;) {
+        Player* p = g_PlayersList->list.GetNext(node);
         if (p != nullptr && p->is_ai == 0) {
             g_NetStru1_main.sub_51CB21(p);
         }
@@ -1741,8 +1738,8 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
     this->srv_stru1->units_list->sub_5579D8(player);
 
     // Per-player unit lists.
-    for (auto* node = g_PlayersList->list.m_pNodeHead; node != nullptr; node = node->pNext) {
-        Player* p = node->data;
+    for (POSITION node = g_PlayersList->list.GetHeadPosition(); node != nullptr;) {
+        Player* p = g_PlayersList->list.GetNext(node);
         if (p != nullptr) {
             p->unit_list->sub_5579D8(player);
         }
@@ -1772,8 +1769,8 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
     // Send any active area effects to the player.
     if (this->srv_stru1->effects_list != nullptr) {
         CList<SpellEffect*>& effect_list = this->srv_stru1->effects_list->list;
-        for (auto* node = effect_list.m_pNodeHead; node != nullptr; node = node->pNext) {
-            SpellEffect* effect = node->data;
+        for (POSITION node = effect_list.GetHeadPosition(); node != nullptr; ) {
+            SpellEffect* effect = effect_list.GetNext(node);
             if (effect == nullptr) {
                 continue;
             }
@@ -1839,16 +1836,15 @@ void Server::FUN_004ff439(Player* player, int32_t arg4)
         // Vanilla only scans for a free slot when arg4 gave none and the unit is phased in.
         for (slot = 1; slot < 0x10; slot++) {
             bool found = false;
-            auto* node = g_PlayersList->list.m_pNodeHead;
+            POSITION node = g_PlayersList->list.GetHeadPosition();
             while (node != nullptr) {
-                Player* candidate = node->data;
+                Player* candidate = g_PlayersList->list.GetNext(node);
                 if (candidate != nullptr) {
                     if (candidate->field_0xa44 == static_cast<uint8_t>(slot) && candidate->is_ai == 0) {
                         found = true;
                         break;
                     }
                 }
-                node = node->pNext;
             }
 
             if (!found) {
@@ -1862,9 +1858,9 @@ void Server::FUN_004ff439(Player* player, int32_t arg4)
     }
 
     PacketJoin& packet = PacketJoin::Inst;
-    auto* node = g_PlayersList->list.m_pNodeHead;
+    POSITION node = g_PlayersList->list.GetHeadPosition();
     while (node != nullptr) {
-        Player* target = node->data;
+        Player* target = g_PlayersList->list.GetNext(node);
         if (target != nullptr) {
             if (target->is_ai == 0 && target->field_0x42 != 0) {
                 bool should_send = true;
@@ -1905,7 +1901,6 @@ void Server::FUN_004ff439(Player* player, int32_t arg4)
                 }
             }
         }
-        node = node->pNext;
     }
 
     LogMessage("Player " + player->name + " has joined the game");
@@ -1974,8 +1969,8 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     }
 
     // 4. Duplicate name check
-    for (auto* node = g_PlayersList->list.m_pNodeHead; node != nullptr; node = node->pNext) {
-        Player* existing = node->data;
+    for (POSITION node = g_PlayersList->list.GetHeadPosition(); node != nullptr;) {
+        Player* existing = g_PlayersList->list.GetNext(node);
 
         if (existing && std::strcmp(name, existing->name) == 0) {
             LogMessage("Player " + name + " login " + login + " has been rejected (Duplicated name)");
@@ -2168,8 +2163,8 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     }
 
     // Set team pairing bytes and vision masks.
-    for (auto* node = g_PlayersList->list.m_pNodeHead; node != nullptr; node = node->pNext) {
-        Player* other = node->data;
+    for (POSITION node = g_PlayersList->list.GetHeadPosition(); node != nullptr;) {
+        Player* other = g_PlayersList->list.GetNext(node);
 
         if (other != nullptr && other->is_ai == 0 && player->player_id != other->player_id) {
             int16_t other_id = other->player_id;
@@ -2234,7 +2229,6 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
 
     // Remove player->main_unit from dword_6CDB3C->unit_list.
     {
-        using CNode = CList<Unit*>::CNode;
         CList<Unit*>& lst = dword_6CDB3C->unit_list;
         Unit* target = player->main_unit;
 
@@ -2796,8 +2790,8 @@ void Server::CheatCommand(Player* player, CString cheat_string)
                 player->main_unit->sub_537251();
                 g_NetStru1_main.sub_519221(player->main_unit, 0, (int32_t)0xA31FFFFF, 0xFFB, 0, 0);
             } else if (target_mode == 2) {
-                for (auto* node = player->unit_list->unit_list.m_pNodeHead; node != nullptr; node = node->pNext) {
-                    Unit* unit = node->data;
+                for (POSITION node = player->unit_list->unit_list.GetHeadPosition(); node != nullptr;) {
+                    Unit* unit = player->unit_list->unit_list.GetNext(node);
                     if (unit != nullptr) {
                         unit->sub_537251();
                         g_NetStru1_main.sub_519221(unit, 0, (int32_t)0xA31FFFFF, 0xFFB, 0, 0);
@@ -2866,8 +2860,8 @@ void Server::CheatCommand(Player* player, CString cheat_string)
         }
     } else if (cheat_string.Find("#killall") == 0 || cheat_string.Find("#kill all") == 0) {
         // Kill every enemy player.
-        for (auto* node = g_PlayersList->list.m_pNodeHead; node != nullptr; node = node->pNext) {
-            Player* p = node->data;
+        for (POSITION node = g_PlayersList->list.GetHeadPosition(); node != nullptr;) {
+            Player* p = g_PlayersList->list.GetNext(node);
             if (p == nullptr) {
                 continue;
             }
@@ -2880,8 +2874,8 @@ void Server::CheatCommand(Player* player, CString cheat_string)
             g_NetStru1_main.FUN_0051ce86(7, player->player_id, player);
         }
     } else if (cheat_string.Find("#kill cheaters") == 0) {
-        for (auto* node = g_PlayersList->list.m_pNodeHead; node != nullptr; node = node->pNext) {
-            Player* p = node->data;
+        for (POSITION node = g_PlayersList->list.GetHeadPosition(); node != nullptr;) {
+            Player* p = g_PlayersList->list.GetNext(node);
             if (p != nullptr && p->field_0xa98 > 50 && p != player) {
                 p->field_0xa98 = 0;
                 p->sub_5346AC();
@@ -3055,8 +3049,8 @@ void Server::sub_504a96(Packet* pkt)
             uint8_t spell_id = BOOK_POS_TO_SPELL_ID[packet_item->field_0x10];
             packet_item->field_0x10 = spell_id;
             // Find hero unit in group that matches the spell type
-            for (auto* node = group->unit_list.m_pNodeHead; node; node = node->pNext) {
-                Unit* u = node->data;
+            for (POSITION node = group->unit_list.GetHeadPosition(); node; ) {
+                Unit* u = group->unit_list.GetNext(node);
                 if (u && u->spell_book) {
                     cast_spell = u->spell_book->sub_53DB79(spell_id);
                     u->spell = cast_spell;
@@ -3180,11 +3174,11 @@ void Server::sub_504a96(Packet* pkt)
             if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
                 player->sub_534B59();
                 auto* item = player->main_unit->inventory->sub_552E42(packet_item->field_0x10, 1);
-                if (!item || !item->_effects.m_pNodeHead) {
+                if (!item || item->_effects.IsEmpty()) {
                     break;
                 }
 
-                Effect* eff = item->_effects.m_pNodeHead->data;
+                Effect* eff = item->_effects.GetHead();
                 if (eff && eff->effect_id == 0x29) {
                     player->main_unit->some_item = item;
 
@@ -3335,7 +3329,7 @@ void Server::sub_504a96(Packet* pkt)
             Item* item = nullptr;
             if (from_type == 2) {
                 // Pick item from bag.
-                count_before = human->inventory->items.m_nCount;
+                count_before = human->inventory->items.GetSize();
                 item = human->inventory->sub_552E42(packet_cmd->field_0xe, packet_cmd->field_0x12);
                 if (item) {
                     update_mask |= 0x282000;
@@ -3386,7 +3380,7 @@ void Server::sub_504a96(Packet* pkt)
                 if (item) {
                     human->inventory->PutItemIntoBag(packet_cmd->field_0xe, item);
                 }
-                if (from_type == 2 && human->inventory->items.m_nCount == count_before && item != prev) {
+                if (from_type == 2 && human->inventory->items.GetSize() == count_before && item != prev) {
                     bag_pos = packet_cmd->field_0xe;
                     bag_pos_delta = 1;
                 }
@@ -3446,8 +3440,8 @@ void Server::sub_504a96(Packet* pkt)
             }
 
             UnitList* unit_list = player->unit_list;
-            Unit* unit = (unit_list && unit_list->unit_list.m_nCount > 0)
-                        ? unit_list->unit_list.m_pNodeHead->data
+            Unit* unit = (unit_list && unit_list->unit_list.GetSize() > 0)
+                        ? unit_list->unit_list.GetHead()
                         : nullptr;
 
             int32_t amount = packet_info->field_0xa;
@@ -3691,8 +3685,8 @@ void Server::sub_504a96(Packet* pkt)
             int count = packet_data->count;
             const int16_t* modification = reinterpret_cast<const int16_t*>(packet_data->data);
 
-            for (auto* node = g_PlayersList->list.m_pNodeHead; node; node = node->pNext) {
-                Player* other = node->data;
+            for (POSITION node = g_PlayersList->list.GetHeadPosition(); node;) {
+                Player* other = g_PlayersList->list.GetNext(node);
                 if (!other) {
                     break;
                 }
@@ -3722,8 +3716,8 @@ void Server::sub_504a96(Packet* pkt)
                     if (!(old_val & 0x10)) {
                         // Wasn't sharing before --- send full unit state for each of player's units
                         if (player->unit_list) {
-                            for (auto* unode = player->unit_list->unit_list.m_pNodeHead; unode; unode = unode->pNext) {
-                                g_NetStru1_main.sub_519221(unode->data, other, 0xa35fffff, 0xffb, 0, 0);
+                            for (POSITION unode = player->unit_list->unit_list.GetHeadPosition(); unode;) {
+                                g_NetStru1_main.sub_519221(player->unit_list->unit_list.GetNext(unode), other, 0xa35fffff, 0xffb, 0, 0);
                             }
                         }
                     }
@@ -3987,8 +3981,8 @@ void Server::sub_504a96(Packet* pkt)
 
             switch (chat_type) {
             case 0: // Regular message: send to all non-AI players within range.
-                for (auto* node = g_PlayersList->list.m_pNodeHead; node; node = node->pNext) {
-                    Player* other = node->data;
+                for (POSITION node = g_PlayersList->list.GetHeadPosition(); node;) {
+                    Player* other = g_PlayersList->list.GetNext(node);
                     if (!other->is_ai && player->main_unit->position->Distance(other->main_unit->position) <= g_ServerConfig.chat_range) {
                         out.to_player_id = other->player_id;
                         strcpy(out.name, packet_join->name);
@@ -3997,8 +3991,8 @@ void Server::sub_504a96(Packet* pkt)
                 }
                 break;
             case 1: // Allies: send to players with diplomacy bit 2 set toward sender.
-                for (auto* node = g_PlayersList->list.m_pNodeHead; node; node = node->pNext) {
-                    Player* other = node->data;
+                for (POSITION node = g_PlayersList->list.GetHeadPosition(); node;) {
+                    Player* other = g_PlayersList->list.GetNext(node);
                     if (!other->is_ai && (g_World->diplomacy.diplomacy[player->player_id][other->player_id] & 2) != 0) {
                         out.to_player_id = other->player_id;
                         strcpy(out.name, packet_join->name);

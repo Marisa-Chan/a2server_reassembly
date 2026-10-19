@@ -1,5 +1,5 @@
 #include "ingame.h"
-#include "asm_mfc.h"
+#include <afx.h>
 #include "visual.h"
 #include "gameobj.h"
 #include "net.h"

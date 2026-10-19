@@ -4,9 +4,9 @@
 #include <cstdint>
 
 #include "2darray.h"
-#include "asm_mfc.h"
+#include <afx.h>
 #include "assert_offset.h"
-#include "mfc_templ.h"
+#include <afxtempl.h>
 #include "perf.h"
 #include "token.h"
 #include "unit_list.h"

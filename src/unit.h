@@ -5,8 +5,8 @@
 #include <array>
 
 #include "assert_offset.h"
-#include "asm_mfc.h"
-#include "mfc_templ.h"
+#include <afx.h>
+#include <afxtempl.h>
 #include "protections.h"
 #include "table.h"
 #include "token.h"

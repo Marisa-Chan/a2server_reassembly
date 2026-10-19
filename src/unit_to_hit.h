@@ -4,7 +4,7 @@
 #include <array>
 #include <cstdint>
 
-#include "asm_mfc.h"
+#include <afx.h>
 #include "assert_offset.h"
 
 struct UnitToHit {

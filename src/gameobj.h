@@ -3,7 +3,7 @@
 
 #include <inttypes.h>
 
-#include "asm_mfc.h"
+#include <afx.h>
 #include "alm.h"
 #include "util.h"
 

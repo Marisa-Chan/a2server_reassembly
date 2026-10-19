@@ -1,9 +1,9 @@
 #ifndef UNIT_LIST_H
 #define UNIT_LIST_H
 
-#include "asm_mfc.h"
+#include <afx.h>
 #include "assert_offset.h"
-#include "mfc_templ.h"
+#include <afxtempl.h>
 
 class Unit;
 class Player;

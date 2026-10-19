@@ -1,8 +1,8 @@
 #ifndef UTIL_H
 #define UTIL_H
 
-#include "asm_mfc.h"
-#include "mfc_templ.h"
+#include <afx.h>
+#include <afxtempl.h>
 
 extern int32_t g_isDosCP; //660f64
 

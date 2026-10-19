@@ -6,14 +6,12 @@ set(CMAKE_CXX_STANDARD 17)
 set(A2_SOURCES
   action.cpp
   alm.cpp
-  asm_mfc.cpp
   building.cpp
   buildings_list.cpp
   cmain.cpp
   effect.cpp
   eye.cpp
   file.cpp
-  file_mfc.cpp
   game.cpp
   game_app.cpp
   gameobj.cpp
@@ -26,7 +24,6 @@ set(A2_SOURCES
   logic.cpp
   main_window.cpp
   map_stuff.cpp
-  mfc_coll.cpp
   mouse.cpp
   net.cpp
   outpost.cpp
@@ -35,7 +32,6 @@ set(A2_SOURCES
   player.cpp
   player_file.cpp
   players_list.cpp
-  plex.cpp
   protections.cpp
   quest.cpp
   quest_glue.cpp
@@ -50,8 +46,6 @@ set(A2_SOURCES
   spell.cpp
   spell_effect.cpp
   sound.cpp
-  strcore.cpp
-  strex.cpp
   table.cpp
   token.cpp
   txtfile.cpp
@@ -63,8 +57,6 @@ set(A2_SOURCES
   visibility.cpp
   visual.cpp
   world.cpp
-  Main.asm
-  a2_ucrt.asm
   res/a2server.rc
 )
 
@@ -77,7 +69,7 @@ add_executable(rea2s ${A2_SOURCES} ${A2SERVER_SOURCES})
 add_executable(rea2c ${A2_SOURCES})
 
 set(A2_COMPILE_DEFS
-  FKG_FORCED_USAGE;_USE_32BIT_TIME_T;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS
+  _AFXDLL;FKG_FORCED_USAGE;_USE_32BIT_TIME_T;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS
 )
 
 foreach(TARGET rea2s rea2c)
@@ -130,6 +122,7 @@ set(A2_LINK_LIBS
     dxguid.lib
     vcruntime.lib
     legacy_stdio_wide_specifiers.lib
+	mfc140.lib
 )
 
 set(A2_LINK_OPTS

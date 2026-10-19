@@ -215,7 +215,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>FKG_FORCED_USAGE;_USE_32BIT_TIME_T;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_AFXDLL;FKG_FORCED_USAGE;_USE_32BIT_TIME_T;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>mfc\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -229,7 +229,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>kernel32.lib;shell32.lib;ddraw.lib;user32.lib;gdi32.lib;comdlg32.lib;winspool.lib;msacm32.lib;wininet.lib;ws2_32.lib;winmm.lib;ole32.lib;comctl32.lib;dsound.lib;ucrt.lib;msvcrt.lib;libvcruntime.lib;legacy_stdio_definitions.lib;vccorlib.lib;dbghelp.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;shell32.lib;ddraw.lib;user32.lib;gdi32.lib;comdlg32.lib;winspool.lib;msacm32.lib;wininet.lib;ws2_32.lib;winmm.lib;ole32.lib;comctl32.lib;dsound.lib;ucrt.lib;msvcrt.lib;libvcruntime.lib;legacy_stdio_definitions.lib;vccorlib.lib;dbghelp.lib;dxguid.lib;mfc140.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>
       </IgnoreAllDefaultLibraries>
     </Link>
@@ -247,21 +247,23 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>A2CLIENT;FKG_FORCED_USAGE;_USE_32BIT_TIME_T;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_AFXDLL;A2CLIENT;FKG_FORCED_USAGE;_USE_32BIT_TIME_T;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>mfc\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BrowseInformation>false</BrowseInformation>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>kernel32.lib;shell32.lib;ddraw.lib;user32.lib;gdi32.lib;comdlg32.lib;winspool.lib;msacm32.lib;wininet.lib;ws2_32.lib;winmm.lib;ole32.lib;comctl32.lib;dsound.lib;ucrt.lib;msvcrt.lib;libvcruntime.lib;legacy_stdio_definitions.lib;vccorlib.lib;dbghelp.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;shell32.lib;ddraw.lib;user32.lib;gdi32.lib;comdlg32.lib;winspool.lib;msacm32.lib;wininet.lib;ws2_32.lib;winmm.lib;ole32.lib;comctl32.lib;dsound.lib;ucrt.lib;msvcrt.lib;libvcruntime.lib;legacy_stdio_definitions.lib;vccorlib.lib;dbghelp.lib;dxguid.lib;mfc140.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>
       </IgnoreAllDefaultLibraries>
     </Link>
@@ -306,22 +308,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <MASM Include="a2_ucrt.asm" />
-    <MASM Include="Main.asm">
-      <EnableMASM51Compatibility Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</EnableMASM51Compatibility>
-      <EnableMASM51Compatibility Condition="'$(Configuration)|$(Platform)'=='debug_client|Win32'">true</EnableMASM51Compatibility>
-      <EnableMASM51Compatibility Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</EnableMASM51Compatibility>
-      <EnableMASM51Compatibility Condition="'$(Configuration)|$(Platform)'=='Release_client|Win32'">true</EnableMASM51Compatibility>
-    </MASM>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="a2server.exe.inc" />
-    <None Include="headers.inc" />
-    <None Include="import.inc" />
-    <None Include="a2_ucrt.inc" />
-    <None Include="mfc_export.inc" />
-  </ItemGroup>
-  <ItemGroup>
     <ResourceCompile Include="res\a2server.rc" />
   </ItemGroup>
   <ItemGroup>
@@ -334,15 +320,12 @@
     <ClCompile Include="game_app.cpp" />
     <ClCompile Include="gfx.cpp" />
     <ClCompile Include="ingame.cpp" />
-    <ClCompile Include="mfc_coll.cpp" />
     <ClCompile Include="alm.cpp" />
-    <ClCompile Include="asm_mfc.cpp" />
     <ClCompile Include="building.cpp" />
     <ClCompile Include="cmain.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="eye.cpp" />
     <ClCompile Include="file.cpp" />
-    <ClCompile Include="file_mfc.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="group.cpp" />
     <ClCompile Include="inn.cpp" />
@@ -361,7 +344,6 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="player_file.cpp" />
     <ClCompile Include="players_list.cpp" />
-    <ClCompile Include="plex.cpp" />
     <ClCompile Include="protections.cpp" />
     <ClCompile Include="quest.cpp" />
     <ClCompile Include="quest_glue.cpp" />
@@ -376,8 +358,6 @@
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="spell.cpp" />
     <ClCompile Include="spell_effect.cpp" />
-    <ClCompile Include="strcore.cpp" />
-    <ClCompile Include="strex.cpp" />
     <ClCompile Include="table.cpp" />
     <ClCompile Include="token.cpp" />
     <ClCompile Include="txtfile.cpp" />
@@ -393,9 +373,7 @@
   <ItemGroup>
     <ClInclude Include="2darray.h" />
     <ClInclude Include="action.h" />
-    <ClInclude Include="afxmsg_.h" />
     <ClInclude Include="alm.h" />
-    <ClInclude Include="asm_mfc.h" />
     <ClInclude Include="assert_offset.h" />
     <ClInclude Include="bitset.h" />
     <ClInclude Include="building.h" />
@@ -410,8 +388,6 @@
     <ClInclude Include="game_app.h" />
     <ClInclude Include="gfx.h" />
     <ClInclude Include="ingame.h" />
-    <ClInclude Include="mfc_plex.h" />
-    <ClInclude Include="mfc_templ.h" />
     <ClInclude Include="group.h" />
     <ClInclude Include="inn.h" />
     <ClInclude Include="inventory.h" />

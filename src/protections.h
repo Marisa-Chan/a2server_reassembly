@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <array>
 
-#include "asm_mfc.h"
+#include <afx.h>
 #include "assert_offset.h"
 
 struct Protections {

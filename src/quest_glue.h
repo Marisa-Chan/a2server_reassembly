@@ -3,9 +3,9 @@
 
 #include <cstdint>
 
-#include "asm_mfc.h"
+#include <afx.h>
 #include "assert_offset.h"
-#include "mfc_templ.h"
+#include <afxtempl.h>
 #include "quest.h"
 #include "token.h"
 
@@ -35,7 +35,7 @@ public:
     uint32_t building_id;
     CMap<uint32_t, uint32_t, Quest*, Quest*> map;
     QuestMap* quest_map;
-    CMap<uint32_t, uint32_t, Quest*, Quest*>::CAssoc* current_assoc;
+    POSITION current_assoc;
     Quest* field_0x2c;
     uint32_t field_0x30;
     TokenPos* position;

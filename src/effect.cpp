@@ -791,7 +791,7 @@ Effect* Effect::CreateFromString(const CString& effect_str) {
         }
 
         if (effect->effect_id == modifier::castspell) {
-            effect->spell_value = (uint16_t)Effect::StrToInt(&value);
+            effect->spell_value = (uint16_t)Effect::_StrToInt(&value);
             effect->usage_type = 0;
             usage_flags = 0;
         } else {
@@ -857,7 +857,7 @@ int32_t Effect::GetSpellIDByName(CString* name) {
 }
 
 // 5418F1
-int32_t Effect::StrToInt(CString* str) {
+int32_t Effect::_StrToInt(CString* str) {
     str->TrimLeft();
     str->TrimRight();
     CString span = str->SpanIncluding("+1234567890");

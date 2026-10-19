@@ -646,7 +646,7 @@ void Inn::VMethod1() {
     // Phase 2: Tick the quest-roll counter; when it exceeds 120 and the inn is
     // empty, refresh quests for each player and reset the counter.
     this->quest_roll_counter++;
-    if (this->quest_roll_counter > 120 && this->unit_list.unit_list.m_nCount == 0) {
+    if (this->quest_roll_counter > 120 && this->unit_list.unit_list.IsEmpty()) {
         POSITION qpos = this->quest_map_per_player.GetStartPosition();
         while (qpos) {
             uint32_t player_id;
@@ -1012,7 +1012,7 @@ void Inn::InnReward(Player* player) {
 
                 // Get the first effect on the item.
                 Effect* effect = nullptr;
-                if (equip->_effects.m_nCount != 0) {
+                if (equip->_effects.GetSize() != 0) {
                     effect = equip->_effects.GetHead();
                 }
                 if (!effect) {

@@ -3,8 +3,9 @@
 
 #include <cstdint>
 
-#include "asm_mfc.h"
-#include "mfc_templ.h"
+#include <afx.h>
+#include <afxtempl.h>
+#include "assert_offset.h"
 
 struct MapHeader {
     char file_signature[4]; // "M7R\x00"

@@ -59,7 +59,7 @@ File2::~File2()
 }
 
 
-DWORD File2::GetPosition() const 
+ULONGLONG File2::GetPosition() const
 {
 	//4e6d04
 	return position;
@@ -112,10 +112,10 @@ CFile* File2::Duplicate() const
 	return nullptr;
 };
 
-LONG File2::Seek(LONG lOff, UINT nFrom) 
+ULONGLONG File2::Seek(LONGLONG lOff, UINT nFrom)
 {
 	//4e6acb
-	if (m_hFile == (UINT)-1) {
+	if (m_hFile == (HANDLE)-1) {
 		AfxThrowFileException(CFileException::invalidFile);
 	}
 
@@ -141,13 +141,13 @@ LONG File2::Seek(LONG lOff, UINT nFrom)
 	return position;
 };
 
-void File2::SetLength(DWORD dwNewLen) 
+void File2::SetLength(ULONGLONG dwNewLen)
 {
 	//4e6b83
 	AfxThrowFileException(CFileException::accessDenied);
 };
 
-DWORD File2::GetLength() const 
+ULONGLONG File2::GetLength() const
 {
 	//4e6b9b
 	return size;
@@ -156,7 +156,7 @@ DWORD File2::GetLength() const
 UINT File2::Read(void* lpBuf, UINT nCount) 
 {
 	//4e6bac
-	if (m_hFile == (UINT)-1) {
+	if (m_hFile == (HANDLE)-1) {
 		AfxThrowFileException(CFileException::invalidFile);
 	}
 
@@ -188,13 +188,13 @@ void File2::Write(const void* lpBuf, UINT nCount)
 	AfxThrowFileException(CFileException::accessDenied);
 };
 
-void File2::LockRange(DWORD dwPos, DWORD dwCount) 
+void File2::LockRange(ULONGLONG dwPos, ULONGLONG dwCount)
 {
 	//4e6c80
 	AfxThrowFileException(CFileException::accessDenied);
 };
 
-void File2::UnlockRange(DWORD dwPos, DWORD dwCount) 
+void File2::UnlockRange(ULONGLONG dwPos, ULONGLONG dwCount)
 {
 	//4e6c98
 	AfxThrowFileException(CFileException::accessDenied);

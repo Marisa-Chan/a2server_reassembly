@@ -1,4 +1,6 @@
 #include "visual.h"
+#include <timeapi.h>
+
 #include "server.h"
 #include "main_window.h"
 #include "gfx.h"
@@ -5588,7 +5590,7 @@ int32_t VisNetMapSelection::OnKeyDown(uint32_t wparam)
 
 
 // 44aad6
-UINT __cdecl VisNetMapThreadProc(LPVOID pParam)
+UINT AFX_CDECL VisNetMapThreadProc(LPVOID pParam)
 {
     static_cast<VisNetMapSelection*>(pParam)->FUN_0044aae5();
     return 0;
@@ -10374,8 +10376,7 @@ int32_t VisCharInfo::VMethod27(int32_t a)
         }
 
         int32_t amount = token->field_0x10;
-        int32_t mode = main_wnd->OnCommand(a + 1, 0);
-        map->sub_41A7C7(main_wnd->field_0x410, main_wnd->field_0x40c, mode, a + 1, amount);
+        map->sub_41A7C7(main_wnd->field_0x410, main_wnd->field_0x40c, VMethod28(), a + 1, amount);
 
         if (split != nullptr) {
             main_wnd->vis_invtype1->VMethod37(main_wnd->field_0x40c);
@@ -10415,8 +10416,7 @@ int32_t VisCharInfo::VMethod27(int32_t a)
     unit->equipmentTokens[a] = main_wnd->field_0x408;
 
     int32_t amount = main_wnd->field_0x408->field_0x10;
-    int32_t mode = main_wnd->OnCommand(a + 1, 0);
-    map->sub_41A7C7(main_wnd->field_0x410, main_wnd->field_0x40c, mode, a + 1, amount);
+    map->sub_41A7C7(main_wnd->field_0x410, main_wnd->field_0x40c, VMethod28(), a + 1, amount);
 
     main_wnd->ResetItemCursor();
     unit->ReloadSprite();
@@ -10582,9 +10582,9 @@ int32_t VisCharInfo::VMethod26(int32_t a)
     main_wnd->field_0x408 = unit->equipmentTokens[a];
     unit->equipmentTokens[a] = nullptr;
     main_wnd->field_0x40c = a;
-    main_wnd->field_0x410 = main_wnd->OnCommand(0, 0);
+    main_wnd->field_0x410 = VMethod28();
     unit->ReloadSprite();
-    main_wnd->vis_root->MsgProc(0x46E, (uint32_t)main_wnd->m_hWnd, 0);
+    main_wnd->vis_root->MsgProc(0x46E, id, 0);
     return (int32_t)main_wnd->field_0x408;
 }
 

@@ -1,18 +1,12 @@
 #include "main_window.h"
 #include <cstdio>
-#include "asm_mfc.h"
+#include <timeapi.h>
 #include "game_app.h"
 #include "net.h"
 #include "players_list.h"
 #include "server.h"
 #include <stdio.h>
-#include <cstdio>
 
-#include "asm_mfc.h"
-#include "game_app.h"
-#include "net.h"
-#include "players_list.h"
-#include "server.h"
 #include "mouse.h"
 #include "ingame.h"
 #include "player_file.h"
@@ -53,27 +47,21 @@ const AFX_MSGMAP* CListBox2::GetMessageMap() const
 
 //60bfa8
 AFX_DATADEF const AFX_MSGMAP CListBox2::messageMap =
-{ &CListBox::messageMap, &CListBox2::_messageEntries[0] };
+{ &CListBox::GetThisMessageMap, &CListBox2::_messageEntries[0] };
 
 const AFX_MSGMAP_ENTRY CListBox2::_messageEntries[] =
 {
-    ON_WM_KEYDOWN()
-    ON_WM_LBUTTONDBLCLK()
+    {WM_KEYDOWN, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&OnKeyDown},
+    {WM_LBUTTONDBLCLK, 0, 0, 0, AfxSig_vwp, (AFX_PMSG)&OnLButtonDblClk},
     {0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0 }
 };
 
-void __fastcall CListBox2::OnKeyDown(CListBox2* _this, void* edx, UINT arg1, UINT arg2, UINT arg3)
-{ _this->_OnKeyDown(arg1, arg2, arg3); }
-
-void __fastcall CListBox2::OnLButtonDblClk(CListBox2* _this, void* edx, UINT arg1, CPoint arg2)
-{ _this->_OnLButtonDblClk(arg1, arg2); }
-
-void CListBox2::_OnKeyDown(UINT, UINT, UINT)
+void CListBox2::OnKeyDown(UINT, UINT, UINT)
 {
 	Default();
 }
 
-void CListBox2::_OnLButtonDblClk(UINT, CPoint)
+void CListBox2::OnLButtonDblClk(UINT, CPoint)
 {
 	Default();
 }
@@ -100,18 +88,15 @@ const AFX_MSGMAP* CEdit2::GetMessageMap() const
 
 //60bf70
 AFX_DATADEF const AFX_MSGMAP CEdit2::messageMap =
-{ &CEdit::messageMap, &CEdit2::_messageEntries[0] };
+{ &CEdit::GetThisMessageMap, &CEdit2::_messageEntries[0] };
 
 const AFX_MSGMAP_ENTRY CEdit2::_messageEntries[] =
 {
-	ON_WM_KEYDOWN()
+    {WM_KEYDOWN, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&OnKeyDown},
 	{0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0}
 };
 
-void __fastcall CEdit2::OnKeyDown(CEdit2* _this, void* edx, UINT arg1, UINT arg2, UINT arg3)
-{ _this->_OnKeyDown(arg1, arg2, arg3); }
-
-void CEdit2::_OnKeyDown(UINT nChar, UINT nRepcnt, UINT nFlags)
+void CEdit2::OnKeyDown(UINT nChar, UINT nRepcnt, UINT nFlags)
 {
 	Default();
 
@@ -127,7 +112,7 @@ void CEdit2::_OnKeyDown(UINT nChar, UINT nRepcnt, UINT nFlags)
 
 		LogMessage(buf);
 
-		SetSel(0xffff0000, 0);
+		SetSel(0xffff0000);
 	}
 }
 
@@ -461,47 +446,22 @@ ServerControlDialog::ServerControlDialog(CWnd* parent_window)
 ServerControlDialog::~ServerControlDialog() {
 }
 
-void sub_4954EA(); // 4954ea — game.cpp
 
 //60bff8
 AFX_DATADEF const AFX_MSGMAP ServerControlDialog::messageMap =
-{ &CDialog::messageMap, &ServerControlDialog::_messageEntries[0] };
-
-void __fastcall ServerControlDialog::MsgThunk495439(ServerControlDialog* _this, void* edx)
-{ _this->sub_495439(); }
-
-void __fastcall ServerControlDialog::MsgThunk49544C(ServerControlDialog* _this, void* edx)
-{ _this->sub_49544C(); }
-
-void __fastcall ServerControlDialog::MsgThunk49549B(ServerControlDialog* _this, void* edx)
-{ _this->sub_49549B(); }
-
-void __fastcall ServerControlDialog::MsgThunk4956D5(ServerControlDialog* _this, void* edx)
-{ _this->sub_4956D5(); }
-
-void __fastcall ServerControlDialog::MsgThunk495774(ServerControlDialog* _this, void* edx)
-{ _this->sub_495774(); }
-
-void __fastcall ServerControlDialog::MsgThunk4957AD(ServerControlDialog* _this, void* edx)
-{ _this->sub_4957AD(); }
-
-void __fastcall ServerControlDialog::MsgThunk4957E2(ServerControlDialog* _this, void* edx)
-{ _this->sub_4957E2(); }
-
-void __fastcall ServerControlDialog::MsgThunk49583E(ServerControlDialog* _this, void* edx)
-{ _this->sub_49583E(); }
+{ &CDialog::GetThisMessageMap, &ServerControlDialog::_messageEntries[0] };
 
 const AFX_MSGMAP_ENTRY ServerControlDialog::_messageEntries[] =
 {
-    { WM_DESTROY, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&MsgThunk495439 },
-    ON_COMMAND(0x3f5, MsgThunk49544C)
-    ON_COMMAND(0x3f6, MsgThunk49549B)
-    ON_COMMAND(0x3f4, sub_4954EA)
-    { WM_CLOSE, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&MsgThunk4956D5 },
-    ON_COMMAND(0x3ff, MsgThunk495774)
-    ON_COMMAND(0x3f7, MsgThunk4957AD)
-    ON_COMMAND(0x3fb, MsgThunk4957E2)
-    ON_COMMAND(0x3fe, MsgThunk49583E)
+    { WM_DESTROY, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&sub_495439 },
+    { WM_COMMAND, CN_COMMAND, 0x3f5, 0x3f5, AfxSigCmd_v, (AFX_PMSG)&sub_49544C},
+    { WM_COMMAND, CN_COMMAND, 0x3f6, 0x3f6, AfxSigCmd_v, (AFX_PMSG)&sub_49549B},
+    { WM_COMMAND, CN_COMMAND, 0x3f4, 0x3f4, AfxSigCmd_v, (AFX_PMSG)&sub_4954EA},
+    { WM_CLOSE, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&sub_4956D5 },
+    { WM_COMMAND, CN_COMMAND, 0x3ff, 0x3ff, AfxSigCmd_v, (AFX_PMSG)&sub_495774},
+    { WM_COMMAND, CN_COMMAND, 0x3f7, 0x3f7, AfxSigCmd_v, (AFX_PMSG)&sub_4957AD},
+    { WM_COMMAND, CN_COMMAND, 0x3fb, 0x3fb, AfxSigCmd_v, (AFX_PMSG)&sub_4957E2},
+    { WM_COMMAND, CN_COMMAND, 0x3fe, 0x3fe, AfxSigCmd_v, (AFX_PMSG)&sub_49583E},
     {0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0 }
 };
 
@@ -661,54 +621,36 @@ const AFX_MSGMAP* MainWindow::GetMessageMap() const
 }
 
 AFX_DATADEF const AFX_MSGMAP MainWindow::messageMap =
-{ &CFrameWnd::messageMap, &MainWindow::_messageEntries[0] };
+{ &CFrameWnd::GetThisMessageMap, &MainWindow::_messageEntries[0] };
 
 const AFX_MSGMAP_ENTRY MainWindow::_messageEntries[] =
 {
-    ON_WM_DESTROY()
-    ON_WM_CREATE()
-    ON_WM_PAINT()
-    ON_WM_SETCURSOR()
-    ON_WM_SETFOCUS()
-    ON_WM_KEYDOWN()
-    ON_WM_SYSKEYDOWN()
-    ON_WM_KEYUP()
-    ON_WM_SYSKEYUP()
-    ON_WM_CHAR()
-    ON_WM_KILLFOCUS()
-    ON_WM_CLOSE()
-    ON_WM_SIZE()
-    ON_COMMAND(0x9c4e, FUN_00495010)
-    ON_COMMAND(0x9c4f, FUN_004950c0)
-    ON_COMMAND(0x9c50, FUN_00495743)
-    ON_WM_SIZING()
-    ON_WM_NCMOUSEMOVE()
-    ON_WM_NCLBUTTONDOWN()
+    {WM_DESTROY, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&OnDestroy},
+	{WM_CREATE, 0, 0, 0, AfxSig_is, (AFX_PMSG)&OnCreate},
+    {WM_PAINT, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&OnPaint},
+    {WM_SETCURSOR, 0, 0, 0, AfxSig_bWww, (AFX_PMSG)&OnSetCursor},
+    {WM_SETFOCUS, 0, 0, 0, AfxSig_vW, (AFX_PMSG)&OnSetFocus},
+    {WM_KEYDOWN, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&OnKeyDown},
+    {WM_KEYDOWN, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&OnKeyDown},
+    {WM_SYSKEYDOWN, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&OnSysKeyDown},
+    {WM_KEYUP, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&OnKeyUp},
+    {WM_SYSKEYUP, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&OnSysKeyUp},
+    {WM_CHAR, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&OnChar},
+    {WM_KILLFOCUS, 0, 0, 0, AfxSig_vW, (AFX_PMSG)&OnKillFocus},
+    {WM_CLOSE, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&OnClose},
+    {WM_SIZE, 0, 0, 0, AfxSig_vwii, (AFX_PMSG)&OnSize},
+    {WM_COMMAND, CN_COMMAND, 0x9c4e, 0x9c4e, AfxSigCmd_v, (AFX_PMSG)&FUN_00495010},
+    {WM_COMMAND, CN_COMMAND, 0x9c4f, 0x9c4f, AfxSigCmd_v, (AFX_PMSG)&FUN_004950c0},
+    {WM_COMMAND, CN_COMMAND, 0x9c50, 0x9c50, AfxSigCmd_v, (AFX_PMSG)&FUN_00495743},
+    {WM_SIZING, 0, 0, 0, AfxSig_vwSIZING, (AFX_PMSG)&OnSizing},
+    {WM_NCMOUSEMOVE, 0, 0, 0, AfxSig_vwp, (AFX_PMSG)&OnNcMouseMove},
+    {WM_NCLBUTTONDOWN, 0, 0, 0, AfxSig_vwp, (AFX_PMSG)&OnNcLButtonDown},
+
     {0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0}
 };
 
-void __fastcall MainWindow::OnDestroy(MainWindow* wnd) { wnd->_OnDestroy(); }
-int __fastcall MainWindow::OnCreate(MainWindow* wnd, void*, LPCREATESTRUCT lpCreateStruct) { return wnd->_OnCreate(lpCreateStruct); }
-void __fastcall MainWindow::OnPaint(MainWindow* wnd) { wnd->_OnPaint(); }
-BOOL __fastcall MainWindow::OnSetCursor(MainWindow* _this, void*, CWnd* wnd, UINT a, UINT b) { return _this->_OnSetCursor(wnd, a, b); }
-void __fastcall MainWindow::OnSetFocus(MainWindow* _this, void*, CWnd* wnd) { _this->_OnSetFocus(wnd); }
-void __fastcall MainWindow::OnKeyDown(MainWindow* _this, void*, UINT a, UINT b, UINT c) { _this->_OnKeyDown(a, b, c); }
-void __fastcall MainWindow::OnSysKeyDown(MainWindow* _this, void*, UINT a, UINT b, UINT c) { _this->_OnSysKeyDown(a, b, c); }
-void __fastcall MainWindow::OnKeyUp(MainWindow* _this, void*, UINT a, UINT b, UINT c) { _this->_OnKeyUp(a, b, c); }
-void __fastcall MainWindow::OnSysKeyUp(MainWindow* _this, void*, UINT a, UINT b, UINT c) { _this->_OnSysKeyUp(a, b, c); }
-void __fastcall MainWindow::OnChar(MainWindow* _this, void*, UINT a, UINT b, UINT c) { _this->_OnChar(a, b, c); }
-void __fastcall MainWindow::OnKillFocus(MainWindow* _this, void*, CWnd* wnd) { _this->_OnKillFocus(wnd); }
-void __fastcall MainWindow::OnClose(MainWindow* _this) { _this->_OnClose(); }
-void __fastcall MainWindow::OnSize(MainWindow* _this, void*, UINT a, int b, int c) { _this->_OnSize(a, b, c); }
-void __fastcall MainWindow::FUN_00495010(MainWindow* _this) { _this->_FUN_00495010(); }
-void __fastcall MainWindow::FUN_004950c0(MainWindow* _this) { _this->_FUN_004950c0(); }
-void __fastcall MainWindow::FUN_00495743(MainWindow* _this) { _this->_FUN_00495743(); }
-void __fastcall MainWindow::OnSizing(MainWindow* _this, void*, UINT a, LPRECT b) { _this->_OnSizing(a, b); }
-void __fastcall MainWindow::OnNcMouseMove(MainWindow* _this, void*, UINT a, CPoint b) { _this->_OnNcMouseMove(a, b); }
-void __fastcall MainWindow::OnNcLButtonDown(MainWindow* _this, void*, UINT a, CPoint b) { _this->_OnNcLButtonDown(a, b); }
-
 // 486a2f
-void MainWindow::_OnSysKeyDown(UINT key, UINT repeat, UINT flags)
+void MainWindow::OnSysKeyDown(UINT key, UINT repeat, UINT flags)
 {
     if (this->field_0x45c == 0) {
         if (key == 0x79) {
@@ -742,7 +684,7 @@ void MainWindow::_OnSysKeyDown(UINT key, UINT repeat, UINT flags)
 }
 
 // 483ea8
-void MainWindow::_OnDestroy()
+void MainWindow::OnDestroy()
 {
     if (g_IsServer != 0 && this->field_0x7fc != nullptr) {
         this->field_0x7fc->DestroyWindow();
@@ -996,7 +938,7 @@ int32_t MainWindow::ConnectToServerAddress()
 }
 
 // 4863f6
-void MainWindow::_OnKeyDown(UINT key, UINT repeat, UINT flags)
+void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags)
 {
     if (this->field_0x45c == 0) {
         switch (key) {
@@ -1147,14 +1089,14 @@ void MainWindow::_OnKeyDown(UINT key, UINT repeat, UINT flags)
 }
 
 // 495010
-void MainWindow::_FUN_00495010()
+void MainWindow::FUN_00495010()
 {
     g_Server->sub_4F8831();
     this->field_0x624 = 1;
 }
 
 // 4863c6
-void MainWindow::_OnSetFocus(CWnd* pOldWnd)
+void MainWindow::OnSetFocus(CWnd* pOldWnd)
 {
     this->field_0xbc = 1;
     g_kbMenuState = 0;
@@ -1168,7 +1110,7 @@ void MainWindow::sub_48CC87()
 }
 
 // 48b01d
-void MainWindow::_OnKillFocus(CWnd* pNewWnd)
+void MainWindow::OnKillFocus(CWnd* pNewWnd)
 {
     Default();
     this->field_0xbc = 0;
@@ -1178,7 +1120,7 @@ void MainWindow::_OnKillFocus(CWnd* pNewWnd)
 }
 
 // 4949f9
-void MainWindow::_OnClose()
+void MainWindow::OnClose()
 {
     this->FUN_004919b1();
     this->dialogsMask = 0;
@@ -1188,7 +1130,7 @@ void MainWindow::_OnClose()
 }
 
 // 495743
-void MainWindow::_FUN_00495743()
+void MainWindow::FUN_00495743()
 {
     if (g_Server != nullptr) {
         if (g_HatLLDriver.IsListen() == 0) {
@@ -1198,7 +1140,7 @@ void MainWindow::_FUN_00495743()
 }
 
 // 494e8e
-void MainWindow::_OnSize(UINT nType, int cx, int cy)
+void MainWindow::OnSize(UINT nType, int cx, int cy)
 {
     CFrameWnd::OnSize(nType, cx, cy);
     if (g_IsServer != 0) {
@@ -1207,7 +1149,7 @@ void MainWindow::_OnSize(UINT nType, int cx, int cy)
 }
 
 // 486391
-BOOL MainWindow::_OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
+BOOL MainWindow::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 {
     if (g_IsServer == 0) {
         SetCursor((HCURSOR)nullptr);
@@ -1218,7 +1160,7 @@ BOOL MainWindow::_OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 }
 
 // 486c25
-void MainWindow::_OnSysKeyUp(UINT key, UINT repeat, UINT flags)
+void MainWindow::OnSysKeyUp(UINT key, UINT repeat, UINT flags)
 {
     if (this->field_0x45c == 0 && key == 0x12) {
         g_kbMenuState = 0;
@@ -1228,7 +1170,7 @@ void MainWindow::_OnSysKeyUp(UINT key, UINT repeat, UINT flags)
 }
 
 // 48a35f
-void MainWindow::_OnChar(UINT ch, UINT repeat, UINT flags)
+void MainWindow::OnChar(UINT ch, UINT repeat, UINT flags)
 {
     this->vis_root->MsgProc(0x102, ch, 0);
     Default();
@@ -1256,7 +1198,7 @@ void MainWindow::FUN_00478130()
 }
 
 // 486bb0
-void MainWindow::_OnKeyUp(UINT key, UINT repeat, UINT flags)
+void MainWindow::OnKeyUp(UINT key, UINT repeat, UINT flags)
 {
     if (this->field_0x45c == 0) {
         if (key == 0x10) {
@@ -1338,7 +1280,7 @@ void MainWindow::sub_48CBE2()
 }
 
 // 495b9c
-void MainWindow::_OnNcMouseMove(UINT nHitTest, CPoint point)
+void MainWindow::OnNcMouseMove(UINT nHitTest, CPoint point)
 {
     switch (nHitTest) {
     case 4:
@@ -1376,7 +1318,7 @@ void MainWindow::sub_48CCA1(TokenEntry* entry, int32_t idx, const char* str, int
 }
 
 // 484a1a
-void MainWindow::_OnPaint()
+void MainWindow::OnPaint()
 {
     if (g_ddraw != nullptr) {
         CRect rect;
@@ -1389,7 +1331,7 @@ void MainWindow::_OnPaint()
 }
 
 // 495ab2
-void MainWindow::_OnSizing(UINT nSide, LPRECT rect)
+void MainWindow::OnSizing(UINT nSide, LPRECT rect)
 {
     switch (nSide) {
     case 1:
@@ -1419,7 +1361,7 @@ void MainWindow::_OnSizing(UINT nSide, LPRECT rect)
 }
 
 // 4950c0
-void MainWindow::_FUN_004950c0()
+void MainWindow::FUN_004950c0()
 {
     if (this->field_0x7fc == nullptr) {
         this->field_0x7fc = new ServerControlDialog(nullptr);
@@ -1493,7 +1435,7 @@ void MainWindow::FUN_00485aed()
 }
 
 // 484022
-int MainWindow::_OnCreate(LPCREATESTRUCT lpCreateStruct)
+int MainWindow::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
     if (CFrameWnd::OnCreate(lpCreateStruct) == -1) {
         return -1;
@@ -1515,7 +1457,7 @@ int MainWindow::_OnCreate(LPCREATESTRUCT lpCreateStruct)
 }
 
 // 495c6e
-void MainWindow::_OnNcLButtonDown(UINT nHitTest, CPoint point)
+void MainWindow::OnNcLButtonDown(UINT nHitTest, CPoint point)
 {
     switch (nHitTest) {
     case 4:

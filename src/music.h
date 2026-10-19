@@ -1,8 +1,8 @@
 #ifndef MUSIC_H
 #define MUSIC_H
 
-#include "asm_mfc.h"
-#include "mfc_templ.h"
+#include <afx.h>
+#include <afxtempl.h>
 #include "file.h"
 #include <dsound.h>
 

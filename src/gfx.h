@@ -1,7 +1,8 @@
 #pragma once
 
-#include "asm_mfc.h"
-#include "mfc_templ.h"
+#include <afx.h>
+#include <afxtempl.h>
+#include "assert_offset.h"
 #include "2darray.h"
 
 #include <ddraw.h>

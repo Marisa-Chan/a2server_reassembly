@@ -1,8 +1,11 @@
 #pragma once
 
-#include "asm_mfc.h"
-#include "mfc_templ.h"
-#include "dsound.h"
+#include <afx.h>
+#include <afxtempl.h>
+#include <mmsystem.h>
+#include <mmreg.h>
+#include <dsound.h>
+#include "assert_offset.h"
 
 class SoundChannel;
 class SfxSample;

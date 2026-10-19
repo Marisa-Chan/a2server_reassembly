@@ -2,9 +2,10 @@
 #define FILE_H
 
 #include <cstdint>
+#include <afx.h>
 
 #include "assert_offset.h"
-#include "mfc_templ.h"
+#include <afxtempl.h>
 
 
 int __cdecl sub_4F1D0D(CString filename); // File checksum (simple sum of int32-s). 4f1d0d.
@@ -14,18 +15,18 @@ class File2 : public CFile {
 public:
 	virtual ~File2();
 
-	virtual DWORD GetPosition() const override;
+	virtual ULONGLONG GetPosition() const override;
 	virtual BOOL Open(LPCTSTR lpszFileName, UINT nOpenFlags, CFileException* pError = NULL) override;
 	virtual CFile* Duplicate() const override;
-	virtual LONG Seek(LONG lOff, UINT nFrom) override;
-	virtual void SetLength(DWORD dwNewLen) override;
-	virtual DWORD GetLength() const override;
+	virtual ULONGLONG Seek(LONGLONG lOff, UINT nFrom) override;
+	virtual void SetLength(ULONGLONG dwNewLen) override;
+	virtual ULONGLONG GetLength() const override;
 
 	virtual UINT Read(void* lpBuf, UINT nCount) override;
 	virtual void Write(const void* lpBuf, UINT nCount) override;
 
-	virtual void LockRange(DWORD dwPos, DWORD dwCount) override;
-	virtual void UnlockRange(DWORD dwPos, DWORD dwCount) override;
+	virtual void LockRange(ULONGLONG dwPos, ULONGLONG dwCount) override;
+	virtual void UnlockRange(ULONGLONG dwPos, ULONGLONG dwCount) override;
 
 	virtual void Abort() override;
 	virtual void Flush() override;

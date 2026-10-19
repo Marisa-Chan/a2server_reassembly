@@ -847,6 +847,7 @@ BOOL GameApp::OnIdle(LONG lCount)
 	g_mousept.Update();
 
 	mwnd->vis_root->MsgProc(0x462, 0, 0);
+
 	return 1;
 }
 

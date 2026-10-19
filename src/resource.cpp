@@ -282,7 +282,7 @@ ResFile::ResFile(const char* fpath)
     file->Read(&root.magic, 4);
 
     if (root.magic != 0x31415926) {
-        AfxThrowFileException(CFileException::generic);
+        AfxThrowFileException(CFileException::genericException);
     }
     
     file->Read(&root.offset, 4);
@@ -865,6 +865,7 @@ FatInfo* ResBase::FUN_004e5d55(const char* fpath)
     info->file = file;
     info->offset = node->offset;
     info->size = node->size;
+
     return info;
 }
 

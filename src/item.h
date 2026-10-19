@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-#include "asm_mfc.h"
+#include <afx.h>
 #include "assert_offset.h"
 #include "table.h"
 #include "token.h"

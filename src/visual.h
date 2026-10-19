@@ -1,10 +1,12 @@
 #ifndef VISUALOBJ_H
 #define VISUALOBJ_H
 
+#include <winsock2.h>
 #include <array>
 #include "assert_offset.h"
-#include "asm_mfc.h"
-#include "mfc_templ.h"
+#include <afx.h>
+#include <afxtempl.h>
+#include <afxwin.h>
 #include "sound.h"
 #include "gameobj.h"
 #include "txtfile.h"
@@ -3636,7 +3638,7 @@ public:
 ASSERT_SIZE(VisNetChatTextBox, 0x7c);
 
 //60a930
-UINT __cdecl VisNetMapThreadProc(LPVOID pParam); // 44aad6
+UINT AFX_CDECL VisNetMapThreadProc(LPVOID pParam); // 44aad6
 
 class VisNetMapSelection : public VisWindow
 {

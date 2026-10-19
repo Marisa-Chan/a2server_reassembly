@@ -1,5 +1,7 @@
 #include <cstdint>
 #include <cstring>
+
+#include <winsock2.h>
 #include <windows.h>
 
 #include "game_app.h"
@@ -15,7 +17,7 @@
 #include "patch/kick_char.h"
 #endif
 
-void sub_4954EA()
+void ServerControlDialog::sub_4954EA()
 {
     if (g_Server == nullptr) {
         return;

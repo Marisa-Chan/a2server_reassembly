@@ -5,7 +5,7 @@
 
 #include "building.h"
 #include "assert_offset.h"
-#include "mfc_templ.h"
+#include <afxtempl.h>
 #include "unit_list.h"
 
 
@@ -37,7 +37,7 @@ public:
     uint16_t delivery_item_id;
     uint8_t gap_0xd6[2];
     uint32_t quest_roll_counter; // 120 in vanilla.
-    CMap<uint32_t, uint32_t, QuestMap*, QuestMap*>::CAssoc* selected_quest;
+    POSITION selected_quest;
     QuestMap* quest_map;
     Quest* active_quest;
     uint8_t gap_0xe8[4];

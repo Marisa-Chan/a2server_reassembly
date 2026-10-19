@@ -3,7 +3,7 @@
 #include <inttypes.h>
 #include <array>
 #include <vector>
-#include "asm_mfc.h"
+#include <afx.h>
 
 template <class T, std::size_t XW, std::size_t XH>
 struct Array2D : protected std::array<T, (XW* XH)>
