@@ -196,7 +196,7 @@ void MapStuff::sub_58F166(MapAlm* alm) {
             uint8_t map_object_val = alm->map_objects[idx];
 
             uint8_t walk_cost_val;
-            uint8_t classification = this->sub_58F48D(terrain & 0x3FF, &walk_cost_val);
+            uint8_t classification = this->CalcTerrainWalkCost(terrain & 0x3FF, &walk_cost_val);
             if (classification == 8) {
                 this->ObstacleAt(yx) = 1;
             }
@@ -226,7 +226,7 @@ void MapStuff::sub_58F166(MapAlm* alm) {
 // Computes edge-blended walk cost + classification code for a terrain cell (bits 0-9 of a
 // landscape tile: bits 0-3 = weight index, bits 4-5 = sub index, bits 6-9 = direction pair
 // index, bits 8-9 == 2 selects a special-case path). 58F48D
-uint8_t MapStuff::sub_58F48D(uint16_t terrain_code, uint8_t* out_walk_cost) {
+uint8_t MapStuff::CalcTerrainWalkCost(uint16_t terrain_code, uint8_t* out_walk_cost) {
     uint8_t result = 0xFF;
     *out_walk_cost = 8;
 
