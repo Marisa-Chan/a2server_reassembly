@@ -122,7 +122,7 @@ void NetStru1::sub_51C8B1(Player* player) {
 }
 
 // 51C61E
-void NetStru1::sub_51C61E(Token* token) {
+void NetStru1::UntrackToken(Token* token) {
     PacketWord& packet = PacketWord::Inst;
 
     packet.id = 0x6a;

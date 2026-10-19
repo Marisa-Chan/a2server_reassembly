@@ -1408,7 +1408,7 @@ void Unit::PickUpSack(Sack* sack) {
         this->AddCarriedWeight(0); // Add weight.
     } // end if sack->inventory
 
-    g_NetStru1_main.sub_51C61E(sack);
+    g_NetStru1_main.UntrackToken(sack);
     delete sack;
 
     g_NetStru1_main.sub_519221(this, nullptr, update_mask | 0x282000, 0xffb, 0, 0);

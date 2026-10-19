@@ -5916,7 +5916,7 @@ void SackList::UpdateSackVisibility() {
         if (g_Server->field4_0x74 != 0) {
             if (this->list.GetCount() > max_sacks && sack->needs_save == 0) {
                 MapStuff_Instance->sub_58E525(sack);
-                g_NetStru1_main.sub_51C61E(sack);
+                g_NetStru1_main.UntrackToken(sack);
                 this->list.RemoveAt(it_before);
                 
                 delete sack;
@@ -6642,7 +6642,7 @@ void Server::UpdateQuestRune(int32_t arg1, int32_t arg2) {
             if (sack->inventory->items.GetCount() == 0) {
                 // Sack is now empty: remove it from the map and the list.
                 MapStuff_Instance->sub_58E525(sack);
-                g_NetStru1_main.sub_51C61E(sack);
+                g_NetStru1_main.UntrackToken(sack);
                 POSITION sack_pos = sack_list->list.Find(sack);
                 if (sack_pos) {
                     sack_list->list.RemoveAt(sack_pos);
