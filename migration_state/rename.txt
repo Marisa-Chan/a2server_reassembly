@@ -706,3 +706,5 @@ WavePattern::sub_537B2B -> SetWaveTables -- picks/blends two wave tables by dire
 TableLine::VMethod1 -> ParseValues -- parses one table row into typed values; named ParseValues to avoid the existing 1-arg ParseLine helpers
 TableLine::VMethod2 -> ParseValue -- parses one field string into int/double (per-table overrides: WorldEquip/MagicItem/BuildingInfo/MonsterInfo/HumanInfo/SpellInfo)
 Packet::VMethod3 -> WriteTo -- writes the packet body to the connection (net->WriteData); overrides in PacketJoin/PacketTerrain/PacketUnitUpdate
+Packet::VMethod4 -> ReadFrom -- reads the packet body from the connection (net->ReadData); overrides in PacketJoin/PacketTerrain/PacketUnitUpdate
+Packet::VMethod3 -> WriteTo -- writes the packet body to the connection (net->WriteData); overrides in PacketJoin/PacketTerrain/PacketUnitUpdate
