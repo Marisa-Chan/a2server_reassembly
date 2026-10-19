@@ -240,7 +240,7 @@ void NetStru1::sub_51B870(Unit* unit) {
     POSITION pos = g_PlayersList->list.GetHeadPosition();
     while (pos != nullptr) {
         Player* player = g_PlayersList->list.GetNext(pos);
-        if (player->is_active && unit->sub_5287c4(player)) {
+        if (player->is_active && unit->NeedsRefreshFor(player)) {
             unit->position->sub_58bec3(); // WAT: Useless call?
             if (unit->IsUnit()) {
                 this->sub_519221(unit, player, 0xFFB, -1, 0, 0);
@@ -967,7 +967,7 @@ void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t par
         this->sub_51A6D5(unit, player, param6, param7);
     }
 
-    bool needs_refresh = unit->sub_5287c4(player);
+    bool needs_refresh = unit->NeedsRefreshFor(player);
 
     // Send effects.
     if (needs_refresh || has_enchantments) {

@@ -104,7 +104,7 @@ public:
     void AddCarriedWeight(int32_t delta_weight); // Add inventory weight and notify clients after item change.
     void InitDefaultStats(); // Initialize default unit stats (for newly created units)
     void PickUpSack(class Sack* sack); // Pick up a sack into this unit's bag
-    int sub_5287c4(Player* player); // Check if this unit needs a refresh for the given player.
+    int NeedsRefreshFor(Player* player); // Check if this unit needs a refresh for the given player.
     void sub_5287ec(Player* player); // Mark this unit as not needing the refresh for the given player.
     int32_t sub_52C409(); // Return unit to map.
     void sub_52C641(); // 52c641

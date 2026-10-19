@@ -1599,7 +1599,7 @@ uint16_t Unit::sub_528763() {
 }
 
 // 5287C4
-int Unit::sub_5287c4(Player* player) {
+int Unit::NeedsRefreshFor(Player* player) {
     return (this->sent_to_mask & player->vision_sharing_id) == 0;
 }
 
