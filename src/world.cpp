@@ -1270,7 +1270,7 @@ void World::sub_5B6346() {
 
 // 5A9961
 void World::sub_5A9961(Unit* unit, uint8_t x, uint8_t y) {
-    this->sub_5A9AC4(unit);
+    this->BeginUnitOrder(unit);
     unit->state = 2;
     unit->eye2->command_to = ((uint16_t)y << 8) + x;
     unit->eye->field136_0x90 = 0;
@@ -1279,7 +1279,7 @@ void World::sub_5A9961(Unit* unit, uint8_t x, uint8_t y) {
 
 // 5A99C7
 void World::sub_5A99C7(Unit* unit) {
-    this->sub_5A9AC4(unit);
+    this->BeginUnitOrder(unit);
     unit->state = 26;
     unit->eye->field136_0x90 = 0;
     unit->eye2->cast_action = 0;
@@ -2675,7 +2675,7 @@ int32_t World::sub_5A7AF7(Unit* unit, Unit* other, Spell* spell) {
 // Set up a single-target cast action for `unit` on `target` using `spell`.
 // 5A92AF
 void World::sub_5A92AF(Unit* unit, Unit* target, Spell* spell) {
-    this->sub_5A9AC4(unit);
+    this->BeginUnitOrder(unit);
     unit->state = 0xD;
     unit->eye2->unit5 = target;
     unit->eye2->spell = spell;
@@ -2701,20 +2701,20 @@ void World::PrepareUnitOrder(Unit* unit) { //5a9832
     unit->some_state = 0;
 }
 
-void World::sub_5A9AC4(Unit* unit) { //5a9ac4
+void World::BeginUnitOrder(Unit* unit) { //5a9ac4
     this->PrepareUnitOrder(unit);
     unit->eye2->field43_0x50 = 0;
 }
 
 void World::FUN_005a93f4(Unit* unit) { //5a93f4
-    this->sub_5A9AC4(unit);
+    this->BeginUnitOrder(unit);
     unit->state = 0xc;
     unit->eye2->position1 = unit->position->GetYX();
     unit->eye2->cast_action = 0;
 }
 
 void World::sub_5A9A6A(Unit* unit) { //5a9a6a
-    this->sub_5A9AC4(unit);
+    this->BeginUnitOrder(unit);
     this->FUN_005a93f4(unit);
 }
 
@@ -2760,7 +2760,7 @@ void World::sub_5AAF84(Unit* unit, uint8_t facing) {
 void World::ClearGroupOrders(Group* grp) { //5acd4c
     for (POSITION it = grp->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = grp->unit_list.GetNext(it);
-        this->sub_5A9AC4(unit);
+        this->BeginUnitOrder(unit);
         unit->eye2->field29_0x38 = 0;
     }
     grp->group_sub->order = 0;
@@ -2916,7 +2916,7 @@ void World::sub_5A9087(Unit* unit, Unit* target) {
     if (unit == target) {
         this->sub_5A9A6A(unit);
     } else {
-        this->sub_5A9AC4(unit);
+        this->BeginUnitOrder(unit);
         unit->state = 3;
         unit->eye2->unit = target;
         unit->eye2->max_range = this->UnitMaxRange(unit);
@@ -2926,7 +2926,7 @@ void World::sub_5A9087(Unit* unit, Unit* target) {
 
 // 5A930F — order `unit` to area-cast `spell` at (x, y).
 void World::sub_5A930F(Unit* unit, uint8_t x, uint8_t y, Spell* spell) {
-    this->sub_5A9AC4(unit);
+    this->BeginUnitOrder(unit);
     unit->state = 0xE;
     unit->eye2->field30_0x3c = PosYX(x, y).val;
     unit->eye2->spell = spell;
@@ -2936,7 +2936,7 @@ void World::sub_5A930F(Unit* unit, uint8_t x, uint8_t y, Spell* spell) {
 
 // 5A943B — helper used by sub_5ACAA7: set unit to retreat/evade state.
 void World::sub_5A943B(Unit* unit) {
-    this->sub_5A9AC4(unit);
+    this->BeginUnitOrder(unit);
     unit->state = 0x17;
     unit->eye2->position1 = unit->position->CompatGetYX();
     unit->eye2->cast_action = 0;
@@ -2944,7 +2944,7 @@ void World::sub_5A943B(Unit* unit) {
 
 // 5A9482 — order `unit` to follow/guard `target` (state 8).
 void World::sub_5A9482(Unit* unit, Unit* target, uint8_t range) {
-    this->sub_5A9AC4(unit);
+    this->BeginUnitOrder(unit);
     if (unit == target) {
         this->sub_5A9A6A(unit);
     } else {
@@ -2957,7 +2957,7 @@ void World::sub_5A9482(Unit* unit, Unit* target, uint8_t range) {
 
 // 5A9501 — order `unit` to attack `target` (state 0x11).
 void World::sub_5A9501(Unit* unit, Unit* target, uint8_t range) {
-    this->sub_5A9AC4(unit);
+    this->BeginUnitOrder(unit);
     if (unit == target) {
         this->sub_5A9A6A(unit);
     } else {
@@ -2970,7 +2970,7 @@ void World::sub_5A9501(Unit* unit, Unit* target, uint8_t range) {
 
 // 5A9580 — order `unit` to move to (x, y) using path-list.
 void World::sub_5A9580(Unit* unit, uint8_t x, uint8_t y) {
-    this->sub_5A9AC4(unit);
+    this->BeginUnitOrder(unit);
     unit->state = 10;
     unit->eye2->position1 = unit->position->CompatGetYX();
     unit->eye2->positions_list->RemoveAll();
@@ -2984,7 +2984,7 @@ void World::sub_5A9580(Unit* unit, uint8_t x, uint8_t y) {
 
 // 5A9918 — helper used by sub_5ACAFA: set unit to idle/wander state 0x16.
 void World::sub_5A9918(Unit* unit) {
-    this->sub_5A9AC4(unit);
+    this->BeginUnitOrder(unit);
     unit->state = 0x16;
     unit->eye2->cast_action = 0;
 }
@@ -3030,7 +3030,7 @@ void World::sub_5AA84F(Unit* unit) {
 // Order a unit to interact with/enter a building.
 // 5A90F4
 void World::sub_5A90F4(Unit* unit, Building* building) {
-    this->sub_5A9AC4(unit);
+    this->BeginUnitOrder(unit);
     unit->state = 0xF;
     unit->eye2->field51_0x68 = building;
     unit->eye2->max_range = 1;
@@ -3119,7 +3119,7 @@ int32_t World::sub_5B6F60(int32_t min, int32_t max) {
 
 // 5A8EFB — set unit movement target, clamped to map bounds.
 void World::sub_5A8EFB(Unit* unit, uint8_t x, uint8_t y) {
-    this->sub_5A9AC4(unit);
+    this->BeginUnitOrder(unit);
 
     if (x < this->field24_0xa50->map_min_x) {
         x = this->field24_0xa50->map_min_x;
@@ -3315,7 +3315,7 @@ void World::sub_5AF6F5(Unit* unit) {
 
 // 5A9383
 void World::sub_5A9383(Unit* unit) {
-    this->sub_5A9AC4(unit);
+    this->BeginUnitOrder(unit);
     unit->state = 0xB;
     if (unit->position->IsAtCellCenter() == 0) {
         unit->eye2->position1 = unit->eye->position1;
@@ -3938,7 +3938,7 @@ void World::sub_5A6789(Unit* unit) {
 // Reset unit state and set a movement target from two packed bytes.
 // 5A925C
 void World::sub_5A925C(Unit* unit, uint8_t a, uint8_t b) {
-    this->sub_5A9AC4(unit);
+    this->BeginUnitOrder(unit);
     unit->state = 4;
     unit->eye2->command_to = PosYX{a, b}.val;
     unit->eye2->cast_action = 0;
