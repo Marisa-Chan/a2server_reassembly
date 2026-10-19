@@ -550,7 +550,7 @@ public:
     int32_t last_event_id;
     int32_t inside_building;
     int32_t enter_ack_received;
-    int32_t field_0x45c;
+    int32_t input_locked;
     int32_t field_0x460;
     int32_t field_0x464;
     CGameSession m_GameSession;

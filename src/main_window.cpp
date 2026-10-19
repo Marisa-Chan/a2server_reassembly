@@ -599,7 +599,7 @@ const AFX_MSGMAP_ENTRY MainWindow::_messageEntries[] =
 
 // 486a2f
 void MainWindow::OnSysKeyDown(UINT key, UINT repeat, UINT flags) {
-    if (this->field_0x45c == 0) {
+    if (this->input_locked == 0) {
         if (key == 0x79) {
             this->vis_root->MsgProc(0x100, key, 0);
             this->Default();
@@ -879,7 +879,7 @@ int32_t MainWindow::ConnectToServerAddress() {
 
 // 4863f6
 void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
-    if (this->field_0x45c == 0) {
+    if (this->input_locked == 0) {
         switch (key) {
         case 0x08:
         case 0x09:
@@ -1092,7 +1092,7 @@ BOOL MainWindow::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message) {
 
 // 486c25
 void MainWindow::OnSysKeyUp(UINT key, UINT repeat, UINT flags) {
-    if (this->field_0x45c == 0 && key == 0x12) {
+    if (this->input_locked == 0 && key == 0x12) {
         g_kbMenuState = 0;
     }
     this->Default();
@@ -1126,7 +1126,7 @@ void MainWindow::FUN_00478130() {
 
 // 486bb0
 void MainWindow::OnKeyUp(UINT key, UINT repeat, UINT flags) {
-    if (this->field_0x45c == 0) {
+    if (this->input_locked == 0) {
         if (key == 0x10) {
             g_kbShiftState = 0;
         } else if (key == 0x11) {

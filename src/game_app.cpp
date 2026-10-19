@@ -764,7 +764,7 @@ BOOL GameApp::InitInstance() {
 
 	g_AutoRunEvent = CreateEventA(NULL, TRUE, TRUE, "Allods 2 AutoRun");
 
-	mwnd->field_0x45c = 0;
+	mwnd->input_locked = 0;
 
 	ExperienceTable::InitTable();
 	SetMessageColors(g_MessageColors);

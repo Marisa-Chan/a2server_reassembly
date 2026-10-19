@@ -2184,10 +2184,10 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		case 0xbf:
 			if (packet_join->__field_0xa == sub_4F1D0D(packet_join->name)) {
 				wnd->enter_ack_received = 1;
-				wnd->field_0x45c = 0;
+				wnd->input_locked = 0;
 			} else {
 				this->FUN_0041cb67(0);
-				wnd->field_0x45c = 1;
+				wnd->input_locked = 1;
 			}
 			break;
 
