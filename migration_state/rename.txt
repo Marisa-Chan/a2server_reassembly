@@ -708,3 +708,4 @@ TableLine::VMethod2 -> ParseValue -- parses one field string into int/double (pe
 Packet::VMethod3 -> WriteTo -- writes the packet body to the connection (net->WriteData); overrides in PacketJoin/PacketTerrain/PacketUnitUpdate
 Packet::VMethod4 -> ReadFrom -- reads the packet body from the connection (net->ReadData); overrides in PacketJoin/PacketTerrain/PacketUnitUpdate
 Packet::VMethod3 -> WriteTo -- writes the packet body to the connection (net->WriteData); overrides in PacketJoin/PacketTerrain/PacketUnitUpdate
+GameDataRes::sub_510502 -> FindItemTemplate -- looks up an item template by name

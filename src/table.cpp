@@ -931,7 +931,7 @@ int GameDataRes::sub_50DF19(int experience) {
 }
 
 // 5126A2
-int GameDataRes::sub_5126A2(uint8_t type, uint8_t face) {
+int GameDataRes::GetMonsterTableIndex(uint8_t type, uint8_t face) {
     for (int32_t i = this->monsters.GetSize() - 1; i > 0; i--) {
         if (this->monsters[i].values.GetSize() == 0) {
             continue;

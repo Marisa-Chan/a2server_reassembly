@@ -184,7 +184,7 @@ void Inn::InnCreateQuests(Player* player) {
             int pick = Random0N(candidates.size() - 1);
             Candidate& candidate = candidates[pick];
 
-            int type_id = g_GameDataRes.sub_5126A2(candidate.typeId, candidate.face);
+            int type_id = g_GameDataRes.GetMonsterTableIndex(candidate.typeId, candidate.face);
             if (type_id == 0xA3) { // Replace campaign orc-shamans with regular ones?
                 type_id = 0x51;
             }
