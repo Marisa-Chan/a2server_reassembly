@@ -64,7 +64,7 @@ void Visibility::sub_58CE74() {
             int32_t max_val = (y > x) ? y : x;
             int16_t value = 0;
             if (max_val != 0) {
-                value = std::sqrt(y * y + x * x) * this->field_0x2a000 / max_val;
+                value = std::sqrt(y * y + x * x) * this->scan_radius / max_val;
             }
             this->dist_scale_table[y + Visibility::CENTER][x + Visibility::CENTER] = value;
             this->dist_scale_table[Visibility::CENTER - y][Visibility::CENTER - x] = value;
@@ -88,7 +88,7 @@ Visibility::Visibility() {
     int32_t scan_shift = reg.GetInt("Scanning", "ScanShift", 7);
 
     this->scan_shift = scan_shift;
-    this->field_0x2a000 = 1 << scan_shift;
+    this->scan_radius = 1 << scan_shift;
 
     this->sub_58CD84();
     this->sub_58CE74();

@@ -18,7 +18,7 @@ public:
     uint16_t ray_dir_table[64][64]; // 0x22000
     int32_t vis_budget_scratch[64][64];  // 0x24000
     uint16_t dist_scale_table[64][64]; // 0x28000
-    int32_t field_0x2a000;          // 0x2a000
+    int32_t scan_radius;          // 0x2a000
     int32_t scan_shift;             // 0x2a004
     uint8_t field_0x2a008[65536];   // 0x2a008
     MapStuff* map_stuff;            // 0x3a00c
