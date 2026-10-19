@@ -1784,7 +1784,7 @@ void Unit::InitDefaults(const CString& str) {
 }
 
 // 537251
-void Unit::sub_537251() {
+void Unit::ApplyInvincibility() {
     this->equipment_extra.protections.magic_protections.fill(100);
     this->equipment_extra.protections.weapon_protections.fill(100);
     this->RecalcStats();

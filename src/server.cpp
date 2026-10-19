@@ -2749,13 +2749,13 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
 
         if (cheat_string.Find("+god") == 0) {
             if (target_mode == 1) {
-                player->main_unit->sub_537251();
+                player->main_unit->ApplyInvincibility();
                 g_NetStru1_main.sub_519221(player->main_unit, 0, (int32_t)0xA31FFFFF, 0xFFB, 0, 0);
             } else if (target_mode == 2) {
                 for (POSITION node = player->unit_list->unit_list.GetHeadPosition(); node != nullptr;) {
                     Unit* unit = player->unit_list->unit_list.GetNext(node);
                     if (unit != nullptr) {
-                        unit->sub_537251();
+                        unit->ApplyInvincibility();
                         g_NetStru1_main.sub_519221(unit, 0, (int32_t)0xA31FFFFF, 0xFFB, 0, 0);
                     }
                 }
