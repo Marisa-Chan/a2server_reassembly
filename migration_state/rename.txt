@@ -221,3 +221,4 @@ CUnit::VMethod22 -> PlayAttackVoice -- plays a random SfxBank attack voice line 
 CUnit::VMethod23 -> PlayMoveVoice -- plays a random SfxBank move voice line (3s cooldown)
 CUnit::VMethod24 -> PlaySwarmVoice -- plays a random SfxBank swarm voice line (3s cooldown)
 CUnit::VMethod25 -> PlayHitSound -- kind 0: no-damage ack sfx (vfx sound[1]); 1/2: light/heavy-wound voice; 3: death voice
+CUnit::VMethod26 -> PlayDefendVoice -- plays the SfxBank defend voice line (3s cooldown)

@@ -262,7 +262,7 @@ public:
 	virtual void PlayMoveVoice();
 	virtual void PlaySwarmVoice();
 	virtual void PlayHitSound(int32_t arg1);
-	virtual void VMethod26();
+	virtual void PlayDefendVoice();
 	virtual void VMethod27();
 	virtual void VMethod28();
 	virtual void VMethod29();
