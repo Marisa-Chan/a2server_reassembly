@@ -823,7 +823,7 @@ void World::AiAttackBrain(Group* group, uint16_t param) {
 void World::sub_5AECE7(Group* group, uint16_t param) {
     this->sub_5ADB16(group);
     if (this->field26_0xa64.unit_list.GetCount() == 0) {
-        this->sub_5AF061(group, param);
+        this->AiMoveBrain(group, param);
     } else {
         this->sub_5AE2D4(group);
         POSITION it = group->unit_list.GetHeadPosition();
@@ -3398,7 +3398,7 @@ void World::ProcessGroupAi(Group* group) {
             this->AiAggroBrain(group);
             break;
         case 4:
-            this->sub_5AF061(group, group->group_sub->order_pos);
+            this->AiMoveBrain(group, group->group_sub->order_pos);
             break;
         case 5:
             this->sub_5AECE7(group, group->group_sub->order_pos);
@@ -4092,7 +4092,7 @@ void World::IdleGroupUnits(Group* group) {
 }
 
 // 5AF061
-void World::sub_5AF061(Group* group, uint16_t yx) {
+void World::AiMoveBrain(Group* group, uint16_t yx) {
     this->sub_5AB719(group);
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
