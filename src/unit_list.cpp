@@ -39,7 +39,7 @@ void UnitList::CallMethod5() {
 	POSITION pos = this->unit_list.GetHeadPosition();
 	while (pos != NULL) {
 		Unit* unit = this->unit_list.GetNext(pos);
-		unit->VMethod5();
+		unit->FixupPointers();
 	}
 }
 

@@ -235,7 +235,7 @@ int32_t Token::GetMovementType() {
 	return 0;
 }
 
-void Token::VMethod5() {
+void Token::FixupPointers() {
 	// 55af48
 	this->position->FUN_00594200();
 }

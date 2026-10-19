@@ -442,8 +442,8 @@ void Unit::Serialize(CArchive& ar) {
 
 
 // 55A9C5
-void Unit::VMethod5() {
-    Token::VMethod5();
+void Unit::FixupPointers() {
+    Token::FixupPointers();
 
     void* result;
 
@@ -2266,9 +2266,9 @@ Humanoid::~Humanoid() {
     Humanoid::VMethod10();
 }
 
-void Humanoid::VMethod5() {
+void Humanoid::FixupPointers() {
     //55ab26
-    Unit::VMethod5();
+    Unit::FixupPointers();
 }
 
 int32_t Humanoid::VMethod7() {

@@ -231,10 +231,10 @@ void PointEffect::ProcessEffects() {
 }
 
 // 53E7F2
-void PointEffect::VMethod5() {
-	Token::VMethod5();
+void PointEffect::FixupPointers() {
+	Token::FixupPointers();
 	if (this->effect != nullptr) {
-		this->effect->VMethod5();
+		this->effect->FixupPointers();
 	}
 }
 
@@ -586,10 +586,10 @@ void AreaEffect::ProcessEffects() {
 }
 
 // 53EB1E
-void AreaEffect::VMethod5() {
-	Token::VMethod5();
+void AreaEffect::FixupPointers() {
+	Token::FixupPointers();
 	if (this->effect != nullptr) {
-		this->effect->VMethod5();
+		this->effect->FixupPointers();
 	}
 }
 
@@ -658,13 +658,13 @@ void SpellTransport::ProcessEffects() {
 }
 
 // 53E68D
-void SpellTransport::VMethod5() {
-	Token::VMethod5();
+void SpellTransport::FixupPointers() {
+	Token::FixupPointers();
 	if (this->spell_effect != nullptr) {
-		this->spell_effect->VMethod5();
+		this->spell_effect->FixupPointers();
 	}
 	if (this->area_effect != nullptr) {
-		this->area_effect->VMethod5();
+		this->area_effect->FixupPointers();
 	}
 }
 

@@ -117,7 +117,7 @@ public:
 	virtual void ProcessEffects();
 	virtual int32_t GetTokenSize(); // TokenSize
 	virtual int32_t GetMovementType(); // MovementType
-	virtual void VMethod5();
+	virtual void FixupPointers();
 	virtual int32_t VMethod6(); // IsItem
 	virtual int32_t VMethod7(); // IsUnit
 	virtual int32_t VMethod8(); // IsHumanoid

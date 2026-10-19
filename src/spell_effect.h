@@ -42,7 +42,7 @@ public: // VTable at 60f1b0.
     virtual ~PointEffect() override; // 537703
     virtual void Serialize(CArchive& ar) override; // 53E6D4
     virtual void ProcessEffects() override; // 57C0A0
-    virtual void VMethod5() override; // 53E7F2
+    virtual void FixupPointers() override; // 53E7F2
 
 public:
     PointEffect(); // 5374FC
@@ -65,7 +65,7 @@ public: // VTable at 60f1f0.
     virtual ~AreaEffect() override; // 5378D8
     virtual void Serialize(CArchive& ar) override; // 53E81F
     virtual void ProcessEffects() override; // 537964
-    virtual void VMethod5() override; // 53EB1E
+    virtual void FixupPointers() override; // 53EB1E
     virtual void VMethod10(Unit* unit) override; // 5382FB
 
 public:
@@ -102,7 +102,7 @@ public: // VTable at 0060f230.
     virtual ~SpellTransport() override; // 538B27
     virtual void Serialize(CArchive& ar) override; // 53E588
     virtual void ProcessEffects() override; // 538BF4
-    virtual void VMethod5() override; // 53E68D
+    virtual void FixupPointers() override; // 53E68D
 
 public:
     SpellTransport(); // 5389E2

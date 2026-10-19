@@ -5946,7 +5946,7 @@ void SpellEffectList::VMethod1() {
     for (POSITION pos = this->list.GetHeadPosition(); pos != nullptr;) {
         SpellEffect* eff = this->list.GetNext(pos);
         if (eff != nullptr) {
-            eff->VMethod5();
+            eff->FixupPointers();
         }
     }
 }
