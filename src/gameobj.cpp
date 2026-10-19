@@ -200,7 +200,7 @@ void CGameObject::FUN_0041f180(int32_t grp) { //41f180
 }
 
 
-void CGameObject::FUN_0046190d() { //46190d
+void CGameObject::UpdateMapPosition() { //46190d
     BigStruct2* map = this->pMapObject;
 
     this->tileX = this->x_pos2 >> 8;
@@ -3013,7 +3013,7 @@ void CUnit::SpawnSpellProjectile() { // 468765
 
     proj->action = 1;
     proj->action_phase = 0;
-    proj->FUN_0046190d();
+    proj->UpdateMapPosition();
     map->field_0x9ec[(uint16_t)map->field_0xa24] = proj;
     map->field_0xa24 = (uint16_t)(map->field_0xa24 + 1);
 
@@ -3025,7 +3025,7 @@ void CUnit::SpawnSpellProjectile() { // 468765
     ghost->x_pos = ghost->action_x - vfx->center_x + (vfx->selection.right - vfx->selection.left) / 2;
     ghost->y_pos = ghost->action_y - vfx->center_y + (vfx->selection.bottom - vfx->selection.top) / 2;
     ghost->z_pos = ghost->action_z;
-    ghost->FUN_0046190d();
+    ghost->UpdateMapPosition();
     map->field_0x9ec[(uint16_t)map->field_0xa24] = ghost;
     map->field_0xa24 = (uint16_t)(map->field_0xa24 + 1);
 }
@@ -3106,7 +3106,7 @@ void CUnit::SpawnAttackProjectile() {
     proj->action_segments = dist / 200;
     proj->action = 1;
     proj->action_phase = 0;
-    proj->FUN_0046190d();
+    proj->UpdateMapPosition();
     map->field_0x9ec[(uint16_t)map->field_0xa24] = proj;
     map->field_0xa24 = (uint16_t)(map->field_0xa24 + 1);
 }

@@ -147,7 +147,7 @@ public:
 
 	int32_t IsSelected() { return this->m_bSelected; } //41f110
 	uint32_t FUN_0041f1c0(uint32_t t) { return (1 << t) & this->controlGroupMask; } //41f1c0
-	void FUN_0046190d();
+	void UpdateMapPosition();
 	void SetVals(uint16_t uni_id, int type_id, int32_t xpos, int32_t ypos, int32_t unk1, int32_t unk2, int32_t _phase, int32_t _speed, int32_t hp); //46187d
 
 	int32_t FUN_00462405(int32_t effect_id);

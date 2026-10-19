@@ -228,3 +228,4 @@ CUnit::VMethod29 -> PlayPickupVoice -- plays the SfxBank pickup voice line (3s c
 CUnit::VMethod30 -> RenderHeroPortrait -- composites the hero body + equipment .256 sprites onto the portrait bitmaps (paperdoll render for the info window)
 CBridge::VMethod17 -> SetSize -- sets bridge_width/bridge_height (not part of the CGameObject vtable family)
 CGameObject::FUN_0041f130 -> IsBlocked -- returns bIsBlocked (0=free, 1=blocked, 2=structure partially blocked); gates drawing/clicks
+CGameObject::FUN_0046190d -> UpdateMapPosition -- recomputes tileX/tileY, mapBounds, screen/center coords and terrainHeightOffset from x_pos2/y_pos2

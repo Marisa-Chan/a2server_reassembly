@@ -4131,7 +4131,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
 
             proj->unit_id = proj_ids[i];
             this->vis_map_context->field_0x9ec[proj->unit_id] = proj;
-            proj->FUN_0046190d();
+            proj->UpdateMapPosition();
         }
 
         CArray<uint32_t> fog_data;

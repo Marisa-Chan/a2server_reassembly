@@ -891,7 +891,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						}
 						if (g_CUnitStatic.death_state < 5) {
 							if ((wnd->dialogsMask & 1) != 0 && this->field_0x80) {
-								ct->FUN_0046190d();
+								ct->UpdateMapPosition();
 							}
 
 							if (this->field_0x138 == ct) {
@@ -1405,7 +1405,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				}
 
 				if ((wnd->dialogsMask & 1) != 0 && this->field_0x80 != nullptr) {
-					pak->FUN_0046190d();
+					pak->UpdateMapPosition();
 				}
 			}
 
@@ -1478,7 +1478,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				pj->action = 1;
 				pj->pMapObject = this;
 
-				pj->FUN_0046190d();
+				pj->UpdateMapPosition();
 
 				this->field_0x9ec[this->field_0xa24] = pj;
 				this->field_0xa24++;
@@ -1580,7 +1580,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			pj->action = 1;
 			pj->pMapObject = this;
 
-			pj->FUN_0046190d();
+			pj->UpdateMapPosition();
 			
 			this->field_0x9ec[this->field_0xa24] = pj;
 			this->field_0xa24++;
@@ -1621,7 +1621,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			pj->action = 1;
 			pj->pMapObject = this;
 
-			pj->FUN_0046190d();
+			pj->UpdateMapPosition();
 
 			this->field_0x9ec[this->field_0xa24] = pj;
 			this->field_0xa24++;
@@ -4170,7 +4170,7 @@ void BigStruct2::sub_40403B() {
 		uint16_t key;
 		CGameObject* obj;
 		this->field_0x9d0.GetNextAssoc(it, key, obj);
-		obj->FUN_0046190d();
+		obj->UpdateMapPosition();
 		obj->UpdateTileLayer();
 		obj->UpdateLight();
 	}
@@ -4212,7 +4212,7 @@ void BigStruct2::sub_40403B() {
 		uint16_t key;
 		CGameObject* obj;
 		this->field_0x9ec.GetNextAssoc(it, key, obj);
-		obj->FUN_0046190d();
+		obj->UpdateMapPosition();
 		obj->UpdateLight();
 	}
 	for (POSITION it = this->field_0xa94.GetStartPosition(); it != nullptr;) {
