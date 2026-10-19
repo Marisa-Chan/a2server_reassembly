@@ -662,7 +662,7 @@ void Unit::RegenTick() {
         int32_t regen_mult = 1;
 
         // Higher regen for units "at rest".
-        if (this->sub_52BABD() > 80) {
+        if (this->GetTicksSinceAction() > 80) {
             regen_mult = 3;
         }
 
@@ -746,7 +746,7 @@ void Unit::ProcessEffects() {
     }
 
     if (g_Server && g_Server->field4_0x74) {
-        if (this->pOwner && this == this->pOwner->main_unit && this->sub_52BABD() == 0x50) {
+        if (this->pOwner && this == this->pOwner->main_unit && this->GetTicksSinceAction() == 0x50) {
             g_NetStru1_main.sub_519221(this, nullptr, 0x10, 0xffb, 0, 0);
         }
     }
@@ -1574,7 +1574,7 @@ void Unit::sub_52D94E() {
 }
 
 // 52BABD
-int32_t Unit::sub_52BABD() {
+int32_t Unit::GetTicksSinceAction() {
     return g_Server->tick - this->last_action_tick;
 }
 
