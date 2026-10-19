@@ -178,7 +178,7 @@ public:
     void SendWorldState(Player* player, int32_t arg4); // Mission join: send full world state to connecting player
 
     void OnTeamsReady(); // Called when all team-game players are ready
-    void sub_4F8FBF(int arg1, int arg2); // Called when all team-game players are ready (sub-step)
+    void UpdateQuestRune(int arg1, int arg2); // Called when all team-game players are ready (sub-step)
     void sub_4F8B74(); // Spawn random sack on map
     void sub_4F9B9E(Sack* sack); // 4F9B9E Save sack to file
     void sub_4F9AD3(class Sack* sack); // Pre-process a sack before pickup

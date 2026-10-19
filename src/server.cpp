@@ -2625,8 +2625,8 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                             // All players now ready --- start the match.
                             g_NetStru1_main.FUN_0051ce86(10, 0, nullptr);
                             this->OnTeamsReady();
-                            this->sub_4F8FBF(0, 0);
-                            this->sub_4F8FBF(1, 0);
+                            this->UpdateQuestRune(0, 0);
+                            this->UpdateQuestRune(1, 0);
                         }
                     }
                 }
@@ -4773,7 +4773,7 @@ void Server::ServerTic() {
                     this->ctf_dropped[i]++;
                 }
                 if (this->ctf_dropped[i] > 320) {
-                    this->sub_4F8FBF(i, 1);
+                    this->UpdateQuestRune(i, 1);
                     g_NetStru1_main.FUN_0051ce86(i + 0x100, 0, nullptr);
                 }
             }
@@ -4791,7 +4791,7 @@ void Server::ServerTic() {
                         uint8_t unit_y = player->main_unit->position->GetY();
                         if (abs((yx >> 8) - unit_y) < 3) {
                             g_NetStru1_main.FUN_0051ce86(i + 0x106, this->ctf_carrying[i], nullptr);
-                            this->sub_4F8FBF(i, 0);
+                            this->UpdateQuestRune(i, 0);
 
                             POSITION ppos = g_PlayersList->list.GetHeadPosition();
                             while (ppos != nullptr) {
@@ -6613,7 +6613,7 @@ void Server::sub_4F8B74() {
 }
 
 // 4F8FBF
-void Server::sub_4F8FBF(int32_t arg1, int32_t arg2) {
+void Server::UpdateQuestRune(int32_t arg1, int32_t arg2) {
     const char* rune_name = arg1 ? "Quest RuneA" : "Quest RuneF";
 
     if (arg2) {

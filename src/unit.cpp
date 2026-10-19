@@ -1356,7 +1356,7 @@ void Unit::PickUpSack(Sack* sack) {
                         item = nullptr;
 
                         if (this->pOwner->field_0xa70 == 0) {
-                            g_Server->sub_4F8FBF(0, 0);
+                            g_Server->UpdateQuestRune(0, 0);
                             g_NetStru1_main.FUN_0051ce86(0x100, 0, nullptr);
                         } else {
                             rune_scored = true;
@@ -1370,7 +1370,7 @@ void Unit::PickUpSack(Sack* sack) {
                         delete item;
                         item = nullptr;
                         if (this->pOwner->field_0xa70 == 1) {
-                            g_Server->sub_4F8FBF(1, 0);
+                            g_Server->UpdateQuestRune(1, 0);
                             g_NetStru1_main.FUN_0051ce86(0x101, 0, nullptr);
                         } else {
                             rune_scored = true;
