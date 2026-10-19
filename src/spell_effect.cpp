@@ -290,7 +290,7 @@ void AreaEffect::ApplyDistribution() {
 	if (g_GameDataRes.spells[this->itemDataID].Values()[0].distribution == 4) {
 		this->ApplyWaveDistribution();
 	} else {
-		this->sub_53801A();
+		this->ApplyAroundPosition();
 	}
 }
 
@@ -423,7 +423,7 @@ void AreaEffect::sub_53868D(uint8_t x, uint8_t y) {
 }
 
 // 53801A
-void AreaEffect::sub_53801A() {
+void AreaEffect::ApplyAroundPosition() {
 	uint8_t x = this->position->GetX();
 	uint8_t y = this->position->GetY();
 

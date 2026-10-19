@@ -77,7 +77,7 @@ public:
     void TickAcidBlizzard(); // Acid stream and blizzard effects. 537CD6
     void ApplyDistribution();
     void ApplyWaveDistribution();
-    void sub_53801A();
+    void ApplyAroundPosition();
     void sub_53822C();
     void sub_5384FF();
     void sub_53868D(uint8_t x, uint8_t y);
