@@ -830,7 +830,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 								ct->action_dir = ct->dir;
 								ct->action_phase = 0;
 								ct->field_0xa4 = 0;
-								ct->field_0xa0 = 0;
+								ct->move_accum_x = 0;
 								ct->action_x = ct->x_pos;
 								ct->action_y = ct->y_pos;
 								ct->VMethod25(3);
@@ -842,7 +842,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 								ct->action_dir = ct->dir;
 								ct->action_phase = dying->dying_phases * 2 - 4;
 								ct->field_0xa4 = 0;
-								ct->field_0xa0 = 0;
+								ct->move_accum_x = 0;
 								ct->action_x = ct->x_pos;
 								ct->action_y = ct->y_pos;
 								ct->VMethod25(2);
@@ -952,7 +952,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					ct->field_0xc4 = ct->dir * 16;
 					ct->action_phase = 0;
 					ct->field_0xa4 = 0;
-					ct->field_0xa0 = 0;
+					ct->move_accum_x = 0;
 				}
 			}
 		}
@@ -974,7 +974,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						ct->action_dir = packet_abil->angle;
 						ct->action_phase = 0;
 						ct->field_0xa4 = 0;
-						ct->field_0xa0 = 0;
+						ct->move_accum_x = 0;
 						break;
 					}
 				}
@@ -1021,7 +1021,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				ct->action = 7;
 				ct->action_phase = 0;
 				ct->field_0xa4 = 0;
-				ct->field_0xa0 = 0;
+				ct->move_accum_x = 0;
 				ct->action_target = packet_mount->target_id;
 				ct->action_dir = ct->dir;
 			} else if (ct->action_segments != 0) {

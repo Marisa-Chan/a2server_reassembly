@@ -49,3 +49,4 @@ A2NetSock::field_0x264 -> stat_pkts_sent -- total dplay Send calls made (numerat
 TokenEntry::field_0x10 -> count -- stack count/quantity (init 1; gold pile stores gold amount here)
 TokenEntry::field_0x18 -> slot_code -- item location code: 1=equipped, 2=gold pile, val+4 from shop stream; 5..8 stack together
 GO_11c::field_0x0/2/4 -> x/y/z, field_0x6 -> vfx_type, field_0x7 -> phase -- transient VFX element: screen-space offsets, g_ProjectileInfos sprite id, anim phase (ctor params renamed to match)
+CGameObject::field_0xa0 -> move_accum_x -- accumulated |dx| walked, drives walk-sway variant selection

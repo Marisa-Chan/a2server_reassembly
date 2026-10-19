@@ -77,7 +77,7 @@ CGameObject::CGameObject() {
     this->action_z = 0;
     this->action_dir = 0;
     this->action_phase = 0;
-    this->field_0xa0 = 0;
+    this->move_accum_x = 0;
     this->field_0xa4 = 0;
     this->action_spell = 0;
     this->availableSpellMask = 0;
@@ -134,7 +134,7 @@ CGameObject::CGameObject(const CGameObject* obj) {
     this->action_dir = obj->action_dir;
     this->action_phase = obj->action_phase;
     this->action_target = obj->action_target;
-    this->field_0xa0 = obj->field_0xa0;
+    this->move_accum_x = obj->move_accum_x;
     this->field_0xa4 = obj->field_0xa4;
     this->action_spell = obj->action_spell;
     this->availableSpellMask = obj->availableSpellMask;
@@ -2655,7 +2655,7 @@ int32_t CUnit::VMethod11() { // 46785f
         int32_t dx = this->action_x / this->action_segments;
         int32_t dy = this->action_y / this->action_segments;
         this->action_x -= dx;
-        this->field_0xa0 += std::abs(dx);
+        this->move_accum_x += std::abs(dx);
         this->action_y -= dy;
         this->field_0xa4 += std::abs(dy);
         this->x_pos += dx;
@@ -2737,7 +2737,7 @@ int32_t CUnit::VMethod11() { // 46785f
         case 4:
         case 12: {
             int32_t sway = this->dir == 4 ? 8 : -8;
-            switch ((this->field_0xa0 / 32) & 7) {
+            switch ((this->move_accum_x / 32) & 7) {
             case 0:
                 if (this->field_0x34 != 0) {
                     this->field_0x34 = 0;
@@ -2800,7 +2800,7 @@ int32_t CUnit::VMethod11() { // 46785f
         default: {
             int32_t sway_x = this->dir < 8 ? 8 : -8;
             int32_t sway_y = (this->dir == 6 || this->dir == 10) ? 8 : -8;
-            switch ((this->field_0xa0 / 25) & 7) {
+            switch ((this->move_accum_x / 25) & 7) {
             case 0:
                 if (this->field_0x34 != 0) {
                     this->field_0x34 = 0;
