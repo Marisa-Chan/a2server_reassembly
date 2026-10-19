@@ -587,3 +587,4 @@ MapStuff::sub_58E525 -> RemoveSack -- removes a sack token from the map
 MapStuff::sub_58E5C7 -> GetSackAt -- looks up the sack at a yx position
 MapStuff::sub_58E5F3 -> GetSackAtPos -- looks up the sack at a TokenPos
 MapStuff::sub_590F0A -> CanPlaceUnit -- checks if the unit can be placed at its current position
+MapStuff::sub_58AD4A -> PlaceUnit -- places the unit on the map at its TokenPos

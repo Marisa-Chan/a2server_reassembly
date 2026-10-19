@@ -856,7 +856,7 @@ int MapStuff::sub_597140(Unit* unit, PosYX yx, int32_t flag) {
 }
 
 // 58AEEF
-int32_t MapStuff::sub_58AEEF(Unit* unit, uint8_t x, uint8_t y) {
+int32_t MapStuff::CanOccupyCell(Unit* unit, uint8_t x, uint8_t y) {
     PosYX yx(x, y);
     int32_t movement_type = unit->sub_59A030();
 
@@ -937,7 +937,7 @@ int MapStuff::PlaceUnit(Unit* unit) {
 
     for (int32_t dy = 0; dy < size; dy++) {
         for (int32_t dx = 0; dx < size; dx++) {
-            if (!this->sub_58AEEF(unit, x + dx, y + dy)) {
+            if (!this->CanOccupyCell(unit, x + dx, y + dy)) {
                 return 0;
             }
         }
