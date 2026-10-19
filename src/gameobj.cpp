@@ -738,7 +738,7 @@ const char* TokenEntry::GetHintText() { //439973
                     mana_str.Format("#%s: %d", TxtFile::AllLines[0x7b], spell.max_range);
                 }
             } else {
-                Item* item = g_GameDataRes.sub_510EE6(this->item_id);
+                Item* item = g_GameDataRes.CreateItemById(this->item_id);
                 // Byte 0x58 of the derived object: Weapon::range / Armor::slot / Shield::protections[0]
                 mana_str.Format("#%s: %d", TxtFile::AllLines[0x7b], *((uint8_t*)item + 0x58));
                 delete item;

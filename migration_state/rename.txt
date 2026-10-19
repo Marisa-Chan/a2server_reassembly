@@ -710,3 +710,4 @@ Packet::VMethod4 -> ReadFrom -- reads the packet body from the connection (net->
 Packet::VMethod3 -> WriteTo -- writes the packet body to the connection (net->WriteData); overrides in PacketJoin/PacketTerrain/PacketUnitUpdate
 GameDataRes::sub_510502 -> FindItemTemplate -- looks up an item template by name
 GameDataRes::sub_5126A2 -> GetMonsterTableIndex -- monster table index by type and face
+GameDataRes::sub_510F88 -> CreateItem -- creates an item from slot/shape/material/data id

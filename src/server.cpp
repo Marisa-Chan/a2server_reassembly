@@ -1459,7 +1459,7 @@ void Srv1::LoadSacks(MapAlm* alm) {
         // Process items
         for (int32_t item_idx = 0; item_idx < sack_data->item_ids.GetSize(); item_idx++) {
             uint16_t item_id = static_cast<uint16_t>(sack_data->item_ids[item_idx]);
-            Item* item = g_GameDataRes.sub_510EE6(item_id);
+            Item* item = g_GameDataRes.CreateItemById(item_id);
             
             if (item != nullptr) {
                 // Get effect data ID for this item

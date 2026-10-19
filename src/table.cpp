@@ -841,7 +841,7 @@ Item* GameDataRes::CreateItem(uint8_t slot, uint8_t shape_id, uint8_t material_i
 }
 
 // 510EE6
-Item* GameDataRes::sub_510EE6(uint16_t item_id) {
+Item* GameDataRes::CreateItemById(uint16_t item_id) {
     uint8_t slot = (item_id >> 8) & 0x0F;
 
     if (slot == 0x0E) {

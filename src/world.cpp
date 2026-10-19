@@ -2140,7 +2140,7 @@ void World::ScriptOP_0x0b(TriggerAction* action) {
 
 // 5b3ed4 — Add item to unit's inventory
 void World::ScriptOP_0x0c(TriggerAction* action) {
-    Item* item = g_GameDataRes.sub_510EE6(action->item_id);
+    Item* item = g_GameDataRes.CreateItemById(action->item_id);
     if (item) {
         action->unit->inventory->PutItemIntoBagAtDefault(item);
     }
