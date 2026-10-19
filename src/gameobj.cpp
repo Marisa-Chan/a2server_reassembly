@@ -21,7 +21,7 @@
 
 CStringArray g_CUnitMaterialSpritePaths; //660e70
 
-char g_Destination[0x400]; //659558 TokenEntry::FUN_00439973 hint buffer
+char g_Destination[0x400]; //659558 TokenEntry::GetHintText hint buffer
 char byte_65F630[1024]; //65f630 CUnit::GetStatsHint spell-list hint buffer
 
 //GetRuntimeClass 461020
@@ -636,7 +636,7 @@ void TokenEntry::operator=(const TokenEntry& obj) {
 }
 
 
-const char* TokenEntry::FUN_00439973() { //439973
+const char* TokenEntry::GetHintText() { //439973
     char buffer[0x80];
 
     g_Destination[0] = '\0';

@@ -47,7 +47,7 @@ public:
 
 	CString GetSpriteName(); //4394f3
 	int FUN_004396d6(); //4396d6
-	const char* FUN_00439973(); //439973
+	const char* GetHintText(); //439973
 
 	int GetType() const { return (this->item_id >> 8) & 0xf; } //41f0b0
 	int GetId() const { return this->item_id & 0x1f; } //43a800

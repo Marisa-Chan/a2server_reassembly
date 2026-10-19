@@ -9660,7 +9660,7 @@ const char* VisCharInfo::GetHint() {
     if (entry == nullptr) {
         return nullptr;
     }
-    return entry->FUN_00439973();
+    return entry->GetHintText();
 }
 
 // 4B3A0D
@@ -13520,7 +13520,7 @@ const char* VisTavLeftPanel::GetHint() {
     if (index == 0) {
         return nullptr;
     }
-    return unit->equipmentTokens[index - 1]->FUN_00439973();
+    return unit->equipmentTokens[index - 1]->GetHintText();
 }
 
 
@@ -14489,7 +14489,7 @@ const char* VisTavScene::GetHint() {
             if (entry->item_id == 0xFFFF) {
                 return TxtFile::AllLines[0x4A];
             }
-            return entry->FUN_00439973();
+            return entry->GetHintText();
         }
     }
     return nullptr;
@@ -16538,7 +16538,7 @@ const char* VisInvType1::GetHint() {
     if (entry->IsEmpty() != 0) {
         return TxtFile::AllLines[0x4a];
     }
-    return entry->FUN_00439973();
+    return entry->GetHintText();
 }
 
 
@@ -16969,7 +16969,7 @@ const char* VisInvExtBase::GetHint() {
     if (this->grid_source->GetAt(idx)->IsDepleted() != 0) {
         return nullptr;
     }
-    return this->grid_source->GetAt(idx)->FUN_00439973();
+    return this->grid_source->GetAt(idx)->GetHintText();
 }
 
 
