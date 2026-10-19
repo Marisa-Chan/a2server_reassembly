@@ -422,3 +422,4 @@ World::FUN_005a93f4 -> OrderHoldPosition -- sets state 0x0C anchored at current 
 World::sub_5A943B -> OrderStandGround -- sets state 0x17 which the dispatcher defaults to plain idle
 World::sub_5A8EFB -> OrderMoveTo -- sets state 1 with a map-clamped move target
 World::sub_5A9961 -> OrderSwarmTo -- sets state 2 (swarm) toward x/y
+World::sub_5A9087 -> OrderEngageTarget -- sets state 3 (pursue/attack target) used by AI decisions

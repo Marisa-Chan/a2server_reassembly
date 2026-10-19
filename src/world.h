@@ -183,7 +183,7 @@ public:
     void sub_5AAB85(Unit* unit, Unit* target); // 5AAB85
     void OrderEngageTarget(Unit* unit, Unit* target); // 5A9087
     void sub_5A92AF(Unit* unit, Unit* target, Spell* spell); // 5A92AF
-    void sub_5A9482(Unit* unit, Unit* target, uint8_t range); // 5A9482
+    void OrderAttackTarget(Unit* unit, Unit* target, uint8_t range); // 5A9482
     void sub_5A9501(Unit* unit, Unit* target, uint8_t range); // 5A9501
     void sub_5A9580(Unit* unit, uint8_t x, uint8_t y); // 5A9580
     void sub_5AA84F(Unit* unit); // 5AA84F

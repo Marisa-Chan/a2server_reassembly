@@ -2943,7 +2943,7 @@ void World::OrderStandGround(Unit* unit) {
 }
 
 // 5A9482 — order `unit` to follow/guard `target` (state 8).
-void World::sub_5A9482(Unit* unit, Unit* target, uint8_t range) {
+void World::OrderAttackTarget(Unit* unit, Unit* target, uint8_t range) {
     this->BeginUnitOrder(unit);
     if (unit == target) {
         this->ResetUnitToHold(unit);
@@ -4427,7 +4427,7 @@ void World::sub_5ACB4D(Group* group, Unit* target, uint8_t param_3) {
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
-        this->sub_5A9482(unit, target, param_3);
+        this->OrderAttackTarget(unit, target, param_3);
     }
 }
 
