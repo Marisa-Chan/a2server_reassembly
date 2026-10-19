@@ -126,7 +126,7 @@ public:
     void SpawnRandomSacks(int count); // Spawn 'count' random sacks on the map; count=0 defaults to max(10, map_width/4).
     int LoadMap(CString mapName); // Load ALM map file
     void CreatePlayers(MapAlm* alm);
-    void sub_59CD45(MapAlm* alm);
+    void CreateUnits(MapAlm* alm);
     void sub_59D891(MapAlm* alm, int flag);
     void sub_59F1BE(MapAlm* alm);
     void sub_59C37A(MapAlm* alm);

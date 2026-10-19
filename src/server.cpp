@@ -458,7 +458,7 @@ int Srv1::LoadMap(CString map_name) {
         g_World->diplomacy.diplomacy[player->player_id][player->player_id] = 0x12;
     }
 
-    this->sub_59CD45(alm);
+    this->CreateUnits(alm);
 
     Player* self = g_PlayersList->sub_535D39("Self");
     if (self != nullptr && g_Server->field4_0x74 != 0) {
@@ -757,7 +757,7 @@ void Srv1::CreatePlayers(MapAlm* alm) {
 }
 
 // 59CD45
-void Srv1::sub_59CD45(MapAlm* alm) {
+void Srv1::CreateUnits(MapAlm* alm) {
     if (MapStuff_Instance == nullptr) {
         return;
     }
