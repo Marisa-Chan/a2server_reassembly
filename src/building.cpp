@@ -14,7 +14,7 @@ Building::Building(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height
     this->typeId = 0;
     this->object_info_id = type_id;
     this->building_info = nullptr;
-    this->sub_5427AC(width, height);
+    this->InitFromTable(width, height);
 }
 
 // 5424AC
@@ -54,12 +54,12 @@ void Building::sub_542624(const CString& name) {
     if (this->object_info_id == 0) {
         LogMessage("Invalid building " + name + " created.");
     } else {
-        this->sub_5427AC(0, 0);
+        this->InitFromTable(0, 0);
     }
 }
 
 // 5427AC
-void Building::sub_5427AC(uint8_t width, uint8_t height) {
+void Building::InitFromTable(uint8_t width, uint8_t height) {
     if (this->object_info_id == 0 || this->object_info_id >= g_GameDataRes.buildings.GetSize()) {
         return;
     }
