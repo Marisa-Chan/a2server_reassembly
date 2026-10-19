@@ -254,7 +254,7 @@ public:
     uint8_t  type;        // +0xC (= 0 in ctor)
     uint8_t  subtype;     // +0xD (= 0 in ctor)
     uint16_t param1;   // +0xE  (= 0 in ctor)
-    uint16_t field_0x10;  // +0x10 (= 0 in ctor)
+    uint16_t param2;  // +0x10 (= 0 in ctor)
     uint16_t field_0x12;  // +0x12 (= 1 in ctor)
 };
 __pragma(pack(pop))

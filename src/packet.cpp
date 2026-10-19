@@ -399,7 +399,7 @@ PacketCmd::PacketCmd() {
     this->type       = 0;
     this->subtype    = 0;
     this->param1  = 0;
-    this->field_0x10 = 0;
+    this->param2 = 0;
     this->field_0x12 = 1;
 }
 

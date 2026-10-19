@@ -3261,7 +3261,7 @@ void Server::sub_504a96(Packet* pkt) {
                     shop->sub_5446EB(
                         human,
                         from_type, packet_cmd->param1,
-                        to_type, packet_cmd->field_0x10,
+                        to_type, packet_cmd->param2,
                         packet_cmd->field_0x12
                     );
                 }
@@ -3349,7 +3349,7 @@ void Server::sub_504a96(Packet* pkt) {
                 update_mask |= 0x482000;
             } else if (to_type == 2) {
                 // Put item into bag slot.
-                human->inventory->PutItemIntoBag(packet_cmd->field_0x10, item);
+                human->inventory->PutItemIntoBag(packet_cmd->param2, item);
                 human->sub_52A790(0);
                 update_mask |= 0x282000;
             } else if (to_type == 4) {
@@ -3359,14 +3359,14 @@ void Server::sub_504a96(Packet* pkt) {
                 if (!shop) {
                     break;
                 }
-                shop->sub_544793(human, packet_cmd->field_0x10, item);
+                shop->sub_544793(human, packet_cmd->param2, item);
                 update_mask |= 0x82000;
             } else if (to_type == 3) {
                 // Drop item on ground (create sack).
                 Inventory* sack_inv = new Inventory();
                 sack_inv->PutItemIntoBagAtDefault(item);
-                uint8_t drop_x = (uint8_t)(packet_cmd->field_0x10 & 0xFF);
-                uint8_t drop_y = (uint8_t)(packet_cmd->field_0x10 >> 8);
+                uint8_t drop_x = (uint8_t)(packet_cmd->param2 & 0xFF);
+                uint8_t drop_y = (uint8_t)(packet_cmd->param2 >> 8);
                 int dx = std::abs((int)human->position->GetX() - (int)drop_x);
                 int dy = std::abs((int)human->position->GetY() - (int)drop_y);
                 if (dx <= 2 && dy <= 2) {

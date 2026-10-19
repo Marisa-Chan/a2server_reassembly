@@ -4505,7 +4505,7 @@ void BigStruct2::sub_41A7C7(uint8_t arg1, uint16_t arg2, uint8_t arg3, uint16_t 
 	pkt->type = arg1;
 	pkt->subtype = arg3;
 	pkt->param1 = arg2;
-	pkt->field_0x10 = arg4;
+	pkt->param2 = arg4;
 	pkt->field_0x12 = arg5;
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
