@@ -1415,7 +1415,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		case 0x82: {
 			CUnit* ct = nullptr;
 			if (this->field_0x9d0.Lookup(packet_sync->building_id, *(CGameObject**)&ct)) {
-				ct->hp = packet_sync->field_0xc;
+				ct->hp = packet_sync->hp;
 				if (this->field_0x138 == ct) {
 					wnd->vis_charinfo->MsgProc(0x408, 0, 0);
 					wnd->vis_sidestatus->MsgProc(0x408, 0, 0);

@@ -605,7 +605,7 @@ public:
     virtual uint32_t GetDataSize() override;
 public:
     uint16_t building_id; // +0xA
-    int16_t field_0xc; // +0xC
+    int16_t hp; // +0xC
 };
 __pragma(pack(pop))
 ASSERT_SIZE(PacketSync, 0xE);

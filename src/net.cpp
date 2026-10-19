@@ -4740,7 +4740,7 @@ void NetStru1::sub_51AC77(Token* token, Player* player, uint8_t flag) {
             packet.id = 0x82;
             packet.to_player_id = player ? player->player_id : 0;
             packet.building_id = (uint16_t)building->building_id;
-            packet.field_0xc = building->hp;
+            packet.hp = building->hp;
             this->QueuePacketSend(&packet);
         }
     }
