@@ -22,7 +22,7 @@ public: // VTable at 0060f288.
     virtual void ApplyToUnit(Unit* unit); // 53f761
     virtual void ModifyVision(Unit* unit); // 53f92c
     virtual void ApplyStatDelta(Unit* unit, int32_t param); // 53FA2B
-    virtual int32_t VMethod15(); // 541c87
+    virtual int32_t CalcScrollPrice(); // 541c87
     virtual int32_t VMethod16(double param); // 541d59
     virtual void VMethod17(int32_t param); // 541eb5
 
