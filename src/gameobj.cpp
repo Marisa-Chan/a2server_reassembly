@@ -3058,13 +3058,13 @@ void CUnit::PlayHitSound(int32_t arg1) {
         if ((this->unitFlags & 0x11) != 0 || this->serverId <= 0x17) {
             switch (arg1) {
             case 1:
-                sample = this->FUN_0046978b()->easy;
+                sample = this->GetSfxBank()->easy;
                 break;
             case 2:
-                sample = this->FUN_0046978b()->hard;
+                sample = this->GetSfxBank()->hard;
                 break;
             case 3:
-                sample = this->FUN_0046978b()->dead;
+                sample = this->GetSfxBank()->dead;
                 break;
             }
         } else if (g_VFX_info[this->typeId]->sound[arg1 + 1] != 0) {
@@ -3211,7 +3211,7 @@ void CUnit::PlayAttackVoice() {
     }
     this->lastVoicePlaybackTick = now;
 
-    SfxBank* bank = this->FUN_0046978b();
+    SfxBank* bank = this->GetSfxBank();
     if (bank->attack_count == 0) {
         return;
     }
@@ -3235,7 +3235,7 @@ void CUnit::PlayMoveVoice() {
     }
     this->lastVoicePlaybackTick = now;
 
-    SfxBank* bank = this->FUN_0046978b();
+    SfxBank* bank = this->GetSfxBank();
     if (bank->move_count == 0) {
         return;
     }
@@ -3259,7 +3259,7 @@ void CUnit::PlaySwarmVoice() {
     }
     this->lastVoicePlaybackTick = now;
 
-    SfxBank* bank = this->FUN_0046978b();
+    SfxBank* bank = this->GetSfxBank();
     if (bank->swarm_count == 0) {
         return;
     }
@@ -3283,7 +3283,7 @@ void CUnit::PlaySelectVoice() {
     }
     this->lastVoicePlaybackTick = now;
 
-    SfxBank* bank = this->FUN_0046978b();
+    SfxBank* bank = this->GetSfxBank();
     if (bank->select_count == 0) {
         return;
     }
@@ -3369,7 +3369,7 @@ int32_t CUnit::VMethod3() {
 }
 
 // 46978b
-SfxBank* CUnit::FUN_0046978b() {
+SfxBank* CUnit::GetSfxBank() {
     switch (this->serverId) {
     case 1:
     case 2:
@@ -3690,7 +3690,7 @@ void CUnit::PlayDefendVoice() {
     }
     this->lastVoicePlaybackTick = now;
 
-    SfxSample* sample = this->FUN_0046978b()->defend;
+    SfxSample* sample = this->GetSfxBank()->defend;
     BigStruct2* map = this->pMapObject;
     int32_t vol;
     int32_t pan;
@@ -3709,7 +3709,7 @@ void CUnit::PlayRetreatVoice() {
     }
     this->lastVoicePlaybackTick = now;
 
-    SfxSample* sample = this->FUN_0046978b()->retreat;
+    SfxSample* sample = this->GetSfxBank()->retreat;
     BigStruct2* map = this->pMapObject;
     int32_t vol;
     int32_t pan;
@@ -3728,7 +3728,7 @@ void CUnit::PlayPickupVoice() {
     }
     this->lastVoicePlaybackTick = now;
 
-    SfxSample* sample = this->FUN_0046978b()->pickup;
+    SfxSample* sample = this->GetSfxBank()->pickup;
     BigStruct2* map = this->pMapObject;
     int32_t vol;
     int32_t pan;

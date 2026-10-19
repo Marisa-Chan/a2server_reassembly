@@ -273,7 +273,7 @@ public:
 	void CopyFromUnit(const Unit& uni); //46b0d7
 	void ApplyFace(int32_t _face); //46b7d2
 	void ReloadSprite(); //46b91c
-	SfxBank* FUN_0046978b(); //46978b
+	SfxBank* GetSfxBank(); //46978b
 	const char* FUN_0046d0f7(int32_t x, int32_t y); //46d0f7
 	void FUN_0046c124(CRect* rect); //46c124
 	int32_t FUN_0046c0c9(TokenEntry* entry); //46c0c9
