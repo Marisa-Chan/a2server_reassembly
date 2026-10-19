@@ -562,7 +562,7 @@ int Item::IsArtifact() {
 }
 
 // 540DAA
-void sub_540DAA(const CString& effect_str, CList<Effect*>* effects) {
+void ParseEffectString(const CString& effect_str, CList<Effect*>* effects) {
     CString name;
     CString str;
 
@@ -592,7 +592,7 @@ void sub_540DAA(const CString& effect_str, CList<Effect*>* effects) {
 
 // 548F3F
 void Item::ApplyPropertyString(const CString& str) {
-    sub_540DAA(str, &this->_effects);
+    ParseEffectString(str, &this->_effects);
     this->CalcValue();
 }
 

@@ -342,3 +342,4 @@ Item::sub_548F3F -> ApplyPropertyString -- applies a special property string to 
 Item::sub_54A0BE -> RecalcFromTemplate -- recalculates item properties from its template data
 Item::sub_548E4E -> FindCastSpellEffect -- finds the cast-spell Effect on this item or nullptr
 Human: FUN_00532587 -> InitFromName -- human ctor body: parses Name.fN face/female suffix, hero setup, optional equipment load
+free: sub_4F499B -> ReadItem -- reads one Item (with effects) from a byte cursor

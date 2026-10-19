@@ -21,7 +21,7 @@ extern void* dword_65FBB8; // 65fbb8 - item name packet area
 
 Item* __cdecl ReadItem(uint8_t** packet_data);
 void LoadItemNames(); //475988
-void sub_540DAA(const CString& effect_str, CList<Effect*>* effects); // 540DAA: parse effect string into effects list
+void ParseEffectString(const CString& effect_str, CList<Effect*>* effects); // 540DAA: parse effect string into effects list
 int32_t sub_54F176(Item* item); // 54F176: total EffectPrice() of all effects
 
 class Item : public Token {
