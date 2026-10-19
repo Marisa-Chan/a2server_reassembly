@@ -335,7 +335,7 @@ public:
     void FUN_004CCED2(int16_t height, uint8_t phase); // 4cced2
 
     void BuildCirclePoints(int32_t x, int32_t y, int32_t radius, int32_t step); // 4cc5d1
-    void FUN_004CC798(int32_t x, int32_t y, int32_t height, float speed, float radius, int32_t angle); // 4cc798
+    void BuildTiltedRing(int32_t x, int32_t y, int32_t height, float speed, float radius, int32_t angle); // 4cc798
     void FUN_004cc059(double x0, double y0, double x1, double y1, uint8_t arg5); // 4cc059
     void FUN_004CB993(double x0, double y0, double x1, double y1); // 4cb993
     void FUN_004CB85F(double px0, double py0, double px1, double py1, double px2, double py2); // 4cb85f

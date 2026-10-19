@@ -2236,7 +2236,7 @@ void TransientVisualEffectBuilder::BuildGroundRing(int16_t height, float radius,
 }
 
 // 4cc798
-void TransientVisualEffectBuilder::FUN_004CC798(int32_t x, int32_t y, int32_t height, float speed, float radius, int32_t angle) {
+void TransientVisualEffectBuilder::BuildTiltedRing(int32_t x, int32_t y, int32_t height, float speed, float radius, int32_t angle) {
     float y_scale = speed / radius;
     double rad = FUN_004CD4B0(angle);
     double cos_a = std::cos(rad);
@@ -2492,7 +2492,7 @@ int32_t TransientVisualEffectBuilder::BuildFallingParticles(CArray<GO_11c>* exis
 
 // 4cc944
 void TransientVisualEffectBuilder::BuildEnergyColumn(int16_t height, float speed, float radius, uint32_t phase) {
-    this->FUN_004CC798(0, 0, height, speed, radius, (phase & 0xFF) << 2);
+    this->BuildTiltedRing(0, 0, height, speed, radius, (phase & 0xFF) << 2);
 
     int32_t y_offset = (int32_t)std::fabs(speed * ((int32_t)(phase & 0xFF) * 0.02222222222222222 - 1.0));
     int32_t span = (int32_t)(std::sin(std::acos(y_offset / (double)speed)) * radius);

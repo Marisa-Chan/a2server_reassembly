@@ -258,3 +258,4 @@ TransientVisualEffectBuilder::FUN_004CC944 -> BuildEnergyColumn -- hourglass col
 TransientVisualEffectBuilder::FUN_004CCAF2 -> BuildGroundRing -- 4-fold symmetric 0x30 ring on the ground plane, anim phase running one way
 TransientVisualEffectBuilder::FUN_004CCC7B -> BuildGroundRingReversed -- 0x40 ground ring with the opposite point/anim-phase orientation of BuildGroundRing
 TransientVisualEffectBuilder::FUN_004CC5D1 -> BuildCirclePoints -- Bresenham circle (4-fold symmetry) sampled into circle_points
+TransientVisualEffectBuilder::FUN_004CC798 -> BuildTiltedRing -- circle points rotated by angle and y-scaled by speed/radius into a tilted 0x3E ring
