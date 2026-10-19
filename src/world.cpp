@@ -348,7 +348,7 @@ UnitList* World::GetNearbyEnemies(Unit* caster, PosYX yx) {
 
 // Build a temporary UnitList of allied units near `yx` that `caster` can see.
 // 5A384F
-UnitList* World::sub_5A384F(Unit* caster, PosYX yx) {
+UnitList* World::GetNearbyAllies(Unit* caster, PosYX yx) {
     uint8_t range = caster->eye->field7_0x8;
     UnitList* list = this->field24_0xa50->sub_5897AA(yx, range);
     this->sub_5A3896(caster, list, 1);
@@ -1043,7 +1043,7 @@ void World::CastSelfHealOrBuff(Unit* unit) {
 void World::BeginAutobuffCast(Unit* caster, Unit* target, Spell* spell) {
     if (target == nullptr) {
         PosYX yx = caster->position->GetYX();
-        UnitList* list = (spell->is_defensive != 0) ? this->sub_5A384F(caster, yx) : this->GetNearbyEnemies(caster, yx);
+        UnitList* list = (spell->is_defensive != 0) ? this->GetNearbyAllies(caster, yx) : this->GetNearbyEnemies(caster, yx);
         if (list->unit_list.GetCount() != 0) {
             target = list->unit_list.GetHead();
         }
