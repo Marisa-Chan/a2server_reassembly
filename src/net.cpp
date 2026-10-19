@@ -297,7 +297,7 @@ void NetStru1::sub_51BE0E(Effect* effect, uint8_t type) {
     packet.field_0xd = effect->position->GetX();
     packet.field_0xe = effect->position->GetY();
     packet.field_0xf = type;
-    packet.field_0xa = (uint16_t)effect->building_id;
+    packet.unit_id = (uint16_t)effect->building_id;
     packet.field_0xc = (uint8_t)effect->typeId;
     packet.to_player_id = 0;
     this->sub_51B370(&packet, effect->position);
@@ -311,7 +311,7 @@ void NetStru1::sub_51BE8F(AreaEffect* obj, int32_t flag) {
         packet.field_0xd = obj->position->GetX();
         packet.field_0xe = obj->position->GetY();
         packet.field_0xf = 0x16;
-        packet.field_0xa = (uint16_t)obj->building_id;
+        packet.unit_id = (uint16_t)obj->building_id;
         packet.field_0xc = (uint8_t)obj->typeId;
         packet.to_player_id = 0;
         this->sub_51B370(&packet, obj->position);
@@ -4122,7 +4122,7 @@ void MarkUnitHiddenForPlayer(PacketMoveCmd* packet, Player* player) {
         return;
     }
 
-    Unit* affected_unit = dword_6CDB3C->sub_5560D2(packet->field_0xa);
+    Unit* affected_unit = dword_6CDB3C->sub_5560D2(packet->unit_id);
     if (affected_unit == nullptr) {
         return;
     }
@@ -4243,14 +4243,14 @@ void NetStru1::sub_51B638(PacketAoeZone* packet, AreaEffect* area_effect) {
 void NetStru1::sub_51BAB0(Unit* caster, Spell* spell, Unit* target, int16_t delay) {
     PacketMoveCmd& packet = PacketMoveCmd::Inst;
     packet.id = 0x86;
-    packet.field_0xa = caster->building_id;
+    packet.unit_id = caster->building_id;
     packet.field_0xc = 0;
     packet.field_0xd = 0;
     packet.field_0xe = 0;
     if (caster->typeId == 0) {
         packet.id = 0x8B;
         // Original code was writing the X and Y separately into +0xa and +0xb. I hope it's the same.
-        packet.field_0xa = caster->position->GetX() | (caster->position->GetY() << 8);
+        packet.unit_id = caster->position->GetX() | (caster->position->GetY() << 8);
     }
     packet.field_0xc = (spell->spell_id * 2 + 8);
     if (target != nullptr) {
@@ -4268,11 +4268,11 @@ void NetStru1::sub_51BAB0(Unit* caster, Spell* spell, Unit* target, int16_t dela
 void NetStru1::sub_51BB94(Unit* caster, Spell* spell, TokenPos* pos, int16_t delay) {
     PacketMoveCmd& packet = PacketMoveCmd::Inst;
     packet.id = 0x86;
-    packet.field_0xa = caster->building_id;
+    packet.unit_id = caster->building_id;
     if (caster->typeId == 0) {
         packet.id = 0x8B;
         // Original code was writing the X and Y separately into +0xa and +0xb. I hope it's the same.
-        packet.field_0xa = caster->position->GetX() | (caster->position->GetY() << 8);
+        packet.unit_id = caster->position->GetX() | (caster->position->GetY() << 8);
     }
     packet.field_0xc = spell->spell_id * 2 + 8;
     packet.field_0xd = pos->GetX();

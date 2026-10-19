@@ -1435,9 +1435,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		case 0x86:
 			if ((packet_move->field_0xc & 1) == 0 || packet_move->field_0xc >= g_ProjectileInfos.GetSize() || g_ProjectileInfos[packet_move->field_0xc] == nullptr) {
 				CUnit* ct = nullptr;
-				if (this->field_0x9d0.Lookup(packet_move->field_0xa, *(CGameObject**)&ct) == 0) {
+				if (this->field_0x9d0.Lookup(packet_move->unit_id, *(CGameObject**)&ct) == 0) {
 					if (g_EnableTrace != 0) {
-						sprintf(buf, "Invalid unit #%d. Command Cast spell.", packet_move->field_0xa);
+						sprintf(buf, "Invalid unit #%d. Command Cast spell.", packet_move->unit_id);
 						this->msglog.Add(buf, clrsh_TechBlack, 5000);
 					}
 				} else if (ct->action_segments == 0 && g_VFX_info[ct->typeId]->attack_phases != 0) {
@@ -1559,8 +1559,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		case 0x8b: {
 			CProjectile* pj = new CProjectile();
 			pj->typeId = packet_move->field_0xc;
-			pj->x_pos = (packet_move->field_0xa & 0xFF) * 0x100 + 0x80;
-			pj->y_pos = (packet_move->field_0xa >> 8) * 0x100 + 0x80;
+			pj->x_pos = (packet_move->unit_id & 0xFF) * 0x100 + 0x80;
+			pj->y_pos = (packet_move->unit_id >> 8) * 0x100 + 0x80;
 			pj->z_pos = 0;
 			pj->x_pos2 = pj->x_pos;
 			pj->y_pos2 = pj->y_pos;
