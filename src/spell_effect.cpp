@@ -477,7 +477,7 @@ void AreaEffect::TickAcidBlizzard() {
 	if (this->itemDataID == spell::blizzard) {
 		unk_6364D0[1] = Random0N(5) - 2;
 		unk_6364D0[0x15] = Random0N(5) - 2;
-		wave.sub_537AE8(unk_6364D0);
+		wave.SetWaveTable(unk_6364D0);
 		count = 32;
 	} else if (this->itemDataID == spell::acid_stream) {
 		wave.sub_537B2B(dword_6366C8[this->wave_step], dword_636AA0[this->wave_step], this->wave_pattern);
@@ -670,7 +670,7 @@ void SpellTransport::FixupPointers() {
 
 
 // 537AE8
-void WavePattern::sub_537AE8(const int32_t* table) {
+void WavePattern::SetWaveTable(const int32_t* table) {
 	this->x_offsets = table + 1;
 	this->y_offsets = table + 21;
 	this->count = table[0];

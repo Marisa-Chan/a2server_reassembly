@@ -700,3 +700,4 @@ AreaEffect::sub_53801A -> ApplyAroundPosition -- radial application around the e
 AreaEffect::sub_53822C -> ApplyRadiusRing -- applies the effect to all cells within radius
 AreaEffect::sub_5384FF -> BroadcastAndApply -- sends the area-effect packet then applies it
 AreaEffect::sub_53868D -> ApplyCellLayer -- per-cell area-effect layer update by spell id
+AreaEffect::sub_538897 -> GetLayerIndex -- maps the effect type to its area-effect layer index
