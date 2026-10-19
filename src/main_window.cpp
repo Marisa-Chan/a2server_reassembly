@@ -473,7 +473,7 @@ void ServerControlDialog::sub_49549B() {
 // 4956d5
 void ServerControlDialog::sub_4956D5() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    main_wnd->field_0x800 = 0;
+    main_wnd->server_ctrl_shown = 0;
     this->UpdateData(1);
 
     int32_t minutes = atoi(this->str_27c);
@@ -497,7 +497,7 @@ void ServerControlDialog::sub_495774() {
 void ServerControlDialog::sub_4957AD() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     g_Server->sub_4F8831();
-    main_wnd->field_0x624 = 1;
+    main_wnd->shutdown_pending = 1;
     this->sub_49585B();
 }
 
@@ -544,7 +544,7 @@ void ServerControlDialog::sub_49585B() {
     this->button_14c.EnableWindow(main_wnd->list_box2.GetCurSel() != -1);
     this->button_110.EnableWindow(g_Server->field18_0x94);
     this->button_d4.EnableWindow(g_Server->field18_0x94);
-    this->button_188.EnableWindow(main_wnd->field_0x624 == 0);
+    this->button_188.EnableWindow(main_wnd->shutdown_pending == 0);
     this->edit_5c.EnableWindow(g_ShutdownIn == 0x7FFFFFFF);
     this->button_23c.EnableWindow(g_ShutdownIn < 0x7FFFFFFF);
 
@@ -632,10 +632,10 @@ void MainWindow::OnSysKeyDown(UINT key, UINT repeat, UINT flags) {
 
 // 483ea8
 void MainWindow::OnDestroy() {
-    if (g_IsServer != 0 && this->field_0x7fc != nullptr) {
-        this->field_0x7fc->DestroyWindow();
-        delete this->field_0x7fc;
-        this->field_0x7fc = nullptr;
+    if (g_IsServer != 0 && this->server_ctrl_dlg != nullptr) {
+        this->server_ctrl_dlg->DestroyWindow();
+        delete this->server_ctrl_dlg;
+        this->server_ctrl_dlg = nullptr;
     }
 
     CFile file;
@@ -1030,7 +1030,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
 // 495010
 void MainWindow::FUN_00495010() {
     g_Server->sub_4F8831();
-    this->field_0x624 = 1;
+    this->shutdown_pending = 1;
 }
 
 // 4863c6
@@ -1280,20 +1280,20 @@ void MainWindow::OnSizing(UINT nSide, LPRECT rect) {
 
 // 4950c0
 void MainWindow::FUN_004950c0() {
-    if (this->field_0x7fc == nullptr) {
-        this->field_0x7fc = new ServerControlDialog(nullptr);
+    if (this->server_ctrl_dlg == nullptr) {
+        this->server_ctrl_dlg = new ServerControlDialog(nullptr);
     }
 
-    if (this->field_0x800 == 0) {
-        this->field_0x7fc->Create(MAKEINTRESOURCE(0x6b), nullptr);
-        this->field_0x7fc->str_27c.Format("%d", g_ServerConfig.shutdown_delay);
-        this->field_0x7fc->UpdateData(0);
+    if (this->server_ctrl_shown == 0) {
+        this->server_ctrl_dlg->Create(MAKEINTRESOURCE(0x6b), nullptr);
+        this->server_ctrl_dlg->str_27c.Format("%d", g_ServerConfig.shutdown_delay);
+        this->server_ctrl_dlg->UpdateData(0);
     } else {
-        this->field_0x7fc->SetActiveWindow();
+        this->server_ctrl_dlg->SetActiveWindow();
     }
 
-    this->field_0x800 = 1;
-    this->field_0x7fc->sub_49585B();
+    this->server_ctrl_shown = 1;
+    this->server_ctrl_dlg->sub_49585B();
 }
 
 // 4919b1
@@ -1452,8 +1452,8 @@ MainWindow::MainWindow() { //4837e1
         ModifyStyle(0, 0, 0);
     }
 
-    this->field_0x7fc = 0;
-    this->field_0x800 = 0;
+    this->server_ctrl_dlg = 0;
+    this->server_ctrl_shown = 0;
     this->music_player = nullptr;
     this->drag_entry = nullptr;
     this->drag_src_slot = -1;
@@ -1480,7 +1480,7 @@ MainWindow::MainWindow() { //4837e1
     this->field_0x3e0.field_0c = 0;
     this->field_0x3e0.field_10 = 0;
 
-    this->field_0x624 = 0;
+    this->shutdown_pending = 0;
 
     this->cursor_sizewe = LoadCursorA(0, IDC_SIZEWE);
     this->cursor_sizens = LoadCursorA(0, IDC_SIZENS);
@@ -1861,16 +1861,16 @@ void MainWindow::sub_48A756() {
                     if (g_ShutdownIn < 0) {
                         g_ShutdownIn = 0;
                         g_Server->sub_4F8831();
-                        this->field_0x624 = 1;
+                        this->shutdown_pending = 1;
                     }
                 }
                 
-                if (this->field_0x800 != 0) {
-                    this->field_0x7fc->sub_49585B();
+                if (this->server_ctrl_shown != 0) {
+                    this->server_ctrl_dlg->sub_49585B();
                 }
                 
                 // Check if should shut down.
-                if (this->field_0x624 != 0) {
+                if (this->shutdown_pending != 0) {
                     if (g_Server->FileList.GetSize() == 0) {
                         PostMessage(WM_CLOSE, 0, 0);
                     }

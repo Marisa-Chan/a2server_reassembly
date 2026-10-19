@@ -557,7 +557,7 @@ public:
     int32_t field_0x5e4;
     CFameHall m_FameHall; //5e8
     CString current_map_name;
-    int32_t field_0x624;
+    int32_t shutdown_pending;
     HCURSOR cursor_sizewe;
     HCURSOR cursor_sizens;
     HCURSOR cursor_sizenwse;
@@ -572,8 +572,8 @@ public:
     CStatic static1;
     CStatic static2;
     CEdit2 edit;
-    ServerControlDialog* field_0x7fc;
-    int32_t field_0x800;
+    ServerControlDialog* server_ctrl_dlg;
+    int32_t server_ctrl_shown;
     int32_t field_0x804;
 };
 ASSERT_OFFSET(MainWindow, music_update_proc, 0xc4);
