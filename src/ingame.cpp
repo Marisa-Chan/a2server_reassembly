@@ -6091,22 +6091,22 @@ void BigStruct2::FUN_00403ca0(CGameObject* obj) {
 		for (int32_t d = -r; d < r + 1; d++) {
 			int32_t cx = d + 20;
 			int32_t cy = 20 - r;
-			if (this->field_0x80->sub_41EF60(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
+			if (this->field_0x80->IsInShadedBounds(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
 				ring_ok = 0;
 			}
 			cx = d + 20;
 			cy = r + 20;
-			if (this->field_0x80->sub_41EF60(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
+			if (this->field_0x80->IsInShadedBounds(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
 				ring_ok = 0;
 			}
 			cx = 20 - r;
 			cy = d + 20;
-			if (this->field_0x80->sub_41EF60(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
+			if (this->field_0x80->IsInShadedBounds(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
 				ring_ok = 0;
 			}
 			cx = r + 20;
 			cy = 20 - d;
-			if (this->field_0x80->sub_41EF60(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
+			if (this->field_0x80->IsInShadedBounds(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
 				ring_ok = 0;
 			}
 		}

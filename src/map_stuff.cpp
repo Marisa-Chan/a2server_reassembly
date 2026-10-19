@@ -2874,7 +2874,7 @@ double Scenario::GetRenderSunAngle() {
 }
 
 // 41ef60
-int32_t Scenario::sub_41EF60(int32_t x, int32_t y) {
+int32_t Scenario::IsInShadedBounds(int32_t x, int32_t y) {
     if (x < 7 || y < 7 || this->width - 7 <= x || this->height - 7 <= y) {
         return 0;
     }
