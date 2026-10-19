@@ -1903,7 +1903,7 @@ A2NetSock::A2NetSock() {
     this->wait_obj = nullptr;
     this->latency = 0;
     this->stat_pkts_queued = 0;
-    this->field_0x264 = 0;
+    this->stat_pkts_sent = 0;
 }
 
 A2NetSock::~A2NetSock() {
@@ -1920,7 +1920,7 @@ A2NetSock::~A2NetSock() {
     this->copy_num = -1;
     this->latency = 0;
     this->stat_pkts_queued = 0;
-    this->field_0x264 = 0;
+    this->stat_pkts_sent = 0;
 }
 
 void NetSockLatency::AddLatency(uint32_t lat_time) {
@@ -3346,7 +3346,7 @@ void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t
                 sock->latency_check.calc_latency = sock->latency;
                 sock->latency = 0;
                 sock->stat_pkts_queued = 0;
-                sock->field_0x264 = 0;
+                sock->stat_pkts_sent = 0;
                 sock->manager = this->hl_driver->AllocClientBufManager(sock->uid);
 
                 this->num_connections++;
@@ -3818,7 +3818,7 @@ int CLlDriver::SendDataDp(A2NetSock* sock, NetStru3* buffer) {
             sock->list_0x14.AddTail(buffer);
 
             sock->stat_pkts_queued++;
-            sock->field_0x264--;
+            sock->stat_pkts_sent--;
         }
     } else {
         if (!buffer) {
@@ -3902,7 +3902,7 @@ int CLlDriver::SendDataDp(A2NetSock* sock, NetStru3* buffer) {
 
         uint32_t tosentsz = buffer->datasz + 8;
 
-        sock->field_0x264++;
+        sock->stat_pkts_sent++;
 
         HRESULT res = this->dplay4->Send(this->listen_socket.player_dpid, to, (this->guaranteed != 0 ? DPSEND_GUARANTEED : 0), &buffer->full_data, tosentsz);
         while (this->guaranteed != 0 && res == DPERR_BUSY) { //if guaranteed try and try if BUSY
@@ -4094,14 +4094,14 @@ int32_t CLlDriver::GetPacketLoss(uint32_t conn_uid) {
 
     if (sock->stat_pkts_queued > 1000) {
         sock->stat_pkts_queued /= 10;
-        sock->field_0x264 /= 10;
+        sock->stat_pkts_sent /= 10;
     }
 
-    if (sock->field_0x264 == 0) {
+    if (sock->stat_pkts_sent == 0) {
         return 0;
     }
 
-    return ((float)sock->field_0x264 * 100000.0) / (float)sock->stat_pkts_queued;
+    return ((float)sock->stat_pkts_sent * 100000.0) / (float)sock->stat_pkts_queued;
 }
 
 // Helper: check if a map visibility grid cell is visible to a player.

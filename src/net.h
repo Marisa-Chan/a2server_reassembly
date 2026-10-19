@@ -341,7 +341,7 @@ struct A2NetSock {
     NetSockLatency latency_check;
     uint32_t latency;
     int32_t stat_pkts_queued;
-    int32_t field_0x264;
+    int32_t stat_pkts_sent;
     HANDLE wait_obj;
     NetStru3* current_buffer;
     int32_t copy_num;
