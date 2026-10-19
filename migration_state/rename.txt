@@ -380,3 +380,4 @@ Server::sub_4EE028 -> SaveCharacter -- saves the humanoid: equipment+inventory s
 Server::sub_5013D4 -> EnsurePlayerGroup -- makes sure the player owns at least one Group
 Server::sub_4F4570 -> UpdateHatAnnounce -- every 5min announces player count/title/level to HAT
 Server::sub_4F0D58 -> ProcessHatConnections -- services the HAT connector; closes the listen socket after 30s unclaimed
+Server::sub_4FA4BB -> GetArenaFrags -- looks up a player's frags in the arena score arrays

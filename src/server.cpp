@@ -2218,7 +2218,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     // Arena mode: name/stat lookup.
     if (g_ServerConfig.gameType == 3) {
         this->GetArenaFrags(&player->name, &player->frags);
-        this->sub_4FA348(&player->name, 0);
+        this->AddArenaFrags(&player->name, 0);
     }
 
     // Server state update.
@@ -5346,7 +5346,7 @@ void Server::sub_4F950F() {
 }
 
 // 4FA348
-void Server::sub_4FA348(CString* name, int32_t flag) {
+void Server::AddArenaFrags(CString* name, int32_t flag) {
     for (int32_t i = 0; i < this->field67_0x228.GetSize(); i++) {
         if (this->field67_0x228[i] == *name) {
             this->field68_0x23c[i] += flag;
@@ -5518,7 +5518,7 @@ void Server::ResetArenaRound(int32_t arg) {
         if (!player->is_ai) {
             player->sub_5346AC();
             player->frags = 0;
-            this->sub_4FA348(&player->name, 0);
+            this->AddArenaFrags(&player->name, 0);
         }
     }
 }

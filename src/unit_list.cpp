@@ -171,7 +171,7 @@ void UnitList::ProcessTick() {
 								g_NetStru1_main.FUN_0051d6b4(0);
 							} else if (g_ServerConfig.gameType == 3 && g_Server->tick > 50) {
 								g_NetStru1_main.FUN_0051cefb(0x94, unit->pOwner->player_id, 0xb0000, nullptr);
-								g_Server->sub_4FA348(&unit->pOwner->name, -1);
+								g_Server->AddArenaFrags(&unit->pOwner->name, -1);
 							}
 						}
 					}
@@ -190,7 +190,7 @@ void UnitList::ProcessTick() {
 						if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
 							g_NetStru1_main.FUN_0051d6b4(0);
 						} else {
-							g_Server->sub_4FA348(&unit->pOwner->name, -1);
+							g_Server->AddArenaFrags(&unit->pOwner->name, -1);
 						}
 					}
 				} else {
@@ -236,7 +236,7 @@ void UnitList::ProcessTick() {
 									g_Server->FUN_004f94c0(1);
 								}
 							} else if (g_ServerConfig.gameType == 3 && g_Server->tick > 50) {
-								g_Server->sub_4FA348(&unit->last_hit_by->pOwner->name, 1);
+								g_Server->AddArenaFrags(&unit->last_hit_by->pOwner->name, 1);
 								if (g_ServerConfig.frag_limit <= unit->last_hit_by->pOwner->frags) {
 									g_Server->ResetArenaRound(1);
 								}
