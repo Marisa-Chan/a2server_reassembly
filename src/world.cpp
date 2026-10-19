@@ -2453,7 +2453,7 @@ void World::sub_5A5E54(Unit* unit) {
 }
 
 // 5A607B — idle/wander helper: choose the best target from the active/alternate lists.
-void World::sub_5A607B(Unit* unit) {
+void World::DoGuardScan(Unit* unit) {
     uint8_t max_range = this->UnitMaxRange(unit);
     uint8_t best_range = max_range + 1;
     uint8_t best_score_diff = 0xFF;
@@ -2624,7 +2624,7 @@ int32_t World::PickAttackSpell(Unit* unit, Unit* target) {
 // 5A6E2C
 void World::SetIdleOrRetreat(Unit* unit, int param) {
     if (param == 0) {
-        this->sub_5A607B(unit);
+        this->DoGuardScan(unit);
     } else {
         this->DoRetreat(unit);
     }
@@ -3466,7 +3466,7 @@ void World::sub_5AB35B(Unit* unit) {
         this->field48_0xbe00 = unit;
         unit->scan_range = (unit->scan_range & 0x00FF) | 0x0500;
         unit->max_range = 5;
-        this->sub_5A607B(unit);
+        this->DoGuardScan(unit);
         if (unit->eye2->cast_action == 6) {
             this->patrol_counter++;
         }
@@ -3729,7 +3729,7 @@ void World::sub_5A8DBC(Unit* unit) {
     UnitList* list = this->field24_0xa50->sub_5897AA(pos, 2);
     this->sub_5A3896(unit, list, 0);
     if (list->unit_list.GetCount() == 0) {
-        this->sub_5A607B(unit);
+        this->DoGuardScan(unit);
     } else {
         uint32_t packed_yyxx = this->sub_5AB62E(list);
         int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, range);
@@ -3792,7 +3792,7 @@ void World::sub_5A8CD8(Unit* unit) {
     UnitList* list = this->field24_0xa50->sub_5897AA(pos, 2);
     this->sub_5A3896(unit, list, 0);
     if (list->unit_list.GetCount() == 0) {
-        this->sub_5A607B(unit);
+        this->DoGuardScan(unit);
     } else {
         uint32_t packed_yyxx = this->sub_5AB62E(list);
         int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, 3);
@@ -4018,7 +4018,7 @@ void World::ProcessUnitState(Unit* unit) {
         this->sub_5A5B49(unit);
         break;
     case 12:
-        this->sub_5A607B(unit);
+        this->DoGuardScan(unit);
         break;
     case 13:
         this->BeginAutobuffCast(unit, unit->eye2->unit5, unit->eye2->spell);
@@ -4120,7 +4120,7 @@ void World::AiMoveBrain(Group* group, uint16_t yx) {
             if (!this->field24_0xa50->sub_5978F0(unit, yx) && unit->eye2->command_to == yx) {
                 uint8_t distance = this->field24_0xa50->sub_593B29(yx, unit->position->CompatGetYX());
                 if (distance < 2) {
-                    this->sub_5A607B(unit);
+                    this->DoGuardScan(unit);
                 }
             }
         }
