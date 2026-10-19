@@ -144,7 +144,7 @@ public:
     void sub_5ACA54(Group* group); //5aca54
     void sub_5AC80F(Group* group, Unit* target);
     void sub_5ACB4D(Group* group, Unit* target, uint8_t param_3);
-    void sub_5AC289(Group* group, uint8_t x, uint8_t y); // Group move command.
+    void GroupMoveCommand(Group* group, uint8_t x, uint8_t y); // Group move command.
     void sub_5AC507(Group* group, uint8_t x, uint8_t y); // Group swarm command.
     void sub_5ACBEF(Group* group, uint8_t x, uint8_t y);
     void sub_5AC187(Group* group, Unit* target, Spell*);
