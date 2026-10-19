@@ -3025,7 +3025,7 @@ void Server::sub_504a96(Packet* pkt) {
 
         switch (pkt->id) {
         case 0x12: // move to position?
-            g_World->sub_5ACAA7(group);
+            g_World->GroupStopCommand(group);
             player->sub_534B59();
             break;
         case 0x13:
@@ -3163,7 +3163,7 @@ void Server::sub_504a96(Packet* pkt) {
             }
             break;
         case 0x4D:
-            g_World->sub_5ACAA7(group);
+            g_World->GroupStopCommand(group);
             if (g_ServerConfig.gameType == 0) {
                 player->sub_534B17();
             }

@@ -2934,7 +2934,7 @@ void World::OrderAreaCast(Unit* unit, uint8_t x, uint8_t y, Spell* spell) {
     unit->eye2->cast_action = 0;
 }
 
-// 5A943B — helper used by sub_5ACAA7: set unit to retreat/evade state.
+// 5A943B — helper used by GroupStopCommand: set unit to retreat/evade state.
 void World::OrderStandGround(Unit* unit) {
     this->BeginUnitOrder(unit);
     unit->state = 0x17;
@@ -4469,7 +4469,7 @@ void World::sub_5AC187(Group* group, Unit* target, Spell*) {
 }
 
 // 5ACAA7 — order group to retreat/evade (state 0x13).
-void World::sub_5ACAA7(Group* group) {
+void World::GroupStopCommand(Group* group) {
     this->ClearGroupOrders(group);
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {

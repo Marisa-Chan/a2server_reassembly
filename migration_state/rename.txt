@@ -435,3 +435,4 @@ World::sub_5A647C -> AdvancePatrol -- advances the unit's patrol waypoint (state
 World::sub_5A6E59 -> DoRetreat -- retreat behavior: casts 0x0B, mages self-heal/buff first
 World::sub_5A8709 -> PursueTarget -- sets cast_action 6 chasing the chosen target
 World::sub_5A6EA5 -> IdleSelfBuff -- idle: mages run the autobuff handler
+World::sub_5A8885 -> DoTeleportHome -- teleport-home behavior via the teleport spell

@@ -139,7 +139,7 @@ public:
 
     // Group-order dispatch helpers (called from Server::sub_504a96)
     void sub_5AC137(Group* group); // Refresh group_sub position/range fields.
-    void sub_5ACAA7(Group* group);
+    void GroupStopCommand(Group* group);
     void sub_5A99C7(Unit* unit);
     void sub_5ACA54(Group* group); //5aca54
     void sub_5AC80F(Group* group, Unit* target);
@@ -164,7 +164,7 @@ public:
     uint8_t sub_5ABB32(Unit* unit, PosYX yx); // 5ABB32
     void sub_5AC7C8(Group* group);
     void OrderGuardPosition(Unit* unit);
-    void OrderStandGround(Unit* unit); // 5A943B — helper for sub_5ACAA7.
+    void OrderStandGround(Unit* unit); // 5A943B — helper for GroupStopCommand.
     void OrderTeleportHome(Unit* unit); // 5A9918 — helper for sub_5ACAFA.
     void sub_5AF805(int32_t a, int32_t b, int32_t c, Player* player);
     void sub_5AFA01(int32_t a, int32_t b, int32_t c, Player* player);
