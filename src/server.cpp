@@ -4726,7 +4726,7 @@ int Server::LoadGame(CString param_1) {
     }
 
     if (g_ServerConfig.gameType == 3) {
-        this->sub_4FA01F();
+        this->SetupArenaFileList();
     }
 
     return 0;
@@ -5512,7 +5512,7 @@ void Server::ResetArenaRound(int32_t arg) {
     g_NetStru1_main.FUN_0051cefb(0x5c, g_ServerConfig.frag_limit, arg, nullptr);
     this->SendArenaResults();
     this->tick = 0;
-    this->sub_4FA01F();
+    this->SetupArenaFileList();
     for (POSITION pos = g_PlayersList->list.GetHeadPosition(); pos != nullptr;) {
         Player* player = g_PlayersList->list.GetNext(pos);
         if (!player->is_ai) {
@@ -6186,7 +6186,7 @@ void Server::SendArenaResults() {
 }
 
 // 4FA01F
-void Server::sub_4FA01F() {
+void Server::SetupArenaFileList() {
     this->field67_0x228.SetSize(0, -1);
     this->field68_0x23c.SetSize(0, -1);
     g_NetStru1_main.FUN_0051ceac(0x5a, nullptr);
