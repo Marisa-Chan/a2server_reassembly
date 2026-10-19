@@ -53,7 +53,7 @@ struct CowardActivation {
     char key[100];
     BOOL enabled;
 
-    int sub_5A3498(const char* str); // sub_5A3498
+    int CheckActivationKey(const char* str); // CheckActivationKey
 
     CowardActivation(); //5a335c
 };

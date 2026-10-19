@@ -2670,7 +2670,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
 
     // Players whose cheat level is not yet elevated must supply the activation secret.
     if (player->gm_level <= 50) {
-        if (this->coward_activation.sub_5A3498(cheat_string) == 1) {
+        if (this->coward_activation.CheckActivationKey(cheat_string) == 1) {
             CString msg = "Player " + player->name + " enable cheating.";
             LogMessage(msg);
             player->gm_level = 0xFF;
@@ -5551,7 +5551,7 @@ CowardActivation::CowardActivation() { // 5a335c
 }
 
 // 5A3498
-int32_t CowardActivation::sub_5A3498(const char* str) {
+int32_t CowardActivation::CheckActivationKey(const char* str) {
     // WAT: 100 is excessive here, should be at most 10, because `key` is 100 bytes.
     for (int32_t i = 1; i < 100; i++) {
         this->enabled = 1;
