@@ -2818,7 +2818,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         }
 
         for (int i = 1; i <= count; i++) {
-            this->sub_509879(&cheat_string, player->main_unit, is_hero);
+            this->SummonUnit(&cheat_string, player->main_unit, is_hero);
         }
     } else if (cheat_string.Find("#killall") == 0 || cheat_string.Find("#kill all") == 0) {
         // Kill every enemy player.
@@ -3863,7 +3863,7 @@ void Server::sub_504a96(Packet* pkt) {
                 break;
             }
 
-            Human* new_unit = this->sub_509879(&g_GameDataRes.humans[idx].name, player->main_unit, 1);
+            Human* new_unit = this->SummonUnit(&g_GameDataRes.humans[idx].name, player->main_unit, 1);
             if (new_unit) {
                 new_unit->name = CString(packet_data->data);
                 g_NetStru1_main.sub_519221(new_unit, new_unit->pOwner, 0xFFFFFFFF, 0xFFB, 0, 0);
@@ -6545,7 +6545,7 @@ int32_t Server::sub_4EDB83(const CString& filename) {
 }
 
 // 509879
-Human* Server::sub_509879(CString* unit_name, Unit* origin, int32_t is_hero) {
+Human* Server::SummonUnit(CString* unit_name, Unit* origin, int32_t is_hero) {
     Unit* unit = new Unit(*unit_name);
 
     if (unit->typeId == 0) {

@@ -182,7 +182,7 @@ public:
     void SpawnRandomSack(); // Spawn random sack on map
     void SaveSack(Sack* sack); // 4F9B9E Save sack to file
     void PrepareSackPickup(class Sack* sack); // Pre-process a sack before pickup
-    Human* sub_509879(CString* unit_name, class Unit* origin, int is_hero); // Summon a unit; returns the new unit (or nullptr on failure)
+    Human* SummonUnit(CString* unit_name, class Unit* origin, int is_hero); // Summon a unit; returns the new unit (or nullptr on failure)
     void sub_509042(); // 509042
     void sub_5096E4(); // 5096E4
     void sub_5090A7();
