@@ -21,8 +21,8 @@ public:
 
 public: // VTable at 60eae8.
     virtual void Serialize(CArchive& ar) override;
-    virtual void VMethod1(CString line, int32_t values_count, double* out_values);
-    virtual void VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double);
+    virtual void ParseValues(CString line, int32_t values_count, double* out_values);
+    virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double);
 
 public:
     CString name;
@@ -62,7 +62,7 @@ class WorldEquip: public TableLine {
 public: // VTable at 60eac8.
     virtual ~WorldEquip() override; // 5724b0
     virtual void Serialize(CArchive& ar) override; // 513aa3
-    virtual void VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 513268
+    virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 513268
 
 public:
     WorldEquip(); // 571e50
@@ -88,7 +88,7 @@ class MagicItem : public WorldEquip { // Inherits from `WorldEquip` at 005727e1.
 public: // VTable at 60eb40.
     virtual ~MagicItem() override; // 5728f0
     virtual void Serialize(CArchive& ar) override; // 513c13
-    virtual void VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 572850
+    virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 572850
 
 public:
     MagicItem(); // 572740
@@ -139,7 +139,7 @@ class BuildingInfo : public TableLine {
 public: // VTable at 60ebc0.
     virtual ~BuildingInfo() override; // 573050
     virtual void Serialize(CArchive& ar) override; // 514bce
-    virtual void VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 514ac9
+    virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 514ac9
 
 public:
     BuildingInfo(); // 572f70
@@ -292,7 +292,7 @@ class MonsterInfo: public TableLine {
 public: // VTable at 60eb80.
     virtual ~MonsterInfo() override; // 572ca0
     virtual void Serialize(CArchive& ar) override; // 513ff6
-    virtual void VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 513c82
+    virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 513c82
 
 public:
     MonsterInfo(); // 572b90
@@ -341,7 +341,7 @@ class HumanInfo: public TableLine {
 public: // VTable at 60eba0.
     virtual ~HumanInfo() override; // 572e90
     virtual void Serialize(CArchive& ar) override; // 514a3a
-    virtual void VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 5143a6
+    virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 5143a6
 
 public:
     HumanInfo(); // 572d80
@@ -391,7 +391,7 @@ class SpellInfo: public TableLine {
 public: // VTable at 60ebe0.
     virtual ~SpellInfo() override; // 573210
     virtual void Serialize(CArchive& ar) override; // 51520f
-    virtual void VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 514f41
+    virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 514f41
 
 public:
     SpellInfo(); // 573120

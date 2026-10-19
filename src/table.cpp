@@ -36,7 +36,7 @@ void TableLine::Serialize(CArchive& ar) {
 }
 
 // 512C4D
-void TableLine::VMethod1(CString line, int32_t values_count, double* out_values) {
+void TableLine::ParseValues(CString line, int32_t values_count, double* out_values) {
     CString sanitized;
     sanitized.Empty();
 
@@ -59,11 +59,11 @@ void TableLine::VMethod1(CString line, int32_t values_count, double* out_values)
             this->name = line.Left(tab_index);
         } else if (out_values != nullptr) {
             CString token = line.Left(tab_index);
-            this->VMethod2(token, value_index, nullptr, &out_values[value_index - 1]);
+            this->ParseValue(token, value_index, nullptr, &out_values[value_index - 1]);
         } else if (tab_index > 0) {
             CString token = line.Left(tab_index);
             int32_t* dst = &this->values[value_index - 1];
-            this->VMethod2(token, value_index, dst, nullptr);
+            this->ParseValue(token, value_index, dst, nullptr);
         } else {
             this->values[value_index - 1] = -1;
         }
@@ -78,7 +78,7 @@ void TableLine::VMethod1(CString line, int32_t values_count, double* out_values)
 }
 
 // 5131C1
-void TableLine::VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
+void TableLine::ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
     if (type_id == 0) {
         this->name = str;
         return;
@@ -152,7 +152,7 @@ void WorldEquip::Serialize(CArchive& ar) {
 }
 
 // 513268
-void WorldEquip::VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
+void WorldEquip::ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
     if (type_id == 1) {
         *out_value = 0;
     } else if (type_id == 2) {
@@ -182,18 +182,18 @@ void WorldEquip::VMethod2(CString str, int32_t type_id, int32_t* out_value, doub
             *out_value = 0;
         }
     } else {
-        TableLine::VMethod2(str, type_id, out_value, out_double);
+        TableLine::ParseValue(str, type_id, out_value, out_double);
     }
 }
 
 // 578040
 void WorldEquip::ParseLine(CString line) {
-    this->VMethod1(line, 0x11, nullptr);
+    this->ParseValues(line, 0x11, nullptr);
 }
 
 // 513B68
 void MagicItem::ParseLine(CString line) {
-    this->VMethod1(line, 2, nullptr);
+    this->ParseValues(line, 2, nullptr);
     int32_t tabIndex = line.ReverseFind('\t');
     this->effect = line.Mid(tabIndex + 1);
 }
@@ -220,8 +220,8 @@ void MagicItem::Serialize(CArchive& ar) {
 }
 
 // 572850
-void MagicItem::VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
-    TableLine::VMethod2(str, type_id, out_value, out_double);
+void MagicItem::ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
+    TableLine::ParseValue(str, type_id, out_value, out_double);
 }
 
 // 572590
@@ -234,7 +234,7 @@ MatShape::~MatShape() {
 
 // 5780B0
 void MatShape::ParseLine(CString line) {
-    this->VMethod1(line, 9, (double*)&this->data);
+    this->ParseValues(line, 9, (double*)&this->data);
 }
 
 // 513B05
@@ -250,7 +250,7 @@ void MatShape::Serialize(CArchive& ar) {
 
 // 578120
 void MagicInfo::ParseLine(CString line) {
-    this->VMethod1(line, 0x1c, nullptr);
+    this->ParseValues(line, 0x1c, nullptr);
 }
 
 // 5729E0
@@ -306,7 +306,7 @@ void __stdcall sub_514085(CString line, int count, CStringArray* items) {
 
 // 578190
 void MonsterInfo::ParseLine(CString line) {
-    this->VMethod1(line, 0x3e, nullptr);
+    this->ParseValues(line, 0x3e, nullptr);
     sub_514085(line, 2, &this->equipped_items);
 }
 
@@ -320,9 +320,9 @@ MonsterInfo::~MonsterInfo() {
 }
 
 // 513C82
-void MonsterInfo::VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
+void MonsterInfo::ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
     if (out_value == nullptr) {
-        TableLine::VMethod2(str, type_id, out_value, out_double);
+        TableLine::ParseValue(str, type_id, out_value, out_double);
         return;
     }
 
@@ -359,7 +359,7 @@ void MonsterInfo::VMethod2(CString str, int32_t type_id, int32_t* out_value, dou
         }
         break;
     default:
-        TableLine::VMethod2(str, type_id, out_value, out_double);
+        TableLine::ParseValue(str, type_id, out_value, out_double);
         break;
     }
 }
@@ -381,7 +381,7 @@ void MonsterInfo::Serialize(CArchive& ar) {
 
 // 578220
 void HumanInfo::ParseLine(CString line) {
-    this->VMethod1(line, 0x1a, nullptr);
+    this->ParseValues(line, 0x1a, nullptr);
     sub_514085(line, 10, &this->equipped_items);
 }
 
@@ -395,7 +395,7 @@ HumanInfo::~HumanInfo() {
 }
 
 // 5143A6
-void HumanInfo::VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
+void HumanInfo::ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
     if (type_id == 0x1A) {
         *out_value = 0;
         if (str.GetLength() > 19) {
@@ -404,7 +404,7 @@ void HumanInfo::VMethod2(CString str, int32_t type_id, int32_t* out_value, doubl
         return;
     }
 
-    TableLine::VMethod2(str, type_id, out_value, out_double);
+    TableLine::ParseValue(str, type_id, out_value, out_double);
 }
 
 // 514A3A
@@ -424,7 +424,7 @@ void HumanInfo::Serialize(CArchive& ar) {
 
 // 5782B0
 void BuildingInfo::ParseLine(CString line) {
-    this->VMethod1(line, 6, nullptr);
+    this->ParseValues(line, 6, nullptr);
 }
 
 // 572F70
@@ -436,7 +436,7 @@ BuildingInfo::~BuildingInfo() {
 }
 
 // 514AC9
-void BuildingInfo::VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
+void BuildingInfo::ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
     if (5 <= type_id && type_id <= 6) {
         uint32_t mask = 0;
         int32_t length = str.GetLength();
@@ -454,7 +454,7 @@ void BuildingInfo::VMethod2(CString str, int32_t type_id, int32_t* out_value, do
         return;
     }
 
-    TableLine::VMethod2(str, type_id, out_value, out_double);
+    TableLine::ParseValue(str, type_id, out_value, out_double);
 }
 
 // 514BCE
@@ -464,7 +464,7 @@ void BuildingInfo::Serialize(CArchive& ar) {
 
 // 578320
 void SpellInfo::ParseLine(CString line) {
-    this->VMethod1(line, 0x16, nullptr);
+    this->ParseValues(line, 0x16, nullptr);
     int32_t tabIndex = line.ReverseFind('\t');
     this->effect = line.Mid(tabIndex + 1);
 }
@@ -478,7 +478,7 @@ SpellInfo::~SpellInfo() {
 }
 
 // 514F41
-void SpellInfo::VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
+void SpellInfo::ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
     switch (type_id) {
     case 0:
         this->name = str;

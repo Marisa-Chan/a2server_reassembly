@@ -702,3 +702,4 @@ AreaEffect::sub_5384FF -> BroadcastAndApply -- sends the area-effect packet then
 AreaEffect::sub_53868D -> ApplyCellLayer -- per-cell area-effect layer update by spell id
 AreaEffect::sub_538897 -> GetLayerIndex -- maps the effect type to its area-effect layer index
 WavePattern::sub_537AE8 -> SetWaveTable -- loads offsets/count/multipliers from one wave table
+WavePattern::sub_537B2B -> SetWaveTables -- picks/blends two wave tables by direction
