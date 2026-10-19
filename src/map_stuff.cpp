@@ -418,7 +418,7 @@ void MapStuff::MoveStepTowardPos(Unit* unit, PosYX yx, uint8_t max_range) {
         }
     }
     if (!ok) {
-        this->sub_5907BE(unit);
+        this->AdvancePathList2(unit);
     }
 }
 
@@ -493,7 +493,7 @@ void MapStuff::MoveStepTowardUnit(Unit* unit, Unit* target, uint8_t max_range) {
         }
     }
 
-    this->sub_5907BE(unit);
+    this->AdvancePathList2(unit);
 }
 
 // 5913BD
@@ -573,7 +573,7 @@ void MapStuff::UpdateEyeMoveTime(Unit* unit) {
 }
 
 // 5907BE
-void MapStuff::sub_5907BE(Unit* unit) {
+void MapStuff::AdvancePathList2(Unit* unit) {
     if (unit->list2.IsEmpty()) {
         this->StepRotateToTarget(unit);
         return;
