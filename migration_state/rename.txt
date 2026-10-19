@@ -628,3 +628,4 @@ MapStuff::sub_594A2D -> CollectSackCells -- collects passable sack cells in expa
 MapStuff::sub_594C4B -> IsPassableSackCell -- whether cell yx holds a sack and is passable for the unit
 MapStuff::sub_58B1D7 -> UnitFitsAt -- whether the unit fits over all cells at its current position
 MapStuff::sub_58B593 -> RefreshCellObstacles -- refreshes derived obstacle bits for cell yx from its cell state
+MapStuff::sub_58E611 -> GetSackInCell -- gets the sack at cell yx if the cell has a stored state

@@ -1674,7 +1674,7 @@ int32_t MapStuff::IsPassableSackCell(Unit* unit, uint16_t yx) {
 }
 
 // 595468
-int MapStuff::sub_595468(Unit* unit, PosYX yx) {
+int MapStuff::CanTraverseCell(Unit* unit, PosYX yx) {
     if (!this->IsAreaClear(unit, yx, 0)) {
         return 0;
     }
@@ -1951,7 +1951,7 @@ uint8_t MapStuff::FacingDiff(uint8_t a, uint8_t b) {
 // 5954AC --- teleport unit to (x, y)
 void MapStuff::TeleportUnit(Unit* unit, uint8_t x, uint8_t y) {
     PosYX yx(x, y);
-    if (!this->sub_595468(unit, yx)) {
+    if (!this->CanTraverseCell(unit, yx)) {
         return;
     }
     this->AddUnitToMap(unit);

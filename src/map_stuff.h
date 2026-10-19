@@ -247,7 +247,7 @@ public:
     void RefreshCellObstacles(PosYX yx); // Refresh derived obstacle bits for cell yx from its stored cell state — 58B593
     Sack* GetSackInCell(uint16_t yx); // Get sack at cell yx if the cell has a stored state — 58E611
     int ClearCellBuilding(class Building* building, PosYX yx); // Clear building from the cell state at yx — 59449A
-    int sub_595468(Unit* unit, PosYX yx); // Check if unit can move onto and off of yx (both directions clear) — 595468
+    int CanTraverseCell(Unit* unit, PosYX yx); // Check if unit can move onto and off of yx (both directions clear) — 595468
     void sub_597BB0(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map, queue into dynamic ring buffer — 597BB0
     void sub_5983D0(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map, queue into static ring buffer — 5983D0
     void sub_598BF0(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map2, queue into dynamic ring buffer — 598BF0
