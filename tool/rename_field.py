@@ -64,7 +64,7 @@ def main():
 
     for round_no in range(1, 26):
         out = build()
-        if "error" not in out and "LNK" not in out:
+        if not re.search(r"error C\d+|error LNK\d+|: fatal error", out):
             print(f"round {round_no}: build clean")
             return
         sites = error_sites(out, old)
