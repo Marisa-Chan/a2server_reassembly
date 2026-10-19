@@ -331,7 +331,7 @@ public:
 public:
     uint16_t unit_id; // +0xA
     uint8_t angle; // +0xC
-    uint8_t field_0xd; // +0xD
+    uint8_t segments; // +0xD
 };
 __pragma(pack(pop))
 ASSERT_SIZE(PacketAbility, 0xE);

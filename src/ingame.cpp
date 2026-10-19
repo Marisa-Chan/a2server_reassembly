@@ -438,7 +438,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				}
 
 				if (unit->hp > 0) {
-					unit->action_segments = packet_abil->field_0xd;
+					unit->action_segments = packet_abil->segments;
 					unit->action = 1;
 					unit->action_dir = packet_abil->angle;
 					unit->action_x = INT_6362e8[unit->action_dir] << 8;
@@ -946,7 +946,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					}
 				}
 				if (ct->hp > 0) {
-					ct->action_segments = packet_abil->field_0xd;
+					ct->action_segments = packet_abil->segments;
 					ct->action = 5;
 					ct->action_dir = packet_abil->angle;
 					ct->field_0xc4 = ct->dir * 16;
