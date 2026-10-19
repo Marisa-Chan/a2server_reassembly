@@ -2267,7 +2267,7 @@ Human* Server::sub_500907(Player* player, uint8_t body, uint8_t reaction, uint8_
     if (player->main_unit != nullptr) {
         Human* unit = player->main_unit;
         if (unit->decay > 0) {
-            unit->sub_53116B();           // reinitialize stats from class template
+            unit->ReviveWithPenalty();           // reinitialize stats from class template
             unit->hp = unit->hp_max;
             unit->mp = unit->mp_max;
             player->unit_list->AddTail(unit);

@@ -2728,7 +2728,7 @@ void Humanoid::sub_530231(Humanoid* other) {
 }
 
 // 53116B
-void Humanoid::sub_53116B() {
+void Humanoid::ReviveWithPenalty() {
     this->experience = 0;
     for (int32_t i = 1; i < 6; i++) {
         if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {

@@ -276,7 +276,7 @@ public:
     Humanoid(const TokenPos*);
 
     void InitStats();
-    void sub_53116B(); // Reduce humanoid's skills and revive the unit.
+    void ReviveWithPenalty(); // Reduce humanoid's skills and revive the unit.
     void sub_531418(); // Recalculate experience from skills.
     void sub_530231(Humanoid* other); // 530231 - Copy stats and equipment from another humanoid.
     void sub_533345(int8_t main_skill, int8_t skill_level);   // Character creation: set skills and give initial weapon.
