@@ -1011,9 +1011,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x72: {
 			CUnit* ct = nullptr;
-			if (this->field_0x9d0.Lookup(packet_mount->field_0xa, *(CGameObject**)&ct) == 0) {
+			if (this->field_0x9d0.Lookup(packet_mount->unit_id, *(CGameObject**)&ct) == 0) {
 				if (g_EnableTrace) {
-					sprintf(buf, "Invalid unit #%d. Command Ranged Attack.", packet_mount->field_0xa);
+					sprintf(buf, "Invalid unit #%d. Command Ranged Attack.", packet_mount->unit_id);
 					this->msglog.Add(buf, clrsh_TechBlack, 5000);
 				}
 			} else if (ct->action_segments == 0 && ct->hp > 0) {

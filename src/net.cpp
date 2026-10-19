@@ -272,7 +272,7 @@ void NetStru1::sub_51B99E(Unit* unit, uint8_t angle, uint8_t speed_dir, uint8_t 
 void NetStru1::sub_51BA2F(Unit* unit) {
     PacketMount& packet = PacketMount::Inst;
     packet.id = 0x72;
-    packet.field_0xa = (uint16_t)unit->building_id;
+    packet.unit_id = (uint16_t)unit->building_id;
     packet.target_id = (uint16_t)unit->cast_target->building_id;
     packet.to_player_id = 0;
     unit->last_action_tick = g_Server->tick + unit->charge + unit->relax;
