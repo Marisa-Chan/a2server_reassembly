@@ -2717,7 +2717,7 @@ void MainWindow::FUN_00491a49() { //491a49
 void MainWindow::FUN_0048f905() { // 48f905
     if (this->sessionMode == 2) {
         CString local_2a4 = this->last_save_info.filename;
-        g_Server->sub_4ED2DC(&local_2a4);
+        g_Server->SaveGame(&local_2a4);
 
         this->field_0x438 = timeGetTime();
         this->game_tic_counter = 0;

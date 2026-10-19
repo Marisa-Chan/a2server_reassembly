@@ -275,7 +275,7 @@ public:
     Shop* FindShopAt(TokenPos* pos);
     Inn* FindInnAt(TokenPos* pos);   // Inn lookup by TokenPos
     Player* FindPlayerById(uint16_t player_id);
-    void sub_4ED2DC(CString* str);
+    void SaveGame(CString* str);
     void sub_4FF878(Player* player);
     void sub_504a96(Packet* packet);
 

@@ -3227,7 +3227,7 @@ void Server::sub_504a96(Packet* pkt) {
         CheckPacketType(pkt, "PacketJoin");
         {
             CString cmd(packet_join->name);
-            this->sub_4ED2DC(&cmd);
+            this->SaveGame(&cmd);
             break;
         }
 
@@ -6194,7 +6194,7 @@ void Server::sub_4FA01F() {
 }
 
 // 4ED2DC
-void Server::sub_4ED2DC(CString* filename) {
+void Server::SaveGame(CString* filename) {
     LogMessage("Saving to:" + *filename);
 
     // Drop empty groups from every human player's group_list before saving.
