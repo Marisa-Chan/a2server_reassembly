@@ -421,7 +421,7 @@ void CGameObject::UpdateTileLayer() { //46f4e0
 }
 
 
-int32_t CGameObject::VMethod11() { //461f73
+int32_t CGameObject::Update() { //461f73
     this->VMethod13();
     return 1;
 }
@@ -2620,7 +2620,7 @@ void CUnit::VMethod16() { // 468dcb
     this->transientVisualElements.Copy(visual_elements);
 }
 
-int32_t CUnit::VMethod11() { // 46785f
+int32_t CUnit::Update() { // 46785f
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
 
@@ -4093,7 +4093,7 @@ int32_t CStructure::VMethod15() {
 }
 
 // 463a05
-int32_t CStructure::VMethod11() {
+int32_t CStructure::Update() {
     StructureInfo* info = g_StructuresInfo[this->typeId];
     if (info->frame_count != 0) {
         if (this->FUN_0041f130() == 0) {
@@ -4355,7 +4355,7 @@ CBackPack::CBackPack() {
 }
 
 // 46d8d8
-int32_t CProjectile::VMethod11() {
+int32_t CProjectile::Update() {
     BigStruct2* map = this->pMapObject;
 
     CRect rect((this->screenX - 0x40) & 0xffffffe0,

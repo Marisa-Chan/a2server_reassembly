@@ -135,7 +135,7 @@ public:
 	virtual void DrawHealthBar(int32_t arg1, int32_t arg2, int32_t arg3);
 	virtual void DrawMinimapRect(int32_t arg1, int32_t arg2, int32_t arg3);
 	virtual void UpdateTileLayer();
-	virtual int32_t VMethod11();
+	virtual int32_t Update();
 	virtual void VMethod12();
 	virtual void VMethod13();
 	virtual void VMethod14();
@@ -247,7 +247,7 @@ public:
 	virtual void DrawHealthBar(int32_t arg1, int32_t arg2, int32_t arg3) override;
 	virtual void DrawMinimapRect(int32_t arg1, int32_t arg2, int32_t arg3) override;
 	virtual void UpdateTileLayer() override;
-	virtual int32_t VMethod11() override;
+	virtual int32_t Update() override;
 
 	virtual void VMethod13() override;
 	virtual void VMethod14() override;
@@ -427,7 +427,7 @@ public:
 	virtual int32_t GetTileHeight() override; // 46f670
 	virtual void Draw(int32_t arg1, int32_t arg2, int32_t arg3) override; // 46e291
 
-	virtual int32_t VMethod11() override; // 46d8d8
+	virtual int32_t Update() override; // 46d8d8
 	virtual void VMethod12() override; // 46e805
 	virtual void VMethod16() override; // 46eb80
 
@@ -457,7 +457,7 @@ public:
 	virtual void DrawHealthBar(int32_t arg1, int32_t arg2, int32_t arg3) override; //4631f3
 	virtual void DrawMinimapRect(int32_t arg1, int32_t arg2, int32_t arg3) override; //46380c
 	virtual void UpdateTileLayer() override; //462b0f
-	virtual int32_t VMethod11() override; //463a05
+	virtual int32_t Update() override; //463a05
 	virtual void VMethod12() override; //463a58
 	virtual int32_t VMethod15() override; //462b28
 	// no VMethod16 override: the binary vtable keeps CGameObject's here

@@ -6670,7 +6670,7 @@ void BigStruct2::sub_40BD34() {
 		uint16_t key;
 		CGameObject* obj;
 		this->field_0x9d0.GetNextAssoc(it, key, obj);
-		if (obj->VMethod11() == 0) {
+		if (obj->Update() == 0) {
 			arr.Add(key);
 		}
 	}
@@ -6705,7 +6705,7 @@ void BigStruct2::sub_40BD34() {
 		uint16_t key;
 		CGameObject* obj;
 		this->field_0x9ec.GetNextAssoc(it, key, obj);
-		if (obj->VMethod11() == 0) {
+		if (obj->Update() == 0) {
 			arr.Add(key);
 		}
 	}
