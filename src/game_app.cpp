@@ -804,7 +804,7 @@ BOOL GameApp::OnIdle(LONG lCount) { //4835b0
 		if (mwnd->serverBootstrapEnabled == 0) {
 			mwnd->RemoteGameIdle();
 		} else if ((mwnd->dialogsMask & 1) != 0 && (mwnd->sessionMode != 2 || (mwnd->dialogsMask & 0x4008) == 0)) {
-			if (mwnd->field_0x448 == 0) {
+			if (mwnd->unlimited_speed == 0) {
 				mwnd->SingleGameTimedIdle();
 			} else {
 				mwnd->SingleGameIdle();

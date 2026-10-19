@@ -972,7 +972,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
                     }
                 }
             } else {
-                this->field_0x448 = 1;
+                this->unlimited_speed = 1;
             }
             break;
 
@@ -986,7 +986,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
                     }
                 }
             } else {
-                this->field_0x448 = 0;
+                this->unlimited_speed = 0;
                 this->field_0x438 = timeGetTime();
                 this->game_tic_counter = 0;
                 this->field_0x43c = 0;
@@ -1464,7 +1464,7 @@ MainWindow::MainWindow() { //4837e1
     this->game_speed = 4;
     this->field_0x438 = 0x7fffffff;
     this->last_tic_time = 0x7fffffff;
-    this->field_0x448 = 0;
+    this->unlimited_speed = 0;
     this->serverBootstrapEnabled = 0;
     this->pending_game_mode = 0;
     this->vis_msgbox = nullptr;

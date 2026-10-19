@@ -59,7 +59,8 @@ def main():
     for ln in lines:
         total += replace_on_line(path, ln, old, new)
     if total == 0:
-        print(f"note: {old} not found on {loc} (maybe already renamed); fixing use sites only")
+        sys.exit(f"ERROR: {old} not found on {loc} - wrong line number?")
+    print(f"decl: renamed {total} occurrence(s) of {old} -> {new} at {loc}")
 
     for round_no in range(1, 26):
         out = build()
