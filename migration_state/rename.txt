@@ -213,3 +213,4 @@ CGameObject::VMethod14 -> MarkOccupancy -- vtable slot: re-marks the 0xC000 occu
 CGameObject::VMethod15 -> UpdateBlockedState -- vtable slot: recomputes bIsBlocked from the landscape occupancy bits and deselects the object when it became blocked (returns 1 if deselected)
 CGameObject::VMethod16 -> UpdateTransientVisualElements -- vtable slot: rebuilds transientVisualElements from effect_timers (spell rings/auras; projectiles 28/30: lightning lines to targets), ticking timers down
 CUnit::VMethod17 -> InitState -- sets the unit's core visual state (id/type/pos/z/player/dir/phase/speed/hp); used to create the placeholder local unit
+CUnit::VMethod18 -> SpawnAttackProjectile -- fires the unit's ranged-attack projectile (vfx->projectile) toward action_target at shoot_delay

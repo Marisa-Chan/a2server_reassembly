@@ -2902,7 +2902,7 @@ int32_t CUnit::Update() { // 46785f
         break;
     case 7:
         if (this->action_phase == vfx->shoot_delay && vfx->projectile != 0) {
-            this->VMethod18();
+            this->SpawnAttackProjectile();
         }
         if (this->action_phase == vfx->attack_delay) {
             this->VMethod21();
@@ -3079,7 +3079,7 @@ void CUnit::VMethod25(int32_t arg1) {
 }
 
 // 4684fb
-void CUnit::VMethod18() {
+void CUnit::SpawnAttackProjectile() {
     BigStruct2* map = this->pMapObject;
     CGameObject* target = nullptr;
     if (map->field_0x9d0.Lookup(this->action_target, target) == 0) {
