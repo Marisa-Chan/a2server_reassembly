@@ -22662,7 +22662,7 @@ void VisMiniMap::RebuildMap() {
         step_dir = 2;
     }
     int32_t step = 1 << z;
-    uint8_t* heights = scen->FUN_0041eee0();
+    uint8_t* heights = scen->GetOverlayMap();
     int32_t dst_off = 0;
     for (int32_t x = 8; x < scen->GetWidth() - 8; x += step_dir) {
         int32_t dst_y = 0;

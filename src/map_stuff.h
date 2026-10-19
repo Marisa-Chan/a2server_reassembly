@@ -356,7 +356,7 @@ public:
 
     uint8_t* GetMapHeights() const { return this->map_heights; }; //41eea0
     uint8_t* GetObjectMap() const { return this->object_map; }; //41eec0
-    uint8_t* FUN_0041eee0() const { return this->overlay_map; }; //41eee0
+    uint8_t* GetOverlayMap() const { return this->overlay_map; }; //41eee0
     int32_t IsInShadedBounds(int32_t x, int32_t y); //41ef60
 
     double GetRenderSunAngle(); //4a7b79

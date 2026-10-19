@@ -4300,7 +4300,7 @@ void BigStruct2::sub_40403B() {
 
 // 404912
 void BigStruct2::sub_404912() {
-	uint8_t* buf = this->field_0x80->FUN_0041eee0();
+	uint8_t* buf = this->field_0x80->GetOverlayMap();
 	for (POSITION it = this->field_0xa08.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		uint32_t value;
@@ -4991,7 +4991,7 @@ void BigStruct2::sub_404E1A() {
 	AfxGetMainWnd();
 	timeGetTime();
 	this->field_0x80->GetMapHeights();
-	uint8_t* f18map = this->field_0x80->FUN_0041eee0();
+	uint8_t* f18map = this->field_0x80->GetOverlayMap();
 	uint16_t* landscape = this->field_0x80->GetLandscape();
 	CRect rect;
 	this->ClientRectToScreen(&rect, this->rect);
@@ -5049,7 +5049,7 @@ void BigStruct2::sub_404E1A() {
 // 405399
 void BigStruct2::sub_405399(int32_t arg) {
 	this->field_0x80->GetMapHeights();
-	uint8_t* f18map = this->field_0x80->FUN_0041eee0();
+	uint8_t* f18map = this->field_0x80->GetOverlayMap();
 	uint16_t* landscape = this->field_0x80->GetLandscape();
 	CRect rect;
 	this->ClientRectToScreen(&rect, this->rect);
@@ -5108,7 +5108,7 @@ void BigStruct2::sub_40587B(int32_t arg) {
 	AfxGetMainWnd();
 	timeGetTime();
 	this->field_0x80->GetMapHeights();
-	uint8_t* f18map = this->field_0x80->FUN_0041eee0();
+	uint8_t* f18map = this->field_0x80->GetOverlayMap();
 	uint16_t* landscape = this->field_0x80->GetLandscape();
 	CRect rect;
 	this->ClientRectToScreen(&rect, this->rect);
@@ -5172,7 +5172,7 @@ void BigStruct2::sub_40587B(int32_t arg) {
 void BigStruct2::sub_405D0E() {
 	AfxGetMainWnd();
 	this->field_0x80->GetMapHeights();
-	uint8_t* f18map = this->field_0x80->FUN_0041eee0();
+	uint8_t* f18map = this->field_0x80->GetOverlayMap();
 	uint16_t* landscape = this->field_0x80->GetLandscape();
 	CRect rect;
 	this->ClientRectToScreen(&rect, this->rect);
@@ -5402,7 +5402,7 @@ void BigStruct2::sub_406F7B() {
 	}
 	int32_t tick = this->field_0xa88;
 	uint8_t* gfx_cells = this->field_0x80->GetObjectMap();
-	uint8_t* f18map = this->field_0x80->FUN_0041eee0();
+	uint8_t* f18map = this->field_0x80->GetOverlayMap();
 	uint8_t* hmap = this->field_0x80->GetMapHeights();
 	uint16_t* landscape = this->field_0x80->GetLandscape();
 	this->field_0x134 = 0;
@@ -6118,7 +6118,7 @@ void BigStruct2::FUN_00403ca0(CGameObject* obj) {
 
 // 41C74B
 void BigStruct2::FUN_0041c74b(int32_t x, int32_t y, int32_t w, int32_t h, int32_t unk1, uint8_t* dat, int32_t unk2) {
-	uint8_t* overlay = this->field_0x80->FUN_0041eee0();
+	uint8_t* overlay = this->field_0x80->GetOverlayMap();
 	for (int32_t i = 0; i < w; i++) {
 		for (int32_t j = 0; j < h; j++) {
 			int32_t bit_index = j * w + i;
