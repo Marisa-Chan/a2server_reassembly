@@ -20,21 +20,21 @@ Building::Building(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height
 // 5424AC
 Building::Building(TokenPos* pos)
     : Token(pos) {
-    this->sub_542624("");
+    this->InitByName("");
 }
 
 // 542534
 Building::Building(const CString& name) {
-    this->sub_542624(name);
+    this->InitByName(name);
 }
 
 // 54242A
 Building::Building() {
-    this->sub_542624("");
+    this->InitByName("");
 }
 
 // 542624
-void Building::sub_542624(const CString& name) {
+void Building::InitByName(const CString& name) {
     this->object_info_id = 0;
     this->building_info = nullptr;
     this->typeId = 0;

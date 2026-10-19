@@ -332,3 +332,4 @@ Humanoid::sub_532dde -> ApplyHumanInfo -- copies HumanInfoData stats onto the hu
 TokenPos::FUN_00594200 -> FixupInstance -- post-load remap of TokenPos::pInstance via the id->object map
 TokenPos::FUN_0058a7e8 -> ClampToMap -- clamps coords into map bounds [8, size-9]; returns 0 when adjusted
 TokenPos::sub_58bec3 -> IsAtCellCenter -- true when both subcell offsets are 0x80 (middle of a cell)
+Building::sub_5427AC -> InitFromTable -- initialize building from the info table and place on map
