@@ -144,7 +144,7 @@ public:
     uint32_t GetClientsPktNum(); //518a6b
     int IsActive(); //518ac9
 
-    void FUN_0051d6b4(uint16_t arg);
+    void SendTeamState(uint16_t arg);
     void FUN_0051cefb(uint8_t param_1, int32_t param_2, int32_t param_3, Player* param_4);
     
     void sub_51B99E(Unit* unit, uint8_t angle, uint8_t speed_dir, uint8_t mode);

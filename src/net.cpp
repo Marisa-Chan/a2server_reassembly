@@ -580,7 +580,7 @@ void NetStru1::sub_51D4F6(QuestMap* quest_map, Player* player, int32_t flag) {
 }
 
 // 51D6B4
-void NetStru1::FUN_0051d6b4(uint16_t arg) {
+void NetStru1::SendTeamState(uint16_t arg) {
     PacketData& packet = PacketData::Inst;
     packet.to_player_id = arg;
     packet.id = 0xC2;

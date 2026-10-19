@@ -168,7 +168,7 @@ void UnitList::ProcessTick() {
 							}
 							if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
 								g_NetStru1_main.FUN_0051cefb(0x94, unit->pOwner->player_id, 0xb0000, nullptr);
-								g_NetStru1_main.FUN_0051d6b4(0);
+								g_NetStru1_main.SendTeamState(0);
 							} else if (g_ServerConfig.gameType == 3 && g_Server->tick > 50) {
 								g_NetStru1_main.FUN_0051cefb(0x94, unit->pOwner->player_id, 0xb0000, nullptr);
 								g_Server->AddArenaFrags(&unit->pOwner->name, -1);
@@ -188,7 +188,7 @@ void UnitList::ProcessTick() {
 						g_Server->ctf_score[unit->pOwner->field_0xa70]--;
 						g_NetStru1_main.FUN_0051cefb(0x94, unit->pOwner->player_id, 0xc0000, nullptr);
 						if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
-							g_NetStru1_main.FUN_0051d6b4(0);
+							g_NetStru1_main.SendTeamState(0);
 						} else {
 							g_Server->AddArenaFrags(&unit->pOwner->name, -1);
 						}
@@ -225,13 +225,13 @@ void UnitList::ProcessTick() {
 							unit->last_hit_by->pOwner->frags++;
 							if (g_ServerConfig.gameType == 1) {
 								if (unit->last_hit_by->pOwner->frags < g_ServerConfig.frag_limit) {
-									g_NetStru1_main.FUN_0051d6b4(0);
+									g_NetStru1_main.SendTeamState(0);
 								} else { 
 									g_Server->SignalGameStart(1);
 								}
 							} else if (g_ServerConfig.gameType == 2) {
 								if (g_Server->ctf_score[unit->last_hit_by->pOwner->field_0xa70] < g_ServerConfig.frag_limit) {
-									g_NetStru1_main.FUN_0051d6b4(0);
+									g_NetStru1_main.SendTeamState(0);
 								} else {
 									g_Server->SignalGameStart(1);
 								}

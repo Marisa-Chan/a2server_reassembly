@@ -1362,7 +1362,7 @@ void Unit::PickUpSack(Sack* sack) {
                             rune_scored = true;
                             g_Server->ctf_carrying[0] = this->pOwner->player_id;
                             g_Server->ctf_dropped[0] = 0;
-                            g_NetStru1_main.FUN_0051d6b4(0);
+                            g_NetStru1_main.SendTeamState(0);
                             g_NetStru1_main.FUN_0051ce86(0x102, this->pOwner->player_id, nullptr);
                         }
                     } else if (item->world_equip->name.Find("Quest RuneA") != -1) {
@@ -1376,7 +1376,7 @@ void Unit::PickUpSack(Sack* sack) {
                             rune_scored = true;
                             g_Server->ctf_carrying[1] = this->pOwner->player_id;
                             g_Server->ctf_dropped[1] = 0;
-                            g_NetStru1_main.FUN_0051d6b4(0);
+                            g_NetStru1_main.SendTeamState(0);
                             g_NetStru1_main.FUN_0051ce86(0x103, this->pOwner->player_id, nullptr);
                         }
                     }
@@ -1525,7 +1525,7 @@ void Unit::Die() {
                 g_Server->ctf_dropped[opposite_team] = 1;
 
                 g_NetStru1_main.FUN_0051ce86(this->pOwner->field_0xa70 ? 0x104 : 0x105, this->pOwner->player_id, nullptr);
-                g_NetStru1_main.FUN_0051d6b4(0);
+                g_NetStru1_main.SendTeamState(0);
             }
         }
 

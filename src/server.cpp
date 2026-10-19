@@ -200,7 +200,7 @@ void Server::AnnounceHatGameStart() {
         NetStru1::HatConnector.sub_51E289(-1, this->current_map_title, this->MapLevel, g_ServerConfig.gameType, 0);
     }
     if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
-        g_NetStru1_main.FUN_0051d6b4(0);
+        g_NetStru1_main.SendTeamState(0);
     }
 }
 
@@ -2231,7 +2231,7 @@ void Server::SignalGameStart(int32_t arg) {
     //4F94C0
     LogMessage("Server::SignalGameStart\n");
     if ((g_ServerConfig.gameType == 1) || (g_ServerConfig.gameType == 2)) {
-        g_NetStru1_main.FUN_0051d6b4(0);
+        g_NetStru1_main.SendTeamState(0);
     }
     g_NetStru1_main.FUN_0051cefb(0xc3, arg, 0, nullptr);
     this->field59_0x208 = 1;
@@ -2620,7 +2620,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 if (g_ServerConfig.gameType == 2) {
                     if (g_PlayersList->sub_53636E() == 0 && player->team_ready == 0) {
                         player->team_ready = 1;
-                        g_NetStru1_main.FUN_0051d6b4(0);
+                        g_NetStru1_main.SendTeamState(0);
                         if (g_PlayersList->sub_53636E() != 0) {
                             // All players now ready --- start the match.
                             g_NetStru1_main.FUN_0051ce86(10, 0, nullptr);
@@ -4801,7 +4801,7 @@ void Server::ServerTic() {
                                     this->ctf_score[1-i] += g_ServerConfig.flag_score;
                                 }
                             }
-                            g_NetStru1_main.FUN_0051d6b4(0);
+                            g_NetStru1_main.SendTeamState(0);
                         }
                     }
                 }
@@ -5196,7 +5196,7 @@ void Server::UpdateHatAnnounce() {
         NetStru1::HatConnector.sub_51E289(g_PlayersList->CountHumanPlayers(), this->current_map_title, this->MapLevel, g_ServerConfig.gameType, map_range);
     }
     if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
-        g_NetStru1_main.FUN_0051d6b4(0);
+        g_NetStru1_main.SendTeamState(0);
     }
 }
 

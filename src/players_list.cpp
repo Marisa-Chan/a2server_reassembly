@@ -300,7 +300,7 @@ void PlayersList::sub_534DDD() {
 				int32_t rune_holder = g_Server->ctf_carrying[opposite_team];
 				if (rune_holder == player->player_id) {
 					g_Server->UpdateQuestRune(opposite_team, 0);
-					g_NetStru1_main.FUN_0051d6b4(0);
+					g_NetStru1_main.SendTeamState(0);
 					g_NetStru1_main.FUN_0051ce86(0x101 - player->field_0xa70, 0, nullptr);
 				}
 			}

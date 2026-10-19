@@ -524,3 +524,4 @@ NetStru1::sub_51C61E -> UntrackToken -- removes unit/sack from network tracking
 NetStru1::FUN_0051ceac -> SendBarePacket -- queues the shared Packet with just an id set
 NetStru1::FUN_0051c748 -> SendTickPacket -- sends the 0x64 tick-count packet
 NetStru1::FUN_0051d49b -> AnnouncePlayer -- sends PacketJoin 0x93 announcing a player
+NetStru1::FUN_0051cd89 -> AnnouncePlayerName -- sends PacketJoin 0x91 announcing a player name
