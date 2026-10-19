@@ -1384,7 +1384,7 @@ void World::sub_5A9B6B(Unit* unit) {
             this->CheckMoveArrival(unit);
             break;
         case 15:
-            this->sub_5AAB85(unit, unit);
+            this->ApproachBuilding(unit, unit);
             break;
         default:
             break;
@@ -3176,7 +3176,7 @@ void World::sub_5AA485(Unit* unit) {
 }
 
 // 5AAB85 — resume moving toward the unit's current command target.
-void World::sub_5AAB85(Unit* unit_same, Unit* unit) {
+void World::ApproachBuilding(Unit* unit_same, Unit* unit) {
     int result = this->field24_0xa50->sub_58FEDA(unit, unit->eye2->command_to, unit->eye2->max_range);
     if (result != 0) {
         if (unit->some_state == 0xF) {
