@@ -38,7 +38,7 @@ Player::Player() {
     this->frags = 0;
     this->field_0xa50 = 0;
     this->field_0xa5c = 0x5F; // '_'
-    this->field_0xa45 = 0;
+    this->has_cd = 0;
     this->unit_list = new UnitList();
     this->group_list = new GroupList();
     memset(this->kill_stats, 0, sizeof(this->kill_stats));

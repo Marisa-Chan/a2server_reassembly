@@ -4208,7 +4208,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
         player = this->Allods2_CreatePlayer(name);
         player->hat_player_id = id;
         player->flags = arg;
-        player->field_0xa45 = cd_flag;
+        player->has_cd = cd_flag;
     }
 
     client->player_id = player->player_id;

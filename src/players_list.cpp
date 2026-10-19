@@ -169,7 +169,7 @@ int PlayersList::CountCD() {
 	int count = 0;
 
 	for (POSITION pos = this->list.GetHeadPosition(); pos != nullptr;) {
-		if (this->list.GetNext(pos)->field_0xa45 != 0) {
+		if (this->list.GetNext(pos)->has_cd != 0) {
 			count++;
 		}
 	}
