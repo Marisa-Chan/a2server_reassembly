@@ -80,7 +80,7 @@ void Resources::AddPath(const char* path) {
 	char buf[1024];
 	pathStrCpy(path, buf);
 
-	this->field_0x14.Add(buf);
+	this->search_paths.Add(buf);
 }
 
 void Resources::AddResFile(const char* path) {
@@ -88,12 +88,12 @@ void Resources::AddResFile(const char* path) {
 	char buf[1024];
 	pathStrCpy(path, buf);
 
-	if (this->field_0x14.GetSize() <= 0) {
+	if (this->search_paths.GetSize() <= 0) {
 		AfxThrowFileException(CFileException::fileNotFound);
 	}
 
 	char pbuf[256];
-	strcpy(pbuf, (const char*)this->field_0x14[0]);
+	strcpy(pbuf, (const char*)this->search_paths[0]);
 	size_t len = strlen(pbuf);
 	if (pbuf[len - 1] != '\\' || pbuf[len - 2] != ':') {
 		strcat(pbuf, "\\");
@@ -137,9 +137,9 @@ FatInfo* Resources::FUN_004e646d(const char* fpath) {
     }
 
     CFile* cfile = new CFile();
-    for (uint32_t i = 0; i < this->field_0x14.GetSize(); i++) {
+    for (uint32_t i = 0; i < this->search_paths.GetSize(); i++) {
         char dbuf[256];
-        strcpy(dbuf, this->field_0x14[i]);
+        strcpy(dbuf, this->search_paths[i]);
 
         int ln = strlen(dbuf);
         if (dbuf[ln - 1] != '\\' || dbuf[ln - 2] != ':') {

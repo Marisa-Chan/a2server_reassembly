@@ -106,7 +106,7 @@ ASSERT_SIZE(ResBase, 0x40);
 
 struct Resources {
     CArray<ResBase*> res_files;
-    CArray<CString> field_0x14;
+    CArray<CString> search_paths;
     CArray<CFile*> files;
 
     Resources();
