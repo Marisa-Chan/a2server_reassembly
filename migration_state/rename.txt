@@ -440,3 +440,4 @@ World::sub_5ACAA7 -> GroupStopCommand -- packet 0x12: clears orders and stands e
 World::sub_5ACAFA -> GroupGoHomeCommand -- packet 0x14: teleports the whole group home
 World::sub_5AC289 -> GroupMoveCommand -- packet 0x16/0x1C: formation-aware group move (order 4)
 World::sub_5AC507 -> GroupSwarmCommand -- same as move but order 5
+World::sub_5AC8A2 -> GroupGuardCommand -- packet 0x17: guard stance, range 0 = MinimalGuardRange (order 1)

@@ -141,7 +141,7 @@ public:
     void sub_5AC137(Group* group); // Refresh group_sub position/range fields.
     void GroupStopCommand(Group* group);
     void sub_5A99C7(Unit* unit);
-    void sub_5ACA54(Group* group); //5aca54
+    void GroupAggressiveStance(Group* group); //5aca54
     void sub_5AC80F(Group* group, Unit* target);
     void sub_5ACB4D(Group* group, Unit* target, uint8_t param_3);
     void GroupMoveCommand(Group* group, uint8_t x, uint8_t y); // Group move command.

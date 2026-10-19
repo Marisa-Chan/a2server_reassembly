@@ -2074,7 +2074,7 @@ void World::ScriptOP_0x06(TriggerAction* action) {
             this->sub_5AC785(group, action->data[1], action->data[2]);
             break;
         case 3: // Stand Ground
-            this->sub_5ACA54(group);
+            this->GroupAggressiveStance(group);
             break;
         case 4: // Move (x=data[1], y=data[2])
             this->GroupMoveCommand(group, action->data[1], action->data[2]);
@@ -2766,7 +2766,7 @@ void World::ClearGroupOrders(Group* grp) { //5acd4c
     grp->group_sub->order = 0;
 }
 
-void World::sub_5ACA54(Group* grp) { //5aca54
+void World::GroupAggressiveStance(Group* grp) { //5aca54
     this->ClearGroupOrders(grp);
     for (POSITION it = grp->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = grp->unit_list.GetNext(it);
@@ -2777,7 +2777,7 @@ void World::sub_5ACA54(Group* grp) { //5aca54
 
 void World::sub_5ACDF4(Group* group) { // 5acdf4
     this->ClearGroupOrders(group);
-    this->sub_5ACA54(group);
+    this->GroupAggressiveStance(group);
 }
 
 // Group move command.

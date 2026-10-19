@@ -3051,7 +3051,7 @@ void Server::sub_504a96(Packet* pkt) {
             player->sub_534B59();
             break;
         case 0x18:
-            g_World->sub_5ACA54(group);
+            g_World->GroupAggressiveStance(group);
             player->sub_534B59();
             break;
         case 0x19: // move to building?
