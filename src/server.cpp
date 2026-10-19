@@ -5732,7 +5732,7 @@ void SrvStru1::ProcessTick() {
             delete unit;
         }
     }
-    this->effects_list->sub_5585F2();
+    this->effects_list->ProcessTick();
     this->units_list->sub_5561A1();
 }
 
@@ -5983,7 +5983,7 @@ void SpellEffectList::sub_55BF31(CArchive& ar) {
 }
 
 // 5585F2
-void SpellEffectList::sub_5585F2() {
+void SpellEffectList::ProcessTick() {
     for (POSITION it = this->list.GetHeadPosition(); it != nullptr;) {
         POSITION current_it = it;
         SpellEffect* effect = this->list.GetNext(it);

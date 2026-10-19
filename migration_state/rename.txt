@@ -356,3 +356,4 @@ SackList::sub_554927 -> DropInventoryAt -- dumps inventory+money into a sack at 
 SackList::sub_554460 -> DumpInventoryAt -- finds or creates a sack at pos and adds the inventory/money; returns success
 SackList::sub_55496E -> AddSack -- validates the sack placement, adds it to the list, deletes on failure
 SackList::FUN_005540ed -> UpdateSackVisibility -- per-tick: updates sack seen_by_mask by map region and enforces the max sack count
+SpellEffectList::VMethod1 -> FixupPointers -- post-load remap of every SpellEffect's pointers
