@@ -1897,7 +1897,7 @@ A2NetSock::A2NetSock() {
     this->player_dpid = 0;
     this->manager = nullptr;
     this->field_0x50 = 0;
-    this->field_0x4c = 0;
+    this->next_out_pktid = 0;
     this->current_buffer = nullptr;
     this->copy_num = -1;
     this->wait_obj = nullptr;
@@ -1915,7 +1915,7 @@ A2NetSock::~A2NetSock() {
     this->player_dpid = 0;
     this->manager = nullptr;
     this->field_0x50 = 0;
-    this->field_0x4c = 0;
+    this->next_out_pktid = 0;
     this->current_buffer = nullptr;
     this->copy_num = -1;
     this->latency = 0;
@@ -3259,7 +3259,7 @@ int CLlDriver::StartServerDp() {
     }
 
     this->listen_socket.field_0x50 = 0;
-    this->listen_socket.field_0x4c = 0;
+    this->listen_socket.next_out_pktid = 0;
     this->listen_socket.wait_obj = CreateEventA(NULL, 0, 0, NULL);
     if (_beginthread(RecvThreadDp, 0, this) == -1L || this->listen_socket.wait_obj == nullptr) {
         this->CloseDp();
@@ -3335,7 +3335,7 @@ void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t
                 inf->dpid = createmsg->dpId;
                 inf->sock = sock;
                 sock->field_0x50 = 0;
-                sock->field_0x4c = 0;
+                sock->next_out_pktid = 0;
                 sock->uid = this->next_uid | idx;
 
                 this->next_uid += 0x10000;
@@ -3678,7 +3678,7 @@ int CLlDriver::ConnectDp(const char* name, CLlNetSession* session) {
     }
 
     this->listen_socket.field_0x50 = 0;
-    this->listen_socket.field_0x4c = 0;
+    this->listen_socket.next_out_pktid = 0;
 
     this->listen_socket.uid = this->next_uid;
 
@@ -3813,8 +3813,8 @@ int CLlDriver::SendDataDp(A2NetSock* sock, NetStru3* buffer) {
         if (buffer) {
             buffer->timestamp = currentTick;
             buffer->timestamp2 = 0;
-            buffer->pktid = sock->field_0x4c;
-            sock->field_0x4c++;
+            buffer->pktid = sock->next_out_pktid;
+            sock->next_out_pktid++;
             sock->list_0x14.AddTail(buffer);
 
             sock->field_0x260++;

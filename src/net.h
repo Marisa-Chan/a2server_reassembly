@@ -336,7 +336,7 @@ struct A2NetSock {
     NetStru2* manager;
     CList<NetStru3*> list_0x14;
     CList<NetStru3*> list_0x30;
-    uint32_t field_0x4c;
+    uint32_t next_out_pktid;
     uint32_t field_0x50;
     NetSockLatency latency_check;
     uint32_t latency;
