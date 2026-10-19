@@ -150,7 +150,7 @@ public:
 	void UpdateMapPosition();
 	void SetVals(uint16_t uni_id, int type_id, int32_t xpos, int32_t ypos, int32_t unk1, int32_t unk2, int32_t _phase, int32_t _speed, int32_t hp); //46187d
 
-	int32_t FUN_00462405(int32_t effect_id);
+	int32_t FindEffectTimer(int32_t effect_id);
 	int32_t GetControlGroup(); //41f220
 	int32_t IsBlocked(); //41f130
 	void FUN_00461c41(int32_t arg1, CGameObject* arg2); //461c41

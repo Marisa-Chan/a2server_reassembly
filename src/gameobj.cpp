@@ -338,7 +338,7 @@ int32_t CGameObject::FUN_00461f8e(int32_t x, int32_t y) { //461f8e
 }
 
 
-int32_t CGameObject::FUN_00462405(int32_t effect_id) { //462405
+int32_t CGameObject::FindEffectTimer(int32_t effect_id) { //462405
     for (int32_t i = 0; i < this->effect_timers.GetSize(); i++) {
         if ((this->effect_timers[i] >> 16) == effect_id) {
             return i;
@@ -1657,7 +1657,7 @@ void CUnit::DrawHealthBar(int32_t arg1, int32_t arg2, int32_t arg3) { // 466a78
 
     BigStruct2* map = this->pMapObject;
 
-    if (this->FUN_00462405(0x20) >= 0 && map->my_main_unit->FUN_0041ee50(this->map_player->index) == 0) {
+    if (this->FindEffectTimer(0x20) >= 0 && map->my_main_unit->FUN_0041ee50(this->map_player->index) == 0) {
         return;
     }
 
@@ -1899,7 +1899,7 @@ void CUnit::Draw(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
     }
     }
 
-    if (this->FUN_00462405(0x2C) >= 0 && this->death_state <= 2) {
+    if (this->FindEffectTimer(0x2C) >= 0 && this->death_state <= 2) {
         frame = (this->dir - 8) & 0xF;
         if (vfx->flip != 0 && frame > 8) {
             frame = 0x10 - frame;
@@ -1917,7 +1917,7 @@ void CUnit::Draw(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
         palette = g_VFX_info[vfx_idx]->FUN_0046f680(this->face - 1);
     }
 
-    if (this->FUN_00462405(0x2C) >= 0 && this->death_state <= 2) {
+    if (this->FindEffectTimer(0x2C) >= 0 && this->death_state <= 2) {
         if (palette_id == 0) {
             palette = g_Human_palettes[0x10];
         } else {
@@ -1939,7 +1939,7 @@ void CUnit::Draw(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
         int32_t cy = draw_vfx->center_y - draw_vfx->height / 2 + this->sprite->GetHeight(frame) / 2;
         int32_t x = this->centerScreenX - cx;
         int32_t y = this->centerScreenY - cy - this->terrainHeightOffset - this->z_pos;
-        if (this->FUN_00462405(0x20) < 0) {
+        if (this->FindEffectTimer(0x20) < 0) {
             this->sprite->VMethod1(x, y, frame, arg3, palette, flip);
         } else {
             if (map->my_main_unit->FUN_0041ee50(this->map_player->index) == 0) {
@@ -1961,7 +1961,7 @@ void CUnit::Draw(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
         int32_t cy = draw_vfx->center_y - draw_vfx->height / 2 + gfx_file->FUN_0046f700()->GetHeight(frame) / 2;
         int32_t x = this->centerScreenX - cx;
         int32_t y = this->centerScreenY - cy - this->terrainHeightOffset - this->z_pos;
-        if (this->FUN_00462405(0x20) < 0) {
+        if (this->FindEffectTimer(0x20) < 0) {
             gfx_file->FUN_0046f700()->VMethod1(x, y, frame, arg3, palette, flip);
         } else {
             if (map->my_main_unit->FUN_0041ee50(this->map_player->index) == 0) {
@@ -2102,7 +2102,7 @@ void CUnit::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
     }
     }
 
-    if (this->FUN_00462405(0x2C) >= 0 && this->death_state <= 2) {
+    if (this->FindEffectTimer(0x2C) >= 0 && this->death_state <= 2) {
         frame = (this->dir - 8) & 0xF;
         if (vfx->flip != 0 && frame > 8) {
             frame = 16 - frame;
@@ -2120,7 +2120,7 @@ void CUnit::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
         int32_t cy = draw_vfx->center_y - draw_vfx->height / 2 + this->sprite->GetHeight(frame) / 2;
         int32_t x = this->centerScreenX - cx - shadow_offset;
         int32_t y = this->centerScreenY - cy - this->terrainHeightOffset;
-        if (this->FUN_00462405(0x20) < 0) {
+        if (this->FindEffectTimer(0x20) < 0) {
             this->sprite->VMethod11(x, y, frame, g_DeltaCLR.shade_delta, sun_angle, flip);
         } else {
             if (map->my_main_unit->FUN_0041ee50(this->map_player->index) == 0) {
@@ -2132,7 +2132,7 @@ void CUnit::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
         cy = draw_vfx->center_y - draw_vfx->height / 2 + this->sprite_b->GetHeight(frame) / 2;
         x = this->centerScreenX - cx - shadow_offset;
         y = this->centerScreenY - cy - this->terrainHeightOffset;
-        if (this->FUN_00462405(0x20) < 0 && g_settings.Smoothing != 0) {
+        if (this->FindEffectTimer(0x20) < 0 && g_settings.Smoothing != 0) {
             this->sprite_b->VMethod11(x, y, frame, g_DeltaCLR.lit_delta, sun_angle, flip);
         }
     } else {
@@ -2143,7 +2143,7 @@ void CUnit::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
         int32_t cy = draw_vfx->center_y - draw_vfx->height / 2 + gfx_file->FUN_0046f700()->GetHeight(frame) / 2;
         int32_t x = this->centerScreenX - cx - shadow_offset;
         int32_t y = this->centerScreenY - cy - this->terrainHeightOffset;
-        if (this->FUN_00462405(0x20) < 0) {
+        if (this->FindEffectTimer(0x20) < 0) {
             if (is_air) {
                 gfx_file->FUN_0046f700()->VMethod3(x + shadow_offset + sun_angle / 2000, y, frame, g_DeltaCLR.shade_delta, flip);
             } else {
@@ -2163,7 +2163,7 @@ void CUnit::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
         cy = draw_vfx->center_y - draw_vfx->height / 2 + gfx_file->FUN_0046f730()->GetHeight(frame) / 2;
         x = this->centerScreenX - cx - shadow_offset;
         y = this->centerScreenY - cy - this->terrainHeightOffset;
-        if (this->FUN_00462405(0x20) < 0 && g_settings.Smoothing != 0) {
+        if (this->FindEffectTimer(0x20) < 0 && g_settings.Smoothing != 0) {
             if (is_air) {
                 gfx_file->FUN_0046f730()->VMethod3(x + shadow_offset + sun_angle / 2000, y, frame, g_DeltaCLR.lit_delta, flip);
             } else {
@@ -3123,7 +3123,7 @@ void CUnit::DrawMinimapRect(int32_t arg1, int32_t arg2, int32_t arg3) {
 
     BigStruct2* map = this->pMapObject;
 
-    if (this->FUN_00462405(0x20) >= 0 && map->my_main_unit->FUN_0041ee50(this->map_player->index) == 0) {
+    if (this->FindEffectTimer(0x20) >= 0 && map->my_main_unit->FUN_0041ee50(this->map_player->index) == 0) {
         return;
     }
 
@@ -4502,7 +4502,7 @@ int32_t CProjectile::Update() {
                 this->x_pos = this->action_x;
                 this->y_pos = this->action_y;
                 this->phase = this->action_phase;
-                int32_t idx = target->FUN_00462405(this->typeId);
+                int32_t idx = target->FindEffectTimer(this->typeId);
                 if (idx < 0) {
                     target->effect_timers.Add(this->typeId << 0x10 | 0x20);
                 } else {

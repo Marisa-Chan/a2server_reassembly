@@ -1512,7 +1512,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		case 0x88: {
 			CGameObject* ct = nullptr;
 			if (this->field_0x9d0.Lookup(packet_effect->unit_id, ct) != 0) {
-				int32_t idx = ct->FUN_00462405(packet_effect->effect_type);
+				int32_t idx = ct->FindEffectTimer(packet_effect->effect_type);
 				if (idx < 0) {
 					ct->effect_timers.Add((packet_effect->effect_type << 0x10) | 0xffff);
 				} else {
@@ -1527,7 +1527,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		case 0x89: {
 			CGameObject* ct = nullptr;
 			if (this->field_0x9d0.Lookup(packet_effect->unit_id, ct) != 0) {
-				int32_t idx = ct->FUN_00462405(packet_effect->effect_type);
+				int32_t idx = ct->FindEffectTimer(packet_effect->effect_type);
 				if (idx > -1) {
 					ct->effect_timers.RemoveAt(idx);
 				}
@@ -5500,7 +5500,7 @@ void BigStruct2::sub_406F7B() {
 					}
 				}
 				if (unit != nullptr && unit->IsBlocked() == 0 &&
-					(unit->FUN_00462405(0x20) < 0 || this->my_main_unit->FUN_0041ee50(unit->map_player->index) != 0)) {
+					(unit->FindEffectTimer(0x20) < 0 || this->my_main_unit->FUN_0041ee50(unit->map_player->index) != 0)) {
 					UnitVFXUnfo* vfx = g_VFX_info[unit->typeId];
 					CRect sel = vfx->selection;
 					sel.OffsetRect(unit->centerScreenX - vfx->center_x,
