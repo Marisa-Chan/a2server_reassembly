@@ -158,3 +158,4 @@ QuestInnGlue::field_0x3c -> max_dist -- max unit distance for quest proximity ch
 TriggerAction::field_0x30 -> ref_kind -- --
 TriggerAction::field_0x3a -> ref_scope -- --
 TriggerAction::field_0x44 -> ref_page -- --
+TriggerAction::field_0x4e -> ref_index -- --

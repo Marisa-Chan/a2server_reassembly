@@ -1956,7 +1956,7 @@ void World::DoScriptInstID(int32_t script_id) {
                 continue;
             }
             uint8_t entry_type = action.ref_kind[i];
-            void* ref = this->references[action.field_0x4e[i]];
+            void* ref = this->references[action.ref_index[i]];
             switch (entry_type) {
                 case 2:
                     if (count_groups > 0) {

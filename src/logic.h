@@ -30,7 +30,7 @@ struct TriggerAction {
     std::array<uint8_t, 10> ref_kind;
     std::array<uint8_t, 10> ref_scope;
     std::array<uint8_t, 10> ref_page;
-    std::array<uint8_t, 10> field_0x4e;
+    std::array<uint8_t, 10> ref_index;
     uint8_t field_0x58;
     uint8_t gap_0x59[3];
     Unit* unit;
