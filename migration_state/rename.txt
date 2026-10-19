@@ -399,3 +399,4 @@ Server::sub_5090FA -> UpdateMissionResult -- recomputes one player's mission_res
 Server::sub_4F0BEF -> ConnectToHat -- connects to the HAT server
 Server::sub_502AD1 -> FindPlayerUnit -- player_ref+unit_id lookup of a live (not fully dead) unit
 Server::sub_502C50 -> FindShopAt -- shop lookup by TokenPos
+Server::sub_502CB7 -> FindInnAt -- inn lookup by TokenPos

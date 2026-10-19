@@ -274,7 +274,7 @@ public:
     Unit* FindPlayerUnit(uint16_t player_ref, uint16_t unit_id);
     Shop* FindShopAt(TokenPos* pos);
     Inn* FindInnAt(TokenPos* pos);   // Inn lookup by TokenPos
-    Player* sub_502B4A(uint16_t player_id);
+    Player* FindPlayerById(uint16_t player_id);
     void sub_4ED2DC(CString* str);
     void sub_4FF878(Player* player);
     void sub_504a96(Packet* packet);

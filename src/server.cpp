@@ -3197,7 +3197,7 @@ void Server::sub_504a96(Packet* pkt) {
 #else
         CheckPacketType(pkt, "Packet3Dwords");
 
-        player = this->sub_502B4A(packet_3d->from_player_id);
+        player = this->FindPlayerById(packet_3d->from_player_id);
         if (player) {
             NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(packet_3d->from_player_id);
             if (ns2 && ns2->is_claimed != 0) {
@@ -3217,7 +3217,7 @@ void Server::sub_504a96(Packet* pkt) {
 
     case 0x05:
         CheckPacketType(pkt, "Packet");
-        player = this->sub_502B4A(pkt->from_player_id);
+        player = this->FindPlayerById(pkt->from_player_id);
         if (player) {
             player->is_active = 0;
         }
@@ -3566,7 +3566,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x3B: // Map file chunk download --- send a chunk of current_map_name to the client
         CheckPacketType(pkt, "PacketInfo");
         {
-            player = this->sub_502B4A(packet_info->from_player_id);
+            player = this->FindPlayerById(packet_info->from_player_id);
             if (!player) {
                 break;
             }
@@ -3617,7 +3617,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (this->field4_0x74 != 0) {
                 break;
             }
-            player = this->sub_502B4A(packet_dword->from_player_id);
+            player = this->FindPlayerById(packet_dword->from_player_id);
             if (player) {
                 player->sub_534AC1(packet_dword->value, 1);
             }
@@ -3694,7 +3694,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (!g_World) {
                 break;
             }
-            player = this->sub_502B4A(packet_info->from_player_id);
+            player = this->FindPlayerById(packet_info->from_player_id);
             if (!player) {
                 break;
             }
@@ -3753,7 +3753,7 @@ void Server::sub_504a96(Packet* pkt) {
 
     case 0x48: { // Join map.
 #ifdef A2CLIENT
-        Player* player = this->sub_502B4A(packet_info->field_0x5);
+        Player* player = this->FindPlayerById(packet_info->field_0x5);
         if (player) {
             Human* human = this->CreatePlayerCharacter(player, packet_info->field_0xa & 0xff, 
                                             (packet_info->field_0xa >> 8) & 0xff, 
@@ -3772,7 +3772,7 @@ void Server::sub_504a96(Packet* pkt) {
         break;
 #else
             CheckPacketType(pkt, "PacketInfo");
-            player = this->sub_502B4A(packet_info->from_player_id);
+            player = this->FindPlayerById(packet_info->from_player_id);
             if (!player) {
                 break;
             }
@@ -3884,7 +3884,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x4B: // Set respawn flag when unit is deeply dead (hp < -39)
         CheckPacketType(pkt, "Packet");
         {
-            player = this->sub_502B4A(pkt->from_player_id);
+            player = this->FindPlayerById(pkt->from_player_id);
             if (player && player->main_unit && player->main_unit->hp < -39) {
                 player->respawn_requested = 1;
             }
@@ -3897,7 +3897,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (!g_World) {
                 break;
             }
-            player = this->sub_502B4A(pkt->from_player_id);
+            player = this->FindPlayerById(pkt->from_player_id);
             if (player) {
                 player->sub_534B59();
 
@@ -4007,7 +4007,7 @@ void Server::sub_504a96(Packet* pkt) {
 
     case 0xBE:
         CheckPacketType(pkt, "Packet");
-        player = this->sub_502B4A(pkt->from_player_id);
+        player = this->FindPlayerById(pkt->from_player_id);
         if (player->main_unit != nullptr) {
             g_NetStru1_main.sub_519221(player->main_unit, player, 0xffffffff, 0xffb, 0, 0);
         }
@@ -6014,7 +6014,7 @@ void SpellEffectList::ProcessTick() {
 }
 
 // 502B4A
-Player* Server::sub_502B4A(uint16_t player_id) {
+Player* Server::FindPlayerById(uint16_t player_id) {
     Player* player = g_PlayersList->sub_535B50(player_id);
     if (!player) {
         CString id_str;
@@ -6027,7 +6027,7 @@ Player* Server::sub_502B4A(uint16_t player_id) {
 
 // 502AD1
 Unit* Server::FindPlayerUnit(uint16_t player_ref, uint16_t unit_id) {
-    Player* player = this->sub_502B4A(player_ref);
+    Player* player = this->FindPlayerById(player_ref);
     if (!player) {
         return nullptr;
     }
