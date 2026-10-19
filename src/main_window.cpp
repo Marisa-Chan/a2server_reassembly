@@ -3546,10 +3546,10 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         if (this->sessionMode != 3) {
             if (this->sessionMode == 0) {
                 INT_00660f8c = 0;
-                this->field_0x458 = 0;
+                this->enter_ack_received = 0;
                 this->vis_map_context->FUN_0041cb21();
 
-                while (this->field_0x458 == 0) {
+                while (this->enter_ack_received == 0) {
                     if (g_NetStru1_local.GetClientsPktNum() == 0) {
                         uint32_t ticks = GetTickCount();
                         if (abs((int32_t)(ticks - g_RemoteTimestamp)) > 1000) {
