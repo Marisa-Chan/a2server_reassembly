@@ -3031,7 +3031,7 @@ void CUnit::SpawnSpellProjectile() { // 468765
 }
 
 // 469535
-void CUnit::VMethod25(int32_t arg1) {
+void CUnit::PlayHitSound(int32_t arg1) {
     if (0 < arg1 && arg1 < 3) {
         uint32_t now = timeGetTime();
         if (now - this->lastVoicePlaybackTick < 1500) {

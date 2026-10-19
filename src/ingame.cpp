@@ -833,7 +833,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 								ct->move_accum_x = 0;
 								ct->action_x = ct->x_pos;
 								ct->action_y = ct->y_pos;
-								ct->VMethod25(3);
+								ct->PlayHitSound(3);
 								ct->ReloadSprite();
 							} else if (sval == 1) {
 								UnitVFXUnfo* dying = g_VFX_info[g_VFX_info[ct->typeId]->dying];
@@ -845,7 +845,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 								ct->move_accum_x = 0;
 								ct->action_x = ct->x_pos;
 								ct->action_y = ct->y_pos;
-								ct->VMethod25(2);
+								ct->PlayHitSound(2);
 								ct->ReloadSprite();
 							}
 							break;
@@ -1074,12 +1074,12 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					TakeDamage::AddDamage(&this->damage_labels, TakeDamage(ct->hp - packet_ping->hp, nullptr, not_me, dx, a * -48, ct) );
 				}
 				if (ct->hp == packet_ping->hp) {
-					ct->VMethod25(0);
+					ct->PlayHitSound(0);
 				} else if (ct->hp > -10) {
 					if (ct->hp < ct->hp_max / 2) {
-						ct->VMethod25(2);
+						ct->PlayHitSound(2);
 					} else {
-						ct->VMethod25(1);
+						ct->PlayHitSound(1);
 					}
 				}
 
