@@ -114,7 +114,7 @@ public:
 	// CObject AssertValid
 	// CObject Dump
 	virtual void RegenTick();
-	virtual void VMethod2();
+	virtual void ProcessEffects();
 	virtual int32_t VMethod3(); // TokenSize
 	virtual int32_t VMethod4(); // MovementType
 	virtual void VMethod5();

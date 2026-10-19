@@ -5726,7 +5726,7 @@ void SrvStru1::sub_4FB273() {
     while (unit_it != nullptr) {
         POSITION cur = unit_it;
         Unit* unit = this->some_unit_list.GetNext(unit_it);
-        unit->VMethod2();
+        unit->ProcessEffects();
         if (unit->attack_ready != 0) {
             this->some_unit_list.RemoveAt(cur);
             delete unit;
@@ -6004,7 +6004,7 @@ void SpellEffectList::sub_5585F2() {
             effect->field6_0x44 = effect->field4_0x42;
         }
 
-        effect->VMethod2();
+        effect->ProcessEffects();
 
         if (effect->field2_0x40 != 0) {
             this->list.RemoveAt(current_it);

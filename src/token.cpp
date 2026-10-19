@@ -221,7 +221,7 @@ void Token::RegenTick() {
 	// 57b290
 }
 
-void Token::VMethod2() {
+void Token::ProcessEffects() {
 	// 52871a
 }
 

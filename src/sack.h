@@ -20,7 +20,7 @@ public: // VTable at 60f640.
     virtual ~Sack(); // 553f6a
     virtual void Serialize(CArchive& ar) override; // 55c889
     virtual void RegenTick() override; // 57dd30
-    virtual void VMethod2() override; // 553f8b
+    virtual void ProcessEffects() override; // 553f8b
 
 public:
     Sack();

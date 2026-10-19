@@ -142,7 +142,7 @@ void SpellEffect::Serialize(CArchive& ar) {
 }
 
 // 53742d
-void SpellEffect::VMethod2() {}
+void SpellEffect::ProcessEffects() {}
 
 // 537438
 void SpellEffect::VMethod10(Unit* /*unit*/) {}
@@ -226,7 +226,7 @@ void PointEffect::Serialize(CArchive& ar) {
 }
 
 // 57C0A0
-void PointEffect::VMethod2() {
+void PointEffect::ProcessEffects() {
 	this->sub_5375A4();
 }
 
@@ -549,7 +549,7 @@ void AreaEffect::Serialize(CArchive& ar) {
 }
 
 // 537964
-void AreaEffect::VMethod2() {
+void AreaEffect::ProcessEffects() {
 	if (this->TokenID & 2) {
 		this->sub_537CD6();
 		return;
@@ -646,7 +646,7 @@ void SpellTransport::Serialize(CArchive& ar) {
 }
 
 // 538BF4
-void SpellTransport::VMethod2() {
+void SpellTransport::ProcessEffects() {
 	this->duration--;
 	if (this->duration < 1) {
 		SpellEffect* effect = (this->spell_effect != nullptr) ? this->spell_effect : this->area_effect;

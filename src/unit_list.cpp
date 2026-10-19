@@ -108,7 +108,7 @@ void UnitList::ProcessTick() {
 
 		// Tick alive unit
 		if (unit->some_state != 0x10) {
-			unit->VMethod2();
+			unit->ProcessEffects();
 		}
 
 		// Process dead unit

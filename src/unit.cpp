@@ -700,7 +700,7 @@ void Unit::RegenTick() {
 }
 
 // 52A857
-void Unit::VMethod2() {
+void Unit::ProcessEffects() {
     if (this->some_state == 0x10) {
         return;
     }

@@ -249,7 +249,7 @@ void Item::RegenTick() {
 }
 
 // 548d9a
-void Item::VMethod2() {
+void Item::ProcessEffects() {
 }
 
 // 57ce40

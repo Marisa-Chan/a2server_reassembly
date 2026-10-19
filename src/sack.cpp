@@ -68,5 +68,5 @@ void Sack::RegenTick() {
 }
 
 // 57dd40
-void Sack::VMethod2() {
+void Sack::ProcessEffects() {
 }
