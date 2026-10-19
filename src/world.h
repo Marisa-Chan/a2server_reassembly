@@ -313,7 +313,7 @@ public:
     void sub_5A3AD6(Unit* unit, UnitList* pList); // Populate attack/non-attack target lists for unit from pList.
     void sub_5A3896(Unit* unit, UnitList* list, int32_t flag); // 5A3896 — filter a UnitList by enemy/allied relationship.
     void sub_5A3C5F(); // 5A3C5F — move unconscious targets out of field26_0xa64 into field27_0xa84.
-    UnitList* sub_5A37C5(Unit* unit); // 5A37C5 — get nearby UnitList around unit.
+    UnitList* GetNearbyUnits(Unit* unit); // 5A37C5 — get nearby UnitList around unit.
     UnitList* sub_5A3808(Unit* caster, PosYX yx); // Get nearby enemy UnitList for caster at yx.
     UnitList* sub_5A384F(Unit* caster, PosYX yx); // Get nearby ally UnitList for caster at yx.
     void sub_5A4590(); // 5A4590
@@ -338,8 +338,8 @@ public:
     void BeginEnterBuilding(Unit* unit, Building* building); // 5A6DA3
 
     // Helpers for the functions above; bodies remain in Main.asm for now.
-    UnitList* sub_5A3791(Unit* unit); // 5A3791 — helper for sub_5A37C5 (ASM).
-    void sub_5A3DC9(Unit* unit, UnitList* list); // 5A3DC9 — helper for sub_5A37C5 (ASM).
+    UnitList* sub_5A3791(Unit* unit); // 5A3791 — helper for GetNearbyUnits (ASM).
+    void sub_5A3DC9(Unit* unit, UnitList* list); // 5A3DC9 — helper for GetNearbyUnits (ASM).
     int32_t sub_5A89D5(Unit* unit); // 5A89D5 — helper for ProcessUnitRecall (ASM).
     int32_t sub_5A8BDA(Unit* unit); // 5A8BDA — helper for ProcessUnitRecall (ASM).
     void sub_5A8CD8(Unit* unit); // 5A8CD8 — helper for ProcessUnitRecall.

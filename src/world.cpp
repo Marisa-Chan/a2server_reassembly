@@ -3547,7 +3547,7 @@ void World::sub_5A57E8(Unit* unit, Unit* target) {
 
 // 5A65BB — pick a nearby target for `unit` from units around `target`.
 void World::sub_5A65BB(Unit* unit, Unit* target) {
-    UnitList* list = this->sub_5A37C5(target);
+    UnitList* list = this->GetNearbyUnits(target);
     if (list == nullptr || list->unit_list.GetCount() == 0) {
         this->SetIdleOrRetreat(unit, 0);
         return;
@@ -3886,7 +3886,7 @@ UnitList* World::sub_5A3791(Unit* unit) {
 }
 
 // 5A37C5
-UnitList* World::sub_5A37C5(Unit* unit) {
+UnitList* World::GetNearbyUnits(Unit* unit) {
     UnitList* list = this->sub_5A3791(unit);
     this->sub_5A3896(unit, list, 0);
     this->sub_5A3DC9(unit, list);
