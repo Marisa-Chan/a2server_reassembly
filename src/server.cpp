@@ -5727,7 +5727,7 @@ void SrvStru1::sub_4FB273() {
         POSITION cur = unit_it;
         Unit* unit = this->some_unit_list.GetNext(unit_it);
         unit->VMethod2();
-        if (unit->field_0x136 != 0) {
+        if (unit->attack_ready != 0) {
             this->some_unit_list.RemoveAt(cur);
             delete unit;
         }

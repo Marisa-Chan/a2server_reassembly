@@ -1394,7 +1394,7 @@ void World::sub_5A9B6B(Unit* unit) {
         case 1:
             unit->some_state = 3;
             unit->eye2->counter++;
-            if (unit->eye2->counter > 2 && unit->field_0x136 != 0) {
+            if (unit->eye2->counter > 2 && unit->attack_ready != 0) {
                 unit->eye2->field4_0x9 = 0;
                 unit->some_state = 0;
             }
@@ -1422,7 +1422,7 @@ void World::sub_5A9B6B(Unit* unit) {
                     }
                     this->action_list.AddTail(this->scrape_action);
                 }
-                if (unit->field_0x136 != 0) {
+                if (unit->attack_ready != 0) {
                     unit->eye2->field4_0x9 = 0;
                     unit->some_state = 0;
                 }

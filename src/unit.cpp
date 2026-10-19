@@ -344,7 +344,7 @@ void Unit::Serialize(CArchive& ar) {
         ar << this->experience;
         ar << this->charge;
         ar << this->relax;
-        ar << this->field_0x136;
+        ar << this->attack_ready;
         ar << this->last_action_tick;
         ar << this->decay;
         uint32_t packed = this->server_id
@@ -406,7 +406,7 @@ void Unit::Serialize(CArchive& ar) {
         ar.Read(&this->experience, 4);
         ar >> this->charge;
         ar >> this->relax;
-        ar >> this->field_0x136;
+        ar >> this->attack_ready;
         ar.Read(&this->last_action_tick, 4);
         ar >> this->decay;
         uint32_t packed;
@@ -611,7 +611,7 @@ void Unit::VMethod11(Unit* unit) {
     this->experience = unit->experience;
     this->charge = unit->charge;
     this->relax = unit->relax;
-    this->field_0x136 = unit->field_0x136;
+    this->attack_ready = unit->attack_ready;
     this->last_action_tick = unit->last_action_tick;
     this->decay = unit->decay;
     this->enchantments = 0;
@@ -804,12 +804,12 @@ void Unit::VMethod2() {
                     }
 
                     if (ok) {
-                        this->field_0x136 = 0;
+                        this->attack_ready = 0;
                         this->some_state2 = 5;
                         this->charge_countdown = this->charge;
                     }
                 } else {
-                    this->field_0x136 = 0;
+                    this->attack_ready = 0;
                     this->some_state2 = 5;
                     this->charge_countdown = (int8_t)(this->charge + charge_extra);
                 }
@@ -871,7 +871,7 @@ void Unit::VMethod2() {
                 this->charge_countdown--;
                 if (this->charge_countdown == 0) {
                     this->some_state2 = 0;
-                    this->field_0x136 = 1;
+                    this->attack_ready = 1;
                 }
             }
             break;
@@ -1658,7 +1658,7 @@ void Unit::sub_52C58F() {
     this->position->y_subcell = 0x80;
     this->decay = 0;
     this->some_state2 = 0;
-    this->field_0x136 = 1;
+    this->attack_ready = 1;
     this->protections.defense <<= 1;
     this->VMethod18();
     this->hp = (this->hp < 1) ? 1 : this->hp;
@@ -1668,7 +1668,7 @@ void Unit::sub_52C58F() {
 // 52C641
 void Unit::sub_52C641() {
     this->sub_52C813();
-    if (this->field_0x136 == 0 && this->some_item != nullptr && ((this->some_item->item_id >> 8) & 0xF) == 0xE) {
+    if (this->attack_ready == 0 && this->some_item != nullptr && ((this->some_item->item_id >> 8) & 0xF) == 0xE) {
         delete this->some_item;
         this->some_item = nullptr;
         delete this->some_spell;
@@ -1676,7 +1676,7 @@ void Unit::sub_52C641() {
     }
     this->some_spell = nullptr;
     this->some_state2 = 0;
-    this->field_0x136 = 1;
+    this->attack_ready = 1;
     this->some_state = 0;
     this->state = 0;
 }
@@ -1753,7 +1753,7 @@ void Unit::FUN_0052931b(const CString& str) {
     this->state = 0;
     this->some_state = 0;
     this->some_state2 = 0;
-    this->field_0x136 = 1;
+    this->attack_ready = 1;
     this->cast_target = nullptr;
     this->area_cast_x = 0;
     this->area_cast_y = 0;
@@ -1801,7 +1801,7 @@ void Unit::sub_52C813() {
         return;
     }
 
-    if ((this->some_state == 0xD || this->some_state == 0xE) && this->field_0x136 == 0) {
+    if ((this->some_state == 0xD || this->some_state == 0xE) && this->attack_ready == 0) {
         return;
     }
 

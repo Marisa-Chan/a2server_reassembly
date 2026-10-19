@@ -188,7 +188,7 @@ public:
     uint32_t experience;
     uint8_t charge;
     uint8_t relax;
-    uint8_t field_0x136;
+    uint8_t attack_ready;
     uint8_t gap_0x137;
     uint32_t last_action_tick;
     uint8_t decay; // Decay level. 0: alive (HP > 0), 1: on the ground (HP = 0), 2: fresh corpse (HP >= -20), 3: bones (HP >= -50), 4: old bones (HP >= -600), 5: completely gone.

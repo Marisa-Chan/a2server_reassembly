@@ -77,3 +77,4 @@ Player::field_0xa84 -> hat_char_id2 -- high dword of the HAT character id (HatCh
 Player::field_0xa90 -> afk_expire_tick -- GetTickCount() deadline of the AFK logout timer (sub_534B17/B59); expiry logs the player out
 Player::field_0xa94 -> afk_notify_tick -- next AFK countdown-notify deadline (5s cadence)
 Player::field_0xa98 -> gm_level -- cheat/GM privilege (>50 unlocks elevated commands, 0xFF = granted, revoked by other GMs)
+Unit::field_0x136 -> attack_ready -- attack/spell cycle complete flag: cleared on windup start, set again after the post-attack countdown
