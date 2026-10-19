@@ -2815,11 +2815,11 @@ void World::sub_5AC289(Group* group, uint8_t x, uint8_t y) {
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
         if (!use_relative) {
-            this->sub_5A8EFB(unit, x, y);
+            this->OrderMoveTo(unit, x, y);
         } else {
             unit->eye2->x = unit->position->GetX() - origin_x;
             unit->eye2->y = unit->position->GetY() - origin_y;
-            this->sub_5A8EFB(unit, x + unit->eye2->x, y + unit->eye2->y);
+            this->OrderMoveTo(unit, x + unit->eye2->x, y + unit->eye2->y);
             if (unit->speed < min_speed) {
                 min_speed = unit->speed;
             }
@@ -3118,7 +3118,7 @@ int32_t World::sub_5B6F60(int32_t min, int32_t max) {
 }
 
 // 5A8EFB — set unit movement target, clamped to map bounds.
-void World::sub_5A8EFB(Unit* unit, uint8_t x, uint8_t y) {
+void World::OrderMoveTo(Unit* unit, uint8_t x, uint8_t y) {
     this->BeginUnitOrder(unit);
 
     if (x < this->field24_0xa50->map_min_x) {
