@@ -1560,7 +1560,7 @@ int32_t World::sub_5A6ED9(Unit* caster, Unit* target) {
         return 0;
     }
 
-    Spell* spell = this->sub_5A79D6(caster, caster->eye2->spell_id, 0);
+    Spell* spell = this->GetCastableSpell(caster, caster->eye2->spell_id, 0);
     if (spell == nullptr) {
         return 0;
     }
@@ -1740,7 +1740,7 @@ void World::sub_5A7B44(Unit* unit) {
 
     // Self-heal.
     if (unit->hp != unit->hp_max) {
-        Spell* spell = this->sub_5A79D6(unit, spell::heal, 0);
+        Spell* spell = this->GetCastableSpell(unit, spell::heal, 0);
         if (spell != nullptr) {
             unit->eye2->field49_0x60 = 1;
             this->sub_5A85F4(unit, unit, spell);
@@ -1750,7 +1750,7 @@ void World::sub_5A7B44(Unit* unit) {
 
     // Self-shield.
     if ((unit->enchantments & (1 << spell::shield)) == 0) {
-        Spell* spell = this->sub_5A79D6(unit, spell::shield, 0);
+        Spell* spell = this->GetCastableSpell(unit, spell::shield, 0);
         if (spell != nullptr) {
             unit->eye2->field49_0x60 = 1;
             this->sub_5A85F4(unit, unit, spell);
@@ -1763,7 +1763,7 @@ void World::sub_5A7B44(Unit* unit) {
     this->sub_5A3AD6(unit, &this->field26_0xa64);
 
     // Ally-heal.
-    Spell* spell = this->sub_5A79D6(unit, spell::heal, 0);
+    Spell* spell = this->GetCastableSpell(unit, spell::heal, 0);
     if (spell != nullptr && this->field28_0xaa4.unit_list.GetCount() > 1) {
         double best_ratio = 2.0;
         Unit* best_unit = nullptr;
@@ -1813,7 +1813,7 @@ void World::sub_5A7B44(Unit* unit) {
             int32_t autobuff_backoff = abs((int32_t)other->eye2->autobuff_tick - g_Server->tick);
 
             // Bless: requires fighter, no matching enchantment.
-            spell = this->sub_5A79D6(unit, spell::bless, 0);
+            spell = this->GetCastableSpell(unit, spell::bless, 0);
             if (spell != nullptr && (other->unit_attrs & 4) == 0 && (other->enchantments & (1 << spell::bless)) == 0) {
                 if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
                     if (this->sub_5A7AF7(unit, other, spell) != 0) {
@@ -1825,7 +1825,7 @@ void World::sub_5A7B44(Unit* unit) {
             }
 
             // Haste: no matching enchantment.
-            spell = this->sub_5A79D6(unit, spell::haste, 0);
+            spell = this->GetCastableSpell(unit, spell::haste, 0);
             if (spell != nullptr && (other->enchantments & (1 << spell::haste)) == 0) {
                 if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
                     if (this->sub_5A7AF7(unit, other, spell) != 0) {
@@ -1861,7 +1861,7 @@ void World::sub_5A7B44(Unit* unit) {
             int32_t autobuff_backoff = abs((int32_t)other->eye2->autobuff_tick - g_Server->tick);
 
             // Protection from air: no matching enchantment.
-            spell = this->sub_5A79D6(unit, spell::protection_from_air, 0);
+            spell = this->GetCastableSpell(unit, spell::protection_from_air, 0);
             if (spell != nullptr && this->sub_5A7AF7(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::protection_from_air)) == 0) {
                     if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
@@ -1873,7 +1873,7 @@ void World::sub_5A7B44(Unit* unit) {
             }
 
             // Protection from earth: no matching enchantment.
-            spell = this->sub_5A79D6(unit, spell::protection_from_earth, 0);
+            spell = this->GetCastableSpell(unit, spell::protection_from_earth, 0);
             if (spell != nullptr && this->sub_5A7AF7(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::protection_from_earth)) == 0) {
                     if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
@@ -1885,7 +1885,7 @@ void World::sub_5A7B44(Unit* unit) {
             }
 
             // Protection from fire: no matching enchantment.
-            spell = this->sub_5A79D6(unit, spell::protection_from_fire, 0);
+            spell = this->GetCastableSpell(unit, spell::protection_from_fire, 0);
             if (spell != nullptr && this->sub_5A7AF7(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::protection_from_fire)) == 0) {
                     if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
@@ -1897,7 +1897,7 @@ void World::sub_5A7B44(Unit* unit) {
             }
 
             // Protection from water: no matching enchantment.
-            spell = this->sub_5A79D6(unit, spell::protection_from_water, 0);
+            spell = this->GetCastableSpell(unit, spell::protection_from_water, 0);
             if (spell != nullptr && this->sub_5A7AF7(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::protection_from_water)) == 0) {
                     if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
@@ -1909,7 +1909,7 @@ void World::sub_5A7B44(Unit* unit) {
             }
 
             // Invisibility: no matching enchantment, not self, diplomacy check.
-            spell = this->sub_5A79D6(unit, spell::invisibility, 0);
+            spell = this->GetCastableSpell(unit, spell::invisibility, 0);
             if (spell != nullptr && this->sub_5A7AF7(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::invisibility)) == 0 && unit != other) {
                     if ((this->diplomacy.diplomacy[unit->pOwner->player_id][other->pOwner->player_id] & 3) != 0) {
@@ -1925,7 +1925,7 @@ void World::sub_5A7B44(Unit* unit) {
     }
 
     // Self-invisibility --- last.
-    spell = this->sub_5A79D6(unit, spell::invisibility, 0);
+    spell = this->GetCastableSpell(unit, spell::invisibility, 0);
     if (spell != nullptr && (unit->enchantments & (1 << spell::invisibility)) == 0) {
         unit->eye2->field49_0x60 = 1;
         this->sub_5A85F4(unit, unit, spell);
@@ -2655,7 +2655,7 @@ void World::PursueTarget(Unit* unit, Unit* target) {
 
 // Pick spell by number if the unit knows it and has enough MP.
 // 5A79D6
-Spell* World::sub_5A79D6(Unit* unit, int32_t spell_number, int32_t /*flag*/) {
+Spell* World::GetCastableSpell(Unit* unit, int32_t spell_number, int32_t /*flag*/) {
     Spell* spell = unit->spell_book->sub_53DB79(spell_number);
     if (spell == nullptr || unit->mp < spell->mana_cost) {
         return nullptr;
@@ -3650,7 +3650,7 @@ void World::sub_5A56D7(Unit* unit, Unit* target) {
 // 5A8885
 void World::DoTeleportHome(Unit* unit) {
     if (unit->spell_book != nullptr) {
-        if (this->sub_5A79D6(unit, spell::teleport, 0) != nullptr) {
+        if (this->GetCastableSpell(unit, spell::teleport, 0) != nullptr) {
             this->sub_5A8A55(unit);
             return;
         }
@@ -3704,12 +3704,12 @@ void World::sub_5A8A55(Unit* unit) {
         uint32_t packed_yyxx = this->sub_5AB62E(list);
         int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, range);
 
-        Spell* spell = this->sub_5A79D6(unit, spell::teleport, 0);
+        Spell* spell = this->GetCastableSpell(unit, spell::teleport, 0);
         if (spell != nullptr) {
             unit->eye2->field49_0x60 = 1;
             this->sub_5A551C(unit, result, spell);
         } else {
-            spell = this->sub_5A79D6(unit, spell::invisibility, 0);
+            spell = this->GetCastableSpell(unit, spell::invisibility, 0);
             // WAT: enchantments & 0xC is a check for whether the unit under a "fireball" and "fire wall" spells, which are not enchantments.
             // Should this be "1 << 0xc" instead?
             if (spell != nullptr && (unit->enchantments & 0xC) == 0) {
@@ -3733,12 +3733,12 @@ void World::sub_5A8DBC(Unit* unit) {
     } else {
         uint32_t packed_yyxx = this->sub_5AB62E(list);
         int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, range);
-        Spell* spell = this->sub_5A79D6(unit, spell::teleport, 0);
+        Spell* spell = this->GetCastableSpell(unit, spell::teleport, 0);
         if (spell != nullptr) {
             unit->eye2->field49_0x60 = 1;
             this->sub_5A551C(unit, result, spell);
         } else {
-            spell = this->sub_5A79D6(unit, spell::invisibility, 0);
+            spell = this->GetCastableSpell(unit, spell::invisibility, 0);
             // WAT: enchantments & 0xC makes no sense. Was it supposed to be (1 << 0xC)?
             if (spell != nullptr && (unit->enchantments & 0xC) == 0) {
                 unit->eye2->field49_0x60 = 1;
@@ -3782,7 +3782,7 @@ int32_t World::sub_5A8BDA(Unit* unit) {
 // 5A8CD8
 void World::sub_5A8CD8(Unit* unit) {
     if (unit->spell_book != nullptr) {
-        if (this->sub_5A79D6(unit, spell::teleport, 0) != nullptr) {
+        if (this->GetCastableSpell(unit, spell::teleport, 0) != nullptr) {
             this->sub_5A8DBC(unit);
             return;
         }
