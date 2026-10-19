@@ -590,3 +590,4 @@ MapStuff::sub_590F0A -> CanPlaceUnit -- checks if the unit can be placed at its 
 MapStuff::sub_58AD4A -> PlaceUnit -- places the unit on the map at its TokenPos
 MapStuff::sub_58AEEF -> CanOccupyCell -- whether the unit can occupy (x,y), triggering any spell tile
 MapStuff::sub_59166C -> GetFacingFor -- picks the rotation angle for the unit to look at yx
+MapStuff::sub_5954AC -> TeleportUnit -- teleports the unit to (x,y)

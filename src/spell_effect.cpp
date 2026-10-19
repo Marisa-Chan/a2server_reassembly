@@ -320,7 +320,7 @@ void AreaEffect::sub_53822C() {
 	int32_t radius = this->radius;
 	for (int32_t dx = x - radius; dx <= x + radius; dx++) {
 		for (int32_t dy = y - radius; dy <= y + radius; dy++) {
-			MapStuff_Instance->sub_59501E(this, dx, dy);
+			MapStuff_Instance->PlaceAreaEffectAt(this, dx, dy);
 		}
 	}
 	g_NetStru1_main.SendAreaEffect(this, 0);
@@ -387,35 +387,35 @@ void AreaEffect::sub_53868D(uint8_t x, uint8_t y) {
 	case spell::wall_of_fire:
 		if (layers[2] != nullptr) {
 			AreaEffect* layer = layers[2];
-			MapStuff_Instance->sub_59501E(layer, x, y);
+			MapStuff_Instance->PlaceAreaEffectAt(layer, x, y);
 			g_NetStru1_main.SendAreaEffect(layer, 0);
 		}
 		if (layers[1] != nullptr) {
 			AreaEffect* layer = layers[1];
-			MapStuff_Instance->sub_59501E(layer, x, y);
+			MapStuff_Instance->PlaceAreaEffectAt(layer, x, y);
 			g_NetStru1_main.SendAreaEffect(layer, 0);
 		}
 		break;
 	case spell::poison_cloud:
 		if (layers[0] != nullptr) {
 			AreaEffect* layer = layers[2];
-			MapStuff_Instance->sub_59501E(layer, x, y);
+			MapStuff_Instance->PlaceAreaEffectAt(layer, x, y);
 			g_NetStru1_main.SendAreaEffect(layer, 0);
 		}
 		break;
 	case spell::darkness:
 		if (layers[4] != nullptr) {
-			MapStuff_Instance->sub_59501E(layers[5], x, y);
+			MapStuff_Instance->PlaceAreaEffectAt(layers[5], x, y);
 			AreaEffect* layer = layers[4];
-			MapStuff_Instance->sub_59501E(layer, x, y);
+			MapStuff_Instance->PlaceAreaEffectAt(layer, x, y);
 			g_NetStru1_main.SendAreaEffect(layer, 0);
 		}
 		break;
 	case spell::light:
 		if (layers[5] != nullptr) {
-			MapStuff_Instance->sub_59501E(layers[4], x, y);
+			MapStuff_Instance->PlaceAreaEffectAt(layers[4], x, y);
 			AreaEffect* layer = layers[5];
-			MapStuff_Instance->sub_59501E(layer, x, y);
+			MapStuff_Instance->PlaceAreaEffectAt(layer, x, y);
 			g_NetStru1_main.SendAreaEffect(layer, 0);
 		}
 		break;

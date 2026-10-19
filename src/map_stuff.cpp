@@ -2595,7 +2595,7 @@ void MapStuff::sub_594E65(AreaEffect* ae, uint8_t x, uint8_t y) {
 }
 
 // 59501E --- remove area effect from (x, y)
-void MapStuff::sub_59501E(AreaEffect* ae, uint8_t x, uint8_t y) {
+void MapStuff::PlaceAreaEffectAt(AreaEffect* ae, uint8_t x, uint8_t y) {
     this->sub_595073(ae, PosYX(x, y).val);
 }
 
