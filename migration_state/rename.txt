@@ -465,3 +465,4 @@ World::sub_5AF5DC -> ProcessUnitRecall -- unit recall step: teleport home or run
 World::sub_5A5155 -> ProcessUnitAi -- routes the unit into the state dispatcher (human) or AI wrapper
 World::sub_5A51A1 -> ProcessUnitState -- per-state unit action dispatcher (unit->state switch)
 World::sub_5AE628 -> AiGuardBrain -- group order 1 brain: guard area around anchor
+World::sub_5AEC20 -> AiAttackBrain -- group order 2 brain: engage assigned targets

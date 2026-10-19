@@ -522,7 +522,7 @@ void World::sub_5ADB16(Group* group) {
 }
 
 // 5AEF66
-void World::sub_5AEF66(Group* group) {
+void World::AiAggroBrain(Group* group) {
     this->sub_5ADB16(group);
     this->sub_5AE471(group);
     POSITION it = group->unit_list.GetHeadPosition();
@@ -3395,7 +3395,7 @@ void World::ProcessGroupAi(Group* group) {
             this->AiAttackBrain(group, group->group_sub->order_pos);
             break;
         case 3:
-            this->sub_5AEF66(group);
+            this->AiAggroBrain(group);
             break;
         case 4:
             this->sub_5AF061(group, group->group_sub->order_pos);

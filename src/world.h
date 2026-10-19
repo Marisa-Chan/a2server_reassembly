@@ -199,7 +199,7 @@ public:
     void ProcessUnitState(Unit* unit); // 5A51A1 — per-state unit action dispatcher.
     void AiGuardBrain(Group* group); // 5AE628
     void AiAttackBrain(Group* group, uint16_t param); // 5AEC20
-    void sub_5AEF66(Group* group); // 5AEF66
+    void AiAggroBrain(Group* group); // 5AEF66
     void sub_5AF061(Group* group, uint16_t param); // 5AF061
     void sub_5AECE7(Group* group, uint16_t param); // 5AECE7
     void sub_5AED8D(Group* group); // 5AED8D
