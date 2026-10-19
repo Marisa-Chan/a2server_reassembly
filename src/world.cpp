@@ -240,7 +240,7 @@ void World::sub_5A3AD6(Unit* unit, UnitList* pList) {
             bool can_see = false;
             for (POSITION gn = unit->group->unit_list.GetHeadPosition(); gn != nullptr;) {
                 Unit* gu = unit->group->unit_list.GetNext(gn);
-                int32_t range = this->field24_0xa50->sub_59190D(u, gu);
+                int32_t range = this->field24_0xa50->GetRangeTo(u, gu);
                 if ((range & 0xFF) <= gu->eye2->seeInvisible) {
                     can_see = true;
                 }
@@ -281,7 +281,7 @@ void World::FilterByRelation(Unit* unit, UnitList* list, int32_t flag) {
             POSITION group_it = unit->group->unit_list.GetHeadPosition();
             while (group_it != nullptr) {
                 Unit* group_unit = unit->group->unit_list.GetNext(group_it);
-                int32_t range = this->field24_0xa50->sub_59190D(other, group_unit);
+                int32_t range = this->field24_0xa50->GetRangeTo(other, group_unit);
                 if ((range & 0xFF) <= group_unit->eye2->seeInvisible) {
                     can_see = true;
                     break;
@@ -320,7 +320,7 @@ void World::sub_5A39AD(Unit* unit, UnitList* list) {
             POSITION group_it = unit->group->unit_list.GetHeadPosition();
             while (group_it != nullptr) {
                 Unit* group_unit = unit->group->unit_list.GetNext(group_it);
-                int32_t range = this->field24_0xa50->sub_59190D(other, group_unit);
+                int32_t range = this->field24_0xa50->GetRangeTo(other, group_unit);
                 if (range <= group_unit->eye2->seeInvisible) {
                     can_see = true;
                     break;
@@ -644,7 +644,7 @@ bool World::AreAtWar(Unit* unit1, Unit* unit2) {
 // high byte = distance, low byte = rotation for unit1 to unit2.
 // 5B5C2B
 uint16_t World::PackDistFacing(Unit* unit1, Unit* unit2) {
-    uint16_t result = (uint8_t)this->field24_0xa50->sub_59190D(unit1, unit2);
+    uint16_t result = (uint8_t)this->field24_0xa50->GetRangeTo(unit1, unit2);
     result = result << 8;
     uint8_t facing = this->field24_0xa50->sub_591424(unit1, unit2);
     result += this->field24_0xa50->FacingDiff(unit1->eye->field0_0x0, facing);
@@ -2468,7 +2468,7 @@ void World::DoGuardScan(Unit* unit) {
         if (filter_result == -1) {
             continue;
         }
-        int32_t range = this->field24_0xa50->sub_59190D(unit, other);
+        int32_t range = this->field24_0xa50->GetRangeTo(unit, other);
         if (other->sub_59A030() == 3 && unit->sub_59A030() != 3) {
             range += 1;
         }
@@ -2495,7 +2495,7 @@ void World::DoGuardScan(Unit* unit) {
         it = this->field27_0xa84.unit_list.GetHeadPosition();
         while (it != nullptr) {
             Unit* other = this->field27_0xa84.unit_list.GetNext(it);
-            int32_t range = this->field24_0xa50->sub_59190D(unit, other);
+            int32_t range = this->field24_0xa50->GetRangeTo(unit, other);
             uint8_t facing = this->field24_0xa50->sub_591424(unit, other);
             uint8_t score = this->field24_0xa50->FacingDiff(facing, unit->eye->field0_0x0);
             if (range < best_range) {
@@ -3562,9 +3562,9 @@ void World::sub_5A65BB(Unit* unit, Unit* target) {
         if (other->sub_59A030() == 3) {
             if (best_type3 == nullptr) {
                 best_type3 = other;
-                best_distance = this->field24_0xa50->sub_59190D(unit, other);
+                best_distance = this->field24_0xa50->GetRangeTo(unit, other);
             } else {
-                uint8_t distance = this->field24_0xa50->sub_59190D(unit, other);
+                uint8_t distance = this->field24_0xa50->GetRangeTo(unit, other);
                 if (distance < best_distance) {
                     best_type3 = other;
                     best_distance = distance;
@@ -3584,7 +3584,7 @@ void World::sub_5A65BB(Unit* unit, Unit* target) {
     pos = list->unit_list.GetHeadPosition();
     while (pos != nullptr) {
         Unit* other = list->unit_list.GetNext(pos);
-        uint8_t distance = this->field24_0xa50->sub_59190D(unit, other);
+        uint8_t distance = this->field24_0xa50->GetRangeTo(unit, other);
         if (distance < best_distance) {
             best_any = other;
             best_distance = distance;

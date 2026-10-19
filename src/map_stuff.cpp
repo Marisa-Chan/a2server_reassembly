@@ -334,7 +334,7 @@ int MapStuff::sub_58FE6D(Unit* unit, Unit* target, uint8_t max_range) {
     if (current_facing != computed_facing) {
         return 0;
     }
-    if (this->sub_59190D(unit, target) <= max_range) {
+    if (this->GetRangeTo(unit, target) <= max_range) {
         return 1;
     }
     return 0;
@@ -425,7 +425,7 @@ void MapStuff::sub_58FF51(Unit* unit, PosYX yx, uint8_t max_range) {
 // 59028D
 void MapStuff::sub_59028D(Unit* unit, Unit* target, uint8_t max_range) {
     PosYX target_yx = target->position->GetYX();
-    uint8_t range = this->sub_59190D(unit, target);
+    uint8_t range = this->GetRangeTo(unit, target);
     int32_t in_cell_middle = unit->position->IsAtCellCenter();
 
     if (!in_cell_middle) {
@@ -813,7 +813,7 @@ bool MapStuff::IsInMapBounds(uint8_t x, uint8_t y) const {
 }
 
 // 59190D
-int MapStuff::sub_59190D(Unit* target, Unit* observer) {
+int MapStuff::GetRangeTo(Unit* target, Unit* observer) {
     int32_t target_size = target->GetTokenSize();
     int32_t observer_size = observer->GetTokenSize();
 

@@ -208,7 +208,7 @@ public:
     int ApplyTerrainMod(uint16_t yx, void* src); // Apply terrain modification from 6-byte src buffer at yx
     AreaEffect** GetAreaEffectsAt(uint32_t yx); // Get pointer to area_effects[6] array at cell yx.
     int16_t GetTileMoveTime(Unit* unit, uint8_t x, uint8_t y); // Movement time for unit entering tile (x,y).
-    int sub_59190D(Unit* target, Unit* observer); // Visibility/range check between two units.
+    int GetRangeTo(Unit* target, Unit* observer); // Visibility/range check between two units.
     uint8_t sub_591424(Unit* unit, Unit* target); // Compute facing direction from unit to target.
     int sub_58FE6D(Unit* unit, Unit* target, uint8_t max_range); // Check if unit faces target and is in range.
     int sub_58FEDA(Unit* unit, PosYX yx, uint8_t max_range); // Check if unit faces yx and is in range.
