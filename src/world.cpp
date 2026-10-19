@@ -3246,7 +3246,7 @@ void World::sub_5A3DC9(Unit* unit, UnitList* list) {
 }
 
 // 5AC206 — order a group to area-cast a spell at (x, y).
-void World::sub_5AC206(Group* group, uint8_t x, uint8_t y, Spell* spell) {
+void World::GroupCastAtPositionCommand(Group* group, uint8_t x, uint8_t y, Spell* spell) {
     this->ClearGroupOrders(group);
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {

@@ -3096,7 +3096,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
                 player->sub_534B59();
                 if (cast_spell && cast_spell->sub_53939E(packet_item->x, packet_item->y)) {
-                    g_World->sub_5AC206(group, x, y, cast_spell);
+                    g_World->GroupCastAtPositionCommand(group, x, y, cast_spell);
                 }
             }
             break;
@@ -3156,7 +3156,7 @@ void Server::sub_504a96(Packet* pkt) {
                             delete spell;
                             player->main_unit->spell = nullptr;
                         } else {
-                            g_World->sub_5AC206(group, x, y, spell);
+                            g_World->GroupCastAtPositionCommand(group, x, y, spell);
                         }
                     }
                 }
