@@ -16444,7 +16444,7 @@ int32_t VisInvType1::OnMouseMove(uint32_t wparam, CPoint pos) {
         }
     }
 
-    if (this->grid_source->GetAt(idx)->sub_43A5E5() != 0) {
+    if (this->grid_source->GetAt(idx)->IsQuestItem() != 0) {
         return 0;
     }
 
@@ -16923,7 +16923,7 @@ int32_t VisInvExtBase::OnMouseMove(uint32_t wparam, CPoint pos) {
             } else {
                 count = 1;
             }
-            if (this->grid_source->GetAt(main_wnd->drag_src_slot)->sub_43A5E5() == 0) {
+            if (this->grid_source->GetAt(main_wnd->drag_src_slot)->IsQuestItem() == 0) {
                 if (this->VMethod36(main_wnd->drag_src_slot, count) != 0) {
                     this->sub_4B5A6C(main_wnd->drag_src_slot);
                     this->sub_4B4FD1();

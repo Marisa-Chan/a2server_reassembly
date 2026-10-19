@@ -847,7 +847,7 @@ int32_t TokenEntry::sub_4396FB() { //4396fb
 }
 
 
-int32_t TokenEntry::sub_43A5E5() { //43a5e5
+int32_t TokenEntry::IsQuestItem() { //43a5e5
     if (this->GetType() != TYPE_SPELL) {
         return 0;
     }

@@ -28,7 +28,7 @@ public:
 
 	int32_t IsEmpty();
 	int32_t IsDepleted(); //4a78c0 in asm
-	int32_t sub_43A5E5(); //43a5e5
+	int32_t IsQuestItem(); //43a5e5
 	int32_t sub_43A6D5(); //43a6d5
 	int32_t sub_4396FB(); //4396fb
 	int32_t sub_4A7850(int32_t num); //4a7850
