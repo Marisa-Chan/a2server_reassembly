@@ -191,7 +191,7 @@ public:
     void sub_58AB48(CArchive& ar); // Serialize
     void sub_5948B0(CWordArray* encode_buf); // encode map terrain into encode_buf
     bool IsInMapBounds(uint8_t x, uint8_t y) const; // 594076
-    void sub_594125(); // Post-load map relink helper
+    void RelinkAfterLoad(); // Post-load map relink helper
     int sub_58E407(class Sack* sack); // Check if sack can be placed on map
     void sub_58E525(class Sack* sack); // Remove a sack token from the map
     Sack* sub_58E5C7(uint16_t param_2, uint16_t param_3); // Look up sack at map position

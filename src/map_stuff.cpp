@@ -1797,7 +1797,7 @@ void MapStuff::sub_58AB48(CArchive& ar) {
 
 // 594125 --- post-load map relink helper: remaps stale on-disk pointers in
 // each cell_states entry via g_Server's pointer remap table (RelinkPointers).
-void MapStuff::sub_594125() {
+void MapStuff::RelinkAfterLoad() {
     POSITION pos = this->cell_states.GetStartPosition();
     while (pos != nullptr) {
         uint16_t key;
