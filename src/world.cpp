@@ -2763,7 +2763,7 @@ void World::FUN_005acd4c(Group* grp) { //5acd4c
         this->sub_5A9AC4(unit);
         unit->eye2->field29_0x38 = 0;
     }
-    grp->group_sub->field_0x20 = 0;
+    grp->group_sub->order = 0;
 }
 
 void World::sub_5ACA54(Group* grp) { //5aca54
@@ -2772,7 +2772,7 @@ void World::sub_5ACA54(Group* grp) { //5aca54
         Unit* unit = grp->unit_list.GetNext(it);
         this->FUN_005a93f4(unit);
     }
-    grp->group_sub->field_0x20 = 3;
+    grp->group_sub->order = 3;
 }
 
 void World::sub_5ACDF4(Group* group) { // 5acdf4
@@ -2829,7 +2829,7 @@ void World::sub_5AC289(Group* group, uint8_t x, uint8_t y) {
     if (use_relative) {
         group->group_sub->field_0x44 = min_speed;
     }
-    group->group_sub->field_0x20 = 4;
+    group->group_sub->order = 4;
     group->group_sub->order_pos = PosYX(x, y).val;
 }
 
@@ -2837,7 +2837,7 @@ void World::sub_5AC289(Group* group, uint8_t x, uint8_t y) {
 // 5AC507
 void World::sub_5AC507(Group* group, uint8_t x, uint8_t y) {
     this->sub_5AC289(group, x, y);
-    group->group_sub->field_0x20 = 5;
+    group->group_sub->order = 5;
 }
 
 // 5A457A
@@ -2871,7 +2871,7 @@ void World::sub_5AC137(Group* group) {
 // 5AC785
 void World::sub_5AC785(Group* group, uint8_t x, uint8_t y) {
     this->FUN_005acd4c(group);
-    group->group_sub->field_0x20 = 2;
+    group->group_sub->order = 2;
     group->group_sub->order_pos = PosYX{x, y}.val;
 }
 
@@ -2879,7 +2879,7 @@ void World::sub_5AC785(Group* group, uint8_t x, uint8_t y) {
 // 5AC7C8
 void World::sub_5AC7C8(Group* group) {
     this->FUN_005acd4c(group);
-    group->group_sub->field_0x20 = 0x11;
+    group->group_sub->order = 0x11;
     Unit* head = group->unit_list.GetHead();
     group->group_sub->order_pos = head->position->CompatGetYX();
     group->group_sub->order_age = 0;
@@ -2896,7 +2896,7 @@ void World::sub_5AC8A2(Group* group, uint8_t range) {
         this->sub_5A9383(unit);
     }
 
-    group->group_sub->field_0x20 = 1;
+    group->group_sub->order = 1;
     this->sub_5AC137(group);
 
     if (range == 0) {
@@ -3259,7 +3259,7 @@ void World::sub_5AC206(Group* group, uint8_t x, uint8_t y, Spell* spell) {
         unit->spell = nullptr;
     }
 
-    group->group_sub->field_0x20 = 0;
+    group->group_sub->order = 0;
 }
 
 // 5AC983 — place a newly respawned group into the world.
@@ -3271,7 +3271,7 @@ void World::sub_5AC983(Group* group, int param) {
         this->sub_5A9383(unit);
     }
 
-    group->group_sub->field_0x20 = 0x12;
+    group->group_sub->order = 0x12;
     this->sub_5AC137(group);
 
     if (param == 0) {
@@ -3377,7 +3377,7 @@ void World::sub_5ABF50(Player* player) {
 // 5ABFBC
 void World::sub_5ABFBC(Group* group) {
     this->sub_5AF623(group);
-    uint8_t cmd = group->group_sub->field_0x20;
+    uint8_t cmd = group->group_sub->order;
     if (cmd == 0xFF) {
         this->sub_5AF022(group);
     } else {
@@ -4071,7 +4071,7 @@ void World::sub_5AE5F5(Group* group) {
 // 5AF623
 void World::sub_5AF623(Group* group) {
     if (group->unit_list.GetCount() == 0) {
-        group->group_sub->field_0x20 = 0xFF;
+        group->group_sub->order = 0xFF;
     }
 }
 
@@ -4465,7 +4465,7 @@ void World::sub_5AC187(Group* group, Unit* target, Spell*) {
         unit->spell = nullptr;
     }
 
-    group->group_sub->field_0x20 = 0;
+    group->group_sub->order = 0;
 }
 
 // 5ACAA7 — order group to retreat/evade (state 0x13).
@@ -4477,7 +4477,7 @@ void World::sub_5ACAA7(Group* group) {
         this->sub_5A943B(unit);
     }
 
-    group->group_sub->field_0x20 = 0x13;
+    group->group_sub->order = 0x13;
 }
 
 // 5ACAFA — order group to idle/wander (state 0).
@@ -4489,7 +4489,7 @@ void World::sub_5ACAFA(Group* group) {
         this->sub_5A9918(unit);
     }
 
-    group->group_sub->field_0x20 = 0;
+    group->group_sub->order = 0;
 }
 
 // 5B0762 — evaluate pending trigger checks.

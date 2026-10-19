@@ -2174,7 +2174,7 @@ void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
                 }
             }
 
-            if (unit->group->group_sub->field_0x20 == 0x12 && unit->eye2->cast_action == 5) {
+            if (unit->group->group_sub->order == 0x12 && unit->eye2->cast_action == 5) {
                 int32_t size = unit->VMethod3();
                 uint8_t range = this->sub_591A96(step, dest.val, size);
                 if (this->field41_0x58d80->UnitMaxRange(unit) < range) {
