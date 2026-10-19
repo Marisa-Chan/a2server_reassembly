@@ -367,7 +367,7 @@ void MapStuff::MoveStepTowardPos(Unit* unit, PosYX yx, uint8_t max_range) {
 
     if (distance <= max_range) {
         if (max_range != 0) {
-            this->sub_5918E2(unit, yx);
+            this->FacePosition(unit, yx);
         }
         return;
     }
@@ -406,7 +406,7 @@ void MapStuff::MoveStepTowardPos(Unit* unit, PosYX yx, uint8_t max_range) {
         if (ok) {
             uint8_t facing = this->GetFacingFor(unit, next_yx);
             if (unit->eye->field0_0x0 != facing) {
-                this->sub_5918E2(unit, next_yx);
+                this->FacePosition(unit, next_yx);
                 unit->eye2->cast_action = 10;
             } else {
                 unit->eye2->cast_action = 0;
@@ -1733,7 +1733,7 @@ void MapStuff::FaceTarget(Unit* unit, Unit* target) {
 }
 
 // 5918E2
-void MapStuff::sub_5918E2(Unit* unit, PosYX yx) {
+void MapStuff::FacePosition(Unit* unit, PosYX yx) {
     uint8_t facing = this->GetFacingFor(unit, yx);
     this->SetFacing(unit, facing);
 }
