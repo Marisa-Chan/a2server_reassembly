@@ -1179,7 +1179,7 @@ void World::sub_5A6801(Unit* caster, Unit* target, int32_t spell_id) {
         case spell::darkness:
         case spell::light:
         case spell::wall_of_earth:
-            this->sub_5A551C(caster, target->position->CompatGetYX(), spell);
+            this->BeginPositionCast(caster, target->position->CompatGetYX(), spell);
             break;
 
         case spell::acid_stream: {
@@ -1187,7 +1187,7 @@ void World::sub_5A6801(Unit* caster, Unit* target, int32_t spell_id) {
             uint8_t new_x = caster->position->GetX() + this->field24_0xa50->field48_0x58e88[facing >> 5];
             uint8_t new_y = caster->position->GetY() + this->field24_0xa50->field49_0x58e90[facing >> 5];
             uint16_t pos_yx = PosYX(new_x, new_y);
-            this->sub_5A551C(caster, pos_yx, spell);
+            this->BeginPositionCast(caster, pos_yx, spell);
             break;
         }
 
@@ -1210,7 +1210,7 @@ void World::sub_5A6801(Unit* caster, Unit* target, int32_t spell_id) {
                     }
                 }
                 if (found_yx != 0) {
-                    this->sub_5A551C(caster, found_yx, spell);
+                    this->BeginPositionCast(caster, found_yx, spell);
                 }
             }
             break;
@@ -3707,7 +3707,7 @@ void World::sub_5A8A55(Unit* unit) {
         Spell* spell = this->GetCastableSpell(unit, spell::teleport, 0);
         if (spell != nullptr) {
             unit->eye2->field49_0x60 = 1;
-            this->sub_5A551C(unit, result, spell);
+            this->BeginPositionCast(unit, result, spell);
         } else {
             spell = this->GetCastableSpell(unit, spell::invisibility, 0);
             // WAT: enchantments & 0xC is a check for whether the unit under a "fireball" and "fire wall" spells, which are not enchantments.
@@ -3736,7 +3736,7 @@ void World::sub_5A8DBC(Unit* unit) {
         Spell* spell = this->GetCastableSpell(unit, spell::teleport, 0);
         if (spell != nullptr) {
             unit->eye2->field49_0x60 = 1;
-            this->sub_5A551C(unit, result, spell);
+            this->BeginPositionCast(unit, result, spell);
         } else {
             spell = this->GetCastableSpell(unit, spell::invisibility, 0);
             // WAT: enchantments & 0xC makes no sense. Was it supposed to be (1 << 0xC)?
@@ -3870,7 +3870,7 @@ void World::BeginEnterBuilding(Unit* unit, Building* building) {
 }
 
 // 5A551C
-void World::sub_5A551C(Unit* unit, uint16_t pos_yx, Spell* spell) {
+void World::BeginPositionCast(Unit* unit, uint16_t pos_yx, Spell* spell) {
     unit->eye2->cast_action = 9;
     unit->eye2->field30_0x3c = pos_yx;
     unit->eye2->spell = spell;
@@ -4024,7 +4024,7 @@ void World::ProcessUnitState(Unit* unit) {
         this->BeginAutobuffCast(unit, unit->eye2->unit5, unit->eye2->spell);
         break;
     case 14:
-        this->sub_5A551C(unit, unit->eye2->field30_0x3c, unit->eye2->spell);
+        this->BeginPositionCast(unit, unit->eye2->field30_0x3c, unit->eye2->spell);
         break;
     case 15:
         this->BeginEnterBuilding(unit, unit->eye2->field51_0x68);
