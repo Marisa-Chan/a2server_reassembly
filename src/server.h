@@ -188,7 +188,7 @@ public:
     void Tick();
     void sub_50979A();
     void ProcessHatPacket(Packet* pkt); // 5088DF
-    void sub_4F950F(); // 4F950F
+    void LoadSavedSacks(); // 4F950F
     void sub_5090FA(Player* player); // 5090FA
     void CheatCommand(Player* player, CString param_2);
 

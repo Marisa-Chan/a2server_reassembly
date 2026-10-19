@@ -5276,7 +5276,7 @@ void Server::SaveSack(Sack* sack) {
 }
 
 // 4F950F
-void Server::sub_4F950F() {
+void Server::LoadSavedSacks() {
     if (g_ServerConfig.gameType != 0 || this->field66_0x224 != 0) {
         return;
     }
@@ -5432,7 +5432,7 @@ void Server::ProcessHatPacket(Packet* pkt) {
         this->field50_0x1d4 = 0;
         this->UpdateHatAnnounce();
         if (pkt_info->param2 == 0 || g_ServerConfig.always_load_sacks != 0) {
-            this->sub_4F950F();
+            this->LoadSavedSacks();
         }
         this->field54_0x1f4 = pkt_info->param1;
         if (this->FileList.GetSize() == 0) {
