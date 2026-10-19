@@ -1233,7 +1233,7 @@ void MainWindow::OnNcMouseMove(UINT nHitTest, CPoint point) {
 void MainWindow::sub_48CCA1(TokenEntry* entry, int32_t idx, const char* str, int32_t tab) {
     this->item_cursor = new CCursor(str, 0x28, 0x28, 1000000000);
     this->drag_src_slot = idx;
-    this->field_0x410 = tab;
+    this->drag_src_tab = tab;
     this->drag_entry = entry;
 }
 
@@ -2242,7 +2242,7 @@ void MainWindow::ResetItemCursor() {
     this->item_cursor = nullptr;
     this->drag_entry = nullptr;
     this->drag_src_slot = -1;
-    this->field_0x410 = -1;
+    this->drag_src_tab = -1;
 }
 
 

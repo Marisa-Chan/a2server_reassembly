@@ -530,7 +530,7 @@ public:
 
     TokenEntry* drag_entry;
     int32_t drag_src_slot;
-    int32_t field_0x410;
+    int32_t drag_src_tab;
     CCursor* item_cursor;
 
     int32_t dialogsMask; //dialogsMask
