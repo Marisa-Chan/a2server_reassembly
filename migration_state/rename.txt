@@ -72,3 +72,4 @@ Player::field_0xa64 -> respawn_requested -- set by client packet 0x4B when main 
 Player::field_0xa68 -> shout_cooldown -- seconds until the player may yell again (shout_delay), decremented once per second
 Player::field_0xa6c -> team_ready -- team game readiness flag (#ready command sets it; sent instead of frags until teams start)
 Player::field_0xa7c -> last_save_tick -- GetTickCount() of the last character save (sub_4EE028); item ops re-save after 15s
+Player::field_0xa80 -> hat_char_id1 -- low dword of the HAT character id (HatCharId), used to find the player by char id

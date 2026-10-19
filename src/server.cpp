@@ -2086,7 +2086,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     // Set player fields.
     player->main_unit = unit;
     player->login = login;
-    player->field_0xa80 = pkt_word0;
+    player->hat_char_id1 = pkt_word0;
     player->field_0xa84 = pkt_word1;
     player->name = name;
     unit->name = name;
