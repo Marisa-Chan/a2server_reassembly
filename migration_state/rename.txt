@@ -12,3 +12,5 @@ PacketItemOperation::field_0xe -> param -- word parameter, meaning depends on op
 PacketItemOperation::field_0x10 -> slot -- spell book / inventory slot index (low byte; BOOK_POS_TO_SPELL_ID or inventory position)
 PacketItemOperation::field_0x11 -> slot_high -- high byte of the slot index (writers store slot>>8 here)
 PacketCmd::field_0xe -> param1 -- first generic word parameter of the 0x22 command packet (inventory pos / slot / drop coords)
+PacketCmd::field_0x10 -> param2 -- second generic word parameter (target slot / packed drop x|y<<8)
+PacketCmd::field_0x12 -> param3 -- third generic word parameter (init 1 in ctor; item count in inventory ops)

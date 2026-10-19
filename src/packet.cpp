@@ -400,7 +400,7 @@ PacketCmd::PacketCmd() {
     this->subtype    = 0;
     this->param1  = 0;
     this->param2 = 0;
-    this->field_0x12 = 1;
+    this->param3 = 1;
 }
 
 PacketCmd::PacketCmd(const PacketCmd* src) {

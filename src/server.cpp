@@ -3262,7 +3262,7 @@ void Server::sub_504a96(Packet* pkt) {
                         human,
                         from_type, packet_cmd->param1,
                         to_type, packet_cmd->param2,
-                        packet_cmd->field_0x12
+                        packet_cmd->param3
                     );
                 }
                 break;
@@ -3291,7 +3291,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (from_type == 2) {
                 // Pick item from bag.
                 count_before = human->inventory->items.GetSize();
-                item = human->inventory->sub_552E42(packet_cmd->param1, packet_cmd->field_0x12);
+                item = human->inventory->sub_552E42(packet_cmd->param1, packet_cmd->param3);
                 if (item) {
                     update_mask |= 0x282000;
                     item->field15_0x54 = 0;
@@ -3302,7 +3302,7 @@ void Server::sub_504a96(Packet* pkt) {
                 if (!shop) {
                     break;
                 }
-                item = shop->sub_5446C7(human, packet_cmd->param1, packet_cmd->field_0x12);
+                item = shop->sub_5446C7(human, packet_cmd->param1, packet_cmd->param3);
             } else if (from_type == 1) {
                 // Unequip item from body slot.
                 if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
