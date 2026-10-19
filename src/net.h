@@ -224,7 +224,7 @@ public:
 
     void WriteStatsLog(CString fname);//51f124
 
-    NetStru2* FUN_0041f520();
+    NetStru2* GetFirstClient();
 };
 ASSERT_OFFSET(NetStru1, packer_dat1, 0x90);
 ASSERT_OFFSET(NetStru1, field_0x1898, 0x1898);

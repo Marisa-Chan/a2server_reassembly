@@ -2255,7 +2255,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0xc1: {
-			NetStru2* conn = g_NetStru1_local.FUN_0041f520();
+			NetStru2* conn = g_NetStru1_local.GetFirstClient();
 			if (conn) {
 				g_CLlDriver.SetLatency(conn->GetUid(), packet_dword->value);
 			}
@@ -2514,7 +2514,7 @@ int32_t BigStruct2::FUN_0040d7f3() {
 	if (wnd->sessionMode == 0) {
 		g_NetStru1_local.sub_51C7CC(g_CmdLatency, 0);
 
-		NetStru2* conn = g_NetStru1_local.FUN_0041f520();
+		NetStru2* conn = g_NetStru1_local.GetFirstClient();
 		if (conn) {
 			g_CLlDriver.SetLatency(conn->GetUid(), g_CmdLatency);
 		}

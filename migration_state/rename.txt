@@ -529,3 +529,4 @@ NetStru1::FUN_0051d6b4 -> SendTeamState -- sends PacketData 0xC2 with teams-star
 NetStru1::FUN_0051cefb -> SendInfoPacket -- queues PacketInfo(id, param1, param2) to a player or broadcast
 NetStru1::sub_519221 -> SendUnitUpdate -- broadcasts/per-player unit state update packet (mask = update flags, 0xFFB = all)
 NetStru1::sub_51EEB7 -> UpdateConnStats -- per-second connection statistics accumulation
+NetStru1::sub_51C46E -> ResendPlayerUnits -- resends full unit states (main unit + unit list) to the player

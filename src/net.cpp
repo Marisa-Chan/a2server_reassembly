@@ -1602,7 +1602,7 @@ int NetStru1::IsActive() {
 }
 
 
-NetStru2* NetStru1::FUN_0041f520() {
+NetStru2* NetStru1::GetFirstClient() {
     if (this->active_connects.IsEmpty()) {
         return nullptr;
     }
