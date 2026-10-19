@@ -4471,9 +4471,9 @@ void NetStru1::sub_51A6D5(Unit* unit, Player* player, int32_t param5, int32_t pa
     packet.field_0xf = (uint16_t)param5;
     packet.data_size = 0;
 
-    packet.field_0xc = 2;
+    packet.mode = 2;
     if (param5 != 0 || param6 != unit->inventory->items.GetSize()) {
-        packet.field_0xc |= 0x80;
+        packet.mode |= 0x80;
     }
 
     packet.building_id = unit->building_id;
@@ -4554,7 +4554,7 @@ void NetStru1::sub_51A0EF(Unit* unit, Player* player, int32_t flags) {
     packet.entry_count = 0;
     packet.field_0xf = (uint16_t)flags;
     packet.data_size = 0;
-    packet.field_0xc = 1;
+    packet.mode = 1;
     packet.building_id = unit->building_id;
     packet.to_player_id = player->player_id;
     if (flags & 1) {
@@ -4604,7 +4604,7 @@ void NetStru1::sub_51A8B2(Token* token, Inventory* inventory, Player* player, in
     } else {
         packet.to_player_id = player->player_id;
     }
-    packet.field_0xc = (uint8_t)param;
+    packet.mode = (uint8_t)param;
     // ASM also calls a no-op library helper (unknown_libname_724) with inventory->items.m_nCount here.
     POSITION it = inventory->items.GetHeadPosition();
     while (it != nullptr) {
@@ -4629,7 +4629,7 @@ void NetStru1::sub_51AA26(Shop* shop, CMultiShopShelf* shelf, Player* player, ui
     } else {
         packet.to_player_id = player->player_id;
     }
-    packet.field_0xc = slot;
+    packet.mode = slot;
     Item empty_item;
     int32_t count = shelf->items.GetSize();
     for (int32_t i = 0; i < count; i++) {

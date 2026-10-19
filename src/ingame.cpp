@@ -1095,7 +1095,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		
 
 		case 0x76: {
-			if (wnd->field_0x408 && packet_state->field_0xc == wnd->field_0x410) {
+			if (wnd->field_0x408 && packet_state->mode == wnd->field_0x410) {
 				g_Cursors[CURSOR_DEFAULT]->Use();
 				if (wnd->field_0x408) {
 					delete wnd->field_0x408;
@@ -1103,7 +1103,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				wnd->ResetItemCursor();
 			}
 			CUnit* ct = nullptr;
-			switch (packet_state->field_0xc & 0x7f) {
+			switch (packet_state->mode & 0x7f) {
 			case 1:
 				if (this->field_0x9d0.Lookup(packet_state->building_id, *(CGameObject**)&ct) != 0) {
 					uint8_t *pdata = packet_state->data;
@@ -1140,7 +1140,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					ct->unitFlags |= 8;
 
 					if ((wnd->dialogsMask & 2) != 0) {
-						wnd->vis_root->FindChild(1000)->MsgProc(0x413, packet_state->field_0xc & 0x7f, 0);
+						wnd->vis_root->FindChild(1000)->MsgProc(0x413, packet_state->mode & 0x7f, 0);
 					}
 
 					ct->ReloadSprite();
@@ -1178,7 +1178,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 			case 2: {
 				if (this->field_0x9d0.Lookup(packet_state->building_id, *(CGameObject**)&ct) != 0) {
-					if ((packet_state->field_0xc & 0x80) == 0) {
+					if ((packet_state->mode & 0x80) == 0) {
 						ct->tokenEntries.RemoveAll();
 					} else {
 						int num = ct->tokenEntries.GetSize();
@@ -1282,7 +1282,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 								this->field_0x4974.SetAtGrow(i + packet_state->field_0xf, itm);
 							}
 
-							if ((packet_state->field_0xc & 0x80) == 0) {
+							if ((packet_state->mode & 0x80) == 0) {
 								this->field_0x4974.SetSize(packet_state->entry_count);
 							}
 							
@@ -1309,7 +1309,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					this->UpdateSelectionState();
 
 					if (wnd->dialogsMask & 2) {
-						wnd->vis_root->FindChild(1000)->MsgProc(0x413, packet_state->field_0xc & 0x7f, 0);
+						wnd->vis_root->FindChild(1000)->MsgProc(0x413, packet_state->mode & 0x7f, 0);
 					} else {
 						if (this->field_0x140 == 1 && this->field_0x138 == ct) {
 							wnd->vis_invtype1->VMethod33(ct);
@@ -1331,7 +1331,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 				for (int i = 0; i < packet_state->entry_count; i++) {
 					TokenEntry* d0 = nullptr;
-					if ((packet_state->field_0xc & 0x7f) == 4) {
+					if ((packet_state->mode & 0x7f) == 4) {
 						d0 = new TokenEntry(&pdata, 1);
 					} else {
 						d0 = new TokenEntry(&pdata, 0);
@@ -1361,7 +1361,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					}
 					tmp.RemoveAll();
 				} else {
-					wnd->vis_root->FindChild(1000)->MsgProc(0x413, packet_state->field_0xc & 0x7f, (uint32_t)&tmp);
+					wnd->vis_root->FindChild(1000)->MsgProc(0x413, packet_state->mode & 0x7f, (uint32_t)&tmp);
 				}
 			}
 				break;

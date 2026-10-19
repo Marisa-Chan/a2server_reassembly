@@ -573,7 +573,7 @@ public:
     void AppendByteInt(uint8_t a, int32_t v, uint8_t* slot);  // sub_5276E0
 public:
     uint16_t building_id;    // +0xA
-    uint8_t  field_0xc;    // +0xC
+    uint8_t  mode;    // +0xC
     uint16_t entry_count;  // +0xD  number of TLV entries (= 0 in ctor)
     uint16_t field_0xf;    // +0xF  (= 0 in ctor)
     uint16_t data_size;    // +0x11 byte length of TLV data (= 0 in ctor)
