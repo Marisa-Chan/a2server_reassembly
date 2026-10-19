@@ -364,3 +364,4 @@ Srv1::sub_59FC97 -> SpawnRandomSacks -- spawns count random sacks (0 = max(10, m
 Srv1::sub_59B7EA -> LoadMap -- loads the ALM map file
 Srv1::sub_59C3FB -> CreatePlayers -- creates players from alm->map_players
 Srv1::sub_59CD45 -> CreateUnits -- creates units from alm->units_datas
+Srv1::sub_59D891 -> LoadTriggers -- loads triggers/checks/actions from the alm into g_World->triggers

@@ -479,7 +479,7 @@ int Srv1::LoadMap(CString map_name) {
     }
 
     this->LoadTriggers(alm, 1);
-    this->sub_59F1BE(alm);
+    this->LoadSacks(alm);
 
     if (g_Server->field4_0x74 != 0) {
         this->sub_59C37A(alm);
@@ -1353,7 +1353,7 @@ void Srv1::LoadTriggers(MapAlm* alm, int flag) {
 }
 
 // 59F1BE
-void Srv1::sub_59F1BE(MapAlm* alm) {
+void Srv1::LoadSacks(MapAlm* alm) {
     // Build lookup maps
     CMap<int32_t, int32_t, Building*, Building*> buildings_map;
     CMap<int32_t, int32_t, Unit*, Unit*> units_map;
