@@ -5439,7 +5439,7 @@ void BigStruct2::sub_406F7B() {
 				CGameObject* obj94 = this->tile_structures[idx];
 				uint32_t hgt = this->height_cells[x + 4 + (y + 4) * (this->view_tiles_x + 8)];
 				if (obj94 != nullptr && obj94->FUN_0041f130() < 2 && g_StructuresInfo[obj94->typeId]->flat != 0) {
-					obj94->VMethod6(x, y, light);
+					obj94->Draw(x, y, light);
 					StructureInfo* si = g_StructuresInfo[obj94->typeId];
 					CRect sel = si->selection;
 					sel.OffsetRect(obj94->mapBoundsLeft << 5,
@@ -5466,13 +5466,13 @@ void BigStruct2::sub_406F7B() {
 					if (g_Shadows != 0) {
 						obj9c->VMethod7(x, y, light);
 					}
-					obj9c->VMethod6(x, y, light);
+					obj9c->Draw(x, y, light);
 				}
 				if (obj98 != nullptr && obj98->FUN_0041f130() == 0) {
 					if (g_Shadows != 0) {
 						obj98->VMethod7(x, y, light);
 					}
-					obj98->VMethod6(x, y, light);
+					obj98->Draw(x, y, light);
 				}
 			}
 		}
@@ -5490,7 +5490,7 @@ void BigStruct2::sub_406F7B() {
 				CGameObject* bld = this->tile_structures[idx];
 				uint32_t hgt = this->height_cells[x + 4 + (y + 4) * (this->view_tiles_x + 8)];
 				if (bld != nullptr && bld->FUN_0041f130() < 2 && g_StructuresInfo[bld->typeId]->flat == 0) {
-					bld->VMethod6(x, y, light);
+					bld->Draw(x, y, light);
 					StructureInfo* si = g_StructuresInfo[bld->typeId];
 					CRect sel = si->selection;
 					sel.OffsetRect(bld->mapBoundsLeft << 5,
@@ -5511,7 +5511,7 @@ void BigStruct2::sub_406F7B() {
 					if (g_Shadows != 0) {
 						unit->VMethod7(x, y, light);
 					}
-					unit->VMethod6(x, y, light);
+					unit->Draw(x, y, light);
 				}
 				if (g_Lightning != 0) {
 					uint16_t lkey = (x + this->view_x) | ((y + this->view_y) << 8);
@@ -5638,7 +5638,7 @@ void BigStruct2::sub_406F7B() {
 		uint16_t key;
 		CGameObject* obj;
 		this->field_0x9ec.GetNextAssoc(it, key, obj);
-		obj->VMethod6(0, 0, 0);
+		obj->Draw(0, 0, 0);
 	}
 
 	for (int32_t y = -4; y < this->view_tiles_y + 7; y++) {
@@ -5676,7 +5676,7 @@ void BigStruct2::sub_406F7B() {
 					if (((CUnit*)obj)->death_state < 2) {
 						this->sub_404DA3(&sel, obj->unit_id);
 					}
-					obj->VMethod6(x, y, light);
+					obj->Draw(x, y, light);
 				}
 			}
 		}

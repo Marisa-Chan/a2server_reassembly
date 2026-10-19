@@ -401,7 +401,7 @@ int32_t CGameObject::GetTileHeight() { // 46f490
 }
 
 
-void CGameObject::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) { //46f4a0
+void CGameObject::Draw(int32_t arg1, int32_t arg2, int32_t arg3) { //46f4a0
 }
 
 
@@ -1773,7 +1773,7 @@ void CUnit::VMethod8(int32_t arg1, int32_t arg2, int32_t arg3) { // 466a78
     }
 }
 
-void CUnit::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
+void CUnit::Draw(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
     if (this->death_state >= 5) {
         return;
     }
@@ -3935,7 +3935,7 @@ void CStructure::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) {
 }
 
 // 462d11
-void CStructure::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) {
+void CStructure::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
     BigStruct2* map = this->pMapObject;
     StructureInfo* info = g_StructuresInfo[this->typeId];
 
@@ -4161,7 +4161,7 @@ CBridge::CBridge(int32_t width, int32_t height) {
 }
 
 // 463d26
-void CVerticalWoodenBridge::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) {
+void CVerticalWoodenBridge::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
     BigStruct2* map = this->pMapObject;
     StructureInfo* info = g_StructuresInfo[this->typeId];
 
@@ -4212,7 +4212,7 @@ CVerticalWoodenBridge::CVerticalWoodenBridge(int32_t width, int32_t height) : CB
 }
 
 // 463f0e
-void CHorisontalWoodenBridge::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) {
+void CHorisontalWoodenBridge::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
     BigStruct2* map = this->pMapObject;
     StructureInfo* info = g_StructuresInfo[this->typeId];
 
@@ -4284,7 +4284,7 @@ void CBackPack::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) {
 }
 
 // 462887
-void CBackPack::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) {
+void CBackPack::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
     int32_t half_width = g_spr_backpack->GetWidth(0) / 2;
     int32_t half_height = g_spr_backpack->GetHeight(0) / 2;
 
@@ -4541,7 +4541,7 @@ int32_t CProjectile::VMethod11() {
 }
 
 // 46e291
-void CProjectile::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) {
+void CProjectile::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
     if (g_ProjectileInfos.GetSize() <= this->typeId || g_ProjectileInfos[this->typeId] == nullptr) {
         return;
     }

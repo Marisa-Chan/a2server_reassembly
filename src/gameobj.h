@@ -130,7 +130,7 @@ public:
 	virtual int32_t VMethod3();
 	virtual int32_t GetTileWidth();
 	virtual int32_t GetTileHeight();
-	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3);
+	virtual void Draw(int32_t arg1, int32_t arg2, int32_t arg3);
 	virtual void VMethod7(int32_t arg1, int32_t arg2, int32_t arg3);
 	virtual void VMethod8(int32_t arg1, int32_t arg2, int32_t arg3);
 	virtual void VMethod9(int32_t arg1, int32_t arg2, int32_t arg3);
@@ -242,7 +242,7 @@ public:
 	virtual int32_t VMethod3() override;
 	virtual int32_t GetTileWidth() override;
 	virtual int32_t GetTileHeight() override;
-	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) override;
+	virtual void Draw(int32_t arg1, int32_t arg2, int32_t arg3) override;
 	virtual void VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) override;
 	virtual void VMethod8(int32_t arg1, int32_t arg2, int32_t arg3) override;
 	virtual void VMethod9(int32_t arg1, int32_t arg2, int32_t arg3) override;
@@ -408,7 +408,7 @@ public:
 
 	virtual int32_t GetTileWidth() override; // 46f5c0
 	virtual int32_t GetTileHeight() override; // 46f5d0
-	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) override; // 462887
+	virtual void Draw(int32_t arg1, int32_t arg2, int32_t arg3) override; // 462887
 	virtual void VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) override; // 46295a
 	virtual void VMethod10() override; // 462a98
 
@@ -425,7 +425,7 @@ public:
 
 	virtual int32_t GetTileWidth() override; // 46f660
 	virtual int32_t GetTileHeight() override; // 46f670
-	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) override; // 46e291
+	virtual void Draw(int32_t arg1, int32_t arg2, int32_t arg3) override; // 46e291
 
 	virtual int32_t VMethod11() override; // 46d8d8
 	virtual void VMethod12() override; // 46e805
@@ -452,7 +452,7 @@ public:
 
 	virtual int32_t GetTileWidth() override; //4637ca
 	virtual int32_t GetTileHeight() override; //4637eb
-	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) override; //462d11
+	virtual void Draw(int32_t arg1, int32_t arg2, int32_t arg3) override; //462d11
 	virtual void VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) override; //462f58
 	virtual void VMethod8(int32_t arg1, int32_t arg2, int32_t arg3) override; //4631f3
 	virtual void VMethod9(int32_t arg1, int32_t arg2, int32_t arg3) override; //46380c
@@ -490,7 +490,7 @@ class CVerticalWoodenBridge : public CBridge {
 public:
 	virtual ~CVerticalWoodenBridge(); //4a9ef0
 
-	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) override; //463d26
+	virtual void Draw(int32_t arg1, int32_t arg2, int32_t arg3) override; //463d26
 	virtual void VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) override; //463f01 (stub)
 
 	CVerticalWoodenBridge(int32_t width, int32_t height); //4a9e90
@@ -503,7 +503,7 @@ class CHorisontalWoodenBridge : public CBridge {
 public:
 	virtual ~CHorisontalWoodenBridge(); //4a9f70
 
-	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) override; //463f0e
+	virtual void Draw(int32_t arg1, int32_t arg2, int32_t arg3) override; //463f0e
 	virtual void VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) override; //46410f (stub)
 
 	CHorisontalWoodenBridge(int32_t width, int32_t height); //4a9f10
