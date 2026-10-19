@@ -80,7 +80,7 @@ void Building::InitFromTable(uint8_t width, uint8_t height) {
         this->unpassable_mask = values[0].unpassable_mask;
         this->tiles_mask = values[0].tiles_mask;
     }
-    MapStuff_Instance->sub_59451F(this);
+    MapStuff_Instance->PlaceBuilding(this);
 }
 
 // 54293A

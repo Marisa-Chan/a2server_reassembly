@@ -1848,7 +1848,7 @@ int32_t MapStuff::RemoveBuilding(Building* building) {
 }
 
 // 59451F --- place building on the map
-int32_t MapStuff::sub_59451F(Building* building) {
+int32_t MapStuff::PlaceBuilding(Building* building) {
     int bit_index = 0;
     for (int row = 0; row < building->height; row++) {
         for (int col = 0; col < building->width; col++) {
