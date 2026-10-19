@@ -248,3 +248,4 @@ TokenEntry::sub_43A6D5 -> IsQuestTreasure -- item is the magic item literally na
 TokenEntry::sub_4396FB -> IsTwoHandedWeapon -- weapon hero-class is bowman/archer/xbowman/2H; equipping it empties the other hand
 TokenEntry::sub_4A7850 -> AddCount -- stack count += num
 TokenEntry::sub_4A7880 -> RemoveCount -- stack count -= num, restored and 0 returned when it would go below 1
+TokenEntry::sub_4A7900 -> IsStackableWith -- same item_id and compatible slot_code (5..8 interchangeable) / flg for stack merging

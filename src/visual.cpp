@@ -15885,7 +15885,7 @@ void VisInvBase::sub_4A5FAB(int32_t x, int32_t y, int32_t idx) {
 TokenEntry* VisInvBase::VMethod29(TokenEntry* o, int32_t num) {
     for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
         TokenEntry* entry = this->grid_source->GetAt(i);
-        if (!o->sub_4A7900(entry)) {
+        if (!o->IsStackableWith(entry)) {
             continue;
         }
         if (entry->RemoveCount(num)) {
@@ -15913,7 +15913,7 @@ TokenEntry* VisInvBase::VMethod29(TokenEntry* o, int32_t num) {
 int32_t VisInvBase::VMethod26(TokenEntry* o, int32_t idx) {
     for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
         TokenEntry* entry = this->grid_source->GetAt(i);
-        if (!o->sub_4A7900(entry)) {
+        if (!o->IsStackableWith(entry)) {
             continue;
         }
         entry->AddCount(o->count);
@@ -15961,7 +15961,7 @@ int32_t VisInvBase::VMethod27(TokenEntry* o) {
     }
     for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
         TokenEntry* entry = this->grid_source->GetAt(i);
-        if (!entry->sub_4A7900(o)) {
+        if (!entry->IsStackableWith(o)) {
             continue;
         }
         entry->AddCount(o->count);
@@ -17160,7 +17160,7 @@ int32_t VisInvExtBase::sub_4B5B81() {
 TokenEntry* VisInvExtType1::VMethod29(TokenEntry* o, int32_t num) {
     for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
         TokenEntry* entry = this->grid_source->GetAt(i);
-        if (!o->sub_4A7900(entry)) {
+        if (!o->IsStackableWith(entry)) {
             continue;
         }
         if (entry->IsDepleted()) {
@@ -18029,7 +18029,7 @@ int32_t VisInvExtType3::sub_4B91F9(TokenEntry* o) {
     }
     for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
         TokenEntry* entry = this->grid_source->GetAt(i);
-        if (copy.sub_4A7900(entry)) {
+        if (copy.IsStackableWith(entry)) {
             return 0;
         }
     }

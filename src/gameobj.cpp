@@ -930,7 +930,7 @@ CString TokenEntry::FUN_004394f3() { //4394f3
 }
 
 
-int32_t TokenEntry::sub_4A7900(TokenEntry* other) { //4a7900
+int32_t TokenEntry::IsStackableWith(TokenEntry* other) { //4a7900
     if (this == other) {
         return 1;
     }
