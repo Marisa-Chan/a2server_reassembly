@@ -57,7 +57,7 @@ struct SaveFileInfo {
 
 struct Fame1 {
     CString str;
-    uint32_t field_x4 = 0;
+    uint32_t score = 0;
     uint32_t field_x8 = 0;
     uint32_t field_xc = 0;
 };

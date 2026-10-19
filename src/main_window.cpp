@@ -265,13 +265,13 @@ void CFameHall::FUN_004acafa() {
     Fame1 fame;
     int32_t tval = 70000;
     for (int i = 0; i < 9; i++) {
-        fame.field_x4 = tval + GetRandS16(5000);
+        fame.score = tval + GetRandS16(5000);
         fame.str = TxtFile::AllLines[i + 0x107];
         this->FUN_004ac3ce(fame);
         tval -= 7000;
     }
 
-    fame.field_x4 = 0;
+    fame.score = 0;
     fame.str = TxtFile::AllLines[0x110];
     this->FUN_004ac3ce(fame);
 }
@@ -289,7 +289,7 @@ void CFameHall::FUN_004ac839(CFile* file) {
         int32_t len = fame.str.GetLength() + 1;
         file->Write(&len, 4);
         file->Write(fame.str, len);
-        file->Write(&fame.field_x4, 4);
+        file->Write(&fame.score, 4);
         file->Write(&fame.field_x8, 4);
         file->Write(&fame.field_xc, 4);
     }
@@ -315,7 +315,7 @@ void CFameHall::FUN_004ac945(CFile* file) {
 
             fame.str = buf;
 
-            file->Read(&fame.field_x4, 4);
+            file->Read(&fame.score, 4);
             file->Read(&fame.field_x8, 4);
             file->Read(&fame.field_xc, 4);
         }
@@ -361,7 +361,7 @@ void CFameHall::FUN_004ac3ce(const Fame1& fame) {
         int32_t i = 0;
         for (i = 0; i < this->m_Entries.GetSize(); i++) {
             Fame1& f = this->m_Entries[i];
-            if (f.field_x4 <= fame.field_x4) {
+            if (f.score <= fame.score) {
                 this->m_Entries.InsertAt(i, fame);
                 break;
             }
@@ -388,9 +388,9 @@ void CFameHall::SubmitScore() { //4ac498
     if (unit) {
         fm.str = unit->str1;
         if (this->m_nTotalTime == 0) {
-            fm.field_x4 = unit->exp_summary / 500000.0 * this->m_nDifficultyWeight;
+            fm.score = unit->exp_summary / 500000.0 * this->m_nDifficultyWeight;
         } else {
-            fm.field_x4 = unit->exp_summary / (this->m_nTotalTime * 10.0) * this->m_nDifficultyWeight;
+            fm.score = unit->exp_summary / (this->m_nTotalTime * 10.0) * this->m_nDifficultyWeight;
         }
 
         this->FUN_004ac3ce(fm);

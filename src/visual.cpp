@@ -22142,7 +22142,7 @@ void VisFameHall::VMethod7() {
             g_font4->DrawTextWithShadow(top_left.x + this->rank_rects[i].left, top_left.y + this->rank_rects[i].top, str, 0, palette_brown_derby->GetPalette(0), 1);
             Fame1& entry = this->fame->m_Entries[i];
             g_font4->DrawTextWithShadow(top_left.x + this->name_rects[i].left, top_left.y + this->name_rects[i].top, entry.str, 0, palette_brown_derby->GetPalette(0), 1);
-            str.Format("%d", entry.field_x4);
+            str.Format("%d", entry.score);
             FUN_00476987(&str);
             g_font4->DrawTextWithShadow(top_left.x + this->score_rects[i].right, top_left.y + this->score_rects[i].top, str, 1, palette_tawny_port->GetPalette(0), 1);
         }
