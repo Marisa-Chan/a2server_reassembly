@@ -161,7 +161,7 @@ void Outpost::sub_543EC3(Group* group) {
         } else {
             unit_original->VMethod11(unit_copy);
         }
-        unit_original->field_x18 = 0;
+        unit_original->sent_to_mask = 0;
 
         int32_t placed;
         if (this->spread != 0) {

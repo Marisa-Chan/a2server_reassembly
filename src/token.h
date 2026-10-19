@@ -137,7 +137,7 @@ public:
 	uint16_t typeId;
 	TokenPos* position = nullptr;
 	Player* pOwner = nullptr;
-	uint16_t field_x18;
+	uint16_t sent_to_mask;
 	int8_t field_x1a;
 	int8_t field_x1b;
 	int32_t _exp;

@@ -241,7 +241,7 @@ void Server::sub_4F1E2A() {
                     if (unit_it != nullptr) {
                         unit_list.RemoveAt(unit_it);
                     }
-                    main_unit->field_x18 = 0;
+                    main_unit->sent_to_mask = 0;
                     this->sub_500907(player, 0, 0, 0, 0, 0, 0);
                     this->sub_5013D4(player);
                     player->mission_result = 0;
@@ -2555,7 +2555,7 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
     unit->decay = 0;
     unit->VMethod18();
     unit->unit_attrs &= ~0x08;
-    unit->field_x18 = 0;
+    unit->sent_to_mask = 0;
     unit->seen_by_mask = player->vision_sharing_id;
 
     return unit;
@@ -5753,7 +5753,7 @@ void SackList::sub_554B03(Player* player) {
         Sack* sack = this->list.GetNext(pos);
         
         if (sack) {
-            sack->field_x18 = sack->field_x18 & ~player->vision_sharing_id;
+            sack->sent_to_mask = sack->sent_to_mask & ~player->vision_sharing_id;
         }
     }
 }
@@ -5901,7 +5901,7 @@ void SackList::FUN_005540ed() {
                     Player* player = g_PlayersList->sub_535B50(i + 0x10);
                     if (player) {
                         // Check if player can see this sack (not masked) or it's marked for visibility
-                        bool player_cannot_see = !(sack->field_x18 & player->vision_sharing_id);
+                        bool player_cannot_see = !(sack->sent_to_mask & player->vision_sharing_id);
                         bool marked_visible = (sack->resend_mask & player->vision_sharing_id) != 0;
                         if (player_cannot_see || marked_visible) {
                             g_NetStru1_main.sub_51AC77(sack, player, 0);
@@ -6124,7 +6124,7 @@ void Server::sub_5090FA(Player* player) {
             if (pos != nullptr) {
                 this->srv_stru1->units_list->unit_list.RemoveAt(pos);
             }
-            unit->field_x18 = 0;
+            unit->sent_to_mask = 0;
             uint8_t saved_spell_id = unit->eye2->spell_id;
             this->sub_500907(player, 0, 0, 0, 0, 0, 0);
             this->sub_5013D4(player);

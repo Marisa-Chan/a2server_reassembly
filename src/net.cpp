@@ -130,7 +130,7 @@ void NetStru1::sub_51C61E(Token* token) {
     POSITION pos = g_PlayersList->list.GetHeadPosition();
     while (pos != nullptr) {
         Player* player = g_PlayersList->list.GetNext(pos);
-        if (token->field_x18 & player->vision_sharing_id) {
+        if (token->sent_to_mask & player->vision_sharing_id) {
             packet.to_player_id = player->player_id;
             this->QueuePacketSend(&packet);
         }
@@ -404,7 +404,7 @@ void NetStru1::sub_51C46E(Player* player) {
         POSITION pos = player->unit_list->unit_list.GetHeadPosition();
         while (pos != nullptr) {
             Unit* unit = player->unit_list->unit_list.GetNext(pos);
-            unit->field_x18 &= ~player->vision_sharing_id;
+            unit->sent_to_mask &= ~player->vision_sharing_id;
             g_NetStru1_main.sub_519221(unit, player, 0xFFB, -1, 0, 0);
         }
     }
@@ -672,10 +672,10 @@ void NetStru1::FUN_004fb4ca(Unit* unit, Player* new_owner) {
 
     // Update unit's vision sharing flags.
     uint16_t old_vision_mask = ~old_owner->vision_sharing_id;
-    unit->field_x18 = unit->field_x18 & old_vision_mask;
+    unit->sent_to_mask = unit->sent_to_mask & old_vision_mask;
     
     uint16_t new_vision_mask = ~new_owner->vision_sharing_id;
-    unit->field_x18 = unit->field_x18 & new_vision_mask;
+    unit->sent_to_mask = unit->sent_to_mask & new_vision_mask;
     
     // Send network packet about unit ownership change.
     g_NetStru1_main.sub_519221(unit, 0, 0xFFFFFFFF, 0xFFB, 0, 0);
@@ -4519,7 +4519,7 @@ void NetStru1::sub_51A0EF(Unit* unit, Player* player, int32_t flags) {
     }
 
     if (unit->typeId < 0x21 || unit->typeId >= 0x40) {
-        if (unit->field_x18 & player->vision_sharing_id) {
+        if (unit->sent_to_mask & player->vision_sharing_id) {
             return;
         }
 
@@ -4726,7 +4726,7 @@ void NetStru1::sub_51AC77(Token* token, Player* player, uint8_t flag) {
             }
         }
 
-        sack->field_x18 |= player->vision_sharing_id;
+        sack->sent_to_mask |= player->vision_sharing_id;
         sack->resend_mask &= ~player->vision_sharing_id;
         this->QueuePacketSend(&packet);
         return;
@@ -4734,7 +4734,7 @@ void NetStru1::sub_51AC77(Token* token, Player* player, uint8_t flag) {
 
     if (token->VMethod9()) {
         Building* building = static_cast<Building*>(token);
-        building->field_x18 |= (player ? player->vision_sharing_id : 0xFFFF);
+        building->sent_to_mask |= (player ? player->vision_sharing_id : 0xFFFF);
         if (building->typeId != 0 && building->hp_max != 0) {
             PacketSync& packet = PacketSync::Inst;
             packet.id = 0x82;

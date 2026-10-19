@@ -529,7 +529,7 @@ void Unit::VMethod11(Unit* unit) {
     }
 
     this->pOwner = unit->pOwner;
-    this->field_x18 = 0;
+    this->sent_to_mask = 0;
     this->_exp = unit->_exp;
 
     while (!this->_effects.IsEmpty()) {
@@ -1600,12 +1600,12 @@ uint16_t Unit::sub_528763() {
 
 // 5287C4
 int Unit::sub_5287c4(Player* player) {
-    return (this->field_x18 & player->vision_sharing_id) == 0;
+    return (this->sent_to_mask & player->vision_sharing_id) == 0;
 }
 
 // 5287EC
 void Unit::sub_5287ec(Player* player) {
-    this->field_x18 |= player->vision_sharing_id;
+    this->sent_to_mask |= player->vision_sharing_id;
 }
 
 // 52D904

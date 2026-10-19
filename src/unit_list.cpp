@@ -315,7 +315,7 @@ void UnitList::sub_5579D8(Player* player) {
 	POSITION it = this->unit_list.GetHeadPosition();
 	while (it) {
 		Unit* unit = this->unit_list.GetNext(it);
-		unit->field_x18 &= ~player->vision_sharing_id;
+		unit->sent_to_mask &= ~player->vision_sharing_id;
 	}
 }
 
