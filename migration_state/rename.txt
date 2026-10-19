@@ -413,3 +413,4 @@ Server::sub_4FA01F -> SetupArenaFileList -- arena mode file list setup
 Server::FUN_0050907e -> PumpNetwork -- process available packets then send all queued data
 SackList::sub_55BC58 -> Serialize -- serialises the sack list
 SpellEffectList::sub_55BF31 -> Serialize -- serialises the spell effect list
+World::FUN_005acd4c -> ClearGroupOrders -- resets every unit and zeroes group_sub->order; prelude of all group commands

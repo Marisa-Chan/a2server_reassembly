@@ -1455,7 +1455,7 @@ void World::sub_5A9B6B(Unit* unit) {
     if (unit->eye->field139_0x98 != 0) {
         unit->eye->field139_0x98 = 0;
         if (unit->state == 1) {
-            this->FUN_005a9832(unit);
+            this->PrepareUnitOrder(unit);
             this->sub_5A9A6A(unit);
         } else if (unit->state == 0xA) {
             unit->eye2->field2_0x4 = 1;
@@ -2683,7 +2683,7 @@ void World::sub_5A92AF(Unit* unit, Unit* target, Spell* spell) {
     unit->eye2->cast_action = 0;
 }
 
-void World::FUN_005a9832(Unit* unit) { //5a9832
+void World::PrepareUnitOrder(Unit* unit) { //5a9832
     if (unit->eye->field0_0x0 != unit->eye->field1_0x1) {
         unit->eye->field1_0x1 = unit->eye->field0_0x0;
     }
@@ -2702,7 +2702,7 @@ void World::FUN_005a9832(Unit* unit) { //5a9832
 }
 
 void World::sub_5A9AC4(Unit* unit) { //5a9ac4
-    this->FUN_005a9832(unit);
+    this->PrepareUnitOrder(unit);
     unit->eye2->field43_0x50 = 0;
 }
 
@@ -2721,7 +2721,7 @@ void World::sub_5A9A6A(Unit* unit) { //5a9a6a
 // Reset unit to idle and register it in the world.
 // 5A9A8F
 void World::sub_5A9A8F(Unit* unit) {
-    this->FUN_005a9832(unit);
+    this->PrepareUnitOrder(unit);
     this->sub_5A9A6A(unit);
     unit->eye2->field43_0x50 = 1;
 }
