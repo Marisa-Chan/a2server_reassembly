@@ -38,3 +38,4 @@ PacketSync::field_0xc -> hp -- synced building hp
 PacketUnitProperties::field_0xa -> unit_id -- unit whose equip props follow
 PacketPing::field_0xa -> unit_id -- unit whose hp is reported
 PacketPing::field_0xc -> hp -- unit hp after damage
+PacketUnitUpdate::field_0xe -> flags_size -- byte width of flags_mask (1..4), also selects packet id 0x6c/6e/6f/70

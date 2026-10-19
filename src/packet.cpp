@@ -229,7 +229,7 @@ void PacketUnitUpdate::VMethod3(NetStru2* net) {
     }
 
     net->WriteData(&this->id, 1);
-    net->WriteData(&this->unit_id, this->field_0xe + 2);
+    net->WriteData(&this->unit_id, this->flags_size + 2);
     net->WriteData(this->data, this->data_offset);
 }
 
@@ -237,40 +237,40 @@ void PacketUnitUpdate::VMethod4(NetStru2* net) {
     //sub_527A6C
     switch (this->id) {
     case 0x6c:
-        this->field_0xe = 4;
+        this->flags_size = 4;
         break;
     case 0x6e:
-        this->field_0xe = 1;
+        this->flags_size = 1;
         break;
     case 0x6f:
-        this->field_0xe = 2;
+        this->flags_size = 2;
         break;
     case 0x70:
-        this->field_0xe = 3;
+        this->flags_size = 3;
         break;
     }
     this->flags_mask = 0;
-    net->ReadData(&this->unit_id, this->field_0xe + 2);
+    net->ReadData(&this->unit_id, this->flags_size + 2);
     net->ReadData(this->data, this->FUN_00527c3b());
 }
 
 uint32_t PacketUnitUpdate::GetDataSize() {
     //sub_57AEF0
-    return this->field_0xe + 3 + this->data_offset;
+    return this->flags_size + 3 + this->data_offset;
 }
 
 uint32_t PacketUnitUpdate::FUN_00527bd8() {
     if (this->flags_mask < 0x100) {
-        this->field_0xe = 1;
+        this->flags_size = 1;
     } else if (this->flags_mask < 0x10000) {
-        this->field_0xe = 2;
+        this->flags_size = 2;
     } else if (this->flags_mask < 0x1000000) {
-        this->field_0xe = 3;
+        this->flags_size = 3;
     } else {
-        this->field_0xe = 4;
+        this->flags_size = 4;
     }
 
-    return this->field_0xe;
+    return this->flags_size;
 }
 
 uint32_t PacketUnitUpdate::FUN_00527c3b() {

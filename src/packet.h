@@ -158,7 +158,7 @@ public:
     virtual uint32_t GetDataSize() override; // sub_57AEF0
 public:
     uint32_t data_offset;  // +0x0A  bytes already written into data[]
-    uint32_t field_0xe;    // +0x0E  (purpose unknown)
+    uint32_t flags_size;    // +0x0E  (purpose unknown)
     uint16_t unit_id;      // +0x12  low 16 bits of the unit's building_id
     uint32_t flags_mask;   // +0x14  bitmask of fields that follow in data[]
     uint8_t  data[0x400];  // +0x18  packed field values
