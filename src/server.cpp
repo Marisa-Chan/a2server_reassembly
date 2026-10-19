@@ -2187,7 +2187,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
     MapStuff_Instance->scan_presence_grid.RebuildPresenceGrid();
 
     // Add character unit to map.
-    MapStuff_Instance->sub_58E3D1(player->main_unit);
+    MapStuff_Instance->AddUnitToMap(player->main_unit);
 
     // Set unit_attrs |= 8 (phased in).
     player->main_unit->unit_attrs |= 8;

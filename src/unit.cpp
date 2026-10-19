@@ -1425,7 +1425,7 @@ void Unit::Die() {
     this->some_state = 0x10;
     this->state = 0x10;
 
-    MapStuff_Instance->sub_58E3D1(this);
+    MapStuff_Instance->AddUnitToMap(this);
 
     // Inline sub_58FD16: reset subcell position to cell center.
     this->position->x_subcell = 0x80;
@@ -1823,7 +1823,7 @@ void Unit::RemoveFromMap() {
         return;
     }
 
-    MapStuff_Instance->sub_58E3D1(this);
+    MapStuff_Instance->AddUnitToMap(this);
     this->unit_attrs |= 8;
     POSITION pos = dword_6CDB3C->unit_list.Find(this);
     if (pos != nullptr) {

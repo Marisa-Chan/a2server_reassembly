@@ -187,7 +187,7 @@ public:
     uint8_t CalcTerrainWalkCost(uint16_t terrain_code, uint8_t* out_walk_cost); // Computes edge-blended walk cost + classification code for a terrain cell — 58F48D
     void MarkMapBorder(); // Marks an 8-tile-thick obstacle border around the map edges — 58E670
 
-    int sub_58E3D1(Unit* unit); // add unit to map
+    int AddUnitToMap(Unit* unit); // add unit to map
     void sub_58AB48(CArchive& ar); // Serialize
     void sub_5948B0(CWordArray* encode_buf); // encode map terrain into encode_buf
     bool IsInMapBounds(uint8_t x, uint8_t y) const; // 594076

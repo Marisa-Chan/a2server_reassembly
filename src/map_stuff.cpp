@@ -1685,7 +1685,7 @@ int MapStuff::sub_595468(Unit* unit, PosYX yx) {
 }
 
 // 58E3D1 --- add unit to map
-int MapStuff::sub_58E3D1(Unit* unit) {
+int MapStuff::AddUnitToMap(Unit* unit) {
     this->FUN_005969c6(unit, PosYX(0, 0), 2);
     return this->sub_58B1D7(unit) != 0;
 }
@@ -1954,7 +1954,7 @@ void MapStuff::sub_5954AC(Unit* unit, uint8_t x, uint8_t y) {
     if (!this->sub_595468(unit, yx)) {
         return;
     }
-    this->sub_58E3D1(unit);
+    this->AddUnitToMap(unit);
     unit->position->SetCoords(x, y);
     this->sub_58AD4A(unit);
     this->field41_0x58d80->ResetUnitToHold(unit);

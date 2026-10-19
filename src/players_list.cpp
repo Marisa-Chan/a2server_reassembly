@@ -259,7 +259,7 @@ void PlayersList::sub_534DDD() {
 					}
 
 					while (unit != nullptr) {
-						MapStuff_Instance->sub_58E3D1(unit);
+						MapStuff_Instance->AddUnitToMap(unit);
 
 						// Remove from global active unit list (dword_6CDB3C).
 						POSITION found = dword_6CDB3C->unit_list.Find(unit);

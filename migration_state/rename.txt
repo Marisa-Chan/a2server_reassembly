@@ -578,3 +578,4 @@ MapStuff::sub_5963B9 -> ClearPresenceGrid -- clears the sector grid and resets p
 MapStuff::sub_59423F -> RelinkPointers -- remaps stale on-disk pointer fields through g_Server's remap table
 MapStuff::sub_594125 -> RelinkAfterLoad -- post-load map relink helper
 MapStuff::sub_58F48D -> CalcTerrainWalkCost -- edge-blended walk cost + classification code for a terrain cell
+MapStuff::sub_58E670 -> MarkMapBorder -- marks an 8-tile-thick obstacle border around the map edges
