@@ -59,7 +59,7 @@ void ServerControlDialog::sub_4954EA() {
 
     g_NetStru1_main.DisconnectClient(node);
     g_NetStru1_main.ProcessConnections();
-    g_NetStru1_main.FUN_0051d49b(player);
+    g_NetStru1_main.AnnouncePlayer(player);
 
     player->field_0xa50 = g_Server->tick16 - 1;
 

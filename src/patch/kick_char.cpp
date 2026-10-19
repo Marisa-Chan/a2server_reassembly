@@ -26,7 +26,7 @@ void KickPlayer(Player* player)
 
     // WAT: original patch also has `|| ((*(uint *)(extraout_EDX + 0x14) & 0x800) == 0`, but `EDX` is unset. Looks like a typo?
     if ((player->flags & GMF_ANY) != GMF_ANY) {
-        g_NetStru1_main.FUN_0051d49b(player);
+        g_NetStru1_main.AnnouncePlayer(player);
     }
     player->drop_deadline_tick16 = g_Server->tick16 - 1;
     g_PlayersList->sub_534DDD();

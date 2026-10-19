@@ -2640,7 +2640,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 if (target != nullptr) {
                     NetStru2* tns2 = g_NetStru1_main.GetClientByPlayerID(target->player_id);
                     if (tns2 != nullptr && tns2->is_local_player == 0) {
-                        g_NetStru1_main.FUN_0051d49b(target);
+                        g_NetStru1_main.AnnouncePlayer(target);
                     }
                 }
             } else if (cheat_string.Find("#locate ") == 0) {

@@ -125,7 +125,7 @@ public:
     void SendBarePacket(uint8_t id, Player* recpt);
     void SendTickPacket(Player* recpt);
     void UntrackToken(Token* token); // Remove unit/sack from network tracking
-    void FUN_0051d49b(Player* recpt);
+    void AnnouncePlayer(Player* recpt);
 
     void FUN_0051cd89(const CString& name, Player* player);
 

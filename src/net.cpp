@@ -169,7 +169,7 @@ void NetStru1::SendBarePacket(uint8_t id, Player* player) {
 }
 
 // 51d49b
-void NetStru1::FUN_0051d49b(Player* player) {
+void NetStru1::AnnouncePlayer(Player* player) {
     PacketJoin& packet = PacketJoin::Inst;
     packet.id = 0x93;
     strcpy(packet.name, player->name);

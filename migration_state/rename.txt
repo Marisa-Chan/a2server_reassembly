@@ -522,3 +522,4 @@ World::sub_5A9B6B -> MonsterAiTick -- per-unit monster AI tick: idle/stone-curse
 NetStru1::FUN_004fb4ca -> TransferUnitOwnership -- moves a unit to a new owner and notifies
 NetStru1::sub_51C61E -> UntrackToken -- removes unit/sack from network tracking
 NetStru1::FUN_0051ceac -> SendBarePacket -- queues the shared Packet with just an id set
+NetStru1::FUN_0051c748 -> SendTickPacket -- sends the 0x64 tick-count packet
