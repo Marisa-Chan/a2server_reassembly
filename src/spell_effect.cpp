@@ -245,7 +245,7 @@ void AreaEffect::ExpireOnUnit(Unit* unit) {
 }
 
 // 53831D
-void AreaEffect::sub_53831D(Unit* unit) {
+void AreaEffect::DamageUnit(Unit* unit) {
 	if (unit == nullptr || this->itemDataID == 0x11) {
 		return;
 	}
@@ -342,9 +342,9 @@ void AreaEffect::sub_5384FF() {
 	for (int32_t dx = x - radius; dx <= x + radius; dx++) {
 		for (int32_t dy = y - radius; dy <= y + radius; dy++) {
 			uint16_t yx = PosYX(dx, dy).val;
-			this->sub_53831D(MapStuff_Instance->GetSmallUnitAt(yx));
-			this->sub_53831D(MapStuff_Instance->GetLargeUnitAt(yx));
-			this->sub_53831D(MapStuff_Instance->GetBuildingUnitAt(dx, dy));
+			this->DamageUnit(MapStuff_Instance->GetSmallUnitAt(yx));
+			this->DamageUnit(MapStuff_Instance->GetLargeUnitAt(yx));
+			this->DamageUnit(MapStuff_Instance->GetBuildingUnitAt(dx, dy));
 			if (spread_damage) {
 				this->sub_53868D(dx, dy);
 				MapStuff_Instance->BlockCell(dx, dy);
@@ -491,9 +491,9 @@ void AreaEffect::sub_537CD6() {
 		if (this->effect->position->ClampToMap(nx, ny)) {
 			g_NetStru1_main.BroadcastEffectMove(this->effect, packet_type);
 			uint16_t yx = PosYX(nx, ny).val;
-			this->sub_53831D(MapStuff_Instance->GetSmallUnitAt(yx));
-			this->sub_53831D(MapStuff_Instance->GetLargeUnitAt(yx));
-			this->sub_53831D(MapStuff_Instance->GetBuildingUnitAt(nx, ny));
+			this->DamageUnit(MapStuff_Instance->GetSmallUnitAt(yx));
+			this->DamageUnit(MapStuff_Instance->GetLargeUnitAt(yx));
+			this->DamageUnit(MapStuff_Instance->GetBuildingUnitAt(nx, ny));
 		}
 	}
 	this->wave_step++;
@@ -578,7 +578,7 @@ void AreaEffect::ProcessEffects() {
 				if (MapStuff_Instance->CanApplyAreaEffect(this, x + dx, y + dy)) {
 					uint16_t yx = ((y + dy) << 8) | (x + dx);
 					Unit* unit = MapStuff_Instance->GetUnitAt(yx);
-					this->sub_53831D(unit);
+					this->DamageUnit(unit);
 				}
 			}
 		}

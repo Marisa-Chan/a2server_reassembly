@@ -72,7 +72,7 @@ public:
     AreaEffect(); // 537846
     AreaEffect(Effect* effect, TokenPos* pos, uint8_t range); // 537880
 
-    void sub_53831D(Unit* unit);
+    void DamageUnit(Unit* unit);
     void sub_538137(uint8_t x, uint8_t y, bool spread_damage);
     void sub_537CD6(); // Acid stream and blizzard effects. 537CD6
     void sub_537C8C();

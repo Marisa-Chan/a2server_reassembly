@@ -690,3 +690,4 @@ Effect::VMethod17 -> RollStrength -- randomizes the effect strength from power
 SpellEffect::VMethod10 -> ExpireOnUnit -- AreaEffect override removes the enchantment from the unit when the area effect reaches it (base no-op)
 Effect::sub_53EDB0 -> Matches -- 1 when effect_id, usage_type and spell values all match
 Effect::sub_541FD7 -> CalcEffectLevel -- effect level from budget and magic volume
+PointEffect::sub_5375A4 -> FinishHit -- removes the effect from the target, records last_hit_by and awards the hit
