@@ -650,3 +650,4 @@ MapStuff::FUN_00596e0e -> SetBlockerAt -- marks the unit as blocker at yx (creat
 MapStuff::FUN_005969c6 -> MoveUnitBlockers -- clears old blocker cells and marks new ones, updating the eye anchor
 MapStuff::sub_58B27F -> ClearUnitCell -- clears unit occupancy from cell (x,y) and refreshes state
 MapStuff::sub_596F80 -> IsCellPassableStatic -- gate checking ObstacleAt (static map) over the footprint
+MapStuff::sub_5978F0 -> IsCellPassableDynamic -- gate checking Obstacle2At (dynamic map) over the footprint
