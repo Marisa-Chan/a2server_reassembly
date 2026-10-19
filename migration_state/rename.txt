@@ -80,3 +80,4 @@ Player::field_0xa98 -> gm_level -- cheat/GM privilege (>50 unlocks elevated comm
 Unit::field_0x136 -> attack_ready -- attack/spell cycle complete flag: cleared on windup start, set again after the post-attack countdown
 Unit::field_0x150 -> item_op_dirty_flags -- per-item-operation dirty/update bitmask (was already described by its comment)
 Unit::field_0x194 -> quest_kill_mark -- unit template flag (flags2&1): eligible as kill-quest target in inn quest generation
+Unit::field_0x198 -> quest_escort_mark -- unit template flag (flags2&4): eligible as escort-quest target

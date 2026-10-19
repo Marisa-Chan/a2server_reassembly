@@ -489,7 +489,7 @@ void Inn::InnCreateQuests(Player* player) {
             POSITION upos = this->pOwner ? this->pOwner->unit_list->unit_list.GetHeadPosition() : nullptr;
             while (upos) {
                 Unit* u = this->pOwner->unit_list->unit_list.GetNext(upos);
-                if (!u->field_0x198 || u->decay != 0) {
+                if (!u->quest_escort_mark || u->decay != 0) {
                     continue;
                 }
                 if (g_QuestMap.VMethod1(0xc, u->building_id, 0)) {
