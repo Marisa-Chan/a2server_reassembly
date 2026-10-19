@@ -3276,7 +3276,7 @@ void CUnit::PlaySwarmVoice() {
 }
 
 // 469b5d
-void CUnit::VMethod28() {
+void CUnit::PlaySelectVoice() {
     uint32_t now = timeGetTime();
     if (now - this->lastVoicePlaybackTick < 2000) {
         return;

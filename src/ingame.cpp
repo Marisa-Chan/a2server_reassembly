@@ -6874,7 +6874,7 @@ void BigStruct2::sub_417F09(CRect* rect) {
 	if (g_kbShiftState == 0 && this->field_0x140 != 0 && (this->field_0x144 & 1) != 0 && (this->field_0x144 & 4) == 0) {
 		CUnit* unit = this->sub_41DFDB();
 		if (unit != nullptr) {
-			unit->VMethod28();
+			unit->PlaySelectVoice();
 		}
 	}
 }

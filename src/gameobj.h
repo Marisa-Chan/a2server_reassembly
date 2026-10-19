@@ -264,7 +264,7 @@ public:
 	virtual void PlayHitSound(int32_t arg1);
 	virtual void PlayDefendVoice();
 	virtual void PlayRetreatVoice();
-	virtual void VMethod28();
+	virtual void PlaySelectVoice();
 	virtual void VMethod29();
 	virtual void VMethod30(const char* str, CGameBitmap* bmp1, CGameBitmap* bmp2);
 
