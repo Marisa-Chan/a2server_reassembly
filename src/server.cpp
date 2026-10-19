@@ -1132,10 +1132,10 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
                 } else {
                     action.data[arg_idx] = arg_value;
                     if (arg_value < 9000) {
-                        action.field_0x3a[arg_idx] = 1;
+                        action.ref_scope[arg_idx] = 1;
                         arg_value = arg_value - 8000;
                     } else {
-                        action.field_0x3a[arg_idx] = 2;
+                        action.ref_scope[arg_idx] = 2;
                         arg_value = arg_value - 9000;
                     }
                     action.field_0x44[arg_idx] = (arg_value / 100);
@@ -1272,10 +1272,10 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
                 } else {
                     check.data[arg_idx] = arg_value;
                     if (arg_value < 9000) {
-                        check.field_0x3a[arg_idx] = 1;
+                        check.ref_scope[arg_idx] = 1;
                         arg_value = arg_value + -8000;
                     } else {
-                        check.field_0x3a[arg_idx] = 2;
+                        check.ref_scope[arg_idx] = 2;
                         arg_value = arg_value + -9000;
                     }
                     check.field_0x44[arg_idx] = (byte)(arg_value / 100);
