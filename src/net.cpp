@@ -4526,7 +4526,7 @@ void NetStru1::sub_51A0EF(Unit* unit, Player* player, int32_t flags) {
         if (unit->pOwner != player) {
             PacketUnitProperties& packet = PacketUnitProperties::Inst;
             packet.id = 0x9C;
-            packet.field_0xa = (uint16_t)unit->building_id;
+            packet.unit_id = (uint16_t)unit->building_id;
             packet.flags = (uint16_t)flags;
             packet.to_player_id = player->player_id;
 

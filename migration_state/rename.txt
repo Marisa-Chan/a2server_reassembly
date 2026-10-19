@@ -35,3 +35,4 @@ PacketUnitStateVec::field_0xc -> mode -- update kind: 1=equipment TLV entries, 2
 PacketUnitStateVec::field_0xf -> start_index -- first inventory/tokenEntries index covered by this update
 PacketSync::field_0xa -> building_id -- synced building id
 PacketSync::field_0xc -> hp -- synced building hp
+PacketUnitProperties::field_0xa -> unit_id -- unit whose equip props follow

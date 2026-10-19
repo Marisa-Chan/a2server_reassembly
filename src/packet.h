@@ -631,7 +631,7 @@ public:
     virtual Packet* Duplicate() override; // sub_57AD00
     virtual uint32_t GetDataSize() override; // sub_5278CE  variable (5..29)
 public:
-    uint16_t field_0xa;       // +0xA
+    uint16_t unit_id;       // +0xA
     uint16_t flags;           // +0xC  bitmask of included fields (bits 0..11)
     uint16_t prop[12];        // +0xE  up to 12 optional property words
 };

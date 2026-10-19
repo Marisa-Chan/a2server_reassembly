@@ -1937,7 +1937,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x9c: {
 			CUnit* ct = nullptr;
-			if (packet_props->field_0xa != 0 && this->field_0x9d0.Lookup(packet_props->field_0xa, *(CGameObject**)&ct) != 0) {
+			if (packet_props->unit_id != 0 && this->field_0x9d0.Lookup(packet_props->unit_id, *(CGameObject**)&ct) != 0) {
 				int pr = 0;
 				for (int i = 0; i < 12; i++) {
 					if ((packet_props->flags & (1 << i)) != 0) {
