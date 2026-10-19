@@ -679,3 +679,4 @@ Effect::VMethod14 -> ApplyStatDelta -- adds param*strength to the stat selected 
 Effect::VMethod15 -> CalcScrollPrice -- scroll price of the castspell effect
 Effect::VMethod16 -> CalcChargePercent -- charge/quality percent vs the book cost
 Effect::VMethod17 -> RollStrength -- randomizes the effect strength from power
+Effect::VMethod10 -> TickOnUnit -- per-tick effect driver: periodic damage/stat refresh and expiry marking
