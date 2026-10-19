@@ -4316,21 +4316,21 @@ void World::sub_5AE628(Group* group) {
 
     POSITION it = group->unit_list.GetHeadPosition();
     if (it == nullptr) {
-        if (group->group_sub->field_0x30 == 0) {
+        if (group->group_sub->was_empty == 0) {
             group->group_sub->field_0x34++;
         } else {
             this->sub_5AE5F5(group);
             group->group_sub->field_0x34 = 0;
         }
-        group->group_sub->field_0x30 = 0;
+        group->group_sub->was_empty = 0;
     } else {
-        if (group->group_sub->field_0x30 == 0) {
+        if (group->group_sub->was_empty == 0) {
             this->sub_5AE5C0(group);
             group->group_sub->field_0x34 = 0;
         } else {
             group->group_sub->field_0x34++;
         }
-        group->group_sub->field_0x30 = 1;
+        group->group_sub->was_empty = 1;
     }
 
     while (it != nullptr) {
@@ -4356,21 +4356,21 @@ void World::sub_5AE7C3(Group* group) {
 
     POSITION it = group->unit_list.GetHeadPosition();
     if (it == nullptr) {
-        if (group->group_sub->field_0x30 == 0) {
+        if (group->group_sub->was_empty == 0) {
             group->group_sub->field_0x34++;
         } else {
             this->sub_5AE5F5(group);
             group->group_sub->field_0x34 = 0;
         }
-        group->group_sub->field_0x30 = 0;
+        group->group_sub->was_empty = 0;
     } else {
-        if (group->group_sub->field_0x30 == 0) {
+        if (group->group_sub->was_empty == 0) {
             this->sub_5AE5C0(group);
             group->group_sub->field_0x34 = 0;
         } else {
             group->group_sub->field_0x34++;
         }
-        group->group_sub->field_0x30 = 1;
+        group->group_sub->was_empty = 1;
     }
 
     while (it != nullptr) {

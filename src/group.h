@@ -32,7 +32,7 @@ public:
     uint8_t max_dist_plus_scan;
     uint8_t guard_range;
     uint8_t gap_0x2e[2];
-    uint32_t field_0x30;
+    uint32_t was_empty;
     uint32_t field_0x34;
     uint8_t field_0x38;
     uint8_t field_0x39;
