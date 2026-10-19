@@ -3252,7 +3252,7 @@ void CUnit::PlayMoveVoice() {
 }
 
 // 469a7e
-void CUnit::VMethod24() {
+void CUnit::PlaySwarmVoice() {
     uint32_t now = timeGetTime();
     if (now - this->lastVoicePlaybackTick < 3000) {
         return;

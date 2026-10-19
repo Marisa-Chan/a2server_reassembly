@@ -3861,7 +3861,7 @@ void BigStruct2::sub_41930D(uint16_t x, uint16_t y) {
 	g_NetStru1_local.QueuePacketSend(pkt);
 	CUnit* unit = this->sub_41DFDB();
 	if (unit != nullptr && unit->last_action != 1) {
-		unit->VMethod24();
+		unit->PlaySwarmVoice();
 	}
 }
 
