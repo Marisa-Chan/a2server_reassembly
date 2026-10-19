@@ -5932,7 +5932,7 @@ void SackList::UpdateSackVisibility() {
             }
         } else {
             if (this->list.GetCount() < max_sacks) {
-                g_Server->sub_4F8B74();
+                g_Server->SpawnRandomSack();
             }
         }
     }
@@ -6591,7 +6591,7 @@ Human* Server::sub_509879(CString* unit_name, Unit* origin, int32_t is_hero) {
 }
 
 // 4F8B74
-void Server::sub_4F8B74() {
+void Server::SpawnRandomSack() {
     uint8_t x = (uint8_t)(Random0N(MapStuff_Instance->GetWidth() - 20) + 10);
     uint8_t y = (uint8_t)(Random0N(MapStuff_Instance->GetHeight() - 20) + 10);
     int32_t scroll_type = Random0N(4);
