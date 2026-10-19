@@ -2757,7 +2757,7 @@ void World::sub_5AAF84(Unit* unit, uint8_t facing) {
     }
 }
 
-void World::FUN_005acd4c(Group* grp) { //5acd4c
+void World::ClearGroupOrders(Group* grp) { //5acd4c
     for (POSITION it = grp->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = grp->unit_list.GetNext(it);
         this->sub_5A9AC4(unit);
@@ -2767,7 +2767,7 @@ void World::FUN_005acd4c(Group* grp) { //5acd4c
 }
 
 void World::sub_5ACA54(Group* grp) { //5aca54
-    this->FUN_005acd4c(grp);
+    this->ClearGroupOrders(grp);
     for (POSITION it = grp->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = grp->unit_list.GetNext(it);
         this->FUN_005a93f4(unit);
@@ -2776,14 +2776,14 @@ void World::sub_5ACA54(Group* grp) { //5aca54
 }
 
 void World::sub_5ACDF4(Group* group) { // 5acdf4
-    this->FUN_005acd4c(group);
+    this->ClearGroupOrders(group);
     this->sub_5ACA54(group);
 }
 
 // Group move command.
 // 5AC289
 void World::sub_5AC289(Group* group, uint8_t x, uint8_t y) {
-    this->FUN_005acd4c(group);
+    this->ClearGroupOrders(group);
 
     bool use_relative = true;
     int32_t min_speed = 250;
@@ -2811,7 +2811,7 @@ void World::sub_5AC289(Group* group, uint8_t x, uint8_t y) {
         }
     }
 
-    this->FUN_005acd4c(group);
+    this->ClearGroupOrders(group);
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
         if (!use_relative) {
@@ -2870,7 +2870,7 @@ void World::sub_5AC137(Group* group) {
 // Issue a move-to-point command to `group`.
 // 5AC785
 void World::sub_5AC785(Group* group, uint8_t x, uint8_t y) {
-    this->FUN_005acd4c(group);
+    this->ClearGroupOrders(group);
     group->group_sub->order = 2;
     group->group_sub->order_pos = PosYX{x, y}.val;
 }
@@ -2878,7 +2878,7 @@ void World::sub_5AC785(Group* group, uint8_t x, uint8_t y) {
 // Issue a respawn/return command to `group` using the lead unit's position.
 // 5AC7C8
 void World::sub_5AC7C8(Group* group) {
-    this->FUN_005acd4c(group);
+    this->ClearGroupOrders(group);
     group->group_sub->order = 0x11;
     Unit* head = group->unit_list.GetHead();
     group->group_sub->order_pos = head->position->CompatGetYX();
@@ -2889,7 +2889,7 @@ void World::sub_5AC7C8(Group* group) {
 // range=0 means use the world's MinimalGuardRange.
 // 5AC8A2
 void World::sub_5AC8A2(Group* group, uint8_t range) {
-    this->FUN_005acd4c(group);
+    this->ClearGroupOrders(group);
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
@@ -3247,7 +3247,7 @@ void World::sub_5A3DC9(Unit* unit, UnitList* list) {
 
 // 5AC206 — order a group to area-cast a spell at (x, y).
 void World::sub_5AC206(Group* group, uint8_t x, uint8_t y, Spell* spell) {
-    this->FUN_005acd4c(group);
+    this->ClearGroupOrders(group);
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
@@ -3264,7 +3264,7 @@ void World::sub_5AC206(Group* group, uint8_t x, uint8_t y, Spell* spell) {
 
 // 5AC983 — place a newly respawned group into the world.
 void World::sub_5AC983(Group* group, int param) {
-    this->FUN_005acd4c(group);
+    this->ClearGroupOrders(group);
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
@@ -4409,7 +4409,7 @@ void World::sub_5AE7C3(Group* group) {
 
 // 5AC80F
 void World::sub_5AC80F(Group* group, Unit* target) {
-    this->FUN_005acd4c(group);
+    this->ClearGroupOrders(group);
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
@@ -4423,7 +4423,7 @@ void World::sub_5AC80F(Group* group, Unit* target) {
 
 // 5ACB4D
 void World::sub_5ACB4D(Group* group, Unit* target, uint8_t param_3) {
-    this->FUN_005acd4c(group);
+    this->ClearGroupOrders(group);
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
@@ -4433,7 +4433,7 @@ void World::sub_5ACB4D(Group* group, Unit* target, uint8_t param_3) {
 
 // 5ACB9E
 void World::sub_5ACB9E(Group* group, Unit* target, uint8_t param_3) {
-    this->FUN_005acd4c(group);
+    this->ClearGroupOrders(group);
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
@@ -4443,7 +4443,7 @@ void World::sub_5ACB9E(Group* group, Unit* target, uint8_t param_3) {
 
 // 5ACBEF
 void World::sub_5ACBEF(Group* group, uint8_t x, uint8_t y) {
-    this->FUN_005acd4c(group);
+    this->ClearGroupOrders(group);
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
@@ -4453,7 +4453,7 @@ void World::sub_5ACBEF(Group* group, uint8_t x, uint8_t y) {
 
 // 5AC187
 void World::sub_5AC187(Group* group, Unit* target, Spell*) {
-    this->FUN_005acd4c(group);
+    this->ClearGroupOrders(group);
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
@@ -4470,7 +4470,7 @@ void World::sub_5AC187(Group* group, Unit* target, Spell*) {
 
 // 5ACAA7 — order group to retreat/evade (state 0x13).
 void World::sub_5ACAA7(Group* group) {
-    this->FUN_005acd4c(group);
+    this->ClearGroupOrders(group);
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
@@ -4482,7 +4482,7 @@ void World::sub_5ACAA7(Group* group) {
 
 // 5ACAFA — order group to idle/wander (state 0).
 void World::sub_5ACAFA(Group* group) {
-    this->FUN_005acd4c(group);
+    this->ClearGroupOrders(group);
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);

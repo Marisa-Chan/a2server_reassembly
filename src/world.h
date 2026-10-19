@@ -354,7 +354,7 @@ public:
 
     void FUN_005a9832(Unit* unit); //5a9832
     void FUN_005a93f4(Unit* unit); //5a93f4
-    void FUN_005acd4c(Group* grp); //5acd4c
+    void ClearGroupOrders(Group* grp); //5acd4c
 };
 ASSERT_OFFSET(World, duration4, 0x8b0);
 ASSERT_OFFSET(World, counter, 0xa4c);
