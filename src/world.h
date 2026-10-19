@@ -128,7 +128,7 @@ public:
     void sub_5AFBFD(); // increments field65_0xc780
     void ProcessTick(class PlayersList* players);
     void ProcessTriggers(); // 5B0724
-    void sub_5B0762(); // 5B0762
+    void EvaluateTriggerChecks(); // 5B0762
     void sub_5B081E(TriggerCheck* check); // 5B081E — trigger-check dispatcher.
     void sub_5B0A6A(); // 5B0A6A
     Unit* sub_5B61D0(uint16_t pos_yx, uint8_t byte_0x3c, Player* owner, int32_t is_defensive); // 5B61D0

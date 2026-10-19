@@ -940,7 +940,7 @@ void World::ProcessTick(PlayersList* players) {
 
 void World::ProcessTriggers() {
     this->trigger_variables[999] += 1;
-    this->sub_5B0762();
+    this->EvaluateTriggerChecks();
     this->sub_5B0A6A();
     this->action_list.RemoveAll();
 }
@@ -4493,7 +4493,7 @@ void World::GroupGoHomeCommand(Group* group) {
 }
 
 // 5B0762 — evaluate pending trigger checks.
-void World::sub_5B0762() {
+void World::EvaluateTriggerChecks() {
     TriggerCheck local;
 
     for (POSITION it = this->trigger_checks->GetHeadPosition(); it != nullptr;) {
