@@ -3074,7 +3074,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
     case 0x41c:
         if (this->dialogsMask == 1) {
-            this->PopUpScreen(new EndGameMenu(1, 100, 100, 440, 340, nullptr, 0, CRect(0, 0, 300, 50), this->field_0x3f8));
+            this->PopUpScreen(new EndGameMenu(1, 100, 100, 440, 340, nullptr, 0, CRect(0, 0, 300, 50), this->in_famehall_mission));
         } else if (this->dialogsMask == 0) {
             this->PopUpScreen(new ExitGameMenu(1, 100, 100, 440, 340, CRect(0, 0, 300, 70)));
         }
@@ -3107,7 +3107,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             this->last_tic_time = 0x7fffffff;
 
             PostMessage(0x452, 0, 0);
-        } else if (this->field_0x3f8 == 0) {
+        } else if (this->in_famehall_mission == 0) {
             g_Server->sub_4F1E2A();
             PostMessage(0x421, 0, 0);
         } else {
@@ -3273,7 +3273,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
     case 0x430:
         if (FUN_00497490() == 0) {
-            this->field_0x3f8 = 1;
+            this->in_famehall_mission = 1;
 
             CRect local_8d0(128, 200, 512, 380);
             CRect local_8c0(local_8d0.Width() / 8, local_8d0.Height() - 120, local_8d0.Width() * 7 / 8, local_8d0.Height() - 96);
@@ -3283,7 +3283,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                 g_SfxArray[14]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
             }
         } else {
-            this->field_0x3f8 = 1;
+            this->in_famehall_mission = 1;
             PostMessage(0x41d, 0, 0);
         }
         break;
@@ -4156,7 +4156,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
     if (this->sessionMode != 3) {
         this->FUN_00494c91();
         this->field_0x450 = -1;
-        this->field_0x3f8 = 0;
+        this->in_famehall_mission = 0;
         this->field_0x3fc = 0;
     }
 
@@ -4541,7 +4541,7 @@ void MainWindow::FUN_0048df44() { //48df44
     this->vis_map_context->UpdateSelectionState();
 
     this->field_0x450 = -1;
-    this->field_0x3f8 = 0;
+    this->in_famehall_mission = 0;
     this->field_0x3fc = 0;
 
     this->SetSpeed(this->game_speed);

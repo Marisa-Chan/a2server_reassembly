@@ -523,7 +523,7 @@ public:
     VisFameDocument* vis_famedocument;
     VisScreen* vis_msgbox_list;
     Main3e0 field_0x3e0;
-    int32_t field_0x3f8;
+    int32_t in_famehall_mission;
     int32_t field_0x3fc;
     int32_t field_0x400;
     int32_t field_0x404;
