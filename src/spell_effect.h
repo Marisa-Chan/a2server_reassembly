@@ -76,7 +76,7 @@ public:
     void ApplyAtCell(uint8_t x, uint8_t y, bool spread_damage);
     void TickAcidBlizzard(); // Acid stream and blizzard effects. 537CD6
     void ApplyDistribution();
-    void sub_537F2C();
+    void ApplyWaveDistribution();
     void sub_53801A();
     void sub_53822C();
     void sub_5384FF();

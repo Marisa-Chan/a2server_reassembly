@@ -24,7 +24,7 @@ uint32_t __cdecl sub_5365AB(TokenPos* a, TokenPos* b) {
 int32_t unk_6364D0[41] = {1};
 
 // 636578
-// Wave table A used by AreaEffect::sub_537F2C.
+// Wave table A used by AreaEffect::ApplyWaveDistribution.
 const int32_t unk_636578[41] = {
 	10, // count
 	-2, -1, 0, 1, 2, -2, -1, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
@@ -32,7 +32,7 @@ const int32_t unk_636578[41] = {
 };
 
 // 636620
-// Wave table B used by AreaEffect::sub_537F2C.
+// Wave table B used by AreaEffect::ApplyWaveDistribution.
 const int32_t unk_636620[41] = {
 	9, // count
 	-2, -1, 0, 1, 2, -1, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
@@ -288,7 +288,7 @@ void AreaEffect::DamageUnit(Unit* unit) {
 // 537C8C
 void AreaEffect::ApplyDistribution() {
 	if (g_GameDataRes.spells[this->itemDataID].Values()[0].distribution == 4) {
-		this->sub_537F2C();
+		this->ApplyWaveDistribution();
 	} else {
 		this->sub_53801A();
 	}
@@ -445,7 +445,7 @@ void AreaEffect::sub_53801A() {
 }
 
 // 537F2C
-void AreaEffect::sub_537F2C() {
+void AreaEffect::ApplyWaveDistribution() {
 	uint8_t x = this->position->GetX();
 	uint8_t y = this->position->GetY();
 

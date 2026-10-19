@@ -694,3 +694,4 @@ PointEffect::sub_5375A4 -> FinishHit -- removes the effect from the target, reco
 AreaEffect::sub_53831D -> DamageUnit -- applies the area spell's damage/effect to one unit
 AreaEffect::sub_538137 -> ApplyAtCell -- applies the area effect at one cell (building/unit gates)
 AreaEffect::sub_537CD6 -> TickAcidBlizzard -- acid stream and blizzard ongoing-area ticks (per header comment)
+AreaEffect::sub_537C8C -> ApplyDistribution -- dispatches by spell distribution type to wave or radial application
