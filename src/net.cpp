@@ -161,7 +161,7 @@ void NetStru1::FUN_0051ce86(uint32_t msg_type, uint32_t player_id, Player* recpt
 }
 
 // 51ceac
-void NetStru1::FUN_0051ceac(uint8_t id, Player* player) {
+void NetStru1::SendBarePacket(uint8_t id, Player* player) {
     Packet& packet = Packet::Inst;
     packet.id = id; 
     packet.to_player_id = player ? player->player_id : 0;

@@ -138,7 +138,7 @@ SrvStru1 SrvStru1::Instance; //6cf390
 
 // 4f2c26
 Server::~Server() {
-    g_NetStru1_main.FUN_0051ceac(0xaf, nullptr);
+    g_NetStru1_main.SendBarePacket(0xaf, nullptr);
     g_NetStru1_main.SendPacket_64(this->tick | 1, 0);
     g_NetStru1_main.SendAllData();
 
@@ -347,7 +347,7 @@ void Server::ProcessPlayers() {
     this->tick16 = 0;
     this->tick = 0;
 
-    g_NetStru1_main.FUN_0051ceac(0xb8, nullptr);
+    g_NetStru1_main.SendBarePacket(0xb8, nullptr);
     g_NetStru1_main.SendPacket_64(this->tick | 1, 0);
     this->ScanSavedCharacters();
 }
@@ -1781,7 +1781,7 @@ void Server::SendWorldState(Player* player, int32_t bool_arg4) {
 
     // Finalise the player's session state.
     player->sub_534AC1(0, 1);                // notify mission entry
-    g_NetStru1_main.FUN_0051ceac(3, player); // send "mission entered" event
+    g_NetStru1_main.SendBarePacket(3, player); // send "mission entered" event
     this->UpdateHatAnnounce();                      // server-state refresh
 }
 
@@ -1874,7 +1874,7 @@ void Server::AssignPlayerSlot(Player* player, int32_t arg4) {
     player->sub_534AC1(0, 1);
 
     if (this->field18_0x94 != 0) {
-        g_NetStru1_main.FUN_0051ceac(0xB7, player);
+        g_NetStru1_main.SendBarePacket(0xB7, player);
     }
 
     g_NetStru1_main.FUN_0051c748(nullptr);
@@ -4262,7 +4262,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
     g_NetStru1_main.sub_51C8B1(player);
 
     if (this->field18_0x94 != 0) {
-        g_NetStru1_main.FUN_0051ceac(0xb7, player);
+        g_NetStru1_main.SendBarePacket(0xb7, player);
     }
     
     g_NetStru1_main.FUN_0051c748(nullptr);
@@ -4680,7 +4680,7 @@ int Server::LoadGame(CString param_1) {
     }
 
     this->field18_0x94 = 1;
-    g_NetStru1_main.FUN_0051ceac(0xB7, nullptr);
+    g_NetStru1_main.SendBarePacket(0xB7, nullptr);
 
     this->field42_0x1b4 = 0;
     this->field43_0x1b8 = 0;
@@ -5420,7 +5420,7 @@ void Server::ProcessHatPacket(Packet* pkt) {
 #endif
             LogMessage(login + "'s character returned to hat");
             if (this->FileList.GetSize() == 0 && this->field56_0x1fc != 0) {
-                NetStru1::HatConnector.FUN_0051ceac(3, nullptr);
+                NetStru1::HatConnector.SendBarePacket(3, nullptr);
                 this->field56_0x1fc = 0;
             }
             break;
@@ -5437,7 +5437,7 @@ void Server::ProcessHatPacket(Packet* pkt) {
         this->field54_0x1f4 = pkt_info->param1;
         if (this->FileList.GetSize() == 0) {
             this->field56_0x1fc = 0;
-            NetStru1::HatConnector.FUN_0051ceac(3, nullptr);
+            NetStru1::HatConnector.SendBarePacket(3, nullptr);
         } else {
             this->field56_0x1fc = 1;
         }
@@ -6189,7 +6189,7 @@ void Server::SendArenaResults() {
 void Server::SetupArenaFileList() {
     this->field67_0x228.SetSize(0, -1);
     this->field68_0x23c.SetSize(0, -1);
-    g_NetStru1_main.FUN_0051ceac(0x5a, nullptr);
+    g_NetStru1_main.SendBarePacket(0x5a, nullptr);
     this->map_elapsed_time2 = 0;
 }
 

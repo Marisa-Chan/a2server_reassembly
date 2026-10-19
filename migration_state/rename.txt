@@ -520,3 +520,4 @@ World::sub_5AC785 -> GroupAttackMoveCommand -- clears orders and sets order 2 (a
 World::sub_5AF683 -> SetFormation -- stores the player's formation setting
 World::sub_5A9B6B -> MonsterAiTick -- per-unit monster AI tick: idle/stone-curse/wimpy handling
 NetStru1::FUN_004fb4ca -> TransferUnitOwnership -- moves a unit to a new owner and notifies
+NetStru1::sub_51C61E -> UntrackToken -- removes unit/sack from network tracking
