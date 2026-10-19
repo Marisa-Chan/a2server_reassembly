@@ -462,3 +462,4 @@ World::sub_5ABFBC -> ProcessGroupAi -- per-group AI brain switch on group_sub->o
 World::sub_5AF022 -> IdleGroupUnits -- sets every unit of the group to idle/wander
 World::sub_5AF646 -> ProcessGroupRecall -- per-unit recall processing (teleport home / return helpers)
 World::sub_5AF5DC -> ProcessUnitRecall -- unit recall step: teleport home or run return helper
+World::sub_5A5155 -> ProcessUnitAi -- routes the unit into the state dispatcher (human) or AI wrapper

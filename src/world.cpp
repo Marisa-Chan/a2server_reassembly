@@ -3969,7 +3969,7 @@ void World::sub_5ABCFD(Unit* unit) {
 // 5A5155
 void World::ProcessUnitAi(Unit* unit) {
     if (!unit->pOwner->is_ai) {
-        this->sub_5A51A1(unit);
+        this->ProcessUnitState(unit);
     } else {
         this->sub_5A5188(unit);
     }
@@ -3977,11 +3977,11 @@ void World::ProcessUnitAi(Unit* unit) {
 
 // 5A5188
 void World::sub_5A5188(Unit* unit) {
-    this->sub_5A51A1(unit);
+    this->ProcessUnitState(unit);
 }
 
 // 5A51A1
-void World::sub_5A51A1(Unit* unit) {
+void World::ProcessUnitState(Unit* unit) {
     if (unit->state == 3 && unit->eye2->unit != nullptr && unit->eye2->unit->some_state == 0x10) {
         this->ResetUnitToIdle(unit);
     }
