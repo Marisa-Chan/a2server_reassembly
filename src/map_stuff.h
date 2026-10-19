@@ -220,7 +220,7 @@ public:
     void StepRotateToTarget(Unit* unit); // Rotates eye->field0_0x0 toward eye->field1_0x1 by up to rotation_speed.
     void SetFacing(Unit* unit, uint8_t facing);
     void sub_590902(Unit* unit, Unit* target);
-    void sub_5918B8(Unit* unit, Unit* target);
+    void FaceTarget(Unit* unit, Unit* target);
     void sub_5918E2(Unit* unit, PosYX yx);
     uint16_t sub_593AA4(Unit* unit);
     uint8_t sub_593B29(PosYX yx1, PosYX yx2); // Chebyshev distance between two YX positions.

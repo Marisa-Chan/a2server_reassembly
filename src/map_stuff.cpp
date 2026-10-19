@@ -434,7 +434,7 @@ void MapStuff::MoveStepTowardUnit(Unit* unit, Unit* target, uint8_t max_range) {
     }
 
     if (range <= max_range) {
-        this->sub_5918B8(unit, target);
+        this->FaceTarget(unit, target);
         return;
     }
 
@@ -1727,7 +1727,7 @@ int MapStuff::CanPlaceUnit(Unit* unit) {
 }
 
 // 5918B8
-void MapStuff::sub_5918B8(Unit* unit, Unit* target) {
+void MapStuff::FaceTarget(Unit* unit, Unit* target) {
     uint8_t facing = this->GetFacingTo(unit, target);
     this->SetFacing(unit, facing);
 }
