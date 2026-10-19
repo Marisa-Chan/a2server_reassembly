@@ -3383,7 +3383,7 @@ void Server::sub_504a96(Packet* pkt) {
                                     update_mask | human->field_0x150,
                                     equip_mask, bag_pos, bag_pos + bag_pos_delta);
             DWORD tick = GetTickCount();
-            if (tick - human->pOwner->field_0xa7c > 15000 || to_type == 3) {
+            if (tick - human->pOwner->last_save_tick > 15000 || to_type == 3) {
                 this->sub_4EE028(human);
             }
             break;
@@ -3425,7 +3425,7 @@ void Server::sub_504a96(Packet* pkt) {
                 this->srv_stru1->sack_list->sub_554460(unit->position, nullptr, amount, 1);
             }
 
-            if (GetTickCount() - unit->pOwner->field_0xa7c > 15000) {
+            if (GetTickCount() - unit->pOwner->last_save_tick > 15000) {
                 this->sub_4EE028((Humanoid*)unit);
             }
             break;
@@ -3460,7 +3460,7 @@ void Server::sub_504a96(Packet* pkt) {
                 break;
             }
             shop->sub_54471B(unit);
-            if (GetTickCount() - unit->pOwner->field_0xa7c > 15000) {
+            if (GetTickCount() - unit->pOwner->last_save_tick > 15000) {
                 this->sub_4EE028((Humanoid*)unit);
             }
             break;
@@ -3478,7 +3478,7 @@ void Server::sub_504a96(Packet* pkt) {
                 break;
             }
             shop->sub_544737(unit);
-            if (GetTickCount() - unit->pOwner->field_0xa7c > 15000) {
+            if (GetTickCount() - unit->pOwner->last_save_tick > 15000) {
                 this->sub_4EE028((Humanoid*)unit);
             }
             break;
@@ -4533,7 +4533,7 @@ int Server::Start(int mode) {
 // 4EE028
 void Server::sub_4EE028(Humanoid* humanoid) {
     Player* player = humanoid->pOwner;
-    player->field_0xa7c = GetTickCount();
+    player->last_save_tick = GetTickCount();
 
     PacketUnitStateVec equip_pkt;
     PacketUnitStateVec inv_pkt;

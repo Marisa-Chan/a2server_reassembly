@@ -279,7 +279,7 @@ Item* Item::VMethod10(Unit* pUnit) {
             this->world_equip->name.Find("eaction") >= 0 ||
             this->world_equip->name.Find("pirit") >= 0;
 
-    if (stat_bottle && (GetTickCount() - pUnit->pOwner->field_0xa7c > 15000)) {
+    if (stat_bottle && (GetTickCount() - pUnit->pOwner->last_save_tick > 15000)) {
         g_Server->sub_4EE028(static_cast<Humanoid*>(pUnit));
     }
 

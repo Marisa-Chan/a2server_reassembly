@@ -2629,7 +2629,7 @@ void Humanoid::VMethod21(uint32_t new_exp, Unit* target, int32_t sphere) {
     }
 
     // Trigger periodic save when XP is gained in tournament mode.
-    if (new_exp != 0 && g_Server->field4_0x74 != 0 && GetTickCount() - this->pOwner->field_0xa7c > 15000) {
+    if (new_exp != 0 && g_Server->field4_0x74 != 0 && GetTickCount() - this->pOwner->last_save_tick > 15000) {
         g_Server->sub_4EE028(this);
     }
 }
