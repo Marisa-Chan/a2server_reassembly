@@ -2720,7 +2720,7 @@ void World::ResetUnitToHold(Unit* unit) { //5a9a6a
 
 // Reset unit to idle and register it in the world.
 // 5A9A8F
-void World::sub_5A9A8F(Unit* unit) {
+void World::ResetUnitToIdle(Unit* unit) {
     this->PrepareUnitOrder(unit);
     this->ResetUnitToHold(unit);
     unit->eye2->field43_0x50 = 1;
@@ -2730,7 +2730,7 @@ void World::sub_5A9A8F(Unit* unit) {
 // 5AA8ED
 void World::sub_5AA8ED(Unit* unit) {
     if (unit->some_state == 2) {
-        this->sub_5A9A8F(unit);
+        this->ResetUnitToIdle(unit);
     } else {
         unit->some_state = 2;
     }
@@ -3009,7 +3009,7 @@ void World::sub_5AA7CF(Unit* unit) {
     unit->some_spell = unit->eye2->spell;
     unit->eye2->field48_0x5c = 1;
     if (unit->eye2->field49_0x60 == 0) {
-        this->sub_5A9A8F(unit);
+        this->ResetUnitToIdle(unit);
     }
 }
 
@@ -3023,7 +3023,7 @@ void World::sub_5AA84F(Unit* unit) {
     unit->some_spell = unit->eye2->spell;
     unit->eye2->field48_0x5c = 0;
     if (unit->eye2->field49_0x60 == 0) {
-        this->sub_5A9A8F(unit);
+        this->ResetUnitToIdle(unit);
     }
 }
 
@@ -3180,7 +3180,7 @@ void World::sub_5AAB85(Unit* unit_same, Unit* unit) {
     int result = this->field24_0xa50->sub_58FEDA(unit, unit->eye2->command_to, unit->eye2->max_range);
     if (result != 0) {
         if (unit->some_state == 0xF) {
-            this->sub_5A9A8F(unit);
+            this->ResetUnitToIdle(unit);
         } else {
             unit->some_state = 0xF;
         }
@@ -3983,13 +3983,13 @@ void World::sub_5A5188(Unit* unit) {
 // 5A51A1
 void World::sub_5A51A1(Unit* unit) {
     if (unit->state == 3 && unit->eye2->unit != nullptr && unit->eye2->unit->some_state == 0x10) {
-        this->sub_5A9A8F(unit);
+        this->ResetUnitToIdle(unit);
     }
     if ((unit->state == 8 || unit->state == 0x11) && unit->eye2->unit2 != nullptr && unit->eye2->unit2->some_state == 0x10) {
-        this->sub_5A9A8F(unit);
+        this->ResetUnitToIdle(unit);
     }
     if (unit->state == 1 && unit->eye->field136_0x90 != 0 && unit->eye->field115_0x76.val == unit->position->CompatGetYX()) {
-        this->sub_5A9A8F(unit);
+        this->ResetUnitToIdle(unit);
     }
 
     switch (unit->state) {
@@ -4099,11 +4099,11 @@ void World::sub_5AF061(Group* group, uint16_t yx) {
         Unit* unit = group->unit_list.GetNext(it);
 
         if (unit->position->CompatGetYX() == unit->eye2->command_to && unit->position->IsAtCellCenter() && unit->eye2->field43_0x50 == 0) {
-            this->sub_5A9A8F(unit);
+            this->ResetUnitToIdle(unit);
             unit->eye->field136_0x90 = 0;
         } else {
             if (unit->eye->field136_0x90 != 0 && unit->eye->field115_0x76.val == unit->position->CompatGetYX()) {
-                this->sub_5A9A8F(unit);
+                this->ResetUnitToIdle(unit);
                 unit->eye->field136_0x90 = 0;
             }
         }

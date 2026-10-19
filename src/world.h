@@ -236,7 +236,7 @@ public:
     void ResetUnitToHold(Unit* unit); // World callback: register newly summoned/placed unit
     void sub_5A59E2(Unit* unit); // 5A59E2
     void sub_5A5B49(Unit* unit); // 5A5B49
-    void sub_5A9A8F(Unit* unit); // 5A9A8F — reset unit to idle (ASM).
+    void ResetUnitToIdle(Unit* unit); // 5A9A8F — reset unit to idle (ASM).
     void sub_5A6789(Unit* unit); // 5A6789
     void sub_5A8885(Unit* unit); // 5A8885
     void sub_5A8A55(Unit* unit); // 5A8A55

@@ -416,3 +416,4 @@ SpellEffectList::sub_55BF31 -> Serialize -- serialises the spell effect list
 World::FUN_005acd4c -> ClearGroupOrders -- resets every unit and zeroes group_sub->order; prelude of all group commands
 World::FUN_005a9832 -> PrepareUnitOrder -- common order prelude: commit eye state, cancel stale pathfind, recompute max_range
 World::sub_5A9AC4 -> BeginUnitOrder -- PrepareUnitOrder + clears eye2->field43_0x50
+World::sub_5A9A6A -> ResetUnitToHold -- BeginUnitOrder + OrderHoldPosition; fallback when an order cannot be executed
