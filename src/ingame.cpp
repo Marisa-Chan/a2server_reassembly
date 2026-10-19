@@ -5418,7 +5418,7 @@ void BigStruct2::sub_406F7B() {
 					CGameObject* obj = this->tile_structures[idx];
 					uint32_t hgt = this->height_cells[x + 4 + (y + 4) * (this->view_tiles_x + 8)];
 					if (obj != nullptr && obj->FUN_0041f130() < 2) {
-						obj->VMethod7(x, y, hgt);
+						obj->DrawShadow(x, y, hgt);
 					}
 				}
 			}
@@ -5464,13 +5464,13 @@ void BigStruct2::sub_406F7B() {
 				uint32_t hgt = this->height_cells[x + 4 + (y + 4) * (this->view_tiles_x + 8)];
 				if (obj9c != nullptr && obj9c->FUN_0041f130() == 0) {
 					if (g_Shadows != 0) {
-						obj9c->VMethod7(x, y, light);
+						obj9c->DrawShadow(x, y, light);
 					}
 					obj9c->Draw(x, y, light);
 				}
 				if (obj98 != nullptr && obj98->FUN_0041f130() == 0) {
 					if (g_Shadows != 0) {
-						obj98->VMethod7(x, y, light);
+						obj98->DrawShadow(x, y, light);
 					}
 					obj98->Draw(x, y, light);
 				}
@@ -5509,7 +5509,7 @@ void BigStruct2::sub_406F7B() {
 						this->sub_404DA3(&sel, unit->unit_id);
 					}
 					if (g_Shadows != 0) {
-						unit->VMethod7(x, y, light);
+						unit->DrawShadow(x, y, light);
 					}
 					unit->Draw(x, y, light);
 				}
@@ -5626,7 +5626,7 @@ void BigStruct2::sub_406F7B() {
 					CGameObject* obj = this->tile_air_units[idx];
 					uint32_t hgt = this->height_cells[x + 4 + (y + 4) * (this->view_tiles_x + 8)];
 					if (obj != nullptr && obj->FUN_0041f130() == 0) {
-						obj->VMethod7(x, y, hgt);
+						obj->DrawShadow(x, y, hgt);
 					}
 				}
 			}
