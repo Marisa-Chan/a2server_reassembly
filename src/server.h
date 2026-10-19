@@ -95,7 +95,7 @@ public:
     void ClearSentToMask(Player* player); // Clear unit vision mask bits for player across this sack list
     void DropInventoryAt(TokenPos* pos, Inventory* inventory, int money, int is_main_player_unit);
     int32_t DumpInventoryAt(TokenPos* pos, Inventory* inventory, int money, int param_5);
-    int32_t sub_55496E(Sack* sack); // Add sack to list and map
+    int32_t AddSack(Sack* sack); // Add sack to list and map
     void sub_55BC58(CArchive& ar);  // Serialize
 
     void FUN_005540ed(); //5540ed

@@ -5767,7 +5767,7 @@ void SackList::DropInventoryAt(TokenPos* pos, Inventory* inventory, int money, i
 }
 
 // 55496E
-int32_t SackList::sub_55496E(Sack* sack) {
+int32_t SackList::AddSack(Sack* sack) {
     // Validate sack can be placed on map
     if (!MapStuff_Instance->sub_58E407(sack)) {
         delete sack;
@@ -5791,7 +5791,7 @@ int32_t SackList::DumpInventoryAt(TokenPos* pos, Inventory* inventory, int money
         }
         
         // Add to list; returns 0 on failure (e.g., can't place on map)
-        if (!this->sub_55496E(sack)) {
+        if (!this->AddSack(sack)) {
             return 0;
         }
     } else if (inventory) {
