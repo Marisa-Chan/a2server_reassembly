@@ -242,7 +242,7 @@ void Server::ProcessPlayers() {
                         unit_list.RemoveAt(unit_it);
                     }
                     main_unit->sent_to_mask = 0;
-                    this->sub_500907(player, 0, 0, 0, 0, 0, 0);
+                    this->CreatePlayerCharacter(player, 0, 0, 0, 0, 0, 0);
                     this->sub_5013D4(player);
                     player->mission_result = 0;
 
@@ -1998,7 +1998,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     } else {
         // Magic packet 0xFFDDAA11
         uint8_t* pkt = reinterpret_cast<uint8_t*>(Block);
-        unit = this->sub_500907(player, pkt[5], pkt[6], pkt[7], pkt[8], pkt[9], pkt[10]);
+        unit = this->CreatePlayerCharacter(player, pkt[5], pkt[6], pkt[7], pkt[8], pkt[9], pkt[10]);
 
         // Copy 8 bytes from Block+0xC into player+0x10 (token_id / hat_player_id area)
         std::memcpy(&player->hat_player_id, pkt + 0x0C, 8);
@@ -2262,7 +2262,7 @@ ServerConfig::ServerConfig() {
 
 // Create (or revive) the hero for a player who is joining via the magic-packet path.
 // 500907
-Human* Server::sub_500907(Player* player, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t main_skill, uint8_t character_class) {
+Human* Server::CreatePlayerCharacter(Player* player, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t main_skill, uint8_t character_class) {
     // Does player already have the main unit (reconnect / rejoin)?
     if (player->main_unit != nullptr) {
         Human* unit = player->main_unit;
@@ -3755,7 +3755,7 @@ void Server::sub_504a96(Packet* pkt) {
 #ifdef A2CLIENT
         Player* player = this->sub_502B4A(packet_info->field_0x5);
         if (player) {
-            Human* human = this->sub_500907(player, packet_info->field_0xa & 0xff, 
+            Human* human = this->CreatePlayerCharacter(player, packet_info->field_0xa & 0xff, 
                                             (packet_info->field_0xa >> 8) & 0xff, 
                                             (packet_info->field_0xa >> 16) & 0xff, 
                                             (packet_info->field_0xa >> 24) & 0xff,
@@ -6126,7 +6126,7 @@ void Server::sub_5090FA(Player* player) {
             }
             unit->sent_to_mask = 0;
             uint8_t saved_spell_id = unit->eye2->spell_id;
-            this->sub_500907(player, 0, 0, 0, 0, 0, 0);
+            this->CreatePlayerCharacter(player, 0, 0, 0, 0, 0, 0);
             this->sub_5013D4(player);
             player->mission_result = 0;
             unit->eye2->spell_id = saved_spell_id;
