@@ -336,3 +336,4 @@ Building::sub_5427AC -> InitFromTable -- initialize building from the info table
 Building::sub_542624 -> InitByName -- initialize building fields and look up type by name
 Building::sub_542A31 -> RollDamage -- building attack roll, same signature as Unit::RollDamage
 Item::sub_548FAA -> AddEffect -- adds an Effect to the item
+Item::sub_548F07 -> IsArtifact -- 1 when the item has magic and price 2 (artifact)

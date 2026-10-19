@@ -597,7 +597,7 @@ void Item::sub_548F3F(const CString& str) {
 }
 
 // 548F6A
-int Item::sub_548F6A() {
+int Item::IsCheatCreatable() {
     if (this->world_equip == nullptr) {
         return 0;
     }

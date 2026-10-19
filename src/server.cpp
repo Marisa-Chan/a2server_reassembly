@@ -2714,7 +2714,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             return;
         }
 
-        if (!item->sub_548F6A()) {
+        if (!item->IsCheatCreatable()) {
             // Item cannot be freely created; destroy the template copy we got.
             item->~Item(); // virtual dtor with delete-flag=1 equivalent
             if (!is_reconnect) {
