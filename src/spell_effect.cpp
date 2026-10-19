@@ -455,7 +455,7 @@ void AreaEffect::ApplyWaveDistribution() {
 	}
 
 	WavePattern wave;
-	wave.sub_537B2B(unk_636578, unk_636620, this->wave_pattern);
+	wave.SetWaveTables(unk_636578, unk_636620, this->wave_pattern);
 	for (int32_t i = 0; i < wave.count; i++) {
 		this->ApplyAtCell(x + wave.x_mult * wave.x_offsets[i], y + wave.y_mult * wave.y_offsets[i], spread_damage);
 	}
@@ -480,7 +480,7 @@ void AreaEffect::TickAcidBlizzard() {
 		wave.SetWaveTable(unk_6364D0);
 		count = 32;
 	} else if (this->itemDataID == spell::acid_stream) {
-		wave.sub_537B2B(dword_6366C8[this->wave_step], dword_636AA0[this->wave_step], this->wave_pattern);
+		wave.SetWaveTables(dword_6366C8[this->wave_step], dword_636AA0[this->wave_step], this->wave_pattern);
 		count = dword_6366C4;
 		packet_type = 0x12;
 	}
@@ -679,7 +679,7 @@ void WavePattern::SetWaveTable(const int32_t* table) {
 }
 
 // 537B2B
-void WavePattern::sub_537B2B(const int32_t* table_a, const int32_t* table_b, uint8_t direction) {
+void WavePattern::SetWaveTables(const int32_t* table_a, const int32_t* table_b, uint8_t direction) {
 	this->x_offsets = table_b + 1;
 	this->y_offsets = table_b + 21;
 	this->count = table_b[0];

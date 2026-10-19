@@ -129,6 +129,6 @@ public:
 
 public:
 	void SetWaveTable(const int32_t* table);
-	void sub_537B2B(const int32_t* table_a, const int32_t* table_b, uint8_t direction);
+	void SetWaveTables(const int32_t* table_a, const int32_t* table_b, uint8_t direction);
 };
 ASSERT_SIZE(WavePattern, 0x14);
