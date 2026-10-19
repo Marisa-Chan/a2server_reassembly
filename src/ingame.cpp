@@ -1511,7 +1511,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x88: {
 			CGameObject* ct = nullptr;
-			if (this->field_0x9d0.Lookup(packet_effect->field_0xa, ct) != 0) {
+			if (this->field_0x9d0.Lookup(packet_effect->unit_id, ct) != 0) {
 				int32_t idx = ct->FUN_00462405(packet_effect->effect_type);
 				if (idx < 0) {
 					ct->field_0x130.Add((packet_effect->effect_type << 0x10) | 0xffff);
@@ -1526,7 +1526,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x89: {
 			CGameObject* ct = nullptr;
-			if (this->field_0x9d0.Lookup(packet_effect->field_0xa, ct) != 0) {
+			if (this->field_0x9d0.Lookup(packet_effect->unit_id, ct) != 0) {
 				int32_t idx = ct->FUN_00462405(packet_effect->effect_type);
 				if (idx > -1) {
 					ct->field_0x130.RemoveAt(idx);

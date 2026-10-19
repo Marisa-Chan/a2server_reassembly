@@ -4314,7 +4314,7 @@ void NetStru1::sub_51BC6B(Unit* caster, Spell* spell, CList<Unit*>* units, int32
 void NetStru1::sub_51BDA4(Effect* effect, Unit* unit, uint8_t arg) {
     PacketEffect& packet = PacketEffect::Inst;
     packet.id = arg ? arg : 0x88;
-    packet.field_0xa = unit->building_id;
+    packet.unit_id = unit->building_id;
     packet.effect_type = effect->typeId;
     packet.to_player_id = 0;
     // This reinterpret_cast is kinda weird, but it works, because `sub_51B370` only reads the 2-byte 0xa field from non-Packet fields.

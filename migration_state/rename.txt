@@ -26,3 +26,4 @@ PacketMoveCmd::field_0xc -> type_id -- projectile/effect type (g_ProjectileInfos
 PacketMoveCmd::field_0xd -> x -- target tile x (low byte of target unit id for homing projectiles)
 PacketMoveCmd::field_0xe -> y -- target tile y (high byte of target unit id for homing projectiles)
 PacketMoveCmd::field_0xf -> segments -- projectile animation segments / cast delay (client stores to pj->action_segments)
+PacketEffect::field_0xa -> unit_id -- unit the effect plays on
