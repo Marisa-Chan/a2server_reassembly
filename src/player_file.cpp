@@ -496,9 +496,9 @@ void CGameSession::RefreshCharacterRosterFiles(int val) { //49265a
 				if (CalcChecksum(data.data(), hdr.size) == hdr.checksum) {
 					FileSectionBasicInfo* sec = (FileSectionBasicInfo*)data.data();
 					if (sec->hat_id == 0x529c0291 || sec->hat_id == 0xbaadf00d) {
-						sec->hat_id = mwnd->field_0x3e0.field_0c;
+						sec->hat_id = mwnd->field_0x3e0.hat_id;
 					}
-					if (sec->hat_id == mwnd->field_0x3e0.field_0c) {
+					if (sec->hat_id == mwnd->field_0x3e0.hat_id) {
 						strcpy(this->character_name, sec->nick);
 
 						FILETIME tm;

@@ -2307,7 +2307,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0xce: {
-			wnd->field_0x3e0.field_0c = *(int32_t*)packet_data->data;
+			wnd->field_0x3e0.hat_id = *(int32_t*)packet_data->data;
 			wnd->m_GameSession.hat_char_ids.RemoveAll();
 
 			HatCharId* chars = (HatCharId*)(packet_data->data + 4);

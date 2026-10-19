@@ -1477,7 +1477,7 @@ MainWindow::MainWindow() { //4837e1
 
     this->field_0x3e0.field_08.Empty();
     this->field_0x3e0.field_00.Empty();
-    this->field_0x3e0.field_0c = 0;
+    this->field_0x3e0.hat_id = 0;
     this->field_0x3e0.field_10 = 0;
 
     this->shutdown_pending = 0;
@@ -5179,11 +5179,11 @@ int32_t MainWindow::FUN_0049057b() { //49057b
     g_NetStru1_local.ProcessConnections();
 
     g_NetStru1_local.FUN_0051d8d6(this->hat_settings.login, this->hat_settings.password, this->hat_settings.deathmatch);
-    this->field_0x3e0.field_0c = 0;
+    this->field_0x3e0.hat_id = 0;
 
     uint32_t start_time = timeGetTime();
     INT_00660f8c = 0;
-    while(this->field_0x3e0.field_0c == 0) {
+    while(this->field_0x3e0.hat_id == 0) {
         if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0) {
             if (msg.message == WM_QUIT) {
                 return 0;
@@ -5756,7 +5756,7 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx) { //492c66
 void CGameSession::InitializeNewCharacterSession(int tp, const char* name) { //493ab6
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
-    this->hat_id = mwnd->field_0x3e0.field_0c;
+    this->hat_id = mwnd->field_0x3e0.hat_id;
 
     if (name) {
         strcpy(this->character_name, name);
