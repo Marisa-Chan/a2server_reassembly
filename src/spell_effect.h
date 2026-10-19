@@ -48,7 +48,7 @@ public:
     PointEffect(); // 5374FC
     PointEffect(Effect* effect, Unit* target); // 53752F
 
-    void sub_5375A4();
+    void FinishHit();
 
 public:
     Unit* target;

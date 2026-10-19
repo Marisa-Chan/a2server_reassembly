@@ -152,7 +152,7 @@ void SpellEffect::ExpireOnUnit(Unit* /*unit*/) {}
 IMPLEMENT_SERIAL(PointEffect, SpellEffect, 1);
 
 // 5375A4
-void PointEffect::sub_5375A4() {
+void PointEffect::FinishHit() {
 	// Clean up effect caster if caster has no owner.
 	if (this->effect != nullptr && this->effect->caster != nullptr && this->effect->caster->pOwner == nullptr) {
 		this->effect->caster = nullptr;
@@ -227,7 +227,7 @@ void PointEffect::Serialize(CArchive& ar) {
 
 // 57C0A0
 void PointEffect::ProcessEffects() {
-	this->sub_5375A4();
+	this->FinishHit();
 }
 
 // 53E7F2
