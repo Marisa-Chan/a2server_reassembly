@@ -65,7 +65,7 @@ struct Fame1 {
 ASSERT_SIZE(Fame1, 0x10);
 
 struct Fame2 {
-    int32_t field_x0;
+    int32_t doc_id;
     uint32_t field_x4;
     CBmp64* field_x8;
     CString str;

@@ -117,7 +117,7 @@ void CEdit2::OnKeyDown(UINT nChar, UINT nRepcnt, UINT nFlags) {
 
 Fame2::Fame2() {
     //4abdab
-    this->field_x0 = -1;
+    this->doc_id = -1;
     this->field_x4 = 1;
     this->field_x8 = nullptr;
     this->str.Empty();
@@ -139,14 +139,14 @@ void Fame2::Clear() {
 void Fame2::FUN_004abf0f(int32_t arg1, uint32_t arg2) {
     //4abf0f
     this->Clear();
-    this->field_x0 = arg1;
+    this->doc_id = arg1;
     this->field_x4 = arg2;
 }
 
 
 int32_t Fame2::FUN_004ad880() {
     //4ad880
-    return this->field_x0;
+    return this->doc_id;
 }
 
 uint32_t Fame2::FUN_004ad890() {
@@ -156,7 +156,7 @@ uint32_t Fame2::FUN_004ad890() {
 
 void Fame2::operator=(const Fame2& b) {
     //4abd30
-    this->field_x0 = b.field_x0;
+    this->doc_id = b.doc_id;
     this->field_x4 = b.field_x4;
     this->field_x8 = b.field_x8;
     this->str = b.str;
@@ -204,10 +204,10 @@ void Fame2::FUN_004ac0af() { //4ac0af
 
     char buffer[1024];
     if (this->field_x4 == 0) {
-        sprintf(buffer, "graphics\\interface\\Docs\\%d.bmp", this->field_x0);
+        sprintf(buffer, "graphics\\interface\\Docs\\%d.bmp", this->doc_id);
         this->field_x8 = new CBmp64(buffer);
     } else {
-        sprintf(buffer, "main\\text\\Docs\\%d.txt", this->field_x0);
+        sprintf(buffer, "main\\text\\Docs\\%d.txt", this->doc_id);
         ReadFileToString(buffer, &this->str);
         this->str_arr.Copy(g_font4->StringArrayForRect(this->rect, this->str));
     }
@@ -330,7 +330,7 @@ void CFameHall::FUN_004ac706(CFile* file) { //  4ac706
         Fame2& fm = this->m_Documents[i];
         
         //inline 4ac04b
-        file->Write(&fm.field_x0, 4);
+        file->Write(&fm.doc_id, 4);
         file->Write(&fm.field_x4, 4);
     }
     file->Write(&this->m_nTotalTime, 4);
@@ -344,7 +344,7 @@ void CFameHall::FUN_004ac7a2(CFile* file) { // 4ac7a2
 
     for (int i = 0; i < cnt; i++) {
         Fame2& fame = this->m_Documents[i];
-        file->Read(&fame.field_x0, 4);
+        file->Read(&fame.doc_id, 4);
         file->Read(&fame.field_x4, 4);
     }
 
