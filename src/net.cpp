@@ -412,7 +412,7 @@ void NetStru1::ResendPlayerUnits(Player* player) {
 }
 
 // 51CB21
-void NetStru1::sub_51CB21(Player* player) {
+void NetStru1::SendVisibilityState(Player* player) {
     if (g_World == nullptr) {
         return;
     }

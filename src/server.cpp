@@ -254,7 +254,7 @@ void Server::ProcessPlayers() {
                         }
                         g_World->diplomacy.diplomacy[self->player_id][player->player_id] = 0x12;
                         g_World->diplomacy.diplomacy[player->player_id][self->player_id] = 0x12;
-                        g_NetStru1_main.sub_51CB21(player);
+                        g_NetStru1_main.SendVisibilityState(player);
                     }
                 }
             }
@@ -1679,7 +1679,7 @@ void Server::SendWorldState(Player* player, int32_t bool_arg4) {
     for (POSITION node = g_PlayersList->list.GetHeadPosition(); node != nullptr;) {
         Player* p = g_PlayersList->list.GetNext(node);
         if (p != nullptr && p->is_ai == 0) {
-            g_NetStru1_main.sub_51CB21(p);
+            g_NetStru1_main.SendVisibilityState(p);
         }
     }
 
@@ -3683,7 +3683,7 @@ void Server::sub_504a96(Packet* pkt) {
                         }
                     }
                 }
-                g_NetStru1_main.sub_51CB21(other);
+                g_NetStru1_main.SendVisibilityState(other);
             }
             break;
         }
@@ -6139,7 +6139,7 @@ void Server::UpdateMissionResult(Player* player) {
                     }
                     g_World->diplomacy.diplomacy[self_player->player_id][player->player_id] = 0x12;
                     g_World->diplomacy.diplomacy[player->player_id][self_player->player_id] = 0x12;
-                    g_NetStru1_main.sub_51CB21(player);
+                    g_NetStru1_main.SendVisibilityState(player);
                 }
             }
             g_NetStru1_main.SendUnitUpdate(unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);

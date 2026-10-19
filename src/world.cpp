@@ -611,8 +611,8 @@ void Diplomacy::sub_5B5643(Unit* attacker, Unit* target, int32_t hit_flag) {
     if ((this->diplomacy[attacker_pid][target_pid] & 3) == 0) {
         this->diplomacy[attacker_pid][target_pid] |= 1;
         if (!attacker->pOwner->is_ai) {
-            g_NetStru1_main.sub_51CB21(attacker->pOwner);
-            g_NetStru1_main.sub_51CB21(target->pOwner);
+            g_NetStru1_main.SendVisibilityState(attacker->pOwner);
+            g_NetStru1_main.SendVisibilityState(target->pOwner);
         }
     }
 
@@ -624,8 +624,8 @@ void Diplomacy::sub_5B5643(Unit* attacker, Unit* target, int32_t hit_flag) {
     if (hit_flag == 0 || target->eye2->field77_0xac > 10 || target->hp < target->hp_max / 2 || target->some_state == 0x10) {
         this->diplomacy[target_pid][attacker_pid] |= 1;
         if (!target->pOwner->is_ai) {
-            g_NetStru1_main.sub_51CB21(attacker->pOwner);
-            g_NetStru1_main.sub_51CB21(target->pOwner);
+            g_NetStru1_main.SendVisibilityState(attacker->pOwner);
+            g_NetStru1_main.SendVisibilityState(target->pOwner);
         }
     }
 
@@ -2122,7 +2122,7 @@ void World::ScriptOP_0x0a(TriggerAction* action) {
     for (POSITION pos = this->players_list->list.GetHeadPosition(); pos != nullptr; ) {
         Player* p = this->players_list->list.GetNext(pos);
         if (p->player_id == player1_id || p->player_id == player2_id) {
-            g_NetStru1_main.sub_51CB21(p);
+            g_NetStru1_main.SendVisibilityState(p);
         }
     }
 }
