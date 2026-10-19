@@ -165,7 +165,7 @@ public:
     void sub_5AC7C8(Group* group);
     void sub_5A9383(Unit* unit);
     void OrderStandGround(Unit* unit); // 5A943B — helper for sub_5ACAA7.
-    void sub_5A9918(Unit* unit); // 5A9918 — helper for sub_5ACAFA.
+    void OrderTeleportHome(Unit* unit); // 5A9918 — helper for sub_5ACAFA.
     void sub_5AF805(int32_t a, int32_t b, int32_t c, Player* player);
     void sub_5AFA01(int32_t a, int32_t b, int32_t c, Player* player);
     void sub_5AF683(Player* player, uint8_t param);

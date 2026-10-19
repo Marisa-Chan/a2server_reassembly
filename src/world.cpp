@@ -2983,7 +2983,7 @@ void World::OrderPatrolTo(Unit* unit, uint8_t x, uint8_t y) {
 }
 
 // 5A9918 — helper used by sub_5ACAFA: set unit to idle/wander state 0x16.
-void World::sub_5A9918(Unit* unit) {
+void World::OrderTeleportHome(Unit* unit) {
     this->BeginUnitOrder(unit);
     unit->state = 0x16;
     unit->eye2->cast_action = 0;
@@ -4486,7 +4486,7 @@ void World::sub_5ACAFA(Group* group) {
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
-        this->sub_5A9918(unit);
+        this->OrderTeleportHome(unit);
     }
 
     group->group_sub->order = 0;
