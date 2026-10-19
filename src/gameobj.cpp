@@ -2184,7 +2184,7 @@ TransientVisualEffectBuilder::~TransientVisualEffectBuilder() {
 }
 
 // 46f390
-void TransientVisualEffectBuilder::FUN_0046f390() {
+void TransientVisualEffectBuilder::Clear() {
     this->arc_x.RemoveAll();
     this->arc_y.RemoveAll();
     this->visual_elements.RemoveAll();
@@ -2328,7 +2328,7 @@ void TransientVisualEffectBuilder::BuildJitterWalk(double x0, double y0, double 
     CArray<double> xs;
     CArray<double> ys;
 
-    this->FUN_0046f390();
+    this->Clear();
     this->wobble_scale = this->line_length * 0.03;
 
     double dir;
@@ -4730,7 +4730,7 @@ void CProjectile::UpdateTransientVisualElements() {
             if (map->field_0x9d0.Lookup(this->actionTargets[i], target) && target != nullptr) {
                 builder.BuildLightningLine(x0, y0, target->centerScreenX, target->centerScreenY - target->terrainHeightOffset - target->z_pos, i % 7);
                 this->transientVisualElements.Append(*builder.GetVisualElements());
-                builder.FUN_0046f390();
+                builder.Clear();
             }
         }
     }

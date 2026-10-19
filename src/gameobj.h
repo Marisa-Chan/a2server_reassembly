@@ -340,7 +340,7 @@ public:
     void BuildJitterWalk(double x0, double y0, double x1, double y1); // 4cb993
     void SampleQuadraticArc(double px0, double py0, double px1, double py1, double px2, double py2); // 4cb85f
 
-    void FUN_0046f390(); // 46f390
+    void Clear(); // 46f390
 
     CArray<GO_11c>* GetVisualElements() { return &this->visual_elements; } // 46f3f0
 

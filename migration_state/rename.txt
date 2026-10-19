@@ -264,3 +264,4 @@ TransientVisualEffectBuilder::FUN_004CB993 -> BuildJitterWalk -- random-walk wob
 TransientVisualEffectBuilder::FUN_004CB85F -> SampleQuadraticArc -- fits a parabola through 3 points and samples it into arc_x/arc_y
 TransientVisualEffectBuilder::FUN_004CCE04 -> AddOffsetElement -- single 0x10/18/22/2e element placed at its type-specific offset
 TransientVisualEffectBuilder::FUN_004CCED2 -> AddElement -- single 0x14 element centered at the given height
+TransientVisualEffectBuilder::FUN_0046f390 -> Clear -- removes all arc/visual element arrays
