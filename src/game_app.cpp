@@ -622,7 +622,7 @@ BOOL GameApp::InitInstance() {
 	Resources::StaticAddResFile("video.res");
 
 	if (strstr(m_lpCmdLine, "-nomusic")) {
-		g_SoundSettings.field_0x20 = 0;
+		g_SoundSettings.music_allowed = 0;
 	}
 
 	if (strstr(m_lpCmdLine, "-trace")) {

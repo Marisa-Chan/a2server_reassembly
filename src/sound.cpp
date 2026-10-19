@@ -46,7 +46,7 @@ SoundSettings::SoundSettings() {
 
 	this->tracklist = new CStringArray();
 
-	this->field_0x20 = 1;
+	this->music_allowed = 1;
 	this->music_enabled = 1;
 }
 

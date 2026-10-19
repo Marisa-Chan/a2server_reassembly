@@ -665,7 +665,7 @@ void MainWindow::OnDestroy() {
 
 // 494c91
 void MainWindow::FUN_00494c91() {
-    if (g_SoundSettings.field_0x20 != 0) {
+    if (g_SoundSettings.music_allowed != 0) {
         CStringArray* plist = new CStringArray();
         plist->Add("music\\B00.wav");
         plist->Add("music\\B01.wav");
@@ -804,7 +804,7 @@ void MainWindow::ShowCurrentTownDialog() {
     this->vis_root->VMethod9();
     this->field_0x460 = 0;
 
-    if (g_SoundSettings.field_0x20 != 0) {
+    if (g_SoundSettings.music_allowed != 0) {
         if (this->music_player->GetPlaylist().GetSize() == 0 || this->music_player->GetPlaylist()[0] != (*plist)[0]) {
             this->music_player->SetPlayList(*plist);
         }
@@ -1551,7 +1551,7 @@ void MainWindow::LoadData() { //483d64
     g_mousept.Paint();
 
     if (InitSound(AfxGetMainWnd()->m_hWnd, 16) != 0) {
-        g_SoundSettings.field_0x20 = 0;
+        g_SoundSettings.music_allowed = 0;
     }
 
     this->music_player = new MusicPlayer(g_isLowMemory == 0 ? 0xac000 : 0x56000);
@@ -3875,7 +3875,7 @@ void MainWindow::ShowGlobalMapDialog() { //48d34b
     this->field_0x460 = 0;
     this->dialogsMask |= 0x10;
 
-    if (g_SoundSettings.field_0x20 != 0) {
+    if (g_SoundSettings.music_allowed != 0) {
         CStringArray playlist;
         playlist.Add("music\\map.wav");
 
@@ -3938,7 +3938,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
     this->vis_map_context->field_0x80 = nullptr;
     g_Cursors[CURSOR_WAIT]->Use();
 
-    if (g_SoundSettings.field_0x20 != 0) {
+    if (g_SoundSettings.music_allowed != 0) {
         this->music_player->OnEndTrack();
     }
 
@@ -4552,7 +4552,7 @@ void MainWindow::FUN_0048df44() { //48df44
 void MainWindow::FUN_0048f6f7() { //48f6f7
 
     this->vis_map_context->FUN_0041c39c();
-    if (g_SoundSettings.field_0x20 != 0) {
+    if (g_SoundSettings.music_allowed != 0) {
         this->music_player->OnEndTrack();
     }
 
@@ -4673,7 +4673,7 @@ void MainWindow::ShowStartGameSetupForNewSession() { //491b3e
 
     g_Cursors[CURSOR_DEFAULT]->Use();
 
-    if (g_SoundSettings.field_0x20) {
+    if (g_SoundSettings.music_allowed) {
         CStringArray lst;
         lst.Add("music\\chrgen.wav");
 
@@ -4704,7 +4704,7 @@ void MainWindow::ShowCreditsDialog() { // 48da66
     this->field_0x460 = 0;
     this->dialogsMask |= 0x40;
 
-    if (g_SoundSettings.field_0x20 != 0) {
+    if (g_SoundSettings.music_allowed != 0) {
         CStringArray playlist;
         playlist.Add("music\\credit.wav");
 

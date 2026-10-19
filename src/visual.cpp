@@ -7098,7 +7098,7 @@ void SoundPreferencesDialogVisualObject::VMethod26() { //43d959
     this->AddChild(new VisScrollBar(10, r.right, r.top, r.right + 24, r.bottom, nullptr));
 
     VisButton* btn_play = new VisButton(4, 40, 256, 140, 280, txt_dialogs.GetLine(12), g_font1, nullptr, 0x477, 0, txt_dialogs.GetLine(13)); //Play
-    if (this->settings->field_0x20 == 0) {
+    if (this->settings->music_allowed == 0) {
         btn_play->ChangeFlags(FLAG_ENABLED, false);
         btn_play->SetHint(txt_dialogs.GetLine(23)); //Music disabled
     }
@@ -7110,7 +7110,7 @@ void SoundPreferencesDialogVisualObject::VMethod26() { //43d959
 
 
     VisButton* btn_stop = new VisButton(5, 150, 256, 252, 280, txt_dialogs.GetLine(14), g_font1, nullptr, 0x478, 0, txt_dialogs.GetLine(15)); //stop
-    if (this->settings->field_0x20 == 0) {
+    if (this->settings->music_allowed == 0) {
         btn_stop->ChangeFlags(FLAG_ENABLED, 0);
         btn_stop->SetHint(txt_dialogs.GetLine(23)); //Music unav
     }
@@ -7143,7 +7143,7 @@ void SoundPreferencesDialogVisualObject::VMethod26() { //43d959
 
     scrl_mvol->ReadData(&sd);
 
-    if (this->settings->field_0x20 == 0) {
+    if (this->settings->music_allowed == 0) {
         scrl_mvol->ChangeFlags(FLAG_ENABLED, false);
         scrl_mvol->SetHint(txt_dialogs.GetLine(23)); //Music unav
     }

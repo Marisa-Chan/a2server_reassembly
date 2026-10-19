@@ -107,7 +107,7 @@ struct SoundSettings {
 	int32_t field_0x14;
 	int32_t speech_pos;
 	int32_t field_0x1c;
-	int32_t field_0x20;
+	int32_t music_allowed;
 	int32_t music_enabled;
 
 	SoundSettings(); //477860

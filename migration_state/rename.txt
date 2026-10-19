@@ -129,3 +129,4 @@ Fame2::field_x8 -> picture -- loaded CBmp64 picture for picture documents
 Fame2::field_x38 -> top_line -- first visible text line of the document page (21 lines per page)
 Main3e0::field_0c -> hat_id -- HAT character id received in packet 0xce, used for player-file sections
 Main3e0::field_14 -> connect_address -- address string passed to CLlDriver::PrepareForConnect
+SoundSettings::field_0x20 -> music_allowed -- cleared by -nomusic; gates loading the default music playlist
