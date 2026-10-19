@@ -249,7 +249,7 @@ public:
     int ClearCellBuilding(class Building* building, PosYX yx); // Clear building from the cell state at yx — 59449A
     int CanTraverseCell(Unit* unit, PosYX yx); // Check if unit can move onto and off of yx (both directions clear) — 595468
     void sub_597BB0(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map, queue into dynamic ring buffer — 597BB0
-    void sub_5983D0(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map, queue into static ring buffer — 5983D0
+    void RelaxCostsMap1Queue1(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map, queue into static ring buffer — 5983D0
     void sub_598BF0(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map2, queue into dynamic ring buffer — 598BF0
     void sub_599410(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map2, queue into static ring buffer — 599410
     int32_t ClassifyDirection8(Unit* unit, uint16_t yx); // Classifies direction/octant from unit's position toward yx.
@@ -309,7 +309,7 @@ public:
     void MoveUnitBlockers(Unit* unit, PosYX yx, uint8_t t); //5969c6
     int ClearUnitCell(Unit* unit, uint8_t x, uint8_t y); // Clear unit occupancy from cell (x,y), refresh state, cache eye position — 58B27F
 
-    // Shared by sub_597BB0/sub_5983D0/sub_598BF0/sub_599410: relaxes path cost of the 8
+    // Shared by sub_597BB0/RelaxCostsMap1Queue1/sub_598BF0/sub_599410: relaxes path cost of the 8
     // neighbors of yx, skipping any neighbor blocked in obstacle_map (masked by flag_byte),
     // and pushes improved neighbors into the ring-buffer queue (queue_tail/queue).
     void PropagateNeighborCost(uint16_t yx, uint8_t flag_byte, int32_t cond_flag, Obstacle* obstacle_map, uint16_t& queue_tail, uint16_t* queue);
