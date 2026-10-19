@@ -57,7 +57,7 @@ Player::Player() {
     this->team_ready = 1;
     this->field_0xa70 = 0;
     this->afk_expire_tick = 0;
-    this->field_0xa94 = 0;
+    this->afk_notify_tick = 0;
 }
 
 // 5B051F
@@ -204,7 +204,7 @@ void Player::sub_534AC1(int32_t amount, uint32_t notify_flag) {
 void Player::sub_534B17() {
     if (this->afk_expire_tick == 0) {
         this->afk_expire_tick = GetTickCount() + 30500;
-        this->field_0xa94 = this->afk_expire_tick - 35500;
+        this->afk_notify_tick = this->afk_expire_tick - 35500;
     }
 }
 
@@ -212,7 +212,7 @@ void Player::sub_534B17() {
 void Player::sub_534B59() {
     if (this->afk_expire_tick != 0) {
         this->afk_expire_tick = 0;
-        this->field_0xa94 = 0;
+        this->afk_notify_tick = 0;
         g_NetStru1_main.FUN_0051ce86(0xf, 0, this);
     }
 }
