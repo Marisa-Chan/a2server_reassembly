@@ -321,7 +321,7 @@ void Server::sub_4F1E2A() {
                         unit->hp = unit->hp_max;
                         unit->mp = unit->mp_max;
                         unit->decay = 0;
-                        unit->sub_52C641();
+                        unit->ResetActionState();
                         unit->cast_target = nullptr;
                         unit->some_spell = nullptr;
                         unit->spell = nullptr;
@@ -2549,7 +2549,7 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
     unit->spell = nullptr;
     unit->some_item = nullptr;
     unit->last_hit_by = nullptr;
-    unit->sub_52C641();
+    unit->ResetActionState();
     unit->hp = unit->hp_max;
     unit->mp = unit->mp_max;
     unit->decay = 0;

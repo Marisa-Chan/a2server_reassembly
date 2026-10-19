@@ -1666,7 +1666,7 @@ void Unit::sub_52C58F() {
 }
 
 // 52C641
-void Unit::sub_52C641() {
+void Unit::ResetActionState() {
     this->sub_52C813();
     if (this->attack_ready == 0 && this->some_item != nullptr && ((this->some_item->item_id >> 8) & 0xF) == 0xE) {
         delete this->some_item;
