@@ -16,3 +16,4 @@ PacketCmd::field_0x10 -> param2 -- second generic word parameter (target slot / 
 PacketCmd::field_0x12 -> param3 -- third generic word parameter (init 1 in ctor; item count in inventory ops)
 Packet3Dwords::field_0xa -> value1 -- first dword payload (player id in the Allods2 join-compat packet 0x02)
 Packet3Dwords::field_0xe -> value2 -- second dword payload
+Packet3Dwords::field_0x12 -> value3 -- third dword payload (player params word in join-compat 0x02)

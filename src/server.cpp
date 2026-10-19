@@ -3201,7 +3201,7 @@ void Server::sub_504a96(Packet* pkt) {
         if (player) {
             NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(packet_3d->from_player_id);
             if (ns2 && ns2->field_0x2a8 != 0) {
-                this->FUN_004ff439(player, packet_3d->field_0x12);
+                this->FUN_004ff439(player, packet_3d->value3);
             }
         }
 #endif
