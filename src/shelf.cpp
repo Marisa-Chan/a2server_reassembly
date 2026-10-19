@@ -188,7 +188,7 @@ void CMultiShopInstance::sub_5464B6(int32_t param) {
         if (this->shop_template != nullptr) {
             shop_token = this->shop_template->shop;
         }
-        g_NetStru1_main.sub_51A8B2(shop_token, &this->inventory, this->unit->pOwner, 4);
+        g_NetStru1_main.SendShopTable(shop_token, &this->inventory, this->unit->pOwner, 4);
     } else {
         g_NetStru1_main.sub_51AB99(this, this->unit->pOwner, param);
     }

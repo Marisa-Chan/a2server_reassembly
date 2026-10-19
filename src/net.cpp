@@ -4591,7 +4591,7 @@ void NetStru1::sub_51A0EF(Unit* unit, Player* player, int32_t flags) {
 }
 
 // 51A8B2
-void NetStru1::sub_51A8B2(Token* token, Inventory* inventory, Player* player, int32_t param) {
+void NetStru1::SendShopTable(Token* token, Inventory* inventory, Player* player, int32_t param) {
     PacketUnitStateVec& packet = PacketUnitStateVec::Inst;
     packet.id = 0x76;
     packet.entry_count = 0;

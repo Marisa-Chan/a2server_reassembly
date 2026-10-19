@@ -1139,7 +1139,7 @@ void Inn::sub_560C67(Unit* unit) {
         this->InnReward(player);
         Inventory* inventory = nullptr;
         if (this->rewards_per_player.Lookup(player->player_id, inventory)) {
-            g_NetStru1_main.sub_51A8B2(unit, inventory, player, 9);
+            g_NetStru1_main.SendShopTable(unit, inventory, player, 9);
         }
     }
     this->unit_list.AddTail(unit);
