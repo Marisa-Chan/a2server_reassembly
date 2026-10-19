@@ -121,3 +121,4 @@ MainWindow::field_0x45c -> input_locked -- wrong building-enter reply locks all 
 CGameSession::field_0x64 -> hat_id -- --
 CGameSession::field_0x10c -> phased_in -- --
 CGameSession::field_0x110 -> last_autosave_tick -- --
+CGameSession::field_0x130 -> hat_char_ids -- --

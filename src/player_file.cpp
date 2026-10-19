@@ -522,8 +522,8 @@ void CGameSession::RefreshCharacterRosterFiles(int val) { //49265a
 						if (val == 0) {
 							this->characterRosterHatId.InsertAt(idx, hatid);
 						} else {
-							for (int i = 0; i < this->field_0x130.GetSize(); i++) {
-								if (this->field_0x130[i].id == hatid.id) {
+							for (int i = 0; i < this->hat_char_ids.GetSize(); i++) {
+								if (this->hat_char_ids[i].id == hatid.id) {
 									this->characterRosterHatId.InsertAt(idx, hatid);
 									break;
 								}

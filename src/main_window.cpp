@@ -5216,8 +5216,8 @@ int32_t MainWindow::FUN_0049057b() { //49057b
 
     this->m_GameSession.RefreshCharacterRosterFiles(0);
 
-    for (int j = 0; j < this->m_GameSession.field_0x130.GetSize(); j++) {
-        HatCharId& curid = this->m_GameSession.field_0x130[j];
+    for (int j = 0; j < this->m_GameSession.hat_char_ids.GetSize(); j++) {
+        HatCharId& curid = this->m_GameSession.hat_char_ids[j];
 
         bool has_file = false;
 
@@ -5229,7 +5229,7 @@ int32_t MainWindow::FUN_0049057b() { //49057b
         }
 
         if (!has_file) {
-            g_NetStru1_local.FUN_0051d9d0(this->m_GameSession.field_0x130[j]);
+            g_NetStru1_local.FUN_0051d9d0(this->m_GameSession.hat_char_ids[j]);
             INT_00660f8c = 0;
 
             while (true) {
@@ -5264,7 +5264,7 @@ int32_t MainWindow::FUN_0049057b() { //49057b
         FillRectColorSimple(0, g_ScreenSize.bottom / 2 + 20, g_ScreenSize.right, g_ScreenSize.bottom / 2 + 40, 0);
 
         CString local_260;
-        local_260.Format("%d / %d", j, this->m_GameSession.field_0x130.GetSize());
+        local_260.Format("%d / %d", j, this->m_GameSession.hat_char_ids.GetSize());
         g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2 + 20, local_260, 2, clrsh_ShockingBlack, 1);
         UnlockSurface2();
         FlushScreen();

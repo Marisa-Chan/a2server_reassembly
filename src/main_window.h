@@ -211,7 +211,7 @@ public:
     int32_t field_0x114 = 1;
     int32_t field_0x118 = 1;
     CArray<HatCharId> characterRosterHatId;
-    CArray<HatCharId> field_0x130;
+    CArray<HatCharId> hat_char_ids;
     int32_t field_0x144 = 0;
     int32_t field_0x148 = 0;
     int32_t field_0x14c = 0;
