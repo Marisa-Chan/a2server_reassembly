@@ -178,7 +178,7 @@ public:
     void StepTowardUnit(Unit* unit, Unit* target);
     void ChaseOrAttack(Unit* unit); // 5AA97E
     void CheckMoveArrival(Unit* unit); // 5AA9F6
-    void sub_5AAA89(Unit* unit);
+    void ChaseOrCast(Unit* unit);
     void sub_5AAB08(Unit* unit); // 5AAB08
     void sub_5AAB85(Unit* unit, Unit* target); // 5AAB85
     void OrderEngageTarget(Unit* unit, Unit* target); // 5A9087

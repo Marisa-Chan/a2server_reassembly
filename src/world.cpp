@@ -1319,7 +1319,7 @@ void World::sub_5AA581(Unit* target, Unit* attacker, int32_t param_4) {
 }
 
 // 5AAA89
-void World::sub_5AAA89(Unit* unit) {
+void World::ChaseOrCast(Unit* unit) {
     if (unit != unit->eye2->unit5 && this->field24_0xa50->sub_58FE6D(unit, unit->eye2->unit5, unit->eye2->max_range) == 0) {
         this->StepTowardUnit(unit, unit->eye2->unit5);
         unit->some_state = 1;
@@ -1369,7 +1369,7 @@ void World::sub_5A9B6B(Unit* unit) {
             this->sub_5AA8ED(unit);
             break;
         case 8:
-            this->sub_5AAA89(unit);
+            this->ChaseOrCast(unit);
             break;
         case 9:
             this->sub_5AAB08(unit);
