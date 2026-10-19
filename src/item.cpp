@@ -676,7 +676,7 @@ Armor::Armor(const CString& name) : Item() {
 
     CString base_name;
     CString extra;
-    g_GameDataRes.sub_50DB4E(&extra, &name, &base_name);
+    g_GameDataRes.SplitItemName(&extra, &name, &base_name);
 
     this->shape_id = g_GameDataRes.FindShapeIndex(&base_name, &base_name);
     this->material_id = g_GameDataRes.FindMaterialIndex(&base_name, &base_name);
@@ -894,7 +894,7 @@ Shield::Shield(const CString& name) : Item() {
 
     CString base_name;
     CString extra;
-    g_GameDataRes.sub_50DB4E(&extra, &name, &base_name);
+    g_GameDataRes.SplitItemName(&extra, &name, &base_name);
 
     this->shape_id = g_GameDataRes.FindShapeIndex(&base_name, &base_name);
     this->material_id = g_GameDataRes.FindMaterialIndex(&base_name, &base_name);
@@ -1085,7 +1085,7 @@ Weapon::Weapon(const CString& name) : Item() {
 
     CString base_name;
     CString extra;
-    g_GameDataRes.sub_50DB4E(&extra, &name, &base_name);
+    g_GameDataRes.SplitItemName(&extra, &name, &base_name);
 
     this->shape_id = g_GameDataRes.FindShapeIndex(&base_name, &base_name);
     this->material_id = g_GameDataRes.FindMaterialIndex(&base_name, &base_name);

@@ -445,7 +445,7 @@ public:
 
     uint8_t FindShapeIndex(CString* name, CString* out); // 50D8BA: Find shape index by item name string
     uint8_t FindMaterialIndex(CString* name, CString* out); // 50DA04: Find material index by item name string
-    CString* sub_50DB4E(CString* out1, const CString* in_name, CString* base_name_out); // 50DB4E: Extract base name and braced property from item name
+    CString* SplitItemName(CString* out1, const CString* in_name, CString* base_name_out); // 50DB4E: Extract base name and braced property from item name
     void sub_50DC69(int material_id, CString* name); // 50DC69: Strip material-specific prefix from item name
 
     void sub_514BE7(); // 514BE7: post-process magic data after parsing Magic.txt

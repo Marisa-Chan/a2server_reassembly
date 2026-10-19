@@ -737,7 +737,7 @@ uint8_t GameDataRes::FindMaterialIndex(CString* name, CString* out) {
 }
 
 // 50DB4E
-CString* GameDataRes::sub_50DB4E(CString* out1, const CString* in_name, CString* base_name_out) {
+CString* GameDataRes::SplitItemName(CString* out1, const CString* in_name, CString* base_name_out) {
     int32_t brace_open = in_name->Find('{');
     if (brace_open == -1) {
         *base_name_out = *in_name;
@@ -762,7 +762,7 @@ CString* GameDataRes::sub_50DB4E(CString* out1, const CString* in_name, CString*
 Item* GameDataRes::FindItemTemplate(CString* name) {
     CString base_name;
     CString extra;
-    this->sub_50DB4E(&extra, name, &base_name);
+    this->SplitItemName(&extra, name, &base_name);
 
     uint8_t shape_id = this->FindShapeIndex(&base_name, &base_name);
     uint8_t material_id = this->FindMaterialIndex(&base_name, &base_name);
