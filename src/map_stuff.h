@@ -193,7 +193,7 @@ public:
     bool IsInMapBounds(uint8_t x, uint8_t y) const; // 594076
     void RelinkAfterLoad(); // Post-load map relink helper
     int CanPlaceSack(class Sack* sack); // Check if sack can be placed on map
-    void sub_58E525(class Sack* sack); // Remove a sack token from the map
+    void RemoveSack(class Sack* sack); // Remove a sack token from the map
     Sack* sub_58E5C7(uint16_t param_2, uint16_t param_3); // Look up sack at map position
     Sack* sub_58E5F3(TokenPos* pos);
     int sub_590F0A(Unit* unit); // Check if unit can be placed at current position

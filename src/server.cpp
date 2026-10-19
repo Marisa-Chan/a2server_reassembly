@@ -2864,7 +2864,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             POSITION cur_pos = pos;
             Sack* sack = sack_list->list.GetNext(pos); // advances pos
             this->PrepareSackPickup(sack);
-            MapStuff_Instance->sub_58E525(sack);
+            MapStuff_Instance->RemoveSack(sack);
             g_Server->srv_stru1->sack_list->list.RemoveAt(cur_pos);
             player->main_unit->PickUpSack(sack);
         }
@@ -5915,7 +5915,7 @@ void SackList::UpdateSackVisibility() {
         // Check if sack count exceeds limit and remove sacks with `field_0x44 == 0`.
         if (g_Server->field4_0x74 != 0) {
             if (this->list.GetCount() > max_sacks && sack->needs_save == 0) {
-                MapStuff_Instance->sub_58E525(sack);
+                MapStuff_Instance->RemoveSack(sack);
                 g_NetStru1_main.UntrackToken(sack);
                 this->list.RemoveAt(it_before);
                 
@@ -6641,7 +6641,7 @@ void Server::UpdateQuestRune(int32_t arg1, int32_t arg2) {
             delete rune_item;
             if (sack->inventory->items.GetCount() == 0) {
                 // Sack is now empty: remove it from the map and the list.
-                MapStuff_Instance->sub_58E525(sack);
+                MapStuff_Instance->RemoveSack(sack);
                 g_NetStru1_main.UntrackToken(sack);
                 POSITION sack_pos = sack_list->list.Find(sack);
                 if (sack_pos) {

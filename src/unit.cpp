@@ -770,7 +770,7 @@ void Unit::ProcessEffects() {
             Sack* sack = MapStuff_Instance->sub_58E5F3(this->position);
             if (sack) {
                 g_Server->PrepareSackPickup(sack);
-                MapStuff_Instance->sub_58E525(sack);
+                MapStuff_Instance->RemoveSack(sack);
                 POSITION pos = g_Server->srv_stru1->sack_list->list.Find(sack);
                 if (pos) {
                     g_Server->srv_stru1->sack_list->list.RemoveAt(pos);

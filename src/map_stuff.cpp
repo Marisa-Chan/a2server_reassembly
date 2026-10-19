@@ -1691,7 +1691,7 @@ int MapStuff::AddUnitToMap(Unit* unit) {
 }
 
 // 58E525 --- remove a sack token from the map
-void MapStuff::sub_58E525(Sack* sack) {
+void MapStuff::RemoveSack(Sack* sack) {
     PosYX yx = sack->position->CompatGetYX();
     if (this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
         this->scratch_cell_state.sack = nullptr;
