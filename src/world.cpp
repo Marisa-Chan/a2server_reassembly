@@ -1947,7 +1947,7 @@ void World::DoScriptInstID(int32_t script_id) {
         g_NetStru1_main.FUN_0051cd89(msg, nullptr);
     }
 
-    if ((action.field_0x58 & 0xFF) != 0) {
+    if ((action.ref_count & 0xFF) != 0) {
         int count_groups = 0;
         int count_players = 0;
         int count_units = 0;
@@ -4498,7 +4498,7 @@ void World::sub_5B0762() {
 
     for (POSITION it = this->trigger_checks->GetHeadPosition(); it != nullptr;) {
         TriggerCheck trigger_check = this->trigger_checks->GetNext(it); // Copies the value.
-        if (trigger_check.field_0x58 == 0) {
+        if (trigger_check.ref_count == 0) {
             this->sub_5B081E(&trigger_check);
         }
     }

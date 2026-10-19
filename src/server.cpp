@@ -1140,7 +1140,7 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
                     }
                     action.ref_page[arg_idx] = (arg_value / 100);
                     action.ref_index[arg_idx] = (arg_value % 100);
-                    action.field_0x58++;
+                    action.ref_count++;
                 }
             }
             if (valid == 1) {
@@ -1280,7 +1280,7 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
                     }
                     check.ref_page[arg_idx] = (byte)(arg_value / 100);
                     check.ref_index[arg_idx] = (byte)(arg_value % 100);
-                    check.field_0x58++;
+                    check.ref_count++;
                 }
             }
 
