@@ -4086,7 +4086,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
             for (int j = 0; j < grp_ids.GetSize(); j++) {
                 CGameObject* obj;
                 if (this->vis_map_context->field_0x9d0.Lookup(grp_ids[i], obj) != 0) {
-                    obj->FUN_0041f180(i);
+                    obj->AddControlGroup(i);
                 }
             }
         }
@@ -4533,7 +4533,7 @@ void MainWindow::FUN_0048df44() { //48df44
         for(int j = 0; j < grp_objs.GetSize(); j++) {
             CGameObject* obj = nullptr;
             if (this->vis_map_context->field_0x9d0.Lookup(grp_objs[j], obj)) {
-                obj->FUN_0041f180(i);
+                obj->AddControlGroup(i);
             }
         }
     }

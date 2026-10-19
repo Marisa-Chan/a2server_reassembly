@@ -194,7 +194,7 @@ CGameObject::~CGameObject() { //46178a
 }
 
 
-void CGameObject::FUN_0041f180(int32_t grp) { //41f180
+void CGameObject::AddControlGroup(int32_t grp) { //41f180
     this->controlGroupMask |= 1 << grp;
     this->m_bSelectionDirty = 1;
 }
