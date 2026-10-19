@@ -341,7 +341,7 @@ int MapStuff::FacesTargetInRange(Unit* unit, Unit* target, uint8_t max_range) {
 }
 
 // 58FEDA
-int MapStuff::sub_58FEDA(Unit* unit, PosYX yx, uint8_t max_range) {
+int MapStuff::FacesPosInRange(Unit* unit, PosYX yx, uint8_t max_range) {
     unit->position->IsAtCellCenter();
     uint8_t current_facing = unit->eye->field0_0x0;
     uint8_t computed_facing = this->GetFacingFor(unit, yx);

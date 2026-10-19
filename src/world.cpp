@@ -3177,7 +3177,7 @@ void World::sub_5AA485(Unit* unit) {
 
 // 5AAB85 — resume moving toward the unit's current command target.
 void World::ApproachBuilding(Unit* unit_same, Unit* unit) {
-    int result = this->field24_0xa50->sub_58FEDA(unit, unit->eye2->command_to, unit->eye2->max_range);
+    int result = this->field24_0xa50->FacesPosInRange(unit, unit->eye2->command_to, unit->eye2->max_range);
     if (result != 0) {
         if (unit->some_state == 0xF) {
             this->ResetUnitToIdle(unit);
@@ -3353,7 +3353,7 @@ void World::CheckMoveArrival(Unit* unit) {
 
 // 5AAB08
 void World::ChaseOrAreaCast(Unit* unit) {
-    if (this->field24_0xa50->sub_58FEDA(unit, PosYX(unit->eye2->field30_0x3c), unit->eye2->max_range) == 0) {
+    if (this->field24_0xa50->FacesPosInRange(unit, PosYX(unit->eye2->field30_0x3c), unit->eye2->max_range) == 0) {
         this->DoMoveStepTo(unit, PosYX(unit->eye2->field30_0x3c), unit->eye2->max_range);
         unit->some_state = 1;
     } else {
