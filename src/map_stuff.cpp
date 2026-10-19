@@ -528,11 +528,11 @@ void MapStuff::SyncEyeState(Unit* unit) {
         unit->position->SetCoords2(new_x, new_y);
     } else {
         PosYX old_yx = unit->position->CompatGetYX();
-        this->FUN_005969c6(unit, 0, 2);
+        this->MoveUnitBlockers(unit, 0, 2);
         this->UnitFitsAt(unit);
         unit->position->SetCoords2(new_x, new_y);
         this->PlaceUnit(unit);
-        this->FUN_005969c6(unit, old_yx, 0);
+        this->MoveUnitBlockers(unit, old_yx, 0);
     }
 
     if (eye->field154_0xaa <= eye->field156_0xac) {
@@ -559,8 +559,8 @@ void MapStuff::sub_590678(Unit* unit) {
     unit->eye->field154_0xaa = 0;
     unit->eye->field156_0xac = 0;
 
-    this->FUN_005969c6(unit, 0, 2);
-    this->FUN_005969c6(unit, 0, 1);
+    this->MoveUnitBlockers(unit, 0, 2);
+    this->MoveUnitBlockers(unit, 0, 1);
     unit->list2.RemoveAll();
 
     if (!this->cell_states.Lookup(unit->position->CompatGetYX(), this->scratch_cell_state)) {
@@ -585,8 +585,8 @@ void MapStuff::sub_5907BE(Unit* unit) {
     unit->eye->field111_0x70 = fresh_yx;
     unit->eye->field140_0x9c = 0;
 
-    this->FUN_005969c6(unit, 0, 2);
-    this->FUN_005969c6(unit, unit->eye->position1, 0);
+    this->MoveUnitBlockers(unit, 0, 2);
+    this->MoveUnitBlockers(unit, unit->eye->position1, 0);
 
     unit->eye->field1_0x1 = this->ClassifyDirection8(unit, unit->eye->position1);
 
@@ -943,7 +943,7 @@ int MapStuff::PlaceUnit(Unit* unit) {
         }
     }
 
-    this->FUN_005969c6(unit, unit->position->CompatGetYX(), 1);
+    this->MoveUnitBlockers(unit, unit->position->CompatGetYX(), 1);
     return 1;
 }
 
@@ -1075,7 +1075,7 @@ void MapStuff::SetBlockerAt(Unit* unit, PosYX yx) { //596e0e
     this->cell_states[yx.val] = scratch_cell_state;
 }
 
-void MapStuff::FUN_005969c6(Unit* unit, PosYX yx, uint8_t t) { //5969c6
+void MapStuff::MoveUnitBlockers(Unit* unit, PosYX yx, uint8_t t) { //5969c6
     int sz = unit->GetTokenSize();
     this->footprint_scratch.fill(0);
     for (int j = 0; j < sz + 2; j++) {
@@ -1686,7 +1686,7 @@ int MapStuff::CanTraverseCell(Unit* unit, PosYX yx) {
 
 // 58E3D1 --- add unit to map
 int MapStuff::AddUnitToMap(Unit* unit) {
-    this->FUN_005969c6(unit, PosYX(0, 0), 2);
+    this->MoveUnitBlockers(unit, PosYX(0, 0), 2);
     return this->UnitFitsAt(unit) != 0;
 }
 
@@ -2036,7 +2036,7 @@ void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
     uint16_t ring = 0;
 
     if (flag == 0) {
-        this->FUN_005969c6(unit, unit->position->CompatGetYX(), 2);
+        this->MoveUnitBlockers(unit, unit->position->CompatGetYX(), 2);
 
         if (unit_size == 1) {
             this->field_0x54584[0] = PosYX(cur_x, cur_y);
@@ -2090,7 +2090,7 @@ void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
             }
         }
 
-        this->FUN_005969c6(unit, unit->position->CompatGetYX(), 1);
+        this->MoveUnitBlockers(unit, unit->position->CompatGetYX(), 1);
     } else if (unit_size == 1) {
         this->field_0x54584[0] = PosYX(cur_x, cur_y);
         uint8_t flag_byte = unit->eye->field5_0x5;

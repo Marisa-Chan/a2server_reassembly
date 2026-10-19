@@ -306,7 +306,7 @@ public:
     void ClearBlockerAt(Unit* unit, PosYX yx); //596d3e
     void SnapshotCellState(PosYX yx); //58b3e0
     void SetBlockerAt(Unit* unit, PosYX yx); //596e0e
-    void FUN_005969c6(Unit* unit, PosYX yx, uint8_t t); //5969c6
+    void MoveUnitBlockers(Unit* unit, PosYX yx, uint8_t t); //5969c6
     int sub_58B27F(Unit* unit, uint8_t x, uint8_t y); // Clear unit occupancy from cell (x,y), refresh state, cache eye position — 58B27F
 
     // Shared by sub_597BB0/sub_5983D0/sub_598BF0/sub_599410: relaxes path cost of the 8

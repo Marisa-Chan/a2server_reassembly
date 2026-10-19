@@ -2522,7 +2522,7 @@ void World::DoGuardScan(Unit* unit) {
     if (unit->position->IsAtCellCenter() && unit->eye->field121_0x80.val != 0) {
         PosYX current_yx = unit->position->CompatGetYX();
         if (unit->eye->field121_0x80 != current_yx) {
-            this->field24_0xa50->FUN_005969c6(unit, PosYX(0), 1);
+            this->field24_0xa50->MoveUnitBlockers(unit, PosYX(0), 1);
         }
     }
 }
@@ -2691,7 +2691,7 @@ void World::PrepareUnitOrder(Unit* unit) { //5a9832
     if (unit->eye->field121_0x80 != PosYX()) {
         if (unit->position->IsAtCellCenter()) {
             if (unit->position->GetYX() != unit->eye->field121_0x80) {
-                this->field24_0xa50->FUN_005969c6(unit, PosYX(), 1);
+                this->field24_0xa50->MoveUnitBlockers(unit, PosYX(), 1);
             }
         }
     }

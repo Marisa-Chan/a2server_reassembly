@@ -646,3 +646,4 @@ MapStuff::FUN_0058b5d6 -> ApplyCellState -- applies a CellState to the obstacle/
 MapStuff::FUN_0058b4a6 -> RestoreCellState -- restores a stored CellState back into the maps
 MapStuff::FUN_00596d3e -> ClearBlockerAt -- clears the unit's blocker mark at yx
 MapStuff::FUN_0058b3e0 -> SnapshotCellState -- creates/stores a CellState from the current map bits
+MapStuff::FUN_00596e0e -> SetBlockerAt -- marks the unit as blocker at yx (creating the cell state if needed)
