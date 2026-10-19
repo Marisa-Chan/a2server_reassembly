@@ -332,7 +332,7 @@ void PlayersList::sub_534DDD() {
 			}
 			delete player;
 
-			g_Server->sub_4F4570();
+			g_Server->UpdateHatAnnounce();
 
 			// Team mode: check if either team is now empty.
 			if (g_ServerConfig.gameType == 2) {

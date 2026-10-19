@@ -170,7 +170,7 @@ public:
     Human* CreatePlayerCharacter(Player* player, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t main_skill, uint8_t character_class);
     void SaveCharacter(Humanoid* humanoid);
     void EnsurePlayerGroup(Player* player);
-    void sub_4F4570();
+    void UpdateHatAnnounce();
     void sub_4F0D58();
     void sub_4FA4BB(CString* name, uint32_t* frags);
     void sub_4FA348(CString* name, int32_t flag); // TODO: that's likely `CString&`

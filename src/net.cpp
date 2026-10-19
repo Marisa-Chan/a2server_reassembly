@@ -1396,7 +1396,7 @@ void NetStru1::OnClientDisconnect(NetStru2* cli) {
 
                     delete pl;
 
-                    g_Server->sub_4F4570();
+                    g_Server->UpdateHatAnnounce();
                 }
             }
         }

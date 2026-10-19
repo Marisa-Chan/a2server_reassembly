@@ -1782,7 +1782,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4) {
     // Finalise the player's session state.
     player->sub_534AC1(0, 1);                // notify mission entry
     g_NetStru1_main.FUN_0051ceac(3, player); // send "mission entered" event
-    this->sub_4F4570();                      // server-state refresh
+    this->UpdateHatAnnounce();                      // server-state refresh
 }
 
 
@@ -2222,7 +2222,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     }
 
     // Server state update.
-    this->sub_4F4570();
+    this->UpdateHatAnnounce();
 
     return 0;
 }
@@ -4690,7 +4690,7 @@ int Server::sub_4F1471(CString param_1) {
     this->map_elapsed_time = 0;
     this->map_elapsed_time2 = 0;
 
-    this->sub_4F4570();
+    this->UpdateHatAnnounce();
 
     LogMessage("Loaded map \"" + param_1 + "\"");
 
@@ -4743,7 +4743,7 @@ void Server::ServerTic() {
 
     if (tick_count - tick_after_5min > 300000) {
         tick_after_5min = tick_count;
-        this->sub_4F4570();
+        this->UpdateHatAnnounce();
     }
 
     if ((this->tick & 0xf) == 6) {
@@ -5184,7 +5184,7 @@ void Server::EnsurePlayerGroup(Player* player) {
 }
 
 // 4F4570
-void Server::sub_4F4570() {
+void Server::UpdateHatAnnounce() {
     if (g_CLlDriver.provider != 4) {
         return;
     }
@@ -5430,7 +5430,7 @@ void Server::sub_5088DF(Packet* pkt) {
         hat_connection->is_claimed = 1;
         LogMessage("Login to hat successful.");
         this->field50_0x1d4 = 0;
-        this->sub_4F4570();
+        this->UpdateHatAnnounce();
         if (pkt_info->param2 == 0 || g_ServerConfig.always_load_sacks != 0) {
             this->sub_4F950F();
         }
