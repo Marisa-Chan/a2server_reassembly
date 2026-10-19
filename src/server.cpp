@@ -442,7 +442,7 @@ int Srv1::sub_59B7EA(CString map_name) {
     World* world = new World(MapStuff_Instance, g_PlayersList);
     g_World = world;
 
-    this->sub_59C56E(alm);
+    this->CreateBuildings(alm);
 
     POSITION pos = g_PlayersList->list.GetHeadPosition();
     while (pos) {
@@ -495,7 +495,7 @@ int Srv1::sub_59B7EA(CString map_name) {
 }
 
 // 59C56E
-void Srv1::sub_59C56E(MapAlm* alm) {
+void Srv1::CreateBuildings(MapAlm* alm) {
     static std::set<int16_t> shop_type_ids = {0x22, 0x23, 0x5D, 0x5E, 0x5F, 0x69, 0x6A, 0x6B};
     static std::set<int16_t> inn_type_ids = {0x43, 0x44, 0x45, 0x63, 0x64, 0x65, 0x6F, 0x70, 0x71};
 
