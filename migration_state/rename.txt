@@ -233,3 +233,4 @@ CGameObject::FUN_00462405 -> FindEffectTimer -- returns index of the effect_time
 CGameObject::FUN_00461c41 -> SetTileLayerCell -- writes the object into a map tile lookup layer (0=backpacks,1=structures spans block,2=units,3=air,4=special)
 CGameObject::FUN_00461f8e -> GetDirTo -- 0..15 facing direction from this object toward the given world point
 CGameObject::FUN_0046246b -> DrawBarFill -- draws the 3-color hp/mp bar fill with end caps (shadowed variant when hp bars are off and unit unselected)
+CGameObject::FUN_004627bb -> DrawControlGroupNumber -- draws the control-group digit under the bar with shadow

@@ -1633,7 +1633,7 @@ void CGameObject::DrawBarFill(int32_t left, int32_t right, int32_t y, int32_t fi
     FillRectColorSimple(left + 4, y, left + fill_width + 4, y + 1, color_mid);
 }
 
-void CGameObject::FUN_004627bb(int32_t x, int32_t y) { // 4627BB
+void CGameObject::DrawControlGroupNumber(int32_t x, int32_t y) { // 4627BB
     BigStruct2* map = this->pMapObject;
     int32_t group = this->GetControlGroup();
     if (group < 0) {
@@ -1723,7 +1723,7 @@ void CUnit::DrawHealthBar(int32_t arg1, int32_t arg2, int32_t arg3) { // 466a78
         this->DrawBarFill(left, right, y, mp_fill, color_lo, color_mid, color_hi);
     }
 
-    this->FUN_004627bb(left, y + 4);
+    this->DrawControlGroupNumber(left, y + 4);
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     int32_t session_mode = main_wnd->sessionMode;
