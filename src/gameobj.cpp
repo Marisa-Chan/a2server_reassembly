@@ -139,7 +139,7 @@ CGameObject::CGameObject(const CGameObject* obj) {
     this->action_spell = obj->action_spell;
     this->availableSpellMask = obj->availableSpellMask;
     this->action_segments = obj->action_segments;
-    this->field_0xc4 = obj->field_0xc4;
+    this->turn_angle = obj->turn_angle;
     this->shopInventoryVisibleStart = obj->shopInventoryVisibleStart;
     this->pMapObject = obj->pMapObject;
     this->hp = obj->hp;
@@ -2875,18 +2875,18 @@ int32_t CUnit::VMethod11() { // 46785f
         this->y_pos2 = this->y_pos;
         break;
     case 5: {
-        int32_t turn = this->action_dir * 16 - this->field_0xc4;
+        int32_t turn = this->action_dir * 16 - this->turn_angle;
         if (turn < -0x7F) {
             turn += 0x100;
         }
         if (turn > 0x80) {
             turn -= 0x100;
         }
-        this->field_0xc4 += turn / this->action_segments;
-        if (this->field_0xc4 < 0) {
-            this->field_0xc4 += 0x100;
+        this->turn_angle += turn / this->action_segments;
+        if (this->turn_angle < 0) {
+            this->turn_angle += 0x100;
         }
-        this->dir = this->field_0xc4 >> 4;
+        this->dir = this->turn_angle >> 4;
         this->action_phase = this->action_phase + 1;
         this->x_pos2 = this->x_pos;
         this->y_pos2 = this->y_pos;

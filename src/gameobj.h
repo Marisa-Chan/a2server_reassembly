@@ -208,7 +208,7 @@ public:
 	int32_t action_segments; // a8
 	int32_t action_spell; // ac
 	CArray<uint16_t> actionTargets; // b0
-	int32_t field_0xc4; // c4
+	int32_t turn_angle; // c4
 	CPoint occupiedLocation; // c8
 	CArray<TokenEntry*> tokenEntries; //0xd0
 	int32_t shopInventoryVisibleStart; // e4

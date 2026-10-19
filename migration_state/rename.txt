@@ -51,3 +51,4 @@ TokenEntry::field_0x18 -> slot_code -- item location code: 1=equipped, 2=gold pi
 GO_11c::field_0x0/2/4 -> x/y/z, field_0x6 -> vfx_type, field_0x7 -> phase -- transient VFX element: screen-space offsets, g_ProjectileInfos sprite id, anim phase (ctor params renamed to match)
 CGameObject::field_0xa0 -> move_accum_x -- accumulated |dx| walked, drives walk-sway variant selection
 CGameObject::field_0xa4 -> move_accum_y -- accumulated |dy| walked, drives walk-sway variant selection
+CGameObject::field_0xc4 -> turn_angle -- interpolated facing in 1/16 dir units (dir = turn_angle >> 4)

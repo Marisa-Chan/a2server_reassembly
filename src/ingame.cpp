@@ -949,7 +949,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					ct->action_segments = packet_abil->segments;
 					ct->action = 5;
 					ct->action_dir = packet_abil->angle;
-					ct->field_0xc4 = ct->dir * 16;
+					ct->turn_angle = ct->dir * 16;
 					ct->action_phase = 0;
 					ct->move_accum_y = 0;
 					ct->move_accum_x = 0;
