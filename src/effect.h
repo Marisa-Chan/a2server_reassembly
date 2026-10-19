@@ -19,7 +19,7 @@ public: // VTable at 0060f288.
     virtual void Serialize(CArchive& ar) override; // 53e1ce
     virtual void TickOnUnit(Unit* unit); // 53ee54
     virtual void RemoveFromUnit(Unit* unit); // 53efb2
-    virtual void VMethod12(Unit* unit); // 53f761
+    virtual void ApplyToUnit(Unit* unit); // 53f761
     virtual void VMethod13(Unit* unit); // 53f92c
     virtual void VMethod14(Unit* unit, int32_t param); // 53FA2B
     virtual int32_t VMethod15(); // 541c87
