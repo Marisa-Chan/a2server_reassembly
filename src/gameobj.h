@@ -359,7 +359,7 @@ public:
     CArray<double> arc_x;
     CArray<double> arc_y;
     CArray<double> jitter_progress;
-    CArray<double> field_0xcc;
+    CArray<double> jitter_wobble;
 };
 ASSERT_SIZE(TransientVisualEffectBuilder, 0xe0);
 

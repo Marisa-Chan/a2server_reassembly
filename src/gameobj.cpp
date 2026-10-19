@@ -2339,9 +2339,9 @@ void TransientVisualEffectBuilder::FUN_004CB993(double x0, double y0, double x1,
     }
 
     this->jitter_progress.RemoveAll();
-    this->field_0xcc.RemoveAll();
+    this->jitter_wobble.RemoveAll();
     this->jitter_progress.Add(0.0);
-    this->field_0xcc.Add(0.0);
+    this->jitter_wobble.Add(0.0);
 
     do {
         double jitter_x = (double)(std::rand() % 7) * dir;
@@ -2356,7 +2356,7 @@ void TransientVisualEffectBuilder::FUN_004CB993(double x0, double y0, double x1,
         if (x_accum < -3.0) {
             x_accum = -3.0;
         }
-        this->field_0xcc.Add(x_accum);
+        this->jitter_wobble.Add(x_accum);
         y_accum += jitter_y;
         this->jitter_progress.Add(y_accum);
         dir = -dir;
@@ -2364,11 +2364,11 @@ void TransientVisualEffectBuilder::FUN_004CB993(double x0, double y0, double x1,
 
     if (this->jitter_progress.GetAt(this->jitter_progress.GetUpperBound()) >= 1.0) {
         this->jitter_progress.RemoveAt(this->jitter_progress.GetUpperBound());
-        this->field_0xcc.RemoveAt(this->field_0xcc.GetUpperBound());
+        this->jitter_wobble.RemoveAt(this->jitter_wobble.GetUpperBound());
     }
 
     this->jitter_progress.Add(1.0);
-    this->field_0xcc.Add(0.0);
+    this->jitter_wobble.Add(0.0);
 
     xs.Add(x0);
     ys.Add(y0);
@@ -2377,14 +2377,14 @@ void TransientVisualEffectBuilder::FUN_004CB993(double x0, double y0, double x1,
     double px = this->jitter_progress[1] * dx + x0;
     xs.Add(px);
     double py = this->jitter_progress[1] * dy + y0;
-    py = this->field_0xcc[1] * this->wobble_scale + py;
+    py = this->jitter_wobble[1] * this->wobble_scale + py;
     ys.Add(py);
     n = 1;
 
     for (int32_t i = 2; i < this->jitter_progress.GetSize() - 1; i++) {
         px = this->jitter_progress[i] * dx + x0;
         py = this->jitter_progress[i] * dy + y0;
-        py = this->field_0xcc[i] * this->wobble_scale + py;
+        py = this->jitter_wobble[i] * this->wobble_scale + py;
         double mid_x = (px - xs[n]) / 2.0 + xs[n];
         xs.Add(mid_x);
         double mid_y = (py - ys[n]) / 2.0 + ys[n];
