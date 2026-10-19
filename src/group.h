@@ -33,7 +33,7 @@ public:
     uint8_t guard_range;
     uint8_t gap_0x2e[2];
     uint32_t was_empty;
-    uint32_t field_0x34;
+    uint32_t phase_ticks;
     uint8_t field_0x38;
     uint8_t field_0x39;
     uint8_t gap_0x3a[10];

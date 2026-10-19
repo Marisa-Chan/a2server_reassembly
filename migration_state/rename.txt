@@ -143,3 +143,4 @@ GroupSub::field_0x2b -> max_scan_range -- --
 GroupSub::field_0x2c -> max_dist_plus_scan -- --
 GroupSub::field_0x2d -> guard_range -- --
 GroupSub::field_0x30 -> was_empty -- --
+GroupSub::field_0x34 -> phase_ticks -- --
