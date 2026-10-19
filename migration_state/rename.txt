@@ -538,3 +538,4 @@ NetStru1::sub_51C0F7 -> SendPendingUnits -- sends units from the pending unit li
 NetStru1::sub_51CA5D -> SendServerState -- sends the server state packet
 NetStru1::sub_51D1A8 -> SendKillStats -- sends kill stats (0/nullptr = all)
 NetStru1::sub_51B870 -> BroadcastUnitState -- broadcasts the unit state to all players
+NetStru1::sub_51CF5C -> SendUnitVisibility -- sends the unit visibility packet

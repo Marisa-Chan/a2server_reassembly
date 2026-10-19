@@ -304,7 +304,7 @@ void NetStru1::sub_51BE0E(Effect* effect, uint8_t type) {
 }
 
 // 51BE8F
-void NetStru1::sub_51BE8F(AreaEffect* obj, int32_t flag) {
+void NetStru1::SendAreaEffect(AreaEffect* obj, int32_t flag) {
     if (obj->itemDataID == 2) {
         PacketMoveCmd& packet = PacketMoveCmd::Inst;
         packet.id = 0x86;

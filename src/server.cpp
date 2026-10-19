@@ -1748,7 +1748,7 @@ void Server::SendWorldState(Player* player, int32_t bool_arg4) {
             }
             AreaEffect* ae = reinterpret_cast<AreaEffect*>(effect);
             if (ae->zone_active != 0) {
-                g_NetStru1_main.sub_51BE8F(ae, 1);
+                g_NetStru1_main.SendAreaEffect(ae, 1);
             }
         }
     }
@@ -5997,7 +5997,7 @@ void SpellEffectList::ProcessTick() {
                 if ((effect->field4_0x42 & (1 << i)) != 0 && (effect->field6_0x44 & (1 << i)) == 0) {
                     Player* player = g_PlayersList->sub_535B50(i + 16);
                     if (player != nullptr) {
-                        g_NetStru1_main.sub_51BE8F((AreaEffect*)effect, 1);
+                        g_NetStru1_main.SendAreaEffect((AreaEffect*)effect, 1);
                     }
                 }
             }

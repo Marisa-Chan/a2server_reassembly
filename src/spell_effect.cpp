@@ -323,13 +323,13 @@ void AreaEffect::sub_53822C() {
 			MapStuff_Instance->sub_59501E(this, dx, dy);
 		}
 	}
-	g_NetStru1_main.sub_51BE8F(this, 0);
+	g_NetStru1_main.SendAreaEffect(this, 0);
 	this->zone_active = 0;
 }
 
 // 5384FF
 void AreaEffect::sub_5384FF() {
-	g_NetStru1_main.sub_51BE8F(this, 1);
+	g_NetStru1_main.SendAreaEffect(this, 1);
 
 	bool spread_damage = false;
 	if (this->effect->IsKindOf(RUNTIME_CLASS(DirectDamage))) {
@@ -388,19 +388,19 @@ void AreaEffect::sub_53868D(uint8_t x, uint8_t y) {
 		if (layers[2] != nullptr) {
 			AreaEffect* layer = layers[2];
 			MapStuff_Instance->sub_59501E(layer, x, y);
-			g_NetStru1_main.sub_51BE8F(layer, 0);
+			g_NetStru1_main.SendAreaEffect(layer, 0);
 		}
 		if (layers[1] != nullptr) {
 			AreaEffect* layer = layers[1];
 			MapStuff_Instance->sub_59501E(layer, x, y);
-			g_NetStru1_main.sub_51BE8F(layer, 0);
+			g_NetStru1_main.SendAreaEffect(layer, 0);
 		}
 		break;
 	case spell::poison_cloud:
 		if (layers[0] != nullptr) {
 			AreaEffect* layer = layers[2];
 			MapStuff_Instance->sub_59501E(layer, x, y);
-			g_NetStru1_main.sub_51BE8F(layer, 0);
+			g_NetStru1_main.SendAreaEffect(layer, 0);
 		}
 		break;
 	case spell::darkness:
@@ -408,7 +408,7 @@ void AreaEffect::sub_53868D(uint8_t x, uint8_t y) {
 			MapStuff_Instance->sub_59501E(layers[5], x, y);
 			AreaEffect* layer = layers[4];
 			MapStuff_Instance->sub_59501E(layer, x, y);
-			g_NetStru1_main.sub_51BE8F(layer, 0);
+			g_NetStru1_main.SendAreaEffect(layer, 0);
 		}
 		break;
 	case spell::light:
@@ -416,7 +416,7 @@ void AreaEffect::sub_53868D(uint8_t x, uint8_t y) {
 			MapStuff_Instance->sub_59501E(layers[4], x, y);
 			AreaEffect* layer = layers[5];
 			MapStuff_Instance->sub_59501E(layer, x, y);
-			g_NetStru1_main.sub_51BE8F(layer, 0);
+			g_NetStru1_main.SendAreaEffect(layer, 0);
 		}
 		break;
 	}
@@ -440,7 +440,7 @@ void AreaEffect::sub_53801A() {
 			}
 		}
 	}
-	g_NetStru1_main.sub_51BE8F(this, 1);
+	g_NetStru1_main.SendAreaEffect(this, 1);
 	this->zone_active = 1;
 }
 
@@ -459,7 +459,7 @@ void AreaEffect::sub_537F2C() {
 	for (int32_t i = 0; i < wave.count; i++) {
 		this->sub_538137(x + wave.x_mult * wave.x_offsets[i], y + wave.y_mult * wave.y_offsets[i], spread_damage);
 	}
-	g_NetStru1_main.sub_51BE8F(this, 1);
+	g_NetStru1_main.SendAreaEffect(this, 1);
 	this->zone_active = 1;
 }
 
