@@ -1464,7 +1464,7 @@ void World::MonsterAiTick(Unit* unit) {
             uint8_t y2 = unit->eye2->position2.y;
             uint8_t x1 = unit->position->GetX();
             uint8_t y1 = unit->position->GetY();
-            if (this->field24_0xa50->sub_58BFA3(x1, y1, x2, y2) < 3) {
+            if (this->field24_0xa50->ChebyshevDistanceXY(x1, y1, x2, y2) < 3) {
                 CList<uint16_t>* positions = unit->eye2->positions_list;
                 if (positions != nullptr) {
                     POSITION pos = positions->Find(unit->eye2->position2);
@@ -3479,7 +3479,7 @@ void World::sub_5AB35B(Unit* unit) {
             uint8_t x2 = this->waypoint_table[v14 * 2];
             uint8_t y1 = unit->position->GetY();
             uint8_t x1 = unit->position->GetX();
-            uint8_t dist = this->field24_0xa50->sub_58BFA3(x1, y1, x2, y2);
+            uint8_t dist = this->field24_0xa50->ChebyshevDistanceXY(x1, y1, x2, y2);
             if (dist < 5) {
                 nearby = true;
                 if (unit->eye2->field4_0x9 != 0xFF) {
@@ -3599,7 +3599,7 @@ void World::sub_5A65BB(Unit* unit, Unit* target) {
 // 5A5568
 void World::sub_5A5568(Unit* unit, Unit* target) {
     uint8_t range = unit->eye2->range;
-    uint8_t distance = this->field24_0xa50->sub_58BFA3(
+    uint8_t distance = this->field24_0xa50->ChebyshevDistanceXY(
         unit->position->GetX(),
         unit->position->GetY(),
         target->position->GetX(),
@@ -3629,7 +3629,7 @@ void World::sub_5A5568(Unit* unit, Unit* target) {
 // 5A56D7
 void World::sub_5A56D7(Unit* unit, Unit* target) {
     uint8_t range = unit->eye2->range;
-    uint8_t distance = this->field24_0xa50->sub_58BFA3(
+    uint8_t distance = this->field24_0xa50->ChebyshevDistanceXY(
         unit->position->GetX(),
         unit->position->GetY(),
         target->position->GetX(),
@@ -3845,7 +3845,7 @@ void World::AdvancePatrol(Unit* unit) {
     uint8_t x2 = unit->eye2->position1.x;
     uint8_t y1 = unit->position->GetY();
     uint8_t x1 = unit->position->GetX();
-    uint8_t dist = this->field24_0xa50->sub_58BFA3(x1, y1, x2, y2);
+    uint8_t dist = this->field24_0xa50->ChebyshevDistanceXY(x1, y1, x2, y2);
     if (dist >= (unit->scan_range >> 8)) {
         this->sub_5A8778(unit, unit->eye2->position1.val);
     }
@@ -4556,7 +4556,7 @@ void World::CheckOP_2(TriggerCheck* check) {
 // 5B2F9A
 void World::CheckOP_3(TriggerCheck* check) {
     TokenPos* pos = check->unit->position;
-    int32_t distance = this->field24_0xa50->sub_58BFA3(pos->GetX(), pos->GetY(), check->data[0], check->data[1]);
+    int32_t distance = this->field24_0xa50->ChebyshevDistanceXY(pos->GetX(), pos->GetY(), check->data[0], check->data[1]);
     if (distance > check->data[2]) {
         this->trigger_variables[check->id] = 0;
     } else {
@@ -4589,14 +4589,14 @@ void World::CheckOP_6(TriggerCheck* check) {
     } else {
         TokenPos* pos = check->unit->position;
         TokenPos* other_pos = other->position;
-        this->trigger_variables[check->id] = this->field24_0xa50->sub_58BFA3(pos->GetX(), pos->GetY(), other_pos->GetX(), other_pos->GetY());
+        this->trigger_variables[check->id] = this->field24_0xa50->ChebyshevDistanceXY(pos->GetX(), pos->GetY(), other_pos->GetX(), other_pos->GetY());
     }
 }
 
 // 5B3016
 void World::CheckOP_7(TriggerCheck* check) {
     TokenPos* pos = check->unit->position;
-    this->trigger_variables[check->id] = this->field24_0xa50->sub_58BFA3(pos->GetX(), pos->GetY(), check->data[0], check->data[1]);
+    this->trigger_variables[check->id] = this->field24_0xa50->ChebyshevDistanceXY(pos->GetX(), pos->GetY(), check->data[0], check->data[1]);
 }
 
 // 5B30AD
@@ -4651,7 +4651,7 @@ void World::CheckOP_15(TriggerCheck* check) {
         Group* group = groups.GetNext(it);
         for (POSITION unit_it = group->unit_list.GetHeadPosition(); unit_it != nullptr;) {
             Unit* unit = group->unit_list.GetNext(unit_it);
-            int32_t distance = this->field24_0xa50->sub_58BFA3(unit->position->GetX(), unit->position->GetY(), check->data[0], check->data[1]);
+            int32_t distance = this->field24_0xa50->ChebyshevDistanceXY(unit->position->GetX(), unit->position->GetY(), check->data[0], check->data[1]);
             if (distance < best) {
                 best = distance;
             }
@@ -4663,7 +4663,7 @@ void World::CheckOP_15(TriggerCheck* check) {
 // 5B33F0
 void World::CheckOP_16(TriggerCheck* check) {
     if (check->unit->inventory->sub_552B6B(check->item_id) != nullptr) {
-        this->trigger_variables[check->id] = this->field24_0xa50->sub_58BFA3(check->unit->position->GetX(), check->unit->position->GetY(), check->data[0], check->data[1]);
+        this->trigger_variables[check->id] = this->field24_0xa50->ChebyshevDistanceXY(check->unit->position->GetX(), check->unit->position->GetY(), check->data[0], check->data[1]);
     } else {
         this->trigger_variables[check->id] = 0xFF;
     }

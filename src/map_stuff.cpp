@@ -665,7 +665,7 @@ void MapStuff::sub_590902(Unit* unit, Unit* target) {
     int32_t list1_count = unit->list1.GetCount();
     if (list1_count != 0) {
         next_yx = unit->list1.GetHead();
-        distance = this->sub_58BFA3(cur_yx.x, cur_yx.y, next_yx.x, next_yx.y);
+        distance = this->ChebyshevDistanceXY(cur_yx.x, cur_yx.y, next_yx.x, next_yx.y);
     }
 
     PosYX target_yx;
@@ -2024,7 +2024,7 @@ void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
         return;
     }
 
-    const uint16_t distance = this->sub_58BFA3(cur_x, cur_y, x, y);
+    const uint16_t distance = this->ChebyshevDistanceXY(cur_x, cur_y, x, y);
 
     // Seed the BFS work queue with the unit's current tile.
     this->field7_0x54008 = 0;
@@ -2611,7 +2611,7 @@ Building* MapStuff::sub_594709(uint16_t yx) {
 }
 
 // 58BFA3 --- Chebyshev distance between two (x, y) points
-int32_t MapStuff::sub_58BFA3(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
+int32_t MapStuff::ChebyshevDistanceXY(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
     return (std::max)(abs(x1 - x2), abs(y1 - y2));
 }
 
