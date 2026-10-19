@@ -1730,7 +1730,7 @@ void Server::SendWorldState(Player* player, int32_t bool_arg4) {
     // Stream remaining server state to the joining player.
     g_NetStru1_main.SendPendingUnits(player);          // send units from dword_6CDB3C
     g_NetStru1_main.SendServerState(player);          // send server state
-    g_NetStru1_main.sub_51D1A8(0, player);       // send kill stats
+    g_NetStru1_main.SendKillStats(0, player);       // send kill stats
     g_NetStru1_main.sub_51CF5C(player->main_unit, 0, nullptr); // hero visibility packet
 
     // Send any active area effects to the player.
@@ -2797,7 +2797,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
 
         // +knowledge --- all above paths fall through here
         if (cheat_string.Find("+knowledge") == 0) {
-            g_NetStru1_main.sub_51D1A8(0, player);
+            g_NetStru1_main.SendKillStats(0, player);
         }
     } else if (cheat_string.Find("#summon ") == 0) {
         cheat_string = cheat_string.Mid(8);

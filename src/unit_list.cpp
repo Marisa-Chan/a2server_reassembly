@@ -251,7 +251,7 @@ void UnitList::ProcessTick() {
 						if (*kills < 14) {
 							(*kills)++;
 							if ((*kills & 1) == 0) { // Opens a new monster stat every 2 kills.
-								g_NetStru1_main.sub_51D1A8(unit->server_id, unit->last_hit_by->pOwner);
+								g_NetStru1_main.SendKillStats(unit->server_id, unit->last_hit_by->pOwner);
 							}
 						}
 					}

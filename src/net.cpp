@@ -492,7 +492,7 @@ void NetStru1::sub_51CF5C(Unit* unit, int32_t flag, Player* player) {
 }
 
 // 51D1A8
-void NetStru1::sub_51D1A8(uint16_t player_id, Player* player) {
+void NetStru1::SendKillStats(uint16_t player_id, Player* player) {
     if (player_id != 0) {
         PacketDword& packet = PacketDword::Inst;
         packet.id = 0xB3;

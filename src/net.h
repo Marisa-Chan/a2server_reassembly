@@ -161,7 +161,7 @@ public:
     void SendVisibilityState(Player* player);  // Send terrain/diplomacy visibility state to player
     void SendPendingUnits(Player* player);  // Send units from pending unit list to player
     void SendServerState(Player* player);  // Send server state to player
-    void sub_51D1A8(uint16_t player_id, Player* player);  // Send kill stats (pass 0,nullptr for all)
+    void SendKillStats(uint16_t player_id, Player* player);  // Send kill stats (pass 0,nullptr for all)
     void sub_51B870(Unit* unit); // Broadcast unit to all players
     void sub_51CF5C(Unit* unit, int flag, Player* player); // Send unit visibility packet (retn 0Ch)
     void sub_51BE8F(AreaEffect* obj, int flag); // Send area-effect packet

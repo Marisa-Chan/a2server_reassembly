@@ -535,3 +535,4 @@ NetStru1::sub_51D837 -> SendGameInfo -- sends server state / player list to the 
 NetStru1::sub_51C8B1 -> SendExistingPlayers -- sends PacketJoin of every existing player to the new player
 NetStru1::sub_51CB21 -> SendVisibilityState -- sends terrain/diplomacy visibility state
 NetStru1::sub_51C0F7 -> SendPendingUnits -- sends units from the pending unit list
+NetStru1::sub_51CA5D -> SendServerState -- sends the server state packet
