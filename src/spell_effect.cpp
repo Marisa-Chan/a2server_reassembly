@@ -158,7 +158,7 @@ void PointEffect::sub_5375A4() {
 		this->effect->caster = nullptr;
 	}
 
-	if (!this->target->VMethod7()) {
+	if (!this->target->IsUnit()) {
 		if (this->target->VMethod9()) {
 			this->effect->VMethod11(this->target);
 		}

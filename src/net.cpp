@@ -242,7 +242,7 @@ void NetStru1::sub_51B870(Unit* unit) {
         Player* player = g_PlayersList->list.GetNext(pos);
         if (player->is_active && unit->sub_5287c4(player)) {
             unit->position->sub_58bec3(); // WAT: Useless call?
-            if (unit->VMethod7()) {
+            if (unit->IsUnit()) {
                 this->sub_519221(unit, player, 0xFFB, -1, 0, 0);
             } else {
                 this->sub_51AC77(unit, player, 0);
@@ -4257,7 +4257,7 @@ void NetStru1::sub_51BAB0(Unit* caster, Spell* spell, Unit* target, int16_t dela
         *(uint16_t*)&packet.x = (uint16_t)target->building_id;
         packet.segments = delay;
     }
-    if (caster->VMethod7()) {
+    if (caster->IsUnit()) {
         caster->last_action_tick = g_Server->tick;
     }
     packet.to_player_id = 0;
@@ -4278,7 +4278,7 @@ void NetStru1::sub_51BB94(Unit* caster, Spell* spell, TokenPos* pos, int16_t del
     packet.x = pos->GetX();
     packet.y = pos->GetY();
     packet.segments = delay;
-    if (caster->VMethod7()) {
+    if (caster->IsUnit()) {
         caster->last_action_tick = g_Server->tick;
     }
     packet.to_player_id = 0;
@@ -4302,7 +4302,7 @@ void NetStru1::sub_51BC6B(Unit* caster, Spell* spell, CList<Unit*>* units, int32
         packet.buf[i] = unit->building_id;
         i++;
     }
-    if (caster->VMethod7()) {
+    if (caster->IsUnit()) {
         caster->last_action_tick = g_Server->tick;
     }
     packet.to_player_id = 0;
@@ -4681,7 +4681,7 @@ void NetStru1::sub_51AC77(Token* token, Player* player, uint8_t flag) {
         return;
     }
 
-    if (token->VMethod7()) {
+    if (token->IsUnit()) {
         Unit* unit = static_cast<Unit*>(token);
         if (flag == 0x73) {
             if (!(unit->seen_by_mask & player->vision_sharing_id) && g_Server->field4_0x74 != 0) {

@@ -73,7 +73,7 @@ public: // VTable at 60efc0.
     virtual int32_t GetTokenSize() override; // TokenSize
     virtual int32_t GetMovementType() override; // MovementType
     virtual void FixupPointers() override;
-    virtual int32_t VMethod7() override; // IsUnit
+    virtual int32_t IsUnit() override; // IsUnit
     virtual int32_t VMethod8() override; // IsHumanoid
     virtual void VMethod10();
     virtual void VMethod11(Unit *);
@@ -251,7 +251,7 @@ public:
     //virtual int32_t VMethod4() override;
     virtual void FixupPointers() override;
     //virtual int32_t VMethod6() override;
-    virtual int32_t VMethod7() override;
+    virtual int32_t IsUnit() override;
     virtual int32_t VMethod8() override;
     //virtual int32_t VMethod9() override;
     virtual void VMethod10() override;

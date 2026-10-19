@@ -245,7 +245,7 @@ int32_t Token::IsItem() {
 	return 0;
 }
 
-int32_t Token::VMethod7() {
+int32_t Token::IsUnit() {
 	// 57b2d0
 	return 0;
 }

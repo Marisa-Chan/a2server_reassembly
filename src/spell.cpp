@@ -390,7 +390,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
         if (target->GetTokenSize() > 1) {
             local_pos.SetCoords2(target->sub_528725() - 1, target->sub_528763() - 1);
         }
-        if (target->VMethod7() != 0 && (target->unit_attrs & 8)) {
+        if (target->IsUnit() != 0 && (target->unit_attrs & 8)) {
             return;
         }
     }
@@ -495,7 +495,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 int32_t factor = (caster->some_item == nullptr) ? 2 : 1;
                 effect->spell_value = power * 240 * factor / 100;
             }
-            if (target->VMethod7() != 0) {
+            if (target->IsUnit() != 0) {
                 int32_t earth_protection = target->protections.magic_protections[4];
                 int32_t max_duration = effect->spell_value * (100 - earth_protection) / 100;
                 effect->spell_value = Random0N(max_duration);
@@ -742,7 +742,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
             }
 
         case spell::drain_life: {
-                if (target->VMethod7() == 0) {
+                if (target->IsUnit() == 0) {
                     return;
                 }
                 int32_t drain = this->damage_min + Random1N(this->damage_spread);

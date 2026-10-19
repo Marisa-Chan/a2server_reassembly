@@ -249,7 +249,7 @@ void __cdecl sub_53678F(Unit* self, Unit* target) {
     if (target == nullptr) {
         return;
     }
-    if (target->VMethod7()) { // IsUnit
+    if (target->IsUnit()) { // IsUnit
         sub_53685B(self, target);
         return;
     }
@@ -938,7 +938,7 @@ int32_t Unit::GetMovementType() {
     return this->movement_type;
 }
 
-int32_t Unit::VMethod7() {
+int32_t Unit::IsUnit() {
     return 1;
 }
 
@@ -2271,7 +2271,7 @@ void Humanoid::FixupPointers() {
     Unit::FixupPointers();
 }
 
-int32_t Humanoid::VMethod7() {
+int32_t Humanoid::IsUnit() {
     //57bb50
     return 1;
 }
