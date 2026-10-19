@@ -33,7 +33,7 @@ CStringArray g_MissionSubjs; //660ea8
 MapStuff::MapStuff(MapAlm* alm, UnitList* unit_list) {
     this->scratch_cell_state.Null();
     this->field_0x58d88.Null();
-    this->sub_58E891(unit_list);
+    this->InitFromUnitList(unit_list);
     this->sub_58F166(alm);
 }
 
@@ -42,7 +42,7 @@ MapStuff::~MapStuff() {
 }
 
 // 58E891
-void MapStuff::sub_58E891(UnitList* unit_list) {
+void MapStuff::InitFromUnitList(UnitList* unit_list) {
     this->field69_0xa456c = unit_list;
     this->scan_presence_grid.unit_list = unit_list;
     this->scan_presence_grid.num_detected = unit_list->unit_list.GetCount();
