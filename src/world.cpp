@@ -424,7 +424,7 @@ void World::sub_5ADD64(Group* group) {
 
     Visibility* visibility = &this->field24_0xa50->visibility;
     visibility->sub_58E1C1();
-    uint8_t* scratch = visibility->field_0x2a008;
+    uint8_t* scratch = visibility->vis_scratch;
 
     for (; it != nullptr;) {
         Unit* u = group->unit_list.GetNext(it);
@@ -479,7 +479,7 @@ void World::sub_5ADB16(Group* group) {
 
     Visibility* visibility = &this->field24_0xa50->visibility;
     visibility->sub_58E1C1();
-    uint8_t* scratch = visibility->field_0x2a008;
+    uint8_t* scratch = visibility->vis_scratch;
 
     for (; it != nullptr;) {
         Unit* u = group->unit_list.GetNext(it);
@@ -2411,7 +2411,7 @@ uint8_t World::UnitMaxRange(Unit* unit) { //5a6adb
 void World::sub_5A5E54(Unit* unit) {
     Visibility* visibility = &this->field24_0xa50->visibility;
     visibility->sub_58E1C1();
-    uint8_t* scratch = visibility->field_0x2a008;
+    uint8_t* scratch = visibility->vis_scratch;
 
     uint16_t yx = unit->position->CompatGetYX();
     visibility->sub_58DE69(unit, yx);
