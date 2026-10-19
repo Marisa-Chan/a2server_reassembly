@@ -106,3 +106,4 @@ MainWindow::field_0x404 -> pending_game_mode -- --
 MainWindow::field_0x408 -> drag_entry -- --
 MainWindow::field_0x40c -> drag_src_slot -- --
 MainWindow::field_0x410 -> drag_src_tab -- --
+MainWindow::field_0x448 -> unlimited_speed -- --
