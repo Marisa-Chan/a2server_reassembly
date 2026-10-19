@@ -2086,7 +2086,7 @@ void World::ScriptOP_0x06(TriggerAction* action) {
             this->GroupAttackCommand(group, action->unit);
             break;
         case 11: // Defend (unit=action->unit, follow_range=data[1])
-            this->sub_5ACB4D(group, action->unit, action->data[1]);
+            this->GroupAttackTargetCommand(group, action->unit, action->data[1]);
             break;
         case 14: // Patrol (x=data[1], y=data[2])
             this->sub_5ACBEF(group, action->data[1], action->data[2]);
@@ -4422,7 +4422,7 @@ void World::GroupAttackCommand(Group* group, Unit* target) {
 }
 
 // 5ACB4D
-void World::sub_5ACB4D(Group* group, Unit* target, uint8_t param_3) {
+void World::GroupAttackTargetCommand(Group* group, Unit* target, uint8_t param_3) {
     this->ClearGroupOrders(group);
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
