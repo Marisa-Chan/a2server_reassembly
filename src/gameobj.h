@@ -140,7 +140,7 @@ public:
 	virtual void UpdateOccupancy();
 	virtual void MarkOccupancy();
 	virtual int32_t UpdateBlockedState();
-	virtual void VMethod16();
+	virtual void UpdateTransientVisualElements();
 
 	CGameObject();
 	CGameObject(const CGameObject *obj);
@@ -252,7 +252,7 @@ public:
 	virtual void UpdateOccupancy() override;
 	virtual void MarkOccupancy() override;
 	virtual int32_t UpdateBlockedState() override;
-	virtual void VMethod16() override;
+	virtual void UpdateTransientVisualElements() override;
 	virtual void VMethod17(int16_t arg1, int32_t arg2, int32_t arg3, int32_t arg4, int32_t arg5, MapPlayerData* arg6, int32_t arg7, int32_t arg8, int16_t arg9, int16_t arg10);
 	virtual void VMethod18();
 	virtual void VMethod19();
@@ -429,7 +429,7 @@ public:
 
 	virtual int32_t Update() override; // 46d8d8
 	virtual void UpdateLight() override; // 46e805
-	virtual void VMethod16() override; // 46eb80
+	virtual void UpdateTransientVisualElements() override; // 46eb80
 
 	CProjectile(); // 46d802
 	CProjectile(CProjectile* obj); //46d85c

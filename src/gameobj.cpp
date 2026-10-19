@@ -487,7 +487,7 @@ int32_t CGameObject::UpdateBlockedState() { //46207a
     return 1;
 }
 
-void CGameObject::VMethod16() { // 46f500
+void CGameObject::UpdateTransientVisualElements() { // 46f500
 }
 
 void CGameObject::SetVals(uint16_t uni_id, int type_id, int32_t xpos, int32_t ypos, int32_t unk1, int32_t unk2, int32_t _phase, int32_t _speed, int32_t _hp) { //46187d
@@ -2539,7 +2539,7 @@ int __cdecl CompareVisualElements(const void* left, const void* right) {
     return 0;
 }
 
-void CUnit::VMethod16() { // 468dcb
+void CUnit::UpdateTransientVisualElements() { // 468dcb
     CArray<GO_11c> visual_elements;
 
     for (int32_t i = 0; i < this->effect_timers.GetSize();) {
@@ -2628,7 +2628,7 @@ int32_t CUnit::Update() { // 46785f
         return 1;
     }
 
-    this->VMethod16();
+    this->UpdateTransientVisualElements();
 
     if (this->action_segments == 0) {
         if (this->last_action != 0 || this->effect_timers.GetSize() != 0 || g_VFX_info[this->typeId]->idle_phases > 0) {
@@ -4530,7 +4530,7 @@ int32_t CProjectile::Update() {
             this->path_history.Add(old_x | old_y << 0x10);
         }
 
-        this->VMethod16();
+        this->UpdateTransientVisualElements();
     }
 
     this->last_action = (int8_t)this->action;
@@ -4704,7 +4704,7 @@ void CProjectile::UpdateLight() {
 }
 
 // 46eb80
-void CProjectile::VMethod16() {
+void CProjectile::UpdateTransientVisualElements() {
     BigStruct2* map = this->pMapObject;
 
     if (this->typeId == 28) {
