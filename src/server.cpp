@@ -1754,7 +1754,7 @@ void Server::SendWorldState(Player* player, int32_t bool_arg4) {
     }
 
     if (g_Server->field4_0x74 != 0) {
-        g_NetStru1_main.sub_51D4F6(&g_QuestMap, player, 0);
+        g_NetStru1_main.SendSrvStru1State(&g_QuestMap, player, 0);
     }
 
     // Encode and send the full map-terrain packet to the player.
@@ -4822,7 +4822,7 @@ void Server::ServerTic() {
             g_QuestMap.flags.GetNextAssoc(pos, k, v);
             Player* p = g_PlayersList->sub_535B50(k);
             if (v != 0 && p != nullptr) {
-                g_NetStru1_main.sub_51D4F6(&g_QuestMap, p, 0);
+                g_NetStru1_main.SendSrvStru1State(&g_QuestMap, p, 0);
                 if ((v & 0x10) != 0) {
                     g_NetStru1_main.FUN_0051ce86(0x10, 0, p);
                 }

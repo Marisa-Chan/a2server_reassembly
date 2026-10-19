@@ -552,7 +552,7 @@ void NetStru1::SendKillStats(uint16_t player_id, Player* player) {
 }
 
 // 51D4F6
-void NetStru1::sub_51D4F6(QuestMap* quest_map, Player* player, int32_t flag) {
+void NetStru1::SendSrvStru1State(QuestMap* quest_map, Player* player, int32_t flag) {
     PacketTerrain& packet = PacketTerrain::Inst;
     packet.id = flag ? 0xBC : 0xBB;
     packet.to_player_id = player->player_id;

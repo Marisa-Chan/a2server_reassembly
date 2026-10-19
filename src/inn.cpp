@@ -1134,7 +1134,7 @@ void Inn::sub_560C67(Unit* unit) {
     Quest* quest = this->sub_567A25(player);
     if (quest == nullptr) {
         this->InnCreateQuests(player);
-        g_NetStru1_main.sub_51D4F6(this->quest_map, player, 1);
+        g_NetStru1_main.SendSrvStru1State(this->quest_map, player, 1);
     } else {
         this->InnReward(player);
         Inventory* inventory = nullptr;
@@ -1214,7 +1214,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
                 qm->sub_55E5FB(this->active_quest);
                 this->active_quest->quest_data.state = 0;
                 g_QuestMap.sub_55E24A(this->active_quest);
-                g_NetStru1_main.sub_51D4F6(&g_QuestMap, humanoid->pOwner, 0);
+                g_NetStru1_main.SendSrvStru1State(&g_QuestMap, humanoid->pOwner, 0);
                 g_NetStru1_main.FUN_0051ce86(0x10, 0, humanoid->pOwner);
 
                 int32_t kind = this->active_quest->Kind();

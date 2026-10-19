@@ -540,3 +540,4 @@ NetStru1::sub_51D1A8 -> SendKillStats -- sends kill stats (0/nullptr = all)
 NetStru1::sub_51B870 -> BroadcastUnitState -- broadcasts the unit state to all players
 NetStru1::sub_51CF5C -> SendUnitVisibility -- sends the unit visibility packet
 NetStru1::sub_51BE8F -> SendAreaEffect -- sends the area-effect packet
+NetStru1::sub_51BE0E -> BroadcastEffectMove -- broadcasts the move-cmd packet for an effect token
