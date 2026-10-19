@@ -755,7 +755,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 if (drain <= 0) {
                     return;
                 }
-                caster->VMethod23(target, drain, this->spell_id);
+                caster->AwardDamageExperience(target, drain, this->spell_id);
                 if (target->pOwner != nullptr && caster->pOwner != nullptr) {
                     g_World->sub_5AA581(caster, target, 0);
                 }

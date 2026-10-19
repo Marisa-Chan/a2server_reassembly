@@ -287,3 +287,4 @@ Unit::VMethod18 -> RecalcStats -- Unit: mp2 = mp_max scaled by owner stat; Human
 Unit::VMethod19 -> RecalcExperience -- Unit: returns _exp unchanged; Humanoid: recomputes _exp = sum(experience_per_sphere)/100
 Unit::VMethod21 -> AddExperience -- adds exp (Humanoid: mind scaling, diminishing returns per repeated victim, no exp from summons/tournaments)
 Unit::VMethod22 -> AwardKillExperience -- Humanoid: killer gains half the victim's exp and records the mob kill in mob_kills_in_session
+Unit::VMethod23 -> AwardDamageExperience -- Humanoid: caster gains exp proportional to damage dealt to AI-owned units

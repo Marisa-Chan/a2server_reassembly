@@ -180,7 +180,7 @@ void __cdecl sub_53685B(Unit* self, Unit* target) {
     }
 
     if (damage > 0 && was_alive && target->hp > -10) {
-        self->VMethod23(target, damage, 0);
+        self->AwardDamageExperience(target, damage, 0);
     }
 }
 
@@ -1194,7 +1194,7 @@ void Unit::AddExperience(uint32_t newExp, Unit *target, int32_t sphere) {
 void Unit::AwardKillExperience(Unit*, int32_t)
 {}
 
-void Unit::VMethod23(Unit*, uint32_t, int32_t)
+void Unit::AwardDamageExperience(Unit*, uint32_t, int32_t)
 {}
 
 void Unit::VMethod24(Unit*, int32_t)
@@ -2667,7 +2667,7 @@ void Humanoid::AwardKillExperience(Unit* unit, int32_t spell_id) {
 }
 
 // 530fc1
-void Humanoid::VMethod23(Unit* unit, uint32_t damage, int32_t spell_id) {
+void Humanoid::AwardDamageExperience(Unit* unit, uint32_t damage, int32_t spell_id) {
     if (spell_id != 0 && (this->unit_attrs & 4) == 0) {
         return;
     }

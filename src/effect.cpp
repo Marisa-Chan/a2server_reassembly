@@ -25,7 +25,7 @@ void Effect::VMethod12(Unit* unit) {
                 if (this->caster->hp < 0) {
                     this->caster = nullptr;
                 } else {
-                    this->caster->VMethod23(unit, damage, spell::poison_cloud);
+                    this->caster->AwardDamageExperience(unit, damage, spell::poison_cloud);
                 }
             }
             g_NetStru1_main.sub_51C601(unit, 0);
@@ -931,7 +931,7 @@ void DirectDamage::VMethod11(Unit* unit) {
         unit->hp -= (int16_t)damage;
         if (damage > 0) {
             if (this->caster != nullptr && this->itemDataID != 0) {
-                this->caster->VMethod23(unit, damage, this->itemDataID);
+                this->caster->AwardDamageExperience(unit, damage, this->itemDataID);
             }
             g_NetStru1_main.sub_51C601(unit, damage);
         }
