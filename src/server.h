@@ -171,7 +171,7 @@ public:
     void SaveCharacter(Humanoid* humanoid);
     void EnsurePlayerGroup(Player* player);
     void UpdateHatAnnounce();
-    void sub_4F0D58();
+    void ProcessHatConnections();
     void sub_4FA4BB(CString* name, uint32_t* frags);
     void sub_4FA348(CString* name, int32_t flag); // TODO: that's likely `CString&`
     void sub_4FA551(Player* player); // Arena mode player entry handler

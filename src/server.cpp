@@ -4751,7 +4751,7 @@ void Server::ServerTic() {
     }
 
     if ((this->tick & 0xf) == 10) {
-        this->sub_4F0D58();
+        this->ProcessHatConnections();
         this->HatKeepaliveTick();
     }
 
@@ -5052,7 +5052,7 @@ void Server::FUN_00501b9e(int32_t var300, CDWordArray& arr) { //501b9e
 }
 
 // 4F0D58
-void Server::sub_4F0D58() {
+void Server::ProcessHatConnections() {
     NetStru1::HatConnector.ProcessConnections();
     if (g_HatLLDriver.IsListen()) {
         if (this->field50_0x1d4 != 0) {
