@@ -563,7 +563,7 @@ int32_t ShopAssortment::sub_54EA76(Item* item) {
 
     // Second effect attempt (50% chance)
     budget = this->max_cost * 2 - item->_exp;
-    magic_volume = item->magic_volume - sub_54F176(item);
+    magic_volume = item->magic_volume - TotalEffectPrice(item);
 
     if (Random0N(100) < 50) {
         effect = sub_54EDE9(is_warrior, item_type, local_18, magic_volume, budget, item->_exp, 100);
@@ -580,7 +580,7 @@ int32_t ShopAssortment::sub_54EA76(Item* item) {
 
     // Third effect attempt (25% chance)
     budget = this->max_cost * 2 - item->_exp;
-    magic_volume = item->magic_volume - sub_54F176(item);
+    magic_volume = item->magic_volume - TotalEffectPrice(item);
 
     if (Random0N(100) < 25) {
         effect = sub_54EDE9(is_warrior, item_type, local_18, magic_volume, budget, item->_exp, 100);
@@ -595,6 +595,6 @@ int32_t ShopAssortment::sub_54EA76(Item* item) {
         item->CalcValue();
     }
 
-    item->magic_volume -= sub_54F176(item);
+    item->magic_volume -= TotalEffectPrice(item);
     return 1;
 }

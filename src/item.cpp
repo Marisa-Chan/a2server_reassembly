@@ -634,7 +634,7 @@ void Item::AddEffect(Effect* effect) {
 }
 
 // 54F176
-int32_t sub_54F176(Item* item) {
+int32_t TotalEffectPrice(Item* item) {
     int32_t total = 0;
     POSITION it = item->_effects.GetHeadPosition();
     while (it != nullptr) {
@@ -654,7 +654,7 @@ void Item::RecalcFromTemplate() {
     MatShape* material = &g_GameDataRes.materials[this->material_id];
     this->magic_volume = (int16_t)(material->data.magic_volume * shape->data.magic_volume);
 
-    this->magic_volume -= sub_54F176(this);
+    this->magic_volume -= TotalEffectPrice(this);
 }
 
 
