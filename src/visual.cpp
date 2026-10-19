@@ -9497,14 +9497,14 @@ void VisCharInfo::VMethod7() {
                     strcpy(this->picturename, fname);
                     if ((unit->unitFlags & 8) != 0) {
                         UnlockSurface2();
-                        unit->VMethod30(full_path, this->bitmap, this->hitmap);
+                        unit->RenderHeroPortrait(full_path, this->bitmap, this->hitmap);
                         LockSurface2();
                     } else {
                         this->bitmap->LoadFile(fname, this->hitmap);
                     }
                 } else if ((unit->unitFlags & 8) != 0) {
                     UnlockSurface2();
-                    unit->VMethod30(full_path, this->bitmap, this->hitmap);
+                    unit->RenderHeroPortrait(full_path, this->bitmap, this->hitmap);
                     LockSurface2();
                 }
             } else {
@@ -13644,14 +13644,14 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
                     strcpy(this->field_0x60, fname);
                     if ((unit->unitFlags & 8) != 0) {
                         UnlockSurface2();
-                        unit->VMethod30(full_path, this->field_0x160, this->field_0x164);
+                        unit->RenderHeroPortrait(full_path, this->field_0x160, this->field_0x164);
                         LockSurface2();
                     } else {
                         this->field_0x160->LoadFile(fname, this->field_0x164);
                     }
                 } else if ((unit->unitFlags & 8) != 0) {
                     UnlockSurface2();
-                    unit->VMethod30(full_path, this->field_0x160, this->field_0x164);
+                    unit->RenderHeroPortrait(full_path, this->field_0x160, this->field_0x164);
                     LockSurface2();
                 }
             }
@@ -13698,14 +13698,14 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
                         strcpy(this->field_0x60, fname);
                         if ((target->unitFlags & 8) != 0) {
                             UnlockSurface2();
-                            target->VMethod30(full_path, this->field_0x160, this->field_0x164);
+                            target->RenderHeroPortrait(full_path, this->field_0x160, this->field_0x164);
                             LockSurface2();
                         } else {
                             this->field_0x160->LoadFile(fname, this->field_0x164);
                         }
                     } else if ((target->unitFlags & 8) != 0) {
                         UnlockSurface2();
-                        target->VMethod30(full_path, this->field_0x160, this->field_0x164);
+                        target->RenderHeroPortrait(full_path, this->field_0x160, this->field_0x164);
                         LockSurface2();
                     }
                     unit_name = txt_npcnames.GetLine(target->serverId - 1);

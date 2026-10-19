@@ -6268,7 +6268,7 @@ CGameBitmap* BigStruct2::FUN_0041da52(int32_t serv_id) {
 			pic->LoadFile(buf);
 			pic->VMethod7();
 		} else {
-			unit->VMethod30(nullptr, pic, nullptr);
+			unit->RenderHeroPortrait(nullptr, pic, nullptr);
 		}
 		result->SelectBitmapForDraw();
 		memset(g_selDrawBitmap.lpSurface, 0, 0x4a40);

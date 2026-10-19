@@ -225,3 +225,4 @@ CUnit::VMethod26 -> PlayDefendVoice -- plays the SfxBank defend voice line (3s c
 CUnit::VMethod27 -> PlayRetreatVoice -- plays the SfxBank retreat voice line (3s cooldown)
 CUnit::VMethod28 -> PlaySelectVoice -- plays a random SfxBank select voice line (2s cooldown)
 CUnit::VMethod29 -> PlayPickupVoice -- plays the SfxBank pickup voice line (3s cooldown)
+CUnit::VMethod30 -> RenderHeroPortrait -- composites the hero body + equipment .256 sprites onto the portrait bitmaps (paperdoll render for the info window)

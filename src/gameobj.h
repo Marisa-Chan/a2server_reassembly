@@ -266,7 +266,7 @@ public:
 	virtual void PlayRetreatVoice();
 	virtual void PlaySelectVoice();
 	virtual void PlayPickupVoice();
-	virtual void VMethod30(const char* str, CGameBitmap* bmp1, CGameBitmap* bmp2);
+	virtual void RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* bmp2);
 
 	CUnit(); //46411c
 

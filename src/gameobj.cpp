@@ -1038,7 +1038,7 @@ CUnit::~CUnit() { //46459d
     }
 }
 
-void CUnit::VMethod30(const char* str, CGameBitmap* bmp1, CGameBitmap* bmp2) { // 469ffc
+void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* bmp2) { // 469ffc
     if (bmp1 != nullptr && bmp1->GetData() != nullptr) {
         memset(bmp1->GetData(), 0, bmp1->GetWidth(0) * bmp1->GetHeight(0) * 2);
     }
