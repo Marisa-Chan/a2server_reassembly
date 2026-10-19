@@ -209,7 +209,7 @@ struct ColorThing {
 	uint8_t b;
 	uint8_t __pd1;
 	int32_t brightness;
-	int32_t field_8;
+	int32_t contrast;
 	int32_t field_c;
 	int32_t field_10;
 	int32_t __pd2;
