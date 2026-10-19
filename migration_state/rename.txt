@@ -23,3 +23,4 @@ PacketAbility::field_0xc -> angle -- attack direction angle (client stores to un
 PacketAbility::field_0xd -> segments -- attack animation segments/ticks (charge+relax; client stores to unit->action_segments)
 PacketMoveCmd::field_0xa -> unit_id -- caster/effect owner unit id (word)
 PacketMoveCmd::field_0xc -> type_id -- projectile/effect type (g_ProjectileInfos index, spell_id*2+8)
+PacketMoveCmd::field_0xd -> x -- target tile x (low byte of target unit id for homing projectiles)
