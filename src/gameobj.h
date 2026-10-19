@@ -332,7 +332,7 @@ public:
     void BuildGroundRing(int16_t height, float radius, uint32_t phase); // 4ccaf2
     void BuildGroundRingReversed(int16_t height, float radius, uint32_t phase); // 4ccc7b
     void AddOffsetElement(int16_t height, uint8_t effect_type, uint8_t phase); // 4cce04
-    void FUN_004CCED2(int16_t height, uint8_t phase); // 4cced2
+    void AddElement(int16_t height, uint8_t phase); // 4cced2
 
     void BuildCirclePoints(int32_t x, int32_t y, int32_t radius, int32_t step); // 4cc5d1
     void BuildTiltedRing(int32_t x, int32_t y, int32_t height, float speed, float radius, int32_t angle); // 4cc798

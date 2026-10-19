@@ -2191,7 +2191,7 @@ void TransientVisualEffectBuilder::FUN_0046f390() {
 }
 
 // 4cced2
-void TransientVisualEffectBuilder::FUN_004CCED2(int16_t height, uint8_t phase) {
+void TransientVisualEffectBuilder::AddElement(int16_t height, uint8_t phase) {
     this->visual_elements.Add(GO_11c(0, -height, 0, 0x14, phase));
 }
 
@@ -2559,7 +2559,7 @@ void CUnit::UpdateTransientVisualElements() { // 468dcb
         }
         case 0x14: {
             TransientVisualEffectBuilder builder;
-            builder.FUN_004CCED2(this->GetTileWidth() << 5, effect_timer % 6);
+            builder.AddElement(this->GetTileWidth() << 5, effect_timer % 6);
             visual_elements.Append(builder.visual_elements);
             break;
         }

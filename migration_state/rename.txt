@@ -263,3 +263,4 @@ TransientVisualEffectBuilder::FUN_004cc059 -> BuildLightningLine -- jitter wobbl
 TransientVisualEffectBuilder::FUN_004CB993 -> BuildJitterWalk -- random-walk wobble profile (jitter_progress/jitter_wobble) along the line length
 TransientVisualEffectBuilder::FUN_004CB85F -> SampleQuadraticArc -- fits a parabola through 3 points and samples it into arc_x/arc_y
 TransientVisualEffectBuilder::FUN_004CCE04 -> AddOffsetElement -- single 0x10/18/22/2e element placed at its type-specific offset
+TransientVisualEffectBuilder::FUN_004CCED2 -> AddElement -- single 0x14 element centered at the given height
