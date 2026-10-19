@@ -3627,7 +3627,7 @@ void BigStruct2::sub_416A02(int32_t digit) {
 			obj->FUN_0041f1f0(digit);
 		}
 		if (obj->IsSelected() && obj->map_player == this->my_main_unit) {
-			obj->FUN_0041f150(digit);
+			obj->SetControlGroup(digit);
 		}
 	}
 	this->UpdateSelectionState();

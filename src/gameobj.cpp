@@ -363,7 +363,7 @@ void CGameObject::FUN_0041f1f0(int32_t grp) { //41f1f0
 }
 
 
-void CGameObject::FUN_0041f150(int32_t grp) { //41f150
+void CGameObject::SetControlGroup(int32_t grp) { //41f150
     this->controlGroupMask = 1 << grp;
     this->m_bSelectionDirty = 1;
 }

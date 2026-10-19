@@ -235,3 +235,4 @@ CGameObject::FUN_00461f8e -> GetDirTo -- 0..15 facing direction from this object
 CGameObject::FUN_0046246b -> DrawBarFill -- draws the 3-color hp/mp bar fill with end caps (shadowed variant when hp bars are off and unit unselected)
 CGameObject::FUN_004627bb -> DrawControlGroupNumber -- draws the control-group digit under the bar with shadow
 CGameObject::FUN_0041f180 -> AddControlGroup -- controlGroupMask |= 1 << grp, marks selection dirty
+CGameObject::FUN_0041f150 -> SetControlGroup -- controlGroupMask = 1 << grp (replaces mask)
