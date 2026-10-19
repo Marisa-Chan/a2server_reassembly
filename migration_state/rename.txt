@@ -534,3 +534,4 @@ NetStru1::FUN_0041f520 -> GetFirstClient -- returns the first active connection 
 NetStru1::sub_51D837 -> SendGameInfo -- sends server state / player list to the player
 NetStru1::sub_51C8B1 -> SendExistingPlayers -- sends PacketJoin of every existing player to the new player
 NetStru1::sub_51CB21 -> SendVisibilityState -- sends terrain/diplomacy visibility state
+NetStru1::sub_51C0F7 -> SendPendingUnits -- sends units from the pending unit list

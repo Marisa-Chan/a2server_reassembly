@@ -222,7 +222,7 @@ void NetStru1::sub_51CDFB(CString& name, uint32_t score, char type, Player* play
 }
 
 // 51CA5D
-void NetStru1::sub_51CA5D(Player* player) {
+void NetStru1::SendServerState(Player* player) {
     POSITION pos = g_Server->srv_stru1->sack_list->list.GetHeadPosition();
     while (pos != nullptr) {
         Sack* sack = g_Server->srv_stru1->sack_list->list.GetNext(pos);
