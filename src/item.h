@@ -53,7 +53,7 @@ public:
     int IsArtifact(); // IsArtifact: returns 1 if the item has magic and price 2. 548f07.
     int IsCheatCreatable(); // Returns 1 if this item template can be given via #create cheat
     void ApplyPropertyString(const CString& str); // Apply special property string to item effects, then call VMethod15
-    void sub_54A0BE(); // Recalculate item properties from template data
+    void RecalcFromTemplate(); // Recalculate item properties from template data
 
     Effect* sub_548E4E(); // Find the cast-spell Effect on this item (returns nullptr if none)
     int IsSimilar(Item* other); // 548860. Is this item similar to another? Same non-magic item or same base with same magic.

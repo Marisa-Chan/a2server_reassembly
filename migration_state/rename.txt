@@ -338,3 +338,4 @@ Building::sub_542A31 -> RollDamage -- building attack roll, same signature as Un
 Item::sub_548FAA -> AddEffect -- adds an Effect to the item
 Item::sub_548F07 -> IsArtifact -- 1 when the item has magic and price 2 (artifact)
 Item::sub_548F6A -> IsCheatCreatable -- 1 when this item template can be given via the #create cheat
+Item::sub_548F3F -> ApplyPropertyString -- applies a special property string to item effects, then recalculates value

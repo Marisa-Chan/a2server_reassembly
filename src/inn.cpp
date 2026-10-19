@@ -1001,7 +1001,7 @@ void Inn::InnReward(Player* player) {
                 }
 
                 if (equip) {
-                    equip->sub_54A0BE();
+                    equip->RecalcFromTemplate();
                 }
 
                 if (!equip || equip->IsSimpleItem() != 0 || equip->magic_volume <= 0) {

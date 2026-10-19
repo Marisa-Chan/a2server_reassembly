@@ -106,7 +106,7 @@ Item* __cdecl sub_4F499B(uint8_t** packet_data) {
         item->CalcValue();
     }
 
-    item->sub_54A0BE();
+    item->RecalcFromTemplate();
 
     if (item->IsArtifact() == 0) {
         while (item->magic_volume < 0) {
@@ -116,7 +116,7 @@ Item* __cdecl sub_4F499B(uint8_t** packet_data) {
             }
 
             first_effect->full_magic_value -= 1;
-            item->sub_54A0BE();
+            item->RecalcFromTemplate();
         }
     } else if (item->material_id != 4 && item->material_id != 2) {
         Effect* first_effect = item->_effects.IsEmpty() ? nullptr : item->_effects.GetHead();
@@ -645,7 +645,7 @@ int32_t sub_54F176(Item* item) {
 }
 
 // 54A0BE
-void Item::sub_54A0BE() {
+void Item::RecalcFromTemplate() {
     if (this->IsSimpleItem() != 0) {
         return;
     }
