@@ -798,7 +798,7 @@ void Srv1::CreateUnits(MapAlm* alm) {
                 }
             }
         } else {
-            int32_t idx = g_GameDataRes.FUN_005125a8(unit_data->server_id);
+            int32_t idx = g_GameDataRes.FindHumanByServerId(unit_data->server_id);
             int32_t is_hero = g_GameDataRes.humans[idx].name.Find("_Hero") > 0 ? 1 : 0;
             unit = new Human(g_GameDataRes.humans[idx].name, is_hero, nullptr);
         }
@@ -4958,7 +4958,7 @@ void Server::FUN_00501b9e(int32_t var300, CDWordArray& arr) { //501b9e
         }
 
         bool bVar2 = false;
-        int32_t idx = g_GameDataRes.FUN_005125a8(serverID * 10 + 10000);
+        int32_t idx = g_GameDataRes.FindHumanByServerId(serverID * 10 + 10000);
         if (idx == 0) {
             idx = g_GameDataRes.FUN_00512625(serverID * 10 + 10000);
             if (idx) {
@@ -4967,7 +4967,7 @@ void Server::FUN_00501b9e(int32_t var300, CDWordArray& arr) { //501b9e
         }
 
         if (idx == 0) {
-            idx = g_GameDataRes.FUN_005125a8(serverID);
+            idx = g_GameDataRes.FindHumanByServerId(serverID);
             if (idx == 0) {
                 idx = g_GameDataRes.FUN_00512625(serverID);
                 bVar2 = true;
@@ -4978,14 +4978,14 @@ void Server::FUN_00501b9e(int32_t var300, CDWordArray& arr) { //501b9e
                 if (bVar2) {
                     idd = g_GameDataRes.FUN_00512625(serverID * 10 + 10000 + i);
                 } else {
-                    idd = g_GameDataRes.FUN_005125a8(serverID * 10 + 10000 + i);
+                    idd = g_GameDataRes.FindHumanByServerId(serverID * 10 + 10000 + i);
                 }
 
                 if (idd != 0) {
                     if (bVar2) {
                         idd = g_GameDataRes.FUN_00512625(serverID * 10 + 9998 + var300 / 10);
                     } else {
-                        idd = g_GameDataRes.FUN_005125a8(serverID * 10 + 9998 + var300 / 10);
+                        idd = g_GameDataRes.FindHumanByServerId(serverID * 10 + 9998 + var300 / 10);
                     }
 
                     if (idd != 0) {

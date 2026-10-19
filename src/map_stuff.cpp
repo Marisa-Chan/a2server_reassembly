@@ -3014,7 +3014,7 @@ Scenario::Scenario(const char* fname) {
         } else {
             Human* human = new Human();
             temp_unit = human;
-            human->itemDataID = (int16_t)g_GameDataRes.FUN_005125a8(unit_data->server_id);
+            human->itemDataID = (int16_t)g_GameDataRes.FindHumanByServerId(unit_data->server_id);
             human->monster_info = (MonsterInfo*)&g_GameDataRes.humans[(uint16_t)human->itemDataID];
             human->ApplyHumanInfo((CArray<HumanInfoData>*)&human->monster_info->values);
             if (human->monster_info->values.GetUpperBound() > 0x17) {

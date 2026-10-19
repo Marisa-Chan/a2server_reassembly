@@ -718,3 +718,4 @@ GameDataRes::sub_50D8BA -> FindShapeIndex -- finds shape index by item name stri
 GameDataRes::sub_50DA04 -> FindMaterialIndex -- finds material index by item name string
 GameDataRes::sub_50DB4E -> SplitItemName -- extracts base name and braced property from item name
 GameDataRes::sub_50DC69 -> StripMaterialPrefix -- strips material-specific prefix from item name
+GameDataRes::sub_514BE7 -> PostProcessMagicData -- post-processes magic data after parsing Magic.txt

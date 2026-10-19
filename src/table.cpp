@@ -946,7 +946,7 @@ int GameDataRes::GetMonsterTableIndex(uint8_t type, uint8_t face) {
     return 0;
 }
 
-int32_t GameDataRes::FUN_005125a8(int32_t id) { //5125a8
+int32_t GameDataRes::FindHumanByServerId(int32_t id) { //5125a8
     for (int i = this->humans.GetSize() - 1; i > 0; i--) {
         if (this->humans[i].values.GetSize() && this->humans[i].Values()[0].server_id == id) {
             return i;

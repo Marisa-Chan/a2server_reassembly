@@ -5079,7 +5079,7 @@ void MainWindow::SpawnScenarioMissionUnits(int32_t id, const CDWordArray& array)
     for (int i = 0; i < array.GetSize(); i++) {
         uint16_t uid = array[i];
 
-        int32_t unit_info_id = g_GameDataRes.FUN_005125a8(uid * 10 + 10000);
+        int32_t unit_info_id = g_GameDataRes.FindHumanByServerId(uid * 10 + 10000);
         bool not_human = unit_info_id == 0;
         if (not_human) {
             unit_info_id = g_GameDataRes.FUN_00512625(uid * 10 + 10000);
@@ -5090,7 +5090,7 @@ void MainWindow::SpawnScenarioMissionUnits(int32_t id, const CDWordArray& array)
             if (not_human) {
                 id_variant = g_GameDataRes.FUN_00512625(uid * 10 + 10000 + j);
             } else {
-                id_variant = g_GameDataRes.FUN_005125a8(uid * 10 + 10000 + j);
+                id_variant = g_GameDataRes.FindHumanByServerId(uid * 10 + 10000 + j);
             }
 
             if (id_variant > 0) {
@@ -5098,7 +5098,7 @@ void MainWindow::SpawnScenarioMissionUnits(int32_t id, const CDWordArray& array)
                 if (not_human) {
                     tmp_id = g_GameDataRes.FUN_00512625(uid * 10 + 9998 + id / 10);
                 } else {
-                    tmp_id = g_GameDataRes.FUN_005125a8(uid * 10 + 9998 + id / 10);
+                    tmp_id = g_GameDataRes.FindHumanByServerId(uid * 10 + 9998 + id / 10);
                 }
 
                 if (tmp_id != 0) {
