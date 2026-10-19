@@ -257,7 +257,7 @@ public:
 	virtual void SpawnAttackProjectile();
 	virtual void SpawnSpellProjectile();
 	virtual void PlayCastSound();
-	virtual void VMethod21();
+	virtual void PlayAttackSound();
 	virtual void VMethod22();
 	virtual void VMethod23();
 	virtual void VMethod24();

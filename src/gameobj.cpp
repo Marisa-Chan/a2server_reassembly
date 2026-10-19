@@ -2866,7 +2866,7 @@ int32_t CUnit::Update() { // 46785f
     }
     case 3:
         if (this->action_phase == vfx->attack_delay) {
-            this->VMethod21();
+            this->PlayAttackSound();
         }
         this->dir = this->action_dir;
         this->phase = this->action_phase;
@@ -2905,7 +2905,7 @@ int32_t CUnit::Update() { // 46785f
             this->SpawnAttackProjectile();
         }
         if (this->action_phase == vfx->attack_delay) {
-            this->VMethod21();
+            this->PlayAttackSound();
         }
         this->dir = this->action_dir;
         this->phase = this->action_phase;
@@ -3300,7 +3300,7 @@ void CUnit::VMethod28() {
 }
 
 // 4693c1
-void CUnit::VMethod21() {
+void CUnit::PlayAttackSound() {
     if (g_VFX_info[this->typeId]->sound[0] == 0) {
         return;
     }
