@@ -151,7 +151,7 @@ void Spell::sub_539C49(Unit* caster, Unit* target) {
 
     CList<Unit*> units;
     g_World->CollectRayTargets(caster, target, &units, (uint8_t)rays, this->max_range);
-    g_NetStru1_main.sub_51BC6B(caster, this, &units, 0);
+    g_NetStru1_main.SendSpellCastMulti(caster, this, &units, 0);
     for (POSITION it = units.GetHeadPosition(); it != nullptr; ) {
         Unit* unit = units.GetNext(it);
         this->sub_539F5A(caster, unit, 0, 0);

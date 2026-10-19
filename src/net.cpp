@@ -4286,7 +4286,7 @@ void NetStru1::SendSpellCastAtPos(Unit* caster, Spell* spell, TokenPos* pos, int
 }
 
 // 51BC6B
-void NetStru1::sub_51BC6B(Unit* caster, Spell* spell, CList<Unit*>* units, int32_t flag) {
+void NetStru1::SendSpellCastMulti(Unit* caster, Spell* spell, CList<Unit*>* units, int32_t flag) {
     PacketTerrain& packet = PacketTerrain::Inst;
     packet.id = 0x8A;
     packet.count = units->GetCount() + 1;
