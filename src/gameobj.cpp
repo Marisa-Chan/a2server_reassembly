@@ -2329,7 +2329,7 @@ void TransientVisualEffectBuilder::FUN_004CB993(double x0, double y0, double x1,
     CArray<double> ys;
 
     this->FUN_0046f390();
-    this->field_0x58 = this->line_length * 0.03;
+    this->wobble_scale = this->line_length * 0.03;
 
     double dir;
     if (std::rand() & 1) {
@@ -2377,14 +2377,14 @@ void TransientVisualEffectBuilder::FUN_004CB993(double x0, double y0, double x1,
     double px = this->field_0xb8[1] * dx + x0;
     xs.Add(px);
     double py = this->field_0xb8[1] * dy + y0;
-    py = this->field_0xcc[1] * this->field_0x58 + py;
+    py = this->field_0xcc[1] * this->wobble_scale + py;
     ys.Add(py);
     n = 1;
 
     for (int32_t i = 2; i < this->field_0xb8.GetSize() - 1; i++) {
         px = this->field_0xb8[i] * dx + x0;
         py = this->field_0xb8[i] * dy + y0;
-        py = this->field_0xcc[i] * this->field_0x58 + py;
+        py = this->field_0xcc[i] * this->wobble_scale + py;
         double mid_x = (px - xs[n]) / 2.0 + xs[n];
         xs.Add(mid_x);
         double mid_y = (py - ys[n]) / 2.0 + ys[n];
