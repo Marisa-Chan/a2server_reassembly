@@ -494,7 +494,7 @@ MusicPlayer::MusicPlayer(int32_t bufsz) { // 45b16d
 			this->field_0x20 = 1;
 			this->play_mode = 0;
 			this->file_opened = 0;
-			this->field_0x68 = 0;
+			this->play_notify = 0;
 			Player = this;
 			this->samples = new uint8_t[this->buffer_size / 2];
 			this->end_pos = this->buffer_size;
@@ -667,7 +667,7 @@ void MusicPlayer::Update(uint32_t tm) { // 45a9b3
 
 		this->elapsed_time += this->buffer_time;
 
-		if (this->field_0x68 != 0) {
+		if (this->play_notify != 0) {
 			PostMessageA(g_dsound_hwnd, 0x467, this->current_track_id, this->GetElapsedSeconds());
 		}
 		

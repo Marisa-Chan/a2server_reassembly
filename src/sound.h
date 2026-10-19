@@ -147,7 +147,7 @@ public:
 	CString& GetPlaylistEntry(int32_t idx) { return this->playlist[idx]; } //451870
 	CStringArray& GetPlaylist() { return this->playlist; } //4517f0
 
-	void SetPlayNotify(int _notify) { this->field_0x68 = _notify; } //451810
+	void SetPlayNotify(int _notify) { this->play_notify = _notify; } //451810
 	void SetRandom(int random); //45b655
 
 	void SetFadeout(int fade) { this->fadeout_enabled = fade; } //451830
@@ -178,7 +178,7 @@ public:
 	int32_t buffer_time;
 	int32_t fade_length;
 	int32_t fade_to_volume;
-	int32_t field_0x68;
+	int32_t play_notify;
 	int32_t field_0x6c;
 	int32_t elapsed_time;
 	int32_t fade_start_volume;
