@@ -147,7 +147,7 @@ public:
     void GroupMoveCommand(Group* group, uint8_t x, uint8_t y); // Group move command.
     void GroupSwarmCommand(Group* group, uint8_t x, uint8_t y); // Group swarm command.
     void GroupPatrolCommand(Group* group, uint8_t x, uint8_t y);
-    void sub_5AC187(Group* group, Unit* target, Spell*);
+    void GroupCastAtUnitCommand(Group* group, Unit* target, Spell*);
     void sub_5AC206(Group* group, uint8_t x, uint8_t y, Spell*);
     void OrderSwarmTo(Unit* unit, uint8_t x, uint8_t y);
     void BeginUnitOrder(Unit* unit); //5a9ac4

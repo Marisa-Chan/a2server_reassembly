@@ -4452,7 +4452,7 @@ void World::GroupPatrolCommand(Group* group, uint8_t x, uint8_t y) {
 }
 
 // 5AC187
-void World::sub_5AC187(Group* group, Unit* target, Spell*) {
+void World::GroupCastAtUnitCommand(Group* group, Unit* target, Spell*) {
     this->ClearGroupOrders(group);
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {

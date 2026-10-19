@@ -3087,7 +3087,7 @@ void Server::sub_504a96(Packet* pkt) {
             break;
         case 0x1E: // cast at unit/building?
             if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
-                g_World->sub_5AC187(group, static_cast<Unit*>(target), cast_spell);
+                g_World->GroupCastAtUnitCommand(group, static_cast<Unit*>(target), cast_spell);
                 player->sub_534B59();
             }
             break;
@@ -3148,7 +3148,7 @@ void Server::sub_504a96(Packet* pkt) {
 
                     spell->sub_539541(eff->spell_value);
                     if (packet_item->id == 0x25) {
-                        g_World->sub_5AC187(group, static_cast<Unit*>(target), spell);
+                        g_World->GroupCastAtUnitCommand(group, static_cast<Unit*>(target), spell);
                     } else {
                         if (!spell->sub_53939E(packet_item->x, packet_item->y)) {
                             player->main_unit->inventory->PutItemIntoBag(packet_item->slot, item);

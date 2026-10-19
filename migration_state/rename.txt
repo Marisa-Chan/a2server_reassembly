@@ -444,3 +444,4 @@ World::sub_5AC8A2 -> GroupGuardCommand -- packet 0x17: guard stance, range 0 = M
 World::sub_5ACA54 -> GroupAggressiveStance -- packet 0x18: state 0x0C auto-engage for every unit (order 3)
 World::sub_5AC80F -> GroupAttackCommand -- packet 0x19: attack target, holds unreachable units
 World::sub_5ACB4D -> GroupAttackTargetCommand -- packet 0x1B: state 8 attack on every unit
+World::sub_5ACBEF -> GroupPatrolCommand -- packet 0x1D: patrol to x/y
