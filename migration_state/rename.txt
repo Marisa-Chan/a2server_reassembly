@@ -517,3 +517,4 @@ World::sub_5AF6F5 -> InitUnitCombatProfile -- sets eye2 withdraw/wimpy and aggre
 World::sub_5A4757 -> ResetMatchState -- resets perf counters, waypoint/patrol tables and mission state
 World::sub_5B2E7A -> RelinkPointers -- post-load relink: diplomacy.world back-pointer
 World::sub_5AC785 -> GroupAttackMoveCommand -- clears orders and sets order 2 (attack brain) anchored at x/y
+World::sub_5AF683 -> SetFormation -- stores the player's formation setting

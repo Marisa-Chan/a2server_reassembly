@@ -1329,7 +1329,7 @@ void World::ChaseOrCast(Unit* unit) {
 }
 
 // 5A9B6B — AI tick for a monster unit.
-void World::sub_5A9B6B(Unit* unit) {
+void World::MonsterAiTick(Unit* unit) {
     if (this->field37_0xbbe8 == 0 && unit->group->group_sub->presence_detected == 0 && unit->eye2->field4_0x9 == 0) {
         unit->some_state = 0x1B;
         return;

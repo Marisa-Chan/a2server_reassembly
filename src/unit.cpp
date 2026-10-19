@@ -757,7 +757,7 @@ void Unit::ProcessEffects() {
     uint8_t eye_f1 = this->eye->field1_0x1;
 
     if (this->monster_info) {
-        g_World->sub_5A9B6B(this);
+        g_World->MonsterAiTick(this);
     }
 
     switch (this->some_state) {
