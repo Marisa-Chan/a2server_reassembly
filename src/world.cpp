@@ -2083,7 +2083,7 @@ void World::ScriptOP_0x06(TriggerAction* action) {
             this->GroupSwarmCommand(group, action->data[1], action->data[2]);
             break;
         case 10: // Attack (victim=action->unit)
-            this->sub_5AC80F(group, action->unit);
+            this->GroupAttackCommand(group, action->unit);
             break;
         case 11: // Defend (unit=action->unit, follow_range=data[1])
             this->sub_5ACB4D(group, action->unit, action->data[1]);
@@ -4408,7 +4408,7 @@ void World::sub_5AE7C3(Group* group) {
 }
 
 // 5AC80F
-void World::sub_5AC80F(Group* group, Unit* target) {
+void World::GroupAttackCommand(Group* group, Unit* target) {
     this->ClearGroupOrders(group);
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {

@@ -3056,7 +3056,7 @@ void Server::sub_504a96(Packet* pkt) {
             break;
         case 0x19: // move to building?
             if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
-                g_World->sub_5AC80F(group, static_cast<Unit*>(target));
+                g_World->GroupAttackCommand(group, static_cast<Unit*>(target));
                 player->sub_534B59();
             }
             break;

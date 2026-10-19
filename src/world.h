@@ -142,7 +142,7 @@ public:
     void GroupStopCommand(Group* group);
     void sub_5A99C7(Unit* unit);
     void GroupAggressiveStance(Group* group); //5aca54
-    void sub_5AC80F(Group* group, Unit* target);
+    void GroupAttackCommand(Group* group, Unit* target);
     void sub_5ACB4D(Group* group, Unit* target, uint8_t param_3);
     void GroupMoveCommand(Group* group, uint8_t x, uint8_t y); // Group move command.
     void GroupSwarmCommand(Group* group, uint8_t x, uint8_t y); // Group swarm command.
