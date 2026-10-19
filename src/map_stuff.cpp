@@ -2153,7 +2153,7 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
         if (flag == 0) {
             uint16_t result_yx;
             if (target == nullptr) {
-                result_yx = this->sub_593134(unit, 0, dest.val, 8);
+                result_yx = this->FindCheapestCellNear(unit, 0, dest.val, 8);
             } else {
                 result_yx = this->PickAttackPosition(unit, target);
             }
@@ -2162,7 +2162,7 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
                 this->BuildPathList2(unit, cur_x, cur_y, result.x, result.y);
             }
         } else {
-            uint16_t step = this->sub_593134(unit, 0, dest.val, (distance >> 2) + 4);
+            uint16_t step = this->FindCheapestCellNear(unit, 0, dest.val, (distance >> 2) + 4);
             Building* reached = this->GetBuildingAt(dest.val);
             if (reached == nullptr) {
                 if (this->ChebyshevDistance(PosYX(step), dest) > 1) {
@@ -2472,7 +2472,7 @@ uint16_t MapStuff::PickAttackPosition(Unit* unit, Unit* target) {
 
 // 593134 --- search outward ring by ring (up to `radius` rings) from `yx` for the cell with the
 // lowest field3_0x30000 cost-grid value. Returns 0 if none found within range.
-int16_t MapStuff::sub_593134(Unit* unit, int32_t zero, uint16_t yx, uint32_t radius) {
+int16_t MapStuff::FindCheapestCellNear(Unit* unit, int32_t zero, uint16_t yx, uint32_t radius) {
     uint16_t best_cost = 0xFFFF;
     uint16_t best_yx = 0;
 

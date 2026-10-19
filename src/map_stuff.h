@@ -263,7 +263,7 @@ public:
     void BuildPathList1(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // Builds unit->list1 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y) — 5890CC
     void BuildPathList2(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // Builds unit->list2 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y) — 5893C6
     uint16_t PickAttackPosition(Unit* unit, Unit* target); // 592A48
-    int16_t sub_593134(Unit* unit, int32_t zero, uint16_t yx, uint32_t radius); // 593134
+    int16_t FindCheapestCellNear(Unit* unit, int32_t zero, uint16_t yx, uint32_t radius); // 593134
     Building* GetBuildingAt(uint16_t yx); // 594709
     uint8_t BoxDistance(uint16_t yx1, uint16_t yx2, int32_t size); // 591A96
     void ExpandCostsStaticQueue2(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableStatic, queueing improved cells into queue2 — 597290
