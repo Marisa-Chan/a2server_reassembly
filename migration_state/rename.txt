@@ -454,3 +454,4 @@ World::sub_5B0724 -> ProcessTriggers -- ticks trigger_variables[999], runs all c
 World::sub_5B0762 -> EvaluateTriggerChecks -- evaluates every TriggerCheck with ref_count 0
 World::sub_5B0A6A -> ExecuteTriggerActions -- executes pending trigger actions (once-triggers honored)
 World::sub_5B081E -> DispatchTriggerCheck -- trigger-check dispatcher
+World::sub_5B6346 -> ProcessVirtualCasters -- casts queued spells for the virtual caster list

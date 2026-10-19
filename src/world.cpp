@@ -656,7 +656,7 @@ uint16_t World::sub_5B5C2B(Unit* unit1, Unit* unit2) {
 // candidates (list-27 distances are biased by <<8 so list-26 units win ties),
 // adds `target` first, then trims the list back down to `rays` entries.
 // 5B5CA8
-void World::sub_5B5CA8(Unit* caster, Unit* target, CList<Unit*>* units, uint32_t rays, uint32_t max_range) {
+void World::CollectRayTargets(Unit* caster, Unit* target, CList<Unit*>* units, uint32_t rays, uint32_t max_range) {
     units->RemoveAll();
     this->sub_5AA581(caster, target, 0);
     this->sub_5ADB16(caster->group);
