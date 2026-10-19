@@ -1809,7 +1809,7 @@ void MapStuff::RelinkAfterLoad() {
 }
 
 // 5943D0 --- set building pointer in cell state at yx
-int MapStuff::sub_5943D0(Building* building, uint16_t yx) {
+int MapStuff::SetCellBuilding(Building* building, uint16_t yx) {
     if (this->cell_states.Lookup(yx, this->scratch_cell_state)) {
         if (this->scratch_cell_state.building != nullptr) {
             return 0;
@@ -1855,7 +1855,7 @@ int32_t MapStuff::PlaceBuilding(Building* building) {
             if (building->tiles_mask & (1u << bit_index)) {
                 uint8_t x = building->position->GetX() + col;
                 uint8_t y = building->position->GetY() + row;
-                if (!this->sub_5943D0(building, PosYX(x, y).val)) {
+                if (!this->SetCellBuilding(building, PosYX(x, y).val)) {
                     return 0;
                 }
             }

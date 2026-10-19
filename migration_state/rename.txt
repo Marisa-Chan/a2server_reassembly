@@ -613,3 +613,4 @@ MapStuff::sub_5964D7 -> GatherUnitsNear -- gathers units near yx within range in
 MapStuff::sub_593CD5 -> CalcMoveStep -- movement step magnitude/heading toward yx
 MapStuff::sub_597140 -> IsAreaClear -- checks the static (flag=0) or dynamic obstacle map over the unit footprint at yx
 MapStuff::sub_5945EF -> RemoveBuilding -- removes a building from the map
+MapStuff::sub_59451F -> PlaceBuilding -- places a building on the map
