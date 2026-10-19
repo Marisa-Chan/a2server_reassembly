@@ -57,3 +57,4 @@ CUnit::field_0x180[8] -> stat_body/stat_reaction/stat_mind/stat_spirit + death_s
 TransientVisualEffectBuilder::field_0x60 -> line_length -- hypot(dx,dy) of the lightning segment being built
 TransientVisualEffectBuilder::field_0x58 -> wobble_scale -- line_length * 0.03, scales the perpendicular lightning wobble
 TransientVisualEffectBuilder::field_0x68 -> circle_points -- Bresenham-circle sample points used to place ring VFX
+TransientVisualEffectBuilder::field_0x90 -> arc_x -- sampled arc parameter (x along the line) for quadratic splines

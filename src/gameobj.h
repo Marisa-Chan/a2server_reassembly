@@ -356,7 +356,7 @@ public:
     double line_length;
     CArray<CPoint> circle_points;
     CArray<GO_11c> visual_elements; // 0x7c
-    CArray<double> field_0x90;
+    CArray<double> arc_x;
     CArray<double> field_0xa4;
     CArray<double> field_0xb8;
     CArray<double> field_0xcc;
