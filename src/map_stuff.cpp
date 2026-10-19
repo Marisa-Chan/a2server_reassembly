@@ -947,7 +947,7 @@ int MapStuff::PlaceUnit(Unit* unit) {
     return 1;
 }
 
-void MapStuff::FUN_0058b5d6(CellState& cell) { //58b5d6
+void MapStuff::ApplyCellState(CellState& cell) { //58b5d6
 
     PosYX pos = cell.cell_yx;
     Obstacle old = this->ObstacleAt(pos);
@@ -1028,7 +1028,7 @@ void MapStuff::FUN_00596d3e(Unit* unit, PosYX yx) { //596d3e
             }
         }
 
-        this->FUN_0058b5d6(this->scratch_cell_state);
+        this->ApplyCellState(this->scratch_cell_state);
         this->cell_states[yx.val] = this->scratch_cell_state;
         if (this->scratch_cell_state.IsEmpty()) {
             this->FUN_0058b4a6(yx);
@@ -1071,7 +1071,7 @@ void MapStuff::FUN_00596e0e(Unit* unit, PosYX yx) { //596e0e
         scratch_cell_state.static_blocker = unit;
     }
         
-    this->FUN_0058b5d6(scratch_cell_state);
+    this->ApplyCellState(scratch_cell_state);
     this->cell_states[yx.val] = scratch_cell_state;
 }
 
@@ -1596,7 +1596,7 @@ int MapStuff::UnitFitsAt(Unit* unit) {
 // 58B593
 void MapStuff::RefreshCellObstacles(PosYX yx) {
     if (this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
-        this->FUN_0058b5d6(this->scratch_cell_state);
+        this->ApplyCellState(this->scratch_cell_state);
     }
 }
 

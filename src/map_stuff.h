@@ -301,7 +301,7 @@ public:
     int IsObstacle2_80(PosYX yx) { return this->Obstacle2At(yx).TestBits(0x80); } //58ba15
     void SetObstacle2_80(PosYX yx) { this->Obstacle2At(yx).SetBits(0x80); } //58b952
 
-    void FUN_0058b5d6(CellState& cell); //58b5d6
+    void ApplyCellState(CellState& cell); //58b5d6
     int FUN_0058b4a6(PosYX yx); //58b4a6
     void FUN_00596d3e(Unit* unit, PosYX yx); //596d3e
     void FUN_0058b3e0(PosYX yx); //58b3e0
