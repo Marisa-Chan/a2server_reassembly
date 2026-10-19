@@ -1224,7 +1224,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
                         if (escort_unit == nullptr || humanoid == nullptr) {
                             g_QuestMap.sub_55E5FB(this->active_quest);
                         } else {
-                            g_NetStru1_main.FUN_004fb4ca(escort_unit, humanoid->pOwner);
+                            g_NetStru1_main.TransferUnitOwnership(escort_unit, humanoid->pOwner);
                         }
                         break;
                     }

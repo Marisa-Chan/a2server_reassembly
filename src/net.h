@@ -115,7 +115,7 @@ public:
 public:
     // Transfers unit ownership to another player.
     // `this` is unused. TODO: looks like this should be in `SrvStru1` instead.
-    void FUN_004fb4ca(Unit* unit, Player* new_owner);
+    void TransferUnitOwnership(Unit* unit, Player* new_owner);
 
     NetStru1(int stats); //51684b
     ~NetStru1(); //516b44

@@ -632,10 +632,10 @@ void NetStru1::sub_51E289(int32_t arg0, CString source, int32_t arg8, int32_t ar
 }
 
 // 4FB4CA
-void NetStru1::FUN_004fb4ca(Unit* unit, Player* new_owner) {
+void NetStru1::TransferUnitOwnership(Unit* unit, Player* new_owner) {
     #ifdef A2SERVER_PATCH
     if (unit == nullptr) {
-        LogMessage("FUN_004fb4ca: unit is nullptr.");
+        LogMessage("TransferUnitOwnership: unit is nullptr.");
         return;
     }
     #endif

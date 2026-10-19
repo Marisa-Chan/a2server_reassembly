@@ -66,7 +66,7 @@ void QuestInnGlue::VMethod2(Quest* quest) {
     if (quest->Kind() == 4) {
         Building* building = g_Server->srv_stru1->building_list->sub_557F69(this->position);
         if (building != nullptr) {
-            g_NetStru1_main.FUN_004fb4ca(unit, building->pOwner);
+            g_NetStru1_main.TransferUnitOwnership(unit, building->pOwner);
         }
     }
     this->quest_map->sub_55DD10(6, inn_id, this->building_id << 16);

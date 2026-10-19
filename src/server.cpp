@@ -1562,7 +1562,7 @@ void Server::SendWorldState(Player* player, int32_t bool_arg4) {
             while (node != nullptr) {
                 Unit* unit = dword_6CDB3C->unit_list.GetNext(node);
                 if (unit != nullptr && unit->pOwner == found_player) {
-                    g_NetStru1_main.FUN_004fb4ca(unit, player);
+                    g_NetStru1_main.TransferUnitOwnership(unit, player);
                 }
             }
         }
