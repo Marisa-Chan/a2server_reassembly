@@ -463,3 +463,4 @@ World::sub_5AF022 -> IdleGroupUnits -- sets every unit of the group to idle/wand
 World::sub_5AF646 -> ProcessGroupRecall -- per-unit recall processing (teleport home / return helpers)
 World::sub_5AF5DC -> ProcessUnitRecall -- unit recall step: teleport home or run return helper
 World::sub_5A5155 -> ProcessUnitAi -- routes the unit into the state dispatcher (human) or AI wrapper
+World::sub_5A51A1 -> ProcessUnitState -- per-state unit action dispatcher (unit->state switch)

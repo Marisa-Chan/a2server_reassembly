@@ -3389,7 +3389,7 @@ void World::ProcessGroupAi(Group* group) {
             }
             break;
         case 1:
-            this->sub_5AE628(group);
+            this->AiGuardBrain(group);
             break;
         case 2:
             this->sub_5AEC20(group, group->group_sub->order_pos);
@@ -4308,7 +4308,7 @@ void World::sub_5AE2D4(Group* group) {
 }
 
 // 5AE628
-void World::sub_5AE628(Group* group) {
+void World::AiGuardBrain(Group* group) {
     this->sub_5AB92C(group);
     this->sub_5ADB16(group);
     this->sub_5A3D12(group->group_sub->avg_pos, group->group_sub->guard_range);
