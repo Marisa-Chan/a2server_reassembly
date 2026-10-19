@@ -433,3 +433,4 @@ World::sub_5A9383 -> OrderGuardPosition -- sets state 0x0B anchored at current (
 World::sub_5A6E2C -> SetIdleOrRetreat -- param=0 -> idle/wander, else retreat
 World::sub_5A647C -> AdvancePatrol -- advances the unit's patrol waypoint (states 10/24 helper)
 World::sub_5A6E59 -> DoRetreat -- retreat behavior: casts 0x0B, mages self-heal/buff first
+World::sub_5A8709 -> PursueTarget -- sets cast_action 6 chasing the chosen target

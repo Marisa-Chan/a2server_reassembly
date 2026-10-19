@@ -2638,7 +2638,7 @@ void World::DoRetreat(Unit* unit) {
             this->sub_5A845B(unit);
         }
     } else {
-        this->sub_5A6EA5(unit);
+        this->IdleSelfBuff(unit);
     }
 }
 
@@ -3449,7 +3449,7 @@ void World::sub_5AED8D(Group* group) {
 }
 
 // 5A6EA5
-void World::sub_5A6EA5(Unit* unit) {
+void World::IdleSelfBuff(Unit* unit) {
     if (unit->IsMage()) {
         this->sub_5A7B44(unit);
     } else {
