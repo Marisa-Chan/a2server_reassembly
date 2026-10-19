@@ -1269,7 +1269,7 @@ void World::sub_5B6346() {
 }
 
 // 5A9961
-void World::sub_5A9961(Unit* unit, uint8_t x, uint8_t y) {
+void World::OrderSwarmTo(Unit* unit, uint8_t x, uint8_t y) {
     this->BeginUnitOrder(unit);
     unit->state = 2;
     unit->eye2->command_to = ((uint16_t)y << 8) + x;

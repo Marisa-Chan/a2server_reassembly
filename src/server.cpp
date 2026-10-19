@@ -3112,7 +3112,7 @@ void Server::sub_504a96(Packet* pkt) {
                     break;
                 }
                 unit->inventory->default_position = packet_item->param;
-                g_World->sub_5A9961(unit, x, y);
+                g_World->OrderSwarmTo(unit, x, y);
             }
             break;
         case 0x24:

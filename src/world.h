@@ -149,7 +149,7 @@ public:
     void sub_5ACBEF(Group* group, uint8_t x, uint8_t y);
     void sub_5AC187(Group* group, Unit* target, Spell*);
     void sub_5AC206(Group* group, uint8_t x, uint8_t y, Spell*);
-    void sub_5A9961(Unit* unit, uint8_t x, uint8_t y);
+    void OrderSwarmTo(Unit* unit, uint8_t x, uint8_t y);
     void BeginUnitOrder(Unit* unit); //5a9ac4
     void OrderMoveTo(Unit* unit, uint8_t x, uint8_t y); // Set unit movement target, clamped to map bounds.
     void sub_5A90F4(Unit* unit, Building* bldg);

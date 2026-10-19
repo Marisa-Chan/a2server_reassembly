@@ -420,3 +420,4 @@ World::sub_5A9A6A -> ResetUnitToHold -- BeginUnitOrder + OrderHoldPosition; fall
 World::sub_5A9A8F -> ResetUnitToIdle -- PrepareUnitOrder + ResetUnitToHold + raises eye2->field43_0x50
 World::FUN_005a93f4 -> OrderHoldPosition -- sets state 0x0C anchored at current position; state handler scans and auto-engages nearby enemies
 World::sub_5A943B -> OrderStandGround -- sets state 0x17 which the dispatcher defaults to plain idle
+World::sub_5A8EFB -> OrderMoveTo -- sets state 1 with a map-clamped move target
