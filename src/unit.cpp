@@ -775,7 +775,7 @@ void Unit::ProcessEffects() {
                 if (pos) {
                     g_Server->srv_stru1->sack_list->list.RemoveAt(pos);
                 }
-                this->sub_52C98B(sack);
+                this->PickUpSack(sack);
             }
             break;
         }
@@ -1263,7 +1263,7 @@ int32_t Unit::sub_52C409() {
 }
 
 // 52C98B
-void Unit::sub_52C98B(Sack* sack) {
+void Unit::PickUpSack(Sack* sack) {
     if (sack == nullptr) {
         return;
     }

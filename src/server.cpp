@@ -2866,7 +2866,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             this->sub_4F9AD3(sack);
             MapStuff_Instance->sub_58E525(sack);
             g_Server->srv_stru1->sack_list->list.RemoveAt(cur_pos);
-            player->main_unit->sub_52C98B(sack);
+            player->main_unit->PickUpSack(sack);
         }
 
         if (!is_reconnect) {
