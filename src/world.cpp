@@ -889,7 +889,7 @@ uint32_t World::sub_5AB719(Group* group) {
 
     group->group_sub->max_unit_dist = max_distance;
     group->group_sub->max_scan_range = max_scan_range;
-    group->group_sub->field_0x2c = max_sum;
+    group->group_sub->max_dist_plus_scan = max_sum;
 
     return position_yyxx;
 }
@@ -2863,8 +2863,8 @@ void World::sub_5AA78C(Unit* unit) {
 void World::sub_5AC137(Group* group) {
     this->sub_5AB719(group);
     group->group_sub->field_0x0 = group->group_sub->avg_pos;
-    group->group_sub->field_0x2d = group->group_sub->field_0x2c;
-    group->group_sub->field_0x38 = group->group_sub->field_0x2c;
+    group->group_sub->field_0x2d = group->group_sub->max_dist_plus_scan;
+    group->group_sub->field_0x38 = group->group_sub->max_dist_plus_scan;
 }
 
 // Issue a move-to-point command to `group`.
@@ -4177,7 +4177,7 @@ void World::sub_5AB92C(Group* group) {
 
     group->group_sub->max_unit_dist = max_distance;
     group->group_sub->max_scan_range = max_scan_range;
-    group->group_sub->field_0x2c = max_sum;
+    group->group_sub->max_dist_plus_scan = max_sum;
 }
 
 // 5AD2C1

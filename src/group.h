@@ -29,7 +29,7 @@ public:
     uint16_t avg_pos;
     uint8_t max_unit_dist;
     uint8_t max_scan_range;
-    uint8_t field_0x2c;
+    uint8_t max_dist_plus_scan;
     uint8_t field_0x2d;
     uint8_t gap_0x2e[2];
     uint32_t field_0x30;
