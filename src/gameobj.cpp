@@ -869,7 +869,7 @@ int32_t TokenEntry::IsQuestItem() { //43a5e5
 }
 
 
-int32_t TokenEntry::sub_43A6D5() { //43a6d5
+int32_t TokenEntry::IsQuestTreasure() { //43a6d5
     if (this->GetType() != TYPE_SPELL) {
         return 0;
     }

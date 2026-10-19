@@ -9693,7 +9693,7 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
     if (unit->IsItemRestricted(token) == 0) {
         disallow = 1;
     }
-    if (token->sub_43A6D5() == 0) {
+    if (token->IsQuestTreasure() == 0) {
         disallow = 1;
     }
 
@@ -16694,7 +16694,7 @@ int32_t VisInvType1::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
             main_wnd->field_0x460 = 0;
         }
     } else {
-        if (this->grid_source->GetAt(idx)->sub_43A6D5() == 0) {
+        if (this->grid_source->GetAt(idx)->IsQuestTreasure() == 0) {
             TokenEntry* entry = this->VMethod36(idx, 1);
             if (entry != nullptr) {
                 main_wnd->vis_charinfo->VMethod27(entry->GetType() - 1);
@@ -16825,7 +16825,7 @@ int32_t VisInvExtBase::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (idx >= 0 && this->grid_source->GetSize() > idx) {
         TokenEntry* entry = this->grid_source->GetAt(idx);
-        if (entry->sub_43A6D5() == 0) {
+        if (entry->IsQuestTreasure() == 0) {
             this->VMethod36(idx, 1);
             if (main_wnd->drag_entry != nullptr) {
                 if (main_wnd->drag_src_tab == 4) {
