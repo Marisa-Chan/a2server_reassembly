@@ -5248,7 +5248,7 @@ void Server::sub_4F9AD3(Sack* sack) {
 }
 
 // 4F9B9E
-void Server::sub_4F9B9E(Sack* sack) {
+void Server::SaveSack(Sack* sack) {
     if (g_ServerConfig.gameType != 0) {
         return;
     }
@@ -5839,7 +5839,7 @@ int32_t SackList::DumpInventoryAt(TokenPos* pos, Inventory* inventory, int money
     }
 
     if (sack->needs_save) {
-        g_Server->sub_4F9B9E(sack);
+        g_Server->SaveSack(sack);
     }
     
     return 1;

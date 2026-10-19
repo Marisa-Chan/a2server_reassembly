@@ -180,7 +180,7 @@ public:
     void OnTeamsReady(); // Called when all team-game players are ready
     void UpdateQuestRune(int arg1, int arg2); // Called when all team-game players are ready (sub-step)
     void SpawnRandomSack(); // Spawn random sack on map
-    void sub_4F9B9E(Sack* sack); // 4F9B9E Save sack to file
+    void SaveSack(Sack* sack); // 4F9B9E Save sack to file
     void sub_4F9AD3(class Sack* sack); // Pre-process a sack before pickup
     Human* sub_509879(CString* unit_name, class Unit* origin, int is_hero); // Summon a unit; returns the new unit (or nullptr on failure)
     void sub_509042(); // 509042
