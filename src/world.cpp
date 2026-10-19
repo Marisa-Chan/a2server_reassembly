@@ -2935,7 +2935,7 @@ void World::sub_5A930F(Unit* unit, uint8_t x, uint8_t y, Spell* spell) {
 }
 
 // 5A943B — helper used by sub_5ACAA7: set unit to retreat/evade state.
-void World::sub_5A943B(Unit* unit) {
+void World::OrderStandGround(Unit* unit) {
     this->BeginUnitOrder(unit);
     unit->state = 0x17;
     unit->eye2->position1 = unit->position->CompatGetYX();
@@ -4474,7 +4474,7 @@ void World::sub_5ACAA7(Group* group) {
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
-        this->sub_5A943B(unit);
+        this->OrderStandGround(unit);
     }
 
     group->group_sub->order = 0x13;
