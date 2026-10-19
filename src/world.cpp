@@ -811,7 +811,7 @@ void World::sub_5AEC20(Group* group, uint16_t param) {
             this->sub_5A6B48(unit, unit->eye2->unit4);
         } else {
             if (unit->position->CompatGetYX() == param && unit->position->IsAtCellCenter()) {
-                this->sub_5A6E2C(unit, 1);
+                this->SetIdleOrRetreat(unit, 1);
             } else {
                 this->sub_5A8778(unit, param);
             }
@@ -830,7 +830,7 @@ void World::sub_5AECE7(Group* group, uint16_t param) {
         while (it != nullptr) {
             Unit* unit = group->unit_list.GetNext(it);
             if (unit->eye2->unit4 == nullptr) {
-                this->sub_5A6E2C(unit, 1);
+                this->SetIdleOrRetreat(unit, 1);
             } else {
                 this->sub_5A6B48(unit, unit->eye2->unit4);
             }
@@ -1050,7 +1050,7 @@ void World::sub_5A85F4(Unit* caster, Unit* target, Spell* spell) {
     }
 
     if (target == nullptr) {
-        this->sub_5A6E2C(caster, 0);
+        this->SetIdleOrRetreat(caster, 0);
     } else {
         caster->eye2->cast_action = 8;
         caster->eye2->unit5 = target;
@@ -2533,7 +2533,7 @@ void World::sub_5A6B48(Unit* unit, Unit* target) {
     int32_t chosen_spell = 0;
 
     if ((target->unit_attrs & 8) != 0) {
-        this->sub_5A6E2C(unit, 0);
+        this->SetIdleOrRetreat(unit, 0);
         return;
     }
 
@@ -2571,7 +2571,7 @@ void World::sub_5A6B48(Unit* unit, Unit* target) {
     }
 
     if (chosen_target == nullptr) {
-        this->sub_5A6E2C(unit, 0);
+        this->SetIdleOrRetreat(unit, 0);
     } else if (!unit->pOwner->is_ai) {
         if (!unit->IsMage() || this->sub_5A6ED9(unit, chosen_target) == 0) {
             unit->eye2->cast_action = 5;
@@ -2622,7 +2622,7 @@ int32_t World::sub_5B6632(Unit* unit, Unit* target) {
 
 // Set unit to idle/wander (param=0) or retreat (param!=0).
 // 5A6E2C
-void World::sub_5A6E2C(Unit* unit, int param) {
+void World::SetIdleOrRetreat(Unit* unit, int param) {
     if (param == 0) {
         this->sub_5A607B(unit);
     } else {
@@ -3549,7 +3549,7 @@ void World::sub_5A57E8(Unit* unit, Unit* target) {
 void World::sub_5A65BB(Unit* unit, Unit* target) {
     UnitList* list = this->sub_5A37C5(target);
     if (list == nullptr || list->unit_list.GetCount() == 0) {
-        this->sub_5A6E2C(unit, 0);
+        this->SetIdleOrRetreat(unit, 0);
         return;
     }
 
@@ -3643,7 +3643,7 @@ void World::sub_5A56D7(Unit* unit, Unit* target) {
         int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, range);
         this->sub_5A8778(unit, result);
     } else {
-        this->sub_5A6E2C(unit, 0);
+        this->SetIdleOrRetreat(unit, 0);
     }
 }
 
@@ -3673,7 +3673,7 @@ void World::sub_5A8885(Unit* unit) {
     }
 
     if (count == 0) {
-        this->sub_5A6E2C(unit, 0);
+        this->SetIdleOrRetreat(unit, 0);
     } else {
         uint32_t packed_yyxx = this->sub_5AB62E(list);
         int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, 3);
@@ -3699,7 +3699,7 @@ void World::sub_5A8A55(Unit* unit) {
     }
 
     if (count == 0) {
-        this->sub_5A6E2C(unit, 0);
+        this->SetIdleOrRetreat(unit, 0);
     } else {
         uint32_t packed_yyxx = this->sub_5AB62E(list);
         int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, range);
@@ -3856,7 +3856,7 @@ void World::sub_5A647C(Unit* unit) {
     } else {
         PosYX current_pos = unit->position->GetYX();
         if (current_pos.val == unit->eye2->position1.val) {
-            this->sub_5A6E2C(unit, 0);
+            this->SetIdleOrRetreat(unit, 0);
         } else {
             this->sub_5A8778(unit, unit->eye2->position1.val);
         }
@@ -4049,7 +4049,7 @@ void World::sub_5A51A1(Unit* unit) {
         break;
     default:
         unit->some_state = 0;
-        this->sub_5A6E2C(unit, 0);
+        this->SetIdleOrRetreat(unit, 0);
         break;
     }
 }
@@ -4087,7 +4087,7 @@ void World::sub_5AEFE5(Group* group) {
 void World::sub_5AF022(Group* group) {
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
-        this->sub_5A6E2C(unit, 0);
+        this->SetIdleOrRetreat(unit, 0);
     }
 }
 
@@ -4109,7 +4109,7 @@ void World::sub_5AF061(Group* group, uint16_t yx) {
         }
 
         if (unit->eye2->field43_0x50 != 0) {
-            this->sub_5A6E2C(unit, 0);
+            this->SetIdleOrRetreat(unit, 0);
         } else {
             if (group->group_sub->speed_override != 0) {
                 unit->eye2->field52_0x6c = 1;
@@ -4337,7 +4337,7 @@ void World::sub_5AE628(Group* group) {
         Unit* unit = group->unit_list.GetNext(it);
         if (unit->eye2->unit4 == nullptr) {
             if (unit->position->GetYX() == unit->eye2->position1 && unit->position->IsAtCellCenter()) {
-                this->sub_5A6E2C(unit, 1);
+                this->SetIdleOrRetreat(unit, 1);
             } else {
                 this->sub_5A8778(unit, unit->eye2->position1);
             }
@@ -4388,7 +4388,7 @@ void World::sub_5AE7C3(Group* group) {
                 if (unit->hp == unit->hp_max || tick_diff > 9) {
                     if (unit->eye2->counter3 == 0) {
                         if (unit->position->GetYX() == unit->eye2->position1 && unit->position->IsAtCellCenter()) {
-                            this->sub_5A6E2C(unit, 1);
+                            this->SetIdleOrRetreat(unit, 1);
                         } else {
                             this->sub_5A8778(unit, unit->eye2->position1);
                         }

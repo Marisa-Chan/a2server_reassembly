@@ -429,3 +429,4 @@ World::sub_5A92AF -> OrderCastAtUnit -- sets state 0x0D: cast spell at target un
 World::sub_5A90F4 -> OrderEnterBuilding -- sets state 0x0F with the target building
 World::sub_5A9580 -> OrderPatrolTo -- sets state 10 with a two-waypoint patrol route [current, target]
 World::sub_5A9918 -> OrderTeleportHome -- sets state 0x16 (teleport back to owner town)
+World::sub_5A9383 -> OrderGuardPosition -- sets state 0x0B anchored at current (or eye) position
