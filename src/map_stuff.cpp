@@ -1887,7 +1887,7 @@ int MapStuff::sub_594EBA(AreaEffect* ae, uint16_t yx) {
 }
 
 // 595073 --- remove area effect from cell state at yx
-int MapStuff::sub_595073(AreaEffect* ae, uint16_t yx) {
+int MapStuff::RemoveAreaEffectAt(AreaEffect* ae, uint16_t yx) {
     if (!this->cell_states.Lookup(yx, this->scratch_cell_state)) {
         return 0;
     }
@@ -2596,7 +2596,7 @@ void MapStuff::sub_594E65(AreaEffect* ae, uint8_t x, uint8_t y) {
 
 // 59501E --- remove area effect from (x, y)
 void MapStuff::PlaceAreaEffectAt(AreaEffect* ae, uint8_t x, uint8_t y) {
-    this->sub_595073(ae, PosYX(x, y).val);
+    this->RemoveAreaEffectAt(ae, PosYX(x, y).val);
 }
 
 // 594709
