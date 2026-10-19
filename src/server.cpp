@@ -3970,16 +3970,16 @@ void Server::sub_504a96(Packet* pkt) {
                 g_NetStru1_main.QueuePacketSend(&out);
                 break;
             case 3: // Yell: global with cooldown.
-                if (player->field_0xa68 == 0) {
+                if (player->shout_cooldown == 0) {
                     out.from_player_id = player->player_id;
                     out.player_id = player->player_id;
                     out.token_id = chat_type;
                     out.to_player_id = 0;
                     strcpy(out.name, packet_join->name);
                     g_NetStru1_main.QueuePacketSend(&out);
-                    player->field_0xa68 = g_ServerConfig.shout_delay;
+                    player->shout_cooldown = g_ServerConfig.shout_delay;
                 } else {
-                    g_NetStru1_main.FUN_0051ce86(8, player->field_0xa68, player);
+                    g_NetStru1_main.FUN_0051ce86(8, player->shout_cooldown, player);
                 }
                 break;
             case 4: // Global broadcast (no cooldown)

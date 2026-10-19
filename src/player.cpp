@@ -48,7 +48,7 @@ Player::Player() {
     this->login.Empty();
     this->field_0xa60 = 0;
     this->respawn_requested = 0;
-    this->field_0xa68 = 0;
+    this->shout_cooldown = 0;
     this->field_0xa7c = 0;
     this->field_0xa84 = 0;
     this->field_0xa80 = 0;

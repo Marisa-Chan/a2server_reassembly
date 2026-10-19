@@ -69,3 +69,4 @@ Player::field_0xa44 -> color_slot -- 1-based player color/slot index (packet col
 Player::field_0xa45 -> has_cd -- player counts for the CD-key check (cd_flag from HAT login)
 Player::field_0xa50 -> drop_deadline_tick16 -- g_Server->tick16 deadline after which a disconnected/unconfirmed player is dropped (0 = connected, MAXINT32 = held in team games)
 Player::field_0xa64 -> respawn_requested -- set by client packet 0x4B when main unit is deeply dead; consumed by the tournament respawn flow
+Player::field_0xa68 -> shout_cooldown -- seconds until the player may yell again (shout_delay), decremented once per second

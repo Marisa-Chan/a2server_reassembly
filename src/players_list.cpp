@@ -231,8 +231,8 @@ void PlayersList::sub_534DDD() {
 		}
 
 		// Decrement field_0xa68 if positive.
-		if (player->field_0xa68 > 0) {
-			player->field_0xa68--;
+		if (player->shout_cooldown > 0) {
+			player->shout_cooldown--;
 		}
 
 		// Check if player has timed out.
