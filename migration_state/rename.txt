@@ -479,3 +479,4 @@ World::sub_5AD0B3 -> GetAttackDecision -- attack-feasibility lookup vs target (0
 World::sub_5ABF50 -> ProcessPlayerGroupAi -- runs the group AI for every group of the player
 World::sub_5B6632 -> PickAttackSpell -- AI mage spell selection: pick a random affordable non-defensive spell (melee fallback at high mind)
 World::sub_5A845B -> CastSelfHealOrBuff -- AI mage retreat helper: cast healing/buff on self or most-damaged ally
+World::sub_5A79D6 -> GetCastableSpell -- returns the spell by book number if the unit has enough MP

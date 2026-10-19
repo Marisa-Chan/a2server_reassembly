@@ -1661,7 +1661,7 @@ int32_t World::sub_5A6ED9(Unit* caster, Unit* target) {
         POSITION it = this->field28_0xaa4.unit_list.GetHeadPosition();
         while (it != nullptr) {
             Unit* other = this->field28_0xaa4.unit_list.GetNext(it);
-            if (this->sub_5A7A1C(caster, other) == 0) {
+            if (this->ShouldAutobuff(caster, other) == 0) {
                 continue;
             }
             // WAT: this integer division is weird.
@@ -1699,7 +1699,7 @@ int32_t World::sub_5A6ED9(Unit* caster, Unit* target) {
 
 // Check if `caster` should autobuff `target` based on diplomacy and settings.
 // 5A7A1C
-int32_t World::sub_5A7A1C(Unit* caster, Unit* target) {
+int32_t World::ShouldAutobuff(Unit* caster, Unit* target) {
     uint8_t relation = this->diplomacy.diplomacy[caster->pOwner->player_id][target->pOwner->player_id] & 3;
 
     // Neutral.
@@ -1771,7 +1771,7 @@ void World::sub_5A7B44(Unit* unit) {
         POSITION pos = this->field28_0xaa4.unit_list.GetHeadPosition();
         while (pos) {
             Unit* other = this->field28_0xaa4.unit_list.GetNext(pos);
-            if (!this->sub_5A7A1C(unit, other) || !this->sub_5A7AF7(unit, other, spell)) {
+            if (!this->ShouldAutobuff(unit, other) || !this->sub_5A7AF7(unit, other, spell)) {
                 continue;
             }
 
@@ -1806,7 +1806,7 @@ void World::sub_5A7B44(Unit* unit) {
         POSITION pos = this->field28_0xaa4.unit_list.GetHeadPosition();
         while (pos) {
             Unit* other = this->field28_0xaa4.unit_list.GetNext(pos);
-            if (this->sub_5A7A1C(unit, other) == 0) {
+            if (this->ShouldAutobuff(unit, other) == 0) {
                 continue;
             }
 
@@ -1854,7 +1854,7 @@ void World::sub_5A7B44(Unit* unit) {
         POSITION pos = this->field28_0xaa4.unit_list.GetHeadPosition();
         while (pos) {
             Unit* other = this->field28_0xaa4.unit_list.GetNext(pos);
-            if (this->sub_5A7A1C(unit, other) == 0) {
+            if (this->ShouldAutobuff(unit, other) == 0) {
                 continue;
             }
 
