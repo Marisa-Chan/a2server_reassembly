@@ -480,7 +480,7 @@ void AreaEffect::sub_537CD6() {
 		wave.sub_537AE8(unk_6364D0);
 		count = 32;
 	} else if (this->itemDataID == spell::acid_stream) {
-		wave.sub_537B2B(dword_6366C8[this->field_0x4f], dword_636AA0[this->field_0x4f], this->wave_pattern);
+		wave.sub_537B2B(dword_6366C8[this->wave_step], dword_636AA0[this->wave_step], this->wave_pattern);
 		count = dword_6366C4;
 		packet_type = 0x12;
 	}
@@ -496,8 +496,8 @@ void AreaEffect::sub_537CD6() {
 			this->sub_53831D(MapStuff_Instance->sub_5946BF(nx, ny));
 		}
 	}
-	this->field_0x4f++;
-	if (this->field_0x4f >= count) {
+	this->wave_step++;
+	if (this->wave_step >= count) {
 		this->field2_0x40 = 1;
 	}
 }
@@ -518,7 +518,7 @@ AreaEffect::AreaEffect(Effect* effect, TokenPos* pos, uint8_t range) : SpellEffe
 	this->TokenID = 0;
 	this->zone_active = 0;
 	this->radius = range;
-	this->field_0x4f = 0;
+	this->wave_step = 0;
 	this->duration = 0;
 }
 
@@ -535,14 +535,14 @@ void AreaEffect::Serialize(CArchive& ar) {
 		ar << this->zone_active;
 		ar << this->radius;
 		ar << this->wave_pattern;
-		ar << this->field_0x4f;
+		ar << this->wave_step;
 		ar << this->duration;
 		ar.WriteObject(this->effect);
 	} else {
 		ar >> this->zone_active;
 		ar >> this->radius;
 		ar >> this->wave_pattern;
-		ar >> this->field_0x4f;
+		ar >> this->wave_step;
 		ar >> this->duration;
 		ar >> this->effect;
 	}

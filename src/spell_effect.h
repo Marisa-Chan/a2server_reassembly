@@ -88,7 +88,7 @@ public:
     uint8_t zone_active;
     uint8_t radius; // radius
     uint8_t wave_pattern;
-    uint8_t field_0x4f;
+    uint8_t wave_step;
     uint16_t duration;
     uint8_t field_0x52[2];
 };
