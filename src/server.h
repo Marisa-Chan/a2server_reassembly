@@ -185,7 +185,7 @@ public:
     Human* SummonUnit(CString* unit_name, class Unit* origin, int is_hero); // Summon a unit; returns the new unit (or nullptr on failure)
     void ProcessHatPackets(); // 509042
     void UpdateMissionResults(); // 5096E4
-    void sub_5090A7();
+    void Tick();
     void sub_50979A();
     void sub_5088DF(Packet* pkt); // 5088DF
     void sub_4F950F(); // 4F950F

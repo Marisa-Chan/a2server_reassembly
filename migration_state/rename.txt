@@ -391,3 +391,4 @@ Server::sub_4F9B9E -> SaveSack -- saves a sack to file
 Server::sub_4F9AD3 -> PrepareSackPickup -- pre-processes a sack before pickup
 Server::sub_509879 -> SummonUnit -- summons a unit by name near origin; returns the new unit or nullptr
 Server::sub_509042 -> ProcessHatPackets -- services the HAT connector and dispatches received packets
+Server::sub_5096E4 -> UpdateMissionResults -- updates mission_result for every player

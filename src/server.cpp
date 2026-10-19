@@ -4840,7 +4840,7 @@ void Server::ServerTic() {
         g_QuestMap.flags.RemoveAll();
     }
 
-    this->sub_5090A7();
+    this->Tick();
     if ((this->tick & 0xf) == 15) {
         this->sub_50979A();
         this->tick16++;
@@ -6066,7 +6066,7 @@ void Server::sub_4FF878(Player* player) {
 }
 
 // 5090A7
-void Server::sub_5090A7() {
+void Server::Tick() {
     this->tick++;
     this->ProcessAvailPackets();
     this->ProcessHatPackets();
