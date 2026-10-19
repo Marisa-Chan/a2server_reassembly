@@ -1171,7 +1171,7 @@ void ScanPresenceGrid::MarkWatchedSector(Unit* unit) {
 }
 
 // 595F46
-void ScanPresenceGrid::sub_595F46(Unit* unit) {
+void ScanPresenceGrid::DetectWatchedUnit(Unit* unit) {
     uint32_t sector = this->sector_grid[(unit->position->GetX() >> 3) + 1][(unit->position->GetY() >> 3) + 1];
     if (sector != 0) {
         unit->group->group_sub->presence_detected = 1;
@@ -1230,7 +1230,7 @@ void ScanPresenceGrid::RebuildPresenceGrid() {
     unit_it = this->unit_list->unit_list.GetHeadPosition();
     while (unit_it != NULL) {
         Unit* unit = this->unit_list->unit_list.GetNext(unit_it);
-        this->sub_595F46(unit);
+        this->DetectWatchedUnit(unit);
     }
 
     unit_it = g_Server->srv_stru1->units_list->unit_list.GetHeadPosition();

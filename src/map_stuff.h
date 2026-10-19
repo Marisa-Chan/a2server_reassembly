@@ -62,7 +62,7 @@ public:
     void RegisterAreaEffect(AreaEffect* ae); // Register area effect into the scan grid (RegisterAreaEffect)
     void RebuildPresenceGrid();                 // Rebuild presence grid from all active units/players
     void MarkWatchedSector(Unit* unit); // OR the unit owner's vision mask into the 5x5 sector block around the unit (5957E2)
-    void sub_595F46(Unit* unit); // Mark unit detected when its sector is watched (595F46)
+    void DetectWatchedUnit(Unit* unit); // Mark unit detected when its sector is watched (595F46)
     void sub_5963B9();           // Clear the sector grid and reset per-unit/per-group detection state (5963B9)
 };
 ASSERT_OFFSET(ScanPresenceGrid, unit_list, 0x1610);
