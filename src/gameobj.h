@@ -256,7 +256,7 @@ public:
 	virtual void InitState(int16_t arg1, int32_t arg2, int32_t arg3, int32_t arg4, int32_t arg5, MapPlayerData* arg6, int32_t arg7, int32_t arg8, int16_t arg9, int16_t arg10);
 	virtual void SpawnAttackProjectile();
 	virtual void SpawnSpellProjectile();
-	virtual void VMethod20();
+	virtual void PlayCastSound();
 	virtual void VMethod21();
 	virtual void VMethod22();
 	virtual void VMethod23();

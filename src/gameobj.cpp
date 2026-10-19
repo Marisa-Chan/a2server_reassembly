@@ -2915,7 +2915,7 @@ int32_t CUnit::Update() { // 46785f
         break;
     case 8:
         if (this->action_phase == vfx->attack_delay) {
-            this->VMethod20();
+            this->PlayCastSound();
         }
         if (this->action_spell == 0x36) {
             if (this->action_phase == 0) {
@@ -3740,7 +3740,7 @@ void CUnit::VMethod29() {
 }
 
 // 469499
-void CUnit::VMethod20() {
+void CUnit::PlayCastSound() {
     SfxSample* sample = g_SfxArray[this->action_spell + 500];
     BigStruct2* map = this->pMapObject;
     int32_t vol;
