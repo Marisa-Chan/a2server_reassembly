@@ -423,7 +423,7 @@ Packet3Dwords Packet3Dwords::Inst;
 
 Packet3Dwords::Packet3Dwords() {
     //sub_526A4F
-    this->field_0xa  = 0;
+    this->value1  = 0;
     this->field_0xe  = 0;
     this->field_0x12 = 0;
     this->field_0x16[0] = 0;

@@ -2524,7 +2524,7 @@ int32_t BigStruct2::FUN_0040d7f3() {
 
 	pkt->id = 2;
 	strcpy(pkt->field_0x16, wnd->m_GameSession.character_name);
-	memcpy(&pkt->field_0xa, &wnd->m_GameSession.sessionKeyPart1, 8);
+	memcpy(&pkt->value1, &wnd->m_GameSession.sessionKeyPart1, 8);
 
 	pkt->field_0x12 = g_IsCdPresent | (wnd->m_GameSession.color << 8) | (wnd->m_GameSession.FUN_004200f0() << 0x10) | (wnd->m_GameSession.FUN_00420110() << 0x18);
 	pkt->to_player_id = 0;
