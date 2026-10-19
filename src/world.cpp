@@ -465,7 +465,7 @@ void World::sub_5ADD64(Group* group) {
 }
 
 // 5ADB16 — build a nearby-friendly-unit list from `group`, then filter by relationship to the group's first unit.
-void World::sub_5ADB16(Group* group) {
+void World::ScanNearbyUnits(Group* group) {
     this->field26_0xa64.unit_list.RemoveAll();
 
     if (group == nullptr) {
@@ -523,7 +523,7 @@ void World::sub_5ADB16(Group* group) {
 
 // 5AEF66
 void World::AiAggroBrain(Group* group) {
-    this->sub_5ADB16(group);
+    this->ScanNearbyUnits(group);
     this->sub_5AE471(group);
     POSITION it = group->unit_list.GetHeadPosition();
     while (it != nullptr) {
@@ -652,14 +652,14 @@ uint16_t World::PackDistFacing(Unit* unit1, Unit* unit2) {
 }
 
 // Collect up to `rays` units hit by a multi-ray spell into `units`.
-// Fills the two scratch lists via sub_5ADB16, keeps the `rays` closest
+// Fills the two scratch lists via ScanNearbyUnits, keeps the `rays` closest
 // candidates (list-27 distances are biased by <<8 so list-26 units win ties),
 // adds `target` first, then trims the list back down to `rays` entries.
 // 5B5CA8
 void World::CollectRayTargets(Unit* caster, Unit* target, CList<Unit*>* units, uint32_t rays, uint32_t max_range) {
     units->RemoveAll();
     this->sub_5AA581(caster, target, 0);
-    this->sub_5ADB16(caster->group);
+    this->ScanNearbyUnits(caster->group);
 
     if (this->field26_0xa64.unit_list.GetCount() == 0) {
         units->AddTail(target);
@@ -801,7 +801,7 @@ uint32_t World::sub_5AB62E(UnitList* list) {
 
 // 5AEC20
 void World::AiAttackBrain(Group* group, uint16_t param) {
-    this->sub_5ADB16(group);
+    this->ScanNearbyUnits(group);
     this->sub_5AE2D4(group);
 
     POSITION it = group->unit_list.GetHeadPosition();
@@ -821,7 +821,7 @@ void World::AiAttackBrain(Group* group, uint16_t param) {
 
 // 5AECE7
 void World::AiSwarmBrain(Group* group, uint16_t param) {
-    this->sub_5ADB16(group);
+    this->ScanNearbyUnits(group);
     if (this->field26_0xa64.unit_list.GetCount() == 0) {
         this->AiMoveBrain(group, param);
     } else {
@@ -4310,7 +4310,7 @@ void World::sub_5AE2D4(Group* group) {
 // 5AE628
 void World::AiGuardBrain(Group* group) {
     this->UpdateGroupCenter(group);
-    this->sub_5ADB16(group);
+    this->ScanNearbyUnits(group);
     this->sub_5A3D12(group->group_sub->avg_pos, group->group_sub->guard_range);
     this->sub_5AE2D4(group);
 
@@ -4350,7 +4350,7 @@ void World::AiGuardBrain(Group* group) {
 // 5AE7C3
 void World::AiDefendBrain(Group* group) {
     this->UpdateGroupCenter(group);
-    this->sub_5ADB16(group);
+    this->ScanNearbyUnits(group);
     this->sub_5A3D12(group->group_sub->avg_pos, group->group_sub->guard_range);
     this->sub_5AE2D4(group);
 

@@ -471,3 +471,4 @@ World::sub_5AF061 -> AiMoveBrain -- group order 4 brain: move arrival checks
 World::sub_5AECE7 -> AiSwarmBrain -- group order 5 brain: swarm movement
 World::sub_5AE7C3 -> AiDefendBrain -- group order 0x12 brain
 World::sub_5AEFE5 -> AiStandBrain -- group order 0x13 brain: hold all units
+World::sub_5AB92C -> UpdateGroupCenter -- recomputes the group centroid into group_sub
