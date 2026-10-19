@@ -144,8 +144,8 @@ struct MapStuff { // aka astruct_5
     uint8_t field_0x5416E[2];
     int32_t field31_0x54170[8];
     FieldBlock54190 field_0x54190;
-    uint16_t field_0x54584[0x1000]; // Path lookup table for static obstacles, used by sub_5882AE.
-    uint16_t field_0x56584[0x1000]; // Path lookup table for dynamic obstacles, used by sub_5882AE.
+    uint16_t field_0x54584[0x1000]; // Path lookup table for static obstacles, used by FindPathInternal.
+    uint16_t field_0x56584[0x1000]; // Path lookup table for dynamic obstacles, used by FindPathInternal.
     int32_t static_scan_ahead;
     int32_t dynamic_scan_ahead;
     int32_t static_refresh_rate;
@@ -290,7 +290,7 @@ public:
     // front of `path`; on failure (gave up) clears `path` entirely.
     void WalkCostPath(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y, CList<PosYX>& path);
 
-    void sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y, int32_t flag, Unit* target); // 5882AE
+    void FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y, int32_t flag, Unit* target); // 5882AE
 
     inline Obstacle& ObstacleAt(PosYX yx) { return this->obstacle_map[yx.val]; } //59a7a0
     inline Obstacle& Obstacle2At(PosYX yx) { return this->obstacle_map2[yx.val]; } //59a7c0

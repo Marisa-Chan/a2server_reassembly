@@ -1541,7 +1541,7 @@ Unit* MapStuff::GetLargeUnitAt(uint16_t yx) {
 void MapStuff::FindPath(Unit* unit, uint8_t x, uint8_t y, int32_t flag, Unit* target) {
     uint8_t cur_x = unit->position->GetX();
     uint8_t cur_y = unit->position->GetY();
-    this->sub_5882AE(unit, cur_x, cur_y, x, y, flag, target);
+    this->FindPathInternal(unit, cur_x, cur_y, x, y, flag, target);
 }
 
 // 58B27F
@@ -2012,7 +2012,7 @@ void MapStuff::RelaxCostsMap2Queue1(Unit* unit, uint16_t yx, uint8_t flag_byte, 
 }
 
 // 5882AE --- pathfinding BFS from (cur_x, cur_y) to (x, y)
-void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y, int32_t flag, Unit* target) {
+void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y, int32_t flag, Unit* target) {
     PosYX dest(x, y);
     int32_t unit_size = unit->GetTokenSize();
 

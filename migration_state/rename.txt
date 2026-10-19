@@ -659,3 +659,4 @@ MapStuff::sub_5983D0 -> RelaxCostsMap1Queue1 -- relaxes 8-neighbor costs against
 MapStuff::sub_597BB0 -> RelaxCostsMap1Queue2 -- relaxes 8-neighbor costs against obstacle_map into the dynamic queue
 MapStuff::sub_599410 -> RelaxCostsMap2Queue1 -- relaxes 8-neighbor costs against obstacle_map2 into the static queue
 MapStuff::sub_598BF0 -> RelaxCostsMap2Queue2 -- relaxes 8-neighbor costs against obstacle_map2 into the dynamic queue
+MapStuff::sub_58826D -> FindPath -- pathfind entry from the unit's current cell
