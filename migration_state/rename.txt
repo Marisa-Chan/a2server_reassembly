@@ -115,3 +115,4 @@ MainWindow::field_0x800 -> server_ctrl_shown -- server-control dialog created/vi
 (recommitted together after an empty-commit fixup dropped them)
 MainWindow::field_0x448 -> unlimited_speed -- Ctrl+speed key toggles untimed idle mode (SingleGameIdle vs TimedIdle)
 MainWindow::field_0x450 -> last_event_id -- last game-event id received via message 0x433 (255=mission failed, else event rolekey)
+MainWindow::field_0x454 -> inside_building -- set between building-enter (0xb7) and building-leave (0xb8) packets; routes idle messages

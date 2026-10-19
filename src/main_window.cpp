@@ -1468,7 +1468,7 @@ MainWindow::MainWindow() { //4837e1
     this->serverBootstrapEnabled = 0;
     this->pending_game_mode = 0;
     this->vis_msgbox = nullptr;
-    this->field_0x454 = 0;
+    this->inside_building = 0;
     this->field_0x34c = nullptr;
     this->vis_msgbox_list = nullptr;
     this->vis_netmapsel = nullptr;
@@ -2899,7 +2899,7 @@ void MainWindow::FUN_004903d0() { // 4903d0
             }
         }
 
-        if (this->field_0x454 == 0) {
+        if (this->inside_building == 0) {
             PostMessage(0x459, 0, 0);
         } else {
             PostMessage(0x457, 0, 0);

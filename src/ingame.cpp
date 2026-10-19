@@ -2041,7 +2041,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0xb7:
 			if (wnd->sessionMode == 0) {
-				wnd->field_0x454 = 1;
+				wnd->inside_building = 1;
 				wnd->PostMessage(0x45e, 0, 0);
 			}
 			break;
@@ -2060,7 +2060,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					wnd->vis_root->RemoveChild(tavern);
 				}
 				wnd->vis_root->MsgProc(0x446, 0, 0);
-				wnd->field_0x454 = 0;
+				wnd->inside_building = 0;
 				wnd->PostMessage(0x45d, 0, 0);
 			}
 			break;
