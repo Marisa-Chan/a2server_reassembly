@@ -596,3 +596,4 @@ MapStuff::sub_595073 -> RemoveAreaEffectAt -- removes the area effect from cell 
 MapStuff::sub_5946BF -> GetBuildingUnitAt -- returns the building token at (x,y) as Unit*
 MapStuff::sub_594768 -> BlockCell -- sets the 0x10 obstacle bit on both obstacle maps at the cell
 MapStuff::sub_596576 -> ApplyTerrainMod -- applies a 6-byte terrain modification at yx
+MapStuff::sub_59536C -> GetAreaEffectsAt -- pointer to the area_effects[6] array at cell yx

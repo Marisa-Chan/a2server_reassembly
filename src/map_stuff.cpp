@@ -497,7 +497,7 @@ void MapStuff::sub_59028D(Unit* unit, Unit* target, uint8_t max_range) {
 }
 
 // 5913BD
-int16_t MapStuff::sub_5913BD(Unit* unit, uint8_t x, uint8_t y) {
+int16_t MapStuff::GetTileMoveTime(Unit* unit, uint8_t x, uint8_t y) {
     uint8_t type = (uint8_t)unit->GetMovementType();
     if (type == 1) {
         return unit->speed * 8 / this->walk_cost_map[y * 256 + x];
@@ -548,7 +548,7 @@ void MapStuff::sub_590678(Unit* unit) {
     this->sub_58FB12(unit);
 
     if (prev_yx != unit->position->CompatGetYX()) {
-        unit->eye->field113_0x72 = this->sub_5913BD(unit, unit->position->GetX(), unit->position->GetY());
+        unit->eye->field113_0x72 = this->GetTileMoveTime(unit, unit->position->GetX(), unit->position->GetY());
     }
 
     if (!unit->position->IsAtCellCenter()) {
@@ -923,7 +923,7 @@ int MapStuff::PlaceUnit(Unit* unit) {
     uint8_t x = unit->position->GetX();
     uint8_t y = unit->position->GetY();
 
-    unit->eye->field113_0x72 = this->sub_5913BD(unit, x, y);
+    unit->eye->field113_0x72 = this->GetTileMoveTime(unit, x, y);
     unit->eye->field122_0x82 = x;
     unit->eye->field123_0x83 = y;
     unit->eye->field124_0x84 = unit->position->GetXx();
