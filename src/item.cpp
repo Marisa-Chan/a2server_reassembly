@@ -253,7 +253,7 @@ void Item::ProcessEffects() {
 }
 
 // 57ce40
-int32_t Item::VMethod6() {
+int32_t Item::IsItem() {
     return 1;
 }
 

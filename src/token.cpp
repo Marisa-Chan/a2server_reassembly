@@ -240,7 +240,7 @@ void Token::FixupPointers() {
 	this->position->FUN_00594200();
 }
 
-int32_t Token::VMethod6() {
+int32_t Token::IsItem() {
 	// 57b2c0
 	return 0;
 }
