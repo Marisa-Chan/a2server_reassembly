@@ -9749,7 +9749,7 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
     }
 
     if (a == 0) {
-        if (token->sub_4396FB() != 0 && unit->equipmentTokens[1] != nullptr) {
+        if (token->IsTwoHandedWeapon() != 0 && unit->equipmentTokens[1] != nullptr) {
             main_wnd->vis_invtype1->VMethod26(unit->equipmentTokens[1], main_wnd->drag_src_slot);
             main_wnd->vis_invtype1->VMethod33(unit);
             unit->equipmentTokens[1] = nullptr;
@@ -9757,7 +9757,7 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
     }
 
     if (a == 1) {
-        if (unit->equipmentTokens[0] != nullptr && unit->equipmentTokens[0]->sub_4396FB() != 0) {
+        if (unit->equipmentTokens[0] != nullptr && unit->equipmentTokens[0]->IsTwoHandedWeapon() != 0) {
             main_wnd->vis_invtype1->VMethod26(unit->equipmentTokens[0], main_wnd->drag_src_slot);
             main_wnd->vis_invtype1->VMethod33(unit);
             unit->equipmentTokens[0] = nullptr;

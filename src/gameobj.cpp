@@ -819,7 +819,7 @@ const char* TokenEntry::FUN_00439973() { //439973
 }
 
 
-int32_t TokenEntry::sub_4396FB() { //4396fb
+int32_t TokenEntry::IsTwoHandedWeapon() { //4396fb
     char str[0x50];
 
     strcpy(str, txt_heropicture.GetLine(this->GetId() - 1));
