@@ -111,7 +111,7 @@ int32_t sub_5049D1(CString* str) {
     return count;
 }
 
-// ---- Helpers used by sub_4F1471 ----
+// ---- Helpers used by LoadGame ----
 // 43A820
 // itoa -> CString
 CString* sub_43A820(CString* out, uint32_t value) {
@@ -4629,7 +4629,7 @@ void Server::SaveCharacter(Humanoid* humanoid) {
 
 // Load map (or a saved game?)
 // 4F1471
-int Server::sub_4F1471(CString param_1) {
+int Server::LoadGame(CString param_1) {
     this->field16_0x8c = 0;
     this->field59_0x208 = 0;
     this->current_map_name = param_1;

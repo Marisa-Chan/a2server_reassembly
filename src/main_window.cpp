@@ -3967,7 +3967,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
 
     if (mode == 0 && this->serverBootstrapEnabled != 0) {
         g_Server->field40_0x1ac = 0;
-        g_Server->sub_4F1471(buf);
+        g_Server->LoadGame(buf);
     }
 
     if (this->sessionMode != 3) {
