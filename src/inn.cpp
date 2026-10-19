@@ -1004,7 +1004,7 @@ void Inn::InnReward(Player* player) {
                     equip->sub_54A0BE();
                 }
 
-                if (!equip || equip->VMethod16() != 0 || equip->magic_volume <= 0) {
+                if (!equip || equip->IsSimpleItem() != 0 || equip->magic_volume <= 0) {
                     continue;
                 }
 

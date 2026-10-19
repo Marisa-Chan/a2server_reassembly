@@ -294,3 +294,4 @@ Item::VMethod10 -> Equip -- base: consume (apply effects, autosave on stat bottl
 Item::VMethod11 -> Unequip -- removes the item from the unit (base logs 'Unknown item takeoff'; gear subclasses remove stat/protection mods)
 Item::VMethod13 -> Clone -- virtual copy constructor returning a new Item/Armor/Shield/Weapon copy
 Item::VMethod15 -> CalcValue -- computes the item gold value into _exp (spell book cost / shape price / material+shape price + enchantments)
+Item::VMethod16 -> IsSimpleItem -- 1 for potions/scrolls/items without effects; gates stack merging and shop handling of enchanted gear

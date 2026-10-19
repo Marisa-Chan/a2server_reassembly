@@ -39,11 +39,11 @@ void Inventory::PutItemIntoBag(int32_t pos, Item* item) {
     item->field11_0x4d = 0;
 
     // Check if item is stackable
-    if (item->VMethod16() != 0) {
+    if (item->IsSimpleItem() != 0) {
         // Try to find an existing stackable item with the same item_id
         for (POSITION p = this->items.GetHeadPosition(); p != nullptr;) {
             Item* existing = this->items.GetNext(p);
-            if (existing->item_id == item->item_id && existing->VMethod16() != 0) {
+            if (existing->item_id == item->item_id && existing->IsSimpleItem() != 0) {
                 // Stack them together
                 this->total_weight += item->weight * item->count;
                 existing->count += item->count;
@@ -83,11 +83,11 @@ void Inventory::sub_5524FA(int32_t amount, Item* item) {
     }
 
     // Check if item is stackable
-    if (item->VMethod16() != 0) {
+    if (item->IsSimpleItem() != 0) {
         // Try to find an existing stackable item with the same item_id and shelf id
         for (POSITION it = this->items.GetHeadPosition(); it != nullptr;) {
             Item* existing = this->items.GetNext(it);
-            if (existing->item_id == item->item_id && existing->VMethod16() != 0 && existing->field11_0x4d == item->field11_0x4d) {
+            if (existing->item_id == item->item_id && existing->IsSimpleItem() != 0 && existing->field11_0x4d == item->field11_0x4d) {
                 // Stack them together
                 this->total_weight += item->weight * item->count;
                 existing->count += item->count;

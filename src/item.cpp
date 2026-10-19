@@ -328,7 +328,7 @@ int32_t Item::CalcValue() {
 }
 
 // 548817
-int32_t Item::VMethod16() {
+int32_t Item::IsSimpleItem() {
     if (this->item_type == Item::POTION || this->item_type == Item::SCROLL || this->_effects.IsEmpty()) {
         return 1;
     }
@@ -422,8 +422,8 @@ int Item::IsSimilar(Item* other) {
         return 0;
     }
 
-    int v1 = this->VMethod16();
-    int v2 = other->VMethod16();
+    int v1 = this->IsSimpleItem();
+    int v2 = other->IsSimpleItem();
     if (v1 != 0 && v2 != 0) {
         return 1;
     }
@@ -646,7 +646,7 @@ int32_t sub_54F176(Item* item) {
 
 // 54A0BE
 void Item::sub_54A0BE() {
-    if (this->VMethod16() != 0) {
+    if (this->IsSimpleItem() != 0) {
         return;
     }
 

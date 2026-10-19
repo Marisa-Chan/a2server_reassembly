@@ -16,7 +16,7 @@ static const uint16_t mage_spells[] = { spell::fire_arrow, spell::lightning, spe
 // 54C6DD
 void __cdecl sub_54C6DD(CArray<Item*>* arr, Item* item) {
     for (int32_t i = 0; i < arr->GetSize(); i++) {
-        if (item->VMethod16() != 0 && (*arr)[i]->IsSimilar(item)) {
+        if (item->IsSimpleItem() != 0 && (*arr)[i]->IsSimilar(item)) {
             (*arr)[i]->count += item->count;
             delete item;
             return;
@@ -498,7 +498,7 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
             }
         }
 
-        if (item->VMethod16() != 0) {
+        if (item->IsSimpleItem() != 0) {
             item->count = Random0N(max_same) + 1;
         } else {
             item->count = 1;

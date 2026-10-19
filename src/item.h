@@ -40,7 +40,7 @@ public: // VTable at 60f498.
     virtual Item* Clone();
     virtual int32_t VMethod14(int, int);
     virtual int32_t CalcValue();
-    virtual int32_t VMethod16();
+    virtual int32_t IsSimpleItem();
     virtual void VMethod17(PacketUnitStateVec* pkt, uint8_t* slot);
 
 public:

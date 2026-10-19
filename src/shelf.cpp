@@ -59,7 +59,7 @@ int32_t CMultiShopShelf::sub_544BCE(Item** item_ptr) {
 
     for (int32_t i = 0; i < this->items.GetSize(); i++) {
         Item* existing = this->items[i];
-        if ((item->VMethod16() && existing->IsSimilar(item)) || (!item->VMethod16() && existing->count == 0 && existing->IsSimilar(item))) {
+        if ((item->IsSimpleItem() && existing->IsSimilar(item)) || (!item->IsSimpleItem() && existing->count == 0 && existing->IsSimilar(item))) {
             existing->count += item->count;
             delete item;
             *item_ptr = existing;
@@ -269,7 +269,7 @@ int32_t CMultiShopInstance::sub_5462C8(Item* item, int32_t arg1) {
             type_flag = 0x1000000;
         }
 
-        if (item->VMethod16() == 0 && item->item_type != Item::BOOK) {
+        if (item->IsSimpleItem() == 0 && item->item_type != Item::BOOK) {
             while ((params[shelf_id].flags & 0x20000000) == 0 && shelf_id < 3) {
                 shelf_id++;
             }
