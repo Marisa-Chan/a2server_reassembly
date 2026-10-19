@@ -2882,7 +2882,7 @@ void World::sub_5AC7C8(Group* group) {
     group->group_sub->field_0x20 = 0x11;
     Unit* head = group->unit_list.GetHead();
     group->group_sub->order_pos = head->position->CompatGetYX();
-    group->group_sub->field_0x15 = 0;
+    group->group_sub->order_age = 0;
 }
 
 // Issue a guard/hold command to `group`.
@@ -3428,7 +3428,7 @@ void World::sub_5AED8D(Group* group) {
         }
     }
 
-    if (max_distance < 10 || group->group_sub->field_0x15 > 50) {
+    if (max_distance < 10 || group->group_sub->order_age > 50) {
         bool retry = true;
         uint8_t new_x = 0;
         uint8_t new_y = 0;
@@ -3441,11 +3441,11 @@ void World::sub_5AED8D(Group* group) {
             retry = (new_x < this->field24_0xa50->map_min_x || new_x > this->field24_0xa50->map_max_x || new_y < this->field24_0xa50->map_min_y || new_y > this->field24_0xa50->map_max_y);
         }
         group->group_sub->order_pos = PosYX{new_x, new_y}.val;
-        group->group_sub->field_0x15 = 0;
+        group->group_sub->order_age = 0;
     }
 
     this->sub_5AECE7(group, group->group_sub->order_pos);
-    group->group_sub->field_0x15++;
+    group->group_sub->order_age++;
 }
 
 // 5A6EA5

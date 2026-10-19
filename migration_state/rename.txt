@@ -134,3 +134,4 @@ MusicPlayer::field_0x2c -> track_ids -- per-playlist-entry track ids (returned b
 MusicPlayer::field_0x68 -> play_notify -- when set, posts 0x467 track/elapsed notifications each update
 MusicPlayer::field_0x6c -> track_wrap_pending -- set when ReadPortion hit the track end (loop seam in end_pos), consumed by Update
 GroupSub::field_0xa -> order_pos -- --
+GroupSub::field_0x15 -> order_age -- --
