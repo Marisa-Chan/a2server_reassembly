@@ -399,8 +399,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x6b: {
 			CUnit* unit;
-			if (!this->field_0x9d0.Lookup(packet_abil->field_0xa, *(CGameObject**)&unit)) {
-				sprintf(buf, "Invalid unit #%d. Command Move.", packet_abil->field_0xa);
+			if (!this->field_0x9d0.Lookup(packet_abil->unit_id, *(CGameObject**)&unit)) {
+				sprintf(buf, "Invalid unit #%d. Command Move.", packet_abil->unit_id);
 				if (g_EnableTrace) {
 					this->msglog.Add(buf, clrsh_TechBlack, 5000);
 				}
@@ -913,9 +913,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x6d: {
 			CUnit* ct = nullptr;
-			if (this->field_0x9d0.Lookup(packet_abil->field_0xa, *(CGameObject**)&ct) == 0) {
+			if (this->field_0x9d0.Lookup(packet_abil->unit_id, *(CGameObject**)&ct) == 0) {
 				if (g_EnableTrace != 0) {
-					sprintf(buf, "Invalid unit #%d. Command Turn.", packet_abil->field_0xa);
+					sprintf(buf, "Invalid unit #%d. Command Turn.", packet_abil->unit_id);
 					this->msglog.Add(buf, clrsh_TechBlack, 5000);
 				}
 			} else {
@@ -960,9 +960,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x71: {
 			CUnit* ct = nullptr;
-			if (this->field_0x9d0.Lookup(packet_abil->field_0xa, *(CGameObject**)&ct) == 0) {
+			if (this->field_0x9d0.Lookup(packet_abil->unit_id, *(CGameObject**)&ct) == 0) {
 				if (g_EnableTrace != 0) {
-					sprintf(buf, "Invalid unit #%d. Command Attack.", packet_abil->field_0xa);
+					sprintf(buf, "Invalid unit #%d. Command Attack.", packet_abil->unit_id);
 					this->msglog.Add(buf, clrsh_TechBlack, 5000);
 				}
 			} else {

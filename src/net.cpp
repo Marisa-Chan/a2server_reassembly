@@ -263,7 +263,7 @@ void NetStru1::sub_51B99E(Unit* unit, uint8_t angle, uint8_t speed_dir, uint8_t 
     packet.field_0xc = angle;
     unit->sub_52BABD();
     unit->last_action_tick = g_Server->tick + speed_dir;
-    packet.field_0xa = (uint16_t)unit->building_id;
+    packet.unit_id = (uint16_t)unit->building_id;
     packet.to_player_id = 0;
     this->sub_51B0F0(&packet, unit);
 }
