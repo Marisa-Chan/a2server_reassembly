@@ -28,7 +28,7 @@ Packet* Packet::Duplicate() {
     return new Packet(this);
 }
 
-void Packet::VMethod3(NetStru2* net) {
+void Packet::WriteTo(NetStru2* net) {
     //526887
     uint32_t sz = this->GetDataSize();
     net->WriteData(&this->id, sz);
@@ -100,7 +100,7 @@ Packet* PacketJoin::Duplicate() {
     return new PacketJoin(this);
 }
 
-void PacketJoin::VMethod3(NetStru2* net) {
+void PacketJoin::WriteTo(NetStru2* net) {
     //526ede
     this->name_len = strlen(this->name);
     net->WriteData(&this->id, this->name_len + 8);
@@ -169,7 +169,7 @@ Packet* PacketTerrain::Duplicate() {
     return new PacketTerrain(this);
 }
     
-void PacketTerrain::VMethod3(NetStru2* net) {
+void PacketTerrain::WriteTo(NetStru2* net) {
     //5273a7
     net->WriteData(&this->id, this->count * 2 + 5);
 }
@@ -210,7 +210,7 @@ Packet* PacketUnitUpdate::Duplicate() {
     return new PacketUnitUpdate(this);
 }
 
-void PacketUnitUpdate::VMethod3(NetStru2* net) {
+void PacketUnitUpdate::WriteTo(NetStru2* net) {
     //sub_5279C7
 
     switch (this->FUN_00527bd8()) {
@@ -371,7 +371,7 @@ PacketItemOperation::~PacketItemOperation() {
     //sub_57A100
 }
 
-void PacketItemOperation::VMethod3(NetStru2* net) {
+void PacketItemOperation::WriteTo(NetStru2* net) {
     //sub_52699A
     net->WriteData(&this->id, this->count * 2 + 0xA);
 }
@@ -671,7 +671,7 @@ Packet* PacketPlayerInfo::Duplicate() {
     return new PacketPlayerInfo(this);
 }
 
-void PacketPlayerInfo::VMethod3(NetStru2* net) {
+void PacketPlayerInfo::WriteTo(NetStru2* net) {
     //sub_527220
     net->WriteData(&this->id, this->count + 0x2D);
 }
@@ -713,7 +713,7 @@ Packet* PacketData::Duplicate() {
     return new PacketData(this);
 }
 
-void PacketData::VMethod3(NetStru2* net) {
+void PacketData::WriteTo(NetStru2* net) {
     //sub_5272E3
     net->WriteData(&this->id, this->count + 5);
 }
@@ -759,7 +759,7 @@ Packet* PacketUnitStateVec::Duplicate() {
     return new PacketUnitStateVec(this);
 }
 
-void PacketUnitStateVec::VMethod3(NetStru2* net) {
+void PacketUnitStateVec::WriteTo(NetStru2* net) {
     //sub_5274CC
     net->WriteData(&this->id, 0xA);
     if (this->entry_count > 0) {

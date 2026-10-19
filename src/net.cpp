@@ -1545,7 +1545,7 @@ void NetStru1::QueuePacketSend(Packet* pkt) {
         for (POSITION it = this->active_connects.GetHeadPosition(); it != nullptr;) {
             NetStru2* cli = this->active_connects.GetNext(it);
             if (cli && (this->make_statistics == 0 || cli->player_id != 0)) {
-                pkt->VMethod3(cli);
+                pkt->WriteTo(cli);
                 if (this->make_statistics != 0) {
                     this->AddStat1(cli, pkt->GetDataSize());
                     this->AddPacketStatistic(pkt);
@@ -1558,7 +1558,7 @@ void NetStru1::QueuePacketSend(Packet* pkt) {
     } else {
         NetStru2* cli = this->GetClientByPlayerID(pkt->to_player_id);
         if (cli) {
-            pkt->VMethod3(cli);
+            pkt->WriteTo(cli);
             if (this->make_statistics != 0) {
                 this->AddStat1(cli, pkt->GetDataSize());
                 this->AddPacketStatistic(pkt);
@@ -4326,10 +4326,10 @@ void NetStru1::SendSpectatorState(NetStru2* ns2) {
     PacketDword& packet = PacketDword::Inst;
     packet.id = 0x0E;
     packet.value = dword_665CFC;
-    packet.VMethod3(ns2);
+    packet.WriteTo(ns2);
     packet.id = 0x64;
     packet.value = (uint32_t)g_Server->tick;
-    packet.VMethod3(ns2);
+    packet.WriteTo(ns2);
     ns2->out_buffers[ns2->out_buff_id].pkt_num += 1;
     this->SendAllData();
 }
