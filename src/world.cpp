@@ -357,7 +357,7 @@ UnitList* World::sub_5A384F(Unit* caster, PosYX yx) {
 
 // 5AD0B3 — compute an attack preference score for `unit` against `target`.
 // Returns 0xFFFFFF when the target should be ignored.
-int32_t World::sub_5AD0B3(Unit* unit, Unit* target) {
+int32_t World::GetAttackDecision(Unit* unit, Unit* target) {
     PosYX target_yx = target->position->CompatGetYX();
     PosYX unit_yx = unit->position->CompatGetYX();
     uint8_t distance = this->field24_0xa50->sub_593B29(unit_yx, target_yx);
@@ -2464,7 +2464,7 @@ void World::sub_5A607B(Unit* unit) {
     POSITION it = this->field26_0xa64.unit_list.GetHeadPosition();
     while (it != nullptr) {
         Unit* other = this->field26_0xa64.unit_list.GetNext(it);
-        int32_t filter_result = this->sub_5AD0B3(unit, other);
+        int32_t filter_result = this->GetAttackDecision(unit, other);
         if (filter_result == -1) {
             continue;
         }
@@ -4291,7 +4291,7 @@ void World::AssignNearbyTargets(Group* group) {
 
             for (POSITION target_it = this->field26_0xa64.unit_list.GetHeadPosition(); target_it != nullptr;) {
                 Unit* target = this->field26_0xa64.unit_list.GetNext(target_it);
-                int32_t score = this->sub_5AD0B3(unit, target);
+                int32_t score = this->GetAttackDecision(unit, target);
                 if (score < best_score) {
                     best_target = target;
                     best_score = score;
@@ -4413,7 +4413,7 @@ void World::GroupAttackCommand(Group* group, Unit* target) {
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
-        if (this->sub_5AD0B3(unit, target) == 0xFFFFFF) {
+        if (this->GetAttackDecision(unit, target) == 0xFFFFFF) {
             this->ResetUnitToHold(unit);
         } else {
             this->OrderEngageTarget(unit, target);
