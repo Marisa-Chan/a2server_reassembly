@@ -985,7 +985,7 @@ void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t par
     }
 
     // Mark unit as not needing the refresh in the "field_x18" bitmask.
-    unit->sub_5287ec(player);
+    unit->ClearRefreshFor(player);
 
     // Clear per-player pending bits for players in the 0x10..0x1F range.
     if (0x10 <= player->player_id && player->player_id < 0x20) {

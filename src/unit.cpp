@@ -1604,7 +1604,7 @@ int Unit::NeedsRefreshFor(Player* player) {
 }
 
 // 5287EC
-void Unit::sub_5287ec(Player* player) {
+void Unit::ClearRefreshFor(Player* player) {
     this->sent_to_mask |= player->vision_sharing_id;
 }
 
