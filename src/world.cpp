@@ -2582,7 +2582,7 @@ void World::sub_5A6B48(Unit* unit, Unit* target) {
             }
         }
     } else {
-        if (!unit->IsMage() || this->sub_5B6632(unit, chosen_target) == 0) {
+        if (!unit->IsMage() || this->PickAttackSpell(unit, chosen_target) == 0) {
             unit->eye2->cast_action = 5;
             unit->eye2->unit = chosen_target;
             unit->eye2->max_range = this->UnitMaxRange(unit);
@@ -2594,7 +2594,7 @@ void World::sub_5A6B48(Unit* unit, Unit* target) {
 // start casting it at the provided target. Falls back to sub_5A6B48 for units
 // with high mind when the random roll is low.
 // 5B6632
-int32_t World::sub_5B6632(Unit* unit, Unit* target) {
+int32_t World::PickAttackSpell(Unit* unit, Unit* target) {
     if (unit->mind >= 60 && this->sub_5B6F40(100) < 30) {
         this->sub_5A6B48(unit, target);
         return 0;
