@@ -88,7 +88,7 @@ public:
     virtual ~PacketJoin();
     virtual Packet* Duplicate() override;
     virtual void WriteTo(NetStru2*) override;
-    virtual void VMethod4(NetStru2*) override;
+    virtual void ReadFrom(NetStru2*) override;
     virtual uint32_t GetDataSize() override;
 
 public:
@@ -127,7 +127,7 @@ public:
     virtual ~PacketTerrain();
     virtual Packet* Duplicate() override;
     virtual void WriteTo(NetStru2*) override;
-    virtual void VMethod4(NetStru2*) override;
+    virtual void ReadFrom(NetStru2*) override;
     virtual uint32_t GetDataSize() override;
 
 public:
@@ -154,7 +154,7 @@ public:
     virtual ~PacketUnitUpdate();
     virtual Packet* Duplicate() override; // sub_57AE70
     virtual void WriteTo(NetStru2*) override; // sub_5279C7
-    virtual void VMethod4(NetStru2*) override; // sub_527A6C
+    virtual void ReadFrom(NetStru2*) override; // sub_527A6C
     virtual uint32_t GetDataSize() override; // sub_57AEF0
 public:
     uint32_t data_offset;  // +0x0A  bytes already written into data[]
@@ -216,7 +216,7 @@ public:
 public:
     virtual ~PacketItemOperation();
     virtual void WriteTo(NetStru2*) override; // sub_52699A
-    virtual void VMethod4(NetStru2*) override; // sub_5269C3
+    virtual void ReadFrom(NetStru2*) override; // sub_5269C3
     virtual uint32_t GetDataSize() override;   // sub_57A0E0
 public:
     uint16_t x;       // +0xA
@@ -495,7 +495,7 @@ public:
     virtual ~PacketPlayerInfo();
     virtual Packet* Duplicate() override;     // sub_57A900
     virtual void WriteTo(NetStru2*) override; // sub_527220
-    virtual void VMethod4(NetStru2*) override; // sub_527246
+    virtual void ReadFrom(NetStru2*) override; // sub_527246
     virtual uint32_t GetDataSize() override;   // sub_57A980
 public:
     uint8_t  preamble[0x20]; // +0xA..+0x2b  (32 bytes of fixed player fields)
@@ -531,7 +531,7 @@ public:
     virtual ~PacketData();
     virtual Packet* Duplicate() override;     // sub_57A9D0
     virtual void WriteTo(NetStru2*) override; // sub_5272E3
-    virtual void VMethod4(NetStru2*) override; // sub_527309
+    virtual void ReadFrom(NetStru2*) override; // sub_527309
     virtual uint32_t GetDataSize() override;   // sub_57AA50
 public:
     uint32_t count;    // +0xA  byte length of data[]
@@ -567,7 +567,7 @@ public:
     virtual ~PacketUnitStateVec();
     virtual Packet* Duplicate() override;     // sub_57AB70
     virtual void WriteTo(NetStru2*) override; // sub_5274CC
-    virtual void VMethod4(NetStru2*) override; // sub_527528
+    virtual void ReadFrom(NetStru2*) override; // sub_527528
     virtual uint32_t GetDataSize() override;   // sub_57ABF0
     void AppendByteByte(uint8_t a, uint8_t b, uint8_t* slot); // sub_5275F8
     void AppendByteInt(uint8_t a, int32_t v, uint8_t* slot);  // sub_5276E0

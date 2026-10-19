@@ -34,7 +34,7 @@ void Packet::WriteTo(NetStru2* net) {
     net->WriteData(&this->id, sz);
 }
 
-void Packet::VMethod4(NetStru2* net) {
+void Packet::ReadFrom(NetStru2* net) {
     //5268b7
     uint32_t sz = this->GetDataSize();
     if (sz != 1) {
@@ -106,7 +106,7 @@ void PacketJoin::WriteTo(NetStru2* net) {
     net->WriteData(&this->id, this->name_len + 8);
 }
 
-void PacketJoin::VMethod4(NetStru2* net) {
+void PacketJoin::ReadFrom(NetStru2* net) {
     //526f1d
     net->ReadData(&this->player_id, 6);
     net->ReadData(this->name, this->name_len + 1);
@@ -174,7 +174,7 @@ void PacketTerrain::WriteTo(NetStru2* net) {
     net->WriteData(&this->id, this->count * 2 + 5);
 }
 
-void PacketTerrain::VMethod4(NetStru2* net) {
+void PacketTerrain::ReadFrom(NetStru2* net) {
     //5273ce
     net->ReadData(&this->count, 4);
     if (this->count) {
@@ -233,7 +233,7 @@ void PacketUnitUpdate::WriteTo(NetStru2* net) {
     net->WriteData(this->data, this->data_offset);
 }
 
-void PacketUnitUpdate::VMethod4(NetStru2* net) {
+void PacketUnitUpdate::ReadFrom(NetStru2* net) {
     //sub_527A6C
     switch (this->id) {
     case 0x6c:
@@ -376,7 +376,7 @@ void PacketItemOperation::WriteTo(NetStru2* net) {
     net->WriteData(&this->id, this->count * 2 + 0xA);
 }
 
-void PacketItemOperation::VMethod4(NetStru2* net) {
+void PacketItemOperation::ReadFrom(NetStru2* net) {
     //sub_5269C3
     net->ReadData(&this->x, 9);
     if (this->count) {
@@ -676,7 +676,7 @@ void PacketPlayerInfo::WriteTo(NetStru2* net) {
     net->WriteData(&this->id, this->count + 0x2D);
 }
 
-void PacketPlayerInfo::VMethod4(NetStru2* net) {
+void PacketPlayerInfo::ReadFrom(NetStru2* net) {
     //sub_527246  reads 0x2C bytes at +0xA, then optional count bytes at +0x36
     net->ReadData(&this->preamble[0], 0x2C);
     if (this->count > 0) {
@@ -718,7 +718,7 @@ void PacketData::WriteTo(NetStru2* net) {
     net->WriteData(&this->id, this->count + 5);
 }
 
-void PacketData::VMethod4(NetStru2* net) {
+void PacketData::ReadFrom(NetStru2* net) {
     //sub_527309
     net->ReadData(&this->count, 4);
     if (this->count > 0) {
@@ -768,7 +768,7 @@ void PacketUnitStateVec::WriteTo(NetStru2* net) {
     }
 }
 
-void PacketUnitStateVec::VMethod4(NetStru2* net) {
+void PacketUnitStateVec::ReadFrom(NetStru2* net) {
     //sub_527528
     net->ReadData(&this->building_id, 9);
     if (this->entry_count > 0) {
