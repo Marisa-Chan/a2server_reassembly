@@ -67,7 +67,7 @@ ASSERT_SIZE(Fame1, 0x10);
 struct Fame2 {
     int32_t doc_id;
     uint32_t is_text;
-    CBmp64* field_x8;
+    CBmp64* picture;
     CString str;
     CStringArray str_arr;
     CRect rect;

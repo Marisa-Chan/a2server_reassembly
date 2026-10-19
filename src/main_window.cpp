@@ -119,7 +119,7 @@ Fame2::Fame2() {
     //4abdab
     this->doc_id = -1;
     this->is_text = 1;
-    this->field_x8 = nullptr;
+    this->picture = nullptr;
     this->str.Empty();
     this->field_x34 = 1;
     this->field_x38 = 0;
@@ -127,11 +127,11 @@ Fame2::Fame2() {
 
 void Fame2::Clear() {
     //4ac27f
-    if (this->field_x8) {
-        delete this->field_x8;
+    if (this->picture) {
+        delete this->picture;
     }
 
-    this->field_x8 = nullptr;
+    this->picture = nullptr;
     this->str.Empty();
     this->str_arr.RemoveAll();
 }
@@ -158,7 +158,7 @@ void Fame2::operator=(const Fame2& b) {
     //4abd30
     this->doc_id = b.doc_id;
     this->is_text = b.is_text;
-    this->field_x8 = b.field_x8;
+    this->picture = b.picture;
     this->str = b.str;
     this->rect = b.rect;
     this->field_x34 = b.field_x34;
@@ -187,8 +187,8 @@ int32_t Fame2::FUN_004abf72() { //4abf72
 
 void Fame2::FUN_004abfb1(int32_t x, int32_t y) { //4abfb1
     if (this->is_text == 0) {
-        if (this->field_x8) {
-            this->field_x8->VMethod2(x + this->rect.left, y + this->rect.top, 0, 0, 0);
+        if (this->picture) {
+            this->picture->VMethod2(x + this->rect.left, y + this->rect.top, 0, 0, 0);
         }
         return;
     }
@@ -205,7 +205,7 @@ void Fame2::FUN_004ac0af() { //4ac0af
     char buffer[1024];
     if (this->is_text == 0) {
         sprintf(buffer, "graphics\\interface\\Docs\\%d.bmp", this->doc_id);
-        this->field_x8 = new CBmp64(buffer);
+        this->picture = new CBmp64(buffer);
     } else {
         sprintf(buffer, "main\\text\\Docs\\%d.txt", this->doc_id);
         ReadFileToString(buffer, &this->str);
