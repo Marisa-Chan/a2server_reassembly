@@ -127,7 +127,7 @@ public:
     uint8_t GetSpellPower(uint8_t sphere); // 52F5BB: clamped spell power for sphere: max(0, skill_levels[sphere] + mind - 30)
     void InitFromMonsterName(const CString& value);
     int32_t sub_59A030(); // Returns movement type.
-    int32_t sub_5B6FB0(); // 5B6FB0 — IsMage.
+    int32_t IsMage(); // 5B6FB0 — IsMage.
 
     void FUN_0052ec7a(const CArray<MonsterInfoData>& values);
 

@@ -1584,7 +1584,7 @@ int32_t Unit::sub_59A030() {
 }
 
 // 5B6FB0
-int32_t Unit::sub_5B6FB0() {
+int32_t Unit::IsMage() {
     return this->unit_attrs & 4;
 }
 

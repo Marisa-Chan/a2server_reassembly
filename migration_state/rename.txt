@@ -321,3 +321,4 @@ Unit::sub_52E7FA -> DecayTick -- corpse: decrements HP and recalculates the deca
 Unit::sub_52D904 -> GetQuestDefense -- defense value for quests; flyers +25, mages +50
 Unit::sub_52C735 -> HasEnchantment -- checks the enchantments mask/_effects for a spell id
 Unit::sub_52F5BB -> GetSpellPower -- clamped spell power: max(0, skill_levels[sphere] + mind - 30)
+Unit::sub_52F601 -> InitFromMonsterName -- looks up the monster template by name and initializes the unit from it

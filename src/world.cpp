@@ -2573,16 +2573,16 @@ void World::sub_5A6B48(Unit* unit, Unit* target) {
     if (chosen_target == nullptr) {
         this->sub_5A6E2C(unit, 0);
     } else if (!unit->pOwner->is_ai) {
-        if (!unit->sub_5B6FB0() || this->sub_5A6ED9(unit, chosen_target) == 0) {
+        if (!unit->IsMage() || this->sub_5A6ED9(unit, chosen_target) == 0) {
             unit->eye2->cast_action = 5;
             unit->eye2->unit = chosen_target;
             unit->eye2->max_range = this->UnitMaxRange(unit);
-            if (unit->sub_5B6FB0() && unit->eye2->max_range < 2) {
+            if (unit->IsMage() && unit->eye2->max_range < 2) {
                 this->sub_5A7B44(unit);
             }
         }
     } else {
-        if (!unit->sub_5B6FB0() || this->sub_5B6632(unit, chosen_target) == 0) {
+        if (!unit->IsMage() || this->sub_5B6632(unit, chosen_target) == 0) {
             unit->eye2->cast_action = 5;
             unit->eye2->unit = chosen_target;
             unit->eye2->max_range = this->UnitMaxRange(unit);
@@ -2634,7 +2634,7 @@ void World::sub_5A6E2C(Unit* unit, int param) {
 void World::sub_5A6E59(Unit* unit) {
     if (unit->pOwner->is_ai) {
         unit->eye2->cast_action = 0x0B;
-        if (unit->sub_5B6FB0()) {
+        if (unit->IsMage()) {
             this->sub_5A845B(unit);
         }
     } else {
@@ -2644,7 +2644,7 @@ void World::sub_5A6E59(Unit* unit) {
 
 // 5A8709
 void World::sub_5A8709(Unit* unit, Unit* target) {
-    if (unit->sub_5B6FB0() && !unit->pOwner->is_ai && this->sub_5A6ED9(unit, target)) {
+    if (unit->IsMage() && !unit->pOwner->is_ai && this->sub_5A6ED9(unit, target)) {
         return;
     }
 
@@ -3192,7 +3192,7 @@ void World::sub_5AAB85(Unit* unit_same, Unit* unit) {
 
 // 5AAEBC — start a melee/cast action against the unit's current target.
 void World::sub_5AAEBC(Unit* unit) {
-    if (unit->sub_5B6FB0()) {
+    if (unit->IsMage()) {
         uint8_t max_range = this->UnitMaxRange(unit);
         if (max_range < 2 && !unit->pOwner->is_ai) {
             unit->eye2->cast_action = 0;
@@ -3450,7 +3450,7 @@ void World::sub_5AED8D(Group* group) {
 
 // 5A6EA5
 void World::sub_5A6EA5(Unit* unit) {
-    if (unit->sub_5B6FB0()) {
+    if (unit->IsMage()) {
         this->sub_5A7B44(unit);
     } else {
         unit->eye2->cast_action = 0;
