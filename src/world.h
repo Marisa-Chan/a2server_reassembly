@@ -329,7 +329,7 @@ public:
     void IdleSelfBuff(Unit* unit); // 5A6EA5 — idle/wander helper (ASM).
     int32_t sub_5A6ED9(Unit* unit, Unit* target); // 5A6ED9 — target-pursuit check (ASM).
     int32_t PickAttackSpell(Unit* unit, Unit* target); // 5B6632 — AI mage spell selection: pick a random affordable non-defensive spell.
-    void sub_5A845B(Unit* unit); // 5A845B — AI mage retreat helper: cast healing/buff on self or most-damaged ally.
+    void CastSelfHealOrBuff(Unit* unit); // 5A845B — AI mage retreat helper: cast healing/buff on self or most-damaged ally.
     Spell* sub_5A79D6(Unit* unit, int32_t spell_number, int32_t flag); // Pick spell by number if unit has enough MP.
     int32_t sub_5A7A1C(Unit* unit, Unit* other); // Check if `unit` should autobuff `other` (diplomacy/settings check).
     void sub_5A7B44(Unit* unit); // Autobuff handler: pick and cast buff spells on self or allies.
@@ -346,8 +346,8 @@ public:
     void sub_5A8DBC(Unit* unit); // 5A8DBC — helper for sub_5A8CD8 (ASM).
     void sub_5A925C(Unit* unit, uint8_t a, uint8_t b); // 5A925C — helper for sub_5AB5E3 (ASM).
 
-    void sub_5A39AD(Unit* unit, UnitList* list); // 5A39AD — filter UnitList for sub_5A845B (ASM).
-    void sub_5B6862(Unit* unit, UnitList* list); // 5B6862 — fallback buff selection for sub_5A845B.
+    void sub_5A39AD(Unit* unit, UnitList* list); // 5A39AD — filter UnitList for CastSelfHealOrBuff (ASM).
+    void sub_5B6862(Unit* unit, UnitList* list); // 5B6862 — fallback buff selection for CastSelfHealOrBuff.
     void sub_5AF6F5(Unit* unit); // in asm
     void sub_5ADD64(Group* group); // Build nearby friendly unit list from `group`.
     bool sub_5B5816(Unit* unit1, Unit* unit2); // Check if unit1's owner is at war with unit2's owner.

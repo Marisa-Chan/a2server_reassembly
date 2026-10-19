@@ -991,7 +991,7 @@ void World::ExecuteTriggerActions() {
 
 // Try to cast a healing/buff spell on the caster or the most-damaged nearby ally.
 // 5A845B
-void World::sub_5A845B(Unit* unit) {
+void World::CastSelfHealOrBuff(Unit* unit) {
     if (unit->spell_book == nullptr) {
         return;
     }
@@ -1063,7 +1063,7 @@ void World::sub_5A85F4(Unit* caster, Unit* target, Spell* spell) {
     caster->eye2->max_range = spell->max_range;
 }
 
-// Fallback buff selection for sub_5A845B: pick a random allied unit from `list`
+// Fallback buff selection for CastSelfHealOrBuff: pick a random allied unit from `list`
 // and attempt to cast heal/buff spells on it.
 // 5B6862
 void World::sub_5B6862(Unit* unit, UnitList* list) {
@@ -2635,7 +2635,7 @@ void World::DoRetreat(Unit* unit) {
     if (unit->pOwner->is_ai) {
         unit->eye2->cast_action = 0x0B;
         if (unit->IsMage()) {
-            this->sub_5A845B(unit);
+            this->CastSelfHealOrBuff(unit);
         }
     } else {
         this->IdleSelfBuff(unit);
