@@ -5476,15 +5476,15 @@ void Server::ProcessHatPacket(Packet* pkt) {
             int32_t id2 = pkt_info->param2;
             Player* player = g_PlayersList->sub_535E94(id1, id2);
             if (player == nullptr) {
-                NetStru1::HatConnector.sub_51E794(id1, id2, 1, 0);
+                NetStru1::HatConnector.SendHatPlayerCheck(id1, id2, 1, 0);
                 return;
             }
 
             NetStru2* client = g_NetStru1_main.GetClientByPlayerID(player->player_id);
             if (client != nullptr) {
-                NetStru1::HatConnector.sub_51E794(id1, id2, 2, 0);
+                NetStru1::HatConnector.SendHatPlayerCheck(id1, id2, 2, 0);
             } else {
-                NetStru1::HatConnector.sub_51E794(id1, id2, 0, 0);
+                NetStru1::HatConnector.SendHatPlayerCheck(id1, id2, 0, 0);
                 player->drop_deadline_tick16 = this->tick16 + 300;
             }
             break;

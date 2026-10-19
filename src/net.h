@@ -209,7 +209,7 @@ public:
 
     void SendHatJoinOk(int32_t a, int32_t b); // 51E5FB - Send HAT join-success reply (pkt 0xD8)
     void SendHatJoinFail(int32_t a, int32_t b, int32_t error_code); // 51E63F - Send HAT join-failure reply (pkt 0xD9)
-    void sub_51E794(int32_t a, int32_t b, uint8_t status, int16_t player_id); // 51E794 - Send HAT player-check reply (pkt 0xE1)
+    void SendHatPlayerCheck(int32_t a, int32_t b, uint8_t status, int16_t player_id); // 51E794 - Send HAT player-check reply (pkt 0xE1)
 
     void sub_51E205(CString name); //51e205 - Send hat login packet
     void sub_51E289(int32_t arg0, CString source, int32_t arg8, int32_t argC, int32_t arg10); //51e289 - Send hat lobby info packet

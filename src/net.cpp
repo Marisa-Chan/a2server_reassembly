@@ -4442,7 +4442,7 @@ void NetStru1::SendHatJoinFail(int32_t a, int32_t b, int32_t error_code) {
 }
 
 // 51E794
-void NetStru1::sub_51E794(int32_t a, int32_t b, uint8_t status, int16_t player_id) {
+void NetStru1::SendHatPlayerCheck(int32_t a, int32_t b, uint8_t status, int16_t player_id) {
     PacketData& packet = PacketData::Inst;
     packet.to_player_id = player_id;
     packet.id = 0xE1;
