@@ -66,10 +66,10 @@ void Visibility::sub_58CE74() {
             if (max_val != 0) {
                 value = std::sqrt(y * y + x * x) * this->field_0x2a000 / max_val;
             }
-            this->field_0x28000[y + Visibility::CENTER][x + Visibility::CENTER] = value;
-            this->field_0x28000[Visibility::CENTER - y][Visibility::CENTER - x] = value;
-            this->field_0x28000[y + Visibility::CENTER][Visibility::CENTER - x] = value;
-            this->field_0x28000[Visibility::CENTER - y][x + Visibility::CENTER] = value;
+            this->dist_scale_table[y + Visibility::CENTER][x + Visibility::CENTER] = value;
+            this->dist_scale_table[Visibility::CENTER - y][Visibility::CENTER - x] = value;
+            this->dist_scale_table[y + Visibility::CENTER][Visibility::CENTER - x] = value;
+            this->dist_scale_table[Visibility::CENTER - y][x + Visibility::CENTER] = value;
         }
     }
 
@@ -105,7 +105,7 @@ int32_t Visibility::sub_58D638(int32_t x, int32_t y, int32_t base_yx, int32_t ba
 
     PosYX with_direction = PosYX(x + direction.x, y + direction.y);
 
-    this->vis_budget_scratch[x][y] = this->vis_budget_scratch[with_direction.x][with_direction.y] - (this->field_0x28000[x][y] + height - base_height);
+    this->vis_budget_scratch[x][y] = this->vis_budget_scratch[with_direction.x][with_direction.y] - (this->dist_scale_table[x][y] + height - base_height);
 
     if (this->vis_budget_scratch[x][y] >= 1) {
         this->field_0x2a008[with_offset.val] = 1;
