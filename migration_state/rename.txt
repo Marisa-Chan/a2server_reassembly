@@ -327,3 +327,4 @@ Unit::FUN_0052ec7a -> ApplyMonsterInfo -- copies MonsterInfoData stats (body/rea
 Humanoid::sub_53116B -> ReviveWithPenalty -- revive with penalties: skills set to 70 or exp decayed 10%% per sphere, fresh UnitEye
 Humanoid::sub_531418 -> RecalcExperienceFromSkills -- recomputes experience from skill levels
 Humanoid::sub_530231 -> CopyFrom -- copies stats and equipment from another humanoid
+Humanoid::sub_533345 -> InitCreationSkills -- character creation: set skills and give initial weapon

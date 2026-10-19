@@ -2831,7 +2831,7 @@ void Humanoid::InitCreationSkills(int8_t main_skill, int8_t skill_level) {
 }
 
 // 532DDE
-void Humanoid::sub_532dde(CArray<HumanInfoData>* data) {
+void Humanoid::ApplyHumanInfo(CArray<HumanInfoData>* data) {
     HumanInfoData& d = data->GetData()[0];
 
     if (d.body != -1) {
@@ -2973,7 +2973,7 @@ void Human::FUN_00532587(CString hname, int32_t is_hero, const char* unk) {
 
         this->itemDataID = static_cast<int16_t>(i);
         this->monster_info = reinterpret_cast<MonsterInfo*>(&g_GameDataRes.humans[i]);
-        this->sub_532dde(&g_GameDataRes.humans[i].Values());
+        this->ApplyHumanInfo(&g_GameDataRes.humans[i].Values());
         const HumanInfoData& data = g_GameDataRes.humans[i].Values()[0];
 
         if (data.gender != -1) {
