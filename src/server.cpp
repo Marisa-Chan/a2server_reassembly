@@ -6069,7 +6069,7 @@ void Server::sub_4FF878(Player* player) {
 void Server::sub_5090A7() {
     this->tick++;
     this->ProcessAvailPackets();
-    this->sub_509042();
+    this->ProcessHatPackets();
     this->srv_stru1->ProcessTick();
     dword_6CDB3C->ProcessTick();
     g_NetStru1_main.SendPacket_64(this->tick, 0);
@@ -6081,7 +6081,7 @@ void Server::sub_50979A() {
 }
 
 // 509042
-void Server::sub_509042() {
+void Server::ProcessHatPackets() {
     NetStru1::HatConnector.ProcessConnections();
     Packet* pkt;
     while ((pkt = NetStru1::HatConnector.ReceiveAnyPacket()) != nullptr) {
