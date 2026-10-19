@@ -1893,7 +1893,7 @@ int Unit::PlaceOnMap(uint8_t x, uint8_t y, uint8_t size) {
         return 0;
     }
 
-    return MapStuff_Instance->sub_58AD4A(this);
+    return MapStuff_Instance->PlaceUnit(this);
 }
 
 // 52BDD7

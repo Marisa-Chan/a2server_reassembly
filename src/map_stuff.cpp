@@ -531,7 +531,7 @@ void MapStuff::sub_58FB12(Unit* unit) {
         this->FUN_005969c6(unit, 0, 2);
         this->sub_58B1D7(unit);
         unit->position->SetCoords2(new_x, new_y);
-        this->sub_58AD4A(unit);
+        this->PlaceUnit(unit);
         this->FUN_005969c6(unit, old_yx, 0);
     }
 
@@ -917,7 +917,7 @@ int32_t MapStuff::sub_58AEEF(Unit* unit, uint8_t x, uint8_t y) {
 }
 
 // 58AD4A
-int MapStuff::sub_58AD4A(Unit* unit) {
+int MapStuff::PlaceUnit(Unit* unit) {
     int32_t size = unit->GetTokenSize();
 
     uint8_t x = unit->position->GetX();
@@ -1956,7 +1956,7 @@ void MapStuff::sub_5954AC(Unit* unit, uint8_t x, uint8_t y) {
     }
     this->AddUnitToMap(unit);
     unit->position->SetCoords(x, y);
-    this->sub_58AD4A(unit);
+    this->PlaceUnit(unit);
     this->field41_0x58d80->ResetUnitToHold(unit);
     g_NetStru1_main.SendUnitUpdate(unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
 }

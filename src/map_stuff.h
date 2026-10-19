@@ -197,7 +197,7 @@ public:
     Sack* GetSackAt(uint16_t param_2, uint16_t param_3); // Look up sack at map position
     Sack* GetSackAtPos(TokenPos* pos);
     int CanPlaceUnit(Unit* unit); // Check if unit can be placed at current position
-    int sub_58AD4A(Unit* unit); // Place unit on map at current TokenPos position
+    int PlaceUnit(Unit* unit); // Place unit on map at current TokenPos position
     int32_t sub_58AEEF(Unit* unit, uint8_t x, uint8_t y); // Checks whether unit can occupy cell (x,y), triggering any spell tile in the process.
     uint8_t sub_59166C(Unit* unit, PosYX yx); // Pick rotation angle for the unit to look at `yx`.
     void sub_5954AC(Unit* unit, uint8_t x, uint8_t y); // Teleport unit to (x, y)
