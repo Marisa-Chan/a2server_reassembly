@@ -349,7 +349,7 @@ public:
     void sub_5A39AD(Unit* unit, UnitList* list); // 5A39AD — filter UnitList for CastSelfHealOrBuff (ASM).
     void PickFallbackBuff(Unit* unit, UnitList* list); // 5B6862 — fallback buff selection for CastSelfHealOrBuff.
     void sub_5AF6F5(Unit* unit); // in asm
-    void sub_5ADD64(Group* group); // Build nearby friendly unit list from `group`.
+    void BuildAllyList(Group* group); // Build nearby friendly unit list from `group`.
     bool sub_5B5816(Unit* unit1, Unit* unit2); // Check if unit1's owner is at war with unit2's owner.
 
     void PrepareUnitOrder(Unit* unit); //5a9832

@@ -410,7 +410,7 @@ int32_t World::GetAttackDecision(Unit* unit, Unit* target) {
 }
 
 // 5ADD64 — build a nearby-friendly-unit list from `group` into field26_0xa64.
-void World::sub_5ADD64(Group* group) {
+void World::BuildAllyList(Group* group) {
     this->field26_0xa64.unit_list.RemoveAll();
 
     if (group == nullptr) {
@@ -1580,7 +1580,7 @@ int32_t World::sub_5A6ED9(Unit* caster, Unit* target) {
     case spell::wall_of_fire:
     case spell::poison_cloud:
     case spell::blizzard: {
-        this->sub_5ADD64(caster->group);
+        this->BuildAllyList(caster->group);
         this->field26_0xa64.unit_list.AddTail(target);
         this->sub_5A3AD6(caster, &this->field26_0xa64);
 
@@ -1631,7 +1631,7 @@ int32_t World::sub_5A6ED9(Unit* caster, Unit* target) {
     case spell::curse: {
         uint32_t mask = 1 << caster->eye2->spell_id;
         if ((target->enchantments & mask) == 0) {
-            this->sub_5ADD64(caster->group);
+            this->BuildAllyList(caster->group);
             this->sub_5A3AD6(caster, &this->field26_0xa64);
             POSITION it = this->field29_0xac4.unit_list.GetHeadPosition();
             while (it != nullptr) {
@@ -1653,7 +1653,7 @@ int32_t World::sub_5A6ED9(Unit* caster, Unit* target) {
         return 0;
 
     case spell::heal: {
-        this->sub_5ADD64(caster->group);
+        this->BuildAllyList(caster->group);
         this->sub_5A3AD6(caster, &this->field26_0xa64);
 
         Unit* best_unit = nullptr;
@@ -1759,7 +1759,7 @@ void World::DoAutobuff(Unit* unit) {
     }
 
     // Build nearby friendly unit list for the group.
-    this->sub_5ADD64(unit->group);
+    this->BuildAllyList(unit->group);
     this->sub_5A3AD6(unit, &this->field26_0xa64);
 
     // Ally-heal.
