@@ -169,7 +169,7 @@ public:
     Human* LoadCharacter(void* data, int32_t size, Player* player); // 4ef4e7: Load character from saved packet.
     Human* CreatePlayerCharacter(Player* player, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t main_skill, uint8_t character_class);
     void SaveCharacter(Humanoid* humanoid);
-    void sub_5013D4(Player* player);
+    void EnsurePlayerGroup(Player* player);
     void sub_4F4570();
     void sub_4F0D58();
     void sub_4FA4BB(CString* name, uint32_t* frags);

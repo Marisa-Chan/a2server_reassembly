@@ -243,7 +243,7 @@ void Server::ProcessPlayers() {
                     }
                     main_unit->sent_to_mask = 0;
                     this->CreatePlayerCharacter(player, 0, 0, 0, 0, 0, 0);
-                    this->sub_5013D4(player);
+                    this->EnsurePlayerGroup(player);
                     player->mission_result = 0;
 
                     Player* self = g_PlayersList->sub_535D39("Self");
@@ -1683,9 +1683,9 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4) {
         }
     }
 
-    // If `bool_arg4` is set and field_0x41 is not yet set, put the unit on the map (sub_5013D4).
+    // If `bool_arg4` is set and field_0x41 is not yet set, put the unit on the map (EnsurePlayerGroup).
     if (bool_arg4 != 0 && player->is_in_world == 0) {
-        this->sub_5013D4(player);
+        this->EnsurePlayerGroup(player);
     }
 
     // Mark the player as fully active and refresh world / map state.
@@ -2174,7 +2174,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     }
 
     // Player group setup.
-    this->sub_5013D4(player);
+    this->EnsurePlayerGroup(player);
 
     // Mark player as active.
     player->is_in_world = 1;
@@ -5087,7 +5087,7 @@ void Server::sub_4F0D58() {
 }
 
 // 5013D4
-void Server::sub_5013D4(Player* player) {
+void Server::EnsurePlayerGroup(Player* player) {
     Group* group;
     if (player->group_list->groups.GetCount() == 0) {
         group = nullptr;
@@ -6127,7 +6127,7 @@ void Server::sub_5090FA(Player* player) {
             unit->sent_to_mask = 0;
             uint8_t saved_spell_id = unit->eye2->spell_id;
             this->CreatePlayerCharacter(player, 0, 0, 0, 0, 0, 0);
-            this->sub_5013D4(player);
+            this->EnsurePlayerGroup(player);
             player->mission_result = 0;
             unit->eye2->spell_id = saved_spell_id;
             if (g_Server->field4_0x74 != 0 && (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3)) {
