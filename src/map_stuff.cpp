@@ -709,7 +709,7 @@ int MapStuff::CanPlaceSack(Sack* sack) {
         return 1;
     }
 
-    this->FUN_0058b3e0(sack->position->CompatGetYX());
+    this->SnapshotCellState(sack->position->CompatGetYX());
 
     if (!this->cell_states.Lookup(sack->position->CompatGetYX(), this->scratch_cell_state)) {
         return 0;
@@ -734,7 +734,7 @@ int MapStuff::ApplyTerrainMod(uint16_t yx, void* src) {
         return had_spell ? 0 : 1;
     }
 
-    this->FUN_0058b3e0(yx);
+    this->SnapshotCellState(yx);
 
     if (!this->cell_states.Lookup(yx, this->scratch_cell_state)) {
         return 0;
@@ -882,7 +882,7 @@ int32_t MapStuff::CanOccupyCell(Unit* unit, uint8_t x, uint8_t y) {
             return 1;
         }
 
-        this->FUN_0058b3e0(yx);
+        this->SnapshotCellState(yx);
         if (!this->cell_states.Lookup(yx, cell)) {
             return 0;
         }
@@ -903,7 +903,7 @@ int32_t MapStuff::CanOccupyCell(Unit* unit, uint8_t x, uint8_t y) {
             return 1;
         }
 
-        this->FUN_0058b3e0(yx);
+        this->SnapshotCellState(yx);
         if (!this->cell_states.Lookup(yx, cell)) {
             return 0;
         }
@@ -1036,7 +1036,7 @@ void MapStuff::ClearBlockerAt(Unit* unit, PosYX yx) { //596d3e
     }
 }
 
-void MapStuff::FUN_0058b3e0(PosYX yx) { //58b3e0
+void MapStuff::SnapshotCellState(PosYX yx) { //58b3e0
     if (!this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
         this->scratch_cell_state.Null();
         this->scratch_cell_state.walk_cost = this->WalkCostAt(yx);
@@ -1051,7 +1051,7 @@ void MapStuff::FUN_0058b3e0(PosYX yx) { //58b3e0
 
 void MapStuff::FUN_00596e0e(Unit* unit, PosYX yx) { //596e0e
     if (this->ObstacleAt(yx).TestBits(0x20) == 0 || !this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
-        this->FUN_0058b3e0(yx);
+        this->SnapshotCellState(yx);
 
         if (!this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
             return;
@@ -1819,7 +1819,7 @@ int MapStuff::SetCellBuilding(Building* building, uint16_t yx) {
         return 1;
     }
 
-    this->FUN_0058b3e0(yx);
+    this->SnapshotCellState(yx);
     if (!this->cell_states.Lookup(yx, this->scratch_cell_state)) {
         return 0;
     }
@@ -1868,7 +1868,7 @@ int32_t MapStuff::PlaceBuilding(Building* building) {
 // 594EBA --- register area effect into cell state at yx
 int MapStuff::RegisterAreaEffectCell(AreaEffect* ae, uint16_t yx) {
     if (!this->cell_states.Lookup(yx, this->scratch_cell_state)) {
-        this->FUN_0058b3e0(yx);
+        this->SnapshotCellState(yx);
         if (!this->cell_states.Lookup(yx, this->scratch_cell_state)) {
             return 0;
         }
