@@ -130,7 +130,7 @@ void TokenPos::FixupInstance() { // 594200
 	}
 }
 
-int TokenPos::FUN_0058a7e8(uint8_t _x, uint8_t _y) { //58a7e8
+int TokenPos::ClampToMap(uint8_t _x, uint8_t _y) { //58a7e8
 	int ok = 1;
 	if (_x < 8) {
 		_x = 8;

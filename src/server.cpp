@@ -662,7 +662,7 @@ void Srv1::sub_59BEDB(Group* group, MapAlm* alm) {
     int32_t spread = (std::max)(max_x - min_x, max_y - min_y);
 
     TokenPos token_pos(avg_x, avg_y, MapStuff_Instance);
-    token_pos.FUN_0058a7e8(avg_x, avg_y);
+    token_pos.ClampToMap(avg_x, avg_y);
 
     Outpost* outpost = new Outpost(&token_pos);
     outpost->pOwner = group->owner;
