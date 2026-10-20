@@ -2166,11 +2166,11 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
             Building* reached = this->GetBuildingAt(dest.val);
             if (reached == nullptr) {
                 if (this->ChebyshevDistance(PosYX(step), dest) > 1) {
-                    g_NetStru1_main.FUN_0051ce86(1, 0, unit->pOwner);
+                    g_NetStru1_main.SendTeamNotify(1, 0, unit->pOwner);
                 }
             } else {
                 if (this->ChebyshevDistance(PosYX(step), dest) > 2) {
-                    g_NetStru1_main.FUN_0051ce86(1, 0, unit->pOwner);
+                    g_NetStru1_main.SendTeamNotify(1, 0, unit->pOwner);
                 }
             }
 

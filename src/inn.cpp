@@ -1215,7 +1215,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                 this->active_quest->quest_data.state = 0;
                 g_QuestMap.RegisterQuest(this->active_quest);
                 g_NetStru1_main.SendSrvStru1State(&g_QuestMap, humanoid->pOwner, 0);
-                g_NetStru1_main.FUN_0051ce86(0x10, 0, humanoid->pOwner);
+                g_NetStru1_main.SendTeamNotify(0x10, 0, humanoid->pOwner);
 
                 int32_t kind = this->active_quest->Kind();
                 switch (kind) {
@@ -1350,7 +1350,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
 
                             int32_t new_level = ExperienceTable::GetLevel(humanoid->experience_per_sphere[sphere - 1]);
                             if (new_level > humanoid->hit_values2.skill_levels[sphere]) {
-                                g_NetStru1_main.FUN_0051ce86(2, sphere, humanoid->pOwner);
+                                g_NetStru1_main.SendTeamNotify(2, sphere, humanoid->pOwner);
 
                                 int16_t clamped_level;
                                 humanoid->hit_values2.skill_levels[sphere] = new_level;
@@ -1392,7 +1392,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                             if (equipped != nullptr) {
                                 delete equipped;
                             }
-                            g_NetStru1_main.FUN_0051ce86(5, humanoid->pOwner->player_id, humanoid->pOwner);
+                            g_NetStru1_main.SendTeamNotify(5, humanoid->pOwner->player_id, humanoid->pOwner);
                         } else {
                             // Use succeeded вЂ” clean up equipped placeholder
                             delete equipped;

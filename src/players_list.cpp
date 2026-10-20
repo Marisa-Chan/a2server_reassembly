@@ -225,7 +225,7 @@ void PlayersList::ProcessPlayerTimeouts() {
 				player->afk_expire_tick = 0;
 			} else if (now - player->afk_notify_tick >= 5000) {
 				// Send countdown notification every 5 seconds.
-				g_NetStru1_main.FUN_0051ce86(0xE, (player->afk_expire_tick - now) / 1000, player);
+				g_NetStru1_main.SendTeamNotify(0xE, (player->afk_expire_tick - now) / 1000, player);
 				player->afk_notify_tick += 5000;
 			}
 		}
@@ -301,7 +301,7 @@ void PlayersList::ProcessPlayerTimeouts() {
 				if (rune_holder == player->player_id) {
 					g_Server->UpdateQuestRune(opposite_team, 0);
 					g_NetStru1_main.SendTeamState(0);
-					g_NetStru1_main.FUN_0051ce86(0x101 - player->field_0xa70, 0, nullptr);
+					g_NetStru1_main.SendTeamNotify(0x101 - player->field_0xa70, 0, nullptr);
 				}
 			}
 

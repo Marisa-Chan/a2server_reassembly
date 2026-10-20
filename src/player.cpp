@@ -213,7 +213,7 @@ void Player::ResetAfkTimer() {
     if (this->afk_expire_tick != 0) {
         this->afk_expire_tick = 0;
         this->afk_notify_tick = 0;
-        g_NetStru1_main.FUN_0051ce86(0xf, 0, this);
+        g_NetStru1_main.SendTeamNotify(0xf, 0, this);
     }
 }
 

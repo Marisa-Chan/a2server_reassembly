@@ -121,7 +121,7 @@ public:
     ~NetStru1(); //516b44
 
 public:
-    void FUN_0051ce86(uint32_t msg_type, uint32_t player_id, Player* recpt);
+    void SendTeamNotify(uint32_t msg_type, uint32_t player_id, Player* recpt);
     void SendBarePacket(uint8_t id, Player* recpt);
     void SendTickPacket(Player* recpt);
     void UntrackToken(Token* token); // Remove unit/sack from network tracking

@@ -116,7 +116,7 @@ void NetStru1::SendExistingPlayers(Player* player) {
 		this->QueuePacketSend(&packet);
 
 		if (p->main_unit != nullptr && p->main_unit->field_0x1bc != 0 && g_ServerConfig.gameType == 0) {
-			g_NetStru1_main.FUN_0051ce86(5, p->player_id, player);
+			g_NetStru1_main.SendTeamNotify(5, p->player_id, player);
 		}
 	}
 }
@@ -156,7 +156,7 @@ void NetStru1::SendTickPacket(Player* player) {
 }
 
 // 51ce86
-void NetStru1::FUN_0051ce86(uint32_t msg_type, uint32_t player_id, Player* recpt) {
+void NetStru1::SendTeamNotify(uint32_t msg_type, uint32_t player_id, Player* recpt) {
     this->SendInfoPacket(0x92, msg_type, player_id, recpt);
 }
 

@@ -1313,7 +1313,7 @@ void Unit::PickUpSack(Sack* sack) {
                     }
                     human->RecalcStats();
                     update_mask = 0x31f0f;
-                    g_NetStru1_main.FUN_0051ce86(9, boost, human->pOwner);
+                    g_NetStru1_main.SendTeamNotify(9, boost, human->pOwner);
                 } else {
                     item->TokenID = 1;
                 }
@@ -1357,13 +1357,13 @@ void Unit::PickUpSack(Sack* sack) {
 
                         if (this->pOwner->field_0xa70 == 0) {
                             g_Server->UpdateQuestRune(0, 0);
-                            g_NetStru1_main.FUN_0051ce86(0x100, 0, nullptr);
+                            g_NetStru1_main.SendTeamNotify(0x100, 0, nullptr);
                         } else {
                             rune_scored = true;
                             g_Server->ctf_carrying[0] = this->pOwner->player_id;
                             g_Server->ctf_dropped[0] = 0;
                             g_NetStru1_main.SendTeamState(0);
-                            g_NetStru1_main.FUN_0051ce86(0x102, this->pOwner->player_id, nullptr);
+                            g_NetStru1_main.SendTeamNotify(0x102, this->pOwner->player_id, nullptr);
                         }
                     } else if (item->world_equip->name.Find("Quest RuneA") != -1) {
                         sack->inventory->items.RemoveAt(cur_node);
@@ -1371,13 +1371,13 @@ void Unit::PickUpSack(Sack* sack) {
                         item = nullptr;
                         if (this->pOwner->field_0xa70 == 1) {
                             g_Server->UpdateQuestRune(1, 0);
-                            g_NetStru1_main.FUN_0051ce86(0x101, 0, nullptr);
+                            g_NetStru1_main.SendTeamNotify(0x101, 0, nullptr);
                         } else {
                             rune_scored = true;
                             g_Server->ctf_carrying[1] = this->pOwner->player_id;
                             g_Server->ctf_dropped[1] = 0;
                             g_NetStru1_main.SendTeamState(0);
-                            g_NetStru1_main.FUN_0051ce86(0x103, this->pOwner->player_id, nullptr);
+                            g_NetStru1_main.SendTeamNotify(0x103, this->pOwner->player_id, nullptr);
                         }
                     }
 
@@ -1524,7 +1524,7 @@ void Unit::Die() {
                 g_Server->ctf_carrying[opposite_team] = 0;
                 g_Server->ctf_dropped[opposite_team] = 1;
 
-                g_NetStru1_main.FUN_0051ce86(this->pOwner->field_0xa70 ? 0x104 : 0x105, this->pOwner->player_id, nullptr);
+                g_NetStru1_main.SendTeamNotify(this->pOwner->field_0xa70 ? 0x104 : 0x105, this->pOwner->player_id, nullptr);
                 g_NetStru1_main.SendTeamState(0);
             }
         }
@@ -2578,7 +2578,7 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
                     this->hit_values2.skill_levels[i] = this->hit_values.skill_levels[i];
                 }
                 if (this->pOwner->is_ai == 0) {
-                    g_NetStru1_main.FUN_0051ce86(2, phys_sphere | ((uint32_t)this->server_id << 16), this->pOwner);
+                    g_NetStru1_main.SendTeamNotify(2, phys_sphere | ((uint32_t)this->server_id << 16), this->pOwner);
                 }
             }
         }
@@ -2603,7 +2603,7 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
                 }
                 this->hit_values.skill_levels[sphere]++;
                 if (this->pOwner->is_ai == 0) {
-                    g_NetStru1_main.FUN_0051ce86(2, sphere | ((uint32_t)this->server_id << 16), this->pOwner);
+                    g_NetStru1_main.SendTeamNotify(2, sphere | ((uint32_t)this->server_id << 16), this->pOwner);
                 }
                 for (int i = 1; i <= 5; i++) {
                     this->hit_values2.skill_levels[i] = this->hit_values.skill_levels[i];

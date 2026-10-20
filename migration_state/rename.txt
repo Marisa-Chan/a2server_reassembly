@@ -942,3 +942,4 @@ NetStru1::sub_51B99E -> SendAbilityPacket -- sends the PacketAbility attack-anim
 NetStru1::sub_51BA2F -> SendMountPacket -- sends PacketMount 0x72 (unit riding target)
 NetStru1::sub_51DFA7 -> SendHatCharData -- uploads a named data block to HAT (0xCF)
 NetStru1::sub_51E0B7 -> SendHatMessage -- sends a named data block to HAT (0xE0 channel)
+NetStru1::sub_51E1C7 -> SendHatKeepalive -- sends the empty 0xE0 keepalive/state packet

@@ -1841,7 +1841,7 @@ void MainWindow::sub_48A756() {
                         int32_t tick_interval = this->game_tic_time * 16;
                         if ((g_ShutdownIn % 60000) < tick_interval) {
                             if (g_ServerConfig.gameType == 0) {
-                                g_NetStru1_main.FUN_0051ce86(0x0D, g_ShutdownIn / 1000, nullptr);
+                                g_NetStru1_main.SendTeamNotify(0x0D, g_ShutdownIn / 1000, nullptr);
                             }
                         }
 
@@ -1849,7 +1849,7 @@ void MainWindow::sub_48A756() {
                             int32_t tick_interval = this->game_tic_time * 16;
                             if ((g_ShutdownIn % 15000) < tick_interval) {
                                 if (g_ServerConfig.gameType == 0) {
-                                    g_NetStru1_main.FUN_0051ce86(0x0D, g_ShutdownIn / 1000, nullptr);
+                                    g_NetStru1_main.SendTeamNotify(0x0D, g_ShutdownIn / 1000, nullptr);
                                 }
                             }
                         }
@@ -1902,14 +1902,14 @@ void MainWindow::sub_48A756() {
                         
                         if ((time_diff % 60000) < tick_interval) {
                             if (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3) {
-                                g_NetStru1_main.FUN_0051ce86(0x0C, time_diff / 1000, nullptr);
+                                g_NetStru1_main.SendTeamNotify(0x0C, time_diff / 1000, nullptr);
                             }
                         }
                         
                         if (time_diff < 60000) {
                             if ((time_diff % 15000) < tick_interval) {
                                 if (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3) {
-                                    g_NetStru1_main.FUN_0051ce86(0x0C, time_diff / 1000, nullptr);
+                                    g_NetStru1_main.SendTeamNotify(0x0C, time_diff / 1000, nullptr);
                                 }
                             }
                         }
