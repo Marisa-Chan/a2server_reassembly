@@ -2763,7 +2763,7 @@ void MainWindow::FUN_0048f905() { // 48f905
                 }
 
                 for (int i = 0; i < 10; i++) {
-                    if (obj->FUN_0041f1c0(i) != 0) {
+                    if (obj->IsInControlGroup(i) != 0) {
                         local_248[i].Add(key);
                     }
                 }

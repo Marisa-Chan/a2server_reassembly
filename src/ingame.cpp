@@ -3605,7 +3605,7 @@ void BigStruct2::sub_416983(int32_t digit) {
 		uint16_t key;
 		CGameObject* obj;
 		this->field_0x9d0.GetNextAssoc(it, key, obj);
-		if (obj->FUN_0041f1c0(digit)) {
+		if (obj->IsInControlGroup(digit)) {
 			obj->SetSelected(1);
 		} else if (g_kbShiftState == 0) {
 			obj->SetSelected(0);
@@ -3623,7 +3623,7 @@ void BigStruct2::sub_416A02(int32_t digit) {
 		uint16_t key;
 		CGameObject* obj;
 		this->field_0x9d0.GetNextAssoc(it, key, obj);
-		if (obj->FUN_0041f1c0(digit)) {
+		if (obj->IsInControlGroup(digit)) {
 			obj->RemoveControlGroup(digit);
 		}
 		if (obj->IsSelected() && obj->map_player == this->my_main_unit) {
@@ -3642,7 +3642,7 @@ void BigStruct2::sub_416AA6(int32_t digit) {
 		uint16_t key;
 		CGameObject* obj;
 		this->field_0x9d0.GetNextAssoc(it, key, obj);
-		if (obj->FUN_0041f1c0(digit)) {
+		if (obj->IsInControlGroup(digit)) {
 			obj->RemoveControlGroup(digit);
 		}
 		if (obj->IsSelected() && obj->map_player == this->my_main_unit) {
@@ -3661,7 +3661,7 @@ void BigStruct2::sub_416B4A(int32_t digit) {
 		uint16_t key;
 		CGameObject* obj;
 		this->field_0x9d0.GetNextAssoc(it, key, obj);
-		if (obj->FUN_0041f1c0(digit)) {
+		if (obj->IsInControlGroup(digit)) {
 			obj->SetSelected(1);
 			count++;
 			sum_x += obj->x_pos >> 8;
