@@ -45,7 +45,7 @@ public:
 
     virtual void Dump(CDumpContext& dc) const override; // 43c225
 
-    uint32_t FUN_0041ee20(int32_t idx);
+    uint32_t IsAllied(int32_t idx);
     int32_t FUN_0041edf0(int32_t idx);
     int32_t FUN_0041ee50(int32_t idx);
 };

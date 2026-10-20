@@ -950,3 +950,4 @@ ScriptSettings::sub_5B681A -> Serialize -- serialises the raw settings struct
 CFameHall::FUN_004ac839 -> SaveEntries -- writes the fame leaderboard entries to file
 QuestMap::FUN_0041ec00 -> GetQuestCount -- inline quests_map.GetCount()
 CGameObject::FUN_0041f1c0 -> IsInControlGroup -- (1<<t) & controlGroupMask
+Server::sub_504a96 -> ProcessClientPacket -- main client order dispatcher: item operations and group orders (0x12-0x25)

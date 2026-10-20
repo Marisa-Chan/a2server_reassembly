@@ -858,7 +858,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 								this->msglog.Add(txt_patch.GetLine(0x45), clr_log_sblack, 10000);
 							}
 
-							if (sval < 2 && this->my_main_unit->FUN_0041ee20(ct->map_player->index) != 0) {
+							if (sval < 2 && this->my_main_unit->IsAllied(ct->map_player->index) != 0) {
 								wnd->m_FameHall.AddDifficultyPoint();
 							}
 
@@ -4690,7 +4690,7 @@ uint32_t BigStruct2::sub_41864D() {
 			}
 			avail |= 0x20;
 		}
-		if (this->my_main_unit->FUN_0041ee20(obj->map_player->index) != 0) {
+		if (this->my_main_unit->IsAllied(obj->map_player->index) != 0) {
 			avail |= 4;
 		}
 		this->field_0x994 = (CUnit*)obj;

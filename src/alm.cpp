@@ -50,7 +50,7 @@ int32_t MapPlayerData::FUN_0041edf0(int32_t idx) {
 }
 
 // 41EE20
-uint32_t MapPlayerData::FUN_0041ee20(int32_t idx) {
+uint32_t MapPlayerData::IsAllied(int32_t idx) {
     return this->diplomacy[idx] & 1;
 }
 
