@@ -736,3 +736,4 @@ CMultiShopInstance::sub_54668B -> ReturnConsignedItems -- puts items the player 
 CMultiShopInstance::sub_5464B6 -> SendShelfState -- 0 = full shop table packet, else shelf update to the owner
 CMultiShopTemplate::sub_546F18 -> NotifyOtherInstances -- forwards a shelf notification to every other live instance
 CMultiShopTemplate::sub_546F8D -> CreateInstance -- creates a shop instance for the unit and fills its shelves
+CMultiShopTemplate::sub_54740C -> FindInstanceIndex -- index of the instance owned by the unit's owner

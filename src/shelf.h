@@ -55,7 +55,7 @@ public:
     void NotifyOtherInstances(CMultiShopInstance* inst, int param); // 546F18
     CMultiShopInstance* CreateInstance(Unit* unit); // 546F8D
     int FindInstanceIndex(Unit* unit); // 54740C - find shop instance index for unit's owner
-    void sub_54749F(); // 54749F - clear all shelf items
+    void ClearShelves(); // 54749F - clear all shelf items
     Item* sub_547C5A(Humanoid* humanoid, int16_t src_slot, int32_t count); // 547C5A
     void sub_547CB9(Humanoid* humanoid, uint8_t op_type, int16_t src_slot, uint8_t dst_type, int16_t dst_word, int32_t count); // 547CB9
     void sub_547DD4(); // 547DD4

@@ -379,7 +379,7 @@ CMultiShopInstance* CMultiShopTemplate::sub_547468(Humanoid* humanoid) {
 }
 
 // 54749F
-void CMultiShopTemplate::sub_54749F() {
+void CMultiShopTemplate::ClearShelves() {
     for (int32_t i = 0; i < 4; i++) {
         this->shelves[i].ClearItems();
     }
@@ -458,7 +458,7 @@ void CMultiShopTemplate::sub_5474D8() {
         return;
     }
     ShopAssortment assort;
-    this->sub_54749F();
+    this->ClearShelves();
     AssortGenParams* params;
     if (g_Server->field4_0x74 == 0) {
         params = ScenarioGetShopAssortment();
