@@ -144,7 +144,7 @@ void Fame2::SetDocument(int32_t arg1, uint32_t arg2) {
 }
 
 
-int32_t Fame2::FUN_004ad880() {
+int32_t Fame2::GetDocId() {
     //4ad880
     return this->doc_id;
 }
@@ -247,7 +247,7 @@ uint32_t CFameHall::FUN_004ac566(int32_t arg) {
     //4ac566
     for (uint32_t i = 0; i < this->m_Documents.GetSize(); i++) {
         Fame2& fame = this->m_Documents[i];
-        if (fame.FUN_004ad880() == arg && fame.FUN_004ad890() != 0) {
+        if (fame.GetDocId() == arg && fame.FUN_004ad890() != 0) {
             return 0;
         }
     }
