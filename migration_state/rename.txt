@@ -1140,3 +1140,4 @@ NetStru1::SendShopShelves param -> shelf_id -- 1..4 = single shelf, -1 = all she
 Server::SendWorldState arg4/bool_arg4 -> enter_world -- when set: run rejoin diplomacy setup and EnsurePlayerGroup (mission join)
 Server::AssignPlayerSlot arg4 -> slot_data -- packet dword whose bits 8-15 hold the requested color slot (0 = find free)
 Server::UpdateQuestRune arg1 -> team -- 0/1 picks Quest RuneF/RuneA and indexes ctf_dropped/ctf_carrying
+Server::UpdateQuestRune arg2 -> picked_up -- 1 = rune picked up (remove from sacks), 0 = reset to spawn point

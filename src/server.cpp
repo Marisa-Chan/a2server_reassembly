@@ -6613,10 +6613,10 @@ void Server::SpawnRandomSack() {
 }
 
 // 4F8FBF
-void Server::UpdateQuestRune(int32_t team, int32_t arg2) {
+void Server::UpdateQuestRune(int32_t team, int32_t picked_up) {
     const char* rune_name = team ? "Quest RuneA" : "Quest RuneF";
 
-    if (arg2) {
+    if (picked_up) {
         // Rune was picked up: find it in a ground sack and remove it.
         SackList* sack_list = this->srv_stru1->sack_list;
         for (POSITION sack_it = sack_list->list.GetHeadPosition(); sack_it != nullptr;) {
