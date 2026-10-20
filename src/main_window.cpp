@@ -588,7 +588,7 @@ const AFX_MSGMAP_ENTRY MainWindow::_messageEntries[] =
     {WM_CLOSE, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&OnClose},
     {WM_SIZE, 0, 0, 0, AfxSig_vwii, (AFX_PMSG)&OnSize},
     {WM_COMMAND, CN_COMMAND, 0x9c4e, 0x9c4e, AfxSigCmd_v, (AFX_PMSG)&BeginShutdown},
-    {WM_COMMAND, CN_COMMAND, 0x9c4f, 0x9c4f, AfxSigCmd_v, (AFX_PMSG)&FUN_004950c0},
+    {WM_COMMAND, CN_COMMAND, 0x9c4f, 0x9c4f, AfxSigCmd_v, (AFX_PMSG)&ShowServerControlDialog},
     {WM_COMMAND, CN_COMMAND, 0x9c50, 0x9c50, AfxSigCmd_v, (AFX_PMSG)&FUN_00495743},
     {WM_SIZING, 0, 0, 0, AfxSig_vwSIZING, (AFX_PMSG)&OnSizing},
     {WM_NCMOUSEMOVE, 0, 0, 0, AfxSig_vwp, (AFX_PMSG)&OnNcMouseMove},
@@ -1279,7 +1279,7 @@ void MainWindow::OnSizing(UINT nSide, LPRECT rect) {
 }
 
 // 4950c0
-void MainWindow::FUN_004950c0() {
+void MainWindow::ShowServerControlDialog() {
     if (this->server_ctrl_dlg == nullptr) {
         this->server_ctrl_dlg = new ServerControlDialog(nullptr);
     }
