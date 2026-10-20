@@ -426,7 +426,7 @@ public:
     int GetSaveFileInBattle(); //48de6f
     int RunSessionBootstrap(int mode); //48e502
     void ShowMainRightPanel(); //485969
-    void FUN_0047a5e6(); //47a5e6
+    void LoadObjectGfx(); //47a5e6
     void FUN_0047efdf(); //47efdf
     void FUN_0047e612(); //47e612
     void FUN_0048df44(); //48df44

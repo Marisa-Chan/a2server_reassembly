@@ -1054,3 +1054,4 @@ World::sub_5A6B48 -> DoAttackTarget -- state 3 handler: choose spell vs melee ag
 World::sub_5A54B8 -> DoAttackMove -- state 4 handler: engage nearby enemies first, else keep moving
 World::sub_5A39AD -> FilterBuffTargets -- keeps only visible allies (diplomacy bit 2) in the heal/buff candidate list
 Diplomacy::sub_5B5643 -> RecordHostility -- on a hit: sets attacker->target war (and reverse when already mutual), refreshes vision
+MainWindow::FUN_00485969 -> ShowMainRightPanel -- right panel: minimap + order toolbar + char info (the in-game layout)

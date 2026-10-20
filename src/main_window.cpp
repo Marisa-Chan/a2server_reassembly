@@ -3972,7 +3972,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
 
     if (this->sessionMode != 3) {
         this->ShowMainRightPanel();
-        this->FUN_0047a5e6();
+        this->LoadObjectGfx();
         this->FUN_0047efdf();
         this->FUN_0047e612();
 
@@ -4221,7 +4221,7 @@ void MainWindow::ShowMainRightPanel() { // 485969
     this->dialogsMask = 1;
 }
 
-void MainWindow::FUN_0047a5e6() { // 47a5e6
+void MainWindow::LoadObjectGfx() { // 47a5e6
     RegFile reg("graphics\\objects\\objects.reg");
     int count = reg.GetInt("Global", "FileCount", 0);
     int obj_count = reg.GetInt("Global", "ObjectCount", 0);
