@@ -120,7 +120,7 @@ struct Resources {
     void CloseFile(CFile* fil);
     void MarkFileSubstituted(const char* fpath);
 
-    static void FUN_004e632d(const char* fpath);
+    static void MarkSubstitutedFiles(const char* fpath);
     static uint16_t GetPathType(const char* path);
     static void StaticAddPath(const char* path);
     static void StaticAddResFile(const char* path);

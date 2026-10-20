@@ -636,7 +636,7 @@ BOOL GameApp::InitInstance() {
 	Resources::StaticAddResFile("scenario.res");
 	Resources::StaticAddResFile("speech.res");
 
-	Resources::FUN_004e632d("update.lst");
+	Resources::MarkSubstitutedFiles("update.lst");
 
 	mwnd->UpdateClipCursor();
 

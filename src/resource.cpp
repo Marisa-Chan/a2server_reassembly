@@ -192,7 +192,7 @@ void Resources::MarkFileSubstituted(const char* fname) {
     }
 }
 
-void Resources::FUN_004e632d(const char* fname) {
+void Resources::MarkSubstitutedFiles(const char* fname) {
     //4e632d
     FILE* f = fopen(fname, "r");
     if (!f) {
