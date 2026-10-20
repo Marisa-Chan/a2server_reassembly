@@ -28,7 +28,7 @@ Building* BuildingsList::sub_558128(TokenPos* pos) {
 }
 
 // 557DB2
-Building* BuildingsList::sub_557DB2(uint16_t id) {
+Building* BuildingsList::FindById(uint16_t id) {
 	for (POSITION it = this->GetHeadPosition(); it != nullptr;) {
 		Building* building = this->GetNext(it);
 		if (building->building_id == id) {

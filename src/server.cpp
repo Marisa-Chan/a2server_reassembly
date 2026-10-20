@@ -2998,7 +2998,7 @@ void Server::sub_504a96(Packet* pkt) {
             target = dword_6CDB3C->FindById(packet_item->param);
             if (!target) {
                 // Building target.
-                target = this->srv_stru1->building_list->sub_557DB2(packet_item->param);
+                target = this->srv_stru1->building_list->FindById(packet_item->param);
             }
             if (!target) {
                 return;
@@ -3119,7 +3119,7 @@ void Server::sub_504a96(Packet* pkt) {
             CheckPacketType(pkt, "PacketItemOperation");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 player->ResetAfkTimer();
-                auto* building = this->srv_stru1->building_list->sub_557DB2(packet_item->param);
+                auto* building = this->srv_stru1->building_list->FindById(packet_item->param);
                 if (!building) {
                     CString msg;
                     msg.Format("No building #%d", packet_item->param);

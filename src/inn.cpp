@@ -595,7 +595,7 @@ void Inn::InnCreateQuests(Player* player) {
     {
         int32_t dest_id = g_QuestMap.PickRandomOtherInn(this->building_id);
         if (dest_id != 0) {
-            Building* target_building = building_list->sub_557DB2(dest_id);
+            Building* target_building = building_list->FindById(dest_id);
             if (target_building) {
                 // Compute limit: distance * (1.5 + rand/32767.0) / speed
                 int32_t dx = (int32_t)this->position->GetX() - target_building->position->GetX();
