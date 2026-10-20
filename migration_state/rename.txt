@@ -1154,3 +1154,4 @@ CMultiShopInstance::StowItemInShelf arg1 -> dst_slot -- slot hint from callers (
 CMultiShopInstance::SendShelfState param -> shelf_id -- 0 = shop table, -1 = all shelves, 1..4 = single shelf
 CMultiShopTemplate::NotifyOtherInstances param -> shelf_id -- forwarded to SendShelfState
 World::PruneNearbyUnits param1 -> pos_yx -- packed YX position to prune around (align header with definition)
+World::PruneNearbyUnits param2 -> max_distance -- guard range used as the prune radius (align header with definition)
