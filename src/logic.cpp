@@ -49,7 +49,7 @@ Trigger& Trigger::operator=(const Trigger& other) {
 }
 
 // 5B681A
-void ScriptSettings::sub_5B681A(CArchive& ar) {
+void ScriptSettings::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
         ar.Write(this, sizeof(ScriptSettings));
     } else {

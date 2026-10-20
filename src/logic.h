@@ -87,7 +87,7 @@ struct ScriptSettings {
     uint8_t gap_0x8[392];
 
     ScriptSettings() { memset(this, 0, sizeof(ScriptSettings)); } //5b67ee
-    void sub_5B681A(CArchive& ar); // Serialize
+    void Serialize(CArchive& ar); // Serialize
 };
 ASSERT_SIZE(ScriptSettings, 0x190);
 

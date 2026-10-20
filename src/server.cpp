@@ -6466,7 +6466,7 @@ void Server::SerializeGame(CArchive& ar) {
         ar >> ignored;
     }
 
-    this->script_settings->sub_5B681A(ar);
+    this->script_settings->Serialize(ar);
 }
 
 // 4EDB83
