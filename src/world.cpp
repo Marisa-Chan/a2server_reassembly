@@ -4181,7 +4181,7 @@ void World::UpdateGroupCenter(Group* group) {
 }
 
 // 5AD2C1
-int32_t World::sub_5AD2C1(Unit* unit, Unit* target) {
+int32_t World::GetTargetScore(Unit* unit, Unit* target) {
     PosYX unit_yx = unit->position->GetYX();
     PosYX target_yx = target->position->GetYX();
     uint8_t distance = this->field24_0xa50->ChebyshevDistance(unit_yx, target_yx);
@@ -4241,7 +4241,7 @@ void World::sub_5AE471(Group* group) {
 
             for (POSITION target_it = this->field26_0xa64.unit_list.GetHeadPosition(); target_it != nullptr;) {
                 Unit* target = this->field26_0xa64.unit_list.GetNext(target_it);
-                int32_t score = this->sub_5AD2C1(unit, target);
+                int32_t score = this->GetTargetScore(unit, target);
                 if (score < best_score) {
                     best_target = target;
                     best_score = score;
