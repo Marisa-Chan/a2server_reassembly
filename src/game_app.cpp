@@ -1013,7 +1013,7 @@ Item* __cdecl sub_549372(CString category, int32_t min_price, int32_t max_price)
         }
     }
 
-    return sub_5499A6(min_price, max_price);
+    return RollRandomItem(min_price, max_price);
 }
 
 // 41D723
@@ -1032,7 +1032,7 @@ void __stdcall ShowRoleKeyDialog(const char* str) {
 
 // 5499A6
 // Create a random item (level = min value, max_gold = max value).
-Item* __cdecl sub_5499A6(int32_t level, int32_t max_gold) {
+Item* __cdecl RollRandomItem(int32_t level, int32_t max_gold) {
     double roll = sub_5421FD();
     const char* category;
     if (roll < 0.4) {

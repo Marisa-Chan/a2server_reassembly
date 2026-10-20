@@ -615,7 +615,7 @@ void Srv1::SpawnRandomSacks(int count) {
     for (int i = 0; i < count; i++) {
         Inventory* inventory = new Inventory();
         for (int n = Random0N(3); n > 0; n--) {
-            Item* item = sub_5499A6(10, 500);
+            Item* item = RollRandomItem(10, 500);
             inventory->PutItemIntoBagAtDefault(item);
         }
         uint8_t x = (uint8_t)(Random0N(x_range) + 10);
