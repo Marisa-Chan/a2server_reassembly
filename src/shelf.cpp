@@ -165,7 +165,7 @@ void CMultiShopInstance::Buy() {
 }
 
 // 546537
-void CMultiShopInstance::sub_546537(int32_t amount, Item* item) {
+void CMultiShopInstance::SellItemFor(int32_t amount, Item* item) {
     this->inventory.sub_5524FA(amount, item);
 }
 
@@ -215,7 +215,7 @@ void CMultiShopInstance::MoveItems(uint8_t src_type, int16_t src_slot, uint8_t d
     }
 
     if (dst_type == 4) {
-        this->sub_546537(dst_slot, item);
+        this->SellItemFor(dst_slot, item);
     } else {
         result = this->sub_5462C8(item, dst_slot);
     }
@@ -424,7 +424,7 @@ void CMultiShopTemplate::sub_547BFD(Unit* unit, int amount, Item* item) {
         return;
     }
     instance->SetUnit(unit);
-    instance->sub_546537(amount, item);
+    instance->SellItemFor(amount, item);
 }
 
 // 547C5A
