@@ -3971,7 +3971,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
     }
 
     if (this->sessionMode != 3) {
-        this->FUN_00485969();
+        this->ShowMainRightPanel();
         this->FUN_0047a5e6();
         this->FUN_0047efdf();
         this->FUN_0047e612();
@@ -4206,7 +4206,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
     return 1;
 }
 
-void MainWindow::FUN_00485969() { // 485969
+void MainWindow::ShowMainRightPanel() { // 485969
     this->vis_right_panel->RemoveAllChilds();
     this->vis_right_panel->AddChild(this->vis_minimap);
     this->vis_right_panel->AddChild(this->vis_ordertoolbar);
