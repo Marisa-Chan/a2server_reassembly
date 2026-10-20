@@ -263,23 +263,23 @@ void ShopAssortment::AddItemsFlags(CArray<WorldEquip>* items, uint32_t flags) {
     for (int32_t i = 0; i < shape_ids.GetSize(); i++) {
         for (int32_t j = 0; j < material_ids.GetSize(); j++) {
             if ((type_flags & 0x400000) != 0) {
-                this->sub_54A420(items, shape_ids[i], material_ids[j], 2, 0);
+                this->AddItems(items, shape_ids[i], material_ids[j], 2, 0);
             }
             if ((type_flags & 0x1000000) != 0) {
-                this->sub_54A420(items, shape_ids[i], material_ids[j], 1, is_magic);
+                this->AddItems(items, shape_ids[i], material_ids[j], 1, is_magic);
             }
             if ((type_flags & 0x800000) != 0) {
-                this->sub_54A420(items, shape_ids[i], material_ids[j], 7, 0);
+                this->AddItems(items, shape_ids[i], material_ids[j], 7, 0);
             }
             if ((type_flags & 0x8000000) != 0 && is_magic) {
-                this->sub_54A420(items, shape_ids[i], material_ids[j], 8, is_magic);
+                this->AddItems(items, shape_ids[i], material_ids[j], 8, is_magic);
             }
         }
     }
 }
 
 // 54A420
-void ShopAssortment::sub_54A420(CArray<WorldEquip>* items, int32_t shape, int32_t mat, int32_t item_type, int32_t is_magic) {
+void ShopAssortment::AddItems(CArray<WorldEquip>* items, int32_t shape, int32_t mat, int32_t item_type, int32_t is_magic) {
     for (int32_t i = 1; i < items->GetSize(); i++) {
         if ((((*items)[i].shape_material_matrix[shape] >> mat) & 1) == 0) {
             continue;
