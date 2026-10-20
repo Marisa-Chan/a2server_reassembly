@@ -158,7 +158,7 @@ public:
 
 	void BeginFadeOut(int32_t len, int32_t vol); //45b408
 
-	void FUN_0045b681(int32_t track); //45b681 in asm
+	void QueueTrack(int32_t track); //45b681 in asm
 
 	static void MusicUpdaterProc(); //45a99c
 public:

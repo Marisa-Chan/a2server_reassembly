@@ -3572,7 +3572,7 @@ bool VisRoleKeyScreen::sub_4E0169() {
     }
 
     if (music_id >= 0) {
-        main_wnd->music_player->FUN_0045b681(music_id);
+        main_wnd->music_player->QueueTrack(music_id);
     }
 
     return true;

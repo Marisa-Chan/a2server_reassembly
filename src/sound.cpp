@@ -879,7 +879,7 @@ void MusicPlayer::BeginFadeOut(int32_t len, int32_t vol) { //45b408
 	}
 }
 
-void MusicPlayer::FUN_0045b681(int32_t track) { //45b681
+void MusicPlayer::QueueTrack(int32_t track) { //45b681
 	this->play_mode = 1;
 	this->BeginFadeOut(2000, 8000);
 	this->track_to_play = track;
