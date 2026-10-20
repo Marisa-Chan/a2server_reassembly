@@ -490,7 +490,7 @@ void ServerControlDialog::sub_495774() {
     if (g_Server != nullptr && !g_HatLLDriver.IsListen()) {
         g_Server->field51_0x1d8 = 1;
     }
-    this->sub_49585B();
+    this->UpdateControlStates();
 }
 
 // 4957ad
@@ -498,7 +498,7 @@ void ServerControlDialog::sub_4957AD() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     g_Server->KickAllPlayers();
     main_wnd->shutdown_pending = 1;
-    this->sub_49585B();
+    this->UpdateControlStates();
 }
 
 // 4957e2
@@ -510,17 +510,17 @@ void ServerControlDialog::sub_4957E2() {
         g_ServerConfig.shutdown_delay = minutes;
         g_ShutdownIn = minutes * 60000;
     }
-    this->sub_49585B();
+    this->UpdateControlStates();
 }
 
 // 49583e
 void ServerControlDialog::sub_49583E() {
     g_ShutdownIn = 0x7fffffff;
-    this->sub_49585B();
+    this->UpdateControlStates();
 }
 
 // 49585B
-void ServerControlDialog::sub_49585B() {
+void ServerControlDialog::UpdateControlStates() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     if (g_Server == nullptr) {
@@ -1293,7 +1293,7 @@ void MainWindow::FUN_004950c0() {
     }
 
     this->server_ctrl_shown = 1;
-    this->server_ctrl_dlg->sub_49585B();
+    this->server_ctrl_dlg->UpdateControlStates();
 }
 
 // 4919b1
@@ -1866,7 +1866,7 @@ void MainWindow::sub_48A756() {
                 }
                 
                 if (this->server_ctrl_shown != 0) {
-                    this->server_ctrl_dlg->sub_49585B();
+                    this->server_ctrl_dlg->UpdateControlStates();
                 }
                 
                 // Check if should shut down.

@@ -308,7 +308,7 @@ protected:
     virtual void DoDataExchange(CDataExchange* pDX) override; // 4952fa
 
 public:
-    void sub_49585B(); // 49585B — update control states.
+    void UpdateControlStates(); // 49585B — update control states.
 
     static const AFX_MSGMAP_ENTRY _messageEntries[];
     static AFX_DATA const AFX_MSGMAP messageMap;
