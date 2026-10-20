@@ -146,10 +146,10 @@ void CMousePointer::PaintHint() {
     uint32_t c1 = GetColorRGB(0xa0, 0x78, 0x32);
     uint32_t c2 = GetColorRGB(0x50, 0x3c, 0x18);
 
-    gfx_ball->VMethod10(r.left - 1, r.top - 1, 0, 0, 4, 4);
-    gfx_ball->VMethod10(r.right - 2, r.top - 1, 0, 0, 4, 4);
-    gfx_ball->VMethod10(r.left - 1, r.bottom - 2, 0, 0, 4, 4);
-    gfx_ball->VMethod10(r.right - 2, r.bottom - 2, 0, 0, 4, 4);
+    gfx_ball->DrawSubRectMasked(r.left - 1, r.top - 1, 0, 0, 4, 4);
+    gfx_ball->DrawSubRectMasked(r.right - 2, r.top - 1, 0, 0, 4, 4);
+    gfx_ball->DrawSubRectMasked(r.left - 1, r.bottom - 2, 0, 0, 4, 4);
+    gfx_ball->DrawSubRectMasked(r.right - 2, r.bottom - 2, 0, 0, 4, 4);
 
     FillRectColor(r.left + 2, r.top, r.right - 2, r.top, c1);
     FillRectColor(r.left + 2, r.top + 1, r.right - 2, r.top + 1, c2);

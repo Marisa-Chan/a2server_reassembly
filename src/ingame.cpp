@@ -5783,27 +5783,27 @@ void BigStruct2::sub_406F7B() {
 		FillRectColorSimple(local_rect.right - 0x20, child3->GetRect().top + 2, local_rect.right, child2->GetRect().bottom, 0);
 		FillRectColorSimple(local_rect.left, child3->GetRect().bottom, local_rect.right, child3->GetRect().bottom + 4, 0);
 	}
-	g_bmp_crystall->VMethod10(local_rect.right - 0x10, local_rect.top, 0, 0, 0x10, 0x9e);
+	g_bmp_crystall->DrawSubRectMasked(local_rect.right - 0x10, local_rect.top, 0, 0, 0x10, 0x9e);
 	uint32_t top_panel_kind = (uint32_t)(this->field_0x140 == 0) | (this->field_0x144 & 0x24);
 	if (top_panel_kind == 0) {
-		g_bmp_cmdbarl->VMethod10(local_rect.right - 0x10, local_rect.top + 0x9e, 0, 0, 0x10, 0x50);
+		g_bmp_cmdbarl->DrawSubRectMasked(local_rect.right - 0x10, local_rect.top + 0x9e, 0, 0, 0x10, 0x50);
 	} else {
-		g_bmp_headsl->VMethod10(local_rect.right - 0x10, local_rect.top + 0x9e, 0, 0, 0x10, 0x50);
+		g_bmp_headsl->DrawSubRectMasked(local_rect.right - 0x10, local_rect.top + 0x9e, 0, 0, 0x10, 0x50);
 	}
 	int32_t info_mode = wnd->vis_charinfo->info_mode;
 	if (info_mode == 0) {
-		g_bmp_textbackl->VMethod10(local_rect.right - 0x10, local_rect.top + 0xee, 0, 0, 0x10, 0xf2);
+		g_bmp_textbackl->DrawSubRectMasked(local_rect.right - 0x10, local_rect.top + 0xee, 0, 0, 0x10, 0xf2);
 	} else {
-		g_bmp_humanbackl->VMethod10(local_rect.right - 0x10, local_rect.top + 0xee, 0, 0, 0x10, 0xf2);
+		g_bmp_humanbackl->DrawSubRectMasked(local_rect.right - 0x10, local_rect.top + 0xee, 0, 0, 0x10, 0xf2);
 	}
 	int32_t sidestatus_h = wnd->vis_sidestatus->GetRect().Height();
 	int32_t charinfo_h = wnd->vis_charinfo->GetRect().Height();
 	uint32_t panel_cmp = charinfo_h <= sidestatus_h;
 	if (g_ScreenSize.bottom > 600) {
-		g_bmp_extra1024l->VMethod10(local_rect.right - 0x10, local_rect.top + 480, 0, 0, 0x10, g_bmp_extra1024l->GetHeight(0));
-		g_bmp_textbackl->VMethod10(local_rect.right - 0x10, local_rect.top + 480 + g_bmp_extra1024l->GetHeight(0), 0, 0, 0x10, 0xf2);
+		g_bmp_extra1024l->DrawSubRectMasked(local_rect.right - 0x10, local_rect.top + 480, 0, 0, 0x10, g_bmp_extra1024l->GetHeight(0));
+		g_bmp_textbackl->DrawSubRectMasked(local_rect.right - 0x10, local_rect.top + 480 + g_bmp_extra1024l->GetHeight(0), 0, 0, 0x10, 0xf2);
 	} else if (g_ScreenSize.bottom > 480) {
-		g_bmp_extra800l->VMethod10(local_rect.right - 0x10, local_rect.top + 480, 0, 0, 0x10, g_bmp_extra800l->GetHeight(0));
+		g_bmp_extra800l->DrawSubRectMasked(local_rect.right - 0x10, local_rect.top + 480, 0, 0, 0x10, g_bmp_extra800l->GetHeight(0));
 	}
 	SetClipRect(local_rect);
 	TakeDamage::DrawDamages(&this->damage_labels);
@@ -6279,10 +6279,10 @@ CGameBitmap* BigStruct2::FUN_0041da52(int32_t serv_id) {
 		g_bmp_t_back->FlipVertical();
 		if (rect.top == -1) {
 			g_bmp_t_back->DrawSubRect(8, 7, 0x24, 0x8c, 0x6c, 0xe8);
-			pic->VMethod10(8, 7, 0x24, 0x8c, 0x6c, 0xe8);
+			pic->DrawSubRectMasked(8, 7, 0x24, 0x8c, 0x6c, 0xe8);
 		} else {
 			g_bmp_t_back->DrawSubRect(8, 7, rect.left, 0x90 - rect.top, rect.left + 0x48, 0xf0 - rect.top);
-			pic->VMethod10(8, 7, rect.left, 0x90 - rect.top, rect.left + 0x48, 0xf0 - rect.top);
+			pic->DrawSubRectMasked(8, 7, rect.left, 0x90 - rect.top, rect.left + 0x48, 0xf0 - rect.top);
 		}
 		g_bmp_t_back->FlipVertical();
 		g_spr_t_border->Draw(0, 0, 0, 0, 0);

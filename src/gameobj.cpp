@@ -1669,8 +1669,8 @@ void CUnit::DrawHealthBar(int32_t arg1, int32_t arg2, int32_t arg3) { // 466a78
 
     int32_t y = top;
 
-    gfx_ball->VMethod10(left, y - 2, 0, 0, 4, 4);
-    gfx_ball->VMethod10(right - 4, y - 2, 0, 0, 4, 4);
+    gfx_ball->DrawSubRectMasked(left, y - 2, 0, 0, 4, 4);
+    gfx_ball->DrawSubRectMasked(right - 4, y - 2, 0, 0, 4, 4);
 
     uint16_t color_lo;
     uint16_t color_mid;
@@ -1718,8 +1718,8 @@ void CUnit::DrawHealthBar(int32_t arg1, int32_t arg2, int32_t arg3) { // 466a78
             mp_fill = 1;
         }
 
-        gfx_ball->VMethod10(left, y - 2, 0, 0, 4, 4);
-        gfx_ball->VMethod10(right - 4, y - 2, 0, 0, 4, 4);
+        gfx_ball->DrawSubRectMasked(left, y - 2, 0, 0, 4, 4);
+        gfx_ball->DrawSubRectMasked(right - 4, y - 2, 0, 0, 4, 4);
         this->DrawBarFill(left, right, y, mp_fill, color_lo, color_mid, color_hi);
     }
 
@@ -3840,8 +3840,8 @@ void CStructure::DrawHealthBar(int32_t arg1, int32_t arg2, int32_t arg3) {
     int32_t right = (this->tileX - map->view_x) * 0x20 + info->selection.right;
     int32_t y = ((this->tileY - map->view_y) + info->tile_height - info->full_height) * 0x20 + info->selection.top - this->terrainHeightOffset;
 
-    gfx_ball->VMethod10(left, y - 2, 0, 0, 4, 4);
-    gfx_ball->VMethod10(right - 4, y - 2, 0, 0, 4, 4);
+    gfx_ball->DrawSubRectMasked(left, y - 2, 0, 0, 4, 4);
+    gfx_ball->DrawSubRectMasked(right - 4, y - 2, 0, 0, 4, 4);
 
     uint16_t color_lo;
     uint16_t color_mid;

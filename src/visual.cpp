@@ -2717,14 +2717,14 @@ void VisBitmap::VMethod7() {
     if (this->draw_type == 1) {
         this->parent->VMethod8(&rt);
         CBmp64* bmp64 = (CBmp64*)this->bitmap;
-        bmp64->VMethod10(rt.left, rt.top, 0, 0, bmp64->GetWidth(0), bmp64->GetHeight(0));
+        bmp64->DrawSubRectMasked(rt.left, rt.top, 0, 0, bmp64->GetWidth(0), bmp64->GetHeight(0));
     } else if (this->draw_type == 2) {
         this->parent->VMethod8(&rt);
 
         FillRectColorSimple(rt.left + 8, rt.top + 7, rt.left + 80, rt.top + 101, 0);
 
         CBmp64* bmp64 = (CBmp64*)this->bitmap;
-        bmp64->VMethod10(rt.left, rt.top, 0, 0, bmp64->GetWidth(0), bmp64->GetHeight(0));
+        bmp64->DrawSubRectMasked(rt.left, rt.top, 0, 0, bmp64->GetWidth(0), bmp64->GetHeight(0));
     } else if (this->draw_type < 11) {
         this->bitmap->Draw(rt.left, rt.top, 0, 0, 0);
     } else {
@@ -4699,7 +4699,7 @@ void VisCharSellectButtons::VMethod7() {
                                  top_left.y + this->areas[i].top + this->areas[i].Height() / 2,
                                  this->field_0x60[i], 10, pal);
             } else {
-                this->buttons_bmp[i]->VMethod10(top_left.x + this->areas[i].left, top_left.y + this->areas[i].top,
+                this->buttons_bmp[i]->DrawSubRectMasked(top_left.x + this->areas[i].left, top_left.y + this->areas[i].top,
                                                 0, 0, this->areas[i].Width(), this->areas[i].Height());
                 g_font4->DrawTxt(top_left.x + this->areas[i].left + this->areas[i].Width() / 2,
                                  top_left.y + this->areas[i].top + 1 + this->areas[i].Height() / 2,
@@ -7243,7 +7243,7 @@ void VisGlobalMap::VMethod7() {
                 CPoint& pt = this->travelRoutePoints.ElementAt(i);
                 int32_t w = this->ballmap->GetWidth(0);
                 int32_t h = this->ballmap->GetHeight(0);
-                this->ballmap->VMethod10(screen_x + pt.x - w / 2, screen_y + pt.y - h / 2, 0, 0, w, h);
+                this->ballmap->DrawSubRectMasked(screen_x + pt.x - w / 2, screen_y + pt.y - h / 2, 0, 0, w, h);
             }
         }
         for (POSITION pos = ScenarioGetAvailableLocations()->GetHeadPosition(); pos != nullptr;) {
@@ -7274,7 +7274,7 @@ void VisGlobalMap::VMethod7() {
                 CPoint& pt = this->travelRoutePoints.ElementAt(i);
                 int32_t w = this->ballmap->GetWidth(0);
                 int32_t h = this->ballmap->GetHeight(0);
-                this->ballmap->VMethod10(screen_x + pt.x - w / 2, screen_y + pt.y - h / 2, 0, 0, w, h);
+                this->ballmap->DrawSubRectMasked(screen_x + pt.x - w / 2, screen_y + pt.y - h / 2, 0, 0, w, h);
             }
         }
         int32_t cross_frames = this->cross_spr->GetFrameCount();
@@ -8449,11 +8449,11 @@ void VisCharGenStats::VMethod7() {
                                     screen_rect.top + this->areas[i * 3].top + 4,
                                     str, 0, pal, 1);
         CBmp64* plus_bmp = this->field_0x174[i * 2];
-        plus_bmp->VMethod10(screen_rect.left + this->areas[i * 3 + 1].left,
+        plus_bmp->DrawSubRectMasked(screen_rect.left + this->areas[i * 3 + 1].left,
                             screen_rect.top + this->areas[i * 3 + 1].top,
                             0, 0, plus_bmp->GetWidth(0), plus_bmp->GetHeight(0));
         CBmp64* minus_bmp = this->field_0x174[i * 2 + 1];
-        minus_bmp->VMethod10(screen_rect.left + this->areas[i * 3 + 2].left,
+        minus_bmp->DrawSubRectMasked(screen_rect.left + this->areas[i * 3 + 2].left,
                              screen_rect.top + this->areas[i * 3 + 2].top,
                              0, 0, minus_bmp->GetWidth(0), minus_bmp->GetHeight(0));
         str.Format("%d", this->field_0x1f0);
@@ -9059,13 +9059,13 @@ void VisCharGenSkills::VMethod7() {
         for (int32_t i = 0; i < 4; i++) {
             int32_t state = this->field_0x10c[i];
             if (state == 1) {
-                this->bmp_on[i]->VMethod10(this->field_0xb4[i].x, this->field_0xb4[i].y, 0, 0,
+                this->bmp_on[i]->DrawSubRectMasked(this->field_0xb4[i].x, this->field_0xb4[i].y, 0, 0,
                                            this->field_0xdc[i].x, this->field_0xdc[i].y);
             } else if (state == 2) {
-                this->bmp_shine_off[i]->VMethod10(this->field_0xb4[i].x, this->field_0xb4[i].y, 0, 0,
+                this->bmp_shine_off[i]->DrawSubRectMasked(this->field_0xb4[i].x, this->field_0xb4[i].y, 0, 0,
                                                   this->field_0xdc[i].x, this->field_0xdc[i].y);
             } else if (state == 3) {
-                this->bmp_shine_on[i]->VMethod10(this->field_0xb4[i].x, this->field_0xb4[i].y, 0, 0,
+                this->bmp_shine_on[i]->DrawSubRectMasked(this->field_0xb4[i].x, this->field_0xb4[i].y, 0, 0,
                                                  this->field_0xdc[i].x, this->field_0xdc[i].y);
             }
         }
@@ -9206,10 +9206,10 @@ void VisCharGenSkills::DrawBlinkSlot() {
     blink_cycle_len = 4;
     blink_slot = blink_slot % 4;
     if (this->field_0x10c[blink_slot] == 1) {
-        this->bmp_shine_on[blink_slot]->VMethod10(this->field_0xb4[blink_slot].x, this->field_0xb4[blink_slot].y, 0, 0,
+        this->bmp_shine_on[blink_slot]->DrawSubRectMasked(this->field_0xb4[blink_slot].x, this->field_0xb4[blink_slot].y, 0, 0,
                                                   this->field_0xdc[blink_slot].x, this->field_0xdc[blink_slot].y);
     } else {
-        this->bmp_shine_off[blink_slot]->VMethod10(this->field_0xb4[blink_slot].x, this->field_0xb4[blink_slot].y, 0, 0,
+        this->bmp_shine_off[blink_slot]->DrawSubRectMasked(this->field_0xb4[blink_slot].x, this->field_0xb4[blink_slot].y, 0, 0,
                                                    this->field_0xdc[blink_slot].x, this->field_0xdc[blink_slot].y);
     }
     blink_hover_slot = -1;
@@ -9405,31 +9405,31 @@ void VisCharInfo::VMethod7() {
 
     if ((main_wnd->dialogsMask & 3) != 0 && (main_wnd->dialogsMask & 4) == 0) {
         if (map->IsBookOpen()) {
-            g_bmp_bookopened->VMethod10(screen_rect.left, screen_rect.top, 0, 0, 0x1C, 0x26);
+            g_bmp_bookopened->DrawSubRectMasked(screen_rect.left, screen_rect.top, 0, 0, 0x1C, 0x26);
         } else {
-            g_bmp_bookclosed->VMethod10(screen_rect.left, screen_rect.top + 4, 0, 0, 0x1C, 0x25);
+            g_bmp_bookclosed->DrawSubRectMasked(screen_rect.left, screen_rect.top + 4, 0, 0, 0x1C, 0x25);
         }
     }
 
     if ((main_wnd->dialogsMask & 0x226) != 0) {
         if ((main_wnd->dialogsMask & 0x200) == 0 || main_wnd->sessionMode != 2) {
-            g_bmp_ar1->VMethod10(screen_rect.left + 1, screen_rect.top + 0xCD, 0, 0, 0x20, 0x20);
-            g_bmp_ar2->VMethod10(screen_rect.left + 0x77, screen_rect.top + 0xCD, 0, 0, 0x20, 0x20);
+            g_bmp_ar1->DrawSubRectMasked(screen_rect.left + 1, screen_rect.top + 0xCD, 0, 0, 0x20, 0x20);
+            g_bmp_ar2->DrawSubRectMasked(screen_rect.left + 0x77, screen_rect.top + 0xCD, 0, 0, 0x20, 0x20);
         }
     } else if ((main_wnd->dialogsMask & 0x400) == 0) {
         if (map->IsBagOpen()) {
-            g_bmp_backpackop->VMethod10(screen_rect.left, screen_rect.top + 0xD0, 0, 0, 0x20, 0x1F);
+            g_bmp_backpackop->DrawSubRectMasked(screen_rect.left, screen_rect.top + 0xD0, 0, 0, 0x20, 0x1F);
         } else {
-            g_bmp_backpackcl->VMethod10(screen_rect.left + 1, screen_rect.top + 0xC9, 0, 0, 0x1C, 0x1E);
+            g_bmp_backpackcl->DrawSubRectMasked(screen_rect.left + 1, screen_rect.top + 0xC9, 0, 0, 0x1C, 0x1E);
         }
-        g_bmp_diskette->VMethod10(screen_rect.left + 0x7E, screen_rect.top + 0xCE, 0, 0, 0x20, 0x20);
+        g_bmp_diskette->DrawSubRectMasked(screen_rect.left + 0x7E, screen_rect.top + 0xCE, 0, 0, 0x20, 0x20);
     }
 
     if ((main_wnd->dialogsMask & 0x600) == 0 && moved_up == 0) {
         if (this->info_mode != 0) {
-            g_bmp_humanmode->VMethod10(screen_rect.left + 0x80, screen_rect.top + 4, 0, 0, 0x1C, 0x20);
+            g_bmp_humanmode->DrawSubRectMasked(screen_rect.left + 0x80, screen_rect.top + 4, 0, 0, 0x1C, 0x20);
         } else {
-            g_bmp_textmode->VMethod10(screen_rect.left + 0x80, screen_rect.top + 4, 0, 0, 0x1C, 0x20);
+            g_bmp_textmode->DrawSubRectMasked(screen_rect.left + 0x80, screen_rect.top + 4, 0, 0, 0x1C, 0x20);
         }
     }
 
@@ -9470,7 +9470,7 @@ void VisCharInfo::VMethod7() {
                 this->bitmap->LoadFile(path, nullptr);
                 memset(this->hitmap->GetData(), 0, this->hitmap->GetWidth() * this->hitmap->GetHeight());
             }
-            this->bitmap->VMethod10(screen_rect.left, screen_rect.top + 2, 0, 0, 0xA0, 0xF0);
+            this->bitmap->DrawSubRectMasked(screen_rect.left, screen_rect.top + 2, 0, 0, 0xA0, 0xF0);
             int32_t text_y = 0x36;
             if (map->quest_landmark_some_id != 0) {
                 g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + text_y, TxtFile::AllLines[0x15B], 2, clrsh_DullGold, 1);
@@ -9523,7 +9523,7 @@ void VisCharInfo::VMethod7() {
                     memset(this->hitmap->GetData(), 0, this->hitmap->GetWidth() * this->hitmap->GetHeight());
                 }
             }
-            this->bitmap->VMethod10(screen_rect.left, screen_rect.top + 2, 0, 0, 0xA0, 0xF0);
+            this->bitmap->DrawSubRectMasked(screen_rect.left, screen_rect.top + 2, 0, 0, 0xA0, 0xF0);
             if (map->quest_some_id_2 != 0 || map->quest_some_id != 0) {
                 g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x36, TxtFile::AllLines[0x159], 2, clrsh_DullGold, 1);
                 g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x42, TxtFile::AllLines[0x15A], 2, clrsh_DullGold, 1);
@@ -11175,9 +11175,9 @@ void VisShop::sub_4BAD1D() {
     this->ClientRectToScreen(&screen_rect, this->rect);
     if (this->dialog_active && this->select_info_panel) {
         if (((VisCharInfo*)this->select_info_panel)->info_mode == 0) {
-            g_bmp_textbackl->VMethod10(screen_rect.left + 0x1D0, screen_rect.top + 0xEE, 0, 0, 0x10, 0xF2);
+            g_bmp_textbackl->DrawSubRectMasked(screen_rect.left + 0x1D0, screen_rect.top + 0xEE, 0, 0, 0x10, 0xF2);
         } else {
-            g_bmp_humanbackl->VMethod10(screen_rect.left + 0x1D0, screen_rect.top + 0xEE, 0, 0, 0x10, 0xF2);
+            g_bmp_humanbackl->DrawSubRectMasked(screen_rect.left + 0x1D0, screen_rect.top + 0xEE, 0, 0, 0x10, 0xF2);
         }
     }
 }
@@ -12326,7 +12326,7 @@ void VisShopButtons::VMethod7() {
         return;
     }
     LockSurface2();
-    this->menu_bmp->VMethod10(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, this->rect.Width(), this->rect.Height());
+    this->menu_bmp->DrawSubRectMasked(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, this->rect.Width(), this->rect.Height());
     uint16_t* pal;
     if (this->hovered_btn == 0) {
         pal = palette_paris_daisy->GetPalette(0);
@@ -12370,7 +12370,7 @@ void VisShopButtons::VMethod7() {
     g_font4->DrawTxt(topleft.x + this->outer_rects[3].left + this->outer_rects[3].Width() / 2, topleft.y + this->outer_rects[3].top - 2 + this->outer_rects[3].Height() * 3 / 4, str, 10, pal);
     if (this->hovered_btn >= 0 && this->pressed_btn >= 0 && this->pressed_btn == this->hovered_btn) {
         CRect& rect = this->outer_rects[this->hovered_btn];
-        this->button_bmps[this->hovered_btn]->VMethod10(topleft.x + rect.left, topleft.y + rect.top, 0, 0, rect.Width(), rect.Height());
+        this->button_bmps[this->hovered_btn]->DrawSubRectMasked(topleft.x + rect.left, topleft.y + rect.top, 0, 0, rect.Width(), rect.Height());
         pal = palette_paris_daisy->GetPalette(0);
         switch (this->hovered_btn) {
         case 0:
@@ -13655,7 +13655,7 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
                     LockSurface2();
                 }
             }
-            this->field_0x160->VMethod10(screen_rect.left + 0xB, screen_rect.top + 0xF0, 0, 0, 0xA0, 0xF0);
+            this->field_0x160->DrawSubRectMasked(screen_rect.left + 0xB, screen_rect.top + 0xF0, 0, 0, 0xA0, 0xF0);
         }
     }
 
@@ -13729,7 +13729,7 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
                         unit_name.Format("%s[%d]", txt_unitname.GetLine(obj->typeId), target->face);
                     }
                 }
-                this->field_0x160->VMethod10(screen_rect.left + 0xB, screen_rect.top + 0xF0, 0, 0, 0xA0, 0xF0);
+                this->field_0x160->DrawSubRectMasked(screen_rect.left + 0xB, screen_rect.top + 0xF0, 0, 0, 0xA0, 0xF0);
             }
             break;
         }
@@ -13753,7 +13753,7 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
                     this->field_0x160->LoadFile(path, nullptr);
                     memset(this->field_0x164->GetData(), 0, this->field_0x164->GetWidth() * this->field_0x164->GetHeight());
                 }
-                this->field_0x160->VMethod10(screen_rect.left + 0xB, screen_rect.top + 0xF0, 0, 0, 0xA0, 0xF0);
+                this->field_0x160->DrawSubRectMasked(screen_rect.left + 0xB, screen_rect.top + 0xF0, 0, 0, 0xA0, 0xF0);
             }
             break;
         }
@@ -13825,7 +13825,7 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
                     this->field_0x160->LoadFile(path, nullptr);
                     memset(this->field_0x164->GetData(), 0, this->field_0x164->GetWidth() * this->field_0x164->GetHeight());
                 }
-                this->field_0x160->VMethod10(screen_rect.left + 0xB, screen_rect.top + 0xF0, 0, 0, 0xA0, 0xF0);
+                this->field_0x160->DrawSubRectMasked(screen_rect.left + 0xB, screen_rect.top + 0xF0, 0, 0, 0xA0, 0xF0);
             }
         }
     }
@@ -14365,13 +14365,13 @@ void VisTavScene::VMethod7() {
         this->FUN_0049bc23();
     }
 
-    this->field_0x340->VMethod10(x + 0xA0, y, 0, 0, 0x10, 0xEE);
-    this->field_0x344->VMethod10(x + 0xA0, y + 0xEE, 0, 0, 0x10, 0xF2);
-    this->field_0x348->VMethod10(x + 0x1D0, y, 0, 0, 0x10, 0xEE);
+    this->field_0x340->DrawSubRectMasked(x + 0xA0, y, 0, 0, 0x10, 0xEE);
+    this->field_0x344->DrawSubRectMasked(x + 0xA0, y + 0xEE, 0, 0, 0x10, 0xF2);
+    this->field_0x348->DrawSubRectMasked(x + 0x1D0, y, 0, 0, 0x10, 0xEE);
     if (this->vis_tav->info_panel->info_mode) {
-        g_bmp_humanbackl->VMethod10(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
+        g_bmp_humanbackl->DrawSubRectMasked(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
     } else {
-        g_bmp_textbackl->VMethod10(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
+        g_bmp_textbackl->DrawSubRectMasked(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
     }
     UnlockSurface2();
     CVisualObject::VMethod7();
@@ -14932,13 +14932,13 @@ void VisTavSceneDruid::VMethod7() {
         this->FUN_0049bc23();
     }
 
-    this->field_0x340->VMethod10(x + 0xA0, y, 0, 0, 0x10, 0xEE);
-    this->field_0x344->VMethod10(x + 0xA0, y + 0xEE, 0, 0, 0x10, 0xF2);
-    this->field_0x348->VMethod10(x + 0x1D0, y, 0, 0, 0x10, 0xEE);
+    this->field_0x340->DrawSubRectMasked(x + 0xA0, y, 0, 0, 0x10, 0xEE);
+    this->field_0x344->DrawSubRectMasked(x + 0xA0, y + 0xEE, 0, 0, 0x10, 0xF2);
+    this->field_0x348->DrawSubRectMasked(x + 0x1D0, y, 0, 0, 0x10, 0xEE);
     if (this->vis_tav->info_panel->info_mode) {
-        g_bmp_humanbackl->VMethod10(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
+        g_bmp_humanbackl->DrawSubRectMasked(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
     } else {
-        g_bmp_textbackl->VMethod10(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
+        g_bmp_textbackl->DrawSubRectMasked(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
     }
     UnlockSurface2();
     CVisualObject::VMethod7();
@@ -15212,13 +15212,13 @@ void VisTavSceneKaarg::VMethod7() {
         this->FUN_0049bc23();
     }
 
-    this->field_0x340->VMethod10(x + 0xA0, y, 0, 0, 0x10, 0xEE);
-    this->field_0x344->VMethod10(x + 0xA0, y + 0xEE, 0, 0, 0x10, 0xF2);
-    this->field_0x348->VMethod10(x + 0x1D0, y, 0, 0, 0x10, 0xEE);
+    this->field_0x340->DrawSubRectMasked(x + 0xA0, y, 0, 0, 0x10, 0xEE);
+    this->field_0x344->DrawSubRectMasked(x + 0xA0, y + 0xEE, 0, 0, 0x10, 0xF2);
+    this->field_0x348->DrawSubRectMasked(x + 0x1D0, y, 0, 0, 0x10, 0xEE);
     if (this->vis_tav->info_panel->info_mode) {
-        g_bmp_humanbackl->VMethod10(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
+        g_bmp_humanbackl->DrawSubRectMasked(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
     } else {
-        g_bmp_textbackl->VMethod10(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
+        g_bmp_textbackl->DrawSubRectMasked(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
     }
     UnlockSurface2();
 
@@ -16291,20 +16291,20 @@ void VisInvType1::VMethod7() {
 
     int32_t edge_width = ((g_ScreenSize.right - 0xf0) % 0x50) / 2;
 
-    g_bmp_invframe->VMethod10(screen_rect.left + edge_width, screen_rect.top, 0, 0, 0x110, g_bmp_invframe->GetHeight(0));
+    g_bmp_invframe->DrawSubRectMasked(screen_rect.left + edge_width, screen_rect.top, 0, 0, 0x110, g_bmp_invframe->GetHeight(0));
 
     for (int32_t i = 0; i < (g_ScreenSize.right - 0x280) / 0x50; i++) {
-        g_bmp_invframe->VMethod10(screen_rect.left + edge_width + 0x110 + i * 0x50, screen_rect.top, 0xc0, 0, 0x110, g_bmp_invframe->GetHeight(0));
+        g_bmp_invframe->DrawSubRectMasked(screen_rect.left + edge_width + 0x110 + i * 0x50, screen_rect.top, 0xc0, 0, 0x110, g_bmp_invframe->GetHeight(0));
     }
 
     if (edge_width != 0 && g_ScreenSize.bottom > 600) {
         g_bmp_inv1024l->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
-        g_bmp_inv1024r->VMethod10(screen_rect.right - edge_width - 0x10, screen_rect.top, 0, 0, g_bmp_inv1024r->GetWidth(0), g_bmp_inv1024r->GetHeight(0));
+        g_bmp_inv1024r->DrawSubRectMasked(screen_rect.right - edge_width - 0x10, screen_rect.top, 0, 0, g_bmp_inv1024r->GetWidth(0), g_bmp_inv1024r->GetHeight(0));
     }
 
     int32_t frame_w = g_bmp_invframe->GetWidth(0);
     int32_t frame_h = g_bmp_invframe->GetHeight(0);
-    g_bmp_invframe->VMethod10(screen_rect.right - edge_width - g_bmp_invframe->GetWidth(0) + 0x110, screen_rect.top, 0x110, 0, frame_w, frame_h);
+    g_bmp_invframe->DrawSubRectMasked(screen_rect.right - edge_width - g_bmp_invframe->GetWidth(0) + 0x110, screen_rect.top, 0x110, 0, frame_w, frame_h);
 
     CRect left_arrow_rect(screen_rect.left, screen_rect.top, screen_rect.left + 0x20 + edge_width, screen_rect.bottom);
     CRect right_arrow_rect(screen_rect.left + edge_width + 0x20 + this->visible_columns * 0x50, screen_rect.top,
@@ -16315,16 +16315,16 @@ void VisInvType1::VMethod7() {
     if (this->grid_source != nullptr) {
         if (*this->visible_startref != 0) {
             if (left_arrow_rect.PtInRect(mouse_pt)) {
-                g_bmp_invarrow3->VMethod10(screen_rect.left + edge_width, screen_rect.top + 2, 0, 0, 0x20, 0x58);
+                g_bmp_invarrow3->DrawSubRectMasked(screen_rect.left + edge_width, screen_rect.top + 2, 0, 0, 0x20, 0x58);
             } else {
-                g_bmp_invarrow1->VMethod10(screen_rect.left + edge_width, screen_rect.top + 2, 0, 0, 0x20, 0x58);
+                g_bmp_invarrow1->DrawSubRectMasked(screen_rect.left + edge_width, screen_rect.top + 2, 0, 0, 0x20, 0x58);
             }
         }
         if (this->grid_source->GetSize() > this->visible_columns + *this->visible_startref) {
             if (right_arrow_rect.PtInRect(mouse_pt)) {
-                g_bmp_invarrow4->VMethod10(screen_rect.left + edge_width + 0x20 + this->visible_columns * 0x50, screen_rect.top + 2, 0, 0, 0x20, 0x58);
+                g_bmp_invarrow4->DrawSubRectMasked(screen_rect.left + edge_width + 0x20 + this->visible_columns * 0x50, screen_rect.top + 2, 0, 0, 0x20, 0x58);
             } else {
-                g_bmp_invarrow2->VMethod10(screen_rect.left + edge_width + 0x20 + this->visible_columns * 0x50, screen_rect.top + 2, 0, 0, 0x20, 0x58);
+                g_bmp_invarrow2->DrawSubRectMasked(screen_rect.left + edge_width + 0x20 + this->visible_columns * 0x50, screen_rect.top + 2, 0, 0, 0x20, 0x58);
             }
         }
     }
@@ -16798,7 +16798,7 @@ void VisInvExtBase::VMethod7() {
             cost_bmp->DrawBrightened(cost_pos.x - 3, cost_pos.y + 2, 0, 8, 0);
             int32_t bmp_w = cost_bmp->GetWidth(0);
             int32_t bmp_h = cost_bmp->GetHeight(0);
-            cost_bmp->VMethod10(cost_pos.x, cost_pos.y, 0, 0, bmp_w, bmp_h);
+            cost_bmp->DrawSubRectMasked(cost_pos.x, cost_pos.y, 0, 0, bmp_w, bmp_h);
             int32_t amount;
             if (entry->slot_code == 2) {
                 amount = (entry->GetAttribute(1) + 1) / 2;
@@ -17618,7 +17618,7 @@ void VisInvExtType2::VMethod7() {
     }
 
     LockSurface2();
-    g_bmp_invframe->VMethod10(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, this->rect.Width(), this->rect.Height());
+    g_bmp_invframe->DrawSubRectMasked(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, this->rect.Width(), this->rect.Height());
     UnlockSurface2();
     VisInvExtBase::VMethod7();
 
@@ -18015,7 +18015,7 @@ void VisInvExtType3::VMethod7() {
     }
 
     LockSurface2();
-    this->shoptable->VMethod10(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, this->rect.Width(), this->rect.Height());
+    this->shoptable->DrawSubRectMasked(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, this->rect.Width(), this->rect.Height());
     UnlockSurface2();
     VisInvExtBase::VMethod7();
 }
@@ -18106,7 +18106,7 @@ void VisInvExtType2::VMethod39() {
 void VisInvExtType2::sub_4B860E() {
     CPoint topleft = this->field_0x20ac->rect.TopLeft();
     if (g_bmp_invarrow1 != nullptr) {
-        g_bmp_invarrow3->VMethod10(topleft.x, topleft.y + 0x188, 0, 0, 0x20, 0x58);
+        g_bmp_invarrow3->DrawSubRectMasked(topleft.x, topleft.y + 0x188, 0, 0, 0x20, 0x58);
     }
 }
 
@@ -18115,7 +18115,7 @@ void VisInvExtType2::sub_4B860E() {
 void VisInvExtType2::sub_4B8666() {
     CPoint topleft = this->field_0x20ac->rect.TopLeft();
     if (g_bmp_invarrow3 != nullptr) {
-        g_bmp_invarrow1->VMethod10(topleft.x, topleft.y + 0x188, 0, 0, 0x20, 0x58);
+        g_bmp_invarrow1->DrawSubRectMasked(topleft.x, topleft.y + 0x188, 0, 0, 0x20, 0x58);
     }
 }
 
@@ -18124,7 +18124,7 @@ void VisInvExtType2::sub_4B8666() {
 void VisInvExtType2::sub_4B86BE() {
     CPoint topleft = this->field_0x20ac->rect.TopLeft();
     if (g_bmp_invarrow2 != nullptr) {
-        g_bmp_invarrow4->VMethod10(topleft.x + 0x1B0, topleft.y + 0x188, 0, 0, 0x20, 0x58);
+        g_bmp_invarrow4->DrawSubRectMasked(topleft.x + 0x1B0, topleft.y + 0x188, 0, 0, 0x20, 0x58);
     }
 }
 
@@ -18133,7 +18133,7 @@ void VisInvExtType2::sub_4B86BE() {
 void VisInvExtType2::sub_4B871C() {
     CPoint topleft = this->field_0x20ac->rect.TopLeft();
     if (g_bmp_invarrow4 != nullptr) {
-        g_bmp_invarrow2->VMethod10(topleft.x + 0x1B0, topleft.y + 0x188, 0, 0, 0x20, 0x58);
+        g_bmp_invarrow2->DrawSubRectMasked(topleft.x + 0x1B0, topleft.y + 0x188, 0, 0, 0x20, 0x58);
     }
 }
 
@@ -18188,7 +18188,7 @@ void VisStartGame::VMethod7() {
     this->mainAreaBitmap->Draw(this->rect.left, this->rect.top, 0, 0, 0);
 
     if (this->returnToGameHoverBitmap != nullptr) {
-        this->returnToGameHoverBitmap->VMethod10(
+        this->returnToGameHoverBitmap->DrawSubRectMasked(
             screen_x + this->returnToGameButtonRect.left,
             screen_y + this->returnToGameButtonRect.top,
             0, 0,
@@ -18196,7 +18196,7 @@ void VisStartGame::VMethod7() {
             this->returnToGameButtonRect.Height());
     }
     if (this->acceptHoverBitmap != nullptr) {
-        this->acceptHoverBitmap->VMethod10(
+        this->acceptHoverBitmap->DrawSubRectMasked(
             screen_x + this->acceptButtonRect.left,
             screen_y + this->acceptButtonRect.top,
             0, 0,
@@ -18207,91 +18207,91 @@ void VisStartGame::VMethod7() {
         for (int32_t i = 0; i < 3; i++) {
             if (this->difficultyStateFlags.ElementAt(i) == 2) {
                 const CRect& r = this->difficultyRects.ElementAt(i);
-                this->difficultyHoverBitmaps.GetAt(i)->VMethod10(
+                this->difficultyHoverBitmaps.GetAt(i)->DrawSubRectMasked(
                     screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
             }
             if (this->difficultyStateFlags.ElementAt(i) == 1) {
                 const CRect& r = this->difficultyRects.ElementAt(i);
-                this->difficultySelectedBitmaps.GetAt(i)->VMethod10(
+                this->difficultySelectedBitmaps.GetAt(i)->DrawSubRectMasked(
                     screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
             }
             if (this->difficultyStateFlags.ElementAt(i) == 3) {
                 const CRect& r = this->difficultyRects.ElementAt(i);
-                this->difficultySelectedHoverBitmaps.GetAt(i)->VMethod10(
+                this->difficultySelectedHoverBitmaps.GetAt(i)->DrawSubRectMasked(
                     screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
             }
         }
     }
     if (this->portraitStateFlags.ElementAt(0) & 1) {
         if ((this->portraitStateFlags.ElementAt(1) & 2) == 0) {
-            this->portraitHoverBitmaps.GetAt(0)->VMethod10(screen_x + 0x70, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
+            this->portraitHoverBitmaps.GetAt(0)->DrawSubRectMasked(screen_x + 0x70, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
         } else {
-            this->portraitSelectedHoverBitmaps.GetAt(0)->VMethod10(screen_x + 0x70, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
+            this->portraitSelectedHoverBitmaps.GetAt(0)->DrawSubRectMasked(screen_x + 0x70, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
         }
         if (this->portraitStateFlags.ElementAt(2) & 2) {
             const CRect& r = this->portraitRects.ElementAt(2);
-            this->portraitSelectedBitmaps.GetAt(2)->VMethod10(
+            this->portraitSelectedBitmaps.GetAt(2)->DrawSubRectMasked(
                 screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
         }
         if (this->portraitStateFlags.ElementAt(3) & 2) {
             const CRect& r = this->portraitRects.ElementAt(3);
-            this->portraitSelectedBitmaps.GetAt(3)->VMethod10(
+            this->portraitSelectedBitmaps.GetAt(3)->DrawSubRectMasked(
                 screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
         }
     }
     if (this->portraitStateFlags.ElementAt(1) & 1) {
         if ((this->portraitStateFlags.ElementAt(0) & 2) == 0) {
-            this->portraitHoverBitmaps.GetAt(1)->VMethod10(screen_x + 0x70, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
+            this->portraitHoverBitmaps.GetAt(1)->DrawSubRectMasked(screen_x + 0x70, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
         } else {
-            this->portraitSelectedHoverBitmaps.GetAt(1)->VMethod10(screen_x + 0x70, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
+            this->portraitSelectedHoverBitmaps.GetAt(1)->DrawSubRectMasked(screen_x + 0x70, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
         }
         if (this->portraitStateFlags.ElementAt(2) & 2) {
             const CRect& r = this->portraitRects.ElementAt(2);
-            this->portraitSelectedBitmaps.GetAt(2)->VMethod10(
+            this->portraitSelectedBitmaps.GetAt(2)->DrawSubRectMasked(
                 screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
         }
         if (this->portraitStateFlags.ElementAt(3) & 2) {
             const CRect& r = this->portraitRects.ElementAt(3);
-            this->portraitSelectedBitmaps.GetAt(3)->VMethod10(
+            this->portraitSelectedBitmaps.GetAt(3)->DrawSubRectMasked(
                 screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
         }
     }
     if (this->portraitStateFlags.ElementAt(2) & 1) {
         if ((this->portraitStateFlags.ElementAt(3) & 2) == 0) {
-            this->portraitHoverBitmaps.GetAt(2)->VMethod10(screen_x + 0x104, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
+            this->portraitHoverBitmaps.GetAt(2)->DrawSubRectMasked(screen_x + 0x104, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
         } else {
-            this->portraitSelectedHoverBitmaps.GetAt(2)->VMethod10(screen_x + 0x104, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
+            this->portraitSelectedHoverBitmaps.GetAt(2)->DrawSubRectMasked(screen_x + 0x104, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
         }
         if (this->portraitStateFlags.ElementAt(0) & 2) {
             const CRect& r = this->portraitRects.ElementAt(0);
-            this->portraitSelectedBitmaps.GetAt(0)->VMethod10(
+            this->portraitSelectedBitmaps.GetAt(0)->DrawSubRectMasked(
                 screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
         }
         if (this->portraitStateFlags.ElementAt(1) & 2) {
             const CRect& r = this->portraitRects.ElementAt(1);
-            this->portraitSelectedBitmaps.GetAt(1)->VMethod10(
+            this->portraitSelectedBitmaps.GetAt(1)->DrawSubRectMasked(
                 screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
         }
     }
     if (this->portraitStateFlags.ElementAt(3) & 1) {
         if ((this->portraitStateFlags.ElementAt(2) & 2) == 0) {
-            this->portraitHoverBitmaps.GetAt(3)->VMethod10(screen_x + 0x104, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
+            this->portraitHoverBitmaps.GetAt(3)->DrawSubRectMasked(screen_x + 0x104, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
         } else {
-            this->portraitSelectedHoverBitmaps.GetAt(3)->VMethod10(screen_x + 0x104, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
+            this->portraitSelectedHoverBitmaps.GetAt(3)->DrawSubRectMasked(screen_x + 0x104, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
         }
         if (this->portraitStateFlags.ElementAt(0) & 2) {
             const CRect& r = this->portraitRects.ElementAt(0);
-            this->portraitSelectedBitmaps.GetAt(0)->VMethod10(
+            this->portraitSelectedBitmaps.GetAt(0)->DrawSubRectMasked(
                 screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
         }
         if (this->portraitStateFlags.ElementAt(1) & 2) {
             const CRect& r = this->portraitRects.ElementAt(1);
-            this->portraitSelectedBitmaps.GetAt(1)->VMethod10(
+            this->portraitSelectedBitmaps.GetAt(1)->DrawSubRectMasked(
                 screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
         }
     }
     if (this->returnToGameHoverBitmap != nullptr) {
-        this->returnToGameHoverBitmap->VMethod10(
+        this->returnToGameHoverBitmap->DrawSubRectMasked(
             screen_x + this->returnToGameButtonRect.left,
             screen_y + this->returnToGameButtonRect.top,
             0, 0,
@@ -18299,7 +18299,7 @@ void VisStartGame::VMethod7() {
             this->returnToGameButtonRect.Height());
     }
     if (this->acceptHoverBitmap != nullptr) {
-        this->acceptHoverBitmap->VMethod10(
+        this->acceptHoverBitmap->DrawSubRectMasked(
             screen_x + this->acceptButtonRect.left,
             screen_y + this->acceptButtonRect.top,
             0, 0,
@@ -18576,18 +18576,18 @@ uint32_t VisStartGame::DrawTipsHighlight(uint32_t hotspot) {
         startgame_tips_cycle_len = 4;
         startgame_tips_frame = startgame_tips_frame % 4;
         if (startgame_tips_frame == 1) {
-            this->portraitSelectedHoverBitmaps.GetAt(0)->VMethod10(screen_x + 0x70, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
+            this->portraitSelectedHoverBitmaps.GetAt(0)->DrawSubRectMasked(screen_x + 0x70, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
         } else {
-            this->portraitHoverBitmaps.GetAt(0)->VMethod10(screen_x + 0x70, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
+            this->portraitHoverBitmaps.GetAt(0)->DrawSubRectMasked(screen_x + 0x70, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
         }
         if (startgame_tips_frame == 2) {
             const CRect& r = this->portraitRects.ElementAt(2);
-            this->portraitSelectedBitmaps.GetAt(2)->VMethod10(
+            this->portraitSelectedBitmaps.GetAt(2)->DrawSubRectMasked(
                 screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
         }
         if (startgame_tips_frame == 3) {
             const CRect& r = this->portraitRects.ElementAt(3);
-            this->portraitSelectedBitmaps.GetAt(3)->VMethod10(
+            this->portraitSelectedBitmaps.GetAt(3)->DrawSubRectMasked(
                 screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
         }
     } else if (this->tipsProgress == 1) {
@@ -18601,11 +18601,11 @@ uint32_t VisStartGame::DrawTipsHighlight(uint32_t hotspot) {
         startgame_tips_frame = startgame_tips_frame % 3;
         if (this->difficultyStateFlags.ElementAt(startgame_tips_frame) == 1) {
             const CRect& r = this->difficultyRects.ElementAt(startgame_tips_frame);
-            this->difficultySelectedHoverBitmaps.GetAt(startgame_tips_frame)->VMethod10(
+            this->difficultySelectedHoverBitmaps.GetAt(startgame_tips_frame)->DrawSubRectMasked(
                 screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
         } else {
             const CRect& r = this->difficultyRects.ElementAt(startgame_tips_frame);
-            this->difficultyHoverBitmaps.GetAt(startgame_tips_frame)->VMethod10(
+            this->difficultyHoverBitmaps.GetAt(startgame_tips_frame)->DrawSubRectMasked(
                 screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
         }
     } else if (this->tipsProgress == 2) {
@@ -18618,14 +18618,14 @@ uint32_t VisStartGame::DrawTipsHighlight(uint32_t hotspot) {
         startgame_tips_cycle_len = 2;
         startgame_tips_frame = startgame_tips_frame % 2;
         if (startgame_tips_frame == 0) {
-            this->returnToGameButtonBitmap->VMethod10(
+            this->returnToGameButtonBitmap->DrawSubRectMasked(
                 screen_x + this->returnToGameButtonRect.left,
                 screen_y + this->returnToGameButtonRect.top,
                 0, 0,
                 this->returnToGameButtonRect.Width(),
                 this->returnToGameButtonRect.Height());
         } else if (startgame_tips_frame == 1) {
-            this->acceptButtonBitmap->VMethod10(
+            this->acceptButtonBitmap->DrawSubRectMasked(
                 screen_x + this->acceptButtonRect.left,
                 screen_y + this->acceptButtonRect.top,
                 0, 0,
@@ -19466,7 +19466,7 @@ void VisTown::FUN_004ce726() {
                 done_count++;
             }
         }
-        this->bmp_bird_overlay->VMethod10(this->rect.left, this->rect.top, 0, 0, this->bmp_bird_overlay->GetWidth(), this->bmp_bird_overlay->GetHeight());
+        this->bmp_bird_overlay->DrawSubRectMasked(this->rect.left, this->rect.top, 0, 0, this->bmp_bird_overlay->GetWidth(), this->bmp_bird_overlay->GetHeight());
         if (done_count == this->active_bird) {
             this->town_anim &= ~0x80u;
         }
@@ -23137,19 +23137,19 @@ void VisSpellBook::VMethod7() {
     if (left != 0) {
         if (g_ScreenSize.bottom < 0x259) {
             if (g_ScreenSize.bottom > 0x1E0) {
-                g_bmp_spb800l->VMethod10(rc.left, rc.top, 0, 0,
+                g_bmp_spb800l->DrawSubRectMasked(rc.left, rc.top, 0, 0,
                     g_bmp_spb800l->GetWidth(0), g_bmp_spb800l->GetHeight(0));
-                g_bmp_spb800r->VMethod10(rc.left + g_bmp_spellbook->GetWidth(0) - 0x10 + left, rc.top, 0, 0,
+                g_bmp_spb800r->DrawSubRectMasked(rc.left + g_bmp_spellbook->GetWidth(0) - 0x10 + left, rc.top, 0, 0,
                     g_bmp_spb800r->GetWidth(0), g_bmp_spb800r->GetHeight(0));
             }
         } else {
-            g_bmp_spb1024l->VMethod10(rc.left, rc.top, 0, 0,
+            g_bmp_spb1024l->DrawSubRectMasked(rc.left, rc.top, 0, 0,
                 g_bmp_spb1024l->GetWidth(0), g_bmp_spb1024l->GetHeight(0));
-            g_bmp_spb1024r->VMethod10(rc.left + g_bmp_spellbook->GetWidth(0) - 0x10 + left, rc.top, 0, 0,
+            g_bmp_spb1024r->DrawSubRectMasked(rc.left + g_bmp_spellbook->GetWidth(0) - 0x10 + left, rc.top, 0, 0,
                 g_bmp_spb1024r->GetWidth(0), g_bmp_spb1024r->GetHeight(0));
         }
     }
-    g_bmp_spellbook->VMethod10(rc.left + left, rc.top, 0, 0,
+    g_bmp_spellbook->DrawSubRectMasked(rc.left + left, rc.top, 0, 0,
         g_bmp_spellbook->GetWidth(0), g_bmp_spellbook->GetHeight(0));
     for (int32_t i = 0; i < 24; i++) {
         if (((mc->field_0x148 | mc->field_0x150) & (1 << (i & 0x1F))) == 0) {
