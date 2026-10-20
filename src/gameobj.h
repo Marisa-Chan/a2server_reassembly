@@ -39,9 +39,9 @@ public:
 	virtual ~TokenEntry(); //4394bf
 
 	TokenEntry(); //438f90
-	TokenEntry(int arg); //439009
+	TokenEntry(int id1); //439009
 	TokenEntry(const TokenEntry* obj);
-	TokenEntry(uint8_t** data, int arg);
+	TokenEntry(uint8_t** data, int id1);
 
 	void operator=(const TokenEntry& obj);
 

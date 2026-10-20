@@ -1165,3 +1165,4 @@ Humanoid::ApplyHumanInfo param_2 -> data -- HumanInfoData array source (align he
 World::GroupAttackTargetCommand param_3 -> range -- attack range forwarded to OrderAttackTarget
 World::GroupFollowCommand param_3 -> range -- follow range forwarded to OrderFollowTarget
 World::RecordUnitHit param_4 -> hit_flag -- forwarded to Diplomacy::RecordHostility hit_flag
+TokenEntry::TokenEntry arg -> id1 -- primary id stored to field_0x4 (matched against id1 with slot_code as id2 in visual.cpp lookups)

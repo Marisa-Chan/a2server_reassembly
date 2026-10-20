@@ -518,8 +518,8 @@ TokenEntry::~TokenEntry() { //4394bf
 TokenEntry::TokenEntry() = default; //438f90
 
 
-TokenEntry::TokenEntry(int arg) { //439009
-    this->field_0x4 = arg;
+TokenEntry::TokenEntry(int id1) { //439009
+    this->field_0x4 = id1;
 }
 
 
@@ -528,7 +528,7 @@ TokenEntry::TokenEntry(const TokenEntry* obj) {
     operator=(*obj);
 }
 
-TokenEntry::TokenEntry(uint8_t** data, int arg) {
+TokenEntry::TokenEntry(uint8_t** data, int id1) {
     //439102
     this->slot_code = 0;
     this->field_0x14 = 0;
@@ -598,7 +598,7 @@ TokenEntry::TokenEntry(uint8_t** data, int arg) {
         this->flg |= pkt->flags;
     }
 
-    if (arg != 0) {
+    if (id1 != 0) {
         int val = *pdata;
         pdata++;
 
