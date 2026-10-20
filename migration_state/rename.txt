@@ -896,3 +896,4 @@ gfx: FUN_00454e40 -> CopyScreenBlock -- copies a 32px-aligned block between the 
 gfx: sub_457C5D -> FillRectBrightness -- fills a rect with a brightness-scaled add value via g_brightnessLookup
 gfx: FUN_0047c6cd -> UnloadUnitGfxFiles -- deletes all UnitGfxFile sprites
 game_app: FUN_00475e7a -> InitCpuAndDistTables -- hardcodes the MMX flag and fills the 21x21 squared-distance table
+game_app: sub_5499A6 -> RollRandomItem -- random item by level and gold budget (weapon/armor/shield/potion roll)

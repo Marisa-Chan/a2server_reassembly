@@ -909,7 +909,7 @@ int32_t __cdecl Random1N(int32_t n) {
 
 // 5498B8
 // Pick a random (shape_id, material_id, item_data_id) combo from an equip table, skipping empty shape/material slots.
-void __cdecl sub_5498B8(CArray<WorldEquip>* table, int32_t* shape_id, int32_t* material_id, int32_t* item_data_id, int32_t min_id) {
+void __cdecl RollItemDataId(CArray<WorldEquip>* table, int32_t* shape_id, int32_t* material_id, int32_t* item_data_id, int32_t min_id) {
     while (true) {
         *item_data_id = Random0N(table->GetSize() - 1 - min_id) + min_id;
         bool has_material = false;
@@ -949,7 +949,7 @@ Item* __cdecl sub_549372(CString category, int32_t min_price, int32_t max_price)
             item = nullptr;
 
             do {
-                sub_5498B8(&g_GameDataRes.weapons, &shape_id, &material_id, &item_data_id, 2);
+                RollItemDataId(&g_GameDataRes.weapons, &shape_id, &material_id, &item_data_id, 2);
             } while (item_data_id == 0xD || item_data_id == 0xE);
             item = new Weapon(shape_id, material_id, item_data_id);
 
@@ -968,7 +968,7 @@ Item* __cdecl sub_549372(CString category, int32_t min_price, int32_t max_price)
             delete item;
             item = nullptr;
 
-            sub_5498B8(&g_GameDataRes.armors, &shape_id, &material_id, &item_data_id, 3);
+            RollItemDataId(&g_GameDataRes.armors, &shape_id, &material_id, &item_data_id, 3);
             item = new Armor(shape_id, material_id, item_data_id);
 
             if (attempts++ > 50) {
@@ -986,7 +986,7 @@ Item* __cdecl sub_549372(CString category, int32_t min_price, int32_t max_price)
             delete item;
             item = nullptr;
 
-            sub_5498B8(&g_GameDataRes.shields, &shape_id, &material_id, &item_data_id, 1);
+            RollItemDataId(&g_GameDataRes.shields, &shape_id, &material_id, &item_data_id, 1);
             item = new Shield(shape_id, material_id, item_data_id);
 
             if (attempts++ > 50) {
