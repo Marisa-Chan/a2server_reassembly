@@ -181,7 +181,7 @@ void Resources::CloseFile(CFile* fil) {
     }
 }
 
-void Resources::FUN_004e6409(const char* fname) {
+void Resources::MarkFileSubstituted(const char* fname) {
     //4e6409
     for (int i = 0; i < this->res_files.GetSize(); i++) {
         FatEntry *fat = this->res_files[i]->FindEntry(fname);
@@ -211,7 +211,7 @@ void Resources::FUN_004e632d(const char* fname) {
             *pc = 0;
         }
 
-        ResFiles.FUN_004e6409(bufline);
+        ResFiles.MarkFileSubstituted(bufline);
     }
     fclose(f);
 }
