@@ -116,7 +116,7 @@ public:
 
     void Init(); // 5A457A
     void ReinitState(); // 5A44C5
-    void sub_5A44DB(); // 5A44DB
+    void BeginDestroy(); // 5A44DB
     void InitState(); // 5A3F3A
     void sub_5A3F88(); // 5A3F88
     void ConstructMembers(); // 5A3F9B
