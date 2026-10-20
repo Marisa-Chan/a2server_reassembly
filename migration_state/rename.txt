@@ -909,3 +909,4 @@ map_stuff: FUN_004a7b3c -> ReadRecord -- reads one length-prefixed record from a
 world: sub_5B6F30 -> RandInt -- std::rand() wrapper
 gameobj: FUN_004CD4B0 -> DegToRad -- degrees to radians
 spell: sub_5365AB -> CalcWalkDist -- pathfinding distance between two TokenPos
+unit: sub_5364D5 -> CalcMeleeDist -- size-adjusted distance between two units in subcells

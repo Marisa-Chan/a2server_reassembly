@@ -144,7 +144,7 @@ int16_t __cdecl CalcMeleeDist(Unit* self, Unit* target) {
 
 // Attack a unit.
 // 53685B
-void __cdecl sub_53685B(Unit* self, Unit* target) {
+void __cdecl ExecuteMeleeAttack(Unit* self, Unit* target) {
     if (target == nullptr || target->pOwner == nullptr || self == nullptr || self->pOwner == nullptr) {
         return;
     }
@@ -250,7 +250,7 @@ void __cdecl sub_53678F(Unit* self, Unit* target) {
         return;
     }
     if (target->IsUnit()) { // IsUnit
-        sub_53685B(self, target);
+        ExecuteMeleeAttack(self, target);
         return;
     }
     if (target->IsBuilding()) { // IsBuilding
