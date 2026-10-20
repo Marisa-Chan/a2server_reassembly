@@ -302,7 +302,7 @@ void World::FilterByRelation(Unit* unit, UnitList* list, int32_t flag) {
 // Removes non-allies (diplomacy bit 2 not set) and invisible allies that no group
 // member can see.
 // 5A39AD
-void World::sub_5A39AD(Unit* unit, UnitList* list) {
+void World::FilterBuffTargets(Unit* unit, UnitList* list) {
     if (list == nullptr) {
         return;
     }
@@ -1012,7 +1012,7 @@ void World::CastSelfHealOrBuff(Unit* unit) {
 
     PosYX yx = unit->position->GetYX();
     UnitList* list = this->field24_0xa50->BuildNearbyUnitList(yx, spell->max_range);
-    this->sub_5A39AD(unit, list);
+    this->FilterBuffTargets(unit, list);
 
     double best_ratio = 2.0;
     Unit* best_unit = nullptr;

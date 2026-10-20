@@ -346,7 +346,7 @@ public:
     void TeleportAwayFromEnemies(Unit* unit); // 5A8DBC — helper for FleeFromEnemies (ASM).
     void OrderWalkTo(Unit* unit, uint8_t a, uint8_t b); // 5A925C — helper for DoScriptedWalk (ASM).
 
-    void sub_5A39AD(Unit* unit, UnitList* list); // 5A39AD — filter UnitList for CastSelfHealOrBuff (ASM).
+    void FilterBuffTargets(Unit* unit, UnitList* list); // 5A39AD — filter UnitList for CastSelfHealOrBuff (ASM).
     void PickFallbackBuff(Unit* unit, UnitList* list); // 5B6862 — fallback buff selection for CastSelfHealOrBuff.
     void InitUnitCombatProfile(Unit* unit); // in asm
     void BuildAllyList(Group* group); // Build nearby friendly unit list from `group`.
