@@ -105,7 +105,7 @@ ShopAssortment::ShopAssortment() {
 
 // 54A2DD
 ShopAssortment::~ShopAssortment() {
-    this->sub_54BC09();
+    this->ClearItems();
 }
 
 // 54EDE9
@@ -190,7 +190,7 @@ Effect* __cdecl sub_54EDE9(int32_t is_warrior, int32_t item_type, int32_t sub_ty
 
 // 54BF6B
 void ShopAssortment::GenerateAssortment(AssortGenParams* params) {
-    this->sub_54BC09();
+    this->ClearItems();
     this->min_cost = params->min_cost;
     this->max_cost = params->max_cost;
     this->flags = params->flags;
@@ -212,7 +212,7 @@ void ShopAssortment::GenerateAssortment(AssortGenParams* params) {
 }
 
 // 54BC09
-void ShopAssortment::sub_54BC09() {
+void ShopAssortment::ClearItems() {
     for (int32_t i = 0; i < this->items.GetSize(); i++) {
         delete this->items[i];
     }
