@@ -99,7 +99,7 @@ int32_t Quest::Something3() {
 }
 
 // 4a4780
-uint32_t Quest::FUN_004a4780() {
+uint32_t Quest::GetLimit() {
     return this->quest_data.limit;
 }
 

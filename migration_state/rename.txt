@@ -781,3 +781,4 @@ Spell::sub_539541 -> SetPower -- sets max_range from spell info plus teleport po
 Spell::sub_5393C7 -> IsUnitSpell -- 1 when spell_target == 1 (unit-targeted)
 Spell::sub_539958 -> StartCast -- validates and starts the cast; nonzero if accepted
 Spell::sub_539C49 -> ExecuteRaySpell -- computes ray count, collects ray targets and applies the multi-hit spell
+Quest::VMethod1 -> OnEvent -- quest event handler: completes/fails on matching event ids, answers 0x11 queries with the quest id (12 subclass overrides)

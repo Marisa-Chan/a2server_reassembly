@@ -4374,7 +4374,7 @@ void VisQuestStatus::VMethod7() {
             quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], (const char*)unit_name, (const char*)area_name, (const char*)building_name);
             break;
         case 2:
-            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], quest->FUN_004a4780(), (const char*)unit_name);
+            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], quest->GetLimit(), (const char*)unit_name);
             break;
         case 3:
             quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], (const char*)area_name, (const char*)building_name);
@@ -4385,12 +4385,12 @@ void VisQuestStatus::VMethod7() {
             quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], (const char*)area_name);
             break;
         case 6:
-            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], quest->FUN_004a4780() / 0x3C0, (quest->FUN_004a4780() >> 4) % 0x3C, (const char*)area_name);
+            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], quest->GetLimit() / 0x3C0, (quest->GetLimit() >> 4) % 0x3C, (const char*)area_name);
             break;
         case 8:
         case 9:
         case 0xA:
-            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], quest->FUN_004a4780());
+            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], quest->GetLimit());
             break;
         case 0xB:
             quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], (const char*)unit_name);
@@ -13777,7 +13777,7 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
             quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], (const char*)unit_name, (const char*)area_name, (const char*)building_name);
             break;
         case 2:
-            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], quest->FUN_004a4780(), (const char*)unit_name);
+            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], quest->GetLimit(), (const char*)unit_name);
             break;
         case 3:
             quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], (const char*)area_name, (const char*)building_name);
@@ -13788,12 +13788,12 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
             quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], (const char*)area_name);
             break;
         case 6:
-            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], quest->FUN_004a4780() / 0x3C0, (quest->FUN_004a4780() >> 4) % 0x3C, (const char*)area_name);
+            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], quest->GetLimit() / 0x3C0, (quest->GetLimit() >> 4) % 0x3C, (const char*)area_name);
             break;
         case 8:
         case 9:
         case 0xA:
-            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], quest->FUN_004a4780());
+            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], quest->GetLimit());
             break;
         case 0xB:
             quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], (const char*)unit_name);
