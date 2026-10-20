@@ -221,7 +221,7 @@ void World::DestroyMembers() {
 // (field28_0xaa4) for `unit` by scanning all units in `pList`.
 // Invisible enemies that no group member can see are excluded.
 // 5A3AD6
-void World::sub_5A3AD6(Unit* unit, UnitList* pList) {
+void World::SplitTargetLists(Unit* unit, UnitList* pList) {
     this->field29_0xac4.unit_list.RemoveAll();
     this->field28_0xaa4.unit_list.RemoveAll();
 
@@ -1582,7 +1582,7 @@ int32_t World::sub_5A6ED9(Unit* caster, Unit* target) {
     case spell::blizzard: {
         this->BuildAllyList(caster->group);
         this->field26_0xa64.unit_list.AddTail(target);
-        this->sub_5A3AD6(caster, &this->field26_0xa64);
+        this->SplitTargetLists(caster, &this->field26_0xa64);
 
         bool adjust_pos = (caster->eye2->spell_id == spell::fire_ball) || (caster->eye2->spell_id == spell::wall_of_fire);
         uint8_t range = (caster->eye2->spell_id == spell::fire_ball) ? 1 : 2;
@@ -1632,7 +1632,7 @@ int32_t World::sub_5A6ED9(Unit* caster, Unit* target) {
         uint32_t mask = 1 << caster->eye2->spell_id;
         if ((target->enchantments & mask) == 0) {
             this->BuildAllyList(caster->group);
-            this->sub_5A3AD6(caster, &this->field26_0xa64);
+            this->SplitTargetLists(caster, &this->field26_0xa64);
             POSITION it = this->field29_0xac4.unit_list.GetHeadPosition();
             while (it != nullptr) {
                 Unit* other = this->field29_0xac4.unit_list.GetNext(it);
@@ -1654,7 +1654,7 @@ int32_t World::sub_5A6ED9(Unit* caster, Unit* target) {
 
     case spell::heal: {
         this->BuildAllyList(caster->group);
-        this->sub_5A3AD6(caster, &this->field26_0xa64);
+        this->SplitTargetLists(caster, &this->field26_0xa64);
 
         Unit* best_unit = nullptr;
         double best_ratio = 1.0;
@@ -1760,7 +1760,7 @@ void World::DoAutobuff(Unit* unit) {
 
     // Build nearby friendly unit list for the group.
     this->BuildAllyList(unit->group);
-    this->sub_5A3AD6(unit, &this->field26_0xa64);
+    this->SplitTargetLists(unit, &this->field26_0xa64);
 
     // Ally-heal.
     Spell* spell = this->GetCastableSpell(unit, spell::heal, 0);

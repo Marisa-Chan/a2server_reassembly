@@ -1029,3 +1029,4 @@ World::sub_5AE471 -> AssignBestTargets -- assigns each unit the best-scoring sca
 World::sub_5AE5C0 -> JitterGuardRangeWide -- guard_range = base + rand(-1..1) + 4
 World::sub_5AE5F5 -> JitterGuardRange -- guard_range = base + rand(-1..1)
 World::sub_5B6F40 -> RandomScaled -- RandInt() * multiplier / 0x8000
+World::sub_5B6F60 -> RandomRange -- uniform integer in [min, max]

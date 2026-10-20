@@ -310,7 +310,7 @@ public:
     void ScriptOP_0x26(TriggerAction* action);
     void ScriptOP_0x27(TriggerAction* action);
 
-    void sub_5A3AD6(Unit* unit, UnitList* pList); // Populate attack/non-attack target lists for unit from pList.
+    void SplitTargetLists(Unit* unit, UnitList* pList); // Populate attack/non-attack target lists for unit from pList.
     void FilterByRelation(Unit* unit, UnitList* list, int32_t flag); // 5A3896 — filter a UnitList by enemy/allied relationship.
     void PruneUnconsciousTargets(); // 5A3C5F — move unconscious targets out of field26_0xa64 into field27_0xa84.
     UnitList* GetNearbyUnits(Unit* unit); // 5A37C5 — get nearby UnitList around unit.
