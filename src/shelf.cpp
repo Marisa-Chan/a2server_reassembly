@@ -370,7 +370,7 @@ int CMultiShopTemplate::TryRefreshAssortment() {
 }
 
 // 547468
-CMultiShopInstance* CMultiShopTemplate::sub_547468(Humanoid* humanoid) {
+CMultiShopInstance* CMultiShopTemplate::FindInstanceFor(Humanoid* humanoid) {
     int32_t index = this->FindInstanceIndex(humanoid);
     if (index == -1) {
         return nullptr;
@@ -387,7 +387,7 @@ void CMultiShopTemplate::ClearShelves() {
 
 // 547B7B
 void CMultiShopTemplate::sub_547B7B(Unit* unit) {
-    CMultiShopInstance* instance = this->sub_547468(static_cast<Humanoid*>(unit));
+    CMultiShopInstance* instance = this->FindInstanceFor(static_cast<Humanoid*>(unit));
     if (instance == nullptr) {
         return;
     }
@@ -397,7 +397,7 @@ void CMultiShopTemplate::sub_547B7B(Unit* unit) {
 
 // 547BBC
 void CMultiShopTemplate::sub_547BBC(Unit* unit) {
-    CMultiShopInstance* instance = this->sub_547468(static_cast<Humanoid*>(unit));
+    CMultiShopInstance* instance = this->FindInstanceFor(static_cast<Humanoid*>(unit));
     if (instance == nullptr) {
         return;
     }
@@ -407,7 +407,7 @@ void CMultiShopTemplate::sub_547BBC(Unit* unit) {
 
 // 547D7F
 void CMultiShopTemplate::sub_547D7F(Unit* unit) {
-    CMultiShopInstance* instance = this->sub_547468(static_cast<Humanoid*>(unit));
+    CMultiShopInstance* instance = this->FindInstanceFor(static_cast<Humanoid*>(unit));
     if (instance == nullptr) {
         LogMessage("Invalid shop transaction - no such customer");
         return;
@@ -418,7 +418,7 @@ void CMultiShopTemplate::sub_547D7F(Unit* unit) {
 
 // 547BFD
 void CMultiShopTemplate::sub_547BFD(Unit* unit, int amount, Item* item) {
-    CMultiShopInstance* instance = this->sub_547468(static_cast<Humanoid*>(unit));
+    CMultiShopInstance* instance = this->FindInstanceFor(static_cast<Humanoid*>(unit));
     if (instance == nullptr) {
         LogMessage("Invalid shop transaction - no such customer");
         return;
@@ -429,7 +429,7 @@ void CMultiShopTemplate::sub_547BFD(Unit* unit, int amount, Item* item) {
 
 // 547C5A
 Item* CMultiShopTemplate::sub_547C5A(Humanoid* humanoid, int16_t src_slot, int32_t count) {
-    CMultiShopInstance* instance = this->sub_547468(humanoid);
+    CMultiShopInstance* instance = this->FindInstanceFor(humanoid);
     if (instance == nullptr) {
         LogMessage("Invalid shop transaction - no such customer");
         return nullptr;
@@ -499,7 +499,7 @@ CMultiShopInstance* CMultiShopTemplate::CreateInstance(Unit* unit) {
 
 // 547CB9
 void CMultiShopTemplate::sub_547CB9(Humanoid* humanoid, uint8_t op_type, int16_t src_slot, uint8_t dst_type, int16_t dst_word, int32_t count) {
-    CMultiShopInstance* shop_instance = this->sub_547468(humanoid);
+    CMultiShopInstance* shop_instance = this->FindInstanceFor(humanoid);
     if (shop_instance == nullptr) {
         LogMessage("Invalid shop transaction - no such customer");
         return;

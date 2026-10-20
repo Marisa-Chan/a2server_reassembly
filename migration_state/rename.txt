@@ -739,3 +739,4 @@ CMultiShopTemplate::sub_546F8D -> CreateInstance -- creates a shop instance for 
 CMultiShopTemplate::sub_54740C -> FindInstanceIndex -- index of the instance owned by the unit's owner
 CMultiShopTemplate::sub_54749F -> ClearShelves -- clears all four shelves
 CMultiShopTemplate::sub_547DD4 -> RefreshTick -- every 180 ticks bumps the refresh counter and tries a refresh
+CMultiShopTemplate::sub_547E91 -> TryRefreshAssortment -- regenerates the assortment when flagged and no live instances

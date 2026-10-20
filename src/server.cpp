@@ -217,7 +217,7 @@ void Server::ProcessPlayers() {
             if (!player->is_ai && player->main_unit != nullptr) {
                 Shop* shop = this->FindShopAt(player->main_unit->position);
                 if (shop != nullptr && shop->shop_template != nullptr) {
-                    if (shop->shop_template->sub_547468(player->main_unit) != nullptr) {
+                    if (shop->shop_template->FindInstanceFor(player->main_unit) != nullptr) {
                         shop->shop_template->sub_5479C6(player->main_unit);
                         if (this->field4_0x74 != 0) {
                             player->main_unit->ReturnToMap();
