@@ -3973,7 +3973,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
     if (this->sessionMode != 3) {
         this->ShowMainRightPanel();
         this->LoadObjectGfx();
-        this->FUN_0047efdf();
+        this->LoadStructureGfx();
         this->FUN_0047e612();
 
         this->pending_game_mode = mode;
@@ -4338,7 +4338,7 @@ void MainWindow::LoadObjectGfx() { // 47a5e6
     }
 }
 
-void MainWindow::FUN_0047efdf() { //47efdf
+void MainWindow::LoadStructureGfx() { //47efdf
     RegFile reg("graphics\\structures\\structures.reg");
 
     char buf[64];
