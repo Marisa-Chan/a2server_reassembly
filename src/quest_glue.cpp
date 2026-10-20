@@ -317,6 +317,6 @@ uint8_t QuestInnGlue::GetX() {
 }
 
 // 5BB32B
-uint8_t QuestInnGlue::VMethod9() {
+uint8_t QuestInnGlue::GetY() {
     return this->position->GetY();
 }

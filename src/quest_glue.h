@@ -26,7 +26,7 @@ public: // VTable at 60fde8.
     virtual void SpawnSkeletonMobs(Quest* quest);
     virtual void SpawnGhostMobs(Quest* quest);
     virtual uint8_t GetX();
-    virtual uint8_t VMethod9();
+    virtual uint8_t GetY();
 
 public:
     QuestInnGlue(int32_t building_id, TokenPos* pos, World* world, int32_t max_dist); // sub_5BA8E0
