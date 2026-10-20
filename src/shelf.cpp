@@ -226,7 +226,7 @@ void CMultiShopInstance::MoveItems(uint8_t src_type, int16_t src_slot, uint8_t d
 }
 
 // 54668B
-void CMultiShopInstance::sub_54668B() {
+void CMultiShopInstance::ReturnConsignedItems() {
     if (this->inventory.items.GetCount() == 0) {
         return;
     }
@@ -413,7 +413,7 @@ void CMultiShopTemplate::sub_547D7F(Unit* unit) {
         return;
     }
     instance->SetUnit(unit);
-    instance->sub_54668B();
+    instance->ReturnConsignedItems();
 }
 
 // 547BFD

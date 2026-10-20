@@ -103,7 +103,7 @@ public:
     void MoveItems(uint8_t src_type, int16_t src_slot, uint8_t dst_type, int16_t dst_slot, int32_t count); // 546577
     void SellItemFor(int amount, Item* item); // 546537 - add item to inventory
     Item* PickItem(int item_number, int count); // 546557 - pick item from inventory
-    void sub_54668B(); // 54668B
+    void ReturnConsignedItems(); // 54668B
     Unit* SetUnit(Unit* unit); // 546857
 };
 ASSERT_OFFSET(CMultiShopInstance, unit, 0x74);
