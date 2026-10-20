@@ -396,7 +396,7 @@ public:
     void ProcessPlayersTick(); //4919b1
 
     void ShowRightPanelInfo(); //485a41
-    void FUN_00485aed(); //485aed in asm
+    void ClearVisualTree(); //485aed in asm
 
     void ModalScreen(VisScreen* scr); //494a31
 

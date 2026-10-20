@@ -654,7 +654,7 @@ void MainWindow::OnDestroy() {
     UnloadAllSfx();
     SaveSettings();
     this->DestroyServer();
-    this->FUN_00485aed();
+    this->ClearVisualTree();
 
     if (this->music_player != nullptr) {
         delete this->music_player;
@@ -1302,7 +1302,7 @@ void MainWindow::ProcessPlayersTick() {
 }
 
 // 485aed
-void MainWindow::FUN_00485aed() {
+void MainWindow::ClearVisualTree() {
     this->vis_right_panel->RemoveAllChilds();
     this->vis_root->RemoveAllChilds();
     this->vis_map_context->RemoveAllChilds();
