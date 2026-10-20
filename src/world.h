@@ -118,7 +118,7 @@ public:
     void ReinitState(); // 5A44C5
     void BeginDestroy(); // 5A44DB
     void InitState(); // 5A3F3A
-    void sub_5A3F88(); // 5A3F88
+    void DestroyState(); // 5A3F88
     void ConstructMembers(); // 5A3F9B
     void sub_5A4284(); // 5A4284
     void ResetMatchState(); // 5A4757

@@ -142,7 +142,7 @@ void World::ReinitState() {
 
 // 5A44DB
 void World::BeginDestroy() {
-    this->sub_5A3F88();
+    this->DestroyState();
 }
 
 // 5A3F3A
@@ -156,7 +156,7 @@ void World::InitState() {
 }
 
 // 5A3F88
-void World::sub_5A3F88() {
+void World::DestroyState() {
     this->sub_5A4284();
 }
 
