@@ -213,7 +213,7 @@ public:
 
     void SendHatLogin(CString name); //51e205 - Send hat login packet
     void SendHatLobbyInfo(int32_t player_count, CString source, int32_t map_level, int32_t game_type, int32_t map_range); //51e289 - Send hat lobby info packet
-    void SendHatCharData(int32_t hat_char_id1, int32_t param2, CString name, void* data, uint32_t size, uint16_t player_id);
+    void SendHatCharData(int32_t hat_char_id1, int32_t hat_char_id2, CString name, void* data, uint32_t size, uint16_t player_id);
     void SendHatMessage(int32_t param1, int32_t param2, CString name, void* data, uint32_t size, uint16_t player_id);
     void SendHatKeepalive(uint16_t player_id);
     void SendHatRawString(const char* str, int32_t len); // 51E40C - Send raw string data to HAT
