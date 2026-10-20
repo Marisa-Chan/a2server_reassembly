@@ -1940,7 +1940,7 @@ void CUnit::Draw(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
         int32_t x = this->centerScreenX - cx;
         int32_t y = this->centerScreenY - cy - this->terrainHeightOffset - this->z_pos;
         if (this->FindEffectTimer(0x20) < 0) {
-            this->sprite->VMethod1(x, y, frame, arg3, palette, flip);
+            this->sprite->DrawWithPalette(x, y, frame, arg3, palette, flip);
         } else {
             if (map->my_main_unit->IsVisibleTo(this->map_player->index) == 0) {
                 return;
@@ -1962,7 +1962,7 @@ void CUnit::Draw(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
         int32_t x = this->centerScreenX - cx;
         int32_t y = this->centerScreenY - cy - this->terrainHeightOffset - this->z_pos;
         if (this->FindEffectTimer(0x20) < 0) {
-            gfx_file->GetSprite()->VMethod1(x, y, frame, arg3, palette, flip);
+            gfx_file->GetSprite()->DrawWithPalette(x, y, frame, arg3, palette, flip);
         } else {
             if (map->my_main_unit->IsVisibleTo(this->map_player->index) == 0) {
                 return;
@@ -4598,7 +4598,7 @@ void CProjectile::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
         break;
     default:
         if (info->palette == 0) {
-            info->GetSprite()->VMethod1(x, y, sprite_idx, arg3, g_pal_projectiles, flip);
+            info->GetSprite()->DrawWithPalette(x, y, sprite_idx, arg3, g_pal_projectiles, flip);
         } else {
             info->GetSprite()->VMethod2(x, y, sprite_idx, arg3, flip);
             CSprite256* sprite2 = info->GetSpriteB();

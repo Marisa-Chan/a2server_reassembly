@@ -298,7 +298,7 @@ public:
 	virtual ~CGameBitmap();
 	virtual void Dump(CDumpContext& dc) const override;
 
-	virtual void VMethod1(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode);
+	virtual void DrawWithPalette(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode);
 	virtual void VMethod2(int32_t x, int32_t y, int frame, int mode, int palid);
 	virtual void VMethod3(int32_t x, int32_t y, int frame, int blevel, int mode);
 	virtual int32_t GetWidth(int frame = 0);
@@ -378,7 +378,7 @@ public:
 	virtual ~CSprite256();
 	virtual void Dump(CDumpContext& dc) const override;
 
-	virtual void VMethod1(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode) override;
+	virtual void DrawWithPalette(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode) override;
 	virtual void VMethod2(int32_t x, int32_t y, int frame, int palid, int mode) override;
 	virtual void VMethod3(int32_t x, int32_t y, int frame, int blevel, int mode) override;
 

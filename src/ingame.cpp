@@ -5581,7 +5581,7 @@ void BigStruct2::sub_406F7B() {
 					cy = (gobj->center_y - gobj->height / 2) + spr->GetHeight(frame) / 2;
 					draw_x = (x * 0x20 + 0x10) - cx;
 					draw_y = ((y * 0x20 + 0x10) - cy) - hgt2;
-					spr->VMethod1(draw_x, draw_y, frame, light2, palette, 0);
+					spr->DrawWithPalette(draw_x, draw_y, frame, light2, palette, 0);
 					if (g_settings.Smoothing != 0) {
 						cx = (gobj->center_x - gobj->width / 2) + spr_b->GetWidth(frame) / 2;
 						cy = (gobj->center_y - gobj->height / 2) + spr_b->GetHeight(frame) / 2;

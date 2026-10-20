@@ -4125,7 +4125,7 @@ void CGameBitmap::Dump(CDumpContext& dc) const { //424d3d
 	//dc << "CGameBitmap";
 }
 
-void CGameBitmap::VMethod1(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode) {
+void CGameBitmap::DrawWithPalette(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode) {
 	//428d60
 }
 
@@ -4534,7 +4534,7 @@ CSprite256::~CSprite256() { //4289a0
 void CSprite256::Dump(CDumpContext& dc) const { //425558
 }
 
-void CSprite256::VMethod1(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode) { //425210
+void CSprite256::DrawWithPalette(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode) { //425210
 	const uint16_t* pal = ppalette->GetPalette(palid);
 	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 	if (mode == 0) {
