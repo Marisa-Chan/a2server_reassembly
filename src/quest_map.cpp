@@ -51,7 +51,7 @@ void QuestMap::sub_55DE84() {
 }
 
 // 55E00C
-void QuestMap::sub_55E00C() {
+void QuestMap::ProcessDeferredEvents() {
 	this->sub_55E027();
 	this->sub_55DE84();
 }

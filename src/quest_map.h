@@ -34,7 +34,7 @@ public:
     QuestMap(); // sub_55D579
 
     void DeleteGlues(); // Reset quest state
-    void sub_55E00C();
+    void ProcessDeferredEvents();
     void sub_55E027();
     void sub_55DE84();
     void sub_55DD10(int32_t event_type, int32_t a, int32_t b); // Fire a quest event

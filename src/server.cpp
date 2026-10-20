@@ -4814,7 +4814,7 @@ void Server::ServerTic() {
         this->srv_stru1->UpdateMapObjects();
         g_PlayersList->ProcessPlayerTimeouts();
         g_NetStru1_main.UpdateConnStats();
-        g_QuestMap.sub_55E00C();
+        g_QuestMap.ProcessDeferredEvents();
 
         POSITION pos = g_QuestMap.flags.GetStartPosition();
         while (pos != nullptr) {
