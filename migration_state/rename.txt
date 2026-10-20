@@ -1080,3 +1080,6 @@ NetStru1::sub_51C59C -> SendUnitTurn -- notifies clients that a unit turned to f
 Unit::sub_59A030 -> MovementType -- thin wrapper of GetMovementType kept for former ASM call sites
 CSprite16::VMethod9 -> DrawRle4 -- BlitRle4 with a color-table pointer (4-bit sprite variant)
 MapPlayerData::FUN_0041edf0 -> KnowsPlayer -- diplomacy[idx] & 4; gates repeat join announcements (client-side map data bit)
+
+ARGUMENTS
+=========
