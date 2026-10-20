@@ -732,3 +732,4 @@ CMultiShopInstance::sub_546857 -> SetUnit -- swaps the browsing unit, returns th
 CMultiShopInstance::sub_546557 -> PickItem -- takes count of an item from the instance inventory
 CMultiShopInstance::sub_546577 -> MoveItems -- moves items between bag/shop by src/dst type+slot (op dispatch)
 CMultiShopInstance::sub_546537 -> SellItemFor -- queues the item into the instance inventory for the given amount
+CMultiShopInstance::sub_54668B -> ReturnConsignedItems -- puts items the player owns back into their bag

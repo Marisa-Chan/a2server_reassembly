@@ -131,8 +131,8 @@ void CMultiShopInstance::Sell() {
     if (any_sold) {
         this->shop_template->sub_546F18(this, -1);
     }
-    this->sub_5464B6(0);
-    this->sub_5464B6(-1);
+    this->SendShelfState(0);
+    this->SendShelfState(-1);
     this->unit->pOwner->sub_534AC1(0, 0);
     this->unit->AddCarriedWeight(0);
     g_NetStru1_main.SendUnitUpdate(this->unit, this->unit->pOwner, 0x282000, 0xFFB, 0, 0);
@@ -158,7 +158,7 @@ void CMultiShopInstance::Buy() {
         }
     }
 
-    this->sub_5464B6(0);
+    this->SendShelfState(0);
     this->unit->pOwner->sub_534AC1(0, 0);
     this->unit->AddCarriedWeight(0);
     g_NetStru1_main.SendUnitUpdate(this->unit, this->unit->pOwner, 0x282000, 0xFFB, 0, 0);
@@ -182,7 +182,7 @@ Unit* CMultiShopInstance::SetUnit(Unit* new_unit) {
 }
 
 // 5464B6
-void CMultiShopInstance::sub_5464B6(int32_t param) {
+void CMultiShopInstance::SendShelfState(int32_t param) {
     if (param == 0) {
         Token* shop_token = nullptr;
         if (this->shop_template != nullptr) {
@@ -202,13 +202,13 @@ void CMultiShopInstance::MoveItems(uint8_t src_type, int16_t src_slot, uint8_t d
     if (src_type == 4) {
         item = this->PickItem(src_slot, count);
         if (item == nullptr || item->count == 0) {
-            this->sub_5464B6(0);
+            this->SendShelfState(0);
             return;
         }
     } else {
         item = this->shelves[src_type - 5].PickItem(src_slot, count);
         if (item == nullptr || item->count == 0) {
-            this->sub_5464B6(src_type - 4);
+            this->SendShelfState(src_type - 4);
             return;
         }
         this->shop_template->sub_546F18(this, src_type - 4);
@@ -241,8 +241,8 @@ void CMultiShopInstance::ReturnConsignedItems() {
     }
 
     this->inventory.items.RemoveAll();
-    this->sub_5464B6(0);
-    this->sub_5464B6(-1);
+    this->SendShelfState(0);
+    this->SendShelfState(-1);
     this->shop_template->sub_546F18(this, -1);
     g_NetStru1_main.SendUnitUpdate(this->unit, this->unit->pOwner, 0x282000, 0xFFB, 0, 0);
 }
@@ -344,7 +344,7 @@ void CMultiShopTemplate::sub_546F18(CMultiShopInstance* inst, int param) {
     for (int32_t i = 0; i < this->shop_instances.GetSize(); i++) {
         CMultiShopInstance* other = this->shop_instances[i];
         if (other != nullptr && other != inst) {
-            other->sub_5464B6(param);
+            other->SendShelfState(param);
         }
     }
 }
@@ -449,7 +449,7 @@ void CMultiShopTemplate::sub_547644(Unit* unit) {
     CMultiShopInstance* shop_instance = this->sub_546F8D(unit);
     shop_instance->SetUnit(unit);
     this->shop_instances.SetAtGrow(this->shop_instances.GetSize(), shop_instance);
-    shop_instance->sub_5464B6(-1);
+    shop_instance->SendShelfState(-1);
 }
 
 // 5474D8
