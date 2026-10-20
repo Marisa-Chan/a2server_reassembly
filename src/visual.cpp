@@ -16392,7 +16392,7 @@ void VisInvType1::VMethod7() {
 
         for (int32_t j = 0; j < 9; j++) {
             entry = this->grid_source->GetAt(i + *this->visible_startref);
-            if (main_wnd->m_GameSession.shortcuts[j].FUN_0041e3af(entry) != 0) {
+            if (main_wnd->m_GameSession.shortcuts[j].MatchesItem(entry) != 0) {
                 char key_buf[0x50];
                 sprintf(key_buf, "F%d", j + 4);
                 g_font3->DrawTextWithShadow(cell_x + 3, screen_rect.top + 8, key_buf, 0, clrsh_ShockingBlack, 1);
@@ -16478,7 +16478,7 @@ int32_t VisInvType1::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
                 if (idx >= 0) {
                     main_wnd->m_GameSession.shortcuts[wparam].sub_41E343(this->grid_source->GetAt(idx));
                     for (int32_t i = 0; i < 9; i++) {
-                        if (i != wparam && main_wnd->m_GameSession.shortcuts[i].FUN_0041e3af(this->grid_source->GetAt(idx)) != 0) {
+                        if (i != wparam && main_wnd->m_GameSession.shortcuts[i].MatchesItem(this->grid_source->GetAt(idx)) != 0) {
                             main_wnd->m_GameSession.shortcuts[i].kind = 0;
                         }
                     }
@@ -16488,7 +16488,7 @@ int32_t VisInvType1::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
         } else {
             if (this->grid_source != nullptr) {
                 for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
-                    if (main_wnd->m_GameSession.shortcuts[wparam].FUN_0041e3af(this->grid_source->GetAt(i)) != 0) {
+                    if (main_wnd->m_GameSession.shortcuts[wparam].MatchesItem(this->grid_source->GetAt(i)) != 0) {
                         TokenEntry* entry = this->VMethod36(i, 1);
                         if (entry != nullptr) {
                             main_wnd->vis_charinfo->VMethod27(entry->GetType() - 1);

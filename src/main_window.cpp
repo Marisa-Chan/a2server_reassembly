@@ -5991,7 +5991,7 @@ int UserShortcut::ToBuffer(uint8_t** buf) { //41e5ed
 }
 
 
-int32_t UserShortcut::FUN_0041e3af(TokenEntry* entry) { //41e3af
+int32_t UserShortcut::MatchesItem(TokenEntry* entry) { //41e3af
     if (entry == nullptr) {
         return 0;
     }

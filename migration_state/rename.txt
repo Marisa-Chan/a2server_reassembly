@@ -874,3 +874,4 @@ CGameSession::FUN_00493d8d -> ResetCharacter -- resets money/kills and writes th
 CGameSession::FUN_00494687 -> ResetUnitClass -- clears body/sphere and recreates the local unit
 CGameSession::FUN_0049381c -> SetNameAndColor -- applies a Name:color string to the local unit
 UserShortcut::FUN_0041e323 -> SetSpell -- kind=1 shortcut for a spell id
+UserShortcut::FUN_0041e456 -> IsSpellShortcut -- 1 when the shortcut is that spell
