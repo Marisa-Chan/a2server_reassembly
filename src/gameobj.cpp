@@ -2217,14 +2217,14 @@ void TransientVisualEffectBuilder::AddOffsetElement(int16_t height, uint8_t effe
 }
 
 // 4cd4b0
-double FUN_004CD4B0(int32_t degrees) {
+double DegToRad(int32_t degrees) {
     return degrees * (3.141592653589793 / 180.0);
 }
 
 // 4ccaf2
 void TransientVisualEffectBuilder::BuildGroundRing(int16_t height, float radius, uint32_t phase) {
     for (int32_t angle = 0x59; angle > 0; angle -= 0x12) {
-        double rad = FUN_004CD4B0(angle + (phase & 0xFF) * 0x12);
+        double rad = DegToRad(angle + (phase & 0xFF) * 0x12);
         int16_t x = (int16_t)(std::cos(rad) * radius);
         int16_t z = (int16_t)(std::sin(rad) * radius);
         uint8_t anim_phase = 4 - angle / 0x12;
@@ -2238,7 +2238,7 @@ void TransientVisualEffectBuilder::BuildGroundRing(int16_t height, float radius,
 // 4cc798
 void TransientVisualEffectBuilder::BuildTiltedRing(int32_t x, int32_t y, int32_t height, float speed, float radius, int32_t angle) {
     float y_scale = speed / radius;
-    double rad = FUN_004CD4B0(angle);
+    double rad = DegToRad(angle);
     double cos_a = std::cos(rad);
     double sin_a = std::sin(rad);
     double anim_scale = 5.0 / speed;
@@ -2448,7 +2448,7 @@ int32_t TransientVisualEffectBuilder::BuildRisingParticles(CArray<GO_11c>* exist
 
     int32_t count = std::rand() % 3 + 3;
     for (int32_t i = 0; i < count; i++) {
-        double rad = FUN_004CD4B0(std::rand() % 360);
+        double rad = DegToRad(std::rand() % 360);
         GO_11c elem;
         elem.x = (int16_t)(std::cos(rad) * x_radius);
         elem.y = 0;
@@ -2478,7 +2478,7 @@ int32_t TransientVisualEffectBuilder::BuildFallingParticles(CArray<GO_11c>* exis
 
     int32_t count = std::rand() % 3 + 3;
     for (int32_t i = 0; i < count; i++) {
-        double rad = FUN_004CD4B0(std::rand() % 0x168);
+        double rad = DegToRad(std::rand() % 0x168);
         GO_11c elem;
         elem.x = (int16_t)(std::cos(rad) * x_radius);
         elem.y = -z_radius;
@@ -2514,7 +2514,7 @@ void TransientVisualEffectBuilder::BuildEnergyColumn(int16_t height, float speed
 // 4ccc7b
 void TransientVisualEffectBuilder::BuildGroundRingReversed(int16_t height, float radius, uint32_t phase) {
     for (int32_t angle = 0; angle < 0x5A; angle += 0x12) {
-        double rad = FUN_004CD4B0(angle + (phase & 0xFF) * 0x12);
+        double rad = DegToRad(angle + (phase & 0xFF) * 0x12);
         int16_t x = (int16_t)(std::cos(rad) * radius);
         int16_t z = (int16_t)(std::sin(rad) * radius);
         uint8_t anim_phase = 4 - angle / 0x12;

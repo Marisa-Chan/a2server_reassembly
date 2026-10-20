@@ -906,3 +906,4 @@ server: sub_4FA768 -> SendFragLimit -- sends the 0x5C frag-limit packet to a pla
 server: sub_5049D1 -> ParseCountPrefix -- parses the leading count of a #create cheat argument
 file: sub_4F1D0D -> CalcFileChecksum -- padded dword-sum checksum of a file
 map_stuff: FUN_004a7b3c -> ReadRecord -- reads one length-prefixed record from a File2
+world: sub_5B6F30 -> RandInt -- std::rand() wrapper
