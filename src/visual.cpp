@@ -21994,7 +21994,7 @@ void VisFameDocument::UpdateArrowStates() {
 // 4AE638
 void VisFameDocument::NextDoc() {
     Fame2& doc = this->fame->m_Documents[this->selected_doc];
-    if (!doc.FUN_004abf35()) {
+    if (!doc.ScrollDown()) {
         this->selected_doc = this->selected_doc + 1;
         int32_t last = this->fame->m_Documents.GetUpperBound();
         if (this->selected_doc >= last) {

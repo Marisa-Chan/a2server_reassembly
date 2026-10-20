@@ -165,7 +165,7 @@ void Fame2::operator=(const Fame2& b) {
     this->top_line = b.top_line;
 }
 
-bool Fame2::FUN_004abf35() { //4abf35
+bool Fame2::ScrollDown() { //4abf35
     int32_t next = this->top_line + 0x15;
     if (next < this->str_arr.GetSize()) {
         this->top_line = next;

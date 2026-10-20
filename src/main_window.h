@@ -81,7 +81,7 @@ struct Fame2 {
     void SetDocument(int32_t arg1, uint32_t arg2);
     int32_t GetDocId();
     uint32_t GetIsText();
-    bool FUN_004abf35(); // 4abf35 in asm
+    bool ScrollDown(); // 4abf35 in asm
     int32_t FUN_004abf72(); // 4abf72 in asm
     void FUN_004abfb1(int32_t x, int32_t y); // 4abfb1 in asm
     void FUN_004ac0af(); // 4ac0af in asm
