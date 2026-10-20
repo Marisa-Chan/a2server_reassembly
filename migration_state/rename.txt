@@ -1160,3 +1160,4 @@ MapStuff::GetSackAt param_3 -> y -- map cell y passed to PosYX
 MapStuff::ClampPosToMap param_3 -> range -- movement range in tiles, << 8 into position units (align header with definition)
 Effect::ApplyStatDelta param_3/param -> stack_delta -- effect stack count multiplier (callers pass +1 apply / -1 remove)
 Effect::RollStrength param -> power -- upper bound for Random1N strength roll (align header with definition)
+ShopAssortment::AddItems param_5 -> is_magic -- skips the cost filter for magic items (align header with definition)
