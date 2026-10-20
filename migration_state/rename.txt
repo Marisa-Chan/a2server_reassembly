@@ -1039,3 +1039,4 @@ World::sub_5A8BDA -> MustFlee -- hp at or below withdraw and enemies within 2 ti
 World::sub_5A8CD8 -> FleeFromEnemies -- flee behavior: teleport away if possible else run
 World::sub_5A8DBC -> TeleportAwayFromEnemies -- teleports using the avg enemy position as the escape direction
 World::sub_5A925C -> OrderWalkTo -- state 4 walk order to x/y (scripted walks)
+World::sub_5A5568 -> TickAttackTarget -- state 8 per-tick attack behavior: chase, cast or melee, close distance

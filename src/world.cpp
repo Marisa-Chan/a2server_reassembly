@@ -3627,7 +3627,7 @@ void World::TickAttackTarget(Unit* unit, Unit* target) {
 }
 
 // 5A56D7
-void World::sub_5A56D7(Unit* unit, Unit* target) {
+void World::TickFollowTarget(Unit* unit, Unit* target) {
     uint8_t range = unit->eye2->range;
     uint8_t distance = this->field24_0xa50->ChebyshevDistanceXY(
         unit->position->GetX(),
@@ -4030,7 +4030,7 @@ void World::ProcessUnitState(Unit* unit) {
         this->BeginEnterBuilding(unit, unit->eye2->field51_0x68);
         break;
     case 17:
-        this->sub_5A56D7(unit, unit->eye2->unit2);
+        this->TickFollowTarget(unit, unit->eye2->unit2);
         break;
     case 22:
         this->DoTeleportHome(unit);
