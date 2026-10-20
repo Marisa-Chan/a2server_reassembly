@@ -1147,3 +1147,4 @@ SackList::DumpInventoryAt param_5 -> force_save -- forces sack->needs_save = 1
 Server::ResetArenaRound arg -> end_reason -- 0x5c packet value: 1 = frag limit reached, 2 = time limit reached
 Server::SignalGameStart arg -> start_kind -- 0xc3 packet value (callers pass 0/1/3/4)
 Server::JoinErrorSend arg -> error_code -- 0xb join-error packet value (1 name too short, 2 restricted, 3 in use, 8 demo/release)
+Quest::OnEvent param_2 -> event_type -- matches QuestMap::OnEvent dispatcher vocabulary (1=complete 2=failed 4=kill 0x11=inn candidate ...)
