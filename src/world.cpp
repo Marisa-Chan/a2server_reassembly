@@ -3619,7 +3619,7 @@ void World::TickAttackTarget(Unit* unit, Unit* target) {
         if (cast_action != 5 && cast_action != 6 && cast_action != 8 && cast_action != 9) {
             if (distance < 2) {
                 uint32_t packed_yyxx = (target->position->GetY() << 24) | (target->position->GetX() << 8);
-                int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, range);
+                int16_t result = this->field24_0xa50->ClampPosToMap(unit, packed_yyxx, range);
                 this->DoMoveStep(unit, result);
             }
         }
@@ -3640,7 +3640,7 @@ void World::TickFollowTarget(Unit* unit, Unit* target) {
         this->BeginChase(unit, target, range);
     } else if (distance < 2) {
         uint32_t packed_yyxx = (target->position->GetY() << 24) | (target->position->GetX() << 8);
-        int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, range);
+        int16_t result = this->field24_0xa50->ClampPosToMap(unit, packed_yyxx, range);
         this->DoMoveStep(unit, result);
     } else {
         this->SetIdleOrRetreat(unit, 0);
@@ -3676,7 +3676,7 @@ void World::DoTeleportHome(Unit* unit) {
         this->SetIdleOrRetreat(unit, 0);
     } else {
         uint32_t packed_yyxx = this->ComputeListAvgPos(list);
-        int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, 3);
+        int16_t result = this->field24_0xa50->ClampPosToMap(unit, packed_yyxx, 3);
         this->DoMoveStep(unit, result);
     }
 }
@@ -3702,7 +3702,7 @@ void World::TeleportToSafety(Unit* unit) {
         this->SetIdleOrRetreat(unit, 0);
     } else {
         uint32_t packed_yyxx = this->ComputeListAvgPos(list);
-        int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, range);
+        int16_t result = this->field24_0xa50->ClampPosToMap(unit, packed_yyxx, range);
 
         Spell* spell = this->GetCastableSpell(unit, spell::teleport, 0);
         if (spell != nullptr) {
@@ -3732,7 +3732,7 @@ void World::TeleportAwayFromEnemies(Unit* unit) {
         this->DoGuardScan(unit);
     } else {
         uint32_t packed_yyxx = this->ComputeListAvgPos(list);
-        int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, range);
+        int16_t result = this->field24_0xa50->ClampPosToMap(unit, packed_yyxx, range);
         Spell* spell = this->GetCastableSpell(unit, spell::teleport, 0);
         if (spell != nullptr) {
             unit->eye2->field49_0x60 = 1;
@@ -3795,7 +3795,7 @@ void World::FleeFromEnemies(Unit* unit) {
         this->DoGuardScan(unit);
     } else {
         uint32_t packed_yyxx = this->ComputeListAvgPos(list);
-        int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, 3);
+        int16_t result = this->field24_0xa50->ClampPosToMap(unit, packed_yyxx, 3);
         this->DoMoveStep(unit, result);
     }
 }

@@ -2511,7 +2511,7 @@ int16_t MapStuff::FindCheapestCellNear(Unit* unit, int32_t zero, uint16_t yx, ui
 }
 
 // 5936D2 --- Project a point `range` tiles away from unit along the line from packed_yyxx through the unit, clamped to the map with an 8-tile border.
-int16_t MapStuff::sub_5936D2(Unit* unit, uint32_t packed_yyxx, uint8_t range) {
+int16_t MapStuff::ClampPosToMap(Unit* unit, uint32_t packed_yyxx, uint8_t range) {
     uint16_t target_xx = packed_yyxx & 0xFFFF;
     uint16_t target_yy = packed_yyxx >> 16;
     uint16_t unit_xx = unit->position->GetXx();
