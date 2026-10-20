@@ -482,12 +482,12 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
             int32_t ok;
             if ((this->flags & 0x10000000) != 0) {
                 if (Random0N(100) > 50) {
-                    ok = this->sub_54EA76(item);
+                    ok = this->AddMagicToItem(item);
                 } else {
                     ok = 1;
                 }
             } else {
-                ok = this->sub_54EA76(item);
+                ok = this->AddMagicToItem(item);
             }
 
             if (ok == 0 || item->_exp < min_cost || item->_exp > max_cost) {
@@ -524,7 +524,7 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
 }
 
 // 54EA76
-int32_t ShopAssortment::sub_54EA76(Item* item) {
+int32_t ShopAssortment::AddMagicToItem(Item* item) {
     int32_t is_warrior = (item->world_equip->Values()[0].other_param & 1) != 0;
     int32_t item_type = item->item_type;
     int32_t local_18 = (item->item_id >> 8) & 0xF;

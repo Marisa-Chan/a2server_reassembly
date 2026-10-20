@@ -763,3 +763,4 @@ ShopAssortment::sub_54C08A -> Reset -- resets fields
 ShopAssortment::sub_54BC09 -> ClearItems -- deletes all items
 ShopAssortment::sub_54ACCB -> AddItemsFlags -- applies flags to WorldEquip items
 ShopAssortment::sub_54AF21 -> AddMagicItems -- adds MagicItem entries
+ShopAssortment::sub_54A420 -> AddItems -- adds WorldEquip items by shape/mat/type

@@ -47,7 +47,7 @@ struct ShopAssortment {
     void AddItems(CArray<WorldEquip>* items, int32_t shape, int32_t mat, int32_t item_type, int32_t param_5); // 54A420 — AddItems
     Inventory* ArrangeShelfs(int32_t max_count, int32_t max_same, int32_t min_cost, int32_t max_cost, CArray<Item*>* result); // 54D423
 
-    int32_t sub_54EA76(Item* item); // 54EA76 — add magic to item
+    int32_t AddMagicToItem(Item* item); // 54EA76 — add magic to item
 };
 ASSERT_SIZE(ShopAssortment, 0x58);
 
