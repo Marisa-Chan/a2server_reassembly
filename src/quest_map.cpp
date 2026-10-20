@@ -24,7 +24,7 @@ QuestMap::~QuestMap() {
 		delete quest_value;
 	}
 
-	this->sub_55D6F7();
+	this->DeleteGlues();
 
 	POSITION sub_pos = this->substructs.GetHeadPosition();
 	while (sub_pos != nullptr) {
@@ -70,7 +70,7 @@ void QuestMap::sub_55E027() {
 }
 
 // 55D6F7
-void QuestMap::sub_55D6F7() {
+void QuestMap::DeleteGlues() {
 	POSITION pos = this->glues_map.GetStartPosition();
 	while (pos != nullptr) {
 		uint32_t building_id = 0;

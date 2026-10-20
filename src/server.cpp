@@ -503,7 +503,7 @@ void Srv1::CreateBuildings(MapAlm* alm) {
         return;
     }
 
-    g_QuestMap.sub_55D6F7();
+    g_QuestMap.DeleteGlues();
 
     for (int32_t i = 0; i < alm->map_buildings.GetSize(); i++) {
         MapBuildingData* bd = alm->map_buildings[i];

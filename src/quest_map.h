@@ -33,7 +33,7 @@ public: // VTable at 0060f730.
 public:
     QuestMap(); // sub_55D579
 
-    void sub_55D6F7(); // Reset quest state
+    void DeleteGlues(); // Reset quest state
     void sub_55E00C();
     void sub_55E027();
     void sub_55DE84();
