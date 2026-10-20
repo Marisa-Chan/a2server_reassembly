@@ -4397,7 +4397,7 @@ void Server::HatKeepaliveTick() {
                 void* file_data = malloc(file_size);
                 file.Read(file_data, file_size);
 
-                NetStru1::HatConnector.sub_51E0B7(basic_info->id1, basic_info->id2, login, file_data, file_size, 0);
+                NetStru1::HatConnector.SendHatMessage(basic_info->id1, basic_info->id2, login, file_data, file_size, 0);
                 LogMessage("Updating character data file for " + login);
                 file.Close();
             }

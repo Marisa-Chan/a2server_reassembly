@@ -4365,7 +4365,7 @@ void NetStru1::SendHatCharData(int32_t param1, int32_t param2, CString name, voi
 }
 
 // 51E0B7
-void NetStru1::sub_51E0B7(int32_t param1, int32_t param2, CString name, void* data, uint32_t size, uint16_t player_id) {
+void NetStru1::SendHatMessage(int32_t param1, int32_t param2, CString name, void* data, uint32_t size, uint16_t player_id) {
     PacketData& packet = PacketData::Inst;
     packet.to_player_id = player_id;
     packet.id = 0xE0;
