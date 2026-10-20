@@ -1786,20 +1786,20 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
 }
 
 
-void Server::AssignPlayerSlot(Player* player, int32_t arg4) {
+void Server::AssignPlayerSlot(Player* player, int32_t slot_data) {
     //4FF439
     if (player->main_unit == nullptr) {
         return;
     }
 
-    int slot = (arg4 >> 8) & 0xFF;
+    int slot = (slot_data >> 8) & 0xFF;
     player->drop_deadline_tick16 = 0;
     player->is_logged_in = 1;
 
     auto main_unit = player->main_unit;
     int phased_in = ((main_unit->unit_attrs & 8) != 0) ? 1 : 0;
     if (slot == 0 && phased_in != 0) {
-        // Vanilla only scans for a free slot when arg4 gave none and the unit is phased in.
+        // Vanilla only scans for a free slot when slot_data gave none and the unit is phased in.
         for (slot = 1; slot < 0x10; slot++) {
             bool found = false;
             POSITION node = g_PlayersList->list.GetHeadPosition();

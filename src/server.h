@@ -268,7 +268,7 @@ public:
     static uint16_t somewords[32][32]; //6cfdf0 used in client!
 
 public:
-    void AssignPlayerSlot(Player* player, int32_t arg4);
+    void AssignPlayerSlot(Player* player, int32_t slot_data);
 
     // ProcessClientPacket helpers
     Unit* FindPlayerUnit(uint16_t player_ref, uint16_t unit_id);
