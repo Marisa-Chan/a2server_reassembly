@@ -186,7 +186,7 @@ void __cdecl ExecuteMeleeAttack(Unit* self, Unit* target) {
 
 // Attack a building. TODO: retype `target` to `Building*`.
 // 536A62
-void __cdecl sub_536A62(Unit* self, Unit* target) {
+void __cdecl ExecuteRangedAttack(Unit* self, Unit* target) {
     if (target == nullptr || self == nullptr || self->hp <= 0 || self->pOwner == nullptr) {
         return;
     }
@@ -254,7 +254,7 @@ void __cdecl sub_53678F(Unit* self, Unit* target) {
         return;
     }
     if (target->IsBuilding()) { // IsBuilding
-        sub_536A62(self, target);
+        ExecuteRangedAttack(self, target);
         return;
     }
     LogMessage(CString("I don't know how to attack ") + target->GetRuntimeClass()->m_lpszClassName);
