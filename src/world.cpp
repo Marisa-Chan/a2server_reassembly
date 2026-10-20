@@ -3053,7 +3053,7 @@ void World::OrderEnterBuilding(Unit* unit, Building* building) {
 }
 
 // 5AC881
-void World::sub_5AC881(Group* group, uint8_t x, uint8_t y) {
+void World::GroupAttackMove(Group* group, uint8_t x, uint8_t y) {
     this->GroupSwarmCommand(group, x, y);
 }
 

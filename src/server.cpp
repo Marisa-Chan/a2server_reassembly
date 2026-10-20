@@ -3063,7 +3063,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
         case 0x1A: // attack-move to position?
             CheckPacketType(pkt, "PacketItemOperation");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
-                g_World->sub_5AC881(group, x, y);
+                g_World->GroupAttackMove(group, x, y);
                 player->ResetAfkTimer();
             }
             break;

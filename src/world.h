@@ -153,7 +153,7 @@ public:
     void BeginUnitOrder(Unit* unit); //5a9ac4
     void OrderMoveTo(Unit* unit, uint8_t x, uint8_t y); // Set unit movement target, clamped to map bounds.
     void OrderEnterBuilding(Unit* unit, Building* bldg);
-    void sub_5AC881(Group* group, uint8_t x, uint8_t y);
+    void GroupAttackMove(Group* group, uint8_t x, uint8_t y);
     void GroupGuardCommand(Group* group, uint8_t range); // Group guard command, range=0 means use world's MinimalGuardRange.
     void GroupGoHomeCommand(Group* group);
     void PlaceRespawnedGroup(Group* group, int param); // Place a newly respawned group into the world.
