@@ -56,7 +56,7 @@ public:
     CMultiShopInstance* CreateInstance(Unit* unit); // 546F8D
     int FindInstanceIndex(Unit* unit); // 54740C - find shop instance index for unit's owner
     void ClearShelves(); // 54749F - clear all shelf items
-    Item* sub_547C5A(Humanoid* humanoid, int16_t src_slot, int32_t count); // 547C5A
+    Item* BuyItem(Humanoid* humanoid, int16_t src_slot, int32_t count); // 547C5A
     void sub_547CB9(Humanoid* humanoid, uint8_t op_type, int16_t src_slot, uint8_t dst_type, int16_t dst_word, int32_t count); // 547CB9
     void RefreshTick(); // 547DD4
     int TryRefreshAssortment(); // 547E91 - refresh assortment if no live instances
