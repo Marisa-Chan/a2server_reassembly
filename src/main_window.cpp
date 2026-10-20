@@ -2495,7 +2495,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         } else if (code == 0x44d) {
             this->EnterServerMode();
         } else if (code == 0x44e) {
-            this->FUN_004918ae();
+            this->EnterClientMode();
         } else {
             PostMessage(0x421, 0, 0);
         }
@@ -2936,7 +2936,7 @@ int MainWindow::StartServerSession(int mode) { //48ca7e
 }
 
 
-void MainWindow::FUN_004918ae() { // 4918ae
+void MainWindow::EnterClientMode() { // 4918ae
 
     this->sessionMode = 1;
 
@@ -3785,11 +3785,11 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x47f:
-        this->FUN_004918ae();
+        this->EnterClientMode();
         break;
 
     case 0x482:
-        this->FUN_004918ae();
+        this->EnterClientMode();
         break;
 
     case 0x486:

@@ -972,3 +972,4 @@ MainWindow::FUN_00491a49 -> ShowCharInfoPane -- wait cursor + char info info_mod
 MainWindow::FUN_0048f905 -> AutosaveGame -- sessionMode 2: SaveGame to last_save_info
 MainWindow::FUN_004903d0 -> EnterSinglePlayerMode -- sessionMode=0 and local driver wiring
 MainWindow::FUN_00491822 -> EnterServerMode -- sessionMode=3 (server console) driver wiring
+MainWindow::FUN_0048ca7e -> StartServerSession -- creates the Server and starts it (mode), aborts on failure
