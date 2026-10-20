@@ -611,7 +611,7 @@ FatEntry* ResBase::FUN_004ec438(FatEntry* node) {
 
 
 
-FatEntry* ResBase::FUN_004ec7e0(FatEntry** pOldNode, const char* fname) {
+FatEntry* ResBase::AppendEntry(FatEntry** pOldNode, const char* fname) {
     //4ec7e0
     FatEntry* oldFat = this->fat_data; // save old pointer
 
@@ -735,7 +735,7 @@ void ResBase::ReadFromFile(CFile* cfile, int32_t offset) {
 FatEntry* ResBase::FUN_004ec8c6(const char* fpath, const char* fname) {
     //4ec8c6
     FatEntry* pathNode = this->TracePath(fpath);
-    return this->FUN_004ec7e0(&pathNode, fname);
+    return this->AppendEntry(&pathNode, fname);
 }
 
 FatEntry* ResBase::FUN_004ea183(const char* fpath, const char* fname) {
@@ -995,7 +995,7 @@ void ResBase::SetString(const char* fpath, const char* fname, const char* str) {
         }
 
         node = this->FUN_004ec438(nodePath);
-        node = this->FUN_004ec7e0(&node, fname);
+        node = this->AppendEntry(&node, fname);
         node->flags = 0;
         node->size = 0;
         node->offset = this->pdata - this->AllocData(node->size); //??? BUG
@@ -1029,7 +1029,7 @@ void ResBase::SetInt(const char* fpath, const char* fname, int32_t val) {
         }
 
         node = this->FUN_004ec438(nodePath);
-        node = this->FUN_004ec7e0(&node, fname);
+        node = this->AppendEntry(&node, fname);
         node->flags = 1 << 1;
         node->size = 0;
         node->offset = val;
@@ -1052,7 +1052,7 @@ void ResBase::SetDouble(const char* fpath, const char* fname, double val) {
         }
 
         node = this->FUN_004ec438(nodePath);
-        node = this->FUN_004ec7e0(&node, fname);
+        node = this->AppendEntry(&node, fname);
         node->flags = 2 << 1;
         //node->size = 0;
         *(double *)&node->offset = val;
@@ -1078,7 +1078,7 @@ void ResBase::SetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>
         }
 
         node = this->FUN_004ec438(nodePath);
-        node = this->FUN_004ec7e0(&node, fname);
+        node = this->AppendEntry(&node, fname);
         node->flags = 3 << 1;
         node->size = 0;
         node->offset = this->AllocData(node->size) - this->pdata;
@@ -1114,7 +1114,7 @@ void ResBase::SetInt16Array(const char* fpath, const char* fname, CArray<uint16_
         }
 
         node = this->FUN_004ec438(nodePath);
-        node = this->FUN_004ec7e0(&node, fname);
+        node = this->AppendEntry(&node, fname);
         node->flags = 3 << 1;
         node->size = 0;
         node->offset = this->AllocData(node->size) - this->pdata;
@@ -1150,7 +1150,7 @@ void ResBase::SetInt32Array(const char* fpath, const char* fname, CArray<uint32_
         }
 
         node = this->FUN_004ec438(nodePath);
-        node = this->FUN_004ec7e0(&node, fname);
+        node = this->AppendEntry(&node, fname);
         node->flags = 3 << 1;
         node->size = 0;
         node->offset = this->AllocData(node->size) - this->pdata;
