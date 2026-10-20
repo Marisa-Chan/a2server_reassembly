@@ -686,14 +686,14 @@ void NetStru1::TransferUnitOwnership(Unit* unit, Player* new_owner) {
 
 // SendUnitUpdate: send unit state to a player (or all players if player==nullptr)
 // 519221
-void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t param5, int32_t param6, int32_t param7) {
+void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t props_flags, int32_t param6, int32_t param7) {
     if (player == nullptr) {
         // Broadcast to all players.
         POSITION pos = g_PlayersList->list.GetHeadPosition();
         while (pos != nullptr) {
             Player* p = g_PlayersList->list.GetNext(pos);
             if (p->is_active != 0 || unit->pOwner == p) {
-                this->SendUnitUpdate(unit, p, mask, param5, param6, param7);
+                this->SendUnitUpdate(unit, p, mask, props_flags, param6, param7);
             }
         }
         return;
@@ -959,7 +959,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
     }
 
     if (orig_mask & 0x400000) {
-        this->SendHumanoidProps(unit, player, param5);
+        this->SendHumanoidProps(unit, player, props_flags);
     }
 
     // Owner-only: send inventory.
