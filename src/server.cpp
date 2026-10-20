@@ -2829,7 +2829,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             }
             int diplomacy = g_World->diplomacy.diplomacy[player->player_id][p->player_id];
             if (diplomacy & 1) {
-                p->sub_5346AC();
+                p->KillAllUnits();
             }
         }
         if (!is_reconnect) {
@@ -2840,7 +2840,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             Player* p = g_PlayersList->list.GetNext(node);
             if (p != nullptr && p->gm_level > 50 && p != player) {
                 p->gm_level = 0;
-                p->sub_5346AC();
+                p->KillAllUnits();
             }
         }
     } else if (cheat_string.Find("#kill ") == 0) {
@@ -2848,7 +2848,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         cheat_string.TrimLeft();
         Player* target = g_PlayersList->FindByName(cheat_string);
         if (target != nullptr) {
-            target->sub_5346AC();
+            target->KillAllUnits();
             if (target->hat_player_id != 0xF6D04773 || target->flags != 4) {
                 g_NetStru1_main.FUN_0051ce86(7, target->player_id, nullptr);
             }
@@ -5516,7 +5516,7 @@ void Server::ResetArenaRound(int32_t arg) {
     for (POSITION pos = g_PlayersList->list.GetHeadPosition(); pos != nullptr;) {
         Player* player = g_PlayersList->list.GetNext(pos);
         if (!player->is_ai) {
-            player->sub_5346AC();
+            player->KillAllUnits();
             player->frags = 0;
             this->AddArenaFrags(&player->name, 0);
         }

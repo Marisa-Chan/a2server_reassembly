@@ -225,7 +225,7 @@ void Player::FUN_00534778() {
 }
 
 // 5346AC
-void Player::sub_5346AC() {
+void Player::KillAllUnits() {
     POSITION it = this->unit_list->unit_list.GetHeadPosition();
     while (it != nullptr) {
         Unit* unit = this->unit_list->unit_list.GetNext(it);
