@@ -24,7 +24,7 @@ public:
     void Remove(Unit* unit); //575aa0   Remove unit from list and in any do delete for this unit
 
     void ClearSentToMask(Player* player); // Clear unit vision mask bits for player across this list
-    void sub_5574B5();
+    void RegenTick();
     Unit* sub_5560D2(uint16_t id);   // Look up unit in list by ID
     void ProcessTick();              // Tick alive units and reap dead ones (sub_556345)
     int sub_557AB0();                // Check if player has a rewarded unit

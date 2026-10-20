@@ -4810,7 +4810,7 @@ void Server::ServerTic() {
     }
 
     if ((this->tick & 0xf) == 12) {
-        dword_6CDB3C->sub_5574B5();
+        dword_6CDB3C->RegenTick();
         this->srv_stru1->UpdateMapObjects();
         g_PlayersList->ProcessPlayerTimeouts();
         g_NetStru1_main.UpdateConnStats();

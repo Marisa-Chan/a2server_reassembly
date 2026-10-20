@@ -320,7 +320,7 @@ void UnitList::ClearSentToMask(Player* player) {
 }
 
 // 5574B5
-void UnitList::sub_5574B5() {
+void UnitList::RegenTick() {
 	// Tick all units in this list (call VMethod1 on each)
 	POSITION pos = this->unit_list.GetHeadPosition();
 	while (pos != NULL) {
