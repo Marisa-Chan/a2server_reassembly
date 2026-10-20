@@ -5848,10 +5848,10 @@ CUnit* VisCharSelect::GetSelectedMapUnit() {
 // 432280
 void VisCharSelect::LoadSfx() {
     this->FreeSfx();
-    FUN_00438e40(&this->snd_ok, "SFX\\Click_Ok.wav");
-    FUN_00438e40(&this->snd_rename, "SFX\\Rename.wav");
-    FUN_00438e40(&this->snd_delete, "SFX\\Delete.wav");
-    FUN_00438e40(&this->snd_cancel, "SFX\\Undo.wav");
+    ReloadSfx(&this->snd_ok, "SFX\\Click_Ok.wav");
+    ReloadSfx(&this->snd_rename, "SFX\\Rename.wav");
+    ReloadSfx(&this->snd_delete, "SFX\\Delete.wav");
+    ReloadSfx(&this->snd_cancel, "SFX\\Undo.wav");
 }
 
 
@@ -7938,10 +7938,10 @@ void VisGlobalMap::UpdateHoveredLocation(CPoint pos) {
 // 470504
 void VisGlobalMap::LoadSamples() {
     this->FreeSamples();
-    FUN_00438e40(&this->snd_scrollup.sample, "SFX\\ScrollUp.wav");
-    FUN_00438e40(&this->snd_scrolldn.sample, "SFX\\ScrollDn.wav");
-    FUN_00438e40(&this->snd_point1.sample, "SFX\\Point1.wav");
-    FUN_00438e40(&this->snd_point2.sample, "SFX\\Point2.wav");
+    ReloadSfx(&this->snd_scrollup.sample, "SFX\\ScrollUp.wav");
+    ReloadSfx(&this->snd_scrolldn.sample, "SFX\\ScrollDn.wav");
+    ReloadSfx(&this->snd_point1.sample, "SFX\\Point1.wav");
+    ReloadSfx(&this->snd_point2.sample, "SFX\\Point2.wav");
 }
 
 
@@ -8017,10 +8017,10 @@ void VisCharGen::FreeSamples() {
 // 42EFB4
 void VisCharGen::LoadSamples() {
     this->FreeSamples();
-    FUN_00438e40(&this->snd_stat, "SFX\\ChrGen\\+_-.wav");
-    FUN_00438e40(&this->snd_ok, "SFX\\Click_Ok.wav");
-    FUN_00438e40(&this->snd_reset, "SFX\\Sbros.wav");
-    FUN_00438e40(&this->snd_back, "SFX\\Back.wav");
+    ReloadSfx(&this->snd_stat, "SFX\\ChrGen\\+_-.wav");
+    ReloadSfx(&this->snd_ok, "SFX\\Click_Ok.wav");
+    ReloadSfx(&this->snd_reset, "SFX\\Sbros.wav");
+    ReloadSfx(&this->snd_back, "SFX\\Back.wav");
 }
 
 
@@ -9102,17 +9102,17 @@ int32_t VisCharGenSkills::OnLButtonDown(uint32_t wparam, CPoint pos) {
 // 42d963
 void VisCharGenSkills::LoadSamples(uint32_t mage_flag) {
     if (mage_flag == 0) {
-        FUN_00438e40(&this->field_0x120[0], "SFX\\ChrGen\\Skill\\FSword.wav");
-        FUN_00438e40(&this->field_0x120[1], "SFX\\ChrGen\\Skill\\FAxe.wav");
-        FUN_00438e40(&this->field_0x120[2], "SFX\\ChrGen\\Skill\\FClub.wav");
-        FUN_00438e40(&this->field_0x120[3], "SFX\\ChrGen\\Skill\\FPike.wav");
-        FUN_00438e40(&this->field_0x120[4], "SFX\\ChrGen\\Skill\\FBow.wav");
+        ReloadSfx(&this->field_0x120[0], "SFX\\ChrGen\\Skill\\FSword.wav");
+        ReloadSfx(&this->field_0x120[1], "SFX\\ChrGen\\Skill\\FAxe.wav");
+        ReloadSfx(&this->field_0x120[2], "SFX\\ChrGen\\Skill\\FClub.wav");
+        ReloadSfx(&this->field_0x120[3], "SFX\\ChrGen\\Skill\\FPike.wav");
+        ReloadSfx(&this->field_0x120[4], "SFX\\ChrGen\\Skill\\FBow.wav");
     } else {
-        FUN_00438e40(&this->field_0x120[0], "SFX\\ChrGen\\Skill\\MFire.wav");
-        FUN_00438e40(&this->field_0x120[1], "SFX\\ChrGen\\Skill\\MWater.wav");
-        FUN_00438e40(&this->field_0x120[2], "SFX\\ChrGen\\Skill\\MAir.wav");
-        FUN_00438e40(&this->field_0x120[3], "SFX\\ChrGen\\Skill\\MEarth.wav");
-        FUN_00438e40(&this->field_0x120[4], "SFX\\ChrGen\\Skill\\MAstral.wav");
+        ReloadSfx(&this->field_0x120[0], "SFX\\ChrGen\\Skill\\MFire.wav");
+        ReloadSfx(&this->field_0x120[1], "SFX\\ChrGen\\Skill\\MWater.wav");
+        ReloadSfx(&this->field_0x120[2], "SFX\\ChrGen\\Skill\\MAir.wav");
+        ReloadSfx(&this->field_0x120[3], "SFX\\ChrGen\\Skill\\MEarth.wav");
+        ReloadSfx(&this->field_0x120[4], "SFX\\ChrGen\\Skill\\MAstral.wav");
     }
 }
 
@@ -10440,20 +10440,20 @@ VisShop::VisShop(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameB
 // 4BD0FB
 void VisShop::VMethod31() {
     this->VMethod32();
-    FUN_00438e40(&this->snd_notif, "SFX\\Town\\Shop\\nofit.wav");
-    FUN_00438e40(&this->snd_step1, "SFX\\Town\\Shop\\step1.wav");
-    FUN_00438e40(&this->snd_step2, "SFX\\Town\\Shop\\step2.wav");
-    FUN_00438e40(&this->snd_breath, "SFX\\Town\\Shop\\breath.wav");
-    FUN_00438e40(&this->snd_depart, "SFX\\Town\\Shop\\depart.wav");
-    FUN_00438e40(&this->snd_buy, "SFX\\Town\\buy.wav");
-    FUN_00438e40(&this->snd_sell, "SFX\\Town\\sell.wav");
-    FUN_00438e40(&this->snd_enter, "SFX\\Town\\Shop\\enter.wav");
-    FUN_00438e40(&this->snd_start, "SFX\\Town\\Shop\\start.wav");
-    FUN_00438e40(&this->snd_pov1, "SFX\\Town\\Shop\\Povorot1.wav");
-    FUN_00438e40(&this->snd_pov2, "SFX\\Town\\Shop\\Povorot2.wav");
-    FUN_00438e40(&this->snd_inshop, "SFX\\Town\\Shop\\InShop.wav");
-    FUN_00438e40(&this->snd_out, "SFX\\Out.wav");
-    FUN_00438e40(&this->snd_undo, "SFX\\Undo.wav");
+    ReloadSfx(&this->snd_notif, "SFX\\Town\\Shop\\nofit.wav");
+    ReloadSfx(&this->snd_step1, "SFX\\Town\\Shop\\step1.wav");
+    ReloadSfx(&this->snd_step2, "SFX\\Town\\Shop\\step2.wav");
+    ReloadSfx(&this->snd_breath, "SFX\\Town\\Shop\\breath.wav");
+    ReloadSfx(&this->snd_depart, "SFX\\Town\\Shop\\depart.wav");
+    ReloadSfx(&this->snd_buy, "SFX\\Town\\buy.wav");
+    ReloadSfx(&this->snd_sell, "SFX\\Town\\sell.wav");
+    ReloadSfx(&this->snd_enter, "SFX\\Town\\Shop\\enter.wav");
+    ReloadSfx(&this->snd_start, "SFX\\Town\\Shop\\start.wav");
+    ReloadSfx(&this->snd_pov1, "SFX\\Town\\Shop\\Povorot1.wav");
+    ReloadSfx(&this->snd_pov2, "SFX\\Town\\Shop\\Povorot2.wav");
+    ReloadSfx(&this->snd_inshop, "SFX\\Town\\Shop\\InShop.wav");
+    ReloadSfx(&this->snd_out, "SFX\\Out.wav");
+    ReloadSfx(&this->snd_undo, "SFX\\Undo.wav");
 }
 
 
@@ -12551,23 +12551,23 @@ void VisShopDruid::VMethod26() {
 // 4C1B8B
 void VisShopDruid::VMethod31() {
     this->VMethod32();
-    FUN_00438e40(&this->snd_notif, "SFX\\Town\\Shop\\nofit.wav");
-    FUN_00438e40(&this->snd_depart, "SFX\\Town_Druid\\Shop\\Dotdel.wav");
-    FUN_00438e40(&this->snd_buy, "SFX\\Town\\buy.wav");
-    FUN_00438e40(&this->snd_sell, "SFX\\Town\\sell.wav");
-    FUN_00438e40(&this->snd_enter, "SFX\\Town_Druid\\Shop\\Din2.wav");
-    FUN_00438e40(&this->snd_pov1, "SFX\\Town_Druid\\Shop\\Ddruid5.wav");
-    FUN_00438e40(&this->snd_pov2, "SFX\\Town_Druid\\Shop\\Ddruid6.wav");
-    FUN_00438e40(&this->snd_inshop, "SFX\\Town_Druid\\Inn\\Dforest2.wav");
-    FUN_00438e40(&this->snd_out, "SFX\\Out.wav");
-    FUN_00438e40(&this->snd_undo, "SFX\\Undo.wav");
-    FUN_00438e40(&this->snd_bird[0], "SFX\\Town_druid\\Inn\\Dbird4.wav");
-    FUN_00438e40(&this->snd_bird[1], "SFX\\Town_druid\\Inn\\Dbird41.wav");
-    FUN_00438e40(&this->snd_bird[2], "SFX\\Town_druid\\Inn\\Dbird42.wav");
-    FUN_00438e40(&this->snd_tool[0], "SFX\\Town_druid\\shop\\Dtools1.wav");
-    FUN_00438e40(&this->snd_tool[1], "SFX\\Town_druid\\shop\\Dtools2.wav");
-    FUN_00438e40(&this->snd_tool[2], "SFX\\Town_druid\\shop\\Dtools3.wav");
-    FUN_00438e40(&this->snd_tool[3], "SFX\\Town_druid\\shop\\Dtools4.wav");
+    ReloadSfx(&this->snd_notif, "SFX\\Town\\Shop\\nofit.wav");
+    ReloadSfx(&this->snd_depart, "SFX\\Town_Druid\\Shop\\Dotdel.wav");
+    ReloadSfx(&this->snd_buy, "SFX\\Town\\buy.wav");
+    ReloadSfx(&this->snd_sell, "SFX\\Town\\sell.wav");
+    ReloadSfx(&this->snd_enter, "SFX\\Town_Druid\\Shop\\Din2.wav");
+    ReloadSfx(&this->snd_pov1, "SFX\\Town_Druid\\Shop\\Ddruid5.wav");
+    ReloadSfx(&this->snd_pov2, "SFX\\Town_Druid\\Shop\\Ddruid6.wav");
+    ReloadSfx(&this->snd_inshop, "SFX\\Town_Druid\\Inn\\Dforest2.wav");
+    ReloadSfx(&this->snd_out, "SFX\\Out.wav");
+    ReloadSfx(&this->snd_undo, "SFX\\Undo.wav");
+    ReloadSfx(&this->snd_bird[0], "SFX\\Town_druid\\Inn\\Dbird4.wav");
+    ReloadSfx(&this->snd_bird[1], "SFX\\Town_druid\\Inn\\Dbird41.wav");
+    ReloadSfx(&this->snd_bird[2], "SFX\\Town_druid\\Inn\\Dbird42.wav");
+    ReloadSfx(&this->snd_tool[0], "SFX\\Town_druid\\shop\\Dtools1.wav");
+    ReloadSfx(&this->snd_tool[1], "SFX\\Town_druid\\shop\\Dtools2.wav");
+    ReloadSfx(&this->snd_tool[2], "SFX\\Town_druid\\shop\\Dtools3.wav");
+    ReloadSfx(&this->snd_tool[3], "SFX\\Town_druid\\shop\\Dtools4.wav");
 }
 
 
@@ -12791,23 +12791,23 @@ VisShopKaarg::VisShopKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
 // 4C43A3
 void VisShopKaarg::VMethod31() {
     this->VMethod32();
-    FUN_00438e40(&this->snd_notif, "SFX\\Town\\Shop\\nofit.wav");
-    FUN_00438e40(&this->snd_depart, "SFX\\Town_kaarg\\Shop\\Kotdel.wav");
-    FUN_00438e40(&this->snd_buy, "SFX\\Town\\buy.wav");
-    FUN_00438e40(&this->snd_sell, "SFX\\Town\\sell.wav");
-    FUN_00438e40(&this->snd_enter, "SFX\\Town_kaarg\\Shop\\Kin2.wav");
-    FUN_00438e40(&this->snd_pov1, "SFX\\Town_kaarg\\Shop\\Kman4.wav");
-    FUN_00438e40(&this->snd_pov2, "SFX\\Town_kaarg\\Shop\\Kman4.wav");
-    FUN_00438e40(&this->snd_inshop, "SFX\\Town_kaarg\\Inn\\Kvox5.wav");
-    FUN_00438e40(&this->snd_out, "SFX\\Out.wav");
-    FUN_00438e40(&this->snd_undo, "SFX\\Undo.wav");
-    FUN_00438e40(&this->snd_voice[0], "SFX\\Town_kaarg\\Inn\\Kvox6.wav");
-    FUN_00438e40(&this->snd_voice[1], "SFX\\Town_kaarg\\Inn\\Kvox7.wav");
-    FUN_00438e40(&this->snd_voice[2], "SFX\\Town_kaarg\\Inn\\Kvox8.wav");
-    FUN_00438e40(&this->snd_tool[0], "SFX\\Town_kaarg\\shop\\Ktools1.wav");
-    FUN_00438e40(&this->snd_tool[1], "SFX\\Town_kaarg\\shop\\Ktools2.wav");
-    FUN_00438e40(&this->snd_tool[2], "SFX\\Town_kaarg\\shop\\Ktools3.wav");
-    FUN_00438e40(&this->snd_tool[3], "SFX\\Town_kaarg\\shop\\Ktools4.wav");
+    ReloadSfx(&this->snd_notif, "SFX\\Town\\Shop\\nofit.wav");
+    ReloadSfx(&this->snd_depart, "SFX\\Town_kaarg\\Shop\\Kotdel.wav");
+    ReloadSfx(&this->snd_buy, "SFX\\Town\\buy.wav");
+    ReloadSfx(&this->snd_sell, "SFX\\Town\\sell.wav");
+    ReloadSfx(&this->snd_enter, "SFX\\Town_kaarg\\Shop\\Kin2.wav");
+    ReloadSfx(&this->snd_pov1, "SFX\\Town_kaarg\\Shop\\Kman4.wav");
+    ReloadSfx(&this->snd_pov2, "SFX\\Town_kaarg\\Shop\\Kman4.wav");
+    ReloadSfx(&this->snd_inshop, "SFX\\Town_kaarg\\Inn\\Kvox5.wav");
+    ReloadSfx(&this->snd_out, "SFX\\Out.wav");
+    ReloadSfx(&this->snd_undo, "SFX\\Undo.wav");
+    ReloadSfx(&this->snd_voice[0], "SFX\\Town_kaarg\\Inn\\Kvox6.wav");
+    ReloadSfx(&this->snd_voice[1], "SFX\\Town_kaarg\\Inn\\Kvox7.wav");
+    ReloadSfx(&this->snd_voice[2], "SFX\\Town_kaarg\\Inn\\Kvox8.wav");
+    ReloadSfx(&this->snd_tool[0], "SFX\\Town_kaarg\\shop\\Ktools1.wav");
+    ReloadSfx(&this->snd_tool[1], "SFX\\Town_kaarg\\shop\\Ktools2.wav");
+    ReloadSfx(&this->snd_tool[2], "SFX\\Town_kaarg\\shop\\Ktools3.wav");
+    ReloadSfx(&this->snd_tool[3], "SFX\\Town_kaarg\\shop\\Ktools4.wav");
 }
 
 
@@ -13292,19 +13292,19 @@ int32_t VisTav::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 // 49F298
 void VisTav::VMethod30() {
     this->VMethod31();
-    FUN_00438e40(&this->sounds[0].sample, "SFX\\Town\\Inn\\drink.wav");
-    FUN_00438e40(&this->sounds[1].sample, "SFX\\Town\\Inn\\glotok.wav");
-    FUN_00438e40(&this->sounds[2].sample, "SFX\\Town\\Inn\\steam.wav");
-    FUN_00438e40(&this->sounds[3].sample, "SFX\\Town\\Inn\\water.wav");
-    FUN_00438e40(&this->sounds[4].sample, "SFX\\Town\\Inn\\chair.wav");
-    FUN_00438e40(&this->sounds[5].sample, "SFX\\Add.wav");
-    FUN_00438e40(&this->sounds[6].sample, "SFX\\NoAdd.wav");
-    FUN_00438e40(&this->sounds[7].sample, "SFX\\Town\\Shop\\nofit.wav");
-    FUN_00438e40(&this->sounds[8].sample, "SFX\\Town\\Inn\\enter.wav");
-    FUN_00438e40(&this->sounds[9].sample, "SFX\\Town\\Inn\\Helper.wav");
-    FUN_00438e40(&this->sounds[10].sample, "SFX\\Town\\Shop\\Breath.wav");
-    FUN_00438e40(&this->sounds[11].sample, "SFX\\Out.wav");
-    FUN_00438e40(&this->sounds[12].sample, "SFX\\Talk.wav");
+    ReloadSfx(&this->sounds[0].sample, "SFX\\Town\\Inn\\drink.wav");
+    ReloadSfx(&this->sounds[1].sample, "SFX\\Town\\Inn\\glotok.wav");
+    ReloadSfx(&this->sounds[2].sample, "SFX\\Town\\Inn\\steam.wav");
+    ReloadSfx(&this->sounds[3].sample, "SFX\\Town\\Inn\\water.wav");
+    ReloadSfx(&this->sounds[4].sample, "SFX\\Town\\Inn\\chair.wav");
+    ReloadSfx(&this->sounds[5].sample, "SFX\\Add.wav");
+    ReloadSfx(&this->sounds[6].sample, "SFX\\NoAdd.wav");
+    ReloadSfx(&this->sounds[7].sample, "SFX\\Town\\Shop\\nofit.wav");
+    ReloadSfx(&this->sounds[8].sample, "SFX\\Town\\Inn\\enter.wav");
+    ReloadSfx(&this->sounds[9].sample, "SFX\\Town\\Inn\\Helper.wav");
+    ReloadSfx(&this->sounds[10].sample, "SFX\\Town\\Shop\\Breath.wav");
+    ReloadSfx(&this->sounds[11].sample, "SFX\\Out.wav");
+    ReloadSfx(&this->sounds[12].sample, "SFX\\Talk.wav");
 }
 
 
@@ -15544,24 +15544,24 @@ void VisTavDruid::VMethod26() {
 // 49F7B0
 void VisTavDruid::VMethod30() {
     this->VMethod31();
-    FUN_00438e40(&this->sounds[5].sample, "SFX\\Add.wav");
-    FUN_00438e40(&this->sounds[6].sample, "SFX\\NoAdd.wav");
-    FUN_00438e40(&this->sounds[7].sample, "SFX\\Town\\Shop\\nofit.wav");
-    FUN_00438e40(&this->sounds[8].sample, "SFX\\Town_druid\\Inn\\din1.wav");
-    FUN_00438e40(&this->sounds[9].sample, "SFX\\Town\\Inn\\Helper.wav");
-    FUN_00438e40(&this->sounds[11].sample, "SFX\\Out.wav");
-    FUN_00438e40(&this->sounds[12].sample, "SFX\\Talk.wav");
-    FUN_00438e40(&this->snd_druid[0], "SFX\\Town_druid\\Inn\\DWater1.wav");
-    FUN_00438e40(&this->snd_druid[1], "SFX\\Town_druid\\Inn\\DWater2.wav");
-    FUN_00438e40(&this->snd_druid[2], "SFX\\Town_druid\\Inn\\DWater3.wav");
-    FUN_00438e40(&this->snd_druid[3], "SFX\\Town_druid\\Inn\\DWater4.wav");
-    FUN_00438e40(&this->snd_druid[4], "SFX\\Town_druid\\Inn\\DDruid3.wav");
-    FUN_00438e40(&this->snd_druid[5], "SFX\\Town_druid\\Inn\\Ddruid4.wav");
-    FUN_00438e40(&this->snd_druid[6], "SFX\\Town_druid\\Inn\\Ddruid41.wav");
-    FUN_00438e40(&this->snd_druid[7], "SFX\\Town_druid\\Inn\\Dforest2.wav");
-    FUN_00438e40(&this->snd_druid[8], "SFX\\Town_druid\\Inn\\Dbird4.wav");
-    FUN_00438e40(&this->snd_druid[9], "SFX\\Town_druid\\Inn\\Dbird41.wav");
-    FUN_00438e40(&this->snd_druid[10], "SFX\\Town_druid\\Inn\\Dbird42.wav");
+    ReloadSfx(&this->sounds[5].sample, "SFX\\Add.wav");
+    ReloadSfx(&this->sounds[6].sample, "SFX\\NoAdd.wav");
+    ReloadSfx(&this->sounds[7].sample, "SFX\\Town\\Shop\\nofit.wav");
+    ReloadSfx(&this->sounds[8].sample, "SFX\\Town_druid\\Inn\\din1.wav");
+    ReloadSfx(&this->sounds[9].sample, "SFX\\Town\\Inn\\Helper.wav");
+    ReloadSfx(&this->sounds[11].sample, "SFX\\Out.wav");
+    ReloadSfx(&this->sounds[12].sample, "SFX\\Talk.wav");
+    ReloadSfx(&this->snd_druid[0], "SFX\\Town_druid\\Inn\\DWater1.wav");
+    ReloadSfx(&this->snd_druid[1], "SFX\\Town_druid\\Inn\\DWater2.wav");
+    ReloadSfx(&this->snd_druid[2], "SFX\\Town_druid\\Inn\\DWater3.wav");
+    ReloadSfx(&this->snd_druid[3], "SFX\\Town_druid\\Inn\\DWater4.wav");
+    ReloadSfx(&this->snd_druid[4], "SFX\\Town_druid\\Inn\\DDruid3.wav");
+    ReloadSfx(&this->snd_druid[5], "SFX\\Town_druid\\Inn\\Ddruid4.wav");
+    ReloadSfx(&this->snd_druid[6], "SFX\\Town_druid\\Inn\\Ddruid41.wav");
+    ReloadSfx(&this->snd_druid[7], "SFX\\Town_druid\\Inn\\Dforest2.wav");
+    ReloadSfx(&this->snd_druid[8], "SFX\\Town_druid\\Inn\\Dbird4.wav");
+    ReloadSfx(&this->snd_druid[9], "SFX\\Town_druid\\Inn\\Dbird41.wav");
+    ReloadSfx(&this->snd_druid[10], "SFX\\Town_druid\\Inn\\Dbird42.wav");
 }
 
 
@@ -15820,23 +15820,23 @@ void VisTavKaarg::VMethod26() {
 // 4A26D9
 void VisTavKaarg::VMethod30() {
     this->VMethod31();
-    FUN_00438e40(&this->sounds[5].sample, "SFX\\Add.wav");
-    FUN_00438e40(&this->sounds[6].sample, "SFX\\NoAdd.wav");
-    FUN_00438e40(&this->sounds[7].sample, "SFX\\Town\\Shop\\nofit.wav");
-    FUN_00438e40(&this->sounds[8].sample, "SFX\\Town_kaarg\\Inn\\Kin1.wav");
-    FUN_00438e40(&this->sounds[9].sample, "SFX\\Town\\Inn\\Helper.wav");
-    FUN_00438e40(&this->sounds[11].sample, "SFX\\Out.wav");
-    FUN_00438e40(&this->sounds[12].sample, "SFX\\Talk.wav");
-    FUN_00438e40(&this->snd_kaarg[0], "SFX\\Town_kaarg\\Inn\\Kdish1.wav");
-    FUN_00438e40(&this->snd_kaarg[1], "SFX\\Town_kaarg\\Inn\\Kdish2.wav");
-    FUN_00438e40(&this->snd_kaarg[2], "SFX\\Town_kaarg\\Inn\\Kdish3.wav");
-    FUN_00438e40(&this->snd_kaarg[3], "SFX\\Town_kaarg\\Inn\\Kdish4.wav");
-    FUN_00438e40(&this->snd_kaarg[4], "SFX\\Town_kaarg\\Inn\\Kman2.wav");
-    FUN_00438e40(&this->snd_kaarg[5], "SFX\\Town_kaarg\\Inn\\Kman3.wav");
-    FUN_00438e40(&this->snd_kaarg[6], "SFX\\Town_kaarg\\Inn\\Kvox5.wav");
-    FUN_00438e40(&this->snd_kaarg[7], "SFX\\Town_kaarg\\Inn\\Kvox6.wav");
-    FUN_00438e40(&this->snd_kaarg[8], "SFX\\Town_kaarg\\Inn\\Kvox7.wav");
-    FUN_00438e40(&this->snd_kaarg[9], "SFX\\Town_kaarg\\Inn\\Kvox8.wav");
+    ReloadSfx(&this->sounds[5].sample, "SFX\\Add.wav");
+    ReloadSfx(&this->sounds[6].sample, "SFX\\NoAdd.wav");
+    ReloadSfx(&this->sounds[7].sample, "SFX\\Town\\Shop\\nofit.wav");
+    ReloadSfx(&this->sounds[8].sample, "SFX\\Town_kaarg\\Inn\\Kin1.wav");
+    ReloadSfx(&this->sounds[9].sample, "SFX\\Town\\Inn\\Helper.wav");
+    ReloadSfx(&this->sounds[11].sample, "SFX\\Out.wav");
+    ReloadSfx(&this->sounds[12].sample, "SFX\\Talk.wav");
+    ReloadSfx(&this->snd_kaarg[0], "SFX\\Town_kaarg\\Inn\\Kdish1.wav");
+    ReloadSfx(&this->snd_kaarg[1], "SFX\\Town_kaarg\\Inn\\Kdish2.wav");
+    ReloadSfx(&this->snd_kaarg[2], "SFX\\Town_kaarg\\Inn\\Kdish3.wav");
+    ReloadSfx(&this->snd_kaarg[3], "SFX\\Town_kaarg\\Inn\\Kdish4.wav");
+    ReloadSfx(&this->snd_kaarg[4], "SFX\\Town_kaarg\\Inn\\Kman2.wav");
+    ReloadSfx(&this->snd_kaarg[5], "SFX\\Town_kaarg\\Inn\\Kman3.wav");
+    ReloadSfx(&this->snd_kaarg[6], "SFX\\Town_kaarg\\Inn\\Kvox5.wav");
+    ReloadSfx(&this->snd_kaarg[7], "SFX\\Town_kaarg\\Inn\\Kvox6.wav");
+    ReloadSfx(&this->snd_kaarg[8], "SFX\\Town_kaarg\\Inn\\Kvox7.wav");
+    ReloadSfx(&this->snd_kaarg[9], "SFX\\Town_kaarg\\Inn\\Kvox8.wav");
 }
 
 
@@ -16999,9 +16999,9 @@ void VisInvExtBase::sub_4B4D33() {
 // 4B4BC5
 void VisInvExtBase::sub_4B4BC5() {
     this->sub_4B4C1C();
-    FUN_00438e40(&this->field_0x20b4.sample, "SFX\\Put_On.wav");
-    FUN_00438e40(&this->field_0x20b8.sample, "SFX\\Put_Off.wav");
-    FUN_00438e40(&this->field_0x20bc.sample, "SFX\\Scroll.wav");
+    ReloadSfx(&this->field_0x20b4.sample, "SFX\\Put_On.wav");
+    ReloadSfx(&this->field_0x20b8.sample, "SFX\\Put_Off.wav");
+    ReloadSfx(&this->field_0x20bc.sample, "SFX\\Scroll.wav");
 }
 
 
@@ -19045,15 +19045,15 @@ void VisStartGame::FreeSamples() {
 // 437FF4
 void VisStartGame::LoadSamples() {
     this->FreeSamples();
-    FUN_00438e40(&this->difficultyLevel1Sound.sample, "SFX\\ChrGen\\Level1.wav");
-    FUN_00438e40(&this->difficultyLevel2Sound.sample, "SFX\\ChrGen\\Level2.wav");
-    FUN_00438e40(&this->difficultyLevel3Sound.sample, "SFX\\ChrGen\\Level3.wav");
-    FUN_00438e40(&this->portraitSelectSound.sample, "SFX\\ChrGen\\Char.wav");
-    FUN_00438e40(&this->acceptSound.sample, "SFX\\ChrGen\\Ok.wav");
-    FUN_00438e40(&this->labelInputSound1.sample, "SFX\\Letter1.wav");
-    FUN_00438e40(&this->labelInputSound2.sample, "SFX\\Letter2.wav");
-    FUN_00438e40(&this->labelInputSound3.sample, "SFX\\Letter3.wav");
-    FUN_00438e40(&this->returnSound.sample, "SFX\\ChrGen\\Ok.wav");
+    ReloadSfx(&this->difficultyLevel1Sound.sample, "SFX\\ChrGen\\Level1.wav");
+    ReloadSfx(&this->difficultyLevel2Sound.sample, "SFX\\ChrGen\\Level2.wav");
+    ReloadSfx(&this->difficultyLevel3Sound.sample, "SFX\\ChrGen\\Level3.wav");
+    ReloadSfx(&this->portraitSelectSound.sample, "SFX\\ChrGen\\Char.wav");
+    ReloadSfx(&this->acceptSound.sample, "SFX\\ChrGen\\Ok.wav");
+    ReloadSfx(&this->labelInputSound1.sample, "SFX\\Letter1.wav");
+    ReloadSfx(&this->labelInputSound2.sample, "SFX\\Letter2.wav");
+    ReloadSfx(&this->labelInputSound3.sample, "SFX\\Letter3.wav");
+    ReloadSfx(&this->returnSound.sample, "SFX\\ChrGen\\Ok.wav");
 }
 
 
@@ -19389,18 +19389,18 @@ void VisTown::DoClose(uint32_t code) {
 // 4D1723
 void VisTown::VMethod30() {
     this->VMethod31();
-    FUN_00438e40(&this->sounds[0], "SFX\\Town\\Crowd.wav");
-    FUN_00438e40(&this->sounds[3], "SFX\\Town\\Birds1.wav");
-    FUN_00438e40(&this->sounds[4], "SFX\\Town\\Birds2.wav");
-    FUN_00438e40(&this->sounds[5], "SFX\\Town\\Flugel.wav");
-    FUN_00438e40(&this->sounds[6], "SFX\\Town\\Flag.wav");
-    FUN_00438e40(&this->sounds[7], "SFX\\Town\\Point.wav");
-    FUN_00438e40(&this->sounds[8], "SFX\\Town\\Shop\\enter.wav");
-    FUN_00438e40(&this->sounds[9], "SFX\\Town\\School\\Point.wav");
-    FUN_00438e40(&this->sounds[10], "SFX\\Town\\Stars.wav");
-    FUN_00438e40(&this->sounds[11], "SFX\\Town\\Horse2.wav");
-    FUN_00438e40(&this->sounds[12], "SFX\\Town\\Horse3.wav");
-    FUN_00438e40(&this->sounds[13], "SFX\\Town\\Horse1.wav");
+    ReloadSfx(&this->sounds[0], "SFX\\Town\\Crowd.wav");
+    ReloadSfx(&this->sounds[3], "SFX\\Town\\Birds1.wav");
+    ReloadSfx(&this->sounds[4], "SFX\\Town\\Birds2.wav");
+    ReloadSfx(&this->sounds[5], "SFX\\Town\\Flugel.wav");
+    ReloadSfx(&this->sounds[6], "SFX\\Town\\Flag.wav");
+    ReloadSfx(&this->sounds[7], "SFX\\Town\\Point.wav");
+    ReloadSfx(&this->sounds[8], "SFX\\Town\\Shop\\enter.wav");
+    ReloadSfx(&this->sounds[9], "SFX\\Town\\School\\Point.wav");
+    ReloadSfx(&this->sounds[10], "SFX\\Town\\Stars.wav");
+    ReloadSfx(&this->sounds[11], "SFX\\Town\\Horse2.wav");
+    ReloadSfx(&this->sounds[12], "SFX\\Town\\Horse3.wav");
+    ReloadSfx(&this->sounds[13], "SFX\\Town\\Horse1.wav");
 }
 
 
@@ -19693,11 +19693,11 @@ void VisTown::VMethod35() {
 void VisTown::FUN_004d06aa() {
     this->guard_frame += this->guard_frame_step;
     if (this->guard_frame_step == 1 && this->guard_sound == 0) {
-        FUN_00438e40(&this->sounds[2], "SFX\\Town\\Guard2.wav");
+        ReloadSfx(&this->sounds[2], "SFX\\Town\\Guard2.wav");
         CSound::Play((CSound&)this->sounds[2]);
         this->guard_sound = 1;
     } else if (this->guard_frame_step == -1 && this->guard_sound != 0) {
-        FUN_00438e40(&this->sounds[2], "SFX\\Town\\Guard1.wav");
+        ReloadSfx(&this->sounds[2], "SFX\\Town\\Guard1.wav");
         CSound::Play((CSound&)this->sounds[2]);
         this->guard_sound = 0;
     }
@@ -19754,7 +19754,7 @@ void VisTown::FUN_004d0913() {
     CPoint pt(g_mousept.GetX(), g_mousept.GetY());
     if (this->VMethod33(pt) != 8) {
         if (this->door_open_flag != 0) {
-            FUN_00438e40(&this->sounds[1], "SFX\\Town\\GateDn.wav");
+            ReloadSfx(&this->sounds[1], "SFX\\Town\\GateDn.wav");
             CSound::Play((CSound&)this->sounds[1]);
         }
         this->door_open_flag = 0;
@@ -19765,7 +19765,7 @@ void VisTown::FUN_004d0913() {
         }
     } else {
         if (this->door_open_flag == 0) {
-            FUN_00438e40(&this->sounds[1], "SFX\\Town\\GateUp.wav");
+            ReloadSfx(&this->sounds[1], "SFX\\Town\\GateUp.wav");
             CSound::Play((CSound&)this->sounds[1]);
         }
         this->door_open_flag = 1;
@@ -20198,23 +20198,23 @@ void VisTownKaarg::VMethod32() {
 
 // 4D54CF
 void VisTownKaarg::VMethod30() {
-    FUN_00438e40(&this->snd_voice[0], "sfx\\town_kaarg\\Kvox2.wav");
-    FUN_00438e40(&this->snd_voice[1], "sfx\\town_kaarg\\Kvox3.wav");
-    FUN_00438e40(&this->snd_voice[2], "sfx\\town_kaarg\\Kvox4.wav");
-    FUN_00438e40(&this->snd_bird[0], "sfx\\town_kaarg\\Kbird1.wav");
-    FUN_00438e40(&this->snd_bird[1], "sfx\\town_kaarg\\Kbird2.wav");
-    FUN_00438e40(&this->snd_bird[2], "sfx\\town_kaarg\\Kbird3.wav");
-    FUN_00438e40(&this->snd_bird[3], "sfx\\town_kaarg\\Kbird4.wav");
-    FUN_00438e40(&this->snd_voice1, "sfx\\town_kaarg\\Kvox1.wav");
-    FUN_00438e40(&this->snd_shop_enter, "sfx\\town_kaarg\\Kenter2.wav");
-    FUN_00438e40(&this->snd_tavern_enter, "sfx\\town_kaarg\\Kenter1.wav");
-    FUN_00438e40(&this->snd_dervish, "sfx\\town_kaarg\\Kman1.wav");
-    FUN_00438e40(&this->snd_guard[0], "sfx\\town_kaarg\\Ksteps2.wav");
-    FUN_00438e40(&this->snd_guard[1], "sfx\\town_kaarg\\Ksteps21.wav");
-    FUN_00438e40(&this->snd_guard[2], "sfx\\town_kaarg\\Ksteps1.wav");
-    FUN_00438e40(&this->snd_guard[3], "sfx\\town_kaarg\\Ksteps11.wav");
-    FUN_00438e40(&this->snd_guard[4], "sfx\\town_kaarg\\Ksteps3.wav");
-    FUN_00438e40(&this->snd_guard[5], "sfx\\town_kaarg\\Ksteps31.wav");
+    ReloadSfx(&this->snd_voice[0], "sfx\\town_kaarg\\Kvox2.wav");
+    ReloadSfx(&this->snd_voice[1], "sfx\\town_kaarg\\Kvox3.wav");
+    ReloadSfx(&this->snd_voice[2], "sfx\\town_kaarg\\Kvox4.wav");
+    ReloadSfx(&this->snd_bird[0], "sfx\\town_kaarg\\Kbird1.wav");
+    ReloadSfx(&this->snd_bird[1], "sfx\\town_kaarg\\Kbird2.wav");
+    ReloadSfx(&this->snd_bird[2], "sfx\\town_kaarg\\Kbird3.wav");
+    ReloadSfx(&this->snd_bird[3], "sfx\\town_kaarg\\Kbird4.wav");
+    ReloadSfx(&this->snd_voice1, "sfx\\town_kaarg\\Kvox1.wav");
+    ReloadSfx(&this->snd_shop_enter, "sfx\\town_kaarg\\Kenter2.wav");
+    ReloadSfx(&this->snd_tavern_enter, "sfx\\town_kaarg\\Kenter1.wav");
+    ReloadSfx(&this->snd_dervish, "sfx\\town_kaarg\\Kman1.wav");
+    ReloadSfx(&this->snd_guard[0], "sfx\\town_kaarg\\Ksteps2.wav");
+    ReloadSfx(&this->snd_guard[1], "sfx\\town_kaarg\\Ksteps21.wav");
+    ReloadSfx(&this->snd_guard[2], "sfx\\town_kaarg\\Ksteps1.wav");
+    ReloadSfx(&this->snd_guard[3], "sfx\\town_kaarg\\Ksteps11.wav");
+    ReloadSfx(&this->snd_guard[4], "sfx\\town_kaarg\\Ksteps3.wav");
+    ReloadSfx(&this->snd_guard[5], "sfx\\town_kaarg\\Ksteps31.wav");
     this->tavern_snd_flag = 0;
     this->hover_snd_shop = 0;
     this->exit_snd_flag = 0;
@@ -20442,7 +20442,7 @@ void VisTownKaarg::FUN_004d6480() {
     CPoint pt(g_mousept.GetX(), g_mousept.GetY());
     if (this->VMethod33(pt) != 8) {
         if (this->door_open_flag != 0) {
-            FUN_00438e40(&this->sounds[1], "SFX\\Town_kaarg\\Kdoor2.wav");
+            ReloadSfx(&this->sounds[1], "SFX\\Town_kaarg\\Kdoor2.wav");
             CSound::Play((CSound&)this->sounds[1]);
         }
         this->door_open_flag = 0;
@@ -20453,7 +20453,7 @@ void VisTownKaarg::FUN_004d6480() {
         }
     } else {
         if (this->door_open_flag == 0) {
-            FUN_00438e40(&this->sounds[1], "SFX\\Town_kaarg\\Kdoor1.wav");
+            ReloadSfx(&this->sounds[1], "SFX\\Town_kaarg\\Kdoor1.wav");
             CSound::Play((CSound&)this->sounds[1]);
         }
         this->door_open_flag = 1;
@@ -20866,27 +20866,27 @@ void VisTownDruid::VMethod32() {
 // 4D2AFF
 void VisTownDruid::VMethod30() {
     this->VMethod31();
-    FUN_00438e40(&this->snd_lizard[0], "sfx\\town_druid\\Dlizard1.wav");
-    FUN_00438e40(&this->snd_lizard[1], "sfx\\town_druid\\Dlizard2.wav");
-    FUN_00438e40(&this->snd_lizard[2], "sfx\\town_druid\\Dlizard3.wav");
-    FUN_00438e40(&this->snd_lizard[3], "sfx\\town_druid\\Dlizard4.wav");
-    FUN_00438e40(&this->snd_bug[0], "sfx\\town_druid\\Dbug1.wav");
-    FUN_00438e40(&this->snd_bug[1], "sfx\\town_druid\\Dbug2.wav");
-    FUN_00438e40(&this->snd_bug[2], "sfx\\town_druid\\Dbug3.wav");
-    FUN_00438e40(&this->snd_bird[0], "sfx\\town_druid\\Dbird1.wav");
-    FUN_00438e40(&this->snd_bird[1], "sfx\\town_druid\\Dbird2.wav");
-    FUN_00438e40(&this->snd_bird[2], "sfx\\town_druid\\Dbird3.wav");
-    FUN_00438e40(&this->snd_tree[0], "sfx\\town_druid\\Dtree1.wav");
-    FUN_00438e40(&this->snd_tree[1], "sfx\\town_druid\\Dtree2.wav");
-    FUN_00438e40(&this->snd_tree[2], "sfx\\town_druid\\Dtree3.wav");
-    FUN_00438e40(&this->snd_tree[3], "sfx\\town_druid\\Dtree4.wav");
-    FUN_00438e40(&this->snd_forest, "sfx\\town_druid\\Dforest1.wav");
-    FUN_00438e40(&this->snd_shop, "sfx\\town_druid\\Ddruid1.wav");
-    FUN_00438e40(&this->snd_tavern, "sfx\\town_druid\\Ddruid2.wav");
-    FUN_00438e40(&this->snd_shop_enter, "sfx\\town_druid\\Denter2.wav");
-    FUN_00438e40(&this->snd_tavern_enter, "sfx\\town_druid\\Denter1.wav");
-    FUN_00438e40(&this->snd_town_exit, "sfx\\town_druid\\Dout.wav");
-    FUN_00438e40(&this->snd_wolf, "sfx\\town_druid\\Dwolf1.wav");
+    ReloadSfx(&this->snd_lizard[0], "sfx\\town_druid\\Dlizard1.wav");
+    ReloadSfx(&this->snd_lizard[1], "sfx\\town_druid\\Dlizard2.wav");
+    ReloadSfx(&this->snd_lizard[2], "sfx\\town_druid\\Dlizard3.wav");
+    ReloadSfx(&this->snd_lizard[3], "sfx\\town_druid\\Dlizard4.wav");
+    ReloadSfx(&this->snd_bug[0], "sfx\\town_druid\\Dbug1.wav");
+    ReloadSfx(&this->snd_bug[1], "sfx\\town_druid\\Dbug2.wav");
+    ReloadSfx(&this->snd_bug[2], "sfx\\town_druid\\Dbug3.wav");
+    ReloadSfx(&this->snd_bird[0], "sfx\\town_druid\\Dbird1.wav");
+    ReloadSfx(&this->snd_bird[1], "sfx\\town_druid\\Dbird2.wav");
+    ReloadSfx(&this->snd_bird[2], "sfx\\town_druid\\Dbird3.wav");
+    ReloadSfx(&this->snd_tree[0], "sfx\\town_druid\\Dtree1.wav");
+    ReloadSfx(&this->snd_tree[1], "sfx\\town_druid\\Dtree2.wav");
+    ReloadSfx(&this->snd_tree[2], "sfx\\town_druid\\Dtree3.wav");
+    ReloadSfx(&this->snd_tree[3], "sfx\\town_druid\\Dtree4.wav");
+    ReloadSfx(&this->snd_forest, "sfx\\town_druid\\Dforest1.wav");
+    ReloadSfx(&this->snd_shop, "sfx\\town_druid\\Ddruid1.wav");
+    ReloadSfx(&this->snd_tavern, "sfx\\town_druid\\Ddruid2.wav");
+    ReloadSfx(&this->snd_shop_enter, "sfx\\town_druid\\Denter2.wav");
+    ReloadSfx(&this->snd_tavern_enter, "sfx\\town_druid\\Denter1.wav");
+    ReloadSfx(&this->snd_town_exit, "sfx\\town_druid\\Dout.wav");
+    ReloadSfx(&this->snd_wolf, "sfx\\town_druid\\Dwolf1.wav");
     this->tavern_hover_snd_flag = 0;
     this->hover_snd_shop = 0;
     this->mission_exit_hover_snd_flag = 0;
@@ -22310,7 +22310,7 @@ void VisFameHall::FreeBitmaps() {
 
 // 45D542
 void VisFameHall::LoadSounds() {
-    FUN_00438e40(&this->snd_close, "SFX\\ChrGen\\Ok.wav");
+    ReloadSfx(&this->snd_close, "SFX\\ChrGen\\Ok.wav");
 }
 
 
@@ -23583,7 +23583,7 @@ void VisMainMenu::UpdateButtonState(uint32_t wparam, CPoint mouse) {
 // 4ABB5E
 void VisMainMenu::LoadSfx() {
     this->FreeSfx();
-    FUN_00438e40(&this->snd_btn_click, "SFX\\ChrGen\\Ok.wav");
+    ReloadSfx(&this->snd_btn_click, "SFX\\ChrGen\\Ok.wav");
 }
 
 

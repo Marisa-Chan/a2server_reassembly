@@ -183,7 +183,7 @@ void FreeSfxSample(SfxSample** sample) {
 }
 
 // 438e40
-void FUN_00438e40(SfxSample** sample, const char* fname) {
+void ReloadSfx(SfxSample** sample, const char* fname) {
 	FreeSfxSample(sample);
 	*sample = new SfxSample(fname);
 }

@@ -30,7 +30,7 @@ int InitSound(HWND hwnd, int channels); //45c489
 void FreeDSound(); //45c7c5
 void LoadGameSounds(); //4c8217
 void FUN_00476c0d(int32_t x, int32_t y); //476c0d in asm
-void FUN_00438e40(SfxSample** sample, const char* fname); //438e40 in asm
+void ReloadSfx(SfxSample** sample, const char* fname); //438e40 in asm
 void FUN_004a4740(SfxSample** sample); //4a4740 in asm
 void FreeSfxSample(SfxSample** sample); //438dd0 in asm
 void FUN_00438f20(SfxSample** sample); //438f20 in asm
