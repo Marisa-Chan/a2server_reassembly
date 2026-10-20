@@ -725,7 +725,7 @@ void World::CollectRayTargets(Unit* caster, Unit* target, CList<Unit*>* units, u
 }
 
 // 5ABB32
-uint8_t World::sub_5ABB32(Unit* unit, PosYX yx) {
+uint8_t World::CanClaimMoveCell(Unit* unit, PosYX yx) {
     Unit* unit_at_yx = this->field24_0xa50->GetUnitAt(yx);
 
     if (unit->GetTokenSize() != 1) {

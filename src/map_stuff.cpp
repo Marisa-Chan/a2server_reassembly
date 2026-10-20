@@ -400,7 +400,7 @@ void MapStuff::MoveStepTowardPos(Unit* unit, PosYX yx, uint8_t max_range) {
         ok = 0;
         if (next_yx != 0) {
             if (this->IsAreaClear(unit, next_yx, 0) == 0) {
-                ok = this->field41_0x58d80->sub_5ABB32(unit, next_yx);
+                ok = this->field41_0x58d80->CanClaimMoveCell(unit, next_yx);
             }
         }
         if (ok) {
