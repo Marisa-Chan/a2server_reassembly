@@ -159,7 +159,7 @@ public:
     void PlaceRespawnedGroup(Group* group, int param); // Place a newly respawned group into the world.
     void OrderAreaCast(Unit* unit, uint8_t x, uint8_t y, Spell* spell); // 5A930F — group area-cast setup (ASM).
     void GroupAttackMoveCommand(Group* group, uint8_t x, uint8_t y);
-    void GroupFollowCommand(Group* group, Unit* target, uint8_t param_3);
+    void GroupFollowCommand(Group* group, Unit* target, uint8_t range);
     uint32_t ComputeGroupAvgPos(Group* group); // Compute average position of units in a group.
     uint8_t CanClaimMoveCell(Unit* unit, PosYX yx); // 5ABB32
     void GroupRoamCommand(Group* group);

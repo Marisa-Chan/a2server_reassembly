@@ -4432,12 +4432,12 @@ void World::GroupAttackTargetCommand(Group* group, Unit* target, uint8_t range) 
 }
 
 // 5ACB9E
-void World::GroupFollowCommand(Group* group, Unit* target, uint8_t param_3) {
+void World::GroupFollowCommand(Group* group, Unit* target, uint8_t range) {
     this->ClearGroupOrders(group);
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
-        this->OrderFollowTarget(unit, target, param_3);
+        this->OrderFollowTarget(unit, target, range);
     }
 }
 
