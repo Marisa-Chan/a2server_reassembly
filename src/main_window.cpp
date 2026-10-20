@@ -1106,7 +1106,7 @@ void MainWindow::OnChar(UINT ch, UINT repeat, UINT flags) {
 }
 
 // 4919c7
-void MainWindow::sub_4919C7() {
+void MainWindow::OpenConsoleInput() {
     this->vis_map_context->field_0xe0 = 1;
     this->vis_map_context->AddChild(this->vis_1200);
     this->vis_1200->FUN_0043be9f();

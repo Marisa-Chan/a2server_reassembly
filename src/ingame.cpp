@@ -6441,7 +6441,7 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 			this->msglog.Clear();
 			break;
 		case 0xD:
-			wnd->sub_4919C7();
+			wnd->OpenConsoleInput();
 			break;
 		case 0x25:
 			if (wnd->dialogsMask == 1) {
