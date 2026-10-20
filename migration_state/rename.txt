@@ -1120,3 +1120,4 @@ NetStru1::SendInfoPacket param_3 -> value2 -- second PacketInfo param2 payload v
 NetStru1::SendInfoPacket param_4 -> target -- recipient player (0/broadcast when null)
 NetStru1::SendTeamState arg -> to_player_id -- recipient (0 = broadcast); all current callers pass 0
 NetStru1::SendUnitUpdate arg4/param5 -> props_flags -- humanoid-props flags forwarded to SendHumanoidProps when mask & 0x400000
+NetStru1::SendUnitUpdate arg5/param6 -> inv_start_index -- first inventory item index for SendMonsterInventory when mask & 0x200000
