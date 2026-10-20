@@ -253,7 +253,7 @@ void SfxSample::Play() {
 }
 
 
-void FUN_00438f20(SfxSample** sample) { //438f20
+void StopSfx(SfxSample** sample) { //438f20
 	if (*sample != nullptr) {
 		SoundChannel* chnl = (*sample)->FindPlayingChannel();
 		if (chnl != nullptr) {

@@ -8544,7 +8544,7 @@ int32_t VisCharGenStats::OnStatUp(int32_t idx) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     main_wnd->m_GameSession.SetCharacterStats(this->stat_body, this->stat_reaction, this->stat_mind, this->stat_spirit,
                                               this->parent_screen->skills_panel->selected_slot + 1);
-    FUN_00438f20(&this->parent_screen->snd_stat);
+    StopSfx(&this->parent_screen->snd_stat);
     CSound::Play((CSound&)this->parent_screen->snd_stat);
     return 1;
 }
@@ -8560,7 +8560,7 @@ int32_t VisCharGenStats::OnStatDown(int32_t idx) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     main_wnd->m_GameSession.SetCharacterStats(this->stat_body, this->stat_reaction, this->stat_mind, this->stat_spirit,
                                               this->parent_screen->skills_panel->selected_slot + 1);
-    FUN_00438f20(&this->parent_screen->snd_stat);
+    StopSfx(&this->parent_screen->snd_stat);
     CSound::Play((CSound&)this->parent_screen->snd_stat);
     return 1;
 }
@@ -11400,7 +11400,7 @@ int32_t VisShopCompass::VMethod37(int32_t arg) {
     if ((uint16_t)this->shop->select_category == (uint16_t)arg) {
         return 0;
     }
-    FUN_00438f20(&this->shop->snd_depart);
+    StopSfx(&this->shop->snd_depart);
     CSound::Play((CSound&)this->shop->snd_depart);
     if (this->shop->select_category == 100) {
         this->state = 0;
@@ -11971,7 +11971,7 @@ int32_t VisShopCompassKaarg::VMethod37(int32_t arg) {
     if ((uint16_t)this->shop->select_category == (uint16_t)arg) {
         return 0;
     }
-    FUN_00438f20(&this->shop->snd_depart);
+    StopSfx(&this->shop->snd_depart);
     CSound::Play((CSound&)this->shop->snd_depart);
     if (this->shop->select_category == 100) {
         this->state = 0;
@@ -12021,7 +12021,7 @@ int32_t VisShopCompassDruid::VMethod37(int32_t arg) {
     }
     int32_t result = 0;
     if ((uint16_t)this->shop->select_category != (uint16_t)arg) {
-        FUN_00438f20(&this->shop->snd_depart);
+        StopSfx(&this->shop->snd_depart);
         CSound::Play((CSound&)this->shop->snd_depart);
         this->dir_frm[(uint16_t)arg] = 0;
         this->shop->select_category = arg;
@@ -17286,14 +17286,14 @@ int32_t VisInvExtType1::OnLButtonDown(uint32_t wparam, CPoint pos) {
     if (this->field_0x20cc.PtInRect(pt)) {
         this->sub_4A5350();
         this->sub_4A5350();
-        FUN_00438f20(&this->field_0x20bc.sample);
+        StopSfx(&this->field_0x20bc.sample);
         CSound::Play(this->field_0x20bc);
         return 1;
     }
     if (this->field_0x20dc.PtInRect(pt)) {
         this->sub_4A51C9();
         this->sub_4A51C9();
-        FUN_00438f20(&this->field_0x20bc.sample);
+        StopSfx(&this->field_0x20bc.sample);
         CSound::Play(this->field_0x20bc);
         return 1;
     }
@@ -17310,14 +17310,14 @@ int32_t VisInvExtType1::OnWmUser(uint32_t wparam, CPoint pos) {
         if (this->field_0x20cc.PtInRect(pt)) {
             this->sub_4A5350();
             this->sub_4A5350();
-            FUN_00438f20(&this->field_0x20bc.sample);
+            StopSfx(&this->field_0x20bc.sample);
             CSound::Play(this->field_0x20bc);
             return 1;
         }
         if (this->field_0x20dc.PtInRect(pt)) {
             this->sub_4A51C9();
             this->sub_4A51C9();
-            FUN_00438f20(&this->field_0x20bc.sample);
+            StopSfx(&this->field_0x20bc.sample);
             CSound::Play(this->field_0x20bc);
             return 1;
         }
@@ -17350,7 +17350,7 @@ int32_t VisInvExtType1::OnKeyDown(uint32_t wparam) {
         this->sub_4A5350();
         this->sub_4A5350();
         this->sub_4A5350();
-        FUN_00438f20(&this->field_0x20bc.sample);
+        StopSfx(&this->field_0x20bc.sample);
         CSound::Play(this->field_0x20bc);
         return 1;
     }
@@ -17361,7 +17361,7 @@ int32_t VisInvExtType1::OnKeyDown(uint32_t wparam) {
         this->sub_4A51C9();
         this->sub_4A51C9();
         this->sub_4A51C9();
-        FUN_00438f20(&this->field_0x20bc.sample);
+        StopSfx(&this->field_0x20bc.sample);
         CSound::Play(this->field_0x20bc);
         return 1;
     }
@@ -17680,13 +17680,13 @@ int32_t VisInvExtType2::OnLButtonDown(uint32_t wparam, CPoint pos) {
 
     if (this->field_0x20cc.PtInRect(rel)) {
         this->sub_4A5350();
-        FUN_00438f20(&this->field_0x20bc.sample);
+        StopSfx(&this->field_0x20bc.sample);
         CSound::Play(this->field_0x20bc);
         return 1;
     }
     if (this->field_0x20dc.PtInRect(rel)) {
         this->sub_4A51C9();
-        FUN_00438f20(&this->field_0x20bc.sample);
+        StopSfx(&this->field_0x20bc.sample);
         CSound::Play(this->field_0x20bc);
         return 1;
     }
@@ -17943,7 +17943,7 @@ int32_t VisInvExtType3::VMethod37(int32_t idx) {
             }
         }
     }
-    FUN_00438f20(&this->field_0x20b4.sample);
+    StopSfx(&this->field_0x20b4.sample);
     CSound::Play(this->field_0x20b4);
     return this->sub_4B9B2F(idx);
 }
@@ -17951,7 +17951,7 @@ int32_t VisInvExtType3::VMethod37(int32_t idx) {
 
 // 4B9C3C
 TokenEntry* VisInvExtType3::VMethod36(int32_t idx, int32_t num) {
-    FUN_00438f20(&this->field_0x20b8.sample);
+    StopSfx(&this->field_0x20b8.sample);
     CSound::Play(this->field_0x20b8);
     return VisInvBase::VMethod36(idx, num);
 }
@@ -18434,21 +18434,21 @@ int32_t VisStartGame::OnLButtonDown(uint32_t wparam, CPoint pos) {
     case 0x14:
         if (main_wnd->sessionMode == 2) {
             this->committedDifficultyIndex = 0;
-            FUN_00438f20(&this->difficultyLevel1Sound.sample);
+            StopSfx(&this->difficultyLevel1Sound.sample);
             CSound::Play(this->difficultyLevel1Sound);
         }
         break;
     case 0x28:
         if (main_wnd->sessionMode == 2) {
             this->committedDifficultyIndex = 1;
-            FUN_00438f20(&this->difficultyLevel2Sound.sample);
+            StopSfx(&this->difficultyLevel2Sound.sample);
             CSound::Play(this->difficultyLevel2Sound);
         }
         break;
     case 0x3C:
         if (main_wnd->sessionMode == 2) {
             this->committedDifficultyIndex = 2;
-            FUN_00438f20(&this->difficultyLevel3Sound.sample);
+            StopSfx(&this->difficultyLevel3Sound.sample);
             CSound::Play(this->difficultyLevel3Sound);
         }
         break;
@@ -18460,7 +18460,7 @@ int32_t VisStartGame::OnLButtonDown(uint32_t wparam, CPoint pos) {
             }
         }
         this->committedPortraitIndex = 0;
-        FUN_00438f20(&this->portraitSelectSound.sample);
+        StopSfx(&this->portraitSelectSound.sample);
         CSound::Play(this->portraitSelectSound);
         break;
     case 100:
@@ -18471,7 +18471,7 @@ int32_t VisStartGame::OnLButtonDown(uint32_t wparam, CPoint pos) {
             }
         }
         this->committedPortraitIndex = 1;
-        FUN_00438f20(&this->portraitSelectSound.sample);
+        StopSfx(&this->portraitSelectSound.sample);
         CSound::Play(this->portraitSelectSound);
         break;
     case 0x78:
@@ -18482,7 +18482,7 @@ int32_t VisStartGame::OnLButtonDown(uint32_t wparam, CPoint pos) {
             }
         }
         this->committedPortraitIndex = 2;
-        FUN_00438f20(&this->portraitSelectSound.sample);
+        StopSfx(&this->portraitSelectSound.sample);
         CSound::Play(this->portraitSelectSound);
         break;
     case 0x8C:
@@ -18493,7 +18493,7 @@ int32_t VisStartGame::OnLButtonDown(uint32_t wparam, CPoint pos) {
             }
         }
         this->committedPortraitIndex = 3;
-        FUN_00438f20(&this->portraitSelectSound.sample);
+        StopSfx(&this->portraitSelectSound.sample);
         CSound::Play(this->portraitSelectSound);
         break;
     case 0xA0:
@@ -19642,7 +19642,7 @@ void VisTown::VMethod34(CPoint pos) {
             this->town_anim |= mask;
         }
         if (this->hover_snd_shop == 0) {
-            FUN_00438f20(&this->sounds[9]);
+            StopSfx(&this->sounds[9]);
             CSound::Play((CSound&)this->sounds[8]);
             this->hover_snd_shop = 1;
         }
@@ -19718,8 +19718,8 @@ void VisTown::FUN_004d06aa() {
 // 4D07E8
 void VisTown::FUN_004d07e8() {
     if (this->tavern_frame == 0) {
-        FUN_00438f20(&this->sounds[8]);
-        FUN_00438f20(&this->sounds[9]);
+        StopSfx(&this->sounds[8]);
+        StopSfx(&this->sounds[9]);
         CSound::Play((CSound&)this->sounds[7]);
     }
     this->tavern_frame++;
@@ -20249,8 +20249,8 @@ void VisTownKaarg::VMethod34(CPoint pos) {
             this->tavern_snd_flag = 0;
             this->hover_snd_shop = 0;
             if (this->exit_snd_flag == 0) {
-                FUN_00438f20(&this->snd_shop_enter);
-                FUN_00438f20(&this->snd_tavern_enter);
+                StopSfx(&this->snd_shop_enter);
+                StopSfx(&this->snd_tavern_enter);
                 this->exit_snd_flag = 1;
             }
         } else {
@@ -20263,7 +20263,7 @@ void VisTownKaarg::VMethod34(CPoint pos) {
                 break;
             case 2:
                 if (this->hover_snd_shop == 0) {
-                    FUN_00438f20(&this->snd_tavern_enter);
+                    StopSfx(&this->snd_tavern_enter);
                     CSound::Play((CSound&)this->snd_shop_enter);
                     this->hover_snd_shop = 1;
                 }
@@ -20272,7 +20272,7 @@ void VisTownKaarg::VMethod34(CPoint pos) {
                 break;
             case 3:
                 if (this->tavern_snd_flag == 0) {
-                    FUN_00438f20(&this->snd_shop_enter);
+                    StopSfx(&this->snd_shop_enter);
                     CSound::Play((CSound&)this->snd_tavern_enter);
                     this->tavern_snd_flag = 1;
                 }
@@ -20928,7 +20928,7 @@ static const int32_t* const lizard_seqs[4] = { lizard_seq0, lizard_seq1, lizard_
 // 4D3384
 void VisTownDruid::FUN_004d3384() {
     if (this->tavern_frame == 0) {
-        FUN_00438f20(&this->sounds[8]);
+        StopSfx(&this->sounds[8]);
         CSound::Play((CSound&)this->sounds[7]);
     }
     if (this->tavern_group >= 0) {
@@ -21113,8 +21113,8 @@ void VisTownDruid::VMethod34(CPoint pos) {
             this->tavern_hover_snd_flag = 0;
             this->hover_snd_shop = 0;
             if (this->mission_exit_hover_snd_flag == 0) {
-                FUN_00438f20(&this->snd_shop_enter);
-                FUN_00438f20(&this->snd_tavern_enter);
+                StopSfx(&this->snd_shop_enter);
+                StopSfx(&this->snd_tavern_enter);
                 CSound::Play((CSound&)this->snd_town_exit);
                 this->mission_exit_hover_snd_flag = 1;
             }
@@ -21128,7 +21128,7 @@ void VisTownDruid::VMethod34(CPoint pos) {
                 break;
             case 2:
                 if (this->shop_group != 2 && old_mask != this->hovered_action_mask) {
-                    FUN_00438f20(&this->snd_shop);
+                    StopSfx(&this->snd_shop);
                     this->shop_tick = timeGetTime();
                     this->shop_group = 2;
                     this->shop_frame = -1;
@@ -21137,8 +21137,8 @@ void VisTownDruid::VMethod34(CPoint pos) {
                     CSound::Play((CSound&)this->snd_shop);
                 }
                 if (this->hover_snd_shop == 0) {
-                    FUN_00438f20(&this->snd_tavern_enter);
-                    FUN_00438f20(&this->snd_town_exit);
+                    StopSfx(&this->snd_tavern_enter);
+                    StopSfx(&this->snd_town_exit);
                     CSound::Play((CSound&)this->snd_shop_enter);
                     this->hover_snd_shop = 1;
                 }
@@ -21147,7 +21147,7 @@ void VisTownDruid::VMethod34(CPoint pos) {
                 break;
             case 3:
                 if (this->tavern_group != 2 && old_mask != this->hovered_action_mask) {
-                    FUN_00438f20(&this->snd_tavern);
+                    StopSfx(&this->snd_tavern);
                     this->tavern_tick = timeGetTime();
                     this->tavern_group = 2;
                     this->tavern_frame = -1;
@@ -21156,8 +21156,8 @@ void VisTownDruid::VMethod34(CPoint pos) {
                     CSound::Play((CSound&)this->snd_tavern);
                 }
                 if (this->tavern_hover_snd_flag == 0) {
-                    FUN_00438f20(&this->snd_shop_enter);
-                    FUN_00438f20(&this->snd_town_exit);
+                    StopSfx(&this->snd_shop_enter);
+                    StopSfx(&this->snd_town_exit);
                     CSound::Play((CSound&)this->snd_tavern_enter);
                     this->tavern_hover_snd_flag = 1;
                 }
@@ -21205,7 +21205,7 @@ void VisTownDruid::VMethod35() {
                 this->shop_group = GetRandS16(2);
             }
             this->town_anim |= 1;
-            FUN_00438f20(&this->snd_shop);
+            StopSfx(&this->snd_shop);
             CSound::Play((CSound&)this->snd_shop);
         }
     }
@@ -21220,7 +21220,7 @@ void VisTownDruid::VMethod35() {
                 this->tavern_group = GetRandS16(2);
             }
             this->town_anim |= 2;
-            FUN_00438f20(&this->snd_tavern);
+            StopSfx(&this->snd_tavern);
             CSound::Play((CSound&)this->snd_tavern);
         }
     }

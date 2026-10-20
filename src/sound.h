@@ -33,7 +33,7 @@ void FUN_00476c0d(int32_t x, int32_t y); //476c0d in asm
 void ReloadSfx(SfxSample** sample, const char* fname); //438e40 in asm
 void FUN_004a4740(SfxSample** sample); //4a4740 in asm
 void FreeSfxSample(SfxSample** sample); //438dd0 in asm
-void FUN_00438f20(SfxSample** sample); //438f20 in asm
+void StopSfx(SfxSample** sample); //438f20 in asm
 void FUN_004c86f5(); //4c86f5 in asm
 void FUN_0047619a(); //47619a in asm
 

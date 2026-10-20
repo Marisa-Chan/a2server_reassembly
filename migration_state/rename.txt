@@ -805,3 +805,4 @@ QuestInnGlue::VMethod7 -> SpawnGhostMobs -- spawns the ghost (0x45) quest mobs
 QuestInnGlue::VMethod8 -> GetX -- returns the inn position x
 QuestInnGlue::VMethod9 -> GetY -- returns the inn position y
 free: FUN_00438dd0 -> FreeSfxSample -- stops the playing channel and deletes the sample (named ...Sample: VisMainMenu/VisCharSelect have 0-arg FreeSfx members)
+free: FUN_00438e40 -> ReloadSfx -- stops and reloads the sample from file
