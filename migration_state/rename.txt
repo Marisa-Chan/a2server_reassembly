@@ -789,3 +789,4 @@ QuestMap::sub_55E00C -> ProcessDeferredEvents -- drives the inn glues and drains
 QuestMap::sub_55E027 -> ProcessInnGlues -- runs every inn glue's quest iteration
 QuestMap::sub_55DE84 -> ProcessQueuedEvents -- drains the QuestSubstruct queue firing OnEvent for each
 QuestMap::sub_55DD10 -> QueueEvent -- appends (event_type,a,b) to the deferred QuestSubstruct queue
+QuestMap::sub_55E24A -> RegisterQuest -- inserts the quest into quests_map and its inn glue

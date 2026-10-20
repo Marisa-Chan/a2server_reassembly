@@ -105,7 +105,7 @@ void QuestMap::RegisterQuest(Quest* quest) {
 }
 
 // 55E5FB
-void QuestMap::sub_55E5FB(Quest* quest) {
+void QuestMap::UnregisterQuest(Quest* quest) {
 	this->flags[quest->quest_data.player_id] |= 1;
 	this->quests_map.RemoveKey(quest->quest_data.some_id);
 	quest->quest_map = nullptr;
@@ -140,7 +140,7 @@ void QuestMap::sub_55ECFE(int32_t player_id) {
 		this->quest = quest;
 
 		if (player_id == 0 || quest->quest_data.player_id == player_id) {
-			this->sub_55E5FB(quest);
+			this->UnregisterQuest(quest);
 			delete quest;
 		}
 	}

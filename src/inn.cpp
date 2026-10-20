@@ -1156,7 +1156,7 @@ void Inn::DeleteCompletedQuests(Player* player) {
         Quest* quest;
         g_QuestMap.quests_map.GetNextAssoc(pos, key, quest);
         if (quest && quest->quest_data.player_id == player->player_id && quest->quest_data.building_id == this->building_id && quest->quest_data.state == 2) {
-            g_QuestMap.sub_55E5FB(quest);
+            g_QuestMap.UnregisterQuest(quest);
             delete quest;
         }
     }
@@ -1211,7 +1211,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                 this->active_quest = quest;
 
                 // Process the quest
-                qm->sub_55E5FB(this->active_quest);
+                qm->UnregisterQuest(this->active_quest);
                 this->active_quest->quest_data.state = 0;
                 g_QuestMap.RegisterQuest(this->active_quest);
                 g_NetStru1_main.SendSrvStru1State(&g_QuestMap, humanoid->pOwner, 0);
@@ -1222,7 +1222,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                     case 4: { // Escort
                         Unit* escort_unit = dword_6CDB3C->sub_5560D2(this->active_quest->quest_data.obj);
                         if (escort_unit == nullptr || humanoid == nullptr) {
-                            g_QuestMap.sub_55E5FB(this->active_quest);
+                            g_QuestMap.UnregisterQuest(this->active_quest);
                         } else {
                             g_NetStru1_main.TransferUnitOwnership(escort_unit, humanoid->pOwner);
                         }
@@ -1243,7 +1243,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                         uint16_t unit_id = this->active_quest->quest_data.obj;
                         Unit* target_unit = dword_6CDB3C->sub_5560D2(unit_id);
                         if (target_unit == nullptr) {
-                            g_QuestMap.sub_55E5FB(this->active_quest);
+                            g_QuestMap.UnregisterQuest(this->active_quest);
                         } else {
                             target_unit->group->group_sub->active = 1;
                             uint8_t y = this->position->GetY();
@@ -1421,7 +1421,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
     // Find and clean up any pending quest for this player
     this->active_quest = this->FindActiveQuest(humanoid->pOwner);
     if (this->active_quest != nullptr) {
-        g_QuestMap.sub_55E5FB(this->active_quest);
+        g_QuestMap.UnregisterQuest(this->active_quest);
         if (this->active_quest != nullptr) {
             delete this->active_quest;
         }

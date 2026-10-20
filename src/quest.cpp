@@ -381,7 +381,7 @@ int32_t QuestInterceptUnit::OnEvent(int32_t param_2, int32_t param_3, int32_t pa
     if (param_2 == 4) {
         if (param_3 == this->quest_data.obj && this->quest_data.state != 1 && this->quest_data.state != 2) {
             if ((param_4 & 0xffff) != this->quest_data.player_id) {
-                this->quest_map->sub_55E5FB(this);
+                this->quest_map->UnregisterQuest(this);
                 this->quest_map->flags[this->quest_data.player_id] = 0x80;
                 return 0;
             }
@@ -422,7 +422,7 @@ int32_t QuestInterceptGroup::OnEvent(int32_t param_2, int32_t param_3, int32_t p
     if (param_2 == 5) {
         if (param_3 == this->quest_data.obj && this->quest_data.state != 1 && this->quest_data.state != 2) {
             if ((param_4 & 0xffff) != this->quest_data.player_id) {
-                this->quest_map->sub_55E5FB(this);
+                this->quest_map->UnregisterQuest(this);
                 this->quest_map->flags[this->quest_data.player_id] = 0x80;
                 return 0;
             }
