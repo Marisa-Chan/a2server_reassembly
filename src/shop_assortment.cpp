@@ -62,7 +62,7 @@ static int32_t __cdecl CompareItemsForSort(const void* a, const void* b) {
 }
 
 // 54C556
-void __cdecl sub_54C556(CArray<Item*>* arr) {
+void __cdecl SortItems(CArray<Item*>* arr) {
     qsort(arr->GetData(), arr->GetSize(), sizeof(Item*), CompareItemsForSort);
 }
 
@@ -506,7 +506,7 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
         StackItemInArray(&item_array, item);
     }
 
-    sub_54C556(&item_array);
+    SortItems(&item_array);
 
     if (output == nullptr) {
         Inventory* inv = new Inventory();

@@ -917,3 +917,4 @@ unit: sub_53678F -> ExecuteAttack -- dispatches the attack by target kind (unit/
 shop_assortment: sub_54EDE9 -> RollItemEffect -- rolls a random enchantment Effect for an item
 shop_assortment: sub_54F04F -> RollCastSpellEffect -- rolls a random castspell Effect within budget
 shop_assortment: sub_54C6DD -> StackItemInArray -- merges the item into an existing stack or appends
+shop_assortment: sub_54C42A -> CompareItemsForSort -- qsort comparator (warrior items first)
