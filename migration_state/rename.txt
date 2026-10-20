@@ -1083,3 +1083,4 @@ MapPlayerData::FUN_0041edf0 -> KnowsPlayer -- diplomacy[idx] & 4; gates repeat j
 
 ARGUMENTS
 =========
+CGameObject::SetSelected arg1 -> selected -- the m_bSelected flag (false when a dragged item is dropped back)

@@ -125,7 +125,7 @@ public:
 	virtual void AssertValid() const override;
 	virtual void Dump(CDumpContext& dc) const override;
 
-	virtual void SetSelected(int32_t arg1);
+	virtual void SetSelected(int32_t selected);
 	virtual int32_t VMethod2();
 	virtual int32_t VMethod3();
 	virtual int32_t GetTileWidth();
@@ -237,7 +237,7 @@ public:
 
 	virtual ~CUnit(); //46459d
 
-	virtual void SetSelected(int32_t arg1) override; //4648e9
+	virtual void SetSelected(int32_t selected) override; //4648e9
 	virtual int32_t VMethod2() override;
 	virtual int32_t VMethod3() override;
 	virtual int32_t GetTileWidth() override;
