@@ -93,7 +93,7 @@ public:
 public:
     void AddMoney(int32_t amount, uint32_t notify_flag);
     void KillAllUnits(); // Kill all of this player's units on the map
-    void sub_534B17(); // Initialize inactivity timer (sets this+0A90h/0A94h from GetTickCount)
+    void StartAfkTimer(); // Initialize inactivity timer (sets this+0A90h/0A94h from GetTickCount)
     void sub_534B59(); // Reset inactivity timer and notify NetStru1
 
     void FUN_00534778(); //534778

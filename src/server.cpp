@@ -3165,7 +3165,7 @@ void Server::sub_504a96(Packet* pkt) {
         case 0x4D:
             g_World->GroupStopCommand(group);
             if (g_ServerConfig.gameType == 0) {
-                player->sub_534B17();
+                player->StartAfkTimer();
             }
             break;
         default:

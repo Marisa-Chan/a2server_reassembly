@@ -920,3 +920,4 @@ shop_assortment: sub_54C6DD -> StackItemInArray -- merges the item into an exist
 shop_assortment: sub_54C42A -> CompareItemsForSort -- qsort comparator (warrior items first)
 shop_assortment: sub_54C556 -> SortItems -- qsorts the item array
 Player::sub_534AC1 -> AddMoney -- adds gold and broadcasts the 0x67 money packet
+Player::sub_5346AC -> KillAllUnits -- sets every unit hp to -50

@@ -201,7 +201,7 @@ void Player::AddMoney(int32_t amount, uint32_t notify_flag) {
 }
 
 // 534B17
-void Player::sub_534B17() {
+void Player::StartAfkTimer() {
     if (this->afk_expire_tick == 0) {
         this->afk_expire_tick = GetTickCount() + 30500;
         this->afk_notify_tick = this->afk_expire_tick - 35500;
