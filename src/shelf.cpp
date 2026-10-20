@@ -53,7 +53,7 @@ Item* CMultiShopShelf::PickItem(int32_t slot, int32_t count) {
 }
 
 // 544BCE
-int32_t CMultiShopShelf::sub_544BCE(Item** item_ptr) {
+int32_t CMultiShopShelf::AddItem(Item** item_ptr) {
     Item* item = *item_ptr;
     item->field11_0x4d = this->shelf_id;
 
@@ -288,11 +288,11 @@ int32_t CMultiShopInstance::sub_5462C8(Item* item, int32_t arg1) {
         shelf_id = item->field11_0x4d - 1;
     }
 
-    result = this->shop_template->shelves[shelf_id].sub_544BCE(&item);
+    result = this->shop_template->shelves[shelf_id].AddItem(&item);
     if (result != 0) {
         item->field10_0x4c = 0;
     } else {
-        result = this->shelves[shelf_id].sub_544BCE(&item);
+        result = this->shelves[shelf_id].AddItem(&item);
     }
     return result;
 }
