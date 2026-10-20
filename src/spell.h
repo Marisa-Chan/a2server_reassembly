@@ -29,7 +29,7 @@ public:
 
     void Init(); //5391ab
 
-    void sub_53940D(Unit* unit);
+    void SetPowerFromCaster(Unit* unit);
     int sub_53939E(uint8_t unused1 = 0, uint8_t unused2 = 0); // Checks if it's area spell (spell target == 2).
     void sub_539541(uint32_t param);
     int sub_5393C7(); // Checks if spell_target == 1 (unit-targeted).

@@ -119,7 +119,7 @@ int Spell::sub_5393C7() {
 }
 
 // 53940D
-void Spell::sub_53940D(Unit* unit) {
+void Spell::SetPowerFromCaster(Unit* unit) {
     const SpellInfoData& info = this->spell_info->Values().GetData()[0];
     int32_t power = unit->hit_values.skill_levels[info.sphere] + unit->mind - 30;
     if (power < 0) {
@@ -258,7 +258,7 @@ int32_t Spell::sub_539958(Unit* caster, Unit* target, int8_t x, int8_t y) {
     }
 
     if (this->spell_id == spell::prismatic_spray) {
-        this->sub_53940D(caster);
+        this->SetPowerFromCaster(caster);
         this->sub_539C49(caster, target);
         return 1;
     }
@@ -336,7 +336,7 @@ void SpellBook::RefreshForHumanoid(Humanoid* humanoid) {
 				LogMessage("Bad spell data, restoring spell");
 			}
 
-			spell->sub_53940D(humanoid);
+			spell->SetPowerFromCaster(humanoid);
 		}
 	}
 }
