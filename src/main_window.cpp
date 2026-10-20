@@ -174,7 +174,7 @@ bool Fame2::ScrollDown() { //4abf35
     return false;
 }
 
-int32_t Fame2::FUN_004abf72() { //4abf72
+int32_t Fame2::ScrollUp() { //4abf72
     if (this->top_line == 0) {
         return 0;
     }

@@ -22008,7 +22008,7 @@ void VisFameDocument::NextDoc() {
 // 4AE6B3
 void VisFameDocument::PrevDoc() {
     Fame2& doc = this->fame->m_Documents[this->selected_doc];
-    if (doc.FUN_004abf72() == 0) {
+    if (doc.ScrollUp() == 0) {
         this->selected_doc = this->selected_doc - 1;
         if (this->selected_doc < 1) {
             this->selected_doc = 0;
