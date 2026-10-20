@@ -78,7 +78,7 @@ struct Fame2 {
     void operator=(const Fame2& b);
 
     void Clear();
-    void FUN_004abf0f(int32_t arg1, uint32_t arg2);
+    void SetDocument(int32_t arg1, uint32_t arg2);
     int32_t FUN_004ad880();
     uint32_t FUN_004ad890();
     bool FUN_004abf35(); // 4abf35 in asm

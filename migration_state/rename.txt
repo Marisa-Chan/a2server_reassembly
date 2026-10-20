@@ -850,3 +850,4 @@ ResBase::FUN_004e99c4 -> RebuildFat -- compacts the fat and rebuilds the entry i
 Resources::FUN_004e646d -> GetFatInfo -- searches every res file for the path's FatInfo
 Resources::FUN_004e6763 -> CloseFile -- removes and deletes an open file
 Resources::FUN_004e6409 -> MarkFileSubstituted -- sets the 0x20000000 flag that makes lookups return the FATINFO_T1 sentinel
+Resources::FUN_004e632d -> MarkSubstitutedFiles -- reads a list file and marks each named file substituted

@@ -136,7 +136,7 @@ void Fame2::Clear() {
     this->str_arr.RemoveAll();
 }
 
-void Fame2::FUN_004abf0f(int32_t arg1, uint32_t arg2) {
+void Fame2::SetDocument(int32_t arg1, uint32_t arg2) {
     //4abf0f
     this->Clear();
     this->doc_id = arg1;
@@ -253,7 +253,7 @@ uint32_t CFameHall::FUN_004ac566(int32_t arg) {
     }
 
     Fame2 f;
-    f.FUN_004abf0f(arg, 1);
+    f.SetDocument(arg, 1);
     this->m_Documents.Add(f);
 
     return 1;
