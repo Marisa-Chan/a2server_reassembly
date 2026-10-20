@@ -1403,7 +1403,7 @@ void Unit::PickUpSack(Sack* sack) {
         } // end item loop
 
         // Transfer all remaining items from sack to this unit's inventory.
-        this->inventory->sub_552A42(sack->inventory);
+        this->inventory->TransferFrom(sack->inventory);
         sack->inventory = nullptr;
         this->AddCarriedWeight(0); // Add weight.
     } // end if sack->inventory

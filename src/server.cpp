@@ -5800,7 +5800,7 @@ int32_t SackList::DumpInventoryAt(TokenPos* pos, Inventory* inventory, int money
         if (found_pos) {
             this->list.RemoveAt(found_pos);
             this->list.AddTail(sack);
-            sack->inventory->sub_552A42(inventory);
+            sack->inventory->TransferFrom(inventory);
         }
     }
     

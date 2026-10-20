@@ -120,7 +120,7 @@ void Inventory::AddItem(int32_t amount, Item* item) {
 }
 
 // 552A42
-void Inventory::sub_552A42(Inventory* src) {
+void Inventory::TransferFrom(Inventory* src) {
     if (!src || this->items.GetCount() >= 0x400) {
         return;
     }

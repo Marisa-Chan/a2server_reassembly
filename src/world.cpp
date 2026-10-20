@@ -2266,7 +2266,7 @@ void World::ScriptOP_0x1b(TriggerAction* action) {
 // 5b4494 — Give All: transfer all items from `action->unit` to `action->multi`
 void World::ScriptOP_0x1c(TriggerAction* action) {
     Unit* target = (Unit*)action->multi;
-    target->inventory->sub_552A42(action->unit->inventory);
+    target->inventory->TransferFrom(action->unit->inventory);
     action->unit->inventory = new Inventory();
     g_NetStru1_main.SendMonsterInventory(action->unit, action->unit->pOwner, 0, 0);
     g_NetStru1_main.SendMonsterInventory(target, target->pOwner, 0, 0);

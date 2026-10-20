@@ -829,3 +829,4 @@ UnitVFXUnfo: FUN_0046f680 -> GetPalette -- returns the indexed face palette (laz
 UnitVFXUnfo: FUN_0046f6e0 -> GetPaletteData -- returns the indexed raw palette data
 Sack: sub_55401E -> CalcContentsValue -- _exp = money + sum of item values
 Inventory: sub_552E42 -> TakeItemAt -- takes up to count of the item at position item_number
+Inventory: sub_5524FA -> AddItem -- adds the item to the inventory
