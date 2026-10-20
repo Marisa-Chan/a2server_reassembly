@@ -4272,7 +4272,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
     }
 }
 
-void Server::JoinErrorSend(NetStru2* client, int32_t arg, const CString& str) {
+void Server::JoinErrorSend(NetStru2* client, int32_t error_code, const CString& str) {
     //4fc4f3
     g_NetStru1_main.SendAllData();
     Player pl;
@@ -4281,7 +4281,7 @@ void Server::JoinErrorSend(NetStru2* client, int32_t arg, const CString& str) {
     if (!str.IsEmpty()) {
         g_NetStru1_main.AnnouncePlayerName(str, &pl);
     }
-    g_NetStru1_main.SendInfoPacket(0xb, arg, 0, &pl);
+    g_NetStru1_main.SendInfoPacket(0xb, error_code, 0, &pl);
     g_NetStru1_main.SendTickPacket(&pl);
     g_NetStru1_main.SendAllData();
     pl.player_id = 0;

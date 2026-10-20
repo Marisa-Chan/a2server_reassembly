@@ -286,7 +286,7 @@ public:
     void SerializeGame(CArchive& ar); // 4F3188 - deserialise saved game state from archive
 
     void Allods2_JoinPlayer(int32_t id, int32_t, CString name, NetStru2* client, uint32_t); //Allods2.exe 4f9a78    Join Player
-    void JoinErrorSend(NetStru2* client, int32_t arg, const CString& str); //4fc4f3
+    void JoinErrorSend(NetStru2* client, int32_t error_code, const CString& str); //4fc4f3
     Player* Allods2_CreatePlayer(CString name); //500792 not used in server, but used in Allods2 (4fb0f3)
 };
 ASSERT_OFFSET(Server, srv_stru1, 0x7c);
