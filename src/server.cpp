@@ -2904,7 +2904,7 @@ Shop* Server::FindShopAt(TokenPos* pos) {
     if (this->srv_stru1->building_list == nullptr) {
         return nullptr;
     }
-    Building* building = this->srv_stru1->building_list->sub_558128(pos);
+    Building* building = this->srv_stru1->building_list->FindNearby(pos);
     if (building == nullptr) {
         return nullptr;
     }
@@ -6046,7 +6046,7 @@ Inn* Server::FindInnAt(TokenPos* pos) {
     if (!this->srv_stru1->building_list) {
         return nullptr;
     }
-    Building* building = this->srv_stru1->building_list->sub_558128(pos);
+    Building* building = this->srv_stru1->building_list->FindNearby(pos);
     if (!building) {
         return nullptr;
     }

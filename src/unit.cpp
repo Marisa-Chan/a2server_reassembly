@@ -880,7 +880,7 @@ void Unit::ProcessEffects() {
     case 0xf: { // Interact with building
             BuildingsList* building_list = g_Server->srv_stru1->building_list;
 
-            Building* building = building_list->sub_558128(this->position);
+            Building* building = building_list->FindNearby(this->position);
             if (building) {
                 // TODO: also check C++ runtime class.
                 if (building->IsKindOf(RUNTIME_CLASS(Shop))) { // Shop

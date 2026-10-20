@@ -22,7 +22,7 @@ Building* BuildingsList::sub_558055(Player* player) {
 }
 
 // 558128
-Building* BuildingsList::sub_558128(TokenPos* pos) {
+Building* BuildingsList::FindNearby(TokenPos* pos) {
 	TokenPos adjusted(pos->GetX() - 1, pos->GetY() - 1, MapStuff_Instance);
 	return this->sub_557EA5(&adjusted);
 }

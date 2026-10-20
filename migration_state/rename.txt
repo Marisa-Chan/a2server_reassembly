@@ -931,3 +931,4 @@ UnitList::sub_5574B5 -> RegenTick -- calls RegenTick on every unit
 UnitList::sub_5560D2 -> FindById -- finds a unit by building_id
 UnitList::sub_557AB0 -> CountKillableMonsters -- counts live monster units excl. raised undead
 UnitList::sub_5561A1 -> SendVisibilityUpdates -- resends unit state to players whose seen mask diverged
+BuildingsList::sub_557DB2 -> FindById -- finds a building by building_id
