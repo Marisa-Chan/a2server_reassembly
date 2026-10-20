@@ -2023,7 +2023,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			this->kill_stats[packet_dword->value & 0xffff] = (packet_dword->value >> 16) & 0xff;
 
 			if (wnd->sessionMode != 2) {
-				wnd->m_GameSession.FUN_00494982();
+				wnd->m_GameSession.SaveKillStats();
 			}
 			break;
 
@@ -2133,7 +2133,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			delete[] stats;
 
 			if (wnd->sessionMode != 2) {
-				wnd->m_GameSession.FUN_00494982();
+				wnd->m_GameSession.SaveKillStats();
 			}
 		}
 			break;

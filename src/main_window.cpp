@@ -5911,7 +5911,7 @@ void CGameSession::DeleteSelectedCharacter() { //493cd8
     this->LoadCharacterRosterEntry(this->selectedCharacterRosterFileIndex - 1);
 }
 
-void CGameSession::FUN_00494982() { //494982
+void CGameSession::SaveKillStats() { //494982
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
     if (mwnd->sessionMode == 2) {
         return;
