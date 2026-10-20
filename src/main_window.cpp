@@ -2491,7 +2491,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
 
         if (code == 0x44f) {
             this->serverBootstrapEnabled = 0;
-            this->FUN_004903d0();
+            this->EnterSinglePlayerMode();
         } else if (code == 0x44d) {
             this->FUN_00491822();
         } else if (code == 0x44e) {
@@ -2868,7 +2868,7 @@ void MainWindow::AutosaveGame() { // 48f905
 }
 
 
-void MainWindow::FUN_004903d0() { // 4903d0
+void MainWindow::EnterSinglePlayerMode() { // 4903d0
 
     this->sessionMode = 0;
 

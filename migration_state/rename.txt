@@ -969,3 +969,4 @@ MainWindow::sub_48CCA1 -> SetItemCursor -- starts a drag: item cursor + drag src
 MainWindow::FUN_00494a9e -> ClearDiplomacyEntries -- deletes all diplomacy entries
 MainWindow::FUN_00494c91 -> PlayDefaultMusic -- starts the default music playlist when allowed
 MainWindow::FUN_00491a49 -> ShowCharInfoPane -- wait cursor + char info info_mode=1
+MainWindow::FUN_0048f905 -> AutosaveGame -- sessionMode 2: SaveGame to last_save_info
