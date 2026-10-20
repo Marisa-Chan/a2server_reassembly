@@ -823,3 +823,4 @@ GfxFile: sub_41F870 -> GetSprite -- lazy-init and return the primary sprite
 GfxFile: sub_41F8A0 -> GetSpriteB -- lazy-init and return the smoothing sprite
 UnitGfxFile: FUN_0046f700 -> GetSprite -- lazy-init and return the primary sprite
 UnitGfxFile: FUN_0046f730 -> GetSpriteB -- lazy-init and return the smoothing sprite
+ProjectileInfo: FUN_0041f8f0 -> GetSprite -- lazy-init and return the projectile sprite

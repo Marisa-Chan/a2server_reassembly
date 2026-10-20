@@ -221,7 +221,7 @@ public:
 	void Deinit(); //47e56b
 
 	CSprite256* GetSprite(); //41f8f0
-	CSprite256* FUN_0046f760(); //46f760
+	CSprite256* GetSpriteB(); //46f760
 public:
 	CSprite256* sprite1 = nullptr;
 	CSprite256* sprite2 = nullptr;

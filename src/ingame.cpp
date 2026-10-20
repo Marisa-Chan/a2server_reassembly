@@ -3343,7 +3343,7 @@ CSprite256* ProjectileInfo::GetSprite() { //41f8f0
     return this->sprite1;
 }
 
-CSprite256* ProjectileInfo::FUN_0046f760() { //46f760
+CSprite256* ProjectileInfo::GetSpriteB() { //46f760
     if (this->inited == 0) {
         this->Init();
     }

@@ -4601,7 +4601,7 @@ void CProjectile::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
             info->GetSprite()->VMethod1(x, y, sprite_idx, arg3, g_pal_projectiles, flip);
         } else {
             info->GetSprite()->VMethod2(x, y, sprite_idx, arg3, flip);
-            CSprite256* sprite2 = info->FUN_0046f760();
+            CSprite256* sprite2 = info->GetSpriteB();
             if (sprite2 != nullptr) {
                 sprite2->VMethod10(x, y, sprite_idx, arg3, flip);
             }
