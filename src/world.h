@@ -228,7 +228,7 @@ public:
 
     void sub_5AAEBC(Unit* unit); // 5AAEBC
     void TurnToFacing(Unit* unit, uint8_t facing); // 5AAF84 — turn unit to face target (ASM).
-    void sub_5AAC17(Unit* unit); // 5AAC17
+    void AcquireNearestTarget(Unit* unit); // 5AAC17
     void StartCastAtUnit(Unit* unit); // 5AA7CF
     int32_t RandomScaled(int32_t multiplier); // 5B6F40
     int32_t RandomRange(int32_t min, int32_t max); // 5B6F60

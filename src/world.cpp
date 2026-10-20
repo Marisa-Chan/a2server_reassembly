@@ -1482,13 +1482,13 @@ void World::MonsterAiTick(Unit* unit) {
             unit->eye2->field4_0x9 = 0xFF;
         } else {
             unit->eye2->cast_action = 0;
-            this->sub_5AAC17(unit);
+            this->AcquireNearestTarget(unit);
         }
     }
 }
 
 // 5AAC17 — pick a melee/cast target for a monster unit.
-void World::sub_5AAC17(Unit* unit) {
+void World::AcquireNearestTarget(Unit* unit) {
     this->field26_0xa64.unit_list.RemoveAll();
 
     uint32_t best_distance = 0xff;
