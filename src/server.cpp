@@ -3477,7 +3477,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (!shop) {
                 break;
             }
-            shop->sub_544737(unit);
+            shop->ConfirmSell(unit);
             if (GetTickCount() - unit->pOwner->last_save_tick > 15000) {
                 this->SaveCharacter((Humanoid*)unit);
             }

@@ -34,7 +34,7 @@ public:
     void GenerateAssortment();
 
     void ConfirmBuy(Unit* unit);
-    void sub_544737(Unit* unit);
+    void ConfirmSell(Unit* unit);
     void sub_544777(Unit* unit);
     void sub_544685(Unit* unit);
 
