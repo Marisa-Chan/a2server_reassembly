@@ -4603,7 +4603,7 @@ void CProjectile::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
             info->GetSprite()->Draw(x, y, sprite_idx, arg3, flip);
             CSprite256* sprite2 = info->GetSpriteB();
             if (sprite2 != nullptr) {
-                sprite2->VMethod10(x, y, sprite_idx, arg3, flip);
+                sprite2->DrawBlend(x, y, sprite_idx, arg3, flip);
             }
             if (this->path_history.GetSize() != 0) {
                 int32_t smoke_idx = 0;

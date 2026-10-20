@@ -383,7 +383,7 @@ public:
 	virtual void DrawBrightened(int32_t x, int32_t y, int frame, int blevel, int mode) override;
 
 	virtual void DrawWithPaletteBlend(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode);
-	virtual void VMethod10(int32_t x, int32_t y, int frame, int palid, int mode);
+	virtual void DrawBlend(int32_t x, int32_t y, int frame, int palid, int mode);
 	virtual void VMethod11(int32_t x, int32_t y, int frame, int blevel, int32_t arg5, int mode);
 	virtual void VMethod12(int32_t x, int32_t y, int frame, uint32_t arg4);
 

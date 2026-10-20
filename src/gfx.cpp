@@ -4580,7 +4580,7 @@ void CSprite256::DrawWithPaletteBlend(int32_t x, int32_t y, int frame, int palid
 	}
 }
 
-void CSprite256::VMethod10(int32_t x, int32_t y, int frame, int palid, int mode) { //42517a
+void CSprite256::DrawBlend(int32_t x, int32_t y, int frame, int palid, int mode) { //42517a
 	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 	if (mode == 0) {
 		BlitRle8Blend(x, y, frm->width, frm->height, frm->data, this->palette.GetPalette(palid));

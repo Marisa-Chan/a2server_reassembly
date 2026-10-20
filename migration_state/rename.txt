@@ -990,3 +990,4 @@ CBmp256::VMethod9 -> DrawSubRect -- BlitPaletted sub-rect with own palette
 CBmp64::VMethod9 -> DrawSubRect -- Blit16 sub-rect
 CSprite256::VMethod9 -> DrawWithPaletteBlend -- BlitRle8Blend with an external palette (lit path of unit draw)
 CBmp256::VMethod10 -> DrawSubRectAdd -- BlitFlipPalettedAdd sub-rect
+CBmp64::VMethod10 -> DrawSubRectMasked -- Blit16Masked sub-rect
