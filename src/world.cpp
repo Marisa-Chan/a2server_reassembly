@@ -1363,7 +1363,7 @@ void World::MonsterAiTick(Unit* unit) {
             this->ChaseOrAttack(unit);
             break;
         case 6:
-            this->sub_5AAEBC(unit);
+            this->TickRangedApproach(unit);
             break;
         case 7:
             this->FinishSwarmArrival(unit);
@@ -1541,7 +1541,7 @@ void World::AcquireNearestTarget(Unit* unit) {
     if (best_target != nullptr) {
         unit->eye2->unit = best_target;
         unit->eye2->cast_action = 6;
-        this->sub_5AAEBC(unit);
+        this->TickRangedApproach(unit);
     } else {
         if (!unit->pOwner->is_ai) {
             unit->eye2->cast_action = 0;
@@ -3191,7 +3191,7 @@ void World::ApproachBuilding(Unit* unit_same, Unit* unit) {
 }
 
 // 5AAEBC — start a melee/cast action against the unit's current target.
-void World::sub_5AAEBC(Unit* unit) {
+void World::TickRangedApproach(Unit* unit) {
     if (unit->IsMage()) {
         uint8_t max_range = this->UnitMaxRange(unit);
         if (max_range < 2 && !unit->pOwner->is_ai) {

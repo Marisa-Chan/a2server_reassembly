@@ -1045,3 +1045,4 @@ World::sub_5A57E8 -> PickHealSpell -- caster attack step: heal the wounded targe
 World::sub_5A65BB -> PickAdjacentEnemy -- melee attack step: pick the best adjacent enemy
 World::sub_5A8829 -> BeginChase -- cast_action 4: chase the target keeping the given range
 World::sub_5A8A55 -> TeleportToSafety -- counts nearby enemies and teleports home when clear
+World::sub_5AAC17 -> AcquireNearestTarget -- scans all units for the nearest one and starts pursuit

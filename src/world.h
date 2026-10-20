@@ -226,7 +226,7 @@ public:
     void PickAdjacentEnemy(Unit* unit, Unit* target); // 5A65BB
     void sub_5A54B8(Unit* unit, uint16_t command_to); // 5A54B8
 
-    void sub_5AAEBC(Unit* unit); // 5AAEBC
+    void TickRangedApproach(Unit* unit); // 5AAEBC
     void TurnToFacing(Unit* unit, uint8_t facing); // 5AAF84 — turn unit to face target (ASM).
     void AcquireNearestTarget(Unit* unit); // 5AAC17
     void StartCastAtUnit(Unit* unit); // 5AA7CF
