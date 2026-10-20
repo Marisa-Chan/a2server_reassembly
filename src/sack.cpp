@@ -60,7 +60,7 @@ void Sack::Serialize(CArchive& ar) {
     } else {
         ar >> this->money;
     }
-    this->inventory->sub_55CCE4(ar);
+    this->inventory->Serialize(ar);
 }
 
 // 57dd30

@@ -239,7 +239,7 @@ void Inventory::SerializeItems(CArchive& ar) { //Serialize items list. from 55cc
 }
 
 // 55CCE4
-void Inventory::sub_55CCE4(CArchive& ar) {
+void Inventory::Serialize(CArchive& ar) {
     this->SerializeItems(ar);
 
     if (ar.IsStoring()) {

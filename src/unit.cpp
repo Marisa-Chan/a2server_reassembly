@@ -355,7 +355,7 @@ void Unit::Serialize(CArchive& ar) {
         ar.WriteObject(this->some_item);
         if (this->inventory != nullptr) {
             ar << (uint8_t)1;
-            this->inventory->sub_55CCE4(ar);
+            this->inventory->Serialize(ar);
         } else {
             ar << (uint8_t)0;
         }
@@ -416,7 +416,7 @@ void Unit::Serialize(CArchive& ar) {
         uint8_t has_inventory;
         ar >> has_inventory;
         if (has_inventory) {
-            this->inventory->sub_55CCE4(ar);
+            this->inventory->Serialize(ar);
         }
         uint8_t has_spell_book;
         ar >> has_spell_book;
