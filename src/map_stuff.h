@@ -237,7 +237,7 @@ public:
     void RegisterAreaEffectAt(AreaEffect* ae, uint8_t x, uint8_t y); // 594E65
     int RegisterAreaEffectCell(AreaEffect* ae, uint16_t yx); // 594EBA — register area effect into cell state at yx
     UnitList* BuildNearbyUnitList(PosYX yx, uint8_t range); // Build a temporary UnitList of units around yx — 5897AA
-    int16_t ClampPosToMap(Unit* unit, uint32_t packed_yyxx, uint8_t param_3); // 5936D2
+    int16_t ClampPosToMap(Unit* unit, uint32_t packed_yyxx, uint8_t range); // 5936D2
 
     Unit* GetSmallUnitAt(uint16_t yx); // Get small unit occupying cell yx — 58CB5A
     Unit* GetLargeUnitAt(uint16_t yx); // Get large unit occupying cell yx — 58CBB9
