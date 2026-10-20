@@ -1149,3 +1149,4 @@ Server::SignalGameStart arg -> start_kind -- 0xc3 packet value (callers pass 0/1
 Server::JoinErrorSend arg -> error_code -- 0xb join-error packet value (1 name too short, 2 restricted, 3 in use, 8 demo/release)
 Quest::OnEvent param_2 -> event_type -- matches QuestMap::OnEvent dispatcher vocabulary (1=complete 2=failed 4=kill 0x11=inn candidate ...)
 Quest::OnEvent param_3 -> a -- matches QuestMap::OnEvent arg a (quest some_id/obj or packed count data)
+Quest::OnEvent param_4 -> b -- matches QuestMap::OnEvent arg b (packed player_id | landmark_id << 16, or building_id)
