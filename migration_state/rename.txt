@@ -1052,3 +1052,4 @@ World::sub_5A8778 -> DoMoveStep -- state 1 handler: one move step toward command
 World::sub_5A87A3 -> DoSwarmMoveStep -- state 2 handler: move to command_to or hold with cast_action 7 when arrived
 World::sub_5A6B48 -> DoAttackTarget -- state 3 handler: choose spell vs melee against the target and start the attack
 World::sub_5A54B8 -> DoAttackMove -- state 4 handler: engage nearby enemies first, else keep moving
+World::sub_5A39AD -> FilterBuffTargets -- keeps only visible allies (diplomacy bit 2) in the heal/buff candidate list

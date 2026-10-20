@@ -599,7 +599,7 @@ void World::SetWimpyThresholds(int32_t a, int32_t b, int32_t c, Player* player) 
 // Record a PvP hit: set attacker->target war, conditionally set reverse war,
 // and increment target's hit counter when hit_flag is nonzero.
 // 5B5643
-void Diplomacy::sub_5B5643(Unit* attacker, Unit* target, int32_t hit_flag) {
+void Diplomacy::RecordHostility(Unit* attacker, Unit* target, int32_t hit_flag) {
     if (attacker->pOwner == nullptr || target->pOwner == nullptr) {
         return;
     }
@@ -1293,7 +1293,7 @@ void World::RecordUnitHit(Unit* target, Unit* attacker, int32_t param_4) {
     attacker->eye2->position3 = target->position->CompatGetYX();
     attacker->eye2->counter2 = 0;
 
-    this->diplomacy.sub_5B5643(target, attacker, param_4);
+    this->diplomacy.RecordHostility(target, attacker, param_4);
 
     this->scrape_action.action_kind = 1;
     this->scrape_action.actor_unit = target;

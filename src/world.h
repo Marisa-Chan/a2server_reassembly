@@ -34,7 +34,7 @@ public:
 public:
     Diplomacy(); // 5B5855
     void RegisterPlayer(Player* player); // Register player in the diplomacy matrix. 5B545F
-    void sub_5B5643(Unit* attacker, Unit* target, int32_t hit_flag);
+    void RecordHostility(Unit* attacker, Unit* target, int32_t hit_flag);
 };
 ASSERT_SIZE(Diplomacy, 0x132C);
 
