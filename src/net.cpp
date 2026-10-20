@@ -283,7 +283,7 @@ void NetStru1::sub_51BA2F(Unit* unit) {
 void NetStru1::sub_51C59C(Unit* unit, Unit* target) {
     if (unit->max_range < 2) {
         const uint8_t speed_dir = unit->charge + unit->relax;
-        const uint8_t angle = unit->eye->sub_58c00e();
+        const uint8_t angle = unit->eye->GetFacingHalf();
         g_NetStru1_main.sub_51B99E(unit, angle, speed_dir, 0x71);
     } else {
         g_NetStru1_main.sub_51BA2F(unit);
@@ -799,7 +799,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
 
     // bit 0x10: position
     if (mask & 0x10) {
-        uint8_t value = unit->eye->sub_58c00e();
+        uint8_t value = unit->eye->GetFacingHalf();
         pkt->PutByte(0x10, value);
 
         if (unit->position->IsAtCellCenter() == 0) {

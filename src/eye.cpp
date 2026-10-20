@@ -15,7 +15,7 @@ UnitEye::UnitEye() {
 }
 
 // 58C00E
-uint8_t UnitEye::sub_58c00e() {
+uint8_t UnitEye::GetFacingHalf() {
     return (uint8_t)(this->field0_0x0 + 8) >> 4;
 }
 

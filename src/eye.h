@@ -169,7 +169,7 @@ struct UnitEye {
 
 public:
     UnitEye(); // 58BE86
-    uint8_t sub_58c00e(); // 58C00E
+    uint8_t GetFacingHalf(); // 58C00E
     void sub_5925C9(Unit* unit); // 5925C9
     int sub_59367D(Unit* unit, uint8_t* out_dir, uint8_t eye0, uint8_t eye1); // 59367D
 };
