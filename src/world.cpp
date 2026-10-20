@@ -3879,7 +3879,7 @@ void World::BeginPositionCast(Unit* unit, uint16_t pos_yx, Spell* spell) {
 
 // Build a temporary UnitList of units near `unit` using the unit's eye range.
 // 5A3791
-UnitList* World::sub_5A3791(Unit* unit) {
+UnitList* World::BuildNearbyList(Unit* unit) {
     uint8_t range = unit->eye->field7_0x8;
     PosYX yx = unit->position->CompatGetYX();
     return this->field24_0xa50->BuildNearbyUnitList(yx, range);
@@ -3887,7 +3887,7 @@ UnitList* World::sub_5A3791(Unit* unit) {
 
 // 5A37C5
 UnitList* World::GetNearbyUnits(Unit* unit) {
-    UnitList* list = this->sub_5A3791(unit);
+    UnitList* list = this->BuildNearbyList(unit);
     this->FilterByRelation(unit, list, 0);
     this->sub_5A3DC9(unit, list);
     return list;

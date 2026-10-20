@@ -338,7 +338,7 @@ public:
     void BeginEnterBuilding(Unit* unit, Building* building); // 5A6DA3
 
     // Helpers for the functions above; bodies remain in Main.asm for now.
-    UnitList* sub_5A3791(Unit* unit); // 5A3791 — helper for GetNearbyUnits (ASM).
+    UnitList* BuildNearbyList(Unit* unit); // 5A3791 — helper for GetNearbyUnits (ASM).
     void sub_5A3DC9(Unit* unit, UnitList* list); // 5A3DC9 — helper for GetNearbyUnits (ASM).
     int32_t sub_5A89D5(Unit* unit); // 5A89D5 — helper for ProcessUnitRecall (ASM).
     int32_t sub_5A8BDA(Unit* unit); // 5A8BDA — helper for ProcessUnitRecall (ASM).
