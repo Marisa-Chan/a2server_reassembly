@@ -243,7 +243,7 @@ void CFameHall::SetDifficulty(uint32_t arg) {
     this->difficulty = arg;
 }
 
-uint32_t CFameHall::FUN_004ac566(int32_t arg) {
+uint32_t CFameHall::AddTextDocument(int32_t arg) {
     //4ac566
     for (uint32_t i = 0; i < this->m_Documents.GetSize(); i++) {
         Fame2& fame = this->m_Documents[i];

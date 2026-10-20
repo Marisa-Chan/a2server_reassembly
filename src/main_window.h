@@ -103,7 +103,7 @@ struct CFameHall {
 
     void ZeroFactors();
     void SetDifficulty(uint32_t arg);
-    uint32_t FUN_004ac566(int32_t arg);
+    uint32_t AddTextDocument(int32_t arg);
     void FUN_004acafa();
     void FUN_004ac945(CFile* file);
     void FUN_004ac839(CFile* file); //4ac839 - save m_Entries to file

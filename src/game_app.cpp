@@ -644,7 +644,7 @@ BOOL GameApp::InitInstance() {
 
 	mwnd->m_FameHall.ZeroFactors();
 	mwnd->m_FameHall.SetDifficulty(1);
-	mwnd->m_FameHall.FUN_004ac566(1);
+	mwnd->m_FameHall.AddTextDocument(1);
 
 	g_DWORD_00659d18 = 0;
 
