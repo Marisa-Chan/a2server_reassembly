@@ -4438,7 +4438,7 @@ void Server::HatKeepaliveTick() {
         void* file_data = malloc(file_size);
         file.Read(file_data, file_size);
 
-        NetStru1::HatConnector.sub_51DFA7(basic_info->id1, basic_info->id2, login, file_data, file_size, 0);
+        NetStru1::HatConnector.SendHatCharData(basic_info->id1, basic_info->id2, login, file_data, file_size, 0);
         LogMessage("Returning character data file for " + login);
         this->field53_0x1f0 = tick_count;
         file.Close();

@@ -939,3 +939,4 @@ BuildingsList::sub_558055 -> FindPlayerInn -- finds the player's inn building
 BuildingsList::sub_558228 -> AddBuilding -- appends the building and assigns its map id
 BuildingsList::sub_558908 -> Serialize -- serialises the building list
 NetStru1::sub_51B99E -> SendAbilityPacket -- sends the PacketAbility attack-anim packet (0x6B)
+NetStru1::sub_51BA2F -> SendMountPacket -- sends PacketMount 0x72 (unit riding target)
