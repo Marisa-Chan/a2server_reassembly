@@ -962,3 +962,4 @@ MainWindow::FUN_0048cb3c -> DestroyServer -- deletes g_Server
 MainWindow::sub_48CBE2 -> UpdateMapRect -- recomputes the map view rect (shrunk when the spellbook is open)
 MainWindow::sub_48CC87 -> ApplyCursorClip -- ClipCursor to the tracked rect
 MainWindow::sub_4919C7 -> OpenConsoleInput -- attaches the Vis1200 console line to the map
+MainWindow::FUN_004919b1 -> ProcessPlayersTick -- calls g_Server->ProcessPlayers

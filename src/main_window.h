@@ -395,7 +395,7 @@ public:
     void OpenConsoleInput(); //4919c7
     void ProcessPlayersTick(); //4919b1
 
-    void FUN_00485a41(); //485a41
+    void ShowRightPanelInfo(); //485a41
     void FUN_00485aed(); //485aed in asm
 
     void ModalScreen(VisScreen* scr); //494a31

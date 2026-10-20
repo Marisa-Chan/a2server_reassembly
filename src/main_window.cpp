@@ -784,7 +784,7 @@ void MainWindow::ShowCurrentTownDialog() {
     CStringArray* plist = new CStringArray();
     ReadFileToString("main\\text\\town.txt", &g_MissionText);
     g_Cursors[0x1a]->Use();
-    this->FUN_00485a41();
+    this->ShowRightPanelInfo();
 
     int loc_id = ScenarioGetCurrentLocation()->GetId();
     if (loc_id == 1) {
@@ -2179,7 +2179,7 @@ void MainWindow::Proc_421() {
         elm->MsgProc(0x445, 0, 0);
     }
 
-    this->FUN_00485a41();
+    this->ShowRightPanelInfo();
 
     this->vis_root->AddChild(this->vis_mainmenu);
     this->vis_mainmenu->VMethod28();
@@ -2208,7 +2208,7 @@ void MainWindow::Proc_421()
 #endif
 
 
-void MainWindow::FUN_00485a41() {
+void MainWindow::ShowRightPanelInfo() {
     //485a41
     this->vis_right_panel->RemoveAllChilds();
     this->vis_right_panel->AddChild(this->vis_charinfo);
@@ -3122,7 +3122,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                 g_Server->ProcessPlayers();
             }
             
-            this->FUN_00485a41();
+            this->ShowRightPanelInfo();
 
             this->vis_globalmap->SetTravelOrigin(ScenarioGetCurrentLocation()->rect.TopLeft());
 
