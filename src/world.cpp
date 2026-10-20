@@ -3607,7 +3607,7 @@ void World::TickAttackTarget(Unit* unit, Unit* target) {
     );
 
     if (range < distance) {
-        this->sub_5A8829(unit, target, range);
+        this->BeginChase(unit, target, range);
     } else {
         if (unit->spell_book != nullptr) {
             this->PickHealSpell(unit, target);
@@ -3637,7 +3637,7 @@ void World::TickFollowTarget(Unit* unit, Unit* target) {
     );
 
     if (range < distance) {
-        this->sub_5A8829(unit, target, range);
+        this->BeginChase(unit, target, range);
     } else if (distance < 2) {
         uint32_t packed_yyxx = (target->position->GetY() << 24) | (target->position->GetX() << 8);
         int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, range);
@@ -3914,7 +3914,7 @@ void World::sub_5A87A3(Unit* unit, uint16_t pos_yx) {
 }
 
 // 5A8829
-void World::sub_5A8829(Unit* unit, Unit* target, uint8_t range) {
+void World::BeginChase(Unit* unit, Unit* target, uint8_t range) {
     unit->eye2->cast_action = 4;
     unit->eye2->unit3 = target;
     if (range != 0) {

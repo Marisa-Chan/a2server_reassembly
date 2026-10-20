@@ -1042,3 +1042,4 @@ World::sub_5A925C -> OrderWalkTo -- state 4 walk order to x/y (scripted walks)
 World::sub_5A5568 -> TickAttackTarget -- state 8 per-tick attack behavior: chase, cast or melee, close distance
 World::sub_5A56D7 -> TickFollowTarget -- state 0x11 per-tick follow behavior: chase or hold at range
 World::sub_5A57E8 -> PickHealSpell -- caster attack step: heal the wounded target/self with spell::heal
+World::sub_5A65BB -> PickAdjacentEnemy -- melee attack step: pick the best adjacent enemy
