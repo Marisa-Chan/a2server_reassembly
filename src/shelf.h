@@ -104,7 +104,7 @@ public:
     void sub_546537(int amount, Item* item); // 546537 - add item to inventory
     Item* sub_546557(int item_number, int count); // 546557 - pick item from inventory
     void sub_54668B(); // 54668B
-    Unit* sub_546857(Unit* unit); // 546857
+    Unit* SetUnit(Unit* unit); // 546857
 };
 ASSERT_OFFSET(CMultiShopInstance, unit, 0x74);
 ASSERT_OFFSET(CMultiShopInstance, shop_template, 0x9c);

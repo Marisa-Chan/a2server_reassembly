@@ -175,7 +175,7 @@ Item* CMultiShopInstance::sub_546557(int32_t item_number, int32_t count) {
 }
 
 // 546857
-Unit* CMultiShopInstance::sub_546857(Unit* new_unit) {
+Unit* CMultiShopInstance::SetUnit(Unit* new_unit) {
     Unit* old_unit = this->unit;
     this->unit = new_unit;
     return old_unit;
@@ -391,7 +391,7 @@ void CMultiShopTemplate::sub_547B7B(Unit* unit) {
     if (instance == nullptr) {
         return;
     }
-    instance->sub_546857(unit);
+    instance->SetUnit(unit);
     instance->Buy();
 }
 
@@ -401,7 +401,7 @@ void CMultiShopTemplate::sub_547BBC(Unit* unit) {
     if (instance == nullptr) {
         return;
     }
-    instance->sub_546857(unit);
+    instance->SetUnit(unit);
     instance->Sell();
 }
 
@@ -412,7 +412,7 @@ void CMultiShopTemplate::sub_547D7F(Unit* unit) {
         LogMessage("Invalid shop transaction - no such customer");
         return;
     }
-    instance->sub_546857(unit);
+    instance->SetUnit(unit);
     instance->sub_54668B();
 }
 
@@ -423,7 +423,7 @@ void CMultiShopTemplate::sub_547BFD(Unit* unit, int amount, Item* item) {
         LogMessage("Invalid shop transaction - no such customer");
         return;
     }
-    instance->sub_546857(unit);
+    instance->SetUnit(unit);
     instance->sub_546537(amount, item);
 }
 
@@ -434,7 +434,7 @@ Item* CMultiShopTemplate::sub_547C5A(Humanoid* humanoid, int16_t src_slot, int32
         LogMessage("Invalid shop transaction - no such customer");
         return nullptr;
     }
-    instance->sub_546857(humanoid);
+    instance->SetUnit(humanoid);
     return instance->sub_546557(src_slot, count);
 }
 
@@ -447,7 +447,7 @@ void CMultiShopTemplate::sub_547644(Unit* unit) {
         this->sub_5474D8();
     }
     CMultiShopInstance* shop_instance = this->sub_546F8D(unit);
-    shop_instance->sub_546857(unit);
+    shop_instance->SetUnit(unit);
     this->shop_instances.SetAtGrow(this->shop_instances.GetSize(), shop_instance);
     shop_instance->sub_5464B6(-1);
 }
@@ -504,7 +504,7 @@ void CMultiShopTemplate::sub_547CB9(Humanoid* humanoid, uint8_t op_type, int16_t
         LogMessage("Invalid shop transaction - no such customer");
         return;
     }
-    shop_instance->sub_546857(humanoid);
+    shop_instance->SetUnit(humanoid);
     shop_instance->sub_546577(op_type, src_slot, dst_type, dst_word, count);
 }
 
