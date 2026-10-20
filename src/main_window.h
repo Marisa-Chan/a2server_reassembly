@@ -386,7 +386,7 @@ public:
 
     void Proc_421(); //48d49b
 
-    void FUN_0048cb3c(); //48cb3c
+    void DestroyServer(); //48cb3c
 
     void sub_48CBE2(); //48cbe2
 

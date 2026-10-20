@@ -647,13 +647,13 @@ void MainWindow::OnDestroy() {
     if ((this->dialogsMask & 1) != 0) {
         this->vis_map_context->FUN_0041d2da(1);
         this->FUN_0048f6f7();
-        this->FUN_0048cb3c();
+        this->DestroyServer();
     }
 
     UnloadUnitGfxFiles();
     UnloadAllSfx();
     SaveSettings();
-    this->FUN_0048cb3c();
+    this->DestroyServer();
     this->FUN_00485aed();
 
     if (this->music_player != nullptr) {
@@ -1140,7 +1140,7 @@ void MainWindow::OnKeyUp(UINT key, UINT repeat, UINT flags) {
 }
 
 // 48cb3c
-void MainWindow::FUN_0048cb3c() {
+void MainWindow::DestroyServer() {
     if (g_Server != nullptr) {
         delete g_Server;
         g_Server = nullptr;
@@ -2186,7 +2186,7 @@ void MainWindow::Proc_421() {
     this->vis_root->VMethod9();
     this->field_0x460 = 0;
     this->dialogsMask |= 0x80;
-    this->FUN_0048cb3c();
+    this->DestroyServer();
 
     elm = this->vis_map_context->FindChild(0x13);
     if (elm) {
@@ -2202,7 +2202,7 @@ void MainWindow::Proc_421()
 
     field_0x3e0.field_10 = 0;
     field_0x3e0.connect_address.Empty();
-    FUN_0048cb3c();
+    DestroyServer();
     PostMessage(0x440, 0, 0);
 }
 #endif
@@ -3037,7 +3037,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             g_Server->ProcessPlayers();
         }
 
-        this->FUN_0048cb3c();
+        this->DestroyServer();
 
         if (this->dialogsMask == 0 && vis_root->FindChild(1020) != nullptr) {
             this->vis_map_context->FUN_0041d2da(1);
@@ -3678,7 +3678,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                 this->FUN_0048f6f7();
             }
             
-            this->FUN_0048cb3c();
+            this->DestroyServer();
 
             if (g_CLlDriver.GetProvider() == 0) {
                 PostMessage(0x454, 0, 0);
@@ -3690,10 +3690,10 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         } else if (this->sessionMode == 3) {
             if (g_CLlDriver.GetProvider() == 3) {
                 PostMessage(0x453, 0, 0);
-                this->FUN_0048cb3c();
+                this->DestroyServer();
             } else {
                 PostMessage(0x451, 0, 0);
-                this->FUN_0048cb3c();
+                this->DestroyServer();
             }
         }
         break;
