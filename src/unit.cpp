@@ -131,7 +131,7 @@ Unit::~Unit() {
 // Free functions called from VMethod2.
 // Distance to target in sub-cells (1/256), adjusted for both units' sizes.
 // 5364D5
-int16_t __cdecl sub_5364D5(Unit* self, Unit* target) {
+int16_t __cdecl CalcMeleeDist(Unit* self, Unit* target) {
     int32_t dx = abs(self->GetRightXx() - target->GetRightXx());
     int32_t dy = abs(self->GetBottomYy() - target->GetBottomYy());
     int32_t dist = (std::max)(dx, dy);
@@ -151,7 +151,7 @@ void __cdecl sub_53685B(Unit* self, Unit* target) {
     if (self->hp <= 0) {
         return;
     }
-    if (sub_5364D5(self, target) > self->max_range) {
+    if (CalcMeleeDist(self, target) > self->max_range) {
         return;
     }
 
@@ -190,7 +190,7 @@ void __cdecl sub_536A62(Unit* self, Unit* target) {
     if (target == nullptr || self == nullptr || self->hp <= 0 || self->pOwner == nullptr) {
         return;
     }
-    if (sub_5364D5(self, target) > self->max_range) {
+    if (CalcMeleeDist(self, target) > self->max_range) {
         return;
     }
 
@@ -225,7 +225,7 @@ void __cdecl sub_536630(Unit* self, Unit* target, int32_t* out_charge) {
         return;
     }
 
-    int16_t dist = sub_5364D5(self, target);
+    int16_t dist = CalcMeleeDist(self, target);
     if (self->HasEnchantment(spell::invisibility)) {
         // Attacker is invisible: reset its spell_value to 1 so the invisibility finishes.
         for (POSITION pos = self->_effects.GetHeadPosition(); pos != nullptr; ) {

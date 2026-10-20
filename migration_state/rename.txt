@@ -908,3 +908,4 @@ file: sub_4F1D0D -> CalcFileChecksum -- padded dword-sum checksum of a file
 map_stuff: FUN_004a7b3c -> ReadRecord -- reads one length-prefixed record from a File2
 world: sub_5B6F30 -> RandInt -- std::rand() wrapper
 gameobj: FUN_004CD4B0 -> DegToRad -- degrees to radians
+spell: sub_5365AB -> CalcWalkDist -- pathfinding distance between two TokenPos
