@@ -413,7 +413,7 @@ public:
     void Proc_44c(CVisualObject* obj); //48b061
 
     void ShowCharacterLoaderDialog(); //48cff7
-    void FUN_00491a49(); //491a49
+    void ShowCharInfoPane(); //491a49
     void FUN_0048f905(); //48f905
     void FUN_004903d0(); //4903d0
     void FUN_00491822(); //491822

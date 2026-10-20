@@ -2399,7 +2399,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
             strncpy(this->vis_map_context->GetUnit_3f6c()->str2, name, 12);
 
             this->m_GameSession.ResetUnitClass();
-            this->FUN_00491a49();
+            this->ShowCharInfoPane();
         }
     } else if (obj == this->vis_charsel) {
         this->dialogsMask &= ~0x400;
@@ -2689,7 +2689,7 @@ void MainWindow::ShowCharacterLoaderDialog() { //48cff7
 }
 
 
-void MainWindow::FUN_00491a49() { //491a49
+void MainWindow::ShowCharInfoPane() { //491a49
     g_Cursors[CURSOR_WAIT]->Use();
 
     this->vis_charinfo->info_mode = 1;
