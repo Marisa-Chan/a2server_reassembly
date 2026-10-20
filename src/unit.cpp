@@ -219,7 +219,7 @@ uint32_t __cdecl sub_530DCB(uint32_t experience, int32_t skill_level) {
 
 // Start attack.
 // 536630
-void __cdecl sub_536630(Unit* self, Unit* target, int32_t* out_charge) {
+void __cdecl CalcAttackCharge(Unit* self, Unit* target, int32_t* out_charge) {
     *out_charge = 0;
     if (target == nullptr || target->pOwner == nullptr || self == nullptr || self->pOwner == nullptr || self->hp <= 0) {
         return;
@@ -787,7 +787,7 @@ void Unit::ProcessEffects() {
                 int32_t charge_extra = 0;
                 if (this->some_state == 3) {
                     if (!this->weapon || !this->weapon->imbued_spell || !(this->unit_attrs & 4)) {
-                        sub_536630(this, this->cast_target, &charge_extra);
+                        CalcAttackCharge(this, this->cast_target, &charge_extra);
                     } else {
                         this->some_spell = this->weapon->imbued_spell;
                         this->some_item  = static_cast<Item*>(this->weapon);
