@@ -147,7 +147,7 @@ void World::sub_5A44DB() {
 
 // 5A3F3A
 void World::InitState() {
-    this->sub_5A3F9B();
+    this->ConstructMembers();
     this->duration4 = 0;
     this->duration4_low = 0;
     this->field20_0xa48 = 0;
@@ -162,7 +162,7 @@ void World::sub_5A3F88() {
 
 // (Re)initialize the world's runtime state and load AI settings from ai.reg.
 // 5A3F9B
-void World::sub_5A3F9B() {
+void World::ConstructMembers() {
     this->field0_0x0 = 0x8000;
     std::srand(static_cast<uint32_t>(std::time(nullptr)));
 

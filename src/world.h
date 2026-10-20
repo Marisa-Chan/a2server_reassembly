@@ -119,7 +119,7 @@ public:
     void sub_5A44DB(); // 5A44DB
     void InitState(); // 5A3F3A
     void sub_5A3F88(); // 5A3F88
-    void sub_5A3F9B(); // 5A3F9B
+    void ConstructMembers(); // 5A3F9B
     void sub_5A4284(); // 5A4284
     void ResetMatchState(); // 5A4757
     void sub_5B0556(CArchive& ar); // Serialize
