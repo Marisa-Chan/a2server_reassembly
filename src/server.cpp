@@ -6613,8 +6613,8 @@ void Server::SpawnRandomSack() {
 }
 
 // 4F8FBF
-void Server::UpdateQuestRune(int32_t arg1, int32_t arg2) {
-    const char* rune_name = arg1 ? "Quest RuneA" : "Quest RuneF";
+void Server::UpdateQuestRune(int32_t team, int32_t arg2) {
+    const char* rune_name = team ? "Quest RuneA" : "Quest RuneF";
 
     if (arg2) {
         // Rune was picked up: find it in a ground sack and remove it.
@@ -6655,12 +6655,12 @@ void Server::UpdateQuestRune(int32_t arg1, int32_t arg2) {
     }
 
     // Rune was put back: reset flags and place it on the map at its spawn point.
-    this->ctf_dropped[arg1] = 0;
-    this->ctf_carrying[arg1] = 0;
+    this->ctf_dropped[team] = 0;
+    this->ctf_carrying[team] = 0;
     Item* item = new Item(rune_name);
     Inventory* inv = new Inventory();
     inv->PutItemIntoBagAtDefault(item);
-    uint16_t yx = this->field19_0x98.field4_0x28.GetAt(arg1);
+    uint16_t yx = this->field19_0x98.field4_0x28.GetAt(team);
     uint8_t x = yx & 0xFF;
     uint8_t y = (yx >> 8) & 0xFF;
     TokenPos pos(x, y, MapStuff_Instance);
