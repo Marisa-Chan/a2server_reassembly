@@ -37,7 +37,7 @@ void CMultiShopShelf::RemoveItemAt(int32_t index) {
 }
 
 // 5453E8
-Item* CMultiShopShelf::sub_5453E8(int32_t slot, int32_t count) {
+Item* CMultiShopShelf::PickItem(int32_t slot, int32_t count) {
     if (slot >= this->items.GetSize() || slot < 0) {
         return nullptr;
     }
@@ -206,7 +206,7 @@ void CMultiShopInstance::sub_546577(uint8_t src_type, int16_t src_slot, uint8_t 
             return;
         }
     } else {
-        item = this->shelves[src_type - 5].sub_5453E8(src_slot, count);
+        item = this->shelves[src_type - 5].PickItem(src_slot, count);
         if (item == nullptr || item->count == 0) {
             this->sub_5464B6(src_type - 4);
             return;

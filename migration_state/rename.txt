@@ -724,3 +724,4 @@ GameDataRes::FUN_00512625 -> FindMonsterByServerId -- reverse lookup of monsters
 free::sub_514085 -> SplitCsvLine -- splits a CSV table line into a CStringArray
 PacketUnitUpdate::FUN_00527bd8 -> CalcFlagsSize -- derives flags_size (1..4) from flags_mask
 PacketUnitUpdate::FUN_00527c3b -> CalcDataSize -- sums the packed field sizes of all flags set in flags_mask
+CMultiShopShelf::sub_54546E -> RemoveItemAt -- removes the item at index
