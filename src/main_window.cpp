@@ -3133,7 +3133,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             int32_t var = ScenarioGetVar(0x305);
             if (var != 0) {
                 local_8ac.Add(var);
-                g_Server->FUN_00501b9e(ScenarioGetVar(0x300), local_8ac);
+                g_Server->DespawnScenarioUnits(ScenarioGetVar(0x300), local_8ac);
                 this->vis_map_context->ProcessPackets(0);
             }
 
@@ -4847,7 +4847,7 @@ void MainWindow::ShowInnDialog(uint32_t id, int32_t interact_target) { //48d4da
             arr[i] = ids[i];
         }
 
-        g_Server->FUN_00501b9e(ScenarioGetVar(0x300), arr);
+        g_Server->DespawnScenarioUnits(ScenarioGetVar(0x300), arr);
 
         this->vis_map_context->ProcessPackets(0);
     } else {

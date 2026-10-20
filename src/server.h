@@ -200,7 +200,7 @@ public:
 
     void SetDifficulty(int32_t val) { this->field22_0xd8 = val; }; //497470
 
-    void FUN_00501b9e(int32_t var300, CDWordArray& arr); //501b9e
+    void DespawnScenarioUnits(int32_t var300, CDWordArray& arr); //501b9e
         
     Server(); //4ece8b
     ~Server(); //4f2c26

@@ -4947,7 +4947,7 @@ Server::Server()
     this->map_elapsed_time2 = 0;
 }
 
-void Server::FUN_00501b9e(int32_t var300, CDWordArray& arr) { //501b9e
+void Server::DespawnScenarioUnits(int32_t var300, CDWordArray& arr) { //501b9e
     UnitList ulst;
     for (int i = 0; i < arr.GetSize(); i++) {
         uint32_t serverID = arr[i] & 0xffff;

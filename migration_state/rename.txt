@@ -1066,3 +1066,4 @@ CGameSession::FUN_004948b2 -> SaveShortcuts -- serialises the 9 user shortcuts i
 CGameSession::FUN_004200f0 -> GetSkillTier1 -- skill-tier bracket 1 derived from the character's max skill level (1..4)
 CGameSession::FUN_00420110 -> GetSkillTier2 -- skill-tier bracket 2 derived from the character's max skill level (1..4)
 Server::FUN_00497470 -> SetDifficulty -- inline setter of field22_0xd8 = difficulty (called with FameHall difficulty+1)
+Server::sub_50979A -> MissionResultsTick -- every 16 ticks: wraps UpdateMissionResults
