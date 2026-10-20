@@ -96,7 +96,7 @@ Player* PlayersList::FindByTokenId(uint16_t token_id) {
 
 // Reset all players' frags to 0.
 // 536286
-void PlayersList::sub_536286() {
+void PlayersList::ResetFrags() {
 	for (POSITION it = this->list.GetHeadPosition(); it != nullptr;) {
 		Player* player = this->list.GetNext(it);
 		player->frags = 0;

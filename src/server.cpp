@@ -5221,7 +5221,7 @@ void Server::OnTeamsReady() {
     this->ctf_score[0] = 0;
     this->ctf_score[1] = 0;
     if (g_PlayersList != nullptr) {
-        g_PlayersList->sub_536286();
+        g_PlayersList->ResetFrags();
     }
 }
 
