@@ -83,7 +83,7 @@ void Shop::sub_544655(Unit* unit) {
 
 // 544685
 void Shop::sub_544685(Unit* unit) {
-    this->shop_template->sub_5479C6(static_cast<Humanoid*>(unit));
+    this->shop_template->CloseInstance(static_cast<Humanoid*>(unit));
     if (g_Server->field4_0x74 != 0) {
         unit->ReturnToMap();
     }

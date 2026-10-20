@@ -509,7 +509,7 @@ void CMultiShopTemplate::sub_547CB9(Humanoid* humanoid, uint8_t op_type, int16_t
 }
 
 // 5479C6
-void CMultiShopTemplate::sub_5479C6(Humanoid* humanoid) {
+void CMultiShopTemplate::CloseInstance(Humanoid* humanoid) {
     int32_t index = this->FindInstanceIndex(humanoid);
     if (index == -1) {
         return;
@@ -541,7 +541,7 @@ void CMultiShopTemplate::RefreshTick() {
     for (int32_t i = 0; i < this->shop_instances.GetSize();) {
         Unit* unit = this->shop_instances[i]->unit;
         if (unit->pOwner == nullptr) {
-            this->sub_5479C6(static_cast<Humanoid*>(unit));
+            this->CloseInstance(static_cast<Humanoid*>(unit));
             continue;
         }
         if (unit->pOwner->is_active == 0) {
