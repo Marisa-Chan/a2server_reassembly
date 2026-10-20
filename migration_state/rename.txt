@@ -965,3 +965,4 @@ MainWindow::sub_4919C7 -> OpenConsoleInput -- attaches the Vis1200 console line 
 MainWindow::FUN_004919b1 -> ProcessPlayersTick -- calls g_Server->ProcessPlayers
 MainWindow::FUN_00485a41 -> ShowRightPanelInfo -- right panel shows the char info pane
 MainWindow::FUN_00485aed -> ClearVisualTree -- detaches all visual children (session teardown)
+MainWindow::sub_48CCA1 -> SetItemCursor -- starts a drag: item cursor + drag src state

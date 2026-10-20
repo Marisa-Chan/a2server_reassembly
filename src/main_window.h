@@ -404,7 +404,7 @@ public:
 
     void SetItemCursor(TokenEntry* entry, int32_t idx, const char* str, int32_t tab); //48cca1 in asm
 
-    void FUN_00494a9e(); //494a9e
+    void ClearDiplomacyEntries(); //494a9e
 
     void FUN_00494c91(); //494c91
 

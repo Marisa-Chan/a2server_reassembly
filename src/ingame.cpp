@@ -1870,7 +1870,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 			this->field_0x9b8.SetAtGrow(mp->index, mp);
 
-			wnd->FUN_00494a9e();
+			wnd->ClearDiplomacyEntries();
 
 			if (wnd->vis_msgbox) {
 				wnd->vis_msgbox->ReadData(&wnd->diplomacy_entries);
@@ -1918,7 +1918,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			this->field_0x9b8[packet_info->param1] = nullptr; //WAT ? not delete?
 			wnd->vis_root->MsgProc(0x460, 0, 0);
 
-			wnd->FUN_00494a9e();
+			wnd->ClearDiplomacyEntries();
 
 			if (wnd->vis_msgbox) {
 				wnd->vis_msgbox->ReadData(&wnd->diplomacy_entries);
@@ -2115,7 +2115,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			this->my_main_unit->diplomacy.SetSize(packet_terrain->count);
 			memcpy(this->my_main_unit->diplomacy.GetData(), packet_terrain->buf, packet_terrain->count * 2);
 
-			wnd->FUN_00494a9e();
+			wnd->ClearDiplomacyEntries();
 
 			if (wnd->vis_msgbox) {
 				wnd->vis_msgbox->ReadData(&wnd->diplomacy_entries);

@@ -736,7 +736,7 @@ int32_t MainWindow::WaitHatConnection() {
 }
 
 // 494a9e
-void MainWindow::FUN_00494a9e() {
+void MainWindow::ClearDiplomacyEntries() {
     for (int32_t i = 0; i < this->diplomacy_entries->GetSize(); i++) {
         DiplomacyEntry* entry = (*this->diplomacy_entries)[i];
         if (entry != nullptr) {
@@ -3412,7 +3412,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
     case 0x43c:
         if (this->dialogsMask == 1) {
-            this->FUN_00494a9e();
+            this->ClearDiplomacyEntries();
             // The original passes the address of the array pointer so the dialog
             // re-reads the current array on every ReadData (see VisDiplomacy::diplomacy).
             this->vis_msgbox = new VisDiplomacy(1, 10, 0, 630, 480, (const CArray<DiplomacyEntry*>*)&this->diplomacy_entries);
