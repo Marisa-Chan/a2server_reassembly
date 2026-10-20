@@ -172,7 +172,7 @@ void SetClipRect(CRect& r) {
 }
 
 //4549e5
-void __cdecl FUN_004549e5(int32_t l, int32_t t, int32_t r, int32_t b) {
+void __cdecl SetClipRect(int32_t l, int32_t t, int32_t r, int32_t b) {
 	g_clipRect.left = l;
 	g_clipRect.top = t;
 	g_clipRect.right = r;

@@ -889,3 +889,4 @@ MainWindow::sub_49583E -> OnCommand3fe -- ON_COMMAND 0x3fe
 MainWindow::sub_4954EA -> OnCommandUnknown -- unidentified command handler
 gfx: sub_4586FE -> PlotPixelBlend -- plots one alpha-blended pixel into g_selDrawBitmap (clip-checked)
 gfx: sub_4588EC -> PlotGlowDot -- soft glow dot: 3/4 and 1/2 alpha ring around a center pixel
+gfx: FUN_00457aa6 -> FillRectClipped -- fills a rect with a solid color, clipped to g_clipRect

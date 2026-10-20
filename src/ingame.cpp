@@ -5381,9 +5381,9 @@ void BigStruct2::sub_406F7B() {
 		}
 	} else {
 		if (anim_redraw != 0 && g_Animation != 0) {
-			FUN_004549e5(0, this->tile_scroll_y << 5, this->view_tiles_x << 5, this->view_tiles_y << 5);
+			SetClipRect(0, this->tile_scroll_y << 5, this->view_tiles_x << 5, this->view_tiles_y << 5);
 			this->sub_405399(0);
-			FUN_004549e5(0, 0, this->view_tiles_x << 5, this->tile_scroll_y << 5);
+			SetClipRect(0, 0, this->view_tiles_x << 5, this->tile_scroll_y << 5);
 			this->sub_405399(-this->view_tiles_y);
 		}
 	}

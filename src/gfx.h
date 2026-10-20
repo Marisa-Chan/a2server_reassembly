@@ -141,7 +141,7 @@ extern CGameBitmap* DAT_00665344; //665344
 void GetClipRect(CRect* r); //454a0c
 void SetClipRect(CRect& r); //4549ba
 
-void __cdecl FUN_004549e5(int32_t l, int32_t t, int32_t r, int32_t b); //4549e5
+void __cdecl SetClipRect(int32_t l, int32_t t, int32_t r, int32_t b); //4549e5
 void __cdecl FUN_00454e40(int32_t sx, int32_t sy, int32_t w, int32_t h); //454e40
 
 void CopyIndexedSkip0(uint8_t* dst, uint8_t* src, int32_t size); //45424d
