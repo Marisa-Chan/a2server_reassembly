@@ -422,7 +422,7 @@ public:
 
     void PlayVideo(int32_t vid_id); //491f7d
 
-    void FUN_0048f79d(); //48f79d
+    void BeginLocalCharacterSetup(); //48f79d
     int GetSaveFileInBattle(); //48de6f
     int RunSessionBootstrap(int mode); //48e502
     void FUN_00485969(); //485969

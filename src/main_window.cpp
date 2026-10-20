@@ -3054,7 +3054,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                 }
             }
         }
-        this->FUN_0048f79d();
+        this->BeginLocalCharacterSetup();
         break;
 
     case 0x41a:
@@ -3886,7 +3886,7 @@ void MainWindow::ShowGlobalMapDialog() { //48d34b
     g_Cursors[CURSOR_DEFAULT]->Use();
 }
 
-void MainWindow::FUN_0048f79d() { // 48f79d
+void MainWindow::BeginLocalCharacterSetup() { // 48f79d
     g_mousept.DisableHint();
 
     strcpy(this->m_GameSession.character_name, "Self");
