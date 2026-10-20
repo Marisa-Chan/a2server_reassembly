@@ -6025,7 +6025,7 @@ void UserShortcut::sub_41E343(TokenEntry* entry) { //41e343
     }
 }
 
-int32_t UserShortcut::FUN_0041e456(short spell_id) { //41e456
+int32_t UserShortcut::IsSpellShortcut(short spell_id) { //41e456
     if (this->kind == 1 && this->item_id == (uint16_t)spell_id) {
         return 1;
     }

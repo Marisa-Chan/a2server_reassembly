@@ -23102,7 +23102,7 @@ int32_t VisSpellBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
                     main_wnd->m_GameSession.shortcuts[wparam].SetSpell((short)idx);
                     for (int32_t i = 0; i < 9; i++) {
                         if (i != (int32_t)wparam
-                            && main_wnd->m_GameSession.shortcuts[i].FUN_0041e456((short)idx)) {
+                            && main_wnd->m_GameSession.shortcuts[i].IsSpellShortcut((short)idx)) {
                             main_wnd->m_GameSession.shortcuts[i].SetNull();
                         }
                     }
@@ -23111,7 +23111,7 @@ int32_t VisSpellBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
                 main_wnd->m_GameSession.shortcuts[wparam].SetSpell((short)this->pressed);
                 for (int32_t i = 0; i < 9; i++) {
                     if (i != (int32_t)wparam
-                        && main_wnd->m_GameSession.shortcuts[i].FUN_0041e456((short)this->pressed)) {
+                        && main_wnd->m_GameSession.shortcuts[i].IsSpellShortcut((short)this->pressed)) {
                         main_wnd->m_GameSession.shortcuts[i].SetNull();
                     }
                 }
@@ -23168,7 +23168,7 @@ void VisSpellBook::VMethod7() {
         if (((mc->field_0x148 | mc->field_0x150) & (1 << (i & 0x1F))) != 0) {
             int32_t fkey = 0;
             for (int32_t s = 0; s < 9; s++) {
-                if (main_wnd->m_GameSession.shortcuts[s].FUN_0041e456((short)i)) {
+                if (main_wnd->m_GameSession.shortcuts[s].IsSpellShortcut((short)i)) {
                     fkey = s + 4;
                 }
             }

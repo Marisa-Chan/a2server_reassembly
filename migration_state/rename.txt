@@ -873,3 +873,4 @@ CGameSession::FUN_004946ae -> AutosaveTick -- 15s-gated autosave
 CGameSession::FUN_00493d8d -> ResetCharacter -- resets money/kills and writes the basic character info
 CGameSession::FUN_00494687 -> ResetUnitClass -- clears body/sphere and recreates the local unit
 CGameSession::FUN_0049381c -> SetNameAndColor -- applies a Name:color string to the local unit
+UserShortcut::FUN_0041e323 -> SetSpell -- kind=1 shortcut for a spell id
