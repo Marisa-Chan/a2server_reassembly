@@ -198,7 +198,7 @@ public:
     void ProcessAvailPackets(); //509010
     void PumpNetwork(); //50907e
 
-    void FUN_00497470(int32_t val) { this->field22_0xd8 = val; }; //497470
+    void SetDifficulty(int32_t val) { this->field22_0xd8 = val; }; //497470
 
     void FUN_00501b9e(int32_t var300, CDWordArray& arr); //501b9e
         

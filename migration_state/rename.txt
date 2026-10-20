@@ -1064,3 +1064,4 @@ MainWindow::FUN_0047ad28 -> UnloadObjectGfx -- deletes all g_GfxFiles and g_GfxO
 MainWindow::FUN_00478130 -> UnloadTerrainTiles -- frees the terrain tile bitmaps and the dirt bitmap
 CGameSession::FUN_004948b2 -> SaveShortcuts -- serialises the 9 user shortcuts into the character file
 CGameSession::FUN_004200f0 -> GetSkillTier1 -- skill-tier bracket 1 derived from the character's max skill level (1..4)
+CGameSession::FUN_00420110 -> GetSkillTier2 -- skill-tier bracket 2 derived from the character's max skill level (1..4)

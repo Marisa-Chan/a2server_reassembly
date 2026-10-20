@@ -2330,7 +2330,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
                 ScenarioSetVar(0x30d, (this->m_GameSession.type & 0x80) != 0);
 
                 if (g_Server) {
-                    g_Server->FUN_00497470(this->m_FameHall.GetDifficulty() + 1);
+                    g_Server->SetDifficulty(this->m_FameHall.GetDifficulty() + 1);
                 }
 
                 PostMessage(0x42e, 0, 0);
