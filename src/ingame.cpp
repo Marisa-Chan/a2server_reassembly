@@ -1124,7 +1124,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 								if (g_EnableTrace) {
 									CString logstr = "Invalid item weared " + ct->equipmentTokens[i]->GetSpriteName();
 
-									if (ct->equipmentTokens[i]->FUN_004396d6() == 0 && g_EnableTrace != 0) {
+									if (ct->equipmentTokens[i]->HasKnownName() == 0 && g_EnableTrace != 0) {
 										CStdioFile f;
 										f.Open("error.log", CFile::modeNoTruncate | CFile::modeCreate | CFile::modeWrite);
 										f.SeekToEnd();
@@ -1237,7 +1237,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						TokenEntry* obj = new TokenEntry(&pdata, 0);
 						obj->slot_code = 2;
 
-						if (obj->FUN_004396d6()) {
+						if (obj->HasKnownName()) {
 							ct->tokenEntries.InsertAt(i + packet_state->start_index, obj, 1);
 						}
 
@@ -1337,7 +1337,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						d0 = new TokenEntry(&pdata, 0);
 					}
 					
-					if (d0->FUN_004396d6()) {
+					if (d0->HasKnownName()) {
 						tmp.Add(d0);
 					} else {
 						if (g_EnableTrace) {
@@ -1372,7 +1372,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					uint8_t* pdata = packet_state->data;
 					for (int i = 0; i < packet_state->entry_count; i++) {
 						TokenEntry* d0 = new TokenEntry(&pdata, 0);
-						if (d0->FUN_004396d6() || d0->item_id > 0xfff0) {
+						if (d0->HasKnownName() || d0->item_id > 0xfff0) {
 							tavern->rewards.Add(d0);
 						//WAT ?  else - delete ???
 						}

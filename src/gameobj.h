@@ -46,7 +46,7 @@ public:
 	void operator=(const TokenEntry& obj);
 
 	CString GetSpriteName(); //4394f3
-	int FUN_004396d6(); //4396d6
+	int HasKnownName(); //4396d6
 	const char* GetHintText(); //439973
 
 	int GetType() const { return (this->item_id >> 8) & 0xf; } //41f0b0

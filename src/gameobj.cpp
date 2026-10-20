@@ -900,7 +900,7 @@ int32_t TokenEntry::IsDepleted() { //4a78c0
 }
 
 
-int TokenEntry::FUN_004396d6() { //4396d6
+int TokenEntry::HasKnownName() { //4396d6
     void* ptr = nullptr;
     return unk_660DA8.Lookup(this->item_id, ptr);
 }
@@ -1130,7 +1130,7 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
 
     int first_equipment_state = 0;
     if (this->equipmentTokens[0] != nullptr) {
-        first_equipment_state = this->equipmentTokens[0]->FUN_004396d6();
+        first_equipment_state = this->equipmentTokens[0]->HasKnownName();
     }
 
     if ((this->unitFlags & 2) == 0) {
