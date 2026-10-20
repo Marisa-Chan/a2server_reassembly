@@ -860,3 +860,4 @@ Fame2::FUN_004abfb1 -> Draw -- draws the document picture or text block at (x,y)
 Fame2::FUN_004ac0af -> LoadDocument -- loads the picture/text content for doc_id
 CFameHall::FUN_004ac566 -> AddTextDocument -- adds a text document unless one with the id exists
 CFameHall::FUN_004acafa -> SeedDefaultEntries -- fills the leaderboard with 9 placeholder scores
+CFameHall::FUN_004ac945 -> LoadEntries -- reads the fame leaderboard entries from file

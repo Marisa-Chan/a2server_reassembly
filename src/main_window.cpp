@@ -322,7 +322,7 @@ void CFameHall::LoadEntries(CFile* file) {
     }
 }
 
-void CFameHall::FUN_004ac706(CFile* file) { //  4ac706
+void CFameHall::SaveDocuments(CFile* file) { //  4ac706
     int32_t num = this->m_Documents.GetSize();
     file->Write(&num, 4);
 
@@ -2853,7 +2853,7 @@ void MainWindow::FUN_0048f905() { // 48f905
 
         local_180.WriteToFile(&local_13c);
 
-        this->m_FameHall.FUN_004ac706(&local_13c);
+        this->m_FameHall.SaveDocuments(&local_13c);
 
         ScenarioSave(&local_13c);
 
