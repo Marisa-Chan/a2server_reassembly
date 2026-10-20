@@ -1969,12 +1969,12 @@ void CUnit::Draw(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
             }
             gfx_file->GetSprite()->VMethod9(x, y, frame, arg3, palette, flip);
         }
-        cx = draw_vfx->center_x - draw_vfx->width / 2 + gfx_file->FUN_0046f730()->GetWidth(frame) / 2;
-        cy = draw_vfx->center_y - draw_vfx->height / 2 + gfx_file->FUN_0046f730()->GetHeight(frame) / 2;
+        cx = draw_vfx->center_x - draw_vfx->width / 2 + gfx_file->GetSpriteB()->GetWidth(frame) / 2;
+        cy = draw_vfx->center_y - draw_vfx->height / 2 + gfx_file->GetSpriteB()->GetHeight(frame) / 2;
         x = this->centerScreenX - cx;
         y = this->centerScreenY - cy - this->terrainHeightOffset - this->z_pos;
         if (g_settings.Smoothing != 0 || this->typeId == 0x45) {
-            gfx_file->FUN_0046f730()->VMethod9(x, y, frame, arg3, palette, flip);
+            gfx_file->GetSpriteB()->VMethod9(x, y, frame, arg3, palette, flip);
         }
     }
 
@@ -2159,15 +2159,15 @@ void CUnit::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
                 gfx_file->GetSprite()->VMethod11(x, y, frame, g_DeltaCLR.lit_delta, sun_angle, flip);
             }
         }
-        cx = draw_vfx->center_x - draw_vfx->width / 2 + gfx_file->FUN_0046f730()->GetWidth(frame) / 2;
-        cy = draw_vfx->center_y - draw_vfx->height / 2 + gfx_file->FUN_0046f730()->GetHeight(frame) / 2;
+        cx = draw_vfx->center_x - draw_vfx->width / 2 + gfx_file->GetSpriteB()->GetWidth(frame) / 2;
+        cy = draw_vfx->center_y - draw_vfx->height / 2 + gfx_file->GetSpriteB()->GetHeight(frame) / 2;
         x = this->centerScreenX - cx - shadow_offset;
         y = this->centerScreenY - cy - this->terrainHeightOffset;
         if (this->FindEffectTimer(0x20) < 0 && g_settings.Smoothing != 0) {
             if (is_air) {
-                gfx_file->FUN_0046f730()->VMethod3(x + shadow_offset + sun_angle / 2000, y, frame, g_DeltaCLR.lit_delta, flip);
+                gfx_file->GetSpriteB()->VMethod3(x + shadow_offset + sun_angle / 2000, y, frame, g_DeltaCLR.lit_delta, flip);
             } else {
-                gfx_file->FUN_0046f730()->VMethod11(x, y, frame, g_DeltaCLR.lit_delta, sun_angle, flip);
+                gfx_file->GetSpriteB()->VMethod11(x, y, frame, g_DeltaCLR.lit_delta, sun_angle, flip);
             }
         }
     }

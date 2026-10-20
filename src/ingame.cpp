@@ -3209,7 +3209,7 @@ CSprite256* UnitGfxFile::GetSprite() { //46f700
     return this->spr;
 }
 
-CSprite256* UnitGfxFile::FUN_0046f730() { //46f730
+CSprite256* UnitGfxFile::GetSpriteB() { //46f730
     if (this->inited == 0) {
         this->Init();
     }

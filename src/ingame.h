@@ -163,7 +163,7 @@ public:
 	void Deinit(); //47caa4
 
 	CSprite256* GetSprite(); //46f700
-	CSprite256* FUN_0046f730(); //46f730
+	CSprite256* GetSpriteB(); //46f730
 public:
 	CSprite256* spr;
 	CSprite256* spr_b;
