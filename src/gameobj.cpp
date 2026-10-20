@@ -432,14 +432,14 @@ void CGameObject::UpdateLight() { //46f4f0
 
 
 void CGameObject::UpdateOccupancy() { //462190
-    if (this->pMapObject->my_main_unit->FUN_0041ee50(this->map_player->index) != 0 && this->scan_range != 0 && (this->screenX & 0x1f) == 0x10 && (this->screenY & 0x1f) == 0x10 && (this->x_pos != this->occupiedLocation.x || this->y_pos != this->occupiedLocation.y)) {
+    if (this->pMapObject->my_main_unit->IsVisibleTo(this->map_player->index) != 0 && this->scan_range != 0 && (this->screenX & 0x1f) == 0x10 && (this->screenY & 0x1f) == 0x10 && (this->x_pos != this->occupiedLocation.x || this->y_pos != this->occupiedLocation.y)) {
         this->MarkOccupancy();
     }
 }
 
 
 void CGameObject::MarkOccupancy() { //462226
-    if (this->pMapObject->my_main_unit->FUN_0041ee50(this->map_player->index) != 0 && this->scan_range != 0) {
+    if (this->pMapObject->my_main_unit->IsVisibleTo(this->map_player->index) != 0 && this->scan_range != 0) {
         this->pMapObject->field_0xdc = 1;
 
         uint16_t* land = this->pMapObject->field_0x80->GetLandscape();
@@ -1657,7 +1657,7 @@ void CUnit::DrawHealthBar(int32_t arg1, int32_t arg2, int32_t arg3) { // 466a78
 
     BigStruct2* map = this->pMapObject;
 
-    if (this->FindEffectTimer(0x20) >= 0 && map->my_main_unit->FUN_0041ee50(this->map_player->index) == 0) {
+    if (this->FindEffectTimer(0x20) >= 0 && map->my_main_unit->IsVisibleTo(this->map_player->index) == 0) {
         return;
     }
 
@@ -1942,7 +1942,7 @@ void CUnit::Draw(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
         if (this->FindEffectTimer(0x20) < 0) {
             this->sprite->VMethod1(x, y, frame, arg3, palette, flip);
         } else {
-            if (map->my_main_unit->FUN_0041ee50(this->map_player->index) == 0) {
+            if (map->my_main_unit->IsVisibleTo(this->map_player->index) == 0) {
                 return;
             }
             this->sprite->VMethod9(x, y, frame, arg3, palette, flip);
@@ -1964,7 +1964,7 @@ void CUnit::Draw(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
         if (this->FindEffectTimer(0x20) < 0) {
             gfx_file->GetSprite()->VMethod1(x, y, frame, arg3, palette, flip);
         } else {
-            if (map->my_main_unit->FUN_0041ee50(this->map_player->index) == 0) {
+            if (map->my_main_unit->IsVisibleTo(this->map_player->index) == 0) {
                 return;
             }
             gfx_file->GetSprite()->VMethod9(x, y, frame, arg3, palette, flip);
@@ -2123,7 +2123,7 @@ void CUnit::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
         if (this->FindEffectTimer(0x20) < 0) {
             this->sprite->VMethod11(x, y, frame, g_DeltaCLR.shade_delta, sun_angle, flip);
         } else {
-            if (map->my_main_unit->FUN_0041ee50(this->map_player->index) == 0) {
+            if (map->my_main_unit->IsVisibleTo(this->map_player->index) == 0) {
                 return;
             }
             this->sprite->VMethod11(x, y, frame, g_DeltaCLR.lit_delta, sun_angle, flip);
@@ -2150,7 +2150,7 @@ void CUnit::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
                 gfx_file->GetSprite()->VMethod11(x, y, frame, g_DeltaCLR.shade_delta, sun_angle, flip);
             }
         } else {
-            if (map->my_main_unit->FUN_0041ee50(this->map_player->index) == 0) {
+            if (map->my_main_unit->IsVisibleTo(this->map_player->index) == 0) {
                 return;
             }
             if (is_air) {
@@ -3123,7 +3123,7 @@ void CUnit::DrawMinimapRect(int32_t arg1, int32_t arg2, int32_t arg3) {
 
     BigStruct2* map = this->pMapObject;
 
-    if (this->FindEffectTimer(0x20) >= 0 && map->my_main_unit->FUN_0041ee50(this->map_player->index) == 0) {
+    if (this->FindEffectTimer(0x20) >= 0 && map->my_main_unit->IsVisibleTo(this->map_player->index) == 0) {
         return;
     }
 
@@ -3165,7 +3165,7 @@ int32_t CUnit::UpdateBlockedState() {
         return 1;
     }
 
-    if (map->my_main_unit->FUN_0041ee50(this->map_player->index) != 0) {
+    if (map->my_main_unit->IsVisibleTo(this->map_player->index) != 0) {
         this->bIsBlocked = 0;
         return 0;
     }
@@ -3412,7 +3412,7 @@ void CUnit::DrawStatsPanel(CRect* rect) {
     }
     if (this->map_player->index == 0) {
         view_level = 7;
-    } else if (map->my_main_unit->FUN_0041ee50(this->map_player->index) != 0) {
+    } else if (map->my_main_unit->IsVisibleTo(this->map_player->index) != 0) {
         view_level = 7;
     }
     if (INT_00660f74 != 0) {
@@ -3565,7 +3565,7 @@ const char* CUnit::GetStatsHint(int32_t x, int32_t y) {
     }
     if (this->map_player->index == 0) {
         view_level = 7;
-    } else if (map->my_main_unit->FUN_0041ee50(this->map_player->index) != 0) {
+    } else if (map->my_main_unit->IsVisibleTo(this->map_player->index) != 0) {
         view_level = 7;
     }
     if (INT_00660f74 != 0) {
@@ -4060,7 +4060,7 @@ void CStructure::DrawMinimapRect(int32_t arg1, int32_t arg2, int32_t arg3) {
 int32_t CStructure::UpdateBlockedState() {
     BigStruct2* map = this->pMapObject;
 
-    if (map->my_main_unit->FUN_0041ee50(this->map_player->index) != 0) {
+    if (map->my_main_unit->IsVisibleTo(this->map_player->index) != 0) {
         this->bIsBlocked = 0;
         return 0;
     }

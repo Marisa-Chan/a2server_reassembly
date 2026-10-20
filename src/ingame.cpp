@@ -5500,7 +5500,7 @@ void BigStruct2::sub_406F7B() {
 					}
 				}
 				if (unit != nullptr && unit->IsBlocked() == 0 &&
-					(unit->FindEffectTimer(0x20) < 0 || this->my_main_unit->FUN_0041ee50(unit->map_player->index) != 0)) {
+					(unit->FindEffectTimer(0x20) < 0 || this->my_main_unit->IsVisibleTo(unit->map_player->index) != 0)) {
 					UnitVFXUnfo* vfx = g_VFX_info[unit->typeId];
 					CRect sel = vfx->selection;
 					sel.OffsetRect(unit->centerScreenX - vfx->center_x,

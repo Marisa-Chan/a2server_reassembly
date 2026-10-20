@@ -55,7 +55,7 @@ uint32_t MapPlayerData::IsAllied(int32_t idx) {
 }
 
 // 41EE50
-int32_t MapPlayerData::FUN_0041ee50(int32_t idx) {
+int32_t MapPlayerData::IsVisibleTo(int32_t idx) {
     return this->diplomacy[idx] & 8;
 }
 
