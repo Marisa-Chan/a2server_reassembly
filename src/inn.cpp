@@ -557,7 +557,7 @@ void Inn::InnCreateQuests(Player* player) {
                 continue;
             }
 
-            Building* found_building = building_list->sub_558055(p);
+            Building* found_building = building_list->FindPlayerInn(p);
             if (!found_building) {
                 continue;
             }

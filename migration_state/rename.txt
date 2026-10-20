@@ -934,3 +934,4 @@ UnitList::sub_5561A1 -> SendVisibilityUpdates -- resends unit state to players w
 BuildingsList::sub_557DB2 -> FindById -- finds a building by building_id
 BuildingsList::sub_558128 -> FindNearby -- finds the building within 2 tiles of the position (offset -1,-1)
 BuildingsList::sub_557EA5 -> FindNearbyExact -- finds the building within 2 tiles of the position
+BuildingsList::sub_557F69 -> FindClosest -- closest building with object_info_id to the position

@@ -11,7 +11,7 @@ void BuildingsList::RegenTick() { // 55817b
 }
 
 // 558055
-Building* BuildingsList::sub_558055(Player* player) {
+Building* BuildingsList::FindPlayerInn(Player* player) {
 	for (POSITION it = this->GetHeadPosition(); it != nullptr;) {
 		Building* building = this->GetNext(it);
 		if (building->object_info_id != 0 && building->pOwner == player && building->IsKindOf(RUNTIME_CLASS(Inn))) {
