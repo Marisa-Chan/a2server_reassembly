@@ -136,7 +136,7 @@ void World::ResetMatchState() {
 }
 
 // 5A44C5
-void World::sub_5A44C5() {
+void World::ReinitState() {
     this->sub_5A3F3A();
 }
 
@@ -2842,7 +2842,7 @@ void World::GroupSwarmCommand(Group* group, uint8_t x, uint8_t y) {
 
 // 5A457A
 void World::Init() {
-    this->sub_5A44C5();
+    this->ReinitState();
 }
 
 // 5A4590

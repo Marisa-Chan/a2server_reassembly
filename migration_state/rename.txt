@@ -995,3 +995,4 @@ CSprite256::VMethod10 -> DrawBlend -- BlitRle8Blend with own palette
 CSprite256::VMethod11 -> DrawShadowed -- BlitLightRle8Tilt with brightness+tilt (the shadow-pass renderer)
 CBmp64::VMethod11 -> DrawSubRectAdd -- Blit16Add sub-rect
 CSprite256::VMethod12 -> DrawIndexMask -- BlitRle8IndexMask (equipment paperdoll layers)
+World::sub_5A457A -> Init -- World ctor init entry (wraps ReinitState)

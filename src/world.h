@@ -115,7 +115,7 @@ public:
     ~World();
 
     void Init(); // 5A457A
-    void sub_5A44C5(); // 5A44C5
+    void ReinitState(); // 5A44C5
     void sub_5A44DB(); // 5A44DB
     void sub_5A3F3A(); // 5A3F3A
     void sub_5A3F88(); // 5A3F88
