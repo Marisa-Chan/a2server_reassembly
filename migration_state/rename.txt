@@ -983,3 +983,4 @@ MainWindow::FUN_004e5466 -> CheckWebVersion -- InternetOpenA version check again
 MainWindow::FUN_00490eb3 -> LeaveServerMode -- hat logout and driver reset
 CGameBitmap::VMethod1 -> DrawWithPalette -- blit with an external palette (unit team colors); CSprite256: BlitRle8, base stub
 CGameBitmap::VMethod2 -> Draw -- plain blit (sprite: own-palette RLE8, bmp: Blit16); CBmp256/CBmp64/CSprite256 overrides
+CGameBitmap::VMethod2 -> Draw -- plain blit (sprite: own-palette RLE8, bmp: Blit16); CBmp256/CBmp64/CSprite256 overrides

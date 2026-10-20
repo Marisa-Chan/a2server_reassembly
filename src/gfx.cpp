@@ -4133,7 +4133,7 @@ void CGameBitmap::Draw(int32_t x, int32_t y, int frame, int mode, int palid) {
 	//428d50
 }
 
-void CGameBitmap::VMethod3(int32_t x, int32_t y, int frame, int blevel, int mode) {
+void CGameBitmap::DrawBrightened(int32_t x, int32_t y, int frame, int blevel, int mode) {
 	//428d70
 }
 
@@ -4554,7 +4554,7 @@ void CSprite256::Draw(int32_t x, int32_t y, int frame, int palid, int mode) { //
 	}
 }
 
-void CSprite256::VMethod3(int32_t x, int32_t y, int frame, int blevel, int mode) { //425330
+void CSprite256::DrawBrightened(int32_t x, int32_t y, int frame, int blevel, int mode) { //425330
 	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 	if (mode == 0) {
 		if (g_isLowMemory == 0) {

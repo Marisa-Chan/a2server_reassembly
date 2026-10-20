@@ -1108,25 +1108,25 @@ void VisScrollBar::VMethod7() {
         }
 
         if (this->mouse_on_minus == 0) {
-            gfx_scrollbars->VMethod3(tr.left + 4, tr.top + 4, 18, 4, 0);
+            gfx_scrollbars->DrawBrightened(tr.left + 4, tr.top + 4, 18, 4, 0);
             gfx_scrollbars->Draw(tr.left, tr.top, 18, 0, 0);
         } else {
-            gfx_scrollbars->VMethod3(tr.left + 4, tr.top + 4, 21, 4, 0);
+            gfx_scrollbars->DrawBrightened(tr.left + 4, tr.top + 4, 21, 4, 0);
             gfx_scrollbars->Draw(tr.left, tr.top, 21, 0, 0);
         }
 
         for (int32_t i = 1; i < tr.Height() / tr.Width(); i++) {
-            gfx_scrollbars->VMethod3(tr.left + 4, tr.top + 4 + i * tr.Width(), 19, 4, 0);
+            gfx_scrollbars->DrawBrightened(tr.left + 4, tr.top + 4 + i * tr.Width(), 19, 4, 0);
             gfx_scrollbars->Draw(tr.left, tr.top + i * tr.Width(), 19, 0, 0);
         }
 
-        gfx_scrollbars->VMethod3(tr.left + 4, tr.top + tr.Width() + val_pos, 22, 0, 0);
+        gfx_scrollbars->DrawBrightened(tr.left + 4, tr.top + tr.Width() + val_pos, 22, 0, 0);
 
         if (this->mouse_on_plus == 0) {
-            gfx_scrollbars->VMethod3(tr.left + 4, tr.bottom - tr.Width() + 4, 20, 4, 0);
+            gfx_scrollbars->DrawBrightened(tr.left + 4, tr.bottom - tr.Width() + 4, 20, 4, 0);
             gfx_scrollbars->Draw(tr.left, tr.bottom - tr.Width(), 20, 0, 0);
         } else {
-            gfx_scrollbars->VMethod3(tr.left + 4, tr.bottom - tr.Width() + 4, 23, 4, 0);
+            gfx_scrollbars->DrawBrightened(tr.left + 4, tr.bottom - tr.Width() + 4, 23, 4, 0);
             gfx_scrollbars->Draw(tr.left, tr.bottom - tr.Width(), 23, 0, 0);
         }
 
@@ -1135,25 +1135,25 @@ void VisScrollBar::VMethod7() {
         this->UpdateHBoxes();
 
         if (this->mouse_on_minus == 0) {
-            gfx_scrollbars->VMethod3(tr.left + 4, tr.top + 4, 0, 4, 0);
+            gfx_scrollbars->DrawBrightened(tr.left + 4, tr.top + 4, 0, 4, 0);
             gfx_scrollbars->Draw(tr.left, tr.top, 0, 0, 0);
         } else {
-            gfx_scrollbars->VMethod3(tr.left + 4, tr.top + 4, 3, 4, 0);
+            gfx_scrollbars->DrawBrightened(tr.left + 4, tr.top + 4, 3, 4, 0);
             gfx_scrollbars->Draw(tr.left, tr.top, 3, 0, 0);
         }
 
         for (int32_t i = 1; i < tr.Width() / tr.Height(); i++) {
-            gfx_scrollbars->VMethod3(tr.left + 4 + i * tr.Height(), tr.top + 4, 7, 4, 0);
+            gfx_scrollbars->DrawBrightened(tr.left + 4 + i * tr.Height(), tr.top + 4, 7, 4, 0);
             gfx_scrollbars->Draw(tr.left + i * tr.Height(), tr.top, 7, 0, 0);
         }
 
-        gfx_scrollbars->VMethod3(this->horiz_box_pos.left + 5, tr.top + 4, 10, 4, 0);
+        gfx_scrollbars->DrawBrightened(this->horiz_box_pos.left + 5, tr.top + 4, 10, 4, 0);
 
         if (this->mouse_on_plus == 0) {
-            gfx_scrollbars->VMethod3(tr.right - tr.Height() + 4, tr.top + 4, 8, 4, 0);
+            gfx_scrollbars->DrawBrightened(tr.right - tr.Height() + 4, tr.top + 4, 8, 4, 0);
             gfx_scrollbars->Draw(tr.right - tr.Height(), tr.top, 8, 0, 0);
         } else {
-            gfx_scrollbars->VMethod3(tr.right - tr.Height() + 4, tr.top + 4, 11, 4, 0);
+            gfx_scrollbars->DrawBrightened(tr.right - tr.Height() + 4, tr.top + 4, 11, 4, 0);
             gfx_scrollbars->Draw(tr.right - tr.Height(), tr.top, 11, 0, 0);
         }
 
@@ -2415,10 +2415,10 @@ void VisRadioType1::VMethod7() {
 
     for (int i = 0; i < this->entries.GetSize(); i++) {
         if ((this->selection & (1 << i)) == 0) {
-            gfx_radiob->VMethod3(rt.left + 5, y + 4, 2, 4, 0);
+            gfx_radiob->DrawBrightened(rt.left + 5, y + 4, 2, 4, 0);
             gfx_radiob->Draw(rt.left + 1, y, 2, 0, 0);
         } else {
-            gfx_radiob->VMethod3(rt.left + 5, y + 4, 3, 4, 0);
+            gfx_radiob->DrawBrightened(rt.left + 5, y + 4, 3, 4, 0);
             gfx_radiob->Draw(rt.left + 1, y, 3, 0, 0);
         }
 
@@ -2583,7 +2583,7 @@ void VisRadioType2::VMethod7() {
 
     for (int i = 0; i < this->entries.GetSize(); i++) {
         if (this->selection == i) {
-            gfx_radiob->VMethod3(rt.left + 5, y + 4, 1, 4, 0);
+            gfx_radiob->DrawBrightened(rt.left + 5, y + 4, 1, 4, 0);
             gfx_radiob->Draw(rt.left + 1, y, 1, 0, 0);
 
             if (this->TestFlags(FLAG_FOCUS) == 0) {
@@ -2592,7 +2592,7 @@ void VisRadioType2::VMethod7() {
                 this->clr = p_clrsh_Gold;
             }
         } else {
-            gfx_radiob->VMethod3(rt.left + 5, y + 4, 0, 4, 0);
+            gfx_radiob->DrawBrightened(rt.left + 5, y + 4, 0, 4, 0);
             gfx_radiob->Draw(rt.left + 1, y, 0, 0, 0);
 
             this->clr = p_clrsh_Black;
@@ -3238,16 +3238,16 @@ void VisScreen::VMethod8(CRect* r) {
         SetClipRect(*r);
         LockSurface2();
 
-        gfx_interface_lm->VMethod3(r2.right - 40, r2.top + 8, 3, 6, 0);
-        gfx_interface_lm->VMethod3(r2.left + 8, r2.bottom - 40, 6, 6, 0);
-        gfx_interface_lm->VMethod3(r2.right - 40, r2.bottom - 40, 8, 6, 0);
+        gfx_interface_lm->DrawBrightened(r2.right - 40, r2.top + 8, 3, 6, 0);
+        gfx_interface_lm->DrawBrightened(r2.left + 8, r2.bottom - 40, 6, 6, 0);
+        gfx_interface_lm->DrawBrightened(r2.right - 40, r2.bottom - 40, 8, 6, 0);
 
         for (int x = 0; x < (r2.Width() - 96); x += 96) {
-            gfx_interface_lm->VMethod3(r2.left + 56 + x, r2.bottom - 40, 7, 6, 0);
+            gfx_interface_lm->DrawBrightened(r2.left + 56 + x, r2.bottom - 40, 7, 6, 0);
         }
 
         for (int y = 0; y < (r2.Height() - 96); y += 64) {
-            gfx_interface_lm->VMethod3(r2.right - 40, r2.top + 56 + y, 5, 6, 0);
+            gfx_interface_lm->DrawBrightened(r2.right - 40, r2.top + 56 + y, 5, 6, 0);
         }
 
 
@@ -4272,14 +4272,14 @@ void VisQuestStatus::VMethod7() {
 
     LockSurface2();
 
-    gfx_interface_lm->VMethod3(screen_rect.right - 0x18, screen_rect.top + 8, 0xC, 6, 0);
-    gfx_interface_lm->VMethod3(screen_rect.left + 8, screen_rect.bottom - 0x18, 0xF, 6, 0);
-    gfx_interface_lm->VMethod3(screen_rect.right - 0x18, screen_rect.bottom - 0x18, 0x11, 6, 0);
+    gfx_interface_lm->DrawBrightened(screen_rect.right - 0x18, screen_rect.top + 8, 0xC, 6, 0);
+    gfx_interface_lm->DrawBrightened(screen_rect.left + 8, screen_rect.bottom - 0x18, 0xF, 6, 0);
+    gfx_interface_lm->DrawBrightened(screen_rect.right - 0x18, screen_rect.bottom - 0x18, 0x11, 6, 0);
     for (int32_t i = 0; i < (screen_rect.Width() - 0x40) / 0x30; i++) {
-        gfx_interface_lm->VMethod3(screen_rect.left + 0x28 + i * 0x30, screen_rect.bottom - 0x18, 0x10, 6, 0);
+        gfx_interface_lm->DrawBrightened(screen_rect.left + 0x28 + i * 0x30, screen_rect.bottom - 0x18, 0x10, 6, 0);
     }
     for (int32_t i = 0; i < (screen_rect.Height() - 0x40) / 0x20; i++) {
-        gfx_interface_lm->VMethod3(screen_rect.right - 0x18, screen_rect.top + 0x28 + i * 0x20, 0xE, 6, 0);
+        gfx_interface_lm->DrawBrightened(screen_rect.right - 0x18, screen_rect.top + 0x28 + i * 0x20, 0xE, 6, 0);
     }
 
     gfx_interface_lm->Draw(screen_rect.left, screen_rect.top, 0xA, 0, 0);
@@ -4460,16 +4460,16 @@ void VisTipsDialog::VMethod8(CRect* rect) {
     SetClipRect(*rect);
     LockSurface2();
 
-    gfx_interface_lm->VMethod3(r.right - 24, r.top + 8, 0xC, 6, 0);
-    gfx_interface_lm->VMethod3(r.left + 8, r.bottom - 24, 0xF, 6, 0);
-    gfx_interface_lm->VMethod3(r.right - 24, r.bottom - 24, 0x11, 6, 0);
+    gfx_interface_lm->DrawBrightened(r.right - 24, r.top + 8, 0xC, 6, 0);
+    gfx_interface_lm->DrawBrightened(r.left + 8, r.bottom - 24, 0xF, 6, 0);
+    gfx_interface_lm->DrawBrightened(r.right - 24, r.bottom - 24, 0x11, 6, 0);
 
     for (int32_t i = 0; i < (r.Width() - 0x40) / 0x30; i++) {
-        gfx_interface_lm->VMethod3(r.left + 0x28 + i * 0x30, r.bottom - 0x18, 0x10, 6, 0);
+        gfx_interface_lm->DrawBrightened(r.left + 0x28 + i * 0x30, r.bottom - 0x18, 0x10, 6, 0);
     }
 
     for (int32_t i = 0; i < (r.Height() - 0x40) / 0x20; i++) {
-        gfx_interface_lm->VMethod3(r.right - 0x18, r.top + 0x28 + i * 0x20, 0xE, 6, 0);
+        gfx_interface_lm->DrawBrightened(r.right - 0x18, r.top + 0x28 + i * 0x20, 0xE, 6, 0);
     }
 
     gfx_interface_lm->Draw(r.left, r.top, 0xA, 0, 0);
@@ -5612,10 +5612,10 @@ void VisServerScreenRadio::VMethod7() {
     for (int32_t i = 0; i < this->entries.GetSize(); i++) {
         int32_t flag = 1 << i;
         if (this->selection & flag) {
-            gfx_radiob->VMethod3(r.left + 5, y + 4, 5, 4, 0);
+            gfx_radiob->DrawBrightened(r.left + 5, y + 4, 5, 4, 0);
             gfx_radiob->Draw(r.left + 1, y, 5, 0, 0);
         } else {
-            gfx_radiob->VMethod3(r.left + 5, y + 4, 4, 4, 0);
+            gfx_radiob->DrawBrightened(r.left + 5, y + 4, 4, 4, 0);
             gfx_radiob->Draw(r.left + 1, y, 4, 0, 0);
         }
 
@@ -16795,7 +16795,7 @@ void VisInvExtBase::VMethod7() {
                 digits = cost_arr->GetUpperBound();
             }
             CBmp64* cost_bmp = cost_arr->GetAt(digits);
-            cost_bmp->VMethod3(cost_pos.x - 3, cost_pos.y + 2, 0, 8, 0);
+            cost_bmp->DrawBrightened(cost_pos.x - 3, cost_pos.y + 2, 0, 8, 0);
             int32_t bmp_w = cost_bmp->GetWidth(0);
             int32_t bmp_h = cost_bmp->GetHeight(0);
             cost_bmp->VMethod10(cost_pos.x, cost_pos.y, 0, 0, bmp_w, bmp_h);

@@ -300,7 +300,7 @@ public:
 
 	virtual void DrawWithPalette(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode);
 	virtual void Draw(int32_t x, int32_t y, int frame, int mode, int palid);
-	virtual void VMethod3(int32_t x, int32_t y, int frame, int blevel, int mode);
+	virtual void DrawBrightened(int32_t x, int32_t y, int frame, int blevel, int mode);
 	virtual int32_t GetWidth(int frame = 0);
 	virtual int32_t GetHeight(int frame = 0);
 	virtual void SelectBitmapForDraw();
@@ -380,7 +380,7 @@ public:
 
 	virtual void DrawWithPalette(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode) override;
 	virtual void Draw(int32_t x, int32_t y, int frame, int palid, int mode) override;
-	virtual void VMethod3(int32_t x, int32_t y, int frame, int blevel, int mode) override;
+	virtual void DrawBrightened(int32_t x, int32_t y, int frame, int blevel, int mode) override;
 
 	virtual void VMethod9(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode);
 	virtual void VMethod10(int32_t x, int32_t y, int frame, int palid, int mode);

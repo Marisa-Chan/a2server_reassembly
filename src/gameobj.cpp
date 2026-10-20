@@ -2145,7 +2145,7 @@ void CUnit::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
         int32_t y = this->centerScreenY - cy - this->terrainHeightOffset;
         if (this->FindEffectTimer(0x20) < 0) {
             if (is_air) {
-                gfx_file->GetSprite()->VMethod3(x + shadow_offset + sun_angle / 2000, y, frame, g_DeltaCLR.shade_delta, flip);
+                gfx_file->GetSprite()->DrawBrightened(x + shadow_offset + sun_angle / 2000, y, frame, g_DeltaCLR.shade_delta, flip);
             } else {
                 gfx_file->GetSprite()->VMethod11(x, y, frame, g_DeltaCLR.shade_delta, sun_angle, flip);
             }
@@ -2154,7 +2154,7 @@ void CUnit::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
                 return;
             }
             if (is_air) {
-                gfx_file->GetSprite()->VMethod3(x + shadow_offset + sun_angle / 2000, y, frame, g_DeltaCLR.lit_delta, flip);
+                gfx_file->GetSprite()->DrawBrightened(x + shadow_offset + sun_angle / 2000, y, frame, g_DeltaCLR.lit_delta, flip);
             } else {
                 gfx_file->GetSprite()->VMethod11(x, y, frame, g_DeltaCLR.lit_delta, sun_angle, flip);
             }
@@ -2165,7 +2165,7 @@ void CUnit::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
         y = this->centerScreenY - cy - this->terrainHeightOffset;
         if (this->FindEffectTimer(0x20) < 0 && g_settings.Smoothing != 0) {
             if (is_air) {
-                gfx_file->GetSpriteB()->VMethod3(x + shadow_offset + sun_angle / 2000, y, frame, g_DeltaCLR.lit_delta, flip);
+                gfx_file->GetSpriteB()->DrawBrightened(x + shadow_offset + sun_angle / 2000, y, frame, g_DeltaCLR.lit_delta, flip);
             } else {
                 gfx_file->GetSpriteB()->VMethod11(x, y, frame, g_DeltaCLR.lit_delta, sun_angle, flip);
             }
