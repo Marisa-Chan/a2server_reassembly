@@ -5945,7 +5945,7 @@ CString CGameSession::GetSelectedRosterPath() { //420070
     return CString();
 }
 
-void CGameSession::FUN_004946ae() { //4946ae
+void CGameSession::AutosaveTick() { //4946ae
     DWORD tick = GetTickCount();
     if (15000 < tick - this->last_autosave_tick) {
         this->AutosaveCharacter();

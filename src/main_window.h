@@ -157,7 +157,7 @@ public:
     void DeleteSelectedCharacter(); //493cd8
     void LoadCharacterRosterEntry(int32_t idx);  //492c66
     void AutosaveCharacter(); //4946e0
-    void FUN_004946ae(); //4946ae
+    void AutosaveTick(); //4946ae
 
     CString GetSelectedRosterPath(); //420070
     void SaveKillStats(); //494982

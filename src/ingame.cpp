@@ -805,7 +805,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						if (wnd->sessionMode != 2 && (ct->unitFlags & 0x20) != 0) {
 							if ((packet_unit->flags_mask & 0x22100000) == 0) {
 								if ((packet_unit->flags_mask & 0x1f00) != 0) {
-									wnd->m_GameSession.FUN_004946ae();
+									wnd->m_GameSession.AutosaveTick();
 								}
 							} else {
 								wnd->m_GameSession.AutosaveCharacter();
