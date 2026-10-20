@@ -4591,7 +4591,7 @@ void NetStru1::SendHumanoidProps(Unit* unit, Player* player, int32_t flags) {
 }
 
 // 51A8B2
-void NetStru1::SendShopTable(Token* token, Inventory* inventory, Player* player, int32_t param) {
+void NetStru1::SendShopTable(Token* token, Inventory* inventory, Player* player, int32_t mode) {
     PacketUnitStateVec& packet = PacketUnitStateVec::Inst;
     packet.id = 0x76;
     packet.entry_count = 0;
@@ -4604,12 +4604,12 @@ void NetStru1::SendShopTable(Token* token, Inventory* inventory, Player* player,
     } else {
         packet.to_player_id = player->player_id;
     }
-    packet.mode = (uint8_t)param;
+    packet.mode = (uint8_t)mode;
     // ASM also calls a no-op library helper (unknown_libname_724) with inventory->items.m_nCount here.
     POSITION it = inventory->items.GetHeadPosition();
     while (it != nullptr) {
         Item* item = inventory->items.GetNext(it);
-        item->StoreToPacket(&packet, param == 4);
+        item->StoreToPacket(&packet, mode == 4);
         packet.entry_count++;
     }
     this->QueuePacketSend(&packet);
