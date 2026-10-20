@@ -29,7 +29,7 @@ void CMultiShopShelf::ClearItems() {
 }
 
 // 54546E
-void CMultiShopShelf::sub_54546E(int32_t index) {
+void CMultiShopShelf::RemoveItemAt(int32_t index) {
     if (index >= this->items.GetSize() || index < 0) {
         return;
     }
@@ -521,7 +521,7 @@ void CMultiShopTemplate::sub_5479C6(Humanoid* humanoid) {
         for (int32_t j = 0; j < this->shelves[i].items.GetSize(); j++) {
             Item* item = this->shelves[i].items[j];
             if (item->count == 0 && item->field10_0x4c == 0) {
-                this->shelves[i].sub_54546E(j);
+                this->shelves[i].RemoveItemAt(j);
                 j -= 1;
             }
         }
