@@ -3385,7 +3385,7 @@ void World::ProcessGroupAi(Group* group) {
         case 0:
             for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
                 Unit* unit = group->unit_list.GetNext(it);
-                this->sub_5ABCFD(unit);
+                this->RunUnitAi(unit);
             }
             break;
         case 1:
@@ -3962,7 +3962,7 @@ void World::ProcessUnitRecall(Unit* unit) {
 }
 
 // 5ABCFD
-void World::sub_5ABCFD(Unit* unit) {
+void World::RunUnitAi(Unit* unit) {
     this->ProcessUnitAi(unit);
 }
 
