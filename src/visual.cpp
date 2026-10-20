@@ -7252,15 +7252,15 @@ void VisGlobalMap::VMethod7() {
             if (this->umoirMapMode == 0) {
                 if (this->currentLocationPoint != CPoint(loc_pt.x, loc_pt.y)) {
                     if (this->targetLocationPoint == CPoint(loc_pt.x, loc_pt.y)) {
-                        this->mission_flg->VMethod2(screen_x - 5 + loc_pt.x, screen_y - 0x29 + loc_pt.y,
+                        this->mission_flg->Draw(screen_x - 5 + loc_pt.x, screen_y - 0x29 + loc_pt.y,
                             this->mapFlagAnimationFrame, 0, 0);
                     } else {
-                        this->flg_on_map->VMethod2(screen_x - 5 + loc_pt.x, screen_y - 0x25 + loc_pt.y,
+                        this->flg_on_map->Draw(screen_x - 5 + loc_pt.x, screen_y - 0x25 + loc_pt.y,
                             this->mapFlagAnimationFrame, 0, 0);
                     }
                 }
             } else {
-                this->flag1_spr->VMethod2(screen_x - 4 + loc_pt.x, screen_y - 0x20 + loc_pt.y,
+                this->flag1_spr->Draw(screen_x - 4 + loc_pt.x, screen_y - 0x20 + loc_pt.y,
                     this->mapFlagAnimationFrame, 0, 0);
             }
         }
@@ -7279,10 +7279,10 @@ void VisGlobalMap::VMethod7() {
         }
         int32_t cross_frames = this->cross_spr->GetFrameCount();
         if (this->targetCrossAnimationFrame < cross_frames - 1) {
-            this->cross_spr->VMethod2(screen_x - 10 + this->targetLocationPoint.x,
+            this->cross_spr->Draw(screen_x - 10 + this->targetLocationPoint.x,
                 screen_y - 0xC + this->targetLocationPoint.y, this->targetCrossAnimationFrame, 0, 0);
         } else {
-            this->cross_spr->VMethod2(screen_x - 10 + this->targetLocationPoint.x,
+            this->cross_spr->Draw(screen_x - 10 + this->targetLocationPoint.x,
                 screen_y - 0xC + this->targetLocationPoint.y, cross_frames - 1, 0, 0);
         }
         this->targetCrossAnimationFrame++;
@@ -7314,10 +7314,10 @@ void VisGlobalMap::VMethod7() {
 
     this->mapFlagAnimationFrame = (this->mapFlagAnimationFrame + 1) % this->flag1_spr->GetFrameCount();
     if (this->umoirMapMode != 0) {
-        this->flag_spr->VMethod2(screen_x - 0xA + this->currentLocationPoint.x,
+        this->flag_spr->Draw(screen_x - 0xA + this->currentLocationPoint.x,
             screen_y - 0x18 + this->currentLocationPoint.y, this->partyFlagAnimationFrame, 0, 0);
     } else {
-        this->yflag_spr->VMethod2(screen_x - 0x14 + this->currentLocationPoint.x,
+        this->yflag_spr->Draw(screen_x - 0x14 + this->currentLocationPoint.x,
             screen_y - 0x2C + this->currentLocationPoint.y, this->partyFlagAnimationFrame, 0, 0);
     }
     this->partyFlagAnimationFrame = (this->partyFlagAnimationFrame + 1) % this->flag_spr->GetFrameCount();
@@ -14129,10 +14129,10 @@ void VisTavRightPanel::VMethod7() {
     }
 
     if (this->field_0xc4 < 0 || this->field_0xc0 != this->field_0xc4 || this->field_0xc4 != 1) {
-        this->field_0x80[1]->VMethod2(tav_topleft.x + this->field_0x90[1].left, tav_topleft.y + this->field_0x90[1].top, 0, 0, 0);
+        this->field_0x80[1]->Draw(tav_topleft.x + this->field_0x90[1].left, tav_topleft.y + this->field_0x90[1].top, 0, 0, 0);
         g_font4->DrawTxt(tav_topleft.x + this->field_0x90[1].left + this->field_0x90[1].Width() / 2, tav_topleft.y + this->field_0x90[1].top + this->field_0x90[1].Height() / 2, this->texts[1], 10, pal);
     } else {
-        this->field_0x74[1]->VMethod2(tav_topleft.x + this->field_0x90[1].left, tav_topleft.y + this->field_0x90[1].top, 0, 0, 0);
+        this->field_0x74[1]->Draw(tav_topleft.x + this->field_0x90[1].left, tav_topleft.y + this->field_0x90[1].top, 0, 0, 0);
         g_font4->DrawTxt(tav_topleft.x + this->field_0x90[1].left + this->field_0x90[1].Width() / 2, tav_topleft.y + this->field_0x90[1].top + 1 + this->field_0x90[1].Height() / 2, this->texts[1], 10, pal);
     }
 
@@ -14146,10 +14146,10 @@ void VisTavRightPanel::VMethod7() {
             pal = palette_husk->GetPalette(0);
         }
         if (this->field_0xc4 < 0 || this->field_0xc0 != this->field_0xc4 || this->field_0xc4 != i) {
-            this->field_0x80[i]->VMethod2(tav_topleft.x + this->field_0x90[i].left, tav_topleft.y + this->field_0x90[i].top, 0, 0, 0);
+            this->field_0x80[i]->Draw(tav_topleft.x + this->field_0x90[i].left, tav_topleft.y + this->field_0x90[i].top, 0, 0, 0);
             g_font4->DrawTxt(tav_topleft.x + this->field_0x90[i].left + this->field_0x90[i].Width() / 2, tav_topleft.y + this->field_0x90[i].top + this->field_0x90[i].Height() / 2, this->texts[i], 10, pal);
         } else {
-            this->field_0x74[i]->VMethod2(tav_topleft.x + this->field_0x90[i].left, tav_topleft.y + this->field_0x90[i].top, 0, 0, 0);
+            this->field_0x74[i]->Draw(tav_topleft.x + this->field_0x90[i].left, tav_topleft.y + this->field_0x90[i].top, 0, 0, 0);
             g_font4->DrawTxt(tav_topleft.x + this->field_0x90[i].left + this->field_0x90[i].Width() / 2, tav_topleft.y + this->field_0x90[i].top + 1 + this->field_0x90[i].Height() / 2, this->texts[i], 10, pal);
         }
     }
@@ -14224,7 +14224,7 @@ void VisTavSceneAnim::NextFrame() {
 
 // 4016EF
 void VisTavSceneAnim::Draw(int32_t x, int32_t y) {
-    this->current_frame->VMethod2(x, y, 0, 0, 0);
+    this->current_frame->Draw(x, y, 0, 0, 0);
 }
 
 
@@ -14264,7 +14264,7 @@ void VisTavScene::VMethod7() {
     int32_t x = tav_topleft.x + this->rect.left;
     int32_t y = tav_topleft.y + this->rect.top;
 
-    this->field_0x27c->VMethod2(x, y, 0, 0, 0);
+    this->field_0x27c->Draw(x, y, 0, 0, 0);
 
     if (main_wnd->sessionMode == 2) {
         this->anims[0].Draw(x, y + 0x30);
@@ -14330,9 +14330,9 @@ void VisTavScene::VMethod7() {
                 continue;
             }
 
-            this->field_0x274->VMethod2(x + pt.x, y + pt.y, 0, 0, 0);
+            this->field_0x274->Draw(x + pt.x, y + pt.y, 0, 0, 0);
             CSprite256* sprite = this->field_0x224[i];
-            sprite->VMethod2(x + pt.x, y + pt.y, this->field_0x24c[i], 0, 0);
+            sprite->Draw(x + pt.x, y + pt.y, this->field_0x24c[i], 0, 0);
             if (this->vis_tav->selection_index == i && now - tavscene_frame_ts > 0x7D) {
                 this->field_0x24c[i] = (this->field_0x24c[i] + 1) % sprite->GetFrameCount();
                 tavscene_frame_ts = now;
@@ -14358,8 +14358,8 @@ void VisTavScene::VMethod7() {
                 this->field_0x260[i] = (this->field_0x260[i] + 1) % this->field_0x238[i]->GetFrameCount();
                 tavscene_frame_ts = now;
             }
-            this->field_0x278->VMethod2(x + pt.x, y + pt.y, 0, 0, 0);
-            this->field_0x238[i]->VMethod2(x + pt.x, y + pt.y, this->field_0x260[i], 0, 0);
+            this->field_0x278->Draw(x + pt.x, y + pt.y, 0, 0, 0);
+            this->field_0x238[i]->Draw(x + pt.x, y + pt.y, this->field_0x260[i], 0, 0);
         }
     } else {
         this->FUN_0049bc23();
@@ -14597,7 +14597,7 @@ void VisTavScene::FUN_0049bc23() {
         this->vis_tav->quest_map->FindQuest(quest_found, &quest);
         CPoint pt = this->field_0x60[0].TopLeft();
         int32_t kind = quest->Kind();
-        this->field_0x34c[kind - 1]->VMethod2(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
+        this->field_0x34c[kind - 1]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
         if (this->vis_tav->field_0x13c == 0) {
             CRect& r = this->field_0x60[0];
             g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x158], 10, clrsh_CoralRed, 1);
@@ -14616,7 +14616,7 @@ void VisTavScene::FUN_0049bc23() {
             int32_t col = i % 6;
             CPoint pt = this->field_0x60[row * 6 + col].TopLeft();
             int32_t kind = quest->Kind();
-            this->field_0x34c[kind - 1]->VMethod2(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
+            this->field_0x34c[kind - 1]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
             if (this->vis_tav->quest_selection == key) {
                 CRect& r = this->field_0x60[row * 6 + col];
                 g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x158], 10, clrsh_CoralRed, 1);
@@ -14630,7 +14630,7 @@ void VisTavScene::FUN_0049bc23() {
         int32_t row = i / 3;
         int32_t col = i % 3;
         CPoint pt = this->field_0x180[row * 3 + col].TopLeft();
-        g_bmp_backinv->VMethod2(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
+        g_bmp_backinv->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
         if (this->vis_tav->quest_id == i) {
             FillRectBrightness(tav_topleft.x + pt.x, tav_topleft.y + pt.y, tav_topleft.x + pt.x + 0x50, tav_topleft.y + pt.y + 0x50, 2);
         }
@@ -14648,7 +14648,7 @@ void VisTavScene::FUN_0049bc23() {
             FUN_00476987(&text);
             g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 3, tav_topleft.y + pt.y + 0x42, text, 0, clrsh_DullGold, 1);
         } else if (entry->item_id == 0xFFFF) {
-            g_ca16_money->VMethod2(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
+            g_ca16_money->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
             CString text;
             text.Format("%d", entry->count * 250);
             FUN_00476987(&text);
@@ -14662,7 +14662,7 @@ void VisTavScene::FUN_0049bc23() {
                 this->field_0x210[i] = new CA16(path);
                 this->field_0x210[i]->ResetPalette(0x10, 4, 0);
             }
-            this->field_0x210[i]->VMethod2(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
+            this->field_0x210[i]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
             if (entry->count > 1) {
                 char buf[80];
                 sprintf(buf, "%d", entry->count);
@@ -14805,7 +14805,7 @@ void VisTavSceneDruid::VMethod7() {
     int32_t x = tav_topleft.x + this->rect.left;
     int32_t y = tav_topleft.y + this->rect.top;
 
-    this->field_0x27c->VMethod2(x, y, 0, 0, 0);
+    this->field_0x27c->Draw(x, y, 0, 0, 0);
 
     if (main_wnd->sessionMode == 2) {
         this->anims_druid[0].Draw(x + 0xA8, y + 0x90);
@@ -14855,7 +14855,7 @@ void VisTavSceneDruid::VMethod7() {
             break;
         case 3:
         case 4:
-            this->field_0x3cc->VMethod2(x + 0x68, y + 0x98, 0, 0, 0);
+            this->field_0x3cc->Draw(x + 0x68, y + 0x98, 0, 0, 0);
             break;
         }
 
@@ -14897,9 +14897,9 @@ void VisTavSceneDruid::VMethod7() {
                 continue;
             }
 
-            this->field_0x274->VMethod2(x + pt.x, y + pt.y, 0, 0, 0);
+            this->field_0x274->Draw(x + pt.x, y + pt.y, 0, 0, 0);
             CSprite256* sprite = this->field_0x224[i];
-            sprite->VMethod2(x + pt.x, y + pt.y, this->field_0x24c[i], 0, 0);
+            sprite->Draw(x + pt.x, y + pt.y, this->field_0x24c[i], 0, 0);
             if (this->vis_tav->selection_index == i && now - tavscene_druid_frame_ts > 0x7D) {
                 this->field_0x24c[i] = (this->field_0x24c[i] + 1) % sprite->GetFrameCount();
                 tavscene_druid_frame_ts = now;
@@ -14925,8 +14925,8 @@ void VisTavSceneDruid::VMethod7() {
                 this->field_0x260[i] = (this->field_0x260[i] + 1) % this->field_0x238[i]->GetFrameCount();
                 tavscene_druid_frame_ts = now;
             }
-            this->field_0x278->VMethod2(x + pt.x, y + pt.y, 0, 0, 0);
-            this->field_0x238[i]->VMethod2(x + pt.x, y + pt.y, this->field_0x260[i], 0, 0);
+            this->field_0x278->Draw(x + pt.x, y + pt.y, 0, 0, 0);
+            this->field_0x238[i]->Draw(x + pt.x, y + pt.y, this->field_0x260[i], 0, 0);
         }
     } else {
         this->FUN_0049bc23();
@@ -15080,7 +15080,7 @@ void VisTavSceneKaarg::VMethod7() {
     int32_t x = tav_topleft.x + this->rect.left;
     int32_t y = tav_topleft.y + this->rect.top;
 
-    this->field_0x27c->VMethod2(x, y, 0, 0, 0);
+    this->field_0x27c->Draw(x, y, 0, 0, 0);
 
     if (main_wnd->sessionMode == 2) {
         if (tavscene_kaarg_anim_state == -1) {
@@ -15123,7 +15123,7 @@ void VisTavSceneKaarg::VMethod7() {
             this->anims_kaarg[3].Draw(x + 0xC8, y + 0x88);
             break;
         case 5:
-            this->anims_kaarg[4].frames[kaarg_frame_script[this->field_0x4bc]]->VMethod2(x + 0x58, y + 0x54, 0, 0, 0);
+            this->anims_kaarg[4].frames[kaarg_frame_script[this->field_0x4bc]]->Draw(x + 0x58, y + 0x54, 0, 0, 0);
             break;
         }
 
@@ -15177,9 +15177,9 @@ void VisTavSceneKaarg::VMethod7() {
                 continue;
             }
 
-            this->field_0x274->VMethod2(x + pt.x, y + pt.y, 0, 0, 0);
+            this->field_0x274->Draw(x + pt.x, y + pt.y, 0, 0, 0);
             CSprite256* sprite = this->field_0x224[i];
-            sprite->VMethod2(x + pt.x, y + pt.y, this->field_0x24c[i], 0, 0);
+            sprite->Draw(x + pt.x, y + pt.y, this->field_0x24c[i], 0, 0);
             if (this->vis_tav->selection_index == i && now - tavscene_kaarg_frame_ts > 0x7D) {
                 this->field_0x24c[i] = (this->field_0x24c[i] + 1) % sprite->GetFrameCount();
                 tavscene_kaarg_frame_ts = now;
@@ -15205,8 +15205,8 @@ void VisTavSceneKaarg::VMethod7() {
                 this->field_0x260[i] = (this->field_0x260[i] + 1) % this->field_0x238[i]->GetFrameCount();
                 tavscene_kaarg_frame_ts = now;
             }
-            this->field_0x278->VMethod2(x + pt.x, y + pt.y, 0, 0, 0);
-            this->field_0x238[i]->VMethod2(x + pt.x, y + pt.y, this->field_0x260[i], 0, 0);
+            this->field_0x278->Draw(x + pt.x, y + pt.y, 0, 0, 0);
+            this->field_0x238[i]->Draw(x + pt.x, y + pt.y, this->field_0x260[i], 0, 0);
         }
     } else {
         this->FUN_0049bc23();
@@ -16298,7 +16298,7 @@ void VisInvType1::VMethod7() {
     }
 
     if (edge_width != 0 && g_ScreenSize.bottom > 600) {
-        g_bmp_inv1024l->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+        g_bmp_inv1024l->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
         g_bmp_inv1024r->VMethod10(screen_rect.right - edge_width - 0x10, screen_rect.top, 0, 0, g_bmp_inv1024r->GetWidth(0), g_bmp_inv1024r->GetHeight(0));
     }
 
@@ -16364,8 +16364,8 @@ void VisInvType1::VMethod7() {
         int32_t cell_y = screen_rect.top + 6;
 
         if (entry->IsEmpty() != 0) {
-            g_bmp_backinv->VMethod2(cell_x, cell_y, 0, 0, 0);
-            g_ca16_money->VMethod2(cell_x, cell_y, 0, 0, 0);
+            g_bmp_backinv->Draw(cell_x, cell_y, 0, 0, 0);
+            g_ca16_money->Draw(cell_x, cell_y, 0, 0, 0);
 
             CString text;
             text.Format("%d", main_wnd->vis_map_context->my_main_unit->gold);
@@ -16374,9 +16374,9 @@ void VisInvType1::VMethod7() {
             continue;
         }
 
-        g_bmp_backinv->VMethod2(cell_x, cell_y, 0, 0, 0);
+        g_bmp_backinv->Draw(cell_x, cell_y, 0, 0, 0);
         CSprite256* sprite = this->spr_cells.GetAt(i);
-        sprite->VMethod2(cell_x, cell_y, 0, 0, 0);
+        sprite->Draw(cell_x, cell_y, 0, 0, 0);
 
         entry = this->grid_source->GetAt(i + *this->visible_startref);
         if (entry->count > 1) {
@@ -16744,29 +16744,29 @@ void VisInvExtBase::VMethod7() {
             if (shop->gameplay != nullptr) {
                 entry->count = shop->gameplay->my_main_unit->gold;
             }
-            g_bmp_backinv->VMethod2(pos.x, pos.y + 1, 0, 0, 0);
-            g_ca16_money->VMethod2(pos.x, pos.y + 1, 0, 0, 0);
+            g_bmp_backinv->Draw(pos.x, pos.y + 1, 0, 0, 0);
+            g_ca16_money->Draw(pos.x, pos.y + 1, 0, 0, 0);
         } else if (entry->IsDepleted() != 0) {
-            shop->bmp_backinvg->VMethod2(pos.x, pos.y + 1, 0, 0, 0);
+            shop->bmp_backinvg->Draw(pos.x, pos.y + 1, 0, 0, 0);
         } else {
             CUnit* unit = shop->selected_units[shop->select_index];
             int32_t compatible = unit->IsItemRestricted(entry);
             if (entry->slot_code >= 5 && entry->slot_code <= 8) {
                 int32_t price = entry->GetAttribute(1);
                 if (shop->current_gold < price || compatible == 0) {
-                    shop->bmp_backinvg->VMethod2(pos.x, pos.y + 1, 0, 0, 0);
+                    shop->bmp_backinvg->Draw(pos.x, pos.y + 1, 0, 0, 0);
                 } else {
-                    shop->bmp_backinvs->VMethod2(pos.x, pos.y + 1, 0, 0, 0);
+                    shop->bmp_backinvs->Draw(pos.x, pos.y + 1, 0, 0, 0);
                 }
             } else {
                 if (compatible != 0) {
-                    g_bmp_backinv->VMethod2(pos.x, pos.y + 1, 0, 0, 0);
+                    g_bmp_backinv->Draw(pos.x, pos.y + 1, 0, 0, 0);
                 } else {
-                    shop->bmp_backinvg->VMethod2(pos.x, pos.y + 1, 0, 0, 0);
+                    shop->bmp_backinvg->Draw(pos.x, pos.y + 1, 0, 0, 0);
                 }
             }
             CSprite256* sprite = this->spr_cells.GetAt(i);
-            sprite->VMethod2(pos.x, pos.y + 1, 0, 0, 0);
+            sprite->Draw(pos.x, pos.y + 1, 0, 0, 0);
             if (entry->flg & 0x20) {
                 this->sub_4A5FAB(pos.x, pos.y + 1, i);
             }
@@ -17199,7 +17199,7 @@ void VisInvExtType1::VMethod7() {
     }
 
     LockSurface2();
-    this->shop_inv->VMethod2(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, 0);
+    this->shop_inv->Draw(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, 0);
     UnlockSurface2();
     VisInvExtBase::VMethod7();
 
@@ -17570,7 +17570,7 @@ int32_t VisInvExtType1::VMethod37(int32_t idx) {
 void VisInvExtType1::sub_4B7264() {
     CPoint topleft = this->field_0x20ac->rect.TopLeft();
     if (this->arrow1 != nullptr) {
-        this->arrow1->VMethod2(topleft.x + 0x2E, topleft.y, 0, 0, 0);
+        this->arrow1->Draw(topleft.x + 0x2E, topleft.y, 0, 0, 0);
     }
 }
 
@@ -17579,7 +17579,7 @@ void VisInvExtType1::sub_4B7264() {
 void VisInvExtType1::sub_4B72C1() {
     CPoint topleft = this->field_0x20ac->rect.TopLeft();
     if (this->arrow3 != nullptr) {
-        this->arrow3->VMethod2(topleft.x + 0x2E, topleft.y, 0, 0, 0);
+        this->arrow3->Draw(topleft.x + 0x2E, topleft.y, 0, 0, 0);
     }
 }
 
@@ -17588,7 +17588,7 @@ void VisInvExtType1::sub_4B72C1() {
 void VisInvExtType1::sub_4B731E() {
     CPoint topleft = this->field_0x20ac->rect.TopLeft();
     if (this->arrow2 != nullptr) {
-        this->arrow2->VMethod2(topleft.x + 0x2E, topleft.y + 0x10F, 0, 0, 0);
+        this->arrow2->Draw(topleft.x + 0x2E, topleft.y + 0x10F, 0, 0, 0);
     }
 }
 
@@ -17597,7 +17597,7 @@ void VisInvExtType1::sub_4B731E() {
 void VisInvExtType1::sub_4B7381() {
     CPoint topleft = this->field_0x20ac->rect.TopLeft();
     if (this->arrow4 != nullptr) {
-        this->arrow4->VMethod2(topleft.x + 0x2E, topleft.y + 0x10F, 0, 0, 0);
+        this->arrow4->Draw(topleft.x + 0x2E, topleft.y + 0x10F, 0, 0, 0);
     }
 }
 
@@ -18185,7 +18185,7 @@ void VisStartGame::VMethod7() {
     SetClipRect(this->rect);
     LockSurface2();
 
-    this->mainAreaBitmap->VMethod2(this->rect.left, this->rect.top, 0, 0, 0);
+    this->mainAreaBitmap->Draw(this->rect.left, this->rect.top, 0, 0, 0);
 
     if (this->returnToGameHoverBitmap != nullptr) {
         this->returnToGameHoverBitmap->VMethod10(
@@ -18322,7 +18322,7 @@ void VisStartGame::VMethod7() {
             this->blindAnimationFrame = 1;
         }
     } else {
-        this->blindAnimation->VMethod2(
+        this->blindAnimation->Draw(
             screen_x + this->blindAnimationPosition.x,
             screen_y + this->blindAnimationPosition.y,
             this->blindAnimationFrame, 0, 0);
@@ -18344,8 +18344,8 @@ void VisStartGame::VMethod7() {
     }
 
     this->torchFrameTick = this->torchFrameTick + 1;
-    this->leftTorchFrames.GetAt(this->torchFrameTick % 0xF)->VMethod2(screen_x + 4, screen_y + 200, 0, 0, 0);
-    this->rightTorchFrames.GetAt((this->torchFrameTick + 8) % 0xF)->VMethod2(screen_x + 0x24C, screen_y + 200, 0, 0, 0);
+    this->leftTorchFrames.GetAt(this->torchFrameTick % 0xF)->Draw(screen_x + 4, screen_y + 200, 0, 0, 0);
+    this->rightTorchFrames.GetAt((this->torchFrameTick + 8) % 0xF)->Draw(screen_x + 0x24C, screen_y + 200, 0, 0, 0);
 
     UnlockSurface2();
     SetClipRect(old_clip);
@@ -19461,7 +19461,7 @@ void VisTown::FUN_004ce726() {
             CA16* spr = this->spr_birds.ElementAt(this->bird_group_index * 3 + i);
             int32_t frame_count = spr->GetFrameCount();
             if ((&this->bird_frame0)[i] < frame_count) {
-                spr->VMethod2(this->rect.left, this->rect.top, (&this->bird_frame0)[i], 0, 0);
+                spr->Draw(this->rect.left, this->rect.top, (&this->bird_frame0)[i], 0, 0);
             } else {
                 done_count++;
             }
@@ -19511,35 +19511,35 @@ void VisTown::VMethod7() {
     }
     LockSurface2();
     if (this->bmp_bkg != nullptr) {
-        this->bmp_bkg->VMethod2(this->rect.left, this->rect.top, 0, 0, 0);
+        this->bmp_bkg->Draw(this->rect.left, this->rect.top, 0, 0, 0);
     }
     this->FUN_004ce726();
     if (this->hovered_action_mask == 1) {
-        this->bmp_shop_hover->VMethod2(this->rect.left + 0x108, this->rect.top + 0x108, 0, 0, 0);
+        this->bmp_shop_hover->Draw(this->rect.left + 0x108, this->rect.top + 0x108, 0, 0, 0);
     }
     if (this->hovered_action_mask == 2) {
-        this->bmp_tavern_hover->VMethod2(this->rect.left + 0x90, this->rect.top + 0x14C, 0, 0, 0);
+        this->bmp_tavern_hover->Draw(this->rect.left + 0x90, this->rect.top + 0x14C, 0, 0, 0);
     }
     if (this->spr_tavern != nullptr) {
-        this->spr_tavern->VMethod2(this->rect.left + 0x7C, this->rect.top + 0x138, this->tavern_frame, 0, 0);
+        this->spr_tavern->Draw(this->rect.left + 0x7C, this->rect.top + 0x138, this->tavern_frame, 0, 0);
     }
     if (this->bmp_cur_sign != nullptr) {
-        this->bmp_cur_sign->VMethod2(this->rect.left + 0x168, this->rect.top + 0xE8, 0, 0, 0);
+        this->bmp_cur_sign->Draw(this->rect.left + 0x168, this->rect.top + 0xE8, 0, 0, 0);
     }
     if (this->bmp_cur_door != nullptr) {
-        this->bmp_cur_door->VMethod2(this->rect.left + 0xB4, this->rect.top + 0x94, 0, 0, 0);
+        this->bmp_cur_door->Draw(this->rect.left + 0xB4, this->rect.top + 0x94, 0, 0, 0);
     }
     if (this->bmp_cur_stars != nullptr) {
-        this->bmp_cur_stars->VMethod2(this->rect.left + 0x154, this->rect.top + 0x120, 0, 0, 0);
+        this->bmp_cur_stars->Draw(this->rect.left + 0x154, this->rect.top + 0x120, 0, 0, 0);
     }
     if (this->spr_shop != nullptr) {
-        this->spr_shop->VMethod2(this->rect.left + 0x114, this->rect.top + 0x128, this->shop_frame, 0, 0);
+        this->spr_shop->Draw(this->rect.left + 0x114, this->rect.top + 0x128, this->shop_frame, 0, 0);
     }
     if (this->bmp_cur_flugel != nullptr) {
-        this->bmp_cur_flugel->VMethod2(this->rect.left + 0x134, this->rect.top + 0x40, 0, 0, 0);
+        this->bmp_cur_flugel->Draw(this->rect.left + 0x134, this->rect.top + 0x40, 0, 0, 0);
     }
     if (this->spr_guard != nullptr) {
-        this->spr_guard->VMethod2(this->rect.left + 0xB8, this->rect.top + 0x9E, this->guard_frame, 0, 0);
+        this->spr_guard->Draw(this->rect.left + 0xB8, this->rect.top + 0x9E, this->guard_frame, 0, 0);
     }
     if (this->spr_cur_horse != nullptr) {
         if (this->horse_anim_index == 0) {
@@ -19562,20 +19562,20 @@ void VisTown::VMethod7() {
             }
         }
         if (this->horse_frame == -1) {
-            this->spr_cur_horse->VMethod2(this->rect.left + this->horse_position.x, this->rect.top + this->horse_position.y, 0, 0, 0);
+            this->spr_cur_horse->Draw(this->rect.left + this->horse_position.x, this->rect.top + this->horse_position.y, 0, 0, 0);
         } else {
-            this->spr_cur_horse->VMethod2(this->rect.left + this->horse_position.x, this->rect.top + this->horse_position.y, this->horse_frame, 0, 0);
+            this->spr_cur_horse->Draw(this->rect.left + this->horse_position.x, this->rect.top + this->horse_position.y, this->horse_frame, 0, 0);
         }
     }
     if (this->spr_cur_bbird != nullptr) {
         if (this->bbird_frame == -1) {
-            this->spr_cur_bbird->VMethod2(this->rect.left + this->bbird_position.x, this->rect.top + this->bbird_position.y, 0, 0, 0);
+            this->spr_cur_bbird->Draw(this->rect.left + this->bbird_position.x, this->rect.top + this->bbird_position.y, 0, 0, 0);
         } else {
-            this->spr_cur_bbird->VMethod2(this->rect.left + this->bbird_position.x, this->rect.top + this->bbird_position.y, this->bbird_frame, 0, 0);
+            this->spr_cur_bbird->Draw(this->rect.left + this->bbird_position.x, this->rect.top + this->bbird_position.y, this->bbird_frame, 0, 0);
         }
     }
     if (this->spr_dervish != nullptr) {
-        this->spr_dervish->VMethod2(this->rect.left + this->dervish_position.x, this->rect.top + this->dervish_position.y, this->dervish_frame, 0, 0);
+        this->spr_dervish->Draw(this->rect.left + this->dervish_position.x, this->rect.top + this->dervish_position.y, this->dervish_frame, 0, 0);
     }
     UnlockSurface2();
     this->VisScreen::VMethod7();
@@ -20789,37 +20789,37 @@ void VisTownKaarg::VMethod7() {
     this->VMethod35();
     LockSurface2();
     if (this->bmp_bkg != nullptr) {
-        this->bmp_bkg->VMethod2(this->rect.left, this->rect.top, 0, 0, 0);
+        this->bmp_bkg->Draw(this->rect.left, this->rect.top, 0, 0, 0);
     }
     if (this->hovered_action_mask == 1) {
-        this->bmp_shop_hover->VMethod2(this->rect.left + 0x148, this->rect.top + 0x100, 0, 0, 0);
+        this->bmp_shop_hover->Draw(this->rect.left + 0x148, this->rect.top + 0x100, 0, 0, 0);
     }
     if (this->hovered_action_mask == 2) {
-        this->bmp_tavern_hover->VMethod2(this->rect.left + 0x1E0, this->rect.top + 0xC4, 0, 0, 0);
+        this->bmp_tavern_hover->Draw(this->rect.left + 0x1E0, this->rect.top + 0xC4, 0, 0, 0);
     }
     if ((this->town_anim & 0x200) == 0) {
-        this->bmp_girl1[0].GetAt(0)->VMethod2(this->rect.left + 0xD8, this->rect.top + 0x11C, 0, 0, 0);
+        this->bmp_girl1[0].GetAt(0)->Draw(this->rect.left + 0xD8, this->rect.top + 0x11C, 0, 0, 0);
     } else {
-        this->bmp_girl1[this->girl1_group].GetAt(this->bbird_frame)->VMethod2(this->rect.left + 0xD8, this->rect.top + 0x11C, 0, 0, 0);
+        this->bmp_girl1[this->girl1_group].GetAt(this->bbird_frame)->Draw(this->rect.left + 0xD8, this->rect.top + 0x11C, 0, 0, 0);
     }
     if ((this->town_anim & 4) == 0) {
-        this->bmp_girl2[0].GetAt(0)->VMethod2(this->rect.left + 0x104, this->rect.top + 0x11C, 0, 0, 0);
+        this->bmp_girl2[0].GetAt(0)->Draw(this->rect.left + 0x104, this->rect.top + 0x11C, 0, 0, 0);
     } else {
-        this->bmp_girl2[this->girl2_group].GetAt(this->girl2_frame)->VMethod2(this->rect.left + 0x104, this->rect.top + 0x11C, 0, 0, 0);
+        this->bmp_girl2[this->girl2_group].GetAt(this->girl2_frame)->Draw(this->rect.left + 0x104, this->rect.top + 0x11C, 0, 0, 0);
     }
     if ((this->town_anim & 0x800) == 0) {
-        this->bmp_guard.GetAt(0)->VMethod2(this->rect.left + 0xB8, this->rect.top + 0x9C, 0, 0, 0);
+        this->bmp_guard.GetAt(0)->Draw(this->rect.left + 0xB8, this->rect.top + 0x9C, 0, 0, 0);
     } else if (this->fighter_frame < 0xD || this->fighter_frame > 0x25) {
-        this->bmp_guard.GetAt(this->fighter_frame)->VMethod2(this->rect.left + 0xB8, this->rect.top + 0x9C, 0, 0, 0);
+        this->bmp_guard.GetAt(this->fighter_frame)->Draw(this->rect.left + 0xB8, this->rect.top + 0x9C, 0, 0, 0);
     } else {
-        this->bmp_guard.GetAt(this->fighter_frame)->VMethod2(this->rect.left + 0x8C, this->rect.top + 0x98, 0, 0, 0);
+        this->bmp_guard.GetAt(this->fighter_frame)->Draw(this->rect.left + 0x8C, this->rect.top + 0x98, 0, 0, 0);
     }
     if ((this->town_anim & 0x400) == 0) {
-        this->bmp_dervish.GetAt(0)->VMethod2(this->rect.left + 0x1A0, this->rect.top + 0x148, 0, 0, 0);
+        this->bmp_dervish.GetAt(0)->Draw(this->rect.left + 0x1A0, this->rect.top + 0x148, 0, 0, 0);
     } else {
-        this->bmp_dervish.GetAt(this->dervish_frame)->VMethod2(this->rect.left + 0x1A0, this->rect.top + 0x148, 0, 0, 0);
+        this->bmp_dervish.GetAt(this->dervish_frame)->Draw(this->rect.left + 0x1A0, this->rect.top + 0x148, 0, 0, 0);
     }
-    this->bmp_gate.GetAt(this->door_frame)->VMethod2(this->rect.left + 0x98, this->rect.top + 0x100, 0, 0, 0);
+    this->bmp_gate.GetAt(this->door_frame)->Draw(this->rect.left + 0x98, this->rect.top + 0x100, 0, 0, 0);
     UnlockSurface2();
     this->VisScreen::VMethod7();
 }
@@ -21316,43 +21316,43 @@ void VisTownDruid::VMethod7() {
     this->VMethod35();
     LockSurface2();
     if (this->bmp_bkg != nullptr) {
-        this->bmp_bkg->VMethod2(this->rect.left, this->rect.top, 0, 0, 0);
+        this->bmp_bkg->Draw(this->rect.left, this->rect.top, 0, 0, 0);
     }
     if (this->hovered_action_mask == 1 || this->shop_group == 2) {
-        this->bmp_shop_hover->VMethod2(this->rect.left + 0x1A4, this->rect.top + 0xE0, 0, 0, 0);
+        this->bmp_shop_hover->Draw(this->rect.left + 0x1A4, this->rect.top + 0xE0, 0, 0, 0);
     }
     if (this->shop_group < 0) {
         if (this->hovered_action_mask == 1) {
-            this->shop_frame_group[2].GetAt(0)->VMethod2(this->rect.left + 0x154, this->rect.top + 0xE0, 0, 0, 0);
+            this->shop_frame_group[2].GetAt(0)->Draw(this->rect.left + 0x154, this->rect.top + 0xE0, 0, 0, 0);
         } else {
-            this->shop_frame_group[0].GetAt(0)->VMethod2(this->rect.left + 0x150, this->rect.top + 0xF4, 0, 0, 0);
+            this->shop_frame_group[0].GetAt(0)->Draw(this->rect.left + 0x150, this->rect.top + 0xF4, 0, 0, 0);
         }
     } else {
-        this->shop_frame_group[this->shop_group].GetAt(this->shop_frame)->VMethod2(
+        this->shop_frame_group[this->shop_group].GetAt(this->shop_frame)->Draw(
             this->rect.left + 0x150 + (this->shop_group / 2) * 4,
             this->rect.top + 0xF4 - (this->shop_group / 2) * 0x14, 0, 0, 0);
     }
     if (this->hovered_action_mask == 2 || this->tavern_group == 2) {
-        this->bmp_tavern_hover->VMethod2(this->rect.left, this->rect.top + 0xB8, 0, 0, 0);
+        this->bmp_tavern_hover->Draw(this->rect.left, this->rect.top + 0xB8, 0, 0, 0);
     }
     if (this->tavern_group < 0) {
         if (this->hovered_action_mask == 2) {
-            this->tavern_frame_group[2].GetAt(0)->VMethod2(this->rect.left + 0x98, this->rect.top + 0xB8, 0, 0, 0);
+            this->tavern_frame_group[2].GetAt(0)->Draw(this->rect.left + 0x98, this->rect.top + 0xB8, 0, 0, 0);
         } else {
-            this->tavern_frame_group[0].GetAt(0)->VMethod2(this->rect.left + 0xA4, this->rect.top + 0xC8, 0, 0, 0);
+            this->tavern_frame_group[0].GetAt(0)->Draw(this->rect.left + 0xA4, this->rect.top + 0xC8, 0, 0, 0);
         }
     } else {
-        this->tavern_frame_group[this->tavern_group].GetAt(this->tavern_frame)->VMethod2(
+        this->tavern_frame_group[this->tavern_group].GetAt(this->tavern_frame)->Draw(
             this->rect.left + 0xA4 - (this->tavern_group / 2) * 0xC,
             this->rect.top + 0xC8 - (this->tavern_group / 2) * 0x10, 0, 0, 0);
     }
     if (this->lizard_variant < 0 || this->lizard_frame < 0) {
-        this->spr_lizard->VMethod2(this->rect.left, this->rect.top + 300, 0, 0, 0);
+        this->spr_lizard->Draw(this->rect.left, this->rect.top + 300, 0, 0, 0);
     } else {
-        this->spr_lizard->VMethod2(this->rect.left, this->rect.top + 300, lizard_seqs[this->lizard_variant][this->lizard_frame] - 1, 0, 0);
+        this->spr_lizard->Draw(this->rect.left, this->rect.top + 300, lizard_seqs[this->lizard_variant][this->lizard_frame] - 1, 0, 0);
     }
     if (this->bug_variant >= 0 && this->bug_frame >= 0) {
-        this->spr_bug->VMethod2(this->rect.left, this->rect.top + 0xD4, this->bug_variant * 0x3D + this->bug_frame, 0, 0);
+        this->spr_bug->Draw(this->rect.left, this->rect.top + 0xD4, this->bug_variant * 0x3D + this->bug_frame, 0, 0);
     }
     UnlockSurface2();
     this->VisScreen::VMethod7();
@@ -21851,16 +21851,16 @@ void VisFameDocument::VMethod7() {
         LockSurface2();
         FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
         if (this->bmp_sheet != nullptr) {
-            this->bmp_sheet->VMethod2(top_left.x, top_left.y, 0, 0, 0);
+            this->bmp_sheet->Draw(top_left.x, top_left.y, 0, 0, 0);
         }
         if (this->bmp_cur_left != nullptr) {
-            this->bmp_cur_left->VMethod2(top_left.x + this->rect_prev.left, top_left.y + this->rect_prev.top, 0, 0, 0);
+            this->bmp_cur_left->Draw(top_left.x + this->rect_prev.left, top_left.y + this->rect_prev.top, 0, 0, 0);
         }
         if (this->bmp_cur_right != nullptr) {
-            this->bmp_cur_right->VMethod2(top_left.x + this->rect_next.left, top_left.y + this->rect_next.top, 0, 0, 0);
+            this->bmp_cur_right->Draw(top_left.x + this->rect_next.left, top_left.y + this->rect_next.top, 0, 0, 0);
         }
         if (this->bmp_cur_ok != nullptr) {
-            this->bmp_cur_ok->VMethod2(top_left.x + this->rect_ok.left, top_left.y + this->rect_ok.top, 0, 0, 0);
+            this->bmp_cur_ok->Draw(top_left.x + this->rect_ok.left, top_left.y + this->rect_ok.top, 0, 0, 0);
         }
         Fame2& doc = this->fame->m_Documents[this->selected_doc];
         doc.Draw(top_left.x, top_left.y);
@@ -22133,9 +22133,9 @@ void VisFameHall::VMethod7() {
     CString str;
     if (this->visible_flag != 0) {
         LockSurface2();
-        this->bmp_bkg->VMethod2(top_left.x, top_left.y, 0, 0, 0);
+        this->bmp_bkg->Draw(top_left.x, top_left.y, 0, 0, 0);
         if (this->bmp_cur_close != nullptr) {
-            this->bmp_cur_close->VMethod2(top_left.x + this->close_rect.left, top_left.y + this->close_rect.top, 0, 0, 0);
+            this->bmp_cur_close->Draw(top_left.x + this->close_rect.left, top_left.y + this->close_rect.top, 0, 0, 0);
         }
         for (int32_t i = 0; i < this->name_rects.GetSize(); i++) {
             str.Format("%d.", i + 1);
@@ -22749,11 +22749,11 @@ void VisMiniMap::VMethod7() {
     }
     oy = 0x52 - oy;
     ox = 0x48 - ox;
-    g_bmp_crystalr->VMethod2(rc.left, rc.top, 0, 0, 0);
+    g_bmp_crystalr->Draw(rc.left, rc.top, 0, 0, 0);
     if (mc->field_0xdc == 0) {
-        this->bitmap2->VMethod2(rc.left + ox, rc.top + oy, 0, 0, 0);
+        this->bitmap2->Draw(rc.left + ox, rc.top + oy, 0, 0, 0);
     } else {
-        this->bitmap1->VMethod2(rc.left + ox, rc.top + oy, 0, 0, 0);
+        this->bitmap1->Draw(rc.left + ox, rc.top + oy, 0, 0, 0);
     }
     if (mc->field_0xdc != 0) {
         uint16_t* landscape = scen->GetLandscape();
@@ -23153,7 +23153,7 @@ void VisSpellBook::VMethod7() {
         g_bmp_spellbook->GetWidth(0), g_bmp_spellbook->GetHeight(0));
     for (int32_t i = 0; i < 24; i++) {
         if (((mc->field_0x148 | mc->field_0x150) & (1 << (i & 0x1F))) == 0) {
-            g_bmp_spellback->VMethod2(left + rc.left + 6 + (i % 0xC) * 0x26,
+            g_bmp_spellback->Draw(left + rc.left + 6 + (i % 0xC) * 0x26,
                 rc.top + 6 + (i / 0xC) * 0x26, 0, 0, 0);
         }
     }
@@ -23351,18 +23351,18 @@ void VisMainMenu::VMethod7() {
         return;
     }
     LockSurface2();
-    this->bmp_menu->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+    this->bmp_menu->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
     if (this->bmp_active_button != nullptr) {
-        this->bmp_active_button->VMethod2(this->rect_active_button.left, this->rect_active_button.top, 0, 0, 0);
+        this->bmp_active_button->Draw(this->rect_active_button.left, this->rect_active_button.top, 0, 0, 0);
         if (this->active_button >= 0) {
-            this->bmp_labels.GetAt(this->active_button)->VMethod2(screen_rect.left + 0xE8, screen_rect.top + 200, 0, 0, 0);
+            this->bmp_labels.GetAt(this->active_button)->Draw(screen_rect.left + 0xE8, screen_rect.top + 200, 0, 0, 0);
         }
     } else {
         if (this->over_button >= 0) {
-            this->bmp_labels.GetAt(this->over_button)->VMethod2(screen_rect.left + 0xE8, screen_rect.top + 200, 0, 0, 0);
+            this->bmp_labels.GetAt(this->over_button)->Draw(screen_rect.left + 0xE8, screen_rect.top + 200, 0, 0, 0);
         }
     }
-    this->sprite->VMethod2(screen_rect.left + 0x1E0, screen_rect.top + 0x168, 0, 0, 0);
+    this->sprite->Draw(screen_rect.left + 0x1E0, screen_rect.top + 0x168, 0, 0, 0);
     UnlockSurface2();
 }
 
@@ -24752,7 +24752,7 @@ void VisCredits::VMethod7() {
             if (this->bitmaps.Lookup(this->text.GetLine(i), value) != 0) {
                 CBmp64* bmp = (CBmp64*)value;
                 int32_t width = bmp->GetWidth();
-                bmp->VMethod2(left + 0x140 - width / 2, top + this->scroll + i * line_height, 0, 0, 0);
+                bmp->Draw(left + 0x140 - width / 2, top + this->scroll + i * line_height, 0, 0, 0);
             }
         } else if (i == 0) {
             g_font1->DrawTxt(left + 0x140, top + this->scroll + i * line_height, this->text.GetLine(0), 2, clrsh_ShockingBlack);
@@ -25452,9 +25452,9 @@ void VisOrderToolbar::VMethod7() {
     if (main_wnd->dialogsMask == 1) {
         LockSurface2();
         if (this->enabled == 0) {
-            g_bmp_headsr->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+            g_bmp_headsr->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
         } else {
-            g_bmp_cmdbarr->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+            g_bmp_cmdbarr->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
             for (int32_t i = 0; i < 8; i++) {
                 if ((this->avail_orders_mask & (1 << i)) == 0) {
                     int32_t x = (i & 3) * 0x22 + 8;
