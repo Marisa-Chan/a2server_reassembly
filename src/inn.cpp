@@ -484,7 +484,7 @@ void Inn::InnCreateQuests(Player* player) {
     {
         std::vector<Unit*> candidates;
 
-        int escort_dest = g_QuestMap.sub_55F441(this->building_id);
+        int escort_dest = g_QuestMap.PickRandomOtherInn(this->building_id);
         if (escort_dest != 0) {
             POSITION upos = this->pOwner ? this->pOwner->unit_list->unit_list.GetHeadPosition() : nullptr;
             while (upos) {
@@ -593,7 +593,7 @@ void Inn::InnCreateQuests(Player* player) {
     //  DeliverMail (vtable: off_60F8E0)
     // =====================================================================
     {
-        int32_t dest_id = g_QuestMap.sub_55F441(this->building_id);
+        int32_t dest_id = g_QuestMap.PickRandomOtherInn(this->building_id);
         if (dest_id != 0) {
             Building* target_building = building_list->sub_557DB2(dest_id);
             if (target_building) {
@@ -618,7 +618,7 @@ void Inn::InnCreateQuests(Player* player) {
     //  DeliverItem (vtable: off_60F918)
     // =====================================================================
     {
-        int32_t dest_id = g_QuestMap.sub_55F441(this->building_id);
+        int32_t dest_id = g_QuestMap.PickRandomOtherInn(this->building_id);
         if (dest_id != 0 && this->delivery_item_id != 0) {
             Quest* q = MakeActiveQuest(this, new QuestDeliverItem());
             int32_t reward = player->main_unit->_exp / 100;

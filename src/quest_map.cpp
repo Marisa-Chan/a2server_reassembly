@@ -195,7 +195,7 @@ Quest* QuestMap::FUN_0055ee42(int quest_kind) {
 }
 
 // 55F441
-int32_t QuestMap::sub_55F441(int32_t building_id_) {
+int32_t QuestMap::PickRandomOtherInn(int32_t building_id_) {
 	if (this->glues_map.GetCount() < 2) {
 		return 0;
 	}
