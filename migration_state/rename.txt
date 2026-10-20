@@ -1175,3 +1175,4 @@ World::SetFormation param -> formation -- stored to player->settings->formation
 World::AiAttackBrain param -> target_yx -- packed YX position the group holds/moves toward (compared to position->CompatGetYX)
 World::AiMoveBrain param -> yx -- packed YX move target (align header with definition)
 World::AiSwarmBrain param -> target_yx -- packed YX swarm target forwarded to AiMoveBrain
+World::DoMoveStep param -> target_yx -- packed YX destination stored to eye2->command_to

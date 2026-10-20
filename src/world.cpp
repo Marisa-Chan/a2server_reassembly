@@ -3513,9 +3513,9 @@ void World::DoScriptedPatrol(Unit* unit) {
 }
 
 // 5A8778
-void World::DoMoveStep(Unit* unit, uint16_t param) {
+void World::DoMoveStep(Unit* unit, uint16_t target_yx) {
     unit->eye2->cast_action = 1;
-    unit->eye2->command_to = param;
+    unit->eye2->command_to = target_yx;
 }
 
 // 5A57E8
