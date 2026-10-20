@@ -396,7 +396,7 @@ void CMultiShopTemplate::ConfirmBuy(Unit* unit) {
 }
 
 // 547BBC
-void CMultiShopTemplate::sub_547BBC(Unit* unit) {
+void CMultiShopTemplate::ConfirmSell(Unit* unit) {
     CMultiShopInstance* instance = this->FindInstanceFor(static_cast<Humanoid*>(unit));
     if (instance == nullptr) {
         return;

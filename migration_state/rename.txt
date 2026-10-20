@@ -746,3 +746,4 @@ CMultiShopTemplate::sub_5474D8 -> GenerateAssortment -- regenerates shelves from
 CMultiShopTemplate::sub_547644 -> OpenShopFor -- creates the instance and fills shelves for the entering unit
 CMultiShopTemplate::sub_547C5A -> BuyItem -- routes a buy pick through the humanoid's instance
 CMultiShopTemplate::sub_547CB9 -> HandleItemOperation -- routes a bag/shop move op through the humanoid's instance
+CMultiShopTemplate::sub_547B7B -> ConfirmBuy -- charges money for the items queued in the instance

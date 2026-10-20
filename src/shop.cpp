@@ -97,7 +97,7 @@ void Shop::sub_54471B(Unit* unit) {
 
 // 544737
 void Shop::sub_544737(Unit* unit) {
-    this->shop_template->sub_547BBC(unit);
+    this->shop_template->ConfirmSell(unit);
 }
 
 // 544777
