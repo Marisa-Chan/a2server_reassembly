@@ -2092,7 +2092,7 @@ void World::ScriptOP_0x06(TriggerAction* action) {
             this->GroupPatrolCommand(group, action->data[1], action->data[2]);
             break;
         case 15: // Follow (unit=action->unit, follow_range=data[1])
-            this->sub_5ACB9E(group, action->unit, action->data[1]);
+            this->GroupFollowCommand(group, action->unit, action->data[1]);
             break;
         case 17: // Roam
             this->sub_5AC7C8(group);
@@ -4432,7 +4432,7 @@ void World::GroupAttackTargetCommand(Group* group, Unit* target, uint8_t param_3
 }
 
 // 5ACB9E
-void World::sub_5ACB9E(Group* group, Unit* target, uint8_t param_3) {
+void World::GroupFollowCommand(Group* group, Unit* target, uint8_t param_3) {
     this->ClearGroupOrders(group);
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
