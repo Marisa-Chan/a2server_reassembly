@@ -726,3 +726,4 @@ PacketUnitUpdate::FUN_00527bd8 -> CalcFlagsSize -- derives flags_size (1..4) fro
 PacketUnitUpdate::FUN_00527c3b -> CalcDataSize -- sums the packed field sizes of all flags set in flags_mask
 CMultiShopShelf::sub_54546E -> RemoveItemAt -- removes the item at index
 CMultiShopShelf::sub_5453E8 -> PickItem -- takes up to count of the item at slot
+CMultiShopShelf::sub_544BCE -> AddItem -- adds an item, merging stacks with similar items

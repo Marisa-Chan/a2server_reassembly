@@ -72,7 +72,7 @@ int32_t CMultiShopShelf::AddItem(Item** item_ptr) {
 }
 
 // 545528
-void CMultiShopShelf::sub_545528() {
+void CMultiShopShelf::ReleaseItems() {
     for (int32_t i = 0; i < this->items.GetSize(); i++) {
         this->items[i]->field10_0x4c -= 1;
     }
@@ -95,7 +95,7 @@ CMultiShopInstance::CMultiShopInstance() {
 // 545C8C
 CMultiShopInstance::~CMultiShopInstance() {
     for (size_t i = 0; i < this->shelves.size(); i++) {
-        this->shelves[i].sub_545528();
+        this->shelves[i].ReleaseItems();
     }
 
     this->unit = nullptr;
