@@ -2086,7 +2086,7 @@ void __cdecl SetPixelColor(int32_t x, int32_t y, uint32_t clr) {
 }
 
 // 457aa6
-void __cdecl FUN_00457aa6(int32_t l, int32_t t, int32_t r, int32_t b, uint16_t clr) {
+void __cdecl FillRectClipped(int32_t l, int32_t t, int32_t r, int32_t b, uint16_t clr) {
 	if (l < g_clipRect.left) {
 		l = g_clipRect.left;
 	}

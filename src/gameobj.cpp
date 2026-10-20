@@ -1618,10 +1618,10 @@ void CGameObject::DrawBarFill(int32_t left, int32_t right, int32_t y, int32_t fi
     BigStruct2* map = this->pMapObject;
     if (map->show_hp != 0 && this->IsSelected() == 0) {
         ShadowRect(CRect(left + 4, y - 2, left + fill_width + 4, y + 2), 8);
-        FUN_00457aa6(left + 4, y - 2, left + fill_width + 4, y - 1, color_hi);
-        FUN_00457aa6(left + 4, y - 1, left + fill_width + 4, y, color_lo);
-        FUN_00457aa6(left + 4, y, left + fill_width + 4, y + 1, color_mid);
-        FUN_00457aa6(left + 4, y + 1, left + fill_width + 4, y + 2, color_hi);
+        FillRectClipped(left + 4, y - 2, left + fill_width + 4, y - 1, color_hi);
+        FillRectClipped(left + 4, y - 1, left + fill_width + 4, y, color_lo);
+        FillRectClipped(left + 4, y, left + fill_width + 4, y + 1, color_mid);
+        FillRectClipped(left + 4, y + 1, left + fill_width + 4, y + 2, color_hi);
         return;
     }
 
