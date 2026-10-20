@@ -901,3 +901,4 @@ game_app: sub_5498B8 -> RollItemDataId -- picks a random WorldEquip row that has
 game_app: sub_549372 -> RollItemInPriceRange -- creates a random item priced between min and max
 game_app: sub_5421FD -> Rand01 -- rand()/32767.0 in [0,1]
 game_app: sub_43A857 -> PostConsoleLine -- posts a text line to the main window in server-console mode
+server: sub_43A820 -> IntToCString -- itoa into a CString

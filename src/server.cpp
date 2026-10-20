@@ -126,7 +126,7 @@ int dword_6CDB38; // File checksum global
 // ---- Helpers used by arena Server methods ----
 // 4FA768
 // Send game-end broadcast to all clients
-static void sub_4FA768(Player* player) {
+static void SendFragLimit(Player* player) {
     g_NetStru1_main.SendInfoPacket(0x5C, g_ServerConfig.frag_limit, 0, player);
 }
 
@@ -5363,7 +5363,7 @@ void Server::AddArenaFrags(CString* name, int32_t flag) {
     this->field68_0x23c[idx_23c] = flag;
 
     g_NetStru1_main.SendArenaScore(this->field67_0x228[idx], this->field68_0x23c[idx_23c], '[', nullptr);
-    sub_4FA768(nullptr);
+    SendFragLimit(nullptr);
 }
 
 // 4FA4BB
@@ -5504,7 +5504,7 @@ void Server::HandleArenaPlayer(Player* player) {
     for (int32_t i = 0; i < this->field67_0x228.GetSize(); i++) {
         g_NetStru1_main.SendArenaScore(this->field67_0x228[i], this->field68_0x23c[i], '[', player);
     }
-    sub_4FA768(player);
+    SendFragLimit(player);
 }
 
 // 4FA78E
