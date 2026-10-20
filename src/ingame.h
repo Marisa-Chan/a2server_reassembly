@@ -64,7 +64,7 @@ public:
 		this->palette_datas.fill(nullptr);
 	}
 
-	CGamePalette* FUN_0046f680(int32_t idx); //46f680
+	CGamePalette* GetPalette(int32_t idx); //46f680
 	uint8_t* FUN_0046f6e0(int32_t idx); //46f6e0
 
 public:

@@ -3216,7 +3216,7 @@ CSprite256* UnitGfxFile::GetSpriteB() { //46f730
     return this->spr_b;
 }
 
-CGamePalette* UnitVFXUnfo::FUN_0046f680(int32_t idx) { //46f680
+CGamePalette* UnitVFXUnfo::GetPalette(int32_t idx) { //46f680
     uint16_t* pal = this->palettes[idx]->GetPalette(0);
     if (pal == nullptr) {
         this->palettes[idx]->SetPalette((RGBQUAD*)this->palette_datas[idx], 0x10, 2, 1);

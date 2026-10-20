@@ -1912,9 +1912,9 @@ void CUnit::Draw(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
     if (palette_id == 0) {
         palette = g_Human_palettes[this->map_player->color];
     } else if (palette_id == 1) {
-        palette = g_VFX_info[vfx_idx]->FUN_0046f680(0);
+        palette = g_VFX_info[vfx_idx]->GetPalette(0);
     } else {
-        palette = g_VFX_info[vfx_idx]->FUN_0046f680(this->face - 1);
+        palette = g_VFX_info[vfx_idx]->GetPalette(this->face - 1);
     }
 
     if (this->FindEffectTimer(0x2C) >= 0 && this->death_state <= 2) {
