@@ -744,7 +744,7 @@ void Srv1::CreatePlayers(MapAlm* alm) {
             player->name = player_data->name;
             player->is_ai = 1;
             player->token_id = player_data->index;
-            g_PlayersList->sub_5357C6(player);
+            g_PlayersList->AddPlayer(player);
         }
 
         player->color_slot = player_data->color + 1;
@@ -2101,7 +2101,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
     }
 
     // Add player to global list.
-    g_PlayersList->sub_5357C6(player);
+    g_PlayersList->AddPlayer(player);
 
     // Notify existing players (send join packets).
     this->SaveCharacter(unit);
@@ -4307,7 +4307,7 @@ Player* Server::Allods2_CreatePlayer(CString name) {
     }
 
     if (created) {
-        g_PlayersList->sub_5357C6(player);
+        g_PlayersList->AddPlayer(player);
     }
 
     return player;

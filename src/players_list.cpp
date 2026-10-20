@@ -13,7 +13,7 @@
 
 
 // 5357C6
-void PlayersList::sub_5357C6(Player* player) {
+void PlayersList::AddPlayer(Player* player) {
 	// Build a bitmask of player_id values (1..31) already in use.
 	uint32_t used_mask = 0;
 	for (POSITION it = this->list.GetHeadPosition(); it != nullptr;) {
