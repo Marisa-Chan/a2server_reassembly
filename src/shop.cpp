@@ -106,6 +106,6 @@ void Shop::sub_544777(Unit* unit) {
 }
 
 // 544793
-void Shop::sub_544793(Humanoid* humanoid, int amount, Item* item) {
+void Shop::SellItemFor(Humanoid* humanoid, int amount, Item* item) {
     this->shop_template->SellItemFor(humanoid, amount, item);
 }

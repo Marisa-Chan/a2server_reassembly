@@ -27,7 +27,7 @@ public:
     Shop(const CString& name); // 5443ef
     Shop(uint8_t type_id, TokenPos* pos); // 544495
 
-    void sub_544793(Humanoid* humanoid, int amount, Item* item);
+    void SellItemFor(Humanoid* humanoid, int amount, Item* item);
     Item* sub_5446C7(Humanoid* unit, int16_t src_slot, int32_t count);
     void sub_5446EB(Humanoid* unit, uint8_t op_type, int16_t src_slot, uint8_t dst_type, int16_t dst_word, int32_t count);
     void sub_544655(Unit* unit); // Mine: attach unit to this building

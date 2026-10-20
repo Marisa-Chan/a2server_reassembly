@@ -749,3 +749,4 @@ CMultiShopTemplate::sub_547CB9 -> HandleItemOperation -- routes a bag/shop move 
 CMultiShopTemplate::sub_547B7B -> ConfirmBuy -- charges money for the items queued in the instance
 CMultiShopTemplate::sub_547BBC -> ConfirmSell -- pays out for the items the player queued for sale
 CMultiShopTemplate::sub_547BFD -> SellItemFor -- wrapper: queue item for sale at amount
+CMultiShopTemplate::sub_547D7F -> ReturnConsignedItems -- wrapper: give the player's items back

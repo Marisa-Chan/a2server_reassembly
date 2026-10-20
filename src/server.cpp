@@ -3359,7 +3359,7 @@ void Server::sub_504a96(Packet* pkt) {
                 if (!shop) {
                     break;
                 }
-                shop->sub_544793(human, packet_cmd->param2, item);
+                shop->SellItemFor(human, packet_cmd->param2, item);
                 update_mask |= 0x82000;
             } else if (to_type == 3) {
                 // Drop item on ground (create sack).
