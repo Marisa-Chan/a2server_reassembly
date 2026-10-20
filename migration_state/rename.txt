@@ -1133,3 +1133,4 @@ NetStru1::SendHatLobbyInfo arg10 -> map_range -- map range byte 3 of the packed 
 NetStru1::SendHatCharData param1 -> hat_char_id1 -- first HAT character id dword (matches PlayersList::FindByHatCharId id1)
 NetStru1::SendHatCharData param2 -> hat_char_id2 -- second HAT character id dword (FindByHatCharId id2)
 NetStru1::SendHatMessage param1 -> hat_char_id1 -- first HAT character id dword (FindByHatCharId id1)
+NetStru1::SendHatMessage param2 -> hat_char_id2 -- second HAT character id dword (FindByHatCharId id2)

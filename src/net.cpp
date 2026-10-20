@@ -4365,7 +4365,7 @@ void NetStru1::SendHatCharData(int32_t hat_char_id1, int32_t hat_char_id2, CStri
 }
 
 // 51E0B7
-void NetStru1::SendHatMessage(int32_t hat_char_id1, int32_t param2, CString name, void* data, uint32_t size, uint16_t player_id) {
+void NetStru1::SendHatMessage(int32_t hat_char_id1, int32_t hat_char_id2, CString name, void* data, uint32_t size, uint16_t player_id) {
     PacketData& packet = PacketData::Inst;
     packet.to_player_id = player_id;
     packet.id = 0xE0;
@@ -4373,7 +4373,7 @@ void NetStru1::SendHatMessage(int32_t hat_char_id1, int32_t param2, CString name
     packet.count = name_len + size + 0x10;
     uint32_t* p = (uint32_t*)packet.data;
     *p++ = hat_char_id1;
-    *p++ = param2;
+    *p++ = hat_char_id2;
     *p++ = name_len;
     *p++ = size;
     memcpy(p, data, size);
