@@ -928,3 +928,4 @@ Player::sub_5347A1 -> RemoveUnitFromGroup -- removes the unit from its group
 Player::sub_534A74 -> RemoveUnit -- removes the unit from its group and deletes it
 UnitList::sub_5579D8 -> ClearSentToMask -- clears the player's vision bit from every unit's sent_to_mask
 UnitList::sub_5574B5 -> RegenTick -- calls RegenTick on every unit
+UnitList::sub_5560D2 -> FindById -- finds a unit by building_id

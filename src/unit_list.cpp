@@ -391,7 +391,7 @@ void UnitList::RegenTick() {
 }
 
 // 557AB0
-int UnitList::sub_557AB0() {
+int UnitList::CountKillableMonsters() {
 	int32_t count = 0;
 	for (POSITION it = this->unit_list.GetHeadPosition(); it != NULL; ) {
 		Unit* unit = this->unit_list.GetNext(it);

@@ -967,7 +967,7 @@ void Inn::InnReward(Player* player) {
     }
 
     // --- Phase 10: Mob reward ---
-    if (player->unit_list->sub_557AB0() == 0) {
+    if (player->unit_list->CountKillableMonsters() == 0) {
         int mob_idx = g_GameDataRes.GetRandomRecruitIndex(reward / 16);
         if (mob_idx != 0) {
             Item* mob = new Item();
