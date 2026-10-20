@@ -20,7 +20,7 @@ public: // VTable at 60fde8.
     virtual ~QuestInnGlue();
     virtual void ProcessQuests();
     virtual void ProcessEscortTarget(Quest* quest);
-    virtual void VMethod3(Quest* quest);
+    virtual void ProcessDeliverItem(Quest* quest);
     virtual void VMethod4(Quest* quest);
     virtual void VMethod5(Quest* quest);
     virtual void VMethod6(Quest* quest);

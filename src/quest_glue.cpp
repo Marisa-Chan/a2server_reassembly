@@ -37,7 +37,7 @@ void QuestInnGlue::ProcessQuests() {
         this->current_quest = quest;
         switch (quest->Something2()) {
         case 6:  this->ProcessEscortTarget(this->current_quest); break;
-        case 7:  this->VMethod3(this->current_quest); break;
+        case 7:  this->ProcessDeliverItem(this->current_quest); break;
         case 8:  this->VMethod5(this->current_quest); break;
         case 9:  this->VMethod6(this->current_quest); break;
         case 10: this->VMethod7(this->current_quest); break;
@@ -73,7 +73,7 @@ void QuestInnGlue::ProcessEscortTarget(Quest* quest) {
 }
 
 // 5BAA38
-void QuestInnGlue::VMethod3(Quest* quest) {
+void QuestInnGlue::ProcessDeliverItem(Quest* quest) {
     uint16_t item_type = (uint16_t)quest->Something3() | 0xE00;
     bool found = false;
     int32_t player_id = 0;
