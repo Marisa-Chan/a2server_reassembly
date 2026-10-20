@@ -434,7 +434,7 @@ public:
     void UnloadMapAssets(); //48f6f7
     void UnloadObjectGfx(); //47ad28
 
-    void FUN_00478130(); //478130 in asm
+    void UnloadTerrainTiles(); //478130 in asm
 
     void UnloadProjectileInfos(); //47eab6
     void UnloadStructureInfos(); //47f5e4

@@ -1116,7 +1116,7 @@ void MainWindow::OpenConsoleInput() {
 }
 
 // 478130
-void MainWindow::FUN_00478130() {
+void MainWindow::UnloadTerrainTiles() {
     LoadTerrainTiles(0);
     if (DAT_00665344 != nullptr) {
         delete DAT_00665344;
@@ -4562,7 +4562,7 @@ void MainWindow::UnloadMapAssets() { //48f6f7
         g_UnitGfxFiles[i]->Deinit();
     }
     
-    this->FUN_00478130();
+    this->UnloadTerrainTiles();
     this->UnloadProjectileInfos();
     this->UnloadStructureInfos();
 
