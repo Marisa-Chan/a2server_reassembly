@@ -27,7 +27,7 @@ QuestInnGlue::~QuestInnGlue() {
 }
 
 // 55F589
-void QuestInnGlue::VMethod1() {
+void QuestInnGlue::ProcessQuests() {
     POSITION pos = this->map.GetStartPosition();
     while (pos != nullptr) {
         uint32_t key;

@@ -18,7 +18,7 @@ struct World;
 class QuestInnGlue : public CObject {
 public: // VTable at 60fde8.
     virtual ~QuestInnGlue();
-    virtual void VMethod1();
+    virtual void ProcessQuests();
     virtual void VMethod2(Quest* quest);
     virtual void VMethod3(Quest* quest);
     virtual void VMethod4(Quest* quest);

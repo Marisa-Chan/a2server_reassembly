@@ -65,7 +65,7 @@ void QuestMap::ProcessInnGlues() {
 		this->glues_map.GetNextAssoc(this->assoc, building_id, glue);
 		this->building_id = building_id;
 		this->glue = glue;
-		glue->VMethod1();
+		glue->ProcessQuests();
 	}
 }
 
