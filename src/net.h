@@ -154,7 +154,7 @@ public:
 
     void SendHumanoidProps(Unit* unit, Player* player, int32_t flags);
     void SendMonsterInventory(Unit* unit, Player* player, int32_t start_index, int32_t end_index);
-    void BroadcastEffect(Effect* effect, Unit* unit, uint8_t arg);
+    void BroadcastEffect(Effect* effect, Unit* unit, uint8_t packet_id);
 
     void SendGameInfo(int32_t game_speed, Player* player); // Send server state / player list to player
     void SendExistingPlayers(Player* player);  // Send all existing players (PacketJoin) to new player

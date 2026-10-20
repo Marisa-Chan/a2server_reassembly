@@ -1134,3 +1134,4 @@ NetStru1::SendHatCharData param1 -> hat_char_id1 -- first HAT character id dword
 NetStru1::SendHatCharData param2 -> hat_char_id2 -- second HAT character id dword (FindByHatCharId id2)
 NetStru1::SendHatMessage param1 -> hat_char_id1 -- first HAT character id dword (FindByHatCharId id1)
 NetStru1::SendHatMessage param2 -> hat_char_id2 -- second HAT character id dword (FindByHatCharId id2)
+NetStru1::BroadcastEffect arg -> packet_id -- PacketEffect id override (0 = default 0x88, callers pass 0x89)

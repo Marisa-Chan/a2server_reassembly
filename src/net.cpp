@@ -4311,9 +4311,9 @@ void NetStru1::SendSpellCastMulti(Unit* caster, Spell* spell, CList<Unit*>* unit
 }
 
 // 51BDA4
-void NetStru1::BroadcastEffect(Effect* effect, Unit* unit, uint8_t arg) {
+void NetStru1::BroadcastEffect(Effect* effect, Unit* unit, uint8_t packet_id) {
     PacketEffect& packet = PacketEffect::Inst;
-    packet.id = arg ? arg : 0x88;
+    packet.id = packet_id ? packet_id : 0x88;
     packet.unit_id = unit->building_id;
     packet.effect_type = effect->typeId;
     packet.to_player_id = 0;
