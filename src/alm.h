@@ -46,7 +46,7 @@ public:
     virtual void Dump(CDumpContext& dc) const override; // 43c225
 
     uint32_t IsAllied(int32_t idx);
-    int32_t FUN_0041edf0(int32_t idx);
+    int32_t KnowsPlayer(int32_t idx);
     int32_t IsVisibleTo(int32_t idx);
 };
 ASSERT_SIZE(MapPlayerData, 0x4c);

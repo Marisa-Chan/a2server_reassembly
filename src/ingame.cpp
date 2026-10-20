@@ -1642,7 +1642,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		case 0x91: {
 			if (packet_join->player_id == 0 || packet_join->player_id >= this->field_0x9b8.GetSize() || this->field_0x9b8[packet_join->player_id] == nullptr) {
 				this->msglog.Add(packet_join->name, clr_log_sblack, 10000);
-			} else if (this->my_main_unit->FUN_0041edf0(packet_join->player_id) == 0 || packet_join->token_id == 4) {
+			} else if (this->my_main_unit->KnowsPlayer(packet_join->player_id) == 0 || packet_join->token_id == 4) {
 				MapPlayerData* dat = this->field_0x9b8[packet_join->player_id];
 
 				if (g_MessageColors == 0 || (wnd->dialogsMask & 1) == 0) {

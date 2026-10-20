@@ -45,7 +45,7 @@ void MapPlayerData::Dump(CDumpContext& dc) const {
 }
 
 // 41EDF0
-int32_t MapPlayerData::FUN_0041edf0(int32_t idx) {
+int32_t MapPlayerData::KnowsPlayer(int32_t idx) {
     return this->diplomacy[idx] & 4;
 }
 
