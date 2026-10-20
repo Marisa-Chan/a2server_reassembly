@@ -3058,8 +3058,8 @@ void World::GroupAttackMove(Group* group, uint8_t x, uint8_t y) {
 }
 
 // 5AF683
-void World::SetFormation(Player* player, uint8_t param) {
-    player->settings->formation = param;
+void World::SetFormation(Player* player, uint8_t formation) {
+    player->settings->formation = formation;
 }
 
 // 5AFBFD
