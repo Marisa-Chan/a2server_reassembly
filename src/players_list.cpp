@@ -393,7 +393,7 @@ PlayersList::~PlayersList() { //534c02
 }
 
 // 55AFB3
-void PlayersList::sub_55AFB3(CArchive& ar) {
+void PlayersList::Serialize(CArchive& ar) {
 	if (ar.IsStoring()) {
 		ar << this->next_player_id;
 	} else {

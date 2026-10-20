@@ -773,3 +773,4 @@ PlayersList::sub_535B50 -> FindById -- find player by numeric id
 PlayersList::sub_535E94 -> FindByHatCharId -- find player by HAT character id pair
 PlayersList::sub_535C46 -> FindByTokenId -- find player by token id
 PlayersList::sub_535F97 -> GetMaxPlayerId -- returns the max player_id in the list
+PlayersList::sub_536286 -> ResetFrags -- resets all players' frags to 0

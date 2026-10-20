@@ -6319,7 +6319,7 @@ void Server::SerializeGame(CArchive& ar) {
         ar << this->field21_0xd4;
         ar << this->field22_0xd8;
 
-        g_PlayersList->sub_55AFB3(ar);
+        g_PlayersList->Serialize(ar);
         this->srv_stru1->units_list->Serialize(ar);
 
         uint8_t has_world_state = (this->field18_0x94 != 0) ? 1 : 0;
@@ -6370,7 +6370,7 @@ void Server::SerializeGame(CArchive& ar) {
             this->field22_0xd8 = loaded_mode;
         }
 
-        g_PlayersList->sub_55AFB3(ar);
+        g_PlayersList->Serialize(ar);
         this->srv_stru1->units_list->Serialize(ar);
 
         uint8_t has_world_state = 0;

@@ -30,7 +30,7 @@ public:
     int CountCD(); //536092
     int32_t GetMaxPlayerId();  // returns max player_id in list
     void ResetFrags(); // Reset all players' frags to 0
-    void sub_55AFB3(CArchive& ar); // Serialize
+    void Serialize(CArchive& ar); // Serialize
 
     Player* GetHead(); // 5B70F0
     Player* GetNext(Player* player); // 5B7110. Avoid this O(N^2) crap, use normal iteration over `list`.
