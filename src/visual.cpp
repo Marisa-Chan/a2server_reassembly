@@ -24678,7 +24678,7 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
 
         int32_t res; // 44c55e: left uninitialized when hat_settings.ishat == 0
         if (main_wnd->hat_settings.ishat != 0) {
-            if (main_wnd->FUN_00490eb3() == 0) {
+            if (main_wnd->LeaveServerMode() == 0) {
                 g_CLlDriver.Close();
                 main_wnd->PostMessage(0x446, 0, 0);
                 return VisScreen::MsgProc(msg, wparam, lparam);

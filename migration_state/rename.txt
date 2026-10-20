@@ -979,3 +979,4 @@ MainWindow::FUN_0048f79d -> BeginLocalCharacterSetup -- disables hints and sets 
 MainWindow::FUN_0047eab6 -> UnloadProjectileInfos -- deletes all g_ProjectileInfos
 MainWindow::FUN_0047f5e4 -> UnloadStructureInfos -- deletes all g_StructuresInfo
 MainWindow::FUN_0049057b -> RunModalLoop -- message pump during the loading screen
+MainWindow::FUN_004e5466 -> CheckWebVersion -- InternetOpenA version check against the given address

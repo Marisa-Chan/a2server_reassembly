@@ -465,7 +465,7 @@ public:
     void SpawnScenarioMissionUnits(int32_t id, const CDWordArray& array); //50260a
     int32_t RunModalLoop(); //49057b
     int32_t CheckWebVersion(const CString& str); //4e5466
-    int32_t FUN_00490eb3(); //490eb3
+    int32_t LeaveServerMode(); //490eb3
 
 public:
     int32_t has_focus;

@@ -3816,7 +3816,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         if (this->hat_settings.ishat == 0) {
             res = this->CheckWebVersion(this->hat_settings.hatip);
         } else {
-            res = this->FUN_00490eb3();
+            res = this->LeaveServerMode();
             if (res == 0) {
                 g_CLlDriver.Close();
                 PostMessage(0x487, 0, 0);
@@ -5358,7 +5358,7 @@ int32_t MainWindow::CheckWebVersion(const CString& addr) { //4e5466
     return 1;
 }
 
-int32_t MainWindow::FUN_00490eb3() { //490eb3
+int32_t MainWindow::LeaveServerMode() { //490eb3
 
     g_NetStru1_main.SendHatLogout();
     INT_00660f8c = 0;
