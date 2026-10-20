@@ -3904,7 +3904,7 @@ void World::sub_5A54B8(Unit* unit, uint16_t command_to) {
 }
 
 // 5A87A3
-void World::sub_5A87A3(Unit* unit, uint16_t pos_yx) {
+void World::DoSwarmMoveStep(Unit* unit, uint16_t pos_yx) {
     if (pos_yx != unit->position->CompatGetYX()) {
         this->DoMoveStep(unit, pos_yx);
     } else {
@@ -4000,7 +4000,7 @@ void World::ProcessUnitState(Unit* unit) {
         this->DoMoveStep(unit, unit->eye2->command_to);
         break;
     case 2:
-        this->sub_5A87A3(unit, unit->eye2->command_to);
+        this->DoSwarmMoveStep(unit, unit->eye2->command_to);
         break;
     case 3:
         this->sub_5A6B48(unit, unit->eye2->unit);
