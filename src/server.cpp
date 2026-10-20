@@ -2995,7 +2995,7 @@ void Server::sub_504a96(Packet* pkt) {
         Token* target = nullptr; // Unit or building.
         if (pkt->order_mode == 3) {
             // Unit target.
-            target = dword_6CDB3C->sub_5560D2(packet_item->param);
+            target = dword_6CDB3C->FindById(packet_item->param);
             if (!target) {
                 // Building target.
                 target = this->srv_stru1->building_list->sub_557DB2(packet_item->param);
@@ -6031,7 +6031,7 @@ Unit* Server::FindPlayerUnit(uint16_t player_ref, uint16_t unit_id) {
     if (!player) {
         return nullptr;
     }
-    Unit* unit = player->unit_list->sub_5560D2(unit_id);
+    Unit* unit = player->unit_list->FindById(unit_id);
     if (!unit) {
         return nullptr;
     }

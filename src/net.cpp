@@ -4122,7 +4122,7 @@ void MarkUnitHiddenForPlayer(PacketMoveCmd* packet, Player* player) {
         return;
     }
 
-    Unit* affected_unit = dword_6CDB3C->sub_5560D2(packet->unit_id);
+    Unit* affected_unit = dword_6CDB3C->FindById(packet->unit_id);
     if (affected_unit == nullptr) {
         return;
     }

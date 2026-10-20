@@ -70,7 +70,7 @@ void UnitList::Remove(Unit* unit) { //575aa0
 }
 
 // 5560D2
-Unit* UnitList::sub_5560D2(uint16_t id) {
+Unit* UnitList::FindById(uint16_t id) {
 	POSITION it = this->unit_list.GetHeadPosition();
 	while (it) {
 		Unit* unit = this->unit_list.GetNext(it);

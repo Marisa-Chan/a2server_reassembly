@@ -50,7 +50,7 @@ void QuestInnGlue::ProcessQuests() {
 void QuestInnGlue::ProcessEscortTarget(Quest* quest) {
     int32_t inn_id = quest->Something3();
     if (quest->field_0x2c == 0) {
-        Unit* unit = this->world->field24_0xa50->field69_0xa456c->sub_5560D2(inn_id);
+        Unit* unit = this->world->field24_0xa50->field69_0xa456c->FindById(inn_id);
         quest->field_0x2c = unit;
     }
     Unit* unit = (Unit*)quest->field_0x2c;
