@@ -884,3 +884,4 @@ MainWindow::sub_49549B -> OnCommand3f6 -- ON_COMMAND 0x3f6
 MainWindow::sub_4956D5 -> OnClose -- ON_WM_CLOSE handler
 MainWindow::sub_495774 -> OnCommand3ff -- ON_COMMAND 0x3ff
 MainWindow::sub_4957AD -> OnCommand3f7 -- ON_COMMAND 0x3f7
+MainWindow::sub_4957E2 -> OnCommand3fb -- ON_COMMAND 0x3fb

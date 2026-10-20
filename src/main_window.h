@@ -322,7 +322,7 @@ public:
     void OnCommand3ff(); // 495774 — ON_COMMAND 0x3ff
     void OnCommand3f7(); // 4957AD — ON_COMMAND 0x3f7
     void OnCommand3fb(); // 4957E2 — ON_COMMAND 0x3fb
-    void sub_49583E(); // 49583E — ON_COMMAND 0x3fe
+    void OnCommand3fe(); // 49583E — ON_COMMAND 0x3fe
 };
 
 ASSERT_SIZE(ServerControlDialog, 0x280);

@@ -421,7 +421,7 @@ const AFX_MSGMAP_ENTRY ServerControlDialog::_messageEntries[] =
     { WM_COMMAND, CN_COMMAND, 0x3ff, 0x3ff, AfxSigCmd_v, (AFX_PMSG)&OnCommand3ff},
     { WM_COMMAND, CN_COMMAND, 0x3f7, 0x3f7, AfxSigCmd_v, (AFX_PMSG)&OnCommand3f7},
     { WM_COMMAND, CN_COMMAND, 0x3fb, 0x3fb, AfxSigCmd_v, (AFX_PMSG)&OnCommand3fb},
-    { WM_COMMAND, CN_COMMAND, 0x3fe, 0x3fe, AfxSigCmd_v, (AFX_PMSG)&sub_49583E},
+    { WM_COMMAND, CN_COMMAND, 0x3fe, 0x3fe, AfxSigCmd_v, (AFX_PMSG)&OnCommand3fe},
     {0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0 }
 };
 
@@ -514,7 +514,7 @@ void ServerControlDialog::OnCommand3fb() {
 }
 
 // 49583e
-void ServerControlDialog::sub_49583E() {
+void ServerControlDialog::OnCommand3fe() {
     g_ShutdownIn = 0x7fffffff;
     this->UpdateControlStates();
 }
