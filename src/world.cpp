@@ -2538,7 +2538,7 @@ void World::sub_5A6B48(Unit* unit, Unit* target) {
     }
 
     for (int32_t i = 0; i < 3; i++) {
-        if (unit->eye2->known_spells[i] != 0 && sub_5B6F30() < (int32_t)unit->eye2->known_spell_probabilities[i]) {
+        if (unit->eye2->known_spells[i] != 0 && RandInt() < (int32_t)unit->eye2->known_spell_probabilities[i]) {
             chosen_spell = unit->eye2->known_spells[i];
         }
     }
@@ -3103,18 +3103,18 @@ void World::sub_5B0556(CArchive& ar) {
 }
 
 // 5B6F30
-int32_t sub_5B6F30() {
+int32_t RandInt() {
     return std::rand();
 }
 
 // 5B6F40
 int32_t World::sub_5B6F40(int32_t multiplier) {
-    return (sub_5B6F30() * multiplier) / this->field0_0x0;
+    return (RandInt() * multiplier) / this->field0_0x0;
 }
 
 // 5B6F60
 int32_t World::sub_5B6F60(int32_t min, int32_t max) {
-    return (sub_5B6F30() * ((max - min) + 1)) / this->field0_0x0 + min;
+    return (RandInt() * ((max - min) + 1)) / this->field0_0x0 + min;
 }
 
 // 5A8EFB — set unit movement target, clamped to map bounds.
@@ -3161,7 +3161,7 @@ void World::DoMoveStepTo(Unit* unit, PosYX yx, uint8_t max_range) {
 // 5AA485 — pick a new random wander facing for a monster unit.
 void World::sub_5AA485(Unit* unit) {
     if (unit->eye->field0_0x0 == unit->eye->field1_0x1) {
-        if (unit->eye2->field44_0x54 == 0 && sub_5B6F30() >= 205) {
+        if (unit->eye2->field44_0x54 == 0 && RandInt() >= 205) {
             unit->some_state = 0;
             return;
         }
