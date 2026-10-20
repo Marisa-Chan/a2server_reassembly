@@ -3519,7 +3519,7 @@ void World::sub_5A8778(Unit* unit, uint16_t param) {
 }
 
 // 5A57E8
-void World::sub_5A57E8(Unit* unit, Unit* target) {
+void World::PickHealSpell(Unit* unit, Unit* target) {
     int32_t spell_id = 0;
     bool did_cast = false;
 
@@ -3610,7 +3610,7 @@ void World::TickAttackTarget(Unit* unit, Unit* target) {
         this->sub_5A8829(unit, target, range);
     } else {
         if (unit->spell_book != nullptr) {
-            this->sub_5A57E8(unit, target);
+            this->PickHealSpell(unit, target);
         } else {
             this->sub_5A65BB(unit, target);
         }
