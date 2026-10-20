@@ -1102,3 +1102,4 @@ CUnit::PlayHitSound arg1 -> kind -- 0=hit noise, 1/2=pain voice (throttled 1.5s)
 TransientVisualEffectBuilder::BuildLightningLine arg5 -> vfx_type -- GO_11c vfx_type byte stamped on each arc point
 CUnit::InitState arg1 -> unit_id -- stored to unit_id
 CUnit::InitState arg2 -> typeId -- stored to typeId
+CUnit::InitState arg3 -> x_pos -- stored to x_pos
