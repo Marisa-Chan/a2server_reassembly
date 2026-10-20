@@ -3101,7 +3101,7 @@ Scenario::Scenario(const char* fname) {
 }
 
 // 44EC40
-bool Scenario::FUN_0044ec40(NetMapInfo* info) {
+bool Scenario::ReadAlmInfo(NetMapInfo* info) {
     File2* file = new File2();
     file->Open(info->mapid, 0, NULL);
 

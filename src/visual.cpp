@@ -5149,7 +5149,7 @@ void VisNetMapSelection::FUN_0044aae5() {
                 NetMapInfo* info = new NetMapInfo;
                 info->mapid = find_data.cFileName;
                 Scenario* scenario = new Scenario;
-                if (scenario->FUN_0044ec40(info)) {
+                if (scenario->ReadAlmInfo(info)) {
                     bool name_printable = false;
                     const char* psz = (LPCTSTR)info->name;
                     if (psz != nullptr) {

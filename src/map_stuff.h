@@ -348,7 +348,7 @@ public:
 
     Scenario(); //4a7a50
     Scenario(const char* fname); //4a7bec
-    bool FUN_0044ec40(NetMapInfo* info); //44ec40
+    bool ReadAlmInfo(NetMapInfo* info); //44ec40
 
     uint16_t* GetLandscape() const { return this->landscape; }; //41ee80
     int32_t GetWidth() const { return this->width; }; //41ef20

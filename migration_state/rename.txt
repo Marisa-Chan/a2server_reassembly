@@ -1074,3 +1074,4 @@ DistortMap::sub_4AA29B -> RenderDistort -- renders the lens-distortion block at 
 TokenEntry::FUN_004396d6 -> HasKnownName -- 1 when the item id has an entry in the item-name dictionary
 MapStuff::sub_5936D2 -> ClampPosToMap -- clamps a packed position into the walkable map bounds
 MapStuff::sub_593AA4 -> PeekNextStep -- returns the static path head if it is adjacent, else 0
+MapStuff::sub_590902 -> PickNextPathTarget -- decides the next path waypoint (static head vs repath) and re-runs FindPath
