@@ -798,3 +798,4 @@ QuestMap::sub_55ECFE -> RemovePlayerQuests -- deletes all quests of a player (0 
 QuestInnGlue::VMethod1 -> ProcessQuests -- iterates the glue's quests and dispatches per Something2 secondary type
 QuestInnGlue::VMethod2 -> ProcessEscortTarget -- escort/mail/intercept-unit family: binds the tracked unit at the target inn
 QuestInnGlue::VMethod3 -> ProcessDeliverItem -- scans players for the item to deliver
+QuestInnGlue::VMethod4 -> ProcessInterceptGroup -- binds the group to intercept

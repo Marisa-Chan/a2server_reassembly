@@ -38,7 +38,7 @@ void QuestInnGlue::ProcessQuests() {
         switch (quest->Something2()) {
         case 6:  this->ProcessEscortTarget(this->current_quest); break;
         case 7:  this->ProcessDeliverItem(this->current_quest); break;
-        case 8:  this->VMethod5(this->current_quest); break;
+        case 8:  this->SpawnZombieMobs(this->current_quest); break;
         case 9:  this->VMethod6(this->current_quest); break;
         case 10: this->VMethod7(this->current_quest); break;
         case 11: this->ProcessInterceptGroup(this->current_quest); break;
@@ -151,7 +151,7 @@ void QuestInnGlue::ProcessInterceptGroup(Quest* quest) {
 }
 
 // 5BACFF
-void QuestInnGlue::VMethod5(Quest* quest) {
+void QuestInnGlue::SpawnZombieMobs(Quest* quest) {
     const uint16_t mob_type_id = 0x52; // F_Zombie.1
 
     int32_t player_id = quest->Something3() & 0xFFFF;
