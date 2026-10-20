@@ -23,7 +23,7 @@ public:
     void TransferFrom(Inventory* src); // Transfer all items from src into this inventory
     Item* FindItemById(uint16_t item_id); // Find item by item_id
     Item* TakeItemById(uint16_t item_id); // Remove and return item matching item_id from inventory
-    Item* sub_5530A2(const char* name); // Find item by name, returns nullptr if not found
+    Item* FindItemByName(const char* name); // Find item by name, returns nullptr if not found
     void sub_55CCE4(CArchive& ar); // Serialize, in asm
 
     void SerializeItems(CArchive& ar); //Serialize items list

@@ -6621,7 +6621,7 @@ void Server::UpdateQuestRune(int32_t arg1, int32_t arg2) {
         SackList* sack_list = this->srv_stru1->sack_list;
         for (POSITION sack_it = sack_list->list.GetHeadPosition(); sack_it != nullptr;) {
             Sack* sack = sack_list->list.GetNext(sack_it);
-            Item* rune_item = sack->inventory->sub_5530A2(rune_name);
+            Item* rune_item = sack->inventory->FindItemByName(rune_name);
             if (!rune_item) {
                 continue;
             }

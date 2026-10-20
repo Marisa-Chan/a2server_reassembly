@@ -832,3 +832,4 @@ Inventory: sub_552E42 -> TakeItemAt -- takes up to count of the item at position
 Inventory: sub_5524FA -> AddItem -- adds the item to the inventory
 Inventory: sub_552A42 -> TransferFrom -- transfers all items from src into this inventory
 Inventory: sub_552B6B -> FindItemById -- finds an item by item_id
+Inventory: sub_552C37 -> TakeItemById -- removes and returns the item matching item_id

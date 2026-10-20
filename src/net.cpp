@@ -4712,10 +4712,10 @@ void NetStru1::BroadcastTokenState(Token* token, Player* player, uint8_t flag) {
         packet.type_id = (uint8_t)log10(sack->_exp);
 
         if (g_ServerConfig.gameType == 2) {
-            if (sack->inventory->sub_5530A2("Quest RuneF")) {
+            if (sack->inventory->FindItemByName("Quest RuneF")) {
                 packet.type_id |= 0x40;
             }
-            if (sack->inventory->sub_5530A2("Quest RuneA")) {
+            if (sack->inventory->FindItemByName("Quest RuneA")) {
                 packet.type_id |= 0x80;
             }
         }

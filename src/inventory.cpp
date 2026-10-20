@@ -205,7 +205,7 @@ Item* Inventory::TakeItemAt(int32_t item_number, int32_t count) {
 }
 
 // 5530A2
-Item* Inventory::sub_5530A2(const char* name) {
+Item* Inventory::FindItemByName(const char* name) {
     for (POSITION pos = this->items.GetHeadPosition(); pos != nullptr;) {
         Item* item = this->items.GetNext(pos);
         uint8_t item_type = (item->item_id >> 8) & 0xF;
