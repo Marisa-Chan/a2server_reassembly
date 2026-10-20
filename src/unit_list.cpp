@@ -266,17 +266,17 @@ void UnitList::ProcessTick() {
 
 			// Quest event: unit death
 			if (unit->summon_id == 0) {
-				g_QuestMap.sub_55DD10(4, unit->building_id, unit->typeId << 16 | unit->face << 24 | killer_pid);
+				g_QuestMap.QueueEvent(4, unit->building_id, unit->typeId << 16 | unit->face << 24 | killer_pid);
 
 			// Quest event: group death
 			}
 			if (group_id != 0) {
-				g_QuestMap.sub_55DD10(5, group_id, killer_pid);
+				g_QuestMap.QueueEvent(5, group_id, killer_pid);
 			}
 
 			// Quest event: player has no more units alive
 			if (unit->pOwner != NULL && unit->pOwner->field_0xa60 != 0 && unit->pOwner->unit_list->unit_list.GetCount() == 0) {
-				g_QuestMap.sub_55DD10(15, unit->pOwner->player_id, killer_pid);
+				g_QuestMap.QueueEvent(15, unit->pOwner->player_id, killer_pid);
 
 			// Clear pathfinding tracking
 			}

@@ -111,7 +111,7 @@ QuestKillMob::~QuestKillMob() {}
 int32_t QuestKillMob::OnEvent(int32_t param_2, int32_t param_3, int32_t param_4) {
     if (param_2 == 4) {
         if (param_3 == this->quest_data.obj && (param_4 & 0xffff) == this->quest_data.player_id && this->quest_data.state != 1) {
-            this->quest_map->sub_55DD10(1, this->quest_data.some_id, 0);
+            this->quest_map->QueueEvent(1, this->quest_data.some_id, 0);
         }
     } else if (param_2 == 0xc && param_3 == this->quest_data.obj && this->quest_data.state == 0) {
         return this->quest_data.some_id;
@@ -134,7 +134,7 @@ int32_t QuestKillN::OnEvent(int32_t param_2, int32_t param_3, int32_t param_4) {
         if (this->quest_data.state != 1 && this->progress < this->quest_data.limit) {
             this->progress++;
             if (this->progress >= this->quest_data.limit) {
-                this->quest_map->sub_55DD10(1, this->quest_data.some_id, 0);
+                this->quest_map->QueueEvent(1, this->quest_data.some_id, 0);
             }
         }
     }
@@ -154,7 +154,7 @@ QuestKillGroup::~QuestKillGroup() {}
 int32_t QuestKillGroup::OnEvent(int32_t param_2, int32_t param_3, int32_t param_4) {
     if (param_2 == 5) {
         if (param_3 == this->quest_data.obj && (param_4 & 0xffff) == this->quest_data.player_id && this->quest_data.state != 1) {
-            this->quest_map->sub_55DD10(1, this->quest_data.some_id, 0);
+            this->quest_map->QueueEvent(1, this->quest_data.some_id, 0);
         }
     } else if (param_2 == 0xd && param_3 == this->quest_data.obj && this->quest_data.state == 0) {
         return this->quest_data.some_id;
@@ -175,11 +175,11 @@ QuestEscort::~QuestEscort() {}
 int32_t QuestEscort::OnEvent(int32_t param_2, int32_t param_3, int32_t param_4) {
     if (param_2 == 4) {
         if (param_3 == this->quest_data.obj && this->quest_data.state != 2) {
-            this->quest_map->sub_55DD10(2, this->quest_data.some_id, 0);
+            this->quest_map->QueueEvent(2, this->quest_data.some_id, 0);
         }
     } else if (param_2 == 6) {
         if (param_3 == this->quest_data.obj && (param_4 >> 16) == this->quest_data.landmark_id && this->quest_data.state != 1) {
-            this->quest_map->sub_55DD10(1, this->quest_data.some_id, 0);
+            this->quest_map->QueueEvent(1, this->quest_data.some_id, 0);
         }
     } else if (param_2 == 12 && param_3 == this->quest_data.obj) {
         return this->quest_data.some_id;
@@ -215,9 +215,9 @@ int32_t QuestDeliverItem::OnEvent(int32_t param_2, int32_t param_3, int32_t para
 
         if (param_3 == this->quest_data.obj && landmark_id == this->quest_data.landmark_id) {
             if (player_id == this->quest_data.player_id && this->quest_data.state != 1) {
-                this->quest_map->sub_55DD10(1, this->quest_data.some_id, 0);
+                this->quest_map->QueueEvent(1, this->quest_data.some_id, 0);
             } else if (player_id != this->quest_data.player_id && this->quest_data.state != 2) {
-                this->quest_map->sub_55DD10(2, this->quest_data.some_id, 0);
+                this->quest_map->QueueEvent(2, this->quest_data.some_id, 0);
             }
         }
     } else if (param_2 == 14 && param_3 == this->quest_data.obj && this->quest_data.state == 0) {
@@ -252,9 +252,9 @@ int32_t QuestDeliverMail::OnEvent(int32_t param_2, int32_t param_3, int32_t para
         if (param_3 == this->quest_data.obj && (param_4 >> 16) == this->quest_data.landmark_id && this->quest_data.state != 1 && this->quest_data.state != 2) {
             DWORD tick = GetTickCount();
             if (tick < ((this->quest_data.limit * 1000) >> 4) + this->progress) {
-                this->quest_map->sub_55DD10(1, this->quest_data.some_id, 0);
+                this->quest_map->QueueEvent(1, this->quest_data.some_id, 0);
             } else {
-                this->quest_map->sub_55DD10(2, this->quest_data.some_id, 0);
+                this->quest_map->QueueEvent(2, this->quest_data.some_id, 0);
             }
         }
     } else if (param_2 == 16 && param_3 == this->quest_data.some_id) {
@@ -288,7 +288,7 @@ int32_t QuestRaiseZombies::OnEvent(int32_t param_2, int32_t param_3, int32_t par
     if (param_2 == 8 && this->quest_data.limit <= (param_3 & 0xffff) && (param_4 & 0xffff) == this->quest_data.player_id) {
         if ((param_4 >> 16) == this->quest_data.landmark_id && this->quest_data.state != 2) {
             this->reward = ((param_3 >> 16) * (param_3 >> 16)) / 5;
-            this->quest_map->sub_55DD10(1, this->quest_data.some_id, 0);
+            this->quest_map->QueueEvent(1, this->quest_data.some_id, 0);
         }
     }
 
@@ -319,7 +319,7 @@ int32_t QuestRaiseSkeletons::OnEvent(int32_t param_2, int32_t param_3, int32_t p
     if (param_2 == 9 && this->quest_data.limit <= (param_3 & 0xffff) && (param_4 & 0xffff) == this->quest_data.player_id) {
         if ((param_4 >> 16) == this->quest_data.landmark_id && this->quest_data.state != 2) {
             this->reward = ((param_3 >> 16) * (param_3 >> 16)) / 5;
-            this->quest_map->sub_55DD10(1, this->quest_data.some_id, 0);
+            this->quest_map->QueueEvent(1, this->quest_data.some_id, 0);
         }
     }
 
@@ -350,7 +350,7 @@ int32_t QuestRaiseGhosts::OnEvent(int32_t param_2, int32_t param_3, int32_t para
     if (param_2 == 10 && this->quest_data.limit <= (param_3 & 0xffff) && (param_4 & 0xffff) == this->quest_data.player_id) {
         if ((param_4 >> 16) == this->quest_data.landmark_id && this->quest_data.state != 2) {
             this->reward = ((param_3 >> 16) * (param_3 >> 16)) / 8;
-            this->quest_map->sub_55DD10(1, this->quest_data.some_id, 0);
+            this->quest_map->QueueEvent(1, this->quest_data.some_id, 0);
         }
     }
 
@@ -385,11 +385,11 @@ int32_t QuestInterceptUnit::OnEvent(int32_t param_2, int32_t param_3, int32_t pa
                 this->quest_map->flags[this->quest_data.player_id] = 0x80;
                 return 0;
             }
-            this->quest_map->sub_55DD10(1, this->quest_data.some_id, 0);
+            this->quest_map->QueueEvent(1, this->quest_data.some_id, 0);
         }
     } else if (param_2 == 6) {
         if (param_3 == this->quest_data.obj && (param_4 >> 16) == this->quest_data.landmark_id && this->quest_data.state != 2) {
-            this->quest_map->sub_55DD10(2, this->quest_data.some_id, 0);
+            this->quest_map->QueueEvent(2, this->quest_data.some_id, 0);
         }
     } else if (param_2 == 0xc && param_3 == this->quest_data.obj) {
         return this->quest_data.some_id;
@@ -426,11 +426,11 @@ int32_t QuestInterceptGroup::OnEvent(int32_t param_2, int32_t param_3, int32_t p
                 this->quest_map->flags[this->quest_data.player_id] = 0x80;
                 return 0;
             }
-            this->quest_map->sub_55DD10(1, this->quest_data.some_id, 0);
+            this->quest_map->QueueEvent(1, this->quest_data.some_id, 0);
         }
     } else if (param_2 == 11) {
         if (param_3 == this->quest_data.obj && (param_4 >> 16) == this->quest_data.landmark_id && this->quest_data.state != 2) {
-            this->quest_map->sub_55DD10(2, this->quest_data.some_id, 0);
+            this->quest_map->QueueEvent(2, this->quest_data.some_id, 0);
         }
     } else if (param_2 == 13 && param_3 == this->quest_data.obj) {
         return this->quest_data.some_id;
@@ -461,7 +461,7 @@ QuestKillInnDefenders::~QuestKillInnDefenders() {}
 // 56032D
 int32_t QuestKillInnDefenders::OnEvent(int32_t param_2, int32_t param_3, int32_t param_4) {
     if (param_2 == 15 && param_3 == this->quest_data.obj && (param_4 & 0xffff) == this->quest_data.player_id && this->quest_data.state != 2) {
-        this->quest_map->sub_55DD10(1, this->quest_data.some_id, 0);
+        this->quest_map->QueueEvent(1, this->quest_data.some_id, 0);
     }
 
     return Quest::OnEvent(param_2, param_3, param_4);

@@ -69,7 +69,7 @@ void QuestInnGlue::VMethod2(Quest* quest) {
             g_NetStru1_main.TransferUnitOwnership(unit, building->pOwner);
         }
     }
-    this->quest_map->sub_55DD10(6, inn_id, this->building_id << 16);
+    this->quest_map->QueueEvent(6, inn_id, this->building_id << 16);
 }
 
 // 5BAA38
@@ -102,7 +102,7 @@ void QuestInnGlue::VMethod3(Quest* quest) {
 
     if (found) {
         int32_t item_id = quest->Something3();
-        this->quest_map->sub_55DD10(7, item_id, (this->building_id << 16) | player_id);
+        this->quest_map->QueueEvent(7, item_id, (this->building_id << 16) | player_id);
     }
 }
 
@@ -146,7 +146,7 @@ void QuestInnGlue::VMethod4(Quest* quest) {
     }
 
     if (found) {
-        this->quest_map->sub_55DD10(11, group_id, this->building_id << 16);
+        this->quest_map->QueueEvent(11, group_id, this->building_id << 16);
     }
 }
 
@@ -185,7 +185,7 @@ void QuestInnGlue::VMethod5(Quest* quest) {
         return;
     }
 
-    this->quest_map->sub_55DD10(8, (hp_sum << 16) | count, (this->building_id << 16) | player_id);
+    this->quest_map->QueueEvent(8, (hp_sum << 16) | count, (this->building_id << 16) | player_id);
 
     for (POSITION gpos = player->group_list->groups.GetHeadPosition(); gpos != nullptr;) {
         Group* group = player->group_list->groups.GetNext(gpos);
@@ -254,7 +254,7 @@ void QuestInnGlue::VMethod6(Quest* quest) {
             }
         }
     }
-    this->quest_map->sub_55DD10(9, (hp_sum << 16) | count, (this->building_id << 16) | player_id);
+    this->quest_map->QueueEvent(9, (hp_sum << 16) | count, (this->building_id << 16) | player_id);
 }
 
 // 5BB10A
@@ -308,7 +308,7 @@ void QuestInnGlue::VMethod7(Quest* quest) {
         }
     }
 
-    this->quest_map->sub_55DD10(10, (hp_sum << 16) | count, (this->building_id << 16) | player_id);
+    this->quest_map->QueueEvent(10, (hp_sum << 16) | count, (this->building_id << 16) | player_id);
 }
 
 // 5BB310

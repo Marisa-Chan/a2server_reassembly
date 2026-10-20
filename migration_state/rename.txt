@@ -787,3 +787,4 @@ QuestMap::VMethod1 -> OnEvent -- dispatches the event to every quest, returns th
 QuestMap::sub_55D6F7 -> DeleteGlues -- frees all QuestInnGlue objects and empties the map
 QuestMap::sub_55E00C -> ProcessDeferredEvents -- drives the inn glues and drains the queued quest events
 QuestMap::sub_55E027 -> ProcessInnGlues -- runs every inn glue's quest iteration
+QuestMap::sub_55DE84 -> ProcessQueuedEvents -- drains the QuestSubstruct queue firing OnEvent for each

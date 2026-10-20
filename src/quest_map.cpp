@@ -82,7 +82,7 @@ void QuestMap::DeleteGlues() {
 }
 
 // 55DD10
-void QuestMap::sub_55DD10(int32_t event_type, int32_t a, int32_t b) {
+void QuestMap::QueueEvent(int32_t event_type, int32_t a, int32_t b) {
 	QuestSubstruct* sub = new QuestSubstruct;
 	sub->id = event_type;
 	sub->building_id = a;
