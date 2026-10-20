@@ -162,7 +162,7 @@ public:
     CString GetSelectedRosterPath(); //420070
     void SaveKillStats(); //494982
 
-    int32_t FUN_00420110() { return this->field_0x118; }; //420110
+    int32_t GetSkillTier2() { return this->field_0x118; }; //420110
     int32_t GetSkillTier1() { return this->field_0x114; }; //4200f0
 
     int SubmitCharacterSetupAndWaitForSelectedUnit(); //493ffe
