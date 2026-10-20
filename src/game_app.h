@@ -134,7 +134,7 @@ extern PlayersList* g_PlayersList; //6cdb24
 int32_t __cdecl Random0N(int32_t n); // returns [0, n]
 int32_t __cdecl Random1N(int32_t n); // returns [1, n]
 
-// RollRandomItem: Create a random item (arg1 = level, arg2 = max_gold range).
+// RollRandomItem: Create a random item (level = item tier, max_gold = max price range).
 Item* __cdecl RollRandomItem(int32_t level, int32_t max_gold);
 
 double __cdecl Rand01();                                        // 5421FD - returns rand()/RAND_MAX in [0,1)
