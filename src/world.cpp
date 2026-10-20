@@ -3458,7 +3458,7 @@ void World::IdleSelfBuff(Unit* unit) {
 }
 
 // 5AB35B
-void World::sub_5AB35B(Unit* unit) {
+void World::DoScriptedPatrol(Unit* unit) {
     uint8_t v14 = this->waypoint_table[1];
     bool nearby = false;
 
@@ -4036,7 +4036,7 @@ void World::ProcessUnitState(Unit* unit) {
         this->DoTeleportHome(unit);
         break;
     case 24:
-        this->sub_5AB35B(unit);
+        this->DoScriptedPatrol(unit);
         break;
     case 25:
         this->sub_5AB5E3(unit);

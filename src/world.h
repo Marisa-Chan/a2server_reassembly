@@ -206,7 +206,7 @@ public:
     void AiDefendBrain(Group* group); // 5AE7C3
     void AiStandBrain(Group* group); // 5AEFE5
 
-    void sub_5AB35B(Unit* unit); // 5AB35B
+    void DoScriptedPatrol(Unit* unit); // 5AB35B
     void sub_5AB5E3(Unit* unit); // 5AB5E3
     void UpdateGroupCenter(Group* group); // 5AB92C
     void ScanNearbyUnits(Group* group); // 5ADB16
