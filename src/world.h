@@ -198,7 +198,7 @@ public:
     void RunAiUnitState(Unit* unit); // 5A5188 — AI wrapper for ProcessUnitState.
     void ProcessUnitState(Unit* unit); // 5A51A1 — per-state unit action dispatcher.
     void AiGuardBrain(Group* group); // 5AE628
-    void AiAttackBrain(Group* group, uint16_t param); // 5AEC20
+    void AiAttackBrain(Group* group, uint16_t target_yx); // 5AEC20
     void AiAggroBrain(Group* group); // 5AEF66
     void AiMoveBrain(Group* group, uint16_t param); // 5AF061
     void AiSwarmBrain(Group* group, uint16_t param); // 5AECE7

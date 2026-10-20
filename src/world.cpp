@@ -800,7 +800,7 @@ uint32_t World::ComputeListAvgPos(UnitList* list) {
 }
 
 // 5AEC20
-void World::AiAttackBrain(Group* group, uint16_t param) {
+void World::AiAttackBrain(Group* group, uint16_t target_yx) {
     this->ScanNearbyUnits(group);
     this->AssignNearbyTargets(group);
 
@@ -810,10 +810,10 @@ void World::AiAttackBrain(Group* group, uint16_t param) {
         if (unit->eye2->unit4 != nullptr) {
             this->DoAttackTarget(unit, unit->eye2->unit4);
         } else {
-            if (unit->position->CompatGetYX() == param && unit->position->IsAtCellCenter()) {
+            if (unit->position->CompatGetYX() == target_yx && unit->position->IsAtCellCenter()) {
                 this->SetIdleOrRetreat(unit, 1);
             } else {
-                this->DoMoveStep(unit, param);
+                this->DoMoveStep(unit, target_yx);
             }
         }
     }

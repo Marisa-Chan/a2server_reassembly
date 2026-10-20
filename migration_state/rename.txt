@@ -1172,3 +1172,4 @@ Item::StoreToPacket arg -> with_shelf_id -- when set, appends the shelf field (f
 Spell::SetPower param -> power -- spell power value (align header with definition)
 World::PlaceRespawnedGroup param -> guard_range -- minimum group guard range after respawn (0 = default 20)
 World::SetFormation param -> formation -- stored to player->settings->formation
+World::AiAttackBrain param -> target_yx -- packed YX position the group holds/moves toward (compared to position->CompatGetYX)
