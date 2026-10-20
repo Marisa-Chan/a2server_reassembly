@@ -1318,7 +1318,7 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
     }
 
     if (str != nullptr) {
-        bmp1->VMethod7();
+        bmp1->FlipVertical();
         static_cast<CBmp64*>(bmp1)->WriteFile(str, bmp2); // TODO: is `bmp1` actually `CBmp64*`?
     }
 

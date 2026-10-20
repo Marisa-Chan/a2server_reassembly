@@ -304,7 +304,7 @@ public:
 	virtual int32_t GetWidth(int frame = 0);
 	virtual int32_t GetHeight(int frame = 0);
 	virtual void SelectBitmapForDraw();
-	virtual void VMethod7();
+	virtual void FlipVertical();
 	virtual int GetPixelSize();
 
 
@@ -338,7 +338,7 @@ public:
 	virtual void Draw(int32_t x, int32_t y, int frame, int mode, int palid) override;
 	virtual int32_t GetWidth(int frame = 0) override;
 	virtual int32_t GetHeight(int frame = 0) override;
-	virtual void VMethod7() override;
+	virtual void FlipVertical() override;
 	virtual int GetPixelSize() override;
 
 	virtual void VMethod9(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, int palid);
@@ -358,7 +358,7 @@ public:
 	virtual void Draw(int32_t x, int32_t y, int frame, int mode, int palid) override;
 	virtual int32_t GetWidth(int frame = 0) override;
 	virtual int32_t GetHeight(int frame = 0) override;
-	virtual void VMethod7() override;
+	virtual void FlipVertical() override;
 
 	virtual void VMethod9(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b);
 	virtual void VMethod10(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b);

@@ -4152,7 +4152,7 @@ void CGameBitmap::SelectBitmapForDraw() { //424d57
 	g_selDrawBitmap.lPitch = this->GetWidth(0) * this->GetPixelSize();
 }
 
-void CGameBitmap::VMethod7() {
+void CGameBitmap::FlipVertical() {
 	//428d80
 }
 
@@ -4221,7 +4221,7 @@ CBmp256::CBmp256(const char* fname) { //425f8c
 	f.Read(this->pdata + sizeof(BmpFrame), pixsz);
 	f.Close();
 
-	CBmp256::VMethod7();
+	CBmp256::FlipVertical();
 
 	this->frames = new void*[1];
 	this->frames[0] = this->pdata + sizeof(BmpFrame);
@@ -4264,7 +4264,7 @@ int32_t CBmp256::GetHeight(int frame) { //4264d5
 	return ((BmpFrame*)this->pdata)->height;
 }
 
-void CBmp256::VMethod7() { //4261a6
+void CBmp256::FlipVertical() { //4261a6
 	const BmpFrame* frm = (BmpFrame*)this->pdata;
 	uint8_t* a = this->pdata + sizeof(BmpFrame);
 	uint8_t* b = this->pdata + sizeof(BmpFrame) + (frm->height - 1) * frm->width;
@@ -4380,7 +4380,7 @@ int32_t CBmp64::GetHeight(int frame) { //425f76
 	return ((BmpFrame*)this->pdata)->height;
 }
 
-void CBmp64::VMethod7() { //425cdb
+void CBmp64::FlipVertical() { //425cdb
 	const BmpFrame* frm = (BmpFrame*)this->pdata;
 	uint16_t* a = (uint16_t*)((uint8_t*)this->pdata + sizeof(BmpFrame));
 	uint16_t* b = (uint16_t*)((uint8_t*)this->pdata + sizeof(BmpFrame)) + (frm->height - 1) * frm->width;
