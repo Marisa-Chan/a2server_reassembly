@@ -3263,7 +3263,7 @@ void World::GroupCastAtPositionCommand(Group* group, uint8_t x, uint8_t y, Spell
 }
 
 // 5AC983 — place a newly respawned group into the world.
-void World::PlaceRespawnedGroup(Group* group, int param) {
+void World::PlaceRespawnedGroup(Group* group, int guard_range) {
     this->ClearGroupOrders(group);
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
@@ -3274,15 +3274,15 @@ void World::PlaceRespawnedGroup(Group* group, int param) {
     group->group_sub->order = 0x12;
     this->RefreshGroupGuardAnchor(group);
 
-    if (param == 0) {
+    if (guard_range == 0) {
         if (group->group_sub->guard_range < this->MinimalGuardRange) {
             group->group_sub->guard_range = 20;
             group->group_sub->guard_range_base = 20;
         }
     } else {
-        if (group->group_sub->guard_range < param) {
-            group->group_sub->guard_range = static_cast<uint8_t>(param);
-            group->group_sub->guard_range_base = static_cast<uint8_t>(param);
+        if (group->group_sub->guard_range < guard_range) {
+            group->group_sub->guard_range = static_cast<uint8_t>(guard_range);
+            group->group_sub->guard_range_base = static_cast<uint8_t>(guard_range);
         }
     }
 

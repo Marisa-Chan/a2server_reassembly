@@ -156,7 +156,7 @@ public:
     void GroupAttackMove(Group* group, uint8_t x, uint8_t y);
     void GroupGuardCommand(Group* group, uint8_t range); // Group guard command, range=0 means use world's MinimalGuardRange.
     void GroupGoHomeCommand(Group* group);
-    void PlaceRespawnedGroup(Group* group, int param); // Place a newly respawned group into the world.
+    void PlaceRespawnedGroup(Group* group, int guard_range); // Place a newly respawned group into the world.
     void OrderAreaCast(Unit* unit, uint8_t x, uint8_t y, Spell* spell); // 5A930F — group area-cast setup (ASM).
     void GroupAttackMoveCommand(Group* group, uint8_t x, uint8_t y);
     void GroupFollowCommand(Group* group, Unit* target, uint8_t range);

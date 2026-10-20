@@ -1170,3 +1170,4 @@ CFameHall::SetDifficulty arg -> difficulty -- stored to difficulty field
 CFameHall::AddTextDocument arg -> doc_id -- fame document id compared against GetDocId and passed to SetDocument
 Item::StoreToPacket arg -> with_shelf_id -- when set, appends the shelf field (field11_0x4d) to the packet
 Spell::SetPower param -> power -- spell power value (align header with definition)
+World::PlaceRespawnedGroup param -> guard_range -- minimum group guard range after respawn (0 = default 20)
