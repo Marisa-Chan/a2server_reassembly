@@ -3937,7 +3937,7 @@ void World::DoGatherLootStep(Unit* unit) {
 
 // Reset unit state and set a movement target from two packed bytes.
 // 5A925C
-void World::sub_5A925C(Unit* unit, uint8_t a, uint8_t b) {
+void World::OrderWalkTo(Unit* unit, uint8_t a, uint8_t b) {
     this->BeginUnitOrder(unit);
     unit->state = 4;
     unit->eye2->command_to = PosYX{a, b}.val;
@@ -3948,7 +3948,7 @@ void World::sub_5A925C(Unit* unit, uint8_t a, uint8_t b) {
 void World::DoScriptedWalk(Unit* unit) {
     this->sub_5A8778(unit, 0x4F5B);
     if (unit->position->GetX() > 0x58) {
-        this->sub_5A925C(unit, 0x52, 0x2F);
+        this->OrderWalkTo(unit, 0x52, 0x2F);
     }
 }
 
