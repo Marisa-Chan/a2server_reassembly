@@ -3814,7 +3814,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
         int32_t res;
         if (this->hat_settings.ishat == 0) {
-            res = this->FUN_004e5466(this->hat_settings.hatip);
+            res = this->CheckWebVersion(this->hat_settings.hatip);
         } else {
             res = this->FUN_00490eb3();
             if (res == 0) {
@@ -5273,7 +5273,7 @@ int32_t MainWindow::RunModalLoop() { //49057b
 }
 
 
-int32_t MainWindow::FUN_004e5466(const CString& addr) { //4e5466
+int32_t MainWindow::CheckWebVersion(const CString& addr) { //4e5466
     HINTERNET agent = InternetOpenA("RageOfMages2", 0, 0, 0, 0);
     if (!agent) {
         return 0;

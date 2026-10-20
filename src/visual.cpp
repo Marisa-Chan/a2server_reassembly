@@ -24683,7 +24683,7 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
                 main_wnd->PostMessage(0x446, 0, 0);
                 return VisScreen::MsgProc(msg, wparam, lparam);
             }
-            res = main_wnd->FUN_004e5466(main_wnd->hat_settings.hatip);
+            res = main_wnd->CheckWebVersion(main_wnd->hat_settings.hatip);
         }
         this->MsgProc(0x48a, res, 0);
         return VisScreen::MsgProc(msg, wparam, lparam);
