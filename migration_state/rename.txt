@@ -933,3 +933,4 @@ UnitList::sub_557AB0 -> CountKillableMonsters -- counts live monster units excl.
 UnitList::sub_5561A1 -> SendVisibilityUpdates -- resends unit state to players whose seen mask diverged
 BuildingsList::sub_557DB2 -> FindById -- finds a building by building_id
 BuildingsList::sub_558128 -> FindNearby -- finds the building within 2 tiles of the position (offset -1,-1)
+BuildingsList::sub_557EA5 -> FindNearbyExact -- finds the building within 2 tiles of the position

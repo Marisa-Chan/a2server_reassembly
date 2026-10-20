@@ -64,7 +64,7 @@ void QuestInnGlue::ProcessEscortTarget(Quest* quest) {
         return;
     }
     if (quest->Kind() == 4) {
-        Building* building = g_Server->srv_stru1->building_list->sub_557F69(this->position);
+        Building* building = g_Server->srv_stru1->building_list->FindClosest(this->position);
         if (building != nullptr) {
             g_NetStru1_main.TransferUnitOwnership(unit, building->pOwner);
         }

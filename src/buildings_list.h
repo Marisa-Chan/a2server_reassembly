@@ -17,7 +17,7 @@ public:
     Building* FindById(uint16_t id); // Look up building by ID
     Building* FindNearby(TokenPos* pos); // Find building at exact position (adjusts pos by -1)
     Building* FindNearbyExact(TokenPos* pos); // Get nearest building at position
-    Building* sub_557F69(TokenPos* pos); // Find nearest building to position
+    Building* FindClosest(TokenPos* pos); // Find nearest building to position
     Building* sub_558055(Player* player); // Find inn owned by given player
     void sub_558228(Building* building); // AddTailAndSetID
     void sub_558908(CArchive& ar); // Serialize

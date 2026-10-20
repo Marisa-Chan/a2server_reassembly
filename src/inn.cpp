@@ -258,7 +258,7 @@ void Inn::InnCreateQuests(Player* player) {
         if (candidates.size() > 0) {
             int pick = Random0N(candidates.size() - 1);
             Unit* unit = candidates[pick];
-            Building* near_building = building_list->sub_557F69(unit->position);
+            Building* near_building = building_list->FindClosest(unit->position);
 
             int32_t obj = unit->building_id;
             int32_t near_id = near_building ? near_building->building_id : 0;
@@ -335,7 +335,7 @@ void Inn::InnCreateQuests(Player* player) {
             avg_y /= count;
 
             TokenPos pos(avg_x, avg_y, g_World->field24_0xa50);
-            Building* near_building = building_list->sub_557F69(&pos);
+            Building* near_building = building_list->FindClosest(&pos);
 
             int32_t obj = grp->group_id;
             int32_t near_id = near_building ? near_building->building_id : 0;
@@ -397,7 +397,7 @@ void Inn::InnCreateQuests(Player* player) {
         if (candidates.size() > 0) {
             int pick = Random0N(candidates.size() - 1);
             Unit* unit = candidates[pick];
-            Building* near_building = building_list->sub_557F69(unit->position);
+            Building* near_building = building_list->FindClosest(unit->position);
 
             int32_t obj = unit->building_id;
             int32_t landmark_id = this->building_id;

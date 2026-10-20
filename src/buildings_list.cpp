@@ -50,7 +50,7 @@ Building* BuildingsList::FindNearbyExact(TokenPos* pos) {
 }
 
 // 557F69
-Building* BuildingsList::sub_557F69(TokenPos* pos) {
+Building* BuildingsList::FindClosest(TokenPos* pos) {
 	int32_t best_distance = 0x7FFF;
 	Building* best_building = nullptr;
 	for (POSITION it = this->GetHeadPosition(); it != nullptr;) {
