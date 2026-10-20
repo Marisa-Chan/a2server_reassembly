@@ -6662,7 +6662,7 @@ void BigStruct2::sub_40BD34() {
 		this->sub_40C18B();
 	}
 	if ((this->field_0xa88 & 0xF) == 0 && g_SoundSettings.music_allowed != 0 && this->field_0x3f6c != nullptr) {
-		FUN_00476c0d(this->field_0x3f6c->x_pos, this->field_0x3f6c->y_pos);
+		UpdatePositionalMusic(this->field_0x3f6c->x_pos, this->field_0x3f6c->y_pos);
 	}
 
 	CDWordArray arr;

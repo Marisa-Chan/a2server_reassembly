@@ -688,7 +688,7 @@ void MainWindow::FUN_00494c91() {
         delete plist;
 
         if (this->vis_map_context->field_0x3f6c != nullptr) {
-            FUN_00476c0d(this->vis_map_context->field_0x3f6c->x_pos, this->vis_map_context->field_0x3f6c->y_pos);
+            UpdatePositionalMusic(this->vis_map_context->field_0x3f6c->x_pos, this->vis_map_context->field_0x3f6c->y_pos);
         }
 
         if (g_CurrentMusicTrack >= 0) {

@@ -808,3 +808,4 @@ free: FUN_00438dd0 -> FreeSfxSample -- stops the playing channel and deletes the
 free: FUN_00438e40 -> ReloadSfx -- stops and reloads the sample from file
 free: FUN_00438f20 -> StopSfx -- stops the playing channel if any
 free: FUN_004a4740 -> PlayAmbientSfx -- plays the sample (looping) if not already playing
+free: FUN_004c86f5 -> UnloadAllSfx -- deletes every g_SfxArray sample and unloads the voice banks

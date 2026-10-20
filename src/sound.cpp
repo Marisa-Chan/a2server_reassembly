@@ -1138,7 +1138,7 @@ void UnloadAllSfx() {
 }
 
 // 476c0d
-void FUN_00476c0d(int32_t x, int32_t y) {
+void UpdatePositionalMusic(int32_t x, int32_t y) {
 	int32_t best = -1;
 	double best_dist = 1e20;
 
