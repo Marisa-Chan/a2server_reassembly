@@ -1243,7 +1243,7 @@ void MainWindow::OnPaint() {
         CRect rect;
         CPaintDC dc(this);
         rect = dc.m_ps.rcPaint;
-        FUN_00454a1e(rect.left, rect.top, rect.right, rect.bottom);
+        FlushRect(rect.left, rect.top, rect.right, rect.bottom);
     } else if (g_IsServer != 0) {
         this->Default();
     }

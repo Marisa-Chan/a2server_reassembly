@@ -180,7 +180,7 @@ void __cdecl SetClipRect(int32_t l, int32_t t, int32_t r, int32_t b) {
 }
 
 //454a1e
-void __cdecl FUN_00454a1e(int32_t l, int32_t t, int32_t r, int32_t b) {
+void __cdecl FlushRect(int32_t l, int32_t t, int32_t r, int32_t b) {
 	CRect rc(l, t, r, b);
 	gfxFlushRect(rc);
 }

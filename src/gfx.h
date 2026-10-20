@@ -199,7 +199,7 @@ void FreeDDraw(); //454219
 void FreeBrightnessLookup(); //453cf9
 void SaveScreenshot(); //453d33
 void FUN_0047c6cd(); //47c6cd
-void FUN_00454a1e(int32_t l, int32_t t, int32_t r, int32_t b); //454a1e in asm
+void FlushRect(int32_t l, int32_t t, int32_t r, int32_t b); //454a1e in asm
 extern IDirectDraw* g_ddraw; //659bec
 
 
