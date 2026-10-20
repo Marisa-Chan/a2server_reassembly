@@ -21,7 +21,7 @@ public: // VTable at 60fde8.
     virtual void ProcessQuests();
     virtual void ProcessEscortTarget(Quest* quest);
     virtual void ProcessDeliverItem(Quest* quest);
-    virtual void VMethod4(Quest* quest);
+    virtual void ProcessInterceptGroup(Quest* quest);
     virtual void VMethod5(Quest* quest);
     virtual void VMethod6(Quest* quest);
     virtual void VMethod7(Quest* quest);

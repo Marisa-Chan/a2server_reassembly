@@ -41,7 +41,7 @@ void QuestInnGlue::ProcessQuests() {
         case 8:  this->VMethod5(this->current_quest); break;
         case 9:  this->VMethod6(this->current_quest); break;
         case 10: this->VMethod7(this->current_quest); break;
-        case 11: this->VMethod4(this->current_quest); break;
+        case 11: this->ProcessInterceptGroup(this->current_quest); break;
         }
     }
 }
@@ -107,7 +107,7 @@ void QuestInnGlue::ProcessDeliverItem(Quest* quest) {
 }
 
 // 5BABAA
-void QuestInnGlue::VMethod4(Quest* quest) {
+void QuestInnGlue::ProcessInterceptGroup(Quest* quest) {
     int32_t group_id = quest->Something3();
     bool found = false;
     if (quest->field_0x2c == nullptr) {
