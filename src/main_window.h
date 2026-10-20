@@ -159,7 +159,7 @@ public:
     void FUN_004946e0(); //4946e0
     void FUN_004946ae(); //4946ae
 
-    CString FUN_00420070(); //420070
+    CString GetSelectedRosterPath(); //420070
     void FUN_00494982(); //494982
 
     int32_t FUN_00420110() { return this->field_0x118; }; //420110

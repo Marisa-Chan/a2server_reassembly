@@ -864,3 +864,4 @@ CFameHall::FUN_004ac945 -> LoadEntries -- reads the fame leaderboard entries fro
 CFameHall::FUN_004ac706 -> SaveDocuments -- writes documents + play-time stats to file
 CFameHall::FUN_004ac7a2 -> LoadDocuments -- reads documents + play-time stats from file
 CFameHall::FUN_004ac3ce -> AddEntry -- inserts a fame entry keeping score order
+CFameHall::FUN_00420050 -> AddDifficultyPoint -- m_nDifficultyWeight++

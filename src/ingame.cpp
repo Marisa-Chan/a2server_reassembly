@@ -1170,7 +1170,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							}
 						}
 
-						CString fname = wnd->m_GameSession.FUN_00420070();
+						CString fname = wnd->m_GameSession.GetSelectedRosterPath();
 						WritePlayerFile_4F53EA(fname, nullptr, nullptr, nullptr, packet_state, nullptr, nullptr, 0);
 					}
 				}
@@ -1293,7 +1293,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							}
 
 
-							CString fname = wnd->m_GameSession.FUN_00420070();
+							CString fname = wnd->m_GameSession.GetSelectedRosterPath();
 							WritePlayerFile_4F53EA(fname, nullptr, nullptr, nullptr, packet_state, nullptr, nullptr, 0);
 						}
 

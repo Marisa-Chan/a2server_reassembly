@@ -5938,7 +5938,7 @@ void CGameSession::SetCharacterStats(int32_t body, int32_t reaction, int32_t min
     this->RecreateCUnit();
 }
 
-CString CGameSession::FUN_00420070() { //420070
+CString CGameSession::GetSelectedRosterPath() { //420070
     if (this->selectedCharacterRosterFileIndex < this->characterRosterFilePaths.GetSize()) {
         return this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex];
     }
