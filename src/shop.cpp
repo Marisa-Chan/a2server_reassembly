@@ -74,7 +74,7 @@ void Shop::sub_54463F() {
 }
 
 // 544655
-void Shop::sub_544655(Unit* unit) {
+void Shop::AttachUnit(Unit* unit) {
     this->shop_template->OpenShopFor(unit);
     if (g_Server->field4_0x74 != 0) {
         unit->RemoveFromMap();

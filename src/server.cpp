@@ -3444,7 +3444,7 @@ void Server::sub_504a96(Packet* pkt) {
             }
             unit->CancelQueuedSpell();
             unit->pOwner->building_entered_from_yx = unit->position->GetY() * 0x100 + unit->position->GetX();
-            shop->sub_544655(unit);
+            shop->AttachUnit(unit);
             break;
         }
 
