@@ -52,7 +52,7 @@ public:
     CMultiShopTemplate(); // 54687B
     CMultiShopTemplate(Shop* shop); // 546C72
 
-    void NotifyOtherInstances(CMultiShopInstance* inst, int param); // 546F18
+    void NotifyOtherInstances(CMultiShopInstance* inst, int shelf_id); // 546F18
     CMultiShopInstance* CreateInstance(Unit* unit); // 546F8D
     int FindInstanceIndex(Unit* unit); // 54740C - find shop instance index for unit's owner
     void ClearShelves(); // 54749F - clear all shelf items

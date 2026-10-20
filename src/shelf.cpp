@@ -340,11 +340,11 @@ CMultiShopTemplate::~CMultiShopTemplate() {
 }
 
 // 546F18
-void CMultiShopTemplate::NotifyOtherInstances(CMultiShopInstance* inst, int param) {
+void CMultiShopTemplate::NotifyOtherInstances(CMultiShopInstance* inst, int shelf_id) {
     for (int32_t i = 0; i < this->shop_instances.GetSize(); i++) {
         CMultiShopInstance* other = this->shop_instances[i];
         if (other != nullptr && other != inst) {
-            other->SendShelfState(param);
+            other->SendShelfState(shelf_id);
         }
     }
 }
