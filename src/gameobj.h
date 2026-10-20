@@ -132,7 +132,7 @@ public:
 	virtual int32_t GetTileHeight();
 	virtual void Draw(int32_t tile_x, int32_t tile_y, int32_t light);
 	virtual void DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light);
-	virtual void DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t arg3);
+	virtual void DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt);
 	virtual void DrawMinimapRect(int32_t arg1, int32_t arg2, int32_t arg3);
 	virtual void UpdateTileLayer();
 	virtual int32_t Update();
@@ -244,7 +244,7 @@ public:
 	virtual int32_t GetTileHeight() override;
 	virtual void Draw(int32_t tile_x, int32_t tile_y, int32_t light) override;
 	virtual void DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) override;
-	virtual void DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t arg3) override;
+	virtual void DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) override;
 	virtual void DrawMinimapRect(int32_t arg1, int32_t arg2, int32_t arg3) override;
 	virtual void UpdateTileLayer() override;
 	virtual int32_t Update() override;
@@ -454,7 +454,7 @@ public:
 	virtual int32_t GetTileHeight() override; //4637eb
 	virtual void Draw(int32_t tile_x, int32_t tile_y, int32_t light) override; //462d11
 	virtual void DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) override; //462f58
-	virtual void DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t arg3) override; //4631f3
+	virtual void DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) override; //4631f3
 	virtual void DrawMinimapRect(int32_t arg1, int32_t arg2, int32_t arg3) override; //46380c
 	virtual void UpdateTileLayer() override; //462b0f
 	virtual int32_t Update() override; //463a05
