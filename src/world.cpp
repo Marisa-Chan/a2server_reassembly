@@ -3768,7 +3768,7 @@ int32_t World::WantsRetreat(Unit* unit) {
 // Check whether the unit is below its withdraw threshold and has nearby enemies.
 // Returns 1 if the unit should teleport away, 0 otherwise.
 // 5A8BDA
-int32_t World::sub_5A8BDA(Unit* unit) {
+int32_t World::MustFlee(Unit* unit) {
     if (unit->hp > unit->eye2->withdraw) {
         return 0;
     }
@@ -3956,7 +3956,7 @@ void World::DoScriptedWalk(Unit* unit) {
 void World::ProcessUnitRecall(Unit* unit) {
     if (this->WantsRetreat(unit) != 0) {
         this->DoTeleportHome(unit);
-    } else if (this->sub_5A8BDA(unit) != 0) {
+    } else if (this->MustFlee(unit) != 0) {
         this->sub_5A8CD8(unit);
     }
 }

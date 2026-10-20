@@ -1034,3 +1034,4 @@ World::sub_5A3AD6 -> SplitTargetLists -- populates the attack/non-attack target 
 World::sub_5A6ED9 -> ShouldPursueTarget -- target-pursuit check for AI mages
 World::sub_5A3791 -> BuildNearbyList -- BuildNearbyUnitList at the unit's eye scan range
 World::sub_5A3DC9 -> RemoveAirborneTargets -- drops flying units from the list when the unit is melee-only
+World::sub_5A89D5 -> WantsRetreat -- hp at or below wimpy and allies nearby

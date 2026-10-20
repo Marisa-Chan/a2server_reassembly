@@ -341,7 +341,7 @@ public:
     UnitList* BuildNearbyList(Unit* unit); // 5A3791 — helper for GetNearbyUnits (ASM).
     void RemoveAirborneTargets(Unit* unit, UnitList* list); // 5A3DC9 — helper for GetNearbyUnits (ASM).
     int32_t WantsRetreat(Unit* unit); // 5A89D5 — helper for ProcessUnitRecall (ASM).
-    int32_t sub_5A8BDA(Unit* unit); // 5A8BDA — helper for ProcessUnitRecall (ASM).
+    int32_t MustFlee(Unit* unit); // 5A8BDA — helper for ProcessUnitRecall (ASM).
     void sub_5A8CD8(Unit* unit); // 5A8CD8 — helper for ProcessUnitRecall.
     void sub_5A8DBC(Unit* unit); // 5A8DBC — helper for sub_5A8CD8 (ASM).
     void sub_5A925C(Unit* unit, uint8_t a, uint8_t b); // 5A925C — helper for DoScriptedWalk (ASM).
