@@ -102,7 +102,7 @@ void Shop::sub_544737(Unit* unit) {
 
 // 544777
 void Shop::sub_544777(Unit* unit) {
-    this->shop_template->sub_547D7F(unit);
+    this->shop_template->ReturnConsignedItems(unit);
 }
 
 // 544793
