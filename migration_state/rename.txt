@@ -1016,3 +1016,4 @@ World::sub_5AB719 -> ComputeGroupAvgPos -- average packed position of the group'
 World::sub_5ABB32 -> CanClaimMoveCell -- whether a 1-cell human unit may head for yx (free, not already targeted)
 World::sub_5AF805 -> SetWithdrawThresholds -- per aggression mode sets eye2->withdraw = hp_max * percent
 World::sub_5AFA01 -> SetWimpyThresholds -- per aggression mode sets eye2->wimpy = hp_max * percent
+World::sub_5AA485 -> DoIdleFidget -- idle stand: occasionally picks a new random facing

@@ -174,7 +174,7 @@ public:
     void DoTurnTo(Unit* unit, uint8_t facing); // 5AA426
     void DoIdleFidget(Unit* unit); // 5AA485
     void StartAttack(Unit* unit); // 5AA78C
-    void sub_5AA8ED(Unit* unit); // 5AA8ED
+    void FinishSwarmArrival(Unit* unit); // 5AA8ED
     void StepTowardUnit(Unit* unit, Unit* target);
     void ChaseOrAttack(Unit* unit); // 5AA97E
     void CheckMoveArrival(Unit* unit); // 5AA9F6

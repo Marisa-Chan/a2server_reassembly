@@ -1366,7 +1366,7 @@ void World::MonsterAiTick(Unit* unit) {
             this->sub_5AAEBC(unit);
             break;
         case 7:
-            this->sub_5AA8ED(unit);
+            this->FinishSwarmArrival(unit);
             break;
         case 8:
             this->ChaseOrCast(unit);
@@ -2728,7 +2728,7 @@ void World::ResetUnitToIdle(Unit* unit) {
 
 // Toggle a unit between state 2 and a full idle reset.
 // 5AA8ED
-void World::sub_5AA8ED(Unit* unit) {
+void World::FinishSwarmArrival(Unit* unit) {
     if (unit->some_state == 2) {
         this->ResetUnitToIdle(unit);
     } else {
