@@ -4709,7 +4709,7 @@ int Server::LoadGame(CString param_1) {
         }
     }
 
-    g_QuestMap.sub_55ECFE(0);
+    g_QuestMap.RemovePlayerQuests(0);
 
     if (this->field19_0x98.field4_0x28.GetSize() < 3 && g_ServerConfig.gameType == 3) {
         BuildingsList* building_list = this->srv_stru1->building_list;

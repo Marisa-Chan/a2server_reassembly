@@ -43,7 +43,7 @@ public:
     int32_t PickRandomOtherInn(int32_t building_id);
     int32_t FindQuest(uint32_t id, Quest** out); //4a47a0 in asm
     void AddInnGlue(QuestInnGlue* glue); // Add QuestInnGlue to quest map
-    void sub_55ECFE(int32_t player_id);
+    void RemovePlayerQuests(int32_t player_id);
 
     Quest* FUN_0055ee42(int quest_kind);
 

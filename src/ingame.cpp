@@ -2141,7 +2141,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		case 0xbb: {
 			bool isnull = this->field_0x4970->FUN_0041ec00() == 0;
 
-			this->field_0x4970->sub_55ECFE(0);
+			this->field_0x4970->RemovePlayerQuests(0);
 
 			uint16_t* dat = packet_terrain->buf + 1;
 
@@ -2165,7 +2165,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			if ((wnd->dialogsMask & 4) != 0) {
 				VisTav* tavern = (VisTav*)wnd->vis_root->FindChild(1100);
 				if (tavern) {
-					tavern->quest_map->sub_55ECFE(0);
+					tavern->quest_map->RemovePlayerQuests(0);
 
 					uint16_t* dat = packet_terrain->buf + 1;
 					for (int i = 0; i < packet_terrain->buf[0]; i++) {
@@ -7055,7 +7055,7 @@ void BigStruct2::FUN_0041c4a1(const char* name) {
 	wnd->vis_right_panel->MsgProc(0x403, (uint32_t)this, 0);
 	this->FUN_0041d97e(1);
 	sub_477B59(this->field_0x80->terrain_tile_mask);
-	this->field_0x4970->sub_55ECFE(0);
+	this->field_0x4970->RemovePlayerQuests(0);
 }
 
 // 403395

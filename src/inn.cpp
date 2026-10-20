@@ -650,7 +650,7 @@ void Inn::RegenTick() {
             uint32_t player_id;
             QuestMap* qmap;
             this->quest_map_per_player.GetNextAssoc(qpos, player_id, qmap);
-            qmap->sub_55ECFE(player_id);
+            qmap->RemovePlayerQuests(player_id);
         }
         this->quest_roll_counter = 0;
     }

@@ -243,7 +243,7 @@ void PlayersList::ProcessPlayerTimeouts() {
 					g_Server->SaveCharacter(player->main_unit);
 				}
 
-				g_QuestMap.sub_55ECFE(player->player_id);
+				g_QuestMap.RemovePlayerQuests(player->player_id);
 
 				// Remove all units from map and move to dead pool.
 				CList<Unit*>* unit_list = nullptr;

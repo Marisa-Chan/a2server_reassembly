@@ -129,7 +129,7 @@ void QuestMap::AddInnGlue(QuestInnGlue* glue) {
 }
 
 // 55ECFE
-void QuestMap::sub_55ECFE(int32_t player_id) {
+void QuestMap::RemovePlayerQuests(int32_t player_id) {
 	this->assoc = this->quests_map.GetStartPosition();
 	while (this->assoc != nullptr) {
 		uint32_t key = 0;

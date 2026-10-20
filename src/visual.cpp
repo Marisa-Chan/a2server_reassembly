@@ -13221,7 +13221,7 @@ void VisTav::DoClose(uint32_t code) {
     this->reserved_entries.RemoveAll();
 
     VisScreen::DoClose(code);
-    this->quest_map->sub_55ECFE(0);
+    this->quest_map->RemovePlayerQuests(0);
 
     while (this->rewards.GetSize() != 0) {
         TokenEntry* entry = this->rewards[0];
@@ -15507,7 +15507,7 @@ void VisTavDruid::DoClose(uint32_t code) {
     this->reserved_entries.RemoveAll();
 
     VisScreen::DoClose(code);
-    this->quest_map->sub_55ECFE(0);
+    this->quest_map->RemovePlayerQuests(0);
 
     while (this->rewards.GetSize() != 0) {
         TokenEntry* entry = this->rewards[0];
@@ -15783,7 +15783,7 @@ void VisTavKaarg::DoClose(uint32_t code) {
     this->reserved_entries.RemoveAll();
 
     VisScreen::DoClose(code);
-    this->quest_map->sub_55ECFE(0);
+    this->quest_map->RemovePlayerQuests(0);
 
     while (this->rewards.GetSize() != 0) {
         TokenEntry* entry = this->rewards[0];
