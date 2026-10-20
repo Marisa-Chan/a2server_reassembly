@@ -788,3 +788,4 @@ QuestMap::sub_55D6F7 -> DeleteGlues -- frees all QuestInnGlue objects and emptie
 QuestMap::sub_55E00C -> ProcessDeferredEvents -- drives the inn glues and drains the queued quest events
 QuestMap::sub_55E027 -> ProcessInnGlues -- runs every inn glue's quest iteration
 QuestMap::sub_55DE84 -> ProcessQueuedEvents -- drains the QuestSubstruct queue firing OnEvent for each
+QuestMap::sub_55DD10 -> QueueEvent -- appends (event_type,a,b) to the deferred QuestSubstruct queue

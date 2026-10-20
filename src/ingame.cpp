@@ -2152,7 +2152,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				qwa->CopyFields((QuestData*)dat);
 				dat = (uint16_t*)(((QuestData*)dat) + 1);
 
-				this->field_0x4970->sub_55E24A(qwa);
+				this->field_0x4970->RegisterQuest(qwa);
 			}
 
 			if (isnull && field_0x4970->FUN_0041ec00() != 0) {
@@ -2175,7 +2175,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						qwa->CopyFields((QuestData*)dat);
 						dat = (uint16_t*)(((QuestData*)dat) + 1);
 
-						tavern->quest_map->sub_55E24A(qwa);
+						tavern->quest_map->RegisterQuest(qwa);
 					}
 				}
 			}

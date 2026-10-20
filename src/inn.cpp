@@ -69,7 +69,7 @@ static Quest* MakeActiveQuest(Inn* inn, Quest* q) {
 static void RegisterQuest(Inn* inn, Quest* q, int some_id, int player_id, int building_id, int obj, int landmark_id, int limit, int reward) {
     q->Initialize(some_id, player_id, building_id, obj, landmark_id, limit, reward);
     q->quest_data.state = 3;
-    inn->quest_map->sub_55E24A(q);
+    inn->quest_map->RegisterQuest(q);
 }
 
 // 567B4D
@@ -1213,7 +1213,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                 // Process the quest
                 qm->sub_55E5FB(this->active_quest);
                 this->active_quest->quest_data.state = 0;
-                g_QuestMap.sub_55E24A(this->active_quest);
+                g_QuestMap.RegisterQuest(this->active_quest);
                 g_NetStru1_main.SendSrvStru1State(&g_QuestMap, humanoid->pOwner, 0);
                 g_NetStru1_main.FUN_0051ce86(0x10, 0, humanoid->pOwner);
 

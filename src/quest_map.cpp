@@ -91,7 +91,7 @@ void QuestMap::QueueEvent(int32_t event_type, int32_t a, int32_t b) {
 }
 
 // 55E24A
-void QuestMap::sub_55E24A(Quest* quest) {
+void QuestMap::RegisterQuest(Quest* quest) {
 	this->quests_map[quest->quest_data.some_id] = quest;
 	quest->quest_map = this;
 
