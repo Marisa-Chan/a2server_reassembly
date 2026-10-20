@@ -192,7 +192,7 @@ void File2::Flush() {
 
 void File2::Close() {
 	//4e6cc6
-	Resources::ResFiles.FUN_004e6763(this->file);
+	Resources::ResFiles.CloseFile(this->file);
 	this->file = nullptr;
 };
 

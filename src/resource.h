@@ -117,7 +117,7 @@ struct Resources {
     void AddResFile(const char* path);
 
     FatInfo* GetFatInfo(const char* fpath);
-    void FUN_004e6763(CFile* fil);
+    void CloseFile(CFile* fil);
     void FUN_004e6409(const char* fpath);
 
     static void FUN_004e632d(const char* fpath);

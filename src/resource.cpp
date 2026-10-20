@@ -170,7 +170,7 @@ FatInfo* Resources::GetFatInfo(const char* fpath) {
     return nullptr;
 }
 
-void Resources::FUN_004e6763(CFile* fil) {
+void Resources::CloseFile(CFile* fil) {
     //4e6763
     for (int i = 0; i < this->files.GetSize(); i++) {
         if (this->files[i] == fil) {
