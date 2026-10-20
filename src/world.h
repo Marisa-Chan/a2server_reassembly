@@ -114,7 +114,7 @@ public:
     World(MapStuff* map_stuff, PlayersList* players_list); // 5A4B1A
     ~World();
 
-    void sub_5A457A(); // 5A457A
+    void Init(); // 5A457A
     void sub_5A44C5(); // 5A44C5
     void sub_5A44DB(); // 5A44DB
     void sub_5A3F3A(); // 5A3F3A

@@ -72,7 +72,7 @@ void Diplomacy::RegisterPlayer(Player* player) {
 
 // 5A4B1A
 World::World(MapStuff* map_stuff, PlayersList* players_list) {
-    this->sub_5A457A();
+    this->Init();
     this->ResetMatchState();
     std::memset(this->field57_0xc554, 0, sizeof(this->field57_0xc554));
     this->field24_0xa50 = map_stuff;
@@ -2841,7 +2841,7 @@ void World::GroupSwarmCommand(Group* group, uint8_t x, uint8_t y) {
 }
 
 // 5A457A
-void World::sub_5A457A() {
+void World::Init() {
     this->sub_5A44C5();
 }
 
