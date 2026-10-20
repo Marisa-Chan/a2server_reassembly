@@ -243,17 +243,17 @@ void CFameHall::SetDifficulty(uint32_t difficulty) {
     this->difficulty = difficulty;
 }
 
-uint32_t CFameHall::AddTextDocument(int32_t arg) {
+uint32_t CFameHall::AddTextDocument(int32_t doc_id) {
     //4ac566
     for (uint32_t i = 0; i < this->m_Documents.GetSize(); i++) {
         Fame2& fame = this->m_Documents[i];
-        if (fame.GetDocId() == arg && fame.GetIsText() != 0) {
+        if (fame.GetDocId() == doc_id && fame.GetIsText() != 0) {
             return 0;
         }
     }
 
     Fame2 f;
-    f.SetDocument(arg, 1);
+    f.SetDocument(doc_id, 1);
     this->m_Documents.Add(f);
 
     return 1;
