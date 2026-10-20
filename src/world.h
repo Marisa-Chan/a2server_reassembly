@@ -184,7 +184,7 @@ public:
     void OrderEngageTarget(Unit* unit, Unit* target); // 5A9087
     void OrderCastAtUnit(Unit* unit, Unit* target, Spell* spell); // 5A92AF
     void OrderAttackTarget(Unit* unit, Unit* target, uint8_t range); // 5A9482
-    void sub_5A9501(Unit* unit, Unit* target, uint8_t range); // 5A9501
+    void OrderFollowTarget(Unit* unit, Unit* target, uint8_t range); // 5A9501
     void OrderPatrolTo(Unit* unit, uint8_t x, uint8_t y); // 5A9580
     void StartAreaCast(Unit* unit); // 5AA84F
     int32_t GetAttackDecision(Unit* unit, Unit* target); // 5AD0B3

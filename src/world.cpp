@@ -2956,7 +2956,7 @@ void World::OrderAttackTarget(Unit* unit, Unit* target, uint8_t range) {
 }
 
 // 5A9501 — order `unit` to attack `target` (state 0x11).
-void World::sub_5A9501(Unit* unit, Unit* target, uint8_t range) {
+void World::OrderFollowTarget(Unit* unit, Unit* target, uint8_t range) {
     this->BeginUnitOrder(unit);
     if (unit == target) {
         this->ResetUnitToHold(unit);
@@ -4437,7 +4437,7 @@ void World::GroupFollowCommand(Group* group, Unit* target, uint8_t param_3) {
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
-        this->sub_5A9501(unit, target, param_3);
+        this->OrderFollowTarget(unit, target, param_3);
     }
 }
 
