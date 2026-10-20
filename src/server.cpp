@@ -114,7 +114,7 @@ int32_t sub_5049D1(CString* str) {
 // ---- Helpers used by LoadGame ----
 // 43A820
 // itoa -> CString
-CString* sub_43A820(CString* out, uint32_t value) {
+CString* IntToCString(CString* out, uint32_t value) {
     char buf[21];
     _itoa(value, buf, 10);
     *out = buf;
@@ -4653,7 +4653,7 @@ int Server::LoadGame(CString param_1) {
     } else {
         // I don't get this branch. Looks useless?
         CString tmp;
-        sub_43A820(&tmp, this->field21_0xd4);
+        IntToCString(&tmp, this->field21_0xd4);
         map_code = tmp;
     }
 
@@ -6018,7 +6018,7 @@ Player* Server::FindPlayerById(uint16_t player_id) {
     Player* player = g_PlayersList->FindById(player_id);
     if (!player) {
         CString id_str;
-        sub_43A820(&id_str, (int16_t)player_id);
+        IntToCString(&id_str, (int16_t)player_id);
         LogMessage("Order error: no such Player " + id_str);
         return nullptr;
     }
