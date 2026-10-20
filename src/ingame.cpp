@@ -5567,7 +5567,7 @@ void BigStruct2::sub_406F7B() {
 					int32_t draw_y = ((y * 0x20 + 0x10) - cy) - hgt2;
 					CGamePalette* palette = &spr->palette;
 					if (g_Shadows != 0) {
-						spr->VMethod11(draw_x, draw_y, frame, g_DeltaCLR.shade_delta, tanval, 0);
+						spr->DrawShadowed(draw_x, draw_y, frame, g_DeltaCLR.shade_delta, tanval, 0);
 					}
 					CSprite256* spr_b = g_GfxFiles[file]->GetSpriteB();
 					cx = (gobj->center_x - gobj->width / 2) + spr_b->GetWidth(0) / 2;
@@ -5575,7 +5575,7 @@ void BigStruct2::sub_406F7B() {
 					draw_x = ((x * 0x20 + 0x10) - cx) - yoff;
 					draw_y = ((y * 0x20 + 0x10) - cy) - hgt2;
 					if (g_settings.Smoothing != 0 && g_Shadows != 0) {
-						spr_b->VMethod11(draw_x, draw_y, frame, g_DeltaCLR.lit_delta, tanval, 0);
+						spr_b->DrawShadowed(draw_x, draw_y, frame, g_DeltaCLR.lit_delta, tanval, 0);
 					}
 					cx = (gobj->center_x - gobj->width / 2) + spr->GetWidth(frame) / 2;
 					cy = (gobj->center_y - gobj->height / 2) + spr->GetHeight(frame) / 2;

@@ -2121,19 +2121,19 @@ void CUnit::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
         int32_t x = this->centerScreenX - cx - shadow_offset;
         int32_t y = this->centerScreenY - cy - this->terrainHeightOffset;
         if (this->FindEffectTimer(0x20) < 0) {
-            this->sprite->VMethod11(x, y, frame, g_DeltaCLR.shade_delta, sun_angle, flip);
+            this->sprite->DrawShadowed(x, y, frame, g_DeltaCLR.shade_delta, sun_angle, flip);
         } else {
             if (map->my_main_unit->IsVisibleTo(this->map_player->index) == 0) {
                 return;
             }
-            this->sprite->VMethod11(x, y, frame, g_DeltaCLR.lit_delta, sun_angle, flip);
+            this->sprite->DrawShadowed(x, y, frame, g_DeltaCLR.lit_delta, sun_angle, flip);
         }
         cx = draw_vfx->center_x - draw_vfx->width / 2 + this->sprite_b->GetWidth(frame) / 2;
         cy = draw_vfx->center_y - draw_vfx->height / 2 + this->sprite_b->GetHeight(frame) / 2;
         x = this->centerScreenX - cx - shadow_offset;
         y = this->centerScreenY - cy - this->terrainHeightOffset;
         if (this->FindEffectTimer(0x20) < 0 && g_settings.Smoothing != 0) {
-            this->sprite_b->VMethod11(x, y, frame, g_DeltaCLR.lit_delta, sun_angle, flip);
+            this->sprite_b->DrawShadowed(x, y, frame, g_DeltaCLR.lit_delta, sun_angle, flip);
         }
     } else {
         UnitGfxFile* gfx_file = g_UnitGfxFiles[file_idx];
@@ -2147,7 +2147,7 @@ void CUnit::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
             if (is_air) {
                 gfx_file->GetSprite()->DrawBrightened(x + shadow_offset + sun_angle / 2000, y, frame, g_DeltaCLR.shade_delta, flip);
             } else {
-                gfx_file->GetSprite()->VMethod11(x, y, frame, g_DeltaCLR.shade_delta, sun_angle, flip);
+                gfx_file->GetSprite()->DrawShadowed(x, y, frame, g_DeltaCLR.shade_delta, sun_angle, flip);
             }
         } else {
             if (map->my_main_unit->IsVisibleTo(this->map_player->index) == 0) {
@@ -2156,7 +2156,7 @@ void CUnit::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
             if (is_air) {
                 gfx_file->GetSprite()->DrawBrightened(x + shadow_offset + sun_angle / 2000, y, frame, g_DeltaCLR.lit_delta, flip);
             } else {
-                gfx_file->GetSprite()->VMethod11(x, y, frame, g_DeltaCLR.lit_delta, sun_angle, flip);
+                gfx_file->GetSprite()->DrawShadowed(x, y, frame, g_DeltaCLR.lit_delta, sun_angle, flip);
             }
         }
         cx = draw_vfx->center_x - draw_vfx->width / 2 + gfx_file->GetSpriteB()->GetWidth(frame) / 2;
@@ -2167,7 +2167,7 @@ void CUnit::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
             if (is_air) {
                 gfx_file->GetSpriteB()->DrawBrightened(x + shadow_offset + sun_angle / 2000, y, frame, g_DeltaCLR.lit_delta, flip);
             } else {
-                gfx_file->GetSpriteB()->VMethod11(x, y, frame, g_DeltaCLR.lit_delta, sun_angle, flip);
+                gfx_file->GetSpriteB()->DrawShadowed(x, y, frame, g_DeltaCLR.lit_delta, sun_angle, flip);
             }
         }
     }
@@ -3925,9 +3925,9 @@ void CStructure::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) {
 
         int32_t shadow_offset = (int32_t)(std::tan(map->field_0x80->GetRenderSunAngle()) * ((info->full_height - row) * 32.0 - info->shadow_y));
 
-        info->GetSprite()->VMethod11(x + shadow_offset, y, frame, g_DeltaCLR.shade_delta, sun_angle, 0);
+        info->GetSprite()->DrawShadowed(x + shadow_offset, y, frame, g_DeltaCLR.shade_delta, sun_angle, 0);
         if (g_settings.Smoothing != 0) {
-            info->GetSpriteB()->VMethod11(x + shadow_offset, y, frame, g_DeltaCLR.lit_delta, sun_angle, 0);
+            info->GetSpriteB()->DrawShadowed(x + shadow_offset, y, frame, g_DeltaCLR.lit_delta, sun_angle, 0);
         }
 
         y -= 0x20;
@@ -4279,8 +4279,8 @@ void CBackPack::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) {
     int32_t x = this->centerScreenX - half_width - shadow_offset;
     int32_t y = this->centerScreenY - half_height2 - this->terrainHeightOffset - 4;
 
-    g_spr_backpack->VMethod11(x, y, this->typeId, g_DeltaCLR.shade_delta, sun_angle, 0);
-    g_spr_backpackb->VMethod11(x, y, this->typeId, g_DeltaCLR.lit_delta, sun_angle, 0);
+    g_spr_backpack->DrawShadowed(x, y, this->typeId, g_DeltaCLR.shade_delta, sun_angle, 0);
+    g_spr_backpackb->DrawShadowed(x, y, this->typeId, g_DeltaCLR.lit_delta, sun_angle, 0);
 }
 
 // 462887

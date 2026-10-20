@@ -4589,7 +4589,7 @@ void CSprite256::DrawBlend(int32_t x, int32_t y, int frame, int palid, int mode)
 	}
 }
 
-void CSprite256::VMethod11(int32_t x, int32_t y, int frame, int blevel, int32_t tilt, int mode) { //425414
+void CSprite256::DrawShadowed(int32_t x, int32_t y, int frame, int blevel, int32_t tilt, int mode) { //425414
 	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 	if (mode == 0) {
 		if (g_isLowMemory == 0) {
