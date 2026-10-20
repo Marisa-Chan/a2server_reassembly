@@ -1027,3 +1027,4 @@ World::sub_5AB5E3 -> DoScriptedWalk -- state 25: scenario-scripted walk to hardc
 World::sub_5AD2C1 -> GetTargetScore -- attack-decision cost of engaging target (lower = better; used to pick targets)
 World::sub_5AE471 -> AssignBestTargets -- assigns each unit the best-scoring scanned enemy to eye2->unit4
 World::sub_5AE5C0 -> JitterGuardRangeWide -- guard_range = base + rand(-1..1) + 4
+World::sub_5AE5F5 -> JitterGuardRange -- guard_range = base + rand(-1..1)

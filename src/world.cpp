@@ -1089,7 +1089,7 @@ void World::PickFallbackBuff(Unit* unit, UnitList* list) {
     Unit* target = nullptr;
     if (list != nullptr) {
         int32_t count = list->unit_list.GetCount();
-        int32_t index = this->sub_5B6F40(count);
+        int32_t index = this->RandomScaled(count);
         POSITION it = list->unit_list.FindIndex(index);
         if (it != nullptr) {
             target = list->unit_list.GetAt(it);
@@ -1126,7 +1126,7 @@ void World::PickFallbackBuff(Unit* unit, UnitList* list) {
         }
     }
 
-    int32_t index = this->sub_5B6F40(buffs.GetCount());
+    int32_t index = this->RandomScaled(buffs.GetCount());
     POSITION buff_pos = buffs.FindIndex(index);
     Spell* buff = (buff_pos != nullptr) ? buffs.GetAt(buff_pos) : nullptr;
     if (buff == nullptr || (target->enchantments & (1 << buff->spell_id)) != 0) {
@@ -2595,7 +2595,7 @@ void World::sub_5A6B48(Unit* unit, Unit* target) {
 // with high mind when the random roll is low.
 // 5B6632
 int32_t World::PickAttackSpell(Unit* unit, Unit* target) {
-    if (unit->mind >= 60 && this->sub_5B6F40(100) < 30) {
+    if (unit->mind >= 60 && this->RandomScaled(100) < 30) {
         this->sub_5A6B48(unit, target);
         return 0;
     }
@@ -2608,7 +2608,7 @@ int32_t World::PickAttackSpell(Unit* unit, Unit* target) {
         }
     }
 
-    int32_t index = this->sub_5B6F40(spells.GetCount());
+    int32_t index = this->RandomScaled(spells.GetCount());
     POSITION pos = spells.FindIndex(index);
     Spell* chosen = (pos != nullptr) ? spells.GetAt(pos) : nullptr;
     if (chosen == nullptr) {
@@ -3108,7 +3108,7 @@ int32_t RandInt() {
 }
 
 // 5B6F40
-int32_t World::sub_5B6F40(int32_t multiplier) {
+int32_t World::RandomScaled(int32_t multiplier) {
     return (RandInt() * multiplier) / this->field0_0x0;
 }
 
@@ -3166,7 +3166,7 @@ void World::DoIdleFidget(Unit* unit) {
             return;
         }
 
-        uint8_t new_facing = unit->eye->field0_0x0 + 33 + this->sub_5B6F40(190);
+        uint8_t new_facing = unit->eye->field0_0x0 + 33 + this->RandomScaled(190);
         unit->eye->field1_0x1 = new_facing;
         unit->eye2->field44_0x54 = 0;
     }
