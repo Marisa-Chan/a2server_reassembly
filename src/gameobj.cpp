@@ -401,7 +401,7 @@ int32_t CGameObject::GetTileHeight() { // 46f490
 }
 
 
-void CGameObject::Draw(int32_t tile_x, int32_t tile_y, int32_t arg3) { //46f4a0
+void CGameObject::Draw(int32_t tile_x, int32_t tile_y, int32_t light) { //46f4a0
 }
 
 
@@ -1773,7 +1773,7 @@ void CUnit::DrawHealthBar(int32_t arg1, int32_t arg2, int32_t arg3) { // 466a78
     }
 }
 
-void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t arg3) { // 464974
+void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t light) { // 464974
     if (this->death_state >= 5) {
         return;
     }
@@ -1927,7 +1927,7 @@ void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t arg3) { // 464974
     }
 
     if (map->field_0x994 == this && main_wnd->drag_entry == NULL) {
-        arg3 = 0;
+        light = 0;
     }
 
     UnitVFXUnfo* draw_vfx = g_VFX_info[vfx_idx];
@@ -1940,19 +1940,19 @@ void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t arg3) { // 464974
         int32_t x = this->centerScreenX - cx;
         int32_t y = this->centerScreenY - cy - this->terrainHeightOffset - this->z_pos;
         if (this->FindEffectTimer(0x20) < 0) {
-            this->sprite->DrawWithPalette(x, y, frame, arg3, palette, flip);
+            this->sprite->DrawWithPalette(x, y, frame, light, palette, flip);
         } else {
             if (map->my_main_unit->IsVisibleTo(this->map_player->index) == 0) {
                 return;
             }
-            this->sprite->DrawWithPaletteBlend(x, y, frame, arg3, palette, flip);
+            this->sprite->DrawWithPaletteBlend(x, y, frame, light, palette, flip);
         }
         cx = draw_vfx->center_x - draw_vfx->width / 2 + this->sprite_b->GetWidth(frame) / 2;
         cy = draw_vfx->center_y - draw_vfx->height / 2 + this->sprite_b->GetHeight(frame) / 2;
         x = this->centerScreenX - cx;
         y = this->centerScreenY - cy - this->terrainHeightOffset - this->z_pos;
         if (g_settings.Smoothing != 0) {
-            this->sprite_b->DrawWithPaletteBlend(x, y, frame, arg3, palette, flip);
+            this->sprite_b->DrawWithPaletteBlend(x, y, frame, light, palette, flip);
         }
     } else {
         this->IsKindOf(RUNTIME_CLASS(CAirUnit)); // result unused in the original binary
@@ -1962,19 +1962,19 @@ void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t arg3) { // 464974
         int32_t x = this->centerScreenX - cx;
         int32_t y = this->centerScreenY - cy - this->terrainHeightOffset - this->z_pos;
         if (this->FindEffectTimer(0x20) < 0) {
-            gfx_file->GetSprite()->DrawWithPalette(x, y, frame, arg3, palette, flip);
+            gfx_file->GetSprite()->DrawWithPalette(x, y, frame, light, palette, flip);
         } else {
             if (map->my_main_unit->IsVisibleTo(this->map_player->index) == 0) {
                 return;
             }
-            gfx_file->GetSprite()->DrawWithPaletteBlend(x, y, frame, arg3, palette, flip);
+            gfx_file->GetSprite()->DrawWithPaletteBlend(x, y, frame, light, palette, flip);
         }
         cx = draw_vfx->center_x - draw_vfx->width / 2 + gfx_file->GetSpriteB()->GetWidth(frame) / 2;
         cy = draw_vfx->center_y - draw_vfx->height / 2 + gfx_file->GetSpriteB()->GetHeight(frame) / 2;
         x = this->centerScreenX - cx;
         y = this->centerScreenY - cy - this->terrainHeightOffset - this->z_pos;
         if (g_settings.Smoothing != 0 || this->typeId == 0x45) {
-            gfx_file->GetSpriteB()->DrawWithPaletteBlend(x, y, frame, arg3, palette, flip);
+            gfx_file->GetSpriteB()->DrawWithPaletteBlend(x, y, frame, light, palette, flip);
         }
     }
 
@@ -3935,7 +3935,7 @@ void CStructure::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) {
 }
 
 // 462d11
-void CStructure::Draw(int32_t tile_x, int32_t tile_y, int32_t arg3) {
+void CStructure::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
     BigStruct2* map = this->pMapObject;
     StructureInfo* info = g_StructuresInfo[this->typeId];
 
@@ -3980,9 +3980,9 @@ void CStructure::Draw(int32_t tile_x, int32_t tile_y, int32_t arg3) {
             }
         }
 
-        info->GetSprite()->Draw(tile_x * 0x20, y, frame, arg3, 0);
+        info->GetSprite()->Draw(tile_x * 0x20, y, frame, light, 0);
         if (g_settings.Smoothing != 0) {
-            info->GetSpriteB()->DrawWithPaletteBlend(tile_x * 0x20, y, frame, arg3, palette, 0);
+            info->GetSpriteB()->DrawWithPaletteBlend(tile_x * 0x20, y, frame, light, palette, 0);
         }
 
         y -= 0x20;
@@ -4161,7 +4161,7 @@ CBridge::CBridge(int32_t width, int32_t height) {
 }
 
 // 463d26
-void CVerticalWoodenBridge::Draw(int32_t tile_x, int32_t tile_y, int32_t arg3) {
+void CVerticalWoodenBridge::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
     BigStruct2* map = this->pMapObject;
     StructureInfo* info = g_StructuresInfo[this->typeId];
 
@@ -4193,9 +4193,9 @@ void CVerticalWoodenBridge::Draw(int32_t tile_x, int32_t tile_y, int32_t arg3) {
     int32_t y = (tile_y * 0x20) - this->z_pos - this->terrainHeightOffset;
     CGamePalette* palette = &info->GetSprite()->palette;
 
-    info->GetSprite()->Draw(x, y, piece, arg3, 0);
+    info->GetSprite()->Draw(x, y, piece, light, 0);
     if (g_settings.Smoothing != 0) {
-        info->GetSpriteB()->DrawWithPaletteBlend(x, y, piece, arg3, palette, 0);
+        info->GetSpriteB()->DrawWithPaletteBlend(x, y, piece, light, palette, 0);
     }
 }
 
@@ -4212,7 +4212,7 @@ CVerticalWoodenBridge::CVerticalWoodenBridge(int32_t width, int32_t height) : CB
 }
 
 // 463f0e
-void CHorisontalWoodenBridge::Draw(int32_t tile_x, int32_t tile_y, int32_t arg3) {
+void CHorisontalWoodenBridge::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
     BigStruct2* map = this->pMapObject;
     StructureInfo* info = g_StructuresInfo[this->typeId];
 
@@ -4248,9 +4248,9 @@ void CHorisontalWoodenBridge::Draw(int32_t tile_x, int32_t tile_y, int32_t arg3)
     int32_t y = (tile_y * 0x20) - this->z_pos - this->terrainHeightOffset;
     CGamePalette* palette = &info->GetSprite()->palette;
 
-    info->GetSprite()->Draw(x, y, piece, arg3, 0);
+    info->GetSprite()->Draw(x, y, piece, light, 0);
     if (g_settings.Smoothing != 0) {
-        info->GetSpriteB()->DrawWithPaletteBlend(x, y, piece, arg3, palette, 0);
+        info->GetSpriteB()->DrawWithPaletteBlend(x, y, piece, light, palette, 0);
     }
 }
 
@@ -4284,17 +4284,17 @@ void CBackPack::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) {
 }
 
 // 462887
-void CBackPack::Draw(int32_t tile_x, int32_t tile_y, int32_t arg3) {
+void CBackPack::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
     int32_t half_width = g_spr_backpack->GetWidth(0) / 2;
     int32_t half_height = g_spr_backpack->GetHeight(0) / 2;
 
     int32_t x = this->centerScreenX - half_width;
     int32_t y = this->centerScreenY - half_height - this->terrainHeightOffset - 4;
 
-    g_spr_backpack->Draw(x, y, this->typeId, arg3, 0);
+    g_spr_backpack->Draw(x, y, this->typeId, light, 0);
     if (g_settings.Smoothing != 0) {
         CGamePalette* palette = &g_spr_backpack->palette;
-        g_spr_backpackb->DrawWithPaletteBlend(x, y, this->typeId, arg3, palette, 0);
+        g_spr_backpackb->DrawWithPaletteBlend(x, y, this->typeId, light, palette, 0);
     }
 }
 
@@ -4541,7 +4541,7 @@ int32_t CProjectile::Update() {
 }
 
 // 46e291
-void CProjectile::Draw(int32_t tile_x, int32_t tile_y, int32_t arg3) {
+void CProjectile::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
     if (g_ProjectileInfos.GetSize() <= this->typeId || g_ProjectileInfos[this->typeId] == nullptr) {
         return;
     }
@@ -4576,7 +4576,7 @@ void CProjectile::Draw(int32_t tile_x, int32_t tile_y, int32_t arg3) {
         } else {
             sub_phase = this->phase - 8;
         }
-        info->GetSprite()->Draw(x, y, sub_phase, arg3, 0);
+        info->GetSprite()->Draw(x, y, sub_phase, light, 0);
         break;
     }
     case 28:
@@ -4592,18 +4592,18 @@ void CProjectile::Draw(int32_t tile_x, int32_t tile_y, int32_t arg3) {
         }
         break;
     case 54:
-        info->GetSprite()->Draw(x, y, this->phase, arg3, 0);
+        info->GetSprite()->Draw(x, y, this->phase, light, 0);
         break;
     case 56:
         break;
     default:
         if (info->palette == 0) {
-            info->GetSprite()->DrawWithPalette(x, y, sprite_idx, arg3, g_pal_projectiles, flip);
+            info->GetSprite()->DrawWithPalette(x, y, sprite_idx, light, g_pal_projectiles, flip);
         } else {
-            info->GetSprite()->Draw(x, y, sprite_idx, arg3, flip);
+            info->GetSprite()->Draw(x, y, sprite_idx, light, flip);
             CSprite256* sprite2 = info->GetSpriteB();
             if (sprite2 != nullptr) {
-                sprite2->DrawBlend(x, y, sprite_idx, arg3, flip);
+                sprite2->DrawBlend(x, y, sprite_idx, light, flip);
             }
             if (this->path_history.GetSize() != 0) {
                 int32_t smoke_idx = 0;
@@ -4614,7 +4614,7 @@ void CProjectile::Draw(int32_t tile_x, int32_t tile_y, int32_t arg3) {
                     uint32_t packed = this->path_history[i];
                     int32_t sx = ((packed & 0xffff) >> 3) - map->view_x * 0x20 - g_spr_smoke[smoke_idx]->GetWidth(0) / 2;
                     int32_t sy = (packed >> 0x13) - map->view_y * 0x20 - g_spr_smoke[smoke_idx]->GetHeight(0) / 2 - this->terrainHeightOffset - this->z_pos;
-                    g_spr_smoke[smoke_idx]->Draw(sx, sy, i, arg3, 0);
+                    g_spr_smoke[smoke_idx]->Draw(sx, sy, i, light, 0);
                 }
             }
         }
