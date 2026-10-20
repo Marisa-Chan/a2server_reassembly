@@ -4556,7 +4556,7 @@ void MainWindow::UnloadMapAssets() { //48f6f7
         this->music_player->OnEndTrack();
     }
 
-    this->FUN_0047ad28();
+    this->UnloadObjectGfx();
 
     for (int i = 0; i < g_UnitGfxFiles.GetSize(); i++) {
         g_UnitGfxFiles[i]->Deinit();
@@ -4607,7 +4607,7 @@ void MainWindow::UnloadStructureInfos() { //47f5e4
 }
 
 
-void MainWindow::FUN_0047ad28() { //47ad28
+void MainWindow::UnloadObjectGfx() { //47ad28
     for (int i = 0; i < g_GfxFiles.GetSize(); i++) {
         delete g_GfxFiles[i];
     }

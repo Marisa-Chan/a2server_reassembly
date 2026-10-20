@@ -1059,3 +1059,4 @@ MainWindow::FUN_0047a5e6 -> LoadObjectGfx -- reads graphics\objects\objects.reg 
 MainWindow::FUN_0047efdf -> LoadStructureGfx -- reads graphics\structures\structures.reg and loads the structures
 MainWindow::FUN_0047e612 -> LoadProjectileGfx -- reads graphics\projectiles\projectiles.reg and loads the projectiles
 MainWindow::FUN_0048df44 -> LoadSavegame -- reads the selected savegame: reg, fame docs, scenario, shortcuts, character info
+MainWindow::FUN_0048f6f7 -> UnloadMapAssets -- map teardown: end music, unload object gfx, deinit unit gfx, unload terrain

@@ -432,7 +432,7 @@ public:
     void LoadSavegame(); //48df44
 
     void UnloadMapAssets(); //48f6f7
-    void FUN_0047ad28(); //47ad28
+    void UnloadObjectGfx(); //47ad28
 
     void FUN_00478130(); //478130 in asm
 
