@@ -145,7 +145,7 @@ public:
     int IsActive(); //518ac9
 
     void SendTeamState(uint16_t arg);
-    void SendInfoPacket(uint8_t param_1, int32_t param_2, int32_t param_3, Player* param_4);
+    void SendInfoPacket(uint8_t id, int32_t param_2, int32_t param_3, Player* param_4);
     
     void SendAbilityPacket(Unit* unit, uint8_t angle, uint8_t speed_dir, uint8_t mode);
     void SendMountPacket(Unit* unit);
