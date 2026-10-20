@@ -253,7 +253,7 @@ public:
 	virtual void MarkOccupancy() override;
 	virtual int32_t UpdateBlockedState() override;
 	virtual void UpdateTransientVisualElements() override;
-	virtual void InitState(int16_t unit_id, int32_t typeId, int32_t x_pos, int32_t y_pos, int32_t z_pos, MapPlayerData* map_player, int32_t dir, int32_t phase, int16_t speed, int16_t arg10);
+	virtual void InitState(int16_t unit_id, int32_t typeId, int32_t x_pos, int32_t y_pos, int32_t z_pos, MapPlayerData* map_player, int32_t dir, int32_t phase, int16_t speed, int16_t hp);
 	virtual void SpawnAttackProjectile();
 	virtual void SpawnSpellProjectile();
 	virtual void PlayCastSound();

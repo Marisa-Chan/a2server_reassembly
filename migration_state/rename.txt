@@ -1109,3 +1109,4 @@ CUnit::InitState arg6 -> map_player -- stored to map_player
 CUnit::InitState arg7 -> dir -- stored to dir
 CUnit::InitState arg8 -> phase -- stored to phase
 CUnit::InitState arg9 -> speed -- stored to speed
+CUnit::InitState arg10 -> hp -- stored to hp
