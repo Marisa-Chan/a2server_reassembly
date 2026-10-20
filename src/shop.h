@@ -35,7 +35,7 @@ public:
 
     void ConfirmBuy(Unit* unit);
     void ConfirmSell(Unit* unit);
-    void sub_544777(Unit* unit);
+    void ReturnItems(Unit* unit);
     void sub_544685(Unit* unit);
 
 public:

@@ -101,7 +101,7 @@ void Shop::ConfirmSell(Unit* unit) {
 }
 
 // 544777
-void Shop::sub_544777(Unit* unit) {
+void Shop::ReturnItems(Unit* unit) {
     this->shop_template->ReturnConsignedItems(unit);
 }
 

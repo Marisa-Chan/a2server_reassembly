@@ -3495,7 +3495,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (!shop) {
                 break;
             }
-            shop->sub_544777(unit);
+            shop->ReturnItems(unit);
             break;
         }
 
@@ -3510,7 +3510,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (!shop) {
                 break;
             }
-            shop->sub_544777(unit);
+            shop->ReturnItems(unit);
             shop->sub_544685(unit);
             break;
         }
