@@ -125,7 +125,7 @@ public:
     void Serialize(CArchive& ar); // Serialize
     void RelinkPointers(); // Post-load world relink helper
 
-    void sub_5AFBFD(); // increments field65_0xc780
+    void IncrementJoinedCount(); // increments field65_0xc780
     void ProcessTick(class PlayersList* players);
     void ProcessTriggers(); // 5B0724
     void EvaluateTriggerChecks(); // 5B0762

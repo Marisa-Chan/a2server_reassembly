@@ -3063,7 +3063,7 @@ void World::SetFormation(Player* player, uint8_t param) {
 }
 
 // 5AFBFD
-void World::sub_5AFBFD() {
+void World::IncrementJoinedCount() {
     this->field65_0xc780++;
 }
 

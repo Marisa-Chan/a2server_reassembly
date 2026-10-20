@@ -1691,7 +1691,7 @@ void Server::SendWorldState(Player* player, int32_t bool_arg4) {
     // Mark the player as fully active and refresh world / map state.
     player->is_in_world = 1;
     player->is_active = 1;
-    g_World->sub_5AFBFD(); // increment some counter (number of joined players?).
+    g_World->IncrementJoinedCount(); // increment some counter (number of joined players?).
     MapStuff_Instance->scan_presence_grid.RebuildPresenceGrid();  // refresh scan grid
 
     // Clear vision mask bits for this player across every unit list.
@@ -2181,7 +2181,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
     player->is_active = 1;
 
     // Increment World::field65_0xc780
-    g_World->sub_5AFBFD();
+    g_World->IncrementJoinedCount();
 
     // Notify MapStuff section
     MapStuff_Instance->scan_presence_grid.RebuildPresenceGrid();
