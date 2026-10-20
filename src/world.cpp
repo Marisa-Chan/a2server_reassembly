@@ -3651,7 +3651,7 @@ void World::TickFollowTarget(Unit* unit, Unit* target) {
 void World::DoTeleportHome(Unit* unit) {
     if (unit->spell_book != nullptr) {
         if (this->GetCastableSpell(unit, spell::teleport, 0) != nullptr) {
-            this->sub_5A8A55(unit);
+            this->TeleportToSafety(unit);
             return;
         }
     }
@@ -3682,7 +3682,7 @@ void World::DoTeleportHome(Unit* unit) {
 }
 
 // 5A8A55
-void World::sub_5A8A55(Unit* unit) {
+void World::TeleportToSafety(Unit* unit) {
     uint8_t range = (unit->scan_range >> 8) + 1;
     PosYX pos = unit->position->GetYX();
     UnitList* list = this->GetNearbyEnemies(unit, pos);
