@@ -36,7 +36,7 @@ public:
     void ConfirmBuy(Unit* unit);
     void ConfirmSell(Unit* unit);
     void ReturnItems(Unit* unit);
-    void sub_544685(Unit* unit);
+    void CloseShop(Unit* unit);
 
 public:
     CMultiShopTemplate* shop_template;

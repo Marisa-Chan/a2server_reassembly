@@ -3511,7 +3511,7 @@ void Server::sub_504a96(Packet* pkt) {
                 break;
             }
             shop->ReturnItems(unit);
-            shop->sub_544685(unit);
+            shop->CloseShop(unit);
             break;
         }
 

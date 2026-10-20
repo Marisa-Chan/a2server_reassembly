@@ -545,7 +545,7 @@ void CMultiShopTemplate::RefreshTick() {
             continue;
         }
         if (unit->pOwner->is_active == 0) {
-            this->shop->sub_544685(unit);
+            this->shop->CloseShop(unit);
         }
         i++;
     }
