@@ -209,7 +209,7 @@ void Player::StartAfkTimer() {
 }
 
 // 534B59
-void Player::sub_534B59() {
+void Player::ResetAfkTimer() {
     if (this->afk_expire_tick != 0) {
         this->afk_expire_tick = 0;
         this->afk_notify_tick = 0;

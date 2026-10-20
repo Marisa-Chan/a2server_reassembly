@@ -1021,7 +1021,7 @@ void Unit::AwardKillMoney(Unit*)
 // 536B31
 uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
     if (this->pOwner) {
-        this->pOwner->sub_534B59();
+        this->pOwner->ResetAfkTimer();
     }
 
     if (unit_to_hit == nullptr || (this->unit_attrs & 8)) {

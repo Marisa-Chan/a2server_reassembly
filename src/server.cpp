@@ -3026,52 +3026,52 @@ void Server::sub_504a96(Packet* pkt) {
         switch (pkt->id) {
         case 0x12: // move to position?
             g_World->GroupStopCommand(group);
-            player->sub_534B59();
+            player->ResetAfkTimer();
             break;
         case 0x13:
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->sub_5A99C7(unit);
-                player->sub_534B59();
+                player->ResetAfkTimer();
             }
             break;
         case 0x14:
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupGoHomeCommand(group);
-                player->sub_534B59();
+                player->ResetAfkTimer();
             }
             break;                  
         case 0x16:
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupMoveCommand(group, x, y);
-                player->sub_534B59();
+                player->ResetAfkTimer();
             }
             break;
         case 0x17:
             g_World->GroupGuardCommand(group, 0);
-            player->sub_534B59();
+            player->ResetAfkTimer();
             break;
         case 0x18:
             g_World->GroupAggressiveStance(group);
-            player->sub_534B59();
+            player->ResetAfkTimer();
             break;
         case 0x19: // move to building?
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupAttackCommand(group, static_cast<Unit*>(target));
-                player->sub_534B59();
+                player->ResetAfkTimer();
             }
             break;
         case 0x1A: // attack-move to position?
             CheckPacketType(pkt, "PacketItemOperation");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->sub_5AC881(group, x, y);
-                player->sub_534B59();
+                player->ResetAfkTimer();
             }
             break;
         case 0x1B: // attack building?
             CheckPacketType(pkt, "PacketItemOperation");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupAttackTargetCommand(group, static_cast<Unit*>(target), 0);
-                player->sub_534B59();
+                player->ResetAfkTimer();
             }
             break;
         case 0x1C: // Defend location.
@@ -3082,19 +3082,19 @@ void Server::sub_504a96(Packet* pkt) {
         case 0x1D: // patrol?
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupPatrolCommand(group, x, y);
-                player->sub_534B59();
+                player->ResetAfkTimer();
             }
             break;
         case 0x1E: // cast at unit/building?
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupCastAtUnitCommand(group, static_cast<Unit*>(target), cast_spell);
-                player->sub_534B59();
+                player->ResetAfkTimer();
             }
             break;
         case 0x1F: // cast at position?
             CheckPacketType(pkt, "PacketItemOperation");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
-                player->sub_534B59();
+                player->ResetAfkTimer();
                 if (cast_spell && cast_spell->IsAreaSpell(packet_item->x, packet_item->y)) {
                     g_World->GroupCastAtPositionCommand(group, x, y, cast_spell);
                 }
@@ -3103,7 +3103,7 @@ void Server::sub_504a96(Packet* pkt) {
         case 0x21:
             CheckPacketType(pkt, "PacketItemOperation");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
-                player->sub_534B59();
+                player->ResetAfkTimer();
                 Sack* sack = MapStuff_Instance->GetSackAt(x, y);
                 if (!sack) {
                     CString msg;
@@ -3118,7 +3118,7 @@ void Server::sub_504a96(Packet* pkt) {
         case 0x24:
             CheckPacketType(pkt, "PacketItemOperation");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
-                player->sub_534B59();
+                player->ResetAfkTimer();
                 auto* building = this->srv_stru1->building_list->sub_557DB2(packet_item->param);
                 if (!building) {
                     CString msg;
@@ -3133,7 +3133,7 @@ void Server::sub_504a96(Packet* pkt) {
         case 0x26: // Cast area spell with a scroll.
             CheckPacketType(pkt, "PacketItemOperation");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
-                player->sub_534B59();
+                player->ResetAfkTimer();
                 auto* item = player->main_unit->inventory->TakeItemAt(packet_item->slot, 1);
                 if (!item || item->_effects.IsEmpty()) {
                     break;
@@ -3899,7 +3899,7 @@ void Server::sub_504a96(Packet* pkt) {
             }
             player = this->FindPlayerById(pkt->from_player_id);
             if (player) {
-                player->sub_534B59();
+                player->ResetAfkTimer();
 
                 if (player->main_unit && player->main_unit->hp > -1) {
                     player->main_unit->hp -= 1;
