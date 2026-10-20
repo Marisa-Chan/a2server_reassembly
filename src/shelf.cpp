@@ -122,7 +122,7 @@ void CMultiShopInstance::Sell() {
             this->inventory.items.RemoveAt(current_pos);
 
             item->pOwner = nullptr;
-            if (this->sub_5462C8(item, -1) == 1) {
+            if (this->StowItemInShelf(item, -1) == 1) {
                 any_sold = true;
             }
         }
@@ -217,7 +217,7 @@ void CMultiShopInstance::MoveItems(uint8_t src_type, int16_t src_slot, uint8_t d
     if (dst_type == 4) {
         this->SellItemFor(dst_slot, item);
     } else {
-        result = this->sub_5462C8(item, dst_slot);
+        result = this->StowItemInShelf(item, dst_slot);
     }
 
     if (result != 0) {
@@ -236,7 +236,7 @@ void CMultiShopInstance::ReturnConsignedItems() {
         if (item->pOwner != nullptr) {
             this->unit->inventory->PutItemIntoBagAtDefault(item);
         } else {
-            this->sub_5462C8(item, -1);
+            this->StowItemInShelf(item, -1);
         }
     }
 
@@ -248,7 +248,7 @@ void CMultiShopInstance::ReturnConsignedItems() {
 }
 
 // 5462C8
-int32_t CMultiShopInstance::sub_5462C8(Item* item, int32_t arg1) {
+int32_t CMultiShopInstance::StowItemInShelf(Item* item, int32_t arg1) {
     int32_t shelf_id = 0;
     int32_t result = 0;
 
