@@ -12,15 +12,15 @@ IMPLEMENT_SERIAL(Outpost, Building, 1);
 
 // 54326A
 Outpost::Outpost() {
-    this->sub_54335a();
+    this->Reset();
 }
 
 // 5432DF
 Outpost::Outpost(TokenPos* pos) : Building(pos) {
-    this->sub_54335a();
+    this->Reset();
 }
 
-void Outpost::sub_54335a() {
+void Outpost::Reset() {
     this->tiles_mask = 0;
     this->group_id = 0;
     this->repop_delay = 120;
