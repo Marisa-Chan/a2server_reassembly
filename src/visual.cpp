@@ -10808,7 +10808,7 @@ void VisShop::VMethod28() {
     this->dialog_active = 1;
     ApplyCursor(g_Cursors[0]);
     this->snd_enter->Play();
-    FUN_004a4740(&this->snd_inshop);
+    PlayAmbientSfx(&this->snd_inshop);
 
     if (this->snd_start != nullptr && this->snd_start->FindPlayingChannel() == nullptr) {
         this->snd_start->Play(g_SoundSettings.speech_pos, 0, 0, 0x80, 0);
@@ -12692,7 +12692,7 @@ void VisShopDruid::VMethod28() {
     this->dialog_active = 1;
     ApplyCursor(g_Cursors[0]);
     this->snd_enter->Play();
-    FUN_004a4740(&this->snd_inshop);
+    PlayAmbientSfx(&this->snd_inshop);
 
     this->next_bird = GetRandS16(2000) + 2000;
     this->bird_tick = timeGetTime();
@@ -12972,7 +12972,7 @@ void VisShopKaarg::VMethod28() {
     this->dialog_active = 1;
     ApplyCursor(g_Cursors[0]);
     this->snd_enter->Play();
-    FUN_004a4740(&this->snd_inshop);
+    PlayAmbientSfx(&this->snd_inshop);
 
     this->next_voice = GetRandS16(2000) + 2000;
     this->voice_tick = timeGetTime();
@@ -13450,7 +13450,7 @@ void VisTav::VMethod7() {
         VisScreen::VMethod7();
     }
 
-    FUN_004a4740(&this->sounds[3].sample);
+    PlayAmbientSfx(&this->sounds[3].sample);
 }
 
 
@@ -15450,7 +15450,7 @@ void VisTavDruid::VMethod28() {
 
     VisScreen::VMethod28();
     CSound::Play(this->sounds[8]);
-    FUN_004a4740(&this->snd_druid[7]);
+    PlayAmbientSfx(&this->snd_druid[7]);
     g_Cursors[0]->Use();
     g_mousept.EnableHint();
 
@@ -15724,7 +15724,7 @@ void VisTavKaarg::VMethod28() {
 
     VisScreen::VMethod28();
     CSound::Play(this->sounds[8]);
-    FUN_004a4740(&this->snd_kaarg[6]);
+    PlayAmbientSfx(&this->snd_kaarg[6]);
     g_Cursors[0]->Use();
     g_mousept.EnableHint();
 
@@ -19584,7 +19584,7 @@ void VisTown::VMethod7() {
 
 // 4D1709
 void VisTown::VMethod32() {
-    FUN_004a4740(this->sounds);
+    PlayAmbientSfx(this->sounds);
 }
 
 
@@ -20192,7 +20192,7 @@ VisTownKaarg::~VisTownKaarg() {
 
 // 4D54B5
 void VisTownKaarg::VMethod32() {
-    FUN_004a4740(this->sounds);
+    PlayAmbientSfx(this->sounds);
 }
 
 
@@ -20757,7 +20757,7 @@ void VisTownKaarg::VMethod28() {
     this->VisScreen::VMethod28();
     this->dialog_active = 1;
     this->VMethod9();
-    FUN_004a4740(&this->snd_voice1);
+    PlayAmbientSfx(&this->snd_voice1);
     g_mousept.EnableHint();
 }
 
@@ -20859,7 +20859,7 @@ VisTownDruid::~VisTownDruid() {
 
 // 4D2AE3
 void VisTownDruid::VMethod32() {
-    FUN_004a4740(&this->snd_forest);
+    PlayAmbientSfx(&this->snd_forest);
 }
 
 

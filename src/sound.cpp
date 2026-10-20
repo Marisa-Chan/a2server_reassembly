@@ -269,7 +269,7 @@ bool FUN_00475110(CSound* sound) { //475110
 	return sound->sample->FindPlayingChannel() != nullptr;
 }
 
-void FUN_004a4740(SfxSample** sample) { //4a4740
+void PlayAmbientSfx(SfxSample** sample) { //4a4740
 	if (*sample != nullptr) {
 		SoundChannel* chnl = (*sample)->FindPlayingChannel();
 		if (chnl == nullptr) {
