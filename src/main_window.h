@@ -417,7 +417,7 @@ public:
     void AutosaveGame(); //48f905
     void EnterSinglePlayerMode(); //4903d0
     void EnterServerMode(); //491822
-    int FUN_0048ca7e(int mode); //48ca7e
+    int StartServerSession(int mode); //48ca7e
     void FUN_004918ae(); //4918ae
 
     void FUN_00491f7d(int32_t vid_id); //491f7d

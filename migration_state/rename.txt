@@ -971,3 +971,4 @@ MainWindow::FUN_00494c91 -> PlayDefaultMusic -- starts the default music playlis
 MainWindow::FUN_00491a49 -> ShowCharInfoPane -- wait cursor + char info info_mode=1
 MainWindow::FUN_0048f905 -> AutosaveGame -- sessionMode 2: SaveGame to last_save_info
 MainWindow::FUN_004903d0 -> EnterSinglePlayerMode -- sessionMode=0 and local driver wiring
+MainWindow::FUN_00491822 -> EnterServerMode -- sessionMode=3 (server console) driver wiring

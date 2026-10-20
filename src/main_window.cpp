@@ -2917,12 +2917,12 @@ void MainWindow::EnterServerMode() { //491822
         g_CLlDriver.StartServer(g_ServerConfig.max_players, this->m_GameSession.character_name, nullptr);
     }
 
-    this->FUN_0048ca7e(0);
+    this->StartServerSession(0);
 
     PostMessage(0x459, 0, 0);
 }
 
-int MainWindow::FUN_0048ca7e(int mode) { //48ca7e
+int MainWindow::StartServerSession(int mode) { //48ca7e
     DAT_006658d8.RemoveAll();
 
     g_Server = new Server();
@@ -2953,7 +2953,7 @@ void MainWindow::FUN_004918ae() { // 4918ae
         g_CLlDriver.StartServer(g_ServerConfig.max_players, this->m_GameSession.character_name, nullptr);
     }
 
-    this->FUN_0048ca7e(this->sessionMode);
+    this->StartServerSession(this->sessionMode);
 
     if (this->vis_map_context->ConnectAndJoinSession() == 0) {
         this->vis_root->MsgProc(0x446, 0, 0);
@@ -3893,7 +3893,7 @@ void MainWindow::FUN_0048f79d() { // 48f79d
     this->field_0x400 = 1;
     this->sessionMode = 2;
 
-    this->FUN_0048ca7e(this->sessionMode);
+    this->StartServerSession(this->sessionMode);
 
     g_Server->LoadSavedGame(this->last_save_info.filename);
 
@@ -4623,7 +4623,7 @@ void MainWindow::InitNewCampaignSession() { //48dd3a
     this->field_0x400 = 1;
     this->sessionMode = 2;
 
-    if (this->FUN_0048ca7e(this->sessionMode) == 0) {
+    if (this->StartServerSession(this->sessionMode) == 0) {
         this->m_GameSession.type = 0;
         if (strstr(afxCurrentWinApp->m_lpCmdLine, "-female") != nullptr) {
             this->m_GameSession.type |= 0x80;
@@ -5066,7 +5066,7 @@ void MainWindow::StartHatDedicatedServer() { //49172d
         exit(1);
     }
 
-    if (this->FUN_0048ca7e(0) != 0) {
+    if (this->StartServerSession(0) != 0) {
         AfxMessageBox("Missing or invalid world.res", 0, 0);
         exit(1);
     }
