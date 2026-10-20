@@ -220,7 +220,7 @@ void PlayersList::ProcessPlayerTimeouts() {
 			uint32_t now = GetTickCount();
 			if (now > player->afk_expire_tick) {
 				// Timer expired.
-				player->FUN_00534778();
+				player->Deactivate();
 				player->drop_deadline_tick16--;
 				player->afk_expire_tick = 0;
 			} else if (now - player->afk_notify_tick >= 5000) {

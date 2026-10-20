@@ -96,7 +96,7 @@ public:
     void StartAfkTimer(); // Initialize inactivity timer (sets this+0A90h/0A94h from GetTickCount)
     void ResetAfkTimer(); // Reset inactivity timer and notify NetStru1
 
-    void FUN_00534778(); //534778
+    void Deactivate(); //534778
 
     void sub_5347A1(Unit* unit); // Remove a unit from this player's unit list (PlayerRemoveUnit)
     void sub_534A74(Unit* unit); // 534a74

@@ -217,7 +217,7 @@ void Player::ResetAfkTimer() {
     }
 }
 
-void Player::FUN_00534778() {
+void Player::Deactivate() {
     //534778
     this->is_active = 0;
     this->is_logged_in = 0;

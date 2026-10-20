@@ -1371,7 +1371,7 @@ void NetStru1::OnClientDisconnect(NetStru2* cli) {
             } else {
                 LogMessage("Player " + pl->name + " has disconnected.");
 
-                pl->FUN_00534778();
+                pl->Deactivate();
 
                 if (lldriver && lldriver->provider == 4 &&
                     g_ServerConfig.gameType != 1 &&
