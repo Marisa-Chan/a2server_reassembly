@@ -531,7 +531,7 @@ void World::AiAggroBrain(Group* group) {
         if (unit->eye2->unit4 == nullptr) {
             this->DoRetreat(unit);
         } else {
-            this->sub_5A6B48(unit, unit->eye2->unit4);
+            this->DoAttackTarget(unit, unit->eye2->unit4);
         }
     }
 }
@@ -808,7 +808,7 @@ void World::AiAttackBrain(Group* group, uint16_t param) {
     while (it != nullptr) {
         Unit* unit = group->unit_list.GetNext(it);
         if (unit->eye2->unit4 != nullptr) {
-            this->sub_5A6B48(unit, unit->eye2->unit4);
+            this->DoAttackTarget(unit, unit->eye2->unit4);
         } else {
             if (unit->position->CompatGetYX() == param && unit->position->IsAtCellCenter()) {
                 this->SetIdleOrRetreat(unit, 1);
@@ -832,7 +832,7 @@ void World::AiSwarmBrain(Group* group, uint16_t param) {
             if (unit->eye2->unit4 == nullptr) {
                 this->SetIdleOrRetreat(unit, 1);
             } else {
-                this->sub_5A6B48(unit, unit->eye2->unit4);
+                this->DoAttackTarget(unit, unit->eye2->unit4);
             }
         }
     }
@@ -2528,7 +2528,7 @@ void World::DoGuardScan(Unit* unit) {
 }
 
 // 5A6B48
-void World::sub_5A6B48(Unit* unit, Unit* target) {
+void World::DoAttackTarget(Unit* unit, Unit* target) {
     Unit* chosen_target = target;
     int32_t chosen_spell = 0;
 
@@ -2591,12 +2591,12 @@ void World::sub_5A6B48(Unit* unit, Unit* target) {
 }
 
 // Pick a random affordable non-defensive spell from the caster's spellbook and
-// start casting it at the provided target. Falls back to sub_5A6B48 for units
+// start casting it at the provided target. Falls back to DoAttackTarget for units
 // with high mind when the random roll is low.
 // 5B6632
 int32_t World::PickAttackSpell(Unit* unit, Unit* target) {
     if (unit->mind >= 60 && this->RandomScaled(100) < 30) {
-        this->sub_5A6B48(unit, target);
+        this->DoAttackTarget(unit, target);
         return 0;
     }
 
@@ -3574,7 +3574,7 @@ void World::PickAdjacentEnemy(Unit* unit, Unit* target) {
     }
 
     if (best_type3 != nullptr) {
-        this->sub_5A6B48(unit, best_type3);
+        this->DoAttackTarget(unit, best_type3);
         return;
     }
 
@@ -3592,7 +3592,7 @@ void World::PickAdjacentEnemy(Unit* unit, Unit* target) {
     }
 
     if (best_any != nullptr) {
-        this->sub_5A6B48(unit, best_any);
+        this->DoAttackTarget(unit, best_any);
     }
 }
 
@@ -3852,7 +3852,7 @@ void World::AdvancePatrol(Unit* unit) {
 
     UnitList* list = this->GetNearbyEnemies(unit, unit->eye2->position1);
     if (list->unit_list.GetCount() != 0) {
-        this->sub_5A6B48(unit, list->unit_list.GetHead());
+        this->DoAttackTarget(unit, list->unit_list.GetHead());
     } else {
         PosYX current_pos = unit->position->GetYX();
         if (current_pos.val == unit->eye2->position1.val) {
@@ -3897,7 +3897,7 @@ UnitList* World::GetNearbyUnits(Unit* unit) {
 void World::sub_5A54B8(Unit* unit, uint16_t command_to) {
     UnitList* list = this->GetNearbyEnemies(unit, unit->position->GetYX());
     if (list != nullptr && list->unit_list.GetCount() != 0) {
-        this->sub_5A6B48(unit, list->unit_list.GetHead());
+        this->DoAttackTarget(unit, list->unit_list.GetHead());
     } else {
         this->DoMoveStep(unit, command_to);
     }
@@ -4003,7 +4003,7 @@ void World::ProcessUnitState(Unit* unit) {
         this->DoSwarmMoveStep(unit, unit->eye2->command_to);
         break;
     case 3:
-        this->sub_5A6B48(unit, unit->eye2->unit);
+        this->DoAttackTarget(unit, unit->eye2->unit);
         break;
     case 4:
         this->sub_5A54B8(unit, unit->eye2->command_to);
@@ -4342,7 +4342,7 @@ void World::AiGuardBrain(Group* group) {
                 this->DoMoveStep(unit, unit->eye2->position1);
             }
         } else {
-            this->sub_5A6B48(unit, unit->eye2->unit4);
+            this->DoAttackTarget(unit, unit->eye2->unit4);
         }
     }
 }
@@ -4382,7 +4382,7 @@ void World::AiDefendBrain(Group* group) {
             if (tick16_diff < 10) {
                 this->DoMoveStep(unit, unit->eye2->field69_0x9c);
             } else if (unit->eye2->unit4 != nullptr) {
-                this->sub_5A6B48(unit, unit->eye2->unit4);
+                this->DoAttackTarget(unit, unit->eye2->unit4);
             } else {
                 int32_t tick_diff = std::abs((int32_t)unit->eye2->tick - g_Server->tick);
                 if (unit->hp == unit->hp_max || tick_diff > 9) {

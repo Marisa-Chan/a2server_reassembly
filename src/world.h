@@ -219,7 +219,7 @@ public:
     void DoMoveStep(Unit* unit, uint16_t param); // 5A8778
     void DoSwarmMoveStep(Unit* unit, uint16_t param); // 5A87A3
     void BeginChase(Unit* unit, Unit* target, uint8_t range); // 5A8829
-    void sub_5A6B48(Unit* unit, Unit* target); // 5A6B48
+    void DoAttackTarget(Unit* unit, Unit* target); // 5A6B48
     void TickAttackTarget(Unit* unit, Unit* target); // 5A5568
     void TickFollowTarget(Unit* unit, Unit* target); // 5A56D7
     void PickHealSpell(Unit* unit, Unit* target); // 5A57E8
