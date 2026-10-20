@@ -401,7 +401,7 @@ int32_t CGameObject::GetTileHeight() { // 46f490
 }
 
 
-void CGameObject::Draw(int32_t arg1, int32_t arg2, int32_t arg3) { //46f4a0
+void CGameObject::Draw(int32_t tile_x, int32_t arg2, int32_t arg3) { //46f4a0
 }
 
 
@@ -1773,7 +1773,7 @@ void CUnit::DrawHealthBar(int32_t arg1, int32_t arg2, int32_t arg3) { // 466a78
     }
 }
 
-void CUnit::Draw(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
+void CUnit::Draw(int32_t tile_x, int32_t arg2, int32_t arg3) { // 464974
     if (this->death_state >= 5) {
         return;
     }
@@ -3935,11 +3935,11 @@ void CStructure::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) {
 }
 
 // 462d11
-void CStructure::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
+void CStructure::Draw(int32_t tile_x, int32_t arg2, int32_t arg3) {
     BigStruct2* map = this->pMapObject;
     StructureInfo* info = g_StructuresInfo[this->typeId];
 
-    int32_t x_offset = (arg1 + map->view_x) - this->tileX;
+    int32_t x_offset = (tile_x + map->view_x) - this->tileX;
     int32_t row_end = (arg2 + map->view_y) - this->tileY;
     int32_t row_last = row_end + info->full_height - info->tile_height;
     int32_t row_first = row_last;
@@ -3980,9 +3980,9 @@ void CStructure::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
             }
         }
 
-        info->GetSprite()->Draw(arg1 * 0x20, y, frame, arg3, 0);
+        info->GetSprite()->Draw(tile_x * 0x20, y, frame, arg3, 0);
         if (g_settings.Smoothing != 0) {
-            info->GetSpriteB()->DrawWithPaletteBlend(arg1 * 0x20, y, frame, arg3, palette, 0);
+            info->GetSpriteB()->DrawWithPaletteBlend(tile_x * 0x20, y, frame, arg3, palette, 0);
         }
 
         y -= 0x20;
@@ -4161,11 +4161,11 @@ CBridge::CBridge(int32_t width, int32_t height) {
 }
 
 // 463d26
-void CVerticalWoodenBridge::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
+void CVerticalWoodenBridge::Draw(int32_t tile_x, int32_t arg2, int32_t arg3) {
     BigStruct2* map = this->pMapObject;
     StructureInfo* info = g_StructuresInfo[this->typeId];
 
-    int32_t dx = (arg1 + map->view_x) - this->tileX;
+    int32_t dx = (tile_x + map->view_x) - this->tileX;
     int32_t dy = (arg2 + map->view_y) - this->tileY;
 
     int32_t piece;
@@ -4189,7 +4189,7 @@ void CVerticalWoodenBridge::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
         piece = 4;
     }
 
-    int32_t x = arg1 * 0x20;
+    int32_t x = tile_x * 0x20;
     int32_t y = (arg2 * 0x20) - this->z_pos - this->terrainHeightOffset;
     CGamePalette* palette = &info->GetSprite()->palette;
 
@@ -4212,11 +4212,11 @@ CVerticalWoodenBridge::CVerticalWoodenBridge(int32_t width, int32_t height) : CB
 }
 
 // 463f0e
-void CHorisontalWoodenBridge::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
+void CHorisontalWoodenBridge::Draw(int32_t tile_x, int32_t arg2, int32_t arg3) {
     BigStruct2* map = this->pMapObject;
     StructureInfo* info = g_StructuresInfo[this->typeId];
 
-    int32_t dx = (arg1 + map->view_x) - this->tileX;
+    int32_t dx = (tile_x + map->view_x) - this->tileX;
     int32_t dy = (arg2 + map->view_y) - this->tileY;
 
     int32_t piece;
@@ -4244,7 +4244,7 @@ void CHorisontalWoodenBridge::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
         piece = 5;
     }
 
-    int32_t x = arg1 * 0x20;
+    int32_t x = tile_x * 0x20;
     int32_t y = (arg2 * 0x20) - this->z_pos - this->terrainHeightOffset;
     CGamePalette* palette = &info->GetSprite()->palette;
 
@@ -4284,7 +4284,7 @@ void CBackPack::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) {
 }
 
 // 462887
-void CBackPack::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
+void CBackPack::Draw(int32_t tile_x, int32_t arg2, int32_t arg3) {
     int32_t half_width = g_spr_backpack->GetWidth(0) / 2;
     int32_t half_height = g_spr_backpack->GetHeight(0) / 2;
 
@@ -4541,7 +4541,7 @@ int32_t CProjectile::Update() {
 }
 
 // 46e291
-void CProjectile::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
+void CProjectile::Draw(int32_t tile_x, int32_t arg2, int32_t arg3) {
     if (g_ProjectileInfos.GetSize() <= this->typeId || g_ProjectileInfos[this->typeId] == nullptr) {
         return;
     }
