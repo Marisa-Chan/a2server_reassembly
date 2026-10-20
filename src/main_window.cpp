@@ -650,7 +650,7 @@ void MainWindow::OnDestroy() {
         this->FUN_0048cb3c();
     }
 
-    FUN_0047c6cd();
+    UnloadUnitGfxFiles();
     UnloadAllSfx();
     SaveSettings();
     this->FUN_0048cb3c();

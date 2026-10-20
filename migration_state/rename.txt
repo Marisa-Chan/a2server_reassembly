@@ -893,3 +893,4 @@ gfx: FUN_00457aa6 -> FillRectClipped -- fills a rect with a solid color, clipped
 gfx: FUN_004549e5 -> SetClipRect -- sets g_clipRect
 gfx: FUN_00454a1e -> FlushRect -- marks the rect for gfx flush
 gfx: FUN_00454e40 -> CopyScreenBlock -- copies a 32px-aligned block between the two surfaces
+gfx: sub_457C5D -> FillRectBrightness -- fills a rect with a brightness-scaled add value via g_brightnessLookup

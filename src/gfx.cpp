@@ -5118,7 +5118,7 @@ void UnloadGraphics() { //47961c
 	g_bmp_testiva = nullptr;
 }
 
-void FUN_0047c6cd() { //47c6cd
+void UnloadUnitGfxFiles() { //47c6cd
 	for (int32_t i = 0; i < g_UnitGfxFiles.GetSize(); i++) {
 		UnitGfxFile* gfx = g_UnitGfxFiles[i];
 		if (gfx != nullptr) {
