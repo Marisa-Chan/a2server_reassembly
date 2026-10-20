@@ -23099,7 +23099,7 @@ int32_t VisSpellBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
                 GetCursorPos(&pt);
                 int32_t idx = this->FUN_004ca7c2(&pt);
                 if (idx >= 0) {
-                    main_wnd->m_GameSession.shortcuts[wparam].FUN_0041e323((short)idx);
+                    main_wnd->m_GameSession.shortcuts[wparam].SetSpell((short)idx);
                     for (int32_t i = 0; i < 9; i++) {
                         if (i != (int32_t)wparam
                             && main_wnd->m_GameSession.shortcuts[i].FUN_0041e456((short)idx)) {
@@ -23108,7 +23108,7 @@ int32_t VisSpellBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
                     }
                 }
             } else {
-                main_wnd->m_GameSession.shortcuts[wparam].FUN_0041e323((short)this->pressed);
+                main_wnd->m_GameSession.shortcuts[wparam].SetSpell((short)this->pressed);
                 for (int32_t i = 0; i < 9; i++) {
                     if (i != (int32_t)wparam
                         && main_wnd->m_GameSession.shortcuts[i].FUN_0041e456((short)this->pressed)) {

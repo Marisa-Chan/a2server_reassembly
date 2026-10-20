@@ -872,3 +872,4 @@ CGameSession::FUN_004946e0 -> AutosaveCharacter -- writes the full character fil
 CGameSession::FUN_004946ae -> AutosaveTick -- 15s-gated autosave
 CGameSession::FUN_00493d8d -> ResetCharacter -- resets money/kills and writes the basic character info
 CGameSession::FUN_00494687 -> ResetUnitClass -- clears body/sphere and recreates the local unit
+CGameSession::FUN_0049381c -> SetNameAndColor -- applies a Name:color string to the local unit

@@ -6032,7 +6032,7 @@ int32_t UserShortcut::FUN_0041e456(short spell_id) { //41e456
     return 0;
 }
 
-void UserShortcut::FUN_0041e323(short spell_id) { //41e323
+void UserShortcut::SetSpell(short spell_id) { //41e323
     this->kind = 1;
     this->item_id = spell_id;
 }
