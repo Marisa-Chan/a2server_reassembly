@@ -1162,3 +1162,4 @@ Effect::ApplyStatDelta param_3/param -> stack_delta -- effect stack count multip
 Effect::RollStrength param -> power -- upper bound for Random1N strength roll (align header with definition)
 ShopAssortment::AddItems param_5 -> is_magic -- skips the cost filter for magic items (align header with definition)
 Humanoid::ApplyHumanInfo param_2 -> data -- HumanInfoData array source (align header with definition)
+World::GroupAttackTargetCommand param_3 -> range -- attack range forwarded to OrderAttackTarget

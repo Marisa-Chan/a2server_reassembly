@@ -4422,12 +4422,12 @@ void World::GroupAttackCommand(Group* group, Unit* target) {
 }
 
 // 5ACB4D
-void World::GroupAttackTargetCommand(Group* group, Unit* target, uint8_t param_3) {
+void World::GroupAttackTargetCommand(Group* group, Unit* target, uint8_t range) {
     this->ClearGroupOrders(group);
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
-        this->OrderAttackTarget(unit, target, param_3);
+        this->OrderAttackTarget(unit, target, range);
     }
 }
 

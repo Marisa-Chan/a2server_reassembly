@@ -143,7 +143,7 @@ public:
     void OrderGatherLoot(Unit* unit);
     void GroupAggressiveStance(Group* group); //5aca54
     void GroupAttackCommand(Group* group, Unit* target);
-    void GroupAttackTargetCommand(Group* group, Unit* target, uint8_t param_3);
+    void GroupAttackTargetCommand(Group* group, Unit* target, uint8_t range);
     void GroupMoveCommand(Group* group, uint8_t x, uint8_t y); // Group move command.
     void GroupSwarmCommand(Group* group, uint8_t x, uint8_t y); // Group swarm command.
     void GroupPatrolCommand(Group* group, uint8_t x, uint8_t y);
