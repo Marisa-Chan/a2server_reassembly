@@ -362,7 +362,7 @@ public:
 
 	virtual void DrawSubRect(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b);
 	virtual void DrawSubRectMasked(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b);
-	virtual void VMethod11(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b);
+	virtual void DrawSubRectAdd(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b);
 
 
 	CBmp64(const char* fname);

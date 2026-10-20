@@ -4404,7 +4404,7 @@ void CBmp64::DrawSubRectMasked(int32_t x, int32_t y, int32_t l, int32_t t, int32
 	Blit16Masked(x, y, l, t, r, b, this->pdata + sizeof(BmpFrame), frm->width, frm->height);
 }
 
-void CBmp64::VMethod11(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b) { //425ef1
+void CBmp64::DrawSubRectAdd(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b) { //425ef1
 	const BmpFrame* frm = (BmpFrame*)this->pdata;
 	Blit16Add(x, y, l, t, r, b, this->pdata + sizeof(BmpFrame), frm->width, frm->height);
 }

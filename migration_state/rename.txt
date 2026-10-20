@@ -992,3 +992,4 @@ CSprite256::VMethod9 -> DrawWithPaletteBlend -- BlitRle8Blend with an external p
 CBmp256::VMethod10 -> DrawSubRectAdd -- BlitFlipPalettedAdd sub-rect
 CBmp64::VMethod10 -> DrawSubRectMasked -- Blit16Masked sub-rect
 CSprite256::VMethod10 -> DrawBlend -- BlitRle8Blend with own palette
+CSprite256::VMethod11 -> DrawShadowed -- BlitLightRle8Tilt with brightness+tilt (the shadow-pass renderer)
