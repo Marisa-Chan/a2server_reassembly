@@ -413,7 +413,7 @@ AFX_DATADEF const AFX_MSGMAP ServerControlDialog::messageMap =
 
 const AFX_MSGMAP_ENTRY ServerControlDialog::_messageEntries[] =
 {
-    { WM_DESTROY, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&sub_495439 },
+    { WM_DESTROY, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&OnDestroy },
     { WM_COMMAND, CN_COMMAND, 0x3f5, 0x3f5, AfxSigCmd_v, (AFX_PMSG)&sub_49544C},
     { WM_COMMAND, CN_COMMAND, 0x3f6, 0x3f6, AfxSigCmd_v, (AFX_PMSG)&sub_49549B},
     { WM_COMMAND, CN_COMMAND, 0x3f4, 0x3f4, AfxSigCmd_v, (AFX_PMSG)&sub_4954EA},
@@ -448,7 +448,7 @@ const AFX_MSGMAP* ServerControlDialog::GetMessageMap() const {
 }
 
 // 495439
-void ServerControlDialog::sub_495439() {
+void ServerControlDialog::OnDestroy() {
     CWnd::OnDestroy();
 }
 

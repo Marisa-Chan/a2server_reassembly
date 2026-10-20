@@ -877,3 +877,4 @@ UserShortcut::FUN_0041e323 -> SetSpell -- kind=1 shortcut for a spell id
 UserShortcut::FUN_0041e456 -> IsSpellShortcut -- 1 when the shortcut is that spell
 UserShortcut::FUN_0041e3af -> MatchesItem -- 1 when the shortcut equals the item entry incl. mods
 UserShortcut::sub_41E343 -> SetItem -- kind=2 shortcut copying the item entry and its mods
+MainWindow::sub_49585B -> UpdateControlStates -- update control states (per comment)
