@@ -148,7 +148,7 @@ public:
     void SendInfoPacket(uint8_t param_1, int32_t param_2, int32_t param_3, Player* param_4);
     
     void SendAbilityPacket(Unit* unit, uint8_t angle, uint8_t speed_dir, uint8_t mode);
-    void sub_51BA2F(Unit* unit);
+    void SendMountPacket(Unit* unit);
     void sub_51C59C(Unit* unit, Unit* target); // Notify clients about unit turning to face its target
     void SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t param4, int32_t param5, int32_t param6);
 

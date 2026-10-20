@@ -269,7 +269,7 @@ void NetStru1::SendAbilityPacket(Unit* unit, uint8_t angle, uint8_t speed_dir, u
 }
 
 // 51BA2F
-void NetStru1::sub_51BA2F(Unit* unit) {
+void NetStru1::SendMountPacket(Unit* unit) {
     PacketMount& packet = PacketMount::Inst;
     packet.id = 0x72;
     packet.unit_id = (uint16_t)unit->building_id;
@@ -286,7 +286,7 @@ void NetStru1::sub_51C59C(Unit* unit, Unit* target) {
         const uint8_t angle = unit->eye->GetFacingHalf();
         g_NetStru1_main.SendAbilityPacket(unit, angle, speed_dir, 0x71);
     } else {
-        g_NetStru1_main.sub_51BA2F(unit);
+        g_NetStru1_main.SendMountPacket(unit);
     }
 }
 
