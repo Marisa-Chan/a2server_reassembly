@@ -5882,7 +5882,7 @@ void CGameSession::AutosaveCharacter() { //4946e0
     this->last_autosave_tick = GetTickCount();
 }
 
-void CGameSession::FUN_004948b2() { //4948b2
+void CGameSession::SaveShortcuts() { //4948b2
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
     if (mwnd->sessionMode == 2) {
         return;

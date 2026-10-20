@@ -175,7 +175,7 @@ public:
     void RefreshCharacterRosterFiles(int val); //49265a
     void InitializeNewCharacterSession(int tp, const char* name); //493ab6
     void SetNameAndColor(char* name); //49381c in asm
-    void FUN_004948b2(); //4948b2 in asm
+    void SaveShortcuts(); //4948b2 in asm
 public:
     int32_t field_0x4 = 0;
     int32_t sessionKeyPart1 = 0;

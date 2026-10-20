@@ -16482,7 +16482,7 @@ int32_t VisInvType1::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
                             main_wnd->m_GameSession.shortcuts[i].kind = 0;
                         }
                     }
-                    main_wnd->m_GameSession.FUN_004948b2();
+                    main_wnd->m_GameSession.SaveShortcuts();
                 }
             }
         } else {
@@ -23116,7 +23116,7 @@ int32_t VisSpellBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
                     }
                 }
             }
-            main_wnd->m_GameSession.FUN_004948b2();
+            main_wnd->m_GameSession.SaveShortcuts();
         }
     }
     return this->CVisualObject::MsgProc(msg, wparam, lparam);

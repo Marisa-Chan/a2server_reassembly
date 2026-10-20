@@ -1061,3 +1061,4 @@ MainWindow::FUN_0047e612 -> LoadProjectileGfx -- reads graphics\projectiles\proj
 MainWindow::FUN_0048df44 -> LoadSavegame -- reads the selected savegame: reg, fame docs, scenario, shortcuts, character info
 MainWindow::FUN_0048f6f7 -> UnloadMapAssets -- map teardown: end music, unload object gfx, deinit unit gfx, unload terrain
 MainWindow::FUN_0047ad28 -> UnloadObjectGfx -- deletes all g_GfxFiles and g_GfxObjects
+MainWindow::FUN_00478130 -> UnloadTerrainTiles -- frees the terrain tile bitmaps and the dirt bitmap
