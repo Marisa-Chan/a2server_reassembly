@@ -3971,12 +3971,12 @@ void World::ProcessUnitAi(Unit* unit) {
     if (!unit->pOwner->is_ai) {
         this->ProcessUnitState(unit);
     } else {
-        this->sub_5A5188(unit);
+        this->RunAiUnitState(unit);
     }
 }
 
 // 5A5188
-void World::sub_5A5188(Unit* unit) {
+void World::RunAiUnitState(Unit* unit) {
     this->ProcessUnitState(unit);
 }
 

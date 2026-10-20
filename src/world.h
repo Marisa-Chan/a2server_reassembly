@@ -195,7 +195,7 @@ public:
     void IdleGroupUnits(Group* group); // 5AF022
     void RunUnitAi(Unit* unit); // 5ABCFD
     void ProcessUnitAi(Unit* unit); // 5A5155 — helper for RunUnitAi.
-    void sub_5A5188(Unit* unit); // 5A5188 — AI wrapper for ProcessUnitState.
+    void RunAiUnitState(Unit* unit); // 5A5188 — AI wrapper for ProcessUnitState.
     void ProcessUnitState(Unit* unit); // 5A51A1 — per-state unit action dispatcher.
     void AiGuardBrain(Group* group); // 5AE628
     void AiAttackBrain(Group* group, uint16_t param); // 5AEC20

@@ -1020,3 +1020,4 @@ World::sub_5AA485 -> DoIdleFidget -- idle stand: occasionally picks a new random
 World::sub_5AA8ED -> FinishSwarmArrival -- cast_action 7: first tick sets some_state 2, second returns to idle
 World::sub_5A9501 -> OrderFollowTarget -- state 0x11: follow/keep range of the target (trigger Follow)
 World::sub_5AF623 -> FlagEmptyGroup -- marks the group order 0xFF when the unit list is empty
+World::sub_5ABCFD -> RunUnitAi -- group order 0: per-unit state machine step
