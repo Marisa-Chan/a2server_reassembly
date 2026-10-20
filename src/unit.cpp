@@ -1180,7 +1180,7 @@ uint32_t Unit::RecalcExperience() {
     return this->_exp;
 }
 
-void Unit::VMethod20()
+void Unit::GiveLevelReward()
 {}
 
 // 5371F7
@@ -3065,7 +3065,7 @@ void Human::Serialize(CArchive& ar) {
 }
 
 // 5339a6
-void Human::VMethod20() {
+void Human::GiveLevelReward() {
     int32_t level = (this->_exp > 1000) ? (this->_exp / 10) : 0;
     Item* item = RollRandomItem(level, this->_exp);
     this->inventory->PutItemIntoBagAtDefault(item);
