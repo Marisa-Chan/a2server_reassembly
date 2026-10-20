@@ -1104,3 +1104,4 @@ CUnit::InitState arg1 -> unit_id -- stored to unit_id
 CUnit::InitState arg2 -> typeId -- stored to typeId
 CUnit::InitState arg3 -> x_pos -- stored to x_pos
 CUnit::InitState arg4 -> y_pos -- stored to y_pos
+CUnit::InitState arg5 -> z_pos -- stored to z_pos
