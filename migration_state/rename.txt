@@ -858,3 +858,4 @@ Fame2::FUN_004abf35 -> ScrollDown -- advances top_line one page (21 lines)
 Fame2::FUN_004abf72 -> ScrollUp -- moves top_line back one page
 Fame2::FUN_004abfb1 -> Draw -- draws the document picture or text block at (x,y)
 Fame2::FUN_004ac0af -> LoadDocument -- loads the picture/text content for doc_id
+CFameHall::FUN_004ac566 -> AddTextDocument -- adds a text document unless one with the id exists

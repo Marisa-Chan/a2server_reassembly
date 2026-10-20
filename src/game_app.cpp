@@ -737,10 +737,10 @@ BOOL GameApp::InitInstance() {
 
 	CFile ffame;
 	if (!ffame.Open("famehall.dat", 0)) {
-		mwnd->m_FameHall.FUN_004acafa();
+		mwnd->m_FameHall.SeedDefaultEntries();
 	} else {
 		if (!ffame.GetLength()) {
-			mwnd->m_FameHall.FUN_004acafa();
+			mwnd->m_FameHall.SeedDefaultEntries();
 		} else {
 			mwnd->m_FameHall.FUN_004ac945(&ffame);
 		}

@@ -260,7 +260,7 @@ uint32_t CFameHall::AddTextDocument(int32_t arg) {
 }
 
 
-void CFameHall::FUN_004acafa() {
+void CFameHall::SeedDefaultEntries() {
     //4acafa
     Fame1 fame;
     int32_t tval = 70000;
