@@ -1103,3 +1103,4 @@ TransientVisualEffectBuilder::BuildLightningLine arg5 -> vfx_type -- GO_11c vfx_
 CUnit::InitState arg1 -> unit_id -- stored to unit_id
 CUnit::InitState arg2 -> typeId -- stored to typeId
 CUnit::InitState arg3 -> x_pos -- stored to x_pos
+CUnit::InitState arg4 -> y_pos -- stored to y_pos
