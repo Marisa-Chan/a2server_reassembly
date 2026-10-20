@@ -1150,3 +1150,4 @@ Server::JoinErrorSend arg -> error_code -- 0xb join-error packet value (1 name t
 Quest::OnEvent param_2 -> event_type -- matches QuestMap::OnEvent dispatcher vocabulary (1=complete 2=failed 4=kill 0x11=inn candidate ...)
 Quest::OnEvent param_3 -> a -- matches QuestMap::OnEvent arg a (quest some_id/obj or packed count data)
 Quest::OnEvent param_4 -> b -- matches QuestMap::OnEvent arg b (packed player_id | landmark_id << 16, or building_id)
+CMultiShopInstance::StowItemInShelf arg1 -> dst_slot -- slot hint from callers (-1 = auto-pick shelf); unused by the migrated body

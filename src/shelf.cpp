@@ -248,7 +248,7 @@ void CMultiShopInstance::ReturnConsignedItems() {
 }
 
 // 5462C8
-int32_t CMultiShopInstance::StowItemInShelf(Item* item, int32_t arg1) {
+int32_t CMultiShopInstance::StowItemInShelf(Item* item, int32_t dst_slot) {
     int32_t shelf_id = 0;
     int32_t result = 0;
 
