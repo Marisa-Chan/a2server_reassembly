@@ -622,10 +622,10 @@ void NetStru1::UpdateConnStats() {
 }
 
 // 51E289
-void NetStru1::SendHatLobbyInfo(int32_t arg0, CString source, int32_t arg8, int32_t argC, int32_t arg10) {
+void NetStru1::SendHatLobbyInfo(int32_t player_count, CString source, int32_t arg8, int32_t argC, int32_t arg10) {
 	PacketJoin& pkt = PacketJoin::Inst;
 	pkt.id = 0xd2;
-	pkt.__field_0xa = arg0 | (arg8 << 8) | (argC << 16) | (arg10 << 24);
+	pkt.__field_0xa = player_count | (arg8 << 8) | (argC << 16) | (arg10 << 24);
 	strcpy(pkt.name, source);
 	pkt.to_player_id = 0;
 	this->QueuePacketSend(&pkt);
