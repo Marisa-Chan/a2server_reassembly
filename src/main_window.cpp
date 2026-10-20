@@ -3974,7 +3974,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
         this->ShowMainRightPanel();
         this->LoadObjectGfx();
         this->LoadStructureGfx();
-        this->FUN_0047e612();
+        this->LoadProjectileGfx();
 
         this->pending_game_mode = mode;
 
@@ -4408,7 +4408,7 @@ void MainWindow::LoadStructureGfx() { //47efdf
     }
 }
 
-void MainWindow::FUN_0047e612() { //47e612
+void MainWindow::LoadProjectileGfx() { //47e612
 
     RegFile reg("graphics\\projectiles\\projectiles.reg");
     int count = reg.GetInt("Global", "Count", 0);

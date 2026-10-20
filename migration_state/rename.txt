@@ -1056,3 +1056,4 @@ World::sub_5A39AD -> FilterBuffTargets -- keeps only visible allies (diplomacy b
 Diplomacy::sub_5B5643 -> RecordHostility -- on a hit: sets attacker->target war (and reverse when already mutual), refreshes vision
 MainWindow::FUN_00485969 -> ShowMainRightPanel -- right panel: minimap + order toolbar + char info (the in-game layout)
 MainWindow::FUN_0047a5e6 -> LoadObjectGfx -- reads graphics\objects\objects.reg and loads the object graphics
+MainWindow::FUN_0047efdf -> LoadStructureGfx -- reads graphics\structures\structures.reg and loads the structures

@@ -428,7 +428,7 @@ public:
     void ShowMainRightPanel(); //485969
     void LoadObjectGfx(); //47a5e6
     void LoadStructureGfx(); //47efdf
-    void FUN_0047e612(); //47e612
+    void LoadProjectileGfx(); //47e612
     void FUN_0048df44(); //48df44
 
     void FUN_0048f6f7(); //48f6f7
