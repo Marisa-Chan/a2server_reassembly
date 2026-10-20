@@ -25,7 +25,7 @@ public: // VTable at 60fde8.
     virtual void SpawnZombieMobs(Quest* quest);
     virtual void SpawnSkeletonMobs(Quest* quest);
     virtual void SpawnGhostMobs(Quest* quest);
-    virtual uint8_t VMethod8();
+    virtual uint8_t GetX();
     virtual uint8_t VMethod9();
 
 public:

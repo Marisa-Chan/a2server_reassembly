@@ -312,7 +312,7 @@ void QuestInnGlue::SpawnGhostMobs(Quest* quest) {
 }
 
 // 5BB310
-uint8_t QuestInnGlue::VMethod8() {
+uint8_t QuestInnGlue::GetX() {
     return this->position->GetX();
 }
 
