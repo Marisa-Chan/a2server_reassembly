@@ -136,11 +136,11 @@ void Fame2::Clear() {
     this->str_arr.RemoveAll();
 }
 
-void Fame2::SetDocument(int32_t doc_id, uint32_t arg2) {
+void Fame2::SetDocument(int32_t doc_id, uint32_t is_text) {
     //4abf0f
     this->Clear();
     this->doc_id = doc_id;
-    this->is_text = arg2;
+    this->is_text = is_text;
 }
 
 

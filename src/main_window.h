@@ -78,7 +78,7 @@ struct Fame2 {
     void operator=(const Fame2& b);
 
     void Clear();
-    void SetDocument(int32_t doc_id, uint32_t arg2);
+    void SetDocument(int32_t doc_id, uint32_t is_text);
     int32_t GetDocId();
     uint32_t GetIsText();
     bool ScrollDown(); // 4abf35 in asm

@@ -1113,3 +1113,4 @@ CUnit::InitState arg10 -> hp -- stored to hp
 CSprite256::DrawShadowed arg5 -> tilt -- align header with gfx.cpp definition (gfx.cpp already names it tilt)
 CSprite256::DrawIndexMask arg4 -> mv -- index-mask value passed through to BlitRle8IndexMask (gfx.cpp names it mv)
 Fame2::SetDocument arg1 -> doc_id -- stored to doc_id (fame document id)
+Fame2::SetDocument arg2 -> is_text -- stored to is_text (document is the text file variant)
