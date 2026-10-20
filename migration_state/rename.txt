@@ -1057,3 +1057,4 @@ Diplomacy::sub_5B5643 -> RecordHostility -- on a hit: sets attacker->target war 
 MainWindow::FUN_00485969 -> ShowMainRightPanel -- right panel: minimap + order toolbar + char info (the in-game layout)
 MainWindow::FUN_0047a5e6 -> LoadObjectGfx -- reads graphics\objects\objects.reg and loads the object graphics
 MainWindow::FUN_0047efdf -> LoadStructureGfx -- reads graphics\structures\structures.reg and loads the structures
+MainWindow::FUN_0047e612 -> LoadProjectileGfx -- reads graphics\projectiles\projectiles.reg and loads the projectiles

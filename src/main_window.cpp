@@ -3909,7 +3909,7 @@ void MainWindow::BeginLocalCharacterSetup() { // 48f79d
             this->vis_map_context->ProcessPackets(0x64);
         }
 
-        this->FUN_0048df44();
+        this->LoadSavegame();
         this->vis_map_context->FUN_0041b064(0, 0);
         PostMessage(0x42e, 0, 0);
     }
@@ -4467,7 +4467,7 @@ void MainWindow::LoadProjectileGfx() { //47e612
 }
 
 
-void MainWindow::FUN_0048df44() { //48df44
+void MainWindow::LoadSavegame() { //48df44
     File2 fil;
 
     fil.Open(this->last_save_info.filename, CFile::modeRead);
