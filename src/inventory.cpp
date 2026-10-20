@@ -150,7 +150,7 @@ Item* Inventory::FindItemById(uint16_t item_id) {
 }
 
 // 552C37
-Item* Inventory::sub_552C37(uint16_t item_id) {
+Item* Inventory::TakeItemById(uint16_t item_id) {
     Item* item = this->FindItemById(item_id);
     if (!item) {
         return nullptr;

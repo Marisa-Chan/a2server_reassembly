@@ -831,3 +831,4 @@ Sack: sub_55401E -> CalcContentsValue -- _exp = money + sum of item values
 Inventory: sub_552E42 -> TakeItemAt -- takes up to count of the item at position item_number
 Inventory: sub_5524FA -> AddItem -- adds the item to the inventory
 Inventory: sub_552A42 -> TransferFrom -- transfers all items from src into this inventory
+Inventory: sub_552B6B -> FindItemById -- finds an item by item_id

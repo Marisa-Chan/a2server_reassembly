@@ -92,7 +92,7 @@ void QuestInnGlue::ProcessDeliverItem(Quest* quest) {
             continue;
         }
         found = true;
-        Item* item = player->main_unit->inventory->sub_552C37(item_type);
+        Item* item = player->main_unit->inventory->TakeItemById(item_type);
         if (item != nullptr) {
             delete item;
         }

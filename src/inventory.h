@@ -22,7 +22,7 @@ public:
     void AddItem(int32_t amount, Item* item); // 5524FA - add item to inventory
     void TransferFrom(Inventory* src); // Transfer all items from src into this inventory
     Item* FindItemById(uint16_t item_id); // Find item by item_id
-    Item* sub_552C37(uint16_t item_id); // Remove and return item matching item_id from inventory
+    Item* TakeItemById(uint16_t item_id); // Remove and return item matching item_id from inventory
     Item* sub_5530A2(const char* name); // Find item by name, returns nullptr if not found
     void sub_55CCE4(CArchive& ar); // Serialize, in asm
 

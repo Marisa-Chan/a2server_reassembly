@@ -2129,7 +2129,7 @@ void World::ScriptOP_0x0a(TriggerAction* action) {
 
 // 5b3e56 — Give item from one unit (action->unit) to another (action->multi)
 void World::ScriptOP_0x0b(TriggerAction* action) {
-    Item* item = action->unit->inventory->sub_552C37(action->item_id);
+    Item* item = action->unit->inventory->TakeItemById(action->item_id);
     g_NetStru1_main.SendMonsterInventory(action->unit, action->unit->pOwner, 0, 0);
     if (item) {
         Unit* recipient = (Unit*)action->multi;
@@ -2149,7 +2149,7 @@ void World::ScriptOP_0x0c(TriggerAction* action) {
 
 // 5b3f2f — Remove item from unit's inventory
 void World::ScriptOP_0x0d(TriggerAction* action) {
-    Item* item = action->unit->inventory->sub_552C37(action->item_id);
+    Item* item = action->unit->inventory->TakeItemById(action->item_id);
     if (item) {
         delete item;
     }
@@ -2383,7 +2383,7 @@ void World::ScriptOP_0x26(TriggerAction* action) {
     }
     for (POSITION pos = list->unit_list.GetHeadPosition(); pos != nullptr; ) {
         Unit* unit = list->unit_list.GetNext(pos);
-        Item* item = unit->inventory->sub_552C37(action->item_id);
+        Item* item = unit->inventory->TakeItemById(action->item_id);
         if (item) {
             delete item;
             g_NetStru1_main.SendMonsterInventory(unit, unit->pOwner, 0, 0);
