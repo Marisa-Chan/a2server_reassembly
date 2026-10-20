@@ -137,7 +137,7 @@ void World::ResetMatchState() {
 
 // 5A44C5
 void World::ReinitState() {
-    this->sub_5A3F3A();
+    this->InitState();
 }
 
 // 5A44DB
@@ -146,7 +146,7 @@ void World::sub_5A44DB() {
 }
 
 // 5A3F3A
-void World::sub_5A3F3A() {
+void World::InitState() {
     this->sub_5A3F9B();
     this->duration4 = 0;
     this->duration4_low = 0;

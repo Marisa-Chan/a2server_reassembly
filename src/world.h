@@ -117,7 +117,7 @@ public:
     void Init(); // 5A457A
     void ReinitState(); // 5A44C5
     void sub_5A44DB(); // 5A44DB
-    void sub_5A3F3A(); // 5A3F3A
+    void InitState(); // 5A3F3A
     void sub_5A3F88(); // 5A3F88
     void sub_5A3F9B(); // 5A3F9B
     void sub_5A4284(); // 5A4284
