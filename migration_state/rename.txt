@@ -988,3 +988,4 @@ CGameBitmap::VMethod3 -> DrawBrightened -- blit with a brightness level (sprite:
 CGameBitmap::VMethod7 -> FlipVertical -- row-swaps the bitmap (bottom-up BMP correction); CBmp256 8bpp / CBmp64 16bpp
 CBmp256::VMethod9 -> DrawSubRect -- BlitPaletted sub-rect with own palette
 CBmp64::VMethod9 -> DrawSubRect -- Blit16 sub-rect
+CSprite256::VMethod9 -> DrawWithPaletteBlend -- BlitRle8Blend with an external palette (lit path of unit draw)

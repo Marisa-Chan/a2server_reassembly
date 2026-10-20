@@ -4288,7 +4288,7 @@ void CBmp256::DrawSubRect(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r,
 	BlitPaletted(x, y, l, t, r, b, this->pdata + sizeof(BmpFrame), frm->width, frm->height, pal);
 }
 
-void CBmp256::VMethod10(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, int palid) { //426440
+void CBmp256::DrawSubRectAdd(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, int palid) { //426440
 	const uint16_t* pal = this->palette.GetPalette(palid);
 	const BmpFrame* frm = (BmpFrame*)this->pdata;
 	BlitFlipPalettedAdd(x, y, l, t, r, b, this->pdata + sizeof(BmpFrame), frm->width, frm->height, pal);
