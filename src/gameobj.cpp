@@ -3031,8 +3031,8 @@ void CUnit::SpawnSpellProjectile() { // 468765
 }
 
 // 469535
-void CUnit::PlayHitSound(int32_t arg1) {
-    if (0 < arg1 && arg1 < 3) {
+void CUnit::PlayHitSound(int32_t kind) {
+    if (0 < kind && kind < 3) {
         uint32_t now = timeGetTime();
         if (now - this->lastVoicePlaybackTick < 1500) {
             return;
@@ -3045,7 +3045,7 @@ void CUnit::PlayHitSound(int32_t arg1) {
     int32_t vol;
     int32_t pan;
 
-    if (arg1 == 0) {
+    if (kind == 0) {
         if (g_VFX_info[this->typeId]->sound[1] != 0) {
             sample = g_SfxArray[g_VFX_info[this->typeId]->sound[1]];
         }
@@ -3056,7 +3056,7 @@ void CUnit::PlayHitSound(int32_t arg1) {
         }
     } else {
         if ((this->unitFlags & 0x11) != 0 || this->serverId <= 0x17) {
-            switch (arg1) {
+            switch (kind) {
             case 1:
                 sample = this->GetSfxBank()->easy;
                 break;
@@ -3067,8 +3067,8 @@ void CUnit::PlayHitSound(int32_t arg1) {
                 sample = this->GetSfxBank()->dead;
                 break;
             }
-        } else if (g_VFX_info[this->typeId]->sound[arg1 + 1] != 0) {
-            sample = g_SfxArray[g_VFX_info[this->typeId]->sound[arg1 + 1]];
+        } else if (g_VFX_info[this->typeId]->sound[kind + 1] != 0) {
+            sample = g_SfxArray[g_VFX_info[this->typeId]->sound[kind + 1]];
         }
 
         map->FUN_0041b7b7(this->x_pos, this->y_pos, &vol, &pan);

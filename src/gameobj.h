@@ -261,7 +261,7 @@ public:
 	virtual void PlayAttackVoice();
 	virtual void PlayMoveVoice();
 	virtual void PlaySwarmVoice();
-	virtual void PlayHitSound(int32_t arg1);
+	virtual void PlayHitSound(int32_t kind);
 	virtual void PlayDefendVoice();
 	virtual void PlayRetreatVoice();
 	virtual void PlaySelectVoice();
