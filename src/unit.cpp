@@ -1579,7 +1579,7 @@ int32_t Unit::GetTicksSinceAction() {
 }
 
 // 59A030
-int32_t Unit::sub_59A030() {
+int32_t Unit::MovementType() {
     return this->GetMovementType();
 }
 

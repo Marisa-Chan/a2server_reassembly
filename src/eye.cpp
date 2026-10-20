@@ -21,7 +21,7 @@ uint8_t UnitEye::GetFacingHalf() {
 
 // 5925C9
 void UnitEye::SetPathMaskByMovement(Unit* unit) {
-    uint8_t movement_type = unit->sub_59A030();
+    uint8_t movement_type = unit->MovementType();
     if (movement_type == 1) {
         this->field5_0x5 = 65;
     } else if (movement_type == 2) {

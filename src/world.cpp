@@ -362,14 +362,14 @@ int32_t World::GetAttackDecision(Unit* unit, Unit* target) {
     PosYX unit_yx = unit->position->CompatGetYX();
     uint8_t distance = this->field24_0xa50->ChebyshevDistance(unit_yx, target_yx);
 
-    uint8_t target_movement = target->sub_59A030();
+    uint8_t target_movement = target->MovementType();
     if (target_movement == 1 && this->UnitMaxRange(target) > 1) {
         target_movement = 0;
     }
 
     uint8_t lookup_value;
     if (this->UnitMaxRange(unit) <= 1) {
-        uint8_t unit_movement = unit->sub_59A030();
+        uint8_t unit_movement = unit->MovementType();
         lookup_value = this->attack_decision_table[target_movement + unit_movement * 4];
     } else {
         lookup_value = this->attack_decision_table[target_movement];
@@ -2469,7 +2469,7 @@ void World::DoGuardScan(Unit* unit) {
             continue;
         }
         int32_t range = this->field24_0xa50->GetRangeTo(unit, other);
-        if (other->sub_59A030() == 3 && unit->sub_59A030() != 3) {
+        if (other->MovementType() == 3 && unit->MovementType() != 3) {
             range += 1;
         }
         uint8_t facing = this->field24_0xa50->GetFacingTo(unit, other);
@@ -3239,7 +3239,7 @@ void World::RemoveAirborneTargets(Unit* unit, UnitList* list) {
         POSITION current = it;
         Unit* other = list->unit_list.GetNext(it);
 
-        if (max_range < 2 && other->sub_59A030() == 3) {
+        if (max_range < 2 && other->MovementType() == 3) {
             list->unit_list.RemoveAt(current);
         }
     }
@@ -3301,7 +3301,7 @@ void World::InitUnitCombatProfile(Unit* unit) {
         unit->eye2->wimpy = unit->hp_max / 4;
     } else {
         uint8_t max_range = this->UnitMaxRange(unit);
-        if (max_range < 2 || unit->sub_59A030() == 3) {
+        if (max_range < 2 || unit->MovementType() == 3) {
             unit->eye2->field39_0x4c = 0;
             unit->eye2->withdraw = 0;
             unit->eye2->wimpy = 0;
@@ -3559,7 +3559,7 @@ void World::PickAdjacentEnemy(Unit* unit, Unit* target) {
     POSITION pos = list->unit_list.GetHeadPosition();
     while (pos != nullptr) {
         Unit* other = list->unit_list.GetNext(pos);
-        if (other->sub_59A030() == 3) {
+        if (other->MovementType() == 3) {
             if (best_type3 == nullptr) {
                 best_type3 = other;
                 best_distance = this->field24_0xa50->GetRangeTo(unit, other);
@@ -4188,16 +4188,16 @@ int32_t World::GetTargetScore(Unit* unit, Unit* target) {
 
     uint8_t target_movement = 0;
     uint8_t target_range = this->UnitMaxRange(target);
-    if (target_range > 1 && target->sub_59A030() == 1) {
+    if (target_range > 1 && target->MovementType() == 1) {
         target_movement = 0;
     } else {
-        target_movement = target->sub_59A030();
+        target_movement = target->MovementType();
     }
 
     uint8_t unit_range = this->UnitMaxRange(unit);
     uint8_t cost = 0;
     if (unit_range <= 1) {
-        int32_t movement_type = unit->sub_59A030();
+        int32_t movement_type = unit->MovementType();
         cost = this->attack_decision_table[target_movement + movement_type * 4];
     } else {
         cost = this->attack_decision_table[target_movement];

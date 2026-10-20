@@ -858,7 +858,7 @@ int MapStuff::IsAreaClear(Unit* unit, PosYX yx, int32_t flag) {
 // 58AEEF
 int32_t MapStuff::CanOccupyCell(Unit* unit, uint8_t x, uint8_t y) {
     PosYX yx(x, y);
-    int32_t movement_type = unit->sub_59A030();
+    int32_t movement_type = unit->MovementType();
 
     CellState& cell = this->scratch_cell_state;
 
@@ -2041,7 +2041,7 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
         if (unit_size == 1) {
             this->field_0x54584[0] = PosYX(cur_x, cur_y);
             uint8_t flag_byte = unit->eye->field5_0x5;
-            int32_t cond_flag = (unit->sub_59A030() == 1) ? 1 : 0;
+            int32_t cond_flag = (unit->MovementType() == 1) ? 1 : 0;
 
             int32_t extra = distance >> 2;
             if (extra < this->dynamic_scan_ahead) {
@@ -2094,7 +2094,7 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
     } else if (unit_size == 1) {
         this->field_0x54584[0] = PosYX(cur_x, cur_y);
         uint8_t flag_byte = unit->eye->field5_0x5;
-        int32_t cond_flag = (unit->sub_59A030() == 1) ? 1 : 0;
+        int32_t cond_flag = (unit->MovementType() == 1) ? 1 : 0;
 
         int32_t extra = distance >> 2;
         if (extra < this->static_scan_ahead) {
@@ -2209,13 +2209,13 @@ void MapStuff::ExpandCostGridNeighbors(Unit* unit, uint8_t x, uint8_t y, Passabl
 
             uint16_t cost;
             if (dx == 0 || dy == 0) {
-                if (unit->sub_59A030() == 1) {
+                if (unit->MovementType() == 1) {
                     cost = *this->GetCostGridAt(x, y) + *this->GetWalkCostMapAt(nx, ny);
                 } else {
                     cost = *this->GetCostGridAt(x, y) + 2;
                 }
             } else {
-                if (unit->sub_59A030() == 1) {
+                if (unit->MovementType() == 1) {
                     uint8_t walk_cost = *this->GetWalkCostMapAt(nx, ny);
                     cost = *this->GetCostGridAt(x, y) + walk_cost + (walk_cost / 2);
                 } else {
@@ -2293,7 +2293,7 @@ void MapStuff::WalkCostPath(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x,
                 }
 
                 if (dx == 0 || dy == 0) {
-                    if (unit->sub_59A030() == 1) {
+                    if (unit->MovementType() == 1) {
                         cost += *this->GetWalkCostMapAt(wx, wy);
                     } else {
                         cost += 2;
@@ -2304,7 +2304,7 @@ void MapStuff::WalkCostPath(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x,
                         best_dy = dy;
                     }
                 } else {
-                    if (unit->sub_59A030() == 1) {
+                    if (unit->MovementType() == 1) {
                         uint8_t wc = *this->GetWalkCostMapAt(wx, wy);
                         cost += wc + (wc / 2);
                     } else {
@@ -2654,7 +2654,7 @@ int32_t MapStuff::CalcMoveStep(Unit* unit, uint16_t yx, uint8_t val) {
     uint16_t yx2 = yx + this->field50_0x58e98[dir];
 
     int32_t speed;
-    if (unit->sub_59A030() == 1) {
+    if (unit->MovementType() == 1) {
         int8_t height_delta = this->height_map[yx] - this->height_map[yx2];
         if (abs(height_delta) > 32) {
             height_delta = (height_delta < 0) ? -32 : 32;

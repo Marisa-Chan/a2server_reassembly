@@ -126,7 +126,7 @@ public:
     int32_t HasEnchantment(uint8_t spell_id); // 52C735: HasEnchantment.
     uint8_t GetSpellPower(uint8_t sphere); // 52F5BB: clamped spell power for sphere: max(0, skill_levels[sphere] + mind - 30)
     void InitFromMonsterName(const CString& value);
-    int32_t sub_59A030(); // Returns movement type.
+    int32_t MovementType(); // Returns movement type.
     int32_t IsMage(); // 5B6FB0 — IsMage.
 
     void ApplyMonsterInfo(const CArray<MonsterInfoData>& values);
