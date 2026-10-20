@@ -499,9 +499,9 @@ void Effect::ApplyStatDelta(Unit* unit, int32_t param_3) {
             break;
         case modifier::teachspell:
             if (unit->spell_book != nullptr) {
-                if (unit->spell_book->sub_53DB79(value) == nullptr) {
+                if (unit->spell_book->GetSpell(value) == nullptr) {
                     Spell* spell = new Spell(value);
-                    unit->spell_book->sub_53D7F0(value, spell);
+                    unit->spell_book->SetSpell(value, spell);
                 }
             }
             unit->item_op_dirty_flags |= 0x100000;

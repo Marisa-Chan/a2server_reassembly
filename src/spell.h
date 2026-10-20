@@ -35,8 +35,8 @@ public:
     int IsUnitSpell(); // Checks if spell_target == 1 (unit-targeted).
     int32_t StartCast(Unit* caster, Unit* target, int8_t x, int8_t y); // Validate and start cast; returns nonzero if accepted
     void ExecuteRaySpell(Unit* caster, Unit* target);
-    void sub_539F21(Unit* caster, Unit* target); // Execute targeted spell
-    void sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y); // Execute area spell
+    void ExecuteOnTarget(Unit* caster, Unit* target); // Execute targeted spell
+    void ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y); // Execute area spell
 
 
     uint8_t GetSpeed(uint8_t v) const { //539926
@@ -121,7 +121,7 @@ public: // VTable at 60ec30.
 
 public:
     SpellBook() {}; // 53D28E (inlined in ASM callers)
-    int32_t sub_53DD3D(); // Calculate spellbook bitmask for this unit's spells.
+    int32_t CalcSpellMask(); // Calculate spellbook bitmask for this unit's spells.
 
     void RefreshForHumanoid(Humanoid* humanoid);
 
@@ -129,8 +129,8 @@ public:
     CArray<Spell*> spells;
     uint32_t current_spell_index = 0;
 
-    void sub_53D7F0(int32_t spell_id, Spell* spell); // Add/replace a spell in the book
-    Spell* sub_53DB79(int spell_id); // Look up spell in book by id
+    void SetSpell(int32_t spell_id, Spell* spell); // Add/replace a spell in the book
+    Spell* GetSpell(int spell_id); // Look up spell in book by id
 };
 ASSERT_SIZE(SpellBook, 0x1c);
 

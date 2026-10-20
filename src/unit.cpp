@@ -169,7 +169,7 @@ void __cdecl sub_53685B(Unit* self, Unit* target) {
         if ((damage > 0 && target->hp > 0) || self->weapon->imbued_spell->spell_id == spell::fire_ball) {
             self->some_spell = self->weapon->imbued_spell;
             self->some_item = self->weapon;
-            self->some_spell->sub_539F21(self, target);
+            self->some_spell->ExecuteOnTarget(self, target);
             self->some_spell = nullptr;
             self->some_item = nullptr;
         }
@@ -837,9 +837,9 @@ void Unit::ProcessEffects() {
                             this->some_spell->spell_info = expected;
                         }
                         if (this->some_state == 0xd) {
-                            this->some_spell->sub_539F21(this, this->cast_target);
+                            this->some_spell->ExecuteOnTarget(this, this->cast_target);
                         } else {
-                            this->some_spell->sub_539F5A(this, nullptr, this->area_cast_x, this->area_cast_y);
+                            this->some_spell->ExecuteAtArea(this, nullptr, this->area_cast_x, this->area_cast_y);
                         }
 
                         if (this->some_item != nullptr) {
@@ -1335,7 +1335,7 @@ void Unit::PickUpSack(Sack* sack) {
                         this->some_item = item;
                         Spell* spl = new Spell(static_cast<uint8_t>(effect->spell_or_damage));
                         spl->SetPower(static_cast<uint8_t>(effect->spell_value));
-                        spl->sub_539F5A(this, this, 0, 0);
+                        spl->ExecuteAtArea(this, this, 0, 0);
                         if (this->some_item != nullptr) {
                             delete this->some_item;
                             this->some_item = nullptr;
@@ -2115,7 +2115,7 @@ void Unit::InitFromMonsterName(const CString& name) {
         int32_t spell_id = i == 0 ? data.spell1_id : i == 1 ? data.spell2_id : data.spell3_id;
         if (spell_id > 0) {
             Spell* spell = new Spell(spell_id);
-            this->spell_book->sub_53D7F0(spell_id, spell);
+            this->spell_book->SetSpell(spell_id, spell);
             this->eye2->known_spells[i] = spell_id;
             
             int32_t probability = i == 0 ? data.spell_probability1 : i == 1 ? data.spell_probability2 : data.spell_probability3;
@@ -2139,7 +2139,7 @@ void Unit::InitFromMonsterName(const CString& name) {
             for (int32_t spell_id = 1; spell_id <= spell::max_spell_id; spell_id++) {
                 if ((spell_mask & (1 << spell_id)) != 0) {
                     Spell* spell = new Spell(spell_id);
-                    this->spell_book->sub_53D7F0(spell_id, spell);
+                    this->spell_book->SetSpell(spell_id, spell);
                 }
             }
 
@@ -3019,7 +3019,7 @@ void Human::InitFromName(CString hname, int32_t is_hero, const char* unk) {
         for (uint8_t spell_id = 1; spell_id < 30; spell_id++) {
             if (known_spells_mask & (1 << spell_id)) {
                 Spell* spell = new Spell(spell_id);
-                this->spell_book->sub_53D7F0(spell_id, spell);
+                this->spell_book->SetSpell(spell_id, spell);
             }
         }
     }

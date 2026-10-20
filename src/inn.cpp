@@ -73,7 +73,7 @@ static void RegisterQuest(Inn* inn, Quest* q, int some_id, int player_id, int bu
 }
 
 // 567B4D
-bool Inn::sub_567B4D(Player* player) {
+bool Inn::HasQuest(Player* player) {
     if (!this->quest_map_per_player.Lookup(player->player_id, this->quest_map)) {
         return false;
     }
@@ -95,7 +95,7 @@ void Inn::InnCreateQuests(Player* player) {
     if (g_QuestMap.VMethod1(0x11, player->player_id, this->building_id) != 0) {
         return;
     }
-    if (this->sub_567B4D(player)) {
+    if (this->HasQuest(player)) {
         return;
     }
 
@@ -518,7 +518,7 @@ void Inn::InnCreateQuests(Player* player) {
     // =====================================================================
     if ((player->main_unit->unit_attrs & 4) != 0 && this->has_raise_dead != 0) {
         SpellBook* sb = player->main_unit->spell_book;
-        if (sb && (sb->sub_53DD3D() & (1 << spell::animate_dead)) != 0) {
+        if (sb && (sb->CalcSpellMask() & (1 << spell::animate_dead)) != 0) {
             int raise = Random0N(2);
             Quest* q = nullptr;
             if (raise == 0) {
@@ -637,7 +637,7 @@ void Inn::RegenTick() {
     while (pos) {
         Unit* unit = this->unit_list.unit_list.GetNext(pos);
         if (unit->pOwner->is_active == 0) {
-            this->sub_560DC2(static_cast<Humanoid*>(unit), 0xFFFF);
+            this->RemoveUnit(static_cast<Humanoid*>(unit), 0xFFFF);
         }
     }
 
@@ -880,7 +880,7 @@ void Inn::InnReward(Player* player) {
     if (player->main_unit->unit_attrs & 4) {
         temp_candidates.SetSize(0, -1);
         for (int i = 0; i < TeachSpellIDs.size(); i++) {
-            int32_t known_spells = player->main_unit->spell_book->sub_53DD3D();
+            int32_t known_spells = player->main_unit->spell_book->CalcSpellMask();
             if ((known_spells & (1 << TeachSpellIDs[i])) == 0) {
                 CString book_name(TeachSpellBooks[i]);
                 Item* book = new Item(book_name);
@@ -1114,7 +1114,7 @@ void Inn::InnReward(Player* player) {
 }
 
 // 567A25
-Quest* Inn::sub_567A25(Player* player) {
+Quest* Inn::FindActiveQuest(Player* player) {
     POSITION quest_it = g_QuestMap.quests_map.GetStartPosition();
     while (quest_it) {
         uint32_t key;
@@ -1128,10 +1128,10 @@ Quest* Inn::sub_567A25(Player* player) {
 }
 
 // 560C67
-void Inn::sub_560C67(Unit* unit) {
+void Inn::UpdateQuests(Unit* unit) {
     Player* player = unit->pOwner;
-    this->sub_567C21(player);
-    Quest* quest = this->sub_567A25(player);
+    this->DeleteCompletedQuests(player);
+    Quest* quest = this->FindActiveQuest(player);
     if (quest == nullptr) {
         this->InnCreateQuests(player);
         g_NetStru1_main.SendSrvStru1State(this->quest_map, player, 1);
@@ -1149,7 +1149,7 @@ void Inn::sub_560C67(Unit* unit) {
 }
 
 // 567C21
-void Inn::sub_567C21(Player* player) {
+void Inn::DeleteCompletedQuests(Player* player) {
     POSITION pos = g_QuestMap.quests_map.GetStartPosition();
     while (pos) {
         uint32_t key;
@@ -1162,10 +1162,10 @@ void Inn::sub_567C21(Player* player) {
     }
 }
 
-// sub_560DC2 вЂ” Handle inn quest/reward interaction.
+// RemoveUnit вЂ” Handle inn quest/reward interaction.
 // Called when a humanoid finishes interacting with the inn.
 // `id`: < 0x100 = reward item index, >= 0x100 = accepted quest's `some_id`.
-void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
+void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
     // Look up the unit by the building id
     Unit* found = this->unit_list.sub_5560D2(humanoid->building_id);
     if (!found) {
@@ -1419,7 +1419,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
     }
 
     // Find and clean up any pending quest for this player
-    this->active_quest = this->sub_567A25(humanoid->pOwner);
+    this->active_quest = this->FindActiveQuest(humanoid->pOwner);
     if (this->active_quest != nullptr) {
         g_QuestMap.sub_55E5FB(this->active_quest);
         if (this->active_quest != nullptr) {

@@ -893,7 +893,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
 
     // bit 0x100000: spellbook bitmask + eye2 calibration byte
     if ((mask & 0x100000) && unit->spell_book != nullptr) {
-        pkt->PutInt(0x100000, unit->spell_book->sub_53DD3D());
+        pkt->PutInt(0x100000, unit->spell_book->CalcSpellMask());
         pkt->PutByte(0x100000, unit->eye2->spell_id);
     }
 

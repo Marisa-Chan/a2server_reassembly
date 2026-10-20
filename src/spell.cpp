@@ -154,14 +154,14 @@ void Spell::ExecuteRaySpell(Unit* caster, Unit* target) {
     g_NetStru1_main.SendSpellCastMulti(caster, this, &units, 0);
     for (POSITION it = units.GetHeadPosition(); it != nullptr; ) {
         Unit* unit = units.GetNext(it);
-        this->sub_539F5A(caster, unit, 0, 0);
+        this->ExecuteAtArea(caster, unit, 0, 0);
     }
 }
 
 // 539F21
-void Spell::sub_539F21(Unit* caster, Unit* target) {
+void Spell::ExecuteOnTarget(Unit* caster, Unit* target) {
     if (this->spell_id != spell::prismatic_spray) {
-        this->sub_539F5A(caster, target, 0, 0);
+        this->ExecuteAtArea(caster, target, 0, 0);
     }
 }
 
@@ -301,7 +301,7 @@ void SpellBook::Serialize(CArchive& ar) {
 }
 
 // 53DD3D
-int32_t SpellBook::sub_53DD3D() {
+int32_t SpellBook::CalcSpellMask() {
     int32_t mask = 0;
     for (int32_t i = 1; i < this->spells.GetSize(); i++) {
         if (this->spells[i] != nullptr) {
@@ -312,7 +312,7 @@ int32_t SpellBook::sub_53DD3D() {
 }
 
 // 53D7F0
-void SpellBook::sub_53D7F0(int32_t spell_id, Spell* spell) {
+void SpellBook::SetSpell(int32_t spell_id, Spell* spell) {
     if (spell_id < this->spells.GetSize()) {
         delete this->spells[spell_id];
     } else {
@@ -342,7 +342,7 @@ void SpellBook::RefreshForHumanoid(Humanoid* humanoid) {
 }
 
 // 539F5A
-void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
+void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
     if (this->spell_info == nullptr) {
         return;
     }
@@ -846,7 +846,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
     }
 }
 
-Spell* SpellBook::sub_53DB79(int spell_id) { // 53db79 // Look up spell in book by id
+Spell* SpellBook::GetSpell(int spell_id) { // 53db79 // Look up spell in book by id
     if ((uint32_t)spell_id >= this->spells.GetSize()) {
         return nullptr;
     }

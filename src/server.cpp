@@ -227,7 +227,7 @@ void Server::ProcessPlayers() {
 
                 Inn* inn = this->FindInnAt(player->main_unit->position);
                 if (inn != nullptr) {
-                    inn->sub_560DC2(player->main_unit, -1);
+                    inn->RemoveUnit(player->main_unit, -1);
                 }
 
                 if (player->main_unit->decay != 0 && g_Server->field4_0x74 != 0) {
@@ -1419,7 +1419,7 @@ void Srv1::LoadSacks(MapAlm* alm) {
 
             // Add spell to spellbook
             Spell* spell = new Spell(effect_data->type_id);
-            unit->spell_book->sub_53D7F0(effect_data->type_id, spell);
+            unit->spell_book->SetSpell(effect_data->type_id, spell);
         } else if ((effect_data->trap_x != 0 || effect_data->trap_y != 0) && effect_data->sack == nullptr && (effect_data->values[0] & 4)) {
             Building* building = buildings_map[effect_data->values[1]];
             if (building == nullptr) {
@@ -2461,7 +2461,7 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
         for (int32_t spell_id = 1; spell_id <= spell::max_spell_id; spell_id++) {
             if ((stats->spells & (1 << spell_id)) != 0) {
                 Spell* spell = new Spell(spell_id);
-                unit->spell_book->sub_53D7F0(spell_id, spell);
+                unit->spell_book->SetSpell(spell_id, spell);
             }
         }
         if (unit->eye2 != nullptr) {
@@ -2772,7 +2772,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 int32_t spell_id = atoi(cheat_string);
                 if (spell_id > 0 && spell_id <  g_GameDataRes.spells.GetSize()) {
                     Spell* sp = new Spell((uint8_t)spell_id);
-                    spell_book->sub_53D7F0(spell_id, sp);
+                    spell_book->SetSpell(spell_id, sp);
                 }
                 // FUN_00519221(&g_NetStru1_main,&pHStack_4c->_,(pHStack_4c->_)._.pOwner,0xa31fffff, 0xffb,0,0);
                 g_NetStru1_main.SendUnitUpdate(player->main_unit, player, 0xA31FFFFF, 0xFFB, 0, 0);
@@ -2786,7 +2786,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 }
                 for (int i = 1; i <= 29; i++) {
                     Spell* sp = new Spell(i);
-                    spell_book->sub_53D7F0(i, sp);
+                    spell_book->SetSpell(i, sp);
                 }
                 g_NetStru1_main.SendUnitUpdate(player->main_unit, player, (int32_t)0xA31FFFFF, 0xFFB, 0, 0);
                 if (!is_reconnect) {
@@ -3013,7 +3013,7 @@ void Server::sub_504a96(Packet* pkt) {
             for (POSITION node = group->unit_list.GetHeadPosition(); node; ) {
                 Unit* u = group->unit_list.GetNext(node);
                 if (u && u->spell_book) {
-                    cast_spell = u->spell_book->sub_53DB79(spell_id);
+                    cast_spell = u->spell_book->GetSpell(spell_id);
                     u->spell = cast_spell;
                 }
             }
@@ -3528,7 +3528,7 @@ void Server::sub_504a96(Packet* pkt) {
             }
             unit->CancelQueuedSpell();
             unit->pOwner->building_entered_from_yx = unit->position->GetY() * 0x100 + unit->position->GetX();
-            inn->sub_560C67(unit);
+            inn->UpdateQuests(unit);
             CString m;
             m.Format("Enter inn: player %d, unit %d, inn %d at (%d, %d)", packet_word->from_player_id, packet_word->value, inn->building_id, unit->position->GetX(), unit->position->GetY());
             LogMessage(m);
@@ -3556,7 +3556,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (!inn) {
                 break;
             }
-            inn->sub_560DC2(static_cast<Humanoid*>(unit), packet_info->param2);
+            inn->RemoveUnit(static_cast<Humanoid*>(unit), packet_info->param2);
             CString m;
             m.Format("Exit inn: player %d, unit %d, field: %x", packet_info->from_player_id, packet_info->param1, packet_info->param2);
             LogMessage(m);
@@ -4572,7 +4572,7 @@ void Server::SaveCharacter(Humanoid* humanoid) {
     stats.spirit = humanoid->spirit - humanoid->equipment_extra.spirit;
 
     if (humanoid->spell_book) {
-        stats.spells = humanoid->spell_book->sub_53DD3D();
+        stats.spells = humanoid->spell_book->CalcSpellMask();
     } else {
         stats.spells = 0;
     }

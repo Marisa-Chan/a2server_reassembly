@@ -999,7 +999,7 @@ void World::CastSelfHealOrBuff(Unit* unit) {
         return;
     }
 
-    Spell* spell = unit->spell_book->sub_53DB79(spell::heal);
+    Spell* spell = unit->spell_book->GetSpell(spell::heal);
     if (spell == nullptr) {
         return;
     }
@@ -1069,7 +1069,7 @@ void World::BeginAutobuffCast(Unit* caster, Unit* target, Spell* spell) {
 void World::PickFallbackBuff(Unit* unit, UnitList* list) {
     // Heal self.
     if (unit->hp != unit->hp_max) {
-        Spell* heal = unit->spell_book->sub_53DB79(spell::heal);
+        Spell* heal = unit->spell_book->GetSpell(spell::heal);
         if (heal != nullptr) {
             unit->eye2->field49_0x60 = 1;
             this->BeginAutobuffCast(unit, unit, heal);
@@ -1078,7 +1078,7 @@ void World::PickFallbackBuff(Unit* unit, UnitList* list) {
     }
 
     // Shield self, unless already shielded.
-    Spell* shield = unit->spell_book->sub_53DB79(spell::shield);
+    Spell* shield = unit->spell_book->GetSpell(spell::shield);
     if (shield != nullptr && (unit->enchantments & (1 << shield->spell_id)) == 0) {
         unit->eye2->field49_0x60 = 1;
         this->BeginAutobuffCast(unit, unit, shield);
@@ -1102,7 +1102,7 @@ void World::PickFallbackBuff(Unit* unit, UnitList* list) {
 
     // Heal.
     if (target->hp != target->hp_max) {
-        Spell* heal = unit->spell_book->sub_53DB79(spell::heal);
+        Spell* heal = unit->spell_book->GetSpell(spell::heal);
         if (heal != nullptr) {
             unit->eye2->field49_0x60 = 1;
             this->BeginAutobuffCast(unit, target, heal);
@@ -1118,7 +1118,7 @@ void World::PickFallbackBuff(Unit* unit, UnitList* list) {
     // Build a list of affordable defensive buff spells excluding heal/shield.
     CList<Spell*> buffs;
     for (int32_t spell_id = 1; spell_id < spell::max_spell_id; spell_id++) {
-        Spell* spell = unit->spell_book->sub_53DB79(spell_id);
+        Spell* spell = unit->spell_book->GetSpell(spell_id);
         if (spell != nullptr && spell->mana_cost <= unit->mp && spell->is_defensive) {
             if (spell->spell_id != spell::heal && spell->spell_id != spell::shield) {
                 buffs.AddTail(spell);
@@ -1141,7 +1141,7 @@ void World::PickFallbackBuff(Unit* unit, UnitList* list) {
 // appropriate target (self, target unit, or target position).
 // 5A6801
 void World::CastKnownSpell(Unit* caster, Unit* target, int32_t spell_id) {
-    Spell* spell = caster->spell_book->sub_53DB79(spell_id);
+    Spell* spell = caster->spell_book->GetSpell(spell_id);
     if (spell == nullptr) {
         return;
     }
@@ -2399,7 +2399,7 @@ void World::ScriptOP_0x27(TriggerAction* action) {
 
 uint8_t World::UnitMaxRange(Unit* unit) { //5a6adb
     if (unit->eye2->spell_id != 0) {
-        Spell* spell = unit->spell_book->sub_53DB79(unit->eye2->spell_id);
+        Spell* spell = unit->spell_book->GetSpell(unit->eye2->spell_id);
         if (spell && spell->mana_cost <= unit->mp) {
             return spell->max_range;
         }
@@ -2602,7 +2602,7 @@ int32_t World::PickAttackSpell(Unit* unit, Unit* target) {
 
     CList<Spell*> spells;
     for (int32_t spell_id = 1; spell_id < spell::max_spell_id; spell_id++) {
-        Spell* spell = unit->spell_book->sub_53DB79(spell_id);
+        Spell* spell = unit->spell_book->GetSpell(spell_id);
         if (spell != nullptr && spell->mana_cost <= unit->mp && !spell->is_defensive) {
             spells.AddTail(spell);
         }
@@ -2656,7 +2656,7 @@ void World::PursueTarget(Unit* unit, Unit* target) {
 // Pick spell by number if the unit knows it and has enough MP.
 // 5A79D6
 Spell* World::GetCastableSpell(Unit* unit, int32_t spell_number, int32_t /*flag*/) {
-    Spell* spell = unit->spell_book->sub_53DB79(spell_number);
+    Spell* spell = unit->spell_book->GetSpell(spell_number);
     if (spell == nullptr || unit->mp < spell->mana_cost) {
         return nullptr;
     }
@@ -3532,7 +3532,7 @@ void World::sub_5A57E8(Unit* unit, Unit* target) {
     }
 
     if (spell_id != 0) {
-        Spell* spell = unit->spell_book->sub_53DB79(spell_id);
+        Spell* spell = unit->spell_book->GetSpell(spell_id);
         if (spell != nullptr && spell->mana_cost <= unit->mp) {
             unit->eye2->field49_0x60 = 1;
             this->BeginAutobuffCast(unit, target, spell);
