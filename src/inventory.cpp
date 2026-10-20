@@ -77,7 +77,7 @@ void Inventory::PutItemIntoBag(int32_t pos, Item* item) {
 }
 
 // 5524FA
-void Inventory::sub_5524FA(int32_t amount, Item* item) {
+void Inventory::AddItem(int32_t amount, Item* item) {
     if (!item) {
         return;
     }

@@ -166,7 +166,7 @@ void CMultiShopInstance::Buy() {
 
 // 546537
 void CMultiShopInstance::SellItemFor(int32_t amount, Item* item) {
-    this->inventory.sub_5524FA(amount, item);
+    this->inventory.AddItem(amount, item);
 }
 
 // 546557
