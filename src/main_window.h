@@ -315,7 +315,7 @@ public:
 
     // Message handlers
     void OnDestroy(); // 495439 — ON_WM_DESTROY
-    void sub_49544C(); // 49544C — ON_COMMAND 0x3f5
+    void OnCommand3f5(); // 49544C — ON_COMMAND 0x3f5
     void sub_49549B(); // 49549B — ON_COMMAND 0x3f6
     void sub_4954EA(); // 4954EA
     void sub_4956D5(); // 4956D5 — ON_WM_CLOSE

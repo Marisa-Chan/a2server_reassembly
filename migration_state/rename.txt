@@ -878,3 +878,4 @@ UserShortcut::FUN_0041e456 -> IsSpellShortcut -- 1 when the shortcut is that spe
 UserShortcut::FUN_0041e3af -> MatchesItem -- 1 when the shortcut equals the item entry incl. mods
 UserShortcut::sub_41E343 -> SetItem -- kind=2 shortcut copying the item entry and its mods
 MainWindow::sub_49585B -> UpdateControlStates -- update control states (per comment)
+MainWindow::sub_495439 -> OnDestroy -- ON_WM_DESTROY handler
