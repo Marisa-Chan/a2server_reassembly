@@ -4036,7 +4036,7 @@ void Server::sub_504a96(Packet* pkt) {
             }
 
             // Find the target player by two identity fields carried in the packet
-            Player* target = g_PlayersList->sub_535E94(packet_info->param1, packet_info->param2);
+            Player* target = g_PlayersList->FindByHatCharId(packet_info->param1, packet_info->param2);
             // Only proceed if the target player has no active NetStru2 yet
             if (target && g_NetStru1_main.GetClientByPlayerID(target->player_id) == nullptr) {
                 ns2->player_id = target->player_id;
@@ -5474,7 +5474,7 @@ void Server::ProcessHatPacket(Packet* pkt) {
     case 0xe1: { // 0xe1 - Player existence check from hat
             int32_t id1 = pkt_info->param1;
             int32_t id2 = pkt_info->param2;
-            Player* player = g_PlayersList->sub_535E94(id1, id2);
+            Player* player = g_PlayersList->FindByHatCharId(id1, id2);
             if (player == nullptr) {
                 NetStru1::HatConnector.SendHatPlayerCheck(id1, id2, 1, 0);
                 return;

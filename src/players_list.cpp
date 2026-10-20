@@ -133,7 +133,7 @@ Player* PlayersList::FindByName(CString name) {
 }
 
 // 535E94
-Player* PlayersList::sub_535E94(int32_t a, int32_t b) {
+Player* PlayersList::FindByHatCharId(int32_t a, int32_t b) {
 	POSITION it = this->list.GetHeadPosition();
 	Player* player = it ? this->list.GetNext(it) : nullptr;
 	while (player != nullptr) {
