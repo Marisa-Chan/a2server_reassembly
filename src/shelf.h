@@ -99,7 +99,7 @@ public:
     void Sell(); // 545D5E
     void Buy(); // 546027
     int StowItemInShelf(Item* item, int dst_slot); // 5462C8
-    void SendShelfState(int param); // 5464B6
+    void SendShelfState(int shelf_id); // 5464B6
     void MoveItems(uint8_t src_type, int16_t src_slot, uint8_t dst_type, int16_t dst_slot, int32_t count); // 546577
     void SellItemFor(int amount, Item* item); // 546537 - add item to inventory
     Item* PickItem(int item_number, int count); // 546557 - pick item from inventory

@@ -1151,3 +1151,4 @@ Quest::OnEvent param_2 -> event_type -- matches QuestMap::OnEvent dispatcher voc
 Quest::OnEvent param_3 -> a -- matches QuestMap::OnEvent arg a (quest some_id/obj or packed count data)
 Quest::OnEvent param_4 -> b -- matches QuestMap::OnEvent arg b (packed player_id | landmark_id << 16, or building_id)
 CMultiShopInstance::StowItemInShelf arg1 -> dst_slot -- slot hint from callers (-1 = auto-pick shelf); unused by the migrated body
+CMultiShopInstance::SendShelfState param -> shelf_id -- 0 = shop table, -1 = all shelves, 1..4 = single shelf

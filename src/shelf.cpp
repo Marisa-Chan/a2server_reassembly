@@ -182,15 +182,15 @@ Unit* CMultiShopInstance::SetUnit(Unit* new_unit) {
 }
 
 // 5464B6
-void CMultiShopInstance::SendShelfState(int32_t param) {
-    if (param == 0) {
+void CMultiShopInstance::SendShelfState(int32_t shelf_id) {
+    if (shelf_id == 0) {
         Token* shop_token = nullptr;
         if (this->shop_template != nullptr) {
             shop_token = this->shop_template->shop;
         }
         g_NetStru1_main.SendShopTable(shop_token, &this->inventory, this->unit->pOwner, 4);
     } else {
-        g_NetStru1_main.SendShopShelves(this, this->unit->pOwner, param);
+        g_NetStru1_main.SendShopShelves(this, this->unit->pOwner, shelf_id);
     }
 }
 
