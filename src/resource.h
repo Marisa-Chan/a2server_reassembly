@@ -58,7 +58,7 @@ struct ResBase {
 
     FatEntry* CreateEntry(const char* fpath, const char* fname);
     FatEntry* RecreateEntry(const char* fpath, const char* fname);
-    FatEntry* FUN_004eca16(const char* fpath);
+    FatEntry* RequireFileEntry(const char* fpath);
     FatEntry* FUN_004eca63(const char* fpath);
 
     FatInfo* FUN_004e5d55(const char* fpath);

@@ -842,3 +842,4 @@ ResBase::FUN_004ec7e0 -> AppendEntry -- grows the fat and appends a child entry 
 ResBase::FUN_004ec553 -> CopyFatExcluding -- recursive fat copy skipping the removed subtree
 ResBase::FUN_004ec438 -> RemoveEntry -- rebuilds the fat without the given node's subtree
 ResBase::FUN_004ec8c6 -> CreateEntry -- TracePath + AppendEntry
+ResBase::FUN_004ea183 -> RecreateEntry -- removes then recreates the entry as an empty file node

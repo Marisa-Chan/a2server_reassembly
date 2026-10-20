@@ -754,7 +754,7 @@ FatEntry* ResBase::RecreateEntry(const char* fpath, const char* fname) {
     return node;
 }
 
-FatEntry* ResBase::FUN_004eca16(const char* fpath) {
+FatEntry* ResBase::RequireFileEntry(const char* fpath) {
     //4eca16
     FatEntry* node = this->TracePath(fpath);
     if (node == nullptr) {
