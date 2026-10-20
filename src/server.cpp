@@ -3258,7 +3258,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (from_type >= 4 && from_type <= 8 && to_type >= 4 && to_type <= 8) {
                 Shop* shop = this->FindShopAt(human->position);
                 if (shop) {
-                    shop->sub_5446EB(
+                    shop->HandleItemOperation(
                         human,
                         from_type, packet_cmd->param1,
                         to_type, packet_cmd->param2,

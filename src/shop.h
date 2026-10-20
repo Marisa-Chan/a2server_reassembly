@@ -29,7 +29,7 @@ public:
 
     void SellItemFor(Humanoid* humanoid, int amount, Item* item);
     Item* BuyItem(Humanoid* unit, int16_t src_slot, int32_t count);
-    void sub_5446EB(Humanoid* unit, uint8_t op_type, int16_t src_slot, uint8_t dst_type, int16_t dst_word, int32_t count);
+    void HandleItemOperation(Humanoid* unit, uint8_t op_type, int16_t src_slot, uint8_t dst_type, int16_t dst_word, int32_t count);
     void sub_544655(Unit* unit); // Mine: attach unit to this building
     void sub_54463F();
 

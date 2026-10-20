@@ -751,3 +751,4 @@ CMultiShopTemplate::sub_547BBC -> ConfirmSell -- pays out for the items the play
 CMultiShopTemplate::sub_547BFD -> SellItemFor -- wrapper: queue item for sale at amount
 CMultiShopTemplate::sub_547D7F -> ReturnConsignedItems -- wrapper: give the player's items back
 Shop::sub_544793 -> SellItemFor -- wraps the shop template sell
+Shop::sub_5446C7 -> BuyItem -- wraps the shop template buy

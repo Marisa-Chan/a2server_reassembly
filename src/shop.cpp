@@ -64,7 +64,7 @@ Item* Shop::BuyItem(Humanoid* humanoid, int16_t src_slot, int32_t count) {
 }
 
 // 5446EB
-void Shop::sub_5446EB(Humanoid* unit, uint8_t op_type, int16_t src_slot, uint8_t dst_type, int16_t dst_word, int32_t count) {
+void Shop::HandleItemOperation(Humanoid* unit, uint8_t op_type, int16_t src_slot, uint8_t dst_type, int16_t dst_word, int32_t count) {
     this->shop_template->HandleItemOperation(unit, op_type, src_slot, dst_type, dst_word, count);
 }
 
