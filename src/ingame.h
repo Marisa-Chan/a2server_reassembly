@@ -220,7 +220,7 @@ public:
 	void Init(); //47e26b
 	void Deinit(); //47e56b
 
-	CSprite256* FUN_0041f8f0(); //41f8f0
+	CSprite256* GetSprite(); //41f8f0
 	CSprite256* FUN_0046f760(); //46f760
 public:
 	CSprite256* sprite1 = nullptr;

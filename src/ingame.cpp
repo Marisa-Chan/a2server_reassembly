@@ -3336,7 +3336,7 @@ void ProjectileInfo::Deinit() { //47e56b
 	this->inited = 0;
 }
 
-CSprite256* ProjectileInfo::FUN_0041f8f0() { //41f8f0
+CSprite256* ProjectileInfo::GetSprite() { //41f8f0
     if (this->inited == 0) {
         this->Init();
     }
@@ -5520,7 +5520,7 @@ void BigStruct2::sub_406F7B() {
 						int32_t terrain = (uint16_t)(landscape[cell] & 0x1FFF) >> 6;
 						if (lval < 0x12 && terrain > 7 && terrain < 0xC) {
 							ProjectileInfo* proj = g_ProjectileInfos[8];
-							proj->FUN_0041f8f0()->VMethod2((x * 0x20 + 0x10) - proj->width / 2,
+							proj->GetSprite()->VMethod2((x * 0x20 + 0x10) - proj->width / 2,
 								((y * 0x20 + 0x10) - hgt) - proj->height / 2, lval >> 1, 0, 0);
 						}
 					}
@@ -5593,7 +5593,7 @@ void BigStruct2::sub_406F7B() {
 					uint32_t fval;
 					if (this->field_0xa94.Lookup(fkey, fval)) {
 						ProjectileInfo* proj = g_ProjectileInfos[0xF];
-						proj->FUN_0041f8f0()->VMethod2((x * 0x20 + 0x10) - proj->width / 2,
+						proj->GetSprite()->VMethod2((x * 0x20 + 0x10) - proj->width / 2,
 							((y * 0x20 + 0x10) - hgt2) - proj->height / 2, (int32_t)fval / 2, 0, 0);
 					}
 				}
@@ -5953,16 +5953,16 @@ void BigStruct2::sub_40AFC5(int32_t x, int32_t y, uint32_t flags, int32_t flag) 
 	if ((flags & 8) != 0 && flag != 0) {
 		ProjectileInfo* proj = g_ProjectileInfos[0xF];
 		int32_t phase = abs(this->field_0xa88 / 2 + x * y) % 5 + 3;
-		proj->FUN_0041f8f0()->VMethod2(x - proj->width / 2, y - proj->height / 2, phase, 0, 0);
+		proj->GetSprite()->VMethod2(x - proj->width / 2, y - proj->height / 2, phase, 0, 0);
 	}
 	if ((flags & 0x40) != 0 && flag == 0) {
 		ProjectileInfo* proj = g_ProjectileInfos[0x15];
 		int32_t phase = abs(this->field_0xa88 / 2 + x * y) % proj->phases;
-		proj->FUN_0041f8f0()->VMethod2(x - proj->width / 2, y - proj->height / 2, phase, 0, 0);
+		proj->GetSprite()->VMethod2(x - proj->width / 2, y - proj->height / 2, phase, 0, 0);
 	} else if ((flags & 0x20000) != 0 && flag != 0) {
 		ProjectileInfo* proj = g_ProjectileInfos[0x2B];
 		int32_t phase = abs(this->field_0xa88 / 2 + x * y) % proj->phases;
-		proj->FUN_0041f8f0()->VMethod2(x - proj->width / 2, y - proj->height / 2, phase, 0, 0);
+		proj->GetSprite()->VMethod2(x - proj->width / 2, y - proj->height / 2, phase, 0, 0);
 	}
 }
 

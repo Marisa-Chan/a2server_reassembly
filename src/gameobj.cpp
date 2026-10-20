@@ -1803,7 +1803,7 @@ void CUnit::Draw(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
             ProjectileInfo* proj = g_ProjectileInfos[elem->vfx_type];
             int32_t x = this->centerScreenX + elem->x - proj->width / 2;
             int32_t y = this->centerScreenY - this->terrainHeightOffset - this->z_pos + elem->y - proj->height / 2 - elem->z;
-            proj->FUN_0041f8f0()->VMethod2(x, y, elem->phase, 0, 0);
+            proj->GetSprite()->VMethod2(x, y, elem->phase, 0, 0);
         }
     }
 
@@ -1984,7 +1984,7 @@ void CUnit::Draw(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
             ProjectileInfo* proj = g_ProjectileInfos[elem->vfx_type];
             int32_t x = this->centerScreenX + elem->x - proj->width / 2;
             int32_t y = this->centerScreenY - this->terrainHeightOffset - this->z_pos + elem->y - proj->height / 2 - elem->z;
-            proj->FUN_0041f8f0()->VMethod2(x, y, elem->phase, 0, 0);
+            proj->GetSprite()->VMethod2(x, y, elem->phase, 0, 0);
         }
     }
 }
@@ -4576,31 +4576,31 @@ void CProjectile::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
         } else {
             sub_phase = this->phase - 8;
         }
-        info->FUN_0041f8f0()->VMethod2(x, y, sub_phase, arg3, 0);
+        info->GetSprite()->VMethod2(x, y, sub_phase, arg3, 0);
         break;
     }
     case 28:
         for (int32_t i = 0; i < this->transientVisualElements.GetSize(); i++) {
             GO_11c& el = this->transientVisualElements.ElementAt(i);
-            g_ProjectileInfos[28]->FUN_0041f8f0()->VMethod2(el.x - 8, el.y - 8, this->phase, 0, 0);
+            g_ProjectileInfos[28]->GetSprite()->VMethod2(el.x - 8, el.y - 8, this->phase, 0, 0);
         }
         break;
     case 30:
         for (int32_t i = 0; i < this->transientVisualElements.GetSize(); i++) {
             GO_11c& el = this->transientVisualElements.ElementAt(i);
-            g_ProjectileInfos[30]->FUN_0041f8f0()->VMethod2(el.x - 8, el.y - 8, this->phase + el.vfx_type * 5, 0, 0);
+            g_ProjectileInfos[30]->GetSprite()->VMethod2(el.x - 8, el.y - 8, this->phase + el.vfx_type * 5, 0, 0);
         }
         break;
     case 54:
-        info->FUN_0041f8f0()->VMethod2(x, y, this->phase, arg3, 0);
+        info->GetSprite()->VMethod2(x, y, this->phase, arg3, 0);
         break;
     case 56:
         break;
     default:
         if (info->palette == 0) {
-            info->FUN_0041f8f0()->VMethod1(x, y, sprite_idx, arg3, g_pal_projectiles, flip);
+            info->GetSprite()->VMethod1(x, y, sprite_idx, arg3, g_pal_projectiles, flip);
         } else {
-            info->FUN_0041f8f0()->VMethod2(x, y, sprite_idx, arg3, flip);
+            info->GetSprite()->VMethod2(x, y, sprite_idx, arg3, flip);
             CSprite256* sprite2 = info->FUN_0046f760();
             if (sprite2 != nullptr) {
                 sprite2->VMethod10(x, y, sprite_idx, arg3, flip);
