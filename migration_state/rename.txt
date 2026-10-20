@@ -869,3 +869,4 @@ CGameSession::FUN_00420070 -> GetSelectedRosterPath -- path of the selected rost
 CGameSession::FUN_00493cd8 -> DeleteSelectedCharacter -- deletes the selected roster character file and reloads the previous
 CGameSession::FUN_00494982 -> SaveKillStats -- writes the player file carrying the session kill stats
 CGameSession::FUN_004946e0 -> AutosaveCharacter -- writes the full character file
+CGameSession::FUN_004946ae -> AutosaveTick -- 15s-gated autosave

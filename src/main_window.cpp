@@ -2335,7 +2335,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
 
                 PostMessage(0x42e, 0, 0);
             } else {
-                this->m_GameSession.FUN_00493d8d();
+                this->m_GameSession.ResetCharacter();
 
                 if (this->field_0x3e0.field_10 == 0) {
                     PostMessage(0x451, 0, 0);
@@ -5457,7 +5457,7 @@ int CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit() {
 }
 
 
-void CGameSession::FUN_00493d8d() { //493d8d
+void CGameSession::ResetCharacter() { //493d8d
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
     if (wnd->sessionMode == 2) {
