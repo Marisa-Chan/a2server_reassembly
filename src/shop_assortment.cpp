@@ -109,7 +109,7 @@ ShopAssortment::~ShopAssortment() {
 }
 
 // 54EDE9
-Effect* __cdecl sub_54EDE9(int32_t is_warrior, int32_t item_type, int32_t sub_type, int32_t magic_volume, int32_t budget, int32_t exp, int32_t max_attempts) {
+Effect* __cdecl RollItemEffect(int32_t is_warrior, int32_t item_type, int32_t sub_type, int32_t magic_volume, int32_t budget, int32_t exp, int32_t max_attempts) {
     if (budget <= 0 || magic_volume <= 0) {
         return nullptr;
     }
@@ -549,7 +549,7 @@ int32_t ShopAssortment::AddMagicToItem(Item* item) {
 
     int32_t magic_volume = item->magic_volume;
 
-    Effect* effect = sub_54EDE9(is_warrior, item_type, local_18, magic_volume, budget, item->_exp, 100);
+    Effect* effect = RollItemEffect(is_warrior, item_type, local_18, magic_volume, budget, item->_exp, 100);
     if (!effect) {
         return 0;
     }
@@ -566,7 +566,7 @@ int32_t ShopAssortment::AddMagicToItem(Item* item) {
     magic_volume = item->magic_volume - TotalEffectPrice(item);
 
     if (Random0N(100) < 50) {
-        effect = sub_54EDE9(is_warrior, item_type, local_18, magic_volume, budget, item->_exp, 100);
+        effect = RollItemEffect(is_warrior, item_type, local_18, magic_volume, budget, item->_exp, 100);
         if (!effect) {
             return 1;
         }
@@ -583,7 +583,7 @@ int32_t ShopAssortment::AddMagicToItem(Item* item) {
     magic_volume = item->magic_volume - TotalEffectPrice(item);
 
     if (Random0N(100) < 25) {
-        effect = sub_54EDE9(is_warrior, item_type, local_18, magic_volume, budget, item->_exp, 100);
+        effect = RollItemEffect(is_warrior, item_type, local_18, magic_volume, budget, item->_exp, 100);
         if (!effect) {
             return 1;
         }
