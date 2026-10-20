@@ -925,3 +925,4 @@ Player::sub_534B17 -> StartAfkTimer -- arms the 30.5s AFK logout deadline
 Player::sub_534B59 -> ResetAfkTimer -- clears the AFK deadline and notifies 0xf
 Player::FUN_00534778 -> Deactivate -- clears is_active/is_logged_in and expires the drop deadline
 Player::sub_5347A1 -> RemoveUnitFromGroup -- removes the unit from its group
+Player::sub_534A74 -> RemoveUnit -- removes the unit from its group and deletes it

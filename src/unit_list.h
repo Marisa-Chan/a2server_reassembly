@@ -23,7 +23,7 @@ public:
 
     void Remove(Unit* unit); //575aa0   Remove unit from list and in any do delete for this unit
 
-    void sub_5579D8(Player* player); // Clear unit vision mask bits for player across this list
+    void ClearSentToMask(Player* player); // Clear unit vision mask bits for player across this list
     void sub_5574B5();
     Unit* sub_5560D2(uint16_t id);   // Look up unit in list by ID
     void ProcessTick();              // Tick alive units and reap dead ones (sub_556345)

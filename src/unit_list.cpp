@@ -311,7 +311,7 @@ void UnitList::sub_5561A1() {
 
 // Clear this player's vision-sharing bit on every unit in the list.
 // 5579D8
-void UnitList::sub_5579D8(Player* player) {
+void UnitList::ClearSentToMask(Player* player) {
 	POSITION it = this->unit_list.GetHeadPosition();
 	while (it) {
 		Unit* unit = this->unit_list.GetNext(it);

@@ -1700,16 +1700,16 @@ void Server::SendWorldState(Player* player, int32_t bool_arg4) {
     //   b) srv_stru1->sack_list --- clears Token::field_x18 word bits (ClearSentToMask).
     //   c) srv_stru1->units_list.
     // Then for each player in g_PlayersList, also clear their per-player unit list.
-    dword_6CDB3C->sub_5579D8(player);
+    dword_6CDB3C->ClearSentToMask(player);
 
     this->srv_stru1->sack_list->ClearSentToMask(player);
-    this->srv_stru1->units_list->sub_5579D8(player);
+    this->srv_stru1->units_list->ClearSentToMask(player);
 
     // Per-player unit lists.
     for (POSITION node = g_PlayersList->list.GetHeadPosition(); node != nullptr;) {
         Player* p = g_PlayersList->list.GetNext(node);
         if (p != nullptr) {
-            p->unit_list->sub_5579D8(player);
+            p->unit_list->ClearSentToMask(player);
         }
     }
 
