@@ -218,7 +218,7 @@ void InitCpuAndDistTables() {
 
 
 // 43A857
-void __cdecl sub_43A857(const char* source) {
+void __cdecl PostConsoleLine(const char* source) {
 	MainWindow* mainWnd = (MainWindow*)AfxGetMainWnd();
 	if (!mainWnd || mainWnd->sessionMode != 3) {
 		return;
@@ -248,7 +248,7 @@ void __cdecl sub_43A857(const char* source) {
 
 // 43AA23
 void LogMessage(CString message) {
-	sub_43A857(message);
+	PostConsoleLine(message);
 }
 
 void ReadFileToString(const char* fname, CString* str) {
