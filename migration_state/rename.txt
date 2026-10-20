@@ -1142,3 +1142,4 @@ Server::AssignPlayerSlot arg4 -> slot_data -- packet dword whose bits 8-15 hold 
 Server::UpdateQuestRune arg1 -> team -- 0/1 picks Quest RuneF/RuneA and indexes ctf_dropped/ctf_carrying
 Server::UpdateQuestRune arg2 -> picked_up -- 1 = rune picked up (remove from sacks), 0 = reset to spawn point
 Server::LoadGame param_1 -> map_name -- map/saved-game name to load
+Server::CheatCommand param_2 -> cheat_string -- align header with definition (cpp already names it cheat_string)

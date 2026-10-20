@@ -190,7 +190,7 @@ public:
     void ProcessHatPacket(Packet* pkt); // 5088DF
     void LoadSavedSacks(); // 4F950F
     void UpdateMissionResult(Player* player); // 5090FA
-    void CheatCommand(Player* player, CString param_2);
+    void CheatCommand(Player* player, CString cheat_string);
 
     int ConnectToHat(); //4f0bef - Connect to hat server
     int Start(int mode); //4f06f5
