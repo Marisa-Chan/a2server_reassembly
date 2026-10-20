@@ -1014,3 +1014,4 @@ World::sub_5AC7C8 -> GroupRoamCommand -- trigger action 17 Roam: order 0x11 anch
 World::sub_5AED8D -> AiRoamBrain -- group order 0x11 brain: measures unit spread from the roam anchor
 World::sub_5AB719 -> ComputeGroupAvgPos -- average packed position of the group's units
 World::sub_5ABB32 -> CanClaimMoveCell -- whether a 1-cell human unit may head for yx (free, not already targeted)
+World::sub_5AF805 -> SetWithdrawThresholds -- per aggression mode sets eye2->withdraw = hp_max * percent

@@ -567,7 +567,7 @@ void World::SetWithdrawThresholds(int32_t a, int32_t b, int32_t c, Player* playe
 }
 
 // 5AFA01
-void World::sub_5AFA01(int32_t a, int32_t b, int32_t c, Player* player) {
+void World::SetWimpyThresholds(int32_t a, int32_t b, int32_t c, Player* player) {
     UnitList* unit_list = this->field24_0xa50->field69_0xa456c;
     if (unit_list == nullptr) {
         return;

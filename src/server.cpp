@@ -3715,7 +3715,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             case 1:
                 val = (param_value == 1) ? 10 : (param_value == 2) ? 30 : 0;
                 g_World->SetWithdrawThresholds(0, val * 2, val * 3, player);
-                g_World->sub_5AFA01(val, val, val, player);
+                g_World->SetWimpyThresholds(val, val, val, player);
                 break;
             case 2:
                 val = (param_value == 0) ? 0 : (param_value == 1) ? 2 : 1;

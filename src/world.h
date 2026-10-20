@@ -167,7 +167,7 @@ public:
     void OrderStandGround(Unit* unit); // 5A943B — helper for GroupStopCommand.
     void OrderTeleportHome(Unit* unit); // 5A9918 — helper for GroupGoHomeCommand.
     void SetWithdrawThresholds(int32_t a, int32_t b, int32_t c, Player* player);
-    void sub_5AFA01(int32_t a, int32_t b, int32_t c, Player* player);
+    void SetWimpyThresholds(int32_t a, int32_t b, int32_t c, Player* player);
     void SetFormation(Player* player, uint8_t param);
     void MonsterAiTick(Unit* unit); // AI tick for a monster unit? 5A9B6B
     void DoMoveStepTo(Unit* unit, PosYX yx, uint8_t max_range); // 5AA375
