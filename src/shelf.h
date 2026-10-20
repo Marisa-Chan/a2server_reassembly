@@ -66,7 +66,7 @@ public:
     void OpenShopFor(Unit* unit); // 547644
     void ConfirmBuy(Unit* unit); // 547B7B
     void ConfirmSell(Unit* unit); // 547BBC
-    void sub_547BFD(Unit* unit, int amount, Item* item); // 547BFD
+    void SellItemFor(Unit* unit, int amount, Item* item); // 547BFD
     void sub_547D7F(Unit* unit); // 547D7F
 
 public:

@@ -417,7 +417,7 @@ void CMultiShopTemplate::sub_547D7F(Unit* unit) {
 }
 
 // 547BFD
-void CMultiShopTemplate::sub_547BFD(Unit* unit, int amount, Item* item) {
+void CMultiShopTemplate::SellItemFor(Unit* unit, int amount, Item* item) {
     CMultiShopInstance* instance = this->FindInstanceFor(static_cast<Humanoid*>(unit));
     if (instance == nullptr) {
         LogMessage("Invalid shop transaction - no such customer");
