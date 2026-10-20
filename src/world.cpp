@@ -1278,7 +1278,7 @@ void World::OrderSwarmTo(Unit* unit, uint8_t x, uint8_t y) {
 }
 
 // 5A99C7
-void World::sub_5A99C7(Unit* unit) {
+void World::OrderGatherLoot(Unit* unit) {
     this->BeginUnitOrder(unit);
     unit->state = 26;
     unit->eye->field136_0x90 = 0;

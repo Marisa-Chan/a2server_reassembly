@@ -1005,3 +1005,4 @@ World::sub_5A3F88 -> DestroyState -- teardown step calling the member-destructio
 World::sub_5A4284 -> DestroyMembers -- originally destroyed members in reverse order; no-op now that ~World does it
 World::sub_5B0556 -> Serialize -- serialises the world state
 World::sub_5AFBFD -> IncrementJoinedCount -- field65_0xc780 += 1; both call sites are player-join/enter-world paths
+World::sub_5B61D0 -> PickRelationUnitNear -- collects units near yx and returns one matching the requested diplomacy relation

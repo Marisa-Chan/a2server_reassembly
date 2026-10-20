@@ -140,7 +140,7 @@ public:
     // Group-order dispatch helpers (called from Server::ProcessClientPacket)
     void RefreshGroupGuardAnchor(Group* group); // Refresh group_sub position/range fields.
     void GroupStopCommand(Group* group);
-    void sub_5A99C7(Unit* unit);
+    void OrderGatherLoot(Unit* unit);
     void GroupAggressiveStance(Group* group); //5aca54
     void GroupAttackCommand(Group* group, Unit* target);
     void GroupAttackTargetCommand(Group* group, Unit* target, uint8_t param_3);

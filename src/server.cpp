@@ -3030,7 +3030,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         case 0x13:
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
-                g_World->sub_5A99C7(unit);
+                g_World->OrderGatherLoot(unit);
                 player->ResetAfkTimer();
             }
             break;
