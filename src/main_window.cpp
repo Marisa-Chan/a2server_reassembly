@@ -3801,7 +3801,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x488:
-        if (this->FUN_0049057b() == 0) {
+        if (this->RunModalLoop() == 0) {
             PostMessage(0x422, 0, 0);
         } else {
             PostMessage(0x426, 0, 0);
@@ -5139,7 +5139,7 @@ break;
 }
 
 
-int32_t MainWindow::FUN_0049057b() { //49057b
+int32_t MainWindow::RunModalLoop() { //49057b
     MSG msg;
 
     LockSurface2();
