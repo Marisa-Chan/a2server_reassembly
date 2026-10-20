@@ -810,3 +810,4 @@ free: FUN_00438f20 -> StopSfx -- stops the playing channel if any
 free: FUN_004a4740 -> PlayAmbientSfx -- plays the sample (looping) if not already playing
 free: FUN_004c86f5 -> UnloadAllSfx -- deletes every g_SfxArray sample and unloads the voice banks
 free: FUN_00476c0d -> UpdatePositionalMusic -- picks the nearest map-music zone for the position
+free: FUN_0047619a -> FreeDistortMap -- frees the distort map buffers

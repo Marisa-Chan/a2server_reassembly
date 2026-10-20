@@ -7289,7 +7289,7 @@ void VisGlobalMap::VMethod7() {
         this->travelProgress += 8;
         if (this->travelProgress < this->travelRoutePoints.GetSize()) {
             CSound& cur_snd = (this->routePointSoundIndex == 0) ? this->snd_point1 : this->snd_point2;
-            if (!FUN_00475110(&cur_snd)) {
+            if (!IsSfxPlaying(&cur_snd)) {
                 this->routePointSoundIndex = (this->routePointSoundIndex + 1) & 1;
                 CSound& new_snd = (this->routePointSoundIndex == 0) ? this->snd_point1 : this->snd_point2;
                 CSound::Play(new_snd);
@@ -10470,7 +10470,7 @@ void VisShop::VMethod30() {
     uint32_t delay = GetRandS16(30000) + 30000;
     uint32_t compass_flags = this->shop_compass->state;
     if ((compass_flags & 0x10) == 0 && (compass_flags & 0x20) == 0 && (compass_flags & 0x40) == 0) {
-        if (now - last_snd_time > delay && !FUN_00475110(&this->to_buy->field_0x20b0)) {
+        if (now - last_snd_time > delay && !IsSfxPlaying(&this->to_buy->field_0x20b0)) {
             if (this->snd_start != nullptr && this->snd_start->FindPlayingChannel() == nullptr) {
                 this->snd_start->Play(g_SoundSettings.speech_pos, 0, 0, 0x80, 0);
             }

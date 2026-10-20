@@ -262,7 +262,7 @@ void StopSfx(SfxSample** sample) { //438f20
 	}
 }
 
-bool FUN_00475110(CSound* sound) { //475110
+bool IsSfxPlaying(CSound* sound) { //475110
 	if (sound->sample == nullptr) {
 		return false;
 	}
