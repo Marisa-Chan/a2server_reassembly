@@ -84,7 +84,7 @@ struct Fame2 {
     bool ScrollDown(); // 4abf35 in asm
     int32_t ScrollUp(); // 4abf72 in asm
     void Draw(int32_t x, int32_t y); // 4abfb1 in asm
-    void FUN_004ac0af(); // 4ac0af in asm
+    void LoadDocument(); // 4ac0af in asm
 
 };
 

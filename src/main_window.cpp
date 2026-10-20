@@ -198,7 +198,7 @@ void Fame2::Draw(int32_t x, int32_t y) { //4abfb1
     g_font4->DrawTextLines(r, this->top_line, this->top_line + 0x15, this->str_arr, clr, 0);
 }
 
-void Fame2::FUN_004ac0af() { //4ac0af
+void Fame2::LoadDocument() { //4ac0af
     this->Clear();
     this->rect = CRect(CPoint(0x5c, 0x48), CSize(0x1c8, 0x158));
 

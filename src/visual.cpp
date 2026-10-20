@@ -21940,7 +21940,7 @@ void VisFameDocument::ClearDocs() {
 void VisFameDocument::LoadDocs() {
     this->ClearDocs();
     for (int32_t i = 0; i < this->fame->m_Documents.GetSize(); i++) {
-        this->fame->m_Documents[i].FUN_004ac0af();
+        this->fame->m_Documents[i].LoadDocument();
     }
 }
 
