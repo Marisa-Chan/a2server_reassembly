@@ -3597,7 +3597,7 @@ void World::sub_5A65BB(Unit* unit, Unit* target) {
 }
 
 // 5A5568
-void World::sub_5A5568(Unit* unit, Unit* target) {
+void World::TickAttackTarget(Unit* unit, Unit* target) {
     uint8_t range = unit->eye2->range;
     uint8_t distance = this->field24_0xa50->ChebyshevDistanceXY(
         unit->position->GetX(),
@@ -4009,7 +4009,7 @@ void World::ProcessUnitState(Unit* unit) {
         this->sub_5A54B8(unit, unit->eye2->command_to);
         break;
     case 8:
-        this->sub_5A5568(unit, unit->eye2->unit2);
+        this->TickAttackTarget(unit, unit->eye2->unit2);
         break;
     case 10:
         this->DoPatrolTick(unit);
