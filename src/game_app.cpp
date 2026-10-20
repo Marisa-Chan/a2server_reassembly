@@ -934,7 +934,7 @@ void __cdecl RollItemDataId(CArray<WorldEquip>* table, int32_t* shape_id, int32_
 
 // 549372
 // Create item of given category in price range.
-Item* __cdecl sub_549372(CString category, int32_t min_price, int32_t max_price) {
+Item* __cdecl RollItemInPriceRange(CString category, int32_t min_price, int32_t max_price) {
     Item* item = nullptr;
     if (max_price - min_price < 10) {
         return nullptr;
@@ -1044,7 +1044,7 @@ Item* __cdecl RollRandomItem(int32_t level, int32_t max_gold) {
     } else {
         category = "Potion";
     }
-    return sub_549372(category, level, max_gold);
+    return RollItemInPriceRange(category, level, max_gold);
 }
 
 
