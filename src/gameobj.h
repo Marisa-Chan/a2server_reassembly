@@ -153,7 +153,7 @@ public:
 	int32_t FindEffectTimer(int32_t effect_id);
 	int32_t GetControlGroup(); //41f220
 	int32_t IsBlocked(); //41f130
-	void SetTileLayerCell(int32_t arg1, CGameObject* arg2); //461c41
+	void SetTileLayerCell(int32_t layer_id, CGameObject* arg2); //461c41
 	int32_t GetDirTo(int32_t x, int32_t y); //461f8e
 	void DrawBarFill(int32_t left, int32_t right, int32_t y, int32_t fill_width, uint16_t color_lo, uint16_t color_mid, uint16_t color_hi); //46246b
 	void DrawControlGroupNumber(int32_t x, int32_t y); //4627bb

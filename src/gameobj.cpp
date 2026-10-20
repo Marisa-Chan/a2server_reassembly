@@ -262,14 +262,14 @@ void CGameObject::UpdateMapPosition() { //46190d
 }
 
 
-void CGameObject::SetTileLayerCell(int32_t arg1, CGameObject* arg2) { //461c41
+void CGameObject::SetTileLayerCell(int32_t layer_id, CGameObject* arg2) { //461c41
     if (this->mapLayerActive == 0) {
         return;
     }
 
     BigStruct2* map = this->pMapObject;
     CGameObject** layer;
-    switch (arg1) {
+    switch (layer_id) {
     case 0:
         layer = map->tile_backpacks;
         break;
