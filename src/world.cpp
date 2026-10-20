@@ -1244,7 +1244,7 @@ Unit* World::PickRelationUnitNear(uint16_t pos_yx, uint8_t byte_0x3c, Player* ow
     }
 
     int32_t count = list.GetCount();
-    int32_t idx = this->sub_5B6F60(1, count);
+    int32_t idx = this->RandomRange(1, count);
     POSITION selected = list.FindIndex(idx - 1);
     if (selected != nullptr) {
         return list.GetAt(selected);
@@ -3113,7 +3113,7 @@ int32_t World::RandomScaled(int32_t multiplier) {
 }
 
 // 5B6F60
-int32_t World::sub_5B6F60(int32_t min, int32_t max) {
+int32_t World::RandomRange(int32_t min, int32_t max) {
     return (RandInt() * ((max - min) + 1)) / this->field0_0x0 + min;
 }
 
@@ -3433,7 +3433,7 @@ void World::AiRoamBrain(Group* group) {
         uint8_t new_x = 0;
         uint8_t new_y = 0;
         while (retry) {
-            int32_t idx = this->sub_5B6F60(0, 7);
+            int32_t idx = this->RandomRange(0, 7);
             int32_t dx = this->field24_0xa50->field48_0x58e88[idx] * 20;
             int32_t dy = this->field24_0xa50->field49_0x58e90[idx] * 20;
             new_x = group->group_sub->order_pos + dx;
@@ -3502,8 +3502,8 @@ void World::DoScriptedPatrol(Unit* unit) {
             unit->eye2->field4_0x9 = 0;
         }
         if (unit->eye2->positions_list->IsEmpty()) {
-            uint8_t x = this->sub_5B6F60(77, 87);
-            uint8_t y = this->sub_5B6F60(45, 55);
+            uint8_t x = this->RandomRange(77, 87);
+            uint8_t y = this->RandomRange(45, 55);
             PosYX pos = PosYX{x, y};
             unit->eye2->position1 = pos;
             unit->eye2->positions_list->AddTail(pos.val);
@@ -4057,14 +4057,14 @@ void World::ProcessUnitState(Unit* unit) {
 // 5AE5C0
 void World::JitterGuardRangeWide(Group* group) {
     uint8_t base = group->group_sub->guard_range_base;
-    int32_t r = this->sub_5B6F60(-1, 1);
+    int32_t r = this->RandomRange(-1, 1);
     group->group_sub->guard_range = base + r + 4;
 }
 
 // 5AE5F5
 void World::JitterGuardRange(Group* group) {
     uint8_t base = group->group_sub->guard_range_base;
-    int32_t r = this->sub_5B6F60(-1, 1);
+    int32_t r = this->RandomRange(-1, 1);
     group->group_sub->guard_range = base + r;
 }
 

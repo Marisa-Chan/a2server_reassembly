@@ -1028,3 +1028,4 @@ World::sub_5AD2C1 -> GetTargetScore -- attack-decision cost of engaging target (
 World::sub_5AE471 -> AssignBestTargets -- assigns each unit the best-scoring scanned enemy to eye2->unit4
 World::sub_5AE5C0 -> JitterGuardRangeWide -- guard_range = base + rand(-1..1) + 4
 World::sub_5AE5F5 -> JitterGuardRange -- guard_range = base + rand(-1..1)
+World::sub_5B6F40 -> RandomScaled -- RandInt() * multiplier / 0x8000
