@@ -2957,7 +2957,7 @@ void __cdecl CopySurface16Rect(uint8_t* src, int32_t sx, int32_t sy, uint8_t* ds
 }
 
 // 454e40
-void __cdecl FUN_00454e40(int32_t sx, int32_t sy, int32_t w, int32_t h) {
+void __cdecl CopyScreenBlock(int32_t sx, int32_t sy, int32_t w, int32_t h) {
 	LockSurface3();
 	uint8_t* src = (uint8_t*)g_selDrawBitmap.lpSurface;
 	int32_t spitch = g_selDrawBitmap.lPitch;

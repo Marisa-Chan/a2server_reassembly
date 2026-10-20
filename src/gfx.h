@@ -142,7 +142,7 @@ void GetClipRect(CRect* r); //454a0c
 void SetClipRect(CRect& r); //4549ba
 
 void __cdecl SetClipRect(int32_t l, int32_t t, int32_t r, int32_t b); //4549e5
-void __cdecl FUN_00454e40(int32_t sx, int32_t sy, int32_t w, int32_t h); //454e40
+void __cdecl CopyScreenBlock(int32_t sx, int32_t sy, int32_t w, int32_t h); //454e40
 
 void CopyIndexedSkip0(uint8_t* dst, uint8_t* src, int32_t size); //45424d
 void DrawFlatTile(int32_t x, int32_t y, int32_t l1, int32_t l2, int32_t l3, int32_t l4, uint8_t* src, uint16_t* pal); //458b29

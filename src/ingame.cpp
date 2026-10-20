@@ -5391,7 +5391,7 @@ void BigStruct2::sub_406F7B() {
 	UnlockSurface3();
 	g_mousept.Update();
 	SetClipRect(this->field_0xf4);
-	FUN_00454e40(this->tile_scroll_x, this->tile_scroll_y, this->view_tiles_x << 5, this->view_tiles_y << 5);
+	CopyScreenBlock(this->tile_scroll_x, this->tile_scroll_y, this->view_tiles_x << 5, this->view_tiles_y << 5);
 	SetClipRect(clip_rect);
 	g_mousept.Update();
 	LockSurface2();

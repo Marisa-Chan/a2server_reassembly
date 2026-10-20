@@ -891,3 +891,4 @@ gfx: sub_4586FE -> PlotPixelBlend -- plots one alpha-blended pixel into g_selDra
 gfx: sub_4588EC -> PlotGlowDot -- soft glow dot: 3/4 and 1/2 alpha ring around a center pixel
 gfx: FUN_00457aa6 -> FillRectClipped -- fills a rect with a solid color, clipped to g_clipRect
 gfx: FUN_004549e5 -> SetClipRect -- sets g_clipRect
+gfx: FUN_00454a1e -> FlushRect -- marks the rect for gfx flush
