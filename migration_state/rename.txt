@@ -881,3 +881,4 @@ MainWindow::sub_49585B -> UpdateControlStates -- update control states (per comm
 MainWindow::sub_495439 -> OnDestroy -- ON_WM_DESTROY handler
 MainWindow::sub_49544C -> OnCommand3f5 -- ON_COMMAND 0x3f5
 MainWindow::sub_49549B -> OnCommand3f6 -- ON_COMMAND 0x3f6
+MainWindow::sub_4956D5 -> OnClose -- ON_WM_CLOSE handler
