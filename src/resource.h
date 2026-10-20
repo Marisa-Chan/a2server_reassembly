@@ -85,7 +85,7 @@ struct ResBase {
 
     int GetStringArray(const char* fpath, const char* fname, CStringArray* array);
 
-    void FUN_004e99c4();
+    void RebuildFat();
     uint8_t* AllocData(uint32_t size);
 
     static FatEntry *g_lastDstRoot;

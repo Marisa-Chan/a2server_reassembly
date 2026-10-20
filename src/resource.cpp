@@ -901,7 +901,7 @@ int ResBase::GetSizedString(const char* fpath, const char* fname, const char* de
 }
 
 
-void ResBase::FUN_004e99c4() {
+void ResBase::RebuildFat() {
     //4e99c4
     this->modify_fat = nullptr;
     this->content_size = 0;
@@ -957,7 +957,7 @@ uint8_t *ResBase::AllocData(uint32_t size) {
 
     if (this->fat_offset <= this->memory_size + size) {
         if (this->memory_size / 8 < this->content_size) {
-            this->FUN_004e99c4();
+            this->RebuildFat();
 
             if (this->fat_offset <= this->memory_size + size) {
                 this->fat_offset += size + (this->fat_offset / 8);
