@@ -6217,7 +6217,7 @@ int32_t BigStruct2::OnLButtonDown(uint32_t wparam, CPoint pos) {
 		return 0;
 	}
 	if (g_mousept.GetSelectState() == 0 && this->field_0x80 != nullptr) {
-		wnd->sub_48CBE2();
+		wnd->UpdateMapRect();
 		g_mousept.StartSelect(pos);
 	}
 	return 1;

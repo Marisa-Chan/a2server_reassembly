@@ -1189,7 +1189,7 @@ void MainWindow::ModalScreen(VisScreen* scr) {
 }
 
 // 48cbe2
-void MainWindow::sub_48CBE2() {
+void MainWindow::UpdateMapRect() {
     CRect rect(*this->vis_map_context->GetRect());
 
     if (this->vis_map_context->IsBookOpen() != 0) {

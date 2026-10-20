@@ -388,7 +388,7 @@ public:
 
     void DestroyServer(); //48cb3c
 
-    void sub_48CBE2(); //48cbe2
+    void UpdateMapRect(); //48cbe2
 
     void sub_48CC87(); //48cc87
 
