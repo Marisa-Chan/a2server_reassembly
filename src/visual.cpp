@@ -4620,7 +4620,7 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
                     mwnd->ModalScreen(box);
 
                     if (box->GetCloseCode() == 0x447) {
-                        this->parent_screen->session->FUN_00493cd8();
+                        this->parent_screen->session->DeleteSelectedCharacter();
 
                         if (idx < this->parent_screen->session->GetStringArray1Size() - 1) {
                             this->parent_screen->session->LoadCharacterRosterEntry(idx);
