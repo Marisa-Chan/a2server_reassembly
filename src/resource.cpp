@@ -571,7 +571,7 @@ void ResBase::CopyFatExcluding(FatEntry* newFat, int* pCount, const FatEntry* sr
     dstRoot->size = newSize;
 }
 
-FatEntry* ResBase::FUN_004ec438(FatEntry* node) {
+FatEntry* ResBase::RemoveEntry(FatEntry* node) {
     // 4ec438
     if (node == this->modify_fat) {
         return node;
@@ -745,7 +745,7 @@ FatEntry* ResBase::FUN_004ea183(const char* fpath, const char* fname) {
         return nullptr;
     }
 
-    this->FUN_004ec438(pathNode);
+    this->RemoveEntry(pathNode);
 
     FatEntry* node = this->FUN_004ec8c6(fpath, fname);
     node->offset = this->fat_size;
@@ -906,7 +906,7 @@ void ResBase::FUN_004e99c4() {
     this->modify_fat = nullptr;
     this->content_size = 0;
 
-    this->FUN_004ec438(&this->root);
+    this->RemoveEntry(&this->root);
 
     FatEntry** pnodes = new FatEntry*[this->fat_size]();
 
@@ -994,7 +994,7 @@ void ResBase::SetString(const char* fpath, const char* fname, const char* str) {
             nodePath = this->FUN_004ea183(this->root.name, fpath);
         }
 
-        node = this->FUN_004ec438(nodePath);
+        node = this->RemoveEntry(nodePath);
         node = this->AppendEntry(&node, fname);
         node->flags = 0;
         node->size = 0;
@@ -1028,7 +1028,7 @@ void ResBase::SetInt(const char* fpath, const char* fname, int32_t val) {
             nodePath = this->FUN_004ea183(this->root.name, fpath);
         }
 
-        node = this->FUN_004ec438(nodePath);
+        node = this->RemoveEntry(nodePath);
         node = this->AppendEntry(&node, fname);
         node->flags = 1 << 1;
         node->size = 0;
@@ -1051,7 +1051,7 @@ void ResBase::SetDouble(const char* fpath, const char* fname, double val) {
             nodePath = this->FUN_004ea183(this->root.name, fpath);
         }
 
-        node = this->FUN_004ec438(nodePath);
+        node = this->RemoveEntry(nodePath);
         node = this->AppendEntry(&node, fname);
         node->flags = 2 << 1;
         //node->size = 0;
@@ -1077,7 +1077,7 @@ void ResBase::SetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>
             nodePath = this->FUN_004ea183(this->root.name, fpath);
         }
 
-        node = this->FUN_004ec438(nodePath);
+        node = this->RemoveEntry(nodePath);
         node = this->AppendEntry(&node, fname);
         node->flags = 3 << 1;
         node->size = 0;
@@ -1113,7 +1113,7 @@ void ResBase::SetInt16Array(const char* fpath, const char* fname, CArray<uint16_
             nodePath = this->FUN_004ea183(this->root.name, fpath);
         }
 
-        node = this->FUN_004ec438(nodePath);
+        node = this->RemoveEntry(nodePath);
         node = this->AppendEntry(&node, fname);
         node->flags = 3 << 1;
         node->size = 0;
@@ -1149,7 +1149,7 @@ void ResBase::SetInt32Array(const char* fpath, const char* fname, CArray<uint32_
             nodePath = this->FUN_004ea183(this->root.name, fpath);
         }
 
-        node = this->FUN_004ec438(nodePath);
+        node = this->RemoveEntry(nodePath);
         node = this->AppendEntry(&node, fname);
         node->flags = 3 << 1;
         node->size = 0;
