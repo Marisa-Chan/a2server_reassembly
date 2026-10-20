@@ -189,7 +189,7 @@ public:
     void StartAreaCast(Unit* unit); // 5AA84F
     int32_t GetAttackDecision(Unit* unit, Unit* target); // 5AD0B3
     void ProcessGroupAi(Group* group); // 5ABFBC
-    void sub_5AF623(Group* group); // 5AF623
+    void FlagEmptyGroup(Group* group); // 5AF623
     void ProcessGroupRecall(Group* group); // 5AF646
     void ProcessUnitRecall(Unit* unit); // 5AF5DC — helper for ProcessGroupRecall.
     void IdleGroupUnits(Group* group); // 5AF022

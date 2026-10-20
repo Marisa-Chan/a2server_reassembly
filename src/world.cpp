@@ -3376,7 +3376,7 @@ void World::ProcessPlayerGroupAi(Player* player) {
 
 // 5ABFBC
 void World::ProcessGroupAi(Group* group) {
-    this->sub_5AF623(group);
+    this->FlagEmptyGroup(group);
     uint8_t cmd = group->group_sub->order;
     if (cmd == 0xFF) {
         this->IdleGroupUnits(group);
@@ -4069,7 +4069,7 @@ void World::sub_5AE5F5(Group* group) {
 }
 
 // 5AF623
-void World::sub_5AF623(Group* group) {
+void World::FlagEmptyGroup(Group* group) {
     if (group->unit_list.GetCount() == 0) {
         group->group_sub->order = 0xFF;
     }
