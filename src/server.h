@@ -175,7 +175,7 @@ public:
     void GetArenaFrags(CString* name, uint32_t* frags);
     void AddArenaFrags(CString* name, int32_t flag); // TODO: that's likely `CString&`
     void HandleArenaPlayer(Player* player); // Arena mode player entry handler
-    void SendWorldState(Player* player, int32_t arg4); // Mission join: send full world state to connecting player
+    void SendWorldState(Player* player, int32_t enter_world); // Mission join: send full world state to connecting player
 
     void OnTeamsReady(); // Called when all team-game players are ready
     void UpdateQuestRune(int arg1, int arg2); // Called when all team-game players are ready (sub-step)

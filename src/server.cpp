@@ -1537,7 +1537,7 @@ void Srv1::LoadSacks(MapAlm* alm) {
 
 // Called when a player enters a map; streams the current game state to them.
 // 4FF937
-void Server::SendWorldState(Player* player, int32_t bool_arg4) {
+void Server::SendWorldState(Player* player, int32_t enter_world) {
     // Send existing players' PacketJoin data to the new player.
     g_NetStru1_main.SendExistingPlayers(player);
 
@@ -1597,7 +1597,7 @@ void Server::SendWorldState(Player* player, int32_t bool_arg4) {
     player->mission_result = 0;
 
     // Early-out for some game types.
-    if (this->field4_0x74 != 0 && bool_arg4 != 0) {
+    if (this->field4_0x74 != 0 && enter_world != 0) {
         if (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3) {
             // Diplomacy and vision-mask setup with the "Self" map player.
 
@@ -1683,8 +1683,8 @@ void Server::SendWorldState(Player* player, int32_t bool_arg4) {
         }
     }
 
-    // If `bool_arg4` is set and field_0x41 is not yet set, put the unit on the map (EnsurePlayerGroup).
-    if (bool_arg4 != 0 && player->is_in_world == 0) {
+    // If `enter_world` is set and field_0x41 is not yet set, put the unit on the map (EnsurePlayerGroup).
+    if (enter_world != 0 && player->is_in_world == 0) {
         this->EnsurePlayerGroup(player);
     }
 

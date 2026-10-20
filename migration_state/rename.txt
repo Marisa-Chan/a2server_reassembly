@@ -1137,3 +1137,4 @@ NetStru1::SendHatMessage param2 -> hat_char_id2 -- second HAT character id dword
 NetStru1::BroadcastEffect arg -> packet_id -- PacketEffect id override (0 = default 0x88, callers pass 0x89)
 NetStru1::SendShopTable param -> mode -- PacketUnitStateVec mode byte (4 = shop-table variant passed to Item::StoreToPacket)
 NetStru1::SendShopShelves param -> shelf_id -- 1..4 = single shelf, -1 = all shelves
+Server::SendWorldState arg4/bool_arg4 -> enter_world -- when set: run rejoin diplomacy setup and EnsurePlayerGroup (mission join)
