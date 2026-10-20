@@ -104,7 +104,7 @@ void CMousePointer::DrawToScreen() {
     LockSurface1();
 
     CopyScreenRectToBmp64(this->x - this->x_offset, this->y - this->y_offset, this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0), this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0), (uint8_t*)this->saved_screen_rect->GetData());
-    this->cursor_sprite->VMethod2(this->x - this->x_offset, this->y - this->y_offset, this->frame, 0, 0);
+    this->cursor_sprite->Draw(this->x - this->x_offset, this->y - this->y_offset, this->frame, 0, 0);
 
     UnlockSurface1();
 }
@@ -369,7 +369,7 @@ void CMousePointer::SaveScreenParts2(const CRect& rect) {
             CopyScreenRectToBmp64(this->x - this->x_offset, this->y - this->y_offset, this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0),
                                     this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0),
                                     (uint8_t*)this->saved_screen_rect2->GetData());
-            this->cursor_sprite->VMethod2(this->x - this->x_offset, this->y - this->y_offset, this->frame, 0, 0);
+            this->cursor_sprite->Draw(this->x - this->x_offset, this->y - this->y_offset, this->frame, 0, 0);
             UnlockSurface2();
         }
     }

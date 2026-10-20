@@ -299,7 +299,7 @@ public:
 	virtual void Dump(CDumpContext& dc) const override;
 
 	virtual void DrawWithPalette(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode);
-	virtual void VMethod2(int32_t x, int32_t y, int frame, int mode, int palid);
+	virtual void Draw(int32_t x, int32_t y, int frame, int mode, int palid);
 	virtual void VMethod3(int32_t x, int32_t y, int frame, int blevel, int mode);
 	virtual int32_t GetWidth(int frame = 0);
 	virtual int32_t GetHeight(int frame = 0);
@@ -335,7 +335,7 @@ public:
 	virtual ~CBmp256();
 	virtual void Dump(CDumpContext& dc) const override;
 
-	virtual void VMethod2(int32_t x, int32_t y, int frame, int mode, int palid) override;
+	virtual void Draw(int32_t x, int32_t y, int frame, int mode, int palid) override;
 	virtual int32_t GetWidth(int frame = 0) override;
 	virtual int32_t GetHeight(int frame = 0) override;
 	virtual void VMethod7() override;
@@ -355,7 +355,7 @@ public:
 	virtual ~CBmp64();
 	virtual void Dump(CDumpContext& dc) const override;
 
-	virtual void VMethod2(int32_t x, int32_t y, int frame, int mode, int palid) override;
+	virtual void Draw(int32_t x, int32_t y, int frame, int mode, int palid) override;
 	virtual int32_t GetWidth(int frame = 0) override;
 	virtual int32_t GetHeight(int frame = 0) override;
 	virtual void VMethod7() override;
@@ -379,7 +379,7 @@ public:
 	virtual void Dump(CDumpContext& dc) const override;
 
 	virtual void DrawWithPalette(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode) override;
-	virtual void VMethod2(int32_t x, int32_t y, int frame, int palid, int mode) override;
+	virtual void Draw(int32_t x, int32_t y, int frame, int palid, int mode) override;
 	virtual void VMethod3(int32_t x, int32_t y, int frame, int blevel, int mode) override;
 
 	virtual void VMethod9(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode);
@@ -396,7 +396,7 @@ class CA16 : public CSprite256 {
 public:
 	virtual ~CA16() {}; //428ae0
 
-	virtual void VMethod2(int32_t x, int32_t y, int frame, int palid, int mode) override;
+	virtual void Draw(int32_t x, int32_t y, int frame, int palid, int mode) override;
 
 	CA16(const char* fname);
 };

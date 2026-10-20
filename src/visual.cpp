@@ -1109,55 +1109,55 @@ void VisScrollBar::VMethod7() {
 
         if (this->mouse_on_minus == 0) {
             gfx_scrollbars->VMethod3(tr.left + 4, tr.top + 4, 18, 4, 0);
-            gfx_scrollbars->VMethod2(tr.left, tr.top, 18, 0, 0);
+            gfx_scrollbars->Draw(tr.left, tr.top, 18, 0, 0);
         } else {
             gfx_scrollbars->VMethod3(tr.left + 4, tr.top + 4, 21, 4, 0);
-            gfx_scrollbars->VMethod2(tr.left, tr.top, 21, 0, 0);
+            gfx_scrollbars->Draw(tr.left, tr.top, 21, 0, 0);
         }
 
         for (int32_t i = 1; i < tr.Height() / tr.Width(); i++) {
             gfx_scrollbars->VMethod3(tr.left + 4, tr.top + 4 + i * tr.Width(), 19, 4, 0);
-            gfx_scrollbars->VMethod2(tr.left, tr.top + i * tr.Width(), 19, 0, 0);
+            gfx_scrollbars->Draw(tr.left, tr.top + i * tr.Width(), 19, 0, 0);
         }
 
         gfx_scrollbars->VMethod3(tr.left + 4, tr.top + tr.Width() + val_pos, 22, 0, 0);
 
         if (this->mouse_on_plus == 0) {
             gfx_scrollbars->VMethod3(tr.left + 4, tr.bottom - tr.Width() + 4, 20, 4, 0);
-            gfx_scrollbars->VMethod2(tr.left, tr.bottom - tr.Width(), 20, 0, 0);
+            gfx_scrollbars->Draw(tr.left, tr.bottom - tr.Width(), 20, 0, 0);
         } else {
             gfx_scrollbars->VMethod3(tr.left + 4, tr.bottom - tr.Width() + 4, 23, 4, 0);
-            gfx_scrollbars->VMethod2(tr.left, tr.bottom - tr.Width(), 23, 0, 0);
+            gfx_scrollbars->Draw(tr.left, tr.bottom - tr.Width(), 23, 0, 0);
         }
 
-        gfx_scrollbars->VMethod2(tr.left, tr.top + tr.Width() - 4 + val_pos, 22, 0, 0);
+        gfx_scrollbars->Draw(tr.left, tr.top + tr.Width() - 4 + val_pos, 22, 0, 0);
     } else {
         this->UpdateHBoxes();
 
         if (this->mouse_on_minus == 0) {
             gfx_scrollbars->VMethod3(tr.left + 4, tr.top + 4, 0, 4, 0);
-            gfx_scrollbars->VMethod2(tr.left, tr.top, 0, 0, 0);
+            gfx_scrollbars->Draw(tr.left, tr.top, 0, 0, 0);
         } else {
             gfx_scrollbars->VMethod3(tr.left + 4, tr.top + 4, 3, 4, 0);
-            gfx_scrollbars->VMethod2(tr.left, tr.top, 3, 0, 0);
+            gfx_scrollbars->Draw(tr.left, tr.top, 3, 0, 0);
         }
 
         for (int32_t i = 1; i < tr.Width() / tr.Height(); i++) {
             gfx_scrollbars->VMethod3(tr.left + 4 + i * tr.Height(), tr.top + 4, 7, 4, 0);
-            gfx_scrollbars->VMethod2(tr.left + i * tr.Height(), tr.top, 7, 0, 0);
+            gfx_scrollbars->Draw(tr.left + i * tr.Height(), tr.top, 7, 0, 0);
         }
 
         gfx_scrollbars->VMethod3(this->horiz_box_pos.left + 5, tr.top + 4, 10, 4, 0);
 
         if (this->mouse_on_plus == 0) {
             gfx_scrollbars->VMethod3(tr.right - tr.Height() + 4, tr.top + 4, 8, 4, 0);
-            gfx_scrollbars->VMethod2(tr.right - tr.Height(), tr.top, 8, 0, 0);
+            gfx_scrollbars->Draw(tr.right - tr.Height(), tr.top, 8, 0, 0);
         } else {
             gfx_scrollbars->VMethod3(tr.right - tr.Height() + 4, tr.top + 4, 11, 4, 0);
-            gfx_scrollbars->VMethod2(tr.right - tr.Height(), tr.top, 11, 0, 0);
+            gfx_scrollbars->Draw(tr.right - tr.Height(), tr.top, 11, 0, 0);
         }
 
-        gfx_scrollbars->VMethod2(this->horiz_box_pos.left + 1, tr.top, 10, 0, 0);
+        gfx_scrollbars->Draw(this->horiz_box_pos.left + 1, tr.top, 10, 0, 0);
     }
     
     if (this->TestFlags(FLAG_ENABLED) == 0) {
@@ -2416,10 +2416,10 @@ void VisRadioType1::VMethod7() {
     for (int i = 0; i < this->entries.GetSize(); i++) {
         if ((this->selection & (1 << i)) == 0) {
             gfx_radiob->VMethod3(rt.left + 5, y + 4, 2, 4, 0);
-            gfx_radiob->VMethod2(rt.left + 1, y, 2, 0, 0);
+            gfx_radiob->Draw(rt.left + 1, y, 2, 0, 0);
         } else {
             gfx_radiob->VMethod3(rt.left + 5, y + 4, 3, 4, 0);
-            gfx_radiob->VMethod2(rt.left + 1, y, 3, 0, 0);
+            gfx_radiob->Draw(rt.left + 1, y, 3, 0, 0);
         }
 
         if (this->TestFlags(FLAG_FOCUS) == 0) {
@@ -2584,7 +2584,7 @@ void VisRadioType2::VMethod7() {
     for (int i = 0; i < this->entries.GetSize(); i++) {
         if (this->selection == i) {
             gfx_radiob->VMethod3(rt.left + 5, y + 4, 1, 4, 0);
-            gfx_radiob->VMethod2(rt.left + 1, y, 1, 0, 0);
+            gfx_radiob->Draw(rt.left + 1, y, 1, 0, 0);
 
             if (this->TestFlags(FLAG_FOCUS) == 0) {
                 this->clr = p_clrsh_Black;
@@ -2593,7 +2593,7 @@ void VisRadioType2::VMethod7() {
             }
         } else {
             gfx_radiob->VMethod3(rt.left + 5, y + 4, 0, 4, 0);
-            gfx_radiob->VMethod2(rt.left + 1, y, 0, 0, 0);
+            gfx_radiob->Draw(rt.left + 1, y, 0, 0, 0);
 
             this->clr = p_clrsh_Black;
         }
@@ -2726,9 +2726,9 @@ void VisBitmap::VMethod7() {
         CBmp64* bmp64 = (CBmp64*)this->bitmap;
         bmp64->VMethod10(rt.left, rt.top, 0, 0, bmp64->GetWidth(0), bmp64->GetHeight(0));
     } else if (this->draw_type < 11) {
-        this->bitmap->VMethod2(rt.left, rt.top, 0, 0, 0);
+        this->bitmap->Draw(rt.left, rt.top, 0, 0, 0);
     } else {
-        this->bitmap->VMethod2(rt.left, rt.top, this->draw_type - 10, 0, 0);
+        this->bitmap->Draw(rt.left, rt.top, this->draw_type - 10, 0, 0);
     }
 
     UnlockSurface2();
@@ -2829,9 +2829,9 @@ void VisComboBoxButton::VMethod7() {
     this->parent->VMethod8(&rt);
 
     if (this->mouse_on) {
-        this->bitmap->VMethod2(rt.left, rt.top, this->frm + 1, 0, 0);
+        this->bitmap->Draw(rt.left, rt.top, this->frm + 1, 0, 0);
     } else {
-        this->bitmap->VMethod2(rt.left, rt.top, this->frm, 0, 0);
+        this->bitmap->Draw(rt.left, rt.top, this->frm, 0, 0);
     }
 }
 
@@ -3223,7 +3223,7 @@ void VisScreen::VMethod8(CRect* r) {
         SetClipRect(*r);
         LockSurface2();
 
-        this->bitmap->VMethod2(this->rect.left, this->rect.top, 0, 0, 0);
+        this->bitmap->Draw(this->rect.left, this->rect.top, 0, 0, 0);
 
         UnlockSurface2();
         SetClipRect(tmp);
@@ -3251,24 +3251,24 @@ void VisScreen::VMethod8(CRect* r) {
         }
 
 
-        gfx_interface_lm->VMethod2(r2.left, r2.top, 1, 0, 0);
-        gfx_interface_lm->VMethod2(r2.right - 48, r2.top, 3, 0, 0);
-        gfx_interface_lm->VMethod2(r2.left, r2.bottom - 48, 6, 0, 0);
-        gfx_interface_lm->VMethod2(r2.right - 48, r2.bottom - 48, 8, 0, 0);
+        gfx_interface_lm->Draw(r2.left, r2.top, 1, 0, 0);
+        gfx_interface_lm->Draw(r2.right - 48, r2.top, 3, 0, 0);
+        gfx_interface_lm->Draw(r2.left, r2.bottom - 48, 6, 0, 0);
+        gfx_interface_lm->Draw(r2.right - 48, r2.bottom - 48, 8, 0, 0);
 
         for (int x = 0; x < (r2.Width() - 96); x += 96) {
-            gfx_interface_lm->VMethod2(r2.left + 48 + x, r2.top, 2, 0, 0);
-            gfx_interface_lm->VMethod2(r2.left + 48 + x, r2.bottom - 48, 7, 0, 0);
+            gfx_interface_lm->Draw(r2.left + 48 + x, r2.top, 2, 0, 0);
+            gfx_interface_lm->Draw(r2.left + 48 + x, r2.bottom - 48, 7, 0, 0);
         }
 
         for (int y = 0; y < (r2.Height() - 96); y += 64) {
-            gfx_interface_lm->VMethod2(r2.left, r2.top + 48 + y, 4, 0, 0);
-            gfx_interface_lm->VMethod2(r2.right - 48, r2.top + 48 + y, 5, 0, 0);
+            gfx_interface_lm->Draw(r2.left, r2.top + 48 + y, 4, 0, 0);
+            gfx_interface_lm->Draw(r2.right - 48, r2.top + 48 + y, 5, 0, 0);
         }
 
         for (int x = 0; x < (r2.Width() - 96); x += 96) {
             for (int y = 0; y < (r2.Height() - 96); y += 64) {
-                gfx_interface_lm->VMethod2(r2.left + 48 + x, r2.top + 48 + y, 0, 0, 0);
+                gfx_interface_lm->Draw(r2.left + 48 + x, r2.top + 48 + y, 0, 0, 0);
             }
         }
 
@@ -4282,21 +4282,21 @@ void VisQuestStatus::VMethod7() {
         gfx_interface_lm->VMethod3(screen_rect.right - 0x18, screen_rect.top + 0x28 + i * 0x20, 0xE, 6, 0);
     }
 
-    gfx_interface_lm->VMethod2(screen_rect.left, screen_rect.top, 0xA, 0, 0);
-    gfx_interface_lm->VMethod2(screen_rect.right - 0x20, screen_rect.top, 0xC, 0, 0);
-    gfx_interface_lm->VMethod2(screen_rect.left, screen_rect.bottom - 0x20, 0xF, 0, 0);
-    gfx_interface_lm->VMethod2(screen_rect.right - 0x20, screen_rect.bottom - 0x20, 0x11, 0, 0);
+    gfx_interface_lm->Draw(screen_rect.left, screen_rect.top, 0xA, 0, 0);
+    gfx_interface_lm->Draw(screen_rect.right - 0x20, screen_rect.top, 0xC, 0, 0);
+    gfx_interface_lm->Draw(screen_rect.left, screen_rect.bottom - 0x20, 0xF, 0, 0);
+    gfx_interface_lm->Draw(screen_rect.right - 0x20, screen_rect.bottom - 0x20, 0x11, 0, 0);
     for (int32_t i = 0; i < (screen_rect.Width() - 0x40) / 0x30; i++) {
-        gfx_interface_lm->VMethod2(screen_rect.left + 0x20 + i * 0x30, screen_rect.top, 0xB, 0, 0);
-        gfx_interface_lm->VMethod2(screen_rect.left + 0x20 + i * 0x30, screen_rect.bottom - 0x20, 0x10, 0, 0);
+        gfx_interface_lm->Draw(screen_rect.left + 0x20 + i * 0x30, screen_rect.top, 0xB, 0, 0);
+        gfx_interface_lm->Draw(screen_rect.left + 0x20 + i * 0x30, screen_rect.bottom - 0x20, 0x10, 0, 0);
     }
     for (int32_t i = 0; i < (screen_rect.Height() - 0x40) / 0x20; i++) {
-        gfx_interface_lm->VMethod2(screen_rect.left, screen_rect.top + 0x20 + i * 0x20, 0xD, 0, 0);
-        gfx_interface_lm->VMethod2(screen_rect.right - 0x20, screen_rect.top + 0x20 + i * 0x20, 0xE, 0, 0);
+        gfx_interface_lm->Draw(screen_rect.left, screen_rect.top + 0x20 + i * 0x20, 0xD, 0, 0);
+        gfx_interface_lm->Draw(screen_rect.right - 0x20, screen_rect.top + 0x20 + i * 0x20, 0xE, 0, 0);
     }
     for (int32_t i = 0; i < (screen_rect.Width() - 0x40) / 0x30; i++) {
         for (int32_t j = 0; j < (screen_rect.Height() - 0x40) / 0x20; j++) {
-            gfx_interface_lm->VMethod2(screen_rect.left + 0x20 + i * 0x30, screen_rect.top + 0x20 + j * 0x20, 9, 0, 0);
+            gfx_interface_lm->Draw(screen_rect.left + 0x20 + i * 0x30, screen_rect.top + 0x20 + j * 0x20, 9, 0, 0);
         }
     }
 
@@ -4418,7 +4418,7 @@ void VisQuestStatus::VMethod7() {
         }
 
         g_font2->DrawTextJustifyInRectShadow(text_rect, quest_text, clr, 0xA);
-        this->icon->VMethod2(col_x - 6, row_y - 2, icon_index, 0, 0);
+        this->icon->Draw(col_x - 6, row_y - 2, icon_index, 0, 0);
 
         row_y += 0x20;
     }
@@ -4472,24 +4472,24 @@ void VisTipsDialog::VMethod8(CRect* rect) {
         gfx_interface_lm->VMethod3(r.right - 0x18, r.top + 0x28 + i * 0x20, 0xE, 6, 0);
     }
 
-    gfx_interface_lm->VMethod2(r.left, r.top, 0xA, 0, 0);
-    gfx_interface_lm->VMethod2(r.right - 0x20, r.top, 0xC, 0, 0);
-    gfx_interface_lm->VMethod2(r.left, r.bottom - 0x20, 0xF, 0, 0);
-    gfx_interface_lm->VMethod2(r.right - 0x20, r.bottom - 0x20, 0x11, 0, 0);
+    gfx_interface_lm->Draw(r.left, r.top, 0xA, 0, 0);
+    gfx_interface_lm->Draw(r.right - 0x20, r.top, 0xC, 0, 0);
+    gfx_interface_lm->Draw(r.left, r.bottom - 0x20, 0xF, 0, 0);
+    gfx_interface_lm->Draw(r.right - 0x20, r.bottom - 0x20, 0x11, 0, 0);
 
     for (int32_t i = 0; i < (r.Width() - 0x40) / 0x30; i++) {
-        gfx_interface_lm->VMethod2(r.left + 0x20 + i * 0x30, r.top, 0xB, 0, 0);
-        gfx_interface_lm->VMethod2(r.left + 0x20 + i * 0x30, r.bottom - 0x20, 0x10, 0, 0);
+        gfx_interface_lm->Draw(r.left + 0x20 + i * 0x30, r.top, 0xB, 0, 0);
+        gfx_interface_lm->Draw(r.left + 0x20 + i * 0x30, r.bottom - 0x20, 0x10, 0, 0);
     }
 
     for (int32_t i = 0; i < (r.Height() - 0x40) / 0x20; i++) {
-        gfx_interface_lm->VMethod2(r.left, r.top + 0x20 + i * 0x20, 0xD, 0, 0);
-        gfx_interface_lm->VMethod2(r.right - 0x20, r.top + 0x20 + i * 0x20, 0xE, 0, 0);
+        gfx_interface_lm->Draw(r.left, r.top + 0x20 + i * 0x20, 0xD, 0, 0);
+        gfx_interface_lm->Draw(r.right - 0x20, r.top + 0x20 + i * 0x20, 0xE, 0, 0);
     }
 
     for (int32_t i = 0; i < (r.Width() - 0x40) / 0x30; i++) {
         for (int32_t j = 0; j < (r.Height() - 0x40) / 0x20; j++) {
-            gfx_interface_lm->VMethod2(r.left + 0x20 + i * 0x30, r.top + 0x20 + j * 0x20, 9, 0, 0);
+            gfx_interface_lm->Draw(r.left + 0x20 + i * 0x30, r.top + 0x20 + j * 0x20, 9, 0, 0);
         }
     }
 
@@ -4686,7 +4686,7 @@ void VisCharSellectButtons::VMethod7() {
     CPoint top_left = this->parent_screen->rect.TopLeft();
     if (this->parent_screen->active_flag != 0) {
         LockSurface2();
-        this->bmp_area->VMethod2(top_left.x + this->rect.left, top_left.y + this->rect.top, 0, 0, 0);
+        this->bmp_area->Draw(top_left.x + this->rect.left, top_left.y + this->rect.top, 0, 0, 0);
         for (int32_t i = 0; i < 4; i++) {
             uint16_t* pal;
             if (this->mouse_over_box == i) {
@@ -4827,12 +4827,12 @@ void VisCharSellectList::VMethod7() {
             visible_end = this->parent_screen->session->GetStringArray1Size();
         }
         LockSurface2();
-        this->field_0xa4->VMethod2(top_left.x + this->rect.left, top_left.y + this->rect.top, 0, 0, 0);
+        this->field_0xa4->Draw(top_left.x + this->rect.left, top_left.y + this->rect.top, 0, 0, 0);
         if (this->field_0xb8 != nullptr) {
-            this->field_0xb8->VMethod2(top_left.x + 0x78 + this->rect.left, top_left.y + this->rect.top, 0, 0, 0);
+            this->field_0xb8->Draw(top_left.x + 0x78 + this->rect.left, top_left.y + this->rect.top, 0, 0, 0);
         }
         if (this->field_0xbc != nullptr) {
-            this->field_0xbc->VMethod2(top_left.x + 0x78 + this->rect.left, top_left.y + 0x188 + this->rect.top, 0, 0, 0);
+            this->field_0xbc->Draw(top_left.x + 0x78 + this->rect.left, top_left.y + 0x188 + this->rect.top, 0, 0, 0);
         }
         for (int32_t i = this->field_0xa0; i < visible_end; i++) {
             uint16_t* pal;
@@ -5512,7 +5512,7 @@ void VisNetMapList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
     }
 
     if (idx == *this->p_selected_map_index) {
-        g_bmp_server->VMethod2(pos.x, pos.y, 0, 0, 0);
+        g_bmp_server->Draw(pos.x, pos.y, 0, 0, 0);
     }
 
     CString& item = this->entries[idx];
@@ -5613,10 +5613,10 @@ void VisServerScreenRadio::VMethod7() {
         int32_t flag = 1 << i;
         if (this->selection & flag) {
             gfx_radiob->VMethod3(r.left + 5, y + 4, 5, 4, 0);
-            gfx_radiob->VMethod2(r.left + 1, y, 5, 0, 0);
+            gfx_radiob->Draw(r.left + 1, y, 5, 0, 0);
         } else {
             gfx_radiob->VMethod3(r.left + 5, y + 4, 4, 4, 0);
-            gfx_radiob->VMethod2(r.left + 1, y, 4, 0, 0);
+            gfx_radiob->Draw(r.left + 1, y, 4, 0, 0);
         }
 
         CRect entry(r.left, y, r.right, y + gfx_radiob->GetHeight(4));
@@ -5726,8 +5726,8 @@ void VisCharSellectStats::VMethod7() {
     CPoint top_left = this->parent_screen->rect.TopLeft();
     if (this->parent_screen->active_flag != 0) {
         LockSurface2();
-        this->field_0x64->VMethod2(top_left.x, top_left.y, 0, 0, 0);
-        this->field_0x60->VMethod2(top_left.x, top_left.y + 0xEE, 0, 0, 0);
+        this->field_0x64->Draw(top_left.x, top_left.y, 0, 0, 0);
+        this->field_0x60->Draw(top_left.x, top_left.y + 0xEE, 0, 0, 0);
         if (this->parent_screen->roster_list->field_0xd0 == this->parent_screen->session->GetStringArray1Size() - 1) {
             UnlockSurface2();
             return;
@@ -7219,7 +7219,7 @@ void VisGlobalMap::VMethod7() {
     }
 
     LockSurface2();
-    this->gmap->VMethod2(screen_x, screen_y, 0, 0, 0);
+    this->gmap->Draw(screen_x, screen_y, 0, 0, 0);
 
     if (this->umoirMapMode == 0) {
         if (this->travelRoutePoints.GetSize() == 0 && this->travelProgress == 0) {
@@ -8441,7 +8441,7 @@ void VisCharGenStats::VMethod7() {
         return;
     }
     LockSurface2();
-    this->bmp->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+    this->bmp->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
     for (int32_t i = 0; i < 4; i++) {
         str.Format("%d", (&this->stat_body)[i]);
         uint16_t* pal = palette_husk->GetPalette(0);
@@ -8663,7 +8663,7 @@ void VisCharGenFullStats::VMethod7() {
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
     LockSurface2();
-    this->bmp->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+    this->bmp->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
     CRect unit_rect = screen_rect;
     unit_rect.left += 0xC;
     unit_rect.right += 0xC;
@@ -8722,7 +8722,7 @@ void VisCharGenAction::VMethod7() {
         return;
     }
     LockSurface2();
-    this->area_bmp->VMethod2(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, 0);
+    this->area_bmp->Draw(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, 0);
     for (int32_t i = 0; i < 3; i++) {
         uint16_t* pal;
         if (this->mouse_over_box == i) {
@@ -8731,12 +8731,12 @@ void VisCharGenAction::VMethod7() {
             pal = palette_husk->GetPalette(0);
         }
         if (this->mouse_over_box < 0 || this->mouse_down_box != this->mouse_over_box || this->mouse_over_box != i) {
-            this->btn_off[i]->VMethod2(topleft.x + this->areas[i].left, topleft.y + this->areas[i].top, 0, 0, 0);
+            this->btn_off[i]->Draw(topleft.x + this->areas[i].left, topleft.y + this->areas[i].top, 0, 0, 0);
             g_font4->DrawTxt(topleft.x + this->areas[i].left + this->areas[i].Width() / 2,
                              topleft.y + this->areas[i].top + this->areas[i].Height() / 2,
                              this->texts.ElementAt(i), 10, pal);
         } else {
-            this->btn_on[i]->VMethod2(topleft.x + this->areas[i].left, topleft.y + this->areas[i].top, 0, 0, 0);
+            this->btn_on[i]->Draw(topleft.x + this->areas[i].left, topleft.y + this->areas[i].top, 0, 0, 0);
             g_font4->DrawTxt(topleft.x + this->areas[i].left + this->areas[i].Width() / 2,
                              topleft.y + this->areas[i].top + 1 + this->areas[i].Height() / 2,
                              this->texts.ElementAt(i), 10, pal);
@@ -9055,7 +9055,7 @@ void VisCharGenSkills::VMethod7() {
     this->field_0x10c[4] |= 1;
     if (this->parent_screen->active_flag != 0) {
         LockSurface2();
-        this->bmp_column->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+        this->bmp_column->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
         for (int32_t i = 0; i < 4; i++) {
             int32_t state = this->field_0x10c[i];
             if (state == 1) {
@@ -9295,7 +9295,7 @@ void VisLogoWnd::VMethod7() { //4cd8d1
     LockSurface2();
 
     if (this->logoBitmap) {
-        this->logoBitmap->VMethod2(this->rect.left, this->rect.top, 0, 0, 0);
+        this->logoBitmap->Draw(this->rect.left, this->rect.top, 0, 0, 0);
     }
 
     UnlockSurface2();
@@ -9398,9 +9398,9 @@ void VisCharInfo::VMethod7() {
     }
 
     if (this->info_mode != 0) {
-        g_bmp_humanbackr->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+        g_bmp_humanbackr->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
     } else {
-        g_bmp_textbackr->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+        g_bmp_textbackr->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
     }
 
     if ((main_wnd->dialogsMask & 3) != 0 && (main_wnd->dialogsMask & 4) == 0) {
@@ -10215,7 +10215,7 @@ void VisSideStatus::VMethod7() {
     LockSurface2();
     if (screen_rect.Height() >= main_wnd->vis_charinfo->GetRect().Height()) {
         screen_rect.OffsetRect(0, screen_rect.Height() - main_wnd->vis_charinfo->GetRect().Height());
-        g_bmp_textbackr->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+        g_bmp_textbackr->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
 
         CStructure* structure = nullptr;
         CUnit* unit = nullptr;
@@ -10253,9 +10253,9 @@ void VisSideStatus::VMethod7() {
     }
 
     if (g_ScreenSize.bottom > 600) {
-        g_bmp_extra1024r->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+        g_bmp_extra1024r->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
     } else if (g_ScreenSize.bottom > 480) {
-        g_bmp_extra800r->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+        g_bmp_extra800r->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
     }
     UnlockSurface2();
     this->dirty = 0;
@@ -11270,24 +11270,24 @@ void VisShopCompass::VMethod7() {
     }
     LockSurface2();
     if (this->frame_sprite != nullptr) {
-        this->frame_sprite->VMethod2(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, 0);
+        this->frame_sprite->Draw(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, 0);
     }
     if (this->bkg_bmp != nullptr) {
-        this->bkg_bmp->VMethod2(topleft.x + this->rect.left + 5, topleft.y + this->rect.top + 8, 0, 0, 0);
+        this->bkg_bmp->Draw(topleft.x + this->rect.left + 5, topleft.y + this->rect.top + 8, 0, 0, 0);
     }
     for (int32_t i = 0; i < 4; i++) {
         if ((this->state & (1 << i)) != 0 && this->direction_frames[i][this->dir_frm[i]] != nullptr) {
-            this->direction_frames[i][this->dir_frm[i]]->VMethod2(topleft.x + this->outer_rects[i].left, topleft.y + this->outer_rects[i].top, 0, 0, 0);
+            this->direction_frames[i][this->dir_frm[i]]->Draw(topleft.x + this->outer_rects[i].left, topleft.y + this->outer_rects[i].top, 0, 0, 0);
         }
     }
     if (this->state & 0x10) {
-        this->trigger_bmp->VMethod2(topleft.x + this->rect.left + 0x71, topleft.y + this->rect.top + 0x70, 0, 0, 0);
+        this->trigger_bmp->Draw(topleft.x + this->rect.left + 0x71, topleft.y + this->rect.top + 0x70, 0, 0, 0);
     } else if (this->state & 0x20) {
-        this->fwd_frames[this->center_frm]->VMethod2(topleft.x + this->rect.left + 0x71, topleft.y + this->rect.top + 0x70, 0, 0, 0);
+        this->fwd_frames[this->center_frm]->Draw(topleft.x + this->rect.left + 0x71, topleft.y + this->rect.top + 0x70, 0, 0, 0);
     } else if (this->state & 0x40) {
-        this->ret_frames[this->center_frm]->VMethod2(topleft.x + this->rect.left + 0x71, topleft.y + this->rect.top + 0x70, 0, 0, 0);
+        this->ret_frames[this->center_frm]->Draw(topleft.x + this->rect.left + 0x71, topleft.y + this->rect.top + 0x70, 0, 0, 0);
     } else if (this->idle_bmp != nullptr) {
-        this->idle_bmp->VMethod2(topleft.x + this->rect.left + 0x71, topleft.y + this->rect.top + 0x70, 0, 0, 0);
+        this->idle_bmp->Draw(topleft.x + this->rect.left + 0x71, topleft.y + this->rect.top + 0x70, 0, 0, 0);
     }
     if (this->state & 0x80) {
         CPoint pt(g_mousept.GetX(), g_mousept.GetY());
@@ -11609,33 +11609,33 @@ void VisShopCompassDruid::VMethod7() {
     }
     LockSurface2();
     if (this->frame_sprite != nullptr) {
-        this->frame_sprite->VMethod2(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, 0);
+        this->frame_sprite->Draw(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, 0);
     }
     if (this->bkg_bmp != nullptr) {
-        this->bkg_bmp->VMethod2(topleft.x + this->rect.left + 5, topleft.y + this->rect.top + 8, 0, 0, 0);
+        this->bkg_bmp->Draw(topleft.x + this->rect.left + 5, topleft.y + this->rect.top + 8, 0, 0, 0);
     }
     if (this->category_bmp != nullptr && this->FUN_004c2842() != 0) {
         if (this->shop->select_category == 3) {
-            this->sel_goods_bmp->VMethod2(topleft.x + this->rect.left + 0x5D, topleft.y + this->rect.top + 0xAC, 0, 0, 0);
+            this->sel_goods_bmp->Draw(topleft.x + this->rect.left + 0x5D, topleft.y + this->rect.top + 0xAC, 0, 0, 0);
         } else {
-            this->category_bmp->VMethod2(topleft.x + this->rect.left + 0x5D, topleft.y + this->rect.top + 0xAC, 0, 0, 0);
+            this->category_bmp->Draw(topleft.x + this->rect.left + 0x5D, topleft.y + this->rect.top + 0xAC, 0, 0, 0);
         }
     }
     if (this->shop->select_category == 0) {
-        this->armor_bmp->VMethod2(topleft.x + this->rect.left + 5, topleft.y + this->rect.top + 0x70, 0, 0, 0);
+        this->armor_bmp->Draw(topleft.x + this->rect.left + 5, topleft.y + this->rect.top + 0x70, 0, 0, 0);
     }
     if (this->shop->select_category == 1) {
-        this->magic_bmp->VMethod2(topleft.x + this->rect.left + 5, topleft.y + this->rect.top + 0x34, 0, 0, 0);
+        this->magic_bmp->Draw(topleft.x + this->rect.left + 5, topleft.y + this->rect.top + 0x34, 0, 0, 0);
     }
     if (this->shop->select_category == 2) {
-        this->potions_bmp->VMethod2(topleft.x + this->rect.left + 0x79, topleft.y + this->rect.top + 0x24, 0, 0, 0);
+        this->potions_bmp->Draw(topleft.x + this->rect.left + 0x79, topleft.y + this->rect.top + 0x24, 0, 0, 0);
     }
     if ((this->state & 0x30) == 0) {
         if (this->idle_bmp != nullptr) {
-            this->idle_bmp->VMethod2(topleft.x + this->rect.left + 0xC5, topleft.y + this->rect.top + 0x5C, 0, 0, 0);
+            this->idle_bmp->Draw(topleft.x + this->rect.left + 0xC5, topleft.y + this->rect.top + 0x5C, 0, 0, 0);
         }
     } else if (this->trigger_bmp != nullptr) {
-        this->trigger_bmp->VMethod2(topleft.x + this->rect.left + 0xC5, topleft.y + this->rect.top + 0x5C, 0, 0, 0);
+        this->trigger_bmp->Draw(topleft.x + this->rect.left + 0xC5, topleft.y + this->rect.top + 0x5C, 0, 0, 0);
     }
     UnlockSurface2();
     CVisualObject::VMethod7();
@@ -11845,34 +11845,34 @@ void VisShopCompassKaarg::VMethod7() {
     }
     LockSurface2();
     if (this->frame_sprite != nullptr) {
-        this->frame_sprite->VMethod2(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, 0);
+        this->frame_sprite->Draw(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, 0);
     }
     if (this->bkg_bmp != nullptr) {
-        this->bkg_bmp->VMethod2(topleft.x + this->rect.left + 5, topleft.y + this->rect.top + 8, 0, 0, 0);
+        this->bkg_bmp->Draw(topleft.x + this->rect.left + 5, topleft.y + this->rect.top + 8, 0, 0, 0);
     }
     if (this->shop->select_category == 0) {
-        this->armor_bmp->VMethod2(topleft.x + this->rect.left + 5, topleft.y + this->rect.top + 8, 0, 0, 0);
+        this->armor_bmp->Draw(topleft.x + this->rect.left + 5, topleft.y + this->rect.top + 8, 0, 0, 0);
     }
     if (this->shop->select_category == 1) {
-        this->magic_bmp->VMethod2(topleft.x + this->rect.left + 0x31, topleft.y + this->rect.top + 0x48, 0, 0, 0);
+        this->magic_bmp->Draw(topleft.x + this->rect.left + 0x31, topleft.y + this->rect.top + 0x48, 0, 0, 0);
     }
     if (this->shop->select_category == 2) {
-        this->scrolls_bmp->VMethod2(topleft.x + this->rect.left + 0x31, topleft.y + this->rect.top + 8, 0, 0, 0);
+        this->scrolls_bmp->Draw(topleft.x + this->rect.left + 0x31, topleft.y + this->rect.top + 8, 0, 0, 0);
     }
     if (this->shop->select_category == 3) {
-        this->weapons_bmp->VMethod2(topleft.x + this->rect.left + 0x99, topleft.y + this->rect.top + 8, 0, 0, 0);
+        this->weapons_bmp->Draw(topleft.x + this->rect.left + 0x99, topleft.y + this->rect.top + 8, 0, 0, 0);
     }
     if ((this->state & 0x30) == 0) {
         if (this->idle_bmp != nullptr) {
-            this->idle_bmp->VMethod2(topleft.x + this->rect.left + 0x7D, topleft.y + this->rect.top + 0x74, 0, 0, 0);
+            this->idle_bmp->Draw(topleft.x + this->rect.left + 0x7D, topleft.y + this->rect.top + 0x74, 0, 0, 0);
         }
     } else if (this->trigger_bmp != nullptr) {
-        this->trigger_bmp->VMethod2(topleft.x + this->rect.left + 0x7D, topleft.y + this->rect.top + 0x74, 0, 0, 0);
+        this->trigger_bmp->Draw(topleft.x + this->rect.left + 0x7D, topleft.y + this->rect.top + 0x74, 0, 0, 0);
     }
     if (this->shop->select_category == 3) {
-        this->wpn_tail_frames[this->tail_frame]->VMethod2(topleft.x + this->rect.left + 0xC1, topleft.y + this->rect.top + 0xCC, 0, 0, 0);
+        this->wpn_tail_frames[this->tail_frame]->Draw(topleft.x + this->rect.left + 0xC1, topleft.y + this->rect.top + 0xCC, 0, 0, 0);
     } else {
-        this->tail_frames[this->tail_frame]->VMethod2(topleft.x + this->rect.left + 0xC1, topleft.y + this->rect.top + 0xCC, 0, 0, 0);
+        this->tail_frames[this->tail_frame]->Draw(topleft.x + this->rect.left + 0xC1, topleft.y + this->rect.top + 0xCC, 0, 0, 0);
     }
     UnlockSurface2();
     CVisualObject::VMethod7();
@@ -13605,8 +13605,8 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
     CRect rect_1C(CPoint(0xC, 0), CSize(0xA0, 0xEE));
     this->ClientRectToScreen(&screen_rect, this->rect);
     LockSurface2();
-    this->field_0x168->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
-    this->field_0x16c->VMethod2(screen_rect.left, screen_rect.top + 0xEE, 0, 0, 0);
+    this->field_0x168->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
+    this->field_0x16c->Draw(screen_rect.left, screen_rect.top + 0xEE, 0, 0, 0);
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->sessionMode == 2) {
@@ -14119,7 +14119,7 @@ void VisTavRightPanel::VMethod7() {
     }
 
     LockSurface2();
-    this->field_0x8c->VMethod2(tav_topleft.x + this->rect.left, tav_topleft.y + this->rect.top, 0, 0, 0);
+    this->field_0x8c->Draw(tav_topleft.x + this->rect.left, tav_topleft.y + this->rect.top, 0, 0, 0);
 
     uint16_t* pal;
     if (this->field_0xc4 == 1) {

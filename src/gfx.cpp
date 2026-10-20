@@ -4129,7 +4129,7 @@ void CGameBitmap::DrawWithPalette(int32_t x, int32_t y, int frame, int palid, CG
 	//428d60
 }
 
-void CGameBitmap::VMethod2(int32_t x, int32_t y, int frame, int mode, int palid) {
+void CGameBitmap::Draw(int32_t x, int32_t y, int frame, int mode, int palid) {
 	//428d50
 }
 
@@ -4250,7 +4250,7 @@ CBmp256::~CBmp256() { //428a40
 void CBmp256::Dump(CDumpContext& dc) const { //42649a
 }
 
-void CBmp256::VMethod2(int32_t x, int32_t y, int frame, int mode, int palid) { //4263df
+void CBmp256::Draw(int32_t x, int32_t y, int frame, int mode, int palid) { //4263df
 	const uint16_t* pal = this->palette.GetPalette(palid);
 	const BmpFrame* frm = (BmpFrame*)this->pdata;
 	BlitPaletted(x, y, 0, 0, frm->width, frm->height, this->pdata + sizeof(BmpFrame), frm->width, frm->height, pal);
@@ -4367,7 +4367,7 @@ CBmp64::~CBmp64() { //4289f0
 void CBmp64::Dump(CDumpContext& dc) const { //425f3b
 }
 
-void CBmp64::VMethod2(int32_t x, int32_t y, int frame, int mode, int palid) { //425e0c
+void CBmp64::Draw(int32_t x, int32_t y, int frame, int mode, int palid) { //425e0c
 	const BmpFrame* frm = (BmpFrame*)this->pdata;
 	Blit16(x, y, 0, 0, frm->width, frm->height, this->pdata + sizeof(BmpFrame), frm->width, frm->height);
 }
@@ -4544,7 +4544,7 @@ void CSprite256::DrawWithPalette(int32_t x, int32_t y, int frame, int palid, CGa
 	}
 }
 
-void CSprite256::VMethod2(int32_t x, int32_t y, int frame, int palid, int mode) { //4250e4
+void CSprite256::Draw(int32_t x, int32_t y, int frame, int palid, int mode) { //4250e4
 	const uint16_t* pal = this->palette.GetPalette(palid);
 	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 	if (mode == 0) {
@@ -4620,7 +4620,7 @@ CA16::CA16(const char* fname)
 {} //4287ff
 
 
-void CA16::VMethod2(int32_t x, int32_t y, int frame, int palid, int mode) { //428824
+void CA16::Draw(int32_t x, int32_t y, int frame, int palid, int mode) { //428824
 	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 
 	uint16_t* pal = (uint16_t*)palid;
@@ -4767,7 +4767,7 @@ void CSpriteFont16a::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t ali
 		if (chr1 == 0) {
 			x += this->bitmap->GetHeight() / 2;
 		} else {
-			((CA16*)this->bitmap)->VMethod2(x, y, chr1, (int)clr, 0); //FIXME
+			((CA16*)this->bitmap)->Draw(x, y, chr1, (int)clr, 0); //FIXME
 		}
 
 		x += this->char_widths[chr1] + this->space;

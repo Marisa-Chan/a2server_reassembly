@@ -1115,16 +1115,16 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
     }
 
     if (horse_sprite != nullptr) {
-        horse_sprite->VMethod2(0, 0, 0, 0, 0);
+        horse_sprite->Draw(0, 0, 0, 0, 0);
     }
 
     if ((this->unitFlags & 1) != 0 && (this->unitFlags & 2) == 0) {
         if ((this->unitFlags & 4) == 0) {
             if (g_spr_backm != nullptr) {
-                g_spr_backm->VMethod2(0, 0, 0, 0, 0);
+                g_spr_backm->Draw(0, 0, 0, 0, 0);
             }
         } else if (g_spr_backf != nullptr) {
-            g_spr_backf->VMethod2(0, 0, 0, 0, 0);
+            g_spr_backf->Draw(0, 0, 0, 0, 0);
         }
     }
 
@@ -1135,54 +1135,54 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
 
     if ((this->unitFlags & 2) == 0) {
         if (unit_sprite != nullptr) {
-            unit_sprite->VMethod2(0, 0, 0, 0, 0);
+            unit_sprite->Draw(0, 0, 0, 0, 0);
         }
 
         if (item_sprites[11] != nullptr) {
-            item_sprites[11]->VMethod2(0, 0, 0, 0, 0);
+            item_sprites[11]->Draw(0, 0, 0, 0, 0);
         }
         if (item_sprites[10] != nullptr) {
-            item_sprites[10]->VMethod2(0, 0, 0, 0, 0);
+            item_sprites[10]->Draw(0, 0, 0, 0, 0);
         }
         if (item_sprites[6] != nullptr) {
-            item_sprites[6]->VMethod2(0, 0, 0, 0, 0);
+            item_sprites[6]->Draw(0, 0, 0, 0, 0);
         }
         if (item_sprites[3] != nullptr) {
-            item_sprites[3]->VMethod2(0, 0, 0, 0, 0);
+            item_sprites[3]->Draw(0, 0, 0, 0, 0);
         }
         if (item_sprites[4] != nullptr) {
-            item_sprites[4]->VMethod2(0, 0, 0, 0, 0);
+            item_sprites[4]->Draw(0, 0, 0, 0, 0);
         }
         if (item_sprites[8] != nullptr) {
-            item_sprites[8]->VMethod2(0, 0, 0, 0, 0);
+            item_sprites[8]->Draw(0, 0, 0, 0, 0);
         }
         if (item_sprites[9] != nullptr) {
-            item_sprites[9]->VMethod2(0, 0, 0, 0, 0);
+            item_sprites[9]->Draw(0, 0, 0, 0, 0);
         }
         if (first_equipment_state == 0 && item_sprites[0] != nullptr) {
-            item_sprites[0]->VMethod2(0, 0, 0, 0, 0);
+            item_sprites[0]->Draw(0, 0, 0, 0, 0);
         }
         if (item_sprites[7] != nullptr) {
-            item_sprites[7]->VMethod2(0, 0, 0, 0, 0);
+            item_sprites[7]->Draw(0, 0, 0, 0, 0);
         }
         if (extra_sprites[3] != nullptr) {
-            extra_sprites[3]->VMethod2(0, 0, 0, 0, 0);
+            extra_sprites[3]->Draw(0, 0, 0, 0, 0);
         }
         if (item_sprites[5] != nullptr) {
-            item_sprites[5]->VMethod2(0, 0, 0, 0, 0);
+            item_sprites[5]->Draw(0, 0, 0, 0, 0);
         }
         if (extra_sprites[8] != nullptr) {
-            extra_sprites[8]->VMethod2(0, 0, 0, 0, 0);
+            extra_sprites[8]->Draw(0, 0, 0, 0, 0);
         }
         if (extra_sprites[9] != nullptr) {
-            extra_sprites[9]->VMethod2(0, 0, 0, 0, 0);
+            extra_sprites[9]->Draw(0, 0, 0, 0, 0);
         }
         if (first_equipment_state == 0) {
             if (item_sprites[1] != nullptr) {
-                item_sprites[1]->VMethod2(0, 0, 0, 0, 0);
+                item_sprites[1]->Draw(0, 0, 0, 0, 0);
             }
         } else if (item_sprites[0] != nullptr) {
-            item_sprites[0]->VMethod2(0, 0, 0, 0, 0);
+            item_sprites[0]->Draw(0, 0, 0, 0, 0);
         }
 
         if (bmp2 != nullptr) {
@@ -1237,41 +1237,41 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
         }
     } else {
         if (item_sprites[7] != nullptr) {
-            item_sprites[7]->VMethod2(0, 0, 0, 0, 0);
+            item_sprites[7]->Draw(0, 0, 0, 0, 0);
         }
-        unit_sprite->VMethod2(0, 0, 0, 0, 0);
+        unit_sprite->Draw(0, 0, 0, 0, 0);
         if (item_sprites[11] != nullptr) {
-            item_sprites[11]->VMethod2(0, 0, 0, 0, 0);
+            item_sprites[11]->Draw(0, 0, 0, 0, 0);
         }
         if (item_sprites[9] != nullptr) {
-            item_sprites[9]->VMethod2(0, 0, 0, 0, 0);
+            item_sprites[9]->Draw(0, 0, 0, 0, 0);
         }
         if (extra_sprites[9] != nullptr) {
-            extra_sprites[9]->VMethod2(0, 0, 0, 0, 0);
+            extra_sprites[9]->Draw(0, 0, 0, 0, 0);
         }
         if (item_sprites[3] != nullptr) {
-            item_sprites[3]->VMethod2(0, 0, 0, 0, 0);
+            item_sprites[3]->Draw(0, 0, 0, 0, 0);
         }
         if (extra_sprites[3] != nullptr) {
-            extra_sprites[3]->VMethod2(0, 0, 0, 0, 0);
+            extra_sprites[3]->Draw(0, 0, 0, 0, 0);
         }
         if (item_sprites[6] != nullptr) {
-            item_sprites[6]->VMethod2(0, 0, 0, 0, 0);
+            item_sprites[6]->Draw(0, 0, 0, 0, 0);
         }
         if (item_sprites[4] != nullptr) {
-            item_sprites[4]->VMethod2(0, 0, 0, 0, 0);
+            item_sprites[4]->Draw(0, 0, 0, 0, 0);
         }
         if (item_sprites[8] != nullptr) {
-            item_sprites[8]->VMethod2(0, 0, 0, 0, 0);
+            item_sprites[8]->Draw(0, 0, 0, 0, 0);
         }
         if (item_sprites[0] != nullptr) {
-            item_sprites[0]->VMethod2(0, 0, 0, 0, 0);
+            item_sprites[0]->Draw(0, 0, 0, 0, 0);
         }
         if (item_sprites[5] != nullptr) {
-            item_sprites[5]->VMethod2(0, 0, 0, 0, 0);
+            item_sprites[5]->Draw(0, 0, 0, 0, 0);
         }
         if (extra_sprites[7] != nullptr) {
-            extra_sprites[7]->VMethod2(0, 0, 0, 0, 0);
+            extra_sprites[7]->Draw(0, 0, 0, 0, 0);
         }
 
         if (bmp2 != nullptr) {
@@ -1803,7 +1803,7 @@ void CUnit::Draw(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
             ProjectileInfo* proj = g_ProjectileInfos[elem->vfx_type];
             int32_t x = this->centerScreenX + elem->x - proj->width / 2;
             int32_t y = this->centerScreenY - this->terrainHeightOffset - this->z_pos + elem->y - proj->height / 2 - elem->z;
-            proj->GetSprite()->VMethod2(x, y, elem->phase, 0, 0);
+            proj->GetSprite()->Draw(x, y, elem->phase, 0, 0);
         }
     }
 
@@ -1984,7 +1984,7 @@ void CUnit::Draw(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
             ProjectileInfo* proj = g_ProjectileInfos[elem->vfx_type];
             int32_t x = this->centerScreenX + elem->x - proj->width / 2;
             int32_t y = this->centerScreenY - this->terrainHeightOffset - this->z_pos + elem->y - proj->height / 2 - elem->z;
-            proj->GetSprite()->VMethod2(x, y, elem->phase, 0, 0);
+            proj->GetSprite()->Draw(x, y, elem->phase, 0, 0);
         }
     }
 }
@@ -3980,7 +3980,7 @@ void CStructure::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
             }
         }
 
-        info->GetSprite()->VMethod2(arg1 * 0x20, y, frame, arg3, 0);
+        info->GetSprite()->Draw(arg1 * 0x20, y, frame, arg3, 0);
         if (g_settings.Smoothing != 0) {
             info->GetSpriteB()->VMethod9(arg1 * 0x20, y, frame, arg3, palette, 0);
         }
@@ -4193,7 +4193,7 @@ void CVerticalWoodenBridge::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
     int32_t y = (arg2 * 0x20) - this->z_pos - this->terrainHeightOffset;
     CGamePalette* palette = &info->GetSprite()->palette;
 
-    info->GetSprite()->VMethod2(x, y, piece, arg3, 0);
+    info->GetSprite()->Draw(x, y, piece, arg3, 0);
     if (g_settings.Smoothing != 0) {
         info->GetSpriteB()->VMethod9(x, y, piece, arg3, palette, 0);
     }
@@ -4248,7 +4248,7 @@ void CHorisontalWoodenBridge::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
     int32_t y = (arg2 * 0x20) - this->z_pos - this->terrainHeightOffset;
     CGamePalette* palette = &info->GetSprite()->palette;
 
-    info->GetSprite()->VMethod2(x, y, piece, arg3, 0);
+    info->GetSprite()->Draw(x, y, piece, arg3, 0);
     if (g_settings.Smoothing != 0) {
         info->GetSpriteB()->VMethod9(x, y, piece, arg3, palette, 0);
     }
@@ -4291,7 +4291,7 @@ void CBackPack::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
     int32_t x = this->centerScreenX - half_width;
     int32_t y = this->centerScreenY - half_height - this->terrainHeightOffset - 4;
 
-    g_spr_backpack->VMethod2(x, y, this->typeId, arg3, 0);
+    g_spr_backpack->Draw(x, y, this->typeId, arg3, 0);
     if (g_settings.Smoothing != 0) {
         CGamePalette* palette = &g_spr_backpack->palette;
         g_spr_backpackb->VMethod9(x, y, this->typeId, arg3, palette, 0);
@@ -4576,23 +4576,23 @@ void CProjectile::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
         } else {
             sub_phase = this->phase - 8;
         }
-        info->GetSprite()->VMethod2(x, y, sub_phase, arg3, 0);
+        info->GetSprite()->Draw(x, y, sub_phase, arg3, 0);
         break;
     }
     case 28:
         for (int32_t i = 0; i < this->transientVisualElements.GetSize(); i++) {
             GO_11c& el = this->transientVisualElements.ElementAt(i);
-            g_ProjectileInfos[28]->GetSprite()->VMethod2(el.x - 8, el.y - 8, this->phase, 0, 0);
+            g_ProjectileInfos[28]->GetSprite()->Draw(el.x - 8, el.y - 8, this->phase, 0, 0);
         }
         break;
     case 30:
         for (int32_t i = 0; i < this->transientVisualElements.GetSize(); i++) {
             GO_11c& el = this->transientVisualElements.ElementAt(i);
-            g_ProjectileInfos[30]->GetSprite()->VMethod2(el.x - 8, el.y - 8, this->phase + el.vfx_type * 5, 0, 0);
+            g_ProjectileInfos[30]->GetSprite()->Draw(el.x - 8, el.y - 8, this->phase + el.vfx_type * 5, 0, 0);
         }
         break;
     case 54:
-        info->GetSprite()->VMethod2(x, y, this->phase, arg3, 0);
+        info->GetSprite()->Draw(x, y, this->phase, arg3, 0);
         break;
     case 56:
         break;
@@ -4600,7 +4600,7 @@ void CProjectile::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
         if (info->palette == 0) {
             info->GetSprite()->DrawWithPalette(x, y, sprite_idx, arg3, g_pal_projectiles, flip);
         } else {
-            info->GetSprite()->VMethod2(x, y, sprite_idx, arg3, flip);
+            info->GetSprite()->Draw(x, y, sprite_idx, arg3, flip);
             CSprite256* sprite2 = info->GetSpriteB();
             if (sprite2 != nullptr) {
                 sprite2->VMethod10(x, y, sprite_idx, arg3, flip);
@@ -4614,7 +4614,7 @@ void CProjectile::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
                     uint32_t packed = this->path_history[i];
                     int32_t sx = ((packed & 0xffff) >> 3) - map->view_x * 0x20 - g_spr_smoke[smoke_idx]->GetWidth(0) / 2;
                     int32_t sy = (packed >> 0x13) - map->view_y * 0x20 - g_spr_smoke[smoke_idx]->GetHeight(0) / 2 - this->terrainHeightOffset - this->z_pos;
-                    g_spr_smoke[smoke_idx]->VMethod2(sx, sy, i, arg3, 0);
+                    g_spr_smoke[smoke_idx]->Draw(sx, sy, i, arg3, 0);
                 }
             }
         }
