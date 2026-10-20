@@ -150,7 +150,7 @@ public:
     void SendAbilityPacket(Unit* unit, uint8_t angle, uint8_t speed_dir, uint8_t mode);
     void SendMountPacket(Unit* unit);
     void SendUnitTurn(Unit* unit, Unit* target); // Notify clients about unit turning to face its target
-    void SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t props_flags, int32_t inv_start_index, int32_t param6);
+    void SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t props_flags, int32_t inv_start_index, int32_t inv_end_index);
 
     void SendHumanoidProps(Unit* unit, Player* player, int32_t flags);
     void SendMonsterInventory(Unit* unit, Player* player, int32_t param5, int32_t param6);
