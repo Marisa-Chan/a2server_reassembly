@@ -195,7 +195,7 @@ void CMultiShopInstance::sub_5464B6(int32_t param) {
 }
 
 // 546577
-void CMultiShopInstance::sub_546577(uint8_t src_type, int16_t src_slot, uint8_t dst_type, int16_t dst_slot, int32_t count) {
+void CMultiShopInstance::MoveItems(uint8_t src_type, int16_t src_slot, uint8_t dst_type, int16_t dst_slot, int32_t count) {
     int32_t result = 0;
     Item* item = nullptr;
 
@@ -505,7 +505,7 @@ void CMultiShopTemplate::sub_547CB9(Humanoid* humanoid, uint8_t op_type, int16_t
         return;
     }
     shop_instance->SetUnit(humanoid);
-    shop_instance->sub_546577(op_type, src_slot, dst_type, dst_word, count);
+    shop_instance->MoveItems(op_type, src_slot, dst_type, dst_word, count);
 }
 
 // 5479C6
