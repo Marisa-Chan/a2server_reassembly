@@ -799,3 +799,4 @@ QuestInnGlue::VMethod1 -> ProcessQuests -- iterates the glue's quests and dispat
 QuestInnGlue::VMethod2 -> ProcessEscortTarget -- escort/mail/intercept-unit family: binds the tracked unit at the target inn
 QuestInnGlue::VMethod3 -> ProcessDeliverItem -- scans players for the item to deliver
 QuestInnGlue::VMethod4 -> ProcessInterceptGroup -- binds the group to intercept
+QuestInnGlue::VMethod5 -> SpawnZombieMobs -- spawns the zombie (0x52) quest mobs around the target player
