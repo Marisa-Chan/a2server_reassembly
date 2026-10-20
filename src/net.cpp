@@ -280,7 +280,7 @@ void NetStru1::SendMountPacket(Unit* unit) {
 }
 
 // 51C59C
-void NetStru1::sub_51C59C(Unit* unit, Unit* target) {
+void NetStru1::SendUnitTurn(Unit* unit, Unit* target) {
     if (unit->max_range < 2) {
         const uint8_t speed_dir = unit->charge + unit->relax;
         const uint8_t angle = unit->eye->GetFacingHalf();

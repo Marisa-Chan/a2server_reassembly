@@ -240,7 +240,7 @@ void __cdecl CalcAttackCharge(Unit* self, Unit* target, int32_t* out_charge) {
         *out_charge = (dist * 256 + 0x80) / 200;
     }
 
-    g_NetStru1_main.sub_51C59C(self, target);
+    g_NetStru1_main.SendUnitTurn(self, target);
 }
 
 // Execute attack.

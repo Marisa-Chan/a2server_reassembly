@@ -1075,3 +1075,4 @@ TokenEntry::FUN_004396d6 -> HasKnownName -- 1 when the item id has an entry in t
 MapStuff::sub_5936D2 -> ClampPosToMap -- clamps a packed position into the walkable map bounds
 MapStuff::sub_593AA4 -> PeekNextStep -- returns the static path head if it is adjacent, else 0
 MapStuff::sub_590902 -> PickNextPathTarget -- decides the next path waypoint (static head vs repath) and re-runs FindPath
+Scenario::FUN_0044ec40 -> ReadAlmInfo -- parses a .alm map file into NetMapInfo
