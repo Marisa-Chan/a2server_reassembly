@@ -3780,7 +3780,7 @@ int32_t World::MustFlee(Unit* unit) {
 }
 
 // 5A8CD8
-void World::sub_5A8CD8(Unit* unit) {
+void World::FleeFromEnemies(Unit* unit) {
     if (unit->spell_book != nullptr) {
         if (this->GetCastableSpell(unit, spell::teleport, 0) != nullptr) {
             this->sub_5A8DBC(unit);
@@ -3957,7 +3957,7 @@ void World::ProcessUnitRecall(Unit* unit) {
     if (this->WantsRetreat(unit) != 0) {
         this->DoTeleportHome(unit);
     } else if (this->MustFlee(unit) != 0) {
-        this->sub_5A8CD8(unit);
+        this->FleeFromEnemies(unit);
     }
 }
 
