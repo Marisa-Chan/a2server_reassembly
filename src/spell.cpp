@@ -114,7 +114,7 @@ int Spell::IsAreaSpell(uint8_t, uint8_t) {
 }
 
 // 5393C7
-int Spell::sub_5393C7() {
+int Spell::IsUnitSpell() {
     return this->spell_info->Values().GetData()[0].spell_target == 1;
 }
 
@@ -263,7 +263,7 @@ int32_t Spell::sub_539958(Unit* caster, Unit* target, int8_t x, int8_t y) {
         return 1;
     }
 
-    if (this->sub_5393C7()) {
+    if (this->IsUnitSpell()) {
         g_NetStru1_main.SendSpellCastAtUnit(caster, this, target, delay);
     } else {
         g_NetStru1_main.SendSpellCastAtPos(caster, this, &local_pos, delay);
