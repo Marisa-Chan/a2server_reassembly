@@ -813,3 +813,4 @@ free: FUN_00476c0d -> UpdatePositionalMusic -- picks the nearest map-music zone 
 free: FUN_0047619a -> FreeDistortMap -- frees the distort map buffers
 free: FUN_00475110 -> IsSfxPlaying -- true when the sound has a playing channel
 free: FUN_0045b681 -> QueueTrack -- MusicPlayer: fades out then queues the track to play
+free: sub_4764BC -> UpdateDayNightLighting -- sets g_DeltaCLR colors/sun angle from the time of day

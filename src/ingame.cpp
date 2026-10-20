@@ -6368,7 +6368,7 @@ void BigStruct2::FUN_0041d97e(int32_t arg) {
 		UpdateDayNightLighting(time_of_day);
 		this->field_0x80->UpdateTerrainShading(1, 1, 0, 0);
 		this->sub_404912();
-		sub_47FA75();
+		ReloadPalettes();
 		this->field_0xdc = 1;
 		this->force_full_redraw = 1;
 		wnd->vis_minimap->MsgProc(0x404, 0, 0);
@@ -7175,7 +7175,7 @@ uint8_t* __cdecl UpdateDayNightLighting(int32_t val) {
 }
 
 // 47fa75
-void sub_47FA75() {
+void ReloadPalettes() {
 	g_mousept.Update();
 	for (int32_t i = 0; i < g_VFX_info.GetSize(); i++) {
 		UnitVFXUnfo* vfx = g_VFX_info[i];
