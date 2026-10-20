@@ -728,3 +728,4 @@ CMultiShopShelf::sub_54546E -> RemoveItemAt -- removes the item at index
 CMultiShopShelf::sub_5453E8 -> PickItem -- takes up to count of the item at slot
 CMultiShopShelf::sub_544BCE -> AddItem -- adds an item, merging stacks with similar items
 CMultiShopShelf::sub_545528 -> ReleaseItems -- decrements every item's refcount and empties the shelf
+CMultiShopInstance::sub_546857 -> SetUnit -- swaps the browsing unit, returns the old one

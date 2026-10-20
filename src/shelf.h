@@ -102,7 +102,7 @@ public:
     void sub_5464B6(int param); // 5464B6
     void sub_546577(uint8_t src_type, int16_t src_slot, uint8_t dst_type, int16_t dst_slot, int32_t count); // 546577
     void sub_546537(int amount, Item* item); // 546537 - add item to inventory
-    Item* sub_546557(int item_number, int count); // 546557 - pick item from inventory
+    Item* PickItem(int item_number, int count); // 546557 - pick item from inventory
     void sub_54668B(); // 54668B
     Unit* SetUnit(Unit* unit); // 546857
 };

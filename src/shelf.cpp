@@ -170,7 +170,7 @@ void CMultiShopInstance::sub_546537(int32_t amount, Item* item) {
 }
 
 // 546557
-Item* CMultiShopInstance::sub_546557(int32_t item_number, int32_t count) {
+Item* CMultiShopInstance::PickItem(int32_t item_number, int32_t count) {
     return this->inventory.sub_552E42(item_number, count);
 }
 
@@ -200,7 +200,7 @@ void CMultiShopInstance::sub_546577(uint8_t src_type, int16_t src_slot, uint8_t 
     Item* item = nullptr;
 
     if (src_type == 4) {
-        item = this->sub_546557(src_slot, count);
+        item = this->PickItem(src_slot, count);
         if (item == nullptr || item->count == 0) {
             this->sub_5464B6(0);
             return;
@@ -435,7 +435,7 @@ Item* CMultiShopTemplate::sub_547C5A(Humanoid* humanoid, int16_t src_slot, int32
         return nullptr;
     }
     instance->SetUnit(humanoid);
-    return instance->sub_546557(src_slot, count);
+    return instance->PickItem(src_slot, count);
 }
 
 // 547644
