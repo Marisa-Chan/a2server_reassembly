@@ -820,3 +820,4 @@ UnitEye: sub_58c00e -> GetFacingHalf -- (facing+8)>>4: 0 for facings 0-7, 1 for 
 UnitEye: sub_5925C9 -> SetPathMaskByMovement -- sets the pathing obstacle-bit mask from the unit movement type
 UnitEye: sub_59367D -> CheckRotation -- 0 when the rotation target is reached, else outputs the current rotation dir
 GfxFile: sub_41F870 -> GetSprite -- lazy-init and return the primary sprite
+GfxFile: sub_41F8A0 -> GetSpriteB -- lazy-init and return the smoothing sprite

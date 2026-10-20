@@ -3202,7 +3202,7 @@ void UnitGfxFile::Deinit() { //47caa4
 	}
 }
 
-CSprite256* UnitGfxFile::FUN_0046f700() { //46f700
+CSprite256* UnitGfxFile::GetSprite() { //46f700
     if (this->inited == 0) {
         this->Init();
     }

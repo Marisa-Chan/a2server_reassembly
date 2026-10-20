@@ -1957,17 +1957,17 @@ void CUnit::Draw(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
     } else {
         this->IsKindOf(RUNTIME_CLASS(CAirUnit)); // result unused in the original binary
         UnitGfxFile* gfx_file = g_UnitGfxFiles[file_idx];
-        int32_t cx = draw_vfx->center_x - draw_vfx->width / 2 + gfx_file->FUN_0046f700()->GetWidth(frame) / 2;
-        int32_t cy = draw_vfx->center_y - draw_vfx->height / 2 + gfx_file->FUN_0046f700()->GetHeight(frame) / 2;
+        int32_t cx = draw_vfx->center_x - draw_vfx->width / 2 + gfx_file->GetSprite()->GetWidth(frame) / 2;
+        int32_t cy = draw_vfx->center_y - draw_vfx->height / 2 + gfx_file->GetSprite()->GetHeight(frame) / 2;
         int32_t x = this->centerScreenX - cx;
         int32_t y = this->centerScreenY - cy - this->terrainHeightOffset - this->z_pos;
         if (this->FindEffectTimer(0x20) < 0) {
-            gfx_file->FUN_0046f700()->VMethod1(x, y, frame, arg3, palette, flip);
+            gfx_file->GetSprite()->VMethod1(x, y, frame, arg3, palette, flip);
         } else {
             if (map->my_main_unit->FUN_0041ee50(this->map_player->index) == 0) {
                 return;
             }
-            gfx_file->FUN_0046f700()->VMethod9(x, y, frame, arg3, palette, flip);
+            gfx_file->GetSprite()->VMethod9(x, y, frame, arg3, palette, flip);
         }
         cx = draw_vfx->center_x - draw_vfx->width / 2 + gfx_file->FUN_0046f730()->GetWidth(frame) / 2;
         cy = draw_vfx->center_y - draw_vfx->height / 2 + gfx_file->FUN_0046f730()->GetHeight(frame) / 2;
@@ -2137,26 +2137,26 @@ void CUnit::DrawShadow(int32_t arg1, int32_t arg2, int32_t arg3) { // 465b5a
         }
     } else {
         UnitGfxFile* gfx_file = g_UnitGfxFiles[file_idx];
-        int32_t shadow_offset = (int32_t)(std::tan(map->field_0x80->GetRenderSunAngle()) * (gfx_file->FUN_0046f700()->GetHeight(frame) / 2 + draw_vfx->height / 2 - draw_vfx->center_y));
+        int32_t shadow_offset = (int32_t)(std::tan(map->field_0x80->GetRenderSunAngle()) * (gfx_file->GetSprite()->GetHeight(frame) / 2 + draw_vfx->height / 2 - draw_vfx->center_y));
         int32_t is_air = this->IsKindOf(RUNTIME_CLASS(CAirUnit));
-        int32_t cx = draw_vfx->center_x - draw_vfx->width / 2 + gfx_file->FUN_0046f700()->GetWidth(frame) / 2;
-        int32_t cy = draw_vfx->center_y - draw_vfx->height / 2 + gfx_file->FUN_0046f700()->GetHeight(frame) / 2;
+        int32_t cx = draw_vfx->center_x - draw_vfx->width / 2 + gfx_file->GetSprite()->GetWidth(frame) / 2;
+        int32_t cy = draw_vfx->center_y - draw_vfx->height / 2 + gfx_file->GetSprite()->GetHeight(frame) / 2;
         int32_t x = this->centerScreenX - cx - shadow_offset;
         int32_t y = this->centerScreenY - cy - this->terrainHeightOffset;
         if (this->FindEffectTimer(0x20) < 0) {
             if (is_air) {
-                gfx_file->FUN_0046f700()->VMethod3(x + shadow_offset + sun_angle / 2000, y, frame, g_DeltaCLR.shade_delta, flip);
+                gfx_file->GetSprite()->VMethod3(x + shadow_offset + sun_angle / 2000, y, frame, g_DeltaCLR.shade_delta, flip);
             } else {
-                gfx_file->FUN_0046f700()->VMethod11(x, y, frame, g_DeltaCLR.shade_delta, sun_angle, flip);
+                gfx_file->GetSprite()->VMethod11(x, y, frame, g_DeltaCLR.shade_delta, sun_angle, flip);
             }
         } else {
             if (map->my_main_unit->FUN_0041ee50(this->map_player->index) == 0) {
                 return;
             }
             if (is_air) {
-                gfx_file->FUN_0046f700()->VMethod3(x + shadow_offset + sun_angle / 2000, y, frame, g_DeltaCLR.lit_delta, flip);
+                gfx_file->GetSprite()->VMethod3(x + shadow_offset + sun_angle / 2000, y, frame, g_DeltaCLR.lit_delta, flip);
             } else {
-                gfx_file->FUN_0046f700()->VMethod11(x, y, frame, g_DeltaCLR.lit_delta, sun_angle, flip);
+                gfx_file->GetSprite()->VMethod11(x, y, frame, g_DeltaCLR.lit_delta, sun_angle, flip);
             }
         }
         cx = draw_vfx->center_x - draw_vfx->width / 2 + gfx_file->FUN_0046f730()->GetWidth(frame) / 2;
