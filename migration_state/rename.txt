@@ -1073,3 +1073,4 @@ Outpost::sub_543EC3 -> RestoreOriginalUnits -- copies the outpost's copy-unit st
 DistortMap::sub_4AA29B -> RenderDistort -- renders the lens-distortion block at x/y using the offset table
 TokenEntry::FUN_004396d6 -> HasKnownName -- 1 when the item id has an entry in the item-name dictionary
 MapStuff::sub_5936D2 -> ClampPosToMap -- clamps a packed position into the walkable map bounds
+MapStuff::sub_593AA4 -> PeekNextStep -- returns the static path head if it is adjacent, else 0

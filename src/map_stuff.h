@@ -219,7 +219,7 @@ public:
     void AdvancePathList2(Unit* unit);
     void StepRotateToTarget(Unit* unit); // Rotates eye->field0_0x0 toward eye->field1_0x1 by up to rotation_speed.
     void SetFacing(Unit* unit, uint8_t facing);
-    void sub_590902(Unit* unit, Unit* target);
+    void PickNextPathTarget(Unit* unit, Unit* target);
     void FaceTarget(Unit* unit, Unit* target);
     void FacePosition(Unit* unit, PosYX yx);
     uint16_t PeekNextStep(Unit* unit);

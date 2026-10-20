@@ -412,7 +412,7 @@ void MapStuff::MoveStepTowardPos(Unit* unit, PosYX yx, uint8_t max_range) {
                 unit->eye2->cast_action = 0;
             }
         } else {
-            this->sub_590902(unit, nullptr);
+            this->PickNextPathTarget(unit, nullptr);
             unit->eye->field8_0x9++;
             unit->eye->counter = 0;
         }
@@ -485,7 +485,7 @@ void MapStuff::MoveStepTowardUnit(Unit* unit, Unit* target, uint8_t max_range) {
 
     if (unit->list2.IsEmpty() || unit->eye->counter > this->dynamic_refresh_rate) {
         if (unit->eye->field0_0x0 == unit->eye->field1_0x1) {
-            this->sub_590902(unit, target);
+            this->PickNextPathTarget(unit, target);
             unit->eye->field137_0x94 = target_yx;
             unit->eye->field138_0x96 = unit->position->GetYX();
             unit->eye->field8_0x9++;
@@ -656,7 +656,7 @@ void MapStuff::SetFacing(Unit* unit, uint8_t facing) {
 }
 
 // 590902
-void MapStuff::sub_590902(Unit* unit, Unit* target) {
+void MapStuff::PickNextPathTarget(Unit* unit, Unit* target) {
     int32_t distance = 0;
     int32_t kind = 0;
     PosYX cur_yx = unit->position->CompatGetYX();
