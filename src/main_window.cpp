@@ -337,7 +337,7 @@ void CFameHall::SaveDocuments(CFile* file) { //  4ac706
     file->Write(&this->m_nDifficultyWeight, 4);
 }
 
-void CFameHall::FUN_004ac7a2(CFile* file) { // 4ac7a2
+void CFameHall::LoadDocuments(CFile* file) { // 4ac7a2
     int32_t cnt;
     file->Read(&cnt, 4);
     this->m_Documents.SetSize(cnt);
@@ -4030,7 +4030,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
         RegFile reg;
 
         reg.ReadFromFile(&fil);
-        this->m_FameHall.FUN_004ac7a2(&fil);
+        this->m_FameHall.LoadDocuments(&fil);
         ScenarioLoad(&fil);
 
         for (int i = 0; i < 9; i++) {
@@ -4481,7 +4481,7 @@ void MainWindow::FUN_0048df44() { //48df44
 
     reg.ReadFromFile(&fil);
 
-    this->m_FameHall.FUN_004ac7a2(&fil);
+    this->m_FameHall.LoadDocuments(&fil);
 
     ScenarioLoad(&fil);
 

@@ -108,7 +108,7 @@ struct CFameHall {
     void LoadEntries(CFile* file);
     void FUN_004ac839(CFile* file); //4ac839 - save m_Entries to file
     void SaveDocuments(CFile* file);
-    void FUN_004ac7a2(CFile* file);
+    void LoadDocuments(CFile* file);
     void FUN_004ac3ce(const Fame1& fame);
 
     void FUN_00420050();
