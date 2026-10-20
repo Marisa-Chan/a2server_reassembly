@@ -1013,3 +1013,4 @@ World::sub_5ACB9E -> GroupFollowCommand -- trigger action 15 Follow: every unit 
 World::sub_5AC7C8 -> GroupRoamCommand -- trigger action 17 Roam: order 0x11 anchored at the head unit's spot
 World::sub_5AED8D -> AiRoamBrain -- group order 0x11 brain: measures unit spread from the roam anchor
 World::sub_5AB719 -> ComputeGroupAvgPos -- average packed position of the group's units
+World::sub_5ABB32 -> CanClaimMoveCell -- whether a 1-cell human unit may head for yx (free, not already targeted)

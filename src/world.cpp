@@ -537,7 +537,7 @@ void World::AiAggroBrain(Group* group) {
 }
 
 // 5AF805
-void World::sub_5AF805(int32_t a, int32_t b, int32_t c, Player* player) {
+void World::SetWithdrawThresholds(int32_t a, int32_t b, int32_t c, Player* player) {
     UnitList* unit_list = this->field24_0xa50->field69_0xa456c;
     if (unit_list == nullptr) {
         return;
