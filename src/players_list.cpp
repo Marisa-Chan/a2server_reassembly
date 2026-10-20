@@ -206,7 +206,7 @@ int PlayersList::AreTeamsStarted() {
 }
 
 // 534DDD
-void PlayersList::sub_534DDD() {
+void PlayersList::ProcessPlayerTimeouts() {
 	POSITION pos = this->list.GetHeadPosition();
 	Player* player = nullptr;
 

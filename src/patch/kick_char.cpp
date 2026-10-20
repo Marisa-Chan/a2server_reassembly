@@ -29,5 +29,5 @@ void KickPlayer(Player* player)
         g_NetStru1_main.AnnouncePlayer(player);
     }
     player->drop_deadline_tick16 = g_Server->tick16 - 1;
-    g_PlayersList->sub_534DDD();
+    g_PlayersList->ProcessPlayerTimeouts();
 }

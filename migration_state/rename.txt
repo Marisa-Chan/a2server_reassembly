@@ -765,3 +765,4 @@ ShopAssortment::sub_54ACCB -> AddItemsFlags -- applies flags to WorldEquip items
 ShopAssortment::sub_54AF21 -> AddMagicItems -- adds MagicItem entries
 ShopAssortment::sub_54A420 -> AddItems -- adds WorldEquip items by shape/mat/type
 ShopAssortment::sub_54EA76 -> AddMagicToItem -- adds a magic enchantment to an item
+PlayersList::sub_53636E -> AreTeamsStarted -- 1 when team play is already started

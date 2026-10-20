@@ -4812,7 +4812,7 @@ void Server::ServerTic() {
     if ((this->tick & 0xf) == 12) {
         dword_6CDB3C->sub_5574B5();
         this->srv_stru1->UpdateMapObjects();
-        g_PlayersList->sub_534DDD();
+        g_PlayersList->ProcessPlayerTimeouts();
         g_NetStru1_main.UpdateConnStats();
         g_QuestMap.sub_55E00C();
 
@@ -5213,7 +5213,7 @@ void Server::KickAllPlayers() {
         }
     }
     g_NetStru1_main.ProcessConnections();
-    g_PlayersList->sub_534DDD();
+    g_PlayersList->ProcessPlayerTimeouts();
 }
 
 // 4F8F86
