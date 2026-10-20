@@ -63,7 +63,7 @@ public:
     CMultiShopInstance* FindInstanceFor(Humanoid* humanoid); // 547468 - find shop instance for player's unit
     void CloseInstance(Humanoid* humanoid); // 5479C6
     void GenerateAssortment(); // 5474D8
-    void sub_547644(Unit* unit); // 547644
+    void OpenShopFor(Unit* unit); // 547644
     void sub_547B7B(Unit* unit); // 547B7B
     void sub_547BBC(Unit* unit); // 547BBC
     void sub_547BFD(Unit* unit, int amount, Item* item); // 547BFD

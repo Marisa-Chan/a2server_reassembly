@@ -439,7 +439,7 @@ Item* CMultiShopTemplate::sub_547C5A(Humanoid* humanoid, int16_t src_slot, int32
 }
 
 // 547644
-void CMultiShopTemplate::sub_547644(Unit* unit) {
+void CMultiShopTemplate::OpenShopFor(Unit* unit) {
     if (this->shop_instances.GetSize() >= 250) {
         return;
     }
