@@ -4606,7 +4606,7 @@ void CSprite256::DrawShadowed(int32_t x, int32_t y, int frame, int blevel, int32
 	}
 }
 
-void CSprite256::VMethod12(int32_t x, int32_t y, int frame, uint32_t mv) { //425508
+void CSprite256::DrawIndexMask(int32_t x, int32_t y, int frame, uint32_t mv) { //425508
 	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 	BlitRle8IndexMask(x, y, frm->width, frm->height, frm->data, mv);
 }

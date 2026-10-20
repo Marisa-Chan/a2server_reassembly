@@ -1189,50 +1189,50 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
             bmp2->SelectBitmapForDraw();
 
             if (item_sprites[11] != nullptr) {
-                item_sprites[11]->VMethod12(0, 0, 0, 12);
+                item_sprites[11]->DrawIndexMask(0, 0, 0, 12);
             }
             if (item_sprites[10] != nullptr) {
-                item_sprites[10]->VMethod12(0, 0, 0, 11);
+                item_sprites[10]->DrawIndexMask(0, 0, 0, 11);
             }
             if (item_sprites[6] != nullptr) {
-                item_sprites[6]->VMethod12(0, 0, 0, 7);
+                item_sprites[6]->DrawIndexMask(0, 0, 0, 7);
             }
             if (item_sprites[3] != nullptr) {
-                item_sprites[3]->VMethod12(0, 0, 0, 4);
+                item_sprites[3]->DrawIndexMask(0, 0, 0, 4);
             }
             if (item_sprites[4] != nullptr) {
-                item_sprites[4]->VMethod12(0, 0, 0, 5);
+                item_sprites[4]->DrawIndexMask(0, 0, 0, 5);
             }
             if (item_sprites[8] != nullptr) {
-                item_sprites[8]->VMethod12(0, 0, 0, 9);
+                item_sprites[8]->DrawIndexMask(0, 0, 0, 9);
             }
             if (item_sprites[9] != nullptr) {
-                item_sprites[9]->VMethod12(0, 0, 0, 10);
+                item_sprites[9]->DrawIndexMask(0, 0, 0, 10);
             }
             if (first_equipment_state == 0 && item_sprites[0] != nullptr) {
-                item_sprites[0]->VMethod12(0, 0, 0, 1);
+                item_sprites[0]->DrawIndexMask(0, 0, 0, 1);
             }
             if (item_sprites[7] != nullptr) {
-                item_sprites[7]->VMethod12(0, 0, 0, 8);
+                item_sprites[7]->DrawIndexMask(0, 0, 0, 8);
             }
             if (extra_sprites[3] != nullptr) {
-                extra_sprites[3]->VMethod12(0, 0, 0, 4);
+                extra_sprites[3]->DrawIndexMask(0, 0, 0, 4);
             }
             if (item_sprites[5] != nullptr) {
-                item_sprites[5]->VMethod12(0, 0, 0, 6);
+                item_sprites[5]->DrawIndexMask(0, 0, 0, 6);
             }
             if (extra_sprites[8] != nullptr) {
-                extra_sprites[8]->VMethod12(0, 0, 0, 9);
+                extra_sprites[8]->DrawIndexMask(0, 0, 0, 9);
             }
             if (extra_sprites[9] != nullptr) {
-                extra_sprites[9]->VMethod12(0, 0, 0, 10);
+                extra_sprites[9]->DrawIndexMask(0, 0, 0, 10);
             }
             if (first_equipment_state == 0) {
                 if (item_sprites[1] != nullptr) {
-                    item_sprites[1]->VMethod12(0, 0, 0, 2);
+                    item_sprites[1]->DrawIndexMask(0, 0, 0, 2);
                 }
             } else if (item_sprites[0] != nullptr) {
-                item_sprites[0]->VMethod12(0, 0, 0, 1);
+                item_sprites[0]->DrawIndexMask(0, 0, 0, 1);
             }
         }
     } else {
@@ -1278,41 +1278,41 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
             bmp2->SelectBitmapForDraw();
 
             if (item_sprites[7] != nullptr) {
-                item_sprites[7]->VMethod12(0, 0, 0, 8);
+                item_sprites[7]->DrawIndexMask(0, 0, 0, 8);
             }
-            unit_sprite->VMethod12(0, 0, 0, 0);
+            unit_sprite->DrawIndexMask(0, 0, 0, 0);
             if (item_sprites[11] != nullptr) {
-                item_sprites[11]->VMethod12(0, 0, 0, 8);
+                item_sprites[11]->DrawIndexMask(0, 0, 0, 8);
             }
             if (item_sprites[9] != nullptr) {
-                item_sprites[9]->VMethod12(0, 0, 0, 12);
+                item_sprites[9]->DrawIndexMask(0, 0, 0, 12);
             }
             if (extra_sprites[9] != nullptr) {
-                extra_sprites[9]->VMethod12(0, 0, 0, 10);
+                extra_sprites[9]->DrawIndexMask(0, 0, 0, 10);
             }
             if (item_sprites[3] != nullptr) {
-                item_sprites[3]->VMethod12(0, 0, 0, 4);
+                item_sprites[3]->DrawIndexMask(0, 0, 0, 4);
             }
             if (extra_sprites[3] != nullptr) {
-                extra_sprites[3]->VMethod12(0, 0, 0, 4);
+                extra_sprites[3]->DrawIndexMask(0, 0, 0, 4);
             }
             if (item_sprites[6] != nullptr) {
-                item_sprites[6]->VMethod12(0, 0, 0, 7);
+                item_sprites[6]->DrawIndexMask(0, 0, 0, 7);
             }
             if (item_sprites[4] != nullptr) {
-                item_sprites[4]->VMethod12(0, 0, 0, 5);
+                item_sprites[4]->DrawIndexMask(0, 0, 0, 5);
             }
             if (item_sprites[8] != nullptr) {
-                item_sprites[8]->VMethod12(0, 0, 0, 9);
+                item_sprites[8]->DrawIndexMask(0, 0, 0, 9);
             }
             if (item_sprites[0] != nullptr) {
-                item_sprites[0]->VMethod12(0, 0, 0, 1);
+                item_sprites[0]->DrawIndexMask(0, 0, 0, 1);
             }
             if (item_sprites[5] != nullptr) {
-                item_sprites[5]->VMethod12(0, 0, 0, 6);
+                item_sprites[5]->DrawIndexMask(0, 0, 0, 6);
             }
             if (extra_sprites[7] != nullptr) {
-                extra_sprites[7]->VMethod12(0, 0, 0, 8);
+                extra_sprites[7]->DrawIndexMask(0, 0, 0, 8);
             }
         }
     }

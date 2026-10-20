@@ -385,7 +385,7 @@ public:
 	virtual void DrawWithPaletteBlend(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode);
 	virtual void DrawBlend(int32_t x, int32_t y, int frame, int palid, int mode);
 	virtual void DrawShadowed(int32_t x, int32_t y, int frame, int blevel, int32_t arg5, int mode);
-	virtual void VMethod12(int32_t x, int32_t y, int frame, uint32_t arg4);
+	virtual void DrawIndexMask(int32_t x, int32_t y, int frame, uint32_t arg4);
 
 	CSprite256(const char* fname);
 	CSprite256(const CSprite256& b);
