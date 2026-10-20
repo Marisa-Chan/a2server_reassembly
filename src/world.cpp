@@ -3753,7 +3753,7 @@ void World::sub_5A8DBC(Unit* unit) {
 // Check whether the unit is below its wimpy threshold and has nearby enemies.
 // Returns 1 if the unit should flee, 0 otherwise.
 // 5A89D5
-int32_t World::sub_5A89D5(Unit* unit) {
+int32_t World::WantsRetreat(Unit* unit) {
     if (unit->hp > unit->eye2->wimpy) {
         return 0;
     }
@@ -3954,7 +3954,7 @@ void World::DoScriptedWalk(Unit* unit) {
 
 // 5AF5DC
 void World::ProcessUnitRecall(Unit* unit) {
-    if (this->sub_5A89D5(unit) != 0) {
+    if (this->WantsRetreat(unit) != 0) {
         this->DoTeleportHome(unit);
     } else if (this->sub_5A8BDA(unit) != 0) {
         this->sub_5A8CD8(unit);
