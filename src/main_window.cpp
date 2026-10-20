@@ -267,13 +267,13 @@ void CFameHall::SeedDefaultEntries() {
     for (int i = 0; i < 9; i++) {
         fame.score = tval + GetRandS16(5000);
         fame.str = TxtFile::AllLines[i + 0x107];
-        this->FUN_004ac3ce(fame);
+        this->AddEntry(fame);
         tval -= 7000;
     }
 
     fame.score = 0;
     fame.str = TxtFile::AllLines[0x110];
-    this->FUN_004ac3ce(fame);
+    this->AddEntry(fame);
 }
 
 
@@ -353,7 +353,7 @@ void CFameHall::LoadDocuments(CFile* file) { // 4ac7a2
 }
 
 
-void CFameHall::FUN_004ac3ce(const Fame1& fame) {
+void CFameHall::AddEntry(const Fame1& fame) {
     //4ac3ce
     if (this->m_Entries.GetSize() == 0) {
         this->m_Entries.Add(fame);
@@ -393,7 +393,7 @@ void CFameHall::SubmitScore() { //4ac498
             fm.score = unit->exp_summary / (this->m_nTotalTime * 10.0) * this->m_nDifficultyWeight;
         }
 
-        this->FUN_004ac3ce(fm);
+        this->AddEntry(fm);
     }
 }
 
