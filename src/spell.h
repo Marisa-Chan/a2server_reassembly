@@ -33,7 +33,7 @@ public:
     int IsAreaSpell(uint8_t unused1 = 0, uint8_t unused2 = 0); // Checks if it's area spell (spell target == 2).
     void SetPower(uint32_t param);
     int IsUnitSpell(); // Checks if spell_target == 1 (unit-targeted).
-    int32_t sub_539958(Unit* caster, Unit* target, int8_t x, int8_t y); // Validate and start cast; returns nonzero if accepted
+    int32_t StartCast(Unit* caster, Unit* target, int8_t x, int8_t y); // Validate and start cast; returns nonzero if accepted
     void sub_539C49(Unit* caster, Unit* target);
     void sub_539F21(Unit* caster, Unit* target); // Execute targeted spell
     void sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y); // Execute area spell

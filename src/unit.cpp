@@ -798,9 +798,9 @@ void Unit::ProcessEffects() {
                     int32_t ok;
 
                     if (this->some_state == 0xd) {
-                        ok = this->some_spell->sub_539958(this, this->cast_target, 0, 0);
+                        ok = this->some_spell->StartCast(this, this->cast_target, 0, 0);
                     } else {
-                        ok = this->some_spell->sub_539958(this, nullptr, this->area_cast_x, this->area_cast_y);
+                        ok = this->some_spell->StartCast(this, nullptr, this->area_cast_x, this->area_cast_y);
                     }
 
                     if (ok) {

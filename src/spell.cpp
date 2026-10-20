@@ -211,7 +211,7 @@ void Spell::SetPower(uint32_t power) {
 uint32_t __cdecl sub_5365AB(TokenPos* a, TokenPos* b);
 
 // 539958
-int32_t Spell::sub_539958(Unit* caster, Unit* target, int8_t x, int8_t y) {
+int32_t Spell::StartCast(Unit* caster, Unit* target, int8_t x, int8_t y) {
     if ((caster->unit_attrs & 4) && caster->some_item == nullptr) {
         if (this->mana_cost > caster->mp) {
             return 0;
