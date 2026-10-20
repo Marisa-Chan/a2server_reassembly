@@ -420,7 +420,7 @@ public:
     int StartServerSession(int mode); //48ca7e
     void EnterClientMode(); //4918ae
 
-    void FUN_00491f7d(int32_t vid_id); //491f7d
+    void PlayVideo(int32_t vid_id); //491f7d
 
     void FUN_0048f79d(); //48f79d
     int GetSaveFileInBattle(); //48de6f

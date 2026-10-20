@@ -2613,7 +2613,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
 
         if (this->vis_cutscenes->GetCloseCode() == 0x445) {
             DAT_00660f88 = ((VisListBox*)this->vis_cutscenes->FindChild(2))->GetSelectedIndex();
-            this->FUN_00491f7d(DAT_00660f88);
+            this->PlayVideo(DAT_00660f88);
             PostMessage(0x43b, 0, 0);
         } else {
             PostMessage(0x421, 0, 0);
@@ -2964,8 +2964,8 @@ void MainWindow::EnterClientMode() { // 4918ae
 }
 
 
-void MainWindow::FUN_00491f7d(int32_t vid_id) { //491f7d
-    printf("Video play FUN_00491f7d not implemented yet: %d\n", vid_id);
+void MainWindow::PlayVideo(int32_t vid_id) { //491f7d
+    printf("Video play PlayVideo not implemented yet: %d\n", vid_id);
 }
 
 
@@ -3138,7 +3138,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             }
 
             if (loc > -1) {
-                this->FUN_00491f7d(loc);
+                this->PlayVideo(loc);
             }
 
             if (FUN_00497490() == 0) {
@@ -3252,7 +3252,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             ScenarioLeaveLocation(&loc);
 
             if (loc > -1) {
-                this->FUN_00491f7d(loc);
+                this->PlayVideo(loc);
             }
 
             if (cloc->GetId() == 1) {
@@ -3342,7 +3342,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x436:
-        this->FUN_00491f7d(0);
+        this->PlayVideo(0);
         PostMessage(WM_CLOSE, 0, 0);
         break;
 
