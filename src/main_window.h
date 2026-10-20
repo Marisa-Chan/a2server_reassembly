@@ -416,7 +416,7 @@ public:
     void ShowCharInfoPane(); //491a49
     void AutosaveGame(); //48f905
     void EnterSinglePlayerMode(); //4903d0
-    void FUN_00491822(); //491822
+    void EnterServerMode(); //491822
     int FUN_0048ca7e(int mode); //48ca7e
     void FUN_004918ae(); //4918ae
 

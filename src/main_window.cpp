@@ -2493,7 +2493,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
             this->serverBootstrapEnabled = 0;
             this->EnterSinglePlayerMode();
         } else if (code == 0x44d) {
-            this->FUN_00491822();
+            this->EnterServerMode();
         } else if (code == 0x44e) {
             this->FUN_004918ae();
         } else {
@@ -2907,7 +2907,7 @@ void MainWindow::EnterSinglePlayerMode() { // 4903d0
     }
 }
 
-void MainWindow::FUN_00491822() { //491822
+void MainWindow::EnterServerMode() { //491822
     this->sessionMode = 3;
 
     g_NetStru1_main.SetLLDriver(&g_CLlDriver);
@@ -3520,7 +3520,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         }
 
         if (this->sessionMode == 3) {
-            this->FUN_00491822();
+            this->EnterServerMode();
         } else {
             this->field_0x34c = new VisNetDlg(1, 0, 30, 640, 450, &this->net_sessions);
             this->PopUpScreen(this->field_0x34c);
