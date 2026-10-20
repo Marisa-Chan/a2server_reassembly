@@ -218,7 +218,7 @@ int32_t QuestMap::PickRandomOtherInn(int32_t building_id_) {
 }
 
 // 4a47a0
-int32_t QuestMap::FUN_004a47a0(uint32_t id, Quest** out) {
+int32_t QuestMap::FindQuest(uint32_t id, Quest** out) {
 	return this->quests_map.Lookup(id, *out);
 }
 

@@ -791,3 +791,4 @@ QuestMap::sub_55DE84 -> ProcessQueuedEvents -- drains the QuestSubstruct queue f
 QuestMap::sub_55DD10 -> QueueEvent -- appends (event_type,a,b) to the deferred QuestSubstruct queue
 QuestMap::sub_55E24A -> RegisterQuest -- inserts the quest into quests_map and its inn glue
 QuestMap::sub_55E5FB -> UnregisterQuest -- removes the quest from the map flags and its glue
+QuestMap::sub_55F441 -> PickRandomOtherInn -- random glue building different from the given one (deliver destination)
