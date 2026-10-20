@@ -316,7 +316,7 @@ public:
     UnitList* GetNearbyUnits(Unit* unit); // 5A37C5 — get nearby UnitList around unit.
     UnitList* GetNearbyEnemies(Unit* caster, PosYX yx); // Get nearby enemy UnitList for caster at yx.
     UnitList* GetNearbyAllies(Unit* caster, PosYX yx); // Get nearby ally UnitList for caster at yx.
-    void sub_5A4590(); // 5A4590
+    void Destroy(); // 5A4590
     uint8_t UnitMaxRange(Unit* unit);                  // Get effective max cast range for unit.
     void BuildTargetLists(Unit* unit); // 5A5E54 — build active/alternate target lists around unit.
     void BeginPositionCast(Unit* caster, uint16_t pos_yx, Spell* spell); // 5A551C — set up a position-targeted cast action (ASM).

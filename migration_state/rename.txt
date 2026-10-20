@@ -999,3 +999,4 @@ World::sub_5A457A -> Init -- World ctor init entry (wraps ReinitState)
 World::sub_5A44C5 -> ReinitState -- re-runs InitState; invoked from both the ctor chain and the destructor
 World::sub_5A3F3A -> InitState -- ConstructMembers + zeroes perf/duration counters
 World::sub_5A3F9B -> ConstructMembers -- srand seed + in-place reconstruction of member objects
+World::sub_5A44DB -> BeginDestroy -- destructor teardown entry (wraps DestroyState)

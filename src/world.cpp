@@ -89,7 +89,7 @@ World::~World() {
     delete this->trigger_actions;
     delete this->triggers;
 
-    this->sub_5A4590();
+    this->Destroy();
 }
 
 // 5A4757
@@ -2846,7 +2846,7 @@ void World::Init() {
 }
 
 // 5A4590
-void World::sub_5A4590() {
+void World::Destroy() {
     this->BeginDestroy();
 }
 
