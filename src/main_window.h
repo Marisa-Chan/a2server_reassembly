@@ -370,7 +370,7 @@ public: // VTable at 0060c1a8.
     void OnSize(UINT, int, int); //494e8e
     void BeginShutdown(); //495010
     void ShowServerControlDialog(); //4950c0
-    void FUN_00495743(); //495743
+    void MarkHatSessionEnded(); //495743
     void OnSizing(UINT, LPRECT); //495ab2
     void OnNcMouseMove(UINT, CPoint); //495b9c
     void OnNcLButtonDown(UINT, CPoint); //495c6e

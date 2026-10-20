@@ -589,7 +589,7 @@ const AFX_MSGMAP_ENTRY MainWindow::_messageEntries[] =
     {WM_SIZE, 0, 0, 0, AfxSig_vwii, (AFX_PMSG)&OnSize},
     {WM_COMMAND, CN_COMMAND, 0x9c4e, 0x9c4e, AfxSigCmd_v, (AFX_PMSG)&BeginShutdown},
     {WM_COMMAND, CN_COMMAND, 0x9c4f, 0x9c4f, AfxSigCmd_v, (AFX_PMSG)&ShowServerControlDialog},
-    {WM_COMMAND, CN_COMMAND, 0x9c50, 0x9c50, AfxSigCmd_v, (AFX_PMSG)&FUN_00495743},
+    {WM_COMMAND, CN_COMMAND, 0x9c50, 0x9c50, AfxSigCmd_v, (AFX_PMSG)&MarkHatSessionEnded},
     {WM_SIZING, 0, 0, 0, AfxSig_vwSIZING, (AFX_PMSG)&OnSizing},
     {WM_NCMOUSEMOVE, 0, 0, 0, AfxSig_vwp, (AFX_PMSG)&OnNcMouseMove},
     {WM_NCLBUTTONDOWN, 0, 0, 0, AfxSig_vwp, (AFX_PMSG)&OnNcLButtonDown},
@@ -1064,7 +1064,7 @@ void MainWindow::OnClose() {
 }
 
 // 495743
-void MainWindow::FUN_00495743() {
+void MainWindow::MarkHatSessionEnded() {
     if (g_Server != nullptr) {
         if (g_HatLLDriver.IsListen() == 0) {
             g_Server->field51_0x1d8 = 1;
