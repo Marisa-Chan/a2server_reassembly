@@ -157,7 +157,7 @@ void World::InitState() {
 
 // 5A3F88
 void World::DestroyState() {
-    this->sub_5A4284();
+    this->DestroyMembers();
 }
 
 // (Re)initialize the world's runtime state and load AI settings from ai.reg.
@@ -211,7 +211,7 @@ void World::ConstructMembers() {
 }
 
 // 5A4284
-void World::sub_5A4284() {
+void World::DestroyMembers() {
     // The original ASM manually destroyed members in reverse declaration order here.
     // In C++, the compiler-generated ~World destructor handles all member destruction,
     // so this helper is now a no-op.

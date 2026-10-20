@@ -120,7 +120,7 @@ public:
     void InitState(); // 5A3F3A
     void DestroyState(); // 5A3F88
     void ConstructMembers(); // 5A3F9B
-    void sub_5A4284(); // 5A4284
+    void DestroyMembers(); // 5A4284
     void ResetMatchState(); // 5A4757
     void sub_5B0556(CArchive& ar); // Serialize
     void RelinkPointers(); // Post-load world relink helper
