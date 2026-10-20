@@ -57,7 +57,7 @@ struct ResBase {
     void ReadFromFile(CFile* cfile, int32_t offset = -1);
 
     FatEntry* CreateEntry(const char* fpath, const char* fname);
-    FatEntry* FUN_004ea183(const char* fpath, const char* fname);
+    FatEntry* RecreateEntry(const char* fpath, const char* fname);
     FatEntry* FUN_004eca16(const char* fpath);
     FatEntry* FUN_004eca63(const char* fpath);
 

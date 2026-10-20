@@ -738,7 +738,7 @@ FatEntry* ResBase::CreateEntry(const char* fpath, const char* fname) {
     return this->AppendEntry(&pathNode, fname);
 }
 
-FatEntry* ResBase::FUN_004ea183(const char* fpath, const char* fname) {
+FatEntry* ResBase::RecreateEntry(const char* fpath, const char* fname) {
     //4ea183
     FatEntry *pathNode = this->TracePath(fpath);
     if (pathNode == nullptr) {
@@ -991,7 +991,7 @@ void ResBase::SetString(const char* fpath, const char* fname, const char* str) {
 
     if (node == nullptr) {
         if (nodePath == nullptr) {
-            nodePath = this->FUN_004ea183(this->root.name, fpath);
+            nodePath = this->RecreateEntry(this->root.name, fpath);
         }
 
         node = this->RemoveEntry(nodePath);
@@ -1025,7 +1025,7 @@ void ResBase::SetInt(const char* fpath, const char* fname, int32_t val) {
 
     if (node == nullptr) {
         if (nodePath == nullptr) {
-            nodePath = this->FUN_004ea183(this->root.name, fpath);
+            nodePath = this->RecreateEntry(this->root.name, fpath);
         }
 
         node = this->RemoveEntry(nodePath);
@@ -1048,7 +1048,7 @@ void ResBase::SetDouble(const char* fpath, const char* fname, double val) {
 
     if (node == nullptr) {
         if (nodePath == nullptr) {
-            nodePath = this->FUN_004ea183(this->root.name, fpath);
+            nodePath = this->RecreateEntry(this->root.name, fpath);
         }
 
         node = this->RemoveEntry(nodePath);
@@ -1074,7 +1074,7 @@ void ResBase::SetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>
 
     if (node == nullptr) {
         if (nodePath == nullptr) {
-            nodePath = this->FUN_004ea183(this->root.name, fpath);
+            nodePath = this->RecreateEntry(this->root.name, fpath);
         }
 
         node = this->RemoveEntry(nodePath);
@@ -1110,7 +1110,7 @@ void ResBase::SetInt16Array(const char* fpath, const char* fname, CArray<uint16_
 
     if (node == nullptr) {
         if (nodePath == nullptr) {
-            nodePath = this->FUN_004ea183(this->root.name, fpath);
+            nodePath = this->RecreateEntry(this->root.name, fpath);
         }
 
         node = this->RemoveEntry(nodePath);
@@ -1146,7 +1146,7 @@ void ResBase::SetInt32Array(const char* fpath, const char* fname, CArray<uint32_
 
     if (node == nullptr) {
         if (nodePath == nullptr) {
-            nodePath = this->FUN_004ea183(this->root.name, fpath);
+            nodePath = this->RecreateEntry(this->root.name, fpath);
         }
 
         node = this->RemoveEntry(nodePath);
