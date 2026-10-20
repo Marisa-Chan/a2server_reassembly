@@ -758,3 +758,4 @@ Shop::sub_54463F -> GenerateAssortment -- wraps the shop template regeneration
 Shop::sub_54471B -> ConfirmBuy -- wraps template ConfirmBuy
 Shop::sub_544737 -> ConfirmSell -- wraps template ConfirmSell
 Shop::sub_544777 -> ReturnItems -- wraps template ReturnConsignedItems
+Shop::sub_544685 -> CloseShop -- closes the instance, returns the unit to the map and broadcasts it

@@ -100,7 +100,7 @@ Effect* __cdecl sub_54F04F(int32_t is_warrior, int32_t magic_volume, int32_t bud
 ShopAssortment::ShopAssortment() {
     this->min_cost = 0;
     this->max_cost = 0;
-    this->sub_54C08A();
+    this->Reset();
 }
 
 // 54A2DD
@@ -220,7 +220,7 @@ void ShopAssortment::sub_54BC09() {
 }
 
 // 54C08A
-void ShopAssortment::sub_54C08A() {
+void ShopAssortment::Reset() {
     this->arr.SetSize(0x400, -1);
     for (int32_t i = 0; i < this->arr.GetSize(); i++) {
         double x = (3.2 / this->arr.GetSize()) * i + -1.6;

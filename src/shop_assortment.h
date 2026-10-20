@@ -40,7 +40,7 @@ struct ShopAssortment {
     ~ShopAssortment();  // sub_54A2DD
     void GenerateAssortment(AssortGenParams* params);  // sub_54BF6B
 
-    void sub_54C08A(); // 54C08A — reset fields (still in ASM)
+    void Reset(); // 54C08A — reset fields (still in ASM)
     void sub_54BC09(); // 54BC09 — ClearItemsArray: delete all items (still in ASM)
     void sub_54ACCB(CArray<WorldEquip>* items, uint32_t flags); // 54ACCB — AddItemsFlags
     void sub_54AF21(CArray<MagicItem>* items); // 54AF21 — AddMagicItems
