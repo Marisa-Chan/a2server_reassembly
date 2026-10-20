@@ -1115,3 +1115,4 @@ CSprite256::DrawIndexMask arg4 -> mv -- index-mask value passed through to BlitR
 Fame2::SetDocument arg1 -> doc_id -- stored to doc_id (fame document id)
 Fame2::SetDocument arg2 -> is_text -- stored to is_text (document is the text file variant)
 NetStru1::SendInfoPacket param_1 -> id -- packet id (PacketInfo.id)
+NetStru1::SendInfoPacket param_2 -> value1 -- first PacketInfo param1 payload value
