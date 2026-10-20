@@ -1129,3 +1129,4 @@ NetStru1::SendGameEvent arg3 -> value2 -- second PacketInfo value (packet.param2
 NetStru1::SendHatLobbyInfo arg0 -> player_count -- byte 0 of lobby word; callers pass human player count (-1 on map load)
 NetStru1::SendHatLobbyInfo arg8 -> map_level -- map_level_of_the_map__byte_1_of_lobby_word
 NetStru1::SendHatLobbyInfo argC -> game_type -- g_ServerConfig_gameType__byte_2_of_lobby_word
+NetStru1::SendHatLobbyInfo arg10 -> map_range -- byte_3_of_lobby_word_callers_pass_map_range
