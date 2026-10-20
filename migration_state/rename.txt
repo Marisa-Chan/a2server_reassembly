@@ -1091,3 +1091,4 @@ CGameObject::DrawShadow arg1 -> tile_x -- view-loop tile coordinate; implementat
 CGameObject::DrawShadow arg2 -> tile_y -- view-loop tile coordinate (y counterpart of tile_x)
 CGameObject::DrawShadow arg3 -> light -- callers pass tile light or terrain height; no implementation uses it (same slot as Draw)
 CGameObject::DrawHealthBar arg1 -> tile_x -- view-loop tile coordinate; CStructure compares it against its own mapBoundsLeft
+CGameObject::DrawHealthBar arg2 -> tile_y -- view-loop tile coordinate (y counterpart of tile_x)
