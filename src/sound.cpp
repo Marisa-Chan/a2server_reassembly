@@ -1118,7 +1118,7 @@ void LoadGameSounds() { //4c8217
 }
 
 // 4C86F5
-void FUN_004c86f5() {
+void UnloadAllSfx() {
 	for (int32_t i = 0; i < g_SfxArray.GetSize(); i++) {
 		SfxSample* sfx = g_SfxArray[i];
 		if (sfx != nullptr) {

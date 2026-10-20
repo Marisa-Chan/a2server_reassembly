@@ -651,7 +651,7 @@ void MainWindow::OnDestroy() {
     }
 
     FUN_0047c6cd();
-    FUN_004c86f5();
+    UnloadAllSfx();
     SaveSettings();
     this->FUN_0048cb3c();
     this->FUN_00485aed();
