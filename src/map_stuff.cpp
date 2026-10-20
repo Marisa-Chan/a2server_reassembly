@@ -396,7 +396,7 @@ void MapStuff::MoveStepTowardPos(Unit* unit, PosYX yx, uint8_t max_range) {
 
     uint8_t ok = 0;
     if (unit->list2.IsEmpty() || unit->eye->counter > this->dynamic_refresh_rate) {
-        uint16_t next_yx = this->sub_593AA4(unit);
+        uint16_t next_yx = this->PeekNextStep(unit);
         ok = 0;
         if (next_yx != 0) {
             if (this->IsAreaClear(unit, next_yx, 0) == 0) {
@@ -1739,7 +1739,7 @@ void MapStuff::FacePosition(Unit* unit, PosYX yx) {
 }
 
 // 593AA4
-uint16_t MapStuff::sub_593AA4(Unit* unit) {
+uint16_t MapStuff::PeekNextStep(Unit* unit) {
     if (unit->list1.IsEmpty()) {
         return 0;
     }

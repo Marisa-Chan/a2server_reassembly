@@ -222,7 +222,7 @@ public:
     void sub_590902(Unit* unit, Unit* target);
     void FaceTarget(Unit* unit, Unit* target);
     void FacePosition(Unit* unit, PosYX yx);
-    uint16_t sub_593AA4(Unit* unit);
+    uint16_t PeekNextStep(Unit* unit);
     uint8_t ChebyshevDistance(PosYX yx1, PosYX yx2); // Chebyshev distance between two YX positions.
     void GatherUnitsNear(uint16_t yx, uint8_t range, Player* owner, UnitList* out_list); // Gather units near yx within range into out_list.
     int32_t CalcMoveStep(Unit* unit, uint16_t yx, uint8_t val); // Computes movement step magnitude/heading toward yx.
