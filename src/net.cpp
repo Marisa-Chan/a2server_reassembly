@@ -4645,8 +4645,8 @@ void NetStru1::SendShopShelf(Shop* shop, CMultiShopShelf* shelf, Player* player,
 }
 
 // 51AB99
-void NetStru1::SendShopShelves(CMultiShopInstance* inst, Player* player, int32_t param) {
-    if (param == -1) {
+void NetStru1::SendShopShelves(CMultiShopInstance* inst, Player* player, int32_t shelf_id) {
+    if (shelf_id == -1) {
         for (int32_t i = 0; i < 4; i++) {
             Shop* shop = nullptr;
             if (inst->shop_template != nullptr) {
@@ -4654,12 +4654,12 @@ void NetStru1::SendShopShelves(CMultiShopInstance* inst, Player* player, int32_t
             }
             this->SendShopShelf(shop, &inst->shelves[i], player, i + 5);
         }
-    } else if (param > 0) {
+    } else if (shelf_id > 0) {
         Shop* shop = nullptr;
         if (inst->shop_template != nullptr) {
             shop = inst->shop_template->shop;
         }
-        this->SendShopShelf(shop, &inst->shelves[param - 1], player, param + 4);
+        this->SendShopShelf(shop, &inst->shelves[shelf_id - 1], player, shelf_id + 4);
     }
 }
 
