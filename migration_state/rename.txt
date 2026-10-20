@@ -959,3 +959,4 @@ MainWindow::FUN_00495743 -> MarkHatSessionEnded -- raises field51_0x1d8 (session
 MainWindow::sub_48A756 -> IdleLoop -- message pump + next-tick scheduling (the main idle loop)
 MainWindow::sub_484259 -> ServerTickPump -- drives the server tick when g_Server is up
 MainWindow::FUN_0048cb3c -> DestroyServer -- deletes g_Server
+MainWindow::sub_48CBE2 -> UpdateMapRect -- recomputes the map view rect (shrunk when the spellbook is open)

@@ -390,7 +390,7 @@ public:
 
     void UpdateMapRect(); //48cbe2
 
-    void sub_48CC87(); //48cc87
+    void ApplyCursorClip(); //48cc87
 
     void sub_4919C7(); //4919c7
     void FUN_004919b1(); //4919b1

@@ -6948,7 +6948,7 @@ int32_t BigStruct2::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 		}
 		if (g_mousept.GetSelectState() != 0) {
 			g_mousept.ResetStates();
-			wnd->sub_48CC87();
+			wnd->ApplyCursorClip();
 			this->sub_40B314();
 			CPoint pt(g_mousept.GetX(), g_mousept.GetY());
 			this->sub_417B42(&pt);
@@ -6963,7 +6963,7 @@ int32_t BigStruct2::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 		}
 		if (g_mousept.GetSelectState() != 0) {
 			g_mousept.ResetStates();
-			wnd->sub_48CC87();
+			wnd->ApplyCursorClip();
 			this->sub_40B314();
 			CPoint pt(g_mousept.GetX(), g_mousept.GetY());
 			this->sub_417B42(&pt);
@@ -6990,7 +6990,7 @@ int32_t BigStruct2::OnLButtonUp(uint32_t wparam, CPoint pos) {
 	}
 	if (g_mousept.GetSelectState() != 0) {
 		g_mousept.ResetStates();
-		wnd->sub_48CC87();
+		wnd->ApplyCursorClip();
 		this->sub_40B314();
 		this->sub_417B42(&pos);
 	}

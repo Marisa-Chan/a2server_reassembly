@@ -1041,7 +1041,7 @@ void MainWindow::OnSetFocus(CWnd* pOldWnd) {
 }
 
 // 48cc87
-void MainWindow::sub_48CC87() {
+void MainWindow::ApplyCursorClip() {
     ClipCursor(&this->clip_cursor_rect);
 }
 
@@ -1159,7 +1159,7 @@ void MainWindow::DestroyServer() {
 void MainWindow::ShowFameHallDocDlg() {
     if (g_mousept.GetSelectState() != 0) {
         g_mousept.ResetStates();
-        this->sub_48CC87();
+        this->ApplyCursorClip();
     }
 
     g_Cursors[0x1a]->Use();
@@ -3861,7 +3861,7 @@ void MainWindow::PopUpScreen(VisScreen* screen) { //48d26a
     if (g_mousept.GetSelectState() != 0) {
         g_mousept.ResetStates();
 
-        this->sub_48CC87();
+        this->ApplyCursorClip();
     }
 }
 
@@ -4732,7 +4732,7 @@ void MainWindow::ShowFameHallDialog() { //48d096
 void MainWindow::ShowShopDialog(uint32_t id) { //48cdce
     if (g_mousept.GetSelectState() != 0) {
         g_mousept.ResetStates();
-        this->sub_48CC87();
+        this->ApplyCursorClip();
     }
 
     if (this->vis_map_context->IsBookOpen() != 0) {
@@ -4790,7 +4790,7 @@ void MainWindow::ShowShopDialog(uint32_t id) { //48cdce
 void MainWindow::ShowInnDialog(uint32_t id, int32_t interact_target) { //48d4da
     if (g_mousept.GetSelectState() != 0) {
         g_mousept.ResetStates();
-        this->sub_48CC87();
+        this->ApplyCursorClip();
     }
 
     if (this->vis_map_context->IsBookOpen() != 0) {
