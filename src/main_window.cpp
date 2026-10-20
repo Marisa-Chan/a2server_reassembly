@@ -2449,7 +2449,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         this->dialogsMask &= ~0x8;
 
         if (this->vis_savegame->GetCloseCode() == 0x445) {
-            this->FUN_0048f905();
+            this->AutosaveGame();
         }
 
         if (this->dialogsMask == 1 && this->serverBootstrapEnabled != 0) {
@@ -2714,7 +2714,7 @@ void MainWindow::ShowCharInfoPane() { //491a49
 
 
 
-void MainWindow::FUN_0048f905() { // 48f905
+void MainWindow::AutosaveGame() { // 48f905
     if (this->sessionMode == 2) {
         CString local_2a4 = this->last_save_info.filename;
         g_Server->SaveGame(&local_2a4);
@@ -3447,7 +3447,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             strcpy(this->last_save_info.title, txt_patch.GetLine(95));
         }
         sprintf(this->last_save_info.filename, "game%d.sav", 9999 - wParam);
-        this->FUN_0048f905();
+        this->AutosaveGame();
         this->field_0x438 = timeGetTime();
         this->game_tic_counter = 0;
         this->field_0x43c = 0;
