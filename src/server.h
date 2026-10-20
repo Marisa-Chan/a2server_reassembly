@@ -162,7 +162,7 @@ public:
     void ResetArenaRound(int arg);
     void KickAllPlayers();
     void HatKeepaliveTick();
-    int LoadGame(CString param_1); // Load map / saved game
+    int LoadGame(CString map_name); // Load map / saved game
     int LoadSavedGame(const CString& filename); // Load saved game file
     void SetupArenaFileList(); // Arena mode file list setup
 

@@ -4629,10 +4629,10 @@ void Server::SaveCharacter(Humanoid* humanoid) {
 
 // Load map (or a saved game?)
 // 4F1471
-int Server::LoadGame(CString param_1) {
+int Server::LoadGame(CString map_name) {
     this->field16_0x8c = 0;
     this->field59_0x208 = 0;
-    this->current_map_name = param_1;
+    this->current_map_name = map_name;
 
     SrandInit();
 
@@ -4692,13 +4692,13 @@ int Server::LoadGame(CString param_1) {
 
     this->UpdateHatAnnounce();
 
-    LogMessage("Loaded map \"" + param_1 + "\"");
+    LogMessage("Loaded map \"" + map_name + "\"");
 
     CStdioFile file;
     CString info_map = g_ServerConfig.chr_base + "info.map";
     if (file.Open(info_map, CFile::modeCreate | CFile::modeWrite)) {
         CString content;
-        content.Format("%s\n%d\n", (LPCTSTR)param_1, dword_6CDB38);
+        content.Format("%s\n%d\n", (LPCTSTR)map_name, dword_6CDB38);
         file.WriteString(content);
         file.Close();
     }
