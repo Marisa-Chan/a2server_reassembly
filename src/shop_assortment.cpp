@@ -207,7 +207,7 @@ void ShopAssortment::GenerateAssortment(AssortGenParams* params) {
         this->AddItemsFlags(&g_GameDataRes.shields, (this->flags & 0xF23FFFFF) | 0x800000);
     }
     if ((this->flags & 0x4000000) != 0) {
-        this->sub_54AF21(&g_GameDataRes.magic_items);
+        this->AddMagicItems(&g_GameDataRes.magic_items);
     }
 }
 
@@ -337,7 +337,7 @@ void ShopAssortment::sub_54A420(CArray<WorldEquip>* items, int32_t shape, int32_
 }
 
 // 54AF21
-void ShopAssortment::sub_54AF21(CArray<MagicItem>* items) {
+void ShopAssortment::AddMagicItems(CArray<MagicItem>* items) {
     // First pass: spell books
     for (int32_t spell_id = 1; spell_id <= spell::max_spell_id; spell_id++) {
         if (spell_id == spell::acid_stream || spell_id == spell::darkness || spell_id == spell::light || spell_id == spell::curse || spell_id == spell::slow || spell_id == spell::heal) {
