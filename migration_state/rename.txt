@@ -879,3 +879,4 @@ UserShortcut::FUN_0041e3af -> MatchesItem -- 1 when the shortcut equals the item
 UserShortcut::sub_41E343 -> SetItem -- kind=2 shortcut copying the item entry and its mods
 MainWindow::sub_49585B -> UpdateControlStates -- update control states (per comment)
 MainWindow::sub_495439 -> OnDestroy -- ON_WM_DESTROY handler
+MainWindow::sub_49544C -> OnCommand3f5 -- ON_COMMAND 0x3f5

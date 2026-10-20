@@ -415,7 +415,7 @@ const AFX_MSGMAP_ENTRY ServerControlDialog::_messageEntries[] =
 {
     { WM_DESTROY, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&OnDestroy },
     { WM_COMMAND, CN_COMMAND, 0x3f5, 0x3f5, AfxSigCmd_v, (AFX_PMSG)&OnCommand3f5},
-    { WM_COMMAND, CN_COMMAND, 0x3f6, 0x3f6, AfxSigCmd_v, (AFX_PMSG)&sub_49549B},
+    { WM_COMMAND, CN_COMMAND, 0x3f6, 0x3f6, AfxSigCmd_v, (AFX_PMSG)&OnCommand3f6},
     { WM_COMMAND, CN_COMMAND, 0x3f4, 0x3f4, AfxSigCmd_v, (AFX_PMSG)&sub_4954EA},
     { WM_CLOSE, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&sub_4956D5 },
     { WM_COMMAND, CN_COMMAND, 0x3ff, 0x3ff, AfxSigCmd_v, (AFX_PMSG)&sub_495774},
@@ -462,7 +462,7 @@ void ServerControlDialog::OnCommand3f5() {
 }
 
 // 49549B
-void ServerControlDialog::sub_49549B() {
+void ServerControlDialog::OnCommand3f6() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->SetSpeed(main_wnd->game_speed + 1)) {
         g_ServerConfig.game_speed = main_wnd->game_speed;
