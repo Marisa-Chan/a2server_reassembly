@@ -3894,7 +3894,7 @@ UnitList* World::GetNearbyUnits(Unit* unit) {
 }
 
 // 5A54B8
-void World::sub_5A54B8(Unit* unit, uint16_t command_to) {
+void World::DoAttackMove(Unit* unit, uint16_t command_to) {
     UnitList* list = this->GetNearbyEnemies(unit, unit->position->GetYX());
     if (list != nullptr && list->unit_list.GetCount() != 0) {
         this->DoAttackTarget(unit, list->unit_list.GetHead());
@@ -4006,7 +4006,7 @@ void World::ProcessUnitState(Unit* unit) {
         this->DoAttackTarget(unit, unit->eye2->unit);
         break;
     case 4:
-        this->sub_5A54B8(unit, unit->eye2->command_to);
+        this->DoAttackMove(unit, unit->eye2->command_to);
         break;
     case 8:
         this->TickAttackTarget(unit, unit->eye2->unit2);

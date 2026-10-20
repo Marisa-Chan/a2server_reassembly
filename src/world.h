@@ -224,7 +224,7 @@ public:
     void TickFollowTarget(Unit* unit, Unit* target); // 5A56D7
     void PickHealSpell(Unit* unit, Unit* target); // 5A57E8
     void PickAdjacentEnemy(Unit* unit, Unit* target); // 5A65BB
-    void sub_5A54B8(Unit* unit, uint16_t command_to); // 5A54B8
+    void DoAttackMove(Unit* unit, uint16_t command_to); // 5A54B8
 
     void TickRangedApproach(Unit* unit); // 5AAEBC
     void TurnToFacing(Unit* unit, uint8_t facing); // 5AAF84 — turn unit to face target (ASM).

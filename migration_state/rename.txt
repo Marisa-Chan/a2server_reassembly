@@ -1050,3 +1050,4 @@ World::sub_5AAEBC -> TickRangedApproach -- cast_action 6: mage ranged-attack app
 World::sub_5A5B49 -> AdvancePatrolStep -- state 11: advance patrol alias
 World::sub_5A8778 -> DoMoveStep -- state 1 handler: one move step toward command_to (cast_action 1)
 World::sub_5A87A3 -> DoSwarmMoveStep -- state 2 handler: move to command_to or hold with cast_action 7 when arrived
+World::sub_5A6B48 -> DoAttackTarget -- state 3 handler: choose spell vs melee against the target and start the attack
