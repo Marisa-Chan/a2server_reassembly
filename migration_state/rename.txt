@@ -1087,3 +1087,4 @@ CGameObject::SetSelected arg1 -> selected -- the m_bSelected flag (false when a 
 CGameObject::Draw arg1 -> tile_x -- view-loop tile coordinate; several overrides ignore it and draw from centerScreenX
 CGameObject::Draw arg2 -> tile_y -- view-loop tile coordinate (y counterpart of tile_x)
 CGameObject::Draw arg3 -> light -- tile_light[] light level passed as the sprite palette selector
+CGameObject::DrawShadow arg1 -> tile_x -- view-loop tile coordinate; implementations ignore it (shadow drawn from centerScreenX)
