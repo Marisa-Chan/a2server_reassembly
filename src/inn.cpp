@@ -92,7 +92,7 @@ void Inn::InnCreateQuests(Player* player) {
     if (g_ServerConfig.gameType == 3) {
         return;
     }
-    if (g_QuestMap.VMethod1(0x11, player->player_id, this->building_id) != 0) {
+    if (g_QuestMap.OnEvent(0x11, player->player_id, this->building_id) != 0) {
         return;
     }
     if (this->HasQuest(player)) {
@@ -301,7 +301,7 @@ void Inn::InnCreateQuests(Player* player) {
                     if (this->position->Distance(u->position) >= dist_threshold) {
                         continue;
                     }
-                    if (g_QuestMap.VMethod1(0xd, grp->group_id, 0)) {
+                    if (g_QuestMap.OnEvent(0xd, grp->group_id, 0)) {
                         continue;
                     }
                     
@@ -386,7 +386,7 @@ void Inn::InnCreateQuests(Player* player) {
                 if (def <= def_min || def >= def_max) {
                     continue;
                 }
-                if (g_QuestMap.VMethod1(0xc, u->building_id, 0)) {
+                if (g_QuestMap.OnEvent(0xc, u->building_id, 0)) {
                     continue;
                 }
 
@@ -445,7 +445,7 @@ void Inn::InnCreateQuests(Player* player) {
                     if (this->position->Distance(u->position) >= dist_threshold2) {
                         continue;
                     }
-                    if (g_QuestMap.VMethod1(0xd, grp->group_id, 0)) {
+                    if (g_QuestMap.OnEvent(0xd, grp->group_id, 0)) {
                         continue;
                     }
                     candidates.push_back(grp);
@@ -492,7 +492,7 @@ void Inn::InnCreateQuests(Player* player) {
                 if (!u->quest_escort_mark || u->decay != 0) {
                     continue;
                 }
-                if (g_QuestMap.VMethod1(0xc, u->building_id, 0)) {
+                if (g_QuestMap.OnEvent(0xc, u->building_id, 0)) {
                     continue;
                 }
                 candidates.push_back(u);
@@ -1192,8 +1192,8 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
 
     // Special cancel sentinel?
     if (id == 0xAAAAAAAA) {
-        int32_t result = g_QuestMap.VMethod1(0x11, humanoid->pOwner->player_id, this->building_id);
-        g_QuestMap.VMethod1(2, result, 0);
+        int32_t result = g_QuestMap.OnEvent(0x11, humanoid->pOwner->player_id, this->building_id);
+        g_QuestMap.OnEvent(2, result, 0);
         return;
     }
 

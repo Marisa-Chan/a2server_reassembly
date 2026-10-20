@@ -28,7 +28,7 @@ ASSERT_SIZE(QuestSubstruct, 0x1c);
 class QuestMap : public CObject {
 public: // VTable at 0060f730.
     virtual ~QuestMap(); // 580f70 / 55d915 
-    virtual int32_t VMethod1(int32_t event_type, int32_t a, int32_t b); // 55e129
+    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b); // 55e129
     
 public:
     QuestMap(); // sub_55D579

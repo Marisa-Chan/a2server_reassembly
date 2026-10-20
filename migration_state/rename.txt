@@ -782,3 +782,4 @@ Spell::sub_5393C7 -> IsUnitSpell -- 1 when spell_target == 1 (unit-targeted)
 Spell::sub_539958 -> StartCast -- validates and starts the cast; nonzero if accepted
 Spell::sub_539C49 -> ExecuteRaySpell -- computes ray count, collects ray targets and applies the multi-hit spell
 Quest::VMethod1 -> OnEvent -- quest event handler: completes/fails on matching event ids, answers 0x11 queries with the quest id (12 subclass overrides)
+Quest::FUN_004a4780 -> GetLimit -- returns quest_data.limit (the kill-N target)

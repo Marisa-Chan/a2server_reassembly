@@ -45,7 +45,7 @@ void QuestMap::sub_55DE84() {
 		if (this->substructs.GetCount() == 0) {
 			this->substructs.RemoveAll();
 		}
-		this->VMethod1(sub->id, sub->building_id, sub->some_id);
+		this->OnEvent(sub->id, sub->building_id, sub->some_id);
 		delete sub;
 	}
 }
@@ -147,7 +147,7 @@ void QuestMap::sub_55ECFE(int32_t player_id) {
 }
 
 // 55e129
-int32_t QuestMap::VMethod1(int32_t event_type, int32_t a, int32_t b) {
+int32_t QuestMap::OnEvent(int32_t event_type, int32_t a, int32_t b) {
 	POSITION quest_pos = this->quests_map.GetStartPosition();
 	while (quest_pos != nullptr) {
 		uint32_t quest_id = 0;

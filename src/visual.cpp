@@ -13659,7 +13659,7 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
         }
     }
 
-    uint32_t quest_result = main_wnd->vis_map_context->field_0x4970->VMethod1(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->field_0x138);
+    uint32_t quest_result = main_wnd->vis_map_context->field_0x4970->OnEvent(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->field_0x138);
     Quest* quest;
     int32_t quest_found;
     if (quest_result != 0) {
@@ -13884,7 +13884,7 @@ int32_t VisTavRightPanel::OnLButtonUp(uint32_t wparam, CPoint pos) {
             }
         } else {
             if (button == 0) {
-                if (main_wnd->vis_map_context->field_0x4970->VMethod1(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->field_0x138) != 0) {
+                if (main_wnd->vis_map_context->field_0x4970->OnEvent(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->field_0x138) != 0) {
                     this->vis_tav->field_0x13c = (this->vis_tav->field_0x13c == 0);
                 } else {
                     if (this->vis_tav->quest_map->FUN_0041ec00() != 0 || this->vis_tav->rewards.GetSize() != 0) {
@@ -14098,7 +14098,7 @@ void VisTavRightPanel::FUN_0049a973() {
                 this->texts[0] = TxtFile::AllLines[0x164];
                 this->texts[1] = TxtFile::AllLines[0x165];
             } else {
-                if (main_wnd->vis_map_context->field_0x4970->VMethod1(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->field_0x138) != 0) {
+                if (main_wnd->vis_map_context->field_0x4970->OnEvent(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->field_0x138) != 0) {
                     this->texts[0] = txt_patch.GetLine(0x60);
                     this->texts[1] = " ";
                 } else {
@@ -14501,7 +14501,7 @@ int32_t VisTavScene::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     if (main_wnd->sessionMode != 2) {
-        if (main_wnd->vis_map_context->field_0x4970->VMethod1(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->field_0x138) != 0) {
+        if (main_wnd->vis_map_context->field_0x4970->OnEvent(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->field_0x138) != 0) {
             this->vis_tav->field_0x13c = (this->vis_tav->field_0x13c == 0) ? 1 : 0;
             return 1;
         }
@@ -14591,7 +14591,7 @@ void VisTavScene::FUN_0049bc23() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     CPoint tav_topleft = this->vis_tav->rect.TopLeft();
 
-    int32_t quest_found = main_wnd->vis_map_context->field_0x4970->VMethod1(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->field_0x138);
+    int32_t quest_found = main_wnd->vis_map_context->field_0x4970->OnEvent(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->field_0x138);
     if (quest_found != 0) {
         Quest* quest = nullptr;
         this->vis_tav->quest_map->FUN_004a47a0(quest_found, &quest);
