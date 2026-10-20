@@ -1177,3 +1177,4 @@ World::AiMoveBrain param -> yx -- packed YX move target (align header with defin
 World::AiSwarmBrain param -> target_yx -- packed YX swarm target forwarded to AiMoveBrain
 World::DoMoveStep param -> target_yx -- packed YX destination stored to eye2->command_to
 World::DoSwarmMoveStep param -> pos_yx -- packed YX destination (align header with definition)
+World::SetIdleOrRetreat param -> retreat -- 0 = idle/guard scan, non-zero = DoRetreat

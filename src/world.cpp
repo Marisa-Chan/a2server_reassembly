@@ -2622,8 +2622,8 @@ int32_t World::PickAttackSpell(Unit* unit, Unit* target) {
 
 // Set unit to idle/wander (param=0) or retreat (param!=0).
 // 5A6E2C
-void World::SetIdleOrRetreat(Unit* unit, int param) {
-    if (param == 0) {
+void World::SetIdleOrRetreat(Unit* unit, int retreat) {
+    if (retreat == 0) {
         this->DoGuardScan(unit);
     } else {
         this->DoRetreat(unit);
