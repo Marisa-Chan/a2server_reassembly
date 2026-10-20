@@ -405,7 +405,7 @@ void CGameObject::Draw(int32_t tile_x, int32_t tile_y, int32_t light) { //46f4a0
 }
 
 
-void CGameObject::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t arg3) { //46f4b0
+void CGameObject::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) { //46f4b0
 }
 
 
@@ -1989,7 +1989,7 @@ void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t light) { // 464974
     }
 }
 
-void CUnit::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t arg3) { // 465b5a
+void CUnit::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) { // 465b5a
     if (this->death_state >= 5) {
         return;
     }
@@ -3876,7 +3876,7 @@ void CStructure::DrawHealthBar(int32_t arg1, int32_t arg2, int32_t arg3) {
 }
 
 // 462f58
-void CStructure::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t arg3) {
+void CStructure::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
     BigStruct2* map = this->pMapObject;
 
     int32_t sun_angle = (int32_t)(std::tan(map->field_0x80->GetRenderSunAngle()) * 65536.0);
@@ -4200,7 +4200,7 @@ void CVerticalWoodenBridge::Draw(int32_t tile_x, int32_t tile_y, int32_t light) 
 }
 
 // 463f01
-void CVerticalWoodenBridge::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t arg3) {
+void CVerticalWoodenBridge::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
 }
 
 // 4a9ef0
@@ -4255,7 +4255,7 @@ void CHorisontalWoodenBridge::Draw(int32_t tile_x, int32_t tile_y, int32_t light
 }
 
 // 46410f
-void CHorisontalWoodenBridge::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t arg3) {
+void CHorisontalWoodenBridge::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
 }
 
 // 4a9f70
@@ -4267,7 +4267,7 @@ CHorisontalWoodenBridge::CHorisontalWoodenBridge(int32_t width, int32_t height) 
 }
 
 // 46295a
-void CBackPack::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t arg3) {
+void CBackPack::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
     int32_t sun_angle = (int32_t)(std::tan(this->pMapObject->field_0x80->GetRenderSunAngle()) * 65536.0);
 
     int32_t half_height = g_spr_backpack->GetHeight(0) / 2;

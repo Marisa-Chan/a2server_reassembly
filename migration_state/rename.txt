@@ -1089,3 +1089,4 @@ CGameObject::Draw arg2 -> tile_y -- view-loop tile coordinate (y counterpart of 
 CGameObject::Draw arg3 -> light -- tile_light[] light level passed as the sprite palette selector
 CGameObject::DrawShadow arg1 -> tile_x -- view-loop tile coordinate; implementations ignore it (shadow drawn from centerScreenX)
 CGameObject::DrawShadow arg2 -> tile_y -- view-loop tile coordinate (y counterpart of tile_x)
+CGameObject::DrawShadow arg3 -> light -- callers pass tile light or terrain height; no implementation uses it (same slot as Draw)
