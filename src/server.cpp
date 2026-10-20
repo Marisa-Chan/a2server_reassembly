@@ -1916,7 +1916,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
     }
 
     // 2. Team play already started?
-    if (g_ServerConfig.gameType == 2 && g_PlayersList->sub_53636E()) {
+    if (g_ServerConfig.gameType == 2 && g_PlayersList->AreTeamsStarted()) {
         LogMessage("Player " + name + " login " + login + " has been rejected (Team play already started)");
         if (Block != nullptr) {
             delete[] Block;
@@ -2618,10 +2618,10 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 }
             } else if (cheat_string.Find("#ready") == 0) {
                 if (g_ServerConfig.gameType == 2) {
-                    if (g_PlayersList->sub_53636E() == 0 && player->team_ready == 0) {
+                    if (g_PlayersList->AreTeamsStarted() == 0 && player->team_ready == 0) {
                         player->team_ready = 1;
                         g_NetStru1_main.SendTeamState(0);
-                        if (g_PlayersList->sub_53636E() != 0) {
+                        if (g_PlayersList->AreTeamsStarted() != 0) {
                             // All players now ready --- start the match.
                             g_NetStru1_main.FUN_0051ce86(10, 0, nullptr);
                             this->OnTeamsReady();
@@ -3029,19 +3029,19 @@ void Server::sub_504a96(Packet* pkt) {
             player->sub_534B59();
             break;
         case 0x13:
-            if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
+            if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->sub_5A99C7(unit);
                 player->sub_534B59();
             }
             break;
         case 0x14:
-            if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
+            if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupGoHomeCommand(group);
                 player->sub_534B59();
             }
             break;                  
         case 0x16:
-            if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
+            if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupMoveCommand(group, x, y);
                 player->sub_534B59();
             }
@@ -3055,21 +3055,21 @@ void Server::sub_504a96(Packet* pkt) {
             player->sub_534B59();
             break;
         case 0x19: // move to building?
-            if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
+            if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupAttackCommand(group, static_cast<Unit*>(target));
                 player->sub_534B59();
             }
             break;
         case 0x1A: // attack-move to position?
             CheckPacketType(pkt, "PacketItemOperation");
-            if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
+            if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->sub_5AC881(group, x, y);
                 player->sub_534B59();
             }
             break;
         case 0x1B: // attack building?
             CheckPacketType(pkt, "PacketItemOperation");
-            if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
+            if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupAttackTargetCommand(group, static_cast<Unit*>(target), 0);
                 player->sub_534B59();
             }
@@ -3080,20 +3080,20 @@ void Server::sub_504a96(Packet* pkt) {
             g_World->GroupMoveCommand(group, x, y);
             break;
         case 0x1D: // patrol?
-            if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
+            if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupPatrolCommand(group, x, y);
                 player->sub_534B59();
             }
             break;
         case 0x1E: // cast at unit/building?
-            if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
+            if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupCastAtUnitCommand(group, static_cast<Unit*>(target), cast_spell);
                 player->sub_534B59();
             }
             break;
         case 0x1F: // cast at position?
             CheckPacketType(pkt, "PacketItemOperation");
-            if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
+            if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 player->sub_534B59();
                 if (cast_spell && cast_spell->sub_53939E(packet_item->x, packet_item->y)) {
                     g_World->GroupCastAtPositionCommand(group, x, y, cast_spell);
@@ -3102,7 +3102,7 @@ void Server::sub_504a96(Packet* pkt) {
             break;
         case 0x21:
             CheckPacketType(pkt, "PacketItemOperation");
-            if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
+            if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 player->sub_534B59();
                 Sack* sack = MapStuff_Instance->GetSackAt(x, y);
                 if (!sack) {
@@ -3117,7 +3117,7 @@ void Server::sub_504a96(Packet* pkt) {
             break;
         case 0x24:
             CheckPacketType(pkt, "PacketItemOperation");
-            if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
+            if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 player->sub_534B59();
                 auto* building = this->srv_stru1->building_list->sub_557DB2(packet_item->param);
                 if (!building) {
@@ -3132,7 +3132,7 @@ void Server::sub_504a96(Packet* pkt) {
         case 0x25: // Cast point spell with a scroll.
         case 0x26: // Cast area spell with a scroll.
             CheckPacketType(pkt, "PacketItemOperation");
-            if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
+            if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 player->sub_534B59();
                 auto* item = player->main_unit->inventory->sub_552E42(packet_item->slot, 1);
                 if (!item || item->_effects.IsEmpty()) {
@@ -4756,7 +4756,7 @@ void Server::ServerTic() {
     }
 
     if (g_ServerConfig.gameType == 2) {
-        int teams_ready = g_PlayersList->sub_53636E();
+        int teams_ready = g_PlayersList->AreTeamsStarted();
         if ((this->tick & 0xff) == 0 && teams_ready == 0) {
             POSITION ppos = g_PlayersList->list.GetHeadPosition();
             while (ppos != nullptr) {

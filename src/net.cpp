@@ -586,7 +586,7 @@ void NetStru1::SendTeamState(uint16_t arg) {
     packet.id = 0xC2;
     packet.count = 0x58;
     uint32_t* ptr = reinterpret_cast<uint32_t*>(packet.data);
-    int32_t teams_started = g_PlayersList->sub_53636E();
+    int32_t teams_started = g_PlayersList->AreTeamsStarted();
     *ptr++ = teams_started;
     *ptr++ = g_ServerConfig.frag_limit;
     *ptr++ = g_Server->ctf_carrying[0];
@@ -1378,7 +1378,7 @@ void NetStru1::OnClientDisconnect(NetStru2* cli) {
                     g_ServerConfig.gameType != 3 &&
                     g_Server->field59_0x208 == 0) {
                     if (g_ServerConfig.gameType == 2) {
-                        if (g_PlayersList->sub_53636E()) {
+                        if (g_PlayersList->AreTeamsStarted()) {
                             pl->drop_deadline_tick16 = MAXINT32;
                         }
                     } else {

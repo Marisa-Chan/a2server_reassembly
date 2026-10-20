@@ -19,7 +19,7 @@ public:
 
 public:
     int CountHumanPlayers(); // I guess it counts current human players?
-    int sub_53636E();        // checks if team play is already started
+    int AreTeamsStarted();        // checks if team play is already started
     void sub_534DDD();
     void sub_5357C6(Player* player); // AddTail: append player to list
     Player* sub_535D39(CString name);    // find player by name (CString arg_0 compared against player->name)

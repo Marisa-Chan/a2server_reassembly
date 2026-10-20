@@ -177,7 +177,7 @@ int PlayersList::CountCD() {
 }
 
 // 53636E
-int PlayersList::sub_53636E() {
+int PlayersList::AreTeamsStarted() {
 	if (g_ServerConfig.gameType != 2) {
 		return 1;
 	}
