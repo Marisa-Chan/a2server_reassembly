@@ -1124,3 +1124,4 @@ NetStru1::SendUnitUpdate arg5/param6 -> inv_start_index -- first inventory item 
 NetStru1::SendUnitUpdate arg6/param7 -> inv_end_index -- exclusive end inventory index for SendMonsterInventory
 NetStru1::SendMonsterInventory param5 -> start_index -- first inventory item index (both 0 = whole inventory)
 NetStru1::SendMonsterInventory param6 -> end_index -- exclusive end inventory item index
+NetStru1::SendGameInfo param1 -> game_speed -- game-speed value in PacketDword 0x10 (callers pass g_ServerConfig.game_speed)

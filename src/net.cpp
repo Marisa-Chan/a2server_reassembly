@@ -4335,7 +4335,7 @@ void NetStru1::SendSpectatorState(NetStru2* ns2) {
 }
 
 // 51D837
-void NetStru1::SendGameInfo(int32_t param1, Player* player) {
+void NetStru1::SendGameInfo(int32_t game_speed, Player* player) {
     PacketDword& packet = PacketDword::Inst;
     packet.id = 0x10;
     if (player != nullptr) {
@@ -4343,7 +4343,7 @@ void NetStru1::SendGameInfo(int32_t param1, Player* player) {
     } else {
         packet.to_player_id = 0;
     }
-    packet.value = param1;
+    packet.value = game_speed;
     this->QueuePacketSend(&packet);
 }
 
