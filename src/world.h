@@ -223,7 +223,7 @@ public:
     void TickAttackTarget(Unit* unit, Unit* target); // 5A5568
     void TickFollowTarget(Unit* unit, Unit* target); // 5A56D7
     void PickHealSpell(Unit* unit, Unit* target); // 5A57E8
-    void sub_5A65BB(Unit* unit, Unit* target); // 5A65BB
+    void PickAdjacentEnemy(Unit* unit, Unit* target); // 5A65BB
     void sub_5A54B8(Unit* unit, uint16_t command_to); // 5A54B8
 
     void sub_5AAEBC(Unit* unit); // 5AAEBC

@@ -3541,12 +3541,12 @@ void World::PickHealSpell(Unit* unit, Unit* target) {
     }
 
     if (!did_cast) {
-        this->sub_5A65BB(unit, target);
+        this->PickAdjacentEnemy(unit, target);
     }
 }
 
 // 5A65BB — pick a nearby target for `unit` from units around `target`.
-void World::sub_5A65BB(Unit* unit, Unit* target) {
+void World::PickAdjacentEnemy(Unit* unit, Unit* target) {
     UnitList* list = this->GetNearbyUnits(target);
     if (list == nullptr || list->unit_list.GetCount() == 0) {
         this->SetIdleOrRetreat(unit, 0);
@@ -3612,7 +3612,7 @@ void World::TickAttackTarget(Unit* unit, Unit* target) {
         if (unit->spell_book != nullptr) {
             this->PickHealSpell(unit, target);
         } else {
-            this->sub_5A65BB(unit, target);
+            this->PickAdjacentEnemy(unit, target);
         }
 
         uint8_t cast_action = unit->eye2->cast_action;
