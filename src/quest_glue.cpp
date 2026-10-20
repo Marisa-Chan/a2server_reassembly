@@ -88,7 +88,7 @@ void QuestInnGlue::ProcessDeliverItem(Quest* quest) {
         if (dist > this->max_dist) {
             continue;
         }
-        if (!player->main_unit->inventory->sub_552B6B(item_type)) {
+        if (!player->main_unit->inventory->FindItemById(item_type)) {
             continue;
         }
         found = true;

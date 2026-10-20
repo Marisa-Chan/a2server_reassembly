@@ -139,7 +139,7 @@ void Inventory::TransferFrom(Inventory* src) {
 }
 
 // 552B6B
-Item* Inventory::sub_552B6B(uint16_t item_id) {
+Item* Inventory::FindItemById(uint16_t item_id) {
     for (POSITION pos = this->items.GetHeadPosition(); pos != nullptr;) {
         Item* item = this->items.GetNext(pos);
         if (item->item_id == item_id) {
@@ -151,7 +151,7 @@ Item* Inventory::sub_552B6B(uint16_t item_id) {
 
 // 552C37
 Item* Inventory::sub_552C37(uint16_t item_id) {
-    Item* item = this->sub_552B6B(item_id);
+    Item* item = this->FindItemById(item_id);
     if (!item) {
         return nullptr;
     }

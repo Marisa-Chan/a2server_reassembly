@@ -4627,7 +4627,7 @@ void World::CheckOP_10(TriggerCheck* check) {
 
 // 5B3273
 void World::CheckOP_12(TriggerCheck* check) {
-    if (check->unit->inventory->sub_552B6B(check->item_id) != nullptr) {
+    if (check->unit->inventory->FindItemById(check->item_id) != nullptr) {
         this->trigger_variables[check->id] = 1;
     } else {
         this->trigger_variables[check->id] = 0;
@@ -4662,7 +4662,7 @@ void World::CheckOP_15(TriggerCheck* check) {
 
 // 5B33F0
 void World::CheckOP_16(TriggerCheck* check) {
-    if (check->unit->inventory->sub_552B6B(check->item_id) != nullptr) {
+    if (check->unit->inventory->FindItemById(check->item_id) != nullptr) {
         this->trigger_variables[check->id] = this->field24_0xa50->ChebyshevDistanceXY(check->unit->position->GetX(), check->unit->position->GetY(), check->data[0], check->data[1]);
     } else {
         this->trigger_variables[check->id] = 0xFF;
@@ -4671,7 +4671,7 @@ void World::CheckOP_16(TriggerCheck* check) {
 
 // 5B347A
 void World::CheckOP_17(TriggerCheck* check) {
-    if (check->unit->inventory->sub_552B6B(check->item_id) != nullptr) {
+    if (check->unit->inventory->FindItemById(check->item_id) != nullptr) {
         this->trigger_variables[check->id] = 1;
     } else {
         this->trigger_variables[check->id] = 0;
