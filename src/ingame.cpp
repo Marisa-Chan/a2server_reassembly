@@ -5587,7 +5587,7 @@ void BigStruct2::sub_406F7B() {
 						cy = (gobj->center_y - gobj->height / 2) + spr_b->GetHeight(frame) / 2;
 						draw_x = (x * 0x20 + 0x10) - cx;
 						draw_y = ((y * 0x20 + 0x10) - cy) - hgt2;
-						spr_b->VMethod9(draw_x, draw_y, frame, light2, palette, 0);
+						spr_b->DrawWithPaletteBlend(draw_x, draw_y, frame, light2, palette, 0);
 					}
 					uint16_t fkey = (x + this->view_x) | ((y + this->view_y) << 8);
 					uint32_t fval;

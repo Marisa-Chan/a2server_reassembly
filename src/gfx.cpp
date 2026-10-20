@@ -4571,7 +4571,7 @@ void CSprite256::DrawBrightened(int32_t x, int32_t y, int frame, int blevel, int
 	}
 }
 
-void CSprite256::VMethod9(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode) { //4252a0
+void CSprite256::DrawWithPaletteBlend(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode) { //4252a0
 	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 	if (mode == 0) {
 		BlitRle8Blend(x, y, frm->width, frm->height, frm->data, ppalette->GetPalette(palid));

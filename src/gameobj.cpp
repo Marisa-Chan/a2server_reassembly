@@ -1945,14 +1945,14 @@ void CUnit::Draw(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
             if (map->my_main_unit->IsVisibleTo(this->map_player->index) == 0) {
                 return;
             }
-            this->sprite->VMethod9(x, y, frame, arg3, palette, flip);
+            this->sprite->DrawWithPaletteBlend(x, y, frame, arg3, palette, flip);
         }
         cx = draw_vfx->center_x - draw_vfx->width / 2 + this->sprite_b->GetWidth(frame) / 2;
         cy = draw_vfx->center_y - draw_vfx->height / 2 + this->sprite_b->GetHeight(frame) / 2;
         x = this->centerScreenX - cx;
         y = this->centerScreenY - cy - this->terrainHeightOffset - this->z_pos;
         if (g_settings.Smoothing != 0) {
-            this->sprite_b->VMethod9(x, y, frame, arg3, palette, flip);
+            this->sprite_b->DrawWithPaletteBlend(x, y, frame, arg3, palette, flip);
         }
     } else {
         this->IsKindOf(RUNTIME_CLASS(CAirUnit)); // result unused in the original binary
@@ -1967,14 +1967,14 @@ void CUnit::Draw(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
             if (map->my_main_unit->IsVisibleTo(this->map_player->index) == 0) {
                 return;
             }
-            gfx_file->GetSprite()->VMethod9(x, y, frame, arg3, palette, flip);
+            gfx_file->GetSprite()->DrawWithPaletteBlend(x, y, frame, arg3, palette, flip);
         }
         cx = draw_vfx->center_x - draw_vfx->width / 2 + gfx_file->GetSpriteB()->GetWidth(frame) / 2;
         cy = draw_vfx->center_y - draw_vfx->height / 2 + gfx_file->GetSpriteB()->GetHeight(frame) / 2;
         x = this->centerScreenX - cx;
         y = this->centerScreenY - cy - this->terrainHeightOffset - this->z_pos;
         if (g_settings.Smoothing != 0 || this->typeId == 0x45) {
-            gfx_file->GetSpriteB()->VMethod9(x, y, frame, arg3, palette, flip);
+            gfx_file->GetSpriteB()->DrawWithPaletteBlend(x, y, frame, arg3, palette, flip);
         }
     }
 
@@ -3982,7 +3982,7 @@ void CStructure::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
 
         info->GetSprite()->Draw(arg1 * 0x20, y, frame, arg3, 0);
         if (g_settings.Smoothing != 0) {
-            info->GetSpriteB()->VMethod9(arg1 * 0x20, y, frame, arg3, palette, 0);
+            info->GetSpriteB()->DrawWithPaletteBlend(arg1 * 0x20, y, frame, arg3, palette, 0);
         }
 
         y -= 0x20;
@@ -4195,7 +4195,7 @@ void CVerticalWoodenBridge::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
 
     info->GetSprite()->Draw(x, y, piece, arg3, 0);
     if (g_settings.Smoothing != 0) {
-        info->GetSpriteB()->VMethod9(x, y, piece, arg3, palette, 0);
+        info->GetSpriteB()->DrawWithPaletteBlend(x, y, piece, arg3, palette, 0);
     }
 }
 
@@ -4250,7 +4250,7 @@ void CHorisontalWoodenBridge::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
 
     info->GetSprite()->Draw(x, y, piece, arg3, 0);
     if (g_settings.Smoothing != 0) {
-        info->GetSpriteB()->VMethod9(x, y, piece, arg3, palette, 0);
+        info->GetSpriteB()->DrawWithPaletteBlend(x, y, piece, arg3, palette, 0);
     }
 }
 
@@ -4294,7 +4294,7 @@ void CBackPack::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
     g_spr_backpack->Draw(x, y, this->typeId, arg3, 0);
     if (g_settings.Smoothing != 0) {
         CGamePalette* palette = &g_spr_backpack->palette;
-        g_spr_backpackb->VMethod9(x, y, this->typeId, arg3, palette, 0);
+        g_spr_backpackb->DrawWithPaletteBlend(x, y, this->typeId, arg3, palette, 0);
     }
 }
 
