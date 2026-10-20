@@ -770,3 +770,4 @@ PlayersList::sub_534DDD -> ProcessPlayerTimeouts -- AFK countdowns, drop deadlin
 PlayersList::sub_5357C6 -> AddPlayer -- appends player to list
 PlayersList::sub_535D39 -> FindByName -- find player by name string
 PlayersList::sub_535B50 -> FindById -- find player by numeric id
+PlayersList::sub_535E94 -> FindByHatCharId -- find player by HAT character id pair

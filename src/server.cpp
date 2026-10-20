@@ -584,7 +584,7 @@ void Srv1::CreateBuildings(MapAlm* alm) {
         }
 
         // Common: set owner
-        building->pOwner = g_PlayersList->sub_535C46(bd->player_id);
+        building->pOwner = g_PlayersList->FindByTokenId(bd->player_id);
         if (building->pOwner == nullptr) {
             LogMessage("Warning - Building without owner have been loaded");
         }
@@ -768,7 +768,7 @@ void Srv1::CreateUnits(MapAlm* alm) {
             continue;
         }
 
-        Player* player = g_PlayersList->sub_535C46(unit_data->player_id);
+        Player* player = g_PlayersList->FindByTokenId(unit_data->player_id);
         if (player == nullptr) {
             CString msg;
             msg.Format("Can't resolve player %d for unit %d.", (int)unit_data->player_id, (int)unit_data->unit_id);

@@ -80,7 +80,7 @@ Player* PlayersList::FindById(uint16_t player_id) {
 
 // Find player by token id.
 // 535C46
-Player* PlayersList::sub_535C46(uint16_t token_id) {
+Player* PlayersList::FindByTokenId(uint16_t token_id) {
 	POSITION it = this->list.GetHeadPosition();
 	Player* player = it ? this->list.GetNext(it) : nullptr;
 	while (player != nullptr) {
