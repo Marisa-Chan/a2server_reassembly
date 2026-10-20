@@ -295,7 +295,7 @@ void CFameHall::FUN_004ac839(CFile* file) {
     }
 }
 
-void CFameHall::FUN_004ac945(CFile* file) {
+void CFameHall::LoadEntries(CFile* file) {
     //4ac945
     uint32_t num;
     file->Read(&num, 4);

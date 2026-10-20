@@ -742,7 +742,7 @@ BOOL GameApp::InitInstance() {
 		if (!ffame.GetLength()) {
 			mwnd->m_FameHall.SeedDefaultEntries();
 		} else {
-			mwnd->m_FameHall.FUN_004ac945(&ffame);
+			mwnd->m_FameHall.LoadEntries(&ffame);
 		}
 
 		ffame.Close();
