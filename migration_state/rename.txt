@@ -826,3 +826,4 @@ UnitGfxFile: FUN_0046f730 -> GetSpriteB -- lazy-init and return the smoothing sp
 ProjectileInfo: FUN_0041f8f0 -> GetSprite -- lazy-init and return the projectile sprite
 ProjectileInfo: FUN_0046f760 -> GetSpriteB -- lazy-init and return the projectile smoothing sprite
 UnitVFXUnfo: FUN_0046f680 -> GetPalette -- returns the indexed face palette (lazy-loaded)
+UnitVFXUnfo: FUN_0046f6e0 -> GetPaletteData -- returns the indexed raw palette data

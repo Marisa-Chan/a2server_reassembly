@@ -5823,7 +5823,7 @@ int32_t SackList::DumpInventoryAt(TokenPos* pos, Inventory* inventory, int money
     int32_t old_level_trunc = (int32_t)old_level;
 
     // Update sack name/icon based on contents
-    sack->sub_55401E();
+    sack->CalcContentsValue();
 
     // Check if level changed; the original compares the truncated old value
     // against the full-precision new value, so this broadcasts more often

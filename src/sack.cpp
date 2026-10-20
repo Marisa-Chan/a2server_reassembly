@@ -37,7 +37,7 @@ void Sack::Init() {
 }
 
 // 55401E
-void Sack::sub_55401E() {
+void Sack::CalcContentsValue() {
     this->_exp = this->money;
     for (POSITION pos = this->inventory->items.GetHeadPosition(); pos != nullptr;) {
         Item* item = this->inventory->items.GetNext(pos);
