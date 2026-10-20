@@ -24,7 +24,7 @@ Building* BuildingsList::sub_558055(Player* player) {
 // 558128
 Building* BuildingsList::FindNearby(TokenPos* pos) {
 	TokenPos adjusted(pos->GetX() - 1, pos->GetY() - 1, MapStuff_Instance);
-	return this->sub_557EA5(&adjusted);
+	return this->FindNearbyExact(&adjusted);
 }
 
 // 557DB2
@@ -39,7 +39,7 @@ Building* BuildingsList::FindById(uint16_t id) {
 }
 
 // 557EA5
-Building* BuildingsList::sub_557EA5(TokenPos* pos) {
+Building* BuildingsList::FindNearbyExact(TokenPos* pos) {
 	for (POSITION it = this->GetHeadPosition(); it != nullptr;) {
 		Building* building = this->GetNext(it);
 		if (building->position->Distance(pos) <= 2) {

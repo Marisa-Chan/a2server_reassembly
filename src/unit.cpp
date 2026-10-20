@@ -913,7 +913,7 @@ void Unit::ProcessEffects() {
                 }
             }
 
-            Building* near_building = building_list->sub_557EA5(this->position);
+            Building* near_building = building_list->FindNearbyExact(this->position);
             if (near_building) {
                 if (near_building->object_info_id == 0x0f && near_building->hp > 0) {
                     near_building->hp--;
