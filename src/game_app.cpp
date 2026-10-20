@@ -92,7 +92,7 @@ DistortMap::~DistortMap() {
 }
 
 // 47619a
-void FUN_0047619a() {
+void FreeDistortMap() {
 	free(dword_65FBB8);
 	if (g_DistortMap != nullptr) {
 		delete g_DistortMap;

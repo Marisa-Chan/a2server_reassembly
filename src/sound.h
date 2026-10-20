@@ -35,7 +35,7 @@ void PlayAmbientSfx(SfxSample** sample); //4a4740 in asm
 void FreeSfxSample(SfxSample** sample); //438dd0 in asm
 void StopSfx(SfxSample** sample); //438f20 in asm
 void UnloadAllSfx(); //4c86f5 in asm
-void FUN_0047619a(); //47619a in asm
+void FreeDistortMap(); //47619a in asm
 
 
 class SfxSample : public CObject {

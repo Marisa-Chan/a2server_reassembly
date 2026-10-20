@@ -1059,7 +1059,7 @@ void MainWindow::OnClose() {
     this->FUN_004919b1();
     this->dialogsMask = 0;
     g_Cursors[0]->Use();
-    FUN_0047619a();
+    FreeDistortMap();
     CFrameWnd::OnClose();
 }
 
