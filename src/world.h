@@ -122,7 +122,7 @@ public:
     void ConstructMembers(); // 5A3F9B
     void DestroyMembers(); // 5A4284
     void ResetMatchState(); // 5A4757
-    void sub_5B0556(CArchive& ar); // Serialize
+    void Serialize(CArchive& ar); // Serialize
     void RelinkPointers(); // Post-load world relink helper
 
     void sub_5AFBFD(); // increments field65_0xc780

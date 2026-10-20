@@ -3074,7 +3074,7 @@ void World::RelinkPointers() {
 
 // Serialize/Deserialize world state.
 // 5B0556
-void World::sub_5B0556(CArchive& ar) {
+void World::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
         ar.Write(this->trigger_variables, sizeof(this->trigger_variables));
         ar.Write(this->trigger_results, sizeof(this->trigger_results));

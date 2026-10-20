@@ -6329,7 +6329,7 @@ void Server::SerializeGame(CArchive& ar) {
             this->srv_stru1->building_list->Serialize(ar);
             this->srv_stru1->effects_list->Serialize(ar);
             MapStuff_Instance->Serialize(ar);
-            g_World->sub_5B0556(ar);
+            g_World->Serialize(ar);
             this->srv_stru1->sack_list->Serialize(ar);
 
             int32_t caster_count = this->srv_stru1->virtual_casters_list.GetCount();
@@ -6415,7 +6415,7 @@ void Server::SerializeGame(CArchive& ar) {
 
             if (g_World == nullptr) {
                 g_World = new World(MapStuff_Instance, g_PlayersList);
-                g_World->sub_5B0556(ar);
+                g_World->Serialize(ar);
             }
 
             if (this->srv_stru1->sack_list == nullptr) {

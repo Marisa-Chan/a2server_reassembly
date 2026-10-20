@@ -1002,3 +1002,4 @@ World::sub_5A3F9B -> ConstructMembers -- srand seed + in-place reconstruction of
 World::sub_5A44DB -> BeginDestroy -- destructor teardown entry (wraps DestroyState)
 World::sub_5A4590 -> Destroy -- destructor wrapper of BeginDestroy
 World::sub_5A3F88 -> DestroyState -- teardown step calling the member-destruction helper
+World::sub_5A4284 -> DestroyMembers -- originally destroyed members in reverse order; no-op now that ~World does it
