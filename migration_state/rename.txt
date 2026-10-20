@@ -903,3 +903,4 @@ game_app: sub_5421FD -> Rand01 -- rand()/32767.0 in [0,1]
 game_app: sub_43A857 -> PostConsoleLine -- posts a text line to the main window in server-console mode
 server: sub_43A820 -> IntToCString -- itoa into a CString
 server: sub_4FA768 -> SendFragLimit -- sends the 0x5C frag-limit packet to a player
+server: sub_5049D1 -> ParseCountPrefix -- parses the leading count of a #create cheat argument

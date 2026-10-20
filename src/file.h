@@ -8,7 +8,7 @@
 #include <afxtempl.h>
 
 
-int __cdecl sub_4F1D0D(CString filename); // File checksum (simple sum of int32-s). 4f1d0d.
+int __cdecl CalcFileChecksum(CString filename); // File checksum (simple sum of int32-s). 4f1d0d.
 
 
 class File2 : public CFile {

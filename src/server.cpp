@@ -4676,7 +4676,7 @@ int Server::LoadGame(CString param_1) {
     }
 
     if (this->field4_0x74 != 0) {
-        dword_6CDB38 = sub_4F1D0D(this->current_map_name);
+        dword_6CDB38 = CalcFileChecksum(this->current_map_name);
     }
 
     this->field18_0x94 = 1;
