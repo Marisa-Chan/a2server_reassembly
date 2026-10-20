@@ -1068,3 +1068,4 @@ CGameSession::FUN_00420110 -> GetSkillTier2 -- skill-tier bracket 2 derived from
 Server::FUN_00497470 -> SetDifficulty -- inline setter of field22_0xd8 = difficulty (called with FameHall difficulty+1)
 Server::sub_50979A -> MissionResultsTick -- every 16 ticks: wraps UpdateMissionResults
 Server::FUN_00501b9e -> DespawnScenarioUnits -- despawns the scenario unit-id list (frees ids, deletes units, sends tick)
+CMultiShopInstance::sub_5462C8 -> StowItemInShelf -- puts a sold item back on the right shop shelf (template or instance)

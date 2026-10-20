@@ -25,7 +25,7 @@ public:
     virtual void RegenTick() override;
 
 public:
-    void sub_543EC3(Group* group); // Repop the group.
+    void RestoreOriginalUnits(Group* group); // Repop the group.
     void FillUnits(Group* group); // 54361E
     void Reset(); // Initializes fields.
 

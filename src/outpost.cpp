@@ -128,7 +128,7 @@ void Outpost::RegenTick() {
     }
 
     // Spawn units into the group and place them on the map.
-    this->sub_543EC3(found_group);
+    this->RestoreOriginalUnits(found_group);
 }
 
 int32_t Outpost::IsOutpost() {
@@ -136,7 +136,7 @@ int32_t Outpost::IsOutpost() {
 }
 
 // 543EC3
-void Outpost::sub_543EC3(Group* group) {
+void Outpost::RestoreOriginalUnits(Group* group) {
     POSITION original_it = this->units_original.unit_list.GetHeadPosition();
     Unit* unit_original = nullptr;
     if (original_it != nullptr) {
