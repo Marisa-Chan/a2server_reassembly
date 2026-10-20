@@ -270,14 +270,14 @@ public:
 public:
     void AssignPlayerSlot(Player* player, int32_t arg4);
 
-    // sub_504a96 helpers
+    // ProcessClientPacket helpers
     Unit* FindPlayerUnit(uint16_t player_ref, uint16_t unit_id);
     Shop* FindShopAt(TokenPos* pos);
     Inn* FindInnAt(TokenPos* pos);   // Inn lookup by TokenPos
     Player* FindPlayerById(uint16_t player_id);
     void SaveGame(CString* str);
     void SendMapInfo(Player* player);
-    void sub_504a96(Packet* packet);
+    void ProcessClientPacket(Packet* packet);
 
     void SignalGameStart(int32_t arg);
     int  JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1, CString name, CString login,

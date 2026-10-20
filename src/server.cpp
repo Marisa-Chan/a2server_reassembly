@@ -2946,21 +2946,21 @@ void CheckPacketType(Packet* pkt, const char* want_type) {
     if (strcmp(got_type, want_type) != 0) {
         CString msg;
         if (pkt->order_mode != 0) {
-            msg.Format("sub_504a96 [group 0x%x]: Packet type mismatch: incoming packet is '%s', but handler is '%s'", pkt->id, got_type, want_type);
+            msg.Format("ProcessClientPacket [group 0x%x]: Packet type mismatch: incoming packet is '%s', but handler is '%s'", pkt->id, got_type, want_type);
         } else {
-            msg.Format("sub_504a96 [0x%x]: Packet type mismatch: incoming packet is '%s', but handler is '%s'", pkt->id, got_type, want_type);
+            msg.Format("ProcessClientPacket [0x%x]: Packet type mismatch: incoming packet is '%s', but handler is '%s'", pkt->id, got_type, want_type);
         }
         LogMessage(msg);
     }
 }
 
-void Server::sub_504a96(Packet* pkt) {
+void Server::ProcessClientPacket(Packet* pkt) {
     PacketItemOperation* packet_item = reinterpret_cast<PacketItemOperation*>(pkt);
     CString message;
     void* vtable = *reinterpret_cast<void**>(pkt);
     const char* packet_type = PacketType(pkt);
 
-    message.Format("sub_504a96: received item operation packet id=0x%02X, order_mode=%d, player_id=%d;  packet is '%s' --- 0x%x", pkt->id, pkt->order_mode, packet_item->from_player_id, packet_type, vtable);
+    message.Format("ProcessClientPacket: received item operation packet id=0x%02X, order_mode=%d, player_id=%d;  packet is '%s' --- 0x%x", pkt->id, pkt->order_mode, packet_item->from_player_id, packet_type, vtable);
     LogMessage(message);
 
     // PATH 1: Group order (pkt->order_mode >= 1 means multiple units)
@@ -4869,7 +4869,7 @@ void Server::ProcessAvailPackets() {
             break;
         }
 
-        this->sub_504a96(pkt);
+        this->ProcessClientPacket(pkt);
     }
 }
 

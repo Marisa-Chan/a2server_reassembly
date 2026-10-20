@@ -137,7 +137,7 @@ public:
     uint16_t PackDistFacing(Unit* unit1, Unit* unit2); // 5B5C2B: packed distance/facing metric between two units
     void ProcessPlayerGroupAi(Player* player); // 5ABF50
 
-    // Group-order dispatch helpers (called from Server::sub_504a96)
+    // Group-order dispatch helpers (called from Server::ProcessClientPacket)
     void RefreshGroupGuardAnchor(Group* group); // Refresh group_sub position/range fields.
     void GroupStopCommand(Group* group);
     void sub_5A99C7(Unit* unit);
