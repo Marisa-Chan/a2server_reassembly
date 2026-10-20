@@ -234,7 +234,7 @@ void Player::KillAllUnits() {
 }
 
 // 5347A1
-void Player::sub_5347A1(Unit* unit) {
+void Player::RemoveUnitFromGroup(Unit* unit) {
     Group* group = unit->group;
     if (group == nullptr) {
         LogMessage("Warning! Player::RemoveUnit from NULL group!");
@@ -257,7 +257,7 @@ void Player::sub_5347A1(Unit* unit) {
 
 // 534A74
 void Player::sub_534A74(Unit* unit) {
-    this->sub_5347A1(unit);
+    this->RemoveUnitFromGroup(unit);
     delete unit;
 }
 

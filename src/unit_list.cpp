@@ -121,7 +121,7 @@ void UnitList::ProcessTick() {
 
 			// Notify owner player and remove unit from player's list
 			if (unit->pOwner != NULL) {
-				unit->pOwner->sub_5347A1(unit);
+				unit->pOwner->RemoveUnitFromGroup(unit);
 			}
 
 			// Remove from this list and add to dead units pool
