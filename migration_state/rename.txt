@@ -1168,3 +1168,4 @@ World::RecordUnitHit param_4 -> hit_flag -- forwarded to Diplomacy::RecordHostil
 TokenEntry::TokenEntry arg -> id1 -- primary id stored to field_0x4 (matched against id1 with slot_code as id2 in visual.cpp lookups)
 CFameHall::SetDifficulty arg -> difficulty -- stored to difficulty field
 CFameHall::AddTextDocument arg -> doc_id -- fame document id compared against GetDocId and passed to SetDocument
+Item::StoreToPacket arg -> with_shelf_id -- when set, appends the shelf field (field11_0x4d) to the packet

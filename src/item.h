@@ -58,7 +58,7 @@ public:
     Effect* FindCastSpellEffect(); // Find the cast-spell Effect on this item (returns nullptr if none)
     int IsSimilar(Item* other); // 548860. Is this item similar to another? Same non-magic item or same base with same magic.
 
-    void StoreToPacket(PacketUnitStateVec* pkt, int arg); // 549afb
+    void StoreToPacket(PacketUnitStateVec* pkt, int with_shelf_id); // 549afb
     void WriteEffects(PacketUnitStateVec* pkt, uint8_t* slot); // 549F2C
     void ApplyEffects(Unit* unit); // 548C2E
     void RemoveEffects(Unit* unit); // 548CE4

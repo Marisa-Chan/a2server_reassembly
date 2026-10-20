@@ -447,7 +447,7 @@ int Item::IsSimilar(Item* other) {
 }
 
 
-void Item::StoreToPacket(PacketUnitStateVec* pkt, int arg) {
+void Item::StoreToPacket(PacketUnitStateVec* pkt, int with_shelf_id) {
     //549afb
     uint8_t *pdata = pkt->data + pkt->data_size;
 
@@ -517,7 +517,7 @@ void Item::StoreToPacket(PacketUnitStateVec* pkt, int arg) {
         this->TokenID = 0;
     }
 
-    if (arg != 0) {
+    if (with_shelf_id != 0) {
         pkt->data[pkt->data_size] = this->field11_0x4d;
         pkt->data_size++;
     }
