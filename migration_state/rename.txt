@@ -775,3 +775,4 @@ PlayersList::sub_535C46 -> FindByTokenId -- find player by token id
 PlayersList::sub_535F97 -> GetMaxPlayerId -- returns the max player_id in the list
 PlayersList::sub_536286 -> ResetFrags -- resets all players' frags to 0
 PlayersList::sub_55AFB3 -> Serialize -- serialises the player list
+Spell::sub_53940D -> SetPowerFromCaster -- computes power from caster skill+mind and applies it

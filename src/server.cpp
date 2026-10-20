@@ -3095,7 +3095,7 @@ void Server::sub_504a96(Packet* pkt) {
             CheckPacketType(pkt, "PacketItemOperation");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 player->sub_534B59();
-                if (cast_spell && cast_spell->sub_53939E(packet_item->x, packet_item->y)) {
+                if (cast_spell && cast_spell->IsAreaSpell(packet_item->x, packet_item->y)) {
                     g_World->GroupCastAtPositionCommand(group, x, y, cast_spell);
                 }
             }
@@ -3150,7 +3150,7 @@ void Server::sub_504a96(Packet* pkt) {
                     if (packet_item->id == 0x25) {
                         g_World->GroupCastAtUnitCommand(group, static_cast<Unit*>(target), spell);
                     } else {
-                        if (!spell->sub_53939E(packet_item->x, packet_item->y)) {
+                        if (!spell->IsAreaSpell(packet_item->x, packet_item->y)) {
                             player->main_unit->inventory->PutItemIntoBag(packet_item->slot, item);
                             player->main_unit->some_item = nullptr;
                             delete spell;

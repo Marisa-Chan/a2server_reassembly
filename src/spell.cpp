@@ -109,7 +109,7 @@ void Spell::Init() { //5391ab
 }
 
 // 53939E
-int Spell::sub_53939E(uint8_t, uint8_t) {
+int Spell::IsAreaSpell(uint8_t, uint8_t) {
     return this->spell_info->Values().GetData()[0].spell_target == 2;
 }
 
