@@ -74,7 +74,7 @@ BOOL File2::Open(LPCTSTR lpszFileName, UINT nOpenFlags, CFileException* pError) 
 	char fbuf[1024];
 	strcpy(fbuf, fname);
 
-	FatInfo* inf = Resources::ResFiles.FUN_004e646d(fbuf);
+	FatInfo* inf = Resources::ResFiles.GetFatInfo(fbuf);
 	if (inf == nullptr) {
 		if (pError) {
 			pError->m_cause = 2;

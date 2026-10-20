@@ -121,7 +121,7 @@ void Resources::StaticAddResFile(const char* path) {
 }
 
 
-FatInfo* Resources::FUN_004e646d(const char* fpath) {
+FatInfo* Resources::GetFatInfo(const char* fpath) {
     //4e646d
     char buf[1024];
     pathStrCpy(fpath, buf);

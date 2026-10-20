@@ -846,3 +846,4 @@ ResBase::FUN_004ea183 -> RecreateEntry -- removes then recreates the entry as an
 ResBase::FUN_004eca16 -> RequireFileEntry -- TracePath, throws when missing or a directory
 ResBase::FUN_004eca63 -> FindEntry -- TracePath, nullptr when flagged 0x40000010
 ResBase::FUN_004e5d55 -> GetFatInfo -- builds the FatInfo (offset/size) for a path
+ResBase::FUN_004e99c4 -> RebuildFat -- compacts the fat and rebuilds the entry index
