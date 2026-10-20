@@ -23691,7 +23691,7 @@ void VisServerScreen::VMethod7() {
             continue;
         }
         NetStru2* client = g_NetStru1_main.GetClientByLowUid((uint32_t)key >> 16);
-        Player* player = g_PlayersList->sub_535B50(client->player_id);
+        Player* player = g_PlayersList->FindById(client->player_id);
         if (player == nullptr) {
             i++;
             continue;
@@ -23828,14 +23828,14 @@ void sub_44E4CE(const char* cmd) {
         CString arg = s.Mid(0xB);
         int32_t id = atoi(arg);
         NetStru2* cli = g_NetStru1_main.GetClientByPlayerID((uint16_t)id);
-        Player* player = g_PlayersList->sub_535B50((uint16_t)id);
+        Player* player = g_PlayersList->FindById((uint16_t)id);
         if (cli != nullptr && player != nullptr) {
             g_NetStru1_main.DisconnectClient(cli);
         }
     } else if (s.Find("curse") == 0) {
         CString arg = s.Mid(6);
         int32_t id = atoi(arg);
-        Player* player = g_PlayersList->sub_535B50((uint16_t)id);
+        Player* player = g_PlayersList->FindById((uint16_t)id);
         if (player != nullptr && player->main_unit != nullptr) {
             player->main_unit->experience = 0;
             player->main_unit->body = 10;

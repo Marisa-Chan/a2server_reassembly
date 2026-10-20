@@ -64,7 +64,7 @@ void PlayersList::AddPlayer(Player* player) {
 
 // Find player by numeric id.
 // 535B50
-Player* PlayersList::sub_535B50(uint16_t player_id) {
+Player* PlayersList::FindById(uint16_t player_id) {
 	POSITION it = this->list.GetHeadPosition();
 	Player* player = it ? this->list.GetNext(it) : nullptr;
 	while (player != nullptr) {

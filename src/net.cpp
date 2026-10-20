@@ -594,7 +594,7 @@ void NetStru1::SendTeamState(uint16_t arg) {
     *ptr++ = teams_started ? g_Server->ctf_score[0] : 0xF0000001u;
     *ptr++ = teams_started ? g_Server->ctf_score[1] : 0xF0000001u;
     for (int32_t i = 0x10; i < 0x20; i++) {
-        Player* p = g_PlayersList->sub_535B50(i);
+        Player* p = g_PlayersList->FindById(i);
         if (p == nullptr) {
             *ptr++ = 0xF0000003u;
         } else {
@@ -1364,7 +1364,7 @@ void NetStru1::OnClientDisconnect(NetStru2* cli) {
     }
 
     if (g_Server) {
-        Player* pl = g_PlayersList->sub_535B50(cli->player_id);
+        Player* pl = g_PlayersList->FindById(cli->player_id);
         if (pl && pl->drop_deadline_tick16 == 0) {
             if (pl->is_ai == 1 || pl->player_id <= 15) {
                 LogMessage("Warning: trying to disconnect AI player " + pl->name);
@@ -4136,7 +4136,7 @@ void MarkUnitHiddenForPlayer(PacketMoveCmd* packet, Player* player) {
 // 51B0F0
 void NetStru1::SendUnitAction(Packet* packet, Unit* unit) {
     if (packet->to_player_id != 0) {
-        Player* player = g_PlayersList->sub_535B50(packet->to_player_id);
+        Player* player = g_PlayersList->FindById(packet->to_player_id);
         if ((unit->seen_by_mask & player->vision_sharing_id) == 0 && g_Server->field4_0x74 != 0) {
             int32_t pid = player->player_id;
             if (pid >= 0x10 && pid < 0x20 && packet->id == 0x6B &&
@@ -4173,7 +4173,7 @@ void NetStru1::SendUnitAction(Packet* packet, Unit* unit) {
 // 51B370
 void NetStru1::BroadcastMoveCmd(PacketMoveCmd* packet, TokenPos* pos) {
     if (packet->to_player_id != 0) {
-        Player* player = g_PlayersList->sub_535B50(packet->to_player_id);
+        Player* player = g_PlayersList->FindById(packet->to_player_id);
         if (IsVisibleTo(pos, player)) {
             this->QueuePacketSend(packet);
         } else {
@@ -4200,7 +4200,7 @@ void NetStru1::BroadcastMoveCmd(PacketMoveCmd* packet, TokenPos* pos) {
 // 51B638
 void NetStru1::BroadcastAoeZone(PacketAoeZone* packet, AreaEffect* area_effect) {
     if (packet->to_player_id != 0) {
-        Player* player = g_PlayersList->sub_535B50(packet->to_player_id);
+        Player* player = g_PlayersList->FindById(packet->to_player_id);
         if ((area_effect->field4_0x42 & player->vision_sharing_id) != 0 || g_Server->field4_0x74 == 0) {
             this->QueuePacketSend(packet);
         } else {

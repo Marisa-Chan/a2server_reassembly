@@ -157,7 +157,7 @@ void QuestInnGlue::VMethod5(Quest* quest) {
     int32_t player_id = quest->Something3() & 0xFFFF;
     int32_t count_needed = quest->Something3() >> 16;
     if (quest->field_0x2c == nullptr) {
-        quest->field_0x2c = g_PlayersList->sub_535B50(player_id);
+        quest->field_0x2c = g_PlayersList->FindById(player_id);
     }
 
     Player* player = (Player*)quest->field_0x2c;
@@ -211,7 +211,7 @@ void QuestInnGlue::VMethod6(Quest* quest) {
     int32_t player_id = quest->Something3() & 0xFFFF;
     int32_t count_needed = quest->Something3() >> 16;
     if (quest->field_0x2c == nullptr) {
-        quest->field_0x2c = g_PlayersList->sub_535B50(player_id);
+        quest->field_0x2c = g_PlayersList->FindById(player_id);
     }
 
     Player* player = (Player*)quest->field_0x2c;
@@ -264,7 +264,7 @@ void QuestInnGlue::VMethod7(Quest* quest) {
     int32_t player_id = quest->Something3() & 0xFFFF;
     int32_t count_needed = quest->Something3() >> 16;
     if (quest->field_0x2c == nullptr) {
-        quest->field_0x2c = g_PlayersList->sub_535B50(player_id);
+        quest->field_0x2c = g_PlayersList->FindById(player_id);
     }
 
     Player* player = (Player*)quest->field_0x2c;

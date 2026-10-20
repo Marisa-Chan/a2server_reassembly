@@ -3209,7 +3209,7 @@ void Server::sub_504a96(Packet* pkt) {
 
     case 0x04: // Join mission.
         CheckPacketType(pkt, "PacketInfo");
-        player = g_PlayersList->sub_535B50(packet_info->from_player_id);
+        player = g_PlayersList->FindById(packet_info->from_player_id);
         if (player) {
             this->SendWorldState(player, (packet_info->param1 == 0) ? 1 : 0);
         }
@@ -3392,7 +3392,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x23: // Gold drop - create money sack on the ground
         CheckPacketType(pkt, "PacketInfo");
         {
-            player = g_PlayersList->sub_535B50(packet_info->from_player_id);
+            player = g_PlayersList->FindById(packet_info->from_player_id);
             if (!player) {
                 CString msg;
                 msg.Format("Order error: no such Player %d", packet_info->from_player_id);
@@ -3538,7 +3538,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x39:
         CheckPacketType(pkt, "PacketInfo");
         {
-            player = g_PlayersList->sub_535B50(packet_info->from_player_id);
+            player = g_PlayersList->FindById(packet_info->from_player_id);
             if (player) {
                 this->SendMapInfo(player);
             }
@@ -3638,7 +3638,7 @@ void Server::sub_504a96(Packet* pkt) {
                 break;
             }
 
-            player = g_PlayersList->sub_535B50(packet_data->from_player_id);
+            player = g_PlayersList->FindById(packet_data->from_player_id);
             if (!player) {
                 break;
             }
@@ -3853,7 +3853,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (this->field4_0x74 != 0) {
                 break;
             }
-            player = g_PlayersList->sub_535B50(packet_data->from_player_id);
+            player = g_PlayersList->FindById(packet_data->from_player_id);
             if (!player || !player->main_unit) {
                 break;
             }
@@ -3874,7 +3874,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x4A:
         CheckPacketType(pkt, "Packet");
         {
-            player = g_PlayersList->sub_535B50(pkt->from_player_id);
+            player = g_PlayersList->FindById(pkt->from_player_id);
             if (player) {
                 g_NetStru1_main.ResendPlayerUnits(player);
             }
@@ -3917,7 +3917,7 @@ void Server::sub_504a96(Packet* pkt) {
                 break;
             }
 
-            player = g_PlayersList->sub_535B50(packet_join->from_player_id);
+            player = g_PlayersList->FindById(packet_join->from_player_id);
             if (!player) {
                 break;
             }
@@ -4368,7 +4368,7 @@ void Server::HatKeepaliveTick() {
                 if (this->field65_0x220 > 31) {
                     this->field65_0x220 = 16;
                 }
-                player = g_PlayersList->sub_535B50(this->field65_0x220);
+                player = g_PlayersList->FindById(this->field65_0x220);
             } while (player == nullptr);
 
             CString login(player->login);
@@ -4780,7 +4780,7 @@ void Server::ServerTic() {
 
             for (int i = 0; i < 2; i++) {
                 if (this->ctf_carrying[i] != 0) {
-                    Player* player = g_PlayersList->sub_535B50(this->ctf_carrying[i]);
+                    Player* player = g_PlayersList->FindById(this->ctf_carrying[i]);
                     if (player == nullptr || player->main_unit == nullptr) {
                         continue;
                     }
@@ -4820,7 +4820,7 @@ void Server::ServerTic() {
         while (pos != nullptr) {
             uint32_t k, v;
             g_QuestMap.flags.GetNextAssoc(pos, k, v);
-            Player* p = g_PlayersList->sub_535B50(k);
+            Player* p = g_PlayersList->FindById(k);
             if (v != 0 && p != nullptr) {
                 g_NetStru1_main.SendSrvStru1State(&g_QuestMap, p, 0);
                 if ((v & 0x10) != 0) {
@@ -5898,7 +5898,7 @@ void SackList::UpdateSackVisibility() {
             for (int32_t i = 0; i < 16; i++) {
                 // Check if bit i is set in new mask but not in old mask
                 if ((sack->seen_by_mask & (1 << i)) && !(sack->seen_by_mask_prev & (1 << i))) {
-                    Player* player = g_PlayersList->sub_535B50(i + 0x10);
+                    Player* player = g_PlayersList->FindById(i + 0x10);
                     if (player) {
                         // Check if player can see this sack (not masked) or it's marked for visibility
                         bool player_cannot_see = !(sack->sent_to_mask & player->vision_sharing_id);
@@ -5995,7 +5995,7 @@ void SpellEffectList::ProcessTick() {
         if (effect->field4_0x42 != effect->field6_0x44 && effect->IsKindOf(RUNTIME_CLASS(AreaEffect)) && g_Server->field4_0x74 != 0) {
             for (int32_t i = 0; i < 16; i++) {
                 if ((effect->field4_0x42 & (1 << i)) != 0 && (effect->field6_0x44 & (1 << i)) == 0) {
-                    Player* player = g_PlayersList->sub_535B50(i + 16);
+                    Player* player = g_PlayersList->FindById(i + 16);
                     if (player != nullptr) {
                         g_NetStru1_main.SendAreaEffect((AreaEffect*)effect, 1);
                     }
@@ -6015,7 +6015,7 @@ void SpellEffectList::ProcessTick() {
 
 // 502B4A
 Player* Server::FindPlayerById(uint16_t player_id) {
-    Player* player = g_PlayersList->sub_535B50(player_id);
+    Player* player = g_PlayersList->FindById(player_id);
     if (!player) {
         CString id_str;
         sub_43A820(&id_str, (int16_t)player_id);

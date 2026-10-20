@@ -97,7 +97,7 @@ void UnitList::ProcessTick() {
 		if (unit->seen_by_mask != unit->seen_by_mask_prev && g_Server->field4_0x74 != 0) {
 			for (int i = 0; i < 16; i++) {
 				if ((unit->seen_by_mask & (1 << i)) != 0 && (unit->seen_by_mask_prev & (1 << i)) == 0) {
-					Player* player = g_PlayersList->sub_535B50(i + 16);
+					Player* player = g_PlayersList->FindById(i + 16);
 					if (player != NULL) {
 						g_NetStru1_main.SendUnitUpdate(unit, player, unit->something_per_player[i], 0xffb, 0, 0);
 					}
@@ -298,7 +298,7 @@ void UnitList::sub_5561A1() {
 		if (unit->seen_by_mask != unit->seen_by_mask_prev && g_Server->field4_0x74 != 0) {
 			for (int32_t i = 0; i < 16; i++) {
 				if ((unit->seen_by_mask & (1 << i)) != 0 && (unit->seen_by_mask_prev & (1 << i)) == 0) {
-					Player* player = g_PlayersList->sub_535B50(i + 16);
+					Player* player = g_PlayersList->FindById(i + 16);
 					if (player != NULL) {
 						g_NetStru1_main.SendUnitUpdate(unit, player, unit->something_per_player[i], 0xffb, 0, 0);
 					}

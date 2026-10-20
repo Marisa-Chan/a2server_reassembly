@@ -23,7 +23,7 @@ public:
     void ProcessPlayerTimeouts();
     void AddPlayer(Player* player); // AddTail: append player to list
     Player* FindByName(CString name);    // find player by name (CString arg_0 compared against player->name)
-    Player* sub_535B50(uint16_t player_id);   // find player by numeric id
+    Player* FindById(uint16_t player_id);   // find player by numeric id
     Player* sub_535E94(int32_t a, int32_t b);  // find player by HAT character id (hat_char_id1==a && hat_char_id2==b)
 
     Player* sub_535C46(uint16_t token_id); // GetByTokenID
