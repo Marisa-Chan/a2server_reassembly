@@ -1904,7 +1904,7 @@ void Unit::ProcessMoveStep(uint16_t xx, uint16_t yy, uint8_t eye0, uint8_t eye1)
         uint8_t out_dir = 0;
         if (this->eye->CheckRotation(this, &out_dir, eye0, eye1)) {
             uint8_t angle = (this->eye->field1_0x1 + 8) / 16;
-            g_NetStru1_main.sub_51B99E(this, angle, out_dir, 'm');
+            g_NetStru1_main.SendAbilityPacket(this, angle, out_dir, 'm');
         }
         return;
     }
@@ -1912,7 +1912,7 @@ void Unit::ProcessMoveStep(uint16_t xx, uint16_t yy, uint8_t eye0, uint8_t eye1)
     if ((xx & 0xFF) == 0x80 && (yy & 0xFF) == 0x80) {
         uint8_t dir = this->eye->field158_0xae * 2;
         uint8_t step_dir = this->eye->field154_0xaa;
-        g_NetStru1_main.sub_51B99E(this, dir, step_dir, 0);
+        g_NetStru1_main.SendAbilityPacket(this, dir, step_dir, 0);
     }
 }
 

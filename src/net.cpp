@@ -252,7 +252,7 @@ void NetStru1::BroadcastUnitState(Unit* unit) {
 }
 
 // 51B99E
-void NetStru1::sub_51B99E(Unit* unit, uint8_t angle, uint8_t speed_dir, uint8_t mode) {
+void NetStru1::SendAbilityPacket(Unit* unit, uint8_t angle, uint8_t speed_dir, uint8_t mode) {
     PacketAbility& packet = PacketAbility::Inst;
     if (mode == 0) {
         packet.id = 0x6B;
@@ -284,7 +284,7 @@ void NetStru1::sub_51C59C(Unit* unit, Unit* target) {
     if (unit->max_range < 2) {
         const uint8_t speed_dir = unit->charge + unit->relax;
         const uint8_t angle = unit->eye->GetFacingHalf();
-        g_NetStru1_main.sub_51B99E(unit, angle, speed_dir, 0x71);
+        g_NetStru1_main.SendAbilityPacket(unit, angle, speed_dir, 0x71);
     } else {
         g_NetStru1_main.sub_51BA2F(unit);
     }
