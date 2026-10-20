@@ -1288,12 +1288,12 @@ void World::OrderGatherLoot(Unit* unit) {
 // Record a PvP hit: mark the attacker in UnitEye2, update diplomacy, push a combat
 // action onto the world's action list, and store the retaliation cell.
 // 5AA581
-void World::RecordUnitHit(Unit* target, Unit* attacker, int32_t param_4) {
+void World::RecordUnitHit(Unit* target, Unit* attacker, int32_t hit_flag) {
     attacker->eye2->field44_0x54 = 1;
     attacker->eye2->position3 = target->position->CompatGetYX();
     attacker->eye2->counter2 = 0;
 
-    this->diplomacy.RecordHostility(target, attacker, param_4);
+    this->diplomacy.RecordHostility(target, attacker, hit_flag);
 
     this->scrape_action.action_kind = 1;
     this->scrape_action.actor_unit = target;
