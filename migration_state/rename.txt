@@ -912,3 +912,4 @@ spell: sub_5365AB -> CalcWalkDist -- pathfinding distance between two TokenPos
 unit: sub_5364D5 -> CalcMeleeDist -- size-adjusted distance between two units in subcells
 unit: sub_53685B -> ExecuteMeleeAttack -- melee attack roll + damage + weapon imbued spell
 unit: sub_536A62 -> ExecuteRangedAttack -- ranged attack execution
+unit: sub_536630 -> CalcAttackCharge -- computes the charge gain for attacking the target

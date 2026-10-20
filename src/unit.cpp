@@ -245,7 +245,7 @@ void __cdecl CalcAttackCharge(Unit* self, Unit* target, int32_t* out_charge) {
 
 // Execute attack.
 // 53678F
-void __cdecl sub_53678F(Unit* self, Unit* target) {
+void __cdecl ExecuteAttack(Unit* self, Unit* target) {
     if (target == nullptr) {
         return;
     }
@@ -818,7 +818,7 @@ void Unit::ProcessEffects() {
                 if (this->charge_countdown == 0) {
                     if (this->some_state == 3) {
                         if (!this->weapon || !this->weapon->imbued_spell || !(this->unit_attrs & 4)) {
-                            sub_53678F(this, this->cast_target);
+                            ExecuteAttack(this, this->cast_target);
                         } else {
                             this->some_spell = this->weapon->imbued_spell;
                             this->some_item  = static_cast<Item*>(this->weapon);
