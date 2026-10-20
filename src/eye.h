@@ -170,7 +170,7 @@ struct UnitEye {
 public:
     UnitEye(); // 58BE86
     uint8_t GetFacingHalf(); // 58C00E
-    void sub_5925C9(Unit* unit); // 5925C9
+    void SetPathMaskByMovement(Unit* unit); // 5925C9
     int sub_59367D(Unit* unit, uint8_t* out_dir, uint8_t eye0, uint8_t eye1); // 59367D
 };
 ASSERT_OFFSET(UnitEye, counter, 0x78);

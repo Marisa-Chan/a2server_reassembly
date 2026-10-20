@@ -623,7 +623,7 @@ void Unit::CopyFrom(Unit* unit) {
     // Create fresh eye/eye2. WAT: old ones are leaked?
     this->eye = new UnitEye();
     this->eye2 = new UnitEye2();
-    this->eye->sub_5925C9(this);
+    this->eye->SetPathMaskByMovement(this);
 
     // Clear list1 and list2
     this->list1.RemoveAll();
@@ -2160,7 +2160,7 @@ void Unit::InitFromMonsterName(const CString& name) {
     }
 
     // Initialize eye and world state
-    this->eye->sub_5925C9(this);
+    this->eye->SetPathMaskByMovement(this);
     g_World->InitUnitCombatProfile(this);
 }
 
@@ -2258,7 +2258,7 @@ void Humanoid::InitStats() {
     this->hit_values.hand_damage_min = 1;
     this->hit_values.hand_damage_spread = 2 - this->hit_values.hand_damage_min;
 
-    this->eye->sub_5925C9(this);
+    this->eye->SetPathMaskByMovement(this);
 }
 
 Humanoid::~Humanoid() {
