@@ -7054,7 +7054,7 @@ void BigStruct2::FUN_0041c4a1(const char* name) {
 	this->sub_403F08(this->field_0x80);
 	wnd->vis_right_panel->MsgProc(0x403, (uint32_t)this, 0);
 	this->FUN_0041d97e(1);
-	sub_477B59(this->field_0x80->terrain_tile_mask);
+	LoadTerrainTiles(this->field_0x80->terrain_tile_mask);
 	this->field_0x4970->RemovePlayerQuests(0);
 }
 
@@ -7238,7 +7238,7 @@ void ReloadPalettes() {
 }
 
 // 477b59
-void __cdecl sub_477B59(uint32_t val) {
+void __cdecl LoadTerrainTiles(uint32_t val) {
 	if ((g_DWORD_00659d18 & 2) != 0) {
 		if (val != 0) {
 			DAT_00665344 = new CBmp256("graphics\\terrain.3d\\dirt.bmp");

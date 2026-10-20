@@ -38,7 +38,7 @@ void LoadVfxData(); //47b24e
 
 uint8_t* __cdecl UpdateDayNightLighting(int32_t val); //4764bc
 void __cdecl ReloadPalettes(); //47fa75
-void __cdecl sub_477B59(uint32_t val); //477b59
+void __cdecl LoadTerrainTiles(uint32_t val); //477b59
 
 
 class UnitVFXUnfo : public CObject {
