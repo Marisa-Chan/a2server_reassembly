@@ -1065,3 +1065,4 @@ MainWindow::FUN_00478130 -> UnloadTerrainTiles -- frees the terrain tile bitmaps
 CGameSession::FUN_004948b2 -> SaveShortcuts -- serialises the 9 user shortcuts into the character file
 CGameSession::FUN_004200f0 -> GetSkillTier1 -- skill-tier bracket 1 derived from the character's max skill level (1..4)
 CGameSession::FUN_00420110 -> GetSkillTier2 -- skill-tier bracket 2 derived from the character's max skill level (1..4)
+Server::FUN_00497470 -> SetDifficulty -- inline setter of field22_0xd8 = difficulty (called with FameHall difficulty+1)

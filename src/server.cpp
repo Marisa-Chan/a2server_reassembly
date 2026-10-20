@@ -4842,7 +4842,7 @@ void Server::ServerTic() {
 
     this->Tick();
     if ((this->tick & 0xf) == 15) {
-        this->sub_50979A();
+        this->MissionResultsTick();
         this->tick16++;
     }
 
@@ -6076,7 +6076,7 @@ void Server::Tick() {
 }
 
 // 50979A
-void Server::sub_50979A() {
+void Server::MissionResultsTick() {
     this->UpdateMissionResults();
 }
 

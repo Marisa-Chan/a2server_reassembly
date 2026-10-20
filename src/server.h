@@ -186,7 +186,7 @@ public:
     void ProcessHatPackets(); // 509042
     void UpdateMissionResults(); // 5096E4
     void Tick();
-    void sub_50979A();
+    void MissionResultsTick();
     void ProcessHatPacket(Packet* pkt); // 5088DF
     void LoadSavedSacks(); // 4F950F
     void UpdateMissionResult(Player* player); // 5090FA
