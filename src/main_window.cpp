@@ -279,7 +279,7 @@ void CFameHall::SeedDefaultEntries() {
 
 
 // 4ac839
-void CFameHall::FUN_004ac839(CFile* file) {
+void CFameHall::SaveEntries(CFile* file) {
     int32_t count = this->m_Entries.GetSize();
     file->Write(&count, 4);
 
@@ -640,7 +640,7 @@ void MainWindow::OnDestroy() {
 
     CFile file;
     if (file.Open("famehall.dat", 0x1001, nullptr) != 0) {
-        this->m_FameHall.FUN_004ac839(&file);
+        this->m_FameHall.SaveEntries(&file);
         file.Close();
     }
 

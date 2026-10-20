@@ -106,7 +106,7 @@ struct CFameHall {
     uint32_t AddTextDocument(int32_t arg);
     void SeedDefaultEntries();
     void LoadEntries(CFile* file);
-    void FUN_004ac839(CFile* file); //4ac839 - save m_Entries to file
+    void SaveEntries(CFile* file); //4ac839 - save m_Entries to file
     void SaveDocuments(CFile* file);
     void LoadDocuments(CFile* file);
     void AddEntry(const Fame1& fame);
