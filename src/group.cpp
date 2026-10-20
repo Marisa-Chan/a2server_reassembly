@@ -139,7 +139,7 @@ Unit* Group::GetHeadUnit() {
 
 
 // 599F20
-Unit* Group::sub_599F20(Unit* unit) {
+Unit* Group::GetNextUnit(Unit* unit) {
     POSITION it = this->unit_list.Find(unit);
     if (it == nullptr) {
         return nullptr;
