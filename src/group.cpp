@@ -130,7 +130,7 @@ void Group::AddUnit(Unit* unit) {
 
 
 // 599F00
-Unit* Group::sub_599F00() {
+Unit* Group::GetHeadUnit() {
     if (this->unit_list.IsEmpty()) {
         return nullptr;
     }

@@ -834,3 +834,4 @@ Inventory: sub_552A42 -> TransferFrom -- transfers all items from src into this 
 Inventory: sub_552B6B -> FindItemById -- finds an item by item_id
 Inventory: sub_552C37 -> TakeItemById -- removes and returns the item matching item_id
 Inventory: sub_5530A2 -> FindItemByName -- finds an item by name or nullptr
+Inventory: sub_55CCE4 -> Serialize -- serialises the inventory
