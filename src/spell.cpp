@@ -128,7 +128,7 @@ void Spell::SetPowerFromCaster(Unit* unit) {
     if (power > 255) {
         power = 255;
     }
-    this->sub_539541(power);
+    this->SetPower(power);
 }
 
 // 539C49
@@ -166,7 +166,7 @@ void Spell::sub_539F21(Unit* caster, Unit* target) {
 }
 
 // 539541
-void Spell::sub_539541(uint32_t power) {
+void Spell::SetPower(uint32_t power) {
     const SpellInfoData& info = this->spell_info->Values().GetData()[0];
     uint8_t power_byte = power;
 
@@ -365,7 +365,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y) {
         Effect* cast_effect = caster->some_item->FindCastSpellEffect();
         power = (cast_effect != nullptr) ? cast_effect->spell_value : 0;
     }
-    this->sub_539541((uint8_t)power);
+    this->SetPower((uint8_t)power);
     double power_div_45 = power / 45.0 + 1.0;
 
     // Phase 2: blessed damage multiplier for deathmatch and softcore.

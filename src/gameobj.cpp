@@ -719,7 +719,7 @@ const char* TokenEntry::GetHintText() { //439973
             p++;
 
             Spell spell((uint8_t)cast_spell_id);
-            spell.sub_539541(value);
+            spell.SetPower(value);
             if (cast_spell_id == spell::stone_curse) {
                 spell.spell_power >>= 1;
             }
@@ -3476,7 +3476,7 @@ void CUnit::DrawStatsPanel(CRect* rect) {
             g_font2->DrawTextWithShadow(rect->left + 0x46, rect->top + 0x58, buf2, 1, value_color, 1);
         } else if (this->equipmentTokens[0] != nullptr && this->equipmentTokens[0]->mods_count != 0) {
             Spell spell((uint8_t)this->equipmentTokens[0]->GetCastSpellId());
-            spell.sub_539541(this->equipmentTokens[0]->GetAttribute('2'));
+            spell.SetPower(this->equipmentTokens[0]->GetAttribute('2'));
             CString str;
             if (spell.damage_min + spell.damage_spread != 0) {
                 // NB: the binary formats this string but never draws it

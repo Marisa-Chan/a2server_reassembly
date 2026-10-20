@@ -3019,7 +3019,7 @@ void BigStruct2::UpdateSpellModifiers(CUnit* unit) { //from 416cf7
 			v = 255;
 		}
 
-		s.sub_539541(v);
+		s.SetPower(v);
 
 		this->spell_damage_min[i] += s.damage_min;
 		this->spell_damage_max[i] += s.damage_min + s.damage_spread;

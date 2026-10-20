@@ -3146,7 +3146,7 @@ void Server::sub_504a96(Packet* pkt) {
                     Spell* spell = new Spell(eff->spell_or_damage);
                     player->main_unit->spell = spell;
 
-                    spell->sub_539541(eff->spell_value);
+                    spell->SetPower(eff->spell_value);
                     if (packet_item->id == 0x25) {
                         g_World->GroupCastAtUnitCommand(group, static_cast<Unit*>(target), spell);
                     } else {

@@ -1334,7 +1334,7 @@ void Unit::PickUpSack(Sack* sack) {
                     if (effect != nullptr) {
                         this->some_item = item;
                         Spell* spl = new Spell(static_cast<uint8_t>(effect->spell_or_damage));
-                        spl->sub_539541(static_cast<uint8_t>(effect->spell_value));
+                        spl->SetPower(static_cast<uint8_t>(effect->spell_value));
                         spl->sub_539F5A(this, this, 0, 0);
                         if (this->some_item != nullptr) {
                             delete this->some_item;

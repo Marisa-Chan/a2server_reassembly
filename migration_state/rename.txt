@@ -776,3 +776,4 @@ PlayersList::sub_535F97 -> GetMaxPlayerId -- returns the max player_id in the li
 PlayersList::sub_536286 -> ResetFrags -- resets all players' frags to 0
 PlayersList::sub_55AFB3 -> Serialize -- serialises the player list
 Spell::sub_53940D -> SetPowerFromCaster -- computes power from caster skill+mind and applies it
+Spell::sub_53939E -> IsAreaSpell -- 1 when spell target == 2 (area)
