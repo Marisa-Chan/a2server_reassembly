@@ -4566,7 +4566,7 @@ void CProjectile::Draw(int32_t arg1, int32_t arg2, int32_t arg3) {
 
     switch (this->typeId) {
     case 7:
-        g_DistortMap->sub_4AA29B(this->screenX, this->screenY - this->terrainHeightOffset - this->z_pos);
+        g_DistortMap->RenderDistort(this->screenX, this->screenY - this->terrainHeightOffset - this->z_pos);
         break;
     case 23: {
         int32_t sub_phase;

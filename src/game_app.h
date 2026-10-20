@@ -61,7 +61,7 @@ extern GameSettings g_settings; //660ec0
 extern CMapStringToString g_TunesMap; //660d80
 
 
-// Base address 0x65fbbc; consumed by CProjectile::VMethod6 (46e291) case 7 -> sub_4AA29B, freed by sub_47619A.
+// Base address 0x65fbbc; consumed by CProjectile::VMethod6 (46e291) case 7 -> RenderDistort, freed by sub_47619A.
 class DistortMap {
 public:
 	int16_t** offsets = nullptr; // 0x00 - grid of {dx, dy} pairs
@@ -73,7 +73,7 @@ public:
 	DistortMap(int32_t outer, int32_t inner); // 4a9f90
 	~DistortMap(); // 4aa04f
 	void BuildScaleTable(); // 4aa0af
-	void sub_4AA29B(int32_t x, int32_t y); // 4aa29b
+	void RenderDistort(int32_t x, int32_t y); // 4aa29b
 };
 ASSERT_SIZE(DistortMap, 0x10);
 

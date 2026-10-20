@@ -128,7 +128,7 @@ void DistortMap::BuildScaleTable() {
 }
 
 // 4AA29B
-void DistortMap::sub_4AA29B(int32_t x, int32_t y) {
+void DistortMap::RenderDistort(int32_t x, int32_t y) {
 	CRect clip;
 	GetClipRect(&clip);
 	uint16_t* surface = (uint16_t*)g_selDrawBitmap.lpSurface;
