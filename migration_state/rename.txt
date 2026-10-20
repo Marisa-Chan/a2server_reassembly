@@ -1107,3 +1107,4 @@ CUnit::InitState arg4 -> y_pos -- stored to y_pos
 CUnit::InitState arg5 -> z_pos -- stored to z_pos
 CUnit::InitState arg6 -> map_player -- stored to map_player
 CUnit::InitState arg7 -> dir -- stored to dir
+CUnit::InitState arg8 -> phase -- stored to phase
