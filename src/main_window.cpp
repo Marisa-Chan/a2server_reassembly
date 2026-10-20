@@ -4563,13 +4563,13 @@ void MainWindow::FUN_0048f6f7() { //48f6f7
     }
     
     this->FUN_00478130();
-    this->FUN_0047eab6();
+    this->UnloadProjectileInfos();
     this->FUN_0047f5e4();
 
     this->dialogsMask &= ~1;
 }
 
-void MainWindow::FUN_0047eab6() { //47eab6
+void MainWindow::UnloadProjectileInfos() { //47eab6
     for (int i = 0; i < g_ProjectileInfos.GetSize(); i++) {
         ProjectileInfo* inf = g_ProjectileInfos[i];
         if (inf) {

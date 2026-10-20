@@ -436,7 +436,7 @@ public:
 
     void FUN_00478130(); //478130 in asm
 
-    void FUN_0047eab6(); //47eab6
+    void UnloadProjectileInfos(); //47eab6
     void FUN_0047f5e4(); //47f5e4
 
     void ShowGlobalMapDialog(); //48d34b

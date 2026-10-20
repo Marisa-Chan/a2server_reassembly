@@ -975,3 +975,4 @@ MainWindow::FUN_00491822 -> EnterServerMode -- sessionMode=3 (server console) dr
 MainWindow::FUN_0048ca7e -> StartServerSession -- creates the Server and starts it (mode), aborts on failure
 MainWindow::FUN_004918ae -> EnterClientMode -- sessionMode=1 driver wiring
 MainWindow::FUN_00491f7d -> PlayVideo -- video playback stub (not implemented)
+MainWindow::FUN_0048f79d -> BeginLocalCharacterSetup -- disables hints and sets up the local Self character
