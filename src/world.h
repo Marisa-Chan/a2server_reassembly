@@ -215,7 +215,7 @@ public:
     void PruneNearbyUnits(uint16_t param1, uint8_t param2); // 5A3D12
     void AssignNearbyTargets(Group* group); // 5AE2D4
     void JitterGuardRangeWide(Group* group); // 5AE5C0
-    void sub_5AE5F5(Group* group); // 5AE5F5
+    void JitterGuardRange(Group* group); // 5AE5F5
     void sub_5A8778(Unit* unit, uint16_t param); // 5A8778
     void sub_5A87A3(Unit* unit, uint16_t param); // 5A87A3
     void sub_5A8829(Unit* unit, Unit* target, uint8_t range); // 5A8829
