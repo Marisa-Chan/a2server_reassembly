@@ -207,7 +207,7 @@ public:
     void AiStandBrain(Group* group); // 5AEFE5
 
     void DoScriptedPatrol(Unit* unit); // 5AB35B
-    void sub_5AB5E3(Unit* unit); // 5AB5E3
+    void DoScriptedWalk(Unit* unit); // 5AB5E3
     void UpdateGroupCenter(Group* group); // 5AB92C
     void ScanNearbyUnits(Group* group); // 5ADB16
     int32_t sub_5AD2C1(Unit* unit, Unit* target); // 5AD2C1
@@ -344,7 +344,7 @@ public:
     int32_t sub_5A8BDA(Unit* unit); // 5A8BDA — helper for ProcessUnitRecall (ASM).
     void sub_5A8CD8(Unit* unit); // 5A8CD8 — helper for ProcessUnitRecall.
     void sub_5A8DBC(Unit* unit); // 5A8DBC — helper for sub_5A8CD8 (ASM).
-    void sub_5A925C(Unit* unit, uint8_t a, uint8_t b); // 5A925C — helper for sub_5AB5E3 (ASM).
+    void sub_5A925C(Unit* unit, uint8_t a, uint8_t b); // 5A925C — helper for DoScriptedWalk (ASM).
 
     void sub_5A39AD(Unit* unit, UnitList* list); // 5A39AD — filter UnitList for CastSelfHealOrBuff (ASM).
     void PickFallbackBuff(Unit* unit, UnitList* list); // 5B6862 — fallback buff selection for CastSelfHealOrBuff.

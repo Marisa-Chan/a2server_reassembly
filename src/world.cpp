@@ -3945,7 +3945,7 @@ void World::sub_5A925C(Unit* unit, uint8_t a, uint8_t b) {
 }
 
 // 5AB5E3
-void World::sub_5AB5E3(Unit* unit) {
+void World::DoScriptedWalk(Unit* unit) {
     this->sub_5A8778(unit, 0x4F5B);
     if (unit->position->GetX() > 0x58) {
         this->sub_5A925C(unit, 0x52, 0x2F);
@@ -4039,7 +4039,7 @@ void World::ProcessUnitState(Unit* unit) {
         this->DoScriptedPatrol(unit);
         break;
     case 25:
-        this->sub_5AB5E3(unit);
+        this->DoScriptedWalk(unit);
         break;
     case 26:
         this->DoGatherLootStep(unit);
