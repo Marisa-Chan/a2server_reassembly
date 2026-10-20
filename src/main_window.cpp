@@ -376,7 +376,7 @@ void CFameHall::AddEntry(const Fame1& fame) {
     }
 }
 
-void CFameHall::FUN_00420050() {
+void CFameHall::AddDifficultyPoint() {
     //420050
     this->m_nDifficultyWeight++;
 }

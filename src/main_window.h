@@ -111,7 +111,7 @@ struct CFameHall {
     void LoadDocuments(CFile* file);
     void AddEntry(const Fame1& fame);
 
-    void FUN_00420050();
+    void AddDifficultyPoint();
 
     void SubmitScore(); //4ac498
 

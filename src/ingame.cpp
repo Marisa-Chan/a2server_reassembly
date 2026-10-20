@@ -859,7 +859,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							}
 
 							if (sval < 2 && this->my_main_unit->FUN_0041ee20(ct->map_player->index) != 0) {
-								wnd->m_FameHall.FUN_00420050();
+								wnd->m_FameHall.AddDifficultyPoint();
 							}
 
 							ct->controlGroupMask = 0;

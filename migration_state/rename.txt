@@ -863,3 +863,4 @@ CFameHall::FUN_004acafa -> SeedDefaultEntries -- fills the leaderboard with 9 pl
 CFameHall::FUN_004ac945 -> LoadEntries -- reads the fame leaderboard entries from file
 CFameHall::FUN_004ac706 -> SaveDocuments -- writes documents + play-time stats to file
 CFameHall::FUN_004ac7a2 -> LoadDocuments -- reads documents + play-time stats from file
+CFameHall::FUN_004ac3ce -> AddEntry -- inserts a fame entry keeping score order
