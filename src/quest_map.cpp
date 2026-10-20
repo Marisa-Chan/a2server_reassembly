@@ -154,7 +154,7 @@ int32_t QuestMap::VMethod1(int32_t event_type, int32_t a, int32_t b) {
 		Quest* quest = nullptr;
 		this->quests_map.GetNextAssoc(quest_pos, quest_id, quest);
 
-		if (quest != nullptr && quest->VMethod1(event_type, a, b) != 0) {
+		if (quest != nullptr && quest->OnEvent(event_type, a, b) != 0) {
 			return static_cast<int32_t>(quest_id);
 		}
 	}
