@@ -1094,3 +1094,4 @@ CGameObject::DrawHealthBar arg1 -> tile_x -- view-loop tile coordinate; CStructu
 CGameObject::DrawHealthBar arg2 -> tile_y -- view-loop tile coordinate (y counterpart of tile_x)
 CGameObject::DrawHealthBar arg3 -> hgt -- terrain height_cells[] value passed by the render loop; unused by implementations
 CGameObject::DrawMinimapRect arg1 -> x -- minimap-widget pixel x (visual.cpp passes rc.left + ox)
+CGameObject::DrawMinimapRect arg2 -> y -- minimap-widget pixel y (header done with arg1 commit, bodies here)
