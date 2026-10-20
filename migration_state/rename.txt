@@ -1058,3 +1058,4 @@ MainWindow::FUN_00485969 -> ShowMainRightPanel -- right panel: minimap + order t
 MainWindow::FUN_0047a5e6 -> LoadObjectGfx -- reads graphics\objects\objects.reg and loads the object graphics
 MainWindow::FUN_0047efdf -> LoadStructureGfx -- reads graphics\structures\structures.reg and loads the structures
 MainWindow::FUN_0047e612 -> LoadProjectileGfx -- reads graphics\projectiles\projectiles.reg and loads the projectiles
+MainWindow::FUN_0048df44 -> LoadSavegame -- reads the selected savegame: reg, fame docs, scenario, shortcuts, character info

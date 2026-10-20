@@ -646,7 +646,7 @@ void MainWindow::OnDestroy() {
 
     if ((this->dialogsMask & 1) != 0) {
         this->vis_map_context->FUN_0041d2da(1);
-        this->FUN_0048f6f7();
+        this->UnloadMapAssets();
         this->DestroyServer();
     }
 
@@ -3089,7 +3089,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             }
 
             if ((this->dialogsMask & 1) != 0) {
-                this->FUN_0048f6f7();
+                this->UnloadMapAssets();
             }
             
             g_Server->ProcessPlayers();
@@ -3098,7 +3098,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             this->vis_map_context->FUN_0041d2da(1);
 
             if ((this->dialogsMask & 1) != 0) {
-                this->FUN_0048f6f7();
+                this->UnloadMapAssets();
             }
 
             g_CLlDriver.Close();
@@ -3115,7 +3115,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             this->vis_map_context->CleanupCompletedMissionMapState();
 
             if ((this->dialogsMask & 1) != 0) {
-                this->FUN_0048f6f7();
+                this->UnloadMapAssets();
             }
             
             if (g_Server) {
@@ -3675,7 +3675,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             this->vis_map_context->FUN_0041d2da(1);
 
             if (this->dialogsMask & 1) {
-                this->FUN_0048f6f7();
+                this->UnloadMapAssets();
             }
             
             this->DestroyServer();
@@ -3702,7 +3702,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         if (this->sessionMode == 0) {
             this->vis_map_context->FUN_0041d2da(0);
             if (this->dialogsMask & 1) {
-                this->FUN_0048f6f7();
+                this->UnloadMapAssets();
             }
             PostMessage(0x459, 0, 0);
         }
@@ -4549,7 +4549,7 @@ void MainWindow::LoadSavegame() { //48df44
 
 
 
-void MainWindow::FUN_0048f6f7() { //48f6f7
+void MainWindow::UnloadMapAssets() { //48f6f7
 
     this->vis_map_context->FUN_0041c39c();
     if (g_SoundSettings.music_allowed != 0) {

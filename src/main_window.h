@@ -431,7 +431,7 @@ public:
     void LoadProjectileGfx(); //47e612
     void LoadSavegame(); //48df44
 
-    void FUN_0048f6f7(); //48f6f7
+    void UnloadMapAssets(); //48f6f7
     void FUN_0047ad28(); //47ad28
 
     void FUN_00478130(); //478130 in asm
