@@ -898,3 +898,4 @@ gfx: FUN_0047c6cd -> UnloadUnitGfxFiles -- deletes all UnitGfxFile sprites
 game_app: FUN_00475e7a -> InitCpuAndDistTables -- hardcodes the MMX flag and fills the 21x21 squared-distance table
 game_app: sub_5499A6 -> RollRandomItem -- random item by level and gold budget (weapon/armor/shield/potion roll)
 game_app: sub_5498B8 -> RollItemDataId -- picks a random WorldEquip row that has a material
+game_app: sub_549372 -> RollItemInPriceRange -- creates a random item priced between min and max

@@ -888,7 +888,7 @@ void SrandInit() { //5421e9
 
 // 5421FD
 // Returns rand() / 32767.0 in [0, 1].
-double __cdecl sub_5421FD() {
+double __cdecl Rand01() {
     return (double)rand() / 32767.0;
 }
 
@@ -1033,7 +1033,7 @@ void __stdcall ShowRoleKeyDialog(const char* str) {
 // 5499A6
 // Create a random item (level = min value, max_gold = max value).
 Item* __cdecl RollRandomItem(int32_t level, int32_t max_gold) {
-    double roll = sub_5421FD();
+    double roll = Rand01();
     const char* category;
     if (roll < 0.4) {
         category = "Weapon";
