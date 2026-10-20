@@ -80,7 +80,7 @@ DistortMap::DistortMap(int32_t outer, int32_t inner) {
 	}
 	this->outer = outer;
 	this->inner = inner;
-	this->sub_4AA0AF();
+	this->BuildScaleTable();
 }
 
 // 4aa04f
@@ -100,7 +100,7 @@ void FreeDistortMap() {
 }
 
 // 4aa0af
-void DistortMap::sub_4AA0AF() {
+void DistortMap::BuildScaleTable() {
 	// scale[i] = i / (outer * sin(atan(i / (outer - inner))))
 	double* scale = new double[this->radius];
 	memset(scale, 0, this->radius * 4);

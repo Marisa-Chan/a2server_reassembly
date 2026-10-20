@@ -72,7 +72,7 @@ public:
 public:
 	DistortMap(int32_t outer, int32_t inner); // 4a9f90
 	~DistortMap(); // 4aa04f
-	void sub_4AA0AF(); // 4aa0af
+	void BuildScaleTable(); // 4aa0af
 	void sub_4AA29B(int32_t x, int32_t y); // 4aa29b
 };
 ASSERT_SIZE(DistortMap, 0x10);
