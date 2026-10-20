@@ -2227,13 +2227,13 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
     return 0;
 }
 
-void Server::SignalGameStart(int32_t arg) {
+void Server::SignalGameStart(int32_t start_kind) {
     //4F94C0
     LogMessage("Server::SignalGameStart\n");
     if ((g_ServerConfig.gameType == 1) || (g_ServerConfig.gameType == 2)) {
         g_NetStru1_main.SendTeamState(0);
     }
-    g_NetStru1_main.SendInfoPacket(0xc3, arg, 0, nullptr);
+    g_NetStru1_main.SendInfoPacket(0xc3, start_kind, 0, nullptr);
     this->field59_0x208 = 1;
 }
 
