@@ -580,9 +580,9 @@ void NetStru1::SendSrvStru1State(QuestMap* quest_map, Player* player, int32_t fl
 }
 
 // 51D6B4
-void NetStru1::SendTeamState(uint16_t arg) {
+void NetStru1::SendTeamState(uint16_t to_player_id) {
     PacketData& packet = PacketData::Inst;
-    packet.to_player_id = arg;
+    packet.to_player_id = to_player_id;
     packet.id = 0xC2;
     packet.count = 0x58;
     uint32_t* ptr = reinterpret_cast<uint32_t*>(packet.data);

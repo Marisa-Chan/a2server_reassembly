@@ -1118,3 +1118,4 @@ NetStru1::SendInfoPacket param_1 -> id -- packet id (PacketInfo.id)
 NetStru1::SendInfoPacket param_2 -> value1 -- first PacketInfo param1 payload value
 NetStru1::SendInfoPacket param_3 -> value2 -- second PacketInfo param2 payload value
 NetStru1::SendInfoPacket param_4 -> target -- recipient player (0/broadcast when null)
+NetStru1::SendTeamState arg -> to_player_id -- recipient (0 = broadcast); all current callers pass 0

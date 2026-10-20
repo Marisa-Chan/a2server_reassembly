@@ -144,7 +144,7 @@ public:
     uint32_t GetClientsPktNum(); //518a6b
     int IsActive(); //518ac9
 
-    void SendTeamState(uint16_t arg);
+    void SendTeamState(uint16_t to_player_id);
     void SendInfoPacket(uint8_t id, int32_t value1, int32_t value2, Player* target);
     
     void SendAbilityPacket(Unit* unit, uint8_t angle, uint8_t speed_dir, uint8_t mode);
