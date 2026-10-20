@@ -3134,7 +3134,7 @@ void Server::sub_504a96(Packet* pkt) {
             CheckPacketType(pkt, "PacketItemOperation");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 player->sub_534B59();
-                auto* item = player->main_unit->inventory->sub_552E42(packet_item->slot, 1);
+                auto* item = player->main_unit->inventory->TakeItemAt(packet_item->slot, 1);
                 if (!item || item->_effects.IsEmpty()) {
                     break;
                 }
@@ -3291,7 +3291,7 @@ void Server::sub_504a96(Packet* pkt) {
             if (from_type == 2) {
                 // Pick item from bag.
                 count_before = human->inventory->items.GetSize();
-                item = human->inventory->sub_552E42(packet_cmd->param1, packet_cmd->param3);
+                item = human->inventory->TakeItemAt(packet_cmd->param1, packet_cmd->param3);
                 if (item) {
                     update_mask |= 0x282000;
                     item->field15_0x54 = 0;

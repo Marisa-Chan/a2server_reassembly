@@ -126,7 +126,7 @@ void Inventory::sub_552A42(Inventory* src) {
     }
 
     while (true) {
-        Item* item = src->sub_552E42(0, 1);
+        Item* item = src->TakeItemAt(0, 1);
         if (!item) {
             break;
         }
@@ -172,7 +172,7 @@ Item* Inventory::sub_552C37(uint16_t item_id) {
 }
 
 // 552E42
-Item* Inventory::sub_552E42(int32_t item_number, int32_t count) {
+Item* Inventory::TakeItemAt(int32_t item_number, int32_t count) {
     if (item_number >= this->items.GetCount()) {
         return nullptr;
     }

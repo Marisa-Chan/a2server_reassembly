@@ -18,7 +18,7 @@ public:
 public:
     void PutItemIntoBagAtDefault(Item *item);
     void PutItemIntoBag(int32_t pos, Item *item); // 551fc3
-    Item* sub_552E42(int32_t item_number, int32_t count);
+    Item* TakeItemAt(int32_t item_number, int32_t count);
     void sub_5524FA(int32_t amount, Item* item); // 5524FA - add item to inventory
     void sub_552A42(Inventory* src); // Transfer all items from src into this inventory
     Item* sub_552B6B(uint16_t item_id); // Find item by item_id

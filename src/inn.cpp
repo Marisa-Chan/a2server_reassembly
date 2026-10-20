@@ -1290,7 +1290,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
         Inventory* item_list = nullptr;
         if (this->rewards_per_player.Lookup(player_id, item_list)) {
             int32_t inv_count = item_list->items.GetCount();
-            Item* item = item_list->sub_552E42(id, 0xFFFF);
+            Item* item = item_list->TakeItemAt(id, 0xFFFF);
             if (item != nullptr) {
                 uint16_t item_hash = item->item_id;
                 if (item_hash == 0xFFFD) {

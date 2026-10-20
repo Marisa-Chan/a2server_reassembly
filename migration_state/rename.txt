@@ -827,3 +827,4 @@ ProjectileInfo: FUN_0041f8f0 -> GetSprite -- lazy-init and return the projectile
 ProjectileInfo: FUN_0046f760 -> GetSpriteB -- lazy-init and return the projectile smoothing sprite
 UnitVFXUnfo: FUN_0046f680 -> GetPalette -- returns the indexed face palette (lazy-loaded)
 UnitVFXUnfo: FUN_0046f6e0 -> GetPaletteData -- returns the indexed raw palette data
+Sack: sub_55401E -> CalcContentsValue -- _exp = money + sum of item values

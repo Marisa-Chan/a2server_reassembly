@@ -171,7 +171,7 @@ void CMultiShopInstance::SellItemFor(int32_t amount, Item* item) {
 
 // 546557
 Item* CMultiShopInstance::PickItem(int32_t item_number, int32_t count) {
-    return this->inventory.sub_552E42(item_number, count);
+    return this->inventory.TakeItemAt(item_number, count);
 }
 
 // 546857
