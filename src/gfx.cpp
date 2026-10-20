@@ -4644,7 +4644,7 @@ CSprite16::CSprite16(const char* fname)
 {} //424db8
 
 
-void CSprite16::VMethod9(int32_t x, int32_t y, int frame, uint16_t* pcolor) { //424ddd
+void CSprite16::DrawRle4(int32_t x, int32_t y, int frame, uint16_t* pcolor) { //424ddd
 	SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 	BlitRle4(x, y, frm->width, frm->height, frm->data, pcolor);
 }
@@ -4701,7 +4701,7 @@ void CSpriteFont16::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t alig
 			if (chr1 == 0) {
 				x += this->bitmap->GetHeight() / 2;
 			} else {
-				((CSprite16*)this->bitmap)->VMethod9(x, y, chr1, clr);
+				((CSprite16*)this->bitmap)->DrawRle4(x, y, chr1, clr);
 			}
 
 			x += this->char_widths[chr1] + this->space;

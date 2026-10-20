@@ -407,7 +407,7 @@ public:
 	virtual ~CSprite16() {}; //428950
 	virtual void Dump(CDumpContext& dc) const override {}; //424e2b
 
-	virtual void VMethod9(int32_t x, int32_t y, int frame, uint16_t* pcolor);
+	virtual void DrawRle4(int32_t x, int32_t y, int frame, uint16_t* pcolor);
 
 
 	CSprite16(const char* fname);
