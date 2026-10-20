@@ -5779,7 +5779,7 @@ int32_t SackList::AddSack(Sack* sack) {
 }
 
 // 554460
-int32_t SackList::DumpInventoryAt(TokenPos* pos, Inventory* inventory, int money, int param_5) {
+int32_t SackList::DumpInventoryAt(TokenPos* pos, Inventory* inventory, int money, int force_save) {
     Sack* sack = MapStuff_Instance->GetSackAtPos(pos);
     
     if (!sack) {
@@ -5807,7 +5807,7 @@ int32_t SackList::DumpInventoryAt(TokenPos* pos, Inventory* inventory, int money
     // Update money
     sack->money += money;
     
-    if (sack->needs_save == 0 && param_5 == 0) {
+    if (sack->needs_save == 0 && force_save == 0) {
         sack->needs_save = 0;
     } else {
         sack->needs_save = 1;

@@ -1143,3 +1143,4 @@ Server::UpdateQuestRune arg1 -> team -- 0/1 picks Quest RuneF/RuneA and indexes 
 Server::UpdateQuestRune arg2 -> picked_up -- 1 = rune picked up (remove from sacks), 0 = reset to spawn point
 Server::LoadGame param_1 -> map_name -- map/saved-game name to load
 Server::CheatCommand param_2 -> cheat_string -- align header with definition (cpp already names it cheat_string)
+SackList::DumpInventoryAt param_5 -> force_save -- forces sack->needs_save = 1
