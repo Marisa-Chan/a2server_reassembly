@@ -14,7 +14,7 @@ static const uint16_t warrior_spells[] = { spell::stone_curse, spell::drain_life
 static const uint16_t mage_spells[] = { spell::fire_arrow, spell::lightning, spell::prismatic_spray, spell::stone_curse, spell::drain_life, spell::ice_missile, spell::stone_missile };
 
 // 54C6DD
-void __cdecl sub_54C6DD(CArray<Item*>* arr, Item* item) {
+void __cdecl StackItemInArray(CArray<Item*>* arr, Item* item) {
     for (int32_t i = 0; i < arr->GetSize(); i++) {
         if (item->IsSimpleItem() != 0 && (*arr)[i]->IsSimilar(item)) {
             (*arr)[i]->count += item->count;
@@ -503,7 +503,7 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
         } else {
             item->count = 1;
         }
-        sub_54C6DD(&item_array, item);
+        StackItemInArray(&item_array, item);
     }
 
     sub_54C556(&item_array);
