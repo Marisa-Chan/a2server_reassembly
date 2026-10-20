@@ -1123,3 +1123,4 @@ NetStru1::SendUnitUpdate arg4/param5 -> props_flags -- humanoid-props flags forw
 NetStru1::SendUnitUpdate arg5/param6 -> inv_start_index -- first inventory item index for SendMonsterInventory when mask & 0x200000
 NetStru1::SendUnitUpdate arg6/param7 -> inv_end_index -- exclusive end inventory index for SendMonsterInventory
 NetStru1::SendMonsterInventory param5 -> start_index -- first inventory item index (both 0 = whole inventory)
+NetStru1::SendMonsterInventory param6 -> end_index -- exclusive end inventory item index
