@@ -178,7 +178,7 @@ void DistortMap::sub_4AA29B(int32_t x, int32_t y) {
 }
 
 // 475E7A
-void FUN_00475e7a() {
+void InitCpuAndDistTables() {
 	// In vanilla, here they checked if `CPUID` was available, and if yes --- called it to check if MMX is supported.
 	// We just hardcode the MMX flag to 1, because where would you get a non-MMX CPU nowadays?
 	g_CpuFeatureFlags = 2;
@@ -640,7 +640,7 @@ BOOL GameApp::InitInstance() {
 
 	mwnd->UpdateClipCursor();
 
-	FUN_00475e7a();
+	InitCpuAndDistTables();
 
 	mwnd->m_FameHall.ZeroFactors();
 	mwnd->m_FameHall.SetDifficulty(1);
