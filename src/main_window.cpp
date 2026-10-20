@@ -1833,7 +1833,7 @@ void MainWindow::IdleLoop() {
             // Server mode processing (g_IsServer != 0 means server mode)
             if (g_IsServer != 0 && this->game_tic_counter == 1) {
                 // Process network packets?
-                this->sub_484259();
+                this->ServerTickPump();
                     
                 // Server shutdown notifications (message 0x0D).
                 if (g_ShutdownIn != 0x7FFFFFFF) {
@@ -1975,7 +1975,7 @@ void MainWindow::IdleLoop() {
     }
 }
 
-void MainWindow::sub_484259() { //484259
+void MainWindow::ServerTickPump() { //484259
     if (!g_Server) {
         return;
     }
