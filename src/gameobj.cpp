@@ -413,7 +413,7 @@ void CGameObject::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) { /
 }
 
 
-void CGameObject::DrawMinimapRect(int32_t x, int32_t y, int32_t arg3) { //46f4d0
+void CGameObject::DrawMinimapRect(int32_t x, int32_t y, int32_t zoom) { //46f4d0
 }
 
 
@@ -3112,7 +3112,7 @@ void CUnit::SpawnAttackProjectile() {
 }
 
 // 46761e
-void CUnit::DrawMinimapRect(int32_t x, int32_t y, int32_t arg3) {
+void CUnit::DrawMinimapRect(int32_t x, int32_t y, int32_t zoom) {
     if (this->death_state > 1) {
         return;
     }
@@ -3136,15 +3136,15 @@ void CUnit::DrawMinimapRect(int32_t x, int32_t y, int32_t arg3) {
     }
 
     int32_t size;
-    if (arg3 < 0) {
-        arg3 = 0;
+    if (zoom < 0) {
+        zoom = 0;
         x += ((this->x_pos >> 8) - map->MapMinX()) >> 1;
         y += ((this->y_pos >> 8) - map->MapMinX()) >> 1;
         size = 1;
     } else {
-        x += ((this->x_pos >> 8) - map->MapMinX()) << arg3;
-        y += ((this->y_pos >> 8) - map->MapMinX()) << arg3;
-        size = 1 << arg3;
+        x += ((this->x_pos >> 8) - map->MapMinX()) << zoom;
+        y += ((this->y_pos >> 8) - map->MapMinX()) << zoom;
+        size = 1 << zoom;
     }
 
     uint16_t color = g_Human_palettes[this->map_player->color]->GetPalette(8)[0xa4];
@@ -4027,7 +4027,7 @@ void CStructure::UpdateLight() {
 }
 
 // 46380c
-void CStructure::DrawMinimapRect(int32_t x, int32_t y, int32_t arg3) {
+void CStructure::DrawMinimapRect(int32_t x, int32_t y, int32_t zoom) {
     BigStruct2* map = this->pMapObject;
 
     uint16_t* land = map->field_0x80->GetLandscape();
@@ -4040,16 +4040,16 @@ void CStructure::DrawMinimapRect(int32_t x, int32_t y, int32_t arg3) {
 
     int32_t width;
     int32_t height;
-    if (arg3 < 0) {
+    if (zoom < 0) {
         x += ((this->x_pos >> 8) - map->MapMinX()) >> 1;
         y += ((this->y_pos >> 8) - map->MapMinX()) >> 1;
         width = this->GetTileWidth();
         height = this->GetTileHeight();
     } else {
-        x += ((this->x_pos >> 8) - map->MapMinX()) << arg3;
-        y += ((this->y_pos >> 8) - map->MapMinX()) << arg3;
-        width = this->GetTileWidth() << arg3;
-        height = this->GetTileHeight() << arg3;
+        x += ((this->x_pos >> 8) - map->MapMinX()) << zoom;
+        y += ((this->y_pos >> 8) - map->MapMinX()) << zoom;
+        width = this->GetTileWidth() << zoom;
+        height = this->GetTileHeight() << zoom;
     }
 
     uint16_t color = g_Human_palettes[this->map_player->color]->GetPalette(8)[0xa4];
