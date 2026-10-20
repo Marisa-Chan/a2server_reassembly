@@ -61,7 +61,7 @@ struct ResBase {
     FatEntry* RequireFileEntry(const char* fpath);
     FatEntry* FindEntry(const char* fpath);
 
-    FatInfo* FUN_004e5d55(const char* fpath);
+    FatInfo* GetFatInfo(const char* fpath);
 
     int GetSizedString(const char* fpath, const char* fname, const char* defval, char* out, uint32_t sz);
 

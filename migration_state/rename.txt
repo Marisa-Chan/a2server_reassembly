@@ -844,3 +844,4 @@ ResBase::FUN_004ec438 -> RemoveEntry -- rebuilds the fat without the given node'
 ResBase::FUN_004ec8c6 -> CreateEntry -- TracePath + AppendEntry
 ResBase::FUN_004ea183 -> RecreateEntry -- removes then recreates the entry as an empty file node
 ResBase::FUN_004eca16 -> RequireFileEntry -- TracePath, throws when missing or a directory
+ResBase::FUN_004eca63 -> FindEntry -- TracePath, nullptr when flagged 0x40000010

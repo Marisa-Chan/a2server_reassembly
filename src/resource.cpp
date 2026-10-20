@@ -127,7 +127,7 @@ FatInfo* Resources::FUN_004e646d(const char* fpath) {
     pathStrCpy(fpath, buf);
 
     for (uint32_t i = 0; i < this->res_files.GetSize(); i++) {
-        FatInfo* inf = this->res_files[i]->FUN_004e5d55(buf);
+        FatInfo* inf = this->res_files[i]->GetFatInfo(buf);
         if (inf != nullptr) {
             if (inf != FATINFO_T1) {
                 return inf;
@@ -779,7 +779,7 @@ FatEntry* ResBase::FindEntry(const char* fpath) {
     return node;
 }
 
-FatInfo* ResBase::FUN_004e5d55(const char* fpath) {
+FatInfo* ResBase::GetFatInfo(const char* fpath) {
     //4e5d55
     FatEntry* node = this->FindEntry(fpath);
     if (node == nullptr) {
