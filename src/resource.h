@@ -47,7 +47,7 @@ struct ResBase {
     FatEntry* FindNext(FatEntry* node, const char** fpath);
     FatEntry* TracePath(const char* fpath);
     void GrowFat();
-    void FUN_004ecc05(FatEntry* node);
+    void AccumulateSize(FatEntry* node);
     FatEntry* FUN_004ec7e0(FatEntry** pOldNode, const char* fname);
 
     void FUN_004ec553(FatEntry* newFat, int* pCount, const FatEntry* srcFat, const FatEntry* srcRoot, FatEntry* node, FatEntry* dstRoot);

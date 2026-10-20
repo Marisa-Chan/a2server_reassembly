@@ -836,3 +836,4 @@ Inventory: sub_552C37 -> TakeItemById -- removes and returns the item matching i
 Inventory: sub_5530A2 -> FindItemByName -- finds an item by name or nullptr
 Inventory: sub_55CCE4 -> Serialize -- serialises the inventory
 Group: sub_599F00 -> GetHeadUnit -- returns the first unit (O(1) wrapper; prefer unit_list.GetHead())
+Group: sub_599F20 -> GetNextUnit -- O(N) next-unit lookup; prefer unit_list.GetNext()

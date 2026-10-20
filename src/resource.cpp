@@ -497,7 +497,7 @@ void ResBase::GrowFat() {
     }
 }
 
-void ResBase::FUN_004ecc05(FatEntry* node) {
+void ResBase::AccumulateSize(FatEntry* node) {
     //4ecc05
     static int DAT_006a6a64 = 0;
 
@@ -513,7 +513,7 @@ void ResBase::FUN_004ecc05(FatEntry* node) {
         
         uint32_t cnt = 0;
         while (cnt < node->size) {
-            this->FUN_004ecc05(this->fat_data + node->offset + cnt);
+            this->AccumulateSize(this->fat_data + node->offset + cnt);
 
             if (DAT_006a6a64) {
                 break;
@@ -623,7 +623,7 @@ FatEntry* ResBase::FUN_004ec7e0(FatEntry** pOldNode, const char* fname) {
 
     FatEntry *fndNode = this->Find(*pOldNode, fname);
     if (fndNode != nullptr) {
-        this->FUN_004ecc05(fndNode);
+        this->AccumulateSize(fndNode);
     }
     
     this->fat_size++;
