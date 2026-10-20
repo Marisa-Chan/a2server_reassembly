@@ -1047,3 +1047,4 @@ World::sub_5A8829 -> BeginChase -- cast_action 4: chase the target keeping the g
 World::sub_5A8A55 -> TeleportToSafety -- counts nearby enemies and teleports home when clear
 World::sub_5AAC17 -> AcquireNearestTarget -- scans all units for the nearest one and starts pursuit
 World::sub_5AAEBC -> TickRangedApproach -- cast_action 6: mage ranged-attack approach/stand decision
+World::sub_5A5B49 -> AdvancePatrolStep -- state 11: advance patrol alias

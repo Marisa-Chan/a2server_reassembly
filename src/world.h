@@ -216,7 +216,7 @@ public:
     void AssignNearbyTargets(Group* group); // 5AE2D4
     void JitterGuardRangeWide(Group* group); // 5AE5C0
     void JitterGuardRange(Group* group); // 5AE5F5
-    void sub_5A8778(Unit* unit, uint16_t param); // 5A8778
+    void DoMoveStep(Unit* unit, uint16_t param); // 5A8778
     void sub_5A87A3(Unit* unit, uint16_t param); // 5A87A3
     void BeginChase(Unit* unit, Unit* target, uint8_t range); // 5A8829
     void sub_5A6B48(Unit* unit, Unit* target); // 5A6B48

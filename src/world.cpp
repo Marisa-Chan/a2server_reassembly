@@ -813,7 +813,7 @@ void World::AiAttackBrain(Group* group, uint16_t param) {
             if (unit->position->CompatGetYX() == param && unit->position->IsAtCellCenter()) {
                 this->SetIdleOrRetreat(unit, 1);
             } else {
-                this->sub_5A8778(unit, param);
+                this->DoMoveStep(unit, param);
             }
         }
     }
@@ -3484,7 +3484,7 @@ void World::DoScriptedPatrol(Unit* unit) {
                 nearby = true;
                 if (unit->eye2->field4_0x9 != 0xFF) {
                     uint16_t pos = PosYX{x2, y2}.val;
-                    this->sub_5A8778(unit, pos);
+                    this->DoMoveStep(unit, pos);
                 }
             }
         }
@@ -3513,7 +3513,7 @@ void World::DoScriptedPatrol(Unit* unit) {
 }
 
 // 5A8778
-void World::sub_5A8778(Unit* unit, uint16_t param) {
+void World::DoMoveStep(Unit* unit, uint16_t param) {
     unit->eye2->cast_action = 1;
     unit->eye2->command_to = param;
 }
@@ -3620,7 +3620,7 @@ void World::TickAttackTarget(Unit* unit, Unit* target) {
             if (distance < 2) {
                 uint32_t packed_yyxx = (target->position->GetY() << 24) | (target->position->GetX() << 8);
                 int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, range);
-                this->sub_5A8778(unit, result);
+                this->DoMoveStep(unit, result);
             }
         }
     }
@@ -3641,7 +3641,7 @@ void World::TickFollowTarget(Unit* unit, Unit* target) {
     } else if (distance < 2) {
         uint32_t packed_yyxx = (target->position->GetY() << 24) | (target->position->GetX() << 8);
         int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, range);
-        this->sub_5A8778(unit, result);
+        this->DoMoveStep(unit, result);
     } else {
         this->SetIdleOrRetreat(unit, 0);
     }
@@ -3677,7 +3677,7 @@ void World::DoTeleportHome(Unit* unit) {
     } else {
         uint32_t packed_yyxx = this->ComputeListAvgPos(list);
         int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, 3);
-        this->sub_5A8778(unit, result);
+        this->DoMoveStep(unit, result);
     }
 }
 
@@ -3716,7 +3716,7 @@ void World::TeleportToSafety(Unit* unit) {
                 unit->eye2->field49_0x60 = 1;
                 this->BeginAutobuffCast(unit, unit, spell);
             } else {
-                this->sub_5A8778(unit, result);
+                this->DoMoveStep(unit, result);
             }
         }
     }
@@ -3744,7 +3744,7 @@ void World::TeleportAwayFromEnemies(Unit* unit) {
                 unit->eye2->field49_0x60 = 1;
                 this->BeginAutobuffCast(unit, unit, spell);
             } else {
-                this->sub_5A8778(unit, result);
+                this->DoMoveStep(unit, result);
             }
         }
     }
@@ -3796,7 +3796,7 @@ void World::FleeFromEnemies(Unit* unit) {
     } else {
         uint32_t packed_yyxx = this->ComputeListAvgPos(list);
         int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, 3);
-        this->sub_5A8778(unit, result);
+        this->DoMoveStep(unit, result);
     }
 }
 
@@ -3826,7 +3826,7 @@ void World::DoPatrolTick(Unit* unit) {
             }
         }
         unit->eye2->position2 = pos;
-        this->sub_5A8778(unit, pos);
+        this->DoMoveStep(unit, pos);
     }
 }
 
@@ -3847,7 +3847,7 @@ void World::AdvancePatrol(Unit* unit) {
     uint8_t x1 = unit->position->GetX();
     uint8_t dist = this->field24_0xa50->ChebyshevDistanceXY(x1, y1, x2, y2);
     if (dist >= (unit->scan_range >> 8)) {
-        this->sub_5A8778(unit, unit->eye2->position1.val);
+        this->DoMoveStep(unit, unit->eye2->position1.val);
     }
 
     UnitList* list = this->GetNearbyEnemies(unit, unit->eye2->position1);
@@ -3858,7 +3858,7 @@ void World::AdvancePatrol(Unit* unit) {
         if (current_pos.val == unit->eye2->position1.val) {
             this->SetIdleOrRetreat(unit, 0);
         } else {
-            this->sub_5A8778(unit, unit->eye2->position1.val);
+            this->DoMoveStep(unit, unit->eye2->position1.val);
         }
     }
 }
@@ -3899,14 +3899,14 @@ void World::sub_5A54B8(Unit* unit, uint16_t command_to) {
     if (list != nullptr && list->unit_list.GetCount() != 0) {
         this->sub_5A6B48(unit, list->unit_list.GetHead());
     } else {
-        this->sub_5A8778(unit, command_to);
+        this->DoMoveStep(unit, command_to);
     }
 }
 
 // 5A87A3
 void World::sub_5A87A3(Unit* unit, uint16_t pos_yx) {
     if (pos_yx != unit->position->CompatGetYX()) {
-        this->sub_5A8778(unit, pos_yx);
+        this->DoMoveStep(unit, pos_yx);
     } else {
         unit->eye2->cast_action = 7;
         unit->eye2->command_to = pos_yx;
@@ -3946,7 +3946,7 @@ void World::OrderWalkTo(Unit* unit, uint8_t a, uint8_t b) {
 
 // 5AB5E3
 void World::DoScriptedWalk(Unit* unit) {
-    this->sub_5A8778(unit, 0x4F5B);
+    this->DoMoveStep(unit, 0x4F5B);
     if (unit->position->GetX() > 0x58) {
         this->OrderWalkTo(unit, 0x52, 0x2F);
     }
@@ -3997,7 +3997,7 @@ void World::ProcessUnitState(Unit* unit) {
         unit->some_state = 0;
         break;
     case 1:
-        this->sub_5A8778(unit, unit->eye2->command_to);
+        this->DoMoveStep(unit, unit->eye2->command_to);
         break;
     case 2:
         this->sub_5A87A3(unit, unit->eye2->command_to);
@@ -4115,7 +4115,7 @@ void World::AiMoveBrain(Group* group, uint16_t yx) {
                 unit->eye2->field52_0x6c = 1;
             }
 
-            this->sub_5A8778(unit, unit->eye2->command_to);
+            this->DoMoveStep(unit, unit->eye2->command_to);
 
             if (!this->field24_0xa50->IsCellPassableDynamic(unit, yx) && unit->eye2->command_to == yx) {
                 uint8_t distance = this->field24_0xa50->ChebyshevDistance(yx, unit->position->CompatGetYX());
@@ -4339,7 +4339,7 @@ void World::AiGuardBrain(Group* group) {
             if (unit->position->GetYX() == unit->eye2->position1 && unit->position->IsAtCellCenter()) {
                 this->SetIdleOrRetreat(unit, 1);
             } else {
-                this->sub_5A8778(unit, unit->eye2->position1);
+                this->DoMoveStep(unit, unit->eye2->position1);
             }
         } else {
             this->sub_5A6B48(unit, unit->eye2->unit4);
@@ -4377,10 +4377,10 @@ void World::AiDefendBrain(Group* group) {
         Unit* unit = group->unit_list.GetNext(it);
         int32_t tick16_diff = std::abs(unit->eye2->tick16 - g_Server->tick16);
         if (unit->hp != unit->hp_max && tick16_diff < 30) {
-            this->sub_5A8778(unit, unit->eye2->field69_0x9c);
+            this->DoMoveStep(unit, unit->eye2->field69_0x9c);
         } else {
             if (tick16_diff < 10) {
-                this->sub_5A8778(unit, unit->eye2->field69_0x9c);
+                this->DoMoveStep(unit, unit->eye2->field69_0x9c);
             } else if (unit->eye2->unit4 != nullptr) {
                 this->sub_5A6B48(unit, unit->eye2->unit4);
             } else {
@@ -4390,17 +4390,17 @@ void World::AiDefendBrain(Group* group) {
                         if (unit->position->GetYX() == unit->eye2->position1 && unit->position->IsAtCellCenter()) {
                             this->SetIdleOrRetreat(unit, 1);
                         } else {
-                            this->sub_5A8778(unit, unit->eye2->position1);
+                            this->DoMoveStep(unit, unit->eye2->position1);
                         }
                     } else {
                         unit->eye2->counter3 += 1;
-                        this->sub_5A8778(unit, unit->eye2->field72_0xa0);
+                        this->DoMoveStep(unit, unit->eye2->field72_0xa0);
                         if (unit->eye2->counter3 > 10) {
                             unit->eye2->counter3 = 0;
                         }
                     }
                 } else {
-                    this->sub_5A8778(unit, unit->eye2->field69_0x9c);
+                    this->DoMoveStep(unit, unit->eye2->field69_0x9c);
                 }
             }
         }
