@@ -36,7 +36,7 @@ void QuestInnGlue::ProcessQuests() {
         this->current_quest_key = key;
         this->current_quest = quest;
         switch (quest->Something2()) {
-        case 6:  this->VMethod2(this->current_quest); break;
+        case 6:  this->ProcessEscortTarget(this->current_quest); break;
         case 7:  this->VMethod3(this->current_quest); break;
         case 8:  this->VMethod5(this->current_quest); break;
         case 9:  this->VMethod6(this->current_quest); break;
@@ -47,7 +47,7 @@ void QuestInnGlue::ProcessQuests() {
 }
 
 // 5BA920
-void QuestInnGlue::VMethod2(Quest* quest) {
+void QuestInnGlue::ProcessEscortTarget(Quest* quest) {
     int32_t inn_id = quest->Something3();
     if (quest->field_0x2c == 0) {
         Unit* unit = this->world->field24_0xa50->field69_0xa456c->sub_5560D2(inn_id);

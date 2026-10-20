@@ -19,7 +19,7 @@ class QuestInnGlue : public CObject {
 public: // VTable at 60fde8.
     virtual ~QuestInnGlue();
     virtual void ProcessQuests();
-    virtual void VMethod2(Quest* quest);
+    virtual void ProcessEscortTarget(Quest* quest);
     virtual void VMethod3(Quest* quest);
     virtual void VMethod4(Quest* quest);
     virtual void VMethod5(Quest* quest);
