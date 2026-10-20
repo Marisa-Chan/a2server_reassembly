@@ -28,7 +28,7 @@ public:
 
     Player* FindByTokenId(uint16_t token_id); // GetByTokenID
     int CountCD(); //536092
-    int32_t sub_535F97();  // returns max player_id in list
+    int32_t GetMaxPlayerId();  // returns max player_id in list
     void sub_536286(); // Reset all players' frags to 0
     void sub_55AFB3(CArchive& ar); // Serialize
 

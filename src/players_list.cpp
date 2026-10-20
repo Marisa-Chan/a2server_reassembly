@@ -105,7 +105,7 @@ void PlayersList::sub_536286() {
 
 // Returns max player_id in list.
 // 535F97
-int32_t PlayersList::sub_535F97() {
+int32_t PlayersList::GetMaxPlayerId() {
 	int32_t max_id = 0;
 	for (POSITION it = this->list.GetHeadPosition(); it != nullptr;) {
 		Player* player = this->list.GetNext(it);

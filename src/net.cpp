@@ -419,7 +419,7 @@ void NetStru1::SendVisibilityState(Player* player) {
     PacketTerrain& packet = PacketTerrain::Inst;
     packet.id = 0xB9;
     packet.to_player_id = player->player_id;
-    int32_t count = g_PlayersList->sub_535F97() + 1;
+    int32_t count = g_PlayersList->GetMaxPlayerId() + 1;
     packet.count = count;
     memset(packet.buf, 0, (size_t)count * 2);
 
