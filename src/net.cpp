@@ -4455,24 +4455,24 @@ void NetStru1::SendHatPlayerCheck(int32_t a, int32_t b, uint8_t status, int16_t 
 }
 
 // 51A6D5
-void NetStru1::SendMonsterInventory(Unit* unit, Player* player, int32_t param5, int32_t param6) {
+void NetStru1::SendMonsterInventory(Unit* unit, Player* player, int32_t start_index, int32_t param6) {
     if (unit->typeId < 0x21 || unit->typeId >= 0x40) {
         return;
     }
 
-    if (param5 + param6 == 0) {
-        param5 = 0;
+    if (start_index + param6 == 0) {
+        start_index = 0;
         param6 = unit->inventory->items.GetSize();
     }
 
     PacketUnitStateVec& packet = PacketUnitStateVec::Inst;
     packet.id = 0x76;
-    packet.entry_count = (uint16_t)(param6 - param5);
-    packet.start_index = (uint16_t)param5;
+    packet.entry_count = (uint16_t)(param6 - start_index);
+    packet.start_index = (uint16_t)start_index;
     packet.data_size = 0;
 
     packet.mode = 2;
-    if (param5 != 0 || param6 != unit->inventory->items.GetSize()) {
+    if (start_index != 0 || param6 != unit->inventory->items.GetSize()) {
         packet.mode |= 0x80;
     }
 
@@ -4487,7 +4487,7 @@ void NetStru1::SendMonsterInventory(Unit* unit, Player* player, int32_t param5, 
     POSITION pos = unit->inventory->items.GetHeadPosition();
     while (pos != nullptr) {
         Item* item = unit->inventory->items.GetNext(pos);
-        if (index >= param5 && index < param6) {
+        if (index >= start_index && index < param6) {
             item->StoreToPacket(&packet, 0);
         }
         index++;
