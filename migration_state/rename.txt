@@ -1156,3 +1156,4 @@ CMultiShopTemplate::NotifyOtherInstances param -> shelf_id -- forwarded to SendS
 World::PruneNearbyUnits param1 -> pos_yx -- packed YX position to prune around (align header with definition)
 World::PruneNearbyUnits param2 -> max_distance -- guard range used as the prune radius (align header with definition)
 MapStuff::GetSackAt param_2 -> x -- map cell x passed to PosYX
+MapStuff::GetSackAt param_3 -> y -- map cell y passed to PosYX

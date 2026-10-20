@@ -1704,8 +1704,8 @@ void MapStuff::RemoveSack(Sack* sack) {
 }
 
 // 58E5C7 --- look up sack at map position
-Sack* MapStuff::GetSackAt(uint16_t x, uint16_t param_3) {
-    PosYX yx((uint8_t)x, (uint8_t)param_3);
+Sack* MapStuff::GetSackAt(uint16_t x, uint16_t y) {
+    PosYX yx((uint8_t)x, (uint8_t)y);
     return this->GetSackInCell(yx.val);
 }
 

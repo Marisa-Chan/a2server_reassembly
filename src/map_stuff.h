@@ -194,7 +194,7 @@ public:
     void RelinkAfterLoad(); // Post-load map relink helper
     int CanPlaceSack(class Sack* sack); // Check if sack can be placed on map
     void RemoveSack(class Sack* sack); // Remove a sack token from the map
-    Sack* GetSackAt(uint16_t x, uint16_t param_3); // Look up sack at map position
+    Sack* GetSackAt(uint16_t x, uint16_t y); // Look up sack at map position
     Sack* GetSackAtPos(TokenPos* pos);
     int CanPlaceUnit(Unit* unit); // Check if unit can be placed at current position
     int PlaceUnit(Unit* unit); // Place unit on map at current TokenPos position
