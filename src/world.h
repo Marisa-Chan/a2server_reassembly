@@ -343,7 +343,7 @@ public:
     int32_t WantsRetreat(Unit* unit); // 5A89D5 — helper for ProcessUnitRecall (ASM).
     int32_t MustFlee(Unit* unit); // 5A8BDA — helper for ProcessUnitRecall (ASM).
     void FleeFromEnemies(Unit* unit); // 5A8CD8 — helper for ProcessUnitRecall.
-    void sub_5A8DBC(Unit* unit); // 5A8DBC — helper for FleeFromEnemies (ASM).
+    void TeleportAwayFromEnemies(Unit* unit); // 5A8DBC — helper for FleeFromEnemies (ASM).
     void sub_5A925C(Unit* unit, uint8_t a, uint8_t b); // 5A925C — helper for DoScriptedWalk (ASM).
 
     void sub_5A39AD(Unit* unit, UnitList* list); // 5A39AD — filter UnitList for CastSelfHealOrBuff (ASM).

@@ -3723,7 +3723,7 @@ void World::sub_5A8A55(Unit* unit) {
 }
 
 // 5A8DBC
-void World::sub_5A8DBC(Unit* unit) {
+void World::TeleportAwayFromEnemies(Unit* unit) {
     uint8_t range = (unit->scan_range >> 8) - 1;
     PosYX pos = unit->position->GetYX();
     UnitList* list = this->field24_0xa50->BuildNearbyUnitList(pos, 2);
@@ -3783,7 +3783,7 @@ int32_t World::MustFlee(Unit* unit) {
 void World::FleeFromEnemies(Unit* unit) {
     if (unit->spell_book != nullptr) {
         if (this->GetCastableSpell(unit, spell::teleport, 0) != nullptr) {
-            this->sub_5A8DBC(unit);
+            this->TeleportAwayFromEnemies(unit);
             return;
         }
     }

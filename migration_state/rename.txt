@@ -1036,3 +1036,4 @@ World::sub_5A3791 -> BuildNearbyList -- BuildNearbyUnitList at the unit's eye sc
 World::sub_5A3DC9 -> RemoveAirborneTargets -- drops flying units from the list when the unit is melee-only
 World::sub_5A89D5 -> WantsRetreat -- hp at or below wimpy and allies nearby
 World::sub_5A8BDA -> MustFlee -- hp at or below withdraw and enemies within 2 tiles
+World::sub_5A8CD8 -> FleeFromEnemies -- flee behavior: teleport away if possible else run
