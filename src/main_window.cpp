@@ -419,7 +419,7 @@ const AFX_MSGMAP_ENTRY ServerControlDialog::_messageEntries[] =
     { WM_COMMAND, CN_COMMAND, 0x3f4, 0x3f4, AfxSigCmd_v, (AFX_PMSG)&sub_4954EA},
     { WM_CLOSE, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&OnClose },
     { WM_COMMAND, CN_COMMAND, 0x3ff, 0x3ff, AfxSigCmd_v, (AFX_PMSG)&OnCommand3ff},
-    { WM_COMMAND, CN_COMMAND, 0x3f7, 0x3f7, AfxSigCmd_v, (AFX_PMSG)&sub_4957AD},
+    { WM_COMMAND, CN_COMMAND, 0x3f7, 0x3f7, AfxSigCmd_v, (AFX_PMSG)&OnCommand3f7},
     { WM_COMMAND, CN_COMMAND, 0x3fb, 0x3fb, AfxSigCmd_v, (AFX_PMSG)&sub_4957E2},
     { WM_COMMAND, CN_COMMAND, 0x3fe, 0x3fe, AfxSigCmd_v, (AFX_PMSG)&sub_49583E},
     {0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0 }
@@ -494,7 +494,7 @@ void ServerControlDialog::OnCommand3ff() {
 }
 
 // 4957ad
-void ServerControlDialog::sub_4957AD() {
+void ServerControlDialog::OnCommand3f7() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     g_Server->KickAllPlayers();
     main_wnd->shutdown_pending = 1;

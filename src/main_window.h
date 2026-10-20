@@ -320,7 +320,7 @@ public:
     void sub_4954EA(); // 4954EA
     void OnClose(); // 4956D5 — ON_WM_CLOSE
     void OnCommand3ff(); // 495774 — ON_COMMAND 0x3ff
-    void sub_4957AD(); // 4957AD — ON_COMMAND 0x3f7
+    void OnCommand3f7(); // 4957AD — ON_COMMAND 0x3f7
     void sub_4957E2(); // 4957E2 — ON_COMMAND 0x3fb
     void sub_49583E(); // 49583E — ON_COMMAND 0x3fe
 };
