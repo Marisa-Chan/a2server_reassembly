@@ -340,7 +340,7 @@ ASSERT_SIZE(MapStuff, 0xa4570);
 class File2;
 
 // Reads one length-prefixed record from the scenario file into buf.
-void __cdecl FUN_004a7b3c(char* buf, File2* file); //4a7b3c
+void __cdecl ReadRecord(char* buf, File2* file); //4a7b3c
 
 class Scenario : public CObject {
 public:

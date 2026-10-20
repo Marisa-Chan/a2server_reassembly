@@ -3106,14 +3106,14 @@ bool Scenario::FUN_0044ec40(NetMapInfo* info) {
     file->Open(info->mapid, 0, NULL);
 
     uint8_t line[0x40];
-    FUN_004a7b3c((char*)line, file);
+    ReadRecord((char*)line, file);
     uint32_t version;
     memcpy(&version, line + 0xC, 4);
     uint32_t build;
     memcpy(&build, line + 0x10, 4);
     if (strcmp((char*)line, "M7R") == 0 && version >= 2) {
         while (file->GetPosition() < file->GetLength()) {
-            FUN_004a7b3c((char*)line, file);
+            ReadRecord((char*)line, file);
             uint32_t skip;
             memcpy(&skip, line + 8, 4);
             uint32_t type;
@@ -3169,7 +3169,7 @@ bool Scenario::FUN_0044ec40(NetMapInfo* info) {
 }
 
 // 4a7b3c
-void __cdecl FUN_004a7b3c(char* buf, File2* file) {
+void __cdecl ReadRecord(char* buf, File2* file) {
     uint32_t header[2];
     file->Read(header, 8);
     file->Seek(-8, CFile::current);
