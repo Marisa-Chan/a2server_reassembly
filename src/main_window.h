@@ -406,7 +406,7 @@ public:
 
     void ClearDiplomacyEntries(); //494a9e
 
-    void FUN_00494c91(); //494c91
+    void PlayDefaultMusic(); //494c91
 
     void ShowStartGameSetupForNewSession(); //491b3e
 

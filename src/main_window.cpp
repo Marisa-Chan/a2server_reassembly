@@ -664,7 +664,7 @@ void MainWindow::OnDestroy() {
 }
 
 // 494c91
-void MainWindow::FUN_00494c91() {
+void MainWindow::PlayDefaultMusic() {
     if (g_SoundSettings.music_allowed != 0) {
         CStringArray* plist = new CStringArray();
         plist->Add("music\\B00.wav");
@@ -2274,7 +2274,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         this->vis_map_context->FUN_0041a8cc();
         this->vis_map_context->UpdateSelectionState();
         if (this->sessionMode != 2) {
-            this->FUN_00494c91();
+            this->PlayDefaultMusic();
         }
     } else if (obj == this->vis_1200) {
         this->vis_map_context->RemoveChild(this->vis_1200);
@@ -2309,7 +2309,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
     {}
     else if (obj == this->vis_tav || obj == this->vis_tavdruid || obj == this->vis_tavkaarg) {
         if (this->sessionMode != 2) {
-            this->FUN_00494c91();
+            this->PlayDefaultMusic();
         }
 
         this->dialogsMask &= ~4;
@@ -4154,7 +4154,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
     this->vis_root->VMethod9();
 
     if (this->sessionMode != 3) {
-        this->FUN_00494c91();
+        this->PlayDefaultMusic();
         this->last_event_id = -1;
         this->in_famehall_mission = 0;
         this->mission_failed_reported = 0;
