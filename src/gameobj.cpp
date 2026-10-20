@@ -1922,7 +1922,7 @@ void CUnit::Draw(int32_t arg1, int32_t arg2, int32_t arg3) { // 464974
             palette = g_Human_palettes[0x10];
         } else {
             palette = &tmp_palette;
-            tmp_palette.SetPalette((RGBQUAD*)g_VFX_info[vfx_idx]->FUN_0046f6e0(0), 0x10, 5, 0);
+            tmp_palette.SetPalette((RGBQUAD*)g_VFX_info[vfx_idx]->GetPaletteData(0), 0x10, 5, 0);
         }
     }
 

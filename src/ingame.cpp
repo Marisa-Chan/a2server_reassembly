@@ -3224,7 +3224,7 @@ CGamePalette* UnitVFXUnfo::GetPalette(int32_t idx) { //46f680
     return this->palettes[idx];
 }
 
-uint8_t* UnitVFXUnfo::FUN_0046f6e0(int32_t idx) { //46f6e0
+uint8_t* UnitVFXUnfo::GetPaletteData(int32_t idx) { //46f6e0
     return this->palette_datas[idx];
 }
 

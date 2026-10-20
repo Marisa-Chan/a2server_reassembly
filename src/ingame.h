@@ -65,7 +65,7 @@ public:
 	}
 
 	CGamePalette* GetPalette(int32_t idx); //46f680
-	uint8_t* FUN_0046f6e0(int32_t idx); //46f6e0
+	uint8_t* GetPaletteData(int32_t idx); //46f6e0
 
 public:
 	int32_t ID;
