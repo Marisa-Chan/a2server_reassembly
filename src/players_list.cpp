@@ -118,7 +118,7 @@ int32_t PlayersList::sub_535F97() {
 
 // Find player by exact name match.
 // 535D39
-Player* PlayersList::sub_535D39(CString name) {
+Player* PlayersList::FindByName(CString name) {
 	POSITION it = this->list.GetHeadPosition();
 	Player* player = it ? this->list.GetNext(it) : nullptr;
 	while (player != nullptr) {

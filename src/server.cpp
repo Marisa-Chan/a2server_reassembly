@@ -246,7 +246,7 @@ void Server::ProcessPlayers() {
                     this->EnsurePlayerGroup(player);
                     player->mission_result = 0;
 
-                    Player* self = g_PlayersList->sub_535D39("Self");
+                    Player* self = g_PlayersList->FindByName("Self");
                     if (self != nullptr && (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3)) {
                         for (int32_t i = 2; i < 16; i++) {
                             g_World->diplomacy.diplomacy[i][player->player_id] = g_World->diplomacy.diplomacy[i][self->player_id];
@@ -460,7 +460,7 @@ int Srv1::LoadMap(CString map_name) {
 
     this->CreateUnits(alm);
 
-    Player* self = g_PlayersList->sub_535D39("Self");
+    Player* self = g_PlayersList->FindByName("Self");
     if (self != nullptr && g_Server->field4_0x74 != 0) {
         POSITION pos2 = g_PlayersList->list.GetHeadPosition();
         while (pos2) {
@@ -1555,7 +1555,7 @@ void Server::SendWorldState(Player* player, int32_t bool_arg4) {
             player_nick = player_nick.Mid(pipe_pos + 1);
         }
 
-        Player* found_player = g_PlayersList->sub_535D39(player_nick);
+        Player* found_player = g_PlayersList->FindByName(player_nick);
         if (found_player != nullptr && dword_6CDB3C != nullptr) {
             // Transfer any unit from the original player to the re-connecting player.
             POSITION node = dword_6CDB3C->unit_list.GetHeadPosition();
@@ -1601,7 +1601,7 @@ void Server::SendWorldState(Player* player, int32_t bool_arg4) {
         if (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3) {
             // Diplomacy and vision-mask setup with the "Self" map player.
 
-            Player* self_player = g_PlayersList->sub_535D39("Self");
+            Player* self_player = g_PlayersList->FindByName("Self");
             if (self_player != nullptr) {
                 uint16_t self_id = self_player->player_id;
                 uint16_t player_id = player->player_id;
@@ -1638,8 +1638,8 @@ void Server::SendWorldState(Player* player, int32_t bool_arg4) {
 
     // Softcore (gameType == 2) team-alliance setup.
     if (g_ServerConfig.gameType == 2) {
-        Player* red  = g_PlayersList->sub_535D39("Red");
-        Player* blue = g_PlayersList->sub_535D39("Blue");
+        Player* red  = g_PlayersList->FindByName("Red");
+        Player* blue = g_PlayersList->FindByName("Blue");
 
         uint16_t red_id = red->player_id;
         uint16_t blue_id = blue->player_id;
@@ -2111,7 +2111,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
     player->mission_result = 0;
 
     // Initialize diplomacy.
-    Player* self = g_PlayersList->sub_535D39("Self");
+    Player* self = g_PlayersList->FindByName("Self");
     if (self != nullptr) {
         int16_t partner_id = (int16_t)self->player_id;
         int16_t my_id      = (int16_t)player->player_id;
@@ -2636,7 +2636,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             if (cheat_string.Find("#kick ") == 0) {
                 cheat_string = cheat_string.Mid(6);
                 cheat_string.TrimLeft();
-                Player* target = g_PlayersList->sub_535D39(cheat_string);
+                Player* target = g_PlayersList->FindByName(cheat_string);
                 if (target != nullptr) {
                     NetStru2* tns2 = g_NetStru1_main.GetClientByPlayerID(target->player_id);
                     if (tns2 != nullptr && tns2->is_local_player == 0) {
@@ -2646,7 +2646,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             } else if (cheat_string.Find("#locate ") == 0) {
                 cheat_string = cheat_string.Mid(8);
                 cheat_string.TrimLeft();
-                Player* target = g_PlayersList->sub_535D39(cheat_string);
+                Player* target = g_PlayersList->FindByName(cheat_string);
                 if (target != nullptr && target->is_ai == 0) {
                     NetStru2* tns2 = g_NetStru1_main.GetClientByPlayerID(target->player_id);
                     if (tns2 != nullptr) {
@@ -2846,7 +2846,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
     } else if (cheat_string.Find("#kill ") == 0) {
         cheat_string = cheat_string.Mid(6);
         cheat_string.TrimLeft();
-        Player* target = g_PlayersList->sub_535D39(cheat_string);
+        Player* target = g_PlayersList->FindByName(cheat_string);
         if (target != nullptr) {
             target->sub_5346AC();
             if (target->hat_player_id != 0xF6D04773 || target->flags != 4) {
@@ -4291,7 +4291,7 @@ void Server::JoinErrorSend(NetStru2* client, int32_t arg, const CString& str) {
 Player* Server::Allods2_CreatePlayer(CString name) {
     Player* player = nullptr;
     if (this->field4_0x74 == 0) {
-        player = g_PlayersList->sub_535D39("Self");
+        player = g_PlayersList->FindByName("Self");
     }
 
     bool created = false;
@@ -6131,7 +6131,7 @@ void Server::UpdateMissionResult(Player* player) {
             player->mission_result = 0;
             unit->eye2->spell_id = saved_spell_id;
             if (g_Server->field4_0x74 != 0 && (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3)) {
-                Player* self_player = g_PlayersList->sub_535D39("Self");
+                Player* self_player = g_PlayersList->FindByName("Self");
                 if (self_player != nullptr) {
                     for (int32_t i = 2; i < 16; i++) {
                         g_World->diplomacy.diplomacy[i][player->player_id] = g_World->diplomacy.diplomacy[i][self_player->player_id];
