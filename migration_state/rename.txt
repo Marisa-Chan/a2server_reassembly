@@ -843,3 +843,4 @@ ResBase::FUN_004ec553 -> CopyFatExcluding -- recursive fat copy skipping the rem
 ResBase::FUN_004ec438 -> RemoveEntry -- rebuilds the fat without the given node's subtree
 ResBase::FUN_004ec8c6 -> CreateEntry -- TracePath + AppendEntry
 ResBase::FUN_004ea183 -> RecreateEntry -- removes then recreates the entry as an empty file node
+ResBase::FUN_004eca16 -> RequireFileEntry -- TracePath, throws when missing or a directory

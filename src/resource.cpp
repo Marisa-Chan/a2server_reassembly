@@ -184,7 +184,7 @@ void Resources::FUN_004e6763(CFile* fil) {
 void Resources::FUN_004e6409(const char* fname) {
     //4e6409
     for (int i = 0; i < this->res_files.GetSize(); i++) {
-        FatEntry *fat = this->res_files[i]->FUN_004eca63(fname);
+        FatEntry *fat = this->res_files[i]->FindEntry(fname);
         if (fat) {
             fat->flags |= 0x20000000;
             break;
@@ -768,7 +768,7 @@ FatEntry* ResBase::RequireFileEntry(const char* fpath) {
     return node;
 }
 
-FatEntry* ResBase::FUN_004eca63(const char* fpath) {
+FatEntry* ResBase::FindEntry(const char* fpath) {
     //4eca63
     FatEntry* node = this->TracePath(fpath);
 
@@ -781,7 +781,7 @@ FatEntry* ResBase::FUN_004eca63(const char* fpath) {
 
 FatInfo* ResBase::FUN_004e5d55(const char* fpath) {
     //4e5d55
-    FatEntry* node = this->FUN_004eca63(fpath);
+    FatEntry* node = this->FindEntry(fpath);
     if (node == nullptr) {
         return nullptr;
     }
