@@ -733,3 +733,4 @@ CMultiShopInstance::sub_546557 -> PickItem -- takes count of an item from the in
 CMultiShopInstance::sub_546577 -> MoveItems -- moves items between bag/shop by src/dst type+slot (op dispatch)
 CMultiShopInstance::sub_546537 -> SellItemFor -- queues the item into the instance inventory for the given amount
 CMultiShopInstance::sub_54668B -> ReturnConsignedItems -- puts items the player owns back into their bag
+CMultiShopInstance::sub_5464B6 -> SendShelfState -- 0 = full shop table packet, else shelf update to the owner

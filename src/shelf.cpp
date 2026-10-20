@@ -129,7 +129,7 @@ void CMultiShopInstance::Sell() {
     }
     
     if (any_sold) {
-        this->shop_template->sub_546F18(this, -1);
+        this->shop_template->NotifyOtherInstances(this, -1);
     }
     this->SendShelfState(0);
     this->SendShelfState(-1);
@@ -211,7 +211,7 @@ void CMultiShopInstance::MoveItems(uint8_t src_type, int16_t src_slot, uint8_t d
             this->SendShelfState(src_type - 4);
             return;
         }
-        this->shop_template->sub_546F18(this, src_type - 4);
+        this->shop_template->NotifyOtherInstances(this, src_type - 4);
     }
 
     if (dst_type == 4) {
@@ -221,7 +221,7 @@ void CMultiShopInstance::MoveItems(uint8_t src_type, int16_t src_slot, uint8_t d
     }
 
     if (result != 0) {
-        this->shop_template->sub_546F18(this, -1);
+        this->shop_template->NotifyOtherInstances(this, -1);
     }
 }
 
@@ -243,7 +243,7 @@ void CMultiShopInstance::ReturnConsignedItems() {
     this->inventory.items.RemoveAll();
     this->SendShelfState(0);
     this->SendShelfState(-1);
-    this->shop_template->sub_546F18(this, -1);
+    this->shop_template->NotifyOtherInstances(this, -1);
     g_NetStru1_main.SendUnitUpdate(this->unit, this->unit->pOwner, 0x282000, 0xFFB, 0, 0);
 }
 
@@ -340,7 +340,7 @@ CMultiShopTemplate::~CMultiShopTemplate() {
 }
 
 // 546F18
-void CMultiShopTemplate::sub_546F18(CMultiShopInstance* inst, int param) {
+void CMultiShopTemplate::NotifyOtherInstances(CMultiShopInstance* inst, int param) {
     for (int32_t i = 0; i < this->shop_instances.GetSize(); i++) {
         CMultiShopInstance* other = this->shop_instances[i];
         if (other != nullptr && other != inst) {
