@@ -31,7 +31,7 @@ public:
 
     void SetPowerFromCaster(Unit* unit);
     int IsAreaSpell(uint8_t unused1 = 0, uint8_t unused2 = 0); // Checks if it's area spell (spell target == 2).
-    void SetPower(uint32_t param);
+    void SetPower(uint32_t power);
     int IsUnitSpell(); // Checks if spell_target == 1 (unit-targeted).
     int32_t StartCast(Unit* caster, Unit* target, int8_t x, int8_t y); // Validate and start cast; returns nonzero if accepted
     void ExecuteRaySpell(Unit* caster, Unit* target);

@@ -1169,3 +1169,4 @@ TokenEntry::TokenEntry arg -> id1 -- primary id stored to field_0x4 (matched aga
 CFameHall::SetDifficulty arg -> difficulty -- stored to difficulty field
 CFameHall::AddTextDocument arg -> doc_id -- fame document id compared against GetDocId and passed to SetDocument
 Item::StoreToPacket arg -> with_shelf_id -- when set, appends the shelf field (field11_0x4d) to the packet
+Spell::SetPower param -> power -- spell power value (align header with definition)
