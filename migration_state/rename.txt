@@ -1127,6 +1127,6 @@ NetStru1::SendMonsterInventory param6 -> end_index -- exclusive end inventory it
 NetStru1::SendGameInfo param1 -> game_speed -- game-speed value in PacketDword 0x10 (callers pass g_ServerConfig.game_speed)
 NetStru1::SendGameEvent arg3 -> value2 -- second PacketInfo value (packet.param2); all callers pass 0
 NetStru1::SendHatLobbyInfo arg0 -> player_count -- byte 0 of lobby word; callers pass human player count (-1 on map load)
-NetStru1::SendHatLobbyInfo arg8 -> map_level -- map_level_of_the_map__byte_1_of_lobby_word
-NetStru1::SendHatLobbyInfo argC -> game_type -- g_ServerConfig_gameType__byte_2_of_lobby_word
-NetStru1::SendHatLobbyInfo arg10 -> map_range -- byte_3_of_lobby_word_callers_pass_map_range
+NetStru1::SendHatLobbyInfo arg8 -> map_level -- server MapLevel (byte 1 of the packed lobby word)
+NetStru1::SendHatLobbyInfo argC -> game_type -- g_ServerConfig.gameType (byte 2 of the packed lobby word)
+NetStru1::SendHatLobbyInfo arg10 -> map_range -- map range byte 3 of the packed lobby word
