@@ -3317,7 +3317,7 @@ void CUnit::PlayAttackSound() {
 }
 
 // 4646c1
-void CUnit::InitState(int16_t unit_id, int32_t typeId, int32_t x_pos, int32_t y_pos, int32_t z_pos, MapPlayerData* arg6, int32_t arg7, int32_t arg8, int16_t arg9, int16_t arg10) {
+void CUnit::InitState(int16_t unit_id, int32_t typeId, int32_t x_pos, int32_t y_pos, int32_t z_pos, MapPlayerData* map_player, int32_t arg7, int32_t arg8, int16_t arg9, int16_t arg10) {
     this->unit_id = unit_id;
     this->x_pos = x_pos;
     this->y_pos = y_pos;
@@ -3330,7 +3330,7 @@ void CUnit::InitState(int16_t unit_id, int32_t typeId, int32_t x_pos, int32_t y_
     this->hp = arg10;
     this->typeId = typeId;
     this->face = this->typeId;
-    this->map_player = arg6;
+    this->map_player = map_player;
     this->unitFlags = 0;
 }
 
