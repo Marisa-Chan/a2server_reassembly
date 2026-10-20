@@ -3302,7 +3302,7 @@ void Server::sub_504a96(Packet* pkt) {
                 if (!shop) {
                     break;
                 }
-                item = shop->sub_5446C7(human, packet_cmd->param1, packet_cmd->param3);
+                item = shop->BuyItem(human, packet_cmd->param1, packet_cmd->param3);
             } else if (from_type == 1) {
                 // Unequip item from body slot.
                 if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {

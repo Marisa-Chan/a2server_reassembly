@@ -59,7 +59,7 @@ void Shop::RegenTick() {
 }
 
 // 5446C7
-Item* Shop::sub_5446C7(Humanoid* humanoid, int16_t src_slot, int32_t count) {
+Item* Shop::BuyItem(Humanoid* humanoid, int16_t src_slot, int32_t count) {
     return this->shop_template->BuyItem(humanoid, src_slot, count);
 }
 
