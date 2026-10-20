@@ -591,7 +591,7 @@ void Srv1::CreateBuildings(MapAlm* alm) {
 
         // Set building ID and add to list
         building->TokenID = bd->building_id;
-        this->srv_stru->building_list->sub_558228(building);
+        this->srv_stru->building_list->AddBuilding(building);
 
         // For Inns, create QuestInnGlue
         if (building->IsKindOf(RUNTIME_CLASS(Inn))) {
@@ -705,7 +705,7 @@ void Srv1::SpawnGroupOutpost(Group* group, MapAlm* alm) {
         }
     }
 
-    this->srv_stru->building_list->sub_558228(outpost);
+    this->srv_stru->building_list->AddBuilding(outpost);
     g_World->PlaceRespawnedGroup(group, 0);
 
     if (outpost->script_id >= 0) {

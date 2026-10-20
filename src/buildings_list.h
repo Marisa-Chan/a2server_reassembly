@@ -19,7 +19,7 @@ public:
     Building* FindNearbyExact(TokenPos* pos); // Get nearest building at position
     Building* FindClosest(TokenPos* pos); // Find nearest building to position
     Building* FindPlayerInn(Player* player); // Find inn owned by given player
-    void sub_558228(Building* building); // AddTailAndSetID
+    void AddBuilding(Building* building); // AddTailAndSetID
     void sub_558908(CArchive& ar); // Serialize
 
     void RegenTick(); //55817b

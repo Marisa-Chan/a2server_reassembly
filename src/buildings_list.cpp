@@ -67,7 +67,7 @@ Building* BuildingsList::FindClosest(TokenPos* pos) {
 }
 
 // 558228
-void BuildingsList::sub_558228(Building* building) {
+void BuildingsList::AddBuilding(Building* building) {
 	this->AddTail(building);
 	building->building_id = building->TokenID + 0x6000;
 }
