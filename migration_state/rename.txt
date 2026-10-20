@@ -1032,3 +1032,4 @@ World::sub_5B6F40 -> RandomScaled -- RandInt() * multiplier / 0x8000
 World::sub_5B6F60 -> RandomRange -- uniform integer in [min, max]
 World::sub_5A3AD6 -> SplitTargetLists -- populates the attack/non-attack target lists for the unit from pList
 World::sub_5A6ED9 -> ShouldPursueTarget -- target-pursuit check for AI mages
+World::sub_5A3791 -> BuildNearbyList -- BuildNearbyUnitList at the unit's eye scan range

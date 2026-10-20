@@ -3228,7 +3228,7 @@ void World::PruneUnconsciousTargets() {
 // Filter a UnitList by movement type for short-range units.
 // Removes units whose movement type is 3 (flyers?) when `unit` has a max range below 2.
 // 5A3DC9
-void World::sub_5A3DC9(Unit* unit, UnitList* list) {
+void World::RemoveAirborneTargets(Unit* unit, UnitList* list) {
     if (list == nullptr) {
         return;
     }
@@ -3889,7 +3889,7 @@ UnitList* World::BuildNearbyList(Unit* unit) {
 UnitList* World::GetNearbyUnits(Unit* unit) {
     UnitList* list = this->BuildNearbyList(unit);
     this->FilterByRelation(unit, list, 0);
-    this->sub_5A3DC9(unit, list);
+    this->RemoveAirborneTargets(unit, list);
     return list;
 }
 
