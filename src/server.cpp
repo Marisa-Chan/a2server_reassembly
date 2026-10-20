@@ -4360,7 +4360,7 @@ void Server::HatKeepaliveTick() {
         this->field64_0x21c = tick_count;
 
         if (g_PlayersList->CountHumanPlayers() == 0 || g_ServerConfig.gameType != 0) {
-            NetStru1::HatConnector.sub_51E1C7(0);
+            NetStru1::HatConnector.SendHatKeepalive(0);
         } else {
             Player* player = nullptr;
             do {

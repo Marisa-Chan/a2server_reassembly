@@ -4382,7 +4382,7 @@ void NetStru1::SendHatMessage(int32_t param1, int32_t param2, CString name, void
 }
 
 // 51E1C7
-void NetStru1::sub_51E1C7(uint16_t player_id) {
+void NetStru1::SendHatKeepalive(uint16_t player_id) {
     PacketData& packet = PacketData::Inst;
     packet.to_player_id = player_id;
     packet.id = 0xE0;
