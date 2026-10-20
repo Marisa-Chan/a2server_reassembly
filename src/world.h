@@ -212,7 +212,7 @@ public:
     void ScanNearbyUnits(Group* group); // 5ADB16
     int32_t GetTargetScore(Unit* unit, Unit* target); // 5AD2C1
     void AssignBestTargets(Group* group); // 5AE471
-    void PruneNearbyUnits(uint16_t param1, uint8_t param2); // 5A3D12
+    void PruneNearbyUnits(uint16_t pos_yx, uint8_t param2); // 5A3D12
     void AssignNearbyTargets(Group* group); // 5AE2D4
     void JitterGuardRangeWide(Group* group); // 5AE5C0
     void JitterGuardRange(Group* group); // 5AE5F5
