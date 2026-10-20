@@ -52,12 +52,12 @@ void QuestMap::sub_55DE84() {
 
 // 55E00C
 void QuestMap::ProcessDeferredEvents() {
-	this->sub_55E027();
+	this->ProcessInnGlues();
 	this->sub_55DE84();
 }
 
 // 55E027
-void QuestMap::sub_55E027() {
+void QuestMap::ProcessInnGlues() {
 	this->assoc = this->glues_map.GetStartPosition();
 	while (this->assoc != nullptr) {
 		uint32_t building_id = 0;
