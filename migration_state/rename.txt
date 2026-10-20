@@ -1158,3 +1158,4 @@ World::PruneNearbyUnits param2 -> max_distance -- guard range used as the prune 
 MapStuff::GetSackAt param_2 -> x -- map cell x passed to PosYX
 MapStuff::GetSackAt param_3 -> y -- map cell y passed to PosYX
 MapStuff::ClampPosToMap param_3 -> range -- movement range in tiles, << 8 into position units (align header with definition)
+Effect::ApplyStatDelta param_3/param -> stack_delta -- effect stack count multiplier (callers pass +1 apply / -1 remove)

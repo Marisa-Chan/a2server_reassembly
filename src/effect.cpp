@@ -240,12 +240,12 @@ void Effect::RemoveFromUnit(Unit* unit) {
 }
 
 // 53FA2B
-void Effect::ApplyStatDelta(Unit* unit, int32_t param_3) {
+void Effect::ApplyStatDelta(Unit* unit, int32_t stack_delta) {
     int32_t value;
     if (this->usage_type & 7) {
-        value = param_3 * this->spell_or_damage;
+        value = stack_delta * this->spell_or_damage;
     } else {
-        value = param_3 * this->full_magic_value;
+        value = stack_delta * this->full_magic_value;
     }
 
     int32_t new_value;
