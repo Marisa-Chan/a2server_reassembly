@@ -5733,7 +5733,7 @@ void SrvStru1::ProcessTick() {
         }
     }
     this->effects_list->ProcessTick();
-    this->units_list->sub_5561A1();
+    this->units_list->SendVisibilityUpdates();
 }
 
 SrvStru1::SrvStru1() { //4fa89c

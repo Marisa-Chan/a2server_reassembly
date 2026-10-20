@@ -289,7 +289,7 @@ void UnitList::ProcessTick() {
 }
 
 // 5561A1
-void UnitList::sub_5561A1() {
+void UnitList::SendVisibilityUpdates() {
 	POSITION it = this->unit_list.GetHeadPosition();
 	while (it != NULL) {
 		Unit* unit = this->unit_list.GetNext(it);
