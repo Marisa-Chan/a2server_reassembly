@@ -530,7 +530,7 @@ void CMultiShopTemplate::sub_5479C6(Humanoid* humanoid) {
 }
 
 // 547DD4
-void CMultiShopTemplate::sub_547DD4() {
+void CMultiShopTemplate::RefreshTick() {
     if (g_Server->field4_0x74 == 0) {
         return;
     }

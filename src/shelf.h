@@ -58,7 +58,7 @@ public:
     void ClearShelves(); // 54749F - clear all shelf items
     Item* sub_547C5A(Humanoid* humanoid, int16_t src_slot, int32_t count); // 547C5A
     void sub_547CB9(Humanoid* humanoid, uint8_t op_type, int16_t src_slot, uint8_t dst_type, int16_t dst_word, int32_t count); // 547CB9
-    void sub_547DD4(); // 547DD4
+    void RefreshTick(); // 547DD4
     int sub_547E91(); // 547E91 - refresh assortment if no live instances
     CMultiShopInstance* sub_547468(Humanoid* humanoid); // 547468 - find shop instance for player's unit
     void sub_5479C6(Humanoid* humanoid); // 5479C6
