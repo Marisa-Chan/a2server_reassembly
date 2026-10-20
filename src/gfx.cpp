@@ -2159,7 +2159,7 @@ void __cdecl sub_457C5D(int32_t l, int32_t t, int32_t r, int32_t b, int32_t brig
 }
 
 // 4586fe
-void __cdecl sub_4586FE(int32_t x, int32_t y, int32_t r, int32_t g, int32_t b, int32_t alpha) {
+void __cdecl PlotPixelBlend(int32_t x, int32_t y, int32_t r, int32_t g, int32_t b, int32_t alpha) {
 	if (x < g_clipRect.left || x >= g_clipRect.right || y < g_clipRect.top || y >= g_clipRect.bottom) {
 		return;
 	}
@@ -2184,19 +2184,19 @@ void __cdecl sub_4586FE(int32_t x, int32_t y, int32_t r, int32_t g, int32_t b, i
 
 // 4588EC
 void __cdecl sub_4588EC(int32_t x, int32_t y, int32_t r, int32_t g, int32_t b, int32_t alpha) {
-	sub_4586FE(x, y, r, g, b, alpha);
-	sub_4586FE(x + 1, y, r, g, b, alpha * 3 / 4);
-	sub_4586FE(x, y + 1, r, g, b, alpha * 3 / 4);
-	sub_4586FE(x - 1, y, r, g, b, alpha * 3 / 4);
-	sub_4586FE(x, y - 1, r, g, b, alpha * 3 / 4);
-	sub_4586FE(x + 2, y, r, g, b, alpha / 2);
-	sub_4586FE(x, y + 2, r, g, b, alpha / 2);
-	sub_4586FE(x - 2, y, r, g, b, alpha / 2);
-	sub_4586FE(x, y - 2, r, g, b, alpha / 2);
-	sub_4586FE(x + 1, y + 1, r, g, b, alpha / 4);
-	sub_4586FE(x - 1, y + 1, r, g, b, alpha / 4);
-	sub_4586FE(x + 1, y - 1, r, g, b, alpha / 4);
-	sub_4586FE(x - 1, y - 1, r, g, b, alpha / 4);
+	PlotPixelBlend(x, y, r, g, b, alpha);
+	PlotPixelBlend(x + 1, y, r, g, b, alpha * 3 / 4);
+	PlotPixelBlend(x, y + 1, r, g, b, alpha * 3 / 4);
+	PlotPixelBlend(x - 1, y, r, g, b, alpha * 3 / 4);
+	PlotPixelBlend(x, y - 1, r, g, b, alpha * 3 / 4);
+	PlotPixelBlend(x + 2, y, r, g, b, alpha / 2);
+	PlotPixelBlend(x, y + 2, r, g, b, alpha / 2);
+	PlotPixelBlend(x - 2, y, r, g, b, alpha / 2);
+	PlotPixelBlend(x, y - 2, r, g, b, alpha / 2);
+	PlotPixelBlend(x + 1, y + 1, r, g, b, alpha / 4);
+	PlotPixelBlend(x - 1, y + 1, r, g, b, alpha / 4);
+	PlotPixelBlend(x + 1, y - 1, r, g, b, alpha / 4);
+	PlotPixelBlend(x - 1, y - 1, r, g, b, alpha / 4);
 }
 
 void __cdecl FillRectColor(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr) {
