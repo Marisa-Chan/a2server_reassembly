@@ -363,7 +363,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 			CUnit* u = this->GetUnit_3f6c();
 			if (u) {
-				wnd->m_GameSession.FUN_004946e0();
+				wnd->m_GameSession.AutosaveCharacter();
 				if (u->tokenEntries.GetSize()) {
 					TokenEntry* gitem = u->tokenEntries[u->tokenEntries.GetUpperBound()];
 					if (gitem->IsEmpty()) {
@@ -808,7 +808,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 									wnd->m_GameSession.FUN_004946ae();
 								}
 							} else {
-								wnd->m_GameSession.FUN_004946e0();
+								wnd->m_GameSession.AutosaveCharacter();
 							}
 						}
 

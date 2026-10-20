@@ -936,7 +936,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
             if (this->dialogsMask == 1) {
                 this->PostMessage(0x416, 0, 0);
                 if (this->sessionMode != 2) {
-                    this->m_GameSession.FUN_004946e0();
+                    this->m_GameSession.AutosaveCharacter();
                 }
             } else if (this->dialogsMask == 0) {
                 if (!this->field_0x3e0.field_08.IsEmpty()) {
@@ -5835,7 +5835,7 @@ void CGameSession::FUN_0049381c(char* name) { //49381c
     WritePlayerFile_4F53EA(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], &info, nullptr, nullptr, nullptr, nullptr, nullptr, 0);
 }
 
-void CGameSession::FUN_004946e0() { //4946e0
+void CGameSession::AutosaveCharacter() { //4946e0
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
     if (mwnd->sessionMode == 2) {
         return;
@@ -5948,7 +5948,7 @@ CString CGameSession::GetSelectedRosterPath() { //420070
 void CGameSession::FUN_004946ae() { //4946ae
     DWORD tick = GetTickCount();
     if (15000 < tick - this->last_autosave_tick) {
-        this->FUN_004946e0();
+        this->AutosaveCharacter();
     }
 }
 

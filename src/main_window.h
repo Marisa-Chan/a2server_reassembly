@@ -156,7 +156,7 @@ public:
     int32_t GetStringArray1Size(); //438d10
     void DeleteSelectedCharacter(); //493cd8
     void LoadCharacterRosterEntry(int32_t idx);  //492c66
-    void FUN_004946e0(); //4946e0
+    void AutosaveCharacter(); //4946e0
     void FUN_004946ae(); //4946ae
 
     CString GetSelectedRosterPath(); //420070

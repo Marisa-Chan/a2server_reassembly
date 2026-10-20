@@ -867,3 +867,4 @@ CFameHall::FUN_004ac3ce -> AddEntry -- inserts a fame entry keeping score order
 CFameHall::FUN_00420050 -> AddDifficultyPoint -- m_nDifficultyWeight++
 CGameSession::FUN_00420070 -> GetSelectedRosterPath -- path of the selected roster character file
 CGameSession::FUN_00493cd8 -> DeleteSelectedCharacter -- deletes the selected roster character file and reloads the previous
+CGameSession::FUN_00494982 -> SaveKillStats -- writes the player file carrying the session kill stats
