@@ -168,7 +168,7 @@ void __cdecl FillRectColorSimple(int32_t l, int32_t t, int32_t r, int32_t b, uin
 void __cdecl FillRectClipped(int32_t l, int32_t t, int32_t r, int32_t b, uint16_t clr); //457aa6
 void __cdecl ShadowRect(CRect rect, int shadow); //457b6f
 
-void __cdecl sub_457C5D(int32_t l, int32_t t, int32_t r, int32_t b, int32_t brightness); //457c5d in asm
+void __cdecl FillRectBrightness(int32_t l, int32_t t, int32_t r, int32_t b, int32_t brightness); //457c5d in asm
 void __cdecl PlotPixelBlend(int32_t x, int32_t y, int32_t r, int32_t g, int32_t b, int32_t alpha); //4586fe in asm
 void __cdecl PlotGlowDot(int32_t x, int32_t y, int32_t r, int32_t g, int32_t b, int32_t alpha); //4588ec
 

@@ -4323,7 +4323,7 @@ void VisQuestStatus::VMethod7() {
         );
 
         if (is_shown) {
-            sub_457C5D(col_x + 0x16, row_y - 2, col_x + this->rect.Width() - 0x46, row_y + 0x18, 4);
+            FillRectBrightness(col_x + 0x16, row_y - 2, col_x + this->rect.Width() - 0x46, row_y + 0x18, 4);
         }
 
         CString unit_name;
@@ -14632,7 +14632,7 @@ void VisTavScene::FUN_0049bc23() {
         CPoint pt = this->field_0x180[row * 3 + col].TopLeft();
         g_bmp_backinv->VMethod2(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
         if (this->vis_tav->quest_id == i) {
-            sub_457C5D(tav_topleft.x + pt.x, tav_topleft.y + pt.y, tav_topleft.x + pt.x + 0x50, tav_topleft.y + pt.y + 0x50, 2);
+            FillRectBrightness(tav_topleft.x + pt.x, tav_topleft.y + pt.y, tav_topleft.x + pt.x + 0x50, tav_topleft.y + pt.y + 0x50, 2);
         }
         if (this->field_0x210.GetSize() <= i) {
             this->field_0x210.SetSize(i + 1, -1);
@@ -23161,7 +23161,7 @@ void VisSpellBook::VMethod7() {
         && ((mc->field_0x148 | mc->field_0x150) & (1 << (this->pressed & 0x1F))) != 0) {
         int32_t bx = (this->pressed % 0xC) * 0x26 + 6;
         int32_t by = (this->pressed / 0xC) * 0x26 + 6;
-        sub_457C5D(left + rc.left + bx, rc.top + by,
+        FillRectBrightness(left + rc.left + bx, rc.top + by,
             left + rc.left + 0x24 + bx, rc.top + 0x24 + by, 4);
     }
     for (int32_t i = 0; i < 0x18; i++) {

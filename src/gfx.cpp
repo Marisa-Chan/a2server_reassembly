@@ -2119,7 +2119,7 @@ void __cdecl FillRectClipped(int32_t l, int32_t t, int32_t r, int32_t b, uint16_
 }
 
 // 457c5d
-void __cdecl sub_457C5D(int32_t l, int32_t t, int32_t r, int32_t b, int32_t brightness) {
+void __cdecl FillRectBrightness(int32_t l, int32_t t, int32_t r, int32_t b, int32_t brightness) {
 	uint16_t add = (uint16_t)(((((brightness << 4) - 1) >> (8 - g_RBits)) << g_RBitShift) |
 	                          ((((brightness << 4) - 1) >> (8 - g_GBits)) << g_GBitShift) |
 	                          ((((brightness << 4) - 1) >> (8 - g_BBits)) << g_BBitShift));
