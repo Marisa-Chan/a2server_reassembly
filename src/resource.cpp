@@ -732,7 +732,7 @@ void ResBase::ReadFromFile(CFile* cfile, int32_t offset) {
     }
 }
 
-FatEntry* ResBase::FUN_004ec8c6(const char* fpath, const char* fname) {
+FatEntry* ResBase::CreateEntry(const char* fpath, const char* fname) {
     //4ec8c6
     FatEntry* pathNode = this->TracePath(fpath);
     return this->AppendEntry(&pathNode, fname);
@@ -747,7 +747,7 @@ FatEntry* ResBase::FUN_004ea183(const char* fpath, const char* fname) {
 
     this->RemoveEntry(pathNode);
 
-    FatEntry* node = this->FUN_004ec8c6(fpath, fname);
+    FatEntry* node = this->CreateEntry(fpath, fname);
     node->offset = this->fat_size;
     node->size = 0;
     node->flags = 1;
