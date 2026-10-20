@@ -524,7 +524,7 @@ void World::ScanNearbyUnits(Group* group) {
 // 5AEF66
 void World::AiAggroBrain(Group* group) {
     this->ScanNearbyUnits(group);
-    this->sub_5AE471(group);
+    this->AssignBestTargets(group);
     POSITION it = group->unit_list.GetHeadPosition();
     while (it != nullptr) {
         Unit* unit = group->unit_list.GetNext(it);
@@ -4227,7 +4227,7 @@ int32_t World::GetTargetScore(Unit* unit, Unit* target) {
 }
 
 // 5AE471
-void World::sub_5AE471(Group* group) {
+void World::AssignBestTargets(Group* group) {
     if (group->unit_list.GetCount() == 0 || this->field26_0xa64.unit_list.GetCount() == 0) {
         for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
             Unit* unit = group->unit_list.GetNext(it);

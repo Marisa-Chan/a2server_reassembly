@@ -1024,3 +1024,4 @@ World::sub_5ABCFD -> RunUnitAi -- group order 0: per-unit state machine step
 World::sub_5A5188 -> RunAiUnitState -- AI-side wrapper of ProcessUnitState
 World::sub_5AB35B -> DoScriptedPatrol -- state 24: scenario-scripted patrol (waypoint table, typeId 0x18 hero case)
 World::sub_5AB5E3 -> DoScriptedWalk -- state 25: scenario-scripted walk to hardcoded positions
+World::sub_5AD2C1 -> GetTargetScore -- attack-decision cost of engaging target (lower = better; used to pick targets)
