@@ -24,7 +24,7 @@ public: // VTable at 60fde8.
     virtual void ProcessInterceptGroup(Quest* quest);
     virtual void SpawnZombieMobs(Quest* quest);
     virtual void SpawnSkeletonMobs(Quest* quest);
-    virtual void VMethod7(Quest* quest);
+    virtual void SpawnGhostMobs(Quest* quest);
     virtual uint8_t VMethod8();
     virtual uint8_t VMethod9();
 

@@ -800,3 +800,4 @@ QuestInnGlue::VMethod2 -> ProcessEscortTarget -- escort/mail/intercept-unit fami
 QuestInnGlue::VMethod3 -> ProcessDeliverItem -- scans players for the item to deliver
 QuestInnGlue::VMethod4 -> ProcessInterceptGroup -- binds the group to intercept
 QuestInnGlue::VMethod5 -> SpawnZombieMobs -- spawns the zombie (0x52) quest mobs around the target player
+QuestInnGlue::VMethod6 -> SpawnSkeletonMobs -- spawns the skeleton (0x59) quest mobs

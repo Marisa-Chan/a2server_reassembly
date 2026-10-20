@@ -40,7 +40,7 @@ void QuestInnGlue::ProcessQuests() {
         case 7:  this->ProcessDeliverItem(this->current_quest); break;
         case 8:  this->SpawnZombieMobs(this->current_quest); break;
         case 9:  this->SpawnSkeletonMobs(this->current_quest); break;
-        case 10: this->VMethod7(this->current_quest); break;
+        case 10: this->SpawnGhostMobs(this->current_quest); break;
         case 11: this->ProcessInterceptGroup(this->current_quest); break;
         }
     }
@@ -258,7 +258,7 @@ void QuestInnGlue::SpawnSkeletonMobs(Quest* quest) {
 }
 
 // 5BB10A
-void QuestInnGlue::VMethod7(Quest* quest) {
+void QuestInnGlue::SpawnGhostMobs(Quest* quest) {
     const uint16_t mob_type_id = 0x45; // Ghost
 
     int32_t player_id = quest->Something3() & 0xFFFF;
