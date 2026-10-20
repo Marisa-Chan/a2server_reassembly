@@ -195,16 +195,16 @@ void ShopAssortment::GenerateAssortment(AssortGenParams* params) {
     this->max_cost = params->max_cost;
     this->flags = params->flags;
     if ((this->flags & 0x400000) != 0) {
-        this->sub_54ACCB(&g_GameDataRes.weapons, (this->flags & 0xF23FFFFF) | 0x400000);
+        this->AddItemsFlags(&g_GameDataRes.weapons, (this->flags & 0xF23FFFFF) | 0x400000);
     }
     if ((this->flags & 0x8000000) != 0) {
-        this->sub_54ACCB(&g_GameDataRes.weapons, (this->flags & 0xF23FFFFF) | 0x8000000);
+        this->AddItemsFlags(&g_GameDataRes.weapons, (this->flags & 0xF23FFFFF) | 0x8000000);
     }
     if ((this->flags & 0x1000000) != 0) {
-        this->sub_54ACCB(&g_GameDataRes.armors, (this->flags & 0xF23FFFFF) | 0x1000000);
+        this->AddItemsFlags(&g_GameDataRes.armors, (this->flags & 0xF23FFFFF) | 0x1000000);
     }
     if ((this->flags & 0x800000) != 0) {
-        this->sub_54ACCB(&g_GameDataRes.shields, (this->flags & 0xF23FFFFF) | 0x800000);
+        this->AddItemsFlags(&g_GameDataRes.shields, (this->flags & 0xF23FFFFF) | 0x800000);
     }
     if ((this->flags & 0x4000000) != 0) {
         this->sub_54AF21(&g_GameDataRes.magic_items);
@@ -230,7 +230,7 @@ void ShopAssortment::Reset() {
 }
 
 // 54ACCB
-void ShopAssortment::sub_54ACCB(CArray<WorldEquip>* items, uint32_t flags) {
+void ShopAssortment::AddItemsFlags(CArray<WorldEquip>* items, uint32_t flags) {
     uint32_t is_magic = (flags & 0x20000000) != 0;
     uint32_t material_flags = flags & 0x7FFF;
     uint32_t shape_flags = (flags & 0x3F8000) >> 0xF;
