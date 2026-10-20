@@ -3831,7 +3831,7 @@ void World::DoPatrolTick(Unit* unit) {
 }
 
 // 5A5B49
-void World::sub_5A5B49(Unit* unit) {
+void World::AdvancePatrolStep(Unit* unit) {
     this->AdvancePatrol(unit);
 }
 
@@ -4015,7 +4015,7 @@ void World::ProcessUnitState(Unit* unit) {
         this->DoPatrolTick(unit);
         break;
     case 11:
-        this->sub_5A5B49(unit);
+        this->AdvancePatrolStep(unit);
         break;
     case 12:
         this->DoGuardScan(unit);
