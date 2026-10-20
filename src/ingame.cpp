@@ -3155,7 +3155,7 @@ void GfxFile::Deinit() { //47b0ab
 	}
 }
 
-CSprite256* GfxFile::sub_41F870() { //41f870
+CSprite256* GfxFile::GetSprite() { //41f870
     if (this->inited == 0) {
         this->Init();
     }
@@ -5558,7 +5558,7 @@ void BigStruct2::sub_406F7B() {
 					if (g_Animation == 0) {
 						frame = 0;
 					}
-					CSprite256* spr = g_GfxFiles[file]->sub_41F870();
+					CSprite256* spr = g_GfxFiles[file]->GetSprite();
 					int32_t yoff = (int32_t)(tan(this->field_0x80->GetRenderSunAngle()) *
 						(double)((spr->GetHeight(frame) / 2 + gobj->height / 2) - gobj->center_y));
 					int32_t cx = (gobj->center_x - gobj->width / 2) + spr->GetWidth(0) / 2;
@@ -5977,10 +5977,10 @@ int32_t BigStruct2::sub_40B173(int32_t gfx_id, int32_t x, int32_t y, int32_t hei
 	if (max_tx > this->view_tiles_x) {
 		max_tx = this->view_tiles_x;
 	}
-	int32_t cy = (gobj->center_y - gobj->height / 2) + g_GfxFiles[gobj->file]->sub_41F870()->GetHeight(0) / 2;
+	int32_t cy = (gobj->center_y - gobj->height / 2) + g_GfxFiles[gobj->file]->GetSprite()->GetHeight(0) / 2;
 	int32_t min_ty = this->sub_4184B8(x * 0x20 + 0x10, ((y * 0x20 + 0x10) - cy) - height);
 	int32_t max_ty = this->sub_4184B8(x * 0x20 + 0x10,
-		(((y * 0x20 + 0x10) - cy) - height) + g_GfxFiles[gobj->file]->sub_41F870()->GetHeight(0)) + 1;
+		(((y * 0x20 + 0x10) - cy) - height) + g_GfxFiles[gobj->file]->GetSprite()->GetHeight(0)) + 1;
 	if (min_ty < 0) {
 		min_ty = 0;
 	}
