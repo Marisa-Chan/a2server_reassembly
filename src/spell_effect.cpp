@@ -13,7 +13,7 @@
 
 // 5365AB
 // Distance between two TokenPos positions in sub-cell units.
-uint32_t __cdecl sub_5365AB(TokenPos* a, TokenPos* b) {
+uint32_t __cdecl CalcWalkDist(TokenPos* a, TokenPos* b) {
 	int32_t dx = a->GetXx() - b->GetXx();
 	int32_t dy = a->GetYy() - b->GetYy();
 	return (uint32_t)std::sqrt((double)(dx * dx + dy * dy));
@@ -605,7 +605,7 @@ SpellTransport::SpellTransport() : SpellEffect() {
 SpellTransport::SpellTransport(SpellEffect* spell_effect, TokenPos* from_position, int16_t speed) : SpellEffect(from_position) {
 	this->spell_effect = spell_effect;
 	this->area_effect = nullptr;
-	int32_t dist = (int32_t)sub_5365AB(from_position, this->spell_effect->position);
+	int32_t dist = (int32_t)CalcWalkDist(from_position, this->spell_effect->position);
 	this->duration = (int16_t)(dist / speed);
 }
 
@@ -615,7 +615,7 @@ SpellTransport::SpellTransport(AreaEffect* ae, TokenPos* from_position, int16_t 
 	this->area_effect = ae;
 	// WAT: dereferencing `this->spell_effect` is guaranteed to crash. This function has no callers in ASM.
 	// I guess they meant `area_effect` instead?
-	int32_t dist = (int32_t)sub_5365AB(from_position, this->spell_effect->position);
+	int32_t dist = (int32_t)CalcWalkDist(from_position, this->spell_effect->position);
 	this->duration = (int16_t)(dist / speed);
 }
 

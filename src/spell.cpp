@@ -208,7 +208,7 @@ void Spell::SetPower(uint32_t power) {
 }
 
 // Distance between two TokenPos positions in sub-cell units (still in asm).
-uint32_t __cdecl sub_5365AB(TokenPos* a, TokenPos* b);
+uint32_t __cdecl CalcWalkDist(TokenPos* a, TokenPos* b);
 
 // 539958
 int32_t Spell::StartCast(Unit* caster, Unit* target, int8_t x, int8_t y) {
@@ -249,7 +249,7 @@ int32_t Spell::StartCast(Unit* caster, Unit* target, int8_t x, int8_t y) {
     const SpellInfoData& info = this->spell_info->Values().GetData()[0];
     int32_t delay = 0;
     if (info.delivery_system == 2) {
-        delay = sub_5365AB(caster->position, &local_pos) / info.effect_speed;
+        delay = CalcWalkDist(caster->position, &local_pos) / info.effect_speed;
         if (this->spell_id == spell::lightning || this->spell_id == spell::prismatic_spray) {
             delay = 5;
 		}
