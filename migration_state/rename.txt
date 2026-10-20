@@ -936,3 +936,4 @@ BuildingsList::sub_558128 -> FindNearby -- finds the building within 2 tiles of 
 BuildingsList::sub_557EA5 -> FindNearbyExact -- finds the building within 2 tiles of the position
 BuildingsList::sub_557F69 -> FindClosest -- closest building with object_info_id to the position
 BuildingsList::sub_558055 -> FindPlayerInn -- finds the player's inn building
+BuildingsList::sub_558228 -> AddBuilding -- appends the building and assigns its map id

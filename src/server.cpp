@@ -6326,7 +6326,7 @@ void Server::SerializeGame(CArchive& ar) {
         ar.Write(&has_world_state, 1);
 
         if (this->field18_0x94 != 0) {
-            this->srv_stru1->building_list->sub_558908(ar);
+            this->srv_stru1->building_list->Serialize(ar);
             this->srv_stru1->effects_list->Serialize(ar);
             MapStuff_Instance->Serialize(ar);
             g_World->sub_5B0556(ar);
@@ -6397,7 +6397,7 @@ void Server::SerializeGame(CArchive& ar) {
             if (this->srv_stru1->building_list == nullptr) {
                 this->srv_stru1->building_list = new BuildingsList();
             }
-            this->srv_stru1->building_list->sub_558908(ar);
+            this->srv_stru1->building_list->Serialize(ar);
 
             if (this->srv_stru1->effects_list == nullptr) {
                 this->srv_stru1->effects_list = new SpellEffectList();

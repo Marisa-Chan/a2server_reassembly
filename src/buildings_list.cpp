@@ -73,7 +73,7 @@ void BuildingsList::AddBuilding(Building* building) {
 }
 
 // 558908
-void BuildingsList::sub_558908(CArchive& ar) {
+void BuildingsList::Serialize(CArchive& ar) {
 	if (ar.IsStoring()) {
 		ar << this->GetCount();
 		for (POSITION it = this->GetHeadPosition(); it != nullptr;) {
