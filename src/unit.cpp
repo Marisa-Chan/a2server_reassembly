@@ -1272,7 +1272,7 @@ void Unit::PickUpSack(Sack* sack) {
 
     // Give gold to owner.
     if (sack->money > 0) {
-        this->pOwner->sub_534AC1(sack->money, 0);
+        this->pOwner->AddMoney(sack->money, 0);
     }
 
     if (sack->inventory != nullptr) {
@@ -2344,7 +2344,7 @@ void Humanoid::AwardKillMoney(Unit* unit) {
     if (this->hp < 0) {
         return;
     }
-    this->pOwner->sub_534AC1(unit->_exp, 1);
+    this->pOwner->AddMoney(unit->_exp, 1);
 }
 
 void Humanoid::RecalcStats() {

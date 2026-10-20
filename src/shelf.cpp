@@ -133,7 +133,7 @@ void CMultiShopInstance::Sell() {
     }
     this->SendShelfState(0);
     this->SendShelfState(-1);
-    this->unit->pOwner->sub_534AC1(0, 0);
+    this->unit->pOwner->AddMoney(0, 0);
     this->unit->AddCarriedWeight(0);
     g_NetStru1_main.SendUnitUpdate(this->unit, this->unit->pOwner, 0x282000, 0xFFB, 0, 0);
 }
@@ -159,7 +159,7 @@ void CMultiShopInstance::Buy() {
     }
 
     this->SendShelfState(0);
-    this->unit->pOwner->sub_534AC1(0, 0);
+    this->unit->pOwner->AddMoney(0, 0);
     this->unit->AddCarriedWeight(0);
     g_NetStru1_main.SendUnitUpdate(this->unit, this->unit->pOwner, 0x282000, 0xFFB, 0, 0);
 }

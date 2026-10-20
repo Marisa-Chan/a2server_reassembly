@@ -918,3 +918,4 @@ shop_assortment: sub_54EDE9 -> RollItemEffect -- rolls a random enchantment Effe
 shop_assortment: sub_54F04F -> RollCastSpellEffect -- rolls a random castspell Effect within budget
 shop_assortment: sub_54C6DD -> StackItemInArray -- merges the item into an existing stack or appends
 shop_assortment: sub_54C42A -> CompareItemsForSort -- qsort comparator (warrior items first)
+shop_assortment: sub_54C556 -> SortItems -- qsorts the item array

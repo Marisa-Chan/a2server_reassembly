@@ -1372,7 +1372,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                     g_NetStru1_main.SendUnitUpdate(humanoid, nullptr, 0xA31FFFFF, 0xFFB, 0, 0);
                 } else if (item_hash == 0xFFFF) {
                     // ---- Money reward ----
-                    humanoid->pOwner->sub_534AC1(((uint32_t)item->count) * 250, 0);
+                    humanoid->pOwner->AddMoney(((uint32_t)item->count) * 250, 0);
                 } else {
                     // ---- Regular item ----
                     bool is_item_improvement = (id >= inv_count - 1);

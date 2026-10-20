@@ -1780,7 +1780,7 @@ void Server::SendWorldState(Player* player, int32_t bool_arg4) {
     }
 
     // Finalise the player's session state.
-    player->sub_534AC1(0, 1);                // notify mission entry
+    player->AddMoney(0, 1);                // notify mission entry
     g_NetStru1_main.SendBarePacket(3, player); // send "mission entered" event
     this->UpdateHatAnnounce();                      // server-state refresh
 }
@@ -1871,7 +1871,7 @@ void Server::AssignPlayerSlot(Player* player, int32_t arg4) {
 
     LogMessage("Player " + player->name + " has joined the game");
 
-    player->sub_534AC1(0, 1);
+    player->AddMoney(0, 1);
 
     if (this->field18_0x94 != 0) {
         g_NetStru1_main.SendBarePacket(0xB7, player);
@@ -2699,7 +2699,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         int32_t count = ParseCountPrefix(&cheat_string);
 
         if (_stricmp((const char*)cheat_string, "Gold") == 0) {
-            player->sub_534AC1(count, 0);
+            player->AddMoney(count, 0);
             if (!is_reconnect) {
                 g_NetStru1_main.FUN_0051ce86(7, player->player_id, nullptr);
             }
@@ -3619,7 +3619,7 @@ void Server::sub_504a96(Packet* pkt) {
             }
             player = this->FindPlayerById(packet_dword->from_player_id);
             if (player) {
-                player->sub_534AC1(packet_dword->value, 1);
+                player->AddMoney(packet_dword->value, 1);
             }
             break;
         }
@@ -4257,7 +4257,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
         g_NetStru1_main.FUN_0051ce86(4, player->player_id, nullptr);
     }
 
-    player->sub_534AC1(0, 1);
+    player->AddMoney(0, 1);
 
     g_NetStru1_main.SendExistingPlayers(player);
 
