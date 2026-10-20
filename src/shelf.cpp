@@ -350,7 +350,7 @@ void CMultiShopTemplate::NotifyOtherInstances(CMultiShopInstance* inst, int para
 }
 
 // 54740C
-int CMultiShopTemplate::sub_54740C(Unit* unit) {
+int CMultiShopTemplate::FindInstanceIndex(Unit* unit) {
     for (int32_t i = 0; i < this->shop_instances.GetSize(); i++) {
         if (this->shop_instances[i]->unit->pOwner == unit->pOwner) {
             return i;
@@ -371,7 +371,7 @@ int CMultiShopTemplate::sub_547E91() {
 
 // 547468
 CMultiShopInstance* CMultiShopTemplate::sub_547468(Humanoid* humanoid) {
-    int32_t index = this->sub_54740C(humanoid);
+    int32_t index = this->FindInstanceIndex(humanoid);
     if (index == -1) {
         return nullptr;
     }
@@ -510,7 +510,7 @@ void CMultiShopTemplate::sub_547CB9(Humanoid* humanoid, uint8_t op_type, int16_t
 
 // 5479C6
 void CMultiShopTemplate::sub_5479C6(Humanoid* humanoid) {
-    int32_t index = this->sub_54740C(humanoid);
+    int32_t index = this->FindInstanceIndex(humanoid);
     if (index == -1) {
         return;
     }
