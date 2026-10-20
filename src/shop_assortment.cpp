@@ -26,7 +26,7 @@ void __cdecl StackItemInArray(CArray<Item*>* arr, Item* item) {
 }
 
 // 54C42A
-static int32_t __cdecl sub_54C42A(const void* a, const void* b) {
+static int32_t __cdecl CompareItemsForSort(const void* a, const void* b) {
     Item* item_a = *(Item**)a;
     Item* item_b = *(Item**)b;
 
@@ -63,7 +63,7 @@ static int32_t __cdecl sub_54C42A(const void* a, const void* b) {
 
 // 54C556
 void __cdecl sub_54C556(CArray<Item*>* arr) {
-    qsort(arr->GetData(), arr->GetSize(), sizeof(Item*), sub_54C42A);
+    qsort(arr->GetData(), arr->GetSize(), sizeof(Item*), CompareItemsForSort);
 }
 
 // 54F04F

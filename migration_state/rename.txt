@@ -916,3 +916,4 @@ unit: sub_536630 -> CalcAttackCharge -- computes the charge gain for attacking t
 unit: sub_53678F -> ExecuteAttack -- dispatches the attack by target kind (unit/building)
 shop_assortment: sub_54EDE9 -> RollItemEffect -- rolls a random enchantment Effect for an item
 shop_assortment: sub_54F04F -> RollCastSpellEffect -- rolls a random castspell Effect within budget
+shop_assortment: sub_54C6DD -> StackItemInArray -- merges the item into an existing stack or appends
