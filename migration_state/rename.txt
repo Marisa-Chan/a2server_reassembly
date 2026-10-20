@@ -1097,3 +1097,4 @@ CGameObject::DrawMinimapRect arg1 -> x -- minimap-widget pixel x (visual.cpp pas
 CGameObject::DrawMinimapRect arg2 -> y -- minimap-widget pixel y (header done with arg1 commit, bodies here)
 CGameObject::DrawMinimapRect arg3 -> zoom -- power-of-2 minimap zoom (rect size << zoom); clamped to >= 0
 CGameObject::SetTileLayerCell arg1 -> layer_id -- 0=backpacks 1=structures 2=units 3=air units 4=special units tile layer
+CGameObject::SetTileLayerCell arg2 -> obj -- object pointer stored into the layer's tile cells

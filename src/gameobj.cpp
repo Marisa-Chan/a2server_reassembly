@@ -262,7 +262,7 @@ void CGameObject::UpdateMapPosition() { //46190d
 }
 
 
-void CGameObject::SetTileLayerCell(int32_t layer_id, CGameObject* arg2) { //461c41
+void CGameObject::SetTileLayerCell(int32_t layer_id, CGameObject* obj) { //461c41
     if (this->mapLayerActive == 0) {
         return;
     }
@@ -277,7 +277,7 @@ void CGameObject::SetTileLayerCell(int32_t layer_id, CGameObject* arg2) { //461c
         layer = map->tile_structures;
         for (int32_t x = this->mapBoundsLeft; x <= this->mapBoundsRight; x++) {
             for (int32_t y = this->mapBoundsTop; y <= this->mapBoundsBottom; y++) {
-                layer[x + 3 + (y + 3) * (map->view_tiles_x + 6)] = arg2;
+                layer[x + 3 + (y + 3) * (map->view_tiles_x + 6)] = obj;
             }
         }
         return;
@@ -297,7 +297,7 @@ void CGameObject::SetTileLayerCell(int32_t layer_id, CGameObject* arg2) { //461c
     int32_t x = ((this->x_pos2 - 0x80 + this->GetTileWidth() * 0x80) >> 8) - map->view_x;
     int32_t y = ((this->y_pos2 - 0x80 + this->GetTileHeight() * 0x80) >> 8) - map->view_y;
     if (x >= -4 && y >= -4 && x < map->view_tiles_x + 3 && y < map->view_tiles_y + 7) {
-        layer[x + 3 + (y + 3) * (map->view_tiles_x + 6)] = arg2;
+        layer[x + 3 + (y + 3) * (map->view_tiles_x + 6)] = obj;
     }
 }
 
