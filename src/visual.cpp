@@ -9894,7 +9894,7 @@ int32_t VisCharInfo::OnMouseMove(uint32_t wparam, CPoint pos) {
 
     CString name = main_wnd->drag_entry->GetSpriteName();
     CString path = "graphics\\inventory\\" + name + ".16a";
-    main_wnd->sub_48CCA1(main_wnd->drag_entry, main_wnd->drag_src_slot, path, main_wnd->drag_src_tab);
+    main_wnd->SetItemCursor(main_wnd->drag_entry, main_wnd->drag_src_slot, path, main_wnd->drag_src_tab);
 
     unit->unitFlags |= 8;
     this->MsgProc(0x408, 0, 0);
@@ -16454,11 +16454,11 @@ int32_t VisInvType1::OnMouseMove(uint32_t wparam, CPoint pos) {
 
     if (main_wnd->drag_entry->IsEmpty() != 0) {
         main_wnd->vis_map_context->my_main_unit->gold -= main_wnd->drag_entry->count;
-        main_wnd->sub_48CCA1(main_wnd->drag_entry, main_wnd->drag_src_slot, "graphics\\interface\\money\\money.16a", main_wnd->drag_src_tab);
+        main_wnd->SetItemCursor(main_wnd->drag_entry, main_wnd->drag_src_slot, "graphics\\interface\\money\\money.16a", main_wnd->drag_src_tab);
     } else {
         CString name = main_wnd->drag_entry->GetSpriteName();
         CString path = "graphics\\inventory\\" + name + ".16a";
-        main_wnd->sub_48CCA1(main_wnd->drag_entry, main_wnd->drag_src_slot, path, main_wnd->drag_src_tab);
+        main_wnd->SetItemCursor(main_wnd->drag_entry, main_wnd->drag_src_slot, path, main_wnd->drag_src_tab);
     }
 
     return 0;
@@ -17139,7 +17139,7 @@ int32_t VisInvExtBase::sub_4B5A6C(int32_t idx) {
     CString name = entry->GetSpriteName();
     CString cs1 = "graphics\\inventory\\" + name;
     CString cs2 = cs1 + ".16a";
-    main_wnd->sub_48CCA1(entry, idx, cs2, region);
+    main_wnd->SetItemCursor(entry, idx, cs2, region);
     ApplyCursor(main_wnd->item_cursor);
     this->field_0x20ac->placement_lock = 1;
     return 1;

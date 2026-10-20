@@ -402,7 +402,7 @@ public:
 
     void ResetItemCursor(); //48cd44
 
-    void sub_48CCA1(TokenEntry* entry, int32_t idx, const char* str, int32_t tab); //48cca1 in asm
+    void SetItemCursor(TokenEntry* entry, int32_t idx, const char* str, int32_t tab); //48cca1 in asm
 
     void FUN_00494a9e(); //494a9e
 
