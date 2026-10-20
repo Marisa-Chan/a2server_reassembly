@@ -341,7 +341,7 @@ public:
 	virtual void FlipVertical() override;
 	virtual int GetPixelSize() override;
 
-	virtual void VMethod9(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, int palid);
+	virtual void DrawSubRect(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, int palid);
 	virtual void VMethod10(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, int palid);
 
 	CBmp256(const char* fname);

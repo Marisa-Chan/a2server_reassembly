@@ -4282,7 +4282,7 @@ int CBmp256::GetPixelSize() { //428da0
 	return 1;
 }
 
-void CBmp256::VMethod9(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, int palid) { //426385
+void CBmp256::DrawSubRect(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, int palid) { //426385
 	const uint16_t* pal = this->palette.GetPalette(palid);
 	const BmpFrame* frm = (BmpFrame*)this->pdata;
 	BlitPaletted(x, y, l, t, r, b, this->pdata + sizeof(BmpFrame), frm->width, frm->height, pal);
