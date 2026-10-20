@@ -179,10 +179,10 @@ void NetStru1::AnnouncePlayer(Player* player) {
 }
 
 // 51cefb
-void NetStru1::SendInfoPacket(uint8_t id, int32_t value1, int32_t value2, Player* param_4) {
+void NetStru1::SendInfoPacket(uint8_t id, int32_t value1, int32_t value2, Player* target) {
     PacketInfo& packet = PacketInfo::Inst;
     packet.id = id;
-    packet.to_player_id = param_4 ? param_4->player_id : 0;
+    packet.to_player_id = target ? target->player_id : 0;
     packet.param1 = value1;
     packet.param2 = value2;
     this->QueuePacketSend(&packet);
