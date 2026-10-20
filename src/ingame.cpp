@@ -3162,7 +3162,7 @@ CSprite256* GfxFile::GetSprite() { //41f870
     return this->spr;
 }
 
-CSprite256* GfxFile::sub_41F8A0() { //41f8a0
+CSprite256* GfxFile::GetSpriteB() { //41f8a0
     if (this->inited == 0) {
         this->Init();
     }
@@ -5569,7 +5569,7 @@ void BigStruct2::sub_406F7B() {
 					if (g_Shadows != 0) {
 						spr->VMethod11(draw_x, draw_y, frame, g_DeltaCLR.shade_delta, tanval, 0);
 					}
-					CSprite256* spr_b = g_GfxFiles[file]->sub_41F8A0();
+					CSprite256* spr_b = g_GfxFiles[file]->GetSpriteB();
 					cx = (gobj->center_x - gobj->width / 2) + spr_b->GetWidth(0) / 2;
 					cy = (gobj->center_y - gobj->height / 2) + spr_b->GetHeight(0) / 2;
 					draw_x = ((x * 0x20 + 0x10) - cx) - yoff;

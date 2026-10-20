@@ -116,7 +116,7 @@ public:
 	void Deinit(); //47b0ab
 
 	CSprite256* GetSprite(); //41f870
-	CSprite256* sub_41F8A0(); //41f8a0
+	CSprite256* GetSpriteB(); //41f8a0
 
 public:
 	CSprite256* spr;

@@ -819,3 +819,4 @@ free: sub_477B59 -> LoadTerrainTiles -- loads/frees the terrain tile bitmaps sel
 UnitEye: sub_58c00e -> GetFacingHalf -- (facing+8)>>4: 0 for facings 0-7, 1 for 8-15
 UnitEye: sub_5925C9 -> SetPathMaskByMovement -- sets the pathing obstacle-bit mask from the unit movement type
 UnitEye: sub_59367D -> CheckRotation -- 0 when the rotation target is reached, else outputs the current rotation dir
+GfxFile: sub_41F870 -> GetSprite -- lazy-init and return the primary sprite
