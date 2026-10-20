@@ -5354,7 +5354,7 @@ int32_t VisNetMapSelection::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpar
                 if (level > 3) {
                     level = 3;
                 }
-                bool can_join = (level + 1 >= main_wnd->m_GameSession.FUN_004200f0())
+                bool can_join = (level + 1 >= main_wnd->m_GameSession.GetSkillTier1())
                     && (main_wnd->m_GameSession.FUN_00420110() >= level + 1);
                 this->VisScreen::MsgProc(can_join ? 0x445 : 0x446, 0, 0);
             } else {
@@ -5413,7 +5413,7 @@ int32_t VisNetMapSelection::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpar
                 if (level > 3) {
                     level = 3;
                 }
-                bool can_join = (level + 1 >= main_wnd->m_GameSession.FUN_004200f0())
+                bool can_join = (level + 1 >= main_wnd->m_GameSession.GetSkillTier1())
                     && (main_wnd->m_GameSession.FUN_00420110() >= level + 1);
                 this->FindChild(0x14)->ChangeFlags(1, can_join);
                 this->FindChild(0x14)->VMethod9();
@@ -5527,7 +5527,7 @@ void VisNetMapList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
     }
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->m_GameSession.FUN_004200f0() > level + 1
+    if (main_wnd->m_GameSession.GetSkillTier1() > level + 1
         || main_wnd->m_GameSession.FUN_00420110() < level + 1) {
         clr = g_colors_human_pals[15];
     }
@@ -24440,7 +24440,7 @@ int32_t VisHatBrowserList::IsItemEnabled(int32_t idx) {
     int32_t players = atoi(item.Mid(pos, 2));
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->m_GameSession.FUN_004200f0() > level + 1
+    if (main_wnd->m_GameSession.GetSkillTier1() > level + 1
         || main_wnd->m_GameSession.FUN_00420110() < level + 1
         || players == 0x10) {
         return 0;

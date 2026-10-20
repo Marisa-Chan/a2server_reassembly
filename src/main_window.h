@@ -163,7 +163,7 @@ public:
     void SaveKillStats(); //494982
 
     int32_t FUN_00420110() { return this->field_0x118; }; //420110
-    int32_t FUN_004200f0() { return this->field_0x114; }; //4200f0
+    int32_t GetSkillTier1() { return this->field_0x114; }; //4200f0
 
     int SubmitCharacterSetupAndWaitForSelectedUnit(); //493ffe
     void ResetCharacter(); //493d8d

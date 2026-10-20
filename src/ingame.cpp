@@ -2526,7 +2526,7 @@ int32_t BigStruct2::FUN_0040d7f3() {
 	strcpy(pkt->text, wnd->m_GameSession.character_name);
 	memcpy(&pkt->value1, &wnd->m_GameSession.sessionKeyPart1, 8);
 
-	pkt->value3 = g_IsCdPresent | (wnd->m_GameSession.color << 8) | (wnd->m_GameSession.FUN_004200f0() << 0x10) | (wnd->m_GameSession.FUN_00420110() << 0x18);
+	pkt->value3 = g_IsCdPresent | (wnd->m_GameSession.color << 8) | (wnd->m_GameSession.GetSkillTier1() << 0x10) | (wnd->m_GameSession.FUN_00420110() << 0x18);
 	pkt->to_player_id = 0;
 
 	this->field_0x9d0.RemoveAll();
