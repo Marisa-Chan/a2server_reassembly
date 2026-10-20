@@ -393,7 +393,7 @@ public:
     void ApplyCursorClip(); //48cc87
 
     void OpenConsoleInput(); //4919c7
-    void FUN_004919b1(); //4919b1
+    void ProcessPlayersTick(); //4919b1
 
     void FUN_00485a41(); //485a41
     void FUN_00485aed(); //485aed in asm

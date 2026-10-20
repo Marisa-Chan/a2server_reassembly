@@ -1056,7 +1056,7 @@ void MainWindow::OnKillFocus(CWnd* pNewWnd) {
 
 // 4949f9
 void MainWindow::OnClose() {
-    this->FUN_004919b1();
+    this->ProcessPlayersTick();
     this->dialogsMask = 0;
     g_Cursors[0]->Use();
     FreeDistortMap();
@@ -1297,7 +1297,7 @@ void MainWindow::ShowServerControlDialog() {
 }
 
 // 4919b1
-void MainWindow::FUN_004919b1() {
+void MainWindow::ProcessPlayersTick() {
     g_Server->ProcessPlayers();
 }
 
