@@ -238,9 +238,9 @@ void CFameHall::ZeroFactors() {
     this->m_nDifficultyWeight = 0;
 }
 
-void CFameHall::SetDifficulty(uint32_t arg) {
+void CFameHall::SetDifficulty(uint32_t difficulty) {
     //497270
-    this->difficulty = arg;
+    this->difficulty = difficulty;
 }
 
 uint32_t CFameHall::AddTextDocument(int32_t arg) {
