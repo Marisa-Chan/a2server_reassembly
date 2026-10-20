@@ -386,7 +386,7 @@ void CMultiShopTemplate::ClearShelves() {
 }
 
 // 547B7B
-void CMultiShopTemplate::sub_547B7B(Unit* unit) {
+void CMultiShopTemplate::ConfirmBuy(Unit* unit) {
     CMultiShopInstance* instance = this->FindInstanceFor(static_cast<Humanoid*>(unit));
     if (instance == nullptr) {
         return;

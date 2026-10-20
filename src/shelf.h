@@ -64,7 +64,7 @@ public:
     void CloseInstance(Humanoid* humanoid); // 5479C6
     void GenerateAssortment(); // 5474D8
     void OpenShopFor(Unit* unit); // 547644
-    void sub_547B7B(Unit* unit); // 547B7B
+    void ConfirmBuy(Unit* unit); // 547B7B
     void sub_547BBC(Unit* unit); // 547BBC
     void sub_547BFD(Unit* unit, int amount, Item* item); // 547BFD
     void sub_547D7F(Unit* unit); // 547D7F
