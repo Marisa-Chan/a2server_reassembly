@@ -1555,7 +1555,7 @@ void World::sub_5AAC17(Unit* unit) {
 // Target-pursuit spell selection for AI-controlled mages.
 // Returns 1 if a cast action was set up, 0 otherwise.
 // 5A6ED9
-int32_t World::sub_5A6ED9(Unit* caster, Unit* target) {
+int32_t World::ShouldPursueTarget(Unit* caster, Unit* target) {
     if (caster->eye2->spell_id == 0) {
         return 0;
     }
@@ -2573,7 +2573,7 @@ void World::sub_5A6B48(Unit* unit, Unit* target) {
     if (chosen_target == nullptr) {
         this->SetIdleOrRetreat(unit, 0);
     } else if (!unit->pOwner->is_ai) {
-        if (!unit->IsMage() || this->sub_5A6ED9(unit, chosen_target) == 0) {
+        if (!unit->IsMage() || this->ShouldPursueTarget(unit, chosen_target) == 0) {
             unit->eye2->cast_action = 5;
             unit->eye2->unit = chosen_target;
             unit->eye2->max_range = this->UnitMaxRange(unit);
@@ -2644,7 +2644,7 @@ void World::DoRetreat(Unit* unit) {
 
 // 5A8709
 void World::PursueTarget(Unit* unit, Unit* target) {
-    if (unit->IsMage() && !unit->pOwner->is_ai && this->sub_5A6ED9(unit, target)) {
+    if (unit->IsMage() && !unit->pOwner->is_ai && this->ShouldPursueTarget(unit, target)) {
         return;
     }
 

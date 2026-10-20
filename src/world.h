@@ -327,7 +327,7 @@ public:
     void DoRetreat(Unit* unit); // 5A6E59 — retreat helper.
     void PursueTarget(Unit* unit, Unit* target); // 5A8709 — set unit to pursue the chosen target.
     void IdleSelfBuff(Unit* unit); // 5A6EA5 — idle/wander helper (ASM).
-    int32_t sub_5A6ED9(Unit* unit, Unit* target); // 5A6ED9 — target-pursuit check (ASM).
+    int32_t ShouldPursueTarget(Unit* unit, Unit* target); // 5A6ED9 — target-pursuit check (ASM).
     int32_t PickAttackSpell(Unit* unit, Unit* target); // 5B6632 — AI mage spell selection: pick a random affordable non-defensive spell.
     void CastSelfHealOrBuff(Unit* unit); // 5A845B — AI mage retreat helper: cast healing/buff on self or most-damaged ally.
     Spell* GetCastableSpell(Unit* unit, int32_t spell_number, int32_t flag); // Pick spell by number if unit has enough MP.
