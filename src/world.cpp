@@ -1378,7 +1378,7 @@ void World::MonsterAiTick(Unit* unit) {
             this->DoTurnTo(unit, unit->eye->field1_0x1);
             break;
         case 11:
-            this->sub_5AA485(unit);
+            this->DoIdleFidget(unit);
             break;
         case 12:
             this->CheckMoveArrival(unit);
@@ -1547,7 +1547,7 @@ void World::sub_5AAC17(Unit* unit) {
             unit->eye2->cast_action = 0;
         } else {
             unit->eye2->cast_action = 0xb;
-            this->sub_5AA485(unit);
+            this->DoIdleFidget(unit);
         }
     }
 }
@@ -3159,7 +3159,7 @@ void World::DoMoveStepTo(Unit* unit, PosYX yx, uint8_t max_range) {
 }
 
 // 5AA485 — pick a new random wander facing for a monster unit.
-void World::sub_5AA485(Unit* unit) {
+void World::DoIdleFidget(Unit* unit) {
     if (unit->eye->field0_0x0 == unit->eye->field1_0x1) {
         if (unit->eye2->field44_0x54 == 0 && RandInt() >= 205) {
             unit->some_state = 0;
