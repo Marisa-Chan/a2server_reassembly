@@ -97,7 +97,7 @@ void BldIdSet_Clear();         // Clear allocated token/building ID bits
 // 5049D1
 // Strip an optional leading integer count from *str (modifies str in-place),
 // returns the parsed count (or 1 if none present).
-int32_t sub_5049D1(CString* str) {
+int32_t ParseCountPrefix(CString* str) {
     int32_t count = 1;
     int32_t pos = str->Find(' ');
     if (pos != 0) {
@@ -2695,8 +2695,8 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             return;
         }
 
-        // sub_5049D1 trims an optional leading integer from cheat_string and returns it.
-        int32_t count = sub_5049D1(&cheat_string);
+        // ParseCountPrefix trims an optional leading integer from cheat_string and returns it.
+        int32_t count = ParseCountPrefix(&cheat_string);
 
         if (_stricmp((const char*)cheat_string, "Gold") == 0) {
             player->sub_534AC1(count, 0);
@@ -2807,7 +2807,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             return;
         }
 
-        int32_t count = sub_5049D1(&cheat_string);
+        int32_t count = ParseCountPrefix(&cheat_string);
         int32_t is_hero = 0;
 
         if (cheat_string.Find("hero") == 0) {
