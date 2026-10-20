@@ -744,3 +744,4 @@ CMultiShopTemplate::sub_547468 -> FindInstanceFor -- finds the shop instance for
 CMultiShopTemplate::sub_5479C6 -> CloseInstance -- removes the humanoid's instance and prunes sold-out shelf items
 CMultiShopTemplate::sub_5474D8 -> GenerateAssortment -- regenerates shelves from scenario/shop gen params (blocked while instances live)
 CMultiShopTemplate::sub_547644 -> OpenShopFor -- creates the instance and fills shelves for the entering unit
+CMultiShopTemplate::sub_547C5A -> BuyItem -- routes a buy pick through the humanoid's instance
