@@ -91,7 +91,7 @@ void Shop::sub_544685(Unit* unit) {
 }
 
 // 54471B
-void Shop::sub_54471B(Unit* unit) {
+void Shop::ConfirmBuy(Unit* unit) {
     this->shop_template->ConfirmBuy(unit);
 }
 

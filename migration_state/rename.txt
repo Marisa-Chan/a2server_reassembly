@@ -754,3 +754,4 @@ Shop::sub_544793 -> SellItemFor -- wraps the shop template sell
 Shop::sub_5446C7 -> BuyItem -- wraps the shop template buy
 Shop::sub_5446EB -> HandleItemOperation -- wraps the shop template move-op
 Shop::sub_544655 -> AttachUnit -- attaches the unit to this building (per existing comment)
+Shop::sub_54463F -> GenerateAssortment -- wraps the shop template regeneration

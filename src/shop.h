@@ -33,7 +33,7 @@ public:
     void AttachUnit(Unit* unit); // Mine: attach unit to this building
     void GenerateAssortment();
 
-    void sub_54471B(Unit* unit);
+    void ConfirmBuy(Unit* unit);
     void sub_544737(Unit* unit);
     void sub_544777(Unit* unit);
     void sub_544685(Unit* unit);
