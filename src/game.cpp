@@ -17,7 +17,7 @@
 #include "patch/kick_char.h"
 #endif
 
-void ServerControlDialog::sub_4954EA() {
+void ServerControlDialog::OnCommandUnknown() {
     if (g_Server == nullptr) {
         return;
     }
