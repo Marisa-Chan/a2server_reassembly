@@ -587,7 +587,7 @@ const AFX_MSGMAP_ENTRY MainWindow::_messageEntries[] =
     {WM_KILLFOCUS, 0, 0, 0, AfxSig_vW, (AFX_PMSG)&OnKillFocus},
     {WM_CLOSE, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&OnClose},
     {WM_SIZE, 0, 0, 0, AfxSig_vwii, (AFX_PMSG)&OnSize},
-    {WM_COMMAND, CN_COMMAND, 0x9c4e, 0x9c4e, AfxSigCmd_v, (AFX_PMSG)&FUN_00495010},
+    {WM_COMMAND, CN_COMMAND, 0x9c4e, 0x9c4e, AfxSigCmd_v, (AFX_PMSG)&BeginShutdown},
     {WM_COMMAND, CN_COMMAND, 0x9c4f, 0x9c4f, AfxSigCmd_v, (AFX_PMSG)&FUN_004950c0},
     {WM_COMMAND, CN_COMMAND, 0x9c50, 0x9c50, AfxSigCmd_v, (AFX_PMSG)&FUN_00495743},
     {WM_SIZING, 0, 0, 0, AfxSig_vwSIZING, (AFX_PMSG)&OnSizing},
@@ -1028,7 +1028,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
 }
 
 // 495010
-void MainWindow::FUN_00495010() {
+void MainWindow::BeginShutdown() {
     g_Server->KickAllPlayers();
     this->shutdown_pending = 1;
 }

@@ -368,7 +368,7 @@ public: // VTable at 0060c1a8.
     void OnKillFocus(CWnd*); //48b01d
     void OnClose(); //4949f9
     void OnSize(UINT, int, int); //494e8e
-    void FUN_00495010(); //495010
+    void BeginShutdown(); //495010
     void FUN_004950c0(); //4950c0
     void FUN_00495743(); //495743
     void OnSizing(UINT, LPRECT); //495ab2

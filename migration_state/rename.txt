@@ -952,3 +952,4 @@ QuestMap::FUN_0041ec00 -> GetQuestCount -- inline quests_map.GetCount()
 CGameObject::FUN_0041f1c0 -> IsInControlGroup -- (1<<t) & controlGroupMask
 Server::sub_504a96 -> ProcessClientPacket -- main client order dispatcher: item operations and group orders (0x12-0x25)
 MapPlayerData::FUN_0041ee20 -> IsAllied -- diplomacy[idx] & 1 (same-side bit)
+MapPlayerData::FUN_0041ee50 -> IsVisibleTo -- diplomacy[idx] & 8 (vision/visibility-sharing bit)
