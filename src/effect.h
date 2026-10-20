@@ -24,7 +24,7 @@ public: // VTable at 0060f288.
     virtual void ApplyStatDelta(Unit* unit, int32_t stack_delta); // 53FA2B
     virtual int32_t CalcScrollPrice(); // 541c87
     virtual int32_t CalcChargePercent(double param); // 541d59
-    virtual void RollStrength(int32_t param); // 541eb5
+    virtual void RollStrength(int32_t power); // 541eb5
 
 public:
     Effect();
