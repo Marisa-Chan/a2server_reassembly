@@ -5857,10 +5857,10 @@ void VisCharSelect::LoadSfx() {
 
 // 4322ED
 void VisCharSelect::FreeSfx() {
-    FUN_00438dd0(&this->snd_ok);
-    FUN_00438dd0(&this->snd_rename);
-    FUN_00438dd0(&this->snd_delete);
-    FUN_00438dd0(&this->snd_cancel);
+    FreeSfxSample(&this->snd_ok);
+    FreeSfxSample(&this->snd_rename);
+    FreeSfxSample(&this->snd_delete);
+    FreeSfxSample(&this->snd_cancel);
 }
 
 
@@ -7947,10 +7947,10 @@ void VisGlobalMap::LoadSamples() {
 
 // 470571
 void VisGlobalMap::FreeSamples() {
-    FUN_00438dd0(&this->snd_scrollup.sample);
-    FUN_00438dd0(&this->snd_scrolldn.sample);
-    FUN_00438dd0(&this->snd_point1.sample);
-    FUN_00438dd0(&this->snd_point2.sample);
+    FreeSfxSample(&this->snd_scrollup.sample);
+    FreeSfxSample(&this->snd_scrolldn.sample);
+    FreeSfxSample(&this->snd_point1.sample);
+    FreeSfxSample(&this->snd_point2.sample);
 }
 
 
@@ -8007,10 +8007,10 @@ void VisGlobalMap::SearchRoute(uint16_t from, uint16_t to, GlobalMapRouteArray* 
 
 // 42F021
 void VisCharGen::FreeSamples() {
-    FUN_00438dd0(&this->snd_stat);
-    FUN_00438dd0(&this->snd_ok);
-    FUN_00438dd0(&this->snd_reset);
-    FUN_00438dd0(&this->snd_back);
+    FreeSfxSample(&this->snd_stat);
+    FreeSfxSample(&this->snd_ok);
+    FreeSfxSample(&this->snd_reset);
+    FreeSfxSample(&this->snd_back);
 }
 
 
@@ -9150,11 +9150,11 @@ const char* VisCharGenSkills::GetHint() {
 
 // 42da5a
 void VisCharGenSkills::FreeSamples() {
-    FUN_00438dd0(&this->field_0x120[0]);
-    FUN_00438dd0(&this->field_0x120[1]);
-    FUN_00438dd0(&this->field_0x120[2]);
-    FUN_00438dd0(&this->field_0x120[3]);
-    FUN_00438dd0(&this->field_0x120[4]);
+    FreeSfxSample(&this->field_0x120[0]);
+    FreeSfxSample(&this->field_0x120[1]);
+    FreeSfxSample(&this->field_0x120[2]);
+    FreeSfxSample(&this->field_0x120[3]);
+    FreeSfxSample(&this->field_0x120[4]);
 }
 
 
@@ -10891,20 +10891,20 @@ void VisShop::sub_4BCC38() {
 
 // 4BD251
 void VisShop::VMethod32() {
-    FUN_00438dd0(&this->snd_notif);
-    FUN_00438dd0(&this->snd_step1);
-    FUN_00438dd0(&this->snd_step2);
-    FUN_00438dd0(&this->snd_breath);
-    FUN_00438dd0(&this->snd_depart);
-    FUN_00438dd0(&this->snd_buy);
-    FUN_00438dd0(&this->snd_sell);
-    FUN_00438dd0(&this->snd_enter);
-    FUN_00438dd0(&this->snd_start);
-    FUN_00438dd0(&this->snd_pov1);
-    FUN_00438dd0(&this->snd_pov2);
-    FUN_00438dd0(&this->snd_inshop);
-    FUN_00438dd0(&this->snd_out);
-    FUN_00438dd0(&this->snd_undo);
+    FreeSfxSample(&this->snd_notif);
+    FreeSfxSample(&this->snd_step1);
+    FreeSfxSample(&this->snd_step2);
+    FreeSfxSample(&this->snd_breath);
+    FreeSfxSample(&this->snd_depart);
+    FreeSfxSample(&this->snd_buy);
+    FreeSfxSample(&this->snd_sell);
+    FreeSfxSample(&this->snd_enter);
+    FreeSfxSample(&this->snd_start);
+    FreeSfxSample(&this->snd_pov1);
+    FreeSfxSample(&this->snd_pov2);
+    FreeSfxSample(&this->snd_inshop);
+    FreeSfxSample(&this->snd_out);
+    FreeSfxSample(&this->snd_undo);
 }
 
 
@@ -12723,23 +12723,23 @@ void VisShopDruid::VMethod28() {
 
 // 4C1D25
 void VisShopDruid::VMethod32() {
-    FUN_00438dd0(&this->snd_notif);
-    FUN_00438dd0(&this->snd_depart);
-    FUN_00438dd0(&this->snd_buy);
-    FUN_00438dd0(&this->snd_sell);
-    FUN_00438dd0(&this->snd_enter);
-    FUN_00438dd0(&this->snd_pov1);
-    FUN_00438dd0(&this->snd_pov2);
-    FUN_00438dd0(&this->snd_inshop);
-    FUN_00438dd0(&this->snd_out);
-    FUN_00438dd0(&this->snd_undo);
-    FUN_00438dd0(&this->snd_bird[0]);
-    FUN_00438dd0(&this->snd_bird[1]);
-    FUN_00438dd0(&this->snd_bird[2]);
-    FUN_00438dd0(&this->snd_tool[0]);
-    FUN_00438dd0(&this->snd_tool[1]);
-    FUN_00438dd0(&this->snd_tool[2]);
-    FUN_00438dd0(&this->snd_tool[3]);
+    FreeSfxSample(&this->snd_notif);
+    FreeSfxSample(&this->snd_depart);
+    FreeSfxSample(&this->snd_buy);
+    FreeSfxSample(&this->snd_sell);
+    FreeSfxSample(&this->snd_enter);
+    FreeSfxSample(&this->snd_pov1);
+    FreeSfxSample(&this->snd_pov2);
+    FreeSfxSample(&this->snd_inshop);
+    FreeSfxSample(&this->snd_out);
+    FreeSfxSample(&this->snd_undo);
+    FreeSfxSample(&this->snd_bird[0]);
+    FreeSfxSample(&this->snd_bird[1]);
+    FreeSfxSample(&this->snd_bird[2]);
+    FreeSfxSample(&this->snd_tool[0]);
+    FreeSfxSample(&this->snd_tool[1]);
+    FreeSfxSample(&this->snd_tool[2]);
+    FreeSfxSample(&this->snd_tool[3]);
 }
 
 
@@ -12751,23 +12751,23 @@ CString VisShopDruid::VMethod33() {
 
 // 4C453D
 void VisShopKaarg::VMethod32() {
-    FUN_00438dd0(&this->snd_notif);
-    FUN_00438dd0(&this->snd_depart);
-    FUN_00438dd0(&this->snd_buy);
-    FUN_00438dd0(&this->snd_sell);
-    FUN_00438dd0(&this->snd_enter);
-    FUN_00438dd0(&this->snd_pov1);
-    FUN_00438dd0(&this->snd_pov2);
-    FUN_00438dd0(&this->snd_inshop);
-    FUN_00438dd0(&this->snd_out);
-    FUN_00438dd0(&this->snd_undo);
-    FUN_00438dd0(&this->snd_voice[0]);
-    FUN_00438dd0(&this->snd_voice[1]);
-    FUN_00438dd0(&this->snd_voice[2]);
-    FUN_00438dd0(&this->snd_tool[0]);
-    FUN_00438dd0(&this->snd_tool[1]);
-    FUN_00438dd0(&this->snd_tool[2]);
-    FUN_00438dd0(&this->snd_tool[3]);
+    FreeSfxSample(&this->snd_notif);
+    FreeSfxSample(&this->snd_depart);
+    FreeSfxSample(&this->snd_buy);
+    FreeSfxSample(&this->snd_sell);
+    FreeSfxSample(&this->snd_enter);
+    FreeSfxSample(&this->snd_pov1);
+    FreeSfxSample(&this->snd_pov2);
+    FreeSfxSample(&this->snd_inshop);
+    FreeSfxSample(&this->snd_out);
+    FreeSfxSample(&this->snd_undo);
+    FreeSfxSample(&this->snd_voice[0]);
+    FreeSfxSample(&this->snd_voice[1]);
+    FreeSfxSample(&this->snd_voice[2]);
+    FreeSfxSample(&this->snd_tool[0]);
+    FreeSfxSample(&this->snd_tool[1]);
+    FreeSfxSample(&this->snd_tool[2]);
+    FreeSfxSample(&this->snd_tool[3]);
 }
 
 
@@ -13311,7 +13311,7 @@ void VisTav::VMethod30() {
 // 49F3D7
 void VisTav::VMethod31() {
     for (int32_t i = 0; i < 13; i++) {
-        FUN_00438dd0(&this->sounds[i].sample);
+        FreeSfxSample(&this->sounds[i].sample);
     }
 }
 
@@ -15567,15 +15567,15 @@ void VisTavDruid::VMethod30() {
 
 // 49F961
 void VisTavDruid::VMethod31() {
-    FUN_00438dd0(&this->sounds[5].sample);
-    FUN_00438dd0(&this->sounds[6].sample);
-    FUN_00438dd0(&this->sounds[7].sample);
-    FUN_00438dd0(&this->sounds[8].sample);
-    FUN_00438dd0(&this->sounds[9].sample);
-    FUN_00438dd0(&this->sounds[11].sample);
-    FUN_00438dd0(&this->sounds[12].sample);
+    FreeSfxSample(&this->sounds[5].sample);
+    FreeSfxSample(&this->sounds[6].sample);
+    FreeSfxSample(&this->sounds[7].sample);
+    FreeSfxSample(&this->sounds[8].sample);
+    FreeSfxSample(&this->sounds[9].sample);
+    FreeSfxSample(&this->sounds[11].sample);
+    FreeSfxSample(&this->sounds[12].sample);
     for (int32_t i = 0; i < 11; i++) {
-        FUN_00438dd0(&this->snd_druid[i]);
+        FreeSfxSample(&this->snd_druid[i]);
     }
 }
 
@@ -15842,15 +15842,15 @@ void VisTavKaarg::VMethod30() {
 
 // 4A2873
 void VisTavKaarg::VMethod31() {
-    FUN_00438dd0(&this->sounds[5].sample);
-    FUN_00438dd0(&this->sounds[6].sample);
-    FUN_00438dd0(&this->sounds[7].sample);
-    FUN_00438dd0(&this->sounds[8].sample);
-    FUN_00438dd0(&this->sounds[9].sample);
-    FUN_00438dd0(&this->sounds[11].sample);
-    FUN_00438dd0(&this->sounds[12].sample);
+    FreeSfxSample(&this->sounds[5].sample);
+    FreeSfxSample(&this->sounds[6].sample);
+    FreeSfxSample(&this->sounds[7].sample);
+    FreeSfxSample(&this->sounds[8].sample);
+    FreeSfxSample(&this->sounds[9].sample);
+    FreeSfxSample(&this->sounds[11].sample);
+    FreeSfxSample(&this->sounds[12].sample);
     for (int32_t i = 0; i < 10; i++) {
-        FUN_00438dd0(&this->snd_kaarg[i]);
+        FreeSfxSample(&this->snd_kaarg[i]);
     }
 }
 
@@ -17017,16 +17017,16 @@ int32_t VisInvExtBase::OnLButtonDown(uint32_t wparam, CPoint pos) {
 
 // 4B4BA9
 void VisInvExtBase::sub_4B4BA9() {
-    FUN_00438dd0(&this->field_0x20b0.sample);
+    FreeSfxSample(&this->field_0x20b0.sample);
 }
 
 
 // 4B4C1C
 void VisInvExtBase::sub_4B4C1C() {
     this->sub_4B4BA9();
-    FUN_00438dd0(&this->field_0x20b4.sample);
-    FUN_00438dd0(&this->field_0x20b8.sample);
-    FUN_00438dd0(&this->field_0x20bc.sample);
+    FreeSfxSample(&this->field_0x20b4.sample);
+    FreeSfxSample(&this->field_0x20b8.sample);
+    FreeSfxSample(&this->field_0x20bc.sample);
 }
 
 
@@ -19030,15 +19030,15 @@ void VisStartGame::ClearPortraitHoverFlags() {
 
 // 4380D3
 void VisStartGame::FreeSamples() {
-    FUN_00438dd0(&this->difficultyLevel1Sound.sample);
-    FUN_00438dd0(&this->difficultyLevel2Sound.sample);
-    FUN_00438dd0(&this->difficultyLevel3Sound.sample);
-    FUN_00438dd0(&this->portraitSelectSound.sample);
-    FUN_00438dd0(&this->acceptSound.sample);
-    FUN_00438dd0(&this->labelInputSound1.sample);
-    FUN_00438dd0(&this->labelInputSound2.sample);
-    FUN_00438dd0(&this->labelInputSound3.sample);
-    FUN_00438dd0(&this->returnSound.sample);
+    FreeSfxSample(&this->difficultyLevel1Sound.sample);
+    FreeSfxSample(&this->difficultyLevel2Sound.sample);
+    FreeSfxSample(&this->difficultyLevel3Sound.sample);
+    FreeSfxSample(&this->portraitSelectSound.sample);
+    FreeSfxSample(&this->acceptSound.sample);
+    FreeSfxSample(&this->labelInputSound1.sample);
+    FreeSfxSample(&this->labelInputSound2.sample);
+    FreeSfxSample(&this->labelInputSound3.sample);
+    FreeSfxSample(&this->returnSound.sample);
 }
 
 
@@ -19407,7 +19407,7 @@ void VisTown::VMethod30() {
 // 4D184A
 void VisTown::VMethod31() {
     for (int32_t i = 0; i < 14; i++) {
-        FUN_00438dd0(&this->sounds[i]);
+        FreeSfxSample(&this->sounds[i]);
     }
 }
 
@@ -19704,12 +19704,12 @@ void VisTown::FUN_004d06aa() {
     if (this->guard_frame < 0) {
         this->guard_frame_step = 0;
         this->guard_frame = 0;
-        FUN_00438dd0(&this->sounds[2]);
+        FreeSfxSample(&this->sounds[2]);
     } else {
         if (this->spr_guard->GetFrameCount() <= this->guard_frame) {
             this->guard_frame_step = 0;
             this->guard_frame = this->spr_guard->GetFrameCount() - 1;
-            FUN_00438dd0(&this->sounds[2]);
+            FreeSfxSample(&this->sounds[2]);
         }
     }
 }
@@ -20224,17 +20224,17 @@ void VisTownKaarg::VMethod30() {
 // 4D5682
 void VisTownKaarg::VMethod31() {
     for (int32_t i = 0; i < 3; i++) {
-        FUN_00438dd0(&this->snd_voice[i]);
+        FreeSfxSample(&this->snd_voice[i]);
     }
     for (int32_t i = 0; i < 4; i++) {
-        FUN_00438dd0(&this->snd_bird[i]);
+        FreeSfxSample(&this->snd_bird[i]);
     }
-    FUN_00438dd0(&this->snd_voice1);
-    FUN_00438dd0(&this->snd_shop_enter);
-    FUN_00438dd0(&this->snd_tavern_enter);
-    FUN_00438dd0(&this->snd_dervish);
+    FreeSfxSample(&this->snd_voice1);
+    FreeSfxSample(&this->snd_shop_enter);
+    FreeSfxSample(&this->snd_tavern_enter);
+    FreeSfxSample(&this->snd_dervish);
     for (int32_t i = 0; i < 6; i++) {
-        FUN_00438dd0(&this->snd_guard[i]);
+        FreeSfxSample(&this->snd_guard[i]);
     }
 }
 
@@ -20896,24 +20896,24 @@ void VisTownDruid::VMethod30() {
 // 4D2D1B
 void VisTownDruid::VMethod31() {
     for (int32_t i = 0; i < 4; i++) {
-        FUN_00438dd0(&this->snd_lizard[i]);
+        FreeSfxSample(&this->snd_lizard[i]);
     }
     for (int32_t i = 0; i < 3; i++) {
-        FUN_00438dd0(&this->snd_bug[i]);
+        FreeSfxSample(&this->snd_bug[i]);
     }
     for (int32_t i = 0; i < 3; i++) {
-        FUN_00438dd0(&this->snd_bird[i]);
+        FreeSfxSample(&this->snd_bird[i]);
     }
     for (int32_t i = 0; i < 4; i++) {
-        FUN_00438dd0(&this->snd_tree[i]);
+        FreeSfxSample(&this->snd_tree[i]);
     }
-    FUN_00438dd0(&this->snd_forest);
-    FUN_00438dd0(&this->snd_shop);
-    FUN_00438dd0(&this->snd_tavern);
-    FUN_00438dd0(&this->snd_shop_enter);
-    FUN_00438dd0(&this->snd_tavern_enter);
-    FUN_00438dd0(&this->snd_town_exit);
-    FUN_00438dd0(&this->snd_wolf);
+    FreeSfxSample(&this->snd_forest);
+    FreeSfxSample(&this->snd_shop);
+    FreeSfxSample(&this->snd_tavern);
+    FreeSfxSample(&this->snd_shop_enter);
+    FreeSfxSample(&this->snd_tavern_enter);
+    FreeSfxSample(&this->snd_town_exit);
+    FreeSfxSample(&this->snd_wolf);
 }
 
 
@@ -22316,7 +22316,7 @@ void VisFameHall::LoadSounds() {
 
 // 45D563
 void VisFameHall::FreeSounds() {
-    FUN_00438dd0(&this->snd_close);
+    FreeSfxSample(&this->snd_close);
 }
 
 
@@ -23589,7 +23589,7 @@ void VisMainMenu::LoadSfx() {
 
 // 4ABB87
 void VisMainMenu::FreeSfx() {
-    FUN_00438dd0(&this->snd_btn_click);
+    FreeSfxSample(&this->snd_btn_click);
 }
 
 

@@ -167,7 +167,7 @@ SoundChannel* __cdecl SoundChannel::GetChannel(int32_t priority) { //45c23e
 }
 
 // 438dd0
-void FUN_00438dd0(SfxSample** sample) {
+void FreeSfxSample(SfxSample** sample) {
 	if (*sample == nullptr) {
 		return;
 	}
@@ -184,7 +184,7 @@ void FUN_00438dd0(SfxSample** sample) {
 
 // 438e40
 void FUN_00438e40(SfxSample** sample, const char* fname) {
-	FUN_00438dd0(sample);
+	FreeSfxSample(sample);
 	*sample = new SfxSample(fname);
 }
 
