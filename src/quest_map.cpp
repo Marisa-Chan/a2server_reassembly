@@ -39,7 +39,7 @@ QuestMap::~QuestMap() {
 }
 
 // 55DE84
-void QuestMap::sub_55DE84() {
+void QuestMap::ProcessQueuedEvents() {
 	while (this->substructs.GetCount() != 0) {
 		QuestSubstruct* sub = this->substructs.RemoveHead();
 		if (this->substructs.GetCount() == 0) {
@@ -53,7 +53,7 @@ void QuestMap::sub_55DE84() {
 // 55E00C
 void QuestMap::ProcessDeferredEvents() {
 	this->ProcessInnGlues();
-	this->sub_55DE84();
+	this->ProcessQueuedEvents();
 }
 
 // 55E027
