@@ -360,7 +360,7 @@ int CMultiShopTemplate::FindInstanceIndex(Unit* unit) {
 }
 
 // 547E91
-int CMultiShopTemplate::sub_547E91() {
+int CMultiShopTemplate::TryRefreshAssortment() {
     if (this->refresh_assortment_counter <= 0 || this->active_instances != 0) {
         return 0;
     }
@@ -526,7 +526,7 @@ void CMultiShopTemplate::sub_5479C6(Humanoid* humanoid) {
             }
         }
     }
-    this->sub_547E91();
+    this->TryRefreshAssortment();
 }
 
 // 547DD4
@@ -536,7 +536,7 @@ void CMultiShopTemplate::RefreshTick() {
     }
     if (g_Server->tick16 % 180 == 0) {
         this->refresh_assortment_counter += 1;
-        this->sub_547E91();
+        this->TryRefreshAssortment();
     }
     for (int32_t i = 0; i < this->shop_instances.GetSize();) {
         Unit* unit = this->shop_instances[i]->unit;

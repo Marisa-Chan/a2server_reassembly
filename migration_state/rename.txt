@@ -738,3 +738,4 @@ CMultiShopTemplate::sub_546F18 -> NotifyOtherInstances -- forwards a shelf notif
 CMultiShopTemplate::sub_546F8D -> CreateInstance -- creates a shop instance for the unit and fills its shelves
 CMultiShopTemplate::sub_54740C -> FindInstanceIndex -- index of the instance owned by the unit's owner
 CMultiShopTemplate::sub_54749F -> ClearShelves -- clears all four shelves
+CMultiShopTemplate::sub_547DD4 -> RefreshTick -- every 180 ticks bumps the refresh counter and tries a refresh
