@@ -5065,7 +5065,7 @@ int32_t VisCharSellectList::OnKeyDown(uint32_t wparam) {
         if (this->field_0xd8 != 0) {
             char buf[100];
             this->parent_screen->rename_txt->WriteData(buf);
-            this->parent_screen->session->FUN_0049381c(buf);
+            this->parent_screen->session->SetNameAndColor(buf);
             this->parent_screen->CloseRenameWindow();
         } else {
             this->parent_screen->CloseOk();

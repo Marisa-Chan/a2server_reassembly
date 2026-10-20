@@ -5796,7 +5796,7 @@ void CGameSession::InitializeNewCharacterSession(int tp, const char* name) { //4
     this->RecreateCUnit();
 }
 
-void CGameSession::FUN_0049381c(char* name) { //49381c
+void CGameSession::SetNameAndColor(char* name) { //49381c
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
     CUnit* unit = mwnd->vis_map_context->GetUnit_3f6c();
 
