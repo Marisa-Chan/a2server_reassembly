@@ -62,7 +62,7 @@ public:
     int TryRefreshAssortment(); // 547E91 - refresh assortment if no live instances
     CMultiShopInstance* FindInstanceFor(Humanoid* humanoid); // 547468 - find shop instance for player's unit
     void CloseInstance(Humanoid* humanoid); // 5479C6
-    void sub_5474D8(); // 5474D8
+    void GenerateAssortment(); // 5474D8
     void sub_547644(Unit* unit); // 547644
     void sub_547B7B(Unit* unit); // 547B7B
     void sub_547BBC(Unit* unit); // 547BBC

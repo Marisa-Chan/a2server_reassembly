@@ -70,7 +70,7 @@ void Shop::sub_5446EB(Humanoid* unit, uint8_t op_type, int16_t src_slot, uint8_t
 
 // 54463F
 void Shop::sub_54463F() {
-    this->shop_template->sub_5474D8();
+    this->shop_template->GenerateAssortment();
 }
 
 // 544655

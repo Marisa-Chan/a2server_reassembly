@@ -364,7 +364,7 @@ int CMultiShopTemplate::TryRefreshAssortment() {
     if (this->refresh_assortment_counter <= 0 || this->active_instances != 0) {
         return 0;
     }
-    this->sub_5474D8();
+    this->GenerateAssortment();
     this->refresh_assortment_counter = 0;
     return 1;
 }
@@ -444,7 +444,7 @@ void CMultiShopTemplate::sub_547644(Unit* unit) {
         return;
     }
     if (this->shelves[0].items.GetSize() == 0) {
-        this->sub_5474D8();
+        this->GenerateAssortment();
     }
     CMultiShopInstance* shop_instance = this->CreateInstance(unit);
     shop_instance->SetUnit(unit);
@@ -453,7 +453,7 @@ void CMultiShopTemplate::sub_547644(Unit* unit) {
 }
 
 // 5474D8
-void CMultiShopTemplate::sub_5474D8() {
+void CMultiShopTemplate::GenerateAssortment() {
     if (this->active_instances > 0) {
         return;
     }

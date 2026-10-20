@@ -741,3 +741,4 @@ CMultiShopTemplate::sub_54749F -> ClearShelves -- clears all four shelves
 CMultiShopTemplate::sub_547DD4 -> RefreshTick -- every 180 ticks bumps the refresh counter and tries a refresh
 CMultiShopTemplate::sub_547E91 -> TryRefreshAssortment -- regenerates the assortment when flagged and no live instances
 CMultiShopTemplate::sub_547468 -> FindInstanceFor -- finds the shop instance for a humanoid
+CMultiShopTemplate::sub_5479C6 -> CloseInstance -- removes the humanoid's instance and prunes sold-out shelf items
