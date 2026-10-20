@@ -16476,7 +16476,7 @@ int32_t VisInvType1::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
             if (screen_rect.PtInRect(mouse_pt)) {
                 int32_t idx = this->VMethod30(g_mousept.GetX(), -g_mousept.GetY());
                 if (idx >= 0) {
-                    main_wnd->m_GameSession.shortcuts[wparam].sub_41E343(this->grid_source->GetAt(idx));
+                    main_wnd->m_GameSession.shortcuts[wparam].SetItem(this->grid_source->GetAt(idx));
                     for (int32_t i = 0; i < 9; i++) {
                         if (i != wparam && main_wnd->m_GameSession.shortcuts[i].MatchesItem(this->grid_source->GetAt(idx)) != 0) {
                             main_wnd->m_GameSession.shortcuts[i].kind = 0;

@@ -6014,7 +6014,7 @@ int32_t UserShortcut::MatchesItem(TokenEntry* entry) { //41e3af
     return 1;
 }
 
-void UserShortcut::sub_41E343(TokenEntry* entry) { //41e343
+void UserShortcut::SetItem(TokenEntry* entry) { //41e343
     this->kind = 2;
     this->item_id = entry->item_id;
     this->mods_size = entry->mods_size;

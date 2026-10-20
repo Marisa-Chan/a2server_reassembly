@@ -137,7 +137,7 @@ struct UserShortcut {
     void SetSpell(short spell_id); //41e323 in asm
     int32_t IsSpellShortcut(short spell_id); //41e456 in asm
     int32_t MatchesItem(TokenEntry* entry); //41e3af in asm
-    void sub_41E343(TokenEntry* entry); //41e343 in asm
+    void SetItem(TokenEntry* entry); //41e343 in asm
 
     void WriteToFile(CFile* f); //41e4d3
     void ReadFromFile(CFile* f); //41e53b
