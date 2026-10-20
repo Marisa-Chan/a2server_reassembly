@@ -1223,7 +1223,7 @@ void World::CastKnownSpell(Unit* caster, Unit* target, int32_t spell_id) {
 // Pick a random unit near pos_yx that is an enemy (is_defensive=0) or ally
 // (is_defensive=1) of owner, skipping invisible units.
 // 5B61D0
-Unit* World::sub_5B61D0(uint16_t pos_yx, uint8_t byte_0x3c, Player* owner, int32_t is_defensive) {
+Unit* World::PickRelationUnitNear(uint16_t pos_yx, uint8_t byte_0x3c, Player* owner, int32_t is_defensive) {
     this->field24_0xa50->GatherUnitsNear(pos_yx, byte_0x3c, owner, &this->field26_0xa64);
 
     CList<Unit*>& list = this->field26_0xa64.unit_list;
@@ -1261,7 +1261,7 @@ void World::ProcessVirtualCasters() {
         VirtualCaster* vc = vc_list.GetNext(it);
         Spell* spell = g_Server->spells[vc->properties[0]];
         uint16_t pos_yx = PosYX{vc->properties[2], vc->properties[3]}.val;
-        Unit* unit = this->sub_5B61D0(pos_yx, vc->byte_0x3c, vc->pOwner, spell->is_defensive);
+        Unit* unit = this->PickRelationUnitNear(pos_yx, vc->byte_0x3c, vc->pOwner, spell->is_defensive);
         if (unit != nullptr) {
             g_Server->srv_stru1->MakeTargetSpellEffect(vc->properties[2], vc->properties[3], unit, vc->properties[0], vc->properties[1]);
         }
