@@ -162,7 +162,7 @@ public:
     void GroupFollowCommand(Group* group, Unit* target, uint8_t param_3);
     uint32_t sub_5AB719(Group* group); // Compute average position of units in a group.
     uint8_t sub_5ABB32(Unit* unit, PosYX yx); // 5ABB32
-    void sub_5AC7C8(Group* group);
+    void GroupRoamCommand(Group* group);
     void OrderGuardPosition(Unit* unit);
     void OrderStandGround(Unit* unit); // 5A943B — helper for GroupStopCommand.
     void OrderTeleportHome(Unit* unit); // 5A9918 — helper for GroupGoHomeCommand.

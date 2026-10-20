@@ -2095,7 +2095,7 @@ void World::ScriptOP_0x06(TriggerAction* action) {
             this->GroupFollowCommand(group, action->unit, action->data[1]);
             break;
         case 17: // Roam
-            this->sub_5AC7C8(group);
+            this->GroupRoamCommand(group);
             break;
         case 18: // Dwell (guard_range=data[1])
             this->PlaceRespawnedGroup(group, action->data[1]);
@@ -2877,7 +2877,7 @@ void World::GroupAttackMoveCommand(Group* group, uint8_t x, uint8_t y) {
 
 // Issue a respawn/return command to `group` using the lead unit's position.
 // 5AC7C8
-void World::sub_5AC7C8(Group* group) {
+void World::GroupRoamCommand(Group* group) {
     this->ClearGroupOrders(group);
     group->group_sub->order = 0x11;
     Unit* head = group->unit_list.GetHead();
