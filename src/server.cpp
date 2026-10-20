@@ -316,7 +316,7 @@ void Server::ProcessPlayers() {
                 while (unit_it != nullptr) {
                     Unit* unit = unit_list.GetNext(unit_it);
                     if (unit->typeId < 0x21 || unit->typeId > 0x3f) {
-                        player->sub_534A74(unit);
+                        player->RemoveUnit(unit);
                     } else {
                         unit->hp = unit->hp_max;
                         unit->mp = unit->mp_max;

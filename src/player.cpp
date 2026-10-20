@@ -256,7 +256,7 @@ void Player::RemoveUnitFromGroup(Unit* unit) {
 }
 
 // 534A74
-void Player::sub_534A74(Unit* unit) {
+void Player::RemoveUnit(Unit* unit) {
     this->RemoveUnitFromGroup(unit);
     delete unit;
 }

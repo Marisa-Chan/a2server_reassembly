@@ -99,7 +99,7 @@ public:
     void Deactivate(); //534778
 
     void RemoveUnitFromGroup(Unit* unit); // Remove a unit from this player's unit list (PlayerRemoveUnit)
-    void sub_534A74(Unit* unit); // 534a74
+    void RemoveUnit(Unit* unit); // 534a74
 };
 
 ASSERT_OFFSET(Player, flags, 0x14);
