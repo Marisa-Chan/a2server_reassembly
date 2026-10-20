@@ -149,7 +149,7 @@ int32_t Fame2::GetDocId() {
     return this->doc_id;
 }
 
-uint32_t Fame2::FUN_004ad890() {
+uint32_t Fame2::GetIsText() {
     //4ad890
     return this->is_text;
 }
@@ -247,7 +247,7 @@ uint32_t CFameHall::FUN_004ac566(int32_t arg) {
     //4ac566
     for (uint32_t i = 0; i < this->m_Documents.GetSize(); i++) {
         Fame2& fame = this->m_Documents[i];
-        if (fame.GetDocId() == arg && fame.FUN_004ad890() != 0) {
+        if (fame.GetDocId() == arg && fame.GetIsText() != 0) {
             return 0;
         }
     }
