@@ -1010,3 +1010,4 @@ World::sub_5A99C7 -> OrderGatherLoot -- packet 0x13: state 26 - walk the passabl
 World::sub_5A6789 -> DoGatherLootStep -- state 26 handler: pops the next sack cell from the queue and walks to it
 World::sub_5AC881 -> GroupAttackMove -- packet 0x1A: attack-move to position (delegates to GroupSwarmCommand)
 World::sub_5ACB9E -> GroupFollowCommand -- trigger action 15 Follow: every unit keeps range of the target (state 0x11)
+World::sub_5AC7C8 -> GroupRoamCommand -- trigger action 17 Roam: order 0x11 anchored at the head unit's spot

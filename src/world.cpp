@@ -3404,7 +3404,7 @@ void World::ProcessGroupAi(Group* group) {
             this->AiSwarmBrain(group, group->group_sub->order_pos);
             break;
         case 0x11:
-            this->sub_5AED8D(group);
+            this->AiRoamBrain(group);
             break;
         case 0x12:
             this->AiDefendBrain(group);
@@ -3418,7 +3418,7 @@ void World::ProcessGroupAi(Group* group) {
 }
 
 // 5AED8D
-void World::sub_5AED8D(Group* group) {
+void World::AiRoamBrain(Group* group) {
     uint8_t max_distance = 0;
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
