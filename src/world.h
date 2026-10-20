@@ -160,7 +160,7 @@ public:
     void OrderAreaCast(Unit* unit, uint8_t x, uint8_t y, Spell* spell); // 5A930F — group area-cast setup (ASM).
     void GroupAttackMoveCommand(Group* group, uint8_t x, uint8_t y);
     void GroupFollowCommand(Group* group, Unit* target, uint8_t param_3);
-    uint32_t sub_5AB719(Group* group); // Compute average position of units in a group.
+    uint32_t ComputeGroupAvgPos(Group* group); // Compute average position of units in a group.
     uint8_t sub_5ABB32(Unit* unit, PosYX yx); // 5ABB32
     void GroupRoamCommand(Group* group);
     void OrderGuardPosition(Unit* unit);

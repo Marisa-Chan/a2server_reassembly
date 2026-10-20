@@ -839,7 +839,7 @@ void World::AiSwarmBrain(Group* group, uint16_t param) {
 }
 
 // 5AB719
-uint32_t World::sub_5AB719(Group* group) {
+uint32_t World::ComputeGroupAvgPos(Group* group) {
     int count = group->unit_list.GetCount();
     if (count == 0) {
         return 0;
@@ -2791,7 +2791,7 @@ void World::GroupMoveCommand(Group* group, uint8_t x, uint8_t y) {
     uint8_t origin_y = 0;
 
     if (group->owner->settings->formation == 2) {
-        uint32_t pos = this->sub_5AB719(group);
+        uint32_t pos = this->ComputeGroupAvgPos(group);
         origin_x = static_cast<uint8_t>((pos >> 8) & 0xFF);
         origin_y = static_cast<uint8_t>((pos >> 24) & 0xFF);
 
@@ -2805,7 +2805,7 @@ void World::GroupMoveCommand(Group* group, uint8_t x, uint8_t y) {
     } else {
         use_relative = group->owner->settings->formation != 0;
         if (use_relative) {
-            uint32_t pos = this->sub_5AB719(group);
+            uint32_t pos = this->ComputeGroupAvgPos(group);
             origin_x = static_cast<uint8_t>((pos >> 8) & 0xFF);
             origin_y = static_cast<uint8_t>((pos >> 24) & 0xFF);
         }
@@ -2858,10 +2858,10 @@ void World::StartAttack(Unit* unit) {
     unit->cast_target = unit->eye2->unit;
 }
 
-// Refresh group_sub position/range fields from sub_5AB719 results.
+// Refresh group_sub position/range fields from ComputeGroupAvgPos results.
 // 5AC137
 void World::RefreshGroupGuardAnchor(Group* group) {
-    this->sub_5AB719(group);
+    this->ComputeGroupAvgPos(group);
     group->group_sub->field_0x0 = group->group_sub->avg_pos;
     group->group_sub->guard_range = group->group_sub->max_dist_plus_scan;
     group->group_sub->guard_range_base = group->group_sub->max_dist_plus_scan;
@@ -4093,7 +4093,7 @@ void World::IdleGroupUnits(Group* group) {
 
 // 5AF061
 void World::AiMoveBrain(Group* group, uint16_t yx) {
-    this->sub_5AB719(group);
+    this->ComputeGroupAvgPos(group);
 
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
