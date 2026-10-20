@@ -185,7 +185,7 @@ int32_t Fame2::ScrollUp() { //4abf72
     return 1;
 }
 
-void Fame2::FUN_004abfb1(int32_t x, int32_t y) { //4abfb1
+void Fame2::Draw(int32_t x, int32_t y) { //4abfb1
     if (this->is_text == 0) {
         if (this->picture) {
             this->picture->VMethod2(x + this->rect.left, y + this->rect.top, 0, 0, 0);

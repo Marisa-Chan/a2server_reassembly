@@ -21863,7 +21863,7 @@ void VisFameDocument::VMethod7() {
             this->bmp_cur_ok->VMethod2(top_left.x + this->rect_ok.left, top_left.y + this->rect_ok.top, 0, 0, 0);
         }
         Fame2& doc = this->fame->m_Documents[this->selected_doc];
-        doc.FUN_004abfb1(top_left.x, top_left.y);
+        doc.Draw(top_left.x, top_left.y);
         UnlockSurface2();
         this->VisScreen::VMethod7();
     }

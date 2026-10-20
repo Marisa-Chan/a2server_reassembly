@@ -855,3 +855,4 @@ Fame2::FUN_004abf0f -> SetDocument -- clears and sets doc_id + is_text
 Fame2::FUN_004ad880 -> GetDocId -- returns doc_id
 Fame2::FUN_004ad890 -> GetIsText -- returns is_text
 Fame2::FUN_004abf35 -> ScrollDown -- advances top_line one page (21 lines)
+Fame2::FUN_004abf72 -> ScrollUp -- moves top_line back one page
