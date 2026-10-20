@@ -67,7 +67,7 @@ void __cdecl sub_54C556(CArray<Item*>* arr) {
 }
 
 // 54F04F
-Effect* __cdecl sub_54F04F(int32_t is_warrior, int32_t magic_volume, int32_t budget, int32_t max_attempts) {
+Effect* __cdecl RollCastSpellEffect(int32_t is_warrior, int32_t magic_volume, int32_t budget, int32_t max_attempts) {
     Effect* effect = new Effect();
     effect->effect_id = modifier::castspell;
 
@@ -537,7 +537,7 @@ int32_t ShopAssortment::AddMagicToItem(Item* item) {
             budget = cap;
         }
 
-        Effect* effect = sub_54F04F(is_warrior, item->magic_volume, budget, 100);
+        Effect* effect = RollCastSpellEffect(is_warrior, item->magic_volume, budget, 100);
         if (!effect) {
             return 0;
         }

@@ -914,3 +914,4 @@ unit: sub_53685B -> ExecuteMeleeAttack -- melee attack roll + damage + weapon im
 unit: sub_536A62 -> ExecuteRangedAttack -- ranged attack execution
 unit: sub_536630 -> CalcAttackCharge -- computes the charge gain for attacking the target
 unit: sub_53678F -> ExecuteAttack -- dispatches the attack by target kind (unit/building)
+shop_assortment: sub_54EDE9 -> RollItemEffect -- rolls a random enchantment Effect for an item
