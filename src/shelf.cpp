@@ -446,7 +446,7 @@ void CMultiShopTemplate::sub_547644(Unit* unit) {
     if (this->shelves[0].items.GetSize() == 0) {
         this->sub_5474D8();
     }
-    CMultiShopInstance* shop_instance = this->sub_546F8D(unit);
+    CMultiShopInstance* shop_instance = this->CreateInstance(unit);
     shop_instance->SetUnit(unit);
     this->shop_instances.SetAtGrow(this->shop_instances.GetSize(), shop_instance);
     shop_instance->SendShelfState(-1);
@@ -476,7 +476,7 @@ void CMultiShopTemplate::sub_5474D8() {
 }
 
 // 546F8D
-CMultiShopInstance* CMultiShopTemplate::sub_546F8D(Unit* unit) {
+CMultiShopInstance* CMultiShopTemplate::CreateInstance(Unit* unit) {
     CMultiShopInstance* instance = new CMultiShopInstance();
     instance->unit = unit;
     instance->shop_template = this;
