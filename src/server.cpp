@@ -596,7 +596,7 @@ void Srv1::CreateBuildings(MapAlm* alm) {
         // For Inns, create QuestInnGlue
         if (building->IsKindOf(RUNTIME_CLASS(Inn))) {
             QuestInnGlue* glue = new QuestInnGlue(building->building_id, building->position, g_World, 4);
-            g_QuestMap.sub_55EA81(glue);
+            g_QuestMap.AddInnGlue(glue);
         }
 
         // Delete building data and null the array entry

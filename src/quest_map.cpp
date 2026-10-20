@@ -123,7 +123,7 @@ void QuestMap::UnregisterQuest(Quest* quest) {
 }
 
 // 55EA81
-void QuestMap::sub_55EA81(QuestInnGlue* glue) {
+void QuestMap::AddInnGlue(QuestInnGlue* glue) {
 	this->glues_map.SetAt(glue->building_id, glue);
 	glue->quest_map = this;
 }
