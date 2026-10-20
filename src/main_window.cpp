@@ -420,7 +420,7 @@ const AFX_MSGMAP_ENTRY ServerControlDialog::_messageEntries[] =
     { WM_CLOSE, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&OnClose },
     { WM_COMMAND, CN_COMMAND, 0x3ff, 0x3ff, AfxSigCmd_v, (AFX_PMSG)&OnCommand3ff},
     { WM_COMMAND, CN_COMMAND, 0x3f7, 0x3f7, AfxSigCmd_v, (AFX_PMSG)&OnCommand3f7},
-    { WM_COMMAND, CN_COMMAND, 0x3fb, 0x3fb, AfxSigCmd_v, (AFX_PMSG)&sub_4957E2},
+    { WM_COMMAND, CN_COMMAND, 0x3fb, 0x3fb, AfxSigCmd_v, (AFX_PMSG)&OnCommand3fb},
     { WM_COMMAND, CN_COMMAND, 0x3fe, 0x3fe, AfxSigCmd_v, (AFX_PMSG)&sub_49583E},
     {0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0 }
 };
@@ -502,7 +502,7 @@ void ServerControlDialog::OnCommand3f7() {
 }
 
 // 4957e2
-void ServerControlDialog::sub_4957E2() {
+void ServerControlDialog::OnCommand3fb() {
     this->UpdateData(1);
 
     int32_t minutes = atoi(this->str_27c);
