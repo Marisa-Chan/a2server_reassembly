@@ -4055,7 +4055,7 @@ void World::ProcessUnitState(Unit* unit) {
 }
 
 // 5AE5C0
-void World::sub_5AE5C0(Group* group) {
+void World::JitterGuardRangeWide(Group* group) {
     uint8_t base = group->group_sub->guard_range_base;
     int32_t r = this->sub_5B6F60(-1, 1);
     group->group_sub->guard_range = base + r + 4;
@@ -4325,7 +4325,7 @@ void World::AiGuardBrain(Group* group) {
         group->group_sub->was_empty = 0;
     } else {
         if (group->group_sub->was_empty == 0) {
-            this->sub_5AE5C0(group);
+            this->JitterGuardRangeWide(group);
             group->group_sub->phase_ticks = 0;
         } else {
             group->group_sub->phase_ticks++;
@@ -4365,7 +4365,7 @@ void World::AiDefendBrain(Group* group) {
         group->group_sub->was_empty = 0;
     } else {
         if (group->group_sub->was_empty == 0) {
-            this->sub_5AE5C0(group);
+            this->JitterGuardRangeWide(group);
             group->group_sub->phase_ticks = 0;
         } else {
             group->group_sub->phase_ticks++;
