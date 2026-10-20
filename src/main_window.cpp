@@ -417,7 +417,7 @@ const AFX_MSGMAP_ENTRY ServerControlDialog::_messageEntries[] =
     { WM_COMMAND, CN_COMMAND, 0x3f5, 0x3f5, AfxSigCmd_v, (AFX_PMSG)&OnCommand3f5},
     { WM_COMMAND, CN_COMMAND, 0x3f6, 0x3f6, AfxSigCmd_v, (AFX_PMSG)&OnCommand3f6},
     { WM_COMMAND, CN_COMMAND, 0x3f4, 0x3f4, AfxSigCmd_v, (AFX_PMSG)&sub_4954EA},
-    { WM_CLOSE, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&sub_4956D5 },
+    { WM_CLOSE, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&OnClose },
     { WM_COMMAND, CN_COMMAND, 0x3ff, 0x3ff, AfxSigCmd_v, (AFX_PMSG)&sub_495774},
     { WM_COMMAND, CN_COMMAND, 0x3f7, 0x3f7, AfxSigCmd_v, (AFX_PMSG)&sub_4957AD},
     { WM_COMMAND, CN_COMMAND, 0x3fb, 0x3fb, AfxSigCmd_v, (AFX_PMSG)&sub_4957E2},
@@ -471,7 +471,7 @@ void ServerControlDialog::OnCommand3f6() {
 }
 
 // 4956d5
-void ServerControlDialog::sub_4956D5() {
+void ServerControlDialog::OnClose() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     main_wnd->server_ctrl_shown = 0;
     this->UpdateData(1);

@@ -318,7 +318,7 @@ public:
     void OnCommand3f5(); // 49544C — ON_COMMAND 0x3f5
     void OnCommand3f6(); // 49549B — ON_COMMAND 0x3f6
     void sub_4954EA(); // 4954EA
-    void sub_4956D5(); // 4956D5 — ON_WM_CLOSE
+    void OnClose(); // 4956D5 — ON_WM_CLOSE
     void sub_495774(); // 495774 — ON_COMMAND 0x3ff
     void sub_4957AD(); // 4957AD — ON_COMMAND 0x3f7
     void sub_4957E2(); // 4957E2 — ON_COMMAND 0x3fb
