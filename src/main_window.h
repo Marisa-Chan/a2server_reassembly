@@ -376,7 +376,7 @@ public: // VTable at 0060c1a8.
     void OnNcLButtonDown(UINT, CPoint); //495c6e
     
 public:
-    void sub_48A756(); // Game loop tick processing function, called from GameApp::OnIdle when server is active.
+    void IdleLoop(); // Game loop tick processing function, called from GameApp::OnIdle when server is active.
     void sub_484259();
     void sub_41EA70(UINT msg, WPARAM wparam, LPARAM lparam);
 

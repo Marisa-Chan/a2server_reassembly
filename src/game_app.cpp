@@ -778,7 +778,7 @@ BOOL GameApp::OnIdle(LONG lCount) { //4835b0
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
 	if (mwnd->sessionMode == 3 && g_Server) {
-		mwnd->sub_48A756();
+		mwnd->IdleLoop();
 	} else if ((mwnd->dialogsMask & 1) == 0) {
 		if (mwnd->serverBootstrapEnabled == 0 || !g_Server) {
 			if (mwnd->vis_netmapsel && g_NetStru1_local.IsActive() == 0) {

@@ -1808,7 +1808,7 @@ void MainWindow::SetControlPositions() { //484127
 
 // Game loop tick processing function
 // Called from GameApp::OnIdle when server is active
-void MainWindow::sub_48A756() {
+void MainWindow::IdleLoop() {
     try {
         g_mousept.Update();
 
