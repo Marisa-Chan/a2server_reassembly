@@ -6365,7 +6365,7 @@ void BigStruct2::FUN_0041d97e(int32_t arg) {
 	}
 	int32_t time_of_day = ((uint32_t)wnd->serverLoopCounter >> 4) + 0x168;
 	if (((wnd->serverLoopCounter & 0xF) == 0 && time_of_day % 20 == 0 && g_settings.ShowTimeFlow != 0) || arg != 0) {
-		sub_4764BC(time_of_day);
+		UpdateDayNightLighting(time_of_day);
 		this->field_0x80->UpdateTerrainShading(1, 1, 0, 0);
 		this->sub_404912();
 		sub_47FA75();
@@ -7099,7 +7099,7 @@ BigStruct2::~BigStruct2() {
 }
 
 // 4764BC
-uint8_t* __cdecl sub_4764BC(int32_t val) {
+uint8_t* __cdecl UpdateDayNightLighting(int32_t val) {
 	if (g_settings.ShowTimeFlow == 0) {
 		g_DeltaCLR.r = 0;
 		g_DeltaCLR.g = 0;

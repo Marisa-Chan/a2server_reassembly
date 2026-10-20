@@ -36,7 +36,7 @@ extern CStringArray DAT_00666a00; // 666a00
 
 void LoadVfxData(); //47b24e
 
-uint8_t* __cdecl sub_4764BC(int32_t val); //4764bc
+uint8_t* __cdecl UpdateDayNightLighting(int32_t val); //4764bc
 void __cdecl sub_47FA75(); //47fa75
 void __cdecl sub_477B59(uint32_t val); //477b59
 
