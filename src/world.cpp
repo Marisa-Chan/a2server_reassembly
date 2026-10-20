@@ -820,10 +820,10 @@ void World::AiAttackBrain(Group* group, uint16_t target_yx) {
 }
 
 // 5AECE7
-void World::AiSwarmBrain(Group* group, uint16_t param) {
+void World::AiSwarmBrain(Group* group, uint16_t target_yx) {
     this->ScanNearbyUnits(group);
     if (this->field26_0xa64.unit_list.GetCount() == 0) {
-        this->AiMoveBrain(group, param);
+        this->AiMoveBrain(group, target_yx);
     } else {
         this->AssignNearbyTargets(group);
         POSITION it = group->unit_list.GetHeadPosition();
