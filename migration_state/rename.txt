@@ -838,3 +838,4 @@ Inventory: sub_55CCE4 -> Serialize -- serialises the inventory
 Group: sub_599F00 -> GetHeadUnit -- returns the first unit (O(1) wrapper; prefer unit_list.GetHead())
 Group: sub_599F20 -> GetNextUnit -- O(N) next-unit lookup; prefer unit_list.GetNext()
 ResBase::FUN_004ecc05 -> AccumulateSize -- recursively marks the node subtree and adds file sizes to content_size
+ResBase::FUN_004ec7e0 -> AppendEntry -- grows the fat and appends a child entry with the given name

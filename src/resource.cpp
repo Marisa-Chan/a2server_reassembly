@@ -524,7 +524,7 @@ void ResBase::AccumulateSize(FatEntry* node) {
     }
 }
 
-void ResBase::FUN_004ec553(FatEntry* newFat, int* pCount, const FatEntry* srcFat, const FatEntry* srcRoot, FatEntry* node, FatEntry* dstRoot) {
+void ResBase::CopyFatExcluding(FatEntry* newFat, int* pCount, const FatEntry* srcFat, const FatEntry* srcRoot, FatEntry* node, FatEntry* dstRoot) {
     //4ec553
 
     int32_t newSize = 0;
@@ -563,7 +563,7 @@ void ResBase::FUN_004ec553(FatEntry* newFat, int* pCount, const FatEntry* srcFat
 
     for (uint32_t i = 0; i < srcRoot->size; i++) {
         if ((srcFat[srcOffset + i].flags & 0x40000001) == 1) {
-            this->FUN_004ec553(newFat, pCount, srcFat, srcFat + srcOffset + i, node, newFat + fatOffset);
+            this->CopyFatExcluding(newFat, pCount, srcFat, srcFat + srcOffset + i, node, newFat + fatOffset);
             fatOffset++;
         }
     }
@@ -587,7 +587,7 @@ FatEntry* ResBase::FUN_004ec438(FatEntry* node) {
     int exactSize = 0;
     int aproxSize = this->fat_size - node->size;
 
-    this->FUN_004ec553(newFat, &exactSize, this->fat_data, &this->root, node, &this->root);
+    this->CopyFatExcluding(newFat, &exactSize, this->fat_data, &this->root, node, &this->root);
 
     if (aproxSize != exactSize) {
         for (uint32_t i = 0; i < g_lastDstRoot->size; i++) {

@@ -50,7 +50,7 @@ struct ResBase {
     void AccumulateSize(FatEntry* node);
     FatEntry* AppendEntry(FatEntry** pOldNode, const char* fname);
 
-    void FUN_004ec553(FatEntry* newFat, int* pCount, const FatEntry* srcFat, const FatEntry* srcRoot, FatEntry* node, FatEntry* dstRoot);
+    void CopyFatExcluding(FatEntry* newFat, int* pCount, const FatEntry* srcFat, const FatEntry* srcRoot, FatEntry* node, FatEntry* dstRoot);
     FatEntry* FUN_004ec438(FatEntry* node);
     void SortTree(FatEntry* root);
     void WriteToFile(CFile* cfile, int32_t offset = -1);
