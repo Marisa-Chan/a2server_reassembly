@@ -2183,7 +2183,7 @@ void __cdecl PlotPixelBlend(int32_t x, int32_t y, int32_t r, int32_t g, int32_t 
 }
 
 // 4588EC
-void __cdecl sub_4588EC(int32_t x, int32_t y, int32_t r, int32_t g, int32_t b, int32_t alpha) {
+void __cdecl PlotGlowDot(int32_t x, int32_t y, int32_t r, int32_t g, int32_t b, int32_t alpha) {
 	PlotPixelBlend(x, y, r, g, b, alpha);
 	PlotPixelBlend(x + 1, y, r, g, b, alpha * 3 / 4);
 	PlotPixelBlend(x, y + 1, r, g, b, alpha * 3 / 4);

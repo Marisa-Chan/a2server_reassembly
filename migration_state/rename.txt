@@ -887,3 +887,4 @@ MainWindow::sub_4957AD -> OnCommand3f7 -- ON_COMMAND 0x3f7
 MainWindow::sub_4957E2 -> OnCommand3fb -- ON_COMMAND 0x3fb
 MainWindow::sub_49583E -> OnCommand3fe -- ON_COMMAND 0x3fe
 MainWindow::sub_4954EA -> OnCommandUnknown -- unidentified command handler
+gfx: sub_4586FE -> PlotPixelBlend -- plots one alpha-blended pixel into g_selDrawBitmap (clip-checked)

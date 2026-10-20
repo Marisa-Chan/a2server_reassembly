@@ -14676,7 +14676,7 @@ void VisTavScene::FUN_0049bc23() {
                 static const uint32_t sparkle_alpha[7] = {0x3F, 0x7F, 0xBF, 0xFF, 0xBF, 0x7F, 0x3F};
                 for (uint32_t k = 0; k < 7; k++) {
                     if (t >= k) {
-                        sub_4588EC(cell_x + main_wnd->vis_invtype1->random_offsets1[(t - k) & 0x3FF],
+                        PlotGlowDot(cell_x + main_wnd->vis_invtype1->random_offsets1[(t - k) & 0x3FF],
                                    cell_y + main_wnd->vis_invtype1->random_offsets2[(t - k) & 0x3FF],
                                    0xFF, 0, 0xFF, sparkle_alpha[k]);
                     }
@@ -15876,7 +15876,7 @@ void VisInvBase::sub_4A5FAB(int32_t x, int32_t y, int32_t idx) {
             break;
         }
         int32_t j = (i - k) % 1024;
-        sub_4588EC(x + this->random_offsets1[j], y + this->random_offsets2[j], 0xFF, 0, 0xFF, trail_alpha[k]);
+        PlotGlowDot(x + this->random_offsets1[j], y + this->random_offsets2[j], 0xFF, 0, 0xFF, trail_alpha[k]);
     }
 }
 
