@@ -237,7 +237,7 @@ public:
     void DoPatrolTick(Unit* unit); // 5A59E2
     void sub_5A5B49(Unit* unit); // 5A5B49
     void ResetUnitToIdle(Unit* unit); // 5A9A8F — reset unit to idle (ASM).
-    void sub_5A6789(Unit* unit); // 5A6789
+    void DoGatherLootStep(Unit* unit); // 5A6789
     void DoTeleportHome(Unit* unit); // 5A8885
     void sub_5A8A55(Unit* unit); // 5A8A55
     uint32_t ComputeListAvgPos(UnitList* list); // 5AB62E

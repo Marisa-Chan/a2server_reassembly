@@ -3925,7 +3925,7 @@ void World::sub_5A8829(Unit* unit, Unit* target, uint8_t range) {
 }
 
 // 5A6789
-void World::sub_5A6789(Unit* unit) {
+void World::DoGatherLootStep(Unit* unit) {
     this->field24_0xa50->CollectSackCells(unit, 1);
     if (this->field24_0xa50->field67_0xa4510.GetCount() == 0) {
         this->OrderHoldPosition(unit);
@@ -4042,7 +4042,7 @@ void World::ProcessUnitState(Unit* unit) {
         this->sub_5AB5E3(unit);
         break;
     case 26:
-        this->sub_5A6789(unit);
+        this->DoGatherLootStep(unit);
         break;
     case 27:
         unit->some_state = 0x1b;
