@@ -1099,3 +1099,4 @@ CGameObject::DrawMinimapRect arg3 -> zoom -- power-of-2 minimap zoom (rect size 
 CGameObject::SetTileLayerCell arg1 -> layer_id -- 0=backpacks 1=structures 2=units 3=air units 4=special units tile layer
 CGameObject::SetTileLayerCell arg2 -> obj -- object pointer stored into the layer's tile cells
 CUnit::PlayHitSound arg1 -> kind -- 0=hit noise, 1/2=pain voice (throttled 1.5s), 3=death voice
+TransientVisualEffectBuilder::BuildLightningLine arg5 -> vfx_type -- GO_11c vfx_type byte stamped on each arc point

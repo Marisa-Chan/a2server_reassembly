@@ -2411,7 +2411,7 @@ void TransientVisualEffectBuilder::BuildJitterWalk(double x0, double y0, double 
 }
 
 // 4cc059
-void TransientVisualEffectBuilder::BuildLightningLine(double x0, double y0, double x1, double y1, uint8_t arg5) {
+void TransientVisualEffectBuilder::BuildLightningLine(double x0, double y0, double x1, double y1, uint8_t vfx_type) {
     double dx = x1 - x0;
     double dy = y1 - y0;
     this->line_length = std::hypot(dx, dy);
@@ -2426,7 +2426,7 @@ void TransientVisualEffectBuilder::BuildLightningLine(double x0, double y0, doub
         int32_t px = (int32_t)(px_f - (this->arc_y[i] - this->arc_y[0]) * step_y);
         double py_f = (this->arc_x[i] - this->arc_x[0]) * step_y + this->arc_y[0];
         int32_t py = (int32_t)((this->arc_y[i] - this->arc_y[0]) * step_x + py_f);
-        this->visual_elements.Add(GO_11c((int16_t)px, (int16_t)py, 0, arg5, 0));
+        this->visual_elements.Add(GO_11c((int16_t)px, (int16_t)py, 0, vfx_type, 0));
     }
 }
 
