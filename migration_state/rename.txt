@@ -1144,3 +1144,4 @@ Server::UpdateQuestRune arg2 -> picked_up -- 1 = rune picked up (remove from sac
 Server::LoadGame param_1 -> map_name -- map/saved-game name to load
 Server::CheatCommand param_2 -> cheat_string -- align header with definition (cpp already names it cheat_string)
 SackList::DumpInventoryAt param_5 -> force_save -- forces sack->needs_save = 1
+Server::ResetArenaRound arg -> end_reason -- 0x5c packet value: 1 = frag limit reached, 2 = time limit reached

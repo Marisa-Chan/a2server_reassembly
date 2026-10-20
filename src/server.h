@@ -159,7 +159,7 @@ public:
     void AnnounceHatGameStart(); // 4f465e
     void ScanSavedCharacters(); // 4f9e55
     void SendArenaResults();
-    void ResetArenaRound(int arg);
+    void ResetArenaRound(int end_reason);
     void KickAllPlayers();
     void HatKeepaliveTick();
     int LoadGame(CString map_name); // Load map / saved game

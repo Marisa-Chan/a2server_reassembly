@@ -5508,8 +5508,8 @@ void Server::HandleArenaPlayer(Player* player) {
 }
 
 // 4FA78E
-void Server::ResetArenaRound(int32_t arg) {
-    g_NetStru1_main.SendInfoPacket(0x5c, g_ServerConfig.frag_limit, arg, nullptr);
+void Server::ResetArenaRound(int32_t end_reason) {
+    g_NetStru1_main.SendInfoPacket(0x5c, g_ServerConfig.frag_limit, end_reason, nullptr);
     this->SendArenaResults();
     this->tick = 0;
     this->SetupArenaFileList();
