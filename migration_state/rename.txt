@@ -1110,3 +1110,4 @@ CUnit::InitState arg7 -> dir -- stored to dir
 CUnit::InitState arg8 -> phase -- stored to phase
 CUnit::InitState arg9 -> speed -- stored to speed
 CUnit::InitState arg10 -> hp -- stored to hp
+CSprite256::DrawShadowed arg5 -> tilt -- align header with gfx.cpp definition (gfx.cpp already names it tilt)
