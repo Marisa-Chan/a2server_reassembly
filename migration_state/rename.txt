@@ -817,3 +817,4 @@ free: sub_4764BC -> UpdateDayNightLighting -- sets g_DeltaCLR colors/sun angle f
 free: sub_47FA75 -> ReloadPalettes -- frees VFX palettes and rebuilds the human palettes
 free: sub_477B59 -> LoadTerrainTiles -- loads/frees the terrain tile bitmaps selected by the tile-set bitmask
 UnitEye: sub_58c00e -> GetFacingHalf -- (facing+8)>>4: 0 for facings 0-7, 1 for 8-15
+UnitEye: sub_5925C9 -> SetPathMaskByMovement -- sets the pathing obstacle-bit mask from the unit movement type

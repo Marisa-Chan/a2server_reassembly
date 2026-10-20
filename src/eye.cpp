@@ -32,7 +32,7 @@ void UnitEye::SetPathMaskByMovement(Unit* unit) {
 }
 
 // 59367D
-int UnitEye::sub_59367D(Unit* unit, uint8_t* out_dir, uint8_t eye0, uint8_t angle) {
+int UnitEye::CheckRotation(Unit* unit, uint8_t* out_dir, uint8_t eye0, uint8_t angle) {
     if (angle == this->field1_0x1) {
         return 0;
     }

@@ -1902,7 +1902,7 @@ void Unit::ProcessMoveStep(uint16_t xx, uint16_t yy, uint8_t eye0, uint8_t eye1)
     uint16_t cur_yy = this->position->GetYy();
     if (cur_xx == xx && cur_yy == yy) {
         uint8_t out_dir = 0;
-        if (this->eye->sub_59367D(this, &out_dir, eye0, eye1)) {
+        if (this->eye->CheckRotation(this, &out_dir, eye0, eye1)) {
             uint8_t angle = (this->eye->field1_0x1 + 8) / 16;
             g_NetStru1_main.sub_51B99E(this, angle, out_dir, 'm');
         }
