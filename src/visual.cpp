@@ -4263,7 +4263,7 @@ void VisQuestStatus::VMethod7() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     QuestMap* quest_map = main_wnd->vis_map_context->field_0x4970;
 
-    this->rect.bottom = this->rect.top + 0x48 + quest_map->FUN_0041ec00() * 0x20;
+    this->rect.bottom = this->rect.top + 0x48 + quest_map->GetQuestCount() * 0x20;
 
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
@@ -4303,7 +4303,7 @@ void VisQuestStatus::VMethod7() {
     int32_t col_x = this->rect.left + 0x20;
     int32_t row_y = this->rect.top + 0x28;
 
-    if (quest_map->FUN_0041ec00() != 0) {
+    if (quest_map->GetQuestCount() != 0) {
         g_font2->DrawTextWithShadow(this->rect.left + this->rect.Width() / 2, row_y - 0xE, TxtFile::AllLines[0x156], 2, clrsh_TechBlack, 1);
     } else {
         g_font2->DrawTextWithShadow(this->rect.left + this->rect.Width() / 2, row_y - 0xE, TxtFile::AllLines[0x157], 2, clrsh_TechBlack, 1);
@@ -13261,7 +13261,7 @@ int32_t VisTav::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 
     switch (msg) {
     case 0x402:
-        if (this->rewards.GetSize() != 0 || this->quest_map->FUN_0041ec00() != 0) {
+        if (this->rewards.GetSize() != 0 || this->quest_map->GetQuestCount() != 0) {
             if (this->right_panel->texts[0] == " ") {
                 this->right_panel->FUN_0049a973();
             }
@@ -13887,7 +13887,7 @@ int32_t VisTavRightPanel::OnLButtonUp(uint32_t wparam, CPoint pos) {
                 if (main_wnd->vis_map_context->field_0x4970->OnEvent(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->field_0x138) != 0) {
                     this->vis_tav->field_0x13c = (this->vis_tav->field_0x13c == 0);
                 } else {
-                    if (this->vis_tav->quest_map->FUN_0041ec00() != 0 || this->vis_tav->rewards.GetSize() != 0) {
+                    if (this->vis_tav->quest_map->GetQuestCount() != 0 || this->vis_tav->rewards.GetSize() != 0) {
                         if (this->vis_tav->quest_selection == this->vis_tav->quest_id) {
                             this->vis_tav->quest_selection = -1;
                         } else {
@@ -13896,7 +13896,7 @@ int32_t VisTavRightPanel::OnLButtonUp(uint32_t wparam, CPoint pos) {
                     }
                 }
             } else if (button == 1) {
-                if (this->vis_tav->quest_map->FUN_0041ec00() != 0) {
+                if (this->vis_tav->quest_map->GetQuestCount() != 0) {
                     Quest* quest;
                     if (this->vis_tav->quest_map->FindQuest(this->vis_tav->quest_id, &quest) != 0) {
                         CString quest_str;
@@ -14090,7 +14090,7 @@ void VisTavRightPanel::FUN_0049a973() {
         }
         this->texts[1] = TxtFile::AllLines[0xF2];
     } else {
-        if (this->vis_tav->quest_map->FUN_0041ec00() != 0) {
+        if (this->vis_tav->quest_map->GetQuestCount() != 0) {
             this->texts[0] = TxtFile::AllLines[0x15F];
             this->texts[1] = TxtFile::AllLines[0x160];
         } else {
@@ -14605,7 +14605,7 @@ void VisTavScene::FUN_0049bc23() {
         return;
     }
 
-    if (this->vis_tav->quest_map->FUN_0041ec00() != 0) {
+    if (this->vis_tav->quest_map->GetQuestCount() != 0) {
         POSITION it = this->vis_tav->quest_map->quests_map.GetStartPosition();
         int32_t i = 0;
         while (it != nullptr) {
@@ -14746,7 +14746,7 @@ int32_t VisTavScene::FUN_0049cab8(CPoint* pos) {
         return -1;
     }
 
-    if (this->vis_tav->quest_map->FUN_0041ec00() != 0) {
+    if (this->vis_tav->quest_map->GetQuestCount() != 0) {
         POSITION it = this->vis_tav->quest_map->quests_map.GetStartPosition();
         int32_t i = 0;
         while (it != nullptr) {

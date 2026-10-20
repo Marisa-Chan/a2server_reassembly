@@ -2139,7 +2139,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0xbb: {
-			bool isnull = this->field_0x4970->FUN_0041ec00() == 0;
+			bool isnull = this->field_0x4970->GetQuestCount() == 0;
 
 			this->field_0x4970->RemovePlayerQuests(0);
 
@@ -2155,7 +2155,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				this->field_0x4970->RegisterQuest(qwa);
 			}
 
-			if (isnull && field_0x4970->FUN_0041ec00() != 0) {
+			if (isnull && field_0x4970->GetQuestCount() != 0) {
 				wnd->PostMessage(0x466, 1, 0);
 			}
 		}

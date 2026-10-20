@@ -947,3 +947,4 @@ NetStru1::FUN_0051ce86 -> SendTeamNotify -- SendInfoPacket wrapper on 0x92 (team
 DistortMap::sub_4AA0AF -> BuildScaleTable -- builds the radial lens scale table
 Outpost::sub_54335a -> Reset -- resets tiles_mask/group_id/repop fields
 ScriptSettings::sub_5B681A -> Serialize -- serialises the raw settings struct
+CFameHall::FUN_004ac839 -> SaveEntries -- writes the fame leaderboard entries to file
