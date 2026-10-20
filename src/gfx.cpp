@@ -4394,7 +4394,7 @@ void CBmp64::FlipVertical() { //425cdb
 	}
 }
 
-void CBmp64::VMethod9(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b) { //425e5d
+void CBmp64::DrawSubRect(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b) { //425e5d
 	const BmpFrame* frm = (BmpFrame*)this->pdata;
 	Blit16(x, y, l, t, r, b, this->pdata + sizeof(BmpFrame), frm->width, frm->height);
 }

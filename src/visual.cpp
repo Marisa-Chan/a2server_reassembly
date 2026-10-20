@@ -25459,14 +25459,14 @@ void VisOrderToolbar::VMethod7() {
                 if ((this->avail_orders_mask & (1 << i)) == 0) {
                     int32_t x = (i & 3) * 0x22 + 8;
                     int32_t y = (i >> 2) * 0x22 + 7;
-                    g_bmp_cmdempr->VMethod9(screen_rect.left + x, screen_rect.top + y, x, y, x + 0x22, y + 0x22);
+                    g_bmp_cmdempr->DrawSubRect(screen_rect.left + x, screen_rect.top + y, x, y, x + 0x22, y + 0x22);
                 }
             }
             int32_t sel = (int32_t)this->selected_order;
             if (sel >= 0) {
                 int32_t x = (sel & 3) * 0x22 + 8;
                 int32_t y = (sel >> 2) * 0x22 + 7;
-                g_bmp_cmddnr->VMethod9(screen_rect.left + x, screen_rect.top + y, x, y, x + 0x22, y + 0x22);
+                g_bmp_cmddnr->DrawSubRect(screen_rect.left + x, screen_rect.top + y, x, y, x + 0x22, y + 0x22);
             }
         }
         UnlockSurface2();

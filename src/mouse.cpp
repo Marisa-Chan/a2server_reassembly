@@ -112,7 +112,7 @@ void CMousePointer::DrawToScreen() {
 void CMousePointer::EraseCursor() {
     //426df7
     LockSurface1();
-    this->saved_screen_rect->VMethod9(this->x - this->x_offset, this->y - this->y_offset, 0, 0, this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0));
+    this->saved_screen_rect->DrawSubRect(this->x - this->x_offset, this->y - this->y_offset, 0, 0, this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0));
     UnlockSurface1();
 }
 
@@ -242,7 +242,7 @@ void CMousePointer::RepaintHint() {
     this->Unpaint();
     LockSurface1();
 
-    this->hint_image->VMethod9(this->hint_rect.left, this->hint_rect.top, 0, 0, this->hint_rect.Width(), this->hint_rect.Height());
+    this->hint_image->DrawSubRect(this->hint_rect.left, this->hint_rect.top, 0, 0, this->hint_rect.Width(), this->hint_rect.Height());
 
     UnlockSurface1();
     this->Paint();
@@ -277,7 +277,7 @@ void CMousePointer::SaveScreenParts(const CRect& rect) {
         if (intr.IntersectRect(&rect, &tmp) != 0) {
             LockSurface2();
 
-            this->saved_screen_rect2->VMethod9(this->x - this->x_offset, this->y - this->y_offset, 0, 0, this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0));
+            this->saved_screen_rect2->DrawSubRect(this->x - this->x_offset, this->y - this->y_offset, 0, 0, this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0));
             CopyScreenRectToBmp64(this->x - this->x_offset, this->y - this->y_offset, 
                                   this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0), 
                                   this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0), 
@@ -289,7 +289,7 @@ void CMousePointer::SaveScreenParts(const CRect& rect) {
         if (intr.IntersectRect(&rect, &this->hint_rect) && this->hint_state) {
             LockSurface2();
 
-            this->saved_screen_rect_hint->VMethod9(this->hint_rect.left, this->hint_rect.top, 0, 0, this->hint_rect.Width(), this->hint_rect.Height());
+            this->saved_screen_rect_hint->DrawSubRect(this->hint_rect.left, this->hint_rect.top, 0, 0, this->hint_rect.Width(), this->hint_rect.Height());
             CopyScreenRectToBmp64(this->hint_rect.left, this->hint_rect.top, 
                                     this->hint_rect.Width(), this->hint_rect.Height(), 
                                     this->hint_image->GetWidth(0), this->hint_image->GetHeight(0), 
@@ -304,13 +304,13 @@ void CMousePointer::SaveScreenParts(const CRect& rect) {
 
             if (r.Width() > 0) {
                 if (r.Height() > 0) {
-                    this->saved_rect_frame[4]->VMethod9(r.left, r.top, 0, 0, r.Width(), 1);
-                    this->saved_rect_frame[5]->VMethod9(r.left, r.bottom - 1, 0, 0, r.Width(), 1);
+                    this->saved_rect_frame[4]->DrawSubRect(r.left, r.top, 0, 0, r.Width(), 1);
+                    this->saved_rect_frame[5]->DrawSubRect(r.left, r.bottom - 1, 0, 0, r.Width(), 1);
                 }
 
                 if (r.Height() > 2) {
-                    this->saved_rect_frame[6]->VMethod9(r.left, r.top + 1, 0, 0, 1, r.Height() - 2);
-                    this->saved_rect_frame[7]->VMethod9(r.right - 1, r.top + 1, 0, 0, 1, r.Height() - 2);
+                    this->saved_rect_frame[6]->DrawSubRect(r.left, r.top + 1, 0, 0, 1, r.Height() - 2);
+                    this->saved_rect_frame[7]->DrawSubRect(r.right - 1, r.top + 1, 0, 0, 1, r.Height() - 2);
                 }
             }
 
@@ -446,13 +446,13 @@ void CMousePointer::UnpaintSelectFrame() {
 
     if (r.Width() > 0) {
         if (r.Height() > 0) {
-            this->saved_rect_frame[0]->VMethod9(r.left, r.top, 0, 0, r.Width(), 1);
-            this->saved_rect_frame[1]->VMethod9(r.left, r.bottom - 1, 0, 0, r.Width(), 1);
+            this->saved_rect_frame[0]->DrawSubRect(r.left, r.top, 0, 0, r.Width(), 1);
+            this->saved_rect_frame[1]->DrawSubRect(r.left, r.bottom - 1, 0, 0, r.Width(), 1);
         }
 
         if (r.Height() > 2) {
-            this->saved_rect_frame[2]->VMethod9(r.left, r.top + 1, 0, 0, 1, r.Height() - 2);
-            this->saved_rect_frame[3]->VMethod9(r.right - 1, r.top + 1, 0, 0, 1, r.Height() - 2);
+            this->saved_rect_frame[2]->DrawSubRect(r.left, r.top + 1, 0, 0, 1, r.Height() - 2);
+            this->saved_rect_frame[3]->DrawSubRect(r.right - 1, r.top + 1, 0, 0, 1, r.Height() - 2);
         }
     }
 

@@ -6278,10 +6278,10 @@ CGameBitmap* BigStruct2::FUN_0041da52(int32_t serv_id) {
 		}
 		g_bmp_t_back->FlipVertical();
 		if (rect.top == -1) {
-			g_bmp_t_back->VMethod9(8, 7, 0x24, 0x8c, 0x6c, 0xe8);
+			g_bmp_t_back->DrawSubRect(8, 7, 0x24, 0x8c, 0x6c, 0xe8);
 			pic->VMethod10(8, 7, 0x24, 0x8c, 0x6c, 0xe8);
 		} else {
-			g_bmp_t_back->VMethod9(8, 7, rect.left, 0x90 - rect.top, rect.left + 0x48, 0xf0 - rect.top);
+			g_bmp_t_back->DrawSubRect(8, 7, rect.left, 0x90 - rect.top, rect.left + 0x48, 0xf0 - rect.top);
 			pic->VMethod10(8, 7, rect.left, 0x90 - rect.top, rect.left + 0x48, 0xf0 - rect.top);
 		}
 		g_bmp_t_back->FlipVertical();
