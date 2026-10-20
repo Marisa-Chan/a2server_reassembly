@@ -167,7 +167,7 @@ public:
 
     int SubmitCharacterSetupAndWaitForSelectedUnit(); //493ffe
     void ResetCharacter(); //493d8d
-    void FUN_00494687(); //494687
+    void ResetUnitClass(); //494687
     void RecreateCUnit(); //4941c0
     void SetCharacterStats(int32_t body, int32_t reaction, int32_t mind, int32_t spirit, int32_t main_sphere); //494148 in asm
 

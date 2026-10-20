@@ -2398,7 +2398,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
             name = this->vis_startgame->GetClan();
             strncpy(this->vis_map_context->GetUnit_3f6c()->str2, name, 12);
 
-            this->m_GameSession.FUN_00494687();
+            this->m_GameSession.ResetUnitClass();
             this->FUN_00491a49();
         }
     } else if (obj == this->vis_charsel) {
@@ -5516,7 +5516,7 @@ void CGameSession::ResetCharacter() { //493d8d
 }
 
 
-void CGameSession::FUN_00494687() {
+void CGameSession::ResetUnitClass() {
     this->body = 0;
     this->main_sphere = 0;
     this->RecreateCUnit();

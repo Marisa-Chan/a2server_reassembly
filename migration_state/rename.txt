@@ -870,3 +870,4 @@ CGameSession::FUN_00493cd8 -> DeleteSelectedCharacter -- deletes the selected ro
 CGameSession::FUN_00494982 -> SaveKillStats -- writes the player file carrying the session kill stats
 CGameSession::FUN_004946e0 -> AutosaveCharacter -- writes the full character file
 CGameSession::FUN_004946ae -> AutosaveTick -- 15s-gated autosave
+CGameSession::FUN_00493d8d -> ResetCharacter -- resets money/kills and writes the basic character info
