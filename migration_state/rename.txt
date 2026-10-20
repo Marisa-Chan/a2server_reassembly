@@ -779,3 +779,4 @@ Spell::sub_53940D -> SetPowerFromCaster -- computes power from caster skill+mind
 Spell::sub_53939E -> IsAreaSpell -- 1 when spell target == 2 (area)
 Spell::sub_539541 -> SetPower -- sets max_range from spell info plus teleport power bonus
 Spell::sub_5393C7 -> IsUnitSpell -- 1 when spell_target == 1 (unit-targeted)
+Spell::sub_539958 -> StartCast -- validates and starts the cast; nonzero if accepted

@@ -132,7 +132,7 @@ void Spell::SetPowerFromCaster(Unit* unit) {
 }
 
 // 539C49
-void Spell::sub_539C49(Unit* caster, Unit* target) {
+void Spell::ExecuteRaySpell(Unit* caster, Unit* target) {
     int32_t rays = 7;
     if (caster->some_item != nullptr) {
         for (POSITION it = caster->some_item->_effects.GetHeadPosition(); it != nullptr; ) {
@@ -259,7 +259,7 @@ int32_t Spell::StartCast(Unit* caster, Unit* target, int8_t x, int8_t y) {
 
     if (this->spell_id == spell::prismatic_spray) {
         this->SetPowerFromCaster(caster);
-        this->sub_539C49(caster, target);
+        this->ExecuteRaySpell(caster, target);
         return 1;
     }
 
