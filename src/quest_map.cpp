@@ -163,7 +163,7 @@ int32_t QuestMap::OnEvent(int32_t event_type, int32_t a, int32_t b) {
 }
 
 // 55EE42
-Quest* QuestMap::FUN_0055ee42(int quest_kind) {
+Quest* QuestMap::CreateQuest(int quest_kind) {
 	switch (quest_kind) {
 	case 1:
 		return new QuestKillMob();

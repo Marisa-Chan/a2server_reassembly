@@ -2146,7 +2146,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			uint16_t* dat = packet_terrain->buf + 1;
 
 			for (int i = 0; i < packet_terrain->buf[0]; i++) {
-				Quest* qwa = this->field_0x4970->FUN_0055ee42(*dat);
+				Quest* qwa = this->field_0x4970->CreateQuest(*dat);
 				dat++;
 
 				qwa->CopyFields((QuestData*)dat);
@@ -2169,7 +2169,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 					uint16_t* dat = packet_terrain->buf + 1;
 					for (int i = 0; i < packet_terrain->buf[0]; i++) {
-						Quest* qwa = tavern->quest_map->FUN_0055ee42(*dat);
+						Quest* qwa = tavern->quest_map->CreateQuest(*dat);
 						dat++;
 
 						qwa->CopyFields((QuestData*)dat);

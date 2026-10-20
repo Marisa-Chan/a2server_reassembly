@@ -25,7 +25,7 @@ struct QuestData {
 ASSERT_SIZE(QuestData, 0x1c);
 
 class Quest : public CObject {
-public: // VTable at 60F6F8. Sub-classes have their own vtables, see FUN_0055ee42.
+public: // VTable at 60F6F8. Sub-classes have their own vtables, see CreateQuest.
     virtual ~Quest();                                      // 57FF50
     virtual int32_t OnEvent(int32_t param_2, int32_t param_3, int32_t param_4); // sub_55D25D
     virtual void MarkFailed();                             // 55D23F

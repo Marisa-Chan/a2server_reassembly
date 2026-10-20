@@ -45,7 +45,7 @@ public:
     void AddInnGlue(QuestInnGlue* glue); // Add QuestInnGlue to quest map
     void RemovePlayerQuests(int32_t player_id);
 
-    Quest* FUN_0055ee42(int quest_kind);
+    Quest* CreateQuest(int quest_kind);
 
     int32_t FUN_0041ec00() { return this->quests_map.GetCount(); }; //41ec00
 
