@@ -3627,7 +3627,7 @@ void Server::sub_504a96(Packet* pkt) {
     case 0x3F:
         CheckPacketType(pkt, "Packet");
         if (this->field4_0x74 == 0) {
-            g_DefaultShop.sub_54463F();
+            g_DefaultShop.GenerateAssortment();
         }
         break;
 

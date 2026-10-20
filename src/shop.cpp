@@ -69,7 +69,7 @@ void Shop::HandleItemOperation(Humanoid* unit, uint8_t op_type, int16_t src_slot
 }
 
 // 54463F
-void Shop::sub_54463F() {
+void Shop::GenerateAssortment() {
     this->shop_template->GenerateAssortment();
 }
 
