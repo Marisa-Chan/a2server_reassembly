@@ -999,7 +999,7 @@ Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
 
     switch (cmd) {
     case 0x2:
-        pkt = &Packet3Dwords::Inst;
+        pkt = &PacketEnterGame::Inst;
         pkt->ReadFrom(ns2);
         break;
 

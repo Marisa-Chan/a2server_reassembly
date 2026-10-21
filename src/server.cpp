@@ -2922,7 +2922,7 @@ const char* PacketType(Packet *pkt) {
     else if (dynamic_cast<PacketWord*>(pkt) != nullptr) { return "PacketWord"; }
     else if (dynamic_cast<PacketGroupOrder*>(pkt) != nullptr) { return "PacketGroupOrder"; }
     else if (dynamic_cast<PacketItemTransfer*>(pkt) != nullptr) { return "PacketItemTransfer"; }
-    else if (dynamic_cast<Packet3Dwords*>(pkt) != nullptr) { return "Packet3Dwords"; }
+    else if (dynamic_cast<PacketEnterGame*>(pkt) != nullptr) { return "PacketEnterGame"; }
     else if (dynamic_cast<PacketDword*>(pkt) != nullptr) { return "PacketDword"; }
     else if (dynamic_cast<PacketUnitAction*>(pkt) != nullptr) { return "PacketUnitAction"; }
     else if (dynamic_cast<PacketSack*>(pkt) != nullptr) { return "PacketSack"; }
@@ -3176,7 +3176,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
 
     // PATH 2: Single command dispatch
     Player* player = nullptr;
-    Packet3Dwords* packet_3d = reinterpret_cast<Packet3Dwords*>(pkt);
+    PacketEnterGame* packet_enter_game = reinterpret_cast<PacketEnterGame*>(pkt);
     PacketJoin* packet_join = reinterpret_cast<PacketJoin*>(pkt);
     PacketItemTransfer* packet_transfer = reinterpret_cast<PacketItemTransfer*>(pkt);
     PacketInfo* packet_info = reinterpret_cast<PacketInfo*>(pkt);
@@ -3191,17 +3191,17 @@ void Server::ProcessClientPacket(Packet* pkt) {
 #ifdef A2CLIENT
         //allods2 50001c
     {
-        NetStru2* cli = g_NetStru1_main.GetClientByLowUid(packet_3d->field_0x5);
-        this->Allods2_JoinPlayer(packet_3d->field_0xa, packet_3d->field_0xe, packet_3d->field_0x16, cli, packet_3d->field_0x12);
+        NetStru2* cli = g_NetStru1_main.GetClientByLowUid(packet_enter_game->field_0x5);
+        this->Allods2_JoinPlayer(packet_enter_game->field_0xa, packet_enter_game->field_0xe, packet_enter_game->field_0x16, cli, packet_enter_game->field_0x12);
     }
 #else
-        CheckPacketType(pkt, "Packet3Dwords");
+        CheckPacketType(pkt, "PacketEnterGame");
 
-        player = this->FindPlayerById(packet_3d->from_player_id);
+        player = this->FindPlayerById(packet_enter_game->from_player_id);
         if (player) {
-            NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(packet_3d->from_player_id);
+            NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(packet_enter_game->from_player_id);
             if (ns2 && ns2->is_claimed != 0) {
-                this->AssignPlayerSlot(player, packet_3d->value3);
+                this->AssignPlayerSlot(player, packet_enter_game->value3);
             }
         }
 #endif

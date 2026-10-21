@@ -283,7 +283,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 	while (loop) {
 		Packet* pkt = g_NetStru1_local.ReceiveAnyPacket();
 
-		Packet3Dwords* packet_3d = reinterpret_cast<Packet3Dwords*>(pkt);
+		PacketEnterGame* packet_enter_game = reinterpret_cast<PacketEnterGame*>(pkt);
 		PacketJoin* packet_join = reinterpret_cast<PacketJoin*>(pkt);
 		PacketItemTransfer* packet_transfer = reinterpret_cast<PacketItemTransfer*>(pkt);
 		PacketInfo* packet_info = reinterpret_cast<PacketInfo*>(pkt);
@@ -2520,7 +2520,7 @@ int32_t BigStruct2::FUN_0040d7f3() {
 		}
 	}
 
-	Packet3Dwords *pkt = &Packet3Dwords::Inst;
+	PacketEnterGame *pkt = &PacketEnterGame::Inst;
 
 	pkt->id = 2;
 	strcpy(pkt->text, wnd->m_GameSession.character_name);

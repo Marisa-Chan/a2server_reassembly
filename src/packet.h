@@ -262,20 +262,20 @@ ASSERT_SIZE(PacketItemTransfer, 0x14);
 
 
 // ---------------------------------------------------------------------------
-// Packet3Dwords
+// PacketEnterGame
 // Constructor sub_526A4F, static unk_6B1670, vtable off_60ED70.
 // Three uint32_t fields followed by one uint8_t; all zeroed in ctor.
 // Uses inherited Packet VMethod3/VMethod4 serialisation.
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class Packet3Dwords : public Packet {
+class PacketEnterGame : public Packet {
 public:
-    static Packet3Dwords Inst; // unk_6B1670
+    static PacketEnterGame Inst; // unk_6B1670
 public:
-    Packet3Dwords(); // sub_526A4F
-    Packet3Dwords(const Packet3Dwords* src);
+    PacketEnterGame(); // sub_526A4F
+    PacketEnterGame(const PacketEnterGame* src);
 public:
-    virtual ~Packet3Dwords();
+    virtual ~PacketEnterGame();
     virtual uint32_t GetDataSize() override; // sub_57A170
 public:
     uint32_t value1;  // +0xA (= 0 in ctor)
@@ -284,7 +284,7 @@ public:
     char  text[32]; // +0x16 (= 0 in ctor)
 };
 __pragma(pack(pop))
-ASSERT_SIZE(Packet3Dwords, 0x36);
+ASSERT_SIZE(PacketEnterGame, 0x36);
 
 
 // ---------------------------------------------------------------------------

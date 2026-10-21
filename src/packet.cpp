@@ -417,11 +417,11 @@ uint32_t PacketItemTransfer::GetDataSize() {
 }
 
 // ============================================================
-// Packet3Dwords
+// PacketEnterGame
 // ============================================================
-Packet3Dwords Packet3Dwords::Inst;
+PacketEnterGame PacketEnterGame::Inst;
 
-Packet3Dwords::Packet3Dwords() {
+PacketEnterGame::PacketEnterGame() {
     //sub_526A4F
     this->value1  = 0;
     this->value2  = 0;
@@ -429,15 +429,15 @@ Packet3Dwords::Packet3Dwords() {
     this->text[0] = 0;
 }
 
-Packet3Dwords::Packet3Dwords(const Packet3Dwords* src) {
+PacketEnterGame::PacketEnterGame(const PacketEnterGame* src) {
     memcpy(&this->id, &src->id, 0xE); // id(1)+4+4+4+1 = 14
 }
 
-Packet3Dwords::~Packet3Dwords() {
+PacketEnterGame::~PacketEnterGame() {
     //sub_57A180
 }
 
-uint32_t Packet3Dwords::GetDataSize() {
+uint32_t PacketEnterGame::GetDataSize() {
     //sub_57A170  id(1) + 13 derived bytes = 0xE
     return 0x2D;
 }
