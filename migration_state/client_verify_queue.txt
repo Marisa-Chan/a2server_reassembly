@@ -5,18 +5,10 @@
 #   FLAGGED      identical code but referenced strings differ - inspect manually
 #   BATCH        all-identical class: run `client_verify.py record-identical <Class>`
 # Do not edit by hand; use tool/client_verify.py.
-DIFFERS	VisConnectionDlg	VMethod26	444086	446656	slot30
-DIFFERS	VisConnectionDlg	VMethod30	44604c	44871d	slot34
-DIFFERS	VisCutScenesDlg	VMethod26	444086	446656	slot30
-DIFFERS	VisDiplomacy	VMethod26	444086	446656	slot30
 CLIENT_ONLY	VisDiplomacy	FUN_0044829c	-	44829c	vt
 DIFFERS	VisHatBrowserDlg	VMethod26	44bc6c	44e774	slot30
 DIFFERS	VisHatBrowserDlg	MsgProc	44c1a9	44f11d	slot18
-DIFFERS	VisHatServerListDlg	VMethod26	444086	446656	slot30
-DIFFERS	VisMessageBox	VMethod26	444086	446656	slot30
 CLIENT_ONLY	VisMessageBox	Serialize(CArchive_&)	-	4019d0	vt
-DIFFERS	VisMessageBoxWithList	VMethod26	444086	446656	slot30
-DIFFERS	VisNetTcpIp	VMethod26	444086	446656	slot30
 DIFFERS	VisStartGame	Accept	43817d	43a2af	callsite:2 votes
 BATCH	Action	1 identical fns	-	-	-
 DIFFERS	AreaEffect	Serialize	53e81f	52657a	slot2

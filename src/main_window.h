@@ -328,6 +328,12 @@ public:
 ASSERT_SIZE(ServerControlDialog, 0x280);
 
 
+// 1 while PopUpScreen runs from the WindowProc 0x43c (diplomacy) case. The retail
+// client detects this path inside VisMessageBox::VMethod26 by comparing its caller's
+// return address against that call site; we use the flag instead (client-only shrink).
+extern int32_t g_diplomacy_msg_popup;
+
+
 class MainWindow : public CFrameWnd {
 public:
     enum {

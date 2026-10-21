@@ -3820,6 +3820,7 @@ int32_t VisMessageBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 
 void VisMessageBox::VMethod26() {
     //444086
+    // client: 446656
     CRect r2;
     if (this->field_0x6c && strlen(this->field_0x6c) > 0) {
         if (g_font1->GetStrWidth(this->field_0x6c) > this->rect.Width()) {
@@ -3848,8 +3849,15 @@ void VisMessageBox::VMethod26() {
     }
 
     CVisualObject* obj = this->VMethod30(this->payload, r2);
-    this->rect.bottom = this->rect.top + 144 + obj->GetRect().bottom;
+    int32_t bottom = this->rect.top + 144 + obj->GetRect().bottom;
+    if (g_IsServer == 0 && g_diplomacy_msg_popup != 0) {
+        bottom -= 0x20;
+    }
+    this->rect.bottom = bottom;
     this->UpdateWinRect();
+    if (g_IsServer == 0 && this->button_types == 0x1000) {
+        this->rect.OffsetRect(0, 0x84);
+    }
 
     CRect local_20(this->rect.Width() / 2 - 48, this->rect.Height() - 60, this->rect.Width() / 2 + 48, this->rect.Height() - 36);
     CRect local_44(this->rect.Width() / 7, this->rect.Height() - 60, (this->rect.Width() * 3) / 7, this->rect.Height() - 36);

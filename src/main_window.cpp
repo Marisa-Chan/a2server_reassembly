@@ -30,6 +30,7 @@ uint32_t g_using_vxd = 1; // 62fa9c
 CDWordArray DAT_006658d8;
 
 CRect vis_scr_rect; //65fb88
+int32_t g_diplomacy_msg_popup = 0;
 
 
 
@@ -3416,7 +3417,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             // The original passes the address of the array pointer so the dialog
             // re-reads the current array on every ReadData (see VisDiplomacy::diplomacy).
             this->vis_msgbox = new VisDiplomacy(1, 10, 0, 630, 480, (const CArray<DiplomacyEntry*>*)&this->diplomacy_entries);
+            g_diplomacy_msg_popup = 1;
             this->PopUpScreen(this->vis_msgbox);
+            g_diplomacy_msg_popup = 0;
         }
         break;
 
