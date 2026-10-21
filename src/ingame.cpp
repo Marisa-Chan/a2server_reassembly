@@ -297,7 +297,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		PacketUnitStateVec* packet_state = reinterpret_cast<PacketUnitStateVec*>(pkt);
 		PacketSack* packet_sack = reinterpret_cast<PacketSack*>(pkt);
 		PacketBuildingHp* packet_building_hp = reinterpret_cast<PacketBuildingHp*>(pkt);
-		PacketMoveCmd* packet_move = reinterpret_cast<PacketMoveCmd*>(pkt);
+		PacketMoveBroadcast* packet_move = reinterpret_cast<PacketMoveBroadcast*>(pkt);
 		PacketAoeZone* packet_aoe = reinterpret_cast<PacketAoeZone*>(pkt);
 		PacketEffect* packet_effect = reinterpret_cast<PacketEffect*>(pkt);
 		PacketTerrain* packet_terrain = reinterpret_cast<PacketTerrain*>(pkt);

@@ -366,21 +366,21 @@ ASSERT_SIZE(PacketSack, 0x12);
 
 
 // ---------------------------------------------------------------------------
-// PacketMoveCmd
+// PacketMoveBroadcast
 // Constructor sub_52701F, static unk_6A6A70, vtable off_60EE18.
 // Movement / targeting command; id fixed to 0x86 by ctor.
 // Bytes at +0xC/+0xD/+0xE zeroed by ctor; 0xA/0xB/0xF/0x10 set by caller.
 // Copy ctor: sub_52705A (copies 8 bytes: id + 7 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketMoveCmd : public Packet {
+class PacketMoveBroadcast : public Packet {
 public:
-    static PacketMoveCmd Inst; // unk_6A6A70
+    static PacketMoveBroadcast Inst; // unk_6A6A70
 public:
-    PacketMoveCmd(); // sub_52701F  sets id = 0x86
-    PacketMoveCmd(const PacketMoveCmd* src); // sub_52705A
+    PacketMoveBroadcast(); // sub_52701F  sets id = 0x86
+    PacketMoveBroadcast(const PacketMoveBroadcast* src); // sub_52705A
 public:
-    virtual ~PacketMoveCmd();
+    virtual ~PacketMoveBroadcast();
     virtual Packet* Duplicate() override; // sub_57A600
     virtual uint32_t GetDataSize() override; // sub_57A680
 public:
@@ -391,7 +391,7 @@ public:
     uint16_t segments;  // +0xF
 };
 __pragma(pack(pop))
-ASSERT_SIZE(PacketMoveCmd, 0x11);
+ASSERT_SIZE(PacketMoveBroadcast, 0x11);
 
 
 // ---------------------------------------------------------------------------

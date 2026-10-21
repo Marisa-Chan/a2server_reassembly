@@ -529,11 +529,11 @@ uint32_t PacketSack::GetDataSize() {
 }
 
 // ============================================================
-// PacketMoveCmd
+// PacketMoveBroadcast
 // ============================================================
-PacketMoveCmd PacketMoveCmd::Inst;
+PacketMoveBroadcast PacketMoveBroadcast::Inst;
 
-PacketMoveCmd::PacketMoveCmd() {
+PacketMoveBroadcast::PacketMoveBroadcast() {
     //sub_52701F  id = 0x86
     this->id         = 0x86;
     this->type_id  = 0;
@@ -541,21 +541,21 @@ PacketMoveCmd::PacketMoveCmd() {
     this->y  = 0;
 }
 
-PacketMoveCmd::PacketMoveCmd(const PacketMoveCmd* src) {
+PacketMoveBroadcast::PacketMoveBroadcast(const PacketMoveBroadcast* src) {
     //sub_52705A
     memcpy(&this->id, &src->id, 8); // id + 7 bytes
 }
 
-PacketMoveCmd::~PacketMoveCmd() {
+PacketMoveBroadcast::~PacketMoveBroadcast() {
     //sub_57A690
 }
 
-Packet* PacketMoveCmd::Duplicate() {
+Packet* PacketMoveBroadcast::Duplicate() {
     //sub_57A600
-    return new PacketMoveCmd(this);
+    return new PacketMoveBroadcast(this);
 }
 
-uint32_t PacketMoveCmd::GetDataSize() {
+uint32_t PacketMoveBroadcast::GetDataSize() {
     //sub_57A680
     return 8; // id(1) + 7 bytes
 }

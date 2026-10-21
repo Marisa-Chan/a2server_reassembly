@@ -17,7 +17,7 @@ class AreaEffect;
 class CMultiShopInstance;
 class CMultiShopShelf;
 class PacketAoeZone;
-class PacketMoveCmd;
+class PacketMoveBroadcast;
 struct CLlDriver;
 class Effect;
 class NetStru1;
@@ -165,7 +165,7 @@ public:
     void BroadcastUnitState(Unit* unit); // Broadcast unit to all players
     void SendUnitVisibility(Unit* unit, int flag, Player* player); // Send unit visibility packet (retn 0Ch)
     void SendAreaEffect(AreaEffect* obj, int flag); // Send area-effect packet
-    void BroadcastEffectMove(Effect* effect, uint8_t type); // Broadcast move-cmd packet for an effect token
+    void BroadcastEffectMove(Effect* effect, uint8_t type); // Broadcast move packet for an effect token
     void SendSrvStru1State(QuestMap* quest_map, Player* player, int flag); // Send SrvStru1 state list from packet
     void SendShopTable(Token* token, Inventory* inventory, Player* player, int32_t mode);
     void SendShopShelf(Shop* shop, CMultiShopShelf* shelf, Player* player, uint8_t slot); // 51AA26 - send single shop shelf contents
@@ -190,7 +190,7 @@ public:
     void SendSpellCastAtUnit(Unit* caster, Spell* spell, Unit* target, int16_t delay); // Send targeted-unit spell packet
     void SendSpellCastAtPos(Unit* caster, Spell* spell, TokenPos* pos, int16_t delay); // Send point/area spell packet
     void SendSpellCastMulti(Unit* caster, Spell* spell, CList<Unit*>* units, int32_t flag); // 51BC6B: Send multi-target spell packet
-    void BroadcastMoveCmd(PacketMoveCmd* pkt, TokenPos* pos);  // Broadcast move-cmd packet to all players in visibility
+    void BroadcastMovePacket(PacketMoveBroadcast* pkt, TokenPos* pos);  // Broadcast move packet to all players in visibility
     void BroadcastAoeZone(PacketAoeZone* pkt, AreaEffect* area_effect);  // Broadcast AoE-zone packet to all players in visibility
     void SendUnitAction(Packet* pkt, Unit* unit); // 51B0F0 - send unit action packet to relevant players (in asm)
 

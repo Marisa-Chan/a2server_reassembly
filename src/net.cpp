@@ -292,7 +292,7 @@ void NetStru1::SendUnitTurn(Unit* unit, Unit* target) {
 
 // 51BE0E
 void NetStru1::BroadcastEffectMove(Effect* effect, uint8_t type) {
-    PacketMoveCmd& packet = PacketMoveCmd::Inst;
+    PacketMoveBroadcast& packet = PacketMoveBroadcast::Inst;
     packet.id = 0x86;
     packet.x = effect->position->GetX();
     packet.y = effect->position->GetY();
@@ -300,13 +300,13 @@ void NetStru1::BroadcastEffectMove(Effect* effect, uint8_t type) {
     packet.unit_id = (uint16_t)effect->building_id;
     packet.type_id = (uint8_t)effect->typeId;
     packet.to_player_id = 0;
-    this->BroadcastMoveCmd(&packet, effect->position);
+    this->BroadcastMovePacket(&packet, effect->position);
 }
 
 // 51BE8F
 void NetStru1::SendAreaEffect(AreaEffect* obj, int32_t flag) {
     if (obj->itemDataID == 2) {
-        PacketMoveCmd& packet = PacketMoveCmd::Inst;
+        PacketMoveBroadcast& packet = PacketMoveBroadcast::Inst;
         packet.id = 0x86;
         packet.x = obj->position->GetX();
         packet.y = obj->position->GetY();
@@ -314,7 +314,7 @@ void NetStru1::SendAreaEffect(AreaEffect* obj, int32_t flag) {
         packet.unit_id = (uint16_t)obj->building_id;
         packet.type_id = (uint8_t)obj->typeId;
         packet.to_player_id = 0;
-        this->BroadcastMoveCmd(&packet, obj->position);
+        this->BroadcastMovePacket(&packet, obj->position);
     } else {
         PacketAoeZone& packet = PacketAoeZone::Inst;
         packet.id = 0x87;
@@ -1132,7 +1132,7 @@ Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
         break;
 
     case 0x86: case 0x8b:
-        pkt = &PacketMoveCmd::Inst;
+        pkt = &PacketMoveBroadcast::Inst;
         pkt->ReadFrom(ns2);
         break;
 
@@ -4117,7 +4117,7 @@ bool IsVisibleTo(TokenPos* pos, Player* player) {
 }
 
 // Helper: handle "unit hidden" case for effect packets (ids 0x88/0x89).
-void MarkUnitHiddenForPlayer(PacketMoveCmd* packet, Player* player) {
+void MarkUnitHiddenForPlayer(PacketMoveBroadcast* packet, Player* player) {
     if (packet->id < 0x88 || packet->id > 0x89) {
         return;
     }
@@ -4171,7 +4171,7 @@ void NetStru1::SendUnitAction(Packet* packet, Unit* unit) {
 }
 
 // 51B370
-void NetStru1::BroadcastMoveCmd(PacketMoveCmd* packet, TokenPos* pos) {
+void NetStru1::BroadcastMovePacket(PacketMoveBroadcast* packet, TokenPos* pos) {
     if (packet->to_player_id != 0) {
         Player* player = g_PlayersList->FindById(packet->to_player_id);
         if (IsVisibleTo(pos, player)) {
@@ -4241,7 +4241,7 @@ void NetStru1::BroadcastAoeZone(PacketAoeZone* packet, AreaEffect* area_effect) 
 
 // 51BAB0
 void NetStru1::SendSpellCastAtUnit(Unit* caster, Spell* spell, Unit* target, int16_t delay) {
-    PacketMoveCmd& packet = PacketMoveCmd::Inst;
+    PacketMoveBroadcast& packet = PacketMoveBroadcast::Inst;
     packet.id = 0x86;
     packet.unit_id = caster->building_id;
     packet.type_id = 0;
@@ -4261,12 +4261,12 @@ void NetStru1::SendSpellCastAtUnit(Unit* caster, Spell* spell, Unit* target, int
         caster->last_action_tick = g_Server->tick;
     }
     packet.to_player_id = 0;
-    this->BroadcastMoveCmd(&packet, caster->position);
+    this->BroadcastMovePacket(&packet, caster->position);
 }
 
 // 51BB94
 void NetStru1::SendSpellCastAtPos(Unit* caster, Spell* spell, TokenPos* pos, int16_t delay) {
-    PacketMoveCmd& packet = PacketMoveCmd::Inst;
+    PacketMoveBroadcast& packet = PacketMoveBroadcast::Inst;
     packet.id = 0x86;
     packet.unit_id = caster->building_id;
     if (caster->typeId == 0) {
@@ -4282,7 +4282,7 @@ void NetStru1::SendSpellCastAtPos(Unit* caster, Spell* spell, TokenPos* pos, int
         caster->last_action_tick = g_Server->tick;
     }
     packet.to_player_id = 0;
-    this->BroadcastMoveCmd(&packet, caster->position);
+    this->BroadcastMovePacket(&packet, caster->position);
 }
 
 // 51BC6B
@@ -4306,8 +4306,8 @@ void NetStru1::SendSpellCastMulti(Unit* caster, Spell* spell, CList<Unit*>* unit
         caster->last_action_tick = g_Server->tick;
     }
     packet.to_player_id = 0;
-    // This reinterpret_cast is kinda weird, but it works, because `BroadcastMoveCmd` only reads the 2-byte 0xa field from non-Packet fields.
-    this->BroadcastMoveCmd(reinterpret_cast<PacketMoveCmd*>(&packet), caster->position);
+    // This reinterpret_cast is kinda weird, but it works, because `BroadcastMovePacket` only reads the 2-byte 0xa field from non-Packet fields.
+    this->BroadcastMovePacket(reinterpret_cast<PacketMoveBroadcast*>(&packet), caster->position);
 }
 
 // 51BDA4
@@ -4317,8 +4317,8 @@ void NetStru1::BroadcastEffect(Effect* effect, Unit* unit, uint8_t packet_id) {
     packet.unit_id = unit->building_id;
     packet.effect_type = effect->typeId;
     packet.to_player_id = 0;
-    // This reinterpret_cast is kinda weird, but it works, because `BroadcastMoveCmd` only reads the 2-byte 0xa field from non-Packet fields.
-    this->BroadcastMoveCmd(reinterpret_cast<PacketMoveCmd*>(&packet), unit->position);
+    // This reinterpret_cast is kinda weird, but it works, because `BroadcastMovePacket` only reads the 2-byte 0xa field from non-Packet fields.
+    this->BroadcastMovePacket(reinterpret_cast<PacketMoveBroadcast*>(&packet), unit->position);
 }
 
 // 51C822
