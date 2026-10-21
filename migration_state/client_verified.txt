@@ -1,0 +1,61 @@
+# Auto-generated log, appended by tool/client_verify.py. One line per result:
+#   IDENTICAL <class> <method> <srv_va> <cli_va> [strings-ok]   (batch-verified)
+#   IDENTICAL-BATCH <class> <n>                                  (batch marker)
+#   FLAGGED <class> <method> <srv_va> <cli_va>                   (strings differ)
+#   PORTED <class> <method> <srv_va> <cli_va>                    (client version ported)
+IDENTICAL	VisShop	VMethod28	4bc32b	4c0cf8	strings-ok
+IDENTICAL	VisShop	sub_4BB102	4bb102	4bfacf	strings-ok
+IDENTICAL	VisShop	MsgProc	4ba892	4bf262	strings-ok
+IDENTICAL	VisShop	VMethod26	4bbd75	4c0742	strings-ok
+IDENTICAL	VisShop	sub_4BB4FB	4bb4fb	4bfec8	strings-ok
+IDENTICAL	VisShop	~VisShop	4ba5a0	4bef70	strings-ok
+IDENTICAL	VisShop	OnMouseMove	4badcb	4bf798	strings-ok
+IDENTICAL	VisShop	DoClose	4bc0e7	4c0ab4	strings-ok
+IDENTICAL	VisShop	VMethod30	4bcf2f	4c18f4	strings-ok
+IDENTICAL	VisShop	sub_4BB895	4bb895	4c0262	strings-ok
+IDENTICAL	VisShop	sub_4BBA06	4bba06	4c03d3	strings-ok
+IDENTICAL	VisShop	VMethod31	4bd0fb	4c1ac0	strings-ok
+IDENTICAL	VisShop	sub_4BC97B	4bc97b	4c1348	strings-ok
+IDENTICAL	VisShop	VisShop	4ba342	4bed12	strings-ok
+IDENTICAL	VisShop	sub_4BCDA0	4bcda0	4c1771	strings-ok
+IDENTICAL	VisShop	VMethod32	4bd251	4c1c16	strings-ok
+IDENTICAL	VisShop	sub_4BCB63	4bcb63	4c152f	strings-ok
+IDENTICAL	VisShop	VMethod8	4bb79a	4c0167	strings-ok
+IDENTICAL	VisShop	OnLButtonUp	4bb045	4bfa12	strings-ok
+IDENTICAL	VisShop	sub_4BAD1D	4bad1d	4bf6ea	strings-ok
+IDENTICAL	VisShop	sub_4BC8D7	4bc8d7	4c12a4	strings-ok
+IDENTICAL	VisShop	SetFocus	4d7aa9	4dc3b9	strings-ok
+IDENTICAL	VisShop	sub_4BCEA4	4bcea4	4c1875	strings-ok
+IDENTICAL	VisShop	OnLButtonDown	4dfee7	4e4868	strings-ok
+IDENTICAL	VisShop	sub_4BCAF1	4bcaf1	4c14bd	strings-ok
+IDENTICAL	VisShop	SetCursorOver	4d7a3a	4dc34a	strings-ok
+IDENTICAL	VisShop	ReadData	4d7e02	4dc6a9	strings-ok
+IDENTICAL	VisShop	WriteData	4d7d99	4dc712	strings-ok
+IDENTICAL	VisShop	DataSize	4d7d37	4dc647	strings-ok
+IDENTICAL	VisShop	OnKeyDown	4ba832	4bf202	strings-ok
+IDENTICAL	VisShop	FUN_004bcd02	4bcd02	4c16d3	strings-ok
+IDENTICAL	VisShop	VMethod7	4df63d	4e3fbe	strings-ok
+IDENTICAL	VisShop	VMethod9	4d7cc8	4dc5d8	strings-ok
+IDENTICAL	VisShop	ChangeFlags	4d7a03	4dc313	strings-ok
+IDENTICAL	VisShop	VMethod10	4d7d03	4dc613	strings-ok
+IDENTICAL	VisShop	sub_4BCD4B	4bcd4b	4c171c	strings-ok
+IDENTICAL	VisShop	FUN_004c6920	4c6920	4cb2c0	strings-ok
+IDENTICAL	VisShop	GetHint	4d7c15	4dc525	strings-ok
+IDENTICAL	VisShop	VMethod33	4c6b90	4cb530	strings-ok
+IDENTICAL	VisShop	sub_4BCD79	4bcd79	4c174a	strings-ok
+IDENTICAL	VisShop	sub_4BCCE1	4bcce1	4c16b2	strings-ok
+IDENTICAL	VisShop	SetHint	4d7bf9	4dc509	strings-ok
+IDENTICAL	VisShop	Dump	4d82b3	4dcbc3	strings-ok
+IDENTICAL	VisShop	TestFlags	4d79ed	4dc2fd	strings-ok
+IDENTICAL	VisShop	OnWmUser	41ed80	4201a0	strings-ok
+IDENTICAL	VisShop	OnRButtonDown	438880	4201b0	strings-ok
+IDENTICAL	VisShop	OnRButtonUp	438890	4201c0	strings-ok
+IDENTICAL	VisShop	OnRButtonDblClk	41ed90	43a600	strings-ok
+IDENTICAL	VisShop	OnKeyUp	41eda0	43a610	strings-ok
+IDENTICAL	VisShop	OnChar	4388b0	43a630	strings-ok
+IDENTICAL	VisShop	OnLButtonDblClk	438870	43a7e0	strings-ok
+IDENTICAL	VisShop	Serialize	401970	4019d0	strings-ok
+IDENTICAL	VisShop	AssertValid	401980	4019e0	strings-ok
+IDENTICAL	VisShop	VMethod27	4388c0	43a9e0	strings-ok
+IDENTICAL	VisShop	GetRuntimeClass	5ddf9b	5893d3	strings-ok
+IDENTICAL-BATCH	VisShop	55
