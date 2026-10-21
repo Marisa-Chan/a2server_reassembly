@@ -286,7 +286,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		PacketEnterGame* packet_enter_game = reinterpret_cast<PacketEnterGame*>(pkt);
 		PacketJoin* packet_join = reinterpret_cast<PacketJoin*>(pkt);
 		PacketItemTransfer* packet_transfer = reinterpret_cast<PacketItemTransfer*>(pkt);
-		PacketInfo* packet_info = reinterpret_cast<PacketInfo*>(pkt);
+		Packet2Dwords* packet_2dwords = reinterpret_cast<Packet2Dwords*>(pkt);
 		PacketDword* packet_dword = reinterpret_cast<PacketDword*>(pkt);
 		PacketData* packet_data = reinterpret_cast<PacketData*>(pkt);
 		PacketWord* packet_word = reinterpret_cast<PacketWord*>(pkt);
@@ -330,7 +330,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0xb: {
-			INT_00660f8c = packet_info->param1 | 0x1000;
+			INT_00660f8c = packet_2dwords->param1 | 0x1000;
 
 			if ((wnd->dialogsMask & 1) == 0) {
 				while( g_NetStru1_local.ReceiveAnyPacket() != nullptr)
@@ -355,11 +355,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0x67: {
-			if (wnd->dialogsMask == 1 && this->my_main_unit->gold < packet_info->param1 && packet_info->param2 == 0) {
-				sprintf(buf, "%s %d %s", TxtFile::AllLines[0x58], packet_info->param1 - this->my_main_unit->gold, TxtFile::AllLines[0x59]);
+			if (wnd->dialogsMask == 1 && this->my_main_unit->gold < packet_2dwords->param1 && packet_2dwords->param2 == 0) {
+				sprintf(buf, "%s %d %s", TxtFile::AllLines[0x58], packet_2dwords->param1 - this->my_main_unit->gold, TxtFile::AllLines[0x59]);
 				this->msglog.Add(buf, clr_log_tblack, 3000);
 			}
-			this->my_main_unit->gold = packet_info->param1;
+			this->my_main_unit->gold = packet_2dwords->param1;
 
 			CUnit* u = this->GetUnit_3f6c();
 			if (u) {
@@ -1425,11 +1425,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0x83:
-			wnd->PostMessage(0x42a, packet_info->param1, 0);
+			wnd->PostMessage(0x42a, packet_2dwords->param1, 0);
 			break;
 
 		case 0x84:
-			wnd->PostMessage(0x42b, packet_info->param1, packet_info->param2);
+			wnd->PostMessage(0x42b, packet_2dwords->param1, packet_2dwords->param2);
 			break;
 
 		case 0x86:
@@ -1676,7 +1676,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		break;
 
 		case 0x92: {
-			switch (packet_info->param1) {
+			switch (packet_2dwords->param1) {
 			case 1:
 				if (g_EnableTrace) {
 					this->msglog.Add(TxtFile::AllLines[0x81], clr_log_sblack, 3000);
@@ -1684,8 +1684,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				break;
 
 			case 2: {
-				int32_t texid = packet_info->param2 & 0xffff;
-				int32_t serv_id = (packet_info->param2 >> 16) & 0xffff;
+				int32_t texid = packet_2dwords->param2 & 0xffff;
+				int32_t serv_id = (packet_2dwords->param2 >> 16) & 0xffff;
 
 				CString txt;
 
@@ -1715,23 +1715,23 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				break;
 
 			case 3:
-				if (packet_info->param2 != this->my_main_unit->index) {
-					sprintf(buf, "%s %s %s", TxtFile::AllLines[0xcc], this->field_0x9b8[packet_info->param2]->name, TxtFile::AllLines[0xcd]);
+				if (packet_2dwords->param2 != this->my_main_unit->index) {
+					sprintf(buf, "%s %s %s", TxtFile::AllLines[0xcc], this->field_0x9b8[packet_2dwords->param2]->name, TxtFile::AllLines[0xcd]);
 					this->msglog.Add(buf, clr_log_sblack, 5000);
 				}
 				break;
 
 			case 4:
-				if (packet_info->param2 == this->my_main_unit->index) {
-					sprintf(buf, "%s %s %s", TxtFile::AllLines[0xd0], this->field_0x9b8[packet_info->param2]->name, TxtFile::AllLines[0xd1]);
+				if (packet_2dwords->param2 == this->my_main_unit->index) {
+					sprintf(buf, "%s %s %s", TxtFile::AllLines[0xd0], this->field_0x9b8[packet_2dwords->param2]->name, TxtFile::AllLines[0xd1]);
 				} else {
-					sprintf(buf, "%s %s %s", TxtFile::AllLines[0xce], this->field_0x9b8[packet_info->param2]->name, TxtFile::AllLines[0xcf]);
+					sprintf(buf, "%s %s %s", TxtFile::AllLines[0xce], this->field_0x9b8[packet_2dwords->param2]->name, TxtFile::AllLines[0xcf]);
 				}
 				this->msglog.Add(buf, clr_log_sblack, 5000);
 				break;
 
 			case 5:
-				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xdd], this->field_0x9b8[packet_info->param2]->name, TxtFile::AllLines[0xde]);
+				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xdd], this->field_0x9b8[packet_2dwords->param2]->name, TxtFile::AllLines[0xde]);
 				this->msglog.Add(buf, clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & 1) != 0) {
@@ -1740,7 +1740,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				break;
 
 			case 6:
-				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xdf], this->field_0x9b8[packet_info->param2]->name, TxtFile::AllLines[0xe0]);
+				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xdf], this->field_0x9b8[packet_2dwords->param2]->name, TxtFile::AllLines[0xe0]);
 				this->msglog.Add(buf, clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & 1) != 0) {
@@ -1749,7 +1749,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				break;
 
 			case 7:
-				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xe1], this->field_0x9b8[packet_info->param2]->name, TxtFile::AllLines[0xe2]);
+				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xe1], this->field_0x9b8[packet_2dwords->param2]->name, TxtFile::AllLines[0xe2]);
 				this->msglog.Add(buf, clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & 1) != 0) {
@@ -1758,7 +1758,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				break;
 
 			case 8:
-				sprintf(buf, "%s %d %s", txt_patch.GetLine(0x53), packet_info->param2, txt_patch.GetLine(0x54));
+				sprintf(buf, "%s %d %s", txt_patch.GetLine(0x53), packet_2dwords->param2, txt_patch.GetLine(0x54));
 				this->msglog.Add(buf, clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & 1) != 0) {
@@ -1821,12 +1821,12 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0x94:
-			if (packet_info->param1 != 0 && 
-				packet_info->param1 < this->field_0x9b8.GetSize() && this->field_0x9b8[packet_info->param1] != nullptr &&
-				packet_info->param2 != 0 &&
-				packet_info->param2 < this->field_0x9b8.GetSize() && this->field_0x9b8[packet_info->param2] != nullptr) {
+			if (packet_2dwords->param1 != 0 && 
+				packet_2dwords->param1 < this->field_0x9b8.GetSize() && this->field_0x9b8[packet_2dwords->param1] != nullptr &&
+				packet_2dwords->param2 != 0 &&
+				packet_2dwords->param2 < this->field_0x9b8.GetSize() && this->field_0x9b8[packet_2dwords->param2] != nullptr) {
 				CString str;
-				str.Format("%s %s %s %s %s", txt_patch.GetLine(0x50), this->field_0x9b8[packet_info->param1]->name, txt_patch.GetLine(0x51), this->field_0x9b8[packet_info->param2]->name, txt_patch.GetLine(0x52));
+				str.Format("%s %s %s %s %s", txt_patch.GetLine(0x50), this->field_0x9b8[packet_2dwords->param1]->name, txt_patch.GetLine(0x51), this->field_0x9b8[packet_2dwords->param2]->name, txt_patch.GetLine(0x52));
 				this->msglog.Add(str, clr_log_sblack, 5000);
 			}
 			break;
@@ -1882,7 +1882,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0x97: {
-			if (packet_info->param1 == this->my_main_unit->index) {
+			if (packet_2dwords->param1 == this->my_main_unit->index) {
 				wnd->PostMessage(0x45c, 0, 0);
 				g_CLlDriver.Close();
 				break;
@@ -1894,7 +1894,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				CGameObject* obj;
 				this->field_0x9d0.GetNextAssoc(it, key, obj);
 				
-				if (obj->map_player == this->field_0x9b8[packet_info->param1]) {
+				if (obj->map_player == this->field_0x9b8[packet_2dwords->param1]) {
 					tmp.Add(key);
 				}
 			}
@@ -1915,7 +1915,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 			this->UpdateSelectionState();
 
-			this->field_0x9b8[packet_info->param1] = nullptr; //WAT ? not delete?
+			this->field_0x9b8[packet_2dwords->param1] = nullptr; //WAT ? not delete?
 			wnd->vis_root->MsgProc(0x460, 0, 0);
 
 			wnd->ClearDiplomacyEntries();
@@ -1969,7 +1969,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0xaa: {
-			switch(packet_info->param1) {
+			switch(packet_2dwords->param1) {
 			case 0:
 				INT_00660f74 = 0;
 				break;
@@ -1994,7 +1994,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0xab:
 			if (wnd->pending_game_mode == 0) {
-				this->MsgProc(0x406, packet_info->param1 - (this->view_tiles_x / 2), packet_info->param2 - (this->view_tiles_y / 2));
+				this->MsgProc(0x406, packet_2dwords->param1 - (this->view_tiles_x / 2), packet_2dwords->param2 - (this->view_tiles_y / 2));
 			}
 			break;
 
@@ -2028,7 +2028,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0xb4:
-			wnd->PostMessage(0x433, 255, packet_info->param1);
+			wnd->PostMessage(0x433, 255, packet_2dwords->param1);
 			break;
 
 		case 0xb5:
@@ -2036,7 +2036,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0xb6:
-			wnd->PostMessage(0x433, packet_info->param1, 0);
+			wnd->PostMessage(0x433, packet_2dwords->param1, 0);
 			break;
 
 		case 0xb7:
@@ -2338,8 +2338,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0xd0:
-			wnd->m_GameSession.field_0x148 = packet_info->param1;
-			wnd->m_GameSession.field_0x14c = packet_info->param2;
+			wnd->m_GameSession.field_0x148 = packet_2dwords->param1;
+			wnd->m_GameSession.field_0x14c = packet_2dwords->param2;
 
 			while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
 			{}
@@ -2627,7 +2627,7 @@ void BigStruct2::FUN_0041cbb8() {
 	//0041cbb8
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
-	PacketInfo* pkt = &PacketInfo::Inst;
+	Packet2Dwords* pkt = &Packet2Dwords::Inst;
 	pkt->id = 0x48;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -3352,7 +3352,7 @@ CSprite256* ProjectileInfo::GetSpriteB() { //46f760
 
 
 void BigStruct2::FUN_0041cad0(int32_t m) { //41cad0
-	PacketInfo *pkt = &PacketInfo::Inst;
+	Packet2Dwords *pkt = &Packet2Dwords::Inst;
 	pkt->id = 4;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -3362,7 +3362,7 @@ void BigStruct2::FUN_0041cad0(int32_t m) { //41cad0
 }
 
 void BigStruct2::FUN_0041aaaa(int32_t wim) { //41aaaa
-	PacketInfo* pkt = &PacketInfo::Inst;
+	Packet2Dwords* pkt = &Packet2Dwords::Inst;
 	pkt->id = 0x46;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -3373,7 +3373,7 @@ void BigStruct2::FUN_0041aaaa(int32_t wim) { //41aaaa
 }
 
 void BigStruct2::FUN_0041abd2(int32_t form) { // 41abd2
-	PacketInfo* pkt = &PacketInfo::Inst;
+	Packet2Dwords* pkt = &Packet2Dwords::Inst;
 	pkt->id = 0x46;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -3384,7 +3384,7 @@ void BigStruct2::FUN_0041abd2(int32_t form) { // 41abd2
 }
 
 void BigStruct2::FUN_0041ab74() { //41ab74
-	PacketInfo* pkt = &PacketInfo::Inst;
+	Packet2Dwords* pkt = &Packet2Dwords::Inst;
 	pkt->id = 0x46;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -3502,7 +3502,7 @@ void BigStruct2::FUN_0041b10f() {
 }
 
 void BigStruct2::FUN_0041b064(int32_t arg1, int32_t arg2) {
-	PacketInfo* pkt = &PacketInfo::Inst;
+	Packet2Dwords* pkt = &Packet2Dwords::Inst;
 	pkt->id = 0x3f;
 	pkt->param1 = arg1;
 	pkt->param2 = arg2;
@@ -3512,7 +3512,7 @@ void BigStruct2::FUN_0041b064(int32_t arg1, int32_t arg2) {
 }
 
 void BigStruct2::SendAdjustPlayerGoldAction(int32_t goldDelta) const { //41b0be
-	PacketInfo* pkt = &PacketInfo::Inst;
+	Packet2Dwords* pkt = &Packet2Dwords::Inst;
 	pkt->id = 0x3e;
 	pkt->param1 = goldDelta;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -4342,7 +4342,7 @@ int32_t BigStruct2::sub_403B8F(int32_t arg1, int32_t arg2, int32_t arg3, int32_t
 
 // 41B155
 void BigStruct2::sub_41B155() {
-	PacketInfo* pkt = &PacketInfo::Inst;
+	Packet2Dwords* pkt = &Packet2Dwords::Inst;
 	pkt->id = 0x4B;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -4351,7 +4351,7 @@ void BigStruct2::sub_41B155() {
 
 // 41CE14
 void BigStruct2::sub_41CE14() {
-	PacketInfo* pkt = &PacketInfo::Inst;
+	Packet2Dwords* pkt = &Packet2Dwords::Inst;
 	pkt->id = 0x4C;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -4360,7 +4360,7 @@ void BigStruct2::sub_41CE14() {
 
 // 41AC2D
 void BigStruct2::sub_41AC2D(int32_t id) {
-	PacketInfo* pkt = &PacketInfo::Inst;
+	Packet2Dwords* pkt = &Packet2Dwords::Inst;
 	pkt->id = 0x46;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -4371,7 +4371,7 @@ void BigStruct2::sub_41AC2D(int32_t id) {
 
 // 41AC88
 void BigStruct2::sub_41AC88(int32_t arg1, int32_t arg2) {
-	PacketInfo* pkt = &PacketInfo::Inst;
+	Packet2Dwords* pkt = &Packet2Dwords::Inst;
 	pkt->id = 0x23;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -6176,7 +6176,7 @@ void BigStruct2::FUN_0041c74b(int32_t x, int32_t y, int32_t w, int32_t h, int32_
 
 // 41CB21
 void BigStruct2::FUN_0041cb21() {
-	PacketInfo* pkt = &PacketInfo::Inst;
+	Packet2Dwords* pkt = &Packet2Dwords::Inst;
 	pkt->id = 0x39;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -6202,7 +6202,7 @@ int32_t BigStruct2::OnChar(uint32_t wparam) {
 
 // 41CB67
 void BigStruct2::FUN_0041cb67(int32_t val) {
-	PacketInfo* pkt = &PacketInfo::Inst;
+	Packet2Dwords* pkt = &Packet2Dwords::Inst;
 	pkt->id = 0x3b;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -7916,7 +7916,7 @@ void BigStruct2::FUN_0041ae1c(int32_t serv_id) {
 			ids.RemoveAt(0, 1);
 		}
 	} else {
-		PacketInfo* pkt = &PacketInfo::Inst;
+		Packet2Dwords* pkt = &Packet2Dwords::Inst;
 		pkt->from_player_id = this->my_main_unit->index;
 		pkt->to_player_id = 0;
 		pkt->id = 0x3A;
@@ -7928,7 +7928,7 @@ void BigStruct2::FUN_0041ae1c(int32_t serv_id) {
 
 // 41ace2
 void BigStruct2::FUN_0041ace2(int32_t spell_id) {
-	PacketInfo* pkt = &PacketInfo::Inst;
+	Packet2Dwords* pkt = &Packet2Dwords::Inst;
 	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;

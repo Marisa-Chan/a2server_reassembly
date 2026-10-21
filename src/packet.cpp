@@ -120,31 +120,31 @@ uint32_t PacketJoin::GetDataSize() {
 
 
 
-PacketInfo PacketInfo::Inst;
+Packet2Dwords Packet2Dwords::Inst;
 
-PacketInfo::PacketInfo() {
+Packet2Dwords::Packet2Dwords() {
     //526b44
     this->param1 = 0;
     this->param2 = 0;
 }
 
-PacketInfo::PacketInfo(const PacketInfo* src) {
+Packet2Dwords::Packet2Dwords(const Packet2Dwords* src) {
     //526b77
     this->id = src->id;
     this->param1 = src->param1;
     this->param2 = src->param2;
 }
 
-PacketInfo::~PacketInfo() {
+Packet2Dwords::~Packet2Dwords() {
     //579a80
 }
 
-Packet* PacketInfo::Duplicate() {
+Packet* Packet2Dwords::Duplicate() {
     //57a210
-    return new PacketInfo(this);
+    return new Packet2Dwords(this);
 }
 
-uint32_t PacketInfo::GetDataSize() {
+uint32_t Packet2Dwords::GetDataSize() {
     //57a290
     return 9;
 }

@@ -1715,7 +1715,7 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
 
     // Send player's main unit's position.
     if (player->main_unit) {
-        PacketInfo& inf = PacketInfo::Inst;
+        Packet2Dwords& inf = Packet2Dwords::Inst;
         inf.id = 0xABu;
         inf.to_player_id = player->player_id;
         inf.param1 = player->main_unit->position->GetX() & 0xFF;
@@ -2915,7 +2915,7 @@ Shop* Server::FindShopAt(TokenPos* pos) {
 }
 
 const char* PacketType(Packet *pkt) {
-    if (dynamic_cast<PacketInfo*>(pkt) != nullptr) { return "PacketInfo"; }
+    if (dynamic_cast<Packet2Dwords*>(pkt) != nullptr) { return "Packet2Dwords"; }
     else if (dynamic_cast<PacketJoin*>(pkt) != nullptr) { return "PacketJoin"; }
     else if (dynamic_cast<PacketTerrain*>(pkt) != nullptr) { return "PacketTerrain"; }
     else if (dynamic_cast<PacketUnitUpdate*>(pkt) != nullptr) { return "PacketUnitUpdate"; }
@@ -3179,7 +3179,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
     PacketEnterGame* packet_enter_game = reinterpret_cast<PacketEnterGame*>(pkt);
     PacketJoin* packet_join = reinterpret_cast<PacketJoin*>(pkt);
     PacketItemTransfer* packet_transfer = reinterpret_cast<PacketItemTransfer*>(pkt);
-    PacketInfo* packet_info = reinterpret_cast<PacketInfo*>(pkt);
+    Packet2Dwords* packet_2dwords = reinterpret_cast<Packet2Dwords*>(pkt);
     PacketDword* packet_dword = reinterpret_cast<PacketDword*>(pkt);
     PacketData* packet_data = reinterpret_cast<PacketData*>(pkt);
     PacketWord* packet_word = reinterpret_cast<PacketWord*>(pkt);
@@ -3208,10 +3208,10 @@ void Server::ProcessClientPacket(Packet* pkt) {
         break;
 
     case 0x04: // Join mission.
-        CheckPacketType(pkt, "PacketInfo");
-        player = g_PlayersList->FindById(packet_info->from_player_id);
+        CheckPacketType(pkt, "Packet2Dwords");
+        player = g_PlayersList->FindById(packet_2dwords->from_player_id);
         if (player) {
-            this->SendWorldState(player, (packet_info->param1 == 0) ? 1 : 0);
+            this->SendWorldState(player, (packet_2dwords->param1 == 0) ? 1 : 0);
         }
         break;
 
@@ -3390,12 +3390,12 @@ void Server::ProcessClientPacket(Packet* pkt) {
         }
 
     case 0x23: // Gold drop - create money sack on the ground
-        CheckPacketType(pkt, "PacketInfo");
+        CheckPacketType(pkt, "Packet2Dwords");
         {
-            player = g_PlayersList->FindById(packet_info->from_player_id);
+            player = g_PlayersList->FindById(packet_2dwords->from_player_id);
             if (!player) {
                 CString msg;
-                msg.Format("Order error: no such Player %d", packet_info->from_player_id);
+                msg.Format("Order error: no such Player %d", packet_2dwords->from_player_id);
                 LogMessage(msg);
                 break;
             }
@@ -3405,15 +3405,15 @@ void Server::ProcessClientPacket(Packet* pkt) {
                         ? unit_list->unit_list.GetHead()
                         : nullptr;
 
-            int32_t amount = packet_info->param1;
+            int32_t amount = packet_2dwords->param1;
             if (!unit || amount < 1 || player->money < amount) {
                 break;
             }
 
             player->money -= amount;
 
-            uint8_t drop_x = static_cast<uint8_t>(packet_info->param2 & 0xFF);
-            uint8_t drop_y = static_cast<uint8_t>((packet_info->param2 >> 8) & 0xFF);
+            uint8_t drop_x = static_cast<uint8_t>(packet_2dwords->param2 & 0xFF);
+            uint8_t drop_y = static_cast<uint8_t>((packet_2dwords->param2 >> 8) & 0xFF);
 
             int dx = std::abs(static_cast<int>(unit->position->GetX()) - static_cast<int>(drop_x));
             int dy = std::abs(static_cast<int>(unit->position->GetY()) - static_cast<int>(drop_y));
@@ -3536,9 +3536,9 @@ void Server::ProcessClientPacket(Packet* pkt) {
         }
 
     case 0x39:
-        CheckPacketType(pkt, "PacketInfo");
+        CheckPacketType(pkt, "Packet2Dwords");
         {
-            player = g_PlayersList->FindById(packet_info->from_player_id);
+            player = g_PlayersList->FindById(packet_2dwords->from_player_id);
             if (player) {
                 this->SendMapInfo(player);
             }
@@ -3546,9 +3546,9 @@ void Server::ProcessClientPacket(Packet* pkt) {
         }
 
     case 0x3A:
-        CheckPacketType(pkt, "PacketInfo");
+        CheckPacketType(pkt, "Packet2Dwords");
         {
-            Unit* unit = this->FindPlayerUnit(packet_info->from_player_id, packet_info->param1);
+            Unit* unit = this->FindPlayerUnit(packet_2dwords->from_player_id, packet_2dwords->param1);
             if (!unit) {
                 break;
             }
@@ -3556,17 +3556,17 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (!inn) {
                 break;
             }
-            inn->RemoveUnit(static_cast<Humanoid*>(unit), packet_info->param2);
+            inn->RemoveUnit(static_cast<Humanoid*>(unit), packet_2dwords->param2);
             CString m;
-            m.Format("Exit inn: player %d, unit %d, field: %x", packet_info->from_player_id, packet_info->param1, packet_info->param2);
+            m.Format("Exit inn: player %d, unit %d, field: %x", packet_2dwords->from_player_id, packet_2dwords->param1, packet_2dwords->param2);
             LogMessage(m);
             break;
         }
 
     case 0x3B: // Map file chunk download --- send a chunk of current_map_name to the client
-        CheckPacketType(pkt, "PacketInfo");
+        CheckPacketType(pkt, "Packet2Dwords");
         {
-            player = this->FindPlayerById(packet_info->from_player_id);
+            player = this->FindPlayerById(packet_2dwords->from_player_id);
             if (!player) {
                 break;
             }
@@ -3587,7 +3587,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             }
             std::strcpy(reinterpret_cast<char*>(resp.preamble), name_src);
 
-            int32_t file_start = packet_info->param1;
+            int32_t file_start = packet_2dwords->param1;
 
             CFile f;
             if (f.Open(this->current_map_name, CFile::modeRead | CFile::shareDenyNone, nullptr)) {
@@ -3689,18 +3689,18 @@ void Server::ProcessClientPacket(Packet* pkt) {
         }
 
     case 0x46: // Player parameter change
-        CheckPacketType(pkt, "PacketInfo");
+        CheckPacketType(pkt, "Packet2Dwords");
         {
             if (!g_World) {
                 break;
             }
-            player = this->FindPlayerById(packet_info->from_player_id);
+            player = this->FindPlayerById(packet_2dwords->from_player_id);
             if (!player) {
                 break;
             }
 
-            int32_t param_type  = packet_info->param1;
-            int32_t param_value = packet_info->param2;
+            int32_t param_type  = packet_2dwords->param1;
+            int32_t param_value = packet_2dwords->param2;
 
             if (param_type >= 0x80) {
                 CString msg;
@@ -3727,7 +3727,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 }
                 break;
             case 4: {
-                    Unit* unit = this->FindPlayerUnit(packet_info->from_player_id, static_cast<uint16_t>(param_value));
+                    Unit* unit = this->FindPlayerUnit(packet_2dwords->from_player_id, static_cast<uint16_t>(param_value));
                     if (unit && unit->eye2) {
                         uint8_t new_spell_id = static_cast<uint8_t>(param_value >> 16);
                         if (unit->eye2->spell_id == new_spell_id) {
@@ -3753,14 +3753,14 @@ void Server::ProcessClientPacket(Packet* pkt) {
 
     case 0x48: { // Join map.
 #ifdef A2CLIENT
-        Player* player = this->FindPlayerById(packet_info->field_0x5);
+        Player* player = this->FindPlayerById(packet_2dwords->field_0x5);
         if (player) {
-            Human* human = this->CreatePlayerCharacter(player, packet_info->field_0xa & 0xff, 
-                                            (packet_info->field_0xa >> 8) & 0xff, 
-                                            (packet_info->field_0xa >> 16) & 0xff, 
-                                            (packet_info->field_0xa >> 24) & 0xff,
-                                            (packet_info->field_0xe) & 0xff,
-                                            (packet_info->field_0xe >> 8) & 0xff );
+            Human* human = this->CreatePlayerCharacter(player, packet_2dwords->field_0xa & 0xff, 
+                                            (packet_2dwords->field_0xa >> 8) & 0xff, 
+                                            (packet_2dwords->field_0xa >> 16) & 0xff, 
+                                            (packet_2dwords->field_0xa >> 24) & 0xff,
+                                            (packet_2dwords->field_0xe) & 0xff,
+                                            (packet_2dwords->field_0xe >> 8) & 0xff );
             g_NetStru1_main.SendTickPacket(human->pOwner);
 
             if (GetTickCount() - human->pOwner->field_0xa7c > 15000) {
@@ -3771,8 +3771,8 @@ void Server::ProcessClientPacket(Packet* pkt) {
         }
         break;
 #else
-            CheckPacketType(pkt, "PacketInfo");
-            player = this->FindPlayerById(packet_info->from_player_id);
+            CheckPacketType(pkt, "Packet2Dwords");
+            player = this->FindPlayerById(packet_2dwords->from_player_id);
             if (!player) {
                 break;
             }
@@ -4027,16 +4027,16 @@ void Server::ProcessClientPacket(Packet* pkt) {
         }
 
     case 0xD0: // Reconnect?
-        CheckPacketType(pkt, "PacketInfo");
+        CheckPacketType(pkt, "Packet2Dwords");
         {
             // Only handle if this connection has not yet claimed a player (field_0x2a8 == 0)
-            NetStru2* ns2 = g_NetStru1_main.GetClientByLowUid(packet_info->from_player_id);
+            NetStru2* ns2 = g_NetStru1_main.GetClientByLowUid(packet_2dwords->from_player_id);
             if (!ns2 || ns2->is_claimed != 0) {
                 break;
             }
 
             // Find the target player by two identity fields carried in the packet
-            Player* target = g_PlayersList->FindByHatCharId(packet_info->param1, packet_info->param2);
+            Player* target = g_PlayersList->FindByHatCharId(packet_2dwords->param1, packet_2dwords->param2);
             // Only proceed if the target player has no active NetStru2 yet
             if (target && g_NetStru1_main.GetClientByPlayerID(target->player_id) == nullptr) {
                 ns2->player_id = target->player_id;
@@ -5388,7 +5388,7 @@ void Server::ProcessHatPacket(Packet* pkt) {
         return;
     }
     
-    PacketInfo* pkt_info = reinterpret_cast<PacketInfo*>(pkt);
+    Packet2Dwords* packet_2dwords = reinterpret_cast<Packet2Dwords*>(pkt);
     PacketJoin* pkt_join = reinterpret_cast<PacketJoin*>(pkt);
 
     switch (pkt->id) {
@@ -5431,10 +5431,10 @@ void Server::ProcessHatPacket(Packet* pkt) {
         LogMessage("Login to hat successful.");
         this->field50_0x1d4 = 0;
         this->UpdateHatAnnounce();
-        if (pkt_info->param2 == 0 || g_ServerConfig.always_load_sacks != 0) {
+        if (packet_2dwords->param2 == 0 || g_ServerConfig.always_load_sacks != 0) {
             this->LoadSavedSacks();
         }
-        this->field54_0x1f4 = pkt_info->param1;
+        this->field54_0x1f4 = packet_2dwords->param1;
         if (this->FileList.GetSize() == 0) {
             this->field56_0x1fc = 0;
             NetStru1::HatConnector.SendBarePacket(3, nullptr);
@@ -5472,8 +5472,8 @@ void Server::ProcessHatPacket(Packet* pkt) {
         }
 
     case 0xe1: { // 0xe1 - Player existence check from hat
-            int32_t id1 = pkt_info->param1;
-            int32_t id2 = pkt_info->param2;
+            int32_t id1 = packet_2dwords->param1;
+            int32_t id2 = packet_2dwords->param2;
             Player* player = g_PlayersList->FindByHatCharId(id1, id2);
             if (player == nullptr) {
                 NetStru1::HatConnector.SendHatPlayerCheck(id1, id2, 1, 0);
@@ -6143,12 +6143,12 @@ void Server::UpdateMissionResult(Player* player) {
                 }
             }
             g_NetStru1_main.SendUnitUpdate(unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
-            PacketInfo& packet_info = PacketInfo::Inst;
-            packet_info.id = 0xAB;
-            packet_info.to_player_id = player->player_id;
-            packet_info.param1 = player->main_unit->position->GetX() & 0xFF;
-            packet_info.param2 = player->main_unit->position->GetY() & 0xFF;
-            g_NetStru1_main.QueuePacketSend(&packet_info);
+            Packet2Dwords& packet_2dwords = Packet2Dwords::Inst;
+            packet_2dwords.id = 0xAB;
+            packet_2dwords.to_player_id = player->player_id;
+            packet_2dwords.param1 = player->main_unit->position->GetX() & 0xFF;
+            packet_2dwords.param2 = player->main_unit->position->GetY() & 0xFF;
+            g_NetStru1_main.QueuePacketSend(&packet_2dwords);
         }
     }
 }

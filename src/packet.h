@@ -36,15 +36,15 @@ ASSERT_SIZE(Packet, 0xa);
 
 
 __pragma(pack(push, 1))
-class PacketInfo : public Packet {
+class Packet2Dwords : public Packet {
 public:
-    static PacketInfo Inst; //in asm 6d0788
+    static Packet2Dwords Inst; //in asm 6d0788
 public:
-    PacketInfo();
-    PacketInfo(const PacketInfo* src);
+    Packet2Dwords();
+    Packet2Dwords(const Packet2Dwords* src);
 
 public:
-    virtual ~PacketInfo();
+    virtual ~Packet2Dwords();
     virtual Packet* Duplicate() override;
     virtual uint32_t GetDataSize() override;
 public:
@@ -70,7 +70,7 @@ public:
 };
 __pragma(pack(pop))
 
-ASSERT_SIZE(PacketInfo, 0x12);
+ASSERT_SIZE(Packet2Dwords, 0x12);
 
 
 

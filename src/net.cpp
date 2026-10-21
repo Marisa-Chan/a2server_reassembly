@@ -180,7 +180,7 @@ void NetStru1::AnnouncePlayer(Player* player) {
 
 // 51cefb
 void NetStru1::SendInfoPacket(uint8_t id, int32_t value1, int32_t value2, Player* target) {
-    PacketInfo& packet = PacketInfo::Inst;
+    Packet2Dwords& packet = Packet2Dwords::Inst;
     packet.id = id;
     packet.to_player_id = target ? target->player_id : 0;
     packet.param1 = value1;
@@ -199,7 +199,7 @@ void NetStru1::SendLatency(int32_t latency, Player* player) {
 
 // 51CD2A
 void NetStru1::SendGameEvent(Player* player, int32_t event_id, int32_t value2) {
-    PacketInfo& packet = PacketInfo::Inst;
+    Packet2Dwords& packet = Packet2Dwords::Inst;
     packet.id = 0xb6;
     packet.to_player_id = player ? player->player_id : 0;
     packet.param1 = event_id;
@@ -1010,7 +1010,7 @@ Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
 
     case 0x4: case 0xb: case 0x39: case 0x3b: case 0x5c: case 0xca:
     case 0xcc: case 0xd0: case 0xd5: case 0xd8: case 0xe1:
-        pkt = &PacketInfo::Inst;
+        pkt = &Packet2Dwords::Inst;
         pkt->ReadFrom(ns2);
         break;
 
@@ -1068,7 +1068,7 @@ Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
     case 0x23: case 0x3a: case 0x3d: case 0x3e: case 0x3f: case 0x40:
     case 0x46: case 0x48: case 0x83: case 0x84: case 0x92: case 0x94:
     case 0xaa: case 0xc3:
-        pkt = &PacketInfo::Inst;
+        pkt = &Packet2Dwords::Inst;
         pkt->ReadFrom(ns2);
         break;
 
@@ -1091,7 +1091,7 @@ Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
 
     case 0x65: case 0x67: case 0x97: case 0xab: case 0xac: case 0xad:
     case 0xb4: case 0xb5: case 0xb6:
-        pkt = &PacketInfo::Inst;
+        pkt = &Packet2Dwords::Inst;
         pkt->ReadFrom(ns2);
         break;
 
@@ -4420,7 +4420,7 @@ void NetStru1::SendHatRawString(const char* str, int32_t len) {
 
 // 51E5FB
 void NetStru1::SendHatJoinOk(int32_t a, int32_t b) {
-    PacketInfo& packet = PacketInfo::Inst;
+    Packet2Dwords& packet = Packet2Dwords::Inst;
     packet.id = 0xD8;
     packet.param1 = a;
     packet.param2 = b;
@@ -4877,7 +4877,7 @@ void NetStru1::SendHatCredentials(const CString& login, const CString& password,
 }
 
 void NetStru1::SendHatCharId(HatCharId chid) { //51d9d0
-    PacketInfo* pkt = &PacketInfo::Inst;
+    Packet2Dwords* pkt = &Packet2Dwords::Inst;
     pkt->id = 0xca;
     pkt->param1 = chid.id1;
     pkt->param2 = chid.id2;
