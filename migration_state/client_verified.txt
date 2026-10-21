@@ -2417,3 +2417,5 @@ PORTED	VisConnectionDlg	VMethod30	44604c	44871d
 PORTED	VisStartGame	Accept	43817d	43a2af
 PORTED	VisDiplomacy	FUN_0044829c	-	44829c
 PORTED	VisMessageBox	Serialize(CArchive_&)	-	4019d0
+PORTED	VisHatBrowserDlg	VMethod26	44bc6c	44e774
+PORTED	VisHatBrowserDlg	MsgProc	44c1a9	44f11d

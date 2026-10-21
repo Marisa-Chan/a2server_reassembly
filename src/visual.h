@@ -3644,7 +3644,22 @@ public:
 	virtual void VMethod26() override; // 44BC6C
 
 	VisHatBrowserDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //44bc35
+
+#ifdef A2CLIENT
+	// client-only web-browser glue. The retail client's browser object is installed by the
+	// a2mgr.dll mod layer; every use is gated on browser != 0, so an un-hooked client (and
+	// this port, which leaves it null) no-ops through all of them.
+	void* browser; // 0x68 — 0x21c-byte browser object (client ctor 4b18c0)
+	void* worker_thread; // 0x6c — worker thread driving browser_step (client 44e391)
+	HANDLE exit_event; // 0x70 — auto-reset; SetEvent from MsgProc 0x445/0x446
+	HANDLE ack_event; // 0x74 — auto-reset, initially signaled
+	CRITICAL_SECTION connect_cs; // 0x78 — guards connect_addr
+	CString connect_addr; // 0x90 — address handed to the worker
+#endif
 };
 ASSERT_SIZE(VisHatBrowserDlg, 0x68);
+#ifdef A2CLIENT
+ASSERT_SIZE(VisHatBrowserDlg, 0x94);
+#endif
 
 #endif
