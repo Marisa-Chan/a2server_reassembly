@@ -4574,6 +4574,7 @@ VisTipsDialog::~VisTipsDialog() {
 
 int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
     //4303c8
+    // client: 4322bb
     MainWindow* mainwnd = (MainWindow*)AfxGetMainWnd();
 
     if (this->mouse_down_box > -1 && this->mouse_down_box < 4 &&
@@ -4611,6 +4612,11 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
             break;
 
         case 1:
+#ifdef A2CLIENT
+            if (mwnd->field_0x3e0.field_10 != 0 && mwnd->hat_settings.ishat != 0 && mwnd->hat_settings.deathmatch != 0) {
+                break;
+            }
+#endif
             if (this->parent_screen->roster_list->field_0xd8 == 0) {
                 int32_t idx = this->parent_screen->roster_list->field_0xd0;
                 if (idx != this->parent_screen->session->GetStringArray1Size() - 1) {
@@ -9673,6 +9679,7 @@ const char* VisCharInfo::GetHint() {
 }
 
 // 4B3A0D
+// client: 4b8374
 int32_t VisCharInfo::VMethod27(int32_t a) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     int32_t disallow = 0;
