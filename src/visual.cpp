@@ -13879,7 +13879,7 @@ int32_t VisTavRightPanel::OnLButtonUp(uint32_t wparam, CPoint pos) {
                     this->FUN_0049a973();
                 }
             } else if (button == 1) {
-                if (this->vis_tav->selection_index < this->vis_tav->avail_entries.GetSize()) {
+                if ((g_IsServer != 0 || this->vis_tav->selection_index >= 0) && this->vis_tav->selection_index < this->vis_tav->avail_entries.GetSize()) {
                     CUnit* unit = this->vis_tav->avail_entries[this->vis_tav->selection_index];
                     CString str;
                     str.Format("npc%dabout", unit->serverId);
