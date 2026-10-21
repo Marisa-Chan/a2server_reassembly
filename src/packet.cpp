@@ -390,11 +390,11 @@ uint32_t PacketGroupOrder::GetDataSize() {
 }
 
 // ============================================================
-// PacketCmd
+// PacketItemTransfer
 // ============================================================
-PacketCmd PacketCmd::Inst;
+PacketItemTransfer PacketItemTransfer::Inst;
 
-PacketCmd::PacketCmd() {
+PacketItemTransfer::PacketItemTransfer() {
     //sub_526A07
     this->type       = 0;
     this->subtype    = 0;
@@ -403,15 +403,15 @@ PacketCmd::PacketCmd() {
     this->param3 = 1;
 }
 
-PacketCmd::PacketCmd(const PacketCmd* src) {
+PacketItemTransfer::PacketItemTransfer(const PacketItemTransfer* src) {
     memcpy(&this->id, &src->id, 0xB); // id(1)+0xA+0xB+type+subtype+0xE(2)+0x10(2)+0x12(2) = 11
 }
 
-PacketCmd::~PacketCmd() {
+PacketItemTransfer::~PacketItemTransfer() {
     //sub_57A140
 }
 
-uint32_t PacketCmd::GetDataSize() {
+uint32_t PacketItemTransfer::GetDataSize() {
     //sub_57A130  id(1) + 10 derived bytes = 0xB
     return 0xB;
 }

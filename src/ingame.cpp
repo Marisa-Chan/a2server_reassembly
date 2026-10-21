@@ -285,7 +285,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		Packet3Dwords* packet_3d = reinterpret_cast<Packet3Dwords*>(pkt);
 		PacketJoin* packet_join = reinterpret_cast<PacketJoin*>(pkt);
-		PacketCmd* packet_cmd = reinterpret_cast<PacketCmd*>(pkt);
+		PacketItemTransfer* packet_transfer = reinterpret_cast<PacketItemTransfer*>(pkt);
 		PacketInfo* packet_info = reinterpret_cast<PacketInfo*>(pkt);
 		PacketDword* packet_dword = reinterpret_cast<PacketDword*>(pkt);
 		PacketData* packet_data = reinterpret_cast<PacketData*>(pkt);
@@ -4497,7 +4497,7 @@ void BigStruct2::sub_41A66E(uint16_t id) {
 
 // 41A7C7
 void BigStruct2::sub_41A7C7(uint8_t arg1, uint16_t arg2, uint8_t arg3, uint16_t arg4, uint16_t arg5) {
-	PacketCmd* pkt = &PacketCmd::Inst;
+	PacketItemTransfer* pkt = &PacketItemTransfer::Inst;
 	pkt->id = 0x22;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;

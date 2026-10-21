@@ -2921,7 +2921,7 @@ const char* PacketType(Packet *pkt) {
     else if (dynamic_cast<PacketUnitUpdate*>(pkt) != nullptr) { return "PacketUnitUpdate"; }
     else if (dynamic_cast<PacketWord*>(pkt) != nullptr) { return "PacketWord"; }
     else if (dynamic_cast<PacketGroupOrder*>(pkt) != nullptr) { return "PacketGroupOrder"; }
-    else if (dynamic_cast<PacketCmd*>(pkt) != nullptr) { return "PacketCmd"; }
+    else if (dynamic_cast<PacketItemTransfer*>(pkt) != nullptr) { return "PacketItemTransfer"; }
     else if (dynamic_cast<Packet3Dwords*>(pkt) != nullptr) { return "Packet3Dwords"; }
     else if (dynamic_cast<PacketDword*>(pkt) != nullptr) { return "PacketDword"; }
     else if (dynamic_cast<PacketAbility*>(pkt) != nullptr) { return "PacketAbility"; }
@@ -3178,7 +3178,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
     Player* player = nullptr;
     Packet3Dwords* packet_3d = reinterpret_cast<Packet3Dwords*>(pkt);
     PacketJoin* packet_join = reinterpret_cast<PacketJoin*>(pkt);
-    PacketCmd* packet_cmd = reinterpret_cast<PacketCmd*>(pkt);
+    PacketItemTransfer* packet_transfer = reinterpret_cast<PacketItemTransfer*>(pkt);
     PacketInfo* packet_info = reinterpret_cast<PacketInfo*>(pkt);
     PacketDword* packet_dword = reinterpret_cast<PacketDword*>(pkt);
     PacketData* packet_data = reinterpret_cast<PacketData*>(pkt);
@@ -3242,17 +3242,17 @@ void Server::ProcessClientPacket(Packet* pkt) {
         break;
 
     case 0x22: // Item operation.
-        CheckPacketType(pkt, "PacketCmd");
+        CheckPacketType(pkt, "PacketItemTransfer");
         {
-            Unit* target_unit = this->FindPlayerUnit(packet_cmd->from_player_id, packet_cmd->unit_id);
+            Unit* target_unit = this->FindPlayerUnit(packet_transfer->from_player_id, packet_transfer->unit_id);
             if (!target_unit) {
                 break;
             }
 
             Humanoid* human = static_cast<Humanoid*>(target_unit);
 
-            uint8_t from_type = packet_cmd->type;  // 1=unequip, 2=from_bag, 3=pickup_ground, 4=from_shop
-            uint8_t to_type = packet_cmd->subtype; // 1=equip,   2=to_bag,   3=drop_ground,   4=sell_shop
+            uint8_t from_type = packet_transfer->type;  // 1=unequip, 2=from_bag, 3=pickup_ground, 4=from_shop
+            uint8_t to_type = packet_transfer->subtype; // 1=equip,   2=to_bag,   3=drop_ground,   4=sell_shop
 
             // Both types in [4..8]: shop-slot interaction --- delegate entirely.
             if (from_type >= 4 && from_type <= 8 && to_type >= 4 && to_type <= 8) {
@@ -3260,9 +3260,9 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 if (shop) {
                     shop->HandleItemOperation(
                         human,
-                        from_type, packet_cmd->param1,
-                        to_type, packet_cmd->param2,
-                        packet_cmd->param3
+                        from_type, packet_transfer->param1,
+                        to_type, packet_transfer->param2,
+                        packet_transfer->param3
                     );
                 }
                 break;
@@ -3274,7 +3274,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 if (!sack) {
                     LogMessage("Invalid pickup order - no sack there.");
                 } else {
-                    human->inventory->default_position = packet_cmd->param1;
+                    human->inventory->default_position = packet_transfer->param1;
                     human->state = 2;
                 }
                 break;
@@ -3291,7 +3291,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (from_type == 2) {
                 // Pick item from bag.
                 count_before = human->inventory->items.GetSize();
-                item = human->inventory->TakeItemAt(packet_cmd->param1, packet_cmd->param3);
+                item = human->inventory->TakeItemAt(packet_transfer->param1, packet_transfer->param3);
                 if (item) {
                     update_mask |= 0x282000;
                     item->field15_0x54 = 0;
@@ -3302,13 +3302,13 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 if (!shop) {
                     break;
                 }
-                item = shop->BuyItem(human, packet_cmd->param1, packet_cmd->param3);
+                item = shop->BuyItem(human, packet_transfer->param1, packet_transfer->param3);
             } else if (from_type == 1) {
                 // Unequip item from body slot.
                 if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
                     break;
                 }
-                int32_t slot = (int16_t)packet_cmd->param1 + 1;
+                int32_t slot = (int16_t)packet_transfer->param1 + 1;
                 if (slot == 1) {
                     item = human->Unequip(human->weapon);
                 } else if (slot == 2) {
@@ -3333,23 +3333,23 @@ void Server::ProcessClientPacket(Packet* pkt) {
 
             if (to_type == 1) {
                 // Equip item.
-                human->inventory->default_position = packet_cmd->param1;
+                human->inventory->default_position = packet_transfer->param1;
                 uint16_t item_slot_type = (item->item_id >> 8) & 0xF;
                 equip_mask |= (item_slot_type < 3) ? 3 : (1 << (item_slot_type - 1));
                 Item* prev = item;
                 item = human->UseItem(item); // equip; returns displaced item if any
                 if (item) {
-                    human->inventory->PutItemIntoBag(packet_cmd->param1, item);
+                    human->inventory->PutItemIntoBag(packet_transfer->param1, item);
                 }
                 if (from_type == 2 && human->inventory->items.GetSize() == count_before && item != prev) {
-                    bag_pos = packet_cmd->param1;
+                    bag_pos = packet_transfer->param1;
                     bag_pos_delta = 1;
                 }
                 human->AddCarriedWeight(0);
                 update_mask |= 0x482000;
             } else if (to_type == 2) {
                 // Put item into bag slot.
-                human->inventory->PutItemIntoBag(packet_cmd->param2, item);
+                human->inventory->PutItemIntoBag(packet_transfer->param2, item);
                 human->AddCarriedWeight(0);
                 update_mask |= 0x282000;
             } else if (to_type == 4) {
@@ -3359,14 +3359,14 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 if (!shop) {
                     break;
                 }
-                shop->SellItemFor(human, packet_cmd->param2, item);
+                shop->SellItemFor(human, packet_transfer->param2, item);
                 update_mask |= 0x82000;
             } else if (to_type == 3) {
                 // Drop item on ground (create sack).
                 Inventory* sack_inv = new Inventory();
                 sack_inv->PutItemIntoBagAtDefault(item);
-                uint8_t drop_x = (uint8_t)(packet_cmd->param2 & 0xFF);
-                uint8_t drop_y = (uint8_t)(packet_cmd->param2 >> 8);
+                uint8_t drop_x = (uint8_t)(packet_transfer->param2 & 0xFF);
+                uint8_t drop_y = (uint8_t)(packet_transfer->param2 >> 8);
                 int dx = std::abs((int)human->position->GetX() - (int)drop_x);
                 int dy = std::abs((int)human->position->GetY() - (int)drop_y);
                 if (dx <= 2 && dy <= 2) {

@@ -1184,3 +1184,4 @@ Effect::CalcChargePercent param -> mana -- caster's current mana scaled against 
 CLASSES
 =======
 PacketItemOperation -> PacketGroupOrder -- carries selected-unit group orders (move/attack/patrol/cast), never item operations
+PacketCmd -> PacketItemTransfer -- its only use (id 0x22) moves items between equipment/bag/ground/shop; the old name described PacketGroupOrder's job

@@ -234,20 +234,20 @@ ASSERT_SIZE(PacketGroupOrder, 0x20d);
 
 
 // ---------------------------------------------------------------------------
-// PacketCmd
+// PacketItemTransfer
 // Constructor sub_526A07, static unk_6B1650, vtable off_60ED58.
 // Command packet: 2 type/subtype bytes + 3 word params; field_0x12 init = 1.
 // Uses inherited Packet VMethod3/VMethod4 serialisation.
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketCmd : public Packet {
+class PacketItemTransfer : public Packet {
 public:
-    static PacketCmd Inst; // unk_6B1650
+    static PacketItemTransfer Inst; // unk_6B1650
 public:
-    PacketCmd(); // sub_526A07
-    PacketCmd(const PacketCmd* src);
+    PacketItemTransfer(); // sub_526A07
+    PacketItemTransfer(const PacketItemTransfer* src);
 public:
-    virtual ~PacketCmd();
+    virtual ~PacketItemTransfer();
     virtual uint32_t GetDataSize() override; // sub_57A130
 public:
     uint16_t unit_id;     // +0xA
@@ -258,7 +258,7 @@ public:
     uint16_t param3;  // +0x12 (= 1 in ctor)
 };
 __pragma(pack(pop))
-ASSERT_SIZE(PacketCmd, 0x14);
+ASSERT_SIZE(PacketItemTransfer, 0x14);
 
 
 // ---------------------------------------------------------------------------

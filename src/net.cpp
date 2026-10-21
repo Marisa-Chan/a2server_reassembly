@@ -1061,7 +1061,7 @@ Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
         break;
 
     case 0x22:
-        pkt = &PacketCmd::Inst;
+        pkt = &PacketItemTransfer::Inst;
         pkt->ReadFrom(ns2);
         break;
 
