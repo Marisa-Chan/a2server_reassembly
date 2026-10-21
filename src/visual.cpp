@@ -18950,6 +18950,7 @@ void VisStartGame::UpdateTipsProgress(uint32_t hotspot) {
 
 
 // 43817D
+// client: 43a2af
 void VisStartGame::Accept() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->sessionMode == 2) {
@@ -18958,9 +18959,26 @@ void VisStartGame::Accept() {
             this->MsgProc(0x445, 0, 0);
         }
     } else {
-        if (this->nameLabel->GetText().GetLength() > 0) {
-            CSound::Play(this->acceptSound);
-            this->MsgProc(0x445, 0, 0);
+        int32_t min_len = 1;
+        if (main_wnd->field_0x3e0.field_10 != 0 && main_wnd->hat_settings.ishat != 0) {
+            min_len = 3;
+        }
+        if (this->nameLabel->GetText().GetLength() >= min_len) {
+            if (this->nameLabel->GetText()[0] != ' ') {
+                if (main_wnd->hat_settings.ishat != 0 && main_wnd->field_0x3e0.field_10 != 0) {
+                    main_wnd->SendHatJoinName(this->nameLabel->GetText());
+                }
+                CSound::Play(this->acceptSound);
+                this->MsgProc(0x445, 0, 0);
+            } else {
+                VisScreen* mbox = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(0x1b), nullptr, 0x2000);
+                main_wnd->vis_msgbox_list = mbox;
+                main_wnd->ModalScreen(mbox);
+            }
+        } else if (min_len > 1) {
+            VisScreen* mbox = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(0x1c), nullptr, 0x2000);
+            main_wnd->vis_msgbox_list = mbox;
+            main_wnd->ModalScreen(mbox);
         }
     }
 }

@@ -3868,8 +3868,17 @@ void MainWindow::PopUpScreen(VisScreen* screen) { //48d26a
     }
 }
 
-void MainWindow::ShowGlobalMapDialog() { //48d34b
-    g_Cursors[CURSOR_WAIT]->Use();
+// client: 41be72
+void MainWindow::SendHatJoinName(CString name) {
+    PacketJoin* pkt = &PacketJoin::Inst;
+    pkt->from_player_id = 0;
+    pkt->to_player_id = 0;
+    pkt->id = 0x4e;
+    strcpy(pkt->name, name);
+    g_NetStru1_local.QueuePacketSend(pkt);
+}
+
+void MainWindow::ShowGlobalMapDialog() { //48d34b    g_Cursors[CURSOR_WAIT]->Use();
 
     this->vis_root->AddChild(this->vis_globalmap);
     this->vis_globalmap->VMethod28();
