@@ -2169,8 +2169,8 @@ void MainWindow::Proc_421() {
 
     //48d49b Allods2.exe
     this->field_0x3e0.field_10 = 0;
-    this->field_0x3e0.field_14.Empty();
-    this->field_0x3e0.field_0c = 0;
+    this->field_0x3e0.connect_address.Empty();
+    this->field_0x3e0.hat_id = 0;
 
     this->m_FameHall.ZeroFactors();
 

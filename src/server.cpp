@@ -3191,8 +3191,8 @@ void Server::ProcessClientPacket(Packet* pkt) {
 #ifdef A2CLIENT
         //allods2 50001c
     {
-        NetStru2* cli = g_NetStru1_main.GetClientByLowUid(packet_enter_game->field_0x5);
-        this->Allods2_JoinPlayer(packet_enter_game->field_0xa, packet_enter_game->field_0xe, packet_enter_game->field_0x16, cli, packet_enter_game->field_0x12);
+        NetStru2* cli = g_NetStru1_main.GetClientByLowUid(packet_enter_game->from_player_id);
+        this->Allods2_JoinPlayer(packet_enter_game->value1, packet_enter_game->value2, packet_enter_game->text, cli, packet_enter_game->value3);
     }
 #else
         CheckPacketType(pkt, "PacketEnterGame");
@@ -3753,17 +3753,17 @@ void Server::ProcessClientPacket(Packet* pkt) {
 
     case 0x48: { // Join map.
 #ifdef A2CLIENT
-        Player* player = this->FindPlayerById(packet_2dwords->field_0x5);
+        Player* player = this->FindPlayerById(packet_2dwords->from_player_id);
         if (player) {
-            Human* human = this->CreatePlayerCharacter(player, packet_2dwords->field_0xa & 0xff, 
-                                            (packet_2dwords->field_0xa >> 8) & 0xff, 
-                                            (packet_2dwords->field_0xa >> 16) & 0xff, 
-                                            (packet_2dwords->field_0xa >> 24) & 0xff,
-                                            (packet_2dwords->field_0xe) & 0xff,
-                                            (packet_2dwords->field_0xe >> 8) & 0xff );
+            Human* human = this->CreatePlayerCharacter(player, packet_2dwords->param1 & 0xff,
+                                            (packet_2dwords->param1 >> 8) & 0xff,
+                                            (packet_2dwords->param1 >> 16) & 0xff,
+                                            (packet_2dwords->param1 >> 24) & 0xff,
+                                            (packet_2dwords->param2) & 0xff,
+                                            (packet_2dwords->param2 >> 8) & 0xff );
             g_NetStru1_main.SendTickPacket(human->pOwner);
 
-            if (GetTickCount() - human->pOwner->field_0xa7c > 15000) {
+            if (GetTickCount() - human->pOwner->last_save_tick > 15000) {
 #pragma message("REVERSE IT");
                 this->SaveCharacter(human); // similar to FUN_004f2c57, so need reverse it!
                 //FUN_004f2c57(local_104);

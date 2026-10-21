@@ -4592,14 +4592,14 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
                 int32_t idx = this->parent_screen->roster_list->field_0xd0;
                 if (idx == this->parent_screen->session->GetStringArray1Size() - 1 &&
                     mwnd->field_0x3e0.field_10 != 0 && mwnd->hat_settings.ishat != 0 &&
-                    this->parent_screen->session->field_0x130.GetSize() > 15) {
+                    this->parent_screen->session->hat_char_ids.GetSize() > 15) {
                     VisScreen* mbox = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(141), nullptr, 0x2000);
-                    mwnd->field_0x3dc = mbox;
+                    mwnd->vis_msgbox_list = mbox;
                     mwnd->ModalScreen(mbox);
                 } else if (idx == this->parent_screen->session->GetStringArray1Size() - 1 &&
                     mwnd->field_0x3e0.field_10 != 0 && mwnd->hat_settings.ishat != 0 && mwnd->hat_settings.deathmatch != 0) {
                     VisScreen* mbox = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(142), nullptr, 0x2000);
-                    mwnd->field_0x3dc = mbox;
+                    mwnd->vis_msgbox_list = mbox;
                     mwnd->ModalScreen(mbox);
                 } else {
                     this->parent_screen->CloseOk();

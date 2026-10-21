@@ -61,7 +61,7 @@ void ServerControlDialog::OnCommandUnknown() {
     g_NetStru1_main.ProcessConnections();
     g_NetStru1_main.AnnouncePlayer(player);
 
-    player->field_0xa50 = g_Server->tick16 - 1;
+    player->drop_deadline_tick16 = g_Server->tick16 - 1;
 
     g_PlayersList->ProcessPlayerTimeouts();
 #else
