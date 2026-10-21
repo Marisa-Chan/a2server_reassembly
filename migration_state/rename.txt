@@ -1183,3 +1183,4 @@ Effect::CalcChargePercent param -> mana -- caster's current mana scaled against 
 
 CLASSES
 =======
+PacketItemOperation -> PacketGroupOrder -- carries selected-unit group orders (move/attack/patrol/cast), never item operations

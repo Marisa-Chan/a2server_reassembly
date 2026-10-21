@@ -199,22 +199,22 @@ ASSERT_SIZE(PacketWord, 0xC);
 
 
 // ---------------------------------------------------------------------------
-// PacketItemOperation
+// PacketGroupOrder
 // Constructor sub_526924, static unk_6D1670, vtable off_60ED40.
 // Variable-length list of uint16_t entries; up to 0xFD (253) entries.
 // AppendWord() mirrors sub_52695A.  VMethod3 sends count*2+0xA bytes from &id.
 // VMethod4 reads 9 fixed bytes then count*2 variable bytes.
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketItemOperation : public Packet {
+class PacketGroupOrder : public Packet {
 public:
-    static PacketItemOperation Inst; // unk_6D1670
+    static PacketGroupOrder Inst; // unk_6D1670
 public:
-    PacketItemOperation(); // sub_526924
-    PacketItemOperation(const PacketItemOperation* src);
+    PacketGroupOrder(); // sub_526924
+    PacketGroupOrder(const PacketGroupOrder* src);
     void AppendWord(uint16_t val); // sub_52695A
 public:
-    virtual ~PacketItemOperation();
+    virtual ~PacketGroupOrder();
     virtual void WriteTo(NetStru2*) override; // sub_52699A
     virtual void ReadFrom(NetStru2*) override; // sub_5269C3
     virtual uint32_t GetDataSize() override;   // sub_57A0E0
@@ -229,8 +229,8 @@ public:
     uint16_t entries[253];    // +0x13 variable word array
 };
 __pragma(pack(pop))
-ASSERT_OFFSET(PacketItemOperation, entries, 0x13);
-ASSERT_SIZE(PacketItemOperation, 0x20d);
+ASSERT_OFFSET(PacketGroupOrder, entries, 0x13);
+ASSERT_SIZE(PacketGroupOrder, 0x20d);
 
 
 // ---------------------------------------------------------------------------

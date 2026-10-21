@@ -2920,7 +2920,7 @@ const char* PacketType(Packet *pkt) {
     else if (dynamic_cast<PacketTerrain*>(pkt) != nullptr) { return "PacketTerrain"; }
     else if (dynamic_cast<PacketUnitUpdate*>(pkt) != nullptr) { return "PacketUnitUpdate"; }
     else if (dynamic_cast<PacketWord*>(pkt) != nullptr) { return "PacketWord"; }
-    else if (dynamic_cast<PacketItemOperation*>(pkt) != nullptr) { return "PacketItemOperation"; }
+    else if (dynamic_cast<PacketGroupOrder*>(pkt) != nullptr) { return "PacketGroupOrder"; }
     else if (dynamic_cast<PacketCmd*>(pkt) != nullptr) { return "PacketCmd"; }
     else if (dynamic_cast<Packet3Dwords*>(pkt) != nullptr) { return "Packet3Dwords"; }
     else if (dynamic_cast<PacketDword*>(pkt) != nullptr) { return "PacketDword"; }
@@ -2955,12 +2955,12 @@ void CheckPacketType(Packet* pkt, const char* want_type) {
 }
 
 void Server::ProcessClientPacket(Packet* pkt) {
-    PacketItemOperation* packet_item = reinterpret_cast<PacketItemOperation*>(pkt);
+    PacketGroupOrder* packet_order = reinterpret_cast<PacketGroupOrder*>(pkt);
     CString message;
     void* vtable = *reinterpret_cast<void**>(pkt);
     const char* packet_type = PacketType(pkt);
 
-    message.Format("ProcessClientPacket: received item operation packet id=0x%02X, order_mode=%d, player_id=%d;  packet is '%s' --- 0x%x", pkt->id, pkt->order_mode, packet_item->from_player_id, packet_type, vtable);
+    message.Format("ProcessClientPacket: received group order packet id=0x%02X, order_mode=%d, player_id=%d;  packet is '%s' --- 0x%x", pkt->id, pkt->order_mode, packet_order->from_player_id, packet_type, vtable);
     LogMessage(message);
 
     // PATH 1: Group order (pkt->order_mode >= 1 means multiple units)
@@ -2968,11 +2968,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
         if (!g_World) {
             return;
         }
-        if (packet_item->count == 0) {
+        if (packet_order->count == 0) {
             return;
         }
 
-        Unit* unit = this->FindPlayerUnit(packet_item->from_player_id, packet_item->entries[0]);
+        Unit* unit = this->FindPlayerUnit(packet_order->from_player_id, packet_order->entries[0]);
         if (!unit) {
             return;
         }
@@ -2983,8 +2983,8 @@ void Server::ProcessClientPacket(Packet* pkt) {
         group->AddUnit(unit);
         unit->CancelQueuedSpell();
 
-        for (int i = 1; i < packet_item->count; ++i) {
-            Unit* u = this->FindPlayerUnit(packet_item->from_player_id, packet_item->entries[i]);
+        for (int i = 1; i < packet_order->count; ++i) {
+            Unit* u = this->FindPlayerUnit(packet_order->from_player_id, packet_order->entries[i]);
             if (u) {
                 group->AddUnit(u);
                 u->CancelQueuedSpell();
@@ -2995,10 +2995,10 @@ void Server::ProcessClientPacket(Packet* pkt) {
         Token* target = nullptr; // Unit or building.
         if (pkt->order_mode == 3) {
             // Unit target.
-            target = dword_6CDB3C->FindById(packet_item->param);
+            target = dword_6CDB3C->FindById(packet_order->param);
             if (!target) {
                 // Building target.
-                target = this->srv_stru1->building_list->FindById(packet_item->param);
+                target = this->srv_stru1->building_list->FindById(packet_order->param);
             }
             if (!target) {
                 return;
@@ -3007,8 +3007,8 @@ void Server::ProcessClientPacket(Packet* pkt) {
 
         Spell* cast_spell = nullptr;
         if (pkt->id == 0x1E || pkt->id == 0x1F) {
-            uint8_t spell_id = BOOK_POS_TO_SPELL_ID[packet_item->slot];
-            packet_item->slot = spell_id;
+            uint8_t spell_id = BOOK_POS_TO_SPELL_ID[packet_order->slot];
+            packet_order->slot = spell_id;
             // Find hero unit in group that matches the spell type
             for (POSITION node = group->unit_list.GetHeadPosition(); node; ) {
                 Unit* u = group->unit_list.GetNext(node);
@@ -3020,8 +3020,8 @@ void Server::ProcessClientPacket(Packet* pkt) {
         }
 
         // Group order dispatch
-        uint8_t x = packet_item->x;
-        uint8_t y = packet_item->y;
+        uint8_t x = packet_order->x;
+        uint8_t y = packet_order->y;
 
         switch (pkt->id) {
         case 0x12: // move to position?
@@ -3061,21 +3061,21 @@ void Server::ProcessClientPacket(Packet* pkt) {
             }
             break;
         case 0x1A: // attack-move to position?
-            CheckPacketType(pkt, "PacketItemOperation");
+            CheckPacketType(pkt, "PacketGroupOrder");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupAttackMove(group, x, y);
                 player->ResetAfkTimer();
             }
             break;
         case 0x1B: // attack building?
-            CheckPacketType(pkt, "PacketItemOperation");
+            CheckPacketType(pkt, "PacketGroupOrder");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupAttackTargetCommand(group, static_cast<Unit*>(target), 0);
                 player->ResetAfkTimer();
             }
             break;
         case 0x1C: // Defend location.
-            CheckPacketType(pkt, "PacketItemOperation");
+            CheckPacketType(pkt, "PacketGroupOrder");
             LogMessage("defend location comes");
             g_World->GroupMoveCommand(group, x, y);
             break;
@@ -3092,16 +3092,16 @@ void Server::ProcessClientPacket(Packet* pkt) {
             }
             break;
         case 0x1F: // cast at position?
-            CheckPacketType(pkt, "PacketItemOperation");
+            CheckPacketType(pkt, "PacketGroupOrder");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 player->ResetAfkTimer();
-                if (cast_spell && cast_spell->IsAreaSpell(packet_item->x, packet_item->y)) {
+                if (cast_spell && cast_spell->IsAreaSpell(packet_order->x, packet_order->y)) {
                     g_World->GroupCastAtPositionCommand(group, x, y, cast_spell);
                 }
             }
             break;
         case 0x21:
-            CheckPacketType(pkt, "PacketItemOperation");
+            CheckPacketType(pkt, "PacketGroupOrder");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 player->ResetAfkTimer();
                 Sack* sack = MapStuff_Instance->GetSackAt(x, y);
@@ -3111,18 +3111,18 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     LogMessage(msg);
                     break;
                 }
-                unit->inventory->default_position = packet_item->param;
+                unit->inventory->default_position = packet_order->param;
                 g_World->OrderSwarmTo(unit, x, y);
             }
             break;
         case 0x24:
-            CheckPacketType(pkt, "PacketItemOperation");
+            CheckPacketType(pkt, "PacketGroupOrder");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 player->ResetAfkTimer();
-                auto* building = this->srv_stru1->building_list->FindById(packet_item->param);
+                auto* building = this->srv_stru1->building_list->FindById(packet_order->param);
                 if (!building) {
                     CString msg;
-                    msg.Format("No building #%d", packet_item->param);
+                    msg.Format("No building #%d", packet_order->param);
                     LogMessage(msg);
                     break;
                 }
@@ -3131,10 +3131,10 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         case 0x25: // Cast point spell with a scroll.
         case 0x26: // Cast area spell with a scroll.
-            CheckPacketType(pkt, "PacketItemOperation");
+            CheckPacketType(pkt, "PacketGroupOrder");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 player->ResetAfkTimer();
-                auto* item = player->main_unit->inventory->TakeItemAt(packet_item->slot, 1);
+                auto* item = player->main_unit->inventory->TakeItemAt(packet_order->slot, 1);
                 if (!item || item->_effects.IsEmpty()) {
                     break;
                 }
@@ -3147,11 +3147,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     player->main_unit->spell = spell;
 
                     spell->SetPower(eff->spell_value);
-                    if (packet_item->id == 0x25) {
+                    if (packet_order->id == 0x25) {
                         g_World->GroupCastAtUnitCommand(group, static_cast<Unit*>(target), spell);
                     } else {
-                        if (!spell->IsAreaSpell(packet_item->x, packet_item->y)) {
-                            player->main_unit->inventory->PutItemIntoBag(packet_item->slot, item);
+                        if (!spell->IsAreaSpell(packet_order->x, packet_order->y)) {
+                            player->main_unit->inventory->PutItemIntoBag(packet_order->slot, item);
                             player->main_unit->some_item = nullptr;
                             delete spell;
                             player->main_unit->spell = nullptr;

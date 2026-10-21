@@ -319,16 +319,16 @@ uint32_t PacketWord::GetDataSize() {
 // ============================================================
 // PacketWordList
 // ============================================================
-PacketItemOperation PacketItemOperation::Inst;
+PacketGroupOrder PacketGroupOrder::Inst;
 
-PacketItemOperation::PacketItemOperation() {
+PacketGroupOrder::PacketGroupOrder() {
     //sub_526924
     this->param  = 0;
     this->slot = 0;
     this->count      = 0;
 }
 
-PacketItemOperation::PacketItemOperation(const PacketItemOperation* src) {
+PacketGroupOrder::PacketGroupOrder(const PacketGroupOrder* src) {
     this->id          = src->id;
     this->x   = src->x;
     this->y   = src->y;
@@ -340,7 +340,7 @@ PacketItemOperation::PacketItemOperation(const PacketItemOperation* src) {
     memcpy(this->entries, src->entries, src->count * 2);
 }
 
-void PacketItemOperation::AppendWord(uint16_t val) {
+void PacketGroupOrder::AppendWord(uint16_t val) {
     //sub_52695A
     if (this->count < 0xFD) {
         this->entries[this->count++] = val;
@@ -367,16 +367,16 @@ void PacketUnitStateVec::AppendByteInt(uint8_t a, int32_t v, uint8_t* slot) {
     slot[6] += 5;
 }
 
-PacketItemOperation::~PacketItemOperation() {
+PacketGroupOrder::~PacketGroupOrder() {
     //sub_57A100
 }
 
-void PacketItemOperation::WriteTo(NetStru2* net) {
+void PacketGroupOrder::WriteTo(NetStru2* net) {
     //sub_52699A
     net->WriteData(&this->id, this->count * 2 + 0xA);
 }
 
-void PacketItemOperation::ReadFrom(NetStru2* net) {
+void PacketGroupOrder::ReadFrom(NetStru2* net) {
     //sub_5269C3
     net->ReadData(&this->x, 9);
     if (this->count) {
@@ -384,7 +384,7 @@ void PacketItemOperation::ReadFrom(NetStru2* net) {
     }
 }
 
-uint32_t PacketItemOperation::GetDataSize() {
+uint32_t PacketGroupOrder::GetDataSize() {
     //sub_57A0E0
     return this->count * 2 + 10;
 }

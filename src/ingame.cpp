@@ -3791,7 +3791,7 @@ void BigStruct2::sub_418F93(int32_t arg) {
 // 419154
 void BigStruct2::sub_419154(uint16_t x, uint16_t y) {
 	POSITION it = this->field_0x9d0.GetStartPosition();
-	PacketItemOperation* pkt = &PacketItemOperation::Inst;
+	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = 0x16;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -3818,7 +3818,7 @@ void BigStruct2::sub_419154(uint16_t x, uint16_t y) {
 // 419246
 void BigStruct2::sub_419246(uint16_t id) {
 	POSITION it = this->field_0x9d0.GetStartPosition();
-	PacketItemOperation* pkt = &PacketItemOperation::Inst;
+	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = 0x19;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -3842,7 +3842,7 @@ void BigStruct2::sub_419246(uint16_t id) {
 // 41930D
 void BigStruct2::sub_41930D(uint16_t x, uint16_t y) {
 	POSITION it = this->field_0x9d0.GetStartPosition();
-	PacketItemOperation* pkt = &PacketItemOperation::Inst;
+	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = 0x1A;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->x = x;
@@ -3868,7 +3868,7 @@ void BigStruct2::sub_41930D(uint16_t x, uint16_t y) {
 // 4193E8
 void BigStruct2::sub_4193E8() {
 	POSITION it = this->field_0x9d0.GetStartPosition();
-	PacketItemOperation* pkt = &PacketItemOperation::Inst;
+	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = 0x17;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -3891,7 +3891,7 @@ void BigStruct2::sub_4193E8() {
 // 4194A2
 void BigStruct2::sub_4194A2() {
 	POSITION it = this->field_0x9d0.GetStartPosition();
-	PacketItemOperation* pkt = &PacketItemOperation::Inst;
+	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = 0x18;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -3918,7 +3918,7 @@ void BigStruct2::sub_41955C(uint16_t id) {
 	if (!this->field_0x9d0.Lookup(id, obj) || !obj->IsKindOf(RUNTIME_CLASS(CUnit))) {
 		return;
 	}
-	PacketItemOperation* pkt = &PacketItemOperation::Inst;
+	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = 0x1B;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -3941,7 +3941,7 @@ void BigStruct2::sub_41955C(uint16_t id) {
 // 41965D
 void BigStruct2::sub_41965D(uint16_t x, uint16_t y) {
 	POSITION it = this->field_0x9d0.GetStartPosition();
-	PacketItemOperation* pkt = &PacketItemOperation::Inst;
+	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = 0x1D;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -3968,7 +3968,7 @@ void BigStruct2::sub_41965D(uint16_t x, uint16_t y) {
 void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell) {
 	POSITION it = this->field_0x9d0.GetStartPosition();
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	PacketItemOperation* pkt = &PacketItemOperation::Inst;
+	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = 0x1F;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -4055,7 +4055,7 @@ void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell) {
 void BigStruct2::sub_419BA1(uint16_t id, int32_t spell) {
 	POSITION it = this->field_0x9d0.GetStartPosition();
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	PacketItemOperation* pkt = &PacketItemOperation::Inst;
+	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->param = id;
@@ -4474,7 +4474,7 @@ void BigStruct2::sub_41AB05() {
 // 41A66E
 void BigStruct2::sub_41A66E(uint16_t id) {
 	POSITION it = this->field_0x9d0.GetStartPosition();
-	PacketItemOperation* pkt = &PacketItemOperation::Inst;
+	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = 0x24;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -4512,7 +4512,7 @@ void BigStruct2::sub_41A7C7(uint8_t arg1, uint16_t arg2, uint8_t arg3, uint16_t 
 
 // 41A5B4
 void BigStruct2::sub_41A5B4() {
-	PacketItemOperation* pkt = &PacketItemOperation::Inst;
+	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = 0x12;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -4535,7 +4535,7 @@ void BigStruct2::sub_41A5B4() {
 // 41A33F
 void BigStruct2::sub_41A33F(uint16_t x, uint16_t y) {
 	POSITION it = this->field_0x9d0.GetStartPosition();
-	PacketItemOperation* pkt = &PacketItemOperation::Inst;
+	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = 0x21;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -4562,7 +4562,7 @@ void BigStruct2::sub_41A33F(uint16_t x, uint16_t y) {
 // 41A425
 void BigStruct2::sub_41A425() {
 	POSITION it = this->field_0x9d0.GetStartPosition();
-	PacketItemOperation* pkt = &PacketItemOperation::Inst;
+	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = 0x14;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -4584,7 +4584,7 @@ void BigStruct2::sub_41A425() {
 
 // 41A4DF
 void BigStruct2::sub_41A4DF() {
-	PacketItemOperation* pkt = &PacketItemOperation::Inst;
+	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = 0x13;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -7829,7 +7829,7 @@ void BigStruct2::ApplyDynamicLight(int32_t tx, int32_t ty, int32_t radius, int32
 // 41a001
 void BigStruct2::FUN_0041a001(int32_t idx) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	PacketItemOperation* pkt = &PacketItemOperation::Inst;
+	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	if (wnd->vis_spellbook->sub_4CA89B(idx - 1) != 0 && wnd->vis_spellbook->spell == -1) {
 		POSITION it = this->field_0x9d0.GetStartPosition();
 		while (it != nullptr) {

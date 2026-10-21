@@ -1043,19 +1043,19 @@ Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
         break;
 
     case 0x12: case 0x13: case 0x14: case 0x17: case 0x18: case 0x4d:
-        pkt = &PacketItemOperation::Inst;
+        pkt = &PacketGroupOrder::Inst;
         pkt->ReadFrom(ns2);
         pkt->order_mode = 1;
         break;
 
     case 0x16: case 0x1a: case 0x1c: case 0x1d: case 0x1f: case 0x21: case 0x24: case 0x26:
-        pkt = &PacketItemOperation::Inst;
+        pkt = &PacketGroupOrder::Inst;
         pkt->ReadFrom(ns2);
         pkt->order_mode = 2;
         break;
 
     case 0x19: case 0x1b: case 0x1e: case 0x25:
-        pkt = &PacketItemOperation::Inst;
+        pkt = &PacketGroupOrder::Inst;
         pkt->ReadFrom(ns2);
         pkt->order_mode = 3;
         break;
