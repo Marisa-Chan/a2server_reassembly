@@ -293,7 +293,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		PacketAbility* packet_abil = reinterpret_cast<PacketAbility*>(pkt);
 		PacketUnitUpdate* packet_unit = reinterpret_cast<PacketUnitUpdate*>(pkt);
 		PacketMount* packet_mount = reinterpret_cast<PacketMount*>(pkt);
-		PacketPing* packet_ping = reinterpret_cast<PacketPing*>(pkt);
+		PacketUnitHp* packet_unit_hp = reinterpret_cast<PacketUnitHp*>(pkt);
 		PacketUnitStateVec* packet_state = reinterpret_cast<PacketUnitStateVec*>(pkt);
 		PacketEight* packet_eight = reinterpret_cast<PacketEight*>(pkt);
 		PacketSync* packet_sync = reinterpret_cast<PacketSync*>(pkt);
@@ -1055,13 +1055,13 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x73: {
 			CUnit* ct = nullptr;
-			if (this->field_0x9d0.Lookup(packet_ping->unit_id, *(CGameObject**)&ct) == 0) {
+			if (this->field_0x9d0.Lookup(packet_unit_hp->unit_id, *(CGameObject**)&ct) == 0) {
 				if (g_EnableTrace) {
-					sprintf(buf, "Invalid unit #%d. Command Take damage.", packet_ping->unit_id);
+					sprintf(buf, "Invalid unit #%d. Command Take damage.", packet_unit_hp->unit_id);
 					this->msglog.Add(buf, clrsh_TechBlack, 5000);
 				}
 			} else {
-				if (this->flying_hp && packet_ping->hp < ct->hp) {
+				if (this->flying_hp && packet_unit_hp->hp < ct->hp) {
 					bool not_me = ct->map_player != this->my_main_unit;
 
 					int32_t a = ct->GetTileWidth();
@@ -1071,9 +1071,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						dx = -dx;
 					}
 
-					TakeDamage::AddDamage(&this->damage_labels, TakeDamage(ct->hp - packet_ping->hp, nullptr, not_me, dx, a * -48, ct) );
+					TakeDamage::AddDamage(&this->damage_labels, TakeDamage(ct->hp - packet_unit_hp->hp, nullptr, not_me, dx, a * -48, ct) );
 				}
-				if (ct->hp == packet_ping->hp) {
+				if (ct->hp == packet_unit_hp->hp) {
 					ct->PlayHitSound(0);
 				} else if (ct->hp > -10) {
 					if (ct->hp < ct->hp_max / 2) {
@@ -1083,7 +1083,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					}
 				}
 
-				ct->hp = packet_ping->hp;
+				ct->hp = packet_unit_hp->hp;
 				if (this->field_0x138 == ct) {
 					wnd->vis_charinfo->MsgProc(0x408, 0, 0);
 					wnd->vis_sidestatus->MsgProc(0x408, 0, 0);

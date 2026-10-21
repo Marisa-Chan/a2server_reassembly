@@ -640,20 +640,20 @@ ASSERT_SIZE(PacketUnitProperties, 0x26);
 
 
 // ---------------------------------------------------------------------------
-// PacketPing
+// PacketUnitHp
 // Constructor sub_52792F, static unk_6CDB88, vtable off_60EF08.
 // Network ping / state packet; 4 payload bytes after Packet base.
 // Copy ctor: sub_52794E (copies 5 bytes: id + 4 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketPing : public Packet {
+class PacketUnitHp : public Packet {
 public:
-    static PacketPing Inst; // unk_6CDB88
+    static PacketUnitHp Inst; // unk_6CDB88
 public:
-    PacketPing(); // sub_52792F
-    PacketPing(const PacketPing* src); // sub_52794E
+    PacketUnitHp(); // sub_52792F
+    PacketUnitHp(const PacketUnitHp* src); // sub_52794E
 public:
-    virtual ~PacketPing();
+    virtual ~PacketUnitHp();
     virtual Packet* Duplicate() override; // sub_57ADB0
     virtual uint32_t GetDataSize() override; // sub_57AE30
 public:
@@ -661,4 +661,4 @@ public:
     int16_t hp; // +0xC
 };
 __pragma(pack(pop))
-ASSERT_SIZE(PacketPing, 0xE);
+ASSERT_SIZE(PacketUnitHp, 0xE);

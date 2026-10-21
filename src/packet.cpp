@@ -846,29 +846,29 @@ uint32_t PacketUnitProperties::GetDataSize() {
 }
 
 // ============================================================
-// PacketPing
+// PacketUnitHp
 // ============================================================
-PacketPing PacketPing::Inst;
+PacketUnitHp PacketUnitHp::Inst;
 
-PacketPing::PacketPing() {
+PacketUnitHp::PacketUnitHp() {
     //sub_52792F
 }
 
-PacketPing::PacketPing(const PacketPing* src) {
+PacketUnitHp::PacketUnitHp(const PacketUnitHp* src) {
     //sub_52794E
     memcpy(&this->id, &src->id, 5); // id + 4 bytes
 }
 
-PacketPing::~PacketPing() {
+PacketUnitHp::~PacketUnitHp() {
     //sub_57AE40
 }
 
-Packet* PacketPing::Duplicate() {
+Packet* PacketUnitHp::Duplicate() {
     //sub_57ADB0
-    return new PacketPing(this);
+    return new PacketUnitHp(this);
 }
 
-uint32_t PacketPing::GetDataSize() {
+uint32_t PacketUnitHp::GetDataSize() {
     // sub_57ae30
     return 5; // id(1) + 4 bytes
 }
