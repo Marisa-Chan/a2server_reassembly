@@ -44,7 +44,6 @@ DIFFERS	VisMiniMap	OnLButtonDown	4b0788	4b50be	slot21
 DIFFERS	VisNetChatTextBox	VMethod7	4d9a21	4de337	slot11
 DIFFERS	VisNetChatTextBox	OnChar	4da96a	4df2eb	slot29
 DIFFERS	VisNetTcpIp	VMethod26	444086	446656	slot30
-DIFFERS	VisShop	sub_4BCC38	4bcc38	4c1604	callsite:2 votes
 DIFFERS	VisShopCompass	OnLButtonDown	4bf748	4c410b	slot21
 DIFFERS	VisShopCompassDruid	OnLButtonDown	4c359d	4c7f56	slot21
 DIFFERS	VisShopCompassKaarg	OnLButtonDown	4c671f	4cb0bc	slot21

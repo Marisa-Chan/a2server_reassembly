@@ -2367,3 +2367,4 @@ IDENTICAL	Visibility	sub_58DE69	58de69	55d319	strings-ok
 IDENTICAL-BATCH	Visibility	6
 PORTED	VisFameHall	VMethod7	45d7f9	461429
 PORTED	VisStartGameTextBox	OnChar	432d1b	434e52
+PORTED	VisShop	sub_4BCC38	4bcc38	4c1604

@@ -10872,9 +10872,13 @@ void VisShop::sub_4BC8D7() {
 
 
 // 4BCC38
+// client: 4c1604
 void VisShop::sub_4BCC38() {
     TokenEntry* removed = nullptr;
     this->sub_4BCDA0();
+    if (g_IsServer == 0) {
+        return;
+    }
     while (this->to_buy->grid_source->GetSize() != 0) {
         TokenEntry* first = (*this->to_buy->grid_source)[0];
         removed = this->to_buy->VMethod36(0, first->count);
