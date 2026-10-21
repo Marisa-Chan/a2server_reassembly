@@ -2237,6 +2237,7 @@ int32_t VisTextBox::OnKeyDown(uint32_t wparam) {
 
 int32_t VisTextBox::OnChar(uint32_t wparam) {
     //4da96a
+    // client: 4df2eb
 
     if (isalnum(wparam) != 0 && this->TestFlags(FLAG_FOCUS) == 0) {
         this->parent->FocusTo(this, true);
@@ -2248,7 +2249,7 @@ int32_t VisTextBox::OnChar(uint32_t wparam) {
 
     this->cursor_blink_ts = timeGetTime();
 
-    if (wparam >= ' ') {
+    if (wparam >= ' ' && (g_IsServer != 0 || wparam != 0x7E)) {
         this->InsertChar(wparam);
     }
 
