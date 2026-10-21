@@ -25118,8 +25118,9 @@ int32_t Vis1200obj::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 }
 
 // 43B240
+// client: 43d64b
 int32_t Vis1200obj::OnChar(uint32_t wparam) {
-    if (wparam < 0x20 || wparam == 0x7F) {
+    if (wparam < 0x20 || wparam == 0x7F || (g_IsServer == 0 && wparam == 0x7E)) {
         return CVisualObject::OnChar(wparam);
     }
     this->FUN_0043ae1c(EncodeChar((uint8_t)wparam));

@@ -59,3 +59,44 @@ IDENTICAL	VisShop	AssertValid	401980	4019e0	strings-ok
 IDENTICAL	VisShop	VMethod27	4388c0	43a9e0	strings-ok
 IDENTICAL	VisShop	GetRuntimeClass	5ddf9b	5893d3	strings-ok
 IDENTICAL-BATCH	VisShop	55
+IDENTICAL	Vis1200	FUN_0043be9f	43be9f	43e2ae	strings-ok
+IDENTICAL	Vis1200	VMethod26	43bc3c	43e04b	strings-ok
+IDENTICAL	Vis1200	SetFocus	4d7aa9	4dc3b9	strings-ok
+IDENTICAL	Vis1200	OnKeyDown	43bdec	43e1fb	strings-ok
+IDENTICAL	Vis1200	OnLButtonDown	4dfee7	4e4868	strings-ok
+IDENTICAL	Vis1200	SetCursorOver	4d7a3a	4dc34a	strings-ok
+IDENTICAL	Vis1200	Vis1200	43bb70	433fda	strings-ok
+IDENTICAL	Vis1200	ReadData	4d7e02	4dc6a9	strings-ok
+IDENTICAL	Vis1200	WriteData	4d7d99	4dc712	strings-ok
+IDENTICAL	Vis1200	VMethod28	43bd2e	43e13d	strings-ok
+IDENTICAL	Vis1200	DataSize	4d7d37	4dc647	strings-ok
+IDENTICAL	Vis1200	VMethod9	4d7cc8	4dc5d8	strings-ok
+IDENTICAL	Vis1200	ChangeFlags	4d7a03	4dc313	strings-ok
+IDENTICAL	Vis1200	DoClose	43bd96	43e1a5	strings-ok
+IDENTICAL	Vis1200	VMethod10	4d7d03	4dc613	strings-ok
+IDENTICAL	Vis1200	~Vis1200	43bfd0	43e3f0	strings-ok
+IDENTICAL	Vis1200	GetHint	4d7c15	4dc525	strings-ok
+IDENTICAL	Vis1200	MsgProc	43bdcb	43e1da	strings-ok
+IDENTICAL	Vis1200	VMethod7	43be80	43e28f	strings-ok
+IDENTICAL	Vis1200	SetHint	4d7bf9	4dc509	strings-ok
+IDENTICAL	Vis1200	Dump	4d82b3	4dcbc3	strings-ok
+IDENTICAL	Vis1200	FUN_004972d0	4972d0	430ac8	strings-ok
+IDENTICAL	Vis1200	FUN_00497310	497310	430ac8	strings-ok
+IDENTICAL	Vis1200	TestFlags	4d79ed	4dc2fd	strings-ok
+IDENTICAL	Vis1200	~Vis1200	43c000	4016a2	strings-ok
+IDENTICAL	Vis1200	OnWmUser	41ed80	4201a0	strings-ok
+IDENTICAL	Vis1200	OnRButtonDown	438880	4201b0	strings-ok
+IDENTICAL	Vis1200	OnRButtonUp	438890	4201c0	strings-ok
+IDENTICAL	Vis1200	OnRButtonDblClk	41ed90	420950	strings-ok
+IDENTICAL	Vis1200	OnKeyUp	41eda0	43a600	strings-ok
+IDENTICAL	Vis1200	OnChar	4388b0	43a610	strings-ok
+IDENTICAL	Vis1200	OnLButtonUp	438860	43a630	strings-ok
+IDENTICAL	Vis1200	OnMouseMove	41ed70	43a7d0	strings-ok
+IDENTICAL	Vis1200	OnLButtonDblClk	438870	43a7e0	strings-ok
+IDENTICAL	Vis1200	Serialize	401970	4019d0	strings-ok
+IDENTICAL	Vis1200	VMethod8	43be73	43e282	strings-ok
+IDENTICAL	Vis1200	AssertValid	401980	4019e0	strings-ok
+IDENTICAL	Vis1200	VMethod27	4388c0	43a9e0	strings-ok
+IDENTICAL	Vis1200	GetRuntimeClass	5ddf9b	5893d3	strings-ok
+IDENTICAL-BATCH	Vis1200	39
+PORTED	Vis1200obj	OnChar	43b240	43d64b

@@ -5,8 +5,6 @@
 #   FLAGGED      identical code but referenced strings differ - inspect manually
 #   BATCH        all-identical class: run `client_verify.py record-identical <Class>`
 # Do not edit by hand; use tool/client_verify.py.
-BATCH	Vis1200	39 identical fns	-	-	-
-DIFFERS	Vis1200obj	OnChar	43b240	43d64b	slot29
 BATCH	Vis2Action	36 identical fns	-	-	-
 BATCH	VisBitmap	36 identical fns	-	-	-
 DIFFERS	VisButton	VMethod7	4d8f7e	4dd88a	slot11
