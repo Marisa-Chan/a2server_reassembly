@@ -9724,6 +9724,11 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
         }
     }
 
+    if (g_IsServer == 0 && main_wnd->field_0x3e0.field_10 != 0 && main_wnd->hat_settings.ishat != 0 &&
+        (main_wnd->hat_settings.deathmatch == 1 || main_wnd->hat_settings.deathmatch == 2)) {
+        disallow = (token->IsPotion() == 0 && token->IsScroll() == 0) ? 1 : 0;
+    }
+
     if (disallow != 0) {
         main_wnd->vis_invtype1->VMethod37(main_wnd->drag_src_slot);
         return 0;

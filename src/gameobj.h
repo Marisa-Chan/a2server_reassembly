@@ -30,6 +30,8 @@ public:
 	int32_t IsDepleted(); //4a78c0 in asm
 	int32_t IsQuestItem(); //43a5e5
 	int32_t IsQuestTreasure(); //43a6d5
+	int32_t IsPotion(); // client: 43ca26
+	int32_t IsScroll(); // client: 43ca7a
 	int32_t IsTwoHandedWeapon(); //4396fb
 	int32_t AddCount(int32_t num); //4a7850
 	int32_t RemoveCount(int32_t num); //4a7880

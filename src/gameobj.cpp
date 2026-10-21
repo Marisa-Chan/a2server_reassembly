@@ -878,6 +878,29 @@ int32_t TokenEntry::IsQuestTreasure() { //43a6d5
     return item.name == "Quest Treasure";
 }
 
+// client: 43ca26
+int32_t TokenEntry::IsPotion() {
+    if (this->GetType() != TYPE_SPELL) {
+        return 0;
+    }
+
+    MagicItem& item = g_GameDataRes.magic_items[this->GetShape() << 5 | this->GetId()];
+    return item.name.Find("Potion") == 0;
+}
+
+// client: 43ca7a
+int32_t TokenEntry::IsScroll() {
+    if (this->GetType() != TYPE_SPELL) {
+        return 0;
+    }
+
+    MagicItem& item = g_GameDataRes.magic_items[this->GetShape() << 5 | this->GetId()];
+    if (item.name.Find("Scroll") == 0 || item.name.Find("Super Scroll") == 0) {
+        return 1;
+    }
+    return 0;
+}
+
 
 int32_t TokenEntry::RemoveCount(int32_t num) { //4a7880
     this->count -= num;
