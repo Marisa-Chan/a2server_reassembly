@@ -52,7 +52,6 @@ DIFFERS	VisSideStatus	VMethod7	4b4190	4b8b61	slot11
 DIFFERS	VisSpellBook	VMethod7	4ca2a1	4cec31	slot11
 DIFFERS	VisSpellBook	MsgProc	4caad7	4cf465	slot18
 DIFFERS	VisStartGame	Accept	43817d	43a2af	callsite:2 votes
-DIFFERS	VisStartGameTextBox	OnChar	432d1b	434e52	slot29
 DIFFERS	VisTavRightPanel	OnLButtonUp	49a30a	49e32a	slot22
 DIFFERS	VisTextBox	VMethod7	4d9a21	4de337	slot11
 DIFFERS	VisTextBox	VisTextBox	4d9891	4de195	callsite:6 votes
