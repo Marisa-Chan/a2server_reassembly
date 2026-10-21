@@ -4973,8 +4973,11 @@ int32_t VisCharSellectList::SelectNextRow() {
 
 
 // 431C97
+// client: 433dee
 void VisCharSellectList::UpdateArrows(CPoint pos, bool is_down) {
-    pos -= this->parent_screen->rect.TopLeft();
+    if (g_IsServer != 0) {
+        pos -= this->parent_screen->rect.TopLeft();
+    }
     if (is_down) {
         if (this->field_0xd0 - 1 < 0 || !this->field_0x80.PtInRect(pos)) {
             this->field_0xb8 = nullptr;
