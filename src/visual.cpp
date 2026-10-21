@@ -24962,6 +24962,7 @@ CVisualObject* VisNetTcpIp::VMethod30(const void* data, const RECT& r) {
 }
 
 // 44A140
+// client: 44c815
 void VisHatServerListDlg::VMethod31(int32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (code == 0x445) {
@@ -24978,8 +24979,15 @@ void VisHatServerListDlg::VMethod31(int32_t code) {
         this->FindChild(8)->WriteData(buffer);
         this->hat_settings->password = buffer;
         this->FindChild(3)->WriteData(&this->hat_settings->deathmatch);
+        if (g_IsServer == 0 && this->hat_settings->deathmatch == 1) {
+            this->hat_settings->deathmatch = 3;
+        }
         this->FindChild(9)->WriteData(&this->hat_settings->store);
-        main_wnd->field_0x3e0.field_10 = (this->hat_settings->ishat == 0) ? 1 : 0;
+        if (g_IsServer != 0) {
+            main_wnd->field_0x3e0.field_10 = (this->hat_settings->ishat == 0) ? 1 : 0;
+        } else {
+            main_wnd->field_0x3e0.field_10 = 1;
+        }
         if (this->hat_settings->ishat == 0) {
             main_wnd->PostMessage(0x426, 0, 0);
         } else {

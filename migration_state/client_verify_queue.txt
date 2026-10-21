@@ -14,7 +14,6 @@ DIFFERS	VisHatBrowserDlg	VMethod26	44bc6c	44e774	slot30
 DIFFERS	VisHatBrowserDlg	MsgProc	44c1a9	44f11d	slot18
 DIFFERS	VisHatServerListDlg	VMethod26	444086	446656	slot30
 DIFFERS	VisHatServerListDlg	VMethod30	44a34d	44ca33	slot34
-DIFFERS	VisHatServerListDlg	VMethod31	44a140	44c815	slot35
 DIFFERS	VisMessageBox	VMethod26	444086	446656	slot30
 CLIENT_ONLY	VisMessageBox	Serialize(CArchive_&)	-	4019d0	vt
 DIFFERS	VisMessageBoxWithList	VMethod26	444086	446656	slot30

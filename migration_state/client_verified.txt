@@ -2404,3 +2404,4 @@ PORTED	VisNetChatTextBox	VMethod7	4d9a21	4de337
 PORTED	VisTextBox	OnChar	4da96a	4df2eb
 PORTED	VisNetChatTextBox	OnChar	4da96a	4df2eb
 PORTED	VisComboBoxText	OnChar	4da96a	4df2eb
+PORTED	VisHatServerListDlg	VMethod31	44a140	44c815
