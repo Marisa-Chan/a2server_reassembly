@@ -5,119 +5,60 @@
 #   FLAGGED      identical code but referenced strings differ - inspect manually
 #   BATCH        all-identical class: run `client_verify.py record-identical <Class>`
 # Do not edit by hand; use tool/client_verify.py.
-BATCH	Vis2Action	36 identical fns	-	-	-
-BATCH	VisBitmap	36 identical fns	-	-	-
 DIFFERS	VisButton	VMethod7	4d8f7e	4dd88a	slot11
 DIFFERS	VisButton	VisButton	4d8cd0	4dd5e0	callsite:20 votes
 DIFFERS	VisButton	VisButton	4d8e2d	4dd73b	callsite:23 votes
 DIFFERS	VisButton	OnChar	4d97d4	4de0d0	slot29
 DIFFERS	VisButtonSaveGame	VMethod7	4d8f7e	4dd88a	slot11
 DIFFERS	VisButtonSaveGame	OnChar	4d97d4	4de0d0	slot29
-BATCH	VisCharGen	42 identical fns	-	-	-
-BATCH	VisCharGenAction	38 identical fns	-	-	-
-BATCH	VisCharGenFullStats	34 identical fns	-	-	-
-BATCH	VisCharGenSkills	39 identical fns	-	-	-
-BATCH	VisCharGenStats	41 identical fns	-	-	-
 DIFFERS	VisCharInfo	VMethod7	4b2b3d	4b746f	slot11
 DIFFERS	VisCharInfo	VMethod27	4b3a0d	4b8374	slot31
 DIFFERS	VisCharInfo	VMethod26	4b38af	4b81df	slot30
-BATCH	VisCharSelect	42 identical fns	-	-	-
 DIFFERS	VisCharSellectButtons	OnLButtonUp	4303c8	4322bb	slot22
 DIFFERS	VisCharSellectList	Init	430cb3	432d7f	callsite:2 votes
 DIFFERS	VisCharSellectList	UpdateArrows	431c97	433dee	callsite:3 votes
 DIFFERS	VisCharSellectStats	ReadUnitStats	42f6f3	4315ef	callsite:2 votes
-BATCH	VisComboBox	37 identical fns	-	-	-
 DIFFERS	VisComboBoxButton	OnChar	4d97d4	4de0d0	slot29
-BATCH	VisComboBoxList	36 identical fns	-	-	-
 DIFFERS	VisComboBoxText	OnChar	4da96a	4df2eb	slot29
 DIFFERS	VisConnectionDlg	VMethod26	444086	446656	slot30
 DIFFERS	VisConnectionDlg	VMethod30	44604c	44871d	slot34
-BATCH	VisCredits	38 identical fns	-	-	-
 DIFFERS	VisCutScenesDlg	VMethod26	444086	446656	slot30
 DIFFERS	VisDiplomacy	VMethod26	444086	446656	slot30
 CLIENT_ONLY	VisDiplomacy	FUN_0044829c	-	44829c	vt
 DIFFERS	VisDropGold	DoClose	441fee	4445c0	slot33
-BATCH	VisFameDocument	43 identical fns	-	-	-
 DIFFERS	VisFameHall	VMethod7	45d7f9	461429	slot11
 DIFFERS	VisGlobalMap	ComputeTravelRoute	472820	47657e	callsite:2 votes
 DIFFERS	VisHatBrowserDlg	VMethod26	44bc6c	44e774	slot30
 DIFFERS	VisHatBrowserDlg	MsgProc	44c1a9	44f11d	slot18
-BATCH	VisHatBrowserList	37 identical fns	-	-	-
 DIFFERS	VisHatServerListDlg	VMethod26	444086	446656	slot30
 DIFFERS	VisHatServerListDlg	VMethod30	44a34d	44ca33	slot34
 DIFFERS	VisHatServerListDlg	VMethod31	44a140	44c815	slot35
-BATCH	VisInvBase	52 identical fns	-	-	-
 DIFFERS	VisInvExtBase	OnLButtonDblClk	4b5f3f	4ba90d	slot23
 DIFFERS	VisInvExtType1	OnLButtonDblClk	4b5f3f	4ba90d	slot23
 DIFFERS	VisInvExtType1Druid	OnLButtonDblClk	4b5f3f	4ba90d	slot23
 DIFFERS	VisInvExtType1Kaarg	OnLButtonDblClk	4b5f3f	4ba90d	slot23
 DIFFERS	VisInvExtType2	OnLButtonDblClk	4b5f3f	4ba90d	slot23
-BATCH	VisInvExtType3	52 identical fns	-	-	-
-BATCH	VisInvType1	45 identical fns	-	-	-
-BATCH	VisLabel	35 identical fns	-	-	-
-BATCH	VisListBox	49 identical fns	-	-	-
-BATCH	VisListBoxDiplomacy	40 identical fns	-	-	-
-BATCH	VisListBoxPhoneBook	37 identical fns	-	-	-
-BATCH	VisLogoWnd	36 identical fns	-	-	-
-BATCH	VisMainMenu	41 identical fns	-	-	-
-BATCH	VisMenuWnd	37 identical fns	-	-	-
 DIFFERS	VisMessageBox	VMethod26	444086	446656	slot30
 CLIENT_ONLY	VisMessageBox	Serialize(CArchive_&)	-	4019d0	vt
 DIFFERS	VisMessageBoxWithList	VMethod26	444086	446656	slot30
 DIFFERS	VisMiniMap	OnLButtonDown	4b0788	4b50be	slot21
-BATCH	VisMissionFailed	37 identical fns	-	-	-
-BATCH	VisMultiText	40 identical fns	-	-	-
-BATCH	VisNetChatList	36 identical fns	-	-	-
 DIFFERS	VisNetChatTextBox	VMethod7	4d9a21	4de337	slot11
 DIFFERS	VisNetChatTextBox	OnChar	4da96a	4df2eb	slot29
-BATCH	VisNetDlg	40 identical fns	-	-	-
-BATCH	VisNetMapList	36 identical fns	-	-	-
-BATCH	VisNetMapSelection	38 identical fns	-	-	-
-BATCH	VisNetPhoneBook	36 identical fns	-	-	-
-BATCH	VisNetPlayerList	36 identical fns	-	-	-
-BATCH	VisNetSerialSettings	36 identical fns	-	-	-
 DIFFERS	VisNetTcpIp	VMethod26	444086	446656	slot30
-BATCH	VisOrderToolbar	33 identical fns	-	-	-
-BATCH	VisQuestStatus	35 identical fns	-	-	-
-BATCH	VisRadioBase	36 identical fns	-	-	-
-BATCH	VisRadioType1	33 identical fns	-	-	-
-BATCH	VisRadioType2	33 identical fns	-	-	-
-BATCH	VisRightPanel	31 identical fns	-	-	-
-BATCH	VisRoleKeyScreen	39 identical fns	-	-	-
-BATCH	VisScreen	41 identical fns	-	-	-
-BATCH	VisScrollBar	36 identical fns	-	-	-
-BATCH	VisServerScreen	35 identical fns	-	-	-
-BATCH	VisServerScreenRadio	32 identical fns	-	-	-
 DIFFERS	VisShop	sub_4BCC38	4bcc38	4c1604	callsite:2 votes
-BATCH	VisShopButtons	38 identical fns	-	-	-
 DIFFERS	VisShopCompass	OnLButtonDown	4bf748	4c410b	slot21
 DIFFERS	VisShopCompassDruid	OnLButtonDown	4c359d	4c7f56	slot21
 DIFFERS	VisShopCompassKaarg	OnLButtonDown	4c671f	4cb0bc	slot21
-BATCH	VisShopDruid	39 identical fns	-	-	-
-BATCH	VisShopKaarg	39 identical fns	-	-	-
 DIFFERS	VisSideStatus	VMethod7	4b4190	4b8b61	slot11
 DIFFERS	VisSpellBook	VMethod7	4ca2a1	4cec31	slot11
 DIFFERS	VisSpellBook	MsgProc	4caad7	4cf465	slot18
 DIFFERS	VisStartGame	Accept	43817d	43a2af	callsite:2 votes
 DIFFERS	VisStartGameTextBox	OnChar	432d1b	434e52	slot29
-BATCH	VisTav	45 identical fns	-	-	-
-BATCH	VisTavDruid	37 identical fns	-	-	-
-BATCH	VisTavKaarg	37 identical fns	-	-	-
-BATCH	VisTavLeftPanel	36 identical fns	-	-	-
 DIFFERS	VisTavRightPanel	OnLButtonUp	49a30a	49e32a	slot22
-BATCH	VisTavScene	38 identical fns	-	-	-
-BATCH	VisTavSceneAnim	6 identical fns	-	-	-
-BATCH	VisTavSceneDruid	35 identical fns	-	-	-
-BATCH	VisTavSceneKaarg	35 identical fns	-	-	-
 DIFFERS	VisTextBox	VMethod7	4d9a21	4de337	slot11
 DIFFERS	VisTextBox	VisTextBox	4d9891	4de195	callsite:6 votes
 DIFFERS	VisTextBox	OnChar	4da96a	4df2eb	slot29
-BATCH	VisTipsDialog	38 identical fns	-	-	-
 DIFFERS	VisTown	FUN_004d0913	4d0913	4d525a	callsite:2 votes
-BATCH	VisTownDruid	49 identical fns	-	-	-
-BATCH	VisTownKaarg	49 identical fns	-	-	-
-BATCH	VisWindow	37 identical fns	-	-	-
-BATCH	Visibility	6 identical fns	-	-	-
 BATCH	Action	1 identical fns	-	-	-
 DIFFERS	AreaEffect	Serialize	53e81f	52657a	slot2
 DIFFERS	AreaEffect	ProcessEffects	537964	52199f	slot6
