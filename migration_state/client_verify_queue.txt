@@ -26,7 +26,6 @@ DIFFERS	VisCutScenesDlg	VMethod26	444086	446656	slot30
 DIFFERS	VisDiplomacy	VMethod26	444086	446656	slot30
 CLIENT_ONLY	VisDiplomacy	FUN_0044829c	-	44829c	vt
 DIFFERS	VisDropGold	DoClose	441fee	4445c0	slot33
-DIFFERS	VisFameHall	VMethod7	45d7f9	461429	slot11
 DIFFERS	VisGlobalMap	ComputeTravelRoute	472820	47657e	callsite:2 votes
 DIFFERS	VisHatBrowserDlg	VMethod26	44bc6c	44e774	slot30
 DIFFERS	VisHatBrowserDlg	MsgProc	44c1a9	44f11d	slot18

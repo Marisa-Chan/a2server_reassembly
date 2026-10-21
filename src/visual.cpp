@@ -22128,6 +22128,7 @@ VisFameDocument::~VisFameDocument() {
 
 
 // 45D7F9
+// client: 461429
 void VisFameHall::VMethod7() {
     CPoint top_left = this->rect.TopLeft();
     CString str;

@@ -2365,3 +2365,4 @@ IDENTICAL	Visibility	sub_58CD84	58cd84	55c234	strings-ok
 IDENTICAL	Visibility	sub_58E1C1	58e1c1	514f28	strings-ok
 IDENTICAL	Visibility	sub_58DE69	58de69	55d319	strings-ok
 IDENTICAL-BATCH	Visibility	6
+PORTED	VisFameHall	VMethod7	45d7f9	461429
