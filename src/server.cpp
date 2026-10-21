@@ -2929,7 +2929,7 @@ const char* PacketType(Packet *pkt) {
     else if (dynamic_cast<PacketMoveCmd*>(pkt) != nullptr) { return "PacketMoveCmd"; }
     else if (dynamic_cast<PacketEffect*>(pkt) != nullptr) { return "PacketEffect"; }
     else if (dynamic_cast<PacketAoeZone*>(pkt) != nullptr) { return "PacketAoeZone"; }
-    else if (dynamic_cast<PacketMount*>(pkt) != nullptr) { return "PacketMount"; }
+    else if (dynamic_cast<PacketRangedAttack*>(pkt) != nullptr) { return "PacketRangedAttack"; }
     else if (dynamic_cast<PacketPlayerInfo*>(pkt) != nullptr) { return "PacketPlayerInfo"; }
     else if (dynamic_cast<PacketData*>(pkt) != nullptr) { return "PacketData"; }
     else if (dynamic_cast<PacketUnitStateVec*>(pkt) != nullptr) { return "PacketUnitStateVec"; }

@@ -148,7 +148,7 @@ public:
     void SendInfoPacket(uint8_t id, int32_t value1, int32_t value2, Player* target);
     
     void SendUnitActionPacket(Unit* unit, uint8_t angle, uint8_t speed_dir, uint8_t mode);
-    void SendMountPacket(Unit* unit);
+    void SendRangedAttackPacket(Unit* unit);
     void SendUnitTurn(Unit* unit, Unit* target); // Notify clients about unit turning to face its target
     void SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t props_flags, int32_t inv_start_index, int32_t inv_end_index);
 

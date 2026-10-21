@@ -269,8 +269,8 @@ void NetStru1::SendUnitActionPacket(Unit* unit, uint8_t angle, uint8_t speed_dir
 }
 
 // 51BA2F
-void NetStru1::SendMountPacket(Unit* unit) {
-    PacketMount& packet = PacketMount::Inst;
+void NetStru1::SendRangedAttackPacket(Unit* unit) {
+    PacketRangedAttack& packet = PacketRangedAttack::Inst;
     packet.id = 0x72;
     packet.unit_id = (uint16_t)unit->building_id;
     packet.target_id = (uint16_t)unit->cast_target->building_id;
@@ -286,7 +286,7 @@ void NetStru1::SendUnitTurn(Unit* unit, Unit* target) {
         const uint8_t angle = unit->eye->GetFacingHalf();
         g_NetStru1_main.SendUnitActionPacket(unit, angle, speed_dir, 0x71);
     } else {
-        g_NetStru1_main.SendMountPacket(unit);
+        g_NetStru1_main.SendRangedAttackPacket(unit);
     }
 }
 
@@ -1107,7 +1107,7 @@ Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
         break;
 
     case 0x72:
-        pkt = &PacketMount::Inst;
+        pkt = &PacketRangedAttack::Inst;
         pkt->ReadFrom(ns2);
         break;
 

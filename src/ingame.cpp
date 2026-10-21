@@ -292,7 +292,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		PacketWord* packet_word = reinterpret_cast<PacketWord*>(pkt);
 		PacketUnitAction* packet_action = reinterpret_cast<PacketUnitAction*>(pkt);
 		PacketUnitUpdate* packet_unit = reinterpret_cast<PacketUnitUpdate*>(pkt);
-		PacketMount* packet_mount = reinterpret_cast<PacketMount*>(pkt);
+		PacketRangedAttack* packet_ranged_attack = reinterpret_cast<PacketRangedAttack*>(pkt);
 		PacketUnitHp* packet_unit_hp = reinterpret_cast<PacketUnitHp*>(pkt);
 		PacketUnitStateVec* packet_state = reinterpret_cast<PacketUnitStateVec*>(pkt);
 		PacketEight* packet_eight = reinterpret_cast<PacketEight*>(pkt);
@@ -1011,9 +1011,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x72: {
 			CUnit* ct = nullptr;
-			if (this->field_0x9d0.Lookup(packet_mount->unit_id, *(CGameObject**)&ct) == 0) {
+			if (this->field_0x9d0.Lookup(packet_ranged_attack->unit_id, *(CGameObject**)&ct) == 0) {
 				if (g_EnableTrace) {
-					sprintf(buf, "Invalid unit #%d. Command Ranged Attack.", packet_mount->unit_id);
+					sprintf(buf, "Invalid unit #%d. Command Ranged Attack.", packet_ranged_attack->unit_id);
 					this->msglog.Add(buf, clrsh_TechBlack, 5000);
 				}
 			} else if (ct->action_segments == 0 && ct->hp > 0) {
@@ -1022,7 +1022,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				ct->action_phase = 0;
 				ct->move_accum_y = 0;
 				ct->move_accum_x = 0;
-				ct->action_target = packet_mount->target_id;
+				ct->action_target = packet_ranged_attack->target_id;
 				ct->action_dir = ct->dir;
 			} else if (ct->action_segments != 0) {
 				if (g_EnableTrace) {

@@ -620,30 +620,30 @@ uint32_t PacketAoeZone::GetDataSize() {
 }
 
 // ============================================================
-// PacketMount
+// PacketRangedAttack
 // ============================================================
-PacketMount PacketMount::Inst;
+PacketRangedAttack PacketRangedAttack::Inst;
 
-PacketMount::PacketMount() {
+PacketRangedAttack::PacketRangedAttack() {
     //sub_52715F
     this->target_id = 0;
 }
 
-PacketMount::PacketMount(const PacketMount* src) {
+PacketRangedAttack::PacketRangedAttack(const PacketRangedAttack* src) {
     //sub_527187
     memcpy(&this->id, &src->id, 5); // id + 4 bytes
 }
 
-PacketMount::~PacketMount() {
+PacketRangedAttack::~PacketRangedAttack() {
     //sub_57A8D0
 }
 
-Packet* PacketMount::Duplicate() {
+Packet* PacketRangedAttack::Duplicate() {
     //sub_57A840
-    return new PacketMount(this);
+    return new PacketRangedAttack(this);
 }
 
-uint32_t PacketMount::GetDataSize() {
+uint32_t PacketRangedAttack::GetDataSize() {
     return 5; // id(1) + 4 bytes
 }
 

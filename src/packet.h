@@ -450,20 +450,20 @@ ASSERT_SIZE(PacketAoeZone, 0x1C);
 
 
 // ---------------------------------------------------------------------------
-// PacketMount
+// PacketRangedAttack
 // Constructor sub_52715F, static unk_6B37C8, vtable off_60EE60.
 // Unit mount / ride packet; word unit_id zeroed by ctor.
 // Copy ctor: sub_527187 (copies 5 bytes: id + 4 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketMount : public Packet {
+class PacketRangedAttack : public Packet {
 public:
-    static PacketMount Inst; // unk_6B37C8
+    static PacketRangedAttack Inst; // unk_6B37C8
 public:
-    PacketMount(); // sub_52715F
-    PacketMount(const PacketMount* src); // sub_527187
+    PacketRangedAttack(); // sub_52715F
+    PacketRangedAttack(const PacketRangedAttack* src); // sub_527187
 public:
-    virtual ~PacketMount();
+    virtual ~PacketRangedAttack();
     virtual Packet* Duplicate() override; // sub_57A840
     virtual uint32_t GetDataSize() override;
 public:
@@ -471,7 +471,7 @@ public:
     uint16_t target_id;   // +0xC (= 0 in ctor)
 };
 __pragma(pack(pop))
-ASSERT_SIZE(PacketMount, 0xE);
+ASSERT_SIZE(PacketRangedAttack, 0xE);
 
 
 // ---------------------------------------------------------------------------
