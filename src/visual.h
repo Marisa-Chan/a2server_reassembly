@@ -348,8 +348,15 @@ public:
 	int32_t cursor_pos;
 	int32_t cursor_blink;
 	uint32_t cursor_blink_ts;
+#ifdef A2CLIENT
+	int32_t is_password; // client-only (retail client class is 4 bytes larger)
+#endif
 };
+#ifdef A2CLIENT
+ASSERT_SIZE(VisTextBox, 0x80);
+#else
 ASSERT_SIZE(VisTextBox, 0x7c);
+#endif
 
 
 //60e030
@@ -3522,7 +3529,11 @@ public:
 
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 4502c0 in asm
 };
+#ifdef A2CLIENT
+ASSERT_SIZE(VisNetChatTextBox, 0x80);
+#else
 ASSERT_SIZE(VisNetChatTextBox, 0x7c);
+#endif
 
 //60a930
 UINT AFX_CDECL VisNetMapThreadProc(LPVOID pParam); // 44aad6

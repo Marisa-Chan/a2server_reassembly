@@ -24,7 +24,6 @@ DIFFERS	VisNetChatTextBox	OnChar	4da96a	4df2eb	slot29
 DIFFERS	VisNetTcpIp	VMethod26	444086	446656	slot30
 DIFFERS	VisStartGame	Accept	43817d	43a2af	callsite:2 votes
 DIFFERS	VisTextBox	VMethod7	4d9a21	4de337	slot11
-DIFFERS	VisTextBox	VisTextBox	4d9891	4de195	callsite:6 votes
 DIFFERS	VisTextBox	OnChar	4da96a	4df2eb	slot29
 BATCH	Action	1 identical fns	-	-	-
 DIFFERS	AreaEffect	Serialize	53e81f	52657a	slot2

@@ -2252,6 +2252,7 @@ int32_t VisTextBox::OnChar(uint32_t wparam) {
 VisTextBox::VisTextBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint)
 : CVisualObject(_id, l, t, r, b, hint) {
     //4d9891
+    // client: 4de195
     this->font = _font;
     this->clr = _clr;
     this->text = "";
@@ -2262,6 +2263,9 @@ VisTextBox::VisTextBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, 
     this->flags |= FLAG_NOTFOCUS;
 
     this->cursor_blink = 1;
+#ifdef A2CLIENT
+    this->is_password = 0;
+#endif
 }
 
 
@@ -2278,6 +2282,9 @@ VisTextBox::VisTextBox(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _
     this->flags |= FLAG_NOTFOCUS;
 
     this->cursor_blink = 1;
+#ifdef A2CLIENT
+    this->is_password = 0;
+#endif
 }
 
 void VisTextBox::DelSelection() {
