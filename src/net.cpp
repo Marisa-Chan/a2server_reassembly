@@ -1147,7 +1147,7 @@ Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
         break;
 
     case 0x9c:
-        pkt = &PacketUnitProperties::Inst;
+        pkt = &PacketUnitEquipment::Inst;
         pkt->ReadFrom(ns2);
         break;
 
@@ -4524,7 +4524,7 @@ void NetStru1::SendHumanoidProps(Unit* unit, Player* player, int32_t flags) {
         }
 
         if (unit->pOwner != player) {
-            PacketUnitProperties& packet = PacketUnitProperties::Inst;
+            PacketUnitEquipment& packet = PacketUnitEquipment::Inst;
             packet.id = 0x9C;
             packet.unit_id = (uint16_t)unit->building_id;
             packet.flags = (uint16_t)flags;

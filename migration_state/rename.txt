@@ -1192,3 +1192,4 @@ PacketMount -> PacketRangedAttack -- id 0x72 is the ranged 'Shoot' animation tow
 PacketEight -> PacketSack -- the old name was just its payload size; its only use (id 0x7A) spawns/updates a dropped loot sack (CBackPack client-side, Sack server-side)
 Packet3Dwords -> PacketEnterGame -- single use (id 2, client to server): character name + session key + color/skill tiers, server replies AssignPlayerSlot; old name also ignored the largest field (text[32])
 PacketPlayerInfo -> PacketFileChunk -- single use (id 0xC0): map-file download, preamble = filename then offset/total_length/count chunks the client writes to <name>.tmp; nothing player-specific
+PacketUnitProperties -> PacketUnitEquipment -- id 0x9C is a bitmask + up to 12 equipment item_ids (weapon/shield/equipment slots); client rebuilds equipmentTokens from it

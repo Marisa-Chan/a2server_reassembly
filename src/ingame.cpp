@@ -301,7 +301,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		PacketAoeZone* packet_aoe = reinterpret_cast<PacketAoeZone*>(pkt);
 		PacketEffect* packet_effect = reinterpret_cast<PacketEffect*>(pkt);
 		PacketTerrain* packet_terrain = reinterpret_cast<PacketTerrain*>(pkt);
-		PacketUnitProperties* packet_props = reinterpret_cast<PacketUnitProperties*>(pkt);
+		PacketUnitEquipment* packet_equip = reinterpret_cast<PacketUnitEquipment*>(pkt);
 		PacketFileChunk* packet_file = reinterpret_cast<PacketFileChunk*>(pkt);
 
 		if (!pkt) {
@@ -1937,19 +1937,19 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x9c: {
 			CUnit* ct = nullptr;
-			if (packet_props->unit_id != 0 && this->field_0x9d0.Lookup(packet_props->unit_id, *(CGameObject**)&ct) != 0) {
+			if (packet_equip->unit_id != 0 && this->field_0x9d0.Lookup(packet_equip->unit_id, *(CGameObject**)&ct) != 0) {
 				int pr = 0;
 				for (int i = 0; i < 12; i++) {
-					if ((packet_props->flags & (1 << i)) != 0) {
+					if ((packet_equip->flags & (1 << i)) != 0) {
 						if (ct->equipmentTokens[i]) {
 							delete ct->equipmentTokens[i];
 						}
 
-						if (packet_props->prop[pr] == 0) {
+						if (packet_equip->prop[pr] == 0) {
 							ct->equipmentTokens[i] = nullptr;
 						} else {
 							TokenEntry* itm = new TokenEntry(0);
-							itm->item_id = packet_props->prop[pr];
+							itm->item_id = packet_equip->prop[pr];
 							itm->count = 1;
 							itm->flg = 0;
 							itm->mods_count = 0;

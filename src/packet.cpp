@@ -810,31 +810,31 @@ uint32_t PacketBuildingHp::GetDataSize() {
 }
 
 // ============================================================
-// PacketUnitProperties
+// PacketUnitEquipment
 // ============================================================
-PacketUnitProperties PacketUnitProperties::Inst;
+PacketUnitEquipment PacketUnitEquipment::Inst;
 
-PacketUnitProperties::PacketUnitProperties() {
+PacketUnitEquipment::PacketUnitEquipment() {
     //sub_52786F  id = 0
     this->id    = 0;
     this->flags = 0;
 }
 
-PacketUnitProperties::PacketUnitProperties(const PacketUnitProperties* src) {
+PacketUnitEquipment::PacketUnitEquipment(const PacketUnitEquipment* src) {
     //sub_527895
     memcpy(&this->id, &src->id, 0x1D); // id + 28 bytes (max)
 }
 
-PacketUnitProperties::~PacketUnitProperties() {
+PacketUnitEquipment::~PacketUnitEquipment() {
     //sub_57AD80
 }
 
-Packet* PacketUnitProperties::Duplicate() {
+Packet* PacketUnitEquipment::Duplicate() {
     //sub_57AD00
-    return new PacketUnitProperties(this);
+    return new PacketUnitEquipment(this);
 }
 
-uint32_t PacketUnitProperties::GetDataSize() {
+uint32_t PacketUnitEquipment::GetDataSize() {
     //sub_5278CE  variable: 0x1D - (12 - popcount(flags)) * 2
     int popcount = 0;
     for (int i = 0; i < 12; i++) {

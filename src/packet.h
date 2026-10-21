@@ -612,7 +612,7 @@ ASSERT_SIZE(PacketBuildingHp, 0xE);
 
 
 // ---------------------------------------------------------------------------
-// PacketUnitProperties
+// PacketUnitEquipment
 // Constructor sub_52786F, static unk_6D0628, vtable off_60EEF0.
 // Variable-size player/unit property flags packet; id forced to 0 by ctor.
 // flags (word at +0xC): bitmask of up to 12 included uint16_t fields.
@@ -620,14 +620,14 @@ ASSERT_SIZE(PacketBuildingHp, 0xE);
 // Copy ctor: sub_527895 (copies max 29 bytes: id + 28 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketUnitProperties : public Packet {
+class PacketUnitEquipment : public Packet {
 public:
-    static PacketUnitProperties Inst; // unk_6D0628
+    static PacketUnitEquipment Inst; // unk_6D0628
 public:
-    PacketUnitProperties(); // sub_52786F  sets id = 0
-    PacketUnitProperties(const PacketUnitProperties* src); // sub_527895
+    PacketUnitEquipment(); // sub_52786F  sets id = 0
+    PacketUnitEquipment(const PacketUnitEquipment* src); // sub_527895
 public:
-    virtual ~PacketUnitProperties();
+    virtual ~PacketUnitEquipment();
     virtual Packet* Duplicate() override; // sub_57AD00
     virtual uint32_t GetDataSize() override; // sub_5278CE  variable (5..29)
 public:
@@ -636,7 +636,7 @@ public:
     uint16_t prop[12];        // +0xE  up to 12 optional property words
 };
 __pragma(pack(pop))
-ASSERT_SIZE(PacketUnitProperties, 0x26);
+ASSERT_SIZE(PacketUnitEquipment, 0x26);
 
 
 // ---------------------------------------------------------------------------
