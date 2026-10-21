@@ -1180,3 +1180,6 @@ World::DoSwarmMoveStep param -> pos_yx -- packed YX destination (align header wi
 World::SetIdleOrRetreat param -> retreat -- 0 = idle/guard scan, non-zero = DoRetreat
 Effect::CalcChargePercent param -> mana -- caster's current mana scaled against spell book_cost / mana_cost (no callers left; virtual)
 (comment-only) game_app.h RollRandomItem and players_list.h FindByName comments now reference real parameter names
+
+CLASSES
+=======
