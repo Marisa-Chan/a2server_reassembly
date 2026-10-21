@@ -312,20 +312,20 @@ ASSERT_SIZE(PacketDword, 0xE);
 
 
 // ---------------------------------------------------------------------------
-// PacketAbility
+// PacketUnitAction
 // Constructor sub_526F68, static unk_70A7D0, vtable off_60EDE8.
 // Ability/buff broadcast; id fixed to 0x6B ('k') by ctor.
 // Copy ctor: sub_526F8E (copies 5 bytes: id + 4 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketAbility : public Packet {
+class PacketUnitAction : public Packet {
 public:
-    static PacketAbility Inst; // unk_70A7D0
+    static PacketUnitAction Inst; // unk_70A7D0
 public:
-    PacketAbility(); // sub_526F68  sets id = 0x6B
-    PacketAbility(const PacketAbility* src); // sub_526F8E
+    PacketUnitAction(); // sub_526F68  sets id = 0x6B
+    PacketUnitAction(const PacketUnitAction* src); // sub_526F8E
 public:
-    virtual ~PacketAbility();
+    virtual ~PacketUnitAction();
     virtual Packet* Duplicate() override; // sub_57A480
     virtual uint32_t GetDataSize() override;
 public:
@@ -334,7 +334,7 @@ public:
     uint8_t segments; // +0xD
 };
 __pragma(pack(pop))
-ASSERT_SIZE(PacketAbility, 0xE);
+ASSERT_SIZE(PacketUnitAction, 0xE);
 
 
 // ---------------------------------------------------------------------------

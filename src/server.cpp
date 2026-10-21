@@ -2924,7 +2924,7 @@ const char* PacketType(Packet *pkt) {
     else if (dynamic_cast<PacketItemTransfer*>(pkt) != nullptr) { return "PacketItemTransfer"; }
     else if (dynamic_cast<Packet3Dwords*>(pkt) != nullptr) { return "Packet3Dwords"; }
     else if (dynamic_cast<PacketDword*>(pkt) != nullptr) { return "PacketDword"; }
-    else if (dynamic_cast<PacketAbility*>(pkt) != nullptr) { return "PacketAbility"; }
+    else if (dynamic_cast<PacketUnitAction*>(pkt) != nullptr) { return "PacketUnitAction"; }
     else if (dynamic_cast<PacketEight*>(pkt) != nullptr) { return "PacketEight"; }
     else if (dynamic_cast<PacketMoveCmd*>(pkt) != nullptr) { return "PacketMoveCmd"; }
     else if (dynamic_cast<PacketEffect*>(pkt) != nullptr) { return "PacketEffect"; }

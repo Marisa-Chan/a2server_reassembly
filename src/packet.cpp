@@ -473,30 +473,30 @@ uint32_t PacketDword::GetDataSize() {
 }
 
 // ============================================================
-// PacketAbility
+// PacketUnitAction
 // ============================================================
-PacketAbility PacketAbility::Inst;
+PacketUnitAction PacketUnitAction::Inst;
 
-PacketAbility::PacketAbility() {
+PacketUnitAction::PacketUnitAction() {
     //sub_526F68  id = 0x6B
     this->id = 0x6B;
 }
 
-PacketAbility::PacketAbility(const PacketAbility* src) {
+PacketUnitAction::PacketUnitAction(const PacketUnitAction* src) {
     //sub_526F8E
     memcpy(&this->id, &src->id, 5); // id + 4 bytes
 }
 
-PacketAbility::~PacketAbility() {
+PacketUnitAction::~PacketUnitAction() {
     //sub_57A510
 }
 
-Packet* PacketAbility::Duplicate() {
+Packet* PacketUnitAction::Duplicate() {
     //sub_57A480
-    return new PacketAbility(this);
+    return new PacketUnitAction(this);
 }
 
-uint32_t PacketAbility::GetDataSize() {
+uint32_t PacketUnitAction::GetDataSize() {
     return 5; // id(1) + 4 bytes
 }
 

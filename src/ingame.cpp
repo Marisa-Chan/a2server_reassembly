@@ -290,7 +290,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		PacketDword* packet_dword = reinterpret_cast<PacketDword*>(pkt);
 		PacketData* packet_data = reinterpret_cast<PacketData*>(pkt);
 		PacketWord* packet_word = reinterpret_cast<PacketWord*>(pkt);
-		PacketAbility* packet_abil = reinterpret_cast<PacketAbility*>(pkt);
+		PacketUnitAction* packet_action = reinterpret_cast<PacketUnitAction*>(pkt);
 		PacketUnitUpdate* packet_unit = reinterpret_cast<PacketUnitUpdate*>(pkt);
 		PacketMount* packet_mount = reinterpret_cast<PacketMount*>(pkt);
 		PacketUnitHp* packet_unit_hp = reinterpret_cast<PacketUnitHp*>(pkt);
@@ -399,8 +399,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x6b: {
 			CUnit* unit;
-			if (!this->field_0x9d0.Lookup(packet_abil->unit_id, *(CGameObject**)&unit)) {
-				sprintf(buf, "Invalid unit #%d. Command Move.", packet_abil->unit_id);
+			if (!this->field_0x9d0.Lookup(packet_action->unit_id, *(CGameObject**)&unit)) {
+				sprintf(buf, "Invalid unit #%d. Command Move.", packet_action->unit_id);
 				if (g_EnableTrace) {
 					this->msglog.Add(buf, clrsh_TechBlack, 5000);
 				}
@@ -438,9 +438,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				}
 
 				if (unit->hp > 0) {
-					unit->action_segments = packet_abil->segments;
+					unit->action_segments = packet_action->segments;
 					unit->action = 1;
-					unit->action_dir = packet_abil->angle;
+					unit->action_dir = packet_action->angle;
 					unit->action_x = INT_6362e8[unit->action_dir] << 8;
 					unit->action_y = INT_636328[unit->action_dir] << 8;
 				}
@@ -913,9 +913,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x6d: {
 			CUnit* ct = nullptr;
-			if (this->field_0x9d0.Lookup(packet_abil->unit_id, *(CGameObject**)&ct) == 0) {
+			if (this->field_0x9d0.Lookup(packet_action->unit_id, *(CGameObject**)&ct) == 0) {
 				if (g_EnableTrace != 0) {
-					sprintf(buf, "Invalid unit #%d. Command Turn.", packet_abil->unit_id);
+					sprintf(buf, "Invalid unit #%d. Command Turn.", packet_action->unit_id);
 					this->msglog.Add(buf, clrsh_TechBlack, 5000);
 				}
 			} else {
@@ -946,9 +946,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					}
 				}
 				if (ct->hp > 0) {
-					ct->action_segments = packet_abil->segments;
+					ct->action_segments = packet_action->segments;
 					ct->action = 5;
-					ct->action_dir = packet_abil->angle;
+					ct->action_dir = packet_action->angle;
 					ct->turn_angle = ct->dir * 16;
 					ct->action_phase = 0;
 					ct->move_accum_y = 0;
@@ -960,9 +960,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x71: {
 			CUnit* ct = nullptr;
-			if (this->field_0x9d0.Lookup(packet_abil->unit_id, *(CGameObject**)&ct) == 0) {
+			if (this->field_0x9d0.Lookup(packet_action->unit_id, *(CGameObject**)&ct) == 0) {
 				if (g_EnableTrace != 0) {
-					sprintf(buf, "Invalid unit #%d. Command Attack.", packet_abil->unit_id);
+					sprintf(buf, "Invalid unit #%d. Command Attack.", packet_action->unit_id);
 					this->msglog.Add(buf, clrsh_TechBlack, 5000);
 				}
 			} else {
@@ -971,7 +971,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					if (vfx->attack_phases != 0 && ct->hp > 0) {
 						ct->action_segments = vfx->attack_anim_frame_cnt;
 						ct->action = 3;
-						ct->action_dir = packet_abil->angle;
+						ct->action_dir = packet_action->angle;
 						ct->action_phase = 0;
 						ct->move_accum_y = 0;
 						ct->move_accum_x = 0;
