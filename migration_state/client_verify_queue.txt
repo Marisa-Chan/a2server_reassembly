@@ -8,7 +8,6 @@
 DIFFERS	VisCharInfo	VMethod27	4b3a0d	4b8374	slot31
 DIFFERS	VisCharInfo	VMethod26	4b38af	4b81df	slot30
 DIFFERS	VisCharSellectButtons	OnLButtonUp	4303c8	4322bb	slot22
-DIFFERS	VisCharSellectList	Init	430cb3	432d7f	callsite:2 votes
 DIFFERS	VisComboBoxText	OnChar	4da96a	4df2eb	slot29
 DIFFERS	VisConnectionDlg	VMethod26	444086	446656	slot30
 DIFFERS	VisConnectionDlg	VMethod30	44604c	44871d	slot34

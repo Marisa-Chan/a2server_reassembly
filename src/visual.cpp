@@ -5095,6 +5095,7 @@ void VisCharSellectList::FUN_00430fad() {
 
 
 // 430CB3
+// client: 432d7f
 void VisCharSellectList::Init() {
     this->field_0x60 = CRect(CPoint(0x38, 0x38), CSize(0xCE, g_font4->GetHeight()));
     this->field_0x70 = CRect(CPoint(this->rect.left + 0x38, this->rect.top + 0x38), CSize(0xCE, 0xEC));
@@ -5108,6 +5109,11 @@ void VisCharSellectList::Init() {
     CPoint top_left = this->rect.TopLeft();
     this->field_0x80 = CRect(CPoint(0x78, 0), CSize(0x50, 0x3C)) + top_left;
     this->field_0x90 = CRect(CPoint(0x78, 0x188), CSize(0x50, 0x34)) + top_left;
+    if (g_IsServer == 0) {
+        CPoint vp = vis_scr_rect.TopLeft();
+        this->field_0x80 = this->field_0x80 + vp;
+        this->field_0x90 = this->field_0x90 + vp;
+    }
     this->FUN_00430fad();
 }
 

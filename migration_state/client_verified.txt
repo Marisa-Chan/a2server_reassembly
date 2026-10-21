@@ -2394,3 +2394,4 @@ PORTED	VisSpellBook	VMethod7	4ca2a1	4cec31
 PORTED	VisSpellBook	MsgProc	4caad7	4cf465
 PORTED	VisTown	FUN_004d0913	4d0913	4d525a
 PORTED	VisCharSellectList	UpdateArrows	431c97	433dee
+PORTED	VisCharSellectList	Init	430cb3	432d7f
