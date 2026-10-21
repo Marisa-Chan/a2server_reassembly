@@ -13859,6 +13859,7 @@ void VisTavLeftPanel::FUN_00497e06(int32_t idx) {
 
 
 // 49A30A
+// client: 49e32a
 int32_t VisTavRightPanel::OnLButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
