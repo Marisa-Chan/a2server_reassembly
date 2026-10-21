@@ -22158,7 +22158,9 @@ void VisFameHall::VMethod7() {
         }
         UnlockSurface2();
     }
-    this->VisScreen::VMethod7();
+    if (g_IsServer != 0) {
+        this->VisScreen::VMethod7();
+    }
 }
 
 
