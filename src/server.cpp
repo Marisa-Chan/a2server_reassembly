@@ -2933,7 +2933,7 @@ const char* PacketType(Packet *pkt) {
     else if (dynamic_cast<PacketPlayerInfo*>(pkt) != nullptr) { return "PacketPlayerInfo"; }
     else if (dynamic_cast<PacketData*>(pkt) != nullptr) { return "PacketData"; }
     else if (dynamic_cast<PacketUnitStateVec*>(pkt) != nullptr) { return "PacketUnitStateVec"; }
-    else if (dynamic_cast<PacketSync*>(pkt) != nullptr) { return "PacketSync"; }
+    else if (dynamic_cast<PacketBuildingHp*>(pkt) != nullptr) { return "PacketBuildingHp"; }
     else if (dynamic_cast<PacketUnitProperties*>(pkt) != nullptr) { return "PacketUnitProperties"; }
     else if (dynamic_cast<PacketUnitHp*>(pkt) != nullptr) { return "PacketUnitHp"; }
     else if (dynamic_cast<Packet*>(pkt) != nullptr) { return "Packet"; }

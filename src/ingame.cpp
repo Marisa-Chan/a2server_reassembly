@@ -296,7 +296,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		PacketUnitHp* packet_unit_hp = reinterpret_cast<PacketUnitHp*>(pkt);
 		PacketUnitStateVec* packet_state = reinterpret_cast<PacketUnitStateVec*>(pkt);
 		PacketEight* packet_eight = reinterpret_cast<PacketEight*>(pkt);
-		PacketSync* packet_sync = reinterpret_cast<PacketSync*>(pkt);
+		PacketBuildingHp* packet_building_hp = reinterpret_cast<PacketBuildingHp*>(pkt);
 		PacketMoveCmd* packet_move = reinterpret_cast<PacketMoveCmd*>(pkt);
 		PacketAoeZone* packet_aoe = reinterpret_cast<PacketAoeZone*>(pkt);
 		PacketEffect* packet_effect = reinterpret_cast<PacketEffect*>(pkt);
@@ -1414,8 +1414,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x82: {
 			CUnit* ct = nullptr;
-			if (this->field_0x9d0.Lookup(packet_sync->building_id, *(CGameObject**)&ct)) {
-				ct->hp = packet_sync->hp;
+			if (this->field_0x9d0.Lookup(packet_building_hp->building_id, *(CGameObject**)&ct)) {
+				ct->hp = packet_building_hp->hp;
 				if (this->field_0x138 == ct) {
 					wnd->vis_charinfo->MsgProc(0x408, 0, 0);
 					wnd->vis_sidestatus->MsgProc(0x408, 0, 0);

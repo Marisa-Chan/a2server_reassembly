@@ -782,30 +782,30 @@ uint32_t PacketUnitStateVec::GetDataSize() {
 }
 
 // ============================================================
-// PacketSync
+// PacketBuildingHp
 // ============================================================
-PacketSync PacketSync::Inst;
+PacketBuildingHp PacketBuildingHp::Inst;
 
-PacketSync::PacketSync() {
+PacketBuildingHp::PacketBuildingHp() {
     //sub_527810  id = 0x82
     this->id = 0x82;
 }
 
-PacketSync::PacketSync(const PacketSync* src) {
+PacketBuildingHp::PacketBuildingHp(const PacketBuildingHp* src) {
     //sub_527836
     memcpy(&this->id, &src->id, 5); // id + 4 bytes
 }
 
-PacketSync::~PacketSync() {
+PacketBuildingHp::~PacketBuildingHp() {
     //sub_57ACD0
 }
 
-Packet* PacketSync::Duplicate() {
+Packet* PacketBuildingHp::Duplicate() {
     //sub_57AC40
-    return new PacketSync(this);
+    return new PacketBuildingHp(this);
 }
 
-uint32_t PacketSync::GetDataSize() {
+uint32_t PacketBuildingHp::GetDataSize() {
     return 5; // id(1) + 4 bytes
 }
 

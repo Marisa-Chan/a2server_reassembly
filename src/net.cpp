@@ -1127,7 +1127,7 @@ Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
         break;
 
     case 0x82:
-        pkt = &PacketSync::Inst;
+        pkt = &PacketBuildingHp::Inst;
         pkt->ReadFrom(ns2);
         break;
 
@@ -4736,7 +4736,7 @@ void NetStru1::BroadcastTokenState(Token* token, Player* player, uint8_t flag) {
         Building* building = static_cast<Building*>(token);
         building->sent_to_mask |= (player ? player->vision_sharing_id : 0xFFFF);
         if (building->typeId != 0 && building->hp_max != 0) {
-            PacketSync& packet = PacketSync::Inst;
+            PacketBuildingHp& packet = PacketBuildingHp::Inst;
             packet.id = 0x82;
             packet.to_player_id = player ? player->player_id : 0;
             packet.building_id = (uint16_t)building->building_id;

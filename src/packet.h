@@ -587,20 +587,20 @@ ASSERT_SIZE(PacketUnitStateVec, 0x8013);
 
 
 // ---------------------------------------------------------------------------
-// PacketSync
+// PacketBuildingHp
 // Constructor sub_527810, static unk_6A6A88, vtable off_60EED8.
 // Unit visibility-sync / broadcast; id fixed to 0x82 by ctor.
 // Copy ctor: sub_527836 (copies 5 bytes: id + 4 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketSync : public Packet {
+class PacketBuildingHp : public Packet {
 public:
-    static PacketSync Inst; // unk_6A6A88
+    static PacketBuildingHp Inst; // unk_6A6A88
 public:
-    PacketSync(); // sub_527810  sets id = 0x82
-    PacketSync(const PacketSync* src); // sub_527836
+    PacketBuildingHp(); // sub_527810  sets id = 0x82
+    PacketBuildingHp(const PacketBuildingHp* src); // sub_527836
 public:
-    virtual ~PacketSync();
+    virtual ~PacketBuildingHp();
     virtual Packet* Duplicate() override; // sub_57AC40
     virtual uint32_t GetDataSize() override;
 public:
@@ -608,7 +608,7 @@ public:
     int16_t hp; // +0xC
 };
 __pragma(pack(pop))
-ASSERT_SIZE(PacketSync, 0xE);
+ASSERT_SIZE(PacketBuildingHp, 0xE);
 
 
 // ---------------------------------------------------------------------------

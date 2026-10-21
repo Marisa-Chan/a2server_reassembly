@@ -1186,3 +1186,4 @@ CLASSES
 PacketItemOperation -> PacketGroupOrder -- carries selected-unit group orders (move/attack/patrol/cast), never item operations
 PacketCmd -> PacketItemTransfer -- its only use (id 0x22) moves items between equipment/bag/ground/shop; the old name described PacketGroupOrder's job
 PacketPing -> PacketUnitHp -- id 0x73 carries unit_id + hp and drives the client take-damage labels; real latency reports use PacketDword 0xC1
+PacketSync -> PacketBuildingHp -- id 0x82 carries building_id + hp; client handler just assigns ct->hp and refreshes HP UI
