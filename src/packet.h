@@ -475,7 +475,7 @@ ASSERT_SIZE(PacketRangedAttack, 0xE);
 
 
 // ---------------------------------------------------------------------------
-// PacketPlayerInfo
+// PacketFileChunk
 // Constructor sub_5271C0, static unk_6D1888, vtable off_60EE78.
 // Large variable-length player-info packet.
 // Fixed area: 40-byte preamble at +0xA, int32_t count at +0x32.
@@ -485,14 +485,14 @@ ASSERT_SIZE(PacketRangedAttack, 0xE);
 // Copy ctor: sub_5271DF (memcpy id + preamble + count + var_data).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketPlayerInfo : public Packet {
+class PacketFileChunk : public Packet {
 public:
-    static PacketPlayerInfo Inst; // unk_6D1888
+    static PacketFileChunk Inst; // unk_6D1888
 public:
-    PacketPlayerInfo(); // sub_5271C0
-    PacketPlayerInfo(const PacketPlayerInfo* src); // sub_5271DF
+    PacketFileChunk(); // sub_5271C0
+    PacketFileChunk(const PacketFileChunk* src); // sub_5271DF
 public:
-    virtual ~PacketPlayerInfo();
+    virtual ~PacketFileChunk();
     virtual Packet* Duplicate() override;     // sub_57A900
     virtual void WriteTo(NetStru2*) override; // sub_527220
     virtual void ReadFrom(NetStru2*) override; // sub_527246
@@ -505,11 +505,11 @@ public:
     uint8_t  var_data[0x10000];  // +0x36  variable-length data (actual size = count)
 };
 __pragma(pack(pop))
-ASSERT_OFFSET(PacketPlayerInfo, preamble,  0xA);
-ASSERT_OFFSET(PacketPlayerInfo, offset,    0x2A);
-ASSERT_OFFSET(PacketPlayerInfo, count,     0x32);
-ASSERT_OFFSET(PacketPlayerInfo, var_data,  0x36);
-ASSERT_SIZE(PacketPlayerInfo, 0x10036);
+ASSERT_OFFSET(PacketFileChunk, preamble,  0xA);
+ASSERT_OFFSET(PacketFileChunk, offset,    0x2A);
+ASSERT_OFFSET(PacketFileChunk, count,     0x32);
+ASSERT_OFFSET(PacketFileChunk, var_data,  0x36);
+ASSERT_SIZE(PacketFileChunk, 0x10036);
 
 
 // ---------------------------------------------------------------------------

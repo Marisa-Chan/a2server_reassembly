@@ -1163,7 +1163,7 @@ Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
         break;
 
     case 0xc0:
-        pkt = &PacketPlayerInfo::Inst;
+        pkt = &PacketFileChunk::Inst;
         pkt->ReadFrom(ns2);
         break;
     }

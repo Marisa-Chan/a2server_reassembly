@@ -2930,7 +2930,7 @@ const char* PacketType(Packet *pkt) {
     else if (dynamic_cast<PacketEffect*>(pkt) != nullptr) { return "PacketEffect"; }
     else if (dynamic_cast<PacketAoeZone*>(pkt) != nullptr) { return "PacketAoeZone"; }
     else if (dynamic_cast<PacketRangedAttack*>(pkt) != nullptr) { return "PacketRangedAttack"; }
-    else if (dynamic_cast<PacketPlayerInfo*>(pkt) != nullptr) { return "PacketPlayerInfo"; }
+    else if (dynamic_cast<PacketFileChunk*>(pkt) != nullptr) { return "PacketFileChunk"; }
     else if (dynamic_cast<PacketData*>(pkt) != nullptr) { return "PacketData"; }
     else if (dynamic_cast<PacketUnitStateVec*>(pkt) != nullptr) { return "PacketUnitStateVec"; }
     else if (dynamic_cast<PacketBuildingHp*>(pkt) != nullptr) { return "PacketBuildingHp"; }
@@ -3571,7 +3571,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 break;
             }
 
-            PacketPlayerInfo& resp = PacketPlayerInfo::Inst;
+            PacketFileChunk& resp = PacketFileChunk::Inst;
             resp.to_player_id = player->player_id;
             resp.id = 0xC0;
 

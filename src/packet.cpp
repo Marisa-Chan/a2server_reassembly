@@ -648,35 +648,35 @@ uint32_t PacketRangedAttack::GetDataSize() {
 }
 
 // ============================================================
-// PacketPlayerInfo
+// PacketFileChunk
 // ============================================================
-PacketPlayerInfo PacketPlayerInfo::Inst;
+PacketFileChunk PacketFileChunk::Inst;
 
-PacketPlayerInfo::PacketPlayerInfo() {
+PacketFileChunk::PacketFileChunk() {
     //sub_5271C0
     this->count = 0;
 }
 
-PacketPlayerInfo::PacketPlayerInfo(const PacketPlayerInfo* src) {
+PacketFileChunk::PacketFileChunk(const PacketFileChunk* src) {
     //sub_5271DF
     memcpy(&this->id, &src->id, src->count + 0x2D);
 }
 
-PacketPlayerInfo::~PacketPlayerInfo() {
+PacketFileChunk::~PacketFileChunk() {
     //sub_57A9A0
 }
 
-Packet* PacketPlayerInfo::Duplicate() {
+Packet* PacketFileChunk::Duplicate() {
     //sub_57A900
-    return new PacketPlayerInfo(this);
+    return new PacketFileChunk(this);
 }
 
-void PacketPlayerInfo::WriteTo(NetStru2* net) {
+void PacketFileChunk::WriteTo(NetStru2* net) {
     //sub_527220
     net->WriteData(&this->id, this->count + 0x2D);
 }
 
-void PacketPlayerInfo::ReadFrom(NetStru2* net) {
+void PacketFileChunk::ReadFrom(NetStru2* net) {
     //sub_527246  reads 0x2C bytes at +0xA, then optional count bytes at +0x36
     net->ReadData(&this->preamble[0], 0x2C);
     if (this->count > 0) {
@@ -684,7 +684,7 @@ void PacketPlayerInfo::ReadFrom(NetStru2* net) {
     }
 }
 
-uint32_t PacketPlayerInfo::GetDataSize() {
+uint32_t PacketFileChunk::GetDataSize() {
     //sub_57A980
     return this->count + 0x2D;
 }

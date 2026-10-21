@@ -302,7 +302,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		PacketEffect* packet_effect = reinterpret_cast<PacketEffect*>(pkt);
 		PacketTerrain* packet_terrain = reinterpret_cast<PacketTerrain*>(pkt);
 		PacketUnitProperties* packet_props = reinterpret_cast<PacketUnitProperties*>(pkt);
-		PacketPlayerInfo* packet_player = reinterpret_cast<PacketPlayerInfo*>(pkt);
+		PacketFileChunk* packet_file = reinterpret_cast<PacketFileChunk*>(pkt);
 
 		if (!pkt) {
 			if (breakid != 0 || (wnd->dialogsMask & 1) != 0) {
@@ -2192,15 +2192,15 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0xc0: {
-			CString fname = CString((const char*)packet_player->preamble) + ".tmp";
+			CString fname = CString((const char*)packet_file->preamble) + ".tmp";
 			CFile fl;
 
 			try {
-				if (packet_player->offset == 0) {
+				if (packet_file->offset == 0) {
 					LockSurface2();
 					FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
 
-					CString cstr = CString(TxtFile::AllLines[0x16b]) + " " + (const char*)packet_player->preamble;
+					CString cstr = CString(TxtFile::AllLines[0x16b]) + " " + (const char*)packet_file->preamble;
 					g_font1->DrawTxt(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, cstr, 8 | 2, clrsh_ShockingBlack);
 
 					UnlockSurface2();
@@ -2214,8 +2214,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					fl.Open(fname, CFile::modeWrite);
 				}
 
-				fl.Seek(packet_player->offset, 0);
-				fl.Write(packet_player->var_data, packet_player->count);
+				fl.Seek(packet_file->offset, 0);
+				fl.Write(packet_file->var_data, packet_file->count);
 				fl.Close();
 
 				LockSurface2();
@@ -2233,18 +2233,18 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			catch (...)
 			{}
 
-			if (packet_player->offset + packet_player->count < packet_player->total_length) {
-				this->FUN_0041cb67(packet_player->offset + packet_player->count);
+			if (packet_file->offset + packet_file->count < packet_file->total_length) {
+				this->FUN_0041cb67(packet_file->offset + packet_file->count);
 			} else {
 				
 				try {
-					CFile::Remove((const char*)packet_player->preamble);
+					CFile::Remove((const char*)packet_file->preamble);
 				}
 				catch(...)
 				{}
 
 				try {
-					CFile::Rename(fname, (const char*)packet_player->preamble);
+					CFile::Rename(fname, (const char*)packet_file->preamble);
 				}
 				catch (...)
 				{}
