@@ -1935,6 +1935,7 @@ VisTextBox::~VisTextBox() = default; //4503a0
 
 void VisTextBox::VMethod7() {
     //4d9a21
+    // client: 4de337
     if (!this->parent) {
         return;
     }
@@ -1950,32 +1951,42 @@ void VisTextBox::VMethod7() {
     FillRectColor(rt.right, rt.top + 1, rt.right, rt.bottom - 1, GetColorRGB(0x5e, 0x73, 0x65));
     FillRectColor(rt.left + 1, rt.bottom, rt.right - 1, rt.bottom, GetColorRGB(0x5e, 0x73, 0x65));
 
+    CString s = this->text;
+#ifdef A2CLIENT
+    if (this->is_password != 0) {
+        for (int32_t i = 0; i < s.GetLength(); i++) {
+            s.SetAt(i, '*');
+        }
+    }
+#endif
+
     if (this->select_start != this->select_end) {
         CRect rshd;
         rshd.bottom = rt.bottom - 2;
 
-        CString s = this->text.Left(this->select_end);
-        
-        rshd.right = rt.left + 4 + this->font->GetStrWidth(s);
+        rshd.right = rt.left + 4 + this->font->GetStrWidth(s.Left(this->select_end));
         rshd.top = rt.top + 2;
 
-        s = this->text.Left(this->select_start);
-
-        rshd.left = rt.left + 4 + this->font->GetStrWidth(s);
+        rshd.left = rt.left + 4 + this->font->GetStrWidth(s.Left(this->select_start));
 
         ShadowRect(rshd, 12);
     }
 
-    this->font->DrawTextWithShadow(rt.left + 4, rt.top + rt.Height() / 2, this->text, 8, this->clr, 1);
+    this->font->DrawTextWithShadow(rt.left + 4, rt.top + rt.Height() / 2, s, 8, this->clr, 1);
 
     if (this->TestFlags(FLAG_FOCUS) != 0 && this->cursor_blink != 0) {
         CRect blink;
-        blink.left = rt.left + 4 + this->font->GetStrWidth(this->text.Left(this->cursor_pos));
+        blink.left = rt.left + 4 + this->font->GetStrWidth(s.Left(this->cursor_pos));
         blink.right = blink.left + 2;
         blink.top = rt.top + 2;
         blink.bottom = rt.bottom - 2;
         FillRectColorSimple(blink.left, blink.top, blink.right, blink.bottom, GetColorRGB(255, 255, 255));
     }
+#ifdef A2CLIENT
+    if (this->TestFlags(FLAG_ENABLED) == 0) {
+        ShadowRect(rt, 3);
+    }
+#endif
     UnlockSurface2();
 }
 

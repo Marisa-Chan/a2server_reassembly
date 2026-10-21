@@ -2399,3 +2399,5 @@ PORTED	VisCharInfo	VMethod26	4b38af	4b81df
 PORTED	VisCharSellectButtons	OnLButtonUp	4303c8	4322bb
 PORTED	VisCharInfo	VMethod27	4b3a0d	4b8374
 PORTED	VisTextBox	VisTextBox	4d9891	4de195
+PORTED	VisTextBox	VMethod7	4d9a21	4de337
+PORTED	VisNetChatTextBox	VMethod7	4d9a21	4de337
