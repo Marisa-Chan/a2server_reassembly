@@ -338,20 +338,20 @@ ASSERT_SIZE(PacketUnitAction, 0xE);
 
 
 // ---------------------------------------------------------------------------
-// PacketEight
+// PacketSack
 // Constructor sub_526FC7, static unk_6CE970, vtable off_60EE00.
 // Generic 8-byte payload packet; fields not initialised by ctor.
 // Copy ctor: sub_526FE6 (copies 9 bytes: id + 8 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
-class PacketEight : public Packet {
+class PacketSack : public Packet {
 public:
-    static PacketEight Inst; // unk_6CE970
+    static PacketSack Inst; // unk_6CE970
 public:
-    PacketEight(); // sub_526FC7
-    PacketEight(const PacketEight* src); // sub_526FE6
+    PacketSack(); // sub_526FC7
+    PacketSack(const PacketSack* src); // sub_526FE6
 public:
-    virtual ~PacketEight();
+    virtual ~PacketSack();
     virtual Packet* Duplicate() override; // sub_57A540
     virtual uint32_t GetDataSize() override; // sub_57A5C0
 public:
@@ -362,7 +362,7 @@ public:
     int16_t ypos; // 0x10
 };
 __pragma(pack(pop))
-ASSERT_SIZE(PacketEight, 0x12);
+ASSERT_SIZE(PacketSack, 0x12);
 
 
 // ---------------------------------------------------------------------------

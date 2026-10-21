@@ -1189,3 +1189,4 @@ PacketPing -> PacketUnitHp -- id 0x73 carries unit_id + hp and drives the client
 PacketSync -> PacketBuildingHp -- id 0x82 carries building_id + hp; client handler just assigns ct->hp and refreshes HP UI
 PacketAbility -> PacketUnitAction -- ids 0x6B/0x6D/0x71 start unit Move/Turn/Attack animations (client logs literally say Command Move/Turn/Attack); nothing ability-related
 PacketMount -> PacketRangedAttack -- id 0x72 is the ranged 'Shoot' animation toward cast_target (client logs Command Ranged Attack); nothing mounts anything; SendMountPacket -> SendRangedAttackPacket
+PacketEight -> PacketSack -- the old name was just its payload size; its only use (id 0x7A) spawns/updates a dropped loot sack (CBackPack client-side, Sack server-side)

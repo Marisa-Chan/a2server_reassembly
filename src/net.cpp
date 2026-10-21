@@ -1122,7 +1122,7 @@ Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
         break;
 
     case 0x7a:
-        pkt = &PacketEight::Inst;
+        pkt = &PacketSack::Inst;
         pkt->ReadFrom(ns2);
         break;
 
@@ -4703,7 +4703,7 @@ void NetStru1::BroadcastTokenState(Token* token, Player* player, uint8_t flag) {
 
     if (token->IsKindOf(RUNTIME_CLASS(Sack))) {
         Sack* sack = static_cast<Sack*>(token);
-        PacketEight& packet = PacketEight::Inst;
+        PacketSack& packet = PacketSack::Inst;
         packet.id = 0x7A;
         packet.to_player_id = player->player_id;
         packet.xpos = sack->position->GetXx();

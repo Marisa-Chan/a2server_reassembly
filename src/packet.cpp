@@ -501,29 +501,29 @@ uint32_t PacketUnitAction::GetDataSize() {
 }
 
 // ============================================================
-// PacketEight
+// PacketSack
 // ============================================================
-PacketEight PacketEight::Inst;
+PacketSack PacketSack::Inst;
 
-PacketEight::PacketEight() {
+PacketSack::PacketSack() {
     //sub_526FC7
 }
 
-PacketEight::PacketEight(const PacketEight* src) {
+PacketSack::PacketSack(const PacketSack* src) {
     //sub_526FE6
     memcpy(&this->id, &src->id, 9); // id + 8 bytes
 }
 
-PacketEight::~PacketEight() {
+PacketSack::~PacketSack() {
     //sub_57A5D0
 }
 
-Packet* PacketEight::Duplicate() {
+Packet* PacketSack::Duplicate() {
     //sub_57A540
-    return new PacketEight(this);
+    return new PacketSack(this);
 }
 
-uint32_t PacketEight::GetDataSize() {
+uint32_t PacketSack::GetDataSize() {
     //sub_57A5C0
     return 9; // id(1) + 8 bytes
 }

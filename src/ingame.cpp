@@ -295,7 +295,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		PacketRangedAttack* packet_ranged_attack = reinterpret_cast<PacketRangedAttack*>(pkt);
 		PacketUnitHp* packet_unit_hp = reinterpret_cast<PacketUnitHp*>(pkt);
 		PacketUnitStateVec* packet_state = reinterpret_cast<PacketUnitStateVec*>(pkt);
-		PacketEight* packet_eight = reinterpret_cast<PacketEight*>(pkt);
+		PacketSack* packet_sack = reinterpret_cast<PacketSack*>(pkt);
 		PacketBuildingHp* packet_building_hp = reinterpret_cast<PacketBuildingHp*>(pkt);
 		PacketMoveCmd* packet_move = reinterpret_cast<PacketMoveCmd*>(pkt);
 		PacketAoeZone* packet_aoe = reinterpret_cast<PacketAoeZone*>(pkt);
@@ -1387,19 +1387,19 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x7a: {
 			CGameObject* ct = nullptr;
-			if (this->field_0x9d0.Lookup(packet_eight->unit_id, ct)) {
-				ct->typeId = packet_eight->type_id;
+			if (this->field_0x9d0.Lookup(packet_sack->unit_id, ct)) {
+				ct->typeId = packet_sack->type_id;
 				if (ct->typeId > 5) {
 					ct->typeId = 5;
 				}
 			} else {
 				CBackPack* pak = new CBackPack();
-				this->field_0x9d0[packet_eight->unit_id] = pak;
+				this->field_0x9d0[packet_sack->unit_id] = pak;
 
-				pak->SetVals(packet_eight->unit_id, 1, packet_eight->xpos, packet_eight->ypos, 0, 0, 0, 0, 1);
+				pak->SetVals(packet_sack->unit_id, 1, packet_sack->xpos, packet_sack->ypos, 0, 0, 0, 0, 1);
 
 				pak->map_player = this->my_main_unit;
-				pak->typeId = packet_eight->type_id;
+				pak->typeId = packet_sack->type_id;
 				if (pak->typeId > 5) {
 					pak->typeId = 5;
 				}
