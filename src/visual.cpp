@@ -9913,9 +9913,14 @@ int32_t VisCharInfo::OnMouseMove(uint32_t wparam, CPoint pos) {
 }
 
 // 4B38AF
+// client: 4b81df
 int32_t VisCharInfo::VMethod26(int32_t a) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->drag_entry != nullptr) {
+        return 0;
+    }
+    if (g_IsServer == 0 && main_wnd->field_0x3e0.field_10 != 0 && main_wnd->hat_settings.ishat != 0 &&
+        (main_wnd->hat_settings.deathmatch == 1 || main_wnd->hat_settings.deathmatch == 2)) {
         return 0;
     }
     if ((main_wnd->dialogsMask & 2) == 0 && main_wnd->dialogsMask != 1) {
