@@ -13,7 +13,6 @@ CLIENT_ONLY	VisDiplomacy	FUN_0044829c	-	44829c	vt
 DIFFERS	VisHatBrowserDlg	VMethod26	44bc6c	44e774	slot30
 DIFFERS	VisHatBrowserDlg	MsgProc	44c1a9	44f11d	slot18
 DIFFERS	VisHatServerListDlg	VMethod26	444086	446656	slot30
-DIFFERS	VisHatServerListDlg	VMethod30	44a34d	44ca33	slot34
 DIFFERS	VisMessageBox	VMethod26	444086	446656	slot30
 CLIENT_ONLY	VisMessageBox	Serialize(CArchive_&)	-	4019d0	vt
 DIFFERS	VisMessageBoxWithList	VMethod26	444086	446656	slot30

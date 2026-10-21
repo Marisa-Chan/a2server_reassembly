@@ -25031,8 +25031,11 @@ int32_t VisHatServerListDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpa
 }
 
 // 44A34D
+// client: 44ca33
 CVisualObject* VisHatServerListDlg::VMethod30(const void* data, const RECT& r) {
     HatSettings* hat = (HatSettings*)data;
+    // the client lays out everything below the ip box 0x18 lower
+    const int32_t dy = (g_IsServer != 0) ? 0 : 0x18;
 
     VisTextBox* ip_box = new VisTextBox(2, r.left, r.top, r.right, r.top + 0x18, g_font1, clrsh_TechBlack, txt_patch.GetLine(0x70));
     this->AddChild(ip_box);
@@ -25042,40 +25045,50 @@ CVisualObject* VisHatServerListDlg::VMethod30(const void* data, const RECT& r) {
         ip_box->ReadData(hat->hatprogip);
     }
 
-    VisRadioType2* deathmatch_radio = new VisRadioType2(3, r.left, 0x6c, r.right, 0x9c, g_font1, p_clrsh_Black, nullptr);
+    VisRadioType2* deathmatch_radio = new VisRadioType2(3, r.left, 0x6c, r.right, 0x9c + dy, g_font1, p_clrsh_Black, nullptr);
     deathmatch_radio->AddEntry(txt_patch.GetLine(0x68));
-    deathmatch_radio->AddEntry(txt_patch.GetLine(0x69));
+    deathmatch_radio->AddEntry(txt_patch.GetLine((g_IsServer != 0) ? 0x69 : 0xd5));
+    if (g_IsServer == 0) {
+        deathmatch_radio->AddEntry(txt_patch.GetLine(0x6d));
+    }
     this->AddChild(deathmatch_radio);
-    deathmatch_radio->ReadData(&hat->deathmatch);
+    int32_t dm_display = hat->deathmatch;
+    if (g_IsServer == 0 && dm_display == 3) {
+        dm_display = 1;
+    }
+    deathmatch_radio->ReadData(&dm_display);
     if (hat->ishat == 0) {
         deathmatch_radio->ChangeFlags(1, false);
     }
 
-    VisRadioType2* ishat_radio = new VisRadioType2(4, r.left, 0xa8, r.right, 0xd8, g_font1, p_clrsh_Black, nullptr);
+    VisRadioType2* ishat_radio = new VisRadioType2(4, r.left, 0xa8 + dy, r.right, 0xd8 + dy, g_font1, p_clrsh_Black, nullptr);
     ishat_radio->AddEntry(txt_patch.GetLine(0x78));
     ishat_radio->AddEntry(txt_patch.GetLine(0x79));
     this->AddChild(ishat_radio);
     ishat_radio->ReadData(&hat->ishat);
 
-    this->AddChild(new VisLabel(5, r.left, 0xe4, r.right, 0xfc, txt_patch.GetLine(0x6e), g_font1, p_clrsh_Black, 0));
+    this->AddChild(new VisLabel(5, r.left, 0xe4 + dy, r.right, 0xfc + dy, txt_patch.GetLine(0x6e), g_font1, p_clrsh_Black, 0));
 
-    VisTextBox* login_box = new VisTextBox(6, r.left, 0xfc, r.right, 0x114, g_font1, p_clrsh_Black, nullptr);
+    VisTextBox* login_box = new VisTextBox(6, r.left, 0xfc + dy, r.right, 0x114 + dy, g_font1, p_clrsh_Black, nullptr);
     this->AddChild(login_box);
     login_box->ReadData(hat->login);
     if (hat->ishat == 0) {
         login_box->ChangeFlags(1, false);
     }
 
-    this->AddChild(new VisLabel(7, r.left, 0x12c, r.right, 0x144, txt_patch.GetLine(0x6f), g_font1, p_clrsh_Black, 0));
+    this->AddChild(new VisLabel(7, r.left, 0x12c + dy, r.right, 0x144 + dy, txt_patch.GetLine(0x6f), g_font1, p_clrsh_Black, 0));
 
-    VisTextBox* password_box = new VisTextBox(8, r.left, 0x144, r.right, 0x15c, g_font1, p_clrsh_Black, nullptr);
+    VisTextBox* password_box = new VisTextBox(8, r.left, 0x144 + dy, r.right, 0x15c + dy, g_font1, p_clrsh_Black, nullptr);
     this->AddChild(password_box);
     password_box->ReadData(hat->password);
+#ifdef A2CLIENT
+    password_box->is_password = 1;
+#endif
     if (hat->ishat == 0) {
         password_box->ChangeFlags(1, false);
     }
 
-    VisRadioType1* store_radio = new VisRadioType1(9, r.left, 0x168, r.right, 0x180, g_font1, p_clrsh_Black, txt_patch.GetLine(0x7b));
+    VisRadioType1* store_radio = new VisRadioType1(9, r.left, 0x168 + dy, r.right, 0x180 + dy, g_font1, p_clrsh_Black, txt_patch.GetLine(0x7b));
     store_radio->AddEntry(txt_patch.GetLine(0x7a));
     this->AddChild(store_radio);
     store_radio->ReadData(&hat->store);
