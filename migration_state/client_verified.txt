@@ -2415,3 +2415,5 @@ PORTED	VisHatServerListDlg	VMethod26	444086	446656
 PORTED	VisNetTcpIp	VMethod26	444086	446656
 PORTED	VisConnectionDlg	VMethod30	44604c	44871d
 PORTED	VisStartGame	Accept	43817d	43a2af
+PORTED	VisDiplomacy	FUN_0044829c	-	44829c
+PORTED	VisMessageBox	Serialize(CArchive_&)	-	4019d0
