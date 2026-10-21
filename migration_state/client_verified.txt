@@ -2368,3 +2368,4 @@ IDENTICAL-BATCH	Visibility	6
 PORTED	VisFameHall	VMethod7	45d7f9	461429
 PORTED	VisStartGameTextBox	OnChar	432d1b	434e52
 PORTED	VisShop	sub_4BCC38	4bcc38	4c1604
+PORTED	VisShopCompass	OnLButtonDown	4bf748	4c410b

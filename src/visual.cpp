@@ -11312,6 +11312,7 @@ void VisShopCompass::VMethod7() {
 
 
 // 4BF748
+// client: 4c410b
 int32_t VisShopCompass::OnLButtonDown(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     CPoint topleft = this->shop->rect.TopLeft();
@@ -11330,7 +11331,11 @@ int32_t VisShopCompass::OnLButtonDown(uint32_t wparam, CPoint pos) {
                 this->state |= 0x20;
                 this->VMethod28();
                 this->shop->assortiment->sub_4B73E4((uint16_t)this->shop->select_category);
-                this->shop->assortiment->VMethod10();
+                if (g_IsServer != 0) {
+                    this->shop->assortiment->VMethod10();
+                } else {
+                    this->shop->assortiment->VMethod9();
+                }
                 break;
             }
         }
