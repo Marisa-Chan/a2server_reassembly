@@ -1147,6 +1147,7 @@ void MainWindow::OnKeyUp(UINT key, UINT repeat, UINT flags) {
 }
 
 // 48cb3c
+// client: 490ce4 — no NetStru1/hat-connector teardown after Close()
 void MainWindow::DestroyServer() {
     if (g_Server != nullptr) {
         delete g_Server;
@@ -1154,9 +1155,11 @@ void MainWindow::DestroyServer() {
     }
 
     g_CLlDriver.Close();
+#ifndef A2CLIENT
     g_NetStru1_main.ProcessConnections();
     g_HatLLDriver.Close();
     NetStru1::HatConnector.ProcessConnections();
+#endif
 
     this->field_0x438 = 0x7fffffff;
     this->last_tic_time = 0x7fffffff;
