@@ -20,8 +20,6 @@ BATCH	AvailNetSession	1 identical fns	-	-	-
 DIFFERS	BigStruct2	ProcessPackets	40da14	40dac9	callsite:5 votes
 DIFFERS	BigStruct2	UpdateSelectionState	416cf7	41850e	callsite:18 votes
 DIFFERS	BigStruct2	sub_40B314	40b314	40b35f	callsite:3 votes
-DIFFERS	BigStruct2	sub_417B42	417b42	419313	callsite:3 votes
-DIFFERS	BigStruct2	FUN_0041ae1c	41ae1c	41c6a8	callsite:6 votes
 BATCH	BitSet	3 identical fns	-	-	-
 DIFFERS	Building	Serialize	542ce7	529f6d	slot2
 DIFFERS	Building	RollDamage	542a31	529e83	callsite:2 votes
@@ -33,35 +31,8 @@ DIFFERS	BuildingInfo	ParseValue	514ac9	507d92	slot6
 DIFFERS	BuildingInfo	destructor	573020	543980	slot1
 DIFFERS	BuildingsList	AddBuilding	558228	535ee0	callsite:2 votes
 DIFFERS	CA16	DrawIndexMask	425508	427438	slot16
-DIFFERS	CAirUnit	Draw	464974	468640	slot10
-DIFFERS	CAirUnit	DrawHealthBar	466a78	46a757	slot12
-DIFFERS	CAirUnit	DrawShadow	465b5a	469826	slot11
-DIFFERS	CAirUnit	Update	46785f	46b5ef	slot15
-DIFFERS	CAirUnit	SpawnSpellProjectile	468765	46c4f1	slot23
-DIFFERS	CAirUnit	UpdateTransientVisualElements	468dcb	46cb51	slot20
-DIFFERS	CAirUnit	PlayHitSound	469535	46d2b5	slot29
-DIFFERS	CAirUnit	DrawMinimapRect	46761e	46b3b2	slot13
-DIFFERS	CAirUnit	SpawnAttackProjectile	4684fb	46c28b	slot22
-DIFFERS	CAirUnit	PlayAttackVoice	4698c0	46d63c	slot26
-DIFFERS	CAirUnit	PlayMoveVoice	46999f	46d719	slot27
-DIFFERS	CAirUnit	PlaySwarmVoice	469a7e	46d7f6	slot28
-DIFFERS	CAirUnit	PlaySelectVoice	469b5d	46d8d3	slot32
-DIFFERS	CAirUnit	PlayAttackSound	4693c1	46d145	slot25
-DIFFERS	CAirUnit	PlayDefendVoice	469c3c	46d9b0	slot30
-DIFFERS	CAirUnit	PlayRetreatVoice	469cf5	46da67	slot31
-DIFFERS	CAirUnit	PlayPickupVoice	469dae	46db1e	slot33
-DIFFERS	CAirUnit	PlayCastSound	469499	46d21b	slot24
-DIFFERS	CBackPack	MarkOccupancy	462226	465e36	slot18
-DIFFERS	CBackPack	Draw	462887	46647f	slot10
-DIFFERS	CBackPack	UpdateOccupancy	462190	465da0	slot17
-DIFFERS	CBackPack	DrawShadow	46295a	466629	slot11
 BATCH	CBmp256	18 identical fns	-	-	-
 BATCH	CBmp64	21 identical fns	-	-	-
-DIFFERS	CBridge	DrawHealthBar	4631f3	466eca	slot12
-DIFFERS	CBridge	DrawMinimapRect	46380c	4674dd	slot13
-DIFFERS	CBridge	MarkOccupancy	462226	465e36	slot18
-DIFFERS	CBridge	UpdateOccupancy	462190	465da0	slot17
-DIFFERS	CBridge	DrawShadow	462f58	466c2f	slot11
 BATCH	CCursor	10 identical fns	-	-	-
 DIFFERS	CEdit2	OnCmdMsg(uint,int,void_*,AFX_CMDHANDLERINFO_*)	5e3d2f	4637f1	slot5
 CLIENT_ONLY	CEdit2	Serialize(CArchive_&)	-	4019d0	vt
@@ -72,14 +43,8 @@ BATCH	CGameBitmap	20 identical fns	-	-	-
 DIFFERS	CGameFont	DrawTextJustifyShadow	45f10b	462d27	callsite:2 votes
 DIFFERS	CGameFont	DrawTextJustify	45eed7	462af3	callsite:2 votes
 DIFFERS	CGameFont	GetStrWidth	45e1f9	461e19	callsite:6 votes
-DIFFERS	CGameObject	MarkOccupancy	462226	465e36	slot18
-DIFFERS	CGameObject	UpdateOccupancy	462190	465da0	slot17
 BATCH	CGamePalette	10 identical fns	-	-	-
 DIFFERS	CGameSession	LoadCharacterRosterEntry	492c66	497585	callsite:2 votes
-DIFFERS	CHorisontalWoodenBridge	DrawHealthBar	4631f3	466eca	slot12
-DIFFERS	CHorisontalWoodenBridge	DrawMinimapRect	46380c	4674dd	slot13
-DIFFERS	CHorisontalWoodenBridge	MarkOccupancy	462226	465e36	slot18
-DIFFERS	CHorisontalWoodenBridge	UpdateOccupancy	462190	465da0	slot17
 CLIENT_ONLY	CListBox2	Serialize(CArchive_&)	-	4019d0	vt
 DIFFERS	CLlDriver	CloseDpSock	525bcd	514d27	callsite:2 votes
 DIFFERS	CLlDriver	StartServer	521a09	51129c	callsite:4 votes
@@ -94,10 +59,6 @@ DIFFERS	CMultiShopShelf	AddItem	544bce	52b1ed	callsite:2 votes
 DIFFERS	CMultiShopShelf	destructor	57c560	54d6a0	slot1
 DIFFERS	CMultiShopTemplate	FindInstanceFor	547468	52c3ef	callsite:3 votes
 DIFFERS	CMultiShopTemplate	destructor	57caa0	54de00	slot1
-DIFFERS	CProjectile	Update	46d8d8	471643	slot15
-DIFFERS	CProjectile	UpdateTransientVisualElements	46eb80	4728dd	slot20
-DIFFERS	CProjectile	MarkOccupancy	462226	465e36	slot18
-DIFFERS	CProjectile	UpdateOccupancy	462190	465da0	slot17
 BATCH	CSprite16	16 identical fns	-	-	-
 DIFFERS	CSprite256	DrawIndexMask	425508	427438	slot16
 DIFFERS	CSpriteFont16	DrawTxt	45fbd7	4dc525	slot5
@@ -130,35 +91,6 @@ CLIENT_ONLY	CSpriteFont16	OnLButtonDblClk	-	4e11ee	vt
 CLIENT_ONLY	CSpriteFont16	OnMouseMove	-	4e1227	vt
 CLIENT_ONLY	CSpriteFont16	OnKeyDown	-	4e1279	vt
 DIFFERS	CSpriteFont16a	DrawTxt	45ffa9	463bbd	slot5
-DIFFERS	CStructure	DrawHealthBar	4631f3	466eca	slot12
-DIFFERS	CStructure	DrawMinimapRect	46380c	4674dd	slot13
-DIFFERS	CStructure	MarkOccupancy	462226	465e36	slot18
-DIFFERS	CStructure	UpdateOccupancy	462190	465da0	slot17
-DIFFERS	CStructure	DrawShadow	462f58	466c2f	slot11
-DIFFERS	CUnit	Draw	464974	468640	slot10
-DIFFERS	CUnit	DrawHealthBar	466a78	46a757	slot12
-DIFFERS	CUnit	DrawShadow	465b5a	469826	slot11
-DIFFERS	CUnit	Update	46785f	46b5ef	slot15
-DIFFERS	CUnit	SpawnSpellProjectile	468765	46c4f1	slot23
-DIFFERS	CUnit	UpdateTransientVisualElements	468dcb	46cb51	slot20
-DIFFERS	CUnit	PlayHitSound	469535	46d2b5	slot29
-DIFFERS	CUnit	DrawMinimapRect	46761e	46b3b2	slot13
-DIFFERS	CUnit	SpawnAttackProjectile	4684fb	46c28b	slot22
-DIFFERS	CUnit	PlayAttackVoice	4698c0	46d63c	slot26
-DIFFERS	CUnit	PlayMoveVoice	46999f	46d719	slot27
-DIFFERS	CUnit	PlaySwarmVoice	469a7e	46d7f6	slot28
-DIFFERS	CUnit	PlaySelectVoice	469b5d	46d8d3	slot32
-DIFFERS	CUnit	PlayAttackSound	4693c1	46d145	slot25
-DIFFERS	CUnit	PlayDefendVoice	469c3c	46d9b0	slot30
-DIFFERS	CUnit	PlayRetreatVoice	469cf5	46da67	slot31
-DIFFERS	CUnit	PlayPickupVoice	469dae	46db1e	slot33
-DIFFERS	CUnit	PlayCastSound	469499	46d21b	slot24
-DIFFERS	CVerticalWoodenBridge	DrawHealthBar	4631f3	466eca	slot12
-DIFFERS	CVerticalWoodenBridge	DrawMinimapRect	46380c	4674dd	slot13
-DIFFERS	CVerticalWoodenBridge	MarkOccupancy	462226	465e36	slot18
-DIFFERS	CVerticalWoodenBridge	UpdateOccupancy	462190	465da0	slot17
-DIFFERS	CVisualObject	VMethod26	444086	446656	callsite:2 votes
-CLIENT_ONLY	CVisualObject	FUN_00447ea9	-	447ea9	vt
 BATCH	CellState	3 identical fns	-	-	-
 BATCH	ComSettings	2 identical fns	-	-	-
 BATCH	CowardActivation	2 identical fns	-	-	-
@@ -181,9 +113,7 @@ DIFFERS	Effect	RollStrength	541eb5	529380	slot21
 DIFFERS	Effect	CalcChargePercent	541d59	52921c	slot20
 DIFFERS	Effect	CalcScrollPrice	541c87	52915e	slot19
 DIFFERS	Effect	destructor	57c320	54d2f0	slot1
-BATCH	EndGameMenu	34 identical fns	-	-	-
 BATCH	EquipmentExtra	3 identical fns	-	-	-
-BATCH	ExitGameMenu	35 identical fns	-	-	-
 BATCH	Fame1	1 identical fns	-	-	-
 BATCH	Fame2	11 identical fns	-	-	-
 BATCH	FatEntry	3 identical fns	-	-	-
@@ -195,7 +125,6 @@ BATCH	GMapThing	8 identical fns	-	-	-
 BATCH	GO_11c	1 identical fns	-	-	-
 DIFFERS	GameApp	OnFinalRelease(void)	5e3fe6	5b1fc8	slot6
 DIFFERS	GameDataRes	CreateItemById	510ee6	504aab	callsite:2 votes
-BATCH	GameOptionsWindow	35 identical fns	-	-	-
 BATCH	GameSettings	3 identical fns	-	-	-
 BATCH	GfxFile	11 identical fns	-	-	-
 BATCH	GfxObject	7 identical fns	-	-	-
@@ -203,7 +132,6 @@ BATCH	GlobalMapRouteArray	1 identical fns	-	-	-
 BATCH	Group	3 identical fns	-	-	-
 BATCH	GroupList	4 identical fns	-	-	-
 BATCH	GroupSub	3 identical fns	-	-	-
-BATCH	HintedListBox	38 identical fns	-	-	-
 DIFFERS	Human	ProcessEffects	52a857	518d2f	slot6
 DIFFERS	Human	CopyFrom	52963b	51807f	slot15
 DIFFERS	Human	InitFromName	532587	51e20d	callsite:2 votes
@@ -239,7 +167,6 @@ DIFFERS	Humanoid	AwardKillMoney	53111b	51ceb7	slot20
 DIFFERS	Humanoid	GetCorpseDecayTime	530394	51c162	slot29
 DIFFERS	Humanoid	RecalcExperience	537199	5211ee	slot23
 DIFFERS	Humanoid	destructor	57bb70	54c730	slot1
-BATCH	IngameMenu	34 identical fns	-	-	-
 DIFFERS	Inn	Serialize	542ce7	529f6d	slot2
 DIFFERS	Inn	RegenTick	567d74	53df77	slot5
 DIFFERS	Inn	destructor	582750	5530e0	slot1
@@ -257,7 +184,6 @@ DIFFERS	Item	TakeOne	548dbf	52d55b	slot16
 DIFFERS	Item	Clone	57cdc0	54e050	slot17
 DIFFERS	Item	IsSimpleItem	548817	52d1e4	slot20
 DIFFERS	Item	destructor	57ce50	54e0e0	slot1
-BATCH	LoadGameWindow	36 identical fns	-	-	-
 DIFFERS	MagicInfo	ParseValues	512c4d	5064df	slot5
 DIFFERS	MagicInfo	ParseValue	5131c1	506744	slot6
 DIFFERS	MagicInfo	Serialize	513a4f	506f55	slot2
@@ -281,7 +207,6 @@ DIFFERS	MatShape	ParseValues	512c4d	5064df	slot5
 DIFFERS	MatShape	ParseValue	5131c1	506744	slot6
 DIFFERS	MatShape	Serialize	513b05	506fff	slot2
 DIFFERS	MatShape	destructor	572640	543570	slot1
-DIFFERS	MenuButton	OnChar	4dd9b3	4e2336	slot29
 DIFFERS	MonsterInfo	ParseValues	512c4d	5064df	slot5
 DIFFERS	MonsterInfo	ParseValue	513c82	507170	slot6
 DIFFERS	MonsterInfo	Serialize	513ff6	507486	slot2
@@ -296,7 +221,6 @@ CLIENT_ONLY	MusicPlayer	OnChar	-	43a630	vt
 CLIENT_ONLY	MusicPlayer	OnLButtonUp	-	43a7d0	vt
 CLIENT_ONLY	MusicPlayer	FUN_0043a7e0	-	43a7e0	vt
 CLIENT_ONLY	MusicPlayer	VMethod27	-	43a9e0	vt
-CLIENT_ONLY	MusicPlayer	VMethod26	-	446656	vt
 CLIENT_ONLY	MusicPlayer	FUN_00452897	-	452897	vt
 CLIENT_ONLY	MusicPlayer	FUN_00452a02	-	452a02	vt
 CLIENT_ONLY	MusicPlayer	TestFlags	-	4dc2fd	vt
@@ -413,7 +337,6 @@ DIFFERS	QuestMap	FUN_00581750	581750	543c50	slot1
 CLIENT_ONLY	QuestMap	FUN_00538a01	-	538a01	vt
 CLIENT_ONLY	QuestMap	FUN_00538acf	-	538acf	vt
 CLIENT_ONLY	QuestMap	FUN_00538f1f	-	538f1f	vt
-BATCH	QuestObjectivesHeaderDialogVisualObject	37 identical fns	-	-	-
 BATCH	QuestRaiseGhosts	4 identical fns	-	-	-
 BATCH	QuestRaiseSkeletons	4 identical fns	-	-	-
 BATCH	QuestRaiseZombies	4 identical fns	-	-	-
@@ -425,7 +348,6 @@ DIFFERS	Sack	Serialize	55c889	537600	slot2
 DIFFERS	Sack	FUN_0057dd50	57dd50	54ee90	slot1
 DIFFERS	SackList	DumpInventoryAt	554460	534829	callsite:3 votes
 BATCH	SaveFileInfo	1 identical fns	-	-	-
-BATCH	SaveGameWindow	38 identical fns	-	-	-
 BATCH	ScanPresenceGrid	6 identical fns	-	-	-
 BATCH	Scenario	16 identical fns	-	-	-
 BATCH	ScenarioLocation	2 identical fns	-	-	-
@@ -452,8 +374,6 @@ DIFFERS	Shop	destructor	57c530	54d650	slot1
 BATCH	ShopAssortment	5 identical fns	-	-	-
 BATCH	SocketNm	2 identical fns	-	-	-
 BATCH	SoundChannel	13 identical fns	-	-	-
-DIFFERS	SoundPreferencesDialogVisualObject	ConvVolumeToSlider	45ca10	46063e	callsite:3 votes
-DIFFERS	SoundPreferencesDialogVisualObject	ConvSliderToVolume	45ca45	460673	callsite:3 votes
 BATCH	SoundSettings	4 identical fns	-	-	-
 DIFFERS	Spell	Serialize	53cf8d	525c30	slot2
 DIFFERS	Spell	Spell	538fdd	522d34	callsite:2 votes
@@ -488,7 +408,6 @@ DIFFERS	Token	destructor	57b300	54c030	slot1
 DIFFERS	TokenEntry	GetHintText	439973	43bc8f	callsite:5 votes
 DIFFERS	TokenEntry	IsEmpty	41f0d0	420930	callsite:16 votes
 BATCH	TokenPos	21 identical fns	-	-	-
-BATCH	TownMenuListDialogVisualObject	36 identical fns	-	-	-
 BATCH	TransientVisualEffectBuilder	7 identical fns	-	-	-
 BATCH	Trigger	2 identical fns	-	-	-
 BATCH	TriggerAction	1 identical fns	-	-	-

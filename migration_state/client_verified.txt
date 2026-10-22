@@ -2419,3 +2419,407 @@ PORTED	VisDiplomacy	FUN_0044829c	-	44829c
 PORTED	VisMessageBox	Serialize(CArchive_&)	-	4019d0
 PORTED	VisHatBrowserDlg	VMethod26	44bc6c	44e774
 PORTED	VisHatBrowserDlg	MsgProc	44c1a9	44f11d
+IDENTICAL	EndGameMenu	VMethod8	4df67c	4e3ffd	strings-ok
+IDENTICAL	EndGameMenu	SetFocus	4d7aa9	4dc3b9	strings-ok
+IDENTICAL	EndGameMenu	MsgProc	440e54	4432bb	strings-ok
+IDENTICAL	EndGameMenu	OnLButtonDown	4dfee7	4e4868	strings-ok
+IDENTICAL	EndGameMenu	SetCursorOver	4d7a3a	4dc34a	strings-ok
+IDENTICAL	EndGameMenu	ReadData	4d7e02	4dc6a9	strings-ok
+IDENTICAL	EndGameMenu	WriteData	4d7d99	4dc712	strings-ok
+IDENTICAL	EndGameMenu	DataSize	4d7d37	4dc647	strings-ok
+IDENTICAL	EndGameMenu	OnKeyDown	440ece	443335	strings-ok
+IDENTICAL	EndGameMenu	DoClose	4dfb8a	4e450b	strings-ok
+IDENTICAL	EndGameMenu	VMethod7	4df63d	4e3fbe	strings-ok
+IDENTICAL	EndGameMenu	VMethod9	4d7cc8	4dc5d8	strings-ok
+IDENTICAL	EndGameMenu	VMethod28	4dfb4f	4e44d0	strings-ok
+IDENTICAL	EndGameMenu	ChangeFlags	4d7a03	4dc313	strings-ok
+IDENTICAL	EndGameMenu	VMethod10	4d7d03	4dc613	strings-ok
+IDENTICAL	EndGameMenu	FUN_0044f780	44f780	4534e0	strings-ok
+IDENTICAL	EndGameMenu	GetHint	4d7c15	4dc525	strings-ok
+IDENTICAL	EndGameMenu	SetHint	4d7bf9	4dc509	strings-ok
+IDENTICAL	EndGameMenu	Dump	4d82b3	4dcbc3	strings-ok
+IDENTICAL	EndGameMenu	TestFlags	4d79ed	4dc2fd	strings-ok
+IDENTICAL	EndGameMenu	OnWmUser	41ed80	4201a0	strings-ok
+IDENTICAL	EndGameMenu	OnRButtonDown	438880	4201b0	strings-ok
+IDENTICAL	EndGameMenu	OnRButtonUp	438890	4201c0	strings-ok
+IDENTICAL	EndGameMenu	OnRButtonDblClk	41ed90	420950	strings-ok
+IDENTICAL	EndGameMenu	OnKeyUp	41eda0	43a600	strings-ok
+IDENTICAL	EndGameMenu	OnChar	4388b0	43a610	strings-ok
+IDENTICAL	EndGameMenu	OnLButtonUp	438860	43a630	strings-ok
+IDENTICAL	EndGameMenu	OnMouseMove	41ed70	43a7d0	strings-ok
+IDENTICAL	EndGameMenu	OnLButtonDblClk	438870	43a7e0	strings-ok
+IDENTICAL	EndGameMenu	Serialize	401970	4019d0	strings-ok
+IDENTICAL	EndGameMenu	AssertValid	401980	4019e0	strings-ok
+IDENTICAL	EndGameMenu	VMethod26	450900	43a9e0	strings-ok
+IDENTICAL	EndGameMenu	VMethod27	4388c0	453380	strings-ok
+IDENTICAL	EndGameMenu	GetRuntimeClass	5ddf9b	5893d3	strings-ok
+IDENTICAL-BATCH	EndGameMenu	34
+IDENTICAL	ExitGameMenu	VMethod8	4df67c	4e3ffd	strings-ok
+IDENTICAL	ExitGameMenu	ExitGameMenu	44186e	443e3d	strings-ok
+IDENTICAL	ExitGameMenu	SetFocus	4d7aa9	4dc3b9	strings-ok
+IDENTICAL	ExitGameMenu	MsgProc	440e54	4432bb	strings-ok
+IDENTICAL	ExitGameMenu	OnLButtonDown	4dfee7	4e4868	strings-ok
+IDENTICAL	ExitGameMenu	SetCursorOver	4d7a3a	4dc34a	strings-ok
+IDENTICAL	ExitGameMenu	ReadData	4d7e02	4dc6a9	strings-ok
+IDENTICAL	ExitGameMenu	WriteData	4d7d99	4dc712	strings-ok
+IDENTICAL	ExitGameMenu	DataSize	4d7d37	4dc647	strings-ok
+IDENTICAL	ExitGameMenu	OnKeyDown	440ece	443335	strings-ok
+IDENTICAL	ExitGameMenu	DoClose	4dfb8a	4e450b	strings-ok
+IDENTICAL	ExitGameMenu	VMethod7	4df63d	4e3fbe	strings-ok
+IDENTICAL	ExitGameMenu	VMethod9	4d7cc8	4dc5d8	strings-ok
+IDENTICAL	ExitGameMenu	VMethod28	4dfb4f	4e44d0	strings-ok
+IDENTICAL	ExitGameMenu	ChangeFlags	4d7a03	4dc313	strings-ok
+IDENTICAL	ExitGameMenu	VMethod10	4d7d03	4dc613	strings-ok
+IDENTICAL	ExitGameMenu	FUN_0044f820	44f820	4535f0	strings-ok
+IDENTICAL	ExitGameMenu	GetHint	4d7c15	4dc525	strings-ok
+IDENTICAL	ExitGameMenu	SetHint	4d7bf9	4dc509	strings-ok
+IDENTICAL	ExitGameMenu	Dump	4d82b3	4dcbc3	strings-ok
+IDENTICAL	ExitGameMenu	TestFlags	4d79ed	4dc2fd	strings-ok
+IDENTICAL	ExitGameMenu	OnWmUser	41ed80	4201a0	strings-ok
+IDENTICAL	ExitGameMenu	OnRButtonDown	438880	4201b0	strings-ok
+IDENTICAL	ExitGameMenu	OnRButtonUp	438890	4201c0	strings-ok
+IDENTICAL	ExitGameMenu	OnRButtonDblClk	41ed90	420950	strings-ok
+IDENTICAL	ExitGameMenu	OnKeyUp	41eda0	43a600	strings-ok
+IDENTICAL	ExitGameMenu	OnChar	4388b0	43a610	strings-ok
+IDENTICAL	ExitGameMenu	OnLButtonUp	438860	43a630	strings-ok
+IDENTICAL	ExitGameMenu	OnMouseMove	41ed70	43a7d0	strings-ok
+IDENTICAL	ExitGameMenu	OnLButtonDblClk	438870	43a7e0	strings-ok
+IDENTICAL	ExitGameMenu	Serialize	401970	4019d0	strings-ok
+IDENTICAL	ExitGameMenu	AssertValid	401980	4019e0	strings-ok
+IDENTICAL	ExitGameMenu	VMethod26	450900	43a9e0	strings-ok
+IDENTICAL	ExitGameMenu	VMethod27	4388c0	453380	strings-ok
+IDENTICAL	ExitGameMenu	GetRuntimeClass	5ddf9b	5893d3	strings-ok
+IDENTICAL-BATCH	ExitGameMenu	35
+IDENTICAL	GameOptionsWindow	VMethod26	442646	444c18	strings-ok
+IDENTICAL	GameOptionsWindow	VMethod8	4df67c	4e3ffd	strings-ok
+IDENTICAL	GameOptionsWindow	MsgProc	443cd7	4462a9	strings-ok
+IDENTICAL	GameOptionsWindow	SetFocus	4d7aa9	4dc3b9	strings-ok
+IDENTICAL	GameOptionsWindow	OnLButtonDown	4dfee7	4e4868	strings-ok
+IDENTICAL	GameOptionsWindow	SetCursorOver	4d7a3a	4dc34a	strings-ok
+IDENTICAL	GameOptionsWindow	ReadData	4d7e02	4dc6a9	strings-ok
+IDENTICAL	GameOptionsWindow	WriteData	4d7d99	4dc712	strings-ok
+IDENTICAL	GameOptionsWindow	DataSize	4d7d37	4dc647	strings-ok
+IDENTICAL	GameOptionsWindow	DoClose	4dfb8a	4e450b	strings-ok
+IDENTICAL	GameOptionsWindow	VMethod7	4df63d	4e3fbe	strings-ok
+IDENTICAL	GameOptionsWindow	VMethod9	4d7cc8	4dc5d8	strings-ok
+IDENTICAL	GameOptionsWindow	VMethod28	4dfb4f	4e44d0	strings-ok
+IDENTICAL	GameOptionsWindow	ChangeFlags	4d7a03	4dc313	strings-ok
+IDENTICAL	GameOptionsWindow	OnKeyDown	4dfeb2	4e4833	strings-ok
+IDENTICAL	GameOptionsWindow	VMethod10	4d7d03	4dc613	strings-ok
+IDENTICAL	GameOptionsWindow	FUN_0044f8a0	44f8a0	4536c0	strings-ok
+IDENTICAL	GameOptionsWindow	GetHint	4d7c15	4dc525	strings-ok
+IDENTICAL	GameOptionsWindow	SetHint	4d7bf9	4dc509	strings-ok
+IDENTICAL	GameOptionsWindow	~GameOptionsWindow	443cbb	406f89	strings-ok
+IDENTICAL	GameOptionsWindow	Dump	4d82b3	4dcbc3	strings-ok
+IDENTICAL	GameOptionsWindow	TestFlags	4d79ed	4dc2fd	strings-ok
+IDENTICAL	GameOptionsWindow	OnWmUser	41ed80	4201a0	strings-ok
+IDENTICAL	GameOptionsWindow	OnRButtonDown	438880	4201b0	strings-ok
+IDENTICAL	GameOptionsWindow	OnRButtonUp	438890	4201c0	strings-ok
+IDENTICAL	GameOptionsWindow	OnRButtonDblClk	41ed90	420950	strings-ok
+IDENTICAL	GameOptionsWindow	OnKeyUp	41eda0	43a600	strings-ok
+IDENTICAL	GameOptionsWindow	OnChar	4388b0	43a610	strings-ok
+IDENTICAL	GameOptionsWindow	OnLButtonUp	438860	43a630	strings-ok
+IDENTICAL	GameOptionsWindow	OnMouseMove	41ed70	43a7d0	strings-ok
+IDENTICAL	GameOptionsWindow	OnLButtonDblClk	438870	43a7e0	strings-ok
+IDENTICAL	GameOptionsWindow	Serialize	401970	4019d0	strings-ok
+IDENTICAL	GameOptionsWindow	AssertValid	401980	4019e0	strings-ok
+IDENTICAL	GameOptionsWindow	VMethod27	4388c0	43a9e0	strings-ok
+IDENTICAL	GameOptionsWindow	GetRuntimeClass	5ddf9b	5893d3	strings-ok
+IDENTICAL-BATCH	GameOptionsWindow	35
+IDENTICAL	HintedListBox	VMethod7	4dc11d	4e0aa0	strings-ok
+IDENTICAL	HintedListBox	SelectItem	4dbe7f	4e0802	strings-ok
+IDENTICAL	HintedListBox	MsgProc	4dc62f	4e0fb2	strings-ok
+IDENTICAL	HintedListBox	OnLButtonDown	4dc73f	4e10c2	strings-ok
+IDENTICAL	HintedListBox	DrawItem	4dc560	4e0ee3	strings-ok
+IDENTICAL	HintedListBox	OnKeyDown	4dc8f6	4e1279	strings-ok
+IDENTICAL	HintedListBox	SetFocus	4d7aa9	4dc3b9	strings-ok
+IDENTICAL	HintedListBox	GetHint	43ec67	4410cb	strings-ok
+IDENTICAL	HintedListBox	SetCursorOver	4d7a3a	4dc34a	strings-ok
+IDENTICAL	HintedListBox	OnMouseMove	4dc8a4	4e1227	strings-ok
+IDENTICAL	HintedListBox	HintedListBox	43ec05	441069	strings-ok
+IDENTICAL	HintedListBox	VMethod9	4d7cc8	4dc5d8	strings-ok
+IDENTICAL	HintedListBox	VMethod30	4dc4ee	4e0e71	strings-ok
+IDENTICAL	HintedListBox	OnLButtonUp	4dc832	4e11b5	strings-ok
+IDENTICAL	HintedListBox	OnLButtonDblClk	4dc86b	4e11ee	strings-ok
+IDENTICAL	HintedListBox	IsValidIndex	4dc528	4e0eab	strings-ok
+IDENTICAL	HintedListBox	ChangeFlags	4d7a03	4dc313	strings-ok
+IDENTICAL	HintedListBox	VMethod10	4d7d03	4dc613	strings-ok
+IDENTICAL	HintedListBox	ReadData	4dc0ea	4e0a6d	strings-ok
+IDENTICAL	HintedListBox	WriteData	4dc0bc	4e0a3f	strings-ok
+IDENTICAL	HintedListBox	FUN_0044f3e0	44f3e0	452f00	strings-ok
+IDENTICAL	HintedListBox	SetHint	4d7bf9	4dc509	strings-ok
+IDENTICAL	HintedListBox	Dump	4d82b3	4dcbc3	strings-ok
+IDENTICAL	HintedListBox	SetHints	43ec4e	427e8f	strings-ok
+IDENTICAL	HintedListBox	GetItemCount	4507c0	452ed0	strings-ok
+IDENTICAL	HintedListBox	TestFlags	4d79ed	4dc2fd	strings-ok
+IDENTICAL	HintedListBox	~HintedListBox	44f410	4016a2	strings-ok
+IDENTICAL	HintedListBox	DataSize	4507e0	452ef0	strings-ok
+IDENTICAL	HintedListBox	OnWmUser	41ed80	4201a0	strings-ok
+IDENTICAL	HintedListBox	OnRButtonDown	438880	4201b0	strings-ok
+IDENTICAL	HintedListBox	OnRButtonUp	438890	4201c0	strings-ok
+IDENTICAL	HintedListBox	OnRButtonDblClk	41ed90	43a600	strings-ok
+IDENTICAL	HintedListBox	OnKeyUp	41eda0	43a610	strings-ok
+IDENTICAL	HintedListBox	OnChar	4388b0	43a630	strings-ok
+IDENTICAL	HintedListBox	VMethod8	41ed60	4019d0	strings-ok
+IDENTICAL	HintedListBox	Serialize	401970	420190	strings-ok
+IDENTICAL	HintedListBox	AssertValid	401980	4019e0	strings-ok
+IDENTICAL	HintedListBox	GetRuntimeClass	5ddf9b	5893d3	strings-ok
+IDENTICAL-BATCH	HintedListBox	38
+IDENTICAL	IngameMenu	VMethod8	4df67c	4e3ffd	strings-ok
+IDENTICAL	IngameMenu	SetFocus	4d7aa9	4dc3b9	strings-ok
+IDENTICAL	IngameMenu	MsgProc	440e54	4432bb	strings-ok
+IDENTICAL	IngameMenu	OnLButtonDown	4dfee7	4e4868	strings-ok
+IDENTICAL	IngameMenu	SetCursorOver	4d7a3a	4dc34a	strings-ok
+IDENTICAL	IngameMenu	ReadData	4d7e02	4dc6a9	strings-ok
+IDENTICAL	IngameMenu	WriteData	4d7d99	4dc712	strings-ok
+IDENTICAL	IngameMenu	DataSize	4d7d37	4dc647	strings-ok
+IDENTICAL	IngameMenu	OnKeyDown	440ece	443335	strings-ok
+IDENTICAL	IngameMenu	DoClose	4dfb8a	4e450b	strings-ok
+IDENTICAL	IngameMenu	VMethod7	4df63d	4e3fbe	strings-ok
+IDENTICAL	IngameMenu	VMethod9	4d7cc8	4dc5d8	strings-ok
+IDENTICAL	IngameMenu	VMethod28	4dfb4f	4e44d0	strings-ok
+IDENTICAL	IngameMenu	ChangeFlags	4d7a03	4dc313	strings-ok
+IDENTICAL	IngameMenu	VMethod10	4d7d03	4dc613	strings-ok
+IDENTICAL	IngameMenu	FUN_0044f730	44f730	453530	strings-ok
+IDENTICAL	IngameMenu	GetHint	4d7c15	4dc525	strings-ok
+IDENTICAL	IngameMenu	SetHint	4d7bf9	4dc509	strings-ok
+IDENTICAL	IngameMenu	Dump	4d82b3	4dcbc3	strings-ok
+IDENTICAL	IngameMenu	TestFlags	4d79ed	4dc2fd	strings-ok
+IDENTICAL	IngameMenu	OnWmUser	41ed80	4201a0	strings-ok
+IDENTICAL	IngameMenu	OnRButtonDown	438880	4201b0	strings-ok
+IDENTICAL	IngameMenu	OnRButtonUp	438890	4201c0	strings-ok
+IDENTICAL	IngameMenu	OnRButtonDblClk	41ed90	420950	strings-ok
+IDENTICAL	IngameMenu	OnKeyUp	41eda0	43a600	strings-ok
+IDENTICAL	IngameMenu	OnChar	4388b0	43a610	strings-ok
+IDENTICAL	IngameMenu	OnLButtonUp	438860	43a630	strings-ok
+IDENTICAL	IngameMenu	OnMouseMove	41ed70	43a7d0	strings-ok
+IDENTICAL	IngameMenu	OnLButtonDblClk	438870	43a7e0	strings-ok
+IDENTICAL	IngameMenu	Serialize	401970	4019d0	strings-ok
+IDENTICAL	IngameMenu	AssertValid	401980	4019e0	strings-ok
+IDENTICAL	IngameMenu	VMethod26	450900	43a9e0	strings-ok
+IDENTICAL	IngameMenu	VMethod27	4388c0	453380	strings-ok
+IDENTICAL	IngameMenu	GetRuntimeClass	5ddf9b	5893d3	strings-ok
+IDENTICAL-BATCH	IngameMenu	34
+IDENTICAL	LoadGameWindow	VMethod26	43ed94	4411f8	strings-ok
+IDENTICAL	LoadGameWindow	VMethod8	4df67c	4e3ffd	strings-ok
+IDENTICAL	LoadGameWindow	MsgProc	43f63c	441aa0	strings-ok
+IDENTICAL	LoadGameWindow	SetFocus	4d7aa9	4dc3b9	strings-ok
+IDENTICAL	LoadGameWindow	LoadGameWindow	43ecfb	44115f	strings-ok
+IDENTICAL	LoadGameWindow	OnLButtonDown	4dfee7	4e4868	strings-ok
+IDENTICAL	LoadGameWindow	SetCursorOver	4d7a3a	4dc34a	strings-ok
+IDENTICAL	LoadGameWindow	ReadData	4d7e02	4dc6a9	strings-ok
+IDENTICAL	LoadGameWindow	WriteData	4d7d99	4dc712	strings-ok
+IDENTICAL	LoadGameWindow	DataSize	4d7d37	4dc647	strings-ok
+IDENTICAL	LoadGameWindow	~LoadGameWindow	44f4b0	452fd0	strings-ok
+IDENTICAL	LoadGameWindow	DoClose	4dfb8a	4e450b	strings-ok
+IDENTICAL	LoadGameWindow	VMethod7	4df63d	4e3fbe	strings-ok
+IDENTICAL	LoadGameWindow	VMethod9	4d7cc8	4dc5d8	strings-ok
+IDENTICAL	LoadGameWindow	VMethod28	4dfb4f	4e44d0	strings-ok
+IDENTICAL	LoadGameWindow	ChangeFlags	4d7a03	4dc313	strings-ok
+IDENTICAL	LoadGameWindow	OnKeyDown	4dfeb2	4e4833	strings-ok
+IDENTICAL	LoadGameWindow	VMethod10	4d7d03	4dc613	strings-ok
+IDENTICAL	LoadGameWindow	FUN_0044f480	44f480	452fa0	strings-ok
+IDENTICAL	LoadGameWindow	GetHint	4d7c15	4dc525	strings-ok
+IDENTICAL	LoadGameWindow	SetHint	4d7bf9	4dc509	strings-ok
+IDENTICAL	LoadGameWindow	Dump	4d82b3	4dcbc3	strings-ok
+IDENTICAL	LoadGameWindow	TestFlags	4d79ed	4dc2fd	strings-ok
+IDENTICAL	LoadGameWindow	OnWmUser	41ed80	4201a0	strings-ok
+IDENTICAL	LoadGameWindow	OnRButtonDown	438880	4201b0	strings-ok
+IDENTICAL	LoadGameWindow	OnRButtonUp	438890	4201c0	strings-ok
+IDENTICAL	LoadGameWindow	OnRButtonDblClk	41ed90	420950	strings-ok
+IDENTICAL	LoadGameWindow	OnKeyUp	41eda0	43a600	strings-ok
+IDENTICAL	LoadGameWindow	OnChar	4388b0	43a610	strings-ok
+IDENTICAL	LoadGameWindow	OnLButtonUp	438860	43a630	strings-ok
+IDENTICAL	LoadGameWindow	OnMouseMove	41ed70	43a7d0	strings-ok
+IDENTICAL	LoadGameWindow	OnLButtonDblClk	438870	43a7e0	strings-ok
+IDENTICAL	LoadGameWindow	Serialize	401970	4019d0	strings-ok
+IDENTICAL	LoadGameWindow	AssertValid	401980	4019e0	strings-ok
+IDENTICAL	LoadGameWindow	VMethod27	4388c0	43a9e0	strings-ok
+IDENTICAL	LoadGameWindow	GetRuntimeClass	5ddf9b	5893d3	strings-ok
+IDENTICAL-BATCH	LoadGameWindow	36
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	VMethod26	4451e1	4478af	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	VMethod8	4df67c	4e3ffd	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	VMethod30	4450d4	4477a2	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	SetFocus	4d7aa9	4dc3b9	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	MsgProc	44500f	4476dd	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	OnLButtonDown	4dfee7	4e4868	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	SetCursorOver	4d7a3a	4dc34a	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	ReadData	4d7e02	4dc6a9	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	WriteData	4d7d99	4dc712	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	DataSize	4d7d37	4dc647	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	QuestObjectivesHeaderDialogVisualObject	445173	447841	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	DoClose	4dfb8a	4e450b	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	VMethod7	4df63d	4e3fbe	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	VMethod9	4d7cc8	4dc5d8	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	VMethod28	4dfb4f	4e44d0	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	ChangeFlags	4d7a03	4dc313	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	OnKeyDown	4dfeb2	4e4833	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	VMethod10	4d7d03	4dc613	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	FUN_0044f950	44f950	453840	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	GetHint	4d7c15	4dc525	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	SetHint	4d7bf9	4dc509	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	Dump	4d82b3	4dcbc3	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	TestFlags	4d79ed	4dc2fd	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	OnWmUser	41ed80	4201a0	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	OnRButtonDown	438880	4201b0	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	OnRButtonUp	438890	4201c0	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	OnRButtonDblClk	41ed90	420950	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	OnKeyUp	41eda0	43a600	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	OnChar	4388b0	43a610	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	OnLButtonUp	438860	43a630	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	OnMouseMove	41ed70	43a7d0	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	OnLButtonDblClk	438870	43a7e0	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	VMethod31	445084	4019d0	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	Serialize	401970	447752	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	AssertValid	401980	4019e0	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	VMethod27	4388c0	43a9e0	strings-ok
+IDENTICAL	QuestObjectivesHeaderDialogVisualObject	GetRuntimeClass	5ddf9b	5893d3	strings-ok
+IDENTICAL-BATCH	QuestObjectivesHeaderDialogVisualObject	37
+IDENTICAL	SaveGameWindow	VMethod26	43fb2c	441f90	strings-ok
+IDENTICAL	SaveGameWindow	MsgProc	440726	442b8d	strings-ok
+IDENTICAL	SaveGameWindow	VMethod8	4df67c	4e3ffd	strings-ok
+IDENTICAL	SaveGameWindow	CheckInput	440cc4	44312b	strings-ok
+IDENTICAL	SaveGameWindow	SaveGameWindow	43fa42	441ea6	strings-ok
+IDENTICAL	SaveGameWindow	SetFocus	4d7aa9	4dc3b9	strings-ok
+IDENTICAL	SaveGameWindow	OnLButtonDown	4dfee7	4e4868	strings-ok
+IDENTICAL	SaveGameWindow	SetCursorOver	4d7a3a	4dc34a	strings-ok
+IDENTICAL	SaveGameWindow	ReadData	4d7e02	4dc6a9	strings-ok
+IDENTICAL	SaveGameWindow	WriteData	4d7d99	4dc712	strings-ok
+IDENTICAL	SaveGameWindow	DataSize	4d7d37	4dc647	strings-ok
+IDENTICAL	SaveGameWindow	~SaveGameWindow	44f540	452fd0	strings-ok
+IDENTICAL	SaveGameWindow	DoClose	4dfb8a	4e450b	strings-ok
+IDENTICAL	SaveGameWindow	VMethod7	4df63d	4e3fbe	strings-ok
+IDENTICAL	SaveGameWindow	VMethod9	4d7cc8	4dc5d8	strings-ok
+IDENTICAL	SaveGameWindow	VMethod28	4dfb4f	4e44d0	strings-ok
+IDENTICAL	SaveGameWindow	Compare	43faf4	441f58	strings-ok
+IDENTICAL	SaveGameWindow	ChangeFlags	4d7a03	4dc313	strings-ok
+IDENTICAL	SaveGameWindow	OnKeyDown	4dfeb2	4e4833	strings-ok
+IDENTICAL	SaveGameWindow	VMethod10	4d7d03	4dc613	strings-ok
+IDENTICAL	SaveGameWindow	FUN_0044f510	44f510	4531d0	strings-ok
+IDENTICAL	SaveGameWindow	GetHint	4d7c15	4dc525	strings-ok
+IDENTICAL	SaveGameWindow	SetHint	4d7bf9	4dc509	strings-ok
+IDENTICAL	SaveGameWindow	Dump	4d82b3	4dcbc3	strings-ok
+IDENTICAL	SaveGameWindow	TestFlags	4d79ed	4dc2fd	strings-ok
+IDENTICAL	SaveGameWindow	OnWmUser	41ed80	4201a0	strings-ok
+IDENTICAL	SaveGameWindow	OnRButtonDown	438880	4201b0	strings-ok
+IDENTICAL	SaveGameWindow	OnRButtonUp	438890	4201c0	strings-ok
+IDENTICAL	SaveGameWindow	OnRButtonDblClk	41ed90	420950	strings-ok
+IDENTICAL	SaveGameWindow	OnKeyUp	41eda0	43a600	strings-ok
+IDENTICAL	SaveGameWindow	OnChar	4388b0	43a610	strings-ok
+IDENTICAL	SaveGameWindow	OnLButtonUp	438860	43a630	strings-ok
+IDENTICAL	SaveGameWindow	OnMouseMove	41ed70	43a7d0	strings-ok
+IDENTICAL	SaveGameWindow	OnLButtonDblClk	438870	43a7e0	strings-ok
+IDENTICAL	SaveGameWindow	Serialize	401970	4019d0	strings-ok
+IDENTICAL	SaveGameWindow	AssertValid	401980	4019e0	strings-ok
+IDENTICAL	SaveGameWindow	VMethod27	4388c0	43a9e0	strings-ok
+IDENTICAL	SaveGameWindow	GetRuntimeClass	5ddf9b	5893d3	strings-ok
+IDENTICAL-BATCH	SaveGameWindow	38
+IDENTICAL	TownMenuListDialogVisualObject	VMethod8	4df67c	4e3ffd	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	TownMenuListDialogVisualObject	44160e	443bdd	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	SetFocus	4d7aa9	4dc3b9	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	MsgProc	440e54	4432bb	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	OnLButtonDown	4dfee7	4e4868	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	SetCursorOver	4d7a3a	4dc34a	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	ReadData	4d7e02	4dc6a9	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	WriteData	4d7d99	4dc712	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	DataSize	4d7d37	4dc647	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	OnKeyDown	440ece	443335	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	DoClose	4dfb8a	4e450b	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	VMethod7	4df63d	4e3fbe	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	VMethod9	4d7cc8	4dc5d8	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	VMethod28	4dfb4f	4e44d0	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	ChangeFlags	4d7a03	4dc313	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	VMethod10	4d7d03	4dc613	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	destructor	44f7d0	4535a0	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	GetHint	4d7c15	4dc525	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	SetHint	4d7bf9	4dc509	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	Dump	4d82b3	4dcbc3	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	TestFlags	4d79ed	4dc2fd	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	~TownMenuListDialogVisualObject	44f800	4016a2	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	OnWmUser	41ed80	4201a0	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	OnRButtonDown	438880	4201b0	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	OnRButtonUp	438890	4201c0	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	OnRButtonDblClk	41ed90	420950	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	OnKeyUp	41eda0	43a600	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	OnChar	4388b0	43a610	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	OnLButtonUp	438860	43a630	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	OnMouseMove	41ed70	43a7d0	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	OnLButtonDblClk	438870	43a7e0	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	Serialize	401970	4019d0	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	AssertValid	401980	4019e0	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	VMethod26	450900	43a9e0	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	VMethod27	4388c0	453380	strings-ok
+IDENTICAL	TownMenuListDialogVisualObject	GetRuntimeClass	5ddf9b	5893d3	strings-ok
+IDENTICAL-BATCH	TownMenuListDialogVisualObject	36
+PORTED	CVisualObject	VMethod26	444086	446656
+PORTED	BigStruct2	sub_417B42	417b42	419313
+PORTED	BigStruct2	FUN_0041ae1c	41ae1c	41c6a8
+PORTED	CAirUnit	Draw	464974	468640
+PORTED	CAirUnit	DrawShadow	465b5a	469826
+PORTED	CAirUnit	DrawHealthBar	466a78	46a757
+PORTED	CAirUnit	DrawMinimapRect	46761e	46b3b2
+PORTED	CAirUnit	Update	46785f	46b5ef
+PORTED	CAirUnit	SpawnAttackProjectile	4684fb	46c28b
+PORTED	CAirUnit	SpawnSpellProjectile	468765	46c4f1
+PORTED	CAirUnit	UpdateTransientVisualElements	468dcb	46cb51
+PORTED	CAirUnit	PlayAttackSound	4693c1	46d145
+PORTED	CAirUnit	PlayCastSound	469499	46d21b
+PORTED	CAirUnit	PlayHitSound	469535	46d2b5
+PORTED	CAirUnit	PlayAttackVoice	4698c0	46d63c
+PORTED	CAirUnit	PlayMoveVoice	46999f	46d719
+PORTED	CAirUnit	PlaySwarmVoice	469a7e	46d7f6
+PORTED	CAirUnit	PlaySelectVoice	469b5d	46d8d3
+PORTED	CAirUnit	PlayDefendVoice	469c3c	46d9b0
+PORTED	CAirUnit	PlayRetreatVoice	469cf5	46da67
+PORTED	CAirUnit	PlayPickupVoice	469dae	46db1e
+PORTED	CBackPack	UpdateOccupancy	462190	465da0
+PORTED	CBackPack	MarkOccupancy	462226	465e36
+PORTED	CBackPack	Draw	462887	46647f
+PORTED	CBackPack	DrawShadow	46295a	466629
+PORTED	CBridge	UpdateOccupancy	462190	465da0
+PORTED	CBridge	MarkOccupancy	462226	465e36
+PORTED	CBridge	DrawShadow	462f58	466c2f
+PORTED	CBridge	DrawHealthBar	4631f3	466eca
+PORTED	CBridge	DrawMinimapRect	46380c	4674dd
+PORTED	CGameObject	UpdateOccupancy	462190	465da0
+PORTED	CGameObject	MarkOccupancy	462226	465e36
+PORTED	CHorisontalWoodenBridge	UpdateOccupancy	462190	465da0
+PORTED	CHorisontalWoodenBridge	MarkOccupancy	462226	465e36
+PORTED	CHorisontalWoodenBridge	DrawHealthBar	4631f3	466eca
+PORTED	CHorisontalWoodenBridge	DrawMinimapRect	46380c	4674dd
+PORTED	CProjectile	UpdateOccupancy	462190	465da0
+PORTED	CProjectile	MarkOccupancy	462226	465e36
+PORTED	CProjectile	Update	46d8d8	471643
+PORTED	CProjectile	UpdateTransientVisualElements	46eb80	4728dd
+PORTED	CStructure	UpdateOccupancy	462190	465da0
+PORTED	CStructure	MarkOccupancy	462226	465e36
+PORTED	CStructure	DrawShadow	462f58	466c2f
+PORTED	CStructure	DrawHealthBar	4631f3	466eca
+PORTED	CStructure	DrawMinimapRect	46380c	4674dd
+PORTED	CUnit	Draw	464974	468640
+PORTED	CUnit	DrawShadow	465b5a	469826
+PORTED	CUnit	DrawHealthBar	466a78	46a757
+PORTED	CUnit	DrawMinimapRect	46761e	46b3b2
+PORTED	CUnit	Update	46785f	46b5ef
+PORTED	CUnit	SpawnAttackProjectile	4684fb	46c28b
+PORTED	CUnit	SpawnSpellProjectile	468765	46c4f1
+PORTED	CUnit	UpdateTransientVisualElements	468dcb	46cb51
+PORTED	CUnit	PlayAttackSound	4693c1	46d145
+PORTED	CUnit	PlayCastSound	469499	46d21b
+PORTED	CUnit	PlayHitSound	469535	46d2b5
+PORTED	CUnit	PlayAttackVoice	4698c0	46d63c
+PORTED	CUnit	PlayMoveVoice	46999f	46d719
+PORTED	CUnit	PlaySwarmVoice	469a7e	46d7f6
+PORTED	CUnit	PlaySelectVoice	469b5d	46d8d3
+PORTED	CUnit	PlayDefendVoice	469c3c	46d9b0
+PORTED	CUnit	PlayRetreatVoice	469cf5	46da67
+PORTED	CUnit	PlayPickupVoice	469dae	46db1e
+PORTED	CVerticalWoodenBridge	UpdateOccupancy	462190	465da0
+PORTED	CVerticalWoodenBridge	MarkOccupancy	462226	465e36
+PORTED	CVerticalWoodenBridge	DrawHealthBar	4631f3	466eca
+PORTED	CVerticalWoodenBridge	DrawMinimapRect	46380c	4674dd
+PORTED	MenuButton	OnChar	4dd9b3	4e2336
+PORTED	SoundPreferencesDialogVisualObject	ConvVolumeToSlider	45ca10	46063e
+PORTED	MusicPlayer	VMethod26	-	446656
+PORTED	CVisualObject	FUN_00447ea9	-	447ea9
+PORTED	SoundPreferencesDialogVisualObject	ConvSliderToVolume	45ca45	460673

@@ -3150,8 +3150,9 @@ public:
 
 	int32_t ConvVolumeToSlider(int32_t vol, int32_t max_val) { return max_val - (sqrt((float)-vol / (float)max_val) * (float)max_val); } //45ca10
 	int32_t ConvSliderToVolume(int32_t pos, int32_t max_val) { //45ca45
+		// client: 460673
 		float v = (float)(pos - max_val) / (float)max_val;
-		return max_val * (v * v);
+		return max_val * -(v * v);
 	}
 public:
 	MusicPlayer* music_player;
