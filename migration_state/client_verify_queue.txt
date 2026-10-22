@@ -238,9 +238,6 @@ DIFFERS	GM_a28	GetRuntimeClass	5ddf9b	5ac95e	slot0
 BATCH	GMapThing	8 identical fns	-	-	-
 BATCH	GO_11c	1 identical fns	-	-	-
 DIFFERS	GameApp	InitInstance	4823bd	48626d	name
-DIFFERS	GameApp	OnFinalRelease(void)	5e3fe6	5b1fc8	slot6
-DIFFERS	GameApp	GetRuntimeClass	5f54c6	5c2b75	slot0
-DIFFERS	GameApp	IsInvokeAllowed(long)	5e3f76	5b1f58	slot7
 DIFFERS	GameDataRes	Serialize	50e0f0	503833	name
 DIFFERS	GameDataRes	ParseDataBin	50d421	502b5a	name
 DIFFERS	GameDataRes	CreateItemById	510ee6	504aab	callsite:2 votes
@@ -326,8 +323,6 @@ DIFFERS	MagicItem	destructor	5728c0	543690	slot1
 DIFFERS	MainWindow	WindowProc	486c6c	48a969	name
 DIFFERS	MainWindow	DestroyServer	48cb3c	490ce4	callsite:2 votes
 DIFFERS	MainWindow	Proc_421	48d49b	491619	name
-DIFFERS	MainWindow	OnFinalRelease(void)	5e1441	5af425	slot6
-DIFFERS	MainWindow	IsInvokeAllowed(long)	5e3f76	5b1f58	slot7
 CLIENT_ONLY	MainWindow	CMainWindow	-	48750d	vt
 DIFFERS	MapAlm	MapAlm	5693a3	53ea3a	name
 DIFFERS	MapAlm	GetRuntimeClass	5ddf9b	5ac95e	slot0
