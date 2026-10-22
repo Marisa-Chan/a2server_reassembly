@@ -339,6 +339,8 @@ ASSERT_SIZE(ServerControlDialog, 0x280);
 extern int32_t g_diplomacy_msg_popup;
 #ifdef A2CLIENT
 extern int32_t g_hat_selected_index; // client 62c9e8 — last hat-DM list selection (written by packet 0x44c path)
+extern int32_t g_EnableMusic; // client 62c870 — music master switch, set by InitInstance/LoadData
+extern int32_t DAT_0062c9d4; // client 62c9d4 — in-game flag cleared on return to the main menu
 #endif
 
 

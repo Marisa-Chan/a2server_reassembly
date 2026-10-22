@@ -34,6 +34,8 @@ int32_t g_diplomacy_msg_popup = 0;
 int32_t DAT_00665cf8 = 0; // 665cf8 write-only in a2serv6.exe (client twin 631768)
 #ifdef A2CLIENT
 int32_t g_hat_selected_index = 0; //62c9e8
+int32_t g_EnableMusic = 0; //62c870
+int32_t DAT_0062c9d4 = 0; //62c9d4
 #endif
 
 
@@ -2170,14 +2172,20 @@ BOOL MainWindow::UpdateClipCursor() {
 
 #ifdef A2CLIENT
 void MainWindow::Proc_421() {
-#pragma message("REVERSE IT, it's not FULL");
-
-    //48d49b Allods2.exe
+    // 48d49b
+    // client: 491619
     this->field_0x3e0.field_10 = 0;
     this->field_0x3e0.connect_address.Empty();
     this->field_0x3e0.hat_id = 0;
 
     this->m_FameHall.ZeroFactors();
+
+    this->vis_map_context->field_0x9d0.RemoveAll();
+    if (this->vis_map_context->field_0x3f6c != nullptr) {
+        delete this->vis_map_context->field_0x3f6c;
+        this->vis_map_context->field_0x3f6c = nullptr;
+    }
+    g_Cursors[CURSOR_WAIT]->Use();
 
     CVisualObject* elm = this->vis_root->FindChild(0x3fc);
     if (elm) {
@@ -2186,6 +2194,9 @@ void MainWindow::Proc_421() {
 
     this->ShowRightPanelInfo();
 
+    // the disable bit 0x10 turns the Load button off when no save files exist
+    this->vis_mainmenu->disable_mask = DAT_00665cf8 | (AppHasAnySaveFile() != 0 ? 0 : 0x10);
+
     this->vis_root->AddChild(this->vis_mainmenu);
     this->vis_mainmenu->VMethod28();
     this->vis_root->VMethod9();
@@ -2193,12 +2204,25 @@ void MainWindow::Proc_421() {
     this->dialogsMask |= 0x80;
     this->DestroyServer();
 
+    g_Cursors[CURSOR_SELECT]->Use();
+
+    if (g_EnableMusic != 0) {
+        CStringArray menu_list;
+        menu_list.Add("music\\menu.wav");
+        if (this->music_player->GetPlaylistSize() == 0 ||
+            strcmp(this->music_player->GetPlaylistEntry(0), menu_list[0]) != 0) {
+            this->music_player->SwitchPlaylistAndPlayRandom(menu_list);
+        }
+        this->music_player->RestartLooping();
+    }
+
     elm = this->vis_map_context->FindChild(0x13);
     if (elm) {
         this->vis_map_context->RemoveChild(elm);
         delete elm;
     }
 
+    DAT_0062c9d4 = 0;
 }
 #else
 void MainWindow::Proc_421()

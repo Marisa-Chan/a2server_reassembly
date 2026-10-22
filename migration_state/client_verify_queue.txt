@@ -322,7 +322,6 @@ DIFFERS	MagicItem	Serialize	513c13	507107	slot2
 DIFFERS	MagicItem	destructor	5728c0	543690	slot1
 DIFFERS	MainWindow	WindowProc	486c6c	48a969	name
 DIFFERS	MainWindow	DestroyServer	48cb3c	490ce4	callsite:2 votes
-DIFFERS	MainWindow	Proc_421	48d49b	491619	name
 CLIENT_ONLY	MainWindow	CMainWindow	-	48750d	vt
 DIFFERS	MapAlm	MapAlm	5693a3	53ea3a	name
 DIFFERS	MapAlm	GetRuntimeClass	5ddf9b	5ac95e	slot0
