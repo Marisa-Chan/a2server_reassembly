@@ -28,6 +28,7 @@ import urllib.request
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "src")
 PORT = 18812
+PROGRAM = None  # explicit program selection ("server"/"client"/...); None = daemon default
 
 ADDR_IN_NAME = re.compile(r"^(?:sub_([0-9A-Fa-f]{6})|FUN_00([0-9A-Fa-f]{6}))$")
 ADDR_IN_COMMENT = re.compile(r"(?<![\w])(?:sub_|FUN_00|0x)?((?=[0-9a-fA-F]*\d)[0-9a-fA-F]{6})(?![\w])")
@@ -222,7 +223,10 @@ def lookup_cpp_addr(cpp_addrs, d):
 
 
 def call(op, args):
-    data = json.dumps({"op": op, "args": args}).encode("utf-8")
+    payload = {"op": op, "args": args}
+    if PROGRAM:
+        payload["program"] = PROGRAM
+    data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(f"http://127.0.0.1:{PORT}/", data=data, headers={"Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=3600) as r:
         resp = json.loads(r.read().decode("utf-8"))
@@ -232,7 +236,7 @@ def call(op, args):
 
 
 def main():
-    global PORT
+    global PORT, PROGRAM
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--class", dest="cls", help="only this class")
@@ -241,8 +245,17 @@ def main():
     ap.add_argument("--create-classes", action="store_true", help="create empty structs for unknown classes")
     ap.add_argument("--create-types", action="store_true", help="create placeholder structs for unknown pointer types")
     ap.add_argument("--port", type=int, default=PORT)
+    sel = ap.add_mutually_exclusive_group()
+    sel.add_argument("--server", action="store_true", help="apply to the server program (a2serv6.exe_new)")
+    sel.add_argument("--client", action="store_true", help="refused: header addresses are server VAs")
+    sel.add_argument("--program", help="program by name (server/client/...) - deliberately no env var: "
+                                       "bulk pushes should be explicit")
     a = ap.parse_args()
     PORT = a.port
+    PROGRAM = "server" if a.server else "client" if a.client else a.program
+    if PROGRAM == "client":
+        sys.exit("ERROR: header addresses are a2serv6.exe (server) VAs; pushing them onto allods2.exe would\n"
+                 "type the wrong functions. Client naming goes through tool/client_label_push.py instead.")
 
     headers = [a.file] if a.file else sorted(glob.glob(os.path.join(SRC, "*.h")))
     cpp_addrs = parse_cpp_addrs(sorted(glob.glob(os.path.join(SRC, "*.cpp"))))

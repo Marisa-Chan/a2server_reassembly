@@ -39,6 +39,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "src")
 BUILD = os.path.join(ROOT, "build")
 PORT = 18812
+PROGRAM = None  # explicit program selection ("server"/"client"/...); None = daemon default
 VSDEVCMD = r"C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\Tools\VsDevCmd.bat"
 DEFINES = ["WIN32", "_WINDOWS", "FKG_FORCED_USAGE", "_USE_32BIT_TIME_T", "NDEBUG", "_CONSOLE",
            "_CRT_SECURE_NO_WARNINGS", "A2SERVER_PATCH", "A2SERVER_TANGAR_HAT", "_AFXDLL"]
@@ -224,7 +225,10 @@ def _write_dump_source(cpp, selected, classes, headers):
 
 
 def call(op, args):
-    data = json.dumps({"op": op, "args": args}).encode("utf-8")
+    payload = {"op": op, "args": args}
+    if PROGRAM:
+        payload["program"] = PROGRAM
+    data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(f"http://127.0.0.1:{PORT}/", data=data, headers={"Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=3600) as r:
         resp = json.loads(r.read().decode("utf-8"))
@@ -280,14 +284,20 @@ def topo_order(names, layout):
 
 
 def main():
-    global PORT
+    global PORT, PROGRAM
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--class", dest="cls", action="append", help="only these classes (repeatable)")
     ap.add_argument("--file", help="only classes declared in this header")
     ap.add_argument("--port", type=int, default=PORT)
+    sel = ap.add_mutually_exclusive_group()
+    sel.add_argument("--client", action="store_true", help="apply to the client program (allods2.exe)")
+    sel.add_argument("--server", action="store_true", help="apply to the server program (a2serv6.exe_new, default)")
+    sel.add_argument("--program", help="program by name (server/client/...) - deliberately no env var: "
+                                       "bulk pushes should be explicit")
     a = ap.parse_args()
     PORT = a.port
+    PROGRAM = "client" if a.client else "server" if a.server else a.program
 
     headers = sorted(h for h in glob.glob(os.path.join(SRC, "*.h")) if os.path.basename(h) not in EXCLUDE_HEADERS)
     classes = parse_classes(headers)

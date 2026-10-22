@@ -1,5 +1,6 @@
-# Runs INSIDE the Ghidra daemon via:  python tool/gh.py python -f tool/client_diff_collect.py
-# (use MSYS_NO_PATHCONV=1 when starting the daemon with --program /allods2.exe)
+# Runs INSIDE the Ghidra daemon; once per program:
+#   python tool/gh.py python -f tool/client_diff_collect.py             # server -> ..._a2serv6_exe.json
+#   python tool/gh.py --client python -f tool/client_diff_collect.py    # client -> ..._allods2_exe.json
 #
 # Collects per-program facts for the client/server correspondence work:
 #   - every function: va, name, namespace chain, body size, thunk flag

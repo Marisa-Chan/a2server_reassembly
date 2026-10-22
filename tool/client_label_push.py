@@ -1,6 +1,5 @@
 # Runs INSIDE the Ghidra daemon on the CLIENT program (allods2.exe):
-#   MSYS_NO_PATHCONV=1 python tool/ghidra_daemon.py --program /allods2.exe
-#   python tool/gh.py python -f tool/client_label_push.py
+#   python tool/gh.py --client python -f tool/client_label_push.py
 #
 # Pushes the confirmed class map into the client Ghidra program:
 #   - client vtables get a '<Class>_vtable' label (placeholder names only)
