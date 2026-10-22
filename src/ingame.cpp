@@ -2959,17 +2959,23 @@ void BigStruct2::UpdateSelectionState() { //416cf7
 				this->field_0x144 |= 2;
 			} else if (obj->GetRuntimeClass() == RUNTIME_CLASS(CStructure)) {
 				this->field_0x144 |= 0x20;
-			} else {
+			} else if (g_IsServer != 0) {
 				this->field_0x144 = 8;
 			}
 		}
+#ifdef A2CLIENT
+		// client: 41916c — the gate-failure edge takes the "unknown class" path instead
+		else if (g_IsServer == 0) {
+			this->field_0x144 = 8;
+		}
+#endif
 	}
 
 	if (this->field_0x140 > 0 && this->field_0x138->map_player != this->my_main_unit) {
 		this->field_0x144 |= 4;
 	}
 	
-	if (this->field_0x140 == 0 || (this->field_0x140 & 0x24) != 0) {
+	if (this->field_0x140 == 0 || (this->field_0x144 & 0x24) != 0) {
 		mwnd->vis_right_panel->MsgProc(CVisualObject::MSG_40a, 0, 0);
 	} else {
 		mwnd->vis_right_panel->MsgProc(CVisualObject::MSG_409, this->AvailableOrderMask(), 0);
@@ -3008,7 +3014,7 @@ void BigStruct2::UpdateSpellModifiers(CUnit* unit) { //from 416cf7
 			continue;
 		}
 
-		Spell s(BOOK_POS_TO_SPELL_ID[i]);
+		Spell s(BOOK_POS_TO_SPELL_ID[i + 1]);
 
 		const uint8_t spellbase = unit->skill_levels[s.spell_info->Values()[0].sphere - 1];
 		int32_t v = (spellbase - 30) + unit->mind;
@@ -3023,8 +3029,8 @@ void BigStruct2::UpdateSpellModifiers(CUnit* unit) { //from 416cf7
 
 		this->spell_damage_min[i] += s.damage_min;
 		this->spell_damage_max[i] += s.damage_min + s.damage_spread;
-		this->spell_mana_cost1[i] += s.mana_cost;
-		this->spell_mana_cost2[i] += s.mana_cost;
+		this->spell_mana_cost1[i] = s.mana_cost;
+		this->spell_mana_cost2[i] = s.mana_cost;
 
 		if (this->spell_range_min[i] > s.max_range) {
 			this->spell_range_min[i] = s.max_range;
