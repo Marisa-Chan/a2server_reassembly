@@ -3594,7 +3594,9 @@ public:
 	BigStruct2* map_context;
 	int32_t mode;
 };
-ASSERT_SIZE(VisNetMapSelection, 0xfc);
+// binary 0xfc; the embedded CWinThread differs between VC6 and MFC140,
+// so pin the composition: 5 tail members (0x14) follow the thread object
+ASSERT_SIZE(VisNetMapSelection, offsetof(VisNetMapSelection, thread) + sizeof(CWinThread) + 0x14);
 
 //60e650
 class VisTipsDialog : public VisScreen {
@@ -3689,8 +3691,9 @@ public:
 	CString connect_addr; // 0x90 — address handed to the worker
 #endif
 };
+#ifndef A2CLIENT
 ASSERT_SIZE(VisHatBrowserDlg, 0x68);
-#ifdef A2CLIENT
+#else
 ASSERT_SIZE(VisHatBrowserDlg, 0x94);
 #endif
 

@@ -226,9 +226,9 @@ public:
     CWordArray word_array;
 };
 #ifdef A2CLIENT
-static_assert(sizeof(CGameSession) == 0x190, "client CGameSession layout");
+ASSERT_SIZE(CGameSession, 0x190);
 #else
-static_assert(sizeof(CGameSession) == 0x17c, "server CGameSession layout");
+ASSERT_SIZE(CGameSession, 0x17c);
 #endif
 
 struct PhoneBook {
@@ -335,7 +335,9 @@ public:
     void OnCommand3fe(); // 49583E — ON_COMMAND 0x3fe
 };
 
-ASSERT_SIZE(ServerControlDialog, 0x280);
+// binary 0x280 = VC6 CDialog base 0x5c + 9 controls (0x3c each) + 2 CStrings;
+// the CDialog/CWnd-family bases are larger in MFC140, so assert the composition
+ASSERT_SIZE(ServerControlDialog, sizeof(CDialog) + 9 * sizeof(CEdit) + 2 * sizeof(CString));
 
 
 // 1 while PopUpScreen runs from the WindowProc 0x43c (diplomacy) case. The retail
@@ -622,26 +624,24 @@ public:
     int32_t field_0x804; // server-only
 #endif
 };
-// Layout locks. NOTE: absolute offsets of the original binaries are NOT
-// reproducible here - the migrated C++ links MFC 140 whose CFrameWnd/CWnd bases
-// are larger than the game's VC6 MFC (music_update_proc compiles to 0x128, not
-// the binary's 0xc4; server class size 0xa18, not 0x808). What MUST hold is the
-// per-build STRUCTURE - which fields exist and in which order - matching the
-// retail client's relative layout (client ctor 48750d + WindowProc 48a969
-// disassembly evidence). These relative asserts pin exactly the deltas:
+// Layout locks (see assert_offset.h for the relative-size rationale): the
+// client build must match the retail client's STRUCTURE - client ctor 48750d +
+// WindowProc 48a969 disassembly evidence - while absolute offsets are
+// meaningless because MFC 140's CFrameWnd base is larger than the game's VC6
+// MFC (the binary-offset comments above are historical).
 #ifdef A2CLIENT
-static_assert(sizeof(MainWindow) == 0xa10, "client MainWindow size (server 0xa18 minus cursors/field_0x464/field_0x5e4/field_0x804, plus the 0x3d0-region dword and CGameSession growth)");
-static_assert(offsetof(MainWindow, field_0x3e0) - offsetof(MainWindow, hat_settings) == sizeof(HatSettings) + 0x14, "client: extra dword + 4 screen pointers after hat_settings");
-static_assert(offsetof(MainWindow, serverLoopCounter) - offsetof(MainWindow, dialogsMask) == 4, "client scalar run");
-static_assert(offsetof(MainWindow, m_GameSession) - offsetof(MainWindow, field_0x460) == 4, "client: no field_0x464");
-static_assert(offsetof(MainWindow, m_FameHall) - offsetof(MainWindow, m_GameSession) == sizeof(CGameSession), "client: no field_0x5e4");
-static_assert(offsetof(MainWindow, serverBootstrapEnabled) - offsetof(MainWindow, shutdown_pending) == 4, "client: no cursor handles");
-static_assert(offsetof(MainWindow, sessionMode) - offsetof(MainWindow, serverBootstrapEnabled) == 4, "client tail run");
-static_assert(offsetof(MainWindow, status_bar) - offsetof(MainWindow, clip_cursor_rect) == 0x14, "client: clip rect directly before status bar (0x10 rect + 4 alignment pad before MFC140 CStatusBar)");
+ASSERT_SIZE(MainWindow, 0xa10);
+ASSERT_OFFSET(MainWindow, field_0x3e0, offsetof(MainWindow, hat_settings) + sizeof(HatSettings) + 0x14); // extra dword + 4 screen pointers
+ASSERT_OFFSET(MainWindow, serverLoopCounter, offsetof(MainWindow, dialogsMask) + 4);
+ASSERT_OFFSET(MainWindow, m_GameSession, offsetof(MainWindow, field_0x460) + 4); // no field_0x464
+ASSERT_OFFSET(MainWindow, m_FameHall, offsetof(MainWindow, m_GameSession) + sizeof(CGameSession)); // no field_0x5e4
+ASSERT_OFFSET(MainWindow, serverBootstrapEnabled, offsetof(MainWindow, shutdown_pending) + 4); // no cursor handles
+ASSERT_OFFSET(MainWindow, sessionMode, offsetof(MainWindow, serverBootstrapEnabled) + 4);
+ASSERT_OFFSET(MainWindow, status_bar, offsetof(MainWindow, clip_cursor_rect) + 0x14); // 0x10 RECT + 4 alignment pad before MFC140 CStatusBar
 #else
-static_assert(sizeof(MainWindow) == 0xa18, "server MainWindow size");
-static_assert(offsetof(MainWindow, field_0x3e0) - offsetof(MainWindow, hat_settings) == sizeof(HatSettings) + 0x10, "server: 4 screen pointers after hat_settings");
-static_assert(offsetof(MainWindow, m_GameSession) - offsetof(MainWindow, field_0x460) == 8, "server: field_0x464 present");
-static_assert(offsetof(MainWindow, m_FameHall) - offsetof(MainWindow, m_GameSession) == sizeof(CGameSession) + 4, "server: field_0x5e4 present");
-static_assert(offsetof(MainWindow, serverBootstrapEnabled) - offsetof(MainWindow, shutdown_pending) == 4 + 0x14, "server: 5 cursor handles between");
+ASSERT_SIZE(MainWindow, 0xa18);
+ASSERT_OFFSET(MainWindow, field_0x3e0, offsetof(MainWindow, hat_settings) + sizeof(HatSettings) + 0x10); // 4 screen pointers
+ASSERT_OFFSET(MainWindow, m_GameSession, offsetof(MainWindow, field_0x460) + 8); // field_0x464 present
+ASSERT_OFFSET(MainWindow, m_FameHall, offsetof(MainWindow, m_GameSession) + sizeof(CGameSession) + 4); // field_0x5e4 present
+ASSERT_OFFSET(MainWindow, serverBootstrapEnabled, offsetof(MainWindow, shutdown_pending) + 4 + 0x14); // 5 cursor handles between
 #endif

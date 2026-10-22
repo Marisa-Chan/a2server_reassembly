@@ -45,10 +45,10 @@ public:
     // 5afc9c
     TriggerAction();
 };
-ASSERT_OFFSET(TriggerAction, field_0x30, 0x30);
-ASSERT_OFFSET(TriggerAction, field_0x3a, 0x3a);
-ASSERT_OFFSET(TriggerAction, field_0x44, 0x44);
-ASSERT_OFFSET(TriggerAction, field_0x4e, 0x4e);
+ASSERT_OFFSET(TriggerAction, ref_kind, 0x30);
+ASSERT_OFFSET(TriggerAction, ref_scope, 0x3a);
+ASSERT_OFFSET(TriggerAction, ref_page, 0x44);
+ASSERT_OFFSET(TriggerAction, ref_index, 0x4e);
 ASSERT_OFFSET(TriggerAction, unit, 0x5c);
 ASSERT_SIZE(TriggerAction, 0x74);
 

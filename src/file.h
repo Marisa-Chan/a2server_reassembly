@@ -46,7 +46,9 @@ public:
     int32_t position;
 };
 
-ASSERT_SIZE(File2, 0x20);
+// own data members are file/offset/size/position (0x10); the CFile base is
+// larger in MFC140 (binary total was 0x20)
+ASSERT_SIZE(File2, sizeof(CFile) + 0x10);
 
 
 #endif

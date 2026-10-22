@@ -44,7 +44,8 @@ public:
 };
 
 ASSERT_OFFSET(QuestInnGlue, building_id, 0x4);
-ASSERT_OFFSET(QuestInnGlue, field_0x2c, 0x2c);
+// MFC140 CMap is 4 bytes larger than VC6's, so chain off the previous field
+ASSERT_OFFSET(QuestInnGlue, current_quest_key, offsetof(QuestInnGlue, current_quest) + 4);
 ASSERT_SIZE(QuestInnGlue, 0x40);
 
 

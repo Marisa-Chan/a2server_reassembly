@@ -47,7 +47,11 @@ struct PasswordManager {
 
     static PasswordManager manager; //6a8b98
 };
-ASSERT_SIZE(PasswordManager, 0x1c);
+// binary 0x1c: VC6 CTime was a 4-byte time_t; MFC140 CTime is 0x14 and
+// 8-aligned, so the struct rounds up (CStringArray + CString are 4 each)
+// binary 0x1c: identical except VC6 CTime wrapped a 4-byte time_t and
+// MFC140 uses an 8-byte __time64_t
+ASSERT_SIZE(PasswordManager, sizeof(CStringArray) + sizeof(CString) + sizeof(CTime));
 
 struct CowardActivation {
     char key[100];
