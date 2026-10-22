@@ -27,7 +27,6 @@ uint32_t g_RemoteTimestamp = 0;
 int32_t DAT_00660f88 = 0;
 int32_t g_LButtonDown; //660f4c
 uint32_t g_using_vxd = 1; // 62fa9c
-int32_t DAT_0062f87c = 1; // 62f87c CD-present flag; the catch handler at 482989 clears it when the CD check throws
 CDWordArray DAT_006658d8;
 
 CRect vis_scr_rect; //65fb88
@@ -3415,9 +3414,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x43b:
-        if (DAT_0062f87c == 0) { // if NO CD
-            PostMessage(0x421, 0, 0);
-        } else {
+        // original binaries guard this with a CD-present check (DAT_0062f87c,
+        // cleared by a catch handler around PlayVideo); removed - no CD drives
+        {
             CStringArray local_934;
             for (int i = 0; i < 32; i++) {
                 if ((g_using_vxd & (1 << i)) != 0) {
