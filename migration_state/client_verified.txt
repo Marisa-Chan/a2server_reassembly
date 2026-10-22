@@ -2917,3 +2917,4 @@ IDENTICAL	CSprite16	AssertValid	401980	4019e0	strings-ok
 IDENTICAL	CSprite16	FlipVertical	428d80	42a840	strings-ok
 IDENTICAL-BATCH	CSprite16	16
 PORTED	CGameFont	DrawTextJustifyShadow	45f10b	462d27
+PORTED	CGameFont	DrawTextJustify	45eed7	462af3

@@ -33,7 +33,6 @@ CLIENT_ONLY	CEdit2	Serialize(CArchive_&)	-	4019d0	vt
 BATCH	CFameHall	14 identical fns	-	-	-
 DIFFERS	CFile	GetLength	5df497	5ad452	slot2
 CLIENT_ONLY	CFile	GetFileTitle	-	5b2ced	vt
-DIFFERS	CGameFont	DrawTextJustify	45eed7	462af3	callsite:2 votes
 DIFFERS	CGameFont	GetStrWidth	45e1f9	461e19	callsite:6 votes
 BATCH	CGamePalette	10 identical fns	-	-	-
 DIFFERS	CGameSession	LoadCharacterRosterEntry	492c66	497585	callsite:2 votes
