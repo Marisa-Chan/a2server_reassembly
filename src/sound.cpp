@@ -885,6 +885,37 @@ void MusicPlayer::QueueTrack(int32_t track) { //45b681
 	this->track_to_play = track;
 }
 
+#ifdef A2CLIENT
+int32_t DAT_005fbb90 = 0; // client 5fbb90 — playback marker read by ReadPortion; -1 = none
+
+// client: 45ed2f
+void MusicPlayer::SwitchPlaylistAndPlayRandom(const CStringArray& plist) {
+	if (this->ds_buffer != nullptr) {
+		this->OnEndTrack();
+		this->playlist.Copy(plist);
+		int32_t n = this->playlist.GetSize();
+		this->track_ids.SetSize(n, -1);
+		this->StartPlayTrack(rand() % n);
+	}
+	DAT_005fbb90 = -1;
+}
+
+// client: 45f195 — the client gate here is the sound-dialog runtime toggle
+// (client 62c874, written by SoundPreferencesDialogVisualObject::MsgProc),
+// which mirrors g_SoundSettings.music_enabled
+void MusicPlayer::RestartLooping() {
+	if (g_SoundSettings.music_enabled == 0 || this->ds_buffer == nullptr || this->file_opened == 0) {
+		return;
+	}
+	this->UpdateBufferTime();
+	if (this->update_disabled != 0) {
+		this->SetUpdateProc();
+	}
+	this->update_disabled = 0;
+	this->ds_buffer->Play(0, 0, DSBPLAY_LOOPING);
+}
+#endif
+
 void SfxBank::Load(CString name) { //4c880e
 	this->select_count = 0;
 	this->attack_count = 0;
