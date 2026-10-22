@@ -2826,3 +2826,94 @@ PORTED	SoundPreferencesDialogVisualObject	ConvSliderToVolume	45ca45	460673
 PORTED	BigStruct2	UpdateSelectionState	416cf7	41850e
 PORTED	BigStruct2	sub_40B314	40b314	40b35f
 PORTED	BigStruct2	ProcessPackets	40da14	40dac9
+IDENTICAL	CBmp256	CBmp256	425f8c	427eba	strings-ok
+IDENTICAL	CBmp256	FlipVertical	4261a6	4280d4	strings-ok
+IDENTICAL	CBmp256	CBmp256	4262d1	4281ff	strings-ok
+IDENTICAL	CBmp256	SelectBitmapForDraw	424d57	426c87	strings-ok
+IDENTICAL	CBmp256	Draw	4263df	42830d	strings-ok
+IDENTICAL	CBmp256	DrawSubRectAdd	426440	4282b3	strings-ok
+IDENTICAL	CBmp256	DrawSubRect	426385	42836e	strings-ok
+IDENTICAL	CBmp256	destructor	428a10	42ab70	strings-ok
+IDENTICAL	CBmp256	Dump	42649a	4283c8	strings-ok
+IDENTICAL	CBmp256	GetHeight	4264d5	428403	strings-ok
+IDENTICAL	CBmp256	GetWidth	4264c0	4283ee	strings-ok
+IDENTICAL	CBmp256	~CBmp256	428a40	4016a2	strings-ok
+IDENTICAL	CBmp256	GetPixelSize	428da0	425aff	strings-ok
+IDENTICAL	CBmp256	GetRuntimeClass	423bcf	42ab60	strings-ok
+IDENTICAL	CBmp256	DrawWithPalette	428d60	4019d0	strings-ok
+IDENTICAL	CBmp256	Serialize	401970	42a820	strings-ok
+IDENTICAL	CBmp256	DrawBrightened	428d70	42a830	strings-ok
+IDENTICAL	CBmp256	AssertValid	401980	4019e0	strings-ok
+IDENTICAL-BATCH	CBmp256	18
+IDENTICAL	CBmp64	CBmp64	42576d	42769b	strings-ok
+IDENTICAL	CBmp64	LoadFile	425a17	427945	strings-ok
+IDENTICAL	CBmp64	WriteFile	425b95	427ac3	strings-ok
+IDENTICAL	CBmp64	FlipVertical	425cdb	427c09	strings-ok
+IDENTICAL	CBmp64	CBmp64	42597e	4278ac	strings-ok
+IDENTICAL	CBmp64	SelectBitmapForDraw	424d57	426c87	strings-ok
+IDENTICAL	CBmp64	Draw	425e0c	427d3a	strings-ok
+IDENTICAL	CBmp64	DrawSubRectMasked	425ea7	427d8b	strings-ok
+IDENTICAL	CBmp64	DrawSubRect	425e5d	427dd5	strings-ok
+IDENTICAL	CBmp64	DrawSubRectAdd	425ef1	427e1f	strings-ok
+IDENTICAL	CBmp64	destructor	4289c0	42ab10	strings-ok
+IDENTICAL	CBmp64	Dump	425f3b	427e69	strings-ok
+IDENTICAL	CBmp64	GetHeight	425f76	427ea4	strings-ok
+IDENTICAL	CBmp64	GetWidth	425f61	427e8f	strings-ok
+IDENTICAL	CBmp64	~CBmp64	4289f0	4016a2	strings-ok
+IDENTICAL	CBmp64	GetPixelSize	428d90	425aef	strings-ok
+IDENTICAL	CBmp64	GetRuntimeClass	423bbf	42a850	strings-ok
+IDENTICAL	CBmp64	DrawWithPalette	428d60	4019d0	strings-ok
+IDENTICAL	CBmp64	Serialize	401970	42a820	strings-ok
+IDENTICAL	CBmp64	DrawBrightened	428d70	42a830	strings-ok
+IDENTICAL	CBmp64	AssertValid	401980	4019e0	strings-ok
+IDENTICAL-BATCH	CBmp64	21
+IDENTICAL	CCursor	CCursor	47ce66	480d20	strings-ok
+IDENTICAL	CCursor	~CCursor	47cf99	480e53	strings-ok
+IDENTICAL	CCursor	CCursor	47ce1f	401910	strings-ok
+IDENTICAL	CCursor	Use	47d025	480edf	strings-ok
+IDENTICAL	CCursor	FUN_0047ffe0	47ffe0	483e60	strings-ok
+IDENTICAL	CCursor	GetSprite	41f8d0	401780	strings-ok
+IDENTICAL	CCursor	Serialize	401970	4019d0	strings-ok
+IDENTICAL	CCursor	Dump	401990	4019f0	strings-ok
+IDENTICAL	CCursor	AssertValid	401980	480cce	strings-ok
+IDENTICAL	CCursor	GetRuntimeClass	5ddf9b	5893d3	strings-ok
+IDENTICAL-BATCH	CCursor	10
+IDENTICAL	CGameBitmap	CGameBitmap	4245c1	4264f1	strings-ok
+IDENTICAL	CGameBitmap	CGameBitmap	4247fd	42672d	strings-ok
+IDENTICAL	CGameBitmap	~CGameBitmap	42496a	42689a	strings-ok
+IDENTICAL	CGameBitmap	SelectBitmapForDraw	424d57	426c87	strings-ok
+IDENTICAL	CGameBitmap	CGameBitmap	4247a6	4266d6	strings-ok
+IDENTICAL	CGameBitmap	ResetPalette	424cb0	426be0	strings-ok
+IDENTICAL	CGameBitmap	GetHeight	424d11	426c16	strings-ok
+IDENTICAL	CGameBitmap	GetWidth	424ce6	426c41	strings-ok
+IDENTICAL	CGameBitmap	destructor	4288f0	42a860	strings-ok
+IDENTICAL	CGameBitmap	Dump	424d3d	426c6d	strings-ok
+IDENTICAL	CGameBitmap	GetData	41ec60	420460	strings-ok
+IDENTICAL	CGameBitmap	GetFrameCount	4387f0	401780	strings-ok
+IDENTICAL	CGameBitmap	GetRuntimeClass	423b8f	425abf	strings-ok
+IDENTICAL	CGameBitmap	GetPixelSize	428d90	42a850	strings-ok
+IDENTICAL	CGameBitmap	Draw	428d50	4019d0	strings-ok
+IDENTICAL	CGameBitmap	DrawWithPalette	428d60	42a810	strings-ok
+IDENTICAL	CGameBitmap	DrawBrightened	428d70	42a820	strings-ok
+IDENTICAL	CGameBitmap	Serialize	401970	42a830	strings-ok
+IDENTICAL	CGameBitmap	FlipVertical	428d80	4019e0	strings-ok
+IDENTICAL	CGameBitmap	AssertValid	401980	42a840	strings-ok
+IDENTICAL-BATCH	CGameBitmap	20
+IDENTICAL	CSprite16	SelectBitmapForDraw	424d57	426c87	strings-ok
+IDENTICAL	CSprite16	DrawRle4	424ddd	426d0d	strings-ok
+IDENTICAL	CSprite16	Dump	424e2b	426d5b	strings-ok
+IDENTICAL	CSprite16	GetHeight	424d11	426c41	strings-ok
+IDENTICAL	CSprite16	GetWidth	424ce6	426c16	strings-ok
+IDENTICAL	CSprite16	FUN_00428920	428920	42aa70	strings-ok
+IDENTICAL	CSprite16	CSprite16	424db8	426ce8	strings-ok
+IDENTICAL	CSprite16	~CSprite16	428950	4016a2	strings-ok
+IDENTICAL	CSprite16	GetPixelSize	428d90	425acf	strings-ok
+IDENTICAL	CSprite16	GetRuntimeClass	423b9f	42a850	strings-ok
+IDENTICAL	CSprite16	DrawWithPalette	428d60	4019d0	strings-ok
+IDENTICAL	CSprite16	Serialize	401970	42a810	strings-ok
+IDENTICAL	CSprite16	Draw	428d50	42a820	strings-ok
+IDENTICAL	CSprite16	DrawBrightened	428d70	42a830	strings-ok
+IDENTICAL	CSprite16	AssertValid	401980	4019e0	strings-ok
+IDENTICAL	CSprite16	FlipVertical	428d80	42a840	strings-ok
+IDENTICAL-BATCH	CSprite16	16
+PORTED	CGameFont	DrawTextJustifyShadow	45f10b	462d27

@@ -28,16 +28,11 @@ DIFFERS	BuildingInfo	ParseValue	514ac9	507d92	slot6
 DIFFERS	BuildingInfo	destructor	573020	543980	slot1
 DIFFERS	BuildingsList	AddBuilding	558228	535ee0	callsite:2 votes
 DIFFERS	CA16	DrawIndexMask	425508	427438	slot16
-BATCH	CBmp256	18 identical fns	-	-	-
-BATCH	CBmp64	21 identical fns	-	-	-
-BATCH	CCursor	10 identical fns	-	-	-
 DIFFERS	CEdit2	OnCmdMsg(uint,int,void_*,AFX_CMDHANDLERINFO_*)	5e3d2f	4637f1	slot5
 CLIENT_ONLY	CEdit2	Serialize(CArchive_&)	-	4019d0	vt
 BATCH	CFameHall	14 identical fns	-	-	-
 DIFFERS	CFile	GetLength	5df497	5ad452	slot2
 CLIENT_ONLY	CFile	GetFileTitle	-	5b2ced	vt
-BATCH	CGameBitmap	20 identical fns	-	-	-
-DIFFERS	CGameFont	DrawTextJustifyShadow	45f10b	462d27	callsite:2 votes
 DIFFERS	CGameFont	DrawTextJustify	45eed7	462af3	callsite:2 votes
 DIFFERS	CGameFont	GetStrWidth	45e1f9	461e19	callsite:6 votes
 BATCH	CGamePalette	10 identical fns	-	-	-
@@ -56,7 +51,6 @@ DIFFERS	CMultiShopShelf	AddItem	544bce	52b1ed	callsite:2 votes
 DIFFERS	CMultiShopShelf	destructor	57c560	54d6a0	slot1
 DIFFERS	CMultiShopTemplate	FindInstanceFor	547468	52c3ef	callsite:3 votes
 DIFFERS	CMultiShopTemplate	destructor	57caa0	54de00	slot1
-BATCH	CSprite16	16 identical fns	-	-	-
 DIFFERS	CSprite256	DrawIndexMask	425508	427438	slot16
 DIFFERS	CSpriteFont16	DrawTxt	45fbd7	4dc525	slot5
 CLIENT_ONLY	CSpriteFont16	OnWmUser	-	4201a0	vt

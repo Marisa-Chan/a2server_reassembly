@@ -3758,11 +3758,11 @@ void CGameFont::DrawTextLines(const CRect& r, int32_t first, int32_t last, const
 }
 
 
+// client: 462d27
 void CGameFont::DrawTextJustifyShadow(int32_t x, int32_t y, int32_t w, CString txt, uint16_t* clr) { //45f10b
 	int32_t space_width = this->char_widths[' '];
 
 	CStringArray words;
-	CDWordArray wordssz;
 
 	txt.TrimRight();
 	int32_t words_width = 0;
@@ -3779,31 +3779,28 @@ void CGameFont::DrawTextJustifyShadow(int32_t x, int32_t y, int32_t w, CString t
 
 		words.Add(wrd);
 
-		int32_t sz = this->GetStrWidth(wrd);
-		words_width += sz;
+		words_width += this->GetStrWidth(wrd);
 
-		wordssz.Add(sz);
-
-		txt = txt.Right(txt.GetLength() - word_end);		
-	} 
-
-	int32_t word_space = (w - words_width) << 8; //replace it with int, because no sense of float. Use << 8
-	if (words.GetSize() >= 2) {
-		word_space /= (words.GetSize() - 1);
+		txt = txt.Right(txt.GetLength() - word_end);
 	}
 
-	int32_t xx = x << 8;
+	double word_space = (w - words_width);
+	if (words.GetSize() > 1) {
+		word_space /= (double)(words.GetSize() - 1);
+	}
+
+	double xx = (double)x;
 	for (int i = 0; i < words.GetSize(); i++) {
-		this->DrawTextWithShadow(xx >> 8, y, words[i], 0, clr, 1);
-		xx += (wordssz[i] << 8) + word_space;
+		this->DrawTextWithShadow((int32_t)xx, y, words[i], 0, clr, 1);
+		xx += word_space + this->GetStrWidth(words[i]);
 	}
 }
 
+// client: 462af3
 void CGameFont::DrawTextJustify(int32_t x, int32_t y, int32_t w, CString txt, uint16_t* clr) { //45eed7
 	int32_t space_width = this->char_widths[' '];
 
 	CStringArray words;
-	CDWordArray wordssz;
 
 	txt.TrimRight();
 	int32_t words_width = 0;
