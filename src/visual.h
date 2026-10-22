@@ -1129,28 +1129,47 @@ public:
 	QuestMap* field_0x4970;
 	CArray<Item*> field_0x4974;
 	std::array<Item*, 12> field_0x4988;
+#ifdef A2CLIENT
+	// client tail layout (retail class is 0x4a48 bytes, client ctor 402af6): the
+	// server's 12-slot item array extends to 32 hat-DM slots (entries 12..31 are
+	// the fields below), and the server's 40000 timer triple (field_0x49b8/
+	// field_0x49bc/field_0x49c0 at the end of this block) moves behind the hat
+	// containers to 0x4a38..0x4a40
+	int32_t hat_item_slot12; // client 0x49b8 (ctor sets 0)
+	int32_t hat_item_slot13; // client 0x49bc (ctor sets 0xF0000001)
+	int32_t hat_item_slot14; // client 0x49c0 (ctor sets 0xF0000001)
+	int32_t hat_cursor_slots[16]; // client 0x49c4..0x4a03 = slots 15..30 (ctor 0xF0000003; packet 0xc2 bulk state)
+	int32_t field_0x4a04; // client 0x4a04 = slot 31 (ctor 0x7fffffff; hat player-list state, packets 0x5c/0xc2)
+	int32_t cursor_over_obj_last_index; // client 0x4a08
+	int32_t last_focus_obj_index; // client 0x4a0c
+	CStringArray hat_name_list; // client 0x4a10 — hat DM player names (packets 0x5a/0x5b/0x5c)
+	CArray<uint32_t> hat_score_list; // client 0x4a24 — parallel scores (plain dwords), sorted descending
+	int32_t field_0x49b8; //unk type — at client 0x4a38 (40000)
+	int32_t field_0x49bc; //unk type — at client 0x4a3c (40000)
+	int32_t field_0x49c0; //unk type — at client 0x4a40 (0)
+
+	void CloseHatOverlays(); // client 41748d/417902 — close shop/tavern/popup/1200 overlays
+#else
 	int32_t field_0x49b8; //unk type
 	int32_t field_0x49bc; //unk type
 	int32_t field_0x49c0; //unk type
 	int32_t field_0x49c4; //unk type
-#ifdef A2CLIENT
-	// client-only extras past the server class end (retail client class is larger);
-	// written by client-side cursor/packet code, read by CUnit::DrawHealthBar balloons
-	int32_t cursor_over_obj_last_index; // client 0x4a08
-	int32_t last_focus_obj_index; // client 0x4a0c
-	int32_t field_0x4a04; // client 0x4a04 — hat player-list state (packet 0x5c/0xc2)
-	int32_t hat_cursor_slots[16]; // client 0x49c4..0x4a03 — bulk state (packet 0xc2)
-	CStringArray hat_name_list; // client 0x4a10 — hat DM player names (packets 0x5a/0x5b/0x5c)
-	CArray<uint32_t> hat_score_list; // client 0x4a24 — parallel scores (plain dwords), sorted descending
-
-	void CloseHatOverlays(); // client 41748d/417902 — close shop/tavern/popup/1200 overlays
 #endif
 };
 
 ASSERT_OFFSET(BigStruct2, field_0x80, 0x80);
 ASSERT_OFFSET(BigStruct2, field_0x9d0, 0x9d0);
 ASSERT_OFFSET(BigStruct2, damage_labels, 0x3f54);
+#ifdef A2CLIENT
+ASSERT_OFFSET(BigStruct2, hat_cursor_slots, 0x49c4);
+ASSERT_OFFSET(BigStruct2, field_0x4a04, 0x4a04);
+ASSERT_OFFSET(BigStruct2, hat_name_list, 0x4a10);
+ASSERT_OFFSET(BigStruct2, hat_score_list, 0x4a24);
+ASSERT_OFFSET(BigStruct2, field_0x49b8, 0x4a38);
+ASSERT_SIZE(BigStruct2, 0x4a48);
+#else
 ASSERT_SIZE(BigStruct2, 0x49c8);
+#endif
 
 //60ce80
 class VisRightPanel : public CVisualObject {

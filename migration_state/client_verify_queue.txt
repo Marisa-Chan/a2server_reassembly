@@ -5,216 +5,116 @@
 #   FLAGGED      identical code but referenced strings differ - inspect manually
 #   BATCH        all-identical class: run `client_verify.py record-identical <Class>`
 # Do not edit by hand; use tool/client_verify.py.
-# === Vis1200 ===
 DIFFERS	Vis1200	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === Vis1200obj ===
 DIFFERS	Vis1200obj	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === Vis2Action ===
 DIFFERS	Vis2Action	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisBitmap ===
 DIFFERS	VisBitmap	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisButton ===
 DIFFERS	VisButton	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisButtonSaveGame ===
 DIFFERS	VisButtonSaveGame	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisCharGen ===
 DIFFERS	VisCharGen	GetRuntimeClass	5ddf9b	5ac95e	slot0
 CLIENT_ONLY	VisCharGen	VisCharGen	-	435193	vt
 CLIENT_ONLY	VisCharGen	VMethod7	-	437ea4	vt
 CLIENT_ONLY	VisCharGen	GetHint	-	439f45	vt
 CLIENT_ONLY	VisCharGen	GetName	-	49aa10	vt
 CLIENT_ONLY	VisCharGen	GetClan	-	49aa50	vt
-# === VisCharGenAction ===
 DIFFERS	VisCharGenAction	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisCharGenFullStats ===
 DIFFERS	VisCharGenFullStats	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisCharGenSkills ===
 DIFFERS	VisCharGenSkills	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisCharGenStats ===
 DIFFERS	VisCharGenStats	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisCharInfo ===
 DIFFERS	VisCharInfo	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisCharSelect ===
 DIFFERS	VisCharSelect	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisCharSellectButtons ===
 DIFFERS	VisCharSellectButtons	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisCharSellectList ===
 DIFFERS	VisCharSellectList	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisCharSellectStats ===
 DIFFERS	VisCharSellectStats	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisComboBox ===
 DIFFERS	VisComboBox	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisComboBoxButton ===
 DIFFERS	VisComboBoxButton	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisComboBoxList ===
 DIFFERS	VisComboBoxList	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisComboBoxText ===
 DIFFERS	VisComboBoxText	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisConnectionDlg ===
 DIFFERS	VisConnectionDlg	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisCredits ===
 DIFFERS	VisCredits	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisCutScenesDlg ===
 DIFFERS	VisCutScenesDlg	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisDiplomacy ===
 DIFFERS	VisDiplomacy	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisDropGold ===
 DIFFERS	VisDropGold	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisFameDocument ===
 DIFFERS	VisFameDocument	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisFameHall ===
 DIFFERS	VisFameHall	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisGlobalMap ===
 DIFFERS	VisGlobalMap	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisHatBrowserDlg ===
 DIFFERS	VisHatBrowserDlg	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisHatBrowserList ===
 DIFFERS	VisHatBrowserList	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisHatServerListDlg ===
 DIFFERS	VisHatServerListDlg	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisInvBase ===
 DIFFERS	VisInvBase	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisInvExtBase ===
 DIFFERS	VisInvExtBase	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisInvExtType1 ===
 DIFFERS	VisInvExtType1	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisInvExtType1Druid ===
 DIFFERS	VisInvExtType1Druid	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisInvExtType1Kaarg ===
 DIFFERS	VisInvExtType1Kaarg	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisInvExtType2 ===
 DIFFERS	VisInvExtType2	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisInvExtType3 ===
 DIFFERS	VisInvExtType3	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisInvType1 ===
 DIFFERS	VisInvType1	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisLabel ===
 DIFFERS	VisLabel	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisListBox ===
 DIFFERS	VisListBox	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisListBoxDiplomacy ===
 DIFFERS	VisListBoxDiplomacy	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisListBoxPhoneBook ===
 DIFFERS	VisListBoxPhoneBook	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisLogoWnd ===
 DIFFERS	VisLogoWnd	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisMainMenu ===
 DIFFERS	VisMainMenu	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisMenuWnd ===
 DIFFERS	VisMenuWnd	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisMessageBox ===
 DIFFERS	VisMessageBox	purecall	5c0aa0	58e570	slot34
 DIFFERS	VisMessageBox	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisMessageBoxWithList ===
 DIFFERS	VisMessageBoxWithList	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisMiniMap ===
 DIFFERS	VisMiniMap	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisMissionFailed ===
 DIFFERS	VisMissionFailed	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisMultiText ===
 DIFFERS	VisMultiText	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisNetChatList ===
 DIFFERS	VisNetChatList	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisNetChatTextBox ===
 DIFFERS	VisNetChatTextBox	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisNetDlg ===
 DIFFERS	VisNetDlg	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisNetMapList ===
 DIFFERS	VisNetMapList	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisNetMapSelection ===
 DIFFERS	VisNetMapSelection	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisNetPhoneBook ===
 DIFFERS	VisNetPhoneBook	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisNetPlayerList ===
 DIFFERS	VisNetPlayerList	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisNetSerialSettings ===
 DIFFERS	VisNetSerialSettings	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisNetTcpIp ===
 DIFFERS	VisNetTcpIp	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisOrderToolbar ===
 DIFFERS	VisOrderToolbar	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisQuestStatus ===
 DIFFERS	VisQuestStatus	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisRadioBase ===
 DIFFERS	VisRadioBase	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisRadioType1 ===
 DIFFERS	VisRadioType1	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisRadioType2 ===
 DIFFERS	VisRadioType2	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisRightPanel ===
 DIFFERS	VisRightPanel	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisRoleKeyScreen ===
 DIFFERS	VisRoleKeyScreen	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisScreen ===
 DIFFERS	VisScreen	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisScrollBar ===
 DIFFERS	VisScrollBar	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisServerScreen ===
 DIFFERS	VisServerScreen	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisServerScreenRadio ===
 DIFFERS	VisServerScreenRadio	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisShop ===
 DIFFERS	VisShop	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisShopButtons ===
 DIFFERS	VisShopButtons	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisShopCompass ===
 DIFFERS	VisShopCompass	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisShopCompassDruid ===
 DIFFERS	VisShopCompassDruid	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisShopCompassKaarg ===
 DIFFERS	VisShopCompassKaarg	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisShopDruid ===
 DIFFERS	VisShopDruid	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisShopKaarg ===
 DIFFERS	VisShopKaarg	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisSideStatus ===
 DIFFERS	VisSideStatus	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisSpellBook ===
 DIFFERS	VisSpellBook	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisStartGame ===
 DIFFERS	VisStartGame	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisStartGameTextBox ===
 DIFFERS	VisStartGameTextBox	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisTav ===
 DIFFERS	VisTav	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisTavDruid ===
 DIFFERS	VisTavDruid	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisTavKaarg ===
 DIFFERS	VisTavKaarg	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisTavLeftPanel ===
 DIFFERS	VisTavLeftPanel	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisTavRightPanel ===
 DIFFERS	VisTavRightPanel	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisTavScene ===
 DIFFERS	VisTavScene	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisTavSceneDruid ===
 DIFFERS	VisTavSceneDruid	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisTavSceneKaarg ===
 DIFFERS	VisTavSceneKaarg	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisTextBox ===
 DIFFERS	VisTextBox	InsertChar	4d9ef2	4de875	name
 DIFFERS	VisTextBox	VisTextBox	4d995f	4de26c	name
 DIFFERS	VisTextBox	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisTipsDialog ===
 DIFFERS	VisTipsDialog	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisTown ===
 DIFFERS	VisTown	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisTownDruid ===
 DIFFERS	VisTownDruid	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisTownKaarg ===
 DIFFERS	VisTownKaarg	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === VisWindow ===
 DIFFERS	VisWindow	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === A2NetSock ===
 DIFFERS	A2NetSock	~A2NetSock	520684	510121	name
 DIFFERS	A2NetSock	A2NetSock	520510	51002a	name
-# === Action ===
 BATCH	Action	1 identical fns	-	-	-
-# === AreaEffect ===
 DIFFERS	AreaEffect	Serialize	53e81f	52657a	slot2
 DIFFERS	AreaEffect	ProcessEffects	537964	52199f	slot6
 DIFFERS	AreaEffect	destructor	57c0f0	54cd40	slot1
-# === Armor ===
 DIFFERS	Armor	Armor	54f361	531112	name
 DIFFERS	Armor	Serialize	55cf2b	5377f2	slot2
 DIFFERS	Armor	WriteState	54fca8	531968	slot21
@@ -223,43 +123,28 @@ DIFFERS	Armor	Clone	57d5b0	54e710	slot17
 DIFFERS	Armor	CalcValue	54f84d	531584	slot19
 DIFFERS	Armor	IsSimpleItem	548817	52d1e4	slot20
 DIFFERS	Armor	destructor	57d630	54e790	slot1
-# === AvailNetSession ===
 BATCH	AvailNetSession	1 identical fns	-	-	-
-# === BigStruct2 ===
-DIFFERS	BigStruct2	BigStruct2	402af6	402af6	name
 DIFFERS	BigStruct2	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === BitSet ===
 DIFFERS	BitSet	AllocBit	509d9f	50193a	name
-# === Building ===
 DIFFERS	Building	Serialize	542ce7	529f6d	slot2
 DIFFERS	Building	RollDamage	542a31	529e83	callsite:2 votes
 DIFFERS	Building	InitByName	542624	529ae6	callsite:3 votes
 DIFFERS	Building	Building	542599	529a5d	callsite:2 votes
 DIFFERS	Building	FUN_0057c410	57c410	54d3f0	slot1
 CLIENT_ONLY	Building	LoadInfo	-	529c04	vt
-# === BuildingInfo ===
 DIFFERS	BuildingInfo	ParseValues	512c4d	5064df	slot5
 DIFFERS	BuildingInfo	ParseValue	514ac9	507d92	slot6
 DIFFERS	BuildingInfo	destructor	573020	543980	slot1
-# === BuildingsList ===
 DIFFERS	BuildingsList	AddBuilding	558228	535ee0	callsite:2 votes
-# === CA16 ===
 BATCH	CA16	17 identical fns	-	-	-
-# === CAirUnit ===
 BATCH	CAirUnit	19 identical fns	-	-	-
-# === CBackPack ===
 BATCH	CBackPack	19 identical fns	-	-	-
-# === CBridge ===
 BATCH	CBridge	19 identical fns	-	-	-
-# === CCursor ===
 DIFFERS	CCursor	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === CEdit2 ===
 DIFFERS	CEdit2	GetMessageMap	494efb	5b7dde	slot12
 DIFFERS	CEdit2	GetDispatchIID(_GUID_*)	5e3f7c	5b2254	slot8
 DIFFERS	CEdit2	GetTypeInfoCount(void)	5e3f81	5afb84	slot9
-# === CFameHall ===
 BATCH	CFameHall	14 identical fns	-	-	-
-# === CFile ===
 DIFFERS	CFile	GetLength	5df497	5ad452	callsite:5 votes
 CLIENT_ONLY	CFile	FUN_005ad3d4	-	5ad3d4	vt
 CLIENT_ONLY	CFile	FUN_005b2c6b	-	5b2c6b	vt
@@ -267,22 +152,15 @@ CLIENT_ONLY	CFile	GetFileTitle	-	5b2ced	vt
 CLIENT_ONLY	CFile	FUN_005b9559	-	5b9559	vt
 CLIENT_ONLY	CFile	FUN_005b95df	-	5b95df	vt
 CLIENT_ONLY	CFile	FUN_005c1db8	-	5c1db8	vt
-# === CGameFont ===
 DIFFERS	CGameFont	StrSplitToFitWidth	45e35f	461f7b	name
 DIFFERS	CGameFont	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === CGameObject ===
 BATCH	CGameObject	35 identical fns	-	-	-
-# === CGamePalette ===
 BATCH	CGamePalette	10 identical fns	-	-	-
-# === CGameSession ===
 DIFFERS	CGameSession	LoadCharacterRosterEntry	492c66	497585	callsite:2 votes
 DIFFERS	CGameSession	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === CHorisontalWoodenBridge ===
 BATCH	CHorisontalWoodenBridge	20 identical fns	-	-	-
-# === CListBox2 ===
 DIFFERS	CListBox2	GetDispatchIID(_GUID_*)	5e3f7c	5b2254	slot8
 DIFFERS	CListBox2	GetTypeInfoCount(void)	5e3f81	5afb84	slot9
-# === CLlDriver ===
 DIFFERS	CLlDriver	HandleMessageDp	524abd	514141	name
 DIFFERS	CLlDriver	AcceptThreadTcp	522e8f	51258b	name
 DIFFERS	CLlDriver	CloseDpSock	525bcd	514d27	callsite:2 votes
@@ -305,45 +183,27 @@ DIFFERS	CLlDriver	Free	5219af	511246	name
 DIFFERS	CLlDriver	cbEnumAddress	5211b2	510a50	name
 DIFFERS	CLlDriver	SendAllPendingDp	525b86	514ce1	name
 DIFFERS	CLlDriver	IsInUse	52293a	512078	callsite:2 votes
-# === CMousePointer ===
 DIFFERS	CMousePointer	PaintHint	4282bb	42a1e9	callsite:2 votes
-# === CMultiShopInstance ===
 DIFFERS	CMultiShopInstance	destructor	57c590	54d720	slot1
-# === CMultiShopShelf ===
 DIFFERS	CMultiShopShelf	AddItem	544bce	52b1ed	callsite:2 votes
 DIFFERS	CMultiShopShelf	ClearItems	545865	52b591	name
 DIFFERS	CMultiShopShelf	destructor	57c560	54d6a0	slot1
 DIFFERS	CMultiShopShelf	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === CMultiShopTemplate ===
 DIFFERS	CMultiShopTemplate	FindInstanceFor	547468	52c3ef	callsite:3 votes
 DIFFERS	CMultiShopTemplate	destructor	57caa0	54de00	slot1
-# === CProjectile ===
 BATCH	CProjectile	20 identical fns	-	-	-
-# === CSprite256 ===
 BATCH	CSprite256	19 identical fns	-	-	-
-# === CSpriteFont16 ===
 DIFFERS	CSpriteFont16	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === CSpriteFont16a ===
 DIFFERS	CSpriteFont16a	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === CStructure ===
 BATCH	CStructure	19 identical fns	-	-	-
-# === CUnit ===
 BATCH	CUnit	26 identical fns	-	-	-
-# === CVerticalWoodenBridge ===
 BATCH	CVerticalWoodenBridge	20 identical fns	-	-	-
-# === CVisualObject ===
 DIFFERS	CVisualObject	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === CellState ===
 BATCH	CellState	4 identical fns	-	-	-
-# === ComSettings ===
 BATCH	ComSettings	2 identical fns	-	-	-
-# === CowardActivation ===
 BATCH	CowardActivation	2 identical fns	-	-	-
-# === Diplomacy ===
 BATCH	Diplomacy	2 identical fns	-	-	-
-# === DiplomacyEntry ===
 BATCH	DiplomacyEntry	2 identical fns	-	-	-
-# === DirectDamage ===
 DIFFERS	DirectDamage	ApplyStatDelta	53fa2b	527122	slot18
 DIFFERS	DirectDamage	ApplyToUnit	53f761	526e61	slot16
 DIFFERS	DirectDamage	TickOnUnit	53ee54	52698b	slot14
@@ -351,9 +211,7 @@ DIFFERS	DirectDamage	RollStrength	541eb5	529380	slot21
 DIFFERS	DirectDamage	CalcChargePercent	541d59	52921c	slot20
 DIFFERS	DirectDamage	CalcScrollPrice	541c87	52915e	slot19
 DIFFERS	DirectDamage	~DirectDamage	57c370	54d320	slot1
-# === DistortMap ===
 BATCH	DistortMap	2 identical fns	-	-	-
-# === Effect ===
 DIFFERS	Effect	ApplyStatDelta	53fa2b	527122	slot18
 DIFFERS	Effect	CreateFromString	541046	5285cb	name
 DIFFERS	Effect	RemoveFromUnit	53efb2	526afe	slot15
@@ -365,67 +223,42 @@ DIFFERS	Effect	CalcChargePercent	541d59	52921c	slot20
 DIFFERS	Effect	ParseDmg	54180c	528d43	name
 DIFFERS	Effect	CalcScrollPrice	541c87	52915e	slot19
 DIFFERS	Effect	destructor	57c320	54d2f0	slot1
-# === EndGameMenu ===
 DIFFERS	EndGameMenu	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === EquipmentExtra ===
 BATCH	EquipmentExtra	3 identical fns	-	-	-
-# === ExitGameMenu ===
 DIFFERS	ExitGameMenu	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === Fame1 ===
 BATCH	Fame1	1 identical fns	-	-	-
-# === Fame2 ===
 BATCH	Fame2	11 identical fns	-	-	-
-# === FatEntry ===
 BATCH	FatEntry	3 identical fns	-	-	-
-# === FieldBlock54190 ===
 BATCH	FieldBlock54190	1 identical fns	-	-	-
-# === FieldBlock5859c ===
 CLIENT_ONLY	FieldBlock5859c	COleDataObject	-	4cc8d0	vt
 CLIENT_ONLY	FieldBlock5859c	COleDataObject	-	4cc910	vt
-# === File2 ===
 DIFFERS	File2	GetRuntimeClass	5f472f	5c1db8	slot0
 CLIENT_ONLY	File2	FUN_005b2c6b	-	5b2c6b	vt
 CLIENT_ONLY	File2	GetFileTitle	-	5b2ced	vt
-# === GM_a28 ===
 DIFFERS	GM_a28	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === GMapThing ===
 BATCH	GMapThing	8 identical fns	-	-	-
-# === GO_11c ===
 BATCH	GO_11c	1 identical fns	-	-	-
-# === GameApp ===
 DIFFERS	GameApp	InitInstance	4823bd	48626d	name
 DIFFERS	GameApp	OnFinalRelease(void)	5e3fe6	5b1fc8	slot6
 DIFFERS	GameApp	GetRuntimeClass	5f54c6	5c2b75	slot0
 DIFFERS	GameApp	IsInvokeAllowed(long)	5e3f76	5b1f58	slot7
-# === GameDataRes ===
 DIFFERS	GameDataRes	Serialize	50e0f0	503833	name
 DIFFERS	GameDataRes	ParseDataBin	50d421	502b5a	name
 DIFFERS	GameDataRes	CreateItemById	510ee6	504aab	callsite:2 votes
 CLIENT_ONLY	GameDataRes	FindShapeByItemName	-	502fe1	vt
 CLIENT_ONLY	GameDataRes	FindMaterialByItemName	-	50312d	vt
-# === GameOptionsWindow ===
 DIFFERS	GameOptionsWindow	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === GameSettings ===
 BATCH	GameSettings	4 identical fns	-	-	-
-# === GfxFile ===
 DIFFERS	GfxFile	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === GfxObject ===
 DIFFERS	GfxObject	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === GlobalMapRouteArray ===
 BATCH	GlobalMapRouteArray	1 identical fns	-	-	-
-# === Group ===
 DIFFERS	Group	RemoveUnit	5552e6	534cf4	name
 DIFFERS	Group	AddUnit	555176	534cae	name
 DIFFERS	Group	Group	554d9e	534b65	name
-# === GroupList ===
 DIFFERS	GroupList	GroupList	5555f2	534d7b	name
-# === GroupSub ===
 BATCH	GroupSub	3 identical fns	-	-	-
-# === HatSettings ===
 DIFFERS	HatSettings	Load	43d249	43f65a	name
-# === HintedListBox ===
 DIFFERS	HintedListBox	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === Human ===
 DIFFERS	Human	ProcessEffects	52a857	518d2f	slot6
 DIFFERS	Human	CopyFrom	52963b	51807f	slot15
 DIFFERS	Human	InitFromName	532587	51e20d	callsite:2 votes
@@ -442,12 +275,10 @@ DIFFERS	Human	AwardKillMoney	53111b	51ceb7	slot20
 DIFFERS	Human	GetCorpseDecayTime	530394	51c162	slot29
 DIFFERS	Human	RecalcExperience	537199	5211ee	slot23
 DIFFERS	Human	destructor	57bba0	54c780	slot1
-# === HumanInfo ===
 DIFFERS	HumanInfo	ParseValues	512c4d	5064df	slot5
 DIFFERS	HumanInfo	ParseValue	5143a6	50781d	slot6
 DIFFERS	HumanInfo	Serialize	514a3a	507d03	slot2
 DIFFERS	HumanInfo	destructor	572e60	5438e0	slot1
-# === Humanoid ===
 DIFFERS	Humanoid	ProcessEffects	52a857	518d2f	slot6
 DIFFERS	Humanoid	CopyFrom	52963b	51807f	slot15
 DIFFERS	Humanoid	RollDamage	536b31	520be5	slot21
@@ -463,20 +294,16 @@ DIFFERS	Humanoid	AwardKillMoney	53111b	51ceb7	slot20
 DIFFERS	Humanoid	GetCorpseDecayTime	530394	51c162	slot29
 DIFFERS	Humanoid	RecalcExperience	537199	5211ee	slot23
 DIFFERS	Humanoid	destructor	57bb70	54c730	slot1
-# === IngameMenu ===
 DIFFERS	IngameMenu	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === Inn ===
 DIFFERS	Inn	Serialize	542ce7	529f6d	slot2
 DIFFERS	Inn	RegenTick	567d74	53df77	slot5
 DIFFERS	Inn	Inn	56046b	539332	name
 DIFFERS	Inn	destructor	582750	5530e0	slot1
-# === Inventory ===
 DIFFERS	Inventory	PutItemIntoBag	551fc3	533804	name
 DIFFERS	Inventory	TakeItemAt	552e42	533cd8	callsite:2 votes
 DIFFERS	Inventory	TakeItemById	552c37	533c61	callsite:4 votes
 DIFFERS	Inventory	FindItemById	552b6b	533c07	callsite:2 votes
 DIFFERS	Inventory	Inventory	551c0a	5336d5	callsite:6 votes
-# === Item ===
 DIFFERS	Item	Serialize	55c2f1	53737c	slot2
 DIFFERS	Item	StoreToPacket	549afb	52dee1	callsite:6 votes
 DIFFERS	Item	Item	54842a	52cfd3	callsite:2 votes
@@ -489,60 +316,43 @@ DIFFERS	Item	TakeOne	548dbf	52d55b	slot16
 DIFFERS	Item	Clone	57cdc0	54e050	slot17
 DIFFERS	Item	IsSimpleItem	548817	52d1e4	slot20
 DIFFERS	Item	destructor	57ce50	54e0e0	slot1
-# === LoadGameWindow ===
 DIFFERS	LoadGameWindow	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === MagicInfo ===
 DIFFERS	MagicInfo	ParseValues	512c4d	5064df	slot5
 DIFFERS	MagicInfo	ParseValue	5131c1	506744	slot6
 DIFFERS	MagicInfo	Serialize	513a4f	506f55	slot2
 DIFFERS	MagicInfo	destructor	572a90	543730	slot1
-# === MagicItem ===
 DIFFERS	MagicItem	ParseValues	512c4d	5064df	slot5
 DIFFERS	MagicItem	Serialize	513c13	507107	slot2
 DIFFERS	MagicItem	destructor	5728c0	543690	slot1
-# === MainWindow ===
 DIFFERS	MainWindow	WindowProc	486c6c	48a969	name
 DIFFERS	MainWindow	DestroyServer	48cb3c	490ce4	callsite:2 votes
 DIFFERS	MainWindow	Proc_421	48d49b	491619	name
 DIFFERS	MainWindow	OnFinalRelease(void)	5e1441	5af425	slot6
 DIFFERS	MainWindow	IsInvokeAllowed(long)	5e3f76	5b1f58	slot7
 CLIENT_ONLY	MainWindow	CMainWindow	-	48750d	vt
-# === MapAlm ===
 DIFFERS	MapAlm	MapAlm	5693a3	53ea3a	name
 DIFFERS	MapAlm	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === MapEffectData ===
 DIFFERS	MapEffectData	MapEffectData	56ed8c	540e09	name
-# === MapLogicData ===
 BATCH	MapLogicData	1 identical fns	-	-	-
-# === MapPlayerData ===
 BATCH	MapPlayerData	12 identical fns	-	-	-
-# === MapSackData ===
 BATCH	MapSackData	1 identical fns	-	-	-
-# === MapStuff ===
 DIFFERS	MapStuff	ClampPosToMap	5936d2	562b82	callsite:7 votes
 DIFFERS	MapStuff	GetTileMoveTime	5913bd	56086d	callsite:2 votes
 DIFFERS	MapStuff	MoveStepTowardPos	58ff51	55f401	callsite:2 votes
 DIFFERS	MapStuff	FacesPosInRange	58feda	55f38a	callsite:2 votes
 DIFFERS	MapStuff	FacesTargetInRange	58fe6d	55f31d	callsite:3 votes
-# === MatShape ===
 DIFFERS	MatShape	ParseValues	512c4d	5064df	slot5
 DIFFERS	MatShape	ParseValue	5131c1	506744	slot6
 DIFFERS	MatShape	Serialize	513b05	506fff	slot2
 DIFFERS	MatShape	destructor	572640	543570	slot1
-# === MenuButton ===
 DIFFERS	MenuButton	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === MonsterInfo ===
 DIFFERS	MonsterInfo	ParseValues	512c4d	5064df	slot5
 DIFFERS	MonsterInfo	ParseValue	513c82	507170	slot6
 DIFFERS	MonsterInfo	Serialize	513ff6	507486	slot2
 DIFFERS	MonsterInfo	destructor	572c70	5437f0	slot1
-# === MusicPlayer ===
 DIFFERS	MusicPlayer	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === NetMapInfo ===
 BATCH	NetMapInfo	2 identical fns	-	-	-
-# === NetSockLatency ===
 BATCH	NetSockLatency	1 identical fns	-	-	-
-# === NetStru1 ===
 DIFFERS	NetStru1	SendUnitUpdate	519221	50ac91	callsite:3 votes
 DIFFERS	NetStru1	TransferUnitOwnership	4fb4ca	4f9322	callsite:3 votes
 DIFFERS	NetStru1	BroadcastTokenState	51ac77	50c2ea	callsite:6 votes
@@ -569,121 +379,73 @@ DIFFERS	NetStru1	SendAllData	5188db	50a3b1	callsite:4 votes
 DIFFERS	NetStru1	SendPacket_64	51d88d	50e446	name
 DIFFERS	NetStru1	ReceivePacket	518a23	50a498	name
 CLIENT_ONLY	NetStru1	FUN_0051c748	-	50d82f	vt
-# === NetStru2 ===
 DIFFERS	NetStru2	SendData	516408	508f33	name
 DIFFERS	NetStru2	ReadData	515f9c	508d13	callsite:11 votes
 DIFFERS	NetStru2	NetStru2	515831	508871	name
 DIFFERS	NetStru2	WriteData	515ef3	508c6a	callsite:10 votes
 DIFFERS	NetStru2	GetBuffersPktNum	51670a	509208	name
-# === NetStru3 ===
 DIFFERS	NetStru3	CopyData	515625	508684	name
 DIFFERS	NetStru3	NetStru3	5155c0	50863e	name
-# === Obstacle ===
 BATCH	Obstacle	2 identical fns	-	-	-
-# === Outpost ===
 DIFFERS	Outpost	RegenTick	5438ed	52a524	slot5
 DIFFERS	Outpost	FillUnits	54361e	52a3cb	name
 DIFFERS	Outpost	destructor	57c500	54d620	slot1
-# === PackerDat ===
 BATCH	PackerDat	4 identical fns	-	-	-
-# === Packet ===
 DIFFERS	Packet	scalar_eh_destructor	5799d0	54bcd0	name
 CLIENT_ONLY	Packet	Duplicate	-	54bc40	vt
-# === Packet2Dwords ===
 BATCH	Packet2Dwords	8 identical fns	-	-	-
-# === PacketAoeZone ===
 CLIENT_ONLY	PacketAoeZone	GetDataSize	-	54b690	vt
-# === PacketBuildingHp ===
 BATCH	PacketBuildingHp	7 identical fns	-	-	-
-# === PacketData ===
 BATCH	PacketData	7 identical fns	-	-	-
-# === PacketDword ===
 BATCH	PacketDword	7 identical fns	-	-	-
-# === PacketEffect ===
 BATCH	PacketEffect	7 identical fns	-	-	-
-# === PacketEnterGame ===
 BATCH	PacketEnterGame	6 identical fns	-	-	-
-# === PacketFileChunk ===
 BATCH	PacketFileChunk	7 identical fns	-	-	-
-# === PacketGroupOrder ===
 BATCH	PacketGroupOrder	7 identical fns	-	-	-
-# === PacketItemTransfer ===
 BATCH	PacketItemTransfer	6 identical fns	-	-	-
-# === PacketJoin ===
 BATCH	PacketJoin	9 identical fns	-	-	-
-# === PacketMoveBroadcast ===
 BATCH	PacketMoveBroadcast	7 identical fns	-	-	-
-# === PacketRangedAttack ===
 BATCH	PacketRangedAttack	7 identical fns	-	-	-
-# === PacketSack ===
 BATCH	PacketSack	7 identical fns	-	-	-
-# === PacketTerrain ===
 BATCH	PacketTerrain	8 identical fns	-	-	-
-# === PacketUnitAction ===
 BATCH	PacketUnitAction	7 identical fns	-	-	-
-# === PacketUnitEquipment ===
 BATCH	PacketUnitEquipment	7 identical fns	-	-	-
-# === PacketUnitHp ===
 BATCH	PacketUnitHp	7 identical fns	-	-	-
-# === PacketUnitStateVec ===
 BATCH	PacketUnitStateVec	9 identical fns	-	-	-
-# === PacketUnitUpdate ===
 BATCH	PacketUnitUpdate	13 identical fns	-	-	-
-# === PacketWord ===
 BATCH	PacketWord	6 identical fns	-	-	-
-# === PasswordManager ===
 BATCH	PasswordManager	1 identical fns	-	-	-
-# === Perf ===
 BATCH	Perf	3 identical fns	-	-	-
-# === PhoneBook ===
 BATCH	PhoneBook	3 identical fns	-	-	-
-# === Player ===
 DIFFERS	Player	Serialize	55b343	536ee7	slot2
 DIFFERS	Player	Player	534118	51f914	name
 DIFFERS	Player	destructor	57bbf0	54c7d0	slot1
 DIFFERS	Player	AddMoney	534ac1	51fe74	callsite:2 votes
-# === PlayersList ===
 DIFFERS	PlayersList	CountCD	536092	52057e	name
 DIFFERS	PlayersList	CountHumanPlayers	53618f	5205cf	name
 DIFFERS	PlayersList	FindById	535b50	520402	callsite:2 votes
 DIFFERS	PlayersList	PlayersList	534b9c	51feca	name
 CLIENT_ONLY	PlayersList	GetByTokenID	-	520449	vt
-# === PointEffect ===
 DIFFERS	PointEffect	Serialize	53e6d4	5264d1	slot2
 DIFFERS	PointEffect	destructor	57c0c0	54cd10	slot1
-# === Pointer ===
 DIFFERS	Pointer	Serialize	5430fb	52a0ec	slot2
 DIFFERS	Pointer	destructor	57c3c0	54d3a0	slot1
-# === ProjectileInfo ===
 DIFFERS	ProjectileInfo	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === Protections ===
 BATCH	Protections	6 identical fns	-	-	-
-# === Quest ===
 DIFFERS	Quest	OnEvent	55d25d	537a42	slot5
 DIFFERS	Quest	~Quest	57ff50	550a40	slot1
 DIFFERS	Quest	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === QuestDeliverItem ===
 DIFFERS	QuestDeliverItem	OnEvent	55fa1d	538cc3	name
-# === QuestDeliverMail ===
 DIFFERS	QuestDeliverMail	OnEvent	55fb32	538bd8	name
-# === QuestEscort ===
 DIFFERS	QuestEscort	OnEvent	55f944	538df1	name
-# === QuestInnGlue ===
 DIFFERS	QuestInnGlue	ProcessQuests	55f589	5386f6	slot5
 DIFFERS	QuestInnGlue	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === QuestInterceptGroup ===
 DIFFERS	QuestInterceptGroup	OnEvent	55fe9b	538a01	name
-# === QuestInterceptUnit ===
 DIFFERS	QuestInterceptUnit	OnEvent	55fc25	538acf	name
-# === QuestKillGroup ===
 DIFFERS	QuestKillGroup	OnEvent	55f896	5388ac	name
-# === QuestKillInnDefenders ===
 DIFFERS	QuestKillInnDefenders	OnEvent	56032d	538805	name
-# === QuestKillMob ===
 DIFFERS	QuestKillMob	OnEvent	55f736	53912f	name
-# === QuestKillN ===
 DIFFERS	QuestKillN	OnEvent	55f7e4	53895a	name
-# === QuestMap ===
 DIFFERS	QuestMap	OnEvent	55fe9b	539083	slot5
 DIFFERS	QuestMap	OnEvent	55fc25	538bd8	slot5
 DIFFERS	QuestMap	QuestMap	55d579	537b72	name
@@ -720,17 +482,11 @@ CLIENT_ONLY	QuestMap	OnLButtonDown	-	43a7c0	vt
 CLIENT_ONLY	QuestMap	MsgProc	-	4dc8d9	vt
 CLIENT_ONLY	QuestMap	VMethod7	-	4dcdf4	vt
 CLIENT_ONLY	QuestMap	~QuestMap	-	543c50	vt
-# === QuestObjectivesHeaderDialogVisualObject ===
 DIFFERS	QuestObjectivesHeaderDialogVisualObject	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === QuestRaiseGhosts ===
 DIFFERS	QuestRaiseGhosts	OnEvent	56027d	538f1f	name
-# === QuestRaiseSkeletons ===
 DIFFERS	QuestRaiseSkeletons	OnEvent	5601c7	538fd1	name
-# === QuestRaiseZombies ===
 DIFFERS	QuestRaiseZombies	OnEvent	560111	539083	name
-# === RegFile ===
 BATCH	RegFile	3 identical fns	-	-	-
-# === ResBase ===
 CLIENT_ONLY	ResBase	ResFile(char*)	-	4eae80	vt
 CLIENT_ONLY	ResBase	~ResFile	-	4eb23b	vt
 CLIENT_ONLY	ResBase	RegFile	-	4ed9f0	vt
@@ -747,7 +503,6 @@ CLIENT_ONLY	ResBase	SetInt16Array	-	4f096a	vt
 CLIENT_ONLY	ResBase	SetInt32Array	-	4f0b02	vt
 CLIENT_ONLY	ResBase	SetStringArray	-	4f0e2c	vt
 CLIENT_ONLY	ResBase	SetDoubleArray	-	4f103c	vt
-# === ResFile ===
 CLIENT_ONLY	ResFile	ReadFromFile	-	4ed6cc	vt
 CLIENT_ONLY	ResFile	WriteToFile	-	4ed8c6	vt
 CLIENT_ONLY	ResFile	RegFile	-	4ed9f0	vt
@@ -770,27 +525,17 @@ CLIENT_ONLY	ResFile	GrowFat	-	4f1da4	vt
 CLIENT_ONLY	ResFile	TracePath	-	4f1e06	vt
 CLIENT_ONLY	ResFile	Find	-	4f1f4e	vt
 CLIENT_ONLY	ResFile	FindNext	-	4f2028	vt
-# === Resources ===
 DIFFERS	Resources	AddPath	4e6273	4eb7a3	name
-# === Sack ===
 DIFFERS	Sack	Serialize	55c889	537600	slot2
 DIFFERS	Sack	FUN_0057dd50	57dd50	54ee90	slot1
-# === SackList ===
 DIFFERS	SackList	DumpInventoryAt	554460	534829	callsite:3 votes
-# === SaveFileInfo ===
 BATCH	SaveFileInfo	1 identical fns	-	-	-
-# === SaveGameWindow ===
 DIFFERS	SaveGameWindow	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === ScanPresenceGrid ===
 BATCH	ScanPresenceGrid	6 identical fns	-	-	-
-# === Scenario ===
 DIFFERS	Scenario	Scenario	4a7a50	4abc1c	name
 DIFFERS	Scenario	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === ScenarioLocation ===
 BATCH	ScenarioLocation	3 identical fns	-	-	-
-# === ScriptSettings ===
 BATCH	ScriptSettings	2 identical fns	-	-	-
-# === Server ===
 DIFFERS	Server	ServerTic	4fbb79	4f967a	callsite:2 votes
 DIFFERS	Server	Start	4f06f5	4f4116	callsite:2 votes
 DIFFERS	Server	Allods2_CreatePlayer	500792	4fb0f3	name
@@ -802,22 +547,16 @@ CLIENT_ONLY	Server	Serialize__	-	4f54f6	vt
 CLIENT_ONLY	Server	Allods2_JoinPlayer	-	4f9a78	vt
 CLIENT_ONLY	Server	srv_FUN_00500907	-	4fb265	vt
 CLIENT_ONLY	Server	FindPlayerByID	-	4fc8f1	vt
-# === ServerConfig ===
 BATCH	ServerConfig	1 identical fns	-	-	-
-# === ServerControlDialog ===
 DIFFERS	ServerControlDialog	OnCmdMsg	5dfd89	4637f1	slot5
 DIFFERS	ServerControlDialog	GetRuntimeClass	5f4e04	5ac95e	slot0
-# === Settings ===
 BATCH	Settings	2 identical fns	-	-	-
-# === SfxBank ===
 DIFFERS	SfxBank	GetRuntimeClass	5ddf9b	5c2c9d	slot0
 CLIENT_ONLY	SfxBank	FUN_005af425	-	5af425	vt
 CLIENT_ONLY	SfxBank	OnCmdMsg(uint,int,void_*,AFX_CMDHANDLERINFO_*)	-	5b1d11	vt
 CLIENT_ONLY	SfxBank	FUN_005b1f58	-	5b1f58	vt
-# === SfxSample ===
 DIFFERS	SfxSample	Play	45c0cf	45fcff	callsite:17 votes
 DIFFERS	SfxSample	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === Shield ===
 DIFFERS	Shield	Equip	55056b	53218d	slot14
 DIFFERS	Shield	WriteState	5506fc	532317	slot21
 DIFFERS	Shield	TakeOne	5504dc	532101	slot16
@@ -827,91 +566,63 @@ DIFFERS	Shield	CalcValue	5502c7	531f5c	slot19
 DIFFERS	Shield	Serialize	55af5e	536e3d	slot2
 DIFFERS	Shield	IsSimpleItem	548817	52d1e4	slot20
 DIFFERS	Shield	destructor	57d6e0	54e840	slot1
-# === Shop ===
 DIFFERS	Shop	Shop	5442ca	52abb7	name
 DIFFERS	Shop	Serialize	5447b7	52aecc	slot2
 DIFFERS	Shop	destructor	57c530	54d650	slot1
-# === ShopAssortment ===
 BATCH	ShopAssortment	5 identical fns	-	-	-
-# === SocketNm ===
 BATCH	SocketNm	2 identical fns	-	-	-
-# === SoundChannel ===
 DIFFERS	SoundChannel	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === SoundPreferencesDialogVisualObject ===
 DIFFERS	SoundPreferencesDialogVisualObject	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === SoundSettings ===
 BATCH	SoundSettings	4 identical fns	-	-	-
-# === Spell ===
 DIFFERS	Spell	Serialize	53cf8d	525c30	slot2
 DIFFERS	Spell	Spell	538fdd	522d34	callsite:2 votes
 DIFFERS	Spell	destructor	57c170	54d000	slot1
 DIFFERS	Spell	GetSphere	5393ee	52312d	name
 CLIENT_ONLY	Spell	CheckSpellID	-	522ef5	vt
-# === SpellBook ===
 DIFFERS	SpellBook	Serialize	53dd9a	5261f1	slot2
 DIFFERS	SpellBook	GetSpell	53db79	52607d	callsite:18 votes
 DIFFERS	SpellBook	destructor	573e80	5449e0	slot1
 CLIENT_ONLY	SpellBook	SetAtGrow	-	525f8a	vt
-# === SpellEffect ===
 DIFFERS	SpellEffect	Serialize	53e44a	5263a1	slot2
 DIFFERS	SpellEffect	destructor	57c050	54cca0	slot1
-# === SpellEffectList ===
 BATCH	SpellEffectList	4 identical fns	-	-	-
-# === SpellInfo ===
 DIFFERS	SpellInfo	ParseValues	512c4d	5064df	slot5
 DIFFERS	SpellInfo	ParseValue	514f41	507fe7	slot6
 DIFFERS	SpellInfo	Serialize	51520f	508293	slot2
 DIFFERS	SpellInfo	destructor	5731e0	543a30	slot1
-# === SpellTransport ===
 DIFFERS	SpellTransport	ProcessEffects	538bf4	522bc4	slot6
 DIFFERS	SpellTransport	Serialize	53e588	526404	slot2
 DIFFERS	SpellTransport	FUN_0057c140	57c140	54ce20	slot1
-# === Srv1 ===
 BATCH	Srv1	10 identical fns	-	-	-
-# === SrvStru1 ===
 DIFFERS	SrvStru1	AddDummyUnitWithSpell	4fb8cd	4f9466	name
 DIFFERS	SrvStru1	MakeAreaSpellEffect	4fbb24	4f9629	callsite:4 votes
 DIFFERS	SrvStru1	MakeTargetSpellEffect	4fbae3	4f95ec	callsite:3 votes
-# === StructEnter ===
 BATCH	StructEnter	7 identical fns	-	-	-
-# === StructureInfo ===
 DIFFERS	StructureInfo	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === TableLine ===
 DIFFERS	TableLine	ParseValues	512c4d	5064df	slot5
 DIFFERS	TableLine	ParseValue	5131c1	506744	slot6
 DIFFERS	TableLine	Serialize	513a4f	506f55	slot2
 DIFFERS	TableLine	destructor	572380	543440	slot1
-# === TakeDamage ===
 BATCH	TakeDamage	10 identical fns	-	-	-
-# === Token ===
 DIFFERS	Token	Serialize	55ab39	536caf	slot2
 DIFFERS	Token	Token	5285c6	5171ed	name
 DIFFERS	Token	Token	5280ad	517084	callsite:9 votes
 DIFFERS	Token	Token	5281af	51713a	callsite:4 votes
 DIFFERS	Token	Token	5282af	517363	name
 DIFFERS	Token	destructor	57b300	54c030	slot1
-# === TokenEntry ===
 DIFFERS	TokenEntry	GetHintText	439973	43bc8f	callsite:5 votes
 DIFFERS	TokenEntry	IsEmpty	41f0d0	420930	callsite:16 votes
 DIFFERS	TokenEntry	GetRuntimeClass	5ddf9b	5ac95e	slot0
 CLIENT_ONLY	TokenEntry	GO_d0(pdata,int)	-	43b422	vt
-# === TokenPos ===
 CLIENT_ONLY	TokenPos	TokenPos	-	559961	vt
 CLIENT_ONLY	TokenPos	GetY	-	559fb0	vt
-# === TownMenuListDialogVisualObject ===
 DIFFERS	TownMenuListDialogVisualObject	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === TransientVisualEffectBuilder ===
 BATCH	TransientVisualEffectBuilder	7 identical fns	-	-	-
-# === Trigger ===
 BATCH	Trigger	2 identical fns	-	-	-
-# === TriggerAction ===
 BATCH	TriggerAction	1 identical fns	-	-	-
-# === TriggerCheck ===
 BATCH	TriggerCheck	1 identical fns	-	-	-
-# === TxtFile ===
 DIFFERS	TxtFile	Open	50a26b	501bbf	name
 DIFFERS	TxtFile	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === Unit ===
 DIFFERS	Unit	ProcessEffects	52a857	518d2f	name
 DIFFERS	Unit	RollDamage	536b31	520be5	name
 DIFFERS	Unit	FUN_00573a40	573a40	53633a	slot2
@@ -931,30 +642,20 @@ DIFFERS	Unit	GetBottomYy	528763	5174b1	callsite:6 votes
 DIFFERS	Unit	destructor	57b860	54c500	name
 DIFFERS	Unit	VMethod25	52a771	518c4b	name
 CLIENT_ONLY	Unit	VMethod11	-	51807f	vt
-# === UnitEye ===
 BATCH	UnitEye	4 identical fns	-	-	-
-# === UnitEye2 ===
 BATCH	UnitEye2	2 identical fns	-	-	-
-# === UnitGfxFile ===
 DIFFERS	UnitGfxFile	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === UnitList ===
 DIFFERS	UnitList	AddTailAllocId	555d67	534f68	name
 DIFFERS	UnitList	~UnitList	555a8d	534ede	callsite:4 votes
 DIFFERS	UnitList	AddTail	555c1b	534f4c	callsite:24 votes
 DIFFERS	UnitList	FindById	5560d2	534fdf	callsite:5 votes
 DIFFERS	UnitList	UnitList	555a1d	534ebc	callsite:8 votes
-# === UnitToHit ===
 BATCH	UnitToHit	7 identical fns	-	-	-
-# === UnitVFXUnfo ===
 DIFFERS	UnitVFXUnfo	GetRuntimeClass	5ddf9b	5ac95e	slot0
-# === UserShortcut ===
 DIFFERS	UserShortcut	MatchesItem	41e3af	41fc31	callsite:3 votes
-# === VirtualCaster ===
 DIFFERS	VirtualCaster	Serialize	55d009	537860	slot2
 DIFFERS	VirtualCaster	destructor	57b410	54c080	slot1
-# === WavePattern ===
 BATCH	WavePattern	2 identical fns	-	-	-
-# === Weapon ===
 DIFFERS	Weapon	Equip	5512e7	532dee	slot14
 DIFFERS	Weapon	Unequip	5515b9	5330b4	slot15
 DIFFERS	Weapon	LoadInfo	550c23	4fc79a	name
@@ -966,10 +667,8 @@ DIFFERS	Weapon	Clone	57d710	54e870	slot17
 DIFFERS	Weapon	CalcValue	550fa6	532b26	slot19
 DIFFERS	Weapon	IsSimpleItem	548817	52d1e4	slot20
 DIFFERS	Weapon	destructor	57d790	54e8f0	slot1
-# === World ===
 DIFFERS	World	SplitTargetLists	5a3ad6	571c46	callsite:7 votes
 DIFFERS	World	AreAtWar	5b5816	583986	callsite:5 votes
-# === WorldEquip ===
 DIFFERS	WorldEquip	ParseValues	512c4d	5064df	slot5
 DIFFERS	WorldEquip	ParseValue	513268	5067f2	slot6
 DIFFERS	WorldEquip	Serialize	513aa3	506fa3	slot2

@@ -2980,3 +2980,4 @@ PORTED	MusicPlayer	VMethod28	-	4e44d0
 PORTED	MusicPlayer	DoClose	-	4e450b
 PORTED	MusicPlayer	OnKeyDown	-	4e4833
 PORTED	MusicPlayer	OnLButtonDown	-	4e4868
+PORTED	BigStruct2	BigStruct2	402af6	402af6

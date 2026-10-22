@@ -6180,7 +6180,9 @@ int32_t BigStruct2::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
 }
 
 // 402AF6
-BigStruct2::BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObject(1, l, t, r, b, nullptr) {
+// 402af6
+// client: 402af6
+BigStruct2::BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObject(g_IsServer != 0 ? 1 : 2, l, t, r, b, nullptr) {
 	this->field_0x80 = nullptr;
 	this->sub_402FB8();
 	this->view_x = this->MapMinX();
@@ -6236,6 +6238,16 @@ BigStruct2::BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObje
 	for (int32_t i = 0; i < 12; i++) {
 		this->field_0x4988[i] = nullptr;
 	}
+#ifdef A2CLIENT
+	// client: hat DM predefined item slots 12..31 (raw encoded ids, not pointers)
+	this->hat_item_slot12 = 0;
+	this->hat_item_slot13 = (int32_t)0xF0000001u;
+	this->hat_item_slot14 = (int32_t)0xF0000001u;
+	for (int32_t i = 0; i < 16; i++) {
+		this->hat_cursor_slots[i] = (int32_t)0xF0000003u;
+	}
+	this->field_0x4a04 = (int32_t)0x7fffffffu;
+#endif
 }
 
 // 40AFC5
