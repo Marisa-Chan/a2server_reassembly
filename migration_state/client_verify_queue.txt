@@ -124,7 +124,6 @@ DIFFERS	Armor	CalcValue	54f84d	531584	slot19
 DIFFERS	Armor	IsSimpleItem	548817	52d1e4	slot20
 DIFFERS	Armor	destructor	57d630	54e790	slot1
 BATCH	AvailNetSession	1 identical fns	-	-	-
-DIFFERS	BigStruct2	GetRuntimeClass	5ddf9b	5ac95e	slot0
 DIFFERS	BitSet	AllocBit	509d9f	50193a	name
 DIFFERS	Building	Serialize	542ce7	529f6d	slot2
 DIFFERS	Building	RollDamage	542a31	529e83	callsite:2 votes

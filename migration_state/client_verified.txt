@@ -2981,3 +2981,4 @@ PORTED	MusicPlayer	DoClose	-	4e450b
 PORTED	MusicPlayer	OnKeyDown	-	4e4833
 PORTED	MusicPlayer	OnLButtonDown	-	4e4868
 PORTED	BigStruct2	BigStruct2	402af6	402af6
+PORTED	BigStruct2	GetRuntimeClass	5ddf9b	5ac95e
