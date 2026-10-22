@@ -24942,7 +24942,9 @@ HatPlayerListWindow::HatPlayerListWindow(int32_t _id, int32_t l, int32_t t, int3
 
 // client: 452837
 HatPlayerListWindow::~HatPlayerListWindow() {
-    ((MainWindow*)AfxGetMainWnd())->cursor_sizenesw = 0;
+    // retail writes MainWindow+0x634 - the client layout's shutdown_pending
+    // slot, repurposed as the hat player-list visibility flag
+    ((MainWindow*)AfxGetMainWnd())->shutdown_pending = 0;
 }
 
 // client: 452a02
@@ -24957,7 +24959,8 @@ int32_t HatPlayerListWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpa
 // client: 452897
 CVisualObject* HatPlayerListWindow::VMethod30(const void* payload, const RECT& r) {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-    wnd->cursor_sizenesw = (HCURSOR)1;
+    // hat player-list visibility flag (client MainWindow+0x634, see dtor above)
+    wnd->shutdown_pending = 1;
 
     RECT list_r = r;
     list_r.right -= 0x18;

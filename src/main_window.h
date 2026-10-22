@@ -216,15 +216,20 @@ public:
     int32_t field_0x148 = 0;
     int32_t field_0x14c = 0;
 #ifdef A2CLIENT
-    // client: a CArray<HatCharId> of pending .a2c downloads lives at CGameSession+0x144
-    // (where the server layout has the field_0x144 dword above)
+    // client-only: the retail CGameSession is 0x190 bytes (server 0x17c) - the
+    // pending .a2c download list sits after field_0x14c (client ctor 496cd5
+    // writes 0x10 further than the server's 49248a)
     CArray<HatCharId> pending_hat_downloads;
 #endif
     CStringArray characterRosterFilePaths;
     int32_t selectedCharacterRosterFileIndex = -1;
     CWordArray word_array;
 };
-ASSERT_SIZE(CGameSession, 0x17c);
+#ifdef A2CLIENT
+static_assert(sizeof(CGameSession) == 0x190, "client CGameSession layout");
+#else
+static_assert(sizeof(CGameSession) == 0x17c, "server CGameSession layout");
+#endif
 
 struct PhoneBook {
     CString entry;
@@ -374,7 +379,11 @@ public: // VTable at 0060c1a8.
     void OnDestroy(); //483ea8
     int OnCreate(LPCREATESTRUCT lpCreateStruct); //484022
     void OnPaint(); //484a1a
+#ifndef A2CLIENT
+    // these four handlers are server-only in the retail client (they read the
+    // stored cursor handles, which the client class does not have)
     BOOL OnSetCursor(CWnd*, UINT, UINT); //486391
+#endif
     void OnSetFocus(CWnd*); //4863c6
     void OnKeyDown(UINT, UINT, UINT); //4863f6
     void OnSysKeyDown(UINT, UINT, UINT); //486a2f
@@ -387,9 +396,11 @@ public: // VTable at 0060c1a8.
     void BeginShutdown(); //495010
     void ShowServerControlDialog(); //4950c0
     void MarkHatSessionEnded(); //495743
+#ifndef A2CLIENT
     void OnSizing(UINT, LPRECT); //495ab2
     void OnNcMouseMove(UINT, CPoint); //495b9c
     void OnNcLButtonDown(UINT, CPoint); //495c6e
+#endif
     
 public:
     void IdleLoop(); // Game loop tick processing function, called from GameApp::OnIdle when server is active.
@@ -535,11 +546,17 @@ public:
     ComSettings com_settings; //39c
     CString last_ip; //3b0
     HatSettings hat_settings; //3b4
-    VisScreen* vis_serverscreen;
-    VisScreen* vis_cutscenes;
-    VisFameDocument* vis_famedocument;
-    VisScreen* vis_msgbox_list;
-    Main3e0 field_0x3e0;
+#ifdef A2CLIENT
+    // Client layout (retail ctor 48750d): one extra dword here, then the four
+    // screen pointers, Main3e0 (+4 vs server) and everything through field_0x460
+    // shift +4. User of this field not identified yet.
+    int32_t field_0x3d0_cli; // client 0x3d0
+#endif
+    VisScreen* vis_serverscreen; // server 0x3d0 / client 0x3d4
+    VisScreen* vis_cutscenes; // server 0x3d4 / client 0x3d8
+    VisFameDocument* vis_famedocument; // server 0x3d8 / client 0x3dc
+    VisScreen* vis_msgbox_list; // server 0x3dc / client 0x3e0
+    Main3e0 field_0x3e0; // server 0x3e0 / client 0x3e4
     int32_t in_famehall_mission;
     int32_t mission_failed_reported;
     int32_t field_0x400;
@@ -568,33 +585,63 @@ public:
     int32_t inside_building;
     int32_t enter_ack_received;
     int32_t input_locked;
-    int32_t field_0x460;
-    int32_t field_0x464;
-    CGameSession m_GameSession;
-    int32_t field_0x5e4;
-    CFameHall m_FameHall; //5e8
-    CString current_map_name;
-    int32_t shutdown_pending;
+    int32_t field_0x460; // server 0x460 / client 0x464
+#ifndef A2CLIENT
+    int32_t field_0x464; // server-only (client CGameSession follows directly)
+#endif
+    CGameSession m_GameSession; // 0x468 both (client class is 0x190: pending_hat_downloads)
+#ifndef A2CLIENT
+    int32_t field_0x5e4; // server-only (client m_FameHall follows directly at 0x5f8)
+#endif
+    CFameHall m_FameHall; //5e8 / client 5f8
+    CString current_map_name; //620 / client 630
+    int32_t shutdown_pending; //624 / client 634 — the client also uses this slot as the
+    // hat player-list visibility flag (HatPlayerListWindow VMethod30/dtor write it)
+#ifndef A2CLIENT
+    // The retail client has no stored cursor handles: it loads cursors on demand
+    // (client InitInstance calls LoadCursor(IDC_ARROW) instead of reading a field),
+    // so these five fields are server-only.
     HCURSOR cursor_sizewe;
     HCURSOR cursor_sizens;
     HCURSOR cursor_sizenwse;
     HCURSOR cursor_sizenesw;
     HCURSOR cursor_arrow;
-    int32_t serverBootstrapEnabled; //0x63c
-    int32_t sessionMode; //0x640
-    RECT clip_cursor_rect; //0x644
-    CStatusBar status_bar;
-    CListBox list_box1;
-    CListBox2 list_box2;
-    CStatic static1;
-    CStatic static2;
-    CEdit2 edit;
-    ServerControlDialog* server_ctrl_dlg;
-    int32_t server_ctrl_shown;
-    int32_t field_0x804;
+#endif
+    int32_t serverBootstrapEnabled; //0x63c / client 0x638
+    int32_t sessionMode; //0x640 / client 0x63c
+    RECT clip_cursor_rect; //0x644 / client 0x640
+    CStatusBar status_bar; //0x654 / client 0x650
+    CListBox list_box1; //0x6d0 / client 0x6cc
+    CListBox2 list_box2; //0x70c / client 0x708
+    CStatic static1; //0x748 / client 0x744
+    CStatic static2; //0x784 / client 0x780
+    CEdit2 edit; //0x7c0 / client 0x7bc
+    ServerControlDialog* server_ctrl_dlg; //0x7fc / client 0x7f8
+    int32_t server_ctrl_shown; //0x800 / client 0x7fc
+#ifndef A2CLIENT
+    int32_t field_0x804; // server-only
+#endif
 };
-ASSERT_OFFSET(MainWindow, music_update_proc, 0xc4);
-ASSERT_OFFSET(MainWindow, field_0x148, 0x148);
-ASSERT_OFFSET(MainWindow, current_map_name, 0x620);
-ASSERT_OFFSET(MainWindow, list_box1, 0x6d0);
-ASSERT_SIZE(MainWindow, 0x808);
+// Layout locks. NOTE: absolute offsets of the original binaries are NOT
+// reproducible here - the migrated C++ links MFC 140 whose CFrameWnd/CWnd bases
+// are larger than the game's VC6 MFC (music_update_proc compiles to 0x128, not
+// the binary's 0xc4; server class size 0xa18, not 0x808). What MUST hold is the
+// per-build STRUCTURE - which fields exist and in which order - matching the
+// retail client's relative layout (client ctor 48750d + WindowProc 48a969
+// disassembly evidence). These relative asserts pin exactly the deltas:
+#ifdef A2CLIENT
+static_assert(sizeof(MainWindow) == 0xa10, "client MainWindow size (server 0xa18 minus cursors/field_0x464/field_0x5e4/field_0x804, plus the 0x3d0-region dword and CGameSession growth)");
+static_assert(offsetof(MainWindow, field_0x3e0) - offsetof(MainWindow, hat_settings) == sizeof(HatSettings) + 0x14, "client: extra dword + 4 screen pointers after hat_settings");
+static_assert(offsetof(MainWindow, serverLoopCounter) - offsetof(MainWindow, dialogsMask) == 4, "client scalar run");
+static_assert(offsetof(MainWindow, m_GameSession) - offsetof(MainWindow, field_0x460) == 4, "client: no field_0x464");
+static_assert(offsetof(MainWindow, m_FameHall) - offsetof(MainWindow, m_GameSession) == sizeof(CGameSession), "client: no field_0x5e4");
+static_assert(offsetof(MainWindow, serverBootstrapEnabled) - offsetof(MainWindow, shutdown_pending) == 4, "client: no cursor handles");
+static_assert(offsetof(MainWindow, sessionMode) - offsetof(MainWindow, serverBootstrapEnabled) == 4, "client tail run");
+static_assert(offsetof(MainWindow, status_bar) - offsetof(MainWindow, clip_cursor_rect) == 0x14, "client: clip rect directly before status bar (0x10 rect + 4 alignment pad before MFC140 CStatusBar)");
+#else
+static_assert(sizeof(MainWindow) == 0xa18, "server MainWindow size");
+static_assert(offsetof(MainWindow, field_0x3e0) - offsetof(MainWindow, hat_settings) == sizeof(HatSettings) + 0x10, "server: 4 screen pointers after hat_settings");
+static_assert(offsetof(MainWindow, m_GameSession) - offsetof(MainWindow, field_0x460) == 8, "server: field_0x464 present");
+static_assert(offsetof(MainWindow, m_FameHall) - offsetof(MainWindow, m_GameSession) == sizeof(CGameSession) + 4, "server: field_0x5e4 present");
+static_assert(offsetof(MainWindow, serverBootstrapEnabled) - offsetof(MainWindow, shutdown_pending) == 4 + 0x14, "server: 5 cursor handles between");
+#endif

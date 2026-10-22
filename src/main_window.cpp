@@ -583,7 +583,9 @@ const AFX_MSGMAP_ENTRY MainWindow::_messageEntries[] =
     {WM_DESTROY, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&OnDestroy},
 	{WM_CREATE, 0, 0, 0, AfxSig_is, (AFX_PMSG)&OnCreate},
     {WM_PAINT, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&OnPaint},
+#ifndef A2CLIENT
     {WM_SETCURSOR, 0, 0, 0, AfxSig_bWww, (AFX_PMSG)&OnSetCursor},
+#endif
     {WM_SETFOCUS, 0, 0, 0, AfxSig_vW, (AFX_PMSG)&OnSetFocus},
     {WM_KEYDOWN, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&OnKeyDown},
     {WM_KEYDOWN, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&OnKeyDown},
@@ -597,9 +599,11 @@ const AFX_MSGMAP_ENTRY MainWindow::_messageEntries[] =
     {WM_COMMAND, CN_COMMAND, 0x9c4e, 0x9c4e, AfxSigCmd_v, (AFX_PMSG)&BeginShutdown},
     {WM_COMMAND, CN_COMMAND, 0x9c4f, 0x9c4f, AfxSigCmd_v, (AFX_PMSG)&ShowServerControlDialog},
     {WM_COMMAND, CN_COMMAND, 0x9c50, 0x9c50, AfxSigCmd_v, (AFX_PMSG)&MarkHatSessionEnded},
+#ifndef A2CLIENT
     {WM_SIZING, 0, 0, 0, AfxSig_vwSIZING, (AFX_PMSG)&OnSizing},
     {WM_NCMOUSEMOVE, 0, 0, 0, AfxSig_vwp, (AFX_PMSG)&OnNcMouseMove},
     {WM_NCLBUTTONDOWN, 0, 0, 0, AfxSig_vwp, (AFX_PMSG)&OnNcLButtonDown},
+#endif
 
     {0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0}
 };
@@ -1087,6 +1091,7 @@ void MainWindow::OnSize(UINT nType, int cx, int cy) {
     }
 }
 
+#ifndef A2CLIENT
 // 486391
 BOOL MainWindow::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message) {
     if (g_IsServer == 0) {
@@ -1096,6 +1101,7 @@ BOOL MainWindow::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message) {
     }
     return 1;
 }
+#endif
 
 // 486c25
 void MainWindow::OnSysKeyUp(UINT key, UINT repeat, UINT flags) {
@@ -1211,6 +1217,7 @@ void MainWindow::UpdateMapRect() {
     ClipCursor(rect);
 }
 
+#ifndef A2CLIENT
 // 495b9c
 void MainWindow::OnNcMouseMove(UINT nHitTest, CPoint point) {
     switch (nHitTest) {
@@ -1238,6 +1245,7 @@ void MainWindow::OnNcMouseMove(UINT nHitTest, CPoint point) {
 
     this->Default();
 }
+#endif
 
 // 48cca1
 void MainWindow::SetItemCursor(TokenEntry* entry, int32_t idx, const char* str, int32_t tab) {
@@ -1259,6 +1267,7 @@ void MainWindow::OnPaint() {
     }
 }
 
+#ifndef A2CLIENT
 // 495ab2
 void MainWindow::OnSizing(UINT nSide, LPRECT rect) {
     switch (nSide) {
@@ -1287,6 +1296,7 @@ void MainWindow::OnSizing(UINT nSide, LPRECT rect) {
         rect->bottom = rect->top + 0x1ae;
     }
 }
+#endif
 
 // 4950c0
 void MainWindow::ShowServerControlDialog() {
@@ -1380,6 +1390,7 @@ int MainWindow::OnCreate(LPCREATESTRUCT lpCreateStruct) {
     return 0;
 }
 
+#ifndef A2CLIENT
 // 495c6e
 void MainWindow::OnNcLButtonDown(UINT nHitTest, CPoint point) {
     switch (nHitTest) {
@@ -1407,6 +1418,7 @@ void MainWindow::OnNcLButtonDown(UINT nHitTest, CPoint point) {
 
     this->Default();
 }
+#endif
 
 
 MainWindow::MainWindow() { //4837e1
@@ -1492,11 +1504,14 @@ MainWindow::MainWindow() { //4837e1
 
     this->shutdown_pending = 0;
 
+#ifndef A2CLIENT
+    // the client class has no stored cursor handles (loaded on demand instead)
     this->cursor_sizewe = LoadCursorA(0, IDC_SIZEWE);
     this->cursor_sizens = LoadCursorA(0, IDC_SIZENS);
     this->cursor_sizenwse = LoadCursorA(0, IDC_SIZENWSE);
     this->cursor_sizenesw = LoadCursorA(0, IDC_SIZENESW);
     this->cursor_arrow = LoadCursorA(0, IDC_ARROW);
+#endif
 }
 
 

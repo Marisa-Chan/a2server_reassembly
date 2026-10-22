@@ -570,7 +570,12 @@ BOOL GameApp::InitInstance() {
 	if (g_IsServer == 0) {
 		SetCursor(NULL);
 	} else {
+#ifdef A2CLIENT
+		// client: 48626d loads the arrow cursor on demand here
+		SetCursor(::LoadCursorA(0, IDC_ARROW));
+#else
 		SetCursor(mwnd->cursor_arrow);
+#endif
 	}
 
 	GetCurrentDirectoryA(sizeof(g_WorkingDir), g_WorkingDir);
