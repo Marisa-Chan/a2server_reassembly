@@ -2989,3 +2989,4 @@ PORTED	GameApp	GetRuntimeClass	5f54c6	5c2b75
 PORTED	GameApp	IsInvokeAllowed(long)	5e3f76	5b1f58
 PORTED	MainWindow	Proc_421	48d49b	491619
 PORTED	MainWindow	DestroyServer	48cb3c	490ce4
+PORTED	GameApp	InitInstance	4823bd	48626d

@@ -237,7 +237,6 @@ CLIENT_ONLY	File2	GetFileTitle	-	5b2ced	vt
 DIFFERS	GM_a28	GetRuntimeClass	5ddf9b	5ac95e	slot0
 BATCH	GMapThing	8 identical fns	-	-	-
 BATCH	GO_11c	1 identical fns	-	-	-
-DIFFERS	GameApp	InitInstance	4823bd	48626d	name
 DIFFERS	GameDataRes	Serialize	50e0f0	503833	name
 DIFFERS	GameDataRes	ParseDataBin	50d421	502b5a	name
 DIFFERS	GameDataRes	CreateItemById	510ee6	504aab	callsite:2 votes
