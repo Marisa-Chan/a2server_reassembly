@@ -61,16 +61,29 @@ def repo_classes():
 
 
 def read_log():
+    """-> (ported, batches, done_srv_vas, done_cli_vas)
+
+    Log lines are `PORTED <cls> <method> <server_va> <client_va>` (tab-separated;
+    CLIENT_ONLY entries carry '-' as server_va). The class label of an item can
+    shift between regens (namespace aliases, vtable evidence), so done-tracking
+    ALSO matches by bare VA - a function ported once must never re-queue.
+    """
     ported, batches = set(), set()
+    done_srv_vas, done_cli_vas = set(), set()
     if not os.path.exists(LOG):
-        return ported, batches
+        return ported, batches, done_srv_vas, done_cli_vas
     for ln in open(LOG, encoding='utf-8'):
-        p = ln.split()
-        if p and p[0] == 'PORTED' and len(p) >= 4:
-            ported.add((p[1], p[3]))
-        elif p and p[0] == 'IDENTICAL-BATCH' and len(p) >= 2:
-            batches.add(p[1])
-    return ported, batches
+        p = ln.rstrip('\n').split('\t')
+        if len(p) >= 2 and p[0] == 'PORTED' and len(p) >= 5:
+            ported.add((p[1], p[3]))          # DIFFERS key: (cls, server_va)
+            ported.add((p[1], p[2]))          # CLIENT_ONLY key: (cls, method)
+            if re.fullmatch(r'[0-9a-f]{6}', p[3]):
+                done_srv_vas.add(p[3])
+            if re.fullmatch(r'[0-9a-f]{6}', p[4]):
+                done_cli_vas.add(p[4])
+        elif len(p) >= 2 and p[0] == 'IDENTICAL-BATCH':
+            batches.add(p[1].split()[0] if p[1] else '')
+    return ported, batches, done_srv_vas, done_cli_vas
 
 
 def read_queue():
@@ -93,7 +106,7 @@ def class_order_key(cls):
 def cmd_regen():
     ar = fnd.artifacts()
     repo = repo_classes()
-    ported, batches_done = read_log()
+    ported, batches_done, done_srv_vas, done_cli_vas = read_log()
     blocks = []
     n_diff = n_cli = n_batch = 0
     for cls in sorted(ar['cm']['classes']):
@@ -106,9 +119,11 @@ def cmd_regen():
         open_items = []
         n_id = 0
         for r in rows:
-            if r['status'] == 'DIFFERS' and (cls, r['server_va']) not in ported:
+            if r['status'] == 'DIFFERS' and (cls, r['server_va']) not in ported \
+                    and r['server_va'] not in done_srv_vas:
                 open_items.append(('DIFFERS', cls, r['method'], r['server_va'], r['client_va'], r['basis']))
-            elif r['status'] == 'CLIENT_ONLY' and (cls, r['method']) not in ported:
+            elif r['status'] == 'CLIENT_ONLY' and (cls, r['method']) not in ported \
+                    and r['client_va'] not in done_cli_vas:
                 open_items.append(('CLIENT_ONLY', cls, r['method'], '-', r['client_va'], r['basis']))
             elif r['status'] == 'IDENTICAL':
                 n_id += 1

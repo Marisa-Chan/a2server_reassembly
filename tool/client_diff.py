@@ -28,9 +28,14 @@ import glob
 import json
 import os
 import re
+import sys
 from collections import Counter, defaultdict
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+if HERE not in sys.path:
+    sys.path.insert(0, HERE)
+from client_fn_diff import NS_ALIAS
+
 ROOT = os.path.dirname(HERE)
 BUILD = os.path.join(ROOT, 'build')
 STATE = os.path.join(ROOT, 'migration_state')
@@ -51,6 +56,12 @@ def rtti_class(raw):
 
 def real(name):
     return not UNNAMED.match(name)
+
+
+def base_name(name):
+    """Ghidra sometimes stores the full signature as the name ('WindowProc(uint,uint,long)');
+    pairing compares the bare identifier so it matches pushed header names."""
+    return name.split('(')[0]
 
 
 def load_hashes(path):
@@ -136,6 +147,19 @@ def main():
         used_cli_vt.add(cv['va'])
 
     # --- class universe ------------------------------------------------------
+    # Namespace fragments to collapse:
+    #  - Ghidra disambiguates same-name classes as X_conflict1/X_conflict2 (suffix artifact).
+    #  - Cross-program namespace aliases come from the hand-verified NS_ALIAS table
+    #    in client_fn_diff.py (auto-derivation from hash twins is untrustworthy).
+    conflict_re = re.compile(r'_conflict\d+$')
+    ns_alias = dict(NS_ALIAS)
+
+    def canon_ns(ns, to_server=False):
+        ns = conflict_re.sub('', ns)
+        if to_server:
+            ns = ns_alias.get(ns, ns)
+        return ns
+
     classes = {}
     for vt in srv_snap['vtables']:
         lbl = vt['label'] or 'vt@%06x' % vt['va']
@@ -144,8 +168,9 @@ def main():
             classes[lbl]['srv_members'].setdefault(s, 'vt')
     for va, f in srv_funcs.items():
         if f['ns']:
-            classes.setdefault(f['ns'][-1], {'srv_members': {}, 'cli_members': {}, 'vt_pairs': []})
-            classes[f['ns'][-1]]['srv_members'].setdefault(va, 'ns')
+            key = canon_ns(f['ns'][-1])
+            classes.setdefault(key, {'srv_members': {}, 'cli_members': {}, 'vt_pairs': []})
+            classes[key]['srv_members'].setdefault(va, 'ns')
     for sv, cv, basis in pairs_vt:
         lbl = sv['label'] or 'vt@%06x' % sv['va']
         classes.setdefault(lbl, {'srv_members': {}, 'cli_members': {}, 'vt_pairs': []})
@@ -156,13 +181,17 @@ def main():
         classes[lbl]['vt_pairs'].append((sv, cv))
     for va, f in cli_funcs.items():
         if f['ns']:
-            classes.setdefault(f['ns'][-1], {'srv_members': {}, 'cli_members': {}, 'vt_pairs': []})
-            classes[f['ns'][-1]]['cli_members'].setdefault(va, 'ns')
+            key = canon_ns(f['ns'][-1], to_server=True)
+            classes.setdefault(key, {'srv_members': {}, 'cli_members': {}, 'vt_pairs': []})
+            classes[key]['cli_members'].setdefault(va, 'ns')
     for vt in cli_snap['vtables']:
-        if vt['va'] not in used_cli_vt and vt['label'] and vt['label'] not in classes:
-            classes.setdefault('cli:' + str(vt['label']), {'srv_members': {}, 'cli_members': {}, 'vt_pairs': []})
+        if vt['va'] not in used_cli_vt and vt['label']:
+            key = canon_ns(str(vt['label']), to_server=True)
+            if key not in classes:
+                classes.setdefault('cli:' + key, {'srv_members': {}, 'cli_members': {}, 'vt_pairs': []})
+                key = 'cli:' + key
             for s in vt['slots']:
-                classes['cli:' + str(vt['label'])]['cli_members'].setdefault(s, 'vt')
+                classes[key]['cli_members'].setdefault(s, 'vt')
 
     # --- repo class -> header map -------------------------------------------
     repo = defaultdict(set)
@@ -200,11 +229,11 @@ def main():
         cli_named = defaultdict(list)
         for v in cli_members:
             if v not in used_cli and v in cli_funcs and real(cli_funcs[v]['name']):
-                cli_named[cli_funcs[v]['name']].append(v)
+                cli_named[base_name(cli_funcs[v]['name'])].append(v)
         for sva in sorted(srv_members):
             if sva in used_srv or sva not in srv_funcs or not real(srv_funcs[sva]['name']):
                 continue
-            cands = [v for v in cli_named.get(srv_funcs[sva]['name'], []) if v not in used_cli]
+            cands = [v for v in cli_named.get(base_name(srv_funcs[sva]['name']), []) if v not in used_cli]
             if not cands:
                 continue
             s_sz = max(srv_funcs[sva]['size'], 1)
@@ -312,9 +341,9 @@ def main():
         h = cli_h.get(va)
         if h and h['h_shape'] in srv_by_hash:
             continue  # identical twin exists; not a DIFFERS candidate
-        cli_free_named[f['name']].append(va)
+        cli_free_named[base_name(f['name'])].append(va)
     for name, entries in srv_by_name.items():
-        cands = cli_free_named.get(name)
+        cands = cli_free_named.get(base_name(name))
         if not cands:
             continue
         entries = sorted(entries, key=lambda e: -e['server_size'])

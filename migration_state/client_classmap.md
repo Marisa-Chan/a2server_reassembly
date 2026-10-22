@@ -5,116 +5,116 @@ MED = call-site pairs or >=50% identical; LOW = namespace only (likely server-on
 
 | class | headers | base | server vtable(s) | client vtable(s) | ctor srv->cli | id/srv-only/callpair | ev | conf |
 |---|---|---|---|---|---|---|---|---|
-| Vis1200 | visual.h | VisScreen | 609ad0(ctor-ns1) | 5d5aec(slot-twin8) | - | 13/0/0 | vtable+struct:33 | HIGH |
-| Vis1200obj | visual.h | CVisualObject | 609a58(ctor-ns1) | 5d5a74(slot-twin7) | 43ab28->43cf38 | 17/2/0 | vtable+struct:28 | HIGH |
-| Vis2Action | visual.h | VisMenuWnd | 60b098(ctor-ns1) | 5d71b4(slot-twin8) | 44f0a2->4523c7 | 5/0/0 | vtable+struct:33 | HIGH |
-| VisBitmap | visual.h | CVisualObject | 60e248(ctor-ns4) | 5da32c(slot-twin9) | - | 7/0/0 | struct:29+vtable | HIGH |
-| VisButton | visual.h | CVisualObject | 60df40(ctor-ns2) | 5da024(slot-twin9) | - | 7/4/2 | struct:27+vtable | HIGH |
-| VisButtonSaveGame | visual.h | VisButton | 609ed8(ctor-ns1) | 5d5f74(slot-twin9) | - | 3/0/0 | struct:27+vtable | HIGH |
-| VisCharGen | visual.h | VisScreen | 6096a8(ctor-ns1) | 5d56c4(slot-twin8) | 42dcd9->42fbed | 18/1/0 | vtable+struct:33 | HIGH |
-| VisCharGenAction | visual.h | CVisualObject | 6095b8(ctor-ns2) | 5d55d4(slot-twin9) | - | 12/0/0 | struct:29+vtable | HIGH |
-| VisCharGenFullStats | visual.h | CVisualObject | 609540(ctor-ns2) | 5d555c(slot-twin8) | 42aa2b->42c941 | 6/0/0 | struct:29+vtable | HIGH |
-| VisCharGenSkills | visual.h | CVisualObject | 609630(ctor-ns2) | 5d564c(slot-twin8) | 42b98c->42d8a2 | 14/0/0 | struct:29+vtable | HIGH |
-| VisCharGenStats | visual.h | CVisualObject | 6094c8(ctor-ns2) | 5d54e4(slot-twin8) | 428e51->42ad71 | 18/1/0 | struct:29+vtable | HIGH |
-| VisCharInfo | visual.h | CVisualObject | 60cfe8(ctor-ns1) | 5d90cc(slot-twin7) | 4b16c3->4b5ff5 | 14/3/0 | struct:29+vtable | HIGH |
-| VisCharSelect | visual.h | VisScreen | 609898(ctor-ns2) | 5d58b4(slot-twin8) | - | 15/0/0 | vtable+struct:33 | HIGH |
-| VisCharSellectButtons | visual.h | CVisualObject | 6097a8(ctor-ns2) | 5d57c4(slot-twin9) | - | 12/1/0 | vtable+struct:28 | HIGH |
-| VisCharSellectList | visual.h | CVisualObject | 609820(ctor-ns1) | 5d583c(slot-twin9) | 430bbb->432c87 | 15/2/2 | struct:29+vtable | HIGH |
-| VisCharSellectStats | visual.h | CVisualObject | 609730(ctor-ns1) | 5d574c(slot-twin8) | - | 7/1/1 | struct:29+vtable | HIGH |
-| VisComboBox | visual.h | CVisualObject | 60e4d0(ctor-ns1) | 5da5b4(slot-twin8) | 4e1e10->4e6791 | 13/0/0 | struct:29+vtable | HIGH |
-| VisComboBoxButton | visual.h | VisButton | 60e458(ctor-ns1) | 5da53c(slot-twin8) | 4e1b5c->4e64dd | 6/0/0 | vtable+struct:28 | HIGH |
-| VisComboBoxList | visual.h | VisListBox | 60e548(ctor-ns1) | 5da62c(slot-twin10) | - | 2/0/0 | vtable+struct:34 | HIGH |
-| VisComboBoxText | visual.h | VisTextBox | 60e5d8(ctor-ns1) | 5da6bc(slot-twin7) | - | 2/0/0 | vtable+struct:28 | HIGH |
-| VisConnectionDlg | visual.h | VisMessageBox | 60a558(ctor-ns1) | 5d6774(slot-twin8) | 445e52->448523 | 4/1/0 | vtable+struct:33 | HIGH |
-| VisCredits | visual.h | VisScreen | 609b88(ctor-ns2) | 5d5ba4(slot-twin8) | 43c337->43e747 | 13/0/0 | vtable+struct:33 | HIGH |
-| VisCutScenesDlg | visual.h | VisMessageBox | 60b008(ctor-ns1) | 5d7124(slot-twin8) | 44eabb->451de0 | 3/0/0 | vtable+struct:34 | HIGH |
-| VisDiplomacy | visual.h | VisMessageBox | 60a4c8(ctor-ns1) | 5d66e4(slot-twin8) | 445bcb->44829c | 5/0/0 | vtable+struct:34 | HIGH |
-| VisDropGold | visual.h | VisScreen | 60a170(ctor-ns2) | 5d630c(slot-twin7) | 441bec->4441bb | 8/1/0 | vtable+struct:32 | HIGH |
-| VisFameDocument | visual.h | VisScreen | 60cdf8(ctor-ns1) | 5d8edc(slot-twin7) | 4ad961->4b22a1 | 21/0/0 | vtable+struct:33 | HIGH |
-| VisFameHall | visual.h | VisScreen | 60b288(ctor-ns2) | 5d743c(slot-twin7) | 45cd35->460965 | 18/2/0 | vtable+struct:32 | HIGH |
-| VisGlobalMap | visual.h | VisScreen | 60b760(ctor-ns1) | 5d7914(slot-twin10) | 46fd7b->473adb | 25/3/1 | vtable+struct:33 | HIGH |
-| VisHatBrowserDlg | visual.h | VisWindow | 60a9b8(ctor-ns1) | 5d6bd4(slot-twin8) | - | 2/2/0 | struct:31+vtable | HIGH |
-| VisHatBrowserList | visual.h | VisListBox | 60aa40(ctor-ns1) | 5d6cd4(slot-twin10) | 44ff20->453f60 | 3/1/0 | vtable+struct:34 | HIGH |
-| VisHatServerListDlg | visual.h | VisMessageBox | 60a8a0(ctor-ns1) | 5d6abc(slot-twin8) | - | 4/2/0 | vtable+struct:32 | HIGH |
-| VisInvBase | visual.h | CVisualObject | 60c9b0(ctor-ns1) | 5d8a94(slot-twin10) | 4a4938->4a8968 | 25/0/0 | vtable+struct:42 | HIGH |
-| VisInvExtBase | visual.h | VisInvBase | 60d0e8(ctor-ns2) | 5d91cc(slot-twin9) | 4b4a0c->4b93dc | 25/1/0 | struct:45+vtable | HIGH |
-| VisInvExtType1 | visual.h | VisInvExtBase | 60d1a8(ctor-ns1) | 5d928c(slot-twin9) | 4b63f7->4badc1 | 22/0/0 | struct:45+vtable | HIGH |
-| VisInvExtType1Druid | visual.h | VisInvExtType1 | 60d850(ctor-ns1) | 5d9934(slot-twin9) | - | 2/0/0 | struct:45+vtable | HIGH |
-| VisInvExtType1Kaarg | visual.h | VisInvExtType1 | 60d910(ctor-ns1) | 5d99f4(slot-twin9) | - | 2/0/0 | struct:45+vtable | HIGH |
-| VisInvExtType2 | visual.h | VisInvExtBase | 60d268(ctor-ns1) | 5d934c(slot-twin7) | 4b7fe5->4bc9af | 16/0/0 | struct:45+vtable | HIGH |
-| VisInvExtType3 | visual.h | VisInvExtBase | 60d328(ctor-ns1) | 5d940c(slot-twin11) | 4b8bba->4bd584 | 20/0/0 | struct:47+vtable | HIGH |
-| VisInvType1 | visual.h | VisInvBase | 60ca60(ctor-ns1) | 5d8b44(slot-twin8) | 4a630b->4aa33a | 18/0/0 | vtable+struct:42 | HIGH |
-| VisLabel | visual.h | CVisualObject | 60de38(ctor-ns3) | 5d6c5c(slot-twin9) | - | 6/0/0 | struct:29+vtable | HIGH |
-| VisListBox | visual.h | CVisualObject | 60e0b0(ctor-ns3) | 5da194(slot-twin11) | 4dbc11->4e0596 | 29/0/0 | vtable+struct:34 | HIGH |
-| VisListBoxDiplomacy | visual.h | VisListBox | 60e140(ctor-ns1) | 5da224(slot-twin7) | 4dceba->4e183d | 12/0/0 | vtable+struct:34 | HIGH |
-| VisListBoxPhoneBook | visual.h | VisListBox | 60a6f8(ctor-ns1) | 5d6914(slot-twin10) | 44fb30->453a30 | 3/0/0 | vtable+struct:34 | HIGH |
-| VisLogoWnd | visual.h | VisScreen | 60db28(ctor-ns2) | 5d9c0c(slot-twin8) | - | 10/0/0 | vtable+struct:33 | HIGH |
-| VisMainMenu | visual.h | VisScreen | 60cd30(ctor-ns2) | 5d8e14(slot-twin8) | 4aa926->4ae956 | 16/0/0 | vtable+struct:33 | HIGH |
-| VisMenuWnd | visual.h | VisWindow | 60b180(ctor-ns1) | 5d6284(slot-twin8) | 451990->453430 | 5/0/0 | vtable+struct:33 | HIGH |
-| VisMessageBox | visual.h | VisWindow | 60a288(ctor-ns2) | 5d64a4(slot-twin8) | 44402b->4465fb | 4/1/1 | vtable+struct:32 | HIGH |
-| VisMessageBoxWithList | visual.h | VisMessageBox | 60a318(ctor-ns1) | 5d6534(slot-twin8) | 445091->44775f | 4/0/0 | vtable+struct:34 | HIGH |
-| VisMiniMap | visual.h | CVisualObject | 60cef8(ctor-ns1) | 5d8fdc(slot-twin8) | 4aeec3->4b3803 | 8/2/0 | vtable+struct:28 | HIGH |
-| VisMissionFailed | visual.h | VisMessageBoxWithList | 60af78(ctor-ns1) | 5d7094(slot-twin8) | 44e875->451b9a | 3/0/0 | vtable+struct:35 | HIGH |
-| VisMultiText | visual.h | VisListBox | 60deb0(ctor-ns2) | 5d9f94(slot-twin7) | 4d8629->4dcf39 | 12/0/0 | vtable+struct:34 | HIGH |
-| VisNetChatList | visual.h | VisListBox | 60ab60(ctor-ns1) | 5d6df4(slot-twin10) | - | 3/0/0 | vtable+struct:34 | HIGH |
-| VisNetChatTextBox | visual.h | VisTextBox | 60ac80(ctor-ns1) | 5d6f14(slot-twin7) | - | 3/0/0 | struct:27+vtable | HIGH |
-| VisNetDlg | visual.h | VisWindow | 60a5e8(ctor-ns1) | 5d6804(slot-twin8) | 4464c7->448b96 | 10/0/0 | vtable+struct:33 | HIGH |
-| VisNetMapList | visual.h | VisListBox | 60aad0(ctor-ns1) | 5d6d64(slot-twin10) | 44ffd0->4541f0 | 4/0/0 | vtable+struct:34 | HIGH |
-| VisNetMapSelection | visual.h | VisWindow | 60a930(ctor-ns1) | 5d6b4c(slot-twin8) | 44af45->44d672 | 8/0/0 | vtable+struct:33 | HIGH |
-| VisNetPhoneBook | visual.h | VisWindow | 60a670(ctor-ns1) | 5d688c(slot-twin8) | 447ea8->44a577 | 5/0/0 | vtable+struct:33 | HIGH |
-| VisNetPlayerList | visual.h | VisListBox | 60abf0(ctor-ns1) | 5d6e84(slot-twin10) | - | 3/0/0 | vtable+struct:34 | HIGH |
-| VisNetSerialSettings | visual.h | VisWindow | 60a788(ctor-ns1) | 5d69a4(slot-twin8) | 448cd5->44b3a7 | 5/0/0 | vtable+struct:33 | HIGH |
-| VisNetTcpIp | visual.h | VisMessageBox | 60a810(ctor-ns1) | 5d6a2c(slot-twin8) | - | 4/0/0 | vtable+struct:34 | HIGH |
-| VisOrderToolbar | visual.h | CVisualObject | 60cf70(ctor-ns1) | 5d9054(slot-twin7) | 4b0cfc->4b562e | 14/0/0 | struct:29+vtable | HIGH |
-| VisQuestStatus | visual.h | VisScreen | 60e6d8(ctor-ns1) | 5da7bc(slot-twin8) | 4e2e3d->4e77c1 | 4/0/0 | vtable+struct:33 | HIGH |
-| VisRadioBase | visual.h | CVisualObject | 60e030(ctor-ns3) | 5da114(slot-twin8) | - | 11/0/0 | struct:30+vtable | HIGH |
-| VisRadioType1 | visual.h | VisRadioBase | 60acf8(ctor-ns1) | 5d5d54(slot-twin7) | - | 9/0/0 | struct:30+vtable | HIGH |
-| VisRadioType2 | visual.h | VisRadioBase | 60ad78(ctor-ns1) | 5d6424(slot-twin7) | - | 7/0/0 | struct:30+vtable | HIGH |
-| VisRightPanel | visual.h | CVisualObject | 60ce80(ctor-ns1) | 5d8f64(slot-twin8) | - | 4/0/0 | struct:29+vtable | HIGH |
-| VisRoleKeyScreen | visual.h | VisWindow | 60e3d0(ctor-ns1) | 5da4b4(slot-twin8) | 4dff5c->4e48dd | 9/0/0 | vtable+struct:33 | HIGH |
-| VisScreen | visual.h | CVisualObject | 60e2c0(ctor-ns4) | 5da3a4(slot-twin8) | - | 17/0/0 | vtable+struct:33 | HIGH |
-| VisScrollBar | visual.h | CVisualObject | 60e1d0(ctor-ns1) | 5da2b4(slot-twin8) | 4dde6a->4e27eb | 18/0/0 | struct:29+vtable | HIGH |
-| VisServerScreen | visual.h | VisScreen | 60aef0(ctor-ns1) | 5d700c(slot-twin8) | 44e469->451794 | 7/0/0 | vtable+struct:33 | HIGH |
-| VisServerScreenRadio | visual.h | VisRadioType1 | 60adf8(ctor-ns1) | 5d6f8c(slot-twin7) | - | 4/0/0 | struct:30+vtable | HIGH |
-| VisShop | visual.h | VisScreen | 60d3e8(ctor-ns2) | 5d94cc(slot-twin10) | 4ba342->4bed12 | 29/1/1 | struct:37+vtable | HIGH |
-| VisShopButtons | visual.h | CVisualObject | 60d540(ctor-ns2) | 5d9624(slot-twin8) | 4bfa5a->4c4415 | 14/0/0 | struct:30+vtable | HIGH |
-| VisShopCompass | visual.h | CVisualObject | 60d480(ctor-ns2) | 5d9564(slot-twin8) | 4bd495->4c1e5a | 20/1/0 | vtable+struct:41 | HIGH |
-| VisShopCompassDruid | visual.h | VisShopCompass | 60d658(ctor-ns1) | 5d973c(slot-twin8) | 4c247b->4c6e34 | 17/1/0 | vtable+struct:41 | HIGH |
-| VisShopCompassKaarg | visual.h | VisShopCompass | 60d7a0(ctor-ns1) | 5d9884(slot-twin8) | 4c4693->4c904a | 16/1/0 | vtable+struct:41 | HIGH |
-| VisShopDruid | visual.h | VisShop | 60d5c0(ctor-ns1) | 5d96a4(slot-twin8) | - | 8/0/0 | struct:37+vtable | HIGH |
-| VisShopKaarg | visual.h | VisShop | 60d708(ctor-ns1) | 5d97ec(slot-twin8) | - | 8/0/0 | struct:37+vtable | HIGH |
-| VisSideStatus | visual.h | CVisualObject | 60d070(ctor-ns1) | 5d9154(slot-twin7) | 4b3fa3->4b8974 | 6/1/0 | vtable+struct:28 | HIGH |
-| VisSpellBook | visual.h | CVisualObject | 60da00(ctor-ns1) | 5d9ae4(slot-twin7) | 4c99c7->4ce357 | 20/2/0 | struct:27+vtable | HIGH |
-| VisStartGame | visual.h | VisScreen | 609998(ctor-ns1) | 5d59b4(slot-twin9) | 43305b->435193 | 34/1/1 | vtable+struct:33 | HIGH |
-| VisStartGameTextBox | visual.h | CVisualObject | 609920(ctor-ns1) | 5d593c(slot-twin8) | 4329f9->434b2a | 10/2/0 | vtable+struct:28 | HIGH |
-| VisTav | visual.h | VisScreen | 60c6d8(ctor-ns2) | 5d87bc(slot-twin8) | 49dad7->4a1b05 | 20/0/0 | vtable+struct:35 | HIGH |
-| VisTavDruid | visual.h | VisTav | 60c768(ctor-ns1) | 5d884c(slot-twin8) | - | 7/0/0 | vtable+struct:35 | HIGH |
-| VisTavKaarg | visual.h | VisTav | 60c880(ctor-ns1) | 5d8964(slot-twin8) | - | 7/0/0 | vtable+struct:35 | HIGH |
-| VisTavLeftPanel | visual.h | CVisualObject | 60c560(ctor-ns1) | 5d8644(slot-twin8) | 497990->49b9b0 | 10/0/0 | struct:29+vtable | HIGH |
-| VisTavRightPanel | visual.h | CVisualObject | 60c5d8(ctor-ns1) | 5d86bc(slot-twin8) | - | 14/1/0 | vtable+struct:28 | HIGH |
-| VisTavScene | visual.h | CVisualObject | 60c650(ctor-ns1) | 5d8734(slot-twin8) | 49ad56->49ed85 | 14/0/0 | vtable+struct:33 | HIGH |
+| Vis1200 | visual.h | VisScreen | 609ad0(ctor-ns1) | 5d5ae8(slot-twin8) | - | 13/0/0 | struct:33+vtable | HIGH |
+| Vis1200obj | visual.h | CVisualObject | 609a58(ctor-ns1) | 5d5a70(ctor-twin) | 43ab28->43cf38 | 17/2/0 | struct:28+vtable | HIGH |
+| Vis2Action | visual.h | VisMenuWnd | 60b098(ctor-ns1) | 5d71b0(ctor-twin) | 44f0a2->4523c7 | 5/0/0 | struct:33+vtable | HIGH |
+| VisBitmap | visual.h | CVisualObject | 60e248(ctor-ns4) | 5da328(ctor-twin) | - | 7/0/0 | struct:29+vtable | HIGH |
+| VisButton | visual.h | CVisualObject | 60df40(ctor-ns2) | 5da020(slot-twin9) | - | 7/4/2 | struct:27+vtable | HIGH |
+| VisButtonSaveGame | visual.h | VisButton | 609ed8(ctor-ns1) | 5d5f70(slot-twin9) | - | 3/0/0 | struct:27+vtable | HIGH |
+| VisCharGen | visual.h | VisScreen | 6096a8(ctor-ns1) | 5d56c0(ctor-twin) | 42dcd9->42fbed | 18/1/0 | struct:33+vtable | HIGH |
+| VisCharGenAction | visual.h | CVisualObject | 6095b8(ctor-ns2) | 5d55d0(slot-twin9) | - | 12/0/0 | struct:29+vtable | HIGH |
+| VisCharGenFullStats | visual.h | CVisualObject | 609540(ctor-ns2) | 5d5558(ctor-twin) | 42aa2b->42c941 | 6/0/0 | struct:29+vtable | HIGH |
+| VisCharGenSkills | visual.h | CVisualObject | 609630(ctor-ns2) | 5d5648(ctor-twin) | 42b98c->42d8a2 | 14/0/0 | struct:29+vtable | HIGH |
+| VisCharGenStats | visual.h | CVisualObject | 6094c8(ctor-ns2) | 5d54e0(ctor-twin) | 428e51->42ad71 | 18/1/0 | struct:29+vtable | HIGH |
+| VisCharInfo | visual.h | CVisualObject | 60cfe8(ctor-ns1) | 5d90c8(ctor-twin) | 4b16c3->4b5ff5 | 14/3/0 | struct:29+vtable | HIGH |
+| VisCharSelect | visual.h | VisScreen | 609898(ctor-ns2) | 5d58b0(ctor-twin) | - | 15/0/0 | struct:33+vtable | HIGH |
+| VisCharSellectButtons | visual.h | CVisualObject | 6097a8(ctor-ns2) | 5d57c0(slot-twin9) | - | 12/1/0 | struct:28+vtable | HIGH |
+| VisCharSellectList | visual.h | CVisualObject | 609820(ctor-ns1) | 5d5838(ctor-twin) | 430bbb->432c87 | 15/2/2 | struct:29+vtable | HIGH |
+| VisCharSellectStats | visual.h | CVisualObject | 609730(ctor-ns1) | 5d5748(slot-twin8) | - | 7/1/1 | struct:29+vtable | HIGH |
+| VisComboBox | visual.h | CVisualObject | 60e4d0(ctor-ns1) | 5da5b0(ctor-twin) | 4e1e10->4e6791 | 13/0/0 | struct:29+vtable | HIGH |
+| VisComboBoxButton | visual.h | VisButton | 60e458(ctor-ns1) | 5da538(ctor-twin) | 4e1b5c->4e64dd | 6/0/0 | struct:28+vtable | HIGH |
+| VisComboBoxList | visual.h | VisListBox | 60e548(ctor-ns1) | 5da628(slot-twin10) | - | 2/0/0 | struct:34+vtable | HIGH |
+| VisComboBoxText | visual.h | VisTextBox | 60e5d8(ctor-ns1) | 5da6b8(slot-twin7) | - | 2/0/0 | struct:28+vtable | HIGH |
+| VisConnectionDlg | visual.h | VisMessageBox | 60a558(ctor-ns1) | 5d6770(ctor-twin) | 445e52->448523 | 4/1/0 | struct:33+vtable | HIGH |
+| VisCredits | visual.h | VisScreen | 609b88(ctor-ns2) | 5d5ba0(ctor-twin) | 43c337->43e747 | 13/0/0 | struct:33+vtable | HIGH |
+| VisCutScenesDlg | visual.h | VisMessageBox | 60b008(ctor-ns1) | 5d7120(ctor-twin) | 44eabb->451de0 | 3/0/0 | struct:34+vtable | HIGH |
+| VisDiplomacy | visual.h | VisMessageBox | 60a4c8(ctor-ns1) | 5d66e0(ctor-twin) | 445bcb->44829c | 5/0/0 | struct:34+vtable | HIGH |
+| VisDropGold | visual.h | VisScreen | 60a170(ctor-ns2) | 5d6308(ctor-twin) | 441bec->4441bb | 8/1/0 | struct:32+vtable | HIGH |
+| VisFameDocument | visual.h | VisScreen | 60cdf8(ctor-ns1) | 5d8ed8(ctor-twin) | 4ad961->4b22a1 | 21/0/0 | struct:33+vtable | HIGH |
+| VisFameHall | visual.h | VisScreen | 60b288(ctor-ns2) | 5d7438(ctor-twin) | 45cd35->460965 | 18/2/0 | struct:32+vtable | HIGH |
+| VisGlobalMap | visual.h | VisScreen | 60b760(ctor-ns1) | 5d7910(ctor-twin) | 46fd7b->473adb | 25/3/1 | struct:33+vtable | HIGH |
+| VisHatBrowserDlg | visual.h | VisWindow | 60a9b8(ctor-ns1) | 5d6bd0(slot-twin8) | - | 2/2/0 | struct:31+vtable | HIGH |
+| VisHatBrowserList | visual.h | VisListBox | 60aa40(ctor-ns1) | 5d6cd0(ctor-twin) | 44ff20->453f60 | 3/1/0 | struct:34+vtable | HIGH |
+| VisHatServerListDlg | visual.h | VisMessageBox | 60a8a0(ctor-ns1) | 5d6ab8(slot-twin8) | - | 4/2/0 | struct:32+vtable | HIGH |
+| VisInvBase | visual.h | CVisualObject | 60c9b0(ctor-ns1) | 5d8a90(ctor-twin) | 4a4938->4a8968 | 25/0/0 | struct:42+vtable | HIGH |
+| VisInvExtBase | visual.h | VisInvBase | 60d0e8(ctor-ns2) | 5d91c8(ctor-twin) | 4b4a0c->4b93dc | 25/1/0 | struct:45+vtable | HIGH |
+| VisInvExtType1 | visual.h | VisInvExtBase | 60d1a8(ctor-ns1) | 5d9288(ctor-twin) | 4b63f7->4badc1 | 22/0/0 | struct:45+vtable | HIGH |
+| VisInvExtType1Druid | visual.h | VisInvExtType1 | 60d850(ctor-ns1) | 5d9930(slot-twin9) | - | 2/0/0 | struct:45+vtable | HIGH |
+| VisInvExtType1Kaarg | visual.h | VisInvExtType1 | 60d910(ctor-ns1) | 5d99f0(slot-twin9) | - | 2/0/0 | struct:45+vtable | HIGH |
+| VisInvExtType2 | visual.h | VisInvExtBase | 60d268(ctor-ns1) | 5d9348(ctor-twin) | 4b7fe5->4bc9af | 16/0/0 | struct:45+vtable | HIGH |
+| VisInvExtType3 | visual.h | VisInvExtBase | 60d328(ctor-ns1) | 5d9408(ctor-twin) | 4b8bba->4bd584 | 20/0/0 | struct:47+vtable | HIGH |
+| VisInvType1 | visual.h | VisInvBase | 60ca60(ctor-ns1) | 5d8b40(ctor-twin) | 4a630b->4aa33a | 18/0/0 | struct:42+vtable | HIGH |
+| VisLabel | visual.h | CVisualObject | 60de38(ctor-ns3) | 5d6c58(slot-twin9) | - | 6/0/0 | struct:29+vtable | HIGH |
+| VisListBox | visual.h | CVisualObject | 60e0b0(ctor-ns3) | 5da190(ctor-twin) | 4dbc11->4e0596 | 29/0/0 | struct:34+vtable | HIGH |
+| VisListBoxDiplomacy | visual.h | VisListBox | 60e140(ctor-ns1) | 5da220(ctor-twin) | 4dceba->4e183d | 12/0/0 | struct:34+vtable | HIGH |
+| VisListBoxPhoneBook | visual.h | VisListBox | 60a6f8(ctor-ns1) | 5d6910(ctor-twin) | 44fb30->453a30 | 3/0/0 | struct:34+vtable | HIGH |
+| VisLogoWnd | visual.h | VisScreen | 60db28(ctor-ns2) | 5d9c08(slot-twin8) | - | 10/0/0 | struct:33+vtable | HIGH |
+| VisMainMenu | visual.h | VisScreen | 60cd30(ctor-ns2) | 5d8e10(ctor-twin) | 4aa926->4ae956 | 16/0/0 | struct:33+vtable | HIGH |
+| VisMenuWnd | visual.h | VisWindow | 60b180(ctor-ns1) | 5d6280(ctor-twin) | 451990->453430 | 5/0/0 | struct:33+vtable | HIGH |
+| VisMessageBox | visual.h | VisWindow | 60a288(ctor-ns2) | 5d64a0(ctor-twin) | 44402b->4465fb | 4/1/1 | struct:33+vtable | HIGH |
+| VisMessageBoxWithList | visual.h | VisMessageBox | 60a318(ctor-ns1) | 5d6530(ctor-twin) | 445091->44775f | 4/0/0 | struct:34+vtable | HIGH |
+| VisMiniMap | visual.h | CVisualObject | 60cef8(ctor-ns1) | 5d8fd8(ctor-twin) | 4aeec3->4b3803 | 8/2/0 | struct:28+vtable | HIGH |
+| VisMissionFailed | visual.h | VisMessageBoxWithList | 60af78(ctor-ns1) | 5d7090(ctor-twin) | 44e875->451b9a | 3/0/0 | struct:35+vtable | HIGH |
+| VisMultiText | visual.h | VisListBox | 60deb0(ctor-ns2) | 5d9f90(ctor-twin) | 4d8629->4dcf39 | 12/0/0 | struct:34+vtable | HIGH |
+| VisNetChatList | visual.h | VisListBox | 60ab60(ctor-ns1) | 5d6df0(slot-twin10) | - | 3/0/0 | struct:34+vtable | HIGH |
+| VisNetChatTextBox | visual.h | VisTextBox | 60ac80(ctor-ns1) | 5d6f10(slot-twin7) | - | 3/0/0 | struct:27+vtable | HIGH |
+| VisNetDlg | visual.h | VisWindow | 60a5e8(ctor-ns1) | 5d6800(ctor-twin) | 4464c7->448b96 | 10/0/0 | struct:33+vtable | HIGH |
+| VisNetMapList | visual.h | VisListBox | 60aad0(ctor-ns1) | 5d6d60(ctor-twin) | 44ffd0->4541f0 | 4/0/0 | struct:34+vtable | HIGH |
+| VisNetMapSelection | visual.h | VisWindow | 60a930(ctor-ns1) | 5d6b48(ctor-twin) | 44af45->44d672 | 8/0/0 | struct:33+vtable | HIGH |
+| VisNetPhoneBook | visual.h | VisWindow | 60a670(ctor-ns1) | 5d6888(ctor-twin) | 447ea8->44a577 | 5/0/0 | struct:33+vtable | HIGH |
+| VisNetPlayerList | visual.h | VisListBox | 60abf0(ctor-ns1) | 5d6e80(slot-twin10) | - | 3/0/0 | struct:34+vtable | HIGH |
+| VisNetSerialSettings | visual.h | VisWindow | 60a788(ctor-ns1) | 5d69a0(ctor-twin) | 448cd5->44b3a7 | 5/0/0 | struct:33+vtable | HIGH |
+| VisNetTcpIp | visual.h | VisMessageBox | 60a810(ctor-ns1) | 5d6a28(slot-twin8) | - | 4/0/0 | struct:34+vtable | HIGH |
+| VisOrderToolbar | visual.h | CVisualObject | 60cf70(ctor-ns1) | 5d9050(ctor-twin) | 4b0cfc->4b562e | 14/0/0 | struct:29+vtable | HIGH |
+| VisQuestStatus | visual.h | VisScreen | 60e6d8(ctor-ns1) | 5da7b8(ctor-twin) | 4e2e3d->4e77c1 | 4/0/0 | struct:33+vtable | HIGH |
+| VisRadioBase | visual.h | CVisualObject | 60e030(ctor-ns3) | 5da110(ctor-twin) | - | 11/0/0 | struct:30+vtable | HIGH |
+| VisRadioType1 | visual.h | VisRadioBase | 60acf8(ctor-ns1) | 5d5d50(slot-twin7) | - | 9/0/0 | struct:30+vtable | HIGH |
+| VisRadioType2 | visual.h | VisRadioBase | 60ad78(ctor-ns1) | 5d6420(slot-twin7) | - | 7/0/0 | struct:30+vtable | HIGH |
+| VisRightPanel | visual.h | CVisualObject | 60ce80(ctor-ns1) | 5d8f60(slot-twin8) | - | 4/0/0 | struct:29+vtable | HIGH |
+| VisRoleKeyScreen | visual.h | VisWindow | 60e3d0(ctor-ns1) | 5da4b0(ctor-twin) | 4dff5c->4e48dd | 9/0/0 | struct:33+vtable | HIGH |
+| VisScreen | visual.h | CVisualObject | 60e2c0(ctor-ns4) | 5da3a0(ctor-twin) | - | 17/0/0 | struct:33+vtable | HIGH |
+| VisScrollBar | visual.h | CVisualObject | 60e1d0(ctor-ns1) | 5da2b0(ctor-twin) | 4dde6a->4e27eb | 18/0/0 | struct:29+vtable | HIGH |
+| VisServerScreen | visual.h | VisScreen | 60aef0(ctor-ns1) | 5d7008(ctor-twin) | 44e469->451794 | 7/0/0 | struct:33+vtable | HIGH |
+| VisServerScreenRadio | visual.h | VisRadioType1 | 60adf8(ctor-ns1) | 5d6f88(slot-twin7) | - | 4/0/0 | struct:30+vtable | HIGH |
+| VisShop | visual.h | VisScreen | 60d3e8(ctor-ns2) | 5d94c8(ctor-twin) | 4ba342->4bed12 | 29/1/1 | struct:37+vtable | HIGH |
+| VisShopButtons | visual.h | CVisualObject | 60d540(ctor-ns2) | 5d9620(ctor-twin) | 4bfa5a->4c4415 | 14/0/0 | struct:30+vtable | HIGH |
+| VisShopCompass | visual.h | CVisualObject | 60d480(ctor-ns2) | 5d9560(ctor-twin) | 4bd495->4c1e5a | 20/1/0 | struct:41+vtable | HIGH |
+| VisShopCompassDruid | visual.h | VisShopCompass | 60d658(ctor-ns1) | 5d9738(ctor-twin) | 4c247b->4c6e34 | 17/1/0 | struct:41+vtable | HIGH |
+| VisShopCompassKaarg | visual.h | VisShopCompass | 60d7a0(ctor-ns1) | 5d9880(ctor-twin) | 4c4693->4c904a | 16/1/0 | struct:41+vtable | HIGH |
+| VisShopDruid | visual.h | VisShop | 60d5c0(ctor-ns1) | 5d96a0(slot-twin8) | - | 8/0/0 | struct:37+vtable | HIGH |
+| VisShopKaarg | visual.h | VisShop | 60d708(ctor-ns1) | 5d97e8(slot-twin8) | - | 8/0/0 | struct:37+vtable | HIGH |
+| VisSideStatus | visual.h | CVisualObject | 60d070(ctor-ns1) | 5d9150(ctor-twin) | 4b3fa3->4b8974 | 6/1/0 | struct:28+vtable | HIGH |
+| VisSpellBook | visual.h | CVisualObject | 60da00(ctor-ns1) | 5d9ae0(ctor-twin) | 4c99c7->4ce357 | 20/2/0 | struct:27+vtable | HIGH |
+| VisStartGame | visual.h | VisScreen | 609998(ctor-ns1) | 5d59b0(ctor-twin) | 43305b->435193 | 34/1/1 | struct:33+vtable | HIGH |
+| VisStartGameTextBox | visual.h | CVisualObject | 609920(ctor-ns1) | 5d5938(ctor-twin) | 4329f9->434b2a | 10/2/0 | struct:28+vtable | HIGH |
+| VisTav | visual.h | VisScreen | 60c6d8(ctor-ns2) | 5d87b8(ctor-twin) | 49dad7->4a1b05 | 20/0/0 | struct:35+vtable | HIGH |
+| VisTavDruid | visual.h | VisTav | 60c768(ctor-ns1) | 5d8848(slot-twin8) | - | 7/0/0 | struct:35+vtable | HIGH |
+| VisTavKaarg | visual.h | VisTav | 60c880(ctor-ns1) | 5d8960(slot-twin8) | - | 7/0/0 | struct:35+vtable | HIGH |
+| VisTavLeftPanel | visual.h | CVisualObject | 60c560(ctor-ns1) | 5d8640(ctor-twin) | 497990->49b9b0 | 10/0/0 | struct:29+vtable | HIGH |
+| VisTavRightPanel | visual.h | CVisualObject | 60c5d8(ctor-ns1) | 5d86b8(slot-twin8) | - | 14/1/0 | struct:28+vtable | HIGH |
+| VisTavScene | visual.h | CVisualObject | 60c650(ctor-ns1) | 5d8730(ctor-twin) | 49ad56->49ed85 | 14/0/0 | struct:33+vtable | HIGH |
 | VisTavSceneAnim | visual.h | - | - | - | - | 6/0/0 | - | HIGH |
-| VisTavSceneDruid | visual.h | VisTavScene | 60c7f8(ctor-ns1) | 5d88dc(slot-twin8) | 4a05a0->4a45ce | 5/0/0 | vtable+struct:33 | HIGH |
-| VisTavSceneKaarg | visual.h | VisTavScene | 60c910(ctor-ns1) | 5d89f4(slot-twin8) | 4a2aa4->4a6ad2 | 5/0/0 | vtable+struct:33 | HIGH |
-| VisTextBox | visual.h | CVisualObject | 60dfb8(ctor-ns2) | 5da09c(slot-twin7) | - | 12/5/1 | struct:27+vtable | HIGH |
-| VisTipsDialog | visual.h | VisScreen | 60e650(ctor-ns1) | 5da734(slot-twin8) | 4e2541->4e6ec5 | 9/0/0 | vtable+struct:33 | HIGH |
-| VisTown | visual.h | VisScreen | 60dbb0(ctor-ns1) | 5d9c94(slot-twin16) | 4cda5c->4d23ac | 35/1/1 | struct:43+vtable | HIGH |
-| VisTownDruid | visual.h | VisTown | 60dc60(ctor-ns1) | 5d9d44(slot-twin10) | 4d1af8->4d6429 | 17/0/0 | struct:43+vtable | HIGH |
-| VisTownKaarg | visual.h | VisTown | 60dd10(ctor-ns1) | 5d9df4(slot-twin10) | 4d423a->4d8b5e | 18/1/0 | struct:43+vtable | HIGH |
-| VisWindow | visual.h | VisScreen | 60e348(ctor-ns1) | 5da42c(slot-twin8) | - | 5/0/0 | vtable+struct:33 | HIGH |
+| VisTavSceneDruid | visual.h | VisTavScene | 60c7f8(ctor-ns1) | 5d88d8(ctor-twin) | 4a05a0->4a45ce | 5/0/0 | struct:33+vtable | HIGH |
+| VisTavSceneKaarg | visual.h | VisTavScene | 60c910(ctor-ns1) | 5d89f0(ctor-twin) | 4a2aa4->4a6ad2 | 5/0/0 | struct:33+vtable | HIGH |
+| VisTextBox | visual.h | CVisualObject | 60dfb8(ctor-ns2) | 5da098(slot-twin7) | - | 12/5/1 | struct:27+vtable | HIGH |
+| VisTipsDialog | visual.h | VisScreen | 60e650(ctor-ns1) | 5da730(ctor-twin) | 4e2541->4e6ec5 | 9/0/0 | struct:33+vtable | HIGH |
+| VisTown | visual.h | VisScreen | 60dbb0(ctor-ns1) | 5d9c90(ctor-twin) | 4cda5c->4d23ac | 35/1/1 | vtable+struct:43 | HIGH |
+| VisTownDruid | visual.h | VisTown | 60dc60(ctor-ns1) | 5d9d40(ctor-twin) | 4d1af8->4d6429 | 17/0/0 | vtable+struct:43 | HIGH |
+| VisTownKaarg | visual.h | VisTown | 60dd10(ctor-ns1) | 5d9df0(ctor-twin) | 4d423a->4d8b5e | 18/1/0 | vtable+struct:43 | HIGH |
+| VisWindow | visual.h | VisScreen | 60e348(ctor-ns1) | 5da428(slot-twin8) | - | 5/0/0 | struct:33+vtable | HIGH |
 | Visibility | visibility.h | - | - | - | - | 6/1/0 | - | HIGH |
 | A2NetSock | net.h | - | - | - | - | 0/2/0 | - | LOW |
 | AFX_MODULE_STATE | - | - | - | - | - | 1/1/0 | - | LOW |
 | Action | action.h | - | - | - | - | 1/0/0 | - | LOW |
-| AreaEffect | map_stuff.h,net.h,spell_effect.h | SpellEffect | 60f1f0(ctor-ns3) | 5db330(ctor-twin) | - | 9/11/0 | vtable+struct:12 | HIGH |
+| AreaEffect | map_stuff.h,net.h,spell_effect.h | SpellEffect | 60f1f0(ctor-ns3) | 5db330(ctor-twin) | - | 9/11/0 | struct:12+vtable | HIGH |
 | Armor | item.h | Item | 60f508(ctor-ns5) | 5db648(ctor-twin) | 54f2e9->53109a | 9/6/0 | struct:15+vtable | HIGH |
 | AvailNetSession | main_window.h,visual.h | - | - | - | - | 1/0/0 | - | LOW |
-| BigStruct2 | gameobj.h,visual.h | CVisualObject | 609088(ctor-ns2) | 5d508c(slot-twin8) | - | 96/35/5 | struct:29+vtable | HIGH |
+| BigStruct2 | gameobj.h,visual.h | CVisualObject | 609088(ctor-ns2) | 5d5088(slot-twin8) | - | 96/35/5 | struct:29+vtable | HIGH |
 | BitSet | bitset.h | - | - | - | - | 3/1/0 | - | LOW |
-| Building | building.h,buildings_list.h,eye.h,logic.h,map_stuff.h,server.h,world.h | Token | 60f378(ctor-ns5) | 5db4b8(ctor-twin) | 54242a->5298ee | 6/6/3 | vtable+struct:13 | HIGH |
+| Building | building.h,buildings_list.h,eye.h,logic.h,map_stuff.h,server.h,world.h | Token | 60f378(ctor-ns5) | 5db4b8(ctor-twin) | 54242a->5298ee | 6/6/3 | struct:13+vtable | HIGH |
 | BuildingInfo | building.h,table.h | TableLine | 60ebc0(ctor-ns1) | 5dad18(cli-ns) | - | 3/3/0 | struct:4+vtable | HIGH |
 | BuildingsList | buildings_list.h,server.h | CList | - | - | - | 1/7/1 | - | LOW |
-| CA16 | gfx.h,visual.h | CSprite256 | 609458(ctor-ns1) | 5d5488(slot-twin2) | - | 4/0/0 | vtable+struct:16 | HIGH |
+| CA16 | gfx.h,visual.h | CSprite256 | 609458(ctor-ns1) | 5d5488(slot-twin2) | - | 4/0/0 | struct:16+vtable | HIGH |
 | CAirUnit | gameobj.h | CUnit | 60b660(ctor-ns1) | 5d7810(slot-twin4) | - | 4/0/0 | struct:17+vtable | HIGH |
 | CArchive | - | - | - | - | - | 21/2/0 | - | HIGH |
 | CArchiveException | - | - | - | - | - | 2/0/0 | - | LOW |
@@ -122,13 +122,13 @@ MED = call-site pairs or >=50% identical; LOW = namespace only (likely server-on
 | CArrat<p_ResFile> | - | - | - | - | - | 1/0/0 | - | LOW |
 | CArray | - | - | - | - | - | 4/6/0 | - | LOW |
 | CArray<BuildingInfo> | - | - | - | - | - | 0/1/0 | - | LOW |
-| CArray<CBmp64*> | - | - | 609058(ctor-ns1) | 5d505c(cli-ns) | - | 1/0/0 | struct:4+vtable | HIGH |
+| CArray<CBmp64*> | - | - | 609058(ctor-ns1) | 5d5058(cli-ns) | - | 1/0/0 | struct:4+vtable | HIGH |
 | CArray<CGamePalette*> | - | - | - | - | - | 1/0/0 | - | LOW |
-| CArray<CPoint> | - | - | 60b7e8(ctor-ns1) | 5d78fc(cli-ns) | - | 2/0/0 | struct:4+vtable | HIGH |
-| CArray<CRect> | - | - | 6091a0(ctor-ns1) 609a20(ctor-ns1) | 5d51a4(cli-ns) 5d5234(cli-ns) | - | 2/0/0 | struct:4+vtable | HIGH |
-| CArray<CSprite256*> | - | - | 60c998(ctor-ns1) | 5d862c(cli-ns) | - | 3/0/0 | struct:4+vtable | HIGH |
+| CArray<CPoint> | - | - | 60b7e8(ctor-ns1) | 5d78f8(cli-ns) | - | 2/0/0 | struct:4+vtable | HIGH |
+| CArray<CRect> | - | - | 6091a0(ctor-ns1) 609a20(ctor-ns1) | 5d51a0(cli-ns) 5d5230(cli-ns) | - | 2/0/0 | struct:4+vtable | HIGH |
+| CArray<CSprite256*> | - | - | 60c998(ctor-ns1) | 5d8628(cli-ns) | - | 3/0/0 | struct:4+vtable | HIGH |
 | CArray<CString> | - | - | - | - | - | 6/0/0 | - | HIGH |
-| CArray<CUnit*> | - | - | 609218(ctor-ns1) | 5d521c(cli-ns) | - | 6/0/0 | struct:4+vtable | HIGH |
+| CArray<CUnit*> | - | - | 609218(ctor-ns1) | 5d5218(cli-ns) | - | 6/0/0 | struct:4+vtable | HIGH |
 | CArray<CVisualObject*> | - | - | - | - | - | 4/0/0 | - | LOW |
 | CArray<FILETIME> | - | - | - | - | - | 2/0/0 | - | LOW |
 | CArray<Fame2> | - | - | - | - | - | 3/0/0 | - | LOW |
@@ -144,7 +144,7 @@ MED = call-site pairs or >=50% identical; LOW = namespace only (likely server-on
 | CArray<MonsterInfo> | - | - | - | - | - | 1/0/0 | - | LOW |
 | CArray<SfxSample*> | - | - | - | - | - | 3/0/0 | - | LOW |
 | CArray<SpellInfo> | - | - | - | - | - | 0/1/0 | - | LOW |
-| CArray<TokenEntry*> | - | - | 609188(ctor-ns1) | 5d518c(cli-ns) | - | 7/0/0 | struct:4+vtable | HIGH |
+| CArray<TokenEntry*> | - | - | 609188(ctor-ns1) | 5d5188(cli-ns) | - | 7/0/0 | struct:4+vtable | HIGH |
 | CArray<UnitFile*> | - | - | - | - | - | 2/0/0 | - | LOW |
 | CArray<UnitVFXInfo*> | - | - | - | - | - | 2/0/0 | - | LOW |
 | CArray<Wrld5> | - | - | - | - | - | 0/1/0 | - | LOW |
@@ -152,47 +152,47 @@ MED = call-site pairs or >=50% identical; LOW = namespace only (likely server-on
 | CArray<char*> | - | - | - | - | - | 1/0/0 | - | LOW |
 | CArray<double> | - | - | - | - | - | 2/0/0 | - | LOW |
 | CArray<eabStru> | - | - | - | - | - | 3/0/0 | - | LOW |
-| CArray<int16> | - | - | 609170(ctor-ns1) | 5d5174(cli-ns) | - | 6/1/0 | struct:4+vtable | HIGH |
+| CArray<int16> | - | - | 609170(ctor-ns1) | 5d5170(cli-ns) | - | 6/1/0 | struct:4+vtable | HIGH |
 | CArray<int32> | - | - | - | - | - | 11/0/0 | - | HIGH |
 | CArray<int8> | - | - | - | - | - | 6/0/0 | - | HIGH |
 | CArray<p_CFile> | - | - | - | - | - | 2/0/0 | - | LOW |
 | CArray<p_GfxObject> | - | - | - | - | - | 2/0/0 | - | LOW |
 | CArray<p_Item> | - | - | - | - | - | 2/2/0 | - | LOW |
-| CArray<p_ResFile> | - | - | 60e7f0(ctor-ns1) | 5da8e4(cli-ns) | - | 3/0/0 | struct:4+vtable | HIGH |
+| CArray<p_ResFile> | - | - | 60e7f0(ctor-ns1) | 5da8e0(cli-ns) | - | 3/0/0 | struct:4+vtable | HIGH |
 | CBackPack | gameobj.h | CGameObject | 60b4c8(ctor-ns1) | 5d7678(slot-twin4) | - | 7/2/0 | struct:17+vtable | HIGH |
 | CBmp256 | gfx.h,visual.h | CGameBitmap | 609400(ctor-ns2) | 5d5430(ctor-twin) | 425f8c->427eba | 13/0/0 | struct:15+vtable | HIGH |
-| CBmp64 | gfx.h,mouse.h,visual.h | CGameBitmap | 6093c0(ctor-ns2) | 5d53f0(ctor-twin) | 42576d->42769b | 15/0/0 | vtable+struct:16 | HIGH |
+| CBmp64 | gfx.h,mouse.h,visual.h | CGameBitmap | 6093c0(ctor-ns2) | 5d53f0(ctor-twin) | 42576d->42769b | 15/0/0 | struct:16+vtable | HIGH |
 | CBridge | gameobj.h | CStructure | 60b578(ctor-ns1) | 5d7728(ctor-twin) | 463c7f->46794c | 6/0/0 | struct:17+vtable | HIGH |
 | CButton | - | - | - | - | - | 3/1/0 | - | LOW |
-| CCmdTarget | - | - | 611740(slot-ns) 612408(slot-ns) 612b00(slot-ns) 612c00(slot-ns) 612da0(slot-ns) 612e78(slot-ns) 613380(slot-ns) 613690(slot-ns) 613a30(slot-ns) 613ca0(slot-ns) 613cb8(slot-ns) 613f18(slot-ns) 614008(slot-ns) 614038(slot-ns) 6142c0(slot-ns) | 5dd718(slot-twin1) 5de540(cli-ns) 5ddea8(slot-twin1) 5de0a8(slot-twin1) 5de850(slot-twin1) 5dec38(slot-twin1) 5deed8(slot-twin1) 5df088(slot-twin1) 5dfb68(cli-ns) 5df160(slot-twin1) 5e0140(slot-twin1) 5e03f8(slot-twin1) | - | 10/8/0 | struct:5+vtable | HIGH |
+| CCmdTarget | - | - | 611740(slot-ns) 612408(slot-ns) 612b00(slot-ns) 612c00(slot-ns) 612da0(slot-ns) 612e78(slot-ns) 613380(slot-ns) 613690(slot-ns) 613a30(slot-ns) 613ca0(slot-ns) 613cb8(slot-ns) 613f18(slot-ns) 614008(slot-ns) 614038(slot-ns) 6142c0(slot-ns) | 5dd714(ctor-twin) 5de53c(cli-ns) 5dd91c(ctor-twin) 5ddb3c(slot-twin1) 5ddcf4(slot-twin1) 5ddea4(slot-twin1) 5de0a4(ctor-twin) 5de84c(slot-twin1) 5dfa4c(cli-ns) 5dec34(slot-twin1) 5e013c(slot-twin1) 5e03f4(slot-twin1) | - | 10/8/0 | struct:5+vtable | HIGH |
 | CCmdUI | - | - | 61179c(rtti) | 5dd97c(rtti) | 5e404f->5b2031 | 0/0/0 | struct:4+vtable | HIGH |
 | CControlBar | - | - | 613fe0(slot-ns) | - | - | 12/5/0 | - | MED |
-| CCursor | mouse.h | CObject | 60b8e0(ctor-ns3) | 5d7a7c(cli-ns) | - | 5/0/0 | struct:4+vtable | HIGH |
+| CCursor | mouse.h | CObject | 60b8e0(ctor-ns3) | 5d7a78(ctor-twin) | - | 5/0/0 | struct:4+vtable | HIGH |
 | CDC | - | - | - | - | - | 1/0/0 | - | LOW |
 | CDWordArray | - | - | - | - | - | 5/0/0 | - | HIGH |
 | CDataExchange | - | - | - | - | - | 1/2/0 | - | LOW |
-| CDialog | - | - | 610984(ctor-ns1) | 5d84bc(slot-twin5) | 5dfe4c->5ade09 | 11/5/0 | struct:5+vtable | HIGH |
+| CDialog | - | - | 610984(ctor-ns1) | 5d83fc(slot-twin5) | 5dfe4c->5ade09 | 11/5/0 | struct:5+vtable | HIGH |
 | CDib | - | - | 60b208(ctor-ns1) | 5d73b8(ctor-twin) | 4526fa->45628a | 1/0/0 | struct:5+vtable | HIGH |
 | CDockContext | - | - | 613b44(rtti) | 5dfc7c(rtti) | 5edba9->5bb171 | 0/0/0 | struct:3+vtable | HIGH |
 | CDynamicAccessor | - | - | - | - | - | 2/0/0 | - | LOW |
-| CEdit | - | - | 611c84(ctor-ns2) | 5dda70(slot-twin1) | - | 6/0/0 | struct:5+vtable | HIGH |
-| CEdit2 | main_window.h | CEdit | 60c2c0(ctor-ns1) | 5d74f4(cli-ns) | - | 3/1/0 | struct:5+vtable | HIGH |
-| CException | - | - | 6102ec(ctor-ns1) | 5d9f1c(slot-twin9) | - | 2/0/0 | struct:4+vtable | HIGH |
+| CEdit | - | - | 611c84(ctor-ns2) | 5ddbc8(slot-twin3) | - | 6/0/0 | struct:6+vtable | HIGH |
+| CEdit2 | main_window.h | CEdit | 60c2c0(ctor-ns1) | 5de5c8(slot-twin4) | - | 3/1/0 | struct:7+vtable | HIGH |
+| CException | - | - | 6102ec(ctor-ns1) | 5dc4cc(slot-twin1) | - | 2/0/0 | struct:5+vtable | HIGH |
 | CFameHall | main_window.h,visual.h | - | - | - | - | 14/1/0 | - | HIGH |
-| CFile | player_file.h,resource.h | - | 6100dc(slot-ns) 6101ac(ctor-ns1) 61214c(slot-ns) 613d4c(slot-ns) | 5dc3a8(slot-twin7) 5dfeac(slot-twin5) 5dc1c8(slot-twin2) | 5df0b3->5ad06e | 17/5/1 | struct:4+vtable+struct:9+struct:6 | HIGH |
-| CFileException | - | - | 61011c(ctor-ns2) | 5dc300(slot-twin1) | 4e7fd0->4ed500 | 2/0/0 | vtable+struct:6 | HIGH |
-| CFileFind | - | - | 6117dc(ctor-ns2) | 5de1f0(slot-twin5) | 5bbc55->589750 | 19/2/0 | vtable+struct:12 | HIGH |
-| CFrameWnd | - | - | 61135c(ctor-ns1) 614070(slot-ns) 614328(slot-ns) | 5dd540(slot-twin1) | 5f051f->5bdaf7 | 17/15/0 | struct:5+vtable | HIGH |
-| CGameBitmap | gameobj.h,gfx.h,visual.h | CObject | 609308(ctor-ns4) | 5d5320(ctor-twin) | 4245c1->4264f1 | 18/0/0 | vtable+struct:13 | HIGH |
-| CGameFont | gfx.h,visual.h | CObject | 60b318(ctor-ns2) | 5d74cc(cli-ns) | - | 12/4/3 | vtable+struct:6 | HIGH |
-| CGameObject | gameobj.h,visual.h | CObject | 60b470(ctor-ns3) | 5d7620(ctor-twin) | 4610b0->464cc0 | 34/3/0 | vtable+struct:19 | HIGH |
+| CFile | player_file.h,resource.h | - | 6100dc(slot-ns) 6101ac(ctor-ns1) 61214c(slot-ns) 613d4c(slot-ns) | 5dc38c(ctor-twin) 5dfe88(slot-twin2) 5dc1c4(slot-twin2) | 5df0b3->5ad06e | 17/5/1 | struct:14+struct:4+struct:8+vtable | HIGH |
+| CFileException | - | - | 61011c(ctor-ns2) | 5dc2fc(ctor-twin) | 4e7fd0->4ed500 | 2/0/0 | struct:6+vtable | HIGH |
+| CFileFind | - | - | 6117dc(ctor-ns2) | 5de1ec(ctor-twin) | 5bbc55->589750 | 19/2/0 | struct:17+vtable | HIGH |
+| CFrameWnd | - | - | 61135c(ctor-ns1) 614070(slot-ns) 614328(slot-ns) | 5dd53c(ctor-twin) 5d8324(slot-twin3) 5dcbf0(slot-twin2) | 5f051f->5bdaf7 | 17/15/0 | struct:3+struct:5+vtable | HIGH |
+| CGameBitmap | gameobj.h,gfx.h,visual.h | CObject | 609308(ctor-ns4) | 5d5320(ctor-twin) | 4245c1->4264f1 | 18/0/0 | struct:13+vtable | HIGH |
+| CGameFont | gfx.h,visual.h | CObject | 60b318(ctor-ns2) | 5d74c8(ctor-twin) | - | 12/4/3 | struct:6+vtable | HIGH |
+| CGameObject | gameobj.h,visual.h | CObject | 60b470(ctor-ns3) | 5d7620(ctor-twin) | 4610b0->464cc0 | 34/3/0 | struct:19+vtable | HIGH |
 | CGamePalette | gfx.h,ingame.h | CObject | 6092f0(ctor-ns2) | 5d5308(cli-ns) | - | 8/0/0 | struct:5+vtable | HIGH |
-| CGameSession | main_window.h,visual.h | CObject | 60c2a8(ctor-ns1) | 5d7ac4(cli-ns) | - | 8/12/1 | struct:4+vtable | HIGH |
+| CGameSession | main_window.h,visual.h | CObject | 60c2a8(ctor-ns1) | 5d7ac0(ctor-twin) | - | 8/12/1 | struct:4+vtable | HIGH |
 | CGdiObject | - | - | - | - | - | 2/0/0 | - | LOW |
 | CHLDriver | - | - | - | - | - | 0/1/0 | - | LOW |
 | CHorisontalWoodenBridge | gameobj.h | CBridge | 60cbc8(ctor-ns1) | 5d8ca8(slot-twin3) | - | 5/0/0 | struct:18+vtable | HIGH |
-| CList | - | - | 60fbe0(ctor-ns1) 60fbf8(ctor-ns1) 60fcb0(ctor-ns1) 60fd28(ctor-ns1) 60fd58(ctor-ns1) 60fd70(ctor-ns1) 60fd88(ctor-ns1) 60fda0(ctor-ns1) 60fdd0(ctor-ns1) | 5dada4(cli-ns) 5dadbc(cli-ns) 5dbdf4(cli-ns) 5dbe6c(cli-ns) 5dbe9c(cli-ns) 5dbeb4(cli-ns) 5dadd4(cli-ns) 5dadec(cli-ns) 5db0b4(cli-ns) | - | 31/1/0 | struct:4+vtable | HIGH |
-| CList<> | - | - | 60ec60(ctor-ns2) 60f678(ctor-ns1) 60f6c8(ctor-ns2) 60fe84(ctor-ns22) | 5d8bf4(cli-ns) | - | 0/31/0 | struct:4+vtable | HIGH |
+| CList | - | - | 60fbe0(ctor-ns1) 60fbf8(ctor-ns1) 60fcb0(ctor-ns1) 60fd28(ctor-ns1) 60fd58(ctor-ns1) 60fd70(ctor-ns1) 60fd88(ctor-ns1) 60fda0(ctor-ns1) 60fdd0(ctor-ns1) | 5dada0(cli-ns) 5dadb8(cli-ns) 5dbdf0(cli-ns) 5dbe68(cli-ns) 5dbe98(cli-ns) 5dbeb0(cli-ns) 5dadd0(cli-ns) 5dade8(cli-ns) 5db0b0(cli-ns) | - | 31/1/0 | struct:4+vtable | HIGH |
+| CList<> | - | - | 60ec60(ctor-ns2) 60f678(ctor-ns1) 60f6c8(ctor-ns2) 60fe84(ctor-ns22) | 5d8460(slot-twin1) 5dc154(ctor-twin) | - | 0/31/0 | struct:4+ctor+vtable | HIGH |
 | CList<Building> | - | - | - | - | - | 3/1/0 | - | LOW |
 | CList<Group> | - | - | - | - | - | 5/1/0 | - | HIGH |
 | CList<Item> | - | - | - | - | - | 0/3/0 | - | LOW |
@@ -203,33 +203,33 @@ MED = call-site pairs or >=50% identical; LOW = namespace only (likely server-on
 | CList<VirtualCaster> | - | - | - | - | - | 2/1/0 | - | LOW |
 | CList<int16> | - | - | - | - | - | 1/0/0 | - | LOW |
 | CList<pEffect> | - | - | - | - | - | 1/2/0 | - | LOW |
-| CListBox | - | - | 611abc(ctor-ns2) | 5dd010(slot-twin5) | - | 12/6/0 | struct:5+vtable | HIGH |
-| CListBox2 | main_window.h | CListBox | 60c380(ctor-ns2) | 5d83a4(slot-twin1) | - | 3/0/0 | struct:5+vtable | HIGH |
+| CListBox | - | - | 611abc(ctor-ns2) | 5dd040(slot-twin3) | - | 12/6/0 | struct:6+vtable | HIGH |
+| CListBox2 | main_window.h | CListBox | 60c380(ctor-ns2) | 5d842c(slot-twin3) | - | 3/0/0 | struct:6+vtable | HIGH |
 | CLlDriver | net.h | - | - | - | - | 45/25/7 | - | MED |
-| CMap | - | - | 6091d0(ctor-ns1) 60fcc8(ctor-ns1) 60fce0(ctor-ns1) 60fcf8(ctor-ns1) | 5d51d4(cli-ns) 5d51bc(cli-ns) 5db7f4(cli-ns) 5db88c(cli-ns) | - | 8/2/0 | struct:4+vtable | HIGH |
+| CMap | - | - | 6091d0(ctor-ns1) 60fcc8(ctor-ns1) 60fce0(ctor-ns1) 60fcf8(ctor-ns1) | 5d51d0(cli-ns) 5d51b8(cli-ns) 5db7f0(cli-ns) 5db888(cli-ns) | - | 8/2/0 | struct:4+vtable | HIGH |
 | CMap<> | - | - | - | - | - | 18/4/0 | - | HIGH |
-| CMap<int,CGameObject*> | - | - | 6091b8(ctor-ns1) | 5da844(slot-twin8) | - | 1/0/0 | struct:3+vtable | HIGH |
+| CMap<int,CGameObject*> | - | - | 6091b8(ctor-ns1) | 5d8bf0(ctor-twin) | - | 1/0/0 | struct:3+vtable | HIGH |
 | CMap<int,CUnit*> | - | - | - | - | - | 2/1/1 | - | LOW |
-| CMap<int,int> | - | - | 60fc80(ctor-ns1) | 5dae3c(cli-ns) | - | 5/0/0 | struct:4+vtable | HIGH |
-| CMap<int,p_Building> | - | - | 60fc68(ctor-ns1) | 5dbdac(cli-ns) | - | 5/0/0 | struct:4+vtable | HIGH |
+| CMap<int,int> | - | - | 60fc80(ctor-ns1) | 5dae38(cli-ns) | - | 5/0/0 | struct:4+vtable | HIGH |
+| CMap<int,p_Building> | - | - | 60fc68(ctor-ns1) | 5dbda8(cli-ns) | - | 5/0/0 | struct:4+vtable | HIGH |
 | CMap<int,p_ConnStatInfo> | - | - | - | - | - | 1/0/0 | - | LOW |
-| CMap<int,p_Group> | - | - | 60fc50(ctor-ns1) | 5dbd94(cli-ns) | - | 5/0/0 | struct:4+vtable | HIGH |
-| CMap<int,p_Player> | - | - | 60fc38(ctor-ns1) | 5dbd7c(cli-ns) | - | 5/0/0 | struct:4+vtable | HIGH |
-| CMap<int,p_Unit> | - | - | 60fc20(ctor-ns1) | 5dbd64(cli-ns) | - | 5/0/0 | struct:4+vtable | HIGH |
-| CMap<uint16_t,CellState> | - | - | 60fbc8(ctor-ns1) | 5dbd0c(cli-ns) | - | 2/0/0 | struct:4+vtable | HIGH |
-| CMapPtrToPtr | - | - | 6120f4(ctor-ns1) | 5dcb68(slot-twin1) | - | 12/0/0 | struct:4+vtable | HIGH |
-| CMapStringToOb | - | - | 61080c(ctor-ns1) | 5dc9f0(cli-ns) | - | 1/0/0 | struct:4+vtable | HIGH |
-| CMapWordToPtr | - | - | 61006c(ctor-ns1) | 5dc250(cli-ns) | - | 1/1/0 | struct:4+vtable | HIGH |
+| CMap<int,p_Group> | - | - | 60fc50(ctor-ns1) | 5dbd90(cli-ns) | - | 5/0/0 | struct:4+vtable | HIGH |
+| CMap<int,p_Player> | - | - | 60fc38(ctor-ns1) | 5dbd78(cli-ns) | - | 5/0/0 | struct:4+vtable | HIGH |
+| CMap<int,p_Unit> | - | - | 60fc20(ctor-ns1) | 5dbd60(cli-ns) | - | 5/0/0 | struct:4+vtable | HIGH |
+| CMap<uint16_t,CellState> | - | - | 60fbc8(ctor-ns1) | 5dbd08(cli-ns) | - | 2/0/0 | struct:4+vtable | HIGH |
+| CMapPtrToPtr | - | - | 6120f4(ctor-ns1) | 5dd7bc(cli-ns) | - | 12/0/0 | struct:4+vtable | HIGH |
+| CMapStringToOb | - | - | 61080c(ctor-ns1) | 5dc9ec(cli-ns) | - | 1/0/0 | struct:4+vtable | HIGH |
+| CMapWordToPtr | - | - | 61006c(ctor-ns1) | 5dc24c(cli-ns) | - | 1/1/0 | struct:4+vtable | HIGH |
 | CMemFile | - | - | - | - | - | 1/0/0 | - | LOW |
 | CMiniDockFrameWnd | - | - | - | - | - | 3/0/0 | - | LOW |
 | CMiniFrameWnd | - | - | - | - | - | 2/0/0 | - | LOW |
 | CMousePointer | mouse.h | CObject | 609440(ctor-ns3) | 5d5470(ctor-twin) | 4264eb->428419 | 30/1/1 | struct:5+vtable | HIGH |
 | CMultiShopInstance | net.h,shelf.h | CObject | 60f450(ctor-ns2) | 5db590(cli-ns) | - | 6/7/0 | struct:4+vtable | HIGH |
-| CMultiShopShelf | net.h,shelf.h | CObject | 609200(ctor-ns2) 60f438(ctor-ns2) | 5d5204(cli-ns) 5db578(cli-ns) | - | 2/8/1 | struct:4+vtable | HIGH |
+| CMultiShopShelf | net.h,shelf.h | CObject | 609200(ctor-ns2) 60f438(ctor-ns2) | 5d5200(cli-ns) 5db578(cli-ns) | - | 2/8/1 | struct:4+vtable | HIGH |
 | CMultiShopTemplate | shelf.h,shop.h | CObject | 60f468(ctor-ns3) 60f480(ctor-ns3) | 5db5a8(cli-ns) | - | 10/11/1 | struct:4+vtable | HIGH |
 | COMCTL32.DLL | - | - | - | - | - | 2/0/0 | - | LOW |
 | COMDLG32.DLL | - | - | - | - | - | 1/0/0 | - | LOW |
-| CObject | - | - | 6091e8(slot-ns) 6094a4(slot-ns) 60b120(slot-ns) 60b138(slot-ns) 60b150(slot-ns) 60b168(slot-ns) 60b748(slot-ns) 60b800(slot-ns) 60b850(slot-ns) 60b928(slot-ns) 60b940(slot-ns) 60b958(slot-ns) 60b970(slot-ns) 60b988(slot-ns) 60b9a0(slot-ns) 60b9b8(slot-ns) 60c530(slot-ns) 60c548(slot-ns) 60cdc8(slot-ns) 60cde0(slot-ns) 60d9e8(slot-ns) 60db10(slot-ns) 60e760(slot-ns) 60e778(slot-ns) 60e808(slot-ns) 60e820(slot-ns) 60f628(slot-ns) 60fd10(slot-ns) 60fd40(slot-ns) 60fdb8(slot-ns) 60fe20(slot-ns) 60ffd4(slot-ns) 610018(slot-ns) 610030(slot-ns) 61030c(slot-ns) 610330(slot-ns) 610550(slot-ns) 6105d0(slot-ns) 610650(slot-ns) 6106d0(slot-ns) 610750(slot-ns) 610768(slot-ns) 610780(slot-ns) 6107a0(slot-ns) 61083c(slot-ns) 6115dc(slot-ns) 612134(slot-ns) 6121e8(slot-ns) 612260(slot-ns) 6122d8(slot-ns) 6135e8(slot-ns) 613bdc(slot-ns) 613c88(slot-ns) | 5dbf64(cli-ns) 5de330(slot-twin1) 5dfdc0(cli-ns) 5d51ec(cli-ns) 5d535c(cli-ns) 5d5a3c(cli-ns) 5d735c(cli-ns) 5d7374(cli-ns) 5d738c(cli-ns) 5d73a4(cli-ns) 5d799c(cli-ns) 5d79b4(cli-ns) 5d7a1c(cli-ns) 5d7adc(cli-ns) 5d7af4(cli-ns) 5d7b0c(cli-ns) 5d7b24(cli-ns) 5d7b3c(cli-ns) 5d7b54(cli-ns) 5d7b6c(cli-ns) 5d8614(cli-ns) 5d8a7c(cli-ns) 5d8eac(cli-ns) 5d8ec4(cli-ns) 5d9acc(cli-ns) 5d9bf4(cli-ns) 5da8cc(cli-ns) 5da95c(cli-ns) 5da974(cli-ns) 5da98c(cli-ns) 5dab64(cli-ns) 5dab7c(cli-ns) 5dc118(cli-ns) 5d9ab4(cli-ns) 5dc1b0(cli-ns) 5dc390(slot-twin1) 5dc4f0(cli-ns) 5dc510(cli-ns) 5dc730(cli-ns) 5dc7b0(cli-ns) 5dc830(cli-ns) 5dc8b0(cli-ns) 5dc930(cli-ns) 5dc948(cli-ns) 5dc960(cli-ns) 5dca20(cli-ns) 5dc9c8(cli-ns) 5dd7c0(cli-ns) 5de2d0(cli-ns) 5de398(cli-ns) 5de410(cli-ns) 5df238(slot-twin1) 5db76c(cli-ns) | 5bb3a0->5890a0 | 9/1/0 | struct:4+vtable+struct:12+struct:6+struct:3+struct:5 | HIGH |
+| CObject | - | - | 6091e8(slot-ns) 6094a4(slot-ns) 60b120(slot-ns) 60b138(slot-ns) 60b150(slot-ns) 60b168(slot-ns) 60b748(slot-ns) 60b800(slot-ns) 60b850(slot-ns) 60b928(slot-ns) 60b940(slot-ns) 60b958(slot-ns) 60b970(slot-ns) 60b988(slot-ns) 60b9a0(slot-ns) 60b9b8(slot-ns) 60c530(slot-ns) 60c548(slot-ns) 60cdc8(slot-ns) 60cde0(slot-ns) 60d9e8(slot-ns) 60db10(slot-ns) 60e760(slot-ns) 60e778(slot-ns) 60e808(slot-ns) 60e820(slot-ns) 60f628(slot-ns) 60fd10(slot-ns) 60fd40(slot-ns) 60fdb8(slot-ns) 60fe20(slot-ns) 60ffd4(slot-ns) 610018(slot-ns) 610030(slot-ns) 61030c(slot-ns) 610330(slot-ns) 610550(slot-ns) 6105d0(slot-ns) 610650(slot-ns) 6106d0(slot-ns) 610750(slot-ns) 610768(slot-ns) 610780(slot-ns) 6107a0(slot-ns) 61083c(slot-ns) 6115dc(slot-ns) 612134(slot-ns) 6121e8(slot-ns) 612260(slot-ns) 6122d8(slot-ns) 6135e8(slot-ns) 613bdc(slot-ns) 613c88(slot-ns) | 5dbf60(cli-ns) 5de32c(slot-twin1) 5dfdbc(cli-ns) 5d51e8(cli-ns) 5d5358(cli-ns) 5d5a38(cli-ns) 5d7358(cli-ns) 5d7370(cli-ns) 5d7388(cli-ns) 5d73a0(cli-ns) 5d7998(cli-ns) 5d79b0(cli-ns) 5d7a18(cli-ns) 5d7ad8(cli-ns) 5d7af0(cli-ns) 5d7b08(cli-ns) 5d7b20(cli-ns) 5d7b38(cli-ns) 5d7b50(cli-ns) 5d7b68(cli-ns) 5d8610(cli-ns) 5d8a78(cli-ns) 5d8ea8(cli-ns) 5d8ec0(cli-ns) 5d9ac8(cli-ns) 5d9bf0(cli-ns) 5da8c8(cli-ns) 5da958(cli-ns) 5da970(cli-ns) 5da988(cli-ns) 5dab60(cli-ns) 5dab78(cli-ns) 5dc114(cli-ns) 5d8538(slot-twin1) 5dc1ac(cli-ns) 5dc4ec(slot-twin1) 5dc50c(slot-twin1) 5dc72c(cli-ns) 5dc7ac(cli-ns) 5dc82c(cli-ns) 5dc8ac(ctor-twin) 5dc92c(cli-ns) 5dc944(ctor-twin) 5dc95c(slot-twin1) 5dc97c(slot-twin1) 5dca1c(cli-ns) 5dcb64(ctor-twin) 5de2cc(cli-ns) 5de394(cli-ns) 5de40c(cli-ns) 5ded34(slot-twin1) 5dedfc(slot-twin1) 5db768(cli-ns) | 5bb3a0->5890a0 | 9/1/0 | struct:4+struct:6+vtable+struct:3+struct:5+struct:12 | HIGH |
 | COleClientItem | - | - | - | - | - | 1/0/0 | - | LOW |
 | COleDataObject | - | - | - | - | - | 3/0/0 | - | LOW |
 | CPaintDC | - | - | - | - | - | 3/0/0 | - | LOW |
@@ -240,30 +240,30 @@ MED = call-site pairs or >=50% identical; LOW = namespace only (likely server-on
 | CProcessLocalObject | - | - | - | - | - | 1/0/0 | - | LOW |
 | CProjectile | gameobj.h | CGameObject | 60b6f0(ctor-ns2) | 5d78a0(ctor-twin) | - | 10/2/0 | struct:17+vtable | HIGH |
 | CPtrArray | - | - | - | - | - | 4/0/0 | - | LOW |
-| CRecentFileList | - | - | 61252c(rtti) | 5de664(rtti) | 5e5d5b->5b3d37 | 0/0/0 | vtable+struct:6 | HIGH |
+| CRecentFileList | - | - | 61252c(rtti) | 5de664(rtti) | 5e5d5b->5b3d37 | 0/0/0 | struct:6+vtable | HIGH |
 | CRect | - | - | - | - | - | 16/0/0 | - | HIGH |
 | CRuntimeClass | - | - | - | - | - | 1/0/0 | - | LOW |
 | CScrollView | - | - | - | - | - | 1/0/0 | - | LOW |
 | CSize | - | - | - | - | - | 1/0/0 | - | LOW |
 | CSprite16 | gfx.h | CGameBitmap | 609340(ctor-ns1) | 5d5370(slot-twin1) | - | 5/0/0 | struct:14+vtable | HIGH |
-| CSprite256 | gameobj.h,gfx.h,mouse.h | CGameBitmap | 609378(ctor-ns2) | 5d53a8(ctor-twin) | 424e79->426da9 | 12/1/0 | vtable+struct:16 | HIGH |
-| CSpriteFont16 | gfx.h | CGameFont | 60b340(ctor-ns1) | 5d72cc(slot-twin10) | 45fa44->46365e | 3/1/0 | struct:5+vtable | HIGH |
-| CSpriteFont16a | gfx.h | CGameFont | 60b360(ctor-ns1) | 5d7514(slot-twin1) | 45fe02->463a16 | 3/1/0 | struct:5+vtable | HIGH |
-| CStatic | - | - | 61191c(ctor-ns2) | 5d8464(slot-twin1) | - | 3/0/0 | struct:5+vtable | HIGH |
-| CStatusBar | - | - | 611f54(ctor-ns1) 61205c(ctor-ns1) | 5ddb40(slot-twin1) 5de1ac(ctor-twin) | 5f5602->5c2ca9 | 8/3/0 | struct:3+struct:5+vtable | HIGH |
-| CStdioFile | - | - | 6100ac(ctor-ns2) 6100f8(slot-ns) | 5dc290(cli-ns) 5dc2d8(slot-twin1) | - | 7/0/0 | struct:3+struct:5+vtable | HIGH |
+| CSprite256 | gameobj.h,gfx.h,mouse.h | CGameBitmap | 609378(ctor-ns2) | 5d53a8(ctor-twin) | 424e79->426da9 | 12/1/0 | struct:16+vtable | HIGH |
+| CSpriteFont16 | gfx.h | CGameFont | 60b340(ctor-ns1) | 5d72c8(slot-twin10) | 45fa44->46365e | 3/1/0 | struct:5+vtable | HIGH |
+| CSpriteFont16a | gfx.h | CGameFont | 60b360(ctor-ns1) | 5d7510(ctor-twin) | 45fe02->463a16 | 3/1/0 | struct:5+vtable | HIGH |
+| CStatic | - | - | 61191c(ctor-ns2) | 5dfbf0(slot-twin4) | - | 3/0/0 | struct:7+vtable | HIGH |
+| CStatusBar | - | - | 611f54(ctor-ns1) 61205c(ctor-ns1) | 5de130(slot-twin2) 5de1ac(ctor-twin) | 5f5602->5c2ca9 | 8/3/0 | struct:3+struct:7+vtable | HIGH |
+| CStdioFile | - | - | 6100ac(ctor-ns2) 6100f8(slot-ns) | 5dc28c(ctor-twin) 5dc2d4(slot-twin1) | - | 7/0/0 | struct:3+struct:9+vtable | HIGH |
 | CString | - | - | - | - | - | 34/0/0 | - | HIGH |
-| CStringArray | - | - | 60fe6c(ctor-ns2) | 5dbfb0(slot-twin1) | - | 12/0/0 | struct:4+vtable | HIGH |
-| CStructure | gameobj.h | CGameObject | 60b520(ctor-ns2) | 5d76d0(slot-twin4) | - | 13/3/0 | vtable+struct:16 | HIGH |
+| CStringArray | - | - | 60fe6c(ctor-ns2) | 5dbfac(ctor-twin) 5dbfc4(ctor-twin) | - | 12/0/0 | struct:4+ctor+vtable | HIGH |
+| CStructure | gameobj.h | CGameObject | 60b520(ctor-ns2) | 5d76d0(slot-twin4) | - | 13/3/0 | struct:16+vtable | HIGH |
 | CTime | - | - | - | - | - | 5/0/0 | - | HIGH |
 | CToolBarCtrl | - | - | - | - | - | 1/0/0 | - | LOW |
-| CUintArray | - | - | 6107e4(ctor-ns1) | 5dc980(cli-ns) | - | 1/0/0 | struct:4+vtable | HIGH |
+| CUintArray | - | - | 6107e4(ctor-ns1) | 5dc9c4(cli-ns) | - | 1/0/0 | struct:4+vtable | HIGH |
 | CUnit | gameobj.h,visual.h | CGameObject | 60b5d0(ctor-ns2) | 5d7780(ctor-twin) | 46411c->467de9 | 23/18/0 | struct:17+vtable | HIGH |
 | CVerticalWoodenBridge | gameobj.h | CBridge | 60cb70(ctor-ns1) | 5d8c50(slot-twin3) | - | 5/0/0 | struct:18+vtable | HIGH |
-| CVisualObject | visual.h | CObject | 609c28(slot-ns) 60a438(slot-ns) 60ddc0(ctor-ns4) | 5d6654(slot-twin8) 5d5c44(slot-twin8) 5d9ea4(slot-twin10) | 4457db->447ea9 | 56/0/0 | struct:29+vtable+struct:33+struct:34 | HIGH |
-| CWinApp | - | - | 611534(ctor-ns2) | 5dcfb8(slot-twin1) | 5f4ead->5c2567 | 11/6/0 | struct:5+vtable | HIGH |
-| CWinThread | - | - | 60feec(ctor-ns1) | 5dc010(slot-twin1) | 5f45d8->5c1b93 | 8/5/0 | struct:5+vtable | HIGH |
-| CWnd | - | - | 610dd4(ctor-ns2) 6119ec(slot-ns) 611ba4(slot-ns) 611d58(slot-ns) 612438(slot-ns) 612714(slot-ns) 612b58(slot-ns) 612c30(slot-ns) 612cc8(slot-ns) 612dd0(slot-ns) 612ea8(slot-ns) 612f50(slot-ns) 613028(slot-ns) 613100(slot-ns) 6131d0(slot-ns) 6132a8(slot-ns) 6133b0(slot-ns) 613458(slot-ns) 613520(slot-ns) 6136c0(slot-ns) 613914(slot-ns) 613a60(slot-ns) 613f48(slot-ns) | 5de598(slot-twin3) 5d8594(slot-twin5) 5dcbc0(slot-twin5) 5dd920(slot-twin1) 5ddac8(slot-twin5) 5ddcf8(slot-twin1) 5ddb98(slot-twin5) 5ddc68(slot-twin5) 5ddd50(slot-twin5) 5dde30(slot-twin5) 5ddf00(slot-twin5) 5dec90(slot-twin5) 5ded38(slot-twin1) 5ded90(slot-twin5) 5dee00(slot-twin1) 5dee58(slot-twin5) 5def30(slot-twin5) 5defb0(slot-twin1) 5df008(slot-twin5) 5df0e0(slot-twin5) 5dfa50(cli-ns) 5de8a8(slot-twin3) 5d842c(slot-twin1) | 5e07fe->5ae7bb | 36/12/0 | struct:4+struct:5+vtable+struct:6 | HIGH |
+| CVisualObject | visual.h | CObject | 609c28(slot-ns) 60a438(slot-ns) 60ddc0(ctor-ns4) | 5d6650(slot-twin8) 5d5c40(slot-twin8) 5d9ea0(ctor-twin) | 4457db->447ea9 | 56/0/0 | struct:33+struct:34+struct:29+vtable | HIGH |
+| CWinApp | - | - | 611534(ctor-ns2) | 5dcfb4(ctor-twin) | 5f4ead->5c2567 | 11/6/0 | struct:5+vtable | HIGH |
+| CWinThread | - | - | 60feec(ctor-ns1) | 5dc00c(ctor-twin) | 5f45d8->5c1b93 | 8/5/0 | struct:5+vtable | HIGH |
+| CWnd | - | - | 610dd4(ctor-ns2) 6119ec(slot-ns) 611ba4(slot-ns) 611d58(slot-ns) 612438(slot-ns) 612714(slot-ns) 612b58(slot-ns) 612c30(slot-ns) 612cc8(slot-ns) 612dd0(slot-ns) 612ea8(slot-ns) 612f50(slot-ns) 613028(slot-ns) 613100(slot-ns) 6131d0(slot-ns) 6132a8(slot-ns) 6133b0(slot-ns) 613458(slot-ns) 613520(slot-ns) 6136c0(slot-ns) 613914(slot-ns) 613a60(slot-ns) 613f48(slot-ns) | 5dfad8(slot-twin4) 5de8d8(slot-twin3) 5e00d8(slot-twin3) 5d84ec(slot-twin3) 5ddaf8(slot-twin3) 5ddc98(slot-twin3) 5ddd80(slot-twin3) 5dde60(slot-twin3) 5ddf30(slot-twin3) 5decc0(slot-twin3) 5dedc0(slot-twin3) 5dee88(slot-twin3) 5def60(slot-twin3) 5df038(slot-twin3) 5df110(slot-twin3) 5df1e8(slot-twin3) 5df2c0(slot-twin3) 5df390(slot-twin3) 5df468(slot-twin3) 5df540(slot-twin3) 5df618(slot-twin3) 5df6e0(slot-twin3) 5df850(slot-twin3) | 5e07fe->5ae7bb | 36/12/0 | struct:7+struct:6+vtable | HIGH |
 | CWordArray | - | - | - | - | - | 2/0/0 | - | LOW |
 | CellState | map_stuff.h | - | - | - | - | 4/0/0 | - | LOW |
 | ComSettings | net.h,visual.h | - | - | - | - | 2/0/0 | - | LOW |
@@ -275,66 +275,66 @@ MED = call-site pairs or >=50% identical; LOW = namespace only (likely server-on
 | DiplomacyEntry | main_window.h,visual.h | - | - | - | - | 2/0/0 | - | LOW |
 | DirectDamage | effect.h | Effect | 60f2e0(ctor-ns3) | 5db420(ctor-twin) | - | 7/0/0 | struct:15+vtable | HIGH |
 | DistortMap | game_app.h | - | - | - | - | 2/2/0 | - | LOW |
-| Effect | effect.h,net.h,spell_effect.h,token.h | Token | 60f288(ctor-ns3) | 5db3c8(ctor-twin) | 53ec02->526739 | 10/15/0 | vtable+struct:13 | HIGH |
-| EndGameMenu | visual.h | VisMenuWnd | 609fd8(ctor-ns1) | 5d60ec(slot-twin8) | - | 0/1/0 | vtable+struct:33 | HIGH |
+| Effect | effect.h,net.h,spell_effect.h,token.h | Token | 60f288(ctor-ns3) | 5db3c8(ctor-twin) | 53ec02->526739 | 10/15/0 | struct:13+vtable | HIGH |
+| EndGameMenu | visual.h | VisMenuWnd | 609fd8(ctor-ns1) | 5d60e8(ctor-twin) | - | 0/1/0 | struct:33+vtable | HIGH |
 | EquipmentExtra | unit.h | - | - | - | - | 3/2/0 | - | MED |
-| ExitGameMenu | visual.h | VisMenuWnd | 60a0e8(ctor-ns1) | 5d61fc(slot-twin8) | 44186e->443e3d | 1/0/0 | vtable+struct:33 | HIGH |
+| ExitGameMenu | visual.h | VisMenuWnd | 60a0e8(ctor-ns1) | 5d61f8(ctor-twin) | 44186e->443e3d | 1/0/0 | struct:33+vtable | HIGH |
 | ExperienceTable | - | - | - | - | - | 3/0/0 | - | LOW |
 | Fame1 | main_window.h | - | - | - | - | 1/0/0 | - | LOW |
 | Fame2 | main_window.h | - | - | - | - | 11/0/0 | - | HIGH |
 | FatEntry | resource.h | - | - | - | - | 3/0/0 | - | LOW |
 | FieldBlock54190 | map_stuff.h | - | - | - | - | 1/0/0 | - | LOW |
 | FieldBlock5859c | map_stuff.h | - | - | - | - | 1/0/0 | - | LOW |
-| File2 | file.h,map_stuff.h | CFile | 60e790(ctor-ns3) | 5da914(slot-twin5) | - | 18/0/0 | struct:15+vtable | HIGH |
-| GM_a28 | visual.h | CObject | 609070(ctor-ns2) | 5d5074(cli-ns) | 401f50->401f50 | 8/0/0 | struct:4+vtable | HIGH |
+| File2 | file.h,map_stuff.h | CFile | 60e790(ctor-ns3) | 5da8f8(ctor-twin) | - | 18/0/0 | struct:20+vtable | HIGH |
+| GM_a28 | visual.h | CObject | 609070(ctor-ns2) | 5d5070(ctor-twin) | 401f50->401f50 | 8/0/0 | struct:4+vtable | HIGH |
 | GMapThing | visual.h | - | - | - | - | 8/0/0 | - | HIGH |
 | GO_11c | gameobj.h | - | - | - | - | 1/0/0 | - | LOW |
 | Game | - | - | - | - | - | 2/0/0 | - | LOW |
-| GameApp | game_app.h | CWinApp | 60c100(ctor-ns1) | 5d81e4(slot-twin1) | 495d60->499f20 | 3/1/0 | struct:5+vtable | HIGH |
+| GameApp | game_app.h | CWinApp | 60c100(ctor-ns1) | 5d81e0(ctor-twin) | 495d60->499f20 | 3/1/0 | struct:5+vtable | HIGH |
 | GameDataRes | table.h | - | 60ea08(ctor-ns2) 60ea20(ctor-ns2) 60ea38(ctor-ns2) 60ea50(ctor-ns2) 60ea68(ctor-ns2) 60ea80(ctor-ns2) 60ea98(ctor-ns2) 60eab0(ctor-ns1) | - | - | 1/19/1 | - | LOW |
-| GameOptionsWindow | visual.h | VisWindow | 60a200(ctor-ns1) | 5d639c(slot-twin8) | - | 4/0/0 | vtable+struct:33 | HIGH |
+| GameOptionsWindow | visual.h | VisWindow | 60a200(ctor-ns1) | 5d6398(slot-twin8) | - | 4/0/0 | struct:33+vtable | HIGH |
 | GameSettings | game_app.h | - | - | - | - | 4/0/0 | - | LOW |
-| GfxFile | ingame.h | CObject | 60b880(ctor-ns2) | 5d740c(cli-ns) | 47ae53->47ed0d | 6/0/0 | struct:4+vtable | HIGH |
-| GfxObject | ingame.h | CObject | 60b898(ctor-ns2) | 5d7a34(cli-ns) | - | 2/0/0 | struct:4+vtable | HIGH |
+| GfxFile | ingame.h | CObject | 60b880(ctor-ns2) | 5d7408(ctor-twin) | 47ae53->47ed0d | 6/0/0 | struct:4+vtable | HIGH |
+| GfxObject | ingame.h | CObject | 60b898(ctor-ns2) | 5d7a30(ctor-twin) | - | 2/0/0 | struct:4+vtable | HIGH |
 | GlobalMapRouteArray | visual.h | CWordArray | - | - | - | 1/0/0 | - | LOW |
 | Group | group.h,logic.h,server.h,unit.h,world.h | - | - | - | - | 3/5/0 | - | LOW |
 | GroupList | group.h,player.h | - | 60f690(ctor-ns2) | - | - | 0/4/0 | - | LOW |
 | GroupSub | group.h | - | - | - | - | 3/0/0 | - | LOW |
 | HardwareAffinity | - | - | - | - | - | 1/0/0 | - | LOW |
 | HatSettings | main_window.h,visual.h | - | - | - | - | 1/2/0 | - | LOW |
-| HintedListBox | visual.h | VisListBox | 609d38(ctor-ns1) | 5d5dd4(slot-twin11) | - | 4/0/0 | vtable+struct:34 | HIGH |
+| HintedListBox | visual.h | VisListBox | 609d38(ctor-ns1) | 5d5dd0(slot-twin11) | - | 4/0/0 | struct:34+vtable | HIGH |
 | Human | map_stuff.h,player.h,server.h,unit.h | Humanoid | 60f0c8(ctor-ns2) | 5db208(ctor-twin) | 53232d->51dfb3 | 7/3/1 | struct:15+vtable | HIGH |
 | HumanInfo | table.h | TableLine | 60eba0(ctor-ns1) | 5dacf8(cli-ns) | - | 2/4/0 | struct:3+vtable | HIGH |
 | Humanoid | inn.h,server.h,shelf.h,shop.h,spell.h,unit.h | Unit | 60f050(ctor-ns3) | 5db190(ctor-twin) | - | 17/15/0 | struct:15+vtable | HIGH |
-| IngameMenu | visual.h | VisMenuWnd | 609f50(ctor-ns1) | 5d5fec(slot-twin8) | - | 0/1/0 | vtable+struct:33 | HIGH |
-| Inn | inn.h,server.h,unit.h | Building | 60fa30(ctor-ns3) 60fa70(ctor-ns3) 60fa88(ctor-ns3) | 5dbb70(cli-ns) | - | 2/11/0 | vtable+struct:12 | HIGH |
+| IngameMenu | visual.h | VisMenuWnd | 609f50(ctor-ns1) | 5d5fe8(slot-twin8) | - | 0/1/0 | struct:33+vtable | HIGH |
+| Inn | inn.h,server.h,unit.h | Building | 60fa30(ctor-ns3) 60fa70(ctor-ns3) 60fa88(ctor-ns3) | 5dbb70(cli-ns) | - | 2/11/0 | struct:12+vtable | HIGH |
 | Inventory | inn.h,inventory.h,net.h,sack.h,server.h,shop_assortment.h,unit.h | - | 60f610(ctor-ns3) | - | - | 2/11/4 | - | MED |
 | Item | game_app.h,item.h,shelf.h,shop.h,shop_assortment.h,table.h,unit.h,visual.h | Token | 60f498(ctor-ns5) | 5db5d8(ctor-twin) | 547f80->52cb56 | 14/17/3 | struct:15+vtable | HIGH |
 | KERNEL32.DLL | - | - | - | - | - | 1/0/0 | - | LOW |
-| LoadGameWindow | visual.h | VisWindow | 609dc8(ctor-ns1) | 5d5e64(slot-twin8) | 43ecfb->44115f | 4/0/0 | vtable+struct:33 | HIGH |
+| LoadGameWindow | visual.h | VisWindow | 609dc8(ctor-ns1) | 5d5e60(ctor-twin) | 43ecfb->44115f | 4/0/0 | struct:33+vtable | HIGH |
 | MSACM32.DLL | - | - | - | - | - | 6/0/0 | - | HIGH |
 | MagicInfo | table.h | TableLine | 60eb60(ctor-ns1) | 5dacb8(cli-ns) | - | 2/3/0 | struct:3+vtable | HIGH |
 | MagicItem | shop_assortment.h,table.h | WorldEquip | 60eb40(ctor-ns1) | 5dac98(slot-twin1) | - | 3/3/0 | struct:4+vtable | HIGH |
-| MainWindow | main_window.h | CFrameWnd | 60c1a8(ctor-ns1) | 5d8288(slot-twin1) | - | 66/25/1 | vtable+struct:6 | HIGH |
-| MapAlm | alm.h,map_stuff.h,server.h | - | 609158(ctor-ns2) 60b868(ctor-ns2) 60faa0(ctor-ns2) 60fab8(ctor-ns2) 60fad0(ctor-ns2) 60fae8(ctor-ns2) 60fb00(ctor-ns2) 60fb18(ctor-ns2) 60fb30(ctor-ns2) 60fb48(ctor-ns2) 60fb60(ctor-ns2) 60fb78(ctor-ns2) | 5d515c(cli-ns) 5d7a04(cli-ns) | - | 3/2/0 | struct:4+vtable | HIGH |
+| MainWindow | main_window.h | CFrameWnd | 60c1a8(ctor-ns1) | 5d8288(slot-twin1) | - | 66/25/1 | struct:6+vtable | HIGH |
+| MapAlm | alm.h,map_stuff.h,server.h | - | 609158(ctor-ns2) 60b868(ctor-ns2) 60faa0(ctor-ns2) 60fab8(ctor-ns2) 60fad0(ctor-ns2) 60fae8(ctor-ns2) 60fb00(ctor-ns2) 60fb18(ctor-ns2) 60fb30(ctor-ns2) 60fb48(ctor-ns2) 60fb60(ctor-ns2) 60fb78(ctor-ns2) | 5d5158(cli-ns) 5d7a00(cli-ns) | - | 3/2/0 | struct:4+vtable | HIGH |
 | MapEffectData | alm.h | - | 60fb90(ctor-ns1) | - | - | 0/1/0 | - | LOW |
 | MapLogicData | alm.h | - | - | - | - | 1/0/0 | - | LOW |
 | MapPlayerData | alm.h | CObject | 609b70(ctor-ns3) | 5d5b88(ctor-twin) | 43c040->43e450 | 8/0/0 | struct:5+vtable | HIGH |
 | MapSackData | alm.h | - | - | - | - | 1/0/0 | - | LOW |
 | MapStuff | map_stuff.h,token.h,visibility.h,world.h | - | - | - | - | 100/8/5 | - | HIGH |
 | MatShape | table.h | TableLine | 60eb20(ctor-ns1) | 5dac78(cli-ns) | - | 2/4/0 | struct:3+vtable | HIGH |
-| MenuButton | visual.h | VisButton | 60ae78(ctor-ns2) | 5d6074(slot-twin9) | 4509c0->453390 | 7/1/0 | vtable+struct:28 | HIGH |
+| MenuButton | visual.h | VisButton | 60ae78(ctor-ns2) | 5d6070(ctor-twin) | 4509c0->453390 | 7/1/0 | struct:28+vtable | HIGH |
 | MonsterInfo | table.h,unit.h | TableLine | 60eb80(ctor-ns1) | 5dacd8(cli-ns) | - | 2/4/0 | struct:3+vtable | HIGH |
-| MusicPlayer | sound.h | CObject | 60b240(ctor-ns2) | 5d723c(slot-twin8) | 45b16d->45ed9d | 27/1/0 | struct:4+vtable | HIGH |
+| MusicPlayer | sound.h | CObject | 60b240(ctor-ns2) | 5d7238(slot-twin8) | 45b16d->45ed9d | 27/1/0 | struct:4+vtable | HIGH |
 | NetMapInfo | map_stuff.h,visual.h | - | - | - | - | 2/0/0 | - | LOW |
 | NetSockLatency | net.h | - | - | - | - | 1/1/0 | - | LOW |
 | NetStru1 | game_app.h,net.h | - | 60ecc0(ctor-ns2) 60ecc8(ctor-ns2) 60ece0(ctor-ns3) 60ecf8(ctor-ns2) | - | - | 24/62/13 | - | MED |
 | NetStru2 | net.h,packet.h,server.h | - | 60eca8(ctor-ns2) | - | - | 3/9/2 | - | LOW |
 | NetStru3 | net.h | - | - | - | - | 3/3/0 | - | MED |
 | Obstacle | map_stuff.h | - | - | - | - | 2/0/0 | - | LOW |
-| Outpost | outpost.h | Building | 60f3b8(ctor-ns3) | 5db4f8(ctor-twin) | 54326a->52a1e8 | 7/4/0 | vtable+struct:13 | HIGH |
+| Outpost | outpost.h | Building | 60f3b8(ctor-ns3) | 5db4f8(ctor-twin) | 54326a->52a1e8 | 7/4/0 | struct:13+vtable | HIGH |
 | PackerDat | net.h | - | - | - | - | 4/0/0 | - | LOW |
-| Packet | net.h,packet.h,server.h | - | 60ed10(ctor-ns3) 60ed88(slot-ns) | 5daec8(cli-ns) 5db048(slot-twin2) | 52681f->515651 | 6/1/0 | struct:4+struct:5+vtable | HIGH |
+| Packet | net.h,packet.h,server.h | - | 60ed10(ctor-ns3) 60ed88(slot-ns) | 5daec8(cli-ns) 5db048(slot-twin2) | 52681f->515651 | 6/1/0 | struct:5+struct:4+vtable | HIGH |
 | Packet2Dwords | packet.h | Packet | 60eda0(ctor-ns2) | 5daeb0(ctor-twin) | - | 6/0/0 | struct:5+vtable | HIGH |
 | PacketAoeZone | net.h,packet.h | Packet | 60ee48(ctor-ns2) | 5daf70(slot-twin2) | - | 5/0/0 | struct:5+vtable | HIGH |
 | PacketBuildingHp | packet.h | Packet | 60eed8(ctor-ns2) | 5dafa0(slot-twin2) | - | 5/0/0 | struct:5+vtable | HIGH |
@@ -361,23 +361,23 @@ MED = call-site pairs or >=50% identical; LOW = namespace only (likely server-on
 | PhoneBook | main_window.h,visual.h | - | - | - | - | 3/0/0 | - | LOW |
 | Player | buildings_list.h,group.h,logic.h,net.h,player.h,players_list.h,server.h,token.h,unit_list.h,world.h | CObject | 60f140(ctor-ns2) | 5db280(cli-ns) | - | 6/10/1 | struct:3+vtable | HIGH |
 | PlayersList | game_app.h,players_list.h,world.h | - | 60f158(ctor-ns2) | - | - | 7/16/1 | - | LOW |
-| PointEffect | spell_effect.h | SpellEffect | 60f1b0(ctor-ns3) | 5db2f0(ctor-twin) | - | 7/3/0 | vtable+struct:13 | HIGH |
-| Pointer | building.h | Building | 60f338(ctor-ns2) | 5db478(ctor-twin) | - | 4/2/0 | vtable+struct:13 | HIGH |
-| ProjectileInfo | ingame.h | CObject | 60b8f8(ctor-ns2) | 5d7a94(cli-ns) | 47e1ec->4820a6 | 6/0/0 | struct:4+vtable | HIGH |
+| PointEffect | spell_effect.h | SpellEffect | 60f1b0(ctor-ns3) | 5db2f0(ctor-twin) | - | 7/3/0 | struct:13+vtable | HIGH |
+| Pointer | building.h | Building | 60f338(ctor-ns2) | 5db478(ctor-twin) | - | 4/2/0 | struct:13+vtable | HIGH |
+| ProjectileInfo | ingame.h | CObject | 60b8f8(ctor-ns2) | 5d7a90(ctor-twin) | 47e1ec->4820a6 | 6/0/0 | struct:4+vtable | HIGH |
 | Protections | protections.h | - | - | - | - | 6/1/0 | - | HIGH |
-| Quest | inn.h,quest.h,quest_map.h | CObject | 60f6f8(ctor-ns1) | 5db83c(slot-twin4) | - | 14/2/0 | vtable+struct:10 | HIGH |
+| Quest | inn.h,quest.h,quest_map.h | CObject | 60f6f8(ctor-ns1) | 5db838(slot-twin4) | - | 14/2/0 | vtable+struct:10 | HIGH |
 | QuestDeliverItem | quest.h | Quest | - | - | - | 4/1/0 | - | HIGH |
 | QuestDeliverMail | quest.h | Quest | - | - | - | 4/1/0 | - | HIGH |
 | QuestEscort | quest.h | Quest | - | - | - | 4/1/0 | - | HIGH |
-| QuestInnGlue | quest_glue.h,quest_map.h | CObject | 60fde8(ctor-ns1) | 5dbf2c(slot-twin4) | 5ba8e0->5885e0 | 10/1/0 | vtable+struct:12 | HIGH |
+| QuestInnGlue | quest_glue.h,quest_map.h | CObject | 60fde8(ctor-ns1) | 5dbf28(ctor-twin) | 5ba8e0->5885e0 | 10/1/0 | struct:12+vtable | HIGH |
 | QuestInterceptGroup | quest.h | Quest | - | - | - | 4/1/0 | - | HIGH |
 | QuestInterceptUnit | quest.h | Quest | - | - | - | 4/1/0 | - | HIGH |
 | QuestKillGroup | quest.h | Quest | - | - | - | 2/1/0 | - | LOW |
 | QuestKillInnDefenders | quest.h | Quest | - | - | - | 2/1/0 | - | LOW |
 | QuestKillMob | quest.h | Quest | - | - | - | 2/1/0 | - | LOW |
 | QuestKillN | quest.h | Quest | - | - | - | 2/1/0 | - | LOW |
-| QuestMap | inn.h,net.h,quest.h,quest_glue.h,quest_map.h,visual.h | CObject | 60f730(ctor-ns1) 60f748(ctor-ns1) 60f760(ctor-ns1) 60f778(ctor-ns1) 60f790(ctor-ns1) 60f7c8(ctor-ns1) 60f800(ctor-ns1) 60f838(ctor-ns1) 60f870(ctor-ns1) 60f8a8(ctor-ns1) 60f8e0(ctor-ns1) 60f918(ctor-ns1) 60f950(ctor-ns1) 60f988(ctor-ns1) 60f9c0(ctor-ns1) 60f9f8(ctor-ns1) | 5db8d4(slot-twin4) 5db97c(slot-twin4) 5db9b4(slot-twin4) 5dba94(slot-twin4) 5dbacc(slot-twin4) 5dbb04(slot-twin4) 5db9ec(slot-twin4) 5dba24(slot-twin4) 5dba5c(slot-twin4) 5db90c(slot-twin4) 5db944(slot-twin4) 5dbb3c(slot-twin4) 5dad5c(cli-ns) | - | 4/12/2 | struct:3+vtable+struct:10 | HIGH |
-| QuestObjectivesHeaderDialogVisualObject | visual.h | VisMessageBoxWithList | 60a3a8(ctor-ns1) | 5d65c4(slot-twin8) | 445173->447841 | 3/0/0 | vtable+struct:35 | HIGH |
+| QuestMap | inn.h,net.h,quest.h,quest_glue.h,quest_map.h,visual.h | CObject | 60f730(ctor-ns1) 60f748(ctor-ns1) 60f760(ctor-ns1) 60f778(ctor-ns1) 60f790(ctor-ns1) 60f7c8(ctor-ns1) 60f800(ctor-ns1) 60f838(ctor-ns1) 60f870(ctor-ns1) 60f8a8(ctor-ns1) 60f8e0(ctor-ns1) 60f918(ctor-ns1) 60f950(ctor-ns1) 60f988(ctor-ns1) 60f9c0(ctor-ns1) 60f9f8(ctor-ns1) | 5db8d0(slot-twin4) 5db978(slot-twin4) 5db9b0(slot-twin4) 5dba90(slot-twin4) 5dbac8(slot-twin4) 5dbb00(slot-twin4) 5db9e8(slot-twin4) 5dba20(slot-twin4) 5dba58(slot-twin4) 5db908(slot-twin4) 5db940(slot-twin4) 5dbb38(slot-twin4) 5d9f18(ctor-twin) | - | 4/12/2 | struct:3+vtable+struct:10 | HIGH |
+| QuestObjectivesHeaderDialogVisualObject | visual.h | VisMessageBoxWithList | 60a3a8(ctor-ns1) | 5d65c0(ctor-twin) | 445173->447841 | 3/0/0 | struct:35+vtable | HIGH |
 | QuestRaiseGhosts | quest.h | Quest | - | - | - | 4/1/0 | - | HIGH |
 | QuestRaiseSkeletons | quest.h | Quest | - | - | - | 4/1/0 | - | HIGH |
 | QuestRaiseZombies | quest.h | Quest | - | - | - | 4/1/0 | - | HIGH |
@@ -386,70 +386,71 @@ MED = call-site pairs or >=50% identical; LOW = namespace only (likely server-on
 | ResBase | resource.h | - | - | - | - | 27/0/0 | - | HIGH |
 | ResFile | resource.h,world.h | - | - | - | - | 18/0/0 | - | HIGH |
 | Resources | resource.h | - | - | - | - | 10/1/0 | - | HIGH |
-| Sack | map_stuff.h,sack.h,server.h | Token | 60f640(ctor-ns4) | 5db780(ctor-twin) | 553d5d->534311 | 5/4/0 | vtable+struct:12 | HIGH |
+| Sack | map_stuff.h,sack.h,server.h | Token | 60f640(ctor-ns4) | 5db780(ctor-twin) | 553d5d->534311 | 5/4/0 | struct:12+vtable | HIGH |
 | SackList | server.h | - | - | - | - | 1/6/1 | - | LOW |
 | SaveFileInfo | main_window.h,visual.h | - | - | - | - | 1/0/0 | - | LOW |
-| SaveGameWindow | visual.h | VisWindow | 609e50(ctor-ns1) | 5d5eec(slot-twin8) | 43fa42->441ea6 | 6/0/0 | vtable+struct:33 | HIGH |
+| SaveGameWindow | visual.h | VisWindow | 609e50(ctor-ns1) | 5d5ee8(ctor-twin) | 43fa42->441ea6 | 6/0/0 | struct:33+vtable | HIGH |
 | ScanPresenceGrid | map_stuff.h | - | - | - | - | 6/0/0 | - | HIGH |
-| Scenario | map_stuff.h,visual.h | CObject | 60cb10(ctor-ns3) | 5d838c(cli-ns) | - | 11/2/0 | struct:4+vtable | HIGH |
+| Scenario | map_stuff.h,visual.h | CObject | 60cb10(ctor-ns3) | 5d8388(cli-ns) | - | 11/2/0 | struct:4+vtable | HIGH |
 | ScenarioLocation | game_app.h | - | - | - | - | 3/0/0 | - | LOW |
 | SchedulerPolicy | - | - | - | - | - | 1/0/0 | - | LOW |
 | ScriptSettings | logic.h,server.h | - | - | - | - | 2/0/0 | - | LOW |
-| Server | game_app.h,server.h | - | 60ec00(ctor-ns1) 60ec18(ctor-ns1) | 5da8fc(cli-ns) | - | 5/50/2 | struct:3+vtable | HIGH |
+| Server | game_app.h,server.h | - | 60ec00(ctor-ns1) 60ec18(ctor-ns1) | 5d9ab0(cli-ns) 5dad58(cli-ns) | - | 5/50/2 | struct:3+ctor+vtable | HIGH |
 | ServerConfig | server.h | - | - | - | - | 1/1/0 | - | LOW |
-| ServerControlDialog | main_window.h | CDialog | 60c458(ctor-ns1) | 5d83fc(slot-twin5) | - | 4/11/0 | struct:5+vtable | HIGH |
+| ServerControlDialog | main_window.h | CDialog | 60c458(ctor-ns1) | 5d74f0(ctor-twin) | - | 4/11/0 | struct:5+vtable | HIGH |
 | Settings | player.h | - | - | - | - | 2/0/0 | - | LOW |
-| SfxBank | gameobj.h,sound.h | CObject | 60d9d0(ctor-ns1) | 5d853c(slot-twin1) | - | 4/0/0 | struct:4+vtable | HIGH |
-| SfxSample | sound.h,visual.h | CObject | 60b258(ctor-ns3) | 5d73f4(cli-ns) | 45b7d7->45f407 | 7/1/1 | struct:4+vtable | HIGH |
+| SfxBank | gameobj.h,sound.h | CObject | 60d9d0(ctor-ns1) | 5d83a0(slot-twin1) | - | 4/0/0 | struct:4+vtable | HIGH |
+| SfxSample | sound.h,visual.h | CObject | 60b258(ctor-ns3) | 5d73f0(ctor-twin) | 45b7d7->45f407 | 7/1/1 | struct:4+vtable | HIGH |
 | Shield | item.h,unit.h | Item | 60f560(ctor-ns5) | 5db6a0(ctor-twin) | - | 8/7/0 | struct:14+vtable | HIGH |
-| Shop | net.h,server.h,shelf.h,shop.h,unit.h | Building | 60f3f8(ctor-ns4) | 5db538(cli-ns) | - | 12/6/0 | vtable+struct:13 | HIGH |
+| Shop | net.h,server.h,shelf.h,shop.h,unit.h | Building | 60f3f8(ctor-ns4) | 5db538(cli-ns) | - | 12/6/0 | struct:13+vtable | HIGH |
 | ShopAssortment | shop_assortment.h | - | 60f4f0(ctor-ns2) | - | - | 1/9/1 | - | LOW |
 | SocketNm | net.h | - | - | - | - | 2/0/0 | - | LOW |
-| SoundChannel | sound.h | CObject | 60b270(ctor-ns1) | 5d7424(cli-ns) | - | 8/0/0 | struct:4+vtable | HIGH |
-| SoundPreferencesDialogVisualObject | visual.h | VisWindow | 609cb0(ctor-ns1) | 5d5ccc(slot-twin8) | 43d917->43fd7b | 4/2/2 | vtable+struct:33 | HIGH |
+| SoundChannel | sound.h | CObject | 60b270(ctor-ns1) | 5d7420(cli-ns) | - | 8/0/0 | struct:4+vtable | HIGH |
+| SoundPreferencesDialogVisualObject | visual.h | VisWindow | 609cb0(ctor-ns1) | 5d5cc8(ctor-twin) | 43d917->43fd7b | 4/2/2 | struct:33+vtable | HIGH |
 | SoundSettings | sound.h | - | - | - | - | 4/0/0 | - | LOW |
 | Spell | eye.h,item.h,net.h,server.h,spell.h,unit.h,world.h | CObject | 60f270(ctor-ns4) | 5db3b0(cli-ns) | 538fa5->515651 | 12/14/1 | struct:3+vtable | HIGH |
 | SpellBook | spell.h,unit.h | CObject | 60ec30(ctor-ns3) | 5dad70(cli-ns) | - | 3/7/1 | struct:3+vtable | HIGH |
-| SpellEffect | server.h,spell_effect.h | Token | 60f170(ctor-ns2) | 5db2b0(ctor-twin) | 537371->5213ba | 7/2/0 | vtable+struct:13 | HIGH |
+| SpellEffect | server.h,spell_effect.h | Token | 60f170(ctor-ns2) | 5db2b0(ctor-twin) | 537371->5213ba | 7/2/0 | struct:13+vtable | HIGH |
 | SpellEffectList | server.h | - | 60f6e0(ctor-ns2) | - | - | 0/5/0 | - | LOW |
 | SpellInfo | table.h | TableLine | 60ebe0(ctor-ns1) | 5dad38(cli-ns) | - | 2/4/0 | struct:3+vtable | HIGH |
-| SpellTransport | spell_effect.h | SpellEffect | 60f230(ctor-ns4) | 5db370(ctor-twin) | - | 5/2/0 | vtable+struct:12 | HIGH |
+| SpellTransport | spell_effect.h | SpellEffect | 60f230(ctor-ns4) | 5db370(ctor-twin) | - | 5/2/0 | struct:12+vtable | HIGH |
 | Srv1 | server.h | CObject | - | - | - | 10/2/0 | - | HIGH |
 | SrvStru1 | server.h | - | 60ec78(ctor-ns2) 60ec90(ctor-ns2) | - | - | 1/8/2 | - | LOW |
 | StructEnter | gameobj.h | - | - | - | - | 7/0/0 | - | HIGH |
-| StructureInfo | ingame.h | CObject | 60b910(ctor-ns2) | 5d7aac(cli-ns) | 47eca2->482b5c | 6/0/0 | struct:4+vtable | HIGH |
+| StructureInfo | ingame.h | CObject | 60b910(ctor-ns2) | 5d7aa8(ctor-twin) | 47eca2->482b5c | 6/0/0 | struct:4+vtable | HIGH |
 | TableLine | table.h | CObject | 60eae8(ctor-ns1) 60eb08(ctor-ns2) | 5dac40(cli-ns) | - | 2/5/0 | struct:3+vtable | HIGH |
 | TakeDamage | visual.h | - | - | - | - | 10/0/0 | - | HIGH |
-| Token | net.h,token.h,world.h | CObject | 60ef38(ctor-ns5) 60ef70(ctor-ns5) | 5db078(cli-ns) | - | 11/7/2 | vtable+struct:12 | HIGH |
-| TokenEntry | gameobj.h | CObject | 609a38(ctor-ns6) | 5d5a54(cli-ns) | 438f90->43b2b0 | 21/4/2 | struct:4+vtable | HIGH |
+| Token | net.h,token.h,world.h | CObject | 60ef38(ctor-ns5) 60ef70(ctor-ns5) | 5db078(cli-ns) | - | 11/7/2 | struct:12+vtable | HIGH |
+| TokenEntry | gameobj.h | CObject | 609a38(ctor-ns6) | 5d5a50(ctor-twin) | 438f90->43b2b0 | 21/4/2 | struct:4+vtable | HIGH |
 | TokenPos | buildings_list.h,map_stuff.h,net.h,server.h,token.h | - | - | - | - | 21/3/1 | - | HIGH |
-| TownMenuListDialogVisualObject | visual.h | VisMenuWnd | 60a060(ctor-ns1) | 5d6174(slot-twin8) | 44160e->443bdd | 3/0/0 | vtable+struct:33 | HIGH |
+| TownMenuListDialogVisualObject | visual.h | VisMenuWnd | 60a060(ctor-ns1) | 5d6170(slot-twin8) | 44160e->443bdd | 3/0/0 | struct:33+vtable | HIGH |
 | TransientVisualEffectBuilder | gameobj.h | - | - | - | - | 7/9/0 | - | LOW |
 | Trigger | logic.h | - | - | - | - | 2/0/0 | - | LOW |
 | TriggerAction | logic.h | - | - | - | - | 1/0/0 | - | LOW |
 | TriggerCheck | logic.h | TriggerAction | - | - | - | 1/0/0 | - | LOW |
-| TxtFile | txtfile.h | CObject | 609c10(ctor-ns2) | 5d5c2c(cli-ns) | - | 6/1/0 | struct:4+vtable | HIGH |
+| TxtFile | txtfile.h | CObject | 609c10(ctor-ns2) | 5d5c28(cli-ns) | - | 6/1/0 | struct:4+vtable | HIGH |
 | UMSSchedulingContext | - | - | - | - | - | 1/0/0 | - | LOW |
 | USER32.DLL | - | - | - | - | - | 2/0/0 | - | LOW |
 | Unit | building.h,effect.h,eye.h,gameobj.h,group.h,item.h,logic.h,map_stuff.h,net.h,player.h,server.h,shelf.h,shop.h,spell.h,spell_effect.h,unit.h,unit_list.h,visibility.h,world.h | Token | 60ec48(ctor-ns2) 60efc0(ctor-ns6) 60f038(ctor-ns6) | 5db100(slot-twin5) | - | 32/32/3 | struct:20+vtable | HIGH |
 | UnitEye | eye.h,unit.h | - | - | - | - | 4/0/0 | - | LOW |
 | UnitEye2 | eye.h,unit.h | - | - | - | - | 2/0/0 | - | LOW |
-| UnitGfxFile | ingame.h | CObject | 60b8b0(ctor-ns3) | 5d7a4c(cli-ns) | - | 7/0/0 | struct:4+vtable | HIGH |
+| UnitGfxFile | ingame.h | CObject | 60b8b0(ctor-ns3) | 5d7a48(cli-ns) | - | 7/0/0 | struct:4+vtable | HIGH |
 | UnitList | player.h,server.h,unit_list.h | - | 60f6a8(ctor-ns2) 60f6b0(ctor-ns1) | - | - | 0/14/4 | - | MED |
 | UnitToHit | building.h,unit_to_hit.h | - | - | - | - | 7/1/0 | - | HIGH |
-| UnitVFXUnfo | ingame.h | CObject | 60b8c8(ctor-ns2) | 5d7a64(cli-ns) | 47cb20->4809da | 4/0/0 | struct:4+vtable | HIGH |
+| UnitVFXUnfo | ingame.h | CObject | 60b8c8(ctor-ns2) | 5d7a60(ctor-twin) | 47cb20->4809da | 4/0/0 | struct:4+vtable | HIGH |
 | UnitsList | - | - | - | - | - | 1/0/0 | - | LOW |
 | UserShortcut | main_window.h | - | - | - | - | 10/1/1 | - | HIGH |
-| VirtualCaster | server.h,virtual_caster.h | Token | 60ef88(ctor-ns2) | 5db0c8(ctor-twin) | 528900->517649 | 3/3/0 | vtable+struct:12 | HIGH |
+| VirtualCaster | server.h,virtual_caster.h | Token | 60ef88(ctor-ns2) | 5db0c8(ctor-twin) | 528900->517649 | 3/3/0 | struct:12+vtable | HIGH |
 | WINSPOOL.DRV | - | - | - | - | - | 3/0/0 | - | LOW |
 | WSOCK32.DLL | - | - | - | - | - | 15/0/0 | - | HIGH |
 | WavePattern | spell_effect.h | - | - | - | - | 2/0/0 | - | LOW |
-| Weapon | item.h,unit.h | Item | 60f5b8(ctor-ns5) | 5db6f8(ctor-twin) | - | 5/13/0 | vtable+struct:13 | HIGH |
+| Weapon | item.h,unit.h | Item | 60f5b8(ctor-ns5) | 5db6f8(ctor-twin) | - | 5/13/0 | struct:13+vtable | HIGH |
 | World | map_stuff.h,quest_glue.h,world.h | - | - | - | - | 226/3/2 | - | HIGH |
 | WorldEquip | shop_assortment.h,table.h | TableLine | 60eac8(ctor-ns1) | 5dac20(cli-ns) | - | 2/5/0 | struct:3+vtable | HIGH |
 | _AFX_THREAD_STATE | - | - | - | - | - | 2/0/0 | - | LOW |
 | eabStru | - | - | - | - | - | 2/0/0 | - | LOW |
 | filebuf | - | - | 6152b4(rtti) | 5e14e4(rtti) | 5d87c0->5a6740 | 0/0/0 | struct:3+vtable | HIGH |
 
-Client-only vtable classes (game): 0; MFC/lib noise: 148. Details in client_classmap.json.
+Client-only vtable classes (game): 1; MFC/lib noise: 103. Details in client_classmap.json.
+  - CVisualObject  cli_vt=6137920  slot-twin8  slots=34
 Call-site pairs: 145; string-fingerprint candidates: 212.

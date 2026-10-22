@@ -27,6 +27,23 @@ UNNAMED = re.compile(r'^(FUN_|sub_|thunk_|entry|AddrTable|switchD|nullsub_|j_|un
 _AR = None
 
 
+# Cross-program namespace aliases: the same class can carry different primary
+# Ghidra namespaces in the two programs (client names the frame window
+# CMainWindow, the server MainWindow). Auto-derivation from hash-identical
+# twins was tried and is untrustworthy - identical machine code is common
+# across UNRELATED classes (MFC thunks, template bodies, import stubs), so the
+# votes scatter. This table is hand-verified; extend it when a class shows a
+# false SERVER_ONLY + CLIENT_ONLY split with matching vtable evidence.
+NS_ALIAS = {
+    'CMainWindow': 'MainWindow',
+    'CMap': 'CMap<>',
+    'VisCharGenTextBox': 'VisStartGameTextBox',
+    'GO_d0': 'TokenEntry',
+    'COleDataObject': 'FieldBlock5859c',
+    'ResFile': 'ResBase',
+}
+
+
 def artifacts():
     global _AR
     if _AR is not None:
@@ -69,11 +86,13 @@ def artifacts():
     srv_shape_map = defaultdict(list)
     for s, h in srv_h.items():
         srv_shape_map[h['h_shape']].append(s)
+
     _AR = {
         'cm': cm, 'srv': srv, 'cli': cli, 'srv_h': srv_h, 'cli_h': cli_h,
         'srv_funcs': srv_funcs, 'cli_funcs': cli_funcs,
         'srv_pieces': srv_pieces, 'cli_pieces': cli_pieces,
         'cli_shape_map': cli_shape_map, 'srv_shape_map': srv_shape_map,
+        'ns_alias': dict(NS_ALIAS),
     }
     return _AR
 
@@ -88,10 +107,20 @@ def class_table(cls):
     if rec is None:
         return None
 
-    srv_members = {va for va, f in srv_funcs.items() if f['ns'] and f['ns'][-1] == cls}
+    cre = re.compile(r'_conflict\d+$')
+    ns_alias = ar['ns_alias']
+    srv_members = {va for va, f in srv_funcs.items()
+                   if f['ns'] and cre.sub('', f['ns'][-1]) == cls}
     for va, b, n in rec['srv_vts']:
         srv_members.update(ar['srv_pieces'].get(int(va, 16), []))
     cli_members = set()
+    # client namespace members (e.g. CMainWindow::) join via the alias votes;
+    # Ghidra's _conflictN suffix is a naming artifact and always collapses
+    for va, f in cli_funcs.items():
+        if f['ns']:
+            cn = cre.sub('', f['ns'][-1])
+            if cn == cls or ns_alias.get(cn) == cls:
+                cli_members.add(va)
     for va, b, n in rec['cli_vts']:
         cli_members.update(ar['cli_pieces'].get(int(va, 16), []))
     if rec['ctor_cli']:
@@ -161,17 +190,18 @@ def class_table(cls):
             used_s.add(sva)
             used_c.add(cva)
 
-    # 4. names (server members real-named, client members from REA/pushed names)
+    # 4. names (server members real-named, client members from REA/pushed names;
+    #    bare identifier only - client names may carry a '(params)' signature suffix)
     cli_named = defaultdict(list)
     for v in cli_members - used_c:
         f = cli_funcs.get(v)
         if f and f['name'] and not UNNAMED.match(f['name']):
-            cli_named.setdefault(f['name'], []).append(v)
+            cli_named.setdefault(f['name'].split('(')[0], []).append(v)
     for sva in sorted(srv_members - used_s):
         f = srv_funcs.get(sva)
         if not f or UNNAMED.match(f['name']):
             continue
-        cands = [v for v in cli_named.get(f['name'], []) if v not in used_c]
+        cands = [v for v in cli_named.get(f['name'].split('(')[0], []) if v not in used_c]
         if cands:
             s_sz = max(f['size'], 1)
             cva = min(cands, key=lambda v: abs((cli_funcs[v]['size'] or 1) - s_sz) / s_sz)

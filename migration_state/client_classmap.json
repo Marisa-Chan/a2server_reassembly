@@ -3,1346 +3,1358 @@
   {
    "class": null,
    "server_vt": "62c01c",
-   "client_vt": "5f801c",
+   "client_vt": "5f8018",
    "evidence": [
     "struct:115"
    ],
    "server_basis": null,
    "client_basis": null,
    "slots_srv": 115,
-   "slots_cli": 115
+   "slots_cli": 117
   },
   {
    "class": "VisInvExtType3",
    "server_vt": "60d328",
-   "client_vt": "5d940c",
+   "client_vt": "5d9408",
    "evidence": [
     "struct:47"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin11",
+   "client_basis": "ctor-twin",
    "slots_srv": 48,
-   "slots_cli": 47
+   "slots_cli": 48
   },
   {
    "class": "VisInvExtBase",
    "server_vt": "60d0e8",
-   "client_vt": "5d91cc",
+   "client_vt": "5d91c8",
    "evidence": [
     "struct:45"
    ],
    "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin9",
+   "client_basis": "ctor-twin",
    "slots_srv": 47,
-   "slots_cli": 46
+   "slots_cli": 47
   },
   {
    "class": "VisInvExtType1",
    "server_vt": "60d1a8",
-   "client_vt": "5d928c",
+   "client_vt": "5d9288",
    "evidence": [
     "struct:45"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin9",
+   "client_basis": "ctor-twin",
    "slots_srv": 47,
-   "slots_cli": 46
+   "slots_cli": 47
   },
   {
    "class": "VisInvExtType2",
    "server_vt": "60d268",
-   "client_vt": "5d934c",
+   "client_vt": "5d9348",
    "evidence": [
     "struct:45"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin7",
+   "client_basis": "ctor-twin",
    "slots_srv": 47,
-   "slots_cli": 46
+   "slots_cli": 47
   },
   {
    "class": "VisInvExtType1Druid",
    "server_vt": "60d850",
-   "client_vt": "5d9934",
+   "client_vt": "5d9930",
    "evidence": [
     "struct:45"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin9",
    "slots_srv": 47,
-   "slots_cli": 46
+   "slots_cli": 47
   },
   {
    "class": "VisInvExtType1Kaarg",
    "server_vt": "60d910",
-   "client_vt": "5d99f4",
+   "client_vt": "5d99f0",
    "evidence": [
     "struct:45"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin9",
    "slots_srv": 47,
-   "slots_cli": 46
+   "slots_cli": 47
   },
   {
    "class": "VisTown",
    "server_vt": "60dbb0",
-   "client_vt": "5d9c94",
+   "client_vt": "5d9c90",
    "evidence": [
     "struct:43"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin16",
+   "client_basis": "ctor-twin",
    "slots_srv": 44,
-   "slots_cli": 43
+   "slots_cli": 44
   },
   {
    "class": "VisTownDruid",
    "server_vt": "60dc60",
-   "client_vt": "5d9d44",
+   "client_vt": "5d9d40",
    "evidence": [
     "struct:43"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin10",
+   "client_basis": "ctor-twin",
    "slots_srv": 44,
-   "slots_cli": 43
+   "slots_cli": 44
   },
   {
    "class": "VisTownKaarg",
    "server_vt": "60dd10",
-   "client_vt": "5d9df4",
+   "client_vt": "5d9df0",
    "evidence": [
     "struct:43"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin10",
+   "client_basis": "ctor-twin",
    "slots_srv": 44,
-   "slots_cli": 43
+   "slots_cli": 44
   },
   {
    "class": "VisInvBase",
    "server_vt": "60c9b0",
-   "client_vt": "5d8a94",
+   "client_vt": "5d8a90",
    "evidence": [
     "struct:42"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin10",
+   "client_basis": "ctor-twin",
    "slots_srv": 43,
-   "slots_cli": 42
+   "slots_cli": 43
   },
   {
    "class": "VisInvType1",
    "server_vt": "60ca60",
-   "client_vt": "5d8b44",
+   "client_vt": "5d8b40",
    "evidence": [
     "struct:42"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 43,
-   "slots_cli": 42
+   "slots_cli": 43
   },
   {
    "class": "VisShopCompass",
    "server_vt": "60d480",
-   "client_vt": "5d9564",
+   "client_vt": "5d9560",
    "evidence": [
     "struct:41"
    ],
    "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 43,
-   "slots_cli": 42
+   "slots_cli": 43
   },
   {
    "class": "VisShopCompassDruid",
    "server_vt": "60d658",
-   "client_vt": "5d973c",
+   "client_vt": "5d9738",
    "evidence": [
     "struct:41"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 43,
-   "slots_cli": 42
+   "slots_cli": 43
   },
   {
    "class": "VisShopCompassKaarg",
    "server_vt": "60d7a0",
-   "client_vt": "5d9884",
+   "client_vt": "5d9880",
    "evidence": [
     "struct:41"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 43,
-   "slots_cli": 42
+   "slots_cli": 43
   },
   {
    "class": "VisShop",
    "server_vt": "60d3e8",
-   "client_vt": "5d94cc",
+   "client_vt": "5d94c8",
    "evidence": [
     "struct:37"
    ],
    "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin10",
+   "client_basis": "ctor-twin",
    "slots_srv": 38,
-   "slots_cli": 37
+   "slots_cli": 38
   },
   {
    "class": "VisShopDruid",
    "server_vt": "60d5c0",
-   "client_vt": "5d96a4",
+   "client_vt": "5d96a0",
    "evidence": [
     "struct:37"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin8",
    "slots_srv": 38,
-   "slots_cli": 37
+   "slots_cli": 38
   },
   {
    "class": "VisShopKaarg",
    "server_vt": "60d708",
-   "client_vt": "5d97ec",
+   "client_vt": "5d97e8",
    "evidence": [
     "struct:37"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin8",
    "slots_srv": 38,
-   "slots_cli": 37
+   "slots_cli": 38
   },
   {
    "class": "QuestObjectivesHeaderDialogVisualObject",
    "server_vt": "60a3a8",
-   "client_vt": "5d65c4",
+   "client_vt": "5d65c0",
    "evidence": [
     "struct:35"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 36,
-   "slots_cli": 35
+   "slots_cli": 36
   },
   {
    "class": "VisMissionFailed",
    "server_vt": "60af78",
-   "client_vt": "5d7094",
+   "client_vt": "5d7090",
    "evidence": [
     "struct:35"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 36,
-   "slots_cli": 35
+   "slots_cli": 36
   },
   {
    "class": "VisTav",
    "server_vt": "60c6d8",
-   "client_vt": "5d87bc",
+   "client_vt": "5d87b8",
    "evidence": [
     "struct:35"
    ],
    "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 36,
-   "slots_cli": 35
+   "slots_cli": 36
   },
   {
    "class": "VisTavDruid",
    "server_vt": "60c768",
-   "client_vt": "5d884c",
+   "client_vt": "5d8848",
    "evidence": [
     "struct:35"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin8",
    "slots_srv": 36,
-   "slots_cli": 35
+   "slots_cli": 36
   },
   {
    "class": "VisTavKaarg",
    "server_vt": "60c880",
-   "client_vt": "5d8964",
+   "client_vt": "5d8960",
    "evidence": [
     "struct:35"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin8",
    "slots_srv": 36,
-   "slots_cli": 35
+   "slots_cli": 36
   },
   {
    "class": "HintedListBox",
    "server_vt": "609d38",
-   "client_vt": "5d5dd4",
+   "client_vt": "5d5dd0",
    "evidence": [
     "struct:34"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin11",
    "slots_srv": 35,
-   "slots_cli": 34
+   "slots_cli": 35
   },
   {
    "class": "VisMessageBoxWithList",
    "server_vt": "60a318",
-   "client_vt": "5d6534",
+   "client_vt": "5d6530",
    "evidence": [
     "struct:34"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 36,
-   "slots_cli": 35
+   "slots_cli": 36
   },
   {
    "class": "CVisualObject",
    "server_vt": "60a438",
-   "client_vt": "5d6654",
+   "client_vt": "5d6650",
    "evidence": [
     "struct:34"
    ],
    "server_basis": "slot-ns",
    "client_basis": "slot-twin8",
    "slots_srv": 36,
-   "slots_cli": 35
+   "slots_cli": 36
   },
   {
    "class": "VisDiplomacy_conflict1",
    "server_vt": "60a4c8",
-   "client_vt": "5d66e4",
+   "client_vt": "5d66e0",
    "evidence": [
     "struct:34"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 36,
-   "slots_cli": 35
+   "slots_cli": 36
   },
   {
    "class": "VisListBoxPhoneBook",
    "server_vt": "60a6f8",
-   "client_vt": "5d6914",
+   "client_vt": "5d6910",
    "evidence": [
     "struct:34"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin10",
+   "client_basis": "ctor-twin",
    "slots_srv": 35,
-   "slots_cli": 34
+   "slots_cli": 35
   },
   {
    "class": "VisNetTcpIp",
    "server_vt": "60a810",
-   "client_vt": "5d6a2c",
+   "client_vt": "5d6a28",
    "evidence": [
     "struct:34"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin8",
    "slots_srv": 36,
-   "slots_cli": 35
+   "slots_cli": 36
   },
   {
    "class": "VisHatBrowserList",
    "server_vt": "60aa40",
-   "client_vt": "5d6cd4",
+   "client_vt": "5d6cd0",
    "evidence": [
     "struct:34"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin10",
+   "client_basis": "ctor-twin",
    "slots_srv": 35,
-   "slots_cli": 34
+   "slots_cli": 35
   },
   {
    "class": "VisNetMapList",
    "server_vt": "60aad0",
-   "client_vt": "5d6d64",
+   "client_vt": "5d6d60",
    "evidence": [
     "struct:34"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin10",
+   "client_basis": "ctor-twin",
    "slots_srv": 35,
-   "slots_cli": 34
+   "slots_cli": 35
   },
   {
    "class": "VisNetChatList",
    "server_vt": "60ab60",
-   "client_vt": "5d6df4",
+   "client_vt": "5d6df0",
    "evidence": [
     "struct:34"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin10",
    "slots_srv": 35,
-   "slots_cli": 34
+   "slots_cli": 35
   },
   {
    "class": "VisNetPlayerList",
    "server_vt": "60abf0",
-   "client_vt": "5d6e84",
+   "client_vt": "5d6e80",
    "evidence": [
     "struct:34"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin10",
    "slots_srv": 35,
-   "slots_cli": 34
+   "slots_cli": 35
   },
   {
    "class": "VisCutScenesDlg",
    "server_vt": "60b008",
-   "client_vt": "5d7124",
+   "client_vt": "5d7120",
    "evidence": [
     "struct:34"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 36,
-   "slots_cli": 35
+   "slots_cli": 36
   },
   {
    "class": "VisMultiText",
    "server_vt": "60deb0",
-   "client_vt": "5d9f94",
+   "client_vt": "5d9f90",
    "evidence": [
     "struct:34"
    ],
    "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin7",
+   "client_basis": "ctor-twin",
    "slots_srv": 35,
-   "slots_cli": 34
+   "slots_cli": 35
   },
   {
    "class": "VisListBox",
    "server_vt": "60e0b0",
-   "client_vt": "5da194",
+   "client_vt": "5da190",
    "evidence": [
     "struct:34"
    ],
    "server_basis": "ctor-ns3",
-   "client_basis": "slot-twin11",
+   "client_basis": "ctor-twin",
    "slots_srv": 35,
-   "slots_cli": 34
+   "slots_cli": 35
   },
   {
    "class": "VisListBoxDiplomacy",
    "server_vt": "60e140",
-   "client_vt": "5da224",
+   "client_vt": "5da220",
    "evidence": [
     "struct:34"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin7",
+   "client_basis": "ctor-twin",
    "slots_srv": 35,
-   "slots_cli": 34
+   "slots_cli": 35
   },
   {
    "class": "VisComboBoxList",
    "server_vt": "60e548",
-   "client_vt": "5da62c",
+   "client_vt": "5da628",
    "evidence": [
     "struct:34"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin10",
    "slots_srv": 35,
-   "slots_cli": 34
+   "slots_cli": 35
   },
   {
    "class": "VisCharGen",
    "server_vt": "6096a8",
-   "client_vt": "5d56c4",
+   "client_vt": "5d56c0",
    "evidence": [
     "struct:33"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 34,
-   "slots_cli": 33
+   "slots_cli": 34
   },
   {
    "class": "VisCharSelect",
    "server_vt": "609898",
-   "client_vt": "5d58b4",
+   "client_vt": "5d58b0",
    "evidence": [
     "struct:33"
    ],
    "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 34,
-   "slots_cli": 33
+   "slots_cli": 34
   },
   {
    "class": "VisStartGame",
    "server_vt": "609998",
-   "client_vt": "5d59b4",
+   "client_vt": "5d59b0",
    "evidence": [
     "struct:33"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin9",
+   "client_basis": "ctor-twin",
    "slots_srv": 34,
-   "slots_cli": 33
+   "slots_cli": 34
   },
   {
    "class": "Vis1200",
    "server_vt": "609ad0",
-   "client_vt": "5d5aec",
+   "client_vt": "5d5ae8",
    "evidence": [
     "struct:33"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin8",
    "slots_srv": 34,
-   "slots_cli": 33
+   "slots_cli": 34
   },
   {
    "class": "VisCredits",
    "server_vt": "609b88",
-   "client_vt": "5d5ba4",
+   "client_vt": "5d5ba0",
    "evidence": [
     "struct:33"
    ],
    "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 34,
-   "slots_cli": 33
+   "slots_cli": 34
   },
   {
    "class": "CVisualObject",
    "server_vt": "609c28",
-   "client_vt": "5d5c44",
+   "client_vt": "5d5c40",
    "evidence": [
     "struct:33"
    ],
    "server_basis": "slot-ns",
    "client_basis": "slot-twin8",
    "slots_srv": 34,
-   "slots_cli": 33
+   "slots_cli": 34
   },
   {
    "class": "SoundPreferencesDialogVisualObject",
    "server_vt": "609cb0",
-   "client_vt": "5d5ccc",
+   "client_vt": "5d5cc8",
    "evidence": [
     "struct:33"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 34,
-   "slots_cli": 33
+   "slots_cli": 34
   },
   {
    "class": "LoadGameWindow",
    "server_vt": "609dc8",
-   "client_vt": "5d5e64",
+   "client_vt": "5d5e60",
    "evidence": [
     "struct:33"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 34,
-   "slots_cli": 33
+   "slots_cli": 34
   },
   {
    "class": "SaveGameWindow",
    "server_vt": "609e50",
-   "client_vt": "5d5eec",
+   "client_vt": "5d5ee8",
    "evidence": [
     "struct:33"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 34,
-   "slots_cli": 33
+   "slots_cli": 34
   },
   {
    "class": "IngameMenu",
    "server_vt": "609f50",
-   "client_vt": "5d5fec",
+   "client_vt": "5d5fe8",
    "evidence": [
     "struct:33"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin8",
    "slots_srv": 34,
-   "slots_cli": 33
+   "slots_cli": 34
   },
   {
    "class": "EndGameMenu",
    "server_vt": "609fd8",
-   "client_vt": "5d60ec",
+   "client_vt": "5d60e8",
    "evidence": [
     "struct:33"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 34,
-   "slots_cli": 33
+   "slots_cli": 34
   },
   {
    "class": "TownMenuListDialogVisualObject",
    "server_vt": "60a060",
-   "client_vt": "5d6174",
+   "client_vt": "5d6170",
    "evidence": [
     "struct:33"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin8",
    "slots_srv": 34,
-   "slots_cli": 33
+   "slots_cli": 34
   },
   {
    "class": "ExitGameMenu",
    "server_vt": "60a0e8",
-   "client_vt": "5d61fc",
+   "client_vt": "5d61f8",
    "evidence": [
     "struct:33"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 34,
-   "slots_cli": 33
+   "slots_cli": 34
   },
   {
    "class": "GameOptionsWindow_conflict1",
    "server_vt": "60a200",
-   "client_vt": "5d639c",
+   "client_vt": "5d6398",
    "evidence": [
     "struct:33"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin8",
    "slots_srv": 34,
-   "slots_cli": 33
-  },
-  {
-   "class": "VisConnectionDlg",
-   "server_vt": "60a558",
-   "client_vt": "5d6774",
-   "evidence": [
-    "struct:33"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
-   "slots_srv": 36,
-   "slots_cli": 35
-  },
-  {
-   "class": "VisNetDlg",
-   "server_vt": "60a5e8",
-   "client_vt": "5d6804",
-   "evidence": [
-    "struct:33"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
-   "slots_srv": 34,
-   "slots_cli": 33
-  },
-  {
-   "class": "VisNetPhoneBook",
-   "server_vt": "60a670",
-   "client_vt": "5d688c",
-   "evidence": [
-    "struct:33"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
-   "slots_srv": 34,
-   "slots_cli": 33
-  },
-  {
-   "class": "VisNetSerialSettings",
-   "server_vt": "60a788",
-   "client_vt": "5d69a4",
-   "evidence": [
-    "struct:33"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
-   "slots_srv": 34,
-   "slots_cli": 33
-  },
-  {
-   "class": "VisNetMapSelection",
-   "server_vt": "60a930",
-   "client_vt": "5d6b4c",
-   "evidence": [
-    "struct:33"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
-   "slots_srv": 34,
-   "slots_cli": 33
-  },
-  {
-   "class": "VisServerScreen",
-   "server_vt": "60aef0",
-   "client_vt": "5d700c",
-   "evidence": [
-    "struct:33"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
-   "slots_srv": 34,
-   "slots_cli": 33
-  },
-  {
-   "class": "Vis2Action",
-   "server_vt": "60b098",
-   "client_vt": "5d71b4",
-   "evidence": [
-    "struct:33"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
-   "slots_srv": 34,
-   "slots_cli": 33
-  },
-  {
-   "class": "VisMenuWnd",
-   "server_vt": "60b180",
-   "client_vt": "5d6284",
-   "evidence": [
-    "struct:33"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
-   "slots_srv": 34,
-   "slots_cli": 33
-  },
-  {
-   "class": "VisGlobalMap",
-   "server_vt": "60b760",
-   "client_vt": "5d7914",
-   "evidence": [
-    "struct:33"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin10",
-   "slots_srv": 34,
-   "slots_cli": 33
-  },
-  {
-   "class": "VisTavScene",
-   "server_vt": "60c650",
-   "client_vt": "5d8734",
-   "evidence": [
-    "struct:33"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
-   "slots_srv": 34,
-   "slots_cli": 33
-  },
-  {
-   "class": "VisTavSceneDruid",
-   "server_vt": "60c7f8",
-   "client_vt": "5d88dc",
-   "evidence": [
-    "struct:33"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
-   "slots_srv": 34,
-   "slots_cli": 33
-  },
-  {
-   "class": "VisTavSceneKaarg",
-   "server_vt": "60c910",
-   "client_vt": "5d89f4",
-   "evidence": [
-    "struct:33"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
-   "slots_srv": 34,
-   "slots_cli": 33
-  },
-  {
-   "class": "VisMainMenu",
-   "server_vt": "60cd30",
-   "client_vt": "5d8e14",
-   "evidence": [
-    "struct:33"
-   ],
-   "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin8",
-   "slots_srv": 34,
-   "slots_cli": 33
-  },
-  {
-   "class": "VisFameDocument",
-   "server_vt": "60cdf8",
-   "client_vt": "5d8edc",
-   "evidence": [
-    "struct:33"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin7",
-   "slots_srv": 34,
-   "slots_cli": 33
-  },
-  {
-   "class": "VisLogoWnd",
-   "server_vt": "60db28",
-   "client_vt": "5d9c0c",
-   "evidence": [
-    "struct:33"
-   ],
-   "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin8",
-   "slots_srv": 34,
-   "slots_cli": 33
-  },
-  {
-   "class": "VisScreen",
-   "server_vt": "60e2c0",
-   "client_vt": "5da3a4",
-   "evidence": [
-    "struct:33"
-   ],
-   "server_basis": "ctor-ns4",
-   "client_basis": "slot-twin8",
-   "slots_srv": 34,
-   "slots_cli": 33
-  },
-  {
-   "class": "VisWindow",
-   "server_vt": "60e348",
-   "client_vt": "5da42c",
-   "evidence": [
-    "struct:33"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
-   "slots_srv": 34,
-   "slots_cli": 33
-  },
-  {
-   "class": "VisRoleKeyScreen",
-   "server_vt": "60e3d0",
-   "client_vt": "5da4b4",
-   "evidence": [
-    "struct:33"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
-   "slots_srv": 34,
-   "slots_cli": 33
-  },
-  {
-   "class": "VisTipsDialog",
-   "server_vt": "60e650",
-   "client_vt": "5da734",
-   "evidence": [
-    "struct:33"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
-   "slots_srv": 34,
-   "slots_cli": 33
-  },
-  {
-   "class": "VisQuestStatus",
-   "server_vt": "60e6d8",
-   "client_vt": "5da7bc",
-   "evidence": [
-    "struct:33"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
-   "slots_srv": 34,
-   "slots_cli": 33
-  },
-  {
-   "class": "VisDropGold",
-   "server_vt": "60a170",
-   "client_vt": "5d630c",
-   "evidence": [
-    "struct:32"
-   ],
-   "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin7",
-   "slots_srv": 34,
-   "slots_cli": 33
+   "slots_cli": 34
   },
   {
    "class": "VisMessageBox",
    "server_vt": "60a288",
-   "client_vt": "5d64a4",
+   "client_vt": "5d64a0",
+   "evidence": [
+    "struct:33"
+   ],
+   "server_basis": "ctor-ns2",
+   "client_basis": "ctor-twin",
+   "slots_srv": 36,
+   "slots_cli": 36
+  },
+  {
+   "class": "VisConnectionDlg",
+   "server_vt": "60a558",
+   "client_vt": "5d6770",
+   "evidence": [
+    "struct:33"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "ctor-twin",
+   "slots_srv": 36,
+   "slots_cli": 36
+  },
+  {
+   "class": "VisNetDlg",
+   "server_vt": "60a5e8",
+   "client_vt": "5d6800",
+   "evidence": [
+    "struct:33"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "ctor-twin",
+   "slots_srv": 34,
+   "slots_cli": 34
+  },
+  {
+   "class": "VisNetPhoneBook",
+   "server_vt": "60a670",
+   "client_vt": "5d6888",
+   "evidence": [
+    "struct:33"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "ctor-twin",
+   "slots_srv": 34,
+   "slots_cli": 34
+  },
+  {
+   "class": "VisNetSerialSettings",
+   "server_vt": "60a788",
+   "client_vt": "5d69a0",
+   "evidence": [
+    "struct:33"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "ctor-twin",
+   "slots_srv": 34,
+   "slots_cli": 34
+  },
+  {
+   "class": "VisNetMapSelection",
+   "server_vt": "60a930",
+   "client_vt": "5d6b48",
+   "evidence": [
+    "struct:33"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "ctor-twin",
+   "slots_srv": 34,
+   "slots_cli": 34
+  },
+  {
+   "class": "VisServerScreen",
+   "server_vt": "60aef0",
+   "client_vt": "5d7008",
+   "evidence": [
+    "struct:33"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "ctor-twin",
+   "slots_srv": 34,
+   "slots_cli": 34
+  },
+  {
+   "class": "Vis2Action",
+   "server_vt": "60b098",
+   "client_vt": "5d71b0",
+   "evidence": [
+    "struct:33"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "ctor-twin",
+   "slots_srv": 34,
+   "slots_cli": 34
+  },
+  {
+   "class": "VisMenuWnd",
+   "server_vt": "60b180",
+   "client_vt": "5d6280",
+   "evidence": [
+    "struct:33"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "ctor-twin",
+   "slots_srv": 34,
+   "slots_cli": 34
+  },
+  {
+   "class": "VisGlobalMap",
+   "server_vt": "60b760",
+   "client_vt": "5d7910",
+   "evidence": [
+    "struct:33"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "ctor-twin",
+   "slots_srv": 34,
+   "slots_cli": 34
+  },
+  {
+   "class": "VisTavScene",
+   "server_vt": "60c650",
+   "client_vt": "5d8730",
+   "evidence": [
+    "struct:33"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "ctor-twin",
+   "slots_srv": 34,
+   "slots_cli": 34
+  },
+  {
+   "class": "VisTavSceneDruid",
+   "server_vt": "60c7f8",
+   "client_vt": "5d88d8",
+   "evidence": [
+    "struct:33"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "ctor-twin",
+   "slots_srv": 34,
+   "slots_cli": 34
+  },
+  {
+   "class": "VisTavSceneKaarg",
+   "server_vt": "60c910",
+   "client_vt": "5d89f0",
+   "evidence": [
+    "struct:33"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "ctor-twin",
+   "slots_srv": 34,
+   "slots_cli": 34
+  },
+  {
+   "class": "VisMainMenu",
+   "server_vt": "60cd30",
+   "client_vt": "5d8e10",
+   "evidence": [
+    "struct:33"
+   ],
+   "server_basis": "ctor-ns2",
+   "client_basis": "ctor-twin",
+   "slots_srv": 34,
+   "slots_cli": 34
+  },
+  {
+   "class": "VisFameDocument",
+   "server_vt": "60cdf8",
+   "client_vt": "5d8ed8",
+   "evidence": [
+    "struct:33"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "ctor-twin",
+   "slots_srv": 34,
+   "slots_cli": 34
+  },
+  {
+   "class": "VisLogoWnd",
+   "server_vt": "60db28",
+   "client_vt": "5d9c08",
+   "evidence": [
+    "struct:33"
+   ],
+   "server_basis": "ctor-ns2",
+   "client_basis": "slot-twin8",
+   "slots_srv": 34,
+   "slots_cli": 34
+  },
+  {
+   "class": "VisScreen",
+   "server_vt": "60e2c0",
+   "client_vt": "5da3a0",
+   "evidence": [
+    "struct:33"
+   ],
+   "server_basis": "ctor-ns4",
+   "client_basis": "ctor-twin",
+   "slots_srv": 34,
+   "slots_cli": 34
+  },
+  {
+   "class": "VisWindow",
+   "server_vt": "60e348",
+   "client_vt": "5da428",
+   "evidence": [
+    "struct:33"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "slot-twin8",
+   "slots_srv": 34,
+   "slots_cli": 34
+  },
+  {
+   "class": "VisRoleKeyScreen",
+   "server_vt": "60e3d0",
+   "client_vt": "5da4b0",
+   "evidence": [
+    "struct:33"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "ctor-twin",
+   "slots_srv": 34,
+   "slots_cli": 34
+  },
+  {
+   "class": "VisTipsDialog",
+   "server_vt": "60e650",
+   "client_vt": "5da730",
+   "evidence": [
+    "struct:33"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "ctor-twin",
+   "slots_srv": 34,
+   "slots_cli": 34
+  },
+  {
+   "class": "VisQuestStatus",
+   "server_vt": "60e6d8",
+   "client_vt": "5da7b8",
+   "evidence": [
+    "struct:33"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "ctor-twin",
+   "slots_srv": 34,
+   "slots_cli": 34
+  },
+  {
+   "class": "VisDropGold",
+   "server_vt": "60a170",
+   "client_vt": "5d6308",
    "evidence": [
     "struct:32"
    ],
    "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin8",
-   "slots_srv": 36,
-   "slots_cli": 33
+   "client_basis": "ctor-twin",
+   "slots_srv": 34,
+   "slots_cli": 34
   },
   {
    "class": "VisHatServerListDlg",
    "server_vt": "60a8a0",
-   "client_vt": "5d6abc",
+   "client_vt": "5d6ab8",
    "evidence": [
     "struct:32"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin8",
    "slots_srv": 36,
-   "slots_cli": 35
+   "slots_cli": 36
   },
   {
    "class": "VisFameHall",
    "server_vt": "60b288",
-   "client_vt": "5d743c",
+   "client_vt": "5d7438",
    "evidence": [
     "struct:32"
    ],
    "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin7",
+   "client_basis": "ctor-twin",
    "slots_srv": 34,
-   "slots_cli": 33
+   "slots_cli": 34
   },
   {
    "class": "VisHatBrowserDlg",
    "server_vt": "60a9b8",
-   "client_vt": "5d6bd4",
+   "client_vt": "5d6bd0",
    "evidence": [
     "struct:31"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin8",
    "slots_srv": 34,
-   "slots_cli": 33
+   "slots_cli": 34
   },
   {
    "class": "VisRadioType1",
    "server_vt": "60acf8",
-   "client_vt": "5d5d54",
+   "client_vt": "5d5d50",
    "evidence": [
     "struct:30"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin7",
    "slots_srv": 31,
-   "slots_cli": 30
+   "slots_cli": 31
   },
   {
    "class": "VisRadioType2",
    "server_vt": "60ad78",
-   "client_vt": "5d6424",
+   "client_vt": "5d6420",
    "evidence": [
     "struct:30"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin7",
    "slots_srv": 31,
-   "slots_cli": 30
+   "slots_cli": 31
   },
   {
    "class": "VisServerScreenRadio",
    "server_vt": "60adf8",
-   "client_vt": "5d6f8c",
+   "client_vt": "5d6f88",
    "evidence": [
     "struct:30"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin7",
    "slots_srv": 31,
-   "slots_cli": 30
+   "slots_cli": 31
   },
   {
    "class": "VisShopButtons",
    "server_vt": "60d540",
-   "client_vt": "5d9624",
+   "client_vt": "5d9620",
    "evidence": [
     "struct:30"
    ],
    "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 31,
-   "slots_cli": 30
+   "slots_cli": 31
   },
   {
    "class": "VisRadioBase",
    "server_vt": "60e030",
-   "client_vt": "5da114",
+   "client_vt": "5da110",
    "evidence": [
     "struct:30"
    ],
    "server_basis": "ctor-ns3",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 31,
-   "slots_cli": 30
+   "slots_cli": 31
   },
   {
    "class": "BigStruct2",
    "server_vt": "609088",
-   "client_vt": "5d508c",
+   "client_vt": "5d5088",
    "evidence": [
     "struct:29"
    ],
    "server_basis": "ctor-ns2",
    "client_basis": "slot-twin8",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisCharGenStats",
    "server_vt": "6094c8",
-   "client_vt": "5d54e4",
+   "client_vt": "5d54e0",
    "evidence": [
     "struct:29"
    ],
    "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisCharGenFullStats",
    "server_vt": "609540",
-   "client_vt": "5d555c",
+   "client_vt": "5d5558",
    "evidence": [
     "struct:29"
    ],
    "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisCharGenAction",
    "server_vt": "6095b8",
-   "client_vt": "5d55d4",
+   "client_vt": "5d55d0",
    "evidence": [
     "struct:29"
    ],
    "server_basis": "ctor-ns2",
    "client_basis": "slot-twin9",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisCharGenSkills",
    "server_vt": "609630",
-   "client_vt": "5d564c",
+   "client_vt": "5d5648",
    "evidence": [
     "struct:29"
    ],
    "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisCharSellectStats",
    "server_vt": "609730",
-   "client_vt": "5d574c",
+   "client_vt": "5d5748",
    "evidence": [
     "struct:29"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin8",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisCharSellectList",
    "server_vt": "609820",
-   "client_vt": "5d583c",
+   "client_vt": "5d5838",
    "evidence": [
     "struct:29"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin9",
+   "client_basis": "ctor-twin",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisTavLeftPanel",
    "server_vt": "60c560",
-   "client_vt": "5d8644",
+   "client_vt": "5d8640",
    "evidence": [
     "struct:29"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisRightPanel",
    "server_vt": "60ce80",
-   "client_vt": "5d8f64",
+   "client_vt": "5d8f60",
    "evidence": [
     "struct:29"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin8",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisOrderToolbar",
    "server_vt": "60cf70",
-   "client_vt": "5d9054",
+   "client_vt": "5d9050",
    "evidence": [
     "struct:29"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin7",
+   "client_basis": "ctor-twin",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisCharInfo",
    "server_vt": "60cfe8",
-   "client_vt": "5d90cc",
+   "client_vt": "5d90c8",
    "evidence": [
     "struct:29"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin7",
+   "client_basis": "ctor-twin",
    "slots_srv": 33,
-   "slots_cli": 32
+   "slots_cli": 33
   },
   {
    "class": "CVisualObject",
    "server_vt": "60ddc0",
-   "client_vt": "5d9ea4",
+   "client_vt": "5d9ea0",
    "evidence": [
     "struct:29"
    ],
    "server_basis": "ctor-ns4",
-   "client_basis": "slot-twin10",
+   "client_basis": "ctor-twin",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisLabel",
    "server_vt": "60de38",
-   "client_vt": "5d6c5c",
+   "client_vt": "5d6c58",
    "evidence": [
     "struct:29"
    ],
    "server_basis": "ctor-ns3",
    "client_basis": "slot-twin9",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisScrollBar",
    "server_vt": "60e1d0",
-   "client_vt": "5da2b4",
+   "client_vt": "5da2b0",
    "evidence": [
     "struct:29"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisBitmap",
    "server_vt": "60e248",
-   "client_vt": "5da32c",
+   "client_vt": "5da328",
    "evidence": [
     "struct:29"
    ],
    "server_basis": "ctor-ns4",
-   "client_basis": "slot-twin9",
+   "client_basis": "ctor-twin",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisComboBox",
    "server_vt": "60e4d0",
-   "client_vt": "5da5b4",
+   "client_vt": "5da5b0",
    "evidence": [
     "struct:29"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisCharSellectButtons",
    "server_vt": "6097a8",
-   "client_vt": "5d57c4",
+   "client_vt": "5d57c0",
    "evidence": [
     "struct:28"
    ],
    "server_basis": "ctor-ns2",
    "client_basis": "slot-twin9",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisStartGameTextBox",
    "server_vt": "609920",
-   "client_vt": "5d593c",
+   "client_vt": "5d5938",
    "evidence": [
     "struct:28"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "Vis1200obj",
    "server_vt": "609a58",
-   "client_vt": "5d5a74",
+   "client_vt": "5d5a70",
    "evidence": [
     "struct:28"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin7",
+   "client_basis": "ctor-twin",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "MenuButton",
    "server_vt": "60ae78",
-   "client_vt": "5d6074",
+   "client_vt": "5d6070",
    "evidence": [
     "struct:28"
    ],
    "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin9",
+   "client_basis": "ctor-twin",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisTavRightPanel",
    "server_vt": "60c5d8",
-   "client_vt": "5d86bc",
+   "client_vt": "5d86b8",
    "evidence": [
     "struct:28"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin8",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisMiniMap",
    "server_vt": "60cef8",
-   "client_vt": "5d8fdc",
+   "client_vt": "5d8fd8",
    "evidence": [
     "struct:28"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisSideStatus",
    "server_vt": "60d070",
-   "client_vt": "5d9154",
+   "client_vt": "5d9150",
    "evidence": [
     "struct:28"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin7",
+   "client_basis": "ctor-twin",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisComboBoxButton",
    "server_vt": "60e458",
-   "client_vt": "5da53c",
+   "client_vt": "5da538",
    "evidence": [
     "struct:28"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisComboBoxText",
    "server_vt": "60e5d8",
-   "client_vt": "5da6bc",
+   "client_vt": "5da6b8",
    "evidence": [
     "struct:28"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin7",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisButtonSaveGame",
    "server_vt": "609ed8",
-   "client_vt": "5d5f74",
+   "client_vt": "5d5f70",
    "evidence": [
     "struct:27"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin9",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisNetChatTextBox",
    "server_vt": "60ac80",
-   "client_vt": "5d6f14",
+   "client_vt": "5d6f10",
    "evidence": [
     "struct:27"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin7",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisSpellBook",
    "server_vt": "60da00",
-   "client_vt": "5d9ae4",
+   "client_vt": "5d9ae0",
    "evidence": [
     "struct:27"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin7",
+   "client_basis": "ctor-twin",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisButton",
    "server_vt": "60df40",
-   "client_vt": "5da024",
+   "client_vt": "5da020",
    "evidence": [
     "struct:27"
    ],
    "server_basis": "ctor-ns2",
    "client_basis": "slot-twin9",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
   },
   {
    "class": "VisTextBox",
    "server_vt": "60dfb8",
-   "client_vt": "5da09c",
+   "client_vt": "5da098",
    "evidence": [
     "struct:27"
    ],
    "server_basis": "ctor-ns2",
    "client_basis": "slot-twin7",
    "slots_srv": 30,
-   "slots_cli": 29
+   "slots_cli": 30
+  },
+  {
+   "class": "File2",
+   "server_vt": "60e790",
+   "client_vt": "5da8f8",
+   "evidence": [
+    "struct:20"
+   ],
+   "server_basis": "ctor-ns3",
+   "client_basis": "ctor-twin",
+   "slots_srv": 23,
+   "slots_cli": 22
   },
   {
    "class": "Unit",
@@ -1453,6 +1465,18 @@
    "slots_cli": 21
   },
   {
+   "class": "CFileFind",
+   "server_vt": "6117dc",
+   "client_vt": "5de1ec",
+   "evidence": [
+    "struct:17"
+   ],
+   "server_basis": "ctor-ns2",
+   "client_basis": "ctor-twin",
+   "slots_srv": 21,
+   "slots_cli": 21
+  },
+  {
    "class": "CSprite256",
    "server_vt": "609378",
    "client_vt": "5d53a8",
@@ -1510,18 +1534,6 @@
    "server_basis": "ctor-ns2",
    "client_basis": "ctor-twin",
    "slots_srv": 15,
-   "slots_cli": 15
-  },
-  {
-   "class": "File2",
-   "server_vt": "60e790",
-   "client_vt": "5da914",
-   "evidence": [
-    "struct:15"
-   ],
-   "server_basis": "ctor-ns3",
-   "client_basis": "slot-twin5",
-   "slots_srv": 23,
    "slots_cli": 15
   },
   {
@@ -1607,6 +1619,18 @@
    "client_basis": "ctor-twin",
    "slots_srv": 22,
    "slots_cli": 22
+  },
+  {
+   "class": "CFile",
+   "server_vt": "6101ac",
+   "client_vt": "5dc38c",
+   "evidence": [
+    "struct:14"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "ctor-twin",
+   "slots_srv": 23,
+   "slots_cli": 18
   },
   {
    "class": "CGameBitmap",
@@ -1791,266 +1815,338 @@
   {
    "class": "QuestInnGlue",
    "server_vt": "60fde8",
-   "client_vt": "5dbf2c",
+   "client_vt": "5dbf28",
    "evidence": [
     "struct:12"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin4",
+   "client_basis": "ctor-twin",
    "slots_srv": 14,
-   "slots_cli": 13
+   "slots_cli": 14
   },
   {
    "class": "CObject",
    "server_vt": "60fe20",
-   "client_vt": "5dbf64",
+   "client_vt": "5dbf60",
    "evidence": [
     "struct:12"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 14,
-   "slots_cli": 13
+   "slots_cli": 14
   },
   {
    "class": null,
    "server_vt": "610574",
-   "client_vt": "5dc754",
+   "client_vt": "5dc750",
    "evidence": [
     "struct:12"
    ],
    "server_basis": null,
    "client_basis": null,
    "slots_srv": 12,
-   "slots_cli": 12
+   "slots_cli": 14
   },
   {
    "class": null,
    "server_vt": "6105f4",
-   "client_vt": "5dc7d4",
+   "client_vt": "5dc7d0",
    "evidence": [
     "struct:12"
    ],
    "server_basis": null,
    "client_basis": null,
    "slots_srv": 12,
-   "slots_cli": 12
+   "slots_cli": 14
   },
   {
    "class": null,
    "server_vt": "610674",
-   "client_vt": "5dc854",
+   "client_vt": "5dc850",
    "evidence": [
     "struct:12"
    ],
    "server_basis": null,
    "client_basis": null,
    "slots_srv": 12,
-   "slots_cli": 12
+   "slots_cli": 14
   },
   {
    "class": null,
    "server_vt": "6106f4",
-   "client_vt": "5dc8d4",
+   "client_vt": "5dc8d0",
    "evidence": [
     "struct:12"
    ],
    "server_basis": null,
    "client_basis": null,
    "slots_srv": 12,
-   "slots_cli": 12
-  },
-  {
-   "class": "CFileFind",
-   "server_vt": "6117dc",
-   "client_vt": "5de1f0",
-   "evidence": [
-    "struct:12"
-   ],
-   "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin5",
-   "slots_srv": 21,
-   "slots_cli": 12
+   "slots_cli": 14
   },
   {
    "class": "Quest",
    "server_vt": "60f6f8",
-   "client_vt": "5db83c",
+   "client_vt": "5db838",
    "evidence": [
     "struct:10"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin4",
    "slots_srv": 13,
-   "slots_cli": 12
+   "slots_cli": 13
   },
   {
    "class": "QuestMap",
    "server_vt": "60f790",
-   "client_vt": "5db8d4",
+   "client_vt": "5db8d0",
    "evidence": [
     "struct:10"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin4",
    "slots_srv": 13,
-   "slots_cli": 12
+   "slots_cli": 13
   },
   {
    "class": "QuestMap",
    "server_vt": "60f7c8",
-   "client_vt": "5db97c",
+   "client_vt": "5db978",
    "evidence": [
     "struct:10"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin4",
    "slots_srv": 13,
-   "slots_cli": 12
+   "slots_cli": 13
   },
   {
    "class": "QuestMap",
    "server_vt": "60f800",
-   "client_vt": "5db9b4",
+   "client_vt": "5db9b0",
    "evidence": [
     "struct:10"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin4",
    "slots_srv": 13,
-   "slots_cli": 12
+   "slots_cli": 13
   },
   {
    "class": "QuestMap",
    "server_vt": "60f838",
-   "client_vt": "5dba94",
+   "client_vt": "5dba90",
    "evidence": [
     "struct:10"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin4",
    "slots_srv": 13,
-   "slots_cli": 12
+   "slots_cli": 13
   },
   {
    "class": "QuestMap",
    "server_vt": "60f870",
-   "client_vt": "5dbacc",
+   "client_vt": "5dbac8",
    "evidence": [
     "struct:10"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin4",
    "slots_srv": 13,
-   "slots_cli": 12
+   "slots_cli": 13
   },
   {
    "class": "QuestMap",
    "server_vt": "60f8a8",
-   "client_vt": "5dbb04",
+   "client_vt": "5dbb00",
    "evidence": [
     "struct:10"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin4",
    "slots_srv": 13,
-   "slots_cli": 12
+   "slots_cli": 13
   },
   {
    "class": "QuestMap",
    "server_vt": "60f8e0",
-   "client_vt": "5db9ec",
+   "client_vt": "5db9e8",
    "evidence": [
     "struct:10"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin4",
    "slots_srv": 13,
-   "slots_cli": 12
+   "slots_cli": 13
   },
   {
    "class": "QuestMap",
    "server_vt": "60f918",
-   "client_vt": "5dba24",
+   "client_vt": "5dba20",
    "evidence": [
     "struct:10"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin4",
    "slots_srv": 13,
-   "slots_cli": 12
+   "slots_cli": 13
   },
   {
    "class": "QuestMap",
    "server_vt": "60f950",
-   "client_vt": "5dba5c",
+   "client_vt": "5dba58",
    "evidence": [
     "struct:10"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin4",
    "slots_srv": 13,
-   "slots_cli": 12
+   "slots_cli": 13
   },
   {
    "class": "QuestMap",
    "server_vt": "60f988",
-   "client_vt": "5db90c",
+   "client_vt": "5db908",
    "evidence": [
     "struct:10"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin4",
    "slots_srv": 13,
-   "slots_cli": 12
+   "slots_cli": 13
   },
   {
    "class": "QuestMap",
    "server_vt": "60f9c0",
-   "client_vt": "5db944",
+   "client_vt": "5db940",
    "evidence": [
     "struct:10"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin4",
    "slots_srv": 13,
-   "slots_cli": 12
+   "slots_cli": 13
   },
   {
    "class": "QuestMap",
    "server_vt": "60f9f8",
-   "client_vt": "5dbb3c",
+   "client_vt": "5dbb38",
    "evidence": [
     "struct:10"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin4",
    "slots_srv": 13,
-   "slots_cli": 12
+   "slots_cli": 13
   },
   {
-   "class": "CFile",
-   "server_vt": "6101ac",
-   "client_vt": "5dc3a8",
+   "class": "CStdioFile",
+   "server_vt": "6100ac",
+   "client_vt": "5dc28c",
    "evidence": [
     "struct:9"
    ],
+   "server_basis": "ctor-ns2",
+   "client_basis": "ctor-twin",
+   "slots_srv": 11,
+   "slots_cli": 17
+  },
+  {
+   "class": "CFile",
+   "server_vt": "613d4c",
+   "client_vt": "5dfe88",
+   "evidence": [
+    "struct:8"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin2",
+   "slots_srv": 21,
+   "slots_cli": 9
+  },
+  {
+   "class": "CEdit2",
+   "server_vt": "60c2c0",
+   "client_vt": "5de5c8",
+   "evidence": [
+    "struct:7"
+   ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin7",
-   "slots_srv": 23,
+   "client_basis": "slot-twin4",
+   "slots_srv": 48,
+   "slots_cli": 10
+  },
+  {
+   "class": "CWnd",
+   "server_vt": "610dd4",
+   "client_vt": "5dfad8",
+   "evidence": [
+    "struct:7"
+   ],
+   "server_basis": "ctor-ns2",
+   "client_basis": "slot-twin4",
+   "slots_srv": 48,
+   "slots_cli": 10
+  },
+  {
+   "class": "CStatic",
+   "server_vt": "61191c",
+   "client_vt": "5dfbf0",
+   "evidence": [
+    "struct:7"
+   ],
+   "server_basis": "ctor-ns2",
+   "client_basis": "slot-twin4",
+   "slots_srv": 48,
+   "slots_cli": 10
+  },
+  {
+   "class": "CStatusBar",
+   "server_vt": "611f54",
+   "client_vt": "5de130",
+   "evidence": [
+    "struct:7"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "slot-twin2",
+   "slots_srv": 59,
+   "slots_cli": 10
+  },
+  {
+   "class": "CWnd",
+   "server_vt": "612714",
+   "client_vt": "5de8d8",
+   "evidence": [
+    "struct:7"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin3",
+   "slots_srv": 58,
+   "slots_cli": 10
+  },
+  {
+   "class": "CWnd",
+   "server_vt": "613f48",
+   "client_vt": "5e00d8",
+   "evidence": [
+    "struct:7"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin3",
+   "slots_srv": 37,
    "slots_cli": 10
   },
   {
    "class": "CGameFont",
    "server_vt": "60b318",
-   "client_vt": "5d74cc",
+   "client_vt": "5d74c8",
    "evidence": [
     "struct:6"
    ],
    "server_basis": "ctor-ns2",
-   "client_basis": "cli-ns",
+   "client_basis": "ctor-twin",
    "slots_srv": 7,
-   "slots_cli": 6
+   "slots_cli": 7
   },
   {
    "class": "MainWindow",
@@ -2062,43 +2158,115 @@
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin1",
    "slots_srv": 63,
-   "slots_cli": 6
+   "slots_cli": 8
   },
   {
-   "class": "CFileException",
-   "server_vt": "61011c",
-   "client_vt": "5dc300",
+   "class": "CListBox2",
+   "server_vt": "60c380",
+   "client_vt": "5d842c",
    "evidence": [
     "struct:6"
    ],
    "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin1",
+   "client_basis": "slot-twin3",
+   "slots_srv": 54,
+   "slots_cli": 8
+  },
+  {
+   "class": "CFileException",
+   "server_vt": "61011c",
+   "client_vt": "5dc2fc",
+   "evidence": [
+    "struct:6"
+   ],
+   "server_basis": "ctor-ns2",
+   "client_basis": "ctor-twin",
    "slots_srv": 7,
-   "slots_cli": 6
+   "slots_cli": 7
+  },
+  {
+   "class": "CWnd",
+   "server_vt": "6119ec",
+   "client_vt": "5d84ec",
+   "evidence": [
+    "struct:6"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin3",
+   "slots_srv": 49,
+   "slots_cli": 8
+  },
+  {
+   "class": "CListBox",
+   "server_vt": "611abc",
+   "client_vt": "5dd040",
+   "evidence": [
+    "struct:6"
+   ],
+   "server_basis": "ctor-ns2",
+   "client_basis": "slot-twin3",
+   "slots_srv": 54,
+   "slots_cli": 8
+  },
+  {
+   "class": "CWnd",
+   "server_vt": "611ba4",
+   "client_vt": "5ddaf8",
+   "evidence": [
+    "struct:6"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin3",
+   "slots_srv": 48,
+   "slots_cli": 8
+  },
+  {
+   "class": "CEdit",
+   "server_vt": "611c84",
+   "client_vt": "5ddbc8",
+   "evidence": [
+    "struct:6"
+   ],
+   "server_basis": "ctor-ns2",
+   "client_basis": "slot-twin3",
+   "slots_srv": 48,
+   "slots_cli": 8
+  },
+  {
+   "class": "CWnd",
+   "server_vt": "611d58",
+   "client_vt": "5ddc98",
+   "evidence": [
+    "struct:6"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin3",
+   "slots_srv": 47,
+   "slots_cli": 8
   },
   {
    "class": "CObject",
    "server_vt": "6121e8",
-   "client_vt": "5de330",
+   "client_vt": "5de32c",
    "evidence": [
     "struct:6"
    ],
    "server_basis": "slot-ns",
    "client_basis": "slot-twin1",
    "slots_srv": 6,
-   "slots_cli": 6
+   "slots_cli": 7
   },
   {
    "class": "CWnd",
    "server_vt": "612438",
-   "client_vt": "5de598",
+   "client_vt": "5ddd80",
    "evidence": [
     "struct:6"
    ],
    "server_basis": "slot-ns",
    "client_basis": "slot-twin3",
    "slots_srv": 55,
-   "slots_cli": 7
+   "slots_cli": 8
   },
   {
    "class": "CRecentFileList",
@@ -2113,16 +2281,196 @@
    "slots_cli": 6
   },
   {
-   "class": "CFile",
-   "server_vt": "613d4c",
-   "client_vt": "5dfeac",
+   "class": "CWnd",
+   "server_vt": "612b58",
+   "client_vt": "5dde60",
    "evidence": [
     "struct:6"
    ],
    "server_basis": "slot-ns",
-   "client_basis": "slot-twin5",
-   "slots_srv": 21,
-   "slots_cli": 7
+   "client_basis": "slot-twin3",
+   "slots_srv": 32,
+   "slots_cli": 8
+  },
+  {
+   "class": "CWnd",
+   "server_vt": "612c30",
+   "client_vt": "5ddf30",
+   "evidence": [
+    "struct:6"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin3",
+   "slots_srv": 35,
+   "slots_cli": 8
+  },
+  {
+   "class": "CWnd",
+   "server_vt": "612cc8",
+   "client_vt": "5decc0",
+   "evidence": [
+    "struct:6"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin3",
+   "slots_srv": 47,
+   "slots_cli": 8
+  },
+  {
+   "class": "CWnd",
+   "server_vt": "612dd0",
+   "client_vt": "5dedc0",
+   "evidence": [
+    "struct:6"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin3",
+   "slots_srv": 35,
+   "slots_cli": 8
+  },
+  {
+   "class": "CWnd",
+   "server_vt": "612ea8",
+   "client_vt": "5dee88",
+   "evidence": [
+    "struct:6"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin3",
+   "slots_srv": 35,
+   "slots_cli": 8
+  },
+  {
+   "class": "CWnd",
+   "server_vt": "612f50",
+   "client_vt": "5def60",
+   "evidence": [
+    "struct:6"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin3",
+   "slots_srv": 47,
+   "slots_cli": 8
+  },
+  {
+   "class": "CWnd",
+   "server_vt": "613028",
+   "client_vt": "5df038",
+   "evidence": [
+    "struct:6"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin3",
+   "slots_srv": 47,
+   "slots_cli": 8
+  },
+  {
+   "class": "CWnd",
+   "server_vt": "613100",
+   "client_vt": "5df110",
+   "evidence": [
+    "struct:6"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin3",
+   "slots_srv": 47,
+   "slots_cli": 8
+  },
+  {
+   "class": "CWnd",
+   "server_vt": "6131d0",
+   "client_vt": "5df1e8",
+   "evidence": [
+    "struct:6"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin3",
+   "slots_srv": 47,
+   "slots_cli": 8
+  },
+  {
+   "class": "CWnd",
+   "server_vt": "6132a8",
+   "client_vt": "5df2c0",
+   "evidence": [
+    "struct:6"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin3",
+   "slots_srv": 47,
+   "slots_cli": 8
+  },
+  {
+   "class": "CWnd",
+   "server_vt": "6133b0",
+   "client_vt": "5df390",
+   "evidence": [
+    "struct:6"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin3",
+   "slots_srv": 35,
+   "slots_cli": 8
+  },
+  {
+   "class": "CWnd",
+   "server_vt": "613458",
+   "client_vt": "5df468",
+   "evidence": [
+    "struct:6"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin3",
+   "slots_srv": 47,
+   "slots_cli": 8
+  },
+  {
+   "class": "CWnd",
+   "server_vt": "613520",
+   "client_vt": "5df540",
+   "evidence": [
+    "struct:6"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin3",
+   "slots_srv": 47,
+   "slots_cli": 8
+  },
+  {
+   "class": "CWnd",
+   "server_vt": "6136c0",
+   "client_vt": "5df618",
+   "evidence": [
+    "struct:6"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin3",
+   "slots_srv": 35,
+   "slots_cli": 8
+  },
+  {
+   "class": "CWnd",
+   "server_vt": "613914",
+   "client_vt": "5df6e0",
+   "evidence": [
+    "struct:6"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin3",
+   "slots_srv": 68,
+   "slots_cli": 8
+  },
+  {
+   "class": "CWnd",
+   "server_vt": "613a60",
+   "client_vt": "5df850",
+   "evidence": [
+    "struct:6"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin3",
+   "slots_srv": 49,
+   "slots_cli": 8
   },
   {
    "class": "CGamePalette",
@@ -2175,74 +2523,50 @@
   {
    "class": "CSpriteFont16",
    "server_vt": "60b340",
-   "client_vt": "5d72cc",
+   "client_vt": "5d72c8",
    "evidence": [
     "struct:5"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin10",
    "slots_srv": 7,
-   "slots_cli": 34
+   "slots_cli": 35
   },
   {
    "class": "CSpriteFont16a",
    "server_vt": "60b360",
-   "client_vt": "5d7514",
+   "client_vt": "5d7510",
    "evidence": [
     "struct:5"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin1",
+   "client_basis": "ctor-twin",
    "slots_srv": 7,
-   "slots_cli": 6
+   "slots_cli": 7
   },
   {
    "class": "GameApp",
    "server_vt": "60c100",
-   "client_vt": "5d81e4",
+   "client_vt": "5d81e0",
    "evidence": [
     "struct:5"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin1",
+   "client_basis": "ctor-twin",
    "slots_srv": 41,
-   "slots_cli": 6
-  },
-  {
-   "class": "CEdit2",
-   "server_vt": "60c2c0",
-   "client_vt": "5d74f4",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "cli-ns",
-   "slots_srv": 48,
-   "slots_cli": 6
-  },
-  {
-   "class": "CListBox2",
-   "server_vt": "60c380",
-   "client_vt": "5d83a4",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin1",
-   "slots_srv": 54,
-   "slots_cli": 5
+   "slots_cli": 8
   },
   {
    "class": "ServerControlDialog",
    "server_vt": "60c458",
-   "client_vt": "5d83fc",
+   "client_vt": "5d74f0",
    "evidence": [
     "struct:5"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin5",
+   "client_basis": "ctor-twin",
    "slots_srv": 54,
-   "slots_cli": 5
+   "slots_cli": 7
   },
   {
    "class": "PacketWord",
@@ -2511,1178 +2835,878 @@
   {
    "class": "CWinThread",
    "server_vt": "60feec",
-   "client_vt": "5dc010",
+   "client_vt": "5dc00c",
+   "evidence": [
+    "struct:5"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "ctor-twin",
+   "slots_srv": 33,
+   "slots_cli": 8
+  },
+  {
+   "class": "CException_conflict1",
+   "server_vt": "6102ec",
+   "client_vt": "5dc4cc",
    "evidence": [
     "struct:5"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin1",
-   "slots_srv": 33,
-   "slots_cli": 6
-  },
-  {
-   "class": "CStdioFile",
-   "server_vt": "6100ac",
-   "client_vt": "5dc290",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "ctor-ns2",
-   "client_basis": "cli-ns",
-   "slots_srv": 11,
-   "slots_cli": 5
+   "slots_srv": 7,
+   "slots_cli": 7
   },
   {
    "class": "CDialog",
    "server_vt": "610984",
-   "client_vt": "5d84bc",
+   "client_vt": "5d83fc",
    "evidence": [
     "struct:5"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin5",
    "slots_srv": 54,
-   "slots_cli": 5
-  },
-  {
-   "class": "CWnd",
-   "server_vt": "610dd4",
-   "client_vt": "5d8594",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin5",
-   "slots_srv": 48,
    "slots_cli": 5
   },
   {
    "class": "CFrameWnd",
    "server_vt": "61135c",
-   "client_vt": "5dd540",
+   "client_vt": "5dd53c",
    "evidence": [
     "struct:5"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin1",
+   "client_basis": "ctor-twin",
    "slots_srv": 63,
-   "slots_cli": 5
+   "slots_cli": 8
   },
   {
    "class": "CWinApp",
    "server_vt": "611534",
-   "client_vt": "5dcfb8",
+   "client_vt": "5dcfb4",
    "evidence": [
     "struct:5"
    ],
    "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin1",
+   "client_basis": "ctor-twin",
    "slots_srv": 41,
-   "slots_cli": 5
+   "slots_cli": 8
   },
   {
    "class": "CCmdTarget",
    "server_vt": "611740",
-   "client_vt": "5dd718",
+   "client_vt": "5dd714",
    "evidence": [
     "struct:5"
    ],
    "server_basis": "slot-ns",
-   "client_basis": "slot-twin1",
+   "client_basis": "ctor-twin",
    "slots_srv": 21,
-   "slots_cli": 6
-  },
-  {
-   "class": "CStatic",
-   "server_vt": "61191c",
-   "client_vt": "5d8464",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin1",
-   "slots_srv": 48,
-   "slots_cli": 5
-  },
-  {
-   "class": "CWnd",
-   "server_vt": "6119ec",
-   "client_vt": "5dcbc0",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "slot-twin5",
-   "slots_srv": 49,
-   "slots_cli": 5
-  },
-  {
-   "class": "CListBox",
-   "server_vt": "611abc",
-   "client_vt": "5dd010",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin5",
-   "slots_srv": 54,
-   "slots_cli": 5
-  },
-  {
-   "class": "CWnd",
-   "server_vt": "611ba4",
-   "client_vt": "5dd920",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "slot-twin1",
-   "slots_srv": 48,
-   "slots_cli": 6
-  },
-  {
-   "class": "CEdit",
-   "server_vt": "611c84",
-   "client_vt": "5dda70",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin1",
-   "slots_srv": 48,
-   "slots_cli": 5
-  },
-  {
-   "class": "CWnd",
-   "server_vt": "611d58",
-   "client_vt": "5ddac8",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "slot-twin5",
-   "slots_srv": 47,
-   "slots_cli": 5
-  },
-  {
-   "class": "CStatusBar",
-   "server_vt": "611f54",
-   "client_vt": "5ddb40",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin1",
-   "slots_srv": 59,
-   "slots_cli": 5
+   "slots_cli": 8
   },
   {
    "class": "CCmdTarget",
    "server_vt": "612408",
-   "client_vt": "5de540",
+   "client_vt": "5de53c",
    "evidence": [
     "struct:5"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 11,
-   "slots_cli": 5
-  },
-  {
-   "class": "CWnd",
-   "server_vt": "612714",
-   "client_vt": "5ddcf8",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "slot-twin1",
-   "slots_srv": 58,
-   "slots_cli": 5
+   "slots_cli": 8
   },
   {
    "class": "CCmdTarget",
    "server_vt": "612b00",
-   "client_vt": "5ddea8",
+   "client_vt": "5dd91c",
    "evidence": [
     "struct:5"
    ],
    "server_basis": "slot-ns",
-   "client_basis": "slot-twin1",
+   "client_basis": "ctor-twin",
    "slots_srv": 21,
-   "slots_cli": 5
-  },
-  {
-   "class": "CWnd",
-   "server_vt": "612b58",
-   "client_vt": "5ddb98",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "slot-twin5",
-   "slots_srv": 32,
-   "slots_cli": 5
+   "slots_cli": 8
   },
   {
    "class": "CCmdTarget",
    "server_vt": "612c00",
-   "client_vt": "5de0a8",
+   "client_vt": "5ddb3c",
    "evidence": [
     "struct:5"
    ],
    "server_basis": "slot-ns",
    "client_basis": "slot-twin1",
    "slots_srv": 11,
-   "slots_cli": 5
-  },
-  {
-   "class": "CWnd",
-   "server_vt": "612c30",
-   "client_vt": "5ddc68",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "slot-twin5",
-   "slots_srv": 35,
-   "slots_cli": 5
-  },
-  {
-   "class": "CWnd",
-   "server_vt": "612cc8",
-   "client_vt": "5ddd50",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "slot-twin5",
-   "slots_srv": 47,
-   "slots_cli": 5
+   "slots_cli": 8
   },
   {
    "class": "CCmdTarget",
    "server_vt": "612da0",
-   "client_vt": "5de850",
+   "client_vt": "5ddcf4",
    "evidence": [
     "struct:5"
    ],
    "server_basis": "slot-ns",
    "client_basis": "slot-twin1",
    "slots_srv": 11,
-   "slots_cli": 5
-  },
-  {
-   "class": "CWnd",
-   "server_vt": "612dd0",
-   "client_vt": "5dde30",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "slot-twin5",
-   "slots_srv": 35,
-   "slots_cli": 5
+   "slots_cli": 8
   },
   {
    "class": "CCmdTarget",
    "server_vt": "612e78",
-   "client_vt": "5dec38",
+   "client_vt": "5ddea4",
    "evidence": [
     "struct:5"
    ],
    "server_basis": "slot-ns",
    "client_basis": "slot-twin1",
    "slots_srv": 11,
-   "slots_cli": 5
-  },
-  {
-   "class": "CWnd",
-   "server_vt": "612ea8",
-   "client_vt": "5ddf00",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "slot-twin5",
-   "slots_srv": 35,
-   "slots_cli": 5
-  },
-  {
-   "class": "CWnd",
-   "server_vt": "612f50",
-   "client_vt": "5dec90",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "slot-twin5",
-   "slots_srv": 47,
-   "slots_cli": 5
-  },
-  {
-   "class": "CWnd",
-   "server_vt": "613028",
-   "client_vt": "5ded38",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "slot-twin1",
-   "slots_srv": 47,
-   "slots_cli": 5
-  },
-  {
-   "class": "CWnd",
-   "server_vt": "613100",
-   "client_vt": "5ded90",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "slot-twin5",
-   "slots_srv": 47,
-   "slots_cli": 5
-  },
-  {
-   "class": "CWnd",
-   "server_vt": "6131d0",
-   "client_vt": "5dee00",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "slot-twin1",
-   "slots_srv": 47,
-   "slots_cli": 5
-  },
-  {
-   "class": "CWnd",
-   "server_vt": "6132a8",
-   "client_vt": "5dee58",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "slot-twin5",
-   "slots_srv": 47,
-   "slots_cli": 5
+   "slots_cli": 8
   },
   {
    "class": "CCmdTarget",
    "server_vt": "613380",
-   "client_vt": "5deed8",
+   "client_vt": "5de0a4",
    "evidence": [
     "struct:5"
    ],
    "server_basis": "slot-ns",
-   "client_basis": "slot-twin1",
+   "client_basis": "ctor-twin",
    "slots_srv": 11,
-   "slots_cli": 5
-  },
-  {
-   "class": "CWnd",
-   "server_vt": "6133b0",
-   "client_vt": "5def30",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "slot-twin5",
-   "slots_srv": 35,
-   "slots_cli": 5
-  },
-  {
-   "class": "CWnd",
-   "server_vt": "613458",
-   "client_vt": "5defb0",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "slot-twin1",
-   "slots_srv": 47,
-   "slots_cli": 5
-  },
-  {
-   "class": "CWnd",
-   "server_vt": "613520",
-   "client_vt": "5df008",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "slot-twin5",
-   "slots_srv": 47,
-   "slots_cli": 5
+   "slots_cli": 8
   },
   {
    "class": "CCmdTarget",
    "server_vt": "613690",
-   "client_vt": "5df088",
+   "client_vt": "5de84c",
    "evidence": [
     "struct:5"
    ],
    "server_basis": "slot-ns",
    "client_basis": "slot-twin1",
    "slots_srv": 11,
-   "slots_cli": 5
-  },
-  {
-   "class": "CWnd",
-   "server_vt": "6136c0",
-   "client_vt": "5df0e0",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "slot-twin5",
-   "slots_srv": 35,
-   "slots_cli": 5
-  },
-  {
-   "class": "CWnd",
-   "server_vt": "613914",
-   "client_vt": "5dfa50",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "cli-ns",
-   "slots_srv": 68,
-   "slots_cli": 5
+   "slots_cli": 8
   },
   {
    "class": "CCmdTarget",
    "server_vt": "613a30",
-   "client_vt": "5dfb68",
+   "client_vt": "5dfa4c",
    "evidence": [
     "struct:5"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 11,
-   "slots_cli": 5
+   "slots_cli": 8
   },
   {
    "class": "CObject",
    "server_vt": "613c88",
-   "client_vt": "5dfdc0",
+   "client_vt": "5dfdbc",
    "evidence": [
     "struct:5"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 5
+   "slots_cli": 8
   },
   {
    "class": "CCmdTarget",
    "server_vt": "613f18",
-   "client_vt": "5df160",
+   "client_vt": "5dec34",
    "evidence": [
     "struct:5"
    ],
    "server_basis": "slot-ns",
    "client_basis": "slot-twin1",
    "slots_srv": 11,
-   "slots_cli": 5
-  },
-  {
-   "class": "CWnd",
-   "server_vt": "613f48",
-   "client_vt": "5de8a8",
-   "evidence": [
-    "struct:5"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "slot-twin3",
-   "slots_srv": 37,
-   "slots_cli": 5
+   "slots_cli": 8
   },
   {
    "class": "CCmdTarget",
    "server_vt": "614008",
-   "client_vt": "5e0140",
+   "client_vt": "5e013c",
    "evidence": [
     "struct:5"
    ],
    "server_basis": "slot-ns",
    "client_basis": "slot-twin1",
    "slots_srv": 11,
-   "slots_cli": 5
+   "slots_cli": 8
   },
   {
    "class": "CCmdTarget",
    "server_vt": "6142c0",
-   "client_vt": "5e03f8",
+   "client_vt": "5e03f4",
    "evidence": [
     "struct:5"
    ],
    "server_basis": "slot-ns",
    "client_basis": "slot-twin1",
    "slots_srv": 24,
-   "slots_cli": 5
+   "slots_cli": 8
   },
   {
    "class": "CArray<CBmp64*>",
    "server_vt": "609058",
-   "client_vt": "5d505c",
+   "client_vt": "5d5058",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "GM_a28",
    "server_vt": "609070",
-   "client_vt": "5d5074",
+   "client_vt": "5d5070",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns2",
-   "client_basis": "cli-ns",
+   "client_basis": "ctor-twin",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "MapAlm",
    "server_vt": "609158",
-   "client_vt": "5d515c",
+   "client_vt": "5d5158",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns2",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CArray<int16>",
    "server_vt": "609170",
-   "client_vt": "5d5174",
+   "client_vt": "5d5170",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CArray<TokenEntry*>",
    "server_vt": "609188",
-   "client_vt": "5d518c",
+   "client_vt": "5d5188",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CArray<CRect>",
    "server_vt": "6091a0",
-   "client_vt": "5d51a4",
+   "client_vt": "5d51a0",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CMap",
    "server_vt": "6091d0",
-   "client_vt": "5d51d4",
+   "client_vt": "5d51d0",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "6091e8",
-   "client_vt": "5d51ec",
+   "client_vt": "5d51e8",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CMultiShopShelf",
    "server_vt": "609200",
-   "client_vt": "5d5204",
+   "client_vt": "5d5200",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns2",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CArray<CUnit*>",
    "server_vt": "609218",
-   "client_vt": "5d521c",
+   "client_vt": "5d5218",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "6094a4",
-   "client_vt": "5d535c",
+   "client_vt": "5d5358",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 4,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CArray<CRect>",
    "server_vt": "609a20",
-   "client_vt": "5d5234",
+   "client_vt": "5d5230",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "TokenEntry",
    "server_vt": "609a38",
-   "client_vt": "5d5a54",
+   "client_vt": "5d5a50",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns6",
-   "client_basis": "cli-ns",
+   "client_basis": "ctor-twin",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "TxtFile",
    "server_vt": "609c10",
-   "client_vt": "5d5c2c",
+   "client_vt": "5d5c28",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns2",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "60b120",
-   "client_vt": "5d5a3c",
+   "client_vt": "5d5a38",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "60b138",
-   "client_vt": "5d735c",
+   "client_vt": "5d7358",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "60b150",
-   "client_vt": "5d7374",
+   "client_vt": "5d7370",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "60b168",
-   "client_vt": "5d738c",
+   "client_vt": "5d7388",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "MusicPlayer",
    "server_vt": "60b240",
-   "client_vt": "5d723c",
+   "client_vt": "5d7238",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns2",
    "client_basis": "slot-twin8",
    "slots_srv": 5,
-   "slots_cli": 35
+   "slots_cli": 36
   },
   {
    "class": "SfxSample",
    "server_vt": "60b258",
-   "client_vt": "5d73f4",
+   "client_vt": "5d73f0",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns3",
-   "client_basis": "cli-ns",
+   "client_basis": "ctor-twin",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "SoundChannel",
    "server_vt": "60b270",
-   "client_vt": "5d7424",
+   "client_vt": "5d7420",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "60b748",
-   "client_vt": "5d73a4",
+   "client_vt": "5d73a0",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CArray<CPoint>",
    "server_vt": "60b7e8",
-   "client_vt": "5d78fc",
+   "client_vt": "5d78f8",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "60b800",
-   "client_vt": "5d799c",
+   "client_vt": "5d7998",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "60b850",
-   "client_vt": "5d79b4",
+   "client_vt": "5d79b0",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "MapAlm",
    "server_vt": "60b868",
-   "client_vt": "5d7a04",
+   "client_vt": "5d7a00",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns2",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "GfxFile",
    "server_vt": "60b880",
-   "client_vt": "5d740c",
+   "client_vt": "5d7408",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns2",
-   "client_basis": "cli-ns",
+   "client_basis": "ctor-twin",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "GfxObject",
    "server_vt": "60b898",
-   "client_vt": "5d7a34",
+   "client_vt": "5d7a30",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns2",
-   "client_basis": "cli-ns",
+   "client_basis": "ctor-twin",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "UnitGfxFile",
    "server_vt": "60b8b0",
-   "client_vt": "5d7a4c",
+   "client_vt": "5d7a48",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns3",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "UnitVFXUnfo",
    "server_vt": "60b8c8",
-   "client_vt": "5d7a64",
+   "client_vt": "5d7a60",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns2",
-   "client_basis": "cli-ns",
+   "client_basis": "ctor-twin",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CCursor",
    "server_vt": "60b8e0",
-   "client_vt": "5d7a7c",
+   "client_vt": "5d7a78",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns3",
-   "client_basis": "cli-ns",
+   "client_basis": "ctor-twin",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "ProjectileInfo",
    "server_vt": "60b8f8",
-   "client_vt": "5d7a94",
+   "client_vt": "5d7a90",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns2",
-   "client_basis": "cli-ns",
+   "client_basis": "ctor-twin",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "StructureInfo",
    "server_vt": "60b910",
-   "client_vt": "5d7aac",
+   "client_vt": "5d7aa8",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns2",
-   "client_basis": "cli-ns",
+   "client_basis": "ctor-twin",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "60b928",
-   "client_vt": "5d7a1c",
+   "client_vt": "5d7a18",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "60b940",
-   "client_vt": "5d7adc",
+   "client_vt": "5d7ad8",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "60b958",
-   "client_vt": "5d7af4",
+   "client_vt": "5d7af0",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "60b970",
-   "client_vt": "5d7b0c",
+   "client_vt": "5d7b08",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "60b988",
-   "client_vt": "5d7b24",
+   "client_vt": "5d7b20",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "60b9a0",
-   "client_vt": "5d7b3c",
+   "client_vt": "5d7b38",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "60b9b8",
-   "client_vt": "5d7b54",
+   "client_vt": "5d7b50",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CGameSession",
    "server_vt": "60c2a8",
-   "client_vt": "5d7ac4",
+   "client_vt": "5d7ac0",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "cli-ns",
+   "client_basis": "ctor-twin",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "60c530",
-   "client_vt": "5d7b6c",
+   "client_vt": "5d7b68",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "60c548",
-   "client_vt": "5d8614",
+   "client_vt": "5d8610",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CArray<CSprite256*>",
    "server_vt": "60c998",
-   "client_vt": "5d862c",
+   "client_vt": "5d8628",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "Scenario",
    "server_vt": "60cb10",
-   "client_vt": "5d838c",
+   "client_vt": "5d8388",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns3",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "60cdc8",
-   "client_vt": "5d8a7c",
+   "client_vt": "5d8a78",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "60cde0",
-   "client_vt": "5d8eac",
+   "client_vt": "5d8ea8",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "SfxBank",
    "server_vt": "60d9d0",
-   "client_vt": "5d853c",
+   "client_vt": "5d83a0",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "slot-twin1",
    "slots_srv": 5,
-   "slots_cli": 5
+   "slots_cli": 8
   },
   {
    "class": "CObject",
    "server_vt": "60d9e8",
-   "client_vt": "5d8ec4",
+   "client_vt": "5d8ec0",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "60db10",
-   "client_vt": "5d9acc",
+   "client_vt": "5d9ac8",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "60e760",
-   "client_vt": "5d9bf4",
+   "client_vt": "5d9bf0",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "60e778",
-   "client_vt": "5da8cc",
+   "client_vt": "5da8c8",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CArray<p_ResFile>",
    "server_vt": "60e7f0",
-   "client_vt": "5da8e4",
+   "client_vt": "5da8e0",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "60e808",
-   "client_vt": "5da95c",
+   "client_vt": "5da958",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "60e820",
-   "client_vt": "5da974",
+   "client_vt": "5da970",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "MagicItem",
@@ -3759,506 +3783,494 @@
   {
    "class": "CMap<uint16_t,CellState>",
    "server_vt": "60fbc8",
-   "client_vt": "5dbd0c",
+   "client_vt": "5dbd08",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CList",
    "server_vt": "60fbe0",
-   "client_vt": "5dada4",
+   "client_vt": "5dada0",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CList",
    "server_vt": "60fbf8",
-   "client_vt": "5dadbc",
+   "client_vt": "5dadb8",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CMap<int,p_Unit>",
    "server_vt": "60fc20",
-   "client_vt": "5dbd64",
+   "client_vt": "5dbd60",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CMap<int,p_Player>",
    "server_vt": "60fc38",
-   "client_vt": "5dbd7c",
+   "client_vt": "5dbd78",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CMap<int,p_Group>",
    "server_vt": "60fc50",
-   "client_vt": "5dbd94",
+   "client_vt": "5dbd90",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CMap<int,p_Building>",
    "server_vt": "60fc68",
-   "client_vt": "5dbdac",
+   "client_vt": "5dbda8",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CMap<int,int>",
    "server_vt": "60fc80",
-   "client_vt": "5dae3c",
+   "client_vt": "5dae38",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CList",
    "server_vt": "60fcb0",
-   "client_vt": "5dbdf4",
+   "client_vt": "5dbdf0",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CMap",
    "server_vt": "60fcc8",
-   "client_vt": "5d51bc",
+   "client_vt": "5d51b8",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CMap",
    "server_vt": "60fce0",
-   "client_vt": "5db7f4",
+   "client_vt": "5db7f0",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CMap",
    "server_vt": "60fcf8",
-   "client_vt": "5db88c",
+   "client_vt": "5db888",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
-   "slots_srv": 5,
-   "slots_cli": 4
-  },
-  {
-   "class": "CObject",
-   "server_vt": "60fd10",
-   "client_vt": "5da98c",
-   "evidence": [
-    "struct:4"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "cli-ns",
-   "slots_srv": 5,
-   "slots_cli": 4
-  },
-  {
-   "class": "CList",
-   "server_vt": "60fd28",
-   "client_vt": "5dbe6c",
-   "evidence": [
-    "struct:4"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "cli-ns",
-   "slots_srv": 5,
-   "slots_cli": 4
-  },
-  {
-   "class": "CObject",
-   "server_vt": "60fd40",
-   "client_vt": "5dab64",
-   "evidence": [
-    "struct:4"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "cli-ns",
-   "slots_srv": 5,
-   "slots_cli": 4
-  },
-  {
-   "class": "CList",
-   "server_vt": "60fd58",
-   "client_vt": "5dbe9c",
-   "evidence": [
-    "struct:4"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "cli-ns",
-   "slots_srv": 5,
-   "slots_cli": 4
-  },
-  {
-   "class": "CList",
-   "server_vt": "60fd70",
-   "client_vt": "5dbeb4",
-   "evidence": [
-    "struct:4"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "cli-ns",
-   "slots_srv": 5,
-   "slots_cli": 4
-  },
-  {
-   "class": "CList",
-   "server_vt": "60fd88",
-   "client_vt": "5dadd4",
-   "evidence": [
-    "struct:4"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "cli-ns",
-   "slots_srv": 5,
-   "slots_cli": 4
-  },
-  {
-   "class": "CList",
-   "server_vt": "60fda0",
-   "client_vt": "5dadec",
-   "evidence": [
-    "struct:4"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "cli-ns",
-   "slots_srv": 5,
-   "slots_cli": 4
-  },
-  {
-   "class": "CObject",
-   "server_vt": "60fdb8",
-   "client_vt": "5dab7c",
-   "evidence": [
-    "struct:4"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "cli-ns",
-   "slots_srv": 5,
-   "slots_cli": 4
-  },
-  {
-   "class": "CList",
-   "server_vt": "60fdd0",
-   "client_vt": "5db0b4",
-   "evidence": [
-    "struct:4"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "cli-ns",
-   "slots_srv": 5,
-   "slots_cli": 4
-  },
-  {
-   "class": "CStringArray",
-   "server_vt": "60fe6c",
-   "client_vt": "5dbfb0",
-   "evidence": [
-    "struct:4"
-   ],
-   "server_basis": "ctor-ns2",
-   "client_basis": "slot-twin1",
-   "slots_srv": 5,
-   "slots_cli": 4
-  },
-  {
-   "class": "CList<>",
-   "server_vt": "60fe84",
-   "client_vt": "5d8bf4",
-   "evidence": [
-    "struct:4"
-   ],
-   "server_basis": "ctor-ns22",
-   "client_basis": "cli-ns",
-   "slots_srv": 5,
-   "slots_cli": 4
-  },
-  {
-   "class": "CObject",
-   "server_vt": "60ffd4",
-   "client_vt": "5dc118",
-   "evidence": [
-    "struct:4"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "cli-ns",
-   "slots_srv": 5,
-   "slots_cli": 4
-  },
-  {
-   "class": "CObject",
-   "server_vt": "610018",
-   "client_vt": "5d9ab4",
-   "evidence": [
-    "struct:4"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "cli-ns",
-   "slots_srv": 4,
-   "slots_cli": 4
-  },
-  {
-   "class": "CObject",
-   "server_vt": "610030",
-   "client_vt": "5dc1b0",
-   "evidence": [
-    "struct:4"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "cli-ns",
-   "slots_srv": 4,
-   "slots_cli": 4
-  },
-  {
-   "class": "CMapWordToPtr",
-   "server_vt": "61006c",
-   "client_vt": "5dc250",
-   "evidence": [
-    "struct:4"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "cli-ns",
-   "slots_srv": 5,
-   "slots_cli": 4
-  },
-  {
-   "class": "CException_conflict1",
-   "server_vt": "6102ec",
-   "client_vt": "5d9f1c",
-   "evidence": [
-    "struct:4"
-   ],
-   "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin9",
-   "slots_srv": 7,
-   "slots_cli": 29
-  },
-  {
-   "class": "CObject",
-   "server_vt": "61030c",
-   "client_vt": "5dc390",
-   "evidence": [
-    "struct:4"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "slot-twin1",
    "slots_srv": 5,
    "slots_cli": 5
   },
   {
    "class": "CObject",
-   "server_vt": "610330",
-   "client_vt": "5dc4f0",
+   "server_vt": "60fd10",
+   "client_vt": "5da988",
+   "evidence": [
+    "struct:4"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "cli-ns",
+   "slots_srv": 5,
+   "slots_cli": 5
+  },
+  {
+   "class": "CList",
+   "server_vt": "60fd28",
+   "client_vt": "5dbe68",
+   "evidence": [
+    "struct:4"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "cli-ns",
+   "slots_srv": 5,
+   "slots_cli": 5
+  },
+  {
+   "class": "CObject",
+   "server_vt": "60fd40",
+   "client_vt": "5dab60",
+   "evidence": [
+    "struct:4"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "cli-ns",
+   "slots_srv": 5,
+   "slots_cli": 5
+  },
+  {
+   "class": "CList",
+   "server_vt": "60fd58",
+   "client_vt": "5dbe98",
+   "evidence": [
+    "struct:4"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "cli-ns",
+   "slots_srv": 5,
+   "slots_cli": 5
+  },
+  {
+   "class": "CList",
+   "server_vt": "60fd70",
+   "client_vt": "5dbeb0",
+   "evidence": [
+    "struct:4"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "cli-ns",
+   "slots_srv": 5,
+   "slots_cli": 5
+  },
+  {
+   "class": "CList",
+   "server_vt": "60fd88",
+   "client_vt": "5dadd0",
+   "evidence": [
+    "struct:4"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "cli-ns",
+   "slots_srv": 5,
+   "slots_cli": 5
+  },
+  {
+   "class": "CList",
+   "server_vt": "60fda0",
+   "client_vt": "5dade8",
+   "evidence": [
+    "struct:4"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "cli-ns",
+   "slots_srv": 5,
+   "slots_cli": 5
+  },
+  {
+   "class": "CObject",
+   "server_vt": "60fdb8",
+   "client_vt": "5dab78",
+   "evidence": [
+    "struct:4"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "cli-ns",
+   "slots_srv": 5,
+   "slots_cli": 5
+  },
+  {
+   "class": "CList",
+   "server_vt": "60fdd0",
+   "client_vt": "5db0b0",
+   "evidence": [
+    "struct:4"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "cli-ns",
+   "slots_srv": 5,
+   "slots_cli": 5
+  },
+  {
+   "class": "CStringArray",
+   "server_vt": "60fe6c",
+   "client_vt": "5dbfac",
+   "evidence": [
+    "struct:4"
+   ],
+   "server_basis": "ctor-ns2",
+   "client_basis": "ctor-twin",
+   "slots_srv": 5,
+   "slots_cli": 5
+  },
+  {
+   "class": "CList<>",
+   "server_vt": "60fe84",
+   "client_vt": "5d8460",
+   "evidence": [
+    "struct:4"
+   ],
+   "server_basis": "ctor-ns22",
+   "client_basis": "slot-twin1",
+   "slots_srv": 5,
+   "slots_cli": 8
+  },
+  {
+   "class": "CObject",
+   "server_vt": "60ffd4",
+   "client_vt": "5dc114",
+   "evidence": [
+    "struct:4"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "cli-ns",
+   "slots_srv": 5,
+   "slots_cli": 5
+  },
+  {
+   "class": "CObject",
+   "server_vt": "610018",
+   "client_vt": "5d8538",
+   "evidence": [
+    "struct:4"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin1",
+   "slots_srv": 4,
+   "slots_cli": 8
+  },
+  {
+   "class": "CObject",
+   "server_vt": "610030",
+   "client_vt": "5dc1ac",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 4,
-   "slots_cli": 4
+   "slots_cli": 5
+  },
+  {
+   "class": "CMapWordToPtr",
+   "server_vt": "61006c",
+   "client_vt": "5dc24c",
+   "evidence": [
+    "struct:4"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "cli-ns",
+   "slots_srv": 5,
+   "slots_cli": 5
+  },
+  {
+   "class": "CObject",
+   "server_vt": "61030c",
+   "client_vt": "5dc4ec",
+   "evidence": [
+    "struct:4"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin1",
+   "slots_srv": 5,
+   "slots_cli": 7
+  },
+  {
+   "class": "CObject",
+   "server_vt": "610330",
+   "client_vt": "5dc50c",
+   "evidence": [
+    "struct:4"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin1",
+   "slots_srv": 4,
+   "slots_cli": 7
   },
   {
    "class": "CObject",
    "server_vt": "610550",
-   "client_vt": "5dc510",
+   "client_vt": "5dc72c",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 4,
-   "slots_cli": 4
+   "slots_cli": 6
   },
   {
    "class": "CObject",
    "server_vt": "6105d0",
-   "client_vt": "5dc730",
+   "client_vt": "5dc7ac",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 4,
-   "slots_cli": 4
+   "slots_cli": 6
   },
   {
    "class": "CObject",
    "server_vt": "610650",
-   "client_vt": "5dc7b0",
+   "client_vt": "5dc82c",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 4,
-   "slots_cli": 4
+   "slots_cli": 6
   },
   {
    "class": "CObject",
    "server_vt": "6106d0",
-   "client_vt": "5dc830",
+   "client_vt": "5dc8ac",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
-   "client_basis": "cli-ns",
+   "client_basis": "ctor-twin",
    "slots_srv": 4,
-   "slots_cli": 4
+   "slots_cli": 6
   },
   {
    "class": "CObject",
    "server_vt": "610750",
-   "client_vt": "5dc8b0",
+   "client_vt": "5dc92c",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 4,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "610768",
-   "client_vt": "5dc930",
+   "client_vt": "5dc944",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
-   "client_basis": "cli-ns",
+   "client_basis": "ctor-twin",
    "slots_srv": 4,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "610780",
-   "client_vt": "5dc948",
+   "client_vt": "5dc95c",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
-   "client_basis": "cli-ns",
+   "client_basis": "slot-twin1",
    "slots_srv": 4,
-   "slots_cli": 4
+   "slots_cli": 7
   },
   {
    "class": "CObject",
    "server_vt": "6107a0",
-   "client_vt": "5dc960",
+   "client_vt": "5dc97c",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
-   "client_basis": "cli-ns",
+   "client_basis": "slot-twin1",
    "slots_srv": 4,
-   "slots_cli": 4
+   "slots_cli": 7
   },
   {
    "class": "CUintArray",
    "server_vt": "6107e4",
-   "client_vt": "5dc980",
+   "client_vt": "5dc9c4",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CMapStringToOb",
    "server_vt": "61080c",
-   "client_vt": "5dc9f0",
+   "client_vt": "5dc9ec",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "61083c",
-   "client_vt": "5dca20",
+   "client_vt": "5dca1c",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "6115dc",
-   "client_vt": "5dc9c8",
+   "client_vt": "5dcb64",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
-   "client_basis": "cli-ns",
+   "client_basis": "ctor-twin",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 8
   },
   {
    "class": "CCmdUI",
@@ -4275,110 +4287,98 @@
   {
    "class": "CMapPtrToPtr",
    "server_vt": "6120f4",
-   "client_vt": "5dcb68",
+   "client_vt": "5dd7bc",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin1",
+   "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 5
+   "slots_cli": 6
   },
   {
    "class": "CObject",
    "server_vt": "612134",
-   "client_vt": "5dd7c0",
+   "client_vt": "5de2cc",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CFile",
    "server_vt": "61214c",
-   "client_vt": "5dc1c8",
+   "client_vt": "5dc1c4",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "slot-twin2",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 7
   },
   {
    "class": "CObject",
    "server_vt": "612260",
-   "client_vt": "5de2d0",
+   "client_vt": "5de394",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 4,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "CObject",
    "server_vt": "6122d8",
-   "client_vt": "5de398",
+   "client_vt": "5de40c",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 4,
-   "slots_cli": 4
+   "slots_cli": 6
   },
   {
    "class": "CObject",
    "server_vt": "6135e8",
-   "client_vt": "5de410",
-   "evidence": [
-    "struct:4"
-   ],
-   "server_basis": "slot-ns",
-   "client_basis": "cli-ns",
-   "slots_srv": 4,
-   "slots_cli": 4
-  },
-  {
-   "class": "CWnd",
-   "server_vt": "613a60",
-   "client_vt": "5d842c",
+   "client_vt": "5ded34",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "slot-twin1",
-   "slots_srv": 49,
-   "slots_cli": 4
+   "slots_srv": 4,
+   "slots_cli": 8
   },
   {
    "class": "CObject",
    "server_vt": "613bdc",
-   "client_vt": "5df238",
+   "client_vt": "5dedfc",
    "evidence": [
     "struct:4"
    ],
    "server_basis": "slot-ns",
    "client_basis": "slot-twin1",
    "slots_srv": 5,
-   "slots_cli": 5
+   "slots_cli": 8
   },
   {
    "class": "CMap<int,CGameObject*>",
    "server_vt": "6091b8",
-   "client_vt": "5da844",
+   "client_vt": "5d8bf0",
    "evidence": [
     "struct:3"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "slot-twin8",
+   "client_basis": "ctor-twin",
    "slots_srv": 5,
-   "slots_cli": 33
+   "slots_cli": 5
   },
   {
    "class": "WorldEquip",
@@ -4467,7 +4467,7 @@
   {
    "class": "Server",
    "server_vt": "60ec18",
-   "client_vt": "5da8fc",
+   "client_vt": "5d9ab0",
    "evidence": [
     "struct:3"
    ],
@@ -4515,38 +4515,38 @@
   {
    "class": "CObject",
    "server_vt": "60f628",
-   "client_vt": "5db76c",
+   "client_vt": "5db768",
    "evidence": [
     "struct:3"
    ],
    "server_basis": "slot-ns",
    "client_basis": "cli-ns",
    "slots_srv": 5,
-   "slots_cli": 4
+   "slots_cli": 5
   },
   {
    "class": "QuestMap",
    "server_vt": "60f730",
-   "client_vt": "5dad5c",
+   "client_vt": "5d9f18",
    "evidence": [
     "struct:3"
    ],
    "server_basis": "ctor-ns1",
-   "client_basis": "cli-ns",
+   "client_basis": "ctor-twin",
    "slots_srv": 6,
-   "slots_cli": 4
+   "slots_cli": 30
   },
   {
    "class": "CStdioFile",
    "server_vt": "6100f8",
-   "client_vt": "5dc2d8",
+   "client_vt": "5dc2d4",
    "evidence": [
     "struct:3"
    ],
    "server_basis": "slot-ns",
    "client_basis": "slot-twin1",
    "slots_srv": 7,
-   "slots_cli": 3
+   "slots_cli": 4
   },
   {
    "class": "CStatusBar",
@@ -4558,7 +4558,7 @@
    "server_basis": "ctor-ns1",
    "client_basis": "ctor-twin",
    "slots_srv": 4,
-   "slots_cli": 3
+   "slots_cli": 4
   },
   {
    "class": "CDockContext",
@@ -4575,14 +4575,38 @@
   {
    "class": null,
    "server_vt": "613b80",
-   "client_vt": "5dfcb8",
+   "client_vt": "5dfcb4",
    "evidence": [
     "struct:3"
    ],
    "server_basis": null,
    "client_basis": null,
    "slots_srv": 3,
-   "slots_cli": 3
+   "slots_cli": 5
+  },
+  {
+   "class": "CFrameWnd",
+   "server_vt": "614070",
+   "client_vt": "5d8324",
+   "evidence": [
+    "struct:3"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin3",
+   "slots_srv": 37,
+   "slots_cli": 6
+  },
+  {
+   "class": "CFrameWnd",
+   "server_vt": "614328",
+   "client_vt": "5dcbf0",
+   "evidence": [
+    "struct:3"
+   ],
+   "server_basis": "slot-ns",
+   "client_basis": "slot-twin2",
+   "slots_srv": 36,
+   "slots_cli": 8
   },
   {
    "class": "filebuf",
@@ -4594,7 +4618,43 @@
    "server_basis": "rtti",
    "client_basis": "rtti",
    "slots_srv": 3,
-   "slots_cli": 3
+   "slots_cli": 4
+  },
+  {
+   "class": "Server",
+   "server_vt": "60ec18",
+   "client_vt": "5dad58",
+   "evidence": [
+    "ctor"
+   ],
+   "server_basis": "ctor-ns1",
+   "client_basis": "cli-ns",
+   "slots_srv": 5,
+   "slots_cli": 5
+  },
+  {
+   "class": "CStringArray",
+   "server_vt": "60fe6c",
+   "client_vt": "5dbfc4",
+   "evidence": [
+    "ctor"
+   ],
+   "server_basis": "ctor-ns2",
+   "client_basis": "ctor-twin",
+   "slots_srv": 5,
+   "slots_cli": 5
+  },
+  {
+   "class": "CList<>",
+   "server_vt": "60fe84",
+   "client_vt": "5dc154",
+   "evidence": [
+    "ctor"
+   ],
+   "server_basis": "ctor-ns22",
+   "client_basis": "ctor-twin",
+   "slots_srv": 5,
+   "slots_cli": 5
   }
  ],
  "classes": {
@@ -4625,14 +4685,20 @@
    ],
    "cli_vts": [
     [
-     "5dbfb0",
-     "slot-twin1",
-     4
+     "5dbfac",
+     "ctor-twin",
+     5
+    ],
+    [
+     "5dbfc4",
+     "ctor-twin",
+     5
     ]
    ],
    "ctor_srv": null,
    "ctor_cli": null,
    "evidence": [
+    "ctor",
     "struct:4",
     "vtable"
    ],
@@ -4913,269 +4979,269 @@
    ],
    "cli_vts": [
     [
-     "5dbf64",
+     "5dbf60",
      "cli-ns",
-     13
+     14
     ],
     [
-     "5de330",
+     "5de32c",
      "slot-twin1",
+     7
+    ],
+    [
+     "5dfdbc",
+     "cli-ns",
+     8
+    ],
+    [
+     "5d51e8",
+     "cli-ns",
+     5
+    ],
+    [
+     "5d5358",
+     "cli-ns",
+     5
+    ],
+    [
+     "5d5a38",
+     "cli-ns",
+     5
+    ],
+    [
+     "5d7358",
+     "cli-ns",
+     5
+    ],
+    [
+     "5d7370",
+     "cli-ns",
+     5
+    ],
+    [
+     "5d7388",
+     "cli-ns",
+     5
+    ],
+    [
+     "5d73a0",
+     "cli-ns",
+     5
+    ],
+    [
+     "5d7998",
+     "cli-ns",
+     5
+    ],
+    [
+     "5d79b0",
+     "cli-ns",
+     5
+    ],
+    [
+     "5d7a18",
+     "cli-ns",
+     5
+    ],
+    [
+     "5d7ad8",
+     "cli-ns",
+     5
+    ],
+    [
+     "5d7af0",
+     "cli-ns",
+     5
+    ],
+    [
+     "5d7b08",
+     "cli-ns",
+     5
+    ],
+    [
+     "5d7b20",
+     "cli-ns",
+     5
+    ],
+    [
+     "5d7b38",
+     "cli-ns",
+     5
+    ],
+    [
+     "5d7b50",
+     "cli-ns",
+     5
+    ],
+    [
+     "5d7b68",
+     "cli-ns",
+     5
+    ],
+    [
+     "5d8610",
+     "cli-ns",
+     5
+    ],
+    [
+     "5d8a78",
+     "cli-ns",
+     5
+    ],
+    [
+     "5d8ea8",
+     "cli-ns",
+     5
+    ],
+    [
+     "5d8ec0",
+     "cli-ns",
+     5
+    ],
+    [
+     "5d9ac8",
+     "cli-ns",
+     5
+    ],
+    [
+     "5d9bf0",
+     "cli-ns",
+     5
+    ],
+    [
+     "5da8c8",
+     "cli-ns",
+     5
+    ],
+    [
+     "5da958",
+     "cli-ns",
+     5
+    ],
+    [
+     "5da970",
+     "cli-ns",
+     5
+    ],
+    [
+     "5da988",
+     "cli-ns",
+     5
+    ],
+    [
+     "5dab60",
+     "cli-ns",
+     5
+    ],
+    [
+     "5dab78",
+     "cli-ns",
+     5
+    ],
+    [
+     "5dc114",
+     "cli-ns",
+     5
+    ],
+    [
+     "5d8538",
+     "slot-twin1",
+     8
+    ],
+    [
+     "5dc1ac",
+     "cli-ns",
+     5
+    ],
+    [
+     "5dc4ec",
+     "slot-twin1",
+     7
+    ],
+    [
+     "5dc50c",
+     "slot-twin1",
+     7
+    ],
+    [
+     "5dc72c",
+     "cli-ns",
      6
     ],
     [
-     "5dfdc0",
+     "5dc7ac",
+     "cli-ns",
+     6
+    ],
+    [
+     "5dc82c",
+     "cli-ns",
+     6
+    ],
+    [
+     "5dc8ac",
+     "ctor-twin",
+     6
+    ],
+    [
+     "5dc92c",
      "cli-ns",
      5
     ],
     [
-     "5d51ec",
-     "cli-ns",
-     4
+     "5dc944",
+     "ctor-twin",
+     5
     ],
     [
-     "5d535c",
-     "cli-ns",
-     4
-    ],
-    [
-     "5d5a3c",
-     "cli-ns",
-     4
-    ],
-    [
-     "5d735c",
-     "cli-ns",
-     4
-    ],
-    [
-     "5d7374",
-     "cli-ns",
-     4
-    ],
-    [
-     "5d738c",
-     "cli-ns",
-     4
-    ],
-    [
-     "5d73a4",
-     "cli-ns",
-     4
-    ],
-    [
-     "5d799c",
-     "cli-ns",
-     4
-    ],
-    [
-     "5d79b4",
-     "cli-ns",
-     4
-    ],
-    [
-     "5d7a1c",
-     "cli-ns",
-     4
-    ],
-    [
-     "5d7adc",
-     "cli-ns",
-     4
-    ],
-    [
-     "5d7af4",
-     "cli-ns",
-     4
-    ],
-    [
-     "5d7b0c",
-     "cli-ns",
-     4
-    ],
-    [
-     "5d7b24",
-     "cli-ns",
-     4
-    ],
-    [
-     "5d7b3c",
-     "cli-ns",
-     4
-    ],
-    [
-     "5d7b54",
-     "cli-ns",
-     4
-    ],
-    [
-     "5d7b6c",
-     "cli-ns",
-     4
-    ],
-    [
-     "5d8614",
-     "cli-ns",
-     4
-    ],
-    [
-     "5d8a7c",
-     "cli-ns",
-     4
-    ],
-    [
-     "5d8eac",
-     "cli-ns",
-     4
-    ],
-    [
-     "5d8ec4",
-     "cli-ns",
-     4
-    ],
-    [
-     "5d9acc",
-     "cli-ns",
-     4
-    ],
-    [
-     "5d9bf4",
-     "cli-ns",
-     4
-    ],
-    [
-     "5da8cc",
-     "cli-ns",
-     4
-    ],
-    [
-     "5da95c",
-     "cli-ns",
-     4
-    ],
-    [
-     "5da974",
-     "cli-ns",
-     4
-    ],
-    [
-     "5da98c",
-     "cli-ns",
-     4
-    ],
-    [
-     "5dab64",
-     "cli-ns",
-     4
-    ],
-    [
-     "5dab7c",
-     "cli-ns",
-     4
-    ],
-    [
-     "5dc118",
-     "cli-ns",
-     4
-    ],
-    [
-     "5d9ab4",
-     "cli-ns",
-     4
-    ],
-    [
-     "5dc1b0",
-     "cli-ns",
-     4
-    ],
-    [
-     "5dc390",
+     "5dc95c",
      "slot-twin1",
-     5
+     7
     ],
     [
-     "5dc4f0",
-     "cli-ns",
-     4
-    ],
-    [
-     "5dc510",
-     "cli-ns",
-     4
-    ],
-    [
-     "5dc730",
-     "cli-ns",
-     4
-    ],
-    [
-     "5dc7b0",
-     "cli-ns",
-     4
-    ],
-    [
-     "5dc830",
-     "cli-ns",
-     4
-    ],
-    [
-     "5dc8b0",
-     "cli-ns",
-     4
-    ],
-    [
-     "5dc930",
-     "cli-ns",
-     4
-    ],
-    [
-     "5dc948",
-     "cli-ns",
-     4
-    ],
-    [
-     "5dc960",
-     "cli-ns",
-     4
-    ],
-    [
-     "5dca20",
-     "cli-ns",
-     4
-    ],
-    [
-     "5dc9c8",
-     "cli-ns",
-     4
-    ],
-    [
-     "5dd7c0",
-     "cli-ns",
-     4
-    ],
-    [
-     "5de2d0",
-     "cli-ns",
-     4
-    ],
-    [
-     "5de398",
-     "cli-ns",
-     4
-    ],
-    [
-     "5de410",
-     "cli-ns",
-     4
-    ],
-    [
-     "5df238",
+     "5dc97c",
      "slot-twin1",
+     7
+    ],
+    [
+     "5dca1c",
+     "cli-ns",
      5
     ],
     [
-     "5db76c",
+     "5dcb64",
+     "ctor-twin",
+     8
+    ],
+    [
+     "5de2cc",
      "cli-ns",
-     4
+     5
+    ],
+    [
+     "5de394",
+     "cli-ns",
+     5
+    ],
+    [
+     "5de40c",
+     "cli-ns",
+     6
+    ],
+    [
+     "5ded34",
+     "slot-twin1",
+     8
+    ],
+    [
+     "5dedfc",
+     "slot-twin1",
+     8
+    ],
+    [
+     "5db768",
+     "cli-ns",
+     5
     ]
    ],
    "ctor_srv": "5bb3a0",
@@ -5219,9 +5285,9 @@
    ],
    "cli_vts": [
     [
-     "5d505c",
+     "5d5058",
      "cli-ns",
-     4
+     5
     ]
    ],
    "ctor_srv": null,
@@ -5251,9 +5317,9 @@
    ],
    "cli_vts": [
     [
-     "5d5074",
-     "cli-ns",
-     4
+     "5d5070",
+     "ctor-twin",
+     5
     ]
    ],
    "ctor_srv": "401f50",
@@ -5339,9 +5405,9 @@
    ],
    "cli_vts": [
     [
-     "5d74cc",
-     "cli-ns",
-     6
+     "5d74c8",
+     "ctor-twin",
+     7
     ]
    ],
    "ctor_srv": null,
@@ -5374,9 +5440,9 @@
    ],
    "cli_vts": [
     [
-     "5d508c",
+     "5d5088",
      "slot-twin8",
-     29
+     30
     ]
    ],
    "ctor_srv": null,
@@ -5434,9 +5500,9 @@
    ],
    "cli_vts": [
     [
-     "5d5174",
+     "5d5170",
      "cli-ns",
-     4
+     5
     ]
    ],
    "ctor_srv": null,
@@ -5481,27 +5547,27 @@
    ],
    "cli_vts": [
     [
-     "5dc3a8",
-     "slot-twin7",
-     10
+     "5dc38c",
+     "ctor-twin",
+     18
     ],
     [
-     "5dfeac",
-     "slot-twin5",
-     7
-    ],
-    [
-     "5dc1c8",
+     "5dfe88",
      "slot-twin2",
-     4
+     9
+    ],
+    [
+     "5dc1c4",
+     "slot-twin2",
+     7
     ]
    ],
    "ctor_srv": "5df0b3",
    "ctor_cli": "5ad06e",
    "evidence": [
+    "struct:14",
     "struct:4",
-    "struct:6",
-    "struct:9",
+    "struct:8",
     "vtable"
    ],
    "counts": {
@@ -5529,7 +5595,7 @@
     [
      "5d8288",
      "slot-twin1",
-     6
+     8
     ]
    ],
    "ctor_srv": null,
@@ -5563,9 +5629,9 @@
    ],
    "cli_vts": [
     [
-     "5db83c",
+     "5db838",
      "slot-twin4",
-     12
+     13
     ]
    ],
    "ctor_srv": null,
@@ -5676,69 +5742,69 @@
    ],
    "cli_vts": [
     [
-     "5db8d4",
+     "5db8d0",
      "slot-twin4",
-     12
+     13
     ],
     [
-     "5db97c",
+     "5db978",
      "slot-twin4",
-     12
+     13
     ],
     [
-     "5db9b4",
+     "5db9b0",
      "slot-twin4",
-     12
+     13
     ],
     [
-     "5dba94",
+     "5dba90",
      "slot-twin4",
-     12
+     13
     ],
     [
-     "5dbacc",
+     "5dbac8",
      "slot-twin4",
-     12
+     13
     ],
     [
-     "5dbb04",
+     "5dbb00",
      "slot-twin4",
-     12
+     13
     ],
     [
-     "5db9ec",
+     "5db9e8",
      "slot-twin4",
-     12
+     13
     ],
     [
-     "5dba24",
+     "5dba20",
      "slot-twin4",
-     12
+     13
     ],
     [
-     "5dba5c",
+     "5dba58",
      "slot-twin4",
-     12
+     13
     ],
     [
-     "5db90c",
+     "5db908",
      "slot-twin4",
-     12
+     13
     ],
     [
-     "5db944",
+     "5db940",
      "slot-twin4",
-     12
+     13
     ],
     [
-     "5dbb3c",
+     "5dbb38",
      "slot-twin4",
-     12
+     13
     ],
     [
-     "5dad5c",
-     "cli-ns",
-     4
+     "5d9f18",
+     "ctor-twin",
+     30
     ]
    ],
    "ctor_srv": null,
@@ -5888,19 +5954,19 @@
    ],
    "cli_vts": [
     [
-     "5d6654",
+     "5d6650",
      "slot-twin8",
-     35
+     36
     ],
     [
-     "5d5c44",
+     "5d5c40",
      "slot-twin8",
-     33
+     34
     ],
     [
-     "5d9ea4",
-     "slot-twin10",
-     29
+     "5d9ea0",
+     "ctor-twin",
+     30
     ]
    ],
    "ctor_srv": "4457db",
@@ -5981,9 +6047,9 @@
    ],
    "cli_vts": [
     [
-     "5d838c",
+     "5d8388",
      "cli-ns",
-     4
+     5
     ]
    ],
    "ctor_srv": null,
@@ -6014,9 +6080,9 @@
    ],
    "cli_vts": [
     [
-     "5d5a54",
-     "cli-ns",
-     4
+     "5d5a50",
+     "ctor-twin",
+     5
     ]
    ],
    "ctor_srv": "438f90",
@@ -6193,9 +6259,9 @@
    ],
    "cli_vts": [
     [
-     "5d740c",
-     "cli-ns",
-     4
+     "5d7408",
+     "ctor-twin",
+     5
     ]
    ],
    "ctor_srv": "47ae53",
@@ -6228,9 +6294,9 @@
    ],
    "cli_vts": [
     [
-     "5d7a7c",
-     "cli-ns",
-     4
+     "5d7a78",
+     "ctor-twin",
+     5
     ]
    ],
    "ctor_srv": null,
@@ -6260,9 +6326,9 @@
    ],
    "cli_vts": [
     [
-     "5d7a94",
-     "cli-ns",
-     4
+     "5d7a90",
+     "ctor-twin",
+     5
     ]
    ],
    "ctor_srv": "47e1ec",
@@ -6295,9 +6361,9 @@
    ],
    "cli_vts": [
     [
-     "5d8a94",
-     "slot-twin10",
-     42
+     "5d8a90",
+     "ctor-twin",
+     43
     ]
    ],
    "ctor_srv": "4a4938",
@@ -6330,9 +6396,9 @@
    ],
    "cli_vts": [
     [
-     "5d9ae4",
-     "slot-twin7",
-     29
+     "5d9ae0",
+     "ctor-twin",
+     30
     ]
    ],
    "ctor_srv": "4c99c7",
@@ -6362,9 +6428,9 @@
    ],
    "cli_vts": [
     [
-     "5d518c",
+     "5d5188",
      "cli-ns",
-     4
+     5
     ]
    ],
    "ctor_srv": null,
@@ -6408,9 +6474,9 @@
    ],
    "cli_vts": [
     [
-     "5d7424",
+     "5d7420",
      "cli-ns",
-     4
+     5
     ]
    ],
    "ctor_srv": null,
@@ -6472,9 +6538,9 @@
    ],
    "cli_vts": [
     [
-     "5d7ac4",
-     "cli-ns",
-     4
+     "5d7ac0",
+     "ctor-twin",
+     5
     ]
    ],
    "ctor_srv": null,
@@ -6507,14 +6573,14 @@
    ],
    "cli_vts": [
     [
-     "5d51a4",
+     "5d51a0",
      "cli-ns",
-     4
+     5
     ],
     [
-     "5d5234",
+     "5d5230",
      "cli-ns",
-     4
+     5
     ]
    ],
    "ctor_srv": null,
@@ -6540,9 +6606,9 @@
    ],
    "cli_vts": [
     [
-     "5da844",
-     "slot-twin8",
-     33
+     "5d8bf0",
+     "ctor-twin",
+     5
     ]
    ],
    "ctor_srv": null,
@@ -6598,24 +6664,24 @@
    ],
    "cli_vts": [
     [
-     "5d51d4",
+     "5d51d0",
      "cli-ns",
-     4
+     5
     ],
     [
-     "5d51bc",
+     "5d51b8",
      "cli-ns",
-     4
+     5
     ],
     [
-     "5db7f4",
+     "5db7f0",
      "cli-ns",
-     4
+     5
     ],
     [
-     "5db88c",
+     "5db888",
      "cli-ns",
-     4
+     5
     ]
    ],
    "ctor_srv": null,
@@ -6721,9 +6787,9 @@
    ],
    "cli_vts": [
     [
-     "5d521c",
+     "5d5218",
      "cli-ns",
-     4
+     5
     ]
    ],
    "ctor_srv": null,
@@ -6955,9 +7021,9 @@
    ],
    "cli_vts": [
     [
-     "5d54e4",
-     "slot-twin8",
-     29
+     "5d54e0",
+     "ctor-twin",
+     30
     ]
    ],
    "ctor_srv": "428e51",
@@ -6991,9 +7057,9 @@
    ],
    "cli_vts": [
     [
-     "5d555c",
-     "slot-twin8",
-     29
+     "5d5558",
+     "ctor-twin",
+     30
     ]
    ],
    "ctor_srv": "42aa2b",
@@ -7026,9 +7092,9 @@
    ],
    "cli_vts": [
     [
-     "5d55d4",
+     "5d55d0",
      "slot-twin9",
-     29
+     30
     ]
    ],
    "ctor_srv": null,
@@ -7058,9 +7124,9 @@
    ],
    "cli_vts": [
     [
-     "5d564c",
-     "slot-twin8",
-     29
+     "5d5648",
+     "ctor-twin",
+     30
     ]
    ],
    "ctor_srv": "42b98c",
@@ -7093,9 +7159,9 @@
    ],
    "cli_vts": [
     [
-     "5d56c4",
-     "slot-twin8",
-     33
+     "5d56c0",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "42dcd9",
@@ -7142,9 +7208,9 @@
    ],
    "cli_vts": [
     [
-     "5d574c",
+     "5d5748",
      "slot-twin8",
-     29
+     30
     ]
    ],
    "ctor_srv": null,
@@ -7176,9 +7242,9 @@
    ],
    "cli_vts": [
     [
-     "5d57c4",
+     "5d57c0",
      "slot-twin9",
-     29
+     30
     ]
    ],
    "ctor_srv": null,
@@ -7209,9 +7275,9 @@
    ],
    "cli_vts": [
     [
-     "5d583c",
-     "slot-twin9",
-     29
+     "5d5838",
+     "ctor-twin",
+     30
     ]
    ],
    "ctor_srv": "430bbb",
@@ -7246,9 +7312,9 @@
    ],
    "cli_vts": [
     [
-     "5d58b4",
-     "slot-twin8",
-     33
+     "5d58b0",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": null,
@@ -7278,9 +7344,9 @@
    ],
    "cli_vts": [
     [
-     "5da3a4",
-     "slot-twin8",
-     33
+     "5da3a0",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": null,
@@ -7310,9 +7376,9 @@
    ],
    "cli_vts": [
     [
-     "5d593c",
-     "slot-twin8",
-     29
+     "5d5938",
+     "ctor-twin",
+     30
     ]
    ],
    "ctor_srv": "4329f9",
@@ -7346,9 +7412,9 @@
    ],
    "cli_vts": [
     [
-     "5d59b4",
-     "slot-twin9",
-     33
+     "5d59b0",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "43305b",
@@ -7397,9 +7463,9 @@
    ],
    "cli_vts": [
     [
-     "5d73f4",
-     "cli-ns",
-     4
+     "5d73f0",
+     "ctor-twin",
+     5
     ]
    ],
    "ctor_srv": "45b7d7",
@@ -7448,9 +7514,9 @@
    ],
    "cli_vts": [
     [
-     "5d5a74",
-     "slot-twin7",
-     29
+     "5d5a70",
+     "ctor-twin",
+     30
     ]
    ],
    "ctor_srv": "43ab28",
@@ -7484,9 +7550,9 @@
    ],
    "cli_vts": [
     [
-     "5d5aec",
+     "5d5ae8",
      "slot-twin8",
-     33
+     34
     ]
    ],
    "ctor_srv": null,
@@ -7516,9 +7582,9 @@
    ],
    "cli_vts": [
     [
-     "5d5ba4",
-     "slot-twin8",
-     33
+     "5d5ba0",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "43c337",
@@ -7551,9 +7617,9 @@
    ],
    "cli_vts": [
     [
-     "5d5c2c",
+     "5d5c28",
      "cli-ns",
-     4
+     5
     ]
    ],
    "ctor_srv": null,
@@ -7648,9 +7714,9 @@
    ],
    "cli_vts": [
     [
-     "5d5ccc",
-     "slot-twin8",
-     33
+     "5d5cc8",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "43d917",
@@ -7685,9 +7751,9 @@
    ],
    "cli_vts": [
     [
-     "5d5dd4",
+     "5d5dd0",
      "slot-twin11",
-     34
+     35
     ]
    ],
    "ctor_srv": null,
@@ -7717,9 +7783,9 @@
    ],
    "cli_vts": [
     [
-     "5d5e64",
-     "slot-twin8",
-     33
+     "5d5e60",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "43ecfb",
@@ -7768,9 +7834,9 @@
    ],
    "cli_vts": [
     [
-     "5d5eec",
-     "slot-twin8",
-     33
+     "5d5ee8",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "43fa42",
@@ -7803,9 +7869,9 @@
    ],
    "cli_vts": [
     [
-     "5d6284",
-     "slot-twin8",
-     33
+     "5d6280",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "451990",
@@ -7838,9 +7904,9 @@
    ],
    "cli_vts": [
     [
-     "5d5fec",
+     "5d5fe8",
      "slot-twin8",
-     33
+     34
     ]
    ],
    "ctor_srv": null,
@@ -7870,9 +7936,9 @@
    ],
    "cli_vts": [
     [
-     "5d60ec",
-     "slot-twin8",
-     33
+     "5d60e8",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": null,
@@ -7902,9 +7968,9 @@
    ],
    "cli_vts": [
     [
-     "5d6174",
+     "5d6170",
      "slot-twin8",
-     33
+     34
     ]
    ],
    "ctor_srv": "44160e",
@@ -7937,9 +8003,9 @@
    ],
    "cli_vts": [
     [
-     "5d61fc",
-     "slot-twin8",
-     33
+     "5d61f8",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "44186e",
@@ -7972,9 +8038,9 @@
    ],
    "cli_vts": [
     [
-     "5d630c",
-     "slot-twin7",
-     33
+     "5d6308",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "441bec",
@@ -8023,9 +8089,9 @@
    ],
    "cli_vts": [
     [
-     "5d639c",
+     "5d6398",
      "slot-twin8",
-     33
+     34
     ]
    ],
    "ctor_srv": null,
@@ -8055,15 +8121,15 @@
    ],
    "cli_vts": [
     [
-     "5d64a4",
-     "slot-twin8",
-     33
+     "5d64a0",
+     "ctor-twin",
+     36
     ]
    ],
    "ctor_srv": "44402b",
    "ctor_cli": "4465fb",
    "evidence": [
-    "struct:32",
+    "struct:33",
     "vtable"
    ],
    "counts": {
@@ -8092,9 +8158,9 @@
    ],
    "cli_vts": [
     [
-     "5d6534",
-     "slot-twin8",
-     35
+     "5d6530",
+     "ctor-twin",
+     36
     ]
    ],
    "ctor_srv": "445091",
@@ -8127,9 +8193,9 @@
    ],
    "cli_vts": [
     [
-     "5d65c4",
-     "slot-twin8",
-     35
+     "5d65c0",
+     "ctor-twin",
+     36
     ]
    ],
    "ctor_srv": "445173",
@@ -8178,9 +8244,9 @@
    ],
    "cli_vts": [
     [
-     "5d66e4",
-     "slot-twin8",
-     35
+     "5d66e0",
+     "ctor-twin",
+     36
     ]
    ],
    "ctor_srv": "445bcb",
@@ -8213,9 +8279,9 @@
    ],
    "cli_vts": [
     [
-     "5d6774",
-     "slot-twin8",
-     35
+     "5d6770",
+     "ctor-twin",
+     36
     ]
    ],
    "ctor_srv": "445e52",
@@ -8249,9 +8315,9 @@
    ],
    "cli_vts": [
     [
-     "5d6804",
-     "slot-twin8",
-     33
+     "5d6800",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "4464c7",
@@ -8284,9 +8350,9 @@
    ],
    "cli_vts": [
     [
-     "5d688c",
-     "slot-twin8",
-     33
+     "5d6888",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "447ea8",
@@ -8319,9 +8385,9 @@
    ],
    "cli_vts": [
     [
-     "5d69a4",
-     "slot-twin8",
-     33
+     "5d69a0",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "448cd5",
@@ -8354,9 +8420,9 @@
    ],
    "cli_vts": [
     [
-     "5d6a2c",
+     "5d6a28",
      "slot-twin8",
-     35
+     36
     ]
    ],
    "ctor_srv": null,
@@ -8386,9 +8452,9 @@
    ],
    "cli_vts": [
     [
-     "5d6abc",
+     "5d6ab8",
      "slot-twin8",
-     35
+     36
     ]
    ],
    "ctor_srv": null,
@@ -8419,9 +8485,9 @@
    ],
    "cli_vts": [
     [
-     "5d6b4c",
-     "slot-twin8",
-     33
+     "5d6b48",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "44af45",
@@ -8454,9 +8520,9 @@
    ],
    "cli_vts": [
     [
-     "5d6d64",
-     "slot-twin10",
-     34
+     "5d6d60",
+     "ctor-twin",
+     35
     ]
    ],
    "ctor_srv": "44ffd0",
@@ -8489,9 +8555,9 @@
    ],
    "cli_vts": [
     [
-     "5d6cd4",
-     "slot-twin10",
-     34
+     "5d6cd0",
+     "ctor-twin",
+     35
     ]
    ],
    "ctor_srv": "44ff20",
@@ -8525,9 +8591,9 @@
    ],
    "cli_vts": [
     [
-     "5d6bd4",
+     "5d6bd0",
      "slot-twin8",
-     33
+     34
     ]
    ],
    "ctor_srv": null,
@@ -8558,9 +8624,9 @@
    ],
    "cli_vts": [
     [
-     "5d6df4",
+     "5d6df0",
      "slot-twin10",
-     34
+     35
     ]
    ],
    "ctor_srv": null,
@@ -8590,9 +8656,9 @@
    ],
    "cli_vts": [
     [
-     "5d6e84",
+     "5d6e80",
      "slot-twin10",
-     34
+     35
     ]
    ],
    "ctor_srv": null,
@@ -8622,9 +8688,9 @@
    ],
    "cli_vts": [
     [
-     "5d700c",
-     "slot-twin8",
-     33
+     "5d7008",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "44e469",
@@ -8657,9 +8723,9 @@
    ],
    "cli_vts": [
     [
-     "5d7094",
-     "slot-twin8",
-     35
+     "5d7090",
+     "ctor-twin",
+     36
     ]
    ],
    "ctor_srv": "44e875",
@@ -8692,9 +8758,9 @@
    ],
    "cli_vts": [
     [
-     "5d7124",
-     "slot-twin8",
-     35
+     "5d7120",
+     "ctor-twin",
+     36
     ]
    ],
    "ctor_srv": "44eabb",
@@ -8727,9 +8793,9 @@
    ],
    "cli_vts": [
     [
-     "5d71b4",
-     "slot-twin8",
-     33
+     "5d71b0",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "44f0a2",
@@ -8762,9 +8828,9 @@
    ],
    "cli_vts": [
     [
-     "5da194",
-     "slot-twin11",
-     34
+     "5da190",
+     "ctor-twin",
+     35
     ]
    ],
    "ctor_srv": "4dbc11",
@@ -8797,9 +8863,9 @@
    ],
    "cli_vts": [
     [
-     "5d5f74",
+     "5d5f70",
      "slot-twin9",
-     29
+     30
     ]
    ],
    "ctor_srv": null,
@@ -8842,9 +8908,9 @@
    ],
    "cli_vts": [
     [
-     "5d6914",
-     "slot-twin10",
-     34
+     "5d6910",
+     "ctor-twin",
+     35
     ]
    ],
    "ctor_srv": "44fb30",
@@ -8893,9 +8959,9 @@
    ],
    "cli_vts": [
     [
-     "5d6f14",
+     "5d6f10",
      "slot-twin7",
-     29
+     30
     ]
    ],
    "ctor_srv": null,
@@ -8925,9 +8991,9 @@
    ],
    "cli_vts": [
     [
-     "5da09c",
+     "5da098",
      "slot-twin7",
-     29
+     30
     ]
    ],
    "ctor_srv": null,
@@ -8959,9 +9025,9 @@
    ],
    "cli_vts": [
     [
-     "5da114",
-     "slot-twin8",
-     30
+     "5da110",
+     "ctor-twin",
+     31
     ]
    ],
    "ctor_srv": null,
@@ -8991,9 +9057,9 @@
    ],
    "cli_vts": [
     [
-     "5d5d54",
+     "5d5d50",
      "slot-twin7",
-     30
+     31
     ]
    ],
    "ctor_srv": null,
@@ -9023,9 +9089,9 @@
    ],
    "cli_vts": [
     [
-     "5d6424",
+     "5d6420",
      "slot-twin7",
-     30
+     31
     ]
    ],
    "ctor_srv": null,
@@ -9055,9 +9121,9 @@
    ],
    "cli_vts": [
     [
-     "5d6f8c",
+     "5d6f88",
      "slot-twin7",
-     30
+     31
     ]
    ],
    "ctor_srv": null,
@@ -9087,9 +9153,9 @@
    ],
    "cli_vts": [
     [
-     "5d6074",
-     "slot-twin9",
-     29
+     "5d6070",
+     "ctor-twin",
+     30
     ]
    ],
    "ctor_srv": "4509c0",
@@ -9123,9 +9189,9 @@
    ],
    "cli_vts": [
     [
-     "5da024",
+     "5da020",
      "slot-twin9",
-     29
+     30
     ]
    ],
    "ctor_srv": null,
@@ -9189,9 +9255,9 @@
    ],
    "cli_vts": [
     [
-     "5d723c",
+     "5d7238",
      "slot-twin8",
-     35
+     36
     ]
    ],
    "ctor_srv": "45b16d",
@@ -9225,9 +9291,9 @@
    ],
    "cli_vts": [
     [
-     "5da42c",
+     "5da428",
      "slot-twin8",
-     33
+     34
     ]
    ],
    "ctor_srv": null,
@@ -9285,9 +9351,9 @@
    ],
    "cli_vts": [
     [
-     "5d743c",
-     "slot-twin7",
-     33
+     "5d7438",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "45cd35",
@@ -9321,9 +9387,9 @@
    ],
    "cli_vts": [
     [
-     "5d72cc",
+     "5d72c8",
      "slot-twin10",
-     34
+     35
     ]
    ],
    "ctor_srv": "45fa44",
@@ -9357,9 +9423,9 @@
    ],
    "cli_vts": [
     [
-     "5d7514",
-     "slot-twin1",
-     6
+     "5d7510",
+     "ctor-twin",
+     7
     ]
    ],
    "ctor_srv": "45fe02",
@@ -9676,9 +9742,9 @@
    ],
    "cli_vts": [
     [
-     "5d7a64",
-     "cli-ns",
-     4
+     "5d7a60",
+     "ctor-twin",
+     5
     ]
    ],
    "ctor_srv": "47cb20",
@@ -9711,9 +9777,9 @@
    ],
    "cli_vts": [
     [
-     "5d7a4c",
+     "5d7a48",
      "cli-ns",
-     4
+     5
     ]
    ],
    "ctor_srv": null,
@@ -9743,9 +9809,9 @@
    ],
    "cli_vts": [
     [
-     "5d7aac",
-     "cli-ns",
-     4
+     "5d7aa8",
+     "ctor-twin",
+     5
     ]
    ],
    "ctor_srv": "47eca2",
@@ -9778,9 +9844,9 @@
    ],
    "cli_vts": [
     [
-     "5d7914",
-     "slot-twin10",
-     33
+     "5d7910",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "46fd7b",
@@ -9841,9 +9907,9 @@
    ],
    "cli_vts": [
     [
-     "5d78fc",
+     "5d78f8",
      "cli-ns",
-     4
+     5
     ]
    ],
    "ctor_srv": null,
@@ -9914,9 +9980,9 @@
    ],
    "cli_vts": [
     [
-     "5dc250",
+     "5dc24c",
      "cli-ns",
-     4
+     5
     ]
    ],
    "ctor_srv": null,
@@ -9947,9 +10013,9 @@
    ],
    "cli_vts": [
     [
-     "5d7a34",
-     "cli-ns",
-     4
+     "5d7a30",
+     "ctor-twin",
+     5
     ]
    ],
    "ctor_srv": null,
@@ -9992,9 +10058,9 @@
    ],
    "cli_vts": [
     [
-     "5d81e4",
-     "slot-twin1",
-     6
+     "5d81e0",
+     "ctor-twin",
+     8
     ]
    ],
    "ctor_srv": "495d60",
@@ -10028,15 +10094,15 @@
    ],
    "cli_vts": [
     [
-     "5d74f4",
-     "cli-ns",
-     6
+     "5de5c8",
+     "slot-twin4",
+     10
     ]
    ],
    "ctor_srv": null,
    "ctor_cli": null,
    "evidence": [
-    "struct:5",
+    "struct:7",
     "vtable"
    ],
    "counts": {
@@ -10061,15 +10127,15 @@
    ],
    "cli_vts": [
     [
-     "5d83a4",
-     "slot-twin1",
-     5
+     "5d842c",
+     "slot-twin3",
+     8
     ]
    ],
    "ctor_srv": null,
    "ctor_cli": null,
    "evidence": [
-    "struct:5",
+    "struct:6",
     "vtable"
    ],
    "counts": {
@@ -10093,9 +10159,9 @@
    ],
    "cli_vts": [
     [
-     "5d83fc",
-     "slot-twin5",
-     5
+     "5d74f0",
+     "ctor-twin",
+     7
     ]
    ],
    "ctor_srv": null,
@@ -10138,15 +10204,15 @@
    ],
    "cli_vts": [
     [
-     "5de1f0",
-     "slot-twin5",
-     12
+     "5de1ec",
+     "ctor-twin",
+     21
     ]
    ],
    "ctor_srv": "5bbc55",
    "ctor_cli": "589750",
    "evidence": [
-    "struct:12",
+    "struct:17",
     "vtable"
    ],
    "counts": {
@@ -10290,127 +10356,126 @@
    ],
    "cli_vts": [
     [
-     "5de598",
+     "5dfad8",
+     "slot-twin4",
+     10
+    ],
+    [
+     "5de8d8",
      "slot-twin3",
-     7
+     10
     ],
     [
-     "5d8594",
-     "slot-twin5",
-     5
-    ],
-    [
-     "5dcbc0",
-     "slot-twin5",
-     5
-    ],
-    [
-     "5dd920",
-     "slot-twin1",
-     6
-    ],
-    [
-     "5ddac8",
-     "slot-twin5",
-     5
-    ],
-    [
-     "5ddcf8",
-     "slot-twin1",
-     5
-    ],
-    [
-     "5ddb98",
-     "slot-twin5",
-     5
-    ],
-    [
-     "5ddc68",
-     "slot-twin5",
-     5
-    ],
-    [
-     "5ddd50",
-     "slot-twin5",
-     5
-    ],
-    [
-     "5dde30",
-     "slot-twin5",
-     5
-    ],
-    [
-     "5ddf00",
-     "slot-twin5",
-     5
-    ],
-    [
-     "5dec90",
-     "slot-twin5",
-     5
-    ],
-    [
-     "5ded38",
-     "slot-twin1",
-     5
-    ],
-    [
-     "5ded90",
-     "slot-twin5",
-     5
-    ],
-    [
-     "5dee00",
-     "slot-twin1",
-     5
-    ],
-    [
-     "5dee58",
-     "slot-twin5",
-     5
-    ],
-    [
-     "5def30",
-     "slot-twin5",
-     5
-    ],
-    [
-     "5defb0",
-     "slot-twin1",
-     5
-    ],
-    [
-     "5df008",
-     "slot-twin5",
-     5
-    ],
-    [
-     "5df0e0",
-     "slot-twin5",
-     5
-    ],
-    [
-     "5dfa50",
-     "cli-ns",
-     5
-    ],
-    [
-     "5de8a8",
+     "5e00d8",
      "slot-twin3",
-     5
+     10
     ],
     [
-     "5d842c",
-     "slot-twin1",
-     4
+     "5d84ec",
+     "slot-twin3",
+     8
+    ],
+    [
+     "5ddaf8",
+     "slot-twin3",
+     8
+    ],
+    [
+     "5ddc98",
+     "slot-twin3",
+     8
+    ],
+    [
+     "5ddd80",
+     "slot-twin3",
+     8
+    ],
+    [
+     "5dde60",
+     "slot-twin3",
+     8
+    ],
+    [
+     "5ddf30",
+     "slot-twin3",
+     8
+    ],
+    [
+     "5decc0",
+     "slot-twin3",
+     8
+    ],
+    [
+     "5dedc0",
+     "slot-twin3",
+     8
+    ],
+    [
+     "5dee88",
+     "slot-twin3",
+     8
+    ],
+    [
+     "5def60",
+     "slot-twin3",
+     8
+    ],
+    [
+     "5df038",
+     "slot-twin3",
+     8
+    ],
+    [
+     "5df110",
+     "slot-twin3",
+     8
+    ],
+    [
+     "5df1e8",
+     "slot-twin3",
+     8
+    ],
+    [
+     "5df2c0",
+     "slot-twin3",
+     8
+    ],
+    [
+     "5df390",
+     "slot-twin3",
+     8
+    ],
+    [
+     "5df468",
+     "slot-twin3",
+     8
+    ],
+    [
+     "5df540",
+     "slot-twin3",
+     8
+    ],
+    [
+     "5df618",
+     "slot-twin3",
+     8
+    ],
+    [
+     "5df6e0",
+     "slot-twin3",
+     8
+    ],
+    [
+     "5df850",
+     "slot-twin3",
+     8
     ]
    ],
    "ctor_srv": "5e07fe",
    "ctor_cli": "5ae7bb",
    "evidence": [
-    "struct:4",
-    "struct:5",
     "struct:6",
+    "struct:7",
     "vtable"
    ],
    "counts": {
@@ -10431,15 +10496,15 @@
    ],
    "cli_vts": [
     [
-     "5d8464",
-     "slot-twin1",
-     5
+     "5dfbf0",
+     "slot-twin4",
+     10
     ]
    ],
    "ctor_srv": null,
    "ctor_cli": null,
    "evidence": [
-    "struct:5",
+    "struct:7",
     "vtable"
    ],
    "counts": {
@@ -10459,15 +10524,15 @@
    ],
    "cli_vts": [
     [
-     "5dd010",
-     "slot-twin5",
-     5
+     "5dd040",
+     "slot-twin3",
+     8
     ]
    ],
    "ctor_srv": null,
    "ctor_cli": null,
    "evidence": [
-    "struct:5",
+    "struct:6",
     "vtable"
    ],
    "counts": {
@@ -10517,15 +10582,15 @@
    ],
    "cli_vts": [
     [
-     "5dda70",
-     "slot-twin1",
-     5
+     "5ddbc8",
+     "slot-twin3",
+     8
     ]
    ],
    "ctor_srv": null,
    "ctor_cli": null,
    "evidence": [
-    "struct:5",
+    "struct:6",
     "vtable"
    ],
    "counts": {
@@ -10545,7 +10610,7 @@
    ],
    "cli_vts": [
     [
-     "5d84bc",
+     "5d83fc",
      "slot-twin5",
      5
     ]
@@ -10641,49 +10706,49 @@
    ],
    "cli_vts": [
     [
-     "5dada4",
+     "5dada0",
      "cli-ns",
-     4
+     5
     ],
     [
-     "5dadbc",
+     "5dadb8",
      "cli-ns",
-     4
+     5
     ],
     [
-     "5dbdf4",
+     "5dbdf0",
      "cli-ns",
-     4
+     5
     ],
     [
-     "5dbe6c",
+     "5dbe68",
      "cli-ns",
-     4
+     5
     ],
     [
-     "5dbe9c",
+     "5dbe98",
      "cli-ns",
-     4
+     5
     ],
     [
-     "5dbeb4",
+     "5dbeb0",
      "cli-ns",
-     4
+     5
     ],
     [
-     "5dadd4",
+     "5dadd0",
      "cli-ns",
-     4
+     5
     ],
     [
-     "5dadec",
+     "5dade8",
      "cli-ns",
-     4
+     5
     ],
     [
-     "5db0b4",
+     "5db0b0",
      "cli-ns",
-     4
+     5
     ]
    ],
    "ctor_srv": null,
@@ -10757,7 +10822,12 @@
    ],
    "cli_vts": [
     [
-     "5da8fc",
+     "5d9ab0",
+     "cli-ns",
+     5
+    ],
+    [
+     "5dad58",
      "cli-ns",
      5
     ]
@@ -10765,6 +10835,7 @@
    "ctor_srv": null,
    "ctor_cli": null,
    "evidence": [
+    "ctor",
     "struct:3",
     "vtable"
    ],
@@ -10816,9 +10887,9 @@
    ],
    "cli_vts": [
     [
-     "5d8644",
-     "slot-twin8",
-     29
+     "5d8640",
+     "ctor-twin",
+     30
     ]
    ],
    "ctor_srv": "497990",
@@ -10851,9 +10922,9 @@
    ],
    "cli_vts": [
     [
-     "5d86bc",
+     "5d86b8",
      "slot-twin8",
-     29
+     30
     ]
    ],
    "ctor_srv": null,
@@ -10884,9 +10955,9 @@
    ],
    "cli_vts": [
     [
-     "5d8734",
-     "slot-twin8",
-     33
+     "5d8730",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "49ad56",
@@ -10919,9 +10990,9 @@
    ],
    "cli_vts": [
     [
-     "5d87bc",
-     "slot-twin8",
-     35
+     "5d87b8",
+     "ctor-twin",
+     36
     ]
    ],
    "ctor_srv": "49dad7",
@@ -10954,9 +11025,9 @@
    ],
    "cli_vts": [
     [
-     "5d884c",
+     "5d8848",
      "slot-twin8",
-     35
+     36
     ]
    ],
    "ctor_srv": null,
@@ -10986,9 +11057,9 @@
    ],
    "cli_vts": [
     [
-     "5d88dc",
-     "slot-twin8",
-     33
+     "5d88d8",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "4a05a0",
@@ -11021,9 +11092,9 @@
    ],
    "cli_vts": [
     [
-     "5d8964",
+     "5d8960",
      "slot-twin8",
-     35
+     36
     ]
    ],
    "ctor_srv": null,
@@ -11053,9 +11124,9 @@
    ],
    "cli_vts": [
     [
-     "5d89f4",
-     "slot-twin8",
-     33
+     "5d89f0",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "4a2aa4",
@@ -11084,9 +11155,9 @@
    ],
    "cli_vts": [
     [
-     "5d862c",
+     "5d8628",
      "cli-ns",
-     4
+     5
     ]
    ],
    "ctor_srv": null,
@@ -11116,9 +11187,9 @@
    ],
    "cli_vts": [
     [
-     "5d8b44",
-     "slot-twin8",
-     42
+     "5d8b40",
+     "ctor-twin",
+     43
     ]
    ],
    "ctor_srv": "4a630b",
@@ -11248,14 +11319,14 @@
    ],
    "cli_vts": [
     [
-     "5d515c",
+     "5d5158",
      "cli-ns",
-     4
+     5
     ],
     [
-     "5d7a04",
+     "5d7a00",
      "cli-ns",
-     4
+     5
     ]
    ],
    "ctor_srv": null,
@@ -11302,9 +11373,9 @@
    ],
    "cli_vts": [
     [
-     "5d8e14",
-     "slot-twin8",
-     33
+     "5d8e10",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "4aa926",
@@ -11380,9 +11451,9 @@
    ],
    "cli_vts": [
     [
-     "5d8edc",
-     "slot-twin7",
-     33
+     "5d8ed8",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "4ad961",
@@ -11415,9 +11486,9 @@
    ],
    "cli_vts": [
     [
-     "5d8f64",
+     "5d8f60",
      "slot-twin8",
-     29
+     30
     ]
    ],
    "ctor_srv": null,
@@ -11447,9 +11518,9 @@
    ],
    "cli_vts": [
     [
-     "5d8fdc",
-     "slot-twin8",
-     29
+     "5d8fd8",
+     "ctor-twin",
+     30
     ]
    ],
    "ctor_srv": "4aeec3",
@@ -11483,9 +11554,9 @@
    ],
    "cli_vts": [
     [
-     "5d9054",
-     "slot-twin7",
-     29
+     "5d9050",
+     "ctor-twin",
+     30
     ]
    ],
    "ctor_srv": "4b0cfc",
@@ -11518,9 +11589,9 @@
    ],
    "cli_vts": [
     [
-     "5d90cc",
-     "slot-twin7",
-     32
+     "5d90c8",
+     "ctor-twin",
+     33
     ]
    ],
    "ctor_srv": "4b16c3",
@@ -11554,9 +11625,9 @@
    ],
    "cli_vts": [
     [
-     "5d9154",
-     "slot-twin7",
-     29
+     "5d9150",
+     "ctor-twin",
+     30
     ]
    ],
    "ctor_srv": "4b3fa3",
@@ -11590,9 +11661,9 @@
    ],
    "cli_vts": [
     [
-     "5d91cc",
-     "slot-twin9",
-     46
+     "5d91c8",
+     "ctor-twin",
+     47
     ]
    ],
    "ctor_srv": "4b4a0c",
@@ -11626,9 +11697,9 @@
    ],
    "cli_vts": [
     [
-     "5d928c",
-     "slot-twin9",
-     46
+     "5d9288",
+     "ctor-twin",
+     47
     ]
    ],
    "ctor_srv": "4b63f7",
@@ -11661,9 +11732,9 @@
    ],
    "cli_vts": [
     [
-     "5d9934",
+     "5d9930",
      "slot-twin9",
-     46
+     47
     ]
    ],
    "ctor_srv": null,
@@ -11693,9 +11764,9 @@
    ],
    "cli_vts": [
     [
-     "5d99f4",
+     "5d99f0",
      "slot-twin9",
-     46
+     47
     ]
    ],
    "ctor_srv": null,
@@ -11725,9 +11796,9 @@
    ],
    "cli_vts": [
     [
-     "5d934c",
-     "slot-twin7",
-     46
+     "5d9348",
+     "ctor-twin",
+     47
     ]
    ],
    "ctor_srv": "4b7fe5",
@@ -11760,9 +11831,9 @@
    ],
    "cli_vts": [
     [
-     "5d940c",
-     "slot-twin11",
-     47
+     "5d9408",
+     "ctor-twin",
+     48
     ]
    ],
    "ctor_srv": "4b8bba",
@@ -11795,9 +11866,9 @@
    ],
    "cli_vts": [
     [
-     "5d94cc",
-     "slot-twin10",
-     37
+     "5d94c8",
+     "ctor-twin",
+     38
     ]
    ],
    "ctor_srv": "4ba342",
@@ -11832,9 +11903,9 @@
    ],
    "cli_vts": [
     [
-     "5d9564",
-     "slot-twin8",
-     42
+     "5d9560",
+     "ctor-twin",
+     43
     ]
    ],
    "ctor_srv": "4bd495",
@@ -11868,9 +11939,9 @@
    ],
    "cli_vts": [
     [
-     "5d9624",
-     "slot-twin8",
-     30
+     "5d9620",
+     "ctor-twin",
+     31
     ]
    ],
    "ctor_srv": "4bfa5a",
@@ -11903,9 +11974,9 @@
    ],
    "cli_vts": [
     [
-     "5d96a4",
+     "5d96a0",
      "slot-twin8",
-     37
+     38
     ]
    ],
    "ctor_srv": null,
@@ -11935,9 +12006,9 @@
    ],
    "cli_vts": [
     [
-     "5d973c",
-     "slot-twin8",
-     42
+     "5d9738",
+     "ctor-twin",
+     43
     ]
    ],
    "ctor_srv": "4c247b",
@@ -11971,9 +12042,9 @@
    ],
    "cli_vts": [
     [
-     "5d97ec",
+     "5d97e8",
      "slot-twin8",
-     37
+     38
     ]
    ],
    "ctor_srv": null,
@@ -12003,9 +12074,9 @@
    ],
    "cli_vts": [
     [
-     "5d9884",
-     "slot-twin8",
-     42
+     "5d9880",
+     "ctor-twin",
+     43
     ]
    ],
    "ctor_srv": "4c4693",
@@ -12066,9 +12137,9 @@
    ],
    "cli_vts": [
     [
-     "5d853c",
+     "5d83a0",
      "slot-twin1",
-     5
+     8
     ]
    ],
    "ctor_srv": null,
@@ -12113,9 +12184,9 @@
    ],
    "cli_vts": [
     [
-     "5d9c0c",
+     "5d9c08",
      "slot-twin8",
-     33
+     34
     ]
    ],
    "ctor_srv": null,
@@ -12145,9 +12216,9 @@
    ],
    "cli_vts": [
     [
-     "5d9c94",
-     "slot-twin16",
-     43
+     "5d9c90",
+     "ctor-twin",
+     44
     ]
    ],
    "ctor_srv": "4cda5c",
@@ -12182,9 +12253,9 @@
    ],
    "cli_vts": [
     [
-     "5d9d44",
-     "slot-twin10",
-     43
+     "5d9d40",
+     "ctor-twin",
+     44
     ]
    ],
    "ctor_srv": "4d1af8",
@@ -12217,9 +12288,9 @@
    ],
    "cli_vts": [
     [
-     "5d9df4",
-     "slot-twin10",
-     43
+     "5d9df0",
+     "ctor-twin",
+     44
     ]
    ],
    "ctor_srv": "4d423a",
@@ -12253,9 +12324,9 @@
    ],
    "cli_vts": [
     [
-     "5d6c5c",
+     "5d6c58",
      "slot-twin9",
-     29
+     30
     ]
    ],
    "ctor_srv": null,
@@ -12285,9 +12356,9 @@
    ],
    "cli_vts": [
     [
-     "5d9f94",
-     "slot-twin7",
-     34
+     "5d9f90",
+     "ctor-twin",
+     35
     ]
    ],
    "ctor_srv": "4d8629",
@@ -12320,9 +12391,9 @@
    ],
    "cli_vts": [
     [
-     "5da224",
-     "slot-twin7",
-     34
+     "5da220",
+     "ctor-twin",
+     35
     ]
    ],
    "ctor_srv": "4dceba",
@@ -12355,9 +12426,9 @@
    ],
    "cli_vts": [
     [
-     "5da2b4",
-     "slot-twin8",
-     29
+     "5da2b0",
+     "ctor-twin",
+     30
     ]
    ],
    "ctor_srv": "4dde6a",
@@ -12390,9 +12461,9 @@
    ],
    "cli_vts": [
     [
-     "5da32c",
-     "slot-twin9",
-     29
+     "5da328",
+     "ctor-twin",
+     30
     ]
    ],
    "ctor_srv": null,
@@ -12422,9 +12493,9 @@
    ],
    "cli_vts": [
     [
-     "5da4b4",
-     "slot-twin8",
-     33
+     "5da4b0",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "4dff5c",
@@ -12457,9 +12528,9 @@
    ],
    "cli_vts": [
     [
-     "5da53c",
-     "slot-twin8",
-     29
+     "5da538",
+     "ctor-twin",
+     30
     ]
    ],
    "ctor_srv": "4e1b5c",
@@ -12492,9 +12563,9 @@
    ],
    "cli_vts": [
     [
-     "5da5b4",
-     "slot-twin8",
-     29
+     "5da5b0",
+     "ctor-twin",
+     30
     ]
    ],
    "ctor_srv": "4e1e10",
@@ -12527,9 +12598,9 @@
    ],
    "cli_vts": [
     [
-     "5da734",
-     "slot-twin8",
-     33
+     "5da730",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "4e2541",
@@ -12562,9 +12633,9 @@
    ],
    "cli_vts": [
     [
-     "5da7bc",
-     "slot-twin8",
-     33
+     "5da7b8",
+     "ctor-twin",
+     34
     ]
    ],
    "ctor_srv": "4e2e3d",
@@ -12597,9 +12668,9 @@
    ],
    "cli_vts": [
     [
-     "5da62c",
+     "5da628",
      "slot-twin10",
-     34
+     35
     ]
    ],
    "ctor_srv": null,
@@ -12629,9 +12700,9 @@
    ],
    "cli_vts": [
     [
-     "5da6bc",
+     "5da6b8",
      "slot-twin7",
-     29
+     30
     ]
    ],
    "ctor_srv": null,
@@ -12722,15 +12793,15 @@
    ],
    "cli_vts": [
     [
-     "5da914",
-     "slot-twin5",
-     15
+     "5da8f8",
+     "ctor-twin",
+     22
     ]
    ],
    "ctor_srv": null,
    "ctor_cli": null,
    "evidence": [
-    "struct:15",
+    "struct:20",
     "vtable"
    ],
    "counts": {
@@ -12765,9 +12836,9 @@
    ],
    "cli_vts": [
     [
-     "5da8e4",
+     "5da8e0",
      "cli-ns",
-     4
+     5
     ]
    ],
    "ctor_srv": null,
@@ -12832,9 +12903,9 @@
    ],
    "cli_vts": [
     [
-     "5dc300",
-     "slot-twin1",
-     6
+     "5dc2fc",
+     "ctor-twin",
+     7
     ]
    ],
    "ctor_srv": "4e7fd0",
@@ -12860,15 +12931,15 @@
    ],
    "cli_vts": [
     [
-     "5d9f1c",
-     "slot-twin9",
-     29
+     "5dc4cc",
+     "slot-twin1",
+     7
     ]
    ],
    "ctor_srv": null,
    "ctor_cli": null,
    "evidence": [
-    "struct:4",
+    "struct:5",
     "vtable"
    ],
    "counts": {
@@ -14933,9 +15004,9 @@
    ],
    "cli_vts": [
     [
-     "5d5204",
+     "5d5200",
      "cli-ns",
-     4
+     5
     ],
     [
      "5db578",
@@ -15399,9 +15470,9 @@
    ],
    "cli_vts": [
     [
-     "5dbf2c",
-     "slot-twin4",
-     13
+     "5dbf28",
+     "ctor-twin",
+     14
     ]
    ],
    "ctor_srv": "5ba8e0",
@@ -15801,14 +15872,20 @@
    ],
    "cli_vts": [
     [
-     "5d8bf4",
-     "cli-ns",
-     4
+     "5d8460",
+     "slot-twin1",
+     8
+    ],
+    [
+     "5dc154",
+     "ctor-twin",
+     5
     ]
    ],
    "ctor_srv": null,
    "ctor_cli": null,
    "evidence": [
+    "ctor",
     "struct:4",
     "vtable"
    ],
@@ -16108,9 +16185,9 @@
    ],
    "cli_vts": [
     [
-     "5dcb68",
-     "slot-twin1",
-     5
+     "5dd7bc",
+     "cli-ns",
+     6
     ]
    ],
    "ctor_srv": null,
@@ -16194,9 +16271,9 @@
    ],
    "cli_vts": [
     [
-     "5dbd0c",
+     "5dbd08",
      "cli-ns",
-     4
+     5
     ]
    ],
    "ctor_srv": null,
@@ -16292,9 +16369,9 @@
    ],
    "cli_vts": [
     [
-     "5dbd64",
+     "5dbd60",
      "cli-ns",
-     4
+     5
     ]
    ],
    "ctor_srv": null,
@@ -16320,9 +16397,9 @@
    ],
    "cli_vts": [
     [
-     "5dbd7c",
+     "5dbd78",
      "cli-ns",
-     4
+     5
     ]
    ],
    "ctor_srv": null,
@@ -16348,9 +16425,9 @@
    ],
    "cli_vts": [
     [
-     "5dbd94",
+     "5dbd90",
      "cli-ns",
-     4
+     5
     ]
    ],
    "ctor_srv": null,
@@ -16376,9 +16453,9 @@
    ],
    "cli_vts": [
     [
-     "5dbdac",
+     "5dbda8",
      "cli-ns",
-     4
+     5
     ]
    ],
    "ctor_srv": null,
@@ -16404,9 +16481,9 @@
    ],
    "cli_vts": [
     [
-     "5dae3c",
+     "5dae38",
      "cli-ns",
-     4
+     5
     ]
    ],
    "ctor_srv": null,
@@ -16842,9 +16919,9 @@
    ],
    "cli_vts": [
     [
-     "5dc980",
+     "5dc9c4",
      "cli-ns",
-     4
+     5
     ]
    ],
    "ctor_srv": null,
@@ -16870,9 +16947,9 @@
    ],
    "cli_vts": [
     [
-     "5dc9f0",
+     "5dc9ec",
      "cli-ns",
-     4
+     5
     ]
    ],
    "ctor_srv": null,
@@ -16911,9 +16988,9 @@
    ],
    "cli_vts": [
     [
-     "5dc010",
-     "slot-twin1",
-     6
+     "5dc00c",
+     "ctor-twin",
+     8
     ]
    ],
    "ctor_srv": "5f45d8",
@@ -16945,21 +17022,21 @@
    ],
    "cli_vts": [
     [
-     "5dc290",
-     "cli-ns",
-     5
+     "5dc28c",
+     "ctor-twin",
+     17
     ],
     [
-     "5dc2d8",
+     "5dc2d4",
      "slot-twin1",
-     3
+     4
     ]
    ],
    "ctor_srv": null,
    "ctor_cli": null,
    "evidence": [
     "struct:3",
-    "struct:5",
+    "struct:9",
     "vtable"
    ],
    "counts": {
@@ -17016,14 +17093,25 @@
    ],
    "cli_vts": [
     [
-     "5dd540",
-     "slot-twin1",
-     5
+     "5dd53c",
+     "ctor-twin",
+     8
+    ],
+    [
+     "5d8324",
+     "slot-twin3",
+     6
+    ],
+    [
+     "5dcbf0",
+     "slot-twin2",
+     8
     ]
    ],
    "ctor_srv": "5f051f",
    "ctor_cli": "5bdaf7",
    "evidence": [
+    "struct:3",
     "struct:5",
     "vtable"
    ],
@@ -17045,9 +17133,9 @@
    ],
    "cli_vts": [
     [
-     "5dcfb8",
-     "slot-twin1",
-     5
+     "5dcfb4",
+     "ctor-twin",
+     8
     ]
    ],
    "ctor_srv": "5f4ead",
@@ -17144,64 +17232,64 @@
    ],
    "cli_vts": [
     [
-     "5dd718",
-     "slot-twin1",
-     6
+     "5dd714",
+     "ctor-twin",
+     8
     ],
     [
-     "5de540",
+     "5de53c",
      "cli-ns",
-     5
+     8
     ],
     [
-     "5ddea8",
+     "5dd91c",
+     "ctor-twin",
+     8
+    ],
+    [
+     "5ddb3c",
      "slot-twin1",
-     5
+     8
     ],
     [
-     "5de0a8",
+     "5ddcf4",
      "slot-twin1",
-     5
+     8
     ],
     [
-     "5de850",
+     "5ddea4",
      "slot-twin1",
-     5
+     8
     ],
     [
-     "5dec38",
+     "5de0a4",
+     "ctor-twin",
+     8
+    ],
+    [
+     "5de84c",
      "slot-twin1",
-     5
+     8
     ],
     [
-     "5deed8",
-     "slot-twin1",
-     5
-    ],
-    [
-     "5df088",
-     "slot-twin1",
-     5
-    ],
-    [
-     "5dfb68",
+     "5dfa4c",
      "cli-ns",
-     5
+     8
     ],
     [
-     "5df160",
+     "5dec34",
      "slot-twin1",
-     5
+     8
     ],
     [
-     "5e0140",
+     "5e013c",
      "slot-twin1",
-     5
+     8
     ],
     [
-     "5e03f8",
+     "5e03f4",
      "slot-twin1",
-     5
+     8
     ]
    ],
    "ctor_srv": null,
@@ -17285,21 +17373,21 @@
    ],
    "cli_vts": [
     [
-     "5ddb40",
-     "slot-twin1",
-     5
+     "5de130",
+     "slot-twin2",
+     10
     ],
     [
      "5de1ac",
      "ctor-twin",
-     3
+     4
     ]
    ],
    "ctor_srv": "5f5602",
    "ctor_cli": "5c2ca9",
    "evidence": [
     "struct:3",
-    "struct:5",
+    "struct:7",
     "vtable"
    ],
    "counts": {
@@ -17473,7 +17561,7 @@
     [
      "5e14e4",
      "rtti",
-     3
+     4
     ]
    ],
    "ctor_srv": "5d87c0",
@@ -19786,351 +19874,315 @@
   },
   {
    "label": "CWnd",
-   "va": "5d8328",
-   "basis": "slot-twin2",
-   "slots": 3
+   "va": "5d84bc",
+   "basis": "slot-twin5",
+   "slots": 5
   },
   {
    "label": "CWnd",
-   "va": "5d8440",
-   "basis": "slot-twin2",
-   "slots": 3
-  },
-  {
-   "label": "CWnd",
-   "va": "5d84ec",
-   "basis": "slot-twin1",
-   "slots": 4
-  },
-  {
-   "label": "CWnd",
-   "va": "5d8500",
-   "basis": "slot-twin2",
-   "slots": 3
+   "va": "5d8594",
+   "basis": "slot-twin5",
+   "slots": 5
   },
   {
    "label": "CWnd",
    "va": "5d85c4",
-   "basis": "cli-ns",
-   "slots": 3
-  },
-  {
-   "label": "CWnd",
-   "va": "5d85d8",
    "basis": "slot-twin2",
-   "slots": 3
+   "slots": 8
+  },
+  {
+   "label": "CVisualObject",
+   "va": "5da840",
+   "basis": "slot-twin8",
+   "slots": 34
   },
   {
    "label": "CObject",
-   "va": "5dab94",
-   "basis": "cli-ns",
-   "slots": 4
-  },
-  {
-   "label": "CObject",
-   "va": "5dabac",
-   "basis": "cli-ns",
-   "slots": 4
-  },
-  {
-   "label": "CObject",
-   "va": "5dabc4",
-   "basis": "cli-ns",
-   "slots": 4
-  },
-  {
-   "label": "CObject",
-   "va": "5dabdc",
-   "basis": "cli-ns",
-   "slots": 4
-  },
-  {
-   "label": "CObject",
-   "va": "5dabf4",
-   "basis": "cli-ns",
-   "slots": 4
-  },
-  {
-   "label": "CObject",
-   "va": "5dac0c",
-   "basis": "cli-ns",
-   "slots": 4
-  },
-  {
-   "label": "CObject",
-   "va": "5dac64",
-   "basis": "cli-ns",
-   "slots": 4
-  },
-  {
-   "label": "CObject",
-   "va": "5dad8c",
-   "basis": "cli-ns",
-   "slots": 4
-  },
-  {
-   "label": "CObject",
-   "va": "5dae0c",
-   "basis": "cli-ns",
-   "slots": 4
-  },
-  {
-   "label": "CObject",
-   "va": "5dae24",
-   "basis": "cli-ns",
-   "slots": 4
-  },
-  {
-   "label": "CObject",
-   "va": "5db17c",
-   "basis": "cli-ns",
-   "slots": 4
-  },
-  {
-   "label": "CObject",
-   "va": "5db29c",
-   "basis": "cli-ns",
-   "slots": 4
-  },
-  {
-   "label": "CObject",
-   "va": "5db5c4",
-   "basis": "cli-ns",
-   "slots": 4
-  },
-  {
-   "label": "CObject",
-   "va": "5db634",
-   "basis": "cli-ns",
-   "slots": 4
-  },
-  {
-   "label": "CObject",
-   "va": "5db754",
-   "basis": "cli-ns",
-   "slots": 4
-  },
-  {
-   "label": "CObject",
-   "va": "5db7bc",
-   "basis": "cli-ns",
-   "slots": 4
-  },
-  {
-   "label": "CObject",
-   "va": "5db7d4",
-   "basis": "cli-ns",
-   "slots": 4
-  },
-  {
-   "label": "CObject",
-   "va": "5db80c",
-   "basis": "cli-ns",
-   "slots": 4
-  },
-  {
-   "label": "CObject",
-   "va": "5db824",
-   "basis": "cli-ns",
-   "slots": 4
-  },
-  {
-   "label": "CObject",
-   "va": "5db874",
+   "va": "5dab90",
    "basis": "cli-ns",
    "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5db8a4",
+   "va": "5daba8",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5db8bc",
+   "va": "5dabc0",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbbb4",
+   "va": "5dabd8",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbbcc",
+   "va": "5dabf0",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbbe4",
+   "va": "5dac08",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbbfc",
+   "va": "5dac60",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbc14",
+   "va": "5dad88",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbc2c",
+   "va": "5dae08",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbc44",
+   "va": "5dae20",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbc5c",
+   "va": "5db178",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbc74",
+   "va": "5db298",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbc8c",
+   "va": "5db5c0",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbca4",
+   "va": "5db630",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbcbc",
+   "va": "5db750",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbcd4",
+   "va": "5db7b8",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbd24",
+   "va": "5db7d0",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbd3c",
+   "va": "5db808",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbdc4",
+   "va": "5db820",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbe0c",
+   "va": "5db870",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 6
   },
   {
    "label": "CObject",
-   "va": "5dbe24",
+   "va": "5db8a0",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbe3c",
+   "va": "5db8b8",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbe54",
+   "va": "5dbbb0",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbe84",
+   "va": "5dbbc8",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbecc",
+   "va": "5dbbe0",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbee4",
+   "va": "5dbbf8",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbefc",
+   "va": "5dbc10",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbf14",
+   "va": "5dbc28",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dbfc8",
+   "va": "5dbc40",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dc158",
+   "va": "5dbc58",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CObject",
-   "va": "5dc174",
+   "va": "5dbc70",
    "basis": "cli-ns",
-   "slots": 3
+   "slots": 5
   },
   {
-   "label": "CFile",
-   "va": "5dc2a8",
-   "basis": "slot-twin1",
+   "label": "CObject",
+   "va": "5dbc88",
+   "basis": "cli-ns",
+   "slots": 5
+  },
+  {
+   "label": "CObject",
+   "va": "5dbca0",
+   "basis": "cli-ns",
+   "slots": 5
+  },
+  {
+   "label": "CObject",
+   "va": "5dbcb8",
+   "basis": "cli-ns",
+   "slots": 5
+  },
+  {
+   "label": "CObject",
+   "va": "5dbcd0",
+   "basis": "cli-ns",
+   "slots": 5
+  },
+  {
+   "label": "CObject",
+   "va": "5dbd20",
+   "basis": "cli-ns",
+   "slots": 5
+  },
+  {
+   "label": "CObject",
+   "va": "5dbd38",
+   "basis": "cli-ns",
+   "slots": 5
+  },
+  {
+   "label": "CObject",
+   "va": "5dbdc0",
+   "basis": "cli-ns",
+   "slots": 5
+  },
+  {
+   "label": "CObject",
+   "va": "5dbe08",
+   "basis": "cli-ns",
+   "slots": 5
+  },
+  {
+   "label": "CObject",
+   "va": "5dbe20",
+   "basis": "cli-ns",
+   "slots": 5
+  },
+  {
+   "label": "CObject",
+   "va": "5dbe38",
+   "basis": "cli-ns",
+   "slots": 5
+  },
+  {
+   "label": "CObject",
+   "va": "5dbe50",
+   "basis": "cli-ns",
+   "slots": 5
+  },
+  {
+   "label": "CObject",
+   "va": "5dbe80",
+   "basis": "cli-ns",
+   "slots": 5
+  },
+  {
+   "label": "CObject",
+   "va": "5dbec8",
+   "basis": "cli-ns",
+   "slots": 5
+  },
+  {
+   "label": "CObject",
+   "va": "5dbee0",
+   "basis": "cli-ns",
+   "slots": 5
+  },
+  {
+   "label": "CObject",
+   "va": "5dbef8",
+   "basis": "cli-ns",
+   "slots": 5
+  },
+  {
+   "label": "CObject",
+   "va": "5dbf10",
+   "basis": "cli-ns",
+   "slots": 5
+  },
+  {
+   "label": "CObject",
+   "va": "5dc170",
+   "basis": "cli-ns",
    "slots": 4
-  },
-  {
-   "label": "CFile",
-   "va": "5dc2bc",
-   "basis": "slot-twin1",
-   "slots": 3
   },
   {
    "label": "CStdioFile",
@@ -20139,34 +20191,16 @@
    "slots": 3
   },
   {
-   "label": "CObject",
-   "va": "5dc4d0",
-   "basis": "cli-ns",
-   "slots": 4
+   "label": "CWnd",
+   "va": "5dcbc0",
+   "basis": "slot-twin5",
+   "slots": 5
   },
   {
    "label": "CWnd",
-   "va": "5dcbf0",
-   "basis": "cli-ns",
-   "slots": 3
-  },
-  {
-   "label": "CWnd",
-   "va": "5dcc04",
-   "basis": "slot-twin2",
-   "slots": 3
-  },
-  {
-   "label": "CWnd",
-   "va": "5dd040",
-   "basis": "slot-twin1",
-   "slots": 4
-  },
-  {
-   "label": "CWnd",
-   "va": "5dd054",
-   "basis": "slot-twin2",
-   "slots": 3
+   "va": "5dd010",
+   "basis": "slot-twin5",
+   "slots": 5
   },
   {
    "label": "CWnd",
@@ -20176,207 +20210,135 @@
   },
   {
    "label": "CWnd",
-   "va": "5dd5dc",
-   "basis": "slot-twin2",
-   "slots": 3
-  },
-  {
-   "label": "CWnd",
-   "va": "5ddaf8",
-   "basis": "slot-twin1",
-   "slots": 4
-  },
-  {
-   "label": "CWnd",
-   "va": "5ddb0c",
-   "basis": "slot-twin2",
-   "slots": 3
-  },
-  {
-   "label": "CWnd",
-   "va": "5ddbc8",
-   "basis": "slot-twin1",
-   "slots": 4
-  },
-  {
-   "label": "CWnd",
-   "va": "5ddbdc",
-   "basis": "slot-twin2",
-   "slots": 3
+   "va": "5dd5d8",
+   "basis": "slot-twin3",
+   "slots": 6
   },
   {
    "label": "CCmdTarget",
-   "va": "5ddc10",
+   "va": "5dda6c",
    "basis": "slot-twin1",
+   "slots": 8
+  },
+  {
+   "label": "CWnd",
+   "va": "5ddac8",
+   "basis": "slot-twin5",
    "slots": 5
   },
   {
    "label": "CWnd",
-   "va": "5ddc98",
-   "basis": "slot-twin1",
-   "slots": 4
-  },
-  {
-   "label": "CWnd",
-   "va": "5ddcac",
-   "basis": "slot-twin2",
-   "slots": 3
-  },
-  {
-   "label": "CWnd",
-   "va": "5ddd80",
-   "basis": "slot-twin1",
-   "slots": 4
-  },
-  {
-   "label": "CWnd",
-   "va": "5ddd94",
-   "basis": "slot-twin2",
-   "slots": 3
+   "va": "5ddb98",
+   "basis": "slot-twin5",
+   "slots": 5
   },
   {
    "label": "CCmdTarget",
-   "va": "5dddd8",
+   "va": "5ddc0c",
    "basis": "slot-twin1",
+   "slots": 8
+  },
+  {
+   "label": "CWnd",
+   "va": "5ddc68",
+   "basis": "slot-twin5",
    "slots": 5
   },
   {
    "label": "CWnd",
-   "va": "5dde60",
+   "va": "5ddd50",
+   "basis": "slot-twin5",
+   "slots": 5
+  },
+  {
+   "label": "CCmdTarget",
+   "va": "5dddd4",
    "basis": "slot-twin1",
-   "slots": 4
+   "slots": 8
   },
   {
    "label": "CWnd",
-   "va": "5dde74",
-   "basis": "slot-twin2",
-   "slots": 3
+   "va": "5dde30",
+   "basis": "slot-twin5",
+   "slots": 5
   },
   {
    "label": "CWnd",
-   "va": "5ddf30",
+   "va": "5ddf00",
+   "basis": "slot-twin5",
+   "slots": 5
+  },
+  {
+   "label": "CWnd",
+   "va": "5de598",
+   "basis": "slot-twin3",
+   "slots": 8
+  },
+  {
+   "label": "CWnd",
+   "va": "5de8a8",
+   "basis": "slot-twin3",
+   "slots": 5
+  },
+  {
+   "label": "CWnd",
+   "va": "5dec8c",
+   "basis": "slot-twin5",
+   "slots": 6
+  },
+  {
+   "label": "CWnd",
+   "va": "5ded90",
+   "basis": "slot-twin5",
+   "slots": 5
+  },
+  {
+   "label": "CWnd",
+   "va": "5dee58",
+   "basis": "slot-twin5",
+   "slots": 5
+  },
+  {
+   "label": "CCmdTarget",
+   "va": "5deed4",
    "basis": "slot-twin1",
-   "slots": 4
+   "slots": 8
   },
   {
    "label": "CWnd",
-   "va": "5ddf44",
-   "basis": "slot-twin2",
-   "slots": 3
+   "va": "5def30",
+   "basis": "slot-twin5",
+   "slots": 5
   },
   {
-   "label": "CWnd",
-   "va": "5de130",
-   "basis": "cli-ns",
-   "slots": 4
-  },
-  {
-   "label": "CWnd",
-   "va": "5de144",
-   "basis": "slot-twin2",
-   "slots": 3
-  },
-  {
-   "label": "CFileFind",
-   "va": "5de22c",
-   "basis": "slot-twin4",
-   "slots": 4
-  },
-  {
-   "label": "CWnd",
-   "va": "5de5c8",
+   "label": "CCmdTarget",
+   "va": "5defac",
    "basis": "slot-twin1",
-   "slots": 4
+   "slots": 8
   },
   {
    "label": "CWnd",
-   "va": "5de5dc",
-   "basis": "slot-twin2",
-   "slots": 3
+   "va": "5df008",
+   "basis": "slot-twin5",
+   "slots": 5
   },
   {
-   "label": "CWnd",
-   "va": "5de8d8",
-   "basis": "cli-ns",
-   "slots": 4
-  },
-  {
-   "label": "CWnd",
-   "va": "5de8ec",
-   "basis": "slot-twin2",
-   "slots": 3
-  },
-  {
-   "label": "CWnd",
-   "va": "5decc0",
+   "label": "CCmdTarget",
+   "va": "5df084",
    "basis": "slot-twin1",
-   "slots": 4
+   "slots": 8
   },
   {
    "label": "CWnd",
-   "va": "5decd4",
-   "basis": "slot-twin2",
-   "slots": 3
+   "va": "5df0e0",
+   "basis": "slot-twin5",
+   "slots": 5
   },
   {
-   "label": "CWnd",
-   "va": "5dedc0",
+   "label": "CCmdTarget",
+   "va": "5df15c",
    "basis": "slot-twin1",
-   "slots": 4
-  },
-  {
-   "label": "CWnd",
-   "va": "5dedd4",
-   "basis": "slot-twin2",
-   "slots": 3
-  },
-  {
-   "label": "CWnd",
-   "va": "5dee88",
-   "basis": "slot-twin1",
-   "slots": 4
-  },
-  {
-   "label": "CWnd",
-   "va": "5dee9c",
-   "basis": "slot-twin2",
-   "slots": 3
-  },
-  {
-   "label": "CWnd",
-   "va": "5def60",
-   "basis": "slot-twin1",
-   "slots": 4
-  },
-  {
-   "label": "CWnd",
-   "va": "5def74",
-   "basis": "slot-twin2",
-   "slots": 3
-  },
-  {
-   "label": "CWnd",
-   "va": "5df038",
-   "basis": "slot-twin1",
-   "slots": 4
-  },
-  {
-   "label": "CWnd",
-   "va": "5df04c",
-   "basis": "slot-twin2",
-   "slots": 3
-  },
-  {
-   "label": "CWnd",
-   "va": "5df110",
-   "basis": "slot-twin1",
-   "slots": 4
-  },
-  {
-   "label": "CWnd",
-   "va": "5df124",
-   "basis": "slot-twin2",
-   "slots": 3
+   "slots": 8
   },
   {
    "label": "CWnd",
@@ -20385,16 +20347,10 @@
    "slots": 5
   },
   {
-   "label": "CWnd",
-   "va": "5df1e8",
+   "label": "CCmdTarget",
+   "va": "5df234",
    "basis": "slot-twin1",
-   "slots": 4
-  },
-  {
-   "label": "CWnd",
-   "va": "5df1fc",
-   "basis": "slot-twin2",
-   "slots": 3
+   "slots": 8
   },
   {
    "label": "CWnd",
@@ -20403,22 +20359,10 @@
    "slots": 5
   },
   {
-   "label": "CWnd",
-   "va": "5df2c0",
-   "basis": "slot-twin1",
-   "slots": 4
-  },
-  {
-   "label": "CWnd",
-   "va": "5df2d4",
-   "basis": "slot-twin2",
-   "slots": 3
-  },
-  {
    "label": "CCmdTarget",
-   "va": "5df308",
+   "va": "5df304",
    "basis": "slot-twin1",
-   "slots": 5
+   "slots": 8
   },
   {
    "label": "CWnd",
@@ -20427,22 +20371,10 @@
    "slots": 5
   },
   {
-   "label": "CWnd",
-   "va": "5df390",
-   "basis": "slot-twin1",
-   "slots": 4
-  },
-  {
-   "label": "CWnd",
-   "va": "5df3a4",
-   "basis": "slot-twin2",
-   "slots": 3
-  },
-  {
    "label": "CCmdTarget",
-   "va": "5df3e0",
+   "va": "5df3dc",
    "basis": "slot-twin1",
-   "slots": 5
+   "slots": 8
   },
   {
    "label": "CWnd",
@@ -20451,22 +20383,10 @@
    "slots": 5
   },
   {
-   "label": "CWnd",
-   "va": "5df468",
-   "basis": "slot-twin1",
-   "slots": 4
-  },
-  {
-   "label": "CWnd",
-   "va": "5df47c",
-   "basis": "slot-twin2",
-   "slots": 3
-  },
-  {
    "label": "CCmdTarget",
-   "va": "5df4b8",
+   "va": "5df4b4",
    "basis": "slot-twin1",
-   "slots": 5
+   "slots": 8
   },
   {
    "label": "CWnd",
@@ -20475,22 +20395,10 @@
    "slots": 5
   },
   {
-   "label": "CWnd",
-   "va": "5df540",
-   "basis": "slot-twin1",
-   "slots": 4
-  },
-  {
-   "label": "CWnd",
-   "va": "5df554",
-   "basis": "slot-twin2",
-   "slots": 3
-  },
-  {
    "label": "CCmdTarget",
-   "va": "5df590",
+   "va": "5df58c",
    "basis": "slot-twin1",
-   "slots": 5
+   "slots": 8
   },
   {
    "label": "CWnd",
@@ -20499,22 +20407,10 @@
    "slots": 5
   },
   {
-   "label": "CWnd",
-   "va": "5df618",
-   "basis": "slot-twin1",
-   "slots": 4
-  },
-  {
-   "label": "CWnd",
-   "va": "5df62c",
-   "basis": "slot-twin2",
-   "slots": 3
-  },
-  {
    "label": "CCmdTarget",
-   "va": "5df658",
+   "va": "5df654",
    "basis": "slot-twin1",
-   "slots": 5
+   "slots": 8
   },
   {
    "label": "CWnd",
@@ -20523,28 +20419,16 @@
    "slots": 5
   },
   {
-   "label": "CWnd",
-   "va": "5df6e0",
-   "basis": "slot-twin1",
-   "slots": 4
-  },
-  {
-   "label": "CWnd",
-   "va": "5df6f4",
-   "basis": "slot-twin2",
-   "slots": 3
-  },
-  {
    "label": "CObject",
-   "va": "5df720",
+   "va": "5df71c",
    "basis": "cli-ns",
-   "slots": 4
+   "slots": 5
   },
   {
    "label": "CCmdTarget",
-   "va": "5df7c8",
+   "va": "5df7c4",
    "basis": "slot-twin1",
-   "slots": 5
+   "slots": 8
   },
   {
    "label": "CWnd",
@@ -20554,87 +20438,39 @@
   },
   {
    "label": "CWnd",
-   "va": "5df850",
-   "basis": "slot-twin1",
-   "slots": 4
-  },
-  {
-   "label": "CWnd",
-   "va": "5df864",
-   "basis": "slot-twin2",
-   "slots": 3
-  },
-  {
-   "label": "CWnd",
    "va": "5dfaa8",
-   "basis": "slot-twin2",
-   "slots": 3
+   "basis": "slot-twin3",
+   "slots": 8
   },
   {
-   "label": "CWnd",
-   "va": "5dfab8",
-   "basis": "slot-twin1",
-   "slots": 3
-  },
-  {
-   "label": "CWnd",
-   "va": "5dfad8",
-   "basis": "slot-twin1",
-   "slots": 4
-  },
-  {
-   "label": "CWnd",
-   "va": "5dfaec",
-   "basis": "slot-twin2",
-   "slots": 3
+   "label": "CObject",
+   "va": "5dfb64",
+   "basis": "cli-ns",
+   "slots": 8
   },
   {
    "label": "CWnd",
    "va": "5dfbc0",
-   "basis": "slot-twin2",
-   "slots": 3
-  },
-  {
-   "label": "CWnd",
-   "va": "5dfbd0",
-   "basis": "slot-twin1",
-   "slots": 3
-  },
-  {
-   "label": "CWnd",
-   "va": "5dfbf0",
-   "basis": "slot-twin1",
-   "slots": 4
-  },
-  {
-   "label": "CWnd",
-   "va": "5dfc04",
-   "basis": "slot-twin2",
-   "slots": 3
+   "basis": "slot-twin3",
+   "slots": 8
   },
   {
    "label": "CObject",
-   "va": "5dfd18",
+   "va": "5dfd14",
    "basis": "cli-ns",
-   "slots": 4
-  },
-  {
-   "label": "CFile",
-   "va": "5dfe88",
-   "basis": "slot-twin1",
    "slots": 5
   },
   {
    "label": "CFile",
-   "va": "5dfea0",
-   "basis": "slot-twin1",
-   "slots": 3
+   "va": "5dfeac",
+   "basis": "slot-twin5",
+   "slots": 8
   },
   {
    "label": "CCmdTarget",
-   "va": "5e0050",
+   "va": "5e004c",
    "basis": "slot-twin1",
-   "slots": 5
+   "slots": 8
   },
   {
    "label": "CWnd",
@@ -20644,27 +20480,15 @@
   },
   {
    "label": "CWnd",
-   "va": "5e00d8",
-   "basis": "cli-ns",
-   "slots": 4
+   "va": "5e01d8",
+   "basis": "slot-twin3",
+   "slots": 6
   },
   {
    "label": "CWnd",
-   "va": "5e00ec",
-   "basis": "slot-twin2",
-   "slots": 3
-  },
-  {
-   "label": "CWnd",
-   "va": "5e01dc",
-   "basis": "slot-twin2",
-   "slots": 3
-  },
-  {
-   "label": "CWnd",
-   "va": "5e0494",
-   "basis": "slot-twin2",
-   "slots": 3
+   "va": "5e0490",
+   "basis": "slot-twin3",
+   "slots": 6
   }
  ]
 }
