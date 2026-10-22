@@ -1133,6 +1133,12 @@ public:
 	int32_t field_0x49bc; //unk type
 	int32_t field_0x49c0; //unk type
 	int32_t field_0x49c4; //unk type
+#ifdef A2CLIENT
+	// client-only extras past the server class end (retail client class is larger);
+	// written by client-side cursor/packet code, read by CUnit::DrawHealthBar balloons
+	int32_t cursor_over_obj_last_index; // client 0x4a08
+	int32_t last_focus_obj_index; // client 0x4a0c
+#endif
 };
 
 ASSERT_OFFSET(BigStruct2, field_0x80, 0x80);

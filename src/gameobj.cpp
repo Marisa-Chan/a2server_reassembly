@@ -1674,6 +1674,7 @@ void CGameObject::DrawControlGroupNumber(int32_t x, int32_t y) { // 4627BB
 }
 
 void CUnit::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) { // 466a78
+    // client: 46a757
     if (this->death_state >= 5) {
         return;
     }
@@ -1747,6 +1748,21 @@ void CUnit::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) { // 466a
     }
 
     this->DrawControlGroupNumber(left, y + 4);
+
+#ifdef A2CLIENT
+    if (g_IsServer == 0) {
+        MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+        if (main_wnd->field_0x3e0.field_10 != 0 && main_wnd->hat_settings.ishat != 0 &&
+            main_wnd->hat_settings.deathmatch == 2 && (this->unitFlags & 1) != 0) {
+            if (map->cursor_over_obj_last_index == this->map_player->index) {
+                g_ca16_money->Draw(right - 0xa, bottom - 0x40, 0, 0, 0);
+            }
+            if (map->last_focus_obj_index == this->map_player->index) {
+                g_bmp_server->Draw(right, bottom - 0x3d, 0, 0, 0);
+            }
+        }
+    }
+#endif
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     int32_t session_mode = main_wnd->sessionMode;
