@@ -4307,7 +4307,18 @@ void CBackPack::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
 }
 
 // 462887
+// client: 46647f
 void CBackPack::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
+    if (g_IsServer == 0 && (this->typeId == 6 || this->typeId == 7 || this->typeId == 8)) {
+        if (this->typeId != 7) {
+            g_ca16_money->Draw(this->centerScreenX - 0x14, this->centerScreenY - 0x3c, 0, 0, 0);
+        }
+        if (this->typeId != 6) {
+            g_bmp_server->Draw(this->centerScreenX - 5, this->centerScreenY - 0x39, 0, 0, 0);
+        }
+        return;
+    }
+
     int32_t half_width = g_spr_backpack->GetWidth(0) / 2;
     int32_t half_height = g_spr_backpack->GetHeight(0) / 2;
 
