@@ -8,6 +8,8 @@ import io
 import json
 import re
 import sys
+import threading
+import time
 import traceback
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
@@ -34,6 +36,8 @@ class OpContext:
         self.autosave = autosave
         self.stop = False
         self.tx_depth = 0
+        self.name = None      # set by ProgramRegistry ("server"/"client"); None = standalone ctx
+        self.registry = None  # owning ProgramRegistry, when this ctx is served by one
         self._decomp = None
         from ghidra.util.task import ConsoleTaskMonitor
         self.monitor = ConsoleTaskMonitor()
@@ -246,6 +250,74 @@ class _Transaction:
         if et is None and self.ctx.autosave and self.ctx.tx_depth == 0:
             self.ctx.save(self.name)
         return False
+
+
+class ProgramRegistry:
+    """Named set of programs behind one daemon (server/client). Programs open lazily
+    on first use through `opener(project_path) -> (program, consumer)`."""
+
+    def __init__(self, programs, default, opener, autosave=True, log=print):
+        self.paths = dict(programs)     # canonical name -> project path
+        self.default = default
+        self.opener = opener
+        self.autosave = autosave
+        self.stop = False
+        self.log = log
+        self.ctxs = {}                  # canonical name -> OpContext (open programs only)
+        self._consumers = {}            # canonical name -> consumer to release (None = not owned)
+        self._lock = threading.Lock()
+
+    @classmethod
+    def single(cls, ctx):
+        """Serve one already-open OpContext (ghidra_gui_server.py: currentProgram)."""
+        name = ctx.name or ctx.program.getName()
+        reg = cls({name: None}, name, None, autosave=ctx.autosave)
+        reg.ctxs = {name: ctx}
+        reg._consumers = {name: None}
+        ctx.name, ctx.registry = name, reg
+        return reg
+
+    def resolve(self, name):
+        """Canonical name; accepts aliases: 'client', 'allods2.exe', '/allods2.exe'."""
+        if name in self.paths:
+            return name
+        n = str(name).lstrip("/")
+        for canon, path in self.paths.items():
+            if n == canon or (path is not None and n == path.lstrip("/")):
+                return canon
+        raise OpError(f"unknown program '{name}' (valid: {', '.join(self.paths)})")
+
+    def get(self, name=None):
+        """(canonical_name, ctx); opens the program on first use."""
+        canon = self.resolve(self.default if name is None else name)
+        with self._lock:
+            ctx = self.ctxs.get(canon)
+            if ctx is None:
+                if self.opener is None:
+                    raise OpError(f"program '{canon}' is not open and this daemon cannot open it")
+                t0 = time.time()
+                program, consumer = self.opener(self.paths[canon])
+                ctx = OpContext(program, autosave=self.autosave)
+                ctx.name, ctx.registry = canon, self
+                self.ctxs[canon] = ctx
+                self._consumers[canon] = consumer
+                self.log(f"[ghidra_ops] opened {canon} = {program.getName()} "
+                         f"({program.getFunctionManager().getFunctionCount()} functions) in {time.time() - t0:.1f}s")
+            return canon, ctx
+
+    def save_all(self, why="ghidra_ops"):
+        return [name for name, ctx in self.ctxs.items() if ctx.save(why)]
+
+    def release_all(self):
+        for name, ctx in self.ctxs.items():
+            consumer = self._consumers.get(name)
+            if consumer is not None:
+                ctx.program.release(consumer)
+                self._consumers[name] = None
+
+    def dispose_all(self):
+        for ctx in self.ctxs.values():
+            ctx.dispose()
 
 
 # -- formatting helpers ----------------------------------------------------
@@ -971,6 +1043,15 @@ def op_save(ctx):
     return "saved" if ctx.save("manual save") else "nothing to save"
 
 
+def op_save_all(ctx):
+    """Save every open program, not just the addressed one."""
+    reg = getattr(ctx, "registry", None)
+    if reg is None:
+        return op_save(ctx)
+    saved = reg.save_all("manual save")
+    return ("saved: " + ", ".join(saved)) if saved else "nothing to save"
+
+
 def op_undo(ctx):
     p = ctx.program
     if not p.canUndo():
@@ -985,16 +1066,33 @@ def op_undo(ctx):
 def op_status(ctx):
     p = ctx.program
     df = p.getDomainFile()
-    return "\n".join([f"program: {p.getName()}  path: {df.getPathname()}",
-                      f"functions: {ctx.fm.getFunctionCount()}  unsaved changes: {p.isChanged()}  autosave: {ctx.autosave}",
-                      f"versioned: {df.isVersioned()}  checked out: {df.isCheckedOut()}  version: {df.getVersion()}"])
+    lines = []
+    reg = getattr(ctx, "registry", None)
+    if reg is not None:
+        parts = []
+        for name in reg.paths:
+            c = reg.ctxs.get(name)
+            if c is None:
+                parts.append(f"{name}=not open (lazy)")
+            else:
+                parts.append(f"{name}=open({c.fm.getFunctionCount()} fns"
+                             + (", changed" if c.program.isChanged() else "") + ")")
+        lines.append(f"daemon programs: {'  '.join(parts)}  default: {reg.default}")
+    lines += [f"program: {p.getName()}  path: {df.getPathname()}",
+              f"functions: {ctx.fm.getFunctionCount()}  unsaved changes: {p.isChanged()}  autosave: {ctx.autosave}",
+              f"versioned: {df.isVersioned()}  checked out: {df.isCheckedOut()}  version: {df.getVersion()}"]
+    return "\n".join(lines)
 
 
 def op_python(ctx, code):
-    """Escape hatch: run Python inside the daemon. `program`, `ctx` are in scope."""
+    """Escape hatch: run Python inside the daemon. `program`, `ctx`, `programs` are in scope."""
     buf = io.StringIO()
     old = sys.stdout
-    g = {"program": ctx.program, "currentProgram": ctx.program, "ctx": ctx, "monitor": ctx.monitor}
+    reg = getattr(ctx, "registry", None)
+    programs = {n: c.program for n, c in reg.ctxs.items()} if reg is not None else \
+        {ctx.name or ctx.program.getName(): ctx.program}
+    g = {"program": ctx.program, "currentProgram": ctx.program, "ctx": ctx, "monitor": ctx.monitor,
+         "programs": programs}
     with ctx.transaction("python"):
         sys.stdout = buf
         try:
@@ -1007,6 +1105,9 @@ def op_python(ctx, code):
 def op_shutdown(ctx):
     """Stop the daemon (it saves and releases the project on the way out)."""
     ctx.stop = True
+    reg = getattr(ctx, "registry", None)
+    if reg is not None:
+        reg.stop = True
     return "shutting down"
 
 
@@ -1014,9 +1115,13 @@ def op_reload(ctx):
     """Re-execute this file in place so op changes apply without restarting the daemon."""
     with open(__file__, encoding="utf-8") as fh:
         exec(compile(fh.read(), __file__, "exec"), globals())
-    ctx.__class__ = globals()["OpContext"]  # pick up method changes on the live context too
-    ctx.__dict__.setdefault("tx_depth", 0)
-    ctx.__dict__.setdefault("stop", False)
+    reg = getattr(ctx, "registry", None)
+    for c in (list(reg.ctxs.values()) if reg is not None else [ctx]):
+        c.__class__ = globals()["OpContext"]  # pick up method changes on the live context too
+        c.__dict__.setdefault("tx_depth", 0)
+        c.__dict__.setdefault("stop", False)
+    if reg is not None:
+        reg.__class__ = globals()["ProgramRegistry"]
     return f"reloaded, {len(OPS)} ops"
 
 
@@ -1036,21 +1141,25 @@ def run_op(ctx, op, args):
 
 # -- HTTP server -------------------------------------------------------------
 
-def make_handler(ctx):
+def make_handler(reg):
     class Handler(BaseHTTPRequestHandler):
         def log_message(self, fmt, *a):
             pass
 
         def do_POST(self):
             n = int(self.headers.get("Content-Length", "0"))
+            program = None
             try:
                 req = json.loads(self.rfile.read(n) or b"{}")
+                program = req.get("program")
+                name, ctx = reg.get(program)
                 result = globals()["run_op"](ctx, req.get("op"), req.get("args") or {})
-                body = {"ok": True, "result": result}
+                body = {"ok": True, "result": result, "program": name}
             except OpError as e:
-                body = {"ok": False, "error": str(e)}
+                body = {"ok": False, "error": str(e), "program": program}
             except Exception as e:  # Java exceptions surface here too
-                body = {"ok": False, "error": f"{type(e).__name__}: {e}", "trace": traceback.format_exc()[-2000:]}
+                body = {"ok": False, "error": f"{type(e).__name__}: {e}", "trace": traceback.format_exc()[-2000:],
+                        "program": program}
             data = json.dumps(body).encode("utf-8")
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
@@ -1060,15 +1169,17 @@ def make_handler(ctx):
     return Handler
 
 
-def serve(ctx, port=DEFAULT_PORT, should_stop=None, log=print):
-    srv = HTTPServer(("127.0.0.1", port), make_handler(ctx))
+def serve(ctx_or_reg, port=DEFAULT_PORT, should_stop=None, log=print):
+    reg = ctx_or_reg if isinstance(ctx_or_reg, ProgramRegistry) else ProgramRegistry.single(ctx_or_reg)
+    srv = HTTPServer(("127.0.0.1", port), make_handler(reg))
     srv.timeout = 0.5
-    log(f"[ghidra_ops] serving {ctx.program.getName()} on http://127.0.0.1:{port}/  (autosave={ctx.autosave})")
+    state = " + ".join(f"{n} ({'open' if n in reg.ctxs else 'lazy'})" for n in reg.paths)
+    log(f"[ghidra_ops] serving {state} on http://127.0.0.1:{port}/  (autosave={reg.autosave})  default: {reg.default}")
     try:
-        while not ctx.stop and not (should_stop and should_stop()):
+        while not reg.stop and not (should_stop and should_stop()):
             srv.handle_request()
     except KeyboardInterrupt:
         pass
     finally:
         srv.server_close()
-        ctx.dispose()
+        reg.dispose_all()
