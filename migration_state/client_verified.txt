@@ -2824,3 +2824,4 @@ PORTED	MusicPlayer	VMethod26	-	446656
 PORTED	CVisualObject	FUN_00447ea9	-	447ea9
 PORTED	SoundPreferencesDialogVisualObject	ConvSliderToVolume	45ca45	460673
 PORTED	BigStruct2	UpdateSelectionState	416cf7	41850e
+PORTED	BigStruct2	sub_40B314	40b314	40b35f

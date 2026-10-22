@@ -4780,6 +4780,7 @@ uint32_t BigStruct2::sub_41864D() {
 }
 
 // 40B314
+// client: 40b35f
 void BigStruct2::sub_40B314() {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	if (wnd->dialogsMask != 1) {
@@ -4788,6 +4789,11 @@ void BigStruct2::sub_40B314() {
 	CSprite256* cursor_sprite = g_mousept.GetCursorSprite();
 	CRect screen_rect;
 	this->ClientRectToScreen(&screen_rect, &this->rect);
+#ifdef A2CLIENT
+	if (g_IsServer == 0 && g_ScreenSize.bottom == 0x258) {
+		screen_rect.bottom = 0x258;
+	}
+#endif
 	CCursor* cursor = nullptr;
 	CPoint mouse_pt(g_mousept.GetX(), g_mousept.GetY());
 	CRect select_frame = g_mousept.GetSelectFrame();
@@ -4965,8 +4971,14 @@ void BigStruct2::sub_40B314() {
 			cursor = g_Cursors[CURSOR_ARROW3];
 		}
 	}
+#ifdef A2CLIENT
+	// client: 40bbb5/40bbc5 — the child ids are 3 and 4 on the client
+	CVisualObject* child2 = this->FindChild(g_IsServer != 0 ? 2 : 3);
+	CVisualObject* child3 = this->FindChild(g_IsServer != 0 ? 3 : 4);
+#else
 	CVisualObject* child2 = this->FindChild(2);
 	CVisualObject* child3 = this->FindChild(3);
+#endif
 	if (child2 != nullptr && child2->GetRect().PtInRect(mouse_pt)) {
 		cursor = g_Cursors[CURSOR_DEFAULT];
 	}

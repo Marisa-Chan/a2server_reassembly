@@ -18,7 +18,6 @@ DIFFERS	Armor	IsSimpleItem	548817	52d1e4	slot20
 DIFFERS	Armor	destructor	57d630	54e790	slot1
 BATCH	AvailNetSession	1 identical fns	-	-	-
 DIFFERS	BigStruct2	ProcessPackets	40da14	40dac9	callsite:5 votes
-DIFFERS	BigStruct2	sub_40B314	40b314	40b35f	callsite:3 votes
 BATCH	BitSet	3 identical fns	-	-	-
 DIFFERS	Building	Serialize	542ce7	529f6d	slot2
 DIFFERS	Building	RollDamage	542a31	529e83	callsite:2 votes
