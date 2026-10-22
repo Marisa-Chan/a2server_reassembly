@@ -215,6 +215,11 @@ public:
     int32_t field_0x144 = 0;
     int32_t field_0x148 = 0;
     int32_t field_0x14c = 0;
+#ifdef A2CLIENT
+    // client: a CArray<HatCharId> of pending .a2c downloads lives at CGameSession+0x144
+    // (where the server layout has the field_0x144 dword above)
+    CArray<HatCharId> pending_hat_downloads;
+#endif
     CStringArray characterRosterFilePaths;
     int32_t selectedCharacterRosterFileIndex = -1;
     CWordArray word_array;

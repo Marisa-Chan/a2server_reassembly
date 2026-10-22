@@ -1138,6 +1138,16 @@ public:
 	// written by client-side cursor/packet code, read by CUnit::DrawHealthBar balloons
 	int32_t cursor_over_obj_last_index; // client 0x4a08
 	int32_t last_focus_obj_index; // client 0x4a0c
+	int32_t field_0x4a04; // client 0x4a04 — hat player-list state (packet 0x5c/0xc2)
+	int32_t hat_cursor_slots[16]; // client 0x49c4..0x4a03 — bulk state (packet 0xc2)
+	CStringArray hat_name_list; // client 0x4a10 — hat DM player names (packets 0x5a/0x5b/0x5c)
+	struct HatScorePair {
+		uint32_t score;
+		uint32_t spare;
+	};
+	CArray<HatScorePair> hat_score_list; // client 0x4a24 — parallel scores, sorted descending
+
+	void CloseHatOverlays(); // client 41748d/417902 — close shop/tavern/popup/1200 overlays
 #endif
 };
 
