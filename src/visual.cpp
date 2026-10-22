@@ -24933,6 +24933,78 @@ VisHatBrowserDlg::VisHatBrowserDlg(int32_t _id, int32_t l, int32_t t, int32_t r,
     : VisWindow(_id, l, t, r, b, nullptr) {
 }
 
+#ifdef A2CLIENT
+// client: 4527dd
+HatPlayerListWindow::HatPlayerListWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const void* _payload, int32_t _mode)
+    : VisMessageBox(_id, l, t, r, b, _payload, nullptr, 0, txt_patch.GetLine(_mode + 0xd1)) {
+    this->mode = _mode;
+}
+
+// client: 452837
+HatPlayerListWindow::~HatPlayerListWindow() {
+    ((MainWindow*)AfxGetMainWnd())->cursor_sizenesw = 0;
+}
+
+// client: 452a02
+int32_t HatPlayerListWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
+    if (msg == 0x445 && this->mode != 0) {
+        MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+        wnd->vis_map_context->msglog.AddWithCheck(txt_patch.GetLine(0x45), clr_log_sblack, 10000);
+    }
+    return VisMessageBox::MsgProc(msg, wparam, lparam);
+}
+
+// client: 452897
+CVisualObject* HatPlayerListWindow::VMethod30(const void* payload, const RECT& r) {
+    MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+    wnd->cursor_sizenesw = (HCURSOR)1;
+
+    RECT list_r = r;
+    list_r.right -= 0x18;
+
+    HatPlayerScoreList* list = new HatPlayerScoreList(2, list_r, g_font1, p_clrsh_Black, p_clrsh_ShockingBlack, 0x29b, nullptr);
+    list->ReadData(&payload);
+    list->SetSelectedIndex(g_hat_selected_index);
+    list->scores.SetSize(wnd->vis_map_context->hat_score_list.GetSize(), -1);
+    for (int32_t i = 0; i < list->scores.GetSize(); i++) {
+        list->scores[i] = wnd->vis_map_context->hat_score_list[i];
+    }
+    this->AddChild(list);
+
+    this->AddChild(new VisScrollBar(0x29b, list_r.right, list_r.top, list_r.right + 0x18, list_r.bottom, nullptr));
+    return list;
+}
+
+// client: 454970
+HatPlayerScoreList::HatPlayerScoreList(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint)
+    : VisListBox(_id, r, _font, _clr1, _clr2, _scrollid, hint) {
+}
+
+// client: 454a20
+HatPlayerScoreList::~HatPlayerScoreList() {
+}
+
+// client: 45265b
+void HatPlayerScoreList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
+    (void)clr;
+    if (!this->IsValidIndex(idx)) {
+        return;
+    }
+
+    MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+    bool is_me = (this->entries[idx] == wnd->vis_map_context->my_main_unit->name);
+    uint16_t* color = is_me ? (uint16_t*)clrsh_ShockingBlack : g_colors_human_pals[15];
+
+    CString str;
+    str.Format("%d. %s", idx + 1, (const char*)this->entries[idx]);
+    this->font->DrawTextWithShadow(pos.x + 5, pos.y, str, 0, color, 1);
+
+    str.Format("%d", this->scores[idx]);
+    int w = this->font->GetStrWidth(str);
+    this->font->DrawTextWithShadow(pos.x + this->rect.Width() - 10 - w, pos.y, str, 1, color, 1);
+}
+#endif
+
 // 44fed0
 VisHatBrowserDlg::~VisHatBrowserDlg() {
 }

@@ -337,6 +337,9 @@ ASSERT_SIZE(ServerControlDialog, 0x280);
 // client detects this path inside VisMessageBox::VMethod26 by comparing its caller's
 // return address against that call site; we use the flag instead (client-only shrink).
 extern int32_t g_diplomacy_msg_popup;
+#ifdef A2CLIENT
+extern int32_t g_hat_selected_index; // client 62c9e8 — last hat-DM list selection (written by packet 0x44c path)
+#endif
 
 
 class MainWindow : public CFrameWnd {

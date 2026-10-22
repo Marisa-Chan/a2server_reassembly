@@ -31,6 +31,9 @@ CDWordArray DAT_006658d8;
 
 CRect vis_scr_rect; //65fb88
 int32_t g_diplomacy_msg_popup = 0;
+#ifdef A2CLIENT
+int32_t g_hat_selected_index = 0; //62c9e8
+#endif
 
 
 

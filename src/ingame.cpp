@@ -411,22 +411,19 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				int i = 0;
 				for (; i < this->hat_name_list.GetSize(); i++) {
 					if (this->hat_name_list[i] == name) {
-						this->hat_score_list[i].score = packet_dword->value;
+						this->hat_score_list[i] = packet_dword->value;
 						break;
 					}
 				}
 				if (i == this->hat_name_list.GetSize()) {
 					this->hat_name_list.Add(name);
-					BigStruct2::HatScorePair entry;
-					entry.score = packet_dword->value;
-					entry.spare = packet_2dwords->param2;
-					this->hat_score_list.Add(entry);
+					this->hat_score_list.Add(packet_dword->value);
 				}
 				// client: 41ffe6 — sort pairs descending by score, keeping names in sync
 				for (int j = 0; j < this->hat_score_list.GetSize(); j++) {
 					for (int k = j + 1; k < this->hat_score_list.GetSize(); k++) {
-						if (this->hat_score_list[j].score < this->hat_score_list[k].score) {
-							BigStruct2::HatScorePair tmp_score = this->hat_score_list[j];
+						if (this->hat_score_list[j] < this->hat_score_list[k]) {
+							uint32_t tmp_score = this->hat_score_list[j];
 							this->hat_score_list[j] = this->hat_score_list[k];
 							this->hat_score_list[k] = tmp_score;
 							CString tmp_name = this->hat_name_list[j];
@@ -444,7 +441,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				this->field_0x4a04 = packet_dword->value;
 				if (packet_2dwords->param2 != 0) {
 					this->CloseHatOverlays();
-					// TODO(client): player-list window (ctor 4527dd, holds hat_name_list) — class not yet ported
+					// client: 417624-4176a9
+					HatPlayerListWindow* dlg = new HatPlayerListWindow(1, 0x14, 0, 0x26c, 0x1f4, &this->hat_name_list, packet_2dwords->param2);
+					wnd->PopUpScreen(dlg);
 				}
 				this->field_0x49b8 = 1;
 			}
@@ -2456,7 +2455,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
 				{}
 				if (wnd->field_0x3e0.field_10 != 0 && wnd->hat_settings.ishat != 0 && wnd->hat_settings.deathmatch == 3) {
-					// TODO(client): player-list window (ctor 4527dd, mode 3) — class not yet ported
+					// client: 417aa7-417b27
+					HatPlayerListWindow* dlg = new HatPlayerListWindow(1, 0x14, 0, 0x26c, 0x1f4, &this->hat_name_list, 3);
+					wnd->PopUpScreen(dlg);
 					g_CLlDriver.Close();
 					g_NetStru1_local.ProcessConnections();
 				} else {
