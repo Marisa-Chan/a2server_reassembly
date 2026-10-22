@@ -4290,7 +4290,12 @@ CHorisontalWoodenBridge::CHorisontalWoodenBridge(int32_t width, int32_t height) 
 }
 
 // 46295a
+// client: 466629
 void CBackPack::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
+    if (g_IsServer == 0 && this->typeId > 5) {
+        return;
+    }
+
     int32_t sun_angle = (int32_t)(std::tan(this->pMapObject->field_0x80->GetRenderSunAngle()) * 65536.0);
 
     int32_t half_height = g_spr_backpack->GetHeight(0) / 2;
