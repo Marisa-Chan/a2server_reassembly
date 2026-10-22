@@ -27,10 +27,12 @@ uint32_t g_RemoteTimestamp = 0;
 int32_t DAT_00660f88 = 0;
 int32_t g_LButtonDown; //660f4c
 uint32_t g_using_vxd = 1; // 62fa9c
+int32_t DAT_0062f87c = 1; // 62f87c CD-present flag; the catch handler at 482989 clears it when the CD check throws
 CDWordArray DAT_006658d8;
 
 CRect vis_scr_rect; //65fb88
 int32_t g_diplomacy_msg_popup = 0;
+int32_t DAT_00665cf8 = 0; // 665cf8 write-only in a2serv6.exe (client twin 631768)
 #ifdef A2CLIENT
 int32_t g_hat_selected_index = 0; //62c9e8
 #endif
@@ -3071,7 +3073,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x41b:
-        if (this->dialogsMask == 1 || this->dialogsMask == 0) {
+        if (this->dialogsMask == 1) {
             this->PopUpScreen(new GameOptionsWindow(1, 20, 0, 620, 480));
         }
         break;
@@ -3176,7 +3178,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x420:
-        this->PopUpScreen(new QuestObjectivesHeaderDialogVisualObject(1, 20, 0, 620, 500));
+        if (this->dialogsMask == 1) {
+            this->PopUpScreen(new QuestObjectivesHeaderDialogVisualObject(1, 20, 0, 620, 500));
+        }
         break;
 
     case 0x421:
@@ -3399,10 +3403,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x43b:
-        /*if (DAT_0062f87c == 0)     // if NO CD
+        if (DAT_0062f87c == 0) { // if NO CD
             PostMessage(0x421, 0, 0);
-        else*/
-        {
+        } else {
             CStringArray local_934;
             for (int i = 0; i < 32; i++) {
                 if ((g_using_vxd & (1 << i)) != 0) {
@@ -3541,11 +3544,11 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x454:
-        this->PopUpScreen(new VisNetSerialSettings(1, 0, 100, 540, 480, &this->com_settings));
+        this->PopUpScreen(new VisNetSerialSettings(1, 100, 0, 540, 480, &this->com_settings));
         break;
 
     case 0x455:
-        this->PopUpScreen(new VisNetPhoneBook(1, 0, 100, 650, 400, &this->phone_book));
+        this->PopUpScreen(new VisNetPhoneBook(1, 0, 100, 640, 400, &this->phone_book));
         break;
 
     case 0x457:
@@ -3725,7 +3728,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         this->ModalScreen(msgbox);
 
         if (msgbox->GetCloseCode() == 0x445) {
-            //DAT_00665cf8 = 0x35;
+            DAT_00665cf8 = 0x35;
             PostMessage(0x421, 0, 0);
         } else {
             PostMessage(WM_CLOSE, 0, 0);
@@ -3734,7 +3737,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x465: {
-        VisMessageBoxWithList* msgbox = new VisMessageBoxWithList(1, 100, 100, 540, 480, txt_main.GetLine(181), nullptr, 1);
+        VisMessageBoxWithList* msgbox = new VisMessageBoxWithList(1, 100, 100, 540, 380, txt_main.GetLine(181), nullptr, 1);
         this->ModalScreen(msgbox);
 
         if (msgbox->GetCloseCode() == 0x445) {
@@ -3785,6 +3788,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             }
         } else {
             char buf[2048];
+            atoi((const char*)wParam); // dead call in the original binary, result unused
             OemToCharA((const char*)wParam, buf);
             this->list_box1.SetCurSel(this->list_box1.AddString(buf));
         }
