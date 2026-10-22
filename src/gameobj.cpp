@@ -2037,6 +2037,9 @@ void CUnit::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) { // 465b5
     switch (this->last_action) {
     case 0:
         if (vfx->idle_phases != 0) {
+            if (g_IsServer == 0) {
+                this->phase = this->phase % vfx->idle_phases;
+            }
             frame = dir8 * vfx->idle_phases + (base_phases + vfx->attack_phases + vfx->dying_phases) * 8 + 16 + vfx->idle_anim_frames[this->phase];
             if (vfx->flip != 0 && dir8 > 4) {
                 dir8 = 8 - dir8;
