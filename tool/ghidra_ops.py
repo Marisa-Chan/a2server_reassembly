@@ -893,10 +893,12 @@ def op_vtable_apply(ctx, cls, slots):
     return f"{vt_name}: {len(slots)} slots"
 
 
-def op_struct_apply(ctx, name, size, fields=None, shrink=False, vtable=False):
+def op_struct_apply(ctx, name, size, fields=None, shrink=False, vtable=False, remove_beyond=False):
     """Merge a header layout into a Ghidra structure (used by tool/ghidra_sync_structs.py).
     fields: [{offset,size,type,name,placeholder,comment}] (inherited fields included) or None for
-    size-only. vtable: offset 0 becomes `{name}_VTable *vptr` (vtable-apply must have run)."""
+    size-only. vtable: offset 0 becomes `{name}_VTable *vptr` (vtable-apply must have run).
+    remove_beyond: with shrink, delete defined components past the target size instead of
+    aborting (used when correcting a struct that previously received wrong offsets)."""
     from ghidra.program.model.data import StructureDataType, CategoryPath, PointerDataType
     stats = {"set": 0, "renamed": 0, "kept": 0, "fallback": 0, "skipped": 0}
     with ctx.transaction("struct apply " + name):
@@ -912,8 +914,11 @@ def op_struct_apply(ctx, name, size, fields=None, shrink=False, vtable=False):
         elif size < s.getLength() and shrink:
             beyond = [c for c in s.getDefinedComponents() if c.getOffset() + c.getLength() > size]
             if beyond:
-                raise OpError(f"{name}: Ghidra has fields beyond ASSERT_SIZE 0x{size:X}: " +
-                              ", ".join(f"{c.getFieldName()}@0x{c.getOffset():X}" for c in beyond[:5]))
+                if not remove_beyond:
+                    raise OpError(f"{name}: Ghidra has fields beyond ASSERT_SIZE 0x{size:X}: " +
+                                  ", ".join(f"{c.getFieldName()}@0x{c.getOffset():X}" for c in beyond[:5]))
+                for c in sorted(beyond, key=lambda c: -c.getOrdinal()):
+                    s.delete(c.getOrdinal())
             s.setLength(size)
         if fields is None:
             return f"{name}: size 0x{s.getLength():X}"

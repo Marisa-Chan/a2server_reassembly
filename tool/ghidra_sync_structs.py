@@ -57,6 +57,107 @@ FIELD_RE = re.compile(
 SKIP_FIELD_LINE = re.compile(r"^\s*(static|typedef|using|friend|enum|return|template|public|private|protected|#|//|virtual|extern|operator)\b")
 PLACEHOLDER_FIELD = re.compile(r"^(field\d*_?(0x|x)?[0-9a-fA-F]+|unk\w*|unknown\w*|pad\w*|_pad\w*|padding\w*|reserved\w*|gap\w*|dummy\w*)$", re.I)
 
+# MFC types whose size differs between the game's VC6 MFC and the MFC we compile
+# against. CObject-rooted containers are identical (CObject/CString=4, CArray/
+# CWordArray/CDWordArray/CStringArray/CMap=0x1c/0x14), but the CWnd family, CFile,
+# CTime (time_t 4->8) and CWinThread differ, so offsets compiled from our headers
+# are WRONG for classes that inherit them or embed them as members.
+GROWN_MFC = {"CWnd", "CDialog", "CFrameWnd", "CWinApp", "CListBox", "CEdit", "CStatic",
+             "CButton", "CStatusBar", "CScrollBar", "CComboBox", "CSpinButtonCtrl",
+             "CSliderCtrl", "CProgressCtrl", "CFile", "CFileFind", "CStdioFile",
+             "CMemFile", "COleDataObject", "CWinThread", "CTime"}
+
+# Hand-verified retail-binary layouts for the affected classes (offsets from ctor
+# disassembly / original binary asserts). "__size__" gives the binary class size.
+# Classes affected but NOT listed here are skipped by the sync with a warning -
+# never push offsets known to disagree with the binary.
+BIN_LAYOUT = {
+    # both programs share these; MainWindow differs per build (client class is
+    # 0x800: extra dword at 0x3d0, +4 shift through field_0x460, no cursor handles,
+    # no field_0x464/0x5e4/0x804, CGameSession 0x190)
+    "File2": {"__size__": 0x20, "file": 0x10, "offset": 0x14, "size": 0x18, "position": 0x1c},
+    "PasswordManager": {"__size__": 0x1c, "content": 0x0, "fname": 0x14, "date": 0x18},
+    "ServerControlDialog": {"__size__": 0x280, "edit_5c": 0x5c, "static_98": 0x98,
+                            "button_d4": 0xd4, "button_110": 0x110, "button_14c": 0x14c,
+                            "button_188": 0x188, "button_1c4": 0x1c4, "button_200": 0x200,
+                            "button_23c": 0x23c, "str_278": 0x278, "str_27c": 0x27c},
+    "VisNetMapSelection": {"__size__": 0xfc, "p_mapname": 0x68, "avail_maps": 0x6c,
+                           "thread": 0x80, "stop_event": 0xe8, "selected_map_index": 0xec,
+                           "chat_log": 0xf0, "map_context": 0xf4, "mode": 0xf8},
+}
+_MW_COMMON = {
+    "has_focus": 0xbc, "console_active": 0xc0, "music_update_proc": 0xc4, "music_player": 0xc8,
+    "vis_root": 0xcc, "vis_map_context": 0xd0, "vis_right_panel": 0xd4, "vis_minimap": 0xd8,
+    "vis_ordertoolbar": 0xdc, "vis_charinfo": 0xe0, "vis_sidestatus": 0xe4, "vis_invtype1": 0xe8,
+    "vis_spellbook": 0xec, "vis_globalmap": 0xf0, "vis_mainmenu": 0xf4, "vis_shop": 0xf8,
+    "vis_shopdruid": 0xfc, "vis_shopkaarg": 0x100, "vis_tav": 0x104, "vis_tavdruid": 0x108,
+    "vis_tavkaarg": 0x10c, "vis_town": 0x110, "vis_towndruid": 0x114, "vis_townkaarg": 0x118,
+    "vis_famehall": 0x11c, "vis_dropgold": 0x120, "vis_missionfailed": 0x124, "vis_2action": 0x128,
+    "field_0x12c": 0x12c, "vis_credits": 0x130, "vis_logownd": 0x134, "vis_1200": 0x138,
+    "vis_loadgame": 0x13c, "vis_savegame": 0x140, "vis_msgbox": 0x144, "last_save_info": 0x148,
+    "diplomacy_entries": 0x348, "field_0x34c": 0x34c, "vis_connectiondlg": 0x350,
+    "net_sessions": 0x354, "last_protocol": 0x368, "vis_chargen": 0x36c, "vis_charsel": 0x370,
+    "vis_startgame": 0x374, "vis_netmapsel": 0x378, "vis_hatbrowser": 0x37c,
+    "phone_book": 0x380, "com_settings": 0x39c, "last_ip": 0x3b0, "hat_settings": 0x3b4,
+}
+BIN_LAYOUT["MainWindow"] = {
+    "server": {"__size__": 0x808, **_MW_COMMON,
+               "vis_serverscreen": 0x3d0, "vis_cutscenes": 0x3d4, "vis_famedocument": 0x3d8,
+               "vis_msgbox_list": 0x3dc, "field_0x3e0": 0x3e0, "in_famehall_mission": 0x3f8,
+               "mission_failed_reported": 0x3fc, "field_0x400": 0x400, "pending_game_mode": 0x404,
+               "drag_entry": 0x408, "drag_src_slot": 0x40c, "drag_src_tab": 0x410,
+               "item_cursor": 0x414, "dialogsMask": 0x418, "serverLoopCounter": 0x41c,
+               "game_tic_counter": 0x420, "field_0x424": 0x424, "last_tic_time": 0x428,
+               "game_tic_time": 0x42c, "game_speed": 0x430, "field_0x434": 0x434,
+               "field_0x438": 0x438, "field_0x43c": 0x43c, "field_0x440": 0x440,
+               "field_0x444": 0x444, "unlimited_speed": 0x448, "field_0x44c": 0x44c,
+               "last_event_id": 0x450, "inside_building": 0x454, "enter_ack_received": 0x458,
+               "input_locked": 0x45c, "field_0x460": 0x460, "field_0x464": 0x464,
+               "m_GameSession": 0x468, "field_0x5e4": 0x5e4, "m_FameHall": 0x5e8,
+               "current_map_name": 0x620, "shutdown_pending": 0x624, "cursor_sizewe": 0x628,
+               "cursor_sizens": 0x62c, "cursor_sizenwse": 0x630, "cursor_sizenesw": 0x634,
+               "cursor_arrow": 0x638, "serverBootstrapEnabled": 0x63c, "sessionMode": 0x640,
+               "clip_cursor_rect": 0x644, "status_bar": 0x654, "list_box1": 0x6d0,
+               "list_box2": 0x70c, "static1": 0x748, "static2": 0x784, "edit": 0x7c0,
+               "server_ctrl_dlg": 0x7fc, "server_ctrl_shown": 0x800, "field_0x804": 0x804},
+    "client": {"__size__": 0x800, **_MW_COMMON,
+               "field_0x3d0_cli": 0x3d0, "vis_serverscreen": 0x3d4, "vis_cutscenes": 0x3d8,
+               "vis_famedocument": 0x3dc, "vis_msgbox_list": 0x3e0, "field_0x3e0": 0x3e4,
+               "in_famehall_mission": 0x3fc, "mission_failed_reported": 0x400,
+               "field_0x400": 0x404, "pending_game_mode": 0x408, "drag_entry": 0x40c,
+               "drag_src_slot": 0x410, "drag_src_tab": 0x414, "item_cursor": 0x418,
+               "dialogsMask": 0x41c, "serverLoopCounter": 0x420, "game_tic_counter": 0x424,
+               "field_0x424": 0x428, "last_tic_time": 0x42c, "game_tic_time": 0x430,
+               "game_speed": 0x434, "field_0x434": 0x438, "field_0x438": 0x43c,
+               "field_0x43c": 0x440, "field_0x440": 0x444, "field_0x444": 0x448,
+               "unlimited_speed": 0x44c, "field_0x44c": 0x450, "last_event_id": 0x454,
+               "inside_building": 0x458, "enter_ack_received": 0x45c, "input_locked": 0x460,
+               "field_0x460": 0x464, "m_GameSession": 0x468, "m_FameHall": 0x5f8,
+               "current_map_name": 0x630, "shutdown_pending": 0x634,
+               "serverBootstrapEnabled": 0x638, "sessionMode": 0x63c, "clip_cursor_rect": 0x640,
+               "status_bar": 0x650, "list_box1": 0x6cc, "list_box2": 0x708, "static1": 0x744,
+               "static2": 0x780, "edit": 0x7bc, "server_ctrl_dlg": 0x7f8,
+               "server_ctrl_shown": 0x7fc},
+}
+
+
+def _grown_mfc_affected(name, classes, seen=None):
+    """True if `name` inherits from or embeds a member of a size-changed MFC type."""
+    seen = seen or set()
+    if name in seen or name not in classes:
+        return name in GROWN_MFC
+    seen.add(name)
+    info = classes[name]
+    for b in info["bases"]:
+        base = b.split()[-1].strip("*")
+        if base in GROWN_MFC or _grown_mfc_affected(base, classes, seen):
+            return True
+    for fld in info["fields"]:
+        base = fld[0].strip().strip("*").split("<")[0]
+        if base in GROWN_MFC:
+            return True
+    return False
+
 
 def parse_classes(files):
     """Return {name: {file, line, bases:[...], fields:[(type, name, dims)], polymorphic, assert_size}}."""
@@ -330,6 +431,8 @@ def main():
     a = ap.parse_args()
     PORT = a.port
     PROGRAM = "client" if a.client else "server" if a.server else a.program
+    if PROGRAM is None:
+        PROGRAM = "server"  # daemon default; also keys the BIN_LAYOUT per-program tables
     if PROGRAM == "client":
         # compile the per-build header variant: #ifdef A2CLIENT blocks (MainWindow,
         # CGameSession, ...) carry the client layout, and server-only patches stay out
@@ -364,6 +467,19 @@ def main():
         if not d or not lay:
             print(f"  {name}: not in dump (compile skipped?)")
             continue
+        override = BIN_LAYOUT.get(name)
+        if isinstance(override, dict) and ("server" in override or "client" in override):
+            override = override.get(PROGRAM)
+        if override is None and _grown_mfc_affected(name, classes):
+            print(f"  {name}: SKIPPED - MFC-size-affected class without a verified BIN_LAYOUT table")
+            continue
+        if override is not None:
+            offs = sorted((o, f) for f, o in override.items() if f != "__size__")
+            flds = {}
+            for k, (o, f) in enumerate(offs):
+                end = offs[k + 1][0] if k + 1 < len(offs) else override["__size__"]
+                flds[f] = (o, end - o)
+            d = {"size": override["__size__"], "fields": flds}
         polymorphic = lay["vfptr"] is not None and bool(lay["vtable"])
         fields = []
         for t, f, dims, ln, owner in all_fields(name, classes):
@@ -373,7 +489,9 @@ def main():
             fields.append({"offset": off, "size": size, "type": t + dims, "name": f,
                            "placeholder": bool(PLACEHOLDER_FIELD.match(f)),
                            "comment": None if owner == name else f"Inherited from {owner}"})
-        args = {"name": name, "size": d["size"], "fields": fields, "shrink": info["assert_size"] is not None,
+        args = {"name": name, "size": d["size"], "fields": fields,
+                "shrink": info["assert_size"] is not None or override is not None,
+                "remove_beyond": override is not None,
                 "vtable": polymorphic}
         size_ops.append({"op": "struct-apply", "args": {**args, "fields": None}})
         slots = vtable_slots(name, layout, decls) if polymorphic else []
