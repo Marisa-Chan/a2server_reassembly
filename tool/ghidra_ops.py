@@ -172,7 +172,7 @@ class OpContext:
         from ghidra.program.model.data import (BuiltInDataTypeManager, StructureDataType, CategoryPath,
                                                PointerDataType, ArrayDataType)
         from java.util import ArrayList
-        text = re.sub(r"\b(const|volatile|struct|class|enum)\b", " ", text.strip())
+        text = re.sub(r"\b(const|volatile|struct|class|enum|AFX_CDECL|__cdecl|__stdcall|__thiscall)\b", " ", text.strip())
         text = re.sub(r"\s+", " ", text).strip()
         m = re.fullmatch(r"([A-Za-z_][\w:]*(?:<.*>)?(?: [A-Za-z_]\w*)*)\s*((?:\s*\*)*)\s*((?:\[\d+\])*)", text)
         if not m:

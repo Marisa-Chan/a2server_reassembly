@@ -91,7 +91,25 @@ def parse_headers(files):
         stack = []  # (scope_name, brace_depth_at_open, is_namespace)
         pending = None  # scope seen, waiting for its '{' on a following line
         depth = 0
+        ifdef = []  # per open preprocessor conditional: True while the SERVER build compiles it
         for ln, raw in enumerate(lines, 1):
+            pp = re.match(r"#\s*(ifdef|ifndef|if|else|endif)\b(.*)", raw)
+            if pp:
+                kw, rest = pp.group(1), pp.group(2).strip()
+                if kw in ("ifdef", "ifndef"):
+                    on = (rest == "A2CLIENT")
+                    if kw == "ifndef":
+                        on = not on
+                    ifdef.append(on)
+                elif kw == "if":
+                    ifdef.append(True)  # non-client conditionals: assume compiled
+                elif kw == "else" and ifdef:
+                    ifdef[-1] = not ifdef[-1]
+                elif kw == "endif" and ifdef:
+                    ifdef.pop()
+                continue
+            if not all(ifdef):
+                continue  # declaration inside an A2CLIENT-only region (client code)
             line = raw.split("//")[0]
             cm = CLASS_RE.match(raw)
             if cm:
@@ -120,7 +138,10 @@ def parse_headers(files):
                     if am:
                         addr = (am.group(1) or am.group(2)).upper()
                     else:
-                        cm2 = ADDR_IN_COMMENT.search(dm.group("tail"))
+                        # `// client: <va>` and `//Allods2.exe <va>` comments carry
+                        # allods2.exe addresses - never apply those to the server program
+                        tail = re.sub(r"//.*\b(client|Allods2\.exe)\b.*", "", dm.group("tail"))
+                        cm2 = ADDR_IN_COMMENT.search(tail)
                         if cm2:
                             addr = cm2.group(1).upper()
                     params = [x for x in (parse_param(p) for p in split_params(dm.group("params"))) if x]

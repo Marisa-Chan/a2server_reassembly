@@ -3702,11 +3702,11 @@ ASSERT_SIZE(VisHatBrowserDlg, 0x94);
 // (The client label "MusicPlayer" on this class is a mislabel; the real MusicPlayer is in sound.h.)
 class HatPlayerListWindow : public VisMessageBox {
 public:
-	~HatPlayerListWindow(); // 452837 (deleting dtor 454940)
-	int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 452a02
-	CVisualObject* VMethod30(const void* payload, const RECT& r) override; // 452897
+	~HatPlayerListWindow(); // client: 452837 (deleting dtor 454940)
+	int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // client: 452a02
+	CVisualObject* VMethod30(const void* payload, const RECT& r) override; // client: 452897
 
-	HatPlayerListWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const void* _payload, int32_t _mode); // 4527dd
+	HatPlayerListWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const void* _payload, int32_t _mode); // client: 4527dd
 
 public:
 	int32_t mode; // 0x78 — 0 = plain dialog, !=0 = GM ack line on OK
@@ -3717,10 +3717,10 @@ ASSERT_SIZE(HatPlayerListWindow, 0x7c);
 // (The client label "CSpriteFont16" on this class is a mislabel; the real font class has vtable 5d74f0.)
 class HatPlayerScoreList : public VisListBox {
 public:
-	~HatPlayerScoreList(); // 454a20 (deleting dtor 4549f0)
-	void DrawItem(int32_t idx, CPoint pos, uint16_t* clr) override; // 45265b
+	~HatPlayerScoreList(); // client: 454a20 (deleting dtor 4549f0)
+	void DrawItem(int32_t idx, CPoint pos, uint16_t* clr) override; // client: 45265b
 
-	HatPlayerScoreList(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint); // 454970
+	HatPlayerScoreList(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint); // client: 454970
 
 public:
 	CArray<uint32_t> scores; // 0x94 — parallel to entries, one dword per player
