@@ -211,16 +211,48 @@ def parse_layout_report(text):
 
 
 def _write_dump_source(cpp, selected, classes, headers):
+    # Per-build guards (#ifdef A2CLIENT / #ifndef A2CLIENT) mean a parsed field may be
+    # compiled out for the selected variant, so every probe is SFINAE-guarded: an
+    # absent member prints nothing instead of failing the whole dump compile.
+    blocks = []  # (class, [(probe_id, field), ...])
+    idx = 0
+    for name, info in selected.items():
+        fields = []
+        for t, f, dims, ln, owner in all_fields(name, classes):
+            idx += 1
+            fields.append((idx, f))
+        blocks.append((name, fields))
     with open(cpp, "w", encoding="utf-8") as fh:
-        fh.write("#define _ALLOW_KEYWORD_MACROS\n#define private public\n#define protected public\n#include <cstddef>\n#include <cstdio>\n")
+        fh.write("#define _ALLOW_KEYWORD_MACROS\n#define private public\n#define protected public\n#include <cstddef>\n#include <cstdio>\n#include <type_traits>\n")
         fh.write("#pragma warning(disable: 4267 4244 4996)\n")
         for h in headers:
             fh.write(f'#include "{os.path.relpath(h, BUILD).replace(os.sep, "/")}"\n')
+        # classes declared inside per-build #ifdef blocks may not exist in this compile
+        # variant; forward-declare everything so the name exists, and guard each probe
+        # with completeness/member detection so absent ones print nothing
+        for name, fields in blocks:
+            fh.write(f"class {name};\n")
+        fh.write("template <class T, class = void> struct Complete : std::false_type {};\n"
+                 "template <class T> struct Complete<T, std::void_t<decltype(sizeof(T))>> : std::true_type {};\n")
+        for name, fields in blocks:
+            fh.write(f"template <class C> static void PC_{name}() {{\n"
+                     f"  if constexpr (Complete<C>::value) {{\n"
+                     f'    printf("CLASS {name} %u\\n", (unsigned)sizeof(C));\n'
+                     f"  }}\n"
+                     f"}}\n")
+            for i, f in fields:
+                fh.write(f"template <class T, class = void> struct Has_f{i} : std::false_type {{}};\n"
+                         f"template <class T> struct Has_f{i}<T, std::void_t<decltype(&T::{f})>> : std::true_type {{}};\n"
+                         f"template <class C> static void P_f{i}() {{\n"
+                         f"  if constexpr (Has_f{i}<C>::value) {{\n"
+                         f'    printf("FIELD {name} {f} %u %u\\n", (unsigned)offsetof(C, {f}), (unsigned)sizeof(((C*)0)->{f}));\n'
+                         f"  }}\n"
+                         f"}}\n")
         fh.write("int main() {\n")
-        for name, info in selected.items():
-            fh.write(f'  printf("CLASS {name} %u\\n", (unsigned)sizeof({name}));\n')
-            for t, f, dims, ln, owner in all_fields(name, classes):
-                fh.write(f'  printf("FIELD {name} {f} %u %u\\n", (unsigned)offsetof({name}, {f}), (unsigned)sizeof((({name}*)0)->{f}));\n')
+        for name, fields in blocks:
+            fh.write(f"  PC_{name}<{name}>();\n")
+            for i, f in fields:
+                fh.write(f"  P_f{i}<{name}>();\n")
         fh.write("  return 0;\n}\n")
 
 
@@ -298,6 +330,10 @@ def main():
     a = ap.parse_args()
     PORT = a.port
     PROGRAM = "client" if a.client else "server" if a.server else a.program
+    if PROGRAM == "client":
+        # compile the per-build header variant: #ifdef A2CLIENT blocks (MainWindow,
+        # CGameSession, ...) carry the client layout, and server-only patches stay out
+        DEFINES[:] = [d for d in DEFINES if d != "A2SERVER_PATCH"] + ["A2CLIENT"]
 
     headers = sorted(h for h in glob.glob(os.path.join(SRC, "*.h")) if os.path.basename(h) not in EXCLUDE_HEADERS)
     classes = parse_classes(headers)
