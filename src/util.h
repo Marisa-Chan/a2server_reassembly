@@ -13,7 +13,7 @@ uint8_t __cdecl ToLowerChar(uint8_t c); //47641d
 
 void pathStrCpy(const char* src, char* dst); // 4e5fd9
 void __cdecl ReportWarning(const char* warn); // 527de3
-void __cdecl XorData(void* data, uint32_t size); //51fd7d
+void __cdecl XorData(void* data, uint32_t size); //51fd7d (client: 50feed)
 
 CString XorRegString(const CString& str); //43d1a9
 

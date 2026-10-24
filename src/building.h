@@ -27,8 +27,8 @@ public: // VTable at 60f378
 
 public:
     Building(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height); // sub_542599
-    Building(); // sub_54242A
-    Building(const CString& name); // sub_542534
+    Building(); // sub_54242A (client: 5298ee)
+    Building(const CString& name); // sub_542534 (client: 5299f8)
     Building(TokenPos* pos); // sub_5424AC
     void InitFromTable(uint8_t width, uint8_t height); // Initialize building from info table and place on map.
     void InitByName(const CString& name); // Initialize building fields and look up type by name.
@@ -59,7 +59,7 @@ public:
     DECLARE_SERIAL(Pointer);
 
 public:
-    Pointer(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height); // sub_5A3140
+    Pointer(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height); // sub_5A3140 (client: 5712b0)
     Pointer(); // default, used by CreateObject
     virtual ~Pointer() override;
     virtual void Serialize(CArchive& ar) override;

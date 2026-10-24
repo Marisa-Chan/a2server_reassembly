@@ -21,8 +21,8 @@ public: // VTable at 0060f170.
     virtual void ExpireOnUnit(Unit* unit); // 537438
 
 public:
-    SpellEffect(); // 537371
-    SpellEffect(const TokenPos* pos); // 5373cc
+    SpellEffect(); // 537371 (client: 5213ba)
+    SpellEffect(const TokenPos* pos); // 5373cc (client: 521415)
 
 public:
     Unit *caster;
@@ -40,13 +40,13 @@ public:
 
 public: // VTable at 60f1b0.
     virtual ~PointEffect() override; // 537703
-    virtual void Serialize(CArchive& ar) override; // 53E6D4
-    virtual void ProcessEffects() override; // 57C0A0
-    virtual void FixupPointers() override; // 53E7F2
+    virtual void Serialize(CArchive& ar) override; // 53E6D4 (client: 5264d1)
+    virtual void ProcessEffects() override; // 57C0A0 (client: 54ccf0)
+    virtual void FixupPointers() override; // 53E7F2 (client: 52654d)
 
 public:
-    PointEffect(); // 5374FC
-    PointEffect(Effect* effect, Unit* target); // 53752F
+    PointEffect(); // 5374FC (client: 521542)
+    PointEffect(Effect* effect, Unit* target); // 53752F (client: 521575)
 
     void FinishHit();
 
@@ -62,15 +62,15 @@ public:
     DECLARE_SERIAL(AreaEffect); // Runtime class definition at 6364B8.
 
 public: // VTable at 60f1f0.
-    virtual ~AreaEffect() override; // 5378D8
-    virtual void Serialize(CArchive& ar) override; // 53E81F
-    virtual void ProcessEffects() override; // 537964
-    virtual void FixupPointers() override; // 53EB1E
-    virtual void ExpireOnUnit(Unit* unit) override; // 5382FB
+    virtual ~AreaEffect() override; // 5378D8 (client: 521913)
+    virtual void Serialize(CArchive& ar) override; // 53E81F (client: 52657a)
+    virtual void ProcessEffects() override; // 537964 (client: 52199f)
+    virtual void FixupPointers() override; // 53EB1E (client: 526658)
+    virtual void ExpireOnUnit(Unit* unit) override; // 5382FB (client: 522300)
 
 public:
-    AreaEffect(); // 537846
-    AreaEffect(Effect* effect, TokenPos* pos, uint8_t range); // 537880
+    AreaEffect(); // 537846 (client: 521881)
+    AreaEffect(Effect* effect, TokenPos* pos, uint8_t range); // 537880 (client: 5218bb)
 
     void DamageUnit(Unit* unit);
     void ApplyAtCell(uint8_t x, uint8_t y, bool spread_damage);
@@ -99,15 +99,15 @@ public:
     DECLARE_SERIAL(SpellTransport); // Runtime class definition at 636FC8.
 
 public: // VTable at 0060f230.
-    virtual ~SpellTransport() override; // 538B27
+    virtual ~SpellTransport() override; // 538B27 (client: 522af7)
     virtual void Serialize(CArchive& ar) override; // 53E588
     virtual void ProcessEffects() override; // 538BF4
-    virtual void FixupPointers() override; // 53E68D
+    virtual void FixupPointers() override; // 53E68D (client: 52648a)
 
 public:
     SpellTransport(); // 5389E2
-    SpellTransport(SpellEffect* spell_effect, TokenPos* from_position, int16_t speed); // 538A15
-    SpellTransport(AreaEffect* ae, TokenPos* from_position, int16_t speed); // 538A9E
+    SpellTransport(SpellEffect* spell_effect, TokenPos* from_position, int16_t speed); // 538A15 (client: 5229e5)
+    SpellTransport(AreaEffect* ae, TokenPos* from_position, int16_t speed); // 538A9E (client: 522a6e)
 
 public:
     SpellEffect* spell_effect;

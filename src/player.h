@@ -96,10 +96,10 @@ public:
     void StartAfkTimer(); // Initialize inactivity timer (sets this+0A90h/0A94h from GetTickCount)
     void ResetAfkTimer(); // Reset inactivity timer and notify NetStru1
 
-    void Deactivate(); //534778
+    void Deactivate(); //534778 (client: 51fda1)
 
     void RemoveUnitFromGroup(Unit* unit); // Remove a unit from this player's unit list (PlayerRemoveUnit)
-    void RemoveUnit(Unit* unit); // 534a74
+    void RemoveUnit(Unit* unit); // 534a74 (client: 51fe27)
 };
 
 ASSERT_OFFSET(Player, flags, 0x14);
@@ -109,9 +109,9 @@ ASSERT_SIZE(Player, 0xaa0);
 
 
 namespace ExperienceTable {
-    void InitTable(); //53069e
-    int32_t __cdecl GetLevel(uint32_t ex); //5306ea
-    int32_t __cdecl GetExp(uint32_t lvl); //530726
+    void InitTable(); //53069e (client: 51c460)
+    int32_t __cdecl GetLevel(uint32_t ex); //5306ea (client: 51c4ac)
+    int32_t __cdecl GetExp(uint32_t lvl); //530726 (client: 51c4e8)
 }
 
 

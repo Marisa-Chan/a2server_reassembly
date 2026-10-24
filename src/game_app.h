@@ -50,9 +50,9 @@ struct GameSettings {
 	int32_t ClanNames = 1;
 	int32_t* pMessageColors = nullptr;
 
-	void Init(); // 442386
-	void Load(HKEY& rkey); //442420
-	void Save(HKEY& rkey); //4421be
+	void Init(); // 442386 (client: 444958)
+	void Load(HKEY& rkey); //442420 (client: 4449f2)
+	void Save(HKEY& rkey); //4421be (client: 444790)
 };
 ASSERT_SIZE(GameSettings, 0x3c);
 
@@ -71,9 +71,9 @@ public:
 
 public:
 	DistortMap(int32_t outer, int32_t inner); // 4a9f90
-	~DistortMap(); // 4aa04f
+	~DistortMap(); // 4aa04f (client: 4ae07f)
 	void BuildScaleTable(); // 4aa0af
-	void RenderDistort(int32_t x, int32_t y); // 4aa29b
+	void RenderDistort(int32_t x, int32_t y); // 4aa29b (client: 4ae2cb)
 };
 ASSERT_SIZE(DistortMap, 0x10);
 
@@ -104,13 +104,13 @@ void __cdecl PostConsoleLine(const char* source); // 43A857
 
 /* in asm */
 void LogMessage(CString message); //43AA23
-void LogWarning(const CString& msg); //59b753
+void LogWarning(const CString& msg); //59b753 (client: 56a603)
 
 int32_t ParseConfig(const char* fname); //4f7188
 
 void ParseTunes(); //476b21
 void LoadFonts();  //460c37
-void LoadSettings(); //441a03
+void LoadSettings(); //441a03 (client: 443fd2)
 void __cdecl SetMessageColors(uint32_t); //476de7
 
 int FUN_00497490(); //497490

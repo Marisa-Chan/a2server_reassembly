@@ -43,7 +43,7 @@ void __cdecl LoadTerrainTiles(uint32_t val); //477b59
 
 class UnitVFXUnfo : public CObject {
 public:
-	virtual ~UnitVFXUnfo() { //47ccb4
+	virtual ~UnitVFXUnfo() { //47ccb4 (client: 480b6e)
 		if (this->palette) {
 			for (int i = 0; i < 8; i++) {
 				if (this->palettes[i]) {
@@ -59,12 +59,12 @@ public:
 		}
 	}
 
-	UnitVFXUnfo() { //47cb20
+	UnitVFXUnfo() { //47cb20 (client: 4809da)
 		this->palettes.fill(nullptr);
 		this->palette_datas.fill(nullptr);
 	}
 
-	CGamePalette* GetPalette(int32_t idx); //46f680
+	CGamePalette* GetPalette(int32_t idx); //46f680 (client: 473010)
 	uint8_t* GetPaletteData(int32_t idx); //46f6e0
 
 public:
@@ -109,7 +109,7 @@ ASSERT_SIZE(UnitVFXUnfo, 0x14c);
 //60b880
 class GfxFile : public CObject {
 public:
-	GfxFile(const char* _fname); //47ae53
+	GfxFile(const char* _fname); //47ae53 (client: 47ed0d)
 	~GfxFile();
 
 	void Init();
@@ -130,8 +130,8 @@ ASSERT_SIZE(GfxFile, 0x14);
 //60b898
 class GfxObject : public CObject {
 public:
-	GfxObject() = default;  //47b127
-	~GfxObject() = default; //47b1ef
+	GfxObject() = default;  //47b127 (client: 47efe1)
+	~GfxObject() = default; //47b1ef (client: 434bae)
 
 public:
 	int32_t id;
@@ -156,10 +156,10 @@ ASSERT_SIZE(GfxObject, 0x6c);
 class UnitGfxFile : public CObject {
 public:
 	UnitGfxFile() = default;  //47c806
-	UnitGfxFile(const char* _fname); //47c85d
+	UnitGfxFile(const char* _fname); //47c85d (client: 480717)
 	~UnitGfxFile(); //47c8e3
 
-	void Init(); //47c943
+	void Init(); //47c943 (client: 4807fd)
 	void Deinit(); //47caa4
 
 	CSprite256* GetSprite(); //46f700
@@ -176,8 +176,8 @@ ASSERT_SIZE(UnitGfxFile, 0x14);
 //60b910
 class StructureInfo : public CObject {
 public:
-	StructureInfo(const char *fname); //47eca2
-	~StructureInfo(); //47ed4e
+	StructureInfo(const char *fname); //47eca2 (client: 482b5c)
+	~StructureInfo(); //47ed4e (client: 482c08)
 
 	void Init(); //
 	void Deinit(); //47ef52
@@ -214,11 +214,11 @@ ASSERT_SIZE(StructureInfo, 0xa4);
 
 class ProjectileInfo : public CObject {
 public:
-	ProjectileInfo(const char* fname, int32_t a16); //47e1ec
-	virtual ~ProjectileInfo(); //47e50b
+	ProjectileInfo(const char* fname, int32_t a16); //47e1ec (client: 4820a6)
+	virtual ~ProjectileInfo(); //47e50b (client: 4823c5)
 
-	void Init(); //47e26b
-	void Deinit(); //47e56b
+	void Init(); //47e26b (client: 482125)
+	void Deinit(); //47e56b (client: 482425)
 
 	CSprite256* GetSprite(); //41f8f0
 	CSprite256* GetSpriteB(); //46f760

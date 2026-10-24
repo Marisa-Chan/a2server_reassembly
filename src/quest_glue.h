@@ -29,7 +29,7 @@ public: // VTable at 60fde8.
     virtual uint8_t GetY();
 
 public:
-    QuestInnGlue(int32_t building_id, TokenPos* pos, World* world, int32_t max_dist); // sub_5BA8E0
+    QuestInnGlue(int32_t building_id, TokenPos* pos, World* world, int32_t max_dist); // sub_5BA8E0 (client: 5885e0)
 
 public:
     uint32_t building_id;

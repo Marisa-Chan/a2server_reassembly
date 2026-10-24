@@ -46,14 +46,14 @@ public:
         return (v / 15) + 1;
     }
 
-    uint8_t GetResistance(uint8_t v) const { //53985f
+    uint8_t GetResistance(uint8_t v) const { //53985f (client: 523566)
         if (this->spell_id == 4 || this->spell_id == 8 || this->spell_id == 13 || this->spell_id == 19) {
             return v / 2;
         }
         return 0;
     }
 
-    int16_t GetSight(uint8_t v) const { //5398e2
+    int16_t GetSight(uint8_t v) const { //5398e2 (client: 5235e9)
         if (this->spell_id == 15 || this->spell_id == 14) {
             return -(v / 30) - 1;
         }
@@ -74,7 +74,7 @@ public:
         return 0;
     }
 
-    uint8_t GetRays(uint8_t v) const { //5397a3
+    uint8_t GetRays(uint8_t v) const { //5397a3 (client: 5234aa)
         if (this->spell_id == 11) {
             uint8_t r = v / 20 + 2;
             if (r > 7) {
@@ -85,14 +85,14 @@ public:
         return 0;
     }
 
-    uint8_t GetBonusType5(uint8_t v) const { //5397a3
+    uint8_t GetBonusType5(uint8_t v) const { //5397a3 (client: 5234aa)
         if (this->spell_id == 27) {
             return v / 10 + 3;
         }
         return 0;
     }
 
-    int32_t GetSphere() { return this->spell_info->Values()[0].sphere; } //5393ee
+    int32_t GetSphere() { return this->spell_info->Values()[0].sphere; } //5393ee (client: 52312d)
 
 public:
     SpellInfo* spell_info;
@@ -117,7 +117,7 @@ public:
 
 public: // VTable at 60ec30.
     virtual ~SpellBook(); // 53d368
-    virtual void Serialize(CArchive& ar) override; // 53dd9a
+    virtual void Serialize(CArchive& ar) override; // 53dd9a (client: 5261f1)
 
 public:
     SpellBook() {}; // 53D28E (inlined in ASM callers)

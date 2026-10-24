@@ -61,7 +61,7 @@ public:
     uint32_t has_quest_intercept;
 
 public:
-    Group();  // Constructor - 554D9E
+    Group();  // Constructor - 554D9E (client: 534b65)
     ~Group();
 
     void Serialize(CArchive& ar);

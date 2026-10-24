@@ -11,13 +11,13 @@
 
 struct Inventory {
 public:
-    Inventory(); // 551C0A
+    Inventory(); // 551C0A (client: 5336d5)
     Inventory(const Inventory* src); // 551E55
     ~Inventory(); // 551C7A
 
 public:
     void PutItemIntoBagAtDefault(Item *item);
-    void PutItemIntoBag(int32_t pos, Item *item); // 551fc3
+    void PutItemIntoBag(int32_t pos, Item *item); // 551fc3 (client: 533804)
     Item* TakeItemAt(int32_t item_number, int32_t count);
     void AddItem(int32_t amount, Item* item); // 5524FA - add item to inventory
     void TransferFrom(Inventory* src); // Transfer all items from src into this inventory

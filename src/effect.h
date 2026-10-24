@@ -16,15 +16,15 @@ public: // Runtime class definition at 637098.
 
 public: // VTable at 0060f288.
     virtual ~Effect() override; // 57c350
-    virtual void Serialize(CArchive& ar) override; // 53e1ce
-    virtual void TickOnUnit(Unit* unit); // 53ee54
-    virtual void RemoveFromUnit(Unit* unit); // 53efb2
-    virtual void ApplyToUnit(Unit* unit); // 53f761
-    virtual void ModifyVision(Unit* unit); // 53f92c
-    virtual void ApplyStatDelta(Unit* unit, int32_t stack_delta); // 53FA2B
-    virtual int32_t CalcScrollPrice(); // 541c87
-    virtual int32_t CalcChargePercent(double mana); // 541d59
-    virtual void RollStrength(int32_t power); // 541eb5
+    virtual void Serialize(CArchive& ar) override; // 53e1ce (client: 5262d9)
+    virtual void TickOnUnit(Unit* unit); // 53ee54 (client: 52698b)
+    virtual void RemoveFromUnit(Unit* unit); // 53efb2 (client: 526afe)
+    virtual void ApplyToUnit(Unit* unit); // 53f761 (client: 526e61)
+    virtual void ModifyVision(Unit* unit); // 53f92c (client: 527023)
+    virtual void ApplyStatDelta(Unit* unit, int32_t stack_delta); // 53FA2B (client: 527122)
+    virtual int32_t CalcScrollPrice(); // 541c87 (client: 52915e)
+    virtual int32_t CalcChargePercent(double mana); // 541d59 (client: 52921c)
+    virtual void RollStrength(int32_t power); // 541eb5 (client: 529380)
 
 public:
     Effect();
@@ -34,8 +34,8 @@ public:
     static Effect* CreateFromString(const CString& effstr);
 
     // Helpers for CreateFromString
-    static void ParseDmg(CString* str, uint8_t* dmg_min, uint8_t* dmg_spread); // 54180C
-    static int32_t _StrToInt(CString* str); // 5418F1
+    static void ParseDmg(CString* str, uint8_t* dmg_min, uint8_t* dmg_spread); // 54180C (client: 528d43)
+    static int32_t _StrToInt(CString* str); // 5418F1 (client: 528e22)
     static int32_t GetSpellIDByName(CString* name); // 541963
     static int32_t AtoI(CString* str); // 5419C3
     static int32_t ParseUsage(CString* str, int32_t* out_value); // 541A5D
@@ -43,7 +43,7 @@ public:
     int Matches(Effect* other); // Returns true if both effects have matching effect_id, usage_type, and spell values
     int32_t CalcEffectLevel(int32_t budget, int32_t magic_volume); // Compute effect level from budget and magic volume
     int32_t EffectPrice(); // 540941
-    static int64_t MagicPriceBonus(int32_t total); // 540A33
+    static int64_t MagicPriceBonus(int32_t total); // 540A33 (client: 5280eb)
 
 public:
     uint8_t effect_id;
@@ -77,14 +77,14 @@ public:
     DECLARE_SERIAL(DirectDamage); // Runtime class definition at 6370b0.
 
 public: // VTable at 60f2e0.
-    virtual ~DirectDamage() override; // 57C370
-    virtual void Serialize(CArchive& ar) override; // 53E422
+    virtual ~DirectDamage() override; // 57C370 (client: 54d320)
+    virtual void Serialize(CArchive& ar) override; // 53E422 (client: 526379)
     virtual void RemoveFromUnit(Unit* unit) override;
 
 public:
     DirectDamage(); // 540B21
-    DirectDamage(uint8_t hand_damage_min, uint8_t hand_damage_spread); // 540B82
-    DirectDamage(DirectDamage* src); // 540BF7
+    DirectDamage(uint8_t hand_damage_min, uint8_t hand_damage_spread); // 540B82 (client: 528237)
+    DirectDamage(DirectDamage* src); // 540BF7 (client: 5282ac)
 
 public:
     UnitToHit unit_to_hit;

@@ -12,10 +12,10 @@ public:
 
 public: // VTable at 0060ef88.
     virtual ~VirtualCaster(); // 528993
-    virtual void Serialize(CArchive& ar) override; // 55D009
+    virtual void Serialize(CArchive& ar) override; // 55D009 (client: 537860)
 
 public:
-    VirtualCaster(); // 528900
+    VirtualCaster(); // 528900 (client: 517649)
 
 public:
     uint8_t byte_0x3c;

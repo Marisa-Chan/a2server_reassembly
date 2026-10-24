@@ -37,13 +37,13 @@ public:
     CWordArray diplomacy;
 
 public:
-    MapPlayerData(); // 43c040
-    MapPlayerData(int32_t index, int32_t color); // 43c17f
-    MapPlayerData(const MapPlayerData& other); // 43c0be
+    MapPlayerData(); // 43c040 (client: 43e450)
+    MapPlayerData(int32_t index, int32_t color); // 43c17f (client: 43e58f)
+    MapPlayerData(const MapPlayerData& other); // 43c0be (client: 43e4ce)
 
     virtual ~MapPlayerData(); // 43c270
 
-    virtual void Dump(CDumpContext& dc) const override; // 43c225
+    virtual void Dump(CDumpContext& dc) const override; // 43c225 (client: 43e635)
 
     uint32_t IsAllied(int32_t idx);
     int32_t KnowsPlayer(int32_t idx);
@@ -62,7 +62,7 @@ public:
     uint32_t exec_once_flag;
 
 public:
-    MapLogicData(); // 56E910
+    MapLogicData(); // 56E910 (client: 540a16)
 };
 ASSERT_SIZE(MapLogicData, 0x31c);
 
@@ -86,7 +86,7 @@ public:
     uint32_t gold;
 
 public:
-    MapSackData(); // 56EAC7
+    MapSackData(); // 56EAC7 (client: 540bcd)
 };
 ASSERT_SIZE(MapSackData, 0x4c);
 
@@ -112,7 +112,7 @@ public:
     CArray<MapEffectModifier> modifiers_data;
 
 public:
-    MapEffectData(); // 56ED8C
+    MapEffectData(); // 56ED8C (client: 540e09)
 };
 #pragma pack(pop)
 ASSERT_OFFSET(MapEffectData, type_id, 0x16);
@@ -252,7 +252,7 @@ public:
     CArray<MapUnitData*> units_datas;
 
 public:
-    MapAlm(const char* filename); // 5693A3
+    MapAlm(const char* filename); // 5693A3 (client: 53ea3a)
     ~MapAlm(); // 56D92A
 };
 ASSERT_OFFSET(MapAlm, effects, 0x2fc);

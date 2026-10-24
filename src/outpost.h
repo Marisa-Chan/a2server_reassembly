@@ -16,8 +16,8 @@ public:
     DECLARE_SERIAL(Outpost); // Runtime class definition at 637240.
 
 public: // VTable at 60f3b8.
-    Outpost(); // 54326A
-    Outpost(TokenPos* pos); // 5432DF
+    Outpost(); // 54326A (client: 52a1e8)
+    Outpost(TokenPos* pos); // 5432DF (client: 52a25d)
     virtual ~Outpost() override;
 
 public:
@@ -26,7 +26,7 @@ public:
 
 public:
     void RestoreOriginalUnits(Group* group); // Repop the group.
-    void FillUnits(Group* group); // 54361E
+    void FillUnits(Group* group); // 54361E (client: 52a3cb)
     void Reset(); // Initializes fields.
 
 public:

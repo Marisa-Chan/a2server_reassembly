@@ -19,7 +19,7 @@ public:
 
 public: // VTable at 60f3f8.
     virtual ~Shop(); // 544564
-    virtual void Serialize(CArchive& ar) override; // 5447b7
+    virtual void Serialize(CArchive& ar) override; // 5447b7 (client: 52aecc)
     virtual void RegenTick() override; // 544629
 
 public:

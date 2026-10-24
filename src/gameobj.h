@@ -27,36 +27,36 @@ public:
 public:
 
 	int32_t IsEmpty();
-	int32_t IsDepleted(); //4a78c0 in asm
-	int32_t IsQuestItem(); //43a5e5
-	int32_t IsQuestTreasure(); //43a6d5
+	int32_t IsDepleted(); //4a78c0 (client: 4ab860) in asm
+	int32_t IsQuestItem(); //43a5e5 (client: 43c8e3)
+	int32_t IsQuestTreasure(); //43a6d5 (client: 43c9d3)
 	int32_t IsPotion(); // client: 43ca26
 	int32_t IsScroll(); // client: 43ca7a
-	int32_t IsTwoHandedWeapon(); //4396fb
-	int32_t AddCount(int32_t num); //4a7850
-	int32_t RemoveCount(int32_t num); //4a7880
-	int32_t IsStackableWith(TokenEntry* other); //4a7900
-	int32_t GetFirstModAttrId(); //43988e in asm
+	int32_t IsTwoHandedWeapon(); //4396fb (client: 43ba17)
+	int32_t AddCount(int32_t num); //4a7850 (client: 4ab8a0)
+	int32_t RemoveCount(int32_t num); //4a7880 (client: 4ab960)
+	int32_t IsStackableWith(TokenEntry* other); //4a7900 (client: 4ab8d0)
+	int32_t GetFirstModAttrId(); //43988e (client: 43bbaa) in asm
 
-	virtual ~TokenEntry(); //4394bf
+	virtual ~TokenEntry(); //4394bf (client: 43b7dd)
 
-	TokenEntry(); //438f90
-	TokenEntry(int id1); //439009
+	TokenEntry(); //438f90 (client: 43b2b0)
+	TokenEntry(int id1); //439009 (client: 43b329)
 	TokenEntry(const TokenEntry* obj);
 	TokenEntry(uint8_t** data, int id1);
 
 	void operator=(const TokenEntry& obj);
 
-	CString GetSpriteName(); //4394f3
+	CString GetSpriteName(); //4394f3 (client: 43b811)
 	int HasKnownName(); //4396d6
-	const char* GetHintText(); //439973
+	const char* GetHintText(); //439973 (client: 43bc8f)
 
 	int GetType() const { return (this->item_id >> 8) & 0xf; } //41f0b0
 	int GetId() const { return this->item_id & 0x1f; } //43a800
 	int GetMaterial() const { return (this->item_id >> 0xc); } //43a7c0
 	int GetShape() const { return (this->item_id >> 5) & 7; } //43a7e0
 
-	uint32_t GetAttribute(uint8_t aid) const { //4397de
+	uint32_t GetAttribute(uint8_t aid) const { //4397de (client: 43bafa)
 		if (!this->mods || this->mods_count == 0 || this->mods_size == 0) {
 			return 0;
 		}
@@ -81,7 +81,7 @@ public:
 		return result;
 	}
 
-	uint32_t GetCastSpellId() const { return this->GetAttribute(CAST_SPELL_ATTRIBUTE_ID); } //41f0f0
+	uint32_t GetCastSpellId() const { return this->GetAttribute(CAST_SPELL_ATTRIBUTE_ID); } //41f0f0 (client: 420e10)
 public:
 	uint16_t field_0x4 = 0;
 	uint16_t item_id = 0;
@@ -101,7 +101,7 @@ ASSERT_SIZE(TokenEntry, 0x24);
 struct GO_11c {
 	GO_11c() = default;
 
-	GO_11c(int16_t x, int16_t y, int16_t z, uint8_t vfx_type, uint8_t phase) { // 4cd3c0
+	GO_11c(int16_t x, int16_t y, int16_t z, uint8_t vfx_type, uint8_t phase) { // 4cd3c0 (client: 4d1d10)
 		this->x = x;
 		this->y = y;
 		this->z = z;
@@ -150,18 +150,18 @@ public:
 	int32_t IsSelected() { return this->m_bSelected; } //41f110
 	uint32_t IsInControlGroup(uint32_t t) { return (1 << t) & this->controlGroupMask; } //41f1c0
 	void UpdateMapPosition();
-	void SetVals(uint16_t uni_id, int type_id, int32_t xpos, int32_t ypos, int32_t unk1, int32_t unk2, int32_t _phase, int32_t _speed, int32_t hp); //46187d
+	void SetVals(uint16_t uni_id, int type_id, int32_t xpos, int32_t ypos, int32_t unk1, int32_t unk2, int32_t _phase, int32_t _speed, int32_t hp); //46187d (client: 46548d)
 
 	int32_t FindEffectTimer(int32_t effect_id);
-	int32_t GetControlGroup(); //41f220
+	int32_t GetControlGroup(); //41f220 (client: 420e70)
 	int32_t IsBlocked(); //41f130
-	void SetTileLayerCell(int32_t layer_id, CGameObject* obj); //461c41
-	int32_t GetDirTo(int32_t x, int32_t y); //461f8e
+	void SetTileLayerCell(int32_t layer_id, CGameObject* obj); //461c41 (client: 465851)
+	int32_t GetDirTo(int32_t x, int32_t y); //461f8e (client: 465b9e)
 	void DrawBarFill(int32_t left, int32_t right, int32_t y, int32_t fill_width, uint16_t color_lo, uint16_t color_mid, uint16_t color_hi); //46246b
-	void DrawControlGroupNumber(int32_t x, int32_t y); //4627bb
-	void AddControlGroup(int32_t grp); //41f180
-	void SetControlGroup(int32_t grp); //41f150
-	void RemoveControlGroup(int32_t grp); //41f1f0
+	void DrawControlGroupNumber(int32_t x, int32_t y); //4627bb (client: 4663b3)
+	void AddControlGroup(int32_t grp); //41f180 (client: 420db0)
+	void SetControlGroup(int32_t grp); //41f150 (client: 420d50)
+	void RemoveControlGroup(int32_t grp); //41f1f0 (client: 420d80)
 public:
 	uint16_t unit_id; // 4
 	uint8_t __pad[2];
@@ -237,9 +237,9 @@ class CUnit : public CGameObject {
 	DECLARE_DYNAMIC(CUnit);
 public:
 
-	virtual ~CUnit(); //46459d
+	virtual ~CUnit(); //46459d (client: 46826a)
 
-	virtual void SetSelected(int32_t selected) override; //4648e9
+	virtual void SetSelected(int32_t selected) override; //4648e9 (client: 4685b5)
 	virtual int32_t VMethod2() override;
 	virtual int32_t VMethod3() override;
 	virtual int32_t GetTileWidth() override;
@@ -270,15 +270,15 @@ public:
 	virtual void PlayPickupVoice();
 	virtual void RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* bmp2);
 
-	CUnit(); //46411c
+	CUnit(); //46411c (client: 467de9)
 
-	void CopyFromUnit(const Unit& uni); //46b0d7
-	void ApplyFace(int32_t _face); //46b7d2
-	void ReloadSprite(); //46b91c
-	SfxBank* GetSfxBank(); //46978b
-	const char* GetStatsHint(int32_t x, int32_t y); //46d0f7
-	void DrawStatsPanel(CRect* rect); //46c124
-	int32_t IsItemRestricted(TokenEntry* entry); //46c0c9
+	void CopyFromUnit(const Unit& uni); //46b0d7 (client: 46ee45)
+	void ApplyFace(int32_t _face); //46b7d2 (client: 46f540)
+	void ReloadSprite(); //46b91c (client: 46f688)
+	SfxBank* GetSfxBank(); //46978b (client: 46d507)
+	const char* GetStatsHint(int32_t x, int32_t y); //46d0f7 (client: 470e63)
+	void DrawStatsPanel(CRect* rect); //46c124 (client: 46fe90)
+	int32_t IsItemRestricted(TokenEntry* entry); //46c0c9 (client: 46fe35)
 
 public:
 	uint8_t body;
@@ -325,8 +325,8 @@ ASSERT_SIZE(CUnit, 0x1e4);
 
 class TransientVisualEffectBuilder {
 public:
-    TransientVisualEffectBuilder(); // 4cb0a0
-    ~TransientVisualEffectBuilder(); // 4cb190
+    TransientVisualEffectBuilder(); // 4cb0a0 (client: 4cfa20)
+    ~TransientVisualEffectBuilder(); // 4cb190 (client: 4cfb10)
 
     int32_t BuildRisingParticles(CArray<GO_11c>* existing, int16_t x_radius, int16_t y_radius, int16_t z_radius, uint16_t visual_id); // 4cc22d
     int32_t BuildFallingParticles(CArray<GO_11c>* existing, int16_t x_radius, int16_t y_radius, int16_t z_radius, uint16_t visual_id); // 4cc3fd
@@ -336,11 +336,11 @@ public:
     void AddOffsetElement(int16_t height, uint8_t effect_type, uint8_t phase); // 4cce04
     void AddElement(int16_t height, uint8_t phase); // 4cced2
 
-    void BuildCirclePoints(int32_t x, int32_t y, int32_t radius, int32_t step); // 4cc5d1
+    void BuildCirclePoints(int32_t x, int32_t y, int32_t radius, int32_t step); // 4cc5d1 (client: 4d0f45)
     void BuildTiltedRing(int32_t x, int32_t y, int32_t height, float speed, float radius, int32_t angle); // 4cc798
     void BuildLightningLine(double x0, double y0, double x1, double y1, uint8_t vfx_type); // 4cc059
-    void BuildJitterWalk(double x0, double y0, double x1, double y1); // 4cb993
-    void SampleQuadraticArc(double px0, double py0, double px1, double py1, double px2, double py2); // 4cb85f
+    void BuildJitterWalk(double x0, double y0, double x1, double y1); // 4cb993 (client: 4d030d)
+    void SampleQuadraticArc(double px0, double py0, double px1, double py1, double px2, double py2); // 4cb85f (client: 4d01d9)
 
     void Clear(); // 46f390
 
@@ -374,12 +374,12 @@ struct StructEnter {
 	int32_t field_0x2c;
 
 	StructEnter(); //474f20 in asm
-	~StructEnter(); //474f90 in asm
-	void RebuildFromMap(); //473b80 in asm
-	int32_t FUN_00473d10(); //473d10 in asm
+	~StructEnter(); //474f90 (client: 477b30) in asm
+	void RebuildFromMap(); //473b80 (client: 4778d0) in asm
+	int32_t FUN_00473d10(); //473d10 (client: 477a60) in asm
 	void FUN_00474ff0(CUnit* unit); //474ff0 in asm
-	void ClearGroups(); //475010 in asm
-	void FUN_00475080(CUnit* unit); //475080 in asm
+	void ClearGroups(); //475010 (client: 477b90) in asm
+	void FUN_00475080(CUnit* unit); //475080 (client: 477f70) in asm
 };
 ASSERT_SIZE(StructEnter, 0x30);
 
@@ -393,9 +393,9 @@ public:
 
 	virtual void Dump(CDumpContext& dc) const override; // 46d7e8
 
-	virtual void UpdateTileLayer() override; // 46d6fb
+	virtual void UpdateTileLayer() override; // 46d6fb (client: 471467)
 
-	CAirUnit(); // 46d6ad
+	CAirUnit(); // 46d6ad (client: 471419)
 };
 ASSERT_SIZE(CAirUnit, 0x1e4);
 
@@ -410,9 +410,9 @@ public:
 
 	virtual int32_t GetTileWidth() override; // 46f5c0
 	virtual int32_t GetTileHeight() override; // 46f5d0
-	virtual void Draw(int32_t tile_x, int32_t tile_y, int32_t light) override; // 462887
-	virtual void DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) override; // 46295a
-	virtual void UpdateTileLayer() override; // 462a98
+	virtual void Draw(int32_t tile_x, int32_t tile_y, int32_t light) override; // 462887 (client: 46647f)
+	virtual void DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) override; // 46295a (client: 466629)
+	virtual void UpdateTileLayer() override; // 462a98 (client: 46676f)
 
 	CBackPack(); // 462843
 };
@@ -427,14 +427,14 @@ public:
 
 	virtual int32_t GetTileWidth() override; // 46f660
 	virtual int32_t GetTileHeight() override; // 46f670
-	virtual void Draw(int32_t tile_x, int32_t tile_y, int32_t light) override; // 46e291
+	virtual void Draw(int32_t tile_x, int32_t tile_y, int32_t light) override; // 46e291 (client: 471fee)
 
-	virtual int32_t Update() override; // 46d8d8
-	virtual void UpdateLight() override; // 46e805
-	virtual void UpdateTransientVisualElements() override; // 46eb80
+	virtual int32_t Update() override; // 46d8d8 (client: 471643)
+	virtual void UpdateLight() override; // 46e805 (client: 472562)
+	virtual void UpdateTransientVisualElements() override; // 46eb80 (client: 4728dd)
 
-	CProjectile(); // 46d802
-	CProjectile(CProjectile* obj); //46d85c
+	CProjectile(); // 46d802 (client: 47156d)
+	CProjectile(CProjectile* obj); //46d85c (client: 4715c7)
 
 public:
 	CDWordArray path_history;
@@ -454,14 +454,14 @@ public:
 
 	virtual int32_t GetTileWidth() override; //4637ca
 	virtual int32_t GetTileHeight() override; //4637eb
-	virtual void Draw(int32_t tile_x, int32_t tile_y, int32_t light) override; //462d11
-	virtual void DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) override; //462f58
-	virtual void DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) override; //4631f3
-	virtual void DrawMinimapRect(int32_t x, int32_t y, int32_t zoom) override; //46380c
-	virtual void UpdateTileLayer() override; //462b0f
-	virtual int32_t Update() override; //463a05
-	virtual void UpdateLight() override; //463a58
-	virtual int32_t UpdateBlockedState() override; //462b28
+	virtual void Draw(int32_t tile_x, int32_t tile_y, int32_t light) override; //462d11 (client: 4669e8)
+	virtual void DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) override; //462f58 (client: 466c2f)
+	virtual void DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) override; //4631f3 (client: 466eca)
+	virtual void DrawMinimapRect(int32_t x, int32_t y, int32_t zoom) override; //46380c (client: 4674dd)
+	virtual void UpdateTileLayer() override; //462b0f (client: 4667e6)
+	virtual int32_t Update() override; //463a05 (client: 4676d2)
+	virtual void UpdateLight() override; //463a58 (client: 467725)
+	virtual int32_t UpdateBlockedState() override; //462b28 (client: 4667ff)
 	// no VMethod16 override: the binary vtable keeps CGameObject's here
 
 	CStructure(); //462acb
@@ -477,9 +477,9 @@ public:
 
 	virtual int32_t GetTileWidth() override; //46f510 (returns bridge_width)
 	virtual int32_t GetTileHeight() override; //46f530 (returns bridge_height)
-	virtual void SetSize(int32_t width, int32_t height); //46f550
+	virtual void SetSize(int32_t width, int32_t height); //46f550 (client: 472ea0)
 
-	CBridge(int32_t width, int32_t height); //463c7f
+	CBridge(int32_t width, int32_t height); //463c7f (client: 46794c)
 
 	int32_t bridge_width; // 0x144
 	int32_t bridge_height; // 0x148
@@ -492,7 +492,7 @@ class CVerticalWoodenBridge : public CBridge {
 public:
 	virtual ~CVerticalWoodenBridge(); //4a9ef0
 
-	virtual void Draw(int32_t tile_x, int32_t tile_y, int32_t light) override; //463d26
+	virtual void Draw(int32_t tile_x, int32_t tile_y, int32_t light) override; //463d26 (client: 4679f3)
 	virtual void DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) override; //463f01 (stub)
 
 	CVerticalWoodenBridge(int32_t width, int32_t height); //4a9e90
@@ -505,7 +505,7 @@ class CHorisontalWoodenBridge : public CBridge {
 public:
 	virtual ~CHorisontalWoodenBridge(); //4a9f70
 
-	virtual void Draw(int32_t tile_x, int32_t tile_y, int32_t light) override; //463f0e
+	virtual void Draw(int32_t tile_x, int32_t tile_y, int32_t light) override; //463f0e (client: 467bdb)
 	virtual void DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) override; //46410f (stub)
 
 	CHorisontalWoodenBridge(int32_t width, int32_t height); //4a9f10

@@ -27,12 +27,12 @@ public:
     Player* FindByHatCharId(int32_t a, int32_t b);  // find player by HAT character id (hat_char_id1==a && hat_char_id2==b)
 
     Player* FindByTokenId(uint16_t token_id); // GetByTokenID
-    int CountCD(); //536092
+    int CountCD(); //536092 (client: 52057e)
     int32_t GetMaxPlayerId();  // returns max player_id in list
     void ResetFrags(); // Reset all players' frags to 0
     void Serialize(CArchive& ar); // Serialize
 
-    Player* GetHead(); // 5B70F0
+    Player* GetHead(); // 5B70F0 (client: 585150)
     Player* GetNext(Player* player); // 5B7110. Avoid this O(N^2) crap, use normal iteration over `list`.
 
     ~PlayersList(); //534c02

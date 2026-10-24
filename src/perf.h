@@ -15,9 +15,9 @@ struct Perf {
     int64_t period64;
 
 public:
-    Perf(); // 599F90
-    void Begin(); // 599fd0
-    void End();   // 5b6e50
+    Perf(); // 599F90 (client: 569280)
+    void Begin(); // 599fd0 (client: 5692c0)
+    void End();   // 5b6e50 (client: 584f10)
 };
 ASSERT_OFFSET(Perf, period, 0x18);
 ASSERT_SIZE(Perf, 0x30);

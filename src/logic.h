@@ -75,8 +75,8 @@ public:
     uint32_t trigger_id;
 
 public:
-    Trigger(); // 5afd79
-    ~Trigger(); // 5afe3d
+    Trigger(); // 5afd79 (client: 57dee9)
+    ~Trigger(); // 5afe3d (client: 57dfad)
     Trigger& operator=(const Trigger& other); // 5b006e
 };
 ASSERT_SIZE(Trigger, 0x18);

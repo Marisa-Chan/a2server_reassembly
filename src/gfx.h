@@ -232,21 +232,21 @@ public:
 	CGameFont();
 	void DrawTextWithShadow(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colorsh, int32_t shadow_dxy);
 
-	int32_t GetStrWidth(const char* str); //45e1f9
+	int32_t GetStrWidth(const char* str); //45e1f9 (client: 461e19)
 
-	int32_t GetHeight(); //402a90
+	int32_t GetHeight(); //402a90 (client: 402860)
 
-	CStringArray& StrToArray(const char* str); //45e959  internal
-	CStringArray& StrSplitToFitWidth(const CRect& r, const char* str); //45e35f  internal
+	CStringArray& StrToArray(const char* str); //45e959 (client: 462575)  internal
+	CStringArray& StrSplitToFitWidth(const CRect& r, const char* str); //45e35f (client: 461f7b)  internal
 
-	CStringArray& StringArrayForRect(const CRect& r, const char* str); //45eb1d
-	void DrawTextLinesShadow(const CRect& r, int32_t first, int32_t last, const CStringArray& lines, uint16_t *clr, int32_t dy); //45f6c2
-	void DrawTextLines(const CRect& r, int32_t first, int32_t last, const CStringArray& lines, uint16_t* clr, int32_t dy); //45f33e
+	CStringArray& StringArrayForRect(const CRect& r, const char* str); //45eb1d (client: 462739)
+	void DrawTextLinesShadow(const CRect& r, int32_t first, int32_t last, const CStringArray& lines, uint16_t *clr, int32_t dy); //45f6c2 (client: 4632dd)
+	void DrawTextLines(const CRect& r, int32_t first, int32_t last, const CStringArray& lines, uint16_t* clr, int32_t dy); //45f33e (client: 462f5a)
 
 	void DrawTextJustifyInRectShadow(const CRect& r, const char* str, uint16_t* clr, int32_t dy); //45ed37
 
-	void DrawTextJustifyShadow(int32_t x, int32_t y, int32_t w, CString txt, uint16_t* clr); //45f10b
-	void DrawTextJustify(int32_t x, int32_t y, int32_t w, CString txt, uint16_t* clr); //45eed7
+	void DrawTextJustifyShadow(int32_t x, int32_t y, int32_t w, CString txt, uint16_t* clr); //45f10b (client: 462d27)
+	void DrawTextJustify(int32_t x, int32_t y, int32_t w, CString txt, uint16_t* clr); //45eed7 (client: 462af3)
 public:
 	CGameBitmap* bitmap;
 	int32_t* char_widths;
@@ -259,15 +259,15 @@ ASSERT_SIZE(CGameFont, 0x10);
 class CGamePalette : public CObject {
 	DECLARE_DYNAMIC(CGamePalette);
 public:
-	virtual ~CGamePalette(); //423c6d
+	virtual ~CGamePalette(); //423c6d (client: 425b9d)
 	virtual void Dump(CDumpContext& dc) const override;
 
 	void operator=(const CGamePalette& b);
 
 	CGamePalette() = default; // 423bdf
 	void Free();
-	void SetPalette(RGBQUAD* rgb, uint32_t count, int mode, int useColor); //423cbe
-	uint16_t* GetPalette(int32_t idx); //41ec40
+	void SetPalette(RGBQUAD* rgb, uint32_t count, int mode, int useColor); //423cbe (client: 425bee)
+	uint16_t* GetPalette(int32_t idx); //41ec40 (client: 420440)
 
 public:
 	uint32_t count = 0;
@@ -315,7 +315,7 @@ public:
 	void* GetData();
 	void ResetPalette(uint32_t count, int mode, int useColor);
 
-	int32_t GetFrameCount(); //4387f0
+	int32_t GetFrameCount(); //4387f0 (client: 43ae10)
 
 public:
 	uint32_t frames_count = 0;
@@ -394,7 +394,7 @@ public:
 class CA16 : public CSprite256 {
 	DECLARE_DYNAMIC(CA16);
 public:
-	virtual ~CA16() {}; //428ae0
+	virtual ~CA16() {}; //428ae0 (client: 42ac80)
 
 	virtual void Draw(int32_t x, int32_t y, int frame, int palid, int mode) override;
 

@@ -40,10 +40,10 @@ void FreeDistortMap(); //47619a in asm
 
 class SfxSample : public CObject {
 public:
-	SfxSample() {}; //45b7d7
-	SfxSample(const char* fname) { this->filename = fname; } //45b842
+	SfxSample() {}; //45b7d7 (client: 45f407)
+	SfxSample(const char* fname) { this->filename = fname; } //45b842 (client: 45f472)
 
-	~SfxSample(); //45b8c2
+	~SfxSample(); //45b8c2 (client: 45f4f2)
 
 	void Play(int volume, int pan, int loop, uint8_t priority, int freq = 0); //45c0cf
 
@@ -54,10 +54,10 @@ public:
 		}
 	} //438ec0 alt
 
-	void LoadSample(); //45ba94
+	void LoadSample(); //45ba94 (client: 45f6c4)
 
-	void Release(); //45ba0f
-	SoundChannel* FindPlayingChannel(); //45c004
+	void Release(); //45ba0f (client: 45f63f)
+	SoundChannel* FindPlayingChannel(); //45c004 (client: 45fc34)
 public:
 	uint32_t field_0x4 = 0;
 	CString filename;
@@ -70,15 +70,15 @@ ASSERT_SIZE(SfxSample, 0x14);
 class SoundChannel : public CObject {
 public:
 	SoundChannel() = default; //45cc20
-	~SoundChannel() = default; //45cc60
+	~SoundChannel() = default; //45cc60 (client: 460850)
 
-	void Clear(); //41fdd0
-	void Stop(); //41ff90
-	void Play(bool bLoop); //45c408
-	void SetVolume(int32_t volume); //41fea0
-	void SetPan(int32_t pan); //41ff60
+	void Clear(); //41fdd0 (client: 4210a0)
+	void Stop(); //41ff90 (client: 421060)
+	void Play(bool bLoop); //45c408 (client: 460036)
+	void SetVolume(int32_t volume); //41fea0 (client: 420fe0)
+	void SetPan(int32_t pan); //41ff60 (client: 421030)
 
-	static SoundChannel* __cdecl GetChannel(int32_t priority); //45c23e
+	static SoundChannel* __cdecl GetChannel(int32_t priority); //45c23e (client: 45fe6c)
 public:
 	uint8_t priority = 0;
 	uint8_t __pad[3];
@@ -110,11 +110,11 @@ struct SoundSettings {
 	int32_t music_allowed;
 	int32_t music_enabled;
 
-	SoundSettings(); //477860
+	SoundSettings(); //477860 (client: 47b5a0)
 	~SoundSettings(); //477920
 
-	void Load(HKEY& rkey); //43d7c4
-	void Save(HKEY& rkey); //43d877
+	void Load(HKEY& rkey); //43d7c4 (client: 43fc28)
+	void Save(HKEY& rkey); //43d877 (client: 43fcdb)
 };
 ASSERT_SIZE(SoundSettings, 0x28);
 
@@ -122,24 +122,24 @@ class MusicPlayer : public CObject {
 public:
 	static MusicPlayer *Player;
 public:
-	MusicPlayer(int32_t bufsz); //45b16d
-	~MusicPlayer(); //45b321
+	MusicPlayer(int32_t bufsz); //45b16d (client: 45ed9d)
+	~MusicPlayer(); //45b321 (client: 45ef51)
 
-	int GetState(); //451700
-	void OnEndTrack(); //45b5cf
-	void UnsetUpdateProc(); //45a6ee
-	void SetVolume(int32_t vol); // 451790
-	void StartPlayTrack(int32_t track); //45b6d0
-	void OpenTrack(int32_t track); //45ae1d
-	void SetPlayList(const CStringArray& plist); //45b0ff
-	void Play(); //45b565
-	void UpdateBufferTime(); //45cb40
-	void SetUpdateProc(); //45a6c0
-	void Update(uint32_t tm); //45a9b3
+	int GetState(); //451700 (client: 452da0)
+	void OnEndTrack(); //45b5cf (client: 45f1ff)
+	void UnsetUpdateProc(); //45a6ee (client: 45e31e)
+	void SetVolume(int32_t vol); // 451790 (client: 452e30)
+	void StartPlayTrack(int32_t track); //45b6d0 (client: 45f300)
+	void OpenTrack(int32_t track); //45ae1d (client: 45ea4d)
+	void SetPlayList(const CStringArray& plist); //45b0ff (client: 45ed2f)
+	void Play(); //45b565 (client: 45f195)
+	void UpdateBufferTime(); //45cb40 (client: 460710)
+	void SetUpdateProc(); //45a6c0 (client: 45e2f0)
+	void Update(uint32_t tm); //45a9b3 (client: 45e5e3)
 
-	uint32_t GetElapsedSeconds(); //45cbe0
+	uint32_t GetElapsedSeconds(); //45cbe0 (client: 4606d0)
 
-	void ReadPortion(uint8_t* buf); //45a707
+	void ReadPortion(uint8_t* buf); //45a707 (client: 45e337)
 
 	int32_t ComputeVolumeFade(int32_t volume, uint32_t tm); //45a8cc
 
@@ -148,19 +148,19 @@ public:
 	CStringArray& GetPlaylist() { return this->playlist; } //4517f0
 
 	void SetPlayNotify(int _notify) { this->play_notify = _notify; } //451810
-	void SetRandom(int random); //45b655
+	void SetRandom(int random); //45b655 (client: 45f285)
 
 	void SetFadeout(int fade) { this->fadeout_enabled = fade; } //451830
-	int32_t GetCurrentTrackIndex() const { return this->track_ids[this->current_track_id]; } //451850
+	int32_t GetCurrentTrackIndex() const { return this->track_ids[this->current_track_id]; } //451850 (client: 452eb0)
 
-	int32_t GetVolume(); //451750
-	int32_t GetBufPosition(); //45cba0
+	int32_t GetVolume(); //451750 (client: 452df0)
+	int32_t GetBufPosition(); //45cba0 (client: 4607a0)
 
-	void BeginFadeOut(int32_t len, int32_t vol); //45b408
+	void BeginFadeOut(int32_t len, int32_t vol); //45b408 (client: 45f038)
 
-	void QueueTrack(int32_t track); //45b681 in asm
+	void QueueTrack(int32_t track); //45b681 (client: 45f2b1) in asm
 
-	static void MusicUpdaterProc(); //45a99c
+	static void MusicUpdaterProc(); //45a99c (client: 45e5cc)
 
 #ifdef A2CLIENT
 	void SwitchPlaylistAndPlayRandom(const CStringArray& plist); // client 45ed2f
@@ -201,10 +201,10 @@ ASSERT_SIZE(MusicPlayer, 0xa0);
 class SfxBank : public CObject {
 public:
 	SfxBank() {}; //4c87ef
-	~SfxBank() {}; //4c9480
+	~SfxBank() {}; //4c9480 (client: 4cde10)
 
-	void Load(CString name); //4c880e
-	void Unload(); //4c926b
+	void Load(CString name); //4c880e (client: 4cd1a8)
+	void Unload(); //4c926b (client: 4cdbf6)
 public:
 	SfxSample* select[4];
 	SfxSample* attack[4];

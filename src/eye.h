@@ -169,9 +169,9 @@ struct UnitEye {
 
 public:
     UnitEye(); // 58BE86
-    uint8_t GetFacingHalf(); // 58C00E
-    void SetPathMaskByMovement(Unit* unit); // 5925C9
-    int CheckRotation(Unit* unit, uint8_t* out_dir, uint8_t eye0, uint8_t eye1); // 59367D
+    uint8_t GetFacingHalf(); // 58C00E (client: 55b4be)
+    void SetPathMaskByMovement(Unit* unit); // 5925C9 (client: 561a79)
+    int CheckRotation(Unit* unit, uint8_t* out_dir, uint8_t eye0, uint8_t eye1); // 59367D (client: 562b2d)
 };
 ASSERT_OFFSET(UnitEye, counter, 0x78);
 ASSERT_OFFSET(UnitEye, field122_0x82, 0x82);
@@ -262,7 +262,7 @@ struct UnitEye2 {
     CList<uint16_t>* positions_list;
 
 public:
-    UnitEye2(); // 5A4E83
+    UnitEye2(); // 5A4E83 (client: 572ff3)
     ~UnitEye2(); // 5A4F30
 };
 ASSERT_OFFSET(UnitEye2, known_spells, 0x7c);

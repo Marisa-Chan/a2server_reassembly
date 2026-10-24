@@ -44,10 +44,10 @@ public: // VTable at 60f498.
     virtual void WriteState(PacketUnitStateVec* pkt, uint8_t* slot);
 
 public:
-    Item(); // sub_547F80: default constructor (blank item)
-    Item(const CString& name); // sub_5480E3: construct item from name string
-    Item(uint8_t type, uint8_t subtype); // sub_54800E: construct item from type and subtype
-    Item(const Item* src); // sub_54842A: copy constructor
+    Item(); // sub_547F80: default constructor (blank item) (client: 52cb56)
+    Item(const CString& name); // sub_5480E3: construct item from name string (client: 52ccb9)
+    Item(uint8_t type, uint8_t subtype); // sub_54800E: construct item from type and subtype (client: 52cbe4)
+    Item(const Item* src); // sub_54842A: copy constructor (client: 52cfd3)
     void InitFromTemplate(uint8_t slot); // 5482AB: init item fields from magic_items table
     void AddEffect(Effect* effect); // Add effect to item
     int IsArtifact(); // IsArtifact: returns 1 if the item has magic and price 2. 548f07.
@@ -56,12 +56,12 @@ public:
     void RecalcFromTemplate(); // Recalculate item properties from template data
 
     Effect* FindCastSpellEffect(); // Find the cast-spell Effect on this item (returns nullptr if none)
-    int IsSimilar(Item* other); // 548860. Is this item similar to another? Same non-magic item or same base with same magic.
+    int IsSimilar(Item* other); // 548860 (client: 54e170). Is this item similar to another? Same non-magic item or same base with same magic.
 
-    void StoreToPacket(PacketUnitStateVec* pkt, int with_shelf_id); // 549afb
+    void StoreToPacket(PacketUnitStateVec* pkt, int with_shelf_id); // 549afb (client: 52dee1)
     void WriteEffects(PacketUnitStateVec* pkt, uint8_t* slot); // 549F2C
     void ApplyEffects(Unit* unit); // 548C2E
-    void RemoveEffects(Unit* unit); // 548CE4
+    void RemoveEffects(Unit* unit); // 548CE4 (client: 52d4eb)
 
 public:
     enum ItemType : uint8_t {
@@ -98,19 +98,19 @@ public:
 
 public: // VTable at 60f508.
     virtual ~Armor() override; // 54F9D1
-    virtual void Serialize(CArchive& ar) override; // 55CF2B
-    virtual Item* Equip(Unit* unit) override; // 54FA6E
-    virtual void Unequip(Unit* unit) override; // 54FB7E
+    virtual void Serialize(CArchive& ar) override; // 55CF2B (client: 5377f2)
+    virtual Item* Equip(Unit* unit) override; // 54FA6E (client: 531735)
+    virtual void Unequip(Unit* unit) override; // 54FB7E (client: 531843)
     virtual Item* TakeOne() override; // 54FC19
     virtual Item* Clone() override; // 57D5B0
-    virtual int32_t CalcValue() override; // 54F84D
-    virtual void WriteState(PacketUnitStateVec* pkt, uint8_t* slot) override; // 54FCA8
+    virtual int32_t CalcValue() override; // 54F84D (client: 531584)
+    virtual void WriteState(PacketUnitStateVec* pkt, uint8_t* slot) override; // 54FCA8 (client: 531968)
 
 public:
-    Armor(); // 54F2E9: default constructor
-    Armor(const CString& name); // 54F361: construct from name string
+    Armor(); // 54F2E9: default constructor (client: 53109a)
+    Armor(const CString& name); // 54F361: construct from name string (client: 531112)
     Armor(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // sub_54F5AB
-    Armor(const Armor* src); // sub_54F9ED: copy constructor
+    Armor(const Armor* src); // sub_54F9ED: copy constructor (client: 5316b4)
     void LoadInfo(); // sub_54F634
 
 public:
@@ -127,19 +127,19 @@ public:
 
 public: // VTable at 60f560.
     virtual ~Shield() override; // 55044b
-    virtual void Serialize(CArchive& ar) override; // 55AF5E
-    virtual Item* Equip(Unit*) override; // 55056B
-    virtual void Unequip(Unit*) override; // 550686
+    virtual void Serialize(CArchive& ar) override; // 55AF5E (client: 536e3d)
+    virtual Item* Equip(Unit*) override; // 55056B (client: 53218d)
+    virtual void Unequip(Unit*) override; // 550686 (client: 5322a3)
     virtual Item* TakeOne() override; // 5504DC
     virtual Item* Clone() override; // 57D660
-    virtual int32_t CalcValue() override; // 5502C7
-    virtual void WriteState(PacketUnitStateVec* pkt, uint8_t* slot) override; // 5506FC
+    virtual int32_t CalcValue() override; // 5502C7 (client: 531f5c)
+    virtual void WriteState(PacketUnitStateVec* pkt, uint8_t* slot) override; // 5506FC (client: 532317)
 
 public:
     Shield(); // 54FE1B: default constructor
     Shield(const CString& name); // 54FE8E: construct from name string
     Shield(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // 5500FA
-    Shield(const Shield* src); // 550467: copy constructor
+    Shield(const Shield* src); // 550467 (client: 53208c): copy constructor
 
     void LoadInfo(); // 550183
 
@@ -155,18 +155,18 @@ public:
 
 public: // VTable at 60f5b8.
     virtual ~Weapon() override; // 551159
-    virtual void Serialize(CArchive& ar) override; // 55929F
-    virtual Item* Equip(Unit* unit) override; // 5512E7
-    virtual void Unequip(Unit* unit) override; // 5515B9
+    virtual void Serialize(CArchive& ar) override; // 55929F (client: 536298)
+    virtual Item* Equip(Unit* unit) override; // 5512E7 (client: 532dee)
+    virtual void Unequip(Unit* unit) override; // 5515B9 (client: 5330b4)
     virtual Item* TakeOne() override; // 5517C3
     virtual Item* Clone() override; // 57D710
-    virtual int32_t CalcValue() override; // 550FA6
-    virtual void WriteState(PacketUnitStateVec* pkt, uint8_t* slot) override; // 551855
+    virtual int32_t CalcValue() override; // 550FA6 (client: 532b26)
+    virtual void WriteState(PacketUnitStateVec* pkt, uint8_t* slot) override; // 551855 (client: 53334b)
 
 public:
     Weapon(); // 550872: default constructor
     Weapon(const CString& name); // 550929: construct weapon from name string
-    Weapon(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // 550B8F
+    Weapon(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // 550B8F (client: 532729)
     Weapon(const Weapon* src); // 5511EE: copy constructor
     void LoadEquipInfo(WorldEquip* params); // 550E26
     void LoadInfo(); // 550C23

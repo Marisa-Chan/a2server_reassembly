@@ -38,7 +38,7 @@ struct ShopAssortment {
 
     ShopAssortment();   // sub_54A13B (??1CWinThread@@UAE@XZ_37 in asm listing)
     ~ShopAssortment();  // sub_54A2DD
-    void GenerateAssortment(AssortGenParams* params);  // sub_54BF6B
+    void GenerateAssortment(AssortGenParams* params);  // sub_54BF6B (client: 52f209)
 
     void Reset(); // 54C08A — reset fields (still in ASM)
     void ClearItems(); // 54BC09 — ClearItemsArray: delete all items (still in ASM)

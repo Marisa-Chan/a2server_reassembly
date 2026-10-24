@@ -32,12 +32,12 @@ extern CStringArray g_MissionSubjs; //660ea8
 struct Obstacle {
     uint8_t bits;
 
-    inline void SetBits(uint8_t _bits) { this->bits |= _bits; } //5970a0
+    inline void SetBits(uint8_t _bits) { this->bits |= _bits; } //5970a0 (client: 5664f0)
     inline void UnsetBits(uint8_t _bits) { this->bits &= ~_bits; } //
 
     inline void AndBits(uint8_t _bits) { this->bits &= _bits; } //
 
-    inline uint8_t TestBits(uint8_t _bits) { return this->bits & _bits; } //5970f0
+    inline uint8_t TestBits(uint8_t _bits) { return this->bits & _bits; } //5970f0 (client: 566540)
 
     inline operator uint8_t() const { return this->bits; }
     inline void operator=(uint8_t val) { this->bits = val; }
@@ -61,9 +61,9 @@ public:
     ScanPresenceGrid(); // 5955B5
     void RegisterAreaEffect(AreaEffect* ae); // Register area effect into the scan grid (RegisterAreaEffect)
     void RebuildPresenceGrid();                 // Rebuild presence grid from all active units/players
-    void MarkWatchedSector(Unit* unit); // OR the unit owner's vision mask into the 5x5 sector block around the unit (5957E2)
-    void DetectWatchedUnit(Unit* unit); // Mark unit detected when its sector is watched (595F46)
-    void ClearPresenceGrid();           // Clear the sector grid and reset per-unit/per-group detection state (5963B9)
+    void MarkWatchedSector(Unit* unit); // OR the unit owner's vision mask into the 5x5 sector block around the unit (5957E2) (client: 564c92)
+    void DetectWatchedUnit(Unit* unit); // Mark unit detected when its sector is watched (595F46) (client: 5653f6)
+    void ClearPresenceGrid();           // Clear the sector grid and reset per-unit/per-group detection state (5963B9) (client: 565869)
 };
 ASSERT_OFFSET(ScanPresenceGrid, unit_list, 0x1610);
 ASSERT_SIZE(ScanPresenceGrid, 0x1628);
@@ -75,7 +75,7 @@ struct FieldBlock54190 {
     uint8_t data[0x3ec];
 
 public:
-    FieldBlock54190(); // 599FF0
+    FieldBlock54190(); // 599FF0 (client: 5692e0)
 };
 ASSERT_SIZE(FieldBlock54190, 0x3f4);
 
@@ -112,7 +112,7 @@ struct CellState {
     uint8_t  teleport_y;         // +0x39: teleport destination y
     PosYX  cell_yx;              // +0x3A
 
-    int IsEmpty() const; //58bef6
+    int IsEmpty() const; //58bef6 (client: 55b3a6)
     void Null(); //58a3da
     void RelinkPointers(); // Remaps stale on-disk pointer fields through g_Server's pointer remap table.
 };
@@ -179,18 +179,18 @@ struct MapStuff { // aka astruct_5
     UnitList* field69_0xa456c;
 
 public:
-    MapStuff(MapAlm* alm, UnitList* unit_list); // 587E19
+    MapStuff(MapAlm* alm, UnitList* unit_list); // 587E19 (client: 5572c9)
     ~MapStuff(); // 587f70
 
-    void InitFromUnitList(UnitList* unit_list); // 58E891
-    void InitFromAlm(MapAlm* alm); // 58F166
-    uint8_t CalcTerrainWalkCost(uint16_t terrain_code, uint8_t* out_walk_cost); // Computes edge-blended walk cost + classification code for a terrain cell — 58F48D
-    void MarkMapBorder(); // Marks an 8-tile-thick obstacle border around the map edges — 58E670
+    void InitFromUnitList(UnitList* unit_list); // 58E891 (client: 55dd41)
+    void InitFromAlm(MapAlm* alm); // 58F166 (client: 55e616)
+    uint8_t CalcTerrainWalkCost(uint16_t terrain_code, uint8_t* out_walk_cost); // Computes edge-blended walk cost + classification code for a terrain cell — 58F48D (client: 55e93d)
+    void MarkMapBorder(); // Marks an 8-tile-thick obstacle border around the map edges — 58E670 (client: 55db20)
 
     int AddUnitToMap(Unit* unit); // add unit to map
     void Serialize(CArchive& ar); // Serialize
     void EncodeTerrain(CWordArray* encode_buf); // encode map terrain into encode_buf
-    bool IsInMapBounds(uint8_t x, uint8_t y) const; // 594076
+    bool IsInMapBounds(uint8_t x, uint8_t y) const; // 594076 (client: 563526)
     void RelinkAfterLoad(); // Post-load map relink helper
     int CanPlaceSack(class Sack* sack); // Check if sack can be placed on map
     void RemoveSack(class Sack* sack); // Remove a sack token from the map
@@ -202,9 +202,9 @@ public:
     uint8_t GetFacingFor(Unit* unit, PosYX yx); // Pick rotation angle for the unit to look at `yx`.
     void TeleportUnit(Unit* unit, uint8_t x, uint8_t y); // Teleport unit to (x, y)
     void PlaceAreaEffectAt(AreaEffect* ae, uint8_t x, uint8_t y); // 59501E
-    int RemoveAreaEffectAt(AreaEffect* ae, uint16_t yx); // 595073 — remove area effect from cell state at yx
+    int RemoveAreaEffectAt(AreaEffect* ae, uint16_t yx); // 595073 (client: 564523) — remove area effect from cell state at yx
     Unit* GetBuildingUnitAt(uint8_t x, uint8_t y); // 5946BF
-    void BlockCell(uint8_t x, uint8_t y); // 594768
+    void BlockCell(uint8_t x, uint8_t y); // 594768 (client: 563c18)
     int ApplyTerrainMod(uint16_t yx, void* src); // Apply terrain modification from 6-byte src buffer at yx
     AreaEffect** GetAreaEffectsAt(uint32_t yx); // Get pointer to area_effects[6] array at cell yx.
     int16_t GetTileMoveTime(Unit* unit, uint8_t x, uint8_t y); // Movement time for unit entering tile (x,y).
@@ -229,25 +229,25 @@ public:
     int IsAreaClear(Unit* unit, PosYX yx, int32_t flag);
     int32_t RemoveBuilding(class Building* building); // Remove building from map
     int32_t PlaceBuilding(class Building* building); // Place building on the map
-    int SetCellBuilding(Building* building, uint16_t yx); // 5943D0 — set building pointer in cell state at yx
+    int SetCellBuilding(Building* building, uint16_t yx); // 5943D0 — set building pointer in cell state at yx (client: 563880)
     int CanApplyAreaEffect(AreaEffect* ae, uint8_t x, uint8_t y); // Check if area effect can be applied at (x, y) — 595438
-    uint8_t FacingDiff(uint8_t a, uint8_t b); // 595561 — smallest angular difference between two facing bytes.
-    AreaEffect* AreaEffectCovers(AreaEffect* ae, uint16_t coord);  // Check if area effect covers cell coord — 5953CB
+    uint8_t FacingDiff(uint8_t a, uint8_t b); // 595561 (client: 564a11) — smallest angular difference between two facing bytes.
+    AreaEffect* AreaEffectCovers(AreaEffect* ae, uint16_t coord);  // Check if area effect covers cell coord — 5953CB (client: 56487b)
     Unit* GetUnitAt(PosYX yx); // Get unit at map coordinate yx — 58CA1B
     void RegisterAreaEffectAt(AreaEffect* ae, uint8_t x, uint8_t y); // 594E65
-    int RegisterAreaEffectCell(AreaEffect* ae, uint16_t yx); // 594EBA — register area effect into cell state at yx
-    UnitList* BuildNearbyUnitList(PosYX yx, uint8_t range); // Build a temporary UnitList of units around yx — 5897AA
-    int16_t ClampPosToMap(Unit* unit, uint32_t packed_yyxx, uint8_t range); // 5936D2
+    int RegisterAreaEffectCell(AreaEffect* ae, uint16_t yx); // 594EBA — register area effect into cell state at yx (client: 56436a)
+    UnitList* BuildNearbyUnitList(PosYX yx, uint8_t range); // Build a temporary UnitList of units around yx — 5897AA (client: 558c5a)
+    int16_t ClampPosToMap(Unit* unit, uint32_t packed_yyxx, uint8_t range); // 5936D2 (client: 562b82)
 
     Unit* GetSmallUnitAt(uint16_t yx); // Get small unit occupying cell yx — 58CB5A
     Unit* GetLargeUnitAt(uint16_t yx); // Get large unit occupying cell yx — 58CBB9
-    void CollectSackCells(Unit* unit, int32_t flag); // 594A2D — collect passable sack cells in expanding rings around the unit.
-    int32_t IsPassableSackCell(Unit* unit, uint16_t yx); // 594C4B — check whether cell yx holds a sack and is passable for unit.
-    int UnitFitsAt(Unit* unit); // Check if unit fits/can be placed over all cells at its current position — 58B1D7
-    void RefreshCellObstacles(PosYX yx); // Refresh derived obstacle bits for cell yx from its stored cell state — 58B593
+    void CollectSackCells(Unit* unit, int32_t flag); // 594A2D — collect passable sack cells in expanding rings around the unit. (client: 563edd)
+    int32_t IsPassableSackCell(Unit* unit, uint16_t yx); // 594C4B — check whether cell yx holds a sack and is passable for unit. (client: 5640fb)
+    int UnitFitsAt(Unit* unit); // Check if unit fits/can be placed over all cells at its current position — 58B1D7 (client: 55a687)
+    void RefreshCellObstacles(PosYX yx); // Refresh derived obstacle bits for cell yx from its stored cell state — 58B593 (client: 55aa43)
     Sack* GetSackInCell(uint16_t yx); // Get sack at cell yx if the cell has a stored state — 58E611
-    int ClearCellBuilding(class Building* building, PosYX yx); // Clear building from the cell state at yx — 59449A
-    int CanTraverseCell(Unit* unit, PosYX yx); // Check if unit can move onto and off of yx (both directions clear) — 595468
+    int ClearCellBuilding(class Building* building, PosYX yx); // Clear building from the cell state at yx — 59449A (client: 56394a)
+    int CanTraverseCell(Unit* unit, PosYX yx); // Check if unit can move onto and off of yx (both directions clear) — 595468 (client: 564918)
     void RelaxCostsMap1Queue2(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map, queue into dynamic ring buffer — 597BB0
     void RelaxCostsMap1Queue1(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map, queue into static ring buffer — 5983D0
     void RelaxCostsMap2Queue2(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map2, queue into dynamic ring buffer — 598BF0
@@ -263,17 +263,17 @@ public:
     void BuildPathList1(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // Builds unit->list1 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y) — 5890CC
     void BuildPathList2(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // Builds unit->list2 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y) — 5893C6
     uint16_t PickAttackPosition(Unit* unit, Unit* target); // 592A48
-    int16_t FindCheapestCellNear(Unit* unit, int32_t zero, uint16_t yx, uint32_t radius); // 593134
+    int16_t FindCheapestCellNear(Unit* unit, int32_t zero, uint16_t yx, uint32_t radius); // 593134 (client: 5625e4)
     Building* GetBuildingAt(uint16_t yx); // 594709
-    uint8_t BoxDistance(uint16_t yx1, uint16_t yx2, int32_t size); // 591A96
+    uint8_t BoxDistance(uint16_t yx1, uint16_t yx2, int32_t size); // 591A96 (client: 560f46)
     void ExpandCostsStaticQueue2(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableStatic, queueing improved cells into queue2 — 597290
     void ExpandCostsStaticQueue1(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableStatic, queueing improved cells into queue1 — 5974B0
     void ExpandCostsDynamicQueue1(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableDynamic, queueing improved cells into queue1 — 597990
     void ExpandCostsDynamicQueue2(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableDynamic, queueing improved cells into queue2 — 5976D0
     int32_t IsCellPassableStatic(Unit* unit, uint16_t yx); // 596F80
     int32_t IsCellPassableDynamic(Unit* unit, uint16_t yx); // Passability check used by ExpandCostsDynamicQueue2/ExpandCostsDynamicQueue1 — 5978F0
-    uint16_t* GetCostGridAt(uint8_t x, uint8_t y); // Get pointer into field3_0x30000 cost grid for (x,y) — 59A670
-    uint8_t* GetWalkCostMapAt(uint8_t x, uint8_t y); // Get pointer into walk_cost_map for (x,y) — 59A6F0
+    uint16_t* GetCostGridAt(uint8_t x, uint8_t y); // Get pointer into field3_0x30000 cost grid for (x,y) — 59A670 (client: 569960)
+    uint8_t* GetWalkCostMapAt(uint8_t x, uint8_t y); // Get pointer into walk_cost_map for (x,y) — 59A6F0 (client: 5699e0)
 
     // Member function pointer to a passability check with the same shape as IsCellPassableStatic/IsCellPassableDynamic.
     using PassableCheckFn = int32_t (MapStuff::*)(Unit*, uint16_t);
@@ -290,24 +290,24 @@ public:
     // front of `path`; on failure (gave up) clears `path` entirely.
     void WalkCostPath(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y, CList<PosYX>& path);
 
-    void FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y, int32_t flag, Unit* target); // 5882AE
+    void FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y, int32_t flag, Unit* target); // 5882AE (client: 55775e)
 
     inline Obstacle& ObstacleAt(PosYX yx) { return this->obstacle_map[yx.val]; } //59a7a0
     inline Obstacle& Obstacle2At(PosYX yx) { return this->obstacle_map2[yx.val]; } //59a7c0
-    inline uint8_t& WalkCostAt(PosYX yx) { return this->walk_cost_map[yx.val]; } //59a780
+    inline uint8_t& WalkCostAt(PosYX yx) { return this->walk_cost_map[yx.val]; } //59a780 (client: 569a40)
 
     int IsObstacle2_40(PosYX yx) { return this->Obstacle2At(yx).TestBits(0x40); } //58b9ee
     void SetObstacle2_40(PosYX yx) { this->Obstacle2At(yx).SetBits(0x40); } //58b920
     int IsObstacle2_80(PosYX yx) { return this->Obstacle2At(yx).TestBits(0x80); } //58ba15
     void SetObstacle2_80(PosYX yx) { this->Obstacle2At(yx).SetBits(0x80); } //58b952
 
-    void ApplyCellState(CellState& cell); //58b5d6
-    int RestoreCellState(PosYX yx); //58b4a6
-    void ClearBlockerAt(Unit* unit, PosYX yx); //596d3e
-    void SnapshotCellState(PosYX yx); //58b3e0
-    void SetBlockerAt(Unit* unit, PosYX yx); //596e0e
-    void MoveUnitBlockers(Unit* unit, PosYX yx, uint8_t t); //5969c6
-    int ClearUnitCell(Unit* unit, uint8_t x, uint8_t y); // Clear unit occupancy from cell (x,y), refresh state, cache eye position — 58B27F
+    void ApplyCellState(CellState& cell); //58b5d6 (client: 55aa86)
+    int RestoreCellState(PosYX yx); //58b4a6 (client: 55a956)
+    void ClearBlockerAt(Unit* unit, PosYX yx); //596d3e (client: 5661ee)
+    void SnapshotCellState(PosYX yx); //58b3e0 (client: 55a890)
+    void SetBlockerAt(Unit* unit, PosYX yx); //596e0e (client: 5662be)
+    void MoveUnitBlockers(Unit* unit, PosYX yx, uint8_t t); //5969c6 (client: 565e76)
+    int ClearUnitCell(Unit* unit, uint8_t x, uint8_t y); // Clear unit occupancy from cell (x,y), refresh state, cache eye position — 58B27F (client: 55a72f)
 
     // Shared by RelaxCostsMap1Queue2/RelaxCostsMap1Queue1/RelaxCostsMap2Queue2/RelaxCostsMap2Queue1: relaxes path cost of the 8
     // neighbors of yx, skipping any neighbor blocked in obstacle_map (masked by flag_byte),
@@ -344,11 +344,11 @@ void __cdecl ReadRecord(char* buf, File2* file); //4a7b3c
 
 class Scenario : public CObject {
 public:
-    ~Scenario(); //4a9468
+    ~Scenario(); //4a9468 (client: 4ad48f)
 
     Scenario(); //4a7a50
     Scenario(const char* fname); //4a7bec
-    bool ReadAlmInfo(NetMapInfo* info); //44ec40
+    bool ReadAlmInfo(NetMapInfo* info); //44ec40 (client: 451f65)
 
     uint16_t* GetLandscape() const { return this->landscape; }; //41ee80
     int32_t GetWidth() const { return this->width; }; //41ef20
@@ -357,9 +357,9 @@ public:
     uint8_t* GetMapHeights() const { return this->map_heights; }; //41eea0
     uint8_t* GetObjectMap() const { return this->object_map; }; //41eec0
     uint8_t* GetOverlayMap() const { return this->overlay_map; }; //41eee0
-    int32_t IsInShadedBounds(int32_t x, int32_t y); //41ef60
+    int32_t IsInShadedBounds(int32_t x, int32_t y); //41ef60 (client: 4202a0)
 
-    double GetRenderSunAngle(); //4a7b79
+    double GetRenderSunAngle(); //4a7b79 (client: 4abba9)
 
     void UpdateTerrainShading(int32_t x, int32_t y, uint32_t w, uint32_t h); //4a952b
 public:

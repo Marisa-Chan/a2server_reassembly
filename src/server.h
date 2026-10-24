@@ -42,7 +42,7 @@ struct PasswordManager {
     CString fname;
     CTime date;
 
-    void OpenFile(const char* name); //4f6bf9
+    void OpenFile(const char* name); //4f6bf9 (client: 4f7d8c)
     void Load(); //4f6c92
 
     static PasswordManager manager; //6a8b98
@@ -59,7 +59,7 @@ struct CowardActivation {
 
     int CheckActivationKey(const char* str); // CheckActivationKey
 
-    CowardActivation(); //5a335c
+    CowardActivation(); //5a335c (client: 5714cc)
 };
 ASSERT_OFFSET(CowardActivation, enabled, 0x64);
 ASSERT_SIZE(CowardActivation, 0x68);
@@ -85,7 +85,7 @@ public:
     void UpdateMapObjects();
     void ProcessTick(); // 4fb273
 
-    Unit* AddDummyUnitWithSpell(int32_t xpos, int32_t ypos, int32_t spellID, int16_t SpellDmg); //4fb8cd
+    Unit* AddDummyUnitWithSpell(int32_t xpos, int32_t ypos, int32_t spellID, int16_t SpellDmg); //4fb8cd (client: 4f9466)
 
     SrvStru1(); //4fa89c
     ~SrvStru1(); //4fa981
@@ -109,7 +109,7 @@ public:
 
 class SpellEffectList {
 public: // VTable at 0060f6dc.
-    virtual void FixupPointers(); // 55c213
+    virtual void FixupPointers(); // 55c213 (client: 537309)
 
     void ProcessTick(); //5585f2
     void Serialize(CArchive& ar); // Serialize
@@ -136,13 +136,13 @@ public:
     void SpawnAiGroupOutposts(MapAlm* alm);
     void SpawnGroupOutpost(Group* group, MapAlm* alm);
 
-    Unit* GetScenarioScriptUnit(CMap<int32_t, int32_t, Unit*, Unit*>& umap, uint32_t idx); //59d3c0
-    Unit* GetScenarioScriptHero(uint32_t idx); //59d664
-    Unit* GetScenarioScriptPCUnit(const char* name); //59d4b8
+    Unit* GetScenarioScriptUnit(CMap<int32_t, int32_t, Unit*, Unit*>& umap, uint32_t idx); //59d3c0 (client: 56c270)
+    Unit* GetScenarioScriptHero(uint32_t idx); //59d664 (client: 56c514)
+    Unit* GetScenarioScriptPCUnit(const char* name); //59d4b8 (client: 56c368)
     Group* GetScenarioScriptGroup(CMap<int32_t, int32_t, Group*, Group*>& gmap, uint32_t idx); //59d808
     Player* GetScenarioScriptPlayer(CMap<int32_t, int32_t, Player*, Player*>& gmap, uint32_t idx); //59d77f
 
-    int32_t GetMapCenterX() { return MapStuff_Instance->GetWidth() / 2; } //59fc7c
+    int32_t GetMapCenterX() { return MapStuff_Instance->GetWidth() / 2; } //59fc7c (client: 56eb2c)
 
 public:
     CMapStringToOb field1_0x4;
@@ -197,10 +197,10 @@ public:
     void CheatCommand(Player* player, CString cheat_string);
 
     int ConnectToHat(); //4f0bef - Connect to hat server
-    int Start(int mode); //4f06f5
+    int Start(int mode); //4f06f5 (client: 4f4116)
 
-    void ProcessAvailPackets(); //509010
-    void PumpNetwork(); //50907e
+    void ProcessAvailPackets(); //509010 (client: 50106e)
+    void PumpNetwork(); //50907e (client: 5010a0)
 
     void SetDifficulty(int32_t val) { this->field22_0xd8 = val; }; //497470
 
@@ -291,7 +291,7 @@ public:
 
     void Allods2_JoinPlayer(int32_t id, int32_t, CString name, NetStru2* client, uint32_t); //Allods2.exe 4f9a78    Join Player
     void JoinErrorSend(NetStru2* client, int32_t error_code, const CString& str); //4fc4f3
-    Player* Allods2_CreatePlayer(CString name); //500792 not used in server, but used in Allods2 (4fb0f3)
+    Player* Allods2_CreatePlayer(CString name); //500792 (client: 4fb0f3) not used in server, but used in Allods2 (4fb0f3)
 };
 ASSERT_OFFSET(Server, srv_stru1, 0x7c);
 ASSERT_OFFSET(Server, script_settings, 0x170);

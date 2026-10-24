@@ -81,10 +81,10 @@ struct Fame2 {
     void SetDocument(int32_t doc_id, uint32_t is_text);
     int32_t GetDocId();
     uint32_t GetIsText();
-    bool ScrollDown(); // 4abf35 in asm
-    int32_t ScrollUp(); // 4abf72 in asm
-    void Draw(int32_t x, int32_t y); // 4abfb1 in asm
-    void LoadDocument(); // 4ac0af in asm
+    bool ScrollDown(); // 4abf35 (client: 4aff45) in asm
+    int32_t ScrollUp(); // 4abf72 (client: 4aff82) in asm
+    void Draw(int32_t x, int32_t y); // 4abfb1 (client: 4affc1) in asm
+    void LoadDocument(); // 4ac0af (client: 4b00bf) in asm
 
 };
 
@@ -106,7 +106,7 @@ struct CFameHall {
     uint32_t AddTextDocument(int32_t doc_id);
     void SeedDefaultEntries();
     void LoadEntries(CFile* file);
-    void SaveEntries(CFile* file); //4ac839 - save m_Entries to file
+    void SaveEntries(CFile* file); //4ac839 (client: 4b0849) - save m_Entries to file
     void SaveDocuments(CFile* file);
     void LoadDocuments(CFile* file);
     void AddEntry(const Fame1& fame);
@@ -116,7 +116,7 @@ struct CFameHall {
     void SubmitScore(); //4ac498
 
     int32_t GetDifficulty() { return this->difficulty; }; //497290
-    void AddMissionElapsedTime(int32_t t) { this->m_nTotalTime += t; } //497250
+    void AddMissionElapsedTime(int32_t t) { this->m_nTotalTime += t; } //497250 (client: 49a860)
 };
 
 ASSERT_SIZE(CFameHall, 0x38);
@@ -128,21 +128,21 @@ struct UserShortcut {
     uint32_t mods_size;
     uint8_t* mods;
 
-    UserShortcut(); //4971a0
-    ~UserShortcut(); //41e493
+    UserShortcut(); //4971a0 (client: 49ac10)
+    ~UserShortcut(); //41e493 (client: 41fd13)
 
-    void SetNull(); //4971c0
-    int ToBuffer(uint8_t** buf); //41e5ed
+    void SetNull(); //4971c0 (client: 49ac30)
+    int ToBuffer(uint8_t** buf); //41e5ed (client: 41fe6d)
 
     void SetSpell(short spell_id); //41e323 in asm
-    int32_t IsSpellShortcut(short spell_id); //41e456 in asm
-    int32_t MatchesItem(TokenEntry* entry); //41e3af in asm
-    void SetItem(TokenEntry* entry); //41e343 in asm
+    int32_t IsSpellShortcut(short spell_id); //41e456 (client: 41fcd6) in asm
+    int32_t MatchesItem(TokenEntry* entry); //41e3af (client: 41fc31) in asm
+    void SetItem(TokenEntry* entry); //41e343 (client: 41fbc5) in asm
 
-    void WriteToFile(CFile* f); //41e4d3
-    void ReadFromFile(CFile* f); //41e53b
+    void WriteToFile(CFile* f); //41e4d3 (client: 41fd53)
+    void ReadFromFile(CFile* f); //41e53b (client: 41fdbb)
 
-    void LoadFromBuffer(uint8_t** buf); //41e689
+    void LoadFromBuffer(uint8_t** buf); //41e689 (client: 41ff09)
 };
 
 
@@ -155,27 +155,27 @@ public:
 
     int32_t GetStringArray1Size(); //438d10
     void DeleteSelectedCharacter(); //493cd8
-    void LoadCharacterRosterEntry(int32_t idx);  //492c66
+    void LoadCharacterRosterEntry(int32_t idx);  //492c66 (client: 497585)
     void AutosaveCharacter(); //4946e0
     void AutosaveTick(); //4946ae
 
-    CString GetSelectedRosterPath(); //420070
+    CString GetSelectedRosterPath(); //420070 (client: 420ca0)
     void SaveKillStats(); //494982
 
     int32_t GetSkillTier2() { return this->field_0x118; }; //420110
     int32_t GetSkillTier1() { return this->field_0x114; }; //4200f0
 
     int SubmitCharacterSetupAndWaitForSelectedUnit(); //493ffe
-    void ResetCharacter(); //493d8d
-    void ResetUnitClass(); //494687
+    void ResetCharacter(); //493d8d (client: 498857)
+    void ResetUnitClass(); //494687 (client: 499165)
     void RecreateCUnit(); //4941c0
-    void SetCharacterStats(int32_t body, int32_t reaction, int32_t mind, int32_t spirit, int32_t main_sphere); //494148 in asm
+    void SetCharacterStats(int32_t body, int32_t reaction, int32_t mind, int32_t spirit, int32_t main_sphere); //494148 (client: 498c2a) in asm
 
 
     void RefreshCharacterRosterFiles(int val); //49265a
     void InitializeNewCharacterSession(int tp, const char* name); //493ab6
     void SetNameAndColor(char* name); //49381c in asm
-    void SaveShortcuts(); //4948b2 in asm
+    void SaveShortcuts(); //4948b2 (client: 4993e7) in asm
 public:
     int32_t field_0x4 = 0;
     int32_t sessionKeyPart1 = 0;
@@ -236,8 +236,8 @@ struct PhoneBook {
     CString dial;
     CStringArray phones;
 
-    void Load(HKEY& rkey); //43ce7d
-    void Save(HKEY& rkey); //43cf29
+    void Load(HKEY& rkey); //43ce7d (client: 43f28d)
+    void Save(HKEY& rkey); //43cf29 (client: 43f339)
 };
 ASSERT_SIZE(PhoneBook, 0x1c);
 
@@ -250,7 +250,7 @@ struct HatSettings {
     int32_t deathmatch;
     int32_t store;
 
-    void Load(HKEY& rkey); //43d249
+    void Load(HKEY& rkey); //43d249 (client: 43f65a)
     void Save(HKEY& rkey); //43d51b
 };
 ASSERT_SIZE(HatSettings, 0x1c);
@@ -273,7 +273,7 @@ struct DiplomacyEntry {
     int32_t mute = 0;
 
     DiplomacyEntry() = default;
-    DiplomacyEntry(const char* _name, int e, int a, int s, int m); //445a46 in asm
+    DiplomacyEntry(const char* _name, int e, int a, int s, int m); //445a46 (client: 448117) in asm
     ~DiplomacyEntry();
 
 };
@@ -312,7 +312,7 @@ public:
     ServerControlDialog(CWnd* parent_window); // 4951bd
 
     // VTable at 60C458.
-    virtual ~ServerControlDialog() override; // 496900
+    virtual ~ServerControlDialog() override; // 496900 (client: 540f70)
     virtual const AFX_MSGMAP* GetMessageMap() const override; // 495429
 protected:
     virtual void DoDataExchange(CDataExchange* pDX) override; // 4952fa
@@ -368,33 +368,33 @@ public: // VTable at 0060c1a8.
     virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam) override; // 486c6c
 
     MainWindow(); // 4837e1
-    virtual ~MainWindow(); // 4961b0
+    virtual ~MainWindow(); // 4961b0 (client: 49a500)
 
-    void CreateUI(); //484ab0
-    void LoadData(); //483d64
-    void LoadSettings(); //441a03
+    void CreateUI(); //484ab0 (client: 48874a)
+    void LoadData(); //483d64 (client: 487a00)
+    void LoadSettings(); //441a03 (client: 443fd2)
 
     void RemoteGameIdle(); //48acac
-    void SingleGameTimedIdle(); //48a543
-    void SingleGameIdle(); //48a3a2
+    void SingleGameTimedIdle(); //48a543 (client: 48e7d0)
+    void SingleGameIdle(); //48a3a2 (client: 48e62f)
 
-    void OnDestroy(); //483ea8
-    int OnCreate(LPCREATESTRUCT lpCreateStruct); //484022
-    void OnPaint(); //484a1a
+    void OnDestroy(); //483ea8 (client: 487b44)
+    int OnCreate(LPCREATESTRUCT lpCreateStruct); //484022 (client: 487cbe)
+    void OnPaint(); //484a1a (client: 4886b4)
 #ifndef A2CLIENT
     // these four handlers are server-only in the retail client (they read the
     // stored cursor handles, which the client class does not have)
     BOOL OnSetCursor(CWnd*, UINT, UINT); //486391
 #endif
-    void OnSetFocus(CWnd*); //4863c6
+    void OnSetFocus(CWnd*); //4863c6 (client: 48a067)
     void OnKeyDown(UINT, UINT, UINT); //4863f6
-    void OnSysKeyDown(UINT, UINT, UINT); //486a2f
-    void OnKeyUp(UINT, UINT, UINT); //486bb0
-    void OnSysKeyUp(UINT, UINT, UINT); //486c25
-    void OnChar(UINT, UINT, UINT); //48a35f
-    void OnKillFocus(CWnd*); //48b01d
-    void OnClose(); //4949f9
-    void OnSize(UINT, int, int); //494e8e
+    void OnSysKeyDown(UINT, UINT, UINT); //486a2f (client: 48a72c)
+    void OnKeyUp(UINT, UINT, UINT); //486bb0 (client: 48a8ad)
+    void OnSysKeyUp(UINT, UINT, UINT); //486c25 (client: 48a922)
+    void OnChar(UINT, UINT, UINT); //48a35f (client: 48e5ec)
+    void OnKillFocus(CWnd*); //48b01d (client: 48effb)
+    void OnClose(); //4949f9 (client: 499554)
+    void OnSize(UINT, int, int); //494e8e (client: 4999e9)
     void BeginShutdown(); //495010
     void ShowServerControlDialog(); //4950c0
     void MarkHatSessionEnded(); //495743
@@ -413,89 +413,89 @@ public:
 
     BOOL UpdateClipCursor();
 
-    void Proc_421(); //48d49b
+    void Proc_421(); //48d49b (client: 491619)
 
-    void DestroyServer(); //48cb3c
+    void DestroyServer(); //48cb3c (client: 490ce4)
 
-    void UpdateMapRect(); //48cbe2
+    void UpdateMapRect(); //48cbe2 (client: 490d6c)
 
     void ApplyCursorClip(); //48cc87
 
-    void OpenConsoleInput(); //4919c7
+    void OpenConsoleInput(); //4919c7 (client: 496227)
     void ProcessPlayersTick(); //4919b1
 
-    void ShowRightPanelInfo(); //485a41
-    void ClearVisualTree(); //485aed in asm
+    void ShowRightPanelInfo(); //485a41 (client: 4896db)
+    void ClearVisualTree(); //485aed (client: 489786) in asm
 
-    void ModalScreen(VisScreen* scr); //494a31
+    void ModalScreen(VisScreen* scr); //494a31 (client: 49958c)
 
-    void ResetItemCursor(); //48cd44
+    void ResetItemCursor(); //48cd44 (client: 490ece)
 
-    void SetItemCursor(TokenEntry* entry, int32_t idx, const char* str, int32_t tab); //48cca1 in asm
+    void SetItemCursor(TokenEntry* entry, int32_t idx, const char* str, int32_t tab); //48cca1 (client: 490e2b) in asm
 
-    void ClearDiplomacyEntries(); //494a9e
+    void ClearDiplomacyEntries(); //494a9e (client: 4995f9)
 
-    void PlayDefaultMusic(); //494c91
+    void PlayDefaultMusic(); //494c91 (client: 4997ec)
 
-    void ShowStartGameSetupForNewSession(); //491b3e
+    void ShowStartGameSetupForNewSession(); //491b3e (client: 49639b)
 
-    void Proc_44c(CVisualObject* obj); //48b061
+    void Proc_44c(CVisualObject* obj); //48b061 (client: 48f03f)
 
-    void ShowCharacterLoaderDialog(); //48cff7
-    void ShowCharInfoPane(); //491a49
+    void ShowCharacterLoaderDialog(); //48cff7 (client: 491181)
+    void ShowCharInfoPane(); //491a49 (client: 4962a9)
     void AutosaveGame(); //48f905
-    void EnterSinglePlayerMode(); //4903d0
-    void EnterServerMode(); //491822
-    int StartServerSession(int mode); //48ca7e
-    void EnterClientMode(); //4918ae
+    void EnterSinglePlayerMode(); //4903d0 (client: 494822)
+    void EnterServerMode(); //491822 (client: 49600f)
+    int StartServerSession(int mode); //48ca7e (client: 490c26)
+    void EnterClientMode(); //4918ae (client: 49609b)
 
-    void PlayVideo(int32_t vid_id); //491f7d
+    void PlayVideo(int32_t vid_id); //491f7d (client: 4967d2)
 
-    void BeginLocalCharacterSetup(); //48f79d
-    int GetSaveFileInBattle(); //48de6f
+    void BeginLocalCharacterSetup(); //48f79d (client: 493bf5)
+    int GetSaveFileInBattle(); //48de6f (client: 4922d2)
     int RunSessionBootstrap(int mode); //48e502
-    void ShowMainRightPanel(); //485969
-    void LoadObjectGfx(); //47a5e6
-    void LoadStructureGfx(); //47efdf
-    void LoadProjectileGfx(); //47e612
+    void ShowMainRightPanel(); //485969 (client: 489603)
+    void LoadObjectGfx(); //47a5e6 (client: 47e4a0)
+    void LoadStructureGfx(); //47efdf (client: 482e99)
+    void LoadProjectileGfx(); //47e612 (client: 4824cc)
     void LoadSavegame(); //48df44
 
-    void UnloadMapAssets(); //48f6f7
-    void UnloadObjectGfx(); //47ad28
+    void UnloadMapAssets(); //48f6f7 (client: 493b50)
+    void UnloadObjectGfx(); //47ad28 (client: 47ebe2)
 
-    void UnloadTerrainTiles(); //478130 in asm
+    void UnloadTerrainTiles(); //478130 (client: 47be70) in asm
 
-    void UnloadProjectileInfos(); //47eab6
-    void UnloadStructureInfos(); //47f5e4
+    void UnloadProjectileInfos(); //47eab6 (client: 482970)
+    void UnloadStructureInfos(); //47f5e4 (client: 48349e)
 
-    void ShowGlobalMapDialog(); //48d34b
+    void ShowGlobalMapDialog(); //48d34b (client: 4914c9)
 
-    void InitNewCampaignSession(); //48dd3a
+    void InitNewCampaignSession(); //48dd3a (client: 4921a0)
 
-    void ShowStartupLogoDialog(); // 48dba0
-    void ShowCreditsDialog(); //48da66
-    void ShowFameHallDialog(); //48d096
-    void ShowShopDialog(uint32_t id); //48cdce
-    void ShowInnDialog(uint32_t id, int32_t interact_target); //48d4da
+    void ShowStartupLogoDialog(); // 48dba0 (client: 492009)
+    void ShowCreditsDialog(); //48da66 (client: 491ecf)
+    void ShowFameHallDialog(); //48d096 (client: 49121d)
+    void ShowShopDialog(uint32_t id); //48cdce (client: 490f58)
+    void ShowInnDialog(uint32_t id, int32_t interact_target); //48d4da (client: 491943)
 
-    void PopUpScreen(VisScreen* screen); //48d26a   popup screen
+    void PopUpScreen(VisScreen* screen); //48d26a (client: 4913eb)   popup screen
     void SendHatJoinName(CString name); // client: 41be72
     void SetMusicProc(void (*func)()) { this->music_update_proc = func; } //45cc80
 
-    void SetControlPositions(); //484127
+    void SetControlPositions(); //484127 (client: 487dc3)
 
     void StartHatDedicatedServer(); //49172d
 
-    void ShowCurrentTownDialog(); //48d815 in asm
+    void ShowCurrentTownDialog(); //48d815 (client: 491c7e) in asm
     int32_t WaitHatConnection(); //490f6c in asm
     int32_t ConnectToServerAddress(); //491142 in asm
     void WaitConnectionCharacterJoin(); //49152f in asm
-    void ShowFameHallDocDlg(); //48d125 in asm
+    void ShowFameHallDocDlg(); //48d125 (client: 4912a9) in asm
 
     void SpawnScenarioMissionUnits(int32_t id, const CDWordArray& array); //50260a
     int32_t RunModalLoop(); //49057b
-    int32_t CheckWebVersion(const CString& str); //4e5466
-    int32_t LeaveServerMode(); //490eb3
+    int32_t CheckWebVersion(const CString& str); //4e5466 (client: 4ea996)
+    int32_t LeaveServerMode(); //490eb3 (client: 4952fb)
 
 public:
     int32_t has_focus;

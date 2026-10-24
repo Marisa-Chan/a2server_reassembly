@@ -60,11 +60,11 @@ struct PackerDat {
     std::array<int32_t, 256> freq;
     PackerTail* tail;
 
-    void DeleteTail(PackerTail* node); //526621
-    void Clear(); //5265f7
+    void DeleteTail(PackerTail* node); //526621 (client: 515453)
+    void Clear(); //5265f7 (client: 515429)
 
-    PackerDat(); //5260fa
-    ~PackerDat(); //526115
+    PackerDat(); //5260fa (client: 514efa)
+    ~PackerDat(); //526115 (client: 514f15)
 };
 ASSERT_OFFSET(PackerDat, freq, 0x800);
 ASSERT_SIZE(PackerDat, 0xc04);
@@ -129,20 +129,20 @@ public:
 
     void AnnouncePlayerName(const CString& name, Player* player);
 
-    NetStru2* GetClientByPlayerID(uint16_t player_id);//518544
-    NetStru2* GetClientByLowUid(uint32_t low_uid); //5185d5
+    NetStru2* GetClientByPlayerID(uint16_t player_id);//518544 (client: 50a128)
+    NetStru2* GetClientByLowUid(uint32_t low_uid); //5185d5 (client: 50a1ab)
 
-    void AddStat1(NetStru2* client, int32_t value); //51eff8
-    void AddPacketStatistic(Packet* pkt); //51f0bb
-    void SendAllData(); // 5188db and 518927 variant without flag check because in original it's used once and not optimal, because iterate all and do not do anything
+    void AddStat1(NetStru2* client, int32_t value); //51eff8 (client: 50f79c)
+    void AddPacketStatistic(Packet* pkt); //51f0bb (client: 50f7dd)
+    void SendAllData(); // 5188db (client: 50a3b1) and 518927 variant without flag check because in original it's used once and not optimal, because iterate all and do not do anything
 
-    void QueuePacketSend(Packet* pkt); //5186cd
-    void SendPacket_64(uint32_t val, uint16_t player_id); //51d88d
-    void SetLLDriver(CLlDriver* drv); //517ff9
-    void SetLinkedHLDriver(NetStru1* hl); //51703e
+    void QueuePacketSend(Packet* pkt); //5186cd (client: 50a218)
+    void SendPacket_64(uint32_t val, uint16_t player_id); //51d88d (client: 50e446)
+    void SetLLDriver(CLlDriver* drv); //517ff9 (client: 509bd1)
+    void SetLinkedHLDriver(NetStru1* hl); //51703e (client: 50963b)
 
-    uint32_t GetClientsPktNum(); //518a6b
-    int IsActive(); //518ac9
+    uint32_t GetClientsPktNum(); //518a6b (client: 50a4de)
+    int IsActive(); //518ac9 (client: 50a53b)
 
     void SendTeamState(uint16_t to_player_id);
     void SendInfoPacket(uint8_t id, int32_t value1, int32_t value2, Player* target);
@@ -182,9 +182,9 @@ public:
 
     // DecodePacket – decode an incoming network message into the appropriate Packet singleton,
     // populate it via VMethod4, and stamp it with the sender id.
-    Packet* DecodePacket(uint8_t cmd, NetStru2* ns2); //51e7fc
+    Packet* DecodePacket(uint8_t cmd, NetStru2* ns2); //51e7fc (client: 50f04e)
     Packet* ReceivePacket(NetStru2* cli); //518a23 //receive packet from client
-    Packet* ReceiveAnyPacket(); //518980 iterate over active connections and try receive packet
+    Packet* ReceiveAnyPacket(); //518980 (client: 50a3fc) iterate over active connections and try receive packet
 
     void BroadcastTokenState(Token* token, Player* player, uint8_t flag); // Broadcast token state to players
     void SendSpellCastAtUnit(Unit* caster, Spell* spell, Unit* target, int16_t delay); // Send targeted-unit spell packet
@@ -192,20 +192,20 @@ public:
     void SendSpellCastMulti(Unit* caster, Spell* spell, CList<Unit*>* units, int32_t flag); // 51BC6B: Send multi-target spell packet
     void BroadcastMovePacket(PacketMoveBroadcast* pkt, TokenPos* pos);  // Broadcast move packet to all players in visibility
     void BroadcastAoeZone(PacketAoeZone* pkt, AreaEffect* area_effect);  // Broadcast AoE-zone packet to all players in visibility
-    void SendUnitAction(Packet* pkt, Unit* unit); // 51B0F0 - send unit action packet to relevant players (in asm)
+    void SendUnitAction(Packet* pkt, Unit* unit); // 51B0F0 - send unit action packet to relevant players (in asm) (client: 50c65a)
 
 
-    void AddTailNet2(NetStru2*& net2); //517e91
-    void AddTailFreeNet3(NetStru3* net3); //517b00
+    void AddTailNet2(NetStru2*& net2); //517e91 (client: 509b9b)
+    void AddTailFreeNet3(NetStru3* net3); //517b00 (client: 509a73)
 
-    NetStru2* AllocClientBufManager(uint32_t uid); //517c99
+    NetStru2* AllocClientBufManager(uint32_t uid); //517c99 (client: 509ad7)
 
-    NetStru3* GetFreeNet3(); //5177f5
+    NetStru3* GetFreeNet3(); //5177f5 (client: 50994f)
 
-    void ProcessNewConnects(); //51755c
-    void ProcessDisconnectList(); //51725b
-    void ProcessConnections(); // 51800f
-    void DisconnectClient(NetStru2* cli); //5170b6
+    void ProcessNewConnects(); //51755c (client: 509889)
+    void ProcessDisconnectList(); //51725b (client: 509799)
+    void ProcessConnections(); // 51800f (client: 509be7)
+    void DisconnectClient(NetStru2* cli); //5170b6 (client: 5096a2)
 
     void SendHatJoinOk(int32_t a, int32_t b); // 51E5FB - Send HAT join-success reply (pkt 0xD8)
     void SendHatJoinFail(int32_t a, int32_t b, int32_t error_code); // 51E63F - Send HAT join-failure reply (pkt 0xD9)
@@ -216,11 +216,11 @@ public:
     void SendHatCharData(int32_t hat_char_id1, int32_t hat_char_id2, CString name, void* data, uint32_t size, uint16_t player_id);
     void SendHatMessage(int32_t hat_char_id1, int32_t hat_char_id2, CString name, void* data, uint32_t size, uint16_t player_id);
     void SendHatKeepalive(uint16_t player_id);
-    void SendHatRawString(const char* str, int32_t len); // 51E40C - Send raw string data to HAT
+    void SendHatRawString(const char* str, int32_t len); // 51E40C - Send raw string data to HAT (client: 50ede9)
 
     void SendHatCredentials(const CString& login, const CString& password, uint32_t flags); //51d8d6
     void SendHatCharId(HatCharId charid); //51d9d0
-    void SendHatLogout(); //51d9a0
+    void SendHatLogout(); //51d9a0 (client: 50e55b)
 
     void WriteStatsLog(CString fname);//51f124
 
@@ -254,14 +254,14 @@ struct NetStru3 {
     int32_t datasz;
     int32_t readpos;
 
-    void Clear(); //5156f6
-    NetStru3(); //5155c0
+    void Clear(); //5156f6 (client: 508736)
+    NetStru3(); //5155c0 (client: 50863e)
     ~NetStru3(); //515694
 
-    void CopyData(const NetStru3* src); //515625
+    void CopyData(const NetStru3* src); //515625 (client: 508684)
 
-    int WriteToBuffer(void* data, uint32_t sz); //51573e
-    int ReadFromBuffer(void* out, uint32_t sz); //51579e
+    int WriteToBuffer(void* data, uint32_t sz); //51573e (client: 50877e)
+    int ReadFromBuffer(void* out, uint32_t sz); //51579e (client: 5087de)
 };
 __pragma(pack(pop))
 ASSERT_OFFSET(NetStru3, datasz, 0xa0);
@@ -299,18 +299,18 @@ public:
     // ref-count byte (field_0xF) of the first live entry it finds.
     void ReleaseNetBuf();
 
-    void SetDrivers(NetStru1* HlDriver, CLlDriver* LlDriver); //51682d
+    void SetDrivers(NetStru1* HlDriver, CLlDriver* LlDriver); //51682d (client: 509325)
     int ReceiveData(NetStru3* buffer); //5161bf
 
-    int SendData(); //516408
+    int SendData(); //516408 (client: 508f33)
 
-    NetStru2(); //515831
+    NetStru2(); //515831 (client: 508871)
     ~NetStru2(); //515c27
     void ReturnBuffers(); //515d9d    return buffers to High-level driver
 
-    uint32_t GetBuffersPktNum(); //51670a  Get received_buffers summary of pkt_num
+    uint32_t GetBuffersPktNum(); //51670a (client: 509208)  Get received_buffers summary of pkt_num
 
-    uint32_t GetUid() { return this->uid; }; //41f500
+    uint32_t GetUid() { return this->uid; }; //41f500 (client: 420700)
 };
 __pragma(pack(pop))
 
@@ -325,7 +325,7 @@ struct NetSockLatency {
 
     void AddLatency(uint32_t lat_time); //51fdf7
     static inline uint32_t ShiftToByte(uint32_t val, int shift) { return (val >> shift) & 0xFF; };
-    uint32_t GetLatency() const { return this->calc_latency * 2; }; //5204fa
+    uint32_t GetLatency() const { return this->calc_latency * 2; }; //5204fa (client: 510014)
 };
 
 struct A2NetSock {
@@ -346,8 +346,8 @@ struct A2NetSock {
     NetStru3* current_buffer;
     int32_t copy_num;
 
-    A2NetSock(); //520510
-    ~A2NetSock(); //520684
+    A2NetSock(); //520510 (client: 51002a)
+    ~A2NetSock(); //520684 (client: 510121)
 };
 ASSERT_OFFSET(A2NetSock, list_0x30, 0x30);
 ASSERT_OFFSET(A2NetSock, wait_obj, 0x268);
@@ -375,7 +375,7 @@ struct ComSettings { //DPCOMPORTADDRESS
     uint32_t parity;
     uint32_t flow_control;
 
-    void Reset() { //43cff2
+    void Reset() { //43cff2 (client: 43f402)
         this->index = 1;
         this->speed = 14400;
         this->stop_bits = 0;
@@ -456,105 +456,105 @@ struct CLlDriver {
     CLlAddress* server_start_addr;
 
 public:
-    A2NetSock* GetClientBySocketId(uint32_t uid); //5224c4
+    A2NetSock* GetClientBySocketId(uint32_t uid); //5224c4 (client: 511c00)
 
     CLlDriver(GUID _appid, NetStru1 *net1); //5208ec
     ~CLlDriver(); //520ad3
 
     void SetHlDriver(NetStru1* drv); //496e50
 
-    void Close(); //5225d0
-    void CloseTcp(); //523b01
-    void CloseDp(); //525a09
-    void CloseTcpSocket(A2NetSock* sock); //523a16
-    void CloseDpSock(A2NetSock* sock, int idx = -1); //525bcd
+    void Close(); //5225d0 (client: 511d0c)
+    void CloseTcp(); //523b01 (client: 5131ad)
+    void CloseDp(); //525a09 (client: 514b64)
+    void CloseTcpSocket(A2NetSock* sock); //523a16 (client: 5130cf)
+    void CloseDpSock(A2NetSock* sock, int idx = -1); //525bcd (client: 514d27)
 
     CLlAddress* AllocAddress(); //520d8c
     void FreeEnumAddresses(); //520c80
 
-    int EnumAddresses(CLlAddress** addrs, int* num); //52182f
-    void EnumAddressesTcp(); //5214c5
-    void EnumAddressesDp(); //5214c5
-    static BOOL __stdcall cbEnumAddress(REFGUID guidDataType, DWORD dwDataSize, LPCVOID lpData, LPVOID lpContext); //5211b2
+    int EnumAddresses(CLlAddress** addrs, int* num); //52182f (client: 5110c6)
+    void EnumAddressesTcp(); //5214c5 (client: 510d5c)
+    void EnumAddressesDp(); //5214c5 (client: 510d5c)
+    static BOOL __stdcall cbEnumAddress(REFGUID guidDataType, DWORD dwDataSize, LPCVOID lpData, LPVOID lpContext); //5211b2 (client: 510a50)
 
     CLlNetSession* AllocSession(); //520e2e
     void FreeEnumSessions(); //520cc3
 
     typedef int(*CBUPDATECALLBACK)();
-    int EnumSessions(CLlNetSession**, int* num, CBUPDATECALLBACK cbUpdate = nullptr, uint32_t timeout = 0); //52210d
-    static BOOL __stdcall cbEnumSessions(LPCDPSESSIONDESC2 lpThisSD, LPDWORD lpdwTimeOut, DWORD dwFlags, LPVOID lpContext); //522020
+    int EnumSessions(CLlNetSession**, int* num, CBUPDATECALLBACK cbUpdate = nullptr, uint32_t timeout = 0); //52210d (client: 51184d)
+    static BOOL __stdcall cbEnumSessions(LPCDPSESSIONDESC2 lpThisSD, LPDWORD lpdwTimeOut, DWORD dwFlags, LPVOID lpContext); //522020 (client: 51176c)
 
 
     CLlConn* AllocEnumConns(); //520ed0
     void FreeEnumConns(); //520d06
-    void EnumConnections(CLlConn** conns, int* num); //5210ea
-    static BOOL __stdcall cbEnumConnections(LPCGUID lpguidSP, LPVOID lpConnection, DWORD dwConnectionSize, LPCDPNAME lpName, DWORD dwFlags, LPVOID lpContext); //52100e
+    void EnumConnections(CLlConn** conns, int* num); //5210ea (client: 510988)
+    static BOOL __stdcall cbEnumConnections(LPCGUID lpguidSP, LPVOID lpConnection, DWORD dwConnectionSize, LPCDPNAME lpName, DWORD dwFlags, LPVOID lpContext); //52100e (client: 5108c8)
 
 
-    CLlName* AllocEnumPlayers(); //520f72
+    CLlName* AllocEnumPlayers(); //520f72 (client: 51082c)
     void FreeEnumPlayers(); //520d49
-    void EnumPlayers(CLlNetSession* ses, CLlName** names, int* num); //52238e
-    static BOOL __stdcall cbEnumPlayes(DPID dpId, DWORD dwPlayerType, LPCDPNAME lpName, DWORD dwFlags, LPVOID lpContext); //52233f
+    void EnumPlayers(CLlNetSession* ses, CLlName** names, int* num); //52238e (client: 511ace)
+    static BOOL __stdcall cbEnumPlayes(DPID dpId, DWORD dwPlayerType, LPCDPNAME lpName, DWORD dwFlags, LPVOID lpContext); //52233f (client: 511a7f)
 
 
-    void Free(); //5219af
-    void FreeTcp(); //523611
-    void FreeDp(); //523d5a
+    void Free(); //5219af (client: 511246)
+    void FreeTcp(); //523611 (client: 420b70)
+    void FreeDp(); //523d5a (client: 513406)
 
-    int ResetProvider(int provider); //52194f
+    int ResetProvider(int provider); //52194f (client: 5111e6)
 
-    int CreateTcp(); //52359b
-    int CreateDp(); //523ccf
+    int CreateTcp(); //52359b (client: 512c58)
+    int CreateDp(); //523ccf (client: 51337b)
 
-    int IsListen() { return this->listen_socket.is_in_use == 1; }; //496ed0
+    int IsListen() { return this->listen_socket.is_in_use == 1; }; //496ed0 (client: 49a810)
 
-    int IsInUse(A2NetSock* sock); //52293a
-    void SetEventNewSession(); //522318
+    int IsInUse(A2NetSock* sock); //52293a (client: 512078)
+    void SetEventNewSession(); //522318 (client: 511a58)
 
-    int MakeSockAddr(const char* address, sockaddr_in* out, int port, int resolve); //52343e
-    int StartServerTcp(); //523621
+    int MakeSockAddr(const char* address, sockaddr_in* out, int port, int resolve); //52343e (client: 512afd)
+    int StartServerTcp(); //523621 (client: 512cdc)
 
-    static void __cdecl SetSockOptions(SOCKET s, int linger); //522af4
+    static void __cdecl SetSockOptions(SOCKET s, int linger); //522af4 (client: 512230)
 
-    static void __cdecl AcceptThreadTcp(void* context); //522e8f
-    int RecvThreadTcp(A2NetSock* sock); //522b95
+    static void __cdecl AcceptThreadTcp(void* context); //522e8f (client: 51258b)
+    int RecvThreadTcp(A2NetSock* sock); //522b95 (client: 5122d1)
 
-    int PrepareAddressDp(CLlAddress* addr); //523d96
-    int StartServerDp(); //5241ea
-    static void __cdecl RecvThreadDp(void* context); //523b7a
-    void HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t datasz); //524abd
+    int PrepareAddressDp(CLlAddress* addr); //523d96 (client: 513442)
+    int StartServerDp(); //5241ea (client: 513896)
+    static void __cdecl RecvThreadDp(void* context); //523b7a (client: 513226)
+    void HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t datasz); //524abd (client: 514141)
 
-    A2NetSock* FindDpSock(uint32_t id, int* out_idx); //524986
+    A2NetSock* FindDpSock(uint32_t id, int* out_idx); //524986 (client: 51400a)
 
-    int StartServer(int maxconn, const char* name, CLlAddress* addr); //521a09
+    int StartServer(int maxconn, const char* name, CLlAddress* addr); //521a09 (client: 51129c)
 
-    int PrepareForConnect(const char* name, CLlAddress* addr); //521d2a
+    int PrepareForConnect(const char* name, CLlAddress* addr); //521d2a (client: 51151c)
 
 
-    int ConnectDp(const char* name, CLlNetSession* session); //52465f
-    int ConnectTcp(); //523794
+    int ConnectDp(const char* name, CLlNetSession* session); //52465f (client: 513d0b)
+    int ConnectTcp(); //523794 (client: 512e4f)
 
-    int Connect(const char* name, CLlNetSession* session); //5223fb
+    int Connect(const char* name, CLlNetSession* session); //5223fb (client: 511b3b)
 
     int SendDataTcp(A2NetSock* sock, NetStru3* buf); //52394a
-    int SendDataDp(A2NetSock* sock, NetStru3* buffer); //5255c6
-    int SendData(uint32_t uid, NetStru3* buffer); //5226c4
+    int SendDataDp(A2NetSock* sock, NetStru3* buffer); //5255c6 (client: 514795)
+    int SendData(uint32_t uid, NetStru3* buffer); //5226c4 (client: 511dfc)
 
-    void SendAllPendingDp(A2NetSock* sock); //525b86
-    void DisconnectClient(uint32_t uid); //522526
-    void CleanupInvalidTcpClient(uint32_t uid); //52262a
+    void SendAllPendingDp(A2NetSock* sock); //525b86 (client: 514ce1)
+    void DisconnectClient(uint32_t uid); //522526 (client: 511c62)
+    void CleanupInvalidTcpClient(uint32_t uid); //52262a (client: 511d62)
 
-    void CleanupAllInvalid(); //522809
+    void CleanupAllInvalid(); //522809 (client: 511f4d)
 
-    int RestartModemServerDp(); //52460e
-    void RecreateDp(); //524644
+    int RestartModemServerDp(); //52460e (client: 513cba)
+    void RecreateDp(); //524644 (client: 513cf0)
 
-    void SetLatency(uint32_t conn_uid, int32_t latency_ms); // 5229cd Set connection latency limit
-    int32_t GetLatency(uint32_t conn_uid);  //5229FD  Get current measured latency (ms)
-    int32_t GetPacketLoss(uint32_t conn_uid);  //522A51 Get current packet-loss figure
+    void SetLatency(uint32_t conn_uid, int32_t latency_ms); // 5229cd (client: 512109) Set connection latency limit
+    int32_t GetLatency(uint32_t conn_uid);  //5229FD  Get current measured latency (ms) (client: 512139)
+    int32_t GetPacketLoss(uint32_t conn_uid);  //522A51 Get current packet-loss figure (client: 51218d)
 
     void SetTimeout(uint32_t t) { this->timeout = t; } //496f20
-    int GetProvider() { return this->provider; } //451610
+    int GetProvider() { return this->provider; } //451610 (client: 453580)
 };
 ASSERT_OFFSET(CLlDriver, connection_sockets, 0x57c);
 ASSERT_OFFSET(CLlDriver, critical_section, 0x7ec);

@@ -61,8 +61,8 @@ struct EquipData;
 class WorldEquip: public TableLine {
 public: // VTable at 60eac8.
     virtual ~WorldEquip() override; // 5724b0
-    virtual void Serialize(CArchive& ar) override; // 513aa3
-    virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 513268
+    virtual void Serialize(CArchive& ar) override; // 513aa3 (client: 506fa3)
+    virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 513268 (client: 5067f2)
 
 public:
     WorldEquip(); // 571e50
@@ -87,8 +87,8 @@ ASSERT_SIZE(WorldEquip, 0x40);
 class MagicItem : public WorldEquip { // Inherits from `WorldEquip` at 005727e1.
 public: // VTable at 60eb40.
     virtual ~MagicItem() override; // 5728f0
-    virtual void Serialize(CArchive& ar) override; // 513c13
-    virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 572850
+    virtual void Serialize(CArchive& ar) override; // 513c13 (client: 507107)
+    virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 572850 (client: 543620)
 
 public:
     MagicItem(); // 572740
@@ -103,12 +103,12 @@ ASSERT_SIZE(MagicItem, 0x44);
 class MatShape : public TableLine {
 public: // VTable at 60eb20.
     virtual ~MatShape() override; // 572670
-    virtual void Serialize(CArchive& ar) override; // 513b05
+    virtual void Serialize(CArchive& ar) override; // 513b05 (client: 506fff)
 
 public:
     MatShape(); // 572590
 
-    void ParseLine(CString line); // 5780B0
+    void ParseLine(CString line); // 5780B0 (client: 5482e0)
 
     CArray<int32_t>& Values() {
         return this->ValuesAs<int32_t>();
@@ -138,8 +138,8 @@ ASSERT_SIZE(BuildingInfoData, 0x18);
 class BuildingInfo : public TableLine {
 public: // VTable at 60ebc0.
     virtual ~BuildingInfo() override; // 573050
-    virtual void Serialize(CArchive& ar) override; // 514bce
-    virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 514ac9
+    virtual void Serialize(CArchive& ar) override; // 514bce (client: 507e8e)
+    virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 514ac9 (client: 507d92)
 
 public:
     BuildingInfo(); // 572f70
@@ -291,8 +291,8 @@ ASSERT_SIZE(MonsterInfoData, 0xf8);
 class MonsterInfo: public TableLine {
 public: // VTable at 60eb80.
     virtual ~MonsterInfo() override; // 572ca0
-    virtual void Serialize(CArchive& ar) override; // 513ff6
-    virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 513c82
+    virtual void Serialize(CArchive& ar) override; // 513ff6 (client: 507486)
+    virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 513c82 (client: 507170)
 
 public:
     MonsterInfo(); // 572b90
@@ -340,8 +340,8 @@ ASSERT_SIZE(HumanInfoData, 0x68);
 class HumanInfo: public TableLine {
 public: // VTable at 60eba0.
     virtual ~HumanInfo() override; // 572e90
-    virtual void Serialize(CArchive& ar) override; // 514a3a
-    virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 5143a6
+    virtual void Serialize(CArchive& ar) override; // 514a3a (client: 507d03)
+    virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 5143a6 (client: 50781d)
 
 public:
     HumanInfo(); // 572d80
@@ -390,8 +390,8 @@ ASSERT_SIZE(SpellInfoData, 0x58);
 class SpellInfo: public TableLine {
 public: // VTable at 60ebe0.
     virtual ~SpellInfo() override; // 573210
-    virtual void Serialize(CArchive& ar) override; // 51520f
-    virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 514f41
+    virtual void Serialize(CArchive& ar) override; // 51520f (client: 508293)
+    virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 514f41 (client: 507fe7)
 
 public:
     SpellInfo(); // 573120
@@ -431,11 +431,11 @@ public:
     GameDataRes(); // 509e1a
     ~GameDataRes(); // 56f280
 
-    int ParseWorldIn(const CString& str); //50a15f
-    int ParseDataBin(const CString& path); //50D421
+    int ParseWorldIn(const CString& str); //50a15f (client: 501ab3)
+    int ParseDataBin(const CString& path); //50D421 (client: 502b5a)
     int ParseTxtFiles(const CString& path); //50A345
     void WriteDataBin(const CString& path); //50D7C2
-    void Serialize(CArchive& ar); //50E0F0
+    void Serialize(CArchive& ar); //50E0F0 (client: 503833)
     Item* FindItemTemplate(CString* name); // Look up an item template by name
     int GetMonsterTableIndex(uint8_t type, uint8_t face); // Get monster table index by type and face
     Item* CreateItem(uint8_t slot, uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // 510F88: Create an item.
