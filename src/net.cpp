@@ -244,7 +244,7 @@ void NetStru1::BroadcastUnitState(Unit* unit) {
         if (player->is_active && unit->NeedsRefreshFor(player)) {
             unit->position->IsAtCellCenter(); // WAT: Useless call?
             if (unit->IsUnit()) {
-                this->SendUnitUpdate(unit, player, 0xFFB, -1, 0, 0);
+                this->SendUnitUpdate(unit, player, 0xFFFFFFFF, 0xFFB, 0, 0);
             } else {
                 this->BroadcastTokenState(unit, player, 0);
             }
@@ -399,14 +399,14 @@ void NetStru1::SendPendingUnits(Player* player) {
 // 51C46E
 void NetStru1::ResendPlayerUnits(Player* player) {
     if (player->main_unit != nullptr) {
-        this->SendUnitUpdate(player->main_unit, player, 0xFFB, -1, 0, 0);
+        this->SendUnitUpdate(player->main_unit, player, 0xFFFFFFFF, 0xFFB, 0, 0);
     }
     if (player->unit_list != nullptr) {
         POSITION pos = player->unit_list->unit_list.GetHeadPosition();
         while (pos != nullptr) {
             Unit* unit = player->unit_list->unit_list.GetNext(pos);
             unit->sent_to_mask &= ~player->vision_sharing_id;
-            g_NetStru1_main.SendUnitUpdate(unit, player, 0xFFB, -1, 0, 0);
+            g_NetStru1_main.SendUnitUpdate(unit, player, 0xFFFFFFFF, 0xFFB, 0, 0);
         }
     }
     this->SendTickPacket(player);
