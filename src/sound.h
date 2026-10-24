@@ -69,7 +69,7 @@ ASSERT_SIZE(SfxSample, 0x14);
 
 class SoundChannel : public CObject {
 public:
-	SoundChannel() = default; //45cc20
+	SoundChannel() = default; //45cc20 (client: 460810)
 	~SoundChannel() = default; //45cc60 (client: 460850)
 
 	void Clear(); //41fdd0 (client: 4210a0)
@@ -111,7 +111,7 @@ struct SoundSettings {
 	int32_t music_enabled;
 
 	SoundSettings(); //477860 (client: 47b5a0)
-	~SoundSettings(); //477920
+	~SoundSettings(); //477920 (client: 47b660)
 
 	void Load(HKEY& rkey); //43d7c4 (client: 43fc28)
 	void Save(HKEY& rkey); //43d877 (client: 43fcdb)

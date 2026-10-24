@@ -36,7 +36,7 @@ public: // VTable at 60F6F8. Sub-classes have their own vtables, see CreateQuest
     virtual int32_t Something2();                          // 57ff30
     virtual int32_t Something3();                          // 57ff40
 
-    int32_t IsInWork() { return this->quest_data.state == 0; } // 41eb90
+    int32_t IsInWork() { return this->quest_data.state == 0; } // 41eb90 (client: 420f40)
     uint32_t GetObj() { return this->quest_data.obj; }         // 41eb70
     uint32_t GetSomeId() { return this->quest_data.some_id; }           // 41eb10
     uint32_t GetBuildingId() { return this->quest_data.building_id; }   // 41eb30

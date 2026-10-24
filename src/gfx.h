@@ -264,7 +264,7 @@ public:
 
 	void operator=(const CGamePalette& b);
 
-	CGamePalette() = default; // 423bdf
+	CGamePalette() = default; // 423bdf (client: 425b0f)
 	void Free();
 	void SetPalette(RGBQUAD* rgb, uint32_t count, int mode, int useColor); //423cbe (client: 425bee)
 	uint16_t* GetPalette(int32_t idx); //41ec40 (client: 420440)

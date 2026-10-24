@@ -496,7 +496,7 @@ public:
     virtual Packet* Duplicate() override;     // sub_57A900 (client: 54b790)
     virtual void WriteTo(NetStru2*) override; // sub_527220 (client: 5161f1)
     virtual void ReadFrom(NetStru2*) override; // sub_527246 (client: 516217)
-    virtual uint32_t GetDataSize() override;   // sub_57A980
+    virtual uint32_t GetDataSize() override;   // sub_57A980 (client: 54b810)
 public:
     uint8_t  preamble[0x20]; // +0xA..+0x2b  (32 bytes of fixed player fields)
     uint32_t offset;         // +0x2a

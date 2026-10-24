@@ -576,7 +576,7 @@ public:
 	virtual ~VisRoleKeyScreen(); //4e3f60
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; //4e0071 (client: 4e49f2)
 	virtual int32_t OnKeyDown(uint32_t wparam) override; //4e0027 (client: 4e49a8)
-	virtual void VMethod28() override; //4e012d
+	virtual void VMethod28() override; //4e012d (client: 4e4aae)
 	virtual void DoClose(uint32_t code) override; //4e0148
 
 	VisRoleKeyScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CString& text); //4dff5c (client: 4e48dd)
@@ -653,7 +653,7 @@ public:
 
 	void OpenRenameWindow(); //4327f3 (client: 434924)
 
-	void FUN_00432655(CUnit* unit); // client: 434786
+	void FUN_00432655(CUnit* unit); // client: 434786 (client: 434786)
 
 	void LoadSfx(); // 432280
 	void FreeSfx(); // 4322ed
@@ -831,7 +831,7 @@ public:
 
 	void Add(const char* msg, uint16_t* clr, uint32_t t); //4021fe (client: 4021fe)
 	void AddWithCheck(const char* msg, uint16_t* clr, uint32_t t); //4023aa (client: 4023aa)
-	void Clear(); //4021d2
+	void Clear(); //4021d2 (client: 4021d2)
 	void Draw(); //40261a (client: 40261a)
 	void SetRect(const CRect& r); //40212b (client: 40212b)
 	void Update(); //402585 (client: 402585)
@@ -852,7 +852,7 @@ public:
 	~BigStruct2(); // 403395
 
 	// VTable at 609088.
-	virtual void VMethod7() override; // 406f1a
+	virtual void VMethod7() override; // 406f1a (client: 406f89)
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 40c232 (client: 40c2b9)
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 40c83f (client: 40c8c6)
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 40c510 (client: 40c597)
@@ -1692,7 +1692,7 @@ public:
 	virtual void VMethod30(); // 49F298 (client: 4a32c6)
 	virtual void VMethod31(); // 49F3D7 (client: 4a3405)
 
-	void FUN_0049edec(); // client: 4a2e1a
+	void FUN_0049edec(); // client: 4a2e1a (client: 4a2e1a)
 	void FUN_0049ee36(); //49ee36 (client: 4a2e64) in asm
 	void FUN_0049eecd(); //49eecd (client: 4a2efb) in asm
 	int32_t FUN_0049e2e3(CUnit* unit); //49e2e3 (client: 4a2311) in asm
@@ -1781,7 +1781,7 @@ public:
 	virtual int32_t OnRButtonDblClk(uint32_t wparam, CPoint pos) override; // 4cae94 (client: 4cf81a)
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 4CAC9B (client: 4cf621)
 
-	void FUN_004caa69(); // client: 4cf3f7
+	void FUN_004caa69(); // client: 4cf3f7 (client: 4cf3f7)
 
 	int32_t FUN_004ca7c2(CPoint* pos); //4ca7c2 (client: 4cf150) in asm
 	void sub_4CA925(int32_t idx); //4ca925 (client: 4cf2b3) in asm
@@ -1982,7 +1982,7 @@ public:
 	virtual CString VMethod33(); // 4c6b90 (client: 4cb530)
 
 
-	void FUN_004bcd02(); // client: 4c16d3
+	void FUN_004bcd02(); // client: 4c16d3 (client: 4c16d3)
 	void sub_4BAD1D(); //4bad1d (client: 4bf6ea) in asm
 	void sub_4BB4FB(); //4bb4fb (client: 4bfec8)
 	void sub_4BB895(); //4bb895 (client: 4c0262)
@@ -2763,7 +2763,7 @@ public:
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 432CE3
 	virtual int32_t OnChar(uint32_t wparam) override; // 432D1B (client: 434e52)
 
-	CString GetText(); // 438d80
+	CString GetText(); // 438d80 (client: 43add0)
 	void SetText(const CString& text); // 432c03
 
 	void FUN_00432b80(); //432b80 (client: 434cb7) in asm
@@ -3224,7 +3224,7 @@ class VisFameHall : public VisScreen {
 public:
 	virtual ~VisFameHall(); // 45CDE2 body (??_G deleting dtor at 45DA90) (client: 460a12)
 
-	virtual const char* GetHint() override; // 45db50
+	virtual const char* GetHint() override; // 45db50 (client: 4616c0)
 	virtual void VMethod7() override; // 45D7F9 (client: 461429)
 	virtual void VMethod8(CRect* rect) override; // 45da6a
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 45D57F (client: 4611af)

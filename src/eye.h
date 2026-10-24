@@ -168,7 +168,7 @@ struct UnitEye {
     uint8_t field163_0xb3;
 
 public:
-    UnitEye(); // 58BE86
+    UnitEye(); // 58BE86 (client: 55b336)
     uint8_t GetFacingHalf(); // 58C00E (client: 55b4be)
     void SetPathMaskByMovement(Unit* unit); // 5925C9 (client: 561a79)
     int CheckRotation(Unit* unit, uint8_t* out_dir, uint8_t eye0, uint8_t eye1); // 59367D (client: 562b2d)

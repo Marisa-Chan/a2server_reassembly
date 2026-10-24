@@ -180,7 +180,7 @@ struct MapStuff { // aka astruct_5
 
 public:
     MapStuff(MapAlm* alm, UnitList* unit_list); // 587E19 (client: 5572c9)
-    ~MapStuff(); // 587f70
+    ~MapStuff(); // 587f70 (client: 557420)
 
     void InitFromUnitList(UnitList* unit_list); // 58E891 (client: 55dd41)
     void InitFromAlm(MapAlm* alm); // 58F166 (client: 55e616)

@@ -31,6 +31,7 @@ PORT = 18812
 PROGRAM = None  # explicit program selection ("server"/"client"/...); None = daemon default
 
 ADDR_IN_NAME = re.compile(r"^(?:sub_([0-9A-Fa-f]{6})|FUN_00([0-9A-Fa-f]{6}))$")
+CLIENT_ADDR_RE = re.compile(r"\bclient:\s*([0-9A-Fa-f]{6})\b")
 ADDR_IN_COMMENT = re.compile(r"(?<![\w])(?:sub_|FUN_00|0x)?((?=[0-9a-fA-F]*\d)[0-9a-fA-F]{6})(?![\w])")
 CLASS_RE = re.compile(r"^\s*(class|struct|namespace)\s+([A-Za-z_]\w*)\s*(?::[^{;]*)?\{")
 CLASS_OPEN_RE = re.compile(r"^\s*(class|struct|namespace)\s+([A-Za-z_]\w*)\s*(?::[^{;]*)?$")
@@ -134,16 +135,23 @@ def parse_headers(files):
                     pass  # inside a method body
                 else:
                     addr = None
+                    client_addr = None
                     am = ADDR_IN_NAME.match(name)
                     if am:
                         addr = (am.group(1) or am.group(2)).upper()
                     else:
-                        # `// client: <va>` and `//Allods2.exe <va>` comments carry
-                        # allods2.exe addresses - never apply those to the server program
-                        tail = re.sub(r"//.*\b(client|Allods2\.exe)\b.*", "", dm.group("tail"))
+                        # strip only the client-twin segment (`(client: <va>)`) so the
+                        # server VA in the same comment survives; `//Allods2.exe <va>`
+                        # comments lose everything after the marker
+                        tail = re.sub(r"\(?\bclient:\s*[0-9A-Fa-f]{6}\b\)?", "", dm.group("tail"))
+                        tail = re.sub(r"//.*\bAllods2\.exe\b.*", "", tail)
                         cm2 = ADDR_IN_COMMENT.search(tail)
                         if cm2:
                             addr = cm2.group(1).upper()
+                    # the vanilla-client twin address for --client pushes
+                    km = CLIENT_ADDR_RE.search(dm.group("tail"))
+                    if km:
+                        client_addr = km.group(1).upper()
                     params = [x for x in (parse_param(p) for p in split_params(dm.group("params"))) if x]
                     cc = None
                     ccm = re.search(r"__(cdecl|stdcall|fastcall|thiscall)\b", dm.group("ret") + " " + kw)
@@ -155,7 +163,8 @@ def parse_headers(files):
                         cc = "__thiscall"
                     yield {"file": os.path.relpath(path, ROOT), "line": ln, "cls": cls, "name": name,
                            "ret": (cls + " *") if is_ctor else ("void" if is_dtor else ret),
-                           "params": params, "addr": addr, "virtual": "virtual" in kw, "cc": cc,
+                           "params": params, "addr": addr, "client_addr": client_addr,
+                           "virtual": "virtual" in kw, "cc": cc,
                            "plain_ns": is_ns, "ctor": is_ctor, "dtor": is_dtor}
             depth += line.count("{") - line.count("}")
             while stack and depth <= stack[-1][1]:
@@ -168,6 +177,39 @@ def param_types(params):
 
 CPP_ADDR_LINE = re.compile(r"\s*//\s*(?:0x|sub_)?([0-9A-Fa-f]{6})\b.*")
 CPP_DEFN = re.compile(r"^(?![\s#])(?!return\b)[\w:<>\*&\s,~]*?\b([A-Za-z_]\w*)::(~?[A-Za-z_]\w*|operator\S+)\s*\(")
+
+
+# MFC container placeholder sizes (verified in our build; the templates only ever
+# appear as pointer parameters, so the sizes are cosmetic for decompilation)
+TEMPLATE_FAMILY_SIZES = (("CArray<", 0x14), ("CWordArray", 0x14), ("CDWordArray", 0x14),
+                         ("CList<", 0x1c), ("CMap<", 0x1c), ("CFileException", 0x40))
+
+
+def precreate_client_types(todo):
+    """Create the container placeholder types the client program is missing (the
+    server got them via manual `struct create`; parse_type's auto-create cannot
+    handle template names). Existing types are left alone."""
+    names = set()
+    for d in todo:
+        for t in [d["ret"]] + [t for t, _ in d["params"]]:
+            for m in re.finditer(r"[A-Za-z_]\w*(?:<[^;()]*?>)?", t):
+                n = m.group(0)
+                if any(n.startswith(pfx) for pfx, _ in TEMPLATE_FAMILY_SIZES):
+                    names.add(n)
+    made = 0
+    for n in sorted(names):
+        size = next(s for p, s in TEMPLATE_FAMILY_SIZES if n.startswith(p))
+        try:
+            call("struct-show", {"name": n})
+            continue  # exists already
+        except SystemExit:
+            pass
+        try:
+            call("struct-create", {"name": n, "size": size})
+            made += 1
+        except SystemExit:
+            pass  # created concurrently - fine
+    print(f"client types pre-created: {made} of {len(names)} needed")
 
 
 def parse_cpp_addrs(files):
@@ -268,23 +310,29 @@ def main():
     ap.add_argument("--port", type=int, default=PORT)
     sel = ap.add_mutually_exclusive_group()
     sel.add_argument("--server", action="store_true", help="apply to the server program (a2serv6.exe_new)")
-    sel.add_argument("--client", action="store_true", help="refused: header addresses are server VAs")
+    sel.add_argument("--client", action="store_true",
+                     help="apply to the client program (allods2.exe) at each declaration's "
+                          "`(client: <va>)` marker; declarations without one are skipped")
     sel.add_argument("--program", help="program by name (server/client/...) - deliberately no env var: "
                                        "bulk pushes should be explicit")
     a = ap.parse_args()
     PORT = a.port
     PROGRAM = "server" if a.server else "client" if a.client else a.program
-    if PROGRAM == "client":
-        sys.exit("ERROR: header addresses are a2serv6.exe (server) VAs; pushing them onto allods2.exe would\n"
-                 "type the wrong functions. Client naming goes through tool/client_label_push.py instead.")
 
     headers = [a.file] if a.file else sorted(glob.glob(os.path.join(SRC, "*.h")))
     cpp_addrs = parse_cpp_addrs(sorted(glob.glob(os.path.join(SRC, "*.cpp"))))
     decls = list(parse_headers(headers))
     for d in decls:
         d["prio"] = 0
-        if not d["addr"]:
-            d["addr"], d["prio"] = lookup_cpp_addr(cpp_addrs, d)
+    if PROGRAM == "client":
+        # client mode targets each declaration's `(client: <va>)` marker - the
+        # server VA (and the .cpp comment addresses) are irrelevant there
+        for d in decls:
+            d["addr"] = d.get("client_addr")
+    else:
+        for d in decls:
+            if not d["addr"]:
+                d["addr"], d["prio"] = lookup_cpp_addr(cpp_addrs, d)
 
     # on duplicate addresses the most reliable source wins: header > comment above .cpp definition > body comment
     seen, todo, skipped = set(), [], []
@@ -315,6 +363,9 @@ def main():
             if why != "no address":
                 print(f"  SKIP ({why}) {d['cls']}::{d['name']} [{d['file']}:{d['line']}]")
         return
+
+    if PROGRAM == "client":
+        precreate_client_types(todo)
 
     ops = []
     for d in todo:

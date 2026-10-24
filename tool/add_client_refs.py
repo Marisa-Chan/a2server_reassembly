@@ -48,26 +48,50 @@ def ret_imm_set(rets):
 
 def vetted_pairs():
     wl = json.load(open(WL))['worklist']
-    by_srv, by_cli = {}, {}
+    # basis strength: a contested client VA is claimed by whichever server pair has
+    # the strongest evidence (e.g. WindowProc's name pair beats a spurious slot pair
+    # from an MFC base vtable); ties stay dropped (stub-collision noise)
+    rank = {'hash': 4, 'name': 3, 'global-hash': 2, 'xname': 2, 'slot': 1}
+    cands = {}
     for it in wl:
         if it.get('server_va') and it.get('client_va') and it['status'] in ('IDENTICAL', 'DIFFERS'):
-            by_srv.setdefault(it['server_va'], set()).add(it['client_va'])
-            by_cli.setdefault(it['client_va'], set()).add(it['server_va'])
+            basis = 'slot' if it['basis'].startswith('slot') else it['basis'].split(':')[0]
+            key = (it['server_va'], it['client_va'])
+            cands[key] = max(cands.get(key, 0), rank.get(basis, 0))
+    by_srv, by_cli = {}, {}
+    for (sva, cva), r in cands.items():
+        by_srv.setdefault(sva, []).append((r, cva))
+        by_cli.setdefault(cva, []).append((r, sva))
+
+    def resolve(mapping):
+        """keep the clearly-winning claim per key; drop keys that are contested
+        without a unique strongest winner (ties = stub-collision ambiguity)"""
+        out = {}
+        for k, lst in mapping.items():
+            if len({v for _, v in lst}) == 1:
+                out[k] = lst[0][1]  # every claimant agrees on the same target
+                continue
+            best = max(r for r, _ in lst)
+            top = [v for r, v in lst if r == best]
+            if len(set(top)) == 1:
+                out[k] = top[0]  # unique strongest winner
+        return out
+
+    srv2cli = resolve(by_srv)
+    cli2srv = resolve(by_cli)
     rs = json.load(open(RET_SRV))
     rc = json.load(open(RET_CLI))
-    pairs, dropped = {}, {'not-1:1': 0, 'ret-mismatch': 0, 'no-ret-data': 0}
-    for sva, clis in by_srv.items():
-        if len(clis) != 1:
-            dropped['not-1:1'] += 1
-            continue
-        cva = next(iter(clis))
-        if len(by_cli[cva]) != 1:
-            dropped['not-1:1'] += 1
+    pairs, dropped = {}, {'contested': 0, 'ret-mismatch': 0, 'no-ret-data': 0}
+    for sva, cva in srv2cli.items():
+        if cli2srv.get(cva) != sva:
+            dropped['contested'] += 1
             continue
         s, c = rs.get(sva), rc.get(cva)
         if not s or not c:
             dropped['no-ret-data'] += 1
-        elif ret_imm_set(s) != ret_imm_set(c) or -1 in ret_imm_set(s) | ret_imm_set(c):
+            continue
+        si, ci = ret_imm_set(s), ret_imm_set(c)
+        if si != ci or -1 in si | ci:
             dropped['ret-mismatch'] += 1
             continue
         pairs[sva] = cva

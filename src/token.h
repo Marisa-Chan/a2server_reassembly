@@ -76,7 +76,7 @@ public:
 
 	TokenPos& operator=(const TokenPos&);
 
-	void Set(uint8_t _x, uint8_t _y, MapStuff* _inst); //58a4b1
+	void Set(uint8_t _x, uint8_t _y, MapStuff* _inst); //58a4b1 (client: 559961)
 
 	void FixupInstance(); // in asm
 	int ClampToMap(uint8_t x, uint8_t y); //in asm

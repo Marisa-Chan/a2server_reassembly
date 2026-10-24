@@ -365,7 +365,7 @@ public:
 
 public: // VTable at 0060c1a8.
     virtual const AFX_MSGMAP* GetMessageMap() const override; //483d54
-    virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam) override; // 486c6c
+    virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam) override; // 486c6c (client: 48a969)
 
     MainWindow(); // 4837e1
     virtual ~MainWindow(); // 4961b0 (client: 49a500)
