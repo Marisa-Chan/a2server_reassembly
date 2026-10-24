@@ -16867,6 +16867,8 @@ void VisInvExtBase::VMethod7() {
                 digits = cost_arr->GetUpperBound();
             }
             CBmp64* cost_bmp = cost_arr->GetAt(digits);
+            // the tag is right-anchored: shift left by its width before drawing
+            cost_pos.x -= cost_bmp->GetWidth(0);
             cost_bmp->DrawBrightened(cost_pos.x - 3, cost_pos.y + 2, 0, 8, 0);
             int32_t bmp_w = cost_bmp->GetWidth(0);
             int32_t bmp_h = cost_bmp->GetHeight(0);
