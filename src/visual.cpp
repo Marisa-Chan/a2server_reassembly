@@ -14384,6 +14384,9 @@ void VisTavScene::VMethod7() {
             }
         }
 
+        // cell rects are tavern-space (FUN_0049af8c positions them from this->rect), and the
+        // epilogue mask offsets are tavern-space constants: the binary draws both from raw
+        // tav_topleft, without this->rect (only bg/anims use it).
         int32_t avail_count = this->vis_tav->avail_entries.GetSize();
         for (int32_t i = 0; i < avail_count; i++) {
             int32_t row = i / 6;
@@ -14393,9 +14396,9 @@ void VisTavScene::VMethod7() {
                 continue;
             }
 
-            this->field_0x274->Draw(x + pt.x, y + pt.y, 0, 0, 0);
+            this->field_0x274->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
             CSprite256* sprite = this->field_0x224[i];
-            sprite->Draw(x + pt.x, y + pt.y, this->field_0x24c[i], 0, 0);
+            sprite->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, this->field_0x24c[i], 0, 0);
             if (this->vis_tav->selection_index == i && now - tavscene_frame_ts > 0x7D) {
                 this->field_0x24c[i] = (this->field_0x24c[i] + 1) % sprite->GetFrameCount();
                 tavscene_frame_ts = now;
@@ -14405,7 +14408,7 @@ void VisTavScene::VMethod7() {
             int32_t entry = this->vis_tav->FUN_0049e2e3(unit);
             if (this->vis_tav->entrie_id[entry] & 0x80000000) {
                 CRect& r = this->field_0x60[row * 6 + col];
-                g_font2->DrawTextWithShadow(x + r.left + r.Width() / 2, y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], 10, clrsh_CoralRed, 1);
+                g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], 10, clrsh_CoralRed, 1);
             }
         }
 
@@ -14421,20 +14424,20 @@ void VisTavScene::VMethod7() {
                 this->field_0x260[i] = (this->field_0x260[i] + 1) % this->field_0x238[i]->GetFrameCount();
                 tavscene_frame_ts = now;
             }
-            this->field_0x278->Draw(x + pt.x, y + pt.y, 0, 0, 0);
-            this->field_0x238[i]->Draw(x + pt.x, y + pt.y, this->field_0x260[i], 0, 0);
+            this->field_0x278->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
+            this->field_0x238[i]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, this->field_0x260[i], 0, 0);
         }
     } else {
         this->FUN_0049bc23();
     }
 
-    this->field_0x340->DrawSubRectMasked(x + 0xA0, y, 0, 0, 0x10, 0xEE);
-    this->field_0x344->DrawSubRectMasked(x + 0xA0, y + 0xEE, 0, 0, 0x10, 0xF2);
-    this->field_0x348->DrawSubRectMasked(x + 0x1D0, y, 0, 0, 0x10, 0xEE);
+    this->field_0x340->DrawSubRectMasked(tav_topleft.x + 0xA0, tav_topleft.y, 0, 0, 0x10, 0xEE);
+    this->field_0x344->DrawSubRectMasked(tav_topleft.x + 0xA0, tav_topleft.y + 0xEE, 0, 0, 0x10, 0xF2);
+    this->field_0x348->DrawSubRectMasked(tav_topleft.x + 0x1D0, tav_topleft.y, 0, 0, 0x10, 0xEE);
     if (this->vis_tav->info_panel->info_mode) {
-        g_bmp_humanbackl->DrawSubRectMasked(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
+        g_bmp_humanbackl->DrawSubRectMasked(tav_topleft.x + 0x1D0, tav_topleft.y + 0xEE, 0, 0, 0x10, 0xF2);
     } else {
-        g_bmp_textbackl->DrawSubRectMasked(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
+        g_bmp_textbackl->DrawSubRectMasked(tav_topleft.x + 0x1D0, tav_topleft.y + 0xEE, 0, 0, 0x10, 0xF2);
     }
     UnlockSurface2();
     CVisualObject::VMethod7();
@@ -14951,6 +14954,9 @@ void VisTavSceneDruid::VMethod7() {
             }
         }
 
+        // cell rects are tavern-space (FUN_0049af8c positions them from this->rect), and the
+        // epilogue mask offsets are tavern-space constants: the binary draws both from raw
+        // tav_topleft, without this->rect (only bg/anims use it).
         int32_t avail_count = this->vis_tav->avail_entries.GetSize();
         for (int32_t i = 0; i < avail_count; i++) {
             int32_t row = i / 6;
@@ -14960,9 +14966,9 @@ void VisTavSceneDruid::VMethod7() {
                 continue;
             }
 
-            this->field_0x274->Draw(x + pt.x, y + pt.y, 0, 0, 0);
+            this->field_0x274->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
             CSprite256* sprite = this->field_0x224[i];
-            sprite->Draw(x + pt.x, y + pt.y, this->field_0x24c[i], 0, 0);
+            sprite->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, this->field_0x24c[i], 0, 0);
             if (this->vis_tav->selection_index == i && now - tavscene_druid_frame_ts > 0x7D) {
                 this->field_0x24c[i] = (this->field_0x24c[i] + 1) % sprite->GetFrameCount();
                 tavscene_druid_frame_ts = now;
@@ -14972,7 +14978,7 @@ void VisTavSceneDruid::VMethod7() {
             int32_t entry = this->vis_tav->FUN_0049e2e3(unit);
             if (this->vis_tav->entrie_id[entry] & 0x80000000) {
                 CRect& r = this->field_0x60[row * 6 + col];
-                g_font2->DrawTextWithShadow(x + r.left + r.Width() / 2, y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], 10, clrsh_CoralRed, 1);
+                g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], 10, clrsh_CoralRed, 1);
             }
         }
 
@@ -14988,20 +14994,20 @@ void VisTavSceneDruid::VMethod7() {
                 this->field_0x260[i] = (this->field_0x260[i] + 1) % this->field_0x238[i]->GetFrameCount();
                 tavscene_druid_frame_ts = now;
             }
-            this->field_0x278->Draw(x + pt.x, y + pt.y, 0, 0, 0);
-            this->field_0x238[i]->Draw(x + pt.x, y + pt.y, this->field_0x260[i], 0, 0);
+            this->field_0x278->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
+            this->field_0x238[i]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, this->field_0x260[i], 0, 0);
         }
     } else {
         this->FUN_0049bc23();
     }
 
-    this->field_0x340->DrawSubRectMasked(x + 0xA0, y, 0, 0, 0x10, 0xEE);
-    this->field_0x344->DrawSubRectMasked(x + 0xA0, y + 0xEE, 0, 0, 0x10, 0xF2);
-    this->field_0x348->DrawSubRectMasked(x + 0x1D0, y, 0, 0, 0x10, 0xEE);
+    this->field_0x340->DrawSubRectMasked(tav_topleft.x + 0xA0, tav_topleft.y, 0, 0, 0x10, 0xEE);
+    this->field_0x344->DrawSubRectMasked(tav_topleft.x + 0xA0, tav_topleft.y + 0xEE, 0, 0, 0x10, 0xF2);
+    this->field_0x348->DrawSubRectMasked(tav_topleft.x + 0x1D0, tav_topleft.y, 0, 0, 0x10, 0xEE);
     if (this->vis_tav->info_panel->info_mode) {
-        g_bmp_humanbackl->DrawSubRectMasked(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
+        g_bmp_humanbackl->DrawSubRectMasked(tav_topleft.x + 0x1D0, tav_topleft.y + 0xEE, 0, 0, 0x10, 0xF2);
     } else {
-        g_bmp_textbackl->DrawSubRectMasked(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
+        g_bmp_textbackl->DrawSubRectMasked(tav_topleft.x + 0x1D0, tav_topleft.y + 0xEE, 0, 0, 0x10, 0xF2);
     }
     UnlockSurface2();
     CVisualObject::VMethod7();
@@ -15231,6 +15237,9 @@ void VisTavSceneKaarg::VMethod7() {
             }
         }
 
+        // cell rects are tavern-space (FUN_0049af8c positions them from this->rect), and the
+        // epilogue mask offsets are tavern-space constants: the binary draws both from raw
+        // tav_topleft, without this->rect (only bg/anims use it).
         int32_t avail_count = this->vis_tav->avail_entries.GetSize();
         for (int32_t i = 0; i < avail_count; i++) {
             int32_t row = i / 6;
@@ -15240,9 +15249,9 @@ void VisTavSceneKaarg::VMethod7() {
                 continue;
             }
 
-            this->field_0x274->Draw(x + pt.x, y + pt.y, 0, 0, 0);
+            this->field_0x274->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
             CSprite256* sprite = this->field_0x224[i];
-            sprite->Draw(x + pt.x, y + pt.y, this->field_0x24c[i], 0, 0);
+            sprite->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, this->field_0x24c[i], 0, 0);
             if (this->vis_tav->selection_index == i && now - tavscene_kaarg_frame_ts > 0x7D) {
                 this->field_0x24c[i] = (this->field_0x24c[i] + 1) % sprite->GetFrameCount();
                 tavscene_kaarg_frame_ts = now;
@@ -15252,7 +15261,7 @@ void VisTavSceneKaarg::VMethod7() {
             int32_t entry = this->vis_tav->FUN_0049e2e3(unit);
             if (this->vis_tav->entrie_id[entry] & 0x80000000) {
                 CRect& r = this->field_0x60[row * 6 + col];
-                g_font2->DrawTextWithShadow(x + r.left + r.Width() / 2, y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], 10, clrsh_CoralRed, 1);
+                g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], 10, clrsh_CoralRed, 1);
             }
         }
 
@@ -15268,20 +15277,20 @@ void VisTavSceneKaarg::VMethod7() {
                 this->field_0x260[i] = (this->field_0x260[i] + 1) % this->field_0x238[i]->GetFrameCount();
                 tavscene_kaarg_frame_ts = now;
             }
-            this->field_0x278->Draw(x + pt.x, y + pt.y, 0, 0, 0);
-            this->field_0x238[i]->Draw(x + pt.x, y + pt.y, this->field_0x260[i], 0, 0);
+            this->field_0x278->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
+            this->field_0x238[i]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, this->field_0x260[i], 0, 0);
         }
     } else {
         this->FUN_0049bc23();
     }
 
-    this->field_0x340->DrawSubRectMasked(x + 0xA0, y, 0, 0, 0x10, 0xEE);
-    this->field_0x344->DrawSubRectMasked(x + 0xA0, y + 0xEE, 0, 0, 0x10, 0xF2);
-    this->field_0x348->DrawSubRectMasked(x + 0x1D0, y, 0, 0, 0x10, 0xEE);
+    this->field_0x340->DrawSubRectMasked(tav_topleft.x + 0xA0, tav_topleft.y, 0, 0, 0x10, 0xEE);
+    this->field_0x344->DrawSubRectMasked(tav_topleft.x + 0xA0, tav_topleft.y + 0xEE, 0, 0, 0x10, 0xF2);
+    this->field_0x348->DrawSubRectMasked(tav_topleft.x + 0x1D0, tav_topleft.y, 0, 0, 0x10, 0xEE);
     if (this->vis_tav->info_panel->info_mode) {
-        g_bmp_humanbackl->DrawSubRectMasked(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
+        g_bmp_humanbackl->DrawSubRectMasked(tav_topleft.x + 0x1D0, tav_topleft.y + 0xEE, 0, 0, 0x10, 0xF2);
     } else {
-        g_bmp_textbackl->DrawSubRectMasked(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
+        g_bmp_textbackl->DrawSubRectMasked(tav_topleft.x + 0x1D0, tav_topleft.y + 0xEE, 0, 0, 0x10, 0xF2);
     }
     UnlockSurface2();
 
