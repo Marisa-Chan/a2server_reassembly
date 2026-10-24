@@ -5149,7 +5149,9 @@ void MainWindow::SingleGameIdle() { //48a3a2
 
     if (this->has_focus != 0) {
         this->vis_root->MsgProc(0x402, 0, 0);
+        #ifndef A2CLIENT_PATCH
         SaveScreenshot();
+        #endif
     }
 
     g_mousept.Update();
