@@ -78,7 +78,7 @@ def call(op, args, port, program=None):
     data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(f"http://127.0.0.1:{port}/", data=data, headers={"Content-Type": "application/json"})
     try:
-        with urllib.request.urlopen(req, timeout=600) as r:
+        with urllib.request.urlopen(req, timeout=3600) as r:
             resp = json.loads(r.read().decode("utf-8"))
     except urllib.error.URLError as e:
         whom = f" for program '{program}'" if program else ""

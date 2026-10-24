@@ -72,6 +72,9 @@ void Resources::AddPath(const char* path) {
         #ifdef A2SERVER_PATCH
         ::MessageBoxA(NULL, path, "Ignoring resource path", MB_OK);
         return;
+        #elif A2CLIENT_PATCH
+        ::MessageBoxA(NULL, path, "Ignoring resource path", MB_OK);
+        return;
         #else
 		AfxThrowFileException(CFileException::badPath);
         #endif
