@@ -14309,7 +14309,7 @@ void VisTavScene::VMethod7() {
 
     if (!tavscene_statics_inited) {
         tavscene_statics_inited = true;
-        tavscene_anim_delay = 3000 + rand() % 16;
+        tavscene_anim_delay = 3000 + rand() / 16;
         uint32_t t = timeGetTime();
         tavscene_frame_ts = t;
         tavscene_anims_ts = t;
@@ -14365,7 +14365,7 @@ void VisTavScene::VMethod7() {
                     if (!this->anims[3].StepBackward()) {
                         tavscene_anim_substate = 0;
                         tavscene_anim_state = 0;
-                        tavscene_anim_delay = 3000 + rand() % 16;
+                        tavscene_anim_delay = 3000 + rand() / 16;
                         CSound::Play(this->vis_tav->sounds[1]);
                     }
                 } else if (tavscene_anim_substate == 1) {
@@ -14378,7 +14378,7 @@ void VisTavScene::VMethod7() {
             } else if (tavscene_anim_state == 2) {
                 if (!this->anims[2].StepForward()) {
                     tavscene_anim_state = 0;
-                    tavscene_anim_delay = 3000 + rand() % 16;
+                    tavscene_anim_delay = 3000 + rand() / 16;
                     this->anims[2].frame_idx = 0;
                 }
                 tavscene_state_ts = now;
@@ -14855,7 +14855,7 @@ void VisTavSceneDruid::VMethod7() {
 
     if (!tavscene_druid_statics_inited) {
         tavscene_druid_statics_inited = true;
-        tavscene_druid_anim_delay = 3200 + rand() % 16;
+        tavscene_druid_anim_delay = 3200 + rand() / 16;
         uint32_t t = timeGetTime();
         tavscene_druid_frame_ts = t;
         tavscene_druid_anims_ts = t;
@@ -14928,7 +14928,7 @@ void VisTavSceneDruid::VMethod7() {
             case 1:
                 if (!this->anims_druid[1].StepForward()) {
                     tavscene_druid_anim_state = -1;
-                    tavscene_druid_anim_delay = 3200 + rand() % 16;
+                    tavscene_druid_anim_delay = 3200 + rand() / 16;
                     this->anims_druid[1].frame_idx = 0;
                 }
                 tavscene_druid_state_ts = now;
@@ -14936,14 +14936,14 @@ void VisTavSceneDruid::VMethod7() {
             case 2:
                 if (!this->anims_druid[2].StepForward()) {
                     tavscene_druid_anim_state = -1;
-                    tavscene_druid_anim_delay = 3200 + rand() % 16;
+                    tavscene_druid_anim_delay = 3200 + rand() / 16;
                     this->anims_druid[2].frame_idx = 0;
                 }
                 tavscene_druid_state_ts = now;
                 break;
             case 3:
                 tavscene_druid_anim_state++;
-                tavscene_druid_anim_delay = 1000 + rand() % 16;
+                tavscene_druid_anim_delay = 1000 + rand() / 16;
                 tavscene_druid_state_ts = now;
                 break;
             case 4:
