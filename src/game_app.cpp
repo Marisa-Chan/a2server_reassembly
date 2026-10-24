@@ -770,34 +770,14 @@ BOOL GameApp::InitInstance() {
 	mwnd->field_0x460 = 1;
 	mwnd->LoadData();
 
-#ifdef A2CLIENT
-	// client: 48626d — CD/autostart gate before the main-menu message. The
-	// no-CD path plays the intro AVI (client 004965e4) and posts 0x464; with a
-	// CD present, -startserver/-cfg/-asl skip the intro video (client 004969e3
-	// check + 004967d2 player - unported, the MCI video subsystem is still a
-	// stub, so only the message flow is ported). Our client build forces
-	// g_IsCdPresent = 1, making the no-CD path dead code.
-	if (g_IsCdPresent == 0) {
-		mwnd->PostMessageA(0x464, 0, 0);
-	} else {
-		mwnd->PostMessageA(0x421, 0, 0);
-	}
-#else
+	// client: 48626d — vanilla checked the CD before the main-menu message.
+	// We have disabled the CD check.
 	mwnd->PostMessageA(0x421, 0, 0);
-#endif
 
 	g_AutoRunEvent = CreateEventA(NULL, TRUE, TRUE, "Allods 2 AutoRun");
 
-#ifdef A2CLIENT
-	// client: 48626d — the retail client resolves the scenario API from
-	// scenario.dll by ordinal (ScenarioGetVar=1 .. ScenarioGetAllLocations=19)
-	// and refuses to run without it. Our build keeps the statically linked
-	// implementations, so only the dll's presence gates startup.
-	if (LoadLibraryA("scenario.dll") == nullptr) {
-		AfxMessageBox("Can't find scenario.dll");
-		return FALSE;
-	}
-#endif
+	// Vanilla client checked the `scenario.dll` presence before proceeding with startup.
+	// We have Scenario statically linked, so we skip the check.
 
 	mwnd->input_locked = 0;
 

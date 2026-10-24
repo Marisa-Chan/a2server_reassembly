@@ -76,6 +76,7 @@ PackerDat::~PackerDat() {
 }
 
 void NetStru1::AnnouncePlayerName(const CString& name, Player* player) {
+    // 51cd89
 	PacketJoin& pkt = PacketJoin::Inst;
 	pkt.id = 0x91;
 	strcpy(pkt.name, name);

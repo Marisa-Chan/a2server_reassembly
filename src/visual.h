@@ -2989,7 +2989,7 @@ public:
 ASSERT_SIZE(HintedListBox, 0x98);
 
 
-//60a2000
+//60a200
 class GameOptionsWindow : public VisWindow {
 public:
 	virtual ~GameOptionsWindow() {} //443cbb
@@ -3002,6 +3002,7 @@ public:
 ASSERT_SIZE(GameOptionsWindow, 0x68);
 
 
+//609fd8
 class EndGameMenu : public VisMenuWnd {
 public:
 	EndGameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitm, uint32_t unk, const CRect& _r, int32_t unk2); //441357
@@ -3027,7 +3028,7 @@ ASSERT_SIZE(TownMenuListDialogVisualObject, 0x7c);
 // Chat command handler for the server screen text box input ("#disconnect N", "#curse N"). 44e4ce
 void sub_44E4CE(const char* cmd);
 
-// Radio checkbox on the server screen ("save on server" toggle). 60adf8
+// 60adf8, radio checkbox on the server screen ("save on server" toggle)
 class VisServerScreenRadio : public VisRadioType1 {
 public:
 	virtual ~VisServerScreenRadio(); // 450970 (complete dtor 4509a0)
