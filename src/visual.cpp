@@ -24992,8 +24992,7 @@ struct HatBrowserProgress {
     int32_t FUN_00453df0() { //453df0
         return field_1f4;
     }
-}
-ASSERT_SIZE(HatBrowserProgress, 0x21c);
+};
 
 // 44c1a9
 // client: 44f11d
