@@ -1153,7 +1153,7 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
 
     int first_equipment_state = 0;
     if (this->equipmentTokens[0] != nullptr) {
-        first_equipment_state = this->equipmentTokens[0]->HasKnownName();
+        first_equipment_state = this->equipmentTokens[0]->IsTwoHandedWeapon();
     }
 
     if ((this->unitFlags & 2) == 0) {
