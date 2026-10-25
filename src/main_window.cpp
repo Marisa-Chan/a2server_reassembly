@@ -711,9 +711,17 @@ void MainWindow::PlayDefaultMusic() {
 }
 
 // 490f6c
+// client 49547a
 int32_t MainWindow::WaitHatConnection() {
     uint32_t start_time = timeGetTime();
     INT_00660f8c = 0;
+
+#ifdef A2CLIENT
+    g_NetStru1_local.SendServerClientLogin( *(HatCharId*)&m_GameSession.sessionKeyPart1,
+        m_GameSession.body, m_GameSession.reaction, m_GameSession.mind, m_GameSession.spirit,
+        m_GameSession.main_sphere, m_GameSession.face | m_GameSession.type,
+        m_GameSession.color, field_0x3e0.connect_address, m_GameSession.character_name);
+#endif 
 
     while (true) {
         MSG msg;
@@ -726,13 +734,7 @@ int32_t MainWindow::WaitHatConnection() {
         }
 
         if (g_NetStru1_local.GetClientsPktNum() != 0) {
-            if (this->vis_map_context->ProcessPackets(0x64) == 0) {
-                VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(0x11), nullptr, 0);
-                this->ModalScreen(mbox);
-                this->PostMessage(0x10, 0, 0);
-                return 0;
-            }
-            return 1;
+            break;
         }
 
         if (g_CmdTimeout < timeGetTime() - start_time) {
@@ -744,6 +746,45 @@ int32_t MainWindow::WaitHatConnection() {
 
         g_mousept.Update();
     }
+
+#ifdef A2CLIENT
+    if (this->vis_map_context->ProcessPackets(0x64) == 0) {
+        VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, INT_00660f8c == 0 ? txt_patch.GetLine(0x11) : txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0);
+        this->ModalScreen(mbox);
+        return 0;
+    }
+
+    bool has_id = false;
+    HatCharId key_id;
+    key_id.id1 = m_GameSession.sessionKeyPart1;
+    key_id.id2 = m_GameSession.sessionKeyPart2;
+
+    for (int i = 0; i < m_GameSession.characterRosterHatId.GetSize(); i++) {
+        if (m_GameSession.characterRosterHatId[i].id == key_id.id) {
+            has_id = true;
+            break;
+        }
+    }
+
+    if (!has_id) {
+        m_GameSession.characterRosterHatId.Add(key_id);
+        m_GameSession.hat_char_ids.Add(key_id);
+    }
+
+    if (INT_00660f8c != 0) {
+        VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0);
+        this->ModalScreen(mbox);
+        return 0;
+    }
+#else
+    if (this->vis_map_context->ProcessPackets(0x64) == 0) {
+        VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(0x11), nullptr, 0);
+        this->ModalScreen(mbox);
+        this->PostMessage(0x10, 0, 0);
+        return 0;
+    }
+#endif
+    return 1;
 }
 
 // 494a9e
@@ -3910,11 +3951,11 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             if (res == 0) {
                 g_CLlDriver.Close();
 #ifdef A2CLIENT
-                if (this->vis_hatbrowser != nullptr) {
+                if (this->vis_hatbrowser)
                     this->vis_hatbrowser->MsgProc(0x446, 0, 0);
-                }
-#endif
+#else
                 PostMessage(0x487, 0, 0);
+#endif
                 break;
             }
         }
@@ -5466,7 +5507,7 @@ int32_t MainWindow::CheckWebVersion(const CString& addr) { //4e5466
 
 int32_t MainWindow::LeaveServerMode() { //490eb3
 
-    g_NetStru1_main.SendHatLogout();
+    g_NetStru1_local.SendHatLogout(); //g_NetStru1_main in serv
     INT_00660f8c = 0;
 
     uint32_t start_time = timeGetTime();

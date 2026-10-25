@@ -2403,7 +2403,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				}
 				*outpos = 0;
 
-				DAT_00666a00.Add( CString('|') + bbuf );
+				DAT_00666a00.Add( CString(bbuf) + '|');
 			}
 
 

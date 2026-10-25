@@ -1,5 +1,7 @@
 #include "visual.h"
 #include <timeapi.h>
+#include <winsock2.h>
+#include <ws2tcpip.h>
 
 #include "server.h"
 #include "main_window.h"
@@ -21,12 +23,10 @@
 #include "packet.h"
 
 
+
 char byte_666590[223]; //4c9a6f GetHint static buffer
 
 char unk_659A48[4]; //659a48 zeroed buffer used to clear the server screen text box
-char byte_659A34[4]; //659a34 "" hint string of the hat browser OK button
-char byte_659A38[4]; //659a38 "" hint string of the hat browser cancel button
-char byte_659A3C[4]; //659a3c "" hint string of the hat browser refresh button
 char byte_659A54[4]; //659a54 "" hint string of the action menu confirm button
 char byte_659A58[4]; //659a58 "" hint string of the action menu cancel button
 char byte_659A4C[4]; //659a4c "" hint string of the mission-failed load button
@@ -24730,36 +24730,270 @@ void VisHatBrowserDlg::VMethod26() {
     CRect btn_rect(btn_center.x - 0x30, btn_center.y - 0xc, btn_center.x + 0x30, btn_center.y + 0xc);
     btn_rect.OffsetRect((g_IsServer != 0) ? -0x48 : 4, 0);
 
-    VisButton* ok_btn = new VisButton(0x14, btn_rect, txt_dialogs.GetLine(0), g_font1, nullptr, 0x445, 0, byte_659A34);
+    VisButton* ok_btn = new VisButton(0x14, btn_rect, txt_dialogs.GetLine(0), g_font1, nullptr, 0x445, 0, "");
     this->AddChild(ok_btn);
     ok_btn->ChangeFlags(1, false);
 
     btn_rect.OffsetRect(0x90, 0);
-    VisButton* cancel_btn = new VisButton(0x15, btn_rect, txt_dialogs.GetLine(1), g_font1, nullptr, 0x446, 0, byte_659A38);
+    VisButton* cancel_btn = new VisButton(0x15, btn_rect, txt_dialogs.GetLine(1), g_font1, nullptr, 0x446, 0, "");
     this->AddChild(cancel_btn);
     cancel_btn->SetLeftObj(this->FindChild(0x14));
 
     btn_rect.OffsetRect(0x90, 0);
-    VisButton* refresh_btn = new VisButton(0x16, btn_rect, txt_patch.GetLine(0x6c), g_font1, nullptr, 0x48b, 0, byte_659A3C);
+    VisButton* refresh_btn = new VisButton(0x16, btn_rect, txt_patch.GetLine(0x6c), g_font1, nullptr, 0x48b, 0, "");
     this->AddChild(refresh_btn);
     refresh_btn->SetLeftObj(this->FindChild(0x15));
 }
 
-#ifdef A2CLIENT
+
 // Read-only view of the fields the a2mgr-installed browser object exposes to the dialog
 // (client accessors 4540d0/4540f0/454110/454130/454170/4541d0; CS installed at 0x204).
 struct HatBrowserProgress {
-    uint8_t gap[0x1dc];
+    WSAData wsa;
+    SOCKET sock;
+    sockaddr_in send_addr;
+    sockaddr_in recv_addr;
+    addrinfo* host_ent;
+    int32_t err;
+    int32_t send_len;
+    int32_t recv_addr_len;
+    int32_t timeout;
+    char* addr_str;
+    std::vector<uint8_t> send_buf;
+    std::vector<uint8_t> recv_buf;
+    in_addr addr;
+    int32_t send_serial;
     int32_t field_1dc;
     int32_t field_1e0;
     int32_t field_1e4;
-    int32_t field_1e8;
+    int32_t recv_serial;
     int32_t field_1ec;
     int32_t field_1f0;
-    uint8_t gap2[0x204 - 0x1f4];
+    int32_t field_1f4;
+    int32_t field_1f8;
+    int32_t field_1fc;
+    uint32_t timestamp;
     CRITICAL_SECTION cs;
-};
-#endif
+
+    static void InitBuf(uint8_t* buf, int32_t ln) { //4b2187
+        buf[0] = 8;
+        buf[1] = 0;
+        *(uint16_t*)(buf + 2) = 0;
+        *(uint16_t*)(buf + 4) = GetCurrentProcessId();
+        *(uint16_t*)(buf + 6) = 0;
+        memset(buf + 0xc, 'E', ln - 0xc);
+    }
+
+    static uint32_t CalcCrc(void* ibuf, int32_t ln) { //4b2113
+        uint16_t* buf = (uint16_t*)ibuf;
+        uint32_t crc = 0;
+        for (; ln > 1; ln -= 2) {
+            crc += *buf;
+            buf++;
+        }
+
+        if (ln != 0)
+            crc += *(uint8_t*)buf;
+
+        crc = (crc >> 16) + (crc & 0xffff);
+        return ~(crc + (crc >> 0x10));
+    }
+
+    HatBrowserProgress() { //4b18c0
+        recv_addr_len = sizeof(send_addr);
+        timeout = 1000;
+        addr.S_un.S_addr = 0;
+        send_serial = 0;
+        sock = INVALID_SOCKET;
+        field_1fc = 0;
+        timestamp = 0;
+        field_1dc = 10000;
+        field_1e4 = 0;
+        field_1e0 = 0;
+        field_1e4 = 0;
+        field_1ec = 0;
+        recv_serial = 0;
+        field_1f0 = 0;
+        field_1f4 = 0;
+
+        InitializeCriticalSection(&cs);
+
+        if (WSAStartup(0x101, &wsa) == 0) {
+            send_buf.resize(0x400);
+            recv_buf.resize(0x400);
+            if (send_buf.empty() || recv_buf.empty()) {
+                field_1f4 = -5;
+            }
+            else {
+                field_1fc = 1;
+            }
+        }
+        else {
+            field_1f4 = -1;
+        }
+    }
+
+    ~HatBrowserProgress() {
+        if (field_1fc != 0) {
+            if (sock != INVALID_SOCKET)
+                closesocket(sock);
+            WSACleanup();
+        }
+        DeleteCriticalSection(&cs);
+    }
+
+
+    void Init(const char* hst) { //4b1a9b
+        if (field_1fc == 0)
+            return;
+
+        field_1f8 = 0;
+
+        EnterCriticalSection(&cs);
+
+        field_1dc = 1000;
+        field_1e4 = 0;
+        field_1e0 = 0;
+        field_1e4 = 0;
+        field_1ec = 0;
+        recv_serial = 0;
+        field_1f0 = 0;
+        field_1f4 = 0;
+
+        LeaveCriticalSection(&cs);
+
+        if (sock != INVALID_SOCKET)
+            closesocket(sock);
+        
+        sock = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP);
+        if (sock == INVALID_SOCKET) {
+            field_1f4 = -2;
+            return;
+        }
+
+        err = setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (const char*)&timeout, 4);
+        if (err == -1) {
+            field_1f4 = -3;
+            return;
+        }
+
+        timeout = 1000;
+        err = setsockopt(sock, SOL_SOCKET, SO_SNDTIMEO, (const char*)&timeout, 4);
+        if (err == -1) {
+            field_1f4 = -3;
+            return;
+        }
+
+        memset(&send_addr, 0, sizeof(send_addr));
+        //host_ent = gethostbyname(hst);
+
+        if (GetAddrInfo(hst, nullptr, nullptr, &host_ent) == 0 || host_ent == nullptr) {
+            inet_pton(AF_INET, hst, &addr.S_un); // addr.S_un.S_addr = inet_addr(hst);
+        }
+
+        if ((host_ent == nullptr) && addr.S_un.S_addr == 0xffffffff) {
+            field_1f4 = -4;
+            return;
+        }
+
+        if (host_ent == nullptr)
+            send_addr.sin_addr.S_un = addr.S_un;
+        else
+            memcpy(&send_addr.sin_addr, host_ent->ai_addr, host_ent->ai_addrlen);
+
+        if (host_ent == nullptr)
+            send_addr.sin_family = 2;
+        else
+            send_addr.sin_family = host_ent->ai_family;
+
+        static char addrbuf[INET_ADDRSTRLEN+1];
+        inet_ntop(AF_INET, &(send_addr.sin_addr), addrbuf, INET_ADDRSTRLEN); // inet_ntoa(send_addr.sin_addr);
+        addr_str = addrbuf;
+        send_len = 0x20;
+        send_len += 0xc;
+
+        memset(send_buf.data(), 0, send_buf.size());
+        InitBuf(send_buf.data(), send_len);
+
+        field_1f8 = 1;
+        timestamp = GetTickCount();
+    }
+
+
+    void FUN_004b1dbb() { //4b1dbb
+        if (field_1f8 == 0)
+            return;
+
+        field_1f4 = 0;
+
+        send_len = 0x20;
+        send_len += 0xc;
+
+        send_buf[2] = 0;
+        send_buf[3] = 0;
+
+        *(uint32_t *)(send_buf.data() + 8) = GetTickCount();
+        *(uint16_t*)(send_buf.data() + 6) = send_serial;
+
+        send_serial++;
+
+        *(uint16_t*)(send_buf.data() + 2) = CalcCrc(send_buf.data(), send_len);
+
+        int32_t res = sendto(sock, (char*)send_buf.data(), send_len, 0, (sockaddr*)&send_addr, 0x10);
+        timestamp = GetTickCount();
+
+        if (res == -1) {
+            if (WSAGetLastError() == WSAETIMEDOUT)
+                field_1f4 = -6;
+            else
+                field_1f4 = -7;
+            return;
+        }
+
+        err = recvfrom(sock, (char*)recv_buf.data(), recv_buf.size(), 0, (sockaddr*)&recv_addr, &recv_addr_len);
+        timestamp = GetTickCount();
+
+        if (err == -1) {
+            if (WSAGetLastError() == WSAETIMEDOUT) {
+                EnterCriticalSection(&cs);
+                field_1f0++;
+                field_1f4 = -8;
+                LeaveCriticalSection(&cs);
+            }
+            else
+                field_1f4 = -9;
+            return;
+        }
+            
+        uint32_t* rdat = (uint32_t*)(recv_buf.data() + (recv_buf[0] & 0xf) * 4);
+        if (*(uint8_t*)rdat != 0) {
+            field_1f4 = -10;
+            return;
+        }
+
+        if ((rdat[1] & 0xffff) != (GetCurrentProcessId() & 0xffff)) {
+            field_1f4 = -10;
+            return;
+        }
+
+        EnterCriticalSection(&cs);
+        field_1e4 = timestamp - rdat[2];
+        recv_serial++;
+        field_1ec += field_1e4;
+
+        if (field_1dc >= field_1e4)
+            field_1dc = field_1e4;
+
+        if (field_1e4 >= field_1e0)
+            field_1e0 = field_1e4;
+        LeaveCriticalSection(&cs);
+    }
+
+    int32_t FUN_00453df0() { //453df0
+        return field_1f4;
+    }
+}
+ASSERT_SIZE(HatBrowserProgress, 0x21c);
 
 // 44c1a9
 // client: 44f11d
@@ -24780,9 +25014,9 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
         CString s2;
         EnterCriticalSection(&prog->cs);
         int32_t step = (int32_t)wparam;
-        if (prog->field_1e8 + prog->field_1f0 != 0) {
-            int32_t total = prog->field_1e8 + prog->field_1f0;
-            s1.Format(txt_patch.GetLine(0x7f), prog->field_1dc, (prog->field_1e8 != 0) ? prog->field_1ec / prog->field_1e8 : 0, prog->field_1e0, (total != 0) ? prog->field_1f0 * 100 / total : 0);
+        if (prog->recv_serial + prog->field_1f0 != 0) {
+            int32_t total = prog->recv_serial + prog->field_1f0;
+            s1.Format(txt_patch.GetLine(0x7f), prog->field_1dc, (prog->recv_serial != 0) ? prog->field_1ec / prog->recv_serial : 0, prog->field_1e0, (total != 0) ? prog->field_1f0 * 100 / total : 0);
             if (step == 0) {
                 s2.Format(txt_patch.GetLine(0x80), prog->field_1e4, total);
             } else {
@@ -24942,6 +25176,19 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
 // 44bc35
 VisHatBrowserDlg::VisHatBrowserDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
     : VisWindow(_id, l, t, r, b, nullptr) {
+
+    MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+    if (mwnd->hat_settings.ishat)
+    {
+        browser = new HatBrowserProgress();
+        exit_event = CreateEventA(nullptr, 0, 0, nullptr);
+        ack_event = CreateEventA(nullptr, 0, 0, nullptr);
+        InitializeCriticalSection(&connect_cs);
+        worker_thread = AfxBeginThread(ThreadProc, this, 0, 0, 0, 0);
+        worker_thread->m_bAutoDelete = 1;
+    }
+    else
+        browser = nullptr;
 }
 
 #ifdef A2CLIENT
@@ -25021,6 +25268,45 @@ void HatPlayerScoreList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
 
 // 44fed0
 VisHatBrowserDlg::~VisHatBrowserDlg() {
+}
+
+UINT __cdecl VisHatBrowserDlg::ThreadProc(void* pv) { //44e391
+    VisHatBrowserDlg* dlg = (VisHatBrowserDlg*)pv;
+
+    while (WaitForSingleObject(dlg->exit_event, 0) != WAIT_OBJECT_0) {
+        ResetEvent(dlg->ack_event);
+        EnterCriticalSection(&dlg->connect_cs);
+
+        CString addr = dlg->connect_addr;
+
+        if (!addr.IsEmpty()) {
+            dlg->connect_addr.Empty();
+            LeaveCriticalSection(&dlg->connect_cs);
+
+            int padr = addr.ReverseFind(':');
+            if (padr != -1)
+                addr = addr.Left(padr);
+
+            dlg->browser->Init(addr);
+
+            if (WaitForSingleObject(dlg->exit_event, 0) == 0) {
+                SetEvent(dlg->ack_event);
+                break;
+            }
+
+            PostMessageA(g_MainWndHWND, 0x48c, dlg->browser->FUN_00453df0(), 0);
+        }
+        else
+            LeaveCriticalSection(&dlg->connect_cs);
+
+        dlg->browser->FUN_004b1dbb();
+        PostMessageA(g_MainWndHWND, 0x48c, dlg->browser->FUN_00453df0(), 0);
+        SetEvent(dlg->ack_event);
+
+        if (WaitForSingleObject(dlg->exit_event, 500) == 0)
+            break;
+    }
+    return 0;
 }
 
 // 43C60C
