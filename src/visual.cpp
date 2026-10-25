@@ -13098,7 +13098,6 @@ int VisShop::sub_4BCB63() {
     
     this->shop_compass->VMethod28();
     this->shop_compass->state |= 0x20;
-    this->snd_notif->Play();
     this->gameplay->sub_41A942();
     this->snd_buy->Play();
     return 1;
