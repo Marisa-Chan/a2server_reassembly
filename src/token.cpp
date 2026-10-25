@@ -275,6 +275,9 @@ void Token::Serialize(CArchive& ar) { //55ab39
 		ar.Write(&this->pOwner, 4); //32
 	} else {
 		ar.Read(&this->building_id, 4);
+		if (this->building_id != 0) {
+			BldIdSet_Set((uint16_t)this->building_id);
+		}
 		ar.Read(&this->itemDataID, 2);
 		ar.Read(&this->typeId, 2);
 		ar.Read(&this->TokenID, 4);
@@ -287,7 +290,11 @@ void Token::Serialize(CArchive& ar) { //55ab39
 
 		ar.Read(&ptr, 4);//32
 
-		g_Server->field23_0xdc.Lookup(ptr, ptr);
-		this->pOwner = (Player*)ptr;
+		void* remapped_owner = nullptr;
+		if (g_Server->field23_0xdc.Lookup(ptr, remapped_owner)) {
+			this->pOwner = (Player*)remapped_owner;
+		} else {
+			this->pOwner = nullptr;
+		}
 	}
 }
