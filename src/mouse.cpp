@@ -342,6 +342,7 @@ void CMousePointer::SaveScreenParts2(const CRect& rect) {
             CopyScreenRectToBmp64(this->hint_rect.left, this->hint_rect.top, this->hint_rect.Width(), this->hint_rect.Height(),
                                     this->saved_screen_rect_hint->GetWidth(0), this->saved_screen_rect_hint->GetHeight(0),
                                     (uint8_t*)this->saved_screen_rect_hint->GetData());
+            this->PaintHint();
 
             UnlockSurface2();
         } else if (intr.IntersectRect(&rect, &r) && this->select_frame_state) {
