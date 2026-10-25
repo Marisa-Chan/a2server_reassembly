@@ -9736,14 +9736,14 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
     if (unit->IsItemRestricted(token) == 0) {
         disallow = 1;
     }
-    if (token->IsQuestTreasure() == 0) {
+    if (token->IsQuestTreasure() != 0) {
         disallow = 1;
     }
 
     int32_t spell_id = token->GetAttribute(0x2A);
     if (spell_id != 0) {
         if ((unit->unitFlags & 2) != 0) {
-            if (((1 << spell_id) & unit->spells) == 0) {
+            if (((1 << (spell_id & 0x1F)) & unit->spells) != 0) {
                 disallow = 1;
             }
         } else {
