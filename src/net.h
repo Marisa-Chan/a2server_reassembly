@@ -224,7 +224,7 @@ public:
 
     void WriteStatsLog(CString fname);//51f124
 
-    void SendServerClientLogin(HatCharId key, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t sphere, uint8_t type_face, uint8_t color, const CString& connstr, const CString& name); //51da14   (client:50e5cf)
+    void SendHatConnectServer(HatCharId key, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t sphere, uint8_t type_face, uint8_t color, const CString& name, const CString& srv); //51da14   (client:50e5cf)
 
     NetStru2* GetFirstClient();
 };

@@ -717,10 +717,10 @@ int32_t MainWindow::WaitHatConnection() {
     INT_00660f8c = 0;
 
 #ifdef A2CLIENT
-    g_NetStru1_local.SendServerClientLogin( *(HatCharId*)&m_GameSession.sessionKeyPart1,
+    g_NetStru1_local.SendHatConnectServer( *(HatCharId*)&m_GameSession.sessionKeyPart1,
         m_GameSession.body, m_GameSession.reaction, m_GameSession.mind, m_GameSession.spirit,
         m_GameSession.main_sphere, m_GameSession.face | m_GameSession.type,
-        m_GameSession.color, field_0x3e0.connect_address, m_GameSession.character_name);
+        m_GameSession.color, m_GameSession.character_name ,field_0x3e0.connect_address);
 #endif 
 
     while (true) {

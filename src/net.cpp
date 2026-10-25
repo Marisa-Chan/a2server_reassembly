@@ -4894,12 +4894,12 @@ void NetStru1::SendHatLogout() { //51d9a0
 }
 
 
-void NetStru1::SendServerClientLogin(HatCharId key, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t sphere, uint8_t type_face, uint8_t color, const CString& connstr, const CString& name) {
+void NetStru1::SendHatConnectServer(HatCharId key, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t sphere, uint8_t type_face, uint8_t color, const CString& name, const CString& srv) {
     //51da14   (client:50e5cf)
     PacketData* pkt = &PacketData::Inst;
     pkt->to_player_id = 0;
     pkt->Inst.id = 0xcb;
-    pkt->count = connstr.GetLength() + 16 + name.GetLength();
+    pkt->count = name.GetLength() + 16 + srv.GetLength();
     memcpy(pkt->data, &key, 8);
     pkt->data[8] = body;
     pkt->data[9] = reaction;
@@ -4908,8 +4908,8 @@ void NetStru1::SendServerClientLogin(HatCharId key, uint8_t body, uint8_t reacti
     pkt->data[12] = sphere;
     pkt->data[13] = type_face;
     pkt->data[14] = color;
-    pkt->data[15] = connstr.GetLength();
-    memcpy(pkt->data + 16, (const char*)connstr, connstr.GetLength());
-    memcpy(pkt->data + 16 + connstr.GetLength(), (const char*)name, name.GetLength());
+    pkt->data[15] = name.GetLength();
+    memcpy(pkt->data + 16, (const char*)name, name.GetLength());
+    memcpy(pkt->data + 16 + name.GetLength(), (const char*)srv, srv.GetLength());
     QueuePacketSend(pkt);
 }
