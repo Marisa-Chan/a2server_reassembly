@@ -18155,9 +18155,8 @@ VisInvExtType2::VisInvExtType2(int32_t _id, int32_t l, int32_t t, int32_t r, int
 
 // 4B8102
 void VisInvExtType2::VMethod39() {
-    VisShop* shop = this->field_0x20ac;
-    CPoint topleft = shop->rect.TopLeft();
-    CPoint bottomright = shop->rect.BottomRight();
+    CPoint topleft = this->rect.TopLeft();
+    CPoint bottomright = this->rect.BottomRight();
 
     this->field_0x20c4 = new CRect[this->visible_columns * this->visible_rows];
     this->field_0x20cc = CRect(topleft.x, topleft.y, topleft.x + 0x20, bottomright.y);
