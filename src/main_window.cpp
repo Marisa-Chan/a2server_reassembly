@@ -3310,11 +3310,12 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         ReadFileToString("main\\text\\town.txt", &g_MissionText);
         this->serverLoopCounter = 0;
         this->sessionMode = 0;
-        // client: 48a969 skips the character loader for hat deathmatch sessions
-        if (g_IsServer != 0 || this->field_0x3e0.field_10 == 0 || this->hat_settings.ishat == 0) {
-            this->ShowCharacterLoaderDialog();
+#ifdef A2CLIENT
+        if (this->field_0x3e0.field_10 == 0 || this->hat_settings.ishat == 0) {
+            m_GameSession.characterRosterHatId.RemoveAll();
         }
-        // TODO client (48a969): hat overlay restore (client 00491181) follows here
+#endif
+        this->ShowCharacterLoaderDialog();
         break;
 
     case 0x427:
@@ -3568,10 +3569,13 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x451:
+#ifndef A2CLIENT
         // client: 48a969 has no phone-dial prologue here
-        if (g_IsServer != 0 && this->field_0x3e0.field_08.IsEmpty() == 0) {
+        if (this->field_0x3e0.field_08.IsEmpty() == 0) {
             this->WaitConnectionCharacterJoin();
-        } else if (this->dialogsMask == 0) {
+        } else 
+#endif
+        if (this->dialogsMask == 0) {
             this->music_player->OnEndTrack();
             if (!IsDplayAvail) {
                 this->ModalScreen(new VisMessageBoxWithList(1, 100, 100, 540, 380, txt_main.GetLine(152), nullptr, 0));
@@ -3738,8 +3742,11 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
     case 0x45a: {
         // client: 48a969 uses child id 17 for the tips dialog
-        int32_t tips_id = g_IsServer != 0 ? 16 : 17;
-        CVisualObject* local_96c = this->vis_map_context->FindChild(tips_id);
+#ifdef A2CLIENT
+        CVisualObject* local_96c = this->vis_map_context->FindChild(17);
+#else
+        CVisualObject* local_96c = this->vis_map_context->FindChild(16);
+#endif
         if (!local_96c) {
             vis_root->MsgProc(message, wParam, lParam);
         } else {
@@ -3755,7 +3762,12 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             MissionGetTips(wParam, &tip);
 
             // client: 48a969 uses child id 17 for the tips dialog
-            int32_t tips_id = g_IsServer != 0 ? 16 : 17;
+#ifdef A2CLIENT
+            const int32_t tips_id = 17;
+#else
+            const int32_t tips_id = 16;
+#endif
+
             CVisualObject* local_960 = this->vis_map_context->FindChild(tips_id);
             if (local_960) {
                 this->vis_map_context->RemoveChild(local_960);
@@ -3769,9 +3781,12 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
     case 0x45c:
         // client: 48a969 has no phone-dial prologue here (and its trailing
         // IsDplayAvail stub call in the provider==3 path is a pure no-op, dropped)
-        if (g_IsServer != 0 && this->field_0x3e0.field_08.IsEmpty() == 0) {
+#ifndef A2CLIENT
+        if (this->field_0x3e0.field_08.IsEmpty() == 0) {
             PostMessage(WM_CLOSE, 0, 0);
-        } else if (this->sessionMode == 0 || this->sessionMode == 1) {
+        } else 
+#endif
+        if (this->sessionMode == 0 || this->sessionMode == 1) {
             if (this->dialogsMask & 8) {
                 vis_root->MsgProc(0x446, 0, 0);
             }
@@ -3860,12 +3875,17 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
     case 0x466: {
         // client: 48a969 uses child id 19, only closes the dialog on lParam == 0,
         // and sets field_0xe0 just in the acted paths
-        int32_t qs_id = g_IsServer != 0 ? 18 : 19;
+#ifdef A2CLIENT
+        const int32_t qs_id = 19;
+#else
+        const int32_t qs_id = 18;
+#endif
         CVisualObject* obj = this->vis_map_context->FindChild(qs_id);
         if (obj == nullptr) {
 #ifdef A2CLIENT
             // TODO client (48a969): hat deathmatch shows a variant dialog here
             // (client 004e850e ctor) when field_0x3e0.field_10 && ishat && deathmatch
+#pragma message("REVERSE CLIENT MainWindow::WindowProc::0x466")
 #endif
             this->vis_map_context->AddChild(new VisQuestStatus(qs_id, 10, 20, 370, 188));
             this->vis_map_context->field_0xe0 = 1;
@@ -3932,6 +3952,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         // msgbox (txt_main line 210) and on close code 0x447 reloads the matching
         // roster entry (RefreshCharacterRosterFiles(0) + scan + LoadCharacterRosterEntry,
         // client 00494f53) then posts 0x48d; empty path gates 0x426 behind 00494f53
+#pragma message("REVERSE CLIENT  MainWindow::WindowProc::0x488")
         if (this->RunModalLoop() == 0) {
             PostMessage(0x422, 0, 0);
         } else {
