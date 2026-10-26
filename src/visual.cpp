@@ -11830,8 +11830,6 @@ VisShopCompassKaarg::VisShopCompassKaarg(int32_t _id, int32_t l, int32_t t, int3
 
 // 4C4A78
 void VisShopCompassKaarg::VMethod26() {
-    char fname[52];
-
     this->VMethod27();
     this->frame_sprite = new CSprite256("graphics\\interface\\shop_kaarg\\ShopFrame.256");
     this->frame_sprite->ResetPalette(1, 1, 0);
@@ -11843,22 +11841,16 @@ void VisShopCompassKaarg::VMethod26() {
     this->scrolls_bmp = new CBmp64("graphics\\interface\\shop_kaarg\\hili_potion.bmp");
     this->weapons_bmp = new CBmp64("graphics\\interface\\shop_kaarg\\hili_weapon.bmp");
     for (int32_t i = 0; i < 6; i++) {
-        sprintf(fname, "graphics\\interface\\shop_kaarg\\fire\\dark\\lite%c.bmp", '1' + i);
-        this->tail_frames[i] = new CBmp64(fname);
-        sprintf(fname, "graphics\\interface\\shop_kaarg\\fire\\select\\lite%c.bmp", '1' + i);
-        this->wpn_tail_frames[i] = new CBmp64(fname);
+        this->tail_frames[i] = new CBmp64(CString("graphics\\interface\\shop_kaarg\\fire\\dark\\lite") + (char)('1' + i) + ".bmp");
+        this->wpn_tail_frames[i] = new CBmp64(CString("graphics\\interface\\shop_kaarg\\fire\\select\\lite") + (char)('1' + i) + ".bmp");
     }
     for (int32_t i = 0; i < 6; i++) {
-        sprintf(fname, "graphics\\interface\\shop_kaarg\\fire\\dark\\burn%c.bmp", '1' + i);
-        this->tail_frames[i + 6] = new CBmp64(fname);
-        sprintf(fname, "graphics\\interface\\shop_kaarg\\fire\\select\\burn%c.bmp", '1' + i);
-        this->wpn_tail_frames[i + 6] = new CBmp64(fname);
+        this->tail_frames[i + 6] = new CBmp64(CString("graphics\\interface\\shop_kaarg\\fire\\dark\\burn") + (char)('1' + i) + ".bmp");
+        this->wpn_tail_frames[i + 6] = new CBmp64(CString("graphics\\interface\\shop_kaarg\\fire\\select\\burn") + (char)('1' + i) + ".bmp");
     }
     for (int32_t i = 0; i < 6; i++) {
-        sprintf(fname, "graphics\\interface\\shop_kaarg\\fire\\dark\\cicle%c.bmp", '1' + i);
-        this->tail_frames[i + 12] = new CBmp64(fname);
-        sprintf(fname, "graphics\\interface\\shop_kaarg\\fire\\select\\cicle%c.bmp", '1' + i);
-        this->wpn_tail_frames[i + 12] = new CBmp64(fname);
+        this->tail_frames[i + 12] = new CBmp64(CString("graphics\\interface\\shop_kaarg\\fire\\dark\\cicle") + (char)('1' + i) + ".bmp");
+        this->wpn_tail_frames[i + 12] = new CBmp64(CString("graphics\\interface\\shop_kaarg\\fire\\select\\cicle") + (char)('1' + i) + ".bmp");
     }
     g_mousept.Update();
     this->tail_frame = 0;
