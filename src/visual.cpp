@@ -15754,7 +15754,7 @@ void VisTavKaarg::VMethod28() {
     names.RemoveAll();
 
     for (int32_t i = 0; i < 7; i++) {
-        name.Format("graphics\\interface\\inn_kaarg\\taverner\\a4%.4d.bmp", i + 1);
+        name.Format("graphics\\interface\\inn_kaarg\\taverner\\a4%.4d.bmp", i);
         names.Add(name);
     }
     if (main_wnd->sessionMode == 2) {
@@ -15763,7 +15763,7 @@ void VisTavKaarg::VMethod28() {
     names.RemoveAll();
 
     for (int32_t i = 0; i < 0x1D; i++) {
-        name.Format("graphics\\interface\\inn_kaarg\\taverner\\a5%.4d.bmp", i + 1);
+        name.Format("graphics\\interface\\inn_kaarg\\taverner\\a5%.4d.bmp", i);
         names.Add(name);
     }
     if (main_wnd->sessionMode == 2) {
