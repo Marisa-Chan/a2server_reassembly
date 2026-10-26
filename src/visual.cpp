@@ -17347,7 +17347,9 @@ const char* VisInvExtType1::GetHint() {
     CPoint mouse(g_mousept.GetX(), g_mousept.GetY());
     CPoint topleft = shop->rect.TopLeft();
     CPoint rel = mouse - topleft;
-    int32_t region = this->VMethod31(&rel);
+    // WAT: vanilla (4B6F8D, client 4bb957) passes the already shop-relative point here, but `VMethod31` subtracts the shop origin again, so
+    // at resolutions above 640x480 every shelf item hints as "shop shelf". We pass the absolute mouse position instead.
+    int32_t region = this->VMethod31(&mouse);
     if (region >= 0) {
         return VisInvExtBase::GetHint();
     }
