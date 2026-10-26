@@ -12599,6 +12599,12 @@ void VisShopDruid::VMethod26() {
     this->snd_inshop = nullptr;
     this->snd_out = nullptr;
     this->snd_undo = nullptr;
+    for (int32_t i = 0; i < 3; i++) {
+        this->snd_bird[i] = nullptr;
+    }
+    for (int32_t i = 0; i < 4; i++) {
+        this->snd_tool[i] = nullptr;
+    }
 }
 
 
@@ -12953,6 +12959,12 @@ void VisShopKaarg::VMethod26() {
     this->snd_inshop = nullptr;
     this->snd_out = nullptr;
     this->snd_undo = nullptr;
+    for (int32_t i = 0; i < 3; i++) {
+        this->snd_voice[i] = nullptr;
+    }
+    for (int32_t i = 0; i < 4; i++) {
+        this->snd_tool[i] = nullptr;
+    }
 }
 
 
@@ -15588,6 +15600,9 @@ void VisTavDruid::VMethod26() {
     for (int32_t i = 0; i < 13; i++) {
         this->sounds[i].sample = nullptr;
     }
+    for (int32_t i = 0; i < 11; i++) {
+        this->snd_druid[i] = nullptr;
+    }
     this->tips = nullptr;
 
     this->left_panel = new VisTavLeftPanel(0x44D, 0, 0, 0xA0, 0x1E0, this);
@@ -15863,6 +15878,9 @@ void VisTavKaarg::VMethod26() {
     this->dialog_active = 0;
     for (int32_t i = 0; i < 13; i++) {
         this->sounds[i].sample = nullptr;
+    }
+    for (int32_t i = 0; i < 10; i++) {
+        this->snd_kaarg[i] = nullptr;
     }
     this->tips = nullptr;
 
