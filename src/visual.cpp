@@ -7924,8 +7924,8 @@ void VisGlobalMap::ComputeTravelRoute(int32_t fromX, int32_t fromY, int32_t toX,
         for (int32_t i = 1; i < this->routeNodeIndices.GetSize(); i++) {
             uint16_t prev = this->routeNodeIndices.GetAt(i - 1);
             uint16_t cur = this->routeNodeIndices.GetAt(i);
-            CArray<CPoint>** row = static_cast<CArray<CPoint>**>(this->routeAdjacencyMatrix);
-            this->travelRoutePoints.Append(row[prev][cur]);
+            CArray<CPoint>*** rows = static_cast<CArray<CPoint>***>(this->routeAdjacencyMatrix);
+            this->travelRoutePoints.Append(*rows[prev][cur]);
         }
         delete route;
     } else {
