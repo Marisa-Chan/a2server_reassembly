@@ -894,6 +894,9 @@ int32_t MainWindow::ConnectToServerAddress() {
     }
 
     g_NetStru1_local.ProcessConnections();
+#ifdef A2CLIENT
+    g_NetStru1_local.SendServerConnectHatTicket(m_GameSession.hat_ticket, 0);
+#endif
     uint32_t start_time = timeGetTime();
     INT_00660f8c = 0;
 

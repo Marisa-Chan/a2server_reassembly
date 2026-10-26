@@ -382,71 +382,65 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0xe: {
 			while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
-			{}
+			{
+			}
 			return 1;
-		}
+		} break;
 
 #ifdef A2CLIENT
 		case 0x10:
 			// client: 417b81 — server-driven game speed change
-			if (g_IsServer == 0) {
-				if (wnd->SetSpeed(packet_dword->value) != 0) {
-					this->msglog.AddWithCheck(txt_patch.GetLine(wnd->game_speed + 0x6c), clr_log_sblack, 5000);
-				}
+			if (wnd->SetSpeed(packet_dword->value) != 0) {
+				this->msglog.AddWithCheck(txt_patch.GetLine(wnd->game_speed + 0x6c), clr_log_sblack, 5000);
 			}
+			g_ServerConfig.game_speed = wnd->game_speed;
 			break;
 
 		case 0x5a:
 			// client: 4177e6 — clear the hat DM name/score lists
-			if (g_IsServer == 0) {
-				this->hat_name_list.RemoveAll();
-				this->hat_score_list.RemoveAll();
-			}
+			this->hat_name_list.RemoveAll();
+			this->hat_score_list.RemoveAll();
 			break;
 
-		case 0x5b:
+		case 0x5b: {
 			// client: 4176c7 — update one hat DM name/score pair
-			if (g_IsServer == 0) {
-				CString name((char*)packet_data->data + 2);
-				int i = 0;
-				for (; i < this->hat_name_list.GetSize(); i++) {
-					if (this->hat_name_list[i] == name) {
-						this->hat_score_list[i] = packet_dword->value;
-						break;
-					}
+			CString name((char*)packet_data->data + 2);
+			int i = 0;
+			for (; i < this->hat_name_list.GetSize(); i++) {
+				if (this->hat_name_list[i] == name) {
+					this->hat_score_list[i] = packet_dword->value;
+					break;
 				}
-				if (i == this->hat_name_list.GetSize()) {
-					this->hat_name_list.Add(name);
-					this->hat_score_list.Add(packet_dword->value);
-				}
-				// client: 41ffe6 — sort pairs descending by score, keeping names in sync
-				for (int j = 0; j < this->hat_score_list.GetSize(); j++) {
-					for (int k = j + 1; k < this->hat_score_list.GetSize(); k++) {
-						if (this->hat_score_list[j] < this->hat_score_list[k]) {
-							uint32_t tmp_score = this->hat_score_list[j];
-							this->hat_score_list[j] = this->hat_score_list[k];
-							this->hat_score_list[k] = tmp_score;
-							CString tmp_name = this->hat_name_list[j];
-							this->hat_name_list[j] = this->hat_name_list[k];
-							this->hat_name_list[k] = tmp_name;
-						}
+			}
+			if (i == this->hat_name_list.GetSize()) {
+				this->hat_name_list.Add(name);
+				this->hat_score_list.Add(packet_dword->value);
+			}
+			// client: 41ffe6 — sort pairs descending by score, keeping names in sync
+			for (int j = 0; j < this->hat_score_list.GetSize(); j++) {
+				for (int k = j + 1; k < this->hat_score_list.GetSize(); k++) {
+					if (this->hat_score_list[j] < this->hat_score_list[k]) {
+						uint32_t tmp_score = this->hat_score_list[j];
+						this->hat_score_list[j] = this->hat_score_list[k];
+						this->hat_score_list[k] = tmp_score;
+						CString tmp_name = this->hat_name_list[j];
+						this->hat_name_list[j] = this->hat_name_list[k];
+						this->hat_name_list[k] = tmp_name;
 					}
 				}
 			}
-			break;
+		} break;
 
 		case 0x5c:
 			// client: 41745c — show the hat DM player list / close overlays
-			if (g_IsServer == 0) {
-				this->field_0x4a04 = packet_dword->value;
-				if (packet_2dwords->param2 != 0) {
-					this->CloseHatOverlays();
-					// client: 417624-4176a9
-					HatPlayerListWindow* dlg = new HatPlayerListWindow(1, 0x14, 0, 0x26c, 0x1f4, &this->hat_name_list, packet_2dwords->param2);
-					wnd->PopUpScreen(dlg);
-				}
-				this->field_0x49b8 = 1;
+			this->field_0x4a04 = packet_dword->value;
+			if (packet_2dwords->param2 != 0) {
+				this->CloseHatOverlays();
+				// client: 417624-4176a9
+				HatPlayerListWindow* dlg = new HatPlayerListWindow(1, 0x14, 0, 0x26c, 0x1f4, &this->hat_name_list, packet_2dwords->param2);
+				wnd->PopUpScreen(dlg);
 			}
+			this->field_0x49b8 = 1;
 			break;
 #endif
 
@@ -2097,7 +2091,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				this->MsgProc(0x406, packet_2dwords->param1 - (this->view_tiles_x / 2), packet_2dwords->param2 - (this->view_tiles_y / 2));
 #ifdef A2CLIENT
 				// client: 4164d8 — reselect the local player after the initial position
-				if (g_IsServer == 0 && (wnd->sessionMode == 0 || wnd->sessionMode == 1) && this->field_0x3f6c != nullptr) {
+				if ((wnd->sessionMode == 0 || wnd->sessionMode == 1) && this->field_0x3f6c != nullptr) {
 					this->field_0x3f6c->SetSelected(1);
 					this->UpdateSelectionState();
 				}
@@ -2369,6 +2363,50 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 			break;
 
+#ifdef A2CLIENT
+		case 0xc2: {
+			// client: 41731d — bulk cursor/focus/hat state
+			uint32_t* state = (uint32_t*)packet_data->data;
+			this->field_0x49b8 = *state++;
+			this->field_0x4a04 = *state++;
+			this->cursor_over_obj_last_index = *state++;
+			this->last_focus_obj_index = *state++;
+			this->field_0x49bc = *state++;
+			this->field_0x49c0 = *state++;
+			for (int i = 0; i < 16; i++) {
+				this->hat_cursor_slots[i] = *state++;
+			}
+		} break;
+
+		case 0xc3:
+			// client: 41780d — hat session join. Both exits return 1 (never reach the breakid check).
+			if (wnd->field_0x3e0.field_10 != 0 && wnd->hat_settings.ishat != 0 && wnd->hat_settings.deathmatch != 0) {
+				if (this->FindChild(19) == nullptr) {
+					// TODO(client): session dialog (ctor 4e850e, id 19) — class not yet ported
+					this->field_0xe0 = 1;
+					this->VMethod9();
+				}
+			}
+			this->CloseHatOverlays();
+			while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
+			{
+			}
+			if (wnd->field_0x3e0.field_10 != 0 && wnd->hat_settings.ishat != 0 && wnd->hat_settings.deathmatch == 3) {
+				// client: 417aa7-417b27
+				HatPlayerListWindow* dlg = new HatPlayerListWindow(1, 0x14, 0, 0x26c, 0x1f4, &this->hat_name_list, 3);
+				wnd->PopUpScreen(dlg);
+				g_CLlDriver.Close();
+				g_NetStru1_local.ProcessConnections();
+			}
+			else {
+				wnd->PostMessage(0x48e, packet_dword->value, packet_2dwords->param2);
+				g_CLlDriver.Close();
+				g_NetStru1_local.ProcessConnections();
+			}
+			return 1;
+			break;
+#endif
+
 		case 0xcd: {
 			DAT_00666a00.RemoveAll();
 
@@ -2424,199 +2462,129 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 			break;
 
-#ifdef A2CLIENT
-		case 0xc2:
-			// client: 41731d — bulk cursor/focus/hat state
-			if (g_IsServer == 0) {
-				uint32_t* state = (uint32_t*)packet_data->data;
-				this->field_0x49b8 = *state++;
-				this->field_0x4a04 = *state++;
-				this->cursor_over_obj_last_index = *state++;
-				this->last_focus_obj_index = *state++;
-				this->field_0x49bc = *state++;
-				this->field_0x49c0 = *state++;
-				for (int i = 0; i < 16; i++) {
-					this->hat_cursor_slots[i] = *state++;
-				}
-			}
-			break;
-
-		case 0xc3:
-			// client: 41780d — hat session join. Both exits return 1 (never reach the breakid check).
-			if (g_IsServer == 0) {
-				if (wnd->field_0x3e0.field_10 != 0 && wnd->hat_settings.ishat != 0 && wnd->hat_settings.deathmatch != 0) {
-					if (this->FindChild(19) == nullptr) {
-						// TODO(client): session dialog (ctor 4e850e, id 19) — class not yet ported
-						this->field_0xe0 = 1;
-						this->VMethod9();
-					}
-				}
-				this->CloseHatOverlays();
-				while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
-				{}
-				if (wnd->field_0x3e0.field_10 != 0 && wnd->hat_settings.ishat != 0 && wnd->hat_settings.deathmatch == 3) {
-					// client: 417aa7-417b27
-					HatPlayerListWindow* dlg = new HatPlayerListWindow(1, 0x14, 0, 0x26c, 0x1f4, &this->hat_name_list, 3);
-					wnd->PopUpScreen(dlg);
-					g_CLlDriver.Close();
-					g_NetStru1_local.ProcessConnections();
-				} else {
-					wnd->PostMessage(0x48e, packet_dword->value, packet_2dwords->param2);
-					g_CLlDriver.Close();
-					g_NetStru1_local.ProcessConnections();
-				}
-				return 1;
-			}
-			break;
-#endif
-
 		case 0xcf: {
 			HatCharId* chr = (HatCharId*)packet_data->data;
 
 			CString fname;
 			fname.Format("%u%u.a2c", chr->id1, chr->id2);
 
-			if (g_IsServer != 0) {
-				CFile fl;
-				if (fl.Open(fname, CFile::modeCreate | CFile::modeWrite)) {
-					fl.Write(packet_data->data + 8, packet_data->count - 8);
+#ifndef A2CLIENT
+			CFile fl;
+			if (fl.Open(fname, CFile::modeCreate | CFile::modeWrite)) {
+				fl.Write(packet_data->data + 8, packet_data->count - 8);
+				fl.Close();
+			} else
+				INT_00660f8c = 0x1011;
+#else
+			CFile fl;
+			if (packet_data->count < 0x18) {
+				if (fl.Open(fname, CFile::modeRead)) {
+					FileSectionBasicInfo* basic;
+					FileSectionStats* stats;
+					uint8_t* kstat;
+					PacketUnitStateVec* equip;
+					PacketUnitStateVec* state;
+					uint8_t* a40;
+					uint32_t a40_sz;
+					int32_t res = ParsePlayerFile_4F62E6(&fl, &basic, &stats, &kstat, &equip, &state, &a40, &a40_sz);
 					fl.Close();
-				} else {
+					if (res == 0)
+						wnd->m_GameSession.hat_char_ids.Add(*chr);
+				}
+			}
+			else if (fl.Open(fname, CFile::modeRead)) {
+				CMemFile memfile((BYTE*)packet_data->data + 8, packet_data->count - 8, 0);
+
+				FileSectionBasicInfo* basic;
+				FileSectionStats* stats;
+				uint8_t* kstat;
+				PacketUnitStateVec* equip;
+				PacketUnitStateVec* state;
+				uint8_t* a40;
+				uint32_t a40_sz;
+				int32_t res = ParsePlayerFile_4F62E6(&memfile, &basic, &stats, &kstat, &equip, &state, &a40, &a40_sz);
+
+				memfile.Detach();
+
+				if (res && basic && stats && equip) {
+					FileSectionBasicInfo srv_basic = *basic;
+					FileSectionStats srv_stats = *stats;
+
+					std::array<uint8_t, 0xa00> srv_kstat;
+					memcpy(srv_kstat.data(), kstat, 0xa00);
+
+					PacketUnitStateVec srv_equip = *equip;
+					PacketUnitStateVec srv_state = *state;
+
+					res = ParsePlayerFile_4F62E6(&fl, &basic, &stats, &kstat, &equip, &state, &a40, &a40_sz);
+					fl.Close();
+
+					if (res) {
+						strcpy(srv_basic.nick, basic->nick);
+						srv_basic.flags = basic->flags;
+						srv_basic.color = basic->color;
+						if (!WritePlayerFile_4F53EA(fname, &srv_basic, &srv_stats, srv_kstat.data(), &srv_equip, &srv_state, nullptr, 0))
+							INT_00660f8c = 0x1011;
+					}
+					else {
+						if (fl.Open(fname, CFile::modeCreate | CFile::modeWrite)) {
+							fl.Write(packet_data->data + 8, packet_data->count - 8);
+							fl.Close();
+						} else
+							INT_00660f8c = 0x1011;
+					}
+				}
+				else {
+					fl.Close();
 					INT_00660f8c = 0x1011;
 				}
+			} 
+			else if (fl.Open(fname, CFile::modeCreate | CFile::modeWrite)) {
+				fl.Write(packet_data->data + 8, packet_data->count - 8);
+				fl.Close();
 			}
-#ifdef A2CLIENT
-			else {
-				// client: 416a99 — validated character-record transfer
-				CFile f;
-				if (packet_data->count <= 0x17) {
-					// query: do we already have this character file?
-					if (f.Open(fname, CFile::modeRead)) {
-						FileSectionBasicInfo *pRecA = nullptr;
-						FileSectionStats *pRecB = nullptr;
-						uint8_t *pKills = nullptr;
-						PacketUnitStateVec *pEquip = nullptr;
-						PacketUnitStateVec *pInv = nullptr;
-						uint8_t *pSec40a = nullptr;
-						uint32_t len = 0;
-						if (ParsePlayerFile_4F62E6(&f, &pRecA, &pRecB, &pKills, &pEquip, &pInv, &pSec40a, &len) == 0) {
-							wnd->m_GameSession.pending_hat_downloads.Add(*chr);
-						}
-						f.Close();
-					} else {
-						wnd->m_GameSession.pending_hat_downloads.Add(*chr);
-					}
-				} else {
-					FileSectionBasicInfo recA;
-					FileSectionStats recB;
-					uint8_t kills[0xa00];
-					PacketUnitStateVec equip;
-					PacketUnitStateVec inv;
-					if (!f.Open(fname, CFile::modeRead)) {
-						// file missing — store the raw blob
-						if (f.Open(fname, CFile::modeCreate | CFile::modeWrite)) {
-							f.Write(packet_data->data + 8, packet_data->count - 8);
-							f.Close();
-						} else {
-							INT_00660f8c = 0x1011;
-						}
-					} else {
-						uint8_t* buf = (uint8_t*)malloc(packet_data->count - 8);
-						memcpy(buf, packet_data->data + 8, packet_data->count - 8);
-						CMemFile mf(buf, packet_data->count - 8, 0);
-						FileSectionBasicInfo *pRecA = nullptr;
-						FileSectionStats *pRecB = nullptr;
-						uint8_t *pKills = nullptr;
-						PacketUnitStateVec *pEquip = nullptr;
-						PacketUnitStateVec *pInv = nullptr;
-						uint8_t *pSec40a = nullptr;
-						uint32_t len = 0;
-						int ok_incoming = ParsePlayerFile_4F62E6(&mf, &pRecA, &pRecB, &pKills, &pEquip, &pInv, &pSec40a, &len);
-						free(mf.Detach());
-						if (ok_incoming == 0 || pRecA == nullptr || pRecB == nullptr || pEquip == nullptr) {
-							INT_00660f8c = 0x1011;
-						} else {
-							memcpy(&recA, pRecA, sizeof(FileSectionBasicInfo));
-							memcpy(&recB, pRecB, sizeof(FileSectionStats));
-							memcpy(kills, pKills, 0xa00);
-							memcpy(&equip, pEquip, sizeof(PacketUnitStateVec));
-							memcpy(&inv, pInv, sizeof(PacketUnitStateVec));
-							uint8_t* sec40a_copy = (uint8_t*)malloc(len);
-							memcpy(sec40a_copy, pSec40a, len);
-							FileSectionBasicInfo *qRecA = nullptr;
-							FileSectionStats *qRecB = nullptr;
-							uint8_t *qKills = nullptr;
-							PacketUnitStateVec *qEquip = nullptr;
-							PacketUnitStateVec *qInv = nullptr;
-							uint8_t *qSec40a = nullptr;
-							uint32_t qlen = 0;
-							int ok_disk = ParsePlayerFile_4F62E6(&f, &qRecA, &qRecB, &qKills, &qEquip, &qInv, &qSec40a, &qlen);
-							f.Close();
-							if (ok_disk == 0) {
-								// our on-disk file is bad — overwrite with the incoming one
-								if (f.Open(fname, CFile::modeCreate | CFile::modeWrite)) {
-									f.Write(packet_data->data + 8, packet_data->count - 8);
-									f.Close();
-								} else {
-									INT_00660f8c = 0x1011;
-								}
-							} else {
-								// client 416f07: reads the incoming record's name (basic+0xc) and
-								// bytes +0x2f/+0x30 before registering the character
-								if (WritePlayerFile_4F53EA(fname.GetString(), &recA, &recB, kills, &equip, &inv, sec40a_copy, len) == 0) {
-									INT_00660f8c = 0x1011;
-								}
-								free(sec40a_copy);
-							}
-						}
-					}
-				}
-			}
+			else
+				INT_00660f8c = 0x1011;
 #endif
 
 			while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
-			{}
+			{
+			}
 			return 1;
 		}
 			break;
 
-#ifdef A2CLIENT
-		case 0xda:
-			// client: 41697d — hat session setup (client packet payload base = pkt+0xe)
-			if (g_IsServer == 0) {
-				uint8_t* p = (uint8_t*)packet_data->data;
-				wnd->field_0x3e0.hat_id = *(int32_t*)(p + 0);
-				wnd->m_GameSession.field_0x148 = *(int32_t*)(p + 4);
-				wnd->m_GameSession.field_0x14c = *(int32_t*)(p + 8);
-				wnd->m_GameSession.sessionKeyPart1 = *(int32_t*)(p + 0xc);
-				wnd->m_GameSession.sessionKeyPart2 = *(int32_t*)(p + 0x10);
-				wnd->field_0x3e0.connect_address = CString((char*)p + 0x14, packet_data->count - 0x14);
-			}
-			break;
-
-		case 0xdb:
-			// client: 416948
-			if (g_IsServer == 0) {
-				wnd->field_0x3e0.hat_id = -1;
-			}
-			break;
-
-		case 0xdf:
-			// client: 41695a
-			if (g_IsServer == 0) {
-				INT_00660f8c = (packet_dword->value + 0x18) | 0x1000;
-			}
-			break;
-#endif
-
 		case 0xd0:
-			wnd->m_GameSession.field_0x148 = packet_2dwords->param1;
-			wnd->m_GameSession.field_0x14c = packet_2dwords->param2;
+			wnd->m_GameSession.hat_ticket.id1 = packet_2dwords->param1;
+			wnd->m_GameSession.hat_ticket.id2 = packet_2dwords->param2;
 
 			while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
 			{}
 			return 1;
+			break;
 
+#ifdef A2CLIENT
+		case 0xda: {
+			// client: 41697d — hat session setup (client packet payload base = pkt+0xe)
+			uint8_t* p = (uint8_t*)packet_data->data;
+			wnd->field_0x3e0.hat_id = *(int32_t*)(p + 0);
+			wnd->m_GameSession.hat_ticket.id1 = *(int32_t*)(p + 4);
+			wnd->m_GameSession.hat_ticket.id2 = *(int32_t*)(p + 8);
+			wnd->m_GameSession.sessionKeyPart1 = *(int32_t*)(p + 0xc);
+			wnd->m_GameSession.sessionKeyPart2 = *(int32_t*)(p + 0x10);
+			wnd->field_0x3e0.connect_address = CString((char*)p + 0x14, packet_data->count - 0x14);
+		} break;
+
+		case 0xdb:
+			// client: 416948
+			wnd->field_0x3e0.hat_id = -1;
+			break;
+
+		case 0xdf:
+			// client: 41695a
+			INT_00660f8c = (packet_dword->value + 0x18) | 0x1000;
+			break;
+#endif
 		}
 
 		if (pkt->id == breakid) {

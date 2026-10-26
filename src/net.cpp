@@ -4913,3 +4913,13 @@ void NetStru1::SendHatConnectServer(HatCharId key, uint8_t body, uint8_t reactio
     memcpy(pkt->data + 16 + name.GetLength(), (const char*)srv, srv.GetLength());
     QueuePacketSend(pkt);
 }
+
+void NetStru1::SendServerConnectHatTicket(HatCharId ticket, uint16_t player_id) {
+    //51dce5   (client:50e8c0)
+    Packet2Dwords* pkt = &Packet2Dwords::Inst;
+    pkt->id = 0xd0;
+    pkt->param1 = ticket.id1;
+    pkt->param2 = ticket.id2;
+    pkt->to_player_id = player_id;
+    QueuePacketSend(pkt);
+}

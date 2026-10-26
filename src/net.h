@@ -36,6 +36,7 @@ struct Inventory;
 
 constexpr const bool IsDplayAvail = true;
 
+#pragma pack(push, 1)
 union HatCharId {
     uint64_t id;
     struct {
@@ -43,6 +44,7 @@ union HatCharId {
         int32_t id2;
     };
 };
+#pragma pack(pop)
 
 struct PackerTail {
     PackerTail* child0;
@@ -225,6 +227,8 @@ public:
     void WriteStatsLog(CString fname);//51f124
 
     void SendHatConnectServer(HatCharId key, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t sphere, uint8_t type_face, uint8_t color, const CString& name, const CString& srv); //51da14   (client:50e5cf)
+
+    void SendServerConnectHatTicket(HatCharId ticket, uint16_t player_id); //51dce5   (client:50e8c0)
 
     NetStru2* GetFirstClient();
 };

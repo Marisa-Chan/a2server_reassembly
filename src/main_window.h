@@ -213,8 +213,7 @@ public:
     CArray<HatCharId> characterRosterHatId;
     CArray<HatCharId> hat_char_ids;
     int32_t field_0x144 = 0;
-    int32_t field_0x148 = 0;
-    int32_t field_0x14c = 0;
+    HatCharId hat_ticket = { 0 }; // 0x148
 #ifdef A2CLIENT
     // client-only: the retail CGameSession is 0x190 bytes (server 0x17c) - the
     // pending .a2c download list sits after field_0x14c (client ctor 496cd5
