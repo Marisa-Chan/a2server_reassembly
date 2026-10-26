@@ -7615,7 +7615,7 @@ void VisGlobalMap::VMethod28() {
 // 47031D
 void VisGlobalMap::VMethod26() {
     this->hero_bmp = nullptr;
-    this->snd_point2.sample = nullptr;
+    this->routeAdjacencyMatrix = nullptr;
     this->ballmap = nullptr;
     this->flag1_spr = nullptr;
     this->flag_spr = nullptr;
