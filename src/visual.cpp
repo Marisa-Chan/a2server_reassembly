@@ -26737,3 +26737,148 @@ int32_t VisListBoxDiplomacy::OnKeyDown(uint32_t wparam) {
 // 4E3D30
 void VisListBoxDiplomacy::VMethod30(CPoint pos, const CRect& r) {
 }
+
+
+#ifdef A2CLIENT
+VisHatSession::VisHatSession(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+: VisScreen(_id, l, t, r, b, nullptr) {} //4e850e
+
+void VisHatSession::VMethod7() { // 4e8545
+    CDWordArray scores;
+    CDWordArray colors;
+    CStringArray names;
+    int num = 0;
+
+    MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+    if (mwnd->hat_settings.deathmatch == 3) {
+        CString st = mwnd->vis_map_context->my_main_unit->name;
+        for (int i = 0; i < mwnd->vis_map_context->hat_name_list.GetSize(); i++) {
+            if (st == mwnd->vis_map_context->hat_name_list[i]) {
+                scores.Add(mwnd->vis_map_context->hat_score_list[i]);
+                colors.Add(mwnd->vis_map_context->my_main_unit->color);
+                st.Format("%d/%d %s", i + 1, mwnd->vis_map_context->hat_name_list.GetSize(), mwnd->vis_map_context->my_main_unit->name);
+                names.Add(st);
+                num = 1;
+                break;
+            }
+        }
+    }
+    else {
+        for (int i = 0; i < 16; i++) {
+            if (mwnd->vis_map_context->hat_cursor_slots[i] != 0xf0000003 && i + 16 < mwnd->vis_map_context->field_0x9b8.GetSize()) {
+                MapPlayerData* pl = mwnd->vis_map_context->field_0x9b8[i + 16];
+                if (pl) {
+                    num++;
+
+                    int j = 0;
+                    while (j < scores.GetSize() && mwnd->vis_map_context->hat_cursor_slots[i] < scores[j])
+                        j++;
+
+                    scores.InsertAt(j, mwnd->vis_map_context->hat_cursor_slots[i]);
+                    names.InsertAt(j, pl->name);
+                    colors.InsertAt(j, pl->color);
+                }
+            }
+        }
+    }
+
+    int32_t idoff = 0;
+    if (mwnd->hat_settings.deathmatch == 2 && mwnd->vis_map_context->hat_item_slot12 != 0)
+        idoff = 2;
+
+    int32_t hsz = idoff + 2 + num;
+
+    rect.bottom = rect.top + 72 + ((hsz + 2) / 3) * 32;
+    CRect local_20 = ClientRectToScreen(rect);
+
+    local_20.bottom -= 8;
+    local_20.right -= 8;
+
+    gfx_interface_lm->DrawBrightened(local_20.right - 24, local_20.top + 8,     12, 6, 0);
+    gfx_interface_lm->DrawBrightened(local_20.left  + 8,  local_20.bottom - 24, 15, 6, 0);
+    gfx_interface_lm->DrawBrightened(local_20.right - 24, local_20.bottom - 24, 17, 6, 0);
+    
+    for (int i = 0; i < (local_20.Width() - 64) / 48; i++)
+        gfx_interface_lm->DrawBrightened(local_20.left + 40 + i * 48, local_20.bottom - 24, 16, 6, 0);
+
+    for (int i = 0; i < (local_20.Height() - 64) / 32; i++)
+        gfx_interface_lm->DrawBrightened(local_20.right - 24, local_20.top + 40 + i * 32, 14, 6, 0);
+
+    gfx_interface_lm->Draw(local_20.left, local_20.top, 10, 0, 0);
+    gfx_interface_lm->Draw(local_20.right - 32, local_20.top, 12, 0, 0);
+    gfx_interface_lm->Draw(local_20.left, local_20.bottom - 32, 15, 0, 0);
+    gfx_interface_lm->Draw(local_20.right - 32, local_20.bottom - 32, 17, 0, 0);
+
+    for (int i = 0; i < (local_20.Width() - 64) / 48; i++) {
+        gfx_interface_lm->Draw(local_20.left + 32 + i * 48, local_20.top, 11, 0, 0);
+        gfx_interface_lm->Draw(local_20.left + 32 + i * 48, local_20.bottom - 32, 16, 0, 0);
+    }
+
+    for (int i = 0; i < (local_20.Height() - 64) / 32; i++) {
+        gfx_interface_lm->Draw(local_20.left, local_20.top + 32 + i * 32, 13, 0, 0);
+        gfx_interface_lm->Draw(local_20.right - 32, local_20.top + 32 + i * 32, 14, 0, 0);
+    }
+
+    for (int i = 0; i < (local_20.Width() - 64) / 48; i++) {
+        for (int j = 0; j < (local_20.Height() - 64) / 32; j++) {
+            gfx_interface_lm->Draw(local_20.left + 32 + i * 48, local_20.top + 32 + j * 32, 9, 0, 0);
+        }
+    }
+
+    int32_t xoff = rect.left + 32;
+    int32_t yoff = rect.top + 32;
+    LockSurface2();
+    if (mwnd->vis_map_context->hat_item_slot12 == 0) {
+        g_font2->DrawTextWithShadow(rect.left + rect.Width() / 2, yoff, txt_patch.GetLine(181), 2, clrsh_TechBlack, 1);
+    }
+    else if (mwnd->vis_map_context->field_0x4a04 < 0x7fffffff) {
+        CString local_88;
+        local_88.Format(txt_patch.GetLine(186), mwnd->vis_map_context->field_0x4a04);
+        g_font2->DrawTextWithShadow(rect.left + rect.Width() / 2, yoff, local_88, 2, clrsh_TechBlack, 1);
+    }
+    else {
+        g_font2->DrawTextWithShadow(rect.left + rect.Width() / 2, yoff, txt_patch.GetLine(180), 2, clrsh_TechBlack, 1);
+    }
+
+    yoff += 20;
+    if (mwnd->hat_settings.deathmatch == 2 && mwnd->vis_map_context->hat_item_slot12 != 0) {
+        CString local_8c;
+        CString local_90;
+        local_8c.Format("%d", mwnd->vis_map_context->hat_item_slot13);
+        local_90.Format("%d", mwnd->vis_map_context->hat_item_slot14);
+
+        int32_t vy1;
+        int32_t vy2;
+
+        if (mwnd->vis_map_context->hat_item_slot13 < mwnd->vis_map_context->hat_item_slot14) {
+            vy2 = yoff;
+            vy1 = yoff + 11;
+        }
+        else {
+            vy1 = yoff;
+            vy2 = yoff + 11;
+        }
+
+        g_font2->DrawTextWithShadow(xoff, vy1, txt_patch.GetLine(184), 0, g_colors_human_pals[2], 1);
+        g_font2->DrawTextWithShadow(xoff, vy2, txt_patch.GetLine(185), 0, g_colors_human_pals[0], 1);
+        g_font2->DrawTextWithShadow(rect.right - 32, vy1, local_8c, 1, g_colors_human_pals[2], 1);
+        g_font2->DrawTextWithShadow(rect.right - 32, vy2, local_90, 1, g_colors_human_pals[0], 1);
+    }
+
+    for (int i = 0; i < num; i++) {
+        g_font2->DrawTextWithShadow(xoff, yoff, names[i], 0, g_colors_human_pals[colors[i]], 1);
+        CString st;
+        if (mwnd->vis_map_context->hat_item_slot12 == 0) {
+            st = txt_patch.GetLine(183 - scores[i]);
+        }
+        else {
+            st.Format("%d", scores[i]);
+        }
+        g_font2->DrawTextWithShadow(rect.right - 32, yoff, st, 1, g_colors_human_pals[colors[i]], 1);
+
+        yoff += 11;
+    }
+    UnlockSurface2();
+}
+
+#endif

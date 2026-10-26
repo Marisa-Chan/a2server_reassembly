@@ -3888,9 +3888,13 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 #ifdef A2CLIENT
             // TODO client (48a969): hat deathmatch shows a variant dialog here
             // (client 004e850e ctor) when field_0x3e0.field_10 && ishat && deathmatch
-#pragma message("REVERSE CLIENT MainWindow::WindowProc::0x466")
-#endif
+            if (field_0x3e0.field_10 == 0 || hat_settings.ishat == 0 || hat_settings.deathmatch == 0)
+                this->vis_map_context->AddChild(new VisQuestStatus(qs_id, 10, 20, 370, 188));
+            else
+                this->vis_map_context->AddChild(new VisHatSession(qs_id, 10, 20, 370, 188));
+#else
             this->vis_map_context->AddChild(new VisQuestStatus(qs_id, 10, 20, 370, 188));
+#endif
             this->vis_map_context->field_0xe0 = 1;
         } else if (g_IsServer != 0 || lParam == 0) {
             this->vis_map_context->RemoveChild(obj);

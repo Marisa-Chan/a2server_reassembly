@@ -1144,17 +1144,14 @@ public:
 	int32_t last_focus_obj_index; // client 0x4a0c
 	CStringArray hat_name_list; // client 0x4a10 — hat DM player names (packets 0x5a/0x5b/0x5c)
 	CArray<uint32_t> hat_score_list; // client 0x4a24 — parallel scores (plain dwords), sorted descending
-	int32_t field_0x49b8; //unk type — at client 0x4a38 (40000)
-	int32_t field_0x49bc; //unk type — at client 0x4a3c (40000)
-	int32_t field_0x49c0; //unk type — at client 0x4a40 (0)
 
 	void CloseHatOverlays(); // client 41748d/417902 — close shop/tavern/popup/1200 overlays
-#else
+#endif
 	int32_t field_0x49b8; //unk type
 	int32_t field_0x49bc; //unk type
 	int32_t field_0x49c0; //unk type
 	int32_t field_0x49c4; //unk type
-#endif
+
 };
 
 ASSERT_OFFSET(BigStruct2, field_0x80, 0x80);
@@ -3726,6 +3723,16 @@ public:
 	CArray<uint32_t> scores; // 0x94 — parallel to entries, one dword per player
 };
 ASSERT_SIZE(HatPlayerScoreList, 0xa8);
+
+// client 5da840
+class VisHatSession : public VisScreen {
+public:
+	VisHatSession(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4e850e
+
+	virtual void VMethod7() override; // 4e8545
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override { return 0; }; // 4e9ce0
+};
+
 #endif
 
 #endif

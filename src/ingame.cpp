@@ -2382,7 +2382,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			// client: 41780d — hat session join. Both exits return 1 (never reach the breakid check).
 			if (wnd->field_0x3e0.field_10 != 0 && wnd->hat_settings.ishat != 0 && wnd->hat_settings.deathmatch != 0) {
 				if (this->FindChild(19) == nullptr) {
-					// TODO(client): session dialog (ctor 4e850e, id 19) — class not yet ported
+					AddChild(new VisHatSession(19, 10, 20, 370, 188));
 					this->field_0xe0 = 1;
 					this->VMethod9();
 				}
