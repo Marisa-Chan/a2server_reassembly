@@ -7367,14 +7367,14 @@ void VisGlobalMap::VMethod7() {
     if (this->umoirMapMode == 0 && !this->hoveredLocationTitle.IsEmpty()) {
         g_font4->DrawTxt(screen_x + 0xE6, screen_y + 0x1B, this->hoveredLocationTitle, 2,
             palette_brown_derby->GetPalette(0));
-        for (int32_t i = 0; i < this->hoveredLocationLines.GetSize(); i++) {
+        int32_t upper = this->hoveredLocationLines.GetUpperBound();
+        for (int32_t i = 0; i < upper; i++) {
             g_font2->DrawTxt(screen_x + 0xE6, screen_y + 0x30 + i * 10,
                 this->hoveredLocationLines.GetAt(i), 2, clrsh_InvBarleyCorn);
         }
-        int32_t n = this->hoveredLocationLines.GetSize();
-        CString last_line = this->hoveredLocationLines.GetAt(n);
+        const CString& last_line = this->hoveredLocationLines.GetAt(upper);
         CString trimmed = last_line.Left(last_line.GetLength() - 2);
-        g_font2->DrawTxt(screen_x + 0xE6, screen_y + 0x30 + n * 10, trimmed, 2, clrsh_InvBarleyCorn);
+        g_font2->DrawTxt(screen_x + 0xE6, screen_y + 0x30 + upper * 10, trimmed, 2, clrsh_InvBarleyCorn);
     }
 
     UnlockSurface2();
