@@ -488,11 +488,12 @@ public:
     void ShowCurrentTownDialog(); //48d815 (client: 491c7e) in asm
     int32_t WaitHatConnection(); //490f6c in asm
     int32_t ConnectToServerAddress(); //491142 in asm
-    void WaitConnectionCharacterJoin(); //49152f in asm
+    int32_t WaitConnectionCharacterJoin(); //49152f in asm
     void ShowFameHallDocDlg(); //48d125 (client: 4912a9) in asm
 
     void SpawnScenarioMissionUnits(int32_t id, const CDWordArray& array); //50260a
-    int32_t RunModalLoop(); //49057b
+    int32_t RunModalLoopServer(); //49057b
+    int32_t RunModalLoopClient(); //client 4949cd
     int32_t CheckWebVersion(const CString& str); //4e5466 (client: 4ea996)
     int32_t LeaveServerMode(); //490eb3 (client: 4952fb)
 

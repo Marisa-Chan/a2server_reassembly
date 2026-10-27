@@ -2748,10 +2748,10 @@ void BigStruct2::FUN_0041a8cc() {
 
 
 int32_t BigStruct2::FUN_0040d7f3() {
-	//40d7f3
+	//40d7f3  client: 40d87a
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
-	if (wnd->sessionMode == 0) {
+	if (wnd->sessionMode == 0 && (wnd->field_0x3e0.field_10 || wnd->hat_settings.ishat == 0)) {
 		g_NetStru1_local.SendLatency(g_CmdLatency, 0);
 
 		NetStru2* conn = g_NetStru1_local.GetFirstClient();
@@ -2786,20 +2786,8 @@ int32_t BigStruct2::FUN_0040d7f3() {
 	}
 	
 	uint32_t stime = timeGetTime();
-	while (true) {
-		if (g_NetStru1_local.GetClientsPktNum()) {
-			if (this->ProcessPackets(0x64) == 0) {
-				return 0;
-			}
-
-			if (this->field_0x9b8.GetSize() < 2) {
-				INT_00660f8c = 0x1007;
-				return 0;
-			}
-
-			return 1;
-		}
-
+#ifndef A2CLIENT
+	while (g_NetStru1_local.GetClientsPktNum() == 0) {
 
 		MSG msg;
 		if (PeekMessageA(&msg, NULL, 0, 0, 1) != 0) {
@@ -2812,15 +2800,51 @@ int32_t BigStruct2::FUN_0040d7f3() {
 		}
 
 		if (g_CmdTimeout < timeGetTime() - stime) {
-			break;
+			INT_00660f8c = 0x1009;
+			return 0;
 		}
 
 		g_mousept.Update();
 		g_NetStru1_local.ProcessConnections();
 	}
 
-	INT_00660f8c = 0x1009;
-	return 0;
+	if (this->ProcessPackets(0x64) == 0) {
+		return 0;
+	}
+
+	if (this->field_0x9b8.GetSize() < 2) {
+		INT_00660f8c = 0x1007;
+		return 0;
+	}
+#else
+	while (field_0x9b8.GetSize() < 2) {
+		while (g_NetStru1_local.GetClientsPktNum() == 0) {
+
+			MSG msg;
+			if (PeekMessageA(&msg, NULL, 0, 0, 1) != 0) {
+				if (msg.message == WM_QUIT) {
+					return 0;
+				}
+
+				TranslateMessage(&msg);
+				DispatchMessageA(&msg);
+			}
+
+			if (g_CmdTimeout < timeGetTime() - stime) {
+				INT_00660f8c = 0x1009;
+				return 0;
+			}
+
+			g_mousept.Update();
+			g_NetStru1_local.ProcessConnections();
+		}
+
+		if (this->ProcessPackets(0x64) == 0) {
+			return 0;
+		}
+	}
+#endif
+	return 1;
 }
 
 
@@ -8306,4 +8330,14 @@ CUnit* BigStruct2::sub_41DE80(int32_t serv_id) {
 	unit->face = serv_id - 0x50;
 	unit->serverId = (uint16_t)serv_id;
 	return unit;
+}
+
+void BigStruct2::FUN_0041be0f() { //client: 41be0f
+	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
+	pkt->id = 0x4d;
+	pkt->from_player_id = my_main_unit->index;
+	pkt->to_player_id = 0;
+	pkt->count = 0;
+	pkt->AppendWord(field_0x3f6c->unit_id);
+	g_NetStru1_local.QueuePacketSend(pkt);
 }

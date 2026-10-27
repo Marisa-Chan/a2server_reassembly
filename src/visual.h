@@ -1014,6 +1014,8 @@ public:
 	void MakeHeightCells(); //4065d3 (client: 406658)
 	void ApplyDynamicLight(int32_t tx, int32_t ty, int32_t radius, int32_t brightness); //406340 (client: 4063c5)
 
+	void FUN_0041be0f(); //client: 41be0f
+
 public:
 	int32_t view_x;
 	int32_t view_y;

@@ -807,8 +807,8 @@ void MainWindow::ClearDiplomacyEntries() {
     }
 }
 
-// 49152f
-void MainWindow::WaitConnectionCharacterJoin() {
+// 49152f  client 495c94
+int32_t MainWindow::WaitConnectionCharacterJoin() {
     if (this->vis_map_context->FUN_0040d7f3() == 0) {
         VisMessageBoxWithList* mbox;
         if ((INT_00660f8c & 0xff) < 0xB) {
@@ -817,18 +817,24 @@ void MainWindow::WaitConnectionCharacterJoin() {
             mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0);
         }
         this->ModalScreen(mbox);
+
+#ifndef A2CLIENT
         this->PostMessage(0x10, 0, 0);
-    } else {
-        if (this->m_GameSession.phased_in == 0) {
-            VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x1ac, 0x252, TxtFile::AllLines[0xD2], nullptr, 4);
-            this->ModalScreen(mbox);
-            if (mbox->GetCloseCode() != 0x447) {
-                this->PostMessage(0x10, 0, 0);
-                return;
-            }
-        }
-        this->PostMessage(0x457, 0, 0);
+#endif
+        return 0;
     }
+#ifndef A2CLIENT
+    if (this->m_GameSession.phased_in == 0) {
+        VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x1ac, 0x252, TxtFile::AllLines[0xD2], nullptr, 4);
+        this->ModalScreen(mbox);
+        if (mbox->GetCloseCode() != 0x447) {
+            this->PostMessage(0x10, 0, 0);
+            return 0;
+        }
+    }
+    this->PostMessage(0x457, 0, 0);
+#endif
+    return 1;
 }
 
 // 48d815
@@ -1056,6 +1062,12 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
             if ((this->dialogsMask == 1 || this->dialogsMask == 0) && this->sessionMode == 2) {
                 this->PostMessage(0x41a, 0, 0);
             }
+
+#ifdef A2CLIENT
+            if (this->dialogsMask == 1 && field_0x3e0.field_10 != 0 && hat_settings.ishat != 0 && hat_settings.deathmatch == 3){
+                this->PostMessage(0x420, 0, 0);
+            }
+#endif
             break;
 
         case 0x72:
@@ -1064,7 +1076,11 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
                     if (this->dialogsMask == 1 || this->dialogsMask == 0) {
                         this->PostMessage(0x418, 0, 0);
                     }
-                } else if (this->dialogsMask == 1) {
+                } else if (this->dialogsMask == 1
+#ifdef A2CLIENT
+                    && (field_0x3e0.field_10 == 0 || hat_settings.ishat == 0 || hat_settings.deathmatch == 0 || hat_settings.deathmatch == 3)
+#endif
+                           ) {
                     this->PostMessage(0x43c, 0, 0);
                 }
             }
@@ -3187,9 +3203,21 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             g_Server->ProcessPlayers();
             PostMessage(0x459, 0, 0);
         } else if (this->sessionMode == 0) {
-            // TODO client (48a969): hat deathmatch sessions (field_0x3e0.field_10 &&
-            // hat_settings.ishat && hat_settings.deathmatch == 0) call the hat-DM
-            // disconnect (client 0041be0f) instead of this teardown path
+#ifdef A2CLIENT
+            if (field_0x3e0.field_10 == 0 || hat_settings.ishat == 0 || hat_settings.deathmatch != 0) {
+                vis_map_context->FUN_0041d2da(1);
+                if ((dialogsMask & 1) != 0)
+                    UnloadMapAssets();
+
+                g_CLlDriver.Close();
+                field_0x438 = 0x7fffffff;
+                last_tic_time = 0x7fffffff;
+                CWnd::PostMessage(0x452, 0, 0);
+            }
+            else {
+                vis_map_context->FUN_0041be0f();
+            }
+#else
             this->vis_map_context->FUN_0041d2da(1);
 
             if ((this->dialogsMask & 1) != 0) {
@@ -3202,6 +3230,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             this->last_tic_time = 0x7fffffff;
 
             PostMessage(0x452, 0, 0);
+#endif
         } else if (this->in_famehall_mission == 0) {
             g_Server->ProcessPlayers();
             PostMessage(0x421, 0, 0);
@@ -3269,8 +3298,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
     case 0x420:
         if (this->dialogsMask == 1) {
 #ifdef A2CLIENT
-            // TODO client (48a969): hat deathmatch (field_0x3e0.field_10 && ishat &&
-            // deathmatch == 3) shows a variant dialog (client 004527dd ctor)
+            if (field_0x3e0.field_10 != 0 && hat_settings.ishat != 0 && hat_settings.deathmatch == 3)
+                PopUpScreen(new HatPlayerListWindow(1, 20, 0, 620, 500, &vis_map_context->hat_name_list, 0));
+            else
 #endif
             this->PopUpScreen(new QuestObjectivesHeaderDialogVisualObject(1, 20, 0, 620, 500));
         }
@@ -3541,11 +3571,15 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         } else {
             // TODO client (48a969): posts 0x48d (hat connect handshake: client
             // 004958ac/00495c94 gates) instead of the inline connect flow below
+#ifndef A2CLIENT
             if (this->ConnectToServerAddress() == 0) {
                 PostMessage(0x487, 0, 0);
             } else {
                 this->WaitConnectionCharacterJoin();
             }
+#else
+            PostMessage(0x48d, 0, 0);
+#endif
         }
         break;
 
@@ -3960,7 +3994,11 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         // roster entry (RefreshCharacterRosterFiles(0) + scan + LoadCharacterRosterEntry,
         // client 00494f53) then posts 0x48d; empty path gates 0x426 behind 00494f53
 #pragma message("REVERSE CLIENT  MainWindow::WindowProc::0x488")
-        if (this->RunModalLoop() == 0) {
+#if A2CLIENT
+        if (this->RunModalLoopClient() == 0) {
+#else
+        if (this->RunModalLoopServer() == 0) {
+#endif
             PostMessage(0x422, 0, 0);
         } else {
             PostMessage(0x426, 0, 0);
@@ -3990,6 +4028,17 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         PostMessage(0x48a, res, 0);
     }
         break;
+
+#ifdef A2CLIENT
+    case 0x48d:
+        if (ConnectToServerAddress() == 0)
+            PostMessage(0x487, 0, 0);
+        else if (WaitConnectionCharacterJoin() == 0)
+            PostMessage(0x487, 0, 0);
+        else
+            PostMessage(0x457, 0, 0);
+        break;
+#endif
     }
 
     return CWnd::WindowProc(message, wParam, lParam);
@@ -5314,7 +5363,7 @@ break;
 }
 
 
-int32_t MainWindow::RunModalLoop() { //49057b
+int32_t MainWindow::RunModalLoopServer() { //49057b
     MSG msg;
 
     LockSurface2();
@@ -5444,6 +5493,92 @@ int32_t MainWindow::RunModalLoop() { //49057b
         UnlockSurface2();
         FlushScreen();
     }
+    return 1;
+}
+
+
+int32_t MainWindow::RunModalLoopClient() { //client 4949cd
+    MSG msg;
+
+    LockSurface2();
+    FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+    //Connection to hat in process...
+    g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, txt_patch.GetLine(124), 2, clrsh_ShockingBlack, 1);
+    UnlockSurface2();
+    FlushScreen();
+
+    this->sessionMode = 0;
+
+    g_NetStru1_local.SetLLDriver(&g_CLlDriver);
+    g_CLlDriver.SetHlDriver(&g_NetStru1_local);
+    g_CLlDriver.ResetProvider(4);
+
+    if (strstr(afxCurrentWinApp->m_lpCmdLine, "-timeout")) {
+        g_CLlDriver.SetTimeout(g_CmdTimeout);
+    }
+
+    CLlAddress local_224;
+    strcpy(local_224.address, "0.0.0.0");
+
+    int local_230 = g_CLlDriver.PrepareForConnect(this->hat_settings.hatprogip, &local_224);
+    if (local_230) {
+        local_230 = g_CLlDriver.Connect(this->m_GameSession.character_name, nullptr);
+    }
+
+    if (local_230 == 0) {
+        g_CLlDriver.Close();
+
+        this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(19), nullptr, 0));
+        return 0;
+    }
+
+    g_NetStru1_local.ProcessConnections();
+
+    g_NetStru1_local.SendHatCredentials(this->hat_settings.login, this->hat_settings.password, this->hat_settings.deathmatch);
+
+    this->field_0x3e0.hat_id = 0;
+
+    uint32_t start_time = timeGetTime();
+    INT_00660f8c = 0;
+
+    while (this->field_0x3e0.hat_id == 0) {
+        if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0) {
+            if (msg.message == WM_QUIT) {
+                return 0;
+            }
+
+            TranslateMessage(&msg);
+            DispatchMessageA(&msg);
+        }
+
+        if (g_NetStru1_local.GetClientsPktNum() == 0) {
+            if (g_CmdTimeout < timeGetTime() - start_time) {
+                this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(18), nullptr, 0));
+                PostMessage(WM_CLOSE, 0, 0);
+                return 0;
+            }
+
+            g_mousept.Update();
+        }
+        else if (this->vis_map_context->ProcessPackets(100) == 0) {
+            this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
+            PostMessage(WM_CLOSE, 0, 0);
+            return 0;
+        }
+
+        if (field_0x3e0.hat_id == -1) {
+            VisScreen* scr = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(16), nullptr, 4);
+            ModalScreen(scr);
+            if (scr->GetCloseCode() == 0x447) {
+                field_0x3e0.hat_id = 0;
+                start_time = timeGetTime();
+                INT_00660f8c = 0;
+            }
+            else
+                return 0;
+        }
+    }
+
     return 1;
 }
 

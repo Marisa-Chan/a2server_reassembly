@@ -4923,3 +4923,10 @@ void NetStru1::SendServerConnectHatTicket(HatCharId ticket, uint16_t player_id) 
     pkt->to_player_id = player_id;
     QueuePacketSend(pkt);
 }
+
+void NetStru1::FUN_0050eede() { // client 50eede
+    Packet* pkt = &Packet::Inst;
+    pkt->id = 0xdc;
+    pkt->to_player_id = 0;
+    QueuePacketSend(pkt);
+}

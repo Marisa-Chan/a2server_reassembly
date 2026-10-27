@@ -6198,7 +6198,10 @@ IngameMenu::IngameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, 
 
 
     //objectives
-    btn = new MenuButton(5, txt_dialogs.GetLine(38), g_font1, 0, 0x420, 'M', "");
+    if (mwnd->field_0x3e0.field_10 == 0 || mwnd->hat_settings.ishat == 0 || mwnd->hat_settings.deathmatch == 0)
+        btn = new MenuButton(5, txt_dialogs.GetLine(38), g_font1, 0, 0x420, 'M', "");
+    else
+        btn = new MenuButton(5, txt_patch.GetLine(209), g_font1, 0, 0x420, 'C', "");
 
     this->AddElement(btn, 30);
 
@@ -6931,8 +6934,9 @@ EndGameMenu::EndGameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
     MenuButton* btn = nullptr;
-
-    if (mwnd->sessionMode == 1 || mwnd->sessionMode == 3 || mwnd->sessionMode == 0) {
+    if (mwnd->sessionMode == 0 && mwnd->field_0x3e0.field_10 && mwnd->hat_settings.ishat && mwnd->hat_settings.deathmatch == 0)
+        btn = new MenuButton(1, txt_patch.GetLine(208), g_font1, nullptr, 0x41d, 'R', "");
+    else if (mwnd->sessionMode == 1 || mwnd->sessionMode == 3 || mwnd->sessionMode == 0) {
         btn = new MenuButton(1, txt_dialogs.GetLine(42), g_font1, nullptr, 0x41d, 'C', ""); //restart mission
     } else {
         btn = new MenuButton(1, txt_dialogs.GetLine(43), g_font1, nullptr, 0x41d, 'V', ""); //win
@@ -24545,12 +24549,16 @@ int32_t VisHatBrowserList::IsItemEnabled(int32_t idx) {
     int32_t players = atoi(item.Mid(pos, 2));
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->m_GameSession.GetSkillTier1() > level + 1
-        || main_wnd->m_GameSession.GetSkillTier2() < level + 1
-        || players == 0x10) {
-        return 0;
+    if (main_wnd->field_0x3e0.field_10 == 0 || main_wnd->hat_settings.ishat == 0 || main_wnd->hat_settings.deathmatch == 0) {
+        if (main_wnd->m_GameSession.GetSkillTier1() > level + 1
+            || main_wnd->m_GameSession.GetSkillTier2() < level + 1
+            || players == 16) {
+            return 0;
+        }
+        return 1;
     }
-    return 1;
+
+    return players != 16 ? 1 : 0;
 }
 
 // 44ff20
@@ -24687,17 +24695,19 @@ void VisHatBrowserDlg::VMethod26() {
     VisLabel* ip_label = new VisLabel(0x7e, 0x28, ip_top, this->rect.Width() - 0x28, 0x44, ip_text, g_font1, p_clrsh_Black, 2);
     this->AddChild(ip_label);
 
+#ifdef A2CLIENT
+    int32_t cap_top = 0x30;
+    int32_t cap_bottom = 0x44;
+#else
     int32_t cap_top = 0x44;
     int32_t cap_bottom = 0x5c;
-    if (g_IsServer == 0) {
-        cap_top = 0x30;
-        cap_bottom = 0x44;
-    }
+#endif
+
     VisLabel* caption_label = new VisLabel(0x1a, 0x28, cap_top, this->rect.Width() - 0x28, cap_bottom, txt_patch.GetLine(0x6b), g_font1, p_clrsh_Black, 0);
     this->AddChild(caption_label);
 
     VisHatBrowserList* list = nullptr;
-    if (g_IsServer == 0 && main_wnd->hat_settings.ishat != 0) {
+    if (main_wnd->hat_settings.ishat != 0) {
         int32_t list_top = 0x44;
         int32_t list_bottom = this->rect.Height() - 0x60;
         if (main_wnd->hat_settings.deathmatch == 2) {
@@ -24705,22 +24715,24 @@ void VisHatBrowserDlg::VMethod26() {
         }
         list = new VisHatBrowserList(1, 0x28, list_top, this->rect.Width() - 0x40, list_bottom, g_font1, p_clrsh_Black, p_clrsh_ShockingBlack, 0xa, nullptr);
     } else {
+#ifdef A2CLIENT
+        int32_t list_bottom = this->rect.Height() - 0x50;
+#else
         int32_t list_bottom = this->rect.Height() - 0x60;
-        if (g_IsServer == 0) {
-            list_bottom = this->rect.Height() - 0x50;
-        }
+#endif
         list = new VisHatBrowserList(1, 0x28, 0x5c, this->rect.Width() - 0x40, list_bottom, g_font1, p_clrsh_Black, p_clrsh_ShockingBlack, 0xa, nullptr);
     }
 
 #ifdef A2CLIENT
-    if (g_IsServer == 0 && main_wnd->hat_settings.ishat != 0 && main_wnd->hat_settings.deathmatch == 2) {
-        VisRadioType2* store_radio = new VisRadioType2(0x31, 0x28, this->rect.Height() - 0xb6, this->rect.Width() - 0x40, this->rect.Height() - 0x80, g_font1, p_clrsh_Black, nullptr);
-        store_radio->AddEntry(txt_patch.GetLine(0x8b));
-        store_radio->AddEntry(txt_patch.GetLine(0x8c));
-        this->AddChild(store_radio);
-        store_radio->ReadData(&main_wnd->hat_settings.store);
-    }
-    if (g_IsServer == 0 && main_wnd->hat_settings.ishat != 0) {
+    if (main_wnd->hat_settings.ishat != 0) {
+        if (main_wnd->hat_settings.deathmatch == 2) {
+            VisRadioType2* store_radio = new VisRadioType2(0x31, 0x28, this->rect.Height() - 0xb6, this->rect.Width() - 0x40, this->rect.Height() - 0x80, g_font1, p_clrsh_Black, nullptr);
+            store_radio->AddEntry(txt_patch.GetLine(0x8b));
+            store_radio->AddEntry(txt_patch.GetLine(0x8c));
+            this->AddChild(store_radio);
+            store_radio->ReadData(&main_wnd->hat_settings.store);
+        }
+    
         VisLabel* status1 = new VisLabel(0x2d, 0x28, this->rect.Height() - 0x64, this->rect.Width() - 0x28, this->rect.Height() - 0x50, " ", g_font1, p_clrsh_Black, 2);
         this->AddChild(status1);
         VisLabel* status2 = new VisLabel(0x2e, 0x28, this->rect.Height() - 0x54, this->rect.Width() - 0x28, this->rect.Height() - 0x40, " ", g_font1, p_clrsh_Black, 2);
@@ -25009,46 +25021,6 @@ struct HatBrowserProgress {
 int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
-#ifdef A2CLIENT
-    if (g_IsServer == 0 && msg == 0x48c) {
-        // client-only: progress/status pump posted by the worker thread. Requires the
-        // a2mgr-installed browser object; without it the retail client passthroughs too.
-        if (main_wnd->hat_settings.ishat == 0 || this->browser == nullptr) {
-            return VisScreen::MsgProc(msg, wparam, lparam);
-        }
-        HatBrowserProgress* prog = (HatBrowserProgress*)this->browser;
-        VisLabel* lbl1 = (VisLabel*)this->FindChild(0x2d);
-        VisLabel* lbl2 = (VisLabel*)this->FindChild(0x2e);
-        CString s1;
-        CString s2;
-        EnterCriticalSection(&prog->cs);
-        int32_t step = (int32_t)wparam;
-        if (prog->recv_serial + prog->field_1f0 != 0) {
-            int32_t total = prog->recv_serial + prog->field_1f0;
-            s1.Format(txt_patch.GetLine(0x7f), prog->field_1dc, (prog->recv_serial != 0) ? prog->field_1ec / prog->recv_serial : 0, prog->field_1e0, (total != 0) ? prog->field_1f0 * 100 / total : 0);
-            if (step == 0) {
-                s2.Format(txt_patch.GetLine(0x80), prog->field_1e4, total);
-            } else {
-                s2 = txt_patch.GetLine(0x80 - step);
-            }
-        } else {
-            if (step != 0) {
-                s1 = " ";
-                s2 = txt_patch.GetLine(0x80 - step);
-            } else {
-                s1 = " ";
-                s2 = " ";
-            }
-        }
-        LeaveCriticalSection(&prog->cs);
-        lbl1->text = s1;
-        lbl1->VMethod9();
-        lbl2->text = s2;
-        lbl2->VMethod9();
-        return VisScreen::MsgProc(msg, wparam, lparam);
-    }
-#endif
-
     switch (msg) {
     case 0x444:
         if (wparam != 1) {
@@ -25063,14 +25035,14 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
             main_wnd->field_0x3e0.connect_address = item.Mid(field_pos);
             main_wnd->field_0x3e0.connect_address = main_wnd->field_0x3e0.connect_address.Left(main_wnd->field_0x3e0.connect_address.Find('|'));
 #ifdef A2CLIENT
-            if (g_IsServer == 0 && main_wnd->hat_settings.deathmatch == 2) {
+            if (main_wnd->hat_settings.deathmatch == 2) {
                 ((VisRadioType2*)this->FindChild(0x31))->WriteData(&main_wnd->hat_settings.store);
                 main_wnd->m_GameSession.color = (main_wnd->hat_settings.store != 0) ? 1 : 3;
             }
 #endif
             VisScreen::MsgProc(0x445, 0, 0);
 #ifdef A2CLIENT
-            if (g_IsServer == 0 && this->browser != nullptr) {
+            if (this->browser != nullptr) {
                 SetEvent(this->exit_event);
             }
 #endif
@@ -25080,7 +25052,7 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
     case 0x446:
         VisScreen::MsgProc(0x446, 0, 0);
 #ifdef A2CLIENT
-        if (g_IsServer == 0 && this->browser != nullptr) {
+        if (this->browser != nullptr) {
             SetEvent(this->exit_event);
         }
 #endif
@@ -25091,20 +25063,10 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
             if ((int32_t)lparam >= 0) {
                 VisHatBrowserList* list = (VisHatBrowserList*)this->FindChild(1);
                 list->VMethod9();
-                if (g_IsServer != 0) {
-                    int32_t enabled = list->IsItemEnabled(list->GetSelectedIndex());
-                    this->FindChild(0x14)->ChangeFlags(1, enabled != 0);
-                } else {
-#ifdef A2CLIENT
-                    // client gates on GetItem() != nullptr; vanilla GetItem clamps into the
-                    // array and never returns null, so the button is always enabled here
-                    // (the a2mgr mod's GetItem hook is what can return null).
-                    this->FindChild(0x14)->ChangeFlags(1, &list->GetItem(list->GetSelectedIndex()) != nullptr);
-#endif
-                }
+                this->FindChild(0x14)->ChangeFlags(1, list->IsItemEnabled(list->GetSelectedIndex()));
                 this->FindChild(0x14)->VMethod9();
 #ifdef A2CLIENT
-                if (g_IsServer == 0 && this->browser != nullptr) {
+                if (this->browser) {
                     EnterCriticalSection(&this->connect_cs);
                     CString item = list->GetItem(list->GetSelectedIndex());
                     int32_t field_pos = GetFieldPos(item, 7);
@@ -25156,27 +25118,71 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
         list->SetSelectedIndex(0);
         list->VMethod9();
 
-        int32_t res; // 44c55e: left uninitialized when hat_settings.ishat == 0
-        if (g_IsServer != 0) {
-            if (main_wnd->hat_settings.ishat != 0) {
-                if (main_wnd->LeaveServerMode() == 0) {
-                    g_CLlDriver.Close();
-                    main_wnd->PostMessage(0x446, 0, 0);
-                    return VisScreen::MsgProc(msg, wparam, lparam);
-                }
-                res = main_wnd->CheckWebVersion(main_wnd->hat_settings.hatip);
-            } else {
-                res = 1;
-            }
-        } else {
-            res = 1;
-            if (main_wnd->hat_settings.ishat == 0) {
-                res = main_wnd->CheckWebVersion(main_wnd->hat_settings.hatip);
-            }
+        int32_t res = 1; // 44c55e: left uninitialized when hat_settings.ishat == 0
+#ifdef A2CLIENT
+        if (main_wnd->hat_settings.ishat == 0) {
+            res = main_wnd->CheckWebVersion(main_wnd->hat_settings.hatip);
+        } else if (main_wnd->LeaveServerMode() == 0) {
+            g_CLlDriver.Close();
+            main_wnd->PostMessage(0x446, 0, 0);
+            return VisScreen::MsgProc(msg, wparam, lparam);
         }
+#else
+        if (main_wnd->hat_settings.ishat != 0) {
+            if (main_wnd->LeaveServerMode() == 0) {
+                g_CLlDriver.Close();
+                main_wnd->PostMessage(0x446, 0, 0);
+                return VisScreen::MsgProc(msg, wparam, lparam);
+            }
+            res = main_wnd->CheckWebVersion(main_wnd->hat_settings.hatip);
+        }
+#endif
         this->MsgProc(0x48a, res, 0);
         return VisScreen::MsgProc(msg, wparam, lparam);
     }
+
+#ifdef A2CLIENT
+    case 0x48c: {
+        // client-only: progress/status pump posted by the worker thread. Requires the
+        // a2mgr-installed browser object; without it the retail client passthroughs too.
+        if (main_wnd->hat_settings.ishat && this->browser) {
+            HatBrowserProgress* prog = (HatBrowserProgress*)this->browser;
+            VisLabel* lbl1 = (VisLabel*)this->FindChild(0x2d);
+            VisLabel* lbl2 = (VisLabel*)this->FindChild(0x2e);
+            CString s1;
+            CString s2;
+            EnterCriticalSection(&prog->cs);
+            int32_t step = (int32_t)wparam;
+            if (prog->recv_serial + prog->field_1f0 != 0) {
+                int32_t total = prog->recv_serial + prog->field_1f0;
+                s1.Format(txt_patch.GetLine(0x7f), prog->field_1dc, (prog->recv_serial != 0) ? prog->field_1ec / prog->recv_serial : 0, prog->field_1e0, (total != 0) ? prog->field_1f0 * 100 / total : 0);
+                if (step == 0) {
+                    s2.Format(txt_patch.GetLine(0x80), prog->field_1e4, total);
+                }
+                else {
+                    s2 = txt_patch.GetLine(0x80 - step);
+                }
+            }
+            else {
+                if (step != 0) {
+                    s1 = " ";
+                    s2 = txt_patch.GetLine(0x80 - step);
+                }
+                else {
+                    s1 = " ";
+                    s2 = " ";
+                }
+            }
+            LeaveCriticalSection(&prog->cs);
+            lbl1->text = s1;
+            lbl1->VMethod9();
+            lbl2->text = s2;
+            lbl2->VMethod9();
+        }
+        return VisScreen::MsgProc(msg, wparam, lparam);
+    }
+#endif
+    
     default:
         return VisScreen::MsgProc(msg, wparam, lparam);
     }

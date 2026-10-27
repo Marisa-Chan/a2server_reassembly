@@ -229,6 +229,7 @@ public:
     void SendHatConnectServer(HatCharId key, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t sphere, uint8_t type_face, uint8_t color, const CString& name, const CString& srv); //51da14   (client:50e5cf)
 
     void SendServerConnectHatTicket(HatCharId ticket, uint16_t player_id); //51dce5   (client:50e8c0)
+    void FUN_0050eede(); // client 50eede
 
     NetStru2* GetFirstClient();
 };

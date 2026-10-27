@@ -495,12 +495,15 @@ void CGameSession::RefreshCharacterRosterFiles(int val) { //49265a
 				DecryptEncryptedData(data.data(), hdr.size, hdr.key);
 				if (CalcChecksum(data.data(), hdr.size) == hdr.checksum) {
 					FileSectionBasicInfo* sec = (FileSectionBasicInfo*)data.data();
+					strcpy(this->character_name, sec->nick);
 					if (sec->hat_id == 0x529c0291 || sec->hat_id == 0xbaadf00d) {
 						sec->hat_id = mwnd->field_0x3e0.hat_id;
 					}
-					if (sec->hat_id == mwnd->field_0x3e0.hat_id) {
-						strcpy(this->character_name, sec->nick);
-
+					if (sec->hat_id == mwnd->field_0x3e0.hat_id
+#ifdef A2CLIENT
+						|| (sec->hat_id == 0xbabad0d0 && mwnd->field_0x3e0.field_10 != 0 && mwnd->hat_settings.ishat && mwnd->hat_settings.deathmatch)
+#endif
+						) {	
 						FILETIME tm;
 						ff.GetLastWriteTime(&tm);
 
@@ -511,13 +514,13 @@ void CGameSession::RefreshCharacterRosterFiles(int val) { //49265a
 							}
 						}
 
-						ftimes.InsertAt(idx, tm);
-						this->characterRosterFilePaths.InsertAt(idx, ff.GetFileName());
-						this->characterRosterNames.InsertAt(idx, this->character_name);
-
 						HatCharId hatid;
 						hatid.id1 = sec->id1;
 						hatid.id2 = sec->id2;
+#ifndef A2CLIENT
+						ftimes.InsertAt(idx, tm);
+						this->characterRosterFilePaths.InsertAt(idx, ff.GetFileName());
+						this->characterRosterNames.InsertAt(idx, this->character_name);
 
 						if (val == 0) {
 							this->characterRosterHatId.InsertAt(idx, hatid);
@@ -529,6 +532,26 @@ void CGameSession::RefreshCharacterRosterFiles(int val) { //49265a
 								}
 							}
 						}
+#else
+
+						if (val == 0) {
+							ftimes.InsertAt(idx, tm);
+							this->characterRosterHatId.InsertAt(idx, hatid);
+							this->characterRosterFilePaths.InsertAt(idx, ff.GetFileName());
+							this->characterRosterNames.InsertAt(idx, this->character_name);
+						}
+						else {
+							for (int i = 0; i < this->hat_char_ids.GetSize(); i++) {
+								if (this->hat_char_ids[i].id == hatid.id) {
+									ftimes.InsertAt(idx, tm);
+									this->characterRosterHatId.InsertAt(idx, hatid);
+									this->characterRosterFilePaths.InsertAt(idx, ff.GetFileName());
+									this->characterRosterNames.InsertAt(idx, this->character_name);
+									break;
+								}
+							}
+						}
+#endif
 					}
 				}
 			}
