@@ -26,7 +26,7 @@ struct Listerator {
 		this->holder = &hld;
 		this->position = hld.GetHeadPosition();
 
-		if (this->position = NULL) {
+		if (this->position == NULL) {
 			return nullptr;
 		}
 
