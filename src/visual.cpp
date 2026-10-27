@@ -9825,7 +9825,7 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
 
     main_wnd->ResetItemCursor();
     unit->ReloadSprite();
-    main_wnd->vis_root->MsgProc(0x46E, (uint32_t)main_wnd->m_hWnd, 0);
+    main_wnd->vis_root->MsgProc(0x46E, this->id, 0);
     return (int32_t)old_token;
 }
 
