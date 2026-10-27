@@ -5617,7 +5617,7 @@ void SrvStru1::FreeLists() {
         Unit* unit = this->some_unit_list.GetHead();
         delete unit;
 
-        this->units_list->unit_list.RemoveHead();
+        this->some_unit_list.RemoveHead();
     }
 }
 
