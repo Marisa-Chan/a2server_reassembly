@@ -23058,6 +23058,9 @@ int32_t VisSpellBook::FUN_004ca7c2(CPoint* pos) {
     if (pos->x < 0) {
         return -1;
     }
+    if (pos->y < 0) {
+        return -1;
+    }
     if (pos->y >= 0x4B) {
         return -1;
     }
