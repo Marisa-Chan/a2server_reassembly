@@ -5218,8 +5218,8 @@ void VisNetMapSelection::FUN_0044aae5() {
                     if (!tooltip_printable) {
                         info->tooltip = byte_659A30;
                     }
-                    info->name.AnsiToOem();
-                    info->tooltip.AnsiToOem();
+                    info->name.OemToAnsi();
+                    info->tooltip.OemToAnsi();
                     if (info->tooltip.IsEmpty()) {
                         info->tooltip = info->name;
                     }
