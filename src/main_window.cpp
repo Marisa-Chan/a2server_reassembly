@@ -3337,7 +3337,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x41e:
-        g_Server->ProcessPlayers();
+        ProcessPlayersTick();
         PostMessage(MSG_421, 0, 0);
         break;
 
