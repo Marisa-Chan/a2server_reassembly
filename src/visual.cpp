@@ -26338,7 +26338,7 @@ CVisualObject* VisConnectionDlg::VMethod30(const void* data, const RECT& r) {
     g_CLlDriver.EnumConnections(&this->protocols, &count);
     for (int32_t i = 0; i < count; i++) {
         if (this->protocols[i].typ == 4 || (no_serial != 0 && (this->protocols[i].typ == 1 || this->protocols[i].typ == 0))) {
-            memcpy(this->protocols + i, this->protocols + i + 1, (count - i - 1) * 0x104);
+            memmove(this->protocols + i, this->protocols + i + 1, (count - i - 1) * 0x104);
             count--;
             i--;
         } else {
