@@ -7671,7 +7671,9 @@ const char* VisGlobalMap::GetHint() {
 
 // 473077
 int32_t VisGlobalMap::OnRButtonDown(uint32_t wparam, CPoint pos) {
-    CRect popup_rect(CPoint(this->targetLocationPoint), this->heroBitmapSize);
+    // Binary builds the popup rect from heroDrawPoint, which nothing ever
+    // writes (stays (0,0) from the ctor) — vanilla quirk, kept faithfully.
+    CRect popup_rect(CPoint(this->heroDrawPoint), this->heroBitmapSize);
     CPoint screen_pt = this->rect.TopLeft();
     pos -= CSize(screen_pt.x, screen_pt.y);
     if (popup_rect.PtInRect(pos)) {
