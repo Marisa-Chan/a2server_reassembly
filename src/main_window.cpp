@@ -671,6 +671,8 @@ void MainWindow::OnDestroy() {
         delete this->music_player;
     }
 
+    AfxPostQuitMessage(0); // Force post WM_QUIT
+
     CFrameWnd::OnDestroy();
 }
 
