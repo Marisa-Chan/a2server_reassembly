@@ -2097,7 +2097,7 @@ void MainWindow::IdleLoop() {
         if (g_IsServer == 0 && has_focus != 0 && vis_serverscreen && game_tic_counter == 1)
             vis_serverscreen->VMethod9();
 
-        if (g_Server->tick > g_ServerConfig.map_durations[g_ServerConfig.current_map_index]) {
+        if (g_Server->tick > g_ServerConfig.map_durations[g_ServerConfig.current_map_index] * 57600) {
             g_ServerConfig.current_map_index++;
             if (g_ServerConfig.current_map_index >= g_ServerConfig.map_durations.GetSize())
                 g_ServerConfig.current_map_index = 0;
