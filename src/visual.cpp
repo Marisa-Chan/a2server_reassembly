@@ -7312,8 +7312,8 @@ void VisGlobalMap::VMethod7() {
         }
     } else {
         int32_t dot_count = this->travelProgress;
-        if (dot_count >= this->travelRoutePoints.GetSize()) {
-            dot_count = this->travelRoutePoints.GetSize();
+        if (dot_count >= this->travelRoutePoints.GetUpperBound()) {
+            dot_count = this->travelRoutePoints.GetUpperBound();
         }
         for (int32_t i = 0; i < dot_count; i++) {
             if (i % 8 == 0) {
