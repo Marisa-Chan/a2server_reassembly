@@ -26617,10 +26617,11 @@ void VisStartGameTextBox::FUN_00432ad1() {
 }
 
 // 432B33
+// client: 434c63 (client variant also rejects '~')
 void VisStartGameTextBox::FUN_00432b33(uint8_t ch) {
     this->is_active = 1;
     this->ts = timeGetTime();
-    if (ch >= 0x20) {
+    if (ch >= 0x20 && (g_IsServer != 0 || ch != '~')) {
         this->screen->FUN_004382d9();
         this->text += (char)ch;
     }
