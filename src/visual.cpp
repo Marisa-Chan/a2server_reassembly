@@ -21661,7 +21661,7 @@ void VisNetDlg::FillServerList() {
     if (count > this->selected) {
         sel_name = server_list->GetItem(this->selected);
     } else {
-        sel_name = "When night are cold and friends are few";
+        sel_name = "When night are cold and friends are few I sit alone and think of you";
     }
     while (count != 0) {
         count--;
