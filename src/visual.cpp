@@ -18984,6 +18984,7 @@ void VisStartGame::Accept() {
             this->MsgProc(0x445, 0, 0);
         }
     } else {
+#ifdef A2CLIENT
         int32_t min_len = 1;
         if (main_wnd->field_0x3e0.field_10 != 0 && main_wnd->hat_settings.ishat != 0) {
             min_len = 3;
@@ -19005,6 +19006,12 @@ void VisStartGame::Accept() {
             main_wnd->vis_msgbox_list = mbox;
             main_wnd->ModalScreen(mbox);
         }
+#else
+        if (this->nameLabel->GetText().GetLength() > 0) {
+            CSound::Play(this->acceptSound);
+            this->MsgProc(0x445, 0, 0);
+        }
+#endif
     }
 }
 
