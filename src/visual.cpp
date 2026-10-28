@@ -5299,7 +5299,7 @@ void VisNetMapSelection::VMethod26() {
     this->AddChild(map_list);
     map_list->SetCaptionLabel((VisLabel*)this->FindChild(0x1A));
     CRect list_rc = map_list->GetRect();
-    this->AddChild(new VisScrollBar(0xA, list_rc.right, list_rc.top, list_rc.right + 0x10, list_rc.bottom, nullptr));
+    this->AddChild(new VisScrollBar(0xA, list_rc.right, list_rc.top, list_rc.right + 0x18, list_rc.bottom, nullptr));
 
     list_rc.top = 0x11C;
     list_rc.bottom = 0x180;
@@ -5311,7 +5311,7 @@ void VisNetMapSelection::VMethod26() {
     this->AddChild(chat_list);
     chat_list->SetCaptionLabel((VisLabel*)this->FindChild(0x1B));
     list_rc = chat_list->GetRect();
-    this->AddChild(new VisScrollBar(0xB, list_rc.right, list_rc.top, list_rc.right + 0x10, list_rc.bottom, nullptr));
+    this->AddChild(new VisScrollBar(0xB, list_rc.right, list_rc.top, list_rc.right + 0x18, list_rc.bottom, nullptr));
 
     CPoint btn_center(this->rect.Width() / 2, this->rect.Height() - 0x30);
     CRect btn_rc(btn_center.x - 0x30, btn_center.y - 0xC, btn_center.x + 0x30, btn_center.y + 0xC);
@@ -5341,7 +5341,7 @@ void VisNetMapSelection::VMethod26() {
     player_list->SetCaptionLabel((VisLabel*)this->FindChild(0x1C));
     PostMessageA(g_MainWndHWND, 0x460, 0, 0);
     list_rc = player_list->GetRect();
-    this->AddChild(new VisScrollBar(0xC, list_rc.right, list_rc.top, list_rc.right + 0x10, list_rc.bottom, nullptr));
+    this->AddChild(new VisScrollBar(0xC, list_rc.right, list_rc.top, list_rc.right + 0x18, list_rc.bottom, nullptr));
 
     OffsetRect(&btn_rc, 0x90, 0);
     VisButton* cancel_btn = new VisButton(0x15, btn_rc, txt_dialogs.GetLine(1), g_font1, nullptr, 0x446, 0, "");
