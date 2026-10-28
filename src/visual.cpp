@@ -1250,7 +1250,7 @@ int32_t VisScrollBar::OnMouseMove(uint32_t wparam, CPoint pos) {
 
     if (this->TestFlags(FLAG_FOCUS) == 0) {
         if (tr.Height() < tr.Width()) {
-            this->parent->FocusTo(this->parent, true);
+            this->parent->FocusTo(this, true);
         }
     }
 
