@@ -3165,8 +3165,8 @@ VisMultiText::VisMultiText(int32_t _id, const RECT& r, const char* str, CGameFon
 
 void VisMultiText::SetText(const char* _text) {
     //4d8816
-    this->text = _text;
-
+    // Note: vanilla does not store _text into the text member here (only the ctor does);
+    // entries are rebuilt from _text but text keeps its ctor value.
     this->entries.Copy(this->font->StringArrayForRect(this->rect, _text));
 
     if (this->rect.Height() / this->entry_height_full < this->entries.GetSize()) {
