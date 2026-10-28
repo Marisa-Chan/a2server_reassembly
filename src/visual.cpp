@@ -19342,6 +19342,7 @@ void VisTown::VMethod26() {
         this->sounds[i] = nullptr;
     }
     this->hover_snd_shop = 0;
+    this->hover_snd_second = 0;
     this->bmp_bkg = nullptr;
     this->bmp_hover_mask = nullptr;
     this->bmp_bird_overlay = nullptr;
