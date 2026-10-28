@@ -1549,7 +1549,7 @@ void VisListBox::VMethod7() {
             this->entry_height_full -= 2;
 
             FillRectColor(rt.left + 1, y - 2, rt.right - 5, y - 2, GetColorRGB(8, 8, 8));
-            FillRectColor(rt.left + 1, y - 1, rt.left, y - 3 + this->entry_height_full, GetColorRGB(8, 8, 8));
+            FillRectColor(rt.left, y - 1, rt.left, y - 3 + this->entry_height_full, GetColorRGB(8, 8, 8));
 
             FillRectColor(rt.left + 1, y - 2 + this->entry_height_full, rt.right - 5, y - 2 + this->entry_height_full, GetColorRGB(0x5e, 0x73, 0x65));
             FillRectColor(rt.right - 4, y - 1, rt.right - 4, y - 3 + this->entry_height_full, GetColorRGB(0x5e, 0x73, 0x65));
