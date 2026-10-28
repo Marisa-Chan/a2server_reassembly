@@ -1298,14 +1298,16 @@ int32_t VisScrollBar::OnWmUser(uint32_t wparam, CPoint pos) {
         return 0;
     }
 
-    if (this->rect.Width() < this->rect.Height()) {
+    if (this->rect.Height() < this->rect.Width()) {
         if (this->TestFlags(FLAG_OVERCURSOR) &&
             (this->btn_minus.PtInRect(pos) || this->btn_plus.PtInRect(pos))) {
             return this->OnLButtonDown(wparam | 1, pos);
         }
+    }
 
+    if (this->rect.Width() < this->rect.Height()) {
         if (wparam == 1) {
-            return this->OnMouseMove(wparam, pos);
+            return this->OnMouseMove(1, pos);
         }
     }
     return 1;
