@@ -319,6 +319,7 @@ struct ServerConfig {
     uint32_t current_map_index; // Current map index in map array. 6D1634.
     uint32_t save_is_server;
     uint32_t max_players;
+//#ifndef A2CLIENT
     uint32_t login_timeout;
     uint32_t reconnect_delay;
     uint32_t gameType;     // 0: co-op, 1: deathmatch, 2: softcore, 3: arena. 6D1648.
@@ -329,7 +330,7 @@ struct ServerConfig {
     uint32_t always_load_sacks;
     uint32_t arena_time_limit;
     int32_t treasure_probability;
-
+//#endif
     ServerConfig();
 };
 

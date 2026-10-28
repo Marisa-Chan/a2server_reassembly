@@ -380,13 +380,9 @@ public: // VTable at 0060c1a8.
     void OnDestroy(); //483ea8 (client: 487b44)
     int OnCreate(LPCREATESTRUCT lpCreateStruct); //484022 (client: 487cbe)
     void OnPaint(); //484a1a (client: 4886b4)
-#ifndef A2CLIENT
-    // these four handlers are server-only in the retail client (they read the
-    // stored cursor handles, which the client class does not have)
-    BOOL OnSetCursor(CWnd*, UINT, UINT); //486391
-#endif
+    BOOL OnSetCursor(CWnd*, UINT, UINT); //486391 cleint: 48a02a
     void OnSetFocus(CWnd*); //4863c6 (client: 48a067)
-    void OnKeyDown(UINT, UINT, UINT); //4863f6
+    void OnKeyDown(UINT, UINT, UINT); //4863f6 client 48a097
     void OnSysKeyDown(UINT, UINT, UINT); //486a2f (client: 48a72c)
     void OnKeyUp(UINT, UINT, UINT); //486bb0 (client: 48a8ad)
     void OnSysKeyUp(UINT, UINT, UINT); //486c25 (client: 48a922)

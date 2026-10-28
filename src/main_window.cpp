@@ -583,9 +583,7 @@ const AFX_MSGMAP_ENTRY MainWindow::_messageEntries[] =
     {WM_DESTROY, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&OnDestroy},
 	{WM_CREATE, 0, 0, 0, AfxSig_is, (AFX_PMSG)&OnCreate},
     {WM_PAINT, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&OnPaint},
-#ifndef A2CLIENT
     {WM_SETCURSOR, 0, 0, 0, AfxSig_bWww, (AFX_PMSG)&OnSetCursor},
-#endif
     {WM_SETFOCUS, 0, 0, 0, AfxSig_vW, (AFX_PMSG)&OnSetFocus},
     {WM_KEYDOWN, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&OnKeyDown},
     {WM_KEYDOWN, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&OnKeyDown},
@@ -598,8 +596,8 @@ const AFX_MSGMAP_ENTRY MainWindow::_messageEntries[] =
     {WM_SIZE, 0, 0, 0, AfxSig_vwii, (AFX_PMSG)&OnSize},
     {WM_COMMAND, CN_COMMAND, 0x9c4e, 0x9c4e, AfxSigCmd_v, (AFX_PMSG)&BeginShutdown},
     {WM_COMMAND, CN_COMMAND, 0x9c4f, 0x9c4f, AfxSigCmd_v, (AFX_PMSG)&ShowServerControlDialog},
-    {WM_COMMAND, CN_COMMAND, 0x9c50, 0x9c50, AfxSigCmd_v, (AFX_PMSG)&MarkHatSessionEnded},
 #ifndef A2CLIENT
+    {WM_COMMAND, CN_COMMAND, 0x9c50, 0x9c50, AfxSigCmd_v, (AFX_PMSG)&MarkHatSessionEnded},
     {WM_SIZING, 0, 0, 0, AfxSig_vwSIZING, (AFX_PMSG)&OnSizing},
     {WM_NCMOUSEMOVE, 0, 0, 0, AfxSig_vwp, (AFX_PMSG)&OnNcMouseMove},
     {WM_NCLBUTTONDOWN, 0, 0, 0, AfxSig_vwp, (AFX_PMSG)&OnNcLButtonDown},
@@ -940,7 +938,7 @@ int32_t MainWindow::ConnectToServerAddress() {
     return 0;
 }
 
-// 4863f6
+// 4863f6 client 48a097
 void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
     if (this->input_locked == 0) {
         switch (key) {
@@ -1102,8 +1100,12 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
 
 // 495010
 void MainWindow::BeginShutdown() {
+#ifndef A2CLIENT
     g_Server->KickAllPlayers();
     this->shutdown_pending = 1;
+#else
+    PostMessage(WM_CLOSE, 0, 0);
+#endif
 }
 
 // 4863c6
@@ -1153,17 +1155,19 @@ void MainWindow::OnSize(UINT nType, int cx, int cy) {
     }
 }
 
-#ifndef A2CLIENT
 // 486391
 BOOL MainWindow::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message) {
     if (g_IsServer == 0) {
         SetCursor((HCURSOR)nullptr);
     } else {
+#ifdef A2CLIENT
+        SetCursor(LoadCursor(0, IDC_ARROW));
+#else
         SetCursor(this->cursor_arrow);
+#endif
     }
     return 1;
 }
-#endif
 
 // 486c25
 void MainWindow::OnSysKeyUp(UINT key, UINT repeat, UINT flags) {
@@ -1378,9 +1382,20 @@ void MainWindow::ShowServerControlDialog() {
     this->server_ctrl_dlg->UpdateControlStates();
 }
 
-// 4919b1
+// 4919b1 client 49619e
 void MainWindow::ProcessPlayersTick() {
+#ifndef A2CLIENT
     g_Server->ProcessPlayers();
+#else
+    if ((sessionMode == 2 || sessionMode == 1) && g_Server && (dialogsMask & 1) != 0)
+        g_Server->ProcessPlayers();
+
+    if (g_NetStru1_local.IsActive() && sessionMode != 3)
+        vis_map_context->FUN_0041d2da(1);
+
+    if ((dialogsMask & 1) != 0)
+        UnloadMapAssets();
+#endif
 }
 
 // 485aed
@@ -1893,6 +1908,7 @@ void MainWindow::SetControlPositions() { //484127
 }
 
 
+#ifndef A2CLIENT
 // Game loop tick processing function
 // Called from GameApp::OnIdle when server is active
 void MainWindow::IdleLoop() {
@@ -2061,6 +2077,38 @@ void MainWindow::IdleLoop() {
         #endif
     }
 }
+#else
+// client 48e9d4
+void MainWindow::IdleLoop() {
+    g_mousept.Update();
+
+    while (last_tic_time + game_tic_time * (game_tic_counter + 1) <= timeGetTime()) {
+        if (game_tic_counter == 0)
+            last_tic_time = timeGetTime();
+
+        game_tic_counter = (game_tic_counter + 1) & 0xf;
+
+        g_Server->ServerTic();
+        g_mousept.Update();
+
+        if (g_IsServer != 0 && game_tic_counter == 1)
+            ServerTickPump();
+
+        if (g_IsServer == 0 && has_focus != 0 && vis_serverscreen && game_tic_counter == 1)
+            vis_serverscreen->VMethod9();
+
+        if (g_Server->tick > g_ServerConfig.map_durations[g_ServerConfig.current_map_index]) {
+            g_ServerConfig.current_map_index++;
+            if (g_ServerConfig.current_map_index >= g_ServerConfig.map_durations.GetSize())
+                g_ServerConfig.current_map_index = 0;
+            vis_serverscreen->MsgProc(0x445, 0, 0);
+            break;
+        }
+    }
+    g_mousept.Update();
+}
+#endif
+
 
 void MainWindow::ServerTickPump() { //484259
     if (!g_Server) {
