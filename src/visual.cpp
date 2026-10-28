@@ -21582,6 +21582,7 @@ void VisNetDlg::CreateSessionList() {
     VisButton* join_btn = new VisButton(0xF, rc_join, txt_dialogs.GetLine(0x57), g_font1, nullptr, 0x44F, 0, "");
     join_btn->ChangeFlags(0x10, true);
     this->AddChild(join_btn);
+    join_btn->ChangeFlags(1, false);
     join_btn->SetLeftObj(this->FindChild(0x11));
 
     VisButton* create_btn = new VisButton(0xE, rc_create, txt_dialogs.GetLine(0x56), g_font1, nullptr, 0x44E, 0, "");
