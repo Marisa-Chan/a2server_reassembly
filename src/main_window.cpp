@@ -6125,8 +6125,12 @@ void CGameSession::InitializeNewCharacterSession(int tp, const char* name) { //4
 
     LARGE_INTEGER k;
     if (QueryPerformanceCounter(&k) == 0) {
-        this->sessionKeyPart2 = k.LowPart;
+        this->sessionKeyPart2 = k.HighPart;
         this->sessionKeyPart1 = timeGetTime();
+    }
+    else {
+        this->sessionKeyPart2 = k.HighPart;
+        this->sessionKeyPart1 = k.LowPart;
     }
 
     this->characterRosterNames.InsertAt(this->characterRosterNames.GetSize() - 1, this->character_name);
