@@ -5610,7 +5610,7 @@ const char* VisNetMapList::GetHint() {
 
         VisNetMapSelection* screen = (VisNetMapSelection*)this->parent;
         NetMapInfo* info = screen->avail_maps[idx];
-        return info->name;
+        return info->tooltip;
     }
 
     if (g_mousept.x < client.left + 0x180) {
