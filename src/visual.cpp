@@ -23886,14 +23886,14 @@ void VisServerScreen::VMethod7() {
     }
     if (g_Server->srv_stru1->sack_list != nullptr) {
         str.Format(txt_patch.GetLine(0x42),
+                   main_wnd->current_map_name,
                    g_PlayersList->CountHumanPlayers(),
                    dword_6CDB3C->unit_list.GetCount(),
                    g_Server->srv_stru1->building_list->GetCount(),
                    g_Server->srv_stru1->units_list->unit_list.GetCount(),
                    g_Server->srv_stru1->sack_list->list.GetCount(),
                    g_Server->field42_0x1b4 / 10,
-                   avg_units_per_10_ticks,
-                   main_wnd->current_map_name);
+                   avg_units_per_10_ticks);
         g_font2->DrawTxt(0, row_bottom + 4, str, 0, clrsh_ShockingBlack);
     }
     this->msg_log->Draw();
