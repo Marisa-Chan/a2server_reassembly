@@ -14667,7 +14667,7 @@ void VisTavScene::FUN_0049bc23() {
     int32_t quest_found = main_wnd->vis_map_context->field_0x4970->OnEvent(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->field_0x138);
     if (quest_found != 0) {
         Quest* quest = nullptr;
-        this->vis_tav->quest_map->FindQuest(quest_found, &quest);
+        main_wnd->vis_map_context->field_0x4970->FindQuest(quest_found, &quest);
         CPoint pt = this->field_0x60[0].TopLeft();
         int32_t kind = quest->Kind();
         this->field_0x34c[kind - 1]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
