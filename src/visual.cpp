@@ -2523,7 +2523,7 @@ int32_t VisRadioType1::OnKeyDown(uint32_t wparam) {
     //4db2d3
     if (wparam == VK_DOWN && TestFlags(FLAG_FOCUS) != 0) {
         int32_t num = this->entries.GetSize();
-        if (num <= 0) {
+        if (num <= 1) {
             return 0;
         }
 
@@ -2537,7 +2537,7 @@ int32_t VisRadioType1::OnKeyDown(uint32_t wparam) {
 
     if (wparam == VK_UP && TestFlags(FLAG_FOCUS) != 0) {
         int32_t num = this->entries.GetSize();
-        if (num <= 0) {
+        if (num <= 1) {
             return 0;
         }
 
