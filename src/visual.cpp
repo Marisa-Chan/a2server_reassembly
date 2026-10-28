@@ -1329,7 +1329,7 @@ int32_t VisScrollBar::OnLButtonDown(uint32_t wparam, CPoint pos) {
             this->parent->MsgProc(0x46a, this->id, 0);
         } else if (rt.bottom - pos.y < rt.Width() - 4) {
             this->parent->MsgProc(0x46b, this->id, 0);
-        } else if (pos.y - rt.top - rt.Width() < val_pos) {
+        } else if (pos.y - rt.top - rt.Width() + 4 < val_pos) {
             if (this->down_on_part != 2) {
                 this->parent->MsgProc(0x46c, this->id, 0);
                 this->down_on_part = 1;
