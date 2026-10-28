@@ -2476,23 +2476,19 @@ int32_t VisRadioType1::OnMouseMove(uint32_t wparam, CPoint pos) {
         this->parent->FocusTo(this, true);
     }
 
-    if (wparam & 1) {
-        this->OnLButtonDown(wparam, pos);
-    } else {
-        CRect rt = this->ClientRectToScreen(this->rect);
-        rt.bottom += 4;
-        rt.right += 4;
+    CRect rt = this->ClientRectToScreen(this->rect);
+    rt.bottom += 4;
+    rt.right += 4;
 
-        if (rt.PtInRect(pos)) {
-            if (this->TestFlags(FLAG_OVERCURSOR) == 0) {
-                this->SetCursorOver(true);
-            }
-        } else {
-            this->SetCursorOver(false);
+    if (rt.PtInRect(pos)) {
+        if (this->TestFlags(FLAG_OVERCURSOR) == 0) {
+            this->SetCursorOver(true);
         }
-
-        this->VMethod9();
+    } else {
+        this->SetCursorOver(false);
     }
+
+    this->VMethod9();
     return 0;
 }
 
