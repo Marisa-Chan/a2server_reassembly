@@ -21108,7 +21108,7 @@ void VisTownDruid::VMethod36() {
     for (int32_t g = 0; g < 3; g++) {
         for (int32_t i = 1; i < 0x15; i++) {
             CString name;
-            name.Format("graphics\\interface\\town_druid\\woman\\a%d%04d.bmp", g + 1, i);
+            name.Format("graphics\\interface\\town_druid\\man\\a%d%04d.bmp", g + 1, i);
             File2 f;
             if (!f.Open(name, 0, nullptr)) {
                 break;
@@ -21121,7 +21121,7 @@ void VisTownDruid::VMethod36() {
     for (int32_t g = 0; g < 3; g++) {
         for (int32_t i = 1; i < 0x15; i++) {
             CString name;
-            name.Format("graphics\\interface\\town_druid\\man\\a%d%04d.bmp", g + 1, i);
+            name.Format("graphics\\interface\\town_druid\\woman\\a%d%04d.bmp", g + 1, i);
             File2 f;
             if (!f.Open(name, 0, nullptr)) {
                 break;
