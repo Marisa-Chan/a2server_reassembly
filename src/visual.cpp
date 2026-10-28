@@ -3257,12 +3257,12 @@ void VisScreen::VMethod8(CRect* r) {
         gfx_interface_lm->DrawBrightened(r2.left + 8, r2.bottom - 40, 6, 6, 0);
         gfx_interface_lm->DrawBrightened(r2.right - 40, r2.bottom - 40, 8, 6, 0);
 
-        for (int x = 0; x < (r2.Width() - 96); x += 96) {
-            gfx_interface_lm->DrawBrightened(r2.left + 56 + x, r2.bottom - 40, 7, 6, 0);
+        for (int32_t x = 0; x < (r2.Width() - 96) / 96; x++) {
+            gfx_interface_lm->DrawBrightened(r2.left + 56 + x * 96, r2.bottom - 40, 7, 6, 0);
         }
 
-        for (int y = 0; y < (r2.Height() - 96); y += 64) {
-            gfx_interface_lm->DrawBrightened(r2.right - 40, r2.top + 56 + y, 5, 6, 0);
+        for (int32_t y = 0; y < (r2.Height() - 96) / 64; y++) {
+            gfx_interface_lm->DrawBrightened(r2.right - 40, r2.top + 56 + y * 64, 5, 6, 0);
         }
 
 
@@ -3271,19 +3271,19 @@ void VisScreen::VMethod8(CRect* r) {
         gfx_interface_lm->Draw(r2.left, r2.bottom - 48, 6, 0, 0);
         gfx_interface_lm->Draw(r2.right - 48, r2.bottom - 48, 8, 0, 0);
 
-        for (int x = 0; x < (r2.Width() - 96); x += 96) {
-            gfx_interface_lm->Draw(r2.left + 48 + x, r2.top, 2, 0, 0);
-            gfx_interface_lm->Draw(r2.left + 48 + x, r2.bottom - 48, 7, 0, 0);
+        for (int32_t x = 0; x < (r2.Width() - 96) / 96; x++) {
+            gfx_interface_lm->Draw(r2.left + 48 + x * 96, r2.top, 2, 0, 0);
+            gfx_interface_lm->Draw(r2.left + 48 + x * 96, r2.bottom - 48, 7, 0, 0);
         }
 
-        for (int y = 0; y < (r2.Height() - 96); y += 64) {
-            gfx_interface_lm->Draw(r2.left, r2.top + 48 + y, 4, 0, 0);
-            gfx_interface_lm->Draw(r2.right - 48, r2.top + 48 + y, 5, 0, 0);
+        for (int32_t y = 0; y < (r2.Height() - 96) / 64; y++) {
+            gfx_interface_lm->Draw(r2.left, r2.top + 48 + y * 64, 4, 0, 0);
+            gfx_interface_lm->Draw(r2.right - 48, r2.top + 48 + y * 64, 5, 0, 0);
         }
 
-        for (int x = 0; x < (r2.Width() - 96); x += 96) {
-            for (int y = 0; y < (r2.Height() - 96); y += 64) {
-                gfx_interface_lm->Draw(r2.left + 48 + x, r2.top + 48 + y, 0, 0, 0);
+        for (int32_t x = 0; x < (r2.Width() - 96) / 96; x++) {
+            for (int32_t y = 0; y < (r2.Height() - 96) / 64; y++) {
+                gfx_interface_lm->Draw(r2.left + 48 + x * 96, r2.top + 48 + y * 64, 0, 0, 0);
             }
         }
 
