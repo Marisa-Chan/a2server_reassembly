@@ -5191,11 +5191,11 @@ void MainWindow::RemoteGameIdle() { //48acac
         }
 
         if (g_mousept.GetSelectState() == 0 && this->dialogsMask == 1) {
-            if (g_mousept.GetX() <= 0) {
+            if (g_mousept.GetX() == 0) {
                 this->vis_map_context->ScrollMapX(-1);
             }
 
-            if (g_mousept.GetY() <= 0) {
+            if (g_mousept.GetY() == 0) {
                 this->vis_map_context->ScrollMapY(-1);
             }
 
