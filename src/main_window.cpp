@@ -1548,7 +1548,9 @@ MainWindow::MainWindow() { //4837e1
         CFrameWnd::LoadFrame(0x65, WS_TILEDWINDOW, NULL, NULL);
         SetWindowPos(0, 0, 0, resolution.x, resolution.y, SWP_NOREPOSITION | SWP_NOMOVE);
         this->SetControlPositions();
+#ifndef A2CLIENT
         ModifyStyle(0, 0, 0);
+#endif
     }
 
     this->server_ctrl_dlg = 0;
