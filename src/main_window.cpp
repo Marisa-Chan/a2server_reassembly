@@ -4936,7 +4936,6 @@ void MainWindow::InitNewCampaignSession() { //48dd3a
             strcpy(this->m_GameSession.character_name, "Unnamed");
         } else {
             strncpy(this->m_GameSession.character_name, nm + 5, 32 - 1);
-            this->m_GameSession.type |= 0x80;
             char* nm_sp = strstr(this->m_GameSession.character_name, " ");
             if (nm_sp) {
                 *nm_sp = 0;
