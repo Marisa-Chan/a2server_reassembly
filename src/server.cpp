@@ -5236,15 +5236,19 @@ void Server::PrepareSackPickup(Sack* sack) {
     CString filename;
     filename.Format("%s%03d %03d .sck", (LPCTSTR)g_ServerConfig.chr_base, sack->position->GetX(), sack->position->GetY());
 
+    CFileStatus status;
+    if (CFile::GetStatus(filename, status)) {
 #ifdef A2SERVER_PATCH
-    try {
+        try {
 #endif
         CFile::Remove(filename);
 #ifdef A2SERVER_PATCH
-    } catch (CFileException* e) {
-        e->Delete();
     }
+        catch (CFileException* e) {
+            e->Delete();
+        }
 #endif
+    }
 }
 
 // 4F9B9E
