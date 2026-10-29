@@ -4351,11 +4351,11 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
         this->vis_map_context->view_y = reg.GetInt("View", "Y", this->vis_map_context->view_y);
 
         if (reg.GetInt("SpellBook", "IsOpen", 0) == 0) {
-            if (this->vis_map_context->IsBagOpen() != 0) {
+            if (this->vis_map_context->IsBookOpen() != 0) {
                 this->vis_map_context->FUN_0041b636();
             }
         } else {
-            if (this->vis_map_context->IsBagOpen() == 0) {
+            if (this->vis_map_context->IsBookOpen() == 0) {
                 this->vis_map_context->FUN_0041b509();
             }
         }
@@ -4478,7 +4478,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
                     break;
                 }
 
-                tmp = txt_main.GetLine(0x118 + i);
+                tmp = TxtFile::AllLines[0x118 + i];
             }
             g_MissionFailures.Add(tmp);
         }
