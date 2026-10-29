@@ -4831,7 +4831,9 @@ void MainWindow::UnloadMapAssets() { //48f6f7
     this->UnloadObjectGfx();
 
     for (int i = 0; i < g_UnitGfxFiles.GetSize(); i++) {
-        g_UnitGfxFiles[i]->Deinit();
+        if (g_UnitGfxFiles[i]) {
+            g_UnitGfxFiles[i]->Deinit();
+        }
     }
     
     this->UnloadTerrainTiles();
