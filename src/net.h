@@ -389,6 +389,12 @@ struct ComSettings { //DPCOMPORTADDRESS
         this->parity = 0;
         this->flow_control = 4;
     }
+
+    void Load(HKEY& rkey) { //43d02e
+        this->Reset();
+        DWORD sz = 0x14;
+        RegQueryValueExA(rkey, "comportsettings", nullptr, nullptr, (LPBYTE)this, &sz);
+    }
 };
 ASSERT_SIZE(ComSettings, 0x14);
 

@@ -1841,8 +1841,7 @@ void MainWindow::LoadSettings() { //441a03
 
     this->phone_book.Load(regkey);
 
-    sz = 0x14;
-    RegQueryValueExA(regkey, "comportsetting", nullptr, nullptr, (LPBYTE)&this->com_settings, &sz); //inline 43d02e
+    this->com_settings.Load(regkey); //43d02e
 
     char buf[256];
     sz = 255;
