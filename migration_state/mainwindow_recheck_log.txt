@@ -1,0 +1,14 @@
+# Vis* recheck log - per-function fidelity audit against the original binary.
+# Protocol: AGENTS.md "Vis* Recheck Loop". Append-only; done-detection keys on the address.
+# Lines: STATUS<TAB>ADDR<TAB>Class::method<TAB>YYYY-MM-DD<TAB>note
+# STATUS: OK = verified line-by-line vs the binary (note = trickiest point checked)
+#         FIX = bug found and fixed during this sweep (note = what was wrong)
+#         SKIP = could not be compared (note = reason); review these separately
+OK	41BE72	MainWindow::SendHatJoinName	2026-10-29	client-only: PacketJoin::Inst from/to=0 id=0x4e, LPCTSTR+strcpy name, g_NetStru1_local QueuePacketSend — exact
+OK	478130	MainWindow::UnloadTerrainTiles	2026-10-29	LoadTerrainTiles(0) then delete g_terr_dirt (disasm: PUSH 1; CALL [EAX+4] scalar deleting dtor, null after); client 47be70 identical
+OK	47A5E6	MainWindow::LoadObjectGfx	2026-10-29	reg-loop semantics equal (binary head-consumes CDWordArrays, C++ iterates; same min-length stop); omitted malloc(0x10000) is write-once/free-once dead scratch (disasm); GetSizedString default &DAT_665498 = zero-filled .data BSS = ""; all field offsets/defaults match; client 47e4a0 hash-identical
+OK	47EFDF	MainWindow::LoadStructureGfx	2026-10-29	all GetInt defaults/field offsets match (sel rect +0x20, zeroed +34/38/3c, Picture@0x54/0x10, DescText@0x68/0x20); anim head-consume loop == C++ j-loop; anim_mask malloc tw*fh+1; stride skips '-'; SetAtGrow by id; DAT_6654b0/b4/b8/ bc = BSS empty strings; client 482e99 hash-identical
+OK	47E612	MainWindow::LoadProjectileGfx	2026-10-29	ProjectileInfo ctor(fil, A16=0); id@0x14/-1 phases@0x10/-1 rot@0x18/0x10 w@1c/h@20 0x40 pal@28 homing@2c flip@30 sfx@24 all defaults match; pal files Seek 0x36 Read 0x400 SetPalette(16,2,0); smoke[2] CA16 ResetPalette(16,4,0); client 4824cc hash-identical
+OK	47EAB6	MainWindow::UnloadProjectileInfos	2026-10-29	guarded delete loop + RemoveAll + both palettes delete/null + smoke[2] delete/null — exact; client 482970 hash-identical
+OK	47F5E4	MainWindow::UnloadStructureInfos	2026-10-29	guarded delete loop over g_StructuresInfo + RemoveAll(0x661098) — exact; client 48349e hash-identical
+OK	47AD28	MainWindow::UnloadObjectGfx	2026-10-29	delete loops over g_GfxFiles/g_GfxObjects (binary null-guards are delete's own checks) + RemoveAll both — exact; client 47ebe2 hash-identical
