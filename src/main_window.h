@@ -339,10 +339,6 @@ public:
 ASSERT_SIZE(ServerControlDialog, sizeof(CDialog) + 9 * sizeof(CEdit) + 2 * sizeof(CString));
 
 
-// 1 while PopUpScreen runs from the WindowProc 0x43c (diplomacy) case. The retail
-// client detects this path inside VisMessageBox::VMethod26 by comparing its caller's
-// return address against that call site; we use the flag instead (client-only shrink).
-extern int32_t g_diplomacy_msg_popup;
 #ifdef A2CLIENT
 extern int32_t g_hat_selected_index; // client 62c9e8 — last hat-DM list selection (written by packet 0x44c path)
 extern int32_t g_EnableMusic; // client 62c870 — music master switch, set by InitInstance/LoadData

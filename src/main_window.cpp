@@ -30,7 +30,6 @@ uint32_t g_using_vxd = 1; // 62fa9c
 CDWordArray DAT_006658d8;
 
 CRect vis_scr_rect; //65fb88
-int32_t g_diplomacy_msg_popup = 0;
 int32_t DAT_00665cf8 = 0; // 665cf8 write-only in a2serv6.exe (client twin 631768)
 #ifdef A2CLIENT
 int32_t g_hat_selected_index = 0; //62c9e8
@@ -3388,9 +3387,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             PostMessage(MSG_42f, 0, 0);
         } else {
             this->m_GameSession.RefreshCharacterRosterFiles(1);
-        }
             this->m_GameSession.InitializeNewCharacterSession(0, nullptr);
             this->ShowStartGameSetupForNewSession();
+        }
         break;
 
     case 0x426:
@@ -3467,7 +3466,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
             CRect local_8d0(128, 200, 512, 380);
             CRect local_8c0(local_8d0.Width() / 8, local_8d0.Height() - 120, local_8d0.Width() * 7 / 8, local_8d0.Height() - 96);
-            this->vis_2action = new Vis2Action(1, local_8d0.left, local_8d0.top, local_8d0.right, local_8d0.bottom, txt_main.GetLine(140), local_8c0);
+            this->vis_2action = new Vis2Action(1, local_8d0.left, local_8d0.top, local_8d0.right, local_8d0.bottom, TxtFile::AllLines[140], local_8c0);
             this->PopUpScreen(this->vis_2action);
             if (!g_SfxArray[14]->FindPlayingChannel()) {
                 g_SfxArray[14]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
@@ -3605,9 +3604,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             // The original passes the address of the array pointer so the dialog
             // re-reads the current array on every ReadData (see VisDiplomacy::diplomacy).
             this->vis_msgbox = new VisDiplomacy(1, 10, 0, 630, 480, (const CArray<DiplomacyEntry*>*)&this->diplomacy_entries);
-            g_diplomacy_msg_popup = 1;
             this->PopUpScreen(this->vis_msgbox);
-            g_diplomacy_msg_popup = 0;
         }
         break;
 
@@ -3669,7 +3666,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         if (this->dialogsMask == 0) {
             this->music_player->OnEndTrack();
             if (!IsDplayAvail) {
-                this->ModalScreen(new VisMessageBoxWithList(1, 100, 100, 540, 380, txt_main.GetLine(152), nullptr, 0));
+                this->ModalScreen(new VisMessageBoxWithList(1, 100, 100, 540, 380, TxtFile::AllLines[152], nullptr, 0));
                 PostMessage(0x421, 0, 0);
             } else {
 
@@ -3730,7 +3727,10 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
     case 0x453:
         this->PopUpScreen( new VisNetTcpIp(1, 0, 100, 640, 300, &this->last_ip) );
-        if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol") != nullptr || g_ServerConfig.protocol > -1) {
+        if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol") != nullptr) {
+            PostMessage(0x445, 0, 0);
+        }
+        if (g_ServerConfig.protocol > -1) {
             PostMessage(0x445, 0, 0);
         }
         break;
@@ -3789,7 +3789,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
             if (this->m_GameSession.SubmitCharacterSetupAndWaitForSelectedUnit() == 0) {
                 if ((INT_00660f8c & 0xff) < 11) {
-                    this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_main.GetLine(192 + (INT_00660f8c & 0xff)), nullptr, 0));
+                    this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, TxtFile::AllLines[192 + (INT_00660f8c & 0xff)], nullptr, 0));
                 } else {
                     this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
                 }
@@ -3800,7 +3800,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
         if (this->RunSessionBootstrap(0) == 0) {
             if ((INT_00660f8c & 0xff) < 11) {
-                this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_main.GetLine(192 + (INT_00660f8c & 0xff)), nullptr, 0));
+                this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, TxtFile::AllLines[192 + (INT_00660f8c & 0xff)], nullptr, 0));
             } else {
                 this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
             }
@@ -3939,7 +3939,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x464: {
-        VisMessageBoxWithList* msgbox = new VisMessageBoxWithList(1, 100, 100, 540, 480, txt_main.GetLine(151), nullptr, 1);
+        VisMessageBoxWithList* msgbox = new VisMessageBoxWithList(1, 100, 100, 540, 480, TxtFile::AllLines[151], nullptr, 1);
         this->ModalScreen(msgbox);
 
         if (msgbox->GetCloseCode() == 0x445) {
@@ -3952,7 +3952,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x465: {
-        VisMessageBoxWithList* msgbox = new VisMessageBoxWithList(1, 100, 100, 540, 380, txt_main.GetLine(181), nullptr, 1);
+        VisMessageBoxWithList* msgbox = new VisMessageBoxWithList(1, 100, 100, 540, 380, TxtFile::AllLines[181], nullptr, 1);
         this->ModalScreen(msgbox);
 
         if (msgbox->GetCloseCode() == 0x445) {
@@ -3964,8 +3964,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x466: {
-        // client: 48a969 uses child id 19, only closes the dialog on lParam == 0,
-        // and sets field_0xe0 just in the acted paths
+        // client: 48a969 uses child id 19 and a hat-deathmatch variant dialog
 #ifdef A2CLIENT
         const int32_t qs_id = 19;
 #else
@@ -3974,17 +3973,16 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         CVisualObject* obj = this->vis_map_context->FindChild(qs_id);
         if (obj == nullptr) {
 #ifdef A2CLIENT
-            // TODO client (48a969): hat deathmatch shows a variant dialog here
-            // (client 004e850e ctor) when field_0x3e0.field_10 && ishat && deathmatch
-            if (field_0x3e0.field_10 == 0 || hat_settings.ishat == 0 || hat_settings.deathmatch == 0)
+            if (this->field_0x3e0.field_10 == 0 || this->hat_settings.ishat == 0 || this->hat_settings.deathmatch == 0) {
                 this->vis_map_context->AddChild(new VisQuestStatus(qs_id, 10, 20, 370, 188));
-            else
-                this->vis_map_context->AddChild(new VisHatSession(qs_id, 10, 20, 370, 188));
+            } else {
+                this->vis_map_context->AddChild(new VisHatSession(qs_id, 10, 20, 274, 188));
+            }
 #else
             this->vis_map_context->AddChild(new VisQuestStatus(qs_id, 10, 20, 370, 188));
 #endif
             this->vis_map_context->field_0xe0 = 1;
-        } else if (g_IsServer != 0 || lParam == 0) {
+        } else if (wParam == 0) {
             this->vis_map_context->RemoveChild(obj);
             delete obj;
             this->vis_map_context->field_0xe0 = 1;
@@ -4091,6 +4089,25 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             PostMessage(0x487, 0, 0);
         else
             PostMessage(0x457, 0, 0);
+        break;
+
+    case 0x48e: {
+        this->vis_map_context->FUN_0041d2da(0);
+        if ((this->dialogsMask & 1) != 0) {
+            this->UnloadMapAssets();
+        }
+
+        VisMessageBoxWithList* mbox;
+        if (this->field_0x3e0.field_10 == 0 || this->hat_settings.ishat == 0 || this->hat_settings.deathmatch == 0) {
+            mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x1ac, 0x252, txt_patch.GetLine(0xbd), nullptr, 0);
+        } else {
+            mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x1ac, 0x252, txt_patch.GetLine(wParam + 0xbb), nullptr, 0x1000);
+        }
+
+        this->ModalScreen(mbox);
+        this->PostMessage(0x487, 0, 0);
+        this->vis_map_context->FUN_0041d2da(1);
+    }
         break;
 #endif
     }
