@@ -2969,7 +2969,7 @@ void MainWindow::AutosaveGame() { // 48f905
                     local_180.SetInt(buf, "dir", obj->dir);
                     local_180.SetInt(buf, "phase", obj->phase);
                     local_180.SetInt(buf, "lastaction", obj->last_action);
-                    local_180.SetInt(buf, "action", obj->action);
+                    local_180.SetInt(buf, "action", (int8_t)obj->action);
                     local_180.SetInt(buf, "actiondir", obj->action_dir);
                     local_180.SetInt(buf, "actiontarget", obj->action_target);
                     local_180.SetInt(buf, "actionx", obj->action_x);
