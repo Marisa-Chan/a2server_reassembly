@@ -1258,7 +1258,10 @@ void MainWindow::ModalScreen(VisScreen* scr) {
     this->PopUpScreen(scr);
 
     MSG msg;
-    while (GetMessageA(&msg, nullptr, 0, 0) != 0) {
+    for (;;) {
+        if (GetMessageA(&msg, nullptr, 0, 0) == 0) {
+            return;
+        }
         if (msg.message == 0x44c) {
             break;
         }
