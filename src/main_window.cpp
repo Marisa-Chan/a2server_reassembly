@@ -5242,13 +5242,13 @@ void MainWindow::SingleGameTimedIdle() { //48a543
     if (g_mousept.GetSelectState() == 0 && this->dialogsMask == 1) {
         bool scroll = false;
 
-        if (g_mousept.GetX() <= 0) {
+        if (g_mousept.GetX() == 0) {
             this->vis_map_context->ScrollMapX(-1);
             scroll = true;
         }
 
 
-        if (g_mousept.GetY() <= 0) {
+        if (g_mousept.GetY() == 0) {
             this->vis_map_context->ScrollMapY(-1);
             scroll = true;
         }
