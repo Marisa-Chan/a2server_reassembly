@@ -3847,15 +3847,13 @@ void VisMessageBox::VMethod26() {
     }
 
     CVisualObject* obj = this->VMethod30(this->payload, r2);
-    int32_t bottom = this->rect.top + 144 + obj->GetRect().bottom;
-    if (g_IsServer == 0 && g_diplomacy_msg_popup != 0) {
-        bottom -= 0x20;
-    }
-    this->rect.bottom = bottom;
+    this->rect.bottom = this->rect.top + 144 + obj->GetRect().bottom;
     this->UpdateWinRect();
-    if (g_IsServer == 0 && this->button_types == 0x1000) {
+#ifdef A2CLIENT
+    if (this->button_types == 0x1000) {
         this->rect.OffsetRect(0, 0x84);
     }
+#endif
 
     CRect local_20(this->rect.Width() / 2 - 48, this->rect.Height() - 60, this->rect.Width() / 2 + 48, this->rect.Height() - 36);
     CRect local_44(this->rect.Width() / 7, this->rect.Height() - 60, (this->rect.Width() * 3) / 7, this->rect.Height() - 36);
