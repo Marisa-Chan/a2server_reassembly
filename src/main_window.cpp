@@ -2223,13 +2223,13 @@ void MainWindow::ServerTickPump() { //484259
             local_a54, "\n",
             local_a44, "\n",
             selpl->hat_player_id, selpl->flags, "\n",
-            selpl->player_id, "\n",
+            (int16_t)selpl->player_id, "\n",
             selpl->monster_kills, "\n",
             selpl->player_kills, "\n",
             selpl->frags, "\n",
             selpl->deaths, "\n",
             selpl->money, "\n",
-            ypos, xpos, "\n",
+            xpos, ypos, "\n",
             stat1, "\n",
             stat2);
 
