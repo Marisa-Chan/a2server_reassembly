@@ -5745,7 +5745,11 @@ int32_t MainWindow::CheckWebVersion(const CString& addr) { //4e5466
 
 int32_t MainWindow::LeaveServerMode() { //490eb3
 
-    g_NetStru1_local.SendHatLogout(); //g_NetStru1_main in serv
+#ifdef A2CLIENT
+    g_NetStru1_local.SendHatLogout();
+#else
+    g_NetStru1_main.SendHatLogout();
+#endif
     INT_00660f8c = 0;
 
     uint32_t start_time = timeGetTime();
