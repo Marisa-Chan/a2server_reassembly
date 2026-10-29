@@ -800,7 +800,7 @@ void MainWindow::ClearDiplomacyEntries() {
         MapPlayerData* mpd = this->vis_map_context->field_0x9b8[i];
         if (mpd != nullptr && (mpd->flags & 1) == 0) {
             uint16_t dipl_flags = this->vis_map_context->my_main_unit->diplomacy[mpd->index];
-            DiplomacyEntry* entry = new DiplomacyEntry(mpd->name, dipl_flags & 1, dipl_flags & 2, dipl_flags & 0x10, dipl_flags & 4);
+            DiplomacyEntry* entry = new DiplomacyEntry(mpd->name, (dipl_flags & 1) != 0, (dipl_flags & 2) != 0, (dipl_flags & 0x10) != 0, (dipl_flags & 4) != 0);
             this->diplomacy_entries->Add(entry);
         }
     }
