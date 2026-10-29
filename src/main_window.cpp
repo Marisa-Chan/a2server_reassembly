@@ -2528,24 +2528,28 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
             CString name = this->vis_startgame->GetName();
             strcpy(this->m_GameSession.character_name, name);
 
-            if (!name.IsEmpty()) {
-                int pos = name.Find(':');
+            CString clan = this->vis_startgame->GetClan();
+#ifdef A2CLIENT
+            this->m_GameSession.color = 0;
+#endif
+            if (!clan.IsEmpty()) {
+                int pos = clan.Find(':');
                 if (pos != -1) {
-                    name = name.Mid(pos + 1);
+                    clan = clan.Mid(pos + 1);
 
-                    this->m_GameSession.color = atoi(name);
+                    this->m_GameSession.color = atoi(clan);
 
                     if (this->m_GameSession.color == 0 || this->m_GameSession.color > 16) {
                         this->m_GameSession.color = 0;
                     }
 
-                    name = this->vis_startgame->GetClan().Left(pos);
+                    clan = this->vis_startgame->GetClan().Left(pos);
                 }
             }
 
-            if (!name.IsEmpty()) {
+            if (!clan.IsEmpty()) {
                 strcat(this->m_GameSession.character_name, "|");
-                strcat(this->m_GameSession.character_name, name);
+                strcat(this->m_GameSession.character_name, clan);
             }
 
             this->m_FameHall.SetDifficulty(this->vis_startgame->GetSelectedDifficulty());
