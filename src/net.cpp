@@ -689,6 +689,10 @@ void NetStru1::TransferUnitOwnership(Unit* unit, Player* new_owner) {
 // 519221
 void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t props_flags, int32_t inv_start_index, int32_t inv_end_index) {
     if (player == nullptr) {
+        if (!g_PlayersList) {
+            return;
+        }
+
         // Broadcast to all players.
         POSITION pos = g_PlayersList->list.GetHeadPosition();
         while (pos != nullptr) {
