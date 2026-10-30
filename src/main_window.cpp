@@ -5690,9 +5690,19 @@ int32_t MainWindow::CheckWebVersion(const CString& addr) { //4e5466
     static char buf[0x40000];
     DWORD readed = 0;
 
+    // FIX (deliberate deviation from vanilla): the retail binary accumulates chunks
+    // into the fixed 0x40000 buffer with no bounds check (disasm 4e5657-565d,
+    // buf_pos += readed), writing past the buffer on responses larger than 256KB.
+    // Cap each read at the remaining space and stop when the buffer is full — the
+    // server-list parse below only needs a fraction of that.
     char* buf_pos = buf;
     while (true) {
-        if (!InternetReadFile(url, buf_pos, 0x40000, &readed)) {
+        size_t remaining = sizeof(buf) - (buf_pos - buf);
+        if (remaining == 0) {
+            break;
+        }
+
+        if (!InternetReadFile(url, buf_pos, (DWORD)remaining, &readed)) {
             InternetCloseHandle(agent);
             return 0;
         }
@@ -5701,7 +5711,7 @@ int32_t MainWindow::CheckWebVersion(const CString& addr) { //4e5466
             break;
         }
 
-        buf_pos += readed; // WAT FIXME  OVERFLOW!!
+        buf_pos += readed;
     }
 
     InternetCloseHandle(agent);
