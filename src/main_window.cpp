@@ -4045,20 +4045,42 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x488:
-        // TODO client (48a969): reworked flow - non-empty roster path shows a
-        // msgbox (txt_main line 210) and on close code 0x447 reloads the matching
-        // roster entry (RefreshCharacterRosterFiles(0) + scan + LoadCharacterRosterEntry,
-        // client 00494f53) then posts 0x48d; empty path gates 0x426 behind 00494f53
-#pragma message("REVERSE CLIENT  MainWindow::WindowProc::0x488")
 #if A2CLIENT
-        if (this->RunModalLoopClient() == 0) {
+        if (this->RunModalLoopClient() == 0)
+            PostMessage(0x487, 0, 0);
+        else if (field_0x3e0.connect_address.IsEmpty()) {
+            if (ClientRefreshUpdateCharacters() == 0)
+                PostMessage(0x487, 0, 0);
+            else
+                PostMessage(0x426, 0, 0);
+        }
+        else {
+            VisScreen* scr = new VisMessageBoxWithList(1, 64, 100, 428, 594, txt_main.GetLine(210), nullptr, 4);
+            ModalScreen(scr);
+            if (scr->GetCloseCode() == 0x447) {
+                m_GameSession.RefreshCharacterRosterFiles(0);
+                for (int i = 0; i < m_GameSession.characterRosterHatId.GetSize(); i++) {
+                    const HatCharId& hid = m_GameSession.characterRosterHatId[i];
+                    if (hid.id1 == m_GameSession.sessionKeyPart1 && hid.id2 == m_GameSession.sessionKeyPart2) {
+                        m_GameSession.LoadCharacterRosterEntry(i);
+                        break;
+                    }
+                }
+                PostMessage(0x48d, 0, 0);
+            }
+            else {
+                g_CLlDriver.Close();
+                PostMessage(0x487, 0, 0);
+            }
+        }
 #else
         if (this->RunModalLoopServer() == 0) {
-#endif
             PostMessage(0x422, 0, 0);
-        } else {
+        }
+        else {
             PostMessage(0x426, 0, 0);
         }
+#endif        
         break;
 
     case 0x489: {
@@ -5243,10 +5265,10 @@ void MainWindow::RemoteGameIdle() { //48acac
 void MainWindow::SingleGameTimedIdle() { //48a543
     g_mousept.Update();
 
-    uint32_t ticks = timeGetTime();
-    while (ticks >= this->last_tic_time + this->game_tic_time * (this->game_tic_counter + 1)) {
+    //uint32_t ticks = timeGetTime();
+    while (timeGetTime() >= this->last_tic_time + this->game_tic_time * (this->game_tic_counter + 1)) {
         if (this->game_tic_counter == 0) {
-            this->last_tic_time = ticks;
+            this->last_tic_time = timeGetTime();
         }
 
         this->game_tic_counter++;
@@ -5259,7 +5281,7 @@ void MainWindow::SingleGameTimedIdle() { //48a543
 
         g_mousept.Update();
 
-        ticks = timeGetTime();
+        //ticks = timeGetTime();
     }
 
 
@@ -5657,6 +5679,72 @@ int32_t MainWindow::RunModalLoopClient() { //client 4949cd
     return 1;
 }
 
+#ifdef A2CLIENT
+int32_t MainWindow::ClientRefreshUpdateCharacters() { // client 494f53
+    MSG msg;
+
+    LockSurface2();
+    FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+    //Update chars in process...
+    g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, txt_patch.GetLine(125), 2, clrsh_ShockingBlack, 1);
+    UnlockSurface2();
+    FlushScreen();
+
+    m_GameSession.RefreshCharacterRosterFiles(0);
+    m_GameSession.pending_hat_downloads.RemoveAll();
+
+    for (int i = 0; i < m_GameSession.hat_char_ids.GetSize(); i++) {
+        HatCharId hid = m_GameSession.hat_char_ids[i];
+        g_NetStru1_local.SendHatCharId(hid);
+        INT_00660f8c = 0;
+
+        while (true) {
+
+            uint32_t start_time = timeGetTime();
+            if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0) {
+                if (msg.message == WM_QUIT) {
+                    return 0;
+                }
+
+                TranslateMessage(&msg);
+                DispatchMessageA(&msg);
+            }
+
+            if (g_NetStru1_local.GetClientsPktNum() != 0) {
+                if (this->vis_map_context->ProcessPackets(100) == 0) {
+                    this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(17), nullptr, 0));
+                    PostMessage(WM_CLOSE, 0, 0);
+                    return 0;
+                }
+                break;
+            }
+
+            if (g_CmdTimeout < timeGetTime() - start_time) {
+                this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(18), nullptr, 0));
+                PostMessage(WM_CLOSE, 0, 0);
+                return 0;
+            }
+            g_mousept.Update();
+        }
+
+        LockSurface2();
+        FillRectColorSimple(0, g_ScreenSize.bottom / 2 + 20, g_ScreenSize.right, g_ScreenSize.bottom / 2 + 40, 0);
+        
+        CString str;
+        str.Format("%d / %d", i, m_GameSession.hat_char_ids.GetSize());
+
+        g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2 + 20, str, 2, clrsh_ShockingBlack, 1);
+        UnlockSurface2();
+        FlushScreen();
+    }
+
+    for (int i = 0; i < m_GameSession.pending_hat_downloads.GetSize(); i++) {
+        g_NetStru1_local.FUN_0050e70d(m_GameSession.pending_hat_downloads[i]);
+    }
+    m_GameSession.pending_hat_downloads.RemoveAll();
+    return 1;
+}
+#endif
 
 int32_t MainWindow::CheckWebVersion(const CString& addr) { //4e5466
     HINTERNET agent = InternetOpenA("RageOfMages2", 0, 0, 0, 0);
@@ -6244,6 +6332,9 @@ void CGameSession::AutosaveCharacter() { //4946e0
         return;
     }
 
+    if (mwnd->field_0x3e0.field_10 != 0 && mwnd->hat_settings.ishat != 0 && mwnd->hat_settings.deathmatch != 0)
+        return;
+
     BigStruct2* map = mwnd->vis_map_context;
     CUnit* unit = map->GetUnit_3f6c();
 
@@ -6303,7 +6394,22 @@ void CGameSession::SaveShortcuts() { //4948b2
     WritePlayerFile_4F53EA(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], nullptr, nullptr, nullptr, nullptr, nullptr, buffer, buf - buffer);
 }
 
-void CGameSession::DeleteSelectedCharacter() { //493cd8
+void CGameSession::DeleteSelectedCharacter() { //493cd8 client 4986a3
+#ifdef A2CLIENT
+    MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+    if (mwnd->hat_settings.ishat && mwnd->field_0x3e0.field_10) {
+        HatCharId hid = characterRosterHatId[selectedCharacterRosterFileIndex];
+        g_NetStru1_local.FUN_0050e70d(hid);
+
+        for (int i = 0; i < hat_char_ids.GetSize(); i++) {
+            if (hid.id == hat_char_ids[i].id) {
+                hat_char_ids.RemoveAt(i);
+                break;
+            }
+        }
+    }
+#endif
+
     DeleteFileA(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex]);
     this->characterRosterFilePaths.RemoveAt(this->selectedCharacterRosterFileIndex, 1);
     this->characterRosterNames.RemoveAt(this->selectedCharacterRosterFileIndex, 1);
@@ -6319,6 +6425,9 @@ void CGameSession::SaveKillStats() { //494982
     if (mwnd->sessionMode == 2) {
         return;
     }
+
+    if (mwnd->field_0x3e0.field_10 != 0 && mwnd->hat_settings.ishat != 0 && mwnd->hat_settings.deathmatch != 0)
+        return;
 
     BigStruct2* map = mwnd->vis_map_context;
     map->GetUnit_3f6c();

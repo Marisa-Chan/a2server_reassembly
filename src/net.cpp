@@ -4,6 +4,7 @@
 #include <cmath>
 #include <cstring>
 #include <process.h>
+#include <wininet.h>
 
 #include "player.h"
 #include "unit.h"
@@ -441,6 +442,31 @@ void NetStru1::SendVisibilityState(Player* player) {
         if (diplomacy & 1) {
             packet.buf[pid] |= 0x40;
         }
+
+        uint16_t crossd = g_World->diplomacy.diplomacy[this_player_id][pid] | (g_World->diplomacy.diplomacy[pid][this_player_id] << 8);
+#ifdef A2CLIENT
+        if (p->is_ai == 0 && Server::somewords[this_player_id][pid] != crossd && this_player_id != pid) {
+            CString str;
+            str.Format("Diplomacy changed: %s -> %s =", p->name, player->name);
+
+            if ((g_World->diplomacy.diplomacy[pid][this_player_id] & 2)) {
+                str += " Alliance";
+            }
+            else if ((g_World->diplomacy.diplomacy[pid][this_player_id] & 1)) {
+                str += " War";
+            }
+            else
+                str += " Neutrality";
+
+            if ((g_World->diplomacy.diplomacy[pid][this_player_id] & 0x10) != 0) {
+                str += " + Vision";
+            }
+            LogMessage(str);
+        }
+
+        Server::somewords[this_player_id][pid] = crossd;
+        Server::somewords[pid][this_player_id] = g_World->diplomacy.diplomacy[pid][this_player_id] | (g_World->diplomacy.diplomacy[this_player_id][pid] << 8);
+#endif
     }
 
     this->QueuePacketSend(&packet);
@@ -688,6 +714,9 @@ void NetStru1::TransferUnitOwnership(Unit* unit, Player* new_owner) {
 // SendUnitUpdate: send unit state to a player (or all players if player==nullptr)
 // 519221
 void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t props_flags, int32_t inv_start_index, int32_t inv_end_index) {
+    if (!g_PlayersList && !player)
+        return;
+
     if (player == nullptr) {
         if (!g_PlayersList) {
             return;
@@ -4716,6 +4745,7 @@ void NetStru1::BroadcastTokenState(Token* token, Player* player, uint8_t flag) {
         packet.unit_id = (uint16_t)sack->building_id;
         packet.type_id = (uint8_t)log10(sack->_exp);
 
+#ifndef A2CLIENT
         if (g_ServerConfig.gameType == 2) {
             if (sack->inventory->FindItemByName("Quest RuneF")) {
                 packet.type_id |= 0x40;
@@ -4724,6 +4754,7 @@ void NetStru1::BroadcastTokenState(Token* token, Player* player, uint8_t flag) {
                 packet.type_id |= 0x80;
             }
         }
+#endif
 
         if (g_Server->field4_0x74 != 0) {
             if (!IsVisibleTo(sack->position, player)) {
@@ -4933,4 +4964,61 @@ void NetStru1::FUN_0050eede() { // client 50eede
     pkt->id = 0xdc;
     pkt->to_player_id = 0;
     QueuePacketSend(pkt);
+}
+
+void NetStru1::FUN_0050e70d(HatCharId id) { //client  50e70d
+    Packet2Dwords* pkt = &Packet2Dwords::Inst;
+    pkt->id = 0xcc;
+    pkt->to_player_id = 0;
+    pkt->param1 = id.id1;
+    pkt->param2 = id.id2;
+    QueuePacketSend(pkt);
+}
+
+
+
+
+void SendWWWReport(const CString& surl, const CString& data, int val3) { //client 4ea58f
+    HINTERNET agent = InternetOpenA("RageOfMages2", 0, 0, 0, 0);
+    if (!agent) {
+        return;
+    }
+
+    CString tmp;
+    for (int i = 0; i < data.GetLength(); i++) {
+        char chr = data[i];
+        if (chr == ' ') {
+            tmp += '+';
+        }
+        else {
+            tmp += chr;
+        }
+    }
+
+    tmp = surl + '?' + tmp;
+
+    CString proto = tmp.Left(7);
+    proto.MakeLower();
+
+    if (proto != "http://") {
+        tmp = "http://" + tmp;
+    }
+
+    HINTERNET url = InternetOpenUrlA(agent, tmp, nullptr, 0, INTERNET_FLAG_DONT_CACHE | INTERNET_FLAG_RELOAD, 0);
+    if (!url == 0) {
+        InternetCloseHandle(agent);
+        return;
+    }
+
+    static char buf[1000];
+    DWORD readed = 0;
+
+    char* buf_pos = buf;
+    if (val3) {
+        if (!InternetReadFile(url, buf_pos, 1000, &readed)) {
+            InternetCloseHandle(agent);
+            return;
+        }
+    }
+    InternetCloseHandle(agent);
 }

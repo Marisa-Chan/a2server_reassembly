@@ -486,6 +486,9 @@ public:
     void SpawnScenarioMissionUnits(int32_t id, const CDWordArray& array); //50260a
     int32_t RunModalLoopServer(); //49057b
     int32_t RunModalLoopClient(); //client 4949cd
+#ifdef A2CLIENT
+    int32_t ClientRefreshUpdateCharacters(); // client 494f53
+#endif
     int32_t CheckWebVersion(const CString& str); //4e5466 (client: 4ea996)
     int32_t LeaveServerMode(); //490eb3 (client: 4952fb)
 

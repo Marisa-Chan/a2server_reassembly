@@ -221,7 +221,7 @@ public:
     void SendHatRawString(const char* str, int32_t len); // 51E40C - Send raw string data to HAT (client: 50ede9)
 
     void SendHatCredentials(const CString& login, const CString& password, uint32_t flags); //51d8d6
-    void SendHatCharId(HatCharId charid); //51d9d0
+    void SendHatCharId(HatCharId charid); //51d9d0 client 50e58b
     void SendHatLogout(); //51d9a0 (client: 50e55b)
 
     void WriteStatsLog(CString fname);//51f124
@@ -230,6 +230,7 @@ public:
 
     void SendServerConnectHatTicket(HatCharId ticket, uint16_t player_id); //51dce5   (client:50e8c0)
     void FUN_0050eede(); // client 50eede
+    void FUN_0050e70d(HatCharId id); // client 50e70d
 
     NetStru2* GetFirstClient();
 };
@@ -582,3 +583,7 @@ extern NetStru1 g_NetStru1_local; //6b16b0
 
 extern CLlDriver g_CLlDriver; //6d07a0
 extern CLlDriver g_HatLLDriver; //6cdbc0
+
+
+
+void SendWWWReport(const CString& surl, const CString& data, int val3); //client 4ea58f

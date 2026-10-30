@@ -49,6 +49,9 @@ UnitList* dword_6B37C4; // 6b37c4
 
 PasswordManager PasswordManager::manager; //6a8b98
 
+CString SrvLogFile; // client 631330
+
+
 void PasswordManager::OpenFile(const char* name) { //4f6bf9
     this->fname = name;
     CFileFind find;
@@ -2261,7 +2264,7 @@ ServerConfig::ServerConfig() {
 }
 
 // Create (or revive) the hero for a player who is joining via the magic-packet path.
-// 500907
+// 500907  client 4fb265
 Human* Server::CreatePlayerCharacter(Player* player, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t main_skill, uint8_t character_class) {
     // Does player already have the main unit (reconnect / rejoin)?
     if (player->main_unit != nullptr) {
@@ -4530,8 +4533,13 @@ int Server::Start(int mode) {
 }
 
 // Save a player's character data to file.
-// 4EE028
+// 4EE028 client 4f2c57
 void Server::SaveCharacter(Humanoid* humanoid) {
+#ifdef A2CLIENT
+    if (g_Server->field39_0x1a8 || g_Server->field4_0x74 == 0)
+        return;
+#endif
+
     Player* player = humanoid->pOwner;
     player->last_save_tick = GetTickCount();
 
@@ -4622,10 +4630,26 @@ void Server::SaveCharacter(Humanoid* humanoid) {
 
     // Format filename and save
     CString filename;
+#ifndef A2CLIENT
     filename.Format("%s%s", (const char*)g_ServerConfig.chr_base, (const char*)player->login);
+#else
+    if (player->login.IsEmpty()) {
+        filename.Format("%u%u.a2c", player->hat_player_id, player->flags);
+    }
+    else {
+        filename.Format("%schr\\%s\\%u%u.a2c", g_ServerConfig.chr_base, player->login, player->hat_player_id, player->flags);
+        CFileFind fnd;
+        if (fnd.FindFile(filename) == 0) {
+            CString dir = g_ServerConfig.chr_base + "chr\\" + player->login;
+            CreateDirectory(dir, nullptr);
+        }
+        fnd.Close();
+    }
+#endif
 
     WritePlayerFile_4F53EA((const char*)filename, &basic_info, &stats, player->kill_stats, &equip_pkt, &inv_pkt, nullptr, 0);
 }
+
 
 // Load map (or a saved game?)
 // 4F1471
@@ -4755,6 +4779,7 @@ void Server::ServerTic() {
         this->HatKeepaliveTick();
     }
 
+#ifndef A2CLIENT
     if (g_ServerConfig.gameType == 2) {
         int teams_ready = g_PlayersList->AreTeamsStarted();
         if ((this->tick & 0xff) == 0 && teams_ready == 0) {
@@ -4808,6 +4833,7 @@ void Server::ServerTic() {
             }
         }
     }
+#endif
 
     if ((this->tick & 0xf) == 12) {
         dword_6CDB3C->RegenTick();
@@ -5184,6 +5210,7 @@ void Server::EnsurePlayerGroup(Player* player) {
 }
 
 // 4F4570
+#ifndef A2CLIENT
 void Server::UpdateHatAnnounce() {
     if (g_CLlDriver.provider != 4) {
         return;
@@ -5199,6 +5226,37 @@ void Server::UpdateHatAnnounce() {
         g_NetStru1_main.SendTeamState(0);
     }
 }
+#else
+// client 4f5e75
+void Server::UpdateHatAnnounce() {
+    if (g_CLlDriver.provider == 3) {
+        CString str;
+        if (!current_map_name.IsEmpty()) {
+            str.Format("servername=%s&version=1.01&mapname=%s&mapsize=%dx%d&difficultyleve l=%d&players=%d&ip=%s",
+                g_ServerConfig.server_name, current_map_title, MapStuff_Instance->GetWidth() - 16, MapStuff_Instance->GetHeight() - 16,
+                MapLevel, g_PlayersList->CountHumanPlayers(), g_ServerConfig.ip_address);
+        }
+        else {
+            str.Format("servername=%s&version=1.01&mapname=no map&mapsize=0x0&difficultylevel=9&players=-1&ip=%s",
+                g_ServerConfig.server_name, g_ServerConfig.ip_address);
+        }
+
+        for (int i = 0; i < g_ServerConfig.report_to_www.GetSize(); i++) {
+            SendWWWReport(g_ServerConfig.report_to_www[i], str, 1);
+        }
+    }
+
+    if (!SrvLogFile.IsEmpty()) {
+        CStdioFile fl;
+        fl.Open(SrvLogFile, CFile::modeCreate | CFile::modeWrite);
+        fl.WriteString(current_map_title);
+        CString str;
+        str.Format("\n%d\n", g_PlayersList->CountHumanPlayers());
+        fl.WriteString(str);
+        fl.Close();
+    }
+}
+#endif
 
 // 4F8831
 void Server::KickAllPlayers() {
@@ -5882,7 +5940,11 @@ SackList::~SackList() { //554bc3
 
 // 5540ed
 void SackList::UpdateSackVisibility() {
+#ifndef A2CLIENT
     const int32_t max_sacks = g_Server->field19_0x98.GetMapCenterX() / (g_ServerConfig.gameType == 0 ? 1 : 8);
+#else
+    const int32_t max_sacks = g_Server->field19_0x98.GetMapCenterX();
+#endif
 
     for (POSITION it = this->list.GetHeadPosition(); it != nullptr;) {
         POSITION it_before = it;
@@ -6133,8 +6195,12 @@ void Server::UpdateMissionResult(Player* player) {
             this->CreatePlayerCharacter(player, 0, 0, 0, 0, 0, 0);
             this->EnsurePlayerGroup(player);
             player->mission_result = 0;
+#ifndef A2CLIENT
             unit->eye2->spell_id = saved_spell_id;
             if (g_Server->field4_0x74 != 0 && (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3)) {
+#else
+            if (g_Server->field4_0x74 != 0) {
+#endif
                 Player* self_player = g_PlayersList->FindByName("Self");
                 if (self_player != nullptr) {
                     for (int32_t i = 2; i < 16; i++) {
@@ -6147,12 +6213,15 @@ void Server::UpdateMissionResult(Player* player) {
                 }
             }
             g_NetStru1_main.SendUnitUpdate(unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
+
+#ifndef A2CLIENT
             Packet2Dwords& packet_2dwords = Packet2Dwords::Inst;
             packet_2dwords.id = 0xAB;
             packet_2dwords.to_player_id = player->player_id;
             packet_2dwords.param1 = player->main_unit->position->GetX() & 0xFF;
             packet_2dwords.param2 = player->main_unit->position->GetY() & 0xFF;
             g_NetStru1_main.QueuePacketSend(&packet_2dwords);
+#endif
         }
     }
 }

@@ -1431,7 +1431,11 @@ void Unit::Die() {
     this->position->x_subcell = 0x80;
     this->position->y_subcell = 0x80;
 
+#ifndef A2CLIENT
     if (g_ServerConfig.gameType == 0 || (g_ServerConfig.gameType == 3 && this->typeId >= 0x40)) {
+#else
+    {
+#endif
         if (this->shield != nullptr) {
             this->inventory->PutItemIntoBagAtDefault(this->Unequip(this->shield));
         }
@@ -1447,10 +1451,12 @@ void Unit::Die() {
         bool is_npc = (this->monster_info->name.Find("NPC") != -1);
         bool should_drop = false;
 
+#ifndef A2CLIENT
         if (this->typeId >= 0x40) {
             int roll = Random0N(99); // [0, 99]
             should_drop = (roll < 100 - g_ServerConfig.treasure_probability);
         }
+#endif
 
         // Reset inventory if NPC, summoned, or flagged for drop.
         if (is_npc || this->summoned != 0 || should_drop) {
@@ -1502,7 +1508,9 @@ void Unit::Die() {
             Inventory* sack_items = this->DetachInventory();
             g_Server->srv_stru1->sack_list->DropInventoryAt(this->position, sack_items, gold, is_main);
         }
-    } else if (this->pOwner != nullptr && g_ServerConfig.gameType != 3) {
+    } 
+#ifndef A2CLIENT
+    else if (this->pOwner != nullptr && g_ServerConfig.gameType != 3) {
         if (g_ServerConfig.gameType == 2) {
             // Check if this unit's player is holding the opposing team's rune.
             int32_t opposite_team = 1 - this->pOwner->field_0xa70;
@@ -1536,6 +1544,7 @@ void Unit::Die() {
             g_Server->srv_stru1->sack_list->DropInventoryAt(this->position, sack_inventory, 0, is_main);
         }
     }
+#endif
 
     {
         POSITION pos = this->_effects.GetHeadPosition();

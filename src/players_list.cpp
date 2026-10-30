@@ -205,6 +205,7 @@ int PlayersList::AreTeamsStarted() {
 	return (has_players && has_blue && has_red) ? 1 : 0;
 }
 
+#ifndef A2CLIENT
 // 534DDD
 void PlayersList::ProcessPlayerTimeouts() {
 	POSITION pos = this->list.GetHeadPosition();
@@ -360,6 +361,73 @@ void PlayersList::ProcessPlayerTimeouts() {
 		}
 	}
 }
+#else
+// client 51ff32
+void PlayersList::ProcessPlayerTimeouts() {
+	for (POSITION pos = list.GetHeadPosition(); pos; ) {
+		Player* player = this->list.GetNext(pos);
+
+		// Decrement field_0xa68 if positive.
+		if (player->shout_cooldown > 0) {
+			player->shout_cooldown--;
+		}
+
+		// Check if player has timed out.
+		if (0 < player->drop_deadline_tick16 && player->drop_deadline_tick16 < g_Server->tick16) {
+			if (player->is_in_world != 0) {
+				// Tournament mode: save player's main unit.
+				if (g_Server->field4_0x74 != 0 && player->main_unit != nullptr) {
+					g_Server->SaveCharacter(player->main_unit);
+				}
+
+				g_QuestMap.RemovePlayerQuests(player->player_id);
+
+				for (POSITION upos = player->unit_list->unit_list.GetHeadPosition(); upos; ) {
+					Unit* unit = player->unit_list->unit_list.GetNext(upos);
+					MapStuff_Instance->AddUnitToMap(unit);
+
+					dword_6CDB3C->Remove(unit);
+
+					unit->pOwner = nullptr;
+					unit->hp = -600;
+					unit->decay = 5;
+					dword_6B37C4->AddTail(unit);
+				}
+
+				// Clear all groups.
+				player->group_list->groups.RemoveAll();
+			}
+
+			if (!player->login.IsEmpty()) {
+				char buf[260];
+				sprintf(buf, "%schr\\%s\\lockflag", g_ServerConfig.chr_base, player->login);
+
+				CFileStatus st;
+				if (CFile::GetStatus(buf, st))
+					CFile::Remove(buf);
+			}
+
+			g_NetStru1_main.SendInfoPacket(0x97, player->player_id, 0, nullptr);
+
+			LogMessage("Player " + player->name + " disconnected.");
+
+			// Decrement next_player_id if this was the last assigned.
+			if (player->player_id == this->next_player_id - 1) {
+				this->next_player_id--;
+			}
+
+			// Remove and delete player.
+			POSITION found = this->list.Find(player);
+			if (found != nullptr) {
+				this->list.RemoveAt(found);
+			}
+			delete player;
+
+			g_Server->UpdateHatAnnounce();
+		}
+	}
+}
+#endif
 
 // 5B70F0
 Player* PlayersList::GetHead() {
