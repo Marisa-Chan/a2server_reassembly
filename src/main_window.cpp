@@ -5633,48 +5633,48 @@ int32_t MainWindow::RunModalLoopClient() { //client 4949cd
 
     g_NetStru1_local.SendHatCredentials(this->hat_settings.login, this->hat_settings.password, this->hat_settings.deathmatch);
 
-    do {
-        this->field_0x3e0.hat_id = 0;
-        this->field_0x3e0.connect_address.Empty();
+    this->field_0x3e0.hat_id = 0;
 
-        uint32_t start_time = timeGetTime();
-        INT_00660f8c = 0;
+    uint32_t start_time = timeGetTime();
+    INT_00660f8c = 0;
 
-        while (this->field_0x3e0.hat_id == 0) {
-            if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0) {
-                if (msg.message == WM_QUIT) {
-                    return 0;
-                }
-
-                TranslateMessage(&msg);
-                DispatchMessageA(&msg);
-            }
-
-            if (g_NetStru1_local.GetClientsPktNum() == 0) {
-                if (g_CmdTimeout < timeGetTime() - start_time) {
-                    this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(18), nullptr, 0));
-                    return 0;
-                }
-
-                g_mousept.Update();
-            }
-            else if (this->vis_map_context->ProcessPackets(100) == 0) {
-                this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
+    while (this->field_0x3e0.hat_id == 0) {
+        if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0) {
+            if (msg.message == WM_QUIT) {
                 return 0;
             }
 
-            if (this->field_0x3e0.hat_id == -1) {
-                VisScreen* scr = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(16), nullptr, 4);
-                this->ModalScreen(scr);
-                if (scr->GetCloseCode() != 0x447) {
-                    return 0;
-                }
-                // retry: bare 0xdc packet, then the loop reset re-arms the wait
-                g_NetStru1_local.SendBarePacket(0xdc, nullptr);
-                this->field_0x3e0.hat_id = 0;
-            }
+            TranslateMessage(&msg);
+            DispatchMessageA(&msg);
         }
-    } while (this->field_0x3e0.hat_id == 0);
+
+        if (g_NetStru1_local.GetClientsPktNum() == 0) {
+            if (g_CmdTimeout < timeGetTime() - start_time) {
+                this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(18), nullptr, 0));
+                PostMessage(WM_CLOSE, 0, 0);
+                return 0;
+            }
+
+            g_mousept.Update();
+        }
+        else if (this->vis_map_context->ProcessPackets(100) == 0) {
+            this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
+            PostMessage(WM_CLOSE, 0, 0);
+            return 0;
+        }
+
+        if (field_0x3e0.hat_id == -1) {
+            VisScreen* scr = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(16), nullptr, 4);
+            ModalScreen(scr);
+            if (scr->GetCloseCode() == 0x447) {
+                field_0x3e0.hat_id = 0;
+                start_time = timeGetTime();
+                INT_00660f8c = 0;
+            }
+            else
+                return 0;
+        }
+    }
 
     return 1;
 }
