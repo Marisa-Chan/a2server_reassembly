@@ -625,6 +625,7 @@ void MusicPlayer::SetPlayList(const CStringArray& plist) { //45b0ff
 		this->track_ids.SetSize(sz);
 		this->StartPlayTrack(rand() % sz);
 	}
+	g_CurrentMusicTrack = -1;
 }
 
 void MusicPlayer::Play() { //45b565
