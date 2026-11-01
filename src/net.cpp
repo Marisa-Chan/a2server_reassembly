@@ -1729,7 +1729,7 @@ int NetStru2::ReceiveData(NetStru3* buffer) {
 }
 
 int NetStru2::SendData() {
-    //518408
+    //516408
     if (this->out_buffers[this->out_buff_id].datasz < 1) {
         if (this->lldriver) {
             this->lldriver->CleanupInvalidTcpClient(this->uid);
