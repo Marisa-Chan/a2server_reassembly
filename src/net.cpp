@@ -1526,11 +1526,13 @@ NetStru1::~NetStru1() {
     this->ProcessNewConnects();
     this->ProcessDisconnectList();
 
-    //inline 51710f 
+    //inline 51710f
+    EnterCriticalSection(&this->critical_section2);
     while (!this->free_net3.IsEmpty()) {
         NetStru3* buf = this->free_net3.RemoveHead();
         delete buf;
     }
+    LeaveCriticalSection(&this->critical_section2);
 
     DeleteCriticalSection(&this->critical_section);
     DeleteCriticalSection(&this->critical_section2);
