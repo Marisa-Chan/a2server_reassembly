@@ -45,6 +45,8 @@ NetStru1 g_NetStru1_local(0);  //6b16b0
 CLlDriver g_CLlDriver(Allods2GUID, &g_NetStru1_main); //6d07a0
 CLlDriver g_HatLLDriver(Allods2GUID, &NetStru1::HatConnector); //6cdbc0
 
+uint8_t g_PackStage[0x800]; //6e9900 (client: 6b5338)
+
 
 void PackerDat::DeleteTail(PackerTail* node) {
     //526621
@@ -58,6 +60,180 @@ void PackerDat::DeleteTail(PackerTail* node) {
 
         delete node;
     }
+}
+
+void PackerDat::ResetFreq() {
+    //526128
+    memset(this->freq.data(), 0, 0x400);
+}
+
+void PackerDat::AddFreq(const uint8_t* data, int32_t sz) {
+    //52614b
+    const uint8_t* p = data;
+    for (int32_t i = 0; i < sz; i++) {
+        this->freq[*p] = this->freq[*p] + 1;
+        p = p + 1;
+    }
+}
+
+void PackerDat::SaveFreq(CFile* file) {
+    //5261aa
+    file->Write(this->freq.data(), 0x400);
+}
+
+void PackerDat::LoadFreq(CFile* file) {
+    //5261d0
+    if (file->Read(this->freq.data(), 0x400) != 0x400) {
+        AfxThrowFileException(CFileException::generic, -1);
+    }
+    this->BuildTree();
+    this->BuildCodes();
+}
+
+int PackerDat::CompareFreq(const void* a, const void* b) {
+    //526218
+    if (*(int32_t*)((const uint8_t*)a + 4) < *(int32_t*)((const uint8_t*)b + 4)) {
+        return 1;
+    } else if (*(int32_t*)((const uint8_t*)b + 4) < *(int32_t*)((const uint8_t*)a + 4)) {
+        return -1;
+    }
+    return 0;
+}
+
+void PackerDat::BuildTree() {
+    //526247
+    struct FreqEnt {
+        uint8_t ch;
+        int32_t count;
+    };
+    FreqEnt arr[256];
+
+    for (int32_t i = 0; i < 0x100; i++) {
+        arr[i].ch = (uint8_t)i;
+        arr[i].count = this->freq[i];
+    }
+    qsort(arr, 0x100, sizeof(FreqEnt), PackerDat::CompareFreq);
+    this->Clear();
+
+    PackerTail* root = new PackerTail;
+    root->child0 = nullptr;
+    root->child1 = nullptr;
+    this->tail = root;
+
+    this->tail->field_0x14 = arr[0].count + 1;
+    *(uint8_t*)&this->tail->field_0x10 = arr[0].ch;
+
+    for (int32_t i = 1; i < 0x100; i++) {
+        PackerDat::Insert(this->tail, arr[i].ch, arr[i].count + 1);
+    }
+}
+
+void PackerDat::Insert(PackerTail* slot, uint8_t ch, int32_t weight) {
+    //5263d3
+    if (slot->child0 == nullptr) {
+        PackerTail* left = new PackerTail;
+        left->child1 = nullptr;
+        left->child0 = nullptr;
+        slot->child0 = left;
+        *(uint8_t*)&slot->child0->field_0x10 = (uint8_t)slot->field_0x10;
+        slot->child0->field_0x14 = slot->field_0x14;
+        slot->field_0x8 = slot->field_0x14;
+
+        PackerTail* right = new PackerTail;
+        right->child1 = nullptr;
+        right->child0 = nullptr;
+        slot->child1 = right;
+        *(uint8_t*)&slot->child1->field_0x10 = ch;
+        slot->child1->field_0x14 = weight;
+        slot->field_0xc = weight;
+    } else if (slot->field_0xc < slot->field_0x8) {
+        PackerDat::Insert(slot->child1, ch, weight);
+        slot->field_0xc = slot->field_0xc + weight;
+    } else {
+        PackerDat::Insert(slot->child0, ch, weight);
+        slot->field_0x8 = slot->field_0x8 + weight;
+    }
+}
+
+void PackerDat::BuildCodes() {
+    //52651f
+    memset(this->bitLength.data(), 0, 0x400);
+    memset(this->bitMap.data(), 0, 0x400);
+    this->BuildCodesWalk(this->tail, 0, 0);
+}
+
+void PackerDat::BuildCodesWalk(PackerTail* node, uint32_t code, int32_t depth) {
+    //52656b
+    if (node->child0 == nullptr && node->child1 == nullptr) {
+        int32_t ch = *(uint8_t*)&node->field_0x10;
+        this->bitMap[ch] = code >> (0x20 - depth & 0x1f);
+        this->bitLength[ch] = depth;
+    } else {
+        this->BuildCodesWalk(node->child0, code >> 1 | 0x80000000u, depth + 1);
+        this->BuildCodesWalk(node->child1, code >> 1, depth + 1);
+    }
+}
+
+uint32_t PackerDat::PackBits(const uint8_t* src, int32_t sz, uint32_t* out) {
+    //52667e
+    const uint8_t* p = src;
+    uint32_t* dst = out;
+    int32_t bits = 0;
+    int32_t pos = 0;
+    *out = 0;
+    for (; sz != 0; sz--) {
+        uint32_t code = this->bitMap[*p];
+        uint32_t len = this->bitLength[*p];
+        bits = bits + len;
+        *dst = *dst | code << (pos & 0x1f);
+        pos = pos + len;
+        if (0x1f < pos) {
+            pos = pos - 0x20;
+            dst = dst + 1;
+            *dst = code >> (0x20 - pos + len & 0x1f);
+        }
+        p = p + 1;
+    }
+    return bits;
+}
+
+uint32_t PackerDat::UnpackBits(const uint8_t* in, int32_t sz, uint8_t* out, int32_t outsz) {
+    //526749
+    const uint32_t* words = (const uint32_t*)in;
+    uint8_t* dst = out;
+    int32_t written = 0;
+    int32_t bitsLeft = 0;
+    uint32_t word = 0;
+    while (0 < sz) {
+        PackerTail* node = this->tail;
+        while (node->child0 != nullptr) {
+            if (bitsLeft == 0) {
+                bitsLeft = 0x20;
+                word = *words;
+                words = words + 1;
+            }
+            if ((word & 1) == 0) {
+                node = node->child1;
+            } else {
+                node = node->child0;
+            }
+            word = word >> 1;
+            bitsLeft = bitsLeft - 1;
+            sz = sz - 1;
+        }
+        if (outsz != 0) {
+            *dst = (uint8_t)node->field_0x10;
+            outsz = outsz - 1;
+            dst = dst + 1;
+        }
+        written = written + 1;
+    }
+    return written;
+}
+
+uint32_t PackBitsToBytes(uint32_t bits) {
+    //526665
+    return (bits >> 3) + ((bits & 7) != 0);
 }
 
 void PackerDat::Clear() {
@@ -1641,6 +1817,49 @@ NetStru2* NetStru1::GetFirstClient() {
     return this->active_connects.GetHead();
 }
 
+uint32_t NetStru1::Pack(char mode, const uint8_t* src, uint32_t sz, uint32_t* out) {
+    //51832c
+    if (this->compression_mode == 1) {
+        if (mode == 1) {
+            this->packer_dat1.AddFreq(src, sz);
+        } else if (mode == 2) {
+            this->packer_dat2.AddFreq(src, sz);
+        }
+        memcpy(out, src, sz);
+        return sz << 3;
+    } else if (mode == 1) {
+        this->field_0x1898 = this->field_0x1898 + sz;
+        uint32_t bits = this->packer_dat1.PackBits(src, sz, out);
+        this->field_0x189c = this->field_0x189c + PackBitsToBytes(bits);
+        return bits;
+    } else if (mode == 2) {
+        this->field_0x18a0 = this->field_0x18a0 + sz;
+        uint32_t bits = this->packer_dat2.PackBits(src, sz, out);
+        this->field_0x18a4 = this->field_0x18a4 + PackBitsToBytes(bits);
+        return bits;
+    }
+    return 0;
+}
+
+uint32_t NetStru1::Unpack(char mode, const uint8_t* in, int32_t sz, uint8_t* out, int32_t outsz) {
+    //51846f
+    if (this->compression_mode == 1) {
+        int32_t bytes = sz >> 3;
+        if (mode == 1) {
+            this->packer_dat1.AddFreq(in, bytes);
+        } else if (mode == 2) {
+            this->packer_dat2.AddFreq(in, bytes);
+        }
+        memcpy(out, in, bytes);
+        return bytes;
+    } else if (mode == 1) {
+        return this->packer_dat1.UnpackBits(in, sz, out, outsz);
+    } else if (mode == 2) {
+        return this->packer_dat2.UnpackBits(in, sz, out, outsz);
+    }
+    return 0;
+}
+
 
 
 
@@ -1700,24 +1919,22 @@ int NetStru2::ReceiveData(NetStru3* buffer) {
     //5161bf
     EnterCriticalSection(&this->critical_section);
 
-    /*if (buffer->cmode != 0)
-    {
-        NetStru3* tbuf = hldriver->GetFreeNet3();
+    if (buffer->cmode != 0) {
+        NetStru3* tbuf = this->hldriver->GetFreeNet3();
         tbuf->Clear();
-        int num = hldriver->Unpack(buffer->cmode, buffer->buf, buffer->csize, tbuf->buf, 0x8e);
-        if (num > 0x8e)
-        {
+        int num = this->hldriver->Unpack(buffer->cmode, buffer->buf, buffer->csize, tbuf->buf, 0x8e);
+        if (num > 0x8e) {
             ReportWarning("CBufferManager::ReceiveData().\nError during unpacking buffer.\n");
-            hldriver->AddTailFreeNet3(buffer);
-            hldriver->AddTailFreeNet3(tbuf);
-            LeaveCriticalSection(&critical_section);
+            this->hldriver->AddTailFreeNet3(buffer);
+            this->hldriver->AddTailFreeNet3(tbuf);
+            LeaveCriticalSection(&this->critical_section);
             return 0;
         }
         tbuf->datasz = num;
         tbuf->pkt_num = buffer->pkt_num;
-        hldriver->AddTailFreeNet3(buffer);
+        this->hldriver->AddTailFreeNet3(buffer);
         buffer = tbuf;
-    }*/
+    }
 
     this->received_buffers.AddTail(buffer);
 
@@ -1727,20 +1944,37 @@ int NetStru2::ReceiveData(NetStru3* buffer) {
 
 int NetStru2::SendData() {
     //516408
-    if (this->out_buffers[this->out_buff_id].datasz < 1) {
+    NetStru3* buffer = this->hldriver->GetFreeNet3();
+    buffer->Clear();
+    buffer->cmode = this->compression_type;
+
+    int32_t datasz = this->out_buffers[this->out_buff_id].datasz;
+    if (datasz < 1) {
+        this->hldriver->AddTailFreeNet3(buffer);
         if (this->lldriver) {
             this->lldriver->CleanupInvalidTcpClient(this->uid);
         }
         return 1;
     }
 
-    NetStru3* buffer = this->hldriver->GetFreeNet3();
-    buffer->Clear();
-    buffer->cmode = this->compression_type;
+    uint32_t packedBits = 0;
+    uint32_t packedSize;
+    if ((char)this->compression_type == 0) {
+        packedSize = 0x8f;
+    } else {
+        packedBits = this->hldriver->Pack((char)this->compression_type,
+            this->out_buffers[this->out_buff_id].buf, datasz, (uint32_t*)g_PackStage);
+        packedSize = PackBitsToBytes(packedBits);
+    }
 
-    //here must be compression_type check and pack, but we just drop it
-
-    buffer->CopyData(this->out_buffers + this->out_buff_id);
+    if ((int32_t)packedSize < datasz) {
+        buffer->csize = (uint16_t)packedBits;
+        buffer->WriteToBuffer(g_PackStage, packedSize);
+    } else {
+        buffer->cmode = 0;
+        buffer->csize = 0;
+        buffer->CopyData(this->out_buffers + this->out_buff_id);
+    }
     buffer->pkt_num = this->out_buffers[this->out_buff_id].pkt_num;
 
     // inline FUN_00515eb2();
@@ -1764,7 +1998,7 @@ int NetStru2::SendData() {
         if (this->hldriver->linked_hl) {
             recv_cli = this->hldriver->linked_hl->local_client;
         }
-        
+
         if (!recv_cli) {
             this->hldriver->AddTailFreeNet3(buffer);
             return 0;
