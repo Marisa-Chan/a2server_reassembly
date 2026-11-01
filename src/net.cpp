@@ -801,9 +801,6 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
         mask &= ~0x2;
     }
 
-    // Preserve original mask for the later calls.
-    int32_t orig_mask = mask;
-
     // --- Pack fields into unk_6D1180 based on flags bits ---
 
     // bit 0x1: hp (uint16)
@@ -992,12 +989,12 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
         this->QueuePacketSend(pkt);
     }
 
-    if (orig_mask & 0x400000) {
+    if (mask & 0x400000) {
         this->SendHumanoidProps(unit, player, props_flags);
     }
 
     // Owner-only: send inventory.
-    if (orig_mask & 0x200000 && unit->pOwner == player) {
+    if (mask & 0x200000 && unit->pOwner == player) {
         this->SendMonsterInventory(unit, player, inv_start_index, inv_end_index);
     }
 
