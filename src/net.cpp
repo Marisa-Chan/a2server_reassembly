@@ -2834,6 +2834,15 @@ int CLlDriver::IsInUse(A2NetSock* sock) {
     }
 }
 
+int CLlDriver::IsUidInUse(uint32_t uid) {
+    //522966
+    A2NetSock* sock = this->GetClientBySocketId(uid);
+    if (sock == nullptr) {
+        return 0;
+    }
+    return this->IsInUse(sock);
+}
+
 
 
 int CLlDriver::MakeSockAddr(const char* address, sockaddr_in* out, int port, int resolve) {

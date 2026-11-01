@@ -523,6 +523,7 @@ public:
     int IsListen() { return this->listen_socket.is_in_use == 1; }; //496ed0 (client: 49a810)
 
     int IsInUse(A2NetSock* sock); //52293a (client: 512078)
+    int IsUidInUse(uint32_t uid); //522966 (client: 5120a2) - GetClientBySocketId + IsInUse
     void SetEventNewSession(); //522318 (client: 511a58)
 
     int MakeSockAddr(const char* address, sockaddr_in* out, int port, int resolve); //52343e (client: 512afd)
