@@ -2867,26 +2867,16 @@ int CLlDriver::MakeSockAddr(const char* address, sockaddr_in* out, int port, int
     }
 
     out->sin_family = AF_INET;
-    InetPton(AF_INET, buf, &out->sin_addr.S_un.S_addr); //out->sin_addr.S_un.S_addr = inet_addr(buf);
+    out->sin_addr.S_un.S_addr = inet_addr(buf);
 
     if (out->sin_addr.S_un.S_addr == INADDR_NONE && resolve != 0) {
-        addrinfo* res = nullptr;
-        if (GetAddrInfo(buf, nullptr, nullptr, &res) != 0 && res != nullptr) {
+        hostent* host = gethostbyname(buf);
+        if (host == nullptr) {
             out->sin_addr.S_un.S_addr = 0;
             out->sin_port = 0;
             return 0;
         }
-
-        out->sin_addr.S_un.S_addr = ((sockaddr_in*)res->ai_addr)->sin_addr.S_un.S_addr;
-
-        /*hostent* host = gethostbyname(buf);
-        if (host == nullptr)
-        {
-            out->sin_addr.S_un.S_addr = 0;
-            out->sin_port = 0;
-            return 0;
-        }
-        out->sin_addr.S_un.S_addr = *(uint32_t *)(host->h_addr_list);*/
+        out->sin_addr.S_un.S_addr = *(uint32_t*)(host->h_addr_list[0]);
     }
     memset(out->sin_zero, 0, sizeof(out->sin_zero));
     return 1;
