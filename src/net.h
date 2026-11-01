@@ -586,4 +586,6 @@ extern CLlDriver g_HatLLDriver; //6cdbc0
 
 
 
-void SendWWWReport(const CString& surl, const CString& data, int val3); //client 4ea58f
+extern char g_wwwReportInit; //6a6a18 (client: 672480) - strcpy'd into the WWW response read buffer before InternetReadFile
+
+int SendWWWReport(const char* surl, const char* data, int val3); //4e505f (client: 4ea58f)
