@@ -17,12 +17,12 @@ public:
     DECLARE_SERIAL(TableLine); // Runtime class definition at 6362b0.
 
 public:
-    TableLine(); // 512b33
+    TableLine(); // 512b33 (client: 50642b)
 
 public: // VTable at 60eae8.
-    virtual void Serialize(CArchive& ar) override;
-    virtual void ParseValues(CString line, int32_t values_count, double* out_values);
-    virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double);
+    virtual void Serialize(CArchive& ar) override;  // client: 506f55
+    virtual void ParseValues(CString line, int32_t values_count, double* out_values);  // client: 5064df
+    virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double);  // client: 506744
 
 public:
     CString name;
@@ -60,14 +60,14 @@ struct EquipData;
 
 class WorldEquip: public TableLine {
 public: // VTable at 60eac8.
-    virtual ~WorldEquip() override; // 5724b0
+    virtual ~WorldEquip() override; // 5724b0 (client: 5433c0)
     virtual void Serialize(CArchive& ar) override; // 513aa3 (client: 506fa3)
     virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 513268 (client: 5067f2)
 
 public:
-    WorldEquip(); // 571e50
+    WorldEquip(); // 571e50 (client: 5431e0)
 
-    void ParseLine(CString line); // 578040
+    void ParseLine(CString line); // 578040 (client: 548240)
 
     CArray<EquipData>& Values() {
         return this->ValuesAs<EquipData>();
@@ -86,14 +86,14 @@ ASSERT_SIZE(WorldEquip, 0x40);
 
 class MagicItem : public WorldEquip { // Inherits from `WorldEquip` at 005727e1.
 public: // VTable at 60eb40.
-    virtual ~MagicItem() override; // 5728f0
+    virtual ~MagicItem() override; // 5728f0 (client: 5436c0)
     virtual void Serialize(CArchive& ar) override; // 513c13 (client: 507107)
     virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 572850 (client: 543620)
 
 public:
-    MagicItem(); // 572740
+    MagicItem(); // 572740 (client: 5435c0)
 
-    void ParseLine(CString line); // 513B68
+    void ParseLine(CString line); // 513B68 (client: 50705c)
 
 public:
     CString effect;
@@ -102,11 +102,11 @@ ASSERT_SIZE(MagicItem, 0x44);
 
 class MatShape : public TableLine {
 public: // VTable at 60eb20.
-    virtual ~MatShape() override; // 572670
+    virtual ~MatShape() override; // 572670 (client: 5435a0)
     virtual void Serialize(CArchive& ar) override; // 513b05 (client: 506fff)
 
 public:
-    MatShape(); // 572590
+    MatShape(); // 572590 (client: 543550)
 
     void ParseLine(CString line); // 5780B0 (client: 5482e0)
 
@@ -137,14 +137,14 @@ ASSERT_SIZE(BuildingInfoData, 0x18);
 
 class BuildingInfo : public TableLine {
 public: // VTable at 60ebc0.
-    virtual ~BuildingInfo() override; // 573050
+    virtual ~BuildingInfo() override; // 573050 (client: 5439b0)
     virtual void Serialize(CArchive& ar) override; // 514bce (client: 507e8e)
     virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 514ac9 (client: 507d92)
 
 public:
-    BuildingInfo(); // 572f70
+    BuildingInfo(); // 572f70 (client: 543960)
 
-    void ParseLine(CString line); // 5782B0
+    void ParseLine(CString line); // 5782B0 (client: 548240)
 
     CArray<BuildingInfoData>& Values() {
         return this->ValuesAs<BuildingInfoData>();
@@ -212,12 +212,12 @@ ASSERT_SIZE(MagicInfoData, 0x70);
 
 class MagicInfo: public TableLine {
 public: // VTable at 60eb60.
-    virtual ~MagicInfo() override; // 572ac0
+    virtual ~MagicInfo() override; // 572ac0 (client: 543760)
 
 public:
-    MagicInfo(); // 5729e0
+    MagicInfo(); // 5729e0 (client: 543710)
 
-    void ParseLine(CString line); // 578120
+    void ParseLine(CString line); // 578120 (client: 548240)
 
     CArray<MagicInfoData>& Values() {
         return this->ValuesAs<MagicInfoData>();
@@ -290,14 +290,14 @@ ASSERT_SIZE(MonsterInfoData, 0xf8);
 
 class MonsterInfo: public TableLine {
 public: // VTable at 60eb80.
-    virtual ~MonsterInfo() override; // 572ca0
+    virtual ~MonsterInfo() override; // 572ca0 (client: 543820)
     virtual void Serialize(CArchive& ar) override; // 513ff6 (client: 507486)
     virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 513c82 (client: 507170)
 
 public:
-    MonsterInfo(); // 572b90
+    MonsterInfo(); // 572b90 (client: 543780)
 
-    void ParseLine(CString line); // 578190
+    void ParseLine(CString line); // 578190 (client: 548450)
 
     CArray<MonsterInfoData>& Values() {
         return this->ValuesAs<MonsterInfoData>();
@@ -339,14 +339,14 @@ ASSERT_SIZE(HumanInfoData, 0x68);
 
 class HumanInfo: public TableLine {
 public: // VTable at 60eba0.
-    virtual ~HumanInfo() override; // 572e90
+    virtual ~HumanInfo() override; // 572e90 (client: 543910)
     virtual void Serialize(CArchive& ar) override; // 514a3a (client: 507d03)
     virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 5143a6 (client: 50781d)
 
 public:
-    HumanInfo(); // 572d80
+    HumanInfo(); // 572d80 (client: 543870)
 
-    void ParseLine(CString line); // 578220
+    void ParseLine(CString line); // 578220 (client: 548450)
 
     CArray<HumanInfoData>& Values() {
         return this->ValuesAs<HumanInfoData>();
@@ -389,14 +389,14 @@ ASSERT_SIZE(SpellInfoData, 0x58);
 
 class SpellInfo: public TableLine {
 public: // VTable at 60ebe0.
-    virtual ~SpellInfo() override; // 573210
+    virtual ~SpellInfo() override; // 573210 (client: 543a60)
     virtual void Serialize(CArchive& ar) override; // 51520f (client: 508293)
     virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 514f41 (client: 507fe7)
 
 public:
-    SpellInfo(); // 573120
+    SpellInfo(); // 573120 (client: 5439d0)
 
-    void ParseLine(CString line); // 578320
+    void ParseLine(CString line); // 578320 (client: 50705c)
 
     CArray<SpellInfoData>& Values() {
         return this->ValuesAs<SpellInfoData>();
@@ -433,25 +433,25 @@ public:
 
     int ParseWorldIn(const CString& str); //50a15f (client: 501ab3)
     int ParseDataBin(const CString& path); //50D421 (client: 502b5a)
-    int ParseTxtFiles(const CString& path); //50A345
-    void WriteDataBin(const CString& path); //50D7C2
+    int ParseTxtFiles(const CString& path); //50A345 (client: 501c9e)
+    void WriteDataBin(const CString& path); //50D7C2 (client: 502eec)
     void Serialize(CArchive& ar); //50E0F0 (client: 503833)
-    Item* FindItemTemplate(CString* name); // Look up an item template by name
+    Item* FindItemTemplate(CString* name); // Look up an item template by name (client: 504609)
     int GetMonsterTableIndex(uint8_t type, uint8_t face); // Get monster table index by type and face
-    Item* CreateItem(uint8_t slot, uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // 510F88: Create an item.
-    Item* CreateItemById(uint16_t item_id); // Create a new item instance by item data ID
-    int GetRandomRecruitIndex(int experience); // Get random recruitable monster index for inn reward
-    int GetMonsterDataIndex(uint8_t type_id, uint8_t face); // Get monster data index from encoded item type/face
+    Item* CreateItem(uint8_t slot, uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // 510F88 (client: 504b43): Create an item.
+    Item* CreateItemById(uint16_t item_id); // Create a new item instance by item data ID (client: 504aab)
+    int GetRandomRecruitIndex(int experience); // Get random recruitable monster index for inn reward (client: 503646)
+    int GetMonsterDataIndex(uint8_t type_id, uint8_t face); // Get monster data index from encoded item type/face (client: 5034d2)
 
-    uint8_t FindShapeIndex(CString* name, CString* out); // 50D8BA: Find shape index by item name string
-    uint8_t FindMaterialIndex(CString* name, CString* out); // 50DA04: Find material index by item name string
-    CString* SplitItemName(CString* out1, const CString* in_name, CString* base_name_out); // 50DB4E: Extract base name and braced property from item name
-    void StripMaterialPrefix(int material_id, CString* name); // 50DC69: Strip material-specific prefix from item name
+    uint8_t FindShapeIndex(CString* name, CString* out); // 50D8BA (client: 502fe1): Find shape index by item name string
+    uint8_t FindMaterialIndex(CString* name, CString* out); // 50DA04 (client: 50312d): Find material index by item name string
+    CString* SplitItemName(CString* out1, const CString* in_name, CString* base_name_out); // 50DB4E (client: 503270): Extract base name and braced property from item name
+    void StripMaterialPrefix(int material_id, CString* name); // 50DC69 (client: 50338b): Strip material-specific prefix from item name
 
     void PostProcessMagicData(); // 514BE7: post-process magic data after parsing Magic.txt
 
-    int32_t FindHumanByServerId(int32_t id); //5125a8
-    int32_t FindMonsterByServerId(int32_t id); //512625
+    int32_t FindHumanByServerId(int32_t id); //5125a8 (client: 506157)
+    int32_t FindMonsterByServerId(int32_t id); //512625 (client: 5061d9)
 };
 ASSERT_OFFSET(GameDataRes, magic_items, 0x64);
 ASSERT_OFFSET(GameDataRes, humans, 0xa0);

@@ -17,16 +17,16 @@ struct World;
 // Some object used to tie an inn and a quest.
 class QuestInnGlue : public CObject {
 public: // VTable at 60fde8.
-    virtual ~QuestInnGlue();
-    virtual void ProcessQuests();
-    virtual void ProcessEscortTarget(Quest* quest);
-    virtual void ProcessDeliverItem(Quest* quest);
-    virtual void ProcessInterceptGroup(Quest* quest);
-    virtual void SpawnZombieMobs(Quest* quest);
-    virtual void SpawnSkeletonMobs(Quest* quest);
-    virtual void SpawnGhostMobs(Quest* quest);
-    virtual uint8_t GetX();
-    virtual uint8_t GetY();
+    virtual ~QuestInnGlue();  // client: 589050
+    virtual void ProcessQuests();  // client: 5386f6
+    virtual void ProcessEscortTarget(Quest* quest);  // client: 588620
+    virtual void ProcessDeliverItem(Quest* quest);  // client: 588738
+    virtual void ProcessInterceptGroup(Quest* quest);  // client: 5888aa
+    virtual void SpawnZombieMobs(Quest* quest);  // client: 5889ff
+    virtual void SpawnSkeletonMobs(Quest* quest);  // client: 588c04
+    virtual void SpawnGhostMobs(Quest* quest);  // client: 588e0a
+    virtual uint8_t GetX();  // client: 589010
+    virtual uint8_t GetY();  // client: 58902b
 
 public:
     QuestInnGlue(int32_t building_id, TokenPos* pos, World* world, int32_t max_dist); // sub_5BA8E0 (client: 5885e0)

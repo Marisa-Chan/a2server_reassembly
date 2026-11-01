@@ -21,7 +21,7 @@ public:
     uint8_t gap_0x38[28];
 
 public:
-    Action(); // 5b6c42
+    Action(); // 5b6c42 (client: 584db2)
 };
 ASSERT_OFFSET(Action, actor_unit, 0x2c);
 ASSERT_OFFSET(Action, payload, 0x30);

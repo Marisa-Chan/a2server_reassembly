@@ -67,34 +67,34 @@ public:
 	MapStuff* pInstance;
 
 public:
-	TokenPos(uint8_t _x, uint8_t _y, MapStuff* _inst);
+	TokenPos(uint8_t _x, uint8_t _y, MapStuff* _inst);  // client: 5599a9
 
-	TokenPos();
-	TokenPos(uint16_t _YX, MapStuff* _inst);
-	TokenPos(const TokenPos&);
-	TokenPos(TokenPos&&);
+	TokenPos();  // client: 559945
+	TokenPos(uint16_t _YX, MapStuff* _inst);  // client: 559a12
+	TokenPos(const TokenPos&);  // client: 559e9e
+	TokenPos(TokenPos&&);  // client: 559e9e
 
 	TokenPos& operator=(const TokenPos&);
 
 	void Set(uint8_t _x, uint8_t _y, MapStuff* _inst); //58a4b1 (client: 559961)
 
-	void FixupInstance(); // in asm
-	int ClampToMap(uint8_t x, uint8_t y); //in asm
+	void FixupInstance(); // in asm (client: 563671)
+	int ClampToMap(uint8_t x, uint8_t y); //in asm (client: 559c98)
 
-	void Serialize(CArchive& ar);
+	void Serialize(CArchive& ar);  // client: 51b0f8
 
-	uint8_t GetX() const;
-	uint8_t GetY() const;
+	uint8_t GetX() const;  // client: 559fa0
+	uint8_t GetY() const;  // client: 559fb0
 	PosYX GetYX() const;
-	uint16_t CompatGetYX() const; //only for compatible with asm
-	uint16_t GetXx() const;
-	uint16_t GetYy() const;
+	uint16_t CompatGetYX() const; //only for compatible with asm (client: 559f8e)
+	uint16_t GetXx() const;  // client: 559f4b
+	uint16_t GetYy() const;  // client: 559f6c
 
-	uint8_t Distance(const TokenPos* b) const;
-	int IsSameYX(const TokenPos* b) const;
+	uint8_t Distance(const TokenPos* b) const;  // client: 559b6f
+	int IsSameYX(const TokenPos* b) const;  // client: 559a63
 
-	void SetCoords(uint8_t _x, uint8_t _y);
-	void SetCoords2(uint16_t Xx, uint16_t Yy);
+	void SetCoords(uint8_t _x, uint8_t _y);  // client: 559be7
+	void SetCoords2(uint16_t Xx, uint16_t Yy);  // client: 559c31
 
 	int32_t IsAtCellCenter(); // Check if we'in the middle of a cell (both subcell values are 0x80).
 };
@@ -109,26 +109,26 @@ public:
 	DECLARE_SERIAL(Token); // Runtime class definition at 6363b8.
 
 public:
-	virtual ~Token();
-	virtual void Serialize(CArchive& ar); //55ab39
+	virtual ~Token();  // client: 5172c7
+	virtual void Serialize(CArchive& ar); //55ab39 (client: 536caf)
 	// CObject AssertValid
 	// CObject Dump
-	virtual void RegenTick();
-	virtual void ProcessEffects();
-	virtual int32_t GetTokenSize(); // TokenSize
-	virtual int32_t GetMovementType(); // MovementType
-	virtual void FixupPointers();
-	virtual int32_t IsItem(); // IsItem
-	virtual int32_t IsUnit(); // IsUnit
-	virtual int32_t IsHumanoid(); // IsHumanoid
-	virtual int32_t IsBuilding(); // IsBuilding
+	virtual void RegenTick();  // client: 54bfc0
+	virtual void ProcessEffects();  // client: 51746a
+	virtual int32_t GetTokenSize(); // TokenSize (client: 54bfd0)
+	virtual int32_t GetMovementType(); // MovementType (client: 54bfe0)
+	virtual void FixupPointers();  // client: 536e27
+	virtual int32_t IsItem(); // IsItem (client: 54bff0)
+	virtual int32_t IsUnit(); // IsUnit (client: 54c000)
+	virtual int32_t IsHumanoid(); // IsHumanoid (client: 54c010)
+	virtual int32_t IsBuilding(); // IsBuilding (client: 54c020)
 
 public:
-	Token();
-	Token(const Token&);
+	Token();  // client: 517363
+	Token(const Token&);  // client: 5171ed
 //	Token(Token&&);
-	Token(const TokenPos* tpos);
-	Token(const TokenPos* tpos, Player *pl);
+	Token(const TokenPos* tpos);  // client: 517084
+	Token(const TokenPos* tpos, Player *pl);  // client: 51713a
 
 public:
 	int32_t building_id;

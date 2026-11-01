@@ -27,27 +27,27 @@ ASSERT_SIZE(QuestSubstruct, 0x1c);
 
 class QuestMap : public CObject {
 public: // VTable at 0060f730.
-    virtual ~QuestMap(); // 580f70 / 55d915 
-    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b); // 55e129
+    virtual ~QuestMap(); // 580f70 (client: 537c83) / 55d915 
+    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b); // 55e129 (client: 537ed5)
     
 public:
     QuestMap(); // sub_55D579 (client: 537b72)
 
-    void DeleteGlues(); // Reset quest state
-    void ProcessDeferredEvents();
-    void ProcessInnGlues();
-    void ProcessQueuedEvents();
-    void QueueEvent(int32_t event_type, int32_t a, int32_t b); // Fire a quest event
-    void RegisterQuest(Quest* quest);
-    void UnregisterQuest(Quest* quest); // Remove quest from quest map flags
-    int32_t PickRandomOtherInn(int32_t building_id);
-    int32_t FindQuest(uint32_t id, Quest** out); //4a47a0 in asm
-    void AddInnGlue(QuestInnGlue* glue); // Add QuestInnGlue to quest map
-    void RemovePlayerQuests(int32_t player_id);
+    void DeleteGlues(); // Reset quest state (client: 537bfe)
+    void ProcessDeferredEvents();  // client: 537e5f
+    void ProcessInnGlues();  // client: 537e7a
+    void ProcessQueuedEvents();  // client: 537e01
+    void QueueEvent(int32_t event_type, int32_t a, int32_t b); // Fire a quest event (client: 537dbb)
+    void RegisterQuest(Quest* quest);  // client: 537f4f
+    void UnregisterQuest(Quest* quest); // Remove quest from quest map flags (client: 537fba)
+    int32_t PickRandomOtherInn(int32_t building_id);  // client: 53865b
+    int32_t FindQuest(uint32_t id, Quest** out); //4a47a0 (client: 4a7e90) in asm
+    void AddInnGlue(QuestInnGlue* glue); // Add QuestInnGlue to quest map (client: 53805d)
+    void RemovePlayerQuests(int32_t player_id);  // client: 538089
 
-    Quest* CreateQuest(int quest_kind);
+    Quest* CreateQuest(int quest_kind);  // client: 538128
 
-    int32_t GetQuestCount() { return this->quests_map.GetCount(); }; //41ec00
+    int32_t GetQuestCount() { return this->quests_map.GetCount(); }; //41ec00 (client: 4206e0)
 
 public:
     CMap<uint32_t, uint32_t, Quest*, Quest*> quests_map;

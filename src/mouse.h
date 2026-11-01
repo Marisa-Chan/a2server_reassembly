@@ -47,17 +47,17 @@ enum {
 class CMousePointer : public CObject {
 	DECLARE_DYNAMIC(CMousePointer);
 public:
-	virtual ~CMousePointer();
+	virtual ~CMousePointer();  // client: 42886c
 
 	CMousePointer(); //4264eb (client: 428419)
 
-	void DisableHint(); //438830
-	void EnableHint(); //438810
-	CSprite256* GetCursorSprite(); //438810
+	void DisableHint(); //438830 (client: 4019b0)
+	void EnableHint(); //438810 (client: 43aa40)
+	CSprite256* GetCursorSprite(); //438810 (client: 43aa40)
 	CRect& GetSelectFrame(); //41ed20 (client: 4208a0)
-	int32_t GetSelectState(); //41ed00
-	int32_t GetX(); //41ecc0
-	int32_t GetY(); //41ece0
+	int32_t GetSelectState(); //41ed00 (client: 420880)
+	int32_t GetX(); //41ecc0 (client: 420840)
+	int32_t GetY(); //41ece0 (client: 420860)
 
 	void CheckHintValues(); //42709f (client: 428fcd)
 	void DrawToScreen(); //426ce2 (client: 428c10)
@@ -114,8 +114,8 @@ ASSERT_SIZE(CMousePointer, 0xa4);
 
 class CCursor : public CObject {
 public:
-	virtual ~CCursor(); //47cf99
-	CCursor() = default; //47ce1f
+	virtual ~CCursor(); //47cf99 (client: 480e53)
+	CCursor() = default; //47ce1f (client: 480cd9)
 	CCursor(const char* fname, int32_t xof, int32_t yof, int32_t delay); //47ce66 (client: 480d20)
 
 	void Use(); //47d025 (client: 480edf)
@@ -131,6 +131,6 @@ public:
 ASSERT_SIZE(CCursor, 0x18);
 
 
-void LoadCursors(); //47d05d
-void DeleteCursors(); //47daf0
-int __cdecl ApplyCursor(CCursor* cur); //4750d0
+void LoadCursors(); //47d05d (client: 480f17)
+void DeleteCursors(); //47daf0 (client: 4819aa)
+int __cdecl ApplyCursor(CCursor* cur); //4750d0 (client: 477ed0)

@@ -58,9 +58,9 @@ struct ScanPresenceGrid {
     int32_t  unwatched_active_detections;        // count of units detected via active group while in an unwatched sector
 
 public:
-    ScanPresenceGrid(); // 5955B5
-    void RegisterAreaEffect(AreaEffect* ae); // Register area effect into the scan grid (RegisterAreaEffect)
-    void RebuildPresenceGrid();                 // Rebuild presence grid from all active units/players
+    ScanPresenceGrid(); // 5955B5 (client: 564a65)
+    void RegisterAreaEffect(AreaEffect* ae); // Register area effect into the scan grid (RegisterAreaEffect) (client: 5654f7)
+    void RebuildPresenceGrid();                 // Rebuild presence grid from all active units/players (client: 5655e1)
     void MarkWatchedSector(Unit* unit); // OR the unit owner's vision mask into the 5x5 sector block around the unit (5957E2) (client: 564c92)
     void DetectWatchedUnit(Unit* unit); // Mark unit detected when its sector is watched (595F46) (client: 5653f6)
     void ClearPresenceGrid();           // Clear the sector grid and reset per-unit/per-group detection state (5963B9) (client: 565869)
@@ -88,7 +88,7 @@ struct FieldBlock5859c {
     uint8_t data[2004];
 
 public:
-    FieldBlock5859c(); // 5A3180
+    FieldBlock5859c(); // 5A3180 (client: 4cc890)
 };
 ASSERT_SIZE(FieldBlock5859c, 2020);
 
@@ -113,8 +113,8 @@ struct CellState {
     PosYX  cell_yx;              // +0x3A
 
     int IsEmpty() const; //58bef6 (client: 55b3a6)
-    void Null(); //58a3da
-    void RelinkPointers(); // Remaps stale on-disk pointer fields through g_Server's pointer remap table.
+    void Null(); //58a3da (client: 51f219)
+    void RelinkPointers(); // Remaps stale on-disk pointer fields through g_Server's pointer remap table. (client: 5636ef)
 };
 ASSERT_OFFSET(CellState, area_effects, 0x14);
 ASSERT_SIZE(CellState, 0x3c);
@@ -187,91 +187,91 @@ public:
     uint8_t CalcTerrainWalkCost(uint16_t terrain_code, uint8_t* out_walk_cost); // Computes edge-blended walk cost + classification code for a terrain cell — 58F48D (client: 55e93d)
     void MarkMapBorder(); // Marks an 8-tile-thick obstacle border around the map edges — 58E670 (client: 55db20)
 
-    int AddUnitToMap(Unit* unit); // add unit to map
-    void Serialize(CArchive& ar); // Serialize
-    void EncodeTerrain(CWordArray* encode_buf); // encode map terrain into encode_buf
+    int AddUnitToMap(Unit* unit); // add unit to map (client: 55d881)
+    void Serialize(CArchive& ar); // Serialize (client: 559ff8)
+    void EncodeTerrain(CWordArray* encode_buf); // encode map terrain into encode_buf (client: 563d60)
     bool IsInMapBounds(uint8_t x, uint8_t y) const; // 594076 (client: 563526)
-    void RelinkAfterLoad(); // Post-load map relink helper
-    int CanPlaceSack(class Sack* sack); // Check if sack can be placed on map
-    void RemoveSack(class Sack* sack); // Remove a sack token from the map
-    Sack* GetSackAt(uint16_t x, uint16_t y); // Look up sack at map position
-    Sack* GetSackAtPos(TokenPos* pos);
-    int CanPlaceUnit(Unit* unit); // Check if unit can be placed at current position
-    int PlaceUnit(Unit* unit); // Place unit on map at current TokenPos position
-    int32_t CanOccupyCell(Unit* unit, uint8_t x, uint8_t y); // Checks whether unit can occupy cell (x,y), triggering any spell tile in the process.
-    uint8_t GetFacingFor(Unit* unit, PosYX yx); // Pick rotation angle for the unit to look at `yx`.
-    void TeleportUnit(Unit* unit, uint8_t x, uint8_t y); // Teleport unit to (x, y)
-    void PlaceAreaEffectAt(AreaEffect* ae, uint8_t x, uint8_t y); // 59501E
+    void RelinkAfterLoad(); // Post-load map relink helper (client: 5635d5)
+    int CanPlaceSack(class Sack* sack); // Check if sack can be placed on map (client: 55d8b7)
+    void RemoveSack(class Sack* sack); // Remove a sack token from the map (client: 55d9d5)
+    Sack* GetSackAt(uint16_t x, uint16_t y); // Look up sack at map position (client: 55da77)
+    Sack* GetSackAtPos(TokenPos* pos);  // client: 55daa3
+    int CanPlaceUnit(Unit* unit); // Check if unit can be placed at current position (client: 5603ba)
+    int PlaceUnit(Unit* unit); // Place unit on map at current TokenPos position (client: 55a1fa)
+    int32_t CanOccupyCell(Unit* unit, uint8_t x, uint8_t y); // Checks whether unit can occupy cell (x,y), triggering any spell tile in the process. (client: 55a39f)
+    uint8_t GetFacingFor(Unit* unit, PosYX yx); // Pick rotation angle for the unit to look at `yx`. (client: 560b1c)
+    void TeleportUnit(Unit* unit, uint8_t x, uint8_t y); // Teleport unit to (x, y) (client: 56495c)
+    void PlaceAreaEffectAt(AreaEffect* ae, uint8_t x, uint8_t y); // 59501E (client: 5644ce)
     int RemoveAreaEffectAt(AreaEffect* ae, uint16_t yx); // 595073 (client: 564523) — remove area effect from cell state at yx
-    Unit* GetBuildingUnitAt(uint8_t x, uint8_t y); // 5946BF
+    Unit* GetBuildingUnitAt(uint8_t x, uint8_t y); // 5946BF (client: 563b6f)
     void BlockCell(uint8_t x, uint8_t y); // 594768 (client: 563c18)
-    int ApplyTerrainMod(uint16_t yx, void* src); // Apply terrain modification from 6-byte src buffer at yx
-    AreaEffect** GetAreaEffectsAt(uint32_t yx); // Get pointer to area_effects[6] array at cell yx.
-    int16_t GetTileMoveTime(Unit* unit, uint8_t x, uint8_t y); // Movement time for unit entering tile (x,y).
-    int GetRangeTo(Unit* target, Unit* observer); // Visibility/range check between two units.
-    uint8_t GetFacingTo(Unit* unit, Unit* target); // Compute facing direction from unit to target.
-    int FacesTargetInRange(Unit* unit, Unit* target, uint8_t max_range); // Check if unit faces target and is in range.
-    int FacesPosInRange(Unit* unit, PosYX yx, uint8_t max_range); // Check if unit faces yx and is in range.
-    void MoveStepTowardPos(Unit* unit, PosYX yx, uint8_t max_range); // AI movement tick for unit toward yx.
-    void MoveStepTowardUnit(Unit* unit, Unit* target, uint8_t max_range); // AI movement tick for unit pursuing target.
-    void FindPath(Unit* unit, uint8_t x, uint8_t y, int32_t flag, Unit* target);
-    void UpdateEyeMoveTime(Unit* unit);
-    void AdvancePathList2(Unit* unit);
-    void StepRotateToTarget(Unit* unit); // Rotates eye->field0_0x0 toward eye->field1_0x1 by up to rotation_speed.
-    void SetFacing(Unit* unit, uint8_t facing);
-    void PickNextPathTarget(Unit* unit, Unit* target);
-    void FaceTarget(Unit* unit, Unit* target);
-    void FacePosition(Unit* unit, PosYX yx);
-    uint16_t PeekNextStep(Unit* unit);
-    uint8_t ChebyshevDistance(PosYX yx1, PosYX yx2); // Chebyshev distance between two YX positions.
-    void GatherUnitsNear(uint16_t yx, uint8_t range, Player* owner, UnitList* out_list); // Gather units near yx within range into out_list.
-    int32_t CalcMoveStep(Unit* unit, uint16_t yx, uint8_t val); // Computes movement step magnitude/heading toward yx.
-    int IsAreaClear(Unit* unit, PosYX yx, int32_t flag);
-    int32_t RemoveBuilding(class Building* building); // Remove building from map
-    int32_t PlaceBuilding(class Building* building); // Place building on the map
+    int ApplyTerrainMod(uint16_t yx, void* src); // Apply terrain modification from 6-byte src buffer at yx (client: 565a26)
+    AreaEffect** GetAreaEffectsAt(uint32_t yx); // Get pointer to area_effects[6] array at cell yx. (client: 56481c)
+    int16_t GetTileMoveTime(Unit* unit, uint8_t x, uint8_t y); // Movement time for unit entering tile (x,y). (client: 56086d)
+    int GetRangeTo(Unit* target, Unit* observer); // Visibility/range check between two units. (client: 560dbd)
+    uint8_t GetFacingTo(Unit* unit, Unit* target); // Compute facing direction from unit to target. (client: 5608d4)
+    int FacesTargetInRange(Unit* unit, Unit* target, uint8_t max_range); // Check if unit faces target and is in range. (client: 55f31d)
+    int FacesPosInRange(Unit* unit, PosYX yx, uint8_t max_range); // Check if unit faces yx and is in range. (client: 55f38a)
+    void MoveStepTowardPos(Unit* unit, PosYX yx, uint8_t max_range); // AI movement tick for unit toward yx. (client: 55f401)
+    void MoveStepTowardUnit(Unit* unit, Unit* target, uint8_t max_range); // AI movement tick for unit pursuing target. (client: 55f73d)
+    void FindPath(Unit* unit, uint8_t x, uint8_t y, int32_t flag, Unit* target);  // client: 55771d
+    void UpdateEyeMoveTime(Unit* unit);  // client: 55fb28
+    void AdvancePathList2(Unit* unit);  // client: 55fc6e
+    void StepRotateToTarget(Unit* unit); // Rotates eye->field0_0x0 toward eye->field1_0x1 by up to rotation_speed. (client: 55f1df)
+    void SetFacing(Unit* unit, uint8_t facing);  // client: 560444
+    void PickNextPathTarget(Unit* unit, Unit* target);  // client: 55fdb2
+    void FaceTarget(Unit* unit, Unit* target);  // client: 560d68
+    void FacePosition(Unit* unit, PosYX yx);  // client: 560d92
+    uint16_t PeekNextStep(Unit* unit);  // client: 562f54
+    uint8_t ChebyshevDistance(PosYX yx1, PosYX yx2); // Chebyshev distance between two YX positions. (client: 562fd9)
+    void GatherUnitsNear(uint16_t yx, uint8_t range, Player* owner, UnitList* out_list); // Gather units near yx within range into out_list. (client: 565987)
+    int32_t CalcMoveStep(Unit* unit, uint16_t yx, uint8_t val); // Computes movement step magnitude/heading toward yx. (client: 563185)
+    int IsAreaClear(Unit* unit, PosYX yx, int32_t flag);  // client: 566590
+    int32_t RemoveBuilding(class Building* building); // Remove building from map (client: 563a9f)
+    int32_t PlaceBuilding(class Building* building); // Place building on the map (client: 5639cf)
     int SetCellBuilding(Building* building, uint16_t yx); // 5943D0 — set building pointer in cell state at yx (client: 563880)
-    int CanApplyAreaEffect(AreaEffect* ae, uint8_t x, uint8_t y); // Check if area effect can be applied at (x, y) — 595438
+    int CanApplyAreaEffect(AreaEffect* ae, uint8_t x, uint8_t y); // Check if area effect can be applied at (x, y) — 595438 (client: 5648e8)
     uint8_t FacingDiff(uint8_t a, uint8_t b); // 595561 (client: 564a11) — smallest angular difference between two facing bytes.
     AreaEffect* AreaEffectCovers(AreaEffect* ae, uint16_t coord);  // Check if area effect covers cell coord — 5953CB (client: 56487b)
-    Unit* GetUnitAt(PosYX yx); // Get unit at map coordinate yx — 58CA1B
-    void RegisterAreaEffectAt(AreaEffect* ae, uint8_t x, uint8_t y); // 594E65
+    Unit* GetUnitAt(PosYX yx); // Get unit at map coordinate yx — 58CA1B (client: 55becb)
+    void RegisterAreaEffectAt(AreaEffect* ae, uint8_t x, uint8_t y); // 594E65 (client: 564315)
     int RegisterAreaEffectCell(AreaEffect* ae, uint16_t yx); // 594EBA — register area effect into cell state at yx (client: 56436a)
     UnitList* BuildNearbyUnitList(PosYX yx, uint8_t range); // Build a temporary UnitList of units around yx — 5897AA (client: 558c5a)
     int16_t ClampPosToMap(Unit* unit, uint32_t packed_yyxx, uint8_t range); // 5936D2 (client: 562b82)
 
-    Unit* GetSmallUnitAt(uint16_t yx); // Get small unit occupying cell yx — 58CB5A
-    Unit* GetLargeUnitAt(uint16_t yx); // Get large unit occupying cell yx — 58CBB9
+    Unit* GetSmallUnitAt(uint16_t yx); // Get small unit occupying cell yx — 58CB5A (client: 55c00a)
+    Unit* GetLargeUnitAt(uint16_t yx); // Get large unit occupying cell yx — 58CBB9 (client: 55c069)
     void CollectSackCells(Unit* unit, int32_t flag); // 594A2D — collect passable sack cells in expanding rings around the unit. (client: 563edd)
     int32_t IsPassableSackCell(Unit* unit, uint16_t yx); // 594C4B — check whether cell yx holds a sack and is passable for unit. (client: 5640fb)
     int UnitFitsAt(Unit* unit); // Check if unit fits/can be placed over all cells at its current position — 58B1D7 (client: 55a687)
     void RefreshCellObstacles(PosYX yx); // Refresh derived obstacle bits for cell yx from its stored cell state — 58B593 (client: 55aa43)
-    Sack* GetSackInCell(uint16_t yx); // Get sack at cell yx if the cell has a stored state — 58E611
+    Sack* GetSackInCell(uint16_t yx); // Get sack at cell yx if the cell has a stored state — 58E611 (client: 55dac1)
     int ClearCellBuilding(class Building* building, PosYX yx); // Clear building from the cell state at yx — 59449A (client: 56394a)
     int CanTraverseCell(Unit* unit, PosYX yx); // Check if unit can move onto and off of yx (both directions clear) — 595468 (client: 564918)
-    void RelaxCostsMap1Queue2(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map, queue into dynamic ring buffer — 597BB0
-    void RelaxCostsMap1Queue1(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map, queue into static ring buffer — 5983D0
-    void RelaxCostsMap2Queue2(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map2, queue into dynamic ring buffer — 598BF0
-    void RelaxCostsMap2Queue1(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map2, queue into static ring buffer — 599410
-    int32_t ClassifyDirection8(Unit* unit, uint16_t yx); // Classifies direction/octant from unit's position toward yx.
-    int32_t ChebyshevDistanceXY(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2); // Chebyshev distance between two (x,y) points.
-    uint8_t ClassifyDirection16(Unit* target, Unit* unit); // Classifies 16-way direction/octant from target toward unit. `this` is unused.
+    void RelaxCostsMap1Queue2(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map, queue into dynamic ring buffer — 597BB0 (client: 567000)
+    void RelaxCostsMap1Queue1(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map, queue into static ring buffer — 5983D0 (client: 567820)
+    void RelaxCostsMap2Queue2(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map2, queue into dynamic ring buffer — 598BF0 (client: 568040)
+    void RelaxCostsMap2Queue1(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map2, queue into static ring buffer — 599410 (client: 568860)
+    int32_t ClassifyDirection8(Unit* unit, uint16_t yx); // Classifies direction/octant from unit's position toward yx. (client: 559608)
+    int32_t ChebyshevDistanceXY(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2); // Chebyshev distance between two (x,y) points. (client: 55b453)
+    uint8_t ClassifyDirection16(Unit* target, Unit* unit); // Classifies 16-way direction/octant from target toward unit. `this` is unused. (client: 561ce1)
 
-    void SyncEyeState(Unit* unit); // Reconciles eye position1/rotation-target state against the unit's current tile.
-    int32_t GetEffectiveSpeed(Unit* unit); // Returns unit's speed, overridden by group_sub->field_0x44 if nonzero. `this` is unused.
-    uint8_t GetWalkCost(uint16_t yx); // Walk cost at yx, adjusted for area effects when the cell is occupied.
+    void SyncEyeState(Unit* unit); // Reconciles eye position1/rotation-target state against the unit's current tile. (client: 55efc2)
+    int32_t GetEffectiveSpeed(Unit* unit); // Returns unit's speed, overridden by group_sub->field_0x44 if nonzero. `this` is unused. (client: 56314a)
+    uint8_t GetWalkCost(uint16_t yx); // Walk cost at yx, adjusted for area effects when the cell is occupied. (client: 564137)
 
-    void BuildPathList1(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // Builds unit->list1 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y) — 5890CC
-    void BuildPathList2(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // Builds unit->list2 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y) — 5893C6
-    uint16_t PickAttackPosition(Unit* unit, Unit* target); // 592A48
+    void BuildPathList1(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // Builds unit->list1 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y) — 5890CC (client: 55857c)
+    void BuildPathList2(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // Builds unit->list2 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y) — 5893C6 (client: 558876)
+    uint16_t PickAttackPosition(Unit* unit, Unit* target); // 592A48 (client: 561ef8)
     int16_t FindCheapestCellNear(Unit* unit, int32_t zero, uint16_t yx, uint32_t radius); // 593134 (client: 5625e4)
-    Building* GetBuildingAt(uint16_t yx); // 594709
+    Building* GetBuildingAt(uint16_t yx); // 594709 (client: 563bb9)
     uint8_t BoxDistance(uint16_t yx1, uint16_t yx2, int32_t size); // 591A96 (client: 560f46)
-    void ExpandCostsStaticQueue2(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableStatic, queueing improved cells into queue2 — 597290
-    void ExpandCostsStaticQueue1(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableStatic, queueing improved cells into queue1 — 5974B0
-    void ExpandCostsDynamicQueue1(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableDynamic, queueing improved cells into queue1 — 597990
-    void ExpandCostsDynamicQueue2(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableDynamic, queueing improved cells into queue2 — 5976D0
-    int32_t IsCellPassableStatic(Unit* unit, uint16_t yx); // 596F80
-    int32_t IsCellPassableDynamic(Unit* unit, uint16_t yx); // Passability check used by ExpandCostsDynamicQueue2/ExpandCostsDynamicQueue1 — 5978F0
+    void ExpandCostsStaticQueue2(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableStatic, queueing improved cells into queue2 — 597290 (client: 5666e0)
+    void ExpandCostsStaticQueue1(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableStatic, queueing improved cells into queue1 — 5974B0 (client: 566900)
+    void ExpandCostsDynamicQueue1(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableDynamic, queueing improved cells into queue1 — 597990 (client: 566de0)
+    void ExpandCostsDynamicQueue2(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableDynamic, queueing improved cells into queue2 — 5976D0 (client: 566b20)
+    int32_t IsCellPassableStatic(Unit* unit, uint16_t yx); // 596F80 (client: 566430)
+    int32_t IsCellPassableDynamic(Unit* unit, uint16_t yx); // Passability check used by ExpandCostsDynamicQueue2/ExpandCostsDynamicQueue1 — 5978F0 (client: 566d40)
     uint16_t* GetCostGridAt(uint8_t x, uint8_t y); // Get pointer into field3_0x30000 cost grid for (x,y) — 59A670 (client: 569960)
     uint8_t* GetWalkCostMapAt(uint8_t x, uint8_t y); // Get pointer into walk_cost_map for (x,y) — 59A6F0 (client: 5699e0)
 
@@ -292,14 +292,14 @@ public:
 
     void FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y, int32_t flag, Unit* target); // 5882AE (client: 55775e)
 
-    inline Obstacle& ObstacleAt(PosYX yx) { return this->obstacle_map[yx.val]; } //59a7a0
-    inline Obstacle& Obstacle2At(PosYX yx) { return this->obstacle_map2[yx.val]; } //59a7c0
+    inline Obstacle& ObstacleAt(PosYX yx) { return this->obstacle_map[yx.val]; } //59a7a0 (client: 569a60)
+    inline Obstacle& Obstacle2At(PosYX yx) { return this->obstacle_map2[yx.val]; } //59a7c0 (client: 569a80)
     inline uint8_t& WalkCostAt(PosYX yx) { return this->walk_cost_map[yx.val]; } //59a780 (client: 569a40)
 
-    int IsObstacle2_40(PosYX yx) { return this->Obstacle2At(yx).TestBits(0x40); } //58b9ee
-    void SetObstacle2_40(PosYX yx) { this->Obstacle2At(yx).SetBits(0x40); } //58b920
-    int IsObstacle2_80(PosYX yx) { return this->Obstacle2At(yx).TestBits(0x80); } //58ba15
-    void SetObstacle2_80(PosYX yx) { this->Obstacle2At(yx).SetBits(0x80); } //58b952
+    int IsObstacle2_40(PosYX yx) { return this->Obstacle2At(yx).TestBits(0x40); } //58b9ee (client: 55ae9e)
+    void SetObstacle2_40(PosYX yx) { this->Obstacle2At(yx).SetBits(0x40); } //58b920 (client: 55add0)
+    int IsObstacle2_80(PosYX yx) { return this->Obstacle2At(yx).TestBits(0x80); } //58ba15 (client: 55aec5)
+    void SetObstacle2_80(PosYX yx) { this->Obstacle2At(yx).SetBits(0x80); } //58b952 (client: 55ae02)
 
     void ApplyCellState(CellState& cell); //58b5d6 (client: 55aa86)
     int RestoreCellState(PosYX yx); //58b4a6 (client: 55a956)
@@ -316,14 +316,14 @@ public:
 
     // Shared by GetFacingTo/GetFacingFor/ClassifyDirection16: classifies the 16-point compass direction of a
     // signed (dx, dy) offset into a raw octant index (0-15).
-    uint8_t ClassifyDirection16(int32_t dx, int32_t dy);
+    uint8_t ClassifyDirection16(int32_t dx, int32_t dy);  // client: 561ce1
 
     // Shared by GetFacingTo/GetFacingFor: coarsens ClassifyDirection16's raw index into one of 8
     // facing-angle steps (0, 32, 64, ..., 224).
     uint8_t ClassifyFacing16(int32_t dx, int32_t dy);
 
-    int32_t GetWidth() const { return this->map_width; } //58b8df
-    int32_t GetHeight() const { return this->map_height; } //58b8f3
+    int32_t GetWidth() const { return this->map_width; } //58b8df (client: 55ad8f)
+    int32_t GetHeight() const { return this->map_height; } //58b8f3 (client: 55ada3)
 };
 ASSERT_OFFSET(MapStuff, map_width, 0x50000);
 ASSERT_OFFSET(MapStuff, scratch_cell_state, 0x5402c);
@@ -340,28 +340,28 @@ ASSERT_SIZE(MapStuff, 0xa4570);
 class File2;
 
 // Reads one length-prefixed record from the scenario file into buf.
-void __cdecl ReadRecord(char* buf, File2* file); //4a7b3c
+void __cdecl ReadRecord(char* buf, File2* file); //4a7b3c (client: 4abb6c)
 
 class Scenario : public CObject {
 public:
     ~Scenario(); //4a9468 (client: 4ad48f)
 
-    Scenario(); //4a7a50
-    Scenario(const char* fname); //4a7bec
+    Scenario(); //4a7a50 (client: 4abc1c)
+    Scenario(const char* fname); //4a7bec (client: 4aba80)
     bool ReadAlmInfo(NetMapInfo* info); //44ec40 (client: 451f65)
 
-    uint16_t* GetLandscape() const { return this->landscape; }; //41ee80
-    int32_t GetWidth() const { return this->width; }; //41ef20
-    int32_t GetHeight() const { return this->height; }; //41ef40
+    uint16_t* GetLandscape() const { return this->landscape; }; //41ee80 (client: 4203b0)
+    int32_t GetWidth() const { return this->width; }; //41ef20 (client: 420240)
+    int32_t GetHeight() const { return this->height; }; //41ef40 (client: 420260)
 
-    uint8_t* GetMapHeights() const { return this->map_heights; }; //41eea0
-    uint8_t* GetObjectMap() const { return this->object_map; }; //41eec0
-    uint8_t* GetOverlayMap() const { return this->overlay_map; }; //41eee0
+    uint8_t* GetMapHeights() const { return this->map_heights; }; //41eea0 (client: 420280)
+    uint8_t* GetObjectMap() const { return this->object_map; }; //41eec0 (client: 420680)
+    uint8_t* GetOverlayMap() const { return this->overlay_map; }; //41eee0 (client: 420420)
     int32_t IsInShadedBounds(int32_t x, int32_t y); //41ef60 (client: 4202a0)
 
     double GetRenderSunAngle(); //4a7b79 (client: 4abba9)
 
-    void UpdateTerrainShading(int32_t x, int32_t y, uint32_t w, uint32_t h); //4a952b
+    void UpdateTerrainShading(int32_t x, int32_t y, uint32_t w, uint32_t h); //4a952b (client: 4ad552)
 public:
     int32_t width;
     int32_t height;
@@ -380,9 +380,9 @@ public:
 ASSERT_SIZE(Scenario, 0x30);
 
 
-void __cdecl MissionGetBriefing(CString* out); //4e13db
-void __cdecl MissionGetFailure(int32_t idx, CString* out); //4e14a4
-void __cdecl MissionGetTips(int32_t idx, CString* out); //4e15b9
-void __cdecl MissionGetSubj(int32_t idx, CString* out); //4e16ce
-void __cdecl MissionGetLocName(int32_t t, int32_t idx, CString* out); //4e17e3
-void __cdecl MissionGetDescription(int32_t t, int32_t idx, CString* out); //4e1915
+void __cdecl MissionGetBriefing(CString* out); //4e13db (client: 4e5d5c)
+void __cdecl MissionGetFailure(int32_t idx, CString* out); //4e14a4 (client: 4e5e25)
+void __cdecl MissionGetTips(int32_t idx, CString* out); //4e15b9 (client: 4e5f3a)
+void __cdecl MissionGetSubj(int32_t idx, CString* out); //4e16ce (client: 4e604f)
+void __cdecl MissionGetLocName(int32_t t, int32_t idx, CString* out); //4e17e3 (client: 4e6164)
+void __cdecl MissionGetDescription(int32_t t, int32_t idx, CString* out); //4e1915 (client: 4e6296)

@@ -36,15 +36,15 @@ struct ShopAssortment {
     uint8_t gap_0x48[12];
     uint32_t flags;
 
-    ShopAssortment();   // sub_54A13B (??1CWinThread@@UAE@XZ_37 in asm listing)
-    ~ShopAssortment();  // sub_54A2DD
+    ShopAssortment();   // sub_54A13B (??1CWinThread@@UAE@XZ_37 in asm listing) (client: 422960)
+    ~ShopAssortment();  // sub_54A2DD (client: 422cd0)
     void GenerateAssortment(AssortGenParams* params);  // sub_54BF6B (client: 52f209)
 
     void Reset(); // 54C08A — reset fields (still in ASM)
-    void ClearItems(); // 54BC09 — ClearItemsArray: delete all items (still in ASM)
-    void AddItemsFlags(CArray<WorldEquip>* items, uint32_t flags); // 54ACCB — AddItemsFlags
-    void AddMagicItems(CArray<MagicItem>* items); // 54AF21 — AddMagicItems
-    void AddItems(CArray<WorldEquip>* items, int32_t shape, int32_t mat, int32_t item_type, int32_t is_magic); // 54A420 — AddItems
+    void ClearItems(); // 54BC09 (client: 52f180) — ClearItemsArray: delete all items (still in ASM)
+    void AddItemsFlags(CArray<WorldEquip>* items, uint32_t flags); // 54ACCB (client: 52e8ec) — AddItemsFlags
+    void AddMagicItems(CArray<MagicItem>* items); // 54AF21 (client: 52eb53) — AddMagicItems
+    void AddItems(CArray<WorldEquip>* items, int32_t shape, int32_t mat, int32_t item_type, int32_t is_magic); // 54A420 (client: 52e4fd) — AddItems
     Inventory* ArrangeShelfs(int32_t max_count, int32_t max_same, int32_t min_cost, int32_t max_cost, CArray<Item*>* result); // 54D423
 
     int32_t AddMagicToItem(Item* item); // 54EA76 — add magic to item

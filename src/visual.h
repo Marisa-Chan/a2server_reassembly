@@ -12,7 +12,7 @@
 #include "txtfile.h"
 
 
-uint32_t IsDefaultNpcName(const char* name); // 4386e0
+uint32_t IsDefaultNpcName(const char* name); // 4386e0 (client: 43ad20)
 
 
 class CGameSession;
@@ -68,73 +68,73 @@ public:
 		FLAG_20 = 0x20,
 	};
 public:
-	~CVisualObject();
-	virtual void Dump(CDumpContext& dc) const override;
+	~CVisualObject();  // client: 4db98a
+	virtual void Dump(CDumpContext& dc) const override;  // client: 4dcbc3
 
-	virtual const char* GetHint();
-	virtual void SetHint(const char *_hint);
-	virtual void ChangeFlags(uint32_t _flags, bool setunset);
-	virtual uint32_t TestFlags(uint32_t _flags);
-	virtual void SetCursorOver(bool isOver);
-	virtual void SetFocus(bool isFocus);
-	virtual void VMethod7();
-	virtual void VMethod8(CRect* rect);
-	virtual void VMethod9();
-	virtual void VMethod10();
-	virtual void WriteData(void* buf);
-	virtual uint32_t DataSize();
-	virtual void ReadData(const void* buf);
-	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam);
-	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos);
-	virtual int32_t OnWmUser(uint32_t wparam, CPoint pos);
-	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos);
-	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos);
-	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos);
-	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos);
-	virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos);
-	virtual int32_t OnRButtonDblClk(uint32_t wparam, CPoint pos);
-	virtual int32_t OnKeyDown(uint32_t wparam);
-	virtual int32_t OnKeyUp(uint32_t wparam);
-	virtual int32_t OnChar(uint32_t wparam);
+	virtual const char* GetHint();  // client: 4dc525
+	virtual void SetHint(const char *_hint);  // client: 4dc509
+	virtual void ChangeFlags(uint32_t _flags, bool setunset);  // client: 4dc313
+	virtual uint32_t TestFlags(uint32_t _flags);  // client: 4dc2fd
+	virtual void SetCursorOver(bool isOver);  // client: 4dc34a
+	virtual void SetFocus(bool isFocus);  // client: 4dc3b9
+	virtual void VMethod7();  // client: 4dc550
+	virtual void VMethod8(CRect* rect);  // client: 420190
+	virtual void VMethod9();  // client: 4dc5d8
+	virtual void VMethod10();  // client: 4dc613
+	virtual void WriteData(void* buf);  // client: 4dc6a9
+	virtual uint32_t DataSize();  // client: 4dc647
+	virtual void ReadData(const void* buf);  // client: 4dc712
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam);  // client: 4dc8d9
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos);  // client: 420950
+	virtual int32_t OnWmUser(uint32_t wparam, CPoint pos);  // client: 4201a0
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos);  // client: 43a7c0
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos);  // client: 43a7d0
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos);  // client: 43a7e0
+	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos);  // client: 43a600
+	virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos);  // client: 43a610
+	virtual int32_t OnRButtonDblClk(uint32_t wparam, CPoint pos);  // client: 4201b0
+	virtual int32_t OnKeyDown(uint32_t wparam);  // client: 43a620
+	virtual int32_t OnKeyUp(uint32_t wparam);  // client: 4201c0
+	virtual int32_t OnChar(uint32_t wparam);  // client: 43a630
 
 public:
-	CVisualObject();
-	CVisualObject(int32_t _id, const RECT& r, const char* str);
-	CVisualObject(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* str);
+	CVisualObject();  // client: 4db650
+	CVisualObject(int32_t _id, const RECT& r, const char* str);  // client: 4db760
+	CVisualObject(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* str);  // client: 4db86f
 
-	int32_t MsgProcOnChilds(uint32_t msg, uint32_t wparam, uint32_t lparam);
+	int32_t MsgProcOnChilds(uint32_t msg, uint32_t wparam, uint32_t lparam);  // client: 4dc77b
 
-	void AddChild(CVisualObject* obj);
+	void AddChild(CVisualObject* obj);  // client: 4dbbd4
 
-	void RemoveChild(CVisualObject* obj);
-	void RemoveChildById(int32_t _id);
-	void RemoveAllChilds();
+	void RemoveChild(CVisualObject* obj);  // client: 4dbbf9
+	void RemoveChildById(int32_t _id);  // client: 4dbca3
+	void RemoveAllChilds();  // client: 4dc1e4
 
-	void DestroyChild(CVisualObject* obj);
-	void DestroyChildById(int32_t _id);
-	void DestroyAllChilds();
+	void DestroyChild(CVisualObject* obj);  // client: 4dbd40
+	void DestroyChildById(int32_t _id);  // client: 4dbddf
+	void DestroyAllChilds();  // client: 4dc260
 
-	CVisualObject* FindChild(int32_t _id);
-	CVisualObject* GetChildAt(POINT pt);
+	CVisualObject* FindChild(int32_t _id);  // client: 4dc183
+	CVisualObject* GetChildAt(POINT pt);  // client: 4dc458
 
-	void ClientPtToScreen(CPoint* out, const CPoint& _point);
-	void ClientRectToScreen(CRect* out, const CRect& _rect);
+	void ClientPtToScreen(CPoint* out, const CPoint& _point);  // client: 4dbb03
+	void ClientRectToScreen(CRect* out, const CRect& _rect);  // client: 4dbb93
 
-	CPoint ClientPtToScreen(const CPoint& _point);
-	CRect ClientRectToScreen(const CRect& _rect);
+	CPoint ClientPtToScreen(const CPoint& _point);  // client: 4dbb03
+	CRect ClientRectToScreen(const CRect& _rect);  // client: 4dbb93
 
-	void SetLeftObj(CVisualObject* obj);
-	void SetRightObj(CVisualObject* obj);
-	void SetUpObj(CVisualObject* obj);
-	void SetDownObj(CVisualObject* obj);
+	void SetLeftObj(CVisualObject* obj);  // client: 4dcbdd
+	void SetRightObj(CVisualObject* obj);  // client: 4dcbfc
+	void SetUpObj(CVisualObject* obj);  // client: 4dcc1b
+	void SetDownObj(CVisualObject* obj);  // client: 4dcc3a
 
-	void SetCaptionLabel(VisLabel* obj);
+	void SetCaptionLabel(VisLabel* obj);  // client: 4dcc59
 
-	void FocusTo(CVisualObject* obj, bool update);
-	void TabFocus(bool forward, bool update);
+	void FocusTo(CVisualObject* obj, bool update);  // client: 4dc126
+	void TabFocus(bool forward, bool update);  // client: 4dbf84
 
-	void SetRect(RECT r);
-	void SetRect(const RECT* r);
+	void SetRect(RECT r);  // client: 4dba88
+	void SetRect(const RECT* r);  // client: 4dba50
 	void SetRect(int32_t l, int32_t t, int32_t r, int32_t b);
 
 	int32_t GetId() { return this->id; } //4503f0 (client: 4530f0)
@@ -164,17 +164,17 @@ ASSERT_SIZE(CVisualObject, 0x5C);
 
 class VisLabel : public CVisualObject {
 public:
-	~VisLabel();
+	~VisLabel();  // client: 453f10
 
 	// VTable at 60de38.
-	virtual void VMethod7() override;
+	virtual void VMethod7() override;  // client: 4dcdf4
 
 public:
-	VisLabel();
-	VisLabel(int32_t _id, const RECT& r, const char* _text, CGameFont* _font, uint16_t* colorsh, uint32_t align);
-	VisLabel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* _text, CGameFont *_font, uint16_t *colorsh, uint32_t align);
+	VisLabel();  // client: 4dcc6f
+	VisLabel(int32_t _id, const RECT& r, const char* _text, CGameFont* _font, uint16_t* colorsh, uint32_t align);  // client: 4dcd63
+	VisLabel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* _text, CGameFont *_font, uint16_t *colorsh, uint32_t align);  // client: 4dccc6
 
-	void SetActiveColor(bool isActive);
+	void SetActiveColor(bool isActive);  // client: 4dcef6
 public:
 
 	CString text;
@@ -188,19 +188,19 @@ ASSERT_SIZE(VisLabel, 0x6C);
 //60df40
 class VisButton : public CVisualObject {
 public:
-	virtual ~VisButton();
+	virtual ~VisButton();  // client: 453330
 
-	virtual void VMethod7() override;
-	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnKeyDown(uint32_t wparam) override;
-	virtual int32_t OnChar(uint32_t wparam) override;
+	virtual void VMethod7() override;  // client: 4dd88a
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;  // client: 4dde8b
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;  // client: 4ddf9d
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;  // client: 4ddfe4
+	virtual int32_t OnKeyDown(uint32_t wparam) override;  // client: 4de07f
+	virtual int32_t OnChar(uint32_t wparam) override;  // client: 4de0d0
 
-	VisButton(int32_t _id, const RECT& r, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint);
-	VisButton(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint);
+	VisButton(int32_t _id, const RECT& r, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint);  // client: 4dd73b
+	VisButton(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint);  // client: 4dd5e0
 
-	void SetDowned(bool down);
+	void SetDowned(bool down);  // client: 4dddb1
 public:
 	CString caption;
 	CGameFont* font;
@@ -216,29 +216,29 @@ ASSERT_SIZE(VisButton, 0x78);
 //60e1d0
 class VisScrollBar : public CVisualObject {
 public:
-	virtual ~VisScrollBar();
+	virtual ~VisScrollBar();  // client: 4e9260
 
-	virtual void SetCursorOver(bool isOver) override;
+	virtual void SetCursorOver(bool isOver) override;  // client: 4e3060
 	virtual void VMethod7() override;
-	virtual void VMethod9() override;
-	virtual void WriteData(void* buf) override;
-	virtual void ReadData(const void* buf) override;
-	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
-	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnWmUser(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnKeyDown(uint32_t wparam) override;
+	virtual void VMethod9() override;  // client: 4e2a51
+	virtual void WriteData(void* buf) override;  // client: 4e9bc0
+	virtual void ReadData(const void* buf) override;  // client: 4e9bf0
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;  // client: 4e39d6
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;  // client: 4e34b3
+	virtual int32_t OnWmUser(uint32_t wparam, CPoint pos) override;  // client: 4e383e
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;  // client: 4e3082
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;  // client: 4e3948
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override;  // client: 4e9c20
+	virtual int32_t OnKeyDown(uint32_t wparam) override;  // client: 4e3a08
 
-	VisScrollBar(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* hint);
+	VisScrollBar(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* hint);  // client: 4e27eb
 
 
-	void SetPos(int32_t pos, int32_t pos_max);
-	void UpdateRects();
-	void UpdateHBoxes();
+	void SetPos(int32_t pos, int32_t pos_max);  // client: 4e2a07
+	void UpdateRects();  // client: 4e2450
+	void UpdateHBoxes();  // client: 4e25c2
 
-	int32_t GetValHPos(int32_t x);
+	int32_t GetValHPos(int32_t x);  // client: 4e273f
 
 public:
 	int32_t field_0x5c;
@@ -268,34 +268,34 @@ class VisListBox : public CVisualObject {
 public:
 	~VisListBox();
 
-	virtual void VMethod7() override;
-	virtual void WriteData(void* buf) override;
-	virtual uint32_t DataSize() override;
-	virtual void ReadData(const void* buf) override;
-	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
-	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnKeyDown(uint32_t wparam) override;
+	virtual void VMethod7() override;  // client: 4e0aa0
+	virtual void WriteData(void* buf) override;  // client: 4e0a3f
+	virtual uint32_t DataSize() override;  // client: 452ef0
+	virtual void ReadData(const void* buf) override;  // client: 4e0a6d
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;  // client: 4e0fb2
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;  // client: 4e1227
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;  // client: 4e10c2
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;  // client: 4e11b5
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override;  // client: 4e11ee
+	virtual int32_t OnKeyDown(uint32_t wparam) override;  // client: 4e1279
 
-	virtual int32_t IsValidIndex(int32_t idx); //26
-	virtual void DrawItem(int32_t idx, CPoint pos, uint16_t* clr); //27
-	virtual void SelectItem(int32_t idx); //28
-	virtual int32_t GetItemCount(); //29
-	virtual void VMethod30(CPoint pos, const CRect& r); //30 
+	virtual int32_t IsValidIndex(int32_t idx); //26 (client: 4e0eab)
+	virtual void DrawItem(int32_t idx, CPoint pos, uint16_t* clr); //27 (client: 4e0ee3)
+	virtual void SelectItem(int32_t idx); //28 (client: 4e0802)
+	virtual int32_t GetItemCount(); //29 (client: 452ed0)
+	virtual void VMethod30(CPoint pos, const CRect& r); //30 (client: 4e0e71)
 
-	VisListBox(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint);
-	VisListBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint);
+	VisListBox(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint);  // client: 4e06b5
+	VisListBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint);  // client: 4e0596
 
-	void Down();
-	void Up();
-	void PageDown();
-	void PageUp();
+	void Down();  // client: 4e093e
+	void Up();  // client: 4e090c
+	void PageDown();  // client: 4e09be
+	void PageUp();  // client: 4e0964
 
-	int32_t YToIndex(int32_t y); //Get index of y coordinate
+	int32_t YToIndex(int32_t y); //Get index of y coordinate (client: 4e07c8)
 
-	void AddItem(const char* str);
+	void AddItem(const char* str);  // client: 452ce0
 
 	void SetSelectedIndex(int32_t idx); //4507a0 (client: 452cc0)
 	int32_t GetSelectedIndex() { return this->selected_index; } //450780 (client: 453110)
@@ -321,23 +321,23 @@ class VisTextBox : public CVisualObject {
 public:
 	virtual ~VisTextBox();
 
-	virtual void VMethod7() override;
-	virtual void WriteData(void* buf) override;
-	virtual uint32_t DataSize() override;
-	virtual void ReadData(const void* buf) override;
-	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
-	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnKeyDown(uint32_t wparam) override;
-	virtual int32_t OnChar(uint32_t wparam) override;
+	virtual void VMethod7() override;  // client: 4de337
+	virtual void WriteData(void* buf) override;  // client: 454510
+	virtual uint32_t DataSize() override;  // client: 454500
+	virtual void ReadData(const void* buf) override;  // client: 4544e0
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;  // client: 4df3b0
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;  // client: 4debaf
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;  // client: 4decfd
+	virtual int32_t OnKeyDown(uint32_t wparam) override;  // client: 4ded6e
+	virtual int32_t OnChar(uint32_t wparam) override;  // client: 4df2eb
 
-	VisTextBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint);
-	VisTextBox(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr, const char* hint);
+	VisTextBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint);  // client: 4de26c
+	VisTextBox(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr, const char* hint);  // client: 4de195
 
-	void DelSelection();
-	void InsertChar(int32_t chr);
-	void ResetBlink();
-	int32_t GetCursorPosByX(int32_t x);
+	void DelSelection();  // client: 4de9e8
+	void InsertChar(int32_t chr);  // client: 4de875
+	void ResetBlink();  // client: 4df438
+	int32_t GetCursorPosByX(int32_t x);  // client: 4dead4
 
 public:
 	CString text;
@@ -364,17 +364,17 @@ class VisRadioBase : public CVisualObject {
 public:
 	virtual ~VisRadioBase();
 
-	virtual void SetCursorOver(bool isOver) override;
-	virtual void WriteData(void* buf) override;
-	virtual uint32_t DataSize() override;
-	virtual void ReadData(const void* buf) override;
-	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+	virtual void SetCursorOver(bool isOver) override;  // client: 4df652
+	virtual void WriteData(void* buf) override;  // client: 452bb0
+	virtual uint32_t DataSize() override;  // client: 452ba0
+	virtual void ReadData(const void* buf) override;  // client: 453740
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;  // client: 4df674
 
-	virtual int32_t GetIndex(int32_t y); //26
+	virtual int32_t GetIndex(int32_t y); //26 (client: 4df606)
 
-	VisRadioBase(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint);
+	VisRadioBase(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint);  // client: 4df4b0
 
-	void AddEntry(const char* etext);
+	void AddEntry(const char* etext);  // client: 452b30
 public:
 	int32_t mouse_over;
 	int32_t field_0x60;
@@ -391,42 +391,42 @@ ASSERT_SIZE(VisRadioBase, 0x8c);
 class VisRadioType1 : public VisRadioBase {
 public:
 	virtual ~VisRadioType1();
-	virtual void VMethod7() override;
-	virtual void ReadData(const void* buf) override;
-	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnKeyDown(uint32_t wparam) override;
-	virtual int32_t OnChar(uint32_t wparam) override;
+	virtual void VMethod7() override;  // client: 4df77d
+	virtual void ReadData(const void* buf) override;  // client: 452bd0
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;  // client: 4dfab9
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;  // client: 4df9e7
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override;  // client: 452bf0
+	virtual int32_t OnKeyDown(uint32_t wparam) override;  // client: 4dfc58
+	virtual int32_t OnChar(uint32_t wparam) override;  // client: 4dfb92
 
-	VisRadioType1(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint);
+	VisRadioType1(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint);  // client: 452b50
 };
 
 //60ad78
 class VisRadioType2 : public VisRadioBase {
 public:
 	virtual ~VisRadioType2();
-	virtual void VMethod7() override;
-	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnKeyDown(uint32_t wparam) override;
-	virtual int32_t OnChar(uint32_t wparam) override;
+	virtual void VMethod7() override;  // client: 4e0005
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;  // client: 4e0500
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;  // client: 4e026c
+	virtual int32_t OnKeyDown(uint32_t wparam) override;  // client: 4e0393
+	virtual int32_t OnChar(uint32_t wparam) override;  // client: 4e0318
 
-	VisRadioType2(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint);
+	VisRadioType2(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint);  // client: 452b50
 };
 
 
 //60e248
 class VisBitmap : public CVisualObject {
 public:
-	virtual ~VisBitmap();
-	virtual void VMethod7() override;
+	virtual ~VisBitmap();  // client: 4d1e8c
+	virtual void VMethod7() override;  // client: 4e3cc6
 
-	VisBitmap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, int32_t dtype);
-	VisBitmap(int32_t _id, const RECT& r, CGameBitmap* _bitmap, int32_t dtype);
+	VisBitmap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, int32_t dtype);  // client: 4e3bbe
+	VisBitmap(int32_t _id, const RECT& r, CGameBitmap* _bitmap, int32_t dtype);  // client: 4e3c07
 
-	CGameBitmap* GetBitmap();
-	void SetBitmap(CGameBitmap* bmp);
+	CGameBitmap* GetBitmap();  // client: 4e9c80
+	void SetBitmap(CGameBitmap* bmp);  // client: 4e9ca0
 public:
 	CGameBitmap* bitmap;
 	int32_t draw_type;
@@ -439,20 +439,20 @@ class VisComboBox : public CVisualObject {
 public:
 	virtual ~VisComboBox() = default;
 
-	virtual void VMethod8(CRect* rect) override;
-	virtual void VMethod9() override;
-	virtual void WriteData(void* buf) override;
-	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
-	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnKeyDown(uint32_t wparam) override;
+	virtual void VMethod8(CRect* rect) override;  // client: 4e6e05
+	virtual void VMethod9() override;  // client: 4e69a2
+	virtual void WriteData(void* buf) override;  // client: 4e69b5
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;  // client: 4e6c5c
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;  // client: 4e6d94
+	virtual int32_t OnKeyDown(uint32_t wparam) override;  // client: 4e6da6
 
-	VisComboBox(int32_t _id, CRect r, const char* hint);
+	VisComboBox(int32_t _id, CRect r, const char* hint);  // client: 4e6791
 
-	void AddItem(const char* str);
-	void ToggleList();
-	void HideList();
-	void ProcSelectList();
-	void SelectItem(int32_t index);
+	void AddItem(const char* str);  // client: 4e69d7
+	void ToggleList();  // client: 4e6ad4
+	void HideList();  // client: 4e6a5f
+	void ProcSelectList();  // client: 4e6bae
+	void SelectItem(int32_t index);  // client: 4e6a1b
 
 public:
 	VisListBox* listbox;
@@ -466,18 +466,18 @@ ASSERT_SIZE(VisComboBox, 0x6c);
 class VisComboBoxText : public VisTextBox {
 public:
 	virtual ~VisComboBoxText() = default;
-	virtual void VMethod7() override;
+	virtual void VMethod7() override;  // client: 4e9510
 
-	VisComboBoxText(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint);
+	VisComboBoxText(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint);  // client: 4e94c0
 };
 
 //60e548
 class VisComboBoxList : public VisListBox {
 public:
 	virtual ~VisComboBoxList() = default;
-	virtual int32_t OnKeyDown(uint32_t wparam) override;
+	virtual int32_t OnKeyDown(uint32_t wparam) override;  // client: 4e9430
 
-	VisComboBoxList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint);
+	VisComboBoxList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint);  // client: 4e93e0
 };
 
 //60e458
@@ -485,13 +485,13 @@ class VisComboBoxButton : public VisButton {
 public:
 	virtual ~VisComboBoxButton() = default;
 
-	virtual void SetCursorOver(bool isOver) override;
-	virtual void VMethod7() override;
-	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
+	virtual void SetCursorOver(bool isOver) override;  // client: 4e6637
+	virtual void VMethod7() override;  // client: 4e66fe
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;  // client: 4e66dd
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;  // client: 4e66bc
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;  // client: 4e6597
 
-	VisComboBoxButton(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, int32_t _frm, int32_t _msgid, int32_t _charid, const char* hint);
+	VisComboBoxButton(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, int32_t _frm, int32_t _msgid, int32_t _charid, const char* hint);  // client: 4e64dd
 public:
 	CGameBitmap* bitmap;
 	int32_t frm;
@@ -501,22 +501,22 @@ ASSERT_SIZE(VisComboBoxButton, 0x80);
 //60deb0
 class VisMultiText : public VisListBox {
 public:
-	virtual ~VisMultiText() = default; //4e3c20
+	virtual ~VisMultiText() = default; //4e3c20 (client: 4e90f0)
 
-	virtual void VMethod7() override;
-	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
-	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnWmUser(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
-	virtual int32_t OnKeyDown(uint32_t wparam) override;
+	virtual void VMethod7() override;  // client: 4dd2a4
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;  // client: 4dd4a9
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;  // client: 4dd4ca
+	virtual int32_t OnWmUser(uint32_t wparam, CPoint pos) override;  // client: 4dd4eb
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;  // client: 4dd54f
+	virtual int32_t OnKeyDown(uint32_t wparam) override;  // client: 4dd570
 
-	virtual void SelectItem(int32_t idx) override;
+	virtual void SelectItem(int32_t idx) override;  // client: 4dd1ad
 
 	VisMultiText(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* str, CGameFont* _font, uint16_t* _clr, int32_t dy);
 	VisMultiText(int32_t _id, const RECT& r, const char* str, CGameFont* _font, uint16_t* _clr, int32_t dy);
 
-	void SetText(const char* text);
-	void SizesCheck();
+	void SetText(const char* text);  // client: 4dd126
+	void SizesCheck();  // client: 4dd34b
 
 public:
 	CString text;
@@ -537,18 +537,18 @@ public:
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4dfee7 (client: 4e4868)
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 4dfc43 (client: 4e45c4)
 
-	virtual void VMethod26(); //450900
-	virtual void VMethod27(); //4388c0
+	virtual void VMethod26(); //450900 (client: 44e774)
+	virtual void VMethod27(); //4388c0 (client: 43a9e0)
 	virtual void VMethod28(); //4dfb4f (client: 4e44d0)
 	virtual void DoClose(uint32_t code); //4dfb8a (client: 4e450b) 29 method   
 
-	VisScreen();
-	VisScreen(int32_t _id, const RECT& r, CGameBitmap* _bitmap);
-	VisScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap);
+	VisScreen();  // client: 425b0f
+	VisScreen(int32_t _id, const RECT& r, CGameBitmap* _bitmap);  // client: 4e3e7b
+	VisScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap);  // client: 4e3eee
 
-	int32_t GetCloseCode(); //
-	void CloseOk();
-	void CloseCancel();
+	int32_t GetCloseCode(); // (client: 43ab60)
+	void CloseOk();  // client: 4348e6
+	void CloseCancel();  // client: 430a8a
 public:
 	int32_t is_active = 0;
 	int32_t exit_code = 0;
@@ -561,9 +561,9 @@ ASSERT_SIZE(VisScreen, 0x68);
 class VisWindow : public VisScreen {
 public:
 	virtual ~VisWindow();
-	virtual int32_t OnKeyDown(uint32_t wparam) override;
+	virtual int32_t OnKeyDown(uint32_t wparam) override;  // client: 449fb8
 
-	VisWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap);
+	VisWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap);  // client: 4e472c
 
 	void UpdateWinRect(); //4dfe19 (client: 4e479a)
 };
@@ -573,11 +573,11 @@ ASSERT_SIZE(VisWindow, 0x68);
 //60e3d0 — role/NPC speech dialog screen shown by ShowRoleKeyDialog
 class VisRoleKeyScreen : public VisWindow {
 public:
-	virtual ~VisRoleKeyScreen(); //4e3f60
+	virtual ~VisRoleKeyScreen(); //4e3f60 (client: 4e9340)
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; //4e0071 (client: 4e49f2)
 	virtual int32_t OnKeyDown(uint32_t wparam) override; //4e0027 (client: 4e49a8)
 	virtual void VMethod28() override; //4e012d (client: 4e4aae)
-	virtual void DoClose(uint32_t code) override; //4e0148
+	virtual void DoClose(uint32_t code) override; //4e0148 (client: 4e4ac9)
 
 	VisRoleKeyScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CString& text); //4dff5c (client: 4e48dd)
 
@@ -600,12 +600,12 @@ ASSERT_SIZE(VisRoleKeyScreen, 0x88);
 //60a288
 class VisMessageBox : public VisWindow {
 public:
-	virtual ~VisMessageBox(); // 444ff3
+	virtual ~VisMessageBox(); // 444ff3 (client: 4476c1)
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 44500f (client: 4476dd)
 	virtual void VMethod26() override; // 444086 (client: 446656)
 
 	virtual CVisualObject* VMethod30(const void* str, const RECT& r) = 0;
-	virtual void VMethod31(int32_t code); // 445084
+	virtual void VMethod31(int32_t code); // 445084 (client: 447752)
 
 	VisMessageBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const void* _payload, const char* str2, int32_t btypes, const char* str3); // 44402b (client: 4465fb)
 
@@ -620,7 +620,7 @@ ASSERT_SIZE(VisMessageBox, 0x78);
 //60a318
 class VisMessageBoxWithList : public VisMessageBox {
 public:
-	virtual ~VisMessageBoxWithList() {}; //44f930
+	virtual ~VisMessageBoxWithList() {}; //44f930 (client: 453820)
 	virtual CVisualObject* VMethod30(const void* str, const RECT& r); //4450d4 (client: 4477a2)
 
 	VisMessageBoxWithList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* str1, const char* str2, int32_t btypes); //445091 (client: 44775f)
@@ -640,9 +640,9 @@ ASSERT_SIZE(QuestObjectivesHeaderDialogVisualObject, 0x78);
 //609898
 class VisCharSelect : public VisScreen {
 public:
-	virtual ~VisCharSelect(); // 438650
+	virtual ~VisCharSelect(); // 438650 (client: 43ac00)
 
-	virtual void VMethod8(CRect* rect) override; // 438d50
+	virtual void VMethod8(CRect* rect) override; // 438d50 (client: 43abf0)
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4326A4 (client: 4347d5)
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4326EA (client: 43481b)
 
@@ -655,12 +655,12 @@ public:
 
 	void FUN_00432655(CUnit* unit); // client: 434786 (client: 434786)
 
-	void LoadSfx(); // 432280
-	void FreeSfx(); // 4322ed
+	void LoadSfx(); // 432280 (client: 430eb0)
+	void FreeSfx(); // 4322ed (client: 430f1d)
 	void CloseRenameWindow(); // 432933 (client: 434a64)
-	CUnit* GetSelectedMapUnit(); // 438d30
+	CUnit* GetSelectedMapUnit(); // 438d30 (client: 430ac8)
 
-	VisCharSelect(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //431eac in asm
+	VisCharSelect(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //431eac (client: 433fda) in asm
 
 public:
 	CGameSession* session;
@@ -684,19 +684,19 @@ ASSERT_SIZE(VisCharSelect, 0x9c);
 //6097a8
 class VisCharSellectButtons : public CVisualObject {
 public:
-	virtual ~VisCharSellectButtons(); // 4385B0
+	virtual ~VisCharSellectButtons(); // 4385B0 (client: 43ab30)
 
 	virtual void VMethod7() override; // 43005F (client: 431f52)
-	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4302F5
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4302F5 (client: 4321e8)
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 430318 (client: 43220b)
-	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;  // client: 4322bb
 
-	VisCharSellectButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 42fd5c
+	VisCharSellectButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 42fd5c (client: 431c50)
 
-	void LoadBitmaps(); // 430850
-	void FreeBitmaps(); // 430a1a
+	void LoadBitmaps(); // 430850 (client: 43291c)
+	void FreeBitmaps(); // 430a1a (client: 432ae6)
 	void Init(); // 42fe62 (client: 431d56)
-	void ResetMouseBoxes(); // 43072b
+	void ResetMouseBoxes(); // 43072b (client: 4327f7)
 
 public:
 	VisCharSelect* parent_screen;
@@ -717,13 +717,13 @@ ASSERT_SIZE(VisCharSellectButtons, 0xe0);
 //609820
 class VisCharSellectList : public CVisualObject {
 public:
-	virtual ~VisCharSellectList(); // 4385E0
+	virtual ~VisCharSellectList(); // 4385E0 (client: 43ab80)
 
 	virtual void VMethod7() override; // 430FEC (client: 433143)
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 431609 (client: 433760)
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 431764 (client: 4338bb)
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 43182C (client: 433983)
-	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 4316A0
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 4316A0 (client: 4337f7)
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 431B95 (client: 433cec)
 
 	VisCharSellectList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 430bbb (client: 432c87)
@@ -735,7 +735,7 @@ public:
 	int32_t SelectNextRow(); // 431a93 (client: 433bea)
 	void UpdateArrows(CPoint pos, bool is_down); // 431c97 (client: 433dee)
 	int32_t HitTest(CPoint pos); // 431872 (client: 4339c9)
-	void LoadBitmaps(); // 4312b7
+	void LoadBitmaps(); // 4312b7 (client: 43291c)
 	void FreeBitmaps(); // 43148a (client: 4335e1)
 
 public:
@@ -765,7 +765,7 @@ ASSERT_SIZE(VisCharSellectList, 0xdc);
 //609730
 class VisCharSellectStats : public CVisualObject {
 public:
-	virtual ~VisCharSellectStats(); // 438580
+	virtual ~VisCharSellectStats(); // 438580 (client: 43aac0)
 
 	virtual const char* GetHint() override; // 42FC61 (client: 431b55)
 	virtual void VMethod7() override; // 42F7B9 (client: 4316ad)
@@ -773,7 +773,7 @@ public:
 
 	void ReadUnitStats(); // 42f6f3 (client: 4315ef)
 
-	VisCharSellectStats(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 42f0ec
+	VisCharSellectStats(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 42f0ec (client: 430fe8)
 
 	void Init(); // 42f1e8 (client: 4310e4)
 	void LoadBitmaps(); // 42f4df (client: 4313db)
@@ -807,8 +807,8 @@ struct TakeDamage {
 
 	TakeDamage(); //45db60 (client: 461780)
 	TakeDamage(int32_t dmg, uint16_t* clr, int32_t unk, int32_t _dx, int32_t _dy, CUnit* ct); //45db8a (client: 4617aa)
-	TakeDamage(const TakeDamage& ref);
-	~TakeDamage(); //45dd08
+	TakeDamage(const TakeDamage& ref);  // client: 4617aa
+	~TakeDamage(); //45dd08 (client: 461928)
 
 	void Update(); //45dd1b (client: 46193b)
 	int Draw(); //45dd6d (client: 46198d)
@@ -849,7 +849,7 @@ public:
 class BigStruct2 : public CVisualObject {
 public:
 	BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b); // 402af6 (client: 402af6)
-	~BigStruct2(); // 403395
+	~BigStruct2(); // 403395 (client: 403418)
 
 	// VTable at 609088.
 	virtual void VMethod7() override; // 406f1a (client: 406f89)
@@ -857,44 +857,44 @@ public:
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 40c83f (client: 40c8c6)
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 40c510 (client: 40c597)
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 40c633 (client: 40c6ba)
-	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 40c60f
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 40c60f (client: 40c696)
 	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override; // 40c56c (client: 40c5f3)
 	virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override; // 40c59c (client: 40c623)
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 40c902 (client: 40c989)
 	virtual int32_t OnChar(uint32_t wparam) override; // 40d4b2 (client: 40d539)
 
 public:
-	void sub_406F7B(); //406f7b
+	void sub_406F7B(); //406f7b (client: 406fea)
 	void sub_40403B(); //40403b (client: 4040e2)
 	void sub_404E1A(); //404e1a (client: 404eb5)
-	void sub_405399(int32_t arg); //405399
+	void sub_405399(int32_t arg); //405399 (client: 405434)
 	void sub_40587B(int32_t arg); //40587b (client: 405908)
-	void sub_405D0E(); //405d0e
-	void sub_404DA3(CRect* rect, uint16_t unit_id); //404da3
+	void sub_405D0E(); //405d0e (client: 405d9b)
+	void sub_404DA3(CRect* rect, uint16_t unit_id); //404da3 (client: 404e40)
 	void sub_40AFC5(int32_t x, int32_t y, uint32_t flags, int32_t flag); //40afc5 (client: 40b010)
 	int32_t sub_40B173(int32_t gfx_id, int32_t x, int32_t y, int32_t height); //40b173 (client: 40b1be)
 	void sub_40328E(); //40328e (client: 403311)
 	void sub_404912(); //404912 (client: 4049b7)
-	void sub_404A2C(); //404a2c
+	void sub_404A2C(); //404a2c (client: 404ad1)
 	void sub_403F08(Scenario* scen); //403f08 (client: 403faf)
-	void sub_40B314(); //40b314
-	uint32_t sub_41864D(); //41864d
+	void sub_40B314(); //40b314 (client: 40b35f)
+	uint32_t sub_41864D(); //41864d (client: 419e12)
 	int32_t sub_4184B8(int32_t x, int32_t y); //4184b8 (client: 419c7d)
-	void sub_417B42(CPoint* pt); //417b42
-	void sub_417F09(CRect* rect); //417f09
-	void sub_419154(uint16_t x, uint16_t y); //419154
-	void sub_419246(uint16_t id); //419246
-	void sub_41930D(uint16_t x, uint16_t y); //41930d
-	void sub_41955C(uint16_t id); //41955c
-	void sub_41965D(uint16_t x, uint16_t y); //41965d
-	void sub_41972F(uint16_t x, uint16_t y, int32_t spell); //41972f
-	void sub_419BA1(uint16_t id, int32_t spell); //419ba1
-	void sub_41A33F(uint16_t x, uint16_t y); //41a33f
-	void sub_41A66E(uint16_t id); //41a66e
-	void sub_41AC2D(int32_t id); //41ac2d in asm
+	void sub_417B42(CPoint* pt); //417b42 (client: 419313)
+	void sub_417F09(CRect* rect); //417f09 (client: 4196d2)
+	void sub_419154(uint16_t x, uint16_t y); //419154 (client: 41a90f)
+	void sub_419246(uint16_t id); //419246 (client: 41a9ff)
+	void sub_41930D(uint16_t x, uint16_t y); //41930d (client: 41aac4)
+	void sub_41955C(uint16_t id); //41955c (client: 41ad0d)
+	void sub_41965D(uint16_t x, uint16_t y); //41965d (client: 41ae0a)
+	void sub_41972F(uint16_t x, uint16_t y, int32_t spell); //41972f (client: 41aeda)
+	void sub_419BA1(uint16_t id, int32_t spell); //419ba1 (client: 41b346)
+	void sub_41A33F(uint16_t x, uint16_t y); //41a33f (client: 41bae8)
+	void sub_41A66E(uint16_t id); //41a66e (client: 41befc)
+	void sub_41AC2D(int32_t id); //41ac2d (client: 41c4b9) in asm
 	void sub_41AC88(int32_t arg1, int32_t arg2); //41ac88 (client: 41c514)
 	void sub_41A7C7(uint8_t arg1, uint16_t arg2, uint8_t arg3, uint16_t arg4, uint16_t arg5); //41a7c7 (client: 41c053)
-	void sub_40BD34(); //40bd34
+	void sub_40BD34(); //40bd34 (client: 40bdc1)
 	void sub_40C112(); //40c112 (client: 40c199)
 	void sub_40C18B(); //40c18b (client: 40c212)
 	int32_t sub_403B8F(int32_t arg1, int32_t arg2, int32_t arg3, int32_t arg4); //403b8f (client: 403c36)
@@ -903,65 +903,65 @@ public:
 	void sub_4168BD(); //4168bd (client: 4180d4)
 	void sub_4167F7(int32_t wparam, int32_t lparam); //4167f7 (client: 41800e)
 	void sub_418F93(int32_t arg); //418f93 (client: 41a74e)
-	void sub_4193E8(); //4193e8
-	void sub_4194A2(); //4194a2
-	void sub_41A425(); //41a425
-	void sub_41B8D0(); //41b8d0
+	void sub_4193E8(); //4193e8 (client: 41ab9d)
+	void sub_4194A2(); //4194a2 (client: 41ac55)
+	void sub_41A425(); //41a425 (client: 41bbcc)
+	void sub_41B8D0(); //41b8d0 (client: 41d158)
 	void sub_416983(int32_t digit); //416983 (client: 41819a)
-	void sub_416A02(int32_t digit); //416a02
-	void sub_416AA6(int32_t digit); //416aa6
+	void sub_416A02(int32_t digit); //416a02 (client: 418219)
+	void sub_416AA6(int32_t digit); //416aa6 (client: 4182bd)
 	void sub_416B4A(int32_t digit); //416b4a (client: 418361)
-	void sub_41A5B4(); //41a5b4
+	void sub_41A5B4(); //41a5b4 (client: 41bd57)
 	CUnit* sub_41DFDB(); //41dfdb (client: 41f85d)
-	void sub_41A4DF(); //41a4df
-	void sub_41B155(); //41b155
+	void sub_41A4DF(); //41a4df (client: 41bc84)
+	void sub_41B155(); //41b155 (client: 41c9dd)
 	void sub_416C4C(); //416c4c (client: 418463)
-	void sub_41F6D0(); //41f6d0
-	void sub_41F770(); //41f770
-	void sub_41F7B0(); //41f7b0
-	void sub_41F720(); //41f720
+	void sub_41F6D0(); //41f6d0 (client: 420990)
+	void sub_41F770(); //41f770 (client: 420a30)
+	void sub_41F7B0(); //41f7b0 (client: 420a70)
+	void sub_41F720(); //41f720 (client: 4209e0)
 	int32_t sub_41F7F0(); //41f7f0 (client: 420c60)
-	int32_t sub_41F810(); //41f810
+	int32_t sub_41F810(); //41f810 (client: 420ad0)
 	void sub_41AB05(); //41ab05 (client: 41c391)
-	void sub_41A9F6(); //41a9f6
-	void sub_41A99C(); //41a99c
-	void sub_41CE14(); //41ce14
-	void sub_41A942(); //41a942
+	void sub_41A9F6(); //41a9f6 (client: 41c282)
+	void sub_41A99C(); //41a99c (client: 41c228)
+	void sub_41CE14(); //41ce14 (client: 41e698)
+	void sub_41A942(); //41a942 (client: 41c1ce)
 
 	void UpdateSelectionState(); //416cf7 (client: 41850e)
 	void FUN_0041cda3(const char* mapname); // 41cda3 (client: 41e627)
 	uint32_t sub_40C0A8(int32_t x, int32_t y); // 40c0a8 (client: 40c12f)
 	void FUN_0041ace2(int32_t spell_id); //41ace2 (client: 41c56e)
-	void FUN_0041a001(int32_t idx); //41a001
+	void FUN_0041a001(int32_t idx); //41a001 (client: 41b7a0)
 	void UpdateSpellEffects(CUnit* unit); //from 416cf7 (client: 41850e)
 	void UpdateSpellModifiers(CUnit* unit); //from 416cf7 (client: 41850e)
 
 	void FUN_0041c4a1(const char* name); //41c4a1 (client: 41dd29)
 
-	CUnit* GetUnit_3f6c(); //41f830
+	CUnit* GetUnit_3f6c(); //41f830 (client: 420c60)
 	void SetUnit_3f6c(CUnit* uni) { this->field_0x3f6c = uni; };
 
 	int32_t ProcessPackets(uint8_t breakid); //40da14 (client: 40dac9)
 
-	void FUN_0041b7b7(int32_t xpos, int32_t ypos, int32_t* pvol, int32_t* ppan); //41b7b7
-	void FUN_0041c74b(int32_t x, int32_t y, int32_t w, int32_t h, int32_t unk1, uint8_t* dat, int32_t unk2); //41c74b
+	void FUN_0041b7b7(int32_t xpos, int32_t ypos, int32_t* pvol, int32_t* ppan); //41b7b7 (client: 41d03f)
+	void FUN_0041c74b(int32_t x, int32_t y, int32_t w, int32_t h, int32_t unk1, uint8_t* dat, int32_t unk2); //41c74b (client: 41dfd3)
 
 	CUnit* FUN_0041df23(int32_t serv_id); //41df23 (client: 41f7a5)
 	int32_t FUN_0041e2af(int32_t id, CUnit** out); //41e2af (client: 41fb31)
 	CUnit* FUN_0041dfa6(int32_t serv_id); //41dfa6 (client: 41f828)
 	CGameBitmap* FUN_0041da52(int32_t serv_id); //41da52 (client: 41f2d4) in asm
 	CUnit* sub_41DE80(int32_t serv_id); //41de80 (client: 41f702)
-	void FUN_0041ae1c(int32_t serv_id); //41ae1c
+	void FUN_0041ae1c(int32_t serv_id); //41ae1c (client: 41c6a8)
 
-	void FUN_0041c630(CWordArray *data); //41c630
+	void FUN_0041c630(CWordArray *data); //41c630 (client: 41deb8)
 
-	void FUN_0041cb67(int32_t val); //41cb67
-	void FUN_0041cb21(); //41cb21
+	void FUN_0041cb67(int32_t val); //41cb67 (client: 41e3eb)
+	void FUN_0041cb21(); //41cb21 (client: 41e3a5)
 
 	void FUN_0041b2a4(const char* nam, int32_t token, int32_t playerid); //41b2a4 (client: 41cb2c)
 	void FUN_0041a8cc(); //41a8cc (client: 41c158)
 
-	int32_t FUN_0040d7f3(); //40d7f3
+	int32_t FUN_0040d7f3(); //40d7f3 (client: 40d87a)
 	int ConnectAndJoinSession(); //40d4e2 (client: 40d569)
 
 	void FUN_0041cbb8(); //0041cbb8 (client: 41e43c)
@@ -973,13 +973,13 @@ public:
 	void FUN_0041afcf(CString str); //41afcf (client: 41c857)
 	void FUN_0041a735(); //41a735 (client: 41bfc1)
 
-	void FUN_0041cad0(int32_t m); //41cad0
-	void FUN_0041aaaa(int32_t wim); //41aaaa
-	void FUN_0041abd2(int32_t form); // 41abd2
+	void FUN_0041cad0(int32_t m); //41cad0 (client: 41e354)
+	void FUN_0041aaaa(int32_t wim); //41aaaa (client: 41c336)
+	void FUN_0041abd2(int32_t form); // 41abd2 (client: 41c45e)
 	void FUN_0041ab74(); //41ab74 (client: 41c400)
 
 	void FUN_0041b6e0(); //41b6e0 (client: 41cf68)
-	int32_t MapMaxY() const { return (this->map_height - 8) - this->view_tiles_y; } //41f6b0
+	int32_t MapMaxY() const { return (this->map_height - 8) - this->view_tiles_y; } //41f6b0 (client: 420310)
 
 	void FUN_0041b636(); //41b636 (client: 41cebe)
 
@@ -987,30 +987,30 @@ public:
 	void FUN_0041b509(); //41b509 (client: 41cd91)
 	void FUN_0041b40e(); //41b40e (client: 41cc96)
 	void FUN_0041b381(); //41b381 (client: 41cc09)
-	void FUN_0041b10f(); //41b10f
+	void FUN_0041b10f(); //41b10f (client: 41c997)
 	void FUN_0041b064(int32_t arg1, int32_t arg2); //41b064 (client: 41c8ec)
 	void FUN_0041c39c(); //41c39c (client: 41dc24)
 
-	void CleanupCompletedMissionMapState(); //41ce5a
+	void CleanupCompletedMissionMapState(); //41ce5a (client: 41e6de)
 
 	void FUN_00403ca0(CGameObject* obj); //403ca0 (client: 403d47)
 	void FUN_0041d97e(int32_t); //41d97e (client: 41f200)
 
 	uint32_t AvailableOrderMask() const; // 417af6 (client: 4192c7)
-	void SendAdjustPlayerGoldAction(int32_t goldDelta) const; //41b0be
+	void SendAdjustPlayerGoldAction(int32_t goldDelta) const; //41b0be (client: 41c946)
 
-	int32_t MapMinX() const { return 8; } //41f670
-	int32_t MapMinY() const { return 8; } //41f680
+	int32_t MapMinX() const { return 8; } //41f670 (client: 4201d0)
+	int32_t MapMinY() const { return 8; } //41f680 (client: 4201e0)
 
-	int32_t MapMaxX() const { return (this->map_width - 8) - this->view_tiles_x; } //41f690
+	int32_t MapMaxX() const { return (this->map_width - 8) - this->view_tiles_x; } //41f690 (client: 4202f0)
 
-	void ScrollMapX(int32_t dx); //403f4f
-	void ScrollMapY(int32_t dy); //403fc5
+	void ScrollMapX(int32_t dx); //403f4f (client: 403ff6)
+	void ScrollMapY(int32_t dy); //403fc5 (client: 40406c)
 
 	void OnOpenShopDialog(); //41a856 (client: 41c0e2)
 	void NetOnOpenInnDialog(); //41adbb (client: 41c647)
 
-	void UpdateAmbientSounds(); //41b8d0
+	void UpdateAmbientSounds(); //41b8d0 (client: 41d158)
 	void MakeHeightCells(); //4065d3 (client: 406658)
 	void ApplyDynamicLight(int32_t tx, int32_t ty, int32_t radius, int32_t brightness); //406340 (client: 4063c5)
 
@@ -1147,7 +1147,7 @@ public:
 	CStringArray hat_name_list; // client 0x4a10 — hat DM player names (packets 0x5a/0x5b/0x5c)
 	CArray<uint32_t> hat_score_list; // client 0x4a24 — parallel scores (plain dwords), sorted descending
 
-	void CloseHatOverlays(); // client 41748d/417902 — close shop/tavern/popup/1200 overlays
+	void CloseHatOverlays(); // client-only helper wrapping Allods2.exe 41748d + 417902: closes shop/tavern/popup/1200 overlays
 #endif
 	int32_t field_0x49b8; //unk type
 	int32_t field_0x49bc; //unk type
@@ -1173,12 +1173,12 @@ ASSERT_SIZE(BigStruct2, 0x49c8);
 //60ce80
 class VisRightPanel : public CVisualObject {
 public:
-	virtual ~VisRightPanel(); // 4B46E0
+	virtual ~VisRightPanel(); // 4B46E0 (client: 4b90b0)
 
-	virtual void VMethod7() override; // 4AEE31
+	virtual void VMethod7() override; // 4AEE31 (client: 4b3771)
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4AEE44 (client: 4b3784)
 
-	VisRightPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4aedcf in asm
+	VisRightPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4aedcf (client: 4b370f) in asm
 };
 ASSERT_SIZE(VisRightPanel, 0x5c);
 
@@ -1186,18 +1186,18 @@ ASSERT_SIZE(VisRightPanel, 0x5c);
 //60cef8
 class VisMiniMap : public CVisualObject {
 public:
-	virtual ~VisMiniMap(); // 4B4730
+	virtual ~VisMiniMap(); // 4B4730 (client: 4b9100)
 
 	virtual void VMethod7() override; // 4AFB8E (client: 4b44c4)
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4AF006 (client: 4b3946)
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4B0C2F (client: 4b5561)
-	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4B0788
-	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4B0C84
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4B0788 (client: 4b50be)
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4B0C84 (client: 4b5b7e)
 	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override; // 4B0AAD (client: 4b53df)
 
 	VisMiniMap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4aeec3 (client: 4b3803)
 
-	void RebuildMap(); // 4af0dc in asm
+	void RebuildMap(); // 4af0dc (client: 4b3a1c) in asm
 	void UpdateCursor(); // 4b042e (client: 4b4d64) in asm
 
 public:
@@ -1213,18 +1213,18 @@ ASSERT_SIZE(VisMiniMap, 0x70);
 //60cf70
 class VisOrderToolbar : public CVisualObject {
 public:
-	virtual ~VisOrderToolbar(); // 4b4790
+	virtual ~VisOrderToolbar(); // 4b4790 (client: 4b9160)
 
 	virtual const char* GetHint() override; // 4B0D9A (client: 4b56cc)
 	virtual void VMethod7() override; // 4B12E3 (client: 4b5c15)
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4B0ED1 (client: 4b5803)
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4B12B3 (client: 4b5be5)
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4B107B (client: 4b59ad)
-	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4B124C
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4B124C (client: 4b5b7e)
 	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 4B1213 (client: 4b5b45)
-	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override; // 4b1201
+	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override; // 4b1201 (client: 4b5b33)
 	virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override; // 4B1287 (client: 4b5bb9)
-	virtual int32_t OnRButtonDblClk(uint32_t wparam, CPoint pos) override; // 4b123a
+	virtual int32_t OnRButtonDblClk(uint32_t wparam, CPoint pos) override; // 4b123a (client: 4b5b6c)
 
 	void UpdateCursor(); // 4b1468 (client: 4b5d9a)
 
@@ -1248,25 +1248,25 @@ class VisInvBase : public CVisualObject {
 public:
 	VisInvBase(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4a4938 (client: 4a8968)
 
-	virtual ~VisInvBase(); // 4A77D0
-	virtual const char* GetHint() override; // 4a4cf8
-	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4A5DE0
+	virtual ~VisInvBase(); // 4A77D0 (client: 4ab830)
+	virtual const char* GetHint() override; // 4a4cf8 (client: 4a8d28)
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4A5DE0 (client: 4a9e0f)
 	virtual int32_t VMethod26(TokenEntry* o, int32_t idx); //4a554f (client: 4a957e)
 	virtual int32_t VMethod27(TokenEntry* o); //4a56c3 (client: 4a96f2)
 	virtual TokenEntry* VMethod28(uint32_t id); //4a57a1 (client: 4a97d0)
 	virtual TokenEntry* VMethod29(TokenEntry* o, int32_t num); //4a58dc (client: 4a990b)
-	virtual int32_t VMethod30(int32_t x, int32_t y); //4a79a0
-	virtual int32_t VMethod31(const CPoint* pt); //4a7990
+	virtual int32_t VMethod30(int32_t x, int32_t y); //4a79a0 (client: 4ab800)
+	virtual int32_t VMethod31(const CPoint* pt); //4a7990 (client: 4ab810)
 	virtual void VMethod32(CArray<TokenEntry*>* arr); //4a4da9 (client: 4a8dd9)
 	virtual void VMethod33(CGameObject* uni); //4a4d05 (client: 4a8d35)
 	virtual void VMethod34(); //4a4e28 (client: 4a8e58)
 	virtual void VMethod35(); //4a4c2f (client: 4a8c5f)
 	virtual TokenEntry* VMethod36(int32_t idx, int32_t num); //4a5aae (client: 4a9add)
 	virtual int32_t VMethod37(int32_t idx); //4a5c39 (client: 4a9c68)
-	virtual int32_t VMethod38(); //4a79b0
+	virtual int32_t VMethod38(); //4a79b0 (client: 4ab820)
 
-	int32_t FUN_0046fb90(); //46fb90
-	int32_t sub_41F940(); //41f940
+	int32_t FUN_0046fb90(); //46fb90 (client: 472fd0)
+	int32_t sub_41F940(); //41f940 (client: 4207b0)
 	void FUN_004a4ebc(); //4a4ebc (client: 4a8eec)
 	void sub_4A4BCB(); //4a4bcb (client: 4a8bfb)
 	void sub_4A5350(); //4a5350 (client: 4a937f) in asm
@@ -1291,7 +1291,7 @@ ASSERT_SIZE(VisInvBase, 0x20ac);
 //60ca60
 class VisInvType1 : public VisInvBase {
 public:
-	virtual ~VisInvType1(); // 4A7830
+	virtual ~VisInvType1(); // 4A7830 (client: 4aba40)
 
 	virtual const char* GetHint() override; // 4A765D (client: 4ab68b)
 	virtual void VMethod7() override; // 4A6449 (client: 4aa478)
@@ -1301,9 +1301,9 @@ public:
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4A6E57 (client: 4aae86)
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4A70EC (client: 4ab11a)
 	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 4A6F44 (client: 4aaf73)
-	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override; // 4a6f32
-	virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override; // 4a715d
-	virtual int32_t OnRButtonDblClk(uint32_t wparam, CPoint pos) override; // 4a70da
+	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override; // 4a6f32 (client: 4aaf61)
+	virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override; // 4a715d (client: 4ab18b)
+	virtual int32_t OnRButtonDblClk(uint32_t wparam, CPoint pos) override; // 4a70da (client: 4ab108)
 
 	virtual int32_t VMethod26(TokenEntry* o, int32_t idx) override; // 4A79F0 (client: 4ab9d0)
 	virtual int32_t VMethod27(TokenEntry* o) override; // 4A79C0 (client: 4ab9a0)
@@ -1327,24 +1327,24 @@ public:
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4B5BBE (client: 4ba58d)
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4B5D19 (client: 4ba6e8)
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4B5D5C (client: 4ba72b)
-	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 4B5F3F
-	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override; // 4b62a2
-	virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override; // 4b62b4
-	virtual int32_t OnRButtonDblClk(uint32_t wparam, CPoint pos) override; // 4b62c6
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 4B5F3F (client: 4ba90d)
+	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override; // 4b62a2 (client: 4bac6c)
+	virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override; // 4b62b4 (client: 4bac7e)
+	virtual int32_t OnRButtonDblClk(uint32_t wparam, CPoint pos) override; // 4b62c6 (client: 4bac90)
 
 	virtual int32_t VMethod30(int32_t x, int32_t y) override; // 4B4FA3 (client: 4b9973)
 	virtual int32_t VMethod31(const CPoint* pt) override; // 4B4E88 (client: 4b9858)
-	virtual void VMethod32(CArray<TokenEntry*>* arr) override;
-	virtual int32_t VMethod38() override;
+	virtual void VMethod32(CArray<TokenEntry*>* arr) override;  // client: 4b9761
+	virtual int32_t VMethod38() override;  // client: 4be810
 
-	virtual void VMethod39();
-	virtual void VMethod40(CArray<TokenEntry*>* arr);
-	virtual void VMethod41();
-	virtual void VMethod42();
+	virtual void VMethod39();  // client: 4be800
+	virtual void VMethod40(CArray<TokenEntry*>* arr);  // client: 4b977a
+	virtual void VMethod41();  // client: 4be820
+	virtual void VMethod42();  // client: 4be830
 
 	int32_t sub_4B5B81(); //4b5b81 (client: 4ba550) in asm
 	int32_t sub_4B5A6C(int32_t idx); //4b5a6c (client: 4ba43b) in asm
-	void sub_4B4BA9(); //4b4ba9 in asm
+	void sub_4B4BA9(); //4b4ba9 (client: 461193) in asm
 	void sub_4B4C1C(); //4b4c1c (client: 4b95ec)
 	void sub_4B4BC5(); //4b4bc5 (client: 4b9595)
 	void sub_4B4D33(); //4b4d33 (client: 4b9703)
@@ -1378,19 +1378,19 @@ public:
 	virtual int32_t VMethod26(TokenEntry* o, int32_t idx) override; // 4B790D (client: 4bc2d7)
 	virtual TokenEntry* VMethod29(TokenEntry* o, int32_t num) override; // 4B7A9F (client: 4bc469)
 
-	virtual int32_t VMethod37(int32_t idx) override;
-	virtual int32_t VMethod38() override;
-	virtual void VMethod39() override;
+	virtual int32_t VMethod37(int32_t idx) override;  // client: 4bc6e6
+	virtual int32_t VMethod38() override;  // client: 4be840
+	virtual void VMethod39() override;  // client: 4bb710
 
-	virtual void VMethod41() override;
-	virtual void VMethod42() override;
+	virtual void VMethod41() override;  // client: 4bb006
+	virtual void VMethod42() override;  // client: 4bb591
 
 	void sub_4B7859(); //4b7859 (client: 4bc223)
 	void sub_4B73E4(int32_t category); //4b73e4 (client: 4bbdae)
-	void sub_4B7264(); //4b7264 in asm
-	void sub_4B72C1(); //4b72c1 in asm
-	void sub_4B731E(); //4b731e in asm
-	void sub_4B7381(); //4b7381 in asm
+	void sub_4B7264(); //4b7264 (client: 4bbc2e) in asm
+	void sub_4B72C1(); //4b72c1 (client: 4bbc8b) in asm
+	void sub_4B731E(); //4b731e (client: 4bbce8) in asm
+	void sub_4B7381(); //4b7381 (client: 4bbd4b) in asm
 
 	VisInvExtType1(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4b63f7 (client: 4badc1) in asm
 
@@ -1413,7 +1413,7 @@ class VisInvExtType1Kaarg : public VisInvExtType1 {
 public:
 	virtual void VMethod41() override; //4b69ee (client: 4bb3b8) in asm
 
-	VisInvExtType1Kaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4c6cd0 in asm
+	VisInvExtType1Kaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4c6cd0 (client: 4cb670) in asm
 };
 ASSERT_SIZE(VisInvExtType1Kaarg, 0x2150);
 
@@ -1423,7 +1423,7 @@ class VisInvExtType1Druid : public VisInvExtType1 {
 public:
 	virtual void VMethod41() override; //4b6815 (client: 4bb1df) in asm
 
-	VisInvExtType1Druid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4c6c40 in asm
+	VisInvExtType1Druid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4c6c40 (client: 4cb5e0) in asm
 };
 ASSERT_SIZE(VisInvExtType1Druid, 0x2150);
 
@@ -1444,13 +1444,13 @@ public:
 	virtual int32_t VMethod26(TokenEntry* o, int32_t idx) override; // 4B9ED0 (client: 4be8a0)
 	virtual int32_t VMethod27(TokenEntry* o) override; // 4B9EA0 (client: 4be870)
 
-	virtual int32_t VMethod38() override;
-	virtual void VMethod39() override;
+	virtual int32_t VMethod38() override;  // client: 4be8d0
+	virtual void VMethod39() override;  // client: 4bcacc
 
-	void sub_4B860E(); //4b860e in asm
-	void sub_4B8666(); //4b8666 in asm
-	void sub_4B86BE(); //4b86be in asm
-	void sub_4B871C(); //4b871c in asm
+	void sub_4B860E(); //4b860e (client: 4bcfd8) in asm
+	void sub_4B8666(); //4b8666 (client: 4bd030) in asm
+	void sub_4B86BE(); //4b86be (client: 4bd088) in asm
+	void sub_4B871C(); //4b871c (client: 4bd0e6) in asm
 
 	VisInvExtType2(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4b7fe5 (client: 4bc9af) in asm
 public:
@@ -1464,29 +1464,29 @@ ASSERT_SIZE(VisInvExtType2, 0x20ec);
 //60d328
 class VisInvExtType3 : public VisInvExtBase {
 public:
-	virtual ~VisInvExtType3(); // 4B9D10
+	virtual ~VisInvExtType3(); // 4B9D10 (client: 4be6e0)
 
 	virtual const char* GetHint() override; // 4B90CF (client: 4bda99)
 	virtual void VMethod7() override; // 4B9155 (client: 4bdb1f)
 
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4B92F9 (client: 4bdcc3)
 
-	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4b93ae
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4b93ae (client: 4bdd78)
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4B93CF (client: 4bdd99)
-	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 4b9436
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 4b9436 (client: 4bde00)
 
 	virtual int32_t VMethod26(TokenEntry* o, int32_t idx) override; // 4B9457 (client: 4bde21)
 	virtual int32_t VMethod27(TokenEntry* o) override; // 4B949A (client: 4bde64)
 
-	virtual TokenEntry* VMethod36(int32_t idx, int32_t num) override;
-	virtual int32_t VMethod37(int32_t idx) override;
-	virtual int32_t VMethod38() override;
-	virtual void VMethod39() override;
+	virtual TokenEntry* VMethod36(int32_t idx, int32_t num) override;  // client: 4be606
+	virtual int32_t VMethod37(int32_t idx) override;  // client: 4be15a
+	virtual int32_t VMethod38() override;  // client: 4be8e0
+	virtual void VMethod39() override;  // client: 4bd864
 
-	virtual void VMethod41() override;
-	virtual void VMethod42() override;
+	virtual void VMethod41() override;  // client: 4bd70d
+	virtual void VMethod42() override;  // client: 4bd80d
 
-	virtual TokenEntry* VMethod43(int32_t id1, int32_t id2);
+	virtual TokenEntry* VMethod43(int32_t id1, int32_t id2);  // client: 4bdf8f
 
 	int32_t sub_4B91F9(TokenEntry* entry); //4b91f9 (client: 4bdbc3) in asm
 	VisInvExtType3(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4b8bba (client: 4bd584) in asm
@@ -1525,24 +1525,24 @@ ASSERT_SIZE(VisTavSceneAnim, 0x30);
 //60c5d8
 class VisTavRightPanel : public CVisualObject {
 public:
-	virtual ~VisTavRightPanel(); // 4A3E40
+	virtual ~VisTavRightPanel(); // 4A3E40 (client: 4a7ec0)
 
-	virtual const char* GetHint() override; // 4a4710 in asm
+	virtual const char* GetHint() override; // 4a4710 (client: 4a7eb0) in asm
 	virtual void VMethod7() override; // 499dfa (client: 49de1a) in asm
-	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 49a26e in asm
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 49a26e (client: 49e28e) in asm
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 49a291 (client: 49e2b1) in asm
-	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 49a30a in asm
-	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 49a2e6 in asm
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 49a30a (client: 49e32a) in asm
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 49a2e6 (client: 49e306) in asm
 
-	VisTavRightPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //4997c6 in asm
+	VisTavRightPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //4997c6 (client: 42cc93) in asm
 
 	void FUN_00499a67(); //499a67 (client: 49da87) in asm
-	void FUN_0049a84e(); //49a84e in asm
+	void FUN_0049a84e(); //49a84e (client: 49e87d) in asm
 	void FUN_0049a973(); //49a973 (client: 49e9a2) in asm
-	void FUN_00499cdf(); //499cdf in asm
-	void FUN_004998c2(); //4998c2 in asm
-	int32_t FUN_0049a873(CPoint pos); //49a873 in asm
-	void FUN_0049a8fa(uint32_t wparam, CPoint pos); //49a8fa in asm
+	void FUN_00499cdf(); //499cdf in asm - client FreeBitmaps restructured away (both client 283b FreeBitmaps fns belong to VisCharGenAction 42d704 / VisCharSellectButtons 432ae6)
+	void FUN_004998c2(); //4998c2 (client: 42cd99) in asm
+	int32_t FUN_0049a873(CPoint pos); //49a873 (client: 43281c) in asm
+	void FUN_0049a8fa(uint32_t wparam, CPoint pos); //49a8fa in asm - client FreeBitmaps restructured away (42d41b is VisCharGenAction::UpdateMouseOver)
 
 public:
 	VisTav* vis_tav; // 0x5c
@@ -1560,11 +1560,11 @@ ASSERT_SIZE(VisTavRightPanel, 0xc8);
 // 60c560
 class VisTavLeftPanel : public CVisualObject {
 public:
-	virtual ~VisTavLeftPanel(); // 4A3E10
+	virtual ~VisTavLeftPanel(); // 4A3E10 (client: 4a7e40)
 
 	virtual const char* GetHint() override; // 49934d (client: 49d36d) in asm
 	virtual void VMethod7() override; // 497ed0 (client: 49bef0) in asm
-	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 497ec1 in asm
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 497ec1 (client: 49bee1) in asm
 
 	VisTavLeftPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //497990 (client: 49b9b0) in asm
 
@@ -1590,18 +1590,18 @@ ASSERT_SIZE(VisTavLeftPanel, 0x190);
 //60c650
 class VisTavScene : public CVisualObject {
 public:
-	virtual ~VisTavScene(); // 4A3E70
+	virtual ~VisTavScene(); // 4A3E70 (client: 4a7ef0)
 
 	virtual const char* GetHint() override; // 49cd2b (client: 4a0d59) in asm
 	virtual void VMethod7() override; // 49b22f (client: 49f25e) in asm
-	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 49d8d9 in asm
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 49d8d9 (client: 4a1907) in asm
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 49da98 (client: 4a1ac6) in asm
 	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 49d8e8 (client: 4a1916) in asm
 
 	virtual void VMethod26(); //49ced4 (client: 4a0f02) in asm
 	virtual void VMethod27(); //49d1b0 (client: 4a11de) in asm
-	virtual void VMethod28(); //49d2bb in asm
-	virtual void VMethod29(); //49d5f9 in asm
+	virtual void VMethod28(); //49d2bb (client: 4a12e9) in asm
+	virtual void VMethod29(); //49d5f9 (client: 4a1627) in asm
 
 	VisTavScene(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //49ad56 (client: 49ed85) in asm
 
@@ -1634,7 +1634,7 @@ ASSERT_SIZE(VisTavScene, 0x3cc);
 //60c7f8
 class VisTavSceneDruid : public VisTavScene {
 public:
-	virtual ~VisTavSceneDruid(); // 4A3F90
+	virtual ~VisTavSceneDruid(); // 4A3F90 (client: 4a80b0)
 
 	virtual void VMethod7() override; // 4a0673 (client: 4a46a1) in asm
 	virtual void VMethod28() override; // 4a11e3 (client: 4a5211) in asm
@@ -1654,11 +1654,11 @@ ASSERT_SIZE(VisTavSceneDruid, 0x468);
 //60c910
 class VisTavSceneKaarg : public VisTavScene {
 public:
-	virtual ~VisTavSceneKaarg(); // 4A4090
+	virtual ~VisTavSceneKaarg(); // 4A4090 (client: 4a81b0)
 
 	virtual void VMethod7() override; // 4a2bb8 (client: 4a6be6) in asm
-	virtual void VMethod28() override; // 4a37e7 in asm
-	virtual void VMethod29() override; // 4a3b25 in asm
+	virtual void VMethod28() override; // 4a37e7 (client: 4a7815) in asm
+	virtual void VMethod29() override; // 4a3b25 (client: 4a7b53) in asm
 
 	VisTavSceneKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //4a2aa4 (client: 4a6ad2) in asm
 
@@ -1676,15 +1676,15 @@ ASSERT_SIZE(VisTavSceneKaarg, 0x4d0);
 //60c6d8
 class VisTav : public VisScreen {
 public:
-	virtual ~VisTav(); // 4A3F10
+	virtual ~VisTav(); // 4A3F10 (client: 4a7fd0)
 
 	virtual void VMethod7() override; // 49E044 (client: 4a2072)
-	virtual void VMethod8(CRect* rect) override; // 49e075
+	virtual void VMethod8(CRect* rect) override; // 49e075 (client: 4a20a3)
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 49E082 (client: 4a20b0)
-	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 49E261
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 49E261 (client: 4a228f)
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 49E233 (client: 4a2261)
 
-	virtual void VMethod26() override; // 49DDAF
+	virtual void VMethod26() override; // 49DDAF (client: 4a3549)
 	virtual void VMethod28() override; // 49E34F (client: 4a237d)
 	virtual void DoClose(uint32_t code) override; // 49EB6C (client: 4a2b9a)
 
@@ -1730,15 +1730,15 @@ ASSERT_SIZE(VisTav, 0x140);
 //60c768
 class VisTavDruid : public VisTav {
 public:
-	virtual ~VisTavDruid(); // 4A3F40
+	virtual ~VisTavDruid(); // 4A3F40 (client: 4a8040)
 
-	virtual void VMethod26() override; // 49F51B
+	virtual void VMethod26() override; // 49F51B (client: 4a8040)
 	virtual void VMethod28() override; // 49FAAA (client: 4a3ad8)
 	virtual void DoClose(uint32_t code) override; // 4A0278 (client: 4a42a6)
 	virtual void VMethod30() override; // 49F7B0 (client: 4a37de)
 	virtual void VMethod31() override; // 49F961 (client: 4a398f)
 
-	VisTavDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 49f4e6 in asm
+	VisTavDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 49f4e6 (client: 4544a0) in asm
 public:
 	SfxSample* snd_druid[11];
 };
@@ -1747,15 +1747,15 @@ ASSERT_SIZE(VisTavDruid, 0x16c);
 //60c880
 class VisTavKaarg : public VisTav {
 public:
-	virtual ~VisTavKaarg(); // 4A4040
+	virtual ~VisTavKaarg(); // 4A4040 (client: 4a8160)
 
-	virtual void VMethod26() override; // 4A190D
+	virtual void VMethod26() override; // 4A190D (client: 4a1ddd)
 	virtual void VMethod28() override; // 4A1BA2 (client: 4a5bd0)
 	virtual void DoClose(uint32_t code) override; // 4A2448 (client: 4a6476)
 	virtual void VMethod30() override; // 4A26D9 (client: 4a6707)
-	virtual void VMethod31() override; // 4A2873
+	virtual void VMethod31() override; // 4A2873 (client: 4a68a1)
 
-	VisTavKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 4a18d8 in asm
+	VisTavKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 4a18d8 (client: 4544a0) in asm
 public:
 	SfxSample* snd_kaarg[10];
 };
@@ -1775,8 +1775,8 @@ public:
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4CAD6A (client: 4cf6f0)
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4CAEA6 (client: 4cf82c)
 	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 4CADEE (client: 4cf774)
-	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override; // 4CADD2
-	virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override; // 4CAF70
+	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override; // 4CADD2 (client: 4cf758)
+	virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override; // 4CAF70 (client: 4cf8f6)
 	virtual int32_t OnRButtonDblClk(uint32_t wparam, CPoint pos) override; // 4cae94 (client: 4cf81a)
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 4CAC9B (client: 4cf621)
 
@@ -1784,8 +1784,8 @@ public:
 
 	int32_t FUN_004ca7c2(CPoint* pos); //4ca7c2 (client: 4cf150) in asm
 	void sub_4CA925(int32_t idx); //4ca925 (client: 4cf2b3) in asm
-	int32_t sub_4CA89B(int32_t id); //4ca89b
-	int32_t sub_4CA8E0(int32_t id); //4ca8e0
+	int32_t sub_4CA89B(int32_t id); //4ca89b (client: 4cf229)
+	int32_t sub_4CA8E0(int32_t id); //4ca8e0 (client: 4cf26e)
 	int32_t sub_41F9B0(); //41f9b0 (client: 4208e0)
 	int32_t sub_41F9E0(); //41f9e0 (client: 420910)
 	int32_t sub_4CAAA7(); //4caaa7 (client: 4cf435)
@@ -1813,17 +1813,17 @@ public:
 
 	virtual void VMethod26(); // 4be238 (client: 4c2bfd)
 	virtual void VMethod27(); // 4be372 (client: 4c2d37)
-	virtual void VMethod28(); // 4be5de
-	virtual void VMethod29(); // 4be6df
+	virtual void VMethod28(); // 4be5de (client: 4c2fa3)
+	virtual void VMethod29(); // 4be6df (client: 4c30a4)
 	virtual void VMethod30(); // 4be7e0 (client: 4c31a5)
 	virtual void VMethod31(int32_t arg); // 4be45d (client: 4c2e22)
 	virtual void VMethod32(int32_t arg); // 4be541 (client: 4c2f06)
-	virtual void VMethod33(); // 4be8b0
-	virtual void VMethod34(); // 4be92d
-	virtual void VMethod35(); // 4be9aa
+	virtual void VMethod33(); // 4be8b0 (client: 4c3275)
+	virtual void VMethod34(); // 4be92d (client: 4c32f2)
+	virtual void VMethod35(); // 4be9aa (client: 4c336f)
 	virtual void VMethod36(); // 4bea01 (client: 4c33c6)
 	virtual int32_t VMethod37(int32_t arg); // 4bf4e8 (client: 4c3eab)
-	virtual int32_t VMethod38(); // 4c6bc0
+	virtual int32_t VMethod38(); // 4c6bc0 (client: 4cb560)
 
 	VisShopCompass(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4bd495 (client: 4c1e5a)
 
@@ -1854,20 +1854,20 @@ ASSERT_SIZE(VisShopCompass, 0x258);
 //60d658
 class VisShopCompassDruid : public VisShopCompass {
 public:
-	virtual ~VisShopCompassDruid(); // 4C6A30
+	virtual ~VisShopCompassDruid(); // 4C6A30 (client: 4cb3d0)
 
 	virtual const char* GetHint() override; // 4C3690 (client: 4c8047)
 	virtual void VMethod7() override; // 4C30B4 (client: 4c7a6d)
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4C359D (client: 4c7f56)
 	virtual void VMethod26() override; // 4C2882 (client: 4c723b)
 	virtual void VMethod27() override; // 4C2B29 (client: 4c74e2)
-	virtual void VMethod28() override; // 4C2D8A
-	virtual void VMethod29() override; // 4C2DA3
+	virtual void VMethod28() override; // 4C2D8A (client: 4c775c)
+	virtual void VMethod29() override; // 4C2DA3 (client: 4c775c)
 	virtual void VMethod30() override; // 4C2DBC (client: 4c7775)
 	virtual void VMethod31(int32_t arg) override; // 4C2CCE (client: 4c7687)
 	virtual void VMethod32(int32_t arg) override; // 4C2CED (client: 4c76a6)
-	virtual void VMethod33() override; // 4C2F00
-	virtual void VMethod34() override; // 4C2F7D
+	virtual void VMethod33() override; // 4C2F00 (client: 4c78b9)
+	virtual void VMethod34() override; // 4C2F7D (client: 4c7936)
 	virtual void VMethod35() override; // 4C2FFA (client: 4c79b3)
 	virtual void VMethod36() override; // 4C3051 (client: 4c7a0a)
 	virtual int32_t VMethod37(int32_t arg) override; // 4C34E6 (client: 4c7e9f)
@@ -1890,20 +1890,20 @@ ASSERT_SIZE(VisShopCompassDruid, 0x270);
 //60d7a0
 class VisShopCompassKaarg : public VisShopCompass {
 public:
-	virtual ~VisShopCompassKaarg(); // 4C6AD0
+	virtual ~VisShopCompassKaarg(); // 4C6AD0 (client: 4cb470)
 
 	virtual const char* GetHint() override; // 4C6800 (client: 4cb19b)
 	virtual void VMethod7() override; // 4C608E (client: 4caa2b)
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4C671F (client: 4cb0bc)
 	virtual void VMethod26() override; // 4C4A78 (client: 4c942f)
 	virtual void VMethod27() override; // 4C5A80 (client: 4ca41d)
-	virtual void VMethod28() override; // 4C5D64
-	virtual void VMethod29() override; // 4C5D7D
+	virtual void VMethod28() override; // 4C5D64 (client: 4ca701)
+	virtual void VMethod29() override; // 4C5D7D (client: 4ca71a)
 	virtual void VMethod30() override; // 4C5D96 (client: 4ca733)
 	virtual void VMethod31(int32_t arg) override; // 4C5CA8 (client: 4ca645)
 	virtual void VMethod32(int32_t arg) override; // 4C5CC7 (client: 4ca664)
-	virtual void VMethod33() override; // 4C5EDA
-	virtual void VMethod34() override; // 4C5F57
+	virtual void VMethod33() override; // 4C5EDA (client: 4ca877)
+	virtual void VMethod34() override; // 4C5F57 (client: 4ca8f4)
 	virtual void VMethod35() override; // 4C5FD4 (client: 4ca971)
 	virtual void VMethod36() override; // 4C602B (client: 4ca9c8)
 	virtual int32_t VMethod37(int32_t arg) override; // 4C65BA (client: 4caf57)
@@ -1928,18 +1928,18 @@ ASSERT_SIZE(VisShopCompassKaarg, 0x304);
 class VisShopButtons : public CVisualObject {
 public:
 	virtual ~VisShopButtons(); //4c0020 (client: 4c49db)
-	virtual const char* GetHint() override { return nullptr; } //4c04a4
+	virtual const char* GetHint() override { return nullptr; } //4c04a4 (client: 4c4e5d)
 	virtual void VMethod7() override; //4c04b1 (client: 4c4e6a)
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; //4c10c4 (client: 4c5a7d)
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; //4c1134 (client: 4c5aed)
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; //4c11c2 (client: 4c5b7b)
-	virtual int32_t VMethod30(); //4c6bd0
+	virtual int32_t VMethod30(); //4c6bd0 (client: 4cb570)
 
 	void ReleaseBmp(); //4c0352 (client: 4c4d0b)
 	void UpdateHoveredState(uint32_t wparam, CPoint pos); //4c14c4 (client: 4c5e7d)
 	int32_t GetButtonAt(CPoint pos); //4c137d (client: 4c5d36)
 	void LoadBmp(); //4c0088 (client: 4c4a43)
-	void ResetSelected(); //4c1358
+	void ResetSelected(); //4c1358 (client: 4c5d11)
 
 	VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4bfa5a (client: 4c4415)
 
@@ -1956,8 +1956,8 @@ public:
 ASSERT_SIZE(VisShopButtons, 0x100);
 
 
-void __cdecl FUN_004ba1cc(CArray<TokenEntry*>* arr); //4ba1cc in asm
-void __cdecl FUN_00476987(CString* str); //476987 - insert thousands separators
+void __cdecl FUN_004ba1cc(CArray<TokenEntry*>* arr); //4ba1cc (client: 4beb9c) in asm
+void __cdecl FUN_00476987(CString* str); //476987 (client: 47a6d3) - insert thousands separators
 
 
 //60d3e8
@@ -1977,7 +1977,7 @@ public:
 
 	virtual void VMethod30(); // 4BCF2F (client: 4c18f4)
 	virtual void VMethod31(); // 4BD0FB (client: 4c1ac0)
-	virtual void VMethod32();
+	virtual void VMethod32();  // client: 4c1c16
 	virtual CString VMethod33(); // 4c6b90 (client: 4cb530)
 
 
@@ -1987,9 +1987,9 @@ public:
 	void sub_4BB895(); //4bb895 (client: 4c0262)
 	void sub_4BBA06(); //4bba06 (client: 4c03d3)
 	void sub_4BB102(); //4bb102 (client: 4bfacf)
-	void sub_4BBBD6(int32_t category, CArray<TokenEntry*>* arr); //4bbbd6
+	void sub_4BBBD6(int32_t category, CArray<TokenEntry*>* arr); //4bbbd6 (client: 4c05a3)
 	void sub_4BC8D7(); //4bc8d7 (client: 4c12a4)
-	void sub_4BCC38(); //4bcc38
+	void sub_4BCC38(); //4bcc38 (client: 4c1604)
 	void sub_4BC97B(); //4bc97b (client: 4c1348)
 	void sub_4BCD4B(); //4bcd4b (client: 4c171c)
 	void sub_4BCD79(); //4bcd79 (client: 4c174a)
@@ -2057,7 +2057,7 @@ ASSERT_SIZE(VisShop, 0x164);
 //60d5c0
 class VisShopDruid : public VisShop {
 public:
-	virtual ~VisShopDruid(); // 4C69B0
+	virtual ~VisShopDruid(); // 4C69B0 (client: 4cb350)
 
 	virtual void VMethod26() override; // 4C15E6 (client: 4c5f9f)
 	virtual void VMethod28() override; // 4C1E5C (client: 4c6815)
@@ -2066,7 +2066,7 @@ public:
 	virtual void VMethod32() override; // 4C1D25 (client: 4c66de)
 	virtual CString VMethod33() override; // 4C6BE0 (client: 4cb580)
 
-	VisShopDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4c15ad
+	VisShopDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4c15ad (client: 4c5f66)
 public:
 	SfxSample* snd_bird[3];
 	SfxSample* snd_tool[4];
@@ -2081,7 +2081,7 @@ ASSERT_SIZE(VisShopDruid, 0x190);
 //60d708
 class VisShopKaarg : public VisShop {
 public:
-	virtual ~VisShopKaarg(); // 4C6A50
+	virtual ~VisShopKaarg(); // 4C6A50 (client: 4cb3f0)
 
 	virtual void VMethod26() override; // 4C37FE (client: 4c81b5)
 	virtual void VMethod28() override; // 4C3B70 (client: 4c8527)
@@ -2090,7 +2090,7 @@ public:
 	virtual void VMethod32() override; // 4C453D (client: 4c8ef4)
 	virtual CString VMethod33() override; // 4C6C10 (client: 4cb5b0)
 
-	VisShopKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4c37c5
+	VisShopKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4c37c5 (client: 4c5f66)
 public:
 	SfxSample* snd_voice[3];
 	SfxSample* snd_tool[4];
@@ -2107,11 +2107,11 @@ ASSERT_SIZE(VisShopKaarg, 0x190);
 //60dbb0
 class VisTown : public VisScreen {
 public:
-	virtual ~VisTown(); // 4D6B80
+	virtual ~VisTown(); // 4D6B80 (client: 4db490)
 
 	virtual const char* GetHint() override; // 4D1602 (client: 4d5f33)
 	virtual void VMethod7() override; // 4CE886 (client: 4d31cd)
-	virtual void VMethod8(CRect* rect) override; // 4ce719
+	virtual void VMethod8(CRect* rect) override; // 4ce719 (client: 4d3063)
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4CE3B8 (client: 4d2d05)
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4CE4E5 (client: 4d2e32)
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4CE50A (client: 4d2e57)
@@ -2124,7 +2124,7 @@ public:
 	virtual void VMethod30(); // 4D1723 (client: 4d6054)
 	virtual void VMethod31(); // 4D184A (client: 4d617b)
 
-	virtual void VMethod32(); // 4D1709
+	virtual void VMethod32(); // 4D1709 (client: 4d603a)
 	virtual int32_t VMethod33(CPoint pos); // 4D10F0 (client: 4d5a27)
 	virtual void VMethod34(CPoint pos); // 4D1429 (client: 4d5d5a)
 	virtual void VMethod35(); // 4D12CB (client: 4d5c02)
@@ -2138,15 +2138,15 @@ public:
 
 	void FUN_004d06aa(); //4d06aa (client: 4d4ff1) in asm
 	void FUN_004d07e8(); //4d07e8 (client: 4d512f) in asm
-	void FUN_004d0884(); //4d0884 in asm
-	void FUN_004d0913(); //4d0913 in asm
+	void FUN_004d0884(); //4d0884 (client: 4d56e7) in asm
+	void FUN_004d0913(); //4d0913 (client: 4d525a) in asm
 	void FUN_004d0ad7(); //4d0ad7 (client: 4d541c) in asm
-	void FUN_004d0b95(); //4d0b95 in asm
-	void FUN_004d0c6e(); //4d0c6e in asm
+	void FUN_004d0b95(); //4d0b95 (client: 4d54da) in asm
+	void FUN_004d0c6e(); //4d0c6e (client: 4d55b3) in asm
 	void FUN_004d0d47(); //4d0d47 (client: 4d568c) in asm
-	void FUN_004d0da2(); //4d0da2 in asm
-	void FUN_004d0f66(); //4d0f66 in asm
-	void FUN_004d1002(); //4d1002 in asm
+	void FUN_004d0da2(); //4d0da2 (client: 4d51cb) in asm
+	void FUN_004d0f66(); //4d0f66 (client: 4d58ab) in asm
+	void FUN_004d1002(); //4d1002 (client: 4d5940) in asm
 	void FUN_004d109e(); //4d109e (client: 4d59d5) in asm
 
 	VisTown(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4cda5c (client: 4d23ac) in asm
@@ -2219,14 +2219,14 @@ ASSERT_SIZE(VisTown, 0x20c);
 //60dc60
 class VisTownDruid : public VisTown {
 public:
-	virtual ~VisTownDruid(); // 4D6BB0
+	virtual ~VisTownDruid(); // 4D6BB0 (client: 4db4c0)
 
 	virtual void VMethod7() override; // 4D2E99 (client: 4d77ca)
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4D3F18 (client: 4d883c)
 	virtual void VMethod28() override; // 4D1E80 (client: 4d67b1)
 	virtual void VMethod30() override; // 4D2AFF (client: 4d7430)
 	virtual void VMethod31() override; // 4D2D1B (client: 4d764c)
-	virtual void VMethod32() override; // 4D2AE3
+	virtual void VMethod32() override; // 4D2AE3 (client: 4d7414)
 	virtual void VMethod34(CPoint pos) override; // 4D359C (client: 4d7ec8)
 	virtual void VMethod35() override; // 4D3922 (client: 4d824e)
 	virtual void VMethod36() override; // 4D2153 (client: 4d6a84)
@@ -2278,26 +2278,26 @@ ASSERT_SIZE(VisTownDruid, 0x320);
 //60dd10
 class VisTownKaarg : public VisTown {
 public:
-	virtual ~VisTownKaarg(); // 4D6C60
+	virtual ~VisTownKaarg(); // 4D6C60 (client: 4db570)
 
 	virtual const char* GetHint() override; // 4D6A1C (client: 4db32d)
 	virtual void VMethod7() override; // 4D57B9 (client: 4da0dd)
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4D6802 (client: 4db113)
 	virtual void VMethod28() override; // 4D4592 (client: 4d8eb6)
 	virtual void VMethod30() override; // 4D54CF (client: 4d9df3)
-	virtual void VMethod31() override; // 4D5682
-	virtual void VMethod32() override; // 4D54B5
+	virtual void VMethod31() override; // 4D5682 (client: 4d9fa6)
+	virtual void VMethod32() override; // 4D54B5 (client: 4d9dd9)
 	virtual void VMethod34(CPoint pos) override; // 4D5C9A (client: 4da5be)
 	virtual void VMethod35() override; // 4D5EF0 (client: 4da814)
 	virtual void VMethod36() override; // 4D4866 (client: 4d918a)
 	virtual void VMethod37() override; // 4D5112 (client: 4d9a36)
 	virtual void VMethod38() override; // 4D6786 (client: 4db097)
 
-	void FUN_004d6480(); //4d6480 in asm
-	void FUN_004d65dd(); //4d65dd in asm
-	void FUN_004d6655(); //4d6655 in asm
-	void FUN_004d66ca(); //4d66ca in asm
-	void FUN_004d6728(); //4d6728 in asm
+	void FUN_004d6480(); //4d6480 (client: 4dad9c) in asm
+	void FUN_004d65dd(); //4d65dd (client: 4daef7) in asm
+	void FUN_004d6655(); //4d6655 (client: 4daf6c) in asm
+	void FUN_004d66ca(); //4d66ca (client: 4dafe1) in asm
+	void FUN_004d6728(); //4d6728 (client: 4db03c) in asm
 
 	VisTownKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4d423a (client: 4d8b5e) in asm
 public:
@@ -2337,10 +2337,10 @@ public:
 	virtual ~VisCredits(); // 43c3c6 (client: 43e7d6)
 
 	virtual void VMethod7() override; // 43C60C (client: 43ea1c)
-	virtual void VMethod8(CRect* rect) override; // 43c9a8
-	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 43C595
+	virtual void VMethod8(CRect* rect) override; // 43c9a8 (client: 43edb8)
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 43C595 (client: 43e9a5)
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 43C5F5 (client: 43ea05)
-	virtual int32_t OnKeyDown(uint32_t wparam) override; // 43C5D4
+	virtual int32_t OnKeyDown(uint32_t wparam) override; // 43C5D4 (client: 43e9e4)
 
 	virtual void VMethod26() override; // 43C438 (client: 43e848)
 	virtual void VMethod28() override; // 43C4D6 (client: 43e8e6)
@@ -2365,19 +2365,19 @@ class VisTipsDialog;
 //6094c8
 class VisCharGenStats : public CVisualObject {
 public:
-	virtual ~VisCharGenStats(); // 428f12 in asm
+	virtual ~VisCharGenStats(); // 428f12 (client: 42ae32) in asm
 
 	virtual const char* GetHint() override; // 42a43b (client: 42c351) in asm
 	virtual void VMethod7() override; // 429d03 (client: 42bc1b) in asm
-	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 42a312 in asm
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 42a312 (client: 42d1f6) in asm
 	virtual int32_t OnWmUser(uint32_t wparam, CPoint pos) override; // 42a3f2 (client: 42c308) in asm
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 42a335 (client: 42c24b) in asm
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 42a3a8 (client: 42c2be) in asm
-	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 42a3ce in asm
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 42a3ce (client: 42c2e4) in asm
 
 	VisCharGenStats(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharGen* parent); //428e51 (client: 42ad71) in asm
 
-	void ReadUnitStats(); // 429c39 in asm
+	void ReadUnitStats(); // 429c39 (client: 42bb59) in asm
 	void LoadBitmaps(); // 429475 (client: 42b395) in asm
 	void FreeBitmaps(); // 4298b6 (client: 42b7d6) in asm
 	uint32_t HandleClick(int32_t mode, CPoint pt); // 42a161 (client: 42c077) in asm
@@ -2417,7 +2417,7 @@ public:
 	VisCharGenFullStats(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharGen* parent); //42aa2b (client: 42c941) in asm
 
 	void LoadBitmaps(); // 42ab18 (client: 42ca2e) in asm
-	void FreeBitmaps(); // 42ab9c in asm
+	void FreeBitmaps(); // 42ab9c (client: 42cab2) in asm
 public:
 	VisCharGen* parent_screen; // 0x5c
 	CBmp64* bmp; // 0x60
@@ -2428,22 +2428,22 @@ ASSERT_SIZE(VisCharGenFullStats, 0xa8);
 //6095b8
 class VisCharGenAction : public CVisualObject {
 public:
-	virtual ~VisCharGenAction(); // 42ae19 in asm
+	virtual ~VisCharGenAction(); // 42ae19 (client: 42ae32) in asm
 
 	virtual void VMethod7() override; // 42b028 (client: 42cf3e) in asm
-	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 42b2e0 in asm
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 42b2e0 (client: 42d1f6) in asm
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 42b303 (client: 42d219) in asm
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 42b392 (client: 42d2a8) in asm
 
-	VisCharGenAction(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharGen* parent); //42ad7d in asm
+	VisCharGenAction(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharGen* parent); //42ad7d (client: 42cc93) in asm
 
 	void LoadBitmaps(); // 42b57e (client: 42d494) in asm
-	void FreeBitmaps(); // 42b7ee in asm
-	void ResetMouseBoxes(); // 42b455 in asm
+	void FreeBitmaps(); // 42b7ee (client: 42d704) in asm
+	void ResetMouseBoxes(); // 42b455 (client: 42d36b) in asm
 private:
 	int32_t HitTest(CPoint pt); // 42b47a (client: 42d390) in asm
-	void UpdateMouseOver(uint32_t wparam, CPoint pos); // 42b505 in asm
-	void Init(); // 42ae83 in asm
+	void UpdateMouseOver(uint32_t wparam, CPoint pos); // 42b505 (client: 42d41b) in asm
+	void Init(); // 42ae83 (client: 42cd99) in asm
 public:
 	VisCharGen* parent_screen; // 0x5c
 	CStringArray texts; // 0x60
@@ -2459,13 +2459,13 @@ ASSERT_SIZE(VisCharGenAction, 0xc8);
 //609630
 class VisCharGenSkills : public CVisualObject {
 public:
-	virtual ~VisCharGenSkills(); // 42ba30 in asm
+	virtual ~VisCharGenSkills(); // 42ba30 (client: 422210) in asm
 
 	virtual const char* GetHint() override; // 42dbce (client: 42fae2) in asm
 	virtual void VMethod7() override; // 42bb5a (client: 42da70) in asm
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 42bfcc (client: 42dee1) in asm
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 42c072 (client: 42df86) in asm
-	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 42c1ab in asm (Ghidra-labeled accHitTest)
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 42c1ab (client: 43e1da) in asm (Ghidra-labeled accHitTest)
 
 	VisCharGenSkills(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharGen* parent); //42b98c (client: 42d8a2) in asm
 
@@ -2500,14 +2500,14 @@ ASSERT_SIZE(VisCharGenSkills, 0x138);
 //6096a8
 class VisCharGen : public VisScreen {
 public:
-	virtual ~VisCharGen(); // 4383F0
+	virtual ~VisCharGen(); // 4383F0 (client: 43a9f0)
 
 	virtual void VMethod7() override; // 42EB29 (client: 430a27)
-	virtual void VMethod8(CRect* rect) override; // 42eb7f
+	virtual void VMethod8(CRect* rect) override; // 42eb7f (client: 430a7d)
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 42E058 (client: 42ff6c)
-	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 42E196
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 42E196 (client: 4300aa)
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 42EA01 (client: 4308ff)
-	virtual int32_t OnKeyDown(uint32_t wparam) override; // 42EA4F
+	virtual int32_t OnKeyDown(uint32_t wparam) override; // 42EA4F (client: 43094d)
 
 	virtual void VMethod26() override; // 42DDEC (client: 42fd00)
 	virtual void VMethod28() override; // 42E218 (client: 43012c)
@@ -2517,12 +2517,12 @@ public:
 
 	void OnPrevFace(); // 42edc2 (client: 430cbf) in asm
 	void OnNextFace(); // 42ebe0 (client: 430ade) in asm
-	void RollStats(); // 42e92a in asm
-	void OnClickFwd(); // 42eb8c in asm
-	void OnClickBack(); // 42ebab in asm
+	void RollStats(); // 42e92a (client: 43083e) in asm
+	void OnClickFwd(); // 42eb8c (client: 430a8a) in asm
+	void OnClickBack(); // 42ebab (client: 430a8a) in asm
 	void ShowTipHint(); // 42ea87 (client: 430985) in asm
-	void LoadSamples(); // 42efb4 in asm
-	void FreeSamples(); // 42f021 in asm
+	void LoadSamples(); // 42efb4 (client: 430eb0) in asm
+	void FreeSamples(); // 42f021 (client: 430f1d) in asm
 public:
 	VisCharInfo* info_panel;
 	BigStruct2* map_visual;
@@ -2554,17 +2554,17 @@ ASSERT_SIZE(VisCharGen, 0x108);
 //609a58 - console-style input line used by Vis1200
 class Vis1200obj : public CVisualObject {
 public:
-	virtual ~Vis1200obj();
+	virtual ~Vis1200obj();  // client: 43e3c0
 
 	virtual void VMethod7() override; // 43b32f (client: 43d73e)
 	virtual void WriteData(void* buf) override; // 43ad35 (client: 43d144)
-	virtual uint32_t DataSize() override; // 43c020
+	virtual uint32_t DataSize() override; // 43c020 (client: 43e3b0)
 	virtual void ReadData(const void* buf) override; // 43acca (client: 43d0d9)
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 43b283 (client: 43d692)
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 43b159 (client: 43d564)
-	virtual int32_t OnChar(uint32_t wparam) override; // 43b240
+	virtual int32_t OnChar(uint32_t wparam) override; // 43b240 (client: 43d64b)
 
-	void FUN_0043ae1c(uint8_t ch); // 43ae1c
+	void FUN_0043ae1c(uint8_t ch); // 43ae1c (client: 43d22b)
 	void FUN_0043b03a(); // 43b03a (client: 43d445)
 	void FUN_0043b724(); // 43b724 (client: 43db33)
 	void FUN_0043ba75(); // 43ba75 (client: 43de84)
@@ -2575,8 +2575,8 @@ public:
 	void FUN_0043ac8c(); //43ac8c (client: 43d09b) - reset input/history state
 	void FUN_0043ad86(); //43ad86 (client: 43d195) - commit current line to history
 	void FUN_0043ada3(); //43ada3 (client: 43d1b2) - recall previous line from history
-	int32_t FUN_004972f0(); //4972f0
-	int32_t FUN_00497330(); //497330
+	int32_t FUN_004972f0(); //4972f0 (client: 401780)
+	int32_t FUN_00497330(); //497330 (client: 401780)
 
 public:
 	CStringArray field_0x5c;
@@ -2598,22 +2598,22 @@ ASSERT_SIZE(Vis1200obj, 0xa4);
 //609ad0
 class Vis1200 : public VisScreen {
 public:
-	virtual ~Vis1200(); // 43c000
+	virtual ~Vis1200(); // 43c000 (client: 43e420)
 
 	virtual void VMethod7() override; // 43BE80 (client: 43e28f)
-	virtual void VMethod8(CRect* rect) override; // 43be73
-	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 43bdcb
+	virtual void VMethod8(CRect* rect) override; // 43be73 (client: 43e282)
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 43bdcb (client: 43e1da)
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 43BDEC (client: 43e1fb)
 
 	virtual void VMethod26() override; // 43BC3C (client: 43e04b)
 	virtual void VMethod28() override; // 43BD2E (client: 43e13d)
 	virtual void DoClose(uint32_t code) override; // 43BD96 (client: 43e1a5)
 
-	int32_t FUN_004972d0(); //4972d0
-	int32_t FUN_00497310(); //497310
+	int32_t FUN_004972d0(); //4972d0 (client: 430ac8)
+	int32_t FUN_00497310(); //497310 (client: 430ac8)
 	void FUN_0043be9f(); //43be9f (client: 43e2ae)
 
-	Vis1200(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 43bb70 in asm
+	Vis1200(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 43bb70 (client: 433fda) in asm
 
 public:
 	char buffer[256];
@@ -2627,7 +2627,7 @@ ASSERT_SIZE(Vis1200, 0x170);
 //60a170
 class VisDropGold : public VisScreen {
 public:
-	virtual ~VisDropGold(); // 441c63 (44F870 is the ??_G thunk)
+	virtual ~VisDropGold(); // 441c63 (client: 444232) (44F870 is the ??_G thunk)
 
 	virtual void VMethod9() override; // 441F1F (client: 4444f1)
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 441F3C (client: 44450e)
@@ -2636,7 +2636,7 @@ public:
 	virtual void VMethod28() override; // 441FA3 (client: 444575)
 	virtual void DoClose(uint32_t code) override; // 441FEE (client: 4445c0)
 
-	void FUN_004a7a30(int32_t idx); //4a7a30 in asm
+	void FUN_004a7a30(int32_t idx); //4a7a30 (client: 4aba60) in asm
 
 	VisDropGold(int32_t _id, int32_t _x, int32_t _y); // 441bec (client: 4441bb) in asm
 public:
@@ -2651,23 +2651,23 @@ ASSERT_SIZE(VisDropGold, 0xd0);
 //60cfe8
 class VisCharInfo : public CVisualObject {
 public:
-	virtual ~VisCharInfo(); // 4B47B0
+	virtual ~VisCharInfo(); // 4B47B0 (client: 4b9180)
 
 	virtual const char* GetHint() override; // 4B19B0 (client: 4b62e2)
 	virtual void VMethod7() override; // 4B2B3D (client: 4b746f)
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4B201C (client: 4b694e)
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4B289E (client: 4b71d0)
-	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4b2215
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4b2215 (client: 4b6b47)
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4B2346 (client: 4b6c78)
 	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 4B2239 (client: 4b6b6b)
-	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override; // 4b2227
+	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override; // 4b2227 (client: 4b6b59)
 	virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override; // 4B2857 (client: 4b7189)
-	virtual int32_t OnRButtonDblClk(uint32_t wparam, CPoint pos) override; // 4b2334
+	virtual int32_t OnRButtonDblClk(uint32_t wparam, CPoint pos) override; // 4b2334 (client: 4b6b6b)
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 4B2AD5 (client: 4b7407)
 
-	virtual int32_t VMethod26(int32_t a); //4b38af
-	virtual int32_t VMethod27(int32_t a); //4b3a0d
-	virtual int32_t VMethod28(); // 4b4830
+	virtual int32_t VMethod26(int32_t a); //4b38af (client: 4b81df)
+	virtual int32_t VMethod27(int32_t a); //4b3a0d (client: 4b8374)
+	virtual int32_t VMethod28(); // 4b4830 (client: 4b9200)
 
 	void sub_4B36B4(); //4b36b4 (client: 4b7fe4)
 
@@ -2689,7 +2689,7 @@ ASSERT_SIZE(VisCharInfo, 0x17c);
 //60d070
 class VisSideStatus : public CVisualObject {
 public:
-	virtual ~VisSideStatus(); // 4B4810
+	virtual ~VisSideStatus(); // 4B4810 (client: 4b91e0)
 
 	virtual const char* GetHint() override; // 4B45BB (client: 4b8f8a)
 	virtual void VMethod7() override; // 4B4190 (client: 4b8b61)
@@ -2710,9 +2710,9 @@ public:
 	virtual ~VisMainMenu(); // 4AAAB6 (client: 4aeae6)
 
 	virtual void VMethod7() override; // 4AB28F (client: 4af2bf)
-	virtual void VMethod8(CRect* rect) override; // 4ab411
-	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4AB41E
-	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4AB88C
+	virtual void VMethod8(CRect* rect) override; // 4ab411 (client: 4af441)
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4AB41E (client: 4af44e)
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4AB88C (client: 4af8bc)
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4AB8AF (client: 4af8df)
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4AB8F3 (client: 4af923)
 
@@ -2724,7 +2724,7 @@ public:
 	void LoadGraphics(); // 4aada7 (client: 4aedd7)
 	void LoadSfx(); // 4abb5e (client: 4afb8e)
 	void FreeGraphics(); // 4ab07b (client: 4af0ab)
-	void FreeSfx(); // 4abb87
+	void FreeSfx(); // 4abb87 (client: 4afbb7)
 
 	VisMainMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4aa926 (client: 4ae956) in asm
 public:
@@ -2759,14 +2759,14 @@ public:
 	virtual void VMethod7() override; // 432D58 (client: 434e90)
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 432C1F (client: 434d56)
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 432C9E (client: 434dd5)
-	virtual int32_t OnKeyDown(uint32_t wparam) override; // 432CE3
+	virtual int32_t OnKeyDown(uint32_t wparam) override; // 432CE3 (client: 434e1a)
 	virtual int32_t OnChar(uint32_t wparam) override; // 432D1B (client: 434e52)
 
 	CString GetText(); // 438d80 (client: 43add0)
-	void SetText(const CString& text); // 432c03
+	void SetText(const CString& text); // 432c03 (client: 434d3a)
 
 	void FUN_00432b80(); //432b80 (client: 434cb7) in asm
-	void FUN_00432b33(uint8_t ch); //432b33 in asm
+	void FUN_00432b33(uint8_t ch); //432b33 (client: 434c63) in asm
 	void FUN_00432ad1(); //432ad1 (client: 434c02) in asm
 
 public:
@@ -2784,11 +2784,11 @@ ASSERT_SIZE(VisStartGameTextBox, 0x78);
 //609998
 class VisStartGame : public VisScreen {
 public:
-	virtual ~VisStartGame(); // 4386B0
+	virtual ~VisStartGame(); // 4386B0 (client: 43ac90)
 
 	virtual const char* GetHint() override; // 437E13 (client: 439f45)
 	virtual void VMethod7() override; // 435D72 (client: 437ea4)
-	virtual void VMethod8(CRect* rect) override; // 438dc0
+	virtual void VMethod8(CRect* rect) override; // 438dc0 (client: 43ac80)
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 437571 (client: 4396a3)
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 437664 (client: 439796)
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 43769C (client: 4397ce)
@@ -2807,10 +2807,10 @@ public:
 
 	void FUN_004382d9(); //4382d9 (client: 43a5d4) in asm
 
-	void ClearDifficultySelectedFlags(); // 435743
-	void ClearPortraitSelectedFlags(); // 43578c
-	void ClearDifficultyHoverFlags(); // 4357d5
-	void ClearPortraitHoverFlags(); // 43581e
+	void ClearDifficultySelectedFlags(); // 435743 (client: 43787b)
+	void ClearPortraitSelectedFlags(); // 43578c (client: 4378c3)
+	void ClearDifficultyHoverFlags(); // 4357d5 (client: 43790b)
+	void ClearPortraitHoverFlags(); // 43581e (client: 437953)
 
 	void LoadBitmaps(); // 43438b (client: 4364c3)
 	void LoadSamples(); // 437ff4 (client: 43a126)
@@ -2820,13 +2820,13 @@ public:
 
 	VisStartGame(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //43305b (client: 435193) in asm
 
-	CString GetName() { return this->char_name; } // 4973f0
-	CString GetClan() { return this->clan_name; } // 497430
-	int32_t GetSelectedDifficulty() { return this->selectedDifficultyIndex; } //4973d0
-	void SetSelectedDifficulty(int diff) { this->selectedDifficultyIndex = diff; } //497370
-	int32_t GetSelectedPortraitPlayerType() { return DWORD_0060bd60[this->selectedPortraitIndex]; } //4973b0
-	void SetSelectedPortraitPlayerType(int id) { this->selectedPortraitIndex = id; } //497350
-	void SetCharName(const CString& name) { this->char_name = name; } //497390
+	CString GetName() { return this->char_name; } // 4973f0 (client: 43add0)
+	CString GetClan() { return this->clan_name; } // 497430 (client: 49aa50)
+	int32_t GetSelectedDifficulty() { return this->selectedDifficultyIndex; } //4973d0 (client: 49a9f0)
+	void SetSelectedDifficulty(int diff) { this->selectedDifficultyIndex = diff; } //497370 (client: 49ab80)
+	int32_t GetSelectedPortraitPlayerType() { return DWORD_0060bd60[this->selectedPortraitIndex]; } //4973b0 (client: 49a9d0)
+	void SetSelectedPortraitPlayerType(int id) { this->selectedPortraitIndex = id; } //497350 (client: 49ab60)
+	void SetCharName(const CString& name) { this->char_name = name; } //497390 (client: 434d3a)
 
 public:
 	CBmp64* mainAreaBitmap; //0x68
@@ -2888,7 +2888,7 @@ ASSERT_SIZE(VisStartGame, 0x220);
 //60b180
 class VisMenuWnd : public VisWindow {
 public:
-	virtual ~VisMenuWnd();
+	virtual ~VisMenuWnd();  // client: 453670
 
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; //440e54 (client: 4432bb)
 	virtual int32_t OnKeyDown(uint32_t wparam) override; //440ece (client: 443335)
@@ -2915,11 +2915,11 @@ ASSERT_SIZE(IngameMenu, 0x7c);
 class MenuButton : public VisButton {
 public:
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; //4dd933 (client: 4e22b6)
-	virtual int32_t OnKeyDown(uint32_t wparam) override { return 0; } //4dda31
-	virtual int32_t OnChar(uint32_t wparam); //4dd9b3
+	virtual int32_t OnKeyDown(uint32_t wparam) override { return 0; } //4dda31 (client: 4e23b2)
+	virtual int32_t OnChar(uint32_t wparam); //4dd9b3 (client: 4e2336)
 
 	MenuButton(int32_t _id, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint); //4509c0 (client: 453390)
-	MenuButton(int32_t _id, const RECT& r, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint); //450bf0
+	MenuButton(int32_t _id, const RECT& r, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint); //450bf0 (client: 452b50)
 };
 ASSERT_SIZE(MenuButton, 0x78);
 
@@ -2927,7 +2927,7 @@ ASSERT_SIZE(MenuButton, 0x78);
 //609dc8
 class LoadGameWindow : public VisWindow {
 public:
-	virtual ~LoadGameWindow() {} //44f4b0
+	virtual ~LoadGameWindow() {} //44f4b0 (client: 452fd0)
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; //43f63c (client: 441aa0)
 	virtual void VMethod26() override; //43ed94 (client: 4411f8)
 
@@ -2943,7 +2943,7 @@ ASSERT_SIZE(LoadGameWindow, 0x98);
 //609e50
 class SaveGameWindow : public VisWindow {
 public:
-	virtual ~SaveGameWindow() {} //44f540
+	virtual ~SaveGameWindow() {} //44f540 (client: 452fd0)
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; //440726 (client: 442b8d)
 	virtual void VMethod26() override; //43fb2c (client: 441f90)
 
@@ -2963,11 +2963,11 @@ ASSERT_SIZE(SaveGameWindow, 0x9c);
 //609ed8
 class VisButtonSaveGame : public VisButton {
 public:
-	virtual ~VisButtonSaveGame(); //44f650
+	virtual ~VisButtonSaveGame(); //44f650 (client: 453310)
 
 	virtual int32_t OnKeyDown(uint32_t wparam) override; //44f5f0 (client: 4532b0)
 
-	VisButtonSaveGame(int32_t _id, const RECT& r, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint); //44f5a0
+	VisButtonSaveGame(int32_t _id, const RECT& r, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint); //44f5a0 (client: 452b50)
 };
 ASSERT_SIZE(VisButtonSaveGame, 0x78);
 
@@ -2975,11 +2975,11 @@ ASSERT_SIZE(VisButtonSaveGame, 0x78);
 //609d38
 class HintedListBox : public VisListBox {
 public:
-	virtual ~HintedListBox() {} //44f410
+	virtual ~HintedListBox() {} //44f410 (client: 452f30)
 
 	virtual const char* GetHint() override; //43ec67 (client: 4410cb)
 
-	HintedListBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint); //43ec05
+	HintedListBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint); //43ec05 (client: 441069)
 
 	void SetHints(CStringArray* names) { this->hints = names; } //43ec4e (client: 4410b2)
 public:
@@ -2991,12 +2991,12 @@ ASSERT_SIZE(HintedListBox, 0x98);
 //60a200
 class GameOptionsWindow : public VisWindow {
 public:
-	virtual ~GameOptionsWindow() {} //443cbb
+	virtual ~GameOptionsWindow() {} //443cbb (client: 406f89)
 
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; //443cd7 (client: 4462a9)
 	virtual void VMethod26() override; //442646 (client: 444c18)
 
-	GameOptionsWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b) : VisWindow(_id, l, t, r, b, nullptr) {}; //44260f
+	GameOptionsWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b) : VisWindow(_id, l, t, r, b, nullptr) {}; //44260f (client: 444be1)
 };
 ASSERT_SIZE(GameOptionsWindow, 0x68);
 
@@ -3004,7 +3004,7 @@ ASSERT_SIZE(GameOptionsWindow, 0x68);
 //609fd8
 class EndGameMenu : public VisMenuWnd {
 public:
-	EndGameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitm, uint32_t unk, const CRect& _r, int32_t unk2); //441357
+	EndGameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitm, uint32_t unk, const CRect& _r, int32_t unk2); //441357 (client: 453430)
 };
 ASSERT_SIZE(EndGameMenu, 0x7c);
 
@@ -3025,24 +3025,24 @@ ASSERT_SIZE(TownMenuListDialogVisualObject, 0x7c);
 
 
 // Chat command handler for the server screen text box input ("#disconnect N", "#curse N"). 44e4ce
-void sub_44E4CE(const char* cmd);
+void sub_44E4CE(const char* cmd);  // client: 4517f9
 
 // 60adf8, radio checkbox on the server screen ("save on server" toggle)
 class VisServerScreenRadio : public VisRadioType1 {
 public:
-	virtual ~VisServerScreenRadio(); // 450970 (complete dtor 4509a0)
+	virtual ~VisServerScreenRadio(); // 450970 (client: 454730) (complete dtor 4509a0)
 
-	VisServerScreenRadio(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint); // 450920
+	VisServerScreenRadio(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint); // 450920 (client: 452b50)
 
 	virtual void VMethod7() override; // 4db3ad (client: 4dfd32) in asm
-	virtual int32_t GetIndex(int32_t y) override; // 4db615 in asm
+	virtual int32_t GetIndex(int32_t y) override; // 4db615 (client: 4dff9a) in asm
 };
 ASSERT_SIZE(VisServerScreenRadio, 0x8c);
 
 //60aef0
 class VisServerScreen : public VisScreen {
 public:
-	virtual ~VisServerScreen(); // 450AB0
+	virtual ~VisServerScreen(); // 450AB0 (client: 4547b0)
 
 	virtual void VMethod7() override; // 44DBE0 (client: 450f0b)
 	virtual void VMethod8(CRect* rect) override; // 44DBAE (client: 450ed9)
@@ -3075,7 +3075,7 @@ public:
 	void* TakeAdjacency(void* nodePoints); // 473b4a (client: 47789a)
 
 	void LoadPathmap(); // 473508 (client: 477258)
-	void FreePathmap(); // 4735e2
+	void FreePathmap(); // 4735e2 (client: 42cab2)
 	void BuildAdjacency(); // 47362d (client: 47737d)
 	int32_t FloodFill(int32_t x, int32_t y, uint16_t mark, CArray<CPoint>* foundPoints); // 47391f (client: 47766f)
 
@@ -3093,37 +3093,37 @@ ASSERT_SIZE(GMapThing, 0x9602c);
 //60b760
 class VisGlobalMap : public VisScreen {
 public:
-	virtual ~VisGlobalMap(); // 473D70
+	virtual ~VisGlobalMap(); // 473D70 (client: 477c20)
 
 	virtual const char* GetHint() override; // 472729 (client: 476487)
 	virtual void VMethod7() override; // 4714E7 (client: 475245)
-	virtual void VMethod8(CRect* rect) override; // 471f08
+	virtual void VMethod8(CRect* rect) override; // 471f08 (client: 475c66)
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 472CC5 (client: 476a15)
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 472D99 (client: 476ae9)
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 473038 (client: 476d88)
-	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 474f10
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 474f10 (client: 477c10)
 	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override; // 473077 (client: 476dc7)
 	virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override; // 473175 (client: 476ec5)
-	virtual int32_t OnKeyDown(uint32_t wparam) override; // 4726E6
-	virtual int32_t OnChar(uint32_t wparam) override; // 4726CC
+	virtual int32_t OnKeyDown(uint32_t wparam) override; // 4726E6 (client: 47642a)
+	virtual int32_t OnChar(uint32_t wparam) override; // 4726CC (client: 476444)
 
 	virtual void VMethod26() override; // 47031D (client: 47407b)
 	virtual void VMethod28() override; // 47115D (client: 474ebb)
 	virtual void DoClose(uint32_t code) override; // 471367 (client: 4750c5)
 
-	void SetTravelOrigin(const CPoint& pt) { this->currentLocationPoint = pt; } //4972a0
+	void SetTravelOrigin(const CPoint& pt) { this->currentLocationPoint = pt; } //4972a0 (client: 4210f0)
 
-	void RebuildScenarioLocations(); //47024a
-	void PopulateScenarioLocationFlags(); //47025d
+	void RebuildScenarioLocations(); //47024a (client: 473faa)
+	void PopulateScenarioLocationFlags(); //47025d (client: 473fbd)
 	void ComputeTravelRoute(int32_t fromX, int32_t fromY, int32_t toX, int32_t toY); // 472820 (client: 47657e)
 	void OnMapClick(); // 472dca (client: 476b1a)
 	void UpdateHoveredLocation(CPoint pos); // 472d4b (client: 476a9b)
 	void FreeBitmaps(); // 470cd9 (client: 474a37)
-	void FreeSamples(); // 470571
+	void FreeSamples(); // 470571 (client: 4742cf)
 	void LoadBitmaps(); // 4705c2 (client: 474320)
-	void LoadSamples(); // 470504
+	void LoadSamples(); // 470504 (client: 474262)
 	void FinishTravel(); // 472684 (client: 4763e2)
-	void SearchRoute(uint16_t from, uint16_t to, GlobalMapRouteArray* route); // 472ada
+	void SearchRoute(uint16_t from, uint16_t to, GlobalMapRouteArray* route); // 472ada (client: 476832)
 
 	VisGlobalMap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); // 46fd7b (client: 473adb) in asm
 public:
@@ -3197,14 +3197,14 @@ ASSERT_SIZE(SoundPreferencesDialogVisualObject, 0x74);
 //60db28
 class VisLogoWnd : public VisScreen {
 public:
-	VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4cd4d0
-	~VisLogoWnd(); //4cd53c
+	VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4cd4d0 (client: 4d1e20)
+	~VisLogoWnd(); //4cd53c (client: 4d1e8c)
 
 	virtual void VMethod7() override; //4cd8d1 (client: 4d2221)
-	virtual void VMethod8(CRect* rect) override {}; //4cd91e
+	virtual void VMethod8(CRect* rect) override {}; //4cd91e (client: 4d226e)
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; //4cd72e (client: 4d207e)
-	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; //4cd6c2
-	virtual int32_t OnKeyDown(uint32_t wparam) override; //4cd6f8
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; //4cd6c2 (client: 4d2012)
+	virtual int32_t OnKeyDown(uint32_t wparam) override; //4cd6f8 (client: 4d2048)
 
 	virtual void VMethod26(); //4cd5be (client: 4d1f0e)
 	virtual void DoClose(uint32_t code); //4cd666 (client: 4d1fb6) 29 method   
@@ -3226,13 +3226,13 @@ public:
 
 	virtual const char* GetHint() override; // 45db50 (client: 4616c0)
 	virtual void VMethod7() override; // 45D7F9 (client: 461429)
-	virtual void VMethod8(CRect* rect) override; // 45da6a
+	virtual void VMethod8(CRect* rect) override; // 45da6a (client: 461692)
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 45D57F (client: 4611af)
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 45D5F0 (client: 461220)
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 45D6C3 (client: 4612f3)
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 45D773 (client: 4613a3)
-	virtual int32_t OnKeyDown(uint32_t wparam) override; // 45D5BE
-	virtual int32_t OnChar(uint32_t wparam) override; // 45D5D7
+	virtual int32_t OnKeyDown(uint32_t wparam) override; // 45D5BE (client: 4611ee)
+	virtual int32_t OnChar(uint32_t wparam) override; // 45D5D7 (client: 461207)
 
 	virtual void VMethod26() override; // 45CE6E (client: 460a9e)
 	virtual void VMethod28() override; // 45D222 (client: 460e52)
@@ -3240,9 +3240,9 @@ public:
 
 	void LoadBitmaps(); // 45d32e (client: 460f5e) in asm
 	void LoadSounds(); // 45d542 (client: 461172) in asm
-	void UpdateRects(); // 45cfae in asm
+	void UpdateRects(); // 45cfae (client: 460bde) in asm
 	void FreeBitmaps(); // 45d44a (client: 46107a) in asm
-	void FreeSounds(); // 45d563 in asm
+	void FreeSounds(); // 45d563 (client: 461193) in asm
 
 	VisFameHall(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 45cd35 (client: 460965) in asm
 public:
@@ -3263,16 +3263,16 @@ ASSERT_SIZE(VisFameHall, 0xd0);
 //60cdf8
 class VisFameDocument : public VisScreen {
 public:
-	virtual ~VisFameDocument(); // 4AED50
+	virtual ~VisFameDocument(); // 4AED50 (client: 4b3690)
 
-	virtual const char* GetHint() override; // 4aeda0
+	virtual const char* GetHint() override; // 4aeda0 (client: 4b36e0)
 	virtual void VMethod7() override; // 4AE7A3 (client: 4b30e3)
-	virtual void VMethod8(CRect* rect) override; // 4ae926
-	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4AE57F
+	virtual void VMethod8(CRect* rect) override; // 4ae926 (client: 4b3266)
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4AE57F (client: 4b2ebf)
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4AE5BE (client: 4b2efe)
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4AE607 (client: 4b2f47)
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4AE717 (client: 4b3057)
-	virtual int32_t OnKeyDown(uint32_t wparam) override; // 4ae791
+	virtual int32_t OnKeyDown(uint32_t wparam) override; // 4ae791 (client: 4b30d1)
 
 	virtual void VMethod26() override; // 4ADAB6 (client: 4b23f6)
 	virtual void VMethod28() override; // 4AE473 (client: 4b2db3)
@@ -3311,7 +3311,7 @@ ASSERT_SIZE(VisFameDocument, 0xf8);
 //60b098
 class Vis2Action : public VisMenuWnd {
 public:
-	virtual ~Vis2Action(); // 450bd0
+	virtual ~Vis2Action(); // 450bd0 (client: 4548d0)
 
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 44F30D (client: 452632)
 	virtual void VMethod26() override; // 44F0E8 (client: 45240d)
@@ -3327,7 +3327,7 @@ ASSERT_SIZE(Vis2Action, 0x80);
 //60af78
 class VisMissionFailed : public VisMessageBoxWithList {
 public:
-	virtual ~VisMissionFailed(); // 450B00
+	virtual ~VisMissionFailed(); // 450B00 (client: 454800)
 	virtual void VMethod26() override; // 44E8CA (client: 451bef)
 
 	VisMissionFailed(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CString& _txt); //44e875 (client: 451b9a)
@@ -3337,7 +3337,7 @@ ASSERT_SIZE(VisMissionFailed, 0x78);
 //60b008
 class VisCutScenesDlg : public VisMessageBox {
 public:
-	virtual ~VisCutScenesDlg(); // 450B50
+	virtual ~VisCutScenesDlg(); // 450B50 (client: 454850)
 
 	VisCutScenesDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CStringArray& _payload); //44eabb (client: 451de0)
 
@@ -3357,9 +3357,9 @@ public:
 	virtual int32_t IsValidIndex(int32_t idx) override; // 4dd098 (client: 4e1a1b)
 	virtual void DrawItem(int32_t idx, CPoint pos, uint16_t* clr) override; // 4dd0bd (client: 4e1a40)
 	virtual void SelectItem(int32_t idx) override; // 4dcf98 (client: 4e191b)
-	virtual void VMethod30(CPoint pos, const CRect& r) override; // 4e3d30
+	virtual void VMethod30(CPoint pos, const CRect& r) override; // 4e3d30 (client: 4e9cc0)
 
-	VisListBoxDiplomacy(int32_t _id, const RECT& r, CArray<DiplomacyEntry*>* _diplomacy, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _entry_height); //4dc9fb
+	VisListBoxDiplomacy(int32_t _id, const RECT& r, CArray<DiplomacyEntry*>* _diplomacy, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _entry_height); //4dc9fb (client: 4e137e)
 
 	void WriteRadioState(); //4dd1b2 (client: 4e1b35)
 	void UpdateScrollBar(); //4dd2c7 (client: 4e1c4a)
@@ -3378,7 +3378,7 @@ ASSERT_SIZE(VisListBoxDiplomacy, 0xa8);
 //60a4c8
 class VisDiplomacy : public VisMessageBox {
 public:
-	virtual ~VisDiplomacy(); // 44F9E0
+	virtual ~VisDiplomacy(); // 44F9E0 (client: 4538d0)
 
 	VisDiplomacy(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CArray<DiplomacyEntry*>* _payload); //445bcb (client: 44829c)
 
@@ -3396,7 +3396,7 @@ ASSERT_SIZE(VisDiplomacy, 0x7c);
 //60a558
 class VisConnectionDlg : public VisMessageBox {
 public:
-	virtual ~VisConnectionDlg(); // 44fa40
+	virtual ~VisConnectionDlg(); // 44fa40 (client: 453930)
 
 	VisConnectionDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, int32_t* _payload); //445e52 (client: 448523)
 
@@ -3412,10 +3412,10 @@ ASSERT_SIZE(VisConnectionDlg, 0x80);
 //60a5e8
 class VisNetDlg : public VisWindow {
 public:
-	virtual ~VisNetDlg(); // 44FA60
+	virtual ~VisNetDlg(); // 44FA60 (client: 453950)
 
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 447214 (client: 4498e3)
-	virtual int32_t OnKeyDown(uint32_t wparam) override; // 4478E9
+	virtual int32_t OnKeyDown(uint32_t wparam) override; // 4478E9 (client: 4e4833)
 	virtual void VMethod26() override; // 446E97 (client: 449566)
 
 	VisNetDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, AvailNetSession* _sessions); //4464c7 (client: 448b96)
@@ -3439,9 +3439,9 @@ ASSERT_SIZE(VisNetDlg, 0x94);
 //60a810
 class VisNetTcpIp : public VisMessageBox {
 public:
-	virtual ~VisNetTcpIp(); // 44FD10
+	virtual ~VisNetTcpIp(); // 44FD10 (client: 453c10)
 
-	VisNetTcpIp(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CString* _ip); //449f06
+	VisNetTcpIp(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CString* _ip); //449f06 (client: 44c5d8)
 
 	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override; // 44A014 (client: 44c6e6)
 	virtual void VMethod31(int32_t code) override; // 449F67 (client: 44c639)
@@ -3454,7 +3454,7 @@ ASSERT_SIZE(VisNetTcpIp, 0x7c);
 //60a788
 class VisNetSerialSettings : public VisWindow {
 public:
-	virtual ~VisNetSerialSettings(); // 44FCC0
+	virtual ~VisNetSerialSettings(); // 44FCC0 (client: 453bc0)
 
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 449C98 (client: 44c36a)
 	virtual void VMethod26() override; // 448D15 (client: 44b3e7)
@@ -3471,7 +3471,7 @@ ASSERT_SIZE(VisNetSerialSettings, 0x6c);
 //60a6f8
 class VisListBoxPhoneBook : public VisListBox {
 public:
-	virtual ~VisListBoxPhoneBook(); // 44fca0
+	virtual ~VisListBoxPhoneBook(); // 44fca0 (client: 453ba0)
 
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 44fb80 (client: 453a80)
 
@@ -3485,7 +3485,7 @@ ASSERT_SIZE(VisListBoxPhoneBook, 0x98);
 //60a670
 class VisNetPhoneBook : public VisWindow {
 public:
-	virtual ~VisNetPhoneBook(); // 44FAE0
+	virtual ~VisNetPhoneBook(); // 44FAE0 (client: 4539e0)
 
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 44878A (client: 44ae5c)
 	virtual void VMethod26() override; // 447EF2 (client: 44a5c1)
@@ -3532,7 +3532,7 @@ class VisNetChatList : public VisListBox {
 public:
 	virtual ~VisNetChatList(); // 450100 (client: 454320) (complete dtor 450130)
 
-	VisNetChatList(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint); // 450080 in asm
+	VisNetChatList(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint); // 450080 (client: 4542a0) in asm
 
 	virtual void DrawItem(int32_t idx, CPoint pos, uint16_t* clr) override; // 44c63d (client: 44f962) in asm
 
@@ -3545,7 +3545,7 @@ class VisNetPlayerList : public VisListBox {
 public:
 	virtual ~VisNetPlayerList(); // 450200 (client: 454420) (complete dtor 450230)
 
-	VisNetPlayerList(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint); // 450180 in asm
+	VisNetPlayerList(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint); // 450180 (client: 4543a0) in asm
 
 	virtual void DrawItem(int32_t idx, CPoint pos, uint16_t* clr) override; // 44c71d (client: 44fa42) in asm
 
@@ -3556,9 +3556,9 @@ ASSERT_SIZE(VisNetPlayerList, 0xa8);
 //60ac80 — chat input line
 class VisNetChatTextBox : public VisTextBox {
 public:
-	virtual ~VisNetChatTextBox(); // 450350 (complete dtor 450380)
+	virtual ~VisNetChatTextBox(); // 450350 (client: 4545d0) (complete dtor 450380)
 
-	VisNetChatTextBox(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr, const char* hint); // 450280 in asm
+	VisNetChatTextBox(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr, const char* hint); // 450280 (client: 4544a0) in asm
 
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 4502c0 (client: 454540) in asm
 };
@@ -3569,14 +3569,14 @@ ASSERT_SIZE(VisNetChatTextBox, 0x7c);
 #endif
 
 //60a930
-UINT AFX_CDECL VisNetMapThreadProc(LPVOID pParam); // 44aad6
+UINT AFX_CDECL VisNetMapThreadProc(LPVOID pParam); // 44aad6 (client: 44d203)
 
 class VisNetMapSelection : public VisWindow {
 public:
-	virtual ~VisNetMapSelection(); // 44FEA0
+	virtual ~VisNetMapSelection(); // 44FEA0 (client: 453dc0)
 
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 44D275 (client: 45059d)
-	virtual int32_t OnKeyDown(uint32_t wparam) override; // 44D8F0
+	virtual int32_t OnKeyDown(uint32_t wparam) override; // 44D8F0 (client: 450c18)
 	virtual void VMethod26() override; // 44C788 (client: 44faad)
 
 	VisNetMapSelection(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CString* pMapName); //44af45 (client: 44d672)
@@ -3602,12 +3602,12 @@ ASSERT_SIZE(VisNetMapSelection, offsetof(VisNetMapSelection, thread) + sizeof(CW
 //60e650
 class VisTipsDialog : public VisScreen {
 public:
-	virtual ~VisTipsDialog(); // 4e4510
+	virtual ~VisTipsDialog(); // 4e4510 (client: 4e98b0)
 
 	virtual void VMethod8(CRect* rect) override; // 4E27CD (client: 4e7151)
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4E2B95 (client: 4e7519)
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4E2C42 (client: 4e75c6)
-	virtual int32_t OnKeyDown(uint32_t wparam) override { return 0; } // 4e2c33
+	virtual int32_t OnKeyDown(uint32_t wparam) override { return 0; } // 4e2c33 (client: 4e75b7)
 
 	VisTipsDialog(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* txt); //4e2541 (client: 4e6ec5)
 
@@ -3623,10 +3623,10 @@ ASSERT_SIZE(VisTipsDialog, 0x74);
 //60e6d8
 class VisQuestStatus : public VisScreen {
 public:
-	virtual ~VisQuestStatus(); // 4E4540
+	virtual ~VisQuestStatus(); // 4E4540 (client: 4e98d0)
 
 	virtual void VMethod7() override; // 4E2F76 (client: 4e78fa)
-	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4e4530
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4e4530 (client: 4e9cd0)
 
 	VisQuestStatus(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4e2e3d (client: 4e77c1)
 
@@ -3638,13 +3638,13 @@ ASSERT_SIZE(VisQuestStatus, 0x6c);
 //60a8a0
 class VisHatServerListDlg : public VisMessageBox {
 public:
-	virtual ~VisHatServerListDlg(); // 44fd90
+	virtual ~VisHatServerListDlg(); // 44fd90 (client: 453c90)
 
-	VisHatServerListDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, HatSettings* hat); //44a0e2
+	VisHatServerListDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, HatSettings* hat); //44a0e2 (client: 44c5d8)
 
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 44A8A8 (client: 44cfd5)
 	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override; // 44A34D (client: 44ca33)
-	virtual void VMethod31(int32_t code) override; // 44A140
+	virtual void VMethod31(int32_t code) override; // 44A140 (client: 44c815)
 public:
 	HatSettings* hat_settings;
 };
@@ -3654,13 +3654,13 @@ ASSERT_SIZE(VisHatServerListDlg, 0x7c);
 //60aa40
 class VisHatBrowserList : public VisListBox {
 public:
-	virtual ~VisHatBrowserList(); // 44ffb0
+	virtual ~VisHatBrowserList(); // 44ffb0 (client: 453ff0)
 
 	virtual void DrawItem(int32_t idx, CPoint pos, uint16_t* clr) override; // 44b60c (client: 44dd68)
 
 	VisHatBrowserList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint); // 44ff20 (client: 453f60)
 
-	int32_t IsItemEnabled(int32_t idx); // 44b460
+	int32_t IsItemEnabled(int32_t idx); // 44b460 (client: 44db8d)
 
 public:
 	int32_t state; //0x94. -1 = refreshing, 0 = empty/failed, 1 = loaded
@@ -3668,19 +3668,19 @@ public:
 ASSERT_SIZE(VisHatBrowserList, 0x98);
 
 // Returns the start position of the field-th (0-based) '|'-separated field of str, or -1.
-int32_t GetFieldPos(CString str, int32_t field); // 44b37a
+int32_t GetFieldPos(CString str, int32_t field); // 44b37a (client: 44daa7)
 
 
 struct HatBrowserProgress;
 //60a9b8
 class VisHatBrowserDlg : public VisWindow {
 public:
-	virtual ~VisHatBrowserDlg(); // 44FED0
+	virtual ~VisHatBrowserDlg(); // 44FED0 (client: 453e10)
 
-	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 44C1A9
-	virtual void VMethod26() override; // 44BC6C
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 44C1A9 (client: 44f11d)
+	virtual void VMethod26() override; // 44BC6C (client: 44e774)
 
-	VisHatBrowserDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //44bc35
+	VisHatBrowserDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //44bc35 (client: 44e568)
 
 	static UINT __cdecl ThreadProc(void*); //44e391
 
@@ -3729,10 +3729,10 @@ ASSERT_SIZE(HatPlayerScoreList, 0xa8);
 // client 5da840
 class VisHatSession : public VisScreen {
 public:
-	VisHatSession(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4e850e
+	VisHatSession(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4e850e (client: 4e850e)
 
-	virtual void VMethod7() override; // 4e8545
-	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override { return 0; }; // 4e9ce0
+	virtual void VMethod7() override; // 4e8545 (client: 4e8545)
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override { return 0; }; // 4e9ce0 (client: 4e9ce0)
 };
 
 #endif

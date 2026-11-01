@@ -19,13 +19,13 @@ public:
 public: // VTable at 60f640.
     virtual ~Sack(); // 553f6a
     virtual void Serialize(CArchive& ar) override; // 55c889 (client: 537600)
-    virtual void RegenTick() override; // 57dd30
+    virtual void RegenTick() override; // 57dd30 (client: 54ee70)
     virtual void ProcessEffects() override; // 553f8b
 
 public:
-    Sack();
-    Sack(const TokenPos* pos);
-    Sack(const TokenPos* pos, Inventory* inv);
+    Sack();  // client: 534311
+    Sack(const TokenPos* pos);  // client: 5343a5
+    Sack(const TokenPos* pos, Inventory* inv);  // client: 53443f
 
     void Init(); // 553eee (client: 5344a2)
     void CalcContentsValue(); // 55401E

@@ -18,22 +18,22 @@ public:
     uint32_t next_player_id = 1; // set it here instead of 534b9c constructor
 
 public:
-    int CountHumanPlayers(); // I guess it counts current human players?
+    int CountHumanPlayers(); // I guess it counts current human players? (client: 5205cf)
     int AreTeamsStarted();        // checks if team play is already started
-    void ProcessPlayerTimeouts();
-    void AddPlayer(Player* player); // AddTail: append player to list
-    Player* FindByName(CString name);    // find player by name (name compared against player->name)
-    Player* FindById(uint16_t player_id);   // find player by numeric id
-    Player* FindByHatCharId(int32_t a, int32_t b);  // find player by HAT character id (hat_char_id1==a && hat_char_id2==b)
+    void ProcessPlayerTimeouts();  // client: 51ff32
+    void AddPlayer(Player* player); // AddTail: append player to list (client: 520219)
+    Player* FindByName(CString name);    // find player by name (name compared against player->name) (client: 52048d)
+    Player* FindById(uint16_t player_id);   // find player by numeric id (client: 520402)
+    Player* FindByHatCharId(int32_t a, int32_t b);  // find player by HAT character id (hat_char_id1==a && hat_char_id2==b) (client: 52052f)
 
-    Player* FindByTokenId(uint16_t token_id); // GetByTokenID
+    Player* FindByTokenId(uint16_t token_id); // GetByTokenID (client: 520449)
     int CountCD(); //536092 (client: 52057e)
     int32_t GetMaxPlayerId();  // returns max player_id in list
     void ResetFrags(); // Reset all players' frags to 0
-    void Serialize(CArchive& ar); // Serialize
+    void Serialize(CArchive& ar); // Serialize (client: 536e8d)
 
     Player* GetHead(); // 5B70F0 (client: 585150)
-    Player* GetNext(Player* player); // 5B7110. Avoid this O(N^2) crap, use normal iteration over `list`.
+    Player* GetNext(Player* player); // 5B7110 (client: 547970). Avoid this O(N^2) crap, use normal iteration over `list`.
 
     ~PlayersList(); //534c02
 };

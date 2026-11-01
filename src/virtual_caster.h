@@ -11,7 +11,7 @@ public:
     DECLARE_SERIAL(VirtualCaster); // Runtime class definition at 6363d0.
 
 public: // VTable at 0060ef88.
-    virtual ~VirtualCaster(); // 528993
+    virtual ~VirtualCaster(); // 528993 (client: 5176dc)
     virtual void Serialize(CArchive& ar) override; // 55D009 (client: 537860)
 
 public:

@@ -15,10 +15,10 @@ public:
     DECLARE_SERIAL(SpellEffect); // Runtime class definition at 636488.
 
 public: // VTable at 0060f170.
-    virtual ~SpellEffect() override; // 57c080
-    virtual void Serialize(CArchive& ar) override; // 53E44A
-    virtual void ProcessEffects() override; // 53742d
-    virtual void ExpireOnUnit(Unit* unit); // 537438
+    virtual ~SpellEffect() override; // 57c080 (client: 54ccd0)
+    virtual void Serialize(CArchive& ar) override; // 53E44A (client: 5263a1)
+    virtual void ProcessEffects() override; // 53742d (client: 521476)
+    virtual void ExpireOnUnit(Unit* unit); // 537438 (client: 521481)
 
 public:
     SpellEffect(); // 537371 (client: 5213ba)
@@ -39,7 +39,7 @@ public:
     DECLARE_SERIAL(PointEffect); // Runtime class definition at 6364A0.
 
 public: // VTable at 60f1b0.
-    virtual ~PointEffect() override; // 537703
+    virtual ~PointEffect() override; // 537703 (client: 480e53)
     virtual void Serialize(CArchive& ar) override; // 53E6D4 (client: 5264d1)
     virtual void ProcessEffects() override; // 57C0A0 (client: 54ccf0)
     virtual void FixupPointers() override; // 53E7F2 (client: 52654d)
@@ -48,7 +48,7 @@ public:
     PointEffect(); // 5374FC (client: 521542)
     PointEffect(Effect* effect, Unit* target); // 53752F (client: 521575)
 
-    void FinishHit();
+    void FinishHit();  // client: 5215ea
 
 public:
     Unit* target;
@@ -72,16 +72,16 @@ public:
     AreaEffect(); // 537846 (client: 521881)
     AreaEffect(Effect* effect, TokenPos* pos, uint8_t range); // 537880 (client: 5218bb)
 
-    void DamageUnit(Unit* unit);
-    void ApplyAtCell(uint8_t x, uint8_t y, bool spread_damage);
-    void TickAcidBlizzard(); // Acid stream and blizzard effects. 537CD6
-    void ApplyDistribution();
-    void ApplyWaveDistribution();
-    void ApplyAroundPosition();
-    void ApplyRadiusRing();
-    void BroadcastAndApply();
-    void ApplyCellLayer(uint8_t x, uint8_t y);
-    uint32_t GetLayerIndex() const; // Map area-effect layer index from effect type.
+    void DamageUnit(Unit* unit);  // client: 522322
+    void ApplyAtCell(uint8_t x, uint8_t y, bool spread_damage);  // client: 522160
+    void TickAcidBlizzard(); // Acid stream and blizzard effects. 537CD6 (client: 521d0d)
+    void ApplyDistribution();  // client: 521cc5
+    void ApplyWaveDistribution();  // client: 521f57
+    void ApplyAroundPosition();  // client: 522043
+    void ApplyRadiusRing();  // client: 522235
+    void BroadcastAndApply();  // client: 5224fa
+    void ApplyCellLayer(uint8_t x, uint8_t y);  // client: 52267c
+    uint32_t GetLayerIndex() const; // Map area-effect layer index from effect type. (client: 52286a)
 
 public:
     Effect* effect;
@@ -100,12 +100,12 @@ public:
 
 public: // VTable at 0060f230.
     virtual ~SpellTransport() override; // 538B27 (client: 522af7)
-    virtual void Serialize(CArchive& ar) override; // 53E588
-    virtual void ProcessEffects() override; // 538BF4
+    virtual void Serialize(CArchive& ar) override; // 53E588 (client: 526404)
+    virtual void ProcessEffects() override; // 538BF4 (client: 522bc4)
     virtual void FixupPointers() override; // 53E68D (client: 52648a)
 
 public:
-    SpellTransport(); // 5389E2
+    SpellTransport(); // 5389E2 (client: 5229b2)
     SpellTransport(SpellEffect* spell_effect, TokenPos* from_position, int16_t speed); // 538A15 (client: 5229e5)
     SpellTransport(AreaEffect* ae, TokenPos* from_position, int16_t speed); // 538A9E (client: 522a6e)
 
@@ -128,7 +128,7 @@ public:
 	int32_t y_mult;
 
 public:
-	void SetWaveTable(const int32_t* table);
-	void SetWaveTables(const int32_t* table_a, const int32_t* table_b, uint8_t direction);
+	void SetWaveTable(const int32_t* table);  // client: 521b21
+	void SetWaveTables(const int32_t* table_a, const int32_t* table_b, uint8_t direction);  // client: 521b64
 };
 ASSERT_SIZE(WavePattern, 0x14);

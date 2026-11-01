@@ -20,19 +20,19 @@ struct UnitToHit {
     uint8_t spell_id;
     uint8_t __padding[2];
 
-    UnitToHit();
-    UnitToHit(const UnitToHit&);
+    UnitToHit();  // client: 51f461
+    UnitToHit(const UnitToHit&);  // client: 51f512
     UnitToHit(UnitToHit&&);
 
     UnitToHit& operator=(const UnitToHit&);
     UnitToHit& operator+=(const UnitToHit&);
     UnitToHit& operator-=(const UnitToHit&);
 
-    void AddHits(const UnitToHit&);
+    void AddHits(const UnitToHit&);  // client: 51f6a8
 
-    void Clear();
+    void Clear();  // client: 51f477
 
-    void Serialize(CArchive& ar);
+    void Serialize(CArchive& ar);  // client: 51f826
 };
 ASSERT_SIZE(UnitToHit, 0x18);
 

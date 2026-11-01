@@ -1,5 +1,6 @@
 # Runs INSIDE the Ghidra daemon on the CLIENT program (allods2.exe):
 #   python tool/gh.py --client python -f tool/client_label_push.py
+# Also works as a Ghidra GUI Script Manager script (Jython) while Ghidra is open.
 #
 # Pushes the confirmed class map into the client Ghidra program:
 #   - client vtables get a '<Class>_vtable' label (placeholder names only)
@@ -14,6 +15,12 @@ import re
 from collections import Counter, defaultdict
 
 from ghidra.program.model.symbol import SourceType
+
+# daemon injects `program`; Ghidra GUI Script Manager injects `currentProgram`
+try:
+    program
+except NameError:
+    program = currentProgram
 
 MAP = r'C:\Users\ikacn\Desktop\stuff\a2\assembly\migration_state\client_classmap.json'
 SRV_SNAP = r'C:\Users\ikacn\Desktop\stuff\a2\assembly\build\client_diff_snapshot_a2serv6_exe.json'

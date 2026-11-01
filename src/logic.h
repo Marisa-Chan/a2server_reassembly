@@ -43,7 +43,7 @@ struct TriggerAction {
 
 public:
     // 5afc9c
-    TriggerAction();
+    TriggerAction();  // client: 565b48
 };
 ASSERT_OFFSET(TriggerAction, ref_kind, 0x30);
 ASSERT_OFFSET(TriggerAction, ref_scope, 0x3a);
@@ -59,7 +59,7 @@ public:
 
 public:
     // 5afc1d
-    TriggerCheck();
+    TriggerCheck();  // client: 57dd8d
     TriggerCheck& operator=(const TriggerCheck& other); // 5afc6f
 };
 ASSERT_OFFSET(TriggerCheck, counter, 0x78);
@@ -86,8 +86,8 @@ struct ScriptSettings {
     uint32_t script_tracing;
     uint8_t gap_0x8[392];
 
-    ScriptSettings() { memset(this, 0, sizeof(ScriptSettings)); } //5b67ee
-    void Serialize(CArchive& ar); // Serialize
+    ScriptSettings() { memset(this, 0, sizeof(ScriptSettings)); } //5b67ee (client: 565b48)
+    void Serialize(CArchive& ar); // Serialize (client: 51b0f8)
 };
 ASSERT_SIZE(ScriptSettings, 0x190);
 

@@ -7,15 +7,15 @@
 extern int32_t g_isDosCP; //660f64
 
 
-uint8_t __cdecl DecodeChar(uint8_t ch); //45e181
-uint8_t __cdecl EncodeChar(uint8_t c); //4763a9
-uint8_t __cdecl ToLowerChar(uint8_t c); //47641d
+uint8_t __cdecl DecodeChar(uint8_t ch); //45e181 (client: 461da1)
+uint8_t __cdecl EncodeChar(uint8_t c); //4763a9 (client: 47a0f5)
+uint8_t __cdecl ToLowerChar(uint8_t c); //47641d (client: 47a169)
 
-void pathStrCpy(const char* src, char* dst); // 4e5fd9
-void __cdecl ReportWarning(const char* warn); // 527de3
+void pathStrCpy(const char* src, char* dst); // 4e5fd9 (client: 4eb509)
+void __cdecl ReportWarning(const char* warn); // 527de3 (client: 516dbd)
 void __cdecl XorData(void* data, uint32_t size); //51fd7d (client: 50feed)
 
-CString XorRegString(const CString& str); //43d1a9
+CString XorRegString(const CString& str); //43d1a9 (client: 43f5b9)
 
 template<typename TYPE, class HLDR = CList<TYPE*> >
 struct Listerator {

@@ -20,11 +20,11 @@ public:
     DECLARE_SERIAL(Inn); // Runtime class definition at 637330.
 
 public:
-    Inn(); // 56046B
+    Inn(); // 56046B (client: 539332)
     Inn(uint8_t type_id, TokenPos* pos); // 5605CC
     
 public: // VTable at 60fa30.
-    virtual ~Inn();
+    virtual ~Inn();  // client: 53940c
 
 public:
     CMap<uint32_t, uint32_t, QuestMap*, QuestMap*> quest_map_per_player;
@@ -43,7 +43,7 @@ public:
     uint8_t gap_0xe8[4];
 
 public:
-    virtual void RegenTick() override;
+    virtual void RegenTick() override;  // client: 53df77
 
     void RemoveUnit(Humanoid* humanoid, int32_t id);
     void UpdateQuests(Unit* inn);

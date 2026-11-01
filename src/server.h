@@ -43,7 +43,7 @@ struct PasswordManager {
     CTime date;
 
     void OpenFile(const char* name); //4f6bf9 (client: 4f7d8c)
-    void Load(); //4f6c92
+    void Load(); //4f6c92 (client: 4f7e25)
 
     static PasswordManager manager; //6a8b98
 };
@@ -57,7 +57,7 @@ struct CowardActivation {
     char key[100];
     BOOL enabled;
 
-    int CheckActivationKey(const char* str); // CheckActivationKey
+    int CheckActivationKey(const char* str); // CheckActivationKey (client: 571608)
 
     CowardActivation(); //5a335c (client: 5714cc)
 };
@@ -75,20 +75,20 @@ struct SrvStru1 {
     static SrvStru1 Instance; //6cf390
 
 public:
-    void Deinit(); //4fab1d
-    void FreeLists(); // 4faeb4
+    void Deinit(); //4fab1d (client: 482e0c)
+    void FreeLists(); // 4faeb4 (client: 4f905a)
 
     // Make spell effect.
-    void MakeAreaSpellEffect(uint8_t from_x, uint8_t from_y, uint8_t to_x, uint8_t to_y, uint32_t spell_id, uint32_t power);
-    void MakeTargetSpellEffect(uint8_t a0, uint8_t a1, Unit* unit, uint32_t a3, uint32_t a4);
+    void MakeAreaSpellEffect(uint8_t from_x, uint8_t from_y, uint8_t to_x, uint8_t to_y, uint32_t spell_id, uint32_t power);  // client: 4f9629
+    void MakeTargetSpellEffect(uint8_t a0, uint8_t a1, Unit* unit, uint32_t a3, uint32_t a4);  // client: 4f95ec
 
-    void UpdateMapObjects();
-    void ProcessTick(); // 4fb273
+    void UpdateMapObjects();  // client: 4f9302
+    void ProcessTick(); // 4fb273 (client: 4f9289)
 
     Unit* AddDummyUnitWithSpell(int32_t xpos, int32_t ypos, int32_t spellID, int16_t SpellDmg); //4fb8cd (client: 4f9466)
 
-    SrvStru1(); //4fa89c
-    ~SrvStru1(); //4fa981
+    SrvStru1(); //4fa89c (client: 4f91a3)
+    ~SrvStru1(); //4fa981 (client: 4f9000)
 };
 ASSERT_SIZE(SrvStru1, 0x48);
 
@@ -96,13 +96,13 @@ struct SackList {
     CList<Sack*> list;
 
 public:
-    void ClearSentToMask(Player* player); // Clear unit vision mask bits for player across this sack list
-    void DropInventoryAt(TokenPos* pos, Inventory* inventory, int money, int is_main_player_unit);
-    int32_t DumpInventoryAt(TokenPos* pos, Inventory* inventory, int money, int force_save);
-    int32_t AddSack(Sack* sack); // Add sack to list and map
-    void Serialize(CArchive& ar);  // Serialize
+    void ClearSentToMask(Player* player); // Clear unit vision mask bits for player across this sack list (client: 534ac8)
+    void DropInventoryAt(TokenPos* pos, Inventory* inventory, int money, int is_main_player_unit);  // client: 534a18
+    int32_t DumpInventoryAt(TokenPos* pos, Inventory* inventory, int money, int force_save);  // client: 534829
+    int32_t AddSack(Sack* sack); // Add sack to list and map (client: 534a5f)
+    void Serialize(CArchive& ar);  // Serialize (client: 5372d4)
 
-    void UpdateSackVisibility(); //5540ed
+    void UpdateSackVisibility(); //5540ed (client: 534615)
 
     ~SackList(); //554bc3
 };
@@ -111,10 +111,10 @@ class SpellEffectList {
 public: // VTable at 0060f6dc.
     virtual void FixupPointers(); // 55c213 (client: 537309)
 
-    void ProcessTick(); //5585f2
-    void Serialize(CArchive& ar); // Serialize
+    void ProcessTick(); //5585f2 (client: 535f9b)
+    void Serialize(CArchive& ar); // Serialize (client: 5372ed)
 
-    SpellEffectList(); // 55837D
+    SpellEffectList(); // 55837D (client: 535f0b)
     ~SpellEffectList(); //5583ed
 public:
     CList<SpellEffect*> list;
@@ -126,21 +126,21 @@ public: // Virtual table at 0060ec18.
     virtual ~Srv1();
 
 public:
-    void CreateBuildings(MapAlm* alm); // CreateBuildings
-    void SpawnRandomSacks(int count); // Spawn 'count' random sacks on the map; count=0 defaults to max(10, map_width/4).
-    int LoadMap(CString mapName); // Load ALM map file
-    void CreatePlayers(MapAlm* alm);
-    void CreateUnits(MapAlm* alm);
-    void LoadTriggers(MapAlm* alm, int flag);
-    void LoadSacks(MapAlm* alm);
-    void SpawnAiGroupOutposts(MapAlm* alm);
-    void SpawnGroupOutpost(Group* group, MapAlm* alm);
+    void CreateBuildings(MapAlm* alm); // CreateBuildings (client: 56b41e)
+    void SpawnRandomSacks(int count); // Spawn 'count' random sacks on the map; count=0 defaults to max(10, map_width/4). (client: 56eb47)
+    int LoadMap(CString mapName); // Load ALM map file (client: 56a69a)
+    void CreatePlayers(MapAlm* alm);  // client: 56b2ab
+    void CreateUnits(MapAlm* alm);  // client: 56bbf5
+    void LoadTriggers(MapAlm* alm, int flag);  // client: 56c741
+    void LoadSacks(MapAlm* alm);  // client: 56e06e
+    void SpawnAiGroupOutposts(MapAlm* alm);  // client: 56b22a
+    void SpawnGroupOutpost(Group* group, MapAlm* alm);  // client: 56ad8b
 
     Unit* GetScenarioScriptUnit(CMap<int32_t, int32_t, Unit*, Unit*>& umap, uint32_t idx); //59d3c0 (client: 56c270)
     Unit* GetScenarioScriptHero(uint32_t idx); //59d664 (client: 56c514)
     Unit* GetScenarioScriptPCUnit(const char* name); //59d4b8 (client: 56c368)
-    Group* GetScenarioScriptGroup(CMap<int32_t, int32_t, Group*, Group*>& gmap, uint32_t idx); //59d808
-    Player* GetScenarioScriptPlayer(CMap<int32_t, int32_t, Player*, Player*>& gmap, uint32_t idx); //59d77f
+    Group* GetScenarioScriptGroup(CMap<int32_t, int32_t, Group*, Group*>& gmap, uint32_t idx); //59d808 (client: 56c6b8)
+    Player* GetScenarioScriptPlayer(CMap<int32_t, int32_t, Player*, Player*>& gmap, uint32_t idx); //59d77f (client: 56c62f)
 
     int32_t GetMapCenterX() { return MapStuff_Instance->GetWidth() / 2; } //59fc7c (client: 56eb2c)
 
@@ -158,43 +158,43 @@ class Player;
 
 struct Server {
 public:
-    void ServerTic();
-    void ProcessPlayers();
+    void ServerTic();  // client: 4f967a
+    void ProcessPlayers();  // client: 4f4b1f
     void AnnounceHatGameStart(); // 4f465e
     void ScanSavedCharacters(); // 4f9e55
     void SendArenaResults();
     void ResetArenaRound(int end_reason);
     void KickAllPlayers();
     void HatKeepaliveTick();
-    int LoadGame(CString map_name); // Load map / saved game
-    int LoadSavedGame(const CString& filename); // Load saved game file
+    int LoadGame(CString map_name); // Load map / saved game (client: 4f44d5)
+    int LoadSavedGame(const CString& filename); // Load saved game file (client: 4f2955)
     void SetupArenaFileList(); // Arena mode file list setup
 
-    Human* LoadCharacter(void* data, int32_t size, Player* player); // 4ef4e7: Load character from saved packet.
-    Human* CreatePlayerCharacter(Player* player, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t main_skill, uint8_t character_class);
+    Human* LoadCharacter(void* data, int32_t size, Player* player); // 4ef4e7 (client: 4f346b): Load character from saved packet.
+    Human* CreatePlayerCharacter(Player* player, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t main_skill, uint8_t character_class);  // client: 4fb265
     void SaveCharacter(Humanoid* humanoid);
     void EnsurePlayerGroup(Player* player);
-    void UpdateHatAnnounce();
+    void UpdateHatAnnounce();  // client: 4f5e75
     void ProcessHatConnections();
     void GetArenaFrags(CString* name, uint32_t* frags);
     void AddArenaFrags(CString* name, int32_t flag); // TODO: that's likely `CString&`
     void HandleArenaPlayer(Player* player); // Arena mode player entry handler
-    void SendWorldState(Player* player, int32_t enter_world); // Mission join: send full world state to connecting player
+    void SendWorldState(Player* player, int32_t enter_world); // Mission join: send full world state to connecting player (client: 4faab6)
 
     void OnTeamsReady(); // Called when all team-game players are ready
     void UpdateQuestRune(int team, int picked_up); // Called when all team-game players are ready (sub-step)
     void SpawnRandomSack(); // Spawn random sack on map
     void SaveSack(Sack* sack); // 4F9B9E Save sack to file
     void PrepareSackPickup(class Sack* sack); // Pre-process a sack before pickup
-    Human* SummonUnit(CString* unit_name, class Unit* origin, int is_hero); // Summon a unit; returns the new unit (or nullptr on failure)
+    Human* SummonUnit(CString* unit_name, class Unit* origin, int is_hero); // Summon a unit; returns the new unit (or nullptr on failure) (client: 50157b)
     void ProcessHatPackets(); // 509042
     void UpdateMissionResults(); // 5096E4
-    void Tick();
-    void MissionResultsTick();
+    void Tick();  // client: 5010c9
+    void MissionResultsTick();  // client: 501511
     void ProcessHatPacket(Packet* pkt); // 5088DF
     void LoadSavedSacks(); // 4F950F
     void UpdateMissionResult(Player* player); // 5090FA
-    void CheatCommand(Player* player, CString cheat_string);
+    void CheatCommand(Player* player, CString cheat_string);  // client: 4fcab0
 
     int ConnectToHat(); //4f0bef - Connect to hat server
     int Start(int mode); //4f06f5 (client: 4f4116)
@@ -204,9 +204,9 @@ public:
 
     void SetDifficulty(int32_t val) { this->field22_0xd8 = val; }; //497470
 
-    void DespawnScenarioUnits(int32_t var300, CDWordArray& arr); //501b9e
+    void DespawnScenarioUnits(int32_t var300, CDWordArray& arr); //501b9e (client: 4fbe72)
         
-    Server(); //4ece8b
+    Server(); //4ece8b (client: 4f233b)
     ~Server(); //4f2c26
 public:
     int32_t tick16; // This value seems to be advanced every 16 ticks
@@ -277,20 +277,20 @@ public:
     // ProcessClientPacket helpers
     Unit* FindPlayerUnit(uint16_t player_ref, uint16_t unit_id);
     Shop* FindShopAt(TokenPos* pos);
-    Inn* FindInnAt(TokenPos* pos);   // Inn lookup by TokenPos
-    Player* FindPlayerById(uint16_t player_id);
-    void SaveGame(CString* str);
-    void SendMapInfo(Player* player);
+    Inn* FindInnAt(TokenPos* pos);   // Inn lookup by TokenPos (client: 4fca5c)
+    Player* FindPlayerById(uint16_t player_id);  // client: 4fc8f1
+    void SaveGame(CString* str);  // client: 4f25d6
+    void SendMapInfo(Player* player);  // client: 4fa9f7
     void ProcessClientPacket(Packet* packet);
 
     void SignalGameStart(int32_t start_kind);
     int  JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1, CString name, CString login,
                     void* Block, int32_t block_size, int32_t team_id);
 
-    void SerializeGame(CArchive& ar); // 4F3188 - deserialise saved game state from archive
+    void SerializeGame(CArchive& ar); // 4F3188 (client: 4f54f6) - deserialise saved game state from archive
 
     void Allods2_JoinPlayer(int32_t id, int32_t, CString name, NetStru2* client, uint32_t); //Allods2.exe 4f9a78    Join Player
-    void JoinErrorSend(NetStru2* client, int32_t error_code, const CString& str); //4fc4f3
+    void JoinErrorSend(NetStru2* client, int32_t error_code, const CString& str); //4fc4f3 (client: 4f992b)
     Player* Allods2_CreatePlayer(CString name); //500792 (client: 4fb0f3) not used in server, but used in Allods2 (4fb0f3)
 };
 ASSERT_OFFSET(Server, srv_stru1, 0x7c);
@@ -339,7 +339,7 @@ ASSERT_SIZE(ServerConfig, 0xc8);
 
 
 
-int32_t StatLevelPoints(int32_t level); // 5008ca
+int32_t StatLevelPoints(int32_t level); // 5008ca (client: 4fb228)
 
 extern Server* g_Server;   //642c2c
 extern int32_t g_IsServer; // 1 for server mode, 0 for client code. 665D00.

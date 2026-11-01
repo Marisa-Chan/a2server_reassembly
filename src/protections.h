@@ -13,17 +13,17 @@ struct Protections {
     std::array<uint16_t, 6> magic_protections;
     std::array<uint8_t, 6> weapon_protections;
 
-    Protections();
-    Protections(const Protections &);
+    Protections();  // client: 51f203
+    Protections(const Protections &);  // client: 51f234
     Protections(Protections &&);
 
     Protections& operator=(const Protections &);
     Protections& operator+=(const Protections &);
     Protections& operator-=(const Protections &);
 
-    void Clear();
+    void Clear();  // client: 51f219
 
-    void Serialize(CArchive& ar);
+    void Serialize(CArchive& ar);  // client: 51f42a
 };
 ASSERT_SIZE(Protections, 0x16);
 

@@ -117,16 +117,16 @@ public:
 public:
     // Transfers unit ownership to another player.
     // `this` is unused. TODO: looks like this should be in `SrvStru1` instead.
-    void TransferUnitOwnership(Unit* unit, Player* new_owner);
+    void TransferUnitOwnership(Unit* unit, Player* new_owner);  // client: 4f9322
 
     NetStru1(int stats); //51684b
     ~NetStru1(); //516b44
 
 public:
-    void SendTeamNotify(uint32_t msg_type, uint32_t player_id, Player* recpt);
-    void SendBarePacket(uint8_t id, Player* recpt);
+    void SendTeamNotify(uint32_t msg_type, uint32_t player_id, Player* recpt);  // client: 50df07
+    void SendBarePacket(uint8_t id, Player* recpt);  // client: 50df2d
     void SendTickPacket(Player* recpt);
-    void UntrackToken(Token* token); // Remove unit/sack from network tracking
+    void UntrackToken(Token* token); // Remove unit/sack from network tracking (client: 50d7b2)
     void AnnouncePlayer(Player* recpt);
 
     void AnnouncePlayerName(const CString& name, Player* player);
@@ -147,39 +147,39 @@ public:
     int IsActive(); //518ac9 (client: 50a53b)
 
     void SendTeamState(uint16_t to_player_id);
-    void SendInfoPacket(uint8_t id, int32_t value1, int32_t value2, Player* target);
+    void SendInfoPacket(uint8_t id, int32_t value1, int32_t value2, Player* target);  // client: 50df7c
     
-    void SendUnitActionPacket(Unit* unit, uint8_t angle, uint8_t speed_dir, uint8_t mode);
-    void SendRangedAttackPacket(Unit* unit);
-    void SendUnitTurn(Unit* unit, Unit* target); // Notify clients about unit turning to face its target
-    void SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t props_flags, int32_t inv_start_index, int32_t inv_end_index);
+    void SendUnitActionPacket(Unit* unit, uint8_t angle, uint8_t speed_dir, uint8_t mode);  // client: 50cd3c
+    void SendRangedAttackPacket(Unit* unit);  // client: 50cdcd
+    void SendUnitTurn(Unit* unit, Unit* target); // Notify clients about unit turning to face its target (client: 50d730)
+    void SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t props_flags, int32_t inv_start_index, int32_t inv_end_index);  // client: 50ac91
 
-    void SendHumanoidProps(Unit* unit, Player* player, int32_t flags);
-    void SendMonsterInventory(Unit* unit, Player* player, int32_t start_index, int32_t end_index);
-    void BroadcastEffect(Effect* effect, Unit* unit, uint8_t packet_id);
+    void SendHumanoidProps(Unit* unit, Player* player, int32_t flags);  // client: 50b9df
+    void SendMonsterInventory(Unit* unit, Player* player, int32_t start_index, int32_t end_index);  // client: 50beae
+    void BroadcastEffect(Effect* effect, Unit* unit, uint8_t packet_id);  // client: 50d132
 
     void SendGameInfo(int32_t game_speed, Player* player); // Send server state / player list to player
-    void SendExistingPlayers(Player* player);  // Send all existing players (PacketJoin) to new player
-    void SendVisibilityState(Player* player);  // Send terrain/diplomacy visibility state to player
+    void SendExistingPlayers(Player* player);  // Send all existing players (PacketJoin) to new player (client: 50d96e)
+    void SendVisibilityState(Player* player);  // Send terrain/diplomacy visibility state to player (client: 50dabc)
     void SendPendingUnits(Player* player);  // Send units from pending unit list to player
     void SendServerState(Player* player);  // Send server state to player
     void SendKillStats(uint16_t player_id, Player* player);  // Send kill stats (pass 0,nullptr for all)
     void BroadcastUnitState(Unit* unit); // Broadcast unit to all players
-    void SendUnitVisibility(Unit* unit, int flag, Player* player); // Send unit visibility packet (retn 0Ch)
-    void SendAreaEffect(AreaEffect* obj, int flag); // Send area-effect packet
-    void BroadcastEffectMove(Effect* effect, uint8_t type); // Broadcast move packet for an effect token
-    void SendSrvStru1State(QuestMap* quest_map, Player* player, int flag); // Send SrvStru1 state list from packet
+    void SendUnitVisibility(Unit* unit, int flag, Player* player); // Send unit visibility packet (retn 0Ch) (client: 50dfdd)
+    void SendAreaEffect(AreaEffect* obj, int flag); // Send area-effect packet (client: 50d21d)
+    void BroadcastEffectMove(Effect* effect, uint8_t type); // Broadcast move packet for an effect token (client: 50d19c)
+    void SendSrvStru1State(QuestMap* quest_map, Player* player, int flag); // Send SrvStru1 state list from packet (client: 50e326)
     void SendShopTable(Token* token, Inventory* inventory, Player* player, int32_t mode);
-    void SendShopShelf(Shop* shop, CMultiShopShelf* shelf, Player* player, uint8_t slot); // 51AA26 - send single shop shelf contents
+    void SendShopShelf(Shop* shop, CMultiShopShelf* shelf, Player* player, uint8_t slot); // 51AA26 (client: 50c10b) - send single shop shelf contents
     void SendShopShelves(CMultiShopInstance* inst, Player* player, int32_t shelf_id); // 51AB99 - send shop shelf contents
-    void UpdateConnStats();
+    void UpdateConnStats();  // client: 50f6ef
 
-    void SendLatency(int32_t latency, Player* player);  // Send latency update to player
-    void SendGameEvent(Player* player, int32_t event_id, int32_t value2); // Send in-game event trigger
+    void SendLatency(int32_t latency, Player* player);  // Send latency update to player (client: 50d8ab)
+    void SendGameEvent(Player* player, int32_t event_id, int32_t value2); // Send in-game event trigger (client: 50de39)
     void SendArenaScore(CString& name, uint32_t score, char type, Player* player); // 51CDFB - send arena score
 
     void ResendPlayerUnits(Player* player);
-    void SendLevelUp(Unit* unit, int unused);        // Send unit-level-up packet
+    void SendLevelUp(Unit* unit, int unused);        // Send unit-level-up packet (client: 50d795)
     void SendSpectatorState(NetStru2* ns2);    // Send spectator/alliance state
 
     // DecodePacket – decode an incoming network message into the appropriate Packet singleton,
@@ -188,12 +188,12 @@ public:
     Packet* ReceivePacket(NetStru2* cli); //518a23 (client: 50a498) //receive packet from client
     Packet* ReceiveAnyPacket(); //518980 (client: 50a3fc) iterate over active connections and try receive packet
 
-    void BroadcastTokenState(Token* token, Player* player, uint8_t flag); // Broadcast token state to players
-    void SendSpellCastAtUnit(Unit* caster, Spell* spell, Unit* target, int16_t delay); // Send targeted-unit spell packet
-    void SendSpellCastAtPos(Unit* caster, Spell* spell, TokenPos* pos, int16_t delay); // Send point/area spell packet
-    void SendSpellCastMulti(Unit* caster, Spell* spell, CList<Unit*>* units, int32_t flag); // 51BC6B: Send multi-target spell packet
-    void BroadcastMovePacket(PacketMoveBroadcast* pkt, TokenPos* pos);  // Broadcast move packet to all players in visibility
-    void BroadcastAoeZone(PacketAoeZone* pkt, AreaEffect* area_effect);  // Broadcast AoE-zone packet to all players in visibility
+    void BroadcastTokenState(Token* token, Player* player, uint8_t flag); // Broadcast token state to players (client: 50c2ea)
+    void SendSpellCastAtUnit(Unit* caster, Spell* spell, Unit* target, int16_t delay); // Send targeted-unit spell packet (client: 50ce4e)
+    void SendSpellCastAtPos(Unit* caster, Spell* spell, TokenPos* pos, int16_t delay); // Send point/area spell packet (client: 50cf32)
+    void SendSpellCastMulti(Unit* caster, Spell* spell, CList<Unit*>* units, int32_t flag); // 51BC6B (client: 50d009): Send multi-target spell packet
+    void BroadcastMovePacket(PacketMoveBroadcast* pkt, TokenPos* pos);  // Broadcast move packet to all players in visibility (client: 50c867)
+    void BroadcastAoeZone(PacketAoeZone* pkt, AreaEffect* area_effect);  // Broadcast AoE-zone packet to all players in visibility (client: 50cab9)
     void SendUnitAction(Packet* pkt, Unit* unit); // 51B0F0 - send unit action packet to relevant players (in asm) (client: 50c65a)
 
 
@@ -213,7 +213,7 @@ public:
     void SendHatJoinFail(int32_t a, int32_t b, int32_t error_code); // 51E63F - Send HAT join-failure reply (pkt 0xD9)
     void SendHatPlayerCheck(int32_t a, int32_t b, uint8_t status, int16_t player_id); // 51E794 - Send HAT player-check reply (pkt 0xE1)
 
-    void SendHatLogin(CString name); //51e205 - Send hat login packet
+    void SendHatLogin(CString name); //51e205 (client: 50ec0e) - Send hat login packet
     void SendHatLobbyInfo(int32_t player_count, CString source, int32_t map_level, int32_t game_type, int32_t map_range); //51e289 - Send hat lobby info packet
     void SendHatCharData(int32_t hat_char_id1, int32_t hat_char_id2, CString name, void* data, uint32_t size, uint16_t player_id);
     void SendHatMessage(int32_t hat_char_id1, int32_t hat_char_id2, CString name, void* data, uint32_t size, uint16_t player_id);
@@ -229,8 +229,8 @@ public:
     void SendHatConnectServer(HatCharId key, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t sphere, uint8_t type_face, uint8_t color, const CString& name, const CString& srv); //51da14   (client:50e5cf)
 
     void SendServerConnectHatTicket(HatCharId ticket, uint16_t player_id); //51dce5   (client:50e8c0)
-    void FUN_0050eede(); // client 50eede
-    void FUN_0050e70d(HatCharId id); // client 50e70d
+    void FUN_0050eede(); // client-only helper (client: 50eede)
+    void FUN_0050e70d(HatCharId id); // client-only helper (client: 50e70d)
 
     NetStru2* GetFirstClient();
 };
@@ -264,7 +264,7 @@ struct NetStru3 {
 
     void Clear(); //5156f6 (client: 508736)
     NetStru3(); //5155c0 (client: 50863e)
-    ~NetStru3(); //515694
+    ~NetStru3(); //515694 (client: 5086f3)
 
     void CopyData(const NetStru3* src); //515625 (client: 508684)
 
@@ -300,21 +300,21 @@ struct NetStru2 {
 
 
 public:
-    int WriteData(void* buf, uint32_t size);
-    int ReadData(void* buf, uint32_t size);
+    int WriteData(void* buf, uint32_t size);  // client: 508c6a
+    int ReadData(void* buf, uint32_t size);  // client: 508d13
 
     // ReleaseNetBuf – walks the free_net3 linked list and decrements the
     // ref-count byte (field_0xF) of the first live entry it finds.
-    void ReleaseNetBuf();
+    void ReleaseNetBuf();  // client: 508c29
 
     void SetDrivers(NetStru1* HlDriver, CLlDriver* LlDriver); //51682d (client: 509325)
-    int ReceiveData(NetStru3* buffer); //5161bf
+    int ReceiveData(NetStru3* buffer); //5161bf (client: 508e04)
 
     int SendData(); //516408 (client: 508f33)
 
     NetStru2(); //515831 (client: 508871)
-    ~NetStru2(); //515c27
-    void ReturnBuffers(); //515d9d    return buffers to High-level driver
+    ~NetStru2(); //515c27 (client: 508acc)
+    void ReturnBuffers(); //515d9d (client: 508b9a)    return buffers to High-level driver
 
     uint32_t GetBuffersPktNum(); //51670a (client: 509208)  Get received_buffers summary of pkt_num
 
@@ -391,7 +391,7 @@ struct ComSettings { //DPCOMPORTADDRESS
         this->flow_control = 4;
     }
 
-    void Load(HKEY& rkey) { //43d02e
+    void Load(HKEY& rkey) { //43d02e (client: 43f43e)
         this->Reset();
         DWORD sz = 0x14;
         RegQueryValueExA(rkey, "comportsettings", nullptr, nullptr, (LPBYTE)this, &sz);
@@ -472,10 +472,10 @@ struct CLlDriver {
 public:
     A2NetSock* GetClientBySocketId(uint32_t uid); //5224c4 (client: 511c00)
 
-    CLlDriver(GUID _appid, NetStru1 *net1); //5208ec
-    ~CLlDriver(); //520ad3
+    CLlDriver(GUID _appid, NetStru1 *net1); //5208ec (client: 510241)
+    ~CLlDriver(); //520ad3 (client: 510429)
 
-    void SetHlDriver(NetStru1* drv); //496e50
+    void SetHlDriver(NetStru1* drv); //496e50 (client: 49a920)
 
     void Close(); //5225d0 (client: 511d0c)
     void CloseTcp(); //523b01 (client: 5131ad)
@@ -483,30 +483,30 @@ public:
     void CloseTcpSocket(A2NetSock* sock); //523a16 (client: 5130cf)
     void CloseDpSock(A2NetSock* sock, int idx = -1); //525bcd (client: 514d27)
 
-    CLlAddress* AllocAddress(); //520d8c
-    void FreeEnumAddresses(); //520c80
+    CLlAddress* AllocAddress(); //520d8c (client: 510646)
+    void FreeEnumAddresses(); //520c80 (client: 51053a)
 
     int EnumAddresses(CLlAddress** addrs, int* num); //52182f (client: 5110c6)
     void EnumAddressesTcp(); //5214c5 (client: 510d5c)
     void EnumAddressesDp(); //5214c5 (client: 510d5c)
     static BOOL __stdcall cbEnumAddress(REFGUID guidDataType, DWORD dwDataSize, LPCVOID lpData, LPVOID lpContext); //5211b2 (client: 510a50)
 
-    CLlNetSession* AllocSession(); //520e2e
-    void FreeEnumSessions(); //520cc3
+    CLlNetSession* AllocSession(); //520e2e (client: 5106e8)
+    void FreeEnumSessions(); //520cc3 (client: 51057d)
 
     typedef int(*CBUPDATECALLBACK)();
     int EnumSessions(CLlNetSession**, int* num, CBUPDATECALLBACK cbUpdate = nullptr, uint32_t timeout = 0); //52210d (client: 51184d)
     static BOOL __stdcall cbEnumSessions(LPCDPSESSIONDESC2 lpThisSD, LPDWORD lpdwTimeOut, DWORD dwFlags, LPVOID lpContext); //522020 (client: 51176c)
 
 
-    CLlConn* AllocEnumConns(); //520ed0
-    void FreeEnumConns(); //520d06
+    CLlConn* AllocEnumConns(); //520ed0 (client: 51078a)
+    void FreeEnumConns(); //520d06 (client: 5105c0)
     void EnumConnections(CLlConn** conns, int* num); //5210ea (client: 510988)
     static BOOL __stdcall cbEnumConnections(LPCGUID lpguidSP, LPVOID lpConnection, DWORD dwConnectionSize, LPCDPNAME lpName, DWORD dwFlags, LPVOID lpContext); //52100e (client: 5108c8)
 
 
     CLlName* AllocEnumPlayers(); //520f72 (client: 51082c)
-    void FreeEnumPlayers(); //520d49
+    void FreeEnumPlayers(); //520d49 (client: 510603)
     void EnumPlayers(CLlNetSession* ses, CLlName** names, int* num); //52238e (client: 511ace)
     static BOOL __stdcall cbEnumPlayes(DPID dpId, DWORD dwPlayerType, LPCDPNAME lpName, DWORD dwFlags, LPVOID lpContext); //52233f (client: 511a7f)
 
@@ -550,7 +550,7 @@ public:
 
     int Connect(const char* name, CLlNetSession* session); //5223fb (client: 511b3b)
 
-    int SendDataTcp(A2NetSock* sock, NetStru3* buf); //52394a
+    int SendDataTcp(A2NetSock* sock, NetStru3* buf); //52394a (client: 513005)
     int SendDataDp(A2NetSock* sock, NetStru3* buffer); //5255c6 (client: 514795)
     int SendData(uint32_t uid, NetStru3* buffer); //5226c4 (client: 511dfc)
 
@@ -567,7 +567,7 @@ public:
     int32_t GetLatency(uint32_t conn_uid);  //5229FD  Get current measured latency (ms) (client: 512139)
     int32_t GetPacketLoss(uint32_t conn_uid);  //522A51 Get current packet-loss figure (client: 51218d)
 
-    void SetTimeout(uint32_t t) { this->timeout = t; } //496f20
+    void SetTimeout(uint32_t t) { this->timeout = t; } //496f20 (client: 49ab40)
     int GetProvider() { return this->provider; } //451610 (client: 453580)
 };
 ASSERT_OFFSET(CLlDriver, connection_sockets, 0x57c);

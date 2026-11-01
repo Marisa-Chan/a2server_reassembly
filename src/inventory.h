@@ -12,19 +12,19 @@
 struct Inventory {
 public:
     Inventory(); // 551C0A (client: 5336d5)
-    Inventory(const Inventory* src); // 551E55
+    Inventory(const Inventory* src); // 551E55 (client: 533747)
     ~Inventory(); // 551C7A
 
 public:
-    void PutItemIntoBagAtDefault(Item *item);
+    void PutItemIntoBagAtDefault(Item *item);  // client: 5337e4
     void PutItemIntoBag(int32_t pos, Item *item); // 551fc3 (client: 533804)
-    Item* TakeItemAt(int32_t item_number, int32_t count);
-    void AddItem(int32_t amount, Item* item); // 5524FA - add item to inventory
-    void TransferFrom(Inventory* src); // Transfer all items from src into this inventory
-    Item* FindItemById(uint16_t item_id); // Find item by item_id
-    Item* TakeItemById(uint16_t item_id); // Remove and return item matching item_id from inventory
+    Item* TakeItemAt(int32_t item_number, int32_t count);  // client: 533cd8
+    void AddItem(int32_t amount, Item* item); // 5524FA (client: 5338f0) - add item to inventory
+    void TransferFrom(Inventory* src); // Transfer all items from src into this inventory (client: 533b7d)
+    Item* FindItemById(uint16_t item_id); // Find item by item_id (client: 533c07)
+    Item* TakeItemById(uint16_t item_id); // Remove and return item matching item_id from inventory (client: 533c61)
     Item* FindItemByName(const char* name); // Find item by name, returns nullptr if not found
-    void Serialize(CArchive& ar); // Serialize, in asm
+    void Serialize(CArchive& ar); // Serialize, in asm (client: 53776f)
 
     void SerializeItems(CArchive& ar); //Serialize items list
 

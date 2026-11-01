@@ -41,13 +41,13 @@ public:
     MapPlayerData(int32_t index, int32_t color); // 43c17f (client: 43e58f)
     MapPlayerData(const MapPlayerData& other); // 43c0be (client: 43e4ce)
 
-    virtual ~MapPlayerData(); // 43c270
+    virtual ~MapPlayerData(); // 43c270 (client: 43e680)
 
     virtual void Dump(CDumpContext& dc) const override; // 43c225 (client: 43e635)
 
-    uint32_t IsAllied(int32_t idx);
-    int32_t KnowsPlayer(int32_t idx);
-    int32_t IsVisibleTo(int32_t idx);
+    uint32_t IsAllied(int32_t idx);  // client: 420640
+    int32_t KnowsPlayer(int32_t idx);  // client: 420660
+    int32_t IsVisibleTo(int32_t idx);  // client: 420610
 };
 ASSERT_SIZE(MapPlayerData, 0x4c);
 

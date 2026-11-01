@@ -20,26 +20,26 @@ public:
     DECLARE_SERIAL(Spell);
 
     virtual ~Spell();
-    virtual void Serialize(CArchive& ar) override; 
+    virtual void Serialize(CArchive& ar) override;  // client: 525c30
 
 public:
-    Spell();
-    Spell(uint8_t spell_id);
-    Spell(const CString& name);
+    Spell();  // client: 522cfd
+    Spell(uint8_t spell_id);  // client: 522d34
+    Spell(const CString& name);  // client: 522dab
 
-    void Init(); //5391ab
+    void Init(); //5391ab (client: 522ef5)
 
-    void SetPowerFromCaster(Unit* unit);
-    int IsAreaSpell(uint8_t unused1 = 0, uint8_t unused2 = 0); // Checks if it's area spell (spell target == 2).
-    void SetPower(uint32_t power);
-    int IsUnitSpell(); // Checks if spell_target == 1 (unit-targeted).
-    int32_t StartCast(Unit* caster, Unit* target, int8_t x, int8_t y); // Validate and start cast; returns nonzero if accepted
-    void ExecuteRaySpell(Unit* caster, Unit* target);
-    void ExecuteOnTarget(Unit* caster, Unit* target); // Execute targeted spell
-    void ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y); // Execute area spell
+    void SetPowerFromCaster(Unit* unit);  // client: 52314a
+    int IsAreaSpell(uint8_t unused1 = 0, uint8_t unused2 = 0); // Checks if it's area spell (spell target == 2). (client: 5230e1)
+    void SetPower(uint32_t power);  // client: 523278
+    int IsUnitSpell(); // Checks if spell_target == 1 (unit-targeted). (client: 523108)
+    int32_t StartCast(Unit* caster, Unit* target, int8_t x, int8_t y); // Validate and start cast; returns nonzero if accepted (client: 52365f)
+    void ExecuteRaySpell(Unit* caster, Unit* target);  // client: 5238cb
+    void ExecuteOnTarget(Unit* caster, Unit* target); // Execute targeted spell (client: 523a46)
+    void ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y); // Execute area spell (client: 523a7f)
 
 
-    uint8_t GetSpeed(uint8_t v) const { //539926
+    uint8_t GetSpeed(uint8_t v) const { //539926 (client: 52362d)
         if (this->spell_id != 21) { //HASTE
             return 0;
         }
@@ -60,14 +60,14 @@ public:
         return 0;
     }
 
-    uint8_t GetMaximumDamageProbability(uint8_t v) const { //5397f7
+    uint8_t GetMaximumDamageProbability(uint8_t v) const { //5397f7 (client: 5234fe)
         if (this->spell_id == 20) {
             return (v * 4 / 5) + 20;
         }
         return 0;
     }
 
-    uint8_t GetMinimumDamageProbability(uint8_t v) const { //53982b
+    uint8_t GetMinimumDamageProbability(uint8_t v) const { //53982b (client: 523532)
         if (this->spell_id == 28) {
             return (v * 4 / 5) + 20;
         }
@@ -116,12 +116,12 @@ public:
     DECLARE_SERIAL(SpellBook); // Runtime class definition at 636ff8.
 
 public: // VTable at 60ec30.
-    virtual ~SpellBook(); // 53d368
+    virtual ~SpellBook(); // 53d368 (client: 525ea4)
     virtual void Serialize(CArchive& ar) override; // 53dd9a (client: 5261f1)
 
 public:
-    SpellBook() {}; // 53D28E (inlined in ASM callers)
-    int32_t CalcSpellMask(); // Calculate spellbook bitmask for this unit's spells.
+    SpellBook() {}; // 53D28E (client: 525dc4) (inlined in ASM callers)
+    int32_t CalcSpellMask(); // Calculate spellbook bitmask for this unit's spells. (client: 526190)
 
     void RefreshForHumanoid(Humanoid* humanoid);
 
@@ -129,8 +129,8 @@ public:
     CArray<Spell*> spells;
     uint32_t current_spell_index = 0;
 
-    void SetSpell(int32_t spell_id, Spell* spell); // Add/replace a spell in the book
-    Spell* GetSpell(int spell_id); // Look up spell in book by id
+    void SetSpell(int32_t spell_id, Spell* spell); // Add/replace a spell in the book (client: 525f8a)
+    Spell* GetSpell(int spell_id); // Look up spell in book by id (client: 52607d)
 };
 ASSERT_SIZE(SpellBook, 0x1c);
 

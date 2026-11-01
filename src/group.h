@@ -9,10 +9,10 @@
 
 struct GroupSub {
 public:
-    GroupSub();
-    ~GroupSub();
+    GroupSub();  // client: 5730de
+    ~GroupSub();  // client: 57317c
 
-    void Serialize(CArchive& ar);
+    void Serialize(CArchive& ar);  // client: 57e48b
 
 public:
     uint16_t field_0x0;
@@ -64,13 +64,13 @@ public:
     Group();  // Constructor - 554D9E (client: 534b65)
     ~Group();
 
-    void Serialize(CArchive& ar);
+    void Serialize(CArchive& ar);  // client: 537654
 
     // ASM member functions
-    void RemoveUnit(Unit* unit);  // Remove unit from group
-    void AddUnit(Unit* unit);  // Add unit to group
-    Unit* GetHeadUnit();  // 599F00. Avoid it, use `unit_list.GetHead()` instead.
-    Unit* GetNextUnit(Unit* unit);  // 599F20. Avoid it, use `unit_list.GetNext()` instead (this method is O(N) for no reason).
+    void RemoveUnit(Unit* unit);  // Remove unit from group (client: 534cf4)
+    void AddUnit(Unit* unit);  // Add unit to group (client: 534cae)
+    Unit* GetHeadUnit();  // 599F00 (client: 569210). Avoid it, use `unit_list.GetHead()` instead.
+    Unit* GetNextUnit(Unit* unit);  // 599F20 (client: 547970). Avoid it, use `unit_list.GetNext()` instead (this method is O(N) for no reason).
 };
 
 ASSERT_OFFSET(Group, owner, 0x44);
@@ -80,10 +80,10 @@ ASSERT_SIZE(Group, 0x50);
 struct GroupList {
     CList<Group*> groups;
 
-    GroupList();
+    GroupList();  // client: 534d7b
     ~GroupList();
     Group* AllocGroup();
-    void Serialize(CArchive& ar);
+    void Serialize(CArchive& ar);  // client: 536115
 };
 
 

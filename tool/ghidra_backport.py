@@ -92,25 +92,29 @@ def parse_headers(files):
         stack = []  # (scope_name, brace_depth_at_open, is_namespace)
         pending = None  # scope seen, waiting for its '{' on a following line
         depth = 0
-        ifdef = []  # per open preprocessor conditional: True while the SERVER build compiles it
+        ifdef = []  # per open conditional: (server build compiles it, client build compiles it)
         for ln, raw in enumerate(lines, 1):
             pp = re.match(r"#\s*(ifdef|ifndef|if|else|endif)\b(.*)", raw)
             if pp:
                 kw, rest = pp.group(1), pp.group(2).strip()
                 if kw in ("ifdef", "ifndef"):
-                    on = (rest == "A2CLIENT")
-                    if kw == "ifndef":
-                        on = not on
-                    ifdef.append(on)
+                    if rest == "A2CLIENT":
+                        cli = (kw == "ifdef")  # ifdef A2CLIENT: client-only; ifndef: server-only
+                        ifdef.append((not cli, cli))
+                    else:
+                        ifdef.append((True, True))  # non-client conditionals: assume compiled by both
                 elif kw == "if":
-                    ifdef.append(True)  # non-client conditionals: assume compiled
+                    ifdef.append((True, True))  # non-client conditionals: assume compiled by both
                 elif kw == "else" and ifdef:
-                    ifdef[-1] = not ifdef[-1]
+                    ifdef[-1] = (not ifdef[-1][0], not ifdef[-1][1])
                 elif kw == "endif" and ifdef:
                     ifdef.pop()
                 continue
-            if not all(ifdef):
-                continue  # declaration inside an A2CLIENT-only region (client code)
+            if ifdef:
+                srv_vis = all(f[0] for f in ifdef)
+                cli_vis = all(f[1] for f in ifdef)
+            else:
+                srv_vis = cli_vis = True
             line = raw.split("//")[0]
             cm = CLASS_RE.match(raw)
             if cm:
@@ -165,7 +169,8 @@ def parse_headers(files):
                            "ret": (cls + " *") if is_ctor else ("void" if is_dtor else ret),
                            "params": params, "addr": addr, "client_addr": client_addr,
                            "virtual": "virtual" in kw, "cc": cc,
-                           "plain_ns": is_ns, "ctor": is_ctor, "dtor": is_dtor}
+                           "plain_ns": is_ns, "ctor": is_ctor, "dtor": is_dtor,
+                           "srv_vis": srv_vis, "cli_vis": cli_vis}
             depth += line.count("{") - line.count("}")
             while stack and depth <= stack[-1][1]:
                 stack.pop()
@@ -333,6 +338,10 @@ def main():
         for d in decls:
             if not d["addr"]:
                 d["addr"], d["prio"] = lookup_cpp_addr(cpp_addrs, d)
+
+    # per-build visibility: only declarations the target build actually compiles
+    want_cli = PROGRAM == "client"
+    decls = [d for d in decls if (d.get("cli_vis", True) if want_cli else d.get("srv_vis", True))]
 
     # on duplicate addresses the most reliable source wins: header > comment above .cpp definition > body comment
     seen, todo, skipped = set(), [], []

@@ -19,8 +19,8 @@ struct Settings {
     uint8_t more_fields[3];
 
 public:
-    Settings();
-    void Serialize(CArchive& ar);
+    Settings();  // client: 55b336
+    void Serialize(CArchive& ar);  // client: 51b0f8
 };
 ASSERT_OFFSET(Settings, autobuff_mask, 0x20);
 ASSERT_SIZE(Settings, 0x24);
@@ -33,8 +33,8 @@ public: // VTable at 0060f140.
 
     DECLARE_SERIAL(Player);
 
-    virtual ~Player();
-    virtual void Serialize(CArchive& ar);
+    virtual ~Player();  // client: 51fbc2
+    virtual void Serialize(CArchive& ar);  // client: 536ee7
 
 public:
     uint16_t player_id;
@@ -88,17 +88,17 @@ public:
     uint8_t gap_0xa99[7];
 
 public:
-    Player();
+    Player();  // client: 51f914
 
 public:
-    void AddMoney(int32_t amount, uint32_t notify_flag);
+    void AddMoney(int32_t amount, uint32_t notify_flag);  // client: 51fe74
     void KillAllUnits(); // Kill all of this player's units on the map
     void StartAfkTimer(); // Initialize inactivity timer (sets this+0A90h/0A94h from GetTickCount)
     void ResetAfkTimer(); // Reset inactivity timer and notify NetStru1
 
     void Deactivate(); //534778 (client: 51fda1)
 
-    void RemoveUnitFromGroup(Unit* unit); // Remove a unit from this player's unit list (PlayerRemoveUnit)
+    void RemoveUnitFromGroup(Unit* unit); // Remove a unit from this player's unit list (PlayerRemoveUnit) (client: 534f4c)
     void RemoveUnit(Unit* unit); // 534a74 (client: 51fe27)
 };
 

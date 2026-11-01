@@ -26,7 +26,7 @@ public:
 public:
     Visibility(); // 58E1E4 (client: 55d694)
     void sub_58CD84(); // Builds part of the path-cost lookup tables — 58CD84 (client: 55c234)
-    void sub_58CE74(); // Builds part of the path-cost lookup tables — 58CE74
+    void sub_58CE74(); // Builds part of the path-cost lookup tables — 58CE74 (client: 55c324)
     void sub_58E1C1(); // 58E1C1 (client: 514f28)
     void sub_58DE69(Unit* unit, uint16_t yx); // 58DE69 (client: 55d319)
     void sub_58D768(Unit* unit, uint16_t yx); // 58D768 (client: 55cc18)

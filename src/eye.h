@@ -263,7 +263,7 @@ struct UnitEye2 {
 
 public:
     UnitEye2(); // 5A4E83 (client: 572ff3)
-    ~UnitEye2(); // 5A4F30
+    ~UnitEye2(); // 5A4F30 (client: 47b660)
 };
 ASSERT_OFFSET(UnitEye2, known_spells, 0x7c);
 ASSERT_SIZE(UnitEye2, 0xb8);

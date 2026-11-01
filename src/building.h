@@ -19,20 +19,20 @@ public:
     DECLARE_SERIAL(Building);
 
 public: // VTable at 60f378
-    virtual ~Building();
-    virtual void RegenTick() override;
-    virtual void Serialize(CArchive& ar) override;
-    virtual int32_t IsBuilding() override;
-    virtual int32_t IsOutpost();
+    virtual ~Building();  // client: 529d8e
+    virtual void RegenTick() override;  // client: 529e08
+    virtual void Serialize(CArchive& ar) override;  // client: 529f6d
+    virtual int32_t IsBuilding() override;  // client: 54d380
+    virtual int32_t IsOutpost();  // client: 54d390
 
 public:
-    Building(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height); // sub_542599
+    Building(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height); // sub_542599 (client: 5299f8)
     Building(); // sub_54242A (client: 5298ee)
     Building(const CString& name); // sub_542534 (client: 5299f8)
-    Building(TokenPos* pos); // sub_5424AC
-    void InitFromTable(uint8_t width, uint8_t height); // Initialize building from info table and place on map.
-    void InitByName(const CString& name); // Initialize building fields and look up type by name.
-    int32_t RollDamage(UnitToHit* to_hit, Unit* caster); // Building attack.
+    Building(TokenPos* pos); // sub_5424AC (client: 529a5d)
+    void InitFromTable(uint8_t width, uint8_t height); // Initialize building from info table and place on map. (client: 529c04)
+    void InitByName(const CString& name); // Initialize building fields and look up type by name. (client: 529ae6)
+    int32_t RollDamage(UnitToHit* to_hit, Unit* caster); // Building attack. (client: 529e83)
 
 public:
     BuildingInfo* building_info;
@@ -60,9 +60,9 @@ public:
 
 public:
     Pointer(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height); // sub_5A3140 (client: 5712b0)
-    Pointer(); // default, used by CreateObject
-    virtual ~Pointer() override;
-    virtual void Serialize(CArchive& ar) override;
+    Pointer(); // default, used by CreateObject (client: 54d350)
+    virtual ~Pointer() override;  // client: 54d3d0
+    virtual void Serialize(CArchive& ar) override;  // client: 52a0ec
 
 public:
     int32_t script_instance_id;

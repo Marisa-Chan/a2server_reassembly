@@ -50,8 +50,8 @@ ASSERT_SIZE(FileSectionStats, 0x34);
 //  Server side: `ParsePlayerFile_004f62e6`,
 //  Hat side: `CCharacter::SaveToStream`.
 
-void __cdecl DecryptEncryptedData(uint8_t* data, int32_t size, uint16_t key); //4f535e
-uint32_t __cdecl CalcChecksum(uint8_t* data, int32_t size); //4f5308
+void __cdecl DecryptEncryptedData(uint8_t* data, int32_t size, uint16_t key); //4f535e (client: 4f68dd)
+uint32_t __cdecl CalcChecksum(uint8_t* data, int32_t size); //4f5308 (client: 4f6887)
 
 int32_t __cdecl ParsePlayerFile_4F62E6(
     CFile* file,

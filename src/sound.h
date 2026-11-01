@@ -26,16 +26,16 @@ extern SfxBank SoundBank_mage[2]; //665dd8
 extern SfxBank SoundBank_peasant[2]; //6663d8
 extern SfxBank SoundBank_other[12]; //665ec8
 
-int InitSound(HWND hwnd, int channels); //45c489
-void FreeDSound(); //45c7c5
-void LoadGameSounds(); //4c8217
-void UpdatePositionalMusic(int32_t x, int32_t y); //476c0d in asm
-void ReloadSfx(SfxSample** sample, const char* fname); //438e40 in asm
-void PlayAmbientSfx(SfxSample** sample); //4a4740 in asm
-void FreeSfxSample(SfxSample** sample); //438dd0 in asm
-void StopSfx(SfxSample** sample); //438f20 in asm
-void UnloadAllSfx(); //4c86f5 in asm
-void FreeDistortMap(); //47619a in asm
+int InitSound(HWND hwnd, int channels); //45c489 (client: 4600b7)
+void FreeDSound(); //45c7c5 (client: 4603f3)
+void LoadGameSounds(); //4c8217 (client: 4ccbb7)
+void UpdatePositionalMusic(int32_t x, int32_t y); //476c0d (client: 47a959) in asm
+void ReloadSfx(SfxSample** sample, const char* fname); //438e40 (client: 43a8c0) in asm
+void PlayAmbientSfx(SfxSample** sample); //4a4740 (client: 4a8000) in asm
+void FreeSfxSample(SfxSample** sample); //438dd0 (client: 43a940) in asm
+void StopSfx(SfxSample** sample); //438f20 (client: 43a790) in asm
+void UnloadAllSfx(); //4c86f5 (client: 4cd08f) in asm
+void FreeDistortMap(); //47619a (client: 479ee6) in asm
 
 
 class SfxSample : public CObject {
@@ -45,10 +45,10 @@ public:
 
 	~SfxSample(); //45b8c2 (client: 45f4f2)
 
-	void Play(int volume, int pan, int loop, uint8_t priority, int freq = 0); //45c0cf
+	void Play(int volume, int pan, int loop, uint8_t priority, int freq = 0); //45c0cf (client: 45fcff)
 
-	void Play(); //438ec0 alt
-	static void Play(SfxSample* smpl) {
+	void Play(); //438ec0 (client: 45fcff) alt
+	static void Play(SfxSample* smpl) {  // client: 45fcff
 		if (smpl) {
 			smpl->Play();
 		}
@@ -91,11 +91,11 @@ ASSERT_SIZE(SoundChannel, 0x10);
 struct CSound {
 	SfxSample* sample;
 
-	static void __cdecl Play(CSound &sound); //438ec0
+	static void __cdecl Play(CSound &sound); //438ec0 (client: 45fcff)
 };
 ASSERT_SIZE(CSound, 4);
 
-bool IsSfxPlaying(CSound* sound); //475110 in asm
+bool IsSfxPlaying(CSound* sound); //475110 (client: 477d20) in asm
 
 
 struct SoundSettings {
@@ -141,16 +141,16 @@ public:
 
 	void ReadPortion(uint8_t* buf); //45a707 (client: 45e337)
 
-	int32_t ComputeVolumeFade(int32_t volume, uint32_t tm); //45a8cc
+	int32_t ComputeVolumeFade(int32_t volume, uint32_t tm); //45a8cc (client: 45e4fc)
 
-	int32_t GetPlaylistSize() const { return this->playlist.GetSize(); } //451890
-	CString& GetPlaylistEntry(int32_t idx) { return this->playlist[idx]; } //451870
-	CStringArray& GetPlaylist() { return this->playlist; } //4517f0
+	int32_t GetPlaylistSize() const { return this->playlist.GetSize(); } //451890 (client: 4206e0)
+	CString& GetPlaylistEntry(int32_t idx) { return this->playlist[idx]; } //451870 (client: 434d3a)
+	CStringArray& GetPlaylist() { return this->playlist; } //4517f0 (client: 4204f0)
 
-	void SetPlayNotify(int _notify) { this->play_notify = _notify; } //451810
+	void SetPlayNotify(int _notify) { this->play_notify = _notify; } //451810 (client: 452d40)
 	void SetRandom(int random); //45b655 (client: 45f285)
 
-	void SetFadeout(int fade) { this->fadeout_enabled = fade; } //451830
+	void SetFadeout(int fade) { this->fadeout_enabled = fade; } //451830 (client: 452e90)
 	int32_t GetCurrentTrackIndex() const { return this->track_ids[this->current_track_id]; } //451850 (client: 452eb0)
 
 	int32_t GetVolume(); //451750 (client: 452df0)
@@ -163,8 +163,8 @@ public:
 	static void MusicUpdaterProc(); //45a99c (client: 45e5cc)
 
 #ifdef A2CLIENT
-	void SwitchPlaylistAndPlayRandom(const CStringArray& plist); // client 45ed2f
-	void RestartLooping(); // client 45f195 — recompute buffer time, resume updates, restart the loop
+	void SwitchPlaylistAndPlayRandom(const CStringArray& plist); // client-only helper (client: 45ed2f)
+	void RestartLooping(); // client-only helper (client: 45f195) - recompute buffer time, resume updates, restart the loop
 #endif
 public:
 	int32_t gap_0x4;
@@ -200,7 +200,7 @@ ASSERT_SIZE(MusicPlayer, 0xa0);
 //60d9d0
 class SfxBank : public CObject {
 public:
-	SfxBank() {}; //4c87ef
+	SfxBank() {}; //4c87ef (client: 499a1b)
 	~SfxBank() {}; //4c9480 (client: 4cde10)
 
 	void Load(CString name); //4c880e (client: 4cd1a8)
