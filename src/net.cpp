@@ -417,7 +417,7 @@ void NetStru1::SendLevelUp(Unit* unit, int unused) {
     this->BroadcastTokenState(unit, nullptr, 0x73);
 }
 
-// 51B870
+// 51b870 (client: 50cc7f)
 void NetStru1::BroadcastUnitState(Unit* unit) {
     POSITION pos = g_PlayersList->list.GetHeadPosition();
     while (pos != nullptr) {
@@ -1577,6 +1577,29 @@ void NetStru1::OnClientDisconnect(NetStru2* cli) {
     if (g_Server) {
         Player* pl = g_PlayersList->FindById(cli->player_id);
         if (pl && pl->drop_deadline_tick16 == 0) {
+#ifdef A2CLIENT
+            // The client variant has no AI-warning branch and no gameType/teams
+            // deadline conditions (disasm 50fc92).
+            pl->Deactivate();
+
+            if (this->lldriver && this->lldriver->provider == 4) {
+                pl->drop_deadline_tick16 = g_Server->tick16 + 300;
+            }
+
+            if (!MapStuff_Instance && g_Server->field4_0x74) {
+                this->SendInfoPacket(0x97, pl->player_id, 0, nullptr);
+                LogMessage("Player " + pl->name + " disconnected.");
+
+                POSITION pos = g_PlayersList->list.Find(pl);
+                if (pos != nullptr) {
+                    g_PlayersList->list.RemoveAt(pos);
+                }
+
+                delete pl;
+
+                g_Server->UpdateHatAnnounce();
+            }
+#else
             if (pl->is_ai == 1 || pl->player_id <= 15) {
                 LogMessage("Warning: trying to disconnect AI player " + pl->name);
             } else {
@@ -1610,6 +1633,7 @@ void NetStru1::OnClientDisconnect(NetStru2* cli) {
                     g_Server->UpdateHatAnnounce();
                 }
             }
+#endif
         }
     }
 
