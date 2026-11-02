@@ -293,7 +293,11 @@ void NetStru1::SendExistingPlayers(Player* player) {
 		packet.flags = p->is_ai != 0;
 		this->QueuePacketSend(&packet);
 
-		if (p->main_unit != nullptr && p->main_unit->field_0x1bc != 0 && g_ServerConfig.gameType == 0) {
+		if (p->main_unit != nullptr && p->main_unit->field_0x1bc != 0
+#ifndef A2CLIENT
+			&& g_ServerConfig.gameType == 0
+#endif
+		) {
 			g_NetStru1_main.SendTeamNotify(5, p->player_id, player);
 		}
 	}
