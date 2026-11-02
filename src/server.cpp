@@ -3767,9 +3767,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             g_NetStru1_main.SendTickPacket(human->pOwner);
 
             if (GetTickCount() - human->pOwner->last_save_tick > 15000) {
-#pragma message("REVERSE IT");
-                this->SaveCharacter(human); // similar to FUN_004f2c57, so need reverse it!
-                //FUN_004f2c57(local_104);
+                this->SaveCharacter(human);
             }
         }
         break;

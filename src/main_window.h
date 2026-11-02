@@ -431,6 +431,7 @@ public:
     void ShowStartGameSetupForNewSession(); //491b3e (client: 49639b)
 
     void Proc_44c(CVisualObject* obj); //48b061 (client: 48f03f)
+    int32_t ClientWaitErrCode(); // client: 4953b4
 
     void ShowCharacterLoaderDialog(); //48cff7 (client: 491181)
     void ShowCharInfoPane(); //491a49 (client: 4962a9)

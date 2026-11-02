@@ -6194,7 +6194,7 @@ IngameMenu::IngameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, 
 
 
     //objectives
-    if (mwnd->field_0x3e0.field_10 == 0 || mwnd->hat_settings.ishat == 0 || mwnd->hat_settings.deathmatch == 0)
+    if (mwnd->field_0x3e0.field_10 == 0 || mwnd->hat_settings.ishat == 0 || mwnd->hat_settings.deathmatch != 3)
         btn = new MenuButton(5, txt_dialogs.GetLine(38), g_font1, 0, 0x420, 'M', "");
     else
         btn = new MenuButton(5, txt_patch.GetLine(209), g_font1, 0, 0x420, 'C', "");
@@ -6943,7 +6943,7 @@ EndGameMenu::EndGameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b
         btn->ChangeFlags(FLAG_ENABLED, false);
     }
     
-    if (g_CLlDriver.GetProvider() == 4) {
+    if (g_CLlDriver.GetProvider() == 4 && mwnd->hat_settings.deathmatch != 0) {
         btn->ChangeFlags(FLAG_ENABLED, false);
     }
 

@@ -2525,45 +2525,65 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
                 this->ShowCharacterLoaderDialog();
             }
         } else {
-            CString name = this->vis_startgame->GetName();
-            strcpy(this->m_GameSession.character_name, name);
-
-            CString clan = this->vis_startgame->GetClan();
 #ifdef A2CLIENT
-            this->m_GameSession.color = 0;
-#endif
-            if (!clan.IsEmpty()) {
-                int pos = clan.Find(':');
-                if (pos != -1) {
-                    clan = clan.Mid(pos + 1);
-
-                    this->m_GameSession.color = atoi(clan);
-
-                    if (this->m_GameSession.color == 0 || this->m_GameSession.color > 16) {
-                        this->m_GameSession.color = 0;
-                    }
-
-                    clan = this->vis_startgame->GetClan().Left(pos);
+            int32_t dododo = 0;
+            if (this->hat_settings.ishat != 0 && this->field_0x3e0.field_10 != 0) {
+                dododo = ClientWaitErrCode();
+                if (dododo == -1) {
+                    this->vis_msgbox_list = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(18), nullptr, 0x2000);
+                    ModalScreen(this->vis_msgbox_list);
+                    g_CLlDriver.Close();
+                    PostMessage(0x487, 0, 0);
+                }
+                if (dododo > 0) {
+                    this->vis_msgbox_list = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(dododo), nullptr, 0x2000);
+                    ModalScreen(this->vis_msgbox_list);
+                    ShowStartGameSetupForNewSession();
                 }
             }
+            if (dododo == 0) 
+#endif
+            {
+                CString name = this->vis_startgame->GetName();
+                strcpy(this->m_GameSession.character_name, name);
 
-            if (!clan.IsEmpty()) {
-                strcat(this->m_GameSession.character_name, "|");
-                strcat(this->m_GameSession.character_name, clan);
+                CString clan = this->vis_startgame->GetClan();
+#ifdef A2CLIENT
+                this->m_GameSession.color = 0;
+#endif
+                if (!clan.IsEmpty()) {
+                    int pos = clan.Find(':');
+                    if (pos != -1) {
+                        clan = clan.Mid(pos + 1);
+
+                        this->m_GameSession.color = atoi(clan);
+
+                        if (this->m_GameSession.color == 0 || this->m_GameSession.color > 16) {
+                            this->m_GameSession.color = 0;
+                        }
+
+                        clan = this->vis_startgame->GetClan().Left(pos);
+                    }
+                }
+
+                if (!clan.IsEmpty()) {
+                    strcat(this->m_GameSession.character_name, "|");
+                    strcat(this->m_GameSession.character_name, clan);
+                }
+
+                this->m_FameHall.SetDifficulty(this->vis_startgame->GetSelectedDifficulty());
+
+                this->m_GameSession.type = this->vis_startgame->GetSelectedPortraitPlayerType() << 6; // 0x40 and 0x80 bits
+
+                name = this->vis_startgame->GetName();
+                strncpy(this->vis_map_context->GetUnit_3f6c()->str1, name, 12);
+
+                name = this->vis_startgame->GetClan();
+                strncpy(this->vis_map_context->GetUnit_3f6c()->str2, name, 12);
+
+                this->m_GameSession.ResetUnitClass();
+                this->ShowCharInfoPane();
             }
-
-            this->m_FameHall.SetDifficulty(this->vis_startgame->GetSelectedDifficulty());
-
-            this->m_GameSession.type = this->vis_startgame->GetSelectedPortraitPlayerType() << 6; // 0x40 and 0x80 bits
-
-            name = this->vis_startgame->GetName();
-            strncpy(this->vis_map_context->GetUnit_3f6c()->str1, name, 12);
-
-            name = this->vis_startgame->GetClan();
-            strncpy(this->vis_map_context->GetUnit_3f6c()->str2, name, 12);
-
-            this->m_GameSession.ResetUnitClass();
-            this->ShowCharInfoPane();
         }
     } else if (obj == this->vis_charsel) {
         this->dialogsMask &= ~0x400;
@@ -2833,6 +2853,35 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
     }
 }
 
+
+int32_t MainWindow::ClientWaitErrCode() {
+    // client: 4953b4
+    INT_00660f8c = 0;
+
+    int32_t starttime = GetTickCount();
+    while (!INT_00660f8c) {
+        MSG msg;
+        if (PeekMessageA(&msg, NULL, 0, 0, PM_REMOVE) != 0) {
+            if (msg.message == WM_QUIT) {
+                return -1;
+            }
+            TranslateMessage(&msg);
+            DispatchMessageA(&msg);
+        }
+
+        if (g_CmdTimeout < GetTickCount() - starttime) {
+            return -1;
+        }
+        g_mousept.Update();
+
+        if (g_NetStru1_local.GetClientsPktNum()) {
+            if (vis_map_context->ProcessPackets(100) == 0) {
+                return -1;
+            }
+        }
+    }
+    return (INT_00660f8c & 0xff) - 0x18;
+}
 
 void MainWindow::ShowCharacterLoaderDialog() { //48cff7
     g_Cursors[CURSOR_WAIT]->Use();
@@ -4117,23 +4166,19 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             PostMessage(0x457, 0, 0);
         break;
 
-    case 0x48e: {
-        this->vis_map_context->FUN_0041d2da(0);
-        if ((this->dialogsMask & 1) != 0) {
-            this->UnloadMapAssets();
-        }
+    case 0x48e:
+        vis_map_context->FUN_0041d2da(0);
+        if ((this->dialogsMask & 1) != 0)
+            UnloadMapAssets();
 
-        VisMessageBoxWithList* mbox;
         if (this->field_0x3e0.field_10 == 0 || this->hat_settings.ishat == 0 || this->hat_settings.deathmatch == 0) {
-            mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x1ac, 0x252, txt_patch.GetLine(0xbd), nullptr, 0);
-        } else {
-            mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x1ac, 0x252, txt_patch.GetLine(wParam + 0xbb), nullptr, 0x1000);
+            ModalScreen(new VisMessageBoxWithList(1, 64, 100, 428, 594, txt_patch.GetLine(189), nullptr, 0));
         }
-
-        this->ModalScreen(mbox);
-        this->PostMessage(0x487, 0, 0);
-        this->vis_map_context->FUN_0041d2da(1);
-    }
+        else {
+            ModalScreen(new VisMessageBoxWithList(1, 64, 100, 428, 594, txt_patch.GetLine(187 + wParam), nullptr, 0x1000));
+        }
+        PostMessage(0x487, 0, 0);
+        vis_map_context->FUN_0041d2da(1);
         break;
 #endif
     }
@@ -5901,8 +5946,11 @@ int CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit() {
     INT_00660f8c = 0;
 
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-
+#ifndef A2CLIENT
     if ((this->flags & 1) == 0 && wnd->sessionMode != 2) {
+#else
+    if ((this->flags & 1) == 0 && wnd->sessionMode != 2 && (wnd->field_0x3e0.field_10 == 0 || wnd->hat_settings.ishat == 0)) {
+#endif
         wnd->vis_map_context->FUN_0041cc78(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex]);
     } else {
         wnd->vis_map_context->FUN_0041cbb8();
@@ -6459,8 +6507,14 @@ CString CGameSession::GetSelectedRosterPath() { //420070
 
 void CGameSession::AutosaveTick() { //4946ae
     DWORD tick = GetTickCount();
-    if (15000 < tick - this->last_autosave_tick) {
-        this->AutosaveCharacter();
+#ifdef A2CLIENT
+    MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+    if (mwnd->field_0x3e0.field_10 == 0 || mwnd->hat_settings.ishat == 0 || mwnd->hat_settings.deathmatch == 0)
+#endif
+    {
+        if (15000 < tick - this->last_autosave_tick) {
+            this->AutosaveCharacter();
+        }
     }
 }
 

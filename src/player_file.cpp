@@ -468,6 +468,12 @@ int32_t __cdecl ParsePlayerFile_4F62E6(CFile* file, FileSectionBasicInfo** basic
 void CGameSession::RefreshCharacterRosterFiles(int val) { //49265a
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
+#ifdef A2CLIENT
+	if (mwnd->hat_settings.ishat == 0 || mwnd->field_0x3e0.field_10 == 0) {
+		val = 0;
+	}
+#endif
+
 	this->characterRosterFilePaths.RemoveAll();
 	this->characterRosterNames.RemoveAll();
 	this->characterRosterHatId.RemoveAll();

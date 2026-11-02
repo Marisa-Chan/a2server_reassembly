@@ -2751,7 +2751,7 @@ int32_t BigStruct2::FUN_0040d7f3() {
 	//40d7f3  client: 40d87a
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
-	if (wnd->sessionMode == 0 && (wnd->field_0x3e0.field_10 || wnd->hat_settings.ishat == 0)) {
+	if (wnd->sessionMode == 0 && (wnd->field_0x3e0.field_10 == 0 || wnd->hat_settings.ishat == 0)) {
 		g_NetStru1_local.SendLatency(g_CmdLatency, 0);
 
 		NetStru2* conn = g_NetStru1_local.GetFirstClient();
