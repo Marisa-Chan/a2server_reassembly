@@ -2251,7 +2251,11 @@ int32_t VisTextBox::OnChar(uint32_t wparam) {
 
     this->cursor_blink_ts = timeGetTime();
 
-    if (wparam >= ' ' && (g_IsServer != 0 || wparam != 0x7E)) {
+#ifdef A2CLIENT
+    if (wparam >= ' ' && wparam != '~') {
+#else
+    if (wparam >= ' ') {
+#endif
         this->InsertChar(wparam);
     }
 
@@ -5004,9 +5008,9 @@ int32_t VisCharSellectList::SelectNextRow() {
 // 431C97
 // client: 433dee
 void VisCharSellectList::UpdateArrows(CPoint pos, bool is_down) {
-    if (g_IsServer != 0) {
-        pos -= this->parent_screen->rect.TopLeft();
-    }
+#ifdef A2CLIENT
+    pos -= this->parent_screen->rect.TopLeft();
+#endif
     if (is_down) {
         if (this->field_0xd0 - 1 < 0 || !this->field_0x80.PtInRect(pos)) {
             this->field_0xb8 = nullptr;
@@ -5135,14 +5139,16 @@ void VisCharSellectList::Init() {
     this->field_0xb4 = nullptr;
     this->field_0xbc = nullptr;
     this->field_0xb8 = nullptr;
+#ifdef A2CLIENT
+    CPoint top_left = this->rect.TopLeft();
+    CPoint vp = vis_scr_rect.TopLeft();
+    this->field_0x80 = CRect(CPoint(0x78, 0), CSize(0x50, 0x3C)) + top_left + vp;
+    this->field_0x90 = CRect(CPoint(0x78, 0x188), CSize(0x50, 0x34)) + top_left + vp;
+#else
     CPoint top_left = this->rect.TopLeft();
     this->field_0x80 = CRect(CPoint(0x78, 0), CSize(0x50, 0x3C)) + top_left;
     this->field_0x90 = CRect(CPoint(0x78, 0x188), CSize(0x50, 0x34)) + top_left;
-    if (g_IsServer == 0) {
-        CPoint vp = vis_scr_rect.TopLeft();
-        this->field_0x80 = this->field_0x80 + vp;
-        this->field_0x90 = this->field_0x90 + vp;
-    }
+#endif
     this->FUN_00430fad();
 }
 
@@ -9752,11 +9758,12 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
             disallow = 1;
         }
     }
-
-    if (g_IsServer == 0 && main_wnd->field_0x3e0.field_10 != 0 && main_wnd->hat_settings.ishat != 0 &&
+#ifdef A2CLIENT
+    if (main_wnd->field_0x3e0.field_10 != 0 && main_wnd->hat_settings.ishat != 0 &&
         (main_wnd->hat_settings.deathmatch == 1 || main_wnd->hat_settings.deathmatch == 2)) {
         disallow = (token->IsPotion() == 0 && token->IsScroll() == 0) ? 1 : 0;
     }
+#endif
 
     if (disallow != 0) {
         main_wnd->vis_invtype1->VMethod37(main_wnd->drag_src_slot);
@@ -9960,10 +9967,12 @@ int32_t VisCharInfo::VMethod26(int32_t a) {
     if (main_wnd->drag_entry != nullptr) {
         return 0;
     }
-    if (g_IsServer == 0 && main_wnd->field_0x3e0.field_10 != 0 && main_wnd->hat_settings.ishat != 0 &&
+#ifdef A2CLIENT
+    if (main_wnd->field_0x3e0.field_10 != 0 && main_wnd->hat_settings.ishat != 0 &&
         (main_wnd->hat_settings.deathmatch == 1 || main_wnd->hat_settings.deathmatch == 2)) {
         return 0;
     }
+#endif
     if ((main_wnd->dialogsMask & 2) == 0 && main_wnd->dialogsMask != 1) {
         return 0;
     }
@@ -10931,9 +10940,9 @@ void VisShop::sub_4BC8D7() {
 void VisShop::sub_4BCC38() {
     TokenEntry* removed = nullptr;
     this->sub_4BCDA0();
-    if (g_IsServer == 0) {
-        return;
-    }
+#ifndef A2CLIENT
+    return;
+#endif
     while (this->to_buy->grid_source->GetSize() != 0) {
         TokenEntry* first = (*this->to_buy->grid_source)[0];
         removed = this->to_buy->VMethod36(0, first->count);
@@ -11386,11 +11395,7 @@ int32_t VisShopCompass::OnLButtonDown(uint32_t wparam, CPoint pos) {
                 this->state |= 0x20;
                 this->VMethod28();
                 this->shop->assortiment->sub_4B73E4((uint16_t)this->shop->select_category);
-                if (g_IsServer != 0) {
-                    this->shop->assortiment->VMethod10();
-                } else {
-                    this->shop->assortiment->VMethod9();
-                }
+                this->shop->assortiment->VMethod9();
                 break;
             }
         }
@@ -13938,12 +13943,14 @@ int32_t VisTavRightPanel::OnLButtonUp(uint32_t wparam, CPoint pos) {
                     this->FUN_0049a973();
                 }
             } else if (button == 1) {
-                if ((g_IsServer != 0 || this->vis_tav->selection_index >= 0) && this->vis_tav->selection_index < this->vis_tav->avail_entries.GetSize()) {
-                    CUnit* unit = this->vis_tav->avail_entries[this->vis_tav->selection_index];
-                    CString str;
-                    str.Format("npc%dabout", unit->serverId);
-                    ShowRoleKeyDialog(str);
-                    CSound::Play(this->vis_tav->sounds[12]);
+                if (this->vis_tav->selection_index < this->vis_tav->avail_entries.GetSize()) {
+                    if (this->vis_tav->selection_index >= 0) {
+                        CUnit* unit = this->vis_tav->avail_entries[this->vis_tav->selection_index];
+                        CString str;
+                        str.Format("npc%dabout", unit->serverId);
+                        ShowRoleKeyDialog(str);
+                        CSound::Play(this->vis_tav->sounds[12]);
+                    }
                 } else {
                     this->vis_tav->FUN_0049f179();
                 }
@@ -22262,9 +22269,9 @@ void VisFameHall::VMethod7() {
         }
         UnlockSurface2();
     }
-    if (g_IsServer != 0) {
-        this->VisScreen::VMethod7();
-    }
+#ifndef A2CLIENT
+    this->VisScreen::VMethod7();
+#endif
 }
 
 
@@ -24690,19 +24697,16 @@ Vis2Action::~Vis2Action() {
 void VisHatBrowserDlg::VMethod26() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
-    int32_t title_top = (g_IsServer != 0) ? 0x16 : 0x10;
-    VisLabel* title_label = new VisLabel(0x19, 0x28, title_top, this->rect.Width() - 0x28, 0x38, txt_patch.GetLine(0x6a), g_font1, p_clrsh_Black, 2);
+    VisLabel* title_label = new VisLabel(0x19, 0x28, 0x16, this->rect.Width() - 0x28, 0x38, txt_patch.GetLine(0x6a), g_font1, p_clrsh_Black, 2);
     this->AddChild(title_label);
 
     const char* ip_text = main_wnd->hat_settings.hatip;
-    int32_t ip_top = 0x2c;
-    if (g_IsServer == 0) {
-        ip_top = 0x20;
-        if (main_wnd->hat_settings.ishat != 0) {
-            ip_text = main_wnd->hat_settings.hatprogip;
-        }
+#ifdef A2CLIENT
+    if (main_wnd->hat_settings.ishat != 0) {
+        ip_text = main_wnd->hat_settings.hatprogip;
     }
-    VisLabel* ip_label = new VisLabel(0x7e, 0x28, ip_top, this->rect.Width() - 0x28, 0x44, ip_text, g_font1, p_clrsh_Black, 2);
+#endif
+    VisLabel* ip_label = new VisLabel(0x7e, 0x28, 0x2c, this->rect.Width() - 0x28, 0x44, ip_text, g_font1, p_clrsh_Black, 2);
     this->AddChild(ip_label);
 
 #ifdef A2CLIENT
@@ -24760,7 +24764,7 @@ void VisHatBrowserDlg::VMethod26() {
 
     CPoint btn_center(0xc0, this->rect.Height() - 0x30);
     CRect btn_rect(btn_center.x - 0x30, btn_center.y - 0xc, btn_center.x + 0x30, btn_center.y + 0xc);
-    btn_rect.OffsetRect((g_IsServer != 0) ? -0x48 : 4, 0);
+    btn_rect.OffsetRect(-0x48, 0);
 
     VisButton* ok_btn = new VisButton(0x14, btn_rect, txt_dialogs.GetLine(0), g_font1, nullptr, 0x445, 0, "");
     this->AddChild(ok_btn);
@@ -25106,9 +25110,11 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
             if (DAT_00666a00.GetSize() <= sel_index) {
                 sel_index = DAT_00666a00.GetSize() - 1;
             }
-            if (g_IsServer == 0 && DAT_00666a00.GetSize() > 0 && sel_index < 0) {
+#ifdef A2CLIENT
+            if (DAT_00666a00.GetSize() > 0 && sel_index < 0) {
                 sel_index = 0;
             }
+#endif
             if (DAT_00666a00.GetSize() <= vis_start) {
                 vis_start = DAT_00666a00.GetSize() - 1;
             }
@@ -25553,15 +25559,17 @@ void VisHatServerListDlg::VMethod31(int32_t code) {
         this->FindChild(8)->WriteData(buffer);
         this->hat_settings->password = buffer;
         this->FindChild(3)->WriteData(&this->hat_settings->deathmatch);
-        if (g_IsServer == 0 && this->hat_settings->deathmatch == 1) {
+#ifdef A2CLIENT
+        if (this->hat_settings->deathmatch == 1) {
             this->hat_settings->deathmatch = 3;
         }
+#endif
         this->FindChild(9)->WriteData(&this->hat_settings->store);
-        if (g_IsServer != 0) {
+#ifndef A2CLIENT
             main_wnd->field_0x3e0.field_10 = (this->hat_settings->ishat == 0) ? 1 : 0;
-        } else {
+#else
             main_wnd->field_0x3e0.field_10 = 1;
-        }
+#endif
         if (this->hat_settings->ishat == 0) {
             main_wnd->PostMessage(0x426, 0, 0);
         } else {
@@ -25609,7 +25617,11 @@ int32_t VisHatServerListDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpa
 CVisualObject* VisHatServerListDlg::VMethod30(const void* data, const RECT& r) {
     HatSettings* hat = (HatSettings*)data;
     // the client lays out everything below the ip box 0x18 lower
-    const int32_t dy = (g_IsServer != 0) ? 0 : 0x18;
+#ifdef A2CLIENT
+    const int32_t dy = 0x18;
+#else
+    const int32_t dy = 0;
+#endif
 
     VisTextBox* ip_box = new VisTextBox(2, r.left, r.top, r.right, r.top + 0x18, g_font1, clrsh_TechBlack, txt_patch.GetLine(0x70));
     this->AddChild(ip_box);
@@ -25621,15 +25633,21 @@ CVisualObject* VisHatServerListDlg::VMethod30(const void* data, const RECT& r) {
 
     VisRadioType2* deathmatch_radio = new VisRadioType2(3, r.left, 0x6c, r.right, 0x9c + dy, g_font1, p_clrsh_Black, nullptr);
     deathmatch_radio->AddEntry(txt_patch.GetLine(0x68));
-    deathmatch_radio->AddEntry(txt_patch.GetLine((g_IsServer != 0) ? 0x69 : 0xd5));
-    if (g_IsServer == 0) {
-        deathmatch_radio->AddEntry(txt_patch.GetLine(0x6d));
-    }
+#ifdef A2CLIENT
+    deathmatch_radio->AddEntry(txt_patch.GetLine(0xd5));
+    deathmatch_radio->AddEntry(txt_patch.GetLine(0x6d));
+#else
+    deathmatch_radio->AddEntry(txt_patch.GetLine(0x69));
+#endif
+
     this->AddChild(deathmatch_radio);
     int32_t dm_display = hat->deathmatch;
-    if (g_IsServer == 0 && dm_display == 3) {
+#ifdef A2CLIENT
+    if (dm_display == 3) {
         dm_display = 1;
     }
+#endif
+
     deathmatch_radio->ReadData(&dm_display);
     if (hat->ishat == 0) {
         deathmatch_radio->ChangeFlags(1, false);
@@ -25773,7 +25791,11 @@ int32_t Vis1200obj::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 // 43B240
 // client: 43d64b
 int32_t Vis1200obj::OnChar(uint32_t wparam) {
-    if (wparam < 0x20 || wparam == 0x7F || (g_IsServer == 0 && wparam == 0x7E)) {
+#ifdef A2CLIENT
+    if (wparam < ' ' || wparam == 0x7F || wparam == '~') {
+#else
+    if (wparam < ' ' || wparam == 0x7F) {
+#endif
         return CVisualObject::OnChar(wparam);
     }
     this->FUN_0043ae1c(EncodeChar((uint8_t)wparam));
@@ -26574,10 +26596,11 @@ int32_t VisStartGameTextBox::OnChar(uint32_t wparam) {
     if (len < 10) {
         this->FUN_00432b33(EncodeChar((uint8_t)wparam));
     }
-    if (g_IsServer != 0) {
-        return len < 10;
-    }
+#ifdef A2CLIENT
     return 1;
+#else
+    return len < 10;
+#endif   
 }
 
 // 432EA3
@@ -26620,7 +26643,11 @@ void VisStartGameTextBox::FUN_00432ad1() {
 void VisStartGameTextBox::FUN_00432b33(uint8_t ch) {
     this->is_active = 1;
     this->ts = timeGetTime();
-    if (ch >= 0x20 && (g_IsServer != 0 || ch != '~')) {
+#ifdef A2CLIENT
+    if (ch >= ' ' && ch != '~') {
+#else
+    if (ch >= ' ') {
+#endif
         this->screen->FUN_004382d9();
         this->text += (char)ch;
     }

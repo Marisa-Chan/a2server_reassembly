@@ -2049,9 +2049,9 @@ void CUnit::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) { // 465b5
     switch (this->last_action) {
     case 0:
         if (vfx->idle_phases != 0) {
-            if (g_IsServer == 0) {
-                this->phase = this->phase % vfx->idle_phases;
-            }
+#ifdef A2CLIENT
+            this->phase = this->phase % vfx->idle_phases;
+#endif
             frame = dir8 * vfx->idle_phases + (base_phases + vfx->attack_phases + vfx->dying_phases) * 8 + 16 + vfx->idle_anim_frames[this->phase];
             if (vfx->flip != 0 && dir8 > 4) {
                 dir8 = 8 - dir8;
@@ -4307,9 +4307,11 @@ CHorisontalWoodenBridge::CHorisontalWoodenBridge(int32_t width, int32_t height) 
 // 46295a
 // client: 466629
 void CBackPack::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
-    if (g_IsServer == 0 && this->typeId > 5) {
+#ifdef A2CLIENT
+    if (this->typeId > 5) {
         return;
     }
+#endif
 
     int32_t sun_angle = (int32_t)(std::tan(this->pMapObject->field_0x80->GetRenderSunAngle()) * 65536.0);
 
@@ -4329,15 +4331,21 @@ void CBackPack::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
 // 462887
 // client: 46647f
 void CBackPack::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
-    if (g_IsServer == 0 && (this->typeId == 6 || this->typeId == 7 || this->typeId == 8)) {
-        if (this->typeId != 7) {
-            g_ca16_money->Draw(this->centerScreenX - 0x14, this->centerScreenY - 0x3c, 0, 0, 0);
-        }
-        if (this->typeId != 6) {
-            g_bmp_server->Draw(this->centerScreenX - 5, this->centerScreenY - 0x39, 0, 0, 0);
-        }
+#ifdef A2CLIENT
+    if (this->typeId == 6) {
+        g_ca16_money->Draw(this->centerScreenX - 0x14, this->centerScreenY - 0x3c, 0, 0, 0);
         return;
     }
+    else if (this->typeId == 7) {
+        g_bmp_server->Draw(this->centerScreenX - 5, this->centerScreenY - 0x39, 0, 0, 0);
+        return;
+    }
+    else if (this->typeId == 8) {
+        g_ca16_money->Draw(this->centerScreenX - 0x14, this->centerScreenY - 0x3c, 0, 0, 0);
+        g_bmp_server->Draw(this->centerScreenX - 5, this->centerScreenY - 0x39, 0, 0, 0);
+        return;
+    }
+#endif
 
     int32_t half_width = g_spr_backpack->GetWidth(0) / 2;
     int32_t half_height = g_spr_backpack->GetHeight(0) / 2;

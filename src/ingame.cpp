@@ -3223,16 +3223,11 @@ void BigStruct2::UpdateSelectionState() { //416cf7
 				this->field_0x144 |= 2;
 			} else if (obj->GetRuntimeClass() == RUNTIME_CLASS(CStructure)) {
 				this->field_0x144 |= 0x20;
-			} else if (g_IsServer != 0) {
-				this->field_0x144 = 8;
 			}
 		}
-#ifdef A2CLIENT
-		// client: 41916c — the gate-failure edge takes the "unknown class" path instead
-		else if (g_IsServer == 0) {
+		else {
 			this->field_0x144 = 8;
 		}
-#endif
 	}
 
 	if (this->field_0x140 > 0 && this->field_0x138->map_player != this->my_main_unit) {
@@ -5054,8 +5049,8 @@ void BigStruct2::sub_40B314() {
 	CRect screen_rect;
 	this->ClientRectToScreen(&screen_rect, &this->rect);
 #ifdef A2CLIENT
-	if (g_IsServer == 0 && g_ScreenSize.bottom == 0x258) {
-		screen_rect.bottom = 0x258;
+	if (g_ScreenSize.bottom == 600) {
+		screen_rect.bottom = 600;
 	}
 #endif
 	CCursor* cursor = nullptr;
@@ -5237,9 +5232,10 @@ void BigStruct2::sub_40B314() {
 	}
 #ifdef A2CLIENT
 	// client: 40bbb5/40bbc5 — the child ids are 3 and 4 on the client
-	CVisualObject* child2 = this->FindChild(g_IsServer != 0 ? 2 : 3);
-	CVisualObject* child3 = this->FindChild(g_IsServer != 0 ? 3 : 4);
+	CVisualObject* child2 = this->FindChild(3);
+	CVisualObject* child3 = this->FindChild(4);
 #else
+	// 40bb2e
 	CVisualObject* child2 = this->FindChild(2);
 	CVisualObject* child3 = this->FindChild(3);
 #endif
@@ -6174,7 +6170,11 @@ int32_t BigStruct2::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
 // 402AF6
 // 402af6
 // client: 402af6
-BigStruct2::BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObject(g_IsServer != 0 ? 1 : 2, l, t, r, b, nullptr) {
+#ifdef A2CLIENT
+BigStruct2::BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObject(2, l, t, r, b, nullptr) {
+#else
+BigStruct2::BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObject(1, l, t, r, b, nullptr) {
+#endif
 	this->field_0x80 = nullptr;
 	this->sub_402FB8();
 	this->view_x = this->MapMinX();
