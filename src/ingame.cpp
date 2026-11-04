@@ -1527,6 +1527,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0x86:
+			// client 40dac9: the whole move-broadcast handler is gated on the
+			// join being complete (field_0x80).
+			if (this->field_0x80 != 0) {
 			if ((packet_move->type_id & 1) == 0 || packet_move->type_id >= g_ProjectileInfos.GetSize() || g_ProjectileInfos[packet_move->type_id] == nullptr) {
 				CUnit* ct = nullptr;
 				if (this->field_0x9d0.Lookup(packet_move->unit_id, *(CGameObject**)&ct) == 0) {
@@ -1585,12 +1588,15 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 					int priority = (10000 - ::abs(vol)) / 100;
 
-					snd->Play(vol + g_SoundSettings.sfx_pos, pan, 0, priority, 0);
+				snd->Play(vol + g_SoundSettings.sfx_pos, pan, 0, priority, 0);
 				}
+			}
 			}
 			break;
 
 		case 0x87:
+			// client 40dac9: gated on field_0x80.
+			if (this->field_0x80 != 0) {
 			this->FUN_0041c74b(packet_aoe->field_0xb,
 							packet_aoe->field_0xc,
 							packet_aoe->field_0xd,
@@ -1600,6 +1606,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							packet_aoe->set_flag);
 			if (packet_aoe->set_flag == 0) {
 				this->field_0xe0 = 1;
+			}
 			}
 			break;
 
@@ -1632,6 +1639,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		break;
 
 		case 0x8a: {
+			// client 40dac9: gated on field_0x80.
+			if (this->field_0x80 != 0) {
 			CGameObject* ct = nullptr;
 			this->field_0x9d0.Lookup(packet_terrain->buf[0], ct);
 			if (ct->action_segments == 0 && g_VFX_info[ct->typeId]->attack_phases != 0) {
@@ -1647,10 +1656,13 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				ct->action_target = packet_terrain->buf[1];
 				ct->action_spell = 0x1e;
 			}
+			}
 		}
 		break;
 
 		case 0x8b: {
+			// client 40dac9: gated on field_0x80.
+			if (this->field_0x80 != 0) {
 			CProjectile* pj = new CProjectile();
 			pj->typeId = packet_move->type_id;
 			pj->x_pos = (packet_move->unit_id & 0xFF) * 0x100 + 0x80;
@@ -1688,6 +1700,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				int priority = (10000 - ::abs(vol)) / 100;
 
 				snd->Play(vol + g_SoundSettings.sfx_pos, pan, 0, priority, 0);
+			}
 			}
 		}
 		break;
