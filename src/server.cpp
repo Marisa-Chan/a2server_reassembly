@@ -2143,16 +2143,16 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
                 // Friendly: clear team slot bytes, remove from each other's vision mask
                 g_World->diplomacy.diplomacy[other_id][my_id] = 0;
                 g_World->diplomacy.diplomacy[my_id][other_id] = 0;
-                other->vision_sharing_mask &= (uint16_t)(~other->vision_sharing_id);
-                player->vision_sharing_mask &= (uint16_t)(~player->vision_sharing_id);
+                other->vision_sharing_mask &= (uint16_t)(~player->vision_sharing_id);
+                player->vision_sharing_mask &= (uint16_t)(~other->vision_sharing_id);
                 break;
             case 1:
             case 3:
                 // Deathmatch/arena: mark as enemy (1)
                 g_World->diplomacy.diplomacy[other_id][my_id] = 1;
                 g_World->diplomacy.diplomacy[my_id][other_id] = 1;
-                other->vision_sharing_mask &= (uint16_t)(~other->vision_sharing_id);
-                player->vision_sharing_mask &= (uint16_t)(~player->vision_sharing_id);
+                other->vision_sharing_mask &= (uint16_t)(~player->vision_sharing_id);
+                player->vision_sharing_mask &= (uint16_t)(~other->vision_sharing_id);
                 break;
             case 2:
                 // Team play
@@ -2166,8 +2166,8 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
                     // Different team: mark 1 (enemy), clear vision
                     g_World->diplomacy.diplomacy[other_id][my_id] = 1;
                     g_World->diplomacy.diplomacy[my_id][other_id] = 1;
-                    other->vision_sharing_mask &= (uint16_t)(~other->vision_sharing_id);
-                    player->vision_sharing_mask &= (uint16_t)(~player->vision_sharing_id);
+                    other->vision_sharing_mask &= (uint16_t)(~player->vision_sharing_id);
+                    player->vision_sharing_mask &= (uint16_t)(~other->vision_sharing_id);
                 }
                 break;
             default:
