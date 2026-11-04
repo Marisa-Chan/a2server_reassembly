@@ -4000,6 +4000,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
     case 0xAE: // Server-wide announcement
         CheckPacketType(pkt, "PacketJoin");
         {
+            // WAT: Vanilla builds a local announcement packet but then sends the ORIGINAL packet. We send the constructed announcement instead.
             PacketJoin announcement;
             std::strncpy(announcement.name, packet_join->name, 1023);
             g_NetStru1_main.QueuePacketSend(&announcement);

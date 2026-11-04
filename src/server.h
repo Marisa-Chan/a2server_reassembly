@@ -281,7 +281,7 @@ public:
     Player* FindPlayerById(uint16_t player_id);  // client: 4fc8f1
     void SaveGame(CString* str);  // client: 4f25d6
     void SendMapInfo(Player* player);  // client: 4fa9f7
-    void ProcessClientPacket(Packet* packet);
+    void ProcessClientPacket(Packet* packet); // 504a96 (client: 4fdea5)
 
     void SignalGameStart(int32_t start_kind);
     int  JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1, CString name, CString login,

@@ -577,7 +577,7 @@ void NetStru1::SendPendingUnits(Player* player) {
     }
 }
 
-// 51C46E
+// 51C46E (client: 50d66d)
 void NetStru1::ResendPlayerUnits(Player* player) {
     if (player->main_unit != nullptr) {
         this->SendUnitUpdate(player->main_unit, player, 0xFFFFFFFF, 0xFFB, 0, 0);

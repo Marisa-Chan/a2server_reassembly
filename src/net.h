@@ -68,7 +68,7 @@ struct PackerDat {
     PackerDat(); //5260fa (client: 514efa)
     ~PackerDat(); //526115 (client: 514f15)
 
-    void ResetFreq(); //526128 (client: NONE)
+    void ResetFreq(); //526128
     void AddFreq(const uint8_t* data, int32_t sz); //52614b (client: 514f4b)
     void SaveFreq(CFile* file); //5261aa (client: 514faa)
     void LoadFreq(CFile* file); //5261d0 (client: 514fd0)
@@ -100,8 +100,8 @@ ASSERT_SIZE(ConnStatInfo, 0x14);
 
 class NetStru1 {
 public: // VTable at 0060ecc0.
-    virtual void OnClientConnect(NetStru2* client); //51fc72
-    virtual void OnClientDisconnect(NetStru2* client); //51f561
+    virtual void OnClientConnect(NetStru2* client); //51fc72 (client: 50fe58)
+    virtual void OnClientDisconnect(NetStru2* client); //51f561 (client: 50fc92)
 
 public:
     CLlDriver* lldriver; //low-level net driver
@@ -142,17 +142,17 @@ public:
     // `this` is unused. TODO: looks like this should be in `SrvStru1` instead.
     void TransferUnitOwnership(Unit* unit, Player* new_owner);  // client: 4f9322
 
-    NetStru1(int stats); //51684b
-    ~NetStru1(); //516b44
+    NetStru1(int stats); //51684b (client: 509343)
+    ~NetStru1(); //516b44 (client: 5094ca)
 
 public:
     void SendTeamNotify(uint32_t msg_type, uint32_t player_id, Player* recpt);  // client: 50df07
     void SendBarePacket(uint8_t id, Player* recpt);  // client: 50df2d
-    void SendTickPacket(Player* recpt);
+    void SendTickPacket(Player* recpt); //51c748 (client: 50d82f)
     void UntrackToken(Token* token); // Remove unit/sack from network tracking (client: 50d7b2)
-    void AnnouncePlayer(Player* recpt);
+    void AnnouncePlayer(Player* recpt); // 51d49b (client: 50e2cc)
 
-    void AnnouncePlayerName(const CString& name, Player* player);
+    void AnnouncePlayerName(const CString& name, Player* player); // 51cd89 (client: 50de98)
 
     NetStru2* GetClientByPlayerID(uint16_t player_id);//518544 (client: 50a128)
     NetStru2* GetClientByLowUid(uint32_t low_uid); //5185d5 (client: 50a1ab)
@@ -184,26 +184,26 @@ public:
     void SendGameInfo(int32_t game_speed, Player* player); // Send server state / player list to player
     void SendExistingPlayers(Player* player);  // Send all existing players (PacketJoin) to new player (client: 50d96e)
     void SendVisibilityState(Player* player);  // Send terrain/diplomacy visibility state to player (client: 50dabc)
-    void SendPendingUnits(Player* player);  // Send units from pending unit list to player
-    void SendServerState(Player* player);  // Send server state to player
-    void SendKillStats(uint16_t player_id, Player* player);  // Send kill stats (pass 0,nullptr for all)
-    void BroadcastUnitState(Unit* unit); // Broadcast unit to all players
+    void SendPendingUnits(Player* player);  // Send units from pending unit list to player (client: 50d485)
+    void SendServerState(Player* player);  // Send server state to player (client: 50da69)
+    void SendKillStats(uint16_t player_id, Player* player);  // Send kill stats (pass 0,nullptr for all) (client: 50e1b7)
+    void BroadcastUnitState(Unit* unit); // Broadcast unit to all players. 51b870 (client: 50cc7f)
     void SendUnitVisibility(Unit* unit, int flag, Player* player); // Send unit visibility packet (retn 0Ch) (client: 50dfdd)
     void SendAreaEffect(AreaEffect* obj, int flag); // Send area-effect packet (client: 50d21d)
     void BroadcastEffectMove(Effect* effect, uint8_t type); // Broadcast move packet for an effect token (client: 50d19c)
     void SendSrvStru1State(QuestMap* quest_map, Player* player, int flag); // Send SrvStru1 state list from packet (client: 50e326)
-    void SendShopTable(Token* token, Inventory* inventory, Player* player, int32_t mode);
+    void SendShopTable(Token* token, Inventory* inventory, Player* player, int32_t mode);  // client: 50c006
     void SendShopShelf(Shop* shop, CMultiShopShelf* shelf, Player* player, uint8_t slot); // 51AA26 (client: 50c10b) - send single shop shelf contents
-    void SendShopShelves(CMultiShopInstance* inst, Player* player, int32_t shelf_id); // 51AB99 - send shop shelf contents
+    void SendShopShelves(CMultiShopInstance* inst, Player* player, int32_t shelf_id); // 51AB99 (client: 50c25c) - send shop shelf contents
     void UpdateConnStats();  // client: 50f6ef
 
     void SendLatency(int32_t latency, Player* player);  // Send latency update to player (client: 50d8ab)
     void SendGameEvent(Player* player, int32_t event_id, int32_t value2); // Send in-game event trigger (client: 50de39)
     void SendArenaScore(CString& name, uint32_t score, char type, Player* player); // 51CDFB - send arena score
 
-    void ResendPlayerUnits(Player* player);
+    void ResendPlayerUnits(Player* player); // 51C46E (client: 50d66d)
     void SendLevelUp(Unit* unit, int unused);        // Send unit-level-up packet (client: 50d795)
-    void SendSpectatorState(NetStru2* ns2);    // Send spectator/alliance state
+    void SendSpectatorState(NetStru2* ns2);    // Send spectator/alliance state (client: 50d901)
 
     // DecodePacket – decode an incoming network message into the appropriate Packet singleton,
     // populate it via VMethod4, and stamp it with the sender id.
@@ -216,7 +216,7 @@ public:
     void SendSpellCastAtPos(Unit* caster, Spell* spell, TokenPos* pos, int16_t delay); // Send point/area spell packet (client: 50cf32)
     void SendSpellCastMulti(Unit* caster, Spell* spell, CList<Unit*>* units, int32_t flag); // 51BC6B (client: 50d009): Send multi-target spell packet
     void BroadcastMovePacket(PacketMoveBroadcast* pkt, TokenPos* pos);  // Broadcast move packet to all players in visibility (client: 50c867)
-    void BroadcastAoeZone(PacketAoeZone* pkt, AreaEffect* area_effect);  // Broadcast AoE-zone packet to all players in visibility (client: 50cab9)
+    void BroadcastAoeZone(PacketAoeZone* pkt, AreaEffect* area_effect);  // Broadcast AoE-zone packet to all players in visibility. 51b638 (client: 50cab9)
     void SendUnitAction(Packet* pkt, Unit* unit); // 51B0F0 - send unit action packet to relevant players (in asm) (client: 50c65a)
 
 
@@ -238,16 +238,16 @@ public:
 
     void SendHatLogin(CString name); //51e205 (client: 50ec0e) - Send hat login packet
     void SendHatLobbyInfo(int32_t player_count, CString source, int32_t map_level, int32_t game_type, int32_t map_range); //51e289 - Send hat lobby info packet
-    void SendHatCharData(int32_t hat_char_id1, int32_t hat_char_id2, CString name, void* data, uint32_t size, uint16_t player_id);
+    void SendHatCharData(int32_t hat_char_id1, int32_t hat_char_id2, CString name, void* data, uint32_t size, uint16_t player_id);  // client: 50eb05
     void SendHatMessage(int32_t hat_char_id1, int32_t hat_char_id2, CString name, void* data, uint32_t size, uint16_t player_id);
     void SendHatKeepalive(uint16_t player_id);
     void SendHatRawString(const char* str, int32_t len); // 51E40C - Send raw string data to HAT (client: 50ede9)
 
-    void SendHatCredentials(const CString& login, const CString& password, uint32_t flags); //51d8d6
-    void SendHatCharId(HatCharId charid); //51d9d0 client 50e58b
+    void SendHatCredentials(const CString& login, const CString& password, uint32_t flags); //51d8d6 (client: 50e48b)
+    void SendHatCharId(HatCharId charid); //51d9d0 (client: 50e58b) client 50e58b
     void SendHatLogout(); //51d9a0 (client: 50e55b)
 
-    void WriteStatsLog(CString fname);//51f124
+    void WriteStatsLog(CString fname);//51f124 (client: 50f846)
 
     void SendHatConnectServer(HatCharId key, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t sphere, uint8_t type_face, uint8_t color, const CString& name, const CString& srv); //51da14   (client:50e5cf)
 
@@ -328,7 +328,7 @@ public:
 
     // ReleaseNetBuf – walks the free_net3 linked list and decrements the
     // ref-count byte (field_0xF) of the first live entry it finds.
-    void ReleaseNetBuf();  // client: 508c29
+    void ReleaseNetBuf();  // 5167a5 (client: 5092a4)
 
     void SetDrivers(NetStru1* HlDriver, CLlDriver* LlDriver); //51682d (client: 509325)
     int ReceiveData(NetStru3* buffer); //5161bf (client: 508e04)
@@ -354,7 +354,7 @@ struct NetSockLatency {
     uint32_t num;
     uint32_t calc_latency;
 
-    void AddLatency(uint32_t lat_time); //51fdf7
+    void AddLatency(uint32_t lat_time); //51fdf7 (client: 50ff67)
     static inline uint32_t ShiftToByte(uint32_t val, int shift) { return (val >> shift) & 0xFF; };
     uint32_t GetLatency() const { return this->calc_latency * 2; }; //5204fa (client: 510014)
 };
@@ -511,7 +511,7 @@ public:
 
     int EnumAddresses(CLlAddress** addrs, int* num); //52182f (client: 5110c6)
     void EnumAddressesTcp(); //5214c5 (client: 510d5c)
-    void EnumAddressesDp(); //5214c5 (client: 510d5c)
+    void EnumAddressesDp(); //521200 (client: 510a97)
     static BOOL __stdcall cbEnumAddress(REFGUID guidDataType, DWORD dwDataSize, LPCVOID lpData, LPVOID lpContext); //5211b2 (client: 510a50)
 
     CLlNetSession* AllocSession(); //520e2e (client: 5106e8)
