@@ -354,7 +354,7 @@ public:
     int32_t GetWidth() const { return this->width; }; //41ef20 (client: 420240)
     int32_t GetHeight() const { return this->height; }; //41ef40 (client: 420260)
 
-    uint8_t* GetMapHeights() const { return this->map_heights; }; //41eea0 (client: 420280)
+    int8_t* GetMapHeights() const { return this->map_heights; }; //41eea0 (client: 420280)
     uint8_t* GetObjectMap() const { return this->object_map; }; //41eec0 (client: 420680)
     uint8_t* GetOverlayMap() const { return this->overlay_map; }; //41eee0 (client: 420420)
     int32_t IsInShadedBounds(int32_t x, int32_t y); //41ef60 (client: 4202a0)
@@ -366,7 +366,7 @@ public:
     int32_t width;
     int32_t height;
     uint16_t* landscape;
-    uint8_t* map_heights;
+    int8_t* map_heights;
     uint8_t* object_map;
     uint8_t* overlay_map;
     uint8_t abrightness;

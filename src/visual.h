@@ -1114,11 +1114,11 @@ public:
 	int32_t show_hp;
 	int32_t flying_hp;
 	
-	uint8_t field_0xac0[41][41][2];
+	int8_t field_0xac0[41][41][2];
 	uint8_t ____padding1[2];
 
-	uint32_t field_0x17e4[41][41];
-	uint16_t field_3228[41][41];
+	int32_t field_0x17e4[41][41]; // signed!
+	uint16_t field_3228[41][41]; // unsigned!
 
 	uint16_t ____padding2;
 

@@ -4596,11 +4596,11 @@ int32_t BigStruct2::sub_403B8F(int32_t arg1, int32_t arg2, int32_t arg3, int32_t
 	} else {
 		idx = arg1 - (-arg2) * this->map_width;
 	}
-	int32_t nx = arg1 + (int8_t)this->field_0xac0[arg1][arg2][0];
-	int32_t ny = arg2 + (int8_t)this->field_0xac0[arg1][arg2][1];
-	uint8_t* heights = this->field_0x80->GetMapHeights();
-	int32_t base = (int8_t)heights[arg3 + idx] - arg4;
-	int32_t val = (int32_t)this->field_0x17e4[nx][ny] - ((int16_t)this->field_3228[arg1][arg2] + base);
+	int32_t nx = arg1 + this->field_0xac0[arg1][arg2][0];
+	int32_t ny = arg2 + this->field_0xac0[arg1][arg2][1];
+	int8_t* heights = this->field_0x80->GetMapHeights();
+	int32_t base = heights[arg3 + idx] - arg4;
+	int32_t val = this->field_0x17e4[nx][ny] - (this->field_3228[arg1][arg2] + base);
 	this->field_0x17e4[arg1][arg2] = val;
 	return val <= 0;
 }
@@ -5268,7 +5268,7 @@ void BigStruct2::sub_40B314() {
 void BigStruct2::sub_404E1A() {
 	AfxGetMainWnd();
 	timeGetTime();
-	this->field_0x80->GetMapHeights();
+	//this->field_0x80->GetMapHeights();
 	uint8_t* f18map = this->field_0x80->GetOverlayMap();
 	uint16_t* landscape = this->field_0x80->GetLandscape();
 	CRect rect;
@@ -5326,7 +5326,7 @@ void BigStruct2::sub_404E1A() {
 
 // 405399
 void BigStruct2::sub_405399(int32_t arg) {
-	this->field_0x80->GetMapHeights();
+	//this->field_0x80->GetMapHeights();
 	uint8_t* f18map = this->field_0x80->GetOverlayMap();
 	uint16_t* landscape = this->field_0x80->GetLandscape();
 	CRect rect;
@@ -5385,7 +5385,7 @@ void BigStruct2::sub_405399(int32_t arg) {
 void BigStruct2::sub_40587B(int32_t arg) {
 	AfxGetMainWnd();
 	timeGetTime();
-	this->field_0x80->GetMapHeights();
+	//this->field_0x80->GetMapHeights();
 	uint8_t* f18map = this->field_0x80->GetOverlayMap();
 	uint16_t* landscape = this->field_0x80->GetLandscape();
 	CRect rect;
@@ -5449,7 +5449,7 @@ void BigStruct2::sub_40587B(int32_t arg) {
 // 405D0E
 void BigStruct2::sub_405D0E() {
 	AfxGetMainWnd();
-	this->field_0x80->GetMapHeights();
+	//this->field_0x80->GetMapHeights();
 	uint8_t* f18map = this->field_0x80->GetOverlayMap();
 	uint16_t* landscape = this->field_0x80->GetLandscape();
 	CRect rect;
@@ -5681,7 +5681,7 @@ void BigStruct2::sub_406F7B() {
 	int32_t tick = this->field_0xa88;
 	uint8_t* gfx_cells = this->field_0x80->GetObjectMap();
 	uint8_t* f18map = this->field_0x80->GetOverlayMap();
-	uint8_t* hmap = this->field_0x80->GetMapHeights();
+	int8_t* hmap = this->field_0x80->GetMapHeights();
 	uint16_t* landscape = this->field_0x80->GetLandscape();
 	this->field_0x134 = 0;
 
@@ -6332,41 +6332,41 @@ void BigStruct2::sub_403730() {
 	for (int32_t i = 0; i <= 0x14; i++) {
 		for (int32_t j = 0; j <= 0x14; j++) {
 			if (j < i / 2) {
-				this->field_0xac0[i + 0x14][j + 0x14][0] = 0xFF;
+				this->field_0xac0[i + 0x14][j + 0x14][0] = -1;
 				this->field_0xac0[i + 0x14][j + 0x14][1] = 0;
 				this->field_0xac0[0x14 - i][0x14 - j][0] = 1;
 				this->field_0xac0[0x14 - i][0x14 - j][1] = 0;
-				this->field_0xac0[i + 0x14][0x14 - j][0] = 0xFF;
+				this->field_0xac0[i + 0x14][0x14 - j][0] = -1;
 				this->field_0xac0[i + 0x14][0x14 - j][1] = 0;
 				this->field_0xac0[0x14 - i][j + 0x14][0] = 1;
 				this->field_0xac0[0x14 - i][j + 0x14][1] = 0;
 			} else if (j > 2 * i) {
 				this->field_0xac0[i + 0x14][j + 0x14][0] = 0;
-				this->field_0xac0[i + 0x14][j + 0x14][1] = 0xFF;
+				this->field_0xac0[i + 0x14][j + 0x14][1] = -1;
 				this->field_0xac0[0x14 - i][0x14 - j][0] = 0;
 				this->field_0xac0[0x14 - i][0x14 - j][1] = 1;
 				this->field_0xac0[i + 0x14][0x14 - j][0] = 0;
 				this->field_0xac0[i + 0x14][0x14 - j][1] = 1;
 				this->field_0xac0[0x14 - i][j + 0x14][0] = 0;
-				this->field_0xac0[0x14 - i][j + 0x14][1] = 0xFF;
+				this->field_0xac0[0x14 - i][j + 0x14][1] = -1;
 			} else {
-				this->field_0xac0[i + 0x14][j + 0x14][0] = 0xFF;
-				this->field_0xac0[i + 0x14][j + 0x14][1] = 0xFF;
+				this->field_0xac0[i + 0x14][j + 0x14][0] = -1;
+				this->field_0xac0[i + 0x14][j + 0x14][1] = -1;
 				this->field_0xac0[0x14 - i][0x14 - j][0] = 1;
 				this->field_0xac0[0x14 - i][0x14 - j][1] = 1;
-				this->field_0xac0[i + 0x14][0x14 - j][0] = 0xFF;
+				this->field_0xac0[i + 0x14][0x14 - j][0] = -1;
 				this->field_0xac0[i + 0x14][0x14 - j][1] = 1;
 				this->field_0xac0[0x14 - i][j + 0x14][0] = 1;
-				this->field_0xac0[0x14 - i][j + 0x14][1] = 0xFF;
+				this->field_0xac0[0x14 - i][j + 0x14][1] = -1;
 			}
-			int16_t val = (int16_t)(std::sqrt(i * i + j * j) * this->field_0x3f4c / (std::max)(i, j));
+			uint16_t val = (std::sqrt(i * i + j * j) * (double)this->field_0x3f4c / (double)(std::max)(i, j));
 			this->field_3228[i + 0x14][j + 0x14] = val;
 			this->field_3228[0x14 - i][0x14 - j] = val;
 			this->field_3228[i + 0x14][0x14 - j] = val;
 			this->field_3228[0x14 - i][j + 0x14] = val;
 		}
 	}
-	this->field_0xac0[0x15][0x14][0] = 0xFF;
+	this->field_0xac0[0x15][0x14][0] = -1;
 	this->field_0xac0[0x15][0x14][1] = 0;
 	this->field_0xac0[0x13][0x14][0] = 1;
 	this->field_0xac0[0x13][0x14][1] = 0;
@@ -6379,7 +6379,7 @@ void BigStruct2::FUN_00403ca0(CGameObject* obj) {
 	int32_t base_idx = base_y * this->map_width + base_x;
 	memset(this->field_0x17e4, 0, 0x1A44);
 	this->field_0x17e4[20][20] = (obj->scan_range >> (8 - this->field_0x3f50)) + (1 << (this->field_0x3f50 - 1));
-	int8_t base_height = (int8_t)this->field_0x80->GetMapHeights()[obj->tileY * this->map_width + obj->tileX];
+	int8_t base_height = this->field_0x80->GetMapHeights()[obj->tileY * this->map_width + obj->tileX];
 	for (int32_t r = 1; r < 0x14; r++) {
 		int32_t ring_ok = 1;
 		for (int32_t d = -r; d < r + 1; d++) {
@@ -8027,7 +8027,7 @@ void BigStruct2::UpdateAmbientSounds() { //41b8d0
 }
 
 void BigStruct2::MakeHeightCells() { //4065d3
-	uint8_t* hmap = this->field_0x80->GetMapHeights();
+	int8_t* hmap = this->field_0x80->GetMapHeights();
 	for (int32_t y = -3; y <= this->view_tiles_y + 7; y++) {
 		for (int32_t x = -3; x <= this->view_tiles_x + 3; x++) {
 			this->tile_corner_y[x + 3 + (y + 3) * (this->view_tiles_x + 7)] = y * 32 - hmap[x + this->view_x + (y + this->view_y) * this->map_width];

@@ -249,12 +249,12 @@ void CGameObject::UpdateMapPosition() { //46190d
     int32_t fracX = (this->centerWorldX8 >> 3) & 0x1f;
     int32_t fracY = (this->centerWorldY8 >> 3) & 0x1f;
     int32_t idx = (this->centerWorldX8 >> 8) + (this->centerWorldY8 >> 8) * map->map_width;
-    const uint8_t* heights = map->field_0x80->GetMapHeights();
+    const int8_t* heights = map->field_0x80->GetMapHeights();
 
-    int32_t h00 = (int8_t)heights[idx];
-    int32_t h10 = (int8_t)heights[idx + 1];
-    int32_t h01 = (int8_t)heights[idx + map->map_width];
-    int32_t h11 = (int8_t)heights[idx + 1 + map->map_width];
+    int32_t h00 = heights[idx];
+    int32_t h10 = heights[idx + 1];
+    int32_t h01 = heights[idx + map->map_width];
+    int32_t h11 = heights[idx + 1 + map->map_width];
 
     int32_t top = h00 + (h10 - h00) * fracX / 32;
     int32_t bottom = h01 + (h11 - h01) * fracX / 32;

@@ -2922,7 +2922,7 @@ Scenario::Scenario(const char* fname) {
     this->landscape = (uint16_t*)malloc(this->width * this->height * 2);
     memcpy(this->landscape, alm->landscape, this->width * this->height * 2);
 
-    this->map_heights = (uint8_t*)malloc(this->width * this->height);
+    this->map_heights = (int8_t*)malloc(this->width * this->height);
     this->object_map = (uint8_t*)malloc(this->width * this->height);
     memset(this->object_map, 0, this->width * this->height);
     memcpy(this->map_heights, alm->map_heights, this->width * this->height);
