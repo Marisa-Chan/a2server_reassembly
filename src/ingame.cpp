@@ -1333,9 +1333,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 						if (obj->HasKnownName()) {
 							ct->tokenEntries.InsertAt(i + packet_state->start_index, obj, 1);
-						}
-
-						if (g_EnableTrace) {
+						} else if (g_EnableTrace) {
+							// client 40dac9: only items without a known name are
+							// reported as invalid (mode 1 does the same).
 							CString logstr = "Invalid item in inventory " + obj->GetSpriteName();
 
 							CStdioFile f;
