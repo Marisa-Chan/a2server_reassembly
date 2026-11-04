@@ -5235,7 +5235,7 @@ void MainWindow::ShowInnDialog(uint32_t id, int32_t interact_target) { //48d4da
 
 
 void MainWindow::RemoteGameIdle() { //48acac
-    if (g_NetStru1_local.IsActive() == 0) {
+    if (g_NetStru1_local.IsActive() == 0 && this->shutdown_pending == 0) {
         this->vis_root->MsgProc(0x446, 0, 0);
         PostMessage(0x45c, 0, 0);
 
@@ -5261,21 +5261,48 @@ void MainWindow::RemoteGameIdle() { //48acac
                 g_RemoteTimestamp = tick;
             }
         } else {
-            while(true) {
-                this->game_tic_counter++;
-                this->game_tic_counter &= 0xf;
+            if (g_CLlDriver.GetProvider() == 4) {
+                // client 48eb54: on TCP, first fast-forward any backlog of more
+                // than 3 sealed buffers (resetting the tick schedule each step),
+                // then tick paced by last_tic_time + game_tic_time * (counter+1).
+                if (g_NetStru1_local.GetClientsPktNum() > 3) {
+                    while (g_NetStru1_local.GetClientsPktNum() > 3) {
+                        this->game_tic_counter = 0;
+                        this->last_tic_time = GetTickCount();
 
-                if (this->game_tic_counter == 0) {
-                    g_NetStru1_local.UpdateConnStats();
+                        this->vis_map_context->ProcessPackets(100);
+                        this->vis_root->MsgProc(0x401, 0, 0);
+
+                        g_mousept.Update();
+                    }
                 }
 
-                this->vis_map_context->ProcessPackets(100);
-                this->vis_root->MsgProc(0x401, 0, 0);
+                while (this->last_tic_time + this->game_tic_time * (this->game_tic_counter + 1) <= GetTickCount()
+                    && g_NetStru1_local.GetClientsPktNum() != 0) {
+                    this->game_tic_counter++;
 
-                g_mousept.Update();
+                    this->vis_map_context->ProcessPackets(100);
+                    this->vis_root->MsgProc(0x401, 0, 0);
 
-                if (g_NetStru1_local.GetClientsPktNum() == 0) {
-                    break;
+                    g_mousept.Update();
+                }
+            } else {
+                while(true) {
+                    this->game_tic_counter++;
+                    this->game_tic_counter &= 0xf;
+
+                    if (this->game_tic_counter == 0) {
+                        g_NetStru1_local.UpdateConnStats();
+                    }
+
+                    this->vis_map_context->ProcessPackets(100);
+                    this->vis_root->MsgProc(0x401, 0, 0);
+
+                    g_mousept.Update();
+
+                    if (g_NetStru1_local.GetClientsPktNum() == 0) {
+                        break;
+                    }
                 }
             }
             g_RemoteTimestamp = GetTickCount();
