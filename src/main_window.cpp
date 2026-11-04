@@ -4449,7 +4449,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
 
             for (int j = 0; j < grp_ids.GetSize(); j++) {
                 CGameObject* obj;
-                if (this->vis_map_context->field_0x9d0.Lookup(grp_ids[i], obj) != 0) {
+                if (this->vis_map_context->field_0x9d0.Lookup(grp_ids[j], obj) != 0) {
                     obj->AddControlGroup(i);
                 }
             }
