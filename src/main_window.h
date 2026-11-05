@@ -247,12 +247,19 @@ struct HatSettings {
     CString login;
     CString password;
     int32_t deathmatch;
+#ifdef A2CLIENT
+    int32_t team; // client-only registry value "team"
+#endif
     int32_t store;
 
     void Load(HKEY& rkey); //43d249 (client: 43f65a)
     void Save(HKEY& rkey); //43d51b (client: 43f95c)
 };
+#ifdef A2CLIENT
+ASSERT_SIZE(HatSettings, 0x20); // retail Load 43f65a/Save 43f95c: team@0x18, store@0x1c
+#else
 ASSERT_SIZE(HatSettings, 0x1c);
+#endif
 
 struct Main3e0 {
     CString field_00;
@@ -543,13 +550,7 @@ public:
     PhoneBook phone_book; //380
     ComSettings com_settings; //39c
     CString last_ip; //3b0
-    HatSettings hat_settings; //3b4
-#ifdef A2CLIENT
-    // Client layout (retail ctor 48750d): one extra dword here, then the four
-    // screen pointers, Main3e0 (+4 vs server) and everything through field_0x460
-    // shift +4. User of this field not identified yet.
-    int32_t field_0x3d0_cli; // client 0x3d0
-#endif
+    HatSettings hat_settings; //3b4 (client build: 0x20 bytes — the "extra dword" is HatSettings::team)
     VisScreen* vis_serverscreen; // server 0x3d0 / client 0x3d4
     VisScreen* vis_cutscenes; // server 0x3d4 / client 0x3d8
     VisFameDocument* vis_famedocument; // server 0x3d8 / client 0x3dc
@@ -627,7 +628,7 @@ public:
 // MFC (the binary-offset comments above are historical).
 #ifdef A2CLIENT
 ASSERT_SIZE(MainWindow, 0xa10);
-ASSERT_OFFSET(MainWindow, field_0x3e0, offsetof(MainWindow, hat_settings) + sizeof(HatSettings) + 0x14); // extra dword + 4 screen pointers
+ASSERT_OFFSET(MainWindow, field_0x3e0, offsetof(MainWindow, hat_settings) + sizeof(HatSettings) + 0x10); // 4 screen pointers (client HatSettings already includes the extra dword)
 ASSERT_OFFSET(MainWindow, serverLoopCounter, offsetof(MainWindow, dialogsMask) + 4);
 ASSERT_OFFSET(MainWindow, m_GameSession, offsetof(MainWindow, field_0x460) + 4); // no field_0x464
 ASSERT_OFFSET(MainWindow, m_FameHall, offsetof(MainWindow, m_GameSession) + sizeof(CGameSession)); // no field_0x5e4

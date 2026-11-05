@@ -1791,6 +1791,10 @@ void HatSettings::Load(HKEY& rkey) { //43d249
 
     this->store = 1;
     RegQueryValueExA(rkey, "store", nullptr, nullptr, (LPBYTE)&this->store, &sz);
+#ifdef A2CLIENT
+    this->team = 0;
+    RegQueryValueExA(rkey, "team", nullptr, nullptr, (LPBYTE)&this->team, &sz);
+#endif
 }
 
 // 43d51b
@@ -1808,6 +1812,9 @@ void HatSettings::Save(HKEY& rkey) {
     RegSetValueExA(rkey, "ishat", 0, REG_DWORD, (const BYTE*)&this->ishat, cbData);
     RegSetValueExA(rkey, "deathmatch", 0, REG_DWORD, (const BYTE*)&this->deathmatch, cbData);
     RegSetValueExA(rkey, "store", 0, REG_DWORD, (const BYTE*)&this->store, cbData);
+#ifdef A2CLIENT
+    RegSetValueExA(rkey, "team", 0, REG_DWORD, (const BYTE*)&this->team, cbData);
+#endif
 
     if (this->store != 0) {
         strcpy(buf, XorRegString(this->login));
