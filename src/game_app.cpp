@@ -627,11 +627,7 @@ BOOL GameApp::InitInstance() {
 	Resources::StaticAddResFile("video.res");
 
 	if (strstr(m_lpCmdLine, "-nomusic")) {
-#ifdef A2CLIENT
-		g_EnableMusic = 0;
-#else
 		g_SoundSettings.music_allowed = 0;
-#endif
 	}
 
 	if (strstr(m_lpCmdLine, "-trace")) {

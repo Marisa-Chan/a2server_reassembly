@@ -33,7 +33,6 @@ CRect vis_scr_rect; //65fb88
 int32_t DAT_00665cf8 = 0; // 665cf8 write-only in a2serv6.exe (client twin 631768)
 #ifdef A2CLIENT
 int32_t g_hat_selected_index = 0; //62c9e8
-int32_t g_EnableMusic = 0; //62c870
 int32_t DAT_0062c9d4 = 0; //62c9d4
 #endif
 
@@ -2337,7 +2336,7 @@ void MainWindow::Proc_421() {
 
     g_Cursors[CURSOR_SELECT]->Use();
 
-    if (g_EnableMusic != 0) {
+    if (g_SoundSettings.music_allowed != 0) {
         CStringArray menu_list;
         menu_list.Add("music\\menu.wav");
         if (this->music_player->GetPlaylistSize() == 0 ||
