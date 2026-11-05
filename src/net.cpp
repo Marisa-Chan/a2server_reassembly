@@ -5248,57 +5248,47 @@ void NetStru1::FUN_0050e70d(HatCharId id) { //client  50e70d
 
 
 
-char g_wwwReportInit = 0; //6a6a18 (client: 672480)
-
-int SendWWWReport(const char* surl, const char* data, int val3) { //4e505f (client: 4ea58f)
-    char readBuf[1000];
-    if (surl == nullptr) {
-        return 0;
-    }
-    if (data == nullptr) {
-        return 0;
-    }
-
-    HINTERNET agent = InternetOpenA("RageOfMages2", 3, 0, 0, 0);
+void SendWWWReport(const CString& surl, const CString& data, int val3) { //client 4ea58f
+    HINTERNET agent = InternetOpenA("RageOfMages2", 0, 0, 0, 0);
     if (!agent) {
-        return 0;
+        return;
     }
 
-    CString payload(data);
-    CString encoded;
-    for (int i = 0; i < payload.GetLength(); i++) {
-        char chr = payload[i];
+    CString tmp;
+    for (int i = 0; i < data.GetLength(); i++) {
+        char chr = data[i];
         if (chr == ' ') {
-            encoded += '+';
+            tmp += '+';
         }
         else {
-            encoded += chr;
+            tmp += chr;
         }
     }
 
-    CString urlStr = CString(surl) + '?' + encoded;
+    tmp = surl + '?' + tmp;
 
-    CString proto = urlStr.Left(7);
+    CString proto = tmp.Left(7);
     proto.MakeLower();
 
     if (proto != "http://") {
-        urlStr = "http://" + urlStr;
+        tmp = "http://" + tmp;
     }
 
-    HINTERNET url = InternetOpenUrlA(agent, urlStr, nullptr, 0, INTERNET_FLAG_DONT_CACHE | INTERNET_FLAG_RELOAD, 0);
-    if (url == 0) {
+    HINTERNET url = InternetOpenUrlA(agent, tmp, nullptr, 0, INTERNET_FLAG_DONT_CACHE | INTERNET_FLAG_RELOAD, 0);
+    if (!url == 0) {
         InternetCloseHandle(agent);
-        return 0;
+        return;
     }
 
+    static char buf[1000];
     DWORD readed = 0;
+
+    char* buf_pos = buf;
     if (val3) {
-        strcpy(readBuf, &g_wwwReportInit);
-        if (!InternetReadFile(url, readBuf, 1000, &readed)) {
+        if (!InternetReadFile(url, buf_pos, 1000, &readed)) {
             InternetCloseHandle(agent);
-            return 0;
+            return;
         }
     }
     InternetCloseHandle(agent);
-    return 1;
 }
