@@ -67,21 +67,7 @@ struct PackerDat {
 
     PackerDat(); //5260fa (client: 514efa)
     ~PackerDat(); //526115 (client: 514f15)
-
-    void ResetFreq(); //526128
-    void AddFreq(const uint8_t* data, int32_t sz); //52614b (client: 514f4b)
-    void SaveFreq(CFile* file); //5261aa (client: 514faa)
-    void LoadFreq(CFile* file); //5261d0 (client: 514fd0)
-    void BuildTree(); //526247 (client: 515047)
-    void BuildCodes(); //52651f (client: 515351)
-    void BuildCodesWalk(PackerTail* node, uint32_t code, int32_t depth); //52656b (client: 51539d)
-    static void Insert(PackerTail* slot, uint8_t ch, int32_t weight); //5263d3 (client: 5151ea)
-    static int CompareFreq(const void* a, const void* b); //526218 (client: 515018)
-    uint32_t PackBits(const uint8_t* src, int32_t sz, uint32_t* out); //52667e (client: 5154b0)
-    uint32_t UnpackBits(const uint8_t* in, int32_t sz, uint8_t* out, int32_t outsz); //526749 (client: 51557b)
 };
-
-uint32_t PackBitsToBytes(uint32_t bits); //526665 (client: 515497)
 ASSERT_OFFSET(PackerDat, freq, 0x800);
 ASSERT_SIZE(PackerDat, 0xc04);
 
@@ -127,15 +113,6 @@ public:
     uint32_t stat_pkt_size[256];
 
     static NetStru1 HatConnector;
-
-public:
-    // Huffman-packs `sz` bytes from `src` into `out` using packer table `mode` (1/2).
-    // Returns the packed BIT count (0 when mode is invalid). compression_mode == 1
-    // only trains the tables (AddFreq) and copies the input verbatim.
-    uint32_t Pack(char mode, const uint8_t* src, uint32_t sz, uint32_t* out); //51832c (client: 509f10)
-    // Inverse of Pack: decodes `sz` bits into `out` (max `outsz` bytes). Returns the
-    // byte count written. compression_mode == 1 trains from sz>>3 bytes + copies.
-    uint32_t Unpack(char mode, const uint8_t* in, int32_t sz, uint8_t* out, int32_t outsz); //51846f (client: 50a053)
 
 public:
     // Transfers unit ownership to another player.
@@ -608,7 +585,6 @@ extern NetStru1 g_NetStru1_local; //6b16b0
 extern CLlDriver g_CLlDriver; //6d07a0
 extern CLlDriver g_HatLLDriver; //6cdbc0
 
-extern uint8_t g_PackStage[0x800]; //6e9900 (client: 6b5338) - NetStru1::Pack staging buffer
 
 
 
