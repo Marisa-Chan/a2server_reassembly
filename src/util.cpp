@@ -53,10 +53,15 @@ uint8_t __cdecl ToLowerChar(uint8_t c) {
 }
 
 
-CString XorRegString(const CString& str) { //43d1a9
+CString XorRegString(const CString& str) { //43d1a9 (client: 43f5b9)
+#ifdef A2CLIENT
+	const int32_t key = 0x9c; // client Allods2.exe
+#else
+	const int32_t key = 0x1c;
+#endif
 	CString tmp = str;
 	for (int i = 0; i < str.GetLength(); i++) {
-		tmp.SetAt(i, tmp[i] ^ (i + 0x1c)); //0x9c in Allods2.exe
+		tmp.SetAt(i, tmp[i] ^ (i + key));
 	}
 	return tmp;
 }
