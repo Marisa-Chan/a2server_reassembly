@@ -51,6 +51,38 @@ struct HatSettings;
 
 
 
+// Child-window IDs of the in-game screen tree: the map context (BigStruct2)
+// itself, its children, and the tips-dialog internal controls all draw from one
+// shared ID allocation. The client build allocates one extra ID early in that
+// space (the map context itself sits at 2 instead of 1), which shifts every
+// following ID up by one. Values verified against a2serv6.exe / allods2.exe.
+enum MapChildId {
+#ifdef A2CLIENT
+	MAP_CONTEXT_ID = 2,
+	MAP_CHILD_BAG = 3,
+	MAP_CHILD_SPELL_BOOK = 4,
+	MAP_CHILD_TIPS_TEXT = 14,
+	MAP_CHILD_TIPS_OK_BUTTON = 15,
+	MAP_CHILD_TIPS_SHOW_RADIO = 16,
+	MAP_CHILD_TIPS_DIALOG = 17,
+	MAP_CHILD_QUEST_STATUS = 19, // shared with the hat-session panel below
+	MAP_CHILD_HAT_SESSION = 19,
+	MAP_CHILD_CHAT_LINE = 1200, // Vis1200 input strip; not part of the shifted range
+#else
+	MAP_CONTEXT_ID = 1,
+	MAP_CHILD_BAG = 2,
+	MAP_CHILD_SPELL_BOOK = 3,
+	MAP_CHILD_TIPS_TEXT = 13,
+	MAP_CHILD_TIPS_OK_BUTTON = 14,
+	MAP_CHILD_TIPS_SHOW_RADIO = 15,
+	MAP_CHILD_TIPS_DIALOG = 16,
+	MAP_CHILD_QUEST_STATUS = 18,
+	MAP_CHILD_CHAT_LINE = 1200,
+#endif
+};
+
+
+
 class CVisualObject : public CObject {
 public:
 	enum {
@@ -983,7 +1015,6 @@ public:
 
 	void FUN_0041b636(); //41b636 (client: 41cebe)
 
-	int FUN_0041b495() { return this->FindChild(2) != nullptr; } //41b495 (client: 41cd1d)
 	void FUN_0041b509(); //41b509 (client: 41cd91)
 	void FUN_0041b40e(); //41b40e (client: 41cc96)
 	void FUN_0041b381(); //41b381 (client: 41cc09)

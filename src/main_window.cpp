@@ -1608,9 +1608,9 @@ void MainWindow::CreateUI() { //484ab0
     this->vis_ordertoolbar = new VisOrderToolbar(6, 0, 158, 160, 238);
     this->vis_charinfo = new VisCharInfo(7, 0, 238, 160, 480);
     this->vis_sidestatus = new VisSideStatus(8, 0, 480, 160, g_ScreenSize.bottom);
-    this->vis_invtype1 = new VisInvType1(2, 0, this->vis_map_context->GetRect().bottom - 90, g_ScreenSize.right - 160, this->vis_map_context->GetRect().bottom);
+    this->vis_invtype1 = new VisInvType1(MAP_CHILD_BAG, 0, this->vis_map_context->GetRect().bottom - 90, g_ScreenSize.right - 160, this->vis_map_context->GetRect().bottom);
 
-    this->vis_spellbook = new VisSpellBook(3, 0, this->vis_map_context->GetRect().bottom - 90, g_ScreenSize.right - 160, this->vis_map_context->GetRect().bottom);
+    this->vis_spellbook = new VisSpellBook(MAP_CHILD_SPELL_BOOK, 0, this->vis_map_context->GetRect().bottom - 90, g_ScreenSize.right - 160, this->vis_map_context->GetRect().bottom);
     this->vis_spellbook->MsgProc(0x411, 0, 0);
 
     this->vis_shop = new VisShop(1000, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
@@ -2346,7 +2346,7 @@ void MainWindow::Proc_421() {
         this->music_player->RestartLooping();
     }
 
-    elm = this->vis_map_context->FindChild(0x13);
+    elm = this->vis_map_context->FindChild(MAP_CHILD_QUEST_STATUS);
     if (elm) {
         this->vis_map_context->RemoveChild(elm);
         delete elm;
@@ -3884,12 +3884,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
 
     case 0x45a: {
-        // client: 48a969 uses child id 17 for the tips dialog
-#ifdef A2CLIENT
-        CVisualObject* local_96c = this->vis_map_context->FindChild(17);
-#else
-        CVisualObject* local_96c = this->vis_map_context->FindChild(16);
-#endif
+        CVisualObject* local_96c = this->vis_map_context->FindChild(MAP_CHILD_TIPS_DIALOG);
         if (!local_96c) {
             vis_root->MsgProc(message, wParam, lParam);
         } else {
@@ -3904,20 +3899,13 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             CString tip;
             MissionGetTips(wParam, &tip);
 
-            // client: 48a969 uses child id 17 for the tips dialog
-#ifdef A2CLIENT
-            const int32_t tips_id = 17;
-#else
-            const int32_t tips_id = 16;
-#endif
-
-            CVisualObject* local_960 = this->vis_map_context->FindChild(tips_id);
+            CVisualObject* local_960 = this->vis_map_context->FindChild(MAP_CHILD_TIPS_DIALOG);
             if (local_960) {
                 this->vis_map_context->RemoveChild(local_960);
                 delete local_960;
             }
 
-            this->vis_map_context->AddChild(new VisTipsDialog(tips_id, 10, 20, 370, 188, tip));
+            this->vis_map_context->AddChild(new VisTipsDialog(MAP_CHILD_TIPS_DIALOG, 10, 20, 370, 188, tip));
         }
         break;
 
@@ -4016,22 +4004,16 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x466: {
-        // client: 48a969 uses child id 19 and a hat-deathmatch variant dialog
-#ifdef A2CLIENT
-        const int32_t qs_id = 19;
-#else
-        const int32_t qs_id = 18;
-#endif
-        CVisualObject* obj = this->vis_map_context->FindChild(qs_id);
+        CVisualObject* obj = this->vis_map_context->FindChild(MAP_CHILD_QUEST_STATUS);
         if (obj == nullptr) {
 #ifdef A2CLIENT
             if (this->field_0x3e0.field_10 == 0 || this->hat_settings.ishat == 0 || this->hat_settings.deathmatch == 0) {
-                this->vis_map_context->AddChild(new VisQuestStatus(qs_id, 10, 20, 370, 188));
+                this->vis_map_context->AddChild(new VisQuestStatus(MAP_CHILD_QUEST_STATUS, 10, 20, 370, 188));
             } else {
-                this->vis_map_context->AddChild(new VisHatSession(qs_id, 10, 20, 274, 188));
+                this->vis_map_context->AddChild(new VisHatSession(MAP_CHILD_HAT_SESSION, 10, 20, 274, 188));
             }
 #else
-            this->vis_map_context->AddChild(new VisQuestStatus(qs_id, 10, 20, 370, 188));
+            this->vis_map_context->AddChild(new VisQuestStatus(MAP_CHILD_QUEST_STATUS, 10, 20, 370, 188));
 #endif
             this->vis_map_context->field_0xe0 = 1;
         } else if (wParam == 0) {
@@ -4455,11 +4437,11 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
         }
 
         if (reg.GetInt("Inventory", "IsOpen", 0) == 0) {
-            if (this->vis_map_context->FUN_0041b495() != 0) {
+            if (this->vis_map_context->IsBagOpen() != 0) {
                 this->vis_map_context->FUN_0041b40e();
             }
         } else {
-            if (this->vis_map_context->FUN_0041b495() == 0) {
+            if (this->vis_map_context->IsBagOpen() == 0) {
                 this->vis_map_context->FUN_0041b381();
             }
         }

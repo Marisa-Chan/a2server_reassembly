@@ -300,7 +300,7 @@ void BigStruct2::CloseHatOverlays() {
 			delete child;
 		}
 	}
-	CVisualObject* child1200 = this->FindChild(1200);
+	CVisualObject* child1200 = this->FindChild(MAP_CHILD_CHAT_LINE);
 	if (child1200 != nullptr) {
 		// TODO(client): the vanilla also calls the child's vtable+0x84 with 0x445 first
 		this->RemoveChild(child1200);
@@ -2394,8 +2394,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		case 0xc3:
 			// client: 41780d — hat session join. Both exits return 1 (never reach the breakid check).
 			if (wnd->field_0x3e0.field_10 != 0 && wnd->hat_settings.ishat != 0 && wnd->hat_settings.deathmatch != 0) {
-				if (this->FindChild(19) == nullptr) {
-					AddChild(new VisHatSession(19, 10, 20, 370, 188));
+				if (this->FindChild(MAP_CHILD_HAT_SESSION) == nullptr) {
+					AddChild(new VisHatSession(MAP_CHILD_HAT_SESSION, 10, 20, 370, 188));
 					this->field_0xe0 = 1;
 					this->VMethod9();
 				}
@@ -3030,14 +3030,14 @@ void BigStruct2::FUN_0041d2da(int32_t arg) { // 41d2da
 int32_t BigStruct2::IsBookOpen() { // 41b4b0
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	if (wnd->dialogsMask & 2) {
-		return wnd->vis_root->FindChild(1000)->FindChild(3) != nullptr;
+		return wnd->vis_root->FindChild(1000)->FindChild(MAP_CHILD_SPELL_BOOK) != nullptr;
 	}
 
-	return this->FindChild(3) != nullptr;
+	return this->FindChild(MAP_CHILD_SPELL_BOOK) != nullptr;
 }
 
 int32_t BigStruct2::IsBagOpen() { // 41b495
-	return this->FindChild(2) != nullptr;
+	return this->FindChild(MAP_CHILD_BAG) != nullptr;
 }
 
 void BigStruct2::FUN_0041afcf(CString str) { //41afcf
@@ -3677,8 +3677,8 @@ void BigStruct2::FUN_0041b6e0() { //41b6e0
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
 	int32_t btm = this->rect.bottom & (~0x1f);
-	CVisualObject* obj2 = this->FindChild(2);
-	CVisualObject* obj3 = this->FindChild(3);
+	CVisualObject* obj2 = this->FindChild(MAP_CHILD_BAG);
+	CVisualObject* obj3 = this->FindChild(MAP_CHILD_SPELL_BOOK);
 
 	if (obj2) {
 		btm = obj2->GetRect().top;
@@ -3696,7 +3696,7 @@ void BigStruct2::FUN_0041b6e0() { //41b6e0
 		this->view_y = vy;
 	}
 
-	if (CVisualObject::FindChild(1200)) {
+	if (CVisualObject::FindChild(MAP_CHILD_CHAT_LINE)) {
 		mwnd->vis_1200->FUN_0043be9f();
 	}
 
@@ -3724,7 +3724,7 @@ void BigStruct2::FUN_0041b509() { // 41b509
 
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
-	if (this->FUN_0041b495() == 0) {
+	if (this->IsBagOpen() == 0) {
 		mwnd->vis_spellbook->SetRect(0, this->rect.bottom - 85, this->rect.right, this->rect.bottom);
 	} else {
 		mwnd->vis_spellbook->SetRect(0, this->rect.bottom - 175, this->rect.right, this->rect.bottom - 90);
@@ -5004,8 +5004,8 @@ uint32_t BigStruct2::sub_41864D() {
 		break;
 	}
 
-	CVisualObject* child2 = this->FindChild(2);
-	CVisualObject* child3 = this->FindChild(3);
+	CVisualObject* child2 = this->FindChild(MAP_CHILD_BAG);
+	CVisualObject* child3 = this->FindChild(MAP_CHILD_SPELL_BOOK);
 	if (child2 != nullptr) {
 		CPoint pt(g_mousept.GetX(), g_mousept.GetY());
 		if (child2->GetRect().PtInRect(pt)) {
@@ -5243,15 +5243,8 @@ void BigStruct2::sub_40B314() {
 			cursor = g_Cursors[CURSOR_ARROW3];
 		}
 	}
-#ifdef A2CLIENT
-	// client: 40bbb5/40bbc5 — the child ids are 3 and 4 on the client
-	CVisualObject* child2 = this->FindChild(3);
-	CVisualObject* child3 = this->FindChild(4);
-#else
-	// 40bb2e
-	CVisualObject* child2 = this->FindChild(2);
-	CVisualObject* child3 = this->FindChild(3);
-#endif
+	CVisualObject* child2 = this->FindChild(MAP_CHILD_BAG);
+	CVisualObject* child3 = this->FindChild(MAP_CHILD_SPELL_BOOK);
 	if (child2 != nullptr && child2->GetRect().PtInRect(mouse_pt)) {
 		cursor = g_Cursors[CURSOR_DEFAULT];
 	}
@@ -5566,8 +5559,8 @@ void BigStruct2::sub_406F7B() {
 	if (anim_redraw != 0) {
 		this->field_0xa8c = this->field_0xa88;
 	}
-	VisInvBase* child2 = (VisInvBase*)this->FindChild(2);
-	CVisualObject* child3 = this->FindChild(3);
+	VisInvBase* child2 = (VisInvBase*)this->FindChild(MAP_CHILD_BAG);
+	CVisualObject* child3 = this->FindChild(MAP_CHILD_SPELL_BOOK);
 	CRect childs_rect(0, 0, 0, 0);
 	int32_t childs_size = (int32_t)child2 + (int32_t)child3 + this->msglog.text.GetSize();
 	if (child2 != nullptr) {
@@ -6180,14 +6173,8 @@ int32_t BigStruct2::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
 	return this->OnLButtonDown(wparam, pos);
 }
 
-// 402AF6
-// 402af6
-// client: 402af6
-#ifdef A2CLIENT
-BigStruct2::BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObject(2, l, t, r, b, nullptr) {
-#else
-BigStruct2::BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObject(1, l, t, r, b, nullptr) {
-#endif
+// 402af6 (client: 402af6 — only the CVisualObject id differs, see MAP_CONTEXT_ID)
+BigStruct2::BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObject(MAP_CONTEXT_ID, l, t, r, b, nullptr) {
 	this->field_0x80 = nullptr;
 	this->sub_402FB8();
 	this->view_x = this->MapMinX();

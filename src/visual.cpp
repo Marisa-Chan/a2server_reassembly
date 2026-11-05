@@ -4527,7 +4527,7 @@ void VisTipsDialog::VMethod8(CRect* rect) {
 
 // 4e2b73
 void VisTipsDialog::SetText(const char* text) {
-    VisMultiText* mt = (VisMultiText*)this->FindChild(13);
+    VisMultiText* mt = (VisMultiText*)this->FindChild(MAP_CHILD_TIPS_TEXT);
     mt->SetText(text);
 }
 
@@ -4580,13 +4580,13 @@ VisTipsDialog::VisTipsDialog(int32_t _id, int32_t l, int32_t t, int32_t r, int32
 
 // 4e25c1
 void VisTipsDialog::FUN_004e25c1(int32_t l, int32_t t, int32_t r, int32_t b, const char* txt) {
-    VisMultiText* multitext = new VisMultiText(0xD, 0x14, 0x18, this->rect.Width() - 0x1C, this->rect.Height() - 0x24, txt, g_font2, clrsh_DullGold, 0);
+    VisMultiText* multitext = new VisMultiText(MAP_CHILD_TIPS_TEXT, 0x14, 0x18, this->rect.Width() - 0x1C, this->rect.Height() - 0x24, txt, g_font2, clrsh_DullGold, 0);
     this->AddChild(multitext);
 
-    VisButton* ok_btn = new VisButton(0xE, this->rect.Width() - 0x78, this->rect.Height() - 0x28, this->rect.Width() - 0x28, this->rect.Height() - 0x16, TxtFile::AllLines[0x7F], g_font2, clrsh_DullGold, 0x45A, 0, nullptr);
+    VisButton* ok_btn = new VisButton(MAP_CHILD_TIPS_OK_BUTTON, this->rect.Width() - 0x78, this->rect.Height() - 0x28, this->rect.Width() - 0x28, this->rect.Height() - 0x16, TxtFile::AllLines[0x7F], g_font2, clrsh_DullGold, 0x45A, 0, nullptr);
     this->AddChild(ok_btn);
 
-    VisServerScreenRadio* radio = new VisServerScreenRadio(0xF, 0x28, this->rect.Height() - 0x28, this->rect.Width() - 0x7C, this->rect.Height() - 0x18, g_font2, clrsh_DullGold, nullptr);
+    VisServerScreenRadio* radio = new VisServerScreenRadio(MAP_CHILD_TIPS_SHOW_RADIO, 0x28, this->rect.Height() - 0x28, this->rect.Width() - 0x7C, this->rect.Height() - 0x18, g_font2, clrsh_DullGold, nullptr);
     radio->AddEntry(TxtFile::AllLines[0x80]);
     this->AddChild(radio);
 
@@ -10929,7 +10929,7 @@ void VisShop::sub_4BC8D7() {
             this->tips_update_flag = 1;
             CString tips_text;
             MissionGetTips(4, &tips_text);
-            ((VisMultiText*)this->tips->FindChild(13))->SetText(tips_text);
+            ((VisMultiText*)this->tips->FindChild(MAP_CHILD_TIPS_TEXT))->SetText(tips_text);
         }
     }
 }
