@@ -8413,8 +8413,8 @@ void VisCharGenStats::LoadBitmaps() { //429475
     this->field_0x194[9] = new CBmp64("graphics\\interface\\chrgen\\buttons\\mdisable.bmp");
     g_mousept.Update();
     for (int32_t i = 0; i < 4; i++) {
-        this->field_0x174[i * 2] = this->field_0x194[4];
-        this->field_0x174[i * 2 + 1] = this->field_0x194[8];
+        this->field_0x174[i][0] = this->field_0x194[4];
+        this->field_0x174[i][1] = this->field_0x194[8];
     }
 }
 
@@ -8431,8 +8431,8 @@ void VisCharGenStats::FreeBitmaps() { //4298b6
         this->field_0x194[i] = nullptr;
     }
     for (int32_t i = 0; i < 4; i++) {
-        this->field_0x174[i * 2] = nullptr;
-        this->field_0x174[i * 2 + 1] = nullptr;
+        this->field_0x174[i][0] = nullptr;
+        this->field_0x174[i][1] = nullptr;
     }
 }
 
@@ -8463,16 +8463,16 @@ const char* VisCharGenStats::GetHint() {
         if ((this->field_0xa4 + topleft).PtInRect(pt)) {
             return TxtFile::AllLines[0x111];
         }
-        if ((this->areas[i * 3] + topleft).PtInRect(pt)) {
+        if ((this->areas[i][0] + topleft).PtInRect(pt)) {
             str.Format("%s = %d", (LPCTSTR)this->texts.ElementAt(i), (&this->stat_body)[i]);
             return str;
         }
-        if ((this->areas[i * 3 + 1] + topleft).PtInRect(pt)) {
+        if ((this->areas[i][1] + topleft).PtInRect(pt)) {
             str.Format("%+d", -this->StatUpCost((&this->stat_body)[i]));
             FUN_00476987(&str);
             return str;
         }
-        if ((this->areas[i * 3 + 2] + topleft).PtInRect(pt)) {
+        if ((this->areas[i][2] + topleft).PtInRect(pt)) {
             str.Format("%+d", this->StatDownRefund((&this->stat_body)[i]));
             FUN_00476987(&str);
             return str;
@@ -8495,16 +8495,16 @@ void VisCharGenStats::VMethod7() {
     for (int32_t i = 0; i < 4; i++) {
         str.Format("%d", (&this->stat_body)[i]);
         uint16_t* pal = palette_husk->GetPalette(0);
-        g_font4->DrawTextWithShadow(screen_rect.left + this->areas[i * 3].left + 2,
-                                    screen_rect.top + this->areas[i * 3].top + 4,
+        g_font4->DrawTextWithShadow(screen_rect.left + this->areas[i][0].left + 2,
+                                    screen_rect.top + this->areas[i][0].top + 4,
                                     str, 0, pal, 1);
-        CBmp64* plus_bmp = this->field_0x174[i * 2];
-        plus_bmp->DrawSubRectMasked(screen_rect.left + this->areas[i * 3 + 1].left,
-                            screen_rect.top + this->areas[i * 3 + 1].top,
+        CBmp64* plus_bmp = this->field_0x174[i][0];
+        plus_bmp->DrawSubRectMasked(screen_rect.left + this->areas[i][1].left,
+                            screen_rect.top + this->areas[i][1].top,
                             0, 0, plus_bmp->GetWidth(0), plus_bmp->GetHeight(0));
-        CBmp64* minus_bmp = this->field_0x174[i * 2 + 1];
-        minus_bmp->DrawSubRectMasked(screen_rect.left + this->areas[i * 3 + 2].left,
-                             screen_rect.top + this->areas[i * 3 + 2].top,
+        CBmp64* minus_bmp = this->field_0x174[i][1];
+        minus_bmp->DrawSubRectMasked(screen_rect.left + this->areas[i][2].left,
+                             screen_rect.top + this->areas[i][2].top,
                              0, 0, minus_bmp->GetWidth(0), minus_bmp->GetHeight(0));
         str.Format("%d", this->field_0x1f0);
         FUN_00476987(&str);
@@ -8523,13 +8523,13 @@ int32_t VisCharGenStats::HitTest(CPoint pt) {
     CPoint topleft;
     this->ClientPtToScreen(&topleft, this->rect.TopLeft());
     for (int32_t i = 0; i < 4; i++) {
-        if ((this->areas[i * 3] + topleft).PtInRect(pt)) {
+        if ((this->areas[i][0] + topleft).PtInRect(pt)) {
             return i << 8;
         }
-        if ((this->areas[i * 3 + 1] + topleft).PtInRect(pt)) {
+        if ((this->areas[i][1] + topleft).PtInRect(pt)) {
             return (i << 8) | 1;
         }
-        if ((this->areas[i * 3 + 2] + topleft).PtInRect(pt)) {
+        if ((this->areas[i][2] + topleft).PtInRect(pt)) {
             return (i << 8) | 2;
         }
     }
@@ -8550,30 +8550,30 @@ uint32_t VisCharGenStats::HandleClick(int32_t mode, CPoint pt) {
     }
     for (int32_t i = 0; i < 4; i++) {
         int32_t up_cost = this->StatUpCost((&this->stat_body)[i]);
-        this->field_0x174[i * 2] = this->field_0x194[3];
+        this->field_0x174[i][0] = this->field_0x194[3];
         if (this->field_0x1f0 >= up_cost && (&this->stat_body)[i] < 0x2D) {
             if (i == idx && button == 1) {
                 if (mode & 1) {
-                    this->field_0x174[i * 2] = this->field_0x194[0];
+                    this->field_0x174[i][0] = this->field_0x194[0];
                 } else {
-                    this->field_0x174[i * 2] = this->field_0x194[1];
+                    this->field_0x174[i][0] = this->field_0x194[1];
                 }
             }
         } else {
-            this->field_0x174[i * 2] = this->field_0x194[4];
+            this->field_0x174[i][0] = this->field_0x194[4];
         }
         this->StatDownRefund((&this->stat_body)[i]);
-        this->field_0x174[i * 2 + 1] = this->field_0x194[8];
+        this->field_0x174[i][1] = this->field_0x194[8];
         if ((&this->stat_body)[i] > 0xF) {
             if (i == idx && button == 2) {
                 if (mode & 1) {
-                    this->field_0x174[i * 2 + 1] = this->field_0x194[5];
+                    this->field_0x174[i][1] = this->field_0x194[5];
                 } else {
-                    this->field_0x174[i * 2 + 1] = this->field_0x194[6];
+                    this->field_0x174[i][1] = this->field_0x194[6];
                 }
             }
         } else {
-            this->field_0x174[i * 2 + 1] = this->field_0x194[9];
+            this->field_0x174[i][1] = this->field_0x194[9];
         }
     }
     return hit;
@@ -8682,9 +8682,9 @@ void VisCharGenStats::Init() {
         this->texts.ElementAt(i) = TxtFile::AllLines[0xF + i];
     }
     for (int32_t i = 0; i < 4; i++) {
-        this->areas[i * 3] = CRect(CPoint(0x52, (i << 5) + 0x36), CSize(0x14, 0x14));
-        this->areas[i * 3 + 1] = CRect(CPoint(0x6B, (i << 5) + 0x36), CSize(0x14, 0x14));
-        this->areas[i * 3 + 2] = CRect(CPoint(0x84, (i << 5) + 0x36), CSize(0x14, 0x14));
+        this->areas[i][0] = CRect(CPoint(0x52, (i << 5) + 0x36), CSize(0x14, 0x14));
+        this->areas[i][1] = CRect(CPoint(0x6B, (i << 5) + 0x36), CSize(0x14, 0x14));
+        this->areas[i][2] = CRect(CPoint(0x84, (i << 5) + 0x36), CSize(0x14, 0x14));
     }
     for (int32_t i = 0; i < 4; i++) {
         this->field_0x64[i] = CRect(CPoint(0x10, i * 0x21 + 0x39),
@@ -14403,7 +14403,7 @@ void VisTavScene::VMethod7() {
         for (int32_t i = 0; i < avail_count; i++) {
             int32_t row = i / 6;
             int32_t col = i % 6;
-            CPoint pt = this->field_0x60[row * 6 + col].TopLeft();
+            CPoint pt = this->field_0x60[row][col].TopLeft();
             if (this->vis_tav->selection_index == -1) {
                 continue;
             }
@@ -14419,7 +14419,7 @@ void VisTavScene::VMethod7() {
             CUnit* unit = this->vis_tav->avail_entries[i];
             int32_t entry = this->vis_tav->FUN_0049e2e3(unit);
             if (this->vis_tav->entrie_id[entry] & 0x80000000) {
-                CRect& r = this->field_0x60[row * 6 + col];
+                CRect& r = this->field_0x60[row][col];
                 g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], 10, clrsh_CoralRed, 1);
             }
         }
@@ -14427,7 +14427,7 @@ void VisTavScene::VMethod7() {
         for (int32_t i = 0; i < this->vis_tav->reserved_entries.GetSize(); i++) {
             int32_t row = (avail_count + i) / 6;
             int32_t col = (avail_count + i) % 6;
-            CPoint pt = this->field_0x60[row * 6 + col].TopLeft();
+            CPoint pt = this->field_0x60[row][col].TopLeft();
             if (this->vis_tav->selection_index == -1) {
                 continue;
             }
@@ -14556,7 +14556,7 @@ const char* VisTavScene::GetHint() {
     for (int32_t i = 0; i < this->vis_tav->rewards.GetSize(); i++) {
         int32_t row = i / 3;
         int32_t col = i % 3;
-        if (this->field_0x180[row * 3 + col].PtInRect(pt)) {
+        if (this->field_0x180[row][col].PtInRect(pt)) {
             TokenEntry* entry = this->vis_tav->rewards[i];
             if (entry->item_id == 0xFFFD) {
                 return TxtFile::AllLines[0x166];
@@ -14673,11 +14673,11 @@ void VisTavScene::FUN_0049bc23() {
     if (quest_found != 0) {
         Quest* quest = nullptr;
         main_wnd->vis_map_context->field_0x4970->FindQuest(quest_found, &quest);
-        CPoint pt = this->field_0x60[0].TopLeft();
+        CPoint pt = this->field_0x60[0][0].TopLeft();
         int32_t kind = quest->Kind();
         this->field_0x34c[kind - 1]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
         if (this->vis_tav->field_0x13c == 0) {
-            CRect& r = this->field_0x60[0];
+            CRect& r = this->field_0x60[0][0];
             g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x158], 10, clrsh_CoralRed, 1);
         }
         return;
@@ -14692,11 +14692,11 @@ void VisTavScene::FUN_0049bc23() {
             this->vis_tav->quest_map->quests_map.GetNextAssoc(it, key, quest);
             int32_t row = i / 6;
             int32_t col = i % 6;
-            CPoint pt = this->field_0x60[row * 6 + col].TopLeft();
+            CPoint pt = this->field_0x60[row][col].TopLeft();
             int32_t kind = quest->Kind();
             this->field_0x34c[kind - 1]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
             if (this->vis_tav->quest_selection == key) {
-                CRect& r = this->field_0x60[row * 6 + col];
+                CRect& r = this->field_0x60[row][col];
                 g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x158], 10, clrsh_CoralRed, 1);
             }
             i++;
@@ -14707,7 +14707,7 @@ void VisTavScene::FUN_0049bc23() {
     for (int32_t i = 0; i < this->vis_tav->rewards.GetSize(); i++) {
         int32_t row = i / 3;
         int32_t col = i % 3;
-        CPoint pt = this->field_0x180[row * 3 + col].TopLeft();
+        CPoint pt = this->field_0x180[row][col].TopLeft();
         g_bmp_backinv->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
         if (this->vis_tav->quest_id == i) {
             FillRectBrightness(tav_topleft.x + pt.x, tav_topleft.y + pt.y, tav_topleft.x + pt.x + 0x50, tav_topleft.y + pt.y + 0x50, 2);
@@ -14782,14 +14782,14 @@ void VisTavScene::FUN_0049af8c() {
     for (int32_t i = 0; i < 3; i++) {
         for (int32_t j = 0; j < 6; j++) {
             CPoint pt = base + CPoint(j * 0x30, -(i + 1) * 0x40);
-            this->field_0x60[i * 6 + j] = CRect(pt, CSize(0x30, 0x40));
+            this->field_0x60[i][j] = CRect(pt, CSize(0x30, 0x40));
         }
     }
 
     for (int32_t i = 0; i < 3; i++) {
         for (int32_t j = 0; j < 3; j++) {
             CPoint pt = base + CPoint(j * 0x50 + 0x18, -(i + 1) * 0x50);
-            this->field_0x180[i * 3 + j] = CRect(pt, CSize(0x50, 0x50));
+            this->field_0x180[i][j] = CRect(pt, CSize(0x50, 0x50));
         }
     }
 
@@ -14817,7 +14817,7 @@ int32_t VisTavScene::FUN_0049cab8(CPoint* pos) {
         for (int32_t i = 0; i < count; i++) {
             int32_t row = i / 6;
             int32_t col = i % 6;
-            if (this->field_0x60[row * 6 + col].PtInRect(pt)) {
+            if (this->field_0x60[row][col].PtInRect(pt)) {
                 return i;
             }
         }
@@ -14833,7 +14833,7 @@ int32_t VisTavScene::FUN_0049cab8(CPoint* pos) {
             this->vis_tav->quest_map->quests_map.GetNextAssoc(it, key, quest);
             int32_t row = i / 6;
             int32_t col = i % 6;
-            if (this->field_0x60[row * 6 + col].PtInRect(pt)) {
+            if (this->field_0x60[row][col].PtInRect(pt)) {
                 return quest->GetSomeId();
             }
             i++;
@@ -14844,7 +14844,7 @@ int32_t VisTavScene::FUN_0049cab8(CPoint* pos) {
     for (int32_t i = 0; i < this->vis_tav->rewards.GetSize(); i++) {
         int32_t row = i / 3;
         int32_t col = i % 3;
-        if (this->field_0x180[row * 3 + col].PtInRect(pt)) {
+        if (this->field_0x180[row][col].PtInRect(pt)) {
             return i;
         }
     }
@@ -14973,7 +14973,7 @@ void VisTavSceneDruid::VMethod7() {
         for (int32_t i = 0; i < avail_count; i++) {
             int32_t row = i / 6;
             int32_t col = i % 6;
-            CPoint pt = this->field_0x60[row * 6 + col].TopLeft();
+            CPoint pt = this->field_0x60[row][col].TopLeft();
             if (this->vis_tav->selection_index == -1) {
                 continue;
             }
@@ -14989,7 +14989,7 @@ void VisTavSceneDruid::VMethod7() {
             CUnit* unit = this->vis_tav->avail_entries[i];
             int32_t entry = this->vis_tav->FUN_0049e2e3(unit);
             if (this->vis_tav->entrie_id[entry] & 0x80000000) {
-                CRect& r = this->field_0x60[row * 6 + col];
+                CRect& r = this->field_0x60[row][col];
                 g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], 10, clrsh_CoralRed, 1);
             }
         }
@@ -14997,7 +14997,7 @@ void VisTavSceneDruid::VMethod7() {
         for (int32_t i = 0; i < this->vis_tav->reserved_entries.GetSize(); i++) {
             int32_t row = (avail_count + i) / 6;
             int32_t col = (avail_count + i) % 6;
-            CPoint pt = this->field_0x60[row * 6 + col].TopLeft();
+            CPoint pt = this->field_0x60[row][col].TopLeft();
             if (this->vis_tav->selection_index == -1) {
                 continue;
             }
@@ -15256,7 +15256,7 @@ void VisTavSceneKaarg::VMethod7() {
         for (int32_t i = 0; i < avail_count; i++) {
             int32_t row = i / 6;
             int32_t col = i % 6;
-            CPoint pt = this->field_0x60[row * 6 + col].TopLeft();
+            CPoint pt = this->field_0x60[row][col].TopLeft();
             if (this->vis_tav->selection_index == -1) {
                 continue;
             }
@@ -15272,7 +15272,7 @@ void VisTavSceneKaarg::VMethod7() {
             CUnit* unit = this->vis_tav->avail_entries[i];
             int32_t entry = this->vis_tav->FUN_0049e2e3(unit);
             if (this->vis_tav->entrie_id[entry] & 0x80000000) {
-                CRect& r = this->field_0x60[row * 6 + col];
+                CRect& r = this->field_0x60[row][col];
                 g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], 10, clrsh_CoralRed, 1);
             }
         }
@@ -15280,7 +15280,7 @@ void VisTavSceneKaarg::VMethod7() {
         for (int32_t i = 0; i < this->vis_tav->reserved_entries.GetSize(); i++) {
             int32_t row = (avail_count + i) / 6;
             int32_t col = (avail_count + i) % 6;
-            CPoint pt = this->field_0x60[row * 6 + col].TopLeft();
+            CPoint pt = this->field_0x60[row][col].TopLeft();
             if (this->vis_tav->selection_index == -1) {
                 continue;
             }

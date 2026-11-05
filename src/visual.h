@@ -1611,8 +1611,8 @@ public:
 
 public:
 	VisTav* vis_tav; // 0x5c
-	CRect field_0x60[18]; // 0x60
-	CRect field_0x180[9]; // 0x180
+	CRect field_0x60[3][6]; // 0x60
+	CRect field_0x180[3][3]; // 0x180
 	CArray<CSprite256*> field_0x210; // 0x210
 	CArray<CSprite256*> field_0x224; // 0x224
 	CArray<CSprite256*> field_0x238; // 0x238
@@ -2393,8 +2393,8 @@ public:
 	CBmp64* bmp; // 0x60
 	CRect field_0x64[4];
 	CRect field_0xa4;
-	CRect areas[12]; // 0xb4
-	CBmp64* field_0x174[8]; // 0x174: 4 x [plus, minus] button bitmap pairs
+	CRect areas[4][3]; // 0xb4: per-stat rects [value, plus_btn, minus_btn]
+	CBmp64* field_0x174[4][2]; // 0x174: per-stat [plus, minus] button bitmap pair
 	CBmp64* field_0x194[10]; // 0x194: plon/ploff/pnlon/pnloff/pdisable/mlon/mloff/mnlon/mnloff/mdisable
 	CStringArray texts; // 0x1bc
 	int32_t stat_body; // 0x1d0
