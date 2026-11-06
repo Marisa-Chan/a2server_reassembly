@@ -538,7 +538,7 @@ BOOL GameApp::InitInstance() {
 	RegCloseKey(regkey);
 
 	RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\1C\\Allods 2", 0, KEY_READ, &regkey);
-	
+
 	DWORD bufsz = 255;
 	if (RegQueryValueExA(regkey, "CDSPEED", NULL, NULL, (uint8_t*)g_CdSpeed, &bufsz) != ERROR_SUCCESS) {
 		strcpy(g_CdSpeed, "-4x");

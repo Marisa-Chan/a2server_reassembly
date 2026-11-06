@@ -1832,15 +1832,37 @@ void HatSettings::Save(HKEY& rkey) {
 }
 
 
+#ifdef A2CLIENT_PATCH
+// A2CLIENT_PATCH deviation from the retail client: the retail binaries are
+// manifest-less, so Windows applies UAC registry virtualization to their
+// HKLM\SOFTWARE\1C\Allods 2 access - reads merge the per-user VirtualStore copy
+// over the raw hive, writes land in the VirtualStore. Our build carries a UAC
+// manifest (no virtualization), so replicate that here: prefer the VirtualStore
+// copy for reads (SaveSettings writes the full value set, so when it exists it
+// is complete), and save there when HKLM is not writable - plain HKLM needs
+// elevation, which is why the in-game "save settings" never persisted anything
+// before.
+static const char* VIRTUALSTORE_SETTINGS_KEY =
+    "Software\\Classes\\VirtualStore\\MACHINE\\SOFTWARE\\WOW6432Node\\1C\\Allods 2";
+#endif
+
 void MainWindow::LoadSettings() { //441a03
     g_settings.Init();
     this->last_protocol = 0;
     this->com_settings.Reset();
 
     HKEY regkey;
+#ifdef A2CLIENT_PATCH
+    if (RegOpenKeyExA(HKEY_CURRENT_USER, VIRTUALSTORE_SETTINGS_KEY, 0, KEY_READ, &regkey) != 0) {
+        if (RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\1C\\Allods 2", 0, KEY_READ, &regkey) != 0) {
+            return;
+        }
+    }
+#else
     if (RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\1C\\Allods 2", 0, KEY_READ, &regkey) != 0) {
         return;
     }
+#endif
 
     g_SoundSettings.Load(regkey);
     g_settings.Load(regkey);
@@ -1874,7 +1896,18 @@ void MainWindow::LoadSettings() { //441a03
 // 441b1e
 void SaveSettings() {
     HKEY regkey;
+#ifdef A2CLIENT_PATCH
+    // A2CLIENT_PATCH deviation: write where a virtualized retail build would
+    // (HKLM when elevated, otherwise the per-user VirtualStore copy).
+    if (RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\1C\\Allods 2", 0, KEY_WRITE, &regkey) != 0) {
+        if (RegCreateKeyExA(HKEY_CURRENT_USER, VIRTUALSTORE_SETTINGS_KEY, 0, nullptr, REG_OPTION_NON_VOLATILE,
+                            KEY_WRITE, nullptr, &regkey, nullptr) != 0) {
+            return;
+        }
+    }
+#else
     RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\1C\\Allods 2", 0, KEY_READ, &regkey);
+#endif
 
     g_SoundSettings.Save(regkey);
     g_settings.Save(regkey);
