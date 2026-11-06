@@ -3121,12 +3121,13 @@ void BigStruct2::CleanupCompletedMissionMapState() { //41ce5a
 	}
 	this->field_0x80 = nullptr;
 
-	for (int i = 0; i < this->field_0x9b8.GetSize(); i++) {
-		if (this->field_0x9b8[i] != this->my_main_unit) {
-			delete this->field_0x9b8[i];
+	while (this->field_0x9b8.GetSize() > 1) {
+		MapPlayerData* mp = this->field_0x9b8[1];
+		if (mp != nullptr && mp != this->my_main_unit) {
+			delete mp;
 		}
+		this->field_0x9b8.RemoveAt(1, 1);
 	}
-	this->field_0x9b8.RemoveAll();
 
 	this->field_0x9b8.SetAtGrow(this->my_main_unit->index, this->my_main_unit);
 
