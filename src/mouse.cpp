@@ -139,7 +139,8 @@ void CMousePointer::Paint() {
 
 void CMousePointer::PaintHint() {
     //4282bb
-    CRect r = this->hint_rect + CRect(1, 1, -1, -2);
+    CRect r = this->hint_rect;
+    r.DeflateRect(1, 1, 1, 2);
 
     FillRectColorSimple(r.left, r.top, r.right, r.bottom, GetColorRGB(0x24, 0x2c, 0x27));
 
