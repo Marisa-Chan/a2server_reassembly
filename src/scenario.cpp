@@ -827,6 +827,7 @@ void __stdcall ScenarioSave(CFile* fl) { //10003585
     int i = 0;
     for (POSITION pos = g_availableLocations.GetHeadPosition(); pos; i++) {
         ScenarioLocation* loc = g_availableLocations.GetNext(pos);
+        loc->Write(fl);
         if (g_currentScenarioLocation == loc) {
             num = i;
         }
