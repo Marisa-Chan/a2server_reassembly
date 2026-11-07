@@ -1391,6 +1391,10 @@ void Unit::PickUpSack(Sack* sack) {
                         }
                     }
                 }
+            } else {
+                // Co-op/arena: mark every item as just picked up so the owner's
+                // client prints the "picked up" message for it (0x76 flg 0x40).
+                item->TokenID = 1;
             }
         } // end item loop
 
