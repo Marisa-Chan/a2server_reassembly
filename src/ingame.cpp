@@ -80,12 +80,12 @@ GM_a28::~GM_a28() = default; //4020ad
 GM_a28::GM_a28() {
 	//401f50
 	this->elapsed_time = 0;
-	this->field_0x5c = 1;
+	this->dirty = 1;
 }
 
 void GM_a28::Add(const char* msg, uint16_t* clr, uint32_t t) {
 	//4021fe
-	this->field_0x5c = 1;
+	this->dirty = 1;
 
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	
@@ -124,7 +124,7 @@ void GM_a28::Add(const char* msg, uint16_t* clr, uint32_t t) {
 
 void GM_a28::AddWithCheck(const char* msg, uint16_t* clr, uint32_t t) {
 	//4023aa
-	this->field_0x5c = 1;
+	this->dirty = 1;
 
 	CStringArray& lines = g_font1->StringArrayForRect(this->out_area, msg);
 	for (int i = 0; i < lines.GetSize(); i++) {
@@ -354,11 +354,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 6:
-			if (!this->field_0x80) {
+			if (!this->scenario) {
 				this->FUN_0041c4a1(packet_join->name);
 			}
 
-			if (!this->field_0x80) {
+			if (!this->scenario) {
 				INT_00660f8c = 0x1004;
 				return 0;
 			}
@@ -433,14 +433,14 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x5c:
 			// client: 41745c — show the hat DM player list / close overlays
-			this->field_0x4a04 = packet_dword->value;
+			this->hat_player_count = packet_dword->value;
 			if (packet_2dwords->param2 != 0) {
 				this->CloseHatOverlays();
 				// client: 417624-4176a9
 				HatPlayerListWindow* dlg = new HatPlayerListWindow(1, 0x14, 0, 0x26c, 0x1f4, &this->hat_name_list, packet_2dwords->param2);
 				wnd->PopUpScreen(dlg);
 			}
-			this->field_0x49b8 = 1;
+			this->ambient_view_x = 1;
 			break;
 #endif
 
@@ -471,7 +471,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		case 0x69:
 		case 0x74: {
 			CUnit* unit;
-			if (this->field_0x9d0.Lookup(packet_word->value, *(CGameObject**)&unit)) {
+			if (this->objects.Lookup(packet_word->value, *(CGameObject**)&unit)) {
 				if (pkt->id == 0x74) {
 					unit->unitFlags |= 0x80;
 				} else {
@@ -484,8 +484,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x6a: {
 			CUnit* unit;
-			if (this->field_0x9d0.Lookup(packet_word->value, *(CGameObject**)&unit)) {
-				this->field_0x9d0.RemoveKey(packet_word->value);
+			if (this->objects.Lookup(packet_word->value, *(CGameObject**)&unit)) {
+				this->objects.RemoveKey(packet_word->value);
 				delete unit;
 			}
 		}
@@ -493,7 +493,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x6b: {
 			CUnit* unit;
-			if (!this->field_0x9d0.Lookup(packet_action->unit_id, *(CGameObject**)&unit)) {
+			if (!this->objects.Lookup(packet_action->unit_id, *(CGameObject**)&unit)) {
 				sprintf(buf, "Invalid unit #%d. Command Move.", packet_action->unit_id);
 				if (g_EnableTrace) {
 					this->msglog.Add(buf, clrsh_TechBlack, 5000);
@@ -602,13 +602,13 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					pdata += 2;
 				}
 
-				if (ownerid >= this->field_0x9b8.GetSize()) {
+				if (ownerid >= this->map_players.GetSize()) {
 					if (g_EnableTrace != 0) {
 						sprintf(buf, "Invalid owner. Unit(ext) id=%d", packet_unit->unit_id);
 						this->msglog.Add(buf, clrsh_TechBlack, 30000);
 					}
 				} else {
-					MapPlayerData* mpl = this->field_0x9b8[ownerid];
+					MapPlayerData* mpl = this->map_players[ownerid];
 					if (!mpl) {
 						if (g_EnableTrace != 0) {
 							sprintf(buf, "Invalid owner. Unit(ext) id=%d", packet_unit->unit_id);
@@ -629,8 +629,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							uni->ApplyMonsterInfo(uni->monster_info->Values());
 							uni->server_id = g_CUnitStatic.serverId;
 
-							if (wnd->sessionMode == 2 && g_Server && g_Server->field22_0xd8 != 2) {
-								if (g_Server->field22_0xd8 == 1) {
+							if (wnd->sessionMode == 2 && g_Server && g_Server->difficulty != 2) {
+								if (g_Server->difficulty == 1) {
 									uni->hp_max = uni->hp_max / 2.0;
 								} else {
 									uni->hit_values.attack += 50;
@@ -654,7 +654,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						CUnit* ct = nullptr;
 						bool ct_exist = true;
 
-						if (this->field_0x9d0.Lookup(packet_unit->unit_id, *(CGameObject**)&ct) == 0) {
+						if (this->objects.Lookup(packet_unit->unit_id, *(CGameObject**)&ct) == 0) {
 							ct_exist = false;
 
 							if ((packet_unit->flags_mask & (0x80 | 0x20)) == 0) {
@@ -675,7 +675,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 								ct->ReloadSprite();
 							}
 
-							this->field_0x9d0.SetAt(packet_unit->unit_id, ct);
+							this->objects.SetAt(packet_unit->unit_id, ct);
 							ct->unit_id = packet_unit->unit_id;
 						}
 
@@ -841,12 +841,12 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 						if (wnd->sessionMode == 2) {
 							if (ct->serverId == 0x15) {
-								this->field_0x3f6c = ct;
-								this->field_0x3f6c->unitFlags |= 0x20;
+								this->my_unit = ct;
+								this->my_unit->unitFlags |= 0x20;
 							}
 						} else if (ct->map_player == this->my_main_unit && (ct->unitFlags & 1) != 0) {
-							this->field_0x3f6c = ct;
-							this->field_0x3f6c->unitFlags |= 0x20;
+							this->my_unit = ct;
+							this->my_unit->unitFlags |= 0x20;
 						}
 
 						if (ct->str1[0] == 0 && ct->serverId != 0) {
@@ -862,7 +862,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 								ct->face = g_CUnitStatic.face;
 							}
 
-							this->field_0x3f6c->unitFlags |= 8;
+							this->my_unit->unitFlags |= 8;
 						}
 
 						if ((packet_unit->flags_mask & 0x100000) != 0) {
@@ -947,7 +947,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						case 2:
 						case 3:
 						case 4:
-							if (wnd->sessionMode != 2 && ct == this->field_0x3f6c && ct->death_state == 4 && sval < 4) {
+							if (wnd->sessionMode != 2 && ct == this->my_unit && ct->death_state == 4 && sval < 4) {
 								this->msglog.Add(txt_patch.GetLine(0x44), clr_log_sblack, 10000);
 								this->msglog.Add(txt_patch.GetLine(0x45), clr_log_sblack, 10000);
 							}
@@ -976,7 +976,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							}
 
 							if (ct->unit_id < 0x6000) {
-								this->field_0x9d0.RemoveKey(packet_unit->unit_id);
+								this->objects.RemoveKey(packet_unit->unit_id);
 								if (ct) {
 									delete ct;
 								}
@@ -984,11 +984,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							break;
 						}
 						if (g_CUnitStatic.death_state < 5) {
-							if ((wnd->dialogsMask & 1) != 0 && this->field_0x80) {
+							if ((wnd->dialogsMask & 1) != 0 && this->scenario) {
 								ct->UpdateMapPosition();
 							}
 
-							if (this->field_0x138 == ct) {
+							if (this->primary_selected_object == ct) {
 								wnd->vis_charinfo->MsgProc(0x408, 0, 0);
 								wnd->vis_sidestatus->MsgProc(0x408, 0, 0);
 							}
@@ -1007,7 +1007,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x6d: {
 			CUnit* ct = nullptr;
-			if (this->field_0x9d0.Lookup(packet_action->unit_id, *(CGameObject**)&ct) == 0) {
+			if (this->objects.Lookup(packet_action->unit_id, *(CGameObject**)&ct) == 0) {
 				if (g_EnableTrace != 0) {
 					sprintf(buf, "Invalid unit #%d. Command Turn.", packet_action->unit_id);
 					this->msglog.Add(buf, clrsh_TechBlack, 5000);
@@ -1054,7 +1054,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x71: {
 			CUnit* ct = nullptr;
-			if (this->field_0x9d0.Lookup(packet_action->unit_id, *(CGameObject**)&ct) == 0) {
+			if (this->objects.Lookup(packet_action->unit_id, *(CGameObject**)&ct) == 0) {
 				if (g_EnableTrace != 0) {
 					sprintf(buf, "Invalid unit #%d. Command Attack.", packet_action->unit_id);
 					this->msglog.Add(buf, clrsh_TechBlack, 5000);
@@ -1105,7 +1105,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x72: {
 			CUnit* ct = nullptr;
-			if (this->field_0x9d0.Lookup(packet_ranged_attack->unit_id, *(CGameObject**)&ct) == 0) {
+			if (this->objects.Lookup(packet_ranged_attack->unit_id, *(CGameObject**)&ct) == 0) {
 				if (g_EnableTrace) {
 					sprintf(buf, "Invalid unit #%d. Command Ranged Attack.", packet_ranged_attack->unit_id);
 					this->msglog.Add(buf, clrsh_TechBlack, 5000);
@@ -1149,7 +1149,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x73: {
 			CUnit* ct = nullptr;
-			if (this->field_0x9d0.Lookup(packet_unit_hp->unit_id, *(CGameObject**)&ct) == 0) {
+			if (this->objects.Lookup(packet_unit_hp->unit_id, *(CGameObject**)&ct) == 0) {
 				if (g_EnableTrace) {
 					sprintf(buf, "Invalid unit #%d. Command Take damage.", packet_unit_hp->unit_id);
 					this->msglog.Add(buf, clrsh_TechBlack, 5000);
@@ -1178,7 +1178,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				}
 
 				ct->hp = packet_unit_hp->hp;
-				if (this->field_0x138 == ct) {
+				if (this->primary_selected_object == ct) {
 					wnd->vis_charinfo->MsgProc(0x408, 0, 0);
 					wnd->vis_sidestatus->MsgProc(0x408, 0, 0);
 				}
@@ -1199,7 +1199,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			CUnit* ct = nullptr;
 			switch (packet_state->mode & 0x7f) {
 			case 1:
-				if (this->field_0x9d0.Lookup(packet_state->building_id, *(CGameObject**)&ct) != 0) {
+				if (this->objects.Lookup(packet_state->building_id, *(CGameObject**)&ct) != 0) {
 					uint8_t *pdata = packet_state->data;
 					for (int i = 0; i < 12; i++) {
 						if ((packet_state->start_index & (1 << i)) != 0) {
@@ -1245,22 +1245,22 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						uint8_t* pdata = packet_state->data;
 						for (int i = 0; i < 12; i++) {
 							if ((packet_state->start_index & (1 << i)) != 0) {
-								if (this->field_0x4988[i]) {
-									delete this->field_0x4988[i];
+								if (this->hero_equipment[i]) {
+									delete this->hero_equipment[i];
 								}
 
-								this->field_0x4988[i] = ReadItem(&pdata);
+								this->hero_equipment[i] = ReadItem(&pdata);
 							}
 						}
 
 						packet_state->data_size = 0;
 
 						for (int i = 0; i < 12; i++) {
-							if (!this->field_0x4988[i]) {
+							if (!this->hero_equipment[i]) {
 								Item item;
 								item.StoreToPacket(packet_state, 0);
 							} else {
-								this->field_0x4988[i]->StoreToPacket(packet_state, 0);
+								this->hero_equipment[i]->StoreToPacket(packet_state, 0);
 							}
 						}
 
@@ -1271,7 +1271,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				break;
 
 			case 2: {
-				if (this->field_0x9d0.Lookup(packet_state->building_id, *(CGameObject**)&ct) != 0) {
+				if (this->objects.Lookup(packet_state->building_id, *(CGameObject**)&ct) != 0) {
 					if ((packet_state->mode & 0x80) == 0) {
 						ct->tokenEntries.RemoveAll();
 					} else {
@@ -1365,25 +1365,25 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						if (wnd->sessionMode != 2) {
 							uint8_t *pdata = packet_state->data;
 							for (int i = 0; i < packet_state->entry_count; i++) {
-								if (i + packet_state->start_index < this->field_0x4974.GetSize()) {
-									Item* itm = this->field_0x4974[i + packet_state->start_index];
+								if (i + packet_state->start_index < this->hero_inventory.GetSize()) {
+									Item* itm = this->hero_inventory[i + packet_state->start_index];
 									if (itm) {
 										delete itm;
 									}
 								}
 
 								Item * itm = ReadItem(&pdata);
-								this->field_0x4974.SetAtGrow(i + packet_state->start_index, itm);
+								this->hero_inventory.SetAtGrow(i + packet_state->start_index, itm);
 							}
 
 							if ((packet_state->mode & 0x80) == 0) {
-								this->field_0x4974.SetSize(packet_state->entry_count);
+								this->hero_inventory.SetSize(packet_state->entry_count);
 							}
 							
 							packet_state->data_size = 0;
 
-							for (int i = 0; i < this->field_0x4974.GetSize(); i++) {
-								this->field_0x4974[i]->StoreToPacket(packet_state, 0);
+							for (int i = 0; i < this->hero_inventory.GetSize(); i++) {
+								this->hero_inventory[i]->StoreToPacket(packet_state, 0);
 							}
 
 
@@ -1405,7 +1405,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					if (wnd->dialogsMask & 2) {
 						wnd->vis_root->FindChild(1000)->MsgProc(0x413, packet_state->mode & 0x7f, 0);
 					} else {
-						if (this->field_0x140 == 1 && this->field_0x138 == ct) {
+						if (this->selected_object_count == 1 && this->primary_selected_object == ct) {
 							wnd->vis_invtype1->VMethod33(ct);
 						}
 					}
@@ -1481,14 +1481,14 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x7a: {
 			CGameObject* ct = nullptr;
-			if (this->field_0x9d0.Lookup(packet_sack->unit_id, ct)) {
+			if (this->objects.Lookup(packet_sack->unit_id, ct)) {
 				ct->typeId = packet_sack->type_id;
 				if (ct->typeId > 5) {
 					ct->typeId = 5;
 				}
 			} else {
 				CBackPack* pak = new CBackPack();
-				this->field_0x9d0[packet_sack->unit_id] = pak;
+				this->objects[packet_sack->unit_id] = pak;
 
 				pak->SetVals(packet_sack->unit_id, 1, packet_sack->xpos, packet_sack->ypos, 0, 0, 0, 0, 1);
 
@@ -1498,7 +1498,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					pak->typeId = 5;
 				}
 
-				if ((wnd->dialogsMask & 1) != 0 && this->field_0x80 != nullptr) {
+				if ((wnd->dialogsMask & 1) != 0 && this->scenario != nullptr) {
 					pak->UpdateMapPosition();
 				}
 			}
@@ -1508,9 +1508,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x82: {
 			CUnit* ct = nullptr;
-			if (this->field_0x9d0.Lookup(packet_building_hp->building_id, *(CGameObject**)&ct)) {
+			if (this->objects.Lookup(packet_building_hp->building_id, *(CGameObject**)&ct)) {
 				ct->hp = packet_building_hp->hp;
-				if (this->field_0x138 == ct) {
+				if (this->primary_selected_object == ct) {
 					wnd->vis_charinfo->MsgProc(0x408, 0, 0);
 					wnd->vis_sidestatus->MsgProc(0x408, 0, 0);
 				}
@@ -1528,11 +1528,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x86:
 			// client 40dac9: the whole move-broadcast handler is gated on the
-			// join being complete (field_0x80).
-			if (this->field_0x80 != 0) {
+			// join being complete (scenario).
+			if (this->scenario != 0) {
 			if ((packet_move->type_id & 1) == 0 || packet_move->type_id >= g_ProjectileInfos.GetSize() || g_ProjectileInfos[packet_move->type_id] == nullptr) {
 				CUnit* ct = nullptr;
-				if (this->field_0x9d0.Lookup(packet_move->unit_id, *(CGameObject**)&ct) == 0) {
+				if (this->objects.Lookup(packet_move->unit_id, *(CGameObject**)&ct) == 0) {
 					if (g_EnableTrace != 0) {
 						sprintf(buf, "Invalid unit #%d. Command Cast spell.", packet_move->unit_id);
 						this->msglog.Add(buf, clrsh_TechBlack, 5000);
@@ -1577,8 +1577,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 				pj->UpdateMapPosition();
 
-				this->field_0x9ec[this->field_0xa24] = pj;
-				this->field_0xa24++;
+				this->projectiles[this->next_projectile_id] = pj;
+				this->next_projectile_id++;
 
 				SfxSample* snd = g_SfxArray[packet_move->type_id + 500];
 				if (packet_move->type_id != 23 && snd) {
@@ -1596,23 +1596,23 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x87:
 			// client 40dac9: gated on field_0x80.
-			if (this->field_0x80 != 0) {
-			this->FUN_0041c74b(packet_aoe->field_0xb,
-							packet_aoe->field_0xc,
-							packet_aoe->field_0xd,
-							packet_aoe->field_0xe,
+			if (this->scenario != 0) {
+			this->FUN_0041c74b(packet_aoe->x,
+							packet_aoe->y,
+							packet_aoe->width,
+							packet_aoe->height,
 							(packet_aoe->type_id / 2) - 4,
 							packet_aoe->data,
 							packet_aoe->set_flag);
 			if (packet_aoe->set_flag == 0) {
-				this->field_0xe0 = 1;
+				this->full_redraw_requested = 1;
 			}
 			}
 			break;
 
 		case 0x88: {
 			CGameObject* ct = nullptr;
-			if (this->field_0x9d0.Lookup(packet_effect->unit_id, ct) != 0) {
+			if (this->objects.Lookup(packet_effect->unit_id, ct) != 0) {
 				int32_t idx = ct->FindEffectTimer(packet_effect->effect_type);
 				if (idx < 0) {
 					ct->effect_timers.Add((packet_effect->effect_type << 0x10) | 0xffff);
@@ -1627,7 +1627,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x89: {
 			CGameObject* ct = nullptr;
-			if (this->field_0x9d0.Lookup(packet_effect->unit_id, ct) != 0) {
+			if (this->objects.Lookup(packet_effect->unit_id, ct) != 0) {
 				int32_t idx = ct->FindEffectTimer(packet_effect->effect_type);
 				if (idx > -1) {
 					ct->effect_timers.RemoveAt(idx);
@@ -1640,9 +1640,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x8a: {
 			// client 40dac9: gated on field_0x80.
-			if (this->field_0x80 != 0) {
+			if (this->scenario != 0) {
 			CGameObject* ct = nullptr;
-			this->field_0x9d0.Lookup(packet_terrain->buf[0], ct);
+			this->objects.Lookup(packet_terrain->buf[0], ct);
 			if (ct->action_segments == 0 && g_VFX_info[ct->typeId]->attack_phases != 0) {
 				ct->action_segments = g_VFX_info[ct->typeId]->attack_anim_frame_cnt;
 				ct->action = 8;
@@ -1662,7 +1662,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x8b: {
 			// client 40dac9: gated on field_0x80.
-			if (this->field_0x80 != 0) {
+			if (this->scenario != 0) {
 			CProjectile* pj = new CProjectile();
 			pj->typeId = packet_move->type_id;
 			pj->x_pos = (packet_move->unit_id & 0xFF) * 0x100 + 0x80;
@@ -1688,8 +1688,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 			pj->UpdateMapPosition();
 			
-			this->field_0x9ec[this->field_0xa24] = pj;
-			this->field_0xa24++;
+			this->projectiles[this->next_projectile_id] = pj;
+			this->next_projectile_id++;
 
 			SfxSample* snd = g_SfxArray[packet_move->type_id + 500];
 			if (packet_move->type_id != 23 && snd) {
@@ -1730,8 +1730,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 			pj->UpdateMapPosition();
 
-			this->field_0x9ec[this->field_0xa24] = pj;
-			this->field_0xa24++;
+			this->projectiles[this->next_projectile_id] = pj;
+			this->next_projectile_id++;
 
 			SfxSample* snd = g_SfxArray[pj->typeId + 500];
 			if (pj->typeId != 23 && snd) {
@@ -1747,10 +1747,10 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		break;
 
 		case 0x91: {
-			if (packet_join->player_id == 0 || packet_join->player_id >= this->field_0x9b8.GetSize() || this->field_0x9b8[packet_join->player_id] == nullptr) {
+			if (packet_join->player_id == 0 || packet_join->player_id >= this->map_players.GetSize() || this->map_players[packet_join->player_id] == nullptr) {
 				this->msglog.Add(packet_join->name, clr_log_sblack, 10000);
 			} else if (this->my_main_unit->KnowsPlayer(packet_join->player_id) == 0 || packet_join->token_id == 4) {
-				MapPlayerData* dat = this->field_0x9b8[packet_join->player_id];
+				MapPlayerData* dat = this->map_players[packet_join->player_id];
 
 				if (g_MessageColors == 0 || (wnd->dialogsMask & 1) == 0) {
 					this->msglog.Add(CString(dat->name) + ": " + packet_join->name, g_colors_human_pals[dat->color], 10000);
@@ -1796,7 +1796,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 				CString txt;
 
-				if ((this->field_0x3f6c->unitFlags & 2) == 0) {
+				if ((this->my_unit->unitFlags & 2) == 0) {
 					txt = TxtFile::AllLines[texid + 0x81];
 				} else {
 					txt = TxtFile::AllLines[texid + 0x86];
@@ -1823,22 +1823,22 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 			case 3:
 				if (packet_2dwords->param2 != this->my_main_unit->index) {
-					sprintf(buf, "%s %s %s", TxtFile::AllLines[0xcc], this->field_0x9b8[packet_2dwords->param2]->name, TxtFile::AllLines[0xcd]);
+					sprintf(buf, "%s %s %s", TxtFile::AllLines[0xcc], this->map_players[packet_2dwords->param2]->name, TxtFile::AllLines[0xcd]);
 					this->msglog.Add(buf, clr_log_sblack, 5000);
 				}
 				break;
 
 			case 4:
 				if (packet_2dwords->param2 == this->my_main_unit->index) {
-					sprintf(buf, "%s %s %s", TxtFile::AllLines[0xd0], this->field_0x9b8[packet_2dwords->param2]->name, TxtFile::AllLines[0xd1]);
+					sprintf(buf, "%s %s %s", TxtFile::AllLines[0xd0], this->map_players[packet_2dwords->param2]->name, TxtFile::AllLines[0xd1]);
 				} else {
-					sprintf(buf, "%s %s %s", TxtFile::AllLines[0xce], this->field_0x9b8[packet_2dwords->param2]->name, TxtFile::AllLines[0xcf]);
+					sprintf(buf, "%s %s %s", TxtFile::AllLines[0xce], this->map_players[packet_2dwords->param2]->name, TxtFile::AllLines[0xcf]);
 				}
 				this->msglog.Add(buf, clr_log_sblack, 5000);
 				break;
 
 			case 5:
-				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xdd], this->field_0x9b8[packet_2dwords->param2]->name, TxtFile::AllLines[0xde]);
+				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xdd], this->map_players[packet_2dwords->param2]->name, TxtFile::AllLines[0xde]);
 				this->msglog.Add(buf, clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & 1) != 0) {
@@ -1847,7 +1847,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				break;
 
 			case 6:
-				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xdf], this->field_0x9b8[packet_2dwords->param2]->name, TxtFile::AllLines[0xe0]);
+				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xdf], this->map_players[packet_2dwords->param2]->name, TxtFile::AllLines[0xe0]);
 				this->msglog.Add(buf, clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & 1) != 0) {
@@ -1856,7 +1856,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				break;
 
 			case 7:
-				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xe1], this->field_0x9b8[packet_2dwords->param2]->name, TxtFile::AllLines[0xe2]);
+				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xe1], this->map_players[packet_2dwords->param2]->name, TxtFile::AllLines[0xe2]);
 				this->msglog.Add(buf, clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & 1) != 0) {
@@ -1913,7 +1913,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			this->msglog.Add(txt_patch.GetLine(0x4e) + CString(" ") + packet_join->name + CString(" ") + txt_patch.GetLine(0x4f), clr_log_sblack, 5000);
 			g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 
-			if (packet_join->__field_0xa == this->my_main_unit->index) {
+			if (packet_join->__as_dword == this->my_main_unit->index) {
 				if ((wnd->dialogsMask & 1) == 0) {
 					while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
 					{}
@@ -1929,28 +1929,28 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x94:
 			if (packet_2dwords->param1 != 0 && 
-				packet_2dwords->param1 < this->field_0x9b8.GetSize() && this->field_0x9b8[packet_2dwords->param1] != nullptr &&
+				packet_2dwords->param1 < this->map_players.GetSize() && this->map_players[packet_2dwords->param1] != nullptr &&
 				packet_2dwords->param2 != 0 &&
-				packet_2dwords->param2 < this->field_0x9b8.GetSize() && this->field_0x9b8[packet_2dwords->param2] != nullptr) {
+				packet_2dwords->param2 < this->map_players.GetSize() && this->map_players[packet_2dwords->param2] != nullptr) {
 				CString str;
-				str.Format("%s %s %s %s %s", txt_patch.GetLine(0x50), this->field_0x9b8[packet_2dwords->param1]->name, txt_patch.GetLine(0x51), this->field_0x9b8[packet_2dwords->param2]->name, txt_patch.GetLine(0x52));
+				str.Format("%s %s %s %s %s", txt_patch.GetLine(0x50), this->map_players[packet_2dwords->param1]->name, txt_patch.GetLine(0x51), this->map_players[packet_2dwords->param2]->name, txt_patch.GetLine(0x52));
 				this->msglog.Add(str, clr_log_sblack, 5000);
 			}
 			break;
 
 		case 0x96: {
-			bool isin = packet_join->player_id < this->field_0x9b8.GetSize();
+			bool isin = packet_join->player_id < this->map_players.GetSize();
 			if (isin) {
-				if (this->field_0x9b8[packet_join->player_id] == nullptr) {
+				if (this->map_players[packet_join->player_id] == nullptr) {
 					isin = false;
 				}
 			}
 			MapPlayerData* mp = nullptr;
 			if (!isin) {
 				mp = new MapPlayerData(packet_join->player_id, packet_join->color);
-				mp->field2_0x8 = packet_join->token_id;
+				mp->token_id = packet_join->token_id;
 			} else {
-				mp = this->field_0x9b8[packet_join->player_id];
+				mp = this->map_players[packet_join->player_id];
 			}
 
 			if ((packet_join->flags & 1) == 0) {
@@ -1962,7 +1962,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			strncpy(mp->name, packet_join->name, 31);
 			mp->name[31] = 0;
 
-			if (this->field_0x9b8.GetSize() == 1) {
+			if (this->map_players.GetSize() == 1) {
 				wnd->m_GameSession.phased_in = (packet_join->flags & 2) != 0;
 				this->my_main_unit = mp;
 				this->my_main_unit->diplomacy.SetAtGrow(0, 0);
@@ -1975,7 +1975,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				this->my_main_unit->diplomacy.SetAtGrow(mp->index, 1);
 			}
 
-			this->field_0x9b8.SetAtGrow(mp->index, mp);
+			this->map_players.SetAtGrow(mp->index, mp);
 
 			wnd->ClearDiplomacyEntries();
 
@@ -1996,23 +1996,23 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			}
 
 			CArray<uint16_t> tmp;
-			for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+			for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 				uint16_t key;
 				CGameObject* obj;
-				this->field_0x9d0.GetNextAssoc(it, key, obj);
+				this->objects.GetNextAssoc(it, key, obj);
 				
-				if (obj->map_player == this->field_0x9b8[packet_2dwords->param1]) {
+				if (obj->map_player == this->map_players[packet_2dwords->param1]) {
 					tmp.Add(key);
 				}
 			}
 
 			for (int i = 0; i < tmp.GetSize(); i++) {
 				CGameObject* obj;
-				this->field_0x9d0.Lookup(tmp[i], obj);
-				this->field_0x9d0.RemoveKey(tmp[i]);
+				this->objects.Lookup(tmp[i], obj);
+				this->objects.RemoveKey(tmp[i]);
 
 				if (obj->IsSelected() != 0) {
-					this->field_0x9b4 = 0;
+					this->order_mode = 0;
 					wnd->vis_spellbook->FUN_004caa69();
 					wnd->vis_ordertoolbar->MsgProc(0x40b, 0, 0);
 				}
@@ -2022,7 +2022,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 			this->UpdateSelectionState();
 
-			this->field_0x9b8[packet_2dwords->param1] = nullptr; //WAT ? not delete?
+			this->map_players[packet_2dwords->param1] = nullptr; //WAT ? not delete?
 			wnd->vis_root->MsgProc(0x460, 0, 0);
 
 			wnd->ClearDiplomacyEntries();
@@ -2044,7 +2044,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0x9c: {
 			CUnit* ct = nullptr;
-			if (packet_equip->unit_id != 0 && this->field_0x9d0.Lookup(packet_equip->unit_id, *(CGameObject**)&ct) != 0) {
+			if (packet_equip->unit_id != 0 && this->objects.Lookup(packet_equip->unit_id, *(CGameObject**)&ct) != 0) {
 				int pr = 0;
 				for (int i = 0; i < 12; i++) {
 					if ((packet_equip->flags & (1 << i)) != 0) {
@@ -2083,11 +2083,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 			case 1: {
 				INT_00660f74 = 1;
-				uint16_t* landscape = this->field_0x80->GetLandscape();
+				uint16_t* landscape = this->scenario->GetLandscape();
 
-				for (int i = 0; i < this->field_0x80->GetWidth(); i++) {
-					for (int j = 0; j < this->field_0x80->GetHeight(); j++) {
-						landscape[i + j * field_0x80->GetWidth()] |= 0xc000;
+				for (int i = 0; i < this->scenario->GetWidth(); i++) {
+					for (int j = 0; j < this->scenario->GetHeight(); j++) {
+						landscape[i + j * scenario->GetWidth()] |= 0xc000;
 					}
 				}
 			}
@@ -2104,8 +2104,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				this->MsgProc(0x406, packet_2dwords->param1 - (this->view_tiles_x / 2), packet_2dwords->param2 - (this->view_tiles_y / 2));
 #ifdef A2CLIENT
 				// client: 4164d8 — reselect the local player after the initial position
-				if ((wnd->sessionMode == 0 || wnd->sessionMode == 1) && this->field_0x3f6c != nullptr) {
-					this->field_0x3f6c->SetSelected(1);
+				if ((wnd->sessionMode == 0 || wnd->sessionMode == 1) && this->my_unit != nullptr) {
+					this->my_unit->SetSelected(1);
 					this->UpdateSelectionState();
 				}
 #endif
@@ -2113,7 +2113,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0xae:
-			this->MsgProc(0x484, (uint32_t)&(packet_join->__field_0xa), 0); ///???????????
+			this->MsgProc(0x484, (uint32_t)&(packet_join->__as_dword), 0); ///???????????
 			break;
 
 		case 0xaf:
@@ -2181,7 +2181,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0xb9:
 			for (int i = 16; i < packet_terrain->count; i++) {
-				MapPlayerData* mp = this->field_0x9b8[i];
+				MapPlayerData* mp = this->map_players[i];
 				if (mp && (mp->flags & 1) == 0 && i < this->my_main_unit->diplomacy.GetSize()) {
 					buf[0] = 0;
 
@@ -2253,23 +2253,23 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0xbb: {
-			bool isnull = this->field_0x4970->GetQuestCount() == 0;
+			bool isnull = this->quest_map->GetQuestCount() == 0;
 
-			this->field_0x4970->RemovePlayerQuests(0);
+			this->quest_map->RemovePlayerQuests(0);
 
 			uint16_t* dat = packet_terrain->buf + 1;
 
 			for (int i = 0; i < packet_terrain->buf[0]; i++) {
-				Quest* qwa = this->field_0x4970->CreateQuest(*dat);
+				Quest* qwa = this->quest_map->CreateQuest(*dat);
 				dat++;
 
 				qwa->CopyFields((QuestData*)dat);
 				dat = (uint16_t*)(((QuestData*)dat) + 1);
 
-				this->field_0x4970->RegisterQuest(qwa);
+				this->quest_map->RegisterQuest(qwa);
 			}
 
-			if (isnull && field_0x4970->GetQuestCount() != 0) {
+			if (isnull && quest_map->GetQuestCount() != 0) {
 				wnd->PostMessage(0x466, 1, 0);
 			}
 		}
@@ -2296,7 +2296,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0xbf:
-			if (packet_join->__field_0xa == CalcFileChecksum(packet_join->name)) {
+			if (packet_join->__as_dword == CalcFileChecksum(packet_join->name)) {
 				wnd->enter_ack_received = 1;
 				wnd->input_locked = 0;
 			} else {
@@ -2380,12 +2380,12 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		case 0xc2: {
 			// client: 41731d — bulk cursor/focus/hat state
 			uint32_t* state = (uint32_t*)packet_data->data;
-			this->field_0x49b8 = *state++;
-			this->field_0x4a04 = *state++;
+			this->ambient_view_x = *state++;
+			this->hat_player_count = *state++;
 			this->cursor_over_obj_last_index = *state++;
 			this->last_focus_obj_index = *state++;
-			this->field_0x49bc = *state++;
-			this->field_0x49c0 = *state++;
+			this->ambient_view_y = *state++;
+			this->ambient_sound_deadline = *state++;
 			for (int i = 0; i < 16; i++) {
 				this->hat_cursor_slots[i] = *state++;
 			}
@@ -2393,10 +2393,10 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case 0xc3:
 			// client: 41780d — hat session join. Both exits return 1 (never reach the breakid check).
-			if (wnd->field_0x3e0.field_10 != 0 && wnd->hat_settings.ishat != 0 && wnd->hat_settings.deathmatch != 0) {
+			if (wnd->net_session.internet_game != 0 && wnd->hat_settings.ishat != 0 && wnd->hat_settings.deathmatch != 0) {
 				if (this->FindChild(MAP_CHILD_HAT_SESSION) == nullptr) {
 					AddChild(new VisHatSession(MAP_CHILD_HAT_SESSION, 10, 20, 370, 188));
-					this->field_0xe0 = 1;
+					this->full_redraw_requested = 1;
 					this->VMethod9();
 				}
 			}
@@ -2404,7 +2404,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
 			{
 			}
-			if (wnd->field_0x3e0.field_10 != 0 && wnd->hat_settings.ishat != 0 && wnd->hat_settings.deathmatch == 3) {
+			if (wnd->net_session.internet_game != 0 && wnd->hat_settings.ishat != 0 && wnd->hat_settings.deathmatch == 3) {
 				// client: 417aa7-417b27
 				HatPlayerListWindow* dlg = new HatPlayerListWindow(1, 0x14, 0, 0x26c, 0x1f4, &this->hat_name_list, 3);
 				wnd->PopUpScreen(dlg);
@@ -2465,7 +2465,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case 0xce: {
-			wnd->field_0x3e0.hat_id = *(int32_t*)packet_data->data;
+			wnd->net_session.hat_id = *(int32_t*)packet_data->data;
 			wnd->m_GameSession.hat_char_ids.RemoveAll();
 
 			HatCharId* chars = (HatCharId*)(packet_data->data + 4);
@@ -2580,17 +2580,17 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		case 0xda: {
 			// client: 41697d — hat session setup (client packet payload base = pkt+0xe)
 			uint8_t* p = (uint8_t*)packet_data->data;
-			wnd->field_0x3e0.hat_id = *(int32_t*)(p + 0);
+			wnd->net_session.hat_id = *(int32_t*)(p + 0);
 			wnd->m_GameSession.hat_ticket.id1 = *(int32_t*)(p + 4);
 			wnd->m_GameSession.hat_ticket.id2 = *(int32_t*)(p + 8);
 			wnd->m_GameSession.sessionKeyPart1 = *(int32_t*)(p + 0xc);
 			wnd->m_GameSession.sessionKeyPart2 = *(int32_t*)(p + 0x10);
-			wnd->field_0x3e0.connect_address = CString((char*)p + 0x14, packet_data->count - 0x14);
+			wnd->net_session.connect_address = CString((char*)p + 0x14, packet_data->count - 0x14);
 		} break;
 
 		case 0xdb:
 			// client: 416948
-			wnd->field_0x3e0.hat_id = -1;
+			wnd->net_session.hat_id = -1;
 			break;
 
 		case 0xdf:
@@ -2622,7 +2622,7 @@ TakeDamage::TakeDamage(int32_t _dmg, uint16_t* clr, int32_t unk, int32_t _dx, in
 
 	this->txt.Format("%d", this->dmg);
 
-	this->field_0x18 = unk;
+	this->drift_left = unk;
 	this->dx = _dx;
 	this->dy = _dy;
 	this->cunit = ct;
@@ -2636,14 +2636,14 @@ TakeDamage::TakeDamage(int32_t _dmg, uint16_t* clr, int32_t unk, int32_t _dx, in
 	this->timestamp = timeGetTime();
 
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	this->field_0x20 = wnd->serverLoopCounter;
+	this->burst_id = wnd->serverLoopCounter;
 }
 
 
 
 void TakeDamage::Update() {
 	//45dd1b
-	if (this->field_0x18 == 0) {
+	if (this->drift_left == 0) {
 		this->dx += 1;
 		this->dy -= 2;
 	} else {
@@ -2679,7 +2679,7 @@ void __cdecl TakeDamage::AddDamage(CArray<TakeDamage>* arr, const TakeDamage& dm
 
 	for (int i = 0; i < arr->GetSize(); i++) {
 		TakeDamage& b = arr->ElementAt(i);
-		if (b.cunit == dmg.cunit && b.field_0x20 == dmg.field_0x20) {
+		if (b.cunit == dmg.cunit && b.burst_id == dmg.burst_id) {
 			b.dmg += dmg.dmg;
 			b.txt.Format("%d", b.dmg);
 			return;
@@ -2730,10 +2730,10 @@ void BigStruct2::FUN_0041b2a4(const char* nam, int32_t token, int32_t playerid) 
 		join->color = 0;
 		join->flags = 0;
 	} else {
-		join->__field_0xa = this->field_0x9b8[playerid]->index;
+		join->__as_dword = this->map_players[playerid]->index;
 	}
 
-	join->__field_0xa |= token << 8;
+	join->__as_dword |= token << 8;
 
 	if (g_NetStru1_local.IsActive() == 0) {
 		if (g_NetStru1_main.IsActive() && g_Server) {
@@ -2764,7 +2764,7 @@ int32_t BigStruct2::FUN_0040d7f3() {
 	//40d7f3  client: 40d87a
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
-	if (wnd->sessionMode == 0 && (wnd->field_0x3e0.field_10 == 0 || wnd->hat_settings.ishat == 0)) {
+	if (wnd->sessionMode == 0 && (wnd->net_session.internet_game == 0 || wnd->hat_settings.ishat == 0)) {
 		g_NetStru1_local.SendLatency(g_CmdLatency, 0);
 
 		NetStru2* conn = g_NetStru1_local.GetFirstClient();
@@ -2782,13 +2782,13 @@ int32_t BigStruct2::FUN_0040d7f3() {
 	pkt->value3 = g_IsCdPresent | (wnd->m_GameSession.color << 8) | (wnd->m_GameSession.GetSkillTier1() << 0x10) | (wnd->m_GameSession.GetSkillTier2() << 0x18);
 	pkt->to_player_id = 0;
 
-	this->field_0x9d0.RemoveAll();
+	this->objects.RemoveAll();
 
-	if (this->field_0x3f6c) {
-		delete this->field_0x3f6c;
+	if (this->my_unit) {
+		delete this->my_unit;
 	}
 
-	this->field_0x3f6c = nullptr;
+	this->my_unit = nullptr;
 
 	this->UpdateSelectionState();
 
@@ -2825,12 +2825,12 @@ int32_t BigStruct2::FUN_0040d7f3() {
 		return 0;
 	}
 
-	if (this->field_0x9b8.GetSize() < 2) {
+	if (this->map_players.GetSize() < 2) {
 		INT_00660f8c = 0x1007;
 		return 0;
 	}
 #else
-	while (field_0x9b8.GetSize() < 2) {
+	while (map_players.GetSize() < 2) {
 		while (g_NetStru1_local.GetClientsPktNum() == 0) {
 
 			MSG msg;
@@ -2944,63 +2944,63 @@ void BigStruct2::FUN_0041cc78(const CString& fname) {
 
 
 void BigStruct2::FUN_0041d2da(int32_t arg) { // 41d2da
-	this->field_0x3f6c = nullptr;
+	this->my_unit = nullptr;
 
-	if (!this->field_0x9d0.IsEmpty()) {
-		POSITION it = this->field_0x9d0.GetStartPosition();
+	if (!this->objects.IsEmpty()) {
+		POSITION it = this->objects.GetStartPosition();
 		while (it != nullptr) {
 			uint16_t key;
 			CGameObject* obj;
-			this->field_0x9d0.GetNextAssoc(it, key, obj);
+			this->objects.GetNextAssoc(it, key, obj);
 			if (obj) {
 				delete obj;
 			}
 		}
 
-		this->field_0x9d0.RemoveAll();
+		this->objects.RemoveAll();
 	}
 
-	if (!this->field_0x9ec.IsEmpty()) {
-		POSITION it = this->field_0x9ec.GetStartPosition();
+	if (!this->projectiles.IsEmpty()) {
+		POSITION it = this->projectiles.GetStartPosition();
 		while (it != nullptr) {
 			uint16_t key;
 			CGameObject* obj;
-			this->field_0x9ec.GetNextAssoc(it, key, obj);
+			this->projectiles.GetNextAssoc(it, key, obj);
 			if (obj) {
 				delete obj;
 			}
 		}
 
-		this->field_0x9ec.RemoveAll();
+		this->projectiles.RemoveAll();
 	}
 
 	this->damage_labels.RemoveAll();
 
 	if (arg == 0) {
 		for (int i = 1; i < 17; i++) {
-			MapPlayerData* mp = this->field_0x9b8[i];
+			MapPlayerData* mp = this->map_players[i];
 			if (mp && (mp->flags & 1) != 0) {
 				delete mp;
-				this->field_0x9b8[i] = nullptr;
+				this->map_players[i] = nullptr;
 			}
 		}
 	} else {
-		for (int i = 1; i < this->field_0x9b8.GetSize(); i++) {
-			MapPlayerData* mp = this->field_0x9b8[i];
+		for (int i = 1; i < this->map_players.GetSize(); i++) {
+			MapPlayerData* mp = this->map_players[i];
 			if (mp) {
 				delete mp;
 			}
 		}
-		if (this->field_0x9b8.GetSize()) {
-			this->field_0x9b8.SetSize(1);
+		if (this->map_players.GetSize()) {
+			this->map_players.SetSize(1);
 		}
 	}
 
-	this->field_0xa08.RemoveAll();
+	this->terrain_light_override_cells.RemoveAll();
 
-	if (this->field_0x80) {
-		delete this->field_0x80;
-		this->field_0x80 = nullptr;
+	if (this->scenario) {
+		delete this->scenario;
+		this->scenario = nullptr;
 	}
 
 	while (g_NetStru1_local.ReceiveAnyPacket())
@@ -3061,8 +3061,8 @@ void BigStruct2::FUN_0041a735() { //41a735
 }
 
 void BigStruct2::FUN_0041c39c() { //41c39c
-	this->field_0x49b8 = -1;
-	this->field_0x49bc = -1;
+	this->ambient_view_x = -1;
+	this->ambient_view_y = -1;
 	SoundChannel* ch1 = g_SfxArray[50]->FindPlayingChannel();
 	SoundChannel* ch2 = g_SfxArray[90]->FindPlayingChannel();
 	if (ch1) {
@@ -3076,10 +3076,10 @@ void BigStruct2::FUN_0041c39c() { //41c39c
 
 void BigStruct2::CleanupCompletedMissionMapState() { //41ce5a
 	CDWordArray arr;
-	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 
 		if (obj->IsKindOf(RUNTIME_CLASS(CUnit)) == 0) {
 			arr.Add(key);
@@ -3096,42 +3096,42 @@ void BigStruct2::CleanupCompletedMissionMapState() { //41ce5a
 		}
 	}
 
-	this->field_0x3f6c->SetSelected(1);
+	this->my_unit->SetSelected(1);
 
 	//Remove it here or while iteration
 	for (int i = 0; i < arr.GetSize(); i++) {
-		delete this->field_0x9d0[arr[i]];
-		this->field_0x9d0.RemoveKey(arr[i]);
+		delete this->objects[arr[i]];
+		this->objects.RemoveKey(arr[i]);
 	}
 	arr.RemoveAll();
 
-	for (POSITION it = this->field_0x9ec.GetStartPosition(); it != nullptr;) {
+	for (POSITION it = this->projectiles.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9ec.GetNextAssoc(it, key, obj);
+		this->projectiles.GetNextAssoc(it, key, obj);
 
 		delete obj;
-		this->field_0x9ec.RemoveKey(key);
+		this->projectiles.RemoveKey(key);
 	}
 
 	this->damage_labels.RemoveAll();
 
-	if (this->field_0x80) {
-		delete this->field_0x80;
+	if (this->scenario) {
+		delete this->scenario;
 	}
-	this->field_0x80 = nullptr;
+	this->scenario = nullptr;
 
-	while (this->field_0x9b8.GetSize() > 1) {
-		MapPlayerData* mp = this->field_0x9b8[1];
+	while (this->map_players.GetSize() > 1) {
+		MapPlayerData* mp = this->map_players[1];
 		if (mp != nullptr && mp != this->my_main_unit) {
 			delete mp;
 		}
-		this->field_0x9b8.RemoveAt(1, 1);
+		this->map_players.RemoveAt(1, 1);
 	}
 
-	this->field_0x9b8.SetAtGrow(this->my_main_unit->index, this->my_main_unit);
+	this->map_players.SetAtGrow(this->my_main_unit->index, this->my_main_unit);
 
-	this->field_0xa08.RemoveAll();
+	this->terrain_light_override_cells.RemoveAll();
 
 	while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
 	{}
@@ -3161,11 +3161,11 @@ void BigStruct2::CleanupCompletedMissionMapState() { //41ce5a
 void BigStruct2::UpdateSelectionState() { //416cf7
 
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
-	this->field_0x140 = 0;
-	this->field_0x144 = 0;
-	this->field_0x148 = 0;
-	this->field_0x150 = 0;
-	this->field_0x14c = 0;
+	this->selected_object_count = 0;
+	this->selection_flags = 0;
+	this->selected_available_spell_mask = 0;
+	this->active_spell_effect_mask = 0;
+	this->selected_active_spell_mask = 0;
 
 	for (int i = 0; i < 24; i++) {
 		this->spell_damage_min[i] = 0;
@@ -3194,26 +3194,26 @@ void BigStruct2::UpdateSelectionState() { //416cf7
 
 	bool firstsel = false;
 
-	for (POSITION it = this->field_0x9d0.GetStartPosition(); it;) {
+	for (POSITION it = this->objects.GetStartPosition(); it;) {
 		POSITION curpos = it;
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 
 		if (obj->IsSelected() == 0) {
 			continue;
 
 		// if selected
 		}
-		this->field_0x140++;
-		this->field_0x148 |= obj->availableSpellMask;
+		this->selected_object_count++;
+		this->selected_available_spell_mask |= obj->availableSpellMask;
 		if (obj->active_spell != 0) {
-			this->field_0x14c |= SpellBtB[obj->active_spell];
+			this->selected_active_spell_mask |= SpellBtB[obj->active_spell];
 		}
 
 		if (!firstsel) {
-			this->field_0x138 = obj;
-			this->field_0x13c = curpos;
+			this->primary_selected_object = obj;
+			this->primary_selected_assoc = curpos;
 			firstsel = true;
 		}
 
@@ -3221,34 +3221,34 @@ void BigStruct2::UpdateSelectionState() { //416cf7
 			if (obj->GetRuntimeClass() == RUNTIME_CLASS(CUnit)) {
 				CUnit* unit = (CUnit*)obj;
 
-				this->field_0x144 |= 1;
+				this->selection_flags |= 1;
 
 				if ((unit->typeId == 0x17 || unit->typeId == 0x18) && unit->availableSpellMask != 0) {
-					this->field_0x144 |= 0x200;
+					this->selection_flags |= 0x200;
 					this->UpdateSpellModifiers(unit);
 				}
 
 				if (unit->unitFlags & 1) {
-					this->field_0x144 |= 8;
+					this->selection_flags |= 8;
 				}
 
 				this->UpdateSpellEffects(unit);
 			} else if (obj->GetRuntimeClass() == RUNTIME_CLASS(CAirUnit)) {
-				this->field_0x144 |= 2;
+				this->selection_flags |= 2;
 			} else if (obj->GetRuntimeClass() == RUNTIME_CLASS(CStructure)) {
-				this->field_0x144 |= 0x20;
+				this->selection_flags |= 0x20;
 			}
 		}
 		else {
-			this->field_0x144 = 8;
+			this->selection_flags = 8;
 		}
 	}
 
-	if (this->field_0x140 > 0 && this->field_0x138->map_player != this->my_main_unit) {
-		this->field_0x144 |= 4;
+	if (this->selected_object_count > 0 && this->primary_selected_object->map_player != this->my_main_unit) {
+		this->selection_flags |= 4;
 	}
 	
-	if (this->field_0x140 == 0 || (this->field_0x144 & 0x24) != 0) {
+	if (this->selected_object_count == 0 || (this->selection_flags & 0x24) != 0) {
 		mwnd->vis_right_panel->MsgProc(CVisualObject::MSG_40a, 0, 0);
 	} else {
 		mwnd->vis_right_panel->MsgProc(CVisualObject::MSG_409, this->AvailableOrderMask(), 0);
@@ -3256,8 +3256,8 @@ void BigStruct2::UpdateSelectionState() { //416cf7
 
 	mwnd->vis_charinfo->MsgProc(CVisualObject::MSG_410, 0, 0);
 	mwnd->vis_sidestatus->MsgProc(CVisualObject::MSG_410, 0, 0);
-	if (this->field_0x140 == 1 && (this->field_0x144 & 8) != 0) {
-		mwnd->vis_invtype1->VMethod33(this->field_0x138);
+	if (this->selected_object_count == 1 && (this->selection_flags & 8) != 0) {
+		mwnd->vis_invtype1->VMethod33(this->primary_selected_object);
 	} else {
 		mwnd->vis_invtype1->VMethod33(nullptr);
 	}
@@ -3277,7 +3277,7 @@ void BigStruct2::UpdateSpellEffects(CUnit* unit) { //from 416cf7
 		}
 
 		unit->activeSpellEffectMask |= SpellBtB[cast_spell];
-		this->field_0x150 |= SpellBtB[cast_spell];
+		this->active_spell_effect_mask |= SpellBtB[cast_spell];
 	}
 }
 
@@ -3388,8 +3388,8 @@ void BigStruct2::UpdateSpellModifiers(CUnit* unit) { //from 416cf7
 }
 
 uint32_t BigStruct2::AvailableOrderMask() const {
-	if ((this->field_0x144 & 4) == 0) {
-		if (this->field_0x148 != 0 || this->field_0x150 != 0) {
+	if ((this->selection_flags & 4) == 0) {
+		if (this->selected_available_spell_mask != 0 || this->active_spell_effect_mask != 0) {
 			return 0xff; // ~0
 		}
 
@@ -3843,7 +3843,7 @@ void BigStruct2::NetOnOpenInnDialog() { //41adbb
 
 // 41F830
 CUnit* BigStruct2::GetUnit_3f6c() {
-	return this->field_0x3f6c;
+	return this->my_unit;
 }
 
 // 41F6D0
@@ -3880,10 +3880,10 @@ int32_t BigStruct2::sub_41F810() {
 
 // 416983
 void BigStruct2::sub_416983(int32_t digit) {
-	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		if (obj->IsInControlGroup(digit)) {
 			obj->SetSelected(1);
 		} else if (g_kbShiftState == 0) {
@@ -3895,13 +3895,13 @@ void BigStruct2::sub_416983(int32_t digit) {
 
 // 416A02
 void BigStruct2::sub_416A02(int32_t digit) {
-	if (this->field_0x144 & 4) {
+	if (this->selection_flags & 4) {
 		return;
 	}
-	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		if (obj->IsInControlGroup(digit)) {
 			obj->RemoveControlGroup(digit);
 		}
@@ -3914,13 +3914,13 @@ void BigStruct2::sub_416A02(int32_t digit) {
 
 // 416AA6
 void BigStruct2::sub_416AA6(int32_t digit) {
-	if (this->field_0x144 & 4) {
+	if (this->selection_flags & 4) {
 		return;
 	}
-	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		if (obj->IsInControlGroup(digit)) {
 			obj->RemoveControlGroup(digit);
 		}
@@ -3936,10 +3936,10 @@ void BigStruct2::sub_416B4A(int32_t digit) {
 	int32_t sum_x = 0;
 	int32_t sum_y = 0;
 	int32_t count = 0;
-	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		if (obj->IsInControlGroup(digit)) {
 			obj->SetSelected(1);
 			count++;
@@ -3959,10 +3959,10 @@ void BigStruct2::sub_416B4A(int32_t digit) {
 
 // 416C4C
 void BigStruct2::sub_416C4C() {
-	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		if (obj->IsKindOf(RUNTIME_CLASS(CUnit)) && obj->map_player == this->my_main_unit &&
 			((CUnit*)obj)->death_state <= 1 && !(((CUnit*)obj)->unitFlags & 0x80)) {
 			obj->SetSelected(1);
@@ -3976,18 +3976,18 @@ void BigStruct2::sub_416C4C() {
 // 4168BD
 void BigStruct2::sub_4168BD() {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	if (this->field_0x9b4 != 0) {
-		if (this->field_0x9b4 == 5 && this->IsBookOpen()) {
+	if (this->order_mode != 0) {
+		if (this->order_mode == 5 && this->IsBookOpen()) {
 			this->FUN_0041b636();
 		}
 		wnd->vis_spellbook->FUN_004caa69();
-		this->field_0x9b4 = 0;
+		this->order_mode = 0;
 		wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
 	} else {
-		for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+		for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 			uint16_t key;
 			CGameObject* obj;
-			this->field_0x9d0.GetNextAssoc(it, key, obj);
+			this->objects.GetNextAssoc(it, key, obj);
 			obj->SetSelected(0);
 		}
 		this->UpdateSelectionState();
@@ -3996,7 +3996,7 @@ void BigStruct2::sub_4168BD() {
 
 // 4167F7
 void BigStruct2::sub_4167F7(int32_t wparam, int32_t lparam) {
-	if (this->field_0x80 == nullptr) {
+	if (this->scenario == nullptr) {
 		return;
 	}
 	if (wparam < this->MapMinX()) {
@@ -4019,9 +4019,9 @@ void BigStruct2::sub_4167F7(int32_t wparam, int32_t lparam) {
 
 // 403F08
 void BigStruct2::sub_403F08(Scenario* scen) {
-	this->field_0x80 = scen;
-	this->map_width = this->field_0x80->GetWidth();
-	this->map_height = this->field_0x80->GetHeight();
+	this->scenario = scen;
+	this->map_width = this->scenario->GetWidth();
+	this->map_height = this->scenario->GetHeight();
 }
 
 // 418F93
@@ -4035,27 +4035,27 @@ void BigStruct2::sub_418F93(int32_t arg) {
 	if (arg == 0xA) {
 		mode = 5;
 	}
-	if (this->field_0x9b4 == 5 && mode != 5 && this->IsBookOpen()) {
+	if (this->order_mode == 5 && mode != 5 && this->IsBookOpen()) {
 		this->FUN_0041b636();
 		wnd->vis_spellbook->FUN_004caa69();
 	}
 	if ((avail & (1 << (mode - 1))) != 0 || arg == 0xA) {
-		this->field_0x9b4 = mode;
+		this->order_mode = mode;
 		wnd->vis_ordertoolbar->MsgProc(0x40D, mode - 1, 0);
 		switch (arg) {
 		case 3:
 			this->sub_4193E8();
-			this->field_0x9b4 = 0;
+			this->order_mode = 0;
 			wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
 			break;
 		case 7:
 			this->sub_4194A2();
-			this->field_0x9b4 = 0;
+			this->order_mode = 0;
 			wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
 			break;
 		case 8:
 			this->sub_41A425();
-			this->field_0x9b4 = 0;
+			this->order_mode = 0;
 			wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
 			break;
 		case 5:
@@ -4069,7 +4069,7 @@ void BigStruct2::sub_418F93(int32_t arg) {
 
 // 419154
 void BigStruct2::sub_419154(uint16_t x, uint16_t y) {
-	POSITION it = this->field_0x9d0.GetStartPosition();
+	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = 0x16;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -4082,7 +4082,7 @@ void BigStruct2::sub_419154(uint16_t x, uint16_t y) {
 	while (it != nullptr) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		if (obj->IsSelected()) {
 			pkt->AppendWord(obj->unit_id);
 		}
@@ -4096,7 +4096,7 @@ void BigStruct2::sub_419154(uint16_t x, uint16_t y) {
 
 // 419246
 void BigStruct2::sub_419246(uint16_t id) {
-	POSITION it = this->field_0x9d0.GetStartPosition();
+	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = 0x19;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -4106,7 +4106,7 @@ void BigStruct2::sub_419246(uint16_t id) {
 	while (it != nullptr) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		if (obj->IsSelected()) {
 			pkt->AppendWord(obj->unit_id);
 		}
@@ -4120,7 +4120,7 @@ void BigStruct2::sub_419246(uint16_t id) {
 
 // 41930D
 void BigStruct2::sub_41930D(uint16_t x, uint16_t y) {
-	POSITION it = this->field_0x9d0.GetStartPosition();
+	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = 0x1A;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -4132,7 +4132,7 @@ void BigStruct2::sub_41930D(uint16_t x, uint16_t y) {
 	while (it != nullptr) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		if (obj->IsSelected()) {
 			pkt->AppendWord(obj->unit_id);
 		}
@@ -4146,7 +4146,7 @@ void BigStruct2::sub_41930D(uint16_t x, uint16_t y) {
 
 // 4193E8
 void BigStruct2::sub_4193E8() {
-	POSITION it = this->field_0x9d0.GetStartPosition();
+	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = 0x17;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -4155,7 +4155,7 @@ void BigStruct2::sub_4193E8() {
 	while (it != nullptr) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		if (obj->IsSelected()) {
 			pkt->AppendWord(obj->unit_id);
 		}
@@ -4169,7 +4169,7 @@ void BigStruct2::sub_4193E8() {
 
 // 4194A2
 void BigStruct2::sub_4194A2() {
-	POSITION it = this->field_0x9d0.GetStartPosition();
+	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = 0x18;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -4178,7 +4178,7 @@ void BigStruct2::sub_4194A2() {
 	while (it != nullptr) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		if (obj->IsSelected()) {
 			pkt->AppendWord(obj->unit_id);
 		}
@@ -4192,9 +4192,9 @@ void BigStruct2::sub_4194A2() {
 
 // 41955C
 void BigStruct2::sub_41955C(uint16_t id) {
-	POSITION it = this->field_0x9d0.GetStartPosition();
+	POSITION it = this->objects.GetStartPosition();
 	CGameObject* obj;
-	if (!this->field_0x9d0.Lookup(id, obj) || !obj->IsKindOf(RUNTIME_CLASS(CUnit))) {
+	if (!this->objects.Lookup(id, obj) || !obj->IsKindOf(RUNTIME_CLASS(CUnit))) {
 		return;
 	}
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
@@ -4205,7 +4205,7 @@ void BigStruct2::sub_41955C(uint16_t id) {
 	pkt->count = 0;
 	while (it != nullptr) {
 		uint16_t key;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		if (obj->IsSelected()) {
 			pkt->AppendWord(obj->unit_id);
 		}
@@ -4219,7 +4219,7 @@ void BigStruct2::sub_41955C(uint16_t id) {
 
 // 41965D
 void BigStruct2::sub_41965D(uint16_t x, uint16_t y) {
-	POSITION it = this->field_0x9d0.GetStartPosition();
+	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = 0x1D;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -4231,7 +4231,7 @@ void BigStruct2::sub_41965D(uint16_t x, uint16_t y) {
 	while (it != nullptr) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		if (obj->IsSelected()) {
 			pkt->AppendWord(obj->unit_id);
 		}
@@ -4245,7 +4245,7 @@ void BigStruct2::sub_41965D(uint16_t x, uint16_t y) {
 
 // 41972F
 void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell) {
-	POSITION it = this->field_0x9d0.GetStartPosition();
+	POSITION it = this->objects.GetStartPosition();
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = 0x1F;
@@ -4261,24 +4261,24 @@ void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell) {
 		while (it != nullptr) {
 			uint16_t key;
 			CGameObject* obj;
-			this->field_0x9d0.GetNextAssoc(it, key, obj);
+			this->objects.GetNextAssoc(it, key, obj);
 			if (obj->IsSelected() && (obj->availableSpellMask & (1 << (spell - 1))) != 0) {
 				pkt->AppendWord(obj->unit_id);
 			}
 		}
 		g_NetStru1_local.QueuePacketSend(pkt);
 	}
-	if (wnd->vis_spellbook->spell >= 0 && this->field_0x140 == 1 && this->field_0x138 != nullptr) {
+	if (wnd->vis_spellbook->spell >= 0 && this->selected_object_count == 1 && this->primary_selected_object != nullptr) {
 		pkt->id = 0x26;
 		pkt->count = 0;
-		pkt->AppendWord(this->field_0x138->unit_id);
+		pkt->AppendWord(this->primary_selected_object->unit_id);
 		uint16_t slot = wnd->vis_spellbook->spell;
 		pkt->slot = slot;
 		pkt->slot_high = slot >> 8;
 		g_NetStru1_local.QueuePacketSend(pkt);
-		TokenEntry* entry = this->field_0x138->tokenEntries[slot];
+		TokenEntry* entry = this->primary_selected_object->tokenEntries[slot];
 		if (entry->count == 1) {
-			this->field_0x138->tokenEntries.RemoveAt(slot, 1);
+			this->primary_selected_object->tokenEntries.RemoveAt(slot, 1);
 			delete entry;
 		} else {
 			entry->count--;
@@ -4287,10 +4287,10 @@ void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell) {
 		wnd->vis_spellbook->selected = -1;
 	} else {
 		if (wnd->vis_spellbook->sub_4CA8E0(spell - 1) != 0) {
-			for (it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+			for (it = this->objects.GetStartPosition(); it != nullptr;) {
 				uint16_t key;
 				CGameObject* obj;
-				this->field_0x9d0.GetNextAssoc(it, key, obj);
+				this->objects.GetNextAssoc(it, key, obj);
 				if (!obj->IsSelected() || (obj->activeSpellEffectMask & (1 << (spell - 1))) == 0) {
 					continue;
 				}
@@ -4332,7 +4332,7 @@ void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell) {
 
 // 419BA1
 void BigStruct2::sub_419BA1(uint16_t id, int32_t spell) {
-	POSITION it = this->field_0x9d0.GetStartPosition();
+	POSITION it = this->objects.GetStartPosition();
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -4345,24 +4345,24 @@ void BigStruct2::sub_419BA1(uint16_t id, int32_t spell) {
 		while (it != nullptr) {
 			uint16_t key;
 			CGameObject* obj;
-			this->field_0x9d0.GetNextAssoc(it, key, obj);
+			this->objects.GetNextAssoc(it, key, obj);
 			if (obj->IsSelected() && (obj->availableSpellMask & (1 << (spell - 1))) != 0) {
 				pkt->AppendWord(obj->unit_id);
 			}
 		}
 		g_NetStru1_local.QueuePacketSend(pkt);
 	}
-	if (wnd->vis_spellbook->spell >= 0 && this->field_0x140 == 1 && this->field_0x138 != nullptr) {
+	if (wnd->vis_spellbook->spell >= 0 && this->selected_object_count == 1 && this->primary_selected_object != nullptr) {
 		pkt->count = 0;
-		pkt->AppendWord(this->field_0x138->unit_id);
+		pkt->AppendWord(this->primary_selected_object->unit_id);
 		uint16_t slot = wnd->vis_spellbook->spell;
 		pkt->slot = slot;
 		pkt->slot_high = slot >> 8;
 		pkt->id = 0x25;
 		g_NetStru1_local.QueuePacketSend(pkt);
-		TokenEntry* entry = this->field_0x138->tokenEntries[slot];
+		TokenEntry* entry = this->primary_selected_object->tokenEntries[slot];
 		if (entry->count == 1) {
-			this->field_0x138->tokenEntries.RemoveAt(slot, 1);
+			this->primary_selected_object->tokenEntries.RemoveAt(slot, 1);
 			delete entry;
 		} else {
 			entry->count--;
@@ -4371,10 +4371,10 @@ void BigStruct2::sub_419BA1(uint16_t id, int32_t spell) {
 		wnd->vis_spellbook->selected = -1;
 	} else {
 		if (wnd->vis_spellbook->sub_4CA8E0(spell - 1) != 0) {
-			for (it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+			for (it = this->objects.GetStartPosition(); it != nullptr;) {
 				uint16_t key;
 				CGameObject* obj;
-				this->field_0x9d0.GetNextAssoc(it, key, obj);
+				this->objects.GetNextAssoc(it, key, obj);
 				if (!obj->IsSelected() || (obj->activeSpellEffectMask & (1 << (spell - 1))) == 0) {
 					continue;
 				}
@@ -4421,10 +4421,10 @@ void BigStruct2::sub_40328E() {
 	free(this->tile_structures);
 	free(this->tile_backpacks);
 	free(this->tile_special_units);
-	free(this->field_0xa0);
-	free(this->field_0xa4);
-	free(this->field_0xa8);
-	free(this->field_0xac);
+	free(this->corner_tile_kind);
+	free(this->corner_tile_kind_prev);
+	free(this->corner_light);
+	free(this->corner_light_prev);
 	free(this->tile_light);
 	free(this->tile_corner_y);
 	free(this->tile_top_y);
@@ -4434,27 +4434,27 @@ void BigStruct2::sub_40328E() {
 
 // 40403B
 void BigStruct2::sub_40403B() {
-	this->field_0xf4.SetRectEmpty();
+	this->dirty_rect.SetRectEmpty();
 	memset(this->tile_units, 0, this->tile_grid_bytes);
 	memset(this->tile_air_units, 0, this->tile_grid_bytes);
 	memset(this->tile_structures, 0, this->tile_grid_bytes);
 	memset(this->tile_backpacks, 0, this->tile_grid_bytes);
 	memset(this->tile_special_units, 0, this->tile_grid_bytes);
 	if (g_DWORD_00659d18 == 2) {
-		memcpy(this->field_0xac, this->field_0xa8, this->corner_grid_bytes / 4);
+		memcpy(this->corner_light_prev, this->corner_light, this->corner_grid_bytes / 4);
 	}
-	memset(this->field_0xa8, 0xFF, this->corner_grid_bytes / 4);
-	this->field_0x108 = 0;
-	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+	memset(this->corner_light, 0xFF, this->corner_grid_bytes / 4);
+	this->lightning_active = 0;
+	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		obj->UpdateMapPosition();
 		obj->UpdateTileLayer();
 		obj->UpdateLight();
 	}
-	memset(this->field_0xa0, 0, this->corner_grid_bytes);
-	uint16_t* landscape = this->field_0x80->GetLandscape();
+	memset(this->corner_tile_kind, 0, this->corner_grid_bytes);
+	uint16_t* landscape = this->scenario->GetLandscape();
 	int32_t src_idx = (this->view_y - 3) * this->map_width + this->view_x - 3;
 	int32_t out_idx = 0;
 	for (int32_t y = -3; y <= this->view_tiles_y + 7; y++) {
@@ -4471,33 +4471,33 @@ void BigStruct2::sub_40403B() {
 			if (tile == 0xC000) {
 				if (g_Animation != 0) {
 					CRect rect((x - 3) * 0x20, this->tile_top_y[h_idx] - 0x60, (x + 3) * 0x20, this->tile_bottom_y[h_idx] + 0x60);
-					this->field_0xf4 |= rect;
-				} else if (this->field_0xdc != 0) {
+					this->dirty_rect |= rect;
+				} else if (this->minimap_dirty != 0) {
 					CRect rect((x - 1) * 0x20, this->tile_top_y[h_idx] - 0x60, (x + 2) * 0x20, this->tile_bottom_y[h_idx] + 0x60);
-					this->field_0xf4 |= rect;
+					this->dirty_rect |= rect;
 				}
-				this->field_0xa0[out_idx] = 0;
+				this->corner_tile_kind[out_idx] = 0;
 			} else if (tile == 0x8000) {
-				this->field_0xa0[out_idx] = 8;
+				this->corner_tile_kind[out_idx] = 8;
 			} else {
-				this->field_0xa0[out_idx] = 0x10;
+				this->corner_tile_kind[out_idx] = 0x10;
 			}
 			out_idx++;
 		}
 		src_idx += this->map_width - this->view_tiles_x - 7;
 	}
-	memcpy(this->field_0xa4, this->field_0xa0, this->corner_grid_bytes);
-	for (POSITION it = this->field_0x9ec.GetStartPosition(); it != nullptr;) {
+	memcpy(this->corner_tile_kind_prev, this->corner_tile_kind, this->corner_grid_bytes);
+	for (POSITION it = this->projectiles.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9ec.GetNextAssoc(it, key, obj);
+		this->projectiles.GetNextAssoc(it, key, obj);
 		obj->UpdateMapPosition();
 		obj->UpdateLight();
 	}
-	for (POSITION it = this->field_0xa94.GetStartPosition(); it != nullptr;) {
+	for (POSITION it = this->lightning_cells.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		uint32_t value;
-		this->field_0xa94.GetNextAssoc(it, key, value);
+		this->lightning_cells.GetNextAssoc(it, key, value);
 		int32_t brightness = -1;
 		switch (value >> 1) {
 		case 0:
@@ -4543,13 +4543,13 @@ void BigStruct2::sub_40403B() {
 			lx -= this->view_x;
 			ly -= this->view_y;
 			CRect rect((lx - 1) * 0x20, (ly - 2) * 0x20, (lx + 2) * 0x20, (ly + 2) * 0x20);
-			this->field_0xf4 |= rect;
+			this->dirty_rect |= rect;
 		}
 	}
-	for (POSITION it = this->field_0xa08.GetStartPosition(); it != nullptr;) {
+	for (POSITION it = this->terrain_light_override_cells.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		uint32_t value;
-		this->field_0xa08.GetNextAssoc(it, key, value);
+		this->terrain_light_override_cells.GetNextAssoc(it, key, value);
 		int32_t lx = key & 0xFF;
 		int32_t ly = key >> 8;
 		if (this->view_x - 3 <= lx && lx < this->view_x + 3 + this->view_tiles_x &&
@@ -4558,10 +4558,10 @@ void BigStruct2::sub_40403B() {
 			ly -= this->view_y;
 			if (g_Lightning == 0) {
 				CRect rect((lx - 1) * 0x20, (ly - 3) * 0x20, (lx + 2) * 0x20, (ly + 2) * 0x20);
-				this->field_0xf4 |= rect;
+				this->dirty_rect |= rect;
 			} else {
 				CRect rect((lx - 3) * 0x20, (ly - 3) * 0x20, (lx + 4) * 0x20, (ly + 4) * 0x20);
-				this->field_0xf4 |= rect;
+				this->dirty_rect |= rect;
 			}
 		}
 	}
@@ -4572,18 +4572,18 @@ void BigStruct2::sub_40403B() {
 		int32_t right = ((dmg.FUN_0041f620() + 0x30) & ~0x1F) + 0x20;
 		int32_t bottom = dmg.FUN_0041f640() + 0x30;
 		CRect rect(left, top, right, bottom);
-		this->field_0xf4 |= rect;
+		this->dirty_rect |= rect;
 	}
 	this->sub_404A2C();
 }
 
 // 404912
 void BigStruct2::sub_404912() {
-	uint8_t* buf = this->field_0x80->GetOverlayMap();
-	for (POSITION it = this->field_0xa08.GetStartPosition(); it != nullptr;) {
+	uint8_t* buf = this->scenario->GetOverlayMap();
+	for (POSITION it = this->terrain_light_override_cells.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		uint32_t value;
-		this->field_0xa08.GetNextAssoc(it, key, value);
+		this->terrain_light_override_cells.GetNextAssoc(it, key, value);
 		int32_t x = key & 0xFF;
 		int32_t y = key >> 8;
 		int32_t idx = y * this->map_width + x;
@@ -4610,12 +4610,12 @@ int32_t BigStruct2::sub_403B8F(int32_t arg1, int32_t arg2, int32_t arg3, int32_t
 	} else {
 		idx = arg1 - (-arg2) * this->map_width;
 	}
-	int32_t nx = arg1 + this->field_0xac0[arg1][arg2][0];
-	int32_t ny = arg2 + this->field_0xac0[arg1][arg2][1];
-	int8_t* heights = this->field_0x80->GetMapHeights();
+	int32_t nx = arg1 + this->shadow_step[arg1][arg2][0];
+	int32_t ny = arg2 + this->shadow_step[arg1][arg2][1];
+	int8_t* heights = this->scenario->GetMapHeights();
 	int32_t base = heights[arg3 + idx] - arg4;
-	int32_t val = this->field_0x17e4[nx][ny] - (this->field_3228[arg1][arg2] + base);
-	this->field_0x17e4[arg1][arg2] = val;
+	int32_t val = this->shadow_light[nx][ny] - (this->shadow_ray_len[arg1][arg2] + base);
+	this->shadow_light[arg1][arg2] = val;
 	return val <= 0;
 }
 
@@ -4663,10 +4663,10 @@ void BigStruct2::sub_41AC88(int32_t arg1, int32_t arg2) {
 void BigStruct2::sub_404A2C() {
 	int32_t delta = g_DeltaCLR.brightness;
 	memset(this->tile_light, delta >> 2, this->tile_grid_bytes / 4);
-	for (POSITION it = this->field_0xa08.GetStartPosition(); it != nullptr;) {
+	for (POSITION it = this->terrain_light_override_cells.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		uint32_t value;
-		this->field_0xa08.GetNextAssoc(it, key, value);
+		this->terrain_light_override_cells.GetNextAssoc(it, key, value);
 		int32_t x = key & 0xFF;
 		int32_t y = key >> 8;
 		if (x < this->view_x - 3 || y < this->view_y - 3 ||
@@ -4681,7 +4681,7 @@ void BigStruct2::sub_404A2C() {
 			this->tile_light[idx] = 0xC;
 		}
 		if ((value & 8) != 0) {
-			int32_t brightness = (abs(this->field_0xa88 / 2 + x * y) % 5 & 1) != 0 ? 0xC : 0;
+			int32_t brightness = (abs(this->anim_tick / 2 + x * y) % 5 & 1) != 0 ? 0xC : 0;
 			this->ApplyDynamicLight(x, y, 1, brightness);
 		}
 	}
@@ -4689,19 +4689,19 @@ void BigStruct2::sub_404A2C() {
 		for (int32_t tx = 0; tx < this->view_tiles_x + 6; tx++) {
 			int32_t idx = ty * (this->view_tiles_x + 7) + tx;
 			int32_t idx_next = idx + this->view_tiles_x + 7;
-			int32_t v0 = this->field_0xa8[idx] - 0x20;
+			int32_t v0 = this->corner_light[idx] - 0x20;
 			if (v0 < 0) {
 				v0 = 0;
 			}
-			int32_t v1 = this->field_0xa8[idx + 1] - 0x20;
+			int32_t v1 = this->corner_light[idx + 1] - 0x20;
 			if (v1 < 0) {
 				v1 = 0;
 			}
-			int32_t v2 = this->field_0xa8[idx_next] - 0x20;
+			int32_t v2 = this->corner_light[idx_next] - 0x20;
 			if (v2 < 0) {
 				v2 = 0;
 			}
-			int32_t v3 = this->field_0xa8[idx_next + 1] - 0x20;
+			int32_t v3 = this->corner_light[idx_next + 1] - 0x20;
 			if (v3 < 0) {
 				v3 = 0;
 			}
@@ -4731,9 +4731,9 @@ void BigStruct2::sub_404A2C() {
 
 // 404DA3
 void BigStruct2::sub_404DA3(CRect* rect, uint16_t unit_id) {
-	this->field_0x10c.SetAtGrow(this->field_0x134, *rect);
-	this->field_0x120.SetAtGrow(this->field_0x134, unit_id);
-	this->field_0x134++;
+	this->hit_rects.SetAtGrow(this->hit_count, *rect);
+	this->hit_unit_ids.SetAtGrow(this->hit_count, unit_id);
+	this->hit_count++;
 }
 
 // 41AB05
@@ -4752,7 +4752,7 @@ void BigStruct2::sub_41AB05() {
 
 // 41A66E
 void BigStruct2::sub_41A66E(uint16_t id) {
-	POSITION it = this->field_0x9d0.GetStartPosition();
+	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = 0x24;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -4761,7 +4761,7 @@ void BigStruct2::sub_41A66E(uint16_t id) {
 	while (it != nullptr) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		if (obj->IsSelected()) {
 			pkt->param = id;
 			pkt->AppendWord(obj->unit_id);
@@ -4780,7 +4780,7 @@ void BigStruct2::sub_41A7C7(uint8_t arg1, uint16_t arg2, uint8_t arg3, uint16_t 
 	pkt->id = 0x22;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->unit_id = this->field_0x138->unit_id;
+	pkt->unit_id = this->primary_selected_object->unit_id;
 	pkt->type = arg1;
 	pkt->subtype = arg3;
 	pkt->param1 = arg2;
@@ -4796,10 +4796,10 @@ void BigStruct2::sub_41A5B4() {
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->count = 0;
-	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		if (obj->IsSelected()) {
 			pkt->AppendWord(obj->unit_id);
 		}
@@ -4813,7 +4813,7 @@ void BigStruct2::sub_41A5B4() {
 
 // 41A33F
 void BigStruct2::sub_41A33F(uint16_t x, uint16_t y) {
-	POSITION it = this->field_0x9d0.GetStartPosition();
+	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = 0x21;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -4825,7 +4825,7 @@ void BigStruct2::sub_41A33F(uint16_t x, uint16_t y) {
 	while (it != nullptr) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		if (obj->IsSelected()) {
 			pkt->param = obj->shopInventoryVisibleStart;
 			pkt->AppendWord(obj->unit_id);
@@ -4840,7 +4840,7 @@ void BigStruct2::sub_41A33F(uint16_t x, uint16_t y) {
 
 // 41A425
 void BigStruct2::sub_41A425() {
-	POSITION it = this->field_0x9d0.GetStartPosition();
+	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = 0x14;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -4849,7 +4849,7 @@ void BigStruct2::sub_41A425() {
 	while (it != nullptr) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		if (obj->IsSelected()) {
 			pkt->AppendWord(obj->unit_id);
 		}
@@ -4868,10 +4868,10 @@ void BigStruct2::sub_41A4DF() {
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->count = 0;
-	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		if (obj->IsSelected() && (((CUnit*)obj)->unitFlags & 1)) {
 			pkt->AppendWord(obj->unit_id);
 			break;
@@ -4921,10 +4921,10 @@ int32_t BigStruct2::sub_4184B8(int32_t x, int32_t y) {
 uint32_t BigStruct2::sub_41864D() {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	uint32_t avail = 0;
-	CUnit* old_unit = this->field_0x994;
-	uint16_t old_id = (uint16_t)this->field_0x9a8;
-	this->field_0x994 = nullptr;
-	this->field_0x9a8 = 0;
+	CUnit* old_unit = this->hovered_unit;
+	uint16_t old_id = (uint16_t)this->hovered_unit_id;
+	this->hovered_unit = nullptr;
+	this->hovered_unit_id = 0;
 	this->quest_some_id_2 = 0;
 	this->quest_landmark_some_id = 0;
 	this->quest_building_some_id = 0;
@@ -4934,7 +4934,7 @@ uint32_t BigStruct2::sub_41864D() {
 	this->ClientRectToScreen(&screen_rect, &this->rect);
 	CPoint mouse_pt(g_mousept.GetX(), g_mousept.GetY());
 	if (!screen_rect.PtInRect(mouse_pt)) {
-		if (this->field_0x994 != old_unit) {
+		if (this->hovered_unit != old_unit) {
 			wnd->vis_charinfo->MsgProc(0x408, 0, 0);
 			wnd->vis_sidestatus->MsgProc(0x408, 0, 0);
 		}
@@ -4942,15 +4942,15 @@ uint32_t BigStruct2::sub_41864D() {
 	}
 
 	CRect mouse_rect(g_mousept.x - 1, g_mousept.y - 1, g_mousept.x + 1, g_mousept.y + 1);
-	for (int32_t i = this->field_0x134 - 1; i >= 0; i--) {
-		CRect unit_rect = this->field_0x10c[i];
+	for (int32_t i = this->hit_count - 1; i >= 0; i--) {
+		CRect unit_rect = this->hit_rects[i];
 		unit_rect.NormalizeRect();
 		CRect intersect_rect;
 		if (!intersect_rect.IntersectRect(&unit_rect, &mouse_rect)) {
 			continue;
 		}
 		CGameObject* obj;
-		if (!this->field_0x9d0.Lookup(this->field_0x120[i], obj)) {
+		if (!this->objects.Lookup(this->hit_unit_ids[i], obj)) {
 			break;
 		}
 		const char* class_name = obj->GetRuntimeClass()->m_lpszClassName;
@@ -4972,36 +4972,36 @@ uint32_t BigStruct2::sub_41864D() {
 		if (this->my_main_unit->IsAllied(obj->map_player->index) != 0) {
 			avail |= 4;
 		}
-		this->field_0x994 = (CUnit*)obj;
+		this->hovered_unit = (CUnit*)obj;
 		if (wnd->sessionMode != 2) {
-			for (POSITION it = this->field_0x4970->quests_map.GetStartPosition(); it != nullptr;) {
+			for (POSITION it = this->quest_map->quests_map.GetStartPosition(); it != nullptr;) {
 				uint32_t quest_id;
 				Quest* quest;
-				this->field_0x4970->quests_map.GetNextAssoc(it, quest_id, quest);
-				if (this->field_0x994->unit_id == quest->GetObj() && quest->IsInWork() != 0) {
+				this->quest_map->quests_map.GetNextAssoc(it, quest_id, quest);
+				if (this->hovered_unit->unit_id == quest->GetObj() && quest->IsInWork() != 0) {
 					if (quest->Kind() != 3 && quest->Kind() != 0xC) {
 						this->quest_some_id_2 = quest->GetSomeId();
 					}
-				} else if (this->field_0x994->unit_id == (quest->GetLandmarkId() & 0xFFFF)) {
+				} else if (this->hovered_unit->unit_id == (quest->GetLandmarkId() & 0xFFFF)) {
 					this->quest_landmark_some_id = quest->GetSomeId();
 				}
-				if (this->field_0x994->unit_id == quest->GetBuildingId()) {
+				if (this->hovered_unit->unit_id == quest->GetBuildingId()) {
 					this->quest_building_some_id = quest->GetSomeId();
 				}
-				if (this->field_0x994->IsKindOf(RUNTIME_CLASS(CUnit)) && quest->IsInWork() != 0) {
-					if (this->field_0x994->questFlags == quest->GetObj() && (quest->Kind() == 3 || quest->Kind() == 0xC)) {
+				if (this->hovered_unit->IsKindOf(RUNTIME_CLASS(CUnit)) && quest->IsInWork() != 0) {
+					if (this->hovered_unit->questFlags == quest->GetObj() && (quest->Kind() == 3 || quest->Kind() == 0xC)) {
 						this->quest_some_id = quest->GetSomeId();
 					}
-					if (this->field_0x994->typeId == (quest->GetObj() & 0xFF) && this->field_0x994->face == (quest->GetObj() >> 8) && quest->Kind() == 2) {
+					if (this->hovered_unit->typeId == (quest->GetObj() & 0xFF) && this->hovered_unit->face == (quest->GetObj() >> 8) && quest->Kind() == 2) {
 						this->quest_some_id_2 = quest->GetSomeId();
 					}
-					if (this->field_0x994->map_player->index == quest->GetObj() && quest->Kind() == 0xD) {
+					if (this->hovered_unit->map_player->index == quest->GetObj() && quest->Kind() == 0xD) {
 						this->quest_some_id_2 = quest->GetSomeId();
 					}
 				}
 			}
 		}
-		this->field_0x9a8 = this->field_0x120[i];
+		this->hovered_unit_id = this->hit_unit_ids[i];
 		break;
 	}
 
@@ -5010,21 +5010,21 @@ uint32_t BigStruct2::sub_41864D() {
 	if (child2 != nullptr) {
 		CPoint pt(g_mousept.GetX(), g_mousept.GetY());
 		if (child2->GetRect().PtInRect(pt)) {
-			this->field_0x994 = nullptr;
-			this->field_0x9a8 = 0;
+			this->hovered_unit = nullptr;
+			this->hovered_unit_id = 0;
 		}
 	}
 	if (child3 != nullptr) {
 		CPoint pt(g_mousept.GetX(), g_mousept.GetY());
 		if (child3->GetRect().PtInRect(pt)) {
-			this->field_0x994 = nullptr;
-			this->field_0x9a8 = 0;
+			this->hovered_unit = nullptr;
+			this->hovered_unit_id = 0;
 		}
 	}
 
 	int32_t tile_x = g_mousept.x >> 5;
 	int32_t tile_y = this->sub_4184B8(g_mousept.x, g_mousept.y);
-	uint16_t* land = this->field_0x80->GetLandscape();
+	uint16_t* land = this->scenario->GetLandscape();
 	int32_t cell = tile_x + this->view_x + (tile_y + this->view_y) * this->map_width;
 	uint16_t land_flags = (land[cell] & 0xC000) | (land[cell + 1] & 0xC000) |
 		(land[cell + 1 + this->map_width] & 0xC000) | (land[cell + this->map_width] & 0xC000);
@@ -5036,19 +5036,19 @@ uint32_t BigStruct2::sub_41864D() {
 	}
 	tile_x += this->view_x;
 	tile_y += this->view_y;
-	if (this->field_0x994 != old_unit) {
+	if (this->hovered_unit != old_unit) {
 		wnd->vis_charinfo->MsgProc(0x408, 0, 0);
 		wnd->vis_sidestatus->MsgProc(0x408, 0, 0);
-		if (this->field_0x994 != nullptr) {
-			this->field_0x994->m_bSelectionDirty = 1;
+		if (this->hovered_unit != nullptr) {
+			this->hovered_unit->m_bSelectionDirty = 1;
 		}
 		CGameObject* prev_obj = old_unit;
-		if (this->field_0x9d0.Lookup(old_id, prev_obj)) {
+		if (this->objects.Lookup(old_id, prev_obj)) {
 			prev_obj->m_bSelectionDirty = 1;
 		}
 	}
-	this->field_0x9ac = tile_x;
-	this->field_0x9b0 = tile_y;
+	this->last_mouse_tile_x = tile_x;
+	this->last_mouse_tile_y = tile_y;
 	return avail;
 }
 
@@ -5090,8 +5090,8 @@ void BigStruct2::sub_40B314() {
 			cursor = g_Cursors[CURSOR_ARROW0];
 		} else if (g_mousept.GetY() < g_ScreenSize.bottom - 2) {
 			if (screen_rect.PtInRect(mouse_pt)) {
-				if (this->field_0x9b4 != 0) {
-					switch (this->field_0x9b4) {
+				if (this->order_mode != 0) {
+					switch (this->order_mode) {
 					case 1:
 						cursor = g_Cursors[CURSOR_ATTACK];
 						break;
@@ -5119,7 +5119,7 @@ void BigStruct2::sub_40B314() {
 						cursor = g_Cursors[CURSOR_DEFAULT];
 					}
 				} else if (this->IsBookOpen() != 0 && wnd->vis_spellbook->sub_41F9B0() >= 0 &&
-					(this->field_0x148 != 0 || this->field_0x150 != 0) && (this->field_0x144 & 4) == 0) {
+					(this->selected_available_spell_mask != 0 || this->active_spell_effect_mask != 0) && (this->selection_flags & 4) == 0) {
 					uint32_t avail = this->sub_41864D();
 					cursor = g_Cursors[CURSOR_CAST];
 					if ((avail & 0x400) != 0) {
@@ -5128,16 +5128,16 @@ void BigStruct2::sub_40B314() {
 					if ((avail & 3) == 0 && wnd->vis_spellbook->sub_4CAAA7() != 0) {
 						cursor = g_Cursors[CURSOR_MOVE];
 					}
-					int32_t pickup_flag = (this->field_0x140 == 1 && (this->field_0x144 & 1) != 0) ? 1 : 0;
+					int32_t pickup_flag = (this->selected_object_count == 1 && (this->selection_flags & 1) != 0) ? 1 : 0;
 					int32_t town_flag = pickup_flag;
 					if (pickup_flag != 0) {
-						pickup_flag = ((CUnit*)this->field_0x138)->unitFlags & 1;
+						pickup_flag = ((CUnit*)this->primary_selected_object)->unitFlags & 1;
 						if (pickup_flag != 0) {
-							pickup_flag = (avail == 0x40 || (this->field_0x994 == this->field_0x138 && (avail & 0x40) != 0)) ? 1 : 0;
+							pickup_flag = (avail == 0x40 || (this->hovered_unit == this->primary_selected_object && (avail & 0x40) != 0)) ? 1 : 0;
 						}
 					}
 					if (town_flag != 0) {
-						town_flag = ((((CUnit*)this->field_0x138)->unitFlags & 1) != 0 && (avail & 0x800) != 0) ? 1 : 0;
+						town_flag = ((((CUnit*)this->primary_selected_object)->unitFlags & 1) != 0 && (avail & 0x800) != 0) ? 1 : 0;
 					}
 					if (kb_menu != 0) {
 						cursor = g_Cursors[CURSOR_MOVE];
@@ -5167,29 +5167,29 @@ void BigStruct2::sub_40B314() {
 					this->sub_41864D();
 				} else {
 					uint32_t avail = this->sub_41864D();
-					if (this->field_0x140 == 0) {
+					if (this->selected_object_count == 0) {
 						if ((avail & 0x23) != 0) {
 							cursor = g_Cursors[CURSOR_SELECT];
 						} else {
 							cursor = g_Cursors[CURSOR_DEFAULT];
 						}
-					} else if ((this->field_0x144 & 0x24) != 0) {
+					} else if ((this->selection_flags & 0x24) != 0) {
 						if ((avail & 0x23) != 0) {
 							cursor = g_Cursors[CURSOR_SELECT];
 						} else {
 							cursor = g_Cursors[CURSOR_DEFAULT];
 						}
 					} else {
-						int32_t pickup_flag = (this->field_0x140 == 1 && (this->field_0x144 & 1) != 0) ? 1 : 0;
+						int32_t pickup_flag = (this->selected_object_count == 1 && (this->selection_flags & 1) != 0) ? 1 : 0;
 						int32_t town_flag = pickup_flag;
 						if (pickup_flag != 0) {
-							pickup_flag = ((CUnit*)this->field_0x138)->unitFlags & 1;
+							pickup_flag = ((CUnit*)this->primary_selected_object)->unitFlags & 1;
 							if (pickup_flag != 0) {
-								pickup_flag = (avail == 0x40 || (this->field_0x994 == this->field_0x138 && (avail & 0x40) != 0)) ? 1 : 0;
+								pickup_flag = (avail == 0x40 || (this->hovered_unit == this->primary_selected_object && (avail & 0x40) != 0)) ? 1 : 0;
 							}
 						}
 						if (town_flag != 0) {
-							town_flag = ((((CUnit*)this->field_0x138)->unitFlags & 1) != 0 && (avail & 0x800) != 0) ? 1 : 0;
+							town_flag = ((((CUnit*)this->primary_selected_object)->unitFlags & 1) != 0 && (avail & 0x800) != 0) ? 1 : 0;
 						}
 						if ((avail & 4) != 0) {
 							if (kb_menu != 0) {
@@ -5255,13 +5255,13 @@ void BigStruct2::sub_40B314() {
 	if (wnd->drag_entry != nullptr) {
 		uint32_t avail = this->sub_41864D();
 		cursor = wnd->item_cursor;
-		if (wnd->dialogsMask == 1 && this->field_0x140 == 1 &&
-			(((CUnit*)this->field_0x138)->unitFlags & 1) != 0 &&
-			this->field_0x138->map_player == this->my_main_unit) {
+		if (wnd->dialogsMask == 1 && this->selected_object_count == 1 &&
+			(((CUnit*)this->primary_selected_object)->unitFlags & 1) != 0 &&
+			this->primary_selected_object->map_player == this->my_main_unit) {
 			int32_t tile_x = (g_mousept.GetX() >> 5) + this->view_x;
 			int32_t tile_y = this->sub_4184B8(g_mousept.GetX(), g_mousept.GetY()) + this->view_y;
-			if (abs(tile_x - this->field_0x138->tileX) <= 2 &&
-				abs(tile_y - this->field_0x138->tileY) <= 2 && (avail & 1) != 0) {
+			if (abs(tile_x - this->primary_selected_object->tileX) <= 2 &&
+				abs(tile_y - this->primary_selected_object->tileY) <= 2 && (avail & 1) != 0) {
 				cursor = g_Cursors[CURSOR_BACKPACK];
 			}
 		}
@@ -5276,8 +5276,8 @@ void BigStruct2::sub_404E1A() {
 	AfxGetMainWnd();
 	timeGetTime();
 	//this->field_0x80->GetMapHeights();
-	uint8_t* f18map = this->field_0x80->GetOverlayMap();
-	uint16_t* landscape = this->field_0x80->GetLandscape();
+	uint8_t* f18map = this->scenario->GetOverlayMap();
+	uint16_t* landscape = this->scenario->GetLandscape();
 	CRect rect;
 	this->ClientRectToScreen(&rect, this->rect);
 	for (int32_t y = 0; y < this->view_tiles_y + 4; y++) {
@@ -5298,7 +5298,7 @@ void BigStruct2::sub_404E1A() {
 			int32_t ter_var = (tile_id >> 4) & 3;
 			bool animated = ter_type >= 8 && ter_type < 12;
 			if (animated) {
-				int32_t frame = (ter_type + (tile_x + 1) * tile_y + (this->field_0xa88 >> 2)) & 3;
+				int32_t frame = (ter_type + (tile_x + 1) * tile_y + (this->anim_tick >> 2)) & 3;
 				if (g_Animation == 0) {
 					frame = 0;
 				}
@@ -5306,10 +5306,10 @@ void BigStruct2::sub_404E1A() {
 			}
 			CGameBitmap* tile = g_ter_tiles(ter_var, ter_type);
 			if ((landscape[cell] & 0x2000) != 0 && !animated) {
-				memcpy(this->field_0x3f68->GetData(), (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400, 0x400);
-				CopyIndexedSkip0((uint8_t*)this->field_0x3f68->GetData(),
+				memcpy(this->scratch_tile->GetData(), (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400, 0x400);
+				CopyIndexedSkip0((uint8_t*)this->scratch_tile->GetData(),
 					(uint8_t*)DAT_00665344->GetData() + ((tile_x + tile_y * 5) & 3) * 0x400, 0x400);
-				tile = this->field_0x3f68;
+				tile = this->scratch_tile;
 				tile_id &= 0xFFF0;
 			}
 			int32_t l1 = f18map[cell];
@@ -5334,8 +5334,8 @@ void BigStruct2::sub_404E1A() {
 // 405399
 void BigStruct2::sub_405399(int32_t arg) {
 	//this->field_0x80->GetMapHeights();
-	uint8_t* f18map = this->field_0x80->GetOverlayMap();
-	uint16_t* landscape = this->field_0x80->GetLandscape();
+	uint8_t* f18map = this->scenario->GetOverlayMap();
+	uint16_t* landscape = this->scenario->GetLandscape();
 	CRect rect;
 	this->ClientRectToScreen(&rect, this->rect);
 	int32_t y_off = (this->tile_scroll_y + arg) * 0x20;
@@ -5366,7 +5366,7 @@ void BigStruct2::sub_405399(int32_t arg) {
 			if (!animated) {
 				continue;
 			}
-			int32_t frame = (ter_type + tile_x + tile_x * tile_y + (this->field_0xa88 >> 2)) & 3;
+			int32_t frame = (ter_type + tile_x + tile_x * tile_y + (this->anim_tick >> 2)) & 3;
 			if (g_Animation == 0) {
 				frame = 0;
 			}
@@ -5393,8 +5393,8 @@ void BigStruct2::sub_40587B(int32_t arg) {
 	AfxGetMainWnd();
 	timeGetTime();
 	//this->field_0x80->GetMapHeights();
-	uint8_t* f18map = this->field_0x80->GetOverlayMap();
-	uint16_t* landscape = this->field_0x80->GetLandscape();
+	uint8_t* f18map = this->scenario->GetOverlayMap();
+	uint16_t* landscape = this->scenario->GetLandscape();
 	CRect rect;
 	this->ClientRectToScreen(&rect, this->rect);
 	int32_t y_off = (this->tile_scroll_y + arg) * 0x20;
@@ -5420,7 +5420,7 @@ void BigStruct2::sub_40587B(int32_t arg) {
 			int32_t ter_var = (tile_id >> 4) & 3;
 			bool animated = ter_type >= 8 && ter_type < 12;
 			if (animated) {
-				int32_t frame = (ter_type + (tile_x + 1) * tile_y + (this->field_0xa88 >> 2)) & 3;
+				int32_t frame = (ter_type + (tile_x + 1) * tile_y + (this->anim_tick >> 2)) & 3;
 				if (g_Animation == 0) {
 					frame = 0;
 				}
@@ -5428,10 +5428,10 @@ void BigStruct2::sub_40587B(int32_t arg) {
 			}
 			CGameBitmap* tile = g_ter_tiles(ter_var, ter_type);
 			if ((landscape[cell] & 0x2000) != 0 && !animated) {
-				memcpy(this->field_0x3f68->GetData(), (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400, 0x400);
-				CopyIndexedSkip0((uint8_t*)this->field_0x3f68->GetData(),
+				memcpy(this->scratch_tile->GetData(), (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400, 0x400);
+				CopyIndexedSkip0((uint8_t*)this->scratch_tile->GetData(),
 					(uint8_t*)DAT_00665344->GetData() + ((tile_x + tile_y * 5) & 3) * 0x400, 0x400);
-				tile = this->field_0x3f68;
+				tile = this->scratch_tile;
 				tile_id &= 0xFFF0;
 			}
 			int32_t l1 = f18map[cell];
@@ -5457,18 +5457,18 @@ void BigStruct2::sub_40587B(int32_t arg) {
 void BigStruct2::sub_405D0E() {
 	AfxGetMainWnd();
 	//this->field_0x80->GetMapHeights();
-	uint8_t* f18map = this->field_0x80->GetOverlayMap();
-	uint16_t* landscape = this->field_0x80->GetLandscape();
+	uint8_t* f18map = this->scenario->GetOverlayMap();
+	uint16_t* landscape = this->scenario->GetLandscape();
 	CRect rect;
 	this->ClientRectToScreen(&rect, this->rect);
 	for (int32_t y = 0; y < this->view_tiles_y + 4; y++) {
 		for (int32_t x = this->view_tiles_x - 1; x >= 0; x--) {
 			int32_t vis_idx = x + 3 + (y + 3) * (this->view_tiles_x + 7);
 			int32_t vis_idx2 = vis_idx + this->view_tiles_x + 7;
-			int32_t l1 = this->field_0xa8[vis_idx];
-			int32_t l2 = this->field_0xa8[vis_idx + 1];
-			int32_t l3 = this->field_0xa8[vis_idx2];
-			int32_t l4 = this->field_0xa8[vis_idx2 + 1];
+			int32_t l1 = this->corner_light[vis_idx];
+			int32_t l2 = this->corner_light[vis_idx + 1];
+			int32_t l3 = this->corner_light[vis_idx2];
+			int32_t l4 = this->corner_light[vis_idx2 + 1];
 			if (l1 + l2 + l3 + l4 == 0x3FC) {
 				continue;
 			}
@@ -5492,7 +5492,7 @@ void BigStruct2::sub_405D0E() {
 			int32_t ter_var = (tile_id >> 4) & 3;
 			bool animated = ter_type >= 8 && ter_type < 12;
 			if (animated) {
-				int32_t frame = (ter_type + (tile_x + 1) * tile_y + (this->field_0xa88 >> 2)) & 3;
+				int32_t frame = (ter_type + (tile_x + 1) * tile_y + (this->anim_tick >> 2)) & 3;
 				if (g_Animation == 0) {
 					frame = 0;
 				}
@@ -5500,10 +5500,10 @@ void BigStruct2::sub_405D0E() {
 			}
 			CGameBitmap* tile = g_ter_tiles(ter_var, ter_type);
 			if ((landscape[cell] & 0x2000) != 0 && !animated) {
-				memcpy(this->field_0x3f68->GetData(), (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400, 0x400);
-				CopyIndexedSkip0((uint8_t*)this->field_0x3f68->GetData(),
+				memcpy(this->scratch_tile->GetData(), (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400, 0x400);
+				CopyIndexedSkip0((uint8_t*)this->scratch_tile->GetData(),
 					(uint8_t*)DAT_00665344->GetData() + ((tile_x + tile_y * 5) & 3) * 0x400, 0x400);
-				tile = this->field_0x3f68;
+				tile = this->scratch_tile;
 				tile_id &= 0xFFF0;
 			}
 			uint16_t* pal = DAT_00661018[ter_type]->GetPalette(0);
@@ -5524,7 +5524,7 @@ void BigStruct2::sub_405D0E() {
 // 406F7B
 void BigStruct2::sub_406F7B() {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	if (wnd->dialogsMask != 1 || this->field_0x80 == nullptr) {
+	if (wnd->dialogsMask != 1 || this->scenario == nullptr) {
 		return;
 	}
 
@@ -5532,7 +5532,7 @@ void BigStruct2::sub_406F7B() {
 	CRect local_rect;
 	CDWordArray dummy_arr;
 
-	this->field_0xa90++;
+	this->gap_0xa90++;
 	this->ClientRectToScreen(&local_rect, this->rect);
 	this->UpdateAmbientSounds();
 	if (abs(this->scroll_dx) >= this->view_tiles_x / 2 || abs(this->scroll_dy) >= this->view_tiles_y / 2) {
@@ -5548,17 +5548,17 @@ void BigStruct2::sub_406F7B() {
 	}
 	this->MakeHeightCells();
 	this->sub_40403B();
-	this->field_0xf4.IntersectRect(&this->field_0xf4, &local_rect);
+	this->dirty_rect.IntersectRect(&this->dirty_rect, &local_rect);
 	if (view_moved != 0) {
-		this->field_0xf4 = local_rect;
+		this->dirty_rect = local_rect;
 	}
-	if (this->field_0xe0 != 0) {
-		this->field_0xf4 = local_rect;
-		this->field_0xe0 = 0;
+	if (this->full_redraw_requested != 0) {
+		this->dirty_rect = local_rect;
+		this->full_redraw_requested = 0;
 	}
-	uint32_t anim_redraw = this->field_0xa88 - this->field_0xa8c > 3;
+	uint32_t anim_redraw = this->anim_tick - this->anim_redraw_tick > 3;
 	if (anim_redraw != 0) {
-		this->field_0xa8c = this->field_0xa88;
+		this->anim_redraw_tick = this->anim_tick;
 	}
 	VisInvBase* child2 = (VisInvBase*)this->FindChild(MAP_CHILD_BAG);
 	CVisualObject* child3 = this->FindChild(MAP_CHILD_SPELL_BOOK);
@@ -5570,11 +5570,11 @@ void BigStruct2::sub_406F7B() {
 	if (child3 != nullptr) {
 		childs_rect |= child3->GetRect();
 	}
-	if (childs_size != this->field_0x104) {
-		this->field_0xf4 = local_rect;
+	if (childs_size != this->cached_msg_count) {
+		this->dirty_rect = local_rect;
 	}
 	if (child2 != nullptr && child2->sub_41F940() != 0) {
-		this->field_0xf4 = local_rect;
+		this->dirty_rect = local_rect;
 	}
 	g_mousept.Update();
 	LockSurface3();
@@ -5675,22 +5675,22 @@ void BigStruct2::sub_406F7B() {
 	SetClipRect(clip_rect);
 	UnlockSurface3();
 	g_mousept.Update();
-	SetClipRect(this->field_0xf4);
+	SetClipRect(this->dirty_rect);
 	CopyScreenBlock(this->tile_scroll_x, this->tile_scroll_y, this->view_tiles_x << 5, this->view_tiles_y << 5);
 	SetClipRect(clip_rect);
 	g_mousept.Update();
 	LockSurface2();
 	GetClipRect(&clip_rect);
-	SetClipRect(this->field_0xf4);
-	if (this->field_0x108 != 0 && (g_DWORD_00659d18 & 2) == 0 && g_Lightning != 0) {
+	SetClipRect(this->dirty_rect);
+	if (this->lightning_active != 0 && (g_DWORD_00659d18 & 2) == 0 && g_Lightning != 0) {
 		this->sub_405D0E();
 	}
-	int32_t tick = this->field_0xa88;
-	uint8_t* gfx_cells = this->field_0x80->GetObjectMap();
-	uint8_t* f18map = this->field_0x80->GetOverlayMap();
-	int8_t* hmap = this->field_0x80->GetMapHeights();
-	uint16_t* landscape = this->field_0x80->GetLandscape();
-	this->field_0x134 = 0;
+	int32_t tick = this->anim_tick;
+	uint8_t* gfx_cells = this->scenario->GetObjectMap();
+	uint8_t* f18map = this->scenario->GetOverlayMap();
+	int8_t* hmap = this->scenario->GetMapHeights();
+	uint16_t* landscape = this->scenario->GetLandscape();
+	this->hit_count = 0;
 
 	if (g_Shadows != 0) {
 		for (int32_t y = -4; y < this->view_tiles_y + 7; y++) {
@@ -5801,7 +5801,7 @@ void BigStruct2::sub_406F7B() {
 				if (g_Lightning != 0) {
 					uint16_t lkey = (x + this->view_x) | ((y + this->view_y) << 8);
 					uint32_t lval;
-					if (this->field_0xa94.Lookup(lkey, lval)) {
+					if (this->lightning_cells.Lookup(lkey, lval)) {
 						int32_t terrain = (uint16_t)(landscape[cell] & 0x1FFF) >> 6;
 						if (lval < 0x12 && terrain > 7 && terrain < 0xC) {
 							ProjectileInfo* proj = g_ProjectileInfos[8];
@@ -5815,7 +5815,7 @@ void BigStruct2::sub_406F7B() {
 			if (gfxb != 0 && x > -4 && y > -4 && x < this->view_tiles_x + 3 && y < this->view_tiles_y + 4) {
 				int32_t gidx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
 				uint8_t light2 = this->tile_light[gidx];
-				int32_t tanval = (int32_t)(tan(this->field_0x80->GetRenderSunAngle()) * 65536.0);
+				int32_t tanval = (int32_t)(tan(this->scenario->GetRenderSunAngle()) * 65536.0);
 				uint32_t hgt2 = this->height_cells[x + 4 + (y + 4) * (this->view_tiles_x + 8)];
 				gfxb--;
 				if (this->sub_40B173(gfxb, x, y, hgt2) == 0) {
@@ -5844,7 +5844,7 @@ void BigStruct2::sub_406F7B() {
 						frame = 0;
 					}
 					CSprite256* spr = g_GfxFiles[file]->GetSprite();
-					int32_t yoff = (int32_t)(tan(this->field_0x80->GetRenderSunAngle()) *
+					int32_t yoff = (int32_t)(tan(this->scenario->GetRenderSunAngle()) *
 						(double)((spr->GetHeight(frame) / 2 + gobj->height / 2) - gobj->center_y));
 					int32_t cx = (gobj->center_x - gobj->width / 2) + spr->GetWidth(0) / 2;
 					int32_t cy = (gobj->center_y - gobj->height / 2) + spr->GetHeight(0) / 2;
@@ -5876,7 +5876,7 @@ void BigStruct2::sub_406F7B() {
 					}
 					uint16_t fkey = (x + this->view_x) | ((y + this->view_y) << 8);
 					uint32_t fval;
-					if (this->field_0xa94.Lookup(fkey, fval)) {
+					if (this->lightning_cells.Lookup(fkey, fval)) {
 						ProjectileInfo* proj = g_ProjectileInfos[0xF];
 						proj->GetSprite()->Draw((x * 0x20 + 0x10) - proj->width / 2,
 							((y * 0x20 + 0x10) - hgt2) - proj->height / 2, (int32_t)fval / 2, 0, 0);
@@ -5886,7 +5886,7 @@ void BigStruct2::sub_406F7B() {
 			if (y > -4 && y < this->view_tiles_y + 7 && x > -4 && x < this->view_tiles_x + 3) {
 				uint16_t tkey = (this->view_x + x) | ((this->view_y + y) << 8);
 				uint32_t tval;
-				if (this->field_0xa08.Lookup(tkey, tval) && tval != 0 && lflags == 0xC000) {
+				if (this->terrain_light_override_cells.Lookup(tkey, tval) && tval != 0 && lflags == 0xC000) {
 					int32_t tidx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
 					this->sub_40AFC5(x * 0x20 + 0x10,
 						(int32_t)(this->tile_top_y[tidx] + this->tile_bottom_y[tidx]) / 2, tval, 1);
@@ -5898,7 +5898,7 @@ void BigStruct2::sub_406F7B() {
 	UnlockSurface2();
 	g_mousept.Update();
 	LockSurface2();
-	SetClipRect(this->field_0xf4);
+	SetClipRect(this->dirty_rect);
 
 	if (g_Shadows != 0) {
 		for (int32_t y = -4; y < this->view_tiles_y + 7; y++) {
@@ -5918,11 +5918,11 @@ void BigStruct2::sub_406F7B() {
 		}
 	}
 
-	POSITION it = this->field_0x9ec.GetStartPosition();
+	POSITION it = this->projectiles.GetStartPosition();
 	while (it != nullptr) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9ec.GetNextAssoc(it, key, obj);
+		this->projectiles.GetNextAssoc(it, key, obj);
 		obj->Draw(0, 0, 0);
 	}
 
@@ -5934,7 +5934,7 @@ void BigStruct2::sub_406F7B() {
 			if (y > -1 && y < this->view_tiles_y + 4 && x > -1 && x < this->view_tiles_x) {
 				uint16_t tkey = (this->view_x + x) | ((this->view_y + y) << 8);
 				uint32_t tval;
-				if (this->field_0xa08.Lookup(tkey, tval) && tval != 0 && lflags == 0xC000) {
+				if (this->terrain_light_override_cells.Lookup(tkey, tval) && tval != 0 && lflags == 0xC000) {
 					int32_t tidx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
 					this->sub_40AFC5(x * 0x20 + 0x10,
 						(int32_t)(this->tile_top_y[tidx] + this->tile_bottom_y[tidx]) / 2, tval, 0);
@@ -5989,19 +5989,19 @@ void BigStruct2::sub_406F7B() {
 	UnlockSurface2();
 	g_mousept.Update();
 	LockSurface2();
-	SetClipRect(this->field_0xf4);
+	SetClipRect(this->dirty_rect);
 
 	for (int32_t x = 0; x < this->view_tiles_x; x++) {
 		int32_t y = 0;
 		while (y < this->view_tiles_y + 4) {
 			int32_t stride = this->view_tiles_x + 7;
 			int32_t idx = x + 3 + (y + 3) * stride;
-			uint32_t t0 = this->field_0xa0[idx];
-			uint32_t t1 = this->field_0xa0[idx + 1];
-			uint32_t t2 = this->field_0xa0[idx + stride];
-			uint32_t t3 = this->field_0xa0[idx + 1 + stride];
-			uint32_t t4 = this->field_0xa0[idx + stride * 2];
-			uint32_t t5 = this->field_0xa0[idx + 1 + stride * 2];
+			uint32_t t0 = this->corner_tile_kind[idx];
+			uint32_t t1 = this->corner_tile_kind[idx + 1];
+			uint32_t t2 = this->corner_tile_kind[idx + stride];
+			uint32_t t3 = this->corner_tile_kind[idx + 1 + stride];
+			uint32_t t4 = this->corner_tile_kind[idx + stride * 2];
+			uint32_t t5 = this->corner_tile_kind[idx + 1 + stride * 2];
 			uint32_t h0 = this->tile_corner_y[idx];
 			uint32_t h1 = this->tile_corner_y[idx + 1];
 			uint32_t h2 = this->tile_corner_y[idx + stride];
@@ -6010,8 +6010,8 @@ void BigStruct2::sub_406F7B() {
 				idx += stride;
 				h2 = this->tile_corner_y[idx + stride];
 				h3 = this->tile_corner_y[idx + 1 + stride];
-				t4 = this->field_0xa0[idx + stride * 2];
-				t5 = this->field_0xa0[idx + 1 + stride * 2];
+				t4 = this->corner_tile_kind[idx + stride * 2];
+				t5 = this->corner_tile_kind[idx + 1 + stride * 2];
 			}
 			if (t0 == t1 && t1 == t2 && t2 == t3) {
 				if (t0 == 0) {
@@ -6054,7 +6054,7 @@ void BigStruct2::sub_406F7B() {
 	UnlockSurface2();
 	g_mousept.Update();
 	LockSurface2();
-	SetClipRect(this->field_0xf4);
+	SetClipRect(this->dirty_rect);
 
 	if (child2 == nullptr || child3 == nullptr) {
 		if (child3 == nullptr) {
@@ -6069,7 +6069,7 @@ void BigStruct2::sub_406F7B() {
 		FillRectColorSimple(local_rect.left, child3->GetRect().bottom, local_rect.right, child3->GetRect().bottom + 4, 0);
 	}
 	g_bmp_crystall->DrawSubRectMasked(local_rect.right - 0x10, local_rect.top, 0, 0, 0x10, 0x9e);
-	uint32_t top_panel_kind = (uint32_t)(this->field_0x140 == 0) | (this->field_0x144 & 0x24);
+	uint32_t top_panel_kind = (uint32_t)(this->selected_object_count == 0) | (this->selection_flags & 0x24);
 	if (top_panel_kind == 0) {
 		g_bmp_cmdbarl->DrawSubRectMasked(local_rect.right - 0x10, local_rect.top + 0x9e, 0, 0, 0x10, 0x50);
 	} else {
@@ -6093,23 +6093,23 @@ void BigStruct2::sub_406F7B() {
 	SetClipRect(local_rect);
 	TakeDamage::DrawDamages(&this->damage_labels);
 	this->msglog.Draw();
-	this->field_0xc4++;
+	this->fps_frames++;
 	uint32_t now = timeGetTime();
-	if (this->field_0xcc == 0) {
-		this->field_0xcc = now;
+	if (this->fps_last_tick == 0) {
+		this->fps_last_tick = now;
 	}
-	this->field_0xc8 += now - this->field_0xcc;
-	this->field_0xcc = now;
-	if ((uint32_t)this->field_0xc8 > 1000) {
-		this->field_0xd0 = ((double)(uint32_t)this->field_0xc4 * 1000.0) / (double)(uint32_t)this->field_0xc8;
-		this->field_0xc8 -= 1000;
-		this->field_0xc4 = 0;
+	this->fps_time_ms += now - this->fps_last_tick;
+	this->fps_last_tick = now;
+	if ((uint32_t)this->fps_time_ms > 1000) {
+		this->fps = ((double)(uint32_t)this->fps_frames * 1000.0) / (double)(uint32_t)this->fps_time_ms;
+		this->fps_time_ms -= 1000;
+		this->fps_frames = 0;
 	}
 	if (DAT_00660f6c != 0) {
 		FillRectColorSimple(local_rect.right - 0x78, local_rect.top, local_rect.right - 0x1e, local_rect.top + 0x18,
 			GetColorRGB(8, 8, 8));
 		char buf[32];
-		sprintf(buf, "%3.1f fps", this->field_0xd0);
+		sprintf(buf, "%3.1f fps", this->fps);
 		g_font1->DrawTextWithShadow(local_rect.right - 0x26, local_rect.top, buf, 1, clrsh_ShockingBlack, 1);
 	}
 	if (wnd->sessionMode == 0 && DAT_00660f70 != 0) {
@@ -6139,14 +6139,14 @@ void BigStruct2::sub_406F7B() {
 	CVisualObject::VMethod7();
 	UnlockSurface2();
 	this->sub_40B314();
-	if (childs_size == this->field_0x104) {
-		this->field_0xf4.SubtractRect(&this->field_0xf4, &childs_rect);
+	if (childs_size == this->cached_msg_count) {
+		this->dirty_rect.SubtractRect(&this->dirty_rect, &childs_rect);
 		if (!childs_rect.IsRectEmpty()) {
 			gfxFlushRect(childs_rect);
 		}
 	}
-	this->field_0x104 = childs_size;
-	gfxFlushRect(this->field_0xf4);
+	this->cached_msg_count = childs_size;
+	gfxFlushRect(this->dirty_rect);
 	CRect fps_area;
 	CRect fps_flush(0x168, 0, 0x1c2, 0x18);
 	CRect net_flush(300, 0x1e, 0x1c2, 0x69);
@@ -6176,60 +6176,60 @@ int32_t BigStruct2::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
 
 // 402af6 (client: 402af6 — only the CVisualObject id differs, see MAP_CONTEXT_ID)
 BigStruct2::BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObject(MAP_CONTEXT_ID, l, t, r, b, nullptr) {
-	this->field_0x80 = nullptr;
+	this->scenario = nullptr;
 	this->sub_402FB8();
 	this->view_x = this->MapMinX();
 	this->view_y = this->MapMinY();
-	this->field_0xc4 = 0;
-	this->field_0xc8 = 0;
-	this->field_0xcc = 0;
-	this->field_0xd0 = 0.0;
-	this->field_0x10c.SetSize(0x40, 0x20);
-	this->field_0x120.SetSize(0x40, 0x20);
-	this->field_0x134 = 0;
-	this->field_0x140 = 0;
-	this->field_0x9b4 = 0;
-	this->field_0xa88 = 0;
-	this->field_0xa8c = 0;
-	this->field_0xa90 = 0;
-	this->field_0xd8 = 0;
-	this->field_0xdc = 1;
-	this->field_0xe0 = 1;
-	this->field_0xa24 = 0;
-	this->field_0x49b8 = 40000;
-	this->field_0x49bc = 40000;
-	this->field_0x49c0 = 0;
+	this->fps_frames = 0;
+	this->fps_time_ms = 0;
+	this->fps_last_tick = 0;
+	this->fps = 0.0;
+	this->hit_rects.SetSize(0x40, 0x20);
+	this->hit_unit_ids.SetSize(0x40, 0x20);
+	this->hit_count = 0;
+	this->selected_object_count = 0;
+	this->order_mode = 0;
+	this->anim_tick = 0;
+	this->anim_redraw_tick = 0;
+	this->gap_0xa90 = 0;
+	this->rbtn_drag = 0;
+	this->minimap_dirty = 1;
+	this->full_redraw_requested = 1;
+	this->next_projectile_id = 0;
+	this->ambient_view_x = 40000;
+	this->ambient_view_y = 40000;
+	this->ambient_sound_deadline = 0;
 	this->tile_scroll_x = 0;
 	this->tile_scroll_y = 0;
 	this->prev_view_x = -1;
 	this->prev_view_y = -1;
-	this->field_0x104 = 1;
-	this->field_0x148 = 0;
-	this->field_0x150 = 0;
-	this->field_0x14c = 0;
+	this->cached_msg_count = 1;
+	this->selected_available_spell_mask = 0;
+	this->active_spell_effect_mask = 0;
+	this->selected_active_spell_mask = 0;
 	this->wimpy = 0;
 	this->formation = 1;
 	this->show_hp = 0;
 	this->flying_hp = 1;
-	this->field_0x3f68 = new CBmp256(0x20, 0x20);
-	this->field_0x80 = nullptr;
-	this->field_0x3f50 = 7;
-	this->field_0x3f4c = 1 << this->field_0x3f50;
+	this->scratch_tile = new CBmp256(0x20, 0x20);
+	this->scenario = nullptr;
+	this->shadow_shift = 7;
+	this->shadow_scale = 1 << this->shadow_shift;
 	this->sub_403730();
 	MapPlayerData* mpd = new MapPlayerData(0, 0xF);
-	this->field_0x9b8.Add(mpd);
-	this->field_0x9b8[0]->flags |= 1;
-	this->field_0x3f6c = nullptr;
+	this->map_players.Add(mpd);
+	this->map_players[0]->flags |= 1;
+	this->my_unit = nullptr;
 	this->my_main_unit = nullptr;
-	this->field_0x994 = nullptr;
-	this->field_0x9a8 = 0;
+	this->hovered_unit = nullptr;
+	this->hovered_unit_id = 0;
 	this->quest_some_id_2 = 0;
 	this->quest_landmark_some_id = 0;
 	this->quest_building_some_id = 0;
 	this->quest_some_id = 0;
-	this->field_0x4970 = new QuestMap();
+	this->quest_map = new QuestMap();
 	for (int32_t i = 0; i < 12; i++) {
-		this->field_0x4988[i] = nullptr;
+		this->hero_equipment[i] = nullptr;
 	}
 #ifdef A2CLIENT
 	// client: hat DM predefined item slots 12..31 (raw encoded ids, not pointers)
@@ -6239,7 +6239,7 @@ BigStruct2::BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObje
 	for (int32_t i = 0; i < 16; i++) {
 		this->hat_cursor_slots[i] = (int32_t)0xF0000003u;
 	}
-	this->field_0x4a04 = (int32_t)0x7fffffffu;
+	this->hat_player_count = (int32_t)0x7fffffffu;
 #endif
 }
 
@@ -6247,16 +6247,16 @@ BigStruct2::BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObje
 void BigStruct2::sub_40AFC5(int32_t x, int32_t y, uint32_t flags, int32_t flag) {
 	if ((flags & 8) != 0 && flag != 0) {
 		ProjectileInfo* proj = g_ProjectileInfos[0xF];
-		int32_t phase = abs(this->field_0xa88 / 2 + x * y) % 5 + 3;
+		int32_t phase = abs(this->anim_tick / 2 + x * y) % 5 + 3;
 		proj->GetSprite()->Draw(x - proj->width / 2, y - proj->height / 2, phase, 0, 0);
 	}
 	if ((flags & 0x40) != 0 && flag == 0) {
 		ProjectileInfo* proj = g_ProjectileInfos[0x15];
-		int32_t phase = abs(this->field_0xa88 / 2 + x * y) % proj->phases;
+		int32_t phase = abs(this->anim_tick / 2 + x * y) % proj->phases;
 		proj->GetSprite()->Draw(x - proj->width / 2, y - proj->height / 2, phase, 0, 0);
 	} else if ((flags & 0x20000) != 0 && flag != 0) {
 		ProjectileInfo* proj = g_ProjectileInfos[0x2B];
-		int32_t phase = abs(this->field_0xa88 / 2 + x * y) % proj->phases;
+		int32_t phase = abs(this->anim_tick / 2 + x * y) % proj->phases;
 		proj->GetSprite()->Draw(x - proj->width / 2, y - proj->height / 2, phase, 0, 0);
 	}
 }
@@ -6284,7 +6284,7 @@ int32_t BigStruct2::sub_40B173(int32_t gfx_id, int32_t x, int32_t y, int32_t hei
 	}
 	for (int32_t tx = min_tx; tx <= max_tx; tx++) {
 		for (int32_t ty = min_ty; ty <= max_ty; ty++) {
-			if (this->field_0xa0[tx + 3 + (ty + 3) * (this->view_tiles_x + 7)] != 0x10) {
+			if (this->corner_tile_kind[tx + 3 + (ty + 3) * (this->view_tiles_x + 7)] != 0x10) {
 				return 0;
 			}
 		}
@@ -6296,12 +6296,12 @@ int32_t BigStruct2::sub_40B173(int32_t gfx_id, int32_t x, int32_t y, int32_t hei
 void BigStruct2::sub_402FB8() {
 	this->view_tiles_x = this->rect.Width() / 32;
 	this->view_tiles_y = this->rect.Height() / 32;
-	if (this->field_0x80 != nullptr) {
-		if (this->view_x + this->view_tiles_x >= this->field_0x80->GetWidth() - 8) {
-			this->view_x = (this->field_0x80->GetWidth() - 8) - this->view_tiles_x;
+	if (this->scenario != nullptr) {
+		if (this->view_x + this->view_tiles_x >= this->scenario->GetWidth() - 8) {
+			this->view_x = (this->scenario->GetWidth() - 8) - this->view_tiles_x;
 		}
-		if (this->view_y + this->view_tiles_y >= this->field_0x80->GetHeight() - 8) {
-			this->view_y = (this->field_0x80->GetHeight() - 8) - this->view_tiles_y;
+		if (this->view_y + this->view_tiles_y >= this->scenario->GetHeight() - 8) {
+			this->view_y = (this->scenario->GetHeight() - 8) - this->view_tiles_y;
 		}
 	}
 	this->rect.bottom = this->view_tiles_y * 0x20 + this->rect.top;
@@ -6312,11 +6312,11 @@ void BigStruct2::sub_402FB8() {
 	this->tile_structures = (CGameObject**)malloc(this->tile_grid_bytes);
 	this->tile_backpacks = (CGameObject**)malloc(this->tile_grid_bytes);
 	this->tile_special_units = (CGameObject**)malloc(this->tile_grid_bytes);
-	this->field_0xa0 = (uint32_t*)malloc(this->corner_grid_bytes);
-	this->field_0xa4 = (uint32_t*)malloc(this->corner_grid_bytes);
-	this->field_0xa8 = (uint8_t*)malloc(this->corner_grid_bytes / 4);
-	this->field_0xac = (uint8_t*)malloc(this->corner_grid_bytes / 4);
-	memset(this->field_0xac, 0, this->corner_grid_bytes / 4);
+	this->corner_tile_kind = (uint32_t*)malloc(this->corner_grid_bytes);
+	this->corner_tile_kind_prev = (uint32_t*)malloc(this->corner_grid_bytes);
+	this->corner_light = (uint8_t*)malloc(this->corner_grid_bytes / 4);
+	this->corner_light_prev = (uint8_t*)malloc(this->corner_grid_bytes / 4);
+	memset(this->corner_light_prev, 0, this->corner_grid_bytes / 4);
 	this->tile_light = (uint8_t*)malloc(this->tile_grid_bytes / 4);
 	this->tile_corner_y = (uint32_t*)malloc(this->corner_grid_bytes);
 	this->tile_top_y = (uint32_t*)malloc(this->tile_grid_bytes);
@@ -6333,44 +6333,44 @@ void BigStruct2::sub_403730() {
 	for (int32_t i = 0; i <= 0x14; i++) {
 		for (int32_t j = 0; j <= 0x14; j++) {
 			if (j < i / 2) {
-				this->field_0xac0[i + 0x14][j + 0x14][0] = -1;
-				this->field_0xac0[i + 0x14][j + 0x14][1] = 0;
-				this->field_0xac0[0x14 - i][0x14 - j][0] = 1;
-				this->field_0xac0[0x14 - i][0x14 - j][1] = 0;
-				this->field_0xac0[i + 0x14][0x14 - j][0] = -1;
-				this->field_0xac0[i + 0x14][0x14 - j][1] = 0;
-				this->field_0xac0[0x14 - i][j + 0x14][0] = 1;
-				this->field_0xac0[0x14 - i][j + 0x14][1] = 0;
+				this->shadow_step[i + 0x14][j + 0x14][0] = -1;
+				this->shadow_step[i + 0x14][j + 0x14][1] = 0;
+				this->shadow_step[0x14 - i][0x14 - j][0] = 1;
+				this->shadow_step[0x14 - i][0x14 - j][1] = 0;
+				this->shadow_step[i + 0x14][0x14 - j][0] = -1;
+				this->shadow_step[i + 0x14][0x14 - j][1] = 0;
+				this->shadow_step[0x14 - i][j + 0x14][0] = 1;
+				this->shadow_step[0x14 - i][j + 0x14][1] = 0;
 			} else if (j > 2 * i) {
-				this->field_0xac0[i + 0x14][j + 0x14][0] = 0;
-				this->field_0xac0[i + 0x14][j + 0x14][1] = -1;
-				this->field_0xac0[0x14 - i][0x14 - j][0] = 0;
-				this->field_0xac0[0x14 - i][0x14 - j][1] = 1;
-				this->field_0xac0[i + 0x14][0x14 - j][0] = 0;
-				this->field_0xac0[i + 0x14][0x14 - j][1] = 1;
-				this->field_0xac0[0x14 - i][j + 0x14][0] = 0;
-				this->field_0xac0[0x14 - i][j + 0x14][1] = -1;
+				this->shadow_step[i + 0x14][j + 0x14][0] = 0;
+				this->shadow_step[i + 0x14][j + 0x14][1] = -1;
+				this->shadow_step[0x14 - i][0x14 - j][0] = 0;
+				this->shadow_step[0x14 - i][0x14 - j][1] = 1;
+				this->shadow_step[i + 0x14][0x14 - j][0] = 0;
+				this->shadow_step[i + 0x14][0x14 - j][1] = 1;
+				this->shadow_step[0x14 - i][j + 0x14][0] = 0;
+				this->shadow_step[0x14 - i][j + 0x14][1] = -1;
 			} else {
-				this->field_0xac0[i + 0x14][j + 0x14][0] = -1;
-				this->field_0xac0[i + 0x14][j + 0x14][1] = -1;
-				this->field_0xac0[0x14 - i][0x14 - j][0] = 1;
-				this->field_0xac0[0x14 - i][0x14 - j][1] = 1;
-				this->field_0xac0[i + 0x14][0x14 - j][0] = -1;
-				this->field_0xac0[i + 0x14][0x14 - j][1] = 1;
-				this->field_0xac0[0x14 - i][j + 0x14][0] = 1;
-				this->field_0xac0[0x14 - i][j + 0x14][1] = -1;
+				this->shadow_step[i + 0x14][j + 0x14][0] = -1;
+				this->shadow_step[i + 0x14][j + 0x14][1] = -1;
+				this->shadow_step[0x14 - i][0x14 - j][0] = 1;
+				this->shadow_step[0x14 - i][0x14 - j][1] = 1;
+				this->shadow_step[i + 0x14][0x14 - j][0] = -1;
+				this->shadow_step[i + 0x14][0x14 - j][1] = 1;
+				this->shadow_step[0x14 - i][j + 0x14][0] = 1;
+				this->shadow_step[0x14 - i][j + 0x14][1] = -1;
 			}
-			uint16_t val = (std::sqrt(i * i + j * j) * (double)this->field_0x3f4c / (double)(std::max)(i, j));
-			this->field_3228[i + 0x14][j + 0x14] = val;
-			this->field_3228[0x14 - i][0x14 - j] = val;
-			this->field_3228[i + 0x14][0x14 - j] = val;
-			this->field_3228[0x14 - i][j + 0x14] = val;
+			uint16_t val = (std::sqrt(i * i + j * j) * (double)this->shadow_scale / (double)(std::max)(i, j));
+			this->shadow_ray_len[i + 0x14][j + 0x14] = val;
+			this->shadow_ray_len[0x14 - i][0x14 - j] = val;
+			this->shadow_ray_len[i + 0x14][0x14 - j] = val;
+			this->shadow_ray_len[0x14 - i][j + 0x14] = val;
 		}
 	}
-	this->field_0xac0[0x15][0x14][0] = -1;
-	this->field_0xac0[0x15][0x14][1] = 0;
-	this->field_0xac0[0x13][0x14][0] = 1;
-	this->field_0xac0[0x13][0x14][1] = 0;
+	this->shadow_step[0x15][0x14][0] = -1;
+	this->shadow_step[0x15][0x14][1] = 0;
+	this->shadow_step[0x13][0x14][0] = 1;
+	this->shadow_step[0x13][0x14][1] = 0;
 }
 
 // 403CA0
@@ -6378,30 +6378,30 @@ void BigStruct2::FUN_00403ca0(CGameObject* obj) {
 	int32_t base_x = obj->tileX - 20;
 	int32_t base_y = obj->tileY - 20;
 	int32_t base_idx = base_y * this->map_width + base_x;
-	memset(this->field_0x17e4, 0, 0x1A44);
-	this->field_0x17e4[20][20] = (obj->scan_range >> (8 - this->field_0x3f50)) + (1 << (this->field_0x3f50 - 1));
-	int8_t base_height = this->field_0x80->GetMapHeights()[obj->tileY * this->map_width + obj->tileX];
+	memset(this->shadow_light, 0, 0x1A44);
+	this->shadow_light[20][20] = (obj->scan_range >> (8 - this->shadow_shift)) + (1 << (this->shadow_shift - 1));
+	int8_t base_height = this->scenario->GetMapHeights()[obj->tileY * this->map_width + obj->tileX];
 	for (int32_t r = 1; r < 0x14; r++) {
 		int32_t ring_ok = 1;
 		for (int32_t d = -r; d < r + 1; d++) {
 			int32_t cx = d + 20;
 			int32_t cy = 20 - r;
-			if (this->field_0x80->IsInShadedBounds(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
+			if (this->scenario->IsInShadedBounds(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
 				ring_ok = 0;
 			}
 			cx = d + 20;
 			cy = r + 20;
-			if (this->field_0x80->IsInShadedBounds(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
+			if (this->scenario->IsInShadedBounds(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
 				ring_ok = 0;
 			}
 			cx = 20 - r;
 			cy = d + 20;
-			if (this->field_0x80->IsInShadedBounds(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
+			if (this->scenario->IsInShadedBounds(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
 				ring_ok = 0;
 			}
 			cx = r + 20;
 			cy = 20 - d;
-			if (this->field_0x80->IsInShadedBounds(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
+			if (this->scenario->IsInShadedBounds(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
 				ring_ok = 0;
 			}
 		}
@@ -6413,7 +6413,7 @@ void BigStruct2::FUN_00403ca0(CGameObject* obj) {
 
 // 41C74B
 void BigStruct2::FUN_0041c74b(int32_t x, int32_t y, int32_t w, int32_t h, int32_t unk1, uint8_t* dat, int32_t unk2) {
-	uint8_t* overlay = this->field_0x80->GetOverlayMap();
+	uint8_t* overlay = this->scenario->GetOverlayMap();
 	for (int32_t i = 0; i < w; i++) {
 		for (int32_t j = 0; j < h; j++) {
 			int32_t bit_index = j * w + i;
@@ -6422,12 +6422,12 @@ void BigStruct2::FUN_0041c74b(int32_t x, int32_t y, int32_t w, int32_t h, int32_
 			}
 			uint16_t packed = (x + i) | ((y + j) << 8);
 			uint32_t value;
-			if (this->field_0xa08.Lookup(packed, value) == 0) {
+			if (this->terrain_light_override_cells.Lookup(packed, value) == 0) {
 				value = 0;
 			}
 			if (unk2 != 0) {
 				value |= 1 << unk1;
-				this->field_0xa08.SetAt(packed, value);
+				this->terrain_light_override_cells.SetAt(packed, value);
 				int32_t idx = (x + i) + (y + j) * this->map_width;
 				if (unk1 == 0xF) {
 					overlay[idx] = 0;
@@ -6441,27 +6441,27 @@ void BigStruct2::FUN_0041c74b(int32_t x, int32_t y, int32_t w, int32_t h, int32_
 					overlay[idx + this->map_width + 1] = 0x50;
 				} else if (unk1 == 3) {
 					uint32_t zero_val = 0;
-					uint16_t* land = this->field_0x80->GetLandscape();
+					uint16_t* land = this->scenario->GetLandscape();
 					if ((land[idx] & 0x2000) == 0) {
-						uint8_t gfx_id = this->field_0x80->GetObjectMap()[idx];
+						uint8_t gfx_id = this->scenario->GetObjectMap()[idx];
 						if (gfx_id != 0 && g_GfxObjects[gfx_id - 1]->in_map_editor != -1) {
-							this->field_0xa94.SetAt(packed, zero_val);
+							this->lightning_cells.SetAt(packed, zero_val);
 						}
 					}
-					this->field_0x49b8++;
+					this->ambient_view_x++;
 					land[idx] |= 0x2000;
 				}
 			} else {
 				value &= ~(1 << unk1);
 				if (value != 0) {
-					this->field_0xa08.SetAt(packed, value);
+					this->terrain_light_override_cells.SetAt(packed, value);
 				} else {
-					this->field_0xa08.RemoveKey(packed);
+					this->terrain_light_override_cells.RemoveKey(packed);
 				}
 				if (unk1 == 3) {
-					this->field_0x49b8++;
+					this->ambient_view_x++;
 				} else if (unk1 == 0xE || unk1 == 0xF) {
-					this->field_0x80->UpdateTerrainShading(x + i, y + j, 2, 2);
+					this->scenario->UpdateTerrainShading(x + i, y + j, 2, 2);
 				}
 			}
 			this->force_full_redraw = 1;
@@ -6511,7 +6511,7 @@ int32_t BigStruct2::OnLButtonDown(uint32_t wparam, CPoint pos) {
 	if (wnd->dialogsMask != 1) {
 		return 0;
 	}
-	if (g_mousept.GetSelectState() == 0 && this->field_0x80 != nullptr) {
+	if (g_mousept.GetSelectState() == 0 && this->scenario != nullptr) {
 		wnd->UpdateMapRect();
 		g_mousept.StartSelect(pos);
 	}
@@ -6521,10 +6521,10 @@ int32_t BigStruct2::OnLButtonDown(uint32_t wparam, CPoint pos) {
 // 40C59C
 int32_t BigStruct2::OnRButtonUp(uint32_t wparam, CPoint pos) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	if (this->field_0xd8 == 0 && wnd->dialogsMask == 1) {
+	if (this->rbtn_drag == 0 && wnd->dialogsMask == 1) {
 		this->MsgProc(0x405, 0, 0);
 	}
-	this->field_0xd8 = 0;
+	this->rbtn_drag = 0;
 	if (this->TestFlags(FLAG_OVERCURSOR) != 0) {
 		this->SetCursorOver(false);
 	}
@@ -6592,11 +6592,11 @@ CGameBitmap* BigStruct2::FUN_0041da52(int32_t serv_id) {
 // 41DF23
 CUnit* BigStruct2::FUN_0041df23(int32_t serv_id) {
 	CUnit* result = nullptr;
-	POSITION it = this->field_0x9d0.GetStartPosition();
+	POSITION it = this->objects.GetStartPosition();
 	while (it != nullptr) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		if (obj->IsKindOf(RUNTIME_CLASS(CUnit))) {
 			CUnit* unit = (CUnit*)obj;
 			if (unit->serverId == serv_id) {
@@ -6620,10 +6620,10 @@ CUnit* BigStruct2::sub_41DFDB() {
 	CArray<CUnit*> primary;
 	CArray<CUnit*> secondary;
 	CArray<CUnit*> tertiary;
-	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		if (!obj->IsSelected() || obj->hp <= 0) {
 			continue;
 		}
@@ -6661,10 +6661,10 @@ void BigStruct2::FUN_0041d97e(int32_t arg) {
 	int32_t time_of_day = ((uint32_t)wnd->serverLoopCounter >> 4) + 0x168;
 	if (((wnd->serverLoopCounter & 0xF) == 0 && time_of_day % 20 == 0 && g_settings.ShowTimeFlow != 0) || arg != 0) {
 		UpdateDayNightLighting(time_of_day);
-		this->field_0x80->UpdateTerrainShading(1, 1, 0, 0);
+		this->scenario->UpdateTerrainShading(1, 1, 0, 0);
 		this->sub_404912();
 		ReloadPalettes();
-		this->field_0xdc = 1;
+		this->minimap_dirty = 1;
 		this->force_full_redraw = 1;
 		wnd->vis_minimap->MsgProc(0x404, 0, 0);
 	}
@@ -6680,7 +6680,7 @@ int32_t BigStruct2::OnMouseMove(uint32_t wparam, CPoint pos) {
 		if (dx != 0 || dy != 0) {
 			if (cell_dx != 0 || cell_dy != 0) {
 				this->MsgProc(0x406, this->view_x + cell_dx, this->view_y + cell_dy);
-				this->field_0xd8 = 1;
+				this->rbtn_drag = 1;
 			}
 			return 1;
 		}
@@ -6712,7 +6712,7 @@ void BigStruct2::FUN_0041b7b7(int32_t xpos, int32_t ypos, int32_t* pvol, int32_t
 // 40C902
 int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	if (wnd->dialogsMask == 1 && this->field_0x80 != nullptr) {
+	if (wnd->dialogsMask == 1 && this->scenario != nullptr) {
 		if (wnd->console_active != 0) {
 			wnd->vis_1200->OnKeyDown(wparam);
 			return 0;
@@ -6785,7 +6785,7 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 		}
 		default:
 			if (wnd->dialogsMask == 1) {
-				if (g_kbControlState == 0 && this->field_0x140 != 0 && (this->field_0x144 & 0x24) == 0) {
+				if (g_kbControlState == 0 && this->selected_object_count != 0 && (this->selection_flags & 0x24) == 0) {
 					switch (wparam) {
 					case 0x41:
 						this->sub_418F93(1);
@@ -6824,7 +6824,7 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 				switch (wparam) {
 				case 0x20:
 					if (wnd->dialogsMask == 1 && wnd->console_active == 0) {
-						if (this->field_0x3f6c == nullptr || this->field_0x3f6c->hp > -40) {
+						if (this->my_unit == nullptr || this->my_unit->hp > -40) {
 							if (this->IsBagOpen() == 0 && this->IsBookOpen() == 0) {
 								wnd->vis_right_panel->MsgProc(0x40E, 0, 0);
 								this->MsgProc(0x40E, 0, 0);
@@ -6951,30 +6951,30 @@ void BigStruct2::sub_40BD34() {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	uint32_t update_selection = 0;
 
-	this->field_0xa88++;
+	this->anim_tick++;
 	TakeDamage::UpdateDamages(&this->damage_labels);
-	if (INT_00660f74 == 0 && (this->field_0xa88 & 0x1F) == 0) {
+	if (INT_00660f74 == 0 && (this->anim_tick & 0x1F) == 0) {
 		this->sub_40C18B();
 	}
-	if ((this->field_0xa88 & 0xF) == 0 && g_SoundSettings.music_allowed != 0 && this->field_0x3f6c != nullptr) {
-		UpdatePositionalMusic(this->field_0x3f6c->x_pos, this->field_0x3f6c->y_pos);
+	if ((this->anim_tick & 0xF) == 0 && g_SoundSettings.music_allowed != 0 && this->my_unit != nullptr) {
+		UpdatePositionalMusic(this->my_unit->x_pos, this->my_unit->y_pos);
 	}
 
 	CDWordArray arr;
-	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		if (obj->Update() == 0) {
 			arr.Add(key);
 		}
 	}
 	for (int32_t i = 0; i < arr.GetSize(); i++) {
 		CGameObject* obj;
-		this->field_0x9d0.Lookup(arr[i], obj);
-		this->field_0x9d0.RemoveKey(arr[i]);
+		this->objects.Lookup(arr[i], obj);
+		this->objects.RemoveKey(arr[i]);
 		if (obj->IsSelected() != 0) {
-			this->field_0x9b4 = 0;
+			this->order_mode = 0;
 			wnd->vis_spellbook->FUN_004caa69();
 			wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
 		}
@@ -6985,10 +6985,10 @@ void BigStruct2::sub_40BD34() {
 	}
 
 	this->sub_40C112();
-	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		update_selection = update_selection | obj->UpdateBlockedState();
 	}
 	if (update_selection != 0) {
@@ -6996,18 +6996,18 @@ void BigStruct2::sub_40BD34() {
 	}
 
 	arr.RemoveAll();
-	for (POSITION it = this->field_0x9ec.GetStartPosition(); it != nullptr;) {
+	for (POSITION it = this->projectiles.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9ec.GetNextAssoc(it, key, obj);
+		this->projectiles.GetNextAssoc(it, key, obj);
 		if (obj->Update() == 0) {
 			arr.Add(key);
 		}
 	}
 	for (int32_t i = 0; i < arr.GetSize(); i++) {
 		CGameObject* obj;
-		this->field_0x9ec.Lookup(arr[i], obj);
-		this->field_0x9ec.RemoveKey(arr[i]);
+		this->projectiles.Lookup(arr[i], obj);
+		this->projectiles.RemoveKey(arr[i]);
 		delete obj;
 	}
 }
@@ -7028,23 +7028,23 @@ void BigStruct2::sub_417B42(CPoint* pt) {
 		return;
 	}
 	CSprite256* cursor_sprite = g_mousept.GetCursorSprite();
-	if (this->field_0x140 == 0) {
+	if (this->selected_object_count == 0) {
 		this->sub_417F09(&select_rect);
 		return;
 	}
-	uint16_t target_id = (uint16_t)this->field_0x9a8;
+	uint16_t target_id = (uint16_t)this->hovered_unit_id;
 	if (cursor_sprite == g_Cursors[CURSOR_ATTACK]->GetSprite()) {
-		if (target_id != 0 && this->field_0x994->IsKindOf(RUNTIME_CLASS(CUnit))) {
+		if (target_id != 0 && this->hovered_unit->IsKindOf(RUNTIME_CLASS(CUnit))) {
 			this->sub_419246(target_id);
 		} else {
-			this->sub_419154(this->field_0x9ac, this->field_0x9b0);
+			this->sub_419154(this->last_mouse_tile_x, this->last_mouse_tile_y);
 		}
 	} else if (cursor_sprite == g_Cursors[CURSOR_SWARM]->GetSprite()) {
-		this->sub_41930D(this->field_0x9ac, this->field_0x9b0);
+		this->sub_41930D(this->last_mouse_tile_x, this->last_mouse_tile_y);
 	} else if (cursor_sprite == g_Cursors[CURSOR_MOVE]->GetSprite()) {
-		this->sub_419154(this->field_0x9ac, this->field_0x9b0);
+		this->sub_419154(this->last_mouse_tile_x, this->last_mouse_tile_y);
 	} else if (cursor_sprite == g_Cursors[CURSOR_PATROL]->GetSprite()) {
-		this->sub_41965D(this->field_0x9ac, this->field_0x9b0);
+		this->sub_41965D(this->last_mouse_tile_x, this->last_mouse_tile_y);
 	} else if (cursor_sprite == g_Cursors[CURSOR_DEFEND]->GetSprite()) {
 		if (target_id != 0) {
 			this->sub_41955C(target_id);
@@ -7052,28 +7052,28 @@ void BigStruct2::sub_417B42(CPoint* pt) {
 	} else if (cursor_sprite == g_Cursors[CURSOR_SELECT]->GetSprite()) {
 		this->sub_417F09(&select_rect);
 	} else if (cursor_sprite == g_Cursors[CURSOR_PICKUP]->GetSprite()) {
-		this->sub_41A33F(this->field_0x9ac, this->field_0x9b0);
+		this->sub_41A33F(this->last_mouse_tile_x, this->last_mouse_tile_y);
 	} else if (cursor_sprite == g_Cursors[CURSOR_TOWN]->GetSprite()) {
 		this->sub_41A66E(target_id);
 	} else if (cursor_sprite == g_Cursors[CURSOR_CAST]->GetSprite()) {
 		int32_t spell_pos = wnd->vis_spellbook->sub_41F9B0();
 		if (spell_pos >= 0) {
 			if (target_id != 0) {
-				if (this->field_0x994->IsKindOf(RUNTIME_CLASS(CUnit)) && wnd->vis_spellbook->sub_4CAAA7() != 0) {
+				if (this->hovered_unit->IsKindOf(RUNTIME_CLASS(CUnit)) && wnd->vis_spellbook->sub_4CAAA7() != 0) {
 					this->sub_419BA1(target_id, spell_pos + 1);
 				} else {
-					this->sub_41972F(this->field_0x9ac, this->field_0x9b0, spell_pos + 1);
+					this->sub_41972F(this->last_mouse_tile_x, this->last_mouse_tile_y, spell_pos + 1);
 				}
 			} else if (wnd->vis_spellbook->sub_4CAAA7() == 0) {
-				this->sub_41972F(this->field_0x9ac, this->field_0x9b0, spell_pos + 1);
+				this->sub_41972F(this->last_mouse_tile_x, this->last_mouse_tile_y, spell_pos + 1);
 			}
-			if (this->field_0x9b4 == 5 && this->IsBookOpen() != 0) {
+			if (this->order_mode == 5 && this->IsBookOpen() != 0) {
 				this->FUN_0041b636();
 			}
 		}
 	}
-	if (this->field_0x9b4 != 0) {
-		this->field_0x9b4 = 0;
+	if (this->order_mode != 0) {
+		this->order_mode = 0;
 		wnd->vis_spellbook->FUN_004caa69();
 		wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
 	}
@@ -7087,14 +7087,14 @@ void BigStruct2::sub_417F09(CRect* rect) {
 	int32_t selected = g_kbShiftState == 0;
 	if (small_rect == 0 && g_kbShiftState == 0) {
 		selected = 0;
-		for (int32_t i = this->field_0x134 - 1; i >= 0; i--) {
-			CRect unit_rect = this->field_0x10c[i];
+		for (int32_t i = this->hit_count - 1; i >= 0; i--) {
+			CRect unit_rect = this->hit_rects[i];
 			CRect intersection;
 			unit_rect.NormalizeRect();
 			intersection.IntersectRect(&unit_rect, rect);
 			if (intersection.Width() * intersection.Height() > 10) {
 				CGameObject* obj;
-				if (this->field_0x9d0.Lookup(this->field_0x120[i], obj) &&
+				if (this->objects.Lookup(this->hit_unit_ids[i], obj) &&
 					obj->map_player == this->my_main_unit && !obj->IsKindOf(RUNTIME_CLASS(CStructure))) {
 					selected = 1;
 				}
@@ -7105,29 +7105,29 @@ void BigStruct2::sub_417F09(CRect* rect) {
 		}
 	}
 	if (small_rect != 0 && g_kbShiftState == 0) {
-		for (int32_t i = this->field_0x134 - 1; i >= 0; i--) {
-			CRect unit_rect = this->field_0x10c[i];
+		for (int32_t i = this->hit_count - 1; i >= 0; i--) {
+			CRect unit_rect = this->hit_rects[i];
 			CRect intersection;
 			unit_rect.NormalizeRect();
 			intersection.IntersectRect(&unit_rect, rect);
 			if (!intersection.IsRectEmpty()) {
 				CGameObject* obj;
-				if (this->field_0x9d0.Lookup(this->field_0x120[i], obj) && obj->IsKindOf(RUNTIME_CLASS(CStructure))) {
+				if (this->objects.Lookup(this->hit_unit_ids[i], obj) && obj->IsKindOf(RUNTIME_CLASS(CStructure))) {
 					selected = 0;
 				}
 			}
 		}
 	}
 	if (selected != 0) {
-		for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+		for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 			uint16_t key;
 			CGameObject* obj;
-			this->field_0x9d0.GetNextAssoc(it, key, obj);
+			this->objects.GetNextAssoc(it, key, obj);
 			obj->SetSelected(0);
 		}
 	}
-	for (int32_t i = this->field_0x134 - 1; i >= 0; i--) {
-		CRect unit_rect = this->field_0x10c[i];
+	for (int32_t i = this->hit_count - 1; i >= 0; i--) {
+		CRect unit_rect = this->hit_rects[i];
 		CRect intersection;
 		unit_rect.NormalizeRect();
 		int32_t hit;
@@ -7141,11 +7141,11 @@ void BigStruct2::sub_417F09(CRect* rect) {
 			continue;
 		}
 		CGameObject* obj;
-		if (!this->field_0x9d0.Lookup(this->field_0x120[i], obj)) {
+		if (!this->objects.Lookup(this->hit_unit_ids[i], obj)) {
 			continue;
 		}
 		if (g_kbShiftState != 0) {
-			if (obj->map_player == this->my_main_unit && (this->field_0x144 & 4) == 0) {
+			if (obj->map_player == this->my_main_unit && (this->selection_flags & 4) == 0) {
 				obj->SetSelected(obj->IsSelected() == 0);
 			}
 		} else if (small_rect == 0) {
@@ -7160,13 +7160,13 @@ void BigStruct2::sub_417F09(CRect* rect) {
 		}
 	}
 	this->UpdateSelectionState();
-	if (g_kbMenuState != 0 && this->field_0x140 == 1 && this->field_0x138->GetControlGroup() >= 0) {
-		this->sub_416983(this->field_0x138->GetControlGroup());
+	if (g_kbMenuState != 0 && this->selected_object_count == 1 && this->primary_selected_object->GetControlGroup() >= 0) {
+		this->sub_416983(this->primary_selected_object->GetControlGroup());
 	}
-	this->field_0x9b4 = 0;
+	this->order_mode = 0;
 	wnd->vis_spellbook->FUN_004caa69();
 	wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
-	if (g_kbShiftState == 0 && this->field_0x140 != 0 && (this->field_0x144 & 1) != 0 && (this->field_0x144 & 4) == 0) {
+	if (g_kbShiftState == 0 && this->selected_object_count != 0 && (this->selection_flags & 1) != 0 && (this->selection_flags & 4) == 0) {
 		CUnit* unit = this->sub_41DFDB();
 		if (unit != nullptr) {
 			unit->PlaySelectVoice();
@@ -7176,32 +7176,32 @@ void BigStruct2::sub_417F09(CRect* rect) {
 
 // 40C112
 void BigStruct2::sub_40C112() {
-	for (POSITION it = this->field_0xa94.GetStartPosition(); it != nullptr;) {
+	for (POSITION it = this->lightning_cells.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		uint32_t value;
-		this->field_0xa94.GetNextAssoc(it, key, value);
+		this->lightning_cells.GetNextAssoc(it, key, value);
 		value++;
 		if (value < 0x16) {
-			this->field_0xa94.SetAt(key, value);
+			this->lightning_cells.SetAt(key, value);
 		} else {
-			this->field_0xa94.RemoveKey(key);
+			this->lightning_cells.RemoveKey(key);
 		}
 	}
 }
 
 // 40C18B
 void BigStruct2::sub_40C18B() {
-	this->field_0xdc = 1;
-	this->field_0xe0 = 1;
-	uint16_t* landscape = this->field_0x80->GetLandscape();
+	this->minimap_dirty = 1;
+	this->full_redraw_requested = 1;
+	uint16_t* landscape = this->scenario->GetLandscape();
 	int32_t count = this->map_width * this->map_height;
 	for (int32_t i = 0; i < count; i++) {
 		landscape[i] &= 0xBFFF;
 	}
-	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		obj->MarkOccupancy();
 	}
 }
@@ -7267,8 +7267,8 @@ int32_t BigStruct2::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 		break;
 	case 0x485:
 		if ((wnd->dialogsMask & 1) != 0) {
-			this->field_0x49b8 = -1;
-			this->field_0x49bc = -1;
+			this->ambient_view_x = -1;
+			this->ambient_view_y = -1;
 			this->UpdateAmbientSounds();
 			result = 0;
 		}
@@ -7290,13 +7290,13 @@ int32_t BigStruct2::OnLButtonUp(uint32_t wparam, CPoint pos) {
 		this->sub_417B42(&pos);
 	}
 	if (wnd->drag_entry != nullptr) {
-		if (this->field_0x140 == 1 && this->field_0x138 != nullptr) {
-			int32_t tile_x = this->field_0x138->tileX;
-			int32_t tile_y = this->field_0x138->tileY;
-			if (this->field_0x994 != nullptr && this->field_0x994->IsKindOf(RUNTIME_CLASS(CUnit)) && (this->field_0x994->unitFlags & 1) != 0 &&
-				abs(this->field_0x994->tileX - this->field_0x138->tileX) <= 2 && abs(this->field_0x994->tileY - this->field_0x138->tileY) <= 2) {
-				tile_x = this->field_0x994->tileX;
-				tile_y = this->field_0x994->tileY;
+		if (this->selected_object_count == 1 && this->primary_selected_object != nullptr) {
+			int32_t tile_x = this->primary_selected_object->tileX;
+			int32_t tile_y = this->primary_selected_object->tileY;
+			if (this->hovered_unit != nullptr && this->hovered_unit->IsKindOf(RUNTIME_CLASS(CUnit)) && (this->hovered_unit->unitFlags & 1) != 0 &&
+				abs(this->hovered_unit->tileX - this->primary_selected_object->tileX) <= 2 && abs(this->hovered_unit->tileY - this->primary_selected_object->tileY) <= 2) {
+				tile_x = this->hovered_unit->tileX;
+				tile_y = this->hovered_unit->tileY;
 			}
 			if (wnd->drag_entry->IsEmpty() != 0) {
 				this->sub_41AC88(wnd->drag_entry->count, tile_x | (tile_y << 8));
@@ -7318,7 +7318,7 @@ void BigStruct2::FUN_0041c630(CWordArray* data) {
 		flag = 0x2000;
 	}
 	data->RemoveAt(0, 1);
-	uint16_t* land = this->field_0x80->GetLandscape();
+	uint16_t* land = this->scenario->GetLandscape();
 	int32_t x = 8;
 	int32_t y = 8;
 	while (data->GetSize() != 0) {
@@ -7339,57 +7339,57 @@ void BigStruct2::FUN_0041c630(CWordArray* data) {
 // 41C4A1
 void BigStruct2::FUN_0041c4a1(const char* name) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	delete this->field_0x80;
+	delete this->scenario;
 	CString str(name);
 	if (wnd->sessionMode == 2) {
 		str = "scenario\\" + str;
 	}
-	this->field_0x80 = new Scenario(str);
-	this->field_0xdc = 1;
-	this->sub_403F08(this->field_0x80);
+	this->scenario = new Scenario(str);
+	this->minimap_dirty = 1;
+	this->sub_403F08(this->scenario);
 	wnd->vis_right_panel->MsgProc(0x403, (uint32_t)this, 0);
 	this->FUN_0041d97e(1);
-	LoadTerrainTiles(this->field_0x80->terrain_tile_mask);
-	this->field_0x4970->RemovePlayerQuests(0);
+	LoadTerrainTiles(this->scenario->terrain_tile_mask);
+	this->quest_map->RemovePlayerQuests(0);
 }
 
 // 403395
 BigStruct2::~BigStruct2() {
-	delete this->field_0x3f68;
+	delete this->scratch_tile;
 	this->sub_40328E();
-	delete this->field_0x80;
+	delete this->scenario;
 
-	POSITION it = this->field_0x9d0.GetStartPosition();
+	POSITION it = this->objects.GetStartPosition();
 	while (it != nullptr) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		delete obj;
 	}
 
-	it = this->field_0x9ec.GetStartPosition();
+	it = this->projectiles.GetStartPosition();
 	while (it != nullptr) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9ec.GetNextAssoc(it, key, obj);
+		this->projectiles.GetNextAssoc(it, key, obj);
 		delete obj;
 	}
 
-	for (int32_t i = 0; i < this->field_0x9b8.GetSize(); i++) {
-		MapPlayerData* data = this->field_0x9b8[i];
+	for (int32_t i = 0; i < this->map_players.GetSize(); i++) {
+		MapPlayerData* data = this->map_players[i];
 		delete data;
 	}
 
-	delete this->field_0x4970;
+	delete this->quest_map;
 
-	while (this->field_0x4974.GetSize() != 0) {
-		Item* item = this->field_0x4974[0];
+	while (this->hero_inventory.GetSize() != 0) {
+		Item* item = this->hero_inventory[0];
 		delete item;
-		this->field_0x4974.RemoveAt(0, 1);
+		this->hero_inventory.RemoveAt(0, 1);
 	}
 
 	for (int32_t i = 0; i < 12; i++) {
-		delete this->field_0x4988[i];
+		delete this->hero_equipment[i];
 	}
 }
 
@@ -7806,17 +7806,17 @@ void BigStruct2::UpdateAmbientSounds() { //41b8d0
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
 	bool local_d8;
-	if (this->view_x == this->field_0x49b8 && view_y == this->field_0x49bc) {
+	if (this->view_x == this->ambient_view_x && view_y == this->ambient_view_y) {
 		local_d8 = false;
 	} else {
 		local_d8 = true;
 	}
 
-	bool local_10 = timeGetTime() > this->field_0x49c0;
+	bool local_10 = timeGetTime() > this->ambient_sound_deadline;
 	if (local_d8 || local_10) {
 		if (local_d8) {
-			this->field_0x49b8 = this->view_x;
-			this->field_0x49bc = view_y;
+			this->ambient_view_x = this->view_x;
+			this->ambient_view_y = view_y;
 		}
 
 		SfxSample* smpl_50 = g_SfxArray[50];
@@ -7851,8 +7851,8 @@ void BigStruct2::UpdateAmbientSounds() { //41b8d0
 			maxY = this->map_height - 8;
 		}
 		
-		uint16_t* landscape = this->field_0x80->GetLandscape();
-		uint8_t* local_78 = this->field_0x80->GetObjectMap();
+		uint16_t* landscape = this->scenario->GetLandscape();
+		uint8_t* local_78 = this->scenario->GetObjectMap();
 		int32_t count_50 = 0;
 		int32_t count_90 = 0;
 		int32_t local_34 = 0;
@@ -7893,7 +7893,7 @@ void BigStruct2::UpdateAmbientSounds() { //41b8d0
 				}
 
 				uint32_t local_88;
-				if (this->field_0xa08.Lookup(PosYX(xx, yy).val, local_88) != 0 && (local_88 & 8) != 0) {
+				if (this->terrain_light_override_cells.Lookup(PosYX(xx, yy).val, local_88) != 0 && (local_88 & 8) != 0) {
 					int32_t scale = (dx * 2000) / this->view_tiles_x;
 					if (scale < -2000) {
 						scale = -2000;
@@ -8022,13 +8022,13 @@ void BigStruct2::UpdateAmbientSounds() { //41b8d0
 			}
 
 			smpl->Play(g_SoundSettings.sfx_pos, local_28, 0, 220);
-			this->field_0x49c0 = timeGetTime() + 5000 + rand() / 7;
+			this->ambient_sound_deadline = timeGetTime() + 5000 + rand() / 7;
 		}
 	}
 }
 
 void BigStruct2::MakeHeightCells() { //4065d3
-	int8_t* hmap = this->field_0x80->GetMapHeights();
+	int8_t* hmap = this->scenario->GetMapHeights();
 	for (int32_t y = -3; y <= this->view_tiles_y + 7; y++) {
 		for (int32_t x = -3; x <= this->view_tiles_x + 3; x++) {
 			this->tile_corner_y[x + 3 + (y + 3) * (this->view_tiles_x + 7)] = y * 32 - hmap[x + this->view_x + (y + this->view_y) * this->map_width];
@@ -8071,7 +8071,7 @@ void BigStruct2::ApplyDynamicLight(int32_t tx, int32_t ty, int32_t radius, int32
 			           (ty - this->view_y - 1 - radius) * 32,
 			           (tx - this->view_x + 2 + radius) * 32, 
 			           (ty - this->view_y + 2 + radius) * 32);
-		this->field_0xf4.UnionRect(this->field_0xf4, local_2c);
+		this->dirty_rect.UnionRect(this->dirty_rect, local_2c);
 	}
 
 	if (g_Lightning != 0) {
@@ -8097,22 +8097,22 @@ void BigStruct2::ApplyDynamicLight(int32_t tx, int32_t ty, int32_t radius, int32
 
 					if (out_x > 2 && out_x <= maxX) {
 						if (out_y > 2 && out_y <= maxY) {
-							this->field_0xa8[out_x + out_y * out_w] = brightness;
-							this->field_0x108++;
+							this->corner_light[out_x + out_y * out_w] = brightness;
+							this->lightning_active++;
 						}
 						if (out_y2 > 2 && out_y2 <= maxY) {
-							this->field_0xa8[out_x + out_y2 * out_w] = brightness;
-							this->field_0x108++;
+							this->corner_light[out_x + out_y2 * out_w] = brightness;
+							this->lightning_active++;
 						}
 					}
 					if (out_x2 > 2 && out_x2 <= maxX) {
 						if (out_y > 2 && out_y <= maxY) {
-							this->field_0xa8[out_x2 + out_y * out_w] = brightness;
-							this->field_0x108++;
+							this->corner_light[out_x2 + out_y * out_w] = brightness;
+							this->lightning_active++;
 						}
 						if (out_y2 > 2 && out_y2 <= maxY) {
-							this->field_0xa8[out_x2 + out_y2 * out_w] = brightness;
-							this->field_0x108++;
+							this->corner_light[out_x2 + out_y2 * out_w] = brightness;
+							this->lightning_active++;
 						}
 					}
 				}
@@ -8126,11 +8126,11 @@ void BigStruct2::FUN_0041a001(int32_t idx) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	if (wnd->vis_spellbook->sub_4CA89B(idx - 1) != 0 && wnd->vis_spellbook->spell == -1) {
-		POSITION it = this->field_0x9d0.GetStartPosition();
+		POSITION it = this->objects.GetStartPosition();
 		while (it != nullptr) {
 			uint16_t key;
 			CGameObject* obj;
-			this->field_0x9d0.GetNextAssoc(it, key, obj);
+			this->objects.GetNextAssoc(it, key, obj);
 			if (obj->IsSelected() && (obj->availableSpellMask & (1 << (idx - 1))) != 0) {
 				pkt->from_player_id = this->my_main_unit->index;
 				pkt->to_player_id = 0;
@@ -8144,11 +8144,11 @@ void BigStruct2::FUN_0041a001(int32_t idx) {
 		}
 	}
 	if (wnd->vis_spellbook->sub_4CA8E0(idx - 1) != 0) {
-		POSITION it = this->field_0x9d0.GetStartPosition();
+		POSITION it = this->objects.GetStartPosition();
 		while (it != nullptr) {
 			uint16_t key;
 			CGameObject* obj;
-			this->field_0x9d0.GetNextAssoc(it, key, obj);
+			this->objects.GetNextAssoc(it, key, obj);
 			if (!obj->IsSelected() || (obj->activeSpellEffectMask & (1 << (idx - 1))) == 0) {
 				continue;
 			}
@@ -8192,10 +8192,10 @@ void BigStruct2::FUN_0041ae1c(int32_t serv_id) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	if (wnd->sessionMode == 2) {
 		CWordArray ids;
-		for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+		for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 			uint16_t key;
 			CGameObject* obj;
-			this->field_0x9d0.GetNextAssoc(it, key, obj);
+			this->objects.GetNextAssoc(it, key, obj);
 			if (obj->IsKindOf(RUNTIME_CLASS(CUnit)) == 0 || (((CUnit*)obj)->unitFlags & 1) != 0) {
 				continue;
 			}
@@ -8203,8 +8203,8 @@ void BigStruct2::FUN_0041ae1c(int32_t serv_id) {
 		}
 		while (ids.GetSize() != 0) {
 			CGameObject* obj = nullptr;
-			this->field_0x9d0.Lookup(ids[0], obj);
-			this->field_0x9d0.RemoveKey(ids[0]);
+			this->objects.Lookup(ids[0], obj);
+			this->objects.RemoveKey(ids[0]);
 			if (obj != nullptr) {
 				delete obj;
 			}
@@ -8224,10 +8224,10 @@ void BigStruct2::FUN_0041ae1c(int32_t serv_id) {
 // 41ace2
 void BigStruct2::FUN_0041ace2(int32_t spell_id) {
 	Packet2Dwords* pkt = &Packet2Dwords::Inst;
-	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		if (obj->IsSelected() && (obj->spells & (1 << spell_id)) != 0) {
 			pkt->id = 0x46;
 			pkt->from_player_id = this->my_main_unit->index;
@@ -8242,10 +8242,10 @@ void BigStruct2::FUN_0041ace2(int32_t spell_id) {
 
 // 41e2af
 int32_t BigStruct2::FUN_0041e2af(int32_t id, CUnit** out) {
-	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		if (obj->IsKindOf(RUNTIME_CLASS(CUnit)) == 0) {
 			continue;
 		}
@@ -8259,10 +8259,10 @@ int32_t BigStruct2::FUN_0041e2af(int32_t id, CUnit** out) {
 
 // 40c0a8
 uint32_t BigStruct2::sub_40C0A8(int32_t x, int32_t y) {
-	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
-		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		this->objects.GetNextAssoc(it, key, obj);
 		if (obj->bIsBlocked != 0 || obj->tileX != x || obj->tileY != y) {
 			continue;
 		}
@@ -8290,7 +8290,7 @@ void BigStruct2::sub_41A942() {
 	pkt->id = 0x33;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->value = this->field_0x138->unit_id;
+	pkt->value = this->primary_selected_object->unit_id;
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
 
@@ -8309,7 +8309,7 @@ void BigStruct2::sub_41A9F6() {
 	pkt->id = 0x35;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->value = this->field_0x138->unit_id;
+	pkt->value = this->primary_selected_object->unit_id;
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
 
@@ -8319,7 +8319,7 @@ void BigStruct2::sub_41A99C() {
 	pkt->id = 0x34;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->value = this->field_0x138->unit_id;
+	pkt->value = this->primary_selected_object->unit_id;
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
 
@@ -8339,6 +8339,6 @@ void BigStruct2::FUN_0041be0f() { //client: 41be0f
 	pkt->from_player_id = my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->count = 0;
-	pkt->AppendWord(field_0x3f6c->unit_id);
+	pkt->AppendWord(my_unit->unit_id);
 	g_NetStru1_local.QueuePacketSend(pkt);
 }

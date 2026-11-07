@@ -39,13 +39,13 @@ public:
 ASSERT_SIZE(Diplomacy, 0x132C);
 
 struct World {
-    int32_t field0_0x0;
+    int32_t gap_0x0;
     uint8_t gap_0x4[4];
-    Perf field2_0x8;
-    Perf field3_0x38;
-    Perf field4_0x68;
-    Perf field5_0x98;
-    FieldBlock5859c field_0xc8;
+    Perf perf_tick;
+    Perf perf_presence;
+    Perf perf_triggers;
+    Perf perf_ai;
+    FieldBlock5859c gap_0xc8;
     uint8_t gap_0x8ac[4];
     int32_t duration4;
     int32_t duration4_low;
@@ -60,47 +60,47 @@ struct World {
     int32_t duration3;
     int32_t total3;
     uint8_t gap_0x8f4[340];
-    uint8_t field20_0xa48;
-    uint8_t field21_0xa49;
+    uint8_t saved_0xa48;
+    uint8_t saved_0xa49;
     uint8_t gap_0xa4a[2];
     uint32_t counter;
-    MapStuff *field24_0xa50;
+    MapStuff *map_stuff;
     uint8_t attack_decision_table[16];
-    UnitList field26_0xa64;
-    UnitList field27_0xa84;
-    UnitList field28_0xaa4; // Non-attack list?
-    UnitList field29_0xac4; // Attack list?
+    UnitList nearby_list;
+    UnitList unconscious_list;
+    UnitList non_targets; // Non-attack list?
+    UnitList targets; // Attack list?
     uint32_t dist_scratch[10000];
     uint8_t relative_move_max_dist;
     uint8_t gap_0xa725[3];
-    uint8_t field32_0xa728[400];
+    uint8_t saved_0xa728[400];
     int32_t MinimalGuardRange;
     Diplomacy diplomacy;
-    int32_t field37_0xbbe8;
+    int32_t skip_presence_grid;
     CList<Action> action_list;
-    uint8_t field39_0xbc08[400];
+    uint8_t gap_0xbc08[400];
     Action scrape_action;
     uint8_t waypoint_table[16];
     uint8_t patrol_counter;
     uint8_t gap_0xbdfd[3];
-    Unit* field48_0xbe00;
-    int32_t field49_0xbe04;
-    int32_t field50_0xbe08;
+    Unit* patrol_unit;
+    int32_t gap_0xbe04;
+    int32_t gap_0xbe08;
     int32_t mission_complete;
-    int32_t field52_0xbe10;
+    int32_t saved_0xbe10;
     int32_t mission_fail;
-    FieldBlock54190 field54_0xbe18;
+    FieldBlock54190 gap_0xbe18;
     uint8_t gap_0xc20c[0x320];
-    uint8_t field56_0xc52c[40];
-    char field57_0xc554[10][44];
+    uint8_t gap_0xc52c[40];
+    char gap_0xc554[10][44];
     uint8_t gap_0xc70c[4];
     int32_t mission_state;
-    CMap<uint32_t, uint32_t, uint32_t, uint32_t> field60_0xc714;
-    CMap<uint32_t, uint32_t, uint32_t, uint32_t> field61_0xc730;
-    CMap<uint32_t, uint32_t, uint32_t, uint32_t> field62_0xc74c;
-    CArray<uint32_t> field63_0xc768;
+    CMap<uint32_t, uint32_t, uint32_t, uint32_t> gap_0xc714;
+    CMap<uint32_t, uint32_t, uint32_t, uint32_t> gap_0xc730;
+    CMap<uint32_t, uint32_t, uint32_t, uint32_t> gap_0xc74c;
+    CArray<uint32_t> gap_0xc768;
     PlayersList* players_list;
-    int32_t field65_0xc780;
+    int32_t joined_count;
     int32_t trigger_variables[1000];
     void* references[1000]; // Array of User*, Group* and Player* objects
     uint8_t trigger_results[1000];
@@ -108,7 +108,7 @@ struct World {
     CArray<TriggerAction>* trigger_actions;
     CList<Trigger>* triggers;
     char name[100]; // Not sure it's 100 bytes
-    ResFile* field74_0xeb1c;
+    ResFile* gap_0xeb1c;
 
 public:
     World(MapStuff* map_stuff, PlayersList* players_list); // 5A4B1A (client: 572c8a)
@@ -125,7 +125,7 @@ public:
     void Serialize(CArchive& ar); // Serialize (client: 57e6c6)
     void RelinkPointers(); // Post-load world relink helper (client: 580fea)
 
-    void IncrementJoinedCount(); // increments field65_0xc780 (client: 57dd6d)
+    void IncrementJoinedCount(); // increments joined_count (client: 57dd6d)
     void ProcessTick(class PlayersList* players);  // client: 579e86
     void ProcessTriggers(); // 5B0724 (client: 57e894)
     void EvaluateTriggerChecks(); // 5B0762 (client: 57e8d2)
@@ -312,7 +312,7 @@ public:
 
     void SplitTargetLists(Unit* unit, UnitList* pList); // Populate attack/non-attack target lists for unit from pList. (client: 571c46)
     void FilterByRelation(Unit* unit, UnitList* list, int32_t flag); // 5A3896 — filter a UnitList by enemy/allied relationship. (client: 571a06)
-    void PruneUnconsciousTargets(); // 5A3C5F — move unconscious targets out of field26_0xa64 into field27_0xa84. (client: 571dcf)
+    void PruneUnconsciousTargets(); // 5A3C5F — move unconscious targets out of nearby_list into unconscious_list. (client: 571dcf)
     UnitList* GetNearbyUnits(Unit* unit); // 5A37C5 — get nearby UnitList around unit. (client: 571935)
     UnitList* GetNearbyEnemies(Unit* caster, PosYX yx); // Get nearby enemy UnitList for caster at yx. (client: 571978)
     UnitList* GetNearbyAllies(Unit* caster, PosYX yx); // Get nearby ally UnitList for caster at yx. (client: 5719bf)

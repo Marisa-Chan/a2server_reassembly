@@ -145,10 +145,10 @@ public:
     int32_t GetMapCenterX() { return MapStuff_Instance->GetWidth() / 2; } //59fc7c (client: 56eb2c)
 
 public:
-    CMapStringToOb field1_0x4;
-    uint32_t field2_0x20 = 0;
+    CMapStringToOb gap_0x4;
+    uint32_t is_scenario = 0;
     SrvStru1 *srv_stru = nullptr;
-    CArray<uint16_t> field4_0x28; // Drop locations.
+    CArray<uint16_t> drop_locations; // Drop locations.
 };
 ASSERT_OFFSET(Srv1, srv_stru, 0x24);
 ASSERT_SIZE(Srv1, 0x3c);
@@ -202,7 +202,7 @@ public:
     void ProcessAvailPackets(); //509010 (client: 50106e)
     void PumpNetwork(); //50907e (client: 5010a0)
 
-    void SetDifficulty(int32_t val) { this->field22_0xd8 = val; }; //497470
+    void SetDifficulty(int32_t val) { this->difficulty = val; }; //497470
 
     void DespawnScenarioUnits(int32_t var300, CDWordArray& arr); //501b9e (client: 4fbe72)
         
@@ -212,61 +212,61 @@ public:
     int32_t tick16; // This value seems to be advanced every 16 ticks
     int32_t tick;
     CowardActivation coward_activation;
-    int32_t field3_0x70;
-    int32_t field4_0x74; // Is server flag?
-    CString field5_0x78;
+    int32_t send_full_state;
+    int32_t fog_of_war; // Is server flag?
+    CString base_dir;
     SrvStru1* srv_stru1;
     uint8_t gap_0x80[8];
-    HANDLE field15_0x88;
-    int32_t field16_0x8c;
+    HANDLE thread_handle;
+    int32_t gap_0x8c;
     CString current_map_name;
-    uint32_t field18_0x94;
-    Srv1 field19_0x98;
-    uint32_t field21_0xd4;
-    uint32_t field22_0xd8; //game type? or dificulty?
-    CMapPtrToPtr field23_0xdc;
+    uint32_t has_world_state;
+    Srv1 srv1;
+    uint32_t map_code;
+    uint32_t difficulty; //game type? or dificulty?
+    CMapPtrToPtr saved_ptr_map;
     std::array<Spell*, 30> spells;
     ScriptSettings* script_settings;
-    uint32_t field26_0x174;
-    uint32_t field27_0x178;
-    uint32_t field28_0x17c;
-    uint32_t field29_0x180;
-    uint32_t field30_0x184;
-    uint32_t field31_0x188;
-    uint32_t field32_0x18c;
-    uint32_t field33_0x190;
-    uint32_t field34_0x194;
-    uint32_t field35_0x198;
-    uint32_t field36_0x19c;
-    uint32_t field37_0x1a0;
-    uint32_t field38_0x1a4;
-    uint32_t field39_0x1a8;
-    uint32_t field40_0x1ac;
-    uint32_t field41_0x1b0;
-    int32_t field42_0x1b4;
-    int32_t field43_0x1b8;
-    int32_t field44_0x1bc;
+    uint32_t skip_ai_units;
+    uint32_t is_singleplayer;
+    uint32_t saved_0x17c;
+    uint32_t saved_0x180;
+    uint32_t saved_0x184;
+    uint32_t saved_0x188;
+    uint32_t saved_0x18c;
+    uint32_t saved_0x190;
+    uint32_t saved_0x194;
+    uint32_t saved_0x198;
+    uint32_t saved_0x19c;
+    uint32_t saved_0x1a0;
+    uint32_t use_default_shop;
+    uint32_t save_on_server;
+    uint32_t map_loaded;
+    uint32_t server_screen_shown;
+    int32_t last_window_ms;
+    int32_t window_ms;
+    int32_t total_ms;
     int32_t tic16;
-    int32_t field46_0x1c4;
+    int32_t max_window_ms;
     CString current_map_title;
     int32_t MapLevel;
-    uint32_t field49_0x1d0;
-    uint32_t field50_0x1d4;
-    uint32_t field51_0x1d8;
+    uint32_t gap_0x1d0;
+    uint32_t hat_logged_in;
+    uint32_t hat_disconnect_tick;
     CStringArray FileList;
-    uint32_t field53_0x1f0;
-    uint32_t field54_0x1f4;
-    uint32_t field55_0x1f8;
-    uint32_t field56_0x1fc;
+    uint32_t hat_upload_tick;
+    uint32_t hat_id;
+    uint32_t hat_ping_tick;
+    uint32_t hat_uploads_pending;
     std::array<int32_t, 2> ctf_score; // Capture-the-flag mode: team scores.
-    uint32_t field59_0x208;
+    uint32_t game_started;
     std::array<int32_t, 2> ctf_carrying; // Capture-the-flag mode: 1 if the rune is being carried.
     std::array<int32_t, 2> ctf_dropped;  // Capture-the-flag mode: 1 if the rune is dropped on the ground.
-    uint32_t field64_0x21c;
-    uint32_t field65_0x220;
-    uint32_t field66_0x224;
-    CStringArray field67_0x228;
-    CArray<uint32_t> field68_0x23c;
+    uint32_t hat_announce_tick;
+    uint32_t hat_announce_player_index;
+    uint32_t sacks_loaded;
+    CStringArray arena_names;
+    CArray<uint32_t> arena_scores;
     int32_t map_elapsed_time;
     int32_t map_elapsed_time2;
     static uint16_t somewords[32][32]; //6cfdf0 used in client!

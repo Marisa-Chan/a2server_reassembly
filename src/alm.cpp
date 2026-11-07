@@ -26,7 +26,7 @@ MapPlayerData::MapPlayerData(int32_t index, int32_t color) {
 // 43C0BE
 MapPlayerData::MapPlayerData(const MapPlayerData& other) {
     this->index = other.index;
-    this->field2_0x8 = other.field2_0x8;
+    this->token_id = other.token_id;
     this->color = other.color;
     this->gold = other.gold;
     this->flags = other.flags;
@@ -98,7 +98,7 @@ MapAlm::MapAlm(const char* filename) {
     this->map_height = 0x10;
     this->inv_sun_angle = 0.0f;
     this->error_loading = 1;
-    this->field16_0x90 = 0;
+    this->max_group_id = 0;
     this->contrast = 0x20;
     this->a_brightness = 0x20;
     this->landscape = nullptr;
@@ -278,25 +278,25 @@ MapAlm::MapAlm(const char* filename) {
                 file->Read(&unit->hp, 2);
                 file->Read(&unit->max_hp, 2);
                 if (header.version < 1100) {
-                    file->Read(&unit->field17_0x24, 2);
-                    file->Read(&unit->field18_0x26, 2);
+                    file->Read(&unit->raw_0x24, 2);
+                    file->Read(&unit->raw_0x26, 2);
                     if (header.version >= 951) {
-                        file->Read(&unit->field36_0x4c, 2);
-                        file->Read(&unit->field37_0x4e, 2);
+                        file->Read(&unit->raw_0x4c, 2);
+                        file->Read(&unit->raw_0x4e, 2);
                     }
-                    file->Read(&unit->field19_0x28, 1);
-                    file->Read(&unit->field20_0x29, 1);
-                    file->Read(&unit->field21_0x2a, 1);
-                    file->Read(&unit->field22_0x2b, 1);
-                    file->Read(&unit->field23_0x2c, 1);
-                    file->Read(&unit->field24_0x2d, 1);
+                    file->Read(&unit->raw_0x28, 1);
+                    file->Read(&unit->raw_0x29, 1);
+                    file->Read(&unit->raw_0x2a, 1);
+                    file->Read(&unit->raw_0x2b, 1);
+                    file->Read(&unit->raw_0x2c, 1);
+                    file->Read(&unit->raw_0x2d, 1);
                     if (header.version >= 985) {
-                        file->Read(&unit->field25_0x2e, 1);
+                        file->Read(&unit->raw_0x2e, 1);
                     }
-                    file->Read(&unit->field26_0x2f, 1);
-                    file->Read(&unit->field27_0x30, 1);
-                    file->Read(unit->field28_0x31, 6);
-                    file->Read(unit->field29_0x37, 5);
+                    file->Read(&unit->raw_0x2f, 1);
+                    file->Read(&unit->raw_0x30, 1);
+                    file->Read(unit->raw_0x31, 6);
+                    file->Read(unit->raw_0x37, 5);
                 }
                 if (header.version >= 1110) {
                     file->Read(&unit->unit_id, 4);
@@ -304,8 +304,8 @@ MapAlm::MapAlm(const char* filename) {
                     file->Read(&unit->unit_id, 2);
                 }
                 file->Read(&unit->group_id, 4);
-                if (unit->group_id > this->field16_0x90) {
-                    this->field16_0x90 = unit->group_id;
+                if (unit->group_id > this->max_group_id) {
+                    this->max_group_id = unit->group_id;
                 }
                 if (unit->sack_id == -1 || unit->sack_id >= sack_count) {
                     unit->sack_id = -1;

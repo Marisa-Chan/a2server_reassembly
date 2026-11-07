@@ -29,7 +29,7 @@ Player::Player() {
     this->player_kills = 0;
     this->mission_result = 0;
     this->gm_level = 0;
-    this->field_0x20 = -10000;
+    this->gap_0x20 = -10000;
     this->vision_sharing_id = 0;
     this->is_in_world = 0;
     this->is_logged_in = 0;
@@ -37,7 +37,7 @@ Player::Player() {
     this->deaths = 0;
     this->frags = 0;
     this->drop_deadline_tick16 = 0;
-    this->field_0xa5c = 0x5F; // '_'
+    this->mana_percent = 0x5F; // '_'
     this->has_cd = 0;
     this->unit_list = new UnitList();
     this->group_list = new GroupList();
@@ -46,7 +46,7 @@ Player::Player() {
     this->settings = new Settings();
     this->building_entered_from_yx = 0;
     this->login.Empty();
-    this->field_0xa60 = 0;
+    this->quest_ai = 0;
     this->respawn_requested = 0;
     this->shout_cooldown = 0;
     this->last_save_tick = 0;
@@ -55,7 +55,7 @@ Player::Player() {
     this->max_server_level = 0;
     this->min_server_level = 0;
     this->team_ready = 1;
-    this->field_0xa70 = 0;
+    this->team = 0;
     this->afk_expire_tick = 0;
     this->afk_notify_tick = 0;
 }
@@ -90,7 +90,7 @@ void Player::Serialize(CArchive& ar) {
 
         ar << (this->deaths > 0x7FFF ? (uint16_t)0x7FFF : (uint16_t)this->deaths);
         ar << (this->player_kills > 0x7FFF ? (uint16_t)0x7FFF : (uint16_t)this->player_kills);
-        ar << this->field_0xa5c;
+        ar << this->mana_percent;
 
         ar << (uint32_t)this->main_unit;
         ar << (uint32_t)this;
@@ -121,14 +121,14 @@ void Player::Serialize(CArchive& ar) {
         this->deaths = t16;
         ar >> t16;
         this->player_kills = t16;
-        ar >> this->field_0xa5c;
+        ar >> this->mana_percent;
 
         uint32_t raw;
         ar >> raw;
         this->main_unit = (Human*)(uintptr_t)raw;
 
         ar >> raw;
-        g_Server->field23_0xdc[(void*)(uintptr_t)raw] = (void*)this;
+        g_Server->saved_ptr_map[(void*)(uintptr_t)raw] = (void*)this;
 
         ar.Read(this->kill_stats, 0xA00);
     }
@@ -139,7 +139,7 @@ void Player::Serialize(CArchive& ar) {
     if (ar.IsLoading()) {
         // Resolve raw main_unit pointer via the server's pointer-remap table.
         void* remapped = nullptr;
-        if (g_Server->field23_0xdc.Lookup((void*)this->main_unit, remapped)) {
+        if (g_Server->saved_ptr_map.Lookup((void*)this->main_unit, remapped)) {
             this->main_unit = (Human*)remapped;
         } else {
             this->main_unit = nullptr;

@@ -207,7 +207,7 @@ public:
     uint16_t seen_by_mask;
     uint16_t seen_by_mask_prev;
     CArray<SessionMobKill> mob_kills_in_session;
-    int32_t field_0x1bc;
+    int32_t has_flagged_item;
     UnitEye* eye;
     UnitEye2* eye2;
     CList<PosYX> list1;

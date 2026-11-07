@@ -101,7 +101,7 @@ void Building::Serialize(CArchive& ar) {
         ar << this->object_info_id;
         ar << this->hp;
         ar << this->hp_max;
-        ar << this->field_0x46;
+        ar << this->value1;
         ar << this->scan_range;
         ar << this->width;
         ar << this->height;
@@ -111,7 +111,7 @@ void Building::Serialize(CArchive& ar) {
         ar >> this->object_info_id;
         ar >> this->hp;
         ar >> this->hp_max;
-        ar >> this->field_0x46;
+        ar >> this->value1;
         ar >> this->scan_range;
         ar >> this->width;
         ar >> this->height;

@@ -96,7 +96,7 @@ void UnitList::ProcessTick() {
 		}
 
 		// Send knowledge flag updates to players when visibility tracking diverges
-		if (unit->seen_by_mask != unit->seen_by_mask_prev && g_Server->field4_0x74 != 0) {
+		if (unit->seen_by_mask != unit->seen_by_mask_prev && g_Server->fog_of_war != 0) {
 			for (int i = 0; i < 16; i++) {
 				if ((unit->seen_by_mask & (1 << i)) != 0 && (unit->seen_by_mask_prev & (1 << i)) == 0) {
 					Player* player = g_PlayersList->FindById(i + 16);
@@ -156,16 +156,16 @@ void UnitList::ProcessTick() {
 						LogMessage(msg);
 						if (g_ServerConfig.gameType != 0) {
 							if (g_ServerConfig.gameType == 2 && unit->last_hit_by->pOwner != nullptr) {
-								if (unit->last_hit_by->pOwner->name == "Red" && unit->pOwner->field_0xa70 == 1) {
+								if (unit->last_hit_by->pOwner->name == "Red" && unit->pOwner->team == 1) {
 									g_Server->ctf_score[0]++;
-								} else if (unit->last_hit_by->pOwner->name == "Blue" && unit->pOwner->field_0xa70 == 0) {
+								} else if (unit->last_hit_by->pOwner->name == "Blue" && unit->pOwner->team == 0) {
 									g_Server->ctf_score[1]++;
 								} else {
-									g_Server->ctf_score[unit->pOwner->field_0xa70]--;
+									g_Server->ctf_score[unit->pOwner->team]--;
 									unit->pOwner->frags--;
 								}
 							} else {
-								g_Server->ctf_score[unit->pOwner->field_0xa70]--;
+								g_Server->ctf_score[unit->pOwner->team]--;
 								unit->pOwner->frags--;
 							}
 							if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
@@ -187,7 +187,7 @@ void UnitList::ProcessTick() {
 					unit->last_hit_by = nullptr;
 					if (g_ServerConfig.gameType != 0 && unit->pOwner->is_ai == 0 && g_Server->tick > 50) {
 						unit->pOwner->frags--;
-						g_Server->ctf_score[unit->pOwner->field_0xa70]--;
+						g_Server->ctf_score[unit->pOwner->team]--;
 						g_NetStru1_main.SendInfoPacket(0x94, unit->pOwner->player_id, 0xc0000, nullptr);
 						if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
 							g_NetStru1_main.SendTeamState(0);
@@ -217,13 +217,13 @@ void UnitList::ProcessTick() {
 								kill_sphere = g_GameDataRes.spells.ElementAt(unit->last_hit_spell_id).Values().GetData()->sphere + 5;
 							}
 						}
-						if (g_Server->field4_0x74 != 0 && kill_sphere != 0) {
+						if (g_Server->fog_of_war != 0 && kill_sphere != 0) {
 							g_NetStru1_main.SendInfoPacket(0x94, unit->pOwner->player_id, unit->last_hit_by->pOwner->player_id | (kill_sphere << 16), nullptr);
 						}
 						if (g_ServerConfig.gameType == 0) {
 							unit->last_hit_by->pOwner->player_kills++;
 						} else {
-							g_Server->ctf_score[unit->last_hit_by->pOwner->field_0xa70]++;
+							g_Server->ctf_score[unit->last_hit_by->pOwner->team]++;
 							unit->last_hit_by->pOwner->frags++;
 							if (g_ServerConfig.gameType == 1) {
 								if (unit->last_hit_by->pOwner->frags < g_ServerConfig.frag_limit) {
@@ -232,7 +232,7 @@ void UnitList::ProcessTick() {
 									g_Server->SignalGameStart(1);
 								}
 							} else if (g_ServerConfig.gameType == 2) {
-								if (g_Server->ctf_score[unit->last_hit_by->pOwner->field_0xa70] < g_ServerConfig.frag_limit) {
+								if (g_Server->ctf_score[unit->last_hit_by->pOwner->team] < g_ServerConfig.frag_limit) {
 									g_NetStru1_main.SendTeamState(0);
 								} else {
 									g_Server->SignalGameStart(1);
@@ -277,7 +277,7 @@ void UnitList::ProcessTick() {
 			}
 
 			// Quest event: player has no more units alive
-			if (unit->pOwner != NULL && unit->pOwner->field_0xa60 != 0 && unit->pOwner->unit_list->unit_list.GetCount() == 0) {
+			if (unit->pOwner != NULL && unit->pOwner->quest_ai != 0 && unit->pOwner->unit_list->unit_list.GetCount() == 0) {
 				g_QuestMap.QueueEvent(15, unit->pOwner->player_id, killer_pid);
 
 			// Clear pathfinding tracking
@@ -297,7 +297,7 @@ void UnitList::SendVisibilityUpdates() {
 		Unit* unit = this->unit_list.GetNext(it);
 
 		// Update the unit for a player if visibility tracking diverges
-		if (unit->seen_by_mask != unit->seen_by_mask_prev && g_Server->field4_0x74 != 0) {
+		if (unit->seen_by_mask != unit->seen_by_mask_prev && g_Server->fog_of_war != 0) {
 			for (int32_t i = 0; i < 16; i++) {
 				if ((unit->seen_by_mask & (1 << i)) != 0 && (unit->seen_by_mask_prev & (1 << i)) == 0) {
 					Player* player = g_PlayersList->FindById(i + 16);

@@ -1451,7 +1451,7 @@ int32_t VisScrollBar::OnKeyDown(uint32_t wparam) {
 VisScrollBar::VisScrollBar(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* hint)
 : CVisualObject(_id, l, t, r, b, hint) {
     //4dde6a
-    this->field_0x5c = 0;
+    this->dirty = 0;
     this->val = 0;
     this->val_max = 0;
     this->mouse_on_minus = 0;
@@ -1480,7 +1480,7 @@ void VisScrollBar::SetPos(int32_t pos, int32_t pos_max) {
 
 void VisScrollBar::UpdateRects() {
     //4ddacf
-    this->field_0x5c = 1;
+    this->dirty = 1;
 
     CRect rt = this->ClientRectToScreen(this->rect);
     if (rt.Width() < rt.Height()) {
@@ -3456,8 +3456,8 @@ int32_t VisRoleKeyScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
         return 1;
     }
 
-    if (this->field_0x80 != 0) {
-        AfxGetMainWnd()->PostMessage(0x45B, this->field_0x80, 0);
+    if (this->tips_id != 0) {
+        AfxGetMainWnd()->PostMessage(0x45B, this->tips_id, 0);
     }
     return this->VisScreen::MsgProc(0x445, 0, 0);
 }
@@ -3493,16 +3493,16 @@ void VisRoleKeyScreen::DoClose(uint32_t code) {
 bool VisRoleKeyScreen::sub_4E0169() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
-    this->field_0x68 = this->field_0x68 + 1;
+    this->line_no = this->line_no + 1;
 
-    if (this->field_0x70 != nullptr) {
-        SoundChannel* channel = this->field_0x70->FindPlayingChannel();
+    if (this->speech_sample != nullptr) {
+        SoundChannel* channel = this->speech_sample->FindPlayingChannel();
         if (channel != nullptr) {
             channel->Stop();
             channel->psample = nullptr;
         }
-        delete this->field_0x70;
-        this->field_0x70 = nullptr;
+        delete this->speech_sample;
+        this->speech_sample = nullptr;
     }
 
     CString text;
@@ -3510,7 +3510,7 @@ bool VisRoleKeyScreen::sub_4E0169() {
     char* name;
     char* name_end;
     int32_t music_id;
-    if (!this->FUN_004e0b43(this->field_0x68, &id, &text, &name, &name_end, &music_id)) {
+    if (!this->FUN_004e0b43(this->line_no, &id, &text, &name, &name_end, &music_id)) {
         return false;
     }
 
@@ -3522,7 +3522,7 @@ bool VisRoleKeyScreen::sub_4E0169() {
 
     if (text.GetLength() == 0) {
         char gender = 0;
-        if (this->field_0x84 != 0 || id == 0x15) {
+        if (this->spoken_by_player != 0 || id == 0x15) {
             CUnit* unit = main_wnd->vis_map_context->FUN_0041dfa6(0x15);
             if ((unit->unitFlags & 4) == 0) {
                 gender = (unit->unitFlags & 2) != 0 ? 'm' : 'f';
@@ -3540,9 +3540,9 @@ bool VisRoleKeyScreen::sub_4E0169() {
             while (num.GetLength() < 3) {
                 num = "0" + num;
             }
-            text.Format("talk\\%04d%c%sp%02d", id, gender, (const char*)num, this->field_0x68);
+            text.Format("talk\\%04d%c%sp%02d", id, gender, (const char*)num, this->line_no);
         } else if ((pos = this->role_name.Find("about")) >= 0) {
-            text.Format("about\\%04dt000p%02d", id, this->field_0x68);
+            text.Format("about\\%04dt000p%02d", id, this->line_no);
         } else if ((pos = this->role_name.Find("accept")) >= 0) {
             if (gender == 0) {
                 gender = 't';
@@ -3551,7 +3551,7 @@ bool VisRoleKeyScreen::sub_4E0169() {
             while (num.GetLength() < 3) {
                 num = "0" + num;
             }
-            text.Format("accept\\%04d%c%sp%02d", id, gender, (const char*)num, this->field_0x68);
+            text.Format("accept\\%04d%c%sp%02d", id, gender, (const char*)num, this->line_no);
         } else if ((pos = this->role_name.Find("reject")) >= 0) {
             if (gender == 0) {
                 gender = 't';
@@ -3560,7 +3560,7 @@ bool VisRoleKeyScreen::sub_4E0169() {
             while (num.GetLength() < 3) {
                 num = "0" + num;
             }
-            text.Format("reject\\%04d%c%sp%02d", id, gender, (const char*)num, this->field_0x68);
+            text.Format("reject\\%04d%c%sp%02d", id, gender, (const char*)num, this->line_no);
         } else if (this->role_name.Find("keeper") >= 0 || this->role_name.Find("man") >= 0 || this->role_name.Find("guard") >= 0) {
             int32_t len = this->role_name.GetLength();
             while (!isalpha(this->role_name[len - 1])) {
@@ -3573,14 +3573,14 @@ bool VisRoleKeyScreen::sub_4E0169() {
             while (num.GetLength() < 3) {
                 num = "0" + num;
             }
-            text.Format("town\\%04d%c%sp%02d", id, gender, (const char*)num, this->field_0x68);
+            text.Format("town\\%04d%c%sp%02d", id, gender, (const char*)num, this->line_no);
         }
     }
 
     if (text.GetLength() != 0) {
-        this->field_0x70 = new SfxSample("speech\\" + text + ".wav");
-        this->field_0x70->LoadSample();
-        this->field_0x70->Play(g_SoundSettings.speech_pos, 0, 0, 0x80, 0);
+        this->speech_sample = new SfxSample("speech\\" + text + ".wav");
+        this->speech_sample->LoadSample();
+        this->speech_sample->Play(g_SoundSettings.speech_pos, 0, 0, 0x80, 0);
     }
 
     if (this->is_npc != 0) {
@@ -3644,12 +3644,12 @@ bool VisRoleKeyScreen::FUN_004e0b43(int32_t line_no, int32_t* out_id, CString* o
         }
 
         if (tag.Find("iamfemale") >= 0 || tag.Find("iammale") >= 0 || tag.Find("iammage") >= 0 || tag.Find("iamfighter") >= 0) {
-            this->field_0x84 = 1;
+            this->spoken_by_player = 1;
         } else {
-            this->field_0x84 = 0;
+            this->spoken_by_player = 0;
         }
 
-        uint32_t unit_flags = main_wnd->vis_map_context->field_0x3f6c->unitFlags;
+        uint32_t unit_flags = main_wnd->vis_map_context->my_unit->unitFlags;
         if ((tag.Find("iamfemale") >= 0 && (unit_flags & 4) == 0) ||
             (tag.Find("iammale") >= 0 && (unit_flags & 4) != 0) ||
             (tag.Find("iammage") >= 0 && (unit_flags & 2) == 0) ||
@@ -3731,7 +3731,7 @@ bool VisRoleKeyScreen::FUN_004e0b43(int32_t line_no, int32_t* out_id, CString* o
         pos = tag.Find("tips=");
         if (pos >= 0) {
             num = tag.Mid(pos + 5, 5);
-            sscanf(num, "%d", &this->field_0x80);
+            sscanf(num, "%d", &this->tips_id);
         }
 
         while (*p != '\n' && *p != '\0') {
@@ -3794,11 +3794,11 @@ VisRoleKeyScreen::~VisRoleKeyScreen()
 VisRoleKeyScreen::VisRoleKeyScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CString& text)
 : VisWindow(_id, l, t, r, b, nullptr) {
     this->role_name = text;
-    this->field_0x68 = 0;
-    this->field_0x70 = nullptr;
+    this->line_no = 0;
+    this->speech_sample = nullptr;
     this->text_buf = nullptr;
     this->text_len = 0;
-    this->field_0x80 = 0;
+    this->tips_id = 0;
     this->LoadText();
 }
 
@@ -3824,9 +3824,9 @@ void VisMessageBox::VMethod26() {
     //444086
     // client: 446656
     CRect r2;
-    if (this->field_0x6c && strlen(this->field_0x6c) > 0) {
-        if (g_font1->GetStrWidth(this->field_0x6c) > this->rect.Width()) {
-            VisMultiText* txt = new VisMultiText(0, 40, 32, this->rect.Width() - 50, 104, this->field_0x6c, g_font1, p_clrsh_Black, 0);
+    if (this->text && strlen(this->text) > 0) {
+        if (g_font1->GetStrWidth(this->text) > this->rect.Width()) {
+            VisMultiText* txt = new VisMultiText(0, 40, 32, this->rect.Width() - 50, 104, this->text, g_font1, p_clrsh_Black, 0);
 
             this->AddChild(txt);
 
@@ -3834,7 +3834,7 @@ void VisMessageBox::VMethod26() {
 
             r2 = CRect(40, 116, this->rect.Width() - 40, this->rect.Height() - 112);
         } else {
-            VisLabel* lbl = new VisLabel(1, 40, 32, this->rect.Width() - 40, 56, this->field_0x6c, g_font1, p_clrsh_Black, 2);
+            VisLabel* lbl = new VisLabel(1, 40, 32, this->rect.Width() - 40, 56, this->text, g_font1, p_clrsh_Black, 2);
 
             this->AddChild(lbl);
 
@@ -3844,10 +3844,10 @@ void VisMessageBox::VMethod26() {
         r2 = CRect(40, 56, this->rect.Width() - 40, this->rect.Height() - 88);
     }
 
-    if (this->field_0x70 && strlen(this->field_0x70) > 0) {
+    if (this->title && strlen(this->title) > 0) {
         r2.OffsetRect(0, 12);
         
-        this->AddChild( new VisLabel(-1, r2.left, r2.top - 20, r2.right, r2.top - 4, this->field_0x70, g_font1, p_clrsh_Black, 0) );
+        this->AddChild( new VisLabel(-1, r2.left, r2.top - 20, r2.right, r2.top - 4, this->title, g_font1, p_clrsh_Black, 0) );
     }
 
     CVisualObject* obj = this->VMethod30(this->payload, r2);
@@ -3987,8 +3987,8 @@ void VisMessageBox::VMethod31(int32_t code) {
 VisMessageBox::VisMessageBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const void* _payload, const char* str2, int32_t btypes, const char* str3)
 : VisWindow(_id, l, t, r, b, nullptr) {
     //44402b
-    this->field_0x70 = str2;
-    this->field_0x6c = str3;
+    this->title = str2;
+    this->text = str3;
     this->payload = _payload;
     this->button_types = btypes;
 }
@@ -4288,7 +4288,7 @@ void QuestObjectivesHeaderDialogVisualObject::VMethod26() { //4451e1
 // 4E2F76
 void VisQuestStatus::VMethod7() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    QuestMap* quest_map = main_wnd->vis_map_context->field_0x4970;
+    QuestMap* quest_map = main_wnd->vis_map_context->quest_map;
 
     this->rect.bottom = this->rect.top + 0x48 + quest_map->GetQuestCount() * 0x20;
 
@@ -4359,7 +4359,7 @@ void VisQuestStatus::VMethod7() {
         case 4:
         case 0xB: {
             CGameObject* obj;
-            if (main_wnd->vis_map_context->field_0x9d0.Lookup((uint16_t)quest->GetObj(), obj)) {
+            if (main_wnd->vis_map_context->objects.Lookup((uint16_t)quest->GetObj(), obj)) {
                 CUnit* unit = (CUnit*)obj;
                 if ((unit->unitFlags & 0x11) == 0) {
                     if (unit->typeId < 0x52 || unit->typeId > 0x66) {
@@ -4388,7 +4388,7 @@ void VisQuestStatus::VMethod7() {
         CString area_name;
         CString building_name;
         CGameObject* landmark;
-        if (main_wnd->vis_map_context->field_0x9d0.Lookup((uint16_t)quest->GetLandmarkId(), landmark)) {
+        if (main_wnd->vis_map_context->objects.Lookup((uint16_t)quest->GetLandmarkId(), landmark)) {
             building_name = txt_building.GetLine(landmark->typeId - 1);
             int32_t cell_x = ((landmark->tileX - 8) * 5) / (main_wnd->vis_map_context->map_width - 0x10);
             int32_t cell_y = ((landmark->tileY - 8) * 5) / (main_wnd->vis_map_context->map_height - 0x10);
@@ -4615,18 +4615,18 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
 
         switch (box) {
         case 0:
-            if (this->parent_screen->roster_list->field_0xd8 == 0)
+            if (this->parent_screen->roster_list->renaming == 0)
 #ifdef A2CLIENT
             {
-                int32_t idx = this->parent_screen->roster_list->field_0xd0;
+                int32_t idx = this->parent_screen->roster_list->selected_row;
                 if (idx == this->parent_screen->session->GetStringArray1Size() - 1 &&
-                    mwnd->field_0x3e0.field_10 != 0 && mwnd->hat_settings.ishat != 0 &&
+                    mwnd->net_session.internet_game != 0 && mwnd->hat_settings.ishat != 0 &&
                     this->parent_screen->session->hat_char_ids.GetSize() > 15) {
                     VisScreen* mbox = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(141), nullptr, 0x2000);
                     mwnd->vis_msgbox_list = mbox;
                     mwnd->ModalScreen(mbox);
                 } else if (idx == this->parent_screen->session->GetStringArray1Size() - 1 &&
-                    mwnd->field_0x3e0.field_10 != 0 && mwnd->hat_settings.ishat != 0 && mwnd->hat_settings.deathmatch != 0) {
+                    mwnd->net_session.internet_game != 0 && mwnd->hat_settings.ishat != 0 && mwnd->hat_settings.deathmatch != 0) {
                     VisScreen* mbox = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(142), nullptr, 0x2000);
                     mwnd->vis_msgbox_list = mbox;
                     mwnd->ModalScreen(mbox);
@@ -4641,12 +4641,12 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
 
         case 1:
 #ifdef A2CLIENT
-            if (mwnd->field_0x3e0.field_10 != 0 && mwnd->hat_settings.ishat != 0 && mwnd->hat_settings.deathmatch != 0) {
+            if (mwnd->net_session.internet_game != 0 && mwnd->hat_settings.ishat != 0 && mwnd->hat_settings.deathmatch != 0) {
                 break;
             }
 #endif
-            if (this->parent_screen->roster_list->field_0xd8 == 0) {
-                int32_t idx = this->parent_screen->roster_list->field_0xd0;
+            if (this->parent_screen->roster_list->renaming == 0) {
+                int32_t idx = this->parent_screen->roster_list->selected_row;
                 if (idx != this->parent_screen->session->GetStringArray1Size() - 1) {
                     CString str = CString(txt_patch.GetLine(93)) + CString(this->parent_screen->session->character_name) + CString(txt_patch.GetLine(94));
                     VisScreen* box = new VisMessageBoxWithList(1, 64, 100, 380, 594, str, nullptr, 4);
@@ -4661,7 +4661,7 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
                             this->parent_screen->vis_stats->ReadUnitStats();
                             this->parent_screen->FUN_00432655(this->parent_screen->selected_unit);
                         } else {
-                            this->parent_screen->roster_list->field_0xd0 = this->parent_screen->session->GetStringArray1Size() - 1;
+                            this->parent_screen->roster_list->selected_row = this->parent_screen->session->GetStringArray1Size() - 1;
                             this->parent_screen->selected_unit->SetSelected(0);
                             this->parent_screen->map_context->UpdateSelectionState();
                         }
@@ -4671,7 +4671,7 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
             break;
 
         case 2:
-            if (this->parent_screen->roster_list->field_0xd8 == 0) {
+            if (this->parent_screen->roster_list->renaming == 0) {
                 this->parent_screen->OpenRenameWindow();
                 if (this->parent_screen->snd_rename) {
                     this->parent_screen->snd_rename->Play();
@@ -4680,7 +4680,7 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
             break;
 
         case 3:
-            if (this->parent_screen->roster_list->field_0xd8 == 0) {
+            if (this->parent_screen->roster_list->renaming == 0) {
                 this->parent_screen->CloseCancel();
             }
             break;
@@ -4731,13 +4731,13 @@ void VisCharSellectButtons::VMethod7() {
             if (this->mouse_over_box < 0 || this->mouse_down_box != this->mouse_over_box || this->mouse_over_box != i) {
                 g_font4->DrawTxt(top_left.x + this->areas[i].left + this->areas[i].Width() / 2,
                                  top_left.y + this->areas[i].top + this->areas[i].Height() / 2,
-                                 this->field_0x60[i], 10, pal);
+                                 this->captions[i], 10, pal);
             } else {
                 this->buttons_bmp[i]->DrawSubRectMasked(top_left.x + this->areas[i].left, top_left.y + this->areas[i].top,
                                                 0, 0, this->areas[i].Width(), this->areas[i].Height());
                 g_font4->DrawTxt(top_left.x + this->areas[i].left + this->areas[i].Width() / 2,
                                  top_left.y + this->areas[i].top + 1 + this->areas[i].Height() / 2,
-                                 this->field_0x60[i], 10, pal);
+                                 this->captions[i], 10, pal);
             }
         }
         UnlockSurface2();
@@ -4754,10 +4754,10 @@ void VisCharSellectButtons::FreeBitmaps() {
         this->buttons_bmp[i] = nullptr;
         // Never assigned anywhere; kept faithful — dispatch is virtual so the
         // static type only satisfies the compiler.
-        if (this->field_0x84[i] != nullptr) {
-            delete static_cast<CBmp64*>(this->field_0x84[i]);
+        if (this->gap_0x84[i] != nullptr) {
+            delete static_cast<CBmp64*>(this->gap_0x84[i]);
         }
-        this->field_0x84[i] = nullptr;
+        this->gap_0x84[i] = nullptr;
     }
     if (this->bmp_area != nullptr) {
         delete this->bmp_area;
@@ -4825,14 +4825,14 @@ void VisCharSellectButtons::Init() {
     this->areas[3] = CRect(0x1EE, 0xA0, 0x266, 0xD4);
     for (int32_t i = 0; i < 4; i++) {
         this->buttons_bmp[i] = nullptr;
-        this->field_0x84[i] = nullptr;
+        this->gap_0x84[i] = nullptr;
     }
     this->bmp_area = nullptr;
-    this->field_0x60.SetSize(4, -1);
-    this->field_0x60[0] = TxtFile::AllLines[0xEE];
-    this->field_0x60[1] = TxtFile::AllLines[0xF0];
-    this->field_0x60[2] = TxtFile::AllLines[0xF1];
-    this->field_0x60[3] = TxtFile::AllLines[0x4E];
+    this->captions.SetSize(4, -1);
+    this->captions[0] = TxtFile::AllLines[0xEE];
+    this->captions[1] = TxtFile::AllLines[0xF0];
+    this->captions[2] = TxtFile::AllLines[0xF1];
+    this->captions[3] = TxtFile::AllLines[0x4E];
     this->flags |= FLAG_NOTFOCUS;
 }
 
@@ -4856,35 +4856,35 @@ VisCharSellectButtons::~VisCharSellectButtons() {
 void VisCharSellectList::VMethod7() {
     if (this->parent_screen->active_flag != 0) {
         CPoint top_left = this->parent_screen->rect.TopLeft();
-        int32_t visible_end = this->field_0xa0 + this->field_0x70.Height() / this->field_0x60.Height();
+        int32_t visible_end = this->top_row + this->list_area.Height() / this->row_rect.Height();
         if (visible_end > this->parent_screen->session->GetStringArray1Size()) {
             visible_end = this->parent_screen->session->GetStringArray1Size();
         }
         LockSurface2();
-        this->field_0xa4->Draw(top_left.x + this->rect.left, top_left.y + this->rect.top, 0, 0, 0);
-        if (this->field_0xb8 != nullptr) {
-            this->field_0xb8->Draw(top_left.x + 0x78 + this->rect.left, top_left.y + this->rect.top, 0, 0, 0);
+        this->bmp_center_area->Draw(top_left.x + this->rect.left, top_left.y + this->rect.top, 0, 0, 0);
+        if (this->bmp_arrow_up != nullptr) {
+            this->bmp_arrow_up->Draw(top_left.x + 0x78 + this->rect.left, top_left.y + this->rect.top, 0, 0, 0);
         }
-        if (this->field_0xbc != nullptr) {
-            this->field_0xbc->Draw(top_left.x + 0x78 + this->rect.left, top_left.y + 0x188 + this->rect.top, 0, 0, 0);
+        if (this->bmp_arrow_down != nullptr) {
+            this->bmp_arrow_down->Draw(top_left.x + 0x78 + this->rect.left, top_left.y + 0x188 + this->rect.top, 0, 0, 0);
         }
-        for (int32_t i = this->field_0xa0; i < visible_end; i++) {
+        for (int32_t i = this->top_row; i < visible_end; i++) {
             uint16_t* pal;
-            if (i == this->field_0xd4) {
+            if (i == this->hovered_row) {
                 pal = palette_paris_daisy->GetPalette(0);
             } else {
                 pal = palette_husk->GetPalette(0);
             }
-            if (i == this->field_0xd0) {
-                CRect rc(top_left.x + this->field_0x70.left,
-                         top_left.y + this->field_0x70.top + this->field_0x60.Height() * ((i - this->field_0xa0) + 1) - 4,
-                         top_left.x + this->field_0x70.right,
-                         top_left.y + this->field_0x70.top + this->field_0x60.Height() * ((i - this->field_0xa0) + 2));
+            if (i == this->selected_row) {
+                CRect rc(top_left.x + this->list_area.left,
+                         top_left.y + this->list_area.top + this->row_rect.Height() * ((i - this->top_row) + 1) - 4,
+                         top_left.x + this->list_area.right,
+                         top_left.y + this->list_area.top + this->row_rect.Height() * ((i - this->top_row) + 2));
                 ShadowRect(rc, 8);
             }
-            if (this->field_0xd0 != i || this->field_0xd8 == 0) {
-                g_font4->DrawTextWithShadow(top_left.x + this->field_0x70.left + this->field_0x70.Width() / 2,
-                                            top_left.y + this->field_0x70.top + this->field_0x60.Height() * ((i - this->field_0xa0) + 1),
+            if (this->selected_row != i || this->renaming == 0) {
+                g_font4->DrawTextWithShadow(top_left.x + this->list_area.left + this->list_area.Width() / 2,
+                                            top_left.y + this->list_area.top + this->row_rect.Height() * ((i - this->top_row) + 1),
                                             this->parent_screen->session->characterRosterNames[i], 2, pal, 1);
             }
         }
@@ -4896,41 +4896,41 @@ void VisCharSellectList::VMethod7() {
 
 // 43148A
 void VisCharSellectList::FreeBitmaps() {
-    if (this->field_0xa4 != nullptr) {
-        delete this->field_0xa4;
+    if (this->bmp_center_area != nullptr) {
+        delete this->bmp_center_area;
     }
-    this->field_0xa4 = nullptr;
-    if (this->field_0xa8 != nullptr) {
-        delete this->field_0xa8;
+    this->bmp_center_area = nullptr;
+    if (this->bmp_up_shine != nullptr) {
+        delete this->bmp_up_shine;
     }
-    this->field_0xa8 = nullptr;
-    if (this->field_0xac != nullptr) {
-        delete this->field_0xac;
+    this->bmp_up_shine = nullptr;
+    if (this->bmp_up_shine_on != nullptr) {
+        delete this->bmp_up_shine_on;
     }
-    this->field_0xac = nullptr;
-    if (this->field_0xb0 != nullptr) {
-        delete this->field_0xb0;
+    this->bmp_up_shine_on = nullptr;
+    if (this->bmp_down_shine != nullptr) {
+        delete this->bmp_down_shine;
     }
-    this->field_0xb0 = nullptr;
-    if (this->field_0xb4 != nullptr) {
-        delete this->field_0xb4;
+    this->bmp_down_shine = nullptr;
+    if (this->bmp_down_shine_on != nullptr) {
+        delete this->bmp_down_shine_on;
     }
-    this->field_0xb4 = nullptr;
+    this->bmp_down_shine_on = nullptr;
 }
 
 
 // 4312B7
 void VisCharSellectList::LoadBitmaps() {
     this->FreeBitmaps();
-    this->field_0xa4 = new CBmp64("graphics\\interface\\chrgen\\loader\\CenterArea.bmp");
+    this->bmp_center_area = new CBmp64("graphics\\interface\\chrgen\\loader\\CenterArea.bmp");
     g_mousept.Update();
-    this->field_0xa8 = new CBmp64("graphics\\interface\\chrgen\\loader\\up\\shine.bmp");
+    this->bmp_up_shine = new CBmp64("graphics\\interface\\chrgen\\loader\\up\\shine.bmp");
     g_mousept.Update();
-    this->field_0xac = new CBmp64("graphics\\interface\\chrgen\\loader\\up\\shine_on.bmp");
+    this->bmp_up_shine_on = new CBmp64("graphics\\interface\\chrgen\\loader\\up\\shine_on.bmp");
     g_mousept.Update();
-    this->field_0xb0 = new CBmp64("graphics\\interface\\chrgen\\loader\\down\\shine.bmp");
+    this->bmp_down_shine = new CBmp64("graphics\\interface\\chrgen\\loader\\down\\shine.bmp");
     g_mousept.Update();
-    this->field_0xb4 = new CBmp64("graphics\\interface\\chrgen\\loader\\down\\shine_on.bmp");
+    this->bmp_down_shine_on = new CBmp64("graphics\\interface\\chrgen\\loader\\down\\shine_on.bmp");
     g_mousept.Update();
 }
 
@@ -4946,22 +4946,22 @@ void VisCharSellectList::SelectRow(int32_t row) {
             this->parent_screen->vis_stats->ReadUnitStats();
             this->parent_screen->FUN_00432655(this->parent_screen->selected_unit);
         }
-        this->field_0xd0 = row;
+        this->selected_row = row;
     }
 }
 
 
 // 431872
 int32_t VisCharSellectList::HitTest(CPoint pos) {
-    int32_t visible_end = this->field_0xa0 + this->field_0x70.Height() / this->field_0x60.Height();
+    int32_t visible_end = this->top_row + this->list_area.Height() / this->row_rect.Height();
     CPoint top_left = this->parent_screen->rect.TopLeft();
     if (visible_end > this->parent_screen->session->GetStringArray1Size()) {
         visible_end = this->parent_screen->session->GetStringArray1Size();
     }
-    for (int32_t i = this->field_0xa0; i < visible_end; i++) {
-        CPoint origin(top_left.x + this->field_0x70.left,
-                      top_left.y + this->field_0x70.top + this->field_0x60.Height() * (i - this->field_0xa0 + 1));
-        CRect row_rect(origin, this->field_0x60.Size());
+    for (int32_t i = this->top_row; i < visible_end; i++) {
+        CPoint origin(top_left.x + this->list_area.left,
+                      top_left.y + this->list_area.top + this->row_rect.Height() * (i - this->top_row + 1));
+        CRect row_rect(origin, this->row_rect.Size());
         if (row_rect.PtInRect(pos)) {
             return i;
         }
@@ -4972,36 +4972,36 @@ int32_t VisCharSellectList::HitTest(CPoint pos) {
 
 // 431A05
 int32_t VisCharSellectList::SelectPrevRow() {
-    if (this->field_0xd0 - 1 < 0) {
+    if (this->selected_row - 1 < 0) {
         return 0;
     }
-    if (this->field_0xd0 - 1 < this->field_0xa0) {
-        this->field_0xa0 = this->field_0xa0 - 1;
-        this->field_0xd0 = this->field_0xd0 - 1;
+    if (this->selected_row - 1 < this->top_row) {
+        this->top_row = this->top_row - 1;
+        this->selected_row = this->selected_row - 1;
     } else {
-        this->field_0xd0 = this->field_0xd0 - 1;
+        this->selected_row = this->selected_row - 1;
     }
-    this->SelectRow(this->field_0xd0);
+    this->SelectRow(this->selected_row);
     return 1;
 }
 
 
 // 431A93
 int32_t VisCharSellectList::SelectNextRow() {
-    int32_t visible_end = this->field_0xa0 + this->field_0x70.Height() / this->field_0x60.Height();
+    int32_t visible_end = this->top_row + this->list_area.Height() / this->row_rect.Height();
     if (visible_end > this->parent_screen->session->GetStringArray1Size()) {
         visible_end = this->parent_screen->session->GetStringArray1Size();
     }
-    if (this->field_0xd0 + 1 >= this->parent_screen->session->GetStringArray1Size()) {
+    if (this->selected_row + 1 >= this->parent_screen->session->GetStringArray1Size()) {
         return 0;
     }
-    if (this->field_0xd0 + 1 > visible_end - 1) {
-        this->field_0xa0 = this->field_0xa0 + 1;
-        this->field_0xd0 = this->field_0xd0 + 1;
+    if (this->selected_row + 1 > visible_end - 1) {
+        this->top_row = this->top_row + 1;
+        this->selected_row = this->selected_row + 1;
     } else {
-        this->field_0xd0 = this->field_0xd0 + 1;
+        this->selected_row = this->selected_row + 1;
     }
-    this->SelectRow(this->field_0xd0);
+    this->SelectRow(this->selected_row);
     return 1;
 }
 
@@ -5013,28 +5013,28 @@ void VisCharSellectList::UpdateArrows(CPoint pos, bool is_down) {
     pos -= this->parent_screen->rect.TopLeft();
 #endif
     if (is_down) {
-        if (this->field_0xd0 - 1 < 0 || !this->field_0x80.PtInRect(pos)) {
-            this->field_0xb8 = nullptr;
+        if (this->selected_row - 1 < 0 || !this->up_arrow_rect.PtInRect(pos)) {
+            this->bmp_arrow_up = nullptr;
         } else {
-            this->field_0xb8 = this->field_0xac;
+            this->bmp_arrow_up = this->bmp_up_shine_on;
         }
-        if (this->field_0xd0 + 1 < this->parent_screen->session->GetStringArray1Size()
-            && this->field_0x90.PtInRect(pos)) {
-            this->field_0xbc = this->field_0xb4;
+        if (this->selected_row + 1 < this->parent_screen->session->GetStringArray1Size()
+            && this->down_arrow_rect.PtInRect(pos)) {
+            this->bmp_arrow_down = this->bmp_down_shine_on;
         } else {
-            this->field_0xbc = nullptr;
+            this->bmp_arrow_down = nullptr;
         }
     } else {
-        if (this->field_0xd0 - 1 < 0 || !this->field_0x80.PtInRect(pos)) {
-            this->field_0xb8 = nullptr;
+        if (this->selected_row - 1 < 0 || !this->up_arrow_rect.PtInRect(pos)) {
+            this->bmp_arrow_up = nullptr;
         } else {
-            this->field_0xb8 = this->field_0xa8;
+            this->bmp_arrow_up = this->bmp_up_shine;
         }
-        if (this->field_0xd0 + 1 < this->parent_screen->session->GetStringArray1Size()
-            && this->field_0x90.PtInRect(pos)) {
-            this->field_0xbc = this->field_0xb0;
+        if (this->selected_row + 1 < this->parent_screen->session->GetStringArray1Size()
+            && this->down_arrow_rect.PtInRect(pos)) {
+            this->bmp_arrow_down = this->bmp_down_shine;
         } else {
-            this->field_0xbc = nullptr;
+            this->bmp_arrow_down = nullptr;
         }
     }
 }
@@ -5042,11 +5042,11 @@ void VisCharSellectList::UpdateArrows(CPoint pos, bool is_down) {
 
 // 431609
 int32_t VisCharSellectList::OnMouseMove(uint32_t wparam, CPoint pos) {
-    if (this->field_0xd8 != 0) {
+    if (this->renaming != 0) {
         return this->CVisualObject::OnMouseMove(wparam, pos);
     }
-    this->field_0xd4 = this->HitTest(pos);
-    if (this->field_0xd4 == -1) {
+    this->hovered_row = this->HitTest(pos);
+    if (this->hovered_row == -1) {
         g_Cursors[0]->Use();
     } else {
         g_Cursors[5]->Use();
@@ -5058,14 +5058,14 @@ int32_t VisCharSellectList::OnMouseMove(uint32_t wparam, CPoint pos) {
 
 // 431764
 int32_t VisCharSellectList::OnLButtonDown(uint32_t wparam, CPoint pos) {
-    if (this->field_0xd8 != 0) {
+    if (this->renaming != 0) {
         return this->CVisualObject::OnLButtonDown(wparam, pos);
     }
     int32_t row = this->HitTest(pos);
     this->SelectRow(row);
-    if (this->field_0x90.PtInRect(pos)) {
+    if (this->down_arrow_rect.PtInRect(pos)) {
         this->SelectNextRow();
-    } else if (this->field_0x80.PtInRect(pos)) {
+    } else if (this->up_arrow_rect.PtInRect(pos)) {
         this->SelectPrevRow();
     }
     this->UpdateArrows(pos, true);
@@ -5075,7 +5075,7 @@ int32_t VisCharSellectList::OnLButtonDown(uint32_t wparam, CPoint pos) {
 
 // 43182C
 int32_t VisCharSellectList::OnLButtonUp(uint32_t wparam, CPoint pos) {
-    if (this->field_0xd8 != 0) {
+    if (this->renaming != 0) {
         return this->CVisualObject::OnLButtonUp(wparam, pos);
     }
     this->UpdateArrows(pos, false);
@@ -5099,7 +5099,7 @@ int32_t VisCharSellectList::OnKeyDown(uint32_t wparam) {
         this->SelectNextRow();
         return 1;
     case 0x0D:
-        if (this->field_0xd8 != 0) {
+        if (this->renaming != 0) {
             char buf[100];
             this->parent_screen->rename_txt->WriteData(buf);
             this->parent_screen->session->SetNameAndColor(buf);
@@ -5109,7 +5109,7 @@ int32_t VisCharSellectList::OnKeyDown(uint32_t wparam) {
         }
         return 1;
     case 0x1B:
-        if (this->field_0xd8 != 0) {
+        if (this->renaming != 0) {
             this->parent_screen->CloseRenameWindow();
         }
         return 0;
@@ -5121,34 +5121,34 @@ int32_t VisCharSellectList::OnKeyDown(uint32_t wparam) {
 
 // 430FAD
 void VisCharSellectList::FUN_00430fad() {
-    this->field_0xa0 = 0;
-    this->field_0xd0 = 0;
-    this->field_0xd4 = -1;
-    this->field_0xd8 = 0;
+    this->top_row = 0;
+    this->selected_row = 0;
+    this->hovered_row = -1;
+    this->renaming = 0;
 }
 
 
 // 430CB3
 // client: 432d7f
 void VisCharSellectList::Init() {
-    this->field_0x60 = CRect(CPoint(0x38, 0x38), CSize(0xCE, g_font4->GetHeight()));
-    this->field_0x70 = CRect(CPoint(this->rect.left + 0x38, this->rect.top + 0x38), CSize(0xCE, 0xEC));
-    this->field_0xa4 = nullptr;
-    this->field_0xa8 = nullptr;
-    this->field_0xac = nullptr;
-    this->field_0xb0 = nullptr;
-    this->field_0xb4 = nullptr;
-    this->field_0xbc = nullptr;
-    this->field_0xb8 = nullptr;
+    this->row_rect = CRect(CPoint(0x38, 0x38), CSize(0xCE, g_font4->GetHeight()));
+    this->list_area = CRect(CPoint(this->rect.left + 0x38, this->rect.top + 0x38), CSize(0xCE, 0xEC));
+    this->bmp_center_area = nullptr;
+    this->bmp_up_shine = nullptr;
+    this->bmp_up_shine_on = nullptr;
+    this->bmp_down_shine = nullptr;
+    this->bmp_down_shine_on = nullptr;
+    this->bmp_arrow_down = nullptr;
+    this->bmp_arrow_up = nullptr;
 #ifdef A2CLIENT
     CPoint top_left = this->rect.TopLeft();
     CPoint vp = vis_scr_rect.TopLeft();
-    this->field_0x80 = CRect(CPoint(0x78, 0), CSize(0x50, 0x3C)) + top_left + vp;
-    this->field_0x90 = CRect(CPoint(0x78, 0x188), CSize(0x50, 0x34)) + top_left + vp;
+    this->up_arrow_rect = CRect(CPoint(0x78, 0), CSize(0x50, 0x3C)) + top_left + vp;
+    this->down_arrow_rect = CRect(CPoint(0x78, 0x188), CSize(0x50, 0x34)) + top_left + vp;
 #else
     CPoint top_left = this->rect.TopLeft();
-    this->field_0x80 = CRect(CPoint(0x78, 0), CSize(0x50, 0x3C)) + top_left;
-    this->field_0x90 = CRect(CPoint(0x78, 0x188), CSize(0x50, 0x34)) + top_left;
+    this->up_arrow_rect = CRect(CPoint(0x78, 0), CSize(0x50, 0x3C)) + top_left;
+    this->down_arrow_rect = CRect(CPoint(0x78, 0x188), CSize(0x50, 0x34)) + top_left;
 #endif
     this->FUN_00430fad();
 }
@@ -5428,8 +5428,8 @@ int32_t VisNetMapSelection::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpar
         player_list->entries.RemoveAll();
         player_list->selected_index = -1;
         player_list->colors.RemoveAll();
-        for (int32_t i = 0x10; i < map_context->field_0x9b8.GetSize(); i++) {
-            MapPlayerData* pd = map_context->field_0x9b8.GetAt(i);
+        for (int32_t i = 0x10; i < map_context->map_players.GetSize(); i++) {
+            MapPlayerData* pd = map_context->map_players.GetAt(i);
             if (pd != nullptr) {
                 player_list->AddItem(pd->name);
                 player_list->colors.Add(g_colors_human_pals + pd->color);
@@ -5722,30 +5722,30 @@ int32_t VisNetChatTextBox::OnKeyDown(uint32_t wparam) {
 
 // 42F61A
 void VisCharSellectStats::FreeBitmaps() {
-    if (this->field_0x60 != nullptr) {
-        delete this->field_0x60;
+    if (this->bmp_full_stats != nullptr) {
+        delete this->bmp_full_stats;
     }
-    this->field_0x60 = nullptr;
-    if (this->field_0x64 != nullptr) {
-        delete this->field_0x64;
+    this->bmp_full_stats = nullptr;
+    if (this->bmp_left_up != nullptr) {
+        delete this->bmp_left_up;
     }
-    this->field_0x64 = nullptr;
-    if (this->field_0x8c != nullptr) {
-        delete this->field_0x8c;
+    this->bmp_left_up = nullptr;
+    if (this->cube_sprites != nullptr) {
+        delete this->cube_sprites;
     }
-    this->field_0x8c = nullptr;
+    this->cube_sprites = nullptr;
 }
 
 
 // 42F4DF
 void VisCharSellectStats::LoadBitmaps() {
     this->FreeBitmaps();
-    this->field_0x60 = new CBmp64("graphics\\Interface\\chrgen\\FullStatsL.bmp");
+    this->bmp_full_stats = new CBmp64("graphics\\Interface\\chrgen\\FullStatsL.bmp");
     g_mousept.Update();
-    this->field_0x64 = new CBmp64("graphics\\interface\\chrgen\\loader\\LeftUp.bmp");
+    this->bmp_left_up = new CBmp64("graphics\\interface\\chrgen\\loader\\LeftUp.bmp");
     g_mousept.Update();
-    this->field_0x8c = new CA16("graphics\\interface\\chrgen\\cube\\sprites.16a");
-    this->field_0x8c->ResetPalette(0x10, 4, 0);
+    this->cube_sprites = new CA16("graphics\\interface\\chrgen\\cube\\sprites.16a");
+    this->cube_sprites->ResetPalette(0x10, 4, 0);
     g_mousept.Update();
 }
 
@@ -5753,15 +5753,15 @@ void VisCharSellectStats::LoadBitmaps() {
 // 42F6F3
 void VisCharSellectStats::ReadUnitStats() {
     if (this->parent_screen->selected_unit == nullptr) {
-        this->field_0x7c = 0;
-        this->field_0x80 = 0;
-        this->field_0x84 = 0;
-        this->field_0x88 = 0;
+        this->shadow_body = 0;
+        this->shadow_reaction = 0;
+        this->shadow_mind = 0;
+        this->shadow_spirit = 0;
     } else {
-        this->field_0x7c = this->parent_screen->selected_unit->body;
-        this->field_0x80 = this->parent_screen->selected_unit->reaction;
-        this->field_0x84 = this->parent_screen->selected_unit->mind;
-        this->field_0x88 = this->parent_screen->selected_unit->spirit;
+        this->shadow_body = this->parent_screen->selected_unit->body;
+        this->shadow_reaction = this->parent_screen->selected_unit->reaction;
+        this->shadow_mind = this->parent_screen->selected_unit->mind;
+        this->shadow_spirit = this->parent_screen->selected_unit->spirit;
     }
 }
 
@@ -5771,9 +5771,9 @@ void VisCharSellectStats::VMethod7() {
     CPoint top_left = this->parent_screen->rect.TopLeft();
     if (this->parent_screen->active_flag != 0) {
         LockSurface2();
-        this->field_0x64->Draw(top_left.x, top_left.y, 0, 0, 0);
-        this->field_0x60->Draw(top_left.x, top_left.y + 0xEE, 0, 0, 0);
-        if (this->parent_screen->roster_list->field_0xd0 == this->parent_screen->session->GetStringArray1Size() - 1) {
+        this->bmp_left_up->Draw(top_left.x, top_left.y, 0, 0, 0);
+        this->bmp_full_stats->Draw(top_left.x, top_left.y + 0xEE, 0, 0, 0);
+        if (this->parent_screen->roster_list->selected_row == this->parent_screen->session->GetStringArray1Size() - 1) {
             UnlockSurface2();
             return;
         }
@@ -5824,22 +5824,22 @@ const char* VisCharSellectStats::GetHint() {
 
 // 42F1E8
 void VisCharSellectStats::Init() {
-    this->field_0x60 = nullptr;
-    this->field_0x64 = nullptr;
-    this->field_0x8c = nullptr;
-    this->field_0x68.SetSize(4, -1);
-    this->field_0x68[0] = TxtFile::AllLines[0xF];
-    this->field_0x68[1] = TxtFile::AllLines[0x10];
-    this->field_0x68[2] = TxtFile::AllLines[0x11];
-    this->field_0x68[3] = TxtFile::AllLines[0x12];
-    this->field_0x90[0] = CRect(CPoint(0x70, 0x31), CSize(0x20, 0x20));
-    this->field_0x90[1] = CRect(CPoint(0x70, 0x52), CSize(0x20, 0x20));
-    this->field_0x90[2] = CRect(CPoint(0x70, 0x73), CSize(0x20, 0x20));
-    this->field_0x90[3] = CRect(CPoint(0x70, 0x94), CSize(0x20, 0x20));
-    this->field_0x7c = 0x1E;
-    this->field_0x80 = 0x1F;
-    this->field_0x84 = 0x20;
-    this->field_0x88 = 0x21;
+    this->bmp_full_stats = nullptr;
+    this->bmp_left_up = nullptr;
+    this->cube_sprites = nullptr;
+    this->stat_labels.SetSize(4, -1);
+    this->stat_labels[0] = TxtFile::AllLines[0xF];
+    this->stat_labels[1] = TxtFile::AllLines[0x10];
+    this->stat_labels[2] = TxtFile::AllLines[0x11];
+    this->stat_labels[3] = TxtFile::AllLines[0x12];
+    this->stat_icon_rects[0] = CRect(CPoint(0x70, 0x31), CSize(0x20, 0x20));
+    this->stat_icon_rects[1] = CRect(CPoint(0x70, 0x52), CSize(0x20, 0x20));
+    this->stat_icon_rects[2] = CRect(CPoint(0x70, 0x73), CSize(0x20, 0x20));
+    this->stat_icon_rects[3] = CRect(CPoint(0x70, 0x94), CSize(0x20, 0x20));
+    this->shadow_body = 0x1E;
+    this->shadow_reaction = 0x1F;
+    this->shadow_mind = 0x20;
+    this->shadow_spirit = 0x21;
 }
 
 
@@ -5870,7 +5870,7 @@ void VisCharSelect::VMethod26() {
     this->roster_list = new VisCharSellectList(0x463, 0xA0, 0, 0x1E0, 0x1E0, this);
 
     CPoint top_left = this->roster_list->GetRect().TopLeft();
-    CRect rc = this->roster_list->field_0x60;
+    CRect rc = this->roster_list->row_rect;
     OffsetRect(&rc, top_left.x, top_left.y);
     rc.left -= top_left.x;
     rc.right -= top_left.x;
@@ -5911,8 +5911,8 @@ void VisCharSelect::FreeSfx() {
 
 // 432933
 void VisCharSelect::CloseRenameWindow() {
-    if (this->roster_list->field_0xd8 != 0) {
-        this->roster_list->field_0xd8 = 0;
+    if (this->roster_list->renaming != 0) {
+        this->roster_list->renaming = 0;
         this->roster_list->RemoveChild(this->rename_txt);
         this->roster_list->focus_obj = nullptr;
         this->roster_list->cursor_over_obj = nullptr;
@@ -5962,7 +5962,7 @@ void VisCharSelect::VMethod28() {
 void VisCharSelect::DoClose(uint32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     this->VMethod9();
-    if (this->roster_list->field_0xd0 == this->session->GetStringArray1Size() - 1 && code == 0x445) {
+    if (this->roster_list->selected_row == this->session->GetStringArray1Size() - 1 && code == 0x445) {
         this->session->InitializeNewCharacterSession(0, nullptr);
     }
     this->active_flag = 0;
@@ -5985,21 +5985,21 @@ void VisCharSelect::DoClose(uint32_t code) {
 
 // 4327F3
 void VisCharSelect::OpenRenameWindow() {
-    if (this->session->characterRosterNames.GetSize() == this->roster_list->field_0xd0) {
+    if (this->session->characterRosterNames.GetSize() == this->roster_list->selected_row) {
         return;
     }
-    int32_t row_height = this->roster_list->field_0x60.Height();
-    int32_t sel = this->roster_list->field_0xd0;
-    int32_t first_row = this->roster_list->field_0xa0;
-    int32_t list_top = this->roster_list->field_0x70.top;
+    int32_t row_height = this->roster_list->row_rect.Height();
+    int32_t sel = this->roster_list->selected_row;
+    int32_t first_row = this->roster_list->top_row;
+    int32_t list_top = this->roster_list->list_area.top;
     CRect& rc = this->rename_txt->GetRect();
     rc.top = list_top + row_height * (sel + 1 - first_row) - 4;
     rc.bottom = list_top + row_height * (sel + 2 - first_row);
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    this->rename_txt->ReadData(main_wnd->vis_map_context->field_0x3f6c->str2);
+    this->rename_txt->ReadData(main_wnd->vis_map_context->my_unit->str2);
     this->roster_list->AddChild(this->rename_txt);
     this->FocusTo(this->rename_txt, 1);
-    this->roster_list->field_0xd8 = 1;
+    this->roster_list->renaming = 1;
 }
 
 
@@ -6034,7 +6034,7 @@ void VisCharSelect::FUN_00432655(CUnit* unit) {
         unit->SetSelected(1);
         unit->unitFlags |= 8;
     }
-    this->map_context->field_0x138 = unit;
+    this->map_context->primary_selected_object = unit;
     this->map_context->UpdateSelectionState();
 }
 
@@ -6076,10 +6076,10 @@ VisMenuWnd::~VisMenuWnd() { //451a90
 
 VisMenuWnd::VisMenuWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, uint32_t unk, const CRect& _r)
 : VisWindow(_id, l, t, r, b, _bitmap) { //451990
-    this->field_0x6c = _r;
-    this->field_0x68 = unk;
-    this->field_0x6c.left = 40;
-    this->field_0x6c.right = this->rect.Width() - 48;
+    this->element_rect = _r;
+    this->gap_0x68 = unk;
+    this->element_rect.left = 40;
+    this->element_rect.right = this->rect.Width() - 48;
 }
 
 int32_t VisMenuWnd::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) { //440e54
@@ -6110,10 +6110,10 @@ int32_t VisMenuWnd::OnKeyDown(uint32_t wparam) { //440ece
 
 
 void VisMenuWnd::AddElement(CVisualObject* obj, int32_t height) { //440e11
-    this->field_0x6c.top = this->field_0x6c.bottom;
-    this->field_0x6c.bottom = this->field_0x6c.top + height;
+    this->element_rect.top = this->element_rect.bottom;
+    this->element_rect.bottom = this->element_rect.top + height;
 
-    obj->SetRect(this->field_0x6c);
+    obj->SetRect(this->element_rect);
     this->AddChild(obj);
 }
 
@@ -6201,7 +6201,7 @@ IngameMenu::IngameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, 
 
 
     //objectives
-    if (mwnd->field_0x3e0.field_10 == 0 || mwnd->hat_settings.ishat == 0 || mwnd->hat_settings.deathmatch != 3)
+    if (mwnd->net_session.internet_game == 0 || mwnd->hat_settings.ishat == 0 || mwnd->hat_settings.deathmatch != 3)
         btn = new MenuButton(5, txt_dialogs.GetLine(38), g_font1, 0, 0x420, 'M', "");
     else
         btn = new MenuButton(5, txt_patch.GetLine(209), g_font1, 0, 0x420, 'C', "");
@@ -6232,22 +6232,22 @@ int32_t LoadGameWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) 
 
     case 0x444:
     case 0x479: {
-        if (this->field_0x94 < 0) {
+        if (this->selected_index < 0) {
             return VisScreen::MsgProc(0x446, 0, 0);
         }
 
         CStringArray arr;
         ((VisListBox*)this->FindChild(3))->WriteData(&arr);
 
-        strcpy(this->field_0x68->title, arr[this->field_0x94]);
-        strcpy(this->field_0x68->filename, this->file_names[this->field_0x94]);
+        strcpy(this->out_info->title, arr[this->selected_index]);
+        strcpy(this->out_info->filename, this->file_names[this->selected_index]);
 
         return VisScreen::MsgProc(0x445, 0, 0);
     }
 
     case 0x46e:
         if (wparam == 3) {
-            this->field_0x94 = lparam;
+            this->selected_index = lparam;
         }
         return 1;
 
@@ -6375,8 +6375,8 @@ void LoadGameWindow::VMethod26() { //43ed94
 
 LoadGameWindow::LoadGameWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, SaveFileInfo* unk)
 : VisWindow(_id, l, t, r, b, _bitmap) { //43ecfb
-    this->field_0x68 = unk;
-    this->field_0x94 = 0;
+    this->out_info = unk;
+    this->selected_index = 0;
 }
 
 
@@ -6420,19 +6420,19 @@ int32_t SaveGameWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) 
             char buf[256];
             this->FindChild(1)->WriteData(buf);
 
-            strcpy(this->field_0x68->title, buf);
+            strcpy(this->out_info->title, buf);
 
             CStringArray arr;
             ((VisListBox*)this->FindChild(3))->WriteData(&arr);
 
             for (int i = 1; i < arr.GetSize(); i++) {
                 if (strcmp(arr[i], buf) == 0) {
-                    this->field_0x94 = i;
+                    this->selected_index = i;
                     break;
                 }
             }
 
-            strcpy(this->field_0x68->filename, this->file_names[this->field_0x94]);
+            strcpy(this->out_info->filename, this->file_names[this->selected_index]);
 
             VisScreen::MsgProc(0x445, 0, 0);
         }
@@ -6441,13 +6441,13 @@ int32_t SaveGameWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) 
 
     case 0x46e:
         if (wparam == 3) {
-            this->field_0x94 = lparam;
+            this->selected_index = lparam;
             CStringArray local_158;
 
             const char* str = "";
-            if (this->field_0x94 >= 1) {
+            if (this->selected_index >= 1) {
                 this->FindChild(3)->WriteData(&local_158);
-                str = local_158[this->field_0x94];
+                str = local_158[this->selected_index];
             }
             CVisualObject* obj = this->FindChild(1);
             obj->ReadData(str);
@@ -6511,7 +6511,7 @@ void SaveGameWindow::VMethod26() { //43fb2c
 
     textbox->SetDownObj(list);
 
-    list->AddItem(this->field_0x98);
+    list->AddItem(this->empty_cell_text);
     this->file_names.Add("");
     this->save_times.Add("");
 
@@ -6614,9 +6614,9 @@ void SaveGameWindow::VMethod26() { //43fb2c
 
 SaveGameWindow::SaveGameWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, SaveFileInfo* unk)
     : VisWindow(_id, l, t, r, b, _bitmap) { //43fa42
-    this->field_0x68 = unk;
-    this->field_0x94 = 0;
-    this->field_0x98 = txt_dialogs.GetLine(28); //empty cell
+    this->out_info = unk;
+    this->selected_index = 0;
+    this->empty_cell_text = txt_dialogs.GetLine(28); //empty cell
 }
 
 void SaveGameWindow::CheckInput() { //440cc4
@@ -6937,7 +6937,7 @@ EndGameMenu::EndGameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
     MenuButton* btn = nullptr;
-    if (mwnd->sessionMode == 0 && mwnd->field_0x3e0.field_10 && mwnd->hat_settings.ishat && mwnd->hat_settings.deathmatch == 0)
+    if (mwnd->sessionMode == 0 && mwnd->net_session.internet_game && mwnd->hat_settings.ishat && mwnd->hat_settings.deathmatch == 0)
         btn = new MenuButton(1, txt_patch.GetLine(208), g_font1, nullptr, 0x41d, 'R', "");
     else if (mwnd->sessionMode == 1 || mwnd->sessionMode == 3 || mwnd->sessionMode == 0) {
         btn = new MenuButton(1, txt_dialogs.GetLine(42), g_font1, nullptr, 0x41d, 'C', ""); //restart mission
@@ -7023,7 +7023,7 @@ int32_t SoundPreferencesDialogVisualObject::MsgProc(uint32_t msg, uint32_t wpara
             break;
 
         case 6: {
-            int32_t vol = this->ConvSliderToVolume(lparam, this->settings->field_0xc);
+            int32_t vol = this->ConvSliderToVolume(lparam, this->settings->mus_pos_max);
             int32_t cur_vol = this->music_player->GetVolume();
             if (vol != cur_vol) {
                 this->settings->mus_pos = vol;
@@ -7036,13 +7036,13 @@ int32_t SoundPreferencesDialogVisualObject::MsgProc(uint32_t msg, uint32_t wpara
 
 
         case 7:
-            this->settings->sfx_pos = this->ConvSliderToVolume(lparam, this->settings->field_0x14);
+            this->settings->sfx_pos = this->ConvSliderToVolume(lparam, this->settings->sfx_pos_max);
             PostMessage(g_MainWndHWND, 0x485, 0, 0);
             result = 1;
             break;
 
         case 8:
-            this->settings->speech_pos = this->ConvSliderToVolume(lparam, this->settings->field_0x1c);
+            this->settings->speech_pos = this->ConvSliderToVolume(lparam, this->settings->speech_pos_max);
             result = 1;
             break;
         default:
@@ -7187,8 +7187,8 @@ void SoundPreferencesDialogVisualObject::VMethod26() { //43d959
     scrl_mvol->SetCaptionLabel(lbl_mvol);
 
     VisScrollBar::Data sd;
-    sd.v = this->ConvVolumeToSlider(this->settings->mus_pos, this->settings->field_0xc);
-    sd.vmax = this->settings->field_0xc;
+    sd.v = this->ConvVolumeToSlider(this->settings->mus_pos, this->settings->mus_pos_max);
+    sd.vmax = this->settings->mus_pos_max;
 
     scrl_mvol->ReadData(&sd);
 
@@ -7208,8 +7208,8 @@ void SoundPreferencesDialogVisualObject::VMethod26() { //43d959
     VisScrollBar* scrl_efvol = new VisScrollBar(7, 258, 240, this->rect.Width() - 40, 264, txt_dialogs.GetLine(20));
     this->AddChild(scrl_efvol);
 
-    sd.v = this->ConvVolumeToSlider(this->settings->sfx_pos, this->settings->field_0x14);
-    sd.vmax = this->settings->field_0x14;
+    sd.v = this->ConvVolumeToSlider(this->settings->sfx_pos, this->settings->sfx_pos_max);
+    sd.vmax = this->settings->sfx_pos_max;
 
     scrl_efvol->ReadData(&sd);
     scrl_efvol->SetCaptionLabel(lbl_efvol);
@@ -7221,8 +7221,8 @@ void SoundPreferencesDialogVisualObject::VMethod26() { //43d959
     VisScrollBar* scrl_svol = new VisScrollBar(8, 258, 290, this->rect.Width() - 40, 314, txt_dialogs.GetLine(21));
     this->AddChild(scrl_svol);
 
-    sd.v = this->ConvVolumeToSlider(this->settings->speech_pos, this->settings->field_0x1c);
-    sd.vmax = this->settings->field_0x14;
+    sd.v = this->ConvVolumeToSlider(this->settings->speech_pos, this->settings->speech_pos_max);
+    sd.vmax = this->settings->sfx_pos_max;
 
     scrl_svol->ReadData(&sd);
     scrl_svol->SetCaptionLabel(lbl_svol);
@@ -7680,7 +7680,7 @@ int32_t VisGlobalMap::OnRButtonDown(uint32_t wparam, CPoint pos) {
     CPoint screen_pt = this->rect.TopLeft();
     pos -= CSize(screen_pt.x, screen_pt.y);
     if (popup_rect.PtInRect(pos)) {
-        int32_t count = g_StructEnter.field_0x0.GetSize();
+        int32_t count = g_StructEnter.structure_list.GetSize();
         if (count < 2) {
             count = 2;
         }
@@ -8101,7 +8101,7 @@ void VisCharGen::ShowTipHint() {
 // 42E92A
 void VisCharGen::RollStats() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    this->stats_panel->field_0x1f0 = 100;
+    this->stats_panel->stat_points = 100;
     this->stats_panel->stat_body = 0x19;
     this->stats_panel->stat_reaction = 0x19;
     this->stats_panel->stat_mind = 0x19;
@@ -8205,7 +8205,7 @@ void VisCharGen::VMethod26() {
     this->AddChild(this->action_panel);
     this->AddChild(this->skills_panel);
     this->fwd_btn = 0;
-    this->field14_0x9c = -1;
+    this->gap_0x9c = -1;
     this->mage_flag = 0;
     this->female_face = 0;
     this->selected_face = 0;
@@ -8363,20 +8363,20 @@ void VisCharGen::VMethod28() {
     }
     this->tips_step = 0;
     this->fwd_btn = 0;
-    this->field14_0x9c = -1;
+    this->gap_0x9c = -1;
     this->stats_panel->LoadBitmaps();
     this->fullstats_panel->LoadBitmaps();
     this->action_panel->LoadBitmaps();
     this->skills_panel->LoadBitmaps(this->current_char->unitFlags & 2);
     this->skills_panel->LoadSamples(this->current_char->unitFlags & 2);
     this->LoadSamples();
-    this->stats_panel->field_0x1f0 = 0;
+    this->stats_panel->stat_points = 0;
     this->stats_panel->HandleClick(0, CPoint(0, 0));
     for (int32_t i = 0; i < 5; i++) {
-        this->skills_panel->field_0x10c[i] = 0;
+        this->skills_panel->slot_states[i] = 0;
     }
     this->skills_panel->selected_slot = main_wnd->m_GameSession.main_sphere - 1;
-    this->skills_panel->field_0x10c[this->skills_panel->selected_slot] = 1;
+    this->skills_panel->slot_states[this->skills_panel->selected_slot] = 1;
     this->selected_face_set = 0;
     this->active_flag = 1;
     LockSurface2();
@@ -8393,29 +8393,29 @@ void VisCharGenStats::LoadBitmaps() { //429475
     this->FreeBitmaps();
     this->bmp = new CBmp64("main\\graphics\\chrgen\\leftup.bmp");
     g_mousept.Update();
-    this->field_0x194[0] = new CBmp64("graphics\\interface\\chrgen\\buttons\\plon.bmp");
+    this->stat_button_bmps[0] = new CBmp64("graphics\\interface\\chrgen\\buttons\\plon.bmp");
     g_mousept.Update();
-    this->field_0x194[1] = new CBmp64("graphics\\interface\\chrgen\\buttons\\ploff.bmp");
+    this->stat_button_bmps[1] = new CBmp64("graphics\\interface\\chrgen\\buttons\\ploff.bmp");
     g_mousept.Update();
-    this->field_0x194[2] = new CBmp64("graphics\\interface\\chrgen\\buttons\\pnlon.bmp");
+    this->stat_button_bmps[2] = new CBmp64("graphics\\interface\\chrgen\\buttons\\pnlon.bmp");
     g_mousept.Update();
-    this->field_0x194[3] = new CBmp64("graphics\\interface\\chrgen\\buttons\\pnloff.bmp");
+    this->stat_button_bmps[3] = new CBmp64("graphics\\interface\\chrgen\\buttons\\pnloff.bmp");
     g_mousept.Update();
-    this->field_0x194[4] = new CBmp64("graphics\\interface\\chrgen\\buttons\\pdisable.bmp");
+    this->stat_button_bmps[4] = new CBmp64("graphics\\interface\\chrgen\\buttons\\pdisable.bmp");
     g_mousept.Update();
-    this->field_0x194[5] = new CBmp64("graphics\\interface\\chrgen\\buttons\\mlon.bmp");
+    this->stat_button_bmps[5] = new CBmp64("graphics\\interface\\chrgen\\buttons\\mlon.bmp");
     g_mousept.Update();
-    this->field_0x194[6] = new CBmp64("graphics\\interface\\chrgen\\buttons\\mloff.bmp");
+    this->stat_button_bmps[6] = new CBmp64("graphics\\interface\\chrgen\\buttons\\mloff.bmp");
     g_mousept.Update();
-    this->field_0x194[7] = new CBmp64("graphics\\interface\\chrgen\\buttons\\mnlon.bmp");
+    this->stat_button_bmps[7] = new CBmp64("graphics\\interface\\chrgen\\buttons\\mnlon.bmp");
     g_mousept.Update();
-    this->field_0x194[8] = new CBmp64("graphics\\interface\\chrgen\\buttons\\mnloff.bmp");
+    this->stat_button_bmps[8] = new CBmp64("graphics\\interface\\chrgen\\buttons\\mnloff.bmp");
     g_mousept.Update();
-    this->field_0x194[9] = new CBmp64("graphics\\interface\\chrgen\\buttons\\mdisable.bmp");
+    this->stat_button_bmps[9] = new CBmp64("graphics\\interface\\chrgen\\buttons\\mdisable.bmp");
     g_mousept.Update();
     for (int32_t i = 0; i < 4; i++) {
-        this->field_0x174[i][0] = this->field_0x194[4];
-        this->field_0x174[i][1] = this->field_0x194[8];
+        this->stat_btn_pairs[i][0] = this->stat_button_bmps[4];
+        this->stat_btn_pairs[i][1] = this->stat_button_bmps[8];
     }
 }
 
@@ -8426,14 +8426,14 @@ void VisCharGenStats::FreeBitmaps() { //4298b6
     }
     this->bmp = nullptr;
     for (int32_t i = 0; i < 10; i++) {
-        if (this->field_0x194[i] != nullptr) {
-            delete this->field_0x194[i];
+        if (this->stat_button_bmps[i] != nullptr) {
+            delete this->stat_button_bmps[i];
         }
-        this->field_0x194[i] = nullptr;
+        this->stat_button_bmps[i] = nullptr;
     }
     for (int32_t i = 0; i < 4; i++) {
-        this->field_0x174[i][0] = nullptr;
-        this->field_0x174[i][1] = nullptr;
+        this->stat_btn_pairs[i][0] = nullptr;
+        this->stat_btn_pairs[i][1] = nullptr;
     }
 }
 
@@ -8458,10 +8458,10 @@ const char* VisCharGenStats::GetHint() {
     CPoint topleft;
     this->ClientPtToScreen(&topleft, this->rect.TopLeft());
     for (int32_t i = 0; i < 4; i++) {
-        if ((this->field_0x64[i] + topleft).PtInRect(pt)) {
+        if ((this->label_rects[i] + topleft).PtInRect(pt)) {
             return TxtFile::AllLines[i + 0x9B];
         }
-        if ((this->field_0xa4 + topleft).PtInRect(pt)) {
+        if ((this->points_rect + topleft).PtInRect(pt)) {
             return TxtFile::AllLines[0x111];
         }
         if ((this->areas[i][0] + topleft).PtInRect(pt)) {
@@ -8499,20 +8499,20 @@ void VisCharGenStats::VMethod7() {
         g_font4->DrawTextWithShadow(screen_rect.left + this->areas[i][0].left + 2,
                                     screen_rect.top + this->areas[i][0].top + 4,
                                     str, 0, pal, 1);
-        CBmp64* plus_bmp = this->field_0x174[i][0];
+        CBmp64* plus_bmp = this->stat_btn_pairs[i][0];
         plus_bmp->DrawSubRectMasked(screen_rect.left + this->areas[i][1].left,
                             screen_rect.top + this->areas[i][1].top,
                             0, 0, plus_bmp->GetWidth(0), plus_bmp->GetHeight(0));
-        CBmp64* minus_bmp = this->field_0x174[i][1];
+        CBmp64* minus_bmp = this->stat_btn_pairs[i][1];
         minus_bmp->DrawSubRectMasked(screen_rect.left + this->areas[i][2].left,
                              screen_rect.top + this->areas[i][2].top,
                              0, 0, minus_bmp->GetWidth(0), minus_bmp->GetHeight(0));
-        str.Format("%d", this->field_0x1f0);
+        str.Format("%d", this->stat_points);
         FUN_00476987(&str);
         pal = palette_husk->GetPalette(0);
         g_font4->DrawTextWithShadow(
-            screen_rect.left + this->field_0xa4.left + this->field_0xa4.Width() / 2,
-            screen_rect.top + this->field_0xa4.top + this->field_0xa4.Height() / 2 + 2,
+            screen_rect.left + this->points_rect.left + this->points_rect.Width() / 2,
+            screen_rect.top + this->points_rect.top + this->points_rect.Height() / 2 + 2,
             str, 10, pal, 1);
     }
     UnlockSurface2();
@@ -8551,30 +8551,30 @@ uint32_t VisCharGenStats::HandleClick(int32_t mode, CPoint pt) {
     }
     for (int32_t i = 0; i < 4; i++) {
         int32_t up_cost = this->StatUpCost((&this->stat_body)[i]);
-        this->field_0x174[i][0] = this->field_0x194[3];
-        if (this->field_0x1f0 >= up_cost && (&this->stat_body)[i] < 0x2D) {
+        this->stat_btn_pairs[i][0] = this->stat_button_bmps[3];
+        if (this->stat_points >= up_cost && (&this->stat_body)[i] < 0x2D) {
             if (i == idx && button == 1) {
                 if (mode & 1) {
-                    this->field_0x174[i][0] = this->field_0x194[0];
+                    this->stat_btn_pairs[i][0] = this->stat_button_bmps[0];
                 } else {
-                    this->field_0x174[i][0] = this->field_0x194[1];
+                    this->stat_btn_pairs[i][0] = this->stat_button_bmps[1];
                 }
             }
         } else {
-            this->field_0x174[i][0] = this->field_0x194[4];
+            this->stat_btn_pairs[i][0] = this->stat_button_bmps[4];
         }
         this->StatDownRefund((&this->stat_body)[i]);
-        this->field_0x174[i][1] = this->field_0x194[8];
+        this->stat_btn_pairs[i][1] = this->stat_button_bmps[8];
         if ((&this->stat_body)[i] > 0xF) {
             if (i == idx && button == 2) {
                 if (mode & 1) {
-                    this->field_0x174[i][1] = this->field_0x194[5];
+                    this->stat_btn_pairs[i][1] = this->stat_button_bmps[5];
                 } else {
-                    this->field_0x174[i][1] = this->field_0x194[6];
+                    this->stat_btn_pairs[i][1] = this->stat_button_bmps[6];
                 }
             }
         } else {
-            this->field_0x174[i][1] = this->field_0x194[9];
+            this->stat_btn_pairs[i][1] = this->stat_button_bmps[9];
         }
     }
     return hit;
@@ -8584,14 +8584,14 @@ uint32_t VisCharGenStats::HandleClick(int32_t mode, CPoint pt) {
 // 42a778
 int32_t VisCharGenStats::OnStatUp(int32_t idx) {
     int32_t cost = this->StatUpCost((&this->stat_body)[idx]);
-    if (this->field_0x1f0 < cost) {
+    if (this->stat_points < cost) {
         return 0;
     }
     if ((&this->stat_body)[idx] >= 0x2D) {
         return 0;
     }
     (&this->stat_body)[idx] += 1;
-    this->field_0x1f0 -= cost;
+    this->stat_points -= cost;
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     main_wnd->m_GameSession.SetCharacterStats(this->stat_body, this->stat_reaction, this->stat_mind, this->stat_spirit,
                                               this->parent_screen->skills_panel->selected_slot + 1);
@@ -8607,7 +8607,7 @@ int32_t VisCharGenStats::OnStatDown(int32_t idx) {
         return 0;
     }
     (&this->stat_body)[idx] -= 1;
-    this->field_0x1f0 += refund;
+    this->stat_points += refund;
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     main_wnd->m_GameSession.SetCharacterStats(this->stat_body, this->stat_reaction, this->stat_mind, this->stat_spirit,
                                               this->parent_screen->skills_panel->selected_slot + 1);
@@ -8672,7 +8672,7 @@ void VisCharGenStats::Init() {
     this->parent_screen = nullptr;
     this->bmp = nullptr;
     for (int32_t i = 0; i < 10; i++) {
-        this->field_0x194[i] = nullptr;
+        this->stat_button_bmps[i] = nullptr;
     }
     this->stat_body = 0x1F;
     this->stat_reaction = 0x20;
@@ -8688,11 +8688,11 @@ void VisCharGenStats::Init() {
         this->areas[i][2] = CRect(CPoint(0x84, (i << 5) + 0x36), CSize(0x14, 0x14));
     }
     for (int32_t i = 0; i < 4; i++) {
-        this->field_0x64[i] = CRect(CPoint(0x10, i * 0x21 + 0x39),
+        this->label_rects[i] = CRect(CPoint(0x10, i * 0x21 + 0x39),
                                     CSize(g_font4->GetStrWidth(this->texts.ElementAt(i)), g_font4->GetHeight()));
     }
-    this->field_0xa4 = CRect(CPoint(0x2E, 0xB5), CSize(0x4D, 0x16));
-    this->field_0x1f0 = 0;
+    this->points_rect = CRect(CPoint(0x2E, 0xB5), CSize(0x4D, 0x16));
+    this->stat_points = 0;
 }
 
 // 428f12
@@ -8966,40 +8966,40 @@ void VisCharGenSkills::LoadBitmaps(uint32_t mage_flag) {
         g_mousept.Update();
         this->bmp_shine_on[0] = new CBmp64("graphics\\interface\\chrgen\\fighter\\sword\\shine_on.bmp");
         g_mousept.Update();
-        this->field_0xb4[0] = CPoint(0xF8 + topleft.x, 0x5D + topleft.y);
-        this->field_0xdc[0] = CPoint(0x8C, 0x2F);
+        this->slot_positions[0] = CPoint(0xF8 + topleft.x, 0x5D + topleft.y);
+        this->slot_sizes[0] = CPoint(0x8C, 0x2F);
         this->bmp_on[1] = new CBmp64("graphics\\interface\\chrgen\\fighter\\axe\\on.bmp");
         g_mousept.Update();
         this->bmp_shine_off[1] = new CBmp64("graphics\\interface\\chrgen\\fighter\\axe\\shine_off.bmp");
         g_mousept.Update();
         this->bmp_shine_on[1] = new CBmp64("graphics\\interface\\chrgen\\fighter\\axe\\shine_on.bmp");
         g_mousept.Update();
-        this->field_0xb4[1] = CPoint(0xFC + topleft.x, 0x7E + topleft.y);
-        this->field_0xdc[1] = CPoint(0x84, 0x39);
+        this->slot_positions[1] = CPoint(0xFC + topleft.x, 0x7E + topleft.y);
+        this->slot_sizes[1] = CPoint(0x84, 0x39);
         this->bmp_on[2] = new CBmp64("graphics\\interface\\chrgen\\fighter\\Mace\\on.bmp");
         g_mousept.Update();
         this->bmp_shine_off[2] = new CBmp64("graphics\\interface\\chrgen\\fighter\\Mace\\shine_off.bmp");
         g_mousept.Update();
         this->bmp_shine_on[2] = new CBmp64("graphics\\interface\\chrgen\\fighter\\Mace\\shine_on.bmp");
         g_mousept.Update();
-        this->field_0xb4[2] = CPoint(0xF8 + topleft.x, 0xB6 + topleft.y);
-        this->field_0xdc[2] = CPoint(0x8C, 0x2E);
+        this->slot_positions[2] = CPoint(0xF8 + topleft.x, 0xB6 + topleft.y);
+        this->slot_sizes[2] = CPoint(0x8C, 0x2E);
         this->bmp_on[3] = new CBmp64("graphics\\interface\\chrgen\\fighter\\Pike\\on.bmp");
         g_mousept.Update();
         this->bmp_shine_off[3] = new CBmp64("graphics\\interface\\chrgen\\fighter\\Pike\\shine_off.bmp");
         g_mousept.Update();
         this->bmp_shine_on[3] = new CBmp64("graphics\\interface\\chrgen\\fighter\\Pike\\shine_on.bmp");
         g_mousept.Update();
-        this->field_0xb4[3] = CPoint(0xF4 + topleft.x, 0xE1 + topleft.y);
-        this->field_0xdc[3] = CPoint(0x94, 0x1C);
+        this->slot_positions[3] = CPoint(0xF4 + topleft.x, 0xE1 + topleft.y);
+        this->slot_sizes[3] = CPoint(0x94, 0x1C);
         this->bmp_on[4] = new CBmp64("graphics\\interface\\chrgen\\fighter\\Bow\\on.bmp");
         g_mousept.Update();
         this->bmp_shine_off[4] = new CBmp64("graphics\\interface\\chrgen\\fighter\\Bow\\shine_off.bmp");
         g_mousept.Update();
         this->bmp_shine_on[4] = new CBmp64("graphics\\interface\\chrgen\\fighter\\Bow\\shine_on.bmp");
         g_mousept.Update();
-        this->field_0xb4[4] = CPoint(0xF8 + topleft.x, 0xFA + topleft.y);
-        this->field_0xdc[4] = CPoint(0x8C, 0x28);
+        this->slot_positions[4] = CPoint(0xF8 + topleft.x, 0xFA + topleft.y);
+        this->slot_sizes[4] = CPoint(0x8C, 0x28);
         this->color_keys[0] = 0xFF;
         this->color_keys[1] = 0xBF;
         this->color_keys[2] = 0x98;
@@ -9016,40 +9016,40 @@ void VisCharGenSkills::LoadBitmaps(uint32_t mage_flag) {
         g_mousept.Update();
         this->bmp_shine_on[0] = new CBmp64("graphics\\interface\\chrgen\\mag\\fire\\shine_on.bmp");
         g_mousept.Update();
-        this->field_0xb4[0] = CPoint(0x168 + topleft.x, 0x96 + topleft.y);
-        this->field_0xdc[0] = CPoint(0x2C, 0x34);
+        this->slot_positions[0] = CPoint(0x168 + topleft.x, 0x96 + topleft.y);
+        this->slot_sizes[0] = CPoint(0x2C, 0x34);
         this->bmp_on[1] = new CBmp64("graphics\\interface\\chrgen\\mag\\water\\on.bmp");
         g_mousept.Update();
         this->bmp_shine_off[1] = new CBmp64("graphics\\interface\\chrgen\\mag\\water\\shine_off.bmp");
         g_mousept.Update();
         this->bmp_shine_on[1] = new CBmp64("graphics\\interface\\chrgen\\mag\\water\\shine_on.bmp");
         g_mousept.Update();
-        this->field_0xb4[1] = CPoint(0xE8 + topleft.x, 0xA5 + topleft.y);
-        this->field_0xdc[1] = CPoint(0x30, 0x24);
+        this->slot_positions[1] = CPoint(0xE8 + topleft.x, 0xA5 + topleft.y);
+        this->slot_sizes[1] = CPoint(0x30, 0x24);
         this->bmp_on[2] = new CBmp64("graphics\\interface\\chrgen\\mag\\air\\on.bmp");
         g_mousept.Update();
         this->bmp_shine_off[2] = new CBmp64("graphics\\interface\\chrgen\\mag\\air\\shine_off.bmp");
         g_mousept.Update();
         this->bmp_shine_on[2] = new CBmp64("graphics\\interface\\chrgen\\mag\\air\\shine_on.bmp");
         g_mousept.Update();
-        this->field_0xb4[2] = CPoint(0x124 + topleft.x, 0x62 + topleft.y);
-        this->field_0xdc[2] = CPoint(0x30, 0x26);
+        this->slot_positions[2] = CPoint(0x124 + topleft.x, 0x62 + topleft.y);
+        this->slot_sizes[2] = CPoint(0x30, 0x26);
         this->bmp_on[3] = new CBmp64("graphics\\interface\\chrgen\\mag\\earth\\on.bmp");
         g_mousept.Update();
         this->bmp_shine_off[3] = new CBmp64("graphics\\interface\\chrgen\\mag\\earth\\shine_off.bmp");
         g_mousept.Update();
         this->bmp_shine_on[3] = new CBmp64("graphics\\interface\\chrgen\\mag\\earth\\shine_on.bmp");
         g_mousept.Update();
-        this->field_0xb4[3] = CPoint(0x12C + topleft.x, 0xE4 + topleft.y);
-        this->field_0xdc[3] = CPoint(0x30, 0x26);
+        this->slot_positions[3] = CPoint(0x12C + topleft.x, 0xE4 + topleft.y);
+        this->slot_sizes[3] = CPoint(0x30, 0x26);
         this->bmp_on[4] = new CBmp64("graphics\\interface\\chrgen\\mag\\astral\\on.bmp");
         g_mousept.Update();
         this->bmp_shine_off[4] = new CBmp64("graphics\\interface\\chrgen\\mag\\astral\\shine_off.bmp");
         g_mousept.Update();
         this->bmp_shine_on[4] = new CBmp64("graphics\\interface\\chrgen\\mag\\astral\\shine_on.bmp");
         g_mousept.Update();
-        this->field_0xb4[4] = CPoint(0x128 + topleft.x, 0x9E + topleft.y);
-        this->field_0xdc[4] = CPoint(0x30, 0x2D);
+        this->slot_positions[4] = CPoint(0x128 + topleft.x, 0x9E + topleft.y);
+        this->slot_sizes[4] = CPoint(0x30, 0x2D);
         this->color_keys[0] = 0x7F;
         this->color_keys[1] = 0x66;
         this->color_keys[2] = 0xFF;
@@ -9103,21 +9103,21 @@ void VisCharGenSkills::FreeBitmaps() {
 void VisCharGenSkills::VMethod7() {
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
-    this->field_0x10c[4] |= 1;
+    this->slot_states[4] |= 1;
     if (this->parent_screen->active_flag != 0) {
         LockSurface2();
         this->bmp_column->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
         for (int32_t i = 0; i < 4; i++) {
-            int32_t state = this->field_0x10c[i];
+            int32_t state = this->slot_states[i];
             if (state == 1) {
-                this->bmp_on[i]->DrawSubRectMasked(this->field_0xb4[i].x, this->field_0xb4[i].y, 0, 0,
-                                           this->field_0xdc[i].x, this->field_0xdc[i].y);
+                this->bmp_on[i]->DrawSubRectMasked(this->slot_positions[i].x, this->slot_positions[i].y, 0, 0,
+                                           this->slot_sizes[i].x, this->slot_sizes[i].y);
             } else if (state == 2) {
-                this->bmp_shine_off[i]->DrawSubRectMasked(this->field_0xb4[i].x, this->field_0xb4[i].y, 0, 0,
-                                                  this->field_0xdc[i].x, this->field_0xdc[i].y);
+                this->bmp_shine_off[i]->DrawSubRectMasked(this->slot_positions[i].x, this->slot_positions[i].y, 0, 0,
+                                                  this->slot_sizes[i].x, this->slot_sizes[i].y);
             } else if (state == 3) {
-                this->bmp_shine_on[i]->DrawSubRectMasked(this->field_0xb4[i].x, this->field_0xb4[i].y, 0, 0,
-                                                 this->field_0xdc[i].x, this->field_0xdc[i].y);
+                this->bmp_shine_on[i]->DrawSubRectMasked(this->slot_positions[i].x, this->slot_positions[i].y, 0, 0,
+                                                 this->slot_sizes[i].x, this->slot_sizes[i].y);
             }
         }
         this->DrawBlinkSlot();
@@ -9134,11 +9134,11 @@ int32_t VisCharGenSkills::OnLButtonDown(uint32_t wparam, CPoint pos) {
         return this->CVisualObject::OnLButtonDown(wparam, pos);
     }
     for (int32_t i = 0; i < 4; i++) {
-        this->field_0x10c[i] &= ~1;
+        this->slot_states[i] &= ~1;
     }
-    this->field_0x10c[hit] |= 1;
+    this->slot_states[hit] |= 1;
     this->selected_slot = hit;
-    CSound::Play((CSound&)this->field_0x120[hit]);
+    CSound::Play((CSound&)this->skill_sounds[hit]);
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     main_wnd->m_GameSession.SetCharacterStats(this->parent_screen->stats_panel->stat_body,
                                               this->parent_screen->stats_panel->stat_reaction,
@@ -9153,17 +9153,17 @@ int32_t VisCharGenSkills::OnLButtonDown(uint32_t wparam, CPoint pos) {
 // 42d963
 void VisCharGenSkills::LoadSamples(uint32_t mage_flag) {
     if (mage_flag == 0) {
-        ReloadSfx(&this->field_0x120[0], "SFX\\ChrGen\\Skill\\FSword.wav");
-        ReloadSfx(&this->field_0x120[1], "SFX\\ChrGen\\Skill\\FAxe.wav");
-        ReloadSfx(&this->field_0x120[2], "SFX\\ChrGen\\Skill\\FClub.wav");
-        ReloadSfx(&this->field_0x120[3], "SFX\\ChrGen\\Skill\\FPike.wav");
-        ReloadSfx(&this->field_0x120[4], "SFX\\ChrGen\\Skill\\FBow.wav");
+        ReloadSfx(&this->skill_sounds[0], "SFX\\ChrGen\\Skill\\FSword.wav");
+        ReloadSfx(&this->skill_sounds[1], "SFX\\ChrGen\\Skill\\FAxe.wav");
+        ReloadSfx(&this->skill_sounds[2], "SFX\\ChrGen\\Skill\\FClub.wav");
+        ReloadSfx(&this->skill_sounds[3], "SFX\\ChrGen\\Skill\\FPike.wav");
+        ReloadSfx(&this->skill_sounds[4], "SFX\\ChrGen\\Skill\\FBow.wav");
     } else {
-        ReloadSfx(&this->field_0x120[0], "SFX\\ChrGen\\Skill\\MFire.wav");
-        ReloadSfx(&this->field_0x120[1], "SFX\\ChrGen\\Skill\\MWater.wav");
-        ReloadSfx(&this->field_0x120[2], "SFX\\ChrGen\\Skill\\MAir.wav");
-        ReloadSfx(&this->field_0x120[3], "SFX\\ChrGen\\Skill\\MEarth.wav");
-        ReloadSfx(&this->field_0x120[4], "SFX\\ChrGen\\Skill\\MAstral.wav");
+        ReloadSfx(&this->skill_sounds[0], "SFX\\ChrGen\\Skill\\MFire.wav");
+        ReloadSfx(&this->skill_sounds[1], "SFX\\ChrGen\\Skill\\MWater.wav");
+        ReloadSfx(&this->skill_sounds[2], "SFX\\ChrGen\\Skill\\MAir.wav");
+        ReloadSfx(&this->skill_sounds[3], "SFX\\ChrGen\\Skill\\MEarth.wav");
+        ReloadSfx(&this->skill_sounds[4], "SFX\\ChrGen\\Skill\\MAstral.wav");
     }
 }
 
@@ -9171,13 +9171,13 @@ void VisCharGenSkills::LoadSamples(uint32_t mage_flag) {
 // 42bfcc
 int32_t VisCharGenSkills::OnMouseMove(uint32_t wparam, CPoint pos) {
     for (int32_t i = 0; i < 5; i++) {
-        this->field_0x10c[i] &= ~2;
+        this->slot_states[i] &= ~2;
     }
     int32_t hit = this->HitTest(pos);
     if (hit == -1) {
         return this->CVisualObject::OnMouseMove(wparam, pos);
     }
-    this->field_0x10c[hit] |= 2;
+    this->slot_states[hit] |= 2;
     return this->CVisualObject::OnMouseMove(wparam, pos);
 }
 
@@ -9201,11 +9201,11 @@ const char* VisCharGenSkills::GetHint() {
 
 // 42da5a
 void VisCharGenSkills::FreeSamples() {
-    FreeSfxSample(&this->field_0x120[0]);
-    FreeSfxSample(&this->field_0x120[1]);
-    FreeSfxSample(&this->field_0x120[2]);
-    FreeSfxSample(&this->field_0x120[3]);
-    FreeSfxSample(&this->field_0x120[4]);
+    FreeSfxSample(&this->skill_sounds[0]);
+    FreeSfxSample(&this->skill_sounds[1]);
+    FreeSfxSample(&this->skill_sounds[2]);
+    FreeSfxSample(&this->skill_sounds[3]);
+    FreeSfxSample(&this->skill_sounds[4]);
 }
 
 
@@ -9256,12 +9256,12 @@ void VisCharGenSkills::DrawBlinkSlot() {
     }
     blink_cycle_len = 4;
     blink_slot = blink_slot % 4;
-    if (this->field_0x10c[blink_slot] == 1) {
-        this->bmp_shine_on[blink_slot]->DrawSubRectMasked(this->field_0xb4[blink_slot].x, this->field_0xb4[blink_slot].y, 0, 0,
-                                                  this->field_0xdc[blink_slot].x, this->field_0xdc[blink_slot].y);
+    if (this->slot_states[blink_slot] == 1) {
+        this->bmp_shine_on[blink_slot]->DrawSubRectMasked(this->slot_positions[blink_slot].x, this->slot_positions[blink_slot].y, 0, 0,
+                                                  this->slot_sizes[blink_slot].x, this->slot_sizes[blink_slot].y);
     } else {
-        this->bmp_shine_off[blink_slot]->DrawSubRectMasked(this->field_0xb4[blink_slot].x, this->field_0xb4[blink_slot].y, 0, 0,
-                                                   this->field_0xdc[blink_slot].x, this->field_0xdc[blink_slot].y);
+        this->bmp_shine_off[blink_slot]->DrawSubRectMasked(this->slot_positions[blink_slot].x, this->slot_positions[blink_slot].y, 0, 0,
+                                                   this->slot_sizes[blink_slot].x, this->slot_sizes[blink_slot].y);
     }
     blink_hover_slot = -1;
     if (now - blink_cycle_time <= 0x12C) {
@@ -9308,11 +9308,11 @@ void VisCharGenSkills::Init() {
         this->bmp_on[i] = nullptr;
         this->bmp_shine_off[i] = nullptr;
         this->bmp_shine_on[i] = nullptr;
-        this->field_0x10c[i] = 0;
-        this->field_0x120[i] = nullptr;
+        this->slot_states[i] = 0;
+        this->skill_sounds[i] = nullptr;
     }
     this->selected_slot = 0;
-    this->field_0x10c[this->selected_slot] = 1;
+    this->slot_states[this->selected_slot] = 1;
 }
 
 
@@ -9486,11 +9486,11 @@ void VisCharInfo::VMethod7() {
 
     CStructure* structure = nullptr;
     CUnit* unit = nullptr;
-    uint16_t selected_id = (uint16_t)map->field_0x9a8;
+    uint16_t selected_id = (uint16_t)map->hovered_unit_id;
     CGameObject* found_obj = nullptr;
     int32_t found = 0;
     if (selected_id != 0 && main_wnd->drag_entry == nullptr && main_wnd->dialogsMask == 1) {
-        found = map->field_0x9d0.Lookup(selected_id, found_obj);
+        found = map->objects.Lookup(selected_id, found_obj);
     }
     if (selected_id != 0 && found != 0) {
         if (found_obj->IsKindOf(RUNTIME_CLASS(CStructure))) {
@@ -9498,11 +9498,11 @@ void VisCharInfo::VMethod7() {
         } else {
             unit = (CUnit*)found_obj;
         }
-    } else if (map->field_0x140 == 1) {
-        if (map->field_0x138->IsKindOf(RUNTIME_CLASS(CStructure))) {
-            structure = (CStructure*)map->field_0x138;
+    } else if (map->selected_object_count == 1) {
+        if (map->primary_selected_object->IsKindOf(RUNTIME_CLASS(CStructure))) {
+            structure = (CStructure*)map->primary_selected_object;
         } else {
-            unit = (CUnit*)map->field_0x138;
+            unit = (CUnit*)map->primary_selected_object;
         }
     }
 
@@ -9581,13 +9581,13 @@ void VisCharInfo::VMethod7() {
             }
         }
     } else {
-        if (map->field_0x140 > 1) {
+        if (map->selected_object_count > 1) {
             g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x36, TxtFile::AllLines[0x31], 2, clrsh_DullGold, 1);
             g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x42, TxtFile::AllLines[0x32], 2, clrsh_DullGold, 1);
             char count_text[0x10];
-            sprintf(count_text, "%d", map->field_0x140);
+            sprintf(count_text, "%d", map->selected_object_count);
             g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x4E, count_text, 2, clrsh_DullGold, 1);
-        } else if (map->field_0x140 == 0) {
+        } else if (map->selected_object_count == 0) {
             g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x36, TxtFile::AllLines[0x2F], 2, clrsh_DullGold, 1);
             g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x42, TxtFile::AllLines[0x30], 2, clrsh_DullGold, 1);
         }
@@ -9678,8 +9678,8 @@ const char* VisCharInfo::GetHint() {
     }
 
     CGameObject* sel = nullptr;
-    if (map->field_0x140 == 1) {
-        sel = map->field_0x138;
+    if (map->selected_object_count == 1) {
+        sel = map->primary_selected_object;
     }
     if (sel == nullptr) {
         return nullptr;
@@ -9724,11 +9724,11 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
     }
 
     BigStruct2* map = this->map_context;
-    if (map->field_0x140 != 1) {
+    if (map->selected_object_count != 1) {
         disallow = 1;
     }
 
-    CUnit* unit = (CUnit*)map->field_0x138;
+    CUnit* unit = (CUnit*)map->primary_selected_object;
     if (unit->map_player != map->my_main_unit) {
         return 0;
     }
@@ -9760,7 +9760,7 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
         }
     }
 #ifdef A2CLIENT
-    if (main_wnd->field_0x3e0.field_10 != 0 && main_wnd->hat_settings.ishat != 0 &&
+    if (main_wnd->net_session.internet_game != 0 && main_wnd->hat_settings.ishat != 0 &&
         (main_wnd->hat_settings.deathmatch == 1 || main_wnd->hat_settings.deathmatch == 2)) {
         disallow = (token->IsPotion() == 0 && token->IsScroll() == 0) ? 1 : 0;
     }
@@ -9890,7 +9890,7 @@ int32_t VisCharInfo::OnLButtonUp(uint32_t wparam, CPoint pos) {
     if ((main_wnd->dialogsMask & 0x600) == 0) {
         if (mode_btn_rect.PtInRect(pos) && moved_up == 0) {
             this->MsgProc(0x412, 0, 0);
-            map->field_0xe0 = 1;
+            map->full_redraw_requested = 1;
         }
     }
 
@@ -9932,8 +9932,8 @@ int32_t VisCharInfo::OnMouseMove(uint32_t wparam, CPoint pos) {
         return 0;
     }
 
-    CUnit* unit = (CUnit*)map->field_0x138;
-    if (map->field_0x140 != 1) {
+    CUnit* unit = (CUnit*)map->primary_selected_object;
+    if (map->selected_object_count != 1) {
         return 0;
     }
     if ((unit->unitFlags & 1) == 0) {
@@ -9969,7 +9969,7 @@ int32_t VisCharInfo::VMethod26(int32_t a) {
         return 0;
     }
 #ifdef A2CLIENT
-    if (main_wnd->field_0x3e0.field_10 != 0 && main_wnd->hat_settings.ishat != 0 &&
+    if (main_wnd->net_session.internet_game != 0 && main_wnd->hat_settings.ishat != 0 &&
         (main_wnd->hat_settings.deathmatch == 1 || main_wnd->hat_settings.deathmatch == 2)) {
         return 0;
     }
@@ -9979,11 +9979,11 @@ int32_t VisCharInfo::VMethod26(int32_t a) {
     }
 
     BigStruct2* map = this->map_context;
-    if (map->field_0x140 != 1) {
+    if (map->selected_object_count != 1) {
         return 0;
     }
 
-    CUnit* unit = (CUnit*)map->field_0x138;
+    CUnit* unit = (CUnit*)map->primary_selected_object;
     if (unit->map_player != map->my_main_unit) {
         return 0;
     }
@@ -10015,8 +10015,8 @@ int32_t VisCharInfo::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
         return 1;
     }
 
-    CUnit* unit = (CUnit*)map->field_0x138;
-    if (map->field_0x140 != 1) {
+    CUnit* unit = (CUnit*)map->primary_selected_object;
+    if (map->selected_object_count != 1) {
         return 0;
     }
     if ((unit->unitFlags & 1) == 0) {
@@ -10077,7 +10077,7 @@ int32_t VisCharInfo::VMethod28() {
 // 4B16C3
 VisCharInfo::VisCharInfo(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
     : CVisualObject(_id, l, t, r, b, nullptr) {
-    this->field_64 = 0;
+    this->gap_64 = 0;
     this->dirty = 0;
     this->selection_panel_state = 0;
     this->spell_panel_state = 0;
@@ -10284,11 +10284,11 @@ void VisSideStatus::VMethod7() {
 
         CStructure* structure = nullptr;
         CUnit* unit = nullptr;
-        uint16_t selected_id = (uint16_t)map->field_0x9a8;
+        uint16_t selected_id = (uint16_t)map->hovered_unit_id;
         CGameObject* found_obj = nullptr;
         int32_t found = 0;
         if (selected_id != 0 && main_wnd->drag_entry == nullptr) {
-            found = map->field_0x9d0.Lookup(selected_id, found_obj);
+            found = map->objects.Lookup(selected_id, found_obj);
         }
         if (selected_id != 0 && found != 0) {
             if (found_obj->IsKindOf(RUNTIME_CLASS(CStructure))) {
@@ -10296,11 +10296,11 @@ void VisSideStatus::VMethod7() {
             } else {
                 unit = (CUnit*)found_obj;
             }
-        } else if (map->field_0x140 == 1) {
-            if (map->field_0x138->IsKindOf(RUNTIME_CLASS(CStructure))) {
-                structure = (CStructure*)map->field_0x138;
+        } else if (map->selected_object_count == 1) {
+            if (map->primary_selected_object->IsKindOf(RUNTIME_CLASS(CStructure))) {
+                structure = (CStructure*)map->primary_selected_object;
             } else {
-                unit = (CUnit*)map->field_0x138;
+                unit = (CUnit*)map->primary_selected_object;
             }
         }
 
@@ -10369,8 +10369,8 @@ const char* VisSideStatus::GetHint() {
 
     CUnit* unit = nullptr;
     int32_t moved_up = (screen_rect.Height() >= main_wnd->vis_charinfo->GetRect().Height()) ? 1 : 0;
-    if (map->field_0x140 == 1) {
-        unit = (CUnit*)map->field_0x138;
+    if (map->selected_object_count == 1) {
+        unit = (CUnit*)map->primary_selected_object;
     }
     if (unit == nullptr || moved_up == 0) {
         return nullptr;
@@ -10535,7 +10535,7 @@ void VisShop::VMethod30() {
     uint32_t delay = GetRandS16(30000) + 30000;
     uint32_t compass_flags = this->shop_compass->state;
     if ((compass_flags & 0x10) == 0 && (compass_flags & 0x20) == 0 && (compass_flags & 0x40) == 0) {
-        if (now - last_snd_time > delay && !IsSfxPlaying(&this->to_buy->field_0x20b0)) {
+        if (now - last_snd_time > delay && !IsSfxPlaying(&this->to_buy->snd_speech)) {
             if (this->snd_start != nullptr && this->snd_start->FindPlayingChannel() == nullptr) {
                 this->snd_start->Play(g_SoundSettings.speech_pos, 0, 0, 0x80, 0);
             }
@@ -10728,12 +10728,12 @@ int32_t VisShop::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
             this->to_sell->sub_4B4D33();
             this->assortiment->sub_4B4D33();
             this->to_buy->sub_4B4D33();
-            ((CUnit*)this->gameplay->field_0x138)->unitFlags |= 8;
+            ((CUnit*)this->gameplay->primary_selected_object)->unitFlags |= 8;
             this->dirty |= 0x28;
         } else {
             switch (wparam) {
             case 1:
-                ((CUnit*)this->gameplay->field_0x138)->unitFlags |= 8;
+                ((CUnit*)this->gameplay->primary_selected_object)->unitFlags |= 8;
                 this->dirty |= 8;
                 break;
             case 2:
@@ -10841,7 +10841,7 @@ void VisShop::VMethod28() {
     this->AddChild(this->select_info_panel);
 
     g_StructEnter.RebuildFromMap();
-    this->selected_units.Copy(g_StructEnter.field_0x0);
+    this->selected_units.Copy(g_StructEnter.structure_list);
     this->select_index = g_StructEnter.FUN_00473d10();
 
     this->to_sell->visible_startref = &this->selected_units[0]->shopInventoryVisibleStart;
@@ -11154,9 +11154,9 @@ void VisShop::sub_4BBBD6(int32_t category, CArray<TokenEntry*>* arr) {
     AfxGetMainWnd();
     for (int32_t i = 0; i < arr->GetSize(); i++) {
         (*arr)[i]->slot_code = category + 5;
-        (*arr)[i]->field_0x14 = category;
+        (*arr)[i]->gap_0x14 = category;
     }
-    CArray<TokenEntry*>& cat_arr = this->assortiment->field_0x2100[category];
+    CArray<TokenEntry*>& cat_arr = this->assortiment->category_grids[category];
     for (int32_t i = 0; i < cat_arr.GetSize(); i++) {
         if (cat_arr[i] != nullptr) {
             delete cat_arr[i];
@@ -11165,7 +11165,7 @@ void VisShop::sub_4BBBD6(int32_t category, CArray<TokenEntry*>* arr) {
     }
     cat_arr.RemoveAll();
     for (int32_t i = 0; i < arr->GetSize(); i++) {
-        (*arr)[i]->field_0x20 = i;
+        (*arr)[i]->list_index = i;
     }
     FUN_004ba1cc(arr);
     cat_arr.Copy(*arr);
@@ -12728,7 +12728,7 @@ void VisShopDruid::VMethod28() {
     this->AddChild(this->select_info_panel);
 
     g_StructEnter.RebuildFromMap();
-    this->selected_units.Copy(g_StructEnter.field_0x0);
+    this->selected_units.Copy(g_StructEnter.structure_list);
     this->select_index = g_StructEnter.FUN_00473d10();
 
     this->to_sell->visible_startref = &this->selected_units[0]->shopInventoryVisibleStart;
@@ -13014,7 +13014,7 @@ void VisShopKaarg::VMethod28() {
     this->AddChild(this->select_info_panel);
 
     g_StructEnter.RebuildFromMap();
-    this->selected_units.Copy(g_StructEnter.field_0x0);
+    this->selected_units.Copy(g_StructEnter.structure_list);
     this->select_index = g_StructEnter.FUN_00473d10();
 
     this->to_sell->visible_startref = &this->selected_units[0]->shopInventoryVisibleStart;
@@ -13173,7 +13173,7 @@ void VisTav::VMethod28() {
     }
 
     g_StructEnter.RebuildFromMap();
-    this->selected_entries.Copy(g_StructEnter.field_0x0);
+    this->selected_entries.Copy(g_StructEnter.structure_list);
     this->select_party = g_StructEnter.FUN_00473d10();
 
     this->map_context->MsgProc(0x405, 0, 0);
@@ -13243,7 +13243,7 @@ void VisTav::VMethod28() {
 
     this->quest_id = 0;
     this->quest_selection = -1;
-    this->field_0x13c = 0;
+    this->quest_alt_close = 0;
 }
 
 
@@ -13256,7 +13256,7 @@ void VisTav::DoClose(uint32_t code) {
         ScenarioLeaveInn();
     }
 
-    if (this->field_0x13c != 0) {
+    if (this->quest_alt_close != 0) {
         main_wnd->vis_map_context->FUN_0041ae1c(0xAAAAAAAA);
     } else {
         main_wnd->vis_map_context->FUN_0041ae1c(this->quest_selection);
@@ -13587,7 +13587,7 @@ const char* VisTavLeftPanel::GetHint() {
     }
 
     client_rect.TopLeft().x -= 4;
-    uint8_t* data = (uint8_t*)this->field_0x164->GetData();
+    uint8_t* data = (uint8_t*)this->hitmap->GetData();
     CPoint client_topleft = client_rect.TopLeft();
     uint8_t index = data[(mouse_pt.y - client_topleft.y - 0xF0) * 0xA0 + (mouse_pt.x - client_topleft.x) - 0x10];
     if (index == 0) {
@@ -13600,23 +13600,23 @@ const char* VisTavLeftPanel::GetHint() {
 // 4995D1
 void VisTavLeftPanel::FUN_004995d1() {
     this->FUN_004996ab();
-    this->field_0x168 = new CBmp64("graphics\\Interface\\Inn\\LeftStats.bmp");
+    this->bmp_left_stats = new CBmp64("graphics\\Interface\\Inn\\LeftStats.bmp");
     g_mousept.Update();
-    this->field_0x16c = new CBmp64("graphics\\Interface\\Inn\\LeftPicture.bmp");
+    this->bmp_left_picture = new CBmp64("graphics\\Interface\\Inn\\LeftPicture.bmp");
     g_mousept.Update();
 }
 
 
 // 4996AB
 void VisTavLeftPanel::FUN_004996ab() {
-    if (this->field_0x168 != nullptr) {
-        delete this->field_0x168;
+    if (this->bmp_left_stats != nullptr) {
+        delete this->bmp_left_stats;
     }
-    this->field_0x168 = nullptr;
-    if (this->field_0x16c != nullptr) {
-        delete this->field_0x16c;
+    this->bmp_left_stats = nullptr;
+    if (this->bmp_left_picture != nullptr) {
+        delete this->bmp_left_picture;
     }
-    this->field_0x16c = nullptr;
+    this->bmp_left_picture = nullptr;
 }
 
 
@@ -13630,11 +13630,11 @@ VisTavLeftPanel::VisTavLeftPanel(int32_t _id, int32_t l, int32_t t, int32_t r, i
 
 // 4A3E10
 VisTavLeftPanel::~VisTavLeftPanel() {
-    if (this->field_0x160 != nullptr) {
-        delete this->field_0x160;
+    if (this->portrait_bmp != nullptr) {
+        delete this->portrait_bmp;
     }
-    if (this->field_0x164 != nullptr) {
-        delete this->field_0x164;
+    if (this->hitmap != nullptr) {
+        delete this->hitmap;
     }
 }
 
@@ -13644,13 +13644,13 @@ void VisTavLeftPanel::FUN_00497ace() {
     this->flags |= 2;
     CRect client_rect;
     this->ClientRectToScreen(&client_rect, this->rect);
-    this->field_0x170 = CRect(CPoint(client_rect.left + 0x11, client_rect.top + 0x1BB), CSize(0x20, 0x20));
-    this->field_0x180 = CRect(CPoint(client_rect.left + 0x87, client_rect.top + 0x1BB), CSize(0x20, 0x20));
-    this->field_0x164 = new CBmp256(0xA0, 0xF0);
-    this->field_0x160 = new CBmp64(0xA0, 0xF0);
-    this->field_0x60[0] = 0;
-    this->field_0x16c = nullptr;
-    this->field_0x168 = nullptr;
+    this->left_btn_rect = CRect(CPoint(client_rect.left + 0x11, client_rect.top + 0x1BB), CSize(0x20, 0x20));
+    this->right_btn_rect = CRect(CPoint(client_rect.left + 0x87, client_rect.top + 0x1BB), CSize(0x20, 0x20));
+    this->hitmap = new CBmp256(0xA0, 0xF0);
+    this->portrait_bmp = new CBmp64(0xA0, 0xF0);
+    this->picture_name[0] = 0;
+    this->bmp_left_picture = nullptr;
+    this->bmp_left_stats = nullptr;
 }
 
 
@@ -13678,8 +13678,8 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
     CRect rect_1C(CPoint(0xC, 0), CSize(0xA0, 0xEE));
     this->ClientRectToScreen(&screen_rect, this->rect);
     LockSurface2();
-    this->field_0x168->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
-    this->field_0x16c->Draw(screen_rect.left, screen_rect.top + 0xEE, 0, 0, 0);
+    this->bmp_left_stats->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
+    this->bmp_left_picture->Draw(screen_rect.left, screen_rect.top + 0xEE, 0, 0, 0);
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->sessionMode == 2) {
@@ -13699,12 +13699,12 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
                 if (unit->face > 1) {
                     strcat(picture, suffix);
                 }
-                if (strcmp(this->field_0x60, picture) != 0) {
-                    strcpy(this->field_0x60, picture);
+                if (strcmp(this->picture_name, picture) != 0) {
+                    strcpy(this->picture_name, picture);
                     char path[0x100];
-                    sprintf(path, "graphics\\infowindow\\%s.bmp", this->field_0x60);
-                    this->field_0x160->LoadFile(path, nullptr);
-                    memset(this->field_0x164->GetData(), 0, this->field_0x164->GetWidth() * this->field_0x164->GetHeight());
+                    sprintf(path, "graphics\\infowindow\\%s.bmp", this->picture_name);
+                    this->portrait_bmp->LoadFile(path, nullptr);
+                    memset(this->hitmap->GetData(), 0, this->hitmap->GetWidth() * this->hitmap->GetHeight());
                 }
             } else {
                 char temp_path[0x100];
@@ -13713,30 +13713,30 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
                 GetTempPathA(0x100, temp_path);
                 sprintf(fname, "allods-2-%d.$$$", unit->unit_id);
                 sprintf(full_path, "%s%s", temp_path, fname);
-                if (strcmp(this->field_0x60, fname) != 0) {
-                    strcpy(this->field_0x60, fname);
+                if (strcmp(this->picture_name, fname) != 0) {
+                    strcpy(this->picture_name, fname);
                     if ((unit->unitFlags & 8) != 0) {
                         UnlockSurface2();
-                        unit->RenderHeroPortrait(full_path, this->field_0x160, this->field_0x164);
+                        unit->RenderHeroPortrait(full_path, this->portrait_bmp, this->hitmap);
                         LockSurface2();
                     } else {
-                        this->field_0x160->LoadFile(fname, this->field_0x164);
+                        this->portrait_bmp->LoadFile(fname, this->hitmap);
                     }
                 } else if ((unit->unitFlags & 8) != 0) {
                     UnlockSurface2();
-                    unit->RenderHeroPortrait(full_path, this->field_0x160, this->field_0x164);
+                    unit->RenderHeroPortrait(full_path, this->portrait_bmp, this->hitmap);
                     LockSurface2();
                 }
             }
-            this->field_0x160->DrawSubRectMasked(screen_rect.left + 0xB, screen_rect.top + 0xF0, 0, 0, 0xA0, 0xF0);
+            this->portrait_bmp->DrawSubRectMasked(screen_rect.left + 0xB, screen_rect.top + 0xF0, 0, 0, 0xA0, 0xF0);
         }
     }
 
-    uint32_t quest_result = main_wnd->vis_map_context->field_0x4970->OnEvent(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->field_0x138);
+    uint32_t quest_result = main_wnd->vis_map_context->quest_map->OnEvent(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->inn_id);
     Quest* quest;
     int32_t quest_found;
     if (quest_result != 0) {
-        quest_found = main_wnd->vis_map_context->field_0x4970->FindQuest(quest_result, &quest);
+        quest_found = main_wnd->vis_map_context->quest_map->FindQuest(quest_result, &quest);
     } else {
         quest_found = this->vis_tav->quest_map->FindQuest(this->vis_tav->quest_id, &quest);
     }
@@ -13756,7 +13756,7 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
             if (quest->Kind() == 3 || quest->Kind() == 0xC) {
                 found = main_wnd->vis_map_context->FUN_0041e2af(quest->GetObj(), (CUnit**)&obj);
             } else {
-                found = main_wnd->vis_map_context->field_0x9d0.Lookup((uint16_t)quest->GetObj(), obj);
+                found = main_wnd->vis_map_context->objects.Lookup((uint16_t)quest->GetObj(), obj);
             }
             CUnit* target = (CUnit*)obj;
             if (found != 0) {
@@ -13767,18 +13767,18 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
                     GetTempPathA(0x100, temp_path);
                     sprintf(fname, "allods-2-%d.$$$", target->unit_id);
                     sprintf(full_path, "%s%s", temp_path, fname);
-                    if (strcmp(this->field_0x60, fname) != 0) {
-                        strcpy(this->field_0x60, fname);
+                    if (strcmp(this->picture_name, fname) != 0) {
+                        strcpy(this->picture_name, fname);
                         if ((target->unitFlags & 8) != 0) {
                             UnlockSurface2();
-                            target->RenderHeroPortrait(full_path, this->field_0x160, this->field_0x164);
+                            target->RenderHeroPortrait(full_path, this->portrait_bmp, this->hitmap);
                             LockSurface2();
                         } else {
-                            this->field_0x160->LoadFile(fname, this->field_0x164);
+                            this->portrait_bmp->LoadFile(fname, this->hitmap);
                         }
                     } else if ((target->unitFlags & 8) != 0) {
                         UnlockSurface2();
-                        target->RenderHeroPortrait(full_path, this->field_0x160, this->field_0x164);
+                        target->RenderHeroPortrait(full_path, this->portrait_bmp, this->hitmap);
                         LockSurface2();
                     }
                     unit_name = txt_npcnames.GetLine(target->serverId - 1);
@@ -13789,12 +13789,12 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
                     if (target->face > 1) {
                         strcat(picture, suffix);
                     }
-                    if (strcmp(this->field_0x60, picture) != 0) {
-                        strcpy(this->field_0x60, picture);
+                    if (strcmp(this->picture_name, picture) != 0) {
+                        strcpy(this->picture_name, picture);
                         char path[0x100];
-                        sprintf(path, "graphics\\infowindow\\%s.bmp", this->field_0x60);
-                        this->field_0x160->LoadFile(path, nullptr);
-                        memset(this->field_0x164->GetData(), 0, this->field_0x164->GetWidth() * this->field_0x164->GetHeight());
+                        sprintf(path, "graphics\\infowindow\\%s.bmp", this->picture_name);
+                        this->portrait_bmp->LoadFile(path, nullptr);
+                        memset(this->hitmap->GetData(), 0, this->hitmap->GetWidth() * this->hitmap->GetHeight());
                     }
                     if (obj->typeId >= 0x52 && obj->typeId <= 0x66) {
                         unit_name.Format("%s", txt_unitname.GetLine(obj->typeId));
@@ -13802,7 +13802,7 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
                         unit_name.Format("%s[%d]", txt_unitname.GetLine(obj->typeId), target->face);
                     }
                 }
-                this->field_0x160->DrawSubRectMasked(screen_rect.left + 0xB, screen_rect.top + 0xF0, 0, 0, 0xA0, 0xF0);
+                this->portrait_bmp->DrawSubRectMasked(screen_rect.left + 0xB, screen_rect.top + 0xF0, 0, 0, 0xA0, 0xF0);
             }
             break;
         }
@@ -13819,14 +13819,14 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
                 unit_name.Format("%s[%d]", txt_unitname.GetLine(quest->GetObj() & 0xFF), quest->GetObj() >> 8);
             }
             if (picture[0] != 0) {
-                if (strcmp(this->field_0x60, picture) != 0) {
-                    strcpy(this->field_0x60, picture);
+                if (strcmp(this->picture_name, picture) != 0) {
+                    strcpy(this->picture_name, picture);
                     char path[0x100];
-                    sprintf(path, "graphics\\infowindow\\%s.bmp", this->field_0x60);
-                    this->field_0x160->LoadFile(path, nullptr);
-                    memset(this->field_0x164->GetData(), 0, this->field_0x164->GetWidth() * this->field_0x164->GetHeight());
+                    sprintf(path, "graphics\\infowindow\\%s.bmp", this->picture_name);
+                    this->portrait_bmp->LoadFile(path, nullptr);
+                    memset(this->hitmap->GetData(), 0, this->hitmap->GetWidth() * this->hitmap->GetHeight());
                 }
-                this->field_0x160->DrawSubRectMasked(screen_rect.left + 0xB, screen_rect.top + 0xF0, 0, 0, 0xA0, 0xF0);
+                this->portrait_bmp->DrawSubRectMasked(screen_rect.left + 0xB, screen_rect.top + 0xF0, 0, 0, 0xA0, 0xF0);
             }
             break;
         }
@@ -13837,7 +13837,7 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
         CString area_name;
         CString building_name;
         CGameObject* landmark;
-        if (main_wnd->vis_map_context->field_0x9d0.Lookup((uint16_t)quest->GetLandmarkId(), landmark)) {
+        if (main_wnd->vis_map_context->objects.Lookup((uint16_t)quest->GetLandmarkId(), landmark)) {
             building_name = txt_building.GetLine(landmark->typeId - 1);
             int32_t cell_x = ((landmark->tileX - 8) * 5) / (main_wnd->vis_map_context->map_width - 0x10);
             int32_t cell_y = ((landmark->tileY - 8) * 5) / (main_wnd->vis_map_context->map_height - 0x10);
@@ -13891,14 +13891,14 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
                 strcat(picture, suffix);
             }
             if (picture[0] != 0) {
-                if (strcmp(this->field_0x60, picture) != 0) {
-                    strcpy(this->field_0x60, picture);
+                if (strcmp(this->picture_name, picture) != 0) {
+                    strcpy(this->picture_name, picture);
                     char path[0x100];
-                    sprintf(path, "graphics\\infowindow\\%s.bmp", this->field_0x60);
-                    this->field_0x160->LoadFile(path, nullptr);
-                    memset(this->field_0x164->GetData(), 0, this->field_0x164->GetWidth() * this->field_0x164->GetHeight());
+                    sprintf(path, "graphics\\infowindow\\%s.bmp", this->picture_name);
+                    this->portrait_bmp->LoadFile(path, nullptr);
+                    memset(this->hitmap->GetData(), 0, this->hitmap->GetWidth() * this->hitmap->GetHeight());
                 }
-                this->field_0x160->DrawSubRectMasked(screen_rect.left + 0xB, screen_rect.top + 0xF0, 0, 0, 0xA0, 0xF0);
+                this->portrait_bmp->DrawSubRectMasked(screen_rect.left + 0xB, screen_rect.top + 0xF0, 0, 0, 0xA0, 0xF0);
             }
         }
     }
@@ -13927,9 +13927,9 @@ void VisTavLeftPanel::FUN_00497e06(int32_t idx) {
 int32_t VisTavRightPanel::OnLButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
-    if (this->field_0xc0 >= 0 && this->field_0xc0 < 3 && this->FUN_0049a873(pos) == this->field_0xc0) {
-        int32_t button = this->field_0xc0;
-        this->field_0xc0 = -1;
+    if (this->pressed_btn >= 0 && this->pressed_btn < 3 && this->FUN_0049a873(pos) == this->pressed_btn) {
+        int32_t button = this->pressed_btn;
+        this->pressed_btn = -1;
         this->FUN_0049a8fa(wparam, pos);
 
         if (main_wnd->sessionMode == 2) {
@@ -13960,8 +13960,8 @@ int32_t VisTavRightPanel::OnLButtonUp(uint32_t wparam, CPoint pos) {
             }
         } else {
             if (button == 0) {
-                if (main_wnd->vis_map_context->field_0x4970->OnEvent(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->field_0x138) != 0) {
-                    this->vis_tav->field_0x13c = (this->vis_tav->field_0x13c == 0);
+                if (main_wnd->vis_map_context->quest_map->OnEvent(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->inn_id) != 0) {
+                    this->vis_tav->quest_alt_close = (this->vis_tav->quest_alt_close == 0);
                 } else {
                     if (this->vis_tav->quest_map->GetQuestCount() != 0 || this->vis_tav->rewards.GetSize() != 0) {
                         if (this->vis_tav->quest_selection == this->vis_tav->quest_id) {
@@ -14003,7 +14003,7 @@ int32_t VisTavRightPanel::OnLButtonUp(uint32_t wparam, CPoint pos) {
         }
     }
 
-    this->field_0xc0 = -1;
+    this->pressed_btn = -1;
     this->FUN_0049a8fa(wparam, pos);
     return 1;
 }
@@ -14012,19 +14012,19 @@ int32_t VisTavRightPanel::OnLButtonUp(uint32_t wparam, CPoint pos) {
 // 499A67
 void VisTavRightPanel::FUN_00499a67() {
     this->FUN_00499cdf();
-    this->field_0x74[0] = new CBmp64("graphics\\interface\\Inn\\button1on.bmp");
+    this->bmp_btn_on[0] = new CBmp64("graphics\\interface\\Inn\\button1on.bmp");
     g_mousept.Update();
-    this->field_0x74[1] = new CBmp64("graphics\\interface\\Inn\\button2on.bmp");
+    this->bmp_btn_on[1] = new CBmp64("graphics\\interface\\Inn\\button2on.bmp");
     g_mousept.Update();
-    this->field_0x74[2] = new CBmp64("graphics\\interface\\Inn\\button3on.bmp");
+    this->bmp_btn_on[2] = new CBmp64("graphics\\interface\\Inn\\button3on.bmp");
     g_mousept.Update();
-    this->field_0x80[0] = new CBmp64("graphics\\interface\\Inn\\button1off.bmp");
+    this->bmp_btn_off[0] = new CBmp64("graphics\\interface\\Inn\\button1off.bmp");
     g_mousept.Update();
-    this->field_0x80[1] = new CBmp64("graphics\\interface\\Inn\\button2off.bmp");
+    this->bmp_btn_off[1] = new CBmp64("graphics\\interface\\Inn\\button2off.bmp");
     g_mousept.Update();
-    this->field_0x80[2] = new CBmp64("graphics\\interface\\Inn\\button3off.bmp");
+    this->bmp_btn_off[2] = new CBmp64("graphics\\interface\\Inn\\button3off.bmp");
     g_mousept.Update();
-    this->field_0x8c = new CBmp64("graphics\\interface\\Inn\\ButtonsArea.bmp");
+    this->bmp_area = new CBmp64("graphics\\interface\\Inn\\ButtonsArea.bmp");
     g_mousept.Update();
 }
 
@@ -14033,13 +14033,13 @@ void VisTavRightPanel::FUN_00499a67() {
 void VisTavRightPanel::FUN_0049a8fa(uint32_t wparam, CPoint pos) {
     int32_t index = this->FUN_0049a873(pos);
     if (index < 0 || (wparam & 1) != 0) {
-        if (index < 0 || index != this->field_0xc0 || (wparam & 1) == 0) {
-            this->field_0xc4 = -1;
+        if (index < 0 || index != this->pressed_btn || (wparam & 1) == 0) {
+            this->hovered_btn = -1;
         } else {
-            this->field_0xc4 = index;
+            this->hovered_btn = index;
         }
     } else {
-        this->field_0xc4 = index;
+        this->hovered_btn = index;
     }
 }
 
@@ -14050,7 +14050,7 @@ int32_t VisTavRightPanel::FUN_0049a873(CPoint pos) {
     CPoint pt(pos.x - tav_topleft.x, pos.y - tav_topleft.y);
 
     for (int32_t i = 0; i < 3; i++) {
-        if (this->field_0x90[i].PtInRect(pt)) {
+        if (this->btn_rects[i].PtInRect(pt)) {
             return i;
         }
     }
@@ -14060,16 +14060,16 @@ int32_t VisTavRightPanel::FUN_0049a873(CPoint pos) {
 
 // 4998C2
 void VisTavRightPanel::FUN_004998c2() {
-    this->field_0xc0 = -1;
-    this->field_0xc4 = -1;
-    this->field_0x90[0] = CRect(0x1E4, 0x2C, 0x270, 0x5A);
-    this->field_0x90[1] = CRect(0x1E4, 0x5B, 0x270, 0x89);
-    this->field_0x90[2] = CRect(0x1E4, 0x8A, 0x270, 0xB8);
+    this->pressed_btn = -1;
+    this->hovered_btn = -1;
+    this->btn_rects[0] = CRect(0x1E4, 0x2C, 0x270, 0x5A);
+    this->btn_rects[1] = CRect(0x1E4, 0x5B, 0x270, 0x89);
+    this->btn_rects[2] = CRect(0x1E4, 0x8A, 0x270, 0xB8);
     for (int32_t i = 0; i < 3; i++) {
-        this->field_0x74[i] = nullptr;
-        this->field_0x80[i] = nullptr;
+        this->bmp_btn_on[i] = nullptr;
+        this->bmp_btn_off[i] = nullptr;
     }
-    this->field_0x8c = nullptr;
+    this->bmp_area = nullptr;
 
     this->texts.SetSize(3, -1);
     this->texts[0] = TxtFile::AllLines[0xF3];
@@ -14101,8 +14101,8 @@ const char* VisTavRightPanel::GetHint() {
 
 // 49A84E
 void VisTavRightPanel::FUN_0049a84e() {
-    this->field_0xc0 = -1;
-    this->field_0xc4 = -1;
+    this->pressed_btn = -1;
+    this->hovered_btn = -1;
 }
 
 
@@ -14121,8 +14121,8 @@ int32_t VisTavRightPanel::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
 
 // 49A291
 int32_t VisTavRightPanel::OnLButtonDown(uint32_t wparam, CPoint pos) {
-    this->field_0xc0 = this->FUN_0049a873(pos);
-    if (this->field_0xc0 == 2) {
+    this->pressed_btn = this->FUN_0049a873(pos);
+    if (this->pressed_btn == 2) {
         CSound::Play(this->vis_tav->sounds[11]);
     }
     return 1;
@@ -14132,20 +14132,20 @@ int32_t VisTavRightPanel::OnLButtonDown(uint32_t wparam, CPoint pos) {
 // 499CDF
 void VisTavRightPanel::FUN_00499cdf() {
     for (int32_t i = 0; i < 3; i++) {
-        if (this->field_0x74[i] != nullptr) {
-            delete this->field_0x74[i];
+        if (this->bmp_btn_on[i] != nullptr) {
+            delete this->bmp_btn_on[i];
         }
-        this->field_0x74[i] = nullptr;
-        if (this->field_0x80[i] != nullptr) {
-            delete this->field_0x80[i];
+        this->bmp_btn_on[i] = nullptr;
+        if (this->bmp_btn_off[i] != nullptr) {
+            delete this->bmp_btn_off[i];
         }
-        this->field_0x80[i] = nullptr;
+        this->bmp_btn_off[i] = nullptr;
     }
 
-    if (this->field_0x8c != nullptr) {
-        delete this->field_0x8c;
+    if (this->bmp_area != nullptr) {
+        delete this->bmp_area;
     }
-    this->field_0x8c = nullptr;
+    this->bmp_area = nullptr;
 }
 
 
@@ -14174,7 +14174,7 @@ void VisTavRightPanel::FUN_0049a973() {
                 this->texts[0] = TxtFile::AllLines[0x164];
                 this->texts[1] = TxtFile::AllLines[0x165];
             } else {
-                if (main_wnd->vis_map_context->field_0x4970->OnEvent(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->field_0x138) != 0) {
+                if (main_wnd->vis_map_context->quest_map->OnEvent(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->inn_id) != 0) {
                     this->texts[0] = txt_patch.GetLine(0x60);
                     this->texts[1] = " ";
                 } else {
@@ -14195,38 +14195,38 @@ void VisTavRightPanel::VMethod7() {
     }
 
     LockSurface2();
-    this->field_0x8c->Draw(tav_topleft.x + this->rect.left, tav_topleft.y + this->rect.top, 0, 0, 0);
+    this->bmp_area->Draw(tav_topleft.x + this->rect.left, tav_topleft.y + this->rect.top, 0, 0, 0);
 
     uint16_t* pal;
-    if (this->field_0xc4 == 1) {
+    if (this->hovered_btn == 1) {
         pal = palette_paris_daisy->GetPalette(0);
     } else {
         pal = palette_husk->GetPalette(0);
     }
 
-    if (this->field_0xc4 < 0 || this->field_0xc0 != this->field_0xc4 || this->field_0xc4 != 1) {
-        this->field_0x80[1]->Draw(tav_topleft.x + this->field_0x90[1].left, tav_topleft.y + this->field_0x90[1].top, 0, 0, 0);
-        g_font4->DrawTxt(tav_topleft.x + this->field_0x90[1].left + this->field_0x90[1].Width() / 2, tav_topleft.y + this->field_0x90[1].top + this->field_0x90[1].Height() / 2, this->texts[1], 10, pal);
+    if (this->hovered_btn < 0 || this->pressed_btn != this->hovered_btn || this->hovered_btn != 1) {
+        this->bmp_btn_off[1]->Draw(tav_topleft.x + this->btn_rects[1].left, tav_topleft.y + this->btn_rects[1].top, 0, 0, 0);
+        g_font4->DrawTxt(tav_topleft.x + this->btn_rects[1].left + this->btn_rects[1].Width() / 2, tav_topleft.y + this->btn_rects[1].top + this->btn_rects[1].Height() / 2, this->texts[1], 10, pal);
     } else {
-        this->field_0x74[1]->Draw(tav_topleft.x + this->field_0x90[1].left, tav_topleft.y + this->field_0x90[1].top, 0, 0, 0);
-        g_font4->DrawTxt(tav_topleft.x + this->field_0x90[1].left + this->field_0x90[1].Width() / 2, tav_topleft.y + this->field_0x90[1].top + 1 + this->field_0x90[1].Height() / 2, this->texts[1], 10, pal);
+        this->bmp_btn_on[1]->Draw(tav_topleft.x + this->btn_rects[1].left, tav_topleft.y + this->btn_rects[1].top, 0, 0, 0);
+        g_font4->DrawTxt(tav_topleft.x + this->btn_rects[1].left + this->btn_rects[1].Width() / 2, tav_topleft.y + this->btn_rects[1].top + 1 + this->btn_rects[1].Height() / 2, this->texts[1], 10, pal);
     }
 
     for (int32_t i = 0; i < 3; i++) {
         if (i == 1) {
             continue;
         }
-        if (this->field_0xc4 == i) {
+        if (this->hovered_btn == i) {
             pal = palette_paris_daisy->GetPalette(0);
         } else {
             pal = palette_husk->GetPalette(0);
         }
-        if (this->field_0xc4 < 0 || this->field_0xc0 != this->field_0xc4 || this->field_0xc4 != i) {
-            this->field_0x80[i]->Draw(tav_topleft.x + this->field_0x90[i].left, tav_topleft.y + this->field_0x90[i].top, 0, 0, 0);
-            g_font4->DrawTxt(tav_topleft.x + this->field_0x90[i].left + this->field_0x90[i].Width() / 2, tav_topleft.y + this->field_0x90[i].top + this->field_0x90[i].Height() / 2, this->texts[i], 10, pal);
+        if (this->hovered_btn < 0 || this->pressed_btn != this->hovered_btn || this->hovered_btn != i) {
+            this->bmp_btn_off[i]->Draw(tav_topleft.x + this->btn_rects[i].left, tav_topleft.y + this->btn_rects[i].top, 0, 0, 0);
+            g_font4->DrawTxt(tav_topleft.x + this->btn_rects[i].left + this->btn_rects[i].Width() / 2, tav_topleft.y + this->btn_rects[i].top + this->btn_rects[i].Height() / 2, this->texts[i], 10, pal);
         } else {
-            this->field_0x74[i]->Draw(tav_topleft.x + this->field_0x90[i].left, tav_topleft.y + this->field_0x90[i].top, 0, 0, 0);
-            g_font4->DrawTxt(tav_topleft.x + this->field_0x90[i].left + this->field_0x90[i].Width() / 2, tav_topleft.y + this->field_0x90[i].top + 1 + this->field_0x90[i].Height() / 2, this->texts[i], 10, pal);
+            this->bmp_btn_on[i]->Draw(tav_topleft.x + this->btn_rects[i].left, tav_topleft.y + this->btn_rects[i].top, 0, 0, 0);
+            g_font4->DrawTxt(tav_topleft.x + this->btn_rects[i].left + this->btn_rects[i].Width() / 2, tav_topleft.y + this->btn_rects[i].top + 1 + this->btn_rects[i].Height() / 2, this->texts[i], 10, pal);
         }
     }
 
@@ -14340,7 +14340,7 @@ void VisTavScene::VMethod7() {
     int32_t x = tav_topleft.x + this->rect.left;
     int32_t y = tav_topleft.y + this->rect.top;
 
-    this->field_0x27c->Draw(x, y, 0, 0, 0);
+    this->bmp_background->Draw(x, y, 0, 0, 0);
 
     if (main_wnd->sessionMode == 2) {
         this->anims[0].Draw(x, y + 0x30);
@@ -14404,23 +14404,23 @@ void VisTavScene::VMethod7() {
         for (int32_t i = 0; i < avail_count; i++) {
             int32_t row = i / 6;
             int32_t col = i % 6;
-            CPoint pt = this->field_0x60[row][col].TopLeft();
+            CPoint pt = this->roster_rects[row][col].TopLeft();
             if (this->vis_tav->selection_index == -1) {
                 continue;
             }
 
-            this->field_0x274->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
-            CSprite256* sprite = this->field_0x224[i];
-            sprite->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, this->field_0x24c[i], 0, 0);
+            this->bmp_man_back->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
+            CSprite256* sprite = this->avail_sprites[i];
+            sprite->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, this->avail_frames[i], 0, 0);
             if (this->vis_tav->selection_index == i && now - tavscene_frame_ts > 0x7D) {
-                this->field_0x24c[i] = (this->field_0x24c[i] + 1) % sprite->GetFrameCount();
+                this->avail_frames[i] = (this->avail_frames[i] + 1) % sprite->GetFrameCount();
                 tavscene_frame_ts = now;
             }
 
             CUnit* unit = this->vis_tav->avail_entries[i];
             int32_t entry = this->vis_tav->FUN_0049e2e3(unit);
             if (this->vis_tav->entrie_id[entry] & 0x80000000) {
-                CRect& r = this->field_0x60[row][col];
+                CRect& r = this->roster_rects[row][col];
                 g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], 10, clrsh_CoralRed, 1);
             }
         }
@@ -14428,25 +14428,25 @@ void VisTavScene::VMethod7() {
         for (int32_t i = 0; i < this->vis_tav->reserved_entries.GetSize(); i++) {
             int32_t row = (avail_count + i) / 6;
             int32_t col = (avail_count + i) % 6;
-            CPoint pt = this->field_0x60[row][col].TopLeft();
+            CPoint pt = this->roster_rects[row][col].TopLeft();
             if (this->vis_tav->selection_index == -1) {
                 continue;
             }
 
             if (this->vis_tav->selection_index == avail_count + i && now - tavscene_frame_ts > 0x7D) {
-                this->field_0x260[i] = (this->field_0x260[i] + 1) % this->field_0x238[i]->GetFrameCount();
+                this->reserved_frames[i] = (this->reserved_frames[i] + 1) % this->reserved_sprites[i]->GetFrameCount();
                 tavscene_frame_ts = now;
             }
-            this->field_0x278->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
-            this->field_0x238[i]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, this->field_0x260[i], 0, 0);
+            this->bmp_man_back_talk->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
+            this->reserved_sprites[i]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, this->reserved_frames[i], 0, 0);
         }
     } else {
         this->FUN_0049bc23();
     }
 
-    this->field_0x340->DrawSubRectMasked(tav_topleft.x + 0xA0, tav_topleft.y, 0, 0, 0x10, 0xEE);
-    this->field_0x344->DrawSubRectMasked(tav_topleft.x + 0xA0, tav_topleft.y + 0xEE, 0, 0, 0x10, 0xF2);
-    this->field_0x348->DrawSubRectMasked(tav_topleft.x + 0x1D0, tav_topleft.y, 0, 0, 0x10, 0xEE);
+    this->bmp_lu_over->DrawSubRectMasked(tav_topleft.x + 0xA0, tav_topleft.y, 0, 0, 0x10, 0xEE);
+    this->bmp_ld_over->DrawSubRectMasked(tav_topleft.x + 0xA0, tav_topleft.y + 0xEE, 0, 0, 0x10, 0xF2);
+    this->bmp_ru_over->DrawSubRectMasked(tav_topleft.x + 0x1D0, tav_topleft.y, 0, 0, 0x10, 0xEE);
     if (this->vis_tav->info_panel->info_mode) {
         g_bmp_humanbackl->DrawSubRectMasked(tav_topleft.x + 0x1D0, tav_topleft.y + 0xEE, 0, 0, 0x10, 0xF2);
     } else {
@@ -14459,50 +14459,50 @@ void VisTavScene::VMethod7() {
 
 // 49D5F9
 void VisTavScene::VMethod29() {
-    delete this->field_0x274;
-    this->field_0x274 = nullptr;
-    delete this->field_0x278;
-    this->field_0x278 = nullptr;
-    delete this->field_0x27c;
-    this->field_0x27c = nullptr;
-    delete this->field_0x340;
-    this->field_0x340 = nullptr;
-    delete this->field_0x344;
-    this->field_0x344 = nullptr;
-    delete this->field_0x348;
-    this->field_0x348 = nullptr;
+    delete this->bmp_man_back;
+    this->bmp_man_back = nullptr;
+    delete this->bmp_man_back_talk;
+    this->bmp_man_back_talk = nullptr;
+    delete this->bmp_background;
+    this->bmp_background = nullptr;
+    delete this->bmp_lu_over;
+    this->bmp_lu_over = nullptr;
+    delete this->bmp_ld_over;
+    this->bmp_ld_over = nullptr;
+    delete this->bmp_ru_over;
+    this->bmp_ru_over = nullptr;
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->sessionMode != 2) {
         for (int32_t i = 0; i < 13; i++) {
-            delete this->field_0x34c[i];
-            this->field_0x34c[i] = nullptr;
+            delete this->quest_bmps[i];
+            this->quest_bmps[i] = nullptr;
         }
     }
 
-    for (int32_t i = 0; i < this->field_0x210.GetSize(); i++) {
-        if (this->field_0x210[i] != nullptr) {
-            delete this->field_0x210[i];
-            this->field_0x210[i] = nullptr;
+    for (int32_t i = 0; i < this->roster_sprites.GetSize(); i++) {
+        if (this->roster_sprites[i] != nullptr) {
+            delete this->roster_sprites[i];
+            this->roster_sprites[i] = nullptr;
         }
     }
-    this->field_0x210.RemoveAll();
+    this->roster_sprites.RemoveAll();
 }
 
 
 // 49CED4
 void VisTavScene::VMethod26() {
-    this->field_0x224.SetSize(this->vis_tav->avail_entries.GetSize(), -1);
-    this->field_0x24c.SetSize(this->vis_tav->avail_entries.GetSize(), -1);
-    this->field_0x238.SetSize(this->vis_tav->reserved_entries.GetSize(), -1);
-    this->field_0x260.SetSize(this->vis_tav->reserved_entries.GetSize(), -1);
+    this->avail_sprites.SetSize(this->vis_tav->avail_entries.GetSize(), -1);
+    this->avail_frames.SetSize(this->vis_tav->avail_entries.GetSize(), -1);
+    this->reserved_sprites.SetSize(this->vis_tav->reserved_entries.GetSize(), -1);
+    this->reserved_frames.SetSize(this->vis_tav->reserved_entries.GetSize(), -1);
 
     CString name;
     for (int32_t i = 0; i < this->vis_tav->avail_entries.GetSize(); i++) {
         CUnit* unit = this->vis_tav->avail_entries[i];
         name.Format("graphics\\interface\\inn\\Unit%d\\sprites.16a", unit->typeId);
-        this->field_0x224[i] = new CA16(name);
-        this->field_0x224[i]->ResetPalette(0x10, 4, 0);
+        this->avail_sprites[i] = new CA16(name);
+        this->avail_sprites[i]->ResetPalette(0x10, 4, 0);
     }
 
     for (int32_t i = 0; i < this->vis_tav->reserved_entries.GetSize(); i++) {
@@ -14516,8 +14516,8 @@ void VisTavScene::VMethod26() {
         } else {
             name.Format("graphics\\interface\\inn\\Unit%d\\sprites.16a", unit->typeId);
         }
-        this->field_0x238[i] = new CA16(name);
-        this->field_0x238[i]->ResetPalette(0x10, 4, 0);
+        this->reserved_sprites[i] = new CA16(name);
+        this->reserved_sprites[i]->ResetPalette(0x10, 4, 0);
     }
 }
 
@@ -14525,17 +14525,17 @@ void VisTavScene::VMethod26() {
 // 49D2BB
 void VisTavScene::VMethod28() {
     this->VMethod29();
-    this->field_0x274 = new CBmp64("graphics\\Interface\\Inn\\manback.bmp");
+    this->bmp_man_back = new CBmp64("graphics\\Interface\\Inn\\manback.bmp");
     g_mousept.Update();
-    this->field_0x278 = new CBmp64("graphics\\Interface\\Inn\\ManBackTalk.bmp");
+    this->bmp_man_back_talk = new CBmp64("graphics\\Interface\\Inn\\ManBackTalk.bmp");
     g_mousept.Update();
-    this->field_0x27c = new CBmp64("graphics\\Interface\\Inn\\CenterArea.bmp");
+    this->bmp_background = new CBmp64("graphics\\Interface\\Inn\\CenterArea.bmp");
     g_mousept.Update();
-    this->field_0x340 = new CBmp64("graphics\\interface\\inn\\LUOver.bmp");
+    this->bmp_lu_over = new CBmp64("graphics\\interface\\inn\\LUOver.bmp");
     g_mousept.Update();
-    this->field_0x344 = new CBmp64("graphics\\interface\\inn\\LDOver.bmp");
+    this->bmp_ld_over = new CBmp64("graphics\\interface\\inn\\LDOver.bmp");
     g_mousept.Update();
-    this->field_0x348 = new CBmp64("graphics\\interface\\inn\\RUOver.bmp");
+    this->bmp_ru_over = new CBmp64("graphics\\interface\\inn\\RUOver.bmp");
     g_mousept.Update();
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
@@ -14543,7 +14543,7 @@ void VisTavScene::VMethod28() {
         CString name;
         for (int32_t i = 0; i < 13; i++) {
             name.Format("graphics\\interface\\inn\\quests\\%02d.bmp", i + 1);
-            this->field_0x34c[i] = new CBmp64(name);
+            this->quest_bmps[i] = new CBmp64(name);
         }
     }
 }
@@ -14557,7 +14557,7 @@ const char* VisTavScene::GetHint() {
     for (int32_t i = 0; i < this->vis_tav->rewards.GetSize(); i++) {
         int32_t row = i / 3;
         int32_t col = i % 3;
-        if (this->field_0x180[row][col].PtInRect(pt)) {
+        if (this->party_rects[row][col].PtInRect(pt)) {
             TokenEntry* entry = this->vis_tav->rewards[i];
             if (entry->item_id == 0xFFFD) {
                 return TxtFile::AllLines[0x166];
@@ -14580,8 +14580,8 @@ int32_t VisTavScene::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     if (main_wnd->sessionMode != 2) {
-        if (main_wnd->vis_map_context->field_0x4970->OnEvent(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->field_0x138) != 0) {
-            this->vis_tav->field_0x13c = (this->vis_tav->field_0x13c == 0) ? 1 : 0;
+        if (main_wnd->vis_map_context->quest_map->OnEvent(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->inn_id) != 0) {
+            this->vis_tav->quest_alt_close = (this->vis_tav->quest_alt_close == 0) ? 1 : 0;
             return 1;
         }
     }
@@ -14616,21 +14616,21 @@ int32_t VisTavScene::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
 
 // 49D1B0
 void VisTavScene::VMethod27() {
-    for (int32_t i = 0; i < this->field_0x224.GetSize(); i++) {
-        if (this->field_0x224[i] != nullptr) {
-            delete this->field_0x224[i];
+    for (int32_t i = 0; i < this->avail_sprites.GetSize(); i++) {
+        if (this->avail_sprites[i] != nullptr) {
+            delete this->avail_sprites[i];
         }
     }
-    this->field_0x224.RemoveAll();
-    this->field_0x24c.RemoveAll();
+    this->avail_sprites.RemoveAll();
+    this->avail_frames.RemoveAll();
 
-    for (int32_t i = 0; i < this->field_0x238.GetSize(); i++) {
-        if (this->field_0x238[i] != nullptr) {
-            delete this->field_0x238[i];
+    for (int32_t i = 0; i < this->reserved_sprites.GetSize(); i++) {
+        if (this->reserved_sprites[i] != nullptr) {
+            delete this->reserved_sprites[i];
         }
     }
-    this->field_0x238.RemoveAll();
-    this->field_0x260.RemoveAll();
+    this->reserved_sprites.RemoveAll();
+    this->reserved_frames.RemoveAll();
 }
 
 
@@ -14670,15 +14670,15 @@ void VisTavScene::FUN_0049bc23() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     CPoint tav_topleft = this->vis_tav->rect.TopLeft();
 
-    int32_t quest_found = main_wnd->vis_map_context->field_0x4970->OnEvent(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->field_0x138);
+    int32_t quest_found = main_wnd->vis_map_context->quest_map->OnEvent(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->inn_id);
     if (quest_found != 0) {
         Quest* quest = nullptr;
-        main_wnd->vis_map_context->field_0x4970->FindQuest(quest_found, &quest);
-        CPoint pt = this->field_0x60[0][0].TopLeft();
+        main_wnd->vis_map_context->quest_map->FindQuest(quest_found, &quest);
+        CPoint pt = this->roster_rects[0][0].TopLeft();
         int32_t kind = quest->Kind();
-        this->field_0x34c[kind - 1]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
-        if (this->vis_tav->field_0x13c == 0) {
-            CRect& r = this->field_0x60[0][0];
+        this->quest_bmps[kind - 1]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
+        if (this->vis_tav->quest_alt_close == 0) {
+            CRect& r = this->roster_rects[0][0];
             g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x158], 10, clrsh_CoralRed, 1);
         }
         return;
@@ -14693,11 +14693,11 @@ void VisTavScene::FUN_0049bc23() {
             this->vis_tav->quest_map->quests_map.GetNextAssoc(it, key, quest);
             int32_t row = i / 6;
             int32_t col = i % 6;
-            CPoint pt = this->field_0x60[row][col].TopLeft();
+            CPoint pt = this->roster_rects[row][col].TopLeft();
             int32_t kind = quest->Kind();
-            this->field_0x34c[kind - 1]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
+            this->quest_bmps[kind - 1]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
             if (this->vis_tav->quest_selection == key) {
-                CRect& r = this->field_0x60[row][col];
+                CRect& r = this->roster_rects[row][col];
                 g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x158], 10, clrsh_CoralRed, 1);
             }
             i++;
@@ -14708,13 +14708,13 @@ void VisTavScene::FUN_0049bc23() {
     for (int32_t i = 0; i < this->vis_tav->rewards.GetSize(); i++) {
         int32_t row = i / 3;
         int32_t col = i % 3;
-        CPoint pt = this->field_0x180[row][col].TopLeft();
+        CPoint pt = this->party_rects[row][col].TopLeft();
         g_bmp_backinv->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
         if (this->vis_tav->quest_id == i) {
             FillRectBrightness(tav_topleft.x + pt.x, tav_topleft.y + pt.y, tav_topleft.x + pt.x + 0x50, tav_topleft.y + pt.y + 0x50, 2);
         }
-        if (this->field_0x210.GetSize() <= i) {
-            this->field_0x210.SetSize(i + 1, -1);
+        if (this->roster_sprites.GetSize() <= i) {
+            this->roster_sprites.SetSize(i + 1, -1);
         }
 
         TokenEntry* entry = this->vis_tav->rewards[i];
@@ -14733,15 +14733,15 @@ void VisTavScene::FUN_0049bc23() {
             FUN_00476987(&text);
             g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 3, tav_topleft.y + pt.y + 0x42, text, 0, clrsh_DullGold, 1);
         } else {
-            if (this->field_0x210[i] == nullptr) {
-                if (this->field_0x210.GetSize() <= i) {
-                    this->field_0x210.SetSize(i + 1, -1);
+            if (this->roster_sprites[i] == nullptr) {
+                if (this->roster_sprites.GetSize() <= i) {
+                    this->roster_sprites.SetSize(i + 1, -1);
                 }
                 CString path = "graphics\\inventory\\" + entry->GetSpriteName() + ".16a";
-                this->field_0x210[i] = new CA16(path);
-                this->field_0x210[i]->ResetPalette(0x10, 4, 0);
+                this->roster_sprites[i] = new CA16(path);
+                this->roster_sprites[i]->ResetPalette(0x10, 4, 0);
             }
-            this->field_0x210[i]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
+            this->roster_sprites[i]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
             if (entry->count > 1) {
                 char buf[80];
                 sprintf(buf, "%d", entry->count);
@@ -14783,25 +14783,25 @@ void VisTavScene::FUN_0049af8c() {
     for (int32_t i = 0; i < 3; i++) {
         for (int32_t j = 0; j < 6; j++) {
             CPoint pt = base + CPoint(j * 0x30, -(i + 1) * 0x40);
-            this->field_0x60[i][j] = CRect(pt, CSize(0x30, 0x40));
+            this->roster_rects[i][j] = CRect(pt, CSize(0x30, 0x40));
         }
     }
 
     for (int32_t i = 0; i < 3; i++) {
         for (int32_t j = 0; j < 3; j++) {
             CPoint pt = base + CPoint(j * 0x50 + 0x18, -(i + 1) * 0x50);
-            this->field_0x180[i][j] = CRect(pt, CSize(0x50, 0x50));
+            this->party_rects[i][j] = CRect(pt, CSize(0x50, 0x50));
         }
     }
 
-    this->field_0x274 = nullptr;
-    this->field_0x278 = nullptr;
-    this->field_0x27c = nullptr;
-    this->field_0x340 = nullptr;
-    this->field_0x344 = nullptr;
-    this->field_0x348 = nullptr;
+    this->bmp_man_back = nullptr;
+    this->bmp_man_back_talk = nullptr;
+    this->bmp_background = nullptr;
+    this->bmp_lu_over = nullptr;
+    this->bmp_ld_over = nullptr;
+    this->bmp_ru_over = nullptr;
     for (int32_t i = 0; i < 13; i++) {
-        this->field_0x34c[i] = nullptr;
+        this->quest_bmps[i] = nullptr;
     }
 }
 
@@ -14818,7 +14818,7 @@ int32_t VisTavScene::FUN_0049cab8(CPoint* pos) {
         for (int32_t i = 0; i < count; i++) {
             int32_t row = i / 6;
             int32_t col = i % 6;
-            if (this->field_0x60[row][col].PtInRect(pt)) {
+            if (this->roster_rects[row][col].PtInRect(pt)) {
                 return i;
             }
         }
@@ -14834,7 +14834,7 @@ int32_t VisTavScene::FUN_0049cab8(CPoint* pos) {
             this->vis_tav->quest_map->quests_map.GetNextAssoc(it, key, quest);
             int32_t row = i / 6;
             int32_t col = i % 6;
-            if (this->field_0x60[row][col].PtInRect(pt)) {
+            if (this->roster_rects[row][col].PtInRect(pt)) {
                 return quest->GetSomeId();
             }
             i++;
@@ -14845,7 +14845,7 @@ int32_t VisTavScene::FUN_0049cab8(CPoint* pos) {
     for (int32_t i = 0; i < this->vis_tav->rewards.GetSize(); i++) {
         int32_t row = i / 3;
         int32_t col = i % 3;
-        if (this->field_0x180[row][col].PtInRect(pt)) {
+        if (this->party_rects[row][col].PtInRect(pt)) {
             return i;
         }
     }
@@ -14884,7 +14884,7 @@ void VisTavSceneDruid::VMethod7() {
     int32_t x = tav_topleft.x + this->rect.left;
     int32_t y = tav_topleft.y + this->rect.top;
 
-    this->field_0x27c->Draw(x, y, 0, 0, 0);
+    this->bmp_background->Draw(x, y, 0, 0, 0);
 
     if (main_wnd->sessionMode == 2) {
         this->anims_druid[0].Draw(x + 0xA8, y + 0x90);
@@ -14934,7 +14934,7 @@ void VisTavSceneDruid::VMethod7() {
             break;
         case 3:
         case 4:
-            this->field_0x3cc->Draw(x + 0x68, y + 0x98, 0, 0, 0);
+            this->bmp_flash->Draw(x + 0x68, y + 0x98, 0, 0, 0);
             break;
         }
 
@@ -14974,23 +14974,23 @@ void VisTavSceneDruid::VMethod7() {
         for (int32_t i = 0; i < avail_count; i++) {
             int32_t row = i / 6;
             int32_t col = i % 6;
-            CPoint pt = this->field_0x60[row][col].TopLeft();
+            CPoint pt = this->roster_rects[row][col].TopLeft();
             if (this->vis_tav->selection_index == -1) {
                 continue;
             }
 
-            this->field_0x274->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
-            CSprite256* sprite = this->field_0x224[i];
-            sprite->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, this->field_0x24c[i], 0, 0);
+            this->bmp_man_back->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
+            CSprite256* sprite = this->avail_sprites[i];
+            sprite->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, this->avail_frames[i], 0, 0);
             if (this->vis_tav->selection_index == i && now - tavscene_druid_frame_ts > 0x7D) {
-                this->field_0x24c[i] = (this->field_0x24c[i] + 1) % sprite->GetFrameCount();
+                this->avail_frames[i] = (this->avail_frames[i] + 1) % sprite->GetFrameCount();
                 tavscene_druid_frame_ts = now;
             }
 
             CUnit* unit = this->vis_tav->avail_entries[i];
             int32_t entry = this->vis_tav->FUN_0049e2e3(unit);
             if (this->vis_tav->entrie_id[entry] & 0x80000000) {
-                CRect& r = this->field_0x60[row][col];
+                CRect& r = this->roster_rects[row][col];
                 g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], 10, clrsh_CoralRed, 1);
             }
         }
@@ -14998,25 +14998,25 @@ void VisTavSceneDruid::VMethod7() {
         for (int32_t i = 0; i < this->vis_tav->reserved_entries.GetSize(); i++) {
             int32_t row = (avail_count + i) / 6;
             int32_t col = (avail_count + i) % 6;
-            CPoint pt = this->field_0x60[row][col].TopLeft();
+            CPoint pt = this->roster_rects[row][col].TopLeft();
             if (this->vis_tav->selection_index == -1) {
                 continue;
             }
 
             if (this->vis_tav->selection_index == avail_count + i && now - tavscene_druid_frame_ts > 0x7D) {
-                this->field_0x260[i] = (this->field_0x260[i] + 1) % this->field_0x238[i]->GetFrameCount();
+                this->reserved_frames[i] = (this->reserved_frames[i] + 1) % this->reserved_sprites[i]->GetFrameCount();
                 tavscene_druid_frame_ts = now;
             }
-            this->field_0x278->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
-            this->field_0x238[i]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, this->field_0x260[i], 0, 0);
+            this->bmp_man_back_talk->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
+            this->reserved_sprites[i]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, this->reserved_frames[i], 0, 0);
         }
     } else {
         this->FUN_0049bc23();
     }
 
-    this->field_0x340->DrawSubRectMasked(tav_topleft.x + 0xA0, tav_topleft.y, 0, 0, 0x10, 0xEE);
-    this->field_0x344->DrawSubRectMasked(tav_topleft.x + 0xA0, tav_topleft.y + 0xEE, 0, 0, 0x10, 0xF2);
-    this->field_0x348->DrawSubRectMasked(tav_topleft.x + 0x1D0, tav_topleft.y, 0, 0, 0x10, 0xEE);
+    this->bmp_lu_over->DrawSubRectMasked(tav_topleft.x + 0xA0, tav_topleft.y, 0, 0, 0x10, 0xEE);
+    this->bmp_ld_over->DrawSubRectMasked(tav_topleft.x + 0xA0, tav_topleft.y + 0xEE, 0, 0, 0x10, 0xF2);
+    this->bmp_ru_over->DrawSubRectMasked(tav_topleft.x + 0x1D0, tav_topleft.y, 0, 0, 0x10, 0xEE);
     if (this->vis_tav->info_panel->info_mode) {
         g_bmp_humanbackl->DrawSubRectMasked(tav_topleft.x + 0x1D0, tav_topleft.y + 0xEE, 0, 0, 0x10, 0xF2);
     } else {
@@ -15025,7 +15025,7 @@ void VisTavSceneDruid::VMethod7() {
     UnlockSurface2();
     CVisualObject::VMethod7();
 
-    if (main_wnd->sessionMode == 2 && now - this->field_0x460 > this->field_0x464) {
+    if (main_wnd->sessionMode == 2 && now - this->ambient_last_tick > this->ambient_interval) {
         switch (GetRandS16(3) + 1) {
         case 1:
             CSound::Play((CSound&)tav_druid->snd_druid[8]);
@@ -15037,8 +15037,8 @@ void VisTavSceneDruid::VMethod7() {
             CSound::Play((CSound&)tav_druid->snd_druid[10]);
             break;
         }
-        this->field_0x464 = GetRandS16(2000) + 2000;
-        this->field_0x460 = timeGetTime();
+        this->ambient_interval = GetRandS16(2000) + 2000;
+        this->ambient_last_tick = timeGetTime();
     }
 }
 
@@ -15050,63 +15050,63 @@ VisTavSceneDruid::~VisTavSceneDruid() {}
 // 4A05A0
 VisTavSceneDruid::VisTavSceneDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav)
 : VisTavScene(_id, l, t, r, b, tav) {
-    this->field_0x460 = timeGetTime();
-    this->field_0x464 = GetRandS16(2000) + 2000;
-    this->field_0x3cc = nullptr;
+    this->ambient_last_tick = timeGetTime();
+    this->ambient_interval = GetRandS16(2000) + 2000;
+    this->bmp_flash = nullptr;
 }
 
 
 // 4A158F
 void VisTavSceneDruid::VMethod29() {
-    delete this->field_0x274;
-    this->field_0x274 = nullptr;
-    delete this->field_0x278;
-    this->field_0x278 = nullptr;
-    delete this->field_0x27c;
-    this->field_0x27c = nullptr;
-    delete this->field_0x340;
-    this->field_0x340 = nullptr;
-    delete this->field_0x344;
-    this->field_0x344 = nullptr;
-    delete this->field_0x348;
-    this->field_0x348 = nullptr;
-    delete this->field_0x3cc;
-    this->field_0x3cc = nullptr;
+    delete this->bmp_man_back;
+    this->bmp_man_back = nullptr;
+    delete this->bmp_man_back_talk;
+    this->bmp_man_back_talk = nullptr;
+    delete this->bmp_background;
+    this->bmp_background = nullptr;
+    delete this->bmp_lu_over;
+    this->bmp_lu_over = nullptr;
+    delete this->bmp_ld_over;
+    this->bmp_ld_over = nullptr;
+    delete this->bmp_ru_over;
+    this->bmp_ru_over = nullptr;
+    delete this->bmp_flash;
+    this->bmp_flash = nullptr;
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->sessionMode != 2) {
         for (int32_t i = 0; i < 13; i++) {
-            delete this->field_0x34c[i];
-            this->field_0x34c[i] = nullptr;
+            delete this->quest_bmps[i];
+            this->quest_bmps[i] = nullptr;
         }
     }
 
-    for (int32_t i = 0; i < this->field_0x210.GetSize(); i++) {
-        if (this->field_0x210[i] != nullptr) {
-            delete this->field_0x210[i];
-            this->field_0x210[i] = nullptr;
+    for (int32_t i = 0; i < this->roster_sprites.GetSize(); i++) {
+        if (this->roster_sprites[i] != nullptr) {
+            delete this->roster_sprites[i];
+            this->roster_sprites[i] = nullptr;
         }
     }
-    this->field_0x210.RemoveAll();
+    this->roster_sprites.RemoveAll();
 }
 
 
 // 4A11E3
 void VisTavSceneDruid::VMethod28() {
     this->VMethod29();
-    this->field_0x274 = new CBmp64("graphics\\Interface\\Inn\\manback.bmp");
+    this->bmp_man_back = new CBmp64("graphics\\Interface\\Inn\\manback.bmp");
     g_mousept.Update();
-    this->field_0x278 = new CBmp64("graphics\\Interface\\Inn\\ManBackTalk.bmp");
+    this->bmp_man_back_talk = new CBmp64("graphics\\Interface\\Inn\\ManBackTalk.bmp");
     g_mousept.Update();
-    this->field_0x27c = new CBmp64("graphics\\Interface\\Inn_druid\\TavernMain.bmp");
+    this->bmp_background = new CBmp64("graphics\\Interface\\Inn_druid\\TavernMain.bmp");
     g_mousept.Update();
-    this->field_0x340 = new CBmp64("graphics\\interface\\inn\\LUOver.bmp");
+    this->bmp_lu_over = new CBmp64("graphics\\interface\\inn\\LUOver.bmp");
     g_mousept.Update();
-    this->field_0x344 = new CBmp64("graphics\\interface\\inn\\LDOver.bmp");
+    this->bmp_ld_over = new CBmp64("graphics\\interface\\inn\\LDOver.bmp");
     g_mousept.Update();
-    this->field_0x348 = new CBmp64("graphics\\interface\\inn\\RUOver.bmp");
+    this->bmp_ru_over = new CBmp64("graphics\\interface\\inn\\RUOver.bmp");
     g_mousept.Update();
-    this->field_0x3cc = new CBmp64("graphics\\interface\\inn_druid\\taverner\\a30001.bmp");
+    this->bmp_flash = new CBmp64("graphics\\interface\\inn_druid\\taverner\\a30001.bmp");
     g_mousept.Update();
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
@@ -15114,7 +15114,7 @@ void VisTavSceneDruid::VMethod28() {
         CString name;
         for (int32_t i = 0; i < 13; i++) {
             name.Format("graphics\\interface\\inn\\quests\\%02d.bmp", i + 1);
-            this->field_0x34c[i] = new CBmp64(name);
+            this->quest_bmps[i] = new CBmp64(name);
         }
     }
 }
@@ -15162,11 +15162,11 @@ void VisTavSceneKaarg::VMethod7() {
     int32_t x = tav_topleft.x + this->rect.left;
     int32_t y = tav_topleft.y + this->rect.top;
 
-    this->field_0x27c->Draw(x, y, 0, 0, 0);
+    this->bmp_background->Draw(x, y, 0, 0, 0);
 
     if (main_wnd->sessionMode == 2) {
         if (tavscene_kaarg_anim_state == -1) {
-            this->field_0x4bc = 0;
+            this->script_frame_index = 0;
             int32_t which = Random0N(0x14) + 1;
             switch (which) {
             case 1:
@@ -15205,7 +15205,7 @@ void VisTavSceneKaarg::VMethod7() {
             this->anims_kaarg[3].Draw(x + 0xC8, y + 0x88);
             break;
         case 5:
-            this->anims_kaarg[4].frames[kaarg_frame_script[this->field_0x4bc]]->Draw(x + 0x58, y + 0x54, 0, 0, 0);
+            this->anims_kaarg[4].frames[kaarg_frame_script[this->script_frame_index]]->Draw(x + 0x58, y + 0x54, 0, 0, 0);
             break;
         }
 
@@ -15240,8 +15240,8 @@ void VisTavSceneKaarg::VMethod7() {
                 tavscene_kaarg_state_ts = now;
                 break;
             case 5:
-                this->field_0x4bc++;
-                if (kaarg_frame_script[this->field_0x4bc] == -1) {
+                this->script_frame_index++;
+                if (kaarg_frame_script[this->script_frame_index] == -1) {
                     tavscene_kaarg_anim_state = -1;
                     this->anims_kaarg[4].frame_idx = 0;
                 }
@@ -15257,23 +15257,23 @@ void VisTavSceneKaarg::VMethod7() {
         for (int32_t i = 0; i < avail_count; i++) {
             int32_t row = i / 6;
             int32_t col = i % 6;
-            CPoint pt = this->field_0x60[row][col].TopLeft();
+            CPoint pt = this->roster_rects[row][col].TopLeft();
             if (this->vis_tav->selection_index == -1) {
                 continue;
             }
 
-            this->field_0x274->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
-            CSprite256* sprite = this->field_0x224[i];
-            sprite->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, this->field_0x24c[i], 0, 0);
+            this->bmp_man_back->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
+            CSprite256* sprite = this->avail_sprites[i];
+            sprite->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, this->avail_frames[i], 0, 0);
             if (this->vis_tav->selection_index == i && now - tavscene_kaarg_frame_ts > 0x7D) {
-                this->field_0x24c[i] = (this->field_0x24c[i] + 1) % sprite->GetFrameCount();
+                this->avail_frames[i] = (this->avail_frames[i] + 1) % sprite->GetFrameCount();
                 tavscene_kaarg_frame_ts = now;
             }
 
             CUnit* unit = this->vis_tav->avail_entries[i];
             int32_t entry = this->vis_tav->FUN_0049e2e3(unit);
             if (this->vis_tav->entrie_id[entry] & 0x80000000) {
-                CRect& r = this->field_0x60[row][col];
+                CRect& r = this->roster_rects[row][col];
                 g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], 10, clrsh_CoralRed, 1);
             }
         }
@@ -15281,25 +15281,25 @@ void VisTavSceneKaarg::VMethod7() {
         for (int32_t i = 0; i < this->vis_tav->reserved_entries.GetSize(); i++) {
             int32_t row = (avail_count + i) / 6;
             int32_t col = (avail_count + i) % 6;
-            CPoint pt = this->field_0x60[row][col].TopLeft();
+            CPoint pt = this->roster_rects[row][col].TopLeft();
             if (this->vis_tav->selection_index == -1) {
                 continue;
             }
 
             if (this->vis_tav->selection_index == avail_count + i && now - tavscene_kaarg_frame_ts > 0x7D) {
-                this->field_0x260[i] = (this->field_0x260[i] + 1) % this->field_0x238[i]->GetFrameCount();
+                this->reserved_frames[i] = (this->reserved_frames[i] + 1) % this->reserved_sprites[i]->GetFrameCount();
                 tavscene_kaarg_frame_ts = now;
             }
-            this->field_0x278->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
-            this->field_0x238[i]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, this->field_0x260[i], 0, 0);
+            this->bmp_man_back_talk->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
+            this->reserved_sprites[i]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, this->reserved_frames[i], 0, 0);
         }
     } else {
         this->FUN_0049bc23();
     }
 
-    this->field_0x340->DrawSubRectMasked(tav_topleft.x + 0xA0, tav_topleft.y, 0, 0, 0x10, 0xEE);
-    this->field_0x344->DrawSubRectMasked(tav_topleft.x + 0xA0, tav_topleft.y + 0xEE, 0, 0, 0x10, 0xF2);
-    this->field_0x348->DrawSubRectMasked(tav_topleft.x + 0x1D0, tav_topleft.y, 0, 0, 0x10, 0xEE);
+    this->bmp_lu_over->DrawSubRectMasked(tav_topleft.x + 0xA0, tav_topleft.y, 0, 0, 0x10, 0xEE);
+    this->bmp_ld_over->DrawSubRectMasked(tav_topleft.x + 0xA0, tav_topleft.y + 0xEE, 0, 0, 0x10, 0xF2);
+    this->bmp_ru_over->DrawSubRectMasked(tav_topleft.x + 0x1D0, tav_topleft.y, 0, 0, 0x10, 0xEE);
     if (this->vis_tav->info_panel->info_mode) {
         g_bmp_humanbackl->DrawSubRectMasked(tav_topleft.x + 0x1D0, tav_topleft.y + 0xEE, 0, 0, 0x10, 0xF2);
     } else {
@@ -15307,7 +15307,7 @@ void VisTavSceneKaarg::VMethod7() {
     }
     UnlockSurface2();
 
-    if (main_wnd->sessionMode == 2 && now - this->field_0x4c8 > this->field_0x4cc) {
+    if (main_wnd->sessionMode == 2 && now - this->ambient2_last_tick > this->ambient2_interval) {
         switch (GetRandS16(3) + 1) {
         case 1:
             CSound::Play((CSound&)tav_kaarg->snd_kaarg[7]);
@@ -15319,11 +15319,11 @@ void VisTavSceneKaarg::VMethod7() {
             CSound::Play((CSound&)tav_kaarg->snd_kaarg[9]);
             break;
         }
-        this->field_0x4cc = GetRandS16(2000) + 2000;
-        this->field_0x4c8 = timeGetTime();
+        this->ambient2_interval = GetRandS16(2000) + 2000;
+        this->ambient2_last_tick = timeGetTime();
     }
 
-    if (main_wnd->sessionMode == 2 && now - this->field_0x4c0 > this->field_0x4c4) {
+    if (main_wnd->sessionMode == 2 && now - this->ambient1_last_tick > this->ambient1_interval) {
         switch (GetRandS16(4) + 1) {
         case 1:
             CSound::Play((CSound&)tav_kaarg->snd_kaarg[0]);
@@ -15338,8 +15338,8 @@ void VisTavSceneKaarg::VMethod7() {
             CSound::Play((CSound&)tav_kaarg->snd_kaarg[3]);
             break;
         }
-        this->field_0x4c4 = GetRandS16(2000) + 2000;
-        this->field_0x4c0 = timeGetTime();
+        this->ambient1_interval = GetRandS16(2000) + 2000;
+        this->ambient1_last_tick = timeGetTime();
     }
 
     CVisualObject::VMethod7();
@@ -15349,10 +15349,10 @@ void VisTavSceneKaarg::VMethod7() {
 // 4A2AA4
 VisTavSceneKaarg::VisTavSceneKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav)
 : VisTavScene(_id, l, t, r, b, tav) {
-    this->field_0x4c0 = timeGetTime();
-    this->field_0x4c4 = GetRandS16(2000) + 2000;
-    this->field_0x4c8 = timeGetTime();
-    this->field_0x4cc = GetRandS16(2000) + 2000;
+    this->ambient1_last_tick = timeGetTime();
+    this->ambient1_interval = GetRandS16(2000) + 2000;
+    this->ambient2_last_tick = timeGetTime();
+    this->ambient2_interval = GetRandS16(2000) + 2000;
 }
 
 
@@ -15362,51 +15362,51 @@ VisTavSceneKaarg::~VisTavSceneKaarg() {}
 
 // 4A3B25
 void VisTavSceneKaarg::VMethod29() {
-    delete this->field_0x274;
-    this->field_0x274 = nullptr;
-    delete this->field_0x278;
-    this->field_0x278 = nullptr;
-    delete this->field_0x27c;
-    this->field_0x27c = nullptr;
-    delete this->field_0x340;
-    this->field_0x340 = nullptr;
-    delete this->field_0x344;
-    this->field_0x344 = nullptr;
-    delete this->field_0x348;
-    this->field_0x348 = nullptr;
+    delete this->bmp_man_back;
+    this->bmp_man_back = nullptr;
+    delete this->bmp_man_back_talk;
+    this->bmp_man_back_talk = nullptr;
+    delete this->bmp_background;
+    this->bmp_background = nullptr;
+    delete this->bmp_lu_over;
+    this->bmp_lu_over = nullptr;
+    delete this->bmp_ld_over;
+    this->bmp_ld_over = nullptr;
+    delete this->bmp_ru_over;
+    this->bmp_ru_over = nullptr;
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->sessionMode != 2) {
         for (int32_t i = 0; i < 13; i++) {
-            delete this->field_0x34c[i];
-            this->field_0x34c[i] = nullptr;
+            delete this->quest_bmps[i];
+            this->quest_bmps[i] = nullptr;
         }
     }
 
-    for (int32_t i = 0; i < this->field_0x210.GetSize(); i++) {
-        if (this->field_0x210[i] != nullptr) {
-            delete this->field_0x210[i];
-            this->field_0x210[i] = nullptr;
+    for (int32_t i = 0; i < this->roster_sprites.GetSize(); i++) {
+        if (this->roster_sprites[i] != nullptr) {
+            delete this->roster_sprites[i];
+            this->roster_sprites[i] = nullptr;
         }
     }
-    this->field_0x210.RemoveAll();
+    this->roster_sprites.RemoveAll();
 }
 
 
 // 4A37E7
 void VisTavSceneKaarg::VMethod28() {
     this->VMethod29();
-    this->field_0x274 = new CBmp64("graphics\\Interface\\Inn\\manback.bmp");
+    this->bmp_man_back = new CBmp64("graphics\\Interface\\Inn\\manback.bmp");
     g_mousept.Update();
-    this->field_0x278 = new CBmp64("graphics\\Interface\\Inn\\ManBackTalk.bmp");
+    this->bmp_man_back_talk = new CBmp64("graphics\\Interface\\Inn\\ManBackTalk.bmp");
     g_mousept.Update();
-    this->field_0x27c = new CBmp64("graphics\\Interface\\inn_kaarg\\TavernMain.bmp");
+    this->bmp_background = new CBmp64("graphics\\Interface\\inn_kaarg\\TavernMain.bmp");
     g_mousept.Update();
-    this->field_0x340 = new CBmp64("graphics\\interface\\inn\\LUOver.bmp");
+    this->bmp_lu_over = new CBmp64("graphics\\interface\\inn\\LUOver.bmp");
     g_mousept.Update();
-    this->field_0x344 = new CBmp64("graphics\\interface\\inn\\LDOver.bmp");
+    this->bmp_ld_over = new CBmp64("graphics\\interface\\inn\\LDOver.bmp");
     g_mousept.Update();
-    this->field_0x348 = new CBmp64("graphics\\interface\\inn\\RUOver.bmp");
+    this->bmp_ru_over = new CBmp64("graphics\\interface\\inn\\RUOver.bmp");
     g_mousept.Update();
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
@@ -15414,7 +15414,7 @@ void VisTavSceneKaarg::VMethod28() {
         CString name;
         for (int32_t i = 0; i < 13; i++) {
             name.Format("graphics\\interface\\inn\\quests\\%02d.bmp", i + 1);
-            this->field_0x34c[i] = new CBmp64(name);
+            this->quest_bmps[i] = new CBmp64(name);
         }
     }
 }
@@ -15477,7 +15477,7 @@ void VisTavDruid::VMethod28() {
     }
 
     g_StructEnter.RebuildFromMap();
-    this->selected_entries.Copy(g_StructEnter.field_0x0);
+    this->selected_entries.Copy(g_StructEnter.structure_list);
     this->select_party = g_StructEnter.FUN_00473d10();
 
     this->map_context->MsgProc(0x405, 0, 0);
@@ -15541,7 +15541,7 @@ void VisTavDruid::VMethod28() {
 
     this->quest_id = 0;
     this->quest_selection = -1;
-    this->field_0x13c = 0;
+    this->quest_alt_close = 0;
 }
 
 
@@ -15554,7 +15554,7 @@ void VisTavDruid::DoClose(uint32_t code) {
         ScenarioLeaveInn();
     }
 
-    if (this->field_0x13c != 0) {
+    if (this->quest_alt_close != 0) {
         main_wnd->vis_map_context->FUN_0041ae1c(0xAAAAAAAA);
     } else {
         main_wnd->vis_map_context->FUN_0041ae1c(this->quest_selection);
@@ -15736,7 +15736,7 @@ void VisTavKaarg::VMethod28() {
     }
 
     g_StructEnter.RebuildFromMap();
-    this->selected_entries.Copy(g_StructEnter.field_0x0);
+    this->selected_entries.Copy(g_StructEnter.structure_list);
     this->select_party = g_StructEnter.FUN_00473d10();
 
     this->map_context->MsgProc(0x405, 0, 0);
@@ -15818,7 +15818,7 @@ void VisTavKaarg::VMethod28() {
 
     this->quest_id = 0;
     this->quest_selection = -1;
-    this->field_0x13c = 0;
+    this->quest_alt_close = 0;
 }
 
 
@@ -15831,7 +15831,7 @@ void VisTavKaarg::DoClose(uint32_t code) {
         ScenarioLeaveInn();
     }
 
-    if (this->field_0x13c != 0) {
+    if (this->quest_alt_close != 0) {
         main_wnd->vis_map_context->FUN_0041ae1c(0xAAAAAAAA);
     } else {
         main_wnd->vis_map_context->FUN_0041ae1c(this->quest_selection);
@@ -16028,7 +16028,7 @@ int32_t VisInvBase::VMethod26(TokenEntry* o, int32_t idx) {
 TokenEntry* VisInvBase::VMethod28(uint32_t id) {
     for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
         TokenEntry* entry = this->grid_source->GetAt(i);
-        if (id != entry->field_0x4) {
+        if (id != entry->match_id) {
             continue;
         }
         if (entry->RemoveCount(1)) {
@@ -16150,7 +16150,7 @@ int32_t VisInvBase::VMethod37(int32_t idx) {
 
     idx = this->VMethod26(main_wnd->drag_entry, idx);
     if (this->VMethod38() == 2) {
-        this->VMethod33(main_wnd->vis_map_context->field_0x138);
+        this->VMethod33(main_wnd->vis_map_context->primary_selected_object);
     } else {
         this->VMethod32(this->grid_source);
     }
@@ -16169,7 +16169,7 @@ TokenEntry* VisInvBase::VMethod36(int32_t idx, int32_t num) {
     if (main_wnd->drag_entry != nullptr || this->grid_source->GetSize() <= idx) {
         return nullptr;
     }
-    CGameObject* selected = main_wnd->vis_map_context->field_0x138;
+    CGameObject* selected = main_wnd->vis_map_context->primary_selected_object;
     if (selected->map_player != main_wnd->vis_map_context->my_main_unit) {
         return nullptr;
     }
@@ -16782,7 +16782,7 @@ int32_t VisInvType1::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
             if (g_mousept.GetSelectState() != 0) {
                 g_mousept.ResetStates();
             }
-            main_wnd->field_0x460 = 0;
+            main_wnd->app_initialized = 0;
         }
     } else {
         if (this->grid_source->GetAt(idx)->IsQuestTreasure() == 0) {
@@ -16799,7 +16799,7 @@ int32_t VisInvType1::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
 
 // 4B5072
 void VisInvExtBase::VMethod7() {
-    VisShop* shop = this->field_0x20ac;
+    VisShop* shop = this->shop;
     int32_t off_x = shop->rect.left;
     int32_t off_y = shop->rect.top;
 
@@ -16823,7 +16823,7 @@ void VisInvExtBase::VMethod7() {
     this->FUN_004a5e12();
 
     for (int32_t i = 0; i < total_cells; i++) {
-        CPoint pos(this->field_0x20c4[i].left + off_x, this->field_0x20c4[i].top + off_y);
+        CPoint pos(this->cell_rects[i].left + off_x, this->cell_rects[i].top + off_y);
         if (i >= draw_count) {
             continue;
         }
@@ -16865,7 +16865,7 @@ void VisInvExtBase::VMethod7() {
 
         entry = this->grid_source->GetAt(i + *this->visible_startref);
         if (entry->count > 1) {
-            CPoint bottom_right(this->field_0x20c4[i].right + off_x, this->field_0x20c4[i].bottom + off_y);
+            CPoint bottom_right(this->cell_rects[i].right + off_x, this->cell_rects[i].bottom + off_y);
             CString text;
             text.Format("%d", entry->count);
             FUN_00476987(&text);
@@ -16874,7 +16874,7 @@ void VisInvExtBase::VMethod7() {
 
         entry = this->grid_source->GetAt(i + *this->visible_startref);
         if (entry->IsEmpty() == 0 && entry->IsDepleted() == 0) {
-            CPoint cost_pos(this->field_0x20c4[i].right + off_x, this->field_0x20c4[i].top + off_y + 1);
+            CPoint cost_pos(this->cell_rects[i].right + off_x, this->cell_rects[i].top + off_y + 1);
             CArray<CBmp64*>* cost_arr;
             if (entry->slot_code == 2) {
                 cost_arr = &shop->bmp_cost_medium;
@@ -16913,7 +16913,7 @@ void VisInvExtBase::VMethod7() {
 
 // 4B5F3F
 int32_t VisInvExtBase::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
-    VisShop* shop = this->field_0x20ac;
+    VisShop* shop = this->shop;
     int32_t idx = this->VMethod31(&pos);
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (idx >= 0 && this->grid_source->GetSize() > idx) {
@@ -16935,9 +16935,9 @@ int32_t VisInvExtBase::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
                     case 6:
                     case 7:
                     case 8:
-                        shop->assortiment->grid_source = &shop->assortiment->field_0x2100[main_wnd->drag_entry->slot_code - 5];
+                        shop->assortiment->grid_source = &shop->assortiment->category_grids[main_wnd->drag_entry->slot_code - 5];
                         shop->assortiment->VMethod37(-1);
-                        shop->assortiment->grid_source = &shop->assortiment->field_0x2100[shop->select_category];
+                        shop->assortiment->grid_source = &shop->assortiment->category_grids[shop->select_category];
                         shop->assortiment->sub_4B4D33();
                         break;
                     }
@@ -16965,7 +16965,7 @@ int32_t VisInvExtBase::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
 
 // 4B5D5C
 int32_t VisInvExtBase::OnLButtonUp(uint32_t wparam, CPoint pos) {
-    VisShop* shop = this->field_0x20ac;
+    VisShop* shop = this->shop;
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->drag_entry == nullptr) {
         return 1;
@@ -17002,7 +17002,7 @@ int32_t VisInvExtBase::OnLButtonUp(uint32_t wparam, CPoint pos) {
 
 // 4B5BBE
 int32_t VisInvExtBase::OnMouseMove(uint32_t wparam, CPoint pos) {
-    VisShop* shop = this->field_0x20ac;
+    VisShop* shop = this->shop;
     if (shop->hovered_region != this->VMethod38()) {
         shop->hovered_region = this->VMethod38();
         shop->buttons->ResetSelected();
@@ -17032,10 +17032,10 @@ int32_t VisInvExtBase::OnMouseMove(uint32_t wparam, CPoint pos) {
 
 // 4B4E88
 int32_t VisInvExtBase::VMethod31(const CPoint* pt) {
-    VisShop* shop = this->field_0x20ac;
+    VisShop* shop = this->shop;
     CPoint rel = *pt - CPoint(shop->rect.left, shop->rect.top);
     for (int32_t i = 0; i < this->visible_columns * this->visible_rows; i++) {
-        if (this->field_0x20c4[i].PtInRect(rel)) {
+        if (this->cell_rects[i].PtInRect(rel)) {
             int32_t idx = i + *this->visible_startref;
             if (idx <= this->grid_source->GetUpperBound() && this->grid_source->GetAt(idx)->item_id != 0xffff) {
                 return idx;
@@ -17048,7 +17048,7 @@ int32_t VisInvExtBase::VMethod31(const CPoint* pt) {
 
 // 4B4C64
 const char* VisInvExtBase::GetHint() {
-    VisShop* shop = this->field_0x20ac;
+    VisShop* shop = this->shop;
     if (shop->dialog_active == 0) {
         return nullptr;
     }
@@ -17092,9 +17092,9 @@ void VisInvExtBase::sub_4B4D33() {
 // 4B4BC5
 void VisInvExtBase::sub_4B4BC5() {
     this->sub_4B4C1C();
-    ReloadSfx(&this->field_0x20b4.sample, "SFX\\Put_On.wav");
-    ReloadSfx(&this->field_0x20b8.sample, "SFX\\Put_Off.wav");
-    ReloadSfx(&this->field_0x20bc.sample, "SFX\\Scroll.wav");
+    ReloadSfx(&this->snd_put_on.sample, "SFX\\Put_On.wav");
+    ReloadSfx(&this->snd_put_off.sample, "SFX\\Put_Off.wav");
+    ReloadSfx(&this->snd_scroll.sample, "SFX\\Scroll.wav");
 }
 
 
@@ -17110,16 +17110,16 @@ int32_t VisInvExtBase::OnLButtonDown(uint32_t wparam, CPoint pos) {
 
 // 4B4BA9
 void VisInvExtBase::sub_4B4BA9() {
-    FreeSfxSample(&this->field_0x20b0.sample);
+    FreeSfxSample(&this->snd_speech.sample);
 }
 
 
 // 4B4C1C
 void VisInvExtBase::sub_4B4C1C() {
     this->sub_4B4BA9();
-    FreeSfxSample(&this->field_0x20b4.sample);
-    FreeSfxSample(&this->field_0x20b8.sample);
-    FreeSfxSample(&this->field_0x20bc.sample);
+    FreeSfxSample(&this->snd_put_on.sample);
+    FreeSfxSample(&this->snd_put_off.sample);
+    FreeSfxSample(&this->snd_scroll.sample);
 }
 
 
@@ -17198,23 +17198,23 @@ int32_t VisInvExtBase::OnRButtonDblClk(uint32_t wparam, CPoint pos) {
 VisInvExtBase::VisInvExtBase(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
 : VisInvBase(_id, l, t, r, b) {
     this->grid_source = nullptr;
-    this->field_0x20ac = shop;
+    this->shop = shop;
     this->flags |= 2;
     this->visible_startref = new int32_t(0);
-    this->field_0x20b0.sample = nullptr;
-    this->field_0x20b4.sample = nullptr;
-    this->field_0x20b8.sample = nullptr;
-    this->field_0x20bc.sample = nullptr;
+    this->snd_speech.sample = nullptr;
+    this->snd_put_on.sample = nullptr;
+    this->snd_put_off.sample = nullptr;
+    this->snd_scroll.sample = nullptr;
     // field_0x20c4 is deliberately left uninitialized here, as in the original
 }
 
 
 // 4B4AEC
 VisInvExtBase::~VisInvExtBase() {
-    if (this->field_0x20c4 != nullptr) {
-        delete this->field_0x20c4;
+    if (this->cell_rects != nullptr) {
+        delete this->cell_rects;
     }
-    this->field_0x20ac = nullptr;
+    this->shop = nullptr;
     this->grid_source = nullptr;
     if (this->visible_startref != nullptr) {
         delete this->visible_startref;
@@ -17234,7 +17234,7 @@ int32_t VisInvExtBase::sub_4B5A6C(int32_t idx) {
     CString cs2 = cs1 + ".16a";
     main_wnd->SetItemCursor(entry, idx, cs2, region);
     ApplyCursor(main_wnd->item_cursor);
-    this->field_0x20ac->placement_lock = 1;
+    this->shop->placement_lock = 1;
     return 1;
 }
 
@@ -17244,7 +17244,7 @@ int32_t VisInvExtBase::sub_4B5B81() {
     ApplyCursor(g_Cursors[0]);
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     main_wnd->ResetItemCursor();
-    this->field_0x20ac->placement_lock = 0;
+    this->shop->placement_lock = 0;
     return 1;
 }
 
@@ -17274,7 +17274,7 @@ TokenEntry* VisInvExtType1::VMethod29(TokenEntry* o, int32_t num) {
             entry->count = 0;
             entry->item_id = 0;
         }
-        o->field_0x1c = i;
+        o->gap_0x1c = i;
         o->slot_code = this->VMethod38();
         return o;
     }
@@ -17284,7 +17284,7 @@ TokenEntry* VisInvExtType1::VMethod29(TokenEntry* o, int32_t num) {
 
 // 4B70C0
 void VisInvExtType1::VMethod7() {
-    VisShop* shop = this->field_0x20ac;
+    VisShop* shop = this->shop;
     CPoint topleft = shop->rect.TopLeft();
 
     if (shop->dialog_active == 0 || this->shop_inv == nullptr) {
@@ -17298,7 +17298,7 @@ void VisInvExtType1::VMethod7() {
 
     if (*this->visible_startref > 0) {
         CPoint pos(g_mousept.GetX(), g_mousept.GetY());
-        CRect rc = this->field_0x20cc;
+        CRect rc = this->up_arrow_rect;
         rc.OffsetRect(topleft.x, topleft.y);
         if (rc.PtInRect(pos)) {
             this->sub_4B7264();
@@ -17308,7 +17308,7 @@ void VisInvExtType1::VMethod7() {
     }
     if (this->grid_source->GetSize() - *this->visible_startref > this->visible_columns * this->visible_rows) {
         CPoint pos(g_mousept.GetX(), g_mousept.GetY());
-        CRect rc = this->field_0x20dc;
+        CRect rc = this->down_arrow_rect;
         rc.OffsetRect(topleft.x, topleft.y);
         if (rc.PtInRect(pos)) {
             this->sub_4B731E();
@@ -17321,15 +17321,15 @@ void VisInvExtType1::VMethod7() {
 
 // 4B790D
 int32_t VisInvExtType1::VMethod26(TokenEntry* o, int32_t idx) {
-    o->slot_code = o->field_0x14 + 5;
-    if (o->slot_code >= 5 && o->slot_code <= 8 && o->field_0x1c >= 0 && o->field_0x1c < this->grid_source->GetSize()) {
-        TokenEntry* entry = this->grid_source->GetAt(o->field_0x1c);
+    o->slot_code = o->gap_0x14 + 5;
+    if (o->slot_code >= 5 && o->slot_code <= 8 && o->gap_0x1c >= 0 && o->gap_0x1c < this->grid_source->GetSize()) {
+        TokenEntry* entry = this->grid_source->GetAt(o->gap_0x1c);
         if (entry->IsDepleted()) {
             *entry = *o;
         } else {
             entry->AddCount(o->count);
         }
-        return o->field_0x1c;
+        return o->gap_0x1c;
     }
     if (idx >= 0 && idx < this->grid_source->GetSize()) {
         this->grid_source->InsertAt(idx, o, 1);
@@ -17346,7 +17346,7 @@ int32_t VisInvExtType1::VMethod26(TokenEntry* o, int32_t idx) {
 
 // 4B6F8D
 const char* VisInvExtType1::GetHint() {
-    VisShop* shop = this->field_0x20ac;
+    VisShop* shop = this->shop;
     if (shop->dialog_active == 0) {
         return nullptr;
     }
@@ -17363,10 +17363,10 @@ const char* VisInvExtType1::GetHint() {
     if (region >= 0) {
         return VisInvExtBase::GetHint();
     }
-    if (this->field_0x20cc.PtInRect(rel)) {
+    if (this->up_arrow_rect.PtInRect(rel)) {
         return TxtFile::AllLines[0x38];
     }
-    if (this->field_0x20dc.PtInRect(rel)) {
+    if (this->down_arrow_rect.PtInRect(rel)) {
         return TxtFile::AllLines[0x39];
     }
     return TxtFile::AllLines[0x3C];
@@ -17375,21 +17375,21 @@ const char* VisInvExtType1::GetHint() {
 
 // 4B7562
 int32_t VisInvExtType1::OnLButtonDown(uint32_t wparam, CPoint pos) {
-    VisShop* shop = this->field_0x20ac;
+    VisShop* shop = this->shop;
     CPoint topleft = shop->rect.TopLeft();
     CPoint pt = pos - topleft;
-    if (this->field_0x20cc.PtInRect(pt)) {
+    if (this->up_arrow_rect.PtInRect(pt)) {
         this->sub_4A5350();
         this->sub_4A5350();
-        StopSfx(&this->field_0x20bc.sample);
-        CSound::Play(this->field_0x20bc);
+        StopSfx(&this->snd_scroll.sample);
+        CSound::Play(this->snd_scroll);
         return 1;
     }
-    if (this->field_0x20dc.PtInRect(pt)) {
+    if (this->down_arrow_rect.PtInRect(pt)) {
         this->sub_4A51C9();
         this->sub_4A51C9();
-        StopSfx(&this->field_0x20bc.sample);
-        CSound::Play(this->field_0x20bc);
+        StopSfx(&this->snd_scroll.sample);
+        CSound::Play(this->snd_scroll);
         return 1;
     }
     return VisInvExtBase::OnLButtonDown(wparam, pos);
@@ -17398,22 +17398,22 @@ int32_t VisInvExtType1::OnLButtonDown(uint32_t wparam, CPoint pos) {
 
 // 4B7433
 int32_t VisInvExtType1::OnWmUser(uint32_t wparam, CPoint pos) {
-    VisShop* shop = this->field_0x20ac;
+    VisShop* shop = this->shop;
     CPoint topleft = shop->rect.TopLeft();
     CPoint pt = pos - topleft;
     if (wparam & 1) {
-        if (this->field_0x20cc.PtInRect(pt)) {
+        if (this->up_arrow_rect.PtInRect(pt)) {
             this->sub_4A5350();
             this->sub_4A5350();
-            StopSfx(&this->field_0x20bc.sample);
-            CSound::Play(this->field_0x20bc);
+            StopSfx(&this->snd_scroll.sample);
+            CSound::Play(this->snd_scroll);
             return 1;
         }
-        if (this->field_0x20dc.PtInRect(pt)) {
+        if (this->down_arrow_rect.PtInRect(pt)) {
             this->sub_4A51C9();
             this->sub_4A51C9();
-            StopSfx(&this->field_0x20bc.sample);
-            CSound::Play(this->field_0x20bc);
+            StopSfx(&this->snd_scroll.sample);
+            CSound::Play(this->snd_scroll);
             return 1;
         }
     }
@@ -17424,7 +17424,7 @@ int32_t VisInvExtType1::OnWmUser(uint32_t wparam, CPoint pos) {
 // 4B7859
 void VisInvExtType1::sub_4B7859() {
     for (int32_t i = 0; i < 4; i++) {
-        CArray<TokenEntry*>& arr = this->field_0x2100[i];
+        CArray<TokenEntry*>& arr = this->category_grids[i];
         for (int32_t j = 0; j < arr.GetSize(); j++) {
             TokenEntry* entry = arr[j];
             if (entry != nullptr) {
@@ -17445,8 +17445,8 @@ int32_t VisInvExtType1::OnKeyDown(uint32_t wparam) {
         this->sub_4A5350();
         this->sub_4A5350();
         this->sub_4A5350();
-        StopSfx(&this->field_0x20bc.sample);
-        CSound::Play(this->field_0x20bc);
+        StopSfx(&this->snd_scroll.sample);
+        CSound::Play(this->snd_scroll);
         return 1;
     }
     if (wparam == 0x22) {
@@ -17456,8 +17456,8 @@ int32_t VisInvExtType1::OnKeyDown(uint32_t wparam) {
         this->sub_4A51C9();
         this->sub_4A51C9();
         this->sub_4A51C9();
-        StopSfx(&this->field_0x20bc.sample);
-        CSound::Play(this->field_0x20bc);
+        StopSfx(&this->snd_scroll.sample);
+        CSound::Play(this->snd_scroll);
         return 1;
     }
     return 0;
@@ -17473,12 +17473,12 @@ int32_t VisInvExtType1::OnMouseMove(uint32_t wparam, CPoint pos) {
         case 6:
         case 7:
         case 8:
-            this->field_0x20ac->placement_lock = 1;
+            this->shop->placement_lock = 1;
             ApplyCursor(main_wnd->item_cursor);
             break;
         default:
             ApplyCursor(g_Cursors[23]);
-            this->field_0x20ac->placement_lock = 0;
+            this->shop->placement_lock = 0;
             break;
         }
     }
@@ -17489,7 +17489,7 @@ int32_t VisInvExtType1::OnMouseMove(uint32_t wparam, CPoint pos) {
 // 4B9CB0
 VisInvExtType1::~VisInvExtType1() {
     for (int32_t i = 0; i < 4; i++) {
-        CArray<TokenEntry*>& arr = this->field_0x2100[i];
+        CArray<TokenEntry*>& arr = this->category_grids[i];
         for (int32_t j = 0; j < arr.GetSize(); j++) {
             TokenEntry* entry = arr[j];
             if (entry != nullptr) {
@@ -17510,7 +17510,7 @@ int32_t VisInvExtType1::OnLButtonUp(uint32_t wparam, CPoint pos) {
 
 // 4B73E4
 void VisInvExtType1::sub_4B73E4(int32_t category) {
-    this->grid_source = &this->field_0x2100[category];
+    this->grid_source = &this->category_grids[category];
     this->sub_4B4D33();
 }
 
@@ -17545,16 +17545,16 @@ VisInvExtType1Kaarg::VisInvExtType1Kaarg(int32_t _id, int32_t l, int32_t t, int3
 // 4B6D46
 void VisInvExtType1::VMethod39() {
     int32_t total_cells = this->visible_columns * this->visible_rows;
-    this->field_0x20c4 = new CRect[total_cells];
+    this->cell_rects = new CRect[total_cells];
 
     CPoint topleft = this->rect.TopLeft();
-    this->field_0x20cc = CRect(topleft.x + 0x2E, topleft.y, topleft.x + 0x76, topleft.y + 0x20);
-    this->field_0x20dc = CRect(topleft.x + 0x2E, topleft.y + 0x10F, topleft.x + 0x76, topleft.y + 0x12F);
-    CPoint origin(this->rect.left, this->field_0x20cc.bottom);
+    this->up_arrow_rect = CRect(topleft.x + 0x2E, topleft.y, topleft.x + 0x76, topleft.y + 0x20);
+    this->down_arrow_rect = CRect(topleft.x + 0x2E, topleft.y + 0x10F, topleft.x + 0x76, topleft.y + 0x12F);
+    CPoint origin(this->rect.left, this->up_arrow_rect.bottom);
 
     for (int32_t i = 0; i < this->visible_columns; i++) {
         for (int32_t j = 0; j < this->visible_rows; j++) {
-            this->field_0x20c4[j * this->visible_columns + i] = CRect(
+            this->cell_rects[j * this->visible_columns + i] = CRect(
                 origin.x + i * 0x50 + 1,
                 origin.y + j * 0x50 - 1,
                 origin.x + i * 0x50 + 0x51,
@@ -17648,12 +17648,12 @@ int32_t VisInvExtType1::VMethod37(int32_t idx) {
     int32_t new_idx = this->VMethod26(main_wnd->drag_entry, idx);
     TokenEntry* entry = this->grid_source->GetAt(new_idx);
     if (this->VMethod38() == 2) {
-        this->VisInvBase::VMethod33(main_wnd->vis_map_context->field_0x138);
+        this->VisInvBase::VMethod33(main_wnd->vis_map_context->primary_selected_object);
     } else {
         this->VMethod32(this->grid_source);
     }
     if (tab_before != main_wnd->drag_src_tab) {
-        main_wnd->vis_map_context->sub_41A7C7(main_wnd->drag_src_tab, main_wnd->drag_src_slot, this->VMethod38(), entry->field_0x20, count);
+        main_wnd->vis_map_context->sub_41A7C7(main_wnd->drag_src_tab, main_wnd->drag_src_slot, this->VMethod38(), entry->list_index, count);
     }
     main_wnd->ResetItemCursor();
     main_wnd->vis_root->MsgProc(0x46E, this->id, 0);
@@ -17663,7 +17663,7 @@ int32_t VisInvExtType1::VMethod37(int32_t idx) {
 
 // 4B7264
 void VisInvExtType1::sub_4B7264() {
-    CPoint topleft = this->field_0x20ac->rect.TopLeft();
+    CPoint topleft = this->shop->rect.TopLeft();
     if (this->arrow1 != nullptr) {
         this->arrow1->Draw(topleft.x + 0x2E, topleft.y, 0, 0, 0);
     }
@@ -17672,7 +17672,7 @@ void VisInvExtType1::sub_4B7264() {
 
 // 4B72C1
 void VisInvExtType1::sub_4B72C1() {
-    CPoint topleft = this->field_0x20ac->rect.TopLeft();
+    CPoint topleft = this->shop->rect.TopLeft();
     if (this->arrow3 != nullptr) {
         this->arrow3->Draw(topleft.x + 0x2E, topleft.y, 0, 0, 0);
     }
@@ -17681,7 +17681,7 @@ void VisInvExtType1::sub_4B72C1() {
 
 // 4B731E
 void VisInvExtType1::sub_4B731E() {
-    CPoint topleft = this->field_0x20ac->rect.TopLeft();
+    CPoint topleft = this->shop->rect.TopLeft();
     if (this->arrow2 != nullptr) {
         this->arrow2->Draw(topleft.x + 0x2E, topleft.y + 0x10F, 0, 0, 0);
     }
@@ -17690,7 +17690,7 @@ void VisInvExtType1::sub_4B731E() {
 
 // 4B7381
 void VisInvExtType1::sub_4B7381() {
-    CPoint topleft = this->field_0x20ac->rect.TopLeft();
+    CPoint topleft = this->shop->rect.TopLeft();
     if (this->arrow4 != nullptr) {
         this->arrow4->Draw(topleft.x + 0x2E, topleft.y + 0x10F, 0, 0, 0);
     }
@@ -17699,13 +17699,13 @@ void VisInvExtType1::sub_4B7381() {
 
 // 4B9E70
 int32_t VisInvExtType1::VMethod38() {
-    return (uint16_t)this->field_0x20ac->select_category + 5;
+    return (uint16_t)this->shop->select_category + 5;
 }
 
 
 // 4B846C
 void VisInvExtType2::VMethod7() {
-    VisShop* shop = this->field_0x20ac;
+    VisShop* shop = this->shop;
     CPoint topleft = shop->rect.TopLeft();
 
     if (shop->dialog_active == 0) {
@@ -17719,7 +17719,7 @@ void VisInvExtType2::VMethod7() {
 
     if (*this->visible_startref > 0) {
         CPoint pos(g_mousept.GetX(), g_mousept.GetY());
-        CRect rc = this->field_0x20cc;
+        CRect rc = this->up_arrow_rect;
         rc.OffsetRect(topleft.x, topleft.y);
         if (rc.PtInRect(pos)) {
             this->sub_4B860E();
@@ -17729,7 +17729,7 @@ void VisInvExtType2::VMethod7() {
     }
     if (this->grid_source->GetSize() - *this->visible_startref > this->visible_columns * this->visible_rows) {
         CPoint pos(g_mousept.GetX(), g_mousept.GetY());
-        CRect rc = this->field_0x20dc;
+        CRect rc = this->down_arrow_rect;
         rc.OffsetRect(topleft.x, topleft.y);
         if (rc.PtInRect(pos)) {
             this->sub_4B86BE();
@@ -17742,7 +17742,7 @@ void VisInvExtType2::VMethod7() {
 
 // 4B8339
 const char* VisInvExtType2::GetHint() {
-    VisShop* shop = this->field_0x20ac;
+    VisShop* shop = this->shop;
     if (shop->dialog_active == 0) {
         return nullptr;
     }
@@ -17755,10 +17755,10 @@ const char* VisInvExtType2::GetHint() {
     CPoint rel = mouse - topleft;
     int32_t region = this->VMethod31(&mouse);
     if (region < 0) {
-        if (this->field_0x20cc.PtInRect(rel)) {
+        if (this->up_arrow_rect.PtInRect(rel)) {
             return TxtFile::AllLines.GetAt(0x36);
         }
-        if (this->field_0x20dc.PtInRect(rel)) {
+        if (this->down_arrow_rect.PtInRect(rel)) {
             return TxtFile::AllLines.GetAt(0x37);
         }
         return TxtFile::AllLines.GetAt(0x3A);
@@ -17769,20 +17769,20 @@ const char* VisInvExtType2::GetHint() {
 
 // 4B87CE
 int32_t VisInvExtType2::OnLButtonDown(uint32_t wparam, CPoint pos) {
-    VisShop* shop = this->field_0x20ac;
+    VisShop* shop = this->shop;
     CPoint topleft = shop->rect.TopLeft();
     CPoint rel = pos - topleft;
 
-    if (this->field_0x20cc.PtInRect(rel)) {
+    if (this->up_arrow_rect.PtInRect(rel)) {
         this->sub_4A5350();
-        StopSfx(&this->field_0x20bc.sample);
-        CSound::Play(this->field_0x20bc);
+        StopSfx(&this->snd_scroll.sample);
+        CSound::Play(this->snd_scroll);
         return 1;
     }
-    if (this->field_0x20dc.PtInRect(rel)) {
+    if (this->down_arrow_rect.PtInRect(rel)) {
         this->sub_4A51C9();
-        StopSfx(&this->field_0x20bc.sample);
-        CSound::Play(this->field_0x20bc);
+        StopSfx(&this->snd_scroll.sample);
+        CSound::Play(this->snd_scroll);
         return 1;
     }
     return VisInvExtBase::OnLButtonDown(wparam, pos);
@@ -17796,12 +17796,12 @@ int32_t VisInvExtType2::OnMouseMove(uint32_t wparam, CPoint pos) {
         switch (main_wnd->drag_entry->slot_code) {
         case 1:
         case 2:
-            this->field_0x20ac->placement_lock = 1;
+            this->shop->placement_lock = 1;
             ApplyCursor(main_wnd->item_cursor);
             break;
         default:
             ApplyCursor(g_Cursors[23]);
-            this->field_0x20ac->placement_lock = 0;
+            this->shop->placement_lock = 0;
             break;
         }
     }
@@ -17854,7 +17854,7 @@ TokenEntry* VisInvExtType3::VMethod43(int32_t id1, int32_t id2) {
     }
     for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
         TokenEntry* entry = this->grid_source->GetAt(i);
-        if (entry->field_0x4 != id1) {
+        if (entry->match_id != id1) {
             continue;
         }
         if (entry->slot_code != id2) {
@@ -17879,18 +17879,18 @@ TokenEntry* VisInvExtType3::VMethod43(int32_t id1, int32_t id2) {
 
 // 4B970E
 void VisInvExtType3::sub_4B970E() {
-    while (this->field_0x20f4.GetSize() != 0) {
-        if (this->field_0x20f4.GetAt(0) != nullptr) {
-            delete this->field_0x20f4.GetAt(0);
+    while (this->entries.GetSize() != 0) {
+        if (this->entries.GetAt(0) != nullptr) {
+            delete this->entries.GetAt(0);
         }
-        this->field_0x20f4.RemoveAt(0, 1);
+        this->entries.RemoveAt(0, 1);
     }
 }
 
 
 // 4B90CF
 const char* VisInvExtType3::GetHint() {
-    VisShop* shop = this->field_0x20ac;
+    VisShop* shop = this->shop;
     if (shop->dialog_active == 0) {
         return nullptr;
     }
@@ -17926,7 +17926,7 @@ int32_t VisInvExtType3::sub_4B9B2F(int32_t idx) {
     int32_t amount = entry->count;
     int32_t grade = -1;
     if (main_wnd->drag_src_tab >= 5 && main_wnd->drag_src_tab <= 8) {
-        grade = entry->field_0x20;
+        grade = entry->list_index;
     } else {
         grade = main_wnd->drag_src_slot;
     }
@@ -17953,8 +17953,8 @@ VisInvExtType3::VisInvExtType3(int32_t _id, int32_t l, int32_t t, int32_t r, int
     : VisInvExtBase(_id, l, t, r, b, shop) {
     this->visible_columns = this->rect.Width() / 0x50 - 1;
     this->visible_rows = this->rect.Height() / 0x50;
-    this->grid_source = &this->field_0x20f4;
-    this->field_0x20f4.RemoveAll();
+    this->grid_source = &this->entries;
+    this->entries.RemoveAll();
     this->VMethod39();
     this->VisInvBase::VMethod35();
     this->shoptable = nullptr;
@@ -17965,8 +17965,8 @@ VisInvExtType3::VisInvExtType3(int32_t _id, int32_t l, int32_t t, int32_t r, int
 void VisInvExtType3::VMethod41() {
     this->VMethod42();
     CString path = "graphics\\interface\\";
-    if (this->field_0x20ac != nullptr) {
-        path += this->field_0x20ac->VMethod33();
+    if (this->shop != nullptr) {
+        path += this->shop->VMethod33();
     }
     path += "ShopTable.bmp";
     this->shoptable = new CBmp64(path);
@@ -17975,18 +17975,18 @@ void VisInvExtType3::VMethod41() {
 
 // 4B8E9A
 void VisInvExtType3::VMethod39() {
-    this->field_0x20c4 = new CRect[this->visible_columns * this->visible_rows];
+    this->cell_rects = new CRect[this->visible_columns * this->visible_rows];
 
     CPoint topleft = this->rect.TopLeft();
     CPoint bottomright = this->rect.BottomRight();
 
-    this->field_0x20cc = CRect(topleft.x, topleft.y, topleft.x + 0x20, bottomright.y);
-    this->field_0x20dc = CRect(topleft.x + 0x1B0, topleft.y, bottomright.x, bottomright.y);
+    this->up_arrow_rect = CRect(topleft.x, topleft.y, topleft.x + 0x20, bottomright.y);
+    this->down_arrow_rect = CRect(topleft.x + 0x1B0, topleft.y, bottomright.x, bottomright.y);
 
-    CPoint start(this->field_0x20cc.right, this->field_0x20cc.top);
+    CPoint start(this->up_arrow_rect.right, this->up_arrow_rect.top);
     for (int32_t col = 0; col < this->visible_columns; col++) {
         for (int32_t row = 0; row < this->visible_rows; row++) {
-            this->field_0x20c4[row * this->visible_columns + col] = CRect(
+            this->cell_rects[row * this->visible_columns + col] = CRect(
                 start.x + col * 0x50,
                 start.y + row * 0x50,
                 start.x + col * 0x50 + 0x50,
@@ -18009,9 +18009,9 @@ int32_t VisInvExtType3::VMethod37(int32_t idx) {
         TokenEntry* entry = main_wnd->drag_entry;
         if (entry->slot_code > 4 && entry->slot_code < 9) {
             char shopname[80];
-            if (main_wnd->vis_shopkaarg == this->field_0x20ac) {
+            if (main_wnd->vis_shopkaarg == this->shop) {
                 strcpy(shopname, "shop_kaarg");
-            } else if (main_wnd->vis_shopdruid == this->field_0x20ac) {
+            } else if (main_wnd->vis_shopdruid == this->shop) {
                 strcpy(shopname, "shop_druid");
             } else {
                 strcpy(shopname, "shop");
@@ -18025,29 +18025,29 @@ int32_t VisInvExtType3::VMethod37(int32_t idx) {
             } else {
                 sprintf(path, "speech\\%s\\s%.2di%.2dp%d.wav", shopname, entry->GetType(), entry->GetId(), GetRandS16(3) + 1);
             }
-            if (this->field_0x20b0.sample != nullptr) {
-                if (this->field_0x20b0.sample->FindPlayingChannel() == nullptr) {
-                    delete this->field_0x20b0.sample;
-                    this->field_0x20b0.sample = nullptr;
-                    this->field_0x20b0.sample = new SfxSample(path);
-                    this->field_0x20b0.sample->Play(g_SoundSettings.speech_pos, 0, 0, 0x80, 0);
+            if (this->snd_speech.sample != nullptr) {
+                if (this->snd_speech.sample->FindPlayingChannel() == nullptr) {
+                    delete this->snd_speech.sample;
+                    this->snd_speech.sample = nullptr;
+                    this->snd_speech.sample = new SfxSample(path);
+                    this->snd_speech.sample->Play(g_SoundSettings.speech_pos, 0, 0, 0x80, 0);
                 }
             } else {
-                this->field_0x20b0.sample = new SfxSample(path);
-                this->field_0x20b0.sample->Play(g_SoundSettings.speech_pos, 0, 0, 0x80, 0);
+                this->snd_speech.sample = new SfxSample(path);
+                this->snd_speech.sample->Play(g_SoundSettings.speech_pos, 0, 0, 0x80, 0);
             }
         }
     }
-    StopSfx(&this->field_0x20b4.sample);
-    CSound::Play(this->field_0x20b4);
+    StopSfx(&this->snd_put_on.sample);
+    CSound::Play(this->snd_put_on);
     return this->sub_4B9B2F(idx);
 }
 
 
 // 4B9C3C
 TokenEntry* VisInvExtType3::VMethod36(int32_t idx, int32_t num) {
-    StopSfx(&this->field_0x20b8.sample);
-    CSound::Play(this->field_0x20b8);
+    StopSfx(&this->snd_put_off.sample);
+    CSound::Play(this->snd_put_off);
     return VisInvBase::VMethod36(idx, num);
 }
 
@@ -18071,7 +18071,7 @@ int32_t VisInvExtType3::OnLButtonUp(uint32_t wparam, CPoint pos) {
         return 1;
     }
     if (this->sub_4B91F9(main_wnd->drag_entry) != 0) {
-        this->field_0x20ac->placement_lock = 0;
+        this->shop->placement_lock = 0;
     }
     return VisInvExtBase::OnLButtonUp(wparam, pos);
 }
@@ -18084,11 +18084,11 @@ int32_t VisInvExtType3::OnMouseMove(uint32_t wparam, CPoint pos) {
         if (main_wnd->drag_entry != nullptr) {
             if (this->sub_4B91F9(main_wnd->drag_entry) == 0) {
                 if (main_wnd->drag_entry->GetAttribute(1) > 0) {
-                    this->field_0x20ac->placement_lock = 1;
+                    this->shop->placement_lock = 1;
                     ApplyCursor(main_wnd->item_cursor);
                 }
             } else {
-                this->field_0x20ac->placement_lock = 0;
+                this->shop->placement_lock = 0;
                 ApplyCursor(g_Cursors[23]);
             }
         }
@@ -18099,7 +18099,7 @@ int32_t VisInvExtType3::OnMouseMove(uint32_t wparam, CPoint pos) {
 
 // 4B9155
 void VisInvExtType3::VMethod7() {
-    VisShop* shop = this->field_0x20ac;
+    VisShop* shop = this->shop;
     CPoint topleft = shop->rect.TopLeft();
 
     if (shop->dialog_active == 0) {
@@ -18139,7 +18139,7 @@ int32_t VisInvExtType3::VMethod27(TokenEntry* o) {
     }
     for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
         TokenEntry* entry = this->grid_source->GetAt(i);
-        if (entry->field_0x4 != o->field_0x4) {
+        if (entry->match_id != o->match_id) {
             continue;
         }
         if (entry->slot_code != o->slot_code) {
@@ -18179,14 +18179,14 @@ void VisInvExtType2::VMethod39() {
     CPoint topleft = this->rect.TopLeft();
     CPoint bottomright = this->rect.BottomRight();
 
-    this->field_0x20c4 = new CRect[this->visible_columns * this->visible_rows];
-    this->field_0x20cc = CRect(topleft.x, topleft.y, topleft.x + 0x20, bottomright.y);
-    this->field_0x20dc = CRect(topleft.x + 0x1B0, topleft.y, bottomright.x, bottomright.y);
+    this->cell_rects = new CRect[this->visible_columns * this->visible_rows];
+    this->up_arrow_rect = CRect(topleft.x, topleft.y, topleft.x + 0x20, bottomright.y);
+    this->down_arrow_rect = CRect(topleft.x + 0x1B0, topleft.y, bottomright.x, bottomright.y);
 
-    CPoint start(this->field_0x20cc.right, this->field_0x20cc.top);
+    CPoint start(this->up_arrow_rect.right, this->up_arrow_rect.top);
     for (int32_t col = 0; col < this->visible_columns; col++) {
         for (int32_t row = 0; row < this->visible_rows; row++) {
-            this->field_0x20c4[row * this->visible_columns + col] = CRect(
+            this->cell_rects[row * this->visible_columns + col] = CRect(
                 start.x + col * 0x50,
                 start.y + row * 0x50 + 5,
                 start.x + col * 0x50 + 0x50,
@@ -18198,7 +18198,7 @@ void VisInvExtType2::VMethod39() {
 
 // 4B860E
 void VisInvExtType2::sub_4B860E() {
-    CPoint topleft = this->field_0x20ac->rect.TopLeft();
+    CPoint topleft = this->shop->rect.TopLeft();
     if (g_bmp_invarrow1 != nullptr) {
         g_bmp_invarrow3->DrawSubRectMasked(topleft.x, topleft.y + 0x188, 0, 0, 0x20, 0x58);
     }
@@ -18207,7 +18207,7 @@ void VisInvExtType2::sub_4B860E() {
 
 // 4B8666
 void VisInvExtType2::sub_4B8666() {
-    CPoint topleft = this->field_0x20ac->rect.TopLeft();
+    CPoint topleft = this->shop->rect.TopLeft();
     if (g_bmp_invarrow3 != nullptr) {
         g_bmp_invarrow1->DrawSubRectMasked(topleft.x, topleft.y + 0x188, 0, 0, 0x20, 0x58);
     }
@@ -18216,7 +18216,7 @@ void VisInvExtType2::sub_4B8666() {
 
 // 4B86BE
 void VisInvExtType2::sub_4B86BE() {
-    CPoint topleft = this->field_0x20ac->rect.TopLeft();
+    CPoint topleft = this->shop->rect.TopLeft();
     if (g_bmp_invarrow2 != nullptr) {
         g_bmp_invarrow4->DrawSubRectMasked(topleft.x + 0x1B0, topleft.y + 0x188, 0, 0, 0x20, 0x58);
     }
@@ -18225,7 +18225,7 @@ void VisInvExtType2::sub_4B86BE() {
 
 // 4B871C
 void VisInvExtType2::sub_4B871C() {
-    CPoint topleft = this->field_0x20ac->rect.TopLeft();
+    CPoint topleft = this->shop->rect.TopLeft();
     if (g_bmp_invarrow4 != nullptr) {
         g_bmp_invarrow2->DrawSubRectMasked(topleft.x + 0x1B0, topleft.y + 0x188, 0, 0, 0x20, 0x58);
     }
@@ -18460,8 +18460,8 @@ void VisStartGame::VMethod26() {
     this->tableauBitmap = nullptr;
     this->returnToGameHoverBitmap = nullptr;
     this->acceptHoverBitmap = nullptr;
-    this->field_0x1bc = 0;
-    this->field_0x1c0 = 0;
+    this->gap_0x1bc = 0;
+    this->gap_0x1c0 = 0;
     this->difficultyLevel1Sound.sample = nullptr;
     this->difficultyLevel2Sound.sample = nullptr;
     this->difficultyLevel3Sound.sample = nullptr;
@@ -18992,12 +18992,12 @@ void VisStartGame::Accept() {
     } else {
 #ifdef A2CLIENT
         int32_t min_len = 1;
-        if (main_wnd->field_0x3e0.field_10 != 0 && main_wnd->hat_settings.ishat != 0) {
+        if (main_wnd->net_session.internet_game != 0 && main_wnd->hat_settings.ishat != 0) {
             min_len = 3;
         }
         if (this->nameLabel->GetText().GetLength() >= min_len) {
             if (this->nameLabel->GetText()[0] != ' ') {
-                if (main_wnd->hat_settings.ishat != 0 && main_wnd->field_0x3e0.field_10 != 0) {
+                if (main_wnd->hat_settings.ishat != 0 && main_wnd->net_session.internet_game != 0) {
                     main_wnd->SendHatJoinName(this->nameLabel->GetText());
                 }
                 CSound::Play(this->acceptSound);
@@ -19107,11 +19107,11 @@ VisStartGame::VisStartGame(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
 
 // 435D26
 void VisStartGame::ResetHoverState() {
-    this->field_0x204 = 0;
+    this->gap_0x204 = 0;
     this->returnToGameHoverBitmap = nullptr;
     this->acceptHoverBitmap = nullptr;
-    this->field_0x1bc = 0;
-    this->field_0x1c0 = 0;
+    this->gap_0x1bc = 0;
+    this->gap_0x1c0 = 0;
 }
 
 
@@ -19204,8 +19204,8 @@ void VisStartGame::FreeBitmaps() {
     this->tableauBitmap = nullptr;
     this->returnToGameHoverBitmap = nullptr;
     this->acceptHoverBitmap = nullptr;
-    this->field_0x1bc = 0;
-    this->field_0x1c0 = 0;
+    this->gap_0x1bc = 0;
+    this->gap_0x1c0 = 0;
 
     for (int32_t i = 0; i < this->portraitHoverBitmaps.GetSize(); i++) {
         if (this->portraitHoverBitmaps.GetAt(i) != nullptr) {
@@ -21829,7 +21829,7 @@ int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
                 provider = g_CLlDriver.GetProvider();
                 if (provider == 3) {
                     g_CLlDriver.Close();
-                    if (main_wnd->field_0x3e0.field_10 == 0) {
+                    if (main_wnd->net_session.internet_game == 0) {
                         PostMessageA(g_MainWndHWND, 0x453, 0, 0);
                     } else {
                         PostMessageA(g_MainWndHWND, 0x489, 0, 0);
@@ -21888,7 +21888,7 @@ int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
         } else {
             this->FillServerList();
             this->UpdatePlayerList();
-            this->sessions->field_0x4 = this->selected;
+            this->sessions->selected_row = this->selected;
         }
         return 1;
     }
@@ -22497,7 +22497,7 @@ void VisMiniMap::UpdateCursor() {
                 new_cursor = g_Cursors[9];
             } else {
                 BigStruct2* mc = this->map_context;
-                Scenario* scen = mc->field_0x80;
+                Scenario* scen = mc->scenario;
                 CRect rc2;
                 this->ClientRectToScreen(&rc2, this->rect);
                 int32_t z = this->zoom;
@@ -22522,11 +22522,11 @@ void VisMiniMap::UpdateCursor() {
                     || mc->map_width - 0x10 < (pt2.x - ox) >> z
                     || mc->map_height - 0x10 < (pt2.y - oy) >> z) {
                     new_cursor = g_Cursors[0x11];
-                } else if (mc->field_0x140 == 0) {
+                } else if (mc->selected_object_count == 0) {
                     new_cursor = g_Cursors[0x11];
                 } else {
                     new_cursor = g_Cursors[0x12];
-                    switch (mc->field_0x9b4) {
+                    switch (mc->order_mode) {
                     case 1:
                     case 6:
                         new_cursor = g_Cursors[0x13];
@@ -22543,7 +22543,7 @@ void VisMiniMap::UpdateCursor() {
                         new_cursor = g_Cursors[0x15];
                         break;
                     }
-                    if ((mc->field_0x144 & 0x24) != 0) {
+                    if ((mc->selection_flags & 0x24) != 0) {
                         new_cursor = g_Cursors[0x11];
                     }
                 }
@@ -22609,7 +22609,7 @@ int32_t VisMiniMap::OnRButtonDown(uint32_t wparam, CPoint pos) {
         z = 0;
         mode = 2;
     }
-    Scenario* scen = mc->field_0x80;
+    Scenario* scen = mc->scenario;
     int32_t x, y;
     if (mode == 1) {
         int32_t ox = 0x48 - ((scen->GetWidth() - 0x10 << z) >> 1);
@@ -22641,7 +22641,7 @@ int32_t VisMiniMap::OnLButtonDown(uint32_t wparam, CPoint pos) {
         z = 0;
         mode = 2;
     }
-    Scenario* scen = mc->field_0x80;
+    Scenario* scen = mc->scenario;
     int32_t ox, oy, x, y;
     if (mode == 1) {
         ox = 0x48 - ((scen->GetWidth() - 0x10 << z) >> 1);
@@ -22689,7 +22689,7 @@ int32_t VisMiniMap::OnLButtonDown(uint32_t wparam, CPoint pos) {
             mc->sub_41965D((uint16_t)x, (uint16_t)y);
         }
     }
-    mc->field_0x9b4 = 0;
+    mc->order_mode = 0;
     main_wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
     return 0;
 }
@@ -22697,7 +22697,7 @@ int32_t VisMiniMap::OnLButtonDown(uint32_t wparam, CPoint pos) {
 
 // 4AF0DC
 void VisMiniMap::RebuildMap() {
-    Scenario* scen = this->map_context->field_0x80;
+    Scenario* scen = this->map_context->scenario;
     uint16_t mask = (uint16_t)(((0x3F >> (8 - g_RBits & 0x1F)) << (g_RBitShift & 0x1F))
         | ((0x3F >> (8 - g_GBits & 0x1F)) << (g_GBitShift & 0x1F))
         | ((0x3F >> (8 - g_BBits & 0x1F)) << (g_BBitShift & 0x1F)));
@@ -22842,13 +22842,13 @@ void VisMiniMap::VMethod7() {
     if ((main_wnd->dialogsMask & 2) != 0 || (main_wnd->dialogsMask & 4) != 0) {
         return;
     }
-    if (abs((int)(this->viewer - mc->field_0xa88)) <= 10) {
+    if (abs((int)(this->viewer - mc->anim_tick)) <= 10) {
         return;
     }
-    this->viewer = mc->field_0xa88;
+    this->viewer = mc->anim_tick;
     CRect rc;
     this->ClientRectToScreen(&rc, this->rect);
-    Scenario* scen = mc->field_0x80;
+    Scenario* scen = mc->scenario;
     if (scen == nullptr) {
         return;
     }
@@ -22874,12 +22874,12 @@ void VisMiniMap::VMethod7() {
     oy = 0x52 - oy;
     ox = 0x48 - ox;
     g_bmp_crystalr->Draw(rc.left, rc.top, 0, 0, 0);
-    if (mc->field_0xdc == 0) {
+    if (mc->minimap_dirty == 0) {
         this->bitmap2->Draw(rc.left + ox, rc.top + oy, 0, 0, 0);
     } else {
         this->bitmap1->Draw(rc.left + ox, rc.top + oy, 0, 0, 0);
     }
-    if (mc->field_0xdc != 0) {
+    if (mc->minimap_dirty != 0) {
         uint16_t* landscape = scen->GetLandscape();
         uint16_t* cryst_data = (uint16_t*)g_bmp_crystalr->GetData();
         int32_t cryst_w = g_bmp_crystalr->GetWidth(0);
@@ -22950,13 +22950,13 @@ void VisMiniMap::VMethod7() {
             dst_row += g_selDrawBitmap.dwWidth * step;
             sy += mode;
         }
-        mc->field_0xdc = 0;
+        mc->minimap_dirty = 0;
     }
-    POSITION pos = mc->field_0x9d0.GetStartPosition();
+    POSITION pos = mc->objects.GetStartPosition();
     while (pos != nullptr) {
         uint16_t key;
         CGameObject* obj;
-        mc->field_0x9d0.GetNextAssoc(pos, key, obj);
+        mc->objects.GetNextAssoc(pos, key, obj);
         obj->DrawMinimapRect(rc.left + ox, rc.top + oy, this->zoom);
     }
     if (mode == 1) {
@@ -23018,14 +23018,14 @@ int32_t VisSpellBook::sub_41F9E0() {
 // 4CA89B
 int32_t VisSpellBook::sub_4CA89B(int32_t id) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    return (main_wnd->vis_map_context->field_0x148 & (1 << (id & 0x1F))) != 0;
+    return (main_wnd->vis_map_context->selected_available_spell_mask & (1 << (id & 0x1F))) != 0;
 }
 
 
 // 4CA8E0
 int32_t VisSpellBook::sub_4CA8E0(int32_t id) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    return (main_wnd->vis_map_context->field_0x150 & (1 << (id & 0x1F))) != 0;
+    return (main_wnd->vis_map_context->active_spell_effect_mask & (1 << (id & 0x1F))) != 0;
 }
 
 
@@ -23034,7 +23034,7 @@ void VisSpellBook::sub_4CA925(int32_t idx) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     BigStruct2* mc = main_wnd->vis_map_context;
     this->spell = idx;
-    TokenEntry* entry = mc->field_0x138->tokenEntries[this->spell];
+    TokenEntry* entry = mc->primary_selected_object->tokenEntries[this->spell];
     this->selected = (int32_t)entry->GetCastSpellId() - 1;
 }
 
@@ -23118,7 +23118,7 @@ int32_t VisSpellBook::OnLButtonDown(uint32_t wparam, CPoint pos) {
     BigStruct2* mc = main_wnd->vis_map_context;
     int32_t idx = this->FUN_004ca7c2(&pos);
     if (idx >= 0
-        && ((mc->field_0x148 | mc->field_0x150) & (1 << (idx & 0x1F))) != 0) {
+        && ((mc->selected_available_spell_mask | mc->active_spell_effect_mask) & (1 << (idx & 0x1F))) != 0) {
         this->pressed = idx;
     }
     return 1;
@@ -23174,7 +23174,7 @@ int32_t VisSpellBook::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
     BigStruct2* mc = main_wnd->vis_map_context;
     int32_t idx = this->FUN_004ca7c2(&pos);
     if (idx < 0
-        || ((mc->field_0x148 | mc->field_0x150) & (1 << (idx & 0x1F))) == 0
+        || ((mc->selected_available_spell_mask | mc->active_spell_effect_mask) & (1 << (idx & 0x1F))) == 0
         || DAT_0062F9C8[idx] == 0) {
         this->OnLButtonDown(wparam, pos);
     } else {
@@ -23279,20 +23279,20 @@ void VisSpellBook::VMethod7() {
     g_bmp_spellbook->DrawSubRectMasked(rc.left + left, rc.top, 0, 0,
         g_bmp_spellbook->GetWidth(0), g_bmp_spellbook->GetHeight(0));
     for (int32_t i = 0; i < 24; i++) {
-        if (((mc->field_0x148 | mc->field_0x150) & (1 << (i & 0x1F))) == 0) {
+        if (((mc->selected_available_spell_mask | mc->active_spell_effect_mask) & (1 << (i & 0x1F))) == 0) {
             g_bmp_spellback->Draw(left + rc.left + 6 + (i % 0xC) * 0x26,
                 rc.top + 6 + (i / 0xC) * 0x26, 0, 0, 0);
         }
     }
     if (this->pressed >= 0
-        && ((mc->field_0x148 | mc->field_0x150) & (1 << (this->pressed & 0x1F))) != 0) {
+        && ((mc->selected_available_spell_mask | mc->active_spell_effect_mask) & (1 << (this->pressed & 0x1F))) != 0) {
         int32_t bx = (this->pressed % 0xC) * 0x26 + 6;
         int32_t by = (this->pressed / 0xC) * 0x26 + 6;
         FillRectBrightness(left + rc.left + bx, rc.top + by,
             left + rc.left + 0x24 + bx, rc.top + 0x24 + by, 4);
     }
     for (int32_t i = 0; i < 0x18; i++) {
-        if (((mc->field_0x148 | mc->field_0x150) & (1 << (i & 0x1F))) != 0) {
+        if (((mc->selected_available_spell_mask | mc->active_spell_effect_mask) & (1 << (i & 0x1F))) != 0) {
             int32_t fkey = 0;
             for (int32_t s = 0; s < 9; s++) {
                 if (main_wnd->m_GameSession.shortcuts[s].IsSpellShortcut((short)i)) {
@@ -23310,7 +23310,7 @@ void VisSpellBook::VMethod7() {
                     rc.top + 8 + off + (i / 0xC) * 0x26, buf, 0, clrsh_TechBlack, 1);
             }
         }
-        if ((mc->field_0x14c & (1 << (i & 0x1F))) != 0) {
+        if ((mc->selected_active_spell_mask & (1 << (i & 0x1F))) != 0) {
             char buf[80];
             sprintf(buf, "A");
             int32_t off = 0;
@@ -23331,7 +23331,7 @@ const char* VisSpellBook::GetHint() {
     BigStruct2* mc = main_wnd->vis_map_context;
     CPoint mpt(g_mousept.GetX(), g_mousept.GetY());
     int32_t idx = this->FUN_004ca7c2(&mpt);
-    if ((mc->field_0x148 & (1 << (idx & 0x1F))) == 0) {
+    if ((mc->selected_available_spell_mask & (1 << (idx & 0x1F))) == 0) {
         return nullptr;
     }
     if ((main_wnd->dialogsMask & 2) == 0 && main_wnd->dialogsMask != 1) {
@@ -23439,7 +23439,7 @@ const char* VisSpellBook::GetHint() {
 // 4C99C7
 VisSpellBook::VisSpellBook(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : CVisualObject(_id, l, t, r, b, nullptr) {
-    this->field_0x5c = 0;
+    this->dirty = 0;
     this->pressed = -1;
     this->selected = -1;
     this->spell = -1;
@@ -23899,7 +23899,7 @@ void VisServerScreen::VMethod7() {
 
     int32_t avg_units_per_10_ticks = 0;
     if (g_Server->tic16 != 0) {
-        avg_units_per_10_ticks = g_Server->field44_0x1bc / g_Server->tic16 / 10;
+        avg_units_per_10_ticks = g_Server->total_ms / g_Server->tic16 / 10;
     }
     if (g_Server->srv_stru1->sack_list != nullptr) {
         str.Format(txt_patch.GetLine(0x42),
@@ -23909,7 +23909,7 @@ void VisServerScreen::VMethod7() {
                    g_Server->srv_stru1->building_list->GetCount(),
                    g_Server->srv_stru1->units_list->unit_list.GetCount(),
                    g_Server->srv_stru1->sack_list->list.GetCount(),
-                   g_Server->field42_0x1b4 / 10,
+                   g_Server->last_window_ms / 10,
                    avg_units_per_10_ticks);
         g_font2->DrawTxt(0, row_bottom + 4, str, 0, clrsh_ShockingBlack);
     }
@@ -23935,9 +23935,9 @@ void VisServerScreen::VMethod26() {
     int32_t checked = 1;
     if (strstr(afxCurrentWinApp->m_lpCmdLine, "-saveonserver") != nullptr
         || strstr(afxCurrentWinApp->m_lpCmdLine, "-internetserver") != nullptr) {
-        g_Server->field39_0x1a8 = 0;
+        g_Server->save_on_server = 0;
     }
-    if (g_Server->field39_0x1a8 != 0) {
+    if (g_Server->save_on_server != 0) {
         checked = 0;
     }
     save_on_server->ReadData(&checked);
@@ -23982,7 +23982,7 @@ int32_t VisServerScreen::OnKeyDown(uint32_t wparam) {
         PacketJoin& pkt = PacketJoin::Inst;
         pkt.id = 0x91;
         pkt.to_player_id = 0;
-        pkt.__field_0xa = 0;
+        pkt.__as_dword = 0;
 
         CVisualObject* textbox = this->FindChild(0x68);
         textbox->WriteData(pkt.name);
@@ -24014,7 +24014,7 @@ int32_t VisServerScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 
     case 0x46E:  // "save on server" checkbox changed
         if (wparam == 0x65) {
-            g_Server->field39_0x1a8 = (lparam == 0) ? 1 : 0;
+            g_Server->save_on_server = (lparam == 0) ? 1 : 0;
             return 1;
         }
         return this->VisScreen::MsgProc(msg, wparam, lparam);
@@ -24567,7 +24567,7 @@ int32_t VisHatBrowserList::IsItemEnabled(int32_t idx) {
     int32_t players = atoi(item.Mid(pos, 2));
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->field_0x3e0.field_10 == 0 || main_wnd->hat_settings.ishat == 0 || main_wnd->hat_settings.deathmatch == 0) {
+    if (main_wnd->net_session.internet_game == 0 || main_wnd->hat_settings.ishat == 0 || main_wnd->hat_settings.deathmatch == 0) {
         if (main_wnd->m_GameSession.GetSkillTier1() > level + 1
             || main_wnd->m_GameSession.GetSkillTier2() < level + 1
             || players == 16) {
@@ -24800,15 +24800,15 @@ struct HatBrowserProgress {
     std::vector<uint8_t> recv_buf;
     in_addr addr;
     int32_t send_serial;
-    int32_t field_1dc;
-    int32_t field_1e0;
-    int32_t field_1e4;
+    int32_t min_rtt;
+    int32_t max_rtt;
+    int32_t last_rtt;
     int32_t recv_serial;
-    int32_t field_1ec;
-    int32_t field_1f0;
-    int32_t field_1f4;
-    int32_t field_1f8;
-    int32_t field_1fc;
+    int32_t total_rtt;
+    int32_t timeouts;
+    int32_t error;
+    int32_t active;
+    int32_t wsa_started;
     uint32_t timestamp;
     CRITICAL_SECTION cs;
 
@@ -24842,16 +24842,16 @@ struct HatBrowserProgress {
         addr.S_un.S_addr = 0;
         send_serial = 0;
         sock = INVALID_SOCKET;
-        field_1fc = 0;
+        wsa_started = 0;
         timestamp = 0;
-        field_1dc = 10000;
-        field_1e4 = 0;
-        field_1e0 = 0;
-        field_1e4 = 0;
-        field_1ec = 0;
+        min_rtt = 10000;
+        last_rtt = 0;
+        max_rtt = 0;
+        last_rtt = 0;
+        total_rtt = 0;
         recv_serial = 0;
-        field_1f0 = 0;
-        field_1f4 = 0;
+        timeouts = 0;
+        error = 0;
 
         InitializeCriticalSection(&cs);
 
@@ -24859,19 +24859,19 @@ struct HatBrowserProgress {
             send_buf.resize(0x400);
             recv_buf.resize(0x400);
             if (send_buf.empty() || recv_buf.empty()) {
-                field_1f4 = -5;
+                error = -5;
             }
             else {
-                field_1fc = 1;
+                wsa_started = 1;
             }
         }
         else {
-            field_1f4 = -1;
+            error = -1;
         }
     }
 
     ~HatBrowserProgress() {
-        if (field_1fc != 0) {
+        if (wsa_started != 0) {
             if (sock != INVALID_SOCKET)
                 closesocket(sock);
             WSACleanup();
@@ -24881,21 +24881,21 @@ struct HatBrowserProgress {
 
 
     void Init(const char* hst) { //4b1a9b
-        if (field_1fc == 0)
+        if (wsa_started == 0)
             return;
 
-        field_1f8 = 0;
+        active = 0;
 
         EnterCriticalSection(&cs);
 
-        field_1dc = 1000;
-        field_1e4 = 0;
-        field_1e0 = 0;
-        field_1e4 = 0;
-        field_1ec = 0;
+        min_rtt = 1000;
+        last_rtt = 0;
+        max_rtt = 0;
+        last_rtt = 0;
+        total_rtt = 0;
         recv_serial = 0;
-        field_1f0 = 0;
-        field_1f4 = 0;
+        timeouts = 0;
+        error = 0;
 
         LeaveCriticalSection(&cs);
 
@@ -24904,20 +24904,20 @@ struct HatBrowserProgress {
         
         sock = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP);
         if (sock == INVALID_SOCKET) {
-            field_1f4 = -2;
+            error = -2;
             return;
         }
 
         err = setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (const char*)&timeout, 4);
         if (err == -1) {
-            field_1f4 = -3;
+            error = -3;
             return;
         }
 
         timeout = 1000;
         err = setsockopt(sock, SOL_SOCKET, SO_SNDTIMEO, (const char*)&timeout, 4);
         if (err == -1) {
-            field_1f4 = -3;
+            error = -3;
             return;
         }
 
@@ -24929,7 +24929,7 @@ struct HatBrowserProgress {
         }
 
         if ((host_ent == nullptr) && addr.S_un.S_addr == 0xffffffff) {
-            field_1f4 = -4;
+            error = -4;
             return;
         }
 
@@ -24952,16 +24952,16 @@ struct HatBrowserProgress {
         memset(send_buf.data(), 0, send_buf.size());
         InitBuf(send_buf.data(), send_len);
 
-        field_1f8 = 1;
+        active = 1;
         timestamp = GetTickCount();
     }
 
 
     void FUN_004b1dbb() { //4b1dbb
-        if (field_1f8 == 0)
+        if (active == 0)
             return;
 
-        field_1f4 = 0;
+        error = 0;
 
         send_len = 0x20;
         send_len += 0xc;
@@ -24981,9 +24981,9 @@ struct HatBrowserProgress {
 
         if (res == -1) {
             if (WSAGetLastError() == WSAETIMEDOUT)
-                field_1f4 = -6;
+                error = -6;
             else
-                field_1f4 = -7;
+                error = -7;
             return;
         }
 
@@ -24993,41 +24993,41 @@ struct HatBrowserProgress {
         if (err == -1) {
             if (WSAGetLastError() == WSAETIMEDOUT) {
                 EnterCriticalSection(&cs);
-                field_1f0++;
-                field_1f4 = -8;
+                timeouts++;
+                error = -8;
                 LeaveCriticalSection(&cs);
             }
             else
-                field_1f4 = -9;
+                error = -9;
             return;
         }
             
         uint32_t* rdat = (uint32_t*)(recv_buf.data() + (recv_buf[0] & 0xf) * 4);
         if (*(uint8_t*)rdat != 0) {
-            field_1f4 = -10;
+            error = -10;
             return;
         }
 
         if ((rdat[1] & 0xffff) != (GetCurrentProcessId() & 0xffff)) {
-            field_1f4 = -10;
+            error = -10;
             return;
         }
 
         EnterCriticalSection(&cs);
-        field_1e4 = timestamp - rdat[2];
+        last_rtt = timestamp - rdat[2];
         recv_serial++;
-        field_1ec += field_1e4;
+        total_rtt += last_rtt;
 
-        if (field_1dc >= field_1e4)
-            field_1dc = field_1e4;
+        if (min_rtt >= last_rtt)
+            min_rtt = last_rtt;
 
-        if (field_1e4 >= field_1e0)
-            field_1e0 = field_1e4;
+        if (last_rtt >= max_rtt)
+            max_rtt = last_rtt;
         LeaveCriticalSection(&cs);
     }
 
     int32_t FUN_00453df0() { //453df0
-        return field_1f4;
+        return error;
     }
 };
 
@@ -25047,8 +25047,8 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
             VisHatBrowserList* list = (VisHatBrowserList*)this->FindChild(1);
             CString item = list->GetItem(list->GetSelectedIndex());
             int32_t field_pos = GetFieldPos(item, 7);
-            main_wnd->field_0x3e0.connect_address = item.Mid(field_pos);
-            main_wnd->field_0x3e0.connect_address = main_wnd->field_0x3e0.connect_address.Left(main_wnd->field_0x3e0.connect_address.Find('|'));
+            main_wnd->net_session.connect_address = item.Mid(field_pos);
+            main_wnd->net_session.connect_address = main_wnd->net_session.connect_address.Left(main_wnd->net_session.connect_address.Find('|'));
 #ifdef A2CLIENT
             if (main_wnd->hat_settings.deathmatch == 2) {
                 ((VisRadioType2*)this->FindChild(0x31))->WriteData(&main_wnd->hat_settings.store);
@@ -25170,11 +25170,11 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
             CString s2;
             EnterCriticalSection(&prog->cs);
             int32_t step = (int32_t)wparam;
-            if (prog->recv_serial + prog->field_1f0 != 0) {
-                int32_t total = prog->recv_serial + prog->field_1f0;
-                s1.Format(txt_patch.GetLine(0x7f), prog->field_1dc, (prog->recv_serial != 0) ? prog->field_1ec / prog->recv_serial : 0, prog->field_1e0, (total != 0) ? prog->field_1f0 * 100 / total : 0);
+            if (prog->recv_serial + prog->timeouts != 0) {
+                int32_t total = prog->recv_serial + prog->timeouts;
+                s1.Format(txt_patch.GetLine(0x7f), prog->min_rtt, (prog->recv_serial != 0) ? prog->total_rtt / prog->recv_serial : 0, prog->max_rtt, (total != 0) ? prog->timeouts * 100 / total : 0);
                 if (step == 0) {
-                    s2.Format(txt_patch.GetLine(0x80), prog->field_1e4, total);
+                    s2.Format(txt_patch.GetLine(0x80), prog->last_rtt, total);
                 }
                 else {
                     s2 = txt_patch.GetLine(0x80 - step);
@@ -25527,7 +25527,7 @@ void VisNetTcpIp::VMethod31(int32_t code) {
         this->FindChild(2)->WriteData(buffer);
         *this->ip = buffer;
         main_wnd->PostMessage(0x452, 0, 0);
-        main_wnd->field_0x3e0.connect_address = buffer;
+        main_wnd->net_session.connect_address = buffer;
     } else {
         g_CLlDriver.Close();
         main_wnd->PostMessage(0x451, 0, 0);
@@ -25567,9 +25567,9 @@ void VisHatServerListDlg::VMethod31(int32_t code) {
 #endif
         this->FindChild(9)->WriteData(&this->hat_settings->store);
 #ifndef A2CLIENT
-            main_wnd->field_0x3e0.field_10 = (this->hat_settings->ishat == 0) ? 1 : 0;
+            main_wnd->net_session.internet_game = (this->hat_settings->ishat == 0) ? 1 : 0;
 #else
-            main_wnd->field_0x3e0.field_10 = 1;
+            main_wnd->net_session.internet_game = 1;
 #endif
         if (this->hat_settings->ishat == 0) {
             main_wnd->PostMessage(0x426, 0, 0);
@@ -25707,9 +25707,9 @@ Vis1200obj::Vis1200obj(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, 
     : CVisualObject(_id, l, t, r, b, hint) {
     this->font = _font;
     this->clr = _clr;
-    this->field_0xa0 = 1;
-    this->field_0x90 = -1;
-    this->field_0x94 = 0;
+    this->cursor_visible = 1;
+    this->match_player_index = -1;
+    this->match_name_length = 0;
     this->flags |= 2;
 }
 
@@ -25722,21 +25722,21 @@ void Vis1200obj::VMethod7() {
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
 
-    for (int32_t i = 0; i < this->field_0x70.GetSize(); i++) {
+    for (int32_t i = 0; i < this->history.GetSize(); i++) {
         if (i == 0) {
-            this->FUN_0043b504(&this->field_0x70[0]);
+            this->FUN_0043b504(&this->history[0]);
         } else {
-            this->font->DrawTxt(screen_rect.left, screen_rect.bottom - this->font->GetHeight() * (this->field_0x70.GetSize() - i + 1), this->field_0x70[i], 0, this->clr);
+            this->font->DrawTxt(screen_rect.left, screen_rect.bottom - this->font->GetHeight() * (this->history.GetSize() - i + 1), this->history[i], 0, this->clr);
         }
     }
 
-    if (this->field_0xa0 != 0) {
-        line = this->field_0x84 + '_';
+    if (this->cursor_visible != 0) {
+        line = this->input_line + '_';
     } else {
-        line = this->field_0x84;
+        line = this->input_line;
     }
 
-    if (this->field_0x70.GetSize() == 0) {
+    if (this->history.GetSize() == 0) {
         this->FUN_0043b504(&line);
     } else {
         this->font->DrawTxt(screen_rect.left, screen_rect.bottom - this->font->GetHeight(), line, 0, this->clr);
@@ -25760,9 +25760,9 @@ int32_t Vis1200obj::OnKeyDown(uint32_t wparam) {
         result = 1;
         break;
     case 0xD:
-        if (this->field_0x84.GetLength() != 0) {
-            this->field_0x70.Add(this->field_0x84);
-            this->field_0x84.Empty();
+        if (this->input_line.GetLength() != 0) {
+            this->history.Add(this->input_line);
+            this->input_line.Empty();
         }
         // fall through
     case 0x1B:
@@ -25774,17 +25774,17 @@ int32_t Vis1200obj::OnKeyDown(uint32_t wparam) {
 // 43B283
 int32_t Vis1200obj::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     if (msg == 0x402) {
-        this->field_0x9c = timeGetTime();
-        if (this->field_0x9c - this->field_0x98 > 500) {
-            this->field_0x98 = this->field_0x9c;
-            if (this->field_0xa0 == 0) {
-                this->field_0xa0 = 1;
+        this->blink_now_tick = timeGetTime();
+        if (this->blink_now_tick - this->blink_last_tick > 500) {
+            this->blink_last_tick = this->blink_now_tick;
+            if (this->cursor_visible == 0) {
+                this->cursor_visible = 1;
             } else {
-                this->field_0xa0 = 0;
+                this->cursor_visible = 0;
             }
         }
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-        main_wnd->vis_map_context->field_0xe0 = 1;
+        main_wnd->vis_map_context->full_redraw_requested = 1;
     }
     return CVisualObject::MsgProc(msg, wparam, lparam);
 }
@@ -25806,14 +25806,14 @@ int32_t Vis1200obj::OnChar(uint32_t wparam) {
 // 43AD35
 void Vis1200obj::WriteData(void* buf) {
     CString* out = (CString*)buf;
-    for (int32_t i = 0; i < this->field_0x70.GetSize(); i++) {
-        *out += this->field_0x70[i];
+    for (int32_t i = 0; i < this->history.GetSize(); i++) {
+        *out += this->history[i];
     }
 }
 
 // 43ACCA
 void Vis1200obj::ReadData(const void* buf) {
-    this->field_0x84 = (const char*)buf;
+    this->input_line = (const char*)buf;
 }
 
 // 43C020
@@ -25823,66 +25823,66 @@ uint32_t Vis1200obj::DataSize() {
 
 // 497330
 int32_t Vis1200obj::FUN_00497330() {
-    return this->field_0x94;
+    return this->match_name_length;
 }
 
 // 4972F0
 int32_t Vis1200obj::FUN_004972f0() {
-    return this->field_0x90;
+    return this->match_player_index;
 }
 
 // 43AD86
 void Vis1200obj::FUN_0043ad86() {
-    this->field_0x5c.Copy(this->field_0x70);
+    this->history_backup.Copy(this->history);
 }
 
 // 43AC8C
 void Vis1200obj::FUN_0043ac8c() {
-    this->field_0x90 = -1;
-    this->field_0x94 = 0;
-    this->field_0x70.RemoveAll();
-    this->field_0x84.Empty();
+    this->match_player_index = -1;
+    this->match_name_length = 0;
+    this->history.RemoveAll();
+    this->input_line.Empty();
 }
 
 // 43ADA3
 void Vis1200obj::FUN_0043ada3() {
-    this->field_0x70.Copy(this->field_0x5c);
-    this->field_0x84.Empty();
-    if (this->field_0x70.GetSize() != 0) {
-        this->field_0x84 = this->field_0x70[this->field_0x70.GetUpperBound()];
-        this->field_0x70.RemoveAt(this->field_0x70.GetUpperBound(), 1);
+    this->history.Copy(this->history_backup);
+    this->input_line.Empty();
+    if (this->history.GetSize() != 0) {
+        this->input_line = this->history[this->history.GetUpperBound()];
+        this->history.RemoveAt(this->history.GetUpperBound(), 1);
     }
 }
 
 // 43AE1C
 void Vis1200obj::FUN_0043ae1c(uint8_t ch) {
-    if (this->font->GetStrWidth(this->field_0x84) + this->font->GetStrWidth("_") < this->rect.Width()) {
-        this->field_0x84 += (char)ch;
+    if (this->font->GetStrWidth(this->input_line) + this->font->GetStrWidth("_") < this->rect.Width()) {
+        this->input_line += (char)ch;
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-        main_wnd->vis_map_context->field_0xe0 = 1;
-    } else if (this->field_0x70.GetSize() < 2) {
-        int32_t pos = this->field_0x84.ReverseFind(' ');
+        main_wnd->vis_map_context->full_redraw_requested = 1;
+    } else if (this->history.GetSize() < 2) {
+        int32_t pos = this->input_line.ReverseFind(' ');
         if (pos < 10) {
-            this->field_0x70.Add(this->field_0x84);
-            this->field_0x84.Empty();
+            this->history.Add(this->input_line);
+            this->input_line.Empty();
         } else {
-            CString left = this->field_0x84.Left(pos + 1);
-            this->field_0x70.Add(left);
-            this->field_0x84 = this->field_0x84.Right(this->field_0x84.GetLength() - pos - 1);
+            CString left = this->input_line.Left(pos + 1);
+            this->history.Add(left);
+            this->input_line = this->input_line.Right(this->input_line.GetLength() - pos - 1);
         }
-        this->field_0x84.TrimLeft();
+        this->input_line.TrimLeft();
         this->FUN_0043ae1c(ch);
     }
 }
 
 // 43B03A
 void Vis1200obj::FUN_0043b03a() {
-    this->field_0x84 = this->field_0x84.Left(this->field_0x84.GetLength() - 1);
-    this->field_0x84.TrimLeft();
-    if (this->field_0x84.GetLength() == 0 && this->field_0x70.GetSize() > 0) {
-        this->field_0x84 = this->field_0x70[this->field_0x70.GetUpperBound()];
-        this->field_0x70.RemoveAt(this->field_0x70.GetUpperBound(), 1);
-        this->field_0x84.TrimLeft();
+    this->input_line = this->input_line.Left(this->input_line.GetLength() - 1);
+    this->input_line.TrimLeft();
+    if (this->input_line.GetLength() == 0 && this->history.GetSize() > 0) {
+        this->input_line = this->history[this->history.GetUpperBound()];
+        this->history.RemoveAt(this->history.GetUpperBound(), 1);
+        this->input_line.TrimLeft();
     }
 }
 
@@ -25940,29 +25940,29 @@ void FUN_00476987(CString* str) {
 void Vis1200obj::FUN_0043b724() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     BigStruct2* map = main_wnd->vis_map_context;
-    int32_t pos = this->field_0x84.GetLength() - 1;
+    int32_t pos = this->input_line.GetLength() - 1;
     if (pos == -1) {
         return;
     }
     int32_t start = 0;
-    if (this->field_0x84[0] == '=' || this->field_0x84[0] == '-') {
+    if (this->input_line[0] == '=' || this->input_line[0] == '-') {
         start = 1;
     }
-    if (FUN_0043aae0(this->field_0x84[pos]) != 0) {
+    if (FUN_0043aae0(this->input_line[pos]) != 0) {
         return;
     }
-    while (pos >= start && FUN_0043aae0(this->field_0x84[pos]) == 0) {
+    while (pos >= start && FUN_0043aae0(this->input_line[pos]) == 0) {
         pos--;
     }
-    CString word = this->field_0x84.Mid(pos + 1);
+    CString word = this->input_line.Mid(pos + 1);
     if (word.IsEmpty()) {
         return;
     }
     int32_t word_end = pos;
     FUN_00476236(&word);
     CStringArray candidates;
-    for (int32_t i = 0; i < map->field_0x9b8.GetSize(); i++) {
-        MapPlayerData* player = map->field_0x9b8[i];
+    for (int32_t i = 0; i < map->map_players.GetSize(); i++) {
+        MapPlayerData* player = map->map_players[i];
         if (player != 0 && (player->flags & 1) == 0) {
             candidates.Add(player->name);
         }
@@ -25982,19 +25982,19 @@ void Vis1200obj::FUN_0043b724() {
             return;
         }
     }
-    this->field_0x84 = this->field_0x84.Left(word_end + 1) + candidates[0];
-    map->field_0xe0 = 1;
+    this->input_line = this->input_line.Left(word_end + 1) + candidates[0];
+    map->full_redraw_requested = 1;
 }
 
 // 43BA75
 void Vis1200obj::FUN_0043ba75() {
-    int32_t pos = this->field_0x84.GetLength() - 1;
+    int32_t pos = this->input_line.GetLength() - 1;
     if (pos == -1) {
         return;
     }
-    while (pos > 0 && FUN_0043aae0(this->field_0x84[pos]) == 0) {
+    while (pos > 0 && FUN_0043aae0(this->input_line[pos]) == 0) {
         this->FUN_0043b03a();
-        pos = this->field_0x84.GetLength() - 1;
+        pos = this->input_line.GetLength() - 1;
     }
     this->FUN_0043b03a();
 }
@@ -26003,20 +26003,20 @@ void Vis1200obj::FUN_0043ba75() {
 void Vis1200obj::FUN_0043b504(CString* str) {
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
-    this->field_0x90 = -1;
-    this->field_0x94 = 0;
-    this->font->DrawTxt(screen_rect.left, screen_rect.bottom - this->font->GetHeight() * (this->field_0x70.GetSize() + 1), *str, 0, this->clr);
+    this->match_player_index = -1;
+    this->match_name_length = 0;
+    this->font->DrawTxt(screen_rect.left, screen_rect.bottom - this->font->GetHeight() * (this->history.GetSize() + 1), *str, 0, this->clr);
     if (!str->IsEmpty() && (*str)[0] == '-') {
         CString name_part = str->Mid(1);
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
         BigStruct2* map = main_wnd->vis_map_context;
-        for (int32_t i = 0; i < map->field_0x9b8.GetSize(); i++) {
-            MapPlayerData* player = map->field_0x9b8[i];
+        for (int32_t i = 0; i < map->map_players.GetSize(); i++) {
+            MapPlayerData* player = map->map_players[i];
             if (player != 0) {
                 CString pname = player->name;
                 if (pname == name_part.Left(pname.GetLength())) {
-                    this->field_0x90 = i;
-                    this->field_0x94 = pname.GetLength() + 1;
+                    this->match_player_index = i;
+                    this->match_name_length = pname.GetLength() + 1;
                     break;
                 }
             }
@@ -26073,7 +26073,7 @@ void Vis1200::VMethod28() {
     this->text_block->FUN_0043ac8c();
     VisScreen::VMethod28();
     this->active = 1;
-    this->text_block->field_0x98 = timeGetTime();
+    this->text_block->blink_last_tick = timeGetTime();
 }
 
 // 43BDCB
@@ -26475,7 +26475,7 @@ void VisDropGold::DoClose(uint32_t code) {
 
         TokenEntry* entry = main_wnd->vis_invtype1->VMethod36(this->selection, (int32_t)amount);
         main_wnd->vis_map_context->my_main_unit->gold -= entry->count;
-        main_wnd->vis_map_context->sub_41AC88(entry->count, main_wnd->vis_map_context->field_0x3f6c->tileX | (main_wnd->vis_map_context->field_0x3f6c->tileY << 8));
+        main_wnd->vis_map_context->sub_41AC88(entry->count, main_wnd->vis_map_context->my_unit->tileX | (main_wnd->vis_map_context->my_unit->tileY << 8));
         main_wnd->ResetItemCursor();
 
         if (entry != nullptr) {
@@ -26822,8 +26822,8 @@ void VisHatSession::VMethod7() { // 4e8545
     }
     else {
         for (int i = 0; i < 16; i++) {
-            if (mwnd->vis_map_context->hat_cursor_slots[i] != 0xf0000003 && i + 16 < mwnd->vis_map_context->field_0x9b8.GetSize()) {
-                MapPlayerData* pl = mwnd->vis_map_context->field_0x9b8[i + 16];
+            if (mwnd->vis_map_context->hat_cursor_slots[i] != 0xf0000003 && i + 16 < mwnd->vis_map_context->map_players.GetSize()) {
+                MapPlayerData* pl = mwnd->vis_map_context->map_players[i + 16];
                 if (pl) {
                     num++;
 
@@ -26888,9 +26888,9 @@ void VisHatSession::VMethod7() { // 4e8545
     if (mwnd->vis_map_context->hat_item_slot12 == 0) {
         g_font2->DrawTextWithShadow(rect.left + rect.Width() / 2, yoff, txt_patch.GetLine(181), 2, clrsh_TechBlack, 1);
     }
-    else if (mwnd->vis_map_context->field_0x4a04 < 0x7fffffff) {
+    else if (mwnd->vis_map_context->hat_player_count < 0x7fffffff) {
         CString local_88;
-        local_88.Format(txt_patch.GetLine(186), mwnd->vis_map_context->field_0x4a04);
+        local_88.Format(txt_patch.GetLine(186), mwnd->vis_map_context->hat_player_count);
         g_font2->DrawTextWithShadow(rect.left + rect.Width() / 2, yoff, local_88, 2, clrsh_TechBlack, 1);
     }
     else {

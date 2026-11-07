@@ -334,7 +334,7 @@ void Inn::InnCreateQuests(Player* player) {
             avg_x /= count;
             avg_y /= count;
 
-            TokenPos pos(avg_x, avg_y, g_World->field24_0xa50);
+            TokenPos pos(avg_x, avg_y, g_World->map_stuff);
             Building* near_building = building_list->FindClosest(&pos);
 
             int32_t obj = grp->group_id;
@@ -539,7 +539,7 @@ void Inn::InnCreateQuests(Player* player) {
     //  KillInnDefenders (vtable: off_60F790)
     // =====================================================================
     {
-        // Find an AI enemy player that owns a building and has field_0xa60 != 0,
+        // Find an AI enemy player that owns a building and has quest_ai != 0,
         // and diplomacy with inn owner says hostile.
         struct Candidate { Player* p; Building* b; };
         std::vector<Candidate> candidates;
@@ -553,7 +553,7 @@ void Inn::InnCreateQuests(Player* player) {
             if (!(g_World->diplomacy.diplomacy[this->pOwner->player_id][p->player_id] & 1)) {
                 continue;
             }
-            if (!p->field_0xa60) {
+            if (!p->quest_ai) {
                 continue;
             }
 
@@ -1072,7 +1072,7 @@ void Inn::InnReward(Player* player) {
                     upgrade_points = equip->magic_volume / mana_cost;
                 }
 
-                equip->field15_0x54 = 1;
+                equip->upgraded_at_inn = 1;
 
                 // Create a copy of the item.
                 Item* copy;
@@ -1143,7 +1143,7 @@ void Inn::UpdateQuests(Unit* unit) {
         }
     }
     this->unit_list.AddTail(unit);
-    if (g_Server->field4_0x74 != 0) {
+    if (g_Server->fog_of_war != 0) {
         unit->RemoveFromMap();
     }
 }
@@ -1186,7 +1186,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
     }
 
     // Notify if server field is set
-    if (g_Server->field4_0x74 != 0) {
+    if (g_Server->fog_of_war != 0) {
         humanoid->ReturnToMap();
     }
 
@@ -1385,7 +1385,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                     } else {
                         // Last item вЂ” try to equip it, so `equipped` would be the item that was on the player before.
                         Item* equipped = item->Equip(humanoid);
-                        if (equipped == nullptr || equipped->field15_0x54 == 0) {
+                        if (equipped == nullptr || equipped->upgraded_at_inn == 0) {
                             // Failed --- burn the item.
                             item->Unequip(humanoid);
                             delete item;

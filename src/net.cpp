@@ -117,7 +117,7 @@ void NetStru1::SendExistingPlayers(Player* player) {
 		packet.flags = p->is_ai != 0;
 		this->QueuePacketSend(&packet);
 
-		if (p->main_unit != nullptr && p->main_unit->field_0x1bc != 0
+		if (p->main_unit != nullptr && p->main_unit->has_flagged_item != 0
 #ifndef A2CLIENT
 			&& g_ServerConfig.gameType == 0
 #endif
@@ -180,7 +180,7 @@ void NetStru1::AnnouncePlayer(Player* player) {
     packet.id = 0x93;
     strcpy(packet.name, player->name);
     packet.to_player_id = 0;
-    packet.__field_0xa = player->player_id;
+    packet.__as_dword = player->player_id;
     this->QueuePacketSend(&packet);
 }
 
@@ -223,7 +223,7 @@ void NetStru1::SendArenaScore(CString& name, uint32_t score, char type, Player* 
     }
     strcpy(packet.name, name);
     packet.to_player_id = player ? player->player_id : 0;
-    packet.__field_0xa = score;
+    packet.__as_dword = score;
     this->QueuePacketSend(&packet);
 }
 
@@ -326,12 +326,12 @@ void NetStru1::SendAreaEffect(AreaEffect* obj, int32_t flag) {
         packet.id = 0x87;
 
         const int8_t radius = obj->radius;
-        packet.field_0xb = obj->position->GetX() - radius;
-        packet.field_0xc = obj->position->GetY() - radius;
+        packet.x = obj->position->GetX() - radius;
+        packet.y = obj->position->GetY() - radius;
 
         const int8_t size = radius * 2 + 1;
-        packet.field_0xd = size;
-        packet.field_0xe = size;
+        packet.width = size;
+        packet.height = size;
 
         for (int32_t i = 0; i < 12; i++) {
             packet.data[i] = 0;
@@ -339,7 +339,7 @@ void NetStru1::SendAreaEffect(AreaEffect* obj, int32_t flag) {
         for (int32_t dx = 0; dx <= radius * 2; ++dx) {
             for (int32_t dy = 0; dy <= radius * 2; ++dy) {
                 int32_t bit_index = dx + dy * size;
-                int32_t coordinate = (packet.field_0xb + dx) + ((packet.field_0xc + dy) << 8);
+                int32_t coordinate = (packet.x + dx) + ((packet.y + dy) << 8);
                 AreaEffect* applicable = MapStuff_Instance->AreaEffectCovers(obj, coordinate);
                 if (flag != 0) {
                     if (applicable != 0) {
@@ -369,7 +369,7 @@ void NetStru1::SendPendingUnits(Player* player) {
             if (unit->ownership_changed != 0) {
                 flags |= 0x40;
             }
-            if (g_Server->field4_0x74 == 0 && 0x16 <= unit->server_id && unit->server_id <= 0x17) {
+            if (g_Server->fog_of_war == 0 && 0x16 <= unit->server_id && unit->server_id <= 0x17) {
                 flags |= 0x200000;
             }
             g_NetStru1_main.SendUnitUpdate(unit, player, flags, 0xFFB, 0, 0);
@@ -484,7 +484,7 @@ void NetStru1::SendUnitVisibility(Unit* unit, int32_t flag, Player* player) {
 
     if (player != nullptr) {
         packet.to_player_id = player->player_id;
-        if (g_Server->field4_0x74 != 0) {
+        if (g_Server->fog_of_war != 0) {
             if ((unit->seen_by_mask & player->vision_sharing_id) == 0) {
                 int32_t pid = player->player_id;
                 if (pid >= 0x10 && pid < 0x20) {
@@ -506,7 +506,7 @@ void NetStru1::SendUnitVisibility(Unit* unit, int32_t flag, Player* player) {
             continue;
         }
         packet.to_player_id = p->player_id;
-        if (g_Server->field4_0x74 != 0) {
+        if (g_Server->fog_of_war != 0) {
             if ((unit->seen_by_mask & p->vision_sharing_id) == 0) {
                 int32_t pid = p->player_id;
                 if (pid >= 0x10 && pid < 0x20) {
@@ -643,12 +643,12 @@ void NetStru1::UpdateConnStats() {
     while (pos != nullptr) {
         this->client_stat.GetNextAssoc(pos, key, info);
         info->time += 1;
-        info->total_bytes += info->field1;
-        if (info->field1 > info->max_bs) {
-            info->max_bs = info->field1;
+        info->total_bytes += info->window_bytes;
+        if (info->window_bytes > info->max_bs) {
+            info->max_bs = info->window_bytes;
         }
-        info->cur_bs = info->field1;
-        info->field1 = 0;
+        info->cur_bs = info->window_bytes;
+        info->window_bytes = 0;
     }
 }
 
@@ -656,7 +656,7 @@ void NetStru1::UpdateConnStats() {
 void NetStru1::SendHatLobbyInfo(int32_t player_count, CString source, int32_t map_level, int32_t game_type, int32_t map_range) {
 	PacketJoin& pkt = PacketJoin::Inst;
 	pkt.id = 0xd2;
-	pkt.__field_0xa = player_count | (map_level << 8) | (game_type << 16) | (map_range << 24);
+	pkt.__as_dword = player_count | (map_level << 8) | (game_type << 16) | (map_range << 24);
 	strcpy(pkt.name, source);
 	pkt.to_player_id = 0;
 	this->QueuePacketSend(&pkt);
@@ -739,7 +739,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
 
     // Check unit visibility to this player (unit->field_0x1a4 & player->vision_sharing_id).
     if (!(unit->seen_by_mask & player->vision_sharing_id)) {
-        if (g_Server->field4_0x74 != 0) {
+        if (g_Server->fog_of_war != 0) {
             int16_t pid = player->player_id;
             if (pid >= 0x10 && pid < 0x20) {
                 unit->something_per_player[pid - 16] |= mask;
@@ -764,7 +764,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
             if (unit->server_id > 20) {
                 mask &= 0x800000db;
             }
-        } else if (g_Server->field4_0x74 != 0) {
+        } else if (g_Server->fog_of_war != 0) {
             mask &= ~0x80;
         }
 
@@ -773,10 +773,10 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
 
             int32_t max_hp = unit->monster_info->Values()[0].health_max;
 
-            if (g_Server->field4_0x74 == 0) {
-                if (g_Server->field22_0xd8 == 1) {
+            if (g_Server->fog_of_war == 0) {
+                if (g_Server->difficulty == 1) {
                     max_hp = (int32_t)((double)max_hp * 0.5);
-                } else if (g_Server->field22_0xd8 == 3) {
+                } else if (g_Server->difficulty == 3) {
                     max_hp = (int32_t)((double)max_hp * 1.5);
                 }
             }
@@ -796,7 +796,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
                 }
             }
         }
-        if (g_Server->field4_0x74 != 0) {
+        if (g_Server->fog_of_war != 0) {
             mask &= ~0x80;
         }
     }
@@ -911,7 +911,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
     // bit 0x2000000: battle stats (owner only).
     if (mask & 0x2000000) {
         Player* owner = unit->pOwner;
-        if (g_Server->field4_0x74 == 0 || owner == nullptr || player != owner || owner->main_unit != unit) {
+        if (g_Server->fog_of_war == 0 || owner == nullptr || player != owner || owner->main_unit != unit) {
             mask &= ~0x2000000;
         } else {
             pkt->PutInt(0x2000000, owner->monster_kills);
@@ -1331,10 +1331,10 @@ NetStru1::NetStru1(int param) {
     this->make_statistics = param;
     InitializeCriticalSection(&this->critical_section);
     InitializeCriticalSection(&this->critical_section2);
-    this->field_0x18a4 = 0;
-    this->field_0x18a0 = 0;
-    this->field_0x189c = 0;
-    this->field_0x1898 = 0;
+    this->packer2_packed_bytes = 0;
+    this->packer2_trained_bytes = 0;
+    this->packer1_packed_bytes = 0;
+    this->packer1_trained_bytes = 0;
     this->compression_mode = 0;
     this->compression_type = 1;
     memset(this->stat_pkt_num, 0, sizeof(this->stat_pkt_num));
@@ -1364,10 +1364,10 @@ NetStru1::~NetStru1() {
     this->lldriver = nullptr;
     this->linked_hl = nullptr;
     this->make_statistics = 0;
-    this->field_0x18a4 = 0;
-    this->field_0x18a0 = 0;
-    this->field_0x189c = 0;
-    this->field_0x1898 = 0;
+    this->packer2_packed_bytes = 0;
+    this->packer2_trained_bytes = 0;
+    this->packer1_packed_bytes = 0;
+    this->packer1_trained_bytes = 0;
     this->compression_mode = 0;
     this->compression_type = 1;
 }
@@ -1391,7 +1391,7 @@ void NetStru1::OnClientDisconnect(NetStru2* cli) {
     if (this == &HatConnector) {
         LogMessage("Connection with hat has been lost.");
         if (g_Server) {
-            g_Server->field51_0x1d8 = GetTickCount();
+            g_Server->hat_disconnect_tick = GetTickCount();
         }
         return;
     }
@@ -1412,7 +1412,7 @@ void NetStru1::OnClientDisconnect(NetStru2* cli) {
                 pl->drop_deadline_tick16 = g_Server->tick16 + 300;
             }
 
-            if (!MapStuff_Instance && g_Server->field4_0x74) {
+            if (!MapStuff_Instance && g_Server->fog_of_war) {
                 this->SendInfoPacket(0x97, pl->player_id, 0, nullptr);
                 LogMessage("Player " + pl->name + " disconnected.");
 
@@ -1436,7 +1436,7 @@ void NetStru1::OnClientDisconnect(NetStru2* cli) {
                 if (lldriver && lldriver->provider == 4 &&
                     g_ServerConfig.gameType != 1 &&
                     g_ServerConfig.gameType != 3 &&
-                    g_Server->field59_0x208 == 0) {
+                    g_Server->game_started == 0) {
                     if (g_ServerConfig.gameType == 2) {
                         if (g_PlayersList->AreTeamsStarted()) {
                             pl->drop_deadline_tick16 = MAXINT32;
@@ -1445,7 +1445,7 @@ void NetStru1::OnClientDisconnect(NetStru2* cli) {
                         pl->drop_deadline_tick16 = g_Server->tick16 + 300;
                     }
                 }
-                if (!MapStuff_Instance && g_Server->field4_0x74) {
+                if (!MapStuff_Instance && g_Server->fog_of_war) {
                     this->SendInfoPacket(0x97, pl->player_id, 0, nullptr);
                     LogMessage("Player " + pl->name + " has disconnected and leaved game.");
 
@@ -1544,7 +1544,7 @@ void NetStru1::AddStat1(NetStru2* client, int32_t value) {
     this->client_stat.Lookup(client->uid, stat);
 
     if (stat) {
-        stat->field1 += value;
+        stat->window_bytes += value;
     }
 }
 
@@ -1807,13 +1807,13 @@ int NetStru2::SendData() {
 
 NetStru2::NetStru2() {
     //515831
-    this->field_0x2a0 = 0;
-    this->field_0x2a4 = 0;
+    this->gap_0x2a0 = 0;
+    this->gap_0x2a4 = 0;
     this->is_claimed = 0;
-    this->field_0x2ac = 0;
-    this->field_0x2b4 = -1;
+    this->gap_0x2ac = 0;
+    this->gap_0x2b4 = -1;
     this->str.Empty();
-    this->field_0x2b8 = 0;
+    this->gap_0x2b8 = 0;
     this->hldriver = nullptr;
     this->lldriver = nullptr;
     this->out_buff_id = 0;
@@ -4177,7 +4177,7 @@ int32_t CLlDriver::GetPacketLoss(uint32_t conn_uid) {
 // Helper: check if a map visibility grid cell is visible to a player.
 // Returns true if player can see the position, or fog is disabled, or map is null.
 bool IsVisibleTo(TokenPos* pos, Player* player) {
-    if (MapStuff_Instance == nullptr || g_Server->field4_0x74 == 0) {
+    if (MapStuff_Instance == nullptr || g_Server->fog_of_war == 0) {
         return true;
     }
 
@@ -4207,7 +4207,7 @@ void MarkUnitHiddenForPlayer(PacketMoveBroadcast* packet, Player* player) {
 void NetStru1::SendUnitAction(Packet* packet, Unit* unit) {
     if (packet->to_player_id != 0) {
         Player* player = g_PlayersList->FindById(packet->to_player_id);
-        if ((unit->seen_by_mask & player->vision_sharing_id) == 0 && g_Server->field4_0x74 != 0) {
+        if ((unit->seen_by_mask & player->vision_sharing_id) == 0 && g_Server->fog_of_war != 0) {
             int32_t pid = player->player_id;
             if (pid >= 0x10 && pid < 0x20 && packet->id == 0x6B &&
                 (unit->something_per_player[pid - 0x10] & 0x40000000) == 0) {
@@ -4226,7 +4226,7 @@ void NetStru1::SendUnitAction(Packet* packet, Unit* unit) {
         if (!player->is_active) {
             continue;
         }
-        if ((unit->seen_by_mask & player->vision_sharing_id) == 0 && g_Server->field4_0x74 != 0) {
+        if ((unit->seen_by_mask & player->vision_sharing_id) == 0 && g_Server->fog_of_war != 0) {
             int32_t pid = player->player_id;
             if (pid >= 0x10 && pid < 0x20 && packet->id == 0x6B &&
                 (unit->something_per_player[pid - 0x10] & 0x40000000) == 0) {
@@ -4271,14 +4271,14 @@ void NetStru1::BroadcastMovePacket(PacketMoveBroadcast* packet, TokenPos* pos) {
 void NetStru1::BroadcastAoeZone(PacketAoeZone* packet, AreaEffect* area_effect) {
     if (packet->to_player_id != 0) {
         Player* player = g_PlayersList->FindById(packet->to_player_id);
-        if ((area_effect->field4_0x42 & player->vision_sharing_id) != 0 || g_Server->field4_0x74 == 0) {
+        if ((area_effect->seen_by_mask & player->vision_sharing_id) != 0 || g_Server->fog_of_war == 0) {
             this->QueuePacketSend(packet);
         } else {
             auto pid = player->player_id;
             if (pid >= 0x10 && pid < 0x20) {
                 if (packet->set_flag != 0) {
-                    area_effect->field6_0x46 |= player->vision_sharing_id;
-                } else if ((area_effect->field6_0x46 & player->vision_sharing_id) == 0) {
+                    area_effect->notified_mask |= player->vision_sharing_id;
+                } else if ((area_effect->notified_mask & player->vision_sharing_id) == 0) {
                     this->QueuePacketSend(packet);
                 }
             }
@@ -4292,15 +4292,15 @@ void NetStru1::BroadcastAoeZone(PacketAoeZone* packet, AreaEffect* area_effect) 
         if (!player->is_active) {
             continue;
         }
-        if ((area_effect->field4_0x42 & player->vision_sharing_id) != 0 || g_Server->field4_0x74 == 0) {
+        if ((area_effect->seen_by_mask & player->vision_sharing_id) != 0 || g_Server->fog_of_war == 0) {
             packet->to_player_id = player->player_id;
             this->QueuePacketSend(packet);
         } else {
             auto pid = player->player_id;
             if (pid >= 0x10 && pid < 0x20) {
                 if (packet->set_flag != 0) {
-                    area_effect->field6_0x46 |= player->vision_sharing_id;
-                } else if ((area_effect->field6_0x46 & player->vision_sharing_id) == 0) {
+                    area_effect->notified_mask |= player->vision_sharing_id;
+                } else if ((area_effect->notified_mask & player->vision_sharing_id) == 0) {
                     packet->to_player_id = player->player_id;
                     this->QueuePacketSend(packet);
                 }
@@ -4464,7 +4464,7 @@ void NetStru1::SendHatKeepalive(uint16_t player_id) {
 void NetStru1::SendHatLogin(CString name) {
     PacketJoin& packet = PacketJoin::Inst;
     packet.id = 0xD1;
-    packet.__field_0xa = 0;
+    packet.__as_dword = 0;
     strcpy(packet.name, name);
     packet.to_player_id = 0;
     this->QueuePacketSend(&packet);
@@ -4754,7 +4754,7 @@ void NetStru1::BroadcastTokenState(Token* token, Player* player, uint8_t flag) {
     if (token->IsUnit()) {
         Unit* unit = static_cast<Unit*>(token);
         if (flag == 0x73) {
-            if (!(unit->seen_by_mask & player->vision_sharing_id) && g_Server->field4_0x74 != 0) {
+            if (!(unit->seen_by_mask & player->vision_sharing_id) && g_Server->fog_of_war != 0) {
                 int32_t pid = player->player_id;
                 if (0x10 <= pid && pid < 0x20) {
                     unit->something_per_player[pid - 0x10] |= 1;
@@ -4792,7 +4792,7 @@ void NetStru1::BroadcastTokenState(Token* token, Player* player, uint8_t flag) {
         }
 #endif
 
-        if (g_Server->field4_0x74 != 0) {
+        if (g_Server->fog_of_war != 0) {
             if (!IsVisibleTo(sack->position, player)) {
                 return;
             }

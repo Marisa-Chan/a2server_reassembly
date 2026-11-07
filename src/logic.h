@@ -71,7 +71,7 @@ public:
     CList<int32_t>* actions;
     uint32_t once;
     uint8_t gap_0xc[4];
-    uint32_t field_0x10;
+    uint32_t gap_0x10;
     uint32_t trigger_id;
 
 public:

@@ -26,11 +26,11 @@ public:
 
 public:
     Unit *caster;
-    uint8_t field2_0x40;
-    uint8_t field3_0x41;
-    uint16_t field4_0x42;
-    uint16_t field6_0x44;
-    uint16_t field6_0x46;
+    uint8_t expired;
+    uint8_t offensive;
+    uint16_t seen_by_mask;
+    uint16_t seen_by_mask_prev;
+    uint16_t notified_mask;
 };
 ASSERT_SIZE(SpellEffect, 0x48);
 
@@ -90,7 +90,7 @@ public:
     uint8_t wave_pattern;
     uint8_t wave_step;
     uint16_t duration;
-    uint8_t field_0x52[2];
+    uint8_t gap_0x52[2];
 };
 ASSERT_SIZE(AreaEffect, 0x54);
 

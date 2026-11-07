@@ -126,7 +126,7 @@ Fame2::Fame2() {
     this->is_text = 1;
     this->picture = nullptr;
     this->str.Empty();
-    this->field_x34 = 1;
+    this->gap_x34 = 1;
     this->top_line = 0;
 }
 
@@ -166,7 +166,7 @@ void Fame2::operator=(const Fame2& b) {
     this->picture = b.picture;
     this->str = b.str;
     this->rect = b.rect;
-    this->field_x34 = b.field_x34;
+    this->gap_x34 = b.gap_x34;
     this->top_line = b.top_line;
 }
 
@@ -295,8 +295,8 @@ void CFameHall::SaveEntries(CFile* file) {
         file->Write(&len, 4);
         file->Write(fame.str, len);
         file->Write(&fame.score, 4);
-        file->Write(&fame.field_x8, 4);
-        file->Write(&fame.field_xc, 4);
+        file->Write(&fame.value2, 4);
+        file->Write(&fame.value3, 4);
     }
 }
 
@@ -321,8 +321,8 @@ void CFameHall::LoadEntries(CFile* file) {
             fame.str = buf;
 
             file->Read(&fame.score, 4);
-            file->Read(&fame.field_x8, 4);
-            file->Read(&fame.field_xc, 4);
+            file->Read(&fame.value2, 4);
+            file->Read(&fame.value3, 4);
         }
     }
 }
@@ -493,7 +493,7 @@ void ServerControlDialog::OnClose() {
 // 495774
 void ServerControlDialog::OnCommand3ff() {
     if (g_Server != nullptr && !g_HatLLDriver.IsListen()) {
-        g_Server->field51_0x1d8 = 1;
+        g_Server->hat_disconnect_tick = 1;
     }
     this->UpdateControlStates();
 }
@@ -541,14 +541,14 @@ void ServerControlDialog::UpdateControlStates() {
     }
 
     int32_t enable = 0;
-    if (!g_HatLLDriver.IsListen() && g_Server->field51_0x1d8 != 1) {
+    if (!g_HatLLDriver.IsListen() && g_Server->hat_disconnect_tick != 1) {
         enable = 1;
     }
     this->button_1c4.EnableWindow(enable);
 
     this->button_14c.EnableWindow(main_wnd->list_box2.GetCurSel() != -1);
-    this->button_110.EnableWindow(g_Server->field18_0x94);
-    this->button_d4.EnableWindow(g_Server->field18_0x94);
+    this->button_110.EnableWindow(g_Server->has_world_state);
+    this->button_d4.EnableWindow(g_Server->has_world_state);
     this->button_188.EnableWindow(main_wnd->shutdown_pending == 0);
     this->edit_5c.EnableWindow(g_ShutdownIn == 0x7FFFFFFF);
     this->button_23c.EnableWindow(g_ShutdownIn < 0x7FFFFFFF);
@@ -696,8 +696,8 @@ void MainWindow::PlayDefaultMusic() {
         this->music_player->SetPlayList(*plist);
         delete plist;
 
-        if (this->vis_map_context->field_0x3f6c != nullptr) {
-            UpdatePositionalMusic(this->vis_map_context->field_0x3f6c->x_pos, this->vis_map_context->field_0x3f6c->y_pos);
+        if (this->vis_map_context->my_unit != nullptr) {
+            UpdatePositionalMusic(this->vis_map_context->my_unit->x_pos, this->vis_map_context->my_unit->y_pos);
         }
 
         if (g_CurrentMusicTrack >= 0) {
@@ -718,7 +718,7 @@ int32_t MainWindow::WaitHatConnection() {
     g_NetStru1_local.SendHatConnectServer( *(HatCharId*)&m_GameSession.sessionKeyPart1,
         m_GameSession.body, m_GameSession.reaction, m_GameSession.mind, m_GameSession.spirit,
         m_GameSession.main_sphere, m_GameSession.face | m_GameSession.type,
-        m_GameSession.color, m_GameSession.character_name ,field_0x3e0.connect_address);
+        m_GameSession.color, m_GameSession.character_name ,net_session.connect_address);
 #endif 
 
     while (true) {
@@ -795,8 +795,8 @@ void MainWindow::ClearDiplomacyEntries() {
     }
     this->diplomacy_entries->RemoveAll();
 
-    for (int32_t i = 0; i < this->vis_map_context->field_0x9b8.GetSize(); i++) {
-        MapPlayerData* mpd = this->vis_map_context->field_0x9b8[i];
+    for (int32_t i = 0; i < this->vis_map_context->map_players.GetSize(); i++) {
+        MapPlayerData* mpd = this->vis_map_context->map_players[i];
         if (mpd != nullptr && (mpd->flags & 1) == 0) {
             uint16_t dipl_flags = this->vis_map_context->my_main_unit->diplomacy[mpd->index];
             DiplomacyEntry* entry = new DiplomacyEntry(mpd->name, (dipl_flags & 1) != 0, (dipl_flags & 2) != 0, (dipl_flags & 0x10) != 0, (dipl_flags & 4) != 0);
@@ -858,7 +858,7 @@ void MainWindow::ShowCurrentTownDialog() {
     }
 
     this->vis_root->VMethod9();
-    this->field_0x460 = 0;
+    this->app_initialized = 0;
 
     if (g_SoundSettings.music_allowed != 0) {
         if (this->music_player->GetPlaylist().GetSize() == 0 || this->music_player->GetPlaylist()[0] != (*plist)[0]) {
@@ -884,7 +884,7 @@ int32_t MainWindow::ConnectToServerAddress() {
 
     CLlAddress addr;
     strcpy(addr.address, "0.0.0.0");
-    int result = g_CLlDriver.PrepareForConnect(this->field_0x3e0.connect_address, &addr);
+    int result = g_CLlDriver.PrepareForConnect(this->net_session.connect_address, &addr);
     if (result != 0) {
         result = g_CLlDriver.Connect(this->m_GameSession.character_name, nullptr);
     }
@@ -998,7 +998,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
                     this->m_GameSession.AutosaveCharacter();
                 }
             } else if (this->dialogsMask == 0) {
-                if (!this->field_0x3e0.field_08.IsEmpty()) {
+                if (!this->net_session.key_capture_str.IsEmpty()) {
                     this->vis_root->MsgProc(0x100, key, 0);
                 } else if (this->sessionMode == 2) {
                     this->PostMessage(0x41f, 0, 0);
@@ -1046,9 +1046,9 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
                 }
             } else {
                 this->unlimited_speed = 0;
-                this->field_0x438 = timeGetTime();
+                this->tick_anchor_time = timeGetTime();
                 this->game_tic_counter = 0;
-                this->field_0x43c = 0;
+                this->gap_0x43c = 0;
             }
             break;
 
@@ -1062,7 +1062,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
             }
 
 #ifdef A2CLIENT
-            if (this->dialogsMask == 1 && field_0x3e0.field_10 != 0 && hat_settings.ishat != 0 && hat_settings.deathmatch == 3){
+            if (this->dialogsMask == 1 && net_session.internet_game != 0 && hat_settings.ishat != 0 && hat_settings.deathmatch == 3){
                 this->PostMessage(0x420, 0, 0);
             }
 #endif
@@ -1076,7 +1076,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
                     }
                 } else if (this->dialogsMask == 1
 #ifdef A2CLIENT
-                    && (field_0x3e0.field_10 == 0 || hat_settings.ishat == 0 || hat_settings.deathmatch == 0 || hat_settings.deathmatch == 3)
+                    && (net_session.internet_game == 0 || hat_settings.ishat == 0 || hat_settings.deathmatch == 0 || hat_settings.deathmatch == 3)
 #endif
                            ) {
                     this->PostMessage(0x43c, 0, 0);
@@ -1140,7 +1140,7 @@ void MainWindow::OnClose() {
 void MainWindow::MarkHatSessionEnded() {
     if (g_Server != nullptr) {
         if (g_HatLLDriver.IsListen() == 0) {
-            g_Server->field51_0x1d8 = 1;
+            g_Server->hat_disconnect_tick = 1;
         }
     }
 }
@@ -1184,7 +1184,7 @@ void MainWindow::OnChar(UINT ch, UINT repeat, UINT flags) {
 
 // 4919c7
 void MainWindow::OpenConsoleInput() {
-    this->vis_map_context->field_0xe0 = 1;
+    this->vis_map_context->full_redraw_requested = 1;
     this->vis_map_context->AddChild(this->vis_1200);
     this->vis_1200->FUN_0043be9f();
     this->vis_1200->VMethod28();
@@ -1231,7 +1231,7 @@ void MainWindow::DestroyServer() {
     NetStru1::HatConnector.ProcessConnections();
 #endif
 
-    this->field_0x438 = 0x7fffffff;
+    this->tick_anchor_time = 0x7fffffff;
     this->last_tic_time = 0x7fffffff;
 }
 
@@ -1246,7 +1246,7 @@ void MainWindow::ShowFameHallDocDlg() {
     this->vis_root->AddChild(this->vis_famedocument);
     this->vis_famedocument->VMethod28();
     this->vis_root->VMethod9();
-    this->field_0x460 = 0;
+    this->app_initialized = 0;
     this->dialogsMask = this->dialogsMask | 0x4000;
     g_Cursors[0]->Use();
 }
@@ -1562,25 +1562,25 @@ MainWindow::MainWindow() { //4837e1
     this->item_cursor = nullptr;
     this->music_update_proc = nullptr;
     this->dialogsMask = 0;
-    this->field_0x44c = 0;
+    this->gap_0x44c = 0;
     this->game_speed = 4;
-    this->field_0x438 = 0x7fffffff;
+    this->tick_anchor_time = 0x7fffffff;
     this->last_tic_time = 0x7fffffff;
     this->unlimited_speed = 0;
     this->serverBootstrapEnabled = 0;
     this->pending_game_mode = 0;
     this->vis_msgbox = nullptr;
     this->inside_building = 0;
-    this->field_0x34c = nullptr;
+    this->net_dialog = nullptr;
     this->vis_msgbox_list = nullptr;
     this->vis_netmapsel = nullptr;
     this->vis_hatbrowser = nullptr;
     this->vis_map_context = nullptr;
 
-    this->field_0x3e0.field_08.Empty();
-    this->field_0x3e0.field_00.Empty();
-    this->field_0x3e0.hat_id = 0;
-    this->field_0x3e0.field_10 = 0;
+    this->net_session.key_capture_str.Empty();
+    this->net_session.gap_00.Empty();
+    this->net_session.hat_id = 0;
+    this->net_session.internet_game = 0;
 
     this->shutdown_pending = 0;
 
@@ -2021,7 +2021,7 @@ void MainWindow::IdleLoop() {
                     }
                 }
                 
-                if (g_Server->field59_0x208 != 0) {
+                if (g_Server->game_started != 0) {
                     if (g_PlayersList->CountHumanPlayers() == 0) {
                         if (g_Server->FileList.GetSize() == 0) {
                             g_Server->ProcessPlayers();
@@ -2062,7 +2062,7 @@ void MainWindow::IdleLoop() {
                     
                     // Check if map should change now.
                     if (time_diff <= (this->game_tic_time * 16)) {
-                        if (g_Server->field59_0x208 == 0) {
+                        if (g_Server->game_started == 0) {
                             g_ServerConfig.current_map_index++;
                             
                             int32_t size = g_ServerConfig.map_durations.GetSize();
@@ -2085,7 +2085,7 @@ void MainWindow::IdleLoop() {
                 int32_t timeout_threshold = g_ServerConfig.arena_time_limit * 60000;
                 if (timeout_threshold <= g_Server->map_elapsed_time2) {
                     if (g_ServerConfig.gameType == 3) {
-                        if (g_Server->field59_0x208 == 0) {
+                        if (g_Server->game_started == 0) {
                             g_Server->ResetArenaRound(2);
                         }
                     }
@@ -2159,7 +2159,7 @@ void MainWindow::ServerTickPump() { //484259
 
     int32_t sredne = 0;
     if (g_Server->tic16) {
-        sredne = g_Server->field44_0x1bc / g_Server->tic16 / 10;
+        sredne = g_Server->total_ms / g_Server->tic16 / 10;
     }
 
     char buf[2560];
@@ -2171,7 +2171,7 @@ void MainWindow::ServerTickPump() { //484259
                                             g_Server->srv_stru1->building_list->GetCount(),
                                             g_Server->srv_stru1->units_list->unit_list.GetCount(),
                                             g_Server->srv_stru1->sack_list->list.GetCount(),
-                                            g_Server->field42_0x1b4 / 10,
+                                            g_Server->last_window_ms / 10,
                                             sredne,
                                             this->current_map_name,
                                             txt_main.GetLine(108 + this->game_speed));
@@ -2324,10 +2324,10 @@ int MainWindow::SetSpeed(int speed) {
 
     this->game_tic_time = 1000 / ticks_per_second;
     this->game_tic_counter = 0;
-    this->field_0x43c = 0;
-    this->field_0x438 = timeGetTime();
+    this->gap_0x43c = 0;
+    this->tick_anchor_time = timeGetTime();
     this->last_tic_time = timeGetTime(); //GetTickCount??
-    this->field_0x440 = 0;
+    this->gap_0x440 = 0;
     return old_speed != this->game_speed;
 }
 
@@ -2344,16 +2344,16 @@ BOOL MainWindow::UpdateClipCursor() {
 void MainWindow::Proc_421() {
     // 48d49b
     // client: 491619
-    this->field_0x3e0.field_10 = 0;
-    this->field_0x3e0.connect_address.Empty();
-    this->field_0x3e0.hat_id = 0;
+    this->net_session.internet_game = 0;
+    this->net_session.connect_address.Empty();
+    this->net_session.hat_id = 0;
 
     this->m_FameHall.ZeroFactors();
 
-    this->vis_map_context->field_0x9d0.RemoveAll();
-    if (this->vis_map_context->field_0x3f6c != nullptr) {
-        delete this->vis_map_context->field_0x3f6c;
-        this->vis_map_context->field_0x3f6c = nullptr;
+    this->vis_map_context->objects.RemoveAll();
+    if (this->vis_map_context->my_unit != nullptr) {
+        delete this->vis_map_context->my_unit;
+        this->vis_map_context->my_unit = nullptr;
     }
     g_Cursors[CURSOR_WAIT]->Use();
 
@@ -2370,7 +2370,7 @@ void MainWindow::Proc_421() {
     this->vis_root->AddChild(this->vis_mainmenu);
     this->vis_mainmenu->VMethod28();
     this->vis_root->VMethod9();
-    this->field_0x460 = 0;
+    this->app_initialized = 0;
     this->dialogsMask |= 0x80;
     this->DestroyServer();
 
@@ -2399,8 +2399,8 @@ void MainWindow::Proc_421()
 {
     //48d49b
 
-    field_0x3e0.field_10 = 0;
-    field_0x3e0.connect_address.Empty();
+    net_session.internet_game = 0;
+    net_session.connect_address.Empty();
     DestroyServer();
     PostMessage(0x440, 0, 0);
 }
@@ -2463,11 +2463,11 @@ DiplomacyEntry::~DiplomacyEntry() {
 }
 
 void MainWindow::Proc_44c(CVisualObject* obj) {
-    this->field_0x460 = 1;
+    this->app_initialized = 1;
 
     this->vis_root->RemoveChild(obj);
 
-    this->vis_map_context->field_0xe0 = 1;
+    this->vis_map_context->full_redraw_requested = 1;
 
     if (obj == this->vis_shop || obj == this->vis_shopdruid || obj == this->vis_shopkaarg) {
         this->vis_map_context->FUN_0041a8cc();
@@ -2536,7 +2536,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
             } else {
                 this->m_GameSession.ResetCharacter();
 
-                if (this->field_0x3e0.field_10 == 0) {
+                if (this->net_session.internet_game == 0) {
                     PostMessage(0x451, 0, 0);
                 } else {
                     PostMessage(0x489, 0, 0);
@@ -2547,8 +2547,8 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         this->dialogsMask &= ~0x800;
 
         if (this->vis_startgame->GetCloseCode() == 0x446) {
-            if (!this->vis_map_context->field_0x9d0.IsEmpty()) {
-                this->vis_map_context->field_0x9d0.RemoveAll();
+            if (!this->vis_map_context->objects.IsEmpty()) {
+                this->vis_map_context->objects.RemoveAll();
 
                 CUnit *uni = this->vis_map_context->GetUnit_3f6c();
                 if (uni) {
@@ -2566,7 +2566,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         } else {
 #ifdef A2CLIENT
             int32_t dododo = 0;
-            if (this->hat_settings.ishat != 0 && this->field_0x3e0.field_10 != 0) {
+            if (this->hat_settings.ishat != 0 && this->net_session.internet_game != 0) {
                 dododo = ClientWaitErrCode();
                 if (dododo == -1) {
                     this->vis_msgbox_list = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(18), nullptr, 0x2000);
@@ -2628,14 +2628,14 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         this->dialogsMask &= ~0x400;
 
         if (this->vis_charsel->GetCloseCode() == 0x446) {
-            if (!this->field_0x3e0.field_08.IsEmpty()) {
+            if (!this->net_session.key_capture_str.IsEmpty()) {
                 PostMessage(WM_CLOSE, 0, 0);
             } else {
                 PostMessage(0x421, 0, 0);
             }
         } else if ((this->m_GameSession.flags & 4) == 0) {
             this->ShowStartGameSetupForNewSession();
-        } else if (this->field_0x3e0.field_10 == 0) {
+        } else if (this->net_session.internet_game == 0) {
             PostMessage(0x451, 0, 0);
         } else {
             PostMessage(0x489, 0, 0);
@@ -2653,21 +2653,21 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
     } else if (obj == this->vis_dropgold) {
         this->dialogsMask &= ~0x8;
 
-        this->field_0x438 = timeGetTime();
+        this->tick_anchor_time = timeGetTime();
         this->game_tic_counter = 0;
-        this->field_0x43c = 0;
-    } else if (obj == this->field_0x12c) {
+        this->gap_0x43c = 0;
+    } else if (obj == this->gap_0x12c) {
         this->dialogsMask &= ~0x8;
 
-        if (this->field_0x12c->GetCloseCode() == 0x447) {
+        if (this->gap_0x12c->GetCloseCode() == 0x447) {
             this->vis_map_context->FUN_0041d2da(1);
             PostMessage(0x421, 0, 0);
         } else {
             PostMessage(0x42e, 0, 0);
         }
 
-        delete this->field_0x12c;
-        this->field_0x12c = nullptr;
+        delete this->gap_0x12c;
+        this->gap_0x12c = nullptr;
     } else if (obj == this->vis_savegame) { //save game
         this->dialogsMask &= ~0x8;
 
@@ -2676,9 +2676,9 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         }
 
         if (this->dialogsMask == 1 && this->serverBootstrapEnabled != 0) {
-            this->field_0x438 = timeGetTime();
+            this->tick_anchor_time = timeGetTime();
             this->game_tic_counter = 0;
-            this->field_0x43c = 0;
+            this->gap_0x43c = 0;
         }
 
         delete this->vis_savegame;
@@ -2696,9 +2696,9 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         }
 
         if (this->dialogsMask == 1 && this->serverBootstrapEnabled != 0) {
-            this->field_0x438 = timeGetTime();
+            this->tick_anchor_time = timeGetTime();
             this->game_tic_counter = 0;
-            this->field_0x43c = 0;
+            this->gap_0x43c = 0;
         }
 
         delete this->vis_loadgame;
@@ -2707,10 +2707,10 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         if (code == 0x445) {
             return;
         }
-    } else if (obj == this->field_0x34c) {
+    } else if (obj == this->net_dialog) {
         this->dialogsMask &= ~8;
 
-        int32_t code = this->field_0x34c->GetCloseCode();
+        int32_t code = this->net_dialog->GetCloseCode();
 
         if (code == 0x44f) {
             this->serverBootstrapEnabled = 0;
@@ -2723,8 +2723,8 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
             PostMessage(0x421, 0, 0);
         }
             
-        delete this->field_0x34c;
-        this->field_0x34c = nullptr;
+        delete this->net_dialog;
+        this->net_dialog = nullptr;
         return;
     } else if (obj == this->vis_connectiondlg) {
         this->dialogsMask &= ~8;
@@ -2796,8 +2796,8 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
 
         if (code == 0x445) {
             int j = 0;
-            for (int i = 0; i < this->vis_map_context->field_0x9b8.GetSize(); i++) {
-                MapPlayerData* mp = this->vis_map_context->field_0x9b8[i];
+            for (int i = 0; i < this->vis_map_context->map_players.GetSize(); i++) {
+                MapPlayerData* mp = this->vis_map_context->map_players[i];
                 if (mp != nullptr && (mp->flags & 1) == 0) {
                     DiplomacyEntry* visdp = (*this->diplomacy_entries)[j];
 
@@ -2868,9 +2868,9 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         this->dialogsMask &= ~8;
 
         if (this->dialogsMask == 1 && this->sessionMode == 2) {
-            this->field_0x438 = timeGetTime();
+            this->tick_anchor_time = timeGetTime();
             this->game_tic_counter = 0;
-            this->field_0x43c = 0;
+            this->gap_0x43c = 0;
         }
 
         delete obj;
@@ -2882,7 +2882,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
 
     this->vis_right_panel->MsgProc(0x408, 0, 0);
 
-    if (this->dialogsMask != 1 || this->vis_map_context->field_0x80 != nullptr) {
+    if (this->dialogsMask != 1 || this->vis_map_context->scenario != nullptr) {
         this->vis_root->VMethod9();
     }
 
@@ -2934,7 +2934,7 @@ void MainWindow::ShowCharacterLoaderDialog() { //48cff7
     
     this->vis_root->VMethod9();
 
-    this->field_0x460 = 0;
+    this->app_initialized = 0;
 
     g_Cursors[CURSOR_DEFAULT]->Use();
     return;
@@ -2957,7 +2957,7 @@ void MainWindow::ShowCharInfoPane() { //491a49
 
     this->vis_root->VMethod9();
 
-    this->field_0x460 = 0;
+    this->app_initialized = 0;
     this->dialogsMask |= 0x200;
 
     g_Cursors[CURSOR_DEFAULT]->Use();
@@ -2971,9 +2971,9 @@ void MainWindow::AutosaveGame() { // 48f905
         CString local_2a4 = this->last_save_info.filename;
         g_Server->SaveGame(&local_2a4);
 
-        this->field_0x438 = timeGetTime();
+        this->tick_anchor_time = timeGetTime();
         this->game_tic_counter = 0;
-        this->field_0x43c = 0;
+        this->gap_0x43c = 0;
 
         CFile local_13c;
         local_13c.Open(this->last_save_info.filename, CFile::modeReadWrite);
@@ -3003,12 +3003,12 @@ void MainWindow::AutosaveGame() { // 48f905
         CArray<uint16_t> local_12c;
         CArray<uint16_t> local_248[10];
 
-        if (!this->vis_map_context->field_0x9d0.IsEmpty()) {
-            for (POSITION pos = this->vis_map_context->field_0x9d0.GetStartPosition(); pos != nullptr;) {
+        if (!this->vis_map_context->objects.IsEmpty()) {
+            for (POSITION pos = this->vis_map_context->objects.GetStartPosition(); pos != nullptr;) {
                 uint16_t key;
                 CGameObject* obj;
 
-                this->vis_map_context->field_0x9d0.GetNextAssoc(pos, key, obj);
+                this->vis_map_context->objects.GetNextAssoc(pos, key, obj);
 
                 if (obj->IsSelected() != 0) {
                     local_12c.Add(key);
@@ -3038,13 +3038,13 @@ void MainWindow::AutosaveGame() { // 48f905
         if (inbattle) {
             CArray<uint16_t> local_27c;
 
-            local_180.SetInt("Projectiles", "FreeIndex", this->vis_map_context->field_0xa24);
+            local_180.SetInt("Projectiles", "FreeIndex", this->vis_map_context->next_projectile_id);
 
-            if (!this->vis_map_context->field_0x9ec.IsEmpty()) {
-                for (POSITION pos = this->vis_map_context->field_0x9ec.GetStartPosition(); pos != nullptr;) {
+            if (!this->vis_map_context->projectiles.IsEmpty()) {
+                for (POSITION pos = this->vis_map_context->projectiles.GetStartPosition(); pos != nullptr;) {
                     uint16_t key;
                     CGameObject* obj;
-                    this->vis_map_context->field_0x9ec.GetNextAssoc(pos, key, obj);
+                    this->vis_map_context->projectiles.GetNextAssoc(pos, key, obj);
 
                     local_27c.Add(key);
 
@@ -3074,8 +3074,8 @@ void MainWindow::AutosaveGame() { // 48f905
         if (inbattle) {
             CArray<uint32_t> local_2a0;
 
-            uint16_t* land = this->vis_map_context->field_0x80->GetLandscape();
-            int numcells = this->vis_map_context->field_0x80->GetWidth() * this->vis_map_context->field_0x80->GetHeight();
+            uint16_t* land = this->vis_map_context->scenario->GetLandscape();
+            int numcells = this->vis_map_context->scenario->GetWidth() * this->vis_map_context->scenario->GetHeight();
 
             uint16_t state = *land & 0x8000;
             local_180.SetInt("Fog", "FirstState", state);
@@ -3349,13 +3349,13 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             PostMessage(0x459, 0, 0);
         } else if (this->sessionMode == 0) {
 #ifdef A2CLIENT
-            if (field_0x3e0.field_10 == 0 || hat_settings.ishat == 0 || hat_settings.deathmatch != 0) {
+            if (net_session.internet_game == 0 || hat_settings.ishat == 0 || hat_settings.deathmatch != 0) {
                 vis_map_context->FUN_0041d2da(1);
                 if ((dialogsMask & 1) != 0)
                     UnloadMapAssets();
 
                 g_CLlDriver.Close();
-                field_0x438 = 0x7fffffff;
+                tick_anchor_time = 0x7fffffff;
                 last_tic_time = 0x7fffffff;
                 CWnd::PostMessage(0x452, 0, 0);
             }
@@ -3371,7 +3371,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
             g_CLlDriver.Close();
 
-            this->field_0x438 = 0x7fffffff;
+            this->tick_anchor_time = 0x7fffffff;
             this->last_tic_time = 0x7fffffff;
 
             PostMessage(0x452, 0, 0);
@@ -3443,7 +3443,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
     case 0x420:
         if (this->dialogsMask == 1) {
 #ifdef A2CLIENT
-            if (field_0x3e0.field_10 != 0 && hat_settings.ishat != 0 && hat_settings.deathmatch == 3)
+            if (net_session.internet_game != 0 && hat_settings.ishat != 0 && hat_settings.deathmatch == 3)
                 PopUpScreen(new HatPlayerListWindow(1, 20, 0, 620, 500, &vis_map_context->hat_name_list, 0));
             else
 #endif
@@ -3489,7 +3489,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         this->serverLoopCounter = 0;
         this->sessionMode = 0;
 #ifdef A2CLIENT
-        if (this->field_0x3e0.field_10 == 0 || this->hat_settings.ishat == 0) {
+        if (this->net_session.internet_game == 0 || this->hat_settings.ishat == 0) {
             m_GameSession.characterRosterHatId.RemoveAll();
         }
 #endif
@@ -3734,9 +3734,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         }
         sprintf(this->last_save_info.filename, "game%d.sav", 9999 - wParam);
         this->AutosaveGame();
-        this->field_0x438 = timeGetTime();
+        this->tick_anchor_time = timeGetTime();
         this->game_tic_counter = 0;
-        this->field_0x43c = 0;
+        this->gap_0x43c = 0;
         break;
 
     case 0x443:
@@ -3751,7 +3751,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
     case 0x451:
 #ifndef A2CLIENT
         // client: 48a969 has no phone-dial prologue here
-        if (this->field_0x3e0.field_08.IsEmpty() == 0) {
+        if (this->net_session.key_capture_str.IsEmpty() == 0) {
             this->WaitConnectionCharacterJoin();
         } else 
 #endif
@@ -3805,15 +3805,15 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                 int num;
                 g_CLlDriver.EnumAddresses(&addresses, &num);
 
-                g_CLlDriver.PrepareForConnect(this->field_0x3e0.connect_address, nullptr);
+                g_CLlDriver.PrepareForConnect(this->net_session.connect_address, nullptr);
             }
         }
 
         if (this->sessionMode == 3) {
             this->EnterServerMode();
         } else {
-            this->field_0x34c = new VisNetDlg(1, 0, 30, 640, 450, &this->net_sessions);
-            this->PopUpScreen(this->field_0x34c);
+            this->net_dialog = new VisNetDlg(1, 0, 30, 640, 450, &this->net_sessions);
+            this->PopUpScreen(this->net_dialog);
         }
         break;
 
@@ -3953,7 +3953,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         // client: 48a969 has no phone-dial prologue here (and its trailing
         // IsDplayAvail stub call in the provider==3 path is a pure no-op, dropped)
 #ifndef A2CLIENT
-        if (this->field_0x3e0.field_08.IsEmpty() == 0) {
+        if (this->net_session.key_capture_str.IsEmpty() == 0) {
             PostMessage(WM_CLOSE, 0, 0);
         } else 
 #endif
@@ -4047,7 +4047,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         CVisualObject* obj = this->vis_map_context->FindChild(MAP_CHILD_QUEST_STATUS);
         if (obj == nullptr) {
 #ifdef A2CLIENT
-            if (this->field_0x3e0.field_10 == 0 || this->hat_settings.ishat == 0 || this->hat_settings.deathmatch == 0) {
+            if (this->net_session.internet_game == 0 || this->hat_settings.ishat == 0 || this->hat_settings.deathmatch == 0) {
                 this->vis_map_context->AddChild(new VisQuestStatus(MAP_CHILD_QUEST_STATUS, 10, 20, 370, 188));
             } else {
                 this->vis_map_context->AddChild(new VisHatSession(MAP_CHILD_HAT_SESSION, 10, 20, 274, 188));
@@ -4055,11 +4055,11 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 #else
             this->vis_map_context->AddChild(new VisQuestStatus(MAP_CHILD_QUEST_STATUS, 10, 20, 370, 188));
 #endif
-            this->vis_map_context->field_0xe0 = 1;
+            this->vis_map_context->full_redraw_requested = 1;
         } else if (wParam == 0) {
             this->vis_map_context->RemoveChild(obj);
             delete obj;
-            this->vis_map_context->field_0xe0 = 1;
+            this->vis_map_context->full_redraw_requested = 1;
         }
     }
         break;
@@ -4118,7 +4118,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 #if A2CLIENT
         if (this->RunModalLoopClient() == 0)
             PostMessage(0x487, 0, 0);
-        else if (field_0x3e0.connect_address.IsEmpty()) {
+        else if (net_session.connect_address.IsEmpty()) {
             if (ClientRefreshUpdateCharacters() == 0)
                 PostMessage(0x487, 0, 0);
             else
@@ -4192,7 +4192,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         if ((this->dialogsMask & 1) != 0)
             UnloadMapAssets();
 
-        if (this->field_0x3e0.field_10 == 0 || this->hat_settings.ishat == 0 || this->hat_settings.deathmatch == 0) {
+        if (this->net_session.internet_game == 0 || this->hat_settings.ishat == 0 || this->hat_settings.deathmatch == 0) {
             ModalScreen(new VisMessageBoxWithList(1, 64, 100, 428, 594, txt_patch.GetLine(189), nullptr, 0));
         }
         else {
@@ -4230,7 +4230,7 @@ void MainWindow::PopUpScreen(VisScreen* screen) { //48d26a
 
     screen->VMethod9();
 
-    this->field_0x460 = 0;
+    this->app_initialized = 0;
 
     g_Cursors[CURSOR_DEFAULT]->Use();
 
@@ -4257,7 +4257,7 @@ void MainWindow::ShowGlobalMapDialog() { //48d34b    g_Cursors[CURSOR_WAIT]->Use
     this->vis_globalmap->VMethod28();
     this->vis_root->VMethod9();
 
-    this->field_0x460 = 0;
+    this->app_initialized = 0;
     this->dialogsMask |= 0x10;
 
     if (g_SoundSettings.music_allowed != 0) {
@@ -4275,7 +4275,7 @@ void MainWindow::BeginLocalCharacterSetup() { // 48f79d
     g_mousept.DisableHint();
 
     strcpy(this->m_GameSession.character_name, "Self");
-    this->field_0x400 = 1;
+    this->local_game = 1;
     this->sessionMode = 2;
 
     this->StartServerSession(this->sessionMode);
@@ -4320,7 +4320,7 @@ int MainWindow::GetSaveFileInBattle() { // 48de6f
 
 int MainWindow::RunSessionBootstrap(int mode) { // 48e502
 
-    this->vis_map_context->field_0x80 = nullptr;
+    this->vis_map_context->scenario = nullptr;
     g_Cursors[CURSOR_WAIT]->Use();
 
     if (g_SoundSettings.music_allowed != 0) {
@@ -4337,7 +4337,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
         FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
         UnlockSurface2();
 
-        g_Server->field41_0x1b0 = 1;
+        g_Server->server_screen_shown = 1;
 
         this->vis_serverscreen = new VisServerScreen(1, 0, 0, g_ScreenSize.right, g_ScreenSize.bottom, &this->vis_map_context->msglog);
         this->PopUpScreen(this->vis_serverscreen);
@@ -4351,7 +4351,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
     }
 
     if (mode == 0 && this->serverBootstrapEnabled != 0) {
-        g_Server->field40_0x1ac = 0;
+        g_Server->map_loaded = 0;
         g_Server->LoadGame(buf);
     }
 
@@ -4374,7 +4374,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
 
         uint32_t tm = timeGetTime();
         while (true) {
-            if (this->vis_map_context->field_0x80) {
+            if (this->vis_map_context->scenario) {
                 this->pending_game_mode = 0;
                 break;
             }
@@ -4457,7 +4457,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
 
         for (int i = 0; i < sel_ids.GetSize(); i++) {
             CGameObject* obj;
-            if (this->vis_map_context->field_0x9d0.Lookup(sel_ids[i], obj)) {
+            if (this->vis_map_context->objects.Lookup(sel_ids[i], obj)) {
                 obj->SetSelected(1);
             }
         }
@@ -4470,7 +4470,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
 
             for (int j = 0; j < grp_ids.GetSize(); j++) {
                 CGameObject* obj;
-                if (this->vis_map_context->field_0x9d0.Lookup(grp_ids[j], obj) != 0) {
+                if (this->vis_map_context->objects.Lookup(grp_ids[j], obj) != 0) {
                     obj->AddControlGroup(i);
                 }
             }
@@ -4488,7 +4488,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
 
         CArray<uint16_t> proj_ids;
 
-        this->vis_map_context->field_0xa24 = reg.GetInt("Projectiles", "FreeIndex", 0);
+        this->vis_map_context->next_projectile_id = reg.GetInt("Projectiles", "FreeIndex", 0);
         reg.GetInt16Array("Projectiles", "IDs", &proj_ids);
 
         for (int i = 0; i < proj_ids.GetSize(); i++) {
@@ -4515,13 +4515,13 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
             proj->map_player = this->vis_map_context->my_main_unit;
 
             proj->unit_id = proj_ids[i];
-            this->vis_map_context->field_0x9ec[proj->unit_id] = proj;
+            this->vis_map_context->projectiles[proj->unit_id] = proj;
             proj->UpdateMapPosition();
         }
 
         CArray<uint32_t> fog_data;
         if (inbattle != 0) {
-            uint16_t* land = this->vis_map_context->field_0x80->GetLandscape();
+            uint16_t* land = this->vis_map_context->scenario->GetLandscape();
             uint32_t st = reg.GetInt("Fog", "FirstState", 0);
             reg.GetInt32Array("Fog", "Data", &fog_data);
 
@@ -4903,7 +4903,7 @@ void MainWindow::LoadSavegame() { //48df44
 
     for (int i = 0; i < sel_objs.GetSize(); i++) {
         CGameObject* obj = nullptr;
-        if (this->vis_map_context->field_0x9d0.Lookup(sel_objs[i], obj) && obj) {
+        if (this->vis_map_context->objects.Lookup(sel_objs[i], obj) && obj) {
             obj->SetSelected(1);
         }
     }
@@ -4917,7 +4917,7 @@ void MainWindow::LoadSavegame() { //48df44
 
         for(int j = 0; j < grp_objs.GetSize(); j++) {
             CGameObject* obj = nullptr;
-            if (this->vis_map_context->field_0x9d0.Lookup(grp_objs[j], obj)) {
+            if (this->vis_map_context->objects.Lookup(grp_objs[j], obj)) {
                 obj->AddControlGroup(i);
             }
         }
@@ -5007,7 +5007,7 @@ void MainWindow::UnloadObjectGfx() { //47ad28
 
 
 void MainWindow::InitNewCampaignSession() { //48dd3a
-    this->field_0x400 = 1;
+    this->local_game = 1;
     this->sessionMode = 2;
 
     if (this->StartServerSession(this->sessionMode) == 0) {
@@ -5054,7 +5054,7 @@ void MainWindow::ShowStartGameSetupForNewSession() { //491b3e
     this->vis_startgame->VMethod28();
     this->vis_root->VMethod9();
 
-    this->field_0x460 = 0;
+    this->app_initialized = 0;
     this->dialogsMask |= 0x800;
 
     g_Cursors[CURSOR_DEFAULT]->Use();
@@ -5077,7 +5077,7 @@ void MainWindow::ShowStartupLogoDialog() { // 48dba0
     this->vis_root->AddChild(this->vis_logownd);
     this->vis_logownd->VMethod28();
 
-    this->field_0x460 = 0;
+    this->app_initialized = 0;
     this->dialogsMask |= 0x100;
 }
 
@@ -5087,7 +5087,7 @@ void MainWindow::ShowCreditsDialog() { // 48da66
     this->vis_credits->VMethod28();
     this->vis_root->VMethod9();
 
-    this->field_0x460 = 0;
+    this->app_initialized = 0;
     this->dialogsMask |= 0x40;
 
     if (g_SoundSettings.music_allowed != 0) {
@@ -5108,7 +5108,7 @@ void MainWindow::ShowFameHallDialog() { //48d096
 
     this->vis_root->VMethod9();
 
-    this->field_0x460 = 0;
+    this->app_initialized = 0;
     this->dialogsMask |= 0x1000;
 
     g_Cursors[CURSOR_DEFAULT]->Use();
@@ -5166,7 +5166,7 @@ void MainWindow::ShowShopDialog(uint32_t id) { //48cdce
     this->vis_map_context->UpdateSelectionState();
     this->vis_map_context->OnOpenShopDialog();
     this->vis_root->VMethod9();
-    this->field_0x460 = 0;
+    this->app_initialized = 0;
 
     g_Cursors[CURSOR_DEFAULT]->Use();
 }
@@ -5240,7 +5240,7 @@ void MainWindow::ShowInnDialog(uint32_t id, int32_t interact_target) { //48d4da
         this->vis_map_context->NetOnOpenInnDialog();
     }
 
-    inn->field_0x138 = interact_target;
+    inn->inn_id = interact_target;
     inn->VMethod28();
 
     this->dialogsMask |= 4;
@@ -5249,7 +5249,7 @@ void MainWindow::ShowInnDialog(uint32_t id, int32_t interact_target) { //48d4da
 
     this->vis_root->VMethod9();
 
-    this->field_0x460 = 0;
+    this->app_initialized = 0;
 
     g_Cursors[CURSOR_DEFAULT]->Use();
 }
@@ -5593,11 +5593,11 @@ int32_t MainWindow::RunModalLoopServer() { //49057b
     g_NetStru1_local.ProcessConnections();
 
     g_NetStru1_local.SendHatCredentials(this->hat_settings.login, this->hat_settings.password, this->hat_settings.deathmatch);
-    this->field_0x3e0.hat_id = 0;
+    this->net_session.hat_id = 0;
 
     uint32_t start_time = timeGetTime();
     INT_00660f8c = 0;
-    while(this->field_0x3e0.hat_id == 0) {
+    while(this->net_session.hat_id == 0) {
         if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0) {
             if (msg.message == WM_QUIT) {
                 return 0;
@@ -5726,12 +5726,12 @@ int32_t MainWindow::RunModalLoopClient() { //client 4949cd
 
     g_NetStru1_local.SendHatCredentials(this->hat_settings.login, this->hat_settings.password, this->hat_settings.deathmatch);
 
-    this->field_0x3e0.hat_id = 0;
+    this->net_session.hat_id = 0;
 
     uint32_t start_time = timeGetTime();
     INT_00660f8c = 0;
 
-    while (this->field_0x3e0.hat_id == 0) {
+    while (this->net_session.hat_id == 0) {
         if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0) {
             if (msg.message == WM_QUIT) {
                 return 0;
@@ -5756,11 +5756,11 @@ int32_t MainWindow::RunModalLoopClient() { //client 4949cd
             return 0;
         }
 
-        if (field_0x3e0.hat_id == -1) {
+        if (net_session.hat_id == -1) {
             VisScreen* scr = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(16), nullptr, 4);
             ModalScreen(scr);
             if (scr->GetCloseCode() == 0x447) {
-                field_0x3e0.hat_id = 0;
+                net_session.hat_id = 0;
                 start_time = timeGetTime();
                 INT_00660f8c = 0;
             }
@@ -5997,7 +5997,7 @@ int CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit() {
 #ifndef A2CLIENT
     if ((this->flags & 1) == 0 && wnd->sessionMode != 2) {
 #else
-    if ((this->flags & 1) == 0 && wnd->sessionMode != 2 && (wnd->field_0x3e0.field_10 == 0 || wnd->hat_settings.ishat == 0)) {
+    if ((this->flags & 1) == 0 && wnd->sessionMode != 2 && (wnd->net_session.internet_game == 0 || wnd->hat_settings.ishat == 0)) {
 #endif
         wnd->vis_map_context->FUN_0041cc78(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex]);
     } else {
@@ -6009,7 +6009,7 @@ int CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit() {
     }
 
     uint32_t stime = timeGetTime();
-    while (wnd->vis_map_context->field_0x3f6c == nullptr) {
+    while (wnd->vis_map_context->my_unit == nullptr) {
         while (g_NetStru1_local.GetClientsPktNum() == 0) {
             MSG msg;
 
@@ -6166,9 +6166,9 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx) { //492c66
 
     if (unit == nullptr) {
         unit = new CUnit();
-        unit->InitState(1, 1, 0, 0, 0, mwnd->vis_map_context->field_0x9b8[0], 0, 0, 0, 1);
-        mwnd->vis_map_context->field_0x9d0[1] = unit;
-        mwnd->vis_map_context->field_0x3f6c = unit;
+        unit->InitState(1, 1, 0, 0, 0, mwnd->vis_map_context->map_players[0], 0, 0, 0, 1);
+        mwnd->vis_map_context->objects[1] = unit;
+        mwnd->vis_map_context->my_unit = unit;
         mwnd->vis_map_context->MsgProc(0x405, 0, 0);
     }
 
@@ -6264,23 +6264,23 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx) { //492c66
             }
 
             if (maxlvl >= 96) {
-                this->field_0x114 = 4;
+                this->skill_tier1 = 4;
             } else if (maxlvl >= 76) {
-                this->field_0x114 = 3;
+                this->skill_tier1 = 3;
             } else if (maxlvl >= 51) {
-                this->field_0x114 = 2;
+                this->skill_tier1 = 2;
             } else {
-                this->field_0x114 = 1;
+                this->skill_tier1 = 1;
             }
 
             if (maxlvl >= 90) {
-                this->field_0x118 = 4;
+                this->skill_tier2 = 4;
             } else if (maxlvl >= 51) {
-                this->field_0x118 = 3;
+                this->skill_tier2 = 3;
             } else if (maxlvl >= 26) {
-                this->field_0x118 = 2;
+                this->skill_tier2 = 2;
             } else {
-                this->field_0x118 = 1;
+                this->skill_tier2 = 1;
             }
 
             hum->experience = 0;
@@ -6325,7 +6325,7 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx) { //492c66
             unit->stat_mind = stats->mind;
             unit->stat_spirit = stats->spirit;
 
-            unit->map_player = mwnd->vis_map_context->field_0x9b8[0];
+            unit->map_player = mwnd->vis_map_context->map_players[0];
 
             if (sec40a != nullptr) {
                 for (int i = 0; i < 9; i++) {
@@ -6339,7 +6339,7 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx) { //492c66
 void CGameSession::InitializeNewCharacterSession(int tp, const char* name) { //493ab6
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
-    this->hat_id = mwnd->field_0x3e0.hat_id;
+    this->hat_id = mwnd->net_session.hat_id;
 
     if (name) {
         strcpy(this->character_name, name);
@@ -6370,14 +6370,14 @@ void CGameSession::InitializeNewCharacterSession(int tp, const char* name) { //4
 
     if (mwnd->vis_map_context->GetUnit_3f6c() == nullptr) {
         CUnit* cunit = new CUnit();
-        cunit->InitState(1, 1, 0, 0, 0, mwnd->vis_map_context->field_0x9b8[0], 0, 0, 0, 1);
+        cunit->InitState(1, 1, 0, 0, 0, mwnd->vis_map_context->map_players[0], 0, 0, 0, 1);
 
-        mwnd->vis_map_context->field_0x9d0[1] = cunit;
-        mwnd->vis_map_context->field_0x3f6c = cunit;
+        mwnd->vis_map_context->objects[1] = cunit;
+        mwnd->vis_map_context->my_unit = cunit;
     }
 
-    this->field_0x118 = 1;
-    this->field_0x114 = 1;
+    this->skill_tier2 = 1;
+    this->skill_tier1 = 1;
     this->main_sphere = 0;
 
     this->RecreateCUnit();
@@ -6428,7 +6428,7 @@ void CGameSession::AutosaveCharacter() { //4946e0
         return;
     }
 
-    if (mwnd->field_0x3e0.field_10 != 0 && mwnd->hat_settings.ishat != 0 && mwnd->hat_settings.deathmatch != 0)
+    if (mwnd->net_session.internet_game != 0 && mwnd->hat_settings.ishat != 0 && mwnd->hat_settings.deathmatch != 0)
         return;
 
     BigStruct2* map = mwnd->vis_map_context;
@@ -6493,7 +6493,7 @@ void CGameSession::SaveShortcuts() { //4948b2
 void CGameSession::DeleteSelectedCharacter() { //493cd8 client 4986a3
 #ifdef A2CLIENT
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
-    if (mwnd->hat_settings.ishat && mwnd->field_0x3e0.field_10) {
+    if (mwnd->hat_settings.ishat && mwnd->net_session.internet_game) {
         HatCharId hid = characterRosterHatId[selectedCharacterRosterFileIndex];
         g_NetStru1_local.FUN_0050e70d(hid);
 
@@ -6522,7 +6522,7 @@ void CGameSession::SaveKillStats() { //494982
         return;
     }
 
-    if (mwnd->field_0x3e0.field_10 != 0 && mwnd->hat_settings.ishat != 0 && mwnd->hat_settings.deathmatch != 0)
+    if (mwnd->net_session.internet_game != 0 && mwnd->hat_settings.ishat != 0 && mwnd->hat_settings.deathmatch != 0)
         return;
 
     BigStruct2* map = mwnd->vis_map_context;
@@ -6557,7 +6557,7 @@ void CGameSession::AutosaveTick() { //4946ae
     DWORD tick = GetTickCount();
 #ifdef A2CLIENT
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
-    if (mwnd->field_0x3e0.field_10 == 0 || mwnd->hat_settings.ishat == 0 || mwnd->hat_settings.deathmatch == 0)
+    if (mwnd->net_session.internet_game == 0 || mwnd->hat_settings.ishat == 0 || mwnd->hat_settings.deathmatch == 0)
 #endif
     {
         if (15000 < tick - this->last_autosave_tick) {

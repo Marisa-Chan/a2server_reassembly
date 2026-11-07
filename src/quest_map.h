@@ -14,13 +14,13 @@ class QuestInnGlue;
 
 
 struct QuestSubstruct {
-    uint32_t field_0x0;
+    uint32_t gap_0x0;
     uint32_t id;
     uint32_t building_id;
     uint32_t some_id;
-    uint32_t field_0x10;
-    uint32_t field_0x14;
-    uint32_t field_0x18;
+    uint32_t gap_0x10;
+    uint32_t gap_0x14;
+    uint32_t gap_0x18;
 };
 ASSERT_OFFSET(QuestSubstruct, some_id, 0xc);
 ASSERT_SIZE(QuestSubstruct, 0x1c);

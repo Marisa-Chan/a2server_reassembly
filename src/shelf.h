@@ -74,7 +74,7 @@ public:
     int32_t refresh_assortment_counter;
     std::array<CMultiShopShelf, 4> shelves;
     CArray<CMultiShopInstance*> shop_instances;
-    int32_t field_0x90;
+    int32_t start_money;
     Shop* shop;
 };
 ASSERT_OFFSET(CMultiShopTemplate, shop_instances, 0x7c);

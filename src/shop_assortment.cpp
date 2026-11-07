@@ -226,7 +226,7 @@ void ShopAssortment::Reset() {
         double x = (3.2 / this->arr.GetSize()) * i + -1.6;
         this->arr[i] = 1.0 / std::exp(x * x);
     }
-    this->field_0x18 = 1.0 / std::exp(2.56);
+    this->edge_weight = 1.0 / std::exp(2.56);
 }
 
 // 54ACCB

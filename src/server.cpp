@@ -145,11 +145,11 @@ Server::~Server() {
     g_NetStru1_main.SendPacket_64(this->tick | 1, 0);
     g_NetStru1_main.SendAllData();
 
-    if (this->field15_0x88) {
-        ResumeThread(this->field15_0x88);
+    if (this->thread_handle) {
+        ResumeThread(this->thread_handle);
     }
 
-    while (WaitForSingleObject(this->field15_0x88, 50) == WAIT_TIMEOUT)
+    while (WaitForSingleObject(this->thread_handle, 50) == WAIT_TIMEOUT)
     {}
 
     if (g_World) {
@@ -210,7 +210,7 @@ void Server::AnnounceHatGameStart() {
 // 4F1E2A
 void Server::ProcessPlayers() {
     this->AnnounceHatGameStart();
-    this->field16_0x8c = 1;
+    this->gap_0x8c = 1;
 
     // First pass: handle each human player's main unit (shop/inn departure, decay respawn).
     {
@@ -222,7 +222,7 @@ void Server::ProcessPlayers() {
                 if (shop != nullptr && shop->shop_template != nullptr) {
                     if (shop->shop_template->FindInstanceFor(player->main_unit) != nullptr) {
                         shop->shop_template->CloseInstance(player->main_unit);
-                        if (this->field4_0x74 != 0) {
+                        if (this->fog_of_war != 0) {
                             player->main_unit->ReturnToMap();
                         }
                     }
@@ -233,7 +233,7 @@ void Server::ProcessPlayers() {
                     inn->RemoveUnit(player->main_unit, -1);
                 }
 
-                if (player->main_unit->decay != 0 && g_Server->field4_0x74 != 0) {
+                if (player->main_unit->decay != 0 && g_Server->fog_of_war != 0) {
                     player->respawn_requested = 0;
                     Human* main_unit = player->main_unit;
                     if (main_unit->inventory == nullptr) {
@@ -339,14 +339,14 @@ void Server::ProcessPlayers() {
         }
     }
 
-    if (this->field4_0x74 == 0) {
+    if (this->fog_of_war == 0) {
         g_PlayersList->next_player_id = 2;
     }
 
-    this->field19_0x98.field2_0x20 = 0;
-    this->field19_0x98.field4_0x28.SetSize(0, -1);
-    this->field21_0xd4 = 0;
-    this->field18_0x94 = 0;
+    this->srv1.is_scenario = 0;
+    this->srv1.drop_locations.SetSize(0, -1);
+    this->map_code = 0;
+    this->has_world_state = 0;
     this->tick16 = 0;
     this->tick = 0;
 
@@ -392,7 +392,7 @@ void Server::ScanSavedCharacters() {
 
 // 59B7EA
 int Srv1::LoadMap(CString map_name) {
-    if (this->field2_0x20 != 0) {
+    if (this->is_scenario != 0) {
         map_name = "Scenario\\" + map_name;
     }
 
@@ -432,8 +432,8 @@ int Srv1::LoadMap(CString map_name) {
         return 1;
     }
 
-    g_Server->field4_0x74 = (alm->recommended_player_count > 1) ? 1 : 0;
-    g_Server->field27_0x178 = (g_Server->field4_0x74 == 0) ? 1 : 0;
+    g_Server->fog_of_war = (alm->recommended_player_count > 1) ? 1 : 0;
+    g_Server->is_singleplayer = (g_Server->fog_of_war == 0) ? 1 : 0;
     g_Server->current_map_title = alm->map_name;
     g_Server->MapLevel = alm->map_level;
 
@@ -464,7 +464,7 @@ int Srv1::LoadMap(CString map_name) {
     this->CreateUnits(alm);
 
     Player* self = g_PlayersList->FindByName("Self");
-    if (self != nullptr && g_Server->field4_0x74 != 0) {
+    if (self != nullptr && g_Server->fog_of_war != 0) {
         POSITION pos2 = g_PlayersList->list.GetHeadPosition();
         while (pos2) {
             Player* player2 = g_PlayersList->list.GetNext(pos2);
@@ -484,7 +484,7 @@ int Srv1::LoadMap(CString map_name) {
     this->LoadTriggers(alm, 1);
     this->LoadSacks(alm);
 
-    if (g_Server->field4_0x74 != 0) {
+    if (g_Server->fog_of_war != 0) {
         this->SpawnAiGroupOutposts(alm);
     }
 
@@ -492,7 +492,7 @@ int Srv1::LoadMap(CString map_name) {
         delete alm;
     }
 
-    g_Server->field38_0x1a4 = (g_Server->field4_0x74 == 0) ? 1 : 0;
+    g_Server->use_default_shop = (g_Server->fog_of_war == 0) ? 1 : 0;
 
     return 0;
 }
@@ -740,7 +740,7 @@ void Srv1::CreatePlayers(MapAlm* alm) {
         }
 
         Player* player;
-        if (g_Server->field4_0x74 == 0 && i == 1 && g_PlayersList->list.GetCount() == 1) {
+        if (g_Server->fog_of_war == 0 && i == 1 && g_PlayersList->list.GetCount() == 1) {
             player = g_PlayersList->list.GetHead();
         } else {
             player = new Player();
@@ -752,10 +752,10 @@ void Srv1::CreatePlayers(MapAlm* alm) {
 
         player->color_slot = player_data->color + 1;
         player->is_ai = 1;
-        if (g_Server->field4_0x74 == 0 && i == 1) {
+        if (g_Server->fog_of_war == 0 && i == 1) {
             player->is_ai = 0;
         }
-        player->field_0xa60 = (player_data->flags & 2) ? 1 : 0;
+        player->quest_ai = (player_data->flags & 2) ? 1 : 0;
     }
 }
 
@@ -779,7 +779,7 @@ void Srv1::CreateUnits(MapAlm* alm) {
             continue;
         }
 
-        if (g_Server->field26_0x174 != 0 && player->is_ai != 0) {
+        if (g_Server->skip_ai_units != 0 && player->is_ai != 0) {
             continue;
         }
 
@@ -788,8 +788,8 @@ void Srv1::CreateUnits(MapAlm* alm) {
             int32_t idx = g_GameDataRes.FindMonsterByServerId(unit_data->server_id);
             unit = new Unit(g_GameDataRes.monsters[idx].name);
 
-            if (g_Server->field22_0xd8 != 2 && g_Server->field4_0x74 == 0) {
-                if (g_Server->field22_0xd8 == 1) { // Easy
+            if (g_Server->difficulty != 2 && g_Server->fog_of_war == 0) {
+                if (g_Server->difficulty == 1) { // Easy
                     unit->hp_max *= 0.5;
                     unit->hp = unit->hp_max;
                     unit->eye2->wimpy >>= 1;
@@ -868,7 +868,7 @@ void Srv1::CreateUnits(MapAlm* alm) {
 }
 
 Unit* Srv1::GetScenarioScriptPCUnit(const char* name) { //59d4b8
-    if (g_Server->field4_0x74 == 0) {
+    if (g_Server->fog_of_war == 0) {
         CString pcname("PC_");
         pcname += name;
 
@@ -891,7 +891,7 @@ Unit* Srv1::GetScenarioScriptPCUnit(const char* name) { //59d4b8
 }
 
 Unit* Srv1::GetScenarioScriptHero(uint32_t idx) { //59d664
-    if (g_Server->field4_0x74 == 0) {
+    if (g_Server->fog_of_war == 0) {
         Player* first_player = g_PlayersList->GetHead();
         for (POSITION pos = first_player->unit_list->unit_list.GetHeadPosition(); pos != nullptr;) {
             Unit* unit = first_player->unit_list->unit_list.GetNext(pos);
@@ -999,7 +999,7 @@ void Srv1::LoadTriggers(MapAlm* alm, int flag) {
                 Group* group = group_list.GetNext(group_iter);
                 groups_map[group->group_id] = group;
                 
-                if (flag != 0 && g_Server->field4_0x74 == 0) {
+                if (flag != 0 && g_Server->fog_of_war == 0) {
                     if (player->player_id == 1) {
                         g_World->ProcessAnimateDeadGroup(group);
                     } else {
@@ -1158,7 +1158,7 @@ void Srv1::LoadTriggers(MapAlm* alm, int flag) {
             }
         } else if (action_data->type_id == 0x10002) {
             const uint16_t val = (action_data->argument_values[0] & 0xFF) | ((action_data->argument_values[1] & 0xFF) << 8);
-            this->field4_0x28.Add(val);
+            this->drop_locations.Add(val);
         }
     }
 
@@ -1580,10 +1580,10 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
     {
         PacketJoin* pkt = new PacketJoin(this->current_map_name);
         pkt->id = 6;
-        // [pkt+0xA] = Server::field21_0xd4.  Offset 0xA within PacketJoin is
+        // [pkt+0xA] = Server::map_code.  Offset 0xA within PacketJoin is
         // the first uint32_t after the base Packet (Packet = 0xA bytes, pkt+0xA =
-        // player_id of PacketJoin, but the ASM stores field21_0xd4 there as a dword).
-        pkt->__field_0xa = this->field21_0xd4;
+        // player_id of PacketJoin, but the ASM stores map_code there as a dword).
+        pkt->__as_dword = this->map_code;
         pkt->to_player_id = player->player_id;
         g_NetStru1_main.QueuePacketSend(pkt);
         delete pkt;
@@ -1600,7 +1600,7 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
     player->mission_result = 0;
 
     // Early-out for some game types.
-    if (this->field4_0x74 != 0 && enter_world != 0) {
+    if (this->fog_of_war != 0 && enter_world != 0) {
         if (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3) {
             // Diplomacy and vision-mask setup with the "Self" map player.
 
@@ -1649,7 +1649,7 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
         uint16_t my_id = player->player_id;
 
         if (red != nullptr && blue != nullptr) {
-            if (player->field_0xa70 == 0) {
+            if (player->team == 0) {
                 // Allied with Red (0x12), hostile to Blue (1).
                 g_World->diplomacy.diplomacy[red_id][my_id] = 0x12;
                 g_World->diplomacy.diplomacy[my_id][red_id] = 0x12;
@@ -1756,7 +1756,7 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
         }
     }
 
-    if (g_Server->field4_0x74 != 0) {
+    if (g_Server->fog_of_war != 0) {
         g_NetStru1_main.SendSrvStru1State(&g_QuestMap, player, 0);
     }
 
@@ -1876,12 +1876,12 @@ void Server::AssignPlayerSlot(Player* player, int32_t slot_data) {
 
     player->AddMoney(0, 1);
 
-    if (this->field18_0x94 != 0) {
+    if (this->has_world_state != 0) {
         g_NetStru1_main.SendBarePacket(0xB7, player);
     }
 
     g_NetStru1_main.SendTickPacket(nullptr);
-    if (this->field3_0x70 != 0) {
+    if (this->send_full_state != 0) {
         g_NetStru1_main.SendAllData();
     }
 }
@@ -1928,7 +1928,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
     }
 
     // 3. Shutdown initiated?
-    if (g_ShutdownIn < 0x7FFFFFFF || this->field59_0x208 != 0) {
+    if (g_ShutdownIn < 0x7FFFFFFF || this->game_started != 0) {
         LogMessage("Player " + name + " login " + login + " has been rejected (Shutdown initiated)");
         if (Block != nullptr) {
             delete[] Block;
@@ -2100,7 +2100,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
     // Team game flags.
     if (g_ServerConfig.gameType == 2) {
         player->team_ready = 0;
-        player->field_0xa70 = (team_id == 1) ? 1 : 0;
+        player->team = (team_id == 1) ? 1 : 0;
     }
 
     // Add player to global list.
@@ -2156,7 +2156,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
                 break;
             case 2:
                 // Team play
-                if (player->field_0xa70 == other->field_0xa70) {
+                if (player->team == other->team) {
                     // Same team: mark 0x12 (teammate), share vision
                     g_World->diplomacy.diplomacy[other_id][my_id] = 0x12;
                     g_World->diplomacy.diplomacy[my_id][other_id] = 0x12;
@@ -2183,7 +2183,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
     player->is_in_world = 1;
     player->is_active = 1;
 
-    // Increment World::field65_0xc780
+    // Increment World::joined_count
     g_World->IncrementJoinedCount();
 
     // Notify MapStuff section
@@ -2237,7 +2237,7 @@ void Server::SignalGameStart(int32_t start_kind) {
         g_NetStru1_main.SendTeamState(0);
     }
     g_NetStru1_main.SendInfoPacket(0xc3, start_kind, 0, nullptr);
-    this->field59_0x208 = 1;
+    this->game_started = 1;
 }
 
 
@@ -2355,7 +2355,7 @@ Human* Server::CreatePlayerCharacter(Player* player, uint8_t body, uint8_t react
     }
 
     player->main_unit = unit;
-    if (this->field4_0x74 == 0) {
+    if (this->fog_of_war == 0) {
         unit->server_id = 21;
     }
 
@@ -2512,8 +2512,8 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
         if (item->item_id != 0) {
             unit->UseItemOrStash(item);
         }
-        if (item->field14_0x50 != 0) {
-            unit->field_0x1bc = 1;
+        if (item->special_flag != 0) {
+            unit->has_flagged_item = 1;
         }
     }
 
@@ -2532,8 +2532,8 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
                 delete item;
             } else {
                 unit->inventory->PutItemIntoBagAtDefault(item);
-                if (item->field14_0x50 != 0) {
-                    unit->field_0x1bc = 1;
+                if (item->special_flag != 0) {
+                    unit->has_flagged_item = 1;
                 }
             }
         }
@@ -2591,7 +2591,7 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
 void Server::CheatCommand(Player* player, CString cheat_string) {
     LogMessage("Server::CheatCommand: player " + player->name + " sent cheat command: " + cheat_string);
 
-    if (this->field4_0x74 != 0) {
+    if (this->fog_of_war != 0) {
         // Non-admin commands.
         NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(player->player_id);
         if (ns2 == nullptr || ns2->is_local_player == 0) {
@@ -2667,7 +2667,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
     
     bool is_reconnect = player->hat_player_id == 0xF6D04773u && player->flags == 4;
 
-    if (this->field4_0x74 != 0 && !is_reconnect) {
+    if (this->fog_of_war != 0 && !is_reconnect) {
         return;
     }
 
@@ -2901,7 +2901,7 @@ Shop g_DefaultShop;     // unk_6D10B8
 
 // 502C50
 Shop* Server::FindShopAt(TokenPos* pos) {
-    if (this->field38_0x1a4 != 0) {
+    if (this->use_default_shop != 0) {
         return &g_DefaultShop;
     }
     if (this->srv_stru1->building_list == nullptr) {
@@ -3297,7 +3297,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 item = human->inventory->TakeItemAt(packet_transfer->param1, packet_transfer->param3);
                 if (item) {
                     update_mask |= 0x282000;
-                    item->field15_0x54 = 0;
+                    item->upgraded_at_inn = 0;
                 }
             } else if (from_type == 4) {
                 // Buy item from shop.
@@ -3324,7 +3324,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     }
                 }
                 if (item) {
-                    item->field15_0x54 = 0;
+                    item->upgraded_at_inn = 0;
                     update_mask |= 0x482000;
                     equip_mask  |= (slot < 3) ? 3 : (1 << (slot - 1));
                 }
@@ -3617,7 +3617,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
     case 0x3E:
         CheckPacketType(pkt, "PacketDword");
         {
-            if (this->field4_0x74 != 0) {
+            if (this->fog_of_war != 0) {
                 break;
             }
             player = this->FindPlayerById(packet_dword->from_player_id);
@@ -3629,7 +3629,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
 
     case 0x3F:
         CheckPacketType(pkt, "Packet");
-        if (this->field4_0x74 == 0) {
+        if (this->fog_of_war == 0) {
             g_DefaultShop.GenerateAssortment();
         }
         break;
@@ -3851,7 +3851,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
     case 0x49:
         CheckPacketType(pkt, "PacketData");
         {
-            if (this->field4_0x74 != 0) {
+            if (this->fog_of_war != 0) {
                 break;
             }
             player = g_PlayersList->FindById(packet_data->from_player_id);
@@ -3935,7 +3935,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
 
             PacketJoin out;
             out.id = packet_join->id;
-            out.__field_0xa = (uint32_t)(packet_join->from_player_id & 0xFF) | ((uint32_t)chat_type << 8);
+            out.__as_dword = (uint32_t)(packet_join->from_player_id & 0xFF) | ((uint32_t)chat_type << 8);
 
             switch (chat_type) {
             case 0: // Regular message: send to all non-AI players within range.
@@ -4066,7 +4066,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
         return;
     }
 
-    if (name == "Self" && this->field4_0x74 == 0) {
+    if (name == "Self" && this->fog_of_war == 0) {
         name = g_PlayersList->list.GetHead()->name;
     }
 
@@ -4078,7 +4078,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
         nickname = nickname.Left(pipe_pos);
     }
 
-    if (this->field4_0x74) {
+    if (this->fog_of_war) {
         for (int i = 0; i < g_ServerConfig.banned_names.GetSize(); i++) {
             if (nickname == g_ServerConfig.banned_names[i]) {
                 CString str;
@@ -4123,7 +4123,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
         Player* pl = g_PlayersList->list.GetNext(pos);
         if (pl->name == name) {
             if ((pl->hat_player_id != id || pl->flags != arg || g_NetStru1_main.GetClientByPlayerID(pl->player_id) != nullptr) 
-                && this->field4_0x74 != 0) {
+                && this->fog_of_war != 0) {
                 LogMessage("Warning - other player with same name joined");
 
                 this->JoinErrorSend(client, 3, "This name already used. Try different.");
@@ -4186,7 +4186,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
 
         if (cd_flag == 0) {
             int cds = g_PlayersList->CountCD();
-            if (this->field3_0x70 == 0) {
+            if (this->send_full_state == 0) {
                 cds++;
             }
 
@@ -4263,13 +4263,13 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
 
     g_NetStru1_main.SendExistingPlayers(player);
 
-    if (this->field18_0x94 != 0) {
+    if (this->has_world_state != 0) {
         g_NetStru1_main.SendBarePacket(0xb7, player);
     }
     
     g_NetStru1_main.SendTickPacket(nullptr);
 
-    if (this->field3_0x70 != 0) {
+    if (this->send_full_state != 0) {
         g_NetStru1_main.SendAllData();
     }
 }
@@ -4292,7 +4292,7 @@ void Server::JoinErrorSend(NetStru2* client, int32_t error_code, const CString& 
 
 Player* Server::Allods2_CreatePlayer(CString name) {
     Player* player = nullptr;
-    if (this->field4_0x74 == 0) {
+    if (this->fog_of_war == 0) {
         player = g_PlayersList->FindByName("Self");
     }
 
@@ -4352,25 +4352,25 @@ int32_t Server::ConnectToHat() {
 
 // 4f0ecf
 void Server::HatKeepaliveTick() {
-    if (this->field51_0x1d8 != 0 || this->field50_0x1d4 != 0) {
+    if (this->hat_disconnect_tick != 0 || this->hat_logged_in != 0) {
         return;
     }
 
     DWORD tick_count = GetTickCount();
 
-    if (tick_count - this->field64_0x21c > 60000) {
-        this->field64_0x21c = tick_count;
+    if (tick_count - this->hat_announce_tick > 60000) {
+        this->hat_announce_tick = tick_count;
 
         if (g_PlayersList->CountHumanPlayers() == 0 || g_ServerConfig.gameType != 0) {
             NetStru1::HatConnector.SendHatKeepalive(0);
         } else {
             Player* player = nullptr;
             do {
-                this->field65_0x220 += 1;
-                if (this->field65_0x220 > 31) {
-                    this->field65_0x220 = 16;
+                this->hat_announce_player_index += 1;
+                if (this->hat_announce_player_index > 31) {
+                    this->hat_announce_player_index = 16;
                 }
-                player = g_PlayersList->FindById(this->field65_0x220);
+                player = g_PlayersList->FindById(this->hat_announce_player_index);
             } while (player == nullptr);
 
             CString login(player->login);
@@ -4410,7 +4410,7 @@ void Server::HatKeepaliveTick() {
         return;
     }
 
-    if (this->field53_0x1f0 != 0 && tick_count - this->field53_0x1f0 <= 15000) {
+    if (this->hat_upload_tick != 0 && tick_count - this->hat_upload_tick <= 15000) {
         return;
     }
 
@@ -4442,7 +4442,7 @@ void Server::HatKeepaliveTick() {
 
         NetStru1::HatConnector.SendHatCharData(basic_info->id1, basic_info->id2, login, file_data, file_size, 0);
         LogMessage("Returning character data file for " + login);
-        this->field53_0x1f0 = tick_count;
+        this->hat_upload_tick = tick_count;
         file.Close();
     }
 }
@@ -4454,19 +4454,19 @@ int Server::Start(int mode) {
 #ifdef A2CLIENT
     char tmpbuf[256];
     GetProfileStringA("Allods Server", "BaseDir", "", tmpbuf, 255);
-    this->field5_0x78 = tmpbuf;
+    this->base_dir = tmpbuf;
 #endif
 
-    this->field4_0x74 = mode < 2;
-    this->field3_0x70 = mode > 0;
+    this->fog_of_war = mode < 2;
+    this->send_full_state = mode > 0;
 
-    if (this->field4_0x74 == 0) {
-        this->field39_0x1a8 = 0;
+    if (this->fog_of_war == 0) {
+        this->save_on_server = 0;
     } else {
-        this->field39_0x1a8 = 1;
+        this->save_on_server = 1;
     }
 
-    this->field16_0x8c = 0;
+    this->gap_0x8c = 0;
 
     g_Server = this;
 
@@ -4535,7 +4535,7 @@ int Server::Start(int mode) {
 // 4EE028 client 4f2c57
 void Server::SaveCharacter(Humanoid* humanoid) {
 #ifdef A2CLIENT
-    if (g_Server->field39_0x1a8 || g_Server->field4_0x74 == 0)
+    if (g_Server->save_on_server || g_Server->fog_of_war == 0)
         return;
 #endif
 
@@ -4558,7 +4558,7 @@ void Server::SaveCharacter(Humanoid* humanoid) {
     FileSectionBasicInfo basic_info = {};
     basic_info.id1 = player->hat_player_id;
     basic_info.id2 = player->flags;
-    basic_info.hat_id = this->field54_0x1f4;
+    basic_info.hat_id = this->hat_id;
     strcpy(basic_info.nick, (const char*)player->name);
     basic_info.character_class = flags;
     basic_info.picture = humanoid->face;
@@ -4653,15 +4653,15 @@ void Server::SaveCharacter(Humanoid* humanoid) {
 // Load map (or a saved game?)
 // 4F1471
 int Server::LoadGame(CString map_name) {
-    this->field16_0x8c = 0;
-    this->field59_0x208 = 0;
+    this->gap_0x8c = 0;
+    this->game_started = 0;
     this->current_map_name = map_name;
 
     SrandInit();
 
     CString map_code;
 
-    if (this->field21_0xd4 == 0) {
+    if (this->map_code == 0) {
         CString lower = this->current_map_name;
         lower.MakeLower();
         int ext = lower.Find(".alm");
@@ -4671,23 +4671,23 @@ int Server::LoadGame(CString map_name) {
         map_code = lower.Left(ext);
         int code = atoi(map_code);
         if (code > 0) {
-            this->field21_0xd4 = code;
+            this->map_code = code;
         }
     } else {
         // I don't get this branch. Looks useless?
         CString tmp;
-        IntToCString(&tmp, this->field21_0xd4);
+        IntToCString(&tmp, this->map_code);
         map_code = tmp;
     }
 
-    this->field19_0x98.field2_0x20 = this->field21_0xd4;
+    this->srv1.is_scenario = this->map_code;
 
     this->srv_stru1->building_list = new BuildingsList();
     this->srv_stru1->effects_list = new SpellEffectList();
     this->srv_stru1->sack_list = new SackList();
 
-    if (this->field40_0x1ac == 0) {
-        if (this->field19_0x98.LoadMap(this->current_map_name) != 0) {
+    if (this->map_loaded == 0) {
+        if (this->srv1.LoadMap(this->current_map_name) != 0) {
             return 5;
         }
         this->tick16 = 0;
@@ -4698,18 +4698,18 @@ int Server::LoadGame(CString map_name) {
         }
     }
 
-    if (this->field4_0x74 != 0) {
+    if (this->fog_of_war != 0) {
         dword_6CDB38 = CalcFileChecksum(this->current_map_name);
     }
 
-    this->field18_0x94 = 1;
+    this->has_world_state = 1;
     g_NetStru1_main.SendBarePacket(0xB7, nullptr);
 
-    this->field42_0x1b4 = 0;
-    this->field43_0x1b8 = 0;
-    this->field44_0x1bc = 0;
+    this->last_window_ms = 0;
+    this->window_ms = 0;
+    this->total_ms = 0;
     this->tic16 = 0;
-    this->field46_0x1c4 = 0;
+    this->max_window_ms = 0;
     this->map_elapsed_time = 0;
     this->map_elapsed_time2 = 0;
 
@@ -4734,7 +4734,7 @@ int Server::LoadGame(CString map_name) {
 
     g_QuestMap.RemovePlayerQuests(0);
 
-    if (this->field19_0x98.field4_0x28.GetSize() < 3 && g_ServerConfig.gameType == 3) {
+    if (this->srv1.drop_locations.GetSize() < 3 && g_ServerConfig.gameType == 3) {
         BuildingsList* building_list = this->srv_stru1->building_list;
         POSITION pos = building_list->GetHeadPosition();
         while (pos != nullptr) {
@@ -4743,7 +4743,7 @@ int Server::LoadGame(CString map_name) {
                 uint8_t x = building->position->GetX();
                 uint8_t y = building->position->GetY();
                 uint16_t cell = (x - 1) | ((y - 1) << 8);
-                this->field19_0x98.field4_0x28.SetAtGrow(this->field19_0x98.field4_0x28.GetSize(), cell);
+                this->srv1.drop_locations.SetAtGrow(this->srv1.drop_locations.GetSize(), cell);
             }
         }
     }
@@ -4757,7 +4757,7 @@ int Server::LoadGame(CString map_name) {
 
 // 4FBB79
 void Server::ServerTic() {
-    if (this->field18_0x94 == 0) {
+    if (this->has_world_state == 0) {
         return;
     }
 
@@ -4809,7 +4809,7 @@ void Server::ServerTic() {
                         continue;
                     }
 
-                    uint16_t yx = this->field19_0x98.field4_0x28.GetAt(1 - i);
+                    uint16_t yx = this->srv1.drop_locations.GetAt(1 - i);
                     uint8_t unit_x = player->main_unit->position->GetX();
                     if (abs((yx & 0xff) - unit_x) < 3) {
                         uint8_t unit_y = player->main_unit->position->GetY();
@@ -4820,7 +4820,7 @@ void Server::ServerTic() {
                             POSITION ppos = g_PlayersList->list.GetHeadPosition();
                             while (ppos != nullptr) {
                                 Player* p = g_PlayersList->list.GetNext(ppos);
-                                if (p->is_ai == 0 && p->field_0xa70 == 1 - i) {
+                                if (p->is_ai == 0 && p->team == 1 - i) {
                                     p->frags += g_ServerConfig.flag_score;
                                     this->ctf_score[1-i] += g_ServerConfig.flag_score;
                                 }
@@ -4872,15 +4872,15 @@ void Server::ServerTic() {
     }
 
     uint32_t dt = GetTickCount();
-    this->field43_0x1b8 += (dt - tick_count);
+    this->window_ms += (dt - tick_count);
     if ((this->tick & 0xf) == 15) {
-        this->field42_0x1b4 = this->field43_0x1b8;
-        this->field44_0x1bc += this->field43_0x1b8;
+        this->last_window_ms = this->window_ms;
+        this->total_ms += this->window_ms;
         this->tic16++;
-        if (this->field46_0x1c4 < this->field43_0x1b8) {
-            this->field46_0x1c4 = this->field43_0x1b8;
+        if (this->max_window_ms < this->window_ms) {
+            this->max_window_ms = this->window_ms;
         }
-        this->field43_0x1b8 = 0;
+        this->window_ms = 0;
     }
 }
 
@@ -4906,19 +4906,19 @@ void Server::PumpNetwork() {
 }
 
 Server::Server()
-: field5_0x78(""), srv_stru1(&SrvStru1::Instance) { //4ece8b
+: base_dir(""), srv_stru1(&SrvStru1::Instance) { //4ece8b
     g_World = nullptr;
     dword_6CDB3C = nullptr;
     dword_6B37C4 = nullptr;
     g_PlayersList = nullptr;
     MapStuff_Instance = nullptr;
 
-    this->field19_0x98.srv_stru = this->srv_stru1;
+    this->srv1.srv_stru = this->srv_stru1;
 
-    this->field18_0x94 = 0;
-    this->field3_0x70 = 0;
-    this->field4_0x74 = 0;
-    this->field15_0x88 = nullptr;
+    this->has_world_state = 0;
+    this->send_full_state = 0;
+    this->fog_of_war = 0;
+    this->thread_handle = nullptr;
 
     this->current_map_name = "1.alm";
 
@@ -4926,47 +4926,47 @@ Server::Server()
     this->tick16 = 0;
 
     this->script_settings = new ScriptSettings();
-    this->field26_0x174 = 0;
-    this->field27_0x178 = 0;
-    this->field28_0x17c = 0;
-    this->field29_0x180 = 0;
-    this->field30_0x184 = 0;
-    this->field31_0x188 = 0;
-    this->field32_0x18c = 0;
-    this->field33_0x190 = 0;
-    this->field34_0x194 = 0;
-    this->field37_0x1a0 = 0;
-    this->field36_0x19c = 0;
-    this->field38_0x1a4 = 1;
-    this->field39_0x1a8 = 1;
-    this->field40_0x1ac = 0;
-    this->field35_0x198 = 0;
-    this->field21_0xd4 = 0;
-    this->field22_0xd8 = 2;
-    this->field41_0x1b0 = 0;
+    this->skip_ai_units = 0;
+    this->is_singleplayer = 0;
+    this->saved_0x17c = 0;
+    this->saved_0x180 = 0;
+    this->saved_0x184 = 0;
+    this->saved_0x188 = 0;
+    this->saved_0x18c = 0;
+    this->saved_0x190 = 0;
+    this->saved_0x194 = 0;
+    this->saved_0x1a0 = 0;
+    this->saved_0x19c = 0;
+    this->use_default_shop = 1;
+    this->save_on_server = 1;
+    this->map_loaded = 0;
+    this->saved_0x198 = 0;
+    this->map_code = 0;
+    this->difficulty = 2;
+    this->server_screen_shown = 0;
 
     SrandInit();
 
     this->spells.fill(nullptr);
 
     this->MapLevel = -1;
-    this->field49_0x1d0 = 0;
-    this->field50_0x1d4 = 0;
-    this->field51_0x1d8 = 1;
-    this->field53_0x1f0 = 0;
-    this->field64_0x21c = 0;
-    this->field65_0x220 = 15;
-    this->field54_0x1f4 = 0;
-    this->field55_0x1f8 = 0;
-    this->field56_0x1fc = 0;
-    this->field59_0x208 = 0;
+    this->gap_0x1d0 = 0;
+    this->hat_logged_in = 0;
+    this->hat_disconnect_tick = 1;
+    this->hat_upload_tick = 0;
+    this->hat_announce_tick = 0;
+    this->hat_announce_player_index = 15;
+    this->hat_id = 0;
+    this->hat_ping_tick = 0;
+    this->hat_uploads_pending = 0;
+    this->game_started = 0;
     this->ctf_score[0] = 0;
     this->ctf_score[1] = 0;
     this->ctf_carrying[0] = 0;
     this->ctf_carrying[1] = 0;
     this->ctf_dropped[0] = 0;
     this->ctf_dropped[1] = 0;
-    this->field66_0x224 = 0;
+    this->sacks_loaded = 0;
     g_ShutdownIn = 0x7fffffff;
     this->map_elapsed_time = 0;
     this->map_elapsed_time2 = 0;
@@ -5080,32 +5080,32 @@ void Server::DespawnScenarioUnits(int32_t var300, CDWordArray& arr) { //501b9e
 void Server::ProcessHatConnections() {
     NetStru1::HatConnector.ProcessConnections();
     if (g_HatLLDriver.IsListen()) {
-        if (this->field50_0x1d4 != 0) {
+        if (this->hat_logged_in != 0) {
             NetStru2* first_client;
             if (NetStru1::HatConnector.active_connects.IsEmpty()) {
                 first_client = nullptr;
             } else {
                 first_client = NetStru1::HatConnector.active_connects.GetHead();
             }
-            if ((first_client == nullptr || first_client->is_claimed == 0) && GetTickCount() - this->field50_0x1d4 > 30000) {
+            if ((first_client == nullptr || first_client->is_claimed == 0) && GetTickCount() - this->hat_logged_in > 30000) {
                 g_HatLLDriver.Close();
                 NetStru1::HatConnector.ProcessConnections();
-                this->field51_0x1d8 = GetTickCount();
-                this->field50_0x1d4 = 0;
+                this->hat_disconnect_tick = GetTickCount();
+                this->hat_logged_in = 0;
                 LogMessage(CString("Login to hat failed. Hat does not respond."));
             }
         }
-        if (GetTickCount() - this->field55_0x1f8 > 15000) {
+        if (GetTickCount() - this->hat_ping_tick > 15000) {
             NetStru1::HatConnector.SendPacket_64(1, 0);
-            this->field55_0x1f8 = GetTickCount();
+            this->hat_ping_tick = GetTickCount();
         }
     } else {
-        if (this->field51_0x1d8 != 0 && GetTickCount() - this->field51_0x1d8 > g_ServerConfig.reconnect_delay * 60000) {
+        if (this->hat_disconnect_tick != 0 && GetTickCount() - this->hat_disconnect_tick > g_ServerConfig.reconnect_delay * 60000) {
             if (!this->ConnectToHat()) {
-                this->field51_0x1d8 = GetTickCount();
+                this->hat_disconnect_tick = GetTickCount();
             } else {
-                this->field51_0x1d8 = 0;
-                this->field50_0x1d4 = GetTickCount();
+                this->hat_disconnect_tick = 0;
+                this->hat_logged_in = GetTickCount();
             }
         }
     }
@@ -5140,15 +5140,15 @@ void Server::EnsurePlayerGroup(Player* player) {
 
     uint8_t x = 0;
     uint8_t y = 0;
-    if (this->field4_0x74 != 0 && player->building_entered_from_yx != 0 && g_ServerConfig.gameType == 0) {
+    if (this->fog_of_war != 0 && player->building_entered_from_yx != 0 && g_ServerConfig.gameType == 0) {
         x = player->building_entered_from_yx;
         y = player->building_entered_from_yx >> 8;
     } else {
-        CArray<uint16_t>& drop_locations = this->field19_0x98.field4_0x28;
+        CArray<uint16_t>& drop_locations = this->srv1.drop_locations;
         if (drop_locations.GetSize() > 0) {
             int32_t index = Random0N(drop_locations.GetSize() - 1);
             if (g_ServerConfig.gameType == 2) {
-                index = player->field_0xa70;
+                index = player->team;
             }
             x = drop_locations[index];
             y = drop_locations[index] >> 8;
@@ -5338,7 +5338,7 @@ void Server::SaveSack(Sack* sack) {
 
 // 4F950F
 void Server::LoadSavedSacks() {
-    if (g_ServerConfig.gameType != 0 || this->field66_0x224 != 0) {
+    if (g_ServerConfig.gameType != 0 || this->sacks_loaded != 0) {
         return;
     }
 
@@ -5403,36 +5403,36 @@ void Server::LoadSavedSacks() {
         this->srv_stru1->sack_list->DumpInventoryAt(&pos, inventory, money, 1);
     }
 
-    this->field66_0x224 = 1;
+    this->sacks_loaded = 1;
 }
 
 // 4FA348
 void Server::AddArenaFrags(CString* name, int32_t flag) {
-    for (int32_t i = 0; i < this->field67_0x228.GetSize(); i++) {
-        if (this->field67_0x228[i] == *name) {
-            this->field68_0x23c[i] += flag;
-            g_NetStru1_main.SendArenaScore(this->field67_0x228[i], this->field68_0x23c[i], '[', nullptr);
+    for (int32_t i = 0; i < this->arena_names.GetSize(); i++) {
+        if (this->arena_names[i] == *name) {
+            this->arena_scores[i] += flag;
+            g_NetStru1_main.SendArenaScore(this->arena_names[i], this->arena_scores[i], '[', nullptr);
             return;
         }
     }
 
-    int32_t idx = this->field67_0x228.GetSize();
-    this->field67_0x228.SetAtGrow(idx, *name);
+    int32_t idx = this->arena_names.GetSize();
+    this->arena_names.SetAtGrow(idx, *name);
 
-    int32_t idx_23c = this->field68_0x23c.GetSize();
-    this->field68_0x23c.SetSize(idx_23c + 1, -1);
-    this->field68_0x23c[idx_23c] = flag;
+    int32_t idx_23c = this->arena_scores.GetSize();
+    this->arena_scores.SetSize(idx_23c + 1, -1);
+    this->arena_scores[idx_23c] = flag;
 
-    g_NetStru1_main.SendArenaScore(this->field67_0x228[idx], this->field68_0x23c[idx_23c], '[', nullptr);
+    g_NetStru1_main.SendArenaScore(this->arena_names[idx], this->arena_scores[idx_23c], '[', nullptr);
     SendFragLimit(nullptr);
 }
 
 // 4FA4BB
 void Server::GetArenaFrags(CString* name, uint32_t* frags) {
     *frags = 0;
-    for (int32_t i = 0; i < this->field67_0x228.GetSize(); i++) {
-        if (this->field67_0x228[i] == *name) {
-            *frags = this->field68_0x23c[i];
+    for (int32_t i = 0; i < this->arena_names.GetSize(); i++) {
+        if (this->arena_names[i] == *name) {
+            *frags = this->arena_scores[i];
             return;
         }
     }
@@ -5469,7 +5469,7 @@ void Server::ProcessHatPacket(Packet* pkt) {
             }
         
             this->FileList.RemoveAt(0, 1);
-            this->field53_0x1f0 = 0;
+            this->hat_upload_tick = 0;
 #ifdef A2SERVER_PATCH
             try {
 #endif
@@ -5480,9 +5480,9 @@ void Server::ProcessHatPacket(Packet* pkt) {
             }
 #endif
             LogMessage(login + "'s character returned to hat");
-            if (this->FileList.GetSize() == 0 && this->field56_0x1fc != 0) {
+            if (this->FileList.GetSize() == 0 && this->hat_uploads_pending != 0) {
                 NetStru1::HatConnector.SendBarePacket(3, nullptr);
-                this->field56_0x1fc = 0;
+                this->hat_uploads_pending = 0;
             }
             break;
         }
@@ -5490,17 +5490,17 @@ void Server::ProcessHatPacket(Packet* pkt) {
     case 0xd5: // Login to hat successful
         hat_connection->is_claimed = 1;
         LogMessage("Login to hat successful.");
-        this->field50_0x1d4 = 0;
+        this->hat_logged_in = 0;
         this->UpdateHatAnnounce();
         if (packet_2dwords->param2 == 0 || g_ServerConfig.always_load_sacks != 0) {
             this->LoadSavedSacks();
         }
-        this->field54_0x1f4 = packet_2dwords->param1;
+        this->hat_id = packet_2dwords->param1;
         if (this->FileList.GetSize() == 0) {
-            this->field56_0x1fc = 0;
+            this->hat_uploads_pending = 0;
             NetStru1::HatConnector.SendBarePacket(3, nullptr);
         } else {
-            this->field56_0x1fc = 1;
+            this->hat_uploads_pending = 1;
         }
         break;
 
@@ -5562,8 +5562,8 @@ void Server::ProcessHatPacket(Packet* pkt) {
 
 // 4FA551
 void Server::HandleArenaPlayer(Player* player) {
-    for (int32_t i = 0; i < this->field67_0x228.GetSize(); i++) {
-        g_NetStru1_main.SendArenaScore(this->field67_0x228[i], this->field68_0x23c[i], '[', player);
+    for (int32_t i = 0; i < this->arena_names.GetSize(); i++) {
+        g_NetStru1_main.SendArenaScore(this->arena_names[i], this->arena_scores[i], '[', player);
     }
     SendFragLimit(player);
 }
@@ -5892,7 +5892,7 @@ int32_t SackList::DumpInventoryAt(TokenPos* pos, Inventory* inventory, int money
     double new_level = log10((double)sack->_exp);
     if ((double)old_level_trunc != new_level) {
         // Broadcast sack update
-        if (g_Server->field4_0x74 == 0) {
+        if (g_Server->fog_of_war == 0) {
             g_NetStru1_main.BroadcastTokenState(sack, nullptr, 0);
         } else {
             sack->resend_mask = 0xFFFF;
@@ -5940,9 +5940,9 @@ SackList::~SackList() { //554bc3
 // 5540ed
 void SackList::UpdateSackVisibility() {
 #ifndef A2CLIENT
-    const int32_t max_sacks = g_Server->field19_0x98.GetMapCenterX() / (g_ServerConfig.gameType == 0 ? 1 : 8);
+    const int32_t max_sacks = g_Server->srv1.GetMapCenterX() / (g_ServerConfig.gameType == 0 ? 1 : 8);
 #else
-    const int32_t max_sacks = g_Server->field19_0x98.GetMapCenterX();
+    const int32_t max_sacks = g_Server->srv1.GetMapCenterX();
 #endif
 
     for (POSITION it = this->list.GetHeadPosition(); it != nullptr;) {
@@ -5959,7 +5959,7 @@ void SackList::UpdateSackVisibility() {
         sack->seen_by_mask = MapStuff_Instance->scan_presence_grid.sector_grid[1 + (x >> 3)][1 + (y >> 3)];
         
         // If field_0x48 changed and fog of war is enabled, broadcast to newly visible players
-        if (sack->seen_by_mask != sack->seen_by_mask_prev && g_Server->field4_0x74 != 0) {
+        if (sack->seen_by_mask != sack->seen_by_mask_prev && g_Server->fog_of_war != 0) {
             for (int32_t i = 0; i < 16; i++) {
                 // Check if bit i is set in new mask but not in old mask
                 if ((sack->seen_by_mask & (1 << i)) && !(sack->seen_by_mask_prev & (1 << i))) {
@@ -5978,7 +5978,7 @@ void SackList::UpdateSackVisibility() {
         }
         
         // Check if sack count exceeds limit and remove sacks with `field_0x44 == 0`.
-        if (g_Server->field4_0x74 != 0) {
+        if (g_Server->fog_of_war != 0) {
             if (this->list.GetCount() > max_sacks && sack->needs_save == 0) {
                 MapStuff_Instance->RemoveSack(sack);
                 g_NetStru1_main.UntrackToken(sack);
@@ -5990,10 +5990,10 @@ void SackList::UpdateSackVisibility() {
     }
     
     // Random chance to spawn new sacks if count is too low
-    if (g_Server->field4_0x74 != 0 && Random0N(20) == 0) {
+    if (g_Server->fog_of_war != 0 && Random0N(20) == 0) {
         if (g_ServerConfig.gameType == 0) {
             if (this->list.GetCount() < max_sacks) {
-                g_Server->field19_0x98.SpawnRandomSacks(1);
+                g_Server->srv1.SpawnRandomSacks(1);
             }
         } else {
             if (this->list.GetCount() < max_sacks) {
@@ -6057,21 +6057,21 @@ void SpellEffectList::ProcessTick() {
             effect->caster = nullptr;
         }
 
-        if (effect->field4_0x42 != effect->field6_0x44 && effect->IsKindOf(RUNTIME_CLASS(AreaEffect)) && g_Server->field4_0x74 != 0) {
+        if (effect->seen_by_mask != effect->seen_by_mask_prev && effect->IsKindOf(RUNTIME_CLASS(AreaEffect)) && g_Server->fog_of_war != 0) {
             for (int32_t i = 0; i < 16; i++) {
-                if ((effect->field4_0x42 & (1 << i)) != 0 && (effect->field6_0x44 & (1 << i)) == 0) {
+                if ((effect->seen_by_mask & (1 << i)) != 0 && (effect->seen_by_mask_prev & (1 << i)) == 0) {
                     Player* player = g_PlayersList->FindById(i + 16);
                     if (player != nullptr) {
                         g_NetStru1_main.SendAreaEffect((AreaEffect*)effect, 1);
                     }
                 }
             }
-            effect->field6_0x44 = effect->field4_0x42;
+            effect->seen_by_mask_prev = effect->seen_by_mask;
         }
 
         effect->ProcessEffects();
 
-        if (effect->field2_0x40 != 0) {
+        if (effect->expired != 0) {
             this->list.RemoveAt(current_it);
             delete effect;
         }
@@ -6125,7 +6125,7 @@ Inn* Server::FindInnAt(TokenPos* pos) {
 void Server::SendMapInfo(Player* player) {
     PacketJoin* pkt = new PacketJoin(this->current_map_name);
     pkt->id = 0xBF;
-    pkt->__field_0xa = (uint32_t)dword_6CDB38;
+    pkt->__as_dword = (uint32_t)dword_6CDB38;
     pkt->to_player_id = player->player_id;
     g_NetStru1_main.QueuePacketSend(pkt);
 }
@@ -6164,7 +6164,7 @@ void Server::UpdateMissionResult(Player* player) {
         if (player->main_unit == nullptr || player->main_unit->decay != 0) {
             player->mission_result = 2;
             g_NetStru1_main.SendInfoPacket(0xB4, player->mission_result, 0, player);
-            if (player->is_logged_in != 0 && this->field4_0x74 == 0) {
+            if (player->is_logged_in != 0 && this->fog_of_war == 0) {
                 g_NetStru1_main.SendInfoPacket(0xB4, 0, 0, player);
             }
         } else if (g_World->mission_fail > 0) {
@@ -6179,7 +6179,7 @@ void Server::UpdateMissionResult(Player* player) {
             player->mission_result = 1;
         }
     } else {
-        if (this->field4_0x74 != 0 && player->is_active != 0 && player->main_unit->hp <= -40 && player->respawn_requested != 0) {
+        if (this->fog_of_war != 0 && player->is_active != 0 && player->main_unit->hp <= -40 && player->respawn_requested != 0) {
             player->respawn_requested = 0;
             Humanoid* unit = player->main_unit;
             if (unit->inventory == nullptr) {
@@ -6196,9 +6196,9 @@ void Server::UpdateMissionResult(Player* player) {
             player->mission_result = 0;
 #ifndef A2CLIENT
             unit->eye2->spell_id = saved_spell_id;
-            if (g_Server->field4_0x74 != 0 && (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3)) {
+            if (g_Server->fog_of_war != 0 && (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3)) {
 #else
-            if (g_Server->field4_0x74 != 0) {
+            if (g_Server->fog_of_war != 0) {
 #endif
                 Player* self_player = g_PlayersList->FindByName("Self");
                 if (self_player != nullptr) {
@@ -6248,9 +6248,9 @@ void Server::SendArenaResults() {
     CString line;
     CString result;
     result.Format("Arena scores %02d.%02d.%02d %02d:%02d:%02d\n", day, month, year, hour, min, sec);
-    int32_t count = this->field67_0x228.GetSize();
+    int32_t count = this->arena_names.GetSize();
     for (int32_t i = 0; i < count; i++) {
-        line.Format("\"%s\" %d\n", (const char*)this->field67_0x228[i], this->field68_0x23c[i]);
+        line.Format("\"%s\" %d\n", (const char*)this->arena_names[i], this->arena_scores[i]);
         result += line;
     }
     result += "\n";
@@ -6259,8 +6259,8 @@ void Server::SendArenaResults() {
 
 // 4FA01F
 void Server::SetupArenaFileList() {
-    this->field67_0x228.SetSize(0, -1);
-    this->field68_0x23c.SetSize(0, -1);
+    this->arena_names.SetSize(0, -1);
+    this->arena_scores.SetSize(0, -1);
     g_NetStru1_main.SendBarePacket(0x5a, nullptr);
     this->map_elapsed_time2 = 0;
 }
@@ -6359,7 +6359,7 @@ void Server::SaveGame(CString* filename) {
     delete[] out_buf;
 
     uint32_t end_pos = file.GetPosition();
-    if (this->field4_0x74 != 0) {
+    if (this->fog_of_war != 0) {
         char footer[0x100];
         memset(footer, 0, sizeof(footer));
         memcpy(footer, "Server Multiplayer save file.", 30);
@@ -6377,27 +6377,27 @@ void Server::SerializeGame(CArchive& ar) {
         ar << this->tick16;
         ar << this->current_map_name;
 
-        ar << this->field26_0x174;
-        ar << this->field28_0x17c;
-        ar << this->field29_0x180;
-        ar << this->field30_0x184;
-        ar << this->field31_0x188;
-        ar << this->field32_0x18c;
-        ar << this->field33_0x190;
-        ar << this->field34_0x194;
-        ar << this->field37_0x1a0;
-        ar << this->field36_0x19c;
-        ar << this->field35_0x198;
-        ar << this->field21_0xd4;
-        ar << this->field22_0xd8;
+        ar << this->skip_ai_units;
+        ar << this->saved_0x17c;
+        ar << this->saved_0x180;
+        ar << this->saved_0x184;
+        ar << this->saved_0x188;
+        ar << this->saved_0x18c;
+        ar << this->saved_0x190;
+        ar << this->saved_0x194;
+        ar << this->saved_0x1a0;
+        ar << this->saved_0x19c;
+        ar << this->saved_0x198;
+        ar << this->map_code;
+        ar << this->difficulty;
 
         g_PlayersList->Serialize(ar);
         this->srv_stru1->units_list->Serialize(ar);
 
-        uint8_t has_world_state = (this->field18_0x94 != 0) ? 1 : 0;
+        uint8_t has_world_state = (this->has_world_state != 0) ? 1 : 0;
         ar.Write(&has_world_state, 1);
 
-        if (this->field18_0x94 != 0) {
+        if (this->has_world_state != 0) {
             this->srv_stru1->building_list->Serialize(ar);
             this->srv_stru1->effects_list->Serialize(ar);
             MapStuff_Instance->Serialize(ar);
@@ -6423,23 +6423,23 @@ void Server::SerializeGame(CArchive& ar) {
         ar >> this->tick16;
         ar >> this->current_map_name;
 
-        ar >> this->field26_0x174;
-        ar >> this->field28_0x17c;
-        ar >> this->field29_0x180;
-        ar >> this->field30_0x184;
-        ar >> this->field31_0x188;
-        ar >> this->field32_0x18c;
-        ar >> this->field33_0x190;
-        ar >> this->field34_0x194;
-        ar >> this->field37_0x1a0;
-        ar >> this->field36_0x19c;
-        ar >> this->field35_0x198;
-        ar >> this->field21_0xd4;
+        ar >> this->skip_ai_units;
+        ar >> this->saved_0x17c;
+        ar >> this->saved_0x180;
+        ar >> this->saved_0x184;
+        ar >> this->saved_0x188;
+        ar >> this->saved_0x18c;
+        ar >> this->saved_0x190;
+        ar >> this->saved_0x194;
+        ar >> this->saved_0x1a0;
+        ar >> this->saved_0x19c;
+        ar >> this->saved_0x198;
+        ar >> this->map_code;
 
         int32_t loaded_mode = 0;
         ar >> loaded_mode;
         if (loaded_mode > 0 && loaded_mode < 4) {
-            this->field22_0xd8 = loaded_mode;
+            this->difficulty = loaded_mode;
         }
 
         g_PlayersList->Serialize(ar);
@@ -6448,7 +6448,7 @@ void Server::SerializeGame(CArchive& ar) {
         uint8_t has_world_state = 0;
         ar.Read(&has_world_state, 1);
         if (has_world_state == 0) {
-            this->field18_0x94 = 0;
+            this->has_world_state = 0;
         } else {
             POSITION player_it = g_PlayersList->list.GetHeadPosition();
             while (player_it != nullptr) {
@@ -6477,7 +6477,7 @@ void Server::SerializeGame(CArchive& ar) {
             this->srv_stru1->effects_list->Serialize(ar);
 
             CString map_name = this->current_map_name;
-            if (this->field21_0xd4 != 0) {
+            if (this->map_code != 0) {
                 map_name = "Scenario\\" + map_name;
             }
 
@@ -6503,10 +6503,10 @@ void Server::SerializeGame(CArchive& ar) {
                 this->srv_stru1->virtual_casters_list.AddTail(static_cast<VirtualCaster*>(obj));
             }
 
-            this->field19_0x98.LoadTriggers(alm, 0);
+            this->srv1.LoadTriggers(alm, 0);
             delete alm;
 
-            this->field18_0x94 = 1;
+            this->has_world_state = 1;
         }
 
         if (has_world_state != 0) {
@@ -6630,7 +6630,7 @@ Human* Server::SummonUnit(CString* unit_name, Unit* origin, int32_t is_hero) {
         return nullptr;
     }
 
-    if (this->field18_0x94 != 0) {
+    if (this->has_world_state != 0) {
         uint8_t x = origin->position->GetX();
         uint8_t y = origin->position->GetY();
         if (unit->PlaceOnMap(x, y, 3) == 0) {
@@ -6653,7 +6653,7 @@ Human* Server::SummonUnit(CString* unit_name, Unit* origin, int32_t is_hero) {
     g_World->ResetUnitToHold(unit);
     g_World->ProcessAnimateDeadGroup(group);
 
-    if (this->field18_0x94 == 0) {
+    if (this->has_world_state == 0) {
         g_NetStru1_main.SendUnitUpdate(unit, player, 0xFFFFFFFF, 0xFFB, 0, 0);
     } else {
         g_NetStru1_main.SendUnitUpdate(unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
@@ -6732,7 +6732,7 @@ void Server::UpdateQuestRune(int32_t team, int32_t picked_up) {
     Item* item = new Item(rune_name);
     Inventory* inv = new Inventory();
     inv->PutItemIntoBagAtDefault(item);
-    uint16_t yx = this->field19_0x98.field4_0x28.GetAt(team);
+    uint16_t yx = this->srv1.drop_locations.GetAt(team);
     uint8_t x = yx & 0xFF;
     uint8_t y = (yx >> 8) & 0xFF;
     TokenPos pos(x, y, MapStuff_Instance);

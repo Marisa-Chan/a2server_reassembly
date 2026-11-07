@@ -45,7 +45,7 @@ public:
     uint32_t flags;
     CString name;
     CString str;
-    int32_t field_0x20;
+    int32_t gap_0x20;
     UnitList* unit_list;
     GroupList* group_list;
     uint32_t is_ai; // 1 for AI players, 0 for human players.
@@ -67,15 +67,15 @@ public:
     int32_t drop_deadline_tick16;
     uint32_t deaths;
     uint32_t frags;
-    uint32_t field_0xa5c;
-    uint32_t field_0xa60;
+    uint32_t mana_percent;
+    uint32_t quest_ai;
     uint32_t respawn_requested;
     int32_t shout_cooldown;
     uint32_t team_ready;
-    uint32_t field_0xa70; // Team play: 0 for blue team, 1 for red team.
+    uint32_t team; // Team play: 0 for blue team, 1 for red team.
     uint16_t building_entered_from_yx;
-    uint8_t field_0xa76;
-    uint8_t field_0xa77;
+    uint8_t gap_0xa76;
+    uint8_t gap_0xa77;
     CString login;
     uint32_t last_save_tick;
     uint32_t hat_char_id1;

@@ -27,12 +27,12 @@ ASSERT_SIZE(AssortGenParams, 0x14);
 struct ShopAssortment {
     CArray<double> arr;
     uint8_t gap_0x14[4];
-    double field_0x18;
+    double edge_weight;
     CArray<Item*> items;
     int32_t min_cost;
     int32_t max_cost;
     uint8_t gap_0x3c[4];
-    double field_0x40;
+    double gap_0x40;
     uint8_t gap_0x48[12];
     uint32_t flags;
 

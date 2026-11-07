@@ -36,7 +36,7 @@ void Inventory::PutItemIntoBag(int32_t pos, Item* item) {
         return;
     }
 
-    item->field11_0x4d = 0;
+    item->shelf_id = 0;
 
     // Check if item is stackable
     if (item->IsSimpleItem() != 0) {
@@ -87,7 +87,7 @@ void Inventory::AddItem(int32_t amount, Item* item) {
         // Try to find an existing stackable item with the same item_id and shelf id
         for (POSITION it = this->items.GetHeadPosition(); it != nullptr;) {
             Item* existing = this->items.GetNext(it);
-            if (existing->item_id == item->item_id && existing->IsSimpleItem() != 0 && existing->field11_0x4d == item->field11_0x4d) {
+            if (existing->item_id == item->item_id && existing->IsSimpleItem() != 0 && existing->shelf_id == item->shelf_id) {
                 // Stack them together
                 this->total_weight += item->weight * item->count;
                 existing->count += item->count;

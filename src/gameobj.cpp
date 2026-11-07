@@ -64,7 +64,7 @@ CGameObject::CGameObject() {
     this->speed = 0;
     this->hp = 0;
     this->hp_max = 0;
-    this->field_0x84 = -1;
+    this->gap_0x84 = -1;
     this->controlGroupMask = 0;
     this->m_bSelected = 0;
     this->bIsBlocked = 0;
@@ -107,7 +107,7 @@ CGameObject::CGameObject(const CGameObject* obj) {
     this->face = obj->face;
     this->x_pos2 = obj->x_pos2;
     this->y_pos2 = obj->y_pos2;
-    this->field_0x34 = obj->field_0x34;
+    this->walk_cycle_index = obj->walk_cycle_index;
     this->tileX = obj->tileX;
     this->tileY = obj->tileY;
     this->mapBoundsLeft = obj->mapBoundsLeft;
@@ -125,7 +125,7 @@ CGameObject::CGameObject(const CGameObject* obj) {
     this->last_action = obj->last_action;
     this->bIsBlocked = obj->bIsBlocked;
     this->m_bSelected = obj->m_bSelected;
-    this->field_0x84 = obj->field_0x84;
+    this->gap_0x84 = obj->gap_0x84;
     this->controlGroupMask = obj->controlGroupMask;
     this->action = obj->action;
     this->action_x = obj->action_x;
@@ -143,7 +143,7 @@ CGameObject::CGameObject(const CGameObject* obj) {
     this->shopInventoryVisibleStart = obj->shopInventoryVisibleStart;
     this->pMapObject = obj->pMapObject;
     this->hp = obj->hp;
-    this->field_0x106 = obj->field_0x106;
+    this->gap_0x106 = obj->gap_0x106;
     this->hp_max = obj->hp_max;
     this->scan_range = obj->scan_range;
     this->speed = obj->speed;
@@ -249,7 +249,7 @@ void CGameObject::UpdateMapPosition() { //46190d
     int32_t fracX = (this->centerWorldX8 >> 3) & 0x1f;
     int32_t fracY = (this->centerWorldY8 >> 3) & 0x1f;
     int32_t idx = (this->centerWorldX8 >> 8) + (this->centerWorldY8 >> 8) * map->map_width;
-    const int8_t* heights = map->field_0x80->GetMapHeights();
+    const int8_t* heights = map->scenario->GetMapHeights();
 
     int32_t h00 = heights[idx];
     int32_t h10 = heights[idx + 1];
@@ -440,9 +440,9 @@ void CGameObject::UpdateOccupancy() { //462190
 
 void CGameObject::MarkOccupancy() { //462226
     if (this->pMapObject->my_main_unit->IsVisibleTo(this->map_player->index) != 0 && this->scan_range != 0) {
-        this->pMapObject->field_0xdc = 1;
+        this->pMapObject->minimap_dirty = 1;
 
-        uint16_t* land = this->pMapObject->field_0x80->GetLandscape();
+        uint16_t* land = this->pMapObject->scenario->GetLandscape();
         int32_t iVar6 = this->GetTileWidth();
         int32_t iVar2 = this->tileX;
         int32_t iVar7 = this->GetTileHeight();
@@ -453,7 +453,7 @@ void CGameObject::MarkOccupancy() { //462226
         for (int j = 0; j < 41; j++) {
             for (int i = 0; i < 41; i++) {
                 int32_t idx = iVar2 + iVar6 / 2 - 20 + j + (iVar3 + iVar7 / 2 - 20 + i) * this->pMapObject->map_width;
-                if (this->pMapObject->field_0x17e4[j][i] > 0) {
+                if (this->pMapObject->shadow_light[j][i] > 0) {
                     land[idx] |= 0xc000;
                     idx++;
 
@@ -473,7 +473,7 @@ void CGameObject::MarkOccupancy() { //462226
 
 
 int32_t CGameObject::UpdateBlockedState() { //46207a
-    uint16_t* land = this->pMapObject->field_0x80->GetLandscape();
+    uint16_t* land = this->pMapObject->scenario->GetLandscape();
 
     int32_t idx = this->tileX + this->pMapObject->map_width * this->tileY;
     this->bIsBlocked = (land[idx] & 0xc000U | land[idx + 1] & 0xc000U | land[idx + this->pMapObject->map_width] & 0xc000U | land[idx + this->pMapObject->map_width + 1] & 0xc000U) != 0xc000;
@@ -519,7 +519,7 @@ TokenEntry::TokenEntry() = default; //438f90
 
 
 TokenEntry::TokenEntry(int id1) { //439009
-    this->field_0x4 = id1;
+    this->match_id = id1;
 }
 
 
@@ -531,9 +531,9 @@ TokenEntry::TokenEntry(const TokenEntry* obj) {
 TokenEntry::TokenEntry(uint8_t** data, int id1) {
     //439102
     this->slot_code = 0;
-    this->field_0x14 = 0;
-    this->field_0x1c = -1;
-    this->field_0x20 = -1;
+    this->gap_0x14 = 0;
+    this->gap_0x1c = -1;
+    this->list_index = -1;
     this->mods_count = 0;
     this->mods_size = 0;
     this->mods = nullptr;
@@ -554,7 +554,7 @@ TokenEntry::TokenEntry(uint8_t** data, int id1) {
         }
 
         this->mods_size = pkt->data_len;
-        this->mods_count = pkt->field_5;
+        this->mods_count = pkt->mods_count;
     }
 
     if ((this->flg & 0x80) == 0) {
@@ -614,12 +614,12 @@ TokenEntry::TokenEntry(uint8_t** data, int id1) {
 
 void TokenEntry::operator=(const TokenEntry& obj) {
     //43a3cd
-    this->field_0x4 = obj.field_0x4;
+    this->match_id = obj.match_id;
     this->item_id = obj.item_id;
     this->flg = obj.flg;
     this->mods_count = obj.mods_count;
     this->count = obj.count;
-    this->field_0x14 = obj.field_0x14;
+    this->gap_0x14 = obj.gap_0x14;
     this->slot_code = obj.slot_code;
     this->mods_size = obj.mods_size;
 
@@ -630,8 +630,8 @@ void TokenEntry::operator=(const TokenEntry& obj) {
         memcpy(this->mods, obj.mods, this->mods_size);
     }
 
-    this->field_0x1c = obj.field_0x1c;
-    this->field_0x20 = obj.field_0x20;
+    this->gap_0x1c = obj.gap_0x1c;
+    this->list_index = obj.list_index;
 
 }
 
@@ -1037,12 +1037,12 @@ CUnit::CUnit() { //46411c
     this->unitFlags = 0;
     this->death_state = 0;
     this->heroSpriteArmorMaterial = -1;
-    this->field_0x161 = 0;
-    this->field_0x162 = 0;
-    this->field_0x164 = 0;
+    this->gap_0x161 = 0;
+    this->gap_0x162 = 0;
+    this->gap_0x164 = 0;
     this->serverId = 0;
     this->questFlags = -1;
-    this->field_0x156 = 0;
+    this->special_stat_kind = 0;
 }
 
 CUnit::~CUnit() { //46459d
@@ -1376,7 +1376,7 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
     if (this->action == 3 || this->action == 7 || this->action == 8) {
         this->action = 0;
         this->phase = 0;
-        this->field_0x34 = -1;
+        this->walk_cycle_index = -1;
         this->action_phase = 0;
         this->action_segments = 0;
     }
@@ -1482,9 +1482,9 @@ void CUnit::CopyFromUnit(const Unit& uni) { //46b0d7
     this->magic_protect[4] = uni.protections.magic_protections[5];
 
     if (this->typeId == 0x49 || this->typeId == 0x68 || this->typeId == 0x46) {
-        this->field_0x156 = 2;
+        this->special_stat_kind = 2;
     } else {
-        this->field_0x156 = 0;
+        this->special_stat_kind = 0;
     }
 
     this->ReloadSprite();
@@ -1751,7 +1751,7 @@ void CUnit::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) { // 466a
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 #ifdef A2CLIENT
-    if (main_wnd->field_0x3e0.field_10 != 0 && main_wnd->hat_settings.ishat != 0 &&
+    if (main_wnd->net_session.internet_game != 0 && main_wnd->hat_settings.ishat != 0 &&
         main_wnd->hat_settings.deathmatch == 2 && (this->unitFlags & 1) != 0) {
         if (map->cursor_over_obj_last_index == this->map_player->index) {
             g_ca16_money->Draw(right - 0xa, bottom - 0x40, 0, 0, 0);
@@ -1765,11 +1765,11 @@ void CUnit::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) { // 466a
     if (session_mode == 2 || g_settings.ClanNames == 0 || this->str1[0] == 0 || (this->unitFlags & 1) == 0) {
         if (session_mode != 2 && g_settings.ClanNames != 0) {
             int32_t quest_flag = 0;
-            POSITION pos = map->field_0x4970->quests_map.GetStartPosition();
+            POSITION pos = map->quest_map->quests_map.GetStartPosition();
             while (pos != nullptr) {
                 uint32_t quest_id;
                 Quest* quest;
-                map->field_0x4970->quests_map.GetNextAssoc(pos, quest_id, quest);
+                map->quest_map->quests_map.GetNextAssoc(pos, quest_id, quest);
 
                 if (quest->IsInWork() != 0) {
                     if (this->unit_id == quest->GetObj()) {
@@ -1816,7 +1816,7 @@ void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t light) { // 464974
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     BigStruct2* map = this->pMapObject;
 
-    int32_t sun_angle = (int32_t)(std::tan(this->pMapObject->field_0x80->GetRenderSunAngle()) * 65536.0);
+    int32_t sun_angle = (int32_t)(std::tan(this->pMapObject->scenario->GetRenderSunAngle()) * 65536.0);
     (void)sun_angle; // computed but never used in the original binary
 
     UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
@@ -1961,7 +1961,7 @@ void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t light) { // 464974
         }
     }
 
-    if (map->field_0x994 == this && main_wnd->drag_entry == NULL) {
+    if (map->hovered_unit == this && main_wnd->drag_entry == NULL) {
         light = 0;
     }
 
@@ -2031,7 +2031,7 @@ void CUnit::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) { // 465b5
 
     BigStruct2* map = this->pMapObject;
 
-    int32_t sun_angle = (int32_t)(std::tan(map->field_0x80->GetRenderSunAngle()) * 65536.0);
+    int32_t sun_angle = (int32_t)(std::tan(map->scenario->GetRenderSunAngle()) * 65536.0);
 
     UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
     int32_t file_idx = vfx->file;
@@ -2153,7 +2153,7 @@ void CUnit::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) { // 465b5
         if (this->sprite->GetFrameCount() <= frame) {
             return;
         }
-        int32_t shadow_offset = (int32_t)(std::tan(map->field_0x80->GetRenderSunAngle()) * (this->sprite->GetHeight(frame) / 2 + draw_vfx->height / 2 - draw_vfx->center_y));
+        int32_t shadow_offset = (int32_t)(std::tan(map->scenario->GetRenderSunAngle()) * (this->sprite->GetHeight(frame) / 2 + draw_vfx->height / 2 - draw_vfx->center_y));
         int32_t cx = draw_vfx->center_x - draw_vfx->width / 2 + this->sprite->GetWidth(frame) / 2;
         int32_t cy = draw_vfx->center_y - draw_vfx->height / 2 + this->sprite->GetHeight(frame) / 2;
         int32_t x = this->centerScreenX - cx - shadow_offset;
@@ -2175,7 +2175,7 @@ void CUnit::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) { // 465b5
         }
     } else {
         UnitGfxFile* gfx_file = g_UnitGfxFiles[file_idx];
-        int32_t shadow_offset = (int32_t)(std::tan(map->field_0x80->GetRenderSunAngle()) * (gfx_file->GetSprite()->GetHeight(frame) / 2 + draw_vfx->height / 2 - draw_vfx->center_y));
+        int32_t shadow_offset = (int32_t)(std::tan(map->scenario->GetRenderSunAngle()) * (gfx_file->GetSprite()->GetHeight(frame) / 2 + draw_vfx->height / 2 - draw_vfx->center_y));
         int32_t is_air = this->IsKindOf(RUNTIME_CLASS(CAirUnit));
         int32_t cx = draw_vfx->center_x - draw_vfx->width / 2 + gfx_file->GetSprite()->GetWidth(frame) / 2;
         int32_t cy = draw_vfx->center_y - draw_vfx->height / 2 + gfx_file->GetSprite()->GetHeight(frame) / 2;
@@ -2674,7 +2674,7 @@ int32_t CUnit::Update() { // 46785f
         }
         this->last_action = 0;
         if (vfx->idle_phases == 0) {
-            this->field_0x34 = -1;
+            this->walk_cycle_index = -1;
             this->phase = 0;
             this->action_phase = 0;
         } else {
@@ -2714,57 +2714,57 @@ int32_t CUnit::Update() { // 46785f
             int32_t sway = this->dir == 8 ? 8 : -8;
             switch ((this->move_accum_y / 26) & 7) {
             case 0:
-                if (this->field_0x34 != 0) {
-                    this->field_0x34 = 0;
+                if (this->walk_cycle_index != 0) {
+                    this->walk_cycle_index = 0;
                     this->x_pos2 = this->x_pos;
                     this->y_pos2 = this->y_pos;
                 }
                 break;
             case 1:
-                if (this->field_0x34 != 1) {
-                    this->field_0x34 = 1;
+                if (this->walk_cycle_index != 1) {
+                    this->walk_cycle_index = 1;
                     this->x_pos2 = this->x_pos;
                     this->y_pos2 = this->y_pos;
                 }
                 break;
             case 2:
-                if (this->field_0x34 != 2) {
-                    this->field_0x34 = 2;
+                if (this->walk_cycle_index != 2) {
+                    this->walk_cycle_index = 2;
                     this->x_pos2 = this->x_pos;
                     this->y_pos2 = this->y_pos;
                 }
                 break;
             case 3:
-                if (this->field_0x34 != 3) {
-                    this->field_0x34 = 3;
+                if (this->walk_cycle_index != 3) {
+                    this->walk_cycle_index = 3;
                     this->x_pos2 = this->x_pos;
                     this->y_pos2 = this->y_pos;
                 }
                 break;
             case 4:
-                if (this->field_0x34 != 4) {
-                    this->field_0x34 = 4;
+                if (this->walk_cycle_index != 4) {
+                    this->walk_cycle_index = 4;
                     this->x_pos2 = this->x_pos;
                     this->y_pos2 = this->y_pos - sway;
                 }
                 break;
             case 5:
-                if (this->field_0x34 != 5) {
-                    this->field_0x34 = 5;
+                if (this->walk_cycle_index != 5) {
+                    this->walk_cycle_index = 5;
                     this->x_pos2 = this->x_pos;
                     this->y_pos2 = this->y_pos + sway;
                 }
                 break;
             case 6:
-                if (this->field_0x34 != 6) {
-                    this->field_0x34 = 6;
+                if (this->walk_cycle_index != 6) {
+                    this->walk_cycle_index = 6;
                     this->x_pos2 = this->x_pos;
                     this->y_pos2 = this->y_pos;
                 }
                 break;
             case 7:
-                if (this->field_0x34 != 7) {
-                    this->field_0x34 = 7;
+                if (this->walk_cycle_index != 7) {
+                    this->walk_cycle_index = 7;
                     this->x_pos2 = this->x_pos;
                     this->y_pos2 = this->y_pos;
                 }
@@ -2777,57 +2777,57 @@ int32_t CUnit::Update() { // 46785f
             int32_t sway = this->dir == 4 ? 8 : -8;
             switch ((this->move_accum_x / 32) & 7) {
             case 0:
-                if (this->field_0x34 != 0) {
-                    this->field_0x34 = 0;
+                if (this->walk_cycle_index != 0) {
+                    this->walk_cycle_index = 0;
                     this->x_pos2 = this->x_pos;
                     this->y_pos2 = this->y_pos;
                 }
                 break;
             case 1:
-                if (this->field_0x34 != 1) {
-                    this->field_0x34 = 1;
+                if (this->walk_cycle_index != 1) {
+                    this->walk_cycle_index = 1;
                     this->x_pos2 = this->x_pos - sway;
                     this->y_pos2 = this->y_pos;
                 }
                 break;
             case 2:
-                if (this->field_0x34 != 2) {
-                    this->field_0x34 = 2;
+                if (this->walk_cycle_index != 2) {
+                    this->walk_cycle_index = 2;
                     this->x_pos2 = this->x_pos - sway;
                     this->y_pos2 = this->y_pos;
                 }
                 break;
             case 3:
-                if (this->field_0x34 != 3) {
-                    this->field_0x34 = 3;
+                if (this->walk_cycle_index != 3) {
+                    this->walk_cycle_index = 3;
                     this->x_pos2 = this->x_pos + sway;
                     this->y_pos2 = this->y_pos;
                 }
                 break;
             case 4:
-                if (this->field_0x34 != 4) {
-                    this->field_0x34 = 4;
+                if (this->walk_cycle_index != 4) {
+                    this->walk_cycle_index = 4;
                     this->x_pos2 = this->x_pos;
                     this->y_pos2 = this->y_pos;
                 }
                 break;
             case 5:
-                if (this->field_0x34 != 5) {
-                    this->field_0x34 = 5;
+                if (this->walk_cycle_index != 5) {
+                    this->walk_cycle_index = 5;
                     this->x_pos2 = this->x_pos;
                     this->y_pos2 = this->y_pos;
                 }
                 break;
             case 6:
-                if (this->field_0x34 != 6) {
-                    this->field_0x34 = 6;
+                if (this->walk_cycle_index != 6) {
+                    this->walk_cycle_index = 6;
                     this->x_pos2 = this->x_pos + sway * 2;
                     this->y_pos2 = this->y_pos;
                 }
                 break;
             case 7:
-                if (this->field_0x34 != 7) {
-                    this->field_0x34 = 7;
+                if (this->walk_cycle_index != 7) {
+                    this->walk_cycle_index = 7;
                     this->x_pos2 = this->x_pos + sway;
                     this->y_pos2 = this->y_pos;
                 }
@@ -2840,57 +2840,57 @@ int32_t CUnit::Update() { // 46785f
             int32_t sway_y = (this->dir == 6 || this->dir == 10) ? 8 : -8;
             switch ((this->move_accum_x / 25) & 7) {
             case 0:
-                if (this->field_0x34 != 0) {
-                    this->field_0x34 = 0;
+                if (this->walk_cycle_index != 0) {
+                    this->walk_cycle_index = 0;
                     this->x_pos2 = this->x_pos;
                     this->y_pos2 = this->y_pos;
                 }
                 break;
             case 1:
-                if (this->field_0x34 != 1) {
-                    this->field_0x34 = 1;
+                if (this->walk_cycle_index != 1) {
+                    this->walk_cycle_index = 1;
                     this->x_pos2 = this->x_pos - sway_x;
                     this->y_pos2 = this->y_pos - sway_y;
                 }
                 break;
             case 2:
-                if (this->field_0x34 != 2) {
-                    this->field_0x34 = 2;
+                if (this->walk_cycle_index != 2) {
+                    this->walk_cycle_index = 2;
                     this->x_pos2 = this->x_pos;
                     this->y_pos2 = this->y_pos;
                 }
                 break;
             case 3:
-                if (this->field_0x34 != 3) {
-                    this->field_0x34 = 3;
+                if (this->walk_cycle_index != 3) {
+                    this->walk_cycle_index = 3;
                     this->x_pos2 = this->x_pos + sway_x * 2;
                     this->y_pos2 = this->y_pos + sway_y * 2;
                 }
                 break;
             case 4:
-                if (this->field_0x34 != 4) {
-                    this->field_0x34 = 4;
+                if (this->walk_cycle_index != 4) {
+                    this->walk_cycle_index = 4;
                     this->x_pos2 = this->x_pos;
                     this->y_pos2 = this->y_pos;
                 }
                 break;
             case 5:
-                if (this->field_0x34 != 5) {
-                    this->field_0x34 = 5;
+                if (this->walk_cycle_index != 5) {
+                    this->walk_cycle_index = 5;
                     this->x_pos2 = this->x_pos;
                     this->y_pos2 = this->y_pos;
                 }
                 break;
             case 6:
-                if (this->field_0x34 != 6) {
-                    this->field_0x34 = 6;
+                if (this->walk_cycle_index != 6) {
+                    this->walk_cycle_index = 6;
                     this->x_pos2 = this->x_pos + sway_x;
                     this->y_pos2 = this->y_pos + sway_y;
                 }
                 break;
             case 7:
-                if (this->field_0x34 != 7) {
-                    this->field_0x34 = 7;
+                if (this->walk_cycle_index != 7) {
+                    this->walk_cycle_index = 7;
                     this->x_pos2 = this->x_pos + sway_x;
                     this->y_pos2 = this->y_pos + sway_y;
                 }
@@ -2899,7 +2899,7 @@ int32_t CUnit::Update() { // 46785f
             break;
         }
         }
-        this->phase = this->field_0x34;
+        this->phase = this->walk_cycle_index;
         break;
     }
     case 3:
@@ -2984,7 +2984,7 @@ int32_t CUnit::Update() { // 46785f
 void CUnit::SpawnSpellProjectile() { // 468765
     BigStruct2* map = this->pMapObject;
     CGameObject* xd90_target = nullptr;
-    if (this->action_target != 0 && map->field_0x9d0.Lookup(this->action_target, xd90_target) == 0) {
+    if (this->action_target != 0 && map->objects.Lookup(this->action_target, xd90_target) == 0) {
         return;
     }
 
@@ -3052,8 +3052,8 @@ void CUnit::SpawnSpellProjectile() { // 468765
     proj->action = 1;
     proj->action_phase = 0;
     proj->UpdateMapPosition();
-    map->field_0x9ec[(uint16_t)map->field_0xa24] = proj;
-    map->field_0xa24 = (uint16_t)(map->field_0xa24 + 1);
+    map->projectiles[(uint16_t)map->next_projectile_id] = proj;
+    map->next_projectile_id = (uint16_t)(map->next_projectile_id + 1);
 
     if (proj->typeId != 0x36) {
         return;
@@ -3064,8 +3064,8 @@ void CUnit::SpawnSpellProjectile() { // 468765
     ghost->y_pos = ghost->action_y - vfx->center_y + (vfx->selection.bottom - vfx->selection.top) / 2;
     ghost->z_pos = ghost->action_z;
     ghost->UpdateMapPosition();
-    map->field_0x9ec[(uint16_t)map->field_0xa24] = ghost;
-    map->field_0xa24 = (uint16_t)(map->field_0xa24 + 1);
+    map->projectiles[(uint16_t)map->next_projectile_id] = ghost;
+    map->next_projectile_id = (uint16_t)(map->next_projectile_id + 1);
 }
 
 // 469535
@@ -3120,7 +3120,7 @@ void CUnit::PlayHitSound(int32_t kind) {
 void CUnit::SpawnAttackProjectile() {
     BigStruct2* map = this->pMapObject;
     CGameObject* target = nullptr;
-    if (map->field_0x9d0.Lookup(this->action_target, target) == 0) {
+    if (map->objects.Lookup(this->action_target, target) == 0) {
         return;
     }
 
@@ -3145,8 +3145,8 @@ void CUnit::SpawnAttackProjectile() {
     proj->action = 1;
     proj->action_phase = 0;
     proj->UpdateMapPosition();
-    map->field_0x9ec[(uint16_t)map->field_0xa24] = proj;
-    map->field_0xa24 = (uint16_t)(map->field_0xa24 + 1);
+    map->projectiles[(uint16_t)map->next_projectile_id] = proj;
+    map->next_projectile_id = (uint16_t)(map->next_projectile_id + 1);
 }
 
 // 46761e
@@ -3165,7 +3165,7 @@ void CUnit::DrawMinimapRect(int32_t x, int32_t y, int32_t zoom) {
         return;
     }
 
-    uint16_t* land = map->field_0x80->GetLandscape();
+    uint16_t* land = map->scenario->GetLandscape();
     int32_t idx = (this->x_pos >> 8) + map->map_width * (this->y_pos >> 8);
 
     uint16_t mask = (land[idx] & 0xc000) | (land[idx + 1] & 0xc000) | (land[idx + map->map_width] & 0xc000) | (land[idx + map->map_width + 1] & 0xc000);
@@ -3208,7 +3208,7 @@ int32_t CUnit::UpdateBlockedState() {
         return 0;
     }
 
-    uint16_t* land = map->field_0x80->GetLandscape();
+    uint16_t* land = map->scenario->GetLandscape();
     int32_t idx = this->tileX + map->map_width * this->tileY;
     this->bIsBlocked = (land[idx] & 0xc000 | land[idx + 1] & 0xc000 | land[idx + map->map_width] & 0xc000 | land[idx + map->map_width + 1] & 0xc000) != 0xc000;
 
@@ -3235,7 +3235,7 @@ void CUnit::UpdateTileLayer() {
         int32_t x = this->centerScreenX - vfx->center_x;
         int32_t y = this->centerScreenY - vfx->center_y - this->terrainHeightOffset - this->z_pos;
         CRect rect(x & 0xffffffe0, y, ((x + vfx->width) & 0xffffffe0) + 0x20, y + vfx->height);
-        map->field_0xf4 |= rect;
+        map->dirty_rect |= rect;
     }
 
     this->m_bSelectionDirty = 0;
@@ -3584,7 +3584,7 @@ void CUnit::DrawStatsPanel(CRect* rect) {
         g_font2->DrawTextWithShadow(rect->left + 0x4a, rect->top + 0xae, TxtFile::AllLines[0xbe], 2, label_color, 1);
     }
 
-    if ((this->unitFlags & 0x11) == 0 && this->field_0x156 != 0 && view_level == 7) {
+    if ((this->unitFlags & 0x11) == 0 && this->special_stat_kind != 0 && view_level == 7) {
         g_font2->DrawTextWithShadow(rect->left + 0x4a, rect->top + 0xba, TxtFile::AllLines[0xbf], 2, label_color, 1);
     }
 }
@@ -3712,7 +3712,7 @@ int32_t CUnit::IsItemRestricted(TokenEntry* entry) {
 void CUnit::SetSelected(int32_t selected) {
     BigStruct2* map = this->pMapObject;
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-    if (selected == 0 && map->field_0x138 == this && wnd->drag_entry != nullptr) {
+    if (selected == 0 && map->primary_selected_object == this && wnd->drag_entry != nullptr) {
         g_Cursors[CURSOR_DEFAULT]->Use();
         wnd->vis_invtype1->VMethod37(wnd->vis_invtype1->FUN_0046fb90());
         wnd->ResetItemCursor();
@@ -3794,12 +3794,12 @@ void CUnit::PlayCastSound() {
 void StructEnter::RebuildFromMap() {
 	MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 	BigStruct2* map = main_wnd->vis_map_context;
-	POSITION it = map->field_0x9d0.GetStartPosition();
+	POSITION it = map->objects.GetStartPosition();
 	this->ClearGroups();
 	while (it != NULL) {
 		uint16_t key;
 		CGameObject* value;
-		map->field_0x9d0.GetNextAssoc(it, key, value);
+		map->objects.GetNextAssoc(it, key, value);
 		if (!value->IsKindOf(RUNTIME_CLASS(CUnit))) {
 			continue;
 		}
@@ -3817,8 +3817,8 @@ void StructEnter::RebuildFromMap() {
 
 // 473d10
 int32_t StructEnter::FUN_00473d10() {
-	for (int32_t i = 0; i < this->field_0x0.GetSize(); i++) {
-		CUnit* unit = this->field_0x0[i];
+	for (int32_t i = 0; i < this->structure_list.GetSize(); i++) {
+		CUnit* unit = this->structure_list[i];
 		if ((unit->unitFlags & 0x20) != 0) {
 			return i;
 		}
@@ -3828,31 +3828,31 @@ int32_t StructEnter::FUN_00473d10() {
 
 // 475080
 void StructEnter::FUN_00475080(CUnit* unit) {
-	this->field_0x14.Add(unit);
+	this->party_list.Add(unit);
 	if ((unit->unitFlags & 2) != 0) {
-		this->field_0x2c++;
+		this->male_party_count++;
 	} else {
-		this->field_0x28++;
+		this->female_party_count++;
 	}
 }
 
 // 475010
 void StructEnter::ClearGroups() {
-	this->field_0x0.SetSize(0);
-	this->field_0x14.SetSize(0);
-	this->field_0x2c = 0;
-	this->field_0x28 = 0;
+	this->structure_list.SetSize(0);
+	this->party_list.SetSize(0);
+	this->male_party_count = 0;
+	this->female_party_count = 0;
 }
 
 // 474ff0
 void StructEnter::FUN_00474ff0(CUnit* unit) {
-	this->field_0x0.Add(unit);
+	this->structure_list.Add(unit);
 }
 
 // 474f20
 StructEnter::StructEnter() {
-	this->field_0x28 = 0;
-	this->field_0x2c = 0;
+	this->female_party_count = 0;
+	this->male_party_count = 0;
 }
 
 // 474f90
@@ -3917,7 +3917,7 @@ void CStructure::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) {
 void CStructure::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
     BigStruct2* map = this->pMapObject;
 
-    int32_t sun_angle = (int32_t)(std::tan(map->field_0x80->GetRenderSunAngle()) * 65536.0);
+    int32_t sun_angle = (int32_t)(std::tan(map->scenario->GetRenderSunAngle()) * 65536.0);
 
     StructureInfo* info = g_StructuresInfo[this->typeId];
     int32_t x_offset = (tile_x + map->view_x) - this->tileX;
@@ -3961,7 +3961,7 @@ void CStructure::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
             }
         }
 
-        int32_t shadow_offset = (int32_t)(std::tan(map->field_0x80->GetRenderSunAngle()) * ((info->full_height - row) * 32.0 - info->shadow_y));
+        int32_t shadow_offset = (int32_t)(std::tan(map->scenario->GetRenderSunAngle()) * ((info->full_height - row) * 32.0 - info->shadow_y));
 
         info->GetSprite()->DrawShadowed(x + shadow_offset, y, frame, g_DeltaCLR.shade_delta, sun_angle, 0);
         if (g_settings.Smoothing != 0) {
@@ -4043,32 +4043,32 @@ void CStructure::UpdateLight() {
     if (info->light_pulse == 0) {
         pulse_val = 0x20;
     } else {
-        if (map->field_0xa88 % (info->light_pulse << 1) < info->light_pulse) {
-            pulse_val = 0x20 - info->light_pulse / 2 + map->field_0xa88 % info->light_pulse;
+        if (map->anim_tick % (info->light_pulse << 1) < info->light_pulse) {
+            pulse_val = 0x20 - info->light_pulse / 2 + map->anim_tick % info->light_pulse;
         } else {
-            pulse_val = 0x20 + info->light_pulse / 2 - map->field_0xa88 % info->light_pulse;
+            pulse_val = 0x20 + info->light_pulse / 2 - map->anim_tick % info->light_pulse;
         }
     }
 
     for (int32_t x = this->mapBoundsLeft + info->light_radius - 1; x <= this->mapBoundsRight + info->light_radius; x++) {
         for (int32_t y = this->mapBoundsTop + info->light_radius - 1; y <= this->mapBoundsBottom + info->light_radius; y++) {
             if (x > -4 && x < map->view_tiles_x + 3 && y > -4 && y < map->view_tiles_y + 3) {
-                map->field_0xa8[x + 3 + (y + 3) * (map->view_tiles_x + 7)] = pulse_val;
+                map->corner_light[x + 3 + (y + 3) * (map->view_tiles_x + 7)] = pulse_val;
             }
         }
     }
 
-    map->field_0x108++;
+    map->lightning_active++;
 
     CRect rect((this->mapBoundsLeft - 2) * 0x20, (this->mapBoundsTop - 2) * 0x20, (this->mapBoundsRight + 3) * 0x20, (this->mapBoundsBottom + 3) * 0x20);
-    map->field_0xf4 |= rect;
+    map->dirty_rect |= rect;
 }
 
 // 46380c
 void CStructure::DrawMinimapRect(int32_t x, int32_t y, int32_t zoom) {
     BigStruct2* map = this->pMapObject;
 
-    uint16_t* land = map->field_0x80->GetLandscape();
+    uint16_t* land = map->scenario->GetLandscape();
     int32_t idx = (this->x_pos >> 8) + map->map_width * (this->y_pos >> 8);
 
     uint16_t mask = (land[idx] & 0xc000) | (land[idx + 1] & 0xc000) | (land[idx + map->map_width] & 0xc000) | (land[idx + map->map_width + 1] & 0xc000);
@@ -4103,7 +4103,7 @@ int32_t CStructure::UpdateBlockedState() {
         return 0;
     }
 
-    uint16_t* land = map->field_0x80->GetLandscape();
+    uint16_t* land = map->scenario->GetLandscape();
     this->bIsBlocked = 2;
 
     for (int32_t x = 0; x < this->GetTileWidth(); x++) {
@@ -4272,7 +4272,7 @@ void CHorisontalWoodenBridge::Draw(int32_t tile_x, int32_t tile_y, int32_t light
         if ((dx & 1) != 0) {
             piece = 12;
         } else {
-            piece = (map->field_0xa88 & 3) + 8;
+            piece = (map->anim_tick & 3) + 8;
         }
     } else if (dx == 0) {
         piece = 4;
@@ -4313,10 +4313,10 @@ void CBackPack::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
     }
 #endif
 
-    int32_t sun_angle = (int32_t)(std::tan(this->pMapObject->field_0x80->GetRenderSunAngle()) * 65536.0);
+    int32_t sun_angle = (int32_t)(std::tan(this->pMapObject->scenario->GetRenderSunAngle()) * 65536.0);
 
     int32_t half_height = g_spr_backpack->GetHeight(0) / 2;
-    int32_t shadow_offset = (int32_t)(std::tan(this->pMapObject->field_0x80->GetRenderSunAngle()) * half_height);
+    int32_t shadow_offset = (int32_t)(std::tan(this->pMapObject->scenario->GetRenderSunAngle()) * half_height);
 
     int32_t half_width = g_spr_backpack->GetWidth(0) / 2;
     int32_t half_height2 = g_spr_backpack->GetHeight(0) / 2;
@@ -4424,7 +4424,7 @@ int32_t CProjectile::Update() {
                this->screenY - this->terrainHeightOffset - 0x40,
                ((this->screenX + 0x40) & 0xffffffe0) + 0x20,
                this->screenY - this->terrainHeightOffset + 0x40);
-    map->field_0xf4 |= rect;
+    map->dirty_rect |= rect;
 
     if (this->action_segments == 0) {
         if (this->typeId == 13) {
@@ -4444,7 +4444,7 @@ int32_t CProjectile::Update() {
     }
 
     if (this->action == 1) {
-        if (this->action_target != 0 && map->field_0x9d0.Lookup(this->action_target, target)) {
+        if (this->action_target != 0 && map->objects.Lookup(this->action_target, target)) {
             this->action_x = target->centerWorldX8;
             this->action_y = target->centerWorldY8;
             this->action_z = target->z_pos;
@@ -4462,10 +4462,10 @@ int32_t CProjectile::Update() {
             if (this->action_phase == 8) {
                 for (int32_t i = -1; i < 2; i++) {
                     for (int32_t j = -1; j < 2; j++) {
-                        uint16_t* landscape = map->field_0x80->GetLandscape();
+                        uint16_t* landscape = map->scenario->GetLandscape();
                         int32_t idx = this->tileX + i + (this->tileY + j) * map->map_width;
                         int32_t height = (landscape[idx] & 0x1fff) >> 6;
-                        uint8_t gfx_idx = map->field_0x80->GetObjectMap()[idx];
+                        uint8_t gfx_idx = map->scenario->GetObjectMap()[idx];
                         if (height < 8 || height >= 12 || gfx_idx != 0) {
                             landscape[idx] |= 0x2000;
                         }
@@ -4474,17 +4474,17 @@ int32_t CProjectile::Update() {
             } else if (this->action_phase == 4) {
                 for (int32_t i = -1; i < 2; i++) {
                     for (int32_t j = -1; j < 2; j++) {
-                        uint16_t* landscape = map->field_0x80->GetLandscape();
+                        uint16_t* landscape = map->scenario->GetLandscape();
                         int32_t idx = this->tileX + i + (this->tileY + j) * map->map_width;
                         if ((landscape[idx] & 0x2000) == 0) {
                             uint16_t packed = (uint16_t)((this->tileX + i) | (this->tileY + j) << 8);
-                            uint8_t gfx_idx = map->field_0x80->GetObjectMap()[idx];
+                            uint8_t gfx_idx = map->scenario->GetObjectMap()[idx];
                             if (gfx_idx != 0 && g_GfxObjects[gfx_idx - 1]->dead_object != -1) {
-                                map->field_0xa94.SetAt(packed, 0);
+                                map->lightning_cells.SetAt(packed, 0);
                             }
                             int32_t height = (landscape[idx] & 0x1fff) >> 6;
                             if (height > 7 && height < 12) {
-                                map->field_0xa94.SetAt(packed, 0);
+                                map->lightning_cells.SetAt(packed, 0);
                             }
                         }
                     }
@@ -4736,7 +4736,7 @@ void CProjectile::UpdateLight() {
     }
     case 28:
     case 30: {
-        uint8_t* lightmap = map->field_0xa8;
+        uint8_t* lightmap = map->corner_light;
         for (int32_t i = 0; i < this->transientVisualElements.GetSize(); i++) {
             GO_11c& el = this->transientVisualElements.ElementAt(i);
             int32_t lx = el.x >> 5;
@@ -4750,16 +4750,16 @@ void CProjectile::UpdateLight() {
             lightmap[idx1 + 1] = this->phase * 10;
             lightmap[idx2] = this->phase * 10;
             lightmap[idx2 + 1] = this->phase * 10;
-            map->field_0x108 += 1;
+            map->lightning_active += 1;
             CRect rect((lx - 1) * 0x20, (ly - 1) * 0x20, (lx + 2) * 0x20, (ly + 2) * 0x20);
-            map->field_0xf4 |= rect;
+            map->dirty_rect |= rect;
         }
         break;
     }
     default:
         if (g_Animation == 0) {
             CRect rect((this->tileX - 2) * 0x20, (this->tileY - 2) * 0x20, (this->tileX + 3) * 0x20, (this->tileY + 3) * 0x20);
-            map->field_0xf4 |= rect;
+            map->dirty_rect |= rect;
         }
         break;
     }
@@ -4775,7 +4775,7 @@ void CProjectile::UpdateTransientVisualElements() {
         int32_t y0 = this->screenY - this->terrainHeightOffset - this->z_pos;
 
         CGameObject* target = nullptr;
-        if (map->field_0x9d0.Lookup(this->action_target, target) && target != nullptr) {
+        if (map->objects.Lookup(this->action_target, target) && target != nullptr) {
             int32_t x1 = target->centerScreenX;
             int32_t y1 = target->centerScreenY - target->terrainHeightOffset - target->z_pos;
             builder.BuildLightningLine(x0, y0, x1, y1, 28);
@@ -4789,7 +4789,7 @@ void CProjectile::UpdateTransientVisualElements() {
         this->transientVisualElements.RemoveAll();
         for (int32_t i = 0; i < this->actionTargets.GetSize(); i++) {
             CGameObject* target = nullptr;
-            if (map->field_0x9d0.Lookup(this->actionTargets[i], target) && target != nullptr) {
+            if (map->objects.Lookup(this->actionTargets[i], target) && target != nullptr) {
                 builder.BuildLightningLine(x0, y0, target->centerScreenX, target->centerScreenY - target->terrainHeightOffset - target->z_pos, i % 7);
                 this->transientVisualElements.Append(*builder.GetVisualElements());
                 builder.Clear();
@@ -4819,7 +4819,7 @@ void CAirUnit::UpdateTileLayer() {
                y,
                ((x + vfx->width) & 0xffffffe0) + 0x20,
                y + vfx->height);
-    this->pMapObject->field_0xf4 |= rect;
+    this->pMapObject->dirty_rect |= rect;
 }
 
 // 46d7e8

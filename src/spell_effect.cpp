@@ -108,22 +108,22 @@ IMPLEMENT_SERIAL(SpellEffect, Token, 1);
 SpellEffect::SpellEffect() : Token() {
 	this->typeId = 0;
 	this->caster = nullptr;
-	this->field2_0x40 = 0;
-	this->field3_0x41 = 1;
-	this->field4_0x42 = 0;
-	this->field6_0x44 = 0;
-	this->field6_0x46 = 0;
+	this->expired = 0;
+	this->offensive = 1;
+	this->seen_by_mask = 0;
+	this->seen_by_mask_prev = 0;
+	this->notified_mask = 0;
 }
 
 // 5373CC
 SpellEffect::SpellEffect(const TokenPos* pos) : Token(pos) {
 	this->typeId = 0;
 	this->caster = nullptr;
-	this->field2_0x40 = 0;
-	this->field3_0x41 = 1;
-	this->field4_0x42 = 0;
-	this->field6_0x44 = 0;	
-	this->field6_0x46 = 0;
+	this->expired = 0;
+	this->offensive = 1;
+	this->seen_by_mask = 0;
+	this->seen_by_mask_prev = 0;	
+	this->notified_mask = 0;
 }
 
 // 57c080
@@ -133,11 +133,11 @@ SpellEffect::~SpellEffect() {}
 void SpellEffect::Serialize(CArchive& ar) {
 	Token::Serialize(ar);
 	if (ar.IsStoring()) {
-		ar << this->field2_0x40;
-		ar << this->field3_0x41;
+		ar << this->expired;
+		ar << this->offensive;
 	} else {
-		ar >> this->field2_0x40;
-		ar >> this->field3_0x41;
+		ar >> this->expired;
+		ar >> this->offensive;
 	}
 }
 
@@ -168,7 +168,7 @@ void PointEffect::FinishHit() {
 			this->effect->RemoveFromUnit(attacker);
 		}
 
-		if (this->caster != nullptr && this->field3_0x41 != 0) {
+		if (this->caster != nullptr && this->offensive != 0) {
 			if (this->caster->monster_info == nullptr) {
 				attacker->last_hit_by = nullptr;
 			} else if (this->caster->pOwner != nullptr) {
@@ -183,7 +183,7 @@ void PointEffect::FinishHit() {
 		}
 	}
 
-	this->field2_0x40 = 1;
+	this->expired = 1;
 }
 
 // 5374FC
@@ -217,7 +217,7 @@ void PointEffect::Serialize(CArchive& ar) {
 		uint32_t key;
 		ar.Read(&key, sizeof(key));
 		void* found;
-		if (g_Server->field23_0xdc.Lookup(reinterpret_cast<void*>(key), found)) {
+		if (g_Server->saved_ptr_map.Lookup(reinterpret_cast<void*>(key), found)) {
 			this->target = static_cast<Unit*>(found);
 		} else {
 			this->target = nullptr;
@@ -279,7 +279,7 @@ void AreaEffect::DamageUnit(Unit* unit) {
 	}
 
 	if (this->caster->pOwner != nullptr && unit->pOwner != nullptr) {
-		if (g_Server->field4_0x74 == 0 || !this->caster->pOwner->is_ai || unit->pOwner->is_ai) {
+		if (g_Server->fog_of_war == 0 || !this->caster->pOwner->is_ai || unit->pOwner->is_ai) {
 			g_World->RecordUnitHit(this->caster, unit, 1);
 		}
 	}
@@ -351,7 +351,7 @@ void AreaEffect::BroadcastAndApply() {
 			}
 		}
 	}
-	this->field2_0x40 = 1;
+	this->expired = 1;
 }
 
 // 538137
@@ -498,7 +498,7 @@ void AreaEffect::TickAcidBlizzard() {
 	}
 	this->wave_step++;
 	if (this->wave_step >= count) {
-		this->field2_0x40 = 1;
+		this->expired = 1;
 	}
 }
 
@@ -564,7 +564,7 @@ void AreaEffect::ProcessEffects() {
 	}
 	if (this->duration == 0) {
 		this->ApplyRadiusRing();
-		this->field2_0x40 = 1;
+		this->expired = 1;
 		return;
 	}
 
@@ -653,7 +653,7 @@ void SpellTransport::ProcessEffects() {
 		g_Server->srv_stru1->effects_list->list.AddTail(effect);
 		this->spell_effect = nullptr;
 		this->area_effect = nullptr;
-		this->field2_0x40 = 1;
+		this->expired = 1;
 	}
 }
 

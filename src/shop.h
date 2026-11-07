@@ -41,7 +41,7 @@ public:
 public:
     CMultiShopTemplate* shop_template;
     AssortGenParams gen_params[4];
-    uint32_t field_0xc0;
+    uint32_t money;
 };
 ASSERT_OFFSET(Shop, gen_params, 0x70);
 ASSERT_SIZE(Shop, 0xc4);

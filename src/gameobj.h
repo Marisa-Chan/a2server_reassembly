@@ -83,18 +83,18 @@ public:
 
 	uint32_t GetCastSpellId() const { return this->GetAttribute(CAST_SPELL_ATTRIBUTE_ID); } //41f0f0 (client: 420e10)
 public:
-	uint16_t field_0x4 = 0;
+	uint16_t match_id = 0;
 	uint16_t item_id = 0;
 	uint8_t flg = 0;
 	uint8_t mods_count = 0;
 	uint8_t mods_size = 0;
-	uint8_t field_0xb = 0;
+	uint8_t gap_0xb = 0;
 	void* mods = nullptr;
 	uint32_t count = 1;
-	uint32_t field_0x14 = 0;
+	uint32_t gap_0x14 = 0;
 	uint32_t slot_code = 0;
-	int32_t field_0x1c = -1;
-	int32_t field_0x20 = -1;
+	int32_t gap_0x1c = -1;
+	int32_t list_index = -1;
 };
 ASSERT_SIZE(TokenEntry, 0x24);
 
@@ -176,7 +176,7 @@ public:
 	uint32_t face; // 28
 	int32_t x_pos2; // 2c
 	int32_t y_pos2; // 30
-	int32_t field_0x34;
+	int32_t walk_cycle_index;
 	int32_t tileX; // 38
 	int32_t tileY; // 3c
 	int32_t mapBoundsLeft; // 40
@@ -196,7 +196,7 @@ public:
 	int32_t last_action; // 78
 	int32_t bIsBlocked; // 7c
 	int32_t m_bSelected; // 80
-	int32_t field_0x84;
+	int32_t gap_0x84;
 	int32_t controlGroupMask; // 88
 	uint8_t action; // 8c
 	int8_t action_dir; // 8d
@@ -218,7 +218,7 @@ public:
 	char str1[12]; // ec
 	char str2[12]; // f8
 	int16_t hp; // 104
-	int16_t field_0x106; // 106
+	int16_t gap_0x106; // 106
 	int16_t hp_max; // 108
 	int16_t scan_range; // 10a
 	int16_t speed; // 10c
@@ -294,13 +294,13 @@ public:
 	int16_t attack;
 	uint8_t hand_dmg_min;
 	uint8_t hand_dmg_spread;
-	uint8_t field_0x156;
+	uint8_t special_stat_kind;
 	uint8_t skill_levels[5];
 	uint8_t magic_protect[5];
-	uint8_t field_0x161;
-	uint8_t field_0x162;
+	uint8_t gap_0x161;
+	uint8_t gap_0x162;
 	uint8_t __gap_u2;
-	int16_t field_0x164;
+	int16_t gap_0x164;
 	uint8_t __gap_u3[6];
 	int32_t experience_per_sphere[5];
 	uint8_t stat_body; // 0x180
@@ -347,13 +347,13 @@ public:
     CArray<GO_11c>* GetVisualElements() { return &this->visual_elements; } // 46f3f0 (client: 4204f0)
 
 public:
-    CPoint field_0x0;
+    CPoint gap_0x0;
     uint8_t gap_0x8[0x1c];
-    CPoint field_0x24;
-    CPoint field_0x2c;
-    CPoint field_0x34[2];
-    CPoint field_0x44[2];
-    int32_t field_0x54;
+    CPoint gap_0x24;
+    CPoint gap_0x2c;
+    CPoint gap_0x34[2];
+    CPoint gap_0x44[2];
+    int32_t gap_0x54;
     double wobble_scale;
     double line_length;
     CArray<CPoint> circle_points;
@@ -368,10 +368,10 @@ ASSERT_SIZE(TransientVisualEffectBuilder, 0xe0);
 
 // Enterable structures collection (global at 65fa38)
 struct StructEnter {
-	CArray<CUnit*> field_0x0;
-	CArray<CUnit*> field_0x14;
-	int32_t field_0x28;
-	int32_t field_0x2c;
+	CArray<CUnit*> structure_list;
+	CArray<CUnit*> party_list;
+	int32_t female_party_count;
+	int32_t male_party_count;
 
 	StructEnter(); //474f20 (client: 477ac0) in asm
 	~StructEnter(); //474f90 (client: 477b30) in asm

@@ -13,7 +13,7 @@ public:
     static const int32_t CENTER = 20;
 
 public:
-    uint16_t field_0x0[65536];      // 0x0
+    uint16_t gap_0x0[65536];      // 0x0
     uint16_t dist_sq_table[64][64]; // 0x20000
     uint16_t ray_dir_table[64][64]; // 0x22000
     int32_t vis_budget_scratch[64][64];  // 0x24000

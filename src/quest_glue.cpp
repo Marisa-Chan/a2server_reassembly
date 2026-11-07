@@ -49,17 +49,17 @@ void QuestInnGlue::ProcessQuests() {
 // 5BA920
 void QuestInnGlue::ProcessEscortTarget(Quest* quest) {
     int32_t inn_id = quest->Something3();
-    if (quest->field_0x2c == 0) {
-        Unit* unit = this->world->field24_0xa50->field69_0xa456c->FindById(inn_id);
-        quest->field_0x2c = unit;
+    if (quest->target_object == 0) {
+        Unit* unit = this->world->map_stuff->all_units->FindById(inn_id);
+        quest->target_object = unit;
     }
-    Unit* unit = (Unit*)quest->field_0x2c;
+    Unit* unit = (Unit*)quest->target_object;
     if (unit == nullptr) {
         return;
     }
     uint16_t pos2 = this->position->GetYX();
     uint16_t pos1 = unit->position->GetYX();
-    uint8_t dist = this->world->field24_0xa50->ChebyshevDistance(pos1, pos2);
+    uint8_t dist = this->world->map_stuff->ChebyshevDistance(pos1, pos2);
     if (dist > this->max_dist) {
         return;
     }
@@ -84,7 +84,7 @@ void QuestInnGlue::ProcessDeliverItem(Quest* quest) {
         }
         uint16_t pos2 = this->position->GetYX();
         uint16_t pos1 = player->main_unit->position->GetYX();
-        uint8_t dist = this->world->field24_0xa50->ChebyshevDistance(pos1, pos2);
+        uint8_t dist = this->world->map_stuff->ChebyshevDistance(pos1, pos2);
         if (dist > this->max_dist) {
             continue;
         }
@@ -110,9 +110,9 @@ void QuestInnGlue::ProcessDeliverItem(Quest* quest) {
 void QuestInnGlue::ProcessInterceptGroup(Quest* quest) {
     int32_t group_id = quest->Something3();
     bool found = false;
-    if (quest->field_0x2c == nullptr) {
+    if (quest->target_object == nullptr) {
         POSITION pos = this->world->players_list->list.GetHeadPosition();
-        while (pos != nullptr && quest->field_0x2c == nullptr) {
+        while (pos != nullptr && quest->target_object == nullptr) {
             Player* player = this->world->players_list->list.GetNext(pos);
             if (player->is_ai == 0) {
                 continue;
@@ -122,14 +122,14 @@ void QuestInnGlue::ProcessInterceptGroup(Quest* quest) {
             while (gpos != nullptr) {
                 Group* group = player->group_list->groups.GetNext(gpos);
                 if (group->group_id == group_id) {
-                    quest->field_0x2c = group;
+                    quest->target_object = group;
                     break;
                 }
             }
         }
     }
 
-    Group* group = (Group*)quest->field_0x2c;
+    Group* group = (Group*)quest->target_object;
     if (group == nullptr) {
         return;
     }
@@ -139,7 +139,7 @@ void QuestInnGlue::ProcessInterceptGroup(Quest* quest) {
         Unit* unit = group->unit_list.GetNext(pos);
         uint16_t pos2 = this->position->GetYX();
         uint16_t pos1 = unit->position->GetYX();
-        uint8_t dist = this->world->field24_0xa50->ChebyshevDistance(pos1, pos2);
+        uint8_t dist = this->world->map_stuff->ChebyshevDistance(pos1, pos2);
         if (dist <= this->max_dist) {
             found = true;
         }
@@ -156,11 +156,11 @@ void QuestInnGlue::SpawnZombieMobs(Quest* quest) {
 
     int32_t player_id = quest->Something3() & 0xFFFF;
     int32_t count_needed = quest->Something3() >> 16;
-    if (quest->field_0x2c == nullptr) {
-        quest->field_0x2c = g_PlayersList->FindById(player_id);
+    if (quest->target_object == nullptr) {
+        quest->target_object = g_PlayersList->FindById(player_id);
     }
 
-    Player* player = (Player*)quest->field_0x2c;
+    Player* player = (Player*)quest->target_object;
     int32_t count = 0;
     int16_t hp_sum = 0;
     for (POSITION gpos = player->group_list->groups.GetHeadPosition(); gpos != nullptr;) {
@@ -172,7 +172,7 @@ void QuestInnGlue::SpawnZombieMobs(Quest* quest) {
             }
             uint16_t pos2 = this->position->GetYX();
             uint16_t pos1 = unit->position->GetYX();
-            uint8_t dist = this->world->field24_0xa50->ChebyshevDistance(pos1, pos2);
+            uint8_t dist = this->world->map_stuff->ChebyshevDistance(pos1, pos2);
             if (dist > this->max_dist) {
                 continue;
             }
@@ -196,7 +196,7 @@ void QuestInnGlue::SpawnZombieMobs(Quest* quest) {
             }
             uint16_t pos2 = this->position->GetYX();
             uint16_t pos1 = unit->position->GetYX();
-            uint8_t dist = this->world->field24_0xa50->ChebyshevDistance(pos1, pos2);
+            uint8_t dist = this->world->map_stuff->ChebyshevDistance(pos1, pos2);
             if (dist <= this->max_dist) {
                 unit->hp = -50;
             }
@@ -210,11 +210,11 @@ void QuestInnGlue::SpawnSkeletonMobs(Quest* quest) {
     
     int32_t player_id = quest->Something3() & 0xFFFF;
     int32_t count_needed = quest->Something3() >> 16;
-    if (quest->field_0x2c == nullptr) {
-        quest->field_0x2c = g_PlayersList->FindById(player_id);
+    if (quest->target_object == nullptr) {
+        quest->target_object = g_PlayersList->FindById(player_id);
     }
 
-    Player* player = (Player*)quest->field_0x2c;
+    Player* player = (Player*)quest->target_object;
     int32_t count = 0;
     int16_t hp_sum = 0;
     for (POSITION gpos = player->group_list->groups.GetHeadPosition(); gpos != nullptr;) {
@@ -226,7 +226,7 @@ void QuestInnGlue::SpawnSkeletonMobs(Quest* quest) {
             }
             uint16_t pos2 = this->position->GetYX();
             uint16_t pos1 = unit->position->GetYX();
-            uint8_t dist = this->world->field24_0xa50->ChebyshevDistance(pos1, pos2);
+            uint8_t dist = this->world->map_stuff->ChebyshevDistance(pos1, pos2);
             if (dist > this->max_dist) {
                 continue;
             }
@@ -248,7 +248,7 @@ void QuestInnGlue::SpawnSkeletonMobs(Quest* quest) {
             }
             uint16_t pos2 = this->position->GetYX();
             uint16_t pos1 = unit->position->GetYX();
-            uint8_t dist = this->world->field24_0xa50->ChebyshevDistance(pos1, pos2);
+            uint8_t dist = this->world->map_stuff->ChebyshevDistance(pos1, pos2);
             if (dist <= this->max_dist) {
                 unit->hp = -50;
             }
@@ -263,11 +263,11 @@ void QuestInnGlue::SpawnGhostMobs(Quest* quest) {
 
     int32_t player_id = quest->Something3() & 0xFFFF;
     int32_t count_needed = quest->Something3() >> 16;
-    if (quest->field_0x2c == nullptr) {
-        quest->field_0x2c = g_PlayersList->FindById(player_id);
+    if (quest->target_object == nullptr) {
+        quest->target_object = g_PlayersList->FindById(player_id);
     }
 
-    Player* player = (Player*)quest->field_0x2c;
+    Player* player = (Player*)quest->target_object;
     int32_t count = 0;
     int16_t hp_sum = 0;
     for (POSITION gpos = player->group_list->groups.GetHeadPosition(); gpos != nullptr;) {
@@ -279,7 +279,7 @@ void QuestInnGlue::SpawnGhostMobs(Quest* quest) {
             }
             uint16_t pos2 = this->position->GetYX();
             uint16_t pos1 = unit->position->GetYX();
-            uint8_t dist = this->world->field24_0xa50->ChebyshevDistance(pos1, pos2);
+            uint8_t dist = this->world->map_stuff->ChebyshevDistance(pos1, pos2);
             if (dist > this->max_dist) {
                 continue;
             }
@@ -301,7 +301,7 @@ void QuestInnGlue::SpawnGhostMobs(Quest* quest) {
             }
             uint16_t pos2 = this->position->GetYX();
             uint16_t pos1 = unit->position->GetYX();
-            uint8_t dist = this->world->field24_0xa50->ChebyshevDistance(pos1, pos2);
+            uint8_t dist = this->world->map_stuff->ChebyshevDistance(pos1, pos2);
             if (dist <= this->max_dist) {
                 unit->hp = -50;
             }

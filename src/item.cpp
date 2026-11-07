@@ -143,10 +143,10 @@ Item::Item() : Token() {
     this->itemDataID = 0;
     this->weight = 1;
     this->TokenID = 0;
-    this->field10_0x4c = 0;
-    this->field11_0x4d = 0;
-    this->field14_0x50 = 0;
-    this->field15_0x54 = 0;
+    this->shelf_refcount = 0;
+    this->shelf_id = 0;
+    this->special_flag = 0;
+    this->upgraded_at_inn = 0;
 }
 
 // 54800E
@@ -161,10 +161,10 @@ Item::Item(uint8_t type, uint8_t subtype) : Token() {
     this->magic_volume = 0;
     this->weight = 1;
     this->TokenID = 0;
-    this->field10_0x4c = 0;
-    this->field11_0x4d = 0;
-    this->field14_0x50 = 0;
-    this->field15_0x54 = 0;
+    this->shelf_refcount = 0;
+    this->shelf_id = 0;
+    this->special_flag = 0;
+    this->upgraded_at_inn = 0;
     this->InitFromTemplate(type);
 }
 
@@ -180,10 +180,10 @@ Item::Item(const CString& name) : Token() {
     this->magic_volume = 0;
     this->weight = 1;
     this->TokenID = 0;
-    this->field10_0x4c = 0;
-    this->field11_0x4d = 0;
-    this->field14_0x50 = 0;
-    this->field15_0x54 = 0;
+    this->shelf_refcount = 0;
+    this->shelf_id = 0;
+    this->special_flag = 0;
+    this->upgraded_at_inn = 0;
     int32_t count = g_GameDataRes.magic_items.GetSize();
     for (int32_t i = 1; i < count; i++) {
         if (g_GameDataRes.magic_items[i].name == name) {
@@ -230,9 +230,9 @@ Item::Item(const Item* src) : Token(*src) {
     this->itemDataID = src->itemDataID;
     this->magic_volume = src->magic_volume;
     this->weight = src->weight;
-    this->field10_0x4c = src->field10_0x4c;
-    this->field11_0x4d = src->field11_0x4d;
-    this->field15_0x54 = 0;
+    this->shelf_refcount = src->shelf_refcount;
+    this->shelf_id = src->shelf_id;
+    this->upgraded_at_inn = 0;
     POSITION pos = src->_effects.GetHeadPosition();
     while (pos != nullptr) {
         Effect* e = src->_effects.GetNext(pos);
@@ -390,7 +390,7 @@ void Item::Serialize(CArchive& ar) {
         ar << this->material_id;
         ar << this->magic_volume;
         ar << this->weight;
-        ar << this->field_0x47;
+        ar << this->value1;
     } else {
         this->_effects.RemoveAll();
         int32_t cnt;
@@ -407,7 +407,7 @@ void Item::Serialize(CArchive& ar) {
         ar >> this->material_id;
         ar >> this->magic_volume;
         ar >> this->weight;
-        ar >> this->field_0x47;
+        ar >> this->value1;
         if (this->itemDataID < g_GameDataRes.magic_items.GetSize()) {
             this->world_equip = &g_GameDataRes.magic_items[this->itemDataID];
         } else {
@@ -518,7 +518,7 @@ void Item::StoreToPacket(PacketUnitStateVec* pkt, int with_shelf_id) {
     }
 
     if (with_shelf_id != 0) {
-        pkt->data[pkt->data_size] = this->field11_0x4d;
+        pkt->data[pkt->data_size] = this->shelf_id;
         pkt->data_size++;
     }
 }
@@ -665,14 +665,14 @@ Armor::Armor() : Item() {
     this->material_id = 0;
     this->slot = 0;
     this->itemDataID = 0;
-    this->field14_0x50 = 0;
+    this->special_flag = 0;
 }
 
 // 54F361
 Armor::Armor(const CString& name) : Item() {
     this->slot = 0;
     this->itemDataID = 0;
-    this->field14_0x50 = 0;
+    this->special_flag = 0;
 
     CString base_name;
     CString extra;
@@ -884,13 +884,13 @@ IMPLEMENT_SERIAL(Shield, Item, 1); // Runtime class definition at 6372e8.
 Shield::Shield() : Item() {
     this->itemDataID = 0;
     this->item_id = 0;
-    this->field14_0x50 = 0;
+    this->special_flag = 0;
 }
 
 // 54FE8E
 Shield::Shield(const CString& name) : Item() {
     this->itemDataID = 0;
-    this->field14_0x50 = 0;
+    this->special_flag = 0;
 
     CString base_name;
     CString extra;
@@ -931,7 +931,7 @@ Shield::Shield(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id) : It
     this->shape_id = shape_id;
     this->material_id = material_id;
     this->itemDataID = item_data_id;
-    this->field14_0x50 = 0;
+    this->special_flag = 0;
     this->LoadInfo();
 }
 
@@ -1070,7 +1070,7 @@ IMPLEMENT_SERIAL(Weapon, Item, 1); // Runtime class definition at 637300.
 Weapon::Weapon() {
     this->range = 1;
     this->imbued_spell = nullptr;
-    this->field14_0x50 = 0;
+    this->special_flag = 0;
 
     const int slot = 1;
     this->item_id = (uint16_t)((this->material_id << 12) | (slot << 8) | (this->shape_id << 5) | (uint8_t)this->itemDataID);
@@ -1081,7 +1081,7 @@ Weapon::Weapon(const CString& name) : Item() {
     this->range = 1;
     this->itemDataID = 0;
     this->imbued_spell = nullptr;
-    this->field14_0x50 = 0;
+    this->special_flag = 0;
 
     CString base_name;
     CString extra;
@@ -1116,7 +1116,7 @@ Weapon::Weapon(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id) : It
     this->shape_id = shape_id;
     this->material_id = material_id;
     this->itemDataID = item_data_id;
-    this->field14_0x50 = 0;
+    this->special_flag = 0;
     this->LoadInfo();
 }
 

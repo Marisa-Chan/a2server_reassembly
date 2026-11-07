@@ -55,7 +55,7 @@ Item* CMultiShopShelf::PickItem(int32_t slot, int32_t count) {
 // 544BCE
 int32_t CMultiShopShelf::AddItem(Item** item_ptr) {
     Item* item = *item_ptr;
-    item->field11_0x4d = this->shelf_id;
+    item->shelf_id = this->shelf_id;
 
     for (int32_t i = 0; i < this->items.GetSize(); i++) {
         Item* existing = this->items[i];
@@ -74,7 +74,7 @@ int32_t CMultiShopShelf::AddItem(Item** item_ptr) {
 // 545528
 void CMultiShopShelf::ReleaseItems() {
     for (int32_t i = 0; i < this->items.GetSize(); i++) {
-        this->items[i]->field10_0x4c -= 1;
+        this->items[i]->shelf_refcount -= 1;
     }
     this->items.RemoveAll();
 }
@@ -153,7 +153,7 @@ void CMultiShopInstance::Buy() {
             this->unit->pOwner->money -= price;
             this->inventory.items.RemoveAt(current_pos);
             item->pOwner = this->unit->pOwner;
-            item->field10_0x4c = 0;
+            item->shelf_refcount = 0;
             this->unit->inventory->PutItemIntoBagAtDefault(item);
         }
     }
@@ -252,9 +252,9 @@ int32_t CMultiShopInstance::StowItemInShelf(Item* item, int32_t dst_slot) {
     int32_t shelf_id = 0;
     int32_t result = 0;
 
-    if (item->field11_0x4d == 0) {
+    if (item->shelf_id == 0) {
         AssortGenParams* params;
-        if (g_Server->field4_0x74 != 0) {
+        if (g_Server->fog_of_war != 0) {
             params = this->shop_template->shop->gen_params;
         } else {
             params = ScenarioGetShopAssortment();
@@ -285,12 +285,12 @@ int32_t CMultiShopInstance::StowItemInShelf(Item* item, int32_t dst_slot) {
             }
         }
     } else {
-        shelf_id = item->field11_0x4d - 1;
+        shelf_id = item->shelf_id - 1;
     }
 
     result = this->shop_template->shelves[shelf_id].AddItem(&item);
     if (result != 0) {
-        item->field10_0x4c = 0;
+        item->shelf_refcount = 0;
     } else {
         result = this->shelves[shelf_id].AddItem(&item);
     }
@@ -304,7 +304,7 @@ IMPLEMENT_SERIAL(CMultiShopTemplate, CObject, 1); // 6372a0
 CMultiShopTemplate::CMultiShopTemplate() {
     this->active_instances = 0;
     this->refresh_assortment_counter = 0;
-    this->field_0x90 = 1000;
+    this->start_money = 1000;
     this->shop = nullptr;
     this->shelves[0].shelf_id = 1;
     this->shelves[1].shelf_id = 2;
@@ -316,7 +316,7 @@ CMultiShopTemplate::CMultiShopTemplate() {
 CMultiShopTemplate::CMultiShopTemplate(Shop* shop) {
     this->active_instances = 0;
     this->refresh_assortment_counter = 0;
-    this->field_0x90 = shop->field_0xc0;
+    this->start_money = shop->money;
     this->shop = shop;
     this->shelves[0].shelf_id = 1;
     this->shelves[1].shelf_id = 2;
@@ -460,7 +460,7 @@ void CMultiShopTemplate::GenerateAssortment() {
     ShopAssortment assort;
     this->ClearShelves();
     AssortGenParams* params;
-    if (g_Server->field4_0x74 == 0) {
+    if (g_Server->fog_of_war == 0) {
         params = ScenarioGetShopAssortment();
     } else {
         params = this->shop->gen_params;
@@ -470,7 +470,7 @@ void CMultiShopTemplate::GenerateAssortment() {
         assort.GenerateAssortment(p);
         assort.ArrangeShelfs(p->max_count, p->max_same_count, p->min_cost, p->max_cost, &this->shelves[i].items);
         for (int32_t j = 0; j < this->shelves[i].items.GetSize(); j++) {
-            this->shelves[i].items[j]->field11_0x4d = this->shelves[i].shelf_id;
+            this->shelves[i].items[j]->shelf_id = this->shelves[i].shelf_id;
         }
     }
 }
@@ -488,7 +488,7 @@ CMultiShopInstance* CMultiShopTemplate::CreateInstance(Unit* unit) {
             Item* item = this->shelves[i].items[j];
             if (item->count != 0) {
                 instance->shelves[i].items[added_items] = item;
-                item->field10_0x4c += 1;
+                item->shelf_refcount += 1;
                 added_items += 1;
             }
         }
@@ -520,7 +520,7 @@ void CMultiShopTemplate::CloseInstance(Humanoid* humanoid) {
     for (int32_t i = 0; i < 4; i++) {
         for (int32_t j = 0; j < this->shelves[i].items.GetSize(); j++) {
             Item* item = this->shelves[i].items[j];
-            if (item->count == 0 && item->field10_0x4c == 0) {
+            if (item->count == 0 && item->shelf_refcount == 0) {
                 this->shelves[i].RemoveItemAt(j);
                 j -= 1;
             }
@@ -531,7 +531,7 @@ void CMultiShopTemplate::CloseInstance(Humanoid* humanoid) {
 
 // 547DD4
 void CMultiShopTemplate::RefreshTick() {
-    if (g_Server->field4_0x74 == 0) {
+    if (g_Server->fog_of_war == 0) {
         return;
     }
     if (g_Server->tick16 % 180 == 0) {

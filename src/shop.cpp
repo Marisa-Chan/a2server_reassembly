@@ -11,7 +11,7 @@ IMPLEMENT_SERIAL(Shop, Building, 1);
 
 // 5442CA
 Shop::Shop() {
-    this->field_0xc0 = 10000000;
+    this->money = 10000000;
     this->shop_template = new CMultiShopTemplate(this);
     this->gen_params[0].min_cost = 1000000;
     this->gen_params[0].max_cost = 10000000;
@@ -25,13 +25,13 @@ Shop::Shop() {
 
 // 5443EF
 Shop::Shop(const CString& name) : Building(name) {
-    this->field_0xc0 = 10000000;
+    this->money = 10000000;
     this->shop_template = new CMultiShopTemplate(this);
 }
 
 // 544495
 Shop::Shop(uint8_t type_id, TokenPos* pos) : Building(type_id, pos, 0, 0) {
-    this->field_0xc0 = 10000000;
+    this->money = 10000000;
     this->shop_template = new CMultiShopTemplate(this);
 }
 
@@ -47,9 +47,9 @@ Shop::~Shop() {
 void Shop::Serialize(CArchive& ar) {
     Building::Serialize(ar);
     if (ar.IsStoring()) {
-        ar << this->field_0xc0;
+        ar << this->money;
     } else {
-        ar >> this->field_0xc0;
+        ar >> this->money;
     }
 }
 
@@ -76,7 +76,7 @@ void Shop::GenerateAssortment() {
 // 544655
 void Shop::AttachUnit(Unit* unit) {
     this->shop_template->OpenShopFor(unit);
-    if (g_Server->field4_0x74 != 0) {
+    if (g_Server->fog_of_war != 0) {
         unit->RemoveFromMap();
     }
 }
@@ -84,7 +84,7 @@ void Shop::AttachUnit(Unit* unit) {
 // 544685
 void Shop::CloseShop(Unit* unit) {
     this->shop_template->CloseInstance(static_cast<Humanoid*>(unit));
-    if (g_Server->field4_0x74 != 0) {
+    if (g_Server->fog_of_war != 0) {
         unit->ReturnToMap();
     }
     g_NetStru1_main.BroadcastTokenState(unit, nullptr, 0);

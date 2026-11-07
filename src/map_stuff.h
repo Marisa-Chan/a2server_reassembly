@@ -70,8 +70,8 @@ ASSERT_SIZE(ScanPresenceGrid, 0x1628);
 
 // Sub-field of MapStuff. Purpose not fully reversed; kept opaque.
 struct FieldBlock54190 {
-    uint32_t field_0x0;
-    uint32_t field_0x4;
+    uint32_t gap_0x0;
+    uint32_t gap_0x4;
     uint8_t data[0x3ec];
 
 public:
@@ -81,10 +81,10 @@ ASSERT_SIZE(FieldBlock54190, 0x3f4);
 
 // Sub-field of MapStuff. Purpose not fully reversed; kept opaque.
 struct FieldBlock5859c {
-    uint8_t* field_0x0;
-    uint8_t* field_0x4;
-    uint8_t* field_0x8;
-    int32_t field_0xc;
+    uint8_t* gap_0x0;
+    uint8_t* gap_0x4;
+    uint8_t* gap_0x8;
+    int32_t gap_0xc;
     uint8_t data[2004];
 
 public:
@@ -123,47 +123,47 @@ struct MapStuff { // aka astruct_5
     uint8_t walk_cost_map[65536];
     Obstacle obstacle_map[65536];
     Obstacle obstacle_map2[65536];
-    uint16_t field3_0x30000[65536];
+    uint16_t path_cost[65536];
     int32_t map_width;
     int32_t map_height;
     uint8_t path_queue_scratch[16384];
-    uint16_t field7_0x54008;
-    uint16_t field8_0x5400a;
-    UnitList field9_0x5400c;
+    uint16_t static_queue_count;
+    uint16_t dynamic_queue_count;
+    UnitList nearby_units;
     CellState scratch_cell_state; // Scratch `CellState` buffer.
-    CList<void*> field22_0x54068;
+    CList<void*> gap_0x54068;
     CMap<uint16_t, uint16_t, CellState, CellState> cell_states; // Tile yx -> cell state.
     MapAlm* alm;
     uint8_t gap_0x540a4[2];
-    uint8_t field26_0x540a6[4][16];
-    uint8_t field_0x540e6[64];
-    uint16_t field28_0x54126[16];
+    uint8_t direction_costs[4][16];
+    uint8_t gap_0x540e6[64];
+    uint16_t direction_pairs[16];
     uint8_t walk_cost[11];
-    uint8_t field_0x54151[5];
+    uint8_t gap_0x54151[5];
     int8_t line_walk_delta[12][2]; // (dx,dy) steps cycling right,down,left,up x3; used by PickAttackPosition's box perimeter walk.
-    uint8_t field_0x5416E[2];
-    int32_t field31_0x54170[8];
-    FieldBlock54190 field_0x54190;
-    uint16_t field_0x54584[0x1000]; // Path lookup table for static obstacles, used by FindPathInternal.
-    uint16_t field_0x56584[0x1000]; // Path lookup table for dynamic obstacles, used by FindPathInternal.
+    uint8_t gap_0x5416E[2];
+    int32_t gap_0x54170[8];
+    FieldBlock54190 gap_0x54190;
+    uint16_t path_queue_static[0x1000]; // Path lookup table for static obstacles, used by FindPathInternal.
+    uint16_t path_queue_dynamic[0x1000]; // Path lookup table for dynamic obstacles, used by FindPathInternal.
     int32_t static_scan_ahead;
     int32_t dynamic_scan_ahead;
     int32_t static_refresh_rate;
     int32_t dynamic_refresh_rate;
     int32_t dynamic_by_static_lookup;
     int32_t static_isnt_needed;
-    FieldBlock5859c field_0x5859c;
-    World* field41_0x58d80;
+    FieldBlock5859c gap_0x5859c;
+    World* world;
     int32_t speed_multiplier;
-    CellState field_0x58d88; // Seems unused?
-    uint32_t field_0x58dc4; // Seems unused?
-    Perf field44_0x58dc8;
-    Perf field45_0x58df8;
-    Perf field46_0x58e28;
-    Perf field47_0x58e58;
-    int8_t field48_0x58e88[8]; // Neighbor cell dx offsets.
-    int8_t field49_0x58e90[8]; // Neighbor cell dy offsets.
-    int32_t field50_0x58e98[8]; // Neighbor cell (dy,xy) offsets.
+    CellState gap_0x58d88; // Seems unused?
+    uint32_t gap_0x58dc4; // Seems unused?
+    Perf gap_0x58dc8;
+    Perf gap_0x58df8;
+    Perf gap_0x58e28;
+    Perf gap_0x58e58;
+    int8_t neighbor_dx[8]; // Neighbor cell dx offsets.
+    int8_t neighbor_dy[8]; // Neighbor cell dy offsets.
+    int32_t neighbor_yx[8]; // Neighbor cell (dy,xy) offsets.
     uint8_t map_min_x;
     uint8_t map_min_y;
     uint8_t map_max_x;
@@ -173,10 +173,10 @@ struct MapStuff { // aka astruct_5
     Visibility visibility;
     ScanPresenceGrid scan_presence_grid;
     uint8_t height_map[65536];
-    CList<void*> field66_0xa44f4;
-    CList<uint16_t> field67_0xa4510;
+    CList<void*> gap_0xa44f4;
+    CList<uint16_t> sack_cells;
     Array2D<uint8_t, 8, 8> footprint_scratch;
-    UnitList* field69_0xa456c;
+    UnitList* all_units;
 
 public:
     MapStuff(MapAlm* alm, UnitList* unit_list); // 587E19 (client: 5572c9)
@@ -217,7 +217,7 @@ public:
     void FindPath(Unit* unit, uint8_t x, uint8_t y, int32_t flag, Unit* target);  // client: 55771d
     void UpdateEyeMoveTime(Unit* unit);  // client: 55fb28
     void AdvancePathList2(Unit* unit);  // client: 55fc6e
-    void StepRotateToTarget(Unit* unit); // Rotates eye->field0_0x0 toward eye->field1_0x1 by up to rotation_speed. (client: 55f1df)
+    void StepRotateToTarget(Unit* unit); // Rotates eye->facing toward eye->target_facing by up to rotation_speed. (client: 55f1df)
     void SetFacing(Unit* unit, uint8_t facing);  // client: 560444
     void PickNextPathTarget(Unit* unit, Unit* target);  // client: 55fdb2
     void FaceTarget(Unit* unit, Unit* target);  // client: 560d68
@@ -257,7 +257,7 @@ public:
     uint8_t ClassifyDirection16(Unit* target, Unit* unit); // Classifies 16-way direction/octant from target toward unit. `this` is unused. (client: 561ce1)
 
     void SyncEyeState(Unit* unit); // Reconciles eye position1/rotation-target state against the unit's current tile. (client: 55efc2)
-    int32_t GetEffectiveSpeed(Unit* unit); // Returns unit's speed, overridden by group_sub->field_0x44 if nonzero. `this` is unused. (client: 56314a)
+    int32_t GetEffectiveSpeed(Unit* unit); // Returns unit's speed, overridden by group_sub->speed_override if nonzero. `this` is unused. (client: 56314a)
     uint8_t GetWalkCost(uint16_t yx); // Walk cost at yx, adjusted for area effects when the cell is occupied. (client: 564137)
 
     void BuildPathList1(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // Builds unit->list1 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y) — 5890CC (client: 55857c)
@@ -266,25 +266,25 @@ public:
     int16_t FindCheapestCellNear(Unit* unit, int32_t zero, uint16_t yx, uint32_t radius); // 593134 (client: 5625e4)
     Building* GetBuildingAt(uint16_t yx); // 594709 (client: 563bb9)
     uint8_t BoxDistance(uint16_t yx1, uint16_t yx2, int32_t size); // 591A96 (client: 560f46)
-    void ExpandCostsStaticQueue2(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableStatic, queueing improved cells into queue2 — 597290 (client: 5666e0)
-    void ExpandCostsStaticQueue1(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableStatic, queueing improved cells into queue1 — 5974B0 (client: 566900)
-    void ExpandCostsDynamicQueue1(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableDynamic, queueing improved cells into queue1 — 597990 (client: 566de0)
-    void ExpandCostsDynamicQueue2(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by IsCellPassableDynamic, queueing improved cells into queue2 — 5976D0 (client: 566b20)
+    void ExpandCostsStaticQueue2(Unit* unit, uint8_t x, uint8_t y); // Expand path_cost cost grid from (x,y), gated by IsCellPassableStatic, queueing improved cells into queue2 — 597290 (client: 5666e0)
+    void ExpandCostsStaticQueue1(Unit* unit, uint8_t x, uint8_t y); // Expand path_cost cost grid from (x,y), gated by IsCellPassableStatic, queueing improved cells into queue1 — 5974B0 (client: 566900)
+    void ExpandCostsDynamicQueue1(Unit* unit, uint8_t x, uint8_t y); // Expand path_cost cost grid from (x,y), gated by IsCellPassableDynamic, queueing improved cells into queue1 — 597990 (client: 566de0)
+    void ExpandCostsDynamicQueue2(Unit* unit, uint8_t x, uint8_t y); // Expand path_cost cost grid from (x,y), gated by IsCellPassableDynamic, queueing improved cells into queue2 — 5976D0 (client: 566b20)
     int32_t IsCellPassableStatic(Unit* unit, uint16_t yx); // 596F80 (client: 566430)
     int32_t IsCellPassableDynamic(Unit* unit, uint16_t yx); // Passability check used by ExpandCostsDynamicQueue2/ExpandCostsDynamicQueue1 — 5978F0 (client: 566d40)
-    uint16_t* GetCostGridAt(uint8_t x, uint8_t y); // Get pointer into field3_0x30000 cost grid for (x,y) — 59A670 (client: 569960)
+    uint16_t* GetCostGridAt(uint8_t x, uint8_t y); // Get pointer into path_cost cost grid for (x,y) — 59A670 (client: 569960)
     uint8_t* GetWalkCostMapAt(uint8_t x, uint8_t y); // Get pointer into walk_cost_map for (x,y) — 59A6F0 (client: 5699e0)
 
     // Member function pointer to a passability check with the same shape as IsCellPassableStatic/IsCellPassableDynamic.
     using PassableCheckFn = int32_t (MapStuff::*)(Unit*, uint16_t);
 
     // Shared by ExpandCostsStaticQueue2/ExpandCostsStaticQueue1/ExpandCostsDynamicQueue1/ExpandCostsDynamicQueue2: recomputes movement cost to each
-    // of the 9 neighbor cells (including self) around (x,y) in the field3_0x30000 cost grid,
+    // of the 9 neighbor cells (including self) around (x,y) in the path_cost cost grid,
     // gated by the given passability check, and enqueues improved cells into the given queue.
     void ExpandCostGridNeighbors(Unit* unit, uint8_t x, uint8_t y, PassableCheckFn passable, uint8_t* out_x, uint8_t* out_y, uint16_t& out_count);
 
     // Shared by BuildPathList1/BuildPathList2: walks backward from (x,y) toward (cur_x,cur_y) through the
-    // field3_0x30000 cost grid, picking the cheapest neighbor at each step (its cost weighted by
+    // path_cost cost grid, picking the cheapest neighbor at each step (its cost weighted by
     // walk_cost_map at the current work position), appending each visited cell to `path`. On
     // success (reached (cur_x,cur_y) within 1000 steps) drops the initial (x,y) entry from the
     // front of `path`; on failure (gave up) clears `path` entirely.
@@ -328,8 +328,8 @@ public:
 ASSERT_OFFSET(MapStuff, map_width, 0x50000);
 ASSERT_OFFSET(MapStuff, scratch_cell_state, 0x5402c);
 ASSERT_OFFSET(MapStuff, walk_cost, 0x54146);
-ASSERT_OFFSET(MapStuff, field_0x54190, 0x54190);
-ASSERT_OFFSET(MapStuff, field_0x54584, 0x54584);
+ASSERT_OFFSET(MapStuff, gap_0x54190, 0x54190);
+ASSERT_OFFSET(MapStuff, path_queue_static, 0x54584);
 ASSERT_OFFSET(MapStuff, static_scan_ahead, 0x58584);
 ASSERT_OFFSET(MapStuff, visibility, 0x58ec0);
 ASSERT_OFFSET(MapStuff, scan_presence_grid, 0x92ecc);
@@ -371,8 +371,8 @@ public:
     uint8_t* overlay_map;
     uint8_t abrightness;
     uint8_t contrast;
-    uint8_t field_0x1e;
-    uint8_t field_0x1f;
+    uint8_t gap_0x1e;
+    uint8_t gap_0x1f;
     double inv_sun_angle;
     int32_t terrain_tile_mask;
     int32_t daytime_minutes;

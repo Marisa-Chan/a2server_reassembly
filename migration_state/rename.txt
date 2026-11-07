@@ -1195,3 +1195,679 @@ PacketPlayerInfo -> PacketFileChunk -- single use (id 0xC0): map-file download, 
 PacketUnitProperties -> PacketUnitEquipment -- id 0x9C is a bitmask + up to 12 equipment item_ids (weapon/shield/equipment slots); client rebuilds equipmentTokens from it
 PacketMoveCmd -> PacketMoveBroadcast -- server-to-client broadcast (cast animations, projectile/effect movement) always sent via BroadcastMoveCmd, renamed BroadcastMovePacket; 'Cmd' wrongly implied a client command
 PacketInfo -> Packet2Dwords -- shape-named class reused across ~15 message ids; aligns it with the PacketWord/PacketDword family. SendInfoPacket kept (intent-named convenience sender)
+PacketAoeZone::field_0xb -> x -- top-left x of the AoE zone (sender: pos.x - radius; client 0x87 handler passes as arg1 of 41c74b)
+PacketAoeZone::field_0xc -> y -- top-left y of the AoE zone (pos.y - radius; arg2 of client 41c74b)
+PacketAoeZone::field_0xd -> width -- zone width in cells (radius*2+1; arg3 of client 41c74b)
+PacketAoeZone::field_0xe -> height -- zone height in cells (radius*2+1; arg4 of client 41c74b)
+PacketSack::field_c -> gap_c -- never read or written by either side; padding byte between unit_id and type_id, gap_ convention
+Player::field_0xa70 -> team -- team index in team-play/CTF: 0 blue, 1 red; indexes ctf_score, mirrored into team-notify 0x101-team
+Player::field_0xa5c -> mana_percent -- unit mp2 = mana_percent*mp_max/100 on spawn/recalc (RecalcStats, Unit ctor); default 95 (0x5F); serialized
+Player::field_0xa60 -> quest_ai -- map player-data flags bit 1; marks AI players that count for quests: elimination event 15 (all units dead) and KillInnDefenders candidates
+Player::field_0xa76 -> gap_0xa76 -- never referenced anywhere; layout padding before login CString
+Player::field_0xa77 -> gap_0xa77 -- never referenced anywhere; layout padding before login CString
+Player::field_0x20 -> gap_0x20 -- only written (-10000) in ctor, never read by any migrated code; dead layout field
+MapStuff::field_0x54584 -> path_queue_static -- 0x1000-entry yx BFS propagation queue for the static-obstacle pass (RelaxCostsMap2Queue1, fed by field7_0x54008 mask)
+MapStuff::field_0x56584 -> path_queue_dynamic -- 0x1000-entry yx BFS propagation queue for the dynamic-obstacle pass (RelaxCostsMap2Queue2, fed by field8_0x5400a mask)
+MapStuff::field_0x540e6 -> gap_0x540e6 -- 64 bytes never referenced by any migrated code
+MapStuff::field_0x54151 -> gap_0x54151 -- 5 bytes between walk_cost and line_walk_delta, never referenced
+MapStuff::field_0x5416E -> gap_0x5416E -- 2 bytes never referenced
+MapStuff::field_0x58d88 -> gap_0x58d88 -- CellState only Null()ed in ctor, never read or written elsewhere
+MapStuff::field_0x58dc4 -> gap_0x58dc4 -- never referenced
+Scenario::field_0x1e -> gap_0x1e -- never referenced; padding between contrast and inv_sun_angle
+Scenario::field_0x1f -> gap_0x1f -- never referenced; padding between contrast and inv_sun_angle
+VisRoleKeyScreen::field_0x68 -> line_no -- current dialogue line; ++ per advance (sub_4E0169), indexes <...> tags in text_buf and the p%02d speech-file variant
+VisRoleKeyScreen::field_0x70 -> speech_sample -- SfxSample built from speech\<name>.wav for the current line, played in LoadText
+VisRoleKeyScreen::field_0x80 -> tips_id -- parsed from the tips= tag; posted as wparam of 0x45B on close to open that tips entry
+VisRoleKeyScreen::field_0x84 -> spoken_by_player -- set by iamfemale/iammale/iammage/iamfighter tags; gender then comes from the player's own unit (id 0x15)
+Vis1200obj::field_0x5c -> history_backup -- Copy() of history saved by FUN_0043ad86 and restored by FUN_0043ada3 (chat re-open preserves lines)
+Vis1200obj::field_0x70 -> history -- entered chat lines; drawn bottom-up in VMethod7, wrapped by FUN_0043ae1c, serialized by WriteData
+Vis1200obj::field_0x84 -> input_line -- CString being typed; '_' cursor appended while blinking
+Vis1200obj::field_0x90 -> match_player_index -- index into BigStruct2::field_0x9b8 of the player whose name matches the -<prefix> being typed; -1 = none
+Vis1200obj::field_0x94 -> match_name_length -- matched player-name length + 1 for the -<prefix> completion
+Vis1200obj::field_0x98 -> blink_last_tick -- timeGetTime of the last cursor blink toggle (500ms period)
+Vis1200obj::field_0x9c -> blink_now_tick -- current timeGetTime snapshot compared against blink_last_tick in MsgProc
+Vis1200obj::field_0xa0 -> cursor_visible -- blink toggle deciding whether the '_' cursor is appended to input_line
+VisCharGenSkills::field_0xb4 -> slot_positions -- per-skill-slot draw positions in parent-screen coords
+VisCharGenSkills::field_0xdc -> slot_sizes -- per-slot size paired with slot_positions
+VisCharGenSkills::field_0x10c -> slot_states -- per-slot flags: bit0 selected, bit1 hover
+VisCharGenSkills::field_0x120 -> skill_sounds -- per-slot SfxSample played on selection
+BigStruct2::field_0xa08 -> terrain_light_override_cells -- CMap yx->dword of per-cell terrain light overrides (header comment)
+BigStruct2::field_0x138 -> primary_selected_object -- first object of the current selection (header comment)
+BigStruct2::field_0x13c -> primary_selected_assoc -- POSITION assoc of primary_selected_object (header comment)
+BigStruct2::field_0x140 -> selected_object_count -- number of objects in the current selection (header comment)
+BigStruct2::field_0x148 -> selected_available_spell_mask -- bitmask of spells castable by the current selection (header comment)
+BigStruct2::field_0x150 -> active_spell_effect_mask -- bitmask of active spell effects on the selection (header comment)
+Quest::field_0x2c -> target_object -- lazily cached quest target: escort Unit* (by inn id) or intercept Group* (by group id); header notes it can also hold Player*
+NetStru1::field_0x1898 -> packer1_trained_bytes -- channel-1 huffman trained-bytes statistic (only cleared in current code)
+NetStru1::field_0x189c -> packer1_packed_bytes -- channel-1 huffman packed-bytes statistic
+NetStru1::field_0x18a0 -> packer2_trained_bytes -- channel-2 huffman trained-bytes statistic
+NetStru1::field_0x18a4 -> packer2_packed_bytes -- channel-2 huffman packed-bytes statistic
+ItemNamePktEntry::field_5 -> mods_count -- number of item modifiers in data[]; loaded into Item::mods_count (gameobj.cpp:557)
+ItemNamePktEntry::field_2 -> gap_2 -- itemname.pkt record header byte, never referenced
+ItemNamePktEntry::field_3 -> gap_3 -- itemname.pkt record header byte, never referenced
+TokenEntry::field_0x4 -> match_id -- entry match key compared together with slot_code when stacking/finding entries in inventory grids (VMethod27/28/43); set via TokenEntry(int) ctor, always 0 on current paths
+TokenEntry::field_0xb -> gap_0xb -- never referenced; padding between mods_size and mods
+TokenEntry::field_0x14 -> gap_0x14 -- only zeroed in ctor and copied by operator=; never read
+TokenEntry::field_0x1c -> gap_0x1c -- init -1 and assigned the split-target index in visual.cpp:17277 but never read back
+TokenEntry::field_0x20 -> list_index -- index of the entry within its category list; written on rebucket (visual.cpp:11168), read back as the drag source slot/grade for shop tabs 5-8
+CGameObject::field_0x34 -> walk_cycle_index -- stride step 0..7 derived from move_accum/26; changing it re-syncs the smoothed draw pos (x_pos2/y_pos2)
+CGameObject::field_0x84 -> gap_0x84 -- only initialized to -1 and copied; never read
+CGameObject::field_0x106 -> gap_0x106 -- word between hp and hp_max, only copied by operator=; never read
+CUnit::field_0x156 -> special_stat_kind -- 2 for typeIds 0x49/0x68/0x46, else 0; nonzero gates the AllLines[0xbf] extra stat label in detailed view (level 7); only nonzero-ness is tested
+CUnit::field_0x161 -> gap_0x161 -- only zeroed in ctor; never read
+CUnit::field_0x162 -> gap_0x162 -- only zeroed in ctor; never read
+CUnit::field_0x164 -> gap_0x164 -- word after magic_protect[], only zeroed in ctor; never read (visual.cpp field_0x164 hits are another class)
+TransientVisualEffectBuilder::field_0x0 -> gap_0x0 -- CPoint, unreferenced; Build* methods take coordinates as params
+TransientVisualEffectBuilder::field_0x24 -> gap_0x24 -- unreferenced layout CPoint
+TransientVisualEffectBuilder::field_0x2c -> gap_0x2c -- unreferenced layout CPoint
+TransientVisualEffectBuilder::field_0x34 -> gap_0x34 -- unreferenced layout CPoint[2]
+TransientVisualEffectBuilder::field_0x44 -> gap_0x44 -- unreferenced layout CPoint[2]
+TransientVisualEffectBuilder::field_0x54 -> gap_0x54 -- unreferenced layout dword between point pairs and wobble_scale
+StructEnter::field_0x0 -> structure_list -- own (map_player==my_main_unit) alive buildings (unitFlags bit0) rebuilt from the map; drives tavern/global-map selection
+StructEnter::field_0x14 -> party_list -- own alive parties (unitFlags bit4) added by FUN_00475080; currently write-only (Add/SetSize)
+StructEnter::field_0x28 -> female_party_count -- parties added with unitFlags bit1 clear (bit1 set = male, cf. VisRoleKeyScreen gender read); write-only
+StructEnter::field_0x2c -> male_party_count -- parties added with unitFlags bit1 set; write-only
+PackerTail::field_0x8 -> gap_0x8 -- huffman tree node payload; the tree build/pack code is not exercised in the port (only DeleteTail walks child0/child1), field never referenced
+PackerTail::field_0xc -> gap_0xc -- huffman tree node payload; the tree build/pack code is not exercised in the port (only DeleteTail walks child0/child1), field never referenced
+PackerTail::field_0x10 -> gap_0x10 -- huffman tree node payload; the tree build/pack code is not exercised in the port (only DeleteTail walks child0/child1), field never referenced
+PackerTail::field_0x14 -> gap_0x14 -- huffman tree node payload; the tree build/pack code is not exercised in the port (only DeleteTail walks child0/child1), field never referenced
+NetStru2::field_0x2a0 -> gap_0x2a0 -- only initialized in the ctor (0, or -1 for 0x2b4); never read or written elsewhere
+NetStru2::field_0x2a4 -> gap_0x2a4 -- only initialized in the ctor (0, or -1 for 0x2b4); never read or written elsewhere
+NetStru2::field_0x2ac -> gap_0x2ac -- only initialized in the ctor (0, or -1 for 0x2b4); never read or written elsewhere
+NetStru2::field_0x2b4 -> gap_0x2b4 -- only initialized in the ctor (0, or -1 for 0x2b4); never read or written elsewhere
+NetStru2::field_0x2b8 -> gap_0x2b8 -- only initialized in the ctor (0, or -1 for 0x2b4); never read or written elsewhere
+NetStru2::field_0x2bc -> gap_0x2bc -- only initialized in the ctor (0, or -1 for 0x2b4); never read or written elsewhere
+CLlAddress::field_0x200 -> gap_0x200 -- anonymous union overlay of guid/ComSettings; all access goes through .guid or .com, member itself unreferenced
+CLlAddress::field_0x204 -> gap_0x204 -- anonymous union overlay of guid/ComSettings; all access goes through .guid or .com, member itself unreferenced
+CLlAddress::field_0x208 -> gap_0x208 -- anonymous union overlay of guid/ComSettings; all access goes through .guid or .com, member itself unreferenced
+CLlAddress::field_0x20c -> gap_0x20c -- anonymous union overlay of guid/ComSettings; all access goes through .guid or .com, member itself unreferenced
+CLlAddress::field_0x210 -> gap_0x210 -- anonymous union overlay of guid/ComSettings; all access goes through .guid or .com, member itself unreferenced
+CGameSession::field_0x114 -> skill_tier1 -- tier from max skill level (>=96/76/51 -> 4/3/2/1); sent in join packet bits 0x10-0x17 via GetSkillTier1
+CGameSession::field_0x118 -> skill_tier2 -- second tier from max skill level (>=90/51/26 -> 4/3/2/1); join packet bits 0x18-0x1f via GetSkillTier2
+CGameSession::field_0x4 -> gap_0x4 -- unreferenced layout dword; never read or written (ctor default only)
+CGameSession::field_0x68 -> gap_0x68 -- unreferenced layout dword; never read or written (ctor default only)
+CGameSession::field_0x6c -> gap_0x6c -- unreferenced layout dword; never read or written (ctor default only)
+CGameSession::field_0x70 -> gap_0x70 -- unreferenced layout dword; never read or written (ctor default only)
+CGameSession::field_0x74 -> gap_0x74 -- unreferenced layout dword; never read or written (ctor default only)
+CGameSession::field_0x78 -> gap_0x78 -- unreferenced layout dword; never read or written (ctor default only)
+CGameSession::field_0x7c -> gap_0x7c -- unreferenced layout dword; never read or written (ctor default only)
+CGameSession::field_0x80 -> gap_0x80 -- unreferenced layout dword; never read or written (ctor default only)
+CGameSession::field_0x84 -> gap_0x84 -- unreferenced layout dword; never read or written (ctor default only)
+CGameSession::field_0x144 -> gap_0x144 -- unreferenced layout dword; never read or written (ctor default only)
+Fame1::field_x8 -> value2 -- raw fame-record payload dword after name+score; serialized verbatim, never interpreted
+Fame1::field_xc -> value3 -- raw fame-record payload dword after name+score; serialized verbatim, never interpreted
+Fame2::field_x34 -> gap_x34 -- init 1 and copied by operator= only; never read
+AvailNetSession::field_0x4 -> selected_row -- dialog writes the selected server row index here (VisNetDlg MsgProc); connect path reads selected_index instead, so this stays write-only
+Main3e0::field_00 -> gap_00 -- CString only Empty()ed on session reset; never read or filled
+Main3e0::field_04 -> gap_04 -- CString completely unreferenced
+Main3e0::field_08 -> key_capture_str -- while non-empty, raw key messages are forwarded to vis_root during menu screens (main_window.cpp:1001); only Empty()ed, never written non-empty in current code
+Main3e0::field_10 -> internet_game -- set to 1 by the HAT/internet connect dialog on OK (visual.cpp:25570); gates HAT deathmatch dialogs and join key routing with hat_settings
+MainWindow::field_0x12c -> gap_0x12c -- VisScreen* never assigned (dead close-handler branch); slot for a modal dialog that current code never opens
+MainWindow::field_0x34c -> net_dialog -- holds the VisNetDlg session browser created in DoPrepareConnect (main_window.cpp:3815)
+MainWindow::field_0x3e0 -> net_session -- embedded Main3e0 block carrying hat_id/internet_game/connect_address for the active connect
+MainWindow::field_0x400 -> local_game -- set to 1 together with sessionMode=2 in BeginLocalCharacterSetup/InitNewCampaignSession (locally hosted game)
+MainWindow::field_0x424 -> gap_0x424 -- unreferenced layout dword (at most zero-initialized); never read
+MainWindow::field_0x434 -> gap_0x434 -- unreferenced layout dword (at most zero-initialized); never read
+MainWindow::field_0x43c -> gap_0x43c -- unreferenced layout dword (at most zero-initialized); never read
+MainWindow::field_0x440 -> gap_0x440 -- unreferenced layout dword (at most zero-initialized); never read
+MainWindow::field_0x444 -> gap_0x444 -- unreferenced layout dword (at most zero-initialized); never read
+MainWindow::field_0x44c -> gap_0x44c -- unreferenced layout dword (at most zero-initialized); never read
+MainWindow::field_0x464 -> gap_0x464 -- unreferenced layout dword (at most zero-initialized); never read
+MainWindow::field_0x5e4 -> gap_0x5e4 -- unreferenced layout dword (at most zero-initialized); never read
+MainWindow::field_0x804 -> gap_0x804 -- unreferenced layout dword (at most zero-initialized); never read
+MainWindow::field_0x438 -> tick_anchor_time -- timeGetTime anchor set whenever game_tic_counter restarts from 0 (session start, dialog close, unlimited_speed off); init INT_MAX; write-only in current code
+MainWindow::field_0x460 -> app_initialized -- set 1 after CreateUI/LoadSettings/LoadData boot, cleared on session resets; write-only in current code
+VisScrollBar::field_0x5c -> dirty -- set 1 by UpdateRects; write-only redraw hint
+GM_a28::field_0x5c -> dirty -- set 1 on Add(); write-only repaint hint for the scrolling message area
+VisSpellBook::field_0x5c -> dirty -- zeroed in ctor; write-only
+VisRadioBase::field_0x60 -> gap_0x60 -- unreferenced in base and both subclasses (VisRadioType1/2)
+VisRadioBase::field_0x84 -> gap_0x84 -- unreferenced; selection/selected already carry the state
+VisMessageBox::field_0x6c -> text -- message body (ctor str3); long text becomes a VisMultiText child
+VisMessageBox::field_0x70 -> title -- small caption line drawn above the content area (ctor str2)
+TakeDamage::field_0x18 -> drift_left -- ctor unk param (not_me at the damage-label call site); 1 = label drifts left, 0 = right in Update()
+TakeDamage::field_0x20 -> serverLoopCounter snapshot; AddDamage merges successive labels with same unit+burst
+VisCharSellectButtons::field_0x60 -> captions -- CStringArray of the four button labels drawn in VMethod7
+VisCharSellectButtons::field_0x84 -> gap_0x84 -- void*[4] deleted as CBmp64* in FreeBitmaps but never assigned; dead parallel slot
+VisCharSellectList::field_0x60 -> row_rect -- one-row template rect (width 0xCE, height = font4 line height); sizes each roster row in HitTest/VMethod7
+VisCharSellectList::field_0x70 -> list_area -- scrolling viewport rect the roster rows are drawn into
+VisCharSellectList::field_0x80 -> up_arrow_rect -- hit rect of the scroll-up arrow (UpdateArrows)
+VisCharSellectList::field_0x90 -> down_arrow_rect -- hit rect of the scroll-down arrow (UpdateArrows)
+VisCharSellectList::field_0xa0 -> top_row -- index of the first visible roster row (scroll position)
+VisCharSellectList::field_0xa4 -> bmp_center_area -- owned CBmp64 chrgen loader CenterArea.bmp list background
+VisCharSellectList::field_0xa8 -> bmp_up_shine -- owned CBmp64 loader up shine.bmp
+VisCharSellectList::field_0xac -> bmp_up_shine_on -- owned CBmp64 loader up shine_on.bmp; assigned to bmp_arrow_up when pressed
+VisCharSellectList::field_0xb0 -> bmp_down_shine -- owned CBmp64 loader down shine.bmp
+VisCharSellectList::field_0xb4 -> bmp_down_shine_on -- owned CBmp64 loader down shine_on.bmp; assigned to bmp_arrow_down when pressed
+VisCharSellectList::field_0xb8 -> bmp_arrow_up -- currently shown up-arrow bitmap (borrowed from bmp_up_shine[_on]; not owned, cleared by UpdateArrows)
+VisCharSellectList::field_0xbc -> bmp_arrow_down -- currently shown down-arrow bitmap (borrowed from bmp_down_shine[_on]; not owned)
+VisCharSellectList::field_0xc0 -> gap_0xc0 -- never referenced
+VisCharSellectList::field_0xc4 -> gap_0xc4 -- never referenced
+VisCharSellectList::field_0xc8 -> gap_0xc8 -- never referenced
+VisCharSellectList::field_0xcc -> gap_0xcc -- never referenced
+VisCharSellectList::field_0xd0 -> selected_row -- currently selected roster row (shadowed in draw, drives SelectRow and arrow enable)
+VisCharSellectList::field_0xd4 -> hovered_row -- row under the mouse (drawn with the paris-daisy palette)
+VisCharSellectList::field_0xd8 -> renaming -- rename-entry mode: Enter applies SetNameAndColor, Esc closes, selected row text hidden
+VisCharSellectStats::field_0x60 -> bmp_full_stats -- owned CBmp64 chrgen FullStatsL.bmp drawn below the fold
+VisCharSellectStats::field_0x64 -> bmp_left_up -- owned CBmp64 chrgen loader LeftUp.bmp top background
+VisCharSellectStats::field_0x68 -> stat_labels -- four CString labels from AllLines[0xF..0x12]
+VisCharSellectStats::field_0x7c -> shadow_body -- body shadow copy written by Init (0x1E) and ReadUnitStats; never read (kept faithful)
+VisCharSellectStats::field_0x80 -> shadow_reaction -- reaction shadow copy; write-only
+VisCharSellectStats::field_0x84 -> shadow_mind -- mind shadow copy; write-only
+VisCharSellectStats::field_0x88 -> shadow_spirit -- spirit shadow copy; write-only
+VisCharSellectStats::field_0x8c -> cube_sprites -- owned CA16 chrgen cube sprites.16a with ResetPalette(0x10,4,0)
+VisCharSellectStats::field_0x90 -> stat_icon_rects -- four 0x20x0x20 stat icon rects set by Init; write-only
+VisCharGenStats::field_0x64 -> label_rects -- per-stat label hit rects (Init sizes them to the label text width); HitTest uses them for stat hints
+VisCharGenStats::field_0xa4 -> points_rect -- rect at (0x2E,0xB5) where the remaining stat_points value is drawn
+VisCharGenStats::field_0x194 -> stat_button_bmps -- ten owned plus/minus button-state bitmaps (plon/ploff/pnlon/pnloff/pdisable + mlon/mloff/mnlon/mnloff/mdisable)
+VisCharGenStats::field_0x1e0 -> gap_0x1e0 -- never referenced
+VisCharGenStats::field_0x1f0 -> stat_points -- unspent stat points pool (starts 100, minus OnStatUp cost, plus OnStatDown refund)
+VisCharGenFullStats::field_0x64 -> gap_0x64 -- 0x44-byte buffer, never referenced
+VisShopCompassDruid::field_0x258 -> gap_0x258 -- never referenced
+VisShopCompassKaarg::field_0x258 -> gap_0x258 -- never referenced
+VisShopButtons::field_0x60 -> gap_0x60 -- never referenced
+VisShop::field_0x134 -> gap_0x134 -- never referenced by any shop method or ctor
+VisShop::field_0x138 -> gap_0x138 -- never referenced (the tavern field_0x138 at visual.h:1756 is a different class)
+VisShop::field_0x13c -> gap_0x13c -- never referenced
+VisShop::field_0x140 -> gap_0x140 -- never referenced
+VisCharInfo::field_64 -> gap_64 -- only zeroed in ctor; never read
+VisStartGame::field_0x1bc -> gap_0x1bc -- only zeroed (VMethod26 + several resets); never read
+VisStartGame::field_0x1c0 -> gap_0x1c0 -- only zeroed; never read
+VisStartGame::field_0x204 -> gap_0x204 -- only zeroed; never read
+VisMenuWnd::field_0x68 -> gap_0x68 -- ctor unk param stored but never read
+VisMenuWnd::field_0x6c -> element_rect -- running strip rect: AddElement moves top to bottom, extends by height, SetRects the child
+LoadGameWindow::field_0x68 -> out_info -- SaveFileInfo out-param filled with the selected save's title/filename
+LoadGameWindow::field_0x94 -> selected_index -- selected row in the save list
+SaveGameWindow::field_0x68 -> out_info -- SaveFileInfo out-param filled with the chosen title/filename
+SaveGameWindow::field_0x94 -> selected_index -- selected row in the save list
+SaveGameWindow::field_0x98 -> empty_cell_text -- txt_dialogs line 28 placeholder added for the empty new-save slot
+Unit::field_0x1bc -> has_flagged_item -- set when a loaded item has Item::special_flag set; gates TeamNotify(5) for gameType 0 (chain is dead: special_flag is never set nonzero)
+Item::field14_0x50 -> special_flag -- only ever zeroed; checked while loading unit items to set Unit::has_flagged_item (never nonzero in retail data)
+BigStruct2::field_0x80 -> scenario -- Scenario* backing landscape/heights/overlay queries
+BigStruct2::field_0xa0 -> corner_tile_kind -- per-corner classification of landscape&0xC000: 0=water(anim), 8, 0x10=land; drives water-anim dirty rects
+BigStruct2::field_0xa4 -> corner_tile_kind_prev -- previous frame copy of corner_tile_kind (memcpy back each rebuild)
+BigStruct2::field_0xa8 -> corner_light -- per-corner accumulated light; corner values interpolated (-0x20) for tile light smoothing
+BigStruct2::field_0xac -> corner_light_prev -- previous-frame corner light (memcpy of corner_light before reset to 0xFF)
+BigStruct2::field_0xc4 -> fps_frames -- frame counter of the 1s FPS window
+BigStruct2::field_0xc8 -> fps_time_ms -- elapsed ms in the FPS window; >1000 recomputes fps and restarts the window
+BigStruct2::field_0xcc -> fps_last_tick -- timeGetTime of the last FPS sample
+BigStruct2::field_0xd0 -> fps -- computed frames-per-second shown as %3.1f fps
+BigStruct2::field_0xd8 -> rbtn_drag -- right-button drag in progress; OnRButtonUp without it re-opens the order menu
+BigStruct2::field_0xdc -> minimap_dirty -- 1 = crystal-ball minimap must redraw terrain (also widens water-anim dirty rects); cleared after redraw
+BigStruct2::field_0xe0 -> full_redraw_requested -- one-shot full-frame redraw request (AoE zone change, hat overlay add); consumed into dirty_rect in draw
+BigStruct2::field_0xf4 -> dirty_rect -- accumulated redraw rectangle; or-equals per dirty region, IntersectRect with screen each frame
+BigStruct2::field_0x104 -> cached_msg_count -- cached message-area line count; change forces full redraw
+BigStruct2::field_0x108 -> lightning_active -- gates sub_405D0E lightning overlay with g_Lightning; never set nonzero in current code
+BigStruct2::field_0x10c -> hit_rects -- per-frame registry of drawn object rects (sub_404DA3) for mouse hover/hit tests
+BigStruct2::field_0x120 -> hit_unit_ids -- ids parallel to hit_rects; looked up in objects for class-based picking
+BigStruct2::field_0x134 -> hit_count -- number of entries in hit_rects/hit_unit_ids this frame
+BigStruct2::field_0x144 -> selection_flags -- selection composition mask built in UpdateSelectionState (bit0 units, 0x200 caster-type, 8 buildings-only, 2/0x20/4 composition)
+BigStruct2::field_0x14c -> selected_active_spell_mask -- SpellBtB mask of the active (autocast) spells of currently selected units; lights up spellbook buttons
+BigStruct2::field_0x994 -> hovered_unit -- CUnit currently under the cursor (set from the hit registry; cleared when it leaves)
+BigStruct2::field_0x9a8 -> hovered_unit_id -- id of hovered_unit (keeps the id across Lookup misses)
+BigStruct2::field_0x9ac -> last_mouse_tile_x -- tile x of the last hit-test; used by right-click order dispatch
+BigStruct2::field_0x9b0 -> last_mouse_tile_y -- tile y of the last hit-test
+BigStruct2::field_0x9b4 -> order_mode -- active order/cast mode 1..5 (move/attack/patrol/cast/cast5) from the order toolbar; changes the cursor and is consumed on click
+BigStruct2::field_0x9b8 -> map_players -- CArray of MapPlayerData* map player slots (server Srv1::CreatePlayers fills it)
+BigStruct2::field_0x9d0 -> objects -- the id->CGameObject* registry of every live map object (units, sacks, backpacks); ~150 use sites
+BigStruct2::field_0x9ec -> projectiles -- id->object registry of spawned projectiles/effects (packet 0x72 spawns via next_projectile_id keys)
+BigStruct2::field_0xa24 -> next_projectile_id -- incrementing key for projectiles entries
+BigStruct2::field_0xa88 -> anim_tick -- advancing animation tick; terrain frame = (.. + anim_tick>>2)&3
+BigStruct2::field_0xa8c -> anim_redraw_tick -- anim_tick value at the last animation-driven redraw (redraw when difference > 3)
+BigStruct2::field_0xa90 -> gap_0xa90 -- only incremented/reset; never read
+BigStruct2::field_0xa94 -> lightning_cells -- CMap yx->dword of cells with active lightning strikes (draws projectile sprite 8 while value < 0x12)
+BigStruct2::field_0xac0 -> shadow_step -- 41x41x2 table: (dx,dy) unit step toward the center cell, built by the radial spiral in sub_403730
+BigStruct2::field_0x17e4 -> shadow_light -- 41x41 remaining-light accumulator of the shadow cast (scan_range seed at center, decremented along rays; >0 = cell lit)
+BigStruct2::field_3228 -> shadow_ray_len -- 41x41 per-offset ray length = sqrt(i^2+j^2)*shadow_scale/max(i,j)
+BigStruct2::field_0x3f4c -> shadow_scale -- 1 << shadow_shift; scales ray lengths and the center seed
+BigStruct2::field_0x3f50 -> shadow_shift -- fixed 7; scan_range >> (8-shift) seeds shadow_light
+BigStruct2::field_0x3f68 -> scratch_tile -- CBmp256 scratch for animated water tiles (tile data memcpy + CopyIndexedSkip0)
+BigStruct2::field_0x3f6c -> my_unit -- the local player's CUnit (GetUnit_3f6c accessor)
+BigStruct2::field_0x4970 -> quest_map -- QuestMap* for the running game
+BigStruct2::field_0x4974 -> hero_inventory -- hero bag items synced in chunks from the server (start_index windowed)
+BigStruct2::field_0x4988 -> hero_equipment -- the hero's 12 equipment items (packet bitmask updates, written into the player file)
+BigStruct2::field_0x4a04 -> hat_player_count -- client hat slot-31 dword from packets 0x5c/0xc2 shown in the DM HUD; 0x7fffffff = hidden
+BigStruct2::field_0x49b8 -> ambient_view_x -- view x at the last ambient-sound check (40000 sentinel = always different)
+BigStruct2::field_0x49bc -> ambient_view_y -- view y at the last ambient-sound check
+BigStruct2::field_0x49c0 -> ambient_sound_deadline -- timeGetTime()+5000+rand()/7 of the next ambient sound (only when the view moved)
+BigStruct2::field_0x49c4 -> gap_0x49c4 -- only restored with the bulk hat state tuple; never read
+VisTavRightPanel::field_0x74 -> bmp_btn_on -- owned CBmp64[3] inn button{1,2,3}on.bmp
+VisTavRightPanel::field_0x80 -> bmp_btn_off -- owned CBmp64[3] inn button{1,2,3}off.bmp
+VisTavRightPanel::field_0x8c -> bmp_area -- owned CBmp64 inn ButtonsArea.bmp backdrop
+VisTavRightPanel::field_0x90 -> btn_rects -- the three button hit rects (FUN_0049a873)
+VisTavRightPanel::field_0xc0 -> pressed_btn -- held button index (-1 none); set on down, consumed on up
+VisTavRightPanel::field_0xc4 -> hovered_btn -- button shown pressed while the mouse is over it (FUN_0049a8fa)
+VisTavLeftPanel::field_0x60 -> picture_name -- cached infowindow portrait name; reload only when it changes
+VisTavLeftPanel::field_0x160 -> portrait_bmp -- CBmp64 loaded from graphics infowindow name.bmp
+VisTavLeftPanel::field_0x164 -> hitmap -- CBmp256 index map over the picture area: nonzero byte selects equipmentTokens[i-1] hint
+VisTavLeftPanel::field_0x168 -> bmp_left_stats -- owned CBmp64 inn LeftStats.bmp top background
+VisTavLeftPanel::field_0x16c -> bmp_left_picture -- owned CBmp64 inn LeftPicture.bmp lower background
+VisTavLeftPanel::field_0x170 -> left_btn_rect -- 0x20x0x20 rect at left+0x11/bottom (FUN_00497ace); write-only
+VisTavLeftPanel::field_0x180 -> right_btn_rect -- 0x20x0x20 rect at left+0x87/bottom; write-only
+VisTavScene::field_0x60 -> roster_rects -- 3x6 grid of 0x30x0x40 roster cells (item sprite + count drawn there)
+VisTavScene::field_0x180 -> party_rects -- 3x3 grid of 0x50x0x50 party member cells
+VisTavScene::field_0x210 -> roster_sprites -- per-entry CA16 inventory item sprites in the roster cells
+VisTavScene::field_0x224 -> avail_sprites -- hireable units' inn Unit type sprites (VMethod26)
+VisTavScene::field_0x238 -> reserved_sprites -- reserved party units' sprites (hero variants for unitFlags&1)
+VisTavScene::field_0x24c -> avail_frames -- animation frame counters parallel to avail_sprites
+VisTavScene::field_0x260 -> reserved_frames -- animation frame counters parallel to reserved_sprites
+VisTavScene::field_0x274 -> bmp_man_back -- owned CBmp64 inn manback.bmp unit-slot background
+VisTavScene::field_0x278 -> bmp_man_back_talk -- owned CBmp64 inn ManBackTalk.bmp (talking variant)
+VisTavScene::field_0x27c -> bmp_background -- scene background: inn CenterArea.bmp (druid: inn_druid TavernMain.bmp)
+VisTavScene::field_0x340 -> bmp_lu_over -- owned CBmp64 inn LUOver.bmp left-top edge overlay
+VisTavScene::field_0x344 -> bmp_ld_over -- owned CBmp64 inn LDOver.bmp left-bottom edge overlay
+VisTavScene::field_0x348 -> bmp_ru_over -- owned CBmp64 inn RUOver.bmp right-top edge overlay
+VisTavScene::field_0x34c -> quest_bmps -- owned CBmp64[13] inn quests quest bitmaps
+VisTavSceneDruid::field_0x3cc -> bmp_flash -- owned CBmp64 inn_druid taverner a30001.bmp flash frame
+VisTavSceneDruid::field_0x460 -> ambient_last_tick -- timeGetTime of the last druid ambient voice (sessionMode 2 only)
+VisTavSceneDruid::field_0x464 -> ambient_interval -- random 2000-4000ms ambient voice interval
+VisTavSceneKaarg::field_0x4bc -> script_frame_index -- index into kaarg_frame_script for the taverner (anims_kaarg[4]) animation
+VisTavSceneKaarg::field_0x4c0 -> ambient1_last_tick -- last ambient group-1 voice (snd_kaarg[0..3])
+VisTavSceneKaarg::field_0x4c4 -> ambient1_interval -- random 2000-4000ms group-1 interval
+VisTavSceneKaarg::field_0x4c8 -> ambient2_last_tick -- last ambient group-2 voice (snd_kaarg[7..9])
+VisTavSceneKaarg::field_0x4cc -> ambient2_interval -- random 2000-4000ms group-2 interval
+VisTav::field_0x78 -> gap_0x78 -- never referenced
+VisTav::field_0x138 -> inn_id -- the entered inn/building id (set from interact_target in main_window.cpp:5243); third arg of quest event 0x11
+VisTav::field_0x13c -> quest_alt_close -- toggled by quest event 0x11 results; when set, DoClose reports 0xAAAAAAAA instead of quest_selection
+VisCharGenStats::field_0x174 -> stat_btn_pairs -- per-stat [plus,minus] button bitmap pair pointing into stat_button_bmps
+VisInvExtBase::field_0x20ac -> shop -- VisShop* back-reference owning this shop inventory panel
+VisInvExtBase::field_0x20b0 -> snd_speech -- lazily built speech sample describing the hovered item (speech shop effects books sNNiNNpN.wav)
+VisInvExtBase::field_0x20b4 -> snd_put_on -- SFX Put_On.wav
+VisInvExtBase::field_0x20b8 -> snd_put_off -- SFX Put_Off.wav
+VisInvExtBase::field_0x20bc -> snd_scroll -- SFX Scroll.wav
+VisInvExtBase::field_0x20c0 -> gap_0x20c0 -- never referenced
+VisInvExtBase::field_0x20c4 -> cell_rects -- heap array of visible_columns*visible_rows cell rects (VMethod39; deliberately left uninit in one ctor as in the original)
+VisInvExtType1::field_0x20c8 -> gap_0x20c8 -- never referenced
+VisInvExtType1::field_0x20cc -> up_arrow_rect -- scroll-up hover rect (0x2E,0..0x76,0x20)
+VisInvExtType1::field_0x20dc -> down_arrow_rect -- scroll-down hover rect at 0x10F
+VisInvExtType1::field_0x2100 -> category_grids -- four per-category CArray<TokenEntry*> shop grids; grid_source points at the active one
+VisInvExtType2::field_0x20c8 -> gap_0x20c8 -- never referenced
+VisInvExtType2::field_0x20cc -> up_arrow_rect -- scroll-up hover rect
+VisInvExtType2::field_0x20dc -> down_arrow_rect -- scroll-down hover rect
+VisInvExtType3::field_0x20c8 -> gap_0x20c8 -- never referenced
+VisInvExtType3::field_0x20cc -> up_arrow_rect -- scroll-up hover rect
+VisInvExtType3::field_0x20dc -> down_arrow_rect -- scroll-down hover rect
+VisInvExtType3::field_0x20f0 -> gap_0x20f0 -- never referenced
+VisInvExtType3::field_0x20f4 -> entries -- this panel's own grid_source array of TokenEntry*
+Building::field_0x46 -> value1 -- serialized word between hp_max and scan_range; round-trips saves but is never interpreted
+Building::field_0x62 -> gap_0x62 -- never referenced
+GroupSub::field_0x0 -> gap_0x0 -- never referenced
+GroupSub::field_0x8 -> gap_0x8 -- never referenced
+GroupSub::field_0x9 -> gap_0x9 -- never referenced
+GroupSub::field_0x39 -> gap_0x39 -- never referenced
+Group::field_0x40 -> saved_ptr -- pointer saved as raw dword and re-resolved through g_Server->field23_0xdc next to owner; referent unknown, never read outside (de)serialization
+Item::field_0x47 -> field9_0x47 -- serialize-only byte between material_id and magic_volume; follows the fieldN_0xNN numbering of its siblings
+Trigger::field_0x10 -> gap_0x10 -- never referenced
+FieldBlock54190::field_0x0 -> gap_0x0 -- only zeroed by the ctor; block kept opaque
+FieldBlock54190::field_0x4 -> gap_0x4 -- only zeroed by the ctor
+FieldBlock5859c::field_0x0 -> gap_0x0 -- ctor points it at unk_70B46C; never dereferenced
+FieldBlock5859c::field_0x4 -> gap_0x4 -- ctor points it at unk_70B470; never dereferenced
+FieldBlock5859c::field_0x8 -> gap_0x8 -- ctor points it at unk_70B474; never dereferenced
+FieldBlock5859c::field_0xc -> gap_0xc -- only zeroed by the ctor
+MapStuff::field_0x54190 -> gap_0x54190 -- embedded opaque FieldBlock54190; never accessed beyond construction
+MapStuff::field_0x5859c -> gap_0x5859c -- embedded opaque FieldBlock5859c; never accessed beyond construction
+World::field_0xc8 -> gap_0xc8 -- placement-new FieldBlock5859c; never accessed afterwards
+FileSectionBasicInfo::field_0x31 -> gap_0x31 -- never referenced
+FileSectionBasicInfo::field_0x32 -> gap_0x32 -- never referenced
+FileSectionBasicInfo::field_0x33 -> gap_0x33 -- never referenced
+PlayersList::field_0x1c -> gap_0x1c -- never referenced
+QuestSubstruct::field_0x0 -> gap_0x0 -- only id/building_id/some_id are set by QueueEvent
+QuestSubstruct::field_0x10 -> gap_0x10 -- never referenced
+QuestSubstruct::field_0x14 -> gap_0x14 -- never referenced
+QuestSubstruct::field_0x18 -> gap_0x18 -- never referenced
+CMultiShopTemplate::field_0x90 -> start_money -- snapshot of Shop::money at template creation (1000 default); write-only
+Shop::field_0xc0 -> money -- shop gold reserve, default 10,000,000; serialized, copied into shop templates
+ShopAssortment::field_0x18 -> edge_weight -- gaussian weight at the table cutoff 1/exp(1.6^2), mirroring arr; write-only
+ShopAssortment::field_0x40 -> gap_0x40 -- never referenced
+SfxSample::field_0x4 -> gap_0x4 -- never referenced
+SoundSettings::field_0xc -> mus_pos_max -- slider maximum (5000) of the music position volume
+SoundSettings::field_0x14 -> sfx_pos_max -- slider maximum (5000) of the sfx position volume
+SoundSettings::field_0x1c -> speech_pos_max -- slider maximum (5000) of the speech position volume
+MusicPlayer::field_0x20 -> random_mode -- stored SetRandom() flag; write-only in current code
+AreaEffect::field_0x52 -> gap_0x52 -- two trailing bytes, never referenced
+MatShapeData::field_0x0 -> gap_0x0 -- never referenced (only price/weight are used)
+MatShapeData::field_0x4 -> gap_0x4 -- never referenced
+MatShapeData::field_0x8 -> gap_0x8 -- never referenced
+MatShapeData::field_0xc -> gap_0xc -- never referenced
+MatShape::field_0x1c -> gap_0x1c -- never referenced
+TokenPos::field_x6 -> gap_x6 -- never referenced
+TokenPos::field_x7 -> gap_x7 -- never referenced
+Token::field_x1a -> gap_x1a -- never referenced
+Token::field_x1b -> gap_x1b -- never referenced
+Visibility::field_0x0 -> gap_0x0 -- 64K-word grid only memset(0) in the ctor; never read or written (named dist/ray/vis tables follow it)
+PacketJoin::__field_0xa -> __as_dword -- raw dword overlay of the player_id/token_id/color/flags struct; read/written as player index and compared against CalcFileChecksum(name); also update stale comments (scenario, quest_ai, speed_override)
+SpellEffect::field2_0x40 -> expired -- set at end of lifetime/ProcessEffects; server loop removes and deletes the effect when set
+SpellEffect::field3_0x41 -> offensive -- spell.cpp sets is_defensive ? 0 : 1 at cast
+SpellEffect::field4_0x42 -> seen_by_mask -- OR of the surrounding scan-presence sector grid; per-player vision bits currently seeing the effect
+SpellEffect::field6_0x44 -> seen_by_mask_prev -- seen_by_mask as of the last notify round; newly-set bits trigger SendAreaEffect
+SpellEffect::field6_0x46 -> notified_mask -- players already sent the area-effect packet (BroadcastAoeZone ors vision_sharing_id)
+Item::field9_0x47 -> value1 -- serialize-only byte between material_id and magic_volume; never interpreted (value1 precedent for opaque save words)
+Item::field10_0x4c -> shelf_refcount -- +1 while listed on a CMultiShopShelf, -1 on ReleaseItems; item deleted only when count and refcount are both 0
+Item::field11_0x4d -> shelf_id -- owning shelf id (shelf.cpp:58); stacking in the bag requires the same shelf_id
+Item::field12_0x4e -> gap_0x4e -- never referenced
+Item::field13_0x4f -> gap_0x4f -- never referenced
+Item::field15_0x54 -> upgraded_at_inn -- set on inn shop upgrades (inn.cpp:1075), cleared when the item is picked from the bag or unequipped; gates the burn-on-failed-equip rule
+VisCharGen::field14_0x9c -> gap_0x9c -- only set to -1 in ctor/reset; never read
+VisFameDocument::field10_0xbc -> gap_0xbc -- never referenced
+VisFameDocument::field17_0xf0 -> gap_0xf0 -- never referenced
+GameDataRes::field9_0xb4 -> gap_0xb4 -- second CArray<HumanInfo> next to humans; never referenced
+MapHeader::field1_0x4 -> gap_0x4 -- header dword (maybe ALM size); never referenced
+MapHeader::field2_0x8 -> gap_0x8 -- header dword; never referenced
+MapPlayerData::field2_0x8 -> token_id -- set from PacketJoin::token_id on the client; matched against map unit/building player_id
+MapUnitData::field17_0x24 -> raw_0x24 -- parsed .alm unit-record word; never used downstream
+MapUnitData::field18_0x26 -> raw_0x26 -- parsed .alm unit-record word; never used downstream
+MapUnitData::field19_0x28 -> raw_0x28 -- parsed .alm unit-record byte; never used downstream
+MapUnitData::field20_0x29 -> raw_0x29 -- parsed .alm unit-record byte; never used downstream
+MapUnitData::field21_0x2a -> raw_0x2a -- parsed .alm unit-record byte; never used downstream
+MapUnitData::field22_0x2b -> raw_0x2b -- parsed .alm unit-record byte; never used downstream
+MapUnitData::field23_0x2c -> raw_0x2c -- parsed .alm unit-record byte; never used downstream
+MapUnitData::field24_0x2d -> raw_0x2d -- parsed .alm unit-record byte; never used downstream
+MapUnitData::field25_0x2e -> raw_0x2e -- parsed .alm unit-record byte; never used downstream
+MapUnitData::field26_0x2f -> raw_0x2f -- parsed .alm unit-record byte; never used downstream
+MapUnitData::field27_0x30 -> raw_0x30 -- parsed .alm unit-record byte; never used downstream
+MapUnitData::field28_0x31 -> raw_0x31 -- parsed .alm unit-record bytes; never used downstream
+MapUnitData::field29_0x37 -> raw_0x37 -- parsed .alm unit-record bytes; never used downstream
+MapUnitData::field36_0x4c -> raw_0x4c -- parsed .alm unit-record word; never used downstream
+MapUnitData::field37_0x4e -> raw_0x4e -- parsed .alm unit-record word; never used downstream
+MapAlm::field16_0x90 -> max_group_id -- highest unit group_id seen while loading (for id allocation)
+MapStuff::field3_0x30000 -> path_cost -- per-tile BFS path cost grid (0xFFFF = unreached, 0 at the seed)
+MapStuff::field7_0x54008 -> static_queue_count -- live entry count of path_queue_static
+MapStuff::field8_0x5400a -> dynamic_queue_count -- live entry count of path_queue_dynamic
+MapStuff::field9_0x5400c -> nearby_units -- scratch UnitList rebuilt by BuildNearbyUnitList in rings around a cell
+MapStuff::field22_0x54068 -> gap_0x54068 -- CList<void*> never referenced
+MapStuff::field26_0x540a6 -> direction_costs -- 4x14 direction cost weights copied from direction_cost_table
+MapStuff::field28_0x54126 -> direction_pairs -- 16 PosYX(idx_a,idx_b) pairs choosing between two direction indices by weight
+MapStuff::field31_0x54170 -> gap_0x54170 -- only memset to 0; never read
+MapStuff::field41_0x58d80 -> world -- World* back-reference (world.cpp ctor wires it)
+MapStuff::field44_0x58dc8 -> gap_0x58dc8 -- Perf slot never referenced
+MapStuff::field45_0x58df8 -> gap_0x58df8 -- Perf slot never referenced
+MapStuff::field46_0x58e28 -> gap_0x58e28 -- Perf slot never referenced
+MapStuff::field47_0x58e58 -> gap_0x58e58 -- Perf slot never referenced
+MapStuff::field48_0x58e88 -> neighbor_dx -- neighbor cell dx offsets (8 directions)
+MapStuff::field49_0x58e90 -> neighbor_dy -- neighbor cell dy offsets (8 directions)
+MapStuff::field50_0x58e98 -> neighbor_yx -- packed PosYX(dx,dy) per direction, built from neighbor_dx/dy
+MapStuff::field66_0xa44f4 -> gap_0xa44f4 -- CList<void*> never referenced
+MapStuff::field67_0xa4510 -> sack_cells -- candidate cells for loot-sack placement collected by CollectSackCells; head feeds eye2->command_to
+MapStuff::field69_0xa456c -> all_units -- UnitList* of every unit on the map (ctor parameter, global registry)
+Srv1::field1_0x4 -> gap_0x4 -- CMapStringToOb never referenced
+Srv1::field2_0x20 -> is_scenario -- set from Server::map_code; LoadMap prefixes Scenario\ to the map name when set
+Srv1::field4_0x28 -> drop_locations -- yx cells from map action 0x10002 (default: inn/shop entrances); used when spawning dropped loot
+Server::field3_0x70 -> send_full_state -- Start(mode>0): gates SendAllData on player join (hosted/local session vs plain internet server)
+Server::field4_0x74 -> fog_of_war -- multiplayer visibility gate (mode<2 or recommended_player_count>1); per-player IsVisibleTo filtering and seen_by_mask deltas only apply when set
+Server::field5_0x78 -> base_dir -- client-only BaseDir profile string
+Server::field15_0x88 -> thread_handle -- server thread HANDLE (resumed and waited on shutdown)
+Server::field16_0x8c -> gap_0x8c -- write-only flag (1 in ProcessPlayers, 0 in LoadGame paths); never read
+Server::field18_0x94 -> has_world_state -- world state loaded from a save; enables the save/load UI buttons and sends bare packet 0xb7 on join
+Server::field21_0xd4 -> map_code -- numeric map code parsed from the .alm filename; sent in the join packet and mirrored to Srv1::is_scenario
+Server::field22_0xd8 -> difficulty -- game difficulty (1 easy); set via SetDifficulty
+Server::field23_0xdc -> saved_ptr_map -- CMapPtrToPtr translating saved raw pointers to live objects on load (Group::saved_ptr, owner)
+Server::field26_0x174 -> skip_ai_units -- when set (from saves), CreateUnits skips AI player units
+Server::field27_0x178 -> is_singleplayer -- inverse of fog_of_war captured at map load; save-state only
+Server::field28_0x17c -> saved_0x17c -- saved-game dword, round-trips Serialize only
+Server::field29_0x180 -> saved_0x180 -- saved-game dword, round-trips Serialize only
+Server::field30_0x184 -> saved_0x184 -- saved-game dword, round-trips Serialize only
+Server::field31_0x188 -> saved_0x188 -- saved-game dword, round-trips Serialize only
+Server::field32_0x18c -> saved_0x18c -- saved-game dword, round-trips Serialize only
+Server::field33_0x190 -> saved_0x190 -- saved-game dword, round-trips Serialize only
+Server::field34_0x194 -> saved_0x194 -- saved-game dword, round-trips Serialize only
+Server::field35_0x198 -> saved_0x198 -- saved-game dword, round-trips Serialize only
+Server::field36_0x19c -> saved_0x19c -- saved-game dword, round-trips Serialize only
+Server::field37_0x1a0 -> saved_0x1a0 -- saved-game dword, round-trips Serialize only
+Server::field38_0x1a4 -> use_default_shop -- single-player: FindShopAt returns g_DefaultShop instead of nearby buildings
+Server::field39_0x1a8 -> save_on_server -- characters saved on the server rather than locally (server-screen checkbox; default follows fog_of_war)
+Server::field40_0x1ac -> map_loaded -- suppresses LoadMap inside LoadGame when the map is already loaded
+Server::field41_0x1b0 -> server_screen_shown -- set when the admin VisServerScreen pops up; write-only
+Server::field42_0x1b4 -> last_window_ms -- ms spent in the last 16-tick window (shown in the stats dialog)
+Server::field43_0x1b8 -> window_ms -- ms accumulator of the current 16-tick window
+Server::field44_0x1bc -> total_ms -- cumulative ms; average = total_ms/tic16
+Server::field46_0x1c4 -> max_window_ms -- slowest 16-tick window so far
+Server::field49_0x1d0 -> gap_0x1d0 -- only zeroed in the ctor; never read
+Server::field50_0x1d4 -> hat_logged_in -- HAT login completed (packet 0xd5); cleared on login failure
+Server::field51_0x1d8 -> hat_disconnect_tick -- GetTickCount when the HAT link dropped (1 = immediate); drives the reconnect delay
+Server::field53_0x1f0 -> hat_upload_tick -- throttle for returning character files to HAT (15s)
+Server::field54_0x1f4 -> hat_id -- HAT session id from packet, stamped into uploaded character files
+Server::field55_0x1f8 -> hat_ping_tick -- 15s HAT keepalive sender timestamp
+Server::field56_0x1fc -> hat_uploads_pending -- FileList non-empty; bare packet 3 is sent once all characters are returned
+Server::field59_0x208 -> game_started -- set by SignalGameStart; gates drop deadlines and late ProcessPlayers
+Server::field64_0x21c -> hat_announce_tick -- 60s HAT announce/keepalive tick
+Server::field65_0x220 -> hat_announce_player_index -- cycling player slot 16..31 sent in each HAT announce
+Server::field66_0x224 -> sacks_loaded -- LoadSavedSacks done-once guard (single-player only)
+Server::field67_0x228 -> arena_names -- arena participant names, parallel to arena_scores
+Server::field68_0x23c -> arena_scores -- arena frag counts, parallel to arena_names
+World::field0_0x0 -> gap_0x0 -- written 0x8000 once in Init, never read
+World::field2_0x8 -> perf_tick -- Perf around the whole ProcessTick
+World::field3_0x38 -> perf_presence -- Perf around RebuildPresenceGrid (duration1)
+World::field4_0x68 -> perf_triggers -- Perf around ProcessTriggers (duration2)
+World::field5_0x98 -> perf_ai -- Perf around ProcessPlayerGroupAi + ProcessVirtualCasters (duration3)
+World::field20_0xa48 -> saved_0xa48 -- save-state byte, round-trips Serialize only
+World::field21_0xa49 -> saved_0xa49 -- save-state byte, round-trips Serialize only
+World::field24_0xa50 -> map_stuff -- MapStuff* back-reference (wired both ways in the ctor); use sites fixed after a file-lock interrupted the automated pass
+World::field26_0xa64 -> nearby_list -- scratch UnitList of nearby units rebuilt by BuildAllyList/ScanNearbyUnits
+World::field27_0xa84 -> unconscious_list -- holding list for unconscious (hp<1) targets pruned out of nearby_list; merged back when nearby_list empties
+World::field28_0xaa4 -> non_targets -- non-attack target list of SplitTargetLists
+World::field29_0xac4 -> targets -- attack target list of SplitTargetLists
+World::field32_0xa728 -> saved_0xa728 -- 400-byte save-state blob, memset and Serialize only
+World::field37_0xbbe8 -> skip_presence_grid -- when nonzero ProcessTick skips RebuildPresenceGrid; always 0 (vanilla overwrote the map-width check with 0)
+World::field39_0xbc08 -> gap_0xbc08 -- 400-byte buffer only memset to 0
+World::field48_0xbe00 -> patrol_unit -- typeId 0x18 unit in DoScriptedPatrol; write-only
+World::field49_0xbe04 -> gap_0xbe04 -- only zeroed in Init; never read
+World::field50_0xbe08 -> gap_0xbe08 -- only zeroed in Init; never read
+World::field52_0xbe10 -> saved_0xbe10 -- save-state dword between mission_complete and mission_fail; round-trips Serialize only
+World::field54_0xbe18 -> gap_0xbe18 -- embedded FieldBlock54190; never referenced
+World::field56_0xc52c -> gap_0xc52c -- 40 bytes only memset to 0
+World::field57_0xc554 -> gap_0xc554 -- 10x44 char grid only memset to 0
+World::field60_0xc714 -> gap_0xc714 -- CMap never referenced
+World::field61_0xc730 -> gap_0xc730 -- CMap never referenced
+World::field62_0xc74c -> gap_0xc74c -- CMap never referenced
+World::field63_0xc768 -> gap_0xc768 -- CArray never referenced
+World::field65_0xc780 -> joined_count -- IncrementJoinedCount counter
+World::field74_0xeb1c -> gap_0xeb1c -- ResFile* never referenced
+UnitEye::field2_0x2 -> gap_0x2 -- never referenced in any migrated code
+UnitEye::field3_0x3 -> gap_0x3 -- never referenced in any migrated code
+UnitEye::field4_0x4 -> gap_0x4 -- never referenced in any migrated code
+UnitEye::field10_0xb -> gap_0xb -- never referenced in any migrated code
+UnitEye::field11_0xc -> gap_0xc -- never referenced in any migrated code
+UnitEye::field12_0xd -> gap_0xd -- never referenced in any migrated code
+UnitEye::field13_0xe -> gap_0xe -- never referenced in any migrated code
+UnitEye::field14_0xf -> gap_0xf -- never referenced in any migrated code
+UnitEye::field15_0x10 -> gap_0x10 -- never referenced in any migrated code
+UnitEye::field16_0x11 -> gap_0x11 -- never referenced in any migrated code
+UnitEye::field17_0x12 -> gap_0x12 -- never referenced in any migrated code
+UnitEye::field18_0x13 -> gap_0x13 -- never referenced in any migrated code
+UnitEye::field19_0x14 -> gap_0x14 -- never referenced in any migrated code
+UnitEye::field20_0x15 -> gap_0x15 -- never referenced in any migrated code
+UnitEye::field21_0x16 -> gap_0x16 -- never referenced in any migrated code
+UnitEye::field22_0x17 -> gap_0x17 -- never referenced in any migrated code
+UnitEye::field23_0x18 -> gap_0x18 -- never referenced in any migrated code
+UnitEye::field24_0x19 -> gap_0x19 -- never referenced in any migrated code
+UnitEye::field25_0x1a -> gap_0x1a -- never referenced in any migrated code
+UnitEye::field26_0x1b -> gap_0x1b -- never referenced in any migrated code
+UnitEye::field27_0x1c -> gap_0x1c -- never referenced in any migrated code
+UnitEye::field28_0x1d -> gap_0x1d -- never referenced in any migrated code
+UnitEye::field29_0x1e -> gap_0x1e -- never referenced in any migrated code
+UnitEye::field30_0x1f -> gap_0x1f -- never referenced in any migrated code
+UnitEye::field31_0x20 -> gap_0x20 -- never referenced in any migrated code
+UnitEye::field32_0x21 -> gap_0x21 -- never referenced in any migrated code
+UnitEye::field33_0x22 -> gap_0x22 -- never referenced in any migrated code
+UnitEye::field34_0x23 -> gap_0x23 -- never referenced in any migrated code
+UnitEye::field35_0x24 -> gap_0x24 -- never referenced in any migrated code
+UnitEye::field36_0x25 -> gap_0x25 -- never referenced in any migrated code
+UnitEye::field37_0x26 -> gap_0x26 -- never referenced in any migrated code
+UnitEye::field38_0x27 -> gap_0x27 -- never referenced in any migrated code
+UnitEye::field39_0x28 -> gap_0x28 -- never referenced in any migrated code
+UnitEye::field40_0x29 -> gap_0x29 -- never referenced in any migrated code
+UnitEye::field41_0x2a -> gap_0x2a -- never referenced in any migrated code
+UnitEye::field42_0x2b -> gap_0x2b -- never referenced in any migrated code
+UnitEye::field43_0x2c -> gap_0x2c -- never referenced in any migrated code
+UnitEye::field44_0x2d -> gap_0x2d -- never referenced in any migrated code
+UnitEye::field45_0x2e -> gap_0x2e -- never referenced in any migrated code
+UnitEye::field46_0x2f -> gap_0x2f -- never referenced in any migrated code
+UnitEye::field47_0x30 -> gap_0x30 -- never referenced in any migrated code
+UnitEye::field48_0x31 -> gap_0x31 -- never referenced in any migrated code
+UnitEye::field49_0x32 -> gap_0x32 -- never referenced in any migrated code
+UnitEye::field50_0x33 -> gap_0x33 -- never referenced in any migrated code
+UnitEye::field51_0x34 -> gap_0x34 -- never referenced in any migrated code
+UnitEye::field52_0x35 -> gap_0x35 -- never referenced in any migrated code
+UnitEye::field53_0x36 -> gap_0x36 -- never referenced in any migrated code
+UnitEye::field54_0x37 -> gap_0x37 -- never referenced in any migrated code
+UnitEye::field55_0x38 -> gap_0x38 -- never referenced in any migrated code
+UnitEye::field56_0x39 -> gap_0x39 -- never referenced in any migrated code
+UnitEye::field57_0x3a -> gap_0x3a -- never referenced in any migrated code
+UnitEye::field58_0x3b -> gap_0x3b -- never referenced in any migrated code
+UnitEye::field59_0x3c -> gap_0x3c -- never referenced in any migrated code
+UnitEye::field60_0x3d -> gap_0x3d -- never referenced in any migrated code
+UnitEye::field61_0x3e -> gap_0x3e -- never referenced in any migrated code
+UnitEye::field62_0x3f -> gap_0x3f -- never referenced in any migrated code
+UnitEye::field63_0x40 -> gap_0x40 -- never referenced in any migrated code
+UnitEye::field64_0x41 -> gap_0x41 -- never referenced in any migrated code
+UnitEye::field65_0x42 -> gap_0x42 -- never referenced in any migrated code
+UnitEye::field66_0x43 -> gap_0x43 -- never referenced in any migrated code
+UnitEye::field67_0x44 -> gap_0x44 -- never referenced in any migrated code
+UnitEye::field68_0x45 -> gap_0x45 -- never referenced in any migrated code
+UnitEye::field69_0x46 -> gap_0x46 -- never referenced in any migrated code
+UnitEye::field70_0x47 -> gap_0x47 -- never referenced in any migrated code
+UnitEye::field71_0x48 -> gap_0x48 -- never referenced in any migrated code
+UnitEye::field72_0x49 -> gap_0x49 -- never referenced in any migrated code
+UnitEye::field73_0x4a -> gap_0x4a -- never referenced in any migrated code
+UnitEye::field74_0x4b -> gap_0x4b -- never referenced in any migrated code
+UnitEye::field75_0x4c -> gap_0x4c -- never referenced in any migrated code
+UnitEye::field76_0x4d -> gap_0x4d -- never referenced in any migrated code
+UnitEye::field77_0x4e -> gap_0x4e -- never referenced in any migrated code
+UnitEye::field78_0x4f -> gap_0x4f -- never referenced in any migrated code
+UnitEye::field79_0x50 -> gap_0x50 -- never referenced in any migrated code
+UnitEye::field80_0x51 -> gap_0x51 -- never referenced in any migrated code
+UnitEye::field81_0x52 -> gap_0x52 -- never referenced in any migrated code
+UnitEye::field82_0x53 -> gap_0x53 -- never referenced in any migrated code
+UnitEye::field83_0x54 -> gap_0x54 -- never referenced in any migrated code
+UnitEye::field84_0x55 -> gap_0x55 -- never referenced in any migrated code
+UnitEye::field85_0x56 -> gap_0x56 -- never referenced in any migrated code
+UnitEye::field86_0x57 -> gap_0x57 -- never referenced in any migrated code
+UnitEye::field87_0x58 -> gap_0x58 -- never referenced in any migrated code
+UnitEye::field88_0x59 -> gap_0x59 -- never referenced in any migrated code
+UnitEye::field89_0x5a -> gap_0x5a -- never referenced in any migrated code
+UnitEye::field90_0x5b -> gap_0x5b -- never referenced in any migrated code
+UnitEye::field91_0x5c -> gap_0x5c -- never referenced in any migrated code
+UnitEye::field92_0x5d -> gap_0x5d -- never referenced in any migrated code
+UnitEye::field93_0x5e -> gap_0x5e -- never referenced in any migrated code
+UnitEye::field94_0x5f -> gap_0x5f -- never referenced in any migrated code
+UnitEye::field95_0x60 -> gap_0x60 -- never referenced in any migrated code
+UnitEye::field96_0x61 -> gap_0x61 -- never referenced in any migrated code
+UnitEye::field97_0x62 -> gap_0x62 -- never referenced in any migrated code
+UnitEye::field98_0x63 -> gap_0x63 -- never referenced in any migrated code
+UnitEye::field99_0x64 -> gap_0x64 -- never referenced in any migrated code
+UnitEye::field100_0x65 -> gap_0x65 -- never referenced in any migrated code
+UnitEye::field101_0x66 -> gap_0x66 -- never referenced in any migrated code
+UnitEye::field102_0x67 -> gap_0x67 -- never referenced in any migrated code
+UnitEye::field103_0x68 -> gap_0x68 -- never referenced in any migrated code
+UnitEye::field104_0x69 -> gap_0x69 -- never referenced in any migrated code
+UnitEye::field105_0x6a -> gap_0x6a -- never referenced in any migrated code
+UnitEye::field106_0x6b -> gap_0x6b -- never referenced in any migrated code
+UnitEye::field117_0x79 -> gap_0x79 -- never referenced in any migrated code
+UnitEye::field118_0x7a -> gap_0x7a -- never referenced in any migrated code
+UnitEye::field119_0x7b -> gap_0x7b -- never referenced in any migrated code
+UnitEye::field134_0x8e -> gap_0x8e -- never referenced in any migrated code
+UnitEye::field135_0x8f -> gap_0x8f -- never referenced in any migrated code
+UnitEye::field142_0x9e -> gap_0x9e -- never referenced in any migrated code
+UnitEye::field143_0x9f -> gap_0x9f -- never referenced in any migrated code
+UnitEye::field149_0xa5 -> gap_0xa5 -- never referenced in any migrated code
+UnitEye::field150_0xa6 -> gap_0xa6 -- never referenced in any migrated code
+UnitEye::field151_0xa7 -> gap_0xa7 -- never referenced in any migrated code
+UnitEye::field162_0xb2 -> gap_0xb2 -- never referenced in any migrated code
+UnitEye::field163_0xb3 -> gap_0xb3 -- never referenced in any migrated code
+UnitEye2::field12_0x1c -> gap_0x1c -- never referenced in any migrated code
+UnitEye2::field13_0x1d -> gap_0x1d -- never referenced in any migrated code
+UnitEye2::field14_0x1e -> gap_0x1e -- never referenced in any migrated code
+UnitEye2::field15_0x1f -> gap_0x1f -- never referenced in any migrated code
+UnitEye2::field20_0x2c -> gap_0x2c -- never referenced in any migrated code
+UnitEye2::field21_0x2d -> gap_0x2d -- never referenced in any migrated code
+UnitEye2::field22_0x2e -> gap_0x2e -- never referenced in any migrated code
+UnitEye2::field23_0x2f -> gap_0x2f -- never referenced in any migrated code
+UnitEye2::field25_0x34 -> gap_0x34 -- never referenced in any migrated code
+UnitEye2::field26_0x35 -> gap_0x35 -- never referenced in any migrated code
+UnitEye2::field27_0x36 -> gap_0x36 -- never referenced in any migrated code
+UnitEye2::field28_0x37 -> gap_0x37 -- never referenced in any migrated code
+UnitEye2::field31_0x3e -> gap_0x3e -- never referenced in any migrated code
+UnitEye2::field32_0x3f -> gap_0x3f -- never referenced in any migrated code
+UnitEye2::field35_0x48 -> gap_0x48 -- never referenced in any migrated code
+UnitEye2::field36_0x49 -> gap_0x49 -- never referenced in any migrated code
+UnitEye2::field37_0x4a -> gap_0x4a -- never referenced in any migrated code
+UnitEye2::field38_0x4b -> gap_0x4b -- never referenced in any migrated code
+UnitEye2::field40_0x4d -> gap_0x4d -- never referenced in any migrated code
+UnitEye2::field41_0x4e -> gap_0x4e -- never referenced in any migrated code
+UnitEye2::field42_0x4f -> gap_0x4f -- never referenced in any migrated code
+UnitEye2::field47_0x5b -> gap_0x5b -- never referenced in any migrated code
+UnitEye2::field50_0x64 -> gap_0x64 -- never referenced in any migrated code
+UnitEye2::field55_0x72 -> gap_0x72 -- never referenced in any migrated code
+UnitEye2::field56_0x73 -> gap_0x73 -- never referenced in any migrated code
+UnitEye2::field57_0x74 -> gap_0x74 -- never referenced in any migrated code
+UnitEye2::field58_0x75 -> gap_0x75 -- never referenced in any migrated code
+UnitEye2::field59_0x76 -> gap_0x76 -- never referenced in any migrated code
+UnitEye2::field60_0x77 -> gap_0x77 -- never referenced in any migrated code
+UnitEye2::field62_0x79 -> gap_0x79 -- never referenced in any migrated code
+UnitEye2::field63_0x7a -> gap_0x7a -- never referenced in any migrated code
+UnitEye2::field64_0x7b -> gap_0x7b -- never referenced in any migrated code
+UnitEye2::field71_0x9f -> gap_0x9f -- never referenced in any migrated code
+UnitEye2::field73_0xa2 -> gap_0xa2 -- never referenced in any migrated code
+UnitEye2::field74_0xa3 -> gap_0xa3 -- never referenced in any migrated code
+UnitEye2::field82_0xb2 -> gap_0xb2 -- never referenced in any migrated code
+UnitEye2::field83_0xb3 -> gap_0xb3 -- never referenced in any migrated code
+UnitEye::field0_0x0 -> facing -- current angle (GetFacingHalf = (facing+8)>>4; rotates toward target_facing by rotation_speed)
+UnitEye::field1_0x1 -> target_facing -- intended angle (ClassifyDirection8 result; CheckRotation second arg)
+UnitEye::field5_0x5 -> path_mask -- obstacle passability bit mask by movement type (65 walk, 68 swim, 130 fly) from SetPathMaskByMovement; tested against obstacle maps
+UnitEye::field7_0x8 -> scan_radius_base -- base radius (5) added to guard/scan ranges in world.cpp
+PLACEHOLDER
+UnitEye::field107_0x6c -> moving_to -- set by DoMoveStepTo; write-only
+UnitEye::field111_0x70 -> reserved_cell -- yx the unit reserved and is moving into (occupied while not at cell center)
+UnitEye::field113_0x72 -> tile_move_time -- GetTileMoveTime snapshot at the current tile
+UnitEye::field114_0x74 -> static_path_cell -- yx the static path was computed for; change forces a static rebuild
+UnitEye::field115_0x76 -> move_target -- current path step target (list1 tail / position yx)
+UnitEye::field120_0x7c -> target_unit -- chased Unit* (pointer-map saved); cleared when the target changes
+UnitEye::field121_0x80 -> guard_cell -- home/guard cell the unit returns to (nonzero = guarding; mismatch triggers MoveUnitBlockers)
+UnitEye::field122_0x82 -> place_x -- pre-check x snapshot in PlaceUnit; write-only
+UnitEye::field123_0x83 -> place_y -- pre-check y snapshot in PlaceUnit; write-only
+UnitEye::field124_0x84 -> place_x_sub -- pre-check subcell x snapshot; write-only
+UnitEye::field125_0x85 -> place_y_sub -- pre-check subcell y snapshot; write-only
+UnitEye::field126_0x86 -> placed_x -- post-place x snapshot; write-only
+UnitEye::field127_0x87 -> placed_y -- post-place y snapshot; write-only
+UnitEye::field128_0x88 -> placed_x_sub -- post-place subcell x snapshot; write-only
+UnitEye::field129_0x89 -> placed_y_sub -- post-place subcell y snapshot; write-only
+UnitEye::field130_0x8a -> static_path_len -- list1 length after the static pass; > static_isnt_needed skips static pathing
+UnitEye::field132_0x8c -> dynamic_path_cell -- yx the dynamic path step targets
+UnitEye::field136_0x90 -> target_reached -- latch set when the unit stands on move_target; gates arrival handling
+UnitEye::field137_0x94 -> gap_0x94 -- write-only target snapshot; never read
+UnitEye::field138_0x96 -> gap_0x96 -- write-only position snapshot; never read
+UnitEye::field139_0x98 -> order_arrived -- consumed in ProcessPlayerGroupAi: state 1 -> PrepareUnitOrder+ResetUnitToHold, state 0xA -> continue the cast
+UnitEye::field140_0x9c -> gap_0x9c -- write-only zero; never read
+UnitEye::field141_0x9d -> turn_tick -- increments while rotating in place (turning path)
+UnitEye::field144_0xa0 -> turning -- turning-in-place flag (gates the rotation step code)
+UnitEye::field148_0xa4 -> turn_steps -- remaining rotation steps = diff/rotation_speed (returned by CheckRotation)
+UnitEye::field152_0xa8 -> move_speed -- speed snapshot of the current move step
+UnitEye::field154_0xaa -> move_step_total -- subcell steps of the crossing (256/abs_component); also reused as the walk-cycle step in Unit::Draw
+UnitEye::field156_0xac -> move_step_index -- current subcell step of the crossing
+UnitEye::field158_0xae -> move_dir -- 8-way direction of the current move step (unit.cpp doubles it for the anim)
+UnitEye::field160_0xb0 -> move_dx -- signed subcell dx per step (0.707 scaled on diagonals)
+UnitEye::field161_0xb1 -> move_dy -- signed subcell dy per step
+UnitEye2::field2_0x4 -> patrol_reanchor -- set when a patrol waypoint is accepted; next tick re-anchors position1 to the current cell
+UnitEye2::field4_0x9 -> ai_state -- AI activity: 0 idle, 1 attack windup, 2 cast windup (area or targeted), 3 move step, 4 stone curse, 0xFF dead
+UnitEye2::field29_0x38 -> gap_0x38 -- write-only zero; never read
+UnitEye2::field30_0x3c -> cast_pos -- area-cast target cell (feeds area_cast_x/y and BeginPositionCast)
+UnitEye2::field39_0x4c -> wimpy_level -- selects which wimpy (retreat-at-hp%) threshold a/b/c applies
+UnitEye2::field43_0x50 -> has_command -- a move command is active; checked on arrival at command_to
+UnitEye2::field44_0x54 -> engaged -- set when attacked; suppresses random idle turning
+UnitEye2::field48_0x5c -> cast_is_area -- ai_state 2 variant: 1 = targeted cast (action_kind 2), 0 = area cast (action_kind 3)
+UnitEye2::field49_0x60 -> action_done -- set after issuing an attack/spell/action this tick; cleared when idle processing resumes
+UnitEye2::field51_0x68 -> enter_building -- Building* to enter (pointer-map saved; BeginEnterBuilding)
+UnitEye2::field52_0x6c -> gap_0x6c -- write-only one; never read
+UnitEye2::field69_0x9c -> attack_move_pos -- yx the attacker steps to while attacking
+UnitEye2::field72_0xa0 -> gap_0xa0 -- never written; the single read always sees zero
+UnitEye2::field77_0xac -> hits_taken -- consecutive hits taken; >10 forces flee regardless of hp
+UnitEye2::field81_0xb0 -> teleport_pos -- pending teleport destination (cell teleport_x/y; applied at cell center)
+comments: map_stuff/world/server comment references updated to the new names (path_cost, queue counts, joined_count, targets lists, facing pair, map_code)
+ConnStatInfo::field1 -> window_bytes -- bytes accumulated in the current 1s stat window (AddStat1); folded into total_bytes/max_bs/cur_bs each tick, then cleared
+HatBrowserProgress::field_1dc -> min_rtt -- minimum ICMP round-trip time (sentinel 1000/10000 before the first reply)
+HatBrowserProgress::field_1e0 -> max_rtt -- maximum ICMP round-trip time
+HatBrowserProgress::field_1e4 -> last_rtt -- round-trip time of the most recent reply (timestamp - echo timestamp)
+HatBrowserProgress::field_1ec -> total_rtt -- sum of round-trip times (for averaging)
+HatBrowserProgress::field_1f0 -> timeouts -- receive-timeout retry counter (error -8 path)
+HatBrowserProgress::field_1f4 -> error -- ping error code: 0 ok, -1 WSAStartup, -2 socket, -3 sockopt, -4 resolve, -5 alloc, -6/-7 send, -8..-10 recv
+HatBrowserProgress::field_1f8 -> active -- ping session started (Init succeeded); gates the send/recv loop
+HatBrowserProgress::field_1fc -> wsa_started -- WSAStartup succeeded; gates socket close + WSACleanup in the dtor

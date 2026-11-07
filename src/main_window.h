@@ -58,8 +58,8 @@ struct SaveFileInfo {
 struct Fame1 {
     CString str;
     uint32_t score = 0;
-    uint32_t field_x8 = 0;
-    uint32_t field_xc = 0;
+    uint32_t value2 = 0;
+    uint32_t value3 = 0;
 };
 
 ASSERT_SIZE(Fame1, 0x10);
@@ -71,7 +71,7 @@ struct Fame2 {
     CString str;
     CStringArray str_arr;
     CRect rect;
-    uint32_t field_x34;
+    uint32_t gap_x34;
     uint32_t top_line;
 
     Fame2();  // client: 4afdbb
@@ -162,8 +162,8 @@ public:
     CString GetSelectedRosterPath(); //420070 (client: 420ca0)
     void SaveKillStats(); //494982 (client: 4994b7)
 
-    int32_t GetSkillTier2() { return this->field_0x118; }; //420110 (client: 401780)
-    int32_t GetSkillTier1() { return this->field_0x114; }; //4200f0 (client: 401780)
+    int32_t GetSkillTier2() { return this->skill_tier2; }; //420110 (client: 401780)
+    int32_t GetSkillTier1() { return this->skill_tier1; }; //4200f0 (client: 401780)
 
     int SubmitCharacterSetupAndWaitForSelectedUnit(); //493ffe (client: 498ac8)
     void ResetCharacter(); //493d8d (client: 498857)
@@ -177,7 +177,7 @@ public:
     void SetNameAndColor(char* name); //49381c in asm
     void SaveShortcuts(); //4948b2 (client: 4993e7) in asm
 public:
-    int32_t field_0x4 = 0;
+    int32_t gap_0x4 = 0;
     int32_t sessionKeyPart1 = 0;
     int32_t sessionKeyPart2 = 0;
     char character_name[32];
@@ -195,24 +195,24 @@ public:
     int32_t main_sphere = 0;
     int32_t face = 0;
     int32_t hat_id = 0;
-    int32_t field_0x68 = 0;
-    int32_t field_0x6c = 0;
-    int32_t field_0x70 = 0;
-    int32_t field_0x74 = 0;
-    int32_t field_0x78 = 0;
-    int32_t field_0x7c = 0;
-    int32_t field_0x80 = 0;
-    int32_t field_0x84 = 0;
+    int32_t gap_0x68 = 0;
+    int32_t gap_0x6c = 0;
+    int32_t gap_0x70 = 0;
+    int32_t gap_0x74 = 0;
+    int32_t gap_0x78 = 0;
+    int32_t gap_0x7c = 0;
+    int32_t gap_0x80 = 0;
+    int32_t gap_0x84 = 0;
     int32_t color = 0;
     UserShortcut shortcuts[9];
     CStringArray characterRosterNames;
     int32_t phased_in = 0;
     int32_t last_autosave_tick = 0;
-    int32_t field_0x114 = 1;
-    int32_t field_0x118 = 1;
+    int32_t skill_tier1 = 1;
+    int32_t skill_tier2 = 1;
     CArray<HatCharId> characterRosterHatId;
     CArray<HatCharId> hat_char_ids;
-    int32_t field_0x144 = 0;
+    int32_t gap_0x144 = 0;
     HatCharId hat_ticket = { 0 }; // 0x148
 #ifdef A2CLIENT
     // client-only: the retail CGameSession is 0x190 bytes (server 0x17c) - the
@@ -262,11 +262,11 @@ ASSERT_SIZE(HatSettings, 0x1c);
 #endif
 
 struct Main3e0 {
-    CString field_00;
-    CString field_04;
-    CString field_08;
+    CString gap_00;
+    CString gap_04;
+    CString key_capture_str;
     int32_t hat_id;
-    int32_t field_10;
+    int32_t internet_game;
     CString connect_address;
 };
 ASSERT_SIZE(Main3e0, 0x18);
@@ -289,7 +289,7 @@ ASSERT_SIZE(DiplomacyEntry, 0x14);
 struct CLlNetSession;
 struct AvailNetSession {
     CString character_name;
-    int32_t field_0x4;
+    int32_t selected_row;
     CLlNetSession* sessions;
     int32_t num_sessions;
     int32_t selected_index;
@@ -529,7 +529,7 @@ public:
     VisDropGold* vis_dropgold;
     VisScreen* vis_missionfailed;
     Vis2Action* vis_2action;
-    VisScreen* field_0x12c;
+    VisScreen* gap_0x12c;
     VisCredits* vis_credits;
     VisLogoWnd* vis_logownd;
     Vis1200* vis_1200;
@@ -538,7 +538,7 @@ public:
     VisMessageBox* vis_msgbox;
     SaveFileInfo last_save_info;
     CArray<DiplomacyEntry*>* diplomacy_entries;
-    VisScreen* field_0x34c;
+    VisScreen* net_dialog;
     VisConnectionDlg* vis_connectiondlg;
     AvailNetSession net_sessions;
     int32_t last_protocol;
@@ -555,10 +555,10 @@ public:
     VisScreen* vis_cutscenes; // server 0x3d4 / client 0x3d8
     VisFameDocument* vis_famedocument; // server 0x3d8 / client 0x3dc
     VisScreen* vis_msgbox_list; // server 0x3dc / client 0x3e0
-    Main3e0 field_0x3e0; // server 0x3e0 / client 0x3e4
+    Main3e0 net_session; // server 0x3e0 / client 0x3e4
     int32_t in_famehall_mission;
     int32_t mission_failed_reported;
-    int32_t field_0x400;
+    int32_t local_game;
     int32_t pending_game_mode;
 
     TokenEntry* drag_entry;
@@ -569,28 +569,28 @@ public:
     int32_t dialogsMask; //dialogsMask
     int32_t serverLoopCounter;
     int32_t game_tic_counter;
-    int32_t field_0x424;
+    int32_t gap_0x424;
     int32_t last_tic_time;
     int32_t game_tic_time;
     int32_t game_speed;
-    int32_t field_0x434;
-    int32_t field_0x438;
-    int32_t field_0x43c;
-    int32_t field_0x440;
-    int32_t field_0x444;
+    int32_t gap_0x434;
+    int32_t tick_anchor_time;
+    int32_t gap_0x43c;
+    int32_t gap_0x440;
+    int32_t gap_0x444;
     int32_t unlimited_speed;
-    int32_t field_0x44c;
+    int32_t gap_0x44c;
     int32_t last_event_id;
     int32_t inside_building;
     int32_t enter_ack_received;
     int32_t input_locked;
-    int32_t field_0x460; // server 0x460 / client 0x464
+    int32_t app_initialized; // server 0x460 / client 0x464
 #ifndef A2CLIENT
-    int32_t field_0x464; // server-only (client CGameSession follows directly)
+    int32_t gap_0x464; // server-only (client CGameSession follows directly)
 #endif
     CGameSession m_GameSession; // 0x468 both (client class is 0x190: pending_hat_downloads)
 #ifndef A2CLIENT
-    int32_t field_0x5e4; // server-only (client m_FameHall follows directly at 0x5f8)
+    int32_t gap_0x5e4; // server-only (client m_FameHall follows directly at 0x5f8)
 #endif
     CFameHall m_FameHall; //5e8 / client 5f8
     CString current_map_name; //620 / client 630
@@ -618,7 +618,7 @@ public:
     ServerControlDialog* server_ctrl_dlg; //0x7fc / client 0x7f8
     int32_t server_ctrl_shown; //0x800 / client 0x7fc
 #ifndef A2CLIENT
-    int32_t field_0x804; // server-only
+    int32_t gap_0x804; // server-only
 #endif
 };
 // Layout locks (see assert_offset.h for the relative-size rationale): the
@@ -628,17 +628,17 @@ public:
 // MFC (the binary-offset comments above are historical).
 #ifdef A2CLIENT
 ASSERT_SIZE(MainWindow, 0xa10);
-ASSERT_OFFSET(MainWindow, field_0x3e0, offsetof(MainWindow, hat_settings) + sizeof(HatSettings) + 0x10); // 4 screen pointers (client HatSettings already includes the extra dword)
+ASSERT_OFFSET(MainWindow, net_session, offsetof(MainWindow, hat_settings) + sizeof(HatSettings) + 0x10); // 4 screen pointers (client HatSettings already includes the extra dword)
 ASSERT_OFFSET(MainWindow, serverLoopCounter, offsetof(MainWindow, dialogsMask) + 4);
-ASSERT_OFFSET(MainWindow, m_GameSession, offsetof(MainWindow, field_0x460) + 4); // no field_0x464
+ASSERT_OFFSET(MainWindow, m_GameSession, offsetof(MainWindow, app_initialized) + 4); // no field_0x464
 ASSERT_OFFSET(MainWindow, m_FameHall, offsetof(MainWindow, m_GameSession) + sizeof(CGameSession)); // no field_0x5e4
 ASSERT_OFFSET(MainWindow, serverBootstrapEnabled, offsetof(MainWindow, shutdown_pending) + 4); // no cursor handles
 ASSERT_OFFSET(MainWindow, sessionMode, offsetof(MainWindow, serverBootstrapEnabled) + 4);
 ASSERT_OFFSET(MainWindow, status_bar, offsetof(MainWindow, clip_cursor_rect) + 0x14); // 0x10 RECT + 4 alignment pad before MFC140 CStatusBar
 #else
 ASSERT_SIZE(MainWindow, 0xa18);
-ASSERT_OFFSET(MainWindow, field_0x3e0, offsetof(MainWindow, hat_settings) + sizeof(HatSettings) + 0x10); // 4 screen pointers
-ASSERT_OFFSET(MainWindow, m_GameSession, offsetof(MainWindow, field_0x460) + 8); // field_0x464 present
+ASSERT_OFFSET(MainWindow, net_session, offsetof(MainWindow, hat_settings) + sizeof(HatSettings) + 0x10); // 4 screen pointers
+ASSERT_OFFSET(MainWindow, m_GameSession, offsetof(MainWindow, app_initialized) + 8); // field_0x464 present
 ASSERT_OFFSET(MainWindow, m_FameHall, offsetof(MainWindow, m_GameSession) + sizeof(CGameSession) + 4); // field_0x5e4 present
 ASSERT_OFFSET(MainWindow, serverBootstrapEnabled, offsetof(MainWindow, shutdown_pending) + 4 + 0x14); // 5 cursor handles between
 #endif

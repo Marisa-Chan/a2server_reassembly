@@ -9,8 +9,8 @@
 
 struct MapHeader {
     char file_signature[4]; // "M7R\x00"
-    uint32_t field1_0x4; // Maybe ALM size?
-    uint32_t field2_0x8;
+    uint32_t gap_0x4; // Maybe ALM size?
+    uint32_t gap_0x8;
     uint32_t section_count;
     uint32_t version;
 };
@@ -29,7 +29,7 @@ class MapPlayerData : public CObject {
     DECLARE_DYNAMIC(MapPlayerData); // original RTTI name: "CPlayer"
 public:
     uint32_t index;
-    uint32_t field2_0x8;
+    uint32_t token_id;
     uint32_t color;
     uint32_t gold;
     char name[32];
@@ -190,26 +190,26 @@ struct MapUnitData {
     uint32_t rotation;
     int16_t hp;
     int16_t max_hp;
-    uint16_t field17_0x24;
-    uint16_t field18_0x26;
-    uint8_t field19_0x28;
-    uint8_t field20_0x29;
-    uint8_t field21_0x2a;
-    uint8_t field22_0x2b;
-    uint8_t field23_0x2c;
-    uint8_t field24_0x2d;
-    uint8_t field25_0x2e;
-    uint8_t field26_0x2f;
-    uint8_t field27_0x30;
-    uint8_t field28_0x31[6];
-    uint8_t field29_0x37[5];
+    uint16_t raw_0x24;
+    uint16_t raw_0x26;
+    uint8_t raw_0x28;
+    uint8_t raw_0x29;
+    uint8_t raw_0x2a;
+    uint8_t raw_0x2b;
+    uint8_t raw_0x2c;
+    uint8_t raw_0x2d;
+    uint8_t raw_0x2e;
+    uint8_t raw_0x2f;
+    uint8_t raw_0x30;
+    uint8_t raw_0x31[6];
+    uint8_t raw_0x37[5];
     uint16_t unit_id;
     uint8_t gap_0x3e[2];
     uint32_t group_id;
     int32_t sack_id;
     uint32_t flags1;
-    uint16_t field36_0x4c;
-    uint16_t field37_0x4e;
+    uint16_t raw_0x4c;
+    uint16_t raw_0x4e;
     uint32_t flags2;
 };
 ASSERT_SIZE(MapUnitData, 0x54);
@@ -232,7 +232,7 @@ public:
     CList<MapLogicData*> logic_checks;
     CArray<MapLogicTrigger> map_logic_triggers;
     uint32_t error_loading;
-    uint32_t field16_0x90;
+    uint32_t max_group_id;
     uint32_t use_tiles_mask;
     char map_name[64];
     uint32_t recommended_player_count;

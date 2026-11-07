@@ -25,7 +25,7 @@ void PlayersList::AddPlayer(Player* player) {
 
 	// AI players start at 1, human players start at 16.
 	int32_t new_id = 1;
-	if (!player->is_ai && g_Server->field4_0x74 != 0 && player->name != "Self") {
+	if (!player->is_ai && g_Server->fog_of_war != 0 && player->name != "Self") {
 		new_id = 16;
 	}
 
@@ -194,7 +194,7 @@ int PlayersList::AreTeamsStarted() {
 		if (player->team_ready == 0) {
 			return 0;
 		}
-		if (player->field_0xa70 == 0) {
+		if (player->team == 0) {
 			has_blue = 1;
 		} else {
 			has_red = 1;
@@ -240,7 +240,7 @@ void PlayersList::ProcessPlayerTimeouts() {
 		if (0 < player->drop_deadline_tick16 && player->drop_deadline_tick16 < g_Server->tick16) {
 			if (player->is_in_world != 0) {
 				// Tournament mode: save player's main unit.
-				if (g_Server->field4_0x74 != 0 && player->main_unit != nullptr) {
+				if (g_Server->fog_of_war != 0 && player->main_unit != nullptr) {
 					g_Server->SaveCharacter(player->main_unit);
 				}
 
@@ -297,12 +297,12 @@ void PlayersList::ProcessPlayerTimeouts() {
 
 			// Team mode: handle rune holder leaving.
 			if (g_ServerConfig.gameType == 2) {
-				int32_t opposite_team = 1 - player->field_0xa70;
+				int32_t opposite_team = 1 - player->team;
 				int32_t rune_holder = g_Server->ctf_carrying[opposite_team];
 				if (rune_holder == player->player_id) {
 					g_Server->UpdateQuestRune(opposite_team, 0);
 					g_NetStru1_main.SendTeamState(0);
-					g_NetStru1_main.SendTeamNotify(0x101 - player->field_0xa70, 0, nullptr);
+					g_NetStru1_main.SendTeamNotify(0x101 - player->team, 0, nullptr);
 				}
 			}
 
@@ -341,7 +341,7 @@ void PlayersList::ProcessPlayerTimeouts() {
 				for (POSITION pp = this->list.GetHeadPosition(); pp != nullptr;) {
 					Player* p = this->list.GetNext(pp);
 					if (!p->is_ai) {
-						team_counts[p->field_0xa70]++;
+						team_counts[p->team]++;
 					}
 				}
 
@@ -376,7 +376,7 @@ void PlayersList::ProcessPlayerTimeouts() {
 		if (0 < player->drop_deadline_tick16 && player->drop_deadline_tick16 < g_Server->tick16) {
 			if (player->is_in_world != 0) {
 				// Tournament mode: save player's main unit.
-				if (g_Server->field4_0x74 != 0 && player->main_unit != nullptr) {
+				if (g_Server->fog_of_war != 0 && player->main_unit != nullptr) {
 					g_Server->SaveCharacter(player->main_unit);
 				}
 
@@ -468,7 +468,7 @@ void PlayersList::Serialize(CArchive& ar) {
 		ar >> this->next_player_id;
 	}
 
-	g_Server->field23_0xdc[nullptr] = nullptr;
+	g_Server->saved_ptr_map[nullptr] = nullptr;
 
 	if (ar.IsStoring()) {
 		ar << this->list.GetCount();

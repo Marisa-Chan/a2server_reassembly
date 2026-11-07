@@ -125,7 +125,7 @@ void TokenPos::FixupInstance() { // 594200
 	}
 
 	MapStuff* stuf = nullptr;
-	if (g_Server->field23_0xdc.Lookup(this->pInstance, *(void**)&stuf)) {
+	if (g_Server->saved_ptr_map.Lookup(this->pInstance, *(void**)&stuf)) {
 		this->pInstance = stuf;
 	}
 }
@@ -286,12 +286,12 @@ void Token::Serialize(CArchive& ar) { //55ab39
 		ar.Read(&this->_exp, 4);
 		void* ptr = nullptr;
 		ar.Read(&ptr, 4); //32
-		g_Server->field23_0xdc[ptr] = this;
+		g_Server->saved_ptr_map[ptr] = this;
 
 		ar.Read(&ptr, 4);//32
 
 		void* remapped_owner = nullptr;
-		if (g_Server->field23_0xdc.Lookup(ptr, remapped_owner)) {
+		if (g_Server->saved_ptr_map.Lookup(ptr, remapped_owner)) {
 			this->pOwner = (Player*)remapped_owner;
 		} else {
 			this->pOwner = nullptr;

@@ -49,7 +49,7 @@ void Spell::Serialize(CArchive& ar) { // 53cf8d
         void* oldptr;
         ar.Read(&oldptr, 4);
 
-        g_Server->field23_0xdc[oldptr] = this;
+        g_Server->saved_ptr_map[oldptr] = this;
 
         this->spell_info = &g_GameDataRes.spells[this->spell_id];
     }
@@ -399,7 +399,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
     auto is_arena_blocked = [&]() -> bool {
         if (caster->pOwner != nullptr && g_ServerConfig.gameType == 2) {
             Player* owner = caster->pOwner;
-            int32_t team_idx = 1 - owner->field_0xa70;
+            int32_t team_idx = 1 - owner->team;
             if (g_Server->ctf_carrying[team_idx] == owner->player_id) {
                 return true;
             }
@@ -806,7 +806,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
         pe->caster = caster_val;
         effect->caster = caster_val;
         pe->itemDataID = this->spell_id;
-        pe->field3_0x41 = this->is_defensive ? 0 : 1;
+        pe->offensive = this->is_defensive ? 0 : 1;
         pe->typeId = this->spell_id * 2 + 9;
         container = pe;
     } else {

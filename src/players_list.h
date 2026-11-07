@@ -14,7 +14,7 @@ class PlayersList {
 public:
     CList<Player*> list;
 
-    uint32_t field_0x1c = 0;
+    uint32_t gap_0x1c = 0;
     uint32_t next_player_id = 1; // set it here instead of 534b9c constructor
 
 public:

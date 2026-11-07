@@ -40,13 +40,13 @@ public:
     uint8_t gap_0x41;
     int16_t hp;
     int16_t hp_max;
-    uint16_t field_0x46;
+    uint16_t value1;
     uint8_t scan_range;
     uint8_t gap_0x49;
     Protections protections;
     uint8_t width;
     uint8_t height;
-    uint16_t field_0x62;
+    uint16_t gap_0x62;
     uint32_t unpassable_mask;
     uint32_t tiles_mask;
 };

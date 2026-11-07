@@ -80,15 +80,15 @@ public:
     ItemType item_type;
     uint8_t shape_id;
     uint8_t material_id;
-    uint8_t field_0x47;
+    uint8_t value1;
     int16_t magic_volume;
     int16_t weight;
-    uint8_t field10_0x4c;
-    uint8_t field11_0x4d; // Shelf ID?
-    uint8_t field12_0x4e;
-    uint8_t field13_0x4f;
-    uint32_t field14_0x50;
-    uint32_t field15_0x54;
+    uint8_t shelf_refcount;
+    uint8_t shelf_id; // Shelf ID?
+    uint8_t gap_0x4e;
+    uint8_t gap_0x4f;
+    uint32_t special_flag;
+    uint32_t upgraded_at_inn;
 };
 ASSERT_SIZE(Item, 0x58);
 

@@ -8,35 +8,35 @@
 // 58BE86
 UnitEye::UnitEye() {
     memset(this, 0, sizeof(UnitEye));
-    this->field5_0x5 = 65;
+    this->path_mask = 65;
     this->rotation_speed = 16;
-    this->field8_0x9 = 0xff;
-    this->field7_0x8 = 5;
+    this->static_age = 0xff;
+    this->scan_radius_base = 5;
 }
 
 // 58C00E
 uint8_t UnitEye::GetFacingHalf() {
-    return (uint8_t)(this->field0_0x0 + 8) >> 4;
+    return (uint8_t)(this->facing + 8) >> 4;
 }
 
 // 5925C9
 void UnitEye::SetPathMaskByMovement(Unit* unit) {
     uint8_t movement_type = unit->MovementType();
     if (movement_type == 1) {
-        this->field5_0x5 = 65;
+        this->path_mask = 65;
     } else if (movement_type == 2) {
-        this->field5_0x5 = 68;
+        this->path_mask = 68;
     } else if (movement_type == 3) {
-        this->field5_0x5 = 130;
+        this->path_mask = 130;
     }
 }
 
 // 59367D
 int UnitEye::CheckRotation(Unit* unit, uint8_t* out_dir, uint8_t eye0, uint8_t angle) {
-    if (angle == this->field1_0x1) {
+    if (angle == this->target_facing) {
         return 0;
     }
-    *out_dir = this->field148_0xa4;
+    *out_dir = this->turn_steps;
     return 1;
 }
 

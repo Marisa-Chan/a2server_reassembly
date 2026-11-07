@@ -208,7 +208,7 @@ void __cdecl ExecuteRangedAttack(Unit* self, Unit* target) {
 // 530DCB
 uint32_t __cdecl sub_530DCB(uint32_t experience, int32_t skill_level) {
     int32_t max_gain = ExperienceTable::GetExp(skill_level + 1) - ExperienceTable::GetExp(skill_level);
-    if (g_Server->field4_0x74 != 0) {
+    if (g_Server->fog_of_war != 0) {
         max_gain /= 5;
     }
     if (max_gain < (int32_t)experience) {
@@ -439,65 +439,65 @@ void Unit::FixupPointers() {
 
     void* result;
 
-    if (g_Server->field23_0xdc.Lookup(this->cast_target, result)) {
+    if (g_Server->saved_ptr_map.Lookup(this->cast_target, result)) {
         this->cast_target = (Unit*)result;
     } else {
         this->cast_target = nullptr;
     }
 
-    if (g_Server->field23_0xdc.Lookup(this->some_spell, result)) {
+    if (g_Server->saved_ptr_map.Lookup(this->some_spell, result)) {
         this->some_spell = (Spell*)result;
     } else {
         this->some_spell = nullptr;
     }
 
-    if (g_Server->field23_0xdc.Lookup(this->spell, result)) {
+    if (g_Server->saved_ptr_map.Lookup(this->spell, result)) {
         this->spell = (Spell*)result;
     } else {
         this->spell = nullptr;
     }
 
-    if (g_Server->field23_0xdc.Lookup(this->some_item, result)) {
+    if (g_Server->saved_ptr_map.Lookup(this->some_item, result)) {
         this->some_item = (Item*)result;
     } else {
         this->some_item = nullptr;
     }
 
-    if (g_Server->field23_0xdc.Lookup(this->last_hit_by, result)) {
+    if (g_Server->saved_ptr_map.Lookup(this->last_hit_by, result)) {
         this->last_hit_by = (Unit*)result;
     } else {
         this->last_hit_by = nullptr;
     }
 
     // UnitEye pointer fixup (sub_5941C1)
-    if (this->eye->field120_0x7c != nullptr) {
-        if (g_Server->field23_0xdc.Lookup(this->eye->field120_0x7c, result)) {
-            this->eye->field120_0x7c = (Unit*)result;
+    if (this->eye->target_unit != nullptr) {
+        if (g_Server->saved_ptr_map.Lookup(this->eye->target_unit, result)) {
+            this->eye->target_unit = (Unit*)result;
         }
     }
 
     // UnitEye2 pointer fixups (sub_5B2BC9)
-    if (this->eye2->unit != nullptr && g_Server->field23_0xdc.Lookup(this->eye2->unit, result)) {
+    if (this->eye2->unit != nullptr && g_Server->saved_ptr_map.Lookup(this->eye2->unit, result)) {
         this->eye2->unit = (Unit*)result;
     }
-    if (this->eye2->unit2 != nullptr && g_Server->field23_0xdc.Lookup(this->eye2->unit2, result)) {
+    if (this->eye2->unit2 != nullptr && g_Server->saved_ptr_map.Lookup(this->eye2->unit2, result)) {
         this->eye2->unit2 = (Unit*)result;
     }
-    if (this->eye2->unit3 != nullptr && g_Server->field23_0xdc.Lookup(this->eye2->unit3, result)) {
+    if (this->eye2->unit3 != nullptr && g_Server->saved_ptr_map.Lookup(this->eye2->unit3, result)) {
         this->eye2->unit3 = (Unit*)result;
     }
-    if (this->eye2->unit4 != nullptr && g_Server->field23_0xdc.Lookup(this->eye2->unit4, result)) {
+    if (this->eye2->unit4 != nullptr && g_Server->saved_ptr_map.Lookup(this->eye2->unit4, result)) {
         this->eye2->unit4 = (Unit*)result;
     }
-    if (this->eye2->unit5 != nullptr && g_Server->field23_0xdc.Lookup(this->eye2->unit5, result)) {
+    if (this->eye2->unit5 != nullptr && g_Server->saved_ptr_map.Lookup(this->eye2->unit5, result)) {
         this->eye2->unit5 = (Unit*)result;
     }
-    if (this->eye2->spell != nullptr && g_Server->field23_0xdc.Lookup(this->eye2->spell, result)) {
+    if (this->eye2->spell != nullptr && g_Server->saved_ptr_map.Lookup(this->eye2->spell, result)) {
         this->eye2->spell = (Spell*)result;
     }
-    if (this->eye2->field51_0x68 != nullptr) {
-        if (g_Server->field23_0xdc.Lookup(this->eye2->field51_0x68, result)) {
-            this->eye2->field51_0x68 = (Building*)result;
+    if (this->eye2->enter_building != nullptr) {
+        if (g_Server->saved_ptr_map.Lookup(this->eye2->enter_building, result)) {
+            this->eye2->enter_building = (Building*)result;
         }
     }
 }
@@ -737,7 +737,7 @@ void Unit::ProcessEffects() {
         return;
     }
 
-    if (g_Server && g_Server->field4_0x74) {
+    if (g_Server && g_Server->fog_of_war) {
         if (this->pOwner && this == this->pOwner->main_unit && this->GetTicksSinceAction() == 0x50) {
             g_NetStru1_main.SendUnitUpdate(this, nullptr, 0x10, 0xffb, 0, 0);
         }
@@ -745,8 +745,8 @@ void Unit::ProcessEffects() {
 
     uint16_t x_wide = this->position->GetXx();
     uint16_t y_wide = this->position->GetYy();
-    uint8_t eye_f0 = this->eye->field0_0x0;
-    uint8_t eye_f1 = this->eye->field1_0x1;
+    uint8_t eye_f0 = this->eye->facing;
+    uint8_t eye_f1 = this->eye->target_facing;
 
     if (this->monster_info) {
         g_World->MonsterAiTick(this);
@@ -1151,7 +1151,7 @@ uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
             }
         }
         if (attacker->pOwner != nullptr && this->pOwner != nullptr) {
-            if (g_Server->field4_0x74 == 0 || attacker->pOwner->is_ai == 0 || this->pOwner->is_ai != 0) {
+            if (g_Server->fog_of_war == 0 || attacker->pOwner->is_ai == 0 || this->pOwner->is_ai != 0) {
                 g_World->RecordUnitHit(attacker, this, 0);
             }
         }
@@ -1164,7 +1164,7 @@ void Unit::RecalcStats() {
     if (!this->pOwner) {
         this->mp2 = this->mp_max;
     } else {
-        this->mp2 = (this->pOwner->field_0xa5c * mp_max) / 100;
+        this->mp2 = (this->pOwner->mana_percent * mp_max) / 100;
     }
 }
 
@@ -1312,7 +1312,7 @@ void Unit::PickUpSack(Sack* sack) {
 
                 // In team mode, discard buff if this player is the current rune-holder.
                 if (g_ServerConfig.gameType == 2 && apply_buff && item != nullptr) {
-                    uint32_t player_id = g_Server->ctf_carrying[1 - this->pOwner->field_0xa70];
+                    uint32_t player_id = g_Server->ctf_carrying[1 - this->pOwner->team];
                     if (player_id == this->pOwner->player_id) {
                         apply_buff = false;
                         delete item;
@@ -1347,7 +1347,7 @@ void Unit::PickUpSack(Sack* sack) {
                         delete item;
                         item = nullptr;
 
-                        if (this->pOwner->field_0xa70 == 0) {
+                        if (this->pOwner->team == 0) {
                             g_Server->UpdateQuestRune(0, 0);
                             g_NetStru1_main.SendTeamNotify(0x100, 0, nullptr);
                         } else {
@@ -1361,7 +1361,7 @@ void Unit::PickUpSack(Sack* sack) {
                         sack->inventory->items.RemoveAt(cur_node);
                         delete item;
                         item = nullptr;
-                        if (this->pOwner->field_0xa70 == 1) {
+                        if (this->pOwner->team == 1) {
                             g_Server->UpdateQuestRune(1, 0);
                             g_NetStru1_main.SendTeamNotify(0x101, 0, nullptr);
                         } else {
@@ -1509,13 +1509,13 @@ void Unit::Die() {
     else if (this->pOwner != nullptr && g_ServerConfig.gameType != 3) {
         if (g_ServerConfig.gameType == 2) {
             // Check if this unit's player is holding the opposing team's rune.
-            int32_t opposite_team = 1 - this->pOwner->field_0xa70;
+            int32_t opposite_team = 1 - this->pOwner->team;
             int32_t rune_holder = g_Server->ctf_carrying[opposite_team];
 
             if (rune_holder == this->pOwner->player_id) {
                 // Drop the appropriate rune item.
                 Item* rune;
-                if (this->pOwner->field_0xa70 == 0) {
+                if (this->pOwner->team == 0) {
                     // Blue team was holding red's rune.
                     rune = new Item(CString("Quest RuneA"));
                 } else {
@@ -1528,7 +1528,7 @@ void Unit::Die() {
                 g_Server->ctf_carrying[opposite_team] = 0;
                 g_Server->ctf_dropped[opposite_team] = 1;
 
-                g_NetStru1_main.SendTeamNotify(this->pOwner->field_0xa70 ? 0x104 : 0x105, this->pOwner->player_id, nullptr);
+                g_NetStru1_main.SendTeamNotify(this->pOwner->team ? 0x104 : 0x105, this->pOwner->player_id, nullptr);
                 g_NetStru1_main.SendTeamState(0);
             }
         }
@@ -1570,7 +1570,7 @@ void Unit::Die() {
     }
 
     // Respawn notification for player character types (typeId 0x21-0x3F).
-    if (!g_Server->field4_0x74 && this->pOwner != nullptr && !this->pOwner->is_ai && 0x21 <= this->typeId && this->typeId <= 0x3F) {
+    if (!g_Server->fog_of_war && this->pOwner != nullptr && !this->pOwner->is_ai && 0x21 <= this->typeId && this->typeId <= 0x3F) {
         this->pOwner->mission_result = (uint8_t)(this->server_id - 0x13);
         g_NetStru1_main.SendInfoPacket(0xb4, this->pOwner->mission_result, 0, this->pOwner);
     }
@@ -1739,7 +1739,7 @@ void Unit::InitDefaults(const CString& str) {
     this->last_hit_by = nullptr;
     this->last_hit_spell_id = 0;
     this->spell = nullptr;
-    this->field_0x1bc = 0;
+    this->has_flagged_item = 0;
     this->monster_info = nullptr;
     this->typeId = 0;
     this->decay = 0;
@@ -1752,8 +1752,8 @@ void Unit::InitDefaults(const CString& str) {
     this->eye = new UnitEye();
     this->eye2 = new UnitEye2();
     this->token_pos = nullptr;
-    this->eye->field0_0x0 = Random0N(0x80) + 0x40;
-    this->eye->field1_0x1 = this->eye->field0_0x0;
+    this->eye->facing = Random0N(0x80) + 0x40;
+    this->eye->target_facing = this->eye->facing;
     this->group = nullptr;
     this->state = 0;
     this->some_state = 0;
@@ -1865,7 +1865,7 @@ int Unit::PlaceOnMap(uint8_t x, uint8_t y, uint8_t size) {
         uint8_t try_x = x - radius + Random0N(size);
         this->position->ClampToMap(try_x, try_y);
         uint8_t gy = this->position->GetY();
-        if (gy > 11 || g_Server->field4_0x74 == 0) { // WAT: why don't we allow placing units at `y <= 11`?
+        if (gy > 11 || g_Server->fog_of_war == 0) { // WAT: why don't we allow placing units at `y <= 11`?
             if (MapStuff_Instance->CanPlaceUnit(this)) {
                 placed = true;
                 break;
@@ -1880,7 +1880,7 @@ int Unit::PlaceOnMap(uint8_t x, uint8_t y, uint8_t size) {
         int32_t y_end = y + radius;
         for (int32_t tx = x_start; tx <= x_end; tx++) {
             for (int32_t ty = y_start; ty <= y_end; ty++) {
-                if (ty > 11 || g_Server->field4_0x74 == 0) {
+                if (ty > 11 || g_Server->fog_of_war == 0) {
                     this->position->ClampToMap((uint8_t)tx, (uint8_t)ty);
                     if (MapStuff_Instance->CanPlaceUnit(this)) {
                         placed = true;
@@ -1908,15 +1908,15 @@ void Unit::ProcessMoveStep(uint16_t xx, uint16_t yy, uint8_t eye0, uint8_t eye1)
     if (cur_xx == xx && cur_yy == yy) {
         uint8_t out_dir = 0;
         if (this->eye->CheckRotation(this, &out_dir, eye0, eye1)) {
-            uint8_t angle = (this->eye->field1_0x1 + 8) / 16;
+            uint8_t angle = (this->eye->target_facing + 8) / 16;
             g_NetStru1_main.SendUnitActionPacket(this, angle, out_dir, 'm');
         }
         return;
     }
 
     if ((xx & 0xFF) == 0x80 && (yy & 0xFF) == 0x80) {
-        uint8_t dir = this->eye->field158_0xae * 2;
-        uint8_t step_dir = this->eye->field154_0xaa;
+        uint8_t dir = this->eye->move_dir * 2;
+        uint8_t step_dir = this->eye->move_step_total;
         g_NetStru1_main.SendUnitActionPacket(this, dir, step_dir, 0);
     }
 }
@@ -2340,7 +2340,7 @@ void Humanoid::UnequipAll() {
 
 // 53111b
 void Humanoid::AwardKillMoney(Unit* unit) {
-    if (g_Server->field4_0x74 == 0) {
+    if (g_Server->fog_of_war == 0) {
         return;
     }
     if (unit->IsHumanoid() != 0) {
@@ -2481,7 +2481,7 @@ void Humanoid::RecalcStats() {
     if (!this->pOwner) {
         this->mp2 = this->mp_max;
     } else {
-        this->mp2 = static_cast<int16_t>((this->pOwner->field_0xa5c * mp_max) / 100);
+        this->mp2 = static_cast<int16_t>((this->pOwner->mana_percent * mp_max) / 100);
     }
 
     if (this->eye) {
@@ -2634,7 +2634,7 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
     }
 
     // Trigger periodic save when XP is gained in tournament mode.
-    if (new_exp != 0 && g_Server->field4_0x74 != 0 && GetTickCount() - this->pOwner->last_save_tick > 15000) {
+    if (new_exp != 0 && g_Server->fog_of_war != 0 && GetTickCount() - this->pOwner->last_save_tick > 15000) {
         g_Server->SaveCharacter(this);
     }
 }

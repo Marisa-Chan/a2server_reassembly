@@ -22,9 +22,9 @@ struct FileSectionBasicInfo {
     uint8_t main_sphere;
     uint8_t flags;
     uint8_t color;
-    uint8_t field_0x31;
-    uint8_t field_0x32;
-    uint8_t field_0x33;
+    uint8_t gap_0x31;
+    uint8_t gap_0x32;
+    uint8_t gap_0x33;
 };
 ASSERT_OFFSET(FileSectionBasicInfo, main_sphere, 0x2e);
 ASSERT_SIZE(FileSectionBasicInfo, 0x34);

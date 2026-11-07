@@ -596,8 +596,8 @@ PacketAoeZone PacketAoeZone::Inst;
 PacketAoeZone::PacketAoeZone() {
     //sub_5270F2  id = 0x87
     this->id         = 0x87;
-    this->field_0xd  = 0;
-    this->field_0xe  = 0;
+    this->width  = 0;
+    this->height  = 0;
 }
 
 PacketAoeZone::PacketAoeZone(const PacketAoeZone* src) {

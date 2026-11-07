@@ -273,7 +273,7 @@ public:
 	int32_t GetValHPos(int32_t x);  // client: 4e273f
 
 public:
-	int32_t field_0x5c;
+	int32_t dirty;
 	int32_t is_mouse_over;
 	int32_t mouse_on_minus;
 	int32_t mouse_on_plus;
@@ -409,12 +409,12 @@ public:
 	void AddEntry(const char* etext);  // client: 452b30
 public:
 	int32_t mouse_over;
-	int32_t field_0x60;
+	int32_t gap_0x60;
 	CStringArray entries;
 	CGameFont* font;
 	uint16_t* clr;
 	int32_t selection;
-	int32_t field_0x84;
+	int32_t gap_0x84;
 	int32_t selected;
 };
 ASSERT_SIZE(VisRadioBase, 0x8c);
@@ -617,14 +617,14 @@ public:
 	bool FUN_004e0b43(int32_t line_no, int32_t* out_id, CString* out_text, char** out_name, char** out_name_end, int32_t* out_music); //4e0b43 (client: 4e54c4)
 	void LoadText(); //4e0978 (client: 4e52f9)
 public:
-	int32_t field_0x68; // 0x68
+	int32_t line_no; // 0x68
 	CString role_name; // 0x6c
-	SfxSample* field_0x70; // 0x70 - speech sample currently playing
+	SfxSample* speech_sample; // 0x70 - speech sample currently playing
 	char* text_buf; // 0x74
 	int32_t text_len; // 0x78
 	int32_t is_npc; // 0x7c
-	int32_t field_0x80; // 0x80
-	int32_t field_0x84; // 0x84
+	int32_t tips_id; // 0x80
+	int32_t spoken_by_player; // 0x84
 };
 ASSERT_SIZE(VisRoleKeyScreen, 0x88);
 
@@ -643,8 +643,8 @@ public:
 
 public:
 	const void* payload;
-	const char* field_0x6c;
-	const char* field_0x70;
+	const char* text;
+	const char* title;
 	int32_t button_types;
 };
 ASSERT_SIZE(VisMessageBox, 0x78);
@@ -732,9 +732,9 @@ public:
 
 public:
 	VisCharSelect* parent_screen;
-	CStringArray field_0x60;
+	CStringArray captions;
 	CBmp64* buttons_bmp[4];
-	void* field_0x84[4];
+	void* gap_0x84[4];
 	CBmp64* bmp_area;
 	CRect areas[4];
 	int32_t mouse_down_box;
@@ -772,25 +772,25 @@ public:
 
 public:
 	VisCharSelect* parent_screen;
-	CRect field_0x60;
-	CRect field_0x70;
-	CRect field_0x80;
-	CRect field_0x90;
-	int32_t field_0xa0;
-	CBmp64* field_0xa4;
-	CBmp64* field_0xa8;
-	CBmp64* field_0xac;
-	CBmp64* field_0xb0;
-	CBmp64* field_0xb4;
-	CBmp64* field_0xb8;
-	CBmp64* field_0xbc;
-	uint32_t field_0xc0;
-	uint32_t field_0xc4;
-	uint32_t field_0xc8;
-	uint32_t field_0xcc;
-	int32_t field_0xd0;
-	int32_t field_0xd4;
-	int32_t field_0xd8;
+	CRect row_rect;
+	CRect list_area;
+	CRect up_arrow_rect;
+	CRect down_arrow_rect;
+	int32_t top_row;
+	CBmp64* bmp_center_area;
+	CBmp64* bmp_up_shine;
+	CBmp64* bmp_up_shine_on;
+	CBmp64* bmp_down_shine;
+	CBmp64* bmp_down_shine_on;
+	CBmp64* bmp_arrow_up;
+	CBmp64* bmp_arrow_down;
+	uint32_t gap_0xc0;
+	uint32_t gap_0xc4;
+	uint32_t gap_0xc8;
+	uint32_t gap_0xcc;
+	int32_t selected_row;
+	int32_t hovered_row;
+	int32_t renaming;
 };
 ASSERT_SIZE(VisCharSellectList, 0xdc);
 
@@ -813,15 +813,15 @@ public:
 
 public:
 	VisCharSelect* parent_screen;
-	CBmp64* field_0x60;
-	CBmp64* field_0x64;
-	CStringArray field_0x68;
-	uint32_t field_0x7c;
-	uint32_t field_0x80;
-	uint32_t field_0x84;
-	uint32_t field_0x88;
-	CA16* field_0x8c;
-	CRect field_0x90[4];
+	CBmp64* bmp_full_stats;
+	CBmp64* bmp_left_up;
+	CStringArray stat_labels;
+	uint32_t shadow_body;
+	uint32_t shadow_reaction;
+	uint32_t shadow_mind;
+	uint32_t shadow_spirit;
+	CA16* cube_sprites;
+	CRect stat_icon_rects[4];
 };
 ASSERT_SIZE(VisCharSellectStats, 0xd0);
 
@@ -833,9 +833,9 @@ struct TakeDamage {
 	int32_t dx = 0;
 	int32_t dy = 0;
 	uint32_t timestamp = 0;
-	int32_t field_0x18 = 1;
+	int32_t drift_left = 1;
 	CUnit* cunit = nullptr;
-	int32_t field_0x20 = 0;
+	int32_t burst_id = 0;
 
 	TakeDamage(); //45db60 (client: 461780)
 	TakeDamage(int32_t dmg, uint16_t* clr, int32_t unk, int32_t _dx, int32_t _dy, CUnit* ct); //45db8a (client: 4617aa)
@@ -875,7 +875,7 @@ public:
 	uint32_t elapsed_time;
 	int32_t max_size;
 	CRect out_area;
-	int32_t field_0x5c; //unk type
+	int32_t dirty; //unk type
 };
 
 class BigStruct2 : public CVisualObject {
@@ -971,7 +971,7 @@ public:
 	void FUN_0041c4a1(const char* name); //41c4a1 (client: 41dd29)
 
 	CUnit* GetUnit_3f6c(); //41f830 (client: 420c60)
-	void SetUnit_3f6c(CUnit* uni) { this->field_0x3f6c = uni; };
+	void SetUnit_3f6c(CUnit* uni) { this->my_unit = uni; };
 
 	int32_t ProcessPackets(uint8_t breakid); //40da14 (client: 40dac9)
 
@@ -1057,7 +1057,7 @@ public:
 	int32_t force_full_redraw; // 0x74
 	int32_t scroll_dx; // 0x78
 	int32_t scroll_dy; // 0x7c
-	Scenario* field_0x80;
+	Scenario* scenario;
 	int32_t map_width; // 0x84 - scenario width in cells
 	int32_t map_height; // 0x88 - scenario height in cells
 	CGameObject** tile_units; // 0x8c - per-tile ground units
@@ -1065,39 +1065,39 @@ public:
 	CGameObject** tile_structures; // 0x94 - per-tile structures
 	CGameObject** tile_backpacks; // 0x98 - per-tile backpacks
 	CGameObject** tile_special_units; // 0x9c - per-tile special units (CUnit::VMethod10 bucket 4)
-	uint32_t* field_0xa0; //unk type
-	uint32_t* field_0xa4; //unk type
-	uint8_t* field_0xa8; //unk type
-	uint8_t* field_0xac; //unk type
+	uint32_t* corner_tile_kind; //unk type
+	uint32_t* corner_tile_kind_prev; //unk type
+	uint8_t* corner_light; //unk type
+	uint8_t* corner_light_prev; //unk type
 	uint8_t* tile_light; // 0xb0 - per-tile light level
 	uint32_t* tile_corner_y; // 0xb4 - screen Y per tile corner (corner grid)
 	uint32_t* tile_top_y; // 0xb8 - screen Y of tile top edge (tile grid)
 	uint32_t* tile_bottom_y; // 0xbc - screen Y of tile bottom edge (tile grid)
 	uint32_t* height_cells; // 0xc0 - per-corner averaged terrain heights (stride view_tiles_x + 8)
-	int32_t field_0xc4; //unk type
-	int32_t field_0xc8; //unk type
-	int32_t field_0xcc; //unk type
-	double field_0xd0;
-	int32_t field_0xd8;
-	int32_t field_0xdc;
-	int32_t field_0xe0;
+	int32_t fps_frames; //unk type
+	int32_t fps_time_ms; //unk type
+	int32_t fps_last_tick; //unk type
+	double fps;
+	int32_t rbtn_drag;
+	int32_t minimap_dirty;
+	int32_t full_redraw_requested;
 	int32_t tile_scroll_x; // 0xe4
 	int32_t tile_scroll_y; // 0xe8
 	int32_t prev_view_x; // 0xec
 	int32_t prev_view_y; // 0xf0
-	CRect field_0xf4;
-	int32_t field_0x104;//unk type
-	int32_t field_0x108;//unk type
-	CArray<CRect> field_0x10c;
-	CWordArray field_0x120;
-	int32_t field_0x134;//unk type
-	CGameObject* field_0x138; //primarySelectedObject
-	POSITION field_0x13c; //primarySelectedAssoc
-	int32_t field_0x140; //selectedObjectCount
-	uint32_t field_0x144;
-	uint32_t field_0x148; //selectedAvailableSpellMask
-	int32_t field_0x14c; //unk type
-	uint32_t field_0x150; //activeSpellEffectMask
+	CRect dirty_rect;
+	int32_t cached_msg_count;//unk type
+	int32_t lightning_active;//unk type
+	CArray<CRect> hit_rects;
+	CWordArray hit_unit_ids;
+	int32_t hit_count;//unk type
+	CGameObject* primary_selected_object; //primarySelectedObject
+	POSITION primary_selected_assoc; //primarySelectedAssoc
+	int32_t selected_object_count; //selectedObjectCount
+	uint32_t selection_flags;
+	uint32_t selected_available_spell_mask; //selectedAvailableSpellMask
+	int32_t selected_active_spell_mask; //unk type
+	uint32_t active_spell_effect_mask; //activeSpellEffectMask
 	int32_t spell_damage_min[24];
 	int32_t spell_damage_max[24];
 	int32_t spell_range_min[24];
@@ -1120,48 +1120,48 @@ public:
 	int32_t spell_val6_max[24];
 	int32_t spell_val7_min[24];
 	int32_t spell_val7_max[24];
-	CUnit* field_0x994;
+	CUnit* hovered_unit;
 	uint32_t quest_some_id_2;
 	uint32_t quest_landmark_some_id;
 	uint32_t quest_building_some_id;
 	uint32_t quest_some_id;
-	uint32_t field_0x9a8;
-	int32_t field_0x9ac;
-	int32_t field_0x9b0;
-	int32_t field_0x9b4;
-	CArray<MapPlayerData*> field_0x9b8;
+	uint32_t hovered_unit_id;
+	int32_t last_mouse_tile_x;
+	int32_t last_mouse_tile_y;
+	int32_t order_mode;
+	CArray<MapPlayerData*> map_players;
 	MapPlayerData* my_main_unit;
-	CMap<uint16_t, uint16_t, CGameObject*, CGameObject*> field_0x9d0;
-	CMap<uint16_t, uint16_t, CGameObject*, CGameObject*> field_0x9ec;
-	CMap<uint16_t, uint16_t, uint32_t, uint32_t> field_0xa08; //terrainLightOverrideCells
-	int32_t field_0xa24; //unk type
+	CMap<uint16_t, uint16_t, CGameObject*, CGameObject*> objects;
+	CMap<uint16_t, uint16_t, CGameObject*, CGameObject*> projectiles;
+	CMap<uint16_t, uint16_t, uint32_t, uint32_t> terrain_light_override_cells; //terrainLightOverrideCells
+	int32_t next_projectile_id; //unk type
 	GM_a28 msglog;
-	int32_t field_0xa88;
-	int32_t field_0xa8c;
-	int32_t field_0xa90;
-	CMap<uint16_t, uint16_t, uint32_t, uint32_t> field_0xa94;
+	int32_t anim_tick;
+	int32_t anim_redraw_tick;
+	int32_t gap_0xa90;
+	CMap<uint16_t, uint16_t, uint32_t, uint32_t> lightning_cells;
 	int32_t formation;
 	int32_t wimpy;
 	int32_t show_hp;
 	int32_t flying_hp;
 	
-	int8_t field_0xac0[41][41][2];
+	int8_t shadow_step[41][41][2];
 	uint8_t ____padding1[2];
 
-	int32_t field_0x17e4[41][41]; // signed!
-	uint16_t field_3228[41][41]; // unsigned!
+	int32_t shadow_light[41][41]; // signed!
+	uint16_t shadow_ray_len[41][41]; // unsigned!
 
 	uint16_t ____padding2;
 
-	int32_t field_0x3f4c; //unk type
-	int32_t field_0x3f50; //unk type
+	int32_t shadow_scale; //unk type
+	int32_t shadow_shift; //unk type
 	CArray<TakeDamage> damage_labels;
-	CBmp256* field_0x3f68;
-	CUnit* field_0x3f6c;
+	CBmp256* scratch_tile;
+	CUnit* my_unit;
 	std::array<uint8_t, 0xa00> kill_stats;
-	QuestMap* field_0x4970;
-	CArray<Item*> field_0x4974;
-	std::array<Item*, 12> field_0x4988;
+	QuestMap* quest_map;
+	CArray<Item*> hero_inventory;
+	std::array<Item*, 12> hero_equipment;
 #ifdef A2CLIENT
 	// client tail layout (retail class is 0x4a48 bytes, client ctor 402af6): the
 	// server's 12-slot item array extends to 32 hat-DM slots (entries 12..31 are
@@ -1172,7 +1172,7 @@ public:
 	int32_t hat_item_slot13; // client 0x49bc (ctor sets 0xF0000001)
 	int32_t hat_item_slot14; // client 0x49c0 (ctor sets 0xF0000001)
 	int32_t hat_cursor_slots[16]; // client 0x49c4..0x4a03 = slots 15..30 (ctor 0xF0000003; packet 0xc2 bulk state)
-	int32_t field_0x4a04; // client 0x4a04 = slot 31 (ctor 0x7fffffff; hat player-list state, packets 0x5c/0xc2)
+	int32_t hat_player_count; // client 0x4a04 = slot 31 (ctor 0x7fffffff; hat player-list state, packets 0x5c/0xc2)
 	int32_t cursor_over_obj_last_index; // client 0x4a08
 	int32_t last_focus_obj_index; // client 0x4a0c
 	CStringArray hat_name_list; // client 0x4a10 — hat DM player names (packets 0x5a/0x5b/0x5c)
@@ -1180,22 +1180,22 @@ public:
 
 	void CloseHatOverlays(); // client-only helper wrapping Allods2.exe 41748d + 417902: closes shop/tavern/popup/1200 overlays
 #endif
-	int32_t field_0x49b8; //unk type
-	int32_t field_0x49bc; //unk type
-	int32_t field_0x49c0; //unk type
-	int32_t field_0x49c4; //unk type
+	int32_t ambient_view_x; //unk type
+	int32_t ambient_view_y; //unk type
+	int32_t ambient_sound_deadline; //unk type
+	int32_t gap_0x49c4; //unk type
 
 };
 
-ASSERT_OFFSET(BigStruct2, field_0x80, 0x80);
-ASSERT_OFFSET(BigStruct2, field_0x9d0, 0x9d0);
+ASSERT_OFFSET(BigStruct2, scenario, 0x80);
+ASSERT_OFFSET(BigStruct2, objects, 0x9d0);
 ASSERT_OFFSET(BigStruct2, damage_labels, 0x3f54);
 #ifdef A2CLIENT
 ASSERT_OFFSET(BigStruct2, hat_cursor_slots, 0x49c4);
-ASSERT_OFFSET(BigStruct2, field_0x4a04, 0x4a04);
+ASSERT_OFFSET(BigStruct2, hat_player_count, 0x4a04);
 ASSERT_OFFSET(BigStruct2, hat_name_list, 0x4a10);
 ASSERT_OFFSET(BigStruct2, hat_score_list, 0x4a24);
-ASSERT_OFFSET(BigStruct2, field_0x49b8, 0x4a38);
+ASSERT_OFFSET(BigStruct2, ambient_view_x, 0x4a38);
 ASSERT_SIZE(BigStruct2, 0x4a48);
 #else
 ASSERT_SIZE(BigStruct2, 0x49c8);
@@ -1382,13 +1382,13 @@ public:
 	void sub_4B4FD1(); //4b4fd1 (client: 4b99a1)
 
 public:
-	VisShop* field_0x20ac;
-	CSound field_0x20b0;
-	CSound field_0x20b4;
-	CSound field_0x20b8;
-	CSound field_0x20bc;
-	int32_t field_0x20c0; //unk type
-	CRect* field_0x20c4;
+	VisShop* shop;
+	CSound snd_speech;
+	CSound snd_put_on;
+	CSound snd_put_off;
+	CSound snd_scroll;
+	int32_t gap_0x20c0; //unk type
+	CRect* cell_rects;
 };
 ASSERT_SIZE(VisInvExtBase, 0x20c8);
 
@@ -1426,15 +1426,15 @@ public:
 	VisInvExtType1(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4b63f7 (client: 4badc1) in asm
 
 public:
-	int32_t field_0x20c8; //unk type
-	CRect field_0x20cc;
-	CRect field_0x20dc;
+	int32_t gap_0x20c8; //unk type
+	CRect up_arrow_rect;
+	CRect down_arrow_rect;
 	CBmp64* arrow1;
 	CBmp64* arrow3;
 	CBmp64* arrow2;
 	CBmp64* arrow4;
 	CBmp64* shop_inv;
-	CArray<TokenEntry*> field_0x2100[4];
+	CArray<TokenEntry*> category_grids[4];
 };
 ASSERT_SIZE(VisInvExtType1, 0x2150);
 
@@ -1485,9 +1485,9 @@ public:
 
 	VisInvExtType2(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4b7fe5 (client: 4bc9af) in asm
 public:
-	int32_t field_0x20c8; //unk type
-	CRect field_0x20cc;
-	CRect field_0x20dc;
+	int32_t gap_0x20c8; //unk type
+	CRect up_arrow_rect;
+	CRect down_arrow_rect;
 };
 ASSERT_SIZE(VisInvExtType2, 0x20ec);
 
@@ -1525,12 +1525,12 @@ public:
 	void sub_4B970E(); //4b970e (client: 4be0d8)
 	int32_t sub_4B9B2F(int32_t idx); //4b9b2f (client: 4be4f9) in asm
 public:
-	int32_t field_0x20c8; //unk type
-	CRect field_0x20cc;
-	CRect field_0x20dc;
+	int32_t gap_0x20c8; //unk type
+	CRect up_arrow_rect;
+	CRect down_arrow_rect;
 	CBmp64* shoptable;
-	int32_t field_0x20f0; //unk type
-	CArray<TokenEntry*> field_0x20f4;
+	int32_t gap_0x20f0; //unk type
+	CArray<TokenEntry*> entries;
 };
 ASSERT_SIZE(VisInvExtType3, 0x2108);
 
@@ -1578,12 +1578,12 @@ public:
 public:
 	VisTav* vis_tav; // 0x5c
 	CStringArray texts; // 0x60
-	CBmp64* field_0x74[3]; // 0x74
-	CBmp64* field_0x80[3]; // 0x80
-	CBmp64* field_0x8c; // 0x8c
-	CRect field_0x90[3]; // 0x90
-	int32_t field_0xc0; // 0xc0
-	int32_t field_0xc4; // 0xc4
+	CBmp64* bmp_btn_on[3]; // 0x74
+	CBmp64* bmp_btn_off[3]; // 0x80
+	CBmp64* bmp_area; // 0x8c
+	CRect btn_rects[3]; // 0x90
+	int32_t pressed_btn; // 0xc0
+	int32_t hovered_btn; // 0xc4
 };
 ASSERT_SIZE(VisTavRightPanel, 0xc8);
 
@@ -1607,13 +1607,13 @@ public:
 
 public:
 	VisTav* vis_tav; // 0x5c
-	char field_0x60[0x100]; // 0x60
-	CBmp64* field_0x160; // 0x160
-	CBmp256* field_0x164; // 0x164
-	CBmp64* field_0x168; // 0x168
-	CBmp64* field_0x16c; // 0x16c
-	CRect field_0x170; // 0x170
-	CRect field_0x180; // 0x180
+	char picture_name[0x100]; // 0x60
+	CBmp64* portrait_bmp; // 0x160
+	CBmp256* hitmap; // 0x164
+	CBmp64* bmp_left_stats; // 0x168
+	CBmp64* bmp_left_picture; // 0x16c
+	CRect left_btn_rect; // 0x170
+	CRect right_btn_rect; // 0x180
 };
 ASSERT_SIZE(VisTavLeftPanel, 0x190);
 
@@ -1642,21 +1642,21 @@ public:
 
 public:
 	VisTav* vis_tav; // 0x5c
-	CRect field_0x60[3][6]; // 0x60
-	CRect field_0x180[3][3]; // 0x180
-	CArray<CSprite256*> field_0x210; // 0x210
-	CArray<CSprite256*> field_0x224; // 0x224
-	CArray<CSprite256*> field_0x238; // 0x238
-	CArray<uint32_t> field_0x24c; // 0x24c
-	CArray<uint32_t> field_0x260; // 0x260
-	CBmp64* field_0x274; // 0x274
-	CBmp64* field_0x278; // 0x278
-	CBmp64* field_0x27c; // 0x27c
+	CRect roster_rects[3][6]; // 0x60
+	CRect party_rects[3][3]; // 0x180
+	CArray<CSprite256*> roster_sprites; // 0x210
+	CArray<CSprite256*> avail_sprites; // 0x224
+	CArray<CSprite256*> reserved_sprites; // 0x238
+	CArray<uint32_t> avail_frames; // 0x24c
+	CArray<uint32_t> reserved_frames; // 0x260
+	CBmp64* bmp_man_back; // 0x274
+	CBmp64* bmp_man_back_talk; // 0x278
+	CBmp64* bmp_background; // 0x27c
 	VisTavSceneAnim anims[4]; // 0x280
-	CBmp64* field_0x340; // 0x340
-	CBmp64* field_0x344; // 0x344
-	CBmp64* field_0x348; // 0x348
-	CBmp64* field_0x34c[13]; // 0x34c
+	CBmp64* bmp_lu_over; // 0x340
+	CBmp64* bmp_ld_over; // 0x344
+	CBmp64* bmp_ru_over; // 0x348
+	CBmp64* quest_bmps[13]; // 0x34c
 	uint8_t __gap_0x380[76];
 };
 ASSERT_SIZE(VisTavScene, 0x3cc);
@@ -1674,10 +1674,10 @@ public:
 	VisTavSceneDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //4a05a0 (client: 4a45ce) in asm
 
 public:
-	CBmp64* field_0x3cc;
+	CBmp64* bmp_flash;
 	VisTavSceneAnim anims_druid[3]; // 0x3d0
-	uint32_t field_0x460;
-	uint32_t field_0x464;
+	uint32_t ambient_last_tick;
+	uint32_t ambient_interval;
 };
 ASSERT_SIZE(VisTavSceneDruid, 0x468);
 
@@ -1695,11 +1695,11 @@ public:
 
 public:
 	VisTavSceneAnim anims_kaarg[5]; // 0x3cc
-	uint32_t field_0x4bc;
-	uint32_t field_0x4c0;
-	uint32_t field_0x4c4;
-	uint32_t field_0x4c8;
-	uint32_t field_0x4cc;
+	uint32_t script_frame_index;
+	uint32_t ambient1_last_tick;
+	uint32_t ambient1_interval;
+	uint32_t ambient2_last_tick;
+	uint32_t ambient2_interval;
 };
 ASSERT_SIZE(VisTavSceneKaarg, 0x4d0);
 
@@ -1737,7 +1737,7 @@ public:
 	VisCharInfo* info_panel;
 	VisTavLeftPanel* left_panel;
 	VisTavRightPanel* right_panel;
-	int32_t field_0x78; //unk type
+	int32_t gap_0x78; //unk type
 	VisTavScene* scene;
 	CVisualObject* tips;
 	CSound sounds[13];
@@ -1753,8 +1753,8 @@ public:
 	int32_t quest_selection;
 	int32_t quest_mirror_selection;
 	CArray<TokenEntry*> rewards;
-	int32_t field_0x138;
-	int32_t field_0x13c;
+	int32_t inn_id;
+	int32_t quest_alt_close;
 };
 ASSERT_SIZE(VisTav, 0x140);
 
@@ -1824,7 +1824,7 @@ public:
 	VisSpellBook(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4c99c7 (client: 4ce357)
 
 public:
-	int32_t field_0x5c;
+	int32_t dirty;
 	int32_t pressed;
 	int32_t selected;
 	int32_t spell;
@@ -1908,7 +1908,7 @@ public:
 	int32_t FUN_004c2842(); // 4c2842 (client: 4c71fb)
 
 public:
-	int32_t field_0x258; // 0x258
+	int32_t gap_0x258; // 0x258
 	CBmp64* armor_bmp; // 0x25c
 	CBmp64* magic_bmp; // 0x260
 	CBmp64* potions_bmp; // 0x264
@@ -1942,7 +1942,7 @@ public:
 	VisShopCompassKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4c4693 (client: 4c904a) in asm
 
 public:
-	int32_t field_0x258; // 0x258
+	int32_t gap_0x258; // 0x258
 	CBmp64* armor_bmp; // 0x25c
 	CBmp64* magic_bmp; // 0x260
 	CBmp64* scrolls_bmp; // 0x264
@@ -1976,7 +1976,7 @@ public:
 
 public:
 	VisShop* shop; // 0x5c
-	int32_t field_0x60;
+	int32_t gap_0x60;
 	CBmp64* button_bmps[4]; // 0x64
 	CBmp64* menu_bmp; // 0x74
 	CRect outer_rects[4]; // 0x78
@@ -2069,10 +2069,10 @@ public:
 	CWordArray units_order;
 	int16_t select_index;
 	int16_t select_category;
-	int32_t field_0x134;
-	int32_t field_0x138;
-	int32_t field_0x13c;
-	int32_t field_0x140;
+	int32_t gap_0x134;
+	int32_t gap_0x138;
+	int32_t gap_0x13c;
+	int32_t gap_0x140;
 	int32_t placement_lock;
 	int32_t dialog_active;
 	int32_t dirty;
@@ -2422,18 +2422,18 @@ private:
 public:
 	VisCharGen* parent_screen; // 0x5c
 	CBmp64* bmp; // 0x60
-	CRect field_0x64[4];
-	CRect field_0xa4;
+	CRect label_rects[4];
+	CRect points_rect;
 	CRect areas[4][3]; // 0xb4: per-stat rects [value, plus_btn, minus_btn]
-	CBmp64* field_0x174[4][2]; // 0x174: per-stat [plus, minus] button bitmap pair
-	CBmp64* field_0x194[10]; // 0x194: plon/ploff/pnlon/pnloff/pdisable/mlon/mloff/mnlon/mnloff/mdisable
+	CBmp64* stat_btn_pairs[4][2]; // 0x174: per-stat [plus, minus] button bitmap pair
+	CBmp64* stat_button_bmps[10]; // 0x194: plon/ploff/pnlon/pnloff/pdisable/mlon/mloff/mnlon/mnloff/mdisable
 	CStringArray texts; // 0x1bc
 	int32_t stat_body; // 0x1d0
 	int32_t stat_reaction; // 0x1d4
 	int32_t stat_mind; // 0x1d8
 	int32_t stat_spirit; // 0x1dc
-	int32_t field_0x1e0[4];
-	int32_t field_0x1f0;
+	int32_t gap_0x1e0[4];
+	int32_t stat_points;
 };
 ASSERT_SIZE(VisCharGenStats, 0x1f4);
 
@@ -2452,7 +2452,7 @@ public:
 public:
 	VisCharGen* parent_screen; // 0x5c
 	CBmp64* bmp; // 0x60
-	uint8_t field_0x64[0x44];
+	uint8_t gap_0x64[0x44];
 };
 ASSERT_SIZE(VisCharGenFullStats, 0xa8);
 
@@ -2519,11 +2519,11 @@ public:
 	CBmp64* bmp_on[5]; // 0x78
 	CBmp64* bmp_shine_off[5]; // 0x8c
 	CBmp64* bmp_shine_on[5]; // 0xa0
-	CPoint field_0xb4[5]; // 0xb4: slot positions (parent-screen coords)
-	CPoint field_0xdc[5]; // 0xdc: slot sizes
+	CPoint slot_positions[5]; // 0xb4: slot positions (parent-screen coords)
+	CPoint slot_sizes[5]; // 0xdc: slot sizes
 	uint8_t color_keys[8]; // 0x104: per-slot mask color keys
-	int32_t field_0x10c[5]; // 0x10c: per-slot state (bit0 selected, bit1 hover)
-	SfxSample* field_0x120[5]; // 0x120: skill sounds
+	int32_t slot_states[5]; // 0x10c: per-slot state (bit0 selected, bit1 hover)
+	SfxSample* skill_sounds[5]; // 0x120: skill sounds
 	int32_t selected_slot; // 0x134
 };
 ASSERT_SIZE(VisCharGenSkills, 0x138);
@@ -2568,7 +2568,7 @@ public:
 	SfxSample* snd_back;
 	CUnit* current_char;
 	int32_t fwd_btn;
-	int32_t field14_0x9c;
+	int32_t gap_0x9c;
 	CArray<uint16_t> face_sets[4];
 	uint32_t mage_flag;
 	int32_t female_face;
@@ -2610,16 +2610,16 @@ public:
 	int32_t FUN_00497330(); //497330 (client: 401780)
 
 public:
-	CStringArray field_0x5c;
-	CStringArray field_0x70; // history
-	CString field_0x84; // current line
+	CStringArray history_backup;
+	CStringArray history; // history
+	CString input_line; // current line
 	CGameFont* font; // 0x88
 	uint16_t* clr; // 0x8c
-	int32_t field_0x90; // 0x90
-	int32_t field_0x94; // 0x94
-	uint32_t field_0x98; // 0x98 - last input tick
-	int32_t field_0x9c; // 0x9c
-	int32_t field_0xa0; // 0xa0
+	int32_t match_player_index; // 0x90
+	int32_t match_name_length; // 0x94
+	uint32_t blink_last_tick; // 0x98 - last input tick
+	int32_t blink_now_tick; // 0x9c
+	int32_t cursor_visible; // 0xa0
 };
 ASSERT_SIZE(Vis1200obj, 0xa4);
 
@@ -2706,7 +2706,7 @@ public:
 public:
 	BigStruct2* map_context;
 	int32_t dirty;
-	int32_t field_64;
+	int32_t gap_64;
 	int32_t selection_panel_state;
 	int32_t spell_panel_state;
 	int32_t info_mode;
@@ -2886,8 +2886,8 @@ public:
 	int32_t torchFrameTick; // 0x1b0;
 	CBmp64* returnToGameHoverBitmap; // 0x1b4;
 	CBmp64* acceptHoverBitmap; // 0x1b8;
-	int32_t field_0x1bc;
-	int32_t field_0x1c0;
+	int32_t gap_0x1bc;
+	int32_t gap_0x1c0;
 	CSound difficultyLevel1Sound; // 0x1c4;
 	CSound difficultyLevel2Sound; // 0x1c8;
 	CSound difficultyLevel3Sound; // 0x1cc;
@@ -2904,7 +2904,7 @@ public:
 	VisScreen* tipsPrompt; // 0x1f8;
 	CString char_name; // 0x1fc
 	CString clan_name; // 0x200
-	int32_t field_0x204;
+	int32_t gap_0x204;
 	int32_t selectedPortraitIndex; // 0x208;
 	int32_t selectedDifficultyIndex; // 0x20c;
 	int32_t committedDifficultyIndex; // 0x210;
@@ -2928,8 +2928,8 @@ public:
 
 	void AddElement(CVisualObject *obj, int32_t height); //440e11 (client: 443278)
 public:
-	uint32_t field_0x68;
-	CRect field_0x6c;
+	uint32_t gap_0x68;
+	CRect element_rect;
 };
 ASSERT_SIZE(VisMenuWnd, 0x7c);
 
@@ -2964,10 +2964,10 @@ public:
 
 	LoadGameWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, SaveFileInfo* unk); //43ecfb (client: 44115f)
 public:
-	SaveFileInfo* field_0x68;
+	SaveFileInfo* out_info;
 	CStringArray file_names;
 	CStringArray save_times;
-	int32_t field_0x94;
+	int32_t selected_index;
 };
 ASSERT_SIZE(LoadGameWindow, 0x98);
 
@@ -2983,11 +2983,11 @@ public:
 
 	static int __cdecl Compare(void const* a, void const* b); //43faf4 (client: 441f58)
 public:
-	SaveFileInfo* field_0x68;
+	SaveFileInfo* out_info;
 	CStringArray file_names;
 	CStringArray save_times;
-	int32_t field_0x94;
-	char* field_0x98;
+	int32_t selected_index;
+	char* empty_cell_text;
 };
 ASSERT_SIZE(SaveGameWindow, 0x9c);
 
@@ -3329,11 +3329,11 @@ public:
 	CBmp64* bmp_cur_right;
 	CBmp64* bmp_cur_ok;
 	int32_t selected_doc;
-	uint32_t field10_0xbc;
+	uint32_t gap_0xbc;
 	CRect rect_prev;
 	CRect rect_next;
 	CRect rect_ok;
-	uint32_t field17_0xf0;
+	uint32_t gap_0xf0;
 	uint32_t visible_flag;
 };
 ASSERT_SIZE(VisFameDocument, 0xf8);

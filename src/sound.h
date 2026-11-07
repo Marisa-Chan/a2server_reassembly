@@ -59,7 +59,7 @@ public:
 	void Release(); //45ba0f (client: 45f63f)
 	SoundChannel* FindPlayingChannel(); //45c004 (client: 45fc34)
 public:
-	uint32_t field_0x4 = 0;
+	uint32_t gap_0x4 = 0;
 	CString filename;
 	int32_t loaded = 0;
 	IDirectSoundBuffer** buffers = nullptr;
@@ -102,11 +102,11 @@ struct SoundSettings {
 	int32_t random;
 	CStringArray* tracklist;
 	int32_t mus_pos;
-	int32_t field_0xc;
+	int32_t mus_pos_max;
 	int32_t sfx_pos;
-	int32_t field_0x14;
+	int32_t sfx_pos_max;
 	int32_t speech_pos;
-	int32_t field_0x1c;
+	int32_t speech_pos_max;
 	int32_t music_allowed;
 	int32_t music_enabled;
 
@@ -174,7 +174,7 @@ public:
 	int32_t fadeout_enabled;
 	int32_t play_mode;
 	int32_t track_to_play; //in 1 mode
-	int32_t field_0x20;
+	int32_t random_mode;
 	int32_t use_buffer[2];
 	CDWordArray track_ids;
 	CStringArray playlist;

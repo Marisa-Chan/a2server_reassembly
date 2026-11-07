@@ -42,10 +42,10 @@ protected:
 ASSERT_SIZE(TableLine, 0x1c);
 
 struct MatShapeData {
-    uint32_t field_0x0;
-    uint32_t field_0x4;
-    uint32_t field_0x8;
-    uint32_t field_0xc;
+    uint32_t gap_0x0;
+    uint32_t gap_0x4;
+    uint32_t gap_0x8;
+    uint32_t gap_0xc;
     double price;
     double weight;
     double damage;
@@ -119,7 +119,7 @@ public:
     }
 
 public:
-    uint32_t field_0x1c;
+    uint32_t gap_0x1c;
     MatShapeData data;
 };
 ASSERT_OFFSET(MatShape, data, 0x20);
@@ -422,7 +422,7 @@ struct GameDataRes {
     CArray<MagicInfo> magics;
     CArray<MonsterInfo> monsters;
     CArray<HumanInfo> humans;
-    CArray<HumanInfo> field9_0xb4;
+    CArray<HumanInfo> gap_0xb4;
     CArray<BuildingInfo> buildings;
     CArray<SpellInfo> spells;
     int loaded;

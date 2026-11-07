@@ -763,7 +763,7 @@ BOOL GameApp::InitInstance() {
 	LoadFonts();
 	mwnd->CreateUI();
 	mwnd->LoadSettings();
-	mwnd->field_0x460 = 1;
+	mwnd->app_initialized = 1;
 	mwnd->LoadData();
 
 	// client: 48626d — vanilla checked the CD before the main-menu message.
@@ -1129,7 +1129,7 @@ void __cdecl AppFindSavesList(CArray<WIN32_FIND_DATAA>* list, int p) { //43eaa0
 void LogWarning(const CString& msg) { //59b753
 	CString str("WARNING! : ");
 	str += msg;
-	if (g_Server->field4_0x74 == 0) {
+	if (g_Server->fog_of_war == 0) {
 		g_NetStru1_main.AnnouncePlayerName(str, nullptr);
 	} else {
 		LogMessage(str);

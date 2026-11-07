@@ -40,7 +40,7 @@ void GroupSub::Serialize(CArchive& ar) {
 
 // 554D9E - Group constructor
 Group::Group() {
-    this->field_0x40 = 0;
+    this->saved_ptr = 0;
     this->owner = nullptr;
     this->has_quest_kill = 0;
     this->has_quest_intercept = 0;
@@ -82,12 +82,12 @@ void Group::Serialize(CArchive& ar) {
         ar >> this->group_id;
 
         ar >> tmp;
-        if (!g_Server->field23_0xdc.Lookup((void *)tmp, *(void**)&this->field_0x40)) {
-            this->field_0x40 = 0;
+        if (!g_Server->saved_ptr_map.Lookup((void *)tmp, *(void**)&this->saved_ptr)) {
+            this->saved_ptr = 0;
         }
 
         ar >> tmp;
-        if (!g_Server->field23_0xdc.Lookup((void*)tmp, *(void**)&this->owner)) {
+        if (!g_Server->saved_ptr_map.Lookup((void*)tmp, *(void**)&this->owner)) {
             this->owner = nullptr;
         }
     } else {
@@ -100,7 +100,7 @@ void Group::Serialize(CArchive& ar) {
 
         ar << this->group_id;
 
-        ar << (uint32_t)this->field_0x40;
+        ar << (uint32_t)this->saved_ptr;
         ar << (uint32_t)this->owner;
     }
 }

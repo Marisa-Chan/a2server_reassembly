@@ -37,11 +37,11 @@ WAVEFORMATEX g_SoundFmt; //65dd90
 
 SoundSettings::SoundSettings() {
 	//477860
-	this->field_0xc = 5000;
+	this->mus_pos_max = 5000;
 	this->mus_pos = -700;
-	this->field_0x14 = 5000;
+	this->sfx_pos_max = 5000;
 	this->sfx_pos = -700;
-	this->field_0x1c = 5000;
+	this->speech_pos_max = 5000;
 	this->speech_pos = -700;
 
 	this->tracklist = new CStringArray();
@@ -491,7 +491,7 @@ MusicPlayer::MusicPlayer(int32_t bufsz) { // 45b16d
 			this->format.cbSize = g_dsound_format.cbSize;
 			this->update_disabled = 1;
 			this->fadeout_enabled = 0;
-			this->field_0x20 = 1;
+			this->random_mode = 1;
 			this->play_mode = 0;
 			this->file_opened = 0;
 			this->play_notify = 0;
@@ -820,7 +820,7 @@ void MusicPlayer::StartPlayTrack(int32_t track) { //45b6d0
 
 void MusicPlayer::SetRandom(int random) { //45b655
 	if (this->ds_buffer) {
-		this->field_0x20 = random;
+		this->random_mode = random;
 		this->play_mode = 0;
 	}
 }

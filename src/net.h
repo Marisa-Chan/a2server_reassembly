@@ -49,10 +49,10 @@ union HatCharId {
 struct PackerTail {
     PackerTail* child0;
     PackerTail* child1;
-    int32_t field_0x8;
-    int32_t field_0xc;
-    int32_t field_0x10;
-    int32_t field_0x14;
+    int32_t gap_0x8;
+    int32_t gap_0xc;
+    int32_t gap_0x10;
+    int32_t gap_0x14;
 };
 ASSERT_SIZE(PackerTail, 0x18);
 
@@ -72,7 +72,7 @@ ASSERT_OFFSET(PackerDat, freq, 0x800);
 ASSERT_SIZE(PackerDat, 0xc04);
 
 struct ConnStatInfo {
-    uint32_t field1;
+    uint32_t window_bytes;
     uint32_t cur_bs;
     uint32_t total_bytes;
     uint32_t max_bs;
@@ -99,10 +99,10 @@ public:
     CRITICAL_SECTION critical_section2;
     PackerDat packer_dat1; //huffman tables for Pack/Unpack channel 1
     PackerDat packer_dat2; //huffman tables for Pack/Unpack channel 2
-    uint32_t field_0x1898; //packer1 trained-bytes statistic
-    uint32_t field_0x189c; //packer1 packed-bytes statistic
-    uint32_t field_0x18a0; //packer2 trained-bytes statistic
-    uint32_t field_0x18a4; //packer2 packed-bytes statistic
+    uint32_t packer1_trained_bytes; //packer1 trained-bytes statistic
+    uint32_t packer1_packed_bytes; //packer1 packed-bytes statistic
+    uint32_t packer2_trained_bytes; //packer2 trained-bytes statistic
+    uint32_t packer2_packed_bytes; //packer2 packed-bytes statistic
     uint32_t compression_type;
     uint32_t compression_mode; // 0 - disable, 1 - make statistic, 2 - compression
     uint32_t make_statistics; // calculate statistic
@@ -235,7 +235,7 @@ public:
     NetStru2* GetFirstClient();
 };
 ASSERT_OFFSET(NetStru1, packer_dat1, 0x90);
-ASSERT_OFFSET(NetStru1, field_0x1898, 0x1898);
+ASSERT_OFFSET(NetStru1, packer1_trained_bytes, 0x1898);
 ASSERT_SIZE(NetStru1, 0x20f0);
 
 __pragma(pack(push, 1))
@@ -289,14 +289,14 @@ struct NetStru2 {
     CRITICAL_SECTION critical_section;
     uint32_t compression_type; // 0 - disabled, 1,2 - compression types
     uint32_t is_local_player;
-    uint32_t field_0x2a0;
-    uint32_t field_0x2a4;
+    uint32_t gap_0x2a0;
+    uint32_t gap_0x2a4;
     uint32_t is_claimed;
-    uint32_t field_0x2ac;
+    uint32_t gap_0x2ac;
     CString str;
-    int32_t field_0x2b4;
-    uint32_t field_0x2b8;
-    uint32_t field_0x2bc;
+    int32_t gap_0x2b4;
+    uint32_t gap_0x2b8;
+    uint32_t gap_0x2bc;
 
 
 public:
@@ -407,11 +407,11 @@ struct CLlAddress : CLlName {
     char address[256];
     union {
         struct {
-            uint32_t field_0x200;
-            uint32_t field_0x204;
-            uint32_t field_0x208;
-            uint32_t field_0x20c;
-            uint32_t field_0x210;
+            uint32_t gap_0x200;
+            uint32_t gap_0x204;
+            uint32_t gap_0x208;
+            uint32_t gap_0x20c;
+            uint32_t gap_0x210;
         };
         GUID guid;
         ComSettings com;

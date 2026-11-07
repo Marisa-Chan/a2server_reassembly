@@ -93,7 +93,7 @@ Visibility::Visibility() {
     this->sub_58CD84();
     this->sub_58CE74();
 
-    memset(this->field_0x0, 0, sizeof(this->field_0x0));
+    memset(this->gap_0x0, 0, sizeof(this->gap_0x0));
 }
 
 // 58D638

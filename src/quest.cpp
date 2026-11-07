@@ -13,7 +13,7 @@ Quest::Quest() {
     this->quest_data.limit = 0;
     this->progress = 0;
     this->quest_map = nullptr;
-    this->field_0x2c = nullptr;
+    this->target_object = nullptr;
 }
 
 // 57FF50 / 55d15a
@@ -31,14 +31,14 @@ void Quest::Initialize(int some_id, int player_id, int building_id, int obj, int
     this->quest_data.limit = limit;
     this->progress = 0;
     this->reward = reward;
-    this->field_0x2c = nullptr;
+    this->target_object = nullptr;
 }
 
 // 55D1E1
 void Quest::CopyFields(QuestData* other) {
     memcpy(&this->quest_data, other, sizeof(QuestData));
     this->progress = 0;
-    this->field_0x2c = nullptr;
+    this->target_object = nullptr;
     this->reward = 0;
 }
 

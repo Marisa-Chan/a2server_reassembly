@@ -32,7 +32,7 @@ CStringArray g_MissionSubjs; //660ea8
 // 587E19
 MapStuff::MapStuff(MapAlm* alm, UnitList* unit_list) {
     this->scratch_cell_state.Null();
-    this->field_0x58d88.Null();
+    this->gap_0x58d88.Null();
     this->InitFromUnitList(unit_list);
     this->InitFromAlm(alm);
 }
@@ -43,7 +43,7 @@ MapStuff::~MapStuff() {
 
 // 58E891
 void MapStuff::InitFromUnitList(UnitList* unit_list) {
-    this->field69_0xa456c = unit_list;
+    this->all_units = unit_list;
     this->scan_presence_grid.unit_list = unit_list;
     this->scan_presence_grid.num_detected = unit_list->unit_list.GetCount();
     this->scan_presence_grid.scan_delta = unit_list->unit_list.GetCount();
@@ -59,16 +59,16 @@ void MapStuff::InitFromUnitList(UnitList* unit_list) {
 
     this->cell_states.InitHashTable(100, 1);
 
-    this->field48_0x58e88[0] = 0;   this->field49_0x58e90[0] = -1;
-    this->field48_0x58e88[1] = 1;   this->field49_0x58e90[1] = -1;
-    this->field48_0x58e88[2] = 1;   this->field49_0x58e90[2] = 0;
-    this->field48_0x58e88[3] = 1;   this->field49_0x58e90[3] = 1;
-    this->field48_0x58e88[4] = 0;   this->field49_0x58e90[4] = 1;
-    this->field48_0x58e88[5] = -1;  this->field49_0x58e90[5] = 1;
-    this->field48_0x58e88[6] = -1;  this->field49_0x58e90[6] = 0;
-    this->field48_0x58e88[7] = -1;  this->field49_0x58e90[7] = -1;
+    this->neighbor_dx[0] = 0;   this->neighbor_dy[0] = -1;
+    this->neighbor_dx[1] = 1;   this->neighbor_dy[1] = -1;
+    this->neighbor_dx[2] = 1;   this->neighbor_dy[2] = 0;
+    this->neighbor_dx[3] = 1;   this->neighbor_dy[3] = 1;
+    this->neighbor_dx[4] = 0;   this->neighbor_dy[4] = 1;
+    this->neighbor_dx[5] = -1;  this->neighbor_dy[5] = 1;
+    this->neighbor_dx[6] = -1;  this->neighbor_dy[6] = 0;
+    this->neighbor_dx[7] = -1;  this->neighbor_dy[7] = -1;
     for (int32_t i = 0; i < 8; i++) {
-        this->field50_0x58e98[i] = PosYX(this->field48_0x58e88[i], this->field49_0x58e90[i]);
+        this->neighbor_yx[i] = PosYX(this->neighbor_dx[i], this->neighbor_dy[i]);
     }
 
     // Direction/terrain cost lookup table; purpose not fully reversed.
@@ -80,19 +80,19 @@ void MapStuff::InitFromUnitList(UnitList* unit_list) {
     };
     for (int32_t row = 0; row < 4; row++) {
         for (int32_t col = 0; col < 14; col++) {
-            this->field26_0x540a6[row][col] = direction_cost_table[row][col];
+            this->direction_costs[row][col] = direction_cost_table[row][col];
         }
     }
 
-    this->field28_0x54126[0] = PosYX(2, 1);
-    this->field28_0x54126[1] = PosYX(5, 1);
-    this->field28_0x54126[2] = PosYX(4, 1);
-    this->field28_0x54126[3] = PosYX(7, 1);
-    this->field28_0x54126[4] = PosYX(6, 1);
-    this->field28_0x54126[5] = PosYX(5, 6);
-    this->field28_0x54126[6] = PosYX(3, 7);
-    this->field28_0x54126[7] = PosYX(8, 6);
-    this->field28_0x54126[12] = PosYX(10, 1);
+    this->direction_pairs[0] = PosYX(2, 1);
+    this->direction_pairs[1] = PosYX(5, 1);
+    this->direction_pairs[2] = PosYX(4, 1);
+    this->direction_pairs[3] = PosYX(7, 1);
+    this->direction_pairs[4] = PosYX(6, 1);
+    this->direction_pairs[5] = PosYX(5, 6);
+    this->direction_pairs[6] = PosYX(3, 7);
+    this->direction_pairs[7] = PosYX(8, 6);
+    this->direction_pairs[12] = PosYX(10, 1);
 
     File2 f;
     f.Open("World\\Data\\map.reg", 0, nullptr);
@@ -127,7 +127,7 @@ void MapStuff::InitFromUnitList(UnitList* unit_list) {
     this->line_walk_delta[10][0] = -1; this->line_walk_delta[10][1] = 0;
     this->line_walk_delta[11][0] = 0;  this->line_walk_delta[11][1] = -1;
 
-    memset(this->field31_0x54170, 0, sizeof(this->field31_0x54170));
+    memset(this->gap_0x54170, 0, sizeof(this->gap_0x54170));
 
     this->static_scan_ahead = reg.GetInt("Path Finding", "StaticScanAhead", 5);
     this->dynamic_scan_ahead = reg.GetInt("Path Finding", "DynamicScanAhead", 3);
@@ -244,10 +244,10 @@ uint8_t MapStuff::CalcTerrainWalkCost(uint16_t terrain_code, uint8_t* out_walk_c
         uint32_t weight_idx = terrain_code & 0xF;
 
         if (weight_idx < 0xE) {
-            PosYX dir_pair(this->field28_0x54126[dir_idx]);
+            PosYX dir_pair(this->direction_pairs[dir_idx]);
             uint8_t idx_a = dir_pair.x;
             uint8_t idx_b = dir_pair.y;
-            uint8_t weight = this->field26_0x540a6[sub_idx][weight_idx];
+            uint8_t weight = this->direction_costs[sub_idx][weight_idx];
 
             result = (weight > 2) ? idx_a : idx_b;
 
@@ -329,7 +329,7 @@ uint8_t MapStuff::GetFacingFor(Unit* unit, PosYX yx) {
 // 58FE6D
 int MapStuff::FacesTargetInRange(Unit* unit, Unit* target, uint8_t max_range) {
     unit->position->IsAtCellCenter();
-    uint8_t current_facing = unit->eye->field0_0x0;
+    uint8_t current_facing = unit->eye->facing;
     uint8_t computed_facing = this->GetFacingTo(unit, target);
     if (current_facing != computed_facing) {
         return 0;
@@ -343,7 +343,7 @@ int MapStuff::FacesTargetInRange(Unit* unit, Unit* target, uint8_t max_range) {
 // 58FEDA
 int MapStuff::FacesPosInRange(Unit* unit, PosYX yx, uint8_t max_range) {
     unit->position->IsAtCellCenter();
-    uint8_t current_facing = unit->eye->field0_0x0;
+    uint8_t current_facing = unit->eye->facing;
     uint8_t computed_facing = this->GetFacingFor(unit, yx);
     if (current_facing != computed_facing) {
         return 0;
@@ -374,23 +374,23 @@ void MapStuff::MoveStepTowardPos(Unit* unit, PosYX yx, uint8_t max_range) {
 
     unit->eye->counter++;
 
-    if (unit->eye->field114_0x74 != yx || unit->eye->field8_0x9 > this->static_refresh_rate) {
+    if (unit->eye->static_path_cell != yx || unit->eye->static_age > this->static_refresh_rate) {
         this->FindPath(unit, yx.x, yx.y, 1, nullptr);
-        unit->eye->field136_0x90 = 0;
-        unit->eye->field114_0x74 = yx;
+        unit->eye->target_reached = 0;
+        unit->eye->static_path_cell = yx;
 
         if (!unit->list1.IsEmpty()) {
-            unit->eye->field115_0x76 = unit->list1.GetTail();
+            unit->eye->move_target = unit->list1.GetTail();
         } else {
-            unit->eye->field115_0x76 = unit->position->GetYX();
-            unit->eye->field139_0x98 = 1;
+            unit->eye->move_target = unit->position->GetYX();
+            unit->eye->order_arrived = 1;
         }
-        unit->eye->field8_0x9 = 0;
+        unit->eye->static_age = 0;
         unit->list2.RemoveAll();
     }
 
-    if (unit->position->GetYX() == unit->eye->field115_0x76) {
-        unit->eye->field136_0x90 = 1;
+    if (unit->position->GetYX() == unit->eye->move_target) {
+        unit->eye->target_reached = 1;
         return;
     }
 
@@ -400,12 +400,12 @@ void MapStuff::MoveStepTowardPos(Unit* unit, PosYX yx, uint8_t max_range) {
         ok = 0;
         if (next_yx != 0) {
             if (this->IsAreaClear(unit, next_yx, 0) == 0) {
-                ok = this->field41_0x58d80->CanClaimMoveCell(unit, next_yx);
+                ok = this->world->CanClaimMoveCell(unit, next_yx);
             }
         }
         if (ok) {
             uint8_t facing = this->GetFacingFor(unit, next_yx);
-            if (unit->eye->field0_0x0 != facing) {
+            if (unit->eye->facing != facing) {
                 this->FacePosition(unit, next_yx);
                 unit->eye2->cast_action = 10;
             } else {
@@ -413,7 +413,7 @@ void MapStuff::MoveStepTowardPos(Unit* unit, PosYX yx, uint8_t max_range) {
             }
         } else {
             this->PickNextPathTarget(unit, nullptr);
-            unit->eye->field8_0x9++;
+            unit->eye->static_age++;
             unit->eye->counter = 0;
         }
     }
@@ -441,54 +441,54 @@ void MapStuff::MoveStepTowardUnit(Unit* unit, Unit* target, uint8_t max_range) {
     // Out of range — pursue target
     unit->eye->counter++;
 
-    if (unit->eye->field120_0x7c != target) {
-        unit->eye->field8_0x9 = 0xFF;
+    if (unit->eye->target_unit != target) {
+        unit->eye->static_age = 0xFF;
         unit->list1.RemoveAll();
-        unit->eye->field130_0x8a = 0xFF;
-        unit->eye->field115_0x76 = target_yx;
-        unit->eye->field132_0x8c = target_yx;
+        unit->eye->static_path_len = 0xFF;
+        unit->eye->move_target = target_yx;
+        unit->eye->dynamic_path_cell = target_yx;
     }
 
-    if (unit->eye->field8_0x9 > unit->list1.GetCount() / 3 + 1) {
-        if (unit->eye->field130_0x8a > this->static_isnt_needed) {
+    if (unit->eye->static_age > unit->list1.GetCount() / 3 + 1) {
+        if (unit->eye->static_path_len > this->static_isnt_needed) {
             this->FindPath(unit, target_yx.x, target_yx.y, 1, target);
         } else {
             unit->list1.RemoveAll();
-            unit->list1.AddTail(unit->eye->field115_0x76);
+            unit->list1.AddTail(unit->eye->move_target);
         }
 
-        unit->eye->field130_0x8a = unit->list1.GetCount();
-        unit->eye->field114_0x74 = target_yx;
+        unit->eye->static_path_len = unit->list1.GetCount();
+        unit->eye->static_path_cell = target_yx;
 
         if (!unit->list1.IsEmpty()) {
-            unit->eye->field115_0x76 = unit->list1.GetTail();
-            unit->eye->field132_0x8c = target_yx;
+            unit->eye->move_target = unit->list1.GetTail();
+            unit->eye->dynamic_path_cell = target_yx;
         } else {
-            unit->eye->field115_0x76 = unit->position->GetYX();
-            unit->eye->field132_0x8c = target_yx;
-            unit->eye->field139_0x98 = 1;
+            unit->eye->move_target = unit->position->GetYX();
+            unit->eye->dynamic_path_cell = target_yx;
+            unit->eye->order_arrived = 1;
         }
 
-        unit->eye->field120_0x7c = target;
-        unit->eye->field8_0x9 = 0;
+        unit->eye->target_unit = target;
+        unit->eye->static_age = 0;
 
-        if (unit->eye->field130_0x8a > this->static_isnt_needed) {
+        if (unit->eye->static_path_len > this->static_isnt_needed) {
             unit->list2.RemoveAll();
         }
     }
 
-    if (unit->position->GetYX() == unit->eye->field115_0x76 && unit->eye->field132_0x8c == target_yx) {
-        unit->eye->field8_0x9++;
-        unit->eye->field120_0x7c = nullptr;
+    if (unit->position->GetYX() == unit->eye->move_target && unit->eye->dynamic_path_cell == target_yx) {
+        unit->eye->static_age++;
+        unit->eye->target_unit = nullptr;
         return;
     }
 
     if (unit->list2.IsEmpty() || unit->eye->counter > this->dynamic_refresh_rate) {
-        if (unit->eye->field0_0x0 == unit->eye->field1_0x1) {
+        if (unit->eye->facing == unit->eye->target_facing) {
             this->PickNextPathTarget(unit, target);
-            unit->eye->field137_0x94 = target_yx;
-            unit->eye->field138_0x96 = unit->position->GetYX();
-            unit->eye->field8_0x9++;
+            unit->eye->gap_0x94 = target_yx;
+            unit->eye->gap_0x96 = unit->position->GetYX();
+            unit->eye->static_age++;
             unit->eye->counter = 0;
         }
     }
@@ -514,12 +514,12 @@ void MapStuff::SyncEyeState(Unit* unit) {
     uint16_t old_y = unit->position->GetYy();
 
     UnitEye* eye = unit->eye;
-    eye->field156_0xac += 1;
+    eye->move_step_index += 1;
 
-    uint16_t new_x = old_x + eye->field160_0xb0;
-    uint16_t new_y = old_y + eye->field161_0xb1;
+    uint16_t new_x = old_x + eye->move_dx;
+    uint16_t new_y = old_y + eye->move_dy;
 
-    int16_t mode = eye->field158_0xae;
+    int16_t mode = eye->move_dir;
     if ((mode == 1 || mode == 5) && (new_x & 0xFF) == 0 && (new_y & 0xFF) == 0) {
         new_x -= 1;
     }
@@ -535,7 +535,7 @@ void MapStuff::SyncEyeState(Unit* unit) {
         this->MoveUnitBlockers(unit, old_yx, 0);
     }
 
-    if (eye->field154_0xaa <= eye->field156_0xac) {
+    if (eye->move_step_total <= eye->move_step_index) {
         // Inline sub_58FD16: reset subcell position to cell center.
         unit->position->x_subcell = 0x80;
         unit->position->y_subcell = 0x80;
@@ -548,16 +548,16 @@ void MapStuff::UpdateEyeMoveTime(Unit* unit) {
     this->SyncEyeState(unit);
 
     if (prev_yx != unit->position->CompatGetYX()) {
-        unit->eye->field113_0x72 = this->GetTileMoveTime(unit, unit->position->GetX(), unit->position->GetY());
+        unit->eye->tile_move_time = this->GetTileMoveTime(unit, unit->position->GetX(), unit->position->GetY());
     }
 
     if (!unit->position->IsAtCellCenter()) {
         return;
     }
 
-    unit->eye->field152_0xa8 = 0;
-    unit->eye->field154_0xaa = 0;
-    unit->eye->field156_0xac = 0;
+    unit->eye->move_speed = 0;
+    unit->eye->move_step_total = 0;
+    unit->eye->move_step_index = 0;
 
     this->MoveUnitBlockers(unit, 0, 2);
     this->MoveUnitBlockers(unit, 0, 1);
@@ -582,57 +582,57 @@ void MapStuff::AdvancePathList2(Unit* unit) {
     unit->eye->position1 = unit->list2.GetHead();
 
     uint16_t fresh_yx = unit->position->CompatGetYX();
-    unit->eye->field111_0x70 = fresh_yx;
-    unit->eye->field140_0x9c = 0;
+    unit->eye->reserved_cell = fresh_yx;
+    unit->eye->gap_0x9c = 0;
 
     this->MoveUnitBlockers(unit, 0, 2);
     this->MoveUnitBlockers(unit, unit->eye->position1, 0);
 
-    unit->eye->field1_0x1 = this->ClassifyDirection8(unit, unit->eye->position1);
+    unit->eye->target_facing = this->ClassifyDirection8(unit, unit->eye->position1);
 
-    if (unit->eye->field0_0x0 == unit->eye->field1_0x1) {
-        this->CalcMoveStep(unit, unit->position->CompatGetYX(), unit->eye->field0_0x0);
-        unit->eye->field156_0xac = 0;
+    if (unit->eye->facing == unit->eye->target_facing) {
+        this->CalcMoveStep(unit, unit->position->CompatGetYX(), unit->eye->facing);
+        unit->eye->move_step_index = 0;
         this->SyncEyeState(unit);
     } else {
-        this->SetFacing(unit, unit->eye->field1_0x1);
+        this->SetFacing(unit, unit->eye->target_facing);
     }
 }
 
 // 58FD2F
 void MapStuff::StepRotateToTarget(Unit* unit) {
-    uint8_t orig_facing = unit->eye->field0_0x0;
+    uint8_t orig_facing = unit->eye->facing;
 
-    uint8_t diff = abs(unit->eye->field0_0x0 - unit->eye->field1_0x1);
+    uint8_t diff = abs(unit->eye->facing - unit->eye->target_facing);
     if (diff > 0x80) {
         diff = 0x100 - diff;
     }
 
     if (diff < unit->eye->rotation_speed) {
-        unit->eye->field0_0x0 = unit->eye->field1_0x1;
+        unit->eye->facing = unit->eye->target_facing;
         return;
     }
 
-    if (((orig_facing + diff) & 0xFF) == unit->eye->field1_0x1) {
-        unit->eye->field0_0x0 = unit->eye->field0_0x0 + unit->eye->rotation_speed;
-    } else if (((orig_facing - diff) & 0xFF) == unit->eye->field1_0x1) {
-        unit->eye->field0_0x0 = unit->eye->field0_0x0 - unit->eye->rotation_speed;
+    if (((orig_facing + diff) & 0xFF) == unit->eye->target_facing) {
+        unit->eye->facing = unit->eye->facing + unit->eye->rotation_speed;
+    } else if (((orig_facing - diff) & 0xFF) == unit->eye->target_facing) {
+        unit->eye->facing = unit->eye->facing - unit->eye->rotation_speed;
     }
 }
 
 // 590F94
 void MapStuff::SetFacing(Unit* unit, uint8_t facing) {
-    unit->eye->field1_0x1 = facing;
+    unit->eye->target_facing = facing;
 
-    uint8_t diff = abs(unit->eye->field0_0x0 - unit->eye->field1_0x1);
+    uint8_t diff = abs(unit->eye->facing - unit->eye->target_facing);
 
-    if (unit->eye->field144_0xa0 == 0) {
-        unit->eye->field141_0x9d = 0;
+    if (unit->eye->turning == 0) {
+        unit->eye->turn_tick = 0;
     }
 
-    if (unit->eye->field144_0xa0 == 0 && (diff < 0x21 || (0x100 - diff) < 0x21)) {
-        unit->eye->field0_0x0 = unit->eye->field1_0x1;
-        unit->eye->field148_0xa4 = 1;
+    if (unit->eye->turning == 0 && (diff < 0x21 || (0x100 - diff) < 0x21)) {
+        unit->eye->facing = unit->eye->target_facing;
+        unit->eye->turn_steps = 1;
     } else {
         this->StepRotateToTarget(unit);
 
@@ -640,18 +640,18 @@ void MapStuff::SetFacing(Unit* unit, uint8_t facing) {
             diff = 0x100 - diff;
         }
 
-        unit->eye->field148_0xa4 = diff / unit->eye->rotation_speed;
+        unit->eye->turn_steps = diff / unit->eye->rotation_speed;
 
-        if (unit->eye->field148_0xa4 * unit->eye->rotation_speed != diff) {
-            unit->eye->field148_0xa4 += 1;
+        if (unit->eye->turn_steps * unit->eye->rotation_speed != diff) {
+            unit->eye->turn_steps += 1;
         }
     }
 
-    unit->eye->field144_0xa0 = 1;
-    unit->eye->field141_0x9d += 1;
+    unit->eye->turning = 1;
+    unit->eye->turn_tick += 1;
 
-    if (unit->eye->field0_0x0 == unit->eye->field1_0x1) {
-        unit->eye->field144_0xa0 = 0;
+    if (unit->eye->facing == unit->eye->target_facing) {
+        unit->eye->turning = 0;
     }
 }
 
@@ -670,7 +670,7 @@ void MapStuff::PickNextPathTarget(Unit* unit, Unit* target) {
 
     PosYX target_yx;
     if (list1_count <= this->static_isnt_needed) {
-        target_yx = unit->eye->field115_0x76;
+        target_yx = unit->eye->move_target;
         kind = 1;
     } else if (distance > this->dynamic_by_static_lookup) {
         target_yx = next_yx;
@@ -686,7 +686,7 @@ void MapStuff::PickNextPathTarget(Unit* unit, Unit* target) {
     this->FindPath(unit, target_yx.x, target_yx.y, 0, target);
 
     if (unit->list2.GetCount() == 0 && kind == 1) {
-        unit->eye->field139_0x98 = 1;
+        unit->eye->order_arrived = 1;
     }
 
     if (list1_count != 0 && distance <= this->dynamic_by_static_lookup) {
@@ -749,11 +749,11 @@ int MapStuff::ApplyTerrainMod(uint16_t yx, void* src) {
 // 5964D7
 void MapStuff::GatherUnitsNear(uint16_t yx, uint8_t range, Player* owner, UnitList* out_list) {
     out_list->unit_list.RemoveAll();
-    if (this->field69_0xa456c == nullptr) {
+    if (this->all_units == nullptr) {
         return;
     }
 
-    CList<Unit*>& list = this->field69_0xa456c->unit_list;
+    CList<Unit*>& list = this->all_units->unit_list;
 
     POSITION it = list.GetHeadPosition();
     while (it != nullptr) {
@@ -844,8 +844,8 @@ int MapStuff::IsAreaClear(Unit* unit, PosYX yx, int32_t flag) {
         for (int32_t dy = 0; dy < size; dy++) {
             PosYX cell(yx.x + dx, yx.y + dy);
             bool blocked = (flag != 0)
-                ? this->ObstacleAt(cell).TestBits(unit->eye->field5_0x5)
-                : this->Obstacle2At(cell).TestBits(unit->eye->field5_0x5);
+                ? this->ObstacleAt(cell).TestBits(unit->eye->path_mask)
+                : this->Obstacle2At(cell).TestBits(unit->eye->path_mask);
             if (blocked) {
                 return 0;
             }
@@ -866,7 +866,7 @@ int32_t MapStuff::CanOccupyCell(Unit* unit, uint8_t x, uint8_t y) {
         if (this->cell_states.Lookup(yx, cell)) {
             if (cell.spell_id != 0) {
                 if (cell.spell_id == spell::teleport) {
-                    unit->eye2->field81_0xb0 = PosYX{cell.teleport_x, cell.teleport_y}.val;
+                    unit->eye2->teleport_pos = PosYX{cell.teleport_x, cell.teleport_y}.val;
                 } else {
                     // WAT: original code guards this call with a stub that always returns true here,
                     // so the else branch (SrvStru1::MakeAreaSpellEffect) is unreachable.
@@ -923,14 +923,14 @@ int MapStuff::PlaceUnit(Unit* unit) {
     uint8_t x = unit->position->GetX();
     uint8_t y = unit->position->GetY();
 
-    unit->eye->field113_0x72 = this->GetTileMoveTime(unit, x, y);
-    unit->eye->field122_0x82 = x;
-    unit->eye->field123_0x83 = y;
-    unit->eye->field124_0x84 = unit->position->GetXx();
-    unit->eye->field125_0x85 = unit->position->GetYy();
+    unit->eye->tile_move_time = this->GetTileMoveTime(unit, x, y);
+    unit->eye->place_x = x;
+    unit->eye->place_y = y;
+    unit->eye->place_x_sub = unit->position->GetXx();
+    unit->eye->place_y_sub = unit->position->GetYy();
 
     if (!this->CanPlaceUnit(unit)) {
-        if (unit->eye->field121_0x80.val != unit->position->CompatGetYX()) {
+        if (unit->eye->guard_cell.val != unit->position->CompatGetYX()) {
             // WAT: Original code calls an empty no-op stub function here.
         }
     }
@@ -1129,11 +1129,11 @@ void MapStuff::MoveUnitBlockers(Unit* unit, PosYX yx, uint8_t t) { //5969c6
     }
 
     if (t == 0) {
-        unit->eye->field121_0x80 = yx;
+        unit->eye->guard_cell = yx;
     } else if (t == 1) {
-        unit->eye->field121_0x80 = unit->position->GetYX();
+        unit->eye->guard_cell = unit->position->GetYX();
     } else if (t == 2) {
-        unit->eye->field121_0x80 = PosYX(0, 0);
+        unit->eye->guard_cell = PosYX(0, 0);
     }
 }
 
@@ -1149,10 +1149,10 @@ ScanPresenceGrid::ScanPresenceGrid() {
 void ScanPresenceGrid::RegisterAreaEffect(AreaEffect* ae) {
     int32_t x_sec = (ae->position->GetX() >> 3) + 1;
     int32_t y_sec = (ae->position->GetY() >> 3) + 1;
-    ae->field4_0x42 = (uint16_t)this->sector_grid[x_sec + 1][y_sec + 1];
-    ae->field4_0x42 |= (uint16_t)this->sector_grid[x_sec + 1][y_sec - 1];
-    ae->field4_0x42 |= (uint16_t)this->sector_grid[x_sec - 1][y_sec + 1];
-    ae->field4_0x42 |= (uint16_t)this->sector_grid[x_sec - 1][y_sec - 1];
+    ae->seen_by_mask = (uint16_t)this->sector_grid[x_sec + 1][y_sec + 1];
+    ae->seen_by_mask |= (uint16_t)this->sector_grid[x_sec + 1][y_sec - 1];
+    ae->seen_by_mask |= (uint16_t)this->sector_grid[x_sec - 1][y_sec + 1];
+    ae->seen_by_mask |= (uint16_t)this->sector_grid[x_sec - 1][y_sec - 1];
 }
 
 // 5957E2
@@ -1256,8 +1256,8 @@ void ScanPresenceGrid::RebuildPresenceGrid() {
 
 // 599FF0
 FieldBlock54190::FieldBlock54190() {
-    this->field_0x0 = 0;
-    this->field_0x4 = 0;
+    this->gap_0x0 = 0;
+    this->gap_0x4 = 0;
     this->data[1000] = 2;
 }
 
@@ -1267,10 +1267,10 @@ uint8_t unk_70B474[8] = {};
 
 // 5A3180
 FieldBlock5859c::FieldBlock5859c() {
-    this->field_0x0 = unk_70B46C;
-    this->field_0x4 = unk_70B470;
-    this->field_0x8 = unk_70B474;
-    this->field_0xc = 0;
+    this->gap_0x0 = unk_70B46C;
+    this->gap_0x4 = unk_70B470;
+    this->gap_0x8 = unk_70B474;
+    this->gap_0xc = 0;
 }
 
 int CellState::IsEmpty() const { //58bef6
@@ -1312,26 +1312,26 @@ void CellState::Null() { //58a3da
 void CellState::RelinkPointers() {
     void* remapped;
 
-    if (this->small_unit != nullptr && g_Server->field23_0xdc.Lookup(this->small_unit, remapped)) {
+    if (this->small_unit != nullptr && g_Server->saved_ptr_map.Lookup(this->small_unit, remapped)) {
         this->small_unit = (Unit*)remapped;
     }
-    if (this->large_unit != nullptr && g_Server->field23_0xdc.Lookup(this->large_unit, remapped)) {
+    if (this->large_unit != nullptr && g_Server->saved_ptr_map.Lookup(this->large_unit, remapped)) {
         this->large_unit = (Unit*)remapped;
     }
-    if (this->building != nullptr && g_Server->field23_0xdc.Lookup(this->building, remapped)) {
+    if (this->building != nullptr && g_Server->saved_ptr_map.Lookup(this->building, remapped)) {
         this->building = (Building*)remapped;
     }
-    if (this->sack != nullptr && g_Server->field23_0xdc.Lookup(this->sack, remapped)) {
+    if (this->sack != nullptr && g_Server->saved_ptr_map.Lookup(this->sack, remapped)) {
         this->sack = (Sack*)remapped;
     }
-    if (this->static_blocker != nullptr && g_Server->field23_0xdc.Lookup(this->static_blocker, remapped)) {
+    if (this->static_blocker != nullptr && g_Server->saved_ptr_map.Lookup(this->static_blocker, remapped)) {
         this->static_blocker = (Unit*)remapped;
     }
-    if (this->dynamic_blocker != nullptr && g_Server->field23_0xdc.Lookup(this->dynamic_blocker, remapped)) {
+    if (this->dynamic_blocker != nullptr && g_Server->saved_ptr_map.Lookup(this->dynamic_blocker, remapped)) {
         this->dynamic_blocker = (Unit*)remapped;
     }
     for (int32_t i = 0; i < 6; i++) {
-        if (this->area_effects[i] != nullptr && g_Server->field23_0xdc.Lookup(this->area_effects[i], remapped)) {
+        if (this->area_effects[i] != nullptr && g_Server->saved_ptr_map.Lookup(this->area_effects[i], remapped)) {
             this->area_effects[i] = (AreaEffect*)remapped;
         }
     }
@@ -1465,12 +1465,12 @@ Unit* MapStuff::GetUnitAt(PosYX yx) {
 
 // 5897AA
 UnitList* MapStuff::BuildNearbyUnitList(PosYX yx, uint8_t range) {
-    this->field9_0x5400c.unit_list.RemoveAll();
+    this->nearby_units.unit_list.RemoveAll();
 
     if (this->ObstacleAt(yx).TestBits(0x20)) {
         Unit* unit = this->GetUnitAt(yx);
         if (unit != nullptr) {
-            this->field9_0x5400c.AddTail(unit);
+            this->nearby_units.AddTail(unit);
         }
     }
 
@@ -1480,7 +1480,7 @@ UnitList* MapStuff::BuildNearbyUnitList(PosYX yx, uint8_t range) {
             if (this->obstacle_map[cell].TestBits(0x20)) {
                 Unit* unit = this->GetUnitAt(cell);
                 if (unit != nullptr) {
-                    this->field9_0x5400c.AddTail(unit);
+                    this->nearby_units.AddTail(unit);
                 }
             }
 
@@ -1488,7 +1488,7 @@ UnitList* MapStuff::BuildNearbyUnitList(PosYX yx, uint8_t range) {
             if (this->obstacle_map[cell].TestBits(0x20)) {
                 Unit* unit = this->GetUnitAt(cell);
                 if (unit != nullptr) {
-                    this->field9_0x5400c.AddTail(unit);
+                    this->nearby_units.AddTail(unit);
                 }
             }
 
@@ -1497,7 +1497,7 @@ UnitList* MapStuff::BuildNearbyUnitList(PosYX yx, uint8_t range) {
                 if (this->obstacle_map[cell].TestBits(0x20)) {
                     Unit* unit = this->GetUnitAt(cell);
                     if (unit != nullptr) {
-                        this->field9_0x5400c.AddTail(unit);
+                        this->nearby_units.AddTail(unit);
                     }
                 }
 
@@ -1505,14 +1505,14 @@ UnitList* MapStuff::BuildNearbyUnitList(PosYX yx, uint8_t range) {
                 if (this->obstacle_map[cell].TestBits(0x20)) {
                     Unit* unit = this->GetUnitAt(cell);
                     if (unit != nullptr) {
-                        this->field9_0x5400c.AddTail(unit);
+                        this->nearby_units.AddTail(unit);
                     }
                 }
             }
         }
     }
 
-    return &this->field9_0x5400c;
+    return &this->nearby_units;
 }
 
 // 58CB5A
@@ -1570,10 +1570,10 @@ int MapStuff::ClearUnitCell(Unit* unit, uint8_t x, uint8_t y) {
         this->RestoreCellState(yx);
     }
 
-    unit->eye->field126_0x86 = unit->position->GetX();
-    unit->eye->field127_0x87 = unit->position->GetY();
-    unit->eye->field128_0x88 = unit->position->GetXx();
-    unit->eye->field129_0x89 = unit->position->GetYy();
+    unit->eye->placed_x = unit->position->GetX();
+    unit->eye->placed_y = unit->position->GetY();
+    unit->eye->placed_x_sub = unit->position->GetXx();
+    unit->eye->placed_y_sub = unit->position->GetYy();
     return 1;
 }
 
@@ -1630,9 +1630,9 @@ int MapStuff::ClearCellBuilding(Building* building, PosYX yx) {
 void MapStuff::CollectSackCells(Unit* unit, int32_t flag) {
     uint16_t yx = unit->position->CompatGetYX();
     uint8_t range = unit->scan_range >> 8;
-    this->field67_0xa4510.RemoveAll();
+    this->sack_cells.RemoveAll();
     if (this->GetSackInCell(yx) != nullptr) {
-        this->field67_0xa4510.AddHead(yx);
+        this->sack_cells.AddHead(yx);
         if (flag != 0) {
             return;
         }
@@ -1642,23 +1642,23 @@ void MapStuff::CollectSackCells(Unit* unit, int32_t flag) {
         for (int8_t offset = -ring; offset <= ring; offset++) {
             uint16_t pos = yx + (ring << 8) + offset;
             if (this->IsPassableSackCell(unit, pos) != 0) {
-                this->field67_0xa4510.AddHead(pos);
+                this->sack_cells.AddHead(pos);
             }
             pos = yx - (ring << 8) + offset;
             if (this->IsPassableSackCell(unit, pos) != 0) {
-                this->field67_0xa4510.AddHead(pos);
+                this->sack_cells.AddHead(pos);
             }
             if (abs(offset) != ring) {
                 pos = yx + (offset << 8) + ring;
                 if (this->IsPassableSackCell(unit, pos) != 0) {
-                    this->field67_0xa4510.AddHead(pos);
+                    this->sack_cells.AddHead(pos);
                 }
                 pos = yx + (offset << 8) - ring;
                 if (this->IsPassableSackCell(unit, pos) != 0) {
-                    this->field67_0xa4510.AddHead(pos);
+                    this->sack_cells.AddHead(pos);
                 }
             }
-            if (flag != 0 && this->field67_0xa4510.GetCount() != 0) {
+            if (flag != 0 && this->sack_cells.GetCount() != 0) {
                 return;
             }
         }
@@ -1783,7 +1783,7 @@ void MapStuff::Serialize(CArchive& ar) {
 
         DWORD key;
         ar >> key;
-        g_Server->field23_0xdc.SetAt((void*)key, this);
+        g_Server->saved_ptr_map.SetAt((void*)key, this);
 
         POSITION pos = obstacle_diffs.GetHeadPosition();
         while (pos != nullptr) {
@@ -1957,14 +1957,14 @@ void MapStuff::TeleportUnit(Unit* unit, uint8_t x, uint8_t y) {
     this->AddUnitToMap(unit);
     unit->position->SetCoords(x, y);
     this->PlaceUnit(unit);
-    this->field41_0x58d80->ResetUnitToHold(unit);
+    this->world->ResetUnitToHold(unit);
     g_NetStru1_main.SendUnitUpdate(unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
 }
 
 // Shared by RelaxCostsMap1Queue2/RelaxCostsMap1Queue1/RelaxCostsMap2Queue2/RelaxCostsMap2Queue1.
 void MapStuff::PropagateNeighborCost(uint16_t yx, uint8_t flag_byte, int32_t cond_flag, Obstacle* obstacle_map, uint16_t& queue_tail, uint16_t* queue) {
     static const int32_t offsets[8] = { -0x101, -0xFF, 0xFF, 0x101, -0x100, -1, 1, 0x100 };
-    uint16_t source_cost = this->field3_0x30000[yx];
+    uint16_t source_cost = this->path_cost[yx];
 
     for (int32_t i = 0; i < 8; i++) {
         bool diagonal = i < 4;
@@ -1984,8 +1984,8 @@ void MapStuff::PropagateNeighborCost(uint16_t yx, uint8_t flag_byte, int32_t con
             new_cost = source_cost + (diagonal ? 3 : 2);
         }
 
-        if (new_cost < this->field3_0x30000[neighbor]) {
-            this->field3_0x30000[neighbor] = new_cost;
+        if (new_cost < this->path_cost[neighbor]) {
+            this->path_cost[neighbor] = new_cost;
             queue[queue_tail++] = neighbor;
         }
     }
@@ -1993,22 +1993,22 @@ void MapStuff::PropagateNeighborCost(uint16_t yx, uint8_t flag_byte, int32_t con
 
 // 597BB0
 void MapStuff::RelaxCostsMap1Queue2(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag) {
-    this->PropagateNeighborCost(yx, flag_byte, cond_flag, this->obstacle_map, this->field8_0x5400a, this->field_0x56584);
+    this->PropagateNeighborCost(yx, flag_byte, cond_flag, this->obstacle_map, this->dynamic_queue_count, this->path_queue_dynamic);
 }
 
 // 5983D0
 void MapStuff::RelaxCostsMap1Queue1(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag) {
-    this->PropagateNeighborCost(yx, flag_byte, cond_flag, this->obstacle_map, this->field7_0x54008, this->field_0x54584);
+    this->PropagateNeighborCost(yx, flag_byte, cond_flag, this->obstacle_map, this->static_queue_count, this->path_queue_static);
 }
 
 // 598BF0
 void MapStuff::RelaxCostsMap2Queue2(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag) {
-    this->PropagateNeighborCost(yx, flag_byte, cond_flag, this->obstacle_map2, this->field8_0x5400a, this->field_0x56584);
+    this->PropagateNeighborCost(yx, flag_byte, cond_flag, this->obstacle_map2, this->dynamic_queue_count, this->path_queue_dynamic);
 }
 
 // 599410
 void MapStuff::RelaxCostsMap2Queue1(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag) {
-    this->PropagateNeighborCost(yx, flag_byte, cond_flag, this->obstacle_map2, this->field7_0x54008, this->field_0x54584);
+    this->PropagateNeighborCost(yx, flag_byte, cond_flag, this->obstacle_map2, this->static_queue_count, this->path_queue_static);
 }
 
 // 5882AE --- pathfinding BFS from (cur_x, cur_y) to (x, y)
@@ -2027,11 +2027,11 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
     const uint16_t distance = this->ChebyshevDistanceXY(cur_x, cur_y, x, y);
 
     // Seed the BFS work queue with the unit's current tile.
-    this->field7_0x54008 = 0;
-    this->field8_0x5400a = 0;
+    this->static_queue_count = 0;
+    this->dynamic_queue_count = 0;
     this->path_queue_scratch[0] = cur_x;
     this->path_queue_scratch[0x1000] = cur_y;
-    this->field7_0x54008 = 1;
+    this->static_queue_count = 1;
 
     uint16_t ring = 0;
 
@@ -2039,8 +2039,8 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
         this->MoveUnitBlockers(unit, unit->position->CompatGetYX(), 2);
 
         if (unit_size == 1) {
-            this->field_0x54584[0] = PosYX(cur_x, cur_y);
-            uint8_t flag_byte = unit->eye->field5_0x5;
+            this->path_queue_static[0] = PosYX(cur_x, cur_y);
+            uint8_t flag_byte = unit->eye->path_mask;
             int32_t cond_flag = (unit->MovementType() == 1) ? 1 : 0;
 
             int32_t extra = distance >> 2;
@@ -2059,31 +2059,31 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
             if ((uint32_t)hi >= 0x10000) {
                 hi = 0x10000;
             }
-            memset(this->field3_0x30000 + lo, 0xFF, (hi - lo) * 2);
+            memset(this->path_cost + lo, 0xFF, (hi - lo) * 2);
             *this->GetCostGridAt(cur_x, cur_y) = 0;
 
-            while (this->field3_0x30000[dest.val] == 0xFFFF && this->field7_0x54008 != 0 && ring < ring_limit) {
-                this->field8_0x5400a = 0;
-                for (int i = 0; i < this->field7_0x54008; i++) {
-                    this->RelaxCostsMap2Queue2(unit, this->field_0x54584[i], flag_byte, cond_flag);
+            while (this->path_cost[dest.val] == 0xFFFF && this->static_queue_count != 0 && ring < ring_limit) {
+                this->dynamic_queue_count = 0;
+                for (int i = 0; i < this->static_queue_count; i++) {
+                    this->RelaxCostsMap2Queue2(unit, this->path_queue_static[i], flag_byte, cond_flag);
                 }
-                this->field7_0x54008 = 0;
-                for (int i = 0; i < this->field8_0x5400a; i++) {
-                    this->RelaxCostsMap2Queue1(unit, this->field_0x56584[i], flag_byte, cond_flag);
+                this->static_queue_count = 0;
+                for (int i = 0; i < this->dynamic_queue_count; i++) {
+                    this->RelaxCostsMap2Queue1(unit, this->path_queue_dynamic[i], flag_byte, cond_flag);
                 }
                 ring += 2;
             }
         } else {
-            memset(this->field3_0x30000, 0xFF, 0x20000);
+            memset(this->path_cost, 0xFF, 0x20000);
             *this->GetCostGridAt(cur_x, cur_y) = 0;
 
-            while (*this->GetCostGridAt(x, y) == 0xFFFF && this->field7_0x54008 != 0 && ring < distance + this->dynamic_scan_ahead) {
-                this->field8_0x5400a = 0;
-                for (int i = 0; i < this->field7_0x54008; i++) {
+            while (*this->GetCostGridAt(x, y) == 0xFFFF && this->static_queue_count != 0 && ring < distance + this->dynamic_scan_ahead) {
+                this->dynamic_queue_count = 0;
+                for (int i = 0; i < this->static_queue_count; i++) {
                     this->ExpandCostsDynamicQueue2(unit, this->path_queue_scratch[i], this->path_queue_scratch[0x1000 + i]);
                 }
-                this->field7_0x54008 = 0;
-                for (int i = 0; i < this->field8_0x5400a; i++) {
+                this->static_queue_count = 0;
+                for (int i = 0; i < this->dynamic_queue_count; i++) {
                     this->ExpandCostsDynamicQueue1(unit, this->path_queue_scratch[0x2000 + i], this->path_queue_scratch[0x3000 + i]);
                 }
                 ring += 2;
@@ -2092,8 +2092,8 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
 
         this->MoveUnitBlockers(unit, unit->position->CompatGetYX(), 1);
     } else if (unit_size == 1) {
-        this->field_0x54584[0] = PosYX(cur_x, cur_y);
-        uint8_t flag_byte = unit->eye->field5_0x5;
+        this->path_queue_static[0] = PosYX(cur_x, cur_y);
+        uint8_t flag_byte = unit->eye->path_mask;
         int32_t cond_flag = (unit->MovementType() == 1) ? 1 : 0;
 
         int32_t extra = distance >> 2;
@@ -2104,7 +2104,7 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
 
         if (unit->pOwner->is_ai == 0 && this->IsCellPassableStatic(unit, dest.val) != 0) {
             ring_limit = 1000;
-            memset(this->field3_0x30000, 0xFF, 0x20000);
+            memset(this->path_cost, 0xFF, 0x20000);
             *this->GetCostGridAt(cur_x, cur_y) = 0;
         } else {
             int32_t cur_packed = PosYX(cur_x, cur_y).val;
@@ -2117,32 +2117,32 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
             if ((uint32_t)hi >= 0x10000) {
                 hi = 0x10000;
             }
-            memset(this->field3_0x30000 + lo, 0xFF, (hi - lo) * 2);
+            memset(this->path_cost + lo, 0xFF, (hi - lo) * 2);
             *this->GetCostGridAt(cur_x, cur_y) = 0;
         }
 
-        while (this->field3_0x30000[dest.val] == 0xFFFF && this->field7_0x54008 != 0 && (int32_t)ring < ring_limit) {
-            this->field8_0x5400a = 0;
-            for (int i = 0; i < this->field7_0x54008; i++) {
-                this->RelaxCostsMap1Queue2(unit, this->field_0x54584[i], flag_byte, cond_flag);
+        while (this->path_cost[dest.val] == 0xFFFF && this->static_queue_count != 0 && (int32_t)ring < ring_limit) {
+            this->dynamic_queue_count = 0;
+            for (int i = 0; i < this->static_queue_count; i++) {
+                this->RelaxCostsMap1Queue2(unit, this->path_queue_static[i], flag_byte, cond_flag);
             }
-            this->field7_0x54008 = 0;
-            for (int i = 0; i < this->field8_0x5400a; i++) {
-                this->RelaxCostsMap1Queue1(unit, this->field_0x56584[i], flag_byte, cond_flag);
+            this->static_queue_count = 0;
+            for (int i = 0; i < this->dynamic_queue_count; i++) {
+                this->RelaxCostsMap1Queue1(unit, this->path_queue_dynamic[i], flag_byte, cond_flag);
             }
             ring += 2;
         }
     } else {
-        memset(this->field3_0x30000, 0xFF, 0x20000);
+        memset(this->path_cost, 0xFF, 0x20000);
         *this->GetCostGridAt(cur_x, cur_y) = 0;
 
-        while (*this->GetCostGridAt(x, y) == 0xFFFF && this->field7_0x54008 != 0 && ring < distance + this->static_scan_ahead) {
-            this->field8_0x5400a = 0;
-            for (int i = 0; i < this->field7_0x54008; i++) {
+        while (*this->GetCostGridAt(x, y) == 0xFFFF && this->static_queue_count != 0 && ring < distance + this->static_scan_ahead) {
+            this->dynamic_queue_count = 0;
+            for (int i = 0; i < this->static_queue_count; i++) {
                 this->ExpandCostsStaticQueue2(unit, this->path_queue_scratch[i], this->path_queue_scratch[0x1000 + i]);
             }
-            this->field7_0x54008 = 0;
-            for (int i = 0; i < this->field8_0x5400a; i++) {
+            this->static_queue_count = 0;
+            for (int i = 0; i < this->dynamic_queue_count; i++) {
                 this->ExpandCostsStaticQueue1(unit, this->path_queue_scratch[0x2000 + i], this->path_queue_scratch[0x3000 + i]);
             }
             ring += 2;
@@ -2177,7 +2177,7 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
             if (unit->group->group_sub->order == 0x12 && unit->eye2->cast_action == 5) {
                 int32_t size = unit->GetTokenSize();
                 uint8_t range = this->BoxDistance(step, dest.val, size);
-                if (this->field41_0x58d80->UnitMaxRange(unit) < range) {
+                if (this->world->UnitMaxRange(unit) < range) {
                     unit->eye2->tick16 = g_Server->tick16;
                 }
             }
@@ -2196,7 +2196,7 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
 }
 
 // Shared by ExpandCostsStaticQueue2/ExpandCostsStaticQueue1/ExpandCostsDynamicQueue1/ExpandCostsDynamicQueue2: recomputes movement cost to each
-// of the 9 neighbor cells (including self) around (x,y) in the field3_0x30000 cost grid,
+// of the 9 neighbor cells (including self) around (x,y) in the path_cost cost grid,
 // gated by the given passability check, and enqueues improved cells into the given queue.
 void MapStuff::ExpandCostGridNeighbors(Unit* unit, uint8_t x, uint8_t y, PassableCheckFn passable, uint8_t* out_x, uint8_t* out_y, uint16_t& out_count) {
     for (int8_t dx = -1; dx <= 1; dx++) {
@@ -2234,31 +2234,31 @@ void MapStuff::ExpandCostGridNeighbors(Unit* unit, uint8_t x, uint8_t y, Passabl
 }
 
 // 597290 --- expands the static-path cost grid from (x,y) using IsCellPassableStatic as the passability
-// check, queueing improved neighbors into queue2 (field_0x50008[0x2000/0x3000], field8_0x5400a).
+// check, queueing improved neighbors into queue2 (field_0x50008[0x2000/0x3000], dynamic_queue_count).
 void MapStuff::ExpandCostsStaticQueue2(Unit* unit, uint8_t x, uint8_t y) {
-    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::IsCellPassableStatic, this->path_queue_scratch + 0x2000, this->path_queue_scratch + 0x3000, this->field8_0x5400a);
+    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::IsCellPassableStatic, this->path_queue_scratch + 0x2000, this->path_queue_scratch + 0x3000, this->dynamic_queue_count);
 }
 
 // 5974B0 --- expands the static-path cost grid from (x,y) using IsCellPassableStatic as the passability
-// check, queueing improved neighbors into queue1 (field_0x50008[0/0x1000], field7_0x54008).
+// check, queueing improved neighbors into queue1 (field_0x50008[0/0x1000], static_queue_count).
 void MapStuff::ExpandCostsStaticQueue1(Unit* unit, uint8_t x, uint8_t y) {
-    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::IsCellPassableStatic, this->path_queue_scratch, this->path_queue_scratch + 0x1000, this->field7_0x54008);
+    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::IsCellPassableStatic, this->path_queue_scratch, this->path_queue_scratch + 0x1000, this->static_queue_count);
 }
 
 // 5976D0 --- expands the dynamic-path cost grid from (x,y) using IsCellPassableDynamic as the passability
-// check, queueing improved neighbors into queue2 (field_0x50008[0x2000/0x3000], field8_0x5400a).
+// check, queueing improved neighbors into queue2 (field_0x50008[0x2000/0x3000], dynamic_queue_count).
 void MapStuff::ExpandCostsDynamicQueue2(Unit* unit, uint8_t x, uint8_t y) {
-    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::IsCellPassableDynamic, this->path_queue_scratch + 0x2000, this->path_queue_scratch + 0x3000, this->field8_0x5400a);
+    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::IsCellPassableDynamic, this->path_queue_scratch + 0x2000, this->path_queue_scratch + 0x3000, this->dynamic_queue_count);
 }
 
 // 597990 --- expands the dynamic-path cost grid from (x,y) using IsCellPassableDynamic as the passability
-// check, queueing improved neighbors into queue1 (field_0x50008[0/0x1000], field7_0x54008).
+// check, queueing improved neighbors into queue1 (field_0x50008[0/0x1000], static_queue_count).
 void MapStuff::ExpandCostsDynamicQueue1(Unit* unit, uint8_t x, uint8_t y) {
-    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::IsCellPassableDynamic, this->path_queue_scratch, this->path_queue_scratch + 0x1000, this->field7_0x54008);
+    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::IsCellPassableDynamic, this->path_queue_scratch, this->path_queue_scratch + 0x1000, this->static_queue_count);
 }
 
 // Shared by BuildPathList1/BuildPathList2: walks backward from (x,y) toward (cur_x,cur_y) through the
-// field3_0x30000 cost grid, picking the cheapest neighbor at each step (its cost weighted by
+// path_cost cost grid, picking the cheapest neighbor at each step (its cost weighted by
 // walk_cost_map at the current work position), appending each visited cell to `path`. On
 // success (reached (cur_x,cur_y) within 1000 steps) drops the initial (x,y) entry from the
 // front of `path`; on failure (gave up) clears `path` entirely.
@@ -2471,7 +2471,7 @@ uint16_t MapStuff::PickAttackPosition(Unit* unit, Unit* target) {
 }
 
 // 593134 --- search outward ring by ring (up to `radius` rings) from `yx` for the cell with the
-// lowest field3_0x30000 cost-grid value. Returns 0 if none found within range.
+// lowest path_cost cost-grid value. Returns 0 if none found within range.
 int16_t MapStuff::FindCheapestCellNear(Unit* unit, int32_t zero, uint16_t yx, uint32_t radius) {
     uint16_t best_cost = 0xFFFF;
     uint16_t best_yx = 0;
@@ -2479,26 +2479,26 @@ int16_t MapStuff::FindCheapestCellNear(Unit* unit, int32_t zero, uint16_t yx, ui
     for (int32_t ring = 1; ring < (int32_t)(radius & 0xFFFF); ring++) {
         for (int32_t offset = -ring; offset < ring + 1; offset++) {
             uint16_t pos = yx + (ring << 8) + offset;
-            if (this->field3_0x30000[pos] < best_cost) {
-                best_cost = this->field3_0x30000[pos];
+            if (this->path_cost[pos] < best_cost) {
+                best_cost = this->path_cost[pos];
                 best_yx = pos;
             }
 
             pos = yx - (ring << 8) + offset;
-            if (this->field3_0x30000[pos] < best_cost) {
-                best_cost = this->field3_0x30000[pos];
+            if (this->path_cost[pos] < best_cost) {
+                best_cost = this->path_cost[pos];
                 best_yx = pos;
             }
 
             pos = yx + (offset << 8) + ring;
-            if (this->field3_0x30000[pos] < best_cost) {
-                best_cost = this->field3_0x30000[pos];
+            if (this->path_cost[pos] < best_cost) {
+                best_cost = this->path_cost[pos];
                 best_yx = pos;
             }
 
             pos = yx + (offset << 8) - ring;
-            if (this->field3_0x30000[pos] < best_cost) {
-                best_cost = this->field3_0x30000[pos];
+            if (this->path_cost[pos] < best_cost) {
+                best_cost = this->path_cost[pos];
                 best_yx = pos;
             }
         }
@@ -2572,9 +2572,9 @@ uint8_t* MapStuff::GetWalkCostMapAt(uint8_t x, uint8_t y) {
     return &this->WalkCostAt(PosYX(x, y));
 }
 
-// 59A670 --- get pointer into field3_0x30000 cost grid for (x, y)
+// 59A670 --- get pointer into path_cost cost grid for (x, y)
 uint16_t* MapStuff::GetCostGridAt(uint8_t x, uint8_t y) {
-    return &this->field3_0x30000[PosYX(x, y).val];
+    return &this->path_cost[PosYX(x, y).val];
 }
 
 // 5946BF --- get building at (x, y); callers use the result as Unit*
@@ -2615,7 +2615,7 @@ int32_t MapStuff::ChebyshevDistanceXY(uint8_t x1, uint8_t y1, uint8_t x2, uint8_
     return (std::max)(abs(x1 - x2), abs(y1 - y2));
 }
 
-// 593C9A --- Returns unit's speed, overridden by group_sub->field_0x44 if nonzero. `this` is unused.
+// 593C9A --- Returns unit's speed, overridden by group_sub->speed_override if nonzero. `this` is unused.
 int32_t MapStuff::GetEffectiveSpeed(Unit* unit) {
     uint8_t override_speed = unit->group->group_sub->speed_override;
     if (override_speed != 0) {
@@ -2651,7 +2651,7 @@ uint8_t MapStuff::GetWalkCost(uint16_t yx) {
 // 593CD5 --- Computes movement step magnitude/heading toward yx.
 int32_t MapStuff::CalcMoveStep(Unit* unit, uint16_t yx, uint8_t val) {
     uint8_t dir = (val + 0x10) >> 5;
-    uint16_t yx2 = yx + this->field50_0x58e98[dir];
+    uint16_t yx2 = yx + this->neighbor_yx[dir];
 
     int32_t speed;
     if (unit->MovementType() == 1) {
@@ -2685,32 +2685,32 @@ int32_t MapStuff::CalcMoveStep(Unit* unit, uint16_t yx, uint8_t val) {
         speed = 63;
     }
 
-    unit->eye->field152_0xa8 = (uint16_t)speed;
-    unit->eye->field158_0xae = (uint16_t)dir;
+    unit->eye->move_speed = (uint16_t)speed;
+    unit->eye->move_dir = (uint16_t)dir;
 
-    int8_t dir_dx = this->field48_0x58e88[dir];
-    int8_t dir_dy = this->field49_0x58e90[dir];
+    int8_t dir_dx = this->neighbor_dx[dir];
+    int8_t dir_dy = this->neighbor_dy[dir];
     if (dir_dx * dir_dy != 0) {
-        unit->eye->field160_0xb0 = (int8_t)((double)(speed * dir_dx) * 0.707);
-        unit->eye->field161_0xb1 = (int8_t)((double)(speed * dir_dy) * 0.707);
+        unit->eye->move_dx = (int8_t)((double)(speed * dir_dx) * 0.707);
+        unit->eye->move_dy = (int8_t)((double)(speed * dir_dy) * 0.707);
     } else {
-        unit->eye->field160_0xb0 = speed * dir_dx;
-        unit->eye->field161_0xb1 = speed * dir_dy;
+        unit->eye->move_dx = speed * dir_dx;
+        unit->eye->move_dy = speed * dir_dy;
     }
 
     int8_t abs_component;
-    if (unit->eye->field160_0xb0 == 0) {
-        abs_component = abs(unit->eye->field161_0xb1);
+    if (unit->eye->move_dx == 0) {
+        abs_component = abs(unit->eye->move_dy);
     } else {
-        abs_component = abs(unit->eye->field160_0xb0);
+        abs_component = abs(unit->eye->move_dx);
     }
     if (abs_component == 0) {
         abs_component = 1;
     }
 
-    unit->eye->field154_0xaa = (uint16_t)(256 / abs_component);
+    unit->eye->move_step_total = (uint16_t)(256 / abs_component);
     if (256 % abs_component != 0) {
-        unit->eye->field154_0xaa += 1;
+        unit->eye->move_step_total += 1;
     }
 
     return speed;
@@ -2721,7 +2721,7 @@ int32_t MapStuff::IsCellPassableStatic(Unit* unit, uint16_t yx) {
     int8_t size = unit->GetTokenSize();
     for (int32_t i = 0; i < size; i++) {
         for (int32_t j = 0; j < size; j++) {
-            if (this->ObstacleAt(PosYX(yx + PosYX(i, j).val)).TestBits(unit->eye->field5_0x5)) {
+            if (this->ObstacleAt(PosYX(yx + PosYX(i, j).val)).TestBits(unit->eye->path_mask)) {
                 return 0;
             }
         }
@@ -2734,7 +2734,7 @@ int32_t MapStuff::IsCellPassableDynamic(Unit* unit, uint16_t yx) {
     int8_t size = unit->GetTokenSize();
     for (int32_t i = 0; i < size; i++) {
         for (int32_t j = 0; j < size; j++) {
-            if (this->Obstacle2At(PosYX(yx + PosYX(i, j).val)).TestBits(unit->eye->field5_0x5)) {
+            if (this->Obstacle2At(PosYX(yx + PosYX(i, j).val)).TestBits(unit->eye->path_mask)) {
                 return 0;
             }
         }
@@ -2749,7 +2749,7 @@ int32_t MapStuff::ClassifyDirection8(Unit* unit, uint16_t yx) {
     int32_t dxx = (target.x << 8) + 0x80 - unit->position->GetXx();
     int32_t dyy = (target.y << 8) + 0x80 - unit->position->GetYy();
 
-    uint8_t dir = unit->eye->field0_0x0;
+    uint8_t dir = unit->eye->facing;
     if (dxx > 0) {
         if (dyy > 0) {
             dir = 3;
@@ -2946,16 +2946,16 @@ Scenario::Scenario(const char* fname) {
         }
 
         structure->unit_id = (uint16_t)(bld->building_id + 0x6000);
-        mwnd->vis_map_context->field_0x9d0.SetAt(structure->unit_id, structure);
+        mwnd->vis_map_context->objects.SetAt(structure->unit_id, structure);
         structure->typeId = (int16_t)bld->type_id;
         structure->x_pos = ((int16_t)bld->x << 8) + 0x80;
         structure->y_pos = ((int16_t)bld->y << 8) + 0x80;
         structure->z_pos = 0;
 
-        structure->map_player = mwnd->vis_map_context->field_0x9b8[0];
-        for (int32_t j = 1; j < mwnd->vis_map_context->field_0x9b8.GetSize(); j++) {
-            MapPlayerData* player = mwnd->vis_map_context->field_0x9b8[j];
-            if (player != nullptr && (int16_t)bld->player_id == player->field2_0x8) {
+        structure->map_player = mwnd->vis_map_context->map_players[0];
+        for (int32_t j = 1; j < mwnd->vis_map_context->map_players.GetSize(); j++) {
+            MapPlayerData* player = mwnd->vis_map_context->map_players[j];
+            if (player != nullptr && (int16_t)bld->player_id == player->token_id) {
                 structure->map_player = player;
             }
         }
@@ -2988,8 +2988,8 @@ Scenario::Scenario(const char* fname) {
             if (temp_unit->monster_info->values.GetUpperBound() > 0x36) {
                 temp_unit->server_id = (uint16_t)temp_unit->monster_info->values[0x37];
             }
-            if (mwnd->sessionMode == 2 && g_Server != nullptr && g_Server->field22_0xd8 != 2) {
-                if (g_Server->field22_0xd8 == 1) {
+            if (mwnd->sessionMode == 2 && g_Server != nullptr && g_Server->difficulty != 2) {
+                if (g_Server->difficulty == 1) {
                     temp_unit->hp_max = temp_unit->hp_max / 2.0;
                     temp_unit->hp = temp_unit->hp_max;
                 } else {
@@ -3069,17 +3069,17 @@ Scenario::Scenario(const char* fname) {
         unit->y_pos = unit_data->y;
         unit->y_pos2 = unit->y_pos;
 
-        unit->map_player = mwnd->vis_map_context->field_0x9b8[0];
-        for (int32_t j = 1; j < mwnd->vis_map_context->field_0x9b8.GetSize(); j++) {
-            MapPlayerData* player = mwnd->vis_map_context->field_0x9b8[j];
-            if (player != nullptr && (int16_t)unit_data->player_id == player->field2_0x8) {
+        unit->map_player = mwnd->vis_map_context->map_players[0];
+        for (int32_t j = 1; j < mwnd->vis_map_context->map_players.GetSize(); j++) {
+            MapPlayerData* player = mwnd->vis_map_context->map_players[j];
+            if (player != nullptr && (int16_t)unit_data->player_id == player->token_id) {
                 unit->map_player = player;
             }
         }
 
         delete temp_unit;
 
-        mwnd->vis_map_context->field_0x9d0.SetAt(unit->unit_id, unit);
+        mwnd->vis_map_context->objects.SetAt(unit->unit_id, unit);
         unit->unitFlags |= 0x80;
     }
 

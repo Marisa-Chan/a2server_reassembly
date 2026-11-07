@@ -74,13 +74,13 @@ void Diplomacy::RegisterPlayer(Player* player) {
 World::World(MapStuff* map_stuff, PlayersList* players_list) {
     this->Init();
     this->ResetMatchState();
-    std::memset(this->field57_0xc554, 0, sizeof(this->field57_0xc554));
-    this->field24_0xa50 = map_stuff;
-    this->field24_0xa50->field41_0x58d80 = this;
+    std::memset(this->gap_0xc554, 0, sizeof(this->gap_0xc554));
+    this->map_stuff = map_stuff;
+    this->map_stuff->world = this;
     this->players_list = players_list;
 
-    // Vanilla here does `this->field37_0xbbe8 = (map_stuff->GetWidth() < 120) ? 1 : 0;` but then overwrites it with 0 anyway.
-    this->field37_0xbbe8 = 0;
+    // Vanilla here does `this->skip_presence_grid = (map_stuff->GetWidth() < 120) ? 1 : 0;` but then overwrites it with 0 anyway.
+    this->skip_presence_grid = 0;
 }
 
 // 5A4D38
@@ -96,30 +96,30 @@ World::~World() {
 void World::ResetMatchState() {
     this->duration4 = 0;
     this->duration4_low = 0;
-    this->field20_0xa48 = 0;
-    this->field21_0xa49 = 0;
+    this->saved_0xa48 = 0;
+    this->saved_0xa49 = 0;
     this->counter = 0;
 
     static constexpr uint8_t bdec_init[8] = {0, 0, 75, 65, 85, 65, 95, 65};
     std::memcpy(this->waypoint_table, bdec_init, sizeof(bdec_init));
 
     this->patrol_counter = 0;
-    this->field49_0xbe04 = 0;
-    this->field50_0xbe08 = 0;
+    this->gap_0xbe04 = 0;
+    this->gap_0xbe08 = 0;
     this->mission_complete = 0;
-    this->field52_0xbe10 = 0;
+    this->saved_0xbe10 = 0;
     this->mission_fail = 0;
     this->mission_state = 0;
-    this->field65_0xc780 = 0;
-    this->field48_0xbe00 = nullptr;
-    this->field24_0xa50 = nullptr;
+    this->joined_count = 0;
+    this->patrol_unit = nullptr;
+    this->map_stuff = nullptr;
 
-    std::memset(this->field56_0xc52c, 0, sizeof(this->field56_0xc52c));
+    std::memset(this->gap_0xc52c, 0, sizeof(this->gap_0xc52c));
     std::memset(this->trigger_variables, 0, sizeof(this->trigger_variables));
     std::memset(this->references, 0, sizeof(this->references));
     std::memset(this->trigger_results, 0, sizeof(this->trigger_results));
-    std::memset(this->field32_0xa728, 0, sizeof(this->field32_0xa728));
-    std::memset(this->field39_0xbc08, 0, sizeof(this->field39_0xbc08));
+    std::memset(this->saved_0xa728, 0, sizeof(this->saved_0xa728));
+    std::memset(this->gap_0xbc08, 0, sizeof(this->gap_0xbc08));
 
     this->name[0] = '\0';
     this->players_list = nullptr;
@@ -150,8 +150,8 @@ void World::InitState() {
     this->ConstructMembers();
     this->duration4 = 0;
     this->duration4_low = 0;
-    this->field20_0xa48 = 0;
-    this->field21_0xa49 = 0;
+    this->saved_0xa48 = 0;
+    this->saved_0xa49 = 0;
     this->counter = 0;
 }
 
@@ -163,32 +163,32 @@ void World::DestroyState() {
 // (Re)initialize the world's runtime state and load AI settings from ai.reg.
 // 5A3F9B
 void World::ConstructMembers() {
-    this->field0_0x0 = 0x8000;
+    this->gap_0x0 = 0x8000;
     std::srand(static_cast<uint32_t>(std::time(nullptr)));
 
     // Reconstruct members in place. CObject-derived types provide a placement
     // new without a matching placement delete; this is expected for in-place
     // reconstruction and matches the original ASM behavior.
-    new (&this->field2_0x8) Perf();
-    new (&this->field3_0x38) Perf();
-    new (&this->field4_0x68) Perf();
-    new (&this->field5_0x98) Perf();
-    new (&this->field_0xc8) FieldBlock5859c();
-    new (&this->field26_0xa64) UnitList();
-    new (&this->field27_0xa84) UnitList();
-    new (&this->field28_0xaa4) UnitList();
-    new (&this->field29_0xac4) UnitList();
+    new (&this->perf_tick) Perf();
+    new (&this->perf_presence) Perf();
+    new (&this->perf_triggers) Perf();
+    new (&this->perf_ai) Perf();
+    new (&this->gap_0xc8) FieldBlock5859c();
+    new (&this->nearby_list) UnitList();
+    new (&this->unconscious_list) UnitList();
+    new (&this->non_targets) UnitList();
+    new (&this->targets) UnitList();
     new (&this->diplomacy) Diplomacy();
     this->action_list.RemoveAll();
     new (&this->scrape_action) Action();
 
     this->duration4 = 0;
     this->duration4_low = 0;
-    this->field20_0xa48 = 0;
-    this->field21_0xa49 = 0;
+    this->saved_0xa48 = 0;
+    this->saved_0xa49 = 0;
     this->counter = 0;
     this->relative_move_max_dist = 2;
-    this->field37_0xbbe8 = 0;
+    this->skip_presence_grid = 0;
 
     // TODO: extract [0x8b8--0xa48] into a struct?
     std::memset(this->gap_0x8b8, 0, 400);
@@ -217,13 +217,13 @@ void World::DestroyMembers() {
     // so this helper is now a no-op.
 }
 
-// Populate the attack-target list (field29_0xac4) and non-attack-target list
-// (field28_0xaa4) for `unit` by scanning all units in `pList`.
+// Populate the attack-target list (targets) and non-attack-target list
+// (non_targets) for `unit` by scanning all units in `pList`.
 // Invisible enemies that no group member can see are excluded.
 // 5A3AD6
 void World::SplitTargetLists(Unit* unit, UnitList* pList) {
-    this->field29_0xac4.unit_list.RemoveAll();
-    this->field28_0xaa4.unit_list.RemoveAll();
+    this->targets.unit_list.RemoveAll();
+    this->non_targets.unit_list.RemoveAll();
 
     CList<Unit*>* src = pList ? &pList->unit_list : nullptr;
     for (POSITION node = src ? src->GetHeadPosition() : nullptr; node != nullptr; ) {
@@ -240,7 +240,7 @@ void World::SplitTargetLists(Unit* unit, UnitList* pList) {
             bool can_see = false;
             for (POSITION gn = unit->group->unit_list.GetHeadPosition(); gn != nullptr;) {
                 Unit* gu = unit->group->unit_list.GetNext(gn);
-                int32_t range = this->field24_0xa50->GetRangeTo(u, gu);
+                int32_t range = this->map_stuff->GetRangeTo(u, gu);
                 if ((range & 0xFF) <= gu->eye2->seeInvisible) {
                     can_see = true;
                 }
@@ -252,9 +252,9 @@ void World::SplitTargetLists(Unit* unit, UnitList* pList) {
 
         // Classify: enemy -> attack list; others -> non-attack list.
         if ((this->diplomacy.diplomacy[unit->pOwner->player_id][u->pOwner->player_id] & 1) != 0) {
-            this->field29_0xac4.unit_list.AddTail(u);
+            this->targets.unit_list.AddTail(u);
         } else {
-            this->field28_0xaa4.unit_list.AddTail(u);
+            this->non_targets.unit_list.AddTail(u);
         }
     }
 }
@@ -281,7 +281,7 @@ void World::FilterByRelation(Unit* unit, UnitList* list, int32_t flag) {
             POSITION group_it = unit->group->unit_list.GetHeadPosition();
             while (group_it != nullptr) {
                 Unit* group_unit = unit->group->unit_list.GetNext(group_it);
-                int32_t range = this->field24_0xa50->GetRangeTo(other, group_unit);
+                int32_t range = this->map_stuff->GetRangeTo(other, group_unit);
                 if ((range & 0xFF) <= group_unit->eye2->seeInvisible) {
                     can_see = true;
                     break;
@@ -320,7 +320,7 @@ void World::FilterBuffTargets(Unit* unit, UnitList* list) {
             POSITION group_it = unit->group->unit_list.GetHeadPosition();
             while (group_it != nullptr) {
                 Unit* group_unit = unit->group->unit_list.GetNext(group_it);
-                int32_t range = this->field24_0xa50->GetRangeTo(other, group_unit);
+                int32_t range = this->map_stuff->GetRangeTo(other, group_unit);
                 if (range <= group_unit->eye2->seeInvisible) {
                     can_see = true;
                     break;
@@ -340,8 +340,8 @@ void World::FilterBuffTargets(Unit* unit, UnitList* list) {
 // Build a temporary UnitList of enemy units near `yx` that `caster` can see.
 // 5A3808
 UnitList* World::GetNearbyEnemies(Unit* caster, PosYX yx) {
-    uint8_t range = caster->eye->field7_0x8;
-    UnitList* list = this->field24_0xa50->BuildNearbyUnitList(yx, range);
+    uint8_t range = caster->eye->scan_radius_base;
+    UnitList* list = this->map_stuff->BuildNearbyUnitList(yx, range);
     this->FilterByRelation(caster, list, 0);
     return list;
 }
@@ -349,8 +349,8 @@ UnitList* World::GetNearbyEnemies(Unit* caster, PosYX yx) {
 // Build a temporary UnitList of allied units near `yx` that `caster` can see.
 // 5A384F
 UnitList* World::GetNearbyAllies(Unit* caster, PosYX yx) {
-    uint8_t range = caster->eye->field7_0x8;
-    UnitList* list = this->field24_0xa50->BuildNearbyUnitList(yx, range);
+    uint8_t range = caster->eye->scan_radius_base;
+    UnitList* list = this->map_stuff->BuildNearbyUnitList(yx, range);
     this->FilterByRelation(caster, list, 1);
     return list;
 }
@@ -360,7 +360,7 @@ UnitList* World::GetNearbyAllies(Unit* caster, PosYX yx) {
 int32_t World::GetAttackDecision(Unit* unit, Unit* target) {
     PosYX target_yx = target->position->CompatGetYX();
     PosYX unit_yx = unit->position->CompatGetYX();
-    uint8_t distance = this->field24_0xa50->ChebyshevDistance(unit_yx, target_yx);
+    uint8_t distance = this->map_stuff->ChebyshevDistance(unit_yx, target_yx);
 
     uint8_t target_movement = target->MovementType();
     if (target_movement == 1 && this->UnitMaxRange(target) > 1) {
@@ -381,8 +381,8 @@ int32_t World::GetAttackDecision(Unit* unit, Unit* target) {
         }
     }
 
-    uint8_t facing = this->field24_0xa50->GetFacingTo(unit, target);
-    uint8_t angle_diff = this->field24_0xa50->FacingDiff(unit->eye->field0_0x0, facing);
+    uint8_t facing = this->map_stuff->GetFacingTo(unit, target);
+    uint8_t angle_diff = this->map_stuff->FacingDiff(unit->eye->facing, facing);
     int32_t score = distance * 256 + angle_diff;
 
     if (lookup_value == 0) {
@@ -409,9 +409,9 @@ int32_t World::GetAttackDecision(Unit* unit, Unit* target) {
     return score;
 }
 
-// 5ADD64 — build a nearby-friendly-unit list from `group` into field26_0xa64.
+// 5ADD64 — build a nearby-friendly-unit list from `group` into nearby_list.
 void World::BuildAllyList(Group* group) {
-    this->field26_0xa64.unit_list.RemoveAll();
+    this->nearby_list.unit_list.RemoveAll();
 
     if (group == nullptr) {
         return;
@@ -422,7 +422,7 @@ void World::BuildAllyList(Group* group) {
         return;
     }
 
-    Visibility* visibility = &this->field24_0xa50->visibility;
+    Visibility* visibility = &this->map_stuff->visibility;
     visibility->sub_58E1C1();
     uint8_t* scratch = visibility->vis_scratch;
 
@@ -440,33 +440,33 @@ void World::BuildAllyList(Group* group) {
         }
     }
 
-    UnitList* all = this->field24_0xa50->field69_0xa456c;
+    UnitList* all = this->map_stuff->all_units;
     CList<Unit*>* src = all != nullptr ? &all->unit_list : nullptr;
     if (src != nullptr) {
         for (POSITION it = src->GetHeadPosition(); it != nullptr;) {
             Unit* u = src->GetNext(it);
             uint16_t yx = u->position->CompatGetYX();
             if (scratch[yx] != 0) {
-                this->field26_0xa64.unit_list.AddTail(u);
+                this->nearby_list.unit_list.AddTail(u);
             }
         }
     }
 
     this->PruneUnconsciousTargets();
 
-    if (this->field26_0xa64.unit_list.GetCount() == 0 && this->field27_0xa84.unit_list.GetCount() != 0) {
-        this->field26_0xa64.unit_list.RemoveAll();
-        for (POSITION it = this->field27_0xa84.unit_list.GetHeadPosition(); it != nullptr;) {
-            Unit* u = this->field27_0xa84.unit_list.GetNext(it);
-            this->field26_0xa64.unit_list.AddTail(u);
+    if (this->nearby_list.unit_list.GetCount() == 0 && this->unconscious_list.unit_list.GetCount() != 0) {
+        this->nearby_list.unit_list.RemoveAll();
+        for (POSITION it = this->unconscious_list.unit_list.GetHeadPosition(); it != nullptr;) {
+            Unit* u = this->unconscious_list.unit_list.GetNext(it);
+            this->nearby_list.unit_list.AddTail(u);
         }
-        this->field27_0xa84.unit_list.RemoveAll();
+        this->unconscious_list.unit_list.RemoveAll();
     }
 }
 
 // 5ADB16 — build a nearby-friendly-unit list from `group`, then filter by relationship to the group's first unit.
 void World::ScanNearbyUnits(Group* group) {
-    this->field26_0xa64.unit_list.RemoveAll();
+    this->nearby_list.unit_list.RemoveAll();
 
     if (group == nullptr) {
         return;
@@ -477,7 +477,7 @@ void World::ScanNearbyUnits(Group* group) {
         return;
     }
 
-    Visibility* visibility = &this->field24_0xa50->visibility;
+    Visibility* visibility = &this->map_stuff->visibility;
     visibility->sub_58E1C1();
     uint8_t* scratch = visibility->vis_scratch;
 
@@ -495,29 +495,29 @@ void World::ScanNearbyUnits(Group* group) {
         }
     }
 
-    UnitList* all = this->field24_0xa50->field69_0xa456c;
+    UnitList* all = this->map_stuff->all_units;
     CList<Unit*>* src = all != nullptr ? &all->unit_list : nullptr;
     if (src != nullptr) {
         for (POSITION src_it = src->GetHeadPosition(); src_it != nullptr;) {
             Unit* u = src->GetNext(src_it);
             uint16_t yx = u->position->CompatGetYX();
             if (scratch[yx] != 0) {
-                this->field26_0xa64.unit_list.AddTail(u);
+                this->nearby_list.unit_list.AddTail(u);
             }
         }
     }
 
     Unit* head = group->unit_list.GetHead();
-    this->FilterByRelation(head, &this->field26_0xa64, 0);
+    this->FilterByRelation(head, &this->nearby_list, 0);
     this->PruneUnconsciousTargets();
 
-    if (this->field26_0xa64.unit_list.GetCount() == 0 && this->field27_0xa84.unit_list.GetCount() != 0) {
-        this->field26_0xa64.unit_list.RemoveAll();
-        for (POSITION other_it = this->field27_0xa84.unit_list.GetHeadPosition(); other_it != nullptr;) {
-            Unit* u = this->field27_0xa84.unit_list.GetNext(other_it);
-            this->field26_0xa64.unit_list.AddTail(u);
+    if (this->nearby_list.unit_list.GetCount() == 0 && this->unconscious_list.unit_list.GetCount() != 0) {
+        this->nearby_list.unit_list.RemoveAll();
+        for (POSITION other_it = this->unconscious_list.unit_list.GetHeadPosition(); other_it != nullptr;) {
+            Unit* u = this->unconscious_list.unit_list.GetNext(other_it);
+            this->nearby_list.unit_list.AddTail(u);
         }
-        this->field27_0xa84.unit_list.RemoveAll();
+        this->unconscious_list.unit_list.RemoveAll();
     }
 }
 
@@ -538,7 +538,7 @@ void World::AiAggroBrain(Group* group) {
 
 // 5AF805
 void World::SetWithdrawThresholds(int32_t a, int32_t b, int32_t c, Player* player) {
-    UnitList* unit_list = this->field24_0xa50->field69_0xa456c;
+    UnitList* unit_list = this->map_stuff->all_units;
     if (unit_list == nullptr) {
         return;
     }
@@ -553,7 +553,7 @@ void World::SetWithdrawThresholds(int32_t a, int32_t b, int32_t c, Player* playe
             continue;
         }
 
-        uint8_t mode = unit->eye2->field39_0x4c;
+        uint8_t mode = unit->eye2->wimpy_level;
         if (mode == 0) {
             unit->eye2->withdraw = (unit->hp_max * a) / 100;
         } else if (mode == 1) {
@@ -561,14 +561,14 @@ void World::SetWithdrawThresholds(int32_t a, int32_t b, int32_t c, Player* playe
         } else if (mode == 2) {
             unit->eye2->withdraw = (unit->hp_max * c) / 100;
         } else {
-            unit->eye2->field39_0x4c = 0;
+            unit->eye2->wimpy_level = 0;
         }
     }
 }
 
 // 5AFA01
 void World::SetWimpyThresholds(int32_t a, int32_t b, int32_t c, Player* player) {
-    UnitList* unit_list = this->field24_0xa50->field69_0xa456c;
+    UnitList* unit_list = this->map_stuff->all_units;
     if (unit_list == nullptr) {
         return;
     }
@@ -583,7 +583,7 @@ void World::SetWimpyThresholds(int32_t a, int32_t b, int32_t c, Player* player) 
             continue;
         }
 
-        uint8_t mode = unit->eye2->field39_0x4c;
+        uint8_t mode = unit->eye2->wimpy_level;
         if (mode == 0) {
             unit->eye2->wimpy = (unit->hp_max * a) / 100;
         } else if (mode == 1) {
@@ -591,7 +591,7 @@ void World::SetWimpyThresholds(int32_t a, int32_t b, int32_t c, Player* player) 
         } else if (mode == 2) {
             unit->eye2->wimpy = (unit->hp_max * c) / 100;
         } else {
-            unit->eye2->field39_0x4c = 0;
+            unit->eye2->wimpy_level = 0;
         }
     }
 }
@@ -621,7 +621,7 @@ void Diplomacy::RecordHostility(Unit* attacker, Unit* target, int32_t hit_flag) 
         return;
     }
 
-    if (hit_flag == 0 || target->eye2->field77_0xac > 10 || target->hp < target->hp_max / 2 || target->some_state == 0x10) {
+    if (hit_flag == 0 || target->eye2->hits_taken > 10 || target->hp < target->hp_max / 2 || target->some_state == 0x10) {
         this->diplomacy[target_pid][attacker_pid] |= 1;
         if (!target->pOwner->is_ai) {
             g_NetStru1_main.SendVisibilityState(attacker->pOwner);
@@ -630,7 +630,7 @@ void Diplomacy::RecordHostility(Unit* attacker, Unit* target, int32_t hit_flag) 
     }
 
     if (hit_flag != 0) {
-        target->eye2->field77_0xac++;
+        target->eye2->hits_taken++;
     }
 }
 
@@ -644,10 +644,10 @@ bool World::AreAtWar(Unit* unit1, Unit* unit2) {
 // high byte = distance, low byte = rotation for unit1 to unit2.
 // 5B5C2B
 uint16_t World::PackDistFacing(Unit* unit1, Unit* unit2) {
-    uint16_t result = (uint8_t)this->field24_0xa50->GetRangeTo(unit1, unit2);
+    uint16_t result = (uint8_t)this->map_stuff->GetRangeTo(unit1, unit2);
     result = result << 8;
-    uint8_t facing = this->field24_0xa50->GetFacingTo(unit1, unit2);
-    result += this->field24_0xa50->FacingDiff(unit1->eye->field0_0x0, facing);
+    uint8_t facing = this->map_stuff->GetFacingTo(unit1, unit2);
+    result += this->map_stuff->FacingDiff(unit1->eye->facing, facing);
     return result;
 }
 
@@ -661,7 +661,7 @@ void World::CollectRayTargets(Unit* caster, Unit* target, CList<Unit*>* units, u
     this->RecordUnitHit(caster, target, 0);
     this->ScanNearbyUnits(caster->group);
 
-    if (this->field26_0xa64.unit_list.GetCount() == 0) {
+    if (this->nearby_list.unit_list.GetCount() == 0) {
         units->AddTail(target);
         return;
     }
@@ -678,8 +678,8 @@ void World::CollectRayTargets(Unit* caster, Unit* target, CList<Unit*>* units, u
     Unit* near_units[100];
     int32_t count = 0;
 
-    for (POSITION it = this->field26_0xa64.unit_list.GetHeadPosition(); it != nullptr;) {
-        Unit* unit = this->field26_0xa64.unit_list.GetNext(it);
+    for (POSITION it = this->nearby_list.unit_list.GetHeadPosition(); it != nullptr;) {
+        Unit* unit = this->nearby_list.unit_list.GetNext(it);
         uint16_t dist = this->PackDistFacing(caster, unit);
         if (dist <= max_shifted) {
             dist_arr[count] = dist;
@@ -688,8 +688,8 @@ void World::CollectRayTargets(Unit* caster, Unit* target, CList<Unit*>* units, u
         }
     }
 
-    for (POSITION it = this->field27_0xa84.unit_list.GetHeadPosition(); it != nullptr;) {
-        Unit* unit = this->field27_0xa84.unit_list.GetNext(it);
+    for (POSITION it = this->unconscious_list.unit_list.GetHeadPosition(); it != nullptr;) {
+        Unit* unit = this->unconscious_list.unit_list.GetNext(it);
         uint16_t dist = this->PackDistFacing(caster, unit);
         if (dist <= max_shifted) {
             dist_arr[count] = dist << 8;
@@ -726,7 +726,7 @@ void World::CollectRayTargets(Unit* caster, Unit* target, CList<Unit*>* units, u
 
 // 5ABB32
 uint8_t World::CanClaimMoveCell(Unit* unit, PosYX yx) {
-    Unit* unit_at_yx = this->field24_0xa50->GetUnitAt(yx);
+    Unit* unit_at_yx = this->map_stuff->GetUnitAt(yx);
 
     if (unit->GetTokenSize() != 1) {
         return 0;
@@ -734,18 +734,18 @@ uint8_t World::CanClaimMoveCell(Unit* unit, PosYX yx) {
     if (unit->pOwner->is_ai) {
         return 0;
     }
-    if (unit->eye->field121_0x80 == yx) {
+    if (unit->eye->guard_cell == yx) {
         return 0;
     }
 
     if (unit_at_yx == nullptr) {
-        UnitList* nearby_list = this->field24_0xa50->BuildNearbyUnitList(yx, 1);
+        UnitList* nearby_list = this->map_stuff->BuildNearbyUnitList(yx, 1);
         CList<Unit*>* list = nearby_list != nullptr ? &nearby_list->unit_list : nullptr;
         if (list != nullptr) {
             POSITION unit_it = list->GetHeadPosition();
             while (unit_it != nullptr) {
                 Unit* nearby_unit = list->GetNext(unit_it);
-                if (nearby_unit->eye->field111_0x70 == yx.val && nearby_unit->position->IsAtCellCenter() == 0) {
+                if (nearby_unit->eye->reserved_cell == yx.val && nearby_unit->position->IsAtCellCenter() == 0) {
                     return 2;
                 }
             }
@@ -822,7 +822,7 @@ void World::AiAttackBrain(Group* group, uint16_t target_yx) {
 // 5AECE7
 void World::AiSwarmBrain(Group* group, uint16_t target_yx) {
     this->ScanNearbyUnits(group);
-    if (this->field26_0xa64.unit_list.GetCount() == 0) {
+    if (this->nearby_list.unit_list.GetCount() == 0) {
         this->AiMoveBrain(group, target_yx);
     } else {
         this->AssignNearbyTargets(group);
@@ -871,7 +871,7 @@ uint32_t World::ComputeGroupAvgPos(Group* group) {
     unit_it = group->unit_list.GetHeadPosition();
     while (unit_it != nullptr) {
         Unit* unit = group->unit_list.GetNext(unit_it);
-        uint8_t distance = this->field24_0xa50->ChebyshevDistance(unit->position->GetYX(), position_yx);
+        uint8_t distance = this->map_stuff->ChebyshevDistance(unit->position->GetYX(), position_yx);
         if (max_distance < distance) {
             max_distance = distance;
         }
@@ -898,38 +898,38 @@ uint32_t World::ComputeGroupAvgPos(Group* group) {
 // player's groups, and log turn timing statistics when tracing is enabled.
 // 5ABD16
 void World::ProcessTick(PlayersList* players) {
-    this->field2_0x8.Begin();
-    if (this->field37_0xbbe8 == 0) {
-        this->field3_0x38.Begin();
-        this->field24_0xa50->scan_presence_grid.RebuildPresenceGrid();
-        this->field3_0x38.End();
-        this->duration1 = (int32_t)this->field3_0x38.period64;
-        this->total1 += (int32_t)this->field3_0x38.period64;
+    this->perf_tick.Begin();
+    if (this->skip_presence_grid == 0) {
+        this->perf_presence.Begin();
+        this->map_stuff->scan_presence_grid.RebuildPresenceGrid();
+        this->perf_presence.End();
+        this->duration1 = (int32_t)this->perf_presence.period64;
+        this->total1 += (int32_t)this->perf_presence.period64;
     }
 
-    this->field4_0x68.Begin();
+    this->perf_triggers.Begin();
     this->ProcessTriggers();
-    this->field4_0x68.End();
-    this->duration2 = (int32_t)this->field4_0x68.period64;
-    this->total2 += (int32_t)this->field4_0x68.period64;
+    this->perf_triggers.End();
+    this->duration2 = (int32_t)this->perf_triggers.period64;
+    this->total2 += (int32_t)this->perf_triggers.period64;
 
-    this->field5_0x98.Begin();
+    this->perf_ai.Begin();
     POSITION players_iter = players->list.GetHeadPosition();
     while (players_iter != nullptr) {
         Player* player = players->list.GetNext(players_iter);
         this->ProcessPlayerGroupAi(player);
     }
     this->ProcessVirtualCasters();
-    this->field5_0x98.End();
-    this->duration3 = (int32_t)this->field5_0x98.period64;
-    this->total3 += (int32_t)this->field5_0x98.period64;
+    this->perf_ai.End();
+    this->duration3 = (int32_t)this->perf_ai.period64;
+    this->total3 += (int32_t)this->perf_ai.period64;
 
     this->counter += 1;
-    this->field2_0x8.End();
-    this->duration4 = (int32_t)this->field2_0x8.period64;
-    this->duration4_low = (int32_t)(this->field2_0x8.period64 >> 32);
-    this->duration5 = (int32_t)this->field2_0x8.period64;
-    this->total5 += (int32_t)this->field2_0x8.period64;
+    this->perf_tick.End();
+    this->duration4 = (int32_t)this->perf_tick.period64;
+    this->duration4_low = (int32_t)(this->perf_tick.period64 >> 32);
+    this->duration5 = (int32_t)this->perf_tick.period64;
+    this->total5 += (int32_t)this->perf_tick.period64;
 
     if (g_Server->script_settings->turn_tracing != 0) {
         CString str;
@@ -1005,13 +1005,13 @@ void World::CastSelfHealOrBuff(Unit* unit) {
     }
 
     if (unit->hp != unit->hp_max) {
-        unit->eye2->field49_0x60 = 1;
+        unit->eye2->action_done = 1;
         this->BeginAutobuffCast(unit, unit, spell);
         return;
     }
 
     PosYX yx = unit->position->GetYX();
-    UnitList* list = this->field24_0xa50->BuildNearbyUnitList(yx, spell->max_range);
+    UnitList* list = this->map_stuff->BuildNearbyUnitList(yx, spell->max_range);
     this->FilterBuffTargets(unit, list);
 
     double best_ratio = 2.0;
@@ -1032,7 +1032,7 @@ void World::CastSelfHealOrBuff(Unit* unit) {
     if (best_ratio >= 1.0) {
         this->PickFallbackBuff(unit, list);
     } else {
-        unit->eye2->field49_0x60 = 1;
+        unit->eye2->action_done = 1;
         this->BeginAutobuffCast(unit, best_unit, spell);
     }
 }
@@ -1071,7 +1071,7 @@ void World::PickFallbackBuff(Unit* unit, UnitList* list) {
     if (unit->hp != unit->hp_max) {
         Spell* heal = unit->spell_book->GetSpell(spell::heal);
         if (heal != nullptr) {
-            unit->eye2->field49_0x60 = 1;
+            unit->eye2->action_done = 1;
             this->BeginAutobuffCast(unit, unit, heal);
             return;
         }
@@ -1080,7 +1080,7 @@ void World::PickFallbackBuff(Unit* unit, UnitList* list) {
     // Shield self, unless already shielded.
     Spell* shield = unit->spell_book->GetSpell(spell::shield);
     if (shield != nullptr && (unit->enchantments & (1 << shield->spell_id)) == 0) {
-        unit->eye2->field49_0x60 = 1;
+        unit->eye2->action_done = 1;
         this->BeginAutobuffCast(unit, unit, shield);
         return;
     }
@@ -1104,7 +1104,7 @@ void World::PickFallbackBuff(Unit* unit, UnitList* list) {
     if (target->hp != target->hp_max) {
         Spell* heal = unit->spell_book->GetSpell(spell::heal);
         if (heal != nullptr) {
-            unit->eye2->field49_0x60 = 1;
+            unit->eye2->action_done = 1;
             this->BeginAutobuffCast(unit, target, heal);
             return;
         }
@@ -1133,7 +1133,7 @@ void World::PickFallbackBuff(Unit* unit, UnitList* list) {
         return;
     }
 
-    unit->eye2->field49_0x60 = 1;
+    unit->eye2->action_done = 1;
     this->BeginAutobuffCast(unit, target, buff);
 }
 
@@ -1183,9 +1183,9 @@ void World::CastKnownSpell(Unit* caster, Unit* target, int32_t spell_id) {
             break;
 
         case spell::acid_stream: {
-            uint8_t facing = this->field24_0xa50->GetFacingTo(caster, target);
-            uint8_t new_x = caster->position->GetX() + this->field24_0xa50->field48_0x58e88[facing >> 5];
-            uint8_t new_y = caster->position->GetY() + this->field24_0xa50->field49_0x58e90[facing >> 5];
+            uint8_t facing = this->map_stuff->GetFacingTo(caster, target);
+            uint8_t new_x = caster->position->GetX() + this->map_stuff->neighbor_dx[facing >> 5];
+            uint8_t new_y = caster->position->GetY() + this->map_stuff->neighbor_dy[facing >> 5];
             uint16_t pos_yx = PosYX(new_x, new_y);
             this->BeginPositionCast(caster, pos_yx, spell);
             break;
@@ -1194,13 +1194,13 @@ void World::CastKnownSpell(Unit* caster, Unit* target, int32_t spell_id) {
         case spell::teleport: {
             uint16_t target_yx = target->position->CompatGetYX();
             uint16_t caster_yx = caster->position->CompatGetYX();
-            uint8_t distance = this->field24_0xa50->ChebyshevDistance(caster_yx, target_yx);
+            uint8_t distance = this->map_stuff->ChebyshevDistance(caster_yx, target_yx);
             if (distance > 2) {
                 uint16_t found_yx = 0;
                 for (uint8_t dy = 0; dy <= 2; dy++) {
                     for (uint8_t dx = 0; dx <= 2; dx++) {
                         uint16_t check_yx = target_yx + PosYX{dx, dy}.val - PosYX{1, 1}.val;
-                        if (this->field24_0xa50->IsCellPassableDynamic(caster, check_yx) != 0) {
+                        if (this->map_stuff->IsCellPassableDynamic(caster, check_yx) != 0) {
                             found_yx = check_yx;
                             break;
                         }
@@ -1217,16 +1217,16 @@ void World::CastKnownSpell(Unit* caster, Unit* target, int32_t spell_id) {
         }
     }
 
-    caster->eye2->field49_0x60 = 1;
+    caster->eye2->action_done = 1;
 }
 
 // Pick a random unit near pos_yx that is an enemy (is_defensive=0) or ally
 // (is_defensive=1) of owner, skipping invisible units.
 // 5B61D0
 Unit* World::PickRelationUnitNear(uint16_t pos_yx, uint8_t byte_0x3c, Player* owner, int32_t is_defensive) {
-    this->field24_0xa50->GatherUnitsNear(pos_yx, byte_0x3c, owner, &this->field26_0xa64);
+    this->map_stuff->GatherUnitsNear(pos_yx, byte_0x3c, owner, &this->nearby_list);
 
-    CList<Unit*>& list = this->field26_0xa64.unit_list;
+    CList<Unit*>& list = this->nearby_list.unit_list;
     POSITION it = list.GetHeadPosition();
     while (it != nullptr) {
         POSITION current = it;
@@ -1273,7 +1273,7 @@ void World::OrderSwarmTo(Unit* unit, uint8_t x, uint8_t y) {
     this->BeginUnitOrder(unit);
     unit->state = 2;
     unit->eye2->command_to = ((uint16_t)y << 8) + x;
-    unit->eye->field136_0x90 = 0;
+    unit->eye->target_reached = 0;
     unit->eye2->cast_action = 0;
 }
 
@@ -1281,7 +1281,7 @@ void World::OrderSwarmTo(Unit* unit, uint8_t x, uint8_t y) {
 void World::OrderGatherLoot(Unit* unit) {
     this->BeginUnitOrder(unit);
     unit->state = 26;
-    unit->eye->field136_0x90 = 0;
+    unit->eye->target_reached = 0;
     unit->eye2->cast_action = 0;
 }
 
@@ -1289,7 +1289,7 @@ void World::OrderGatherLoot(Unit* unit) {
 // action onto the world's action list, and store the retaliation cell.
 // 5AA581
 void World::RecordUnitHit(Unit* target, Unit* attacker, int32_t hit_flag) {
-    attacker->eye2->field44_0x54 = 1;
+    attacker->eye2->engaged = 1;
     attacker->eye2->position3 = target->position->CompatGetYX();
     attacker->eye2->counter2 = 0;
 
@@ -1311,16 +1311,16 @@ void World::RecordUnitHit(Unit* target, Unit* attacker, int32_t hit_flag) {
         double scale = 10.0 / max_delta;
         uint8_t new_x = attacker->position->GetX() + dxx * scale;
         uint8_t new_y = attacker->position->GetY() + dyy * scale;
-        attacker->eye2->field69_0x9c = PosYX{new_x, new_y}.val;
+        attacker->eye2->attack_move_pos = PosYX{new_x, new_y}.val;
     } else {
         // This wasn't in vanilla, but otherwise we divide by zero.
-        attacker->eye2->field69_0x9c = attacker->position->GetYX().val;
+        attacker->eye2->attack_move_pos = attacker->position->GetYX().val;
     }
 }
 
 // 5AAA89
 void World::ChaseOrCast(Unit* unit) {
-    if (unit != unit->eye2->unit5 && this->field24_0xa50->FacesTargetInRange(unit, unit->eye2->unit5, unit->eye2->max_range) == 0) {
+    if (unit != unit->eye2->unit5 && this->map_stuff->FacesTargetInRange(unit, unit->eye2->unit5, unit->eye2->max_range) == 0) {
         this->StepTowardUnit(unit, unit->eye2->unit5);
         unit->some_state = 1;
     } else {
@@ -1330,7 +1330,7 @@ void World::ChaseOrCast(Unit* unit) {
 
 // 5A9B6B — AI tick for a monster unit.
 void World::MonsterAiTick(Unit* unit) {
-    if (this->field37_0xbbe8 == 0 && unit->group->group_sub->presence_detected == 0 && unit->eye2->field4_0x9 == 0) {
+    if (this->skip_presence_grid == 0 && unit->group->group_sub->presence_detected == 0 && unit->eye2->ai_state == 0) {
         unit->some_state = 0x1B;
         return;
     }
@@ -1339,14 +1339,14 @@ void World::MonsterAiTick(Unit* unit) {
         unit->some_state = 0;
     }
 
-    if (unit->enchantments != 0 && (unit->enchantments & (1 << spell::stone_curse)) != 0 && unit->eye2->field4_0x9 == 0) {
-        unit->eye2->field4_0x9 = 4;
+    if (unit->enchantments != 0 && (unit->enchantments & (1 << spell::stone_curse)) != 0 && unit->eye2->ai_state == 0) {
+        unit->eye2->ai_state = 4;
     }
 
-    if (unit->eye2->field4_0x9 == 0) {
-        if (unit->eye2->field81_0xb0.val != 0 && unit->position->IsAtCellCenter()) {
-            this->field24_0xa50->TeleportUnit(unit, unit->eye2->field81_0xb0.x, unit->eye2->field81_0xb0.y);
-            unit->eye2->field81_0xb0 = PosYX{0};
+    if (unit->eye2->ai_state == 0) {
+        if (unit->eye2->teleport_pos.val != 0 && unit->position->IsAtCellCenter()) {
+            this->map_stuff->TeleportUnit(unit, unit->eye2->teleport_pos.x, unit->eye2->teleport_pos.y);
+            unit->eye2->teleport_pos = PosYX{0};
         }
 
         switch (unit->eye2->cast_action) {
@@ -1375,7 +1375,7 @@ void World::MonsterAiTick(Unit* unit) {
             this->ChaseOrAreaCast(unit);
             break;
         case 10:
-            this->DoTurnTo(unit, unit->eye->field1_0x1);
+            this->DoTurnTo(unit, unit->eye->target_facing);
             break;
         case 11:
             this->DoIdleFidget(unit);
@@ -1390,17 +1390,17 @@ void World::MonsterAiTick(Unit* unit) {
             break;
         }
     } else {
-        switch (unit->eye2->field4_0x9) {
+        switch (unit->eye2->ai_state) {
         case 1:
             unit->some_state = 3;
             unit->eye2->counter++;
             if (unit->eye2->counter > 2 && unit->attack_ready != 0) {
-                unit->eye2->field4_0x9 = 0;
+                unit->eye2->ai_state = 0;
                 unit->some_state = 0;
             }
             break;
         case 2:
-            if (unit->eye2->field48_0x5c == 0) {
+            if (unit->eye2->cast_is_area == 0) {
                 unit->some_state = 0xE;
             } else {
                 unit->some_state = 0xD;
@@ -1408,7 +1408,7 @@ void World::MonsterAiTick(Unit* unit) {
             unit->eye2->counter++;
             if (unit->eye2->counter > 2) {
                 if (unit->eye2->counter == 3) {
-                    if (unit->eye2->field48_0x5c == 0) {
+                    if (unit->eye2->cast_is_area == 0) {
                         this->scrape_action.action_kind = 3;
                         this->scrape_action.actor_unit = unit;
                         this->scrape_action.payload = unit->some_spell;
@@ -1423,48 +1423,48 @@ void World::MonsterAiTick(Unit* unit) {
                     this->action_list.AddTail(this->scrape_action);
                 }
                 if (unit->attack_ready != 0) {
-                    unit->eye2->field4_0x9 = 0;
+                    unit->eye2->ai_state = 0;
                     unit->some_state = 0;
                 }
             }
             break;
         case 3:
-            this->field24_0xa50->UpdateEyeMoveTime(unit);
+            this->map_stuff->UpdateEyeMoveTime(unit);
             unit->some_state = 1;
             if (unit->position->IsAtCellCenter()) {
-                unit->eye2->field4_0x9 = 0;
+                unit->eye2->ai_state = 0;
                 unit->some_state = 0;
             }
             break;
         case 4:
             unit->some_state = 0x1B;
             if ((unit->enchantments & (1 << spell::stone_curse)) == 0) {
-                unit->eye2->field4_0x9 = 0;
+                unit->eye2->ai_state = 0;
             }
             break;
         case 0xff:
             unit->some_state = 0x1B;
             break;
         default:
-            unit->eye2->field4_0x9 = 0;
+            unit->eye2->ai_state = 0;
             unit->some_state = 0x1B;
             break;
         }
     }
 
-    if (unit->eye->field139_0x98 != 0) {
-        unit->eye->field139_0x98 = 0;
+    if (unit->eye->order_arrived != 0) {
+        unit->eye->order_arrived = 0;
         if (unit->state == 1) {
             this->PrepareUnitOrder(unit);
             this->ResetUnitToHold(unit);
         } else if (unit->state == 0xA) {
-            unit->eye2->field2_0x4 = 1;
+            unit->eye2->patrol_reanchor = 1;
             unit->eye2->cast_action = 0;
             uint8_t x2 = unit->eye2->position2.x;
             uint8_t y2 = unit->eye2->position2.y;
             uint8_t x1 = unit->position->GetX();
             uint8_t y1 = unit->position->GetY();
-            if (this->field24_0xa50->ChebyshevDistanceXY(x1, y1, x2, y2) < 3) {
+            if (this->map_stuff->ChebyshevDistanceXY(x1, y1, x2, y2) < 3) {
                 CList<uint16_t>* positions = unit->eye2->positions_list;
                 if (positions != nullptr) {
                     POSITION pos = positions->Find(unit->eye2->position2);
@@ -1479,7 +1479,7 @@ void World::MonsterAiTick(Unit* unit) {
                 }
             }
         } else if (unit->state == 0x18) {
-            unit->eye2->field4_0x9 = 0xFF;
+            unit->eye2->ai_state = 0xFF;
         } else {
             unit->eye2->cast_action = 0;
             this->AcquireNearestTarget(unit);
@@ -1489,12 +1489,12 @@ void World::MonsterAiTick(Unit* unit) {
 
 // 5AAC17 — pick a melee/cast target for a monster unit.
 void World::AcquireNearestTarget(Unit* unit) {
-    this->field26_0xa64.unit_list.RemoveAll();
+    this->nearby_list.unit_list.RemoveAll();
 
     uint32_t best_distance = 0xff;
     CList<Unit*>* all = nullptr;
-    if (this->field24_0xa50->field69_0xa456c != nullptr) {
-        all = &this->field24_0xa50->field69_0xa456c->unit_list;
+    if (this->map_stuff->all_units != nullptr) {
+        all = &this->map_stuff->all_units->unit_list;
     }
 
     if (all != nullptr) {
@@ -1504,33 +1504,33 @@ void World::AcquireNearestTarget(Unit* unit) {
             uint8_t dist = other->position->Distance(unit->position);
             uint8_t max_range = this->UnitMaxRange(unit);
             if (dist <= max_range && dist <= best_distance && other != unit) {
-                this->field26_0xa64.AddTail(other);
+                this->nearby_list.AddTail(other);
                 best_distance = dist;
             }
         }
     }
 
-    this->FilterByRelation(unit, &this->field26_0xa64, 0);
+    this->FilterByRelation(unit, &this->nearby_list, 0);
     this->PruneUnconsciousTargets();
 
-    if (this->field26_0xa64.unit_list.GetCount() == 0 && this->field27_0xa84.unit_list.GetCount() != 0) {
-        CList<Unit*>* alt = &this->field27_0xa84.unit_list;
+    if (this->nearby_list.unit_list.GetCount() == 0 && this->unconscious_list.unit_list.GetCount() != 0) {
+        CList<Unit*>* alt = &this->unconscious_list.unit_list;
         POSITION unit_it = alt->GetHeadPosition();
         while (unit_it != nullptr) {
             Unit* other = alt->GetNext(unit_it);
-            this->field26_0xa64.AddTail(other);
+            this->nearby_list.AddTail(other);
         }
         alt->RemoveAll();
     }
 
     Unit* best_target = nullptr;
     uint32_t best_diff = 300;
-    if (this->field26_0xa64.unit_list.GetCount() != 0) {
-        POSITION unit_it = this->field26_0xa64.unit_list.GetHeadPosition();
+    if (this->nearby_list.unit_list.GetCount() != 0) {
+        POSITION unit_it = this->nearby_list.unit_list.GetHeadPosition();
         while (unit_it != nullptr) {
-            Unit* other = this->field26_0xa64.unit_list.GetNext(unit_it);
-            uint8_t facing = this->field24_0xa50->GetFacingTo(unit, other);
-            uint8_t diff = this->field24_0xa50->FacingDiff(unit->eye->field0_0x0, facing);
+            Unit* other = this->nearby_list.unit_list.GetNext(unit_it);
+            uint8_t facing = this->map_stuff->GetFacingTo(unit, other);
+            uint8_t diff = this->map_stuff->FacingDiff(unit->eye->facing, facing);
             if (diff <= best_diff) {
                 best_target = other;
                 best_diff = diff;
@@ -1572,7 +1572,7 @@ int32_t World::ShouldPursueTarget(Unit* caster, Unit* target) {
     case spell::prismatic_spray:
     case spell::stone_missile:
     case spell::drain_life:
-        caster->eye2->field49_0x60 = 1;
+        caster->eye2->action_done = 1;
         this->BeginAutobuffCast(caster, target, spell);
         return 1;
 
@@ -1581,25 +1581,25 @@ int32_t World::ShouldPursueTarget(Unit* caster, Unit* target) {
     case spell::poison_cloud:
     case spell::blizzard: {
         this->BuildAllyList(caster->group);
-        this->field26_0xa64.unit_list.AddTail(target);
-        this->SplitTargetLists(caster, &this->field26_0xa64);
+        this->nearby_list.unit_list.AddTail(target);
+        this->SplitTargetLists(caster, &this->nearby_list);
 
         bool adjust_pos = (caster->eye2->spell_id == spell::fire_ball) || (caster->eye2->spell_id == spell::wall_of_fire);
         uint8_t range = (caster->eye2->spell_id == spell::fire_ball) ? 1 : 2;
 
         int32_t best_score = -1000;
-        POSITION it = this->field29_0xac4.unit_list.GetHeadPosition();
+        POSITION it = this->targets.unit_list.GetHeadPosition();
         while (it != nullptr) {
-            Unit* nearby = this->field29_0xac4.unit_list.GetNext(it);
+            Unit* nearby = this->targets.unit_list.GetNext(it);
             PosYX yx = nearby->position->CompatGetYX();
             if (adjust_pos) {
                 if (nearby->position->IsAtCellCenter() == 0) {
-                    uint8_t dir = nearby->eye->field0_0x0 >> 5;
-                    yx.x = yx.x + this->field24_0xa50->field48_0x58e88[dir];
-                    yx.y = yx.y + this->field24_0xa50->field49_0x58e90[dir];
+                    uint8_t dir = nearby->eye->facing >> 5;
+                    yx.x = yx.x + this->map_stuff->neighbor_dx[dir];
+                    yx.y = yx.y + this->map_stuff->neighbor_dy[dir];
                 }
             }
-            UnitList* list = this->field24_0xa50->BuildNearbyUnitList(yx, range);
+            UnitList* list = this->map_stuff->BuildNearbyUnitList(yx, range);
             int32_t enemy_count = 0;
             int32_t friendly_count = 0;
             POSITION it2 = (list != nullptr) ? list->unit_list.GetHeadPosition() : nullptr;
@@ -1622,7 +1622,7 @@ int32_t World::ShouldPursueTarget(Unit* caster, Unit* target) {
         if (best_score < 1) {
             return 0;
         }
-        caster->eye2->field49_0x60 = 1;
+        caster->eye2->action_done = 1;
         this->BeginAutobuffCast(caster, target, spell);
         return 1;
     }
@@ -1632,19 +1632,19 @@ int32_t World::ShouldPursueTarget(Unit* caster, Unit* target) {
         uint32_t mask = 1 << caster->eye2->spell_id;
         if ((target->enchantments & mask) == 0) {
             this->BuildAllyList(caster->group);
-            this->SplitTargetLists(caster, &this->field26_0xa64);
-            POSITION it = this->field29_0xac4.unit_list.GetHeadPosition();
+            this->SplitTargetLists(caster, &this->nearby_list);
+            POSITION it = this->targets.unit_list.GetHeadPosition();
             while (it != nullptr) {
-                Unit* other = this->field29_0xac4.unit_list.GetNext(it);
+                Unit* other = this->targets.unit_list.GetNext(it);
                 if ((other->enchantments & mask) == 0) {
-                    caster->eye2->field49_0x60 = 1;
+                    caster->eye2->action_done = 1;
                     this->BeginAutobuffCast(caster, target, spell);
                     return 1;
                 }
             }
             return 0;
         }
-        caster->eye2->field49_0x60 = 1;
+        caster->eye2->action_done = 1;
         this->BeginAutobuffCast(caster, target, spell);
         return 1;
     }
@@ -1654,13 +1654,13 @@ int32_t World::ShouldPursueTarget(Unit* caster, Unit* target) {
 
     case spell::heal: {
         this->BuildAllyList(caster->group);
-        this->SplitTargetLists(caster, &this->field26_0xa64);
+        this->SplitTargetLists(caster, &this->nearby_list);
 
         Unit* best_unit = nullptr;
         double best_ratio = 1.0;
-        POSITION it = this->field28_0xaa4.unit_list.GetHeadPosition();
+        POSITION it = this->non_targets.unit_list.GetHeadPosition();
         while (it != nullptr) {
-            Unit* other = this->field28_0xaa4.unit_list.GetNext(it);
+            Unit* other = this->non_targets.unit_list.GetNext(it);
             if (this->ShouldAutobuff(caster, other) == 0) {
                 continue;
             }
@@ -1675,7 +1675,7 @@ int32_t World::ShouldPursueTarget(Unit* caster, Unit* target) {
             caster->eye2->cast_action = 0;
             return 1;
         }
-        caster->eye2->field49_0x60 = 1;
+        caster->eye2->action_done = 1;
         this->BeginAutobuffCast(caster, best_unit, spell);
         return 1;
     }
@@ -1686,7 +1686,7 @@ int32_t World::ShouldPursueTarget(Unit* caster, Unit* target) {
 
     case spell::shield:
         if ((caster->enchantments & (1 << spell::shield)) == 0) {
-            caster->eye2->field49_0x60 = 1;
+            caster->eye2->action_done = 1;
             this->BeginAutobuffCast(caster, caster, spell);
             return 1;
         }
@@ -1742,7 +1742,7 @@ void World::DoAutobuff(Unit* unit) {
     if (unit->hp != unit->hp_max) {
         Spell* spell = this->GetCastableSpell(unit, spell::heal, 0);
         if (spell != nullptr) {
-            unit->eye2->field49_0x60 = 1;
+            unit->eye2->action_done = 1;
             this->BeginAutobuffCast(unit, unit, spell);
             return;
         }
@@ -1752,7 +1752,7 @@ void World::DoAutobuff(Unit* unit) {
     if ((unit->enchantments & (1 << spell::shield)) == 0) {
         Spell* spell = this->GetCastableSpell(unit, spell::shield, 0);
         if (spell != nullptr) {
-            unit->eye2->field49_0x60 = 1;
+            unit->eye2->action_done = 1;
             this->BeginAutobuffCast(unit, unit, spell);
             return;
         }
@@ -1760,17 +1760,17 @@ void World::DoAutobuff(Unit* unit) {
 
     // Build nearby friendly unit list for the group.
     this->BuildAllyList(unit->group);
-    this->SplitTargetLists(unit, &this->field26_0xa64);
+    this->SplitTargetLists(unit, &this->nearby_list);
 
     // Ally-heal.
     Spell* spell = this->GetCastableSpell(unit, spell::heal, 0);
-    if (spell != nullptr && this->field28_0xaa4.unit_list.GetCount() > 1) {
+    if (spell != nullptr && this->non_targets.unit_list.GetCount() > 1) {
         double best_ratio = 2.0;
         Unit* best_unit = nullptr;
 
-        POSITION pos = this->field28_0xaa4.unit_list.GetHeadPosition();
+        POSITION pos = this->non_targets.unit_list.GetHeadPosition();
         while (pos) {
-            Unit* other = this->field28_0xaa4.unit_list.GetNext(pos);
+            Unit* other = this->non_targets.unit_list.GetNext(pos);
             if (!this->ShouldAutobuff(unit, other) || !this->IsSpellInRange(unit, other, spell)) {
                 continue;
             }
@@ -1784,7 +1784,7 @@ void World::DoAutobuff(Unit* unit) {
         }
 
         if (best_ratio < 1.0) {
-            unit->eye2->field49_0x60 = 1;
+            unit->eye2->action_done = 1;
             this->BeginAutobuffCast(unit, best_unit, spell);
             return;
         }
@@ -1803,9 +1803,9 @@ void World::DoAutobuff(Unit* unit) {
 
     // Ally medium-level buffs.
     {
-        POSITION pos = this->field28_0xaa4.unit_list.GetHeadPosition();
+        POSITION pos = this->non_targets.unit_list.GetHeadPosition();
         while (pos) {
-            Unit* other = this->field28_0xaa4.unit_list.GetNext(pos);
+            Unit* other = this->non_targets.unit_list.GetNext(pos);
             if (this->ShouldAutobuff(unit, other) == 0) {
                 continue;
             }
@@ -1817,7 +1817,7 @@ void World::DoAutobuff(Unit* unit) {
             if (spell != nullptr && (other->unit_attrs & 4) == 0 && (other->enchantments & (1 << spell::bless)) == 0) {
                 if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
                     if (this->IsSpellInRange(unit, other, spell) != 0) {
-                        unit->eye2->field49_0x60 = 1;
+                        unit->eye2->action_done = 1;
                         this->BeginAutobuffCast(unit, other, spell);
                         return;
                     }
@@ -1829,7 +1829,7 @@ void World::DoAutobuff(Unit* unit) {
             if (spell != nullptr && (other->enchantments & (1 << spell::haste)) == 0) {
                 if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
                     if (this->IsSpellInRange(unit, other, spell) != 0) {
-                        unit->eye2->field49_0x60 = 1;
+                        unit->eye2->action_done = 1;
                         this->BeginAutobuffCast(unit, other, spell);
                         return;
                     }
@@ -1851,9 +1851,9 @@ void World::DoAutobuff(Unit* unit) {
 
     // Ally high-level buffs.
     {
-        POSITION pos = this->field28_0xaa4.unit_list.GetHeadPosition();
+        POSITION pos = this->non_targets.unit_list.GetHeadPosition();
         while (pos) {
-            Unit* other = this->field28_0xaa4.unit_list.GetNext(pos);
+            Unit* other = this->non_targets.unit_list.GetNext(pos);
             if (this->ShouldAutobuff(unit, other) == 0) {
                 continue;
             }
@@ -1865,7 +1865,7 @@ void World::DoAutobuff(Unit* unit) {
             if (spell != nullptr && this->IsSpellInRange(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::protection_from_air)) == 0) {
                     if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
-                        unit->eye2->field49_0x60 = 1;
+                        unit->eye2->action_done = 1;
                         this->BeginAutobuffCast(unit, other, spell);
                         return;
                     }
@@ -1877,7 +1877,7 @@ void World::DoAutobuff(Unit* unit) {
             if (spell != nullptr && this->IsSpellInRange(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::protection_from_earth)) == 0) {
                     if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
-                        unit->eye2->field49_0x60 = 1;
+                        unit->eye2->action_done = 1;
                         this->BeginAutobuffCast(unit, other, spell);
                         return;
                     }
@@ -1889,7 +1889,7 @@ void World::DoAutobuff(Unit* unit) {
             if (spell != nullptr && this->IsSpellInRange(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::protection_from_fire)) == 0) {
                     if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
-                        unit->eye2->field49_0x60 = 1;
+                        unit->eye2->action_done = 1;
                         this->BeginAutobuffCast(unit, other, spell);
                         return;
                     }
@@ -1901,7 +1901,7 @@ void World::DoAutobuff(Unit* unit) {
             if (spell != nullptr && this->IsSpellInRange(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::protection_from_water)) == 0) {
                     if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
-                        unit->eye2->field49_0x60 = 1;
+                        unit->eye2->action_done = 1;
                         this->BeginAutobuffCast(unit, other, spell);
                         return;
                     }
@@ -1914,7 +1914,7 @@ void World::DoAutobuff(Unit* unit) {
                 if ((other->enchantments & (1 << spell::invisibility)) == 0 && unit != other) {
                     if ((this->diplomacy.diplomacy[unit->pOwner->player_id][other->pOwner->player_id] & 3) != 0) {
                         if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
-                            unit->eye2->field49_0x60 = 1;
+                            unit->eye2->action_done = 1;
                             this->BeginAutobuffCast(unit, other, spell);
                             return;
                         }
@@ -1927,7 +1927,7 @@ void World::DoAutobuff(Unit* unit) {
     // Self-invisibility --- last.
     spell = this->GetCastableSpell(unit, spell::invisibility, 0);
     if (spell != nullptr && (unit->enchantments & (1 << spell::invisibility)) == 0) {
-        unit->eye2->field49_0x60 = 1;
+        unit->eye2->action_done = 1;
         this->BeginAutobuffCast(unit, unit, spell);
         return;
     }
@@ -2247,7 +2247,7 @@ void World::ScriptOP_0x19(TriggerAction* action) {
         src[5] = target_y;
     }
     uint16_t trigger_yx = (trigger_y << 8) | trigger_x;
-    this->field24_0xa50->ApplyTerrainMod(trigger_yx, src);
+    this->map_stuff->ApplyTerrainMod(trigger_yx, src);
 }
 
 // 5b4428 — Set building's health
@@ -2257,7 +2257,7 @@ void World::ScriptOP_0x1a(TriggerAction* action) {
 
 // 5b4446 — Teleport unit
 void World::ScriptOP_0x1b(TriggerAction* action) {
-    this->field24_0xa50->TeleportUnit(action->unit, action->data[0], action->data[1]);
+    this->map_stuff->TeleportUnit(action->unit, action->data[0], action->data[1]);
     if (action->unit->pOwner->is_ai) {
         this->OrderGuardPosition(action->unit);
     }
@@ -2275,7 +2275,7 @@ void World::ScriptOP_0x1c(TriggerAction* action) {
 // 5b455f — Tile Spell Duration: set duration of spell (data[2]) at tile (data[0], data[1])
 void World::ScriptOP_0x1d(TriggerAction* action) {
     uint16_t yx = (action->data[1] << 8) | action->data[0];
-    AreaEffect** slots = this->field24_0xa50->GetAreaEffectsAt(yx);
+    AreaEffect** slots = this->map_stuff->GetAreaEffectsAt(yx);
     if (!slots) {
         return;
     }
@@ -2377,7 +2377,7 @@ void World::ScriptOP_0x24(TriggerAction* action) {
 
 // 5b3fa7 — Remove item from everybody's inventory
 void World::ScriptOP_0x26(TriggerAction* action) {
-    UnitList* list = this->field24_0xa50->field69_0xa456c;
+    UnitList* list = this->map_stuff->all_units;
     if (!list) {
         return;
     }
@@ -2409,7 +2409,7 @@ uint8_t World::UnitMaxRange(Unit* unit) { //5a6adb
 
 // 5A5E54 — build active/alternate target lists around unit.
 void World::BuildTargetLists(Unit* unit) {
-    Visibility* visibility = &this->field24_0xa50->visibility;
+    Visibility* visibility = &this->map_stuff->visibility;
     visibility->sub_58E1C1();
     uint8_t* scratch = visibility->vis_scratch;
 
@@ -2424,31 +2424,31 @@ void World::BuildTargetLists(Unit* unit) {
         }
     }
 
-    this->field26_0xa64.unit_list.RemoveAll();
+    this->nearby_list.unit_list.RemoveAll();
 
-    UnitList* all = this->field24_0xa50->field69_0xa456c;
+    UnitList* all = this->map_stuff->all_units;
     if (all != nullptr) {
         POSITION it = all->unit_list.GetHeadPosition();
         while (it != nullptr) {
             Unit* other = all->unit_list.GetNext(it);
             uint16_t other_yx = other->position->CompatGetYX();
             if (scratch[other_yx] != 0) {
-                this->field26_0xa64.unit_list.AddTail(other);
+                this->nearby_list.unit_list.AddTail(other);
             }
         }
     }
 
-    this->FilterByRelation(unit, &this->field26_0xa64, 0);
+    this->FilterByRelation(unit, &this->nearby_list, 0);
     this->PruneUnconsciousTargets();
 
-    if (this->field26_0xa64.unit_list.GetCount() == 0 && this->field27_0xa84.unit_list.GetCount() != 0) {
-        this->field26_0xa64.unit_list.RemoveAll();
-        POSITION it = this->field27_0xa84.unit_list.GetHeadPosition();
+    if (this->nearby_list.unit_list.GetCount() == 0 && this->unconscious_list.unit_list.GetCount() != 0) {
+        this->nearby_list.unit_list.RemoveAll();
+        POSITION it = this->unconscious_list.unit_list.GetHeadPosition();
         while (it != nullptr) {
-            Unit* other = this->field27_0xa84.unit_list.GetNext(it);
-            this->field26_0xa64.unit_list.AddTail(other);
+            Unit* other = this->unconscious_list.unit_list.GetNext(it);
+            this->nearby_list.unit_list.AddTail(other);
         }
-        this->field27_0xa84.unit_list.RemoveAll();
+        this->unconscious_list.unit_list.RemoveAll();
     }
 }
 
@@ -2461,19 +2461,19 @@ void World::DoGuardScan(Unit* unit) {
 
     this->BuildTargetLists(unit);
 
-    POSITION it = this->field26_0xa64.unit_list.GetHeadPosition();
+    POSITION it = this->nearby_list.unit_list.GetHeadPosition();
     while (it != nullptr) {
-        Unit* other = this->field26_0xa64.unit_list.GetNext(it);
+        Unit* other = this->nearby_list.unit_list.GetNext(it);
         int32_t filter_result = this->GetAttackDecision(unit, other);
         if (filter_result == -1) {
             continue;
         }
-        int32_t range = this->field24_0xa50->GetRangeTo(unit, other);
+        int32_t range = this->map_stuff->GetRangeTo(unit, other);
         if (other->MovementType() == 3 && unit->MovementType() != 3) {
             range += 1;
         }
-        uint8_t facing = this->field24_0xa50->GetFacingTo(unit, other);
-        uint8_t score = this->field24_0xa50->FacingDiff(facing, unit->eye->field0_0x0);
+        uint8_t facing = this->map_stuff->GetFacingTo(unit, other);
+        uint8_t score = this->map_stuff->FacingDiff(facing, unit->eye->facing);
         if (range < best_range) {
             best_target = other;
             best_score_diff = score;
@@ -2492,12 +2492,12 @@ void World::DoGuardScan(Unit* unit) {
         best_range = max_range + 1;
         best_score_diff = 0xFF;
 
-        it = this->field27_0xa84.unit_list.GetHeadPosition();
+        it = this->unconscious_list.unit_list.GetHeadPosition();
         while (it != nullptr) {
-            Unit* other = this->field27_0xa84.unit_list.GetNext(it);
-            int32_t range = this->field24_0xa50->GetRangeTo(unit, other);
-            uint8_t facing = this->field24_0xa50->GetFacingTo(unit, other);
-            uint8_t score = this->field24_0xa50->FacingDiff(facing, unit->eye->field0_0x0);
+            Unit* other = this->unconscious_list.unit_list.GetNext(it);
+            int32_t range = this->map_stuff->GetRangeTo(unit, other);
+            uint8_t facing = this->map_stuff->GetFacingTo(unit, other);
+            uint8_t score = this->map_stuff->FacingDiff(facing, unit->eye->facing);
             if (range < best_range) {
                 best_target = other;
                 best_score_diff = score;
@@ -2519,10 +2519,10 @@ void World::DoGuardScan(Unit* unit) {
         this->DoRetreat(unit);
     }
 
-    if (unit->position->IsAtCellCenter() && unit->eye->field121_0x80.val != 0) {
+    if (unit->position->IsAtCellCenter() && unit->eye->guard_cell.val != 0) {
         PosYX current_yx = unit->position->CompatGetYX();
-        if (unit->eye->field121_0x80 != current_yx) {
-            this->field24_0xa50->MoveUnitBlockers(unit, PosYX(0), 1);
+        if (unit->eye->guard_cell != current_yx) {
+            this->map_stuff->MoveUnitBlockers(unit, PosYX(0), 1);
         }
     }
 }
@@ -2551,7 +2551,7 @@ void World::DoAttackTarget(Unit* unit, Unit* target) {
 
         uint16_t target_yx = target->position->CompatGetYX();
         uint16_t unit_yx = unit->position->CompatGetYX();
-        uint8_t distance = this->field24_0xa50->ChebyshevDistance(unit_yx, target_yx);
+        uint8_t distance = this->map_stuff->ChebyshevDistance(unit_yx, target_yx);
         if (distance > 2) {
             this->CastKnownSpell(unit, target, chosen_spell);
             return;
@@ -2615,7 +2615,7 @@ int32_t World::PickAttackSpell(Unit* unit, Unit* target) {
         return 0;
     }
 
-    unit->eye2->field49_0x60 = 1;
+    unit->eye2->action_done = 1;
     this->BeginAutobuffCast(unit, target, chosen);
     return 1;
 }
@@ -2668,7 +2668,7 @@ Spell* World::GetCastableSpell(Unit* unit, int32_t spell_number, int32_t /*flag*
 int32_t World::IsSpellInRange(Unit* unit, Unit* other, Spell* spell) {
     PosYX other_yx = other->position->GetYX();
     PosYX unit_yx = unit->position->GetYX();
-    uint8_t distance = this->field24_0xa50->ChebyshevDistance(unit_yx, other_yx);
+    uint8_t distance = this->map_stuff->ChebyshevDistance(unit_yx, other_yx);
     return distance <= spell->max_range ? 1 : 0;
 }
 
@@ -2684,26 +2684,26 @@ void World::OrderCastAtUnit(Unit* unit, Unit* target, Spell* spell) {
 }
 
 void World::PrepareUnitOrder(Unit* unit) { //5a9832
-    if (unit->eye->field0_0x0 != unit->eye->field1_0x1) {
-        unit->eye->field1_0x1 = unit->eye->field0_0x0;
+    if (unit->eye->facing != unit->eye->target_facing) {
+        unit->eye->target_facing = unit->eye->facing;
     }
 
-    if (unit->eye->field121_0x80 != PosYX()) {
+    if (unit->eye->guard_cell != PosYX()) {
         if (unit->position->IsAtCellCenter()) {
-            if (unit->position->GetYX() != unit->eye->field121_0x80) {
-                this->field24_0xa50->MoveUnitBlockers(unit, PosYX(), 1);
+            if (unit->position->GetYX() != unit->eye->guard_cell) {
+                this->map_stuff->MoveUnitBlockers(unit, PosYX(), 1);
             }
         }
     }
     unit->eye2->max_range = this->UnitMaxRange(unit);
-    unit->eye2->field49_0x60 = 0;
-    unit->eye->field120_0x7c = 0;
+    unit->eye2->action_done = 0;
+    unit->eye->target_unit = 0;
     unit->some_state = 0;
 }
 
 void World::BeginUnitOrder(Unit* unit) { //5a9ac4
     this->PrepareUnitOrder(unit);
-    unit->eye2->field43_0x50 = 0;
+    unit->eye2->has_command = 0;
 }
 
 void World::OrderHoldPosition(Unit* unit) { //5a93f4
@@ -2723,7 +2723,7 @@ void World::ResetUnitToHold(Unit* unit) { //5a9a6a
 void World::ResetUnitToIdle(Unit* unit) {
     this->PrepareUnitOrder(unit);
     this->ResetUnitToHold(unit);
-    unit->eye2->field43_0x50 = 1;
+    unit->eye2->has_command = 1;
 }
 
 // Toggle a unit between state 2 and a full idle reset.
@@ -2739,9 +2739,9 @@ void World::FinishSwarmArrival(Unit* unit) {
 // Set unit to pursue `target`; if not centered in a cell, mark it for movement.
 // 5AA91B
 void World::StepTowardUnit(Unit* unit, Unit* target) {
-    this->field24_0xa50->MoveStepTowardUnit(unit, target, unit->eye2->max_range);
+    this->map_stuff->MoveStepTowardUnit(unit, target, unit->eye2->max_range);
     if (!unit->position->IsAtCellCenter()) {
-        unit->eye2->field4_0x9 = 3;
+        unit->eye2->ai_state = 3;
         unit->eye2->counter = 0;
     }
     unit->some_state = 1;
@@ -2750,9 +2750,9 @@ void World::StepTowardUnit(Unit* unit, Unit* target) {
 // Turn unit to face `facing`; if the facing changed, mark state as 1.
 // 5AAF84
 void World::TurnToFacing(Unit* unit, uint8_t facing) {
-    uint8_t old_facing = unit->eye->field0_0x0;
-    this->field24_0xa50->SetFacing(unit, facing);
-    if (unit->eye->field0_0x0 != old_facing) {
+    uint8_t old_facing = unit->eye->facing;
+    this->map_stuff->SetFacing(unit, facing);
+    if (unit->eye->facing != old_facing) {
         unit->some_state = 1;
     }
 }
@@ -2761,7 +2761,7 @@ void World::ClearGroupOrders(Group* grp) { //5acd4c
     for (POSITION it = grp->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = grp->unit_list.GetNext(it);
         this->BeginUnitOrder(unit);
-        unit->eye2->field29_0x38 = 0;
+        unit->eye2->gap_0x38 = 0;
     }
     grp->group_sub->order = 0;
 }
@@ -2797,7 +2797,7 @@ void World::GroupMoveCommand(Group* group, uint8_t x, uint8_t y) {
 
         for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
             Unit* unit = group->unit_list.GetNext(it);
-            uint8_t dist = this->field24_0xa50->ChebyshevDistance(PosYX(unit->position->CompatGetYX()), PosYX(origin_x, origin_y));
+            uint8_t dist = this->map_stuff->ChebyshevDistance(PosYX(unit->position->CompatGetYX()), PosYX(origin_x, origin_y));
             if (dist > this->relative_move_max_dist) {
                 use_relative = false;
             }
@@ -2852,7 +2852,7 @@ void World::Destroy() {
 
 // 5AA78C
 void World::StartAttack(Unit* unit) {
-    unit->eye2->field4_0x9 = 1;
+    unit->eye2->ai_state = 1;
     unit->eye2->counter = 0;
     unit->some_state = 3;
     unit->cast_target = unit->eye2->unit;
@@ -2862,7 +2862,7 @@ void World::StartAttack(Unit* unit) {
 // 5AC137
 void World::RefreshGroupGuardAnchor(Group* group) {
     this->ComputeGroupAvgPos(group);
-    group->group_sub->field_0x0 = group->group_sub->avg_pos;
+    group->group_sub->gap_0x0 = group->group_sub->avg_pos;
     group->group_sub->guard_range = group->group_sub->max_dist_plus_scan;
     group->group_sub->guard_range_base = group->group_sub->max_dist_plus_scan;
 }
@@ -2908,7 +2908,7 @@ void World::GroupGuardCommand(Group* group, uint8_t range) {
         group->group_sub->guard_range_base = range;
     }
 
-    group->group_sub->field_0x39 = 0;
+    group->group_sub->gap_0x39 = 0;
 }
 
 // 5A9087 — order `unit` to attack `target`.
@@ -2928,7 +2928,7 @@ void World::OrderEngageTarget(Unit* unit, Unit* target) {
 void World::OrderAreaCast(Unit* unit, uint8_t x, uint8_t y, Spell* spell) {
     this->BeginUnitOrder(unit);
     unit->state = 0xE;
-    unit->eye2->field30_0x3c = PosYX(x, y).val;
+    unit->eye2->cast_pos = PosYX(x, y).val;
     unit->eye2->spell = spell;
     unit->eye2->max_range = spell->max_range;
     unit->eye2->cast_action = 0;
@@ -2977,9 +2977,9 @@ void World::OrderPatrolTo(Unit* unit, uint8_t x, uint8_t y) {
     unit->eye2->positions_list->AddHead(unit->position->CompatGetYX());
     unit->eye2->positions_list->AddTail(PosYX(x, y).val);
     unit->eye2->position2 = unit->eye2->positions_list->GetTail();
-    unit->eye2->field2_0x4 = 0;
+    unit->eye2->patrol_reanchor = 0;
     unit->eye2->cast_action = 0;
-    this->field24_0xa50->visibility.sub_58D768(unit, unit->position->CompatGetYX());
+    this->map_stuff->visibility.sub_58D768(unit, unit->position->CompatGetYX());
 }
 
 // 5A9918 — helper used by GroupGoHomeCommand: set unit to idle/wander state 0x16.
@@ -2991,8 +2991,8 @@ void World::OrderTeleportHome(Unit* unit) {
 
 // 5AA426 — turn unit to face `facing`; if already facing, clear cast action.
 void World::DoTurnTo(Unit* unit, uint8_t facing) {
-    if (unit->eye->field0_0x0 != facing) {
-        this->field24_0xa50->SetFacing(unit, facing);
+    if (unit->eye->facing != facing) {
+        this->map_stuff->SetFacing(unit, facing);
         unit->some_state = 1;
     } else {
         unit->eye2->cast_action = 0;
@@ -3002,27 +3002,27 @@ void World::DoTurnTo(Unit* unit, uint8_t facing) {
 
 // 5AA7CF — commit a targeted spell cast from eye2 setup.
 void World::StartCastAtUnit(Unit* unit) {
-    unit->eye2->field4_0x9 = 2;
+    unit->eye2->ai_state = 2;
     unit->eye2->counter = 0;
     unit->some_state = 0xD;
     unit->cast_target = unit->eye2->unit5;
     unit->some_spell = unit->eye2->spell;
-    unit->eye2->field48_0x5c = 1;
-    if (unit->eye2->field49_0x60 == 0) {
+    unit->eye2->cast_is_area = 1;
+    if (unit->eye2->action_done == 0) {
         this->ResetUnitToIdle(unit);
     }
 }
 
 // 5AA84F — commit an area spell cast from eye2 setup.
 void World::StartAreaCast(Unit* unit) {
-    unit->eye2->field4_0x9 = 2;
+    unit->eye2->ai_state = 2;
     unit->eye2->counter = 0;
     unit->some_state = 0xE;
-    unit->area_cast_x = PosYX(unit->eye2->field30_0x3c).x;
-    unit->area_cast_y = PosYX(unit->eye2->field30_0x3c).y;
+    unit->area_cast_x = PosYX(unit->eye2->cast_pos).x;
+    unit->area_cast_y = PosYX(unit->eye2->cast_pos).y;
     unit->some_spell = unit->eye2->spell;
-    unit->eye2->field48_0x5c = 0;
-    if (unit->eye2->field49_0x60 == 0) {
+    unit->eye2->cast_is_area = 0;
+    if (unit->eye2->action_done == 0) {
         this->ResetUnitToIdle(unit);
     }
 }
@@ -3032,7 +3032,7 @@ void World::StartAreaCast(Unit* unit) {
 void World::OrderEnterBuilding(Unit* unit, Building* building) {
     this->BeginUnitOrder(unit);
     unit->state = 0xF;
-    unit->eye2->field51_0x68 = building;
+    unit->eye2->enter_building = building;
     unit->eye2->max_range = 1;
     unit->eye2->cast_action = 0;
 
@@ -3064,7 +3064,7 @@ void World::SetFormation(Player* player, uint8_t formation) {
 
 // 5AFBFD
 void World::IncrementJoinedCount() {
-    this->field65_0xc780++;
+    this->joined_count++;
 }
 
 // 5B2E7A
@@ -3078,26 +3078,26 @@ void World::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
         ar.Write(this->trigger_variables, sizeof(this->trigger_variables));
         ar.Write(this->trigger_results, sizeof(this->trigger_results));
-        ar.Write(&this->field2_0x8, sizeof(this->field2_0x8));
-        ar.Write(this->field32_0xa728, sizeof(this->field32_0xa728));
+        ar.Write(&this->perf_tick, sizeof(this->perf_tick));
+        ar.Write(this->saved_0xa728, sizeof(this->saved_0xa728));
         ar.Write(&this->diplomacy, sizeof(this->diplomacy));
-        ar << this->field20_0xa48;
-        ar << this->field21_0xa49;
+        ar << this->saved_0xa48;
+        ar << this->saved_0xa49;
         ar << this->counter;
         ar << this->mission_complete;
-        ar << this->field52_0xbe10;
+        ar << this->saved_0xbe10;
         ar << this->mission_fail;
     } else {
         ar.Read(this->trigger_variables, sizeof(this->trigger_variables));
         ar.Read(this->trigger_results, sizeof(this->trigger_results));
-        ar.Read(&this->field2_0x8, sizeof(this->field2_0x8));
-        ar.Read(this->field32_0xa728, sizeof(this->field32_0xa728));
+        ar.Read(&this->perf_tick, sizeof(this->perf_tick));
+        ar.Read(this->saved_0xa728, sizeof(this->saved_0xa728));
         ar.Read(&this->diplomacy, sizeof(this->diplomacy));
-        ar >> this->field20_0xa48;
-        ar >> this->field21_0xa49;
+        ar >> this->saved_0xa48;
+        ar >> this->saved_0xa49;
         ar >> this->counter;
         ar >> this->mission_complete;
-        ar >> this->field52_0xbe10;
+        ar >> this->saved_0xbe10;
         ar >> this->mission_fail;
     }
 }
@@ -3109,49 +3109,49 @@ int32_t RandInt() {
 
 // 5B6F40
 int32_t World::RandomScaled(int32_t multiplier) {
-    return (RandInt() * multiplier) / this->field0_0x0;
+    return (RandInt() * multiplier) / this->gap_0x0;
 }
 
 // 5B6F60
 int32_t World::RandomRange(int32_t min, int32_t max) {
-    return (RandInt() * ((max - min) + 1)) / this->field0_0x0 + min;
+    return (RandInt() * ((max - min) + 1)) / this->gap_0x0 + min;
 }
 
 // 5A8EFB — set unit movement target, clamped to map bounds.
 void World::OrderMoveTo(Unit* unit, uint8_t x, uint8_t y) {
     this->BeginUnitOrder(unit);
 
-    if (x < this->field24_0xa50->map_min_x) {
-        x = this->field24_0xa50->map_min_x;
+    if (x < this->map_stuff->map_min_x) {
+        x = this->map_stuff->map_min_x;
     }
-    if (x > this->field24_0xa50->map_max_x) {
-        x = this->field24_0xa50->map_max_x;
+    if (x > this->map_stuff->map_max_x) {
+        x = this->map_stuff->map_max_x;
     }
-    if (y < this->field24_0xa50->map_min_y) {
-        y = this->field24_0xa50->map_min_y;
+    if (y < this->map_stuff->map_min_y) {
+        y = this->map_stuff->map_min_y;
     }
-    if (y > this->field24_0xa50->map_max_y) {
-        y = this->field24_0xa50->map_max_y;
+    if (y > this->map_stuff->map_max_y) {
+        y = this->map_stuff->map_max_y;
     }
 
     unit->state = 1;
     unit->eye2->command_to = PosYX(x, y).val;
-    unit->eye->field136_0x90 = 0;
+    unit->eye->target_reached = 0;
     unit->eye2->cast_action = 1;
 }
 
 // 5AA375 — set a unit to move/cast toward `yx`.
 void World::DoMoveStepTo(Unit* unit, PosYX yx, uint8_t max_range) {
-    unit->eye->field107_0x6c = 1;
+    unit->eye->moving_to = 1;
 
-    if (unit->eye->field114_0x74.val != yx.val) {
-        unit->eye->field8_0x9 = 0xFF;
+    if (unit->eye->static_path_cell.val != yx.val) {
+        unit->eye->static_age = 0xFF;
     }
 
-    this->field24_0xa50->MoveStepTowardPos(unit, yx, max_range);
+    this->map_stuff->MoveStepTowardPos(unit, yx, max_range);
 
     if (unit->position->IsAtCellCenter() == 0) {
-        unit->eye2->field4_0x9 = 3;
+        unit->eye2->ai_state = 3;
         unit->eye2->counter = 0;
     }
 
@@ -3160,24 +3160,24 @@ void World::DoMoveStepTo(Unit* unit, PosYX yx, uint8_t max_range) {
 
 // 5AA485 — pick a new random wander facing for a monster unit.
 void World::DoIdleFidget(Unit* unit) {
-    if (unit->eye->field0_0x0 == unit->eye->field1_0x1) {
-        if (unit->eye2->field44_0x54 == 0 && RandInt() >= 205) {
+    if (unit->eye->facing == unit->eye->target_facing) {
+        if (unit->eye2->engaged == 0 && RandInt() >= 205) {
             unit->some_state = 0;
             return;
         }
 
-        uint8_t new_facing = unit->eye->field0_0x0 + 33 + this->RandomScaled(190);
-        unit->eye->field1_0x1 = new_facing;
-        unit->eye2->field44_0x54 = 0;
+        uint8_t new_facing = unit->eye->facing + 33 + this->RandomScaled(190);
+        unit->eye->target_facing = new_facing;
+        unit->eye2->engaged = 0;
     }
 
-    this->field24_0xa50->SetFacing(unit, unit->eye->field1_0x1);
+    this->map_stuff->SetFacing(unit, unit->eye->target_facing);
     unit->some_state = 1;
 }
 
 // 5AAB85 — resume moving toward the unit's current command target.
 void World::ApproachBuilding(Unit* unit_same, Unit* unit) {
-    int result = this->field24_0xa50->FacesPosInRange(unit, unit->eye2->command_to, unit->eye2->max_range);
+    int result = this->map_stuff->FacesPosInRange(unit, unit->eye2->command_to, unit->eye2->max_range);
     if (result != 0) {
         if (unit->some_state == 0xF) {
             this->ResetUnitToIdle(unit);
@@ -3200,11 +3200,11 @@ void World::TickRangedApproach(Unit* unit) {
         }
     }
 
-    if (this->field24_0xa50->FacesTargetInRange(unit, unit->eye2->unit, this->UnitMaxRange(unit))) {
+    if (this->map_stuff->FacesTargetInRange(unit, unit->eye2->unit, this->UnitMaxRange(unit))) {
         this->StartAttack(unit);
         unit->some_state = 3;
     } else {
-        uint8_t facing = this->field24_0xa50->GetFacingTo(unit, unit->eye2->unit);
+        uint8_t facing = this->map_stuff->GetFacingTo(unit, unit->eye2->unit);
         this->TurnToFacing(unit, facing);
         unit->some_state = 1;
     }
@@ -3212,15 +3212,15 @@ void World::TickRangedApproach(Unit* unit) {
 
 // 5A3C5F — move unconscious targets out of the active target list into the alternate list.
 void World::PruneUnconsciousTargets() {
-    this->field27_0xa84.unit_list.RemoveAll();
+    this->unconscious_list.unit_list.RemoveAll();
 
-    POSITION it = this->field26_0xa64.unit_list.GetHeadPosition();
+    POSITION it = this->nearby_list.unit_list.GetHeadPosition();
     while (it != nullptr) {
         POSITION current = it;
-        Unit* unit = this->field26_0xa64.unit_list.GetNext(it);
+        Unit* unit = this->nearby_list.unit_list.GetNext(it);
         if (unit->hp < 1) {
-            this->field26_0xa64.unit_list.RemoveAt(current);
-            this->field27_0xa84.AddTail(unit);
+            this->nearby_list.unit_list.RemoveAt(current);
+            this->unconscious_list.AddTail(unit);
         }
     }
 }
@@ -3286,7 +3286,7 @@ void World::PlaceRespawnedGroup(Group* group, int guard_range) {
         }
     }
 
-    group->group_sub->field_0x39 = 0;
+    group->group_sub->gap_0x39 = 0;
 }
 
 // 5AF6F5 — initialize combat withdrawal thresholds for a unit.
@@ -3296,17 +3296,17 @@ void World::InitUnitCombatProfile(Unit* unit) {
     }
 
     if (unit->spell_book != nullptr) {
-        unit->eye2->field39_0x4c = 2;
+        unit->eye2->wimpy_level = 2;
         unit->eye2->withdraw = unit->hp_max;
         unit->eye2->wimpy = unit->hp_max / 4;
     } else {
         uint8_t max_range = this->UnitMaxRange(unit);
         if (max_range < 2 || unit->MovementType() == 3) {
-            unit->eye2->field39_0x4c = 0;
+            unit->eye2->wimpy_level = 0;
             unit->eye2->withdraw = 0;
             unit->eye2->wimpy = 0;
         } else {
-            unit->eye2->field39_0x4c = 1;
+            unit->eye2->wimpy_level = 1;
             unit->eye2->withdraw = unit->hp_max / 2;
             unit->eye2->wimpy = 0;
         }
@@ -3327,7 +3327,7 @@ void World::OrderGuardPosition(Unit* unit) {
 
 // 5AA97E
 void World::ChaseOrAttack(Unit* unit) {
-    if (this->field24_0xa50->FacesTargetInRange(unit, unit->eye2->unit, this->UnitMaxRange(unit)) == 0) {
+    if (this->map_stuff->FacesTargetInRange(unit, unit->eye2->unit, this->UnitMaxRange(unit)) == 0) {
         this->StepTowardUnit(unit, unit->eye2->unit);
         unit->some_state = 1;
     } else {
@@ -3353,8 +3353,8 @@ void World::CheckMoveArrival(Unit* unit) {
 
 // 5AAB08
 void World::ChaseOrAreaCast(Unit* unit) {
-    if (this->field24_0xa50->FacesPosInRange(unit, PosYX(unit->eye2->field30_0x3c), unit->eye2->max_range) == 0) {
-        this->DoMoveStepTo(unit, PosYX(unit->eye2->field30_0x3c), unit->eye2->max_range);
+    if (this->map_stuff->FacesPosInRange(unit, PosYX(unit->eye2->cast_pos), unit->eye2->max_range) == 0) {
+        this->DoMoveStepTo(unit, PosYX(unit->eye2->cast_pos), unit->eye2->max_range);
         unit->some_state = 1;
     } else {
         this->StartAreaCast(unit);
@@ -3366,7 +3366,7 @@ void World::ProcessPlayerGroupAi(Player* player) {
     POSITION it = player->group_list->groups.GetHeadPosition();
     while (it != nullptr) {
         Group* group = player->group_list->groups.GetNext(it);
-        if (this->field37_0xbbe8 != 0) {
+        if (this->skip_presence_grid != 0) {
             this->ProcessGroupAi(group);
         } else if (group->group_sub->presence_detected != 0) {
             this->ProcessGroupAi(group);
@@ -3422,7 +3422,7 @@ void World::AiRoamBrain(Group* group) {
     uint8_t max_distance = 0;
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
-        uint8_t distance = this->field24_0xa50->ChebyshevDistance(unit->position->GetYX(), PosYX(group->group_sub->order_pos));
+        uint8_t distance = this->map_stuff->ChebyshevDistance(unit->position->GetYX(), PosYX(group->group_sub->order_pos));
         if (distance > max_distance) {
             max_distance = distance;
         }
@@ -3434,11 +3434,11 @@ void World::AiRoamBrain(Group* group) {
         uint8_t new_y = 0;
         while (retry) {
             int32_t idx = this->RandomRange(0, 7);
-            int32_t dx = this->field24_0xa50->field48_0x58e88[idx] * 20;
-            int32_t dy = this->field24_0xa50->field49_0x58e90[idx] * 20;
+            int32_t dx = this->map_stuff->neighbor_dx[idx] * 20;
+            int32_t dy = this->map_stuff->neighbor_dy[idx] * 20;
             new_x = group->group_sub->order_pos + dx;
             new_y = (group->group_sub->order_pos >> 8) + dy;
-            retry = (new_x < this->field24_0xa50->map_min_x || new_x > this->field24_0xa50->map_max_x || new_y < this->field24_0xa50->map_min_y || new_y > this->field24_0xa50->map_max_y);
+            retry = (new_x < this->map_stuff->map_min_x || new_x > this->map_stuff->map_max_x || new_y < this->map_stuff->map_min_y || new_y > this->map_stuff->map_max_y);
         }
         group->group_sub->order_pos = PosYX{new_x, new_y}.val;
         group->group_sub->order_age = 0;
@@ -3463,7 +3463,7 @@ void World::DoScriptedPatrol(Unit* unit) {
     bool nearby = false;
 
     if (unit->typeId == 0x18) {
-        this->field48_0xbe00 = unit;
+        this->patrol_unit = unit;
         unit->scan_range = (unit->scan_range & 0x00FF) | 0x0500;
         unit->max_range = 5;
         this->DoGuardScan(unit);
@@ -3479,18 +3479,18 @@ void World::DoScriptedPatrol(Unit* unit) {
             uint8_t x2 = this->waypoint_table[v14 * 2];
             uint8_t y1 = unit->position->GetY();
             uint8_t x1 = unit->position->GetX();
-            uint8_t dist = this->field24_0xa50->ChebyshevDistanceXY(x1, y1, x2, y2);
+            uint8_t dist = this->map_stuff->ChebyshevDistanceXY(x1, y1, x2, y2);
             if (dist < 5) {
                 nearby = true;
-                if (unit->eye2->field4_0x9 != 0xFF) {
+                if (unit->eye2->ai_state != 0xFF) {
                     uint16_t pos = PosYX{x2, y2}.val;
                     this->DoMoveStep(unit, pos);
                 }
             }
         }
         if (!nearby) {
-            if (unit->eye2->field4_0x9 == 0xFF) {
-                unit->eye2->field4_0x9 = 0;
+            if (unit->eye2->ai_state == 0xFF) {
+                unit->eye2->ai_state = 0;
             }
             if (unit->eye2->position1.val == 0) {
                 unit->eye2->position1 = unit->position->GetYX();
@@ -3498,8 +3498,8 @@ void World::DoScriptedPatrol(Unit* unit) {
             this->AdvancePatrol(unit);
         }
     } else {
-        if (unit->eye2->field4_0x9 == 0xFF) {
-            unit->eye2->field4_0x9 = 0;
+        if (unit->eye2->ai_state == 0xFF) {
+            unit->eye2->ai_state = 0;
         }
         if (unit->eye2->positions_list->IsEmpty()) {
             uint8_t x = this->RandomRange(77, 87);
@@ -3534,7 +3534,7 @@ void World::PickHealSpell(Unit* unit, Unit* target) {
     if (spell_id != 0) {
         Spell* spell = unit->spell_book->GetSpell(spell_id);
         if (spell != nullptr && spell->mana_cost <= unit->mp) {
-            unit->eye2->field49_0x60 = 1;
+            unit->eye2->action_done = 1;
             this->BeginAutobuffCast(unit, target, spell);
             did_cast = true;
         }
@@ -3562,9 +3562,9 @@ void World::PickAdjacentEnemy(Unit* unit, Unit* target) {
         if (other->MovementType() == 3) {
             if (best_type3 == nullptr) {
                 best_type3 = other;
-                best_distance = this->field24_0xa50->GetRangeTo(unit, other);
+                best_distance = this->map_stuff->GetRangeTo(unit, other);
             } else {
-                uint8_t distance = this->field24_0xa50->GetRangeTo(unit, other);
+                uint8_t distance = this->map_stuff->GetRangeTo(unit, other);
                 if (distance < best_distance) {
                     best_type3 = other;
                     best_distance = distance;
@@ -3584,7 +3584,7 @@ void World::PickAdjacentEnemy(Unit* unit, Unit* target) {
     pos = list->unit_list.GetHeadPosition();
     while (pos != nullptr) {
         Unit* other = list->unit_list.GetNext(pos);
-        uint8_t distance = this->field24_0xa50->GetRangeTo(unit, other);
+        uint8_t distance = this->map_stuff->GetRangeTo(unit, other);
         if (distance < best_distance) {
             best_any = other;
             best_distance = distance;
@@ -3599,7 +3599,7 @@ void World::PickAdjacentEnemy(Unit* unit, Unit* target) {
 // 5A5568
 void World::TickAttackTarget(Unit* unit, Unit* target) {
     uint8_t range = unit->eye2->range;
-    uint8_t distance = this->field24_0xa50->ChebyshevDistanceXY(
+    uint8_t distance = this->map_stuff->ChebyshevDistanceXY(
         unit->position->GetX(),
         unit->position->GetY(),
         target->position->GetX(),
@@ -3619,7 +3619,7 @@ void World::TickAttackTarget(Unit* unit, Unit* target) {
         if (cast_action != 5 && cast_action != 6 && cast_action != 8 && cast_action != 9) {
             if (distance < 2) {
                 uint32_t packed_yyxx = (target->position->GetY() << 24) | (target->position->GetX() << 8);
-                int16_t result = this->field24_0xa50->ClampPosToMap(unit, packed_yyxx, range);
+                int16_t result = this->map_stuff->ClampPosToMap(unit, packed_yyxx, range);
                 this->DoMoveStep(unit, result);
             }
         }
@@ -3629,7 +3629,7 @@ void World::TickAttackTarget(Unit* unit, Unit* target) {
 // 5A56D7
 void World::TickFollowTarget(Unit* unit, Unit* target) {
     uint8_t range = unit->eye2->range;
-    uint8_t distance = this->field24_0xa50->ChebyshevDistanceXY(
+    uint8_t distance = this->map_stuff->ChebyshevDistanceXY(
         unit->position->GetX(),
         unit->position->GetY(),
         target->position->GetX(),
@@ -3640,7 +3640,7 @@ void World::TickFollowTarget(Unit* unit, Unit* target) {
         this->BeginChase(unit, target, range);
     } else if (distance < 2) {
         uint32_t packed_yyxx = (target->position->GetY() << 24) | (target->position->GetX() << 8);
-        int16_t result = this->field24_0xa50->ClampPosToMap(unit, packed_yyxx, range);
+        int16_t result = this->map_stuff->ClampPosToMap(unit, packed_yyxx, range);
         this->DoMoveStep(unit, result);
     } else {
         this->SetIdleOrRetreat(unit, 0);
@@ -3656,9 +3656,9 @@ void World::DoTeleportHome(Unit* unit) {
         }
     }
 
-    uint8_t range = unit->eye->field7_0x8 + 5;
+    uint8_t range = unit->eye->scan_radius_base + 5;
     PosYX pos = unit->position->GetYX();
-    UnitList* list = this->field24_0xa50->BuildNearbyUnitList(pos, range);
+    UnitList* list = this->map_stuff->BuildNearbyUnitList(pos, range);
     this->FilterByRelation(unit, list, 0);
 
     uint8_t count = 0;
@@ -3676,7 +3676,7 @@ void World::DoTeleportHome(Unit* unit) {
         this->SetIdleOrRetreat(unit, 0);
     } else {
         uint32_t packed_yyxx = this->ComputeListAvgPos(list);
-        int16_t result = this->field24_0xa50->ClampPosToMap(unit, packed_yyxx, 3);
+        int16_t result = this->map_stuff->ClampPosToMap(unit, packed_yyxx, 3);
         this->DoMoveStep(unit, result);
     }
 }
@@ -3702,18 +3702,18 @@ void World::TeleportToSafety(Unit* unit) {
         this->SetIdleOrRetreat(unit, 0);
     } else {
         uint32_t packed_yyxx = this->ComputeListAvgPos(list);
-        int16_t result = this->field24_0xa50->ClampPosToMap(unit, packed_yyxx, range);
+        int16_t result = this->map_stuff->ClampPosToMap(unit, packed_yyxx, range);
 
         Spell* spell = this->GetCastableSpell(unit, spell::teleport, 0);
         if (spell != nullptr) {
-            unit->eye2->field49_0x60 = 1;
+            unit->eye2->action_done = 1;
             this->BeginPositionCast(unit, result, spell);
         } else {
             spell = this->GetCastableSpell(unit, spell::invisibility, 0);
             // WAT: enchantments & 0xC is a check for whether the unit under a "fireball" and "fire wall" spells, which are not enchantments.
             // Should this be "1 << 0xc" instead?
             if (spell != nullptr && (unit->enchantments & 0xC) == 0) {
-                unit->eye2->field49_0x60 = 1;
+                unit->eye2->action_done = 1;
                 this->BeginAutobuffCast(unit, unit, spell);
             } else {
                 this->DoMoveStep(unit, result);
@@ -3726,22 +3726,22 @@ void World::TeleportToSafety(Unit* unit) {
 void World::TeleportAwayFromEnemies(Unit* unit) {
     uint8_t range = (unit->scan_range >> 8) - 1;
     PosYX pos = unit->position->GetYX();
-    UnitList* list = this->field24_0xa50->BuildNearbyUnitList(pos, 2);
+    UnitList* list = this->map_stuff->BuildNearbyUnitList(pos, 2);
     this->FilterByRelation(unit, list, 0);
     if (list->unit_list.GetCount() == 0) {
         this->DoGuardScan(unit);
     } else {
         uint32_t packed_yyxx = this->ComputeListAvgPos(list);
-        int16_t result = this->field24_0xa50->ClampPosToMap(unit, packed_yyxx, range);
+        int16_t result = this->map_stuff->ClampPosToMap(unit, packed_yyxx, range);
         Spell* spell = this->GetCastableSpell(unit, spell::teleport, 0);
         if (spell != nullptr) {
-            unit->eye2->field49_0x60 = 1;
+            unit->eye2->action_done = 1;
             this->BeginPositionCast(unit, result, spell);
         } else {
             spell = this->GetCastableSpell(unit, spell::invisibility, 0);
             // WAT: enchantments & 0xC makes no sense. Was it supposed to be (1 << 0xC)?
             if (spell != nullptr && (unit->enchantments & 0xC) == 0) {
-                unit->eye2->field49_0x60 = 1;
+                unit->eye2->action_done = 1;
                 this->BeginAutobuffCast(unit, unit, spell);
             } else {
                 this->DoMoveStep(unit, result);
@@ -3758,9 +3758,9 @@ int32_t World::WantsRetreat(Unit* unit) {
         return 0;
     }
 
-    uint8_t range = unit->eye->field7_0x8 + 5;
+    uint8_t range = unit->eye->scan_radius_base + 5;
     PosYX yx = unit->position->CompatGetYX();
-    UnitList* list = this->field24_0xa50->BuildNearbyUnitList(yx, range);
+    UnitList* list = this->map_stuff->BuildNearbyUnitList(yx, range);
     this->FilterByRelation(unit, list, 0);
     return list->unit_list.GetCount() != 0 ? 1 : 0;
 }
@@ -3774,7 +3774,7 @@ int32_t World::MustFlee(Unit* unit) {
     }
 
     PosYX yx = unit->position->CompatGetYX();
-    UnitList* list = this->field24_0xa50->BuildNearbyUnitList(yx, 2);
+    UnitList* list = this->map_stuff->BuildNearbyUnitList(yx, 2);
     this->FilterByRelation(unit, list, 0);
     return list->unit_list.GetCount() != 0 ? 1 : 0;
 }
@@ -3789,13 +3789,13 @@ void World::FleeFromEnemies(Unit* unit) {
     }
 
     PosYX pos = unit->position->GetYX();
-    UnitList* list = this->field24_0xa50->BuildNearbyUnitList(pos, 2);
+    UnitList* list = this->map_stuff->BuildNearbyUnitList(pos, 2);
     this->FilterByRelation(unit, list, 0);
     if (list->unit_list.GetCount() == 0) {
         this->DoGuardScan(unit);
     } else {
         uint32_t packed_yyxx = this->ComputeListAvgPos(list);
-        int16_t result = this->field24_0xa50->ClampPosToMap(unit, packed_yyxx, 3);
+        int16_t result = this->map_stuff->ClampPosToMap(unit, packed_yyxx, 3);
         this->DoMoveStep(unit, result);
     }
 }
@@ -3803,13 +3803,13 @@ void World::FleeFromEnemies(Unit* unit) {
 // 5A59E2
 void World::DoPatrolTick(Unit* unit) {
     unit->eye2->cast_action = 0;
-    if (unit->eye2->field2_0x4 != 0) {
+    if (unit->eye2->patrol_reanchor != 0) {
         unit->eye2->position1 = unit->position->CompatGetYX();
-        unit->eye2->field2_0x4 = 0;
+        unit->eye2->patrol_reanchor = 0;
     }
     this->AdvancePatrol(unit);
     if (unit->eye2->cast_action == 0 || unit->eye2->cast_action == 0xB) {
-        unit->eye2->field2_0x4 = 1;
+        unit->eye2->patrol_reanchor = 1;
         uint16_t pos = unit->eye2->position2.val;
         if (unit->position->CompatGetYX() == pos) {
             CList<uint16_t>* positions = unit->eye2->positions_list;
@@ -3845,7 +3845,7 @@ void World::AdvancePatrol(Unit* unit) {
     uint8_t x2 = unit->eye2->position1.x;
     uint8_t y1 = unit->position->GetY();
     uint8_t x1 = unit->position->GetX();
-    uint8_t dist = this->field24_0xa50->ChebyshevDistanceXY(x1, y1, x2, y2);
+    uint8_t dist = this->map_stuff->ChebyshevDistanceXY(x1, y1, x2, y2);
     if (dist >= (unit->scan_range >> 8)) {
         this->DoMoveStep(unit, unit->eye2->position1.val);
     }
@@ -3866,13 +3866,13 @@ void World::AdvancePatrol(Unit* unit) {
 // 5A6DA3
 void World::BeginEnterBuilding(Unit* unit, Building* building) {
     unit->eye2->cast_action = 0xF;
-    unit->eye2->field51_0x68 = building;
+    unit->eye2->enter_building = building;
 }
 
 // 5A551C
 void World::BeginPositionCast(Unit* unit, uint16_t pos_yx, Spell* spell) {
     unit->eye2->cast_action = 9;
-    unit->eye2->field30_0x3c = pos_yx;
+    unit->eye2->cast_pos = pos_yx;
     unit->eye2->spell = spell;
     unit->eye2->max_range = spell->max_range;
 }
@@ -3880,9 +3880,9 @@ void World::BeginPositionCast(Unit* unit, uint16_t pos_yx, Spell* spell) {
 // Build a temporary UnitList of units near `unit` using the unit's eye range.
 // 5A3791
 UnitList* World::BuildNearbyList(Unit* unit) {
-    uint8_t range = unit->eye->field7_0x8;
+    uint8_t range = unit->eye->scan_radius_base;
     PosYX yx = unit->position->CompatGetYX();
-    return this->field24_0xa50->BuildNearbyUnitList(yx, range);
+    return this->map_stuff->BuildNearbyUnitList(yx, range);
 }
 
 // 5A37C5
@@ -3926,11 +3926,11 @@ void World::BeginChase(Unit* unit, Unit* target, uint8_t range) {
 
 // 5A6789
 void World::DoGatherLootStep(Unit* unit) {
-    this->field24_0xa50->CollectSackCells(unit, 1);
-    if (this->field24_0xa50->field67_0xa4510.GetCount() == 0) {
+    this->map_stuff->CollectSackCells(unit, 1);
+    if (this->map_stuff->sack_cells.GetCount() == 0) {
         this->OrderHoldPosition(unit);
     } else {
-        unit->eye2->command_to = this->field24_0xa50->field67_0xa4510.GetHead();
+        unit->eye2->command_to = this->map_stuff->sack_cells.GetHead();
         unit->eye2->cast_action = 0xC;
     }
 }
@@ -3988,7 +3988,7 @@ void World::ProcessUnitState(Unit* unit) {
     if ((unit->state == 8 || unit->state == 0x11) && unit->eye2->unit2 != nullptr && unit->eye2->unit2->some_state == 0x10) {
         this->ResetUnitToIdle(unit);
     }
-    if (unit->state == 1 && unit->eye->field136_0x90 != 0 && unit->eye->field115_0x76.val == unit->position->CompatGetYX()) {
+    if (unit->state == 1 && unit->eye->target_reached != 0 && unit->eye->move_target.val == unit->position->CompatGetYX()) {
         this->ResetUnitToIdle(unit);
     }
 
@@ -4024,10 +4024,10 @@ void World::ProcessUnitState(Unit* unit) {
         this->BeginAutobuffCast(unit, unit->eye2->unit5, unit->eye2->spell);
         break;
     case 14:
-        this->BeginPositionCast(unit, unit->eye2->field30_0x3c, unit->eye2->spell);
+        this->BeginPositionCast(unit, unit->eye2->cast_pos, unit->eye2->spell);
         break;
     case 15:
-        this->BeginEnterBuilding(unit, unit->eye2->field51_0x68);
+        this->BeginEnterBuilding(unit, unit->eye2->enter_building);
         break;
     case 17:
         this->TickFollowTarget(unit, unit->eye2->unit2);
@@ -4098,27 +4098,27 @@ void World::AiMoveBrain(Group* group, uint16_t yx) {
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
 
-        if (unit->position->CompatGetYX() == unit->eye2->command_to && unit->position->IsAtCellCenter() && unit->eye2->field43_0x50 == 0) {
+        if (unit->position->CompatGetYX() == unit->eye2->command_to && unit->position->IsAtCellCenter() && unit->eye2->has_command == 0) {
             this->ResetUnitToIdle(unit);
-            unit->eye->field136_0x90 = 0;
+            unit->eye->target_reached = 0;
         } else {
-            if (unit->eye->field136_0x90 != 0 && unit->eye->field115_0x76.val == unit->position->CompatGetYX()) {
+            if (unit->eye->target_reached != 0 && unit->eye->move_target.val == unit->position->CompatGetYX()) {
                 this->ResetUnitToIdle(unit);
-                unit->eye->field136_0x90 = 0;
+                unit->eye->target_reached = 0;
             }
         }
 
-        if (unit->eye2->field43_0x50 != 0) {
+        if (unit->eye2->has_command != 0) {
             this->SetIdleOrRetreat(unit, 0);
         } else {
             if (group->group_sub->speed_override != 0) {
-                unit->eye2->field52_0x6c = 1;
+                unit->eye2->gap_0x6c = 1;
             }
 
             this->DoMoveStep(unit, unit->eye2->command_to);
 
-            if (!this->field24_0xa50->IsCellPassableDynamic(unit, yx) && unit->eye2->command_to == yx) {
-                uint8_t distance = this->field24_0xa50->ChebyshevDistance(yx, unit->position->CompatGetYX());
+            if (!this->map_stuff->IsCellPassableDynamic(unit, yx) && unit->eye2->command_to == yx) {
+                uint8_t distance = this->map_stuff->ChebyshevDistance(yx, unit->position->CompatGetYX());
                 if (distance < 2) {
                     this->DoGuardScan(unit);
                 }
@@ -4162,7 +4162,7 @@ void World::UpdateGroupCenter(Group* group) {
     uint8_t max_sum = 0;
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
-        uint8_t distance = this->field24_0xa50->ChebyshevDistance(unit->position->GetYX(), avg_yx);
+        uint8_t distance = this->map_stuff->ChebyshevDistance(unit->position->GetYX(), avg_yx);
         uint8_t scan_range = unit->scan_range >> 8;
         if (distance > max_distance) {
             max_distance = distance;
@@ -4184,7 +4184,7 @@ void World::UpdateGroupCenter(Group* group) {
 int32_t World::GetTargetScore(Unit* unit, Unit* target) {
     PosYX unit_yx = unit->position->GetYX();
     PosYX target_yx = target->position->GetYX();
-    uint8_t distance = this->field24_0xa50->ChebyshevDistance(unit_yx, target_yx);
+    uint8_t distance = this->map_stuff->ChebyshevDistance(unit_yx, target_yx);
 
     uint8_t target_movement = 0;
     uint8_t target_range = this->UnitMaxRange(target);
@@ -4208,8 +4208,8 @@ int32_t World::GetTargetScore(Unit* unit, Unit* target) {
         }
     }
 
-    uint8_t facing = this->field24_0xa50->GetFacingTo(unit, target);
-    uint8_t facing_diff = this->field24_0xa50->FacingDiff(unit->eye->field0_0x0, facing);
+    uint8_t facing = this->map_stuff->GetFacingTo(unit, target);
+    uint8_t facing_diff = this->map_stuff->FacingDiff(unit->eye->facing, facing);
 
     if (distance > 1) {
         return 0xFFFFFF;
@@ -4228,7 +4228,7 @@ int32_t World::GetTargetScore(Unit* unit, Unit* target) {
 
 // 5AE471
 void World::AssignBestTargets(Group* group) {
-    if (group->unit_list.GetCount() == 0 || this->field26_0xa64.unit_list.GetCount() == 0) {
+    if (group->unit_list.GetCount() == 0 || this->nearby_list.unit_list.GetCount() == 0) {
         for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
             Unit* unit = group->unit_list.GetNext(it);
             unit->eye2->unit4 = nullptr;
@@ -4239,8 +4239,8 @@ void World::AssignBestTargets(Group* group) {
             Unit* best_target = nullptr;
             int32_t best_score = 0xFFFFFF;
 
-            for (POSITION target_it = this->field26_0xa64.unit_list.GetHeadPosition(); target_it != nullptr;) {
-                Unit* target = this->field26_0xa64.unit_list.GetNext(target_it);
+            for (POSITION target_it = this->nearby_list.unit_list.GetHeadPosition(); target_it != nullptr;) {
+                Unit* target = this->nearby_list.unit_list.GetNext(target_it);
                 int32_t score = this->GetTargetScore(unit, target);
                 if (score < best_score) {
                     best_target = target;
@@ -4259,13 +4259,13 @@ void World::AssignBestTargets(Group* group) {
 
 // 5A3D12
 void World::PruneNearbyUnits(uint16_t pos_yx, uint8_t max_distance) {
-    CList<Unit*>& unit_list = this->field26_0xa64.unit_list;
+    CList<Unit*>& unit_list = this->nearby_list.unit_list;
     POSITION it = unit_list.GetHeadPosition();
     while (it != nullptr) {
         POSITION current_it = it;
         Unit* unit = unit_list.GetNext(it);
         uint16_t unit_pos = unit->position->CompatGetYX();
-        uint8_t distance = this->field24_0xa50->ChebyshevDistance(pos_yx, unit_pos);
+        uint8_t distance = this->map_stuff->ChebyshevDistance(pos_yx, unit_pos);
         if (distance > max_distance) {
             unit_list.RemoveAt(current_it);
         }
@@ -4274,7 +4274,7 @@ void World::PruneNearbyUnits(uint16_t pos_yx, uint8_t max_distance) {
 
 // 5AE2D4
 void World::AssignNearbyTargets(Group* group) {
-    if (group->unit_list.GetCount() == 0 || this->field26_0xa64.unit_list.GetCount() == 0) {
+    if (group->unit_list.GetCount() == 0 || this->nearby_list.unit_list.GetCount() == 0) {
         for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
             Unit* unit = group->unit_list.GetNext(it);
             unit->eye2->unit4 = nullptr;
@@ -4289,8 +4289,8 @@ void World::AssignNearbyTargets(Group* group) {
             Unit* best_target = nullptr;
             int32_t best_score = 0xFFFFFF;
 
-            for (POSITION target_it = this->field26_0xa64.unit_list.GetHeadPosition(); target_it != nullptr;) {
-                Unit* target = this->field26_0xa64.unit_list.GetNext(target_it);
+            for (POSITION target_it = this->nearby_list.unit_list.GetHeadPosition(); target_it != nullptr;) {
+                Unit* target = this->nearby_list.unit_list.GetNext(target_it);
                 int32_t score = this->GetAttackDecision(unit, target);
                 if (score < best_score) {
                     best_target = target;
@@ -4377,10 +4377,10 @@ void World::AiDefendBrain(Group* group) {
         Unit* unit = group->unit_list.GetNext(it);
         int32_t tick16_diff = std::abs(unit->eye2->tick16 - g_Server->tick16);
         if (unit->hp != unit->hp_max && tick16_diff < 30) {
-            this->DoMoveStep(unit, unit->eye2->field69_0x9c);
+            this->DoMoveStep(unit, unit->eye2->attack_move_pos);
         } else {
             if (tick16_diff < 10) {
-                this->DoMoveStep(unit, unit->eye2->field69_0x9c);
+                this->DoMoveStep(unit, unit->eye2->attack_move_pos);
             } else if (unit->eye2->unit4 != nullptr) {
                 this->DoAttackTarget(unit, unit->eye2->unit4);
             } else {
@@ -4394,13 +4394,13 @@ void World::AiDefendBrain(Group* group) {
                         }
                     } else {
                         unit->eye2->counter3 += 1;
-                        this->DoMoveStep(unit, unit->eye2->field72_0xa0);
+                        this->DoMoveStep(unit, unit->eye2->gap_0xa0);
                         if (unit->eye2->counter3 > 10) {
                             unit->eye2->counter3 = 0;
                         }
                     }
                 } else {
-                    this->DoMoveStep(unit, unit->eye2->field69_0x9c);
+                    this->DoMoveStep(unit, unit->eye2->attack_move_pos);
                 }
             }
         }
@@ -4556,7 +4556,7 @@ void World::CheckOP_2(TriggerCheck* check) {
 // 5B2F9A
 void World::CheckOP_3(TriggerCheck* check) {
     TokenPos* pos = check->unit->position;
-    int32_t distance = this->field24_0xa50->ChebyshevDistanceXY(pos->GetX(), pos->GetY(), check->data[0], check->data[1]);
+    int32_t distance = this->map_stuff->ChebyshevDistanceXY(pos->GetX(), pos->GetY(), check->data[0], check->data[1]);
     if (distance > check->data[2]) {
         this->trigger_variables[check->id] = 0;
     } else {
@@ -4589,14 +4589,14 @@ void World::CheckOP_6(TriggerCheck* check) {
     } else {
         TokenPos* pos = check->unit->position;
         TokenPos* other_pos = other->position;
-        this->trigger_variables[check->id] = this->field24_0xa50->ChebyshevDistanceXY(pos->GetX(), pos->GetY(), other_pos->GetX(), other_pos->GetY());
+        this->trigger_variables[check->id] = this->map_stuff->ChebyshevDistanceXY(pos->GetX(), pos->GetY(), other_pos->GetX(), other_pos->GetY());
     }
 }
 
 // 5B3016
 void World::CheckOP_7(TriggerCheck* check) {
     TokenPos* pos = check->unit->position;
-    this->trigger_variables[check->id] = this->field24_0xa50->ChebyshevDistanceXY(pos->GetX(), pos->GetY(), check->data[0], check->data[1]);
+    this->trigger_variables[check->id] = this->map_stuff->ChebyshevDistanceXY(pos->GetX(), pos->GetY(), check->data[0], check->data[1]);
 }
 
 // 5B30AD
@@ -4636,7 +4636,7 @@ void World::CheckOP_12(TriggerCheck* check) {
 
 // 5B32CF
 void World::CheckOP_14(TriggerCheck* check) {
-    if (this->field24_0xa50->GetSackAt(check->data[0], check->data[1]) != nullptr) {
+    if (this->map_stuff->GetSackAt(check->data[0], check->data[1]) != nullptr) {
         this->trigger_variables[check->id] = 1;
     } else {
         this->trigger_variables[check->id] = 0;
@@ -4651,7 +4651,7 @@ void World::CheckOP_15(TriggerCheck* check) {
         Group* group = groups.GetNext(it);
         for (POSITION unit_it = group->unit_list.GetHeadPosition(); unit_it != nullptr;) {
             Unit* unit = group->unit_list.GetNext(unit_it);
-            int32_t distance = this->field24_0xa50->ChebyshevDistanceXY(unit->position->GetX(), unit->position->GetY(), check->data[0], check->data[1]);
+            int32_t distance = this->map_stuff->ChebyshevDistanceXY(unit->position->GetX(), unit->position->GetY(), check->data[0], check->data[1]);
             if (distance < best) {
                 best = distance;
             }
@@ -4663,7 +4663,7 @@ void World::CheckOP_15(TriggerCheck* check) {
 // 5B33F0
 void World::CheckOP_16(TriggerCheck* check) {
     if (check->unit->inventory->FindItemById(check->item_id) != nullptr) {
-        this->trigger_variables[check->id] = this->field24_0xa50->ChebyshevDistanceXY(check->unit->position->GetX(), check->unit->position->GetY(), check->data[0], check->data[1]);
+        this->trigger_variables[check->id] = this->map_stuff->ChebyshevDistanceXY(check->unit->position->GetX(), check->unit->position->GetY(), check->data[0], check->data[1]);
     } else {
         this->trigger_variables[check->id] = 0xFF;
     }
@@ -4711,9 +4711,9 @@ void World::CheckOP_21(TriggerCheck* check) {
 // 5B35C6
 void World::CheckOP_22(TriggerCheck* check) {
     PosYX yx(check->data[0], check->data[1]);
-    Unit* unit = this->field24_0xa50->GetSmallUnitAt(yx.val);
+    Unit* unit = this->map_stuff->GetSmallUnitAt(yx.val);
     if (unit != nullptr) {
-        this->field24_0xa50->TeleportUnit(unit, check->data[2], check->data[3]);
+        this->map_stuff->TeleportUnit(unit, check->data[2], check->data[3]);
         this->trigger_variables[check->id] = 1;
     } else {
         this->trigger_variables[check->id] = 0;
@@ -4733,7 +4733,7 @@ void World::CheckOP_24(TriggerCheck* check) {
 // 5B369C
 void World::CheckOP_25(TriggerCheck* check) {
     PosYX yx(check->data[0], check->data[1]);
-    AreaEffect** effects = this->field24_0xa50->GetAreaEffectsAt(yx.val);
+    AreaEffect** effects = this->map_stuff->GetAreaEffectsAt(yx.val);
     if (effects == nullptr) {
         this->trigger_variables[check->id] = 0;
     } else if (effects[check->data[2]] != nullptr) {

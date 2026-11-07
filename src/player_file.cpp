@@ -469,7 +469,7 @@ void CGameSession::RefreshCharacterRosterFiles(int val) { //49265a
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
 #ifdef A2CLIENT
-	if (mwnd->hat_settings.ishat == 0 || mwnd->field_0x3e0.field_10 == 0) {
+	if (mwnd->hat_settings.ishat == 0 || mwnd->net_session.internet_game == 0) {
 		val = 0;
 	}
 #endif
@@ -503,11 +503,11 @@ void CGameSession::RefreshCharacterRosterFiles(int val) { //49265a
 					FileSectionBasicInfo* sec = (FileSectionBasicInfo*)data.data();
 					strcpy(this->character_name, sec->nick);
 					if (sec->hat_id == 0x529c0291 || sec->hat_id == 0xbaadf00d) {
-						sec->hat_id = mwnd->field_0x3e0.hat_id;
+						sec->hat_id = mwnd->net_session.hat_id;
 					}
-					if (sec->hat_id == mwnd->field_0x3e0.hat_id
+					if (sec->hat_id == mwnd->net_session.hat_id
 #ifdef A2CLIENT
-						|| (sec->hat_id == 0xbabad0d0 && mwnd->field_0x3e0.field_10 != 0 && mwnd->hat_settings.ishat && mwnd->hat_settings.deathmatch)
+						|| (sec->hat_id == 0xbabad0d0 && mwnd->net_session.internet_game != 0 && mwnd->hat_settings.ishat && mwnd->hat_settings.deathmatch)
 #endif
 						) {	
 						FILETIME tm;

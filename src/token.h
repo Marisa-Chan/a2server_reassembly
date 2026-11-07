@@ -62,8 +62,8 @@ public:
 	PosYX YX;
 	uint8_t x_subcell; // When a unit is moving, this holds the subcell position in 1/256ths of a cell. Middle of the cell is 128.
 	uint8_t y_subcell;
-	uint8_t field_x6;
-	uint8_t field_x7;
+	uint8_t gap_x6;
+	uint8_t gap_x7;
 	MapStuff* pInstance;
 
 public:
@@ -138,8 +138,8 @@ public:
 	TokenPos* position = nullptr;
 	Player* pOwner = nullptr;
 	uint16_t sent_to_mask;
-	int8_t field_x1a;
-	int8_t field_x1b;
+	int8_t gap_x1a;
+	int8_t gap_x1b;
 	int32_t _exp;
 	CList<Effect*> _effects;
 };

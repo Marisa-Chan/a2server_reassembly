@@ -15,10 +15,10 @@ public:
     void Serialize(CArchive& ar);  // client: 57e48b
 
 public:
-    uint16_t field_0x0;
+    uint16_t gap_0x0;
     uint8_t gap_0x2[6];
-    uint8_t field_0x8;
-    uint8_t field_0x9;
+    uint8_t gap_0x8;
+    uint8_t gap_0x9;
     uint16_t order_pos;
     uint8_t gap_0xc[9];
     uint8_t order_age;
@@ -35,7 +35,7 @@ public:
     uint32_t was_empty;
     uint32_t phase_ticks;
     uint8_t guard_range_base;
-    uint8_t field_0x39;
+    uint8_t gap_0x39;
     uint8_t gap_0x3a[10];
     uint8_t speed_override; // Group movement speed?
     uint8_t presence_detected;
@@ -55,7 +55,7 @@ public:
     uint32_t group_id;
     CList<uint16_t> some_list;
     GroupSub* group_sub;
-    uint32_t field_0x40;
+    uint32_t saved_ptr;
     Player* owner;
     uint32_t has_quest_kill;
     uint32_t has_quest_intercept;

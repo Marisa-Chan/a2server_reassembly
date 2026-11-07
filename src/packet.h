@@ -99,7 +99,7 @@ public:
             uint8_t color;
             uint8_t flags;
         };
-        uint32_t __field_0xa;
+        uint32_t __as_dword;
     };
     
     uint16_t name_len;
@@ -356,7 +356,7 @@ public:
     virtual uint32_t GetDataSize() override; // sub_57A5C0 (client: 54b390)
 public:
     uint16_t unit_id; // 0xa
-    uint8_t field_c;
+    uint8_t gap_c;
     uint8_t type_id; // 0xd
     int16_t xpos; // 0xe
     int16_t ypos; // 0x10
@@ -438,10 +438,10 @@ public:
     virtual uint32_t GetDataSize() override; // sub_57A800 (client: 54b5d0)
 public:
     uint8_t type_id;    // +0xA
-    uint8_t field_0xb;    // +0xB; `x` coordinate of top-left corner of AoE zone
-    uint8_t field_0xc;    // +0xC; `y` coordinate of top-left corner of AoE zone
-    uint8_t field_0xd;    // +0xD (= 0 in ctor); width of AoE zone in cells
-    uint8_t field_0xe;    // +0xE (= 0 in ctor); height of AoE zone in cells
+    uint8_t x;    // +0xB; `x` coordinate of top-left corner of AoE zone
+    uint8_t y;    // +0xC; `y` coordinate of top-left corner of AoE zone
+    uint8_t width;    // +0xD (= 0 in ctor); width of AoE zone in cells
+    uint8_t height;    // +0xE (= 0 in ctor); height of AoE zone in cells
     uint8_t set_flag;    // +0xF
     uint8_t data[12] ;    // +0x10..+0x1B
 };
