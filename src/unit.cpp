@@ -298,15 +298,7 @@ void Unit::Serialize(CArchive& ar) {
         ar.Read(this->eye, sizeof(UnitEye));
     }
 
-    // Serialize UnitEye2 (0xB8 bytes raw + positions_list)
-    if (ar.IsStoring()) {
-        ar.Write(this->eye2, sizeof(UnitEye2));
-        this->eye2->positions_list->Serialize(ar);
-    } else {
-        ar.Read(this->eye2, sizeof(UnitEye2));
-        this->eye2->positions_list = new CList<uint16_t>();
-        this->eye2->positions_list->Serialize(ar);
-    }
+    this->eye2->Serialize(ar);
 
     if (ar.IsStoring()) {
         ar.Write(&this->token_size, 1);

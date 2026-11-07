@@ -264,6 +264,7 @@ struct UnitEye2 {
 public:
     UnitEye2(); // 5A4E83 (client: 572ff3)
     ~UnitEye2(); // 5A4F30 (client: 47b660)
+    void Serialize(CArchive& ar); // 5B031B (client: 57E48B)
 };
 ASSERT_OFFSET(UnitEye2, known_spells, 0x7c);
 ASSERT_SIZE(UnitEye2, 0xb8);

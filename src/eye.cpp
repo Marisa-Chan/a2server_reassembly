@@ -53,3 +53,18 @@ UnitEye2::~UnitEye2() {
     delete this->positions_list;
     this->positions_list = nullptr;
 }
+
+// 5B031B
+void UnitEye2::Serialize(CArchive& ar) {
+    if (ar.IsStoring()) {
+        ar.Write(this, 0xB8);
+        this->positions_list->Serialize(ar);
+    } else {
+        if (this->positions_list != nullptr) {
+            delete this->positions_list;
+        }
+        ar.Read(this, 0xB8);
+        this->positions_list = new CList<uint16_t>();
+        this->positions_list->Serialize(ar);
+    }
+}
