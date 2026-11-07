@@ -4534,7 +4534,8 @@ void VisTipsDialog::SetText(const char* text) {
 
 // 4e2b95
 int32_t VisTipsDialog::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
-    if (msg == 0x46E && wparam == 0xF) {
+    // client 4e7519: the radio id is build-shifted (0xF server, 0x10 client).
+    if (msg == 0x46E && wparam == MAP_CHILD_TIPS_SHOW_RADIO) {
         g_settings.TipsMode = lparam;
     }
 
