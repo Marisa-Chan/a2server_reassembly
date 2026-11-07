@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>A2 browser client — prototype</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>A2 browser client <span class="dim">prototype — login → map list → join → packet log</span></h1>
+  <div id="statusline">idle</div>
+</header>
+
+<main>
+  <section id="left">
+    <fieldset>
+      <legend>HAT login</legend>
+      <div class="row">
+        <label>host <input id="hat-host" value="127.0.0.1" size="10"></label>
+        <label>port <input id="hat-port" value="8000" size="5"></label>
+        <label>mode
+          <select id="mode">
+            <option value="0" selected>0 coop</option>
+            <option value="1">1 deathmatch</option>
+            <option value="2">2 teamplay</option>
+            <option value="3">3 arena</option>
+          </select>
+        </label>
+        <span id="hat-status" class="dim">disconnected</span>
+      </div>
+      <div class="row">
+        <label>login <input id="login" value="testlogin" size="10"></label>
+        <label>password <input id="password" type="password" value="12345" size="10"></label>
+        <button id="hat-connect">Connect &amp; log in</button>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Games (maps)</legend>
+      <div id="servers" class="dim">not requested</div>
+      <button id="refresh">refresh list</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>Character</legend>
+      <div id="chars" class="dim">—</div>
+      <div class="row">
+        <label>new char nick <input id="nick" value="Browserone" size="12"></label>
+        <button id="join" disabled>Join selected game</button>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Units seen <span class="dim">(from 0x6c-family updates)</span></legend>
+      <div class="unitswrap">
+        <table id="units">
+          <thead><tr><th>id</th><th>name/type</th><th>owner</th><th>hp</th><th>pos</th><th>upd</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </fieldset>
+
+    <div id="counters" class="counters"></div>
+  </section>
+
+  <section id="right">
+    <div class="logbar">
+      <label><input type="checkbox" id="autoscroll" checked> autoscroll</label>
+      <label><input type="checkbox" id="hide-ticks"> hide ticks</label>
+      <label><input type="checkbox" id="pause"> pause</label>
+      <button id="clear-log">clear</button>
+    </div>
+    <div id="logwrap">
+      <table class="pkt" id="pktlog">
+        <thead><tr><th>time</th><th>conn</th><th>dir</th><th>id</th><th>name</th><th>len</th><th>detail</th><th>hex</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script src="a2net.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
