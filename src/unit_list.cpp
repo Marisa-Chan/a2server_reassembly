@@ -15,9 +15,10 @@ UnitList::UnitList() = default;
 UnitList::~UnitList() = default;
 
 void UnitList::Serialize(CArchive& ar) {
-	//558ef8
+	//558ef8 - both binaries write the count as a raw 4-byte int (not WriteCount)
 	if (ar.IsStoring()) {
-		ar.WriteCount(this->unit_list.GetCount());
+		uint32_t count = this->unit_list.GetCount();
+		ar << count;
 
 		POSITION pos = this->unit_list.GetHeadPosition();
 		while (pos != NULL) {
@@ -25,9 +26,10 @@ void UnitList::Serialize(CArchive& ar) {
 			ar.WriteObject(unit);
 		}
 	} else {
-		DWORD nNewCount = ar.ReadCount();
+		uint32_t count = 0;
+		ar >> count;
 		Unit* unit;
-		while (nNewCount--) {
+		while (count--) {
 			ar >> unit;
 			this->unit_list.AddTail(unit);
 		}
