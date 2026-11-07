@@ -46,6 +46,16 @@ struct FileSectionStats {
 ASSERT_OFFSET(FileSectionStats, mind, 0x16);
 ASSERT_SIZE(FileSectionStats, 0x34);
 
+// On-disk section header preceding each encrypted player-file section.
+struct PlayerFileSectionHeader {
+    uint32_t tag;
+    uint32_t size;
+    uint16_t reserved;
+    uint16_t key;
+    uint32_t checksum;
+};
+
+
 // See other types:
 //  Server side: `ParsePlayerFile_004f62e6`,
 //  Hat side: `CCharacter::SaveToStream`.

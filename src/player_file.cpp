@@ -31,13 +31,6 @@ namespace {
 constexpr uint32_t kPlayerFileMagic = 0x04507989;
 constexpr int32_t kKillStatsSize = 0x0A00;
 
-struct PlayerFileSectionHeader {
-	uint32_t tag;
-	uint32_t size;
-	uint16_t reserved;
-	uint16_t key;
-	uint32_t checksum;
-};
 
 void WriteEncryptedSection(CFile& file, uint32_t tag, uint8_t* data, uint32_t size) {
 	PlayerFileSectionHeader header = {};

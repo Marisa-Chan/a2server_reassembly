@@ -24783,253 +24783,202 @@ void VisHatBrowserDlg::VMethod26() {
 }
 
 
-// Read-only view of the fields the a2mgr-installed browser object exposes to the dialog
-// (client accessors 4540d0/4540f0/454110/454130/454170/4541d0; CS installed at 0x204).
-struct HatBrowserProgress {
-    WSAData wsa;
-    SOCKET sock;
-    sockaddr_in send_addr;
-    sockaddr_in recv_addr;
-    addrinfo* host_ent;
-    int32_t err;
-    int32_t send_len;
-    int32_t recv_addr_len;
-    int32_t timeout;
-    char* addr_str;
-    std::vector<uint8_t> send_buf;
-    std::vector<uint8_t> recv_buf;
-    in_addr addr;
-    int32_t send_serial;
-    int32_t min_rtt;
-    int32_t max_rtt;
-    int32_t last_rtt;
-    int32_t recv_serial;
-    int32_t total_rtt;
-    int32_t timeouts;
-    int32_t error;
-    int32_t active;
-    int32_t wsa_started;
-    uint32_t timestamp;
-    CRITICAL_SECTION cs;
+// HatBrowserProgress implementation (struct declared in net.h)
 
-    static void InitBuf(uint8_t* buf, int32_t ln) { //4b2187
-        buf[0] = 8;
-        buf[1] = 0;
-        *(uint16_t*)(buf + 2) = 0;
-        *(uint16_t*)(buf + 4) = GetCurrentProcessId();
-        *(uint16_t*)(buf + 6) = 0;
-        memset(buf + 0xc, 'E', ln - 0xc);
-    }
+HatBrowserProgress::HatBrowserProgress() { //4b18c0
+    recv_addr_len = sizeof(send_addr);
+    timeout = 1000;
+    addr.S_un.S_addr = 0;
+    send_serial = 0;
+    sock = INVALID_SOCKET;
+    wsa_started = 0;
+    timestamp = 0;
+    min_rtt = 10000;
+    last_rtt = 0;
+    max_rtt = 0;
+    last_rtt = 0;
+    total_rtt = 0;
+    recv_serial = 0;
+    timeouts = 0;
+    error = 0;
 
-    static uint32_t CalcCrc(void* ibuf, int32_t ln) { //4b2113
-        uint16_t* buf = (uint16_t*)ibuf;
-        uint32_t crc = 0;
-        for (; ln > 1; ln -= 2) {
-            crc += *buf;
-            buf++;
-        }
+    InitializeCriticalSection(&cs);
 
-        if (ln != 0)
-            crc += *(uint8_t*)buf;
-
-        crc = (crc >> 16) + (crc & 0xffff);
-        return ~(crc + (crc >> 0x10));
-    }
-
-    HatBrowserProgress() { //4b18c0
-        recv_addr_len = sizeof(send_addr);
-        timeout = 1000;
-        addr.S_un.S_addr = 0;
-        send_serial = 0;
-        sock = INVALID_SOCKET;
-        wsa_started = 0;
-        timestamp = 0;
-        min_rtt = 10000;
-        last_rtt = 0;
-        max_rtt = 0;
-        last_rtt = 0;
-        total_rtt = 0;
-        recv_serial = 0;
-        timeouts = 0;
-        error = 0;
-
-        InitializeCriticalSection(&cs);
-
-        if (WSAStartup(0x101, &wsa) == 0) {
-            send_buf.resize(0x400);
-            recv_buf.resize(0x400);
-            if (send_buf.empty() || recv_buf.empty()) {
-                error = -5;
-            }
-            else {
-                wsa_started = 1;
-            }
+    if (WSAStartup(0x101, &wsa) == 0) {
+        send_buf.resize(0x400);
+        recv_buf.resize(0x400);
+        if (send_buf.empty() || recv_buf.empty()) {
+            error = -5;
         }
         else {
-            error = -1;
+            wsa_started = 1;
         }
     }
-
-    ~HatBrowserProgress() {
-        if (wsa_started != 0) {
-            if (sock != INVALID_SOCKET)
-                closesocket(sock);
-            WSACleanup();
-        }
-        DeleteCriticalSection(&cs);
+    else {
+        error = -1;
     }
+}
 
-
-    void Init(const char* hst) { //4b1a9b
-        if (wsa_started == 0)
-            return;
-
-        active = 0;
-
-        EnterCriticalSection(&cs);
-
-        min_rtt = 1000;
-        last_rtt = 0;
-        max_rtt = 0;
-        last_rtt = 0;
-        total_rtt = 0;
-        recv_serial = 0;
-        timeouts = 0;
-        error = 0;
-
-        LeaveCriticalSection(&cs);
-
+HatBrowserProgress::~HatBrowserProgress() {
+    if (wsa_started != 0) {
         if (sock != INVALID_SOCKET)
             closesocket(sock);
+        WSACleanup();
+    }
+    DeleteCriticalSection(&cs);
+}
+
+
+void HatBrowserProgress::Init(const char* hst) { //4b1a9b
+    if (wsa_started == 0)
+        return;
+
+    active = 0;
+
+    EnterCriticalSection(&cs);
+
+    min_rtt = 1000;
+    last_rtt = 0;
+    max_rtt = 0;
+    last_rtt = 0;
+    total_rtt = 0;
+    recv_serial = 0;
+    timeouts = 0;
+    error = 0;
+
+    LeaveCriticalSection(&cs);
+
+    if (sock != INVALID_SOCKET)
+        closesocket(sock);
+    
+    sock = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP);
+    if (sock == INVALID_SOCKET) {
+        error = -2;
+        return;
+    }
+
+    err = setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (const char*)&timeout, 4);
+    if (err == -1) {
+        error = -3;
+        return;
+    }
+
+    timeout = 1000;
+    err = setsockopt(sock, SOL_SOCKET, SO_SNDTIMEO, (const char*)&timeout, 4);
+    if (err == -1) {
+        error = -3;
+        return;
+    }
+
+    memset(&send_addr, 0, sizeof(send_addr));
+    //host_ent = gethostbyname(hst);
+
+    if (GetAddrInfo(hst, nullptr, nullptr, &host_ent) == 0 || host_ent == nullptr) {
+        inet_pton(AF_INET, hst, &addr.S_un); // addr.S_un.S_addr = inet_addr(hst);
+    }
+
+    if ((host_ent == nullptr) && addr.S_un.S_addr == 0xffffffff) {
+        error = -4;
+        return;
+    }
+
+    if (host_ent == nullptr)
+        send_addr.sin_addr.S_un = addr.S_un;
+    else
+        memcpy(&send_addr.sin_addr, host_ent->ai_addr, host_ent->ai_addrlen);
+
+    if (host_ent == nullptr)
+        send_addr.sin_family = 2;
+    else
+        send_addr.sin_family = host_ent->ai_family;
+
+    static char addrbuf[INET_ADDRSTRLEN+1];
+    inet_ntop(AF_INET, &(send_addr.sin_addr), addrbuf, INET_ADDRSTRLEN); // inet_ntoa(send_addr.sin_addr);
+    addr_str = addrbuf;
+    send_len = 0x20;
+    send_len += 0xc;
+
+    memset(send_buf.data(), 0, send_buf.size());
+    InitBuf(send_buf.data(), send_len);
+
+    active = 1;
+    timestamp = GetTickCount();
+}
+
+
+void HatBrowserProgress::FUN_004b1dbb() { //4b1dbb
+    if (active == 0)
+        return;
+
+    error = 0;
+
+    send_len = 0x20;
+    send_len += 0xc;
+
+    send_buf[2] = 0;
+    send_buf[3] = 0;
+
+    *(uint32_t *)(send_buf.data() + 8) = GetTickCount();
+    *(uint16_t*)(send_buf.data() + 6) = send_serial;
+
+    send_serial++;
+
+    *(uint16_t*)(send_buf.data() + 2) = CalcCrc(send_buf.data(), send_len);
+
+    int32_t res = sendto(sock, (char*)send_buf.data(), send_len, 0, (sockaddr*)&send_addr, 0x10);
+    timestamp = GetTickCount();
+
+    if (res == -1) {
+        if (WSAGetLastError() == WSAETIMEDOUT)
+            error = -6;
+        else
+            error = -7;
+        return;
+    }
+
+    err = recvfrom(sock, (char*)recv_buf.data(), recv_buf.size(), 0, (sockaddr*)&recv_addr, &recv_addr_len);
+    timestamp = GetTickCount();
+
+    if (err == -1) {
+        if (WSAGetLastError() == WSAETIMEDOUT) {
+            EnterCriticalSection(&cs);
+            timeouts++;
+            error = -8;
+            LeaveCriticalSection(&cs);
+        }
+        else
+            error = -9;
+        return;
+    }
         
-        sock = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP);
-        if (sock == INVALID_SOCKET) {
-            error = -2;
-            return;
-        }
-
-        err = setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (const char*)&timeout, 4);
-        if (err == -1) {
-            error = -3;
-            return;
-        }
-
-        timeout = 1000;
-        err = setsockopt(sock, SOL_SOCKET, SO_SNDTIMEO, (const char*)&timeout, 4);
-        if (err == -1) {
-            error = -3;
-            return;
-        }
-
-        memset(&send_addr, 0, sizeof(send_addr));
-        //host_ent = gethostbyname(hst);
-
-        if (GetAddrInfo(hst, nullptr, nullptr, &host_ent) == 0 || host_ent == nullptr) {
-            inet_pton(AF_INET, hst, &addr.S_un); // addr.S_un.S_addr = inet_addr(hst);
-        }
-
-        if ((host_ent == nullptr) && addr.S_un.S_addr == 0xffffffff) {
-            error = -4;
-            return;
-        }
-
-        if (host_ent == nullptr)
-            send_addr.sin_addr.S_un = addr.S_un;
-        else
-            memcpy(&send_addr.sin_addr, host_ent->ai_addr, host_ent->ai_addrlen);
-
-        if (host_ent == nullptr)
-            send_addr.sin_family = 2;
-        else
-            send_addr.sin_family = host_ent->ai_family;
-
-        static char addrbuf[INET_ADDRSTRLEN+1];
-        inet_ntop(AF_INET, &(send_addr.sin_addr), addrbuf, INET_ADDRSTRLEN); // inet_ntoa(send_addr.sin_addr);
-        addr_str = addrbuf;
-        send_len = 0x20;
-        send_len += 0xc;
-
-        memset(send_buf.data(), 0, send_buf.size());
-        InitBuf(send_buf.data(), send_len);
-
-        active = 1;
-        timestamp = GetTickCount();
+    uint32_t* rdat = (uint32_t*)(recv_buf.data() + (recv_buf[0] & 0xf) * 4);
+    if (*(uint8_t*)rdat != 0) {
+        error = -10;
+        return;
     }
 
-
-    void FUN_004b1dbb() { //4b1dbb
-        if (active == 0)
-            return;
-
-        error = 0;
-
-        send_len = 0x20;
-        send_len += 0xc;
-
-        send_buf[2] = 0;
-        send_buf[3] = 0;
-
-        *(uint32_t *)(send_buf.data() + 8) = GetTickCount();
-        *(uint16_t*)(send_buf.data() + 6) = send_serial;
-
-        send_serial++;
-
-        *(uint16_t*)(send_buf.data() + 2) = CalcCrc(send_buf.data(), send_len);
-
-        int32_t res = sendto(sock, (char*)send_buf.data(), send_len, 0, (sockaddr*)&send_addr, 0x10);
-        timestamp = GetTickCount();
-
-        if (res == -1) {
-            if (WSAGetLastError() == WSAETIMEDOUT)
-                error = -6;
-            else
-                error = -7;
-            return;
-        }
-
-        err = recvfrom(sock, (char*)recv_buf.data(), recv_buf.size(), 0, (sockaddr*)&recv_addr, &recv_addr_len);
-        timestamp = GetTickCount();
-
-        if (err == -1) {
-            if (WSAGetLastError() == WSAETIMEDOUT) {
-                EnterCriticalSection(&cs);
-                timeouts++;
-                error = -8;
-                LeaveCriticalSection(&cs);
-            }
-            else
-                error = -9;
-            return;
-        }
-            
-        uint32_t* rdat = (uint32_t*)(recv_buf.data() + (recv_buf[0] & 0xf) * 4);
-        if (*(uint8_t*)rdat != 0) {
-            error = -10;
-            return;
-        }
-
-        if ((rdat[1] & 0xffff) != (GetCurrentProcessId() & 0xffff)) {
-            error = -10;
-            return;
-        }
-
-        EnterCriticalSection(&cs);
-        last_rtt = timestamp - rdat[2];
-        recv_serial++;
-        total_rtt += last_rtt;
-
-        if (min_rtt >= last_rtt)
-            min_rtt = last_rtt;
-
-        if (last_rtt >= max_rtt)
-            max_rtt = last_rtt;
-        LeaveCriticalSection(&cs);
+    if ((rdat[1] & 0xffff) != (GetCurrentProcessId() & 0xffff)) {
+        error = -10;
+        return;
     }
 
-    int32_t FUN_00453df0() { //453df0
-        return error;
-    }
-};
+    EnterCriticalSection(&cs);
+    last_rtt = timestamp - rdat[2];
+    recv_serial++;
+    total_rtt += last_rtt;
+
+    if (min_rtt >= last_rtt)
+        min_rtt = last_rtt;
+
+    if (last_rtt >= max_rtt)
+        max_rtt = last_rtt;
+    LeaveCriticalSection(&cs);
+}
+
+int32_t HatBrowserProgress::FUN_00453df0() { //453df0
+    return error;
+}
+
 
 // 44c1a9
 // client: 44f11d
