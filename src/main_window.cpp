@@ -2641,7 +2641,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
             PostMessage(0x489, 0, 0);
         }
     } else if (obj == this->vis_globalmap) {
-        this->dialogsMask &= ~0x20;
+        this->dialogsMask &= ~0x10;
     } else if (obj == this->vis_credits) {
         this->dialogsMask &= ~0x40;
 
