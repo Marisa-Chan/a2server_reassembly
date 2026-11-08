@@ -1034,7 +1034,7 @@ CUnit::CUnit() { //46411c
     this->heroSpritePictureName[0] = 0;
     this->y_pos2 = 0;
     this->x_pos2 = 0;
-    this->unitFlags = 0;
+    this->unitFlags = UNIT_FLAG_NONE;
     this->death_state = 0;
     this->heroSpriteArmorMaterial = -1;
     this->gap_0x161 = 0;
@@ -1762,8 +1762,8 @@ void CUnit::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) { // 466a
     }
 #endif
     int32_t session_mode = main_wnd->sessionMode;
-    if (session_mode == 2 || g_settings.ClanNames == 0 || this->str1[0] == 0 || (this->unitFlags & UNIT_FLAG_PLAYER_CLASS) == 0) {
-        if (session_mode != 2 && g_settings.ClanNames != 0) {
+    if (session_mode == SESSION_LOCAL_BATTLE || g_settings.ClanNames == 0 || this->str1[0] == 0 || (this->unitFlags & UNIT_FLAG_PLAYER_CLASS) == 0) {
+        if (session_mode != SESSION_LOCAL_BATTLE && g_settings.ClanNames != 0) {
             int32_t quest_flag = 0;
             POSITION pos = map->quest_map->quests_map.GetStartPosition();
             while (pos != nullptr) {
@@ -3369,7 +3369,7 @@ void CUnit::InitState(int16_t unit_id, int32_t typeId, int32_t x_pos, int32_t y_
     this->typeId = typeId;
     this->face = this->typeId;
     this->map_player = map_player;
-    this->unitFlags = 0;
+    this->unitFlags = UNIT_FLAG_NONE;
 }
 
 // 46f600

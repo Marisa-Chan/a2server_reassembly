@@ -6438,7 +6438,7 @@ void Server::SerializeGame(CArchive& ar) {
         int32_t loaded_mode = 0;
         ar >> loaded_mode;
         if (loaded_mode > 0 && loaded_mode < 4) {
-            this->difficulty = loaded_mode;
+            this->difficulty = (Difficulty)loaded_mode;
         }
 
         g_PlayersList->Serialize(ar);

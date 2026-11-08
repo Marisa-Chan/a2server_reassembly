@@ -208,7 +208,7 @@ public:
     void ProcessAvailPackets(); //509010 (client: 50106e)
     void PumpNetwork(); //50907e (client: 5010a0)
 
-    void SetDifficulty(int32_t val) { this->difficulty = val; }; //497470
+    void SetDifficulty(int32_t val) { this->difficulty = (Difficulty)val; }; //497470
 
     void DespawnScenarioUnits(int32_t var300, CDWordArray& arr); //501b9e (client: 4fbe72)
         
@@ -229,7 +229,7 @@ public:
     uint32_t has_world_state;
     Srv1 srv1;
     uint32_t map_code;
-    uint32_t difficulty; //game type? or dificulty?
+    Difficulty difficulty; // 1..3 (saved as raw int in games)
     CMapPtrToPtr saved_ptr_map;
     std::array<Spell*, 30> spells;
     ScriptSettings* script_settings;
@@ -335,7 +335,7 @@ struct ServerConfig {
 //#ifndef A2CLIENT
     uint32_t login_timeout;
     uint32_t reconnect_delay;
-    uint32_t gameType;     // 0: co-op, 1: deathmatch, 2: softcore, 3: arena. 6D1648.
+    GameType gameType;     // 0: co-op, 1: deathmatch, 2: softcore, 3: arena. 6D1648.
     int32_t frag_limit;
     uint32_t flag_score;
     uint32_t map_range_check; // map-level range check enabled flag

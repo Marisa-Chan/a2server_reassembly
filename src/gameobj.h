@@ -118,6 +118,17 @@ struct GO_11c {
 ASSERT_SIZE(GO_11c, 8);
 
 
+// CUnit::action (and last_action): the animation/behavior the unit is
+// performing. Values 2 and 4 are never assigned or dispatched in the binaries.
+enum UnitAction : uint8_t {
+    ACTION_NONE   = 0, // idle (ctor default; also the reset value)
+    ACTION_MOVE   = 1, // walk toward action_x/action_y
+    ACTION_ATTACK = 3, // melee attack anim (PlayAttackSound at attack_delay)
+    ACTION_TURN   = 5, // interpolate dir toward action_dir (turn_angle)
+    ACTION_DIE    = 6, // dying animation (segments = dying_phases * 2)
+    ACTION_SHOOT  = 7, // ranged attack (SpawnAttackProjectile at shoot_delay)
+    ACTION_CAST   = 8, // cast spell (SpawnSpellProjectile / PlayCastSound)
+};
 class CGameObject : public CObject {
 	DECLARE_DYNAMIC(CGameObject);
 public:
@@ -198,7 +209,7 @@ public:
 	int32_t m_bSelected; // 80
 	int32_t gap_0x84;
 	int32_t controlGroupMask; // 88
-	uint8_t action; // 8c
+	UnitAction action; // 8c
 	int8_t action_dir; // 8d
 	uint16_t action_target; // 8e
 	int32_t action_x; // 90
@@ -232,17 +243,7 @@ public:
 };
 ASSERT_SIZE(CGameObject, 0x144);
 
-// CUnit::action (and last_action): the animation/behavior the unit is
-// performing. Values 2 and 4 are never assigned or dispatched in the binaries.
-enum UnitAction : uint8_t {
-    ACTION_NONE   = 0, // idle (ctor default; also the reset value)
-    ACTION_MOVE   = 1, // walk toward action_x/action_y
-    ACTION_ATTACK = 3, // melee attack anim (PlayAttackSound at attack_delay)
-    ACTION_TURN   = 5, // interpolate dir toward action_dir (turn_angle)
-    ACTION_DIE    = 6, // dying animation (segments = dying_phases * 2)
-    ACTION_SHOOT  = 7, // ranged attack (SpawnAttackProjectile at shoot_delay)
-    ACTION_CAST   = 8, // cast spell (SpawnSpellProjectile / PlayCastSound)
-};
+
 
 // CUnit::unitFlags bit flags (client-side unit descriptor).
 enum UnitFlag : int32_t {
@@ -254,7 +255,15 @@ enum UnitFlag : int32_t {
     UNIT_FLAG_TOKEN_GOLD_ENTRY = 0x20, // token list carries the trailing gold entry (set on the own hero)
     UNIT_FLAG_REMOTE_HERO      = 0x40, // remote hero stub (CreateRemoteHeroStub): no stats panel / stats hint
     UNIT_FLAG_HIDDEN           = 0x80, // out of vision (set/cleared by the UNIT_HIDDEN packet)
+    UNIT_FLAG_NONE             = 0,    // no flags
 };
+// Convenience bit operators.
+inline UnitFlag operator|(UnitFlag a, UnitFlag b) { return (UnitFlag)((int32_t)a | (int32_t)b); }
+inline UnitFlag operator&(UnitFlag a, UnitFlag b) { return (UnitFlag)((int32_t)a & (int32_t)b); }
+inline UnitFlag operator~(UnitFlag a) { return (UnitFlag)~(int32_t)a; }
+inline UnitFlag& operator|=(UnitFlag& a, UnitFlag b) { a = a | b; return a; }
+inline UnitFlag& operator&=(UnitFlag& a, UnitFlag b) { a = a & b; return a; }
+
 
 class CUnit : public CGameObject {
 	DECLARE_DYNAMIC(CUnit);
@@ -333,7 +342,7 @@ public:
 	uint8_t death_state; // 0x184: 0=alive, 1=dying, 2..4 bone phases, >=5 fully dead
 	uint8_t __gap_u5[3];
 	std::array<TokenEntry*, 12> equipmentTokens; // 0x188
-	int32_t unitFlags; // 0x1b8
+	UnitFlag unitFlags; // 0x1b8
 	int32_t lastVoicePlaybackTick; // 1bc
 	CSprite256* sprite;
 	CSprite256* sprite_b;

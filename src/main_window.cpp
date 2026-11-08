@@ -712,7 +712,7 @@ void MainWindow::PlayDefaultMusic() {
 // client 49547a
 int32_t MainWindow::WaitHatConnection() {
     uint32_t start_time = timeGetTime();
-    g_GameStatusCode = 0;
+    g_GameStatusCode = SESSION_ERROR_NONE;
 
 #ifdef A2CLIENT
     g_NetStru1_local.SendHatConnectServer( *(HatCharId*)&m_GameSession.sessionKeyPart1,
@@ -902,7 +902,7 @@ int32_t MainWindow::ConnectToServerAddress() {
     g_NetStru1_local.SendServerConnectHatTicket(m_GameSession.hat_ticket, 0);
 #endif
     uint32_t start_time = timeGetTime();
-    g_GameStatusCode = 0;
+    g_GameStatusCode = SESSION_ERROR_NONE;
 
     while (true) {
         MSG msg;
@@ -1130,7 +1130,7 @@ void MainWindow::OnKillFocus(CWnd* pNewWnd) {
 // 4949f9
 void MainWindow::OnClose() {
     this->ProcessPlayersTick();
-    this->dialogsMask = 0;
+    this->dialogsMask = DIALOG_MASK_NONE;
     g_Cursors[0]->Use();
     FreeDistortMap();
     CFrameWnd::OnClose();
@@ -1247,7 +1247,7 @@ void MainWindow::ShowFameHallDocDlg() {
     this->vis_famedocument->VMethod28();
     this->vis_root->VMethod9();
     this->app_initialized = 0;
-    this->dialogsMask = this->dialogsMask | DIALOG_MASK_FAME_HALL_DOC;
+    this->dialogsMask |= DIALOG_MASK_FAME_HALL_DOC;
     g_Cursors[0]->Use();
 }
 
@@ -1561,7 +1561,7 @@ MainWindow::MainWindow() { //4837e1
     this->drag_src_slot = -1;
     this->item_cursor = nullptr;
     this->music_update_proc = nullptr;
-    this->dialogsMask = 0;
+    this->dialogsMask = DIALOG_MASK_NONE;
     this->gap_0x44c = 0;
     this->game_speed = 4;
     this->tick_anchor_time = 0x7fffffff;
@@ -2779,7 +2779,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         return;
     } else if (obj == this->vis_serverscreen) {
         this->dialogsMask &= ~DIALOG_MASK_POPUP;
-        this->dialogsMask = 0;
+        this->dialogsMask = DIALOG_MASK_NONE;
 
         if (this->vis_serverscreen->GetCloseCode() == VIS_MSG_HIDE_SCREEN) {
             PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
@@ -2895,7 +2895,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
 
 int32_t MainWindow::ClientWaitErrCode() {
     // client: 4953b4
-    g_GameStatusCode = 0;
+    g_GameStatusCode = SESSION_ERROR_NONE;
 
     int32_t starttime = GetTickCount();
     while (!g_GameStatusCode) {
@@ -3838,7 +3838,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
     case MAIN_MSG_START_MISSION:
         if (this->sessionMode != SESSION_SERVER) {
             if (this->sessionMode == SESSION_SINGLEPLAYER) {
-                g_GameStatusCode = 0;
+                g_GameStatusCode = SESSION_ERROR_NONE;
                 this->enter_ack_received = 0;
                 this->vis_map_context->SendRequestMapInfo();
 
@@ -4502,7 +4502,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
             proj->dir = reg.GetInt(buf, "dir", proj->dir);
             proj->phase = reg.GetInt(buf, "phase", proj->phase);
             proj->last_action = reg.GetInt(buf, "lastaction", proj->last_action);
-            proj->action = reg.GetInt(buf, "action", proj->action);
+            proj->action = (UnitAction)reg.GetInt(buf, "action", proj->action);
             proj->action_dir = reg.GetInt(buf, "actiondir", proj->action_dir);
             proj->action_target = reg.GetInt(buf, "actiontarget", proj->action_target);
             proj->action_x = reg.GetInt(buf, "actionx", proj->action_x);
@@ -5596,7 +5596,7 @@ int32_t MainWindow::RunModalLoopServer() { //49057b
     this->net_session.hat_id = 0;
 
     uint32_t start_time = timeGetTime();
-    g_GameStatusCode = 0;
+    g_GameStatusCode = SESSION_ERROR_NONE;
     while(this->net_session.hat_id == 0) {
         if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0) {
             if (msg.message == WM_QUIT) {
@@ -5644,7 +5644,7 @@ int32_t MainWindow::RunModalLoopServer() { //49057b
 
         if (!has_file) {
             g_NetStru1_local.SendHatCharId(this->m_GameSession.hat_char_ids[j]);
-            g_GameStatusCode = 0;
+            g_GameStatusCode = SESSION_ERROR_NONE;
 
             while (true) {
                 if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0) {
@@ -5729,7 +5729,7 @@ int32_t MainWindow::RunModalLoopClient() { //client 4949cd
     this->net_session.hat_id = 0;
 
     uint32_t start_time = timeGetTime();
-    g_GameStatusCode = 0;
+    g_GameStatusCode = SESSION_ERROR_NONE;
 
     while (this->net_session.hat_id == 0) {
         if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0) {
@@ -5762,7 +5762,7 @@ int32_t MainWindow::RunModalLoopClient() { //client 4949cd
             if (scr->GetCloseCode() == VIS_MSG_BOX_OK) {
                 net_session.hat_id = 0;
                 start_time = timeGetTime();
-                g_GameStatusCode = 0;
+                g_GameStatusCode = SESSION_ERROR_NONE;
             }
             else
                 return 0;
@@ -5789,7 +5789,7 @@ int32_t MainWindow::ClientRefreshUpdateCharacters() { // client 494f53
     for (int i = 0; i < m_GameSession.hat_char_ids.GetSize(); i++) {
         HatCharId hid = m_GameSession.hat_char_ids[i];
         g_NetStru1_local.SendHatCharId(hid);
-        g_GameStatusCode = 0;
+        g_GameStatusCode = SESSION_ERROR_NONE;
 
         while (true) {
 
@@ -5941,7 +5941,7 @@ int32_t MainWindow::LeaveServerMode() { //490eb3
 #else
     g_NetStru1_main.SendHatLogout();
 #endif
-    g_GameStatusCode = 0;
+    g_GameStatusCode = SESSION_ERROR_NONE;
 
     uint32_t start_time = timeGetTime();
     while (true) {
@@ -5991,7 +5991,7 @@ CGameSession::~CGameSession() { //4960f0
 
 int CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit() {
     //493ffe
-    g_GameStatusCode = 0;
+    g_GameStatusCode = SESSION_ERROR_NONE;
 
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 #ifndef A2CLIENT

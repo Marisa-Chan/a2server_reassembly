@@ -2782,8 +2782,8 @@ int CLlDriver::ResetProvider(int prov) {
     //52194f
     this->Free();
 
-    this->provider = prov;
-    if (prov == 4) {
+    this->provider = (NetProvider)prov;
+    if (prov == PROVIDER_HAT_TCP) {
         if (!this->CreateTcp()) {
             return 0;
         }
@@ -2792,7 +2792,7 @@ int CLlDriver::ResetProvider(int prov) {
             return 0;
         }
     }
-    this->provider = prov;
+    this->provider = (NetProvider)prov;
     return 1;
 }
 
@@ -4674,7 +4674,7 @@ void NetStru1::SendShopTable(Token* token, Inventory* inventory, Player* player,
     } else {
         packet.to_player_id = player->player_id;
     }
-    packet.mode = (uint8_t)mode;
+    packet.mode = (ItemListMode)mode;
     // ASM also calls a no-op library helper (unknown_libname_724) with inventory->items.m_nCount here.
     POSITION it = inventory->items.GetHeadPosition();
     while (it != nullptr) {
@@ -4699,7 +4699,7 @@ void NetStru1::SendShopShelf(Shop* shop, CMultiShopShelf* shelf, Player* player,
     } else {
         packet.to_player_id = player->player_id;
     }
-    packet.mode = slot;
+    packet.mode = (ItemListMode)slot;
     Item empty_item;
     int32_t count = shelf->items.GetSize();
     for (int32_t i = 0; i < count; i++) {

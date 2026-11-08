@@ -21814,7 +21814,7 @@ int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     }
     case VIS_MSG_CLOSE_SCREEN: {
         VisScreen::MsgProc(msg, wparam, lparam);
-        main_wnd->dialogsMask = 0;
+        main_wnd->dialogsMask = DIALOG_MASK_NONE;
 
         int32_t provider = g_CLlDriver.GetProvider();
         if (provider == PROVIDER_MODEM) {

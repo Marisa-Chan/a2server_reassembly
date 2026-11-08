@@ -4,6 +4,7 @@
 #include <afx.h>
 #include <afxtempl.h>
 #include "gfx.h"
+#include "main_window.h"
 
 class UnitVFXUnfo;
 class CGamePalette;
@@ -13,7 +14,7 @@ class StructureInfo;
 class ProjectileInfo;
 class UnitGfxFile;
 
-extern int32_t g_GameStatusCode;
+extern SessionError g_GameStatusCode;
 extern int32_t g_JoinState;
 extern int32_t g_TerrainHidden; //660f68
 extern int32_t g_ShowFps; //660f6c

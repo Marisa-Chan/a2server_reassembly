@@ -396,8 +396,8 @@ PacketItemTransfer PacketItemTransfer::Inst;
 
 PacketItemTransfer::PacketItemTransfer() {
     // 526A07
-    this->type       = 0;
-    this->subtype    = 0;
+    this->type       = TRANSFER_SRC_NONE;
+    this->subtype    = TRANSFER_DST_NONE;
     this->param1  = 0;
     this->param2 = 0;
     this->param3 = 1;

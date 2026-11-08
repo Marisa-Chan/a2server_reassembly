@@ -8,10 +8,6 @@
 #include "mouse.h"
 #include "net.h"
 
-extern int32_t g_LButtonDown; //660f4c
-extern int32_t g_SelCutsceneIndex; //660f88
-extern int32_t g_GameStatusCode; //660f8c
-
 // Session/join abort codes stored in g_GameStatusCode: 0x1000 | message id.
 // The low byte selects the message: id < 11 -> TxtFile::AllLines[0xc0 + id]
 // (main.txt), otherwise txt_patch.GetLine(id) (patch.txt). The server-side
@@ -25,7 +21,13 @@ enum SessionError : int32_t {
     SESSION_ERROR_CHAR_STILL_ON_SERVER = 0x100C, // "Your previous character still exists on this server..."
     SESSION_ERROR_HAT_CONNECTION_LOST  = 0x1011, // hat char-data transfer failed (patch.txt line 0x11)
     SESSION_ERROR_FLAG                 = 0x1000, // error flag ORed with the message id
+    SESSION_ERROR_NONE                 = 0,      // no pending error
 };
+extern int32_t g_LButtonDown; //660f4c
+extern int32_t g_SelCutsceneIndex; //660f88
+extern SessionError g_GameStatusCode; //660f8c
+
+
 
 void SaveSettings(); //441b1e (client: 4440ed)
 
@@ -53,7 +55,16 @@ enum DialogMask : int32_t {
     DIALOG_MASK_FAME_HALL     = 0x1000, // fame hall dialog
     DIALOG_MASK_FAME_HALL_DOC = 0x4000, // fame hall document viewer
     DIALOG_MASK_MSGBOX_LIST   = 0x8000, // message-box list (PopUpScreen(vis_msgbox_list))
+    DIALOG_MASK_NONE          = 0,      // no fullscreen dialog shown
 };
+
+// Convenience bit operators.
+inline DialogMask operator|(DialogMask a, DialogMask b) { return (DialogMask)((int32_t)a | (int32_t)b); }
+inline DialogMask operator&(DialogMask a, DialogMask b) { return (DialogMask)((int32_t)a & (int32_t)b); }
+inline DialogMask operator~(DialogMask a) { return (DialogMask)~(int32_t)a; }
+inline DialogMask& operator|=(DialogMask& a, DialogMask b) { a = a | b; return a; }
+inline DialogMask& operator&=(DialogMask& a, DialogMask b) { a = a & b; return a; }
+
 
 // MainWindow custom window messages (0x400..0x48E). Dispatched by the case
 // labels in MainWindow::WindowProc; posted via PostMessage/SendMessage from
@@ -669,7 +680,7 @@ public:
     int32_t drag_src_tab;
     CCursor* item_cursor;
 
-    int32_t dialogsMask; //dialogsMask
+    DialogMask dialogsMask;
     int32_t serverLoopCounter;
     int32_t game_tic_counter;
     int32_t gap_0x424;
@@ -710,7 +721,7 @@ public:
     HCURSOR cursor_arrow;
 #endif
     int32_t serverBootstrapEnabled; //0x63c / client 0x638
-    int32_t sessionMode; //0x640 / client 0x63c
+    SessionMode sessionMode; //0x640 / client 0x63c
     RECT clip_cursor_rect; //0x644 / client 0x640
     CStatusBar status_bar; //0x654 / client 0x650
     CListBox list_box1; //0x6d0 / client 0x6cc

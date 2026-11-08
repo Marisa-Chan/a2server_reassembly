@@ -64,7 +64,7 @@ CGamePalette* g_pal_projectiles; //665490
 
 int32_t g_TerrainHidden = 0; //660f68
 int32_t g_ShowFps = 0; //660f6c
-int32_t g_GameStatusCode = 0; //660f8c
+SessionError g_GameStatusCode = SESSION_ERROR_NONE; //660f8c
 int32_t g_JoinState = 0; //660f90
 int32_t g_ShowNetStats = 0; //660f70
 CGamePalette* g_pal_projectile_; //665494
@@ -367,7 +367,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case JOIN_ERROR: {
-			g_GameStatusCode = packet_2dwords->param1 | SESSION_ERROR_FLAG;
+			g_GameStatusCode = (SessionError)(packet_2dwords->param1 | SESSION_ERROR_FLAG);
 
 			if ((wnd->dialogsMask & DIALOG_MASK_INGAME) == 0) {
 				while( g_NetStru1_local.ReceiveAnyPacket() != nullptr)
@@ -2596,7 +2596,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case HAT_ERROR:
 			// client: 41695a
-			g_GameStatusCode = (packet_dword->value + 0x18) | SESSION_ERROR_FLAG;
+			g_GameStatusCode = (SessionError)((packet_dword->value + 0x18) | SESSION_ERROR_FLAG);
 			break;
 #endif
 		}
@@ -2864,7 +2864,7 @@ int32_t BigStruct2::SendEnterGameAndWait() {
 
 int BigStruct2::ConnectAndJoinSession() {
 	//40d4e2
-	g_GameStatusCode = 0;
+	g_GameStatusCode = SESSION_ERROR_NONE;
 
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -4782,8 +4782,8 @@ void BigStruct2::SendItemOperation(uint8_t arg1, uint16_t arg2, uint8_t arg3, ui
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->unit_id = this->primary_selected_object->unit_id;
-	pkt->type = arg1;
-	pkt->subtype = arg3;
+	pkt->type = (TransferSource)arg1;
+	pkt->subtype = (TransferDest)arg3;
 	pkt->param1 = arg2;
 	pkt->param2 = arg4;
 	pkt->param3 = arg5;

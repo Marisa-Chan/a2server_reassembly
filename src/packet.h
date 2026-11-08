@@ -239,6 +239,35 @@ ASSERT_SIZE(PacketGroupOrder, 0x20d);
 // Command packet: 2 type/subtype bytes + 3 word params; field_0x12 init = 1.
 // Uses inherited Packet VMethod3/VMethod4 serialisation.
 // ---------------------------------------------------------------------------
+// PacketItemTransfer::type - where the item comes from.
+// Values >= TRANSFER_SRC_SHOP are shop interactions; SHELF_* name the four
+// multi-shop display shelves (shelf index = value - TRANSFER_SRC_SHELF_1).
+enum TransferSource : uint8_t {
+    TRANSFER_SRC_NONE    = 0, // no operation (ctor default)
+    TRANSFER_SRC_UNEQUIP = 1, // unequip from body slot (param1 = body slot - 1)
+    TRANSFER_SRC_BAG     = 2, // take from bag (param1 = bag position, param3 = item id)
+    TRANSFER_SRC_SACK    = 3, // pick up ground sack
+    TRANSFER_SRC_SHOP    = 4, // buy from the shop (shop table / desk)
+    TRANSFER_SRC_SHELF_1 = 5, // shop shelf 1
+    TRANSFER_SRC_SHELF_2 = 6, // shop shelf 2
+    TRANSFER_SRC_SHELF_3 = 7, // shop shelf 3
+    TRANSFER_SRC_SHELF_4 = 8, // shop shelf 4
+};
+
+// PacketItemTransfer::subtype - where the item goes.
+// Same numeric layout as TransferSource but independent semantics
+// (e.g. 4 = sell on the destination side, buy on the source side).
+enum TransferDest : uint8_t {
+    TRANSFER_DST_NONE    = 0, // no operation (ctor default)
+    TRANSFER_DST_EQUIP   = 1, // equip the item
+    TRANSFER_DST_BAG     = 2, // put into bag slot (param2 = bag position)
+    TRANSFER_DST_GROUND  = 3, // drop on ground (creates a sack)
+    TRANSFER_DST_SHOP    = 4, // sell to the shop
+    TRANSFER_DST_SHELF_1 = 5, // stow on shop shelf 1 (server picks the shelf by item kind)
+    TRANSFER_DST_SHELF_2 = 6, // stow on shop shelf 2
+    TRANSFER_DST_SHELF_3 = 7, // stow on shop shelf 3
+    TRANSFER_DST_SHELF_4 = 8, // stow on shop shelf 4
+};
 __pragma(pack(push, 1))
 class PacketItemTransfer : public Packet {
 public:
@@ -251,8 +280,8 @@ public:
     virtual uint32_t GetDataSize() override; // 57A130 (client: 54af50)
 public:
     uint16_t unit_id;     // +0xA
-    uint8_t  type;        // +0xC (= 0 in ctor)
-    uint8_t  subtype;     // +0xD (= 0 in ctor)
+    TransferSource type;  // +0xC (= TRANSFER_SRC_NONE in ctor)
+    TransferDest   subtype; // +0xD (= TRANSFER_DST_NONE in ctor)
     uint16_t param1;   // +0xE  (= 0 in ctor)
     uint16_t param2;  // +0x10 (= 0 in ctor)
     uint16_t param3;  // +0x12 (= 1 in ctor)
@@ -555,6 +584,10 @@ enum ItemListMode : uint8_t {
     ITEM_LIST_INN_REWARDS  = 9, // inn quest-reward inventory (client fills VisTav::rewards)
     ITEM_LIST_PARTIAL_UPDATE = 0x80, // mode bit: inventory update replaces only [start_index, start_index+entry_count)
 };
+// Convenience bit operators.
+inline ItemListMode operator|(ItemListMode a, ItemListMode b) { return (ItemListMode)((uint8_t)a | (uint8_t)b); }
+inline ItemListMode& operator|=(ItemListMode& a, ItemListMode b) { a = a | b; return a; }
+
 
 // ---------------------------------------------------------------------------
 // PacketUnitStateVec
@@ -586,7 +619,7 @@ public:
     void AppendByteInt(uint8_t a, int32_t v, uint8_t* slot);  // 5276E0 (client: 5165c8)
 public:
     uint16_t building_id;    // +0xA
-    uint8_t  mode;    // +0xC
+    ItemListMode mode; // +0xC
     uint16_t entry_count;  // +0xD  number of TLV entries (= 0 in ctor)
     uint16_t start_index;    // +0xF  (= 0 in ctor)
     uint16_t data_size;    // +0x11 byte length of TLV data (= 0 in ctor)
