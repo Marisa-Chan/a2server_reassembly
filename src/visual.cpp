@@ -10071,7 +10071,7 @@ int32_t VisCharInfo::OnRButtonDblClk(uint32_t wparam, CPoint pos) {
 
 // 4B4830
 int32_t VisCharInfo::VMethod28() {
-    return 1;
+    return TRANSFER_DST_EQUIP;
 }
 
 // 4B16C3
@@ -16746,7 +16746,7 @@ VisInvType1::~VisInvType1() {
 
 // 4a7a20
 int32_t VisInvType1::VMethod38() {
-    return 2;
+    return TRANSFER_DST_BAG;
 }
 
 
@@ -17699,7 +17699,7 @@ void VisInvExtType1::DrawDownArrowIdle() {
 
 // 4B9E70
 int32_t VisInvExtType1::VMethod38() {
-    return (uint16_t)this->shop->select_category + 5;
+    return (uint16_t)this->shop->select_category + TRANSFER_DST_SHELF_1;
 }
 
 
@@ -17998,7 +17998,7 @@ void VisInvExtType3::VMethod39() {
 
 // 4B9F10
 int32_t VisInvExtType3::VMethod38() {
-    return 4;
+    return TRANSFER_DST_SHOP;
 }
 
 
@@ -18234,7 +18234,7 @@ void VisInvExtType2::DrawDownArrowIdle() {
 
 // 4B9F00
 int32_t VisInvExtType2::VMethod38() {
-    return 2;
+    return TRANSFER_DST_BAG;
 }
 
 // Statics for VisStartGame::VMethod7 (659514-659534 in the binary).

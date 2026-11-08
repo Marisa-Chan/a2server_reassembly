@@ -199,14 +199,14 @@ void CMultiShopInstance::MoveItems(uint8_t src_type, int16_t src_slot, uint8_t d
     int32_t result = 0;
     Item* item = nullptr;
 
-    if (src_type == 4) {
+    if (src_type == TRANSFER_SRC_SHOP) {
         item = this->PickItem(src_slot, count);
         if (item == nullptr || item->count == 0) {
             this->SendShelfState(0);
             return;
         }
     } else {
-        item = this->shelves[src_type - 5].PickItem(src_slot, count);
+        item = this->shelves[src_type - TRANSFER_SRC_SHELF_1].PickItem(src_slot, count);
         if (item == nullptr || item->count == 0) {
             this->SendShelfState(src_type - 4);
             return;
@@ -214,7 +214,7 @@ void CMultiShopInstance::MoveItems(uint8_t src_type, int16_t src_slot, uint8_t d
         this->shop_template->NotifyOtherInstances(this, src_type - 4);
     }
 
-    if (dst_type == 4) {
+    if (dst_type == TRANSFER_DST_SHOP) {
         this->SellItemFor(dst_slot, item);
     } else {
         result = this->StowItemInShelf(item, dst_slot);

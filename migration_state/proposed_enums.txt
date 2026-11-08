@@ -157,7 +157,7 @@ TIER 4 - small domain enums, localized (quick; do after Tier 1)
     Enum in src/net.h (it is wire protocol). Client side mirrors it in the
     color switch of the CHAT handler in src/ingame.cpp ~1759.
 
-[ ] 6. ItemTransferType  (src/server.cpp:3256-3258, comments already there)
+[x] 6. ItemTransferType  (src/server.cpp:3256-3258, comments already there)
     packet_transfer->type (from) and ->subtype (to):
         from: 1 unequip from body, 2 take from bag, 3 pickup ground sack,
               4..8 shop-slot sources

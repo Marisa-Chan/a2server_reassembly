@@ -7301,7 +7301,7 @@ int32_t BigStruct2::OnLButtonUp(uint32_t wparam, CPoint pos) {
 			if (wnd->drag_entry->IsEmpty() != 0) {
 				this->SendDropGold(wnd->drag_entry->count, tile_x | (tile_y << 8));
 			} else {
-				this->SendItemOperation(wnd->drag_src_tab, wnd->drag_src_slot, 3, tile_x | (tile_y << 8), wnd->drag_entry->count);
+				this->SendItemOperation(wnd->drag_src_tab, wnd->drag_src_slot, TRANSFER_DST_GROUND, tile_x | (tile_y << 8), wnd->drag_entry->count);
 			}
 		}
 		delete wnd->drag_entry;

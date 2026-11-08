@@ -231,6 +231,34 @@ enum ChatType : uint8_t {
     CHAT_TYPE_GLOBAL  = 4, // global broadcast, no cooldown
 };
 
+// PacketItemTransfer::type - where the item comes from.
+// Values >= TRANSFER_SRC_SHOP are shop interactions; SHELF_* name the four
+// multi-shop display shelves (shelf index = value - TRANSFER_SRC_SHELF_1).
+enum TransferSource : uint8_t {
+    TRANSFER_SRC_UNEQUIP = 1, // unequip from body slot (param1 = body slot - 1)
+    TRANSFER_SRC_BAG     = 2, // take from bag (param1 = bag position, param3 = item id)
+    TRANSFER_SRC_SACK    = 3, // pick up ground sack
+    TRANSFER_SRC_SHOP    = 4, // buy from the shop (shop table / desk)
+    TRANSFER_SRC_SHELF_1 = 5, // shop shelf 1
+    TRANSFER_SRC_SHELF_2 = 6, // shop shelf 2
+    TRANSFER_SRC_SHELF_3 = 7, // shop shelf 3
+    TRANSFER_SRC_SHELF_4 = 8, // shop shelf 4
+};
+
+// PacketItemTransfer::subtype - where the item goes.
+// Same numeric layout as TransferSource but independent semantics
+// (e.g. 4 = sell on the destination side, buy on the source side).
+enum TransferDest : uint8_t {
+    TRANSFER_DST_EQUIP   = 1, // equip the item
+    TRANSFER_DST_BAG     = 2, // put into bag slot (param2 = bag position)
+    TRANSFER_DST_GROUND  = 3, // drop on ground (creates a sack)
+    TRANSFER_DST_SHOP    = 4, // sell to the shop
+    TRANSFER_DST_SHELF_1 = 5, // stow on shop shelf 1 (server picks the shelf by item kind)
+    TRANSFER_DST_SHELF_2 = 6, // stow on shop shelf 2
+    TRANSFER_DST_SHELF_3 = 7, // stow on shop shelf 3
+    TRANSFER_DST_SHELF_4 = 8, // stow on shop shelf 4
+};
+
 struct PackerTail {
     PackerTail* child0;
     PackerTail* child1;

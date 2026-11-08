@@ -3257,7 +3257,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             uint8_t to_type = packet_transfer->subtype; // 1=equip,   2=to_bag,   3=drop_ground,   4=sell_shop
 
             // Both types in [4..8]: shop-slot interaction --- delegate entirely.
-            if (from_type >= 4 && from_type <= 8 && to_type >= 4 && to_type <= 8) {
+            if (from_type >= TRANSFER_SRC_SHOP && from_type <= TRANSFER_SRC_SHELF_4 && to_type >= TRANSFER_DST_SHOP && to_type <= TRANSFER_DST_SHELF_4) {
                 Shop* shop = this->FindShopAt(human->position);
                 if (shop) {
                     shop->HandleItemOperation(
@@ -3270,8 +3270,8 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 break;
             }
 
-            // from_type == 3: pickup sack from ground.
-            if (from_type == 3) {
+            // TRANSFER_SRC_SACK: pickup sack from ground.
+            if (from_type == TRANSFER_SRC_SACK) {
                 Sack* sack = MapStuff_Instance->GetSackAtPos(human->position);
                 if (!sack) {
                     LogMessage("Invalid pickup order - no sack there.");
@@ -3290,7 +3290,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             human->item_op_dirty_flags = 0;
 
             Item* item = nullptr;
-            if (from_type == 2) {
+            if (from_type == TRANSFER_SRC_BAG) {
                 // Pick item from bag.
                 count_before = human->inventory->items.GetSize();
                 item = human->inventory->TakeItemAt(packet_transfer->param1, packet_transfer->param3);
@@ -3298,14 +3298,14 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     update_mask |= 0x282000;
                     item->upgraded_at_inn = 0;
                 }
-            } else if (from_type == 4) {
+            } else if (from_type == TRANSFER_SRC_SHOP) {
                 // Buy item from shop.
                 Shop* shop = this->FindShopAt(human->position);
                 if (!shop) {
                     break;
                 }
                 item = shop->BuyItem(human, packet_transfer->param1, packet_transfer->param3);
-            } else if (from_type == 1) {
+            } else if (from_type == TRANSFER_SRC_UNEQUIP) {
                 // Unequip item from body slot.
                 if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
                     break;
@@ -3333,7 +3333,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 break;
             }
 
-            if (to_type == 1) {
+            if (to_type == TRANSFER_DST_EQUIP) {
                 // Equip item.
                 human->inventory->default_position = packet_transfer->param1;
                 uint16_t item_slot_type = (item->item_id >> 8) & 0xF;
@@ -3343,18 +3343,18 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 if (item) {
                     human->inventory->PutItemIntoBag(packet_transfer->param1, item);
                 }
-                if (from_type == 2 && human->inventory->items.GetSize() == count_before && item != prev) {
+                if (from_type == TRANSFER_SRC_BAG && human->inventory->items.GetSize() == count_before && item != prev) {
                     bag_pos = packet_transfer->param1;
                     bag_pos_delta = 1;
                 }
                 human->AddCarriedWeight(0);
                 update_mask |= 0x482000;
-            } else if (to_type == 2) {
+            } else if (to_type == TRANSFER_DST_BAG) {
                 // Put item into bag slot.
                 human->inventory->PutItemIntoBag(packet_transfer->param2, item);
                 human->AddCarriedWeight(0);
                 update_mask |= 0x282000;
-            } else if (to_type == 4) {
+            } else if (to_type == TRANSFER_DST_SHOP) {
                 // Sell item to shop.
                 item->pOwner = human->pOwner;
                 Shop* shop = this->FindShopAt(human->position);
@@ -3363,7 +3363,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 }
                 shop->SellItemFor(human, packet_transfer->param2, item);
                 update_mask |= 0x82000;
-            } else if (to_type == 3) {
+            } else if (to_type == TRANSFER_DST_GROUND) {
                 // Drop item on ground (create sack).
                 Inventory* sack_inv = new Inventory();
                 sack_inv->PutItemIntoBagAtDefault(item);
@@ -3385,7 +3385,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                                     update_mask | human->item_op_dirty_flags,
                                     equip_mask, bag_pos, bag_pos + bag_pos_delta);
             DWORD tick = GetTickCount();
-            if (tick - human->pOwner->last_save_tick > 15000 || to_type == 3) {
+            if (tick - human->pOwner->last_save_tick > 15000 || to_type == TRANSFER_DST_GROUND) {
                 this->SaveCharacter(human);
             }
             break;
