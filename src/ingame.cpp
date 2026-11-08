@@ -629,8 +629,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							uni->ApplyMonsterInfo(uni->monster_info->Values());
 							uni->server_id = g_CUnitStatic.serverId;
 
-							if (wnd->sessionMode == SESSION_LOCAL_BATTLE && g_Server && g_Server->difficulty != 2) {
-								if (g_Server->difficulty == 1) {
+							if (wnd->sessionMode == SESSION_LOCAL_BATTLE && g_Server && g_Server->difficulty != DIFFICULTY_NORMAL) {
+								if (g_Server->difficulty == DIFFICULTY_EASY) {
 									uni->hp_max = uni->hp_max / 2.0;
 								} else {
 									uni->hit_values.attack += 50;

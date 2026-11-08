@@ -134,7 +134,7 @@ TIER 1 - tiny enums, semantics fully verified (do these first)
     Replace: `provider == N`, `GetProvider() == N`, `ResetProvider(N)` call sites
     (main_window.cpp:2771 uses 3; 5473/5570/5704 and server.cpp:4478 use 4).
 
-[ ] 4. Difficulty  (~6 comparisons, tiny)
+[x] 4. Difficulty  (~6 comparisons, tiny)
     Field: Server::difficulty. VERIFIED: default 2 (server.cpp:4944), saved as
     1..3 (server.cpp:6441), client scaling in ingame.cpp ~632: 1 halves monster
     hp, 2 no change, 3 adds +50 attack/defense and hp*1.5.

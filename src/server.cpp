@@ -788,8 +788,8 @@ void Srv1::CreateUnits(MapAlm* alm) {
             int32_t idx = g_GameDataRes.FindMonsterByServerId(unit_data->server_id);
             unit = new Unit(g_GameDataRes.monsters[idx].name);
 
-            if (g_Server->difficulty != 2 && g_Server->multiplayer == 0) {
-                if (g_Server->difficulty == 1) { // Easy
+            if (g_Server->difficulty != DIFFICULTY_NORMAL && g_Server->multiplayer == 0) {
+                if (g_Server->difficulty == DIFFICULTY_EASY) { // Easy
                     unit->hp_max *= 0.5;
                     unit->hp = unit->hp_max;
                     unit->eye2->wimpy >>= 1;
@@ -4941,7 +4941,7 @@ Server::Server()
     this->map_loaded = 0;
     this->saved_0x198 = 0;
     this->map_code = 0;
-    this->difficulty = 2;
+    this->difficulty = DIFFICULTY_NORMAL;
     this->server_screen_shown = 0;
 
     SrandInit();

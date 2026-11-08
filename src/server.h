@@ -156,6 +156,12 @@ ASSERT_SIZE(Srv1, 0x3c);
 
 class Player;
 
+enum Difficulty : uint32_t {
+    DIFFICULTY_EASY   = 1, // client halves monster hp
+    DIFFICULTY_NORMAL = 2, // default; no scaling
+    DIFFICULTY_HARD   = 3, // client adds +50 attack/defense, hp * 1.5
+};
+
 struct Server {
 public:
     void ServerTic();  // client: 4f967a

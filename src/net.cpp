@@ -774,9 +774,9 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
             int32_t max_hp = unit->monster_info->Values()[0].health_max;
 
             if (g_Server->multiplayer == 0) {
-                if (g_Server->difficulty == 1) {
+                if (g_Server->difficulty == DIFFICULTY_EASY) {
                     max_hp = (int32_t)((double)max_hp * 0.5);
-                } else if (g_Server->difficulty == 3) {
+                } else if (g_Server->difficulty == DIFFICULTY_HARD) {
                     max_hp = (int32_t)((double)max_hp * 1.5);
                 }
             }
