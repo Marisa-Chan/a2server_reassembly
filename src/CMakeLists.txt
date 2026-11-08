@@ -60,6 +60,7 @@ set(A2_SOURCES
   visibility.cpp
   vis_core.cpp
   vis_menu.cpp
+  vis_char.cpp
   world.cpp
   res/a2server.rc
 )

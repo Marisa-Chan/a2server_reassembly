@@ -366,6 +366,7 @@
     <ClCompile Include="util.cpp" />
     <ClCompile Include="virtual_caster.cpp" />
     <ClCompile Include="visibility.cpp" />
+    <ClCompile Include="vis_char.cpp" />
     <ClCompile Include="vis_menu.cpp" />
     <ClCompile Include="gameplay.cpp" />
     <ClCompile Include="take_damage.cpp" />
