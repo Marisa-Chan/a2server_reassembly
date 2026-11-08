@@ -330,62 +330,6 @@ ASSERT_SIZE(PackerTail, 0x18);
 // a2mgr-installed browser object exposes to the dialog (client accessors
 // 4540d0/4540f0/454110/454130/454170/4541d0; CS installed at 0x204). Full
 // winsock types live here, hence the definition; implementation is in visual.cpp.
-struct HatBrowserProgress {
-    WSAData wsa;
-    SOCKET sock;
-    sockaddr_in send_addr;
-    sockaddr_in recv_addr;
-    addrinfo* host_ent;
-    int32_t err;
-    int32_t send_len;
-    int32_t recv_addr_len;
-    int32_t timeout;
-    char* addr_str;
-    std::vector<uint8_t> send_buf;
-    std::vector<uint8_t> recv_buf;
-    in_addr addr;
-    int32_t send_serial;
-    int32_t min_rtt;
-    int32_t max_rtt;
-    int32_t last_rtt;
-    int32_t recv_serial;
-    int32_t total_rtt;
-    int32_t timeouts;
-    int32_t error;
-    int32_t active;
-    int32_t wsa_started;
-    uint32_t timestamp;
-    CRITICAL_SECTION cs;
-
-    static void InitBuf(uint8_t* buf, int32_t ln) { //4b2187
-        buf[0] = 8;
-        buf[1] = 0;
-        *(uint16_t*)(buf + 2) = 0;
-        *(uint16_t*)(buf + 4) = GetCurrentProcessId();
-        *(uint16_t*)(buf + 6) = 0;
-        memset(buf + 0xc, 'E', ln - 0xc);
-    }
-
-    static uint32_t CalcCrc(void* ibuf, int32_t ln) { //4b2113
-        uint16_t* buf = (uint16_t*)ibuf;
-        uint32_t crc = 0;
-        for (; ln > 1; ln -= 2) {
-            crc += *buf;
-            buf++;
-        }
-
-        if (ln != 0)
-            crc += *(uint8_t*)buf;
-
-        crc = (crc >> 16) + (crc & 0xffff);
-        return ~(crc + (crc >> 0x10));
-    }
-    HatBrowserProgress(); // 4b18c0
-    ~HatBrowserProgress();
-    void Init(const char* hst); // 4b1a9b - resolve host, open the ICMP socket, arm the session
-    void PingServer(); // 4b1dbb - send one ICMP echo and read the reply
-    int32_t GetPingError(); // 453df0 - returns error
-};
 
 
 
@@ -931,3 +875,4 @@ extern CLlDriver g_HatLLDriver; //6cdbc0
 
 
 void SendWWWReport(const CString& surl, const CString& data, int val3); //client 4ea58f
+
