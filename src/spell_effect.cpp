@@ -21,11 +21,11 @@ uint32_t __cdecl CalcWalkDist(TokenPos* a, TokenPos* b) {
 
 // 6364D0
 // Wave table for blizzard: count, 20 x-offsets, 20 y-offsets.
-int32_t unk_6364D0[41] = {1};
+int32_t g_BlizzardWaveTable[41] = {1};
 
 // 636578
 // Wave table A used by AreaEffect::ApplyWaveDistribution.
-const int32_t unk_636578[41] = {
+const int32_t g_WaveDistA[41] = {
 	10, // count
 	-2, -1, 0, 1, 2, -2, -1, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
 	1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 // y-offsets
@@ -33,7 +33,7 @@ const int32_t unk_636578[41] = {
 
 // 636620
 // Wave table B used by AreaEffect::ApplyWaveDistribution.
-const int32_t unk_636620[41] = {
+const int32_t g_WaveDistB[41] = {
 	9, // count
 	-2, -1, 0, 1, 2, -1, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
 	2, 1, 0, -1, -2, 2, 1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 // y-offsets
@@ -41,11 +41,11 @@ const int32_t unk_636620[41] = {
 
 // 6366C4
 // Number of wave patterns for acid stream.
-const int32_t dword_6366C4 = 6;
+const int32_t g_AcidWaveCount = 6;
 
 // 6366C8
 // Wave patterns A for acid stream (6 records of: count, 20 x-offsets, 20 y-offsets).
-const int32_t dword_6366C8[6][41] = {
+const int32_t g_AcidWaveA[6][41] = {
 	{ 1, // count
 	  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
 	  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
@@ -74,7 +74,7 @@ const int32_t dword_6366C8[6][41] = {
 
 // 636AA0
 // Wave patterns B for acid stream.
-const int32_t dword_636AA0[6][41] = {
+const int32_t g_AcidWaveB[6][41] = {
 	{ 1, // count
 	  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
 	  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
@@ -455,7 +455,7 @@ void AreaEffect::ApplyWaveDistribution() {
 	}
 
 	WavePattern wave;
-	wave.SetWaveTables(unk_636578, unk_636620, this->wave_pattern);
+	wave.SetWaveTables(g_WaveDistA, g_WaveDistB, this->wave_pattern);
 	for (int32_t i = 0; i < wave.count; i++) {
 		this->ApplyAtCell(x + wave.x_mult * wave.x_offsets[i], y + wave.y_mult * wave.y_offsets[i], spread_damage);
 	}
@@ -475,13 +475,13 @@ void AreaEffect::TickAcidBlizzard() {
 	int32_t count = 0;
 	uint8_t packet_type = 0x10;
 	if (this->itemDataID == spell::blizzard) {
-		unk_6364D0[1] = Random0N(5) - 2;
-		unk_6364D0[0x15] = Random0N(5) - 2;
-		wave.SetWaveTable(unk_6364D0);
+		g_BlizzardWaveTable[1] = Random0N(5) - 2;
+		g_BlizzardWaveTable[0x15] = Random0N(5) - 2;
+		wave.SetWaveTable(g_BlizzardWaveTable);
 		count = 32;
 	} else if (this->itemDataID == spell::acid_stream) {
-		wave.SetWaveTables(dword_6366C8[this->wave_step], dword_636AA0[this->wave_step], this->wave_pattern);
-		count = dword_6366C4;
+		wave.SetWaveTables(g_AcidWaveA[this->wave_step], g_AcidWaveB[this->wave_step], this->wave_pattern);
+		count = g_AcidWaveCount;
 		packet_type = 0x12;
 	}
 	for (int32_t i = 0; i < wave.count; i++) {

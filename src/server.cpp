@@ -40,12 +40,12 @@
 #include "patch/flags.h"
 
 // ---- Global variables used by JoinPlayer ----
-UnitList* dword_6CDB3C;  // pending-unit list
+UnitList* g_ServerUnits;  // pending-unit list
 Server* g_Server; // 642c2c
 int32_t g_IsServer; // 665d00
 int32_t g_ShutdownIn; // 63623c
 
-UnitList* dword_6B37C4; // 6b37c4
+UnitList* g_UnitPool; // 6b37c4
 
 PasswordManager PasswordManager::manager; //6a8b98
 
@@ -124,7 +124,7 @@ CString* IntToCString(CString* out, uint32_t value) {
     return out;
 }
 
-int dword_6CDB38; // File checksum global
+int g_MapFileChecksum; // File checksum global
 
 // ---- Helpers used by arena Server methods ----
 // 4FA768
@@ -169,14 +169,14 @@ Server::~Server() {
         g_PlayersList = nullptr;
     }
 
-    if (dword_6CDB3C) {
-        delete dword_6CDB3C; // WAT? do not delete objects??
-        dword_6CDB3C = nullptr;
+    if (g_ServerUnits) {
+        delete g_ServerUnits; // WAT? do not delete objects??
+        g_ServerUnits = nullptr;
     }
 
-    if (dword_6B37C4) {
-        delete dword_6B37C4; // WAT? do not delete objects??
-        dword_6B37C4 = nullptr;
+    if (g_UnitPool) {
+        delete g_UnitPool; // WAT? do not delete objects??
+        g_UnitPool = nullptr;
     }
 
     for (int i = 1; i < this->spells.size(); i++) {
@@ -276,8 +276,8 @@ void Server::ProcessPlayers() {
         MapStuff_Instance = nullptr;
     }
 
-    dword_6CDB3C->unit_list.RemoveAll();
-    dword_6B37C4->unit_list.RemoveAll();
+    g_ServerUnits->unit_list.RemoveAll();
+    g_UnitPool->unit_list.RemoveAll();
 
     // Second pass: strip all effects from every human player's units.
     {
@@ -439,7 +439,7 @@ int Srv1::LoadMap(CString map_name) {
 
     this->CreatePlayers(alm);
 
-    MapStuff* map_stuff = new MapStuff(alm, dword_6CDB3C);
+    MapStuff* map_stuff = new MapStuff(alm, g_ServerUnits);
     MapStuff_Instance = map_stuff;
 
     World* world = new World(MapStuff_Instance, g_PlayersList);
@@ -844,7 +844,7 @@ void Srv1::CreateUnits(MapAlm* alm) {
         }
 
         unit->TokenID = unit_data->unit_id;
-        dword_6CDB3C->AddTailId6xxx(unit);
+        g_ServerUnits->AddTailId6xxx(unit);
         unit->pOwner = player;
         player->unit_list->AddTail(unit);
 
@@ -880,8 +880,8 @@ Unit* Srv1::GetScenarioScriptPCUnit(const char* name) { //59d4b8
             }
         }
 
-        for (POSITION pos = dword_6CDB3C->unit_list.GetHeadPosition(); pos != nullptr;) {
-            Unit* unit = dword_6CDB3C->unit_list.GetNext(pos);
+        for (POSITION pos = g_ServerUnits->unit_list.GetHeadPosition(); pos != nullptr;) {
+            Unit* unit = g_ServerUnits->unit_list.GetNext(pos);
             if (unit->monster_info->name.Find(pcname) == 0) {
                 return unit;
             }
@@ -900,8 +900,8 @@ Unit* Srv1::GetScenarioScriptHero(uint32_t idx) { //59d664
             }
         }
 
-        for (POSITION pos = dword_6CDB3C->unit_list.GetHeadPosition(); pos != nullptr;) {
-            Unit* unit = dword_6CDB3C->unit_list.GetNext(pos);
+        for (POSITION pos = g_ServerUnits->unit_list.GetHeadPosition(); pos != nullptr;) {
+            Unit* unit = g_ServerUnits->unit_list.GetNext(pos);
             if (unit->server_id - 21 == idx) {
                 return unit;
             }
@@ -968,8 +968,8 @@ void Srv1::LoadTriggers(MapAlm* alm, int flag) {
     }
     
     // Build units maps from two lists
-    if (dword_6CDB3C) {
-        const auto& unit_list = dword_6CDB3C->unit_list;
+    if (g_ServerUnits) {
+        const auto& unit_list = g_ServerUnits->unit_list;
         POSITION unit_iter = unit_list.GetHeadPosition();
         while (unit_iter != nullptr) {
             Unit* unit = unit_list.GetNext(unit_iter);
@@ -1362,9 +1362,9 @@ void Srv1::LoadSacks(MapAlm* alm) {
     CMap<int32_t, int32_t, Unit*, Unit*> units_map;
     
     // Build units map
-    POSITION unit_iter = dword_6CDB3C->unit_list.GetHeadPosition();
+    POSITION unit_iter = g_ServerUnits->unit_list.GetHeadPosition();
     while (unit_iter != nullptr) {
-        Unit* unit = dword_6CDB3C->unit_list.GetNext(unit_iter);
+        Unit* unit = g_ServerUnits->unit_list.GetNext(unit_iter);
         units_map[unit->TokenID] = unit;
     }
     if (this->srv_stru->units_list) {
@@ -1559,11 +1559,11 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
         }
 
         Player* found_player = g_PlayersList->FindByName(player_nick);
-        if (found_player != nullptr && dword_6CDB3C != nullptr) {
+        if (found_player != nullptr && g_ServerUnits != nullptr) {
             // Transfer any unit from the original player to the re-connecting player.
-            POSITION node = dword_6CDB3C->unit_list.GetHeadPosition();
+            POSITION node = g_ServerUnits->unit_list.GetHeadPosition();
             while (node != nullptr) {
-                Unit* unit = dword_6CDB3C->unit_list.GetNext(node);
+                Unit* unit = g_ServerUnits->unit_list.GetNext(node);
                 if (unit != nullptr && unit->pOwner == found_player) {
                     g_NetStru1_main.TransferUnitOwnership(unit, player);
                 }
@@ -1699,11 +1699,11 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
 
     // Clear vision mask bits for this player across every unit list.
     // Three separate lists are processed:
-    //   a) The global pending unit list (dword_6CDB3C).
+    //   a) The global pending unit list (g_ServerUnits).
     //   b) srv_stru1->sack_list --- clears Token::field_x18 word bits (ClearSentToMask).
     //   c) srv_stru1->units_list.
     // Then for each player in g_PlayersList, also clear their per-player unit list.
-    dword_6CDB3C->ClearSentToMask(player);
+    g_ServerUnits->ClearSentToMask(player);
 
     this->srv_stru1->sack_list->ClearSentToMask(player);
     this->srv_stru1->units_list->ClearSentToMask(player);
@@ -1731,7 +1731,7 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
     }
 
     // Stream remaining server state to the joining player.
-    g_NetStru1_main.SendPendingUnits(player);          // send units from dword_6CDB3C
+    g_NetStru1_main.SendPendingUnits(player);          // send units from g_ServerUnits
     g_NetStru1_main.SendServerState(player);          // send server state
     g_NetStru1_main.SendKillStats(0, player);       // send kill stats
     g_NetStru1_main.SendUnitVisibility(player->main_unit, 0, nullptr); // hero visibility packet
@@ -2195,15 +2195,15 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
     // Set unit_attrs |= 8 (phased in).
     player->main_unit->unit_attrs |= 8;
 
-    // Remove player->main_unit from dword_6CDB3C->unit_list.
+    // Remove player->main_unit from g_ServerUnits->unit_list.
     {
-        CList<Unit*>& lst = dword_6CDB3C->unit_list;
+        CList<Unit*>& lst = g_ServerUnits->unit_list;
         Unit* target = player->main_unit;
 
         // Find the node whose data == target
-        POSITION pos = dword_6CDB3C->unit_list.Find(target);
+        POSITION pos = g_ServerUnits->unit_list.Find(target);
         if (pos != nullptr) {
-            dword_6CDB3C->unit_list.RemoveAt(pos);
+            g_ServerUnits->unit_list.RemoveAt(pos);
         }
     }
 
@@ -2384,7 +2384,7 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
     uint8_t* section_40a = nullptr;
     uint32_t size_40a = 0;
 
-    int32_t parse_ok = ParsePlayerFile_4F62E6(&file, &basic_info, &stats, &kill_stats, &equipment, &inventory, &section_40a, &size_40a);
+    int32_t parse_ok = ParsePlayerFile(&file, &basic_info, &stats, &kill_stats, &equipment, &inventory, &section_40a, &size_40a);
     free(file.Detach());
 
     if (!parse_ok || basic_info == nullptr || stats == nullptr || equipment == nullptr) {
@@ -2997,7 +2997,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
         Token* target = nullptr; // Unit or building.
         if (pkt->order_mode == 3) {
             // Unit target.
-            target = dword_6CDB3C->FindById(packet_order->param);
+            target = g_ServerUnits->FindById(packet_order->param);
             if (!target) {
                 // Building target.
                 target = this->srv_stru1->building_list->FindById(packet_order->param);
@@ -4385,7 +4385,7 @@ void Server::HatKeepaliveTick() {
                 uint8_t* param7 = nullptr;
                 uint32_t param8 = 0;
 
-                ParsePlayerFile_4F62E6(&file, &basic_info, &stats, &kill_stats, &equip_pkt, &inv_pkt, &param7, &param8);
+                ParsePlayerFile(&file, &basic_info, &stats, &kill_stats, &equip_pkt, &inv_pkt, &param7, &param8);
                 if (basic_info == nullptr) {
                     LogMessage("Error in character data file. Login: " + login);
                     this->FileList.RemoveAt(0, 1);
@@ -4426,7 +4426,7 @@ void Server::HatKeepaliveTick() {
         uint8_t* param7 = nullptr;
         uint32_t param8 = 0;
 
-        ParsePlayerFile_4F62E6(&file, &basic_info, &stats, &kill_stats, &equip_pkt, &inv_pkt, &param7, &param8);
+        ParsePlayerFile(&file, &basic_info, &stats, &kill_stats, &equip_pkt, &inv_pkt, &param7, &param8);
         if (basic_info == nullptr) {
             LogMessage("Error in character data file. Login: " + login);
             this->FileList.RemoveAt(0, 1);
@@ -4495,8 +4495,8 @@ int Server::Start(int mode) {
         this->spells[i] = new Spell(i);
     }
 
-    dword_6CDB3C = new UnitList();
-    dword_6B37C4 = new UnitList();
+    g_ServerUnits = new UnitList();
+    g_UnitPool = new UnitList();
 
     this->srv_stru1->units_list = new UnitList();
 
@@ -4645,7 +4645,7 @@ void Server::SaveCharacter(Humanoid* humanoid) {
     }
 #endif
 
-    WritePlayerFile_4F53EA((const char*)filename, &basic_info, &stats, player->kill_stats, &equip_pkt, &inv_pkt, nullptr, 0);
+    WritePlayerFile((const char*)filename, &basic_info, &stats, player->kill_stats, &equip_pkt, &inv_pkt, nullptr, 0);
 }
 
 
@@ -4698,7 +4698,7 @@ int Server::LoadGame(CString map_name) {
     }
 
     if (this->multiplayer != 0) {
-        dword_6CDB38 = CalcFileChecksum(this->current_map_name);
+        g_MapFileChecksum = CalcFileChecksum(this->current_map_name);
     }
 
     this->has_world_state = 1;
@@ -4720,7 +4720,7 @@ int Server::LoadGame(CString map_name) {
     CString info_map = g_ServerConfig.chr_base + "info.map";
     if (file.Open(info_map, CFile::modeCreate | CFile::modeWrite)) {
         CString content;
-        content.Format("%s\n%d\n", (LPCTSTR)map_name, dword_6CDB38);
+        content.Format("%s\n%d\n", (LPCTSTR)map_name, g_MapFileChecksum);
         file.WriteString(content);
         file.Close();
     }
@@ -4834,7 +4834,7 @@ void Server::ServerTic() {
 #endif
 
     if ((this->tick & 0xf) == 12) {
-        dword_6CDB3C->RegenTick();
+        g_ServerUnits->RegenTick();
         this->srv_stru1->UpdateMapObjects();
         g_PlayersList->ProcessPlayerTimeouts();
         g_NetStru1_main.UpdateConnStats();
@@ -4907,8 +4907,8 @@ void Server::PumpNetwork() {
 Server::Server()
 : base_dir(""), srv_stru1(&SrvStru1::Instance) { //4ece8b
     g_World = nullptr;
-    dword_6CDB3C = nullptr;
-    dword_6B37C4 = nullptr;
+    g_ServerUnits = nullptr;
+    g_UnitPool = nullptr;
     g_PlayersList = nullptr;
     MapStuff_Instance = nullptr;
 
@@ -5191,7 +5191,7 @@ void Server::EnsurePlayerGroup(Player* player) {
                 LogMessage(CString("Error - can't place hero from previous mission on map."));
             }
 
-            dword_6CDB3C->AddTail(unit);
+            g_ServerUnits->AddTail(unit);
 
             delete unit->eye;
             unit->eye = new UnitEye();
@@ -5355,7 +5355,7 @@ void Server::LoadSavedSacks() {
     info_file.Close();
 
     int32_t saved_checksum = atoi(saved_checksum_str);
-    if (saved_checksum != dword_6CDB38 || saved_map_name != this->current_map_name) {
+    if (saved_checksum != g_MapFileChecksum || saved_map_name != this->current_map_name) {
         LogMessage("Server restarted with new map, sacks ignored");
         return;
     }
@@ -6124,7 +6124,7 @@ Inn* Server::FindInnAt(TokenPos* pos) {
 void Server::SendMapInfo(Player* player) {
     PacketJoin* pkt = new PacketJoin(this->current_map_name);
     pkt->id = MAP_INFO;
-    pkt->__as_dword = (uint32_t)dword_6CDB38;
+    pkt->__as_dword = (uint32_t)g_MapFileChecksum;
     pkt->to_player_id = player->player_id;
     g_NetStru1_main.QueuePacketSend(pkt);
 }
@@ -6135,7 +6135,7 @@ void Server::Tick() {
     this->ProcessAvailPackets();
     this->ProcessHatPackets();
     this->srv_stru1->ProcessTick();
-    dword_6CDB3C->ProcessTick();
+    g_ServerUnits->ProcessTick();
     g_NetStru1_main.SendPacket_64(this->tick, 0);
 }
 
@@ -6460,7 +6460,7 @@ void Server::SerializeGame(CArchive& ar) {
                 while (unit_it != nullptr) {
                     Unit* unit = player->unit_list->unit_list.GetNext(unit_it);
                     if ((unit->unit_attrs & 8) == 0) {
-                        dword_6CDB3C->AddTail(unit);
+                        g_ServerUnits->AddTail(unit);
                     }
                 }
             }
@@ -6481,7 +6481,7 @@ void Server::SerializeGame(CArchive& ar) {
             }
 
             MapAlm* alm = new MapAlm((const char*)map_name);
-            MapStuff_Instance = new MapStuff(alm, dword_6CDB3C);
+            MapStuff_Instance = new MapStuff(alm, g_ServerUnits);
             MapStuff_Instance->Serialize(ar);
 
             if (g_World == nullptr) {
@@ -6509,7 +6509,7 @@ void Server::SerializeGame(CArchive& ar) {
         }
 
         if (has_world_state != 0) {
-            dword_6CDB3C->CallMethod5();
+            g_ServerUnits->CallMethod5();
             this->srv_stru1->units_list->CallMethod5();
             MapStuff_Instance->RelinkAfterLoad();
             g_World->RelinkPointers();
@@ -6636,7 +6636,7 @@ Human* Server::SummonUnit(CString* unit_name, Unit* origin, int32_t is_hero) {
             delete unit;
             return nullptr;
         }
-        dword_6CDB3C->AddTailAllocId(unit);
+        g_ServerUnits->AddTailAllocId(unit);
     } else {
         unit->building_id = BldIdSet_AllocBit() & 0xffff;
     }

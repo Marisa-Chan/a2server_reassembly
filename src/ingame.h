@@ -13,12 +13,12 @@ class StructureInfo;
 class ProjectileInfo;
 class UnitGfxFile;
 
-extern int32_t INT_00660f8c;
-extern int32_t INT_00660f90;
-extern int32_t DAT_00660f68; //660f68
-extern int32_t DAT_00660f6c; //660f6c
-extern int32_t DAT_00660f70; //660f70
-extern int32_t dword_62F908[24]; //62f908
+extern int32_t g_GameStatusCode;
+extern int32_t g_JoinState;
+extern int32_t g_TerrainHidden; //660f68
+extern int32_t g_ShowFps; //660f6c
+extern int32_t g_ShowNetStats; //660f70
+extern int32_t g_SpellOffensive[24]; //62f908
 extern CArray<UnitVFXUnfo*> g_VFX_info; //6610e0
 extern CArray<GfxFile*> g_GfxFiles; //661100
 extern CArray<GfxObject*> g_GfxObjects; //665330
@@ -31,7 +31,7 @@ extern CGamePalette* g_pal_projectile_; //665494
 extern CA16* g_spr_smoke[2]; //6610f8
 extern uint16_t* clr_log_sblack;
 
-extern CStringArray DAT_00666a00; // 666a00
+extern CStringArray g_WwwServerList; // 666a00
 
 
 void LoadVfxData(); //47b24e (client: 47f108)

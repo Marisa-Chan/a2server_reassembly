@@ -502,7 +502,7 @@ void ResBase::GrowFat() {
 
 void ResBase::AccumulateSize(FatEntry* node) {
     //4ecc05
-    static int DAT_006a6a64 = 0;
+    static int s_FatWalkAbort = 0;
 
     if ((node->flags & 0x40000001) == 0) {
         node->flags |= 0x40000000;
@@ -518,7 +518,7 @@ void ResBase::AccumulateSize(FatEntry* node) {
         while (cnt < node->size) {
             this->AccumulateSize(this->fat_data + node->offset + cnt);
 
-            if (DAT_006a6a64) {
+            if (s_FatWalkAbort) {
                 break;
             }
 

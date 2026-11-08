@@ -33,7 +33,7 @@
 #include "shop.h"
 
 
-uint32_t dword_665CFC;
+uint32_t g_SpectatorState;
 
 GUID Allods2GUID = {0x65450caa, 0x57ca, 0x11d2, {0xbb, 0xcc,0x00, 0x60, 0x97, 0xd2, 0xee, 0x9f}};
 
@@ -361,10 +361,10 @@ void NetStru1::SendAreaEffect(AreaEffect* obj, int32_t flag) {
 
 // 51C0F7
 void NetStru1::SendPendingUnits(Player* player) {
-    if (dword_6CDB3C != nullptr) {
-        POSITION pos = dword_6CDB3C->unit_list.GetHeadPosition();
+    if (g_ServerUnits != nullptr) {
+        POSITION pos = g_ServerUnits->unit_list.GetHeadPosition();
         while (pos != nullptr) {
-            Unit* unit = dword_6CDB3C->unit_list.GetNext(pos);
+            Unit* unit = g_ServerUnits->unit_list.GetNext(pos);
             uint32_t flags = (unit->building_id < 0x6000) ? 0xA35FFFFF : 0x100013;
             if (unit->ownership_changed != 0) {
                 flags |= 0x40;
@@ -4192,7 +4192,7 @@ void MarkUnitHiddenForPlayer(PacketMoveBroadcast* packet, Player* player) {
         return;
     }
 
-    Unit* affected_unit = dword_6CDB3C->FindById(packet->unit_id);
+    Unit* affected_unit = g_ServerUnits->FindById(packet->unit_id);
     if (affected_unit == nullptr) {
         return;
     }
@@ -4395,7 +4395,7 @@ void NetStru1::BroadcastEffect(Effect* effect, Unit* unit, uint8_t packet_id) {
 void NetStru1::SendSpectatorState(NetStru2* ns2) {
     PacketDword& packet = PacketDword::Inst;
     packet.id = JOIN_DONE;
-    packet.value = dword_665CFC;
+    packet.value = g_SpectatorState;
     packet.WriteTo(ns2);
     packet.id = SERVER_TICK;
     packet.value = (uint32_t)g_Server->tick;

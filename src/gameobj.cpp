@@ -22,7 +22,7 @@
 CStringArray g_CUnitMaterialSpritePaths; //660e70
 
 char g_Destination[0x400]; //659558 TokenEntry::GetHintText hint buffer
-char byte_65F630[1024]; //65f630 CUnit::GetStatsHint spell-list hint buffer
+char g_StatsHintBuf[1024]; //65f630 CUnit::GetStatsHint spell-list hint buffer
 
 //GetRuntimeClass 461020
 IMPLEMENT_DYNAMIC(CGameObject, CObject);
@@ -548,7 +548,7 @@ TokenEntry::TokenEntry(uint8_t** data, int id1) {
 
     ItemNamePktEntry* pkt = nullptr;
     if (this->item_id < 0xfff0) {
-        if (unk_660D28.Lookup(this->item_id, *(void**)&pkt) == 0) {
+        if (g_ItemNamePktMap.Lookup(this->item_id, *(void**)&pkt) == 0) {
             *data = pdata;
             return;
         }
@@ -642,7 +642,7 @@ const char* TokenEntry::GetHintText() { //439973
     g_Destination[0] = '\0';
 
     void* name = nullptr;
-    if (unk_660DA8.Lookup(this->item_id, name) == 0) {
+    if (g_ItemNameMap.Lookup(this->item_id, name) == 0) {
         return g_Destination;
     }
 
@@ -925,7 +925,7 @@ int32_t TokenEntry::IsDepleted() { //4a78c0
 
 int TokenEntry::HasKnownName() { //4396d6
     void* ptr = nullptr;
-    return unk_660DA8.Lookup(this->item_id, ptr);
+    return g_ItemNameMap.Lookup(this->item_id, ptr);
 }
 
 
@@ -3453,7 +3453,7 @@ void CUnit::DrawStatsPanel(CRect* rect) {
     } else if (map->my_main_unit->IsVisibleTo(this->map_player->index) != 0) {
         view_level = 7;
     }
-    if (INT_00660f74 != 0) {
+    if (g_MapRevealed != 0) {
         view_level = 7;
     }
 
@@ -3606,7 +3606,7 @@ const char* CUnit::GetStatsHint(int32_t x, int32_t y) {
     } else if (map->my_main_unit->IsVisibleTo(this->map_player->index) != 0) {
         view_level = 7;
     }
-    if (INT_00660f74 != 0) {
+    if (g_MapRevealed != 0) {
         view_level = 7;
     }
 
@@ -3690,8 +3690,8 @@ const char* CUnit::GetStatsHint(int32_t x, int32_t y) {
                 }
             }
         }
-        strcpy(byte_65F630, (LPCTSTR)str);
-        return byte_65F630;
+        strcpy(g_StatsHintBuf, (LPCTSTR)str);
+        return g_StatsHintBuf;
     }
 
     return nullptr;

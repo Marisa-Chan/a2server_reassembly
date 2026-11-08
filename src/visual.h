@@ -2854,7 +2854,7 @@ public:
 	CString GetClan() { return this->clan_name; } // 497430 (client: 49aa50)
 	int32_t GetSelectedDifficulty() { return this->selectedDifficultyIndex; } //4973d0 (client: 49a9f0)
 	void SetSelectedDifficulty(int diff) { this->selectedDifficultyIndex = diff; } //497370 (client: 49ab80)
-	int32_t GetSelectedPortraitPlayerType() { return DWORD_0060bd60[this->selectedPortraitIndex]; } //4973b0 (client: 49a9d0)
+	int32_t GetSelectedPortraitPlayerType() { return PortraitPlayerTypes[this->selectedPortraitIndex]; } //4973b0 (client: 49a9d0)
 	void SetSelectedPortraitPlayerType(int id) { this->selectedPortraitIndex = id; } //497350 (client: 49ab60)
 	void SetCharName(const CString& name) { this->char_name = name; } //497390 (client: 434d3a)
 
@@ -2911,7 +2911,7 @@ public:
 	int32_t tipsProgress; // 0x218;
 	int32_t dialogActiveFlag; // 0x21c;
 
-	static const int32_t DWORD_0060bd60[4];
+	static const int32_t PortraitPlayerTypes[4];
 };
 ASSERT_SIZE(VisStartGame, 0x220);
 

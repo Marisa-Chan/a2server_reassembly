@@ -9,14 +9,14 @@
 #include "item.h"
 #include "resource.h"
 
-CStringArray unk_6B0BE8;
-CStringArray unk_6CDB10;
-CStringArray unk_6B1638;
-CStringArray unk_6CF3D8;
-CStringArray unk_6C37E8;
-CStringArray unk_6E18C8;
-CStringArray unk_6B0BD0;
-CStringArray unk_6B1620;
+CStringArray g_SpellDisplayNames;
+CStringArray g_ArmorDisplayNames;
+CStringArray g_MaterialDisplayNames;
+CStringArray g_ShapeDisplayNames;
+CStringArray g_MagicDisplayNames;
+CStringArray g_WeaponDisplayNames;
+CStringArray g_ShieldDisplayNames;
+CStringArray g_MagicItemDisplayNames;
 
 
 IMPLEMENT_SERIAL(TableLine, CObject, 1); // 6362b0
@@ -566,7 +566,7 @@ GameDataRes::~GameDataRes() = default; // 56f280
 // 50E0F0
 void GameDataRes::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
-        unk_6B1638.Serialize(ar);
+        g_MaterialDisplayNames.Serialize(ar);
         ar << this->shapes.GetSize();
         for (int32_t i = 0; i < this->shapes.GetSize(); i++) {
             this->shapes[i].Serialize(ar);
@@ -576,13 +576,13 @@ void GameDataRes::Serialize(CArchive& ar) {
             this->materials[i].Serialize(ar);
         }
 
-        unk_6CF3D8.Serialize(ar);
+        g_ShapeDisplayNames.Serialize(ar);
         ar << this->magics.GetSize();
         for (int32_t i = 0; i < this->magics.GetSize(); i++) {
             this->magics[i].Serialize(ar);
         }
 
-        unk_6CDB10.Serialize(ar);
+        g_ArmorDisplayNames.Serialize(ar);
         ar << this->armors.GetSize();
         for (int32_t i = 1; i < this->armors.GetSize(); i++) {
             this->armors[i].Serialize(ar);
@@ -596,37 +596,37 @@ void GameDataRes::Serialize(CArchive& ar) {
             this->weapons[i].Serialize(ar);
         }
 
-        unk_6C37E8.Serialize(ar);
+        g_MagicDisplayNames.Serialize(ar);
         ar << this->magic_items.GetSize();
         for (int32_t i = 1; i < this->magic_items.GetSize(); i++) {
             this->magic_items[i].Serialize(ar);
         }
 
-        unk_6E18C8.Serialize(ar);
+        g_WeaponDisplayNames.Serialize(ar);
         ar << this->monsters.GetSize();
         for (int32_t i = 1; i < this->monsters.GetSize(); i++) {
             this->monsters[i].Serialize(ar);
         }
 
-        unk_6B0BD0.Serialize(ar);
+        g_ShieldDisplayNames.Serialize(ar);
         ar << this->humans.GetSize();
         for (int32_t i = 1; i < this->humans.GetSize(); i++) {
             this->humans[i].Serialize(ar);
         }
 
-        unk_6B1620.Serialize(ar);
+        g_MagicItemDisplayNames.Serialize(ar);
         ar << this->buildings.GetSize();
         for (int32_t i = 1; i < this->buildings.GetSize(); i++) {
             this->buildings[i].Serialize(ar);
         }
 
-        unk_6B0BE8.Serialize(ar);
+        g_SpellDisplayNames.Serialize(ar);
         ar << this->spells.GetSize();
         for (int32_t i = 1; i < this->spells.GetSize(); i++) {
             this->spells[i].Serialize(ar);
         }
     } else {
-        unk_6B1638.Serialize(ar);
+        g_MaterialDisplayNames.Serialize(ar);
         int32_t count = 0;
         ar >> count;
         this->shapes.SetSize(count, -1);
@@ -639,14 +639,14 @@ void GameDataRes::Serialize(CArchive& ar) {
             this->materials[i].Serialize(ar);
         }
 
-        unk_6CF3D8.Serialize(ar);
+        g_ShapeDisplayNames.Serialize(ar);
         ar >> count;
         this->magics.SetSize(count, -1);
         for (int32_t i = 0; i < this->magics.GetSize(); i++) {
             this->magics[i].Serialize(ar);
         }
 
-        unk_6CDB10.Serialize(ar);
+        g_ArmorDisplayNames.Serialize(ar);
         ar >> count;
         this->armors.SetSize(count, -1);
         for (int32_t i = 1; i < this->armors.GetSize(); i++) {
@@ -663,35 +663,35 @@ void GameDataRes::Serialize(CArchive& ar) {
             this->weapons[i].Serialize(ar);
         }
 
-        unk_6C37E8.Serialize(ar);
+        g_MagicDisplayNames.Serialize(ar);
         ar >> count;
         this->magic_items.SetSize(count, -1);
         for (int32_t i = 1; i < this->magic_items.GetSize(); i++) {
             this->magic_items[i].Serialize(ar);
         }
 
-        unk_6E18C8.Serialize(ar);
+        g_WeaponDisplayNames.Serialize(ar);
         ar >> count;
         this->monsters.SetSize(count, -1);
         for (int32_t i = 1; i < this->monsters.GetSize(); i++) {
             this->monsters[i].Serialize(ar);
         }
 
-        unk_6B0BD0.Serialize(ar);
+        g_ShieldDisplayNames.Serialize(ar);
         ar >> count;
         this->humans.SetSize(count, -1);
         for (int32_t i = 1; i < this->humans.GetSize(); i++) {
             this->humans[i].Serialize(ar);
         }
 
-        unk_6B1620.Serialize(ar);
+        g_MagicItemDisplayNames.Serialize(ar);
         ar >> count;
         this->buildings.SetSize(count, -1);
         for (int32_t i = 1; i < this->buildings.GetSize(); i++) {
             this->buildings[i].Serialize(ar);
         }
 
-        unk_6B0BE8.Serialize(ar);
+        g_SpellDisplayNames.Serialize(ar);
         ar >> count;
         this->spells.SetSize(count, -1);
         for (int32_t i = 1; i < this->spells.GetSize(); i++) {
@@ -1012,8 +1012,8 @@ int GameDataRes::ParseTxtFiles(const CString& path) {
     this->spells.SetSize(35, -1);
 
     // Vanilla code populates these from global strings via `5138ED`, and strings aren't written to, so it seems they're empty.
-    unk_6B0BE8.SetSize(0, -1);
-    unk_6B0BE8.SetAtGrow(0, "");
+    g_SpellDisplayNames.SetSize(0, -1);
+    g_SpellDisplayNames.SetAtGrow(0, "");
 
     int32_t index = 1;
     while (file.ReadString(line)) {
@@ -1036,8 +1036,8 @@ int GameDataRes::ParseTxtFiles(const CString& path) {
         return 1;
     }
     this->armors.SetSize(15, -1);
-    unk_6CDB10.SetSize(0, -1);
-    unk_6CDB10.SetAtGrow(0, "");
+    g_ArmorDisplayNames.SetSize(0, -1);
+    g_ArmorDisplayNames.SetAtGrow(0, "");
     index = 1;
     while (file.ReadString(line)) {
         if (line.GetLength() < 2 || line[0] == '\t') {
@@ -1055,8 +1055,8 @@ int GameDataRes::ParseTxtFiles(const CString& path) {
         return 1;
     }
     this->materials.SetSize(16, -1);
-    unk_6B1638.SetSize(0, -1);
-    unk_6B1638.SetAtGrow(0, "");
+    g_MaterialDisplayNames.SetSize(0, -1);
+    g_MaterialDisplayNames.SetAtGrow(0, "");
     index = 0;
     while (file.ReadString(line)) {
         if (line.GetLength() < 12 || line[0] == '\t') {
@@ -1074,8 +1074,8 @@ int GameDataRes::ParseTxtFiles(const CString& path) {
         return 1;
     }
     this->shapes.SetSize(7, -1);
-    unk_6CF3D8.SetSize(0, -1);
-    unk_6CF3D8.SetAtGrow(0, "");
+    g_ShapeDisplayNames.SetSize(0, -1);
+    g_ShapeDisplayNames.SetAtGrow(0, "");
     index = 0;
     while (file.ReadString(line)) {
         if (line.GetLength() < 12 || line[0] == '\t') {
@@ -1093,8 +1093,8 @@ int GameDataRes::ParseTxtFiles(const CString& path) {
         return 1;
     }
     this->magics.SetSize(24, -1);
-    unk_6C37E8.SetSize(0, -1);
-    unk_6C37E8.SetAtGrow(0, "");
+    g_MagicDisplayNames.SetSize(0, -1);
+    g_MagicDisplayNames.SetAtGrow(0, "");
     index = 1;
     while (file.ReadString(line)) {
         if (line.GetLength() < 2 || line[0] == '\t') {
@@ -1117,8 +1117,8 @@ int GameDataRes::ParseTxtFiles(const CString& path) {
         return 1;
     }
     this->weapons.SetSize(20, -1);
-    unk_6E18C8.SetSize(0, -1);
-    unk_6E18C8.SetAtGrow(0, "");
+    g_WeaponDisplayNames.SetSize(0, -1);
+    g_WeaponDisplayNames.SetAtGrow(0, "");
     index = 1;
     while (file.ReadString(line)) {
         if (line.GetLength() < 2 || line[0] == '\t') {
@@ -1136,8 +1136,8 @@ int GameDataRes::ParseTxtFiles(const CString& path) {
         return 1;
     }
     this->shields.SetSize(4, -1);
-    unk_6B0BD0.SetSize(0, -1);
-    unk_6B0BD0.SetAtGrow(0, "");
+    g_ShieldDisplayNames.SetSize(0, -1);
+    g_ShieldDisplayNames.SetAtGrow(0, "");
     index = 1;
     while (file.ReadString(line)) {
         if (line.GetLength() < 2 || line[0] == '\t') {
@@ -1155,8 +1155,8 @@ int GameDataRes::ParseTxtFiles(const CString& path) {
         return 1;
     }
     this->magic_items.SetSize(10, -1);
-    unk_6B1620.SetSize(0, -1);
-    unk_6B1620.SetAtGrow(0, "");
+    g_MagicItemDisplayNames.SetSize(0, -1);
+    g_MagicItemDisplayNames.SetAtGrow(0, "");
     index = 1;
     while (file.ReadString(line)) {
         if (line.GetLength() < 2 || line[0] == '\t') {

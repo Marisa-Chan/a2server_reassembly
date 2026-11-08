@@ -339,7 +339,7 @@ void UnitList::RegenTick() {
 	}
 
 	// Count summons per summon_id in the summon pool
-	CList<Unit*>& summon_pool = dword_6B37C4->unit_list;
+	CList<Unit*>& summon_pool = g_UnitPool->unit_list;
 	pos = summon_pool.GetHeadPosition();
 
 	if (pos == NULL) {

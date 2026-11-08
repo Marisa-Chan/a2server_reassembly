@@ -227,10 +227,10 @@ extern HWND g_MainWndHWND; //6658ec
 
 extern uint32_t g_IsCdPresent; //660f94
 extern uint32_t g_EnableTrace; //660f78
-extern uint32_t INT_00660f74; //660f74
+extern uint32_t g_MapRevealed; //660f74
 
 
-extern uint32_t g_DWORD_00659d18; //659d18
+extern uint32_t g_VideoOptionFlags; //659d18
 
 extern CString g_HelpStr; //660e68
 
@@ -248,7 +248,7 @@ extern TxtFile txt_cutscene; //660DC8
 extern TxtFile txt_cutpaths; //660E18
 extern TxtFile txt_tunes; //660F30
 extern TxtFile txt_patch; //65FFE0
-extern TxtFile TxtFile_00660e88; //660e88
+extern TxtFile g_GlobalMapLocationHints; //660e88
 
 extern ServerConfig g_ServerConfig; //6D15A0
 

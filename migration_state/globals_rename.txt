@@ -1,0 +1,157 @@
+# Proposed renames for address-named globals in src/ (INT_*/DAT_*/dword_*/byte_*/unk_*).
+# STATUS 2026-11-08: ALL proposals below (rounds 1+2, 62 total) APPLIED — one commit each,
+# both binaries build-verified after every rename.
+# One proposal per line:  OLD -> NEW : reasoning
+# Naming convention (user): g_PascalCaseName for globals; s_PascalCaseName for function-local statics.
+# Scope: every address-named *identifier* in live C++ (src/*.h, src/*.cpp) as of 2026-11-08.
+# Comment-only references (ASM addresses that appear only in // comments next to already-named
+# C++ variables/statics) are NOT proposals; they are listed in the EXCLUDED appendix at the bottom.
+# No C++ code was changed (analysis only). Names checked against src/ for collisions: none.
+
+# ---------------------------------------------------------------------------
+# GameDataRes name tables (src/table.cpp) — CStringArray per resource list,
+# filled by GameDataRes::ParseTxtFiles (always empty strings in vanilla: the
+# per-entry names come from global strings that are never written, so index 0
+# is the only entry; kept for save-file compatibility via Serialize).
+# Pairing taken from the ParseTxtFiles fill sites (table.cpp ~1005-1130).
+# NOTE: -Names (not -DisplayNames) collides with the existing file-local static
+# g_SpellNames[30] spell string-id table in effect.cpp:831, hence DisplayNames.
+unk_6B0BE8 -> g_SpellDisplayNames : CStringArray filled in the Spells.txt block, serialized next to GameDataRes::spells
+unk_6CDB10 -> g_ArmorDisplayNames : CStringArray filled in the Armors.txt block, serialized next to GameDataRes::armors
+unk_6B1638 -> g_MaterialDisplayNames : CStringArray filled in the Materials.txt block (Serialize emits it before the shapes/materials counts)
+unk_6CF3D8 -> g_ShapeDisplayNames : CStringArray filled in the Shapes.txt block
+unk_6C37E8 -> g_MagicDisplayNames : CStringArray filled in the Magic.txt block
+unk_6E18C8 -> g_WeaponDisplayNames : CStringArray filled in the Weapons.txt block
+unk_6B0BD0 -> g_ShieldDisplayNames : CStringArray filled in the Shields.txt block
+unk_6B1620 -> g_MagicItemDisplayNames : CStringArray filled in the "Magic Items.txt" block
+
+# ---------------------------------------------------------------------------
+# In-game UI / session state block (server VA 0x660f4c..0x660f90 family,
+# declared in ingame.h / main_window.h / game_app.h, defined in ingame.cpp /
+# main_window.cpp / game_app.cpp)
+INT_00660f74 -> g_MapRevealed : set by the MapReveal packet handler (ingame.cpp ~2080); when nonzero gameobj.cpp forces view_level=7 (full visibility) and case 1 ORs 0xc000 into every landscape cell
+INT_00660f8c -> g_GameStatusCode : set to 0 before the in-game wait loops, set to error codes (0x1004/0x1007/0x1009/0x1011, JoinError param|0x1000) by packet handlers; low byte indexes txt_patch/TxtFile::AllLines for the leaving message box (main_window.cpp 750/812, ingame.cpp 2893)
+INT_00660f90 -> g_JoinState : zeroed when the StartGame packet arrives (BigStruct2::ProcessPackets); no reader in the server binary (Ghidra: single WRITE xref at 40db73) — write-only retail vestige, likely a client-side join-state flag
+DAT_00660f68 -> g_TerrainHidden : read in the three terrain-tile draw paths (ingame.cpp 5326/5448/5516) to black-fill each flat tile's top face after drawing; no writer in the server binary (Ghidra: 3 READ xrefs only) — always 0, client-side render/debug toggle
+DAT_00660f6c -> g_ShowFps : gates the fps_flush rect repaint (ingame.cpp 6108/6153)
+DAT_00660f70 -> g_ShowNetStats : gates the net_flush rect repaint; toggled by a key via g_kbControlState (ingame.cpp 6910/6115/6156)
+DAT_00660f88 -> g_SelCutsceneIndex : remembers the cutscene list selection in the main menu (main_window.cpp 2838) and restores it on the cutscenes screen (visual.cpp 4209)
+DAT_0062c9d4 -> g_InGame : client in-game flag; cleared in MainWindow::Proc_421 on return to the main menu; client binary reads it in CUnit::DrawStatsPanel, CUnit::GetStatsHint and BigStruct2::ProcessPackets (ghidra --client xrefs)
+
+# ---------------------------------------------------------------------------
+# gfx / terrain (src/gfx.h, defined in gfx.cpp)
+DAT_00661018 -> g_TerPalettes : CGamePalette*[32] indexed by terrain type in the tile draw paths (comment already says "terrain tile palettes, filled from g_ter_tiles")
+DAT_00665344 -> g_TerDirtBmp : CGameBitmap* whose 0x400-byte cells are copied under deformed tiles via CopyIndexedSkip0 (comment already says "terrain dirt bitmap")
+
+# ---------------------------------------------------------------------------
+# Server unit management (src/server.h)
+dword_6CDB3C -> g_ServerUnits : global UnitList of all server units, used by AddTailAllocId (existing comment)
+dword_6B37C4 -> g_UnitPool : UnitList pool of server units kept for summoning/reuse (existing comment)
+dword_6CDB38 -> g_MapFileChecksum : result of CalcFileChecksum(current_map_name), written to the sack-save file and the MapInfo packet (server.cpp 4702/4724/5359/6128)
+
+# ---------------------------------------------------------------------------
+# Item names (src/item.h / item.cpp / gameobj.cpp)
+dword_65FBB8 -> g_ItemNamePktData : malloc'd raw contents of world\data\itemname.pkt (item.cpp 1380)
+unk_660D28 -> g_ItemNamePktMap : CMapWordToPtr item_id -> ItemNamePktEntry* built while walking the .pkt buffer (item.cpp 1391, read in TokenEntry hint paths)
+unk_660DA8 -> g_ItemNameMap : CMapWordToPtr item_id -> display-name string from txt_itemname (item.cpp 1374, read in TokenEntry::GetHintText/HasKnownName)
+
+# ---------------------------------------------------------------------------
+# Net (src/net.cpp)
+dword_665CFC -> g_SpectatorState : value sent as the JoinDone packet payload by NetStru1::SendSpectatorState; no writer in the server binary (Ghidra: single READ xref at 51c83c), so always 0 in practice
+
+# ---------------------------------------------------------------------------
+# Spell / area-effect wave tables (src/spell_effect.cpp; existing comments kept as basis)
+unk_6364D0 -> g_BlizzardWaveTable : int32_t[41] blizzard wave table, randomized per cast (TickAcidBlizzard 537CD6)
+unk_636578 -> g_WaveDistA : const int32_t[41] wave distribution table A used by AreaEffect::ApplyWaveDistribution
+unk_636620 -> g_WaveDistB : const int32_t[41] wave distribution table B used by AreaEffect::ApplyWaveDistribution
+dword_6366C4 -> g_AcidWaveCount : const count of acid-stream wave patterns
+dword_6366C8 -> g_AcidWaveA : const int32_t[6][41] acid-stream wave patterns A (indexed by wave_step)
+dword_636AA0 -> g_AcidWaveB : const int32_t[6][41] acid-stream wave patterns B (indexed by wave_step)
+INT_6362e8 -> g_ActionDirDx : int[16] dx multiplier indexed by Unit::action_dir (ingame.cpp 538)
+INT_636328 -> g_ActionDirDy : int[16] dy multiplier indexed by Unit::action_dir (ingame.cpp 539)
+dword_62F908 -> g_SpellOffensive : int32_t[24] "is the spell offensive" flag per spellbook position (existing comment)
+
+# ---------------------------------------------------------------------------
+# Spellbook render tables (src/visual.cpp; existing comments kept as basis)
+DAT_0062F8A8 -> g_SpellbookPressed : uint32_t[24] spellbook pressed-position table
+DAT_0062FA28 -> g_SpellbookSelected : uint32_t[24] spellbook selected-position table
+DAT_0062F968 -> g_SpellbookCastable : uint32_t[24] spellbook castable-from-book flag per position
+DAT_0062F9C8 -> g_SpellbookDblClickCastable : uint32_t[24] spellbook double-click-castable flag per position
+
+# ---------------------------------------------------------------------------
+# Hint buffers and empty-string constants (src/visual.cpp, src/gameobj.cpp)
+byte_666590 -> g_HintBuf : char[223] GetHint static result buffer (4c9a6f)
+byte_65F630 -> g_StatsHintBuf : char[1024] CUnit::GetStatsHint spell-list hint buffer
+unk_659A48 -> g_EmptyStrSrvScreenText : zeroed "" buffer passed to clear the server screen text box
+byte_659A5C -> g_EmptyStrNetChatText : zeroed "" buffer passed to clear the net chat text box; KEEP extern "C" linkage (an ASM-era caller passes it as an ostream pad / RegQueryValueExA name — rename must keep C symbol, add leading _ if any asm ref remains)
+byte_659A54 -> g_EmptyStrConfirmHint : "" hint string of the action menu confirm button
+byte_659A58 -> g_EmptyStrCancelHint : "" hint string of the action menu cancel button
+byte_659A4C -> g_EmptyStrLoadHint : "" hint string of the mission-failed load button
+byte_659A50 -> g_EmptyStrRetryHint : "" hint string of the mission-failed retry button
+byte_659A30 -> g_EmptyStrMapTooltip : "" placeholder tooltip for net map entries with an unprintable tooltip
+
+# ---------------------------------------------------------------------------
+# Client sound (src/sound.cpp, #ifdef A2CLIENT)
+DAT_005fbb90 -> g_SndPlaybackMarker : playback marker read by ReadPortion, -1 = none (existing comment)
+
+# ---------------------------------------------------------------------------
+# Main window (src/main_window.cpp)
+DAT_006658d8 -> g_DeferredEventIds : CDWordArray queue of event ids posted deferred via PostMessage(0x433) once dialogsMask clears (2889-2891), drained by StartServerSession
+DAT_00665cf8 -> g_MainmenuDisableMask : main-menu button disable mask (0x35 on msgbox close 0x445), ORed with the Load-button bit into vis_mainmenu->disable_mask (2368); write-only in a2serv6.exe, client twin 631768
+
+# ---------------------------------------------------------------------------
+# Internet server list (defined in ingame.cpp, filled in main_window.cpp)
+DAT_00666a00 -> g_WwwServerList : CStringArray of "ip|..." entries parsed from the CURRENTCOUNT web response (main_window.cpp 5900-5931), shown in the internet server browser list (visual.cpp 25057)
+
+# ---------------------------------------------------------------------------
+# Misc single-use
+DAT_006a6a64 -> s_FatWalkAbort : function-local static in ResBase::AccumulateSize (4ecc05) that breaks the FAT-tree child walk when nonzero; never set anywhere, so the walk never aborts early — rename in place, stays a local static (s_ prefix, PascalCase body per convention)
+unk_70B46C -> g_FieldBlock5859cData0 : zero-filled uint8_t[4] pointed to by FieldBlock5859c::gap_0x0 (struct kept opaque, ctor 5A3180)
+unk_70B470 -> g_FieldBlock5859cData1 : zero-filled uint8_t[4] pointed to by FieldBlock5859c::gap_0x4
+unk_70B474 -> g_FieldBlock5859cData2 : zero-filled uint8_t[8] pointed to by FieldBlock5859c::gap_0x8
+
+# ===========================================================================
+# EXCLUDED — address names that appear ONLY in comments next to already-named
+# C++ code (no identifier to rename). Listed so nobody re-analyzes them.
+# ===========================================================================
+# - packet.h statics: unk_6E9B40/6D1670/6B1650/6B1670/6CDB78/70A7D0/6CE970/6A6A70/6CDB28/
+#   6B37A8/6B37C8/6D1888/6B37D8/6C5AF8/6A6A88/6D0628/6CDB88 and net.cpp unk_6D1180 are
+#   PacketXxx::Inst static instances (already semantic); the off_60ED28..60EF08 vtables are
+#   compiler-generated now, addresses live in the per-class comments.
+# - inn.cpp off_60F790..60F9F8: 12 vtable addresses referenced only in InterceptGroup/
+#   KillInnDefenders-style comments; the vtable-compare code was ported to virtual dispatch.
+# - visual.cpp local statics with "// xxxxx in asm" comments: byte_666590 is NOT one of them
+#   (it is a real global above), but byte_665DA8/dword_665DA0 (VisShop::VMethod30),
+#   byte_665D9C/dword_665DD4 (VisShopDruid), byte_665DA4/dword_665DB8 (VisShopKaarg),
+#   byte_6669BC/dword_66699C/dword_6669C4/dword_6669d0/dword_6669d4/dword_6669d8 (VisTown),
+#   byte_6669AC/dword_666994/dword_6669B0 (VisTownKaarg::VMethod35), byte_6669C0/dword_6669B8/
+#   dword_6669CC (VisTownKaarg::VMethod7), byte_666998/dword_6669A4/dword_6669B4
+#   (VisTownDruid::VMethod35), byte_6669A0/dword_6669A8/dword_6669C8 (VisTownDruid::VMethod7),
+#   byte_65995C/dword_659958 (credits scroll) are already-named C++ function-local statics.
+# - server.cpp unk_6D10B8 = Shop g_DefaultShop (already named); unk_6E9DB0 (large terrain
+#   packet buffer) appears only in a comment at server.cpp 1766 — the buffer itself has no
+#   address-named identifier in C++.
+# - unit.cpp byte_70B460: comment-only ("originally set to byte_70B460, never populated").
+# - net.cpp DAT_0070b410: only inside a commented-out statistics line.
+# - main_window.cpp DAT_0062f87c: comment-only (removed CD-present check).
+# - table.cpp DAT_006cf388: comment-only (write-only header line, now a local).
+# - shelf.h stru_6372A0: comment-only (CMultiShopTemplate CRuntimeClass; MFC names it
+#   classCMultiShopTemplate via DECLARE_SERIAL).
+
+# ===========================================================================
+# ROUND 2 (2026-11-08, same day) — misses caught by a broader sweep
+# (uppercase DWORD_ / TxtFile_ / g_DWORD_ prefixes, plus _0x-style and any
+# identifier embedding a 5-8 hex run). Round-1 regex only knew lowercase
+# Ghidra/IDA prefixes. All names collision-checked, all applied with
+# per-rename builds of both binaries, same as round 1.
+# ===========================================================================
+g_DWORD_00659d18 -> g_VideoOptionFlags : video-options bitflags; server never writes beyond init (=0, game_app.cpp 654); readers test bit 1 (0x2) to skip lightning redraw (ingame.cpp 5685/7537) and ==2 to preserve corner light across grid rebuild (4443); bits come from the client's video options
+TxtFile_00660e88 -> g_GlobalMapLocationHints : TxtFile whose lines are returned by VisGlobalMap::GetHint() per campaign-map location index (visual.cpp 7668); constructed at CRT init, never opened server-side (client loads it)
+DWORD_0060bd60 -> PortraitPlayerTypes : VisStartGame static const int32_t[4] = {0,2,3,1}; portrait index -> player type, used by GetSelectedPortraitPlayerType (4973b0); class static member, hence no g_ prefix
+DWORD_0060CC30 -> s_MainMenuButtonRects : file-local static const int32_t[8][4], main menu button layout [x,y,w,h] per button (comment already in visual.cpp 23572); file-scope static, s_ prefix
+DWORD_0060CCB0 -> s_MainMenuLabelRects : file-local static const int32_t[8][4], main menu label layout [x,y,w,h] per label (visual.cpp 23579); file-scope static, s_ prefix
+ParsePlayerFile_4F62E6 -> ParsePlayerFile : free function (player_file.h 66, __cdecl); name already semantic, the _4F62E6 address suffix moves into the required // 4f62e6 address comment
+WritePlayerFile_4F53EA -> WritePlayerFile : free function (player_file.h 77, __cdecl); same treatment, address kept as // 4f53ea comment
+# - res/resource.h ID_0X9C50: Windows resource #define (value 40002) named after its own
+#   value, not a server address; defined but referenced nowhere (VS-generated cruft, left alone).
+#   Note: grep/ugrep treats src/res/resource.h as binary — use sed/python to search it.

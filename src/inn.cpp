@@ -1220,7 +1220,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                 int32_t kind = this->active_quest->Kind();
                 switch (kind) {
                     case 4: { // Escort
-                        Unit* escort_unit = dword_6CDB3C->FindById(this->active_quest->quest_data.obj);
+                        Unit* escort_unit = g_ServerUnits->FindById(this->active_quest->quest_data.obj);
                         if (escort_unit == nullptr || humanoid == nullptr) {
                             g_QuestMap.UnregisterQuest(this->active_quest);
                         } else {
@@ -1241,7 +1241,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                     }
                     case 11: { // Intercept unit
                         uint16_t unit_id = this->active_quest->quest_data.obj;
-                        Unit* target_unit = dword_6CDB3C->FindById(unit_id);
+                        Unit* target_unit = g_ServerUnits->FindById(unit_id);
                         if (target_unit == nullptr) {
                             g_QuestMap.UnregisterQuest(this->active_quest);
                         } else {
@@ -1306,7 +1306,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                         uint8_t x = humanoid->position->GetX();
                         int placed = new_unit->PlaceOnMap(x, y, 5);
                         if (placed != 0) {
-                            dword_6CDB3C->AddTailAllocId(new_unit);
+                            g_ServerUnits->AddTailAllocId(new_unit);
                             new_unit->pOwner = humanoid->pOwner;
                             humanoid->pOwner->unit_list->AddTail(new_unit);
 

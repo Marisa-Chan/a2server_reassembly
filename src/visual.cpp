@@ -24,35 +24,35 @@
 
 
 
-char byte_666590[223]; //4c9a6f GetHint static buffer
+char g_HintBuf[223]; //4c9a6f GetHint static buffer
 
-char unk_659A48[4]; //659a48 zeroed buffer used to clear the server screen text box
-char byte_659A54[4]; //659a54 "" hint string of the action menu confirm button
-char byte_659A58[4]; //659a58 "" hint string of the action menu cancel button
-char byte_659A4C[4]; //659a4c "" hint string of the mission-failed load button
-char byte_659A50[4]; //659a50 "" hint string of the mission-failed retry button
-char byte_659A30[4]; //659a30 "" placeholder tooltip for net map entries with an unprintable tooltip
+char g_EmptyStrSrvScreenText[4]; //659a48 zeroed buffer used to clear the server screen text box
+char g_EmptyStrConfirmHint[4]; //659a54 "" hint string of the action menu confirm button
+char g_EmptyStrCancelHint[4]; //659a58 "" hint string of the action menu cancel button
+char g_EmptyStrLoadHint[4]; //659a4c "" hint string of the mission-failed load button
+char g_EmptyStrRetryHint[4]; //659a50 "" hint string of the mission-failed retry button
+char g_EmptyStrMapTooltip[4]; //659a30 "" placeholder tooltip for net map entries with an unprintable tooltip
 
 // Still referenced from ASM: ostream::operator<< passes it as the "" pad string and a
 // RegQueryValueExA caller passes it as the "" value name, so it keeps C linkage.
 extern "C" {
-    char byte_659A5C[4]; //659a5c zeroed buffer used to clear the net chat text box
+    char g_EmptyStrNetChatText[4]; //659a5c zeroed buffer used to clear the net chat text box
 }
 
 // Spellbook pressed-position spell table. 62f8a8
-uint32_t DAT_0062F8A8[24] = {1,0,0,1, 1,1,1,1, 1,1,1,1, 1,0,0,1, 1,0,0,1, 1,1,0,1};
+uint32_t g_SpellbookPressed[24] = {1,0,0,1, 1,1,1,1, 1,1,1,1, 1,0,0,1, 1,0,0,1, 1,1,0,1};
 
 // Spellbook selected-position spell table. 62fa28
-uint32_t DAT_0062FA28[24] = {1,0,0,1, 1,0,0,1, 0,1,1,1, 1,0,0,1, 0,1,1,1, 1,0,0,1};
+uint32_t g_SpellbookSelected[24] = {1,0,0,1, 1,0,0,1, 0,1,1,1, 1,0,0,1, 0,1,1,1, 1,0,0,1};
 
 // Spellbook position castable-from-book flag. 62f968
-uint32_t DAT_0062F968[24] = {1,1,1,0, 1,0,0,1, 0,0,1,1, 1,1,1,0, 1,0,0,0, 0,1,1,1};
+uint32_t g_SpellbookCastable[24] = {1,1,1,0, 1,0,0,1, 0,0,1,1, 1,1,1,0, 1,0,0,0, 0,1,1,1};
 
 // Spellbook position double-click-castable flag. 62f9c8
-uint32_t DAT_0062F9C8[24] = {0,0,0,1, 1,1,1,0, 1,1,0,0, 0,0,0,1, 1,0,0,1, 1,0,0,0};
+uint32_t g_SpellbookDblClickCastable[24] = {0,0,0,1, 1,1,1,0, 1,1,0,0, 0,0,0,1, 1,0,0,1, 1,0,0,0};
 
 
-const int32_t VisStartGame::DWORD_0060bd60[4] = {0, 2, 3, 1};
+const int32_t VisStartGame::PortraitPlayerTypes[4] = {0, 2, 3, 1};
 
 
 CVisualObject::CVisualObject() {
@@ -4180,9 +4180,9 @@ void VisMissionFailed::VMethod26() {
     CRect retry_rect(this->rect.Width() / 8, this->rect.Height() - 0x60, this->rect.Width() * 7 / 8, this->rect.Height() - 0x48);
     CRect load_rect(this->rect.Width() / 8, this->rect.Height() - 0x48, this->rect.Width() * 7 / 8, this->rect.Height() - 0x30);
 
-    VisButton* retry_btn = new VisButton(4, retry_rect, txt_dialogs.GetLine(0x2C), g_font1, nullptr, 0x445, 0, byte_659A4C);
+    VisButton* retry_btn = new VisButton(4, retry_rect, txt_dialogs.GetLine(0x2C), g_font1, nullptr, 0x445, 0, g_EmptyStrLoadHint);
     this->AddChild(retry_btn);
-    VisButton* load_btn = new VisButton(5, load_rect, txt_dialogs.GetLine(0x23), g_font1, nullptr, 0x446, 0, byte_659A50);
+    VisButton* load_btn = new VisButton(5, load_rect, txt_dialogs.GetLine(0x23), g_font1, nullptr, 0x446, 0, g_EmptyStrRetryHint);
     this->AddChild(load_btn);
 
     this->SetUpObj(this->FindChild(4));
@@ -4206,7 +4206,7 @@ CVisualObject* VisCutScenesDlg::VMethod30(const void* data, const RECT& r) {
 
     VisListBox* list = new VisListBox(2, r, g_font1, p_clrsh_Black, p_clrsh_ShockingBlack, 0x29B, nullptr);
     list->ReadData(&data);
-    list->SetSelectedIndex(DAT_00660f88);
+    list->SetSelectedIndex(g_SelCutsceneIndex);
     this->AddChild(list);
 
     VisScrollBar* scrollbar = new VisScrollBar(0x29B, rect.right, rect.top, rect.right + 0x18, rect.bottom, nullptr);
@@ -5219,7 +5219,7 @@ void VisNetMapSelection::ScanMapsThread() {
                         }
                     }
                     if (!tooltip_printable) {
-                        info->tooltip = byte_659A30;
+                        info->tooltip = g_EmptyStrMapTooltip;
                     }
                     info->name.OemToAnsi();
                     info->tooltip.OemToAnsi();
@@ -5708,7 +5708,7 @@ int32_t VisNetChatTextBox::OnKeyDown(uint32_t wparam) {
     if (wparam == 0xD) {
         char buf[256];
         this->WriteData(buf);
-        this->ReadData(byte_659A5C);
+        this->ReadData(g_EmptyStrNetChatText);
         this->VMethod9();
 
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
@@ -7665,7 +7665,7 @@ const char* VisGlobalMap::GetHint() {
             if (this->locationAvailabilityFlags.ElementAt(i) == 0) {
                 return nullptr;
             }
-            return TxtFile_00660e88.GetLine(i);
+            return g_GlobalMapLocationHints.GetLine(i);
         }
     }
     return nullptr;
@@ -23042,9 +23042,9 @@ void VisSpellBook::SelectScrollEntry(int32_t idx) {
 // 4CAAA7
 int32_t VisSpellBook::NeedsUnitTarget() {
     if (this->selected < 0) {
-        return DAT_0062F8A8[this->pressed];
+        return g_SpellbookPressed[this->pressed];
     }
-    return DAT_0062FA28[this->selected];
+    return g_SpellbookSelected[this->selected];
 }
 
 
@@ -23175,7 +23175,7 @@ int32_t VisSpellBook::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
     int32_t idx = this->HitTestSpellCell(&pos);
     if (idx < 0
         || ((mc->selected_available_spell_mask | mc->active_spell_effect_mask) & (1 << (idx & 0x1F))) == 0
-        || DAT_0062F9C8[idx] == 0) {
+        || g_SpellbookDblClickCastable[idx] == 0) {
         this->OnLButtonDown(wparam, pos);
     } else {
         mc->SendGroupSelfCast(idx + 1);
@@ -23195,10 +23195,10 @@ int32_t VisSpellBook::OnKeyDown(uint32_t wparam) {
             CPoint pt;
             GetCursorPos(&pt);
             int32_t idx = this->HitTestSpellCell(&pt);
-            if (idx >= 0 && DAT_0062F968[idx] != 0) {
+            if (idx >= 0 && g_SpellbookCastable[idx] != 0) {
                 spell_id = BOOK_POS_TO_SPELL_ID[idx + 1];
             }
-        } else if (DAT_0062F968[this->pressed] != 0) {
+        } else if (g_SpellbookCastable[this->pressed] != 0) {
             spell_id = BOOK_POS_TO_SPELL_ID[this->pressed + 1];
         }
         if (spell_id != 0) {
@@ -23337,7 +23337,7 @@ const char* VisSpellBook::GetHint() {
     if ((main_wnd->dialogsMask & 2) == 0 && main_wnd->dialogsMask != 1) {
         return nullptr;
     }
-    byte_666590[0] = 0;
+    g_HintBuf[0] = 0;
     if (idx < 0 || mc->spell_mana_cost1[idx] > 0xFFFE) {
         return nullptr;
     }
@@ -23430,9 +23430,9 @@ const char* VisSpellBook::GetHint() {
                 mc->spell_val7_min[idx], mc->spell_val7_max[idx]);
         }
     }
-    sprintf(byte_666590, "%s%s%s%s%s", (LPCTSTR)str, (LPCTSTR)dmg_str,
+    sprintf(g_HintBuf, "%s%s%s%s%s", (LPCTSTR)str, (LPCTSTR)dmg_str,
         (LPCTSTR)range_str, (LPCTSTR)power_str, (LPCTSTR)vals_str);
-    return byte_666590;
+    return g_HintBuf;
 }
 
 
@@ -23570,14 +23570,14 @@ int32_t VisMainMenu::OnLButtonUp(uint32_t wparam, CPoint pos) {
 
 
 // Main menu button layout. 60CC30 — [x, y, w, h] per button.
-static const int32_t DWORD_0060CC30[8][4] = {
+static const int32_t s_MainMenuButtonRects[8][4] = {
     {0xCC, 0x34, 0x68, 0x60}, {0x7C, 0x9C, 0x6C, 0x4C}, {0x7C, 0xFC, 0x60, 0x58},
     {0xD0, 0x154, 0x64, 0x64}, {0x154, 0x34, 0x58, 0x64}, {0x1A8, 0x98, 0x54, 0x58},
     {0x19C, 0x104, 0x60, 0x54}, {0x158, 0x15C, 0x48, 0x50},
 };
 
 // Main menu label layout. 60CCB0 — [x, y, w, h] per label.
-static const int32_t DWORD_0060CCB0[8][4] = {
+static const int32_t s_MainMenuLabelRects[8][4] = {
     {0x74, 0x40, 0xD0, 0x8A}, {0x58, 0x58, 0xEC, 0x98}, {0x58, 0xEC, 0xEC, 0x98},
     {0x74, 0x110, 0xD0, 0x8C}, {0x140, 0x40, 0xD4, 0x8C}, {0x144, 0x58, 0xE8, 0x98},
     {0x144, 0xEC, 0xEC, 0x98}, {0x140, 0x110, 0xD4, 0x8C},
@@ -23598,13 +23598,13 @@ void VisMainMenu::VMethod26() {
     this->rect_buttons.RemoveAll();
     this->rect_labels.RemoveAll();
     for (int32_t i = 0; i < 8; i++) {
-        r.SetRect(top_left.x + DWORD_0060CC30[i][0], top_left.y + DWORD_0060CC30[i][1],
-            top_left.x + DWORD_0060CC30[i][0] + DWORD_0060CC30[i][2],
-            top_left.y + DWORD_0060CC30[i][1] + DWORD_0060CC30[i][3]);
+        r.SetRect(top_left.x + s_MainMenuButtonRects[i][0], top_left.y + s_MainMenuButtonRects[i][1],
+            top_left.x + s_MainMenuButtonRects[i][0] + s_MainMenuButtonRects[i][2],
+            top_left.y + s_MainMenuButtonRects[i][1] + s_MainMenuButtonRects[i][3]);
         this->rect_buttons.Add(r);
-        r.SetRect(top_left.x + DWORD_0060CCB0[i][0], top_left.y + DWORD_0060CCB0[i][1],
-            top_left.x + DWORD_0060CCB0[i][0] + DWORD_0060CCB0[i][2],
-            top_left.y + DWORD_0060CCB0[i][1] + DWORD_0060CCB0[i][3]);
+        r.SetRect(top_left.x + s_MainMenuLabelRects[i][0], top_left.y + s_MainMenuLabelRects[i][1],
+            top_left.x + s_MainMenuLabelRects[i][0] + s_MainMenuLabelRects[i][2],
+            top_left.y + s_MainMenuLabelRects[i][1] + s_MainMenuLabelRects[i][3]);
         this->rect_labels.Add(r);
     }
     this->disable_mask = 0;
@@ -23905,7 +23905,7 @@ void VisServerScreen::VMethod7() {
         str.Format(txt_patch.GetLine(0x42),
                    main_wnd->current_map_name,
                    g_PlayersList->CountHumanPlayers(),
-                   dword_6CDB3C->unit_list.GetCount(),
+                   g_ServerUnits->unit_list.GetCount(),
                    g_Server->srv_stru1->building_list->GetCount(),
                    g_Server->srv_stru1->units_list->unit_list.GetCount(),
                    g_Server->srv_stru1->sack_list->list.GetCount(),
@@ -23995,7 +23995,7 @@ int32_t VisServerScreen::OnKeyDown(uint32_t wparam) {
         }
 
         CVisualObject* textbox_clear = this->FindChild(0x68);
-        textbox_clear->ReadData(unk_659A48);
+        textbox_clear->ReadData(g_EmptyStrSrvScreenText);
         return 1;
     }
 
@@ -24671,10 +24671,10 @@ void Vis2Action::VMethod26() {
         this->rect.Width() * 7 / 8,
         this->rect.Height() - 0x30);
 
-    MenuButton* ok_btn = new MenuButton(2, ok_rect, txt_dialogs.GetLine(0x2B), g_font1, nullptr, 0x41D, 0x56, byte_659A54);
+    MenuButton* ok_btn = new MenuButton(2, ok_rect, txt_dialogs.GetLine(0x2B), g_font1, nullptr, 0x41D, 0x56, g_EmptyStrConfirmHint);
     this->AddElement(ok_btn, ok_rect.Height());
 
-    MenuButton* cancel_btn = new MenuButton(3, cancel_rect, txt_dialogs.GetLine(0x9A), g_font1, nullptr, 0x446, 0x43, byte_659A58);
+    MenuButton* cancel_btn = new MenuButton(3, cancel_rect, txt_dialogs.GetLine(0x9A), g_font1, nullptr, 0x446, 0x43, g_EmptyStrCancelHint);
     this->AddElement(cancel_btn, cancel_rect.Height());
 }
 
@@ -25054,19 +25054,19 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
             list->vis_start_index = 0;
             list->SetSelectedIndex(0);
         } else {
-            for (int32_t i = 0; i < DAT_00666a00.GetSize(); i++) {
-                list->AddItem(DAT_00666a00[i]);
+            for (int32_t i = 0; i < g_WwwServerList.GetSize(); i++) {
+                list->AddItem(g_WwwServerList[i]);
             }
-            if (DAT_00666a00.GetSize() <= sel_index) {
-                sel_index = DAT_00666a00.GetSize() - 1;
+            if (g_WwwServerList.GetSize() <= sel_index) {
+                sel_index = g_WwwServerList.GetSize() - 1;
             }
 #ifdef A2CLIENT
-            if (DAT_00666a00.GetSize() > 0 && sel_index < 0) {
+            if (g_WwwServerList.GetSize() > 0 && sel_index < 0) {
                 sel_index = 0;
             }
 #endif
-            if (DAT_00666a00.GetSize() <= vis_start) {
-                vis_start = DAT_00666a00.GetSize() - 1;
+            if (g_WwwServerList.GetSize() <= vis_start) {
+                vis_start = g_WwwServerList.GetSize() - 1;
             }
             list->vis_start_index = vis_start;
             list->SetSelectedIndex(sel_index);

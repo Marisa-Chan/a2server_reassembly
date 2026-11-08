@@ -1198,10 +1198,10 @@ void ScanPresenceGrid::ClearPresenceGrid() {
             }
         }
     }
-    if (dword_6CDB3C != nullptr) {
-        POSITION it = dword_6CDB3C->unit_list.GetHeadPosition();
+    if (g_ServerUnits != nullptr) {
+        POSITION it = g_ServerUnits->unit_list.GetHeadPosition();
         while (it != NULL) {
-            Unit* unit = dword_6CDB3C->unit_list.GetNext(it);
+            Unit* unit = g_ServerUnits->unit_list.GetNext(it);
             unit->seen_by_mask = 0;
         }
     }
@@ -1261,15 +1261,15 @@ FieldBlock54190::FieldBlock54190() {
     this->data[1000] = 2;
 }
 
-uint8_t unk_70B46C[4] = {};
-uint8_t unk_70B470[4] = {};
-uint8_t unk_70B474[8] = {};
+uint8_t g_FieldBlock5859cData0[4] = {};
+uint8_t g_FieldBlock5859cData1[4] = {};
+uint8_t g_FieldBlock5859cData2[8] = {};
 
 // 5A3180
 FieldBlock5859c::FieldBlock5859c() {
-    this->gap_0x0 = unk_70B46C;
-    this->gap_0x4 = unk_70B470;
-    this->gap_0x8 = unk_70B474;
+    this->gap_0x0 = g_FieldBlock5859cData0;
+    this->gap_0x4 = g_FieldBlock5859cData1;
+    this->gap_0x8 = g_FieldBlock5859cData2;
     this->gap_0xc = 0;
 }
 

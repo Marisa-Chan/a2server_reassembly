@@ -173,7 +173,7 @@ void Outpost::RestoreOriginalUnits(Group* group) {
         if (placed != 0) {
             this->is_awaiting_repop = 0;
             this->repop_countdown = this->repop_delay;
-            dword_6CDB3C->AddTailId6xxx(unit_original);
+            g_ServerUnits->AddTailId6xxx(unit_original);
             group->AddUnit(unit_original);
             this->pOwner->unit_list->AddTail(unit_original);
             g_NetStru1_main.SendUnitUpdate(unit_original, nullptr, 0x800000fb, 0xffb, 0, 0);

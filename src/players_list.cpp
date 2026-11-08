@@ -262,16 +262,16 @@ void PlayersList::ProcessPlayerTimeouts() {
 					while (unit != nullptr) {
 						MapStuff_Instance->AddUnitToMap(unit);
 
-						// Remove from global active unit list (dword_6CDB3C).
-						POSITION found = dword_6CDB3C->unit_list.Find(unit);
+						// Remove from global active unit list (g_ServerUnits).
+						POSITION found = g_ServerUnits->unit_list.Find(unit);
 						if (found != nullptr) {
-							dword_6CDB3C->unit_list.RemoveAt(found);
+							g_ServerUnits->unit_list.RemoveAt(found);
 						}
 
 						unit->pOwner = nullptr;
 						unit->hp = -600;
 						unit->decay = 5;
-						dword_6B37C4->AddTail(unit);
+						g_UnitPool->AddTail(unit);
 
 						// Advance to next unit.
 						if (upos != nullptr) {
@@ -386,12 +386,12 @@ void PlayersList::ProcessPlayerTimeouts() {
 					Unit* unit = player->unit_list->unit_list.GetNext(upos);
 					MapStuff_Instance->AddUnitToMap(unit);
 
-					dword_6CDB3C->Remove(unit);
+					g_ServerUnits->Remove(unit);
 
 					unit->pOwner = nullptr;
 					unit->hp = -600;
 					unit->decay = 5;
-					dword_6B37C4->AddTail(unit);
+					g_UnitPool->AddTail(unit);
 				}
 
 				// Clear all groups.

@@ -57,13 +57,14 @@ struct PlayerFileSectionHeader {
 
 
 // See other types:
-//  Server side: `ParsePlayerFile_004f62e6`,
+//  Server side: `ParsePlayerFile` (4f62e6),
 //  Hat side: `CCharacter::SaveToStream`.
 
 void __cdecl DecryptEncryptedData(uint8_t* data, int32_t size, uint16_t key); //4f535e (client: 4f68dd)
 uint32_t __cdecl CalcChecksum(uint8_t* data, int32_t size); //4f5308 (client: 4f6887)
 
-int32_t __cdecl ParsePlayerFile_4F62E6(
+// 4f62e6
+int32_t __cdecl ParsePlayerFile(
     CFile* file,
     FileSectionBasicInfo** basic_info,
     FileSectionStats** stats,
@@ -74,7 +75,8 @@ int32_t __cdecl ParsePlayerFile_4F62E6(
     uint32_t* size_40a
 );
 
-int32_t __cdecl WritePlayerFile_4F53EA(
+// 4f53ea
+int32_t __cdecl WritePlayerFile(
     const char* filename,
     FileSectionBasicInfo* basic_info,
     FileSectionStats* stats,

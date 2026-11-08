@@ -135,7 +135,7 @@ void WriteStatsSection(CFile& file, FileSectionStats* stats) {
 	}
 }
 
-// Static buffers for ParsePlayerFile_4F62E6
+// Static buffers for ParsePlayerFile
 PacketUnitStateVec s_equip_packet;
 PacketUnitStateVec s_inv_packet;
 FileSectionBasicInfo s_basic_info_buf;
@@ -306,7 +306,7 @@ void WriteKillStatsSection(CFile& file, uint8_t* kill_stats) {
 } // namespace
 
 // 4F53EA
-int32_t __cdecl WritePlayerFile_4F53EA(const char* filename, FileSectionBasicInfo* basic_info, FileSectionStats* stats, uint8_t* kill_stats, PacketUnitStateVec* equip_pkt, PacketUnitStateVec* inv_pkt, uint8_t* section_40a, uint32_t size_40a) {
+int32_t __cdecl WritePlayerFile(const char* filename, FileSectionBasicInfo* basic_info, FileSectionStats* stats, uint8_t* kill_stats, PacketUnitStateVec* equip_pkt, PacketUnitStateVec* inv_pkt, uint8_t* section_40a, uint32_t size_40a) {
 	FileSectionBasicInfo* merged_basic_info = nullptr;
 	FileSectionStats* merged_stats = nullptr;
 	uint8_t* merged_kill_stats = nullptr;
@@ -318,7 +318,7 @@ int32_t __cdecl WritePlayerFile_4F53EA(const char* filename, FileSectionBasicInf
 	CFile file;
 	if (file.Open(filename, CFile::modeRead, nullptr)) {
 		if (file.GetLength() != 0) {
-			if (ParsePlayerFile_4F62E6(&file, &merged_basic_info, &merged_stats, &merged_kill_stats, &merged_equip, &merged_inventory, &merged_param7, &merged_param8) == 0) {
+			if (ParsePlayerFile(&file, &merged_basic_info, &merged_stats, &merged_kill_stats, &merged_equip, &merged_inventory, &merged_param7, &merged_param8) == 0) {
 				file.Close();
 				return 0;
 			}
@@ -384,7 +384,7 @@ int32_t __cdecl WritePlayerFile_4F53EA(const char* filename, FileSectionBasicInf
 }
 
 // 4F62E6
-int32_t __cdecl ParsePlayerFile_4F62E6(CFile* file, FileSectionBasicInfo** basic_info, FileSectionStats** stats, uint8_t** kill_stats, PacketUnitStateVec** equipment, PacketUnitStateVec** inventory, uint8_t** section_40a, uint32_t* size_40a) {
+int32_t __cdecl ParsePlayerFile(CFile* file, FileSectionBasicInfo** basic_info, FileSectionStats** stats, uint8_t** kill_stats, PacketUnitStateVec** equipment, PacketUnitStateVec** inventory, uint8_t** section_40a, uint32_t* size_40a) {
 	*basic_info = nullptr;
 	*stats = nullptr;
 	*kill_stats = nullptr;

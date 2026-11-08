@@ -94,8 +94,8 @@ CArray<CGamePalette*> g_Human_palettes; //6610c8
 
 Array2D<CBmp256*, 4, 32> g_ter_tiles; //665130
 
-CGamePalette* DAT_00661018[32] = {}; //661018 terrain tile palettes, filled from g_ter_tiles
-CGameBitmap* DAT_00665344 = nullptr; //665344 terrain dirt bitmap
+CGamePalette* g_TerPalettes[32] = {}; //661018 terrain tile palettes, filled from g_ter_tiles
+CGameBitmap* g_TerDirtBmp = nullptr; //665344 terrain dirt bitmap
 
 CBmp64* g_bmp_t_back = nullptr; //0066512c
 CBmp64* g_bmp_crystalr = nullptr; //00665348

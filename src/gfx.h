@@ -130,12 +130,12 @@ extern uint32_t g_brightnessLookupCount; //659bf0
 
 extern uint32_t g_isLowMemory; //660f58
 
-extern CGamePalette* DAT_00661018[32]; //661018
+extern CGamePalette* g_TerPalettes[32]; //661018
 extern RGBQUAD g_human_pals_data[16][256]; //661118
 extern CArray<CGamePalette*> g_Human_palettes; //6610c8
 
 extern Array2D<CBmp256*, 4, 32> g_ter_tiles; //665130
-extern CGameBitmap* DAT_00665344; //665344
+extern CGameBitmap* g_TerDirtBmp; //665344
 
 
 void GetClipRect(CRect* r); //454a0c (client: 45864c)

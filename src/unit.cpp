@@ -1246,7 +1246,7 @@ int32_t Unit::ReturnToMap() {
             return 0;
         }
     }
-    dword_6CDB3C->AddTail(this);
+    g_ServerUnits->AddTail(this);
     this->unit_attrs &= ~0x08;
     g_NetStru1_main.BroadcastUnitState(this);
     g_NetStru1_main.SendUnitUpdate(this, nullptr, 0x10, 0xFFB, 0, 0);
@@ -1830,9 +1830,9 @@ void Unit::RemoveFromMap() {
 
     MapStuff_Instance->AddUnitToMap(this);
     this->unit_attrs |= 8;
-    POSITION pos = dword_6CDB3C->unit_list.Find(this);
+    POSITION pos = g_ServerUnits->unit_list.Find(this);
     if (pos != nullptr) {
-        dword_6CDB3C->unit_list.RemoveAt(pos);
+        g_ServerUnits->unit_list.RemoveAt(pos);
     }
     g_NetStru1_main.SendUnitVisibility(this, 1, nullptr);
     g_NetStru1_main.SendUnitVisibility(this, 0, this->pOwner);
@@ -1845,7 +1845,7 @@ void Unit::AddToMap(uint8_t x, uint8_t y, uint8_t flags) {
         LogMessage(msg);
         return;
     }
-    dword_6CDB3C->AddTail(this);
+    g_ServerUnits->AddTail(this);
     this->unit_attrs &= ~8;
     g_NetStru1_main.SendUnitUpdate(this, nullptr, 0x10, 0xFFB, 0, 0);
     g_NetStru1_main.SendUnitVisibility(this, 0, nullptr);

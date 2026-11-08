@@ -46,11 +46,11 @@ void __cdecl SetMessageColors(uint32_t flag) {
 	}
 }
 
-int INT_6362e8[16] = { 0, 0, 1, 0,   1, 0, 1, 0,   0, 0, -1, 0,   -1, 0, -1, 0 };
-int INT_636328[16] = { -1, 0, -1, 0,   0, 0, 1, 0,   1, 0, 1, 0,   0, 0, -1, 0 };
+int g_ActionDirDx[16] = { 0, 0, 1, 0,   1, 0, 1, 0,   0, 0, -1, 0,   -1, 0, -1, 0 };
+int g_ActionDirDy[16] = { -1, 0, -1, 0,   0, 0, 1, 0,   1, 0, 1, 0,   0, 0, -1, 0 };
 
 // 62f908 - is the spell offensive, based on the spellbook position.
-int32_t dword_62F908[24] = {1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1};
+int32_t g_SpellOffensive[24] = {1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1};
 
 CArray<UnitVFXUnfo*> g_VFX_info; //6610e0
 CArray<GfxFile*> g_GfxFiles; //661100
@@ -61,17 +61,17 @@ CArray<UnitGfxFile*> g_UnitGfxFiles; //665118
 
 CGamePalette* g_pal_projectiles; //665490
 
-int32_t DAT_00660f68 = 0; //660f68
-int32_t DAT_00660f6c = 0; //660f6c
-int32_t INT_00660f8c = 0; //660f8c
-int32_t INT_00660f90 = 0; //660f90
-int32_t DAT_00660f70 = 0; //660f70
+int32_t g_TerrainHidden = 0; //660f68
+int32_t g_ShowFps = 0; //660f6c
+int32_t g_GameStatusCode = 0; //660f8c
+int32_t g_JoinState = 0; //660f90
+int32_t g_ShowNetStats = 0; //660f70
 CGamePalette* g_pal_projectile_; //665494
 
 CA16* g_spr_smoke[2]; //6610f8
 
 CUnit g_CUnitStatic; //642a48
-CStringArray DAT_00666a00; // 666a00
+CStringArray g_WwwServerList; // 666a00
 
 
 
@@ -359,14 +359,14 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			}
 
 			if (!this->scenario) {
-				INT_00660f8c = 0x1004;
+				g_GameStatusCode = 0x1004;
 				return 0;
 			}
-			INT_00660f90 = 0;
+			g_JoinState = 0;
 			break;
 
 		case JOIN_ERROR: {
-			INT_00660f8c = packet_2dwords->param1 | 0x1000;
+			g_GameStatusCode = packet_2dwords->param1 | 0x1000;
 
 			if ((wnd->dialogsMask & 1) == 0) {
 				while( g_NetStru1_local.ReceiveAnyPacket() != nullptr)
@@ -535,8 +535,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					unit->action_segments = packet_action->segments;
 					unit->action = 1;
 					unit->action_dir = packet_action->angle;
-					unit->action_x = INT_6362e8[unit->action_dir] << 8;
-					unit->action_y = INT_636328[unit->action_dir] << 8;
+					unit->action_x = g_ActionDirDx[unit->action_dir] << 8;
+					unit->action_y = g_ActionDirDy[unit->action_dir] << 8;
 				}
 			}
 		}
@@ -1265,7 +1265,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						}
 
 						CString fname = wnd->m_GameSession.GetSelectedRosterPath();
-						WritePlayerFile_4F53EA(fname, nullptr, nullptr, nullptr, packet_state, nullptr, nullptr, 0);
+						WritePlayerFile(fname, nullptr, nullptr, nullptr, packet_state, nullptr, nullptr, 0);
 					}
 				}
 				break;
@@ -1350,7 +1350,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							obj->flg = obj->flg & 0xbf;
 
 							char* itmname = nullptr;
-							unk_660DA8.Lookup(obj->item_id, *(void **)&itmname);
+							g_ItemNameMap.Lookup(obj->item_id, *(void **)&itmname);
 
 							if (obj->count < 2) {
 								sprintf(buf, "%s %s", TxtFile::AllLines[85], itmname);
@@ -1388,7 +1388,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 
 							CString fname = wnd->m_GameSession.GetSelectedRosterPath();
-							WritePlayerFile_4F53EA(fname, nullptr, nullptr, nullptr, packet_state, nullptr, nullptr, 0);
+							WritePlayerFile(fname, nullptr, nullptr, nullptr, packet_state, nullptr, nullptr, 0);
 						}
 
 						TokenEntry* gt = new TokenEntry(0);
@@ -2078,11 +2078,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		case MAP_REVEAL: {
 			switch(packet_2dwords->param1) {
 			case 0:
-				INT_00660f74 = 0;
+				g_MapRevealed = 0;
 				break;
 
 			case 1: {
-				INT_00660f74 = 1;
+				g_MapRevealed = 1;
 				uint16_t* landscape = this->scenario->GetLandscape();
 
 				for (int i = 0; i < this->scenario->GetWidth(); i++) {
@@ -2421,7 +2421,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 #endif
 
 		case SERVER_LIST: {
-			DAT_00666a00.RemoveAll();
+			g_WwwServerList.RemoveAll();
 
 			char* chpos = strstr((char*)packet_data->data, "CURRENTCOUNT");
 			if (!chpos) {
@@ -2454,7 +2454,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				}
 				*outpos = 0;
 
-				DAT_00666a00.Add( CString(bbuf) + '|');
+				g_WwwServerList.Add( CString(bbuf) + '|');
 			}
 
 
@@ -2487,7 +2487,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				fl.Write(packet_data->data + 8, packet_data->count - 8);
 				fl.Close();
 			} else
-				INT_00660f8c = 0x1011;
+				g_GameStatusCode = 0x1011;
 #else
 			CFile fl;
 			if (packet_data->count < 0x18) {
@@ -2499,7 +2499,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					PacketUnitStateVec* state;
 					uint8_t* a40;
 					uint32_t a40_sz;
-					int32_t res = ParsePlayerFile_4F62E6(&fl, &basic, &stats, &kstat, &equip, &state, &a40, &a40_sz);
+					int32_t res = ParsePlayerFile(&fl, &basic, &stats, &kstat, &equip, &state, &a40, &a40_sz);
 					fl.Close();
 					if (res == 0)
 						wnd->m_GameSession.hat_char_ids.Add(*chr);
@@ -2515,7 +2515,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				PacketUnitStateVec* state;
 				uint8_t* a40;
 				uint32_t a40_sz;
-				int32_t res = ParsePlayerFile_4F62E6(&memfile, &basic, &stats, &kstat, &equip, &state, &a40, &a40_sz);
+				int32_t res = ParsePlayerFile(&memfile, &basic, &stats, &kstat, &equip, &state, &a40, &a40_sz);
 
 				memfile.Detach();
 
@@ -2529,27 +2529,27 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					PacketUnitStateVec srv_equip = *equip;
 					PacketUnitStateVec srv_state = *state;
 
-					res = ParsePlayerFile_4F62E6(&fl, &basic, &stats, &kstat, &equip, &state, &a40, &a40_sz);
+					res = ParsePlayerFile(&fl, &basic, &stats, &kstat, &equip, &state, &a40, &a40_sz);
 					fl.Close();
 
 					if (res) {
 						strcpy(srv_basic.nick, basic->nick);
 						srv_basic.flags = basic->flags;
 						srv_basic.color = basic->color;
-						if (!WritePlayerFile_4F53EA(fname, &srv_basic, &srv_stats, srv_kstat.data(), &srv_equip, &srv_state, nullptr, 0))
-							INT_00660f8c = 0x1011;
+						if (!WritePlayerFile(fname, &srv_basic, &srv_stats, srv_kstat.data(), &srv_equip, &srv_state, nullptr, 0))
+							g_GameStatusCode = 0x1011;
 					}
 					else {
 						if (fl.Open(fname, CFile::modeCreate | CFile::modeWrite)) {
 							fl.Write(packet_data->data + 8, packet_data->count - 8);
 							fl.Close();
 						} else
-							INT_00660f8c = 0x1011;
+							g_GameStatusCode = 0x1011;
 					}
 				}
 				else {
 					fl.Close();
-					INT_00660f8c = 0x1011;
+					g_GameStatusCode = 0x1011;
 				}
 			} 
 			else if (fl.Open(fname, CFile::modeCreate | CFile::modeWrite)) {
@@ -2557,7 +2557,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				fl.Close();
 			}
 			else
-				INT_00660f8c = 0x1011;
+				g_GameStatusCode = 0x1011;
 #endif
 
 			while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
@@ -2595,7 +2595,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case HAT_ERROR:
 			// client: 41695a
-			INT_00660f8c = (packet_dword->value + 0x18) | 0x1000;
+			g_GameStatusCode = (packet_dword->value + 0x18) | 0x1000;
 			break;
 #endif
 		}
@@ -2813,7 +2813,7 @@ int32_t BigStruct2::SendEnterGameAndWait() {
 		}
 
 		if (g_CmdTimeout < timeGetTime() - stime) {
-			INT_00660f8c = 0x1009;
+			g_GameStatusCode = 0x1009;
 			return 0;
 		}
 
@@ -2826,7 +2826,7 @@ int32_t BigStruct2::SendEnterGameAndWait() {
 	}
 
 	if (this->map_players.GetSize() < 2) {
-		INT_00660f8c = 0x1007;
+		g_GameStatusCode = 0x1007;
 		return 0;
 	}
 #else
@@ -2844,7 +2844,7 @@ int32_t BigStruct2::SendEnterGameAndWait() {
 			}
 
 			if (g_CmdTimeout < timeGetTime() - stime) {
-				INT_00660f8c = 0x1009;
+				g_GameStatusCode = 0x1009;
 				return 0;
 			}
 
@@ -2863,7 +2863,7 @@ int32_t BigStruct2::SendEnterGameAndWait() {
 
 int BigStruct2::ConnectAndJoinSession() {
 	//40d4e2
-	INT_00660f8c = 0;
+	g_GameStatusCode = 0;
 
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -2890,10 +2890,10 @@ int BigStruct2::ConnectAndJoinSession() {
 		return 1;
 	}
 
-	if ((INT_00660f8c & 0xff) < 11) {
-		wnd->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, TxtFile::AllLines.GetAt((INT_00660f8c & 0xff) + 0xc0), nullptr, 0));
+	if ((g_GameStatusCode & 0xff) < 11) {
+		wnd->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, TxtFile::AllLines.GetAt((g_GameStatusCode & 0xff) + 0xc0), nullptr, 0));
 	} else {
-		wnd->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
+		wnd->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(g_GameStatusCode & 0xff), nullptr, 0));
 	}
 	return 0;
 }
@@ -4440,7 +4440,7 @@ void BigStruct2::RebuildWorldGrids() {
 	memset(this->tile_structures, 0, this->tile_grid_bytes);
 	memset(this->tile_backpacks, 0, this->tile_grid_bytes);
 	memset(this->tile_special_units, 0, this->tile_grid_bytes);
-	if (g_DWORD_00659d18 == 2) {
+	if (g_VideoOptionFlags == 2) {
 		memcpy(this->corner_light_prev, this->corner_light, this->corner_grid_bytes / 4);
 	}
 	memset(this->corner_light, 0xFF, this->corner_grid_bytes / 4);
@@ -5154,7 +5154,7 @@ void BigStruct2::UpdateMapCursor() {
 						cursor = g_Cursors[CURSOR_PICKUP];
 					}
 					if (cursor == g_Cursors[CURSOR_CAST] && wnd->vis_spellbook->NeedsUnitTarget() != 0 && (avail & 4) == 0 &&
-						wnd->vis_spellbook->HasSelectedSpell() == 0 && dword_62F908[wnd->vis_spellbook->GetActiveSlot()] != 0) {
+						wnd->vis_spellbook->HasSelectedSpell() == 0 && g_SpellOffensive[wnd->vis_spellbook->GetActiveSlot()] != 0) {
 						if ((avail & 3) != 0) {
 							cursor = g_Cursors[CURSOR_SELECT];
 						} else {
@@ -5308,7 +5308,7 @@ void BigStruct2::DrawTerrainFull() {
 			if ((landscape[cell] & 0x2000) != 0 && !animated) {
 				memcpy(this->scratch_tile->GetData(), (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400, 0x400);
 				CopyIndexedSkip0((uint8_t*)this->scratch_tile->GetData(),
-					(uint8_t*)DAT_00665344->GetData() + ((tile_x + tile_y * 5) & 3) * 0x400, 0x400);
+					(uint8_t*)g_TerDirtBmp->GetData() + ((tile_x + tile_y * 5) & 3) * 0x400, 0x400);
 				tile = this->scratch_tile;
 				tile_id &= 0xFFF0;
 			}
@@ -5316,14 +5316,14 @@ void BigStruct2::DrawTerrainFull() {
 			int32_t l2 = f18map[cell + 1];
 			int32_t l3 = f18map[cell2];
 			int32_t l4 = f18map[cell2 + 1];
-			uint16_t* pal = DAT_00661018[ter_type]->GetPalette(0);
+			uint16_t* pal = g_TerPalettes[ter_type]->GetPalette(0);
 			uint8_t* tile_data = (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400;
 			if (h1 == h2 && h3 == h4 && h1 + 0x20 == h3) {
 				DrawFlatTile(x * 0x20, h1, l1, l2, l3, l4, tile_data, pal);
 			} else {
 				DrawDeformedTile(x * 0x20, (x + 1) * 0x20, h1, h2, h3, h4, l1, l2, l3, l4, tile_data, pal);
 			}
-			if (DAT_00660f68 != 0) {
+			if (g_TerrainHidden != 0) {
 				FillRectColor(x * 0x20, h1, (x + 1) * 0x20, h2, 0);
 				FillRectColor(x * 0x20, h1, x * 0x20, h3, 0);
 			}
@@ -5377,7 +5377,7 @@ void BigStruct2::DrawTerrainAnimated(int32_t arg) {
 			int32_t l2 = f18map[cell + 1];
 			int32_t l3 = f18map[cell2];
 			int32_t l4 = f18map[cell2 + 1];
-			uint16_t* pal = DAT_00661018[ter_type]->GetPalette(0);
+			uint16_t* pal = g_TerPalettes[ter_type]->GetPalette(0);
 			uint8_t* tile_data = (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400;
 			if (h1 == h2 && h3 == h4 && h1 + 0x20 == h3) {
 				DrawFlatTile(map_x * 0x20, h1, l1, l2, l3, l4, tile_data, pal);
@@ -5430,7 +5430,7 @@ void BigStruct2::DrawTerrainScrolled(int32_t arg) {
 			if ((landscape[cell] & 0x2000) != 0 && !animated) {
 				memcpy(this->scratch_tile->GetData(), (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400, 0x400);
 				CopyIndexedSkip0((uint8_t*)this->scratch_tile->GetData(),
-					(uint8_t*)DAT_00665344->GetData() + ((tile_x + tile_y * 5) & 3) * 0x400, 0x400);
+					(uint8_t*)g_TerDirtBmp->GetData() + ((tile_x + tile_y * 5) & 3) * 0x400, 0x400);
 				tile = this->scratch_tile;
 				tile_id &= 0xFFF0;
 			}
@@ -5438,14 +5438,14 @@ void BigStruct2::DrawTerrainScrolled(int32_t arg) {
 			int32_t l2 = f18map[cell + 1];
 			int32_t l3 = f18map[cell2];
 			int32_t l4 = f18map[cell2 + 1];
-			uint16_t* pal = DAT_00661018[ter_type]->GetPalette(0);
+			uint16_t* pal = g_TerPalettes[ter_type]->GetPalette(0);
 			uint8_t* tile_data = (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400;
 			if (h1 == h2 && h3 == h4 && h1 + 0x20 == h3) {
 				DrawFlatTile(map_x * 0x20, h1, l1, l2, l3, l4, tile_data, pal);
 			} else {
 				DrawDeformedTile(map_x * 0x20, (map_x + 1) * 0x20, h1, h2, h3, h4, l1, l2, l3, l4, tile_data, pal);
 			}
-			if (DAT_00660f68 != 0) {
+			if (g_TerrainHidden != 0) {
 				FillRectColor(map_x * 0x20, h1, (map_x + 1) * 0x20, h2, 0);
 				FillRectColor(map_x * 0x20, h1, map_x * 0x20, h3, 0);
 			}
@@ -5502,18 +5502,18 @@ void BigStruct2::RedrawLitTerrain() {
 			if ((landscape[cell] & 0x2000) != 0 && !animated) {
 				memcpy(this->scratch_tile->GetData(), (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400, 0x400);
 				CopyIndexedSkip0((uint8_t*)this->scratch_tile->GetData(),
-					(uint8_t*)DAT_00665344->GetData() + ((tile_x + tile_y * 5) & 3) * 0x400, 0x400);
+					(uint8_t*)g_TerDirtBmp->GetData() + ((tile_x + tile_y * 5) & 3) * 0x400, 0x400);
 				tile = this->scratch_tile;
 				tile_id &= 0xFFF0;
 			}
-			uint16_t* pal = DAT_00661018[ter_type]->GetPalette(0);
+			uint16_t* pal = g_TerPalettes[ter_type]->GetPalette(0);
 			uint8_t* tile_data = (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400;
 			if (h1 == h2 && h3 == h4 && h1 + 0x20 == h3) {
 				DrawFlatTile(x * 0x20, h1, l1, l2, l3, l4, tile_data, pal);
 			} else {
 				DrawDeformedTile(x * 0x20, (x + 1) * 0x20, h1, h2, h3, h4, l1, l2, l3, l4, tile_data, pal);
 			}
-			if (DAT_00660f68 != 0) {
+			if (g_TerrainHidden != 0) {
 				FillRectColor(x * 0x20, h1, (x + 1) * 0x20, h2, 0);
 				FillRectColor(x * 0x20, h1, x * 0x20, h3, 0);
 			}
@@ -5682,7 +5682,7 @@ void BigStruct2::RenderWorldFrame() {
 	LockSurface2();
 	GetClipRect(&clip_rect);
 	SetClipRect(this->dirty_rect);
-	if (this->lightning_active != 0 && (g_DWORD_00659d18 & 2) == 0 && g_Lightning != 0) {
+	if (this->lightning_active != 0 && (g_VideoOptionFlags & 2) == 0 && g_Lightning != 0) {
 		this->RedrawLitTerrain();
 	}
 	int32_t tick = this->anim_tick;
@@ -6105,14 +6105,14 @@ void BigStruct2::RenderWorldFrame() {
 		this->fps_time_ms -= 1000;
 		this->fps_frames = 0;
 	}
-	if (DAT_00660f6c != 0) {
+	if (g_ShowFps != 0) {
 		FillRectColorSimple(local_rect.right - 0x78, local_rect.top, local_rect.right - 0x1e, local_rect.top + 0x18,
 			GetColorRGB(8, 8, 8));
 		char buf[32];
 		sprintf(buf, "%3.1f fps", this->fps);
 		g_font1->DrawTextWithShadow(local_rect.right - 0x26, local_rect.top, buf, 1, clrsh_ShockingBlack, 1);
 	}
-	if (wnd->sessionMode == 0 && DAT_00660f70 != 0) {
+	if (wnd->sessionMode == 0 && g_ShowNetStats != 0) {
 		NetStru2* client = g_NetStru1_local.GetClientByPlayerID(0);
 		if (client != nullptr) {
 			uint32_t uid = client->GetUid();
@@ -6150,10 +6150,10 @@ void BigStruct2::RenderWorldFrame() {
 	CRect fps_area;
 	CRect fps_flush(0x168, 0, 0x1c2, 0x18);
 	CRect net_flush(300, 0x1e, 0x1c2, 0x69);
-	if (DAT_00660f6c != 0) {
+	if (g_ShowFps != 0) {
 		gfxFlushRect(fps_flush);
 	}
-	if (DAT_00660f70 != 0 && wnd->sessionMode == 0) {
+	if (g_ShowNetStats != 0 && wnd->sessionMode == 0) {
 		gfxFlushRect(net_flush);
 	}
 	this->force_full_redraw = 0;
@@ -6907,7 +6907,7 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 					break;
 				case 0x54:
 					if (g_kbControlState != 0) {
-						DAT_00660f70 = DAT_00660f70 == 0;
+						g_ShowNetStats = g_ShowNetStats == 0;
 					}
 					break;
 				case 0x55:
@@ -6953,7 +6953,7 @@ void BigStruct2::UpdateWorld() {
 
 	this->anim_tick++;
 	TakeDamage::UpdateDamages(&this->damage_labels);
-	if (INT_00660f74 == 0 && (this->anim_tick & 0x1F) == 0) {
+	if (g_MapRevealed == 0 && (this->anim_tick & 0x1F) == 0) {
 		this->RebuildLandscapeOccupancy();
 	}
 	if ((this->anim_tick & 0xF) == 0 && g_SoundSettings.music_allowed != 0 && this->my_unit != nullptr) {
@@ -7500,7 +7500,7 @@ void ReloadPalettes() {
 	for (int32_t i = 0; i < 32; i++) {
 		if (g_ter_tiles(0, i) != nullptr) {
 			g_ter_tiles(0, i)->ResetPalette(0x60, 3, 1);
-			DAT_00661018[i] = &g_ter_tiles(0, i)->palette;
+			g_TerPalettes[i] = &g_ter_tiles(0, i)->palette;
 		}
 	}
 	g_mousept.Update();
@@ -7534,9 +7534,9 @@ void ReloadPalettes() {
 
 // 477b59
 void __cdecl LoadTerrainTiles(uint32_t val) {
-	if ((g_DWORD_00659d18 & 2) != 0) {
+	if ((g_VideoOptionFlags & 2) != 0) {
 		if (val != 0) {
-			DAT_00665344 = new CBmp256("graphics\\terrain.3d\\dirt.bmp");
+			g_TerDirtBmp = new CBmp256("graphics\\terrain.3d\\dirt.bmp");
 		}
 		for (int32_t i = 0; i < 32; i++) {
 			if ((val & (1 << i)) == 0) {
@@ -7566,7 +7566,7 @@ void __cdecl LoadTerrainTiles(uint32_t val) {
 		}
 	}
 	if (val != 0) {
-		DAT_00665344 = new CBmp256("graphics\\terrain\\dirt.bmp");
+		g_TerDirtBmp = new CBmp256("graphics\\terrain\\dirt.bmp");
 	}
 	for (int32_t i = 0; i < 32; i++) {
 		if ((val & (1 << i)) == 0) {
@@ -7597,7 +7597,7 @@ void __cdecl LoadTerrainTiles(uint32_t val) {
 	for (int32_t i = 0; i < 32; i++) {
 		if (g_ter_tiles(0, i) != nullptr) {
 			g_ter_tiles(0, i)->ResetPalette(0x60, 3, 1);
-			DAT_00661018[i] = &g_ter_tiles(0, i)->palette;
+			g_TerPalettes[i] = &g_ter_tiles(0, i)->palette;
 		}
 	}
 }

@@ -32,13 +32,13 @@ uint32_t g_CmdSafeVideo = 0;
 HWND g_MainWndHWND;
 uint32_t g_IsCdPresent;
 uint32_t g_EnableTrace;
-uint32_t INT_00660f74; //660f74
+uint32_t g_MapRevealed; //660f74
 
 int32_t g_kbControlState; //660f40
 int32_t g_kbShiftState; //660f44
 int32_t g_kbMenuState; //660f48
 
-uint32_t g_DWORD_00659d18;
+uint32_t g_VideoOptionFlags;
 
 
 CString g_HelpStr;
@@ -57,7 +57,7 @@ TxtFile txt_cutscene;
 TxtFile txt_cutpaths;
 TxtFile txt_tunes;
 TxtFile txt_patch;
-TxtFile TxtFile_00660e88; //660e88
+TxtFile g_GlobalMapLocationHints; //660e88
 
 
 HANDLE g_AutoRunEvent;
@@ -93,7 +93,7 @@ DistortMap::~DistortMap() {
 
 // 47619a
 void FreeDistortMap() {
-	free(dword_65FBB8);
+	free(g_ItemNamePktData);
 	if (g_DistortMap != nullptr) {
 		delete g_DistortMap;
 	}
@@ -651,7 +651,7 @@ BOOL GameApp::InitInstance() {
 	mwnd->m_FameHall.SetDifficulty(1);
 	mwnd->m_FameHall.AddTextDocument(1);
 
-	g_DWORD_00659d18 = 0;
+	g_VideoOptionFlags = 0;
 
 	if (strstr(m_lpCmdLine, "-safevideo")) {
 		g_CmdSafeVideo = 1;
@@ -843,7 +843,7 @@ int GameApp::ExitInstance() { //4833f1
 	txt_cutpaths.Free();
 	txt_cutscene.Free();
 	txt_npcnames.Free();
-	TxtFile_00660e88.Free();
+	g_GlobalMapLocationHints.Free();
 	txt_itemname.Free();
 	txt_building.Free();
 	txt_unitname.Free();

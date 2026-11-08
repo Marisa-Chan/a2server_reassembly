@@ -14,10 +14,10 @@ class Spell;
 class Unit;
 class PacketUnitStateVec;
 
-extern CMapWordToPtr unk_660D28;
-extern CMapWordToPtr unk_660DA8;
+extern CMapWordToPtr g_ItemNamePktMap;
+extern CMapWordToPtr g_ItemNameMap;
 
-extern void* dword_65FBB8; // 65fbb8 - item name packet area
+extern void* g_ItemNamePktData; // 65fbb8 - item name packet area
 
 Item* __cdecl ReadItem(uint8_t** packet_data);
 void LoadItemNames(); //475988 (client: 4796d8)

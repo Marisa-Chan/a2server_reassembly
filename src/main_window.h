@@ -9,8 +9,8 @@
 #include "net.h"
 
 extern int32_t g_LButtonDown; //660f4c
-extern int32_t DAT_00660f88; //660f88
-extern int32_t INT_00660f8c; //660f8c
+extern int32_t g_SelCutsceneIndex; //660f88
+extern int32_t g_GameStatusCode; //660f8c
 
 void SaveSettings(); //441b1e (client: 4440ed)
 
@@ -349,7 +349,7 @@ ASSERT_SIZE(ServerControlDialog, sizeof(CDialog) + 9 * sizeof(CEdit) + 2 * sizeo
 #ifdef A2CLIENT
 extern int32_t g_hat_selected_index; // client 62c9e8 — last hat-DM list selection (written by packet 0x44c path)
 extern int32_t g_EnableMusic; // client 62c870 — music master switch, set by InitInstance/LoadData
-extern int32_t DAT_0062c9d4; // client 62c9d4 — in-game flag cleared on return to the main menu
+extern int32_t g_InGame; // client 62c9d4 — in-game flag cleared on return to the main menu
 #endif
 
 

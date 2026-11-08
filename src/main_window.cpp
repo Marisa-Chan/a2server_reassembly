@@ -24,16 +24,16 @@
 #include <wininet.h>
 
 uint32_t g_RemoteTimestamp = 0;
-int32_t DAT_00660f88 = 0;
+int32_t g_SelCutsceneIndex = 0;
 int32_t g_LButtonDown; //660f4c
 uint32_t g_using_vxd = 1; // 62fa9c
-CDWordArray DAT_006658d8;
+CDWordArray g_DeferredEventIds;
 
 CRect vis_scr_rect; //65fb88
-int32_t DAT_00665cf8 = 0; // 665cf8 write-only in a2serv6.exe (client twin 631768)
+int32_t g_MainmenuDisableMask = 0; // 665cf8 write-only in a2serv6.exe (client twin 631768)
 #ifdef A2CLIENT
 int32_t g_hat_selected_index = 0; //62c9e8
-int32_t DAT_0062c9d4 = 0; //62c9d4
+int32_t g_InGame = 0; //62c9d4
 #endif
 
 
@@ -712,7 +712,7 @@ void MainWindow::PlayDefaultMusic() {
 // client 49547a
 int32_t MainWindow::WaitHatConnection() {
     uint32_t start_time = timeGetTime();
-    INT_00660f8c = 0;
+    g_GameStatusCode = 0;
 
 #ifdef A2CLIENT
     g_NetStru1_local.SendHatConnectServer( *(HatCharId*)&m_GameSession.sessionKeyPart1,
@@ -747,7 +747,7 @@ int32_t MainWindow::WaitHatConnection() {
 
 #ifdef A2CLIENT
     if (this->vis_map_context->ProcessPackets(SERVER_TICK) == 0) {
-        VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, INT_00660f8c == 0 ? txt_patch.GetLine(0x11) : txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0);
+        VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, g_GameStatusCode == 0 ? txt_patch.GetLine(0x11) : txt_patch.GetLine(g_GameStatusCode & 0xff), nullptr, 0);
         this->ModalScreen(mbox);
         return 0;
     }
@@ -769,8 +769,8 @@ int32_t MainWindow::WaitHatConnection() {
         m_GameSession.hat_char_ids.Add(key_id);
     }
 
-    if (INT_00660f8c != 0) {
-        VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0);
+    if (g_GameStatusCode != 0) {
+        VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(g_GameStatusCode & 0xff), nullptr, 0);
         this->ModalScreen(mbox);
         return 0;
     }
@@ -809,10 +809,10 @@ void MainWindow::ClearDiplomacyEntries() {
 int32_t MainWindow::WaitConnectionCharacterJoin() {
     if (this->vis_map_context->SendEnterGameAndWait() == 0) {
         VisMessageBoxWithList* mbox;
-        if ((INT_00660f8c & 0xff) < 0xB) {
-            mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, TxtFile::AllLines[(INT_00660f8c & 0xff) + 0xC0], nullptr, 0);
+        if ((g_GameStatusCode & 0xff) < 0xB) {
+            mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, TxtFile::AllLines[(g_GameStatusCode & 0xff) + 0xC0], nullptr, 0);
         } else {
-            mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0);
+            mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(g_GameStatusCode & 0xff), nullptr, 0);
         }
         this->ModalScreen(mbox);
 
@@ -902,7 +902,7 @@ int32_t MainWindow::ConnectToServerAddress() {
     g_NetStru1_local.SendServerConnectHatTicket(m_GameSession.hat_ticket, 0);
 #endif
     uint32_t start_time = timeGetTime();
-    INT_00660f8c = 0;
+    g_GameStatusCode = 0;
 
     while (true) {
         MSG msg;
@@ -916,7 +916,7 @@ int32_t MainWindow::ConnectToServerAddress() {
 
         if (g_NetStru1_local.GetClientsPktNum() != 0) {
             if (this->vis_map_context->ProcessPackets(SERVER_TICK) == 0) {
-                VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0);
+                VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(g_GameStatusCode & 0xff), nullptr, 0);
                 this->ModalScreen(mbox);
                 this->PostMessage(0x10, 0, 0);
                 return 0;
@@ -1195,9 +1195,9 @@ void MainWindow::OpenConsoleInput() {
 // 478130
 void MainWindow::UnloadTerrainTiles() {
     LoadTerrainTiles(0);
-    if (DAT_00665344 != nullptr) {
-        delete DAT_00665344;
-        DAT_00665344 = nullptr;
+    if (g_TerDirtBmp != nullptr) {
+        delete g_TerDirtBmp;
+        g_TerDirtBmp = nullptr;
     }
 }
 
@@ -2167,7 +2167,7 @@ void MainWindow::ServerTickPump() { //484259
     if (g_Server->srv_stru1->sack_list) {
         CString str;
         str.Format(txt_patch.GetLine(66), g_PlayersList->CountHumanPlayers(),
-                                            dword_6CDB3C->unit_list.GetCount(),
+                                            g_ServerUnits->unit_list.GetCount(),
                                             g_Server->srv_stru1->building_list->GetCount(),
                                             g_Server->srv_stru1->units_list->unit_list.GetCount(),
                                             g_Server->srv_stru1->sack_list->list.GetCount(),
@@ -2365,7 +2365,7 @@ void MainWindow::Proc_421() {
     this->ShowRightPanelInfo();
 
     // the disable bit 0x10 turns the Load button off when no save files exist
-    this->vis_mainmenu->disable_mask = DAT_00665cf8 | (AppHasAnySaveFile() != 0 ? 0 : 0x10);
+    this->vis_mainmenu->disable_mask = g_MainmenuDisableMask | (AppHasAnySaveFile() != 0 ? 0 : 0x10);
 
     this->vis_root->AddChild(this->vis_mainmenu);
     this->vis_mainmenu->VMethod28();
@@ -2392,7 +2392,7 @@ void MainWindow::Proc_421() {
         delete elm;
     }
 
-    DAT_0062c9d4 = 0;
+    g_InGame = 0;
 }
 #else
 void MainWindow::Proc_421()
@@ -2835,8 +2835,8 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         this->dialogsMask &= ~8;
 
         if (this->vis_cutscenes->GetCloseCode() == 0x445) {
-            DAT_00660f88 = ((VisListBox*)this->vis_cutscenes->FindChild(2))->GetSelectedIndex();
-            this->PlayVideo(DAT_00660f88);
+            g_SelCutsceneIndex = ((VisListBox*)this->vis_cutscenes->FindChild(2))->GetSelectedIndex();
+            this->PlayVideo(g_SelCutsceneIndex);
             PostMessage(0x43b, 0, 0);
         } else {
             PostMessage(0x421, 0, 0);
@@ -2886,19 +2886,19 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         this->vis_root->VMethod9();
     }
 
-    if (this->dialogsMask == 1 && DAT_006658d8.GetSize() != 0) {
-        PostMessage(0x433, DAT_006658d8[0], 0);
-        DAT_006658d8.RemoveAt(0);
+    if (this->dialogsMask == 1 && g_DeferredEventIds.GetSize() != 0) {
+        PostMessage(0x433, g_DeferredEventIds[0], 0);
+        g_DeferredEventIds.RemoveAt(0);
     }
 }
 
 
 int32_t MainWindow::ClientWaitErrCode() {
     // client: 4953b4
-    INT_00660f8c = 0;
+    g_GameStatusCode = 0;
 
     int32_t starttime = GetTickCount();
-    while (!INT_00660f8c) {
+    while (!g_GameStatusCode) {
         MSG msg;
         if (PeekMessageA(&msg, NULL, 0, 0, PM_REMOVE) != 0) {
             if (msg.message == WM_QUIT) {
@@ -2919,7 +2919,7 @@ int32_t MainWindow::ClientWaitErrCode() {
             }
         }
     }
-    return (INT_00660f8c & 0xff) - 0x18;
+    return (g_GameStatusCode & 0xff) - 0x18;
 }
 
 void MainWindow::ShowCharacterLoaderDialog() { //48cff7
@@ -3175,7 +3175,7 @@ void MainWindow::EnterServerMode() { //491822
 }
 
 int MainWindow::StartServerSession(int mode) { //48ca7e
-    DAT_006658d8.RemoveAll();
+    g_DeferredEventIds.RemoveAll();
 
     g_Server = new Server();
     if (g_Server->Start(mode) == 0) {
@@ -3608,7 +3608,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             local_850.Format("event%d", this->last_event_id);
             ShowRoleKeyDialog(local_850);
         } else {
-            DAT_006658d8.Add(this->last_event_id);
+            g_DeferredEventIds.Add(this->last_event_id);
         }
         break;
 
@@ -3838,7 +3838,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
     case 0x457:
         if (this->sessionMode != 3) {
             if (this->sessionMode == 0) {
-                INT_00660f8c = 0;
+                g_GameStatusCode = 0;
                 this->enter_ack_received = 0;
                 this->vis_map_context->SendRequestMapInfo();
 
@@ -3866,13 +3866,13 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                     g_mousept.Update();
 
                     if (GetAsyncKeyState(VK_ESCAPE) < 0) {
-                        INT_00660f8c = 0x100c;
+                        g_GameStatusCode = 0x100c;
                         PostMessage(0x45c, 0, 0);
                         return 0;
                     }
 
-                    if (INT_00660f8c) {
-                        this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
+                    if (g_GameStatusCode) {
+                        this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(g_GameStatusCode & 0xff), nullptr, 0));
                         PostMessage(0x45c, 0, 0);
                         break;
                     }
@@ -3880,10 +3880,10 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             }
 
             if (this->m_GameSession.SubmitCharacterSetupAndWaitForSelectedUnit() == 0) {
-                if ((INT_00660f8c & 0xff) < 11) {
-                    this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, TxtFile::AllLines[192 + (INT_00660f8c & 0xff)], nullptr, 0));
+                if ((g_GameStatusCode & 0xff) < 11) {
+                    this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, TxtFile::AllLines[192 + (g_GameStatusCode & 0xff)], nullptr, 0));
                 } else {
-                    this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
+                    this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(g_GameStatusCode & 0xff), nullptr, 0));
                 }
                 PostMessage(0x45c, 0, 0);
                 break;
@@ -3891,10 +3891,10 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         }
 
         if (this->RunSessionBootstrap(0) == 0) {
-            if ((INT_00660f8c & 0xff) < 11) {
-                this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, TxtFile::AllLines[192 + (INT_00660f8c & 0xff)], nullptr, 0));
+            if ((g_GameStatusCode & 0xff) < 11) {
+                this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, TxtFile::AllLines[192 + (g_GameStatusCode & 0xff)], nullptr, 0));
             } else {
-                this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
+                this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(g_GameStatusCode & 0xff), nullptr, 0));
             }
             PostMessage(0x45c, 0, 0);
         }
@@ -4023,7 +4023,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         this->ModalScreen(msgbox);
 
         if (msgbox->GetCloseCode() == 0x445) {
-            DAT_00665cf8 = 0x35;
+            g_MainmenuDisableMask = 0x35;
             PostMessage(0x421, 0, 0);
         } else {
             PostMessage(WM_CLOSE, 0, 0);
@@ -4391,7 +4391,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
 
             while (g_NetStru1_local.GetClientsPktNum() == 0) {
                 if (timeGetTime() - tm > g_CmdTimeout) {
-                    INT_00660f8c = 0x1005;
+                    g_GameStatusCode = 0x1005;
                     return 0;
                 }
                 g_NetStru1_local.ProcessConnections();
@@ -5596,7 +5596,7 @@ int32_t MainWindow::RunModalLoopServer() { //49057b
     this->net_session.hat_id = 0;
 
     uint32_t start_time = timeGetTime();
-    INT_00660f8c = 0;
+    g_GameStatusCode = 0;
     while(this->net_session.hat_id == 0) {
         if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0) {
             if (msg.message == WM_QUIT) {
@@ -5616,7 +5616,7 @@ int32_t MainWindow::RunModalLoopServer() { //49057b
 
             g_mousept.Update();
         } else if (this->vis_map_context->ProcessPackets(100) == 0) {
-            this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
+            this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(g_GameStatusCode & 0xff), nullptr, 0));
             PostMessage(WM_CLOSE, 0, 0);
             return 0;
         }
@@ -5644,7 +5644,7 @@ int32_t MainWindow::RunModalLoopServer() { //49057b
 
         if (!has_file) {
             g_NetStru1_local.SendHatCharId(this->m_GameSession.hat_char_ids[j]);
-            INT_00660f8c = 0;
+            g_GameStatusCode = 0;
 
             while (true) {
                 if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0) {
@@ -5729,7 +5729,7 @@ int32_t MainWindow::RunModalLoopClient() { //client 4949cd
     this->net_session.hat_id = 0;
 
     uint32_t start_time = timeGetTime();
-    INT_00660f8c = 0;
+    g_GameStatusCode = 0;
 
     while (this->net_session.hat_id == 0) {
         if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0) {
@@ -5751,7 +5751,7 @@ int32_t MainWindow::RunModalLoopClient() { //client 4949cd
             g_mousept.Update();
         }
         else if (this->vis_map_context->ProcessPackets(100) == 0) {
-            this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
+            this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(g_GameStatusCode & 0xff), nullptr, 0));
             PostMessage(WM_CLOSE, 0, 0);
             return 0;
         }
@@ -5762,7 +5762,7 @@ int32_t MainWindow::RunModalLoopClient() { //client 4949cd
             if (scr->GetCloseCode() == 0x447) {
                 net_session.hat_id = 0;
                 start_time = timeGetTime();
-                INT_00660f8c = 0;
+                g_GameStatusCode = 0;
             }
             else
                 return 0;
@@ -5789,7 +5789,7 @@ int32_t MainWindow::ClientRefreshUpdateCharacters() { // client 494f53
     for (int i = 0; i < m_GameSession.hat_char_ids.GetSize(); i++) {
         HatCharId hid = m_GameSession.hat_char_ids[i];
         g_NetStru1_local.SendHatCharId(hid);
-        INT_00660f8c = 0;
+        g_GameStatusCode = 0;
 
         while (true) {
 
@@ -5897,7 +5897,7 @@ int32_t MainWindow::CheckWebVersion(const CString& addr) { //4e5466
 
     InternetCloseHandle(agent);
 
-    DAT_00666a00.RemoveAll();
+    g_WwwServerList.RemoveAll();
     if (!strstr(buf, "CURRENTCOUNT")) {
         return 0;
     }
@@ -5928,7 +5928,7 @@ int32_t MainWindow::CheckWebVersion(const CString& addr) { //4e5466
             cursor++;
         }
 
-        DAT_00666a00.Add(srv);
+        g_WwwServerList.Add(srv);
     }
 
     return 1;
@@ -5941,7 +5941,7 @@ int32_t MainWindow::LeaveServerMode() { //490eb3
 #else
     g_NetStru1_main.SendHatLogout();
 #endif
-    INT_00660f8c = 0;
+    g_GameStatusCode = 0;
 
     uint32_t start_time = timeGetTime();
     while (true) {
@@ -5991,7 +5991,7 @@ CGameSession::~CGameSession() { //4960f0
 
 int CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit() {
     //493ffe
-    INT_00660f8c = 0;
+    g_GameStatusCode = 0;
 
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 #ifndef A2CLIENT
@@ -6022,7 +6022,7 @@ int CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit() {
             }
 
             if (g_CmdTimeout < timeGetTime() - stime) {
-                INT_00660f8c = 0x1008;
+                g_GameStatusCode = 0x1008;
                 return 0;
             }
 
@@ -6095,7 +6095,7 @@ void CGameSession::ResetCharacter() { //493d8d
         this->shortcuts[i].ToBuffer(&bufpos);
     }
     
-    WritePlayerFile_4F53EA(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], &local_40, &local_74, wnd->vis_map_context->kill_stats.data(), &PacketUnitStateVec::Inst, nullptr, buffer, bufpos - buffer);
+    WritePlayerFile(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], &local_40, &local_74, wnd->vis_map_context->kill_stats.data(), &PacketUnitStateVec::Inst, nullptr, buffer, bufpos - buffer);
 }
 
 
@@ -6182,7 +6182,7 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx) { //492c66
         PacketUnitStateVec* inv = nullptr;
         uint8_t* sec40a = nullptr;
         uint32_t size_40a = 0;
-        if (ParsePlayerFile_4F62E6(&f, &basic, &stats, &kills, &equip, &inv, &sec40a, &size_40a) != 0 && basic != nullptr && stats != nullptr) {
+        if (ParsePlayerFile(&f, &basic, &stats, &kills, &equip, &inv, &sec40a, &size_40a) != 0 && basic != nullptr && stats != nullptr) {
             strcpy(this->character_name, basic->nick);
 
             memset(unit->str1, 0, 12);
@@ -6419,7 +6419,7 @@ void CGameSession::SetNameAndColor(char* name) { //49381c
     info.flags = (uint8_t)this->flags;
     info.color = (uint8_t)this->color;
 
-    WritePlayerFile_4F53EA(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], &info, nullptr, nullptr, nullptr, nullptr, nullptr, 0);
+    WritePlayerFile(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], &info, nullptr, nullptr, nullptr, nullptr, nullptr, 0);
 }
 
 void CGameSession::AutosaveCharacter() { //4946e0
@@ -6467,7 +6467,7 @@ void CGameSession::AutosaveCharacter() { //4946e0
     stats.experience[3] = unit->experience_per_sphere[3];
     stats.experience[4] = unit->experience_per_sphere[4];
 
-    WritePlayerFile_4F53EA(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], &info, &stats, nullptr, nullptr, nullptr, nullptr, 0);
+    WritePlayerFile(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], &info, &stats, nullptr, nullptr, nullptr, nullptr, 0);
 
     this->last_autosave_tick = GetTickCount();
 }
@@ -6487,7 +6487,7 @@ void CGameSession::SaveShortcuts() { //4948b2
         this->shortcuts[i].ToBuffer(&buf);
     }
 
-    WritePlayerFile_4F53EA(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], nullptr, nullptr, nullptr, nullptr, nullptr, buffer, buf - buffer);
+    WritePlayerFile(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], nullptr, nullptr, nullptr, nullptr, nullptr, buffer, buf - buffer);
 }
 
 void CGameSession::DeleteSelectedCharacter() { //493cd8 client 4986a3
@@ -6528,7 +6528,7 @@ void CGameSession::SaveKillStats() { //494982
     BigStruct2* map = mwnd->vis_map_context;
     map->GetUnit_3f6c();
 
-    WritePlayerFile_4F53EA(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], nullptr, nullptr, map->kill_stats.data(), nullptr, nullptr, nullptr, 0);
+    WritePlayerFile(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], nullptr, nullptr, map->kill_stats.data(), nullptr, nullptr, nullptr, 0);
 }
 
 void CGameSession::SetCharacterStats(int32_t body, int32_t reaction, int32_t mind, int32_t spirit, int32_t main_sphere) { //494148

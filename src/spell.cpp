@@ -573,9 +573,9 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 Player* owner_player = caster->pOwner;
 
                 Unit* unit = nullptr;
-                if (dword_6B37C4 != nullptr) {
-                    for (POSITION p = dword_6B37C4->unit_list.GetHeadPosition(); p != nullptr; ) {
-                        Unit* u = dword_6B37C4->unit_list.GetNext(p);
+                if (g_UnitPool != nullptr) {
+                    for (POSITION p = g_UnitPool->unit_list.GetHeadPosition(); p != nullptr; ) {
+                        Unit* u = g_UnitPool->unit_list.GetNext(p);
                         if (u->decay < 5 || u->IsHumanoid() != 0) {
                             continue;
                         }
@@ -589,7 +589,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 }
                 if (unit == nullptr) {
                     unit = new Unit();
-                    dword_6B37C4->AddTail(unit);
+                    g_UnitPool->AddTail(unit);
                 }
                 unit->ReleaseObjects();
 
@@ -632,7 +632,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                     return;
                 }
                 unit->summoned = 1;
-                dword_6CDB3C->AddTailAllocId(unit);
+                g_ServerUnits->AddTailAllocId(unit);
                 unit->pOwner = owner_player;
                 unit->summon_id = 0;
                 owner_player->unit_list->AddTail(unit);
@@ -680,9 +680,9 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 Player* owner_player = caster->pOwner;
 
                 Unit* unit = nullptr;
-                if (dword_6B37C4 != nullptr) {
-                    for (POSITION p = dword_6B37C4->unit_list.GetHeadPosition(); p != nullptr; ) {
-                        Unit* u = dword_6B37C4->unit_list.GetNext(p);
+                if (g_UnitPool != nullptr) {
+                    for (POSITION p = g_UnitPool->unit_list.GetHeadPosition(); p != nullptr; ) {
+                        Unit* u = g_UnitPool->unit_list.GetNext(p);
                         if (u->decay < 5 || u->IsHumanoid() != 0) {
                             continue;
                         }
@@ -696,7 +696,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 }
                 if (unit == nullptr) {
                     unit = new Unit();
-                    dword_6B37C4->AddTail(unit);
+                    g_UnitPool->AddTail(unit);
                 }
                 unit->ReleaseObjects();
 
@@ -725,7 +725,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 if (!unit->PlaceOnMap(caster->position->GetX(), caster->position->GetY(), 6)) {
                     return;
                 }
-                dword_6CDB3C->AddTailAllocId(unit);
+                g_ServerUnits->AddTailAllocId(unit);
                 unit->pOwner = owner_player;
                 unit->summon_id = caster->building_id;
                 owner_player->unit_list->AddTail(unit);

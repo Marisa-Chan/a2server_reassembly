@@ -887,7 +887,7 @@ void MusicPlayer::QueueTrack(int32_t track) { //45b681
 }
 
 #ifdef A2CLIENT
-int32_t DAT_005fbb90 = 0; // client 5fbb90 — playback marker read by ReadPortion; -1 = none
+int32_t g_SndPlaybackMarker = 0; // client 5fbb90 — playback marker read by ReadPortion; -1 = none
 
 // client: 45ed2f
 void MusicPlayer::SwitchPlaylistAndPlayRandom(const CStringArray& plist) {
@@ -898,7 +898,7 @@ void MusicPlayer::SwitchPlaylistAndPlayRandom(const CStringArray& plist) {
 		this->track_ids.SetSize(n, -1);
 		this->StartPlayTrack(rand() % n);
 	}
-	DAT_005fbb90 = -1;
+	g_SndPlaybackMarker = -1;
 }
 
 // client: 45f195 — the client gate here is the sound-dialog runtime toggle
