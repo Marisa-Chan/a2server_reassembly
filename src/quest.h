@@ -27,7 +27,7 @@ ASSERT_SIZE(QuestData, 0x1c);
 class Quest : public CObject {
 public: // VTable at 60F6F8. Sub-classes have their own vtables, see CreateQuest.
     virtual ~Quest();                                      // 57FF50 (client: 550a40)
-    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b); // sub_55D25D (client: 537a42)
+    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b); // 55D25D (client: 537a42)
     virtual void MarkFailed();                             // 55D23F (client: 537a24)
     virtual void MarkCompleted();                          // 55D221 (client: 537a06)
     virtual void CopyFields(QuestData* other);             // 55D1E1 (client: 5379c6)

@@ -88,7 +88,7 @@ void PasswordManager::Load() { //4f6c92
 }
 
 
-// ---- Helpers used by FUN_00500907 ----
+// ---- Helpers used by CreatePlayerCharacter ----
 // 5008CA
 // Stat point cost: (int)(pow(1.15, level - 1) * 0.349 + 0.5)
 int32_t StatLevelPoints(int32_t level) {
@@ -2777,7 +2777,6 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                     Spell* sp = new Spell((uint8_t)spell_id);
                     spell_book->SetSpell(spell_id, sp);
                 }
-                // FUN_00519221(&g_NetStru1_main,&pHStack_4c->_,(pHStack_4c->_)._.pOwner,0xa31fffff, 0xffb,0,0);
                 g_NetStru1_main.SendUnitUpdate(player->main_unit, player, 0xA31FFFFF, 0xFFB, 0, 0);
                 g_NetStru1_main.SendTeamNotify(7, player->player_id, nullptr);
             }

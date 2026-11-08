@@ -469,14 +469,14 @@ void Unit::FixupPointers() {
         this->last_hit_by = nullptr;
     }
 
-    // UnitEye pointer fixup (sub_5941C1)
+    // UnitEye pointer fixup (5941C1)
     if (this->eye->target_unit != nullptr) {
         if (g_Server->saved_ptr_map.Lookup(this->eye->target_unit, result)) {
             this->eye->target_unit = (Unit*)result;
         }
     }
 
-    // UnitEye2 pointer fixups (sub_5B2BC9)
+    // UnitEye2 pointer fixups (5B2BC9)
     if (this->eye2->unit != nullptr && g_Server->saved_ptr_map.Lookup(this->eye2->unit, result)) {
         this->eye2->unit = (Unit*)result;
     }
@@ -1341,7 +1341,7 @@ void Unit::PickUpSack(Sack* sack) {
                     bool rune_scored = false;
 
                     if (item->world_equip->name.Find("Quest RuneF") != -1) {
-                        // Original logic: remove item from inventory and call `sub_57b990`. Looks equivalent to calling `items.RemoveAt`.
+                        // Original logic: remove item from inventory and call `57b990`. Looks equivalent to calling `items.RemoveAt`.
                         sack->inventory->items.RemoveAt(cur_node);
 
                         delete item;
@@ -1423,7 +1423,7 @@ void Unit::Die() {
 
     MapStuff_Instance->AddUnitToMap(this);
 
-    // Inline sub_58FD16: reset subcell position to cell center.
+    // Inline 58FD16: reset subcell position to cell center.
     this->position->x_subcell = 0x80;
     this->position->y_subcell = 0x80;
 
@@ -1548,7 +1548,7 @@ void Unit::Die() {
             POSITION cur_pos = pos;
             Effect* effect = this->_effects.GetNext(pos);
 
-            // Inline sub_53EE08: check `usage_type & 3`.
+            // Inline 53EE08: check `usage_type & 3`.
             if (effect->usage_type & 3) {
                 effect->spell_value = 1;
                 effect->TickOnUnit(this);
@@ -1658,7 +1658,7 @@ void Unit::AddHp(int16_t amount) {
 // 52C58F
 void Unit::Revive() {
     this->item_op_dirty_flags |= 0x4011;
-    // Inline sub_58FD16: reset subcell position to cell center.
+    // Inline 58FD16: reset subcell position to cell center.
     this->position->x_subcell = 0x80;
     this->position->y_subcell = 0x80;
     this->decay = 0;

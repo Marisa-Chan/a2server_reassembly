@@ -1011,7 +1011,7 @@ int GameDataRes::ParseTxtFiles(const CString& path) {
     }
     this->spells.SetSize(35, -1);
 
-    // Vanilla code populates these from global strings via `sub_5138ED`, and strings aren't written to, so it seems they're empty.
+    // Vanilla code populates these from global strings via `5138ED`, and strings aren't written to, so it seems they're empty.
     unk_6B0BE8.SetSize(0, -1);
     unk_6B0BE8.SetAtGrow(0, "");
 

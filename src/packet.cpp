@@ -193,25 +193,25 @@ uint32_t PacketTerrain::GetDataSize() {
 PacketUnitUpdate PacketUnitUpdate::Inst;
 
 PacketUnitUpdate::PacketUnitUpdate() {
-    //sub_527987
+    // 527987
 }
 
 PacketUnitUpdate::PacketUnitUpdate(const PacketUnitUpdate* src)
     :Packet(this) {
-    //sub_5279A6 – vtable-only ctor used in Duplicate; does NOT copy fields
+    // 5279A6 – vtable-only ctor used in Duplicate; does NOT copy fields
 }
 
 PacketUnitUpdate::~PacketUnitUpdate() {
-    //sub_57AF10
+    // 57AF10
 }
 
 Packet* PacketUnitUpdate::Duplicate() {
-    //sub_57AE70
+    // 57AE70
     return new PacketUnitUpdate(this);
 }
 
 void PacketUnitUpdate::WriteTo(NetStru2* net) {
-    //sub_5279C7
+    // 5279C7
 
     switch (this->CalcFlagsSize()) {
     case 1:
@@ -234,7 +234,7 @@ void PacketUnitUpdate::WriteTo(NetStru2* net) {
 }
 
 void PacketUnitUpdate::ReadFrom(NetStru2* net) {
-    //sub_527A6C
+    // 527A6C
     switch (this->id) {
     case 0x6c:
         this->flags_size = 4;
@@ -255,7 +255,7 @@ void PacketUnitUpdate::ReadFrom(NetStru2* net) {
 }
 
 uint32_t PacketUnitUpdate::GetDataSize() {
-    //sub_57AEF0
+    // 5F0
     return this->flags_size + 3 + this->data_offset;
 }
 
@@ -298,7 +298,7 @@ uint32_t PacketUnitUpdate::CalcDataSize() {
 PacketWord PacketWord::Inst;
 
 PacketWord::PacketWord() {
-    //sub_5268FC
+    // 5FC
     this->value = 0;
 }
 
@@ -308,11 +308,11 @@ PacketWord::PacketWord(const PacketWord* src) {
 }
 
 PacketWord::~PacketWord() {
-    //sub_57A0B0
+    // 57A0B0
 }
 
 uint32_t PacketWord::GetDataSize() {
-    //sub_57A0A0
+    // 57A0A0
     return 3;
 }
 
@@ -322,7 +322,7 @@ uint32_t PacketWord::GetDataSize() {
 PacketGroupOrder PacketGroupOrder::Inst;
 
 PacketGroupOrder::PacketGroupOrder() {
-    //sub_526924
+    // 526924
     this->param  = 0;
     this->slot = 0;
     this->count      = 0;
@@ -341,7 +341,7 @@ PacketGroupOrder::PacketGroupOrder(const PacketGroupOrder* src) {
 }
 
 void PacketGroupOrder::AppendWord(uint16_t val) {
-    //sub_52695A
+    // 52695A
     if (this->count < 0xFD) {
         this->entries[this->count++] = val;
     }
@@ -368,16 +368,16 @@ void PacketUnitStateVec::AppendByteInt(uint8_t a, int32_t v, uint8_t* slot) {
 }
 
 PacketGroupOrder::~PacketGroupOrder() {
-    //sub_57A100
+    // 57A100
 }
 
 void PacketGroupOrder::WriteTo(NetStru2* net) {
-    //sub_52699A
+    // 59A
     net->WriteData(&this->id, this->count * 2 + 0xA);
 }
 
 void PacketGroupOrder::ReadFrom(NetStru2* net) {
-    //sub_5269C3
+    // 5C3
     net->ReadData(&this->x, 9);
     if (this->count) {
         net->ReadData(this->entries, this->count * 2);
@@ -385,7 +385,7 @@ void PacketGroupOrder::ReadFrom(NetStru2* net) {
 }
 
 uint32_t PacketGroupOrder::GetDataSize() {
-    //sub_57A0E0
+    // 57A0E0
     return this->count * 2 + 10;
 }
 
@@ -395,7 +395,7 @@ uint32_t PacketGroupOrder::GetDataSize() {
 PacketItemTransfer PacketItemTransfer::Inst;
 
 PacketItemTransfer::PacketItemTransfer() {
-    //sub_526A07
+    // 526A07
     this->type       = 0;
     this->subtype    = 0;
     this->param1  = 0;
@@ -408,11 +408,11 @@ PacketItemTransfer::PacketItemTransfer(const PacketItemTransfer* src) {
 }
 
 PacketItemTransfer::~PacketItemTransfer() {
-    //sub_57A140
+    // 57A140
 }
 
 uint32_t PacketItemTransfer::GetDataSize() {
-    //sub_57A130  id(1) + 10 derived bytes = 0xB
+    // 57A130  id(1) + 10 derived bytes = 0xB
     return 0xB;
 }
 
@@ -422,7 +422,7 @@ uint32_t PacketItemTransfer::GetDataSize() {
 PacketEnterGame PacketEnterGame::Inst;
 
 PacketEnterGame::PacketEnterGame() {
-    //sub_526A4F
+    // 526A4F
     this->value1  = 0;
     this->value2  = 0;
     this->value3 = 0;
@@ -434,11 +434,11 @@ PacketEnterGame::PacketEnterGame(const PacketEnterGame* src) {
 }
 
 PacketEnterGame::~PacketEnterGame() {
-    //sub_57A180
+    // 57A180
 }
 
 uint32_t PacketEnterGame::GetDataSize() {
-    //sub_57A170  id(1) + 13 derived bytes = 0xE
+    // 57A170  id(1) + 13 derived bytes = 0xE
     return 0x2D;
 }
 
@@ -448,27 +448,27 @@ uint32_t PacketEnterGame::GetDataSize() {
 PacketDword PacketDword::Inst;
 
 PacketDword::PacketDword() {
-    //sub_526BB0
+    // 526BB0
     this->value = 0;
 }
 
 PacketDword::PacketDword(const PacketDword* src) {
-    //sub_526BD9
+    // 526BD9
     this->id    = src->id;
     this->value = src->value;
 }
 
 PacketDword::~PacketDword() {
-    //sub_57A360
+    // 57A360
 }
 
 Packet* PacketDword::Duplicate() {
-    //sub_57A2D0
+    // 57A2D0
     return new PacketDword(this);
 }
 
 uint32_t PacketDword::GetDataSize() {
-    //sub_57A350
+    // 57A350
     return 5; // id(1) + value(4)
 }
 
@@ -478,21 +478,21 @@ uint32_t PacketDword::GetDataSize() {
 PacketUnitAction PacketUnitAction::Inst;
 
 PacketUnitAction::PacketUnitAction() {
-    //sub_526F68  id = 0x6B
+    // 526F68  id = 0x6B
     this->id = UNIT_MOVE;
 }
 
 PacketUnitAction::PacketUnitAction(const PacketUnitAction* src) {
-    //sub_526F8E
+    // 526F8E
     memcpy(&this->id, &src->id, 5); // id + 4 bytes
 }
 
 PacketUnitAction::~PacketUnitAction() {
-    //sub_57A510
+    // 57A510
 }
 
 Packet* PacketUnitAction::Duplicate() {
-    //sub_57A480
+    // 580
     return new PacketUnitAction(this);
 }
 
@@ -506,25 +506,25 @@ uint32_t PacketUnitAction::GetDataSize() {
 PacketSack PacketSack::Inst;
 
 PacketSack::PacketSack() {
-    //sub_526FC7
+    // 5C7
 }
 
 PacketSack::PacketSack(const PacketSack* src) {
-    //sub_526FE6
+    // 526FE6
     memcpy(&this->id, &src->id, 9); // id + 8 bytes
 }
 
 PacketSack::~PacketSack() {
-    //sub_57A5D0
+    // 57A5D0
 }
 
 Packet* PacketSack::Duplicate() {
-    //sub_57A540
+    // 57A540
     return new PacketSack(this);
 }
 
 uint32_t PacketSack::GetDataSize() {
-    //sub_57A5C0
+    // 57A5C0
     return 9; // id(1) + 8 bytes
 }
 
@@ -534,7 +534,7 @@ uint32_t PacketSack::GetDataSize() {
 PacketMoveBroadcast PacketMoveBroadcast::Inst;
 
 PacketMoveBroadcast::PacketMoveBroadcast() {
-    //sub_52701F  id = 0x86
+    // 52701F  id = 0x86
     this->id         = 0x86;
     this->type_id  = 0;
     this->x  = 0;
@@ -542,21 +542,21 @@ PacketMoveBroadcast::PacketMoveBroadcast() {
 }
 
 PacketMoveBroadcast::PacketMoveBroadcast(const PacketMoveBroadcast* src) {
-    //sub_52705A
+    // 52705A
     memcpy(&this->id, &src->id, 8); // id + 7 bytes
 }
 
 PacketMoveBroadcast::~PacketMoveBroadcast() {
-    //sub_57A690
+    // 57A690
 }
 
 Packet* PacketMoveBroadcast::Duplicate() {
-    //sub_57A600
+    // 500
     return new PacketMoveBroadcast(this);
 }
 
 uint32_t PacketMoveBroadcast::GetDataSize() {
-    //sub_57A680
+    // 580
     return 8; // id(1) + 7 bytes
 }
 
@@ -566,21 +566,21 @@ uint32_t PacketMoveBroadcast::GetDataSize() {
 PacketEffect PacketEffect::Inst;
 
 PacketEffect::PacketEffect() {
-    //sub_527093
+    // 593
     this->effect_type = 0;
 }
 
 PacketEffect::PacketEffect(const PacketEffect* src) {
-    //sub_5270B9
+    // 5270B9
     memcpy(&this->id, &src->id, 4); // id + 3 bytes
 }
 
 PacketEffect::~PacketEffect() {
-    //sub_57A750
+    // 57A750
 }
 
 Packet* PacketEffect::Duplicate() {
-    //sub_57A6C0
+    // 57A6C0
     return new PacketEffect(this);
 }
 
@@ -594,28 +594,28 @@ uint32_t PacketEffect::GetDataSize() {
 PacketAoeZone PacketAoeZone::Inst;
 
 PacketAoeZone::PacketAoeZone() {
-    //sub_5270F2  id = 0x87
+    // 5270F2  id = 0x87
     this->id         = 0x87;
     this->width  = 0;
     this->height  = 0;
 }
 
 PacketAoeZone::PacketAoeZone(const PacketAoeZone* src) {
-    //sub_527126
+    // 527126
     memcpy(&this->id, &src->id, 19); // id + 18 bytes
 }
 
 PacketAoeZone::~PacketAoeZone() {
-    //sub_57A810
+    // 510
 }
 
 Packet* PacketAoeZone::Duplicate() {
-    //sub_57A780
+    // 580
     return new PacketAoeZone(this);
 }
 
 uint32_t PacketAoeZone::GetDataSize() {
-    //sub_57A800
+    // 57A800
     return 19; // id(1) + 18 bytes
 }
 
@@ -625,21 +625,21 @@ uint32_t PacketAoeZone::GetDataSize() {
 PacketRangedAttack PacketRangedAttack::Inst;
 
 PacketRangedAttack::PacketRangedAttack() {
-    //sub_52715F
+    // 52715F
     this->target_id = 0;
 }
 
 PacketRangedAttack::PacketRangedAttack(const PacketRangedAttack* src) {
-    //sub_527187
+    // 527187
     memcpy(&this->id, &src->id, 5); // id + 4 bytes
 }
 
 PacketRangedAttack::~PacketRangedAttack() {
-    //sub_57A8D0
+    // 57A8D0
 }
 
 Packet* PacketRangedAttack::Duplicate() {
-    //sub_57A840
+    // 57A840
     return new PacketRangedAttack(this);
 }
 
@@ -653,31 +653,31 @@ uint32_t PacketRangedAttack::GetDataSize() {
 PacketFileChunk PacketFileChunk::Inst;
 
 PacketFileChunk::PacketFileChunk() {
-    //sub_5271C0
+    // 5271C0
     this->count = 0;
 }
 
 PacketFileChunk::PacketFileChunk(const PacketFileChunk* src) {
-    //sub_5271DF
+    // 5271DF
     memcpy(&this->id, &src->id, src->count + 0x2D);
 }
 
 PacketFileChunk::~PacketFileChunk() {
-    //sub_57A9A0
+    // 57A9A0
 }
 
 Packet* PacketFileChunk::Duplicate() {
-    //sub_57A900
+    // 57A900
     return new PacketFileChunk(this);
 }
 
 void PacketFileChunk::WriteTo(NetStru2* net) {
-    //sub_527220
+    // 527220
     net->WriteData(&this->id, this->count + 0x2D);
 }
 
 void PacketFileChunk::ReadFrom(NetStru2* net) {
-    //sub_527246  reads 0x2C bytes at +0xA, then optional count bytes at +0x36
+    // 527246  reads 0x2C bytes at +0xA, then optional count bytes at +0x36
     net->ReadData(&this->preamble[0], 0x2C);
     if (this->count > 0) {
         net->ReadData(this->var_data, this->count);
@@ -685,7 +685,7 @@ void PacketFileChunk::ReadFrom(NetStru2* net) {
 }
 
 uint32_t PacketFileChunk::GetDataSize() {
-    //sub_57A980
+    // 57A980
     return this->count + 0x2D;
 }
 
@@ -695,31 +695,31 @@ uint32_t PacketFileChunk::GetDataSize() {
 PacketData PacketData::Inst;
 
 PacketData::PacketData() {
-    //sub_527283
+    // 527283
     this->count = 0;
 }
 
 PacketData::PacketData(const PacketData* src) {
-    //sub_5272A2
+    // 5272A2
     memcpy(&this->id, &src->id, src->count + 5);
 }
 
 PacketData::~PacketData() {
-    //sub_57AA70
+    // 57AA70
 }
 
 Packet* PacketData::Duplicate() {
-    //sub_57A9D0
+    // 57A9D0
     return new PacketData(this);
 }
 
 void PacketData::WriteTo(NetStru2* net) {
-    //sub_5272E3
+    // 5272E3
     net->WriteData(&this->id, this->count + 5);
 }
 
 void PacketData::ReadFrom(NetStru2* net) {
-    //sub_527309
+    // 527309
     net->ReadData(&this->count, 4);
     if (this->count > 0) {
         net->ReadData(this->data, this->count);
@@ -727,7 +727,7 @@ void PacketData::ReadFrom(NetStru2* net) {
 }
 
 uint32_t PacketData::GetDataSize() {
-    //sub_57AA50
+    // 57AA50
     return this->count + 5;
 }
 
@@ -737,7 +737,7 @@ uint32_t PacketData::GetDataSize() {
 PacketUnitStateVec PacketUnitStateVec::Inst;
 
 PacketUnitStateVec::PacketUnitStateVec() {
-    //sub_527415  id = 0x76
+    // 527415  id = 0x76
     this->id          = 0x76;
     this->entry_count = 0;
     this->start_index   = 0;
@@ -745,22 +745,22 @@ PacketUnitStateVec::PacketUnitStateVec() {
 }
 
 PacketUnitStateVec::PacketUnitStateVec(const PacketUnitStateVec* src) {
-    //sub_527473
+    // 527473
     memcpy(&this->id, &src->id, 10);
     memcpy(this->data, src->data, src->data_size);
 }
 
 PacketUnitStateVec::~PacketUnitStateVec() {
-    //sub_57AC10
+    // 57AC10
 }
 
 Packet* PacketUnitStateVec::Duplicate() {
-    //sub_57AB70
+    // 57AB70
     return new PacketUnitStateVec(this);
 }
 
 void PacketUnitStateVec::WriteTo(NetStru2* net) {
-    //sub_5274CC
+    // 5274CC
     net->WriteData(&this->id, 0xA);
     if (this->entry_count > 0) {
         net->WriteData(this->data, this->data_size);
@@ -769,7 +769,7 @@ void PacketUnitStateVec::WriteTo(NetStru2* net) {
 }
 
 void PacketUnitStateVec::ReadFrom(NetStru2* net) {
-    //sub_527528
+    // 527528
     net->ReadData(&this->building_id, 9);
     if (this->entry_count > 0) {
         net->ReadData(this->data, this->data_size);
@@ -777,7 +777,7 @@ void PacketUnitStateVec::ReadFrom(NetStru2* net) {
 }
 
 uint32_t PacketUnitStateVec::GetDataSize() {
-    //sub_57ABF0
+    // 57ABF0
     return 0xA + (this->entry_count ? this->data_size : 0);
 }
 
@@ -787,21 +787,21 @@ uint32_t PacketUnitStateVec::GetDataSize() {
 PacketBuildingHp PacketBuildingHp::Inst;
 
 PacketBuildingHp::PacketBuildingHp() {
-    //sub_527810  id = 0x82
+    // 527810  id = 0x82
     this->id = BUILDING_HP;
 }
 
 PacketBuildingHp::PacketBuildingHp(const PacketBuildingHp* src) {
-    //sub_527836
+    // 527836
     memcpy(&this->id, &src->id, 5); // id + 4 bytes
 }
 
 PacketBuildingHp::~PacketBuildingHp() {
-    //sub_57ACD0
+    // 57ACD0
 }
 
 Packet* PacketBuildingHp::Duplicate() {
-    //sub_57AC40
+    // 57AC40
     return new PacketBuildingHp(this);
 }
 
@@ -815,27 +815,27 @@ uint32_t PacketBuildingHp::GetDataSize() {
 PacketUnitEquipment PacketUnitEquipment::Inst;
 
 PacketUnitEquipment::PacketUnitEquipment() {
-    //sub_52786F  id = 0
+    // 52786F  id = 0
     this->id    = 0;
     this->flags = 0;
 }
 
 PacketUnitEquipment::PacketUnitEquipment(const PacketUnitEquipment* src) {
-    //sub_527895
+    // 527895
     memcpy(&this->id, &src->id, 0x1D); // id + 28 bytes (max)
 }
 
 PacketUnitEquipment::~PacketUnitEquipment() {
-    //sub_57AD80
+    // 57AD80
 }
 
 Packet* PacketUnitEquipment::Duplicate() {
-    //sub_57AD00
+    // 57AD00
     return new PacketUnitEquipment(this);
 }
 
 uint32_t PacketUnitEquipment::GetDataSize() {
-    //sub_5278CE  variable: 0x1D - (12 - popcount(flags)) * 2
+    // 5278CE  variable: 0x1D - (12 - popcount(flags)) * 2
     int popcount = 0;
     for (int i = 0; i < 12; i++) {
         if (this->flags & (1 << i)) {
@@ -851,24 +851,24 @@ uint32_t PacketUnitEquipment::GetDataSize() {
 PacketUnitHp PacketUnitHp::Inst;
 
 PacketUnitHp::PacketUnitHp() {
-    //sub_52792F
+    // 52792F
 }
 
 PacketUnitHp::PacketUnitHp(const PacketUnitHp* src) {
-    //sub_52794E
+    // 52794E
     memcpy(&this->id, &src->id, 5); // id + 4 bytes
 }
 
 PacketUnitHp::~PacketUnitHp() {
-    //sub_57AE40
+    // 57AE40
 }
 
 Packet* PacketUnitHp::Duplicate() {
-    //sub_57ADB0
+    // 57ADB0
     return new PacketUnitHp(this);
 }
 
 uint32_t PacketUnitHp::GetDataSize() {
-    // sub_57ae30
+    // 57ae30
     return 5; // id(1) + 4 bytes
 }

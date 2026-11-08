@@ -48,7 +48,7 @@ public:
     void RemoveUnit(Humanoid* humanoid, int32_t id);
     void UpdateQuests(Unit* inn);
     void InnCreateQuests(Player* player);
-    void InnReward(Player* player); // sub_565307: Generate reward items for completed quest
+    void InnReward(Player* player); // 565307: Generate reward items for completed quest
     bool HasQuest(Player* player); // Check if this player has a quest taken in this inn.
     Quest* FindActiveQuest(Player* player); // Find active quest for player at this inn.
     void DeleteCompletedQuests(Player* player);

@@ -26,7 +26,7 @@ public:
     void ClearSentToMask(Player* player); // Clear unit vision mask bits for player across this list (client: 535b23)
     void RegenTick();  // client: 5358d9
     Unit* FindById(uint16_t id);   // Look up unit in list by ID (client: 534fdf)
-    void ProcessTick();              // Tick alive units and reap dead ones (sub_556345) (client: 53517b)
+    void ProcessTick();              // Tick alive units and reap dead ones (556345) (client: 53517b)
     int CountKillableMonsters();                // Check if player has a rewarded unit (client: 535b90)
     void SendVisibilityUpdates(); // 5561A1 (client: 535043)
 

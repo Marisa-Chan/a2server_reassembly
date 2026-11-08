@@ -23446,7 +23446,7 @@ VisSpellBook::VisSpellBook(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
 }
 
 
-// 4CB020 (scalar deleting dtor ??_G at 4CB020; complete dtor FUN_004cb050 has no custom cleanup)
+// 4CB020 (scalar deleting dtor ??_G at 4CB020; complete dtor 4cb050 has no custom cleanup)
 VisSpellBook::~VisSpellBook() {
 }
 

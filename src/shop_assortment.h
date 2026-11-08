@@ -36,9 +36,9 @@ struct ShopAssortment {
     uint8_t gap_0x48[12];
     uint32_t flags;
 
-    ShopAssortment();   // sub_54A13B (??1CWinThread@@UAE@XZ_37 in asm listing) (client: 422960)
-    ~ShopAssortment();  // sub_54A2DD (client: 422cd0)
-    void GenerateAssortment(AssortGenParams* params);  // sub_54BF6B (client: 52f209)
+    ShopAssortment();   // 54A13B (??1CWinThread@@UAE@XZ_37 in asm listing) (client: 422960)
+    ~ShopAssortment();  // 54A2DD (client: 422cd0)
+    void GenerateAssortment(AssortGenParams* params);  // 54BF6B (client: 52f209)
 
     void Reset(); // 54C08A — reset fields (still in ASM)
     void ClearItems(); // 54BC09 (client: 52f180) — ClearItemsArray: delete all items (still in ASM)

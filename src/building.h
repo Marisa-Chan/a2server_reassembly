@@ -26,10 +26,10 @@ public: // VTable at 60f378
     virtual int32_t IsOutpost();  // client: 54d390
 
 public:
-    Building(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height); // sub_542599 (client: 5299f8)
-    Building(); // sub_54242A (client: 5298ee)
-    Building(const CString& name); // sub_542534 (client: 5299f8)
-    Building(TokenPos* pos); // sub_5424AC (client: 529a5d)
+    Building(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height); // 542599 (client: 5299f8)
+    Building(); // 54242A (client: 5298ee)
+    Building(const CString& name); // 542534 (client: 5299f8)
+    Building(TokenPos* pos); // 5424AC (client: 529a5d)
     void InitFromTable(uint8_t width, uint8_t height); // Initialize building from info table and place on map. (client: 529c04)
     void InitByName(const CString& name); // Initialize building fields and look up type by name. (client: 529ae6)
     int32_t RollDamage(UnitToHit* to_hit, Unit* caster); // Building attack. (client: 529e83)
@@ -59,7 +59,7 @@ public:
     DECLARE_SERIAL(Pointer);
 
 public:
-    Pointer(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height); // sub_5A3140 (client: 5712b0)
+    Pointer(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height); // 5A3140 (client: 5712b0)
     Pointer(); // default, used by CreateObject (client: 54d350)
     virtual ~Pointer() override;  // client: 54d3d0
     virtual void Serialize(CArchive& ar) override;  // client: 52a0ec

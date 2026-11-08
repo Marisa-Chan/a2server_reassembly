@@ -31,7 +31,7 @@ public: // VTable at 0060f730.
     virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b); // 55e129 (client: 537ed5)
     
 public:
-    QuestMap(); // sub_55D579 (client: 537b72)
+    QuestMap(); // 55D579 (client: 537b72)
 
     void DeleteGlues(); // Reset quest state (client: 537bfe)
     void ProcessDeferredEvents();  // client: 537e5f

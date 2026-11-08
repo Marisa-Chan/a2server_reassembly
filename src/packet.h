@@ -148,14 +148,14 @@ class PacketUnitUpdate : public Packet {
 public:
     static PacketUnitUpdate Inst; // _unk_6D1180
 public:
-    PacketUnitUpdate(); // sub_527987 (client: 516957)
-    PacketUnitUpdate(const PacketUnitUpdate* src); // sub_5279A6 (vtable-only ctor used in Duplicate) (client: 516976)
+    PacketUnitUpdate(); // 527987 (client: 516957)
+    PacketUnitUpdate(const PacketUnitUpdate* src); // 5279A6 (vtable-only ctor used in Duplicate) (client: 516976)
 public:
     virtual ~PacketUnitUpdate();  // client: 54bda0
-    virtual Packet* Duplicate() override; // sub_57AE70 (client: 54bd00)
-    virtual void WriteTo(NetStru2*) override; // sub_5279C7 (client: 516997)
-    virtual void ReadFrom(NetStru2*) override; // sub_527A6C (client: 516a3c)
-    virtual uint32_t GetDataSize() override; // sub_57AEF0 (client: 54bd80)
+    virtual Packet* Duplicate() override; // 57AE70 (client: 54bd00)
+    virtual void WriteTo(NetStru2*) override; // 5279C7 (client: 516997)
+    virtual void ReadFrom(NetStru2*) override; // 527A6C (client: 516a3c)
+    virtual uint32_t GetDataSize() override; // 57AEF0 (client: 54bd80)
 public:
     uint32_t data_offset;  // +0x0A  bytes already written into data[]
     uint32_t flags_size;    // +0x0E  (purpose unknown)
@@ -163,7 +163,7 @@ public:
     uint32_t flags_mask;   // +0x14  bitmask of fields that follow in data[]
     uint8_t  data[0x400];  // +0x18  packed field values
 
-    // Helpers mirroring sub_527B25 / sub_527B60 / sub_527B9D in asm
+    // Helpers mirroring 527B25 / 527B60 / 527B9D in asm
     void PutByte(uint32_t flag, uint8_t  val) { this->flags_mask |= flag; this->data[this->data_offset++] = val; }
     void PutWord(uint32_t flag, uint16_t val) { this->flags_mask |= flag; *reinterpret_cast<uint16_t*>(this->data + this->data_offset) = val; this->data_offset += 2; }
     void PutInt(uint32_t flag, uint32_t val){ this->flags_mask |= flag; *reinterpret_cast<uint32_t*>(this->data + this->data_offset) = val; this->data_offset += 4; }
@@ -177,7 +177,7 @@ ASSERT_SIZE(PacketUnitUpdate, 0x418);
 
 // ---------------------------------------------------------------------------
 // PacketUnitRef
-// Constructor sub_5268FC, static unk_6E9B40, vtable off_60ED28.
+// Constructor 5268FC, static unk_6E9B40, vtable off_60ED28.
 // Single uint16_t payload – typically a unit/object reference.
 // No custom Duplicate (inherits base); no custom VMethod3/VMethod4.
 // ---------------------------------------------------------------------------
@@ -186,11 +186,11 @@ class PacketWord : public Packet {
 public:
     static PacketWord Inst; // unk_6E9B40
 public:
-    PacketWord(); // sub_5268FC (client: 515651)
+    PacketWord(); // 5268FC (client: 515651)
     PacketWord(const PacketWord* src);  // client: 515651
 public:
     virtual ~PacketWord();  // client: 54a520
-    virtual uint32_t GetDataSize() override; // sub_57A0A0 (client: 54a510)
+    virtual uint32_t GetDataSize() override; // 57A0A0 (client: 54a510)
 public:
     uint16_t value; // +0xA  (= 0 in ctor)
 };
@@ -200,9 +200,9 @@ ASSERT_SIZE(PacketWord, 0xC);
 
 // ---------------------------------------------------------------------------
 // PacketGroupOrder
-// Constructor sub_526924, static unk_6D1670, vtable off_60ED40.
+// Constructor 526924, static unk_6D1670, vtable off_60ED40.
 // Variable-length list of uint16_t entries; up to 0xFD (253) entries.
-// AppendWord() mirrors sub_52695A.  VMethod3 sends count*2+0xA bytes from &id.
+// AppendWord() mirrors 52695A.  VMethod3 sends count*2+0xA bytes from &id.
 // VMethod4 reads 9 fixed bytes then count*2 variable bytes.
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
@@ -210,14 +210,14 @@ class PacketGroupOrder : public Packet {
 public:
     static PacketGroupOrder Inst; // unk_6D1670
 public:
-    PacketGroupOrder(); // sub_526924 (client: 515756)
+    PacketGroupOrder(); // 526924 (client: 515756)
     PacketGroupOrder(const PacketGroupOrder* src);  // client: 515756
-    void AppendWord(uint16_t val); // sub_52695A (client: 51578c)
+    void AppendWord(uint16_t val); // 52695A (client: 51578c)
 public:
     virtual ~PacketGroupOrder();  // client: 54afb0
-    virtual void WriteTo(NetStru2*) override; // sub_52699A (client: 5157cc)
-    virtual void ReadFrom(NetStru2*) override; // sub_5269C3 (client: 5157f5)
-    virtual uint32_t GetDataSize() override;   // sub_57A0E0 (client: 54af90)
+    virtual void WriteTo(NetStru2*) override; // 52699A (client: 5157cc)
+    virtual void ReadFrom(NetStru2*) override; // 5269C3 (client: 5157f5)
+    virtual uint32_t GetDataSize() override;   // 57A0E0 (client: 54af90)
 public:
     uint16_t x;       // +0xA
     uint8_t  y;       // +0xC
@@ -235,7 +235,7 @@ ASSERT_SIZE(PacketGroupOrder, 0x20d);
 
 // ---------------------------------------------------------------------------
 // PacketItemTransfer
-// Constructor sub_526A07, static unk_6B1650, vtable off_60ED58.
+// Constructor 526A07, static unk_6B1650, vtable off_60ED58.
 // Command packet: 2 type/subtype bytes + 3 word params; field_0x12 init = 1.
 // Uses inherited Packet VMethod3/VMethod4 serialisation.
 // ---------------------------------------------------------------------------
@@ -244,11 +244,11 @@ class PacketItemTransfer : public Packet {
 public:
     static PacketItemTransfer Inst; // unk_6B1650
 public:
-    PacketItemTransfer(); // sub_526A07 (client: 51572e)
+    PacketItemTransfer(); // 526A07 (client: 51572e)
     PacketItemTransfer(const PacketItemTransfer* src);  // client copy ctor: no twin found (client: 51572e)
 public:
     virtual ~PacketItemTransfer();  // client: 54af60
-    virtual uint32_t GetDataSize() override; // sub_57A130 (client: 54af50)
+    virtual uint32_t GetDataSize() override; // 57A130 (client: 54af50)
 public:
     uint16_t unit_id;     // +0xA
     uint8_t  type;        // +0xC (= 0 in ctor)
@@ -263,7 +263,7 @@ ASSERT_SIZE(PacketItemTransfer, 0x14);
 
 // ---------------------------------------------------------------------------
 // PacketEnterGame
-// Constructor sub_526A4F, static unk_6B1670, vtable off_60ED70.
+// Constructor 526A4F, static unk_6B1670, vtable off_60ED70.
 // Three uint32_t fields followed by one uint8_t; all zeroed in ctor.
 // Uses inherited Packet VMethod3/VMethod4 serialisation.
 // ---------------------------------------------------------------------------
@@ -272,11 +272,11 @@ class PacketEnterGame : public Packet {
 public:
     static PacketEnterGame Inst; // unk_6B1670
 public:
-    PacketEnterGame(); // sub_526A4F (client: 515839)
+    PacketEnterGame(); // 526A4F (client: 515839)
     PacketEnterGame(const PacketEnterGame* src);  // client copy ctor: no twin found (client: 515839)
 public:
     virtual ~PacketEnterGame();  // client: 54aff0
-    virtual uint32_t GetDataSize() override; // sub_57A170 (client: 54afe0)
+    virtual uint32_t GetDataSize() override; // 57A170 (client: 54afe0)
 public:
     uint32_t value1;  // +0xA (= 0 in ctor)
     uint32_t value2;  // +0xE (= 0 in ctor)
@@ -289,20 +289,20 @@ ASSERT_SIZE(PacketEnterGame, 0x36);
 
 // ---------------------------------------------------------------------------
 // PacketDword
-// Constructor sub_526BB0, static unk_6CDB78, vtable off_60EDB8.
+// Constructor 526BB0, static unk_6CDB78, vtable off_60EDB8.
 // Single uint32_t value payload; zeroed in ctor.
-// Copy ctor: sub_526BD9 (copies 5 bytes: id + dword).
+// Copy ctor: 526BD9 (copies 5 bytes: id + dword).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketDword : public Packet {
 public:
     static PacketDword Inst; // unk_6CDB78
 public:
-    PacketDword(); // sub_526BB0 (client: 515976)
-    PacketDword(const PacketDword* src); // sub_526BD9 (client: 516806)
+    PacketDword(); // 526BB0 (client: 515976)
+    PacketDword(const PacketDword* src); // 526BD9 (client: 516806)
 public:
     virtual ~PacketDword();  // client: 54b150
-    virtual Packet* Duplicate() override; // sub_57A2D0 (client: 54b0c0)
+    virtual Packet* Duplicate() override; // 57A2D0 (client: 54b0c0)
     virtual uint32_t GetDataSize() override;  // client: 54b140
 public:
     uint32_t value; // +0xA (= 0 in ctor)
@@ -313,20 +313,20 @@ ASSERT_SIZE(PacketDword, 0xE);
 
 // ---------------------------------------------------------------------------
 // PacketUnitAction
-// Constructor sub_526F68, static unk_70A7D0, vtable off_60EDE8.
+// Constructor 526F68, static unk_70A7D0, vtable off_60EDE8.
 // Ability/buff broadcast; id fixed to 0x6B ('k') by ctor.
-// Copy ctor: sub_526F8E (copies 5 bytes: id + 4 payload bytes).
+// Copy ctor: 526F8E (copies 5 bytes: id + 4 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketUnitAction : public Packet {
 public:
     static PacketUnitAction Inst; // unk_70A7D0
 public:
-    PacketUnitAction(); // sub_526F68  sets id = 0x6B (client: 515a16)
-    PacketUnitAction(const PacketUnitAction* src); // sub_526F8E (client: 515a3f)
+    PacketUnitAction(); // 526F68  sets id = 0x6B (client: 515a16)
+    PacketUnitAction(const PacketUnitAction* src); // 526F8E (client: 515a3f)
 public:
     virtual ~PacketUnitAction();  // client: 54b210
-    virtual Packet* Duplicate() override; // sub_57A480 (client: 54b180)
+    virtual Packet* Duplicate() override; // 57A480 (client: 54b180)
     virtual uint32_t GetDataSize() override;
 public:
     uint16_t unit_id; // +0xA
@@ -339,21 +339,21 @@ ASSERT_SIZE(PacketUnitAction, 0xE);
 
 // ---------------------------------------------------------------------------
 // PacketSack
-// Constructor sub_526FC7, static unk_6CE970, vtable off_60EE00.
+// Constructor 526FC7, static unk_6CE970, vtable off_60EE00.
 // Generic 8-byte payload packet; fields not initialised by ctor.
-// Copy ctor: sub_526FE6 (copies 9 bytes: id + 8 payload bytes).
+// Copy ctor: 526FE6 (copies 9 bytes: id + 8 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketSack : public Packet {
 public:
     static PacketSack Inst; // unk_6CE970
 public:
-    PacketSack(); // sub_526FC7 (client: 515e01)
-    PacketSack(const PacketSack* src); // sub_526FE6 (client: 515e27)
+    PacketSack(); // 526FC7 (client: 515e01)
+    PacketSack(const PacketSack* src); // 526FE6 (client: 515e27)
 public:
     virtual ~PacketSack();  // client: 54b3a0
-    virtual Packet* Duplicate() override; // sub_57A540 (client: 54b310)
-    virtual uint32_t GetDataSize() override; // sub_57A5C0 (client: 54b390)
+    virtual Packet* Duplicate() override; // 57A540 (client: 54b310)
+    virtual uint32_t GetDataSize() override; // 57A5C0 (client: 54b390)
 public:
     uint16_t unit_id; // 0xa
     uint8_t gap_c;
@@ -367,22 +367,22 @@ ASSERT_SIZE(PacketSack, 0x12);
 
 // ---------------------------------------------------------------------------
 // PacketMoveBroadcast
-// Constructor sub_52701F, static unk_6A6A70, vtable off_60EE18.
+// Constructor 52701F, static unk_6A6A70, vtable off_60EE18.
 // Movement / targeting command; id fixed to 0x86 by ctor.
 // Bytes at +0xC/+0xD/+0xE zeroed by ctor; 0xA/0xB/0xF/0x10 set by caller.
-// Copy ctor: sub_52705A (copies 8 bytes: id + 7 payload bytes).
+// Copy ctor: 52705A (copies 8 bytes: id + 7 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketMoveBroadcast : public Packet {
 public:
     static PacketMoveBroadcast Inst; // unk_6A6A70
 public:
-    PacketMoveBroadcast(); // sub_52701F  sets id = 0x86 (client: 515e94)
-    PacketMoveBroadcast(const PacketMoveBroadcast* src); // sub_52705A (client: 515eb3)
+    PacketMoveBroadcast(); // 52701F  sets id = 0x86 (client: 515e94)
+    PacketMoveBroadcast(const PacketMoveBroadcast* src); // 52705A (client: 515eb3)
 public:
     virtual ~PacketMoveBroadcast();  // client: 54b460
-    virtual Packet* Duplicate() override; // sub_57A600 (client: 54b3d0)
-    virtual uint32_t GetDataSize() override; // sub_57A680 (client: 54b450)
+    virtual Packet* Duplicate() override; // 57A600 (client: 54b3d0)
+    virtual uint32_t GetDataSize() override; // 57A680 (client: 54b450)
 public:
     uint16_t unit_id;  // +0xA
     uint8_t type_id;  // +0xC (= 0 in ctor)
@@ -396,20 +396,20 @@ ASSERT_SIZE(PacketMoveBroadcast, 0x11);
 
 // ---------------------------------------------------------------------------
 // PacketEffect
-// Constructor sub_527093, static unk_6CDB28, vtable off_60EE30.
+// Constructor 527093, static unk_6CDB28, vtable off_60EE30.
 // Effect-type notification; effect_type byte zeroed by ctor.
-// Copy ctor: sub_5270B9 (copies 4 bytes: id + 3 payload bytes).
+// Copy ctor: 5270B9 (copies 4 bytes: id + 3 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketEffect : public Packet {
 public:
     static PacketEffect Inst; // unk_6CDB28
 public:
-    PacketEffect(); // sub_527093 (client: 515f20)
-    PacketEffect(const PacketEffect* src); // sub_5270B9 (client: 515f5b)
+    PacketEffect(); // 527093 (client: 515f20)
+    PacketEffect(const PacketEffect* src); // 5270B9 (client: 515f5b)
 public:
     virtual ~PacketEffect();  // client: 54b520
-    virtual Packet* Duplicate() override; // sub_57A6C0 (client: 54b490)
+    virtual Packet* Duplicate() override; // 57A6C0 (client: 54b490)
     virtual uint32_t GetDataSize() override;
 public:
     uint16_t unit_id;    // +0xA
@@ -421,21 +421,21 @@ ASSERT_SIZE(PacketEffect, 0xD);
 
 // ---------------------------------------------------------------------------
 // PacketAoeZone
-// Constructor sub_5270F2, static unk_6B37A8, vtable off_60EE48.
+// Constructor 5270F2, static unk_6B37A8, vtable off_60EE48.
 // Area-of-effect zone info; id fixed to 0x87; bytes at +0xD/+0xE zeroed.
-// Copy ctor: sub_527126 (copies 19 bytes: id + 18 payload bytes).
+// Copy ctor: 527126 (copies 19 bytes: id + 18 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketAoeZone : public Packet {
 public:
     static PacketAoeZone Inst; // unk_6B37A8
 public:
-    PacketAoeZone(); // sub_5270F2  sets id = 0x87 (client: 51605b)
-    PacketAoeZone(const PacketAoeZone* src); // sub_527126 (client: 515fee)
+    PacketAoeZone(); // 5270F2  sets id = 0x87 (client: 51605b)
+    PacketAoeZone(const PacketAoeZone* src); // 527126 (client: 515fee)
 public:
     virtual ~PacketAoeZone();  // client: 54b5e0
-    virtual Packet* Duplicate() override; // sub_57A780 (client: 54b550)
-    virtual uint32_t GetDataSize() override; // sub_57A800 (client: 54b5d0)
+    virtual Packet* Duplicate() override; // 57A780 (client: 54b550)
+    virtual uint32_t GetDataSize() override; // 57A800 (client: 54b5d0)
 public:
     uint8_t type_id;    // +0xA
     uint8_t x;    // +0xB; `x` coordinate of top-left corner of AoE zone
@@ -451,20 +451,20 @@ ASSERT_SIZE(PacketAoeZone, 0x1C);
 
 // ---------------------------------------------------------------------------
 // PacketRangedAttack
-// Constructor sub_52715F, static unk_6B37C8, vtable off_60EE60.
+// Constructor 52715F, static unk_6B37C8, vtable off_60EE60.
 // Unit mount / ride packet; word unit_id zeroed by ctor.
-// Copy ctor: sub_527187 (copies 5 bytes: id + 4 payload bytes).
+// Copy ctor: 527187 (copies 5 bytes: id + 4 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketRangedAttack : public Packet {
 public:
     static PacketRangedAttack Inst; // unk_6B37C8
 public:
-    PacketRangedAttack(); // sub_52715F (client: 51605b)
-    PacketRangedAttack(const PacketRangedAttack* src); // sub_527187 (client: 51608f)
+    PacketRangedAttack(); // 52715F (client: 51605b)
+    PacketRangedAttack(const PacketRangedAttack* src); // 527187 (client: 51608f)
 public:
     virtual ~PacketRangedAttack();  // client: 54b6a0
-    virtual Packet* Duplicate() override; // sub_57A840 (client: 54b610)
+    virtual Packet* Duplicate() override; // 57A840 (client: 54b610)
     virtual uint32_t GetDataSize() override;
 public:
     uint16_t  unit_id; // +0xA
@@ -476,27 +476,27 @@ ASSERT_SIZE(PacketRangedAttack, 0xE);
 
 // ---------------------------------------------------------------------------
 // PacketFileChunk
-// Constructor sub_5271C0, static unk_6D1888, vtable off_60EE78.
+// Constructor 5271C0, static unk_6D1888, vtable off_60EE78.
 // Large variable-length player-info packet.
 // Fixed area: 40-byte preamble at +0xA, int32_t count at +0x32.
 // Variable-length data starting at +0x36 with `count` bytes.
-// VMethod3 (sub_527220): sends count+45 bytes from &id.
-// VMethod4 (sub_527246): reads 44-byte fixed block then optional count bytes.
-// Copy ctor: sub_5271DF (memcpy id + preamble + count + var_data).
+// VMethod3 (527220): sends count+45 bytes from &id.
+// VMethod4 (527246): reads 44-byte fixed block then optional count bytes.
+// Copy ctor: 5271DF (memcpy id + preamble + count + var_data).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketFileChunk : public Packet {
 public:
     static PacketFileChunk Inst; // unk_6D1888
 public:
-    PacketFileChunk(); // sub_5271C0 (client: 516191)
-    PacketFileChunk(const PacketFileChunk* src); // sub_5271DF (client: 5161b0)
+    PacketFileChunk(); // 5271C0 (client: 516191)
+    PacketFileChunk(const PacketFileChunk* src); // 5271DF (client: 5161b0)
 public:
     virtual ~PacketFileChunk();  // client: 54b830
-    virtual Packet* Duplicate() override;     // sub_57A900 (client: 54b790)
-    virtual void WriteTo(NetStru2*) override; // sub_527220 (client: 5161f1)
-    virtual void ReadFrom(NetStru2*) override; // sub_527246 (client: 516217)
-    virtual uint32_t GetDataSize() override;   // sub_57A980 (client: 54b810)
+    virtual Packet* Duplicate() override;     // 57A900 (client: 54b790)
+    virtual void WriteTo(NetStru2*) override; // 527220 (client: 5161f1)
+    virtual void ReadFrom(NetStru2*) override; // 527246 (client: 516217)
+    virtual uint32_t GetDataSize() override;   // 57A980 (client: 54b810)
 public:
     uint8_t  preamble[0x20]; // +0xA..+0x2b  (32 bytes of fixed player fields)
     uint32_t offset;         // +0x2a
@@ -514,25 +514,25 @@ ASSERT_SIZE(PacketFileChunk, 0x10036);
 
 // ---------------------------------------------------------------------------
 // PacketData
-// Constructor sub_527283, static unk_6B37D8, vtable off_60EE90.
+// Constructor 527283, static unk_6B37D8, vtable off_60EE90.
 // Generic length-prefixed binary blob: uint32_t count at +0xA, data at +0xE.
-// VMethod3 (sub_5272E3): sends count+5 bytes from &id.
-// VMethod4 (sub_527309): reads 4-byte count, then count bytes of data.
-// Copy ctor: sub_5272A2 (memcpy count+5 bytes from offset 9).
+// VMethod3 (5272E3): sends count+5 bytes from &id.
+// VMethod4 (527309): reads 4-byte count, then count bytes of data.
+// Copy ctor: 5272A2 (memcpy count+5 bytes from offset 9).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketData : public Packet {
 public:
     static PacketData Inst; // unk_6B37D8
 public:
-    PacketData(); // sub_527283 (client: 516254)
-    PacketData(const PacketData* src); // sub_5272A2 (client: 516273)
+    PacketData(); // 527283 (client: 516254)
+    PacketData(const PacketData* src); // 5272A2 (client: 516273)
 public:
     virtual ~PacketData();  // client: 54b900
-    virtual Packet* Duplicate() override;     // sub_57A9D0 (client: 54b860)
-    virtual void WriteTo(NetStru2*) override; // sub_5272E3 (client: 5162b4)
-    virtual void ReadFrom(NetStru2*) override; // sub_527309 (client: 5162da)
-    virtual uint32_t GetDataSize() override;   // sub_57AA50 (client: 54b8e0)
+    virtual Packet* Duplicate() override;     // 57A9D0 (client: 54b860)
+    virtual void WriteTo(NetStru2*) override; // 5272E3 (client: 5162b4)
+    virtual void ReadFrom(NetStru2*) override; // 527309 (client: 5162da)
+    virtual uint32_t GetDataSize() override;   // 57AA50 (client: 54b8e0)
 public:
     uint32_t count;    // +0xA  byte length of data[]
     uint8_t  data[0x10000];  // +0xE  variable-length payload (actual size = count)
@@ -545,32 +545,32 @@ ASSERT_SIZE(PacketData, 0x1000e);
 
 // ---------------------------------------------------------------------------
 // PacketUnitStateVec
-// Constructor sub_527415, static unk_6C5AF8, vtable off_60EEC0.
+// Constructor 527415, static unk_6C5AF8, vtable off_60EEC0.
 // Variable-length TLV-encoded unit state vector; id fixed to 0x76 ('v').
 // entry_count: number of property entries; data_size: byte length of data[].
 // Each entry: 1–5 bytes (type tag + 1/2/4-byte value), added by helpers.
-// Helper sub_527574  : opens a 7-byte compound entry slot.
-// Helper sub_5275F8  : appends (uint8_t field, uint8_t value) – 2 bytes.
-// Helper sub_5276E0  : appends (uint8_t field, uint32_t value) – 5 bytes.
-// VMethod3 (sub_5274CC): if entry_count==0 sends 10 bytes; else also sends data.
-// VMethod4 (sub_527528): reads 9 fixed bytes at +0xA, then data_size bytes.
-// Copy ctor: sub_527473.
+// Helper 527574  : opens a 7-byte compound entry slot.
+// Helper 5275F8  : appends (uint8_t field, uint8_t value) – 2 bytes.
+// Helper 5276E0  : appends (uint8_t field, uint32_t value) – 5 bytes.
+// VMethod3 (5274CC): if entry_count==0 sends 10 bytes; else also sends data.
+// VMethod4 (527528): reads 9 fixed bytes at +0xA, then data_size bytes.
+// Copy ctor: 527473.
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketUnitStateVec : public Packet {
 public:
     static PacketUnitStateVec Inst; // unk_6C5AF8
 public:
-    PacketUnitStateVec(); // sub_527415  sets id = 0x76 (client: 5163e6)
-    PacketUnitStateVec(const PacketUnitStateVec* src); // sub_527473 (client: 516443)
+    PacketUnitStateVec(); // 527415  sets id = 0x76 (client: 5163e6)
+    PacketUnitStateVec(const PacketUnitStateVec* src); // 527473 (client: 516443)
 public:
     virtual ~PacketUnitStateVec();  // client: 54baa0
-    virtual Packet* Duplicate() override;     // sub_57AB70 (client: 54ba00)
-    virtual void WriteTo(NetStru2*) override; // sub_5274CC (client: 51649c)
-    virtual void ReadFrom(NetStru2*) override; // sub_527528 (client: 5164f8)
-    virtual uint32_t GetDataSize() override;   // sub_57ABF0 (client: 54ba80)
-    void AppendByteByte(uint8_t a, uint8_t b, uint8_t* slot); // sub_5275F8 (client: 5165c8)
-    void AppendByteInt(uint8_t a, int32_t v, uint8_t* slot);  // sub_5276E0 (client: 5165c8)
+    virtual Packet* Duplicate() override;     // 57AB70 (client: 54ba00)
+    virtual void WriteTo(NetStru2*) override; // 5274CC (client: 51649c)
+    virtual void ReadFrom(NetStru2*) override; // 527528 (client: 5164f8)
+    virtual uint32_t GetDataSize() override;   // 57ABF0 (client: 54ba80)
+    void AppendByteByte(uint8_t a, uint8_t b, uint8_t* slot); // 5275F8 (client: 5165c8)
+    void AppendByteInt(uint8_t a, int32_t v, uint8_t* slot);  // 5276E0 (client: 5165c8)
 public:
     uint16_t building_id;    // +0xA
     uint8_t  mode;    // +0xC
@@ -588,20 +588,20 @@ ASSERT_SIZE(PacketUnitStateVec, 0x8013);
 
 // ---------------------------------------------------------------------------
 // PacketBuildingHp
-// Constructor sub_527810, static unk_6A6A88, vtable off_60EED8.
+// Constructor 527810, static unk_6A6A88, vtable off_60EED8.
 // Unit visibility-sync / broadcast; id fixed to 0x82 by ctor.
-// Copy ctor: sub_527836 (copies 5 bytes: id + 4 payload bytes).
+// Copy ctor: 527836 (copies 5 bytes: id + 4 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketBuildingHp : public Packet {
 public:
     static PacketBuildingHp Inst; // unk_6A6A88
 public:
-    PacketBuildingHp(); // sub_527810  sets id = 0x82 (client: 5160fc)
-    PacketBuildingHp(const PacketBuildingHp* src); // sub_527836 (client: 516806)
+    PacketBuildingHp(); // 527810  sets id = 0x82 (client: 5160fc)
+    PacketBuildingHp(const PacketBuildingHp* src); // 527836 (client: 516806)
 public:
     virtual ~PacketBuildingHp();  // client: 54b760
-    virtual Packet* Duplicate() override; // sub_57AC40 (client: 54b6d0)
+    virtual Packet* Duplicate() override; // 57AC40 (client: 54b6d0)
     virtual uint32_t GetDataSize() override;
 public:
     uint16_t building_id; // +0xA
@@ -613,23 +613,23 @@ ASSERT_SIZE(PacketBuildingHp, 0xE);
 
 // ---------------------------------------------------------------------------
 // PacketUnitEquipment
-// Constructor sub_52786F, static unk_6D0628, vtable off_60EEF0.
+// Constructor 52786F, static unk_6D0628, vtable off_60EEF0.
 // Variable-size player/unit property flags packet; id forced to 0 by ctor.
 // flags (word at +0xC): bitmask of up to 12 included uint16_t fields.
-// GetDataSize (sub_5278CE) = 0x1D - (12 - popcount(flags))*2  (5..29 bytes).
-// Copy ctor: sub_527895 (copies max 29 bytes: id + 28 payload bytes).
+// GetDataSize (5278CE) = 0x1D - (12 - popcount(flags))*2  (5..29 bytes).
+// Copy ctor: 527895 (copies max 29 bytes: id + 28 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketUnitEquipment : public Packet {
 public:
     static PacketUnitEquipment Inst; // unk_6D0628
 public:
-    PacketUnitEquipment(); // sub_52786F  sets id = 0 (client: 51683f)
-    PacketUnitEquipment(const PacketUnitEquipment* src); // sub_527895 (client: 516865)
+    PacketUnitEquipment(); // 52786F  sets id = 0 (client: 51683f)
+    PacketUnitEquipment(const PacketUnitEquipment* src); // 527895 (client: 516865)
 public:
     virtual ~PacketUnitEquipment();  // client: 54bc10
-    virtual Packet* Duplicate() override; // sub_57AD00 (client: 54bb90)
-    virtual uint32_t GetDataSize() override; // sub_5278CE  variable (5..29) (client: 51689e)
+    virtual Packet* Duplicate() override; // 57AD00 (client: 54bb90)
+    virtual uint32_t GetDataSize() override; // 5278CE  variable (5..29) (client: 51689e)
 public:
     uint16_t unit_id;       // +0xA
     uint16_t flags;           // +0xC  bitmask of included fields (bits 0..11)
@@ -641,21 +641,21 @@ ASSERT_SIZE(PacketUnitEquipment, 0x26);
 
 // ---------------------------------------------------------------------------
 // PacketUnitHp
-// Constructor sub_52792F, static unk_6CDB88, vtable off_60EF08.
+// Constructor 52792F, static unk_6CDB88, vtable off_60EF08.
 // Network ping / state packet; 4 payload bytes after Packet base.
-// Copy ctor: sub_52794E (copies 5 bytes: id + 4 payload bytes).
+// Copy ctor: 52794E (copies 5 bytes: id + 4 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketUnitHp : public Packet {
 public:
     static PacketUnitHp Inst; // unk_6CDB88
 public:
-    PacketUnitHp(); // sub_52792F (client: 5167e0)
-    PacketUnitHp(const PacketUnitHp* src); // sub_52794E (client: 516806)
+    PacketUnitHp(); // 52792F (client: 5167e0)
+    PacketUnitHp(const PacketUnitHp* src); // 52794E (client: 516806)
 public:
     virtual ~PacketUnitHp();  // client: 54bb60
-    virtual Packet* Duplicate() override; // sub_57ADB0 (client: 54bad0)
-    virtual uint32_t GetDataSize() override; // sub_57AE30 (client: 54bb50)
+    virtual Packet* Duplicate() override; // 57ADB0 (client: 54bad0)
+    virtual uint32_t GetDataSize() override; // 57AE30 (client: 54bb50)
 public:
     uint16_t unit_id; // +0xA
     int16_t hp; // +0xC

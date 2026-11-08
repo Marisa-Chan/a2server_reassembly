@@ -416,7 +416,7 @@ void Item::Serialize(CArchive& ar) {
     }
 }
 
-// sub_548860
+// 548860
 int Item::IsSimilar(Item* other) {
     if (this->item_id != other->item_id) {
         return 0;
@@ -717,7 +717,7 @@ Armor::Armor(const Armor* src) : Item(src) {
     this->protections = src->protections;
 }
 
-// sub_54F634
+// 54F634
 void Armor::LoadInfo() {
     this->slot = 0;
     this->world_equip = &g_GameDataRes.armors[this->itemDataID];
@@ -746,7 +746,7 @@ void Armor::LoadInfo() {
     this->item_id = (this->material_id << 12) | (this->slot << 8) | (this->shape_id << 5) | this->itemDataID;
 }
 
-// sub_550E26
+// 550E26
 void Weapon::LoadEquipInfo(WorldEquip* params) {
     MatShape* shape = &g_GameDataRes.shapes[this->shape_id];
     MatShape* mat = &g_GameDataRes.materials[this->material_id];

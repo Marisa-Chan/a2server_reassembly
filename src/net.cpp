@@ -1773,7 +1773,7 @@ int NetStru2::SendData() {
     buffer->CopyData(this->out_buffers + this->out_buff_id);
     buffer->pkt_num = this->out_buffers[this->out_buff_id].pkt_num;
 
-    // inline FUN_00515eb2();
+    // inline 515eb2
     this->out_buff_id = (this->out_buff_id + 1) & 1;
     this->out_buffers[this->out_buff_id].Clear();
 

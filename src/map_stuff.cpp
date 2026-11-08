@@ -536,7 +536,7 @@ void MapStuff::SyncEyeState(Unit* unit) {
     }
 
     if (eye->move_step_total <= eye->move_step_index) {
-        // Inline sub_58FD16: reset subcell position to cell center.
+        // Inline 58FD16: reset subcell position to cell center.
         unit->position->x_subcell = 0x80;
         unit->position->y_subcell = 0x80;
     }
@@ -983,7 +983,7 @@ void MapStuff::ApplyCellState(CellState& cell) { //58b5d6
 
     for (int i = 0; i < 6; i++) {
         if (cell.area_effects[i]) {
-            if (true) { //FUN_0059a050
+            if (true) { // 59a050
                 this->WalkCostAt(pos) *= 4;
             }
         }
