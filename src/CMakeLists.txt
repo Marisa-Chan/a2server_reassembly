@@ -15,6 +15,7 @@ set(A2_SOURCES
   eye.cpp
   file.cpp
   game_app.cpp
+  gameplay.cpp
   gameobj.cpp
   gfx.cpp
   group.cpp
@@ -48,6 +49,7 @@ set(A2_SOURCES
   spell_effect.cpp
   sound.cpp
   table.cpp
+  take_damage.cpp
   token.cpp
   txtfile.cpp
   unit.cpp
