@@ -8,6 +8,7 @@
 #include "vis_core.h"
 #include "gameplay.h"
 #include "take_damage.h"
+#include "vis_menu.h"
 
 // Old transitive dependencies of visual.h, kept explicit so vis_core.h may prune
 // them later without breaking umbrella consumers.
