@@ -379,13 +379,13 @@ int32_t ParseConfig(const char* fname) { // 4f7188
 				// Protocol setting is read but ignored.
 			} else if (lowered.Find("gametype") == 0 && section_name == "settings") {
 				if (value_lowered == "cooperative") {
-					g_ServerConfig.gameType = 0;
+					g_ServerConfig.gameType = GAME_TYPE_COOPERATIVE;
 				} else if (value_lowered == "deathmatch") {
-					g_ServerConfig.gameType = 1;
+					g_ServerConfig.gameType = GAME_TYPE_DEATHMATCH;
 				} else if (value_lowered == "teamplay") {
-					g_ServerConfig.gameType = 2;
+					g_ServerConfig.gameType = GAME_TYPE_TEAMPLAY;
 				} else if (value_lowered == "arena") {
-					g_ServerConfig.gameType = 3;
+					g_ServerConfig.gameType = GAME_TYPE_ARENA;
 				} else {
 					return line_num;
 				}

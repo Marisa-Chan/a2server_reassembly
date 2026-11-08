@@ -1985,7 +1985,7 @@ void MainWindow::IdleLoop() {
                     if (g_ShutdownIn < 6000000 && g_ShutdownIn > 1000) { // > 1 second
                         int32_t tick_interval = this->game_tic_time * 16;
                         if ((g_ShutdownIn % 60000) < tick_interval) {
-                            if (g_ServerConfig.gameType == 0) {
+                            if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE) {
                                 g_NetStru1_main.SendTeamNotify(0x0D, g_ShutdownIn / 1000, nullptr);
                             }
                         }
@@ -1993,7 +1993,7 @@ void MainWindow::IdleLoop() {
                         if (g_ShutdownIn < 60000) {
                             int32_t tick_interval = this->game_tic_time * 16;
                             if ((g_ShutdownIn % 15000) < tick_interval) {
-                                if (g_ServerConfig.gameType == 0) {
+                                if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE) {
                                     g_NetStru1_main.SendTeamNotify(0x0D, g_ShutdownIn / 1000, nullptr);
                                 }
                             }
@@ -2046,14 +2046,14 @@ void MainWindow::IdleLoop() {
                         int32_t tick_interval = this->game_tic_time * 16;
                         
                         if ((time_diff % 60000) < tick_interval) {
-                            if (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3) {
+                            if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE || g_ServerConfig.gameType == GAME_TYPE_ARENA) {
                                 g_NetStru1_main.SendTeamNotify(0x0C, time_diff / 1000, nullptr);
                             }
                         }
                         
                         if (time_diff < 60000) {
                             if ((time_diff % 15000) < tick_interval) {
-                                if (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3) {
+                                if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE || g_ServerConfig.gameType == GAME_TYPE_ARENA) {
                                     g_NetStru1_main.SendTeamNotify(0x0C, time_diff / 1000, nullptr);
                                 }
                             }
@@ -2070,7 +2070,7 @@ void MainWindow::IdleLoop() {
                                 g_ServerConfig.current_map_index = 0;
                             }
                             
-                            if (g_ServerConfig.gameType == 3) {
+                            if (g_ServerConfig.gameType == GAME_TYPE_ARENA) {
                                 g_Server->SendArenaResults();
                             }
                             
@@ -2084,7 +2084,7 @@ void MainWindow::IdleLoop() {
                 // Some kind of timeout?
                 int32_t timeout_threshold = g_ServerConfig.arena_time_limit * 60000;
                 if (timeout_threshold <= g_Server->map_elapsed_time2) {
-                    if (g_ServerConfig.gameType == 3) {
+                    if (g_ServerConfig.gameType == GAME_TYPE_ARENA) {
                         if (g_Server->game_started == 0) {
                             g_Server->ResetArenaRound(2);
                         }

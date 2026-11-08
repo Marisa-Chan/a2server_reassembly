@@ -154,8 +154,8 @@ void UnitList::ProcessTick() {
 						uint8_t x = unit->position->GetX();
 						msg.Format("Player %s killed by %s ID=%d at %d,%d", (const char*)unit->pOwner->name, (const char*)unit->last_hit_by->monster_info->name, unit->last_hit_by->building_id, x, y);
 						LogMessage(msg);
-						if (g_ServerConfig.gameType != 0) {
-							if (g_ServerConfig.gameType == 2 && unit->last_hit_by->pOwner != nullptr) {
+						if (g_ServerConfig.gameType != GAME_TYPE_COOPERATIVE) {
+							if (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY && unit->last_hit_by->pOwner != nullptr) {
 								if (unit->last_hit_by->pOwner->name == "Red" && unit->pOwner->team == 1) {
 									g_Server->ctf_score[0]++;
 								} else if (unit->last_hit_by->pOwner->name == "Blue" && unit->pOwner->team == 0) {
@@ -168,10 +168,10 @@ void UnitList::ProcessTick() {
 								g_Server->ctf_score[unit->pOwner->team]--;
 								unit->pOwner->frags--;
 							}
-							if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
+							if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
 								g_NetStru1_main.SendInfoPacket(KILL_NOTICE, unit->pOwner->player_id, 0xb0000, nullptr);
 								g_NetStru1_main.SendTeamState(0);
-							} else if (g_ServerConfig.gameType == 3 && g_Server->tick > 50) {
+							} else if (g_ServerConfig.gameType == GAME_TYPE_ARENA && g_Server->tick > 50) {
 								g_NetStru1_main.SendInfoPacket(KILL_NOTICE, unit->pOwner->player_id, 0xb0000, nullptr);
 								g_Server->AddArenaFrags(&unit->pOwner->name, -1);
 							}
@@ -185,11 +185,11 @@ void UnitList::ProcessTick() {
 						LogMessage(msg);
 					}
 					unit->last_hit_by = nullptr;
-					if (g_ServerConfig.gameType != 0 && unit->pOwner->is_ai == 0 && g_Server->tick > 50) {
+					if (g_ServerConfig.gameType != GAME_TYPE_COOPERATIVE && unit->pOwner->is_ai == 0 && g_Server->tick > 50) {
 						unit->pOwner->frags--;
 						g_Server->ctf_score[unit->pOwner->team]--;
 						g_NetStru1_main.SendInfoPacket(KILL_NOTICE, unit->pOwner->player_id, 0xc0000, nullptr);
-						if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
+						if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
 							g_NetStru1_main.SendTeamState(0);
 						} else {
 							g_Server->AddArenaFrags(&unit->pOwner->name, -1);
@@ -210,7 +210,7 @@ void UnitList::ProcessTick() {
 						msg.Format("Player %s pkilled by %s at %d,%d", (const char*)unit->pOwner->name, (const char*)unit->last_hit_by->pOwner->name, x, y);
 						LogMessage(msg);
 						uint32_t kill_sphere = 0;
-						if (g_ServerConfig.gameType != 0) {
+						if (g_ServerConfig.gameType != GAME_TYPE_COOPERATIVE) {
 							if ((unit->last_hit_by->unit_attrs & 4) == 0) {
 								kill_sphere = unit->last_hit_by->hit_values.physical_damage_type;
 							} else if (unit->last_hit_spell_id != 0) {
@@ -220,24 +220,24 @@ void UnitList::ProcessTick() {
 						if (g_Server->multiplayer != 0 && kill_sphere != 0) {
 							g_NetStru1_main.SendInfoPacket(KILL_NOTICE, unit->pOwner->player_id, unit->last_hit_by->pOwner->player_id | (kill_sphere << 16), nullptr);
 						}
-						if (g_ServerConfig.gameType == 0) {
+						if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE) {
 							unit->last_hit_by->pOwner->player_kills++;
 						} else {
 							g_Server->ctf_score[unit->last_hit_by->pOwner->team]++;
 							unit->last_hit_by->pOwner->frags++;
-							if (g_ServerConfig.gameType == 1) {
+							if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH) {
 								if (unit->last_hit_by->pOwner->frags < g_ServerConfig.frag_limit) {
 									g_NetStru1_main.SendTeamState(0);
 								} else { 
 									g_Server->SignalGameStart(1);
 								}
-							} else if (g_ServerConfig.gameType == 2) {
+							} else if (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
 								if (g_Server->ctf_score[unit->last_hit_by->pOwner->team] < g_ServerConfig.frag_limit) {
 									g_NetStru1_main.SendTeamState(0);
 								} else {
 									g_Server->SignalGameStart(1);
 								}
-							} else if (g_ServerConfig.gameType == 3 && g_Server->tick > 50) {
+							} else if (g_ServerConfig.gameType == GAME_TYPE_ARENA && g_Server->tick > 50) {
 								g_Server->AddArenaFrags(&unit->last_hit_by->pOwner->name, 1);
 								if (g_ServerConfig.frag_limit <= unit->last_hit_by->pOwner->frags) {
 									g_Server->ResetArenaRound(1);

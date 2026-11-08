@@ -89,7 +89,7 @@ void Inn::InnCreateQuests(Player* player) {
     }
 
     // ---- Early-out conditions ----
-    if (g_ServerConfig.gameType == 3) {
+    if (g_ServerConfig.gameType == GAME_TYPE_ARENA) {
         return;
     }
     if (g_QuestMap.OnEvent(0x11, player->player_id, this->building_id) != 0) {
@@ -959,7 +959,7 @@ void Inn::InnReward(Player* player) {
     }
 
     // --- Phase 9: Experience ---
-    if (g_ServerConfig.gameType == 0) {
+    if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE) {
         Item* experience = new Item();
         experience->item_id = 0xFFFE;
         experience->count = reward / 250;

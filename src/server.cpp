@@ -202,7 +202,7 @@ void Server::AnnounceHatGameStart() {
     if (g_HatLLDriver.IsListen()) {
         NetStru1::HatConnector.SendHatLobbyInfo(-1, this->current_map_title, this->MapLevel, g_ServerConfig.gameType, 0);
     }
-    if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
+    if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
         g_NetStru1_main.SendTeamState(0);
     }
 }
@@ -250,7 +250,7 @@ void Server::ProcessPlayers() {
                     player->mission_result = 0;
 
                     Player* self = g_PlayersList->FindByName("Self");
-                    if (self != nullptr && (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3)) {
+                    if (self != nullptr && (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE || g_ServerConfig.gameType == GAME_TYPE_ARENA)) {
                         for (int32_t i = 2; i < 16; i++) {
                             g_World->diplomacy.diplomacy[i][player->player_id] = g_World->diplomacy.diplomacy[i][self->player_id];
                             g_World->diplomacy.diplomacy[player->player_id][i] = g_World->diplomacy.diplomacy[self->player_id][i];
@@ -357,7 +357,7 @@ void Server::ProcessPlayers() {
 
 // 4F9E55
 void Server::ScanSavedCharacters() {
-    if (g_ServerConfig.gameType != 0) {
+    if (g_ServerConfig.gameType != GAME_TYPE_COOPERATIVE) {
         return;
     }
 
@@ -1572,7 +1572,7 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
     }
 
     // Arena mode: run the arena entry handler for this player.
-    if (g_ServerConfig.gameType == 3) {
+    if (g_ServerConfig.gameType == GAME_TYPE_ARENA) {
         this->HandleArenaPlayer(player);
     }
 
@@ -1601,7 +1601,7 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
 
     // Early-out for some game types.
     if (this->multiplayer != 0 && enter_world != 0) {
-        if (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3) {
+        if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE || g_ServerConfig.gameType == GAME_TYPE_ARENA) {
             // Diplomacy and vision-mask setup with the "Self" map player.
 
             Player* self_player = g_PlayersList->FindByName("Self");
@@ -1626,7 +1626,7 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
                     }
 
                     // Co-op: clear mutual alliance bytes.
-                    if (g_ServerConfig.gameType == 0) {
+                    if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE) {
                         g_World->diplomacy.diplomacy[p_id][player_id] = 0;
                         g_World->diplomacy.diplomacy[player_id][p_id] = 0;
                     }
@@ -1639,8 +1639,8 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
         }
     }
 
-    // Softcore (gameType == 2) team-alliance setup.
-    if (g_ServerConfig.gameType == 2) {
+    // Softcore (GAME_TYPE_TEAMPLAY) team-alliance setup.
+    if (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
         Player* red  = g_PlayersList->FindByName("Red");
         Player* blue = g_PlayersList->FindByName("Blue");
 
@@ -1919,7 +1919,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
     }
 
     // 2. Team play already started?
-    if (g_ServerConfig.gameType == 2 && g_PlayersList->AreTeamsStarted()) {
+    if (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY && g_PlayersList->AreTeamsStarted()) {
         LogMessage("Player " + name + " login " + login + " has been rejected (Team play already started)");
         if (Block != nullptr) {
             delete[] Block;
@@ -2032,7 +2032,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
     }
 
     // Map level range checks.
-    if (g_ServerConfig.gameType == 0 && g_ServerConfig.map_range_check != 0) {
+    if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE && g_ServerConfig.map_range_check != 0) {
         if (this->MapLevel < player->min_server_level) {
             LogMessage("Player " + name + " login " + login + " has been rejected (Too strong for this map)");
             if (player != nullptr) {
@@ -2098,7 +2098,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
     player->is_logged_in = 0;
 
     // Team game flags.
-    if (g_ServerConfig.gameType == 2) {
+    if (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
         player->team_ready = 0;
         player->team = (team_id == 1) ? 1 : 0;
     }
@@ -2139,22 +2139,22 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
             int16_t my_id = player->player_id;
 
             switch (g_ServerConfig.gameType) {
-            case 0:
+            case GAME_TYPE_COOPERATIVE:
                 // Friendly: clear team slot bytes, remove from each other's vision mask
                 g_World->diplomacy.diplomacy[other_id][my_id] = 0;
                 g_World->diplomacy.diplomacy[my_id][other_id] = 0;
                 other->vision_sharing_mask &= (uint16_t)(~player->vision_sharing_id);
                 player->vision_sharing_mask &= (uint16_t)(~other->vision_sharing_id);
                 break;
-            case 1:
-            case 3:
+            case GAME_TYPE_DEATHMATCH:
+            case GAME_TYPE_ARENA:
                 // Deathmatch/arena: mark as enemy (1)
                 g_World->diplomacy.diplomacy[other_id][my_id] = 1;
                 g_World->diplomacy.diplomacy[my_id][other_id] = 1;
                 other->vision_sharing_mask &= (uint16_t)(~player->vision_sharing_id);
                 player->vision_sharing_mask &= (uint16_t)(~other->vision_sharing_id);
                 break;
-            case 2:
+            case GAME_TYPE_TEAMPLAY:
                 // Team play
                 if (player->team == other->team) {
                     // Same team: mark 0x12 (teammate), share vision
@@ -2208,7 +2208,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
     }
 
     // Co-op mode: set starting enchantments.
-    if (g_ServerConfig.gameType == 0) {
+    if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE) {
         uint32_t& enchantments = player->main_unit->enchantments;
         enchantments |= (1u << spell::shield);
         enchantments |= (1u << spell::invisibility);
@@ -2219,7 +2219,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
     }
 
     // Arena mode: name/stat lookup.
-    if (g_ServerConfig.gameType == 3) {
+    if (g_ServerConfig.gameType == GAME_TYPE_ARENA) {
         this->GetArenaFrags(&player->name, &player->frags);
         this->AddArenaFrags(&player->name, 0);
     }
@@ -2233,7 +2233,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
 void Server::SignalGameStart(int32_t start_kind) {
     //4F94C0
     LogMessage("Server::SignalGameStart\n");
-    if ((g_ServerConfig.gameType == 1) || (g_ServerConfig.gameType == 2)) {
+    if ((g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH) || (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY)) {
         g_NetStru1_main.SendTeamState(0);
     }
     g_NetStru1_main.SendInfoPacket(GAME_START, start_kind, 0, nullptr);
@@ -2254,7 +2254,7 @@ ServerConfig::ServerConfig() {
     this->server_name = "unnamed server";
     this->login_timeout = 0x3c;
     this->reconnect_delay = 1;
-    this->gameType = 0;
+    this->gameType = GAME_TYPE_COOPERATIVE;
     this->frag_limit = 0x7fffffff;
     this->map_range_check = 1;
     this->shutdown_delay = 5;
@@ -2522,7 +2522,7 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
         uint8_t* inv_data = inventory->data;
         while (inv_data < inventory->data + inventory->data_size) {
             Item* item = ReadItem(&inv_data);
-            if (g_ServerConfig.gameType == 3 && item->item_id != 0 && item->world_equip != nullptr) {
+            if (g_ServerConfig.gameType == GAME_TYPE_ARENA && item->item_id != 0 && item->world_equip != nullptr) {
                 const auto& name = item->world_equip->name;
                 if (name == "Potion Big Healing" || name == "Potion Medium Healing" || name == "Potion Health Regeneration") {
                     item->item_id = 0;
@@ -2573,7 +2573,7 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
 // Non-admin network commands (available to any connected player):
 //   #set latency <ms>:    clamp the connection latency (50--10000 ms)
 //   #show latency:        reply with current latency and packet-loss stats
-//   #ready:               signal readiness for a team-game start (gameType==2)
+//   #ready:               signal readiness for a team-game start (GAME_TYPE_TEAMPLAY)
 //
 // Cheat (elevated-privilege) commands --- require field_0xa98 > 50, or the player
 // must first authenticate via the coward-activation code:
@@ -2620,7 +2620,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                     g_NetStru1_main.AnnouncePlayerName(cheat_string, player);
                 }
             } else if (cheat_string.Find("#ready") == 0) {
-                if (g_ServerConfig.gameType == 2) {
+                if (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
                     if (g_PlayersList->AreTeamsStarted() == 0 && player->team_ready == 0) {
                         player->team_ready = 1;
                         g_NetStru1_main.SendTeamState(0);
@@ -3031,19 +3031,19 @@ void Server::ProcessClientPacket(Packet* pkt) {
             player->ResetAfkTimer();
             break;
         case GROUP_GATHER:
-            if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
+            if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->OrderGatherLoot(unit);
                 player->ResetAfkTimer();
             }
             break;
         case GROUP_GO_HOME:
-            if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
+            if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupGoHomeCommand(group);
                 player->ResetAfkTimer();
             }
             break;                  
         case GROUP_MOVE:
-            if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
+            if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupMoveCommand(group, x, y);
                 player->ResetAfkTimer();
             }
@@ -3057,21 +3057,21 @@ void Server::ProcessClientPacket(Packet* pkt) {
             player->ResetAfkTimer();
             break;
         case GROUP_ATTACK: // move to building?
-            if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
+            if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupAttackCommand(group, static_cast<Unit*>(target));
                 player->ResetAfkTimer();
             }
             break;
         case GROUP_ATTACK_MOVE: // attack-move to position?
             CheckPacketType(pkt, "PacketGroupOrder");
-            if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
+            if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupAttackMove(group, x, y);
                 player->ResetAfkTimer();
             }
             break;
         case GROUP_ATTACK_TARGET: // attack building?
             CheckPacketType(pkt, "PacketGroupOrder");
-            if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
+            if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupAttackTargetCommand(group, static_cast<Unit*>(target), 0);
                 player->ResetAfkTimer();
             }
@@ -3082,20 +3082,20 @@ void Server::ProcessClientPacket(Packet* pkt) {
             g_World->GroupMoveCommand(group, x, y);
             break;
         case GROUP_PATROL: // patrol?
-            if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
+            if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupPatrolCommand(group, x, y);
                 player->ResetAfkTimer();
             }
             break;
         case GROUP_CAST_UNIT: // cast at unit/building?
-            if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
+            if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupCastAtUnitCommand(group, static_cast<Unit*>(target), cast_spell);
                 player->ResetAfkTimer();
             }
             break;
         case GROUP_CAST_POS: // cast at position?
             CheckPacketType(pkt, "PacketGroupOrder");
-            if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
+            if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 player->ResetAfkTimer();
                 if (cast_spell && cast_spell->IsAreaSpell(packet_order->x, packet_order->y)) {
                     g_World->GroupCastAtPositionCommand(group, x, y, cast_spell);
@@ -3104,7 +3104,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         case GROUP_PICKUP:
             CheckPacketType(pkt, "PacketGroupOrder");
-            if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
+            if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 player->ResetAfkTimer();
                 Sack* sack = MapStuff_Instance->GetSackAt(x, y);
                 if (!sack) {
@@ -3119,7 +3119,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         case GROUP_ENTER_BUILDING:
             CheckPacketType(pkt, "PacketGroupOrder");
-            if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
+            if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 player->ResetAfkTimer();
                 auto* building = this->srv_stru1->building_list->FindById(packet_order->param);
                 if (!building) {
@@ -3134,7 +3134,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
         case SCROLL_CAST_UNIT: // Cast point spell with a scroll.
         case SCROLL_CAST_POS: // Cast area spell with a scroll.
             CheckPacketType(pkt, "PacketGroupOrder");
-            if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
+            if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 player->ResetAfkTimer();
                 auto* item = player->main_unit->inventory->TakeItemAt(packet_order->slot, 1);
                 if (!item || item->_effects.IsEmpty()) {
@@ -3166,7 +3166,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         case GROUP_STOP_AFK:
             g_World->GroupStopCommand(group);
-            if (g_ServerConfig.gameType == 0) {
+            if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE) {
                 player->StartAfkTimer();
             }
             break;
@@ -3307,7 +3307,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 item = shop->BuyItem(human, packet_transfer->param1, packet_transfer->param3);
             } else if (from_type == 1) {
                 // Unequip item from body slot.
-                if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
+                if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
                     break;
                 }
                 int32_t slot = (int16_t)packet_transfer->param1 + 1;
@@ -3636,7 +3636,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
     case SET_DIPLOMACY: // Diplomacy bulk update
         CheckPacketType(pkt, "PacketData");
         {
-            if (!g_World || (g_ServerConfig.gameType != 0 && g_ServerConfig.gameType != 3)) {
+            if (!g_World || (g_ServerConfig.gameType != GAME_TYPE_COOPERATIVE && g_ServerConfig.gameType != GAME_TYPE_ARENA)) {
                 break;
             }
 
@@ -3777,7 +3777,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 break;
             }
 
-            if (g_ServerConfig.gameType == 0 && (player->main_unit->unit_attrs & 8) != 0) {
+            if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE && (player->main_unit->unit_attrs & 8) != 0) {
                 {
                     Effect* eff = new Effect("castSpell=Invisibility:20");
                     eff->itemDataID  = 0xC;
@@ -4360,7 +4360,7 @@ void Server::HatKeepaliveTick() {
     if (tick_count - this->hat_announce_tick > 60000) {
         this->hat_announce_tick = tick_count;
 
-        if (g_PlayersList->CountHumanPlayers() == 0 || g_ServerConfig.gameType != 0) {
+        if (g_PlayersList->CountHumanPlayers() == 0 || g_ServerConfig.gameType != GAME_TYPE_COOPERATIVE) {
             NetStru1::HatConnector.SendHatKeepalive(0);
         } else {
             Player* player = nullptr;
@@ -4733,7 +4733,7 @@ int Server::LoadGame(CString map_name) {
 
     g_QuestMap.RemovePlayerQuests(0);
 
-    if (this->srv1.drop_locations.GetSize() < 3 && g_ServerConfig.gameType == 3) {
+    if (this->srv1.drop_locations.GetSize() < 3 && g_ServerConfig.gameType == GAME_TYPE_ARENA) {
         BuildingsList* building_list = this->srv_stru1->building_list;
         POSITION pos = building_list->GetHeadPosition();
         while (pos != nullptr) {
@@ -4747,7 +4747,7 @@ int Server::LoadGame(CString map_name) {
         }
     }
 
-    if (g_ServerConfig.gameType == 3) {
+    if (g_ServerConfig.gameType == GAME_TYPE_ARENA) {
         this->SetupArenaFileList();
     }
 
@@ -4778,7 +4778,7 @@ void Server::ServerTic() {
     }
 
 #ifndef A2CLIENT
-    if (g_ServerConfig.gameType == 2) {
+    if (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
         int teams_ready = g_PlayersList->AreTeamsStarted();
         if ((this->tick & 0xff) == 0 && teams_ready == 0) {
             POSITION ppos = g_PlayersList->list.GetHeadPosition();
@@ -5139,14 +5139,14 @@ void Server::EnsurePlayerGroup(Player* player) {
 
     uint8_t x = 0;
     uint8_t y = 0;
-    if (this->multiplayer != 0 && player->building_entered_from_yx != 0 && g_ServerConfig.gameType == 0) {
+    if (this->multiplayer != 0 && player->building_entered_from_yx != 0 && g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE) {
         x = player->building_entered_from_yx;
         y = player->building_entered_from_yx >> 8;
     } else {
         CArray<uint16_t>& drop_locations = this->srv1.drop_locations;
         if (drop_locations.GetSize() > 0) {
             int32_t index = Random0N(drop_locations.GetSize() - 1);
-            if (g_ServerConfig.gameType == 2) {
+            if (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
                 index = player->team;
             }
             x = drop_locations[index];
@@ -5220,7 +5220,7 @@ void Server::UpdateHatAnnounce() {
     if (g_HatLLDriver.IsListen()) {
         NetStru1::HatConnector.SendHatLobbyInfo(g_PlayersList->CountHumanPlayers(), this->current_map_title, this->MapLevel, g_ServerConfig.gameType, map_range);
     }
-    if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
+    if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
         g_NetStru1_main.SendTeamState(0);
     }
 }
@@ -5283,7 +5283,7 @@ void Server::OnTeamsReady() {
 
 // 4F9AD3
 void Server::PrepareSackPickup(Sack* sack) {
-    if (g_ServerConfig.gameType != 0) {
+    if (g_ServerConfig.gameType != GAME_TYPE_COOPERATIVE) {
         return;
     }
     if (sack == nullptr || sack->position == nullptr) {
@@ -5309,7 +5309,7 @@ void Server::PrepareSackPickup(Sack* sack) {
 
 // 4F9B9E
 void Server::SaveSack(Sack* sack) {
-    if (g_ServerConfig.gameType != 0) {
+    if (g_ServerConfig.gameType != GAME_TYPE_COOPERATIVE) {
         return;
     }
     if (sack == nullptr || sack->position == nullptr) {
@@ -5337,7 +5337,7 @@ void Server::SaveSack(Sack* sack) {
 
 // 4F950F
 void Server::LoadSavedSacks() {
-    if (g_ServerConfig.gameType != 0 || this->sacks_loaded != 0) {
+    if (g_ServerConfig.gameType != GAME_TYPE_COOPERATIVE || this->sacks_loaded != 0) {
         return;
     }
 
@@ -5939,7 +5939,7 @@ SackList::~SackList() { //554bc3
 // 5540ed
 void SackList::UpdateSackVisibility() {
 #ifndef A2CLIENT
-    const int32_t max_sacks = g_Server->srv1.GetMapCenterX() / (g_ServerConfig.gameType == 0 ? 1 : 8);
+    const int32_t max_sacks = g_Server->srv1.GetMapCenterX() / (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE ? 1 : 8);
 #else
     const int32_t max_sacks = g_Server->srv1.GetMapCenterX();
 #endif
@@ -5990,7 +5990,7 @@ void SackList::UpdateSackVisibility() {
     
     // Random chance to spawn new sacks if count is too low
     if (g_Server->multiplayer != 0 && Random0N(20) == 0) {
-        if (g_ServerConfig.gameType == 0) {
+        if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE) {
             if (this->list.GetCount() < max_sacks) {
                 g_Server->srv1.SpawnRandomSacks(1);
             }
@@ -6195,7 +6195,7 @@ void Server::UpdateMissionResult(Player* player) {
             player->mission_result = 0;
 #ifndef A2CLIENT
             unit->eye2->spell_id = saved_spell_id;
-            if (g_Server->multiplayer != 0 && (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3)) {
+            if (g_Server->multiplayer != 0 && (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE || g_ServerConfig.gameType == GAME_TYPE_ARENA)) {
 #else
             if (g_Server->multiplayer != 0) {
 #endif

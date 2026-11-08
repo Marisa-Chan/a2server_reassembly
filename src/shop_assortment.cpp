@@ -416,7 +416,7 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
             }
         }
 
-        if (g_ServerConfig.gameType != 3) {
+        if (g_ServerConfig.gameType != GAME_TYPE_ARENA) {
             Item* item;
 
             item = new Item("Potion Health Regeneration");

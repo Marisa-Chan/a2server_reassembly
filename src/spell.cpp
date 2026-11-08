@@ -172,7 +172,7 @@ void Spell::SetPower(uint32_t power) {
 
     this->max_range = info.max_range;
     if (this->spell_id == spell::teleport) {
-        int32_t divisor = (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) ? 15 : 3;
+        int32_t divisor = (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) ? 15 : 3;
         this->max_range += power_byte / divisor;
     } else if (this->max_range != 0) {
         this->max_range += power_byte / 30;
@@ -369,7 +369,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
     double power_div_45 = power / 45.0 + 1.0;
 
     // Phase 2: blessed damage multiplier for deathmatch and softcore.
-    if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
+    if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
         if (caster->enchantments & (1u << spell::bless)) {
             this->damage_min *= 4;
             this->damage_spread *= 4;
@@ -397,7 +397,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
 
     // Helper: check if caster is the opposing arena team player (blocks certain spells in PvP).
     auto is_arena_blocked = [&]() -> bool {
-        if (caster->pOwner != nullptr && g_ServerConfig.gameType == 2) {
+        if (caster->pOwner != nullptr && g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
             Player* owner = caster->pOwner;
             int32_t team_idx = 1 - owner->team;
             if (g_Server->ctf_carrying[team_idx] == owner->player_id) {
@@ -435,7 +435,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
             effect = new Effect(this->spell_info->effect);
             effect->usage_type |= 1;
             effect->spell_or_damage = power / 2;
-            if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
+            if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
                 effect->spell_value = power * 16;
             } else {
                 effect->spell_value = std::pow(1.025, power) * info.duration * 16.0;
@@ -513,7 +513,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
         case spell::curse:
             effect = new Effect();
             effect->usage_type |= 1;
-            if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
+            if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
                 effect->spell_or_damage = 0;
                 effect->spell_value = power * 16;
             } else {
@@ -528,7 +528,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
         case spell::slow:
             effect = new Effect(this->spell_info->effect);
             effect->usage_type |= 1;
-            if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
+            if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
                 effect->spell_or_damage = power / 10;
                 effect->spell_value = power * 16;
             } else {
@@ -771,7 +771,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
         case spell::shield:
             effect = new Effect(this->spell_info->effect);
             effect->usage_type |= 1;
-            if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
+            if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
                 effect->spell_or_damage = power * 30 / 100;
                 effect->spell_value = power * 16;
             } else {

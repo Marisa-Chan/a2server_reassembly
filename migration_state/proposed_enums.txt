@@ -1,0 +1,289 @@
+# Enum conversion worklist: magic constants -> named enums
+#
+# Follow-up to the PacketId enum (net.h, commit 52cd447a). Same idea: find a
+# family of raw numeric constants, give every value a name in one enum, replace
+# all usages, verify nothing changed semantically, one family per commit.
+#
+# Every fact below (values, semantics, file anchors, usage counts) was verified
+# against the source on 2026-11-08. Where a value's meaning is marked RESEARCH,
+# do the research before naming it; if you cannot settle it, leave that entry
+# unnamed (raw value + TODO comment) or skip the family - never guess.
+#
+# Work the list top to bottom. Tick families off here when committed.
+
+================================================================================
+GROUND RULES
+================================================================================
+
+1. Build:      `tool/build.ps1` from the repo root. BOTH rea2s.exe and rea2c.exe
+               must link. Filter output for: error | LNK | warning C | rea2s.exe | rea2c.exe
+               (everything else is benign noise).
+2. Commits:    ONE family per commit. Message: "Introduce <EnumName> enum; replace raw constants".
+               Build in one command, commit in a SEPARATE command (never `... && git commit`
+               after a build - a failed build must not be committed).
+3. Enum style: unscoped enum with fixed underlying type, entries ALL_CAPS with
+               underscores, aligned `=` column, one-line comment per entry with
+               known semantics (see enum PacketId in src/net.h for the house style).
+               The underlying type MUST match the field being compared/assigned
+               (int32_t for int fields, uint8_t for byte fields, uint32_t for masks).
+4. Placement:  next to the field it describes (its class header), or in the header
+               owning the protocol concept. Packet-related enums go in src/net.h.
+5. Code style: `this->` for member access, braces on all if/for bodies, no
+               unnecessary casts, keep the original function-address comments.
+6. Do NOT change any behavior. No "fixing" values, no reordering, no extra casts.
+   If a site looks buggy, keep it byte-identical and note it in the commit message
+   or a follow-up TODO.
+
+================================================================================
+GENERAL WORKFLOW (per family)
+================================================================================
+
+1. Inventory: count every raw usage of the family:
+      grep -rnE "<pattern>" src --include=*.cpp --include=*.h | wc -l
+   Record per-value counts BEFORE starting (you will compare after).
+2. Check name collisions BEFORE choosing names:
+      grep -rnE "\b<NAME>\b" src/*.h
+   An enumerator must not share its exact name with a method/function/field of
+   any class whose code mentions it unqualified (see Trap 3).
+3. Write the enum in the right header; build once to see the enum compiles.
+4. Replace usages, file by file. Replace ONLY the constant token in code
+   positions - never inside comments or string literals (see Traps 1-2).
+5. Verify (all three must pass):
+   a) No raw constant of the family remains, except sites listed as EXEMPT:
+          grep -rnE "<raw pattern>" src --include=*.cpp --include=*.h
+   b) Per-value replacement counts match the before-counts (some sites combine
+      two values on one line - count lines, not tokens).
+   c) Full build green (both exes).
+6. Commit. Update the checkbox in this file in the same commit.
+
+================================================================================
+TRAPS (all of these actually happened during the PacketId conversion)
+================================================================================
+
+Trap 1 - STRING LITERALS. A whole-word regex happily renames "GameSpeed" inside
+  RegQueryValueExA(rkey, "GameSpeed", ...). That is a REGISTRY VALUE NAME - the
+  program would silently read a different key. Mask out comments AND string
+  literals before replacing; after replacing, diff all quoted strings against
+  the pre-change commit:
+      git show HEAD~1:src/<file> vs current - the multiset of "..." literals
+  must be identical (write a tiny python checker; single-line pairing only).
+
+Trap 2 - COMMENTS. "case CHAT: // Chat message." - the comment should stay
+  English prose. Replace only the code token.
+
+Trap 3 - MEMBER-NAME COLLISIONS. Enumerator GroupAttackMove coexisted legally
+  with method World::GroupAttackMove; a blind whole-word rename renamed the
+  METHOD and broke the build (caught by compiler) - but the reverse (renaming
+  only some references) can compile and corrupt. Always do the collision grep
+  (workflow step 2) first.
+
+Trap 4 - HEAD TRUNCATION. `grep ... | head -40` hides matches mid-list; the
+  PacketId inventory missed 8 senders that way. Count with `wc -l` and page
+  through everything, or dump to a file.
+
+Trap 5 - MULTI-TOKEN LINES. Lines like `case 0x65: case 0x67: case 0x97:` must
+  keep every label; rewrite token-by-token within the line, never replace the
+  whole line.
+
+Trap 6 - grep on this box is ugrep: patterns starting with `-` need `-E -- "<pat>"`.
+
+================================================================================
+TIER 1 - tiny enums, semantics fully verified (do these first)
+================================================================================
+
+[x] 1. GameType  (~113 comparisons)
+    Field: g_ServerConfig.gameType (int32_t). Values VERIFIED from the server
+    config parser, src/game_app.cpp:382-388 ("cooperative"/"deathmatch"/"teamplay"/"arena").
+    enum GameType : int32_t {
+        GAME_TYPE_COOPERATIVE = 0,
+        GAME_TYPE_DEATHMATCH  = 1,
+        GAME_TYPE_TEAMPLAY    = 2,
+        GAME_TYPE_ARENA       = 3,
+    };
+    Replace: `gameType == N`, `gameType != N`, `gameType==N` comparisons
+    (src/server.cpp, src/unit_list.cpp, src/net.cpp, src/inn.cpp, ...).
+    Also the parser assignments in game_app.cpp may use the names.
+    NOTE: `gameType == 2` is TEAMPLAY (order-blocking gates), not arena.
+
+[ ] 2. SessionMode  (~129 comparisons)
+    Field: MainWindow::sessionMode (src/main_window.h). Values VERIFIED from
+    assignments: 0 = singleplayer; 1 = network client (EnterClientMode,
+    main_window.cpp ~3193); 2 = local battle / saved game (set together with
+    local_game=1 + LoadSavedGame, main_window.cpp:4279 and 5011); 3 = server /
+    dedicated mode (EnterServerMode ~3160, StartHatDedicatedServer ~5470).
+    enum SessionMode : int32_t {
+        SESSION_SINGLEPLAYER = 0,
+        SESSION_CLIENT       = 1,
+        SESSION_LOCAL_BATTLE = 2,   // saved-game battle on the local server
+        SESSION_SERVER       = 3,
+    };
+    Replace `sessionMode == N` / `!= N` / `= N` across src/. For the two mode-2
+    assignment sites, read the surrounding function first to confirm the name
+    LOCAL_BATTLE fits (they are the load-save paths); if in doubt, use
+    SESSION_SAVED_BATTLE - but pick ONE name.
+
+[ ] 3. NetProvider  (~52 comparisons)
+    Field: CLlDriver::provider (src/net.h:674), read via GetProvider().
+    Values VERIFIED from src/net.cpp:2673-2693 (cbEnumConnections maps DirectPlay
+    service-provider GUIDs) and ResetProvider (net.cpp:2781, typ 4 -> CreateTcp):
+        PROVIDER_SERIAL   = 0,   // DirectPlay DPSPGUID_SERIAL
+        PROVIDER_MODEM    = 1,   // DirectPlay DPSPGUID_MODEM
+        PROVIDER_IPX      = 2,   // DirectPlay DPSPGUID_IPX
+        PROVIDER_DP_TCPIP = 3,   // DirectPlay DPSPGUID_TCPIP
+        PROVIDER_HAT_TCP  = 4,   // custom hat TCP stack (client/server internet play)
+    Replace: `provider == N`, `GetProvider() == N`, `ResetProvider(N)` call sites
+    (main_window.cpp:2771 uses 3; 5473/5570/5704 and server.cpp:4478 use 4).
+
+[ ] 4. Difficulty  (~6 comparisons, tiny)
+    Field: Server::difficulty. VERIFIED: default 2 (server.cpp:4944), saved as
+    1..3 (server.cpp:6441), client scaling in ingame.cpp ~632: 1 halves monster
+    hp, 2 no change, 3 adds +50 attack/defense and hp*1.5.
+        DIFFICULTY_EASY   = 1,
+        DIFFICULTY_NORMAL = 2,
+        DIFFICULTY_HARD   = 3,
+    enum Difficulty : int32_t in server.h next to the field.
+
+================================================================================
+TIER 4 - small domain enums, localized (quick; do after Tier 1)
+================================================================================
+
+[ ] 5. ChatType  (server chat relay, src/server.cpp 0x91/CHAT handler ~3940)
+    Byte packet_join->token_id. Semantics already in the handler comments:
+        CHAT_TYPE_REGULAR = 0,   // everyone within chat_range
+        CHAT_TYPE_ALLIES  = 1,   // players with diplomacy bit 2 toward sender
+        CHAT_TYPE_PRIVATE = 2,   // direct message, recipient in player_id byte
+        CHAT_TYPE_YELL    = 3,   // global, shout_cooldown applies
+        CHAT_TYPE_GLOBAL  = 4,   // global broadcast, no cooldown
+    Enum in src/net.h (it is wire protocol). Client side mirrors it in the
+    color switch of the CHAT handler in src/ingame.cpp ~1759.
+
+[ ] 6. ItemTransferType  (src/server.cpp:3256-3258, comments already there)
+    packet_transfer->type (from) and ->subtype (to):
+        from: 1 unequip from body, 2 take from bag, 3 pickup ground sack,
+              4..8 shop-slot sources
+        to:   1 equip, 2 put into bag, 3 drop on ground, 4 sell to shop,
+              4..8 shop-slot destinations
+    The 4..8 "shop slot" sub-values index shop shelves (see Shop::HandleItemOperation,
+    src/shop.cpp) - read it before naming; if per-slot semantics stay unclear,
+    name only 1..3 and leave 4..8 as a documented range check.
+    Enum ItemTransferSlot or two enums (TransferSource/TransferDest) in src/net.h.
+
+[ ] 7. ItemListMode  (PacketUnitStateVec.mode byte, packet id ITEM_LIST)
+    Senders in src/net.cpp: SendMonsterInventory / SendShopShelf /
+    SendShopShelves (modes i+5, i=0..3 => 5..8) / SendShopTable (modes 4 and 9)
+    / equipment lists (mode 1) / inventory updates (mode 2). Client dispatch is
+    the switch on (mode & 0x7f) in src/ingame.cpp ITEM_LIST handler ~1200
+    (1 equipment, 2 inventory, 4/5/6/7/8 shop shelves + related, 9 - read the
+    case body). RESEARCH mode 4 vs 9 in the client handler before naming.
+    Enum ItemListMode : uint8_t in src/packet.h.
+
+[ ] 8. UnitAction  (CUnit::action, client side)
+    Known from the client override-log strings, src/ingame.cpp ~503-527:
+        ACTION_MOVE = 1, ACTION_ATTACK = 3, ACTION_SHOOT = 7, ACTION_CAST = 8
+    Values 0, 5, 6 appear in assignments - RESEARCH each (grep `action = N` and
+    `case N:` in the action animation switch, src/gameobj.cpp ~1500s) before
+    naming; leave unnamed if unclear. Enum in src/gameobj.h next to the field.
+
+[ ] 9. TeamNotifyType  (packet TEAM_NOTIFY, param1)
+    Senders: `SendTeamNotify(N, ...)` in src/server.cpp + src/unit_list.cpp
+    (values 0..10). Meanings readable from the client handler switch in
+    src/ingame.cpp ~1785-1908 (1 trace-only, 2 item/monster notify with
+    text id, 3/4 player-left/kill lines, 5 flagged item, 8 shout cooldown,
+    0x10/0x20/0x40/0x80 client-side kind bits). Name 0..10 from BOTH sides
+    (sender context + client text); skip the 0x10..0x80 bits if unclear.
+    Enum TeamNotifyType : uint32_t in src/net.h.
+
+[ ] 10. SessionError  (global INT_00660f8c)
+    Pattern: INT_00660f8c = 0x1000 | code (codes 4, 5, 8, 0x11 seen; low byte
+    selects a txt_patch/AllLines error line). Inventory with:
+        grep -rn "INT_00660f8c" src
+    RESEARCH each code's text line before naming. Enum SessionError in the
+    header that declares INT_00660f8c. If texts are inconclusive, SKIP.
+
+================================================================================
+TIER 2 - bitflag families (medium effort; highest opacity today)
+================================================================================
+
+[ ] 11. UnitUpdateField  (SendUnitUpdate update_mask, ~90 call sites)
+    Opaque masks everywhere: 0xFFB, 0xffb, 0xFFFFFFFF, 0xA35FFFFF, 0x282000,
+    0x482000, 0x82000, 0x202000, 0x400000, 0x100013, 0x3000C, 0x2400000, ...
+    Bit meanings are documented in the client PacketUnitUpdate handler,
+    src/ingame.cpp ~556-790: 1=hp 2=mp 4=skill levels 8=hp/mp maxima
+    0x10=dir+pos 0x20=type+face 0x40=owner 0x80=serverId 0x100=exp per sphere
+    0x2000=carried weight 0x4000=defense 0x8000=absorb 0x10000=attack
+    0x20000=hand damage 0x40000=scan range 0x80000=speed 0x100000=spells+
+    active spell 0x1000000=magic protections 0x2000000=kill stats.
+    Define bit constants UNIT_UPD_* (uint32_t) in src/net.h, then named
+    combinations for the recurring masks (read the call sites to name them,
+    e.g. 0xFFB = all equip-related fields; verify by decoding the bits).
+    WARNING: the SECOND argument of SendUnitUpdate (equip_mask, also 0xFFB-ish)
+    is a SEPARATE bit space (12 equipment slots, see slot mask math in
+    src/server.cpp 0x22/ITEM_OPERATION handler ~3340) - needs its own
+    EQUIP_SLOT_* family, do not mix.
+
+[ ] 12. DialogMask  (MainWindow::dialogsMask, ~100 uses)
+    Verified so far: bit 1 = in-game/map visible, 2 = shop dialog, 4 = tavern,
+    8 = popup screen, 0x10 = global map, 0x8000 = message-box list,
+    0x4000 = fame hall doc. RESEARCH 0x40 0x80 0x100 0x200 0x400 0x600 0x800
+    from their & / |= sites (src/main_window.cpp, src/visual.cpp) before naming.
+    Constants DIALOG_MASK_* (uint32_t/int) in src/main_window.h.
+    Note `dialogsMask == 1` / `== 0` whole-value tests stay as-is (or gain a
+    named constant DIALOG_MASK_INGAME for bit 1).
+
+[ ] 13. CUnit flag bits  (CUnit::unitFlags, ~35 uses)
+    Known: 0x80 = hidden/out-of-vision (set by UNIT_HIDDEN packet),
+    0x20 = has gold entry in token list, 0x8 = equipment changed (sprite
+    reload), 0x2 = hero/main unit. The 0x11 tests are two bits at once -
+    decode from sites. Constants UNIT_FLAG_* next to the field in the CUnit
+    header (src/gameobj.h). RESEARCH unknown bits from usage; skip unclear.
+
+[ ] 14. Diplomacy bits  (World::diplomacy[][] bytes + client display byte)
+    TWO different bit spaces - do not conflate:
+    a) Server diplomacy byte: 1 = war, 2 = alliance, 0x10 = vision sharing
+       (verified: src/net.cpp SendVisibilityState, src/server.cpp 0x45/
+       SET_DIPLOMACY handler). Bit 4 (0x4) appears in DiplomacyEntry - check.
+       Constants DIPLO_* in the World/diplomacy header (src/world.h).
+    b) Client display byte (diplomacy[] after packet DIPLOMACY_STATE):
+       8 = shared vision, 0x20 / 0x40 = notify bits derived by the server
+       (see SendVisibilityState). Only convert if sites are unambiguous.
+
+================================================================================
+TIER 3 - message-code families (biggest; do last, they need real reading)
+================================================================================
+
+[ ] 15. MainWindow custom messages  (63 case labels in MainWindow::WindowProc,
+         130+ PostMessage/SendMessage sites, range 0x400..0x48E)
+    Every name must be derived from the case body in
+    src/main_window.cpp MainWindow::WindowProc (~2600-3600). Known examples:
+    0x45C = leave to network menu, 0x487 = show hat server list,
+    0x421 = back to main menu, 0x45D/0x45E = building interior close/enter,
+    0x459 = ?, read each body. Enum MainMsg : uint32_t in src/main_window.h.
+    REPLACE ONLY THE CONSTANT - never the semantics of the handler.
+    Do NOT touch real Win32 messages (WM_*, already named).
+
+[ ] 16. Visual-object MsgProc codes  (0x401..0x484, 207 dispatch sites,
+         ~30 distinct values)
+    Internal UI events routed through CVisualObject::MsgProc. Known:
+    0x445 = hide/close-child reply, 0x446 = close child dialog,
+    0x408 = data refresh (char info panels), 0x401 = per-frame tick,
+    0x402 = focus/keys, 0x460 = player roster changed. RESEARCH every value
+    from its handlers (src/visual.cpp, src/ingame.cpp). Enum VisMsg : uint32_t
+    in src/visual.h. Family 15 and 16 are SEPARATE ID spaces - never share names.
+
+================================================================================
+OUT OF SCOPE (do not convert)
+================================================================================
+
+- TxtFile::AllLines / txt_patch line indices (content table indices).
+- g_SfxArray sound indices, color refs (clr_*), MFC dialog item ids,
+  Win32 WM_* messages, PacketId (done), MapChildId / cursor ids (already enums).
+- Anything in src/decomp.c or src/Main.asm (frozen references).
+
+================================================================================
+DEFINITION OF DONE
+================================================================================
+
+- Every checkbox above ticked (or explicitly annotated SKIPPED + reason).
+- All builds green; every family has its own commit; no commit mixes families.
+- Final sweep: for each family, `grep -rnE "<raw pattern>" src` returns only
+  the documented EXEMPT sites.

@@ -119,7 +119,7 @@ void NetStru1::SendExistingPlayers(Player* player) {
 
 		if (p->main_unit != nullptr && p->main_unit->has_flagged_item != 0
 #ifndef A2CLIENT
-			&& g_ServerConfig.gameType == 0
+			&& g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE
 #endif
 		) {
 			g_NetStru1_main.SendTeamNotify(5, p->player_id, player);
@@ -1434,10 +1434,10 @@ void NetStru1::OnClientDisconnect(NetStru2* cli) {
                 pl->Deactivate();
 
                 if (lldriver && lldriver->provider == 4 &&
-                    g_ServerConfig.gameType != 1 &&
-                    g_ServerConfig.gameType != 3 &&
+                    g_ServerConfig.gameType != GAME_TYPE_DEATHMATCH &&
+                    g_ServerConfig.gameType != GAME_TYPE_ARENA &&
                     g_Server->game_started == 0) {
-                    if (g_ServerConfig.gameType == 2) {
+                    if (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
                         if (g_PlayersList->AreTeamsStarted()) {
                             pl->drop_deadline_tick16 = MAXINT32;
                         }
@@ -4782,7 +4782,7 @@ void NetStru1::BroadcastTokenState(Token* token, Player* player, uint8_t flag) {
         packet.type_id = (uint8_t)log10(sack->_exp);
 
 #ifndef A2CLIENT
-        if (g_ServerConfig.gameType == 2) {
+        if (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
             if (sack->inventory->FindItemByName("Quest RuneF")) {
                 packet.type_id |= 0x40;
             }

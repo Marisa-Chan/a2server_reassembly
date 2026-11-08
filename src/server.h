@@ -298,6 +298,13 @@ ASSERT_OFFSET(Server, script_settings, 0x170);
 ASSERT_SIZE(Server, 0x258);
 
 
+enum GameType : uint32_t {
+    GAME_TYPE_COOPERATIVE = 0, // no player-vs-player damage
+    GAME_TYPE_DEATHMATCH  = 1, // everyone is an enemy
+    GAME_TYPE_TEAMPLAY    = 2, // teams (parser value name: teamplay, internally: softcore)
+    GAME_TYPE_ARENA       = 3, // arena with time/score limits
+};
+
 struct ServerConfig {
     uint32_t repop_delay;
     int32_t protocol; // Legacy protocol setting? Unset when reading the config. Only relevant values are 0 and 1. Default: 2.

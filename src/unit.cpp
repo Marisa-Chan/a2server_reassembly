@@ -1030,7 +1030,7 @@ uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
     }
 
     // Target has bless AND is a humanoid -> damage x4??
-    if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
+    if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
         if ((attacker->enchantments & (1u << 0x14)) && attacker->IsHumanoid() != 0) {
             dmg_min *= 4;
             dmg_spread *= 4;
@@ -1275,7 +1275,7 @@ void Unit::PickUpSack(Sack* sack) {
             POSITION cur_node = next_node;
             Item* item = sack->inventory->items.GetNext(next_node);
 
-            if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
+            if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
                 bool apply_buff = false;
 
                 // Check for consumable buff scrolls.
@@ -1311,7 +1311,7 @@ void Unit::PickUpSack(Sack* sack) {
                 }
 
                 // In team mode, discard buff if this player is the current rune-holder.
-                if (g_ServerConfig.gameType == 2 && apply_buff && item != nullptr) {
+                if (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY && apply_buff && item != nullptr) {
                     uint32_t player_id = g_Server->ctf_carrying[1 - this->pOwner->team];
                     if (player_id == this->pOwner->player_id) {
                         apply_buff = false;
@@ -1337,7 +1337,7 @@ void Unit::PickUpSack(Sack* sack) {
                 }
 
                 // Quest rune logic (team deathmatch only).
-                if (g_ServerConfig.gameType == 2 && item != nullptr) {
+                if (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY && item != nullptr) {
                     bool rune_scored = false;
 
                     if (item->world_equip->name.Find("Quest RuneF") != -1) {
@@ -1428,7 +1428,7 @@ void Unit::Die() {
     this->position->y_subcell = 0x80;
 
 #ifndef A2CLIENT
-    if (g_ServerConfig.gameType == 0 || (g_ServerConfig.gameType == 3 && this->typeId >= 0x40)) {
+    if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE || (g_ServerConfig.gameType == GAME_TYPE_ARENA && this->typeId >= 0x40)) {
 #else
     {
 #endif
@@ -1506,8 +1506,8 @@ void Unit::Die() {
         }
     } 
 #ifndef A2CLIENT
-    else if (this->pOwner != nullptr && g_ServerConfig.gameType != 3) {
-        if (g_ServerConfig.gameType == 2) {
+    else if (this->pOwner != nullptr && g_ServerConfig.gameType != GAME_TYPE_ARENA) {
+        if (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
             // Check if this unit's player is holding the opposing team's rune.
             int32_t opposite_team = 1 - this->pOwner->team;
             int32_t rune_holder = g_Server->ctf_carrying[opposite_team];
@@ -2517,7 +2517,7 @@ uint32_t Humanoid::RecalcExperience() {
 
 // 530745
 void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
-    if (g_ServerConfig.gameType != 0) {
+    if (g_ServerConfig.gameType != GAME_TYPE_COOPERATIVE) {
         return;
     }
 
@@ -2736,11 +2736,11 @@ void Humanoid::CopyFrom(Humanoid* other) {
 void Humanoid::ReviveWithPenalty() {
     this->experience = 0;
     for (int32_t i = 1; i < 6; i++) {
-        if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
+        if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
             this->hit_values.skill_levels[i] = 70;
             this->experience_per_sphere[i - 1] = ExperienceTable::GetExp(this->hit_values.skill_levels[i]);
             this->experience += this->experience_per_sphere[i - 1];
-        } else if (g_ServerConfig.gameType == 3) {
+        } else if (g_ServerConfig.gameType == GAME_TYPE_ARENA) {
             this->experience += this->experience_per_sphere[i - 1];
             this->hit_values.skill_levels[i] = ExperienceTable::GetLevel(this->experience_per_sphere[i - 1]);
         } else {

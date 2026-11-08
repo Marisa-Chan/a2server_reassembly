@@ -178,7 +178,7 @@ int PlayersList::CountCD() {
 
 // 53636E
 int PlayersList::AreTeamsStarted() {
-	if (g_ServerConfig.gameType != 2) {
+	if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY) {
 		return 1;
 	}
 
@@ -296,7 +296,7 @@ void PlayersList::ProcessPlayerTimeouts() {
 			}
 
 			// Team mode: handle rune holder leaving.
-			if (g_ServerConfig.gameType == 2) {
+			if (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
 				int32_t opposite_team = 1 - player->team;
 				int32_t rune_holder = g_Server->ctf_carrying[opposite_team];
 				if (rune_holder == player->player_id) {
@@ -336,7 +336,7 @@ void PlayersList::ProcessPlayerTimeouts() {
 			g_Server->UpdateHatAnnounce();
 
 			// Team mode: check if either team is now empty.
-			if (g_ServerConfig.gameType == 2) {
+			if (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
 				int32_t team_counts[2] = {0, 0};
 				for (POSITION pp = this->list.GetHeadPosition(); pp != nullptr;) {
 					Player* p = this->list.GetNext(pp);
