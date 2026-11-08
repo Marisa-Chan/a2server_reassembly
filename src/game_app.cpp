@@ -1129,7 +1129,7 @@ void __cdecl AppFindSavesList(CArray<WIN32_FIND_DATAA>* list, int p) { //43eaa0
 void LogWarning(const CString& msg) { //59b753
 	CString str("WARNING! : ");
 	str += msg;
-	if (g_Server->fog_of_war == 0) {
+	if (g_Server->multiplayer == 0) {
 		g_NetStru1_main.AnnouncePlayerName(str, nullptr);
 	} else {
 		LogMessage(str);

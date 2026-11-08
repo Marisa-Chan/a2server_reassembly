@@ -1143,7 +1143,7 @@ void Inn::UpdateQuests(Unit* unit) {
         }
     }
     this->unit_list.AddTail(unit);
-    if (g_Server->fog_of_war != 0) {
+    if (g_Server->multiplayer != 0) {
         unit->RemoveFromMap();
     }
 }
@@ -1186,7 +1186,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
     }
 
     // Notify if server field is set
-    if (g_Server->fog_of_war != 0) {
+    if (g_Server->multiplayer != 0) {
         humanoid->ReturnToMap();
     }
 

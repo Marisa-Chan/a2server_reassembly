@@ -76,7 +76,7 @@ void Shop::GenerateAssortment() {
 // 544655
 void Shop::AttachUnit(Unit* unit) {
     this->shop_template->OpenShopFor(unit);
-    if (g_Server->fog_of_war != 0) {
+    if (g_Server->multiplayer != 0) {
         unit->RemoveFromMap();
     }
 }
@@ -84,7 +84,7 @@ void Shop::AttachUnit(Unit* unit) {
 // 544685
 void Shop::CloseShop(Unit* unit) {
     this->shop_template->CloseInstance(static_cast<Humanoid*>(unit));
-    if (g_Server->fog_of_war != 0) {
+    if (g_Server->multiplayer != 0) {
         unit->ReturnToMap();
     }
     g_NetStru1_main.BroadcastTokenState(unit, nullptr, 0);

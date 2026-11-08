@@ -222,7 +222,7 @@ void Server::ProcessPlayers() {
                 if (shop != nullptr && shop->shop_template != nullptr) {
                     if (shop->shop_template->FindInstanceFor(player->main_unit) != nullptr) {
                         shop->shop_template->CloseInstance(player->main_unit);
-                        if (this->fog_of_war != 0) {
+                        if (this->multiplayer != 0) {
                             player->main_unit->ReturnToMap();
                         }
                     }
@@ -233,7 +233,7 @@ void Server::ProcessPlayers() {
                     inn->RemoveUnit(player->main_unit, -1);
                 }
 
-                if (player->main_unit->decay != 0 && g_Server->fog_of_war != 0) {
+                if (player->main_unit->decay != 0 && g_Server->multiplayer != 0) {
                     player->respawn_requested = 0;
                     Human* main_unit = player->main_unit;
                     if (main_unit->inventory == nullptr) {
@@ -339,7 +339,7 @@ void Server::ProcessPlayers() {
         }
     }
 
-    if (this->fog_of_war == 0) {
+    if (this->multiplayer == 0) {
         g_PlayersList->next_player_id = 2;
     }
 
@@ -432,8 +432,8 @@ int Srv1::LoadMap(CString map_name) {
         return 1;
     }
 
-    g_Server->fog_of_war = (alm->recommended_player_count > 1) ? 1 : 0;
-    g_Server->is_singleplayer = (g_Server->fog_of_war == 0) ? 1 : 0;
+    g_Server->multiplayer = (alm->recommended_player_count > 1) ? 1 : 0;
+    g_Server->is_singleplayer = (g_Server->multiplayer == 0) ? 1 : 0;
     g_Server->current_map_title = alm->map_name;
     g_Server->MapLevel = alm->map_level;
 
@@ -464,7 +464,7 @@ int Srv1::LoadMap(CString map_name) {
     this->CreateUnits(alm);
 
     Player* self = g_PlayersList->FindByName("Self");
-    if (self != nullptr && g_Server->fog_of_war != 0) {
+    if (self != nullptr && g_Server->multiplayer != 0) {
         POSITION pos2 = g_PlayersList->list.GetHeadPosition();
         while (pos2) {
             Player* player2 = g_PlayersList->list.GetNext(pos2);
@@ -484,7 +484,7 @@ int Srv1::LoadMap(CString map_name) {
     this->LoadTriggers(alm, 1);
     this->LoadSacks(alm);
 
-    if (g_Server->fog_of_war != 0) {
+    if (g_Server->multiplayer != 0) {
         this->SpawnAiGroupOutposts(alm);
     }
 
@@ -492,7 +492,7 @@ int Srv1::LoadMap(CString map_name) {
         delete alm;
     }
 
-    g_Server->use_default_shop = (g_Server->fog_of_war == 0) ? 1 : 0;
+    g_Server->use_default_shop = (g_Server->multiplayer == 0) ? 1 : 0;
 
     return 0;
 }
@@ -740,7 +740,7 @@ void Srv1::CreatePlayers(MapAlm* alm) {
         }
 
         Player* player;
-        if (g_Server->fog_of_war == 0 && i == 1 && g_PlayersList->list.GetCount() == 1) {
+        if (g_Server->multiplayer == 0 && i == 1 && g_PlayersList->list.GetCount() == 1) {
             player = g_PlayersList->list.GetHead();
         } else {
             player = new Player();
@@ -752,7 +752,7 @@ void Srv1::CreatePlayers(MapAlm* alm) {
 
         player->color_slot = player_data->color + 1;
         player->is_ai = 1;
-        if (g_Server->fog_of_war == 0 && i == 1) {
+        if (g_Server->multiplayer == 0 && i == 1) {
             player->is_ai = 0;
         }
         player->quest_ai = (player_data->flags & 2) ? 1 : 0;
@@ -788,7 +788,7 @@ void Srv1::CreateUnits(MapAlm* alm) {
             int32_t idx = g_GameDataRes.FindMonsterByServerId(unit_data->server_id);
             unit = new Unit(g_GameDataRes.monsters[idx].name);
 
-            if (g_Server->difficulty != 2 && g_Server->fog_of_war == 0) {
+            if (g_Server->difficulty != 2 && g_Server->multiplayer == 0) {
                 if (g_Server->difficulty == 1) { // Easy
                     unit->hp_max *= 0.5;
                     unit->hp = unit->hp_max;
@@ -868,7 +868,7 @@ void Srv1::CreateUnits(MapAlm* alm) {
 }
 
 Unit* Srv1::GetScenarioScriptPCUnit(const char* name) { //59d4b8
-    if (g_Server->fog_of_war == 0) {
+    if (g_Server->multiplayer == 0) {
         CString pcname("PC_");
         pcname += name;
 
@@ -891,7 +891,7 @@ Unit* Srv1::GetScenarioScriptPCUnit(const char* name) { //59d4b8
 }
 
 Unit* Srv1::GetScenarioScriptHero(uint32_t idx) { //59d664
-    if (g_Server->fog_of_war == 0) {
+    if (g_Server->multiplayer == 0) {
         Player* first_player = g_PlayersList->GetHead();
         for (POSITION pos = first_player->unit_list->unit_list.GetHeadPosition(); pos != nullptr;) {
             Unit* unit = first_player->unit_list->unit_list.GetNext(pos);
@@ -999,7 +999,7 @@ void Srv1::LoadTriggers(MapAlm* alm, int flag) {
                 Group* group = group_list.GetNext(group_iter);
                 groups_map[group->group_id] = group;
                 
-                if (flag != 0 && g_Server->fog_of_war == 0) {
+                if (flag != 0 && g_Server->multiplayer == 0) {
                     if (player->player_id == 1) {
                         g_World->ProcessAnimateDeadGroup(group);
                     } else {
@@ -1600,7 +1600,7 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
     player->mission_result = 0;
 
     // Early-out for some game types.
-    if (this->fog_of_war != 0 && enter_world != 0) {
+    if (this->multiplayer != 0 && enter_world != 0) {
         if (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3) {
             // Diplomacy and vision-mask setup with the "Self" map player.
 
@@ -1756,7 +1756,7 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
         }
     }
 
-    if (g_Server->fog_of_war != 0) {
+    if (g_Server->multiplayer != 0) {
         g_NetStru1_main.SendSrvStru1State(&g_QuestMap, player, 0);
     }
 
@@ -2355,7 +2355,7 @@ Human* Server::CreatePlayerCharacter(Player* player, uint8_t body, uint8_t react
     }
 
     player->main_unit = unit;
-    if (this->fog_of_war == 0) {
+    if (this->multiplayer == 0) {
         unit->server_id = 21;
     }
 
@@ -2591,7 +2591,7 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
 void Server::CheatCommand(Player* player, CString cheat_string) {
     LogMessage("Server::CheatCommand: player " + player->name + " sent cheat command: " + cheat_string);
 
-    if (this->fog_of_war != 0) {
+    if (this->multiplayer != 0) {
         // Non-admin commands.
         NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(player->player_id);
         if (ns2 == nullptr || ns2->is_local_player == 0) {
@@ -2667,7 +2667,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
     
     bool is_reconnect = player->hat_player_id == 0xF6D04773u && player->flags == 4;
 
-    if (this->fog_of_war != 0 && !is_reconnect) {
+    if (this->multiplayer != 0 && !is_reconnect) {
         return;
     }
 
@@ -3617,7 +3617,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
     case CHEAT_MONEY:
         CheckPacketType(pkt, "PacketDword");
         {
-            if (this->fog_of_war != 0) {
+            if (this->multiplayer != 0) {
                 break;
             }
             player = this->FindPlayerById(packet_dword->from_player_id);
@@ -3629,7 +3629,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
 
     case CHEAT_SHOP:
         CheckPacketType(pkt, "Packet");
-        if (this->fog_of_war == 0) {
+        if (this->multiplayer == 0) {
             g_DefaultShop.GenerateAssortment();
         }
         break;
@@ -3851,7 +3851,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
     case CHEAT_SUMMON:
         CheckPacketType(pkt, "PacketData");
         {
-            if (this->fog_of_war != 0) {
+            if (this->multiplayer != 0) {
                 break;
             }
             player = g_PlayersList->FindById(packet_data->from_player_id);
@@ -4066,7 +4066,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
         return;
     }
 
-    if (name == "Self" && this->fog_of_war == 0) {
+    if (name == "Self" && this->multiplayer == 0) {
         name = g_PlayersList->list.GetHead()->name;
     }
 
@@ -4078,7 +4078,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
         nickname = nickname.Left(pipe_pos);
     }
 
-    if (this->fog_of_war) {
+    if (this->multiplayer) {
         for (int i = 0; i < g_ServerConfig.banned_names.GetSize(); i++) {
             if (nickname == g_ServerConfig.banned_names[i]) {
                 CString str;
@@ -4123,7 +4123,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
         Player* pl = g_PlayersList->list.GetNext(pos);
         if (pl->name == name) {
             if ((pl->hat_player_id != id || pl->flags != arg || g_NetStru1_main.GetClientByPlayerID(pl->player_id) != nullptr) 
-                && this->fog_of_war != 0) {
+                && this->multiplayer != 0) {
                 LogMessage("Warning - other player with same name joined");
 
                 this->JoinErrorSend(client, 3, "This name already used. Try different.");
@@ -4292,7 +4292,7 @@ void Server::JoinErrorSend(NetStru2* client, int32_t error_code, const CString& 
 
 Player* Server::Allods2_CreatePlayer(CString name) {
     Player* player = nullptr;
-    if (this->fog_of_war == 0) {
+    if (this->multiplayer == 0) {
         player = g_PlayersList->FindByName("Self");
     }
 
@@ -4457,10 +4457,10 @@ int Server::Start(int mode) {
     this->base_dir = tmpbuf;
 #endif
 
-    this->fog_of_war = mode < 2;
+    this->multiplayer = mode < 2;
     this->send_full_state = mode > 0;
 
-    if (this->fog_of_war == 0) {
+    if (this->multiplayer == 0) {
         this->save_on_server = 0;
     } else {
         this->save_on_server = 1;
@@ -4535,7 +4535,7 @@ int Server::Start(int mode) {
 // 4EE028 client 4f2c57
 void Server::SaveCharacter(Humanoid* humanoid) {
 #ifdef A2CLIENT
-    if (g_Server->save_on_server || g_Server->fog_of_war == 0)
+    if (g_Server->save_on_server || g_Server->multiplayer == 0)
         return;
 #endif
 
@@ -4698,7 +4698,7 @@ int Server::LoadGame(CString map_name) {
         }
     }
 
-    if (this->fog_of_war != 0) {
+    if (this->multiplayer != 0) {
         dword_6CDB38 = CalcFileChecksum(this->current_map_name);
     }
 
@@ -4917,7 +4917,7 @@ Server::Server()
 
     this->has_world_state = 0;
     this->send_full_state = 0;
-    this->fog_of_war = 0;
+    this->multiplayer = 0;
     this->thread_handle = nullptr;
 
     this->current_map_name = "1.alm";
@@ -5140,7 +5140,7 @@ void Server::EnsurePlayerGroup(Player* player) {
 
     uint8_t x = 0;
     uint8_t y = 0;
-    if (this->fog_of_war != 0 && player->building_entered_from_yx != 0 && g_ServerConfig.gameType == 0) {
+    if (this->multiplayer != 0 && player->building_entered_from_yx != 0 && g_ServerConfig.gameType == 0) {
         x = player->building_entered_from_yx;
         y = player->building_entered_from_yx >> 8;
     } else {
@@ -5892,7 +5892,7 @@ int32_t SackList::DumpInventoryAt(TokenPos* pos, Inventory* inventory, int money
     double new_level = log10((double)sack->_exp);
     if ((double)old_level_trunc != new_level) {
         // Broadcast sack update
-        if (g_Server->fog_of_war == 0) {
+        if (g_Server->multiplayer == 0) {
             g_NetStru1_main.BroadcastTokenState(sack, nullptr, 0);
         } else {
             sack->resend_mask = 0xFFFF;
@@ -5959,7 +5959,7 @@ void SackList::UpdateSackVisibility() {
         sack->seen_by_mask = MapStuff_Instance->scan_presence_grid.sector_grid[1 + (x >> 3)][1 + (y >> 3)];
         
         // If field_0x48 changed and fog of war is enabled, broadcast to newly visible players
-        if (sack->seen_by_mask != sack->seen_by_mask_prev && g_Server->fog_of_war != 0) {
+        if (sack->seen_by_mask != sack->seen_by_mask_prev && g_Server->multiplayer != 0) {
             for (int32_t i = 0; i < 16; i++) {
                 // Check if bit i is set in new mask but not in old mask
                 if ((sack->seen_by_mask & (1 << i)) && !(sack->seen_by_mask_prev & (1 << i))) {
@@ -5978,7 +5978,7 @@ void SackList::UpdateSackVisibility() {
         }
         
         // Check if sack count exceeds limit and remove sacks with `field_0x44 == 0`.
-        if (g_Server->fog_of_war != 0) {
+        if (g_Server->multiplayer != 0) {
             if (this->list.GetCount() > max_sacks && sack->needs_save == 0) {
                 MapStuff_Instance->RemoveSack(sack);
                 g_NetStru1_main.UntrackToken(sack);
@@ -5990,7 +5990,7 @@ void SackList::UpdateSackVisibility() {
     }
     
     // Random chance to spawn new sacks if count is too low
-    if (g_Server->fog_of_war != 0 && Random0N(20) == 0) {
+    if (g_Server->multiplayer != 0 && Random0N(20) == 0) {
         if (g_ServerConfig.gameType == 0) {
             if (this->list.GetCount() < max_sacks) {
                 g_Server->srv1.SpawnRandomSacks(1);
@@ -6057,7 +6057,7 @@ void SpellEffectList::ProcessTick() {
             effect->caster = nullptr;
         }
 
-        if (effect->seen_by_mask != effect->seen_by_mask_prev && effect->IsKindOf(RUNTIME_CLASS(AreaEffect)) && g_Server->fog_of_war != 0) {
+        if (effect->seen_by_mask != effect->seen_by_mask_prev && effect->IsKindOf(RUNTIME_CLASS(AreaEffect)) && g_Server->multiplayer != 0) {
             for (int32_t i = 0; i < 16; i++) {
                 if ((effect->seen_by_mask & (1 << i)) != 0 && (effect->seen_by_mask_prev & (1 << i)) == 0) {
                     Player* player = g_PlayersList->FindById(i + 16);
@@ -6164,7 +6164,7 @@ void Server::UpdateMissionResult(Player* player) {
         if (player->main_unit == nullptr || player->main_unit->decay != 0) {
             player->mission_result = 2;
             g_NetStru1_main.SendInfoPacket(MISSION_RESULT, player->mission_result, 0, player);
-            if (player->is_logged_in != 0 && this->fog_of_war == 0) {
+            if (player->is_logged_in != 0 && this->multiplayer == 0) {
                 g_NetStru1_main.SendInfoPacket(MISSION_RESULT, 0, 0, player);
             }
         } else if (g_World->mission_fail > 0) {
@@ -6179,7 +6179,7 @@ void Server::UpdateMissionResult(Player* player) {
             player->mission_result = 1;
         }
     } else {
-        if (this->fog_of_war != 0 && player->is_active != 0 && player->main_unit->hp <= -40 && player->respawn_requested != 0) {
+        if (this->multiplayer != 0 && player->is_active != 0 && player->main_unit->hp <= -40 && player->respawn_requested != 0) {
             player->respawn_requested = 0;
             Humanoid* unit = player->main_unit;
             if (unit->inventory == nullptr) {
@@ -6196,9 +6196,9 @@ void Server::UpdateMissionResult(Player* player) {
             player->mission_result = 0;
 #ifndef A2CLIENT
             unit->eye2->spell_id = saved_spell_id;
-            if (g_Server->fog_of_war != 0 && (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3)) {
+            if (g_Server->multiplayer != 0 && (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3)) {
 #else
-            if (g_Server->fog_of_war != 0) {
+            if (g_Server->multiplayer != 0) {
 #endif
                 Player* self_player = g_PlayersList->FindByName("Self");
                 if (self_player != nullptr) {
@@ -6359,7 +6359,7 @@ void Server::SaveGame(CString* filename) {
     delete[] out_buf;
 
     uint32_t end_pos = file.GetPosition();
-    if (this->fog_of_war != 0) {
+    if (this->multiplayer != 0) {
         char footer[0x100];
         memset(footer, 0, sizeof(footer));
         memcpy(footer, "Server Multiplayer save file.", 30);

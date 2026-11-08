@@ -213,7 +213,7 @@ public:
     int32_t tick;
     CowardActivation coward_activation;
     int32_t send_full_state;
-    int32_t fog_of_war; // Is server flag?
+    int32_t multiplayer; // Is server flag?
     CString base_dir;
     SrvStru1* srv_stru1;
     uint8_t gap_0x80[8];

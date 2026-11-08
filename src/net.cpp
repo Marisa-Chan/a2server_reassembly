@@ -369,7 +369,7 @@ void NetStru1::SendPendingUnits(Player* player) {
             if (unit->ownership_changed != 0) {
                 flags |= 0x40;
             }
-            if (g_Server->fog_of_war == 0 && 0x16 <= unit->server_id && unit->server_id <= 0x17) {
+            if (g_Server->multiplayer == 0 && 0x16 <= unit->server_id && unit->server_id <= 0x17) {
                 flags |= 0x200000;
             }
             g_NetStru1_main.SendUnitUpdate(unit, player, flags, 0xFFB, 0, 0);
@@ -484,7 +484,7 @@ void NetStru1::SendUnitVisibility(Unit* unit, int32_t flag, Player* player) {
 
     if (player != nullptr) {
         packet.to_player_id = player->player_id;
-        if (g_Server->fog_of_war != 0) {
+        if (g_Server->multiplayer != 0) {
             if ((unit->seen_by_mask & player->vision_sharing_id) == 0) {
                 int32_t pid = player->player_id;
                 if (pid >= 0x10 && pid < 0x20) {
@@ -506,7 +506,7 @@ void NetStru1::SendUnitVisibility(Unit* unit, int32_t flag, Player* player) {
             continue;
         }
         packet.to_player_id = p->player_id;
-        if (g_Server->fog_of_war != 0) {
+        if (g_Server->multiplayer != 0) {
             if ((unit->seen_by_mask & p->vision_sharing_id) == 0) {
                 int32_t pid = p->player_id;
                 if (pid >= 0x10 && pid < 0x20) {
@@ -739,7 +739,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
 
     // Check unit visibility to this player (unit->field_0x1a4 & player->vision_sharing_id).
     if (!(unit->seen_by_mask & player->vision_sharing_id)) {
-        if (g_Server->fog_of_war != 0) {
+        if (g_Server->multiplayer != 0) {
             int16_t pid = player->player_id;
             if (pid >= 0x10 && pid < 0x20) {
                 unit->something_per_player[pid - 16] |= mask;
@@ -764,7 +764,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
             if (unit->server_id > 20) {
                 mask &= 0x800000db;
             }
-        } else if (g_Server->fog_of_war != 0) {
+        } else if (g_Server->multiplayer != 0) {
             mask &= ~0x80;
         }
 
@@ -773,7 +773,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
 
             int32_t max_hp = unit->monster_info->Values()[0].health_max;
 
-            if (g_Server->fog_of_war == 0) {
+            if (g_Server->multiplayer == 0) {
                 if (g_Server->difficulty == 1) {
                     max_hp = (int32_t)((double)max_hp * 0.5);
                 } else if (g_Server->difficulty == 3) {
@@ -796,7 +796,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
                 }
             }
         }
-        if (g_Server->fog_of_war != 0) {
+        if (g_Server->multiplayer != 0) {
             mask &= ~0x80;
         }
     }
@@ -911,7 +911,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
     // bit 0x2000000: battle stats (owner only).
     if (mask & 0x2000000) {
         Player* owner = unit->pOwner;
-        if (g_Server->fog_of_war == 0 || owner == nullptr || player != owner || owner->main_unit != unit) {
+        if (g_Server->multiplayer == 0 || owner == nullptr || player != owner || owner->main_unit != unit) {
             mask &= ~0x2000000;
         } else {
             pkt->PutInt(0x2000000, owner->monster_kills);
@@ -1412,7 +1412,7 @@ void NetStru1::OnClientDisconnect(NetStru2* cli) {
                 pl->drop_deadline_tick16 = g_Server->tick16 + 300;
             }
 
-            if (!MapStuff_Instance && g_Server->fog_of_war) {
+            if (!MapStuff_Instance && g_Server->multiplayer) {
                 this->SendInfoPacket(PLAYER_LEFT, pl->player_id, 0, nullptr);
                 LogMessage("Player " + pl->name + " disconnected.");
 
@@ -1445,7 +1445,7 @@ void NetStru1::OnClientDisconnect(NetStru2* cli) {
                         pl->drop_deadline_tick16 = g_Server->tick16 + 300;
                     }
                 }
-                if (!MapStuff_Instance && g_Server->fog_of_war) {
+                if (!MapStuff_Instance && g_Server->multiplayer) {
                     this->SendInfoPacket(PLAYER_LEFT, pl->player_id, 0, nullptr);
                     LogMessage("Player " + pl->name + " has disconnected and leaved game.");
 
@@ -4177,7 +4177,7 @@ int32_t CLlDriver::GetPacketLoss(uint32_t conn_uid) {
 // Helper: check if a map visibility grid cell is visible to a player.
 // Returns true if player can see the position, or fog is disabled, or map is null.
 bool IsVisibleTo(TokenPos* pos, Player* player) {
-    if (MapStuff_Instance == nullptr || g_Server->fog_of_war == 0) {
+    if (MapStuff_Instance == nullptr || g_Server->multiplayer == 0) {
         return true;
     }
 
@@ -4207,7 +4207,7 @@ void MarkUnitHiddenForPlayer(PacketMoveBroadcast* packet, Player* player) {
 void NetStru1::SendUnitAction(Packet* packet, Unit* unit) {
     if (packet->to_player_id != 0) {
         Player* player = g_PlayersList->FindById(packet->to_player_id);
-        if ((unit->seen_by_mask & player->vision_sharing_id) == 0 && g_Server->fog_of_war != 0) {
+        if ((unit->seen_by_mask & player->vision_sharing_id) == 0 && g_Server->multiplayer != 0) {
             int32_t pid = player->player_id;
             if (pid >= 0x10 && pid < 0x20 && packet->id == UNIT_MOVE &&
                 (unit->something_per_player[pid - 0x10] & 0x40000000) == 0) {
@@ -4226,7 +4226,7 @@ void NetStru1::SendUnitAction(Packet* packet, Unit* unit) {
         if (!player->is_active) {
             continue;
         }
-        if ((unit->seen_by_mask & player->vision_sharing_id) == 0 && g_Server->fog_of_war != 0) {
+        if ((unit->seen_by_mask & player->vision_sharing_id) == 0 && g_Server->multiplayer != 0) {
             int32_t pid = player->player_id;
             if (pid >= 0x10 && pid < 0x20 && packet->id == UNIT_MOVE &&
                 (unit->something_per_player[pid - 0x10] & 0x40000000) == 0) {
@@ -4271,7 +4271,7 @@ void NetStru1::BroadcastMovePacket(PacketMoveBroadcast* packet, TokenPos* pos) {
 void NetStru1::BroadcastAoeZone(PacketAoeZone* packet, AreaEffect* area_effect) {
     if (packet->to_player_id != 0) {
         Player* player = g_PlayersList->FindById(packet->to_player_id);
-        if ((area_effect->seen_by_mask & player->vision_sharing_id) != 0 || g_Server->fog_of_war == 0) {
+        if ((area_effect->seen_by_mask & player->vision_sharing_id) != 0 || g_Server->multiplayer == 0) {
             this->QueuePacketSend(packet);
         } else {
             auto pid = player->player_id;
@@ -4292,7 +4292,7 @@ void NetStru1::BroadcastAoeZone(PacketAoeZone* packet, AreaEffect* area_effect) 
         if (!player->is_active) {
             continue;
         }
-        if ((area_effect->seen_by_mask & player->vision_sharing_id) != 0 || g_Server->fog_of_war == 0) {
+        if ((area_effect->seen_by_mask & player->vision_sharing_id) != 0 || g_Server->multiplayer == 0) {
             packet->to_player_id = player->player_id;
             this->QueuePacketSend(packet);
         } else {
@@ -4754,7 +4754,7 @@ void NetStru1::BroadcastTokenState(Token* token, Player* player, uint8_t flag) {
     if (token->IsUnit()) {
         Unit* unit = static_cast<Unit*>(token);
         if (flag == UNIT_DAMAGED) {
-            if (!(unit->seen_by_mask & player->vision_sharing_id) && g_Server->fog_of_war != 0) {
+            if (!(unit->seen_by_mask & player->vision_sharing_id) && g_Server->multiplayer != 0) {
                 int32_t pid = player->player_id;
                 if (0x10 <= pid && pid < 0x20) {
                     unit->something_per_player[pid - 0x10] |= 1;
@@ -4792,7 +4792,7 @@ void NetStru1::BroadcastTokenState(Token* token, Player* player, uint8_t flag) {
         }
 #endif
 
-        if (g_Server->fog_of_war != 0) {
+        if (g_Server->multiplayer != 0) {
             if (!IsVisibleTo(sack->position, player)) {
                 return;
             }

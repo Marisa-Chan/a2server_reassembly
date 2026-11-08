@@ -208,7 +208,7 @@ void __cdecl ExecuteRangedAttack(Unit* self, Unit* target) {
 // 530DCB
 uint32_t __cdecl sub_530DCB(uint32_t experience, int32_t skill_level) {
     int32_t max_gain = ExperienceTable::GetExp(skill_level + 1) - ExperienceTable::GetExp(skill_level);
-    if (g_Server->fog_of_war != 0) {
+    if (g_Server->multiplayer != 0) {
         max_gain /= 5;
     }
     if (max_gain < (int32_t)experience) {
@@ -737,7 +737,7 @@ void Unit::ProcessEffects() {
         return;
     }
 
-    if (g_Server && g_Server->fog_of_war) {
+    if (g_Server && g_Server->multiplayer) {
         if (this->pOwner && this == this->pOwner->main_unit && this->GetTicksSinceAction() == 0x50) {
             g_NetStru1_main.SendUnitUpdate(this, nullptr, 0x10, 0xffb, 0, 0);
         }
@@ -1151,7 +1151,7 @@ uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
             }
         }
         if (attacker->pOwner != nullptr && this->pOwner != nullptr) {
-            if (g_Server->fog_of_war == 0 || attacker->pOwner->is_ai == 0 || this->pOwner->is_ai != 0) {
+            if (g_Server->multiplayer == 0 || attacker->pOwner->is_ai == 0 || this->pOwner->is_ai != 0) {
                 g_World->RecordUnitHit(attacker, this, 0);
             }
         }
@@ -1570,7 +1570,7 @@ void Unit::Die() {
     }
 
     // Respawn notification for player character types (typeId 0x21-0x3F).
-    if (!g_Server->fog_of_war && this->pOwner != nullptr && !this->pOwner->is_ai && 0x21 <= this->typeId && this->typeId <= 0x3F) {
+    if (!g_Server->multiplayer && this->pOwner != nullptr && !this->pOwner->is_ai && 0x21 <= this->typeId && this->typeId <= 0x3F) {
         this->pOwner->mission_result = (uint8_t)(this->server_id - 0x13);
         g_NetStru1_main.SendInfoPacket(MISSION_RESULT, this->pOwner->mission_result, 0, this->pOwner);
     }
@@ -1865,7 +1865,7 @@ int Unit::PlaceOnMap(uint8_t x, uint8_t y, uint8_t size) {
         uint8_t try_x = x - radius + Random0N(size);
         this->position->ClampToMap(try_x, try_y);
         uint8_t gy = this->position->GetY();
-        if (gy > 11 || g_Server->fog_of_war == 0) { // WAT: why don't we allow placing units at `y <= 11`?
+        if (gy > 11 || g_Server->multiplayer == 0) { // WAT: why don't we allow placing units at `y <= 11`?
             if (MapStuff_Instance->CanPlaceUnit(this)) {
                 placed = true;
                 break;
@@ -1880,7 +1880,7 @@ int Unit::PlaceOnMap(uint8_t x, uint8_t y, uint8_t size) {
         int32_t y_end = y + radius;
         for (int32_t tx = x_start; tx <= x_end; tx++) {
             for (int32_t ty = y_start; ty <= y_end; ty++) {
-                if (ty > 11 || g_Server->fog_of_war == 0) {
+                if (ty > 11 || g_Server->multiplayer == 0) {
                     this->position->ClampToMap((uint8_t)tx, (uint8_t)ty);
                     if (MapStuff_Instance->CanPlaceUnit(this)) {
                         placed = true;
@@ -2340,7 +2340,7 @@ void Humanoid::UnequipAll() {
 
 // 53111b
 void Humanoid::AwardKillMoney(Unit* unit) {
-    if (g_Server->fog_of_war == 0) {
+    if (g_Server->multiplayer == 0) {
         return;
     }
     if (unit->IsHumanoid() != 0) {
@@ -2634,7 +2634,7 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
     }
 
     // Trigger periodic save when XP is gained in tournament mode.
-    if (new_exp != 0 && g_Server->fog_of_war != 0 && GetTickCount() - this->pOwner->last_save_tick > 15000) {
+    if (new_exp != 0 && g_Server->multiplayer != 0 && GetTickCount() - this->pOwner->last_save_tick > 15000) {
         g_Server->SaveCharacter(this);
     }
 }

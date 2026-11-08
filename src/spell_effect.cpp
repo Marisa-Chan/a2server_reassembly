@@ -279,7 +279,7 @@ void AreaEffect::DamageUnit(Unit* unit) {
 	}
 
 	if (this->caster->pOwner != nullptr && unit->pOwner != nullptr) {
-		if (g_Server->fog_of_war == 0 || !this->caster->pOwner->is_ai || unit->pOwner->is_ai) {
+		if (g_Server->multiplayer == 0 || !this->caster->pOwner->is_ai || unit->pOwner->is_ai) {
 			g_World->RecordUnitHit(this->caster, unit, 1);
 		}
 	}

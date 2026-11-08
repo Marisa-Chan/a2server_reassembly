@@ -254,7 +254,7 @@ int32_t CMultiShopInstance::StowItemInShelf(Item* item, int32_t dst_slot) {
 
     if (item->shelf_id == 0) {
         AssortGenParams* params;
-        if (g_Server->fog_of_war != 0) {
+        if (g_Server->multiplayer != 0) {
             params = this->shop_template->shop->gen_params;
         } else {
             params = ScenarioGetShopAssortment();
@@ -460,7 +460,7 @@ void CMultiShopTemplate::GenerateAssortment() {
     ShopAssortment assort;
     this->ClearShelves();
     AssortGenParams* params;
-    if (g_Server->fog_of_war == 0) {
+    if (g_Server->multiplayer == 0) {
         params = ScenarioGetShopAssortment();
     } else {
         params = this->shop->gen_params;
@@ -531,7 +531,7 @@ void CMultiShopTemplate::CloseInstance(Humanoid* humanoid) {
 
 // 547DD4
 void CMultiShopTemplate::RefreshTick() {
-    if (g_Server->fog_of_war == 0) {
+    if (g_Server->multiplayer == 0) {
         return;
     }
     if (g_Server->tick16 % 180 == 0) {

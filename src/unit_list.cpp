@@ -96,7 +96,7 @@ void UnitList::ProcessTick() {
 		}
 
 		// Send knowledge flag updates to players when visibility tracking diverges
-		if (unit->seen_by_mask != unit->seen_by_mask_prev && g_Server->fog_of_war != 0) {
+		if (unit->seen_by_mask != unit->seen_by_mask_prev && g_Server->multiplayer != 0) {
 			for (int i = 0; i < 16; i++) {
 				if ((unit->seen_by_mask & (1 << i)) != 0 && (unit->seen_by_mask_prev & (1 << i)) == 0) {
 					Player* player = g_PlayersList->FindById(i + 16);
@@ -217,7 +217,7 @@ void UnitList::ProcessTick() {
 								kill_sphere = g_GameDataRes.spells.ElementAt(unit->last_hit_spell_id).Values().GetData()->sphere + 5;
 							}
 						}
-						if (g_Server->fog_of_war != 0 && kill_sphere != 0) {
+						if (g_Server->multiplayer != 0 && kill_sphere != 0) {
 							g_NetStru1_main.SendInfoPacket(KILL_NOTICE, unit->pOwner->player_id, unit->last_hit_by->pOwner->player_id | (kill_sphere << 16), nullptr);
 						}
 						if (g_ServerConfig.gameType == 0) {
@@ -297,7 +297,7 @@ void UnitList::SendVisibilityUpdates() {
 		Unit* unit = this->unit_list.GetNext(it);
 
 		// Update the unit for a player if visibility tracking diverges
-		if (unit->seen_by_mask != unit->seen_by_mask_prev && g_Server->fog_of_war != 0) {
+		if (unit->seen_by_mask != unit->seen_by_mask_prev && g_Server->multiplayer != 0) {
 			for (int32_t i = 0; i < 16; i++) {
 				if ((unit->seen_by_mask & (1 << i)) != 0 && (unit->seen_by_mask_prev & (1 << i)) == 0) {
 					Player* player = g_PlayersList->FindById(i + 16);

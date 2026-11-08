@@ -25,7 +25,7 @@ void PlayersList::AddPlayer(Player* player) {
 
 	// AI players start at 1, human players start at 16.
 	int32_t new_id = 1;
-	if (!player->is_ai && g_Server->fog_of_war != 0 && player->name != "Self") {
+	if (!player->is_ai && g_Server->multiplayer != 0 && player->name != "Self") {
 		new_id = 16;
 	}
 
@@ -240,7 +240,7 @@ void PlayersList::ProcessPlayerTimeouts() {
 		if (0 < player->drop_deadline_tick16 && player->drop_deadline_tick16 < g_Server->tick16) {
 			if (player->is_in_world != 0) {
 				// Tournament mode: save player's main unit.
-				if (g_Server->fog_of_war != 0 && player->main_unit != nullptr) {
+				if (g_Server->multiplayer != 0 && player->main_unit != nullptr) {
 					g_Server->SaveCharacter(player->main_unit);
 				}
 
@@ -376,7 +376,7 @@ void PlayersList::ProcessPlayerTimeouts() {
 		if (0 < player->drop_deadline_tick16 && player->drop_deadline_tick16 < g_Server->tick16) {
 			if (player->is_in_world != 0) {
 				// Tournament mode: save player's main unit.
-				if (g_Server->fog_of_war != 0 && player->main_unit != nullptr) {
+				if (g_Server->multiplayer != 0 && player->main_unit != nullptr) {
 					g_Server->SaveCharacter(player->main_unit);
 				}
 
