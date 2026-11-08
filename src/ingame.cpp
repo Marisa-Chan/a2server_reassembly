@@ -501,23 +501,23 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			} else {
 				if (unit->action_segments) {
 					switch (unit->action) {
-					case 1:
+					case ACTION_MOVE:
 						sprintf(buf, "Overriding \'Move\' by \'Move\'. %d segments lost.", unit->action_segments);
 						break;
 
-					case 3:
+					case ACTION_ATTACK:
 						sprintf(buf, "Overriding \'Attack\' by \'Move\'. %d segments lost.", unit->action_segments);
 						break;
 
-					case 5:
+					case ACTION_TURN:
 						buf[0] = 0;
 						break;
 
-					case 7:
+					case ACTION_SHOOT:
 						sprintf(buf, "Overriding \'Shoot\' by \'Move\'. %d segments lost.", unit->action_segments);
 						break;
 
-					case 8:
+					case ACTION_CAST:
 						sprintf(buf, "Overriding \'Cast\' by \'Move\'. %d segments lost.", unit->action_segments);
 						break;
 
@@ -533,7 +533,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 				if (unit->hp > 0) {
 					unit->action_segments = packet_action->segments;
-					unit->action = 1;
+					unit->action = ACTION_MOVE;
 					unit->action_dir = packet_action->angle;
 					unit->action_x = g_ActionDirDx[unit->action_dir] << 8;
 					unit->action_y = g_ActionDirDy[unit->action_dir] << 8;
@@ -909,7 +909,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						switch (ct->death_state) {
 						case 0:
 							if (sval != 0) {
-								ct->action = 0;
+								ct->action = ACTION_NONE;
 								if (ct->unitFlags & 1) {
 									ct->ReloadSprite();
 								}
@@ -920,7 +920,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							if (sval == 0) {
 								UnitVFXUnfo* dying = g_VFX_info[ g_VFX_info[ct->typeId]->dying ];
 								ct->action_segments = dying->dying_phases * 2;
-								ct->action = 6;
+								ct->action = ACTION_DIE;
 								ct->action_dir = ct->dir;
 								ct->action_phase = 0;
 								ct->move_accum_y = 0;
@@ -932,7 +932,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							} else if (sval == 1) {
 								UnitVFXUnfo* dying = g_VFX_info[g_VFX_info[ct->typeId]->dying];
 								ct->action_segments = 4;
-								ct->action = 6;
+								ct->action = ACTION_DIE;
 								ct->action_dir = ct->dir;
 								ct->action_phase = dying->dying_phases * 2 - 4;
 								ct->move_accum_y = 0;
@@ -1041,7 +1041,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				}
 				if (ct->hp > 0) {
 					ct->action_segments = packet_action->segments;
-					ct->action = 5;
+					ct->action = ACTION_TURN;
 					ct->action_dir = packet_action->angle;
 					ct->turn_angle = ct->dir * 16;
 					ct->action_phase = 0;
@@ -1064,7 +1064,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					UnitVFXUnfo* vfx = g_VFX_info[ct->typeId];
 					if (vfx->attack_phases != 0 && ct->hp > 0) {
 						ct->action_segments = vfx->attack_anim_frame_cnt;
-						ct->action = 3;
+						ct->action = ACTION_ATTACK;
 						ct->action_dir = packet_action->angle;
 						ct->action_phase = 0;
 						ct->move_accum_y = 0;
@@ -1112,7 +1112,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				}
 			} else if (ct->action_segments == 0 && ct->hp > 0) {
 				ct->action_segments = g_VFX_info[ct->typeId]->attack_anim_frame_cnt;
-				ct->action = 7;
+				ct->action = ACTION_SHOOT;
 				ct->action_phase = 0;
 				ct->move_accum_y = 0;
 				ct->move_accum_x = 0;
@@ -1539,7 +1539,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					}
 				} else if (ct->action_segments == 0 && g_VFX_info[ct->typeId]->attack_phases != 0) {
 					ct->action_segments = g_VFX_info[ct->typeId]->attack_anim_frame_cnt;
-					ct->action = 8;
+					ct->action = ACTION_CAST;
 					ct->action_phase = 0;
 
 					if (packet_move->type_id < g_ProjectileInfos.GetSize() && g_ProjectileInfos[packet_move->type_id] != nullptr) {
@@ -1572,7 +1572,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				pj->action_phase = -1;
 				pj->map_player = this->my_main_unit;
 				pj->action_segments = packet_move->segments;
-				pj->action = 1;
+				pj->action = ACTION_MOVE;
 				pj->pMapObject = this;
 
 				pj->UpdateMapPosition();
@@ -1645,7 +1645,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			this->objects.Lookup(packet_terrain->buf[0], ct);
 			if (ct->action_segments == 0 && g_VFX_info[ct->typeId]->attack_phases != 0) {
 				ct->action_segments = g_VFX_info[ct->typeId]->attack_anim_frame_cnt;
-				ct->action = 8;
+				ct->action = ACTION_CAST;
 				ct->action_phase = 0;
 
 				ct->actionTargets.RemoveAll();
@@ -1683,7 +1683,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			pj->action_phase = -1;
 			pj->map_player = this->my_main_unit;
 			pj->action_segments = packet_move->segments;
-			pj->action = 1;
+			pj->action = ACTION_MOVE;
 			pj->pMapObject = this;
 
 			pj->UpdateMapPosition();
@@ -1725,7 +1725,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			pj->action_phase = -1;
 			pj->map_player = this->my_main_unit;
 			pj->action_segments = 13;
-			pj->action = 1;
+			pj->action = ACTION_MOVE;
 			pj->pMapObject = this;
 
 			pj->UpdateMapPosition();
@@ -3087,7 +3087,7 @@ void BigStruct2::CleanupCompletedMissionMapState() { //41ce5a
 			CUnit* uni = (CUnit*)obj;
 			if ((uni->unitFlags & 1) != 0 && uni->hp >= -10 && uni->map_player == this->my_main_unit) {
 				uni->death_state = 0;
-				uni->action = 0;
+				uni->action = ACTION_NONE;
 				uni->action_segments = 0;
 				uni->SetSelected(0);
 			} else {
@@ -4089,7 +4089,7 @@ void BigStruct2::SendGroupMove(uint16_t x, uint16_t y) {
 	}
 	g_NetStru1_local.QueuePacketSend(pkt);
 	CUnit* unit = this->PickVoiceUnit();
-	if (unit != nullptr && unit->last_action != 1) {
+	if (unit != nullptr && unit->last_action != ACTION_MOVE) {
 		unit->PlayMoveVoice();
 	}
 }
@@ -4139,7 +4139,7 @@ void BigStruct2::SendGroupAttackMove(uint16_t x, uint16_t y) {
 	}
 	g_NetStru1_local.QueuePacketSend(pkt);
 	CUnit* unit = this->PickVoiceUnit();
-	if (unit != nullptr && unit->last_action != 1) {
+	if (unit != nullptr && unit->last_action != ACTION_MOVE) {
 		unit->PlaySwarmVoice();
 	}
 }

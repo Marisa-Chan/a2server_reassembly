@@ -69,8 +69,8 @@ CGameObject::CGameObject() {
     this->m_bSelected = 0;
     this->bIsBlocked = 0;
     this->action_segments = 0;
-    this->last_action = 0;
-    this->action = 0;
+    this->last_action = ACTION_NONE;
+    this->action = ACTION_NONE;
     this->scan_range = 0;
     this->action_x = 0;
     this->action_y = 0;
@@ -1373,8 +1373,8 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
         this->unitFlags &= ~0x8;
     }
 
-    if (this->action == 3 || this->action == 7 || this->action == 8) {
-        this->action = 0;
+    if (this->action == ACTION_ATTACK || this->action == ACTION_SHOOT || this->action == ACTION_CAST) {
+        this->action = ACTION_NONE;
         this->phase = 0;
         this->walk_cycle_index = -1;
         this->action_phase = 0;
@@ -1529,7 +1529,7 @@ void CUnit::ReloadSprite() { // 46b91c
     if ((this->unitFlags & 1) != 0) {
         CString sname;
 
-        if (this->action == 6) {
+        if (this->action == ACTION_DIE) {
             sname = "unarmed";
             if ((this->unitFlags & 2) != 0 /* && strcmp(local_c8, "unarmed") == 0 */) {
                 sname = "mage_st";
@@ -2669,10 +2669,10 @@ int32_t CUnit::Update() { // 46785f
     this->UpdateTransientVisualElements();
 
     if (this->action_segments == 0) {
-        if (this->last_action != 0 || this->effect_timers.GetSize() != 0 || g_VFX_info[this->typeId]->idle_phases > 0) {
+        if (this->last_action != ACTION_NONE || this->effect_timers.GetSize() != 0 || g_VFX_info[this->typeId]->idle_phases > 0) {
             this->m_bSelectionDirty = 1;
         }
-        this->last_action = 0;
+        this->last_action = ACTION_NONE;
         if (vfx->idle_phases == 0) {
             this->walk_cycle_index = -1;
             this->phase = 0;
@@ -2689,7 +2689,7 @@ int32_t CUnit::Update() { // 46785f
 
     this->m_bSelectionDirty = 1;
     switch (this->action) {
-    case 1: {
+    case ACTION_MOVE: {
         int32_t dx = this->action_x / this->action_segments;
         int32_t dy = this->action_y / this->action_segments;
         this->action_x -= dx;
@@ -2902,7 +2902,7 @@ int32_t CUnit::Update() { // 46785f
         this->phase = this->walk_cycle_index;
         break;
     }
-    case 3:
+    case ACTION_ATTACK:
         if (this->action_phase == vfx->attack_delay) {
             this->PlayAttackSound();
         }
@@ -2912,7 +2912,7 @@ int32_t CUnit::Update() { // 46785f
         this->x_pos2 = this->x_pos;
         this->y_pos2 = this->y_pos;
         break;
-    case 5: {
+    case ACTION_TURN: {
         int32_t turn = this->action_dir * 16 - this->turn_angle;
         if (turn < -0x7F) {
             turn += 0x100;
@@ -2930,7 +2930,7 @@ int32_t CUnit::Update() { // 46785f
         this->y_pos2 = this->y_pos;
         break;
     }
-    case 6:
+    case ACTION_DIE:
         this->x_pos = this->action_x;
         this->y_pos = this->action_y;
         this->action_phase = this->action_phase + 1;
@@ -2938,7 +2938,7 @@ int32_t CUnit::Update() { // 46785f
         this->x_pos2 = this->x_pos;
         this->y_pos2 = this->y_pos;
         break;
-    case 7:
+    case ACTION_SHOOT:
         if (this->action_phase == vfx->shoot_delay && vfx->projectile != 0) {
             this->SpawnAttackProjectile();
         }
@@ -2951,7 +2951,7 @@ int32_t CUnit::Update() { // 46785f
         this->x_pos2 = this->x_pos;
         this->y_pos2 = this->y_pos;
         break;
-    case 8:
+    case ACTION_CAST:
         if (this->action_phase == vfx->attack_delay) {
             this->PlayCastSound();
         }
@@ -3049,7 +3049,7 @@ void CUnit::SpawnSpellProjectile() { // 468765
         break;
     }
 
-    proj->action = 1;
+    proj->action = ACTION_MOVE;
     proj->action_phase = 0;
     proj->UpdateMapPosition();
     map->projectiles[(uint16_t)map->next_projectile_id] = proj;
@@ -3142,7 +3142,7 @@ void CUnit::SpawnAttackProjectile() {
     int32_t dist = (int32_t)std::sqrt((double)(dx * dx) + (double)(dy * dy));
 
     proj->action_segments = dist / 200;
-    proj->action = 1;
+    proj->action = ACTION_MOVE;
     proj->action_phase = 0;
     proj->UpdateMapPosition();
     map->projectiles[(uint16_t)map->next_projectile_id] = proj;
@@ -4443,7 +4443,7 @@ int32_t CProjectile::Update() {
         info = g_ProjectileInfos[this->typeId];
     }
 
-    if (this->action == 1) {
+    if (this->action == ACTION_MOVE) {
         if (this->action_target != 0 && map->objects.Lookup(this->action_target, target)) {
             this->action_x = target->centerWorldX8;
             this->action_y = target->centerWorldY8;

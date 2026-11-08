@@ -177,7 +177,7 @@ TIER 4 - small domain enums, localized (quick; do after Tier 1)
     case body). RESEARCH mode 4 vs 9 in the client handler before naming.
     Enum ItemListMode : uint8_t in src/packet.h.
 
-[ ] 8. UnitAction  (CUnit::action, client side)
+[x] 8. UnitAction  (CUnit::action, client side)
     Known from the client override-log strings, src/ingame.cpp ~503-527:
         ACTION_MOVE = 1, ACTION_ATTACK = 3, ACTION_SHOOT = 7, ACTION_CAST = 8
     Values 0, 5, 6 appear in assignments - RESEARCH each (grep `action = N` and

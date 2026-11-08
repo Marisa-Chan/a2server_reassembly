@@ -232,6 +232,17 @@ public:
 };
 ASSERT_SIZE(CGameObject, 0x144);
 
+// CUnit::action (and last_action): the animation/behavior the unit is
+// performing. Values 2 and 4 are never assigned or dispatched in the binaries.
+enum UnitAction : uint8_t {
+    ACTION_NONE   = 0, // idle (ctor default; also the reset value)
+    ACTION_MOVE   = 1, // walk toward action_x/action_y
+    ACTION_ATTACK = 3, // melee attack anim (PlayAttackSound at attack_delay)
+    ACTION_TURN   = 5, // interpolate dir toward action_dir (turn_angle)
+    ACTION_DIE    = 6, // dying animation (segments = dying_phases * 2)
+    ACTION_SHOOT  = 7, // ranged attack (SpawnAttackProjectile at shoot_delay)
+    ACTION_CAST   = 8, // cast spell (SpawnSpellProjectile / PlayCastSound)
+};
 
 class CUnit : public CGameObject {
 	DECLARE_DYNAMIC(CUnit);

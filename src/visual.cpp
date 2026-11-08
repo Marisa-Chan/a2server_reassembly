@@ -9733,7 +9733,7 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
         return 0;
     }
 
-    if (a < 2 && (unit->last_action == 3 || unit->last_action == 7 || unit->last_action == 8)) {
+    if (a < 2 && (unit->last_action == ACTION_ATTACK || unit->last_action == ACTION_SHOOT || unit->last_action == ACTION_CAST)) {
         disallow = 1;
     }
 
@@ -9988,7 +9988,7 @@ int32_t VisCharInfo::VMethod26(int32_t a) {
         return 0;
     }
 
-    if (a < 2 && (unit->last_action == 3 || unit->last_action == 7 || unit->last_action == 8)) {
+    if (a < 2 && (unit->last_action == ACTION_ATTACK || unit->last_action == ACTION_SHOOT || unit->last_action == ACTION_CAST)) {
         return 0;
     }
 
@@ -16177,7 +16177,7 @@ TokenEntry* VisInvBase::VMethod36(int32_t idx, int32_t num) {
     if (entry == nullptr) {
         return nullptr;
     }
-    if (entry->GetType() < 2 && (selected->last_action == 3 || selected->last_action == 7 || selected->last_action == 8)) {
+    if (entry->GetType() < 2 && (selected->last_action == ACTION_ATTACK || selected->last_action == ACTION_SHOOT || selected->last_action == ACTION_CAST)) {
         return nullptr;
     }
     main_wnd->drag_entry = this->VMethod29(entry, num);
