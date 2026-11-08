@@ -261,7 +261,7 @@ TIER 3 - message-code families (biggest; do last, they need real reading)
     REPLACE ONLY THE CONSTANT - never the semantics of the handler.
     Do NOT touch real Win32 messages (WM_*, already named).
 
-[ ] 16. Visual-object MsgProc codes  (0x401..0x484, 207 dispatch sites,
+[x] 16. Visual-object MsgProc codes  (0x401..0x484, 207 dispatch sites,
          ~30 distinct values)
     Internal UI events routed through CVisualObject::MsgProc. Known:
     0x445 = hide/close-child reply, 0x446 = close child dialog,

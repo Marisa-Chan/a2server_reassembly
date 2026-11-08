@@ -825,7 +825,7 @@ int32_t MainWindow::WaitConnectionCharacterJoin() {
     if (this->m_GameSession.phased_in == 0) {
         VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x1ac, 0x252, TxtFile::AllLines[0xD2], nullptr, 4);
         this->ModalScreen(mbox);
-        if (mbox->GetCloseCode() != 0x447) {
+        if (mbox->GetCloseCode() != VIS_MSG_BOX_OK) {
             this->PostMessage(0x10, 0, 0);
             return 0;
         }
@@ -1260,7 +1260,7 @@ void MainWindow::ModalScreen(VisScreen* scr) {
         if (GetMessageA(&msg, nullptr, 0, 0) == 0) {
             return;
         }
-        if (msg.message == 0x44c) {
+        if (msg.message == MAIN_MSG_CHILD_CLOSED) {
             break;
         }
         TranslateMessage(&msg);
@@ -1611,7 +1611,7 @@ void MainWindow::CreateUI() { //484ab0
     this->vis_invtype1 = new VisInvType1(MAP_CHILD_BAG, 0, this->vis_map_context->GetRect().bottom - 90, g_ScreenSize.right - 160, this->vis_map_context->GetRect().bottom);
 
     this->vis_spellbook = new VisSpellBook(MAP_CHILD_SPELL_BOOK, 0, this->vis_map_context->GetRect().bottom - 90, g_ScreenSize.right - 160, this->vis_map_context->GetRect().bottom);
-    this->vis_spellbook->MsgProc(0x411, 0, 0);
+    this->vis_spellbook->MsgProc(VIS_MSG_SHORTCUT_RELEASE, 0, 0);
 
     this->vis_shop = new VisShop(1000, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
     this->vis_shopdruid = new VisShopDruid(1000, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
@@ -2026,7 +2026,7 @@ void MainWindow::IdleLoop() {
                         if (g_Server->FileList.GetSize() == 0) {
                             g_Server->ProcessPlayers();
 
-                            this->vis_serverscreen->MsgProc(0x445, 0, 0);
+                            this->vis_serverscreen->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
                             return;
                         }
                     }
@@ -2143,7 +2143,7 @@ void MainWindow::IdleLoop() {
             g_ServerConfig.current_map_index++;
             if (g_ServerConfig.current_map_index >= g_ServerConfig.map_durations.GetSize())
                 g_ServerConfig.current_map_index = 0;
-            vis_serverscreen->MsgProc(0x445, 0, 0);
+            vis_serverscreen->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
             break;
         }
     }
@@ -2359,7 +2359,7 @@ void MainWindow::Proc_421() {
 
     CVisualObject* elm = this->vis_root->FindChild(0x3fc);
     if (elm) {
-        elm->MsgProc(0x445, 0, 0);
+        elm->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
     }
 
     this->ShowRightPanelInfo();
@@ -2418,7 +2418,7 @@ void MainWindow::ShowRightPanelInfo() {
 
     this->dialogsMask &= ~DIALOG_MASK_INGAME;
 
-    this->vis_right_panel->MsgProc(0x403, (uint32_t)this->vis_map_context, 0);
+    this->vis_right_panel->MsgProc(VIS_MSG_SET_MAP_CONTEXT, (uint32_t)this->vis_map_context, 0);
 }
 
 
@@ -2478,7 +2478,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
     } else if (obj == this->vis_1200) {
         this->vis_map_context->RemoveChild(this->vis_1200);
 
-        if (this->vis_1200->GetCloseCode() == 0x445) {
+        if (this->vis_1200->GetCloseCode() == VIS_MSG_HIDE_SCREEN) {
 
             CString str;
             this->vis_1200->WriteData(&str);
@@ -2516,7 +2516,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
     } else if (obj == this->vis_chargen) { //charget 2step
         this->dialogsMask &= ~DIALOG_MASK_CHARGEN;
 
-        if (this->vis_chargen->GetCloseCode() == 0x446) {
+        if (this->vis_chargen->GetCloseCode() == VIS_MSG_CLOSE_SCREEN) {
             this->ShowStartGameSetupForNewSession();
         } else {
             this->m_GameSession.flags |= 4;
@@ -2546,7 +2546,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
     } else if (obj == this->vis_startgame) { // chargen 1step
         this->dialogsMask &= ~DIALOG_MASK_START_GAME;
 
-        if (this->vis_startgame->GetCloseCode() == 0x446) {
+        if (this->vis_startgame->GetCloseCode() == VIS_MSG_CLOSE_SCREEN) {
             if (!this->vis_map_context->objects.IsEmpty()) {
                 this->vis_map_context->objects.RemoveAll();
 
@@ -2627,7 +2627,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
     } else if (obj == this->vis_charsel) {
         this->dialogsMask &= ~DIALOG_MASK_CHAR_SELECT;
 
-        if (this->vis_charsel->GetCloseCode() == 0x446) {
+        if (this->vis_charsel->GetCloseCode() == VIS_MSG_CLOSE_SCREEN) {
             if (!this->net_session.key_capture_str.IsEmpty()) {
                 PostMessage(WM_CLOSE, 0, 0);
             } else {
@@ -2659,7 +2659,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
     } else if (obj == this->gap_0x12c) {
         this->dialogsMask &= ~DIALOG_MASK_POPUP;
 
-        if (this->gap_0x12c->GetCloseCode() == 0x447) {
+        if (this->gap_0x12c->GetCloseCode() == VIS_MSG_BOX_OK) {
             this->vis_map_context->ResetWorldState(1);
             PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
         } else {
@@ -2671,7 +2671,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
     } else if (obj == this->vis_savegame) { //save game
         this->dialogsMask &= ~DIALOG_MASK_POPUP;
 
-        if (this->vis_savegame->GetCloseCode() == 0x445) {
+        if (this->vis_savegame->GetCloseCode() == VIS_MSG_HIDE_SCREEN) {
             this->AutosaveGame();
         }
 
@@ -2687,7 +2687,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         this->dialogsMask &= ~DIALOG_MASK_POPUP;
 
         int32_t code = this->vis_loadgame->GetCloseCode();
-        if (code == 0x445) {
+        if (code == VIS_MSG_HIDE_SCREEN) {
             PostMessage(MAIN_MSG_RESTART_CHAR_SETUP, 0, 0);
         } else if (g_Server == nullptr) {
             PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
@@ -2704,7 +2704,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         delete this->vis_loadgame;
         this->vis_loadgame = nullptr;
 
-        if (code == 0x445) {
+        if (code == VIS_MSG_HIDE_SCREEN) {
             return;
         }
     } else if (obj == this->net_dialog) {
@@ -2712,12 +2712,12 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
 
         int32_t code = this->net_dialog->GetCloseCode();
 
-        if (code == 0x44f) {
+        if (code == VIS_MSG_NET_JOIN) {
             this->serverBootstrapEnabled = 0;
             this->EnterSinglePlayerMode();
-        } else if (code == 0x44d) {
+        } else if (code == VIS_MSG_NET_CLOSE_SERVER) {
             this->EnterServerMode();
-        } else if (code == 0x44e) {
+        } else if (code == VIS_MSG_NET_CREATE) {
             this->EnterClientMode();
         } else {
             PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
@@ -2729,7 +2729,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
     } else if (obj == this->vis_connectiondlg) {
         this->dialogsMask &= ~DIALOG_MASK_POPUP;
 
-        if (this->vis_connectiondlg->GetCloseCode() == 0x446) {
+        if (this->vis_connectiondlg->GetCloseCode() == VIS_MSG_CLOSE_SCREEN) {
             if (this->sessionMode == SESSION_SERVER) {
                 PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
             } else {
@@ -2743,8 +2743,8 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
     } else if (obj == this->vis_netmapsel) {
         this->dialogsMask &= ~DIALOG_MASK_POPUP;
 
-        if (this->vis_netmapsel->GetCloseCode() == 0x446) {
-            this->vis_root->MsgProc(0x446, 0, 0);
+        if (this->vis_netmapsel->GetCloseCode() == VIS_MSG_CLOSE_SCREEN) {
+            this->vis_root->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
             PostMessage(MAIN_MSG_LEAVE_TO_NETWORK_MENU, 0, 0);
         } else {
             PostMessage(MAIN_MSG_START_MISSION, 0, 0);
@@ -2756,9 +2756,9 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
     } else if (obj == this->vis_hatbrowser) {
         this->dialogsMask &= ~DIALOG_MASK_POPUP;
 
-        if (this->vis_hatbrowser->GetCloseCode() == 0x446) {
+        if (this->vis_hatbrowser->GetCloseCode() == VIS_MSG_CLOSE_SCREEN) {
             if (this->hat_settings.ishat == 0) {
-                this->vis_root->MsgProc(0x446, 0, 0);
+                this->vis_root->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
                 this->ShowCharacterLoaderDialog();
             } else if (g_CLlDriver.IsListen()) {
                 this->ShowCharacterLoaderDialog();
@@ -2781,7 +2781,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         this->dialogsMask &= ~DIALOG_MASK_POPUP;
         this->dialogsMask = 0;
 
-        if (this->vis_serverscreen->GetCloseCode() == 0x445) {
+        if (this->vis_serverscreen->GetCloseCode() == VIS_MSG_HIDE_SCREEN) {
             PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
         }
 
@@ -2794,7 +2794,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
 
         this->vis_msgbox = nullptr;
 
-        if (code == 0x445) {
+        if (code == VIS_MSG_HIDE_SCREEN) {
             int j = 0;
             for (int i = 0; i < this->vis_map_context->map_players.GetSize(); i++) {
                 MapPlayerData* mp = this->vis_map_context->map_players[i];
@@ -2834,7 +2834,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
     } else if (obj == this->vis_cutscenes) {
         this->dialogsMask &= ~DIALOG_MASK_POPUP;
 
-        if (this->vis_cutscenes->GetCloseCode() == 0x445) {
+        if (this->vis_cutscenes->GetCloseCode() == VIS_MSG_HIDE_SCREEN) {
             g_SelCutsceneIndex = ((VisListBox*)this->vis_cutscenes->FindChild(2))->GetSelectedIndex();
             this->PlayVideo(g_SelCutsceneIndex);
             PostMessage(MAIN_MSG_SHOW_CUTSCENES, 0, 0);
@@ -2847,7 +2847,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
     } else if (obj == this->vis_missionfailed) {
         this->dialogsMask &= ~DIALOG_MASK_POPUP;
 
-        if (this->vis_missionfailed->GetCloseCode() == 0x445) {
+        if (this->vis_missionfailed->GetCloseCode() == VIS_MSG_HIDE_SCREEN) {
             PostMessage(MAIN_MSG_TICK_TO_MAIN_MENU, 0, 0);
         } else {
             PostMessage(MAIN_MSG_SHOW_LOAD_GAME, 0, 0);
@@ -2880,7 +2880,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         g_Cursors[CURSOR_SELECT]->Use();
     }
 
-    this->vis_right_panel->MsgProc(0x408, 0, 0);
+    this->vis_right_panel->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
 
     if (this->dialogsMask != DIALOG_MASK_INGAME || this->vis_map_context->scenario != nullptr) {
         this->vis_root->VMethod9();
@@ -2946,7 +2946,7 @@ void MainWindow::ShowCharInfoPane() { //491a49
 
     this->vis_charinfo->info_mode = 1;
 
-    this->vis_right_panel->MsgProc(0x403, (uint32_t)this->vis_map_context, 0);
+    this->vis_right_panel->MsgProc(VIS_MSG_SET_MAP_CONTEXT, (uint32_t)this->vis_map_context, 0);
     
     this->vis_map_context->GetUnit_3f6c()->SetSelected(1); // select
 
@@ -3145,7 +3145,7 @@ void MainWindow::EnterSinglePlayerMode() { // 4903d0
             VisMessageBoxWithList* mwnd = new VisMessageBoxWithList(1, 64, 100, 428, 594, TxtFile::AllLines[210], nullptr, 4);
             this->ModalScreen(mwnd);
 
-            if (mwnd->GetCloseCode() != 0x447) {
+            if (mwnd->GetCloseCode() != VIS_MSG_BOX_OK) {
                 PostMessage(MAIN_MSG_LEAVE_MISSION, 0, 0);
                 return;
             }
@@ -3208,7 +3208,7 @@ void MainWindow::EnterClientMode() { // 4918ae
     this->StartServerSession(this->sessionMode);
 
     if (this->vis_map_context->ConnectAndJoinSession() == 0) {
-        this->vis_root->MsgProc(0x446, 0, 0);
+        this->vis_root->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
         PostMessage(MAIN_MSG_LEAVE_TO_NETWORK_MENU, 0, 0);
     } else {
         PostMessage(MAIN_MSG_SELECT_MAP, 0, 0);
@@ -3268,7 +3268,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case MAIN_MSG_MOUSE:
-        vis_root->MsgProc(0x400, wParam, lParam);
+        vis_root->MsgProc(VIS_MSG_MOUSE, wParam, lParam);
         g_mousept.ForceDisableHint();
         break;
 
@@ -3299,11 +3299,11 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             if (cur_location != nullptr) {
                 int loc_type = cur_location->GetId();
                 if (loc_type == 1) {
-                    this->vis_town->MsgProc(0x445, 0, 0);
+                    this->vis_town->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
                 } else if (loc_type == 2) {
-                    this->vis_townkaarg->MsgProc(0x445, 0, 0);
+                    this->vis_townkaarg->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
                 } else if (loc_type == 3) {
-                    this->vis_towndruid->MsgProc(0x445, 0, 0);
+                    this->vis_towndruid->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
                 }
             }
         }
@@ -3498,8 +3498,8 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
     case MAIN_MSG_SHOW_STARTUP_LOGO:
         this->ShowStartupLogoDialog();
-        this->vis_logownd->MsgProc(0x43a, 1, 0);
-        this->vis_logownd->MsgProc(0x439, 4000, 0);
+        this->vis_logownd->MsgProc(VIS_MSG_LOGO_SET_STEP, 1, 0);
+        this->vis_logownd->MsgProc(VIS_MSG_LOGO_SET_TIMEOUT, 4000, 0);
         vis_root->VMethod9();
         break;
 
@@ -3631,33 +3631,33 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         switch (wParam) {
         case 0:
         case 1:
-            this->vis_logownd->MsgProc(0x43a, wParam + 1, 0);
-            this->vis_logownd->MsgProc(0x439, 4000, 0);
+            this->vis_logownd->MsgProc(VIS_MSG_LOGO_SET_STEP, wParam + 1, 0);
+            this->vis_logownd->MsgProc(VIS_MSG_LOGO_SET_TIMEOUT, 4000, 0);
             vis_root->VMethod9();
             break;
 
         case 2:
-            this->vis_logownd->MsgProc(0x43a, wParam + 1, 0);
-            this->vis_logownd->MsgProc(0x439, 6000, 0);
+            this->vis_logownd->MsgProc(VIS_MSG_LOGO_SET_STEP, wParam + 1, 0);
+            this->vis_logownd->MsgProc(VIS_MSG_LOGO_SET_TIMEOUT, 6000, 0);
             vis_root->VMethod9();
             this->LoadData();
             break;
 
         case 3:
-            this->vis_logownd->MsgProc(0x43a, wParam + 1, 0);
-            this->vis_logownd->MsgProc(0x439, 30000, 0);
+            this->vis_logownd->MsgProc(VIS_MSG_LOGO_SET_STEP, wParam + 1, 0);
+            this->vis_logownd->MsgProc(VIS_MSG_LOGO_SET_TIMEOUT, 30000, 0);
             vis_root->VMethod9();
             break;
 
         case 4:
-            this->vis_logownd->DoClose(0x445);
+            this->vis_logownd->DoClose(VIS_MSG_HIDE_SCREEN);
             vis_root->RemoveChild(this->vis_logownd);
             this->dialogsMask &= ~DIALOG_MASK_LOGO;
             PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
             break;
 
         case 5:
-            this->vis_logownd->DoClose(0x445);
+            this->vis_logownd->DoClose(VIS_MSG_HIDE_SCREEN);
             vis_root->RemoveChild(this->vis_logownd);
             this->dialogsMask &= ~DIALOG_MASK_LOGO;
             PostMessage(WM_CLOSE, 0, 0);
@@ -3667,7 +3667,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         case 7:
         case 8:
         case 9:
-            this->vis_logownd->DoClose(0x445);
+            this->vis_logownd->DoClose(VIS_MSG_HIDE_SCREEN);
             vis_root->RemoveChild(this->vis_logownd);
             this->dialogsMask &= ~DIALOG_MASK_LOGO;
             PostMessage(MAIN_MSG_NEW_CAMPAIGN, 0, 0);
@@ -3782,12 +3782,12 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                 }
 
                 if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol")) {
-                    this->vis_connectiondlg->MsgProc(0x445, 0, 0);
+                    this->vis_connectiondlg->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
                 }
 
                 if (g_ServerConfig.protocol > -1 && g_ServerConfig.protocol < 2) {
                     ((VisListBox*)this->vis_connectiondlg->FindChild(2))->SetSelectedIndex(g_ServerConfig.protocol);
-                    this->vis_connectiondlg->MsgProc(0x445, 0, 0);
+                    this->vis_connectiondlg->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
                 }
             }
         }
@@ -3959,15 +3959,15 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 #endif
         if (this->sessionMode == SESSION_SINGLEPLAYER || this->sessionMode == SESSION_CLIENT) {
             if (this->dialogsMask & DIALOG_MASK_POPUP) {
-                vis_root->MsgProc(0x446, 0, 0);
+                vis_root->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
             }
 
             if (this->dialogsMask & DIALOG_MASK_SHOP) {
-                vis_root->MsgProc(0x445, 0, 0);
+                vis_root->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
             }
 
             if (this->dialogsMask & DIALOG_MASK_TAVERN) {
-                vis_root->MsgProc(0x445, 0, 0);
+                vis_root->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
             }
             
             this->vis_map_context->ResetWorldState(1);
@@ -4022,7 +4022,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         VisMessageBoxWithList* msgbox = new VisMessageBoxWithList(1, 100, 100, 540, 480, TxtFile::AllLines[151], nullptr, 1);
         this->ModalScreen(msgbox);
 
-        if (msgbox->GetCloseCode() == 0x445) {
+        if (msgbox->GetCloseCode() == VIS_MSG_HIDE_SCREEN) {
             g_MainmenuDisableMask = 0x35;
             PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
         } else {
@@ -4035,7 +4035,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         VisMessageBoxWithList* msgbox = new VisMessageBoxWithList(1, 100, 100, 540, 380, TxtFile::AllLines[181], nullptr, 1);
         this->ModalScreen(msgbox);
 
-        if (msgbox->GetCloseCode() == 0x445) {
+        if (msgbox->GetCloseCode() == VIS_MSG_HIDE_SCREEN) {
             PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
         } else {
             PostMessage(WM_CLOSE, 0, 0);
@@ -4127,7 +4127,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         else {
             VisScreen* scr = new VisMessageBoxWithList(1, 64, 100, 428, 594, txt_main.GetLine(210), nullptr, 4);
             ModalScreen(scr);
-            if (scr->GetCloseCode() == 0x447) {
+            if (scr->GetCloseCode() == VIS_MSG_BOX_OK) {
                 m_GameSession.RefreshCharacterRosterFiles(0);
                 for (int i = 0; i < m_GameSession.characterRosterHatId.GetSize(); i++) {
                     const HatCharId& hid = m_GameSession.characterRosterHatId[i];
@@ -4166,7 +4166,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                 g_CLlDriver.Close();
 #ifdef A2CLIENT
                 if (this->vis_hatbrowser)
-                    this->vis_hatbrowser->MsgProc(0x446, 0, 0);
+                    this->vis_hatbrowser->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
 #else
                 PostMessage(MAIN_MSG_SHOW_HAT_SERVER_LIST, 0, 0);
 #endif
@@ -4535,7 +4535,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
         }
     }
 
-    this->vis_right_panel->MsgProc(0x408, 0, 0);
+    this->vis_right_panel->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
     this->vis_root->VMethod9();
 
     if (this->sessionMode != SESSION_SERVER) {
@@ -5039,7 +5039,7 @@ void MainWindow::InitNewCampaignSession() { //48dd3a
 void MainWindow::ShowStartGameSetupForNewSession() { //491b3e
     g_Cursors[CURSOR_WAIT]->Use();
 
-    this->vis_right_panel->MsgProc(0x403, (uint32_t)this->vis_map_context, 0); //FIXME
+    this->vis_right_panel->MsgProc(VIS_MSG_SET_MAP_CONTEXT, (uint32_t)this->vis_map_context, 0); //FIXME
 
     this->vis_root->AddChild(this->vis_startgame);
 
@@ -5257,7 +5257,7 @@ void MainWindow::ShowInnDialog(uint32_t id, int32_t interact_target) { //48d4da
 
 void MainWindow::RemoteGameIdle() { //48acac
     if (g_NetStru1_local.IsActive() == 0 && this->shutdown_pending == 0) {
-        this->vis_root->MsgProc(0x446, 0, 0);
+        this->vis_root->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
         PostMessage(MAIN_MSG_LEAVE_TO_NETWORK_MENU, 0, 0);
 
         if (g_EnableTrace != 0) {
@@ -5292,7 +5292,7 @@ void MainWindow::RemoteGameIdle() { //48acac
                         this->last_tic_time = GetTickCount();
 
                         this->vis_map_context->ProcessPackets(100);
-                        this->vis_root->MsgProc(0x401, 0, 0);
+                        this->vis_root->MsgProc(VIS_MSG_WORLD_TICK, 0, 0);
 
                         g_mousept.Update();
                     }
@@ -5303,7 +5303,7 @@ void MainWindow::RemoteGameIdle() { //48acac
                     this->game_tic_counter++;
 
                     this->vis_map_context->ProcessPackets(100);
-                    this->vis_root->MsgProc(0x401, 0, 0);
+                    this->vis_root->MsgProc(VIS_MSG_WORLD_TICK, 0, 0);
 
                     g_mousept.Update();
                 }
@@ -5317,7 +5317,7 @@ void MainWindow::RemoteGameIdle() { //48acac
                     }
 
                     this->vis_map_context->ProcessPackets(100);
-                    this->vis_root->MsgProc(0x401, 0, 0);
+                    this->vis_root->MsgProc(VIS_MSG_WORLD_TICK, 0, 0);
 
                     g_mousept.Update();
 
@@ -5348,7 +5348,7 @@ void MainWindow::RemoteGameIdle() { //48acac
         }
 
         if (this->has_focus != 0) {
-            this->vis_root->MsgProc(0x402, 0, 0);
+            this->vis_root->MsgProc(VIS_MSG_FRAME_TICK, 0, 0);
         }
 
         g_mousept.Update();
@@ -5370,7 +5370,7 @@ void MainWindow::SingleGameTimedIdle() { //48a543
         g_Server->ServerTic();
 
         this->vis_map_context->ProcessPackets(SERVER_TICK);
-        this->vis_root->MsgProc(0x401, 0, 0);
+        this->vis_root->MsgProc(VIS_MSG_WORLD_TICK, 0, 0);
 
         g_mousept.Update();
 
@@ -5403,12 +5403,12 @@ void MainWindow::SingleGameTimedIdle() { //48a543
         }
 
         if (scroll) {
-            this->vis_minimap->MsgProc(0x408, 0, 0);
+            this->vis_minimap->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
         }
     }
 
     if (this->has_focus != 0) {
-        this->vis_root->MsgProc(0x402, 0, 0);
+        this->vis_root->MsgProc(VIS_MSG_FRAME_TICK, 0, 0);
     }
 
     g_mousept.Update();
@@ -5421,7 +5421,7 @@ void MainWindow::SingleGameIdle() { //48a3a2
 
     this->vis_map_context->ProcessPackets(SERVER_TICK);
 
-    this->vis_root->MsgProc(0x401, 0, 0);
+    this->vis_root->MsgProc(VIS_MSG_WORLD_TICK, 0, 0);
 
     this->game_tic_counter++;
     g_mousept.Update();
@@ -5451,12 +5451,12 @@ void MainWindow::SingleGameIdle() { //48a3a2
         }
 
         if (scroll) {
-            this->vis_minimap->MsgProc(0x408, 0, 0);
+            this->vis_minimap->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
         }
     }
 
     if (this->has_focus != 0) {
-        this->vis_root->MsgProc(0x402, 0, 0);
+        this->vis_root->MsgProc(VIS_MSG_FRAME_TICK, 0, 0);
         #ifndef A2CLIENT_PATCH
         SaveScreenshot();
         #endif
@@ -5759,7 +5759,7 @@ int32_t MainWindow::RunModalLoopClient() { //client 4949cd
         if (net_session.hat_id == -1) {
             VisScreen* scr = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(16), nullptr, 4);
             ModalScreen(scr);
-            if (scr->GetCloseCode() == 0x447) {
+            if (scr->GetCloseCode() == VIS_MSG_BOX_OK) {
                 net_session.hat_id = 0;
                 start_time = timeGetTime();
                 g_GameStatusCode = 0;
@@ -6169,7 +6169,7 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx) { //492c66
         unit->InitState(1, 1, 0, 0, 0, mwnd->vis_map_context->map_players[0], 0, 0, 0, 1);
         mwnd->vis_map_context->objects[1] = unit;
         mwnd->vis_map_context->my_unit = unit;
-        mwnd->vis_map_context->MsgProc(0x405, 0, 0);
+        mwnd->vis_map_context->MsgProc(VIS_MSG_CANCEL_ORDER, 0, 0);
     }
 
     if (idx >= 0 && idx < this->characterRosterFilePaths.GetSize()) {

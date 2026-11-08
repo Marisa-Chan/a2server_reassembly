@@ -2974,8 +2974,8 @@ int32_t CUnit::Update() { // 46785f
     this->UpdateOccupancy();
 
     if (this->m_bSelected != 0) {
-        main_wnd->vis_charinfo->MsgProc(0x408, 0, 0);
-        main_wnd->vis_sidestatus->MsgProc(0x408, 0, 0);
+        main_wnd->vis_charinfo->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
+        main_wnd->vis_sidestatus->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
     }
 
     return 1;

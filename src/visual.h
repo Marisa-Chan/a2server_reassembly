@@ -14,6 +14,83 @@
 
 uint32_t IsDefaultNpcName(const char* name); // 4386e0 (client: 43ad20)
 
+// Visual-object UI event codes routed through CVisualObject::MsgProc. Every
+// screen class overrides MsgProc and switches on these; screens also close
+// themselves with VisScreen::MsgProc(VIS_MSG_HIDE_SCREEN / VIS_MSG_CLOSE_SCREEN)
+// and parents compare GetCloseCode() against the button codes. NOT the same id
+// space as the MainWindow window messages (MAIN_MSG_*) even where the numeric
+// ranges overlap - forwarded ids (e.g. 0x467 music position) cross over.
+enum VisMsg : uint32_t {
+    VIS_MSG_MOUSE                = 0x400, // mouse message forwarded from the window
+    VIS_MSG_WORLD_TICK           = 0x401, // per-frame world/logic tick (BigStruct2)
+    VIS_MSG_FRAME_TICK           = 0x402, // per-frame redraw tick (VMethod9 / RenderWorldFrame)
+    VIS_MSG_SET_MAP_CONTEXT      = 0x403, // wparam = BigStruct2* map context
+    VIS_MSG_MINIMAP_REBUILD      = 0x404, // rebuild the minimap bitmap
+    VIS_MSG_CANCEL_ORDER         = 0x405, // leave order/targeting mode
+    VIS_MSG_SCROLL_VIEW          = 0x406, // scroll the world view (wparam/lparam = tile x/y)
+    VIS_MSG_DATA_REFRESH         = 0x408, // backing data changed - redraw
+    VIS_MSG_ORDERS_ENABLE        = 0x409, // order toolbar: wparam = available-orders mask
+    VIS_MSG_ORDERS_DISABLE       = 0x40a, // order toolbar: gray out
+    VIS_MSG_ORDERS_CLEAR         = 0x40b, // order toolbar: clear selection
+    VIS_MSG_ORDER_MODE_CHANGED   = 0x40c, // map: order mode selected (wparam = order, plays sfx)
+    VIS_MSG_TOOLBAR_ORDER_SELECT = 0x40d, // order toolbar: select order wparam
+    VIS_MSG_TOGGLE_SELECT_PANEL  = 0x40e, // toggle char-info selection panel / close bag
+    VIS_MSG_TOGGLE_SPELL_PANEL   = 0x40f, // toggle spell panel / close spell book
+    VIS_MSG_STATUS_REFRESH       = 0x410, // status panels: dirty redraw (no sender left in tree)
+    VIS_MSG_SHORTCUT_RELEASE     = 0x411, // spell book: clear pressed shortcut
+    VIS_MSG_TOGGLE_INFO_MODE     = 0x412, // char info: toggle info mode (mode button)
+    VIS_MSG_REFRESH_ITEM_GRIDS   = 0x413, // item grids: wparam = ItemListMode, lparam = &list
+    VIS_MSG_SELECT_PREV          = 0x414, // select previous party unit / face
+    VIS_MSG_SELECT_NEXT          = 0x415, // select next party unit / face
+    VIS_MSG_SHORTCUT_KEY         = 0x417, // hotbar hotkey pressed (wparam = slot, lparam = kb mods)
+    VIS_MSG_LOGO_SET_TIMEOUT     = 0x439, // logo window: wparam = timeout ms
+    VIS_MSG_LOGO_SET_STEP        = 0x43a, // logo window: wparam = step (bitmap index)
+    VIS_MSG_LIST_ACTIVATE        = 0x444, // list box double-click (wparam = list id, lparam = index)
+    VIS_MSG_HIDE_SCREEN          = 0x445, // hide this screen (DoClose reply convention)
+    VIS_MSG_CLOSE_SCREEN         = 0x446, // close this screen / child dialog
+    VIS_MSG_BOX_OK               = 0x447, // message box OK button code
+    VIS_MSG_NET_CLOSE_SERVER     = 0x44d, // net dialog close-as-server code (no producer left in tree)
+    VIS_MSG_NET_CREATE           = 0x44e, // net dialog: create-session button
+    VIS_MSG_NET_JOIN             = 0x44f, // net dialog: join button
+    VIS_MSG_NET_REFRESH          = 0x450, // net dialog: refresh session list button
+    VIS_MSG_COMBO_TOGGLE         = 0x456, // combo box: toggle the drop-down list
+    VIS_MSG_CURSOR_BLINK         = 0x462, // text box: blink the caret (idle-loop ping)
+    VIS_MSG_CLOSE_TIPS           = 0x45A, // remove the tips child from the screen
+    VIS_MSG_NETMAP_APPLY         = 0x45E, // net map selection: apply the selected map
+    VIS_MSG_NETMAP_CHAT_SYNC     = 0x45F, // net map selection: sync chat list scroll
+    VIS_MSG_ROSTER_CHANGED       = 0x460, // net screens: player roster changed
+    VIS_MSG_NETMAP_ADD_INFO      = 0x461, // net map selection: wparam = NetMapInfo*
+    VIS_MSG_MUSIC_POSITION       = 0x467, // sound thread: wparam = track, lparam = seconds
+    VIS_MSG_SCROLL_SELECT        = 0x469, // scrollbox: select item (lparam = index)
+    VIS_MSG_SCROLL_UP            = 0x46a, // scrollbox: line up
+    VIS_MSG_SCROLL_DOWN          = 0x46b, // scrollbox: line down
+    VIS_MSG_SCROLL_PAGE_UP       = 0x46c, // scrollbox: page up
+    VIS_MSG_SCROLL_PAGE_DOWN     = 0x46d, // scrollbox: page down
+    VIS_MSG_SET_OPTION           = 0x46e, // multiplexed per-dialog option set (wparam = option)
+    VIS_MSG_SCROLLBAR_RESIZE     = 0x46f, // scrollbar: recompute rects
+    VIS_MSG_SPEECH_ADVANCE       = 0x470, // role-key screen: advance speech line
+    VIS_MSG_NET_APPLY_PROVIDER   = 0x471, // net dialog: relayout for the current provider
+    VIS_MSG_LIST_SELECT          = 0x473, // list selection (wparam = list id, lparam = index)
+    VIS_MSG_SFX_TEST             = 0x474, // sound prefs: play test sample (wparam = which)
+    VIS_MSG_LIST_SECONDARY       = 0x475, // load/save dialog: second button (details/save)
+    VIS_MSG_ACKNOWLEDGE          = 0x476, // sound prefs: write acknowledgement + hide
+    VIS_MSG_MUSIC_ENABLE         = 0x477, // sound prefs: enable music
+    VIS_MSG_MUSIC_DISABLE        = 0x478, // sound prefs: disable/fade out music
+    VIS_MSG_CONFIRM              = 0x479, // load/save dialog: OK button
+    VIS_MSG_CANCEL               = 0x47a, // dialog: cancel button
+    VIS_MSG_MENU_BUTTON_CLICK    = 0x47b, // menu button clicked (wparam = target window message)
+    VIS_MSG_NET_NEW_SESSION      = 0x47c, // net dialog: a new session appeared (wake event)
+    VIS_MSG_PHONE_CONNECT        = 0x47d, // phone book: connect via edited entry
+    VIS_MSG_PHONE_DIAL           = 0x47e, // phone book: dial the selected entry
+    VIS_MSG_SERIAL_CONNECT       = 0x480, // serial settings: connect
+    VIS_MSG_SERIAL_HOST          = 0x481, // serial settings: host a session
+    VIS_MSG_SERIAL_CLEAR         = 0x483, // serial settings: clear children/focus
+    VIS_MSG_NETMAP_FIND_MAP      = 0x484, // net map selection: wparam = map name to select
+    VIS_MSG_AMBIENT_STOP         = 0x485, // stop ambient view (music thread request)
+    VIS_MSG_HATBROWSER_REFRESH   = 0x48a, // hat browser: refresh the current page
+    VIS_MSG_HATBROWSER_ABORT     = 0x48b, // hat browser: abort the scan
+    VIS_MSG_HATBROWSER_PROGRESS  = 0x48c, // hat browser: worker-thread progress pump
+};
 
 class CGameSession;
 class VisLabel;

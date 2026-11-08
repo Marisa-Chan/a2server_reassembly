@@ -793,7 +793,7 @@ BOOL GameApp::OnIdle(LONG lCount) { //4835b0
 	} else if ((mwnd->dialogsMask & DIALOG_MASK_INGAME) == 0) {
 		if (mwnd->serverBootstrapEnabled == 0 || !g_Server) {
 			if (mwnd->vis_netmapsel && g_NetStru1_local.IsActive() == 0) {
-				mwnd->vis_netmapsel->MsgProc(0x446, 0, 0);
+				mwnd->vis_netmapsel->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
 			}
 
 			mwnd->vis_map_context->ProcessPackets(0);
@@ -807,7 +807,7 @@ BOOL GameApp::OnIdle(LONG lCount) { //4835b0
 		}
 
 		if (mwnd->has_focus != 0) {
-			mwnd->vis_root->MsgProc(0x402, 0, 0);
+			mwnd->vis_root->MsgProc(VIS_MSG_FRAME_TICK, 0, 0);
 		}
 
 		g_mousept.Update();
@@ -826,7 +826,7 @@ BOOL GameApp::OnIdle(LONG lCount) { //4835b0
 	g_NetStru1_main.ProcessConnections();
 	g_mousept.Update();
 
-	mwnd->vis_root->MsgProc(0x462, 0, 0);
+	mwnd->vis_root->MsgProc(VIS_MSG_CURSOR_BLINK, 0, 0);
 
 	return 1;
 }

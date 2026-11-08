@@ -1199,7 +1199,7 @@ void VisScrollBar::ReadData(const void* buf) {
 
 int32_t VisScrollBar::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     //4df055
-    if (msg == 0x46f) {
+    if (msg == VIS_MSG_SCROLLBAR_RESIZE) {
         this->UpdateRects();
     }
 
@@ -1275,7 +1275,7 @@ int32_t VisScrollBar::OnMouseMove(uint32_t wparam, CPoint pos) {
             val_pos = this->val_max - 1;
         }
 
-        this->parent->MsgProc(0x469, this->id, val_pos);
+        this->parent->MsgProc(VIS_MSG_SCROLL_SELECT, this->id, val_pos);
 
         if (pos.x < tr.left - tr.Width() ||
             pos.x > tr.right + tr.Width() ||
@@ -1286,7 +1286,7 @@ int32_t VisScrollBar::OnMouseMove(uint32_t wparam, CPoint pos) {
     } else if (this->mousedown_on_hbox != 0) {
         this->val = this->GetValHPos(pos.x);
         this->VMethod9();
-        this->parent->MsgProc(0x46e, this->id, this->val);
+        this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->val);
     }
     return 0;
 }
@@ -1328,18 +1328,18 @@ int32_t VisScrollBar::OnLButtonDown(uint32_t wparam, CPoint pos) {
         }
 
         if (pos.y - rt.top < rt.Width()) {
-            this->parent->MsgProc(0x46a, this->id, 0);
+            this->parent->MsgProc(VIS_MSG_SCROLL_UP, this->id, 0);
         } else if (rt.bottom - pos.y < rt.Width() - 4) {
-            this->parent->MsgProc(0x46b, this->id, 0);
+            this->parent->MsgProc(VIS_MSG_SCROLL_DOWN, this->id, 0);
         } else if (pos.y - rt.top - rt.Width() + 4 < val_pos) {
             if (this->down_on_part != 2) {
-                this->parent->MsgProc(0x46c, this->id, 0);
+                this->parent->MsgProc(VIS_MSG_SCROLL_PAGE_UP, this->id, 0);
                 this->down_on_part = 1;
             }
         } else if ((pos.y - rt.top) - (rt.Width() * 2 - 4) < val_pos) {
             this->SetCursorOver(true);
         } else if (this->down_on_part != 1) {
-            this->parent->MsgProc(0x46d, this->id, 0);
+            this->parent->MsgProc(VIS_MSG_SCROLL_PAGE_DOWN, this->id, 0);
             this->down_on_part = 2;
         }
     } else {
@@ -1379,7 +1379,7 @@ int32_t VisScrollBar::OnLButtonDown(uint32_t wparam, CPoint pos) {
         }
 
         this->VMethod9();
-        this->parent->MsgProc(0x46e, this->id, this->val);
+        this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->val);
     }
     return 1;
 }
@@ -1394,7 +1394,7 @@ int32_t VisScrollBar::OnLButtonUp(uint32_t wparam, CPoint pos) {
     this->down_on_part = 0;
 
     if (this->is_mouse_over) {
-        this->parent->MsgProc(0x474, this->id, 0);
+        this->parent->MsgProc(VIS_MSG_SFX_TEST, this->id, 0);
         this->SetCursorOver(false);
         this->mousedown_on_hbox = 0;
     }
@@ -1430,7 +1430,7 @@ int32_t VisScrollBar::OnKeyDown(uint32_t wparam) {
         }
 
         this->VMethod9();
-        this->parent->MsgProc(0x46e, this->id, this->val);
+        this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->val);
         return 1;
     }
     
@@ -1442,7 +1442,7 @@ int32_t VisScrollBar::OnKeyDown(uint32_t wparam) {
         }
 
         this->VMethod9();
-        this->parent->MsgProc(0x46e, this->id, this->val);
+        this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->val);
         return 1;
     }
     return 0;
@@ -1599,35 +1599,35 @@ int32_t VisListBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     }
 
     switch (msg) {
-    case 0x469:
+    case VIS_MSG_SCROLL_SELECT:
         if (wparam == this->scrollbox_id) {
             this->SelectItem(lparam);
             return 1;
         }
         break;
 
-    case 0x46a:
+    case VIS_MSG_SCROLL_UP:
         if (wparam == this->scrollbox_id) {
             this->Up();
             return 1;
         }
         break;
 
-    case 0x46b:
+    case VIS_MSG_SCROLL_DOWN:
         if (wparam == this->scrollbox_id) {
             this->Down();
             return 1;
         }
         break;
 
-    case 0x46c:
+    case VIS_MSG_SCROLL_PAGE_UP:
         if (wparam == this->scrollbox_id) {
             this->PageUp();
             return 1;
         }
         break;
 
-    case 0x46d:
+    case VIS_MSG_SCROLL_PAGE_DOWN:
         if (wparam == this->scrollbox_id) {
             this->PageDown();
             return 1;
@@ -1672,21 +1672,21 @@ int32_t VisListBox::OnLButtonDown(uint32_t wparam, CPoint pos) {
         scrollbar->SetPos(this->selected_index, this->entries.GetSize());
     }
 
-    this->parent->MsgProc(0x46e, this->id, this->selected_index);
+    this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->selected_index);
 
     return 1;
 }
 
 int32_t VisListBox::OnLButtonUp(uint32_t wparam, CPoint pos) {
     //4dc832
-    this->parent->MsgProc(0x473, this->id, this->selected_index);
+    this->parent->MsgProc(VIS_MSG_LIST_SELECT, this->id, this->selected_index);
     return 1;
 }
 
 
 int32_t VisListBox::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
     //4dc86b
-    this->parent->MsgProc(0x444, this->id, this->selected_index);
+    this->parent->MsgProc(VIS_MSG_LIST_ACTIVATE, this->id, this->selected_index);
     return 1;
 }
 
@@ -1724,7 +1724,7 @@ int32_t VisListBox::OnKeyDown(uint32_t wparam) {
     case VK_NEXT:
     case VK_UP:
     case VK_DOWN:
-        this->parent->MsgProc(0x46e, this->id, this->selected_index);
+        this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->selected_index);
         return 1;
 
     default:
@@ -1791,7 +1791,7 @@ void VisListBox::SelectItem(int32_t idx) {
         scrollbar->SetPos(this->selected_index, this->entries.GetSize());
     }
 
-    this->parent->MsgProc(0x46e, this->id, this->selected_index);
+    this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->selected_index);
 }
 
 int32_t VisListBox::GetItemCount() {
@@ -2012,7 +2012,7 @@ void VisTextBox::ReadData(const void* buf) {
 
 int32_t VisTextBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     //4daa2b
-    if (msg == 0x462 && (timeGetTime() - this->cursor_blink_ts) > 500) {
+    if (msg == VIS_MSG_CURSOR_BLINK && (timeGetTime() - this->cursor_blink_ts) > 500) {
         this->cursor_blink_ts = timeGetTime();
         this->cursor_blink = 1 - this->cursor_blink;
 
@@ -2231,7 +2231,7 @@ int32_t VisTextBox::OnKeyDown(uint32_t wparam) {
         break;
     }
 
-    this->parent->MsgProc(0x46e, this->id, 0);
+    this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, 0);
 
     return res;
 }
@@ -2261,7 +2261,7 @@ int32_t VisTextBox::OnChar(uint32_t wparam) {
 
     this->VMethod9();
 
-    this->parent->MsgProc(0x46e, this->id, 0);
+    this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, 0);
 
     return 1;
 }
@@ -2515,7 +2515,7 @@ int32_t VisRadioType1::OnLButtonDown(uint32_t wparam, CPoint pos) {
     }
 
     this->VMethod9();
-    this->parent->MsgProc(0x46e, this->id, this->selection);
+    this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->selection);
     return 1;
 }
 
@@ -2573,7 +2573,7 @@ int32_t VisRadioType1::OnChar(uint32_t wparam) {
     }
     
     this->VMethod9();
-    this->parent->MsgProc(0x46e, this->id, this->selection);
+    this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->selection);
     return 1;
 }
 
@@ -2658,7 +2658,7 @@ int32_t VisRadioType2::OnLButtonDown(uint32_t wparam, CPoint pos) {
     this->selection = idx;
     this->selected = idx;
     this->VMethod9();
-    this->parent->MsgProc(0x46e, this->id, this->selection);
+    this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->selection);
     return 1;
 }
 
@@ -2675,7 +2675,7 @@ int32_t VisRadioType2::OnKeyDown(uint32_t wparam) {
         }
 
         this->selected = this->selection;
-        this->parent->MsgProc(0x46e, this->id, this->selection);
+        this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->selection);
         this->VMethod9();
         return 1;
     }
@@ -2691,7 +2691,7 @@ int32_t VisRadioType2::OnKeyDown(uint32_t wparam) {
         }
 
         this->selected = this->selection;
-        this->parent->MsgProc(0x46e, this->id, this->selection);
+        this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->selection);
         this->VMethod9();
         return 1;
     }
@@ -2708,7 +2708,7 @@ int32_t VisRadioType2::OnChar(uint32_t wparam) {
     this->selection = this->selected;
 
     this->VMethod9();
-    this->parent->MsgProc(0x46e, this->id, this->selection);
+    this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->selection);
     return 1;
 }
 
@@ -2912,7 +2912,7 @@ void VisComboBox::WriteData(void* buf) {
 
 int32_t VisComboBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     //4e22d8
-    if (msg == 0x456) {
+    if (msg == VIS_MSG_COMBO_TOGGLE) {
         this->ToggleList();
         return 1;
     } else if (msg == WM_LBUTTONDOWN) {
@@ -2926,7 +2926,7 @@ int32_t VisComboBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
             this->parent->OnLButtonDown(1, cpt);
             return 1;
         }
-    } else if (msg == 0x473) {
+    } else if (msg == VIS_MSG_LIST_SELECT) {
         if (wparam == this->listbox->GetId()) {
             this->ProcSelectList();
             return 1;
@@ -3125,7 +3125,7 @@ void VisMultiText::SelectItem(int32_t idx) {
         scroll->SetPos(this->vis_start_index, (this->entries.GetSize() - this->num_vis_entry) + 1);
     }
 
-    this->parent->MsgProc(0x46e, this->id, this->vis_start_index);
+    this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->vis_start_index);
 }
 
 
@@ -3301,7 +3301,7 @@ void VisScreen::VMethod8(CRect* r) {
 
 int32_t VisScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     //4dfbcd
-    if (msg == 0x445 || msg == 0x446) {
+    if (msg == VIS_MSG_HIDE_SCREEN || msg == VIS_MSG_CLOSE_SCREEN) {
         if (this->is_active) {
             this->DoClose(msg);
             AfxGetMainWnd()->PostMessageA(MAIN_MSG_CHILD_CLOSED, (WPARAM)this, 0);
@@ -3401,12 +3401,12 @@ int32_t VisScreen::GetCloseCode() {
 
 void VisScreen::CloseOk() {
     //4327b5
-    this->MsgProc(0x445, 0, 0);
+    this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
 }
 
 void VisScreen::CloseCancel() {
     //4327d4
-    this->MsgProc(0x446, 0, 0);
+    this->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
 }
 
 
@@ -3416,7 +3416,7 @@ VisWindow::~VisWindow()  //451a70
 int32_t VisWindow::OnKeyDown(uint32_t wparam) {
     //4dfeb2
     if (wparam == VK_ESCAPE) {
-        return this->MsgProc(0x446, 0, 0);
+        return this->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
     } else {
         return VisScreen::OnKeyDown(wparam);
     }
@@ -3442,7 +3442,7 @@ void VisWindow::UpdateWinRect() {
 
 // 4e0071
 int32_t VisRoleKeyScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
-    if (msg != 0x470) {
+    if (msg != VIS_MSG_SPEECH_ADVANCE) {
         return this->VisScreen::MsgProc(msg, wparam, lparam);
     }
 
@@ -3459,14 +3459,14 @@ int32_t VisRoleKeyScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
     if (this->tips_id != 0) {
         AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_TIPS, this->tips_id, 0);
     }
-    return this->VisScreen::MsgProc(0x445, 0, 0);
+    return this->VisScreen::MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
 }
 
 
 // 4e0027
 int32_t VisRoleKeyScreen::OnKeyDown(uint32_t wparam) {
     if (wparam == VK_RETURN || wparam == VK_ESCAPE) {
-        this->MsgProc(0x470, 0, 0);
+        this->MsgProc(VIS_MSG_SPEECH_ADVANCE, 0, 0);
         return 1;
     }
     return this->VisScreen::OnKeyDown(wparam);
@@ -3810,7 +3810,7 @@ VisMessageBox::~VisMessageBox() {
 int32_t VisMessageBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     //44500f
     if (msg >= 0x445 && msg <= 0x44b) {
-        int32_t res = VisScreen::MsgProc(0x446, wparam, lparam);
+        int32_t res = VisScreen::MsgProc(VIS_MSG_CLOSE_SCREEN, wparam, lparam);
         this->exit_code = msg;
         this->VMethod31(msg);
         return res;
@@ -4218,7 +4218,7 @@ CVisualObject* VisCutScenesDlg::VMethod30(const void* data, const RECT& r) {
 
 // 445CF1
 void VisDiplomacy::VMethod31(int32_t code) {
-    if (code == 0x445) {
+    if (code == VIS_MSG_HIDE_SCREEN) {
         ((VisListBoxDiplomacy*)this->FindChild(2))->WriteRadioState();
     }
 }
@@ -4535,11 +4535,11 @@ void VisTipsDialog::SetText(const char* text) {
 // 4e2b95
 int32_t VisTipsDialog::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     // client 4e7519: the radio id is build-shifted (0xF server, 0x10 client).
-    if (msg == 0x46E && wparam == MAP_CHILD_TIPS_SHOW_RADIO) {
+    if (msg == VIS_MSG_SET_OPTION && wparam == MAP_CHILD_TIPS_SHOW_RADIO) {
         g_settings.TipsMode = lparam;
     }
 
-    if (msg == 0x100 || msg == 0x445 || msg == 0x446) {
+    if (msg == 0x100 || msg == VIS_MSG_HIDE_SCREEN || msg == VIS_MSG_CLOSE_SCREEN) {
         return 0;
     }
 
@@ -4653,7 +4653,7 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
                     mwnd->vis_msgbox_list = box;
                     mwnd->ModalScreen(box);
 
-                    if (box->GetCloseCode() == 0x447) {
+                    if (box->GetCloseCode() == VIS_MSG_BOX_OK) {
                         this->parent_screen->session->DeleteSelectedCharacter();
 
                         if (idx < this->parent_screen->session->GetStringArray1Size() - 1) {
@@ -5368,25 +5368,25 @@ void VisNetMapSelection::VMethod26() {
 int32_t VisNetMapSelection::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     switch (msg) {
-    case 0x444:
+    case VIS_MSG_LIST_ACTIVATE:
         if (wparam != 1) {
             return 0;
         }
         // fallthrough
-    case 0x445:
+    case VIS_MSG_HIDE_SCREEN:
         if (this->FindChild(0x14)->TestFlags(1)) {
             this->StopThread();
-            this->VisScreen::MsgProc(0x445, 0, 0);
+            this->VisScreen::MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
             VisListBox* map_list = (VisListBox*)this->FindChild(1);
             NetMapInfo* info = this->avail_maps.GetAt(map_list->GetSelectedIndex());
             *this->p_mapname = info->mapid;
         }
         return 1;
-    case 0x446:
+    case VIS_MSG_CLOSE_SCREEN:
         this->StopThread();
-        this->VisScreen::MsgProc(0x446, 0, 0);
+        this->VisScreen::MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
         return 1;
-    case 0x45E:
+    case VIS_MSG_NETMAP_APPLY:
         if (main_wnd->sessionMode == SESSION_SINGLEPLAYER) {
             this->StopThread();
             if (this->mode == 0) {
@@ -5403,11 +5403,11 @@ int32_t VisNetMapSelection::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpar
                     && (main_wnd->m_GameSession.GetSkillTier2() >= level + 1);
                 this->VisScreen::MsgProc(can_join ? 0x445 : 0x446, 0, 0);
             } else {
-                this->VisScreen::MsgProc(0x445, 0, 0);
+                this->VisScreen::MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
             }
         }
         return 1;
-    case 0x45F: {
+    case VIS_MSG_NETMAP_CHAT_SYNC: {
         VisNetChatList* chat_list = (VisNetChatList*)this->FindChild(3);
         int32_t count = chat_list->GetItemCount();
         int32_t sel = chat_list->GetSelectedIndex();
@@ -5422,7 +5422,7 @@ int32_t VisNetMapSelection::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpar
         chat_list->VMethod9();
         return 1;
     }
-    case 0x460: {
+    case VIS_MSG_ROSTER_CHANGED: {
         BigStruct2* map_context = main_wnd->vis_map_context;
         VisNetPlayerList* player_list = (VisNetPlayerList*)this->FindChild(5);
         player_list->entries.RemoveAll();
@@ -5438,11 +5438,11 @@ int32_t VisNetMapSelection::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpar
         player_list->VMethod9();
         return 1;
     }
-    case 0x461:
+    case VIS_MSG_NETMAP_ADD_INFO:
         this->AddNetMapInfo((NetMapInfo*)wparam);
         return 1;
-    case 0x46E:
-    case 0x473:
+    case VIS_MSG_SET_OPTION:
+    case VIS_MSG_LIST_SELECT:
         if (wparam == 1) {
             if (lparam >= 0 && this->mode != 0) {
                 this->selected_map_index = lparam;
@@ -5466,7 +5466,7 @@ int32_t VisNetMapSelection::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpar
             return 1;
         }
         return 0;
-    case 0x484:
+    case VIS_MSG_NETMAP_FIND_MAP:
         if (this->mode == 0) {
             if (lparam >= 0 && lparam < (uint32_t)this->avail_maps.GetSize()) {
                 for (int32_t i = 0; i < this->avail_maps.GetSize(); i++) {
@@ -5962,7 +5962,7 @@ void VisCharSelect::VMethod28() {
 void VisCharSelect::DoClose(uint32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     this->VMethod9();
-    if (this->roster_list->selected_row == this->session->GetStringArray1Size() - 1 && code == 0x445) {
+    if (this->roster_list->selected_row == this->session->GetStringArray1Size() - 1 && code == VIS_MSG_HIDE_SCREEN) {
         this->session->InitializeNewCharacterSession(0, nullptr);
     }
     this->active_flag = 0;
@@ -6020,7 +6020,7 @@ int32_t VisCharSelect::OnMouseMove(uint32_t wparam, CPoint pos) {
 
 // 4326A4
 int32_t VisCharSelect::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
-    if (msg == 0x402) {
+    if (msg == VIS_MSG_FRAME_TICK) {
         this->VMethod9();
         return 1;
     }
@@ -6083,12 +6083,12 @@ VisMenuWnd::VisMenuWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, 
 }
 
 int32_t VisMenuWnd::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) { //440e54
-    if (msg == 0x47b) {
+    if (msg == VIS_MSG_MENU_BUTTON_CLICK) {
         if (wparam == 0) {
-            return VisScreen::MsgProc(0x446, 0, 0);
+            return VisScreen::MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
         }
 
-        int32_t res = VisScreen::MsgProc(0x445, 0, 0);
+        int32_t res = VisScreen::MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
         AfxGetMainWnd()->PostMessage(wparam, 0, 0);
         return res;
     }
@@ -6230,10 +6230,10 @@ int32_t LoadGameWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) 
     default:
         return VisScreen::MsgProc(msg, wparam, lparam);
 
-    case 0x444:
-    case 0x479: {
+    case VIS_MSG_LIST_ACTIVATE:
+    case VIS_MSG_CONFIRM: {
         if (this->selected_index < 0) {
-            return VisScreen::MsgProc(0x446, 0, 0);
+            return VisScreen::MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
         }
 
         CStringArray arr;
@@ -6242,23 +6242,23 @@ int32_t LoadGameWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) 
         strcpy(this->out_info->title, arr[this->selected_index]);
         strcpy(this->out_info->filename, this->file_names[this->selected_index]);
 
-        return VisScreen::MsgProc(0x445, 0, 0);
+        return VisScreen::MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
     }
 
-    case 0x46e:
+    case VIS_MSG_SET_OPTION:
         if (wparam == 3) {
             this->selected_index = lparam;
         }
         return 1;
 
-    case 0x475: {
+    case VIS_MSG_LIST_SECONDARY: {
         VisListBox* lb = (VisListBox*)this->FindChild(3);
         int32_t idx = lb->GetSelectedIndex();
         if (idx > -1) {
             CString str = txt_patch.GetLine(50) + lb->GetItem(idx) + txt_patch.GetLine(51); // want to delete save ### ?
             mwnd->vis_msgbox_list = new VisMessageBoxWithList(1, 64, 100, 380, 594, str, nullptr, 4);
             mwnd->ModalScreen(mwnd->vis_msgbox_list);
-            if (mwnd->vis_msgbox_list->GetCloseCode() == 0x447) {
+            if (mwnd->vis_msgbox_list->GetCloseCode() == VIS_MSG_BOX_OK) {
                 DeleteFileA(this->file_names[idx]);
                 this->file_names.RemoveAt(idx);
                 this->save_times.RemoveAt(idx);
@@ -6266,7 +6266,7 @@ int32_t LoadGameWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) 
                 lb->RemoveItem(idx);
                 lb->SelectItem(idx);
 
-                this->MsgProc(0x46e, lb->GetId(), lb->GetSelectedIndex());
+                this->MsgProc(VIS_MSG_SET_OPTION, lb->GetId(), lb->GetSelectedIndex());
 
                 if (this->file_names.GetSize() == 0) {
                     CVisualObject* obj = this->FindChild(4);
@@ -6283,8 +6283,8 @@ int32_t LoadGameWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) 
         return 1;
     }
 
-    case 0x47a:
-        VisScreen::MsgProc(0x446, 0, 0);
+    case VIS_MSG_CANCEL:
+        VisScreen::MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
         return 1;
     }
 
@@ -6414,8 +6414,8 @@ int32_t SaveGameWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) 
     default:
         return VisScreen::MsgProc(msg, wparam, lparam);
 
-    case 0x444:
-    case 0x479: {
+    case VIS_MSG_LIST_ACTIVATE:
+    case VIS_MSG_CONFIRM: {
         if (this->FindChild(4)->TestFlags(FLAG_ENABLED) != 0) {
             char buf[256];
             this->FindChild(1)->WriteData(buf);
@@ -6434,12 +6434,12 @@ int32_t SaveGameWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) 
 
             strcpy(this->out_info->filename, this->file_names[this->selected_index]);
 
-            VisScreen::MsgProc(0x445, 0, 0);
+            VisScreen::MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
         }
         return 1;
     }
 
-    case 0x46e:
+    case VIS_MSG_SET_OPTION:
         if (wparam == 3) {
             this->selected_index = lparam;
             CStringArray local_158;
@@ -6459,14 +6459,14 @@ int32_t SaveGameWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) 
         }
         return VisScreen::MsgProc(msg, wparam, lparam);
 
-    case 0x475: {
+    case VIS_MSG_LIST_SECONDARY: {
         VisListBox* lb = (VisListBox*)this->FindChild(3);
         int32_t idx = lb->GetSelectedIndex();
         if (idx != 0) {
             CString str = txt_patch.GetLine(50) + lb->GetItem(idx) + txt_patch.GetLine(51); // want to delete save ### ?
             mwnd->vis_msgbox_list = new VisMessageBoxWithList(1, 64, 100, 380, 594, str, nullptr, 4);
             mwnd->ModalScreen(mwnd->vis_msgbox_list);
-            if (mwnd->vis_msgbox_list->GetCloseCode() == 0x447) {
+            if (mwnd->vis_msgbox_list->GetCloseCode() == VIS_MSG_BOX_OK) {
                 DeleteFileA(this->file_names[idx]);
                 this->file_names.RemoveAt(idx);
                 this->save_times.RemoveAt(idx);
@@ -6474,14 +6474,14 @@ int32_t SaveGameWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) 
                 lb->RemoveItem(idx);
                 lb->SelectItem(idx);
 
-                this->MsgProc(0x46e, lb->GetId(), lb->GetSelectedIndex());
+                this->MsgProc(VIS_MSG_SET_OPTION, lb->GetId(), lb->GetSelectedIndex());
             }
         }
         return 1;
     }
 
-    case 0x47a:
-        VisScreen::MsgProc(0x446, 0, 0);
+    case VIS_MSG_CANCEL:
+        VisScreen::MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
         return 1;
     }
 
@@ -6653,7 +6653,7 @@ int32_t GameOptionsWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpara
     int32_t oldshtfl = g_settings.ShowTimeFlow;
 
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
-    if (msg == 0x445) {
+    if (msg == VIS_MSG_HIDE_SCREEN) {
         VisScrollBar::Data dat;
         this->FindChild(2)->WriteData(&dat);
         mwnd->SetSpeed(dat.v);
@@ -7005,11 +7005,11 @@ SoundPreferencesDialogVisualObject::SoundPreferencesDialogVisualObject(int32_t _
 int32_t SoundPreferencesDialogVisualObject::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) { //43e6f0
     int32_t result = 0;
     switch (msg) {
-    case 0x467:
+    case VIS_MSG_MUSIC_POSITION:
         result = 1;
         break;
 
-    case 0x46e:
+    case VIS_MSG_SET_OPTION:
         switch (wparam) {
         case 2:
             this->settings->random = lparam;
@@ -7051,7 +7051,7 @@ int32_t SoundPreferencesDialogVisualObject::MsgProc(uint32_t msg, uint32_t wpara
         }
         break;
 
-    case 0x474:
+    case VIS_MSG_SFX_TEST:
         if (wparam == 7) {
             g_SfxArray[100]->Play(this->settings->sfx_pos, 0, 0, 220, 0);
         } else if (wparam == 8) {
@@ -7060,14 +7060,14 @@ int32_t SoundPreferencesDialogVisualObject::MsgProc(uint32_t msg, uint32_t wpara
         result = 1;
         break;
 
-    case 0x476:
+    case VIS_MSG_ACKNOWLEDGE:
         this->music_player->SetPlayNotify(0);
         this->FindChild(40)->WriteData(&g_settings.Acknowledgement);
-        VisScreen::MsgProc(0x445, 0, 0);
+        VisScreen::MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
         result = 1;
         break;
 
-    case 0x477:
+    case VIS_MSG_MUSIC_ENABLE:
         this->settings->music_enabled = 1;
         this->music_player->SetFadeout(0);
         if (this->track_index == this->music_player->GetCurrentTrackIndex()) {
@@ -7082,7 +7082,7 @@ int32_t SoundPreferencesDialogVisualObject::MsgProc(uint32_t msg, uint32_t wpara
         result = 1;
         break;
 
-    case 0x478:
+    case VIS_MSG_MUSIC_DISABLE:
         if (this->music_player->GetState() == 2) {
             this->music_player->OnEndTrack();
         }
@@ -7387,7 +7387,7 @@ void VisGlobalMap::VMethod7() {
     UnlockSurface2();
     CVisualObject::VMethod7();
     if (travel_arrived != 0) {
-        this->MsgProc(0x445, 0, 0);
+        this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
         AfxGetMainWnd()->PostMessage(MAIN_MSG_ENTER_SCENARIO_LOCATION, 0, 0);
         CList<ScenarioLocation*>* locs = ScenarioGetAvailableLocations();
         if (this->umoirMapMode == 0) {
@@ -7701,7 +7701,7 @@ int32_t VisGlobalMap::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
         gmap_repaint_init |= 1;
         gmap_repaint_ts = timeGetTime() - 100;
     }
-    if (msg == 0x402) {
+    if (msg == VIS_MSG_FRAME_TICK) {
         if (timeGetTime() - gmap_repaint_ts >= 100) {
             this->VMethod9();
             gmap_repaint_ts = timeGetTime();
@@ -8077,13 +8077,13 @@ void VisCharGen::LoadSamples() {
 
 // 42EBAB
 void VisCharGen::OnClickBack() {
-    this->MsgProc(0x446, 0, 0);
+    this->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
 }
 
 
 // 42EB8C
 void VisCharGen::OnClickFwd() {
-    this->MsgProc(0x445, 0, 0);
+    this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
 }
 
 
@@ -8267,16 +8267,16 @@ int32_t VisCharGen::OnMouseMove(uint32_t wparam, CPoint pos) {
 // 42E058
 int32_t VisCharGen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     switch (msg) {
-    case 0x402:
+    case VIS_MSG_FRAME_TICK:
         this->VMethod9();
         break;
-    case 0x414:
+    case VIS_MSG_SELECT_PREV:
         this->OnPrevFace();
         break;
-    case 0x415:
+    case VIS_MSG_SELECT_NEXT:
         this->OnNextFace();
         break;
-    case 0x45A:
+    case VIS_MSG_CLOSE_TIPS:
         if (this->tips != nullptr) {
             this->skills_panel->RemoveChild(this->tips);
             delete this->tips;
@@ -9369,7 +9369,7 @@ int32_t VisLogoWnd::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) { //
     };
 
     switch (msg) {
-    case 0x402:
+    case VIS_MSG_FRAME_TICK:
         if (this->drawPendingFlag) {
             this->VMethod9();
         }
@@ -9379,16 +9379,16 @@ int32_t VisLogoWnd::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) { //
         }
         break;
 
-    case 0x408:
+    case VIS_MSG_DATA_REFRESH:
         this->drawPendingFlag = 1;
         break;
 
-    case 0x439:
+    case VIS_MSG_LOGO_SET_TIMEOUT:
         this->timeoutTicks = wparam;
         this->timeoutStart = timeGetTime();
         break;
 
-    case 0x43a:
+    case VIS_MSG_LOGO_SET_STEP:
         this->step = wparam;
         this->logoBitmap = new CBmp256(logos_files[wparam]);
         this->logoBitmap->ResetPalette(1, 1, 0);
@@ -9823,7 +9823,7 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
     }
 
     unit->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
-    this->MsgProc(0x408, 0, 0);
+    this->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
     unit->equipmentTokens[a] = main_wnd->drag_entry;
 
     int32_t amount = main_wnd->drag_entry->count;
@@ -9831,7 +9831,7 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
 
     main_wnd->ResetItemCursor();
     unit->ReloadSprite();
-    main_wnd->vis_root->MsgProc(0x46E, this->id, 0);
+    main_wnd->vis_root->MsgProc(VIS_MSG_SET_OPTION, this->id, 0);
     return (int32_t)old_token;
 }
 
@@ -9870,18 +9870,18 @@ int32_t VisCharInfo::OnLButtonUp(uint32_t wparam, CPoint pos) {
 
     if (main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
         if (backpack_rect.PtInRect(pos)) {
-            this->MsgProc(0x40E, 0, 0);
-            map->MsgProc(0x40E, 0, 0);
+            this->MsgProc(VIS_MSG_TOGGLE_SELECT_PANEL, 0, 0);
+            map->MsgProc(VIS_MSG_TOGGLE_SELECT_PANEL, 0, 0);
         }
     }
 
     CRect book_rect(screen_rect.left, screen_rect.top, screen_rect.left + 0x1C, screen_rect.top + 0x24);
     if ((main_wnd->dialogsMask & (DIALOG_MASK_INGAME | DIALOG_MASK_SHOP)) != 0 && (main_wnd->dialogsMask & DIALOG_MASK_TAVERN) == 0) {
         if (book_rect.PtInRect(pos)) {
-            this->MsgProc(0x40F, 0, 0);
-            map->MsgProc(0x40F, 0, 0);
+            this->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
+            map->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
             if ((main_wnd->dialogsMask & DIALOG_MASK_SHOP) != 0) {
-                main_wnd->vis_root->FindChild(0x3E8)->MsgProc(0x40F, 0, 0);
+                main_wnd->vis_root->FindChild(0x3E8)->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
             }
         }
     }
@@ -9889,7 +9889,7 @@ int32_t VisCharInfo::OnLButtonUp(uint32_t wparam, CPoint pos) {
     CRect mode_btn_rect(screen_rect.left + 0x80, screen_rect.top, screen_rect.right, screen_rect.top + 0x24);
     if ((main_wnd->dialogsMask & (DIALOG_MASK_CHAR_SELECT | DIALOG_MASK_CHARGEN)) == 0) {
         if (mode_btn_rect.PtInRect(pos) && moved_up == 0) {
-            this->MsgProc(0x412, 0, 0);
+            this->MsgProc(VIS_MSG_TOGGLE_INFO_MODE, 0, 0);
             map->full_redraw_requested = 1;
         }
     }
@@ -9897,11 +9897,11 @@ int32_t VisCharInfo::OnLButtonUp(uint32_t wparam, CPoint pos) {
     if ((main_wnd->dialogsMask & (DIALOG_MASK_CHARGEN | 0x20 | DIALOG_MASK_TAVERN | DIALOG_MASK_SHOP)) != 0) {
         if (ar1_rect.PtInRect(pos)) {
             g_SfxArray[1]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xDC, 0);
-            main_wnd->vis_root->MsgProc(0x414, 0, 0);
+            main_wnd->vis_root->MsgProc(VIS_MSG_SELECT_PREV, 0, 0);
         }
         if (ar2_rect.PtInRect(pos)) {
             g_SfxArray[1]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xDC, 0);
-            main_wnd->vis_root->MsgProc(0x415, 0, 0);
+            main_wnd->vis_root->MsgProc(VIS_MSG_SELECT_NEXT, 0, 0);
         }
     }
 
@@ -9955,8 +9955,8 @@ int32_t VisCharInfo::OnMouseMove(uint32_t wparam, CPoint pos) {
     main_wnd->SetItemCursor(main_wnd->drag_entry, main_wnd->drag_src_slot, path, main_wnd->drag_src_tab);
 
     unit->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
-    this->MsgProc(0x408, 0, 0);
-    this->parent->MsgProc(0x46E, this->id, 0);
+    this->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
+    this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, 0);
     unit->m_bSelectionDirty = 1;
     return 0;
 }
@@ -9993,13 +9993,13 @@ int32_t VisCharInfo::VMethod26(int32_t a) {
     }
 
     unit->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
-    this->MsgProc(0x408, 0, 0);
+    this->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
     main_wnd->drag_entry = unit->equipmentTokens[a];
     unit->equipmentTokens[a] = nullptr;
     main_wnd->drag_src_slot = a;
     main_wnd->drag_src_tab = this->VMethod28();
     unit->ReloadSprite();
-    main_wnd->vis_root->MsgProc(0x46E, this->id, 0);
+    main_wnd->vis_root->MsgProc(VIS_MSG_SET_OPTION, this->id, 0);
     return (int32_t)main_wnd->drag_entry;
 }
 
@@ -10039,7 +10039,7 @@ int32_t VisCharInfo::OnKeyDown(uint32_t wparam) {
     }
 
     if ((main_wnd->dialogsMask & DIALOG_MASK_CHAR_SELECT) == 0 && (main_wnd->dialogsMask & DIALOG_MASK_CHARGEN) == 0) {
-        this->MsgProc(0x412, 0, 0);
+        this->MsgProc(VIS_MSG_TOGGLE_INFO_MODE, 0, 0);
     }
     return 1;
 }
@@ -10049,7 +10049,7 @@ int32_t VisCharInfo::OnRButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     BigStruct2* map = this->map_context;
     if (main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
-        return map->MsgProc(0x405, 0, 0);
+        return map->MsgProc(VIS_MSG_CANCEL_ORDER, 0, 0);
     }
     return 1;
 }
@@ -10110,14 +10110,14 @@ int32_t VisCharInfo::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 
     if (result == 0) {
         switch (msg) {
-        case 0x403:
+        case VIS_MSG_SET_MAP_CONTEXT:
             this->map_context = (BigStruct2*)wparam;
             this->dirty = 1;
             break;
-        case 0x408:
+        case VIS_MSG_DATA_REFRESH:
             this->dirty = 1;
             break;
-        case 0x402:
+        case VIS_MSG_FRAME_TICK:
             if (main_wnd->dialogsMask == DIALOG_MASK_INGAME || main_wnd->dialogsMask == (DIALOG_MASK_INGAME | DIALOG_MASK_SHOP) || main_wnd->dialogsMask == (DIALOG_MASK_INGAME | DIALOG_MASK_TAVERN)) {
                 if (this->dirty != 0) {
                     this->VMethod9();
@@ -10127,18 +10127,18 @@ int32_t VisCharInfo::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
                 this->UpdateCursor();
             }
             break;
-        case 0x40E:
+        case VIS_MSG_TOGGLE_SELECT_PANEL:
             this->dirty = 1;
             this->selection_panel_state = (this->selection_panel_state == 0);
             break;
-        case 0x40F:
+        case VIS_MSG_TOGGLE_SPELL_PANEL:
             this->dirty = 1;
             this->spell_panel_state = (this->spell_panel_state == 0);
             break;
-        case 0x410:
+        case VIS_MSG_STATUS_REFRESH:
             this->dirty = 1;
             break;
-        case 0x412:
+        case VIS_MSG_TOGGLE_INFO_MODE:
             if (moved_up == 0) {
                 g_SfxArray[1]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xDC, 0);
                 this->info_mode = (this->info_mode == 0);
@@ -10337,7 +10337,7 @@ int32_t VisSideStatus::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 
     if (result == 0) {
         switch (msg) {
-        case 0x402:
+        case VIS_MSG_FRAME_TICK:
             if (main_wnd->dialogsMask == DIALOG_MASK_INGAME && moved_up != 0 && this->dirty != 0) {
                 this->VMethod9();
             }
@@ -10345,9 +10345,9 @@ int32_t VisSideStatus::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
                 this->UpdateCursor();
             }
             break;
-        case 0x403:
-        case 0x408:
-        case 0x410:
+        case VIS_MSG_SET_MAP_CONTEXT:
+        case VIS_MSG_DATA_REFRESH:
+        case VIS_MSG_STATUS_REFRESH:
             this->dirty = 1;
             break;
         }
@@ -10435,7 +10435,7 @@ void VisShop::CloseShopDialog() {
         this->gameplay->CloseSpellBook();
     }
     this->ReturnPendingBuyItems();
-    this->MsgProc(0x445, 0, 0);
+    this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
 }
 
 
@@ -10700,7 +10700,7 @@ int32_t VisShop::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     switch (msg) {
-    case 0x402:
+    case VIS_MSG_FRAME_TICK:
         if ((main_wnd->dialogsMask & DIALOG_MASK_POPUP) == 0) {
             this->UpdateShopTips();
             this->shop_compass->VMethod9();
@@ -10716,14 +10716,14 @@ int32_t VisShop::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
             this->buttons->VMethod9();
         }
         break;
-    case 0x40F:
+    case VIS_MSG_TOGGLE_SPELL_PANEL:
         if (this->spell_panel != nullptr) {
             this->ShowBuyPanel();
         } else {
             this->ShowSpellPanel();
         }
         break;
-    case 0x413:
+    case VIS_MSG_REFRESH_ITEM_GRIDS:
         if (lparam == 0) {
             this->to_sell->RefreshGrid();
             this->assortiment->RefreshGrid();
@@ -10757,15 +10757,15 @@ int32_t VisShop::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
             ((CArray<TokenEntry*>*)lparam)->RemoveAll();
         }
         break;
-    case 0x414:
+    case VIS_MSG_SELECT_PREV:
         this->SelectPrevPartyUnit();
         this->dirty |= 1;
         break;
-    case 0x415:
+    case VIS_MSG_SELECT_NEXT:
         this->SelectNextPartyUnit();
         this->dirty |= 1;
         break;
-    case 0x45A:
+    case VIS_MSG_CLOSE_TIPS:
         if (this->tips != nullptr) {
             if (this->shop_compass != nullptr) {
                 this->shop_compass->RemoveChild(this->tips);
@@ -10774,7 +10774,7 @@ int32_t VisShop::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
             this->tips = nullptr;
         }
         break;
-    case 0x46E:
+    case VIS_MSG_SET_OPTION:
         if (wparam == 7) {
             this->to_sell->RefreshGrid();
             this->to_buy->RefreshGrid();
@@ -10852,7 +10852,7 @@ void VisShop::VMethod28() {
     this->assortiment->SelectCategoryGrid(0);
     this->assortiment->ClearCategoryGrids();
     this->to_buy->ClearBuyEntries();
-    this->gameplay->MsgProc(0x405, 0, 0);
+    this->gameplay->MsgProc(VIS_MSG_CANCEL_ORDER, 0, 0);
     this->selected_units[this->select_index]->SetSelected(1);
     this->gameplay->UpdateSelectionState();
     this->selected_units[this->select_index]->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
@@ -11002,7 +11002,7 @@ void VisShop::RecalcShopGold() {
 
 // 4BB895
 void VisShop::SelectNextPartyUnit() {
-    this->gameplay->MsgProc(0x405, 0, 0);
+    this->gameplay->MsgProc(VIS_MSG_CANCEL_ORDER, 0, 0);
     this->select_index++;
     if (this->select_index >= this->selected_units.GetSize()) {
         this->select_index = 0;
@@ -11021,7 +11021,7 @@ void VisShop::SelectNextPartyUnit() {
 
 // 4BBA06
 void VisShop::SelectPrevPartyUnit() {
-    this->gameplay->MsgProc(0x405, 0, 0);
+    this->gameplay->MsgProc(VIS_MSG_CANCEL_ORDER, 0, 0);
     if (this->select_index != 0) {
         this->select_index--;
     } else {
@@ -12739,7 +12739,7 @@ void VisShopDruid::VMethod28() {
     this->assortiment->SelectCategoryGrid(0);
     this->assortiment->ClearCategoryGrids();
     this->to_buy->ClearBuyEntries();
-    this->gameplay->MsgProc(0x405, 0, 0);
+    this->gameplay->MsgProc(VIS_MSG_CANCEL_ORDER, 0, 0);
     this->selected_units[this->select_index]->SetSelected(1);
     this->gameplay->UpdateSelectionState();
     this->selected_units[this->select_index]->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
@@ -13025,7 +13025,7 @@ void VisShopKaarg::VMethod28() {
     this->assortiment->SelectCategoryGrid(0);
     this->assortiment->ClearCategoryGrids();
     this->to_buy->ClearBuyEntries();
-    this->gameplay->MsgProc(0x405, 0, 0);
+    this->gameplay->MsgProc(VIS_MSG_CANCEL_ORDER, 0, 0);
     this->selected_units[this->select_index]->SetSelected(1);
     this->gameplay->UpdateSelectionState();
     this->selected_units[this->select_index]->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
@@ -13176,7 +13176,7 @@ void VisTav::VMethod28() {
     this->selected_entries.Copy(g_StructEnter.structure_list);
     this->select_party = g_StructEnter.FindFlaggedStructureUnit();
 
-    this->map_context->MsgProc(0x405, 0, 0);
+    this->map_context->MsgProc(VIS_MSG_CANCEL_ORDER, 0, 0);
     this->selected_entries[this->select_party]->SetSelected(1);
     this->map_context->UpdateSelectionState();
     this->selected_entries[this->select_party]->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
@@ -13333,7 +13333,7 @@ int32_t VisTav::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     switch (msg) {
-    case 0x402:
+    case VIS_MSG_FRAME_TICK:
         if (this->rewards.GetSize() != 0 || this->quest_map->GetQuestCount() != 0) {
             if (this->right_panel->texts[0] == " ") {
                 this->right_panel->UpdateButtonLabels();
@@ -13343,13 +13343,13 @@ int32_t VisTav::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
             this->VMethod9();
         }
         break;
-    case 0x414:
+    case VIS_MSG_SELECT_PREV:
         this->SelectPrevPartyUnit();
         break;
-    case 0x415:
+    case VIS_MSG_SELECT_NEXT:
         this->SelectNextPartyUnit();
         break;
-    case 0x45A:
+    case VIS_MSG_CLOSE_TIPS:
         if (this->tips != nullptr) {
             this->scene->RemoveChild(this->tips);
             delete this->tips;
@@ -13408,7 +13408,7 @@ int32_t VisTav::OnMouseMove(uint32_t wparam, CPoint pos) {
 
 // 49EECD
 void VisTav::SelectPrevPartyUnit() {
-    this->map_context->MsgProc(0x405, 0, 0);
+    this->map_context->MsgProc(VIS_MSG_CANCEL_ORDER, 0, 0);
 
     if (this->select_party != 0) {
         this->select_party--;
@@ -13423,7 +13423,7 @@ void VisTav::SelectPrevPartyUnit() {
 
 // 49EE36
 void VisTav::SelectNextPartyUnit() {
-    this->map_context->MsgProc(0x405, 0, 0);
+    this->map_context->MsgProc(VIS_MSG_CANCEL_ORDER, 0, 0);
 
     this->select_party++;
     if (this->select_party >= this->selected_entries.GetSize()) {
@@ -13498,7 +13498,7 @@ int32_t VisTav::FindEntryIndexForUnit(CUnit* unit) {
 
 // 49EDEC
 void VisTav::CloseDialog() {
-    this->MsgProc(0x445, 0, 0);
+    this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
 
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     if (wnd->dialogsMask == DIALOG_MASK_TAVERN) {
@@ -15480,7 +15480,7 @@ void VisTavDruid::VMethod28() {
     this->selected_entries.Copy(g_StructEnter.structure_list);
     this->select_party = g_StructEnter.FindFlaggedStructureUnit();
 
-    this->map_context->MsgProc(0x405, 0, 0);
+    this->map_context->MsgProc(VIS_MSG_CANCEL_ORDER, 0, 0);
     this->selected_entries[this->select_party]->SetSelected(1);
     this->map_context->UpdateSelectionState();
     this->selected_entries[this->select_party]->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
@@ -15739,7 +15739,7 @@ void VisTavKaarg::VMethod28() {
     this->selected_entries.Copy(g_StructEnter.structure_list);
     this->select_party = g_StructEnter.FindFlaggedStructureUnit();
 
-    this->map_context->MsgProc(0x405, 0, 0);
+    this->map_context->MsgProc(VIS_MSG_CANCEL_ORDER, 0, 0);
     this->selected_entries[this->select_party]->SetSelected(1);
     this->map_context->UpdateSelectionState();
     this->selected_entries[this->select_party]->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
@@ -16066,7 +16066,7 @@ int32_t VisInvBase::VMethod27(TokenEntry* o) {
 
 // 4A5DE0
 int32_t VisInvBase::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
-    if (msg == 0x401) {
+    if (msg == VIS_MSG_WORLD_TICK) {
         this->TickCellAnims();
     }
     return CVisualObject::MsgProc(msg, wparam, lparam);
@@ -16158,7 +16158,7 @@ int32_t VisInvBase::VMethod37(int32_t idx) {
         main_wnd->vis_map_context->SendItemOperation(main_wnd->drag_src_tab, main_wnd->drag_src_slot, this->VMethod38(), idx, count);
     }
     main_wnd->ResetItemCursor();
-    main_wnd->vis_root->MsgProc(0x46E, this->id, 0);
+    main_wnd->vis_root->MsgProc(VIS_MSG_SET_OPTION, this->id, 0);
     return idx;
 }
 
@@ -16188,7 +16188,7 @@ TokenEntry* VisInvBase::VMethod36(int32_t idx, int32_t num) {
     } else {
         this->VMethod32(this->grid_source);
     }
-    main_wnd->vis_root->MsgProc(0x46E, this->id, 0);
+    main_wnd->vis_root->MsgProc(VIS_MSG_SET_OPTION, this->id, 0);
     return main_wnd->drag_entry;
 }
 
@@ -16560,7 +16560,7 @@ int32_t VisInvType1::OnMouseMove(uint32_t wparam, CPoint pos) {
 int32_t VisInvType1::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
-    if (msg == 0x417) {
+    if (msg == VIS_MSG_SHORTCUT_KEY) {
         if (lparam != 0) {
             CRect screen_rect = this->ClientRectToScreen(this->rect);
             CPoint mouse_pt(g_mousept.GetX(), g_mousept.GetY());
@@ -17656,7 +17656,7 @@ int32_t VisInvExtType1::VMethod37(int32_t idx) {
         main_wnd->vis_map_context->SendItemOperation(main_wnd->drag_src_tab, main_wnd->drag_src_slot, this->VMethod38(), entry->list_index, count);
     }
     main_wnd->ResetItemCursor();
-    main_wnd->vis_root->MsgProc(0x46E, this->id, 0);
+    main_wnd->vis_root->MsgProc(VIS_MSG_SET_OPTION, this->id, 0);
     return new_idx;
 }
 
@@ -17935,7 +17935,7 @@ int32_t VisInvExtType3::DropDraggedItem(int32_t idx) {
     uint8_t kind = this->VMethod38();
     main_wnd->vis_map_context->SendItemOperation(main_wnd->drag_src_tab, grade, kind, result, amount);
     main_wnd->ResetItemCursor();
-    main_wnd->vis_root->MsgProc(0x46E, this->id, 0);
+    main_wnd->vis_root->MsgProc(VIS_MSG_SET_OPTION, this->id, 0);
     return result;
 }
 
@@ -18987,7 +18987,7 @@ void VisStartGame::Accept() {
     if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         if (this->networkNameLabel->GetText().GetLength() > 0) {
             CSound::Play(this->acceptSound);
-            this->MsgProc(0x445, 0, 0);
+            this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
         }
     } else {
 #ifdef A2CLIENT
@@ -19001,7 +19001,7 @@ void VisStartGame::Accept() {
                     main_wnd->SendHatJoinName(this->nameLabel->GetText());
                 }
                 CSound::Play(this->acceptSound);
-                this->MsgProc(0x445, 0, 0);
+                this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
             } else {
                 VisScreen* mbox = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(0x1b), nullptr, 0x2000);
                 main_wnd->vis_msgbox_list = mbox;
@@ -19015,7 +19015,7 @@ void VisStartGame::Accept() {
 #else
         if (this->nameLabel->GetText().GetLength() > 0) {
             CSound::Play(this->acceptSound);
-            this->MsgProc(0x445, 0, 0);
+            this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
         }
 #endif
     }
@@ -19024,9 +19024,9 @@ void VisStartGame::Accept() {
 
 // 437571
 int32_t VisStartGame::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
-    if (msg == 0x402) {
+    if (msg == VIS_MSG_FRAME_TICK) {
         this->VMethod9();
-    } else if (msg == 0x45A && this->tipsPrompt != nullptr) {
+    } else if (msg == VIS_MSG_CLOSE_TIPS && this->tipsPrompt != nullptr) {
         this->RemoveChild(this->tipsPrompt);
         delete this->tipsPrompt;
         this->tipsPrompt = nullptr;
@@ -19074,7 +19074,7 @@ int32_t VisStartGame::OnMouseMove(uint32_t wparam, CPoint pos) {
 // 4382A9
 void VisStartGame::Cancel() {
     CSound::Play(this->returnSound);
-    this->MsgProc(0x446, 0, 0);
+    this->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
 }
 
 // 4382D9
@@ -19444,13 +19444,13 @@ int32_t VisTown::OnKeyDown(uint32_t wparam) {
 // 4CE3B8
 int32_t VisTown::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     MainWindow* mainwnd = (MainWindow*)AfxGetMainWnd();
-    if (msg == 0x402) {
+    if (msg == VIS_MSG_FRAME_TICK) {
         if (mainwnd->dialogsMask == 0) {
             this->VMethod9();
         }
-    } else if (msg == 0x446) {
+    } else if (msg == VIS_MSG_CLOSE_SCREEN) {
         return 1;
-    } else if (msg == 0x45A) {
+    } else if (msg == VIS_MSG_CLOSE_TIPS) {
         if (this->tips != nullptr) {
             this->RemoveChild(this->tips);
             delete this->tips;
@@ -19710,7 +19710,7 @@ void VisTown::VMethod32() {
 
 // 4D15E3
 void VisTown::VMethod39() {
-    this->MsgProc(0x445, 0, 0);
+    this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
 }
 
 
@@ -20790,7 +20790,7 @@ const char* VisTownKaarg::GetHint() {
         return TxtFile::AllLines[0xEB];
     case 0x200:
         return TxtFile::AllLines[0x167];
-    case 0x400:
+    case VIS_MSG_MOUSE:
         return TxtFile::AllLines[0x16A];
     case 0x800:
         return TxtFile::AllLines[0x169];
@@ -21733,7 +21733,7 @@ static int EnumSessionsPump() {
         if (msg.message == WM_QUIT) {
             return 0;
         }
-        if (msg.message == 0x446) {
+        if (msg.message == VIS_MSG_CLOSE_SCREEN) {
             TranslateMessage(&msg);
             DispatchMessageA(&msg);
             return 0;
@@ -21790,13 +21790,13 @@ int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     switch (msg) {
-    case 0x444:
+    case VIS_MSG_LIST_ACTIVATE:
         if (this->FindChild(0xF)->TestFlags(1) == 0) {
             return 0;
         }
         // fall through
-    case 0x44E:
-    case 0x44F: {
+    case VIS_MSG_NET_CREATE:
+    case VIS_MSG_NET_JOIN: {
         this->sessions->character_name = main_wnd->m_GameSession.character_name;
         VisListBox* server_list = (VisListBox*)this->FindChild(1);
         this->sessions->selected_index = server_list->GetSelectedIndex();
@@ -21812,7 +21812,7 @@ int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
         this->cached_player_rows.RemoveAll();
         return 1;
     }
-    case 0x446: {
+    case VIS_MSG_CLOSE_SCREEN: {
         VisScreen::MsgProc(msg, wparam, lparam);
         main_wnd->dialogsMask = 0;
 
@@ -21850,16 +21850,16 @@ int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
         this->cached_player_rows.RemoveAll();
         return 1;
     }
-    case 0x450:
+    case VIS_MSG_NET_REFRESH:
         this->RefreshSessions();
         return 1;
-    case 0x46E:
+    case VIS_MSG_SET_OPTION:
         if (wparam == 1) {
             this->selected = ((int32_t)lparam < 0) ? 0 : (int32_t)lparam;
             this->UpdatePlayerList();
         }
         return 1;
-    case 0x471: {
+    case VIS_MSG_NET_APPLY_PROVIDER: {
         int32_t provider = g_CLlDriver.GetProvider();
         if (provider == PROVIDER_SERIAL || provider == PROVIDER_MODEM) {
             this->rect = this->net_rect;
@@ -21881,7 +21881,7 @@ int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
                         delete[] word;
                     }
                 }
-                this->DoClose(0x44F);
+                this->DoClose(VIS_MSG_NET_JOIN);
                 main_wnd->PostMessage(MAIN_MSG_CHILD_CLOSED, (WPARAM)this, 0);
                 AfxGetMainWnd()->PostMessage(0x44F, 0, 0);
             }
@@ -21892,7 +21892,7 @@ int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
         }
         return 1;
     }
-    case 0x47C:
+    case VIS_MSG_NET_NEW_SESSION:
         g_CLlDriver.SetEventNewSession();
         return 1;
     default:
@@ -21930,7 +21930,7 @@ void VisNetDlg::VMethod26() {
 // 4478E9
 int32_t VisNetDlg::OnKeyDown(uint32_t wparam) {
     if (wparam == 0x1B) {
-        return this->MsgProc(0x47C, 0, 0);
+        return this->MsgProc(VIS_MSG_NET_NEW_SESSION, 0, 0);
     }
     return VisWindow::OnKeyDown(wparam);
 }
@@ -22141,7 +22141,7 @@ void VisFameDocument::PrevDoc() {
 
 // 4AE57F
 int32_t VisFameDocument::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
-    if (msg == 0x402) {
+    if (msg == VIS_MSG_FRAME_TICK) {
         this->VMethod9();
     }
     return this->VisScreen::MsgProc(msg, wparam, lparam);
@@ -22324,7 +22324,7 @@ int32_t VisFameHall::OnLButtonDown(uint32_t wparam, CPoint pos) {
 int32_t VisFameHall::OnLButtonUp(uint32_t wparam, CPoint pos) {
     CPoint top_left = this->rect.TopLeft();
     if ((this->close_rect + top_left).PtInRect(pos)) {
-        this->MsgProc(0x445, 0, 0);
+        this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
     }
     return this->CVisualObject::OnLButtonUp(wparam, pos);
 }
@@ -22349,7 +22349,7 @@ void VisFameHall::VMethod28() {
 
 // 45D57F
 int32_t VisFameHall::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
-    if (msg == 0x402) {
+    if (msg == VIS_MSG_FRAME_TICK) {
         this->CVisualObject::VMethod9();
     }
     return this->VisScreen::MsgProc(msg, wparam, lparam);
@@ -22575,20 +22575,20 @@ int32_t VisMiniMap::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     this->ClientRectToScreen(&rc, this->rect);
     if (res == 0) {
         switch (msg) {
-        case 0x402:
+        case VIS_MSG_FRAME_TICK:
             if (main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
                 this->VMethod9();
                 this->UpdateCursor();
             }
             break;
-        case 0x403:
+        case VIS_MSG_SET_MAP_CONTEXT:
             this->map_context = (BigStruct2*)wparam;
             break;
-        case 0x404:
+        case VIS_MSG_MINIMAP_REBUILD:
             this->RebuildMap();
             res = 1;
             break;
-        case 0x408:
+        case VIS_MSG_DATA_REFRESH:
             this->viewer = -100;
             break;
         }
@@ -22624,7 +22624,7 @@ int32_t VisMiniMap::OnRButtonDown(uint32_t wparam, CPoint pos) {
     }
     x = x + 8;
     y = y + 8;
-    mc->MsgProc(0x406, x, y);
+    mc->MsgProc(VIS_MSG_SCROLL_VIEW, x, y);
     return 0;
 }
 
@@ -22658,7 +22658,7 @@ int32_t VisMiniMap::OnLButtonDown(uint32_t wparam, CPoint pos) {
     y = y + 8;
     CSprite256* cur_sprite = g_mousept.GetCursorSprite();
     if (cur_sprite == g_Cursors[0x11]->GetSprite()) {
-        mc->MsgProc(0x406, x, y);
+        mc->MsgProc(VIS_MSG_SCROLL_VIEW, x, y);
     } else {
         if (mode == 1) {
             x = ((pos.x - ox) - rc.left) >> z;
@@ -22690,7 +22690,7 @@ int32_t VisMiniMap::OnLButtonDown(uint32_t wparam, CPoint pos) {
         }
     }
     mc->order_mode = 0;
-    main_wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
+    main_wnd->vis_ordertoolbar->MsgProc(VIS_MSG_ORDERS_CLEAR, 0, 0);
     return 0;
 }
 
@@ -23213,9 +23213,9 @@ int32_t VisSpellBook::OnKeyDown(uint32_t wparam) {
 // 4CAAD7
 int32_t VisSpellBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (msg == 0x411) {
+    if (msg == VIS_MSG_SHORTCUT_RELEASE) {
         this->pressed = -1;
-    } else if (msg == 0x417) {
+    } else if (msg == VIS_MSG_SHORTCUT_KEY) {
         if (lparam == 0) {
             if (main_wnd->m_GameSession.shortcuts[wparam].kind == 1) {
                 this->pressed = main_wnd->m_GameSession.shortcuts[wparam].item_id;
@@ -23456,7 +23456,7 @@ VisSpellBook::~VisSpellBook() {
 
 // 4AB41E
 int32_t VisMainMenu::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
-    if (msg == 0x402) {
+    if (msg == VIS_MSG_FRAME_TICK) {
         this->VMethod9();
     }
     return this->VisScreen::MsgProc(msg, wparam, lparam);
@@ -24007,12 +24007,12 @@ int32_t VisServerScreen::OnKeyDown(uint32_t wparam) {
 // 44E7C8
 int32_t VisServerScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     switch (msg) {
-    case 0x446:  // "disconnect" button
-        this->VisScreen::MsgProc(0x446, 0, 0);
+    case VIS_MSG_CLOSE_SCREEN:  // "disconnect" button
+        this->VisScreen::MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
         PostMessageA(g_MainWndHWND, MAIN_MSG_LEAVE_MISSION, 0, 0);
         return 1;
 
-    case 0x46E:  // "save on server" checkbox changed
+    case VIS_MSG_SET_OPTION:  // "save on server" checkbox changed
         if (wparam == 0x65) {
             g_Server->save_on_server = (lparam == 0) ? 1 : 0;
             return 1;
@@ -24049,17 +24049,17 @@ VisServerScreen::~VisServerScreen() = default;
 // 44878A
 int32_t VisNetPhoneBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     switch (msg) {
-    case 0x444:
+    case VIS_MSG_LIST_ACTIVATE:
         PostMessageA(g_MainWndHWND, 0x46e, wparam, lparam);
         PostMessageA(g_MainWndHWND, 0x47d, 0, 0);
         return 1;
-    case 0x446: {
+    case VIS_MSG_CLOSE_SCREEN: {
         int32_t res = this->VisScreen::MsgProc(msg, wparam, lparam);
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
         main_wnd->PostMessage(MAIN_MSG_SHOW_CONNECT_DLG, 0, 0);
         return res;
     }
-    case 0x46e:
+    case VIS_MSG_SET_OPTION:
         if (wparam == 1) {
             CVisualObject* edit = this->FindChild(3);
             const char* str;
@@ -24079,7 +24079,7 @@ int32_t VisNetPhoneBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
             this->UpdateConnectButton(buf);
         }
         return 1;
-    case 0x47d: {
+    case VIS_MSG_PHONE_CONNECT: {
         CVisualObject* connect_btn = this->FindChild(10);
         if (connect_btn->TestFlags(1) == 0) {
             return 1;
@@ -24105,12 +24105,12 @@ int32_t VisNetPhoneBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
         if (g_CLlDriver.PrepareForConnect(this->phones->dial, addr)) {
             MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
             main_wnd->PostMessage(MAIN_MSG_SHOW_NET_SESSIONS, 0, 0);
-            this->VisScreen::MsgProc(0x445, 0, 0);
+            this->VisScreen::MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
         }
         return 1;
     }
-    case 0x47e: {
-        this->VisScreen::MsgProc(0x445, 0, 0);
+    case VIS_MSG_PHONE_DIAL: {
+        this->VisScreen::MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
         VisListBox* list = (VisListBox*)this->FindChild(7);
         int32_t sel = list->GetSelectedIndex();
@@ -24474,23 +24474,23 @@ void VisNetSerialSettings::VMethod26() {
 // 449c98
 int32_t VisNetSerialSettings::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     switch (msg) {
-    case 0x446: {
+    case VIS_MSG_CLOSE_SCREEN: {
         int32_t result = VisScreen::MsgProc(msg, wparam, lparam);
         AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_CONNECT_DLG, 0, 0);
         return result;
     }
-    case 0x480: {
+    case VIS_MSG_SERIAL_CONNECT: {
         this->SaveComSettings();
 
         CLlAddress addr;
         addr.com = *this->pcom;
         if (g_CLlDriver.PrepareForConnect("", &addr) != 0) {
             AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_NET_SESSIONS, 0, 0);
-            VisScreen::MsgProc(0x445, 0, 0);
+            VisScreen::MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
         }
         return 1;
     }
-    case 0x481: {
+    case VIS_MSG_SERIAL_HOST: {
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
         this->SaveComSettings();
@@ -24498,12 +24498,12 @@ int32_t VisNetSerialSettings::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lp
         CLlAddress addr;
         addr.com = *this->pcom;
         if (g_CLlDriver.StartServer(2, main_wnd->m_GameSession.character_name, &addr) != 0) {
-            VisScreen::MsgProc(0x445, 0, 0);
+            VisScreen::MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
             main_wnd->PostMessage(MAIN_MSG_ENTER_CLIENT_MODE2, 0, 0);
         }
         return 1;
     }
-    case 0x483: {
+    case VIS_MSG_SERIAL_CLEAR: {
         this->DestroyAllChilds();
         this->cursor_over_obj_last = nullptr;
         this->cursor_over_obj = nullptr;
@@ -24986,12 +24986,12 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     switch (msg) {
-    case 0x444:
+    case VIS_MSG_LIST_ACTIVATE:
         if (wparam != 1) {
             return VisScreen::MsgProc(msg, wparam, lparam);
         }
         // fallthrough
-    case 0x445: {
+    case VIS_MSG_HIDE_SCREEN: {
         if (this->FindChild(0x14)->TestFlags(1) != 0) {
             VisHatBrowserList* list = (VisHatBrowserList*)this->FindChild(1);
             CString item = list->GetItem(list->GetSelectedIndex());
@@ -25004,7 +25004,7 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
                 main_wnd->m_GameSession.color = (main_wnd->hat_settings.store != 0) ? 1 : 3;
             }
 #endif
-            VisScreen::MsgProc(0x445, 0, 0);
+            VisScreen::MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
 #ifdef A2CLIENT
             if (this->browser != nullptr) {
                 SetEvent(this->exit_event);
@@ -25013,16 +25013,16 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
         }
         return 1;
     }
-    case 0x446:
-        VisScreen::MsgProc(0x446, 0, 0);
+    case VIS_MSG_CLOSE_SCREEN:
+        VisScreen::MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
 #ifdef A2CLIENT
         if (this->browser != nullptr) {
             SetEvent(this->exit_event);
         }
 #endif
         return 1;
-    case 0x46e:
-    case 0x473:
+    case VIS_MSG_SET_OPTION:
+    case VIS_MSG_LIST_SELECT:
         if (wparam == 1) {
             if ((int32_t)lparam >= 0) {
                 VisHatBrowserList* list = (VisHatBrowserList*)this->FindChild(1);
@@ -25043,7 +25043,7 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
             return 1;
         }
         return 0;
-    case 0x48a: {
+    case VIS_MSG_HATBROWSER_REFRESH: {
         VisHatBrowserList* list = (VisHatBrowserList*)this->FindChild(1);
         int32_t sel_index = list->GetSelectedIndex();
         int32_t vis_start = list->vis_start_index;
@@ -25071,11 +25071,11 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
             list->vis_start_index = vis_start;
             list->SetSelectedIndex(sel_index);
         }
-        this->MsgProc(0x46e, 1, list->GetSelectedIndex());
+        this->MsgProc(VIS_MSG_SET_OPTION, 1, list->GetSelectedIndex());
         list->VMethod9();
         return 1;
     }
-    case 0x48b: {
+    case VIS_MSG_HATBROWSER_ABORT: {
         VisHatBrowserList* list = (VisHatBrowserList*)this->FindChild(1);
         list->state = -1;
         list->entries.RemoveAll();
@@ -25103,12 +25103,12 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
             res = main_wnd->CheckWebVersion(main_wnd->hat_settings.hatip);
         }
 #endif
-        this->MsgProc(0x48a, res, 0);
+        this->MsgProc(VIS_MSG_HATBROWSER_REFRESH, res, 0);
         return VisScreen::MsgProc(msg, wparam, lparam);
     }
 
 #ifdef A2CLIENT
-    case 0x48c: {
+    case VIS_MSG_HATBROWSER_PROGRESS: {
         // client-only: progress/status pump posted by the worker thread. Requires the
         // a2mgr-installed browser object; without it the retail client passthroughs too.
         if (main_wnd->hat_settings.ishat && this->browser) {
@@ -25188,7 +25188,7 @@ HatPlayerListWindow::~HatPlayerListWindow() {
 
 // client: 452a02
 int32_t HatPlayerListWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
-    if (msg == 0x445 && this->mode != 0) {
+    if (msg == VIS_MSG_HIDE_SCREEN && this->mode != 0) {
         MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
         wnd->vis_map_context->msglog.AddWithCheck(txt_patch.GetLine(0x45), clr_log_sblack, 10000);
     }
@@ -25357,7 +25357,7 @@ void VisCredits::VMethod7() {
     SetClipRect(saved_clip);
 
     if (this->first_visible >= last) {
-        this->MsgProc(0x445, 0, 0);
+        this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
     }
 
     credits_scroll_time = timeGetTime();
@@ -25371,7 +25371,7 @@ void VisCredits::VMethod26() {
 
 // 43C595
 int32_t VisCredits::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
-    if (msg == 0x402) {
+    if (msg == VIS_MSG_FRAME_TICK) {
         this->VMethod9();
     }
     return VisScreen::MsgProc(msg, wparam, lparam);
@@ -25434,13 +25434,13 @@ void VisCredits::DoClose(uint32_t code) {
 
 // 43C5D4
 int32_t VisCredits::OnKeyDown(uint32_t wparam) {
-    this->MsgProc(0x445, 0, 0);
+    this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
     return VisScreen::OnKeyDown(wparam);
 }
 
 // 43C5F5
 int32_t VisCredits::OnLButtonDown(uint32_t wparam, CPoint pos) {
-    this->MsgProc(0x445, 0, 0);
+    this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
     return 0;
 }
 
@@ -25471,7 +25471,7 @@ VisNetTcpIp::~VisNetTcpIp() = default;
 // 449F67
 void VisNetTcpIp::VMethod31(int32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (code == 0x445) {
+    if (code == VIS_MSG_HIDE_SCREEN) {
         char buffer[256];
         this->FindChild(2)->WriteData(buffer);
         *this->ip = buffer;
@@ -25495,7 +25495,7 @@ CVisualObject* VisNetTcpIp::VMethod30(const void* data, const RECT& r) {
 // client: 44c815
 void VisHatServerListDlg::VMethod31(int32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (code == 0x445) {
+    if (code == VIS_MSG_HIDE_SCREEN) {
         this->FindChild(4)->WriteData(&this->hat_settings->ishat);
         char buffer[256];
         this->FindChild(2)->WriteData(buffer);
@@ -25532,7 +25532,7 @@ void VisHatServerListDlg::VMethod31(int32_t code) {
 
 // 44A8A8
 int32_t VisHatServerListDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
-    if (msg != 0x46e) {
+    if (msg != VIS_MSG_SET_OPTION) {
         return VisMessageBox::MsgProc(msg, wparam, lparam);
     }
     if (wparam != 4) {
@@ -25722,7 +25722,7 @@ int32_t Vis1200obj::OnKeyDown(uint32_t wparam) {
 
 // 43B283
 int32_t Vis1200obj::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
-    if (msg == 0x402) {
+    if (msg == VIS_MSG_FRAME_TICK) {
         this->blink_now_tick = timeGetTime();
         if (this->blink_now_tick - this->blink_last_tick > 500) {
             this->blink_last_tick = this->blink_now_tick;
@@ -26001,11 +26001,11 @@ void Vis1200::VMethod26() {
 int32_t Vis1200::OnKeyDown(uint32_t wparam) {
     if (wparam == 0xd) {
         this->text_block->SaveHistoryBackup();
-        this->MsgProc(0x445, 0, 0);
+        this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
         return 1;
     }
     if (wparam == 0x1b) {
-        this->MsgProc(0x446, 0, 0);
+        this->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
         return 1;
     }
     if (wparam == 0x26) {
@@ -26124,14 +26124,14 @@ int32_t VisOrderToolbar::OnLButtonDown(uint32_t wparam, CPoint pos) {
                     }
                     this->selected_order = i;
                     this->VMethod9();
-                    map->MsgProc(0x40c, i, 0);
+                    map->MsgProc(VIS_MSG_ORDER_MODE_CHANGED, i, 0);
                     return 1;
                 }
             }
         }
         this->selected_order = 0xffffffff;
         this->VMethod9();
-        map->MsgProc(0x40c, 0xffffffff, 0);
+        map->MsgProc(VIS_MSG_ORDER_MODE_CHANGED, 0xffffffff, 0);
     }
     return 1;
 }
@@ -26145,7 +26145,7 @@ int32_t VisOrderToolbar::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 
     if (result == 0) {
         switch (msg) {
-        case 0x402:
+        case VIS_MSG_FRAME_TICK:
             if (main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
                 if (this->dirty != 0) {
                     this->VMethod9();
@@ -26153,10 +26153,10 @@ int32_t VisOrderToolbar::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
                 this->UpdateCursor();
             }
             break;
-        case 0x403:
+        case VIS_MSG_SET_MAP_CONTEXT:
             this->map_context = (BigStruct2*)wparam;
             break;
-        case 0x409:
+        case VIS_MSG_ORDERS_ENABLE:
             if (this->enabled == 0 || this->avail_orders_mask != wparam) {
                 this->enabled = 1;
                 this->dirty = 1;
@@ -26164,20 +26164,20 @@ int32_t VisOrderToolbar::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
             }
             result = 1;
             break;
-        case 0x40a:
+        case VIS_MSG_ORDERS_DISABLE:
             if (this->enabled != 0) {
                 this->enabled = 0;
                 this->dirty = 1;
             }
             result = 1;
             break;
-        case 0x40b:
+        case VIS_MSG_ORDERS_CLEAR:
             if (this->enabled != 0) {
                 this->selected_order = 0xffffffff;
                 this->dirty = 1;
             }
             break;
-        case 0x40d:
+        case VIS_MSG_TOOLBAR_ORDER_SELECT:
             if (this->enabled != 0 && this->selected_order != wparam && ((1 << wparam) & this->avail_orders_mask) != 0) {
                 this->selected_order = wparam;
                 this->dirty = 1;
@@ -26249,7 +26249,7 @@ int32_t VisOrderToolbar::OnLButtonUp(uint32_t wparam, CPoint pos) {
 
 // 4B1287
 int32_t VisOrderToolbar::OnRButtonUp(uint32_t wparam, CPoint pos) {
-    return this->map_context->MsgProc(0x405, 0, 0);
+    return this->map_context->MsgProc(VIS_MSG_CANCEL_ORDER, 0, 0);
 }
 
 // 4B1201
@@ -26349,7 +26349,7 @@ CVisualObject* VisConnectionDlg::VMethod30(const void* data, const RECT& r) {
 // 445EBD
 void VisConnectionDlg::VMethod31(int32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (code == 0x445) {
+    if (code == VIS_MSG_HIDE_SCREEN) {
         VisListBox* list = (VisListBox*)this->FindChild(2);
         *this->pSelected = list->GetSelectedIndex();
         int32_t typ = this->protocols[*this->pSelected].typ;
@@ -26369,7 +26369,7 @@ void VisConnectionDlg::VMethod31(int32_t code) {
             }
         }
     }
-    if (code == 0x446) {
+    if (code == VIS_MSG_CLOSE_SCREEN) {
         main_wnd->PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
     }
 }
@@ -26407,7 +26407,7 @@ void VisDropGold::VMethod26() {
 void VisDropGold::DoClose(uint32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
-    if (code == 0x445) {
+    if (code == VIS_MSG_HIDE_SCREEN) {
         CVisualObject* textbox = this->FindChild(10000005);
         textbox->WriteData(this->amount_text);
 
@@ -26651,7 +26651,7 @@ void VisListBoxDiplomacy::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
 int32_t VisListBoxDiplomacy::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     int32_t count = this->diplomacy->GetSize();
 
-    if (msg == 0x46e) {
+    if (msg == VIS_MSG_SET_OPTION) {
         if ((int32_t)wparam < count * 2) {
             CVisualObject* radio = this->FindChild(wparam);
             CVisualObject* other_radio = this->FindChild((wparam + count) % (count << 1));
@@ -26702,7 +26702,7 @@ void VisListBoxDiplomacy::SelectItem(int32_t idx) {
         scrollbar->SetPos(this->vis_start_index, (count - this->num_vis_entry) + 1);
     }
 
-    this->parent->MsgProc(0x46e, this->id, this->vis_start_index);
+    this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->vis_start_index);
 }
 
 // 4DD44A
@@ -26726,7 +26726,7 @@ int32_t VisListBoxDiplomacy::OnLButtonDown(uint32_t wparam, CPoint pos) {
         }
     }
 
-    this->parent->MsgProc(0x46e, this->id, this->selected_index);
+    this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->selected_index);
     return 1;
 }
 

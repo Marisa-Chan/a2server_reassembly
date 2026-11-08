@@ -990,8 +990,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							}
 
 							if (this->primary_selected_object == ct) {
-								wnd->vis_charinfo->MsgProc(0x408, 0, 0);
-								wnd->vis_sidestatus->MsgProc(0x408, 0, 0);
+								wnd->vis_charinfo->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
+								wnd->vis_sidestatus->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
 							}
 
 							if (ct->IsSelected() != 0 && ((ct->unitFlags & UNIT_FLAG_MAGE) != 0 || (packet_unit->flags_mask & UNIT_UPD_SPELLS) != 0)) {
@@ -1180,8 +1180,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 				ct->hp = packet_unit_hp->hp;
 				if (this->primary_selected_object == ct) {
-					wnd->vis_charinfo->MsgProc(0x408, 0, 0);
-					wnd->vis_sidestatus->MsgProc(0x408, 0, 0);
+					wnd->vis_charinfo->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
+					wnd->vis_sidestatus->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
 				}
 				ct->m_bSelectionDirty = 1;
 			}
@@ -1235,7 +1235,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					ct->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
 
 					if ((wnd->dialogsMask & DIALOG_MASK_SHOP) != 0) {
-						wnd->vis_root->FindChild(1000)->MsgProc(0x413, packet_state->mode & 0x7f, 0);
+						wnd->vis_root->FindChild(1000)->MsgProc(VIS_MSG_REFRESH_ITEM_GRIDS, packet_state->mode & 0x7f, 0);
 					}
 
 					ct->ReloadSprite();
@@ -1404,7 +1404,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					this->UpdateSelectionState();
 
 					if (wnd->dialogsMask & DIALOG_MASK_SHOP) {
-						wnd->vis_root->FindChild(1000)->MsgProc(0x413, packet_state->mode & 0x7f, 0);
+						wnd->vis_root->FindChild(1000)->MsgProc(VIS_MSG_REFRESH_ITEM_GRIDS, packet_state->mode & 0x7f, 0);
 					} else {
 						if (this->selected_object_count == 1 && this->primary_selected_object == ct) {
 							wnd->vis_invtype1->VMethod33(ct);
@@ -1456,7 +1456,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					}
 					tmp.RemoveAll();
 				} else {
-					wnd->vis_root->FindChild(1000)->MsgProc(0x413, packet_state->mode & 0x7f, (uint32_t)&tmp);
+					wnd->vis_root->FindChild(1000)->MsgProc(VIS_MSG_REFRESH_ITEM_GRIDS, packet_state->mode & 0x7f, (uint32_t)&tmp);
 				}
 			}
 				break;
@@ -1512,8 +1512,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			if (this->objects.Lookup(packet_building_hp->building_id, *(CGameObject**)&ct)) {
 				ct->hp = packet_building_hp->hp;
 				if (this->primary_selected_object == ct) {
-					wnd->vis_charinfo->MsgProc(0x408, 0, 0);
-					wnd->vis_sidestatus->MsgProc(0x408, 0, 0);
+					wnd->vis_charinfo->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
+					wnd->vis_sidestatus->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
 				}
 			}
 		}
@@ -1779,7 +1779,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				
 			}
-			wnd->vis_root->MsgProc(0x45f, 0, 0);
+			wnd->vis_root->MsgProc(VIS_MSG_NETMAP_CHAT_SYNC, 0, 0);
 		}
 		break;
 
@@ -1985,7 +1985,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				wnd->vis_msgbox->VMethod9();
 			}
 
-			wnd->vis_root->MsgProc(0x460, 0, 0);
+			wnd->vis_root->MsgProc(VIS_MSG_ROSTER_CHANGED, 0, 0);
 		}
 			break;
 
@@ -2015,7 +2015,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				if (obj->IsSelected() != 0) {
 					this->order_mode = 0;
 					wnd->vis_spellbook->ClearSpellSelection();
-					wnd->vis_ordertoolbar->MsgProc(0x40b, 0, 0);
+					wnd->vis_ordertoolbar->MsgProc(VIS_MSG_ORDERS_CLEAR, 0, 0);
 				}
 
 				delete obj;
@@ -2024,7 +2024,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			this->UpdateSelectionState();
 
 			this->map_players[packet_2dwords->param1] = nullptr; //WAT ? not delete?
-			wnd->vis_root->MsgProc(0x460, 0, 0);
+			wnd->vis_root->MsgProc(VIS_MSG_ROSTER_CHANGED, 0, 0);
 
 			wnd->ClearDiplomacyEntries();
 
@@ -2102,7 +2102,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case VIEW_POSITION:
 			if (wnd->pending_game_mode == 0) {
-				this->MsgProc(0x406, packet_2dwords->param1 - (this->view_tiles_x / 2), packet_2dwords->param2 - (this->view_tiles_y / 2));
+				this->MsgProc(VIS_MSG_SCROLL_VIEW, packet_2dwords->param1 - (this->view_tiles_x / 2), packet_2dwords->param2 - (this->view_tiles_y / 2));
 #ifdef A2CLIENT
 				// client: 4164d8 — reselect the local player after the initial position
 				if ((wnd->sessionMode == SESSION_SINGLEPLAYER || wnd->sessionMode == SESSION_CLIENT) && this->my_unit != nullptr) {
@@ -2114,7 +2114,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case ANNOUNCEMENT:
-			this->MsgProc(0x484, (uint32_t)&(packet_join->__as_dword), 0); ///???????????
+			this->MsgProc(VIS_MSG_NETMAP_FIND_MAP, (uint32_t)&(packet_join->__as_dword), 0); ///???????????
 			break;
 
 		case SERVER_SHUTDOWN:
@@ -2174,7 +2174,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					tavern->CloseDialog();
 					wnd->vis_root->RemoveChild(tavern);
 				}
-				wnd->vis_root->MsgProc(0x446, 0, 0);
+				wnd->vis_root->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
 				wnd->inside_building = 0;
 				wnd->PostMessage(MAIN_MSG_LEAVE_BUILDING, 0, 0);
 			}
@@ -3716,7 +3716,7 @@ void BigStruct2::CloseSpellBook() { //41b636
 
 	g_SfxArray[7]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
 
-	mwnd->vis_right_panel->MsgProc(0x408, 0, 0);
+	mwnd->vis_right_panel->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
 
 	this->RecalcVisibleMapHeight();
 }
@@ -3741,7 +3741,7 @@ void BigStruct2::OpenSpellBook() { // 41b509
 
 	g_SfxArray[7]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
 
-	mwnd->vis_right_panel->MsgProc(0x408, 0, 0);
+	mwnd->vis_right_panel->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
 
 	this->RecalcVisibleMapHeight();
 }
@@ -3954,7 +3954,7 @@ void BigStruct2::SelectControlGroupAndCenter(int32_t digit) {
 	if (count > 0) {
 		int32_t avg_x = sum_x / count;
 		int32_t avg_y = sum_y / count;
-		this->MsgProc(0x406, avg_x - this->view_tiles_x / 2, avg_y - this->view_tiles_y / 2);
+		this->MsgProc(VIS_MSG_SCROLL_VIEW, avg_x - this->view_tiles_x / 2, avg_y - this->view_tiles_y / 2);
 	}
 }
 
@@ -3983,7 +3983,7 @@ void BigStruct2::CancelOrderMode() {
 		}
 		wnd->vis_spellbook->ClearSpellSelection();
 		this->order_mode = 0;
-		wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
+		wnd->vis_ordertoolbar->MsgProc(VIS_MSG_ORDERS_CLEAR, 0, 0);
 	} else {
 		for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 			uint16_t key;
@@ -4015,7 +4015,7 @@ void BigStruct2::ScrollViewTo(int32_t wparam, int32_t lparam) {
 	this->scroll_dx = wparam - this->view_x;
 	this->scroll_dy = lparam - this->view_y;
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	wnd->vis_minimap->MsgProc(0x408, 0, 0);
+	wnd->vis_minimap->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
 }
 
 // 403F08
@@ -4042,22 +4042,22 @@ void BigStruct2::SetOrderMode(int32_t arg) {
 	}
 	if ((avail & (1 << (mode - 1))) != 0 || arg == 0xA) {
 		this->order_mode = mode;
-		wnd->vis_ordertoolbar->MsgProc(0x40D, mode - 1, 0);
+		wnd->vis_ordertoolbar->MsgProc(VIS_MSG_TOOLBAR_ORDER_SELECT, mode - 1, 0);
 		switch (arg) {
 		case 3:
 			this->SendGroupGuard();
 			this->order_mode = 0;
-			wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
+			wnd->vis_ordertoolbar->MsgProc(VIS_MSG_ORDERS_CLEAR, 0, 0);
 			break;
 		case 7:
 			this->SendGroupAggressive();
 			this->order_mode = 0;
-			wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
+			wnd->vis_ordertoolbar->MsgProc(VIS_MSG_ORDERS_CLEAR, 0, 0);
 			break;
 		case 8:
 			this->SendGroupGoHome();
 			this->order_mode = 0;
-			wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
+			wnd->vis_ordertoolbar->MsgProc(VIS_MSG_ORDERS_CLEAR, 0, 0);
 			break;
 		case 5:
 			if (!this->IsBookOpen()) {
@@ -4936,8 +4936,8 @@ uint32_t BigStruct2::UpdateMouseHover() {
 	CPoint mouse_pt(g_mousept.GetX(), g_mousept.GetY());
 	if (!screen_rect.PtInRect(mouse_pt)) {
 		if (this->hovered_unit != old_unit) {
-			wnd->vis_charinfo->MsgProc(0x408, 0, 0);
-			wnd->vis_sidestatus->MsgProc(0x408, 0, 0);
+			wnd->vis_charinfo->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
+			wnd->vis_sidestatus->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
 		}
 		return avail;
 	}
@@ -5038,8 +5038,8 @@ uint32_t BigStruct2::UpdateMouseHover() {
 	tile_x += this->view_x;
 	tile_y += this->view_y;
 	if (this->hovered_unit != old_unit) {
-		wnd->vis_charinfo->MsgProc(0x408, 0, 0);
-		wnd->vis_sidestatus->MsgProc(0x408, 0, 0);
+		wnd->vis_charinfo->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
+		wnd->vis_sidestatus->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
 		if (this->hovered_unit != nullptr) {
 			this->hovered_unit->m_bSelectionDirty = 1;
 		}
@@ -6523,7 +6523,7 @@ int32_t BigStruct2::OnLButtonDown(uint32_t wparam, CPoint pos) {
 int32_t BigStruct2::OnRButtonUp(uint32_t wparam, CPoint pos) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	if (this->rbtn_drag == 0 && wnd->dialogsMask == DIALOG_MASK_INGAME) {
-		this->MsgProc(0x405, 0, 0);
+		this->MsgProc(VIS_MSG_CANCEL_ORDER, 0, 0);
 	}
 	this->rbtn_drag = 0;
 	if (this->TestFlags(FLAG_OVERCURSOR) != 0) {
@@ -6667,7 +6667,7 @@ void BigStruct2::UpdateDayNightCycle(int32_t arg) {
 		ReloadPalettes();
 		this->minimap_dirty = 1;
 		this->force_full_redraw = 1;
-		wnd->vis_minimap->MsgProc(0x404, 0, 0);
+		wnd->vis_minimap->MsgProc(VIS_MSG_MINIMAP_REBUILD, 0, 0);
 	}
 }
 
@@ -6680,7 +6680,7 @@ int32_t BigStruct2::OnMouseMove(uint32_t wparam, CPoint pos) {
 		int32_t cell_dy = dy / 8;
 		if (dx != 0 || dy != 0) {
 			if (cell_dx != 0 || cell_dy != 0) {
-				this->MsgProc(0x406, this->view_x + cell_dx, this->view_y + cell_dy);
+				this->MsgProc(VIS_MSG_SCROLL_VIEW, this->view_x + cell_dx, this->view_y + cell_dy);
 				this->rbtn_drag = 1;
 			}
 			return 1;
@@ -6770,10 +6770,10 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 		case 0x7B: {
 			UserShortcut& shortcut = wnd->m_GameSession.shortcuts[wparam - 0x73];
 			if ((shortcut.kind != 2 || g_kbControlState != 0) && g_kbShiftState == 0) {
-				wnd->vis_spellbook->MsgProc(0x417, wparam - 0x73, g_kbControlState);
+				wnd->vis_spellbook->MsgProc(VIS_MSG_SHORTCUT_KEY, wparam - 0x73, g_kbControlState);
 			}
 			if ((shortcut.kind != 1 || g_kbShiftState != 0) && g_kbControlState == 0) {
-				wnd->vis_invtype1->MsgProc(0x417, wparam - 0x73, g_kbShiftState);
+				wnd->vis_invtype1->MsgProc(VIS_MSG_SHORTCUT_KEY, wparam - 0x73, g_kbShiftState);
 			}
 			if (shortcut.kind == 1) {
 				if (this->IsBookOpen() == 0 && wnd->vis_spellbook->IsSpellAvailable(shortcut.item_id) != 0) {
@@ -6827,18 +6827,18 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 					if (wnd->dialogsMask == DIALOG_MASK_INGAME && wnd->console_active == 0) {
 						if (this->my_unit == nullptr || this->my_unit->hp > -40) {
 							if (this->IsBagOpen() == 0 && this->IsBookOpen() == 0) {
-								wnd->vis_right_panel->MsgProc(0x40E, 0, 0);
-								this->MsgProc(0x40E, 0, 0);
-								wnd->vis_right_panel->MsgProc(0x40F, 0, 0);
-								this->MsgProc(0x40F, 0, 0);
+								wnd->vis_right_panel->MsgProc(VIS_MSG_TOGGLE_SELECT_PANEL, 0, 0);
+								this->MsgProc(VIS_MSG_TOGGLE_SELECT_PANEL, 0, 0);
+								wnd->vis_right_panel->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
+								this->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
 							} else {
 								if (this->IsBagOpen() != 0) {
-									wnd->vis_right_panel->MsgProc(0x40E, 0, 0);
-									this->MsgProc(0x40E, 0, 0);
+									wnd->vis_right_panel->MsgProc(VIS_MSG_TOGGLE_SELECT_PANEL, 0, 0);
+									this->MsgProc(VIS_MSG_TOGGLE_SELECT_PANEL, 0, 0);
 								}
 								if (this->IsBookOpen() != 0) {
-									wnd->vis_right_panel->MsgProc(0x40F, 0, 0);
-									this->MsgProc(0x40F, 0, 0);
+									wnd->vis_right_panel->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
+									this->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
 								}
 							}
 						} else {
@@ -6849,8 +6849,8 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 				case 0x42:
 				case 0x51:
 					if (wnd->dialogsMask == DIALOG_MASK_INGAME) {
-						wnd->vis_right_panel->MsgProc(0x40F, 0, 0);
-						this->MsgProc(0x40F, 0, 0);
+						wnd->vis_right_panel->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
+						this->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
 					}
 					break;
 				case 0x43:
@@ -6877,8 +6877,8 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 				case 0x49:
 				case 0xC0:
 					if (wnd->dialogsMask == DIALOG_MASK_INGAME) {
-						wnd->vis_right_panel->MsgProc(0x40E, 0, 0);
-						this->MsgProc(0x40E, 0, 0);
+						wnd->vis_right_panel->MsgProc(VIS_MSG_TOGGLE_SELECT_PANEL, 0, 0);
+						this->MsgProc(VIS_MSG_TOGGLE_SELECT_PANEL, 0, 0);
 					}
 					break;
 				case 0x4B:
@@ -6940,9 +6940,9 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 			break;
 		}
 	} else if ((wnd->dialogsMask & DIALOG_MASK_SHOP) != 0 && (wparam == 0x42 || wparam == 0x51)) {
-		wnd->vis_right_panel->MsgProc(0x40F, 0, 0);
-		this->MsgProc(0x40F, 0, 0);
-		wnd->vis_root->FindChild(1000)->MsgProc(0x40F, 0, 0);
+		wnd->vis_right_panel->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
+		this->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
+		wnd->vis_root->FindChild(1000)->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
 	}
 	return 0;
 }
@@ -6977,7 +6977,7 @@ void BigStruct2::UpdateWorld() {
 		if (obj->IsSelected() != 0) {
 			this->order_mode = 0;
 			wnd->vis_spellbook->ClearSpellSelection();
-			wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
+			wnd->vis_ordertoolbar->MsgProc(VIS_MSG_ORDERS_CLEAR, 0, 0);
 		}
 		delete obj;
 	}
@@ -7076,7 +7076,7 @@ void BigStruct2::IssueOrderAtCursor(CPoint* pt) {
 	if (this->order_mode != 0) {
 		this->order_mode = 0;
 		wnd->vis_spellbook->ClearSpellSelection();
-		wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
+		wnd->vis_ordertoolbar->MsgProc(VIS_MSG_ORDERS_CLEAR, 0, 0);
 	}
 }
 
@@ -7166,7 +7166,7 @@ void BigStruct2::SelectUnitsInRect(CRect* rect) {
 	}
 	this->order_mode = 0;
 	wnd->vis_spellbook->ClearSpellSelection();
-	wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
+	wnd->vis_ordertoolbar->MsgProc(VIS_MSG_ORDERS_CLEAR, 0, 0);
 	if (g_kbShiftState == 0 && this->selected_object_count != 0 && (this->selection_flags & 1) != 0 && (this->selection_flags & 4) == 0) {
 		CUnit* unit = this->PickVoiceUnit();
 		if (unit != nullptr) {
@@ -7215,28 +7215,28 @@ int32_t BigStruct2::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 		return result;
 	}
 	switch (msg) {
-	case 0x401:
+	case VIS_MSG_WORLD_TICK:
 		this->UpdateWorld();
 		this->msglog.Update();
 		this->UpdateDayNightCycle(0);
 		break;
-	case 0x402:
+	case VIS_MSG_FRAME_TICK:
 		this->RenderWorldFrame();
 		break;
-	case 0x405:
+	case VIS_MSG_CANCEL_ORDER:
 		this->CancelOrderMode();
 		result = 1;
 		break;
-	case 0x406:
+	case VIS_MSG_SCROLL_VIEW:
 		this->ScrollViewTo(wparam, lparam);
 		result = 1;
 		break;
-	case 0x40C:
+	case VIS_MSG_ORDER_MODE_CHANGED:
 		g_SfxArray[8]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xDC, 0);
 		this->SetOrderMode(wparam + 1);
 		result = 1;
 		break;
-	case 0x40E:
+	case VIS_MSG_TOGGLE_SELECT_PANEL:
 		if (this->IsBagOpen()) {
 			this->CloseBag();
 		} else {
@@ -7251,7 +7251,7 @@ int32_t BigStruct2::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 		}
 		result = 1;
 		break;
-	case 0x40F:
+	case VIS_MSG_TOGGLE_SPELL_PANEL:
 		if (this->IsBookOpen()) {
 			this->CloseSpellBook();
 		} else {
@@ -7266,7 +7266,7 @@ int32_t BigStruct2::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 		}
 		result = 1;
 		break;
-	case 0x485:
+	case VIS_MSG_AMBIENT_STOP:
 		if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
 			this->ambient_view_x = -1;
 			this->ambient_view_y = -1;
@@ -7348,7 +7348,7 @@ void BigStruct2::LoadScenario(const char* name) {
 	this->scenario = new Scenario(str);
 	this->minimap_dirty = 1;
 	this->SetScenario(this->scenario);
-	wnd->vis_right_panel->MsgProc(0x403, (uint32_t)this, 0);
+	wnd->vis_right_panel->MsgProc(VIS_MSG_SET_MAP_CONTEXT, (uint32_t)this, 0);
 	this->UpdateDayNightCycle(1);
 	LoadTerrainTiles(this->scenario->terrain_tile_mask);
 	this->quest_map->RemovePlayerQuests(0);
