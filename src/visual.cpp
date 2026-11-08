@@ -4556,14 +4556,14 @@ int32_t VisTipsDialog::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 int32_t VisTipsDialog::OnLButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->drag_entry != nullptr) {
-        if ((main_wnd->dialogsMask & 2) != 0) {
+        if ((main_wnd->dialogsMask & DIALOG_MASK_SHOP) != 0) {
             CVisualObject* obj = main_wnd->vis_root->FindChild(1000);
             if (obj != nullptr) {
                 ((VisShop*)obj)->shop_compass->OnLButtonUp(wparam, pos);
                 return 1;
             }
         } else {
-            if (main_wnd->dialogsMask == 1) {
+            if (main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
                 main_wnd->vis_map_context->OnLButtonUp(wparam, pos);
                 return 1;
             }
@@ -9428,7 +9428,7 @@ void VisLogoWnd::DoClose(uint32_t code) { //4cd666 29 method
 // 4B2B3D
 void VisCharInfo::VMethod7() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if ((main_wnd->dialogsMask & 0x627) == 0) {
+    if ((main_wnd->dialogsMask & (DIALOG_MASK_CHAR_SELECT | DIALOG_MASK_CHARGEN | 0x20 | DIALOG_MASK_TAVERN | DIALOG_MASK_SHOP | DIALOG_MASK_INGAME)) == 0) {
         return;
     }
 
@@ -9436,7 +9436,7 @@ void VisCharInfo::VMethod7() {
     this->ClientRectToScreen(&screen_rect, this->rect);
 
     int32_t moved_up;
-    if (g_ScreenSize.bottom - screen_rect.bottom > screen_rect.Height() && main_wnd->dialogsMask == 1) {
+    if (g_ScreenSize.bottom - screen_rect.bottom > screen_rect.Height() && main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
         moved_up = 1;
     } else {
         moved_up = 0;
@@ -9454,7 +9454,7 @@ void VisCharInfo::VMethod7() {
         g_bmp_textbackr->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
     }
 
-    if ((main_wnd->dialogsMask & 3) != 0 && (main_wnd->dialogsMask & 4) == 0) {
+    if ((main_wnd->dialogsMask & (DIALOG_MASK_INGAME | DIALOG_MASK_SHOP)) != 0 && (main_wnd->dialogsMask & DIALOG_MASK_TAVERN) == 0) {
         if (map->IsBookOpen()) {
             g_bmp_bookopened->DrawSubRectMasked(screen_rect.left, screen_rect.top, 0, 0, 0x1C, 0x26);
         } else {
@@ -9462,12 +9462,12 @@ void VisCharInfo::VMethod7() {
         }
     }
 
-    if ((main_wnd->dialogsMask & 0x226) != 0) {
-        if ((main_wnd->dialogsMask & 0x200) == 0 || main_wnd->sessionMode != SESSION_LOCAL_BATTLE) {
+    if ((main_wnd->dialogsMask & (DIALOG_MASK_CHARGEN | 0x20 | DIALOG_MASK_TAVERN | DIALOG_MASK_SHOP)) != 0) {
+        if ((main_wnd->dialogsMask & DIALOG_MASK_CHARGEN) == 0 || main_wnd->sessionMode != SESSION_LOCAL_BATTLE) {
             g_bmp_ar1->DrawSubRectMasked(screen_rect.left + 1, screen_rect.top + 0xCD, 0, 0, 0x20, 0x20);
             g_bmp_ar2->DrawSubRectMasked(screen_rect.left + 0x77, screen_rect.top + 0xCD, 0, 0, 0x20, 0x20);
         }
-    } else if ((main_wnd->dialogsMask & 0x400) == 0) {
+    } else if ((main_wnd->dialogsMask & DIALOG_MASK_CHAR_SELECT) == 0) {
         if (map->IsBagOpen()) {
             g_bmp_backpackop->DrawSubRectMasked(screen_rect.left, screen_rect.top + 0xD0, 0, 0, 0x20, 0x1F);
         } else {
@@ -9476,7 +9476,7 @@ void VisCharInfo::VMethod7() {
         g_bmp_diskette->DrawSubRectMasked(screen_rect.left + 0x7E, screen_rect.top + 0xCE, 0, 0, 0x20, 0x20);
     }
 
-    if ((main_wnd->dialogsMask & 0x600) == 0 && moved_up == 0) {
+    if ((main_wnd->dialogsMask & (DIALOG_MASK_CHAR_SELECT | DIALOG_MASK_CHARGEN)) == 0 && moved_up == 0) {
         if (this->info_mode != 0) {
             g_bmp_humanmode->DrawSubRectMasked(screen_rect.left + 0x80, screen_rect.top + 4, 0, 0, 0x1C, 0x20);
         } else {
@@ -9489,7 +9489,7 @@ void VisCharInfo::VMethod7() {
     uint16_t selected_id = (uint16_t)map->hovered_unit_id;
     CGameObject* found_obj = nullptr;
     int32_t found = 0;
-    if (selected_id != 0 && main_wnd->drag_entry == nullptr && main_wnd->dialogsMask == 1) {
+    if (selected_id != 0 && main_wnd->drag_entry == nullptr && main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
         found = map->objects.Lookup(selected_id, found_obj);
     }
     if (selected_id != 0 && found != 0) {
@@ -9603,7 +9603,7 @@ const char* VisCharInfo::GetHint() {
     if (main_wnd->drag_entry != nullptr) {
         return nullptr;
     }
-    if ((main_wnd->dialogsMask & 8) != 0) {
+    if ((main_wnd->dialogsMask & DIALOG_MASK_POPUP) != 0) {
         return nullptr;
     }
 
@@ -9614,7 +9614,7 @@ const char* VisCharInfo::GetHint() {
     this->ClientRectToScreen(&screen_rect, this->rect);
 
     int32_t moved_up;
-    if (g_ScreenSize.bottom - screen_rect.bottom > screen_rect.Height() && main_wnd->dialogsMask == 1) {
+    if (g_ScreenSize.bottom - screen_rect.bottom > screen_rect.Height() && main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
         moved_up = 1;
     } else {
         moved_up = 0;
@@ -9627,7 +9627,7 @@ const char* VisCharInfo::GetHint() {
     CRect ar2_rect(screen_rect.left + 0x77, screen_rect.top + 0xCD, screen_rect.left + 0x97, screen_rect.top + 0xED);
     CRect diskette_rect(screen_rect.left + 0x7E, screen_rect.top + 0xCE, screen_rect.left + 0x9E, screen_rect.top + 0xEE);
 
-    if ((main_wnd->dialogsMask & 3) != 0 && (main_wnd->dialogsMask & 4) == 0) {
+    if ((main_wnd->dialogsMask & (DIALOG_MASK_INGAME | DIALOG_MASK_SHOP)) != 0 && (main_wnd->dialogsMask & DIALOG_MASK_TAVERN) == 0) {
         if (book_rect.PtInRect(mouse_pt)) {
             if (map->IsBookOpen()) {
                 return TxtFile::AllLines[9];
@@ -9636,9 +9636,9 @@ const char* VisCharInfo::GetHint() {
         }
     }
 
-    if ((main_wnd->dialogsMask & 1) != 0) {
+    if ((main_wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
         if (backpack_rect.PtInRect(mouse_pt)) {
-            if ((main_wnd->dialogsMask & 2) == 0 && (main_wnd->dialogsMask & 4) == 0) {
+            if ((main_wnd->dialogsMask & DIALOG_MASK_SHOP) == 0 && (main_wnd->dialogsMask & DIALOG_MASK_TAVERN) == 0) {
                 if (map->IsBagOpen()) {
                     return TxtFile::AllLines[0xB];
                 }
@@ -9647,7 +9647,7 @@ const char* VisCharInfo::GetHint() {
         }
     }
 
-    if ((main_wnd->dialogsMask & 0x600) == 0) {
+    if ((main_wnd->dialogsMask & (DIALOG_MASK_CHAR_SELECT | DIALOG_MASK_CHARGEN)) == 0) {
         if (mode_btn_rect.PtInRect(mouse_pt) && moved_up == 0) {
             if (this->info_mode != 0) {
                 return TxtFile::AllLines[0xD];
@@ -9656,8 +9656,8 @@ const char* VisCharInfo::GetHint() {
         }
     }
 
-    if ((main_wnd->dialogsMask & 0x226) != 0) {
-        if ((main_wnd->dialogsMask & 0x200) == 0 || main_wnd->sessionMode != SESSION_LOCAL_BATTLE) {
+    if ((main_wnd->dialogsMask & (DIALOG_MASK_CHARGEN | 0x20 | DIALOG_MASK_TAVERN | DIALOG_MASK_SHOP)) != 0) {
+        if ((main_wnd->dialogsMask & DIALOG_MASK_CHARGEN) == 0 || main_wnd->sessionMode != SESSION_LOCAL_BATTLE) {
             if (ar1_rect.PtInRect(mouse_pt)) {
                 return TxtFile::AllLines[0x79];
             }
@@ -9671,7 +9671,7 @@ const char* VisCharInfo::GetHint() {
         if (ar2_rect.PtInRect(mouse_pt)) {
             return TxtFile::AllLines[0x35];
         }
-    } else if ((main_wnd->dialogsMask & 0x400) == 0) {
+    } else if ((main_wnd->dialogsMask & DIALOG_MASK_CHAR_SELECT) == 0) {
         if (diskette_rect.PtInRect(mouse_pt)) {
             return TxtFile::AllLines[0xE];
         }
@@ -9684,7 +9684,7 @@ const char* VisCharInfo::GetHint() {
     if (sel == nullptr) {
         return nullptr;
     }
-    if ((main_wnd->dialogsMask & 8) != 0) {
+    if ((main_wnd->dialogsMask & DIALOG_MASK_POPUP) != 0) {
         return nullptr;
     }
 
@@ -9842,7 +9842,7 @@ int32_t VisCharInfo::OnLButtonUp(uint32_t wparam, CPoint pos) {
     this->ClientRectToScreen(&screen_rect, this->rect);
 
     int32_t moved_up;
-    if (g_ScreenSize.bottom - screen_rect.bottom > screen_rect.Height() && main_wnd->dialogsMask == 1) {
+    if (g_ScreenSize.bottom - screen_rect.bottom > screen_rect.Height() && main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
         moved_up = 1;
     } else {
         moved_up = 0;
@@ -9868,7 +9868,7 @@ int32_t VisCharInfo::OnLButtonUp(uint32_t wparam, CPoint pos) {
         }
     }
 
-    if (main_wnd->dialogsMask == 1) {
+    if (main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
         if (backpack_rect.PtInRect(pos)) {
             this->MsgProc(0x40E, 0, 0);
             map->MsgProc(0x40E, 0, 0);
@@ -9876,25 +9876,25 @@ int32_t VisCharInfo::OnLButtonUp(uint32_t wparam, CPoint pos) {
     }
 
     CRect book_rect(screen_rect.left, screen_rect.top, screen_rect.left + 0x1C, screen_rect.top + 0x24);
-    if ((main_wnd->dialogsMask & 3) != 0 && (main_wnd->dialogsMask & 4) == 0) {
+    if ((main_wnd->dialogsMask & (DIALOG_MASK_INGAME | DIALOG_MASK_SHOP)) != 0 && (main_wnd->dialogsMask & DIALOG_MASK_TAVERN) == 0) {
         if (book_rect.PtInRect(pos)) {
             this->MsgProc(0x40F, 0, 0);
             map->MsgProc(0x40F, 0, 0);
-            if ((main_wnd->dialogsMask & 2) != 0) {
+            if ((main_wnd->dialogsMask & DIALOG_MASK_SHOP) != 0) {
                 main_wnd->vis_root->FindChild(0x3E8)->MsgProc(0x40F, 0, 0);
             }
         }
     }
 
     CRect mode_btn_rect(screen_rect.left + 0x80, screen_rect.top, screen_rect.right, screen_rect.top + 0x24);
-    if ((main_wnd->dialogsMask & 0x600) == 0) {
+    if ((main_wnd->dialogsMask & (DIALOG_MASK_CHAR_SELECT | DIALOG_MASK_CHARGEN)) == 0) {
         if (mode_btn_rect.PtInRect(pos) && moved_up == 0) {
             this->MsgProc(0x412, 0, 0);
             map->full_redraw_requested = 1;
         }
     }
 
-    if ((main_wnd->dialogsMask & 0x226) != 0) {
+    if ((main_wnd->dialogsMask & (DIALOG_MASK_CHARGEN | 0x20 | DIALOG_MASK_TAVERN | DIALOG_MASK_SHOP)) != 0) {
         if (ar1_rect.PtInRect(pos)) {
             g_SfxArray[1]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xDC, 0);
             main_wnd->vis_root->MsgProc(0x414, 0, 0);
@@ -9905,7 +9905,7 @@ int32_t VisCharInfo::OnLButtonUp(uint32_t wparam, CPoint pos) {
         }
     }
 
-    if ((main_wnd->dialogsMask & 1) != 0) {
+    if ((main_wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
         if (diskette_rect.PtInRect(pos)) {
             g_SfxArray[1]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xDC, 0);
             main_wnd->PostMessageA(0x416, 0, 0);
@@ -9974,7 +9974,7 @@ int32_t VisCharInfo::VMethod26(int32_t a) {
         return 0;
     }
 #endif
-    if ((main_wnd->dialogsMask & 2) == 0 && main_wnd->dialogsMask != 1) {
+    if ((main_wnd->dialogsMask & DIALOG_MASK_SHOP) == 0 && main_wnd->dialogsMask != DIALOG_MASK_INGAME) {
         return 0;
     }
 
@@ -10038,7 +10038,7 @@ int32_t VisCharInfo::OnKeyDown(uint32_t wparam) {
         return 0;
     }
 
-    if ((main_wnd->dialogsMask & 0x400) == 0 && (main_wnd->dialogsMask & 0x200) == 0) {
+    if ((main_wnd->dialogsMask & DIALOG_MASK_CHAR_SELECT) == 0 && (main_wnd->dialogsMask & DIALOG_MASK_CHARGEN) == 0) {
         this->MsgProc(0x412, 0, 0);
     }
     return 1;
@@ -10048,7 +10048,7 @@ int32_t VisCharInfo::OnKeyDown(uint32_t wparam) {
 int32_t VisCharInfo::OnRButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     BigStruct2* map = this->map_context;
-    if (main_wnd->dialogsMask == 1) {
+    if (main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
         return map->MsgProc(0x405, 0, 0);
     }
     return 1;
@@ -10102,7 +10102,7 @@ int32_t VisCharInfo::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     this->ClientRectToScreen(&screen_rect, this->rect);
 
     int32_t moved_up;
-    if (g_ScreenSize.bottom - screen_rect.bottom > screen_rect.Height() && main_wnd->dialogsMask == 1) {
+    if (g_ScreenSize.bottom - screen_rect.bottom > screen_rect.Height() && main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
         moved_up = 1;
     } else {
         moved_up = 0;
@@ -10118,12 +10118,12 @@ int32_t VisCharInfo::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
             this->dirty = 1;
             break;
         case 0x402:
-            if (main_wnd->dialogsMask == 1 || main_wnd->dialogsMask == 3 || main_wnd->dialogsMask == 5) {
+            if (main_wnd->dialogsMask == DIALOG_MASK_INGAME || main_wnd->dialogsMask == (DIALOG_MASK_INGAME | DIALOG_MASK_SHOP) || main_wnd->dialogsMask == (DIALOG_MASK_INGAME | DIALOG_MASK_TAVERN)) {
                 if (this->dirty != 0) {
                     this->VMethod9();
                 }
             }
-            if ((main_wnd->dialogsMask & 3) != 0) {
+            if ((main_wnd->dialogsMask & (DIALOG_MASK_INGAME | DIALOG_MASK_SHOP)) != 0) {
                 this->UpdateCursor();
             }
             break;
@@ -10164,7 +10164,7 @@ void VisCharInfo::UpdateCursor() {
         return;
     }
 
-    if ((main_wnd->dialogsMask & 2) != 0) {
+    if ((main_wnd->dialogsMask & DIALOG_MASK_SHOP) != 0) {
         if (main_wnd->drag_entry != nullptr) {
             VisShop* shop = (VisShop*)main_wnd->vis_root->FindChild(0x3E8);
             TokenEntry* token = main_wnd->drag_entry;
@@ -10175,7 +10175,7 @@ void VisCharInfo::UpdateCursor() {
             }
         }
     } else {
-        if (mouse_pt.x >= g_ScreenSize.right - 2 && main_wnd->dialogsMask == 1) {
+        if (mouse_pt.x >= g_ScreenSize.right - 2 && main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
             if (mouse_pt.y == 0) {
                 new_cursor = g_Cursors[CURSOR_ARROW1];
             } else if (mouse_pt.y >= g_ScreenSize.bottom - 2) {
@@ -10183,7 +10183,7 @@ void VisCharInfo::UpdateCursor() {
             } else {
                 new_cursor = g_Cursors[CURSOR_ARROW2];
             }
-        } else if (mouse_pt.y >= g_ScreenSize.bottom - 2 && main_wnd->dialogsMask == 1) {
+        } else if (mouse_pt.y >= g_ScreenSize.bottom - 2 && main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
             new_cursor = g_Cursors[CURSOR_ARROW4];
         } else {
             if (screen_rect.PtInRect(mouse_pt)) {
@@ -10237,7 +10237,7 @@ void VisSideStatus::UpdateCursor() {
     CCursor* new_cursor = nullptr;
     CPoint mouse_pt(g_mousept.GetX(), g_mousept.GetY());
     if (screen_rect.PtInRect(mouse_pt)) {
-        if (g_mousept.GetX() >= g_ScreenSize.right - 2 && main_wnd->dialogsMask == 1) {
+        if (g_mousept.GetX() >= g_ScreenSize.right - 2 && main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
             if (g_mousept.GetY() == 0) {
                 new_cursor = g_Cursors[CURSOR_ARROW1];
             } else if (g_mousept.GetY() < g_ScreenSize.bottom - 2) {
@@ -10245,7 +10245,7 @@ void VisSideStatus::UpdateCursor() {
             } else {
                 new_cursor = g_Cursors[CURSOR_ARROW3];
             }
-        } else if (g_mousept.GetY() >= g_ScreenSize.bottom - 2 && main_wnd->dialogsMask == 1) {
+        } else if (g_mousept.GetY() >= g_ScreenSize.bottom - 2 && main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
             new_cursor = g_Cursors[CURSOR_ARROW4];
         } else {
             if (screen_rect.PtInRect(mouse_pt)) {
@@ -10269,7 +10269,7 @@ void VisSideStatus::UpdateCursor() {
 // 4B4190
 void VisSideStatus::VMethod7() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->dialogsMask != 1) {
+    if (main_wnd->dialogsMask != DIALOG_MASK_INGAME) {
         return;
     }
 
@@ -10338,10 +10338,10 @@ int32_t VisSideStatus::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     if (result == 0) {
         switch (msg) {
         case 0x402:
-            if (main_wnd->dialogsMask == 1 && moved_up != 0 && this->dirty != 0) {
+            if (main_wnd->dialogsMask == DIALOG_MASK_INGAME && moved_up != 0 && this->dirty != 0) {
                 this->VMethod9();
             }
-            if (main_wnd->dialogsMask == 1) {
+            if (main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
                 this->UpdateCursor();
             }
             break;
@@ -10447,7 +10447,7 @@ int32_t VisShop::OnKeyDown(uint32_t wparam) {
     }
     if (wparam == 0x1b) {
         this->CloseShopDialog();
-        if (main_wnd->dialogsMask == 2) {
+        if (main_wnd->dialogsMask == DIALOG_MASK_SHOP) {
             main_wnd->PostMessage(0x42e, 0, 0);
         }
         return 1;
@@ -10701,7 +10701,7 @@ int32_t VisShop::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 
     switch (msg) {
     case 0x402:
-        if ((main_wnd->dialogsMask & 8) == 0) {
+        if ((main_wnd->dialogsMask & DIALOG_MASK_POPUP) == 0) {
             this->UpdateShopTips();
             this->shop_compass->VMethod9();
             this->to_sell->VMethod9();
@@ -12364,7 +12364,7 @@ int32_t VisShopButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
             break;
         case 3:
             this->shop->CloseShopDialog();
-            if (main_wnd->dialogsMask == 2) {
+            if (main_wnd->dialogsMask == DIALOG_MASK_SHOP) {
                 main_wnd->PostMessageA(0x42E, 0, 0);
             }
             break;
@@ -13339,7 +13339,7 @@ int32_t VisTav::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
                 this->right_panel->UpdateButtonLabels();
             }
         }
-        if (main_wnd->dialogsMask == 4 || main_wnd->dialogsMask == 5) {
+        if (main_wnd->dialogsMask == DIALOG_MASK_TAVERN || main_wnd->dialogsMask == (DIALOG_MASK_INGAME | DIALOG_MASK_TAVERN)) {
             this->VMethod9();
         }
         break;
@@ -13501,7 +13501,7 @@ void VisTav::CloseDialog() {
     this->MsgProc(0x445, 0, 0);
 
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-    if (wnd->dialogsMask == 4) {
+    if (wnd->dialogsMask == DIALOG_MASK_TAVERN) {
         AfxGetMainWnd()->PostMessageA(0x42E, 0, 0);
     }
 }
@@ -16601,7 +16601,7 @@ const char* VisInvType1::GetHint() {
     if (main_wnd->drag_entry != nullptr) {
         return nullptr;
     }
-    if (main_wnd->dialogsMask != 1) {
+    if (main_wnd->dialogsMask != DIALOG_MASK_INGAME) {
         return nullptr;
     }
 
@@ -16773,7 +16773,7 @@ int32_t VisInvType1::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (this->grid_source->GetAt(idx)->IsEmpty() != 0) {
         if (main_wnd->vis_map_context->my_main_unit->gold > 0) {
-            main_wnd->dialogsMask |= 8;
+            main_wnd->dialogsMask |= DIALOG_MASK_POPUP;
             main_wnd->vis_root->AddChild(main_wnd->vis_dropgold);
             main_wnd->vis_dropgold->SetSelection(idx);
             main_wnd->vis_dropgold->VMethod28();
@@ -22492,8 +22492,8 @@ void VisMiniMap::UpdateCursor() {
     CCursor* new_cursor = nullptr;
     CPoint mpt(g_mousept.GetX(), g_mousept.GetY());
     if (rc.PtInRect(mpt)) {
-        if (g_mousept.GetX() < g_ScreenSize.right - 2 || main_wnd->dialogsMask != 1) {
-            if (g_mousept.GetY() == 0 && main_wnd->dialogsMask == 1) {
+        if (g_mousept.GetX() < g_ScreenSize.right - 2 || main_wnd->dialogsMask != DIALOG_MASK_INGAME) {
+            if (g_mousept.GetY() == 0 && main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
                 new_cursor = g_Cursors[9];
             } else {
                 BigStruct2* mc = this->map_context;
@@ -22576,7 +22576,7 @@ int32_t VisMiniMap::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     if (res == 0) {
         switch (msg) {
         case 0x402:
-            if (main_wnd->dialogsMask == 1) {
+            if (main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
                 this->VMethod9();
                 this->UpdateCursor();
             }
@@ -22839,7 +22839,7 @@ void VisMiniMap::VMethod7() {
         return;
     }
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if ((main_wnd->dialogsMask & 2) != 0 || (main_wnd->dialogsMask & 4) != 0) {
+    if ((main_wnd->dialogsMask & DIALOG_MASK_SHOP) != 0 || (main_wnd->dialogsMask & DIALOG_MASK_TAVERN) != 0) {
         return;
     }
     if (abs((int)(this->viewer - mc->anim_tick)) <= 10) {
@@ -23065,7 +23065,7 @@ int32_t VisSpellBook::HitTestSpellCell(CPoint* pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     *pos += CPoint(-5 - rc.left, -5 - rc.top);
     int32_t left = vis_scr_rect.left;
-    if ((main_wnd->dialogsMask & 2) != 0) {
+    if ((main_wnd->dialogsMask & DIALOG_MASK_SHOP) != 0) {
         left = 0;
     }
     *pos += CPoint(-left, 0);
@@ -23153,7 +23153,7 @@ int32_t VisSpellBook::OnLButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->drag_entry != nullptr) {
         g_Cursors[0]->Use();
-        if ((main_wnd->dialogsMask & 2) == 0) {
+        if ((main_wnd->dialogsMask & DIALOG_MASK_SHOP) == 0) {
             if (main_wnd->drag_src_tab == 2) {
                 main_wnd->vis_invtype1->VMethod37(main_wnd->drag_src_slot);
             } else if (main_wnd->drag_src_tab == 1) {
@@ -23258,7 +23258,7 @@ void VisSpellBook::VMethod7() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     BigStruct2* mc = main_wnd->vis_map_context;
     int32_t left = vis_scr_rect.left;
-    if ((main_wnd->dialogsMask & 2) != 0) {
+    if ((main_wnd->dialogsMask & DIALOG_MASK_SHOP) != 0) {
         left = 0;
     }
     if (left != 0) {
@@ -23334,7 +23334,7 @@ const char* VisSpellBook::GetHint() {
     if ((mc->selected_available_spell_mask & (1 << (idx & 0x1F))) == 0) {
         return nullptr;
     }
-    if ((main_wnd->dialogsMask & 2) == 0 && main_wnd->dialogsMask != 1) {
+    if ((main_wnd->dialogsMask & DIALOG_MASK_SHOP) == 0 && main_wnd->dialogsMask != DIALOG_MASK_INGAME) {
         return nullptr;
     }
     g_HintBuf[0] = 0;
@@ -23474,7 +23474,7 @@ void VisMainMenu::VMethod7() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
-    if (main_wnd->dialogsMask != 0x80) {
+    if (main_wnd->dialogsMask != DIALOG_MASK_MAIN_MENU) {
         return;
     }
     LockSurface2();
@@ -26075,7 +26075,7 @@ void VisOrderToolbar::VMethod7() {
     this->ClientRectToScreen(&screen_rect, this->rect);
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
-    if (main_wnd->dialogsMask == 1) {
+    if (main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
         LockSurface2();
         if (this->enabled == 0) {
             g_bmp_headsr->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
@@ -26146,7 +26146,7 @@ int32_t VisOrderToolbar::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
     if (result == 0) {
         switch (msg) {
         case 0x402:
-            if (main_wnd->dialogsMask == 1) {
+            if (main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
                 if (this->dirty != 0) {
                     this->VMethod9();
                 }
@@ -26193,7 +26193,7 @@ int32_t VisOrderToolbar::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 const char* VisOrderToolbar::GetHint() {
     if (this->enabled != 0) {
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-        if ((main_wnd->dialogsMask & 0xe) == 0 && main_wnd->drag_entry == nullptr) {
+        if ((main_wnd->dialogsMask & (DIALOG_MASK_POPUP | DIALOG_MASK_TAVERN | DIALOG_MASK_SHOP)) == 0 && main_wnd->drag_entry == nullptr) {
             CPoint mouse_pt(g_mousept.GetX(), g_mousept.GetY());
             CRect screen_rect;
             this->ClientRectToScreen(&screen_rect, this->rect);
@@ -26273,7 +26273,7 @@ void VisOrderToolbar::UpdateCursor() {
     CCursor* new_cursor = nullptr;
     CPoint mouse_pt(g_mousept.GetX(), g_mousept.GetY());
     if (screen_rect.PtInRect(mouse_pt)) {
-        if (g_mousept.GetX() >= g_ScreenSize.right - 2 && main_wnd->dialogsMask == 1) {
+        if (g_mousept.GetX() >= g_ScreenSize.right - 2 && main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
             if (g_mousept.GetY() == 0) {
                 new_cursor = g_Cursors[CURSOR_ARROW1];
             } else if (g_mousept.GetY() < g_ScreenSize.bottom - 2) {

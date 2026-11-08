@@ -36,6 +36,25 @@ enum SessionMode : int32_t {
     SESSION_SERVER       = 3, // server / dedicated mode (EnterServerMode, StartHatDedicatedServer)
 };
 
+// MainWindow::dialogsMask bit flags: which fullscreen dialog/screen is currently
+// shown. Each screen sets its bit on open (Show*Dialog) and clears it on close.
+enum DialogMask : int32_t {
+    DIALOG_MASK_INGAME        = 0x1,    // the game world / map is visible
+    DIALOG_MASK_SHOP          = 0x2,    // shop dialog
+    DIALOG_MASK_TAVERN        = 0x4,    // tavern dialog
+    DIALOG_MASK_POPUP         = 0x8,    // popup screen (PopUpScreen)
+    DIALOG_MASK_GLOBAL_MAP    = 0x10,   // global map screen
+    DIALOG_MASK_CREDITS       = 0x40,   // credits screen
+    DIALOG_MASK_MAIN_MENU     = 0x80,   // main menu
+    DIALOG_MASK_LOGO          = 0x100,  // logo window
+    DIALOG_MASK_CHARGEN       = 0x200,  // character creation pane
+    DIALOG_MASK_CHAR_SELECT   = 0x400,  // character select screen
+    DIALOG_MASK_START_GAME    = 0x800,  // start-game screen
+    DIALOG_MASK_FAME_HALL     = 0x1000, // fame hall dialog
+    DIALOG_MASK_FAME_HALL_DOC = 0x4000, // fame hall document viewer
+    DIALOG_MASK_MSGBOX_LIST   = 0x8000, // message-box list (PopUpScreen(vis_msgbox_list))
+};
+
 
 class CListBox2 : public CListBox {
 public:

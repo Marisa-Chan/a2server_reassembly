@@ -279,21 +279,21 @@ void __cdecl ReadKillStats(uint8_t* data, int32_t datasz, uint8_t** out, int32_t
 // popup/dialog-1200 overlays before showing a hat DM window
 void BigStruct2::CloseHatOverlays() {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	if ((wnd->dialogsMask & 2) != 0) {
+	if ((wnd->dialogsMask & DIALOG_MASK_SHOP) != 0) {
 		CVisualObject* shop = wnd->vis_root->FindChild(1000);
 		if (shop != nullptr) {
 			((VisShop*)shop)->CloseShopDialog();
 			wnd->vis_root->RemoveChild(shop);
 		}
 	}
-	if ((wnd->dialogsMask & 4) != 0) {
+	if ((wnd->dialogsMask & DIALOG_MASK_TAVERN) != 0) {
 		CVisualObject* tav = wnd->vis_root->FindChild(1100);
 		if (tav != nullptr) {
 			((VisTav*)tav)->CloseDialog();
 			wnd->vis_root->RemoveChild(tav);
 		}
 	}
-	if ((wnd->dialogsMask & 8) != 0) {
+	if ((wnd->dialogsMask & DIALOG_MASK_POPUP) != 0) {
 		CVisualObject* child = wnd->vis_root->FindChild(1);
 		if (child != nullptr) {
 			wnd->vis_root->RemoveChild(child);
@@ -341,7 +341,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		PacketFileChunk* packet_file = reinterpret_cast<PacketFileChunk*>(pkt);
 
 		if (!pkt) {
-			if (breakid != 0 || (wnd->dialogsMask & 1) != 0) {
+			if (breakid != 0 || (wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
 				continue;
 			}
 			return 0;
@@ -368,7 +368,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		case JOIN_ERROR: {
 			g_GameStatusCode = packet_2dwords->param1 | SESSION_ERROR_FLAG;
 
-			if ((wnd->dialogsMask & 1) == 0) {
+			if ((wnd->dialogsMask & DIALOG_MASK_INGAME) == 0) {
 				while( g_NetStru1_local.ReceiveAnyPacket() != nullptr)
 				{}
 				g_CLlDriver.Close();
@@ -449,7 +449,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case MONEY_UPDATE: {
-			if (wnd->dialogsMask == 1 && this->my_main_unit->gold < packet_2dwords->param1 && packet_2dwords->param2 == 0) {
+			if (wnd->dialogsMask == DIALOG_MASK_INGAME && this->my_main_unit->gold < packet_2dwords->param1 && packet_2dwords->param2 == 0) {
 				sprintf(buf, "%s %d %s", TxtFile::AllLines[0x58], packet_2dwords->param1 - this->my_main_unit->gold, TxtFile::AllLines[0x59]);
 				this->msglog.Add(buf, clr_log_tblack, 3000);
 			}
@@ -857,7 +857,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							ct->effect_timers.RemoveAll();
 						}
 
-						if (ct_exist && (wnd->dialogsMask & 0x200) != 0) {
+						if (ct_exist && (wnd->dialogsMask & DIALOG_MASK_CHARGEN) != 0) {
 							if ((packet_unit->flags_mask & UNIT_UPD_TYPE_FACE) != 0) {
 								ct->face = g_CUnitStatic.face;
 							}
@@ -984,7 +984,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							break;
 						}
 						if (g_CUnitStatic.death_state < 5) {
-							if ((wnd->dialogsMask & 1) != 0 && this->scenario) {
+							if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0 && this->scenario) {
 								ct->UpdateMapPosition();
 							}
 
@@ -1233,7 +1233,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 					ct->unitFlags |= 8;
 
-					if ((wnd->dialogsMask & 2) != 0) {
+					if ((wnd->dialogsMask & DIALOG_MASK_SHOP) != 0) {
 						wnd->vis_root->FindChild(1000)->MsgProc(0x413, packet_state->mode & 0x7f, 0);
 					}
 
@@ -1402,7 +1402,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 					this->UpdateSelectionState();
 
-					if (wnd->dialogsMask & 2) {
+					if (wnd->dialogsMask & DIALOG_MASK_SHOP) {
 						wnd->vis_root->FindChild(1000)->MsgProc(0x413, packet_state->mode & 0x7f, 0);
 					} else {
 						if (this->selected_object_count == 1 && this->primary_selected_object == ct) {
@@ -1447,7 +1447,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					}
 				}
 
-				if ((wnd->dialogsMask & 2) == 0) {
+				if ((wnd->dialogsMask & DIALOG_MASK_SHOP) == 0) {
 					for (int i = 0; i < tmp.GetSize(); i++) {
 						if (tmp[i]) {
 							delete tmp[i];
@@ -1461,7 +1461,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				break;
 
 			case ITEM_LIST_INN_REWARDS: {
-				if ((wnd->dialogsMask & 4) != 0) {
+				if ((wnd->dialogsMask & DIALOG_MASK_TAVERN) != 0) {
 					VisTav* tavern = (VisTav*) wnd->vis_root->FindChild(0x44c);
 					uint8_t* pdata = packet_state->data;
 					for (int i = 0; i < packet_state->entry_count; i++) {
@@ -1498,7 +1498,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					pak->typeId = 5;
 				}
 
-				if ((wnd->dialogsMask & 1) != 0 && this->scenario != nullptr) {
+				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0 && this->scenario != nullptr) {
 					pak->UpdateMapPosition();
 				}
 			}
@@ -1752,7 +1752,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			} else if (this->my_main_unit->KnowsPlayer(packet_join->player_id) == 0 || packet_join->token_id == CHAT_TYPE_GLOBAL) {
 				MapPlayerData* dat = this->map_players[packet_join->player_id];
 
-				if (g_MessageColors == 0 || (wnd->dialogsMask & 1) == 0) {
+				if (g_MessageColors == 0 || (wnd->dialogsMask & DIALOG_MASK_INGAME) == 0) {
 					this->msglog.Add(CString(dat->name) + ": " + packet_join->name, g_colors_human_pals[dat->color], 10000);
 				} else {
 					uint16_t* clr = nullptr;
@@ -1815,7 +1815,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 				this->msglog.Add(txt, clr_log_sblack, 3000);
 
-				if ((wnd->dialogsMask & 1) != 0) {
+				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				}
 			}
@@ -1841,7 +1841,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xdd], this->map_players[packet_2dwords->param2]->name, TxtFile::AllLines[0xde]);
 				this->msglog.Add(buf, clr_log_sblack, 5000);
 
-				if ((wnd->dialogsMask & 1) != 0) {
+				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				}
 				break;
@@ -1850,7 +1850,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xdf], this->map_players[packet_2dwords->param2]->name, TxtFile::AllLines[0xe0]);
 				this->msglog.Add(buf, clr_log_sblack, 5000);
 
-				if ((wnd->dialogsMask & 1) != 0) {
+				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				}
 				break;
@@ -1859,7 +1859,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xe1], this->map_players[packet_2dwords->param2]->name, TxtFile::AllLines[0xe2]);
 				this->msglog.Add(buf, clr_log_sblack, 5000);
 
-				if ((wnd->dialogsMask & 1) != 0) {
+				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				}
 				break;
@@ -1868,7 +1868,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				sprintf(buf, "%s %d %s", txt_patch.GetLine(0x53), packet_2dwords->param2, txt_patch.GetLine(0x54));
 				this->msglog.Add(buf, clr_log_sblack, 5000);
 
-				if ((wnd->dialogsMask & 1) != 0) {
+				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				}
 				break;
@@ -1876,7 +1876,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			case 0x10:
 				this->msglog.Add(txt_patch.GetLine(0x58), clr_log_sblack, 5000);
 
-				if ((wnd->dialogsMask & 1) != 0) {
+				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				}
 				break;
@@ -1885,7 +1885,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				this->msglog.Add(txt_patch.GetLine(0x59), clr_log_sblack, 5000);
 				this->msglog.Add(txt_patch.GetLine(0x5a), clr_log_sblack, 5000);
 
-				if ((wnd->dialogsMask & 1) != 0) {
+				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				}
 				break;
@@ -1893,7 +1893,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			case 0x40:
 				this->msglog.Add(txt_patch.GetLine(0x5b), clr_log_sblack, 5000);
 
-				if ((wnd->dialogsMask & 1) != 0) {
+				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				}
 				break;
@@ -1901,7 +1901,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			case 0x80:
 				this->msglog.Add(txt_patch.GetLine(0x5c), clr_log_sblack, 5000);
 
-				if ((wnd->dialogsMask & 1) != 0) {
+				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				}
 				break;
@@ -1914,7 +1914,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 
 			if (packet_join->__as_dword == this->my_main_unit->index) {
-				if ((wnd->dialogsMask & 1) == 0) {
+				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) == 0) {
 					while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
 					{}
 					g_CLlDriver.Close();
@@ -2118,7 +2118,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case SERVER_SHUTDOWN:
 			if (wnd->sessionMode == SESSION_SINGLEPLAYER) {
-				if ((wnd->dialogsMask & 1) == 0) {
+				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) == 0) {
 					while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
 					{}
 					g_CLlDriver.Close();
@@ -2162,13 +2162,13 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case LEAVE_BUILDING:
 			if (wnd->sessionMode == SESSION_SINGLEPLAYER) {
-				if ((wnd->dialogsMask & 2) != 0) {
+				if ((wnd->dialogsMask & DIALOG_MASK_SHOP) != 0) {
 					VisShop* shop = (VisShop*)wnd->vis_root->FindChild(1000);
 					shop->CloseShopDialog();
 					wnd->vis_root->RemoveChild(shop);
 				}
 
-				if ((wnd->dialogsMask & 4) != 0) {
+				if ((wnd->dialogsMask & DIALOG_MASK_TAVERN) != 0) {
 					VisTav* tavern = (VisTav*)wnd->vis_root->FindChild(1100);
 					tavern->CloseDialog();
 					wnd->vis_root->RemoveChild(tavern);
@@ -2276,7 +2276,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case INN_QUESTS:
-			if ((wnd->dialogsMask & 4) != 0) {
+			if ((wnd->dialogsMask & DIALOG_MASK_TAVERN) != 0) {
 				VisTav* tavern = (VisTav*)wnd->vis_root->FindChild(1100);
 				if (tavern) {
 					tavern->quest_map->RemovePlayerQuests(0);
@@ -2756,7 +2756,7 @@ void BigStruct2::SendShopClose() {
 
 	g_NetStru1_local.QueuePacketSend(pkt);
 
-	((MainWindow*)AfxGetMainWnd())->dialogsMask &= ~2;
+	((MainWindow*)AfxGetMainWnd())->dialogsMask &= ~DIALOG_MASK_SHOP;
 }
 
 
@@ -3029,7 +3029,7 @@ void BigStruct2::ResetWorldState(int32_t arg) { // 41d2da
 
 int32_t BigStruct2::IsBookOpen() { // 41b4b0
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	if (wnd->dialogsMask & 2) {
+	if (wnd->dialogsMask & DIALOG_MASK_SHOP) {
 		return wnd->vis_root->FindChild(1000)->FindChild(MAP_CHILD_SPELL_BOOK) != nullptr;
 	}
 
@@ -3217,7 +3217,7 @@ void BigStruct2::UpdateSelectionState() { //416cf7
 			firstsel = true;
 		}
 
-		if (mwnd->dialogsMask == 1 || (mwnd->dialogsMask & 2) != 0) {
+		if (mwnd->dialogsMask == DIALOG_MASK_INGAME || (mwnd->dialogsMask & DIALOG_MASK_SHOP) != 0) {
 			if (obj->GetRuntimeClass() == RUNTIME_CLASS(CUnit)) {
 				CUnit* unit = (CUnit*)obj;
 
@@ -3707,7 +3707,7 @@ void BigStruct2::RecalcVisibleMapHeight() { //41b6e0
 void BigStruct2::CloseSpellBook() { //41b636
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
-	if ((mwnd->dialogsMask & 2) == 0) {
+	if ((mwnd->dialogsMask & DIALOG_MASK_SHOP) == 0) {
 		this->RemoveChild(mwnd->vis_spellbook);
 	} else {
 		mwnd->vis_root->FindChild(1000)->RemoveChild(mwnd->vis_spellbook);
@@ -3731,7 +3731,7 @@ void BigStruct2::OpenSpellBook() { // 41b509
 		mwnd->vis_spellbook->SetRect(0, this->rect.bottom - 175, this->rect.right, this->rect.bottom - 90);
 	}
 
-	if ((mwnd->dialogsMask & 2) == 0) {
+	if ((mwnd->dialogsMask & DIALOG_MASK_SHOP) == 0) {
 		this->AddChild(mwnd->vis_spellbook);
 	} else {
 		mwnd->vis_spellbook->SetRect(0, 305, 480, 390);
@@ -3829,7 +3829,7 @@ void BigStruct2::OnOpenShopDialog() { //41a856
 	pkt->value = this->GetUnit_3f6c()->unit_id;
 	g_NetStru1_local.QueuePacketSend(pkt);
 
-	((MainWindow*)AfxGetMainWnd())->dialogsMask |= 2;
+	((MainWindow*)AfxGetMainWnd())->dialogsMask |= DIALOG_MASK_SHOP;
 }
 
 void BigStruct2::NetOnOpenInnDialog() { //41adbb
@@ -5056,7 +5056,7 @@ uint32_t BigStruct2::UpdateMouseHover() {
 // client: 40b35f
 void BigStruct2::UpdateMapCursor() {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	if (wnd->dialogsMask != 1) {
+	if (wnd->dialogsMask != DIALOG_MASK_INGAME) {
 		return;
 	}
 	CSprite256* cursor_sprite = g_mousept.GetCursorSprite();
@@ -5255,7 +5255,7 @@ void BigStruct2::UpdateMapCursor() {
 	if (wnd->drag_entry != nullptr) {
 		uint32_t avail = this->UpdateMouseHover();
 		cursor = wnd->item_cursor;
-		if (wnd->dialogsMask == 1 && this->selected_object_count == 1 &&
+		if (wnd->dialogsMask == DIALOG_MASK_INGAME && this->selected_object_count == 1 &&
 			(((CUnit*)this->primary_selected_object)->unitFlags & 1) != 0 &&
 			this->primary_selected_object->map_player == this->my_main_unit) {
 			int32_t tile_x = (g_mousept.GetX() >> 5) + this->view_x;
@@ -5524,7 +5524,7 @@ void BigStruct2::RedrawLitTerrain() {
 // 406F7B
 void BigStruct2::RenderWorldFrame() {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	if (wnd->dialogsMask != 1 || this->scenario == nullptr) {
+	if (wnd->dialogsMask != DIALOG_MASK_INGAME || this->scenario == nullptr) {
 		return;
 	}
 
@@ -6489,7 +6489,7 @@ int32_t BigStruct2::OnRButtonDown(uint32_t wparam, CPoint pos) {
 // 40D4B2
 int32_t BigStruct2::OnChar(uint32_t wparam) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	if ((wnd->dialogsMask & 8) != 0) {
+	if ((wnd->dialogsMask & DIALOG_MASK_POPUP) != 0) {
 		return 0;
 	}
 	return 1;
@@ -6508,7 +6508,7 @@ void BigStruct2::SendRequestFileChunk(int32_t val) {
 // 40C510
 int32_t BigStruct2::OnLButtonDown(uint32_t wparam, CPoint pos) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	if (wnd->dialogsMask != 1) {
+	if (wnd->dialogsMask != DIALOG_MASK_INGAME) {
 		return 0;
 	}
 	if (g_mousept.GetSelectState() == 0 && this->scenario != nullptr) {
@@ -6521,7 +6521,7 @@ int32_t BigStruct2::OnLButtonDown(uint32_t wparam, CPoint pos) {
 // 40C59C
 int32_t BigStruct2::OnRButtonUp(uint32_t wparam, CPoint pos) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	if (this->rbtn_drag == 0 && wnd->dialogsMask == 1) {
+	if (this->rbtn_drag == 0 && wnd->dialogsMask == DIALOG_MASK_INGAME) {
 		this->MsgProc(0x405, 0, 0);
 	}
 	this->rbtn_drag = 0;
@@ -6655,7 +6655,7 @@ CUnit* BigStruct2::PickVoiceUnit() {
 // 41D97E
 void BigStruct2::UpdateDayNightCycle(int32_t arg) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	if ((wnd->dialogsMask & 1) == 0) {
+	if ((wnd->dialogsMask & DIALOG_MASK_INGAME) == 0) {
 		return;
 	}
 	int32_t time_of_day = ((uint32_t)wnd->serverLoopCounter >> 4) + 0x168;
@@ -6712,7 +6712,7 @@ void BigStruct2::ComputeSoundVolumePan(int32_t xpos, int32_t ypos, int32_t* pvol
 // 40C902
 int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	if (wnd->dialogsMask == 1 && this->scenario != nullptr) {
+	if (wnd->dialogsMask == DIALOG_MASK_INGAME && this->scenario != nullptr) {
 		if (wnd->console_active != 0) {
 			wnd->vis_1200->OnKeyDown(wparam);
 			return 0;
@@ -6739,22 +6739,22 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 			wnd->OpenConsoleInput();
 			break;
 		case 0x25:
-			if (wnd->dialogsMask == 1) {
+			if (wnd->dialogsMask == DIALOG_MASK_INGAME) {
 				this->ScrollMapX(-1);
 			}
 			break;
 		case 0x26:
-			if (wnd->dialogsMask == 1) {
+			if (wnd->dialogsMask == DIALOG_MASK_INGAME) {
 				this->ScrollMapY(-1);
 			}
 			break;
 		case 0x27:
-			if (wnd->dialogsMask == 1) {
+			if (wnd->dialogsMask == DIALOG_MASK_INGAME) {
 				this->ScrollMapX(1);
 			}
 			break;
 		case 0x28:
-			if (wnd->dialogsMask == 1) {
+			if (wnd->dialogsMask == DIALOG_MASK_INGAME) {
 				this->ScrollMapY(1);
 			}
 			break;
@@ -6784,7 +6784,7 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 			break;
 		}
 		default:
-			if (wnd->dialogsMask == 1) {
+			if (wnd->dialogsMask == DIALOG_MASK_INGAME) {
 				if (g_kbControlState == 0 && this->selected_object_count != 0 && (this->selection_flags & 0x24) == 0) {
 					switch (wparam) {
 					case 0x41:
@@ -6823,7 +6823,7 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 				}
 				switch (wparam) {
 				case 0x20:
-					if (wnd->dialogsMask == 1 && wnd->console_active == 0) {
+					if (wnd->dialogsMask == DIALOG_MASK_INGAME && wnd->console_active == 0) {
 						if (this->my_unit == nullptr || this->my_unit->hp > -40) {
 							if (this->IsBagOpen() == 0 && this->IsBookOpen() == 0) {
 								wnd->vis_right_panel->MsgProc(0x40E, 0, 0);
@@ -6847,7 +6847,7 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 					break;
 				case 0x42:
 				case 0x51:
-					if (wnd->dialogsMask == 1) {
+					if (wnd->dialogsMask == DIALOG_MASK_INGAME) {
 						wnd->vis_right_panel->MsgProc(0x40F, 0, 0);
 						this->MsgProc(0x40F, 0, 0);
 					}
@@ -6875,7 +6875,7 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 					break;
 				case 0x49:
 				case 0xC0:
-					if (wnd->dialogsMask == 1) {
+					if (wnd->dialogsMask == DIALOG_MASK_INGAME) {
 						wnd->vis_right_panel->MsgProc(0x40E, 0, 0);
 						this->MsgProc(0x40E, 0, 0);
 					}
@@ -6912,7 +6912,7 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 					break;
 				case 0x55:
 					if (g_kbControlState == 0) {
-						if (wnd->dialogsMask == 1) {
+						if (wnd->dialogsMask == DIALOG_MASK_INGAME) {
 							this->SendHurtSelf();
 						}
 					} else {
@@ -6938,7 +6938,7 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 			}
 			break;
 		}
-	} else if ((wnd->dialogsMask & 2) != 0 && (wparam == 0x42 || wparam == 0x51)) {
+	} else if ((wnd->dialogsMask & DIALOG_MASK_SHOP) != 0 && (wparam == 0x42 || wparam == 0x51)) {
 		wnd->vis_right_panel->MsgProc(0x40F, 0, 0);
 		this->MsgProc(0x40F, 0, 0);
 		wnd->vis_root->FindChild(1000)->MsgProc(0x40F, 0, 0);
@@ -7266,7 +7266,7 @@ int32_t BigStruct2::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 		result = 1;
 		break;
 	case 0x485:
-		if ((wnd->dialogsMask & 1) != 0) {
+		if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
 			this->ambient_view_x = -1;
 			this->ambient_view_y = -1;
 			this->UpdateAmbientSounds();
@@ -7280,7 +7280,7 @@ int32_t BigStruct2::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 // 40C633
 int32_t BigStruct2::OnLButtonUp(uint32_t wparam, CPoint pos) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	if (wnd->dialogsMask != 1) {
+	if (wnd->dialogsMask != DIALOG_MASK_INGAME) {
 		return 0;
 	}
 	if (g_mousept.GetSelectState() != 0) {
