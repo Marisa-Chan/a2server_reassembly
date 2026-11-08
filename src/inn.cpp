@@ -361,7 +361,7 @@ void Inn::InnCreateQuests(Player* player) {
             if (!p->is_ai) {
                 continue;
             }
-            if (!(g_World->diplomacy.diplomacy[player->player_id][p->player_id] & 1)) {
+            if (!(g_World->diplomacy.diplomacy[player->player_id][p->player_id] & DIPLO_WAR)) {
                 continue;
             }
 
@@ -422,7 +422,7 @@ void Inn::InnCreateQuests(Player* player) {
             if (!p->is_ai) {
                 continue;
             }
-            if (!(g_World->diplomacy.diplomacy[player->player_id][p->player_id] & 1)) {
+            if (!(g_World->diplomacy.diplomacy[player->player_id][p->player_id] & DIPLO_WAR)) {
                 continue;
             }
 
@@ -551,7 +551,7 @@ void Inn::InnCreateQuests(Player* player) {
             if (!p->is_ai || !this->pOwner) {
                 continue;
             }
-            if (!(g_World->diplomacy.diplomacy[this->pOwner->player_id][p->player_id] & 1)) {
+            if (!(g_World->diplomacy.diplomacy[this->pOwner->player_id][p->player_id] & DIPLO_WAR)) {
                 continue;
             }
             if (!p->quest_ai) {

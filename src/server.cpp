@@ -255,8 +255,8 @@ void Server::ProcessPlayers() {
                             g_World->diplomacy.diplomacy[i][player->player_id] = g_World->diplomacy.diplomacy[i][self->player_id];
                             g_World->diplomacy.diplomacy[player->player_id][i] = g_World->diplomacy.diplomacy[self->player_id][i];
                         }
-                        g_World->diplomacy.diplomacy[self->player_id][player->player_id] = 0x12;
-                        g_World->diplomacy.diplomacy[player->player_id][self->player_id] = 0x12;
+                        g_World->diplomacy.diplomacy[self->player_id][player->player_id] = (DIPLO_VISION_SHARE | DIPLO_ALLIANCE);
+                        g_World->diplomacy.diplomacy[player->player_id][self->player_id] = (DIPLO_VISION_SHARE | DIPLO_ALLIANCE);
                         g_NetStru1_main.SendVisibilityState(player);
                     }
                 }
@@ -458,7 +458,7 @@ int Srv1::LoadMap(CString map_name) {
             }
         }
 
-        g_World->diplomacy.diplomacy[player->player_id][player->player_id] = 0x12;
+        g_World->diplomacy.diplomacy[player->player_id][player->player_id] = (DIPLO_VISION_SHARE | DIPLO_ALLIANCE);
     }
 
     this->CreateUnits(alm);
@@ -469,7 +469,7 @@ int Srv1::LoadMap(CString map_name) {
         while (pos2) {
             Player* player2 = g_PlayersList->list.GetNext(pos2);
 
-            if ((g_World->diplomacy.diplomacy[player2->player_id][self->player_id] & 7) == 0 && player2->is_ai) {
+            if ((g_World->diplomacy.diplomacy[player2->player_id][self->player_id] & (DIPLO_WAR | DIPLO_ALLIANCE | DIPLO_MUTE)) == 0 && player2->is_ai) {
                 if (player2->unit_list != nullptr) {
                     POSITION upos = player2->unit_list->unit_list.GetHeadPosition();
                     while (upos) {
@@ -1615,7 +1615,7 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
                     g_World->diplomacy.diplomacy[self_id][slot] = g_World->diplomacy.diplomacy[player_id][slot];
                 }
                 // Mark Self as allied with the new player.
-                g_World->diplomacy.diplomacy[self_id][player_id] = 0x12;
+                g_World->diplomacy.diplomacy[self_id][player_id] = (DIPLO_VISION_SHARE | DIPLO_ALLIANCE);
 
                 // Walk all non-AI players and update alliance / vision masks.
                 for (POSITION node = g_PlayersList->list.GetHeadPosition(); node != nullptr;) {
@@ -1651,10 +1651,10 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
         if (red != nullptr && blue != nullptr) {
             if (player->team == 0) {
                 // Allied with Red (0x12), hostile to Blue (1).
-                g_World->diplomacy.diplomacy[red_id][my_id] = 0x12;
-                g_World->diplomacy.diplomacy[my_id][red_id] = 0x12;
-                g_World->diplomacy.diplomacy[blue_id][my_id] = 1;
-                g_World->diplomacy.diplomacy[my_id][blue_id] = 1;
+                g_World->diplomacy.diplomacy[red_id][my_id] = (DIPLO_VISION_SHARE | DIPLO_ALLIANCE);
+                g_World->diplomacy.diplomacy[my_id][red_id] = (DIPLO_VISION_SHARE | DIPLO_ALLIANCE);
+                g_World->diplomacy.diplomacy[blue_id][my_id] = DIPLO_WAR;
+                g_World->diplomacy.diplomacy[my_id][blue_id] = DIPLO_WAR;
 
                 // Share vision with Red, clear from Blue.
                 player->vision_sharing_mask |= red->vision_sharing_id;
@@ -1663,10 +1663,10 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
                 blue->vision_sharing_mask &= ~player->vision_sharing_id;
             } else {
                 // Allied with Blue (0x12), hostile to Red (1).
-                g_World->diplomacy.diplomacy[blue_id][my_id] = 0x12;
-                g_World->diplomacy.diplomacy[my_id][blue_id] = 0x12;
-                g_World->diplomacy.diplomacy[red_id][my_id] = 1;
-                g_World->diplomacy.diplomacy[my_id][red_id] = 1;
+                g_World->diplomacy.diplomacy[blue_id][my_id] = (DIPLO_VISION_SHARE | DIPLO_ALLIANCE);
+                g_World->diplomacy.diplomacy[my_id][blue_id] = (DIPLO_VISION_SHARE | DIPLO_ALLIANCE);
+                g_World->diplomacy.diplomacy[red_id][my_id] = DIPLO_WAR;
+                g_World->diplomacy.diplomacy[my_id][red_id] = DIPLO_WAR;
 
                 // Share vision with Blue, clear from Red.
                 player->vision_sharing_mask |= blue->vision_sharing_id;
@@ -2127,7 +2127,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
             g_World->diplomacy.diplomacy[my_id][i] = val2;
         }
 
-        g_World->diplomacy.diplomacy[partner_id][my_id] = 0x12;
+        g_World->diplomacy.diplomacy[partner_id][my_id] = (DIPLO_VISION_SHARE | DIPLO_ALLIANCE);
     }
 
     // Set team pairing bytes and vision masks.
@@ -2149,8 +2149,8 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
             case GAME_TYPE_DEATHMATCH:
             case GAME_TYPE_ARENA:
                 // Deathmatch/arena: mark as enemy (1)
-                g_World->diplomacy.diplomacy[other_id][my_id] = 1;
-                g_World->diplomacy.diplomacy[my_id][other_id] = 1;
+                g_World->diplomacy.diplomacy[other_id][my_id] = DIPLO_WAR;
+                g_World->diplomacy.diplomacy[my_id][other_id] = DIPLO_WAR;
                 other->vision_sharing_mask &= (uint16_t)(~player->vision_sharing_id);
                 player->vision_sharing_mask &= (uint16_t)(~other->vision_sharing_id);
                 break;
@@ -2158,14 +2158,14 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
                 // Team play
                 if (player->team == other->team) {
                     // Same team: mark 0x12 (teammate), share vision
-                    g_World->diplomacy.diplomacy[other_id][my_id] = 0x12;
-                    g_World->diplomacy.diplomacy[my_id][other_id] = 0x12;
+                    g_World->diplomacy.diplomacy[other_id][my_id] = (DIPLO_VISION_SHARE | DIPLO_ALLIANCE);
+                    g_World->diplomacy.diplomacy[my_id][other_id] = (DIPLO_VISION_SHARE | DIPLO_ALLIANCE);
                     player->vision_sharing_mask |= other->vision_sharing_id;
                     other->vision_sharing_mask |= player->vision_sharing_id;
                 } else {
                     // Different team: mark 1 (enemy), clear vision
-                    g_World->diplomacy.diplomacy[other_id][my_id] = 1;
-                    g_World->diplomacy.diplomacy[my_id][other_id] = 1;
+                    g_World->diplomacy.diplomacy[other_id][my_id] = DIPLO_WAR;
+                    g_World->diplomacy.diplomacy[my_id][other_id] = DIPLO_WAR;
                     other->vision_sharing_mask &= (uint16_t)(~player->vision_sharing_id);
                     player->vision_sharing_mask &= (uint16_t)(~other->vision_sharing_id);
                 }
@@ -2830,7 +2830,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 continue;
             }
             int diplomacy = g_World->diplomacy.diplomacy[player->player_id][p->player_id];
-            if (diplomacy & 1) {
+            if (diplomacy & DIPLO_WAR) {
                 p->KillAllUnits();
             }
         }
@@ -3950,7 +3950,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             case CHAT_TYPE_ALLIES: // Allies: send to players with diplomacy bit 2 set toward sender.
                 for (POSITION node = g_PlayersList->list.GetHeadPosition(); node;) {
                     Player* other = g_PlayersList->list.GetNext(node);
-                    if (!other->is_ai && (g_World->diplomacy.diplomacy[player->player_id][other->player_id] & 2) != 0) {
+                    if (!other->is_ai && (g_World->diplomacy.diplomacy[player->player_id][other->player_id] & DIPLO_ALLIANCE) != 0) {
                         out.to_player_id = other->player_id;
                         strcpy(out.name, packet_join->name);
                         g_NetStru1_main.QueuePacketSend(&out);
@@ -6205,8 +6205,8 @@ void Server::UpdateMissionResult(Player* player) {
                         g_World->diplomacy.diplomacy[i][player->player_id] = g_World->diplomacy.diplomacy[i][self_player->player_id];
                         g_World->diplomacy.diplomacy[player->player_id][i] = g_World->diplomacy.diplomacy[self_player->player_id][i];
                     }
-                    g_World->diplomacy.diplomacy[self_player->player_id][player->player_id] = 0x12;
-                    g_World->diplomacy.diplomacy[player->player_id][self_player->player_id] = 0x12;
+                    g_World->diplomacy.diplomacy[self_player->player_id][player->player_id] = (DIPLO_VISION_SHARE | DIPLO_ALLIANCE);
+                    g_World->diplomacy.diplomacy[player->player_id][self_player->player_id] = (DIPLO_VISION_SHARE | DIPLO_ALLIANCE);
                     g_NetStru1_main.SendVisibilityState(player);
                 }
             }

@@ -14,6 +14,7 @@
 #include "player_file.h"
 #include "map_stuff.h"
 #include "quest.h"
+#include "world.h"
 #include "quest_map.h"
 #include "file.h"
 #include "spell.h"
@@ -2187,9 +2188,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 					uint16_t& diplo = this->my_main_unit->diplomacy[i];
 
-					if ((diplo & 8) != 0 && (packet_terrain->buf[i] & 8) == 0) {
+					if ((diplo & DIPLO_SHARED_VISION) != 0 && (packet_terrain->buf[i] & DIPLO_SHARED_VISION) == 0) {
 						sprintf(buf, "%s %s %s", txt_patch.GetLine(0x48), mp->name, txt_patch.GetLine(0x49));
-					} else if ((diplo & 8) == 0 && (packet_terrain->buf[i] & 8) != 0) {
+					} else if ((diplo & DIPLO_SHARED_VISION) == 0 && (packet_terrain->buf[i] & DIPLO_SHARED_VISION) != 0) {
 						sprintf(buf, "%s %s %s", txt_patch.GetLine(0x46), mp->name, txt_patch.GetLine(0x47));
 					}
 
@@ -2200,9 +2201,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 					buf[0] = 0;
 
-					if ((diplo & 0x40) == 0 && (packet_terrain->buf[i] & 0x40) != 0) {
+					if ((diplo & DIPLO_THEY_WAR) == 0 && (packet_terrain->buf[i] & DIPLO_THEY_WAR) != 0) {
 						sprintf(buf, "%s %s %s", TxtFile::AllLines[0x94], mp->name, TxtFile::AllLines[0x95]);
-					} else if ((diplo & 0x40) != 0 && (packet_terrain->buf[i] & 0x40) == 0) {
+					} else if ((diplo & DIPLO_THEY_WAR) != 0 && (packet_terrain->buf[i] & DIPLO_THEY_WAR) == 0) {
 						sprintf(buf, "%s %s %s", TxtFile::AllLines[0x92], mp->name, TxtFile::AllLines[0x93]);
 					}
 
@@ -2213,9 +2214,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 					buf[0] = 0;
 
-					if ((diplo & 0x20) == 0 && (packet_terrain->buf[i] & 0x20) != 0) {
+					if ((diplo & DIPLO_THEY_ALLIED) == 0 && (packet_terrain->buf[i] & DIPLO_THEY_ALLIED) != 0) {
 						sprintf(buf, "%s %s %s", TxtFile::AllLines[0x8e], mp->name, TxtFile::AllLines[0x8f]);
-					} else if ((diplo & 0x20) != 0 && (packet_terrain->buf[i] & 0x20) == 0) {
+					} else if ((diplo & DIPLO_THEY_ALLIED) != 0 && (packet_terrain->buf[i] & DIPLO_THEY_ALLIED) == 0) {
 						sprintf(buf, "%s %s %s", TxtFile::AllLines[0x90], mp->name, TxtFile::AllLines[0x91]);
 					}
 

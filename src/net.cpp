@@ -437,14 +437,14 @@ void NetStru1::SendVisibilityState(Player* player) {
         packet.buf[pid] = g_World->diplomacy.diplomacy[this_player_id][pid];
 
         int8_t diplomacy = g_World->diplomacy.diplomacy[pid][this_player_id];
-        if (diplomacy & 0x10) {
-            packet.buf[pid] |= 8;
+        if (diplomacy & DIPLO_VISION_SHARE) {
+            packet.buf[pid] |= DIPLO_SHARED_VISION;
         }
-        if (diplomacy & 2) {
-            packet.buf[pid] |= 0x20;
+        if (diplomacy & DIPLO_ALLIANCE) {
+            packet.buf[pid] |= DIPLO_THEY_ALLIED;
         }
-        if (diplomacy & 1) {
-            packet.buf[pid] |= 0x40;
+        if (diplomacy & DIPLO_WAR) {
+            packet.buf[pid] |= DIPLO_THEY_WAR;
         }
 
         uint16_t crossd = g_World->diplomacy.diplomacy[this_player_id][pid] | (g_World->diplomacy.diplomacy[pid][this_player_id] << 8);
@@ -453,16 +453,16 @@ void NetStru1::SendVisibilityState(Player* player) {
             CString str;
             str.Format("Diplomacy changed: %s -> %s =", p->name, player->name);
 
-            if ((g_World->diplomacy.diplomacy[pid][this_player_id] & 2)) {
+            if ((g_World->diplomacy.diplomacy[pid][this_player_id] & DIPLO_ALLIANCE)) {
                 str += " Alliance";
             }
-            else if ((g_World->diplomacy.diplomacy[pid][this_player_id] & 1)) {
+            else if ((g_World->diplomacy.diplomacy[pid][this_player_id] & DIPLO_WAR)) {
                 str += " War";
             }
             else
                 str += " Neutrality";
 
-            if ((g_World->diplomacy.diplomacy[pid][this_player_id] & 0x10) != 0) {
+            if ((g_World->diplomacy.diplomacy[pid][this_player_id] & DIPLO_VISION_SHARE) != 0) {
                 str += " + Vision";
             }
             LogMessage(str);
@@ -791,7 +791,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
             if (tid < 0x21 || tid > 0x3F) {
                 mask &= 0xc0c000fb;
             } else if (g_World != nullptr) {
-                if ((g_World->diplomacy.diplomacy[unit->pOwner->player_id][player->player_id] & 0x10) == 0) {
+                if ((g_World->diplomacy.diplomacy[unit->pOwner->player_id][player->player_id] & DIPLO_VISION_SHARE) == 0) {
                     mask &= 0xc0c000fb;
                 }
             }

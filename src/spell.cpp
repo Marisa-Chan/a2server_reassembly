@@ -658,7 +658,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
 
         case spell::heal: {
                 if (g_World != nullptr && caster->pOwner != nullptr && target->pOwner != nullptr) {
-                    if (g_World->diplomacy.diplomacy[caster->pOwner->player_id][target->pOwner->player_id] & 1) {
+                    if (g_World->diplomacy.diplomacy[caster->pOwner->player_id][target->pOwner->player_id] & DIPLO_WAR) {
                         return;
                     }
                 }

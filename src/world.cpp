@@ -67,7 +67,7 @@ void Diplomacy::RegisterPlayer(Player* player) {
         }
     }
     
-    this->diplomacy[player_id][player_id] = 0x12;
+    this->diplomacy[player_id][player_id] = (DIPLO_VISION_SHARE | DIPLO_ALLIANCE);
 }
 
 // 5A4B1A
@@ -236,7 +236,7 @@ void World::SplitTargetLists(Unit* unit, UnitList* pList) {
 
         // If u has has invisibility and is not allied with `unit`, verify that at least one
         // unit in `unit`'s group can see it before including it.
-        if ((u->enchantments & (1 << spell::invisibility)) != 0 && this->diplomacy.diplomacy[unit->pOwner->player_id][u->pOwner->player_id] != 2) {
+        if ((u->enchantments & (1 << spell::invisibility)) != 0 && this->diplomacy.diplomacy[unit->pOwner->player_id][u->pOwner->player_id] != DIPLO_ALLIANCE) {
             bool can_see = false;
             for (POSITION gn = unit->group->unit_list.GetHeadPosition(); gn != nullptr;) {
                 Unit* gu = unit->group->unit_list.GetNext(gn);
@@ -251,7 +251,7 @@ void World::SplitTargetLists(Unit* unit, UnitList* pList) {
         }
 
         // Classify: enemy -> attack list; others -> non-attack list.
-        if ((this->diplomacy.diplomacy[unit->pOwner->player_id][u->pOwner->player_id] & 1) != 0) {
+        if ((this->diplomacy.diplomacy[unit->pOwner->player_id][u->pOwner->player_id] & DIPLO_WAR) != 0) {
             this->targets.unit_list.AddTail(u);
         } else {
             this->non_targets.unit_list.AddTail(u);
@@ -313,7 +313,7 @@ void World::FilterBuffTargets(Unit* unit, UnitList* list) {
         Unit* other = list->unit_list.GetNext(it);
 
         bool should_remove = false;
-        if ((this->diplomacy.diplomacy[unit->pOwner->player_id][other->pOwner->player_id] & 2) == 0) {
+        if ((this->diplomacy.diplomacy[unit->pOwner->player_id][other->pOwner->player_id] & DIPLO_ALLIANCE) == 0) {
             should_remove = true;
         } else if ((other->enchantments & (1u << spell::invisibility)) != 0) {
             bool can_see = false;
@@ -608,8 +608,8 @@ void Diplomacy::RecordHostility(Unit* attacker, Unit* target, int32_t hit_flag) 
     uint8_t target_pid = target->pOwner->player_id;
 
     // Set attacker -> target war if not already at war.
-    if ((this->diplomacy[attacker_pid][target_pid] & 3) == 0) {
-        this->diplomacy[attacker_pid][target_pid] |= 1;
+    if ((this->diplomacy[attacker_pid][target_pid] & (DIPLO_WAR | DIPLO_ALLIANCE)) == 0) {
+        this->diplomacy[attacker_pid][target_pid] |= DIPLO_WAR;
         if (!attacker->pOwner->is_ai) {
             g_NetStru1_main.SendVisibilityState(attacker->pOwner);
             g_NetStru1_main.SendVisibilityState(target->pOwner);
@@ -617,12 +617,12 @@ void Diplomacy::RecordHostility(Unit* attacker, Unit* target, int32_t hit_flag) 
     }
 
     // Set target -> attacker war (reverse) conditionally.
-    if ((this->diplomacy[target_pid][attacker_pid] & 3) != 0) {
+    if ((this->diplomacy[target_pid][attacker_pid] & (DIPLO_WAR | DIPLO_ALLIANCE)) != 0) {
         return;
     }
 
     if (hit_flag == 0 || target->eye2->hits_taken > 10 || target->hp < target->hp_max / 2 || target->some_state == 0x10) {
-        this->diplomacy[target_pid][attacker_pid] |= 1;
+        this->diplomacy[target_pid][attacker_pid] |= DIPLO_WAR;
         if (!target->pOwner->is_ai) {
             g_NetStru1_main.SendVisibilityState(attacker->pOwner);
             g_NetStru1_main.SendVisibilityState(target->pOwner);
@@ -637,7 +637,7 @@ void Diplomacy::RecordHostility(Unit* attacker, Unit* target, int32_t hit_flag) 
 // Check if two units are at war.
 // 5B5816
 bool World::AreAtWar(Unit* unit1, Unit* unit2) {
-    return (this->diplomacy.diplomacy[unit1->pOwner->player_id][unit2->pOwner->player_id] & 1) != 0;
+    return (this->diplomacy.diplomacy[unit1->pOwner->player_id][unit2->pOwner->player_id] & DIPLO_WAR) != 0;
 }
 
 // Packed distance/facing metric between two units:
@@ -1233,7 +1233,7 @@ Unit* World::PickRelationUnitNear(uint16_t pos_yx, uint8_t byte_0x3c, Player* ow
         Unit* unit = list.GetNext(it);
         Player* unit_owner = unit->pOwner;
         bool remove = false;
-        if ((this->diplomacy.diplomacy[owner->player_id][unit_owner->player_id] & 1) == is_defensive) {
+        if ((this->diplomacy.diplomacy[owner->player_id][unit_owner->player_id] & DIPLO_WAR) == is_defensive) {
             remove = true;
         } else if ((unit->enchantments & (1 << spell::invisibility)) != 0) {
             remove = true;
@@ -1700,7 +1700,7 @@ int32_t World::ShouldPursueTarget(Unit* caster, Unit* target) {
 // Check if `caster` should autobuff `target` based on diplomacy and settings.
 // 5A7A1C
 int32_t World::ShouldAutobuff(Unit* caster, Unit* target) {
-    uint8_t relation = this->diplomacy.diplomacy[caster->pOwner->player_id][target->pOwner->player_id] & 3;
+    uint8_t relation = this->diplomacy.diplomacy[caster->pOwner->player_id][target->pOwner->player_id] & (DIPLO_WAR | DIPLO_ALLIANCE);
 
     // Neutral.
     if (relation == 0 && (caster->pOwner->settings->autobuff_mask & 4) != 0) {
@@ -1912,7 +1912,7 @@ void World::DoAutobuff(Unit* unit) {
             spell = this->GetCastableSpell(unit, spell::invisibility, 0);
             if (spell != nullptr && this->IsSpellInRange(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::invisibility)) == 0 && unit != other) {
-                    if ((this->diplomacy.diplomacy[unit->pOwner->player_id][other->pOwner->player_id] & 3) != 0) {
+                    if ((this->diplomacy.diplomacy[unit->pOwner->player_id][other->pOwner->player_id] & (DIPLO_WAR | DIPLO_ALLIANCE)) != 0) {
                         if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
                             unit->eye2->action_done = 1;
                             this->BeginAutobuffCast(unit, other, spell);
@@ -2118,7 +2118,7 @@ void World::ScriptOP_0x0a(TriggerAction* action) {
     uint32_t player1_id = action->data[0];
     uint32_t player2_id = action->data[1];
     uint32_t set_diplomacy = action->data[2];
-    this->diplomacy.diplomacy[player1_id][player2_id] = (this->diplomacy.diplomacy[player1_id][player2_id] & ~0x03) + set_diplomacy;
+    this->diplomacy.diplomacy[player1_id][player2_id] = (this->diplomacy.diplomacy[player1_id][player2_id] & ~(DIPLO_WAR | DIPLO_ALLIANCE)) + set_diplomacy;
     for (POSITION pos = this->players_list->list.GetHeadPosition(); pos != nullptr; ) {
         Player* p = this->players_list->list.GetNext(pos);
         if (p->player_id == player1_id || p->player_id == player2_id) {
@@ -4622,7 +4622,7 @@ void World::CheckOP_9(TriggerCheck* check) {
 // 5B3222
 void World::CheckOP_10(TriggerCheck* check) {
     int other_id = static_cast<Player*>(check->multi)->player_id;
-    this->trigger_variables[check->id] = this->diplomacy.diplomacy[check->player->player_id][other_id] & 3;
+    this->trigger_variables[check->id] = this->diplomacy.diplomacy[check->player->player_id][other_id] & (DIPLO_WAR | DIPLO_ALLIANCE);
 }
 
 // 5B3273

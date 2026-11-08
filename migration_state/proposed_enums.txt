@@ -237,7 +237,7 @@ TIER 2 - bitflag families (medium effort; highest opacity today)
     decode from sites. Constants UNIT_FLAG_* next to the field in the CUnit
     header (src/gameobj.h). RESEARCH unknown bits from usage; skip unclear.
 
-[ ] 14. Diplomacy bits  (World::diplomacy[][] bytes + client display byte)
+[x] 14. Diplomacy bits  (World::diplomacy[][] bytes + client display byte)
     TWO different bit spaces - do not conflate:
     a) Server diplomacy byte: 1 = war, 2 = alliance, 0x10 = vision sharing
        (verified: src/net.cpp SendVisibilityState, src/server.cpp 0x45/

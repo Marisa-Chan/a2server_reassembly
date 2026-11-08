@@ -25,6 +25,23 @@ class Token;
 class Unit;
 struct World;
 
+// Diplomacy relation byte: one bit space shared by the server matrix
+// (Diplomacy::diplomacy[][]) and the client copy (Unit::diplomacy[], the
+// DIPLOMACY_STATE packet payload). Bits 0x1/0x2/0x4/0x10 are the player's own
+// settings (SET_DIPLOMACY accepts them masked with 0x17); bits 0x8/0x20/0x40
+// are display-only mirrors the server derives in SendVisibilityState from the
+// other player's matrix row. Row/col 0 of the matrix is metadata (is_ai flags,
+// registration markers), not diplomacy bits.
+enum DiplomacyFlag : uint8_t {
+    DIPLO_WAR           = 0x1,  // at war
+    DIPLO_ALLIANCE      = 0x2,  // allied
+    DIPLO_MUTE          = 0x4,  // muted (DiplomacyEntry::mute)
+    DIPLO_SHARED_VISION = 0x8,  // display only: the other shares vision with us
+    DIPLO_VISION_SHARE  = 0x10, // we share vision with the other
+    DIPLO_THEY_ALLIED   = 0x20, // display only: the other set alliance toward us
+    DIPLO_THEY_WAR      = 0x40, // display only: the other set war toward us
+};
+
 struct Diplomacy {
 public:
     uint8_t flags[4];

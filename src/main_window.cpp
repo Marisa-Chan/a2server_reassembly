@@ -799,7 +799,7 @@ void MainWindow::ClearDiplomacyEntries() {
         MapPlayerData* mpd = this->vis_map_context->map_players[i];
         if (mpd != nullptr && (mpd->flags & 1) == 0) {
             uint16_t dipl_flags = this->vis_map_context->my_main_unit->diplomacy[mpd->index];
-            DiplomacyEntry* entry = new DiplomacyEntry(mpd->name, (dipl_flags & 1) != 0, (dipl_flags & 2) != 0, (dipl_flags & 0x10) != 0, (dipl_flags & 4) != 0);
+            DiplomacyEntry* entry = new DiplomacyEntry(mpd->name, (dipl_flags & DIPLO_WAR) != 0, (dipl_flags & DIPLO_ALLIANCE) != 0, (dipl_flags & DIPLO_VISION_SHARE) != 0, (dipl_flags & DIPLO_MUTE) != 0);
             this->diplomacy_entries->Add(entry);
         }
     }
@@ -2801,7 +2801,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
                 if (mp != nullptr && (mp->flags & 1) == 0) {
                     DiplomacyEntry* visdp = (*this->diplomacy_entries)[j];
 
-                    uint16_t dpl = this->vis_map_context->my_main_unit->diplomacy[mp->index] & 0x68;
+                    uint16_t dpl = this->vis_map_context->my_main_unit->diplomacy[mp->index] & (DIPLO_THEY_WAR | DIPLO_THEY_ALLIED | DIPLO_SHARED_VISION);
 
                     if (visdp->enemy != 0) {
                         dpl |= 1;
@@ -2821,7 +2821,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
 
                     this->vis_map_context->my_main_unit->diplomacy[mp->index] = dpl;
 
-                    this->vis_map_context->my_main_unit->diplomacy[this->vis_map_context->my_main_unit->index] = 0x3a;
+                    this->vis_map_context->my_main_unit->diplomacy[this->vis_map_context->my_main_unit->index] = (DIPLO_THEY_ALLIED | DIPLO_VISION_SHARE | DIPLO_SHARED_VISION | DIPLO_ALLIANCE);
 
                     j++;
                 }
