@@ -1,7 +1,7 @@
 # Source File Split Proposal
 
 Date: 2026-11-08
-Status: PROPOSED (not executed)
+Status: EXECUTED 2026-11-08 (commits d86535a4..afdefb27; execution notes at the bottom)
 Checker: `python tool/file_layout_analysis.py` (prints mismatches/splits/strays; run before and
 after every batch — its three report sections should shrink to empty, modulo documented exceptions)
 
@@ -226,3 +226,49 @@ empties ingame.cpp so it stops being a second megafile.
   one-shot historical tool.
 - **Rebase pain during execution**: land batches quickly; each commit is independently
   green, so in-flight work can rebase onto any intermediate commit.
+
+---
+
+## 8. Execution record (2026-11-08)
+
+Commits, in order: d86535a4 (proposal+checker) → 5010a710 (stray defs) → ec198ebd
+(ScenarioLocation decl) → 42fc7a02 (Phase 1 vis_core rename + umbrella) → f6dffd5b
+(gameplay + take_damage) → ffc3aa92 (vis_menu) → e6b91536 (vis_char) → f0ea89e2
+(vis_inventory) → b0c06847 (vis_shop) → 2522eebb (vis_tavern + SortTokenEntries home)
+→ c91cf974 (vis_town) → 3fe98eb1 (vis_net) → 31efbdfe (vis_worldmap) → 7f4a7c7e
+(vis_fame incl. CFameHall/Fame1/Fame2 out of main_window) → 02397011 (vis_hat +
+HatBrowserProgress out of net.h). (A one-shot split_family.py helper drove the
+extractions; deliberately not committed.)
+
+Deviations from the plan as written:
+
+- §5 items 1–2 (CSound, Resources) and the Building/CVisualObject/Token/SfxBank/
+  MagicItem/WorldEquip/BuildingInfo/PacketUnitStateVec rows were **checker false
+  positives**: the old `def_re` counted qualified call sites (`CSound::Play(x);`) and
+  forward declarations as definitions. The checker now verifies a definition's
+  signature terminates in `{` before any `;` and ignores `class X;` lines. After the
+  fix only 6 real mismatches remained; all resolved except ScenarioLocation
+  (documented exception — Read/Write defs stay in scenario.cpp by design).
+- gameplay + take_damage landed in one commit (their ingame.cpp def runs interleave).
+- vis_core.cpp's file-scope statics moved with their families: startgame_*,
+  blink_*, tavscene_*/druid/kaarg + kaarg_frame_script, lizard_seq*, netdlg_* +
+  EnumSessionsPump/ExtractFirstWord, g_Spellbook* tables, s_MainMenu*Rects,
+  g_EmptyStr{Load,Retry,Confirm,Cancel,SrvScreenText,MapTooltip,NetChatText},
+  gmap_repaint_*, SortTokenEntries+CompareShopTokenEntries (→ vis_shop.cpp),
+  g_ActionDirDx/Dy + g_SpellOffensive + g_CUnitStatic + clr_log_* (→ gameplay.cpp).
+  `g_HintBuf` stays in vis_core.cpp with a new `extern` in vis_core.h (shared
+  GetHint buffer used by vis_core and vis_inventory).
+- VisHatSession's definitions are wrapped in `#ifdef A2CLIENT` inside vis_hat.cpp
+  (the original wrapper was a file-level block the extractor split); its declaration
+  stays unconditional, matching the old header.
+- vis_fame structs moved out of main_window.h as one block (Fame1/Fame2/CFameHall);
+  main_window.h still sees them via the umbrella (it includes visual.h).
+- The vis_tavern commit (2522eebb) was amended once: it initially staged a stale
+  vis_core.h that would have duplicated the VisTav family across vis_core.h and
+  vis_tavern.h; the amended commit builds green.
+
+End state: visual.h = 28-line umbrella; vis_core.{h,cpp} = 954 + 4305 lines
+(widget toolkit); gameplay.cpp 9364 (R5 exception, single class); ingame.cpp
+8345 → 297 (gfx wrappers); main_window.cpp 6739 → 6439. Checker mismatch section:
+only ScenarioLocation (documented). client_refs counts unchanged throughout:
+3736 / 3412 / 3519.
