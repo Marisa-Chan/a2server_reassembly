@@ -481,7 +481,7 @@ void CMousePointer::Update() {
     }
 
     if (this->user_msg_delay < ts - this->user_msg_ts && g_LButtonDown != 0) {
-        wnd->PostMessage(0x400, 1, (this->x & 0xFFFF) | (this->y << 16));
+        wnd->PostMessage(MAIN_MSG_MOUSE, 1, (this->x & 0xFFFF) | (this->y << 16));
 
         this->user_msg_ts = ts;
         this->user_msg_delay = 66;

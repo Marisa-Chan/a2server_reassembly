@@ -228,7 +228,7 @@ void __cdecl PostConsoleLine(const char* source) {
 	size_t len = strlen(source) + 1;
 	char* buf = (char*)malloc(len);
 	strcpy(buf, source);
-	PostMessageA(g_MainWndHWND, 0x472, (WPARAM)buf, 0);
+	PostMessageA(g_MainWndHWND, MAIN_MSG_LOG_MESSAGE, (WPARAM)buf, 0);
 
 	// Append to log file if configured.
 	if (g_ServerConfig.log_file.IsEmpty()) {
@@ -768,7 +768,7 @@ BOOL GameApp::InitInstance() {
 
 	// client: 48626d — vanilla checked the CD before the main-menu message.
 	// We have disabled the CD check.
-	mwnd->PostMessageA(0x421, 0, 0);
+	mwnd->PostMessageA(MAIN_MSG_MAIN_MENU, 0, 0);
 
 	g_AutoRunEvent = CreateEventA(NULL, TRUE, TRUE, "Allods 2 AutoRun");
 
@@ -790,7 +790,7 @@ BOOL GameApp::OnIdle(LONG lCount) { //4835b0
 
 	if (mwnd->sessionMode == SESSION_SERVER && g_Server) {
 		mwnd->IdleLoop();
-	} else if ((mwnd->dialogsMask & 1) == 0) {
+	} else if ((mwnd->dialogsMask & DIALOG_MASK_INGAME) == 0) {
 		if (mwnd->serverBootstrapEnabled == 0 || !g_Server) {
 			if (mwnd->vis_netmapsel && g_NetStru1_local.IsActive() == 0) {
 				mwnd->vis_netmapsel->MsgProc(0x446, 0, 0);
@@ -814,7 +814,7 @@ BOOL GameApp::OnIdle(LONG lCount) { //4835b0
 	} else {
 		if (mwnd->serverBootstrapEnabled == 0) {
 			mwnd->RemoteGameIdle();
-		} else if ((mwnd->dialogsMask & 1) != 0 && (mwnd->sessionMode != SESSION_LOCAL_BATTLE || (mwnd->dialogsMask & 0x4008) == 0)) {
+		} else if ((mwnd->dialogsMask & DIALOG_MASK_INGAME) != 0 && (mwnd->sessionMode != SESSION_LOCAL_BATTLE || (mwnd->dialogsMask & (DIALOG_MASK_FAME_HALL_DOC | DIALOG_MASK_POPUP)) == 0)) {
 			if (mwnd->unlimited_speed == 0) {
 				mwnd->SingleGameTimedIdle();
 			} else {

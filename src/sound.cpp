@@ -584,7 +584,7 @@ void MusicPlayer::OpenTrack(int32_t track) { //45ae1d
 
 	if (this->file->Read(&wav, sizeof(wav)) == 0) {
 		this->file_opened = 0;
-		PostMessageA(g_dsound_hwnd, 0x486, 0, 0);
+		PostMessageA(g_dsound_hwnd, MAIN_MSG_QUIT, 0, 0);
 	} else {
 		if (memcmp(&this->format, &wav, 0x10) != 0) {
 			this->format.wFormatTag = wav.wFormatTag;
@@ -669,7 +669,7 @@ void MusicPlayer::Update(uint32_t tm) { // 45a9b3
 		this->elapsed_time += this->buffer_time;
 
 		if (this->play_notify != 0) {
-			PostMessageA(g_dsound_hwnd, 0x467, this->current_track_id, this->GetElapsedSeconds());
+			PostMessageA(g_dsound_hwnd, MAIN_MSG_MUSIC_POSITION, this->current_track_id, this->GetElapsedSeconds());
 		}
 		
 		if (play_cursor < sample_count && use_buffer[1] != 0) {
@@ -770,7 +770,7 @@ void MusicPlayer::ReadPortion(uint8_t* buf) { //45a707
 
 		if (this->file->Read(buf + (this->buffer_size / 2) - buffer_space, rsz) == 0) {
 			this->file_opened = 0;
-			PostMessageA(g_dsound_hwnd, 0x486, 0, 0);
+			PostMessageA(g_dsound_hwnd, MAIN_MSG_QUIT, 0, 0);
 			break;
 		}
 

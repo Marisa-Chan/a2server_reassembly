@@ -830,7 +830,7 @@ int32_t MainWindow::WaitConnectionCharacterJoin() {
             return 0;
         }
     }
-    this->PostMessage(0x457, 0, 0);
+    this->PostMessage(MAIN_MSG_START_MISSION, 0, 0);
 #endif
     return 1;
 }
@@ -993,7 +993,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
 
         case 0x1b:
             if (this->dialogsMask == DIALOG_MASK_INGAME) {
-                this->PostMessage(0x416, 0, 0);
+                this->PostMessage(MAIN_MSG_SHOW_INGAME_MENU, 0, 0);
                 if (this->sessionMode != SESSION_LOCAL_BATTLE) {
                     this->m_GameSession.AutosaveCharacter();
                 }
@@ -1001,7 +1001,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
                 if (!this->net_session.key_capture_str.IsEmpty()) {
                     this->vis_root->MsgProc(0x100, key, 0);
                 } else if (this->sessionMode == SESSION_LOCAL_BATTLE) {
-                    this->PostMessage(0x41f, 0, 0);
+                    this->PostMessage(MAIN_MSG_SHOW_TOWN_MENU, 0, 0);
                 }
             } else {
                 this->vis_root->MsgProc(0x100, key, 0);
@@ -1053,17 +1053,17 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
             break;
 
         case 0x70:
-            this->PostMessage(0x434, 0, 0);
+            this->PostMessage(MAIN_MSG_SHOW_HELP, 0, 0);
             break;
 
         case 0x71:
             if ((this->dialogsMask == DIALOG_MASK_INGAME || this->dialogsMask == 0) && this->sessionMode == SESSION_LOCAL_BATTLE) {
-                this->PostMessage(0x41a, 0, 0);
+                this->PostMessage(MAIN_MSG_SHOW_SAVE_GAME, 0, 0);
             }
 
 #ifdef A2CLIENT
             if (this->dialogsMask == DIALOG_MASK_INGAME && net_session.internet_game != 0 && hat_settings.ishat != 0 && hat_settings.deathmatch == 3){
-                this->PostMessage(0x420, 0, 0);
+                this->PostMessage(MAIN_MSG_SHOW_QUEST_OBJECTIVES, 0, 0);
             }
 #endif
             break;
@@ -1072,14 +1072,14 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
             if (g_kbShiftState == 0 || g_kbControlState == 0) {
                 if (this->sessionMode == SESSION_LOCAL_BATTLE) {
                     if (this->dialogsMask == DIALOG_MASK_INGAME || this->dialogsMask == 0) {
-                        this->PostMessage(0x418, 0, 0);
+                        this->PostMessage(MAIN_MSG_SHOW_LOAD_GAME, 0, 0);
                     }
                 } else if (this->dialogsMask == DIALOG_MASK_INGAME
 #ifdef A2CLIENT
                     && (net_session.internet_game == 0 || hat_settings.ishat == 0 || hat_settings.deathmatch == 0 || hat_settings.deathmatch == 3)
 #endif
                            ) {
-                    this->PostMessage(0x43c, 0, 0);
+                    this->PostMessage(MAIN_MSG_SHOW_DIPLOMACY, 0, 0);
                 }
             }
             break;
@@ -1268,7 +1268,7 @@ void MainWindow::ModalScreen(VisScreen* scr) {
         g_mousept.Update();
     }
 
-    this->PostMessage(0x44c, (WPARAM)scr, 0);
+    this->PostMessage(MAIN_MSG_CHILD_CLOSED, (WPARAM)scr, 0);
 }
 
 // 48cbe2
@@ -2402,7 +2402,7 @@ void MainWindow::Proc_421()
     net_session.internet_game = 0;
     net_session.connect_address.Empty();
     DestroyServer();
-    PostMessage(0x440, 0, 0);
+    PostMessage(MAIN_MSG_START_HAT_DEDICATED, 0, 0);
 }
 #endif
 
@@ -2501,7 +2501,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         this->dialogsMask &= ~DIALOG_MASK_FAME_HALL_DOC;
     } else if (obj == this->vis_famehall) {
         this->dialogsMask &= ~DIALOG_MASK_FAME_HALL;
-        PostMessage(0x421, 0, 0);
+        PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
     } else if (obj == this->vis_mainmenu) {
         this->dialogsMask &= ~DIALOG_MASK_MAIN_MENU;
     } else if (obj == this->vis_town || obj == this->vis_towndruid || obj == this->vis_townkaarg)
@@ -2532,14 +2532,14 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
                     g_Server->SetDifficulty(this->m_FameHall.GetDifficulty() + 1);
                 }
 
-                PostMessage(0x42e, 0, 0);
+                PostMessage(MAIN_MSG_SHOW_CURRENT_TOWN, 0, 0);
             } else {
                 this->m_GameSession.ResetCharacter();
 
                 if (this->net_session.internet_game == 0) {
-                    PostMessage(0x451, 0, 0);
+                    PostMessage(MAIN_MSG_SHOW_CONNECT_DLG, 0, 0);
                 } else {
-                    PostMessage(0x489, 0, 0);
+                    PostMessage(MAIN_MSG_SHOW_HAT_BROWSER, 0, 0);
                 }
             }
         }
@@ -2559,7 +2559,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
             }
 
             if (this->sessionMode == SESSION_LOCAL_BATTLE) {
-                PostMessage(0x421, 0, 0);
+                PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
             } else {
                 this->ShowCharacterLoaderDialog();
             }
@@ -2572,7 +2572,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
                     this->vis_msgbox_list = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(18), nullptr, 0x2000);
                     ModalScreen(this->vis_msgbox_list);
                     g_CLlDriver.Close();
-                    PostMessage(0x487, 0, 0);
+                    PostMessage(MAIN_MSG_SHOW_HAT_SERVER_LIST, 0, 0);
                 }
                 if (dododo > 0) {
                     this->vis_msgbox_list = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(dododo), nullptr, 0x2000);
@@ -2631,14 +2631,14 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
             if (!this->net_session.key_capture_str.IsEmpty()) {
                 PostMessage(WM_CLOSE, 0, 0);
             } else {
-                PostMessage(0x421, 0, 0);
+                PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
             }
         } else if ((this->m_GameSession.flags & 4) == 0) {
             this->ShowStartGameSetupForNewSession();
         } else if (this->net_session.internet_game == 0) {
-            PostMessage(0x451, 0, 0);
+            PostMessage(MAIN_MSG_SHOW_CONNECT_DLG, 0, 0);
         } else {
-            PostMessage(0x489, 0, 0);
+            PostMessage(MAIN_MSG_SHOW_HAT_BROWSER, 0, 0);
         }
     } else if (obj == this->vis_globalmap) {
         this->dialogsMask &= ~DIALOG_MASK_GLOBAL_MAP;
@@ -2646,9 +2646,9 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         this->dialogsMask &= ~DIALOG_MASK_CREDITS;
 
         if (IsLateCampaignMission() == 0) {
-            CWnd::PostMessage(0x421, 0, 0);
+            CWnd::PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
         } else {
-            CWnd::PostMessage(0x429, 0, 0);
+            CWnd::PostMessage(MAIN_MSG_SHOW_FAME_HALL, 0, 0);
         }
     } else if (obj == this->vis_dropgold) {
         this->dialogsMask &= ~DIALOG_MASK_POPUP;
@@ -2661,9 +2661,9 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
 
         if (this->gap_0x12c->GetCloseCode() == 0x447) {
             this->vis_map_context->ResetWorldState(1);
-            PostMessage(0x421, 0, 0);
+            PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
         } else {
-            PostMessage(0x42e, 0, 0);
+            PostMessage(MAIN_MSG_SHOW_CURRENT_TOWN, 0, 0);
         }
 
         delete this->gap_0x12c;
@@ -2688,11 +2688,11 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
 
         int32_t code = this->vis_loadgame->GetCloseCode();
         if (code == 0x445) {
-            PostMessage(0x419, 0, 0);
+            PostMessage(MAIN_MSG_RESTART_CHAR_SETUP, 0, 0);
         } else if (g_Server == nullptr) {
-            PostMessage(0x421, 0, 0);
+            PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
         } else if (this->last_event_id == 0xff) {
-            PostMessage(0x41e, 0, 0);
+            PostMessage(MAIN_MSG_TICK_TO_MAIN_MENU, 0, 0);
         }
 
         if (this->dialogsMask == DIALOG_MASK_INGAME && this->serverBootstrapEnabled != 0) {
@@ -2720,7 +2720,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         } else if (code == 0x44e) {
             this->EnterClientMode();
         } else {
-            PostMessage(0x421, 0, 0);
+            PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
         }
             
         delete this->net_dialog;
@@ -2731,7 +2731,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
 
         if (this->vis_connectiondlg->GetCloseCode() == 0x446) {
             if (this->sessionMode == SESSION_SERVER) {
-                PostMessage(0x421, 0, 0);
+                PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
             } else {
                 this->ShowCharacterLoaderDialog();
             }
@@ -2745,9 +2745,9 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
 
         if (this->vis_netmapsel->GetCloseCode() == 0x446) {
             this->vis_root->MsgProc(0x446, 0, 0);
-            PostMessage(0x45c, 0, 0);
+            PostMessage(MAIN_MSG_LEAVE_TO_NETWORK_MENU, 0, 0);
         } else {
-            PostMessage(0x457, 0, 0);
+            PostMessage(MAIN_MSG_START_MISSION, 0, 0);
         }
         
         delete this->vis_netmapsel;
@@ -2763,15 +2763,15 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
             } else if (g_CLlDriver.IsListen()) {
                 this->ShowCharacterLoaderDialog();
             } else {
-                PostMessage(0x487, 0, 0);
+                PostMessage(MAIN_MSG_SHOW_HAT_SERVER_LIST, 0, 0);
             }
         } else if (this->hat_settings.ishat == 0) {
             g_NetStru1_local.SetLLDriver(&g_CLlDriver);
             g_CLlDriver.SetHlDriver(&g_NetStru1_local);
             g_CLlDriver.ResetProvider(PROVIDER_DP_TCPIP);
-            PostMessage(0x452, 0, 0);
+            PostMessage(MAIN_MSG_SHOW_NET_SESSIONS, 0, 0);
         } else {
-            PostMessage(0x441, 0, 0);
+            PostMessage(MAIN_MSG_CONNECT_TO_SERVER, 0, 0);
         }
         
         delete this->vis_hatbrowser;
@@ -2782,7 +2782,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         this->dialogsMask = 0;
 
         if (this->vis_serverscreen->GetCloseCode() == 0x445) {
-            PostMessage(0x421, 0, 0);
+            PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
         }
 
         delete this->vis_serverscreen;
@@ -2837,9 +2837,9 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         if (this->vis_cutscenes->GetCloseCode() == 0x445) {
             g_SelCutsceneIndex = ((VisListBox*)this->vis_cutscenes->FindChild(2))->GetSelectedIndex();
             this->PlayVideo(g_SelCutsceneIndex);
-            PostMessage(0x43b, 0, 0);
+            PostMessage(MAIN_MSG_SHOW_CUTSCENES, 0, 0);
         } else {
-            PostMessage(0x421, 0, 0);
+            PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
         }
 
         delete this->vis_cutscenes;
@@ -2848,9 +2848,9 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         this->dialogsMask &= ~DIALOG_MASK_POPUP;
 
         if (this->vis_missionfailed->GetCloseCode() == 0x445) {
-            PostMessage(0x41e, 0, 0);
+            PostMessage(MAIN_MSG_TICK_TO_MAIN_MENU, 0, 0);
         } else {
-            PostMessage(0x418, 0, 0);
+            PostMessage(MAIN_MSG_SHOW_LOAD_GAME, 0, 0);
         }
 
         delete this->vis_missionfailed;
@@ -2887,7 +2887,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
     }
 
     if (this->dialogsMask == DIALOG_MASK_INGAME && g_DeferredEventIds.GetSize() != 0) {
-        PostMessage(0x433, g_DeferredEventIds[0], 0);
+        PostMessage(MAIN_MSG_SHOW_EVENT_DIALOG, g_DeferredEventIds[0], 0);
         g_DeferredEventIds.RemoveAt(0);
     }
 }
@@ -3139,22 +3139,22 @@ void MainWindow::EnterSinglePlayerMode() { // 4903d0
 
     if (this->vis_map_context->ConnectAndJoinSession() == 0) {
         g_CLlDriver.Close();
-        PostMessage(0x41d, 0, 0);
+        PostMessage(MAIN_MSG_LEAVE_MISSION, 0, 0);
     } else {
         if (this->m_GameSession.phased_in == 0) {
             VisMessageBoxWithList* mwnd = new VisMessageBoxWithList(1, 64, 100, 428, 594, TxtFile::AllLines[210], nullptr, 4);
             this->ModalScreen(mwnd);
 
             if (mwnd->GetCloseCode() != 0x447) {
-                PostMessage(0x41d, 0, 0);
+                PostMessage(MAIN_MSG_LEAVE_MISSION, 0, 0);
                 return;
             }
         }
 
         if (this->inside_building == 0) {
-            PostMessage(0x459, 0, 0);
+            PostMessage(MAIN_MSG_SELECT_MAP, 0, 0);
         } else {
-            PostMessage(0x457, 0, 0);
+            PostMessage(MAIN_MSG_START_MISSION, 0, 0);
         }
     }
 }
@@ -3171,7 +3171,7 @@ void MainWindow::EnterServerMode() { //491822
 
     this->StartServerSession(0);
 
-    PostMessage(0x459, 0, 0);
+    PostMessage(MAIN_MSG_SELECT_MAP, 0, 0);
 }
 
 int MainWindow::StartServerSession(int mode) { //48ca7e
@@ -3209,9 +3209,9 @@ void MainWindow::EnterClientMode() { // 4918ae
 
     if (this->vis_map_context->ConnectAndJoinSession() == 0) {
         this->vis_root->MsgProc(0x446, 0, 0);
-        PostMessage(0x45c, 0, 0);
+        PostMessage(MAIN_MSG_LEAVE_TO_NETWORK_MENU, 0, 0);
     } else {
-        PostMessage(0x459, 0, 0);
+        PostMessage(MAIN_MSG_SELECT_MAP, 0, 0);
     }
 }
 
@@ -3267,25 +3267,25 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         g_mousept.ForceDisableHint();
         break;
 
-    case 0x400:
+    case MAIN_MSG_MOUSE:
         vis_root->MsgProc(0x400, wParam, lParam);
         g_mousept.ForceDisableHint();
         break;
 
-    case 0x416:
+    case MAIN_MSG_SHOW_INGAME_MENU:
         if (this->dialogsMask == DIALOG_MASK_INGAME) {
             this->PopUpScreen(new IngameMenu(1, 100, 60, 440, 400, nullptr, 0, CRect(0, 0, 240, 40)));
         }
         break;
 
-    case 0x418:
+    case MAIN_MSG_SHOW_LOAD_GAME:
         this->last_save_info.title[0] = 0;
         this->last_save_info.filename[0] = 0;
         this->vis_loadgame = new LoadGameWindow(1, 100, 30, 600, 450, 0, &this->last_save_info);
         this->PopUpScreen(this->vis_loadgame);
         break;
 
-    case 0x419:
+    case MAIN_MSG_RESTART_CHAR_SETUP:
         if (this->dialogsMask == DIALOG_MASK_INGAME) {
             g_Server->ProcessPlayers();
         }
@@ -3310,7 +3310,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         this->BeginLocalCharacterSetup();
         break;
 
-    case 0x41a:
+    case MAIN_MSG_SHOW_SAVE_GAME:
         if (this->dialogsMask == DIALOG_MASK_INGAME || this->dialogsMask == 0) {
             this->last_save_info.title[0] = 0;
             this->last_save_info.filename[0] = 0;
@@ -3319,13 +3319,13 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         }
         break;
 
-    case 0x41b:
+    case MAIN_MSG_SHOW_GAME_OPTIONS:
         if (this->dialogsMask == DIALOG_MASK_INGAME) {
             this->PopUpScreen(new GameOptionsWindow(1, 20, 0, 620, 480));
         }
         break;
 
-    case 0x41c:
+    case MAIN_MSG_SHOW_END_MENU:
         if (this->dialogsMask == DIALOG_MASK_INGAME) {
             this->PopUpScreen(new EndGameMenu(1, 100, 100, 440, 340, nullptr, 0, CRect(0, 0, 300, 50), this->in_famehall_mission));
         } else if (this->dialogsMask == 0) {
@@ -3333,7 +3333,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         }
         break;
 
-    case 0x41d:
+    case MAIN_MSG_LEAVE_MISSION:
         if (this->sessionMode == SESSION_CLIENT || this->sessionMode == SESSION_SERVER) {
             if (this->sessionMode == SESSION_CLIENT) {
                 this->vis_map_context->ResetWorldState(0);
@@ -3346,7 +3346,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             }
             
             g_Server->ProcessPlayers();
-            PostMessage(0x459, 0, 0);
+            PostMessage(MAIN_MSG_SELECT_MAP, 0, 0);
         } else if (this->sessionMode == SESSION_SINGLEPLAYER) {
 #ifdef A2CLIENT
             if (net_session.internet_game == 0 || hat_settings.ishat == 0 || hat_settings.deathmatch != 0) {
@@ -3357,7 +3357,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                 g_CLlDriver.Close();
                 tick_anchor_time = 0x7fffffff;
                 last_tic_time = 0x7fffffff;
-                CWnd::PostMessage(0x452, 0, 0);
+                CWnd::PostMessage(MAIN_MSG_SHOW_NET_SESSIONS, 0, 0);
             }
             else {
                 vis_map_context->SendGroupStopAfk();
@@ -3374,11 +3374,11 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             this->tick_anchor_time = 0x7fffffff;
             this->last_tic_time = 0x7fffffff;
 
-            PostMessage(0x452, 0, 0);
+            PostMessage(MAIN_MSG_SHOW_NET_SESSIONS, 0, 0);
 #endif
         } else if (this->in_famehall_mission == 0) {
             g_Server->ProcessPlayers();
-            PostMessage(0x421, 0, 0);
+            PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
         } else {
             this->m_FameHall.AddMissionElapsedTime(g_Server->tick / 16);
             this->vis_map_context->CleanupCompletedMissionMapState();
@@ -3418,7 +3418,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                 if (ScenarioIsTownAvailable(0) == 0) {
                     CList<ScenarioLocation*>* locs = ScenarioGetAvailableLocations();
                     ScenarioEnterLocation(locs->GetHead());
-                    PostMessage(0x468, 0, 0);
+                    PostMessage(MAIN_MSG_ENTER_SCENARIO_LOCATION, 0, 0);
                 } else {
                     this->vis_globalmap->umoirMapMode = 0;
                     this->ShowGlobalMapDialog();
@@ -3426,21 +3426,21 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             } else {
                 this->m_FameHall.SubmitScore();
                 this->vis_map_context->ResetWorldState(1);
-                PostMessage(MSG_428, 0 ,0);
+                PostMessage(MAIN_MSG_SHOW_CREDITS, 0 ,0);
             }
         }
         break;
 
-    case 0x41e:
+    case MAIN_MSG_TICK_TO_MAIN_MENU:
         ProcessPlayersTick();
-        PostMessage(MSG_421, 0, 0);
+        PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
         break;
 
-    case 0x41f:
+    case MAIN_MSG_SHOW_TOWN_MENU:
         this->PopUpScreen(new TownMenuListDialogVisualObject(1, 100, 100, 440, 340, CRect(0, 0, 240, 40)));
         break;
 
-    case 0x420:
+    case MAIN_MSG_SHOW_QUEST_OBJECTIVES:
         if (this->dialogsMask == DIALOG_MASK_INGAME) {
 #ifdef A2CLIENT
             if (net_session.internet_game != 0 && hat_settings.ishat != 0 && hat_settings.deathmatch == 3)
@@ -3451,21 +3451,21 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         }
         break;
 
-    case 0x421:
+    case MAIN_MSG_MAIN_MENU:
         if (this->dialogsMask == 0) {
             this->Proc_421();
         }
         break;
 
-    case 0x422:
+    case MAIN_MSG_SHOW_SOUND_PREFS:
         if (this->dialogsMask == DIALOG_MASK_INGAME || (this->dialogsMask == 0 && g_Server != nullptr)) {
             this->PopUpScreen(new SoundPreferencesDialogVisualObject(1, 100, 30, 640, 450, nullptr, &g_SoundSettings));
         } else if (this->dialogsMask == 0) {
-            PostMessage(MSG_487, 0, 0);
+            PostMessage(MAIN_MSG_SHOW_HAT_SERVER_LIST, 0, 0);
         }
         break;
 
-    case 0x425:
+    case MAIN_MSG_NEW_CAMPAIGN:
         ReadFileToString("main\\text\\town.txt", &g_MissionText);
         ScenarioNewGame();
         this->serverLoopCounter = 0;
@@ -3476,7 +3476,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         this->m_FameHall.SetDifficulty(1);
 
         if (this->sessionMode == SESSION_SERVER) {
-            PostMessage(MSG_42f, 0, 0);
+            PostMessage(MAIN_MSG_RUN_BOOTSTRAP, 0, 0);
         } else {
             this->m_GameSession.RefreshCharacterRosterFiles(1);
             this->m_GameSession.InitializeNewCharacterSession(0, nullptr);
@@ -3484,7 +3484,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         }
         break;
 
-    case 0x426:
+    case MAIN_MSG_SHOW_CHAR_LOADER:
         ReadFileToString("main\\text\\town.txt", &g_MissionText);
         this->serverLoopCounter = 0;
         this->sessionMode = SESSION_SINGLEPLAYER;
@@ -3496,34 +3496,34 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         this->ShowCharacterLoaderDialog();
         break;
 
-    case 0x427:
+    case MAIN_MSG_SHOW_STARTUP_LOGO:
         this->ShowStartupLogoDialog();
         this->vis_logownd->MsgProc(0x43a, 1, 0);
         this->vis_logownd->MsgProc(0x439, 4000, 0);
         vis_root->VMethod9();
         break;
 
-    case 0x428:
+    case MAIN_MSG_SHOW_CREDITS:
         this->ShowCreditsDialog();
         break;
 
-    case 0x429:
+    case MAIN_MSG_SHOW_FAME_HALL:
         this->ShowFameHallDialog();
         break;
 
-    case 0x42a:
+    case MAIN_MSG_SHOW_SHOP:
         if (this->dialogsMask == 0 || (this->sessionMode < SESSION_LOCAL_BATTLE && this->dialogsMask == DIALOG_MASK_INGAME)) {
             this->ShowShopDialog(wParam);
         }
         break;
 
-    case 0x42b:
+    case MAIN_MSG_SHOW_INN:
         if (this->dialogsMask == 0 || (this->sessionMode < SESSION_LOCAL_BATTLE && this->dialogsMask == DIALOG_MASK_INGAME)) {
             this->ShowInnDialog(wParam, lParam);
         }
         break;
 
-    case 0x42d: {
+    case MAIN_MSG_SHOW_GLOBAL_MAP: {
         this->vis_globalmap->umoirMapMode = 0;
         ScenarioLocation* cloc = ScenarioGetCurrentLocation();
         if (cloc->GetKind() == 2) {
@@ -3544,15 +3544,15 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
     }
         break;
 
-    case 0x42e:
+    case MAIN_MSG_SHOW_CURRENT_TOWN:
         this->ShowCurrentTownDialog();
         break;
 
-    case 0x42f:
+    case MAIN_MSG_RUN_BOOTSTRAP:
         this->RunSessionBootstrap(0);
         break;
 
-    case 0x430:
+    case MAIN_MSG_FAMEHALL_MISSION_INTRO:
         if (IsLateCampaignMission() == 0) {
             this->in_famehall_mission = 1;
 
@@ -3565,11 +3565,11 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             }
         } else {
             this->in_famehall_mission = 1;
-            PostMessage(0x41d, 0, 0);
+            PostMessage(MAIN_MSG_LEAVE_MISSION, 0, 0);
         }
         break;
 
-    case 0x431:
+    case MAIN_MSG_SHOW_MISSION_FAILED:
         if (this->mission_failed_reported == 0 && this->sessionMode == SESSION_LOCAL_BATTLE) {
             this->mission_failed_reported = 1;
             this->vis_missionfailed = new VisMissionFailed(1, 32, 100, 608, 380, g_MissionFailures[wParam - 2]);
@@ -3581,15 +3581,15 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         }
         break;
 
-    case 0x432:
-        PostMessage(0x436, 0, 0);
+    case MAIN_MSG_TO_END_VIDEO:
+        PostMessage(MAIN_MSG_PLAY_END_VIDEO, 0, 0);
         break;
 
-    case 0x433:
+    case MAIN_MSG_SHOW_EVENT_DIALOG:
         this->last_event_id = wParam;
 
         if (this->last_event_id == 255) {
-            PostMessage(0x431, lParam, 0);
+            PostMessage(MAIN_MSG_SHOW_MISSION_FAILED, lParam, 0);
         } else if (this->last_event_id == 254) {
             if (!g_SfxArray[16]->FindPlayingChannel()) {
                 g_SfxArray[16]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
@@ -3612,22 +3612,22 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         }
         break;
 
-    case 0x434:
+    case MAIN_MSG_SHOW_HELP:
         if (this->dialogsMask == DIALOG_MASK_INGAME) {
             this->PopUpScreen(new VisMessageBoxWithList(1, 32, 48, 608, 432, g_HelpStr, nullptr, 0));
         }
         break;
 
-    case 0x435:
+    case MAIN_MSG_LOAD_DATA:
         this->LoadData();
         break;
 
-    case 0x436:
+    case MAIN_MSG_PLAY_END_VIDEO:
         this->PlayVideo(0);
         PostMessage(WM_CLOSE, 0, 0);
         break;
 
-    case 0x438:
+    case MAIN_MSG_ADVANCE_LOGO:
         switch (wParam) {
         case 0:
         case 1:
@@ -3653,7 +3653,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             this->vis_logownd->DoClose(0x445);
             vis_root->RemoveChild(this->vis_logownd);
             this->dialogsMask &= ~DIALOG_MASK_LOGO;
-            PostMessage(0x421, 0, 0);
+            PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
             break;
 
         case 5:
@@ -3670,12 +3670,12 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             this->vis_logownd->DoClose(0x445);
             vis_root->RemoveChild(this->vis_logownd);
             this->dialogsMask &= ~DIALOG_MASK_LOGO;
-            PostMessage(0x425, 0, 0);
+            PostMessage(MAIN_MSG_NEW_CAMPAIGN, 0, 0);
             break;
         }
         break;
 
-    case 0x43b:
+    case MAIN_MSG_SHOW_CUTSCENES:
         // original binaries guard this with a CD-present check (0062f87c,
         // cleared by a catch handler around PlayVideo); removed - no CD drives
         {
@@ -3690,7 +3690,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         }
         break;
 
-    case 0x43c:
+    case MAIN_MSG_SHOW_DIPLOMACY:
         if (this->dialogsMask == DIALOG_MASK_INGAME) {
             this->ClearDiplomacyEntries();
             // The original passes the address of the array pointer so the dialog
@@ -3700,33 +3700,33 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         }
         break;
 
-    case 0x440:
+    case MAIN_MSG_START_HAT_DEDICATED:
         this->StartHatDedicatedServer();
         break;
 
-    case 0x441:
+    case MAIN_MSG_CONNECT_TO_SERVER:
         if (this->WaitHatConnection() == 0) {
             if (g_CLlDriver.IsListen() == 0) {
-                CWnd::PostMessage(0x487, 0, 0);
+                CWnd::PostMessage(MAIN_MSG_SHOW_HAT_SERVER_LIST, 0, 0);
             } else {
-                CWnd::PostMessage(0x489, 0, 0);
+                CWnd::PostMessage(MAIN_MSG_SHOW_HAT_BROWSER, 0, 0);
             }
         } else {
             // TODO client (48a969): posts 0x48d (hat connect handshake: client
             // 004958ac/00495c94 gates) instead of the inline connect flow below
 #ifndef A2CLIENT
             if (this->ConnectToServerAddress() == 0) {
-                PostMessage(0x487, 0, 0);
+                PostMessage(MAIN_MSG_SHOW_HAT_SERVER_LIST, 0, 0);
             } else {
                 this->WaitConnectionCharacterJoin();
             }
 #else
-            PostMessage(0x48d, 0, 0);
+            PostMessage(MAIN_MSG_CONNECT_ADDRESS, 0, 0);
 #endif
         }
         break;
 
-    case 0x442:
+    case MAIN_MSG_AUTOSAVE:
         if (wParam == 0) {
             strcpy(this->last_save_info.title, txt_patch.GetLine(55));
         } else {
@@ -3739,16 +3739,16 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         this->gap_0x43c = 0;
         break;
 
-    case 0x443:
+    case MAIN_MSG_MODAL_SHOWN:
         this->dialogsMask |= DIALOG_MASK_POPUP;
         g_Cursors[CURSOR_DEFAULT]->Use();
         break;
 
-    case 0x44c:
+    case MAIN_MSG_CHILD_CLOSED:
         this->Proc_44c((CVisualObject*)wParam);  // FIXME
         break;
 
-    case 0x451:
+    case MAIN_MSG_SHOW_CONNECT_DLG:
 #ifndef A2CLIENT
         // client: 48a969 has no phone-dial prologue here
         if (this->net_session.key_capture_str.IsEmpty() == 0) {
@@ -3759,7 +3759,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             this->music_player->OnEndTrack();
             if (!IsDplayAvail) {
                 this->ModalScreen(new VisMessageBoxWithList(1, 100, 100, 540, 380, TxtFile::AllLines[152], nullptr, 0));
-                PostMessage(0x421, 0, 0);
+                PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
             } else {
 
                 this->vis_connectiondlg = new VisConnectionDlg(1, 0, 0, 640, 350, &this->last_protocol);
@@ -3793,7 +3793,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         }
         break;
 
-    case 0x452:
+    case MAIN_MSG_SHOW_NET_SESSIONS:
         if (g_CLlDriver.GetProvider() == PROVIDER_IPX) {
             g_CLlDriver.RecreateDp();
             g_CLlDriver.PrepareForConnect("", nullptr);
@@ -3817,7 +3817,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         }
         break;
 
-    case 0x453:
+    case MAIN_MSG_SHOW_TCP_SETTINGS:
         this->PopUpScreen( new VisNetTcpIp(1, 0, 100, 640, 300, &this->last_ip) );
         if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol") != nullptr) {
             PostMessage(0x445, 0, 0);
@@ -3827,15 +3827,15 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         }
         break;
 
-    case 0x454:
+    case MAIN_MSG_SHOW_SERIAL_SETTINGS:
         this->PopUpScreen(new VisNetSerialSettings(1, 100, 0, 540, 480, &this->com_settings));
         break;
 
-    case 0x455:
+    case MAIN_MSG_SHOW_PHONE_BOOK:
         this->PopUpScreen(new VisNetPhoneBook(1, 0, 100, 640, 400, &this->phone_book));
         break;
 
-    case 0x457:
+    case MAIN_MSG_START_MISSION:
         if (this->sessionMode != SESSION_SERVER) {
             if (this->sessionMode == SESSION_SINGLEPLAYER) {
                 g_GameStatusCode = 0;
@@ -3867,13 +3867,13 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
                     if (GetAsyncKeyState(VK_ESCAPE) < 0) {
                         g_GameStatusCode = SESSION_ERROR_CHAR_STILL_ON_SERVER;
-                        PostMessage(0x45c, 0, 0);
+                        PostMessage(MAIN_MSG_LEAVE_TO_NETWORK_MENU, 0, 0);
                         return 0;
                     }
 
                     if (g_GameStatusCode) {
                         this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(g_GameStatusCode & 0xff), nullptr, 0));
-                        PostMessage(0x45c, 0, 0);
+                        PostMessage(MAIN_MSG_LEAVE_TO_NETWORK_MENU, 0, 0);
                         break;
                     }
                 }
@@ -3885,7 +3885,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                 } else {
                     this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(g_GameStatusCode & 0xff), nullptr, 0));
                 }
-                PostMessage(0x45c, 0, 0);
+                PostMessage(MAIN_MSG_LEAVE_TO_NETWORK_MENU, 0, 0);
                 break;
             }
         }
@@ -3896,11 +3896,11 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             } else {
                 this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(g_GameStatusCode & 0xff), nullptr, 0));
             }
-            PostMessage(0x45c, 0, 0);
+            PostMessage(MAIN_MSG_LEAVE_TO_NETWORK_MENU, 0, 0);
         }
         break;
         
-    case 0x459: {
+    case MAIN_MSG_SELECT_MAP: {
         char* token = strstr(afxCurrentWinApp->m_lpCmdLine, "-map\"");
         if (!token) {
             if (g_ServerConfig.map_names.GetSize() == 0) {
@@ -3908,7 +3908,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                 this->PopUpScreen(this->vis_netmapsel);
             } else {
                 this->current_map_name = g_ServerConfig.map_names[g_ServerConfig.current_map_index];
-                PostMessage(0x457, 0, 0);
+                PostMessage(MAIN_MSG_START_MISSION, 0, 0);
             }
         } else {
             this->current_map_name = token + 5;
@@ -3917,13 +3917,13 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                 this->current_map_name = this->current_map_name.Left(nidx);
             }
 
-            PostMessage(0x457, 0, 0);
+            PostMessage(MAIN_MSG_START_MISSION, 0, 0);
         }
     }
         break;
 
 
-    case 0x45a: {
+    case MAIN_MSG_CLOSE_TIPS: {
         CVisualObject* local_96c = this->vis_map_context->FindChild(MAP_CHILD_TIPS_DIALOG);
         if (!local_96c) {
             vis_root->MsgProc(message, wParam, lParam);
@@ -3934,7 +3934,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
     }
         break;
 
-    case 0x45b:
+    case MAIN_MSG_SHOW_TIPS:
         if (g_settings.TipsMode != 0) {
             CString tip;
             MissionGetTips(wParam, &tip);
@@ -3949,7 +3949,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         }
         break;
 
-    case 0x45c:
+    case MAIN_MSG_LEAVE_TO_NETWORK_MENU:
         // client: 48a969 has no phone-dial prologue here (and its trailing
         // IsDplayAvail stub call in the PROVIDER_DP_TCPIP path is a pure no-op, dropped)
 #ifndef A2CLIENT
@@ -3981,50 +3981,50 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             int32_t provider = g_CLlDriver.GetProvider();
 #ifdef A2CLIENT
             if (provider == PROVIDER_HAT_TCP) { // hat TCP provider, client-only
-                PostMessage(0x487, 0, 0);
+                PostMessage(MAIN_MSG_SHOW_HAT_SERVER_LIST, 0, 0);
             } else
 #endif
             if (provider == PROVIDER_SERIAL) {
-                PostMessage(0x454, 0, 0);
+                PostMessage(MAIN_MSG_SHOW_SERIAL_SETTINGS, 0, 0);
             } else if (provider == PROVIDER_MODEM) {
-                PostMessage(0x455, 0, 0);
+                PostMessage(MAIN_MSG_SHOW_PHONE_BOOK, 0, 0);
             } else {
-                PostMessage(0x452, 0, 0);
+                PostMessage(MAIN_MSG_SHOW_NET_SESSIONS, 0, 0);
             }
         } else if (this->sessionMode == SESSION_SERVER) {
             if (g_CLlDriver.GetProvider() == PROVIDER_DP_TCPIP) {
-                PostMessage(0x453, 0, 0);
+                PostMessage(MAIN_MSG_SHOW_TCP_SETTINGS, 0, 0);
                 this->DestroyServer();
             } else {
-                PostMessage(0x451, 0, 0);
+                PostMessage(MAIN_MSG_SHOW_CONNECT_DLG, 0, 0);
                 this->DestroyServer();
             }
         }
         break;
 
-    case 0x45d:
+    case MAIN_MSG_LEAVE_BUILDING:
         if (this->sessionMode == SESSION_SINGLEPLAYER) {
             this->vis_map_context->ResetWorldState(0);
             if (this->dialogsMask & DIALOG_MASK_INGAME) {
                 this->UnloadMapAssets();
             }
-            PostMessage(0x459, 0, 0);
+            PostMessage(MAIN_MSG_SELECT_MAP, 0, 0);
         }
         break;
 
-    case 0x463:
+    case MAIN_MSG_SHOW_FAME_HALL_DOC:
         if (this->dialogsMask == DIALOG_MASK_INGAME) {
             this->ShowFameHallDocDlg();
         }
         break;
 
-    case 0x464: {
+    case MAIN_MSG_CD_CHECK_FAILED: {
         VisMessageBoxWithList* msgbox = new VisMessageBoxWithList(1, 100, 100, 540, 480, TxtFile::AllLines[151], nullptr, 1);
         this->ModalScreen(msgbox);
 
         if (msgbox->GetCloseCode() == 0x445) {
             g_MainmenuDisableMask = 0x35;
-            PostMessage(0x421, 0, 0);
+            PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
         } else {
             PostMessage(WM_CLOSE, 0, 0);
         }
@@ -4036,14 +4036,14 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         this->ModalScreen(msgbox);
 
         if (msgbox->GetCloseCode() == 0x445) {
-            PostMessage(0x421, 0, 0);
+            PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
         } else {
             PostMessage(WM_CLOSE, 0, 0);
         }
     }
         break;
 
-    case 0x466: {
+    case MAIN_MSG_TOGGLE_QUEST_STATUS: {
         CVisualObject* obj = this->vis_map_context->FindChild(MAP_CHILD_QUEST_STATUS);
         if (obj == nullptr) {
 #ifdef A2CLIENT
@@ -4064,7 +4064,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
     }
         break;
 
-    case 0x468:
+    case MAIN_MSG_ENTER_SCENARIO_LOCATION:
         if (ScenarioGetCurrentLocation()->GetKind() == 1) {
             CDWordArray local_95c;
             for (int i = 0; i < 20; i++) {
@@ -4084,7 +4084,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         }
         break;
 
-    case 0x472:
+    case MAIN_MSG_LOG_MESSAGE:
         if (g_IsServer == 0) {
             if (this->sessionMode == SESSION_SERVER) {
                 this->vis_map_context->msglog.Add((const char*)wParam, clrsh_ShockingBlack, 30000);
@@ -4098,31 +4098,31 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         }
         break;
 
-    case 0x47f:
+    case MAIN_MSG_ENTER_CLIENT_MODE:
         this->EnterClientMode();
         break;
 
-    case 0x482:
+    case MAIN_MSG_ENTER_CLIENT_MODE2:
         this->EnterClientMode();
         break;
 
-    case 0x486:
+    case MAIN_MSG_QUIT:
         PostMessage(WM_CLOSE, 0, 0);
         break;
 
-    case 0x487:
+    case MAIN_MSG_SHOW_HAT_SERVER_LIST:
         this->PopUpScreen(new VisHatServerListDlg(1, 40, 100, 600, 480, &this->hat_settings));
         break;
 
-    case 0x488:
+    case MAIN_MSG_CONNECT_DONE:
 #if A2CLIENT
         if (this->RunModalLoopClient() == 0)
-            PostMessage(0x487, 0, 0);
+            PostMessage(MAIN_MSG_SHOW_HAT_SERVER_LIST, 0, 0);
         else if (net_session.connect_address.IsEmpty()) {
             if (ClientRefreshUpdateCharacters() == 0)
-                PostMessage(0x487, 0, 0);
+                PostMessage(MAIN_MSG_SHOW_HAT_SERVER_LIST, 0, 0);
             else
-                PostMessage(0x426, 0, 0);
+                PostMessage(MAIN_MSG_SHOW_CHAR_LOADER, 0, 0);
         }
         else {
             VisScreen* scr = new VisMessageBoxWithList(1, 64, 100, 428, 594, txt_main.GetLine(210), nullptr, 4);
@@ -4136,24 +4136,24 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                         break;
                     }
                 }
-                PostMessage(0x48d, 0, 0);
+                PostMessage(MAIN_MSG_CONNECT_ADDRESS, 0, 0);
             }
             else {
                 g_CLlDriver.Close();
-                PostMessage(0x487, 0, 0);
+                PostMessage(MAIN_MSG_SHOW_HAT_SERVER_LIST, 0, 0);
             }
         }
 #else
         if (this->RunModalLoopServer() == 0) {
-            PostMessage(0x422, 0, 0);
+            PostMessage(MAIN_MSG_SHOW_SOUND_PREFS, 0, 0);
         }
         else {
-            PostMessage(0x426, 0, 0);
+            PostMessage(MAIN_MSG_SHOW_CHAR_LOADER, 0, 0);
         }
 #endif        
         break;
 
-    case 0x489: {
+    case MAIN_MSG_SHOW_HAT_BROWSER: {
         this->vis_hatbrowser = new VisHatBrowserDlg(1, 0, -64, 640, 480);
         this->PopUpScreen(this->vis_hatbrowser);
 
@@ -4168,26 +4168,26 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                 if (this->vis_hatbrowser)
                     this->vis_hatbrowser->MsgProc(0x446, 0, 0);
 #else
-                PostMessage(0x487, 0, 0);
+                PostMessage(MAIN_MSG_SHOW_HAT_SERVER_LIST, 0, 0);
 #endif
                 break;
             }
         }
-        PostMessage(0x48a, res, 0);
+        PostMessage(MAIN_MSG_HAT_BROWSER_RESULT, res, 0);
     }
         break;
 
 #ifdef A2CLIENT
-    case 0x48d:
+    case MAIN_MSG_CONNECT_ADDRESS:
         if (ConnectToServerAddress() == 0)
-            PostMessage(0x487, 0, 0);
+            PostMessage(MAIN_MSG_SHOW_HAT_SERVER_LIST, 0, 0);
         else if (WaitConnectionCharacterJoin() == 0)
-            PostMessage(0x487, 0, 0);
+            PostMessage(MAIN_MSG_SHOW_HAT_SERVER_LIST, 0, 0);
         else
-            PostMessage(0x457, 0, 0);
+            PostMessage(MAIN_MSG_START_MISSION, 0, 0);
         break;
 
-    case 0x48e:
+    case MAIN_MSG_SHOW_MISSION_END:
         vis_map_context->ResetWorldState(0);
         if ((this->dialogsMask & DIALOG_MASK_INGAME) != 0)
             UnloadMapAssets();
@@ -4198,7 +4198,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         else {
             ModalScreen(new VisMessageBoxWithList(1, 64, 100, 428, 594, txt_patch.GetLine(187 + wParam), nullptr, 0x1000));
         }
-        PostMessage(0x487, 0, 0);
+        PostMessage(MAIN_MSG_SHOW_HAT_SERVER_LIST, 0, 0);
         vis_map_context->ResetWorldState(1);
         break;
 #endif
@@ -4283,7 +4283,7 @@ void MainWindow::BeginLocalCharacterSetup() { // 48f79d
     g_Server->LoadSavedGame(this->last_save_info.filename);
 
     if (!this->vis_map_context->ConnectAndJoinSession()) {
-        PostMessage(0x421, 0, 0);
+        PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
     } else if (this->GetSaveFileInBattle()) {
         this->RunSessionBootstrap(1);
     } else {
@@ -4296,7 +4296,7 @@ void MainWindow::BeginLocalCharacterSetup() { // 48f79d
 
         this->LoadSavegame();
         this->vis_map_context->SendCheatShop(0, 0);
-        PostMessage(0x42e, 0, 0);
+        PostMessage(MAIN_MSG_SHOW_CURRENT_TOWN, 0, 0);
     }
     g_mousept.EnableHint();
     this->vis_globalmap->RebuildScenarioLocations();
@@ -4581,7 +4581,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
         }
 
         if (mode == 0) {
-            PostMessage(0x442, 0, 0);
+            PostMessage(MAIN_MSG_AUTOSAVE, 0, 0);
         }
     } else {
         ReadFileToString("main\\text\\quest.txt", &g_MissionText);
@@ -5258,7 +5258,7 @@ void MainWindow::ShowInnDialog(uint32_t id, int32_t interact_target) { //48d4da
 void MainWindow::RemoteGameIdle() { //48acac
     if (g_NetStru1_local.IsActive() == 0 && this->shutdown_pending == 0) {
         this->vis_root->MsgProc(0x446, 0, 0);
-        PostMessage(0x45c, 0, 0);
+        PostMessage(MAIN_MSG_LEAVE_TO_NETWORK_MENU, 0, 0);
 
         if (g_EnableTrace != 0) {
             CStdioFile f;
@@ -5485,7 +5485,7 @@ void MainWindow::StartHatDedicatedServer() { //49172d
         exit(1);
     }
 
-    PostMessage(0x459, 0, 0);
+    PostMessage(MAIN_MSG_SELECT_MAP, 0, 0);
     PasswordManager::manager.OpenFile("passbase.txt");
 }
 

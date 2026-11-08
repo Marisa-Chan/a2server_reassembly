@@ -251,7 +251,7 @@ TIER 2 - bitflag families (medium effort; highest opacity today)
 TIER 3 - message-code families (biggest; do last, they need real reading)
 ================================================================================
 
-[ ] 15. MainWindow custom messages  (63 case labels in MainWindow::WindowProc,
+[x] 15. MainWindow custom messages  (63 case labels in MainWindow::WindowProc,
          130+ PostMessage/SendMessage sites, range 0x400..0x48E)
     Every name must be derived from the case body in
     src/main_window.cpp MainWindow::WindowProc (~2600-3600). Known examples:

@@ -55,6 +55,77 @@ enum DialogMask : int32_t {
     DIALOG_MASK_MSGBOX_LIST   = 0x8000, // message-box list (PopUpScreen(vis_msgbox_list))
 };
 
+// MainWindow custom window messages (0x400..0x48E). Dispatched by the case
+// labels in MainWindow::WindowProc; posted via PostMessage/SendMessage from
+// all over the client. NOT the same id space as the CVisualObject::MsgProc
+// codes (VIS_MSG_*) even where the numeric ranges overlap.
+enum MainMsg : uint32_t {
+    MAIN_MSG_MOUSE                   = 0x400, // forwarded to vis_root (mousept generated)
+    MAIN_MSG_SHOW_INGAME_MENU        = 0x416, // IngameMenu popup
+    MAIN_MSG_SHOW_LOAD_GAME          = 0x418, // LoadGameWindow popup
+    MAIN_MSG_RESTART_CHAR_SETUP      = 0x419, // destroy server + BeginLocalCharacterSetup
+    MAIN_MSG_SHOW_SAVE_GAME          = 0x41a, // SaveGameWindow popup
+    MAIN_MSG_SHOW_GAME_OPTIONS       = 0x41b, // GameOptionsWindow popup
+    MAIN_MSG_SHOW_END_MENU           = 0x41c, // EndGameMenu / ExitGameMenu popup
+    MAIN_MSG_LEAVE_MISSION           = 0x41d, // leave current game (campaign/net/famehall branches)
+    MAIN_MSG_TICK_TO_MAIN_MENU       = 0x41e, // ProcessPlayersTick then 0x421 (after load/mission-failed close)
+    MAIN_MSG_SHOW_TOWN_MENU          = 0x41f, // TownMenuListDialog popup
+    MAIN_MSG_SHOW_QUEST_OBJECTIVES   = 0x420, // quest objectives / hat player list popup
+    MAIN_MSG_MAIN_MENU               = 0x421, // back to the main menu (Proc_421)
+    MAIN_MSG_SHOW_SOUND_PREFS        = 0x422, // SoundPreferencesDialog popup
+    MAIN_MSG_NEW_CAMPAIGN            = 0x425, // ScenarioNewGame + InitNewCampaignSession
+    MAIN_MSG_SHOW_CHAR_LOADER        = 0x426, // ShowCharacterLoaderDialog (return to char load)
+    MAIN_MSG_SHOW_STARTUP_LOGO       = 0x427, // ShowStartupLogoDialog
+    MAIN_MSG_SHOW_CREDITS            = 0x428, // ShowCreditsDialog
+    MAIN_MSG_SHOW_FAME_HALL          = 0x429, // ShowFameHallDialog
+    MAIN_MSG_SHOW_SHOP               = 0x42a, // ShowShopDialog(wParam = shop id)
+    MAIN_MSG_SHOW_INN                = 0x42b, // ShowInnDialog(wParam, lParam)
+    MAIN_MSG_SHOW_GLOBAL_MAP         = 0x42d, // ShowGlobalMapDialog (leaves current location)
+    MAIN_MSG_SHOW_CURRENT_TOWN       = 0x42e, // ShowCurrentTownDialog
+    MAIN_MSG_RUN_BOOTSTRAP           = 0x42f, // RunSessionBootstrap(0)
+    MAIN_MSG_FAMEHALL_MISSION_INTRO  = 0x430, // Vis2Action intro for a fame hall mission
+    MAIN_MSG_SHOW_MISSION_FAILED     = 0x431, // VisMissionFailed popup (wParam = failure id)
+    MAIN_MSG_TO_END_VIDEO            = 0x432, // forwards to MAIN_MSG_PLAY_END_VIDEO
+    MAIN_MSG_SHOW_EVENT_DIALOG       = 0x433, // role-key dialog for event id wParam
+    MAIN_MSG_SHOW_HELP               = 0x434, // help text popup
+    MAIN_MSG_LOAD_DATA               = 0x435, // LoadData()
+    MAIN_MSG_PLAY_END_VIDEO          = 0x436, // PlayVideo(0) then close
+    MAIN_MSG_ADVANCE_LOGO            = 0x438, // logo window step (wParam = step)
+    MAIN_MSG_SHOW_CUTSCENES          = 0x43b, // VisCutScenesDlg popup
+    MAIN_MSG_SHOW_DIPLOMACY          = 0x43c, // VisDiplomacy popup
+    MAIN_MSG_START_HAT_DEDICATED     = 0x440, // StartHatDedicatedServer
+    MAIN_MSG_CONNECT_TO_SERVER       = 0x441, // WaitHatConnection / ConnectToServerAddress flow
+    MAIN_MSG_AUTOSAVE                = 0x442, // AutosaveGame (wParam picks the autosave slot)
+    MAIN_MSG_MODAL_SHOWN             = 0x443, // a modal screen appeared (popup bit + cursor)
+    MAIN_MSG_CHILD_CLOSED            = 0x44c, // child screen closed (wParam = CVisualObject*)
+    MAIN_MSG_SHOW_CONNECT_DLG        = 0x451, // VisConnectionDlg popup (network connect)
+    MAIN_MSG_SHOW_NET_SESSIONS       = 0x452, // recreate DirectPlay + VisNetDlg popup
+    MAIN_MSG_SHOW_TCP_SETTINGS       = 0x453, // VisNetTcpIp popup
+    MAIN_MSG_SHOW_SERIAL_SETTINGS    = 0x454, // VisNetSerialSettings popup
+    MAIN_MSG_SHOW_PHONE_BOOK         = 0x455, // VisNetPhoneBook popup
+    MAIN_MSG_START_MISSION           = 0x457, // request map info + RunSessionBootstrap
+    MAIN_MSG_SELECT_MAP              = 0x459, // VisNetMapSelection popup / -map cmdline
+    MAIN_MSG_CLOSE_TIPS              = 0x45a, // close the tips dialog if present
+    MAIN_MSG_SHOW_TIPS               = 0x45b, // VisTipsDialog for tip wParam
+    MAIN_MSG_LEAVE_TO_NETWORK_MENU   = 0x45c, // tear down session, return to the network menu
+    MAIN_MSG_LEAVE_BUILDING          = 0x45d, // leave building interior (singleplayer)
+    MAIN_MSG_SHOW_FAME_HALL_DOC      = 0x463, // ShowFameHallDocDlg
+    MAIN_MSG_CD_CHECK_FAILED         = 0x464, // "Incorrect CD..." prompt (no sender left in tree)
+    MAIN_MSG_TOGGLE_QUEST_STATUS     = 0x466, // show/hide VisQuestStatus / VisHatSession
+    MAIN_MSG_ENTER_SCENARIO_LOCATION = 0x468, // enter town/location after a mission
+    MAIN_MSG_LOG_MESSAGE             = 0x472, // log line (wParam = malloc'd string, freed by handler)
+    MAIN_MSG_ENTER_CLIENT_MODE       = 0x47f, // EnterClientMode (serial/modem StartServer path)
+    MAIN_MSG_ENTER_CLIENT_MODE2      = 0x482, // EnterClientMode (phone-book StartServer path)
+    MAIN_MSG_QUIT                    = 0x486, // post WM_CLOSE (also sent by the sound thread)
+    MAIN_MSG_SHOW_HAT_SERVER_LIST    = 0x487, // VisHatServerListDlg popup
+    MAIN_MSG_CONNECT_DONE            = 0x488, // connect dialog finished (client roster / server setup)
+    MAIN_MSG_SHOW_HAT_BROWSER        = 0x489, // VisHatBrowserDlg popup
+    MAIN_MSG_CONNECT_ADDRESS         = 0x48d, // ConnectToServerAddress + join flow (client only)
+    MAIN_MSG_SHOW_MISSION_END        = 0x48e, // mission end message (wParam = result line)
+    MAIN_MSG_MUSIC_POSITION          = 0x467, // sound thread: track id + seconds (no WindowProc case in tree)
+    MAIN_MSG_HAT_BROWSER_RESULT      = 0x48a, // posted by the hat browser flow (no WindowProc case in tree)
+};
+
 
 class CListBox2 : public CListBox {
 public:
@@ -395,14 +466,6 @@ extern int32_t g_InGame; // client 62c9d4 — in-game flag cleared on return to 
 
 
 class MainWindow : public CFrameWnd {
-public:
-    enum {
-        MSG_421 = 0x421,
-        MSG_428 = 0x428,
-        MSG_42f = 0x42f,
-        MSG_487 = 0x487,
-    };
-
     static const AFX_MSGMAP_ENTRY _messageEntries[];
     static AFX_DATA const AFX_MSGMAP messageMap;
 

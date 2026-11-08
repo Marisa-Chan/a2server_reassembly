@@ -3304,7 +3304,7 @@ int32_t VisScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     if (msg == 0x445 || msg == 0x446) {
         if (this->is_active) {
             this->DoClose(msg);
-            AfxGetMainWnd()->PostMessageA(0x44c, (WPARAM)this, 0);
+            AfxGetMainWnd()->PostMessageA(MAIN_MSG_CHILD_CLOSED, (WPARAM)this, 0);
         }
         return 1;
     } else {
@@ -3457,7 +3457,7 @@ int32_t VisRoleKeyScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
     }
 
     if (this->tips_id != 0) {
-        AfxGetMainWnd()->PostMessage(0x45B, this->tips_id, 0);
+        AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_TIPS, this->tips_id, 0);
     }
     return this->VisScreen::MsgProc(0x445, 0, 0);
 }
@@ -7388,7 +7388,7 @@ void VisGlobalMap::VMethod7() {
     CVisualObject::VMethod7();
     if (travel_arrived != 0) {
         this->MsgProc(0x445, 0, 0);
-        AfxGetMainWnd()->PostMessage(0x468, 0, 0);
+        AfxGetMainWnd()->PostMessage(MAIN_MSG_ENTER_SCENARIO_LOCATION, 0, 0);
         CList<ScenarioLocation*>* locs = ScenarioGetAvailableLocations();
         if (this->umoirMapMode == 0) {
             for (POSITION pos = locs->GetHeadPosition(); pos != nullptr;) {
@@ -9375,7 +9375,7 @@ int32_t VisLogoWnd::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) { //
         }
 
         if (this->timeoutTicks < timeGetTime() - this->timeoutStart) {
-            AfxGetMainWnd()->PostMessage(0x438, this->step, 0);
+            AfxGetMainWnd()->PostMessage(MAIN_MSG_ADVANCE_LOGO, this->step, 0);
         }
         break;
 
@@ -9400,13 +9400,13 @@ int32_t VisLogoWnd::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) { //
 }
 
 int32_t VisLogoWnd::OnLButtonDown(uint32_t wparam, CPoint pos) { //4cd6c2
-    AfxGetMainWnd()->PostMessage(0x438, this->step, 0);
+    AfxGetMainWnd()->PostMessage(MAIN_MSG_ADVANCE_LOGO, this->step, 0);
     this->timeoutTicks = 0x7fffffff;
     return 1;
 }
 
 int32_t VisLogoWnd::OnKeyDown(uint32_t wparam) { //4cd6f8
-    AfxGetMainWnd()->PostMessage(0x438, this->step, 0);
+    AfxGetMainWnd()->PostMessage(MAIN_MSG_ADVANCE_LOGO, this->step, 0);
     this->timeoutTicks = 0x7fffffff;
     return 1;
 }
@@ -9739,7 +9739,7 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
 
     TokenEntry* token = main_wnd->drag_entry;
     if ((token->flg & 6) == 0 && token->item_id == 0xE4D) {
-        main_wnd->PostMessageA(0x463, 0, 0);
+        main_wnd->PostMessageA(MAIN_MSG_SHOW_FAME_HALL_DOC, 0, 0);
     }
 
     if (unit->IsItemRestricted(token) == 0) {
@@ -9908,7 +9908,7 @@ int32_t VisCharInfo::OnLButtonUp(uint32_t wparam, CPoint pos) {
     if ((main_wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
         if (diskette_rect.PtInRect(pos)) {
             g_SfxArray[1]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xDC, 0);
-            main_wnd->PostMessageA(0x416, 0, 0);
+            main_wnd->PostMessageA(MAIN_MSG_SHOW_INGAME_MENU, 0, 0);
         }
     }
     return 1;
@@ -10448,7 +10448,7 @@ int32_t VisShop::OnKeyDown(uint32_t wparam) {
     if (wparam == 0x1b) {
         this->CloseShopDialog();
         if (main_wnd->dialogsMask == DIALOG_MASK_SHOP) {
-            main_wnd->PostMessage(0x42e, 0, 0);
+            main_wnd->PostMessage(MAIN_MSG_SHOW_CURRENT_TOWN, 0, 0);
         }
         return 1;
     }
@@ -12365,7 +12365,7 @@ int32_t VisShopButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
         case 3:
             this->shop->CloseShopDialog();
             if (main_wnd->dialogsMask == DIALOG_MASK_SHOP) {
-                main_wnd->PostMessageA(0x42E, 0, 0);
+                main_wnd->PostMessageA(MAIN_MSG_SHOW_CURRENT_TOWN, 0, 0);
             }
             break;
         }
@@ -13502,7 +13502,7 @@ void VisTav::CloseDialog() {
 
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     if (wnd->dialogsMask == DIALOG_MASK_TAVERN) {
-        AfxGetMainWnd()->PostMessageA(0x42E, 0, 0);
+        AfxGetMainWnd()->PostMessageA(MAIN_MSG_SHOW_CURRENT_TOWN, 0, 0);
     }
 }
 
@@ -19468,24 +19468,24 @@ int32_t VisTown::OnLButtonDown(uint32_t wparam, CPoint pos) {
     switch (this->VMethod33(pos)) {
     case 1:
         this->VMethod39();
-        AfxGetMainWnd()->PostMessage(0x42A, 0, 0);
+        AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_SHOP, 0, 0);
         break;
     case 2:
         // tavern
         this->VMethod39();
-        AfxGetMainWnd()->PostMessage(0x42B, 0, 0);
+        AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_INN, 0, 0);
         break;
     case 8:
         if (ScenarioGetVar(0x301) == 0) {
             ShowRoleKeyDialog("plagatguard");
         } else {
             this->VMethod39();
-            AfxGetMainWnd()->PostMessage(0x442, 1, 0);
-            AfxGetMainWnd()->PostMessage(0x42D, 0, 0);
+            AfxGetMainWnd()->PostMessage(MAIN_MSG_AUTOSAVE, 1, 0);
+            AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_GLOBAL_MAP, 0, 0);
         }
         break;
     case 0x10:
-        AfxGetMainWnd()->PostMessage(0x41F, 0, 0);
+        AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_TOWN_MENU, 0, 0);
         break;
     }
     return 1;
@@ -20805,14 +20805,14 @@ int32_t VisTownKaarg::OnLButtonDown(uint32_t wparam, CPoint pos) {
     if (mask < 9) {
         if (mask == 8) {
             this->VMethod39();
-            AfxGetMainWnd()->PostMessage(0x442, 1, 0);
-            AfxGetMainWnd()->PostMessage(0x42D, 0, 0);
+            AfxGetMainWnd()->PostMessage(MAIN_MSG_AUTOSAVE, 1, 0);
+            AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_GLOBAL_MAP, 0, 0);
         } else if (mask == 1) {
             this->VMethod39();
-            AfxGetMainWnd()->PostMessage(0x42A, 0, 0);
+            AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_SHOP, 0, 0);
         } else if (mask == 2) {
             this->VMethod39();
-            AfxGetMainWnd()->PostMessage(0x42B, 0, 0);
+            AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_INN, 0, 0);
         } else if (mask == 4) {
             CString name;
             name.Format("kaargwoman%d", ScenarioGetVar(0x300));
@@ -20824,7 +20824,7 @@ int32_t VisTownKaarg::OnLButtonDown(uint32_t wparam, CPoint pos) {
             name.Format("kaargwoman%d", ScenarioGetVar(0x300));
             ShowRoleKeyDialog(name);
         } else if (mask == 0x10) {
-            AfxGetMainWnd()->PostMessage(0x41F, 0, 0);
+            AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_TOWN_MENU, 0, 0);
         }
     } else if (mask == 0x400) {
         CString name;
@@ -21529,17 +21529,17 @@ int32_t VisTownDruid::OnLButtonDown(uint32_t wparam, CPoint pos) {
     if (mask < 9) {
         if (mask == 8) {
             this->VMethod39();
-            AfxGetMainWnd()->PostMessage(0x442, 1, 0);
-            AfxGetMainWnd()->PostMessage(0x42D, 0, 0);
+            AfxGetMainWnd()->PostMessage(MAIN_MSG_AUTOSAVE, 1, 0);
+            AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_GLOBAL_MAP, 0, 0);
         } else if (mask == 1) {
             this->VMethod39();
-            AfxGetMainWnd()->PostMessage(0x42A, 0, 0);
+            AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_SHOP, 0, 0);
         } else if (mask == 2) {
             this->VMethod39();
-            AfxGetMainWnd()->PostMessage(0x42B, 0, 0);
+            AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_INN, 0, 0);
         }
     } else if (mask == 0x10) {
-        AfxGetMainWnd()->PostMessage(0x41F, 0, 0);
+        AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_TOWN_MENU, 0, 0);
     } else if (mask == 0x200) {
         CString name;
         name.Format("druidinnkeeper%d", ScenarioGetVar(0x300));
@@ -21801,7 +21801,7 @@ int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
         VisListBox* server_list = (VisListBox*)this->FindChild(1);
         this->sessions->selected_index = server_list->GetSelectedIndex();
         this->DoClose(msg);
-        main_wnd->PostMessage(0x44C, (WPARAM)this, 0);
+        main_wnd->PostMessage(MAIN_MSG_CHILD_CLOSED, (WPARAM)this, 0);
 
         for (int32_t i = 0; i < this->cached_player_rows.GetSize(); i++) {
             CStringArray* row = this->cached_player_rows.GetAt(i);
@@ -21819,24 +21819,24 @@ int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
         int32_t provider = g_CLlDriver.GetProvider();
         if (provider == PROVIDER_MODEM) {
             g_CLlDriver.Close();
-            PostMessageA(g_MainWndHWND, 0x455, 0, 0);
+            PostMessageA(g_MainWndHWND, MAIN_MSG_SHOW_PHONE_BOOK, 0, 0);
         } else {
             provider = g_CLlDriver.GetProvider();
             if (provider == PROVIDER_SERIAL) {
                 g_CLlDriver.Close();
-                PostMessageA(g_MainWndHWND, 0x454, 0, 0);
+                PostMessageA(g_MainWndHWND, MAIN_MSG_SHOW_SERIAL_SETTINGS, 0, 0);
             } else {
                 provider = g_CLlDriver.GetProvider();
                 if (provider == PROVIDER_DP_TCPIP) {
                     g_CLlDriver.Close();
                     if (main_wnd->net_session.internet_game == 0) {
-                        PostMessageA(g_MainWndHWND, 0x453, 0, 0);
+                        PostMessageA(g_MainWndHWND, MAIN_MSG_SHOW_TCP_SETTINGS, 0, 0);
                     } else {
-                        PostMessageA(g_MainWndHWND, 0x489, 0, 0);
+                        PostMessageA(g_MainWndHWND, MAIN_MSG_SHOW_HAT_BROWSER, 0, 0);
                     }
                 } else {
                     g_CLlDriver.Close();
-                    PostMessageA(g_MainWndHWND, 0x451, 0, 0);
+                    PostMessageA(g_MainWndHWND, MAIN_MSG_SHOW_CONNECT_DLG, 0, 0);
                 }
             }
         }
@@ -21882,7 +21882,7 @@ int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
                     }
                 }
                 this->DoClose(0x44F);
-                main_wnd->PostMessage(0x44C, (WPARAM)this, 0);
+                main_wnd->PostMessage(MAIN_MSG_CHILD_CLOSED, (WPARAM)this, 0);
                 AfxGetMainWnd()->PostMessage(0x44F, 0, 0);
             }
         } else {
@@ -23517,12 +23517,12 @@ int32_t VisMainMenu::OnLButtonUp(uint32_t wparam, CPoint pos) {
     switch (this->active_button) {
     case 0:
         if ((((uint8_t)this->disable_mask) & 1) == 0) {
-            msg = 0x425;
+            msg = MAIN_MSG_NEW_CAMPAIGN;
         }
         break;
     case 1:
         if ((((uint8_t)this->disable_mask) & 2) == 0) {
-            msg = 0x426;
+            msg = MAIN_MSG_SHOW_CHAR_LOADER;
         }
         break;
     case 2:
@@ -23532,22 +23532,22 @@ int32_t VisMainMenu::OnLButtonUp(uint32_t wparam, CPoint pos) {
         break;
     case 3:
         if ((((uint8_t)this->disable_mask) & 8) == 0) {
-            msg = 0x428;
+            msg = MAIN_MSG_SHOW_CREDITS;
         }
         break;
     case 4:
         if ((((uint8_t)this->disable_mask) & 0x10) == 0) {
-            msg = 0x418;
+            msg = MAIN_MSG_SHOW_LOAD_GAME;
         }
         break;
     case 5:
         if ((((uint8_t)this->disable_mask) & 0x20) == 0) {
-            msg = 0x487;
+            msg = MAIN_MSG_SHOW_HAT_SERVER_LIST;
         }
         break;
     case 6:
         if ((((uint8_t)this->disable_mask) & 0x40) == 0) {
-            msg = 0x429;
+            msg = MAIN_MSG_SHOW_FAME_HALL;
         }
         break;
     case 7:
@@ -23634,7 +23634,7 @@ void VisMainMenu::DoClose(uint32_t code) {
     this->FreeGraphics();
     this->FreeSfx();
     this->VisScreen::DoClose(code);
-    AfxGetMainWnd()->SendMessage(0x44C, (WPARAM)this, 0);
+    AfxGetMainWnd()->SendMessage(MAIN_MSG_CHILD_CLOSED, (WPARAM)this, 0);
     g_mousept.EnableHint();
 }
 
@@ -24009,7 +24009,7 @@ int32_t VisServerScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
     switch (msg) {
     case 0x446:  // "disconnect" button
         this->VisScreen::MsgProc(0x446, 0, 0);
-        PostMessageA(g_MainWndHWND, 0x41D, 0, 0);
+        PostMessageA(g_MainWndHWND, MAIN_MSG_LEAVE_MISSION, 0, 0);
         return 1;
 
     case 0x46E:  // "save on server" checkbox changed
@@ -24056,7 +24056,7 @@ int32_t VisNetPhoneBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
     case 0x446: {
         int32_t res = this->VisScreen::MsgProc(msg, wparam, lparam);
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-        main_wnd->PostMessage(0x451, 0, 0);
+        main_wnd->PostMessage(MAIN_MSG_SHOW_CONNECT_DLG, 0, 0);
         return res;
     }
     case 0x46e:
@@ -24104,7 +24104,7 @@ int32_t VisNetPhoneBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
         CLlAddress* addr = this->enum_addresses + sel;
         if (g_CLlDriver.PrepareForConnect(this->phones->dial, addr)) {
             MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-            main_wnd->PostMessage(0x452, 0, 0);
+            main_wnd->PostMessage(MAIN_MSG_SHOW_NET_SESSIONS, 0, 0);
             this->VisScreen::MsgProc(0x445, 0, 0);
         }
         return 1;
@@ -24119,9 +24119,9 @@ int32_t VisNetPhoneBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
             VisMessageBoxWithList* msgbox = new VisMessageBoxWithList(
                 1, 100, 100, 0x21c, 0x17c, TxtFile::AllLines.GetAt(0x9a), nullptr, 0);
             main_wnd->ModalScreen(msgbox);
-            main_wnd->PostMessage(0x455, 0, 0);
+            main_wnd->PostMessage(MAIN_MSG_SHOW_PHONE_BOOK, 0, 0);
         } else {
-            main_wnd->PostMessage(0x47f, 0, 0);
+            main_wnd->PostMessage(MAIN_MSG_ENTER_CLIENT_MODE, 0, 0);
         }
         return 1;
     }
@@ -24476,7 +24476,7 @@ int32_t VisNetSerialSettings::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lp
     switch (msg) {
     case 0x446: {
         int32_t result = VisScreen::MsgProc(msg, wparam, lparam);
-        AfxGetMainWnd()->PostMessage(0x451, 0, 0);
+        AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_CONNECT_DLG, 0, 0);
         return result;
     }
     case 0x480: {
@@ -24485,7 +24485,7 @@ int32_t VisNetSerialSettings::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lp
         CLlAddress addr;
         addr.com = *this->pcom;
         if (g_CLlDriver.PrepareForConnect("", &addr) != 0) {
-            AfxGetMainWnd()->PostMessage(0x452, 0, 0);
+            AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_NET_SESSIONS, 0, 0);
             VisScreen::MsgProc(0x445, 0, 0);
         }
         return 1;
@@ -24499,7 +24499,7 @@ int32_t VisNetSerialSettings::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lp
         addr.com = *this->pcom;
         if (g_CLlDriver.StartServer(2, main_wnd->m_GameSession.character_name, &addr) != 0) {
             VisScreen::MsgProc(0x445, 0, 0);
-            main_wnd->PostMessage(0x482, 0, 0);
+            main_wnd->PostMessage(MAIN_MSG_ENTER_CLIENT_MODE2, 0, 0);
         }
         return 1;
     }
@@ -25475,11 +25475,11 @@ void VisNetTcpIp::VMethod31(int32_t code) {
         char buffer[256];
         this->FindChild(2)->WriteData(buffer);
         *this->ip = buffer;
-        main_wnd->PostMessage(0x452, 0, 0);
+        main_wnd->PostMessage(MAIN_MSG_SHOW_NET_SESSIONS, 0, 0);
         main_wnd->net_session.connect_address = buffer;
     } else {
         g_CLlDriver.Close();
-        main_wnd->PostMessage(0x451, 0, 0);
+        main_wnd->PostMessage(MAIN_MSG_SHOW_CONNECT_DLG, 0, 0);
     }
 }
 
@@ -25521,12 +25521,12 @@ void VisHatServerListDlg::VMethod31(int32_t code) {
             main_wnd->net_session.internet_game = 1;
 #endif
         if (this->hat_settings->ishat == 0) {
-            main_wnd->PostMessage(0x426, 0, 0);
+            main_wnd->PostMessage(MAIN_MSG_SHOW_CHAR_LOADER, 0, 0);
         } else {
-            main_wnd->PostMessage(0x488, 0, 0);
+            main_wnd->PostMessage(MAIN_MSG_CONNECT_DONE, 0, 0);
         }
     } else {
-        main_wnd->PostMessage(0x421, 0, 0);
+        main_wnd->PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
     }
 }
 
@@ -26356,21 +26356,21 @@ void VisConnectionDlg::VMethod31(int32_t code) {
         if (g_CLlDriver.ResetProvider(typ) == 0) {
             VisMessageBoxWithList* msg = new VisMessageBoxWithList(1, 100, 100, 0x21c, 0x17c, TxtFile::AllLines[0x98], nullptr, 0);
             main_wnd->ModalScreen(msg);
-            main_wnd->PostMessage(0x421, 0, 0);
+            main_wnd->PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
         } else {
             if (typ == 3) {
-                main_wnd->PostMessage(0x453, 0, 0);
+                main_wnd->PostMessage(MAIN_MSG_SHOW_TCP_SETTINGS, 0, 0);
             } else if (typ == 0) {
-                main_wnd->PostMessage(0x454, 0, 0);
+                main_wnd->PostMessage(MAIN_MSG_SHOW_SERIAL_SETTINGS, 0, 0);
             } else if (typ == 1) {
-                main_wnd->PostMessage(0x455, 0, 0);
+                main_wnd->PostMessage(MAIN_MSG_SHOW_PHONE_BOOK, 0, 0);
             } else if (typ == 2) {
-                main_wnd->PostMessage(0x452, 0, 0);
+                main_wnd->PostMessage(MAIN_MSG_SHOW_NET_SESSIONS, 0, 0);
             }
         }
     }
     if (code == 0x446) {
-        main_wnd->PostMessage(0x421, 0, 0);
+        main_wnd->PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
     }
 }
 

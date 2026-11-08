@@ -376,7 +376,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				return 0;
 			}
 
-			wnd->PostMessage(0x45c, 0, 0);
+			wnd->PostMessage(MAIN_MSG_LEAVE_TO_NETWORK_MENU, 0, 0);
 			g_CLlDriver.Close();
 			break;
 		}
@@ -1520,11 +1520,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case OPEN_SHOP:
-			wnd->PostMessage(0x42a, packet_2dwords->param1, 0);
+			wnd->PostMessage(MAIN_MSG_SHOW_SHOP, packet_2dwords->param1, 0);
 			break;
 
 		case OPEN_INN:
-			wnd->PostMessage(0x42b, packet_2dwords->param1, packet_2dwords->param2);
+			wnd->PostMessage(MAIN_MSG_SHOW_INN, packet_2dwords->param1, packet_2dwords->param2);
 			break;
 
 		case EFFECT_MOVE:
@@ -1922,7 +1922,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					return 0;
 				}
 
-				wnd->PostMessage(0x45c, 0, 0);
+				wnd->PostMessage(MAIN_MSG_LEAVE_TO_NETWORK_MENU, 0, 0);
 				g_CLlDriver.Close();
 			}
 		}
@@ -1991,7 +1991,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case PLAYER_LEFT: {
 			if (packet_2dwords->param1 == this->my_main_unit->index) {
-				wnd->PostMessage(0x45c, 0, 0);
+				wnd->PostMessage(MAIN_MSG_LEAVE_TO_NETWORK_MENU, 0, 0);
 				g_CLlDriver.Close();
 				break;
 			}
@@ -2094,7 +2094,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			}
 				break;
 			case 2:
-				wnd->PostMessage(0x430, 0, 0);
+				wnd->PostMessage(MAIN_MSG_FAMEHALL_MISSION_INTRO, 0, 0);
 				break;
 			}
 		}
@@ -2143,15 +2143,15 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case MISSION_RESULT:
-			wnd->PostMessage(0x433, 255, packet_2dwords->param1);
+			wnd->PostMessage(MAIN_MSG_SHOW_EVENT_DIALOG, 255, packet_2dwords->param1);
 			break;
 
 		case MISSION_COMPLETE:
-			wnd->PostMessage(0x430, 0, 0);
+			wnd->PostMessage(MAIN_MSG_FAMEHALL_MISSION_INTRO, 0, 0);
 			break;
 
 		case GAME_EVENT:
-			wnd->PostMessage(0x433, packet_2dwords->param1, 0);
+			wnd->PostMessage(MAIN_MSG_SHOW_EVENT_DIALOG, packet_2dwords->param1, 0);
 			break;
 
 		case ENTER_BUILDING:
@@ -2176,7 +2176,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				}
 				wnd->vis_root->MsgProc(0x446, 0, 0);
 				wnd->inside_building = 0;
-				wnd->PostMessage(0x45d, 0, 0);
+				wnd->PostMessage(MAIN_MSG_LEAVE_BUILDING, 0, 0);
 			}
 			break;
 
@@ -2271,7 +2271,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			}
 
 			if (isnull && quest_map->GetQuestCount() != 0) {
-				wnd->PostMessage(0x466, 1, 0);
+				wnd->PostMessage(MAIN_MSG_TOGGLE_QUEST_STATUS, 1, 0);
 			}
 		}
 			break;
@@ -2413,7 +2413,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				g_NetStru1_local.ProcessConnections();
 			}
 			else {
-				wnd->PostMessage(0x48e, packet_dword->value, packet_2dwords->param2);
+				wnd->PostMessage(MAIN_MSG_SHOW_MISSION_END, packet_dword->value, packet_2dwords->param2);
 				g_CLlDriver.Close();
 				g_NetStru1_local.ProcessConnections();
 			}
@@ -6928,7 +6928,7 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 				case 0x57:
 					if (g_kbControlState == 0) {
 						if (wnd->sessionMode != SESSION_LOCAL_BATTLE) {
-							wnd->PostMessage(0x466, 0, 0);
+							wnd->PostMessage(MAIN_MSG_TOGGLE_QUEST_STATUS, 0, 0);
 						}
 					} else {
 						this->CycleWimpyMode();
