@@ -67,6 +67,7 @@ set(A2_SOURCES
   vis_town.cpp
   vis_net.cpp
   vis_worldmap.cpp
+  vis_fame.cpp
   world.cpp
   res/a2server.rc
 )

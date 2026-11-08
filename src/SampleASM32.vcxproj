@@ -366,6 +366,7 @@
     <ClCompile Include="util.cpp" />
     <ClCompile Include="virtual_caster.cpp" />
     <ClCompile Include="visibility.cpp" />
+    <ClCompile Include="vis_fame.cpp" />
     <ClCompile Include="vis_worldmap.cpp" />
     <ClCompile Include="vis_net.cpp" />
     <ClCompile Include="vis_town.cpp" />

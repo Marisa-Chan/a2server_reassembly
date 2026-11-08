@@ -178,71 +178,6 @@ struct SaveFileInfo {
 };
 
 
-struct Fame1 {
-    CString str;
-    uint32_t score = 0;
-    uint32_t value2 = 0;
-    uint32_t value3 = 0;
-};
-
-ASSERT_SIZE(Fame1, 0x10);
-
-struct Fame2 {
-    int32_t doc_id;
-    uint32_t is_text;
-    CBmp64* picture;
-    CString str;
-    CStringArray str_arr;
-    CRect rect;
-    uint32_t gap_x34;
-    uint32_t top_line;
-
-    Fame2();  // client: 4afdbb
-    void operator=(const Fame2& b);
-
-    void Clear();  // client: 4b028f
-    void SetDocument(int32_t doc_id, uint32_t is_text);  // client: 4aff1f
-    int32_t GetDocId();  // client: 4b0ca0
-    uint32_t GetIsText();  // client: 4b0cb0
-    bool ScrollDown(); // 4abf35 (client: 4aff45) in asm
-    int32_t ScrollUp(); // 4abf72 (client: 4aff82) in asm
-    void Draw(int32_t x, int32_t y); // 4abfb1 (client: 4affc1) in asm
-    void LoadDocument(); // 4ac0af (client: 4b00bf) in asm
-
-};
-
-ASSERT_SIZE(Fame2, 0x3C);
-
-struct CFameHall {
-    uint32_t difficulty;
-    uint32_t m_nTotalTime;
-    uint32_t m_nDifficultyWeight;
-    uint32_t m_nMaxEntries;
-    CArray<Fame1> m_Entries;
-    CArray<Fame2> m_Documents;
-
-    CFameHall();  // client: 4b02f3
-    ~CFameHall();  // client: 4b0362
-
-    void ZeroFactors();  // client: 4b03bf
-    void SetDifficulty(uint32_t difficulty);  // client: 499fd0
-    uint32_t AddTextDocument(int32_t doc_id);  // client: 4b0576
-    void SeedDefaultEntries();  // client: 4b0b0a
-    void LoadEntries(CFile* file);  // client: 4b0955
-    void SaveEntries(CFile* file); //4ac839 (client: 4b0849) - save m_Entries to file
-    void SaveDocuments(CFile* file);  // client: 4b0716
-    void LoadDocuments(CFile* file);  // client: 4b07b2
-    void AddEntry(const Fame1& fame);  // client: 4b03de
-
-    void AddDifficultyPoint();  // client: 420c80
-
-    void SubmitScore(); //4ac498
-
-    int32_t GetDifficulty() { return this->difficulty; }; //497290 (client: 4b0ca0)
-    void AddMissionElapsedTime(int32_t t) { this->m_nTotalTime += t; } //497250 (client: 49a860)
-};
-
-ASSERT_SIZE(CFameHall, 0x38);
 
 
 struct UserShortcut {
@@ -756,3 +691,4 @@ ASSERT_OFFSET(MainWindow, m_GameSession, offsetof(MainWindow, app_initialized) +
 ASSERT_OFFSET(MainWindow, m_FameHall, offsetof(MainWindow, m_GameSession) + sizeof(CGameSession) + 4); // field_0x5e4 present
 ASSERT_OFFSET(MainWindow, serverBootstrapEnabled, offsetof(MainWindow, shutdown_pending) + 4 + 0x14); // 5 cursor handles between
 #endif
+
