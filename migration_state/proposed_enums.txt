@@ -168,7 +168,7 @@ TIER 4 - small domain enums, localized (quick; do after Tier 1)
     name only 1..3 and leave 4..8 as a documented range check.
     Enum ItemTransferSlot or two enums (TransferSource/TransferDest) in src/net.h.
 
-[ ] 7. ItemListMode  (PacketUnitStateVec.mode byte, packet id ITEM_LIST)
+[x] 7. ItemListMode  (PacketUnitStateVec.mode byte, packet id ITEM_LIST)
     Senders in src/net.cpp: SendMonsterInventory / SendShopShelf /
     SendShopShelves (modes i+5, i=0..3 => 5..8) / SendShopTable (modes 4 and 9)
     / equipment lists (mode 1) / inventory updates (mode 2). Client dispatch is

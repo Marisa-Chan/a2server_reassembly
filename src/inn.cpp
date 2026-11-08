@@ -12,6 +12,7 @@
 #include "game_app.h"
 #include "group.h"
 #include "inventory.h"
+#include "packet.h"
 #include "player.h"
 #include "players_list.h"
 #include "quest.h"
@@ -1139,7 +1140,7 @@ void Inn::UpdateQuests(Unit* unit) {
         this->InnReward(player);
         Inventory* inventory = nullptr;
         if (this->rewards_per_player.Lookup(player->player_id, inventory)) {
-            g_NetStru1_main.SendShopTable(unit, inventory, player, 9);
+            g_NetStru1_main.SendShopTable(unit, inventory, player, ITEM_LIST_INN_REWARDS);
         }
     }
     this->unit_list.AddTail(unit);

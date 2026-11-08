@@ -542,6 +542,19 @@ ASSERT_OFFSET(PacketData, count, 0xA);
 ASSERT_OFFSET(PacketData, data,  0xE);
 ASSERT_SIZE(PacketData, 0x1000e);
 
+// PacketUnitStateVec::mode for ITEM_LIST packets. The client dispatches on
+// (mode & 0x7f) in the ITEM_LIST handler; bit 0x80 is a partial-update flag.
+enum ItemListMode : uint8_t {
+    ITEM_LIST_EQUIPMENT    = 1, // equipment slots (start_index = slot-present flags)
+    ITEM_LIST_INVENTORY    = 2, // bag inventory (mode | 0x80 = partial update at start_index)
+    ITEM_LIST_SHOP_TABLE   = 4, // shop table: items the customer picked up (TokenEntry parse flag 1)
+    ITEM_LIST_SHELF_1      = 5, // shop shelf 1
+    ITEM_LIST_SHELF_2      = 6, // shop shelf 2
+    ITEM_LIST_SHELF_3      = 7, // shop shelf 3
+    ITEM_LIST_SHELF_4      = 8, // shop shelf 4
+    ITEM_LIST_INN_REWARDS  = 9, // inn quest-reward inventory (client fills VisTav::rewards)
+    ITEM_LIST_PARTIAL_UPDATE = 0x80, // mode bit: inventory update replaces only [start_index, start_index+entry_count)
+};
 
 // ---------------------------------------------------------------------------
 // PacketUnitStateVec

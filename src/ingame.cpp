@@ -1198,7 +1198,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			}
 			CUnit* ct = nullptr;
 			switch (packet_state->mode & 0x7f) {
-			case 1:
+			case ITEM_LIST_EQUIPMENT:
 				if (this->objects.Lookup(packet_state->building_id, *(CGameObject**)&ct) != 0) {
 					uint8_t *pdata = packet_state->data;
 					for (int i = 0; i < 12; i++) {
@@ -1270,9 +1270,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				}
 				break;
 
-			case 2: {
+			case ITEM_LIST_INVENTORY: {
 				if (this->objects.Lookup(packet_state->building_id, *(CGameObject**)&ct) != 0) {
-					if ((packet_state->mode & 0x80) == 0) {
+					if ((packet_state->mode & ITEM_LIST_PARTIAL_UPDATE) == 0) {
 						ct->tokenEntries.RemoveAll();
 					} else {
 						int num = ct->tokenEntries.GetSize();
@@ -1376,7 +1376,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 								this->hero_inventory.SetAtGrow(i + packet_state->start_index, itm);
 							}
 
-							if ((packet_state->mode & 0x80) == 0) {
+							if ((packet_state->mode & ITEM_LIST_PARTIAL_UPDATE) == 0) {
 								this->hero_inventory.SetSize(packet_state->entry_count);
 							}
 							
@@ -1414,18 +1414,18 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			}
 				break;
 
-			case 4:
-			case 5:
-			case 6:
-			case 7:
-			case 8: {
+			case ITEM_LIST_SHOP_TABLE:
+			case ITEM_LIST_SHELF_1:
+			case ITEM_LIST_SHELF_2:
+			case ITEM_LIST_SHELF_3:
+			case ITEM_LIST_SHELF_4: {
 				CArray<TokenEntry*> tmp;
 
 				uint8_t* pdata = packet_state->data;
 
 				for (int i = 0; i < packet_state->entry_count; i++) {
 					TokenEntry* d0 = nullptr;
-					if ((packet_state->mode & 0x7f) == 4) {
+					if ((packet_state->mode & 0x7f) == ITEM_LIST_SHOP_TABLE) {
 						d0 = new TokenEntry(&pdata, 1);
 					} else {
 						d0 = new TokenEntry(&pdata, 0);
@@ -1460,7 +1460,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			}
 				break;
 
-			case 9: {
+			case ITEM_LIST_INN_REWARDS: {
 				if ((wnd->dialogsMask & 4) != 0) {
 					VisTav* tavern = (VisTav*) wnd->vis_root->FindChild(0x44c);
 					uint8_t* pdata = packet_state->data;

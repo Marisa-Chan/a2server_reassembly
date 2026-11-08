@@ -3,6 +3,7 @@
 #include "game_app.h"
 #include "item.h"
 #include "net.h"
+#include "packet.h"
 #include "player.h"
 #include "server.h"
 #include "shop.h"
@@ -188,7 +189,7 @@ void CMultiShopInstance::SendShelfState(int32_t shelf_id) {
         if (this->shop_template != nullptr) {
             shop_token = this->shop_template->shop;
         }
-        g_NetStru1_main.SendShopTable(shop_token, &this->inventory, this->unit->pOwner, 4);
+        g_NetStru1_main.SendShopTable(shop_token, &this->inventory, this->unit->pOwner, ITEM_LIST_SHOP_TABLE);
     } else {
         g_NetStru1_main.SendShopShelves(this, this->unit->pOwner, shelf_id);
     }

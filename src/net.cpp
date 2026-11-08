@@ -4541,9 +4541,9 @@ void NetStru1::SendMonsterInventory(Unit* unit, Player* player, int32_t start_in
     packet.start_index = (uint16_t)start_index;
     packet.data_size = 0;
 
-    packet.mode = 2;
+    packet.mode = ITEM_LIST_INVENTORY;
     if (start_index != 0 || end_index != unit->inventory->items.GetSize()) {
-        packet.mode |= 0x80;
+        packet.mode |= ITEM_LIST_PARTIAL_UPDATE;
     }
 
     packet.building_id = unit->building_id;
@@ -4624,7 +4624,7 @@ void NetStru1::SendHumanoidProps(Unit* unit, Player* player, int32_t flags) {
     packet.entry_count = 0;
     packet.start_index = (uint16_t)flags;
     packet.data_size = 0;
-    packet.mode = 1;
+    packet.mode = ITEM_LIST_EQUIPMENT;
     packet.building_id = unit->building_id;
     packet.to_player_id = player->player_id;
     if (flags & 1) {
@@ -4679,7 +4679,7 @@ void NetStru1::SendShopTable(Token* token, Inventory* inventory, Player* player,
     POSITION it = inventory->items.GetHeadPosition();
     while (it != nullptr) {
         Item* item = inventory->items.GetNext(it);
-        item->StoreToPacket(&packet, mode == 4);
+        item->StoreToPacket(&packet, mode == ITEM_LIST_SHOP_TABLE);
         packet.entry_count++;
     }
     this->QueuePacketSend(&packet);
@@ -4722,14 +4722,14 @@ void NetStru1::SendShopShelves(CMultiShopInstance* inst, Player* player, int32_t
             if (inst->shop_template != nullptr) {
                 shop = inst->shop_template->shop;
             }
-            this->SendShopShelf(shop, &inst->shelves[i], player, i + 5);
+            this->SendShopShelf(shop, &inst->shelves[i], player, i + ITEM_LIST_SHELF_1);
         }
     } else if (shelf_id > 0) {
         Shop* shop = nullptr;
         if (inst->shop_template != nullptr) {
             shop = inst->shop_template->shop;
         }
-        this->SendShopShelf(shop, &inst->shelves[shelf_id - 1], player, shelf_id + 4);
+        this->SendShopShelf(shop, &inst->shelves[shelf_id - 1], player, shelf_id - 1 + ITEM_LIST_SHELF_1);
     }
 }
 
