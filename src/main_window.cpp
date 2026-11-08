@@ -23,6 +23,10 @@
 #include "world.h"
 #include <wininet.h>
 
+#ifdef A2SERVER_PATCH
+#include "patch/kick_char.h"
+#endif
+
 uint32_t g_RemoteTimestamp = 0;
 int32_t g_SelCutsceneIndex = 0;
 int32_t g_LButtonDown; //660f4c
@@ -565,6 +569,58 @@ void ServerControlDialog::UpdateControlStates() {
     }
 
     this->UpdateData(0);
+}
+
+void ServerControlDialog::OnCommandUnknown() {
+    if (g_Server == nullptr) {
+        return;
+    }
+
+    MainWindow* main_window = (MainWindow*)AfxGetMainWnd();
+    CString unused;
+
+    int target_index = main_window->list_box2.GetCurSel();
+    int index = 0;
+
+    Player* selected = nullptr;
+
+    Listerator<Player> it;
+    Player* player = it.Begin(g_PlayersList->list);
+    while (player != nullptr) {
+        if (player->is_ai == 0) {
+            if (index == target_index) {
+                selected = player;
+                break;
+            }
+            ++index;
+        }
+
+        player = it.GetNext();
+    }
+
+    player = selected;
+    if (player == nullptr) {
+        return;
+    }
+
+    LogMessage("Player " + player->name + " kicked from server");
+
+#ifndef A2SERVER_PATCH
+    NetStru2* node = g_NetStru1_main.GetClientByPlayerID(player->player_id);
+    if (node == nullptr) {
+        return;
+    }
+
+    g_NetStru1_main.DisconnectClient(node);
+    g_NetStru1_main.ProcessConnections();
+    g_NetStru1_main.AnnouncePlayer(player);
+
+    player->drop_deadline_tick16 = g_Server->tick16 - 1;
+
+    g_PlayersList->ProcessPlayerTimeouts();
+#else
+    KickPlayer(player);
+#endif
 }
 
 
@@ -1661,61 +1717,6 @@ void MainWindow::LoadData() { //483d64
 
     this->music_player = new MusicPlayer(g_isLowMemory == 0 ? 0xac000 : 0x56000);
     this->music_player->SetVolume(g_SoundSettings.mus_pos);
-}
-
-
-
-void GameSettings::Init() { // 442386
-    MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
-    this->pGameSpeed = &mwnd->game_speed;
-    this->pFormationMode = &mwnd->vis_map_context->formation;
-    this->pWimpyMode = &mwnd->vis_map_context->wimpy;
-    this->pShowAllHitPoints = &mwnd->vis_map_context->show_hp;
-    this->pShowFlyingHP = &mwnd->vis_map_context->flying_hp;
-    this->pShadows = &g_Shadows;
-    this->pLightning = &g_Lightning;
-    this->pAnimation = &g_Animation;
-    this->pMessageColors = &g_MessageColors;
-}
-
-void GameSettings::Load(HKEY& rkey) { //442420
-    DWORD sz = 4;
-    RegQueryValueExA(rkey, "GameSpeed", nullptr, nullptr, (LPBYTE)this->pGameSpeed, &sz);
-    RegQueryValueExA(rkey, "FormationMode", nullptr, nullptr, (LPBYTE)this->pFormationMode, &sz);
-    RegQueryValueExA(rkey, "WimpyMode", nullptr, nullptr, (LPBYTE)this->pWimpyMode, &sz);
-    RegQueryValueExA(rkey, "ShowAllHitPoints", nullptr, nullptr, (LPBYTE)this->pShowAllHitPoints, &sz);
-    RegQueryValueExA(rkey, "Smoothing", nullptr, nullptr, (LPBYTE)&g_settings.Smoothing, &sz);
-    RegQueryValueExA(rkey, "ShowFlyingHP", nullptr, nullptr, (LPBYTE)this->pShowFlyingHP, &sz);
-    RegQueryValueExA(rkey, "ShowTimeFlow", nullptr, nullptr, (LPBYTE)&g_settings.ShowTimeFlow, &sz);
-    RegQueryValueExA(rkey, "TipsMode", nullptr, nullptr, (LPBYTE)&g_settings.TipsMode, &sz);
-    RegQueryValueExA(rkey, "AutoCasting", nullptr, nullptr, (LPBYTE)&this->AutoCasting, &sz);
-    RegQueryValueExA(rkey, "Acknowledgement", nullptr, nullptr, (LPBYTE)&this->Acknowledgement, &sz);
-    RegQueryValueExA(rkey, "Shadows", nullptr, nullptr, (LPBYTE)this->pShadows, &sz);
-    RegQueryValueExA(rkey, "Lighting", nullptr, nullptr, (LPBYTE)this->pLightning, &sz);
-    RegQueryValueExA(rkey, "Animation", nullptr, nullptr, (LPBYTE)this->pAnimation, &sz);
-    RegQueryValueExA(rkey, "ClanNames", nullptr, nullptr, (LPBYTE)&this->ClanNames, &sz);
-    RegQueryValueExA(rkey, "MessageColors", nullptr, nullptr, (LPBYTE)this->pMessageColors, &sz);
-}
-
-// 4421be
-void GameSettings::Save(HKEY& rkey) {
-    DWORD cbData = 4;
-
-    RegSetValueExA(rkey, "GameSpeed", 0, REG_DWORD, (const BYTE*)this->pGameSpeed, cbData);
-    RegSetValueExA(rkey, "FormationMode", 0, REG_DWORD, (const BYTE*)this->pFormationMode, cbData);
-    RegSetValueExA(rkey, "WimpyMode", 0, REG_DWORD, (const BYTE*)this->pWimpyMode, cbData);
-    RegSetValueExA(rkey, "ShowAllHitPoints", 0, REG_DWORD, (const BYTE*)this->pShowAllHitPoints, cbData);
-    RegSetValueExA(rkey, "Smoothing", 0, REG_DWORD, (const BYTE*)&this->Smoothing, cbData);
-    RegSetValueExA(rkey, "ShowFlyingHP", 0, REG_DWORD, (const BYTE*)this->pShowFlyingHP, cbData);
-    RegSetValueExA(rkey, "ShowTimeFlow", 0, REG_DWORD, (const BYTE*)&this->ShowTimeFlow, cbData);
-    RegSetValueExA(rkey, "TipsMode", 0, REG_DWORD, (const BYTE*)&this->TipsMode, cbData);
-    RegSetValueExA(rkey, "AutoCasting", 0, REG_DWORD, (const BYTE*)&this->AutoCasting, cbData);
-    RegSetValueExA(rkey, "Acknowledgement", 0, REG_DWORD, (const BYTE*)&this->Acknowledgement, cbData);
-    RegSetValueExA(rkey, "Shadows", 0, REG_DWORD, (const BYTE*)this->pShadows, cbData);
-    RegSetValueExA(rkey, "Lighting", 0, REG_DWORD, (const BYTE*)this->pLightning, cbData);
-    RegSetValueExA(rkey, "Animation", 0, REG_DWORD, (const BYTE*)this->pAnimation, cbData);
-    RegSetValueExA(rkey, "ClanNames", 0, REG_DWORD, (const BYTE*)&this->ClanNames, cbData);
-    RegSetValueExA(rkey, "MessageColors", 0, REG_DWORD, (const BYTE*)this->pMessageColors, cbData);
 }
 
 void PhoneBook::Load(HKEY& rkey) { //43ce7d

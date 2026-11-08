@@ -14,7 +14,6 @@ set(A2_SOURCES
   effect.cpp
   eye.cpp
   file.cpp
-  game.cpp
   game_app.cpp
   gameobj.cpp
   gfx.cpp

@@ -326,7 +326,6 @@
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="eye.cpp" />
     <ClCompile Include="file.cpp" />
-    <ClCompile Include="game.cpp" />
     <ClCompile Include="group.cpp" />
     <ClCompile Include="inn.cpp" />
     <ClCompile Include="inventory.cpp" />
