@@ -249,7 +249,7 @@ void NetStru1::BroadcastUnitState(Unit* unit) {
         if (player->is_active && unit->NeedsRefreshFor(player)) {
             unit->position->IsAtCellCenter(); // WAT: Useless call?
             if (unit->IsUnit()) {
-                this->SendUnitUpdate(unit, player, 0xFFFFFFFF, 0xFFB, 0, 0);
+                this->SendUnitUpdate(unit, player, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
             } else {
                 this->BroadcastTokenState(unit, player, 0);
             }
@@ -365,14 +365,14 @@ void NetStru1::SendPendingUnits(Player* player) {
         POSITION pos = g_ServerUnits->unit_list.GetHeadPosition();
         while (pos != nullptr) {
             Unit* unit = g_ServerUnits->unit_list.GetNext(pos);
-            uint32_t flags = (unit->building_id < 0x6000) ? 0xA35FFFFF : 0x100013;
+            uint32_t flags = (unit->building_id < 0x6000) ? UNIT_UPD_ALL_STATS_EQUIPMENT : (UNIT_UPD_HP | UNIT_UPD_MP | UNIT_UPD_DIR_POS | UNIT_UPD_SPELLS);
             if (unit->ownership_changed != 0) {
                 flags |= 0x40;
             }
             if (g_Server->multiplayer == 0 && 0x16 <= unit->server_id && unit->server_id <= 0x17) {
                 flags |= 0x200000;
             }
-            g_NetStru1_main.SendUnitUpdate(unit, player, flags, 0xFFB, 0, 0);
+            g_NetStru1_main.SendUnitUpdate(unit, player, flags, EQUIP_SLOTS_ALL, 0, 0);
         }
     }
 
@@ -381,12 +381,12 @@ void NetStru1::SendPendingUnits(Player* player) {
         POSITION pos = units_list->unit_list.GetHeadPosition();
         while (pos != nullptr) {
             Unit* unit = units_list->unit_list.GetNext(pos);
-            uint32_t flags = (unit->building_id < 0x6000) ? 0xA35FFFFF : 0x13;
+            uint32_t flags = (unit->building_id < 0x6000) ? UNIT_UPD_ALL_STATS_EQUIPMENT : (UNIT_UPD_HP | UNIT_UPD_MP | UNIT_UPD_DIR_POS);
             if (unit->ownership_changed != 0) {
                 flags |= 0x40;
             }
             if (unit->decay < 5) {
-                g_NetStru1_main.SendUnitUpdate(unit, player, flags, 0xFFB, 0, 0);
+                g_NetStru1_main.SendUnitUpdate(unit, player, flags, EQUIP_SLOTS_ALL, 0, 0);
             }
         }
     }
@@ -404,14 +404,14 @@ void NetStru1::SendPendingUnits(Player* player) {
 // 51C46E (client: 50d66d)
 void NetStru1::ResendPlayerUnits(Player* player) {
     if (player->main_unit != nullptr) {
-        this->SendUnitUpdate(player->main_unit, player, 0xFFFFFFFF, 0xFFB, 0, 0);
+        this->SendUnitUpdate(player->main_unit, player, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
     }
     if (player->unit_list != nullptr) {
         POSITION pos = player->unit_list->unit_list.GetHeadPosition();
         while (pos != nullptr) {
             Unit* unit = player->unit_list->unit_list.GetNext(pos);
             unit->sent_to_mask &= ~player->vision_sharing_id;
-            g_NetStru1_main.SendUnitUpdate(unit, player, 0xFFFFFFFF, 0xFFB, 0, 0);
+            g_NetStru1_main.SendUnitUpdate(unit, player, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
         }
     }
     this->SendTickPacket(player);
@@ -709,7 +709,7 @@ void NetStru1::TransferUnitOwnership(Unit* unit, Player* new_owner) {
     unit->sent_to_mask = unit->sent_to_mask & new_vision_mask;
     
     // Send network packet about unit ownership change.
-    g_NetStru1_main.SendUnitUpdate(unit, 0, 0xFFFFFFFF, 0xFFB, 0, 0);
+    g_NetStru1_main.SendUnitUpdate(unit, 0, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
     
     // Mark unit as needing update?
     unit->ownership_changed = 1;
@@ -765,7 +765,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
                 mask &= 0x800000db;
             }
         } else if (g_Server->multiplayer != 0) {
-            mask &= ~0x80;
+            mask &= ~UNIT_UPD_SERVER_ID;
         }
 
         if (unit->pOwner != player) {
@@ -797,182 +797,182 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
             }
         }
         if (g_Server->multiplayer != 0) {
-            mask &= ~0x80;
+            mask &= ~UNIT_UPD_SERVER_ID;
         }
     }
 
     if (unit->mp_max == 0) {
-        mask &= ~0x2;
+        mask &= ~UNIT_UPD_MP;
     }
 
     // --- Pack fields into 6D1180 based on flags bits ---
 
     // bit 0x1: hp (uint16)
-    if (mask & 0x1) {
-        pkt->PutWord(0x1, unit->hp);
+    if (mask & UNIT_UPD_HP) {
+        pkt->PutWord(UNIT_UPD_HP, unit->hp);
     }
 
     // bit 0x2: mp (uint16)
-    if (mask & 0x2) {
-        pkt->PutWord(0x2, unit->mp);
+    if (mask & UNIT_UPD_MP) {
+        pkt->PutWord(UNIT_UPD_MP, unit->mp);
     }
 
     // bit 0x4: 5 skill bytes (humanoids only)
     if (is_humanoid != 0) {
-        if (mask & 0x4) {
+        if (mask & UNIT_UPD_SKILL_LEVELS) {
             for (int i = 0; i < 5; ++i) {
-                pkt->PutByte(0x4, unit->hit_values.skill_levels[i+1]);
+                pkt->PutByte(UNIT_UPD_SKILL_LEVELS, unit->hit_values.skill_levels[i+1]);
             }
         }
     }
 
     // bit 0x8: hp_max and mp_max
-    if (mask & 0x8) {
-        pkt->PutWord(0x8, unit->hp_max);
-        pkt->PutWord(0x8, unit->mp_max);
+    if (mask & UNIT_UPD_HP_MP_MAX) {
+        pkt->PutWord(UNIT_UPD_HP_MP_MAX, unit->hp_max);
+        pkt->PutWord(UNIT_UPD_HP_MP_MAX, unit->mp_max);
     }
 
     // bit 0x10: position
-    if (mask & 0x10) {
+    if (mask & UNIT_UPD_DIR_POS) {
         uint8_t value = unit->eye->GetFacingHalf();
-        pkt->PutByte(0x10, value);
+        pkt->PutByte(UNIT_UPD_DIR_POS, value);
 
         if (unit->position->IsAtCellCenter() == 0) {
             uint16_t position1 = unit->eye->position1;
-            pkt->PutByte(0x10, static_cast<uint8_t>(position1));
-            pkt->PutByte(0x10, static_cast<uint8_t>(position1 >> 8));
+            pkt->PutByte(UNIT_UPD_DIR_POS, static_cast<uint8_t>(position1));
+            pkt->PutByte(UNIT_UPD_DIR_POS, static_cast<uint8_t>(position1 >> 8));
         } else {
-            pkt->PutByte(0x10, unit->position->GetX());
-            pkt->PutByte(0x10, unit->position->GetY());
+            pkt->PutByte(UNIT_UPD_DIR_POS, unit->position->GetX());
+            pkt->PutByte(UNIT_UPD_DIR_POS, unit->position->GetY());
         }
     }
 
     // bit 0x20: type ID and face.
-    if (mask & 0x20) {
-        pkt->PutByte(0x20, (uint8_t)unit->typeId);
-        pkt->PutByte(0x20, (uint8_t)unit->face);
+    if (mask & UNIT_UPD_TYPE_FACE) {
+        pkt->PutByte(UNIT_UPD_TYPE_FACE, (uint8_t)unit->typeId);
+        pkt->PutByte(UNIT_UPD_TYPE_FACE, (uint8_t)unit->face);
     }
 
     // bit 0x40: player ID (or 1 if no owner).
-    if (mask & 0x40) {
-        pkt->PutByte(0x40, unit->pOwner ? unit->pOwner->player_id : 1);
+    if (mask & UNIT_UPD_OWNER) {
+        pkt->PutByte(UNIT_UPD_OWNER, unit->pOwner ? unit->pOwner->player_id : 1);
     }
 
     // bit 0x80: server ID.
-    if (mask & 0x80) {
-        pkt->PutWord(0x80, unit->server_id);
+    if (mask & UNIT_UPD_SERVER_ID) {
+        pkt->PutWord(UNIT_UPD_SERVER_ID, unit->server_id);
     }
 
     // bit 0x10000: attack.
-    if (mask & 0x10000) {
-        pkt->PutWord(0x10000, unit->hit_values.attack);
+    if (mask & UNIT_UPD_ATTACK) {
+        pkt->PutWord(UNIT_UPD_ATTACK, unit->hit_values.attack);
     }
 
     // bit 0x20000: physical damage.
-    if (mask & 0x20000) {
+    if (mask & UNIT_UPD_HAND_DAMAGE) {
         uint8_t s1 = unit->hit_values.hand_damage_min
                    + unit->hit_values.some_damage_min
                    + unit->hit_values.some_damage2_min;
-        pkt->PutByte(0x20000, s1);
+        pkt->PutByte(UNIT_UPD_HAND_DAMAGE, s1);
 
         uint8_t s2 = unit->hit_values.hand_damage_spread
                    + unit->hit_values.some_damage_spread
                    + unit->hit_values.some_damage2_spread;
-        pkt->PutByte(0x20000, s2);
+        pkt->PutByte(UNIT_UPD_HAND_DAMAGE, s2);
     }
 
     // bit 0x4000: defense.
-    if (mask & 0x4000) {
-        pkt->PutWord(0x4000, unit->protections.defense);
+    if (mask & UNIT_UPD_DEFENSE) {
+        pkt->PutWord(UNIT_UPD_DEFENSE, unit->protections.defense);
     }
 
     // bit 0x8000: absorption.
-    if (mask & 0x8000) {
-        pkt->PutByte(0x8000, static_cast<uint8_t>(unit->protections.absorption));
+    if (mask & UNIT_UPD_ABSORB) {
+        pkt->PutByte(UNIT_UPD_ABSORB, static_cast<uint8_t>(unit->protections.absorption));
     }
 
     // bit 0x40000: scan_range.
-    if (mask & 0x40000) {
-        pkt->PutWord(0x40000, unit->scan_range);
+    if (mask & UNIT_UPD_SCAN_RANGE) {
+        pkt->PutWord(UNIT_UPD_SCAN_RANGE, unit->scan_range);
     }
 
     // bit 0x2000: carrying weight.
-    if (mask & 0x2000) {
-        pkt->PutWord(0x2000, unit->carrying_weight_100g);
+    if (mask & UNIT_UPD_CARRIED_WEIGHT) {
+        pkt->PutWord(UNIT_UPD_CARRIED_WEIGHT, unit->carrying_weight_100g);
     }
 
     // bit 0x1000000: magic protection.
-    if (mask & 0x1000000) {
+    if (mask & UNIT_UPD_MAGIC_PROTECT) {
         for (int i = 0; i < 5; ++i) {
-            pkt->PutByte(0x1000000, static_cast<uint8_t>(unit->protections.magic_protections[i + 1]));
+            pkt->PutByte(UNIT_UPD_MAGIC_PROTECT, static_cast<uint8_t>(unit->protections.magic_protections[i + 1]));
         }
     }
     
     // bit 0x2000000: battle stats (owner only).
-    if (mask & 0x2000000) {
+    if (mask & UNIT_UPD_KILL_STATS) {
         Player* owner = unit->pOwner;
         if (g_Server->multiplayer == 0 || owner == nullptr || player != owner || owner->main_unit != unit) {
-            mask &= ~0x2000000;
+            mask &= ~UNIT_UPD_KILL_STATS;
         } else {
-            pkt->PutInt(0x2000000, owner->monster_kills);
-            pkt->PutInt(0x2000000, owner->player_kills);
-            pkt->PutInt(0x2000000, owner->deaths);
-            pkt->PutInt(0x2000000, owner->frags);
+            pkt->PutInt(UNIT_UPD_KILL_STATS, owner->monster_kills);
+            pkt->PutInt(UNIT_UPD_KILL_STATS, owner->player_kills);
+            pkt->PutInt(UNIT_UPD_KILL_STATS, owner->deaths);
+            pkt->PutInt(UNIT_UPD_KILL_STATS, owner->frags);
         }
     }
 
     // bit 0x80000: speed.
-    if (mask & 0x80000) {
-        pkt->PutByte(0x80000, static_cast<uint8_t>(unit->speed));
+    if (mask & UNIT_UPD_SPEED) {
+        pkt->PutByte(UNIT_UPD_SPEED, static_cast<uint8_t>(unit->speed));
     }
 
     // bit 0x100000: spellbook bitmask + eye2 calibration byte
-    if ((mask & 0x100000) && unit->spell_book != nullptr) {
-        pkt->PutInt(0x100000, unit->spell_book->CalcSpellMask());
-        pkt->PutByte(0x100000, unit->eye2->spell_id);
+    if ((mask & UNIT_UPD_SPELLS) && unit->spell_book != nullptr) {
+        pkt->PutInt(UNIT_UPD_SPELLS, unit->spell_book->CalcSpellMask());
+        pkt->PutByte(UNIT_UPD_SPELLS, unit->eye2->spell_id);
     }
 
     // bits 0x100..0x1000: experience per sphere (humanoids only).
     if (is_humanoid) {
         Humanoid* h = static_cast<Humanoid*>(unit);
-        if (mask & 0x100) {
-            pkt->PutInt(0x100,  h->experience_per_sphere[0]);
+        if (mask & UNIT_UPD_EXP_SPHERE0) {
+            pkt->PutInt(UNIT_UPD_EXP_SPHERE0,  h->experience_per_sphere[0]);
         }
-        if (mask & 0x200) {
-            pkt->PutInt(0x200,  h->experience_per_sphere[1]);
+        if (mask & UNIT_UPD_EXP_SPHERE1) {
+            pkt->PutInt(UNIT_UPD_EXP_SPHERE1,  h->experience_per_sphere[1]);
         }
-        if (mask & 0x400) {
-            pkt->PutInt(0x400,  h->experience_per_sphere[2]);
+        if (mask & UNIT_UPD_EXP_SPHERE2) {
+            pkt->PutInt(UNIT_UPD_EXP_SPHERE2,  h->experience_per_sphere[2]);
         }
-        if (mask & 0x800) {
-            pkt->PutInt(0x800,  h->experience_per_sphere[3]);
+        if (mask & UNIT_UPD_EXP_SPHERE3) {
+            pkt->PutInt(UNIT_UPD_EXP_SPHERE3,  h->experience_per_sphere[3]);
         }
-        if (mask & 0x1000) {
-            pkt->PutInt(0x1000, h->experience_per_sphere[4]);
+        if (mask & UNIT_UPD_EXP_SPHERE4) {
+            pkt->PutInt(UNIT_UPD_EXP_SPHERE4, h->experience_per_sphere[4]);
         }
     } else {
         mask &= 0xffffe0ff;
     }
 
     // bit 0x20000000: base stats.
-    if (mask & 0x20000000) {
+    if (mask & UNIT_UPD_BASE_STATS) {
         // Effective body/reaction/mind/spirit.
-        pkt->PutByte(0x20000000, static_cast<uint8_t>(unit->body));
-        pkt->PutByte(0x20000000, static_cast<uint8_t>(unit->reaction));
-        pkt->PutByte(0x20000000, static_cast<uint8_t>(unit->mind));
-        pkt->PutByte(0x20000000, static_cast<uint8_t>(unit->spirit));
+        pkt->PutByte(UNIT_UPD_BASE_STATS, static_cast<uint8_t>(unit->body));
+        pkt->PutByte(UNIT_UPD_BASE_STATS, static_cast<uint8_t>(unit->reaction));
+        pkt->PutByte(UNIT_UPD_BASE_STATS, static_cast<uint8_t>(unit->mind));
+        pkt->PutByte(UNIT_UPD_BASE_STATS, static_cast<uint8_t>(unit->spirit));
         // Base values: effective minus equipment bonus.
-        pkt->PutByte(0x20000000, static_cast<uint8_t>(unit->body     - unit->equipment_extra.body));
-        pkt->PutByte(0x20000000, static_cast<uint8_t>(unit->reaction - unit->equipment_extra.reaction));
-        pkt->PutByte(0x20000000, static_cast<uint8_t>(unit->mind     - unit->equipment_extra.mind));
-        pkt->PutByte(0x20000000, static_cast<uint8_t>(unit->spirit   - unit->equipment_extra.spirit));
+        pkt->PutByte(UNIT_UPD_BASE_STATS, static_cast<uint8_t>(unit->body     - unit->equipment_extra.body));
+        pkt->PutByte(UNIT_UPD_BASE_STATS, static_cast<uint8_t>(unit->reaction - unit->equipment_extra.reaction));
+        pkt->PutByte(UNIT_UPD_BASE_STATS, static_cast<uint8_t>(unit->mind     - unit->equipment_extra.mind));
+        pkt->PutByte(UNIT_UPD_BASE_STATS, static_cast<uint8_t>(unit->spirit   - unit->equipment_extra.spirit));
     }
 
     // bit 0x80000000: unit name (24 chars)
-    if (mask & 0x80000000u) {
+    if (mask & UNIT_UPD_NAME) {
         int nlen = unit->name.GetLength();
         if (nlen == 0) {
-            mask &= ~0x80000000u;
+            mask &= ~UNIT_UPD_NAME;
         } else {
             char* dst = (char*)pkt->data + pkt->data_offset;
             strncpy(dst, unit->name, 24);
@@ -993,7 +993,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
         this->QueuePacketSend(pkt);
     }
 
-    if (mask & 0x400000) {
+    if (mask & UNIT_UPD_SEND_EQUIPMENT) {
         this->SendHumanoidProps(unit, player, props_flags);
     }
 
@@ -4582,7 +4582,7 @@ void NetStru1::SendHumanoidProps(Unit* unit, Player* player, int32_t flags) {
         while (pos != nullptr) {
             Player* p = g_PlayersList->list.GetNext(pos);
             if (p->is_active || p == unit->pOwner) {
-                this->SendHumanoidProps(unit, p, 0xFFB);
+                this->SendHumanoidProps(unit, p, EQUIP_SLOTS_ALL);
             }
         }
         return;

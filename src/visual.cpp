@@ -23970,7 +23970,7 @@ void ExecuteAdminChatCommand(const char* cmd) {
             player->main_unit->reaction = 10;
             player->main_unit->spirit = 1;
             player->main_unit->RecalcStats();
-            g_NetStru1_main.SendUnitUpdate(player->main_unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
+            g_NetStru1_main.SendUnitUpdate(player->main_unit, nullptr, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
         }
     }
 }

@@ -1727,7 +1727,7 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
         g_NetStru1_main.QueuePacketSend(&inf);
 
         // Send all data for the main unit.
-        g_NetStru1_main.SendUnitUpdate(player->main_unit, nullptr, -1, 0xFFB, 0, 0);
+        g_NetStru1_main.SendUnitUpdate(player->main_unit, nullptr, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
     }
 
     // Stream remaining server state to the joining player.
@@ -2363,7 +2363,7 @@ Human* Server::CreatePlayerCharacter(Player* player, uint8_t body, uint8_t react
     unit->seen_by_mask = player->vision_sharing_id;
 
 #ifdef A2CLIENT
-    g_NetStru1_main.SendUnitUpdate(unit, player, -1, 0xffb, 0, 0);
+    g_NetStru1_main.SendUnitUpdate(unit, player, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
 #else
     player->min_server_level = 1;
     player->max_server_level = 1;
@@ -2729,7 +2729,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         item->count = (uint16_t)count;
         player->main_unit->inventory->PutItemIntoBagAtDefault(item);
         player->main_unit->AddCarriedWeight(0);
-        g_NetStru1_main.SendUnitUpdate(player->main_unit, player, -1, 0xFFB, 0, 0);
+        g_NetStru1_main.SendUnitUpdate(player->main_unit, player, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
         if (!is_reconnect) {
             g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_CHEAT_OK, player->player_id, 0);
         }
@@ -2753,13 +2753,13 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         if (cheat_string.Find("+god") == 0) {
             if (target_mode == 1) {
                 player->main_unit->ApplyInvincibility();
-                g_NetStru1_main.SendUnitUpdate(player->main_unit, 0, (int32_t)0xA31FFFFF, 0xFFB, 0, 0);
+                g_NetStru1_main.SendUnitUpdate(player->main_unit, 0, UNIT_UPD_ALL_STATS, EQUIP_SLOTS_ALL, 0, 0);
             } else if (target_mode == 2) {
                 for (POSITION node = player->unit_list->unit_list.GetHeadPosition(); node != nullptr;) {
                     Unit* unit = player->unit_list->unit_list.GetNext(node);
                     if (unit != nullptr) {
                         unit->ApplyInvincibility();
-                        g_NetStru1_main.SendUnitUpdate(unit, 0, (int32_t)0xA31FFFFF, 0xFFB, 0, 0);
+                        g_NetStru1_main.SendUnitUpdate(unit, 0, UNIT_UPD_ALL_STATS, EQUIP_SLOTS_ALL, 0, 0);
                     }
                 }
             }
@@ -2777,7 +2777,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                     Spell* sp = new Spell((uint8_t)spell_id);
                     spell_book->SetSpell(spell_id, sp);
                 }
-                g_NetStru1_main.SendUnitUpdate(player->main_unit, player, 0xA31FFFFF, 0xFFB, 0, 0);
+                g_NetStru1_main.SendUnitUpdate(player->main_unit, player, UNIT_UPD_ALL_STATS, EQUIP_SLOTS_ALL, 0, 0);
                 g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_CHEAT_OK, player->player_id, nullptr);
             }
         } else if (cheat_string.Find("+spells") == 0) {
@@ -2790,7 +2790,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                     Spell* sp = new Spell(i);
                     spell_book->SetSpell(i, sp);
                 }
-                g_NetStru1_main.SendUnitUpdate(player->main_unit, player, (int32_t)0xA31FFFFF, 0xFFB, 0, 0);
+                g_NetStru1_main.SendUnitUpdate(player->main_unit, player, UNIT_UPD_ALL_STATS, EQUIP_SLOTS_ALL, 0, 0);
                 if (!is_reconnect) {
                     g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_CHEAT_OK, player->player_id, nullptr);
                 }
@@ -3295,7 +3295,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 count_before = human->inventory->items.GetSize();
                 item = human->inventory->TakeItemAt(packet_transfer->param1, packet_transfer->param3);
                 if (item) {
-                    update_mask |= 0x282000;
+                    update_mask |= UNIT_UPD_INVENTORY_WEIGHT_SPEED;
                     item->upgraded_at_inn = 0;
                 }
             } else if (from_type == TRANSFER_SRC_SHOP) {
@@ -3324,8 +3324,8 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 }
                 if (item) {
                     item->upgraded_at_inn = 0;
-                    update_mask |= 0x482000;
-                    equip_mask  |= (slot < 3) ? 3 : (1 << (slot - 1));
+                    update_mask |= UNIT_UPD_EQUIP_WEIGHT_SPEED;
+                    equip_mask  |= (slot < 3) ? (EQUIP_SLOT_WEAPON | EQUIP_SLOT_SHIELD) : (1 << (slot - 1));
                 }
             }
 
@@ -3337,7 +3337,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 // Equip item.
                 human->inventory->default_position = packet_transfer->param1;
                 uint16_t item_slot_type = (item->item_id >> 8) & 0xF;
-                equip_mask |= (item_slot_type < 3) ? 3 : (1 << (item_slot_type - 1));
+                equip_mask |= (item_slot_type < 3) ? (EQUIP_SLOT_WEAPON | EQUIP_SLOT_SHIELD) : (1 << (item_slot_type - 1));
                 Item* prev = item;
                 item = human->UseItem(item); // equip; returns displaced item if any
                 if (item) {
@@ -3348,12 +3348,12 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     bag_pos_delta = 1;
                 }
                 human->AddCarriedWeight(0);
-                update_mask |= 0x482000;
+                update_mask |= UNIT_UPD_EQUIP_WEIGHT_SPEED;
             } else if (to_type == TRANSFER_DST_BAG) {
                 // Put item into bag slot.
                 human->inventory->PutItemIntoBag(packet_transfer->param2, item);
                 human->AddCarriedWeight(0);
-                update_mask |= 0x282000;
+                update_mask |= UNIT_UPD_INVENTORY_WEIGHT_SPEED;
             } else if (to_type == TRANSFER_DST_SHOP) {
                 // Sell item to shop.
                 item->pOwner = human->pOwner;
@@ -3362,7 +3362,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     break;
                 }
                 shop->SellItemFor(human, packet_transfer->param2, item);
-                update_mask |= 0x82000;
+                update_mask |= UNIT_UPD_WEIGHT_SPEED;
             } else if (to_type == TRANSFER_DST_GROUND) {
                 // Drop item on ground (create sack).
                 Inventory* sack_inv = new Inventory();
@@ -3378,7 +3378,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     this->srv_stru1->sack_list->DropInventoryAt(human->position, sack_inv, 0, 1);
                 }
                 human->AddCarriedWeight(0);
-                update_mask |= 0x82000;
+                update_mask |= UNIT_UPD_WEIGHT_SPEED;
             }
 
             g_NetStru1_main.SendUnitUpdate(human, nullptr,
@@ -3671,7 +3671,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     player->vision_sharing_mask &= ~other->vision_sharing_id;
                     if (old_val & 0x10) {
                         // Was sharing before --- revoke visibility
-                        g_NetStru1_main.SendUnitUpdate(player->main_unit, other, 0x400000, 0xffb, 0, 0);
+                        g_NetStru1_main.SendUnitUpdate(player->main_unit, other, UNIT_UPD_SEND_EQUIPMENT, EQUIP_SLOTS_ALL, 0, 0);
                     }
                 } else {
                     // Vision sharing enabled with `other`
@@ -3680,7 +3680,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                         // Wasn't sharing before --- send full unit state for each of player's units
                         if (player->unit_list) {
                             for (POSITION unode = player->unit_list->unit_list.GetHeadPosition(); unode;) {
-                                g_NetStru1_main.SendUnitUpdate(player->unit_list->unit_list.GetNext(unode), other, 0xa35fffff, 0xffb, 0, 0);
+                                g_NetStru1_main.SendUnitUpdate(player->unit_list->unit_list.GetNext(unode), other, UNIT_UPD_ALL_STATS_EQUIPMENT, EQUIP_SLOTS_ALL, 0, 0);
                             }
                         }
                     }
@@ -3739,7 +3739,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                         }
                         
                         Humanoid* human = static_cast<Humanoid*>(unit);
-                        g_NetStru1_main.SendUnitUpdate(human, human->pOwner, 0x100000, 0xffb, 0, 0);
+                        g_NetStru1_main.SendUnitUpdate(human, human->pOwner, UNIT_UPD_SPELLS, EQUIP_SLOTS_ALL, 0, 0);
                     }
                     break;
                 }
@@ -3838,7 +3838,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 }
             }
 
-            g_NetStru1_main.SendUnitUpdate(player->main_unit, player, 0xFFFFFFFF, 0xFFB, 0, 0);
+            g_NetStru1_main.SendUnitUpdate(player->main_unit, player, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
             if ((player->main_unit->unit_attrs & 8) != 0) {
                 player->main_unit->ReturnToMap();
             }
@@ -3866,7 +3866,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             Human* new_unit = this->SummonUnit(&g_GameDataRes.humans[idx].name, player->main_unit, 1);
             if (new_unit) {
                 new_unit->name = CString(packet_data->data);
-                g_NetStru1_main.SendUnitUpdate(new_unit, new_unit->pOwner, 0xFFFFFFFF, 0xFFB, 0, 0);
+                g_NetStru1_main.SendUnitUpdate(new_unit, new_unit->pOwner, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
             }
             break;
         }
@@ -4010,7 +4010,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
         CheckPacketType(pkt, "Packet");
         player = this->FindPlayerById(pkt->from_player_id);
         if (player->main_unit != nullptr) {
-            g_NetStru1_main.SendUnitUpdate(player->main_unit, player, 0xffffffff, 0xffb, 0, 0);
+            g_NetStru1_main.SendUnitUpdate(player->main_unit, player, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
         }
         break;
 
@@ -5044,7 +5044,7 @@ void Server::DespawnScenarioUnits(int32_t var300, CDWordArray& arr) { //501b9e
 
                 g_World->ResetUnitToHold(hm);
                 g_World->ProcessAnimateDeadGroup(grp);
-                g_NetStru1_main.SendUnitUpdate(hm, pl, (uint32_t)-1, 0xffb, 0, 0);
+                g_NetStru1_main.SendUnitUpdate(hm, pl, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
             }
         } else {
             Player* pl = g_PlayersList->list.GetHead();
@@ -5057,7 +5057,7 @@ void Server::DespawnScenarioUnits(int32_t var300, CDWordArray& arr) { //501b9e
             u->server_id = serverID;
             u->pOwner = pl;
             ulst.AddTailAllocId(u);
-            g_NetStru1_main.SendUnitUpdate(u, pl, (uint32_t)-1, 0xffb, 0, 0);
+            g_NetStru1_main.SendUnitUpdate(u, pl, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
         }
     }
 
@@ -6210,7 +6210,7 @@ void Server::UpdateMissionResult(Player* player) {
                     g_NetStru1_main.SendVisibilityState(player);
                 }
             }
-            g_NetStru1_main.SendUnitUpdate(unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
+            g_NetStru1_main.SendUnitUpdate(unit, nullptr, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
 
 #ifndef A2CLIENT
             Packet2Dwords& packet_2dwords = Packet2Dwords::Inst;
@@ -6653,9 +6653,9 @@ Human* Server::SummonUnit(CString* unit_name, Unit* origin, int32_t is_hero) {
     g_World->ProcessAnimateDeadGroup(group);
 
     if (this->has_world_state == 0) {
-        g_NetStru1_main.SendUnitUpdate(unit, player, 0xFFFFFFFF, 0xFFB, 0, 0);
+        g_NetStru1_main.SendUnitUpdate(unit, player, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
     } else {
-        g_NetStru1_main.SendUnitUpdate(unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
+        g_NetStru1_main.SendUnitUpdate(unit, nullptr, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
     }
 
     return static_cast<Human*>(unit);

@@ -204,7 +204,7 @@ TIER 4 - small domain enums, localized (quick; do after Tier 1)
 TIER 2 - bitflag families (medium effort; highest opacity today)
 ================================================================================
 
-[ ] 11. UnitUpdateField  (SendUnitUpdate update_mask, ~90 call sites)
+[x] 11. UnitUpdateField  (SendUnitUpdate update_mask, ~90 call sites)
     Opaque masks everywhere: 0xFFB, 0xffb, 0xFFFFFFFF, 0xA35FFFFF, 0x282000,
     0x482000, 0x82000, 0x202000, 0x400000, 0x100013, 0x3000C, 0x2400000, ...
     Bit meanings are documented in the client PacketUnitUpdate handler,

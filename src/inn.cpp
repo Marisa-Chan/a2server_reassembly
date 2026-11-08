@@ -1233,7 +1233,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                         uint8_t subtype = this->active_quest->quest_data.obj;
                         Item* new_item = new Item(0xE, subtype);
                         humanoid->inventory->PutItemIntoBagAtDefault(new_item);
-                        g_NetStru1_main.SendUnitUpdate(humanoid, humanoid->pOwner, 0x202000, 0xFFB, 0, 0);
+                        g_NetStru1_main.SendUnitUpdate(humanoid, humanoid->pOwner, UNIT_UPD_INVENTORY_WEIGHT, EQUIP_SLOTS_ALL, 0, 0);
                         break;
                     }
                     case 6: { // DeliverMail
@@ -1318,7 +1318,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                             new_group->AddUnit(new_unit);
                             g_World->ResetUnitToHold(new_unit);
                             g_World->ProcessAnimateDeadGroup(new_group);
-                            g_NetStru1_main.SendUnitUpdate(new_unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
+                            g_NetStru1_main.SendUnitUpdate(new_unit, nullptr, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
                         } else {
                             // Placement failed вЂ” clean up
                             delete new_unit;
@@ -1370,7 +1370,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                     for (int32_t sphere = 1; sphere <= 5; sphere++) {
                         humanoid->experience += humanoid->experience_per_sphere[sphere - 1];
                     }
-                    g_NetStru1_main.SendUnitUpdate(humanoid, nullptr, 0xA31FFFFF, 0xFFB, 0, 0);
+                    g_NetStru1_main.SendUnitUpdate(humanoid, nullptr, UNIT_UPD_ALL_STATS, EQUIP_SLOTS_ALL, 0, 0);
                 } else if (item_hash == 0xFFFF) {
                     // ---- Money reward ----
                     humanoid->pOwner->AddMoney(((uint32_t)item->count) * 250, 0);
@@ -1382,7 +1382,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                         // Not last item вЂ” just give it to the humanoid
                         item->TokenID = 1;
                         humanoid->inventory->PutItemIntoBagAtDefault(item);
-                        g_NetStru1_main.SendUnitUpdate(humanoid, nullptr, 0x282000, 0xFFB, 0, 0);
+                        g_NetStru1_main.SendUnitUpdate(humanoid, nullptr, UNIT_UPD_INVENTORY_WEIGHT_SPEED, EQUIP_SLOTS_ALL, 0, 0);
                     } else {
                         // Last item вЂ” try to equip it, so `equipped` would be the item that was on the player before.
                         Item* equipped = item->Equip(humanoid);
@@ -1398,7 +1398,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                             // Use succeeded вЂ” clean up equipped placeholder
                             delete equipped;
                         }
-                        g_NetStru1_main.SendUnitUpdate(humanoid, nullptr, 0x482000, 0xFFB, 0, 0);
+                        g_NetStru1_main.SendUnitUpdate(humanoid, nullptr, UNIT_UPD_EQUIP_WEIGHT_SPEED, EQUIP_SLOTS_ALL, 0, 0);
                     }
                 }
             }

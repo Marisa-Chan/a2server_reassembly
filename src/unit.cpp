@@ -647,7 +647,7 @@ void Unit::RegenTick() {
         // Fallen or dead unit: decrement HP periodically.
         if (g_Server->tick16 % 4 == 0) {
             this->hp -= 1;
-            g_NetStru1_main.SendUnitUpdate(this, this->pOwner, 1, 0xFFB, 0, 0);
+            g_NetStru1_main.SendUnitUpdate(this, this->pOwner, UNIT_UPD_HP, EQUIP_SLOTS_ALL, 0, 0);
         }
     } else if (this->hp > 0) {
         // Alive unit: HP and MP regeneration
@@ -668,7 +668,7 @@ void Unit::RegenTick() {
                 if (this->hp > this->hp_max) {
                     this->hp = this->hp_max;
                 }
-                g_NetStru1_main.SendUnitUpdate(this, nullptr, 1, 0xFFB, 0, 0);
+                g_NetStru1_main.SendUnitUpdate(this, nullptr, UNIT_UPD_HP, EQUIP_SLOTS_ALL, 0, 0);
             }
         }
 
@@ -685,7 +685,7 @@ void Unit::RegenTick() {
                 if (this->mp > this->mp_max) {
                     this->mp = this->mp_max;
                 }
-                g_NetStru1_main.SendUnitUpdate(this, nullptr, 2, 0xFFB, 0, 0);
+                g_NetStru1_main.SendUnitUpdate(this, nullptr, UNIT_UPD_MP, EQUIP_SLOTS_ALL, 0, 0);
             }
         }
     }
@@ -722,7 +722,7 @@ void Unit::ProcessEffects() {
             this->CancelQueuedSpell();
             this->protections.defense /= 2;
             this->charge_countdown = (int8_t)(this->GetCorpseDecayTime() - 1);
-            g_NetStru1_main.SendUnitUpdate(this, nullptr, 0x4001, 0xffb, 0, 0);
+            g_NetStru1_main.SendUnitUpdate(this, nullptr, (UNIT_UPD_HP | UNIT_UPD_DEFENSE), EQUIP_SLOTS_ALL, 0, 0);
         } else if (this->charge_countdown < 1) {
             if (this->movement_type > 1) {
                 this->hp = -1000;
@@ -739,7 +739,7 @@ void Unit::ProcessEffects() {
 
     if (g_Server && g_Server->multiplayer) {
         if (this->pOwner && this == this->pOwner->main_unit && this->GetTicksSinceAction() == 0x50) {
-            g_NetStru1_main.SendUnitUpdate(this, nullptr, 0x10, 0xffb, 0, 0);
+            g_NetStru1_main.SendUnitUpdate(this, nullptr, UNIT_UPD_DIR_POS, EQUIP_SLOTS_ALL, 0, 0);
         }
     }
 
@@ -1249,7 +1249,7 @@ int32_t Unit::ReturnToMap() {
     g_ServerUnits->AddTail(this);
     this->unit_attrs &= ~0x08;
     g_NetStru1_main.BroadcastUnitState(this);
-    g_NetStru1_main.SendUnitUpdate(this, nullptr, 0x10, 0xFFB, 0, 0);
+    g_NetStru1_main.SendUnitUpdate(this, nullptr, UNIT_UPD_DIR_POS, EQUIP_SLOTS_ALL, 0, 0);
     g_NetStru1_main.SendUnitVisibility(this, 0, nullptr);
     return 1;
 }
@@ -1304,7 +1304,7 @@ void Unit::PickUpSack(Sack* sack) {
                         human->experience += exp_val;
                     }
                     human->RecalcStats();
-                    update_mask = 0x31f0f;
+                    update_mask = UNIT_UPD_STAT_BOOST;
                     g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_STAT_BOOST, boost, human->pOwner);
                 } else {
                     item->TokenID = 1;
@@ -1407,7 +1407,7 @@ void Unit::PickUpSack(Sack* sack) {
     g_NetStru1_main.UntrackToken(sack);
     delete sack;
 
-    g_NetStru1_main.SendUnitUpdate(this, nullptr, update_mask | 0x282000, 0xffb, 0, 0);
+    g_NetStru1_main.SendUnitUpdate(this, nullptr, update_mask | UNIT_UPD_INVENTORY_WEIGHT_SPEED, EQUIP_SLOTS_ALL, 0, 0);
 }
 
 // 52D94E
@@ -1564,7 +1564,7 @@ void Unit::Die() {
     // Hero-death: increment death counter and notify clients.
     if (this->pOwner != nullptr && this->pOwner->main_unit == this) {
         this->pOwner->deaths += 1;
-        g_NetStru1_main.SendUnitUpdate(this, this->pOwner, 0x2400000, 0xFFB, 0, 0);
+        g_NetStru1_main.SendUnitUpdate(this, this->pOwner, (UNIT_UPD_KILL_STATS | UNIT_UPD_SEND_EQUIPMENT), EQUIP_SLOTS_ALL, 0, 0);
         g_Server->SaveCharacter(this->pOwner->main_unit);
         this->hp = -50;
     }
@@ -1646,7 +1646,7 @@ void Unit::AddCarriedWeight(int32_t delta_weight) {
 
 // 52C4DF
 void Unit::AddHp(int16_t amount) {
-    this->item_op_dirty_flags |= 1;
+    this->item_op_dirty_flags |= UNIT_UPD_HP;
     int16_t old_hp = this->hp;
     this->hp += amount;
     this->hp = (this->hp < this->hp_max) ? this->hp : this->hp_max;
@@ -1657,7 +1657,7 @@ void Unit::AddHp(int16_t amount) {
 
 // 52C58F
 void Unit::Revive() {
-    this->item_op_dirty_flags |= 0x4011;
+    this->item_op_dirty_flags |= UNIT_UPD_HP | UNIT_UPD_HP_MP_MAX | UNIT_UPD_EXP_SPHERE0;
     // Inline 58FD16: reset subcell position to cell center.
     this->position->x_subcell = 0x80;
     this->position->y_subcell = 0x80;
@@ -1723,14 +1723,14 @@ void Unit::DecayTick() {
         this->decay = 5;
         this->hp = -10001;
         if (old_decay != this->decay) {
-            g_NetStru1_main.SendUnitUpdate(this, nullptr, 1, 0xFFB, 0, 0);
+            g_NetStru1_main.SendUnitUpdate(this, nullptr, UNIT_UPD_HP, EQUIP_SLOTS_ALL, 0, 0);
         }
         if (this->building_id != 0 && this->movement_type < 2) {
             BldIdSet_Unset(this->building_id);
             this->building_id = 0;
         }
     } else if (old_decay != this->decay) {
-        g_NetStru1_main.SendUnitUpdate(this, nullptr, 1, 0xFFB, 0, 0);
+        g_NetStru1_main.SendUnitUpdate(this, nullptr, UNIT_UPD_HP, EQUIP_SLOTS_ALL, 0, 0);
     }
 }
 
@@ -1847,7 +1847,7 @@ void Unit::AddToMap(uint8_t x, uint8_t y, uint8_t flags) {
     }
     g_ServerUnits->AddTail(this);
     this->unit_attrs &= ~8;
-    g_NetStru1_main.SendUnitUpdate(this, nullptr, 0x10, 0xFFB, 0, 0);
+    g_NetStru1_main.SendUnitUpdate(this, nullptr, UNIT_UPD_DIR_POS, EQUIP_SLOTS_ALL, 0, 0);
     g_NetStru1_main.SendUnitVisibility(this, 0, nullptr);
 }
 
@@ -2621,10 +2621,10 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
     // Post-processing: recalculate stats and notify clients.
     if (leveled_up) {
         this->RecalcStats();
-        g_NetStru1_main.SendUnitUpdate(this, nullptr, update_mask | 0x3000C, 0xFFB, 0, 0);
+        g_NetStru1_main.SendUnitUpdate(this, nullptr, update_mask | UNIT_UPD_COMBAT_STATS, EQUIP_SLOTS_ALL, 0, 0);
     } else {
         if (new_exp != 0) {
-            g_NetStru1_main.SendUnitUpdate(this, nullptr, update_mask, 0xFFB, 0, 0);
+            g_NetStru1_main.SendUnitUpdate(this, nullptr, update_mask, EQUIP_SLOTS_ALL, 0, 0);
         }
         // Apply equipment bonuses on top of base skill levels.
         for (int i = 1; i <= 5; i++) {

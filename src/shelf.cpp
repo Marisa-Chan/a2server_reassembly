@@ -136,7 +136,7 @@ void CMultiShopInstance::Sell() {
     this->SendShelfState(-1);
     this->unit->pOwner->AddMoney(0, 0);
     this->unit->AddCarriedWeight(0);
-    g_NetStru1_main.SendUnitUpdate(this->unit, this->unit->pOwner, 0x282000, 0xFFB, 0, 0);
+    g_NetStru1_main.SendUnitUpdate(this->unit, this->unit->pOwner, UNIT_UPD_INVENTORY_WEIGHT_SPEED, EQUIP_SLOTS_ALL, 0, 0);
 }
 
 // 546027
@@ -162,7 +162,7 @@ void CMultiShopInstance::Buy() {
     this->SendShelfState(0);
     this->unit->pOwner->AddMoney(0, 0);
     this->unit->AddCarriedWeight(0);
-    g_NetStru1_main.SendUnitUpdate(this->unit, this->unit->pOwner, 0x282000, 0xFFB, 0, 0);
+    g_NetStru1_main.SendUnitUpdate(this->unit, this->unit->pOwner, UNIT_UPD_INVENTORY_WEIGHT_SPEED, EQUIP_SLOTS_ALL, 0, 0);
 }
 
 // 546537
@@ -245,7 +245,7 @@ void CMultiShopInstance::ReturnConsignedItems() {
     this->SendShelfState(0);
     this->SendShelfState(-1);
     this->shop_template->NotifyOtherInstances(this, -1);
-    g_NetStru1_main.SendUnitUpdate(this->unit, this->unit->pOwner, 0x282000, 0xFFB, 0, 0);
+    g_NetStru1_main.SendUnitUpdate(this->unit, this->unit->pOwner, UNIT_UPD_INVENTORY_WEIGHT_SPEED, EQUIP_SLOTS_ALL, 0, 0);
 }
 
 // 5462C8

@@ -5545,7 +5545,7 @@ break;
         grp->AddUnit(unit);
         g_World->ResetUnitToHold(unit);
         g_World->ProcessAnimateDeadGroup(grp);
-        g_NetStru1_main.SendUnitUpdate(unit, unit->pOwner, 0xffffffff, 0xffb, 0, 0);
+        g_NetStru1_main.SendUnitUpdate(unit, unit->pOwner, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
     }
 
     g_NetStru1_main.SendTickPacket(nullptr);

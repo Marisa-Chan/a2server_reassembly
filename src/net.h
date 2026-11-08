@@ -275,6 +275,73 @@ enum TeamNotifyType : uint32_t {
     TEAM_NOTIFY_TEAMS_READY       = 10, // all teams ready, match starting (no client display)
 };
 
+// PacketUnitUpdate::flags_mask bits: the SendUnitUpdate update_mask selects
+// which fields the sender packs (net.cpp), the client handler parses them
+// (ingame.cpp). Side-effect bits trigger extra sends instead of a field.
+enum UnitUpdateField : uint32_t {
+    UNIT_UPD_HP             = 0x00000001, // int16 hp
+    UNIT_UPD_MP             = 0x00000002, // int16 mp
+    UNIT_UPD_SKILL_LEVELS   = 0x00000004, // 5 skill bytes (humanoids)
+    UNIT_UPD_HP_MP_MAX      = 0x00000008, // int16 hp_max + int16 mp_max
+    UNIT_UPD_DIR_POS        = 0x00000010, // facing byte + x byte + y byte
+    UNIT_UPD_TYPE_FACE      = 0x00000020, // type id + face byte
+    UNIT_UPD_OWNER          = 0x00000040, // owner player id
+    UNIT_UPD_SERVER_ID      = 0x00000080, // uint16 server id
+    UNIT_UPD_EXP_SPHERE0    = 0x00000100, // int32 experience_per_sphere[0..4] (humanoids)
+    UNIT_UPD_EXP_SPHERE1    = 0x00000200,
+    UNIT_UPD_EXP_SPHERE2    = 0x00000400,
+    UNIT_UPD_EXP_SPHERE3    = 0x00000800,
+    UNIT_UPD_EXP_SPHERE4    = 0x00001000,
+    UNIT_UPD_CARRIED_WEIGHT = 0x00002000, // uint16 carrying weight (100g units)
+    UNIT_UPD_DEFENSE        = 0x00004000, // uint16 defence
+    UNIT_UPD_ABSORB         = 0x00008000, // uint8 absorption
+    UNIT_UPD_ATTACK         = 0x00010000, // uint16 attack
+    UNIT_UPD_HAND_DAMAGE    = 0x00020000, // hand damage min + spread bytes
+    UNIT_UPD_SCAN_RANGE     = 0x00040000, // uint16 scan range
+    UNIT_UPD_SPEED          = 0x00080000, // speed byte
+    UNIT_UPD_SPELLS         = 0x00100000, // spellbook mask (int32) + active spell byte
+    UNIT_UPD_SEND_INVENTORY = 0x00200000, // side effect: send bag contents (owner only)
+    UNIT_UPD_SEND_EQUIPMENT = 0x00400000, // side effect: send equipment list (props slot flags)
+    UNIT_UPD_EFFECTS        = 0x00800000, // side effect: refresh effect list
+    UNIT_UPD_MAGIC_PROTECT  = 0x01000000, // 5 magic protection bytes
+    UNIT_UPD_KILL_STATS     = 0x02000000, // monster/player kills, deaths, frags (owner main unit)
+    UNIT_UPD_BASE_STATS     = 0x20000000, // body/reaction/mind/spirit + base values
+    UNIT_UPD_NAME           = 0x80000000, // unit name string (24 bytes)
+
+    // Recurring combinations (named at their call sites).
+    UNIT_UPD_WEIGHT_SPEED           = UNIT_UPD_CARRIED_WEIGHT | UNIT_UPD_SPEED,                              // 0x82000: item dropped/sold
+    UNIT_UPD_INVENTORY_WEIGHT       = UNIT_UPD_SEND_INVENTORY | UNIT_UPD_CARRIED_WEIGHT,                     // 0x202000
+    UNIT_UPD_INVENTORY_WEIGHT_SPEED = UNIT_UPD_SEND_INVENTORY | UNIT_UPD_CARRIED_WEIGHT | UNIT_UPD_SPEED,    // 0x282000: bag changed
+    UNIT_UPD_EQUIP_WEIGHT_SPEED     = UNIT_UPD_SEND_EQUIPMENT | UNIT_UPD_CARRIED_WEIGHT | UNIT_UPD_SPEED,    // 0x482000: equipment changed
+    UNIT_UPD_COMBAT_STATS           = UNIT_UPD_SKILL_LEVELS | UNIT_UPD_HP_MP_MAX | UNIT_UPD_ATTACK | UNIT_UPD_HAND_DAMAGE, // 0x3000C: weapon damage recalc
+    UNIT_UPD_STAT_BOOST             = UNIT_UPD_HP | UNIT_UPD_MP | UNIT_UPD_SKILL_LEVELS | UNIT_UPD_HP_MP_MAX | UNIT_UPD_EXP_SPHERE0
+                                    | UNIT_UPD_EXP_SPHERE1 | UNIT_UPD_EXP_SPHERE2 | UNIT_UPD_EXP_SPHERE3
+                                    | UNIT_UPD_DEFENSE | UNIT_UPD_ABSORB | UNIT_UPD_ATTACK | UNIT_UPD_HAND_DAMAGE, // 0x31f0f: rune boost
+    UNIT_UPD_ALL_STATS              = 0xA31FFFFF, // every stat field, no side-effect bits
+    UNIT_UPD_ALL_STATS_EQUIPMENT    = UNIT_UPD_ALL_STATS | UNIT_UPD_SEND_EQUIPMENT, // 0xA35FFFFF
+    UNIT_UPD_ALL                    = 0xFFFFFFFF,
+};
+
+// SendUnitUpdate props_flags / SendHumanoidProps slot mask: INDEPENDENT bit
+// space. Bit i = equipment slot i+1 present (weapon = slot 1, shield = slot 2,
+// slots 3..12 = equipment[]). Consumed by SendHumanoidProps (ITEM_LIST mode 1)
+// and the slot math in the ITEM_OPERATION handler.
+enum EquipSlotFlag : uint32_t {
+    EQUIP_SLOT_WEAPON = 0x001, // slot 1
+    EQUIP_SLOT_SHIELD = 0x002, // slot 2
+    EQUIP_SLOT_3      = 0x004,
+    EQUIP_SLOT_4      = 0x008,
+    EQUIP_SLOT_5      = 0x010,
+    EQUIP_SLOT_6      = 0x020,
+    EQUIP_SLOT_7      = 0x040,
+    EQUIP_SLOT_8      = 0x080,
+    EQUIP_SLOT_9      = 0x100,
+    EQUIP_SLOT_10     = 0x200,
+    EQUIP_SLOT_11     = 0x400,
+    EQUIP_SLOT_12     = 0x800,
+    EQUIP_SLOTS_ALL   = 0xFFB,  // all slots except slot 3 (mask every caller uses)
+};
+
 struct PackerTail {
     PackerTail* child0;
     PackerTail* child1;

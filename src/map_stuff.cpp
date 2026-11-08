@@ -1958,7 +1958,7 @@ void MapStuff::TeleportUnit(Unit* unit, uint8_t x, uint8_t y) {
     unit->position->SetCoords(x, y);
     this->PlaceUnit(unit);
     this->world->ResetUnitToHold(unit);
-    g_NetStru1_main.SendUnitUpdate(unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
+    g_NetStru1_main.SendUnitUpdate(unit, nullptr, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
 }
 
 // Shared by RelaxCostsMap1Queue2/RelaxCostsMap1Queue1/RelaxCostsMap2Queue2/RelaxCostsMap2Queue1.

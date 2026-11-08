@@ -804,7 +804,7 @@ Item* Armor::Equip(Unit* unit) {
     unit->equipment_extra.protections += this->protections;
     unit->protections += this->protections;
     unit->AddCarriedWeight(this->weight);
-    unit->item_op_dirty_flags |= 0xc000;
+    unit->item_op_dirty_flags |= (UNIT_UPD_DEFENSE | UNIT_UPD_ABSORB);
     this->ApplyEffects(unit);
     return old_armor;
 }
@@ -819,7 +819,7 @@ void Armor::Unequip(Unit* unit) {
     unit->equipment_extra.protections -= this->protections;
     unit->protections -= this->protections;
     humanoid->equipment[this->slot] = nullptr;
-    unit->item_op_dirty_flags |= 0xc000;
+    unit->item_op_dirty_flags |= (UNIT_UPD_DEFENSE | UNIT_UPD_ABSORB);
     this->RemoveEffects(unit);
 }
 
@@ -995,7 +995,7 @@ Item* Shield::Equip(Unit* unit) {
     unit->protections += this->protections;
     unit->AddCarriedWeight(this->weight);
     this->ApplyEffects(unit);
-    unit->item_op_dirty_flags |= 0xC000;
+    unit->item_op_dirty_flags |= (UNIT_UPD_DEFENSE | UNIT_UPD_ABSORB);
     return old_shield;
 }
 
@@ -1005,7 +1005,7 @@ void Shield::Unequip(Unit* unit) {
     unit->equipment_extra.protections -= this->protections;
     unit->protections -= this->protections;
     this->RemoveEffects(unit);
-    unit->item_op_dirty_flags |= 0xC000;
+    unit->item_op_dirty_flags |= (UNIT_UPD_DEFENSE | UNIT_UPD_ABSORB);
     unit->shield = nullptr;
 }
 
@@ -1246,7 +1246,7 @@ Item* Weapon::Equip(Unit* unit) {
     }
     unit->max_range += (uint8_t)(this->range - 1);
     unit->AddCarriedWeight(this->weight);
-    unit->item_op_dirty_flags |= 0x34000;
+    unit->item_op_dirty_flags |= (UNIT_UPD_DEFENSE | UNIT_UPD_ABSORB | UNIT_UPD_SCAN_RANGE);
     this->ApplyEffects(unit);
     return old_weapon;
 }
@@ -1274,7 +1274,7 @@ void Weapon::Unequip(Unit* unit) {
     unit->charge = 8;
     unit->relax = 4;
     unit->AddCarriedWeight(-this->weight);
-    unit->item_op_dirty_flags |= 0x34000;
+    unit->item_op_dirty_flags |= (UNIT_UPD_DEFENSE | UNIT_UPD_ABSORB | UNIT_UPD_SCAN_RANGE);
     if (this->imbued_spell != nullptr) {
         delete this->imbued_spell;
         this->imbued_spell = nullptr;

@@ -554,15 +554,15 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				}
 			} else {
 				uint8_t* pdata = packet_unit->data;
-				if ((packet_unit->flags_mask & 1) != 0) {
+				if ((packet_unit->flags_mask & UNIT_UPD_HP) != 0) {
 					g_CUnitStatic.hp = *(uint16_t*)pdata;
 					pdata += 2;
 				}
-				if ((packet_unit->flags_mask & 2) != 0) {
+				if ((packet_unit->flags_mask & UNIT_UPD_MP) != 0) {
 					g_CUnitStatic.mp = *(uint16_t*)pdata;
 					pdata += 2;
 				}
-				if ((packet_unit->flags_mask & 4) != 0) {
+				if ((packet_unit->flags_mask & UNIT_UPD_SKILL_LEVELS) != 0) {
 					g_CUnitStatic.skill_levels[0] = pdata[0];
 					g_CUnitStatic.skill_levels[1] = pdata[1];
 					g_CUnitStatic.skill_levels[2] = pdata[2];
@@ -570,13 +570,13 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					g_CUnitStatic.skill_levels[4] = pdata[4];
 					pdata += 5;
 				}
-				if ((packet_unit->flags_mask & 8) != 0) {
+				if ((packet_unit->flags_mask & UNIT_UPD_HP_MP_MAX) != 0) {
 					g_CUnitStatic.hp_max = *(int16_t*)pdata;
 					pdata += 2;
 					g_CUnitStatic.mp_max = *(int16_t*)pdata;
 					pdata += 2;
 				}
-				if ((packet_unit->flags_mask & 0x10) != 0) {
+				if ((packet_unit->flags_mask & UNIT_UPD_DIR_POS) != 0) {
 					g_CUnitStatic.last_action = *pdata;
 					pdata ++;
 					g_CUnitStatic.x_pos = *pdata;
@@ -584,7 +584,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					g_CUnitStatic.y_pos = *pdata;
 					pdata ++;
 				}
-				if ((packet_unit->flags_mask & 0x20) != 0) {
+				if ((packet_unit->flags_mask & UNIT_UPD_TYPE_FACE) != 0) {
 					g_CUnitStatic.typeId = *pdata;
 					pdata ++;
 					g_CUnitStatic.face = *pdata;
@@ -592,12 +592,12 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				}
 
 				uint8_t ownerid = 0;
-				if ((packet_unit->flags_mask & 0x40) != 0) {
+				if ((packet_unit->flags_mask & UNIT_UPD_OWNER) != 0) {
 					ownerid = *pdata;
 					pdata ++;
 				}
 
-				if ((packet_unit->flags_mask & 0x80) != 0) {
+				if ((packet_unit->flags_mask & UNIT_UPD_SERVER_ID) != 0) {
 					g_CUnitStatic.serverId = *(uint16_t*)pdata;
 					pdata += 2;
 				}
@@ -618,11 +618,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						bool groundunit = false;
 						Unit* uni = nullptr;
 
-						if (packet_unit->flags_mask & 0x20) {
+						if (packet_unit->flags_mask & UNIT_UPD_TYPE_FACE) {
 							if (g_CUnitStatic.typeId >= 0x20 && g_CUnitStatic.typeId < 0x40) {
 								groundunit = true;
 							}
-						} else if (packet_unit->flags_mask & 0x80) {
+						} else if (packet_unit->flags_mask & UNIT_UPD_SERVER_ID) {
 							uni = new Unit();
 							uni->itemDataID = g_GameDataRes.FindMonsterByServerId(g_CUnitStatic.serverId);
 							uni->monster_info = &g_GameDataRes.monsters[uni->itemDataID];
@@ -640,7 +640,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 								uni->hp = uni->hp_max;
 							}
 
-							if (packet_unit->flags_mask & 8) {
+							if (packet_unit->flags_mask & UNIT_UPD_HP_MP_MAX) {
 								auto tmp_hp = g_CUnitStatic.hp;
 								auto tmp_hpmax = g_CUnitStatic.hp_max;
 								g_CUnitStatic.CopyFromUnit(*uni);
@@ -657,7 +657,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						if (this->objects.Lookup(packet_unit->unit_id, *(CGameObject**)&ct) == 0) {
 							ct_exist = false;
 
-							if ((packet_unit->flags_mask & (0x80 | 0x20)) == 0) {
+							if ((packet_unit->flags_mask & (UNIT_UPD_SERVER_ID | UNIT_UPD_TYPE_FACE)) == 0) {
 								break;
 							}
 
@@ -679,19 +679,19 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							ct->unit_id = packet_unit->unit_id;
 						}
 
-						if (packet_unit->flags_mask & 0x40) {
+						if (packet_unit->flags_mask & UNIT_UPD_OWNER) {
 							ct->map_player = mpl;
 						}
 
-						if (packet_unit->flags_mask & 1) {
+						if (packet_unit->flags_mask & UNIT_UPD_HP) {
 							ct->hp = g_CUnitStatic.hp;
 						}
 
-						if (packet_unit->flags_mask & 2) {
+						if (packet_unit->flags_mask & UNIT_UPD_MP) {
 							ct->mp = g_CUnitStatic.mp;
 						}
 
-						if (packet_unit->flags_mask & 4) {
+						if (packet_unit->flags_mask & UNIT_UPD_SKILL_LEVELS) {
 							ct->skill_levels[0] = g_CUnitStatic.skill_levels[0];
 							ct->skill_levels[1] = g_CUnitStatic.skill_levels[1];
 							ct->skill_levels[2] = g_CUnitStatic.skill_levels[2];
@@ -699,14 +699,14 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							ct->skill_levels[4] = g_CUnitStatic.skill_levels[4];
 						}
 
-						if (packet_unit->flags_mask & 8) {
+						if (packet_unit->flags_mask & UNIT_UPD_HP_MP_MAX) {
 							ct->hp_max = g_CUnitStatic.hp_max;
 							ct->mp_max = g_CUnitStatic.mp_max;
 						}
 
 						uint8_t sval = ct->death_state;
 
-						if (packet_unit->flags_mask & 0x10) {
+						if (packet_unit->flags_mask & UNIT_UPD_DIR_POS) {
 							ct->dir = g_CUnitStatic.last_action;
 							ct->x_pos = g_CUnitStatic.x_pos;
 							ct->y_pos = g_CUnitStatic.y_pos;
@@ -717,42 +717,42 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							ct->z_pos = 0;
 						}
 
-						if (packet_unit->flags_mask & 0x80) {
+						if (packet_unit->flags_mask & UNIT_UPD_SERVER_ID) {
 							ct->serverId = g_CUnitStatic.serverId;
 						}
 
-						if (packet_unit->flags_mask & 0x10000) {
+						if (packet_unit->flags_mask & UNIT_UPD_ATTACK) {
 							ct->attack = *(uint16_t*)pdata;
 							pdata += 2;
 						}
 
-						if (packet_unit->flags_mask & 0x20000) {
+						if (packet_unit->flags_mask & UNIT_UPD_HAND_DAMAGE) {
 							ct->hand_dmg_min = pdata[0];
 							ct->hand_dmg_spread = pdata[1];
 							pdata += 2;
 						}
 
-						if (packet_unit->flags_mask & 0x4000) {
+						if (packet_unit->flags_mask & UNIT_UPD_DEFENSE) {
 							ct->defence = *(uint16_t*)pdata;
 							pdata += 2;
 						}
 
-						if (packet_unit->flags_mask & 0x8000) {
+						if (packet_unit->flags_mask & UNIT_UPD_ABSORB) {
 							ct->absorb = *pdata;
 							pdata++;
 						}
 
-						if (packet_unit->flags_mask & 0x40000) {
+						if (packet_unit->flags_mask & UNIT_UPD_SCAN_RANGE) {
 							ct->scan_range = *(uint16_t*)pdata;
 							pdata += 2;
 						}
 
-						if (packet_unit->flags_mask & 0x2000) {
+						if (packet_unit->flags_mask & UNIT_UPD_CARRIED_WEIGHT) {
 							ct->carrying_weight_100g = *(uint16_t*)pdata;
 							pdata += 2;
 						}
 
-						if (packet_unit->flags_mask & 0x1000000) {
+						if (packet_unit->flags_mask & UNIT_UPD_MAGIC_PROTECT) {
 							ct->magic_protect[0] = pdata[0];
 							ct->magic_protect[1] = pdata[1];
 							ct->magic_protect[2] = pdata[2];
@@ -761,7 +761,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							pdata += 5;
 						}
 
-						if (packet_unit->flags_mask & 0x2000000) {
+						if (packet_unit->flags_mask & UNIT_UPD_KILL_STATS) {
 							wnd->m_GameSession.monster_killed = *(uint32_t*)(pdata);
 							wnd->m_GameSession.player_killed = *(uint32_t*)(pdata + 4);
 							wnd->m_GameSession.death_count = *(uint32_t*)(pdata + 8);
@@ -770,43 +770,43 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							pdata += 16;
 						}
 
-						if (packet_unit->flags_mask & 0x80000) {
+						if (packet_unit->flags_mask & UNIT_UPD_SPEED) {
 							ct->speed = *pdata;
 							pdata++;
 						}
 
-						if (packet_unit->flags_mask & 0x100000) {
+						if (packet_unit->flags_mask & UNIT_UPD_SPELLS) {
 							ct->spells = *(int32_t*)pdata;
 							pdata += 4;
 						}
 
-						if (packet_unit->flags_mask & 0x100000) {
+						if (packet_unit->flags_mask & UNIT_UPD_SPELLS) {
 							ct->active_spell = *pdata;
 							pdata++;
 						}
 
-						if (packet_unit->flags_mask & 0x100) {
+						if (packet_unit->flags_mask & UNIT_UPD_EXP_SPHERE0) {
 							ct->experience_per_sphere[0] = *(int32_t*)pdata;
 							pdata += 4;
 						}
 
-						if (packet_unit->flags_mask & 0x200) {
+						if (packet_unit->flags_mask & UNIT_UPD_EXP_SPHERE1) {
 							ct->experience_per_sphere[1] = *(int32_t*)pdata;
 							pdata += 4;
 						}
-						if (packet_unit->flags_mask & 0x400) {
+						if (packet_unit->flags_mask & UNIT_UPD_EXP_SPHERE2) {
 							ct->experience_per_sphere[2] = *(int32_t*)pdata;
 							pdata += 4;
 						}
-						if (packet_unit->flags_mask & 0x800) {
+						if (packet_unit->flags_mask & UNIT_UPD_EXP_SPHERE3) {
 							ct->experience_per_sphere[3] = *(int32_t*)pdata;
 							pdata += 4;
 						}
-						if (packet_unit->flags_mask & 0x1000) {
+						if (packet_unit->flags_mask & UNIT_UPD_EXP_SPHERE4) {
 							ct->experience_per_sphere[4] = *(int32_t*)pdata;
 							pdata += 4;
 						}
-						if (packet_unit->flags_mask & 0x20000000) {
+						if (packet_unit->flags_mask & UNIT_UPD_BASE_STATS) {
 							ct->body = pdata[0];
 							ct->reaction = pdata[1];
 							ct->mind = pdata[2];
@@ -822,11 +822,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 						ct->exp_summary = ct->experience_per_sphere[0] + ct->experience_per_sphere[1] + ct->experience_per_sphere[2] + ct->experience_per_sphere[3] + ct->experience_per_sphere[4];
 
-						if ((packet_unit->flags_mask & 0x10) != 0 && ct->unit_id > 0x5fff) {
+						if ((packet_unit->flags_mask & UNIT_UPD_DIR_POS) != 0 && ct->unit_id > 0x5fff) {
 							ct->unitFlags &= ~0x80;
 						}
 
-						if (packet_unit->flags_mask & 0x80000000) {
+						if (packet_unit->flags_mask & UNIT_UPD_NAME) {
 							memset(ct->str1, 0, sizeof(ct->str1));
 							char* dpos = strchr((char*)pdata, '|');
 							if (!dpos) {
@@ -853,19 +853,19 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							strcpy(ct->str1, txt_npcnames.GetLine(ct->serverId - 1));
 						}
 
-						if (packet_unit->flags_mask & 0x800000) {
+						if (packet_unit->flags_mask & UNIT_UPD_EFFECTS) {
 							ct->effect_timers.RemoveAll();
 						}
 
 						if (ct_exist && (wnd->dialogsMask & 0x200) != 0) {
-							if ((packet_unit->flags_mask & 0x20) != 0) {
+							if ((packet_unit->flags_mask & UNIT_UPD_TYPE_FACE) != 0) {
 								ct->face = g_CUnitStatic.face;
 							}
 
 							this->my_unit->unitFlags |= 8;
 						}
 
-						if ((packet_unit->flags_mask & 0x100000) != 0) {
+						if ((packet_unit->flags_mask & UNIT_UPD_SPELLS) != 0) {
 							ct->availableSpellMask = 0;
 							if (ct->map_player == this->my_main_unit && ct->spells != 0) {
 								for (int i = 0; i < 32; i++) {
@@ -897,8 +897,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						}
 
 						if (wnd->sessionMode != SESSION_LOCAL_BATTLE && (ct->unitFlags & 0x20) != 0) {
-							if ((packet_unit->flags_mask & 0x22100000) == 0) {
-								if ((packet_unit->flags_mask & 0x1f00) != 0) {
+							if ((packet_unit->flags_mask & (UNIT_UPD_BASE_STATS | UNIT_UPD_KILL_STATS | UNIT_UPD_MAGIC_PROTECT)) == 0) {
+								if ((packet_unit->flags_mask & (UNIT_UPD_EXP_SPHERE0 | UNIT_UPD_EXP_SPHERE1 | UNIT_UPD_EXP_SPHERE2 | UNIT_UPD_EXP_SPHERE3 | UNIT_UPD_EXP_SPHERE4)) != 0) {
 									wnd->m_GameSession.AutosaveTick();
 								}
 							} else {
@@ -993,7 +993,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 								wnd->vis_sidestatus->MsgProc(0x408, 0, 0);
 							}
 
-							if (ct->IsSelected() != 0 && ((ct->unitFlags & 2) != 0 || (packet_unit->flags_mask & 0x100000) != 0)) {
+							if (ct->IsSelected() != 0 && ((ct->unitFlags & 2) != 0 || (packet_unit->flags_mask & UNIT_UPD_SPELLS) != 0)) {
 								this->UpdateSelectionState();
 							}
 
