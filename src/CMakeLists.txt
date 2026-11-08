@@ -56,7 +56,7 @@ set(A2_SOURCES
   util.cpp
   virtual_caster.cpp
   visibility.cpp
-  visual.cpp
+  vis_core.cpp
   world.cpp
   res/a2server.rc
 )

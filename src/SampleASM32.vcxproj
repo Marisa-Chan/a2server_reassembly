@@ -366,7 +366,7 @@
     <ClCompile Include="util.cpp" />
     <ClCompile Include="virtual_caster.cpp" />
     <ClCompile Include="visibility.cpp" />
-    <ClCompile Include="visual.cpp" />
+    <ClCompile Include="vis_core.cpp" />
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -428,7 +428,7 @@
     <ClInclude Include="util.h" />
     <ClInclude Include="virtual_caster.h" />
     <ClInclude Include="visibility.h" />
-    <ClInclude Include="visual.h" />
+    <ClInclude Include="vis_core.h" />
     <ClInclude Include="world.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
