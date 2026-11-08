@@ -1,4 +1,5 @@
 #include "game_app.h"
+#include "map_stuff.h"
 
 ScenarioState g_scenarioState; // 10036028
 ScenarioLocation* g_currentScenarioLocation; //10037560

@@ -379,6 +379,25 @@ public:
 };
 ASSERT_SIZE(Scenario, 0x30);
 
+struct ScenarioLocation {
+	int32_t kind = 0;
+	int32_t id = 0;
+	CRect rect;
+
+	int GetId() { return this->id; } //475150 (client: 477f20)
+	CRect& GetRect() { return this->rect; } //475170 (client: 477c50)
+	int32_t GetKind() { return this->kind; }
+
+	void Read(CFile* fl);
+	void Write(CFile* fl);
+
+	ScenarioLocation() = default;
+
+	ScenarioLocation(int32_t _kind, int32_t _id, int32_t x, int32_t y, int32_t w, int32_t h)
+	: kind(_kind), id(_id), rect(x, y, x + w, y + h) {}
+};
+ASSERT_SIZE(ScenarioLocation, 0x18);
+
 
 void __cdecl MissionGetBriefing(CString* out); //4e13db (client: 4e5d5c)
 void __cdecl MissionGetFailure(int32_t idx, CString* out); //4e14a4 (client: 4e5e25)
