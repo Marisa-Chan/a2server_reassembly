@@ -746,7 +746,7 @@ int32_t MainWindow::WaitHatConnection() {
     }
 
 #ifdef A2CLIENT
-    if (this->vis_map_context->ProcessPackets(0x64) == 0) {
+    if (this->vis_map_context->ProcessPackets(SERVER_TICK) == 0) {
         VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, INT_00660f8c == 0 ? txt_patch.GetLine(0x11) : txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0);
         this->ModalScreen(mbox);
         return 0;
@@ -775,7 +775,7 @@ int32_t MainWindow::WaitHatConnection() {
         return 0;
     }
 #else
-    if (this->vis_map_context->ProcessPackets(0x64) == 0) {
+    if (this->vis_map_context->ProcessPackets(SERVER_TICK) == 0) {
         VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(0x11), nullptr, 0);
         this->ModalScreen(mbox);
         this->PostMessage(0x10, 0, 0);
@@ -915,7 +915,7 @@ int32_t MainWindow::ConnectToServerAddress() {
         }
 
         if (g_NetStru1_local.GetClientsPktNum() != 0) {
-            if (this->vis_map_context->ProcessPackets(0x64) == 0) {
+            if (this->vis_map_context->ProcessPackets(SERVER_TICK) == 0) {
                 VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0);
                 this->ModalScreen(mbox);
                 this->PostMessage(0x10, 0, 0);
@@ -3850,7 +3850,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                             g_RemoteTimestamp = ticks;
                         }
                     } else {
-                        this->vis_map_context->ProcessPackets(0x64);
+                        this->vis_map_context->ProcessPackets(SERVER_TICK);
                     }
 
                     MSG msg;
@@ -4246,7 +4246,7 @@ void MainWindow::SendHatJoinName(CString name) {
     PacketJoin* pkt = &PacketJoin::Inst;
     pkt->from_player_id = 0;
     pkt->to_player_id = 0;
-    pkt->id = 0x4e;
+    pkt->id = HAT_JOIN_NAME;
     strcpy(pkt->name, name);
     g_NetStru1_local.QueuePacketSend(pkt);
 }
@@ -4291,7 +4291,7 @@ void MainWindow::BeginLocalCharacterSetup() { // 48f79d
         g_Server->PumpNetwork();
 
         while (g_NetStru1_local.GetClientsPktNum()) {
-            this->vis_map_context->ProcessPackets(0x64);
+            this->vis_map_context->ProcessPackets(SERVER_TICK);
         }
 
         this->LoadSavegame();
@@ -4398,7 +4398,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
                 g_mousept.Update();
             }
 
-            if (this->vis_map_context->ProcessPackets(0x64) == 0) {
+            if (this->vis_map_context->ProcessPackets(SERVER_TICK) == 0) {
                 return 0;
             }
         }
@@ -5369,7 +5369,7 @@ void MainWindow::SingleGameTimedIdle() { //48a543
 
         g_Server->ServerTic();
 
-        this->vis_map_context->ProcessPackets(0x64);
+        this->vis_map_context->ProcessPackets(SERVER_TICK);
         this->vis_root->MsgProc(0x401, 0, 0);
 
         g_mousept.Update();
@@ -5419,7 +5419,7 @@ void MainWindow::SingleGameIdle() { //48a3a2
 
     g_Server->ServerTic();
 
-    this->vis_map_context->ProcessPackets(0x64);
+    this->vis_map_context->ProcessPackets(SERVER_TICK);
 
     this->vis_root->MsgProc(0x401, 0, 0);
 
@@ -6030,7 +6030,7 @@ int CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit() {
             g_NetStru1_local.ProcessConnections();
         }
 
-        if (wnd->vis_map_context->ProcessPackets(0x64) == 0) {
+        if (wnd->vis_map_context->ProcessPackets(SERVER_TICK) == 0) {
             return 0;
         }
 

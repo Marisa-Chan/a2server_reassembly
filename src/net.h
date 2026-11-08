@@ -48,6 +48,178 @@ union HatCharId {
 };
 #pragma pack(pop)
 
+// ---------------------------------------------------------------------------
+// Packet IDs - the first byte of every network packet. One shared ID space
+// for game traffic (both directions) and the HAT-server protocol.
+// Names annotated with (GM_Report*) come from the retail statistics logger
+// (NetStru1::WriteStatsLog); the rest are derived from the packet handlers.
+// Entries named UNKNOWN_xx appear in NetStru1::DecodePacket but have no known
+// sender or handler in either binary.
+// ---------------------------------------------------------------------------
+enum PacketId : uint8_t {
+    // Session / join handshake
+    ENTER_GAME           = 0x02, // client->server: join game (name, cd flag, hero params)
+    MISSION_ENTERED      = 0x03, // server->client: bare "mission entered" event
+    JOIN_MISSION         = 0x04, // client->server: player joins the running mission
+    PLAYER_LEAVE         = 0x05, // client->server: player is leaving (is_active = 0)
+    START_GAME           = 0x06, // server->client: load scenario <name> and start
+    REQUEST_SAVE_GAME    = 0x07, // client->server: save game under name
+    REQUEST_LOAD_GAME    = 0x08, // client->server: load game request ("not supported")
+    CLIENT_SHUTDOWN      = 0x09, // client->server: client requests shutdown
+    UNKNOWN_0A           = 0x0A,
+    JOIN_ERROR           = 0x0B, // server->client: join rejected, param1 = error code
+    JOIN_DONE            = 0x0E, // server->client: initial world sync finished
+    UNKNOWN_0F           = 0x0F,
+    GAME_SPEED           = 0x10, // server->client: set game speed
+
+    // Group orders (client->server, PacketGroupOrder)
+    GROUP_STOP           = 0x12,
+    GROUP_GATHER         = 0x13, // gather nearby loot
+    GROUP_GO_HOME        = 0x14,
+    GROUP_MOVE           = 0x16,
+    GROUP_GUARD          = 0x17,
+    GROUP_AGGRESSIVE     = 0x18, // toggle aggressive stance
+    GROUP_ATTACK         = 0x19, // attack unit/building target
+    GROUP_ATTACK_MOVE    = 0x1A,
+    GROUP_ATTACK_TARGET  = 0x1B, // attack building target
+    GROUP_DEFEND         = 0x1C, // defend location
+    GROUP_PATROL         = 0x1D,
+    GROUP_CAST_UNIT      = 0x1E, // cast spell at unit/building
+    GROUP_CAST_POS       = 0x1F, // cast spell at position
+    GROUP_PICKUP         = 0x21, // swarm to sack and pick it up
+    GROUP_ENTER_BUILDING = 0x24,
+    SCROLL_CAST_UNIT     = 0x25, // cast scroll spell at unit/building
+    SCROLL_CAST_POS      = 0x26, // cast scroll spell at position
+    GROUP_STOP_AFK       = 0x4D, // stop + start AFK timer (singleplayer)
+
+    // Items / shops / inns / map file transfer (client->server)
+    ITEM_OPERATION       = 0x22, // equip/unequip/move/buy/sell/drop item
+    DROP_GOLD            = 0x23, // create money sack on the ground
+    ENTER_SHOP           = 0x32,
+    SHOP_BUY             = 0x33, // confirm purchase
+    SHOP_SELL            = 0x34, // confirm sale
+    SHOP_TAKE_BACK       = 0x35, // take offered items back
+    SHOP_CLOSE           = 0x36, // take items back and close shop
+    ENTER_INN            = 0x38,
+    REQUEST_MAP_INFO     = 0x39, // ask for map name + checksum
+    EXIT_INN             = 0x3A,
+    REQUEST_FILE_CHUNK   = 0x3B, // ask for next chunk of the map file
+    UNKNOWN_3D           = 0x3D,
+    CHEAT_MONEY          = 0x3E, // add money (only without fog of war)
+    CHEAT_SHOP           = 0x3F, // regenerate default shop assortment
+    UNKNOWN_40           = 0x40,
+
+    // Player settings (client->server)
+    SET_DIPLOMACY        = 0x45, // bulk diplomacy update
+    SET_PARAMETER        = 0x46, // player parameter change (thresholds, formation, ...)
+    JOIN_MAP             = 0x48, // join map (server) / create player character (client)
+    CHEAT_SUMMON         = 0x49, // summon unit by index (only without fog of war)
+    REQUEST_UNITS_RESEND = 0x4A, // resend all of the player's units
+    REQUEST_RESPAWN      = 0x4B, // set respawn flag when hero is deeply dead
+    HURT_SELF            = 0x4C, // "hurt myself" command
+    REQUEST_UNIT_UPDATE  = 0xBE, // request full unit-ext update for own hero
+
+    // HAT lobby extras
+    HAT_JOIN_NAME        = 0x4E, // client->hat: player name for join
+    HAT_SCORE_CLEAR      = 0x5A, // server->client: clear hat DM name/score lists
+    HAT_SCORE_UPDATE     = 0x5B, // server->client: one hat DM name/score pair
+    HAT_SCORE_LIST       = 0x5C, // server->client: show hat DM score list / arena round end
+
+    // World sync (server->client)
+    SERVER_TICK          = 0x64, // (GM_ReportNewSegment) server tick / frame counter
+    UNKNOWN_65           = 0x65,
+    MONEY_UPDATE         = 0x67, // (GM_ReportMoney) player gold
+    UNIT_SHOWN           = 0x69, // (GM_ReportUnitShown) token entered vision
+    TOKEN_REMOVE         = 0x6A, // remove token object on the client
+    UNIT_MOVE            = 0x6B, // (GM_ReportUnitMove) move action with segments
+    UNIT_CHANGE_4        = 0x6C, // (GM_ReportUnitChange) unit ext update, 4 flag bytes
+    UNIT_TURN            = 0x6D, // (GM_ReportUnitTurn)
+    UNIT_CHANGE_1        = 0x6E, // (GM_ReportUnitChange) unit ext update, 1 flag byte
+    UNIT_CHANGE_2        = 0x6F, // (GM_ReportUnitChange) unit ext update, 2 flag bytes
+    UNIT_CHANGE_3        = 0x70, // (GM_ReportUnitChange) unit ext update, 3 flag bytes
+    UNIT_ATTACK          = 0x71, // (GM_ReportUnitAttack) melee attack animation
+    RANGED_ATTACK        = 0x72, // (GM_ReportRangedAttack)
+    UNIT_DAMAGED         = 0x73, // (GM_ReportUnitDamaged) hp update
+    UNIT_HIDDEN          = 0x74, // (GM_ReportUnitHidden) token left vision
+    ITEM_LIST            = 0x76, // (GM_ReportItemList) inventory/equipment/shop shelf contents
+    UNIT_WEAR_ITEMS      = 0x79, // (GM_ReportUnitWearItems, stats log only)
+    SACK_STATE           = 0x7A, // (GM_ReportSack) sack appeared/updated
+
+    // Buildings & combat effects (server->client)
+    BUILDING_HP          = 0x82, // building hp update
+    OPEN_SHOP            = 0x83, // interaction with a shop building (opens shop UI)
+    OPEN_INN             = 0x84, // interaction with an inn building (opens inn UI)
+    EFFECT_MOVE          = 0x86, // (GM_ReportEffect) effect/projectile spawn, move or cast anim
+    AOE_ZONE             = 0x87, // (GM_ReportAreaEffect) area-effect zone bitmap
+    EFFECT_HANG          = 0x88, // (GM_ReportEffectHang) lasting effect applied to unit
+    EFFECT_GONE          = 0x89, // (GM_ReportEffectGone) lasting effect removed from unit
+    EFFECT_MULTI_TARGET  = 0x8A, // (GM_ReportEffectMultiTarget) multi-target cast
+    EFFECT_FROM          = 0x8B, // (GM_ReportEffectFrom) cast from position (caster has no id)
+    EFFECT_MULTI_FROM    = 0x8C, // (GM_ReportEffectMultiFrom) multi-target cast from position
+    REPORT_MESSAGE       = 0x8D, // (GM_ReportMessage, stats log only)
+
+    // Chat & players (server->client)
+    CHAT                 = 0x91, // chat message / player name announcement
+    TEAM_NOTIFY          = 0x92, // team notification message (param1 = msg type)
+    PLAYER_ANNOUNCED     = 0x93, // player joined; own id means "replaced, disconnect"
+    KILL_NOTICE          = 0x94, // notice about two players (arena kill text)
+    PLAYER_INFO          = 0x96, // (GM_ReportNewPlayer) player roster entry upsert
+    PLAYER_LEFT          = 0x97, // (GM_ReportDeletePlayer) player left, drop his objects
+    ASH_MAP              = 0x98, // (GM_ReportAshMap, stats log only)
+    TERRAIN_DATA         = 0x9B, // run-length encoded landscape
+    ENEMY_EQUIPMENT      = 0x9C, // (GM_ReportEnemyEquipment) unit equipment slots
+
+    // Game events / UI (server->client)
+    MAP_REVEAL           = 0xAA, // 0 = hide map, 1 = reveal map, 2 = victory
+    VIEW_POSITION        = 0xAB, // initial camera position
+    UNKNOWN_AC           = 0xAC,
+    UNKNOWN_AD           = 0xAD,
+    ANNOUNCEMENT         = 0xAE, // server-wide announcement text
+    SERVER_SHUTDOWN      = 0xAF, // server is going down, drop the connection
+    KILL_STAT            = 0xB3, // single monster kill-count entry
+    MISSION_RESULT       = 0xB4, // mission result code
+    MISSION_COMPLETE     = 0xB5, // mission over, show result screen
+    GAME_EVENT           = 0xB6, // generic game event (param1 = event id)
+    ENTER_BUILDING       = 0xB7, // player entered building interior
+    LEAVE_BUILDING       = 0xB8, // player left building interior
+    DIPLOMACY_STATE      = 0xB9, // (GM_ReportDiplomacy) per-player diplomacy flags
+    CREATURE_KNOWLEDGE   = 0xBA, // (GM_ReportCreatureKnowledge) run-length encoded kill stats
+    PLAYER_QUESTS        = 0xBB, // (GM_ReportPlayerQuests) player quest list
+    INN_QUESTS           = 0xBC, // (GM_ReportInnQuests) inn quest list (tavern open)
+    MAP_INFO             = 0xBF, // map name + checksum (enter ack)
+    FILE_CHUNK           = 0xC0, // chunk of a file being downloaded (map transfer)
+    LATENCY              = 0xC1, // network latency setting (both directions)
+    TEAM_STATE           = 0xC2, // team/CTF/frags bulk state
+    GAME_START           = 0xC3, // game start signal (param1 = start kind)
+
+    // HAT server protocol
+    HAT_LOGOUT           = 0xC8,
+    HAT_CREDENTIALS      = 0xC9, // login + password
+    HAT_PICK_CHAR        = 0xCA, // selected character id
+    HAT_CONNECT_SERVER   = 0xCB, // request to join a game server (hero params + name)
+    HAT_CHAR_REQUEST     = 0xCC, // character id pair (client 50e70d, purpose unclear)
+    SERVER_LIST          = 0xCD, // HAT server list page
+    HAT_CHAR_LIST        = 0xCE, // character roster ids
+    HAT_CHAR_DATA        = 0xCF, // character file transfer
+    HAT_TICKET           = 0xD0, // session ticket (client->server: claim spectator slot)
+    HAT_LOGIN            = 0xD1, // game server -> hat: login with name
+    HAT_LOBBY_INFO       = 0xD2, // game server -> hat: player count, map level, game type
+    HAT_CHAR_RETURN      = 0xD3, // hat -> game server: character return confirmed
+    HAT_RAW_DATA         = 0xD4, // raw string data to HAT
+    HAT_LOGIN_OK         = 0xD5, // hat -> game server: login successful
+    UNKNOWN_D_6          = 0xD6,
+    HAT_JOIN_OK          = 0xD8, // game server -> hat: player join accepted
+    HAT_JOIN_FAIL        = 0xD9, // game server -> hat: player join rejected
+    HAT_SESSION_SETUP    = 0xDA, // hat -> client: session keys + connect address
+    HAT_SESSION_FAIL     = 0xDB, // hat -> client: no session (hat_id = -1)
+    UNKNOWN_DC           = 0xDC,
+    HAT_PLAYER_JOIN      = 0xDD, // hat -> game server: new player join request
+    UNKNOWN_DE           = 0xDE,
+    HAT_ERROR            = 0xDF, // hat -> client: error code
+    HAT_MESSAGE          = 0xE0, // hat message / keepalive
+    HAT_PLAYER_CHECK     = 0xE1, // player existence check (both directions)
+};
+
 struct PackerTail {
     PackerTail* child0;
     PackerTail* child1;

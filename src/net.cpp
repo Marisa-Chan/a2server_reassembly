@@ -79,7 +79,7 @@ PackerDat::~PackerDat() {
 void NetStru1::AnnouncePlayerName(const CString& name, Player* player) {
     // 51cd89
 	PacketJoin& pkt = PacketJoin::Inst;
-	pkt.id = 0x91;
+	pkt.id = CHAT;
 	strcpy(pkt.name, name);
 
 	if (player) {
@@ -109,7 +109,7 @@ void NetStru1::SendExistingPlayers(Player* player) {
 		PacketJoin& packet = PacketJoin::Inst;
 
 		strcpy(packet.name, p->name);
-		packet.id = 0x96;
+		packet.id = PLAYER_INFO;
 		packet.to_player_id = player->player_id;
 		packet.player_id = p->player_id;
 		packet.token_id = p->token_id;
@@ -131,7 +131,7 @@ void NetStru1::SendExistingPlayers(Player* player) {
 void NetStru1::UntrackToken(Token* token) {
     PacketWord& packet = PacketWord::Inst;
 
-    packet.id = 0x6a;
+    packet.id = TOKEN_REMOVE;
     packet.value = token->building_id;
     POSITION pos = g_PlayersList->list.GetHeadPosition();
     while (pos != nullptr) {
@@ -147,7 +147,7 @@ void NetStru1::UntrackToken(Token* token) {
 void NetStru1::SendTickPacket(Player* player) {
     PacketDword& packet = PacketDword::Inst;
     packet.to_player_id = 0;
-    packet.id = 0x64;
+    packet.id = SERVER_TICK;
     packet.value = g_Server->tick;
     if (player == nullptr) {
         NetStru2* client = this->GetClientByPlayerID(0);
@@ -163,7 +163,7 @@ void NetStru1::SendTickPacket(Player* player) {
 
 // 51ce86
 void NetStru1::SendTeamNotify(uint32_t msg_type, uint32_t player_id, Player* recpt) {
-    this->SendInfoPacket(0x92, msg_type, player_id, recpt);
+    this->SendInfoPacket(TEAM_NOTIFY, msg_type, player_id, recpt);
 }
 
 // 51ceac
@@ -177,7 +177,7 @@ void NetStru1::SendBarePacket(uint8_t id, Player* player) {
 // 51d49b
 void NetStru1::AnnouncePlayer(Player* player) {
     PacketJoin& packet = PacketJoin::Inst;
-    packet.id = 0x93;
+    packet.id = PLAYER_ANNOUNCED;
     strcpy(packet.name, player->name);
     packet.to_player_id = 0;
     packet.__as_dword = player->player_id;
@@ -197,7 +197,7 @@ void NetStru1::SendInfoPacket(uint8_t id, int32_t value1, int32_t value2, Player
 // 51C7CC
 void NetStru1::SendLatency(int32_t latency, Player* player) {
     PacketDword& packet = PacketDword::Inst;
-    packet.id = 0xc1;
+    packet.id = LATENCY;
     packet.value = latency;
     packet.to_player_id = player ? player->player_id : 0;
     this->QueuePacketSend(&packet);
@@ -206,7 +206,7 @@ void NetStru1::SendLatency(int32_t latency, Player* player) {
 // 51CD2A
 void NetStru1::SendGameEvent(Player* player, int32_t event_id, int32_t value2) {
     Packet2Dwords& packet = Packet2Dwords::Inst;
-    packet.id = 0xb6;
+    packet.id = GAME_EVENT;
     packet.to_player_id = player ? player->player_id : 0;
     packet.param1 = event_id;
     packet.param2 = value2;
@@ -219,7 +219,7 @@ void NetStru1::SendArenaScore(CString& name, uint32_t score, char type, Player* 
     if (type != 0) {
         packet.id = type;
     } else {
-        packet.id = 0x91;
+        packet.id = CHAT;
     }
     strcpy(packet.name, name);
     packet.to_player_id = player ? player->player_id : 0;
@@ -238,7 +238,7 @@ void NetStru1::SendServerState(Player* player) {
 
 // 51C601
 void NetStru1::SendLevelUp(Unit* unit, int unused) {
-    this->BroadcastTokenState(unit, nullptr, 0x73);
+    this->BroadcastTokenState(unit, nullptr, UNIT_DAMAGED);
 }
 
 // 51b870 (client: 50cc7f)
@@ -261,7 +261,7 @@ void NetStru1::BroadcastUnitState(Unit* unit) {
 void NetStru1::SendUnitActionPacket(Unit* unit, uint8_t angle, uint8_t speed_dir, uint8_t mode) {
     PacketUnitAction& packet = PacketUnitAction::Inst;
     if (mode == 0) {
-        packet.id = 0x6B;
+        packet.id = UNIT_MOVE;
     } else {
         packet.id = mode;
     }
@@ -277,7 +277,7 @@ void NetStru1::SendUnitActionPacket(Unit* unit, uint8_t angle, uint8_t speed_dir
 // 51BA2F
 void NetStru1::SendRangedAttackPacket(Unit* unit) {
     PacketRangedAttack& packet = PacketRangedAttack::Inst;
-    packet.id = 0x72;
+    packet.id = RANGED_ATTACK;
     packet.unit_id = (uint16_t)unit->building_id;
     packet.target_id = (uint16_t)unit->cast_target->building_id;
     packet.to_player_id = 0;
@@ -290,7 +290,7 @@ void NetStru1::SendUnitTurn(Unit* unit, Unit* target) {
     if (unit->max_range < 2) {
         const uint8_t speed_dir = unit->charge + unit->relax;
         const uint8_t angle = unit->eye->GetFacingHalf();
-        g_NetStru1_main.SendUnitActionPacket(unit, angle, speed_dir, 0x71);
+        g_NetStru1_main.SendUnitActionPacket(unit, angle, speed_dir, UNIT_ATTACK);
     } else {
         g_NetStru1_main.SendRangedAttackPacket(unit);
     }
@@ -299,7 +299,7 @@ void NetStru1::SendUnitTurn(Unit* unit, Unit* target) {
 // 51BE0E
 void NetStru1::BroadcastEffectMove(Effect* effect, uint8_t type) {
     PacketMoveBroadcast& packet = PacketMoveBroadcast::Inst;
-    packet.id = 0x86;
+    packet.id = EFFECT_MOVE;
     packet.x = effect->position->GetX();
     packet.y = effect->position->GetY();
     packet.segments = type;
@@ -313,7 +313,7 @@ void NetStru1::BroadcastEffectMove(Effect* effect, uint8_t type) {
 void NetStru1::SendAreaEffect(AreaEffect* obj, int32_t flag) {
     if (obj->itemDataID == 2) {
         PacketMoveBroadcast& packet = PacketMoveBroadcast::Inst;
-        packet.id = 0x86;
+        packet.id = EFFECT_MOVE;
         packet.x = obj->position->GetX();
         packet.y = obj->position->GetY();
         packet.segments = 0x16;
@@ -323,7 +323,7 @@ void NetStru1::SendAreaEffect(AreaEffect* obj, int32_t flag) {
         this->BroadcastMovePacket(&packet, obj->position);
     } else {
         PacketAoeZone& packet = PacketAoeZone::Inst;
-        packet.id = 0x87;
+        packet.id = AOE_ZONE;
 
         const int8_t radius = obj->radius;
         packet.x = obj->position->GetX() - radius;
@@ -423,7 +423,7 @@ void NetStru1::SendVisibilityState(Player* player) {
         return;
     }
     PacketTerrain& packet = PacketTerrain::Inst;
-    packet.id = 0xB9;
+    packet.id = DIPLOMACY_STATE;
     packet.to_player_id = player->player_id;
     int32_t count = g_PlayersList->GetMaxPlayerId() + 1;
     packet.count = count;
@@ -479,7 +479,7 @@ void NetStru1::SendVisibilityState(Player* player) {
 // 51CF5C
 void NetStru1::SendUnitVisibility(Unit* unit, int32_t flag, Player* player) {
     PacketWord& packet = PacketWord::Inst;
-    packet.id = flag ? 0x74 : 0x69;
+    packet.id = flag ? UNIT_HIDDEN : UNIT_SHOWN;
     packet.value = unit->building_id;
 
     if (player != nullptr) {
@@ -526,7 +526,7 @@ void NetStru1::SendUnitVisibility(Unit* unit, int32_t flag, Player* player) {
 void NetStru1::SendKillStats(uint16_t player_id, Player* player) {
     if (player_id != 0) {
         PacketDword& packet = PacketDword::Inst;
-        packet.id = 0xB3;
+        packet.id = KILL_STAT;
         packet.to_player_id = player ? player->player_id : 0;
         packet.value = (uint32_t)player_id | ((uint32_t)player->kill_stats[player_id] << 16);
         this->QueuePacketSend(&packet);
@@ -534,7 +534,7 @@ void NetStru1::SendKillStats(uint16_t player_id, Player* player) {
     }
 
     PacketData& packet = PacketData::Inst;
-    packet.id = 0xBA;
+    packet.id = CREATURE_KNOWLEDGE;
     packet.to_player_id = player ? player->player_id : 0;
 
     // This encodes monster kill stats using a simple run-length encoding.
@@ -585,7 +585,7 @@ void NetStru1::SendKillStats(uint16_t player_id, Player* player) {
 // 51D4F6
 void NetStru1::SendSrvStru1State(QuestMap* quest_map, Player* player, int32_t flag) {
     PacketTerrain& packet = PacketTerrain::Inst;
-    packet.id = flag ? 0xBC : 0xBB;
+    packet.id = flag ? INN_QUESTS : PLAYER_QUESTS;
     packet.to_player_id = player->player_id;
     packet.count = 1;
 
@@ -614,7 +614,7 @@ void NetStru1::SendSrvStru1State(QuestMap* quest_map, Player* player, int32_t fl
 void NetStru1::SendTeamState(uint16_t to_player_id) {
     PacketData& packet = PacketData::Inst;
     packet.to_player_id = to_player_id;
-    packet.id = 0xC2;
+    packet.id = TEAM_STATE;
     packet.count = 0x58;
     uint32_t* ptr = reinterpret_cast<uint32_t*>(packet.data);
     int32_t teams_started = g_PlayersList->AreTeamsStarted();
@@ -655,7 +655,7 @@ void NetStru1::UpdateConnStats() {
 // 51E289
 void NetStru1::SendHatLobbyInfo(int32_t player_count, CString source, int32_t map_level, int32_t game_type, int32_t map_range) {
 	PacketJoin& pkt = PacketJoin::Inst;
-	pkt.id = 0xd2;
+	pkt.id = HAT_LOBBY_INFO;
 	pkt.__as_dword = player_count | (map_level << 8) | (game_type << 16) | (map_range << 24);
 	strcpy(pkt.name, source);
 	pkt.to_player_id = 0;
@@ -1033,30 +1033,30 @@ Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
     Packet* pkt;
 
     switch (cmd) {
-    case 0x2:
+    case ENTER_GAME:
         pkt = &PacketEnterGame::Inst;
         pkt->ReadFrom(ns2);
         break;
 
-    case 0x3: case 0xaf: case 0xb7: case 0xb8:
+    case MISSION_ENTERED: case SERVER_SHUTDOWN: case ENTER_BUILDING: case LEAVE_BUILDING:
         pkt = &Packet::Inst;
         pkt->ReadFrom(ns2);
         break;
 
-    case 0x4: case 0xb: case 0x39: case 0x3b: case 0x5c: case 0xca:
-    case 0xcc: case 0xd0: case 0xd5: case 0xd8: case 0xe1:
+    case JOIN_MISSION: case JOIN_ERROR: case REQUEST_MAP_INFO: case REQUEST_FILE_CHUNK: case HAT_SCORE_LIST: case HAT_PICK_CHAR:
+    case HAT_CHAR_REQUEST: case HAT_TICKET: case HAT_LOGIN_OK: case HAT_JOIN_OK: case HAT_PLAYER_CHECK:
         pkt = &Packet2Dwords::Inst;
         pkt->ReadFrom(ns2);
         break;
 
-    case 0x5: case 0x9: case 0xa: case 0x4a: case 0x4b: case 0x4c:
-    case 0x5a: case 0xc8: case 0xd6: case 0xdb: case 0xdc:
+    case PLAYER_LEAVE: case CLIENT_SHUTDOWN: case UNKNOWN_0A: case REQUEST_UNITS_RESEND: case REQUEST_RESPAWN: case HURT_SELF:
+    case HAT_SCORE_CLEAR: case HAT_LOGOUT: case UNKNOWN_D_6: case HAT_SESSION_FAIL: case UNKNOWN_DC:
         pkt = &Packet::Inst;
         pkt->ReadFrom(ns2);
         break;
 
-    case 0x6: case 0x7: case 0x8: case 0x4e: case 0x5b: case 0x93:
-    case 0xbf: case 0xc9: case 0xd1: case 0xd2: case 0xd3:
+    case START_GAME: case REQUEST_SAVE_GAME: case REQUEST_LOAD_GAME: case HAT_JOIN_NAME: case HAT_SCORE_UPDATE: case PLAYER_ANNOUNCED:
+    case MAP_INFO: case HAT_CREDENTIALS: case HAT_LOGIN: case HAT_LOBBY_INFO: case HAT_CHAR_RETURN:
         pkt = &PacketJoin::Inst;
         pkt->ReadFrom(ns2);
         break;
@@ -1067,137 +1067,137 @@ Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
         pkt->ReadFrom(ns2);
         break;
 
-    case 0xe: case 0x10: case 0xb3: case 0xc1: case 0xdf:
+    case JOIN_DONE: case GAME_SPEED: case KILL_STAT: case LATENCY: case HAT_ERROR:
         pkt = &PacketDword::Inst;
         pkt->ReadFrom(ns2);
         break;
 
-    case 0xf: case 0x49: case 0x91: case 0x96: case 0xae:
+    case UNKNOWN_0F: case CHEAT_SUMMON: case CHAT: case PLAYER_INFO: case ANNOUNCEMENT:
         pkt = &PacketJoin::Inst;
         pkt->ReadFrom(ns2);
         break;
 
-    case 0x12: case 0x13: case 0x14: case 0x17: case 0x18: case 0x4d:
+    case GROUP_STOP: case GROUP_GATHER: case GROUP_GO_HOME: case GROUP_GUARD: case GROUP_AGGRESSIVE: case GROUP_STOP_AFK:
         pkt = &PacketGroupOrder::Inst;
         pkt->ReadFrom(ns2);
         pkt->order_mode = 1;
         break;
 
-    case 0x16: case 0x1a: case 0x1c: case 0x1d: case 0x1f: case 0x21: case 0x24: case 0x26:
+    case GROUP_MOVE: case GROUP_ATTACK_MOVE: case GROUP_DEFEND: case GROUP_PATROL: case GROUP_CAST_POS: case GROUP_PICKUP: case GROUP_ENTER_BUILDING: case SCROLL_CAST_POS:
         pkt = &PacketGroupOrder::Inst;
         pkt->ReadFrom(ns2);
         pkt->order_mode = 2;
         break;
 
-    case 0x19: case 0x1b: case 0x1e: case 0x25:
+    case GROUP_ATTACK: case GROUP_ATTACK_TARGET: case GROUP_CAST_UNIT: case SCROLL_CAST_UNIT:
         pkt = &PacketGroupOrder::Inst;
         pkt->ReadFrom(ns2);
         pkt->order_mode = 3;
         break;
 
-    case 0x22:
+    case ITEM_OPERATION:
         pkt = &PacketItemTransfer::Inst;
         pkt->ReadFrom(ns2);
         break;
 
-    case 0x23: case 0x3a: case 0x3d: case 0x3e: case 0x3f: case 0x40:
-    case 0x46: case 0x48: case 0x83: case 0x84: case 0x92: case 0x94:
-    case 0xaa: case 0xc3:
+    case DROP_GOLD: case EXIT_INN: case UNKNOWN_3D: case CHEAT_MONEY: case CHEAT_SHOP: case UNKNOWN_40:
+    case SET_PARAMETER: case JOIN_MAP: case OPEN_SHOP: case OPEN_INN: case TEAM_NOTIFY: case KILL_NOTICE:
+    case MAP_REVEAL: case GAME_START:
         pkt = &Packet2Dwords::Inst;
         pkt->ReadFrom(ns2);
         break;
 
-    case 0x32: case 0x33: case 0x34: case 0x35: case 0x36: case 0x38:
-    case 0x69: case 0x6a: case 0x74:
+    case ENTER_SHOP: case SHOP_BUY: case SHOP_SELL: case SHOP_TAKE_BACK: case SHOP_CLOSE: case ENTER_INN:
+    case UNIT_SHOWN: case TOKEN_REMOVE: case UNIT_HIDDEN:
         pkt = &PacketWord::Inst;
         pkt->ReadFrom(ns2);
         break;
 
-    case 0x45: case 0x8a: case 0x8c: case 0x9b: case 0xb9: case 0xbb: case 0xbc:
+    case SET_DIPLOMACY: case EFFECT_MULTI_TARGET: case EFFECT_MULTI_FROM: case TERRAIN_DATA: case DIPLOMACY_STATE: case PLAYER_QUESTS: case INN_QUESTS:
         pkt = &PacketTerrain::Inst;
         pkt->ReadFrom(ns2);
         break;
 
-    case 0x64:
+    case SERVER_TICK:
         pkt = &PacketDword::Inst;
         pkt->ReadFrom(ns2);
         ns2->ReleaseNetBuf();
         break;
 
-    case 0x65: case 0x67: case 0x97: case 0xab: case 0xac: case 0xad:
-    case 0xb4: case 0xb5: case 0xb6:
+    case UNKNOWN_65: case MONEY_UPDATE: case PLAYER_LEFT: case VIEW_POSITION: case UNKNOWN_AC: case UNKNOWN_AD:
+    case MISSION_RESULT: case MISSION_COMPLETE: case GAME_EVENT:
         pkt = &Packet2Dwords::Inst;
         pkt->ReadFrom(ns2);
         break;
 
-    case 0x6b: case 0x6d: case 0x71:
+    case UNIT_MOVE: case UNIT_TURN: case UNIT_ATTACK:
         pkt = &PacketUnitAction::Inst;
         pkt->ReadFrom(ns2);
         break;
 
-    case 0x6c: case 0x6e: case 0x6f: case 0x70:
+    case UNIT_CHANGE_4: case UNIT_CHANGE_1: case UNIT_CHANGE_2: case UNIT_CHANGE_3:
         pkt = &PacketUnitUpdate::Inst;
         pkt->id = cmd;
         pkt->ReadFrom(ns2);
         break;
 
-    case 0x72:
+    case RANGED_ATTACK:
         pkt = &PacketRangedAttack::Inst;
         pkt->ReadFrom(ns2);
         break;
 
-    case 0x73:
+    case UNIT_DAMAGED:
         pkt = &PacketUnitHp::Inst;
         pkt->ReadFrom(ns2);
         break;
 
-    case 0x76:
+    case ITEM_LIST:
         pkt = &PacketUnitStateVec::Inst;
         pkt->ReadFrom(ns2);
         break;
 
-    case 0x7a:
+    case SACK_STATE:
         pkt = &PacketSack::Inst;
         pkt->ReadFrom(ns2);
         break;
 
-    case 0x82:
+    case BUILDING_HP:
         pkt = &PacketBuildingHp::Inst;
         pkt->ReadFrom(ns2);
         break;
 
-    case 0x86: case 0x8b:
+    case EFFECT_MOVE: case EFFECT_FROM:
         pkt = &PacketMoveBroadcast::Inst;
         pkt->ReadFrom(ns2);
         break;
 
-    case 0x87:
+    case AOE_ZONE:
         pkt = &PacketAoeZone::Inst;
         pkt->ReadFrom(ns2);
         break;
 
-    case 0x88: case 0x89:
+    case EFFECT_HANG: case EFFECT_GONE:
         pkt = &PacketEffect::Inst;
         pkt->ReadFrom(ns2);
         break;
 
-    case 0x9c:
+    case ENEMY_EQUIPMENT:
         pkt = &PacketUnitEquipment::Inst;
         pkt->ReadFrom(ns2);
         break;
 
-    case 0xba: case 0xc2: case 0xcb: case 0xcd: case 0xce: case 0xcf:
-    case 0xd4: case 0xd9: case 0xda: case 0xdd: case 0xde: case 0xe0:
+    case CREATURE_KNOWLEDGE: case TEAM_STATE: case HAT_CONNECT_SERVER: case SERVER_LIST: case HAT_CHAR_LIST: case HAT_CHAR_DATA:
+    case HAT_RAW_DATA: case HAT_JOIN_FAIL: case HAT_SESSION_SETUP: case HAT_PLAYER_JOIN: case UNKNOWN_DE: case HAT_MESSAGE:
         pkt = &PacketData::Inst;
         pkt->ReadFrom(ns2);
         break;
 
-    case 0xbe:
+    case REQUEST_UNIT_UPDATE:
         pkt = &PacketData::Inst;
         pkt->ReadFrom(ns2);
         break;
 
-    case 0xc0:
+    case FILE_CHUNK:
         pkt = &PacketFileChunk::Inst;
         pkt->ReadFrom(ns2);
         break;
@@ -1413,7 +1413,7 @@ void NetStru1::OnClientDisconnect(NetStru2* cli) {
             }
 
             if (!MapStuff_Instance && g_Server->fog_of_war) {
-                this->SendInfoPacket(0x97, pl->player_id, 0, nullptr);
+                this->SendInfoPacket(PLAYER_LEFT, pl->player_id, 0, nullptr);
                 LogMessage("Player " + pl->name + " disconnected.");
 
                 POSITION pos = g_PlayersList->list.Find(pl);
@@ -1446,7 +1446,7 @@ void NetStru1::OnClientDisconnect(NetStru2* cli) {
                     }
                 }
                 if (!MapStuff_Instance && g_Server->fog_of_war) {
-                    this->SendInfoPacket(0x97, pl->player_id, 0, nullptr);
+                    this->SendInfoPacket(PLAYER_LEFT, pl->player_id, 0, nullptr);
                     LogMessage("Player " + pl->name + " has disconnected and leaved game.");
 
                     POSITION pos = g_PlayersList->list.Find(pl);
@@ -1568,7 +1568,7 @@ void NetStru1::SendAllData() {
 void NetStru1::SendPacket_64(uint32_t val, uint16_t player_id) {
     //51d88d
     PacketDword& pkt = PacketDword::Inst;
-    pkt.id = 0x64;
+    pkt.id = SERVER_TICK;
     pkt.value = val;
     pkt.to_player_id = player_id;
     this->QueuePacketSend(&pkt);
@@ -1611,7 +1611,7 @@ void NetStru1::QueuePacketSend(Packet* pkt) {
                     this->AddStat1(cli, pkt->GetDataSize());
                     this->AddPacketStatistic(pkt);
                 }
-                if (pkt->id == 0x64) {
+                if (pkt->id == SERVER_TICK) {
                     cli->out_buffers[cli->out_buff_id].pkt_num++;
                 }
             }
@@ -1624,13 +1624,13 @@ void NetStru1::QueuePacketSend(Packet* pkt) {
                 this->AddStat1(cli, pkt->GetDataSize());
                 this->AddPacketStatistic(pkt);
             }
-            if (pkt->id == 0x64) {
+            if (pkt->id == SERVER_TICK) {
                 cli->out_buffers[cli->out_buff_id].pkt_num++;
             }
         }
     }
 
-    if (this->make_statistics != 0 && pkt->id == 0x76) {
+    if (this->make_statistics != 0 && pkt->id == ITEM_LIST) {
         //DAT_0070b410 += (GetTickCount() - stime);
     }
 
@@ -4188,7 +4188,7 @@ bool IsVisibleTo(TokenPos* pos, Player* player) {
 
 // Helper: handle "unit hidden" case for effect packets (ids 0x88/0x89).
 void MarkUnitHiddenForPlayer(PacketMoveBroadcast* packet, Player* player) {
-    if (packet->id < 0x88 || packet->id > 0x89) {
+    if (packet->id < EFFECT_HANG || packet->id > EFFECT_GONE) {
         return;
     }
 
@@ -4209,7 +4209,7 @@ void NetStru1::SendUnitAction(Packet* packet, Unit* unit) {
         Player* player = g_PlayersList->FindById(packet->to_player_id);
         if ((unit->seen_by_mask & player->vision_sharing_id) == 0 && g_Server->fog_of_war != 0) {
             int32_t pid = player->player_id;
-            if (pid >= 0x10 && pid < 0x20 && packet->id == 0x6B &&
+            if (pid >= 0x10 && pid < 0x20 && packet->id == UNIT_MOVE &&
                 (unit->something_per_player[pid - 0x10] & 0x40000000) == 0) {
                 unit->something_per_player[pid - 0x10] |= 0x40000010;
                 g_NetStru1_main.SendUnitVisibility(unit, 1, player);
@@ -4228,7 +4228,7 @@ void NetStru1::SendUnitAction(Packet* packet, Unit* unit) {
         }
         if ((unit->seen_by_mask & player->vision_sharing_id) == 0 && g_Server->fog_of_war != 0) {
             int32_t pid = player->player_id;
-            if (pid >= 0x10 && pid < 0x20 && packet->id == 0x6B &&
+            if (pid >= 0x10 && pid < 0x20 && packet->id == UNIT_MOVE &&
                 (unit->something_per_player[pid - 0x10] & 0x40000000) == 0) {
                 unit->something_per_player[pid - 0x10] |= 0x40000010;
                 g_NetStru1_main.SendUnitVisibility(unit, 1, player);
@@ -4312,13 +4312,13 @@ void NetStru1::BroadcastAoeZone(PacketAoeZone* packet, AreaEffect* area_effect) 
 // 51BAB0
 void NetStru1::SendSpellCastAtUnit(Unit* caster, Spell* spell, Unit* target, int16_t delay) {
     PacketMoveBroadcast& packet = PacketMoveBroadcast::Inst;
-    packet.id = 0x86;
+    packet.id = EFFECT_MOVE;
     packet.unit_id = caster->building_id;
     packet.type_id = 0;
     packet.x = 0;
     packet.y = 0;
     if (caster->typeId == 0) {
-        packet.id = 0x8B;
+        packet.id = EFFECT_FROM;
         // Original code was writing the X and Y separately into +0xa and +0xb. I hope it's the same.
         packet.unit_id = caster->position->GetX() | (caster->position->GetY() << 8);
     }
@@ -4337,10 +4337,10 @@ void NetStru1::SendSpellCastAtUnit(Unit* caster, Spell* spell, Unit* target, int
 // 51BB94
 void NetStru1::SendSpellCastAtPos(Unit* caster, Spell* spell, TokenPos* pos, int16_t delay) {
     PacketMoveBroadcast& packet = PacketMoveBroadcast::Inst;
-    packet.id = 0x86;
+    packet.id = EFFECT_MOVE;
     packet.unit_id = caster->building_id;
     if (caster->typeId == 0) {
-        packet.id = 0x8B;
+        packet.id = EFFECT_FROM;
         // Original code was writing the X and Y separately into +0xa and +0xb. I hope it's the same.
         packet.unit_id = caster->position->GetX() | (caster->position->GetY() << 8);
     }
@@ -4358,11 +4358,11 @@ void NetStru1::SendSpellCastAtPos(Unit* caster, Spell* spell, TokenPos* pos, int
 // 51BC6B
 void NetStru1::SendSpellCastMulti(Unit* caster, Spell* spell, CList<Unit*>* units, int32_t flag) {
     PacketTerrain& packet = PacketTerrain::Inst;
-    packet.id = 0x8A;
+    packet.id = EFFECT_MULTI_TARGET;
     packet.count = units->GetCount() + 1;
     packet.buf[0] = caster->building_id;
     if (caster->typeId == 0) {
-        packet.id = 0x8C;
+        packet.id = EFFECT_MULTI_FROM;
         packet.buf[0] = caster->position->GetYX();
     }
     int32_t i = 1;
@@ -4383,7 +4383,7 @@ void NetStru1::SendSpellCastMulti(Unit* caster, Spell* spell, CList<Unit*>* unit
 // 51BDA4
 void NetStru1::BroadcastEffect(Effect* effect, Unit* unit, uint8_t packet_id) {
     PacketEffect& packet = PacketEffect::Inst;
-    packet.id = packet_id ? packet_id : 0x88;
+    packet.id = packet_id ? packet_id : EFFECT_HANG;
     packet.unit_id = unit->building_id;
     packet.effect_type = effect->typeId;
     packet.to_player_id = 0;
@@ -4394,10 +4394,10 @@ void NetStru1::BroadcastEffect(Effect* effect, Unit* unit, uint8_t packet_id) {
 // 51C822
 void NetStru1::SendSpectatorState(NetStru2* ns2) {
     PacketDword& packet = PacketDword::Inst;
-    packet.id = 0x0E;
+    packet.id = JOIN_DONE;
     packet.value = dword_665CFC;
     packet.WriteTo(ns2);
-    packet.id = 0x64;
+    packet.id = SERVER_TICK;
     packet.value = (uint32_t)g_Server->tick;
     packet.WriteTo(ns2);
     ns2->out_buffers[ns2->out_buff_id].pkt_num += 1;
@@ -4407,7 +4407,7 @@ void NetStru1::SendSpectatorState(NetStru2* ns2) {
 // 51D837
 void NetStru1::SendGameInfo(int32_t game_speed, Player* player) {
     PacketDword& packet = PacketDword::Inst;
-    packet.id = 0x10;
+    packet.id = GAME_SPEED;
     if (player != nullptr) {
         packet.to_player_id = player->player_id;
     } else {
@@ -4421,7 +4421,7 @@ void NetStru1::SendGameInfo(int32_t game_speed, Player* player) {
 void NetStru1::SendHatCharData(int32_t hat_char_id1, int32_t hat_char_id2, CString name, void* data, uint32_t size, uint16_t player_id) {
     PacketData& packet = PacketData::Inst;
     packet.to_player_id = player_id;
-    packet.id = 0xCF;
+    packet.id = HAT_CHAR_DATA;
     int32_t name_len = name.GetLength();
     packet.count = name_len + size + 0x10;
     uint32_t* p = (uint32_t*)packet.data;
@@ -4438,7 +4438,7 @@ void NetStru1::SendHatCharData(int32_t hat_char_id1, int32_t hat_char_id2, CStri
 void NetStru1::SendHatMessage(int32_t hat_char_id1, int32_t hat_char_id2, CString name, void* data, uint32_t size, uint16_t player_id) {
     PacketData& packet = PacketData::Inst;
     packet.to_player_id = player_id;
-    packet.id = 0xE0;
+    packet.id = HAT_MESSAGE;
     int32_t name_len = name.GetLength();
     packet.count = name_len + size + 0x10;
     uint32_t* p = (uint32_t*)packet.data;
@@ -4455,7 +4455,7 @@ void NetStru1::SendHatMessage(int32_t hat_char_id1, int32_t hat_char_id2, CStrin
 void NetStru1::SendHatKeepalive(uint16_t player_id) {
     PacketData& packet = PacketData::Inst;
     packet.to_player_id = player_id;
-    packet.id = 0xE0;
+    packet.id = HAT_MESSAGE;
     packet.count = 1;
     this->QueuePacketSend(&packet);
 }
@@ -4463,7 +4463,7 @@ void NetStru1::SendHatKeepalive(uint16_t player_id) {
 // 51E205
 void NetStru1::SendHatLogin(CString name) {
     PacketJoin& packet = PacketJoin::Inst;
-    packet.id = 0xD1;
+    packet.id = HAT_LOGIN;
     packet.__as_dword = 0;
     strcpy(packet.name, name);
     packet.to_player_id = 0;
@@ -4474,7 +4474,7 @@ void NetStru1::SendHatLogin(CString name) {
 void NetStru1::SendHatRawString(const char* str, int32_t len) {
     PacketData& packet = PacketData::Inst;
     packet.to_player_id = 0;
-    packet.id = 0xD4;
+    packet.id = HAT_RAW_DATA;
     while (len != 0) {
         if (len <= 0x10000) {
             packet.count = len;
@@ -4491,7 +4491,7 @@ void NetStru1::SendHatRawString(const char* str, int32_t len) {
 // 51E5FB
 void NetStru1::SendHatJoinOk(int32_t a, int32_t b) {
     Packet2Dwords& packet = Packet2Dwords::Inst;
-    packet.id = 0xD8;
+    packet.id = HAT_JOIN_OK;
     packet.param1 = a;
     packet.param2 = b;
     packet.to_player_id = 0;
@@ -4502,7 +4502,7 @@ void NetStru1::SendHatJoinOk(int32_t a, int32_t b) {
 void NetStru1::SendHatJoinFail(int32_t a, int32_t b, int32_t error_code) {
     PacketData& packet = PacketData::Inst;
     packet.to_player_id = 0;
-    packet.id = 0xD9;
+    packet.id = HAT_JOIN_FAIL;
     packet.count = 0xC;
     uint32_t* p = (uint32_t*)packet.data;
     *p++ = a;
@@ -4515,7 +4515,7 @@ void NetStru1::SendHatJoinFail(int32_t a, int32_t b, int32_t error_code) {
 void NetStru1::SendHatPlayerCheck(int32_t a, int32_t b, uint8_t status, int16_t player_id) {
     PacketData& packet = PacketData::Inst;
     packet.to_player_id = player_id;
-    packet.id = 0xE1;
+    packet.id = HAT_PLAYER_CHECK;
     packet.count = 0xC;
     uint32_t* p = (uint32_t*)packet.data;
     *p++ = a;
@@ -4536,7 +4536,7 @@ void NetStru1::SendMonsterInventory(Unit* unit, Player* player, int32_t start_in
     }
 
     PacketUnitStateVec& packet = PacketUnitStateVec::Inst;
-    packet.id = 0x76;
+    packet.id = ITEM_LIST;
     packet.entry_count = (uint16_t)(end_index - start_index);
     packet.start_index = (uint16_t)start_index;
     packet.data_size = 0;
@@ -4595,7 +4595,7 @@ void NetStru1::SendHumanoidProps(Unit* unit, Player* player, int32_t flags) {
 
         if (unit->pOwner != player) {
             PacketUnitEquipment& packet = PacketUnitEquipment::Inst;
-            packet.id = 0x9C;
+            packet.id = ENEMY_EQUIPMENT;
             packet.unit_id = (uint16_t)unit->building_id;
             packet.flags = (uint16_t)flags;
             packet.to_player_id = player->player_id;
@@ -4620,7 +4620,7 @@ void NetStru1::SendHumanoidProps(Unit* unit, Player* player, int32_t flags) {
     }
 
     PacketUnitStateVec& packet = PacketUnitStateVec::Inst;
-    packet.id = 0x76;
+    packet.id = ITEM_LIST;
     packet.entry_count = 0;
     packet.start_index = (uint16_t)flags;
     packet.data_size = 0;
@@ -4663,7 +4663,7 @@ void NetStru1::SendHumanoidProps(Unit* unit, Player* player, int32_t flags) {
 // 51A8B2
 void NetStru1::SendShopTable(Token* token, Inventory* inventory, Player* player, int32_t mode) {
     PacketUnitStateVec& packet = PacketUnitStateVec::Inst;
-    packet.id = 0x76;
+    packet.id = ITEM_LIST;
     packet.entry_count = 0;
     packet.start_index = 0;
     packet.data_size = 0;
@@ -4688,7 +4688,7 @@ void NetStru1::SendShopTable(Token* token, Inventory* inventory, Player* player,
 // 51AA26
 void NetStru1::SendShopShelf(Shop* shop, CMultiShopShelf* shelf, Player* player, uint8_t slot) {
     PacketUnitStateVec& packet = PacketUnitStateVec::Inst;
-    packet.id = 0x76;
+    packet.id = ITEM_LIST;
     packet.entry_count = 0;
     packet.start_index = 0;
     packet.data_size = 0;
@@ -4753,7 +4753,7 @@ void NetStru1::BroadcastTokenState(Token* token, Player* player, uint8_t flag) {
 
     if (token->IsUnit()) {
         Unit* unit = static_cast<Unit*>(token);
-        if (flag == 0x73) {
+        if (flag == UNIT_DAMAGED) {
             if (!(unit->seen_by_mask & player->vision_sharing_id) && g_Server->fog_of_war != 0) {
                 int32_t pid = player->player_id;
                 if (0x10 <= pid && pid < 0x20) {
@@ -4774,7 +4774,7 @@ void NetStru1::BroadcastTokenState(Token* token, Player* player, uint8_t flag) {
     if (token->IsKindOf(RUNTIME_CLASS(Sack))) {
         Sack* sack = static_cast<Sack*>(token);
         PacketSack& packet = PacketSack::Inst;
-        packet.id = 0x7A;
+        packet.id = SACK_STATE;
         packet.to_player_id = player->player_id;
         packet.xpos = sack->position->GetXx();
         packet.ypos = sack->position->GetYy();
@@ -4809,7 +4809,7 @@ void NetStru1::BroadcastTokenState(Token* token, Player* player, uint8_t flag) {
         building->sent_to_mask |= (player ? player->vision_sharing_id : 0xFFFF);
         if (building->typeId != 0 && building->hp_max != 0) {
             PacketBuildingHp& packet = PacketBuildingHp::Inst;
-            packet.id = 0x82;
+            packet.id = BUILDING_HP;
             packet.to_player_id = player ? player->player_id : 0;
             packet.building_id = (uint16_t)building->building_id;
             packet.hp = building->hp;
@@ -4830,94 +4830,94 @@ void NetStru1::WriteStatsLog(CString fname) { //51f124
         if (this->stat_pkt_num[i] != 0) {
             CString pname;
             switch (i) {
-            case 0x64:
+            case SERVER_TICK:
                 pname = "GM_ReportNewSegment";
                 break;
-            case 0x67:
+            case MONEY_UPDATE:
                 pname = "GM_ReportMoney";
                 break;
-            case 0x69:
+            case UNIT_SHOWN:
                 pname = "GM_ReportUnitShown";
                 break;
-            case 0x6b:
+            case UNIT_MOVE:
                 pname = "GM_ReportUnitMove";
                 break;
-            case 0x6c:
-            case 0x6e:
-            case 0x6f:
-            case 0x70:
+            case UNIT_CHANGE_4:
+            case UNIT_CHANGE_1:
+            case UNIT_CHANGE_2:
+            case UNIT_CHANGE_3:
                 pname = "GM_ReportUnitChange";
                 break;
-            case 0x6d:
+            case UNIT_TURN:
                 pname = "GM_ReportUnitTurn";
                 break;
-            case 0x71:
+            case UNIT_ATTACK:
                 pname = "GM_ReportUnitAttack";
                 break;
-            case 0x72:
+            case RANGED_ATTACK:
                 pname = "GM_ReportRangedAttack";
                 break;
-            case 0x73:
+            case UNIT_DAMAGED:
                 pname = "GM_ReportUnitDamaged";
                 break;
-            case 0x74:
+            case UNIT_HIDDEN:
                 pname = "GM_ReportUnitHidden";
                 break;
-            case 0x76:
+            case ITEM_LIST:
                 pname = "GM_ReportItemList";
                 break;
-            case 0x79:
+            case UNIT_WEAR_ITEMS:
                 pname = "GM_ReportUnitWearItems";
                 break;
-            case 0x7a:
+            case SACK_STATE:
                 pname = "GM_ReportSack";
                 break;
-            case 0x86:
+            case EFFECT_MOVE:
                 pname = "GM_ReportEffect";
                 break;
-            case 0x87:
+            case AOE_ZONE:
                 pname = "GM_ReportAreaEffect";
                 break;
-            case 0x88:
+            case EFFECT_HANG:
                 pname = "GM_ReportEffectHang";
                 break;
-            case 0x89:
+            case EFFECT_GONE:
                 pname = "GM_ReportEffectGone";
                 break;
-            case 0x8a:
+            case EFFECT_MULTI_TARGET:
                 pname = "GM_ReportEffectMultiTarget";
                 break;
-            case 0x8b:
+            case EFFECT_FROM:
                 pname = "GM_ReportEffectFrom";
                 break;
-            case 0x8c:
+            case EFFECT_MULTI_FROM:
                 pname = "GM_ReportEffectMultiFrom";
                 break;
-            case 0x8d:
+            case REPORT_MESSAGE:
                 pname = "GM_ReportMessage";
                 break;
-            case 0x96:
+            case PLAYER_INFO:
                 pname = "GM_ReportNewPlayer";
                 break;
-            case 0x97:
+            case PLAYER_LEFT:
                 pname = "GM_ReportDeletePlayer";
                 break;
-            case 0x98:
+            case ASH_MAP:
                 pname = "GM_ReportAshMap";
                 break;
-            case 0x9c:
+            case ENEMY_EQUIPMENT:
                 pname = "GM_ReportEnemyEquipment";
                 break;
-            case 0xb9:
+            case DIPLOMACY_STATE:
                 pname = "GM_ReportDiplomacy";
                 break;
-            case 0xba:
+            case CREATURE_KNOWLEDGE:
                 pname = "GM_ReportCreatureKnowledge";
                 break;
-            case 0xbb:
+            case PLAYER_QUESTS:
                 pname = "GM_ReportPlayerQuests";
                 break;
-            case 0xbc:
+            case INN_QUESTS:
                 pname = "GM_ReportInnQuests";
                 break;
             }
@@ -4937,7 +4937,7 @@ void NetStru1::SendHatCredentials(const CString& login, const CString& password,
 
     strcpy(pkt->name, namepwd);
 
-    pkt->id = 0xc9;
+    pkt->id = HAT_CREDENTIALS;
 
     pkt->player_id = login.GetLength();
     pkt->token_id = 0;
@@ -4950,7 +4950,7 @@ void NetStru1::SendHatCredentials(const CString& login, const CString& password,
 
 void NetStru1::SendHatCharId(HatCharId chid) { //51d9d0
     Packet2Dwords* pkt = &Packet2Dwords::Inst;
-    pkt->id = 0xca;
+    pkt->id = HAT_PICK_CHAR;
     pkt->param1 = chid.id1;
     pkt->param2 = chid.id2;
     pkt->to_player_id = 0;
@@ -4959,7 +4959,7 @@ void NetStru1::SendHatCharId(HatCharId chid) { //51d9d0
 
 void NetStru1::SendHatLogout() { //51d9a0
     Packet* pkt = &Packet::Inst;
-    pkt->id = 0xc8;
+    pkt->id = HAT_LOGOUT;
     pkt->to_player_id = 0;
     this->QueuePacketSend(pkt);
 }
@@ -4969,7 +4969,7 @@ void NetStru1::SendHatConnectServer(HatCharId key, uint8_t body, uint8_t reactio
     //51da14   (client:50e5cf)
     PacketData* pkt = &PacketData::Inst;
     pkt->to_player_id = 0;
-    pkt->Inst.id = 0xcb;
+    pkt->Inst.id = HAT_CONNECT_SERVER;
     pkt->count = name.GetLength() + 16 + srv.GetLength();
     memcpy(pkt->data, &key, 8);
     pkt->data[8] = body;
@@ -4988,7 +4988,7 @@ void NetStru1::SendHatConnectServer(HatCharId key, uint8_t body, uint8_t reactio
 void NetStru1::SendServerConnectHatTicket(HatCharId ticket, uint16_t player_id) {
     //51dce5   (client:50e8c0)
     Packet2Dwords* pkt = &Packet2Dwords::Inst;
-    pkt->id = 0xd0;
+    pkt->id = HAT_TICKET;
     pkt->param1 = ticket.id1;
     pkt->param2 = ticket.id2;
     pkt->to_player_id = player_id;
@@ -4997,14 +4997,14 @@ void NetStru1::SendServerConnectHatTicket(HatCharId ticket, uint16_t player_id) 
 
 void NetStru1::FUN_0050eede() { // client 50eede
     Packet* pkt = &Packet::Inst;
-    pkt->id = 0xdc;
+    pkt->id = UNKNOWN_DC;
     pkt->to_player_id = 0;
     QueuePacketSend(pkt);
 }
 
 void NetStru1::FUN_0050e70d(HatCharId id) { //client  50e70d
     Packet2Dwords* pkt = &Packet2Dwords::Inst;
-    pkt->id = 0xcc;
+    pkt->id = HAT_CHAR_REQUEST;
     pkt->to_player_id = 0;
     pkt->param1 = id.id1;
     pkt->param2 = id.id2;

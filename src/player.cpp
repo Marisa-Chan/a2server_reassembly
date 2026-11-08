@@ -197,7 +197,7 @@ IMPLEMENT_SERIAL(Player, CObject, 1);
 // 534AC1
 void Player::AddMoney(int32_t amount, uint32_t notify_flag) {
     this->money += amount;
-    g_NetStru1_main.SendInfoPacket(0x67, this->money, notify_flag, this);
+    g_NetStru1_main.SendInfoPacket(MONEY_UPDATE, this->money, notify_flag, this);
 }
 
 // 534B17

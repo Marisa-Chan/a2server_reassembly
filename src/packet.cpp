@@ -53,7 +53,7 @@ PacketJoin PacketJoin::Inst;
 
 PacketJoin::PacketJoin() {
     //526c12
-    this->id = 0x91;
+    this->id = CHAT;
 
     this->player_id = 0;
     this->token_id = 0;
@@ -80,7 +80,7 @@ PacketJoin::PacketJoin(const PacketJoin *src) {
 
 PacketJoin::PacketJoin(CString _name) {
     //526d59
-    this->id = 0x91;
+    this->id = CHAT;
 
     this->player_id = 0;
     this->token_id = 0;
@@ -215,16 +215,16 @@ void PacketUnitUpdate::WriteTo(NetStru2* net) {
 
     switch (this->CalcFlagsSize()) {
     case 1:
-        this->id = 0x6e;
+        this->id = UNIT_CHANGE_1;
         break;
     case 2:
-        this->id = 0x6f;
+        this->id = UNIT_CHANGE_2;
         break;
     case 3:
-        this->id = 0x70;
+        this->id = UNIT_CHANGE_3;
         break;
     case 4:
-        this->id = 0x6c;
+        this->id = UNIT_CHANGE_4;
         break;
     }
 
@@ -479,7 +479,7 @@ PacketUnitAction PacketUnitAction::Inst;
 
 PacketUnitAction::PacketUnitAction() {
     //sub_526F68  id = 0x6B
-    this->id = 0x6B;
+    this->id = UNIT_MOVE;
 }
 
 PacketUnitAction::PacketUnitAction(const PacketUnitAction* src) {
@@ -788,7 +788,7 @@ PacketBuildingHp PacketBuildingHp::Inst;
 
 PacketBuildingHp::PacketBuildingHp() {
     //sub_527810  id = 0x82
-    this->id = 0x82;
+    this->id = BUILDING_HP;
 }
 
 PacketBuildingHp::PacketBuildingHp(const PacketBuildingHp* src) {

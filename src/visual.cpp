@@ -23980,7 +23980,7 @@ void sub_44E4CE(const char* cmd) {
 int32_t VisServerScreen::OnKeyDown(uint32_t wparam) {
     if (wparam == 0x0D) {  // Enter: send the chat text box content
         PacketJoin& pkt = PacketJoin::Inst;
-        pkt.id = 0x91;
+        pkt.id = CHAT;
         pkt.to_player_id = 0;
         pkt.__as_dword = 0;
 

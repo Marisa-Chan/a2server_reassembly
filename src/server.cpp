@@ -130,7 +130,7 @@ int dword_6CDB38; // File checksum global
 // 4FA768
 // Send game-end broadcast to all clients
 static void SendFragLimit(Player* player) {
-    g_NetStru1_main.SendInfoPacket(0x5C, g_ServerConfig.frag_limit, 0, player);
+    g_NetStru1_main.SendInfoPacket(HAT_SCORE_LIST, g_ServerConfig.frag_limit, 0, player);
 }
 
 uint16_t Server::somewords[32][32];
@@ -141,7 +141,7 @@ SrvStru1 SrvStru1::Instance; //6cf390
 
 // 4f2c26
 Server::~Server() {
-    g_NetStru1_main.SendBarePacket(0xaf, nullptr);
+    g_NetStru1_main.SendBarePacket(SERVER_SHUTDOWN, nullptr);
     g_NetStru1_main.SendPacket_64(this->tick | 1, 0);
     g_NetStru1_main.SendAllData();
 
@@ -350,7 +350,7 @@ void Server::ProcessPlayers() {
     this->tick16 = 0;
     this->tick = 0;
 
-    g_NetStru1_main.SendBarePacket(0xb8, nullptr);
+    g_NetStru1_main.SendBarePacket(LEAVE_BUILDING, nullptr);
     g_NetStru1_main.SendPacket_64(this->tick | 1, 0);
     this->ScanSavedCharacters();
 }
@@ -1719,7 +1719,7 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
     // Send player's main unit's position.
     if (player->main_unit) {
         Packet2Dwords& inf = Packet2Dwords::Inst;
-        inf.id = 0xABu;
+        inf.id = VIEW_POSITION;
         inf.to_player_id = player->player_id;
         inf.param1 = player->main_unit->position->GetX() & 0xFF;
         inf.param2 = player->main_unit->position->GetY() & 0xFF;
@@ -1768,7 +1768,7 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
     {
         // Set up terrain packet header.
         PacketTerrain& pkt = PacketTerrain::Inst;
-        pkt.id = 0x9Bu;
+        pkt.id = TERRAIN_DATA;
         pkt.to_player_id = player->player_id;
 
         CWordArray encode_list;
@@ -1784,7 +1784,7 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
 
     // Finalise the player's session state.
     player->AddMoney(0, 1);                // notify mission entry
-    g_NetStru1_main.SendBarePacket(3, player); // send "mission entered" event
+    g_NetStru1_main.SendBarePacket(MISSION_ENTERED, player); // send "mission entered" event
     this->UpdateHatAnnounce();                      // server-state refresh
 }
 
@@ -1847,7 +1847,7 @@ void Server::AssignPlayerSlot(Player* player, int32_t slot_data) {
 
                 if (should_send) {
                     std::strcpy(packet.name, (LPCTSTR)player->name);
-                    packet.id = 0x96;
+                    packet.id = PLAYER_INFO;
                     packet.player_id = player->player_id;
                     packet.token_id = player->token_id;
                     packet.color = player->color_slot - 1;
@@ -1877,7 +1877,7 @@ void Server::AssignPlayerSlot(Player* player, int32_t slot_data) {
     player->AddMoney(0, 1);
 
     if (this->has_world_state != 0) {
-        g_NetStru1_main.SendBarePacket(0xB7, player);
+        g_NetStru1_main.SendBarePacket(ENTER_BUILDING, player);
     }
 
     g_NetStru1_main.SendTickPacket(nullptr);
@@ -2236,7 +2236,7 @@ void Server::SignalGameStart(int32_t start_kind) {
     if ((g_ServerConfig.gameType == 1) || (g_ServerConfig.gameType == 2)) {
         g_NetStru1_main.SendTeamState(0);
     }
-    g_NetStru1_main.SendInfoPacket(0xc3, start_kind, 0, nullptr);
+    g_NetStru1_main.SendInfoPacket(GAME_START, start_kind, 0, nullptr);
     this->game_started = 1;
 }
 
@@ -2878,17 +2878,17 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
 
         LogMessage("All sacks picked up");
     } else if (cheat_string.Find("#show map") == 0) {
-        g_NetStru1_main.SendInfoPacket(0xAA, 1, 0, player);
+        g_NetStru1_main.SendInfoPacket(MAP_REVEAL, 1, 0, player);
         if (!is_reconnect) {
             g_NetStru1_main.SendTeamNotify(7, player->player_id, nullptr);
         }
     } else if (cheat_string.Find("#hide map") == 0) {
-        g_NetStru1_main.SendInfoPacket(0xAA, 0, 0, player);
+        g_NetStru1_main.SendInfoPacket(MAP_REVEAL, 0, 0, player);
         if (!is_reconnect) {
             g_NetStru1_main.SendTeamNotify(7, player->player_id, nullptr);
         }
     } else if (cheat_string.Find("#victory") == 0) {
-        g_NetStru1_main.SendInfoPacket(0xAA, 2, 0, player);
+        g_NetStru1_main.SendInfoPacket(MAP_REVEAL, 2, 0, player);
     } else if (cheat_string.Find("#event ") == 0) {
         cheat_string = cheat_string.Mid(7);
         cheat_string.TrimLeft();
@@ -3009,7 +3009,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
         }
 
         Spell* cast_spell = nullptr;
-        if (pkt->id == 0x1E || pkt->id == 0x1F) {
+        if (pkt->id == GROUP_CAST_UNIT || pkt->id == GROUP_CAST_POS) {
             uint8_t spell_id = BOOK_POS_TO_SPELL_ID[packet_order->slot];
             packet_order->slot = spell_id;
             // Find hero unit in group that matches the spell type
@@ -3027,74 +3027,74 @@ void Server::ProcessClientPacket(Packet* pkt) {
         uint8_t y = packet_order->y;
 
         switch (pkt->id) {
-        case 0x12: // move to position?
+        case GROUP_STOP: // move to position?
             g_World->GroupStopCommand(group);
             player->ResetAfkTimer();
             break;
-        case 0x13:
+        case GROUP_GATHER:
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->OrderGatherLoot(unit);
                 player->ResetAfkTimer();
             }
             break;
-        case 0x14:
+        case GROUP_GO_HOME:
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupGoHomeCommand(group);
                 player->ResetAfkTimer();
             }
             break;                  
-        case 0x16:
+        case GROUP_MOVE:
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupMoveCommand(group, x, y);
                 player->ResetAfkTimer();
             }
             break;
-        case 0x17:
+        case GROUP_GUARD:
             g_World->GroupGuardCommand(group, 0);
             player->ResetAfkTimer();
             break;
-        case 0x18:
+        case GROUP_AGGRESSIVE:
             g_World->GroupAggressiveStance(group);
             player->ResetAfkTimer();
             break;
-        case 0x19: // move to building?
+        case GROUP_ATTACK: // move to building?
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupAttackCommand(group, static_cast<Unit*>(target));
                 player->ResetAfkTimer();
             }
             break;
-        case 0x1A: // attack-move to position?
+        case GROUP_ATTACK_MOVE: // attack-move to position?
             CheckPacketType(pkt, "PacketGroupOrder");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupAttackMove(group, x, y);
                 player->ResetAfkTimer();
             }
             break;
-        case 0x1B: // attack building?
+        case GROUP_ATTACK_TARGET: // attack building?
             CheckPacketType(pkt, "PacketGroupOrder");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupAttackTargetCommand(group, static_cast<Unit*>(target), 0);
                 player->ResetAfkTimer();
             }
             break;
-        case 0x1C: // Defend location.
+        case GROUP_DEFEND: // Defend location.
             CheckPacketType(pkt, "PacketGroupOrder");
             LogMessage("defend location comes");
             g_World->GroupMoveCommand(group, x, y);
             break;
-        case 0x1D: // patrol?
+        case GROUP_PATROL: // patrol?
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupPatrolCommand(group, x, y);
                 player->ResetAfkTimer();
             }
             break;
-        case 0x1E: // cast at unit/building?
+        case GROUP_CAST_UNIT: // cast at unit/building?
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupCastAtUnitCommand(group, static_cast<Unit*>(target), cast_spell);
                 player->ResetAfkTimer();
             }
             break;
-        case 0x1F: // cast at position?
+        case GROUP_CAST_POS: // cast at position?
             CheckPacketType(pkt, "PacketGroupOrder");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 player->ResetAfkTimer();
@@ -3103,7 +3103,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 }
             }
             break;
-        case 0x21:
+        case GROUP_PICKUP:
             CheckPacketType(pkt, "PacketGroupOrder");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 player->ResetAfkTimer();
@@ -3118,7 +3118,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 g_World->OrderSwarmTo(unit, x, y);
             }
             break;
-        case 0x24:
+        case GROUP_ENTER_BUILDING:
             CheckPacketType(pkt, "PacketGroupOrder");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 player->ResetAfkTimer();
@@ -3132,8 +3132,8 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 g_World->OrderEnterBuilding(unit, building);
             }
             break;
-        case 0x25: // Cast point spell with a scroll.
-        case 0x26: // Cast area spell with a scroll.
+        case SCROLL_CAST_UNIT: // Cast point spell with a scroll.
+        case SCROLL_CAST_POS: // Cast area spell with a scroll.
             CheckPacketType(pkt, "PacketGroupOrder");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->AreTeamsStarted() != 0) {
                 player->ResetAfkTimer();
@@ -3150,7 +3150,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     player->main_unit->spell = spell;
 
                     spell->SetPower(eff->spell_value);
-                    if (packet_order->id == 0x25) {
+                    if (packet_order->id == SCROLL_CAST_UNIT) {
                         g_World->GroupCastAtUnitCommand(group, static_cast<Unit*>(target), spell);
                     } else {
                         if (!spell->IsAreaSpell(packet_order->x, packet_order->y)) {
@@ -3165,7 +3165,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 }
             }
             break;
-        case 0x4D:
+        case GROUP_STOP_AFK:
             g_World->GroupStopCommand(group);
             if (g_ServerConfig.gameType == 0) {
                 player->StartAfkTimer();
@@ -3190,7 +3190,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
     // TODO: re-check 0x39, 0x48
 
     switch (pkt->id) {
-    case 0x02: // Send player stat update?
+    case ENTER_GAME: // Send player stat update?
 #ifdef A2CLIENT
         //allods2 50001c
     {
@@ -3210,7 +3210,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
 #endif
         break;
 
-    case 0x04: // Join mission.
+    case JOIN_MISSION: // Join mission.
         CheckPacketType(pkt, "Packet2Dwords");
         player = g_PlayersList->FindById(packet_2dwords->from_player_id);
         if (player) {
@@ -3218,7 +3218,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
         }
         break;
 
-    case 0x05:
+    case PLAYER_LEAVE:
         CheckPacketType(pkt, "Packet");
         player = this->FindPlayerById(pkt->from_player_id);
         if (player) {
@@ -3226,7 +3226,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
         }
         break;
 
-    case 0x07: // Execute string command
+    case REQUEST_SAVE_GAME: // Execute string command
         CheckPacketType(pkt, "PacketJoin");
         {
             CString cmd(packet_join->name);
@@ -3234,17 +3234,17 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         }
 
-    case 0x08:
+    case REQUEST_LOAD_GAME:
         CheckPacketType(pkt, "Packet");
         LogMessage("Loading not suppported now.");
         break;
 
-    case 0x09:
+    case CLIENT_SHUTDOWN:
         CheckPacketType(pkt, "Packet");
         LogMessage("Client request shutdown.");
         break;
 
-    case 0x22: // Item operation.
+    case ITEM_OPERATION: // Item operation.
         CheckPacketType(pkt, "PacketItemTransfer");
         {
             Unit* target_unit = this->FindPlayerUnit(packet_transfer->from_player_id, packet_transfer->unit_id);
@@ -3392,7 +3392,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         }
 
-    case 0x23: // Gold drop - create money sack on the ground
+    case DROP_GOLD: // Gold drop - create money sack on the ground
         CheckPacketType(pkt, "Packet2Dwords");
         {
             player = g_PlayersList->FindById(packet_2dwords->from_player_id);
@@ -3434,7 +3434,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         }
 
-    case 0x32: // Enter shop.
+    case ENTER_SHOP: // Enter shop.
         CheckPacketType(pkt, "PacketWord");
         {
             Unit* unit = this->FindPlayerUnit(packet_word->from_player_id, packet_word->value);
@@ -3451,7 +3451,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         }
 
-    case 0x33:
+    case SHOP_BUY:
         CheckPacketType(pkt, "PacketWord");
         {
             Unit* unit = this->FindPlayerUnit(packet_word->from_player_id, packet_word->value);
@@ -3469,7 +3469,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         }
 
-    case 0x34:
+    case SHOP_SELL:
         CheckPacketType(pkt, "PacketWord");
         {
             Unit* unit = this->FindPlayerUnit(packet_word->from_player_id, packet_word->value);
@@ -3487,7 +3487,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         }
 
-    case 0x35:
+    case SHOP_TAKE_BACK:
         CheckPacketType(pkt, "PacketWord");
         {
             Unit* unit = this->FindPlayerUnit(packet_word->from_player_id, packet_word->value);
@@ -3502,7 +3502,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         }
 
-    case 0x36:
+    case SHOP_CLOSE:
         CheckPacketType(pkt, "PacketWord");
         {
             Unit* unit = this->FindPlayerUnit(packet_word->from_player_id, packet_word->value);
@@ -3518,7 +3518,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         }
 
-    case 0x38: // Enter inn.
+    case ENTER_INN: // Enter inn.
         CheckPacketType(pkt, "PacketWord");
         {
             Unit* unit = this->FindPlayerUnit(packet_word->from_player_id, packet_word->value);
@@ -3538,7 +3538,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         }
 
-    case 0x39:
+    case REQUEST_MAP_INFO:
         CheckPacketType(pkt, "Packet2Dwords");
         {
             player = g_PlayersList->FindById(packet_2dwords->from_player_id);
@@ -3548,7 +3548,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         }
 
-    case 0x3A:
+    case EXIT_INN:
         CheckPacketType(pkt, "Packet2Dwords");
         {
             Unit* unit = this->FindPlayerUnit(packet_2dwords->from_player_id, packet_2dwords->param1);
@@ -3566,7 +3566,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         }
 
-    case 0x3B: // Map file chunk download --- send a chunk of current_map_name to the client
+    case REQUEST_FILE_CHUNK: // Map file chunk download --- send a chunk of current_map_name to the client
         CheckPacketType(pkt, "Packet2Dwords");
         {
             player = this->FindPlayerById(packet_2dwords->from_player_id);
@@ -3576,7 +3576,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
 
             PacketFileChunk& resp = PacketFileChunk::Inst;
             resp.to_player_id = player->player_id;
-            resp.id = 0xC0;
+            resp.id = FILE_CHUNK;
 
             // Copy the map file name into preamble.
             int backslash_pos = this->current_map_name.ReverseFind('\\');
@@ -3614,7 +3614,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         }
 
-    case 0x3E:
+    case CHEAT_MONEY:
         CheckPacketType(pkt, "PacketDword");
         {
             if (this->fog_of_war != 0) {
@@ -3627,14 +3627,14 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         }
 
-    case 0x3F:
+    case CHEAT_SHOP:
         CheckPacketType(pkt, "Packet");
         if (this->fog_of_war == 0) {
             g_DefaultShop.GenerateAssortment();
         }
         break;
 
-    case 0x45: // Diplomacy bulk update
+    case SET_DIPLOMACY: // Diplomacy bulk update
         CheckPacketType(pkt, "PacketData");
         {
             if (!g_World || (g_ServerConfig.gameType != 0 && g_ServerConfig.gameType != 3)) {
@@ -3691,7 +3691,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         }
 
-    case 0x46: // Player parameter change
+    case SET_PARAMETER: // Player parameter change
         CheckPacketType(pkt, "Packet2Dwords");
         {
             if (!g_World) {
@@ -3754,7 +3754,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         }
 
-    case 0x48: { // Join map.
+    case JOIN_MAP: { // Join map.
 #ifdef A2CLIENT
         Player* player = this->FindPlayerById(packet_2dwords->from_player_id);
         if (player) {
@@ -3848,7 +3848,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
 #endif
         }
 
-    case 0x49:
+    case CHEAT_SUMMON:
         CheckPacketType(pkt, "PacketData");
         {
             if (this->fog_of_war != 0) {
@@ -3872,7 +3872,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         }
 
-    case 0x4A:
+    case REQUEST_UNITS_RESEND:
         CheckPacketType(pkt, "Packet");
         {
             player = g_PlayersList->FindById(pkt->from_player_id);
@@ -3882,7 +3882,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         }
 
-    case 0x4B: // Set respawn flag when unit is deeply dead (hp < -39)
+    case REQUEST_RESPAWN: // Set respawn flag when unit is deeply dead (hp < -39)
         CheckPacketType(pkt, "Packet");
         {
             player = this->FindPlayerById(pkt->from_player_id);
@@ -3892,7 +3892,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         }
 
-    case 0x4C: // "Hurt myself" command.
+    case HURT_SELF: // "Hurt myself" command.
         CheckPacketType(pkt, "Packet");
         {
             if (!g_World) {
@@ -3910,7 +3910,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         }
 
-    case 0x91: // Chat message.
+    case CHAT: // Chat message.
         CheckPacketType(pkt, "PacketJoin");
         {
             CString msg(packet_join->name);
@@ -3997,7 +3997,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         }
 
-    case 0xAE: // Server-wide announcement
+    case ANNOUNCEMENT: // Server-wide announcement
         CheckPacketType(pkt, "PacketJoin");
         {
             // WAT: Vanilla builds a local announcement packet but then sends the ORIGINAL packet. We send the constructed announcement instead.
@@ -4007,7 +4007,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         }
 
-    case 0xBE:
+    case REQUEST_UNIT_UPDATE:
         CheckPacketType(pkt, "Packet");
         player = this->FindPlayerById(pkt->from_player_id);
         if (player->main_unit != nullptr) {
@@ -4015,7 +4015,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
         }
         break;
 
-    case 0xC1: // Set network latency for this connection?
+    case LATENCY: // Set network latency for this connection?
         CheckPacketType(pkt, "PacketDword");
         {
             int32_t latency = packet_dword->value;
@@ -4028,7 +4028,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         }
 
-    case 0xD0: // Reconnect?
+    case HAT_TICKET: // Reconnect?
         CheckPacketType(pkt, "Packet2Dwords");
         {
             // Only handle if this connection has not yet claimed a player (field_0x2a8 == 0)
@@ -4242,7 +4242,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
 
     PacketJoin& pkt = PacketJoin::Inst;
     strcpy(pkt.name, player->name);
-    pkt.id = 0x96;
+    pkt.id = PLAYER_INFO;
     pkt.to_player_id = 0;
     pkt.player_id = player->player_id;
     pkt.token_id = player->token_id;
@@ -4264,7 +4264,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
     g_NetStru1_main.SendExistingPlayers(player);
 
     if (this->has_world_state != 0) {
-        g_NetStru1_main.SendBarePacket(0xb7, player);
+        g_NetStru1_main.SendBarePacket(ENTER_BUILDING, player);
     }
     
     g_NetStru1_main.SendTickPacket(nullptr);
@@ -4283,7 +4283,7 @@ void Server::JoinErrorSend(NetStru2* client, int32_t error_code, const CString& 
     if (!str.IsEmpty()) {
         g_NetStru1_main.AnnouncePlayerName(str, &pl);
     }
-    g_NetStru1_main.SendInfoPacket(0xb, error_code, 0, &pl);
+    g_NetStru1_main.SendInfoPacket(JOIN_ERROR, error_code, 0, &pl);
     g_NetStru1_main.SendTickPacket(&pl);
     g_NetStru1_main.SendAllData();
     pl.player_id = 0;
@@ -4703,7 +4703,7 @@ int Server::LoadGame(CString map_name) {
     }
 
     this->has_world_state = 1;
-    g_NetStru1_main.SendBarePacket(0xB7, nullptr);
+    g_NetStru1_main.SendBarePacket(ENTER_BUILDING, nullptr);
 
     this->last_window_ms = 0;
     this->window_ms = 0;
@@ -5453,10 +5453,10 @@ void Server::ProcessHatPacket(Packet* pkt) {
     PacketJoin* pkt_join = reinterpret_cast<PacketJoin*>(pkt);
 
     switch (pkt->id) {
-    case 0x64: // no-op
+    case SERVER_TICK: // no-op
         break;
 
-    case 0xd3: { // 0xd3 - Character return confirmation from hat
+    case HAT_CHAR_RETURN: { // 0xd3 - Character return confirmation from hat
             CString login(pkt_join->name);
             if (this->FileList.GetSize() == 0) {
                 LogMessage("Confirmation from hat for non-sended character. Login: " + login);
@@ -5481,13 +5481,13 @@ void Server::ProcessHatPacket(Packet* pkt) {
 #endif
             LogMessage(login + "'s character returned to hat");
             if (this->FileList.GetSize() == 0 && this->hat_uploads_pending != 0) {
-                NetStru1::HatConnector.SendBarePacket(3, nullptr);
+                NetStru1::HatConnector.SendBarePacket(MISSION_ENTERED, nullptr);
                 this->hat_uploads_pending = 0;
             }
             break;
         }
         
-    case 0xd5: // Login to hat successful
+    case HAT_LOGIN_OK: // Login to hat successful
         hat_connection->is_claimed = 1;
         LogMessage("Login to hat successful.");
         this->hat_logged_in = 0;
@@ -5498,13 +5498,13 @@ void Server::ProcessHatPacket(Packet* pkt) {
         this->hat_id = packet_2dwords->param1;
         if (this->FileList.GetSize() == 0) {
             this->hat_uploads_pending = 0;
-            NetStru1::HatConnector.SendBarePacket(3, nullptr);
+            NetStru1::HatConnector.SendBarePacket(MISSION_ENTERED, nullptr);
         } else {
             this->hat_uploads_pending = 1;
         }
         break;
 
-    case 0xdd: { // New player join request from hat
+    case HAT_PLAYER_JOIN: { // New player join request from hat
             // The packet is likely `PacketData`, but it still uses raw indices in data offsets, so whatever.
             uint8_t* p = reinterpret_cast<uint8_t*>(pkt);
 
@@ -5532,7 +5532,7 @@ void Server::ProcessHatPacket(Packet* pkt) {
             break;
         }
 
-    case 0xe1: { // 0xe1 - Player existence check from hat
+    case HAT_PLAYER_CHECK: { // 0xe1 - Player existence check from hat
             int32_t id1 = packet_2dwords->param1;
             int32_t id2 = packet_2dwords->param2;
             Player* player = g_PlayersList->FindByHatCharId(id1, id2);
@@ -5570,7 +5570,7 @@ void Server::HandleArenaPlayer(Player* player) {
 
 // 4FA78E
 void Server::ResetArenaRound(int32_t end_reason) {
-    g_NetStru1_main.SendInfoPacket(0x5c, g_ServerConfig.frag_limit, end_reason, nullptr);
+    g_NetStru1_main.SendInfoPacket(HAT_SCORE_LIST, g_ServerConfig.frag_limit, end_reason, nullptr);
     this->SendArenaResults();
     this->tick = 0;
     this->SetupArenaFileList();
@@ -6124,7 +6124,7 @@ Inn* Server::FindInnAt(TokenPos* pos) {
 // 4FF878
 void Server::SendMapInfo(Player* player) {
     PacketJoin* pkt = new PacketJoin(this->current_map_name);
-    pkt->id = 0xBF;
+    pkt->id = MAP_INFO;
     pkt->__as_dword = (uint32_t)dword_6CDB38;
     pkt->to_player_id = player->player_id;
     g_NetStru1_main.QueuePacketSend(pkt);
@@ -6163,19 +6163,19 @@ void Server::UpdateMissionResult(Player* player) {
     if (player->mission_result < 2) {
         if (player->main_unit == nullptr || player->main_unit->decay != 0) {
             player->mission_result = 2;
-            g_NetStru1_main.SendInfoPacket(0xB4, player->mission_result, 0, player);
+            g_NetStru1_main.SendInfoPacket(MISSION_RESULT, player->mission_result, 0, player);
             if (player->is_logged_in != 0 && this->fog_of_war == 0) {
-                g_NetStru1_main.SendInfoPacket(0xB4, 0, 0, player);
+                g_NetStru1_main.SendInfoPacket(MISSION_RESULT, 0, 0, player);
             }
         } else if (g_World->mission_fail > 0) {
             if (player->mission_result < 2) {
                 LogMessage("Logic - Mission Failed");
-                g_NetStru1_main.SendInfoPacket(0xB4, g_World->mission_fail, 0, player);
+                g_NetStru1_main.SendInfoPacket(MISSION_RESULT, g_World->mission_fail, 0, player);
                 player->mission_result = (uint8_t)g_World->mission_fail;
             }
         } else if (g_World->mission_complete != 0 && player->mission_result != 1) {
             LogMessage("Logic - Mission Complete");
-            g_NetStru1_main.SendInfoPacket(0xB5, 0, 0, player);
+            g_NetStru1_main.SendInfoPacket(MISSION_COMPLETE, 0, 0, player);
             player->mission_result = 1;
         }
     } else {
@@ -6215,7 +6215,7 @@ void Server::UpdateMissionResult(Player* player) {
 
 #ifndef A2CLIENT
             Packet2Dwords& packet_2dwords = Packet2Dwords::Inst;
-            packet_2dwords.id = 0xAB;
+            packet_2dwords.id = VIEW_POSITION;
             packet_2dwords.to_player_id = player->player_id;
             packet_2dwords.param1 = player->main_unit->position->GetX() & 0xFF;
             packet_2dwords.param2 = player->main_unit->position->GetY() & 0xFF;
@@ -6261,7 +6261,7 @@ void Server::SendArenaResults() {
 void Server::SetupArenaFileList() {
     this->arena_names.SetSize(0, -1);
     this->arena_scores.SetSize(0, -1);
-    g_NetStru1_main.SendBarePacket(0x5a, nullptr);
+    g_NetStru1_main.SendBarePacket(HAT_SCORE_CLEAR, nullptr);
     this->map_elapsed_time2 = 0;
 }
 

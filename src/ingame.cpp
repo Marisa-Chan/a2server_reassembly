@@ -350,10 +350,10 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		//printf("Client receive packet 0x%x\n", pkt->id);
 
 		switch (pkt->id) {
-		case 3:
+		case MISSION_ENTERED:
 			break;
 
-		case 6:
+		case START_GAME:
 			if (!this->scenario) {
 				this->FUN_0041c4a1(packet_join->name);
 			}
@@ -365,7 +365,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			INT_00660f90 = 0;
 			break;
 
-		case 0xb: {
+		case JOIN_ERROR: {
 			INT_00660f8c = packet_2dwords->param1 | 0x1000;
 
 			if ((wnd->dialogsMask & 1) == 0) {
@@ -380,7 +380,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 		}
 
-		case 0xe: {
+		case JOIN_DONE: {
 			while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
 			{
 			}
@@ -388,7 +388,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		} break;
 
 #ifdef A2CLIENT
-		case 0x10:
+		case GAME_SPEED:
 			// client: 417b81 — server-driven game speed change
 			if (wnd->SetSpeed(packet_dword->value) != 0) {
 				this->msglog.AddWithCheck(txt_patch.GetLine(wnd->game_speed + 0x6c), clr_log_sblack, 5000);
@@ -396,13 +396,13 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			g_ServerConfig.game_speed = wnd->game_speed;
 			break;
 
-		case 0x5a:
+		case HAT_SCORE_CLEAR:
 			// client: 4177e6 — clear the hat DM name/score lists
 			this->hat_name_list.RemoveAll();
 			this->hat_score_list.RemoveAll();
 			break;
 
-		case 0x5b: {
+		case HAT_SCORE_UPDATE: {
 			// client: 4176c7 — update one hat DM name/score pair
 			CString name((char*)packet_data->data + 2);
 			int i = 0;
@@ -431,7 +431,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			}
 		} break;
 
-		case 0x5c:
+		case HAT_SCORE_LIST:
 			// client: 41745c — show the hat DM player list / close overlays
 			this->hat_player_count = packet_dword->value;
 			if (packet_2dwords->param2 != 0) {
@@ -444,11 +444,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 #endif
 
-		case 0x64:
+		case SERVER_TICK:
 			wnd->serverLoopCounter = packet_dword->value;
 			break;
 
-		case 0x67: {
+		case MONEY_UPDATE: {
 			if (wnd->dialogsMask == 1 && this->my_main_unit->gold < packet_2dwords->param1 && packet_2dwords->param2 == 0) {
 				sprintf(buf, "%s %d %s", TxtFile::AllLines[0x58], packet_2dwords->param1 - this->my_main_unit->gold, TxtFile::AllLines[0x59]);
 				this->msglog.Add(buf, clr_log_tblack, 3000);
@@ -468,11 +468,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 			break;
 
-		case 0x69:
-		case 0x74: {
+		case UNIT_SHOWN:
+		case UNIT_HIDDEN: {
 			CUnit* unit;
 			if (this->objects.Lookup(packet_word->value, *(CGameObject**)&unit)) {
-				if (pkt->id == 0x74) {
+				if (pkt->id == UNIT_HIDDEN) {
 					unit->unitFlags |= 0x80;
 				} else {
 					unit->unitFlags &= ~0x80;
@@ -482,7 +482,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 			
 
-		case 0x6a: {
+		case TOKEN_REMOVE: {
 			CUnit* unit;
 			if (this->objects.Lookup(packet_word->value, *(CGameObject**)&unit)) {
 				this->objects.RemoveKey(packet_word->value);
@@ -491,7 +491,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 			break;
 
-		case 0x6b: {
+		case UNIT_MOVE: {
 			CUnit* unit;
 			if (!this->objects.Lookup(packet_action->unit_id, *(CGameObject**)&unit)) {
 				sprintf(buf, "Invalid unit #%d. Command Move.", packet_action->unit_id);
@@ -542,10 +542,10 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 			break;
 
-		case 0x6c:
-		case 0x6e:
-		case 0x6f:
-		case 0x70: {
+		case UNIT_CHANGE_4:
+		case UNIT_CHANGE_1:
+		case UNIT_CHANGE_2:
+		case UNIT_CHANGE_3: {
 
 			if (packet_unit->unit_id == 0) {
 				if (g_EnableTrace) {
@@ -1005,7 +1005,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 			break;
 
-		case 0x6d: {
+		case UNIT_TURN: {
 			CUnit* ct = nullptr;
 			if (this->objects.Lookup(packet_action->unit_id, *(CGameObject**)&ct) == 0) {
 				if (g_EnableTrace != 0) {
@@ -1052,7 +1052,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 			break;
 
-		case 0x71: {
+		case UNIT_ATTACK: {
 			CUnit* ct = nullptr;
 			if (this->objects.Lookup(packet_action->unit_id, *(CGameObject**)&ct) == 0) {
 				if (g_EnableTrace != 0) {
@@ -1103,7 +1103,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 			break;
 
-		case 0x72: {
+		case RANGED_ATTACK: {
 			CUnit* ct = nullptr;
 			if (this->objects.Lookup(packet_ranged_attack->unit_id, *(CGameObject**)&ct) == 0) {
 				if (g_EnableTrace) {
@@ -1147,7 +1147,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 			break;
 
-		case 0x73: {
+		case UNIT_DAMAGED: {
 			CUnit* ct = nullptr;
 			if (this->objects.Lookup(packet_unit_hp->unit_id, *(CGameObject**)&ct) == 0) {
 				if (g_EnableTrace) {
@@ -1188,7 +1188,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 		
 
-		case 0x76: {
+		case ITEM_LIST: {
 			if (wnd->drag_entry && packet_state->mode == wnd->drag_src_tab) {
 				g_Cursors[CURSOR_DEFAULT]->Use();
 				if (wnd->drag_entry) {
@@ -1479,7 +1479,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 
-		case 0x7a: {
+		case SACK_STATE: {
 			CGameObject* ct = nullptr;
 			if (this->objects.Lookup(packet_sack->unit_id, ct)) {
 				ct->typeId = packet_sack->type_id;
@@ -1506,7 +1506,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 			break;
 
-		case 0x82: {
+		case BUILDING_HP: {
 			CUnit* ct = nullptr;
 			if (this->objects.Lookup(packet_building_hp->building_id, *(CGameObject**)&ct)) {
 				ct->hp = packet_building_hp->hp;
@@ -1518,15 +1518,15 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 			break;
 
-		case 0x83:
+		case OPEN_SHOP:
 			wnd->PostMessage(0x42a, packet_2dwords->param1, 0);
 			break;
 
-		case 0x84:
+		case OPEN_INN:
 			wnd->PostMessage(0x42b, packet_2dwords->param1, packet_2dwords->param2);
 			break;
 
-		case 0x86:
+		case EFFECT_MOVE:
 			// client 40dac9: the whole move-broadcast handler is gated on the
 			// join being complete (scenario).
 			if (this->scenario != 0) {
@@ -1594,7 +1594,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			}
 			break;
 
-		case 0x87:
+		case AOE_ZONE:
 			// client 40dac9: gated on field_0x80.
 			if (this->scenario != 0) {
 			this->FUN_0041c74b(packet_aoe->x,
@@ -1610,7 +1610,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			}
 			break;
 
-		case 0x88: {
+		case EFFECT_HANG: {
 			CGameObject* ct = nullptr;
 			if (this->objects.Lookup(packet_effect->unit_id, ct) != 0) {
 				int32_t idx = ct->FindEffectTimer(packet_effect->effect_type);
@@ -1625,7 +1625,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 			break;
 
-		case 0x89: {
+		case EFFECT_GONE: {
 			CGameObject* ct = nullptr;
 			if (this->objects.Lookup(packet_effect->unit_id, ct) != 0) {
 				int32_t idx = ct->FindEffectTimer(packet_effect->effect_type);
@@ -1638,7 +1638,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 		break;
 
-		case 0x8a: {
+		case EFFECT_MULTI_TARGET: {
 			// client 40dac9: gated on field_0x80.
 			if (this->scenario != 0) {
 			CGameObject* ct = nullptr;
@@ -1660,7 +1660,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 		break;
 
-		case 0x8b: {
+		case EFFECT_FROM: {
 			// client 40dac9: gated on field_0x80.
 			if (this->scenario != 0) {
 			CProjectile* pj = new CProjectile();
@@ -1705,7 +1705,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 		break;
 
-		case 0x8c: {
+		case EFFECT_MULTI_FROM: {
 			CProjectile* pj = new CProjectile();
 			pj->typeId = 0x1e;
 			pj->x_pos = (packet_terrain->buf[0] & 0xFF) * 0x100 + 0x80;
@@ -1746,7 +1746,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 		break;
 
-		case 0x91: {
+		case CHAT: {
 			if (packet_join->player_id == 0 || packet_join->player_id >= this->map_players.GetSize() || this->map_players[packet_join->player_id] == nullptr) {
 				this->msglog.Add(packet_join->name, clr_log_sblack, 10000);
 			} else if (this->my_main_unit->KnowsPlayer(packet_join->player_id) == 0 || packet_join->token_id == 4) {
@@ -1782,7 +1782,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 		break;
 
-		case 0x92: {
+		case TEAM_NOTIFY: {
 			switch (packet_2dwords->param1) {
 			case 1:
 				if (g_EnableTrace) {
@@ -1909,7 +1909,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 		break;
 
-		case 0x93: {
+		case PLAYER_ANNOUNCED: {
 			this->msglog.Add(txt_patch.GetLine(0x4e) + CString(" ") + packet_join->name + CString(" ") + txt_patch.GetLine(0x4f), clr_log_sblack, 5000);
 			g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 
@@ -1927,7 +1927,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 			break;
 
-		case 0x94:
+		case KILL_NOTICE:
 			if (packet_2dwords->param1 != 0 && 
 				packet_2dwords->param1 < this->map_players.GetSize() && this->map_players[packet_2dwords->param1] != nullptr &&
 				packet_2dwords->param2 != 0 &&
@@ -1938,7 +1938,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			}
 			break;
 
-		case 0x96: {
+		case PLAYER_INFO: {
 			bool isin = packet_join->player_id < this->map_players.GetSize();
 			if (isin) {
 				if (this->map_players[packet_join->player_id] == nullptr) {
@@ -1988,7 +1988,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 			break;
 
-		case 0x97: {
+		case PLAYER_LEFT: {
 			if (packet_2dwords->param1 == this->my_main_unit->index) {
 				wnd->PostMessage(0x45c, 0, 0);
 				g_CLlDriver.Close();
@@ -2034,7 +2034,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 		break;
 
-		case 0x9b: {
+		case TERRAIN_DATA: {
 			CWordArray tmp;
 			tmp.SetSize(packet_terrain->count);
 			memcpy(tmp.GetData(), packet_terrain->buf, packet_terrain->count * 2);
@@ -2042,7 +2042,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 			break;
 
-		case 0x9c: {
+		case ENEMY_EQUIPMENT: {
 			CUnit* ct = nullptr;
 			if (packet_equip->unit_id != 0 && this->objects.Lookup(packet_equip->unit_id, *(CGameObject**)&ct) != 0) {
 				int pr = 0;
@@ -2075,7 +2075,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 			break;
 
-		case 0xaa: {
+		case MAP_REVEAL: {
 			switch(packet_2dwords->param1) {
 			case 0:
 				INT_00660f74 = 0;
@@ -2099,7 +2099,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 			break;
 
-		case 0xab:
+		case VIEW_POSITION:
 			if (wnd->pending_game_mode == 0) {
 				this->MsgProc(0x406, packet_2dwords->param1 - (this->view_tiles_x / 2), packet_2dwords->param2 - (this->view_tiles_y / 2));
 #ifdef A2CLIENT
@@ -2112,11 +2112,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			}
 			break;
 
-		case 0xae:
+		case ANNOUNCEMENT:
 			this->MsgProc(0x484, (uint32_t)&(packet_join->__as_dword), 0); ///???????????
 			break;
 
-		case 0xaf:
+		case SERVER_SHUTDOWN:
 			if (wnd->sessionMode == 0) {
 				if ((wnd->dialogsMask & 1) == 0) {
 					while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
@@ -2133,7 +2133,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			}
 			break;
 
-		case 0xb3:
+		case KILL_STAT:
 			this->kill_stats[packet_dword->value & 0xffff] = (packet_dword->value >> 16) & 0xff;
 
 			if (wnd->sessionMode != 2) {
@@ -2141,26 +2141,26 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			}
 			break;
 
-		case 0xb4:
+		case MISSION_RESULT:
 			wnd->PostMessage(0x433, 255, packet_2dwords->param1);
 			break;
 
-		case 0xb5:
+		case MISSION_COMPLETE:
 			wnd->PostMessage(0x430, 0, 0);
 			break;
 
-		case 0xb6:
+		case GAME_EVENT:
 			wnd->PostMessage(0x433, packet_2dwords->param1, 0);
 			break;
 
-		case 0xb7:
+		case ENTER_BUILDING:
 			if (wnd->sessionMode == 0) {
 				wnd->inside_building = 1;
 				wnd->PostMessage(0x45e, 0, 0);
 			}
 			break;
 
-		case 0xb8:
+		case LEAVE_BUILDING:
 			if (wnd->sessionMode == 0) {
 				if ((wnd->dialogsMask & 2) != 0) {
 					VisShop* shop = (VisShop*)wnd->vis_root->FindChild(1000);
@@ -2179,7 +2179,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			}
 			break;
 
-		case 0xb9:
+		case DIPLOMACY_STATE:
 			for (int i = 16; i < packet_terrain->count; i++) {
 				MapPlayerData* mp = this->map_players[i];
 				if (mp && (mp->flags & 1) == 0 && i < this->my_main_unit->diplomacy.GetSize()) {
@@ -2237,7 +2237,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			}
 			break;
 
-		case 0xba: {
+		case CREATURE_KNOWLEDGE: {
 			uint8_t* stats = nullptr;
 			int32_t stats_sz = 0;
 
@@ -2252,7 +2252,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 			break;
 
-		case 0xbb: {
+		case PLAYER_QUESTS: {
 			bool isnull = this->quest_map->GetQuestCount() == 0;
 
 			this->quest_map->RemovePlayerQuests(0);
@@ -2275,7 +2275,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 			break;
 
-		case 0xbc:
+		case INN_QUESTS:
 			if ((wnd->dialogsMask & 4) != 0) {
 				VisTav* tavern = (VisTav*)wnd->vis_root->FindChild(1100);
 				if (tavern) {
@@ -2295,7 +2295,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			}
 			break;
 
-		case 0xbf:
+		case MAP_INFO:
 			if (packet_join->__as_dword == CalcFileChecksum(packet_join->name)) {
 				wnd->enter_ack_received = 1;
 				wnd->input_locked = 0;
@@ -2305,7 +2305,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			}
 			break;
 
-		case 0xc0: {
+		case FILE_CHUNK: {
 			CString fname = CString((const char*)packet_file->preamble) + ".tmp";
 			CFile fl;
 
@@ -2368,7 +2368,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 			break;
 
-		case 0xc1: {
+		case LATENCY: {
 			NetStru2* conn = g_NetStru1_local.GetFirstClient();
 			if (conn) {
 				g_CLlDriver.SetLatency(conn->GetUid(), packet_dword->value);
@@ -2377,7 +2377,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 #ifdef A2CLIENT
-		case 0xc2: {
+		case TEAM_STATE: {
 			// client: 41731d — bulk cursor/focus/hat state
 			uint32_t* state = (uint32_t*)packet_data->data;
 			this->ambient_view_x = *state++;
@@ -2391,7 +2391,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			}
 		} break;
 
-		case 0xc3:
+		case GAME_START:
 			// client: 41780d — hat session join. Both exits return 1 (never reach the breakid check).
 			if (wnd->net_session.internet_game != 0 && wnd->hat_settings.ishat != 0 && wnd->hat_settings.deathmatch != 0) {
 				if (this->FindChild(MAP_CHILD_HAT_SESSION) == nullptr) {
@@ -2420,7 +2420,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 #endif
 
-		case 0xcd: {
+		case SERVER_LIST: {
 			DAT_00666a00.RemoveAll();
 
 			char* chpos = strstr((char*)packet_data->data, "CURRENTCOUNT");
@@ -2464,7 +2464,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 			break;
 
-		case 0xce: {
+		case HAT_CHAR_LIST: {
 			wnd->net_session.hat_id = *(int32_t*)packet_data->data;
 			wnd->m_GameSession.hat_char_ids.RemoveAll();
 
@@ -2475,7 +2475,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 			break;
 
-		case 0xcf: {
+		case HAT_CHAR_DATA: {
 			HatCharId* chr = (HatCharId*)packet_data->data;
 
 			CString fname;
@@ -2567,7 +2567,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		}
 			break;
 
-		case 0xd0:
+		case HAT_TICKET:
 			wnd->m_GameSession.hat_ticket.id1 = packet_2dwords->param1;
 			wnd->m_GameSession.hat_ticket.id2 = packet_2dwords->param2;
 
@@ -2577,7 +2577,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 #ifdef A2CLIENT
-		case 0xda: {
+		case HAT_SESSION_SETUP: {
 			// client: 41697d — hat session setup (client packet payload base = pkt+0xe)
 			uint8_t* p = (uint8_t*)packet_data->data;
 			wnd->net_session.hat_id = *(int32_t*)(p + 0);
@@ -2588,12 +2588,12 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			wnd->net_session.connect_address = CString((char*)p + 0x14, packet_data->count - 0x14);
 		} break;
 
-		case 0xdb:
+		case HAT_SESSION_FAIL:
 			// client: 416948
 			wnd->net_session.hat_id = -1;
 			break;
 
-		case 0xdf:
+		case HAT_ERROR:
 			// client: 41695a
 			INT_00660f8c = (packet_dword->value + 0x18) | 0x1000;
 			break;
@@ -2718,7 +2718,7 @@ void BigStruct2::FUN_0041b2a4(const char* nam, int32_t token, int32_t playerid) 
 	//41b2a4
 
 	PacketJoin* join = &PacketJoin::Inst;
-	join->id = 0x91;
+	join->id = CHAT;
 	join->from_player_id = this->my_main_unit->index;
 	join->to_player_id = 0;
 
@@ -2749,7 +2749,7 @@ void BigStruct2::FUN_0041a8cc() {
 	//41a8cc
 	PacketWord* pkt = &PacketWord::Inst;
 
-	pkt->id = 0x36;
+	pkt->id = SHOP_CLOSE;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->value = this->GetUnit_3f6c()->unit_id;
@@ -2821,7 +2821,7 @@ int32_t BigStruct2::FUN_0040d7f3() {
 		g_NetStru1_local.ProcessConnections();
 	}
 
-	if (this->ProcessPackets(0x64) == 0) {
+	if (this->ProcessPackets(SERVER_TICK) == 0) {
 		return 0;
 	}
 
@@ -2852,7 +2852,7 @@ int32_t BigStruct2::FUN_0040d7f3() {
 			g_NetStru1_local.ProcessConnections();
 		}
 
-		if (this->ProcessPackets(0x64) == 0) {
+		if (this->ProcessPackets(SERVER_TICK) == 0) {
 			return 0;
 		}
 	}
@@ -2905,7 +2905,7 @@ void BigStruct2::FUN_0041cbb8() {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
 	Packet2Dwords* pkt = &Packet2Dwords::Inst;
-	pkt->id = 0x48;
+	pkt->id = JOIN_MAP;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->param1_b0 = wnd->m_GameSession.body;
@@ -2923,7 +2923,7 @@ void BigStruct2::FUN_0041cc78(const CString& fname) {
 	//41cc78
 	PacketData* pkt = &PacketData::Inst;
 
-	pkt->id = 0xbe;
+	pkt->id = REQUEST_UNIT_UPDATE;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->count = 0;
@@ -3052,7 +3052,7 @@ void BigStruct2::FUN_0041afcf(CString str) { //41afcf
 
 void BigStruct2::FUN_0041a735() { //41a735
 	PacketTerrain* pkt = &PacketTerrain::Inst;
-	pkt->id = 0x45;
+	pkt->id = SET_DIPLOMACY;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	memcpy(pkt->buf, this->my_main_unit->diplomacy.GetData(), this->my_main_unit->diplomacy.GetSize() * 2);
@@ -3642,7 +3642,7 @@ void BigStruct2::FUN_0041cad0(int32_t m) { //41cad0
 
 void BigStruct2::FUN_0041aaaa(int32_t wim) { //41aaaa
 	Packet2Dwords* pkt = &Packet2Dwords::Inst;
-	pkt->id = 0x46;
+	pkt->id = SET_PARAMETER;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->param1 = 1;
@@ -3653,7 +3653,7 @@ void BigStruct2::FUN_0041aaaa(int32_t wim) { //41aaaa
 
 void BigStruct2::FUN_0041abd2(int32_t form) { // 41abd2
 	Packet2Dwords* pkt = &Packet2Dwords::Inst;
-	pkt->id = 0x46;
+	pkt->id = SET_PARAMETER;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->param1 = 2;
@@ -3664,7 +3664,7 @@ void BigStruct2::FUN_0041abd2(int32_t form) { // 41abd2
 
 void BigStruct2::FUN_0041ab74() { //41ab74
 	Packet2Dwords* pkt = &Packet2Dwords::Inst;
-	pkt->id = 0x46;
+	pkt->id = SET_PARAMETER;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->param1 = 3;
@@ -3774,7 +3774,7 @@ void BigStruct2::FUN_0041b381() { // 41b381
 
 void BigStruct2::FUN_0041b10f() {
 	Packet* pkt = &Packet::Inst;
-	pkt->id = 0x4a;
+	pkt->id = REQUEST_UNITS_RESEND;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	g_NetStru1_local.QueuePacketSend(pkt);
@@ -3782,7 +3782,7 @@ void BigStruct2::FUN_0041b10f() {
 
 void BigStruct2::FUN_0041b064(int32_t arg1, int32_t arg2) {
 	Packet2Dwords* pkt = &Packet2Dwords::Inst;
-	pkt->id = 0x3f;
+	pkt->id = CHEAT_SHOP;
 	pkt->param1 = arg1;
 	pkt->param2 = arg2;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -3792,7 +3792,7 @@ void BigStruct2::FUN_0041b064(int32_t arg1, int32_t arg2) {
 
 void BigStruct2::SendAdjustPlayerGoldAction(int32_t goldDelta) const { //41b0be
 	Packet2Dwords* pkt = &Packet2Dwords::Inst;
-	pkt->id = 0x3e;
+	pkt->id = CHEAT_MONEY;
 	pkt->param1 = goldDelta;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -3825,7 +3825,7 @@ void BigStruct2::OnOpenShopDialog() { //41a856
 	PacketWord* pkt = &PacketWord::Inst;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->id = 0x32;
+	pkt->id = ENTER_SHOP;
 	pkt->value = this->GetUnit_3f6c()->unit_id;
 	g_NetStru1_local.QueuePacketSend(pkt);
 
@@ -3836,7 +3836,7 @@ void BigStruct2::NetOnOpenInnDialog() { //41adbb
 	PacketWord* pkt = &PacketWord::Inst;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->id = 0x38;
+	pkt->id = ENTER_INN;
 	pkt->value = this->GetUnit_3f6c()->unit_id;
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
@@ -4071,7 +4071,7 @@ void BigStruct2::sub_418F93(int32_t arg) {
 void BigStruct2::sub_419154(uint16_t x, uint16_t y) {
 	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
-	pkt->id = 0x16;
+	pkt->id = GROUP_MOVE;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->x = x;
@@ -4098,7 +4098,7 @@ void BigStruct2::sub_419154(uint16_t x, uint16_t y) {
 void BigStruct2::sub_419246(uint16_t id) {
 	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
-	pkt->id = 0x19;
+	pkt->id = GROUP_ATTACK;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->param = id;
@@ -4122,7 +4122,7 @@ void BigStruct2::sub_419246(uint16_t id) {
 void BigStruct2::sub_41930D(uint16_t x, uint16_t y) {
 	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
-	pkt->id = 0x1A;
+	pkt->id = GROUP_ATTACK_MOVE;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->x = x;
 	pkt->y = y;
@@ -4148,7 +4148,7 @@ void BigStruct2::sub_41930D(uint16_t x, uint16_t y) {
 void BigStruct2::sub_4193E8() {
 	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
-	pkt->id = 0x17;
+	pkt->id = GROUP_GUARD;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->count = 0;
@@ -4171,7 +4171,7 @@ void BigStruct2::sub_4193E8() {
 void BigStruct2::sub_4194A2() {
 	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
-	pkt->id = 0x18;
+	pkt->id = GROUP_AGGRESSIVE;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->count = 0;
@@ -4198,7 +4198,7 @@ void BigStruct2::sub_41955C(uint16_t id) {
 		return;
 	}
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
-	pkt->id = 0x1B;
+	pkt->id = GROUP_ATTACK_TARGET;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->param = id;
@@ -4221,7 +4221,7 @@ void BigStruct2::sub_41955C(uint16_t id) {
 void BigStruct2::sub_41965D(uint16_t x, uint16_t y) {
 	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
-	pkt->id = 0x1D;
+	pkt->id = GROUP_PATROL;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->x = x;
@@ -4248,7 +4248,7 @@ void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell) {
 	POSITION it = this->objects.GetStartPosition();
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
-	pkt->id = 0x1F;
+	pkt->id = GROUP_CAST_POS;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->x = x;
@@ -4256,7 +4256,7 @@ void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell) {
 	pkt->y_high = y >> 8;
 	pkt->count = 0;
 	if (wnd->vis_spellbook->sub_4CA89B(spell - 1) != 0 && wnd->vis_spellbook->spell == -1) {
-		pkt->id = 0x1F;
+		pkt->id = GROUP_CAST_POS;
 		pkt->slot = spell;
 		while (it != nullptr) {
 			uint16_t key;
@@ -4269,7 +4269,7 @@ void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell) {
 		g_NetStru1_local.QueuePacketSend(pkt);
 	}
 	if (wnd->vis_spellbook->spell >= 0 && this->selected_object_count == 1 && this->primary_selected_object != nullptr) {
-		pkt->id = 0x26;
+		pkt->id = SCROLL_CAST_POS;
 		pkt->count = 0;
 		pkt->AppendWord(this->primary_selected_object->unit_id);
 		uint16_t slot = wnd->vis_spellbook->spell;
@@ -4313,7 +4313,7 @@ void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell) {
 				if (slot == 0xFFFF) {
 					continue;
 				}
-				pkt->id = 0x26;
+				pkt->id = SCROLL_CAST_POS;
 				g_NetStru1_local.QueuePacketSend(pkt);
 				TokenEntry* entry = obj->tokenEntries[slot];
 				if (entry->count == 1) {
@@ -4340,7 +4340,7 @@ void BigStruct2::sub_419BA1(uint16_t id, int32_t spell) {
 	pkt->param = id;
 	pkt->count = 0;
 	if (wnd->vis_spellbook->sub_4CA89B(spell - 1) != 0 && wnd->vis_spellbook->spell == -1) {
-		pkt->id = 0x1E;
+		pkt->id = GROUP_CAST_UNIT;
 		pkt->slot = spell;
 		while (it != nullptr) {
 			uint16_t key;
@@ -4358,7 +4358,7 @@ void BigStruct2::sub_419BA1(uint16_t id, int32_t spell) {
 		uint16_t slot = wnd->vis_spellbook->spell;
 		pkt->slot = slot;
 		pkt->slot_high = slot >> 8;
-		pkt->id = 0x25;
+		pkt->id = SCROLL_CAST_UNIT;
 		g_NetStru1_local.QueuePacketSend(pkt);
 		TokenEntry* entry = this->primary_selected_object->tokenEntries[slot];
 		if (entry->count == 1) {
@@ -4397,7 +4397,7 @@ void BigStruct2::sub_419BA1(uint16_t id, int32_t spell) {
 				if (slot == 0xFFFF) {
 					continue;
 				}
-				pkt->id = 0x25;
+				pkt->id = SCROLL_CAST_UNIT;
 				g_NetStru1_local.QueuePacketSend(pkt);
 				TokenEntry* entry = obj->tokenEntries[slot];
 				if (entry->count == 1) {
@@ -4622,7 +4622,7 @@ int32_t BigStruct2::sub_403B8F(int32_t arg1, int32_t arg2, int32_t arg3, int32_t
 // 41B155
 void BigStruct2::sub_41B155() {
 	Packet2Dwords* pkt = &Packet2Dwords::Inst;
-	pkt->id = 0x4B;
+	pkt->id = REQUEST_RESPAWN;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	g_NetStru1_local.QueuePacketSend(pkt);
@@ -4631,7 +4631,7 @@ void BigStruct2::sub_41B155() {
 // 41CE14
 void BigStruct2::sub_41CE14() {
 	Packet2Dwords* pkt = &Packet2Dwords::Inst;
-	pkt->id = 0x4C;
+	pkt->id = HURT_SELF;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	g_NetStru1_local.QueuePacketSend(pkt);
@@ -4640,7 +4640,7 @@ void BigStruct2::sub_41CE14() {
 // 41AC2D
 void BigStruct2::sub_41AC2D(int32_t id) {
 	Packet2Dwords* pkt = &Packet2Dwords::Inst;
-	pkt->id = 0x46;
+	pkt->id = SET_PARAMETER;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->param1 = 0x80;
@@ -4651,7 +4651,7 @@ void BigStruct2::sub_41AC2D(int32_t id) {
 // 41AC88
 void BigStruct2::sub_41AC88(int32_t arg1, int32_t arg2) {
 	Packet2Dwords* pkt = &Packet2Dwords::Inst;
-	pkt->id = 0x23;
+	pkt->id = DROP_GOLD;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->param1 = arg1;
@@ -4754,7 +4754,7 @@ void BigStruct2::sub_41AB05() {
 void BigStruct2::sub_41A66E(uint16_t id) {
 	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
-	pkt->id = 0x24;
+	pkt->id = GROUP_ENTER_BUILDING;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->count = 0;
@@ -4777,7 +4777,7 @@ void BigStruct2::sub_41A66E(uint16_t id) {
 // 41A7C7
 void BigStruct2::sub_41A7C7(uint8_t arg1, uint16_t arg2, uint8_t arg3, uint16_t arg4, uint16_t arg5) {
 	PacketItemTransfer* pkt = &PacketItemTransfer::Inst;
-	pkt->id = 0x22;
+	pkt->id = ITEM_OPERATION;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->unit_id = this->primary_selected_object->unit_id;
@@ -4792,7 +4792,7 @@ void BigStruct2::sub_41A7C7(uint8_t arg1, uint16_t arg2, uint8_t arg3, uint16_t 
 // 41A5B4
 void BigStruct2::sub_41A5B4() {
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
-	pkt->id = 0x12;
+	pkt->id = GROUP_STOP;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->count = 0;
@@ -4815,7 +4815,7 @@ void BigStruct2::sub_41A5B4() {
 void BigStruct2::sub_41A33F(uint16_t x, uint16_t y) {
 	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
-	pkt->id = 0x21;
+	pkt->id = GROUP_PICKUP;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->x = x;
@@ -4842,7 +4842,7 @@ void BigStruct2::sub_41A33F(uint16_t x, uint16_t y) {
 void BigStruct2::sub_41A425() {
 	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
-	pkt->id = 0x14;
+	pkt->id = GROUP_GO_HOME;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->count = 0;
@@ -4864,7 +4864,7 @@ void BigStruct2::sub_41A425() {
 // 41A4DF
 void BigStruct2::sub_41A4DF() {
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
-	pkt->id = 0x13;
+	pkt->id = GROUP_GATHER;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->count = 0;
@@ -6472,7 +6472,7 @@ void BigStruct2::FUN_0041c74b(int32_t x, int32_t y, int32_t w, int32_t h, int32_
 // 41CB21
 void BigStruct2::FUN_0041cb21() {
 	Packet2Dwords* pkt = &Packet2Dwords::Inst;
-	pkt->id = 0x39;
+	pkt->id = REQUEST_MAP_INFO;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	g_NetStru1_local.QueuePacketSend(pkt);
@@ -6498,7 +6498,7 @@ int32_t BigStruct2::OnChar(uint32_t wparam) {
 // 41CB67
 void BigStruct2::FUN_0041cb67(int32_t val) {
 	Packet2Dwords* pkt = &Packet2Dwords::Inst;
-	pkt->id = 0x3b;
+	pkt->id = REQUEST_FILE_CHUNK;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->param1 = val;
@@ -8134,7 +8134,7 @@ void BigStruct2::FUN_0041a001(int32_t idx) {
 			if (obj->IsSelected() && (obj->availableSpellMask & (1 << (idx - 1))) != 0) {
 				pkt->from_player_id = this->my_main_unit->index;
 				pkt->to_player_id = 0;
-				pkt->id = 0x1E;
+				pkt->id = GROUP_CAST_UNIT;
 				pkt->slot = idx;
 				pkt->count = 0;
 				pkt->AppendWord(obj->unit_id);
@@ -8171,7 +8171,7 @@ void BigStruct2::FUN_0041a001(int32_t idx) {
 			if (slot == 0xFFFF) {
 				continue;
 			}
-			pkt->id = 0x25;
+			pkt->id = SCROLL_CAST_UNIT;
 			g_NetStru1_local.QueuePacketSend(pkt);
 			TokenEntry* entry = obj->tokenEntries[slot];
 			if (entry->count == 1) {
@@ -8214,7 +8214,7 @@ void BigStruct2::FUN_0041ae1c(int32_t serv_id) {
 		Packet2Dwords* pkt = &Packet2Dwords::Inst;
 		pkt->from_player_id = this->my_main_unit->index;
 		pkt->to_player_id = 0;
-		pkt->id = 0x3A;
+		pkt->id = EXIT_INN;
 		pkt->param1 = this->GetUnit_3f6c()->unit_id;
 		pkt->param2 = serv_id;
 		g_NetStru1_local.QueuePacketSend(pkt);
@@ -8229,7 +8229,7 @@ void BigStruct2::FUN_0041ace2(int32_t spell_id) {
 		CGameObject* obj;
 		this->objects.GetNextAssoc(it, key, obj);
 		if (obj->IsSelected() && (obj->spells & (1 << spell_id)) != 0) {
-			pkt->id = 0x46;
+			pkt->id = SET_PARAMETER;
 			pkt->from_player_id = this->my_main_unit->index;
 			pkt->to_player_id = 0;
 			pkt->param1 = 4;
@@ -8274,7 +8274,7 @@ uint32_t BigStruct2::sub_40C0A8(int32_t x, int32_t y) {
 // 41cda3
 void BigStruct2::FUN_0041cda3(const char* mapname) {
 	PacketJoin* pkt = &PacketJoin::Inst;
-	pkt->id = 0xAE;
+	pkt->id = ANNOUNCEMENT;
 	if (this->my_main_unit != nullptr) {
 		pkt->from_player_id = this->my_main_unit->index;
 	}
@@ -8287,7 +8287,7 @@ void BigStruct2::FUN_0041cda3(const char* mapname) {
 // 41a942
 void BigStruct2::sub_41A942() {
 	PacketWord* pkt = &PacketWord::Inst;
-	pkt->id = 0x33;
+	pkt->id = SHOP_BUY;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->value = this->primary_selected_object->unit_id;
@@ -8306,7 +8306,7 @@ CUnit* BigStruct2::FUN_0041dfa6(int32_t serv_id) {
 // 41a9f6
 void BigStruct2::sub_41A9F6() {
 	PacketWord* pkt = &PacketWord::Inst;
-	pkt->id = 0x35;
+	pkt->id = SHOP_TAKE_BACK;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->value = this->primary_selected_object->unit_id;
@@ -8316,7 +8316,7 @@ void BigStruct2::sub_41A9F6() {
 // 41a99c
 void BigStruct2::sub_41A99C() {
 	PacketWord* pkt = &PacketWord::Inst;
-	pkt->id = 0x34;
+	pkt->id = SHOP_SELL;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->value = this->primary_selected_object->unit_id;
@@ -8335,7 +8335,7 @@ CUnit* BigStruct2::sub_41DE80(int32_t serv_id) {
 
 void BigStruct2::FUN_0041be0f() { //client: 41be0f
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
-	pkt->id = 0x4d;
+	pkt->id = GROUP_STOP_AFK;
 	pkt->from_player_id = my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->count = 0;
