@@ -3080,7 +3080,7 @@ Scenario::Scenario(const char* fname) {
         delete temp_unit;
 
         mwnd->vis_map_context->objects.SetAt(unit->unit_id, unit);
-        unit->unitFlags |= 0x80;
+        unit->unitFlags |= UNIT_FLAG_HIDDEN;
     }
 
     if ((int32_t)alm->default_music.melody_type_id[0] >= 0) {

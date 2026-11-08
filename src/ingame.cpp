@@ -473,9 +473,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			CUnit* unit;
 			if (this->objects.Lookup(packet_word->value, *(CGameObject**)&unit)) {
 				if (pkt->id == UNIT_HIDDEN) {
-					unit->unitFlags |= 0x80;
+					unit->unitFlags |= UNIT_FLAG_HIDDEN;
 				} else {
-					unit->unitFlags &= ~0x80;
+					unit->unitFlags &= ~UNIT_FLAG_HIDDEN;
 				}
 			}
 		}
@@ -823,7 +823,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						ct->exp_summary = ct->experience_per_sphere[0] + ct->experience_per_sphere[1] + ct->experience_per_sphere[2] + ct->experience_per_sphere[3] + ct->experience_per_sphere[4];
 
 						if ((packet_unit->flags_mask & UNIT_UPD_DIR_POS) != 0 && ct->unit_id > 0x5fff) {
-							ct->unitFlags &= ~0x80;
+							ct->unitFlags &= ~UNIT_FLAG_HIDDEN;
 						}
 
 						if (packet_unit->flags_mask & UNIT_UPD_NAME) {
@@ -842,11 +842,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						if (wnd->sessionMode == SESSION_LOCAL_BATTLE) {
 							if (ct->serverId == 0x15) {
 								this->my_unit = ct;
-								this->my_unit->unitFlags |= 0x20;
+								this->my_unit->unitFlags |= UNIT_FLAG_TOKEN_GOLD_ENTRY;
 							}
-						} else if (ct->map_player == this->my_main_unit && (ct->unitFlags & 1) != 0) {
+						} else if (ct->map_player == this->my_main_unit && (ct->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0) {
 							this->my_unit = ct;
-							this->my_unit->unitFlags |= 0x20;
+							this->my_unit->unitFlags |= UNIT_FLAG_TOKEN_GOLD_ENTRY;
 						}
 
 						if (ct->str1[0] == 0 && ct->serverId != 0) {
@@ -862,7 +862,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 								ct->face = g_CUnitStatic.face;
 							}
 
-							this->my_unit->unitFlags |= 8;
+							this->my_unit->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
 						}
 
 						if ((packet_unit->flags_mask & UNIT_UPD_SPELLS) != 0) {
@@ -896,7 +896,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							ScenarioSetVar(ct->serverId + 0x213, 0);
 						}
 
-						if (wnd->sessionMode != SESSION_LOCAL_BATTLE && (ct->unitFlags & 0x20) != 0) {
+						if (wnd->sessionMode != SESSION_LOCAL_BATTLE && (ct->unitFlags & UNIT_FLAG_TOKEN_GOLD_ENTRY) != 0) {
 							if ((packet_unit->flags_mask & (UNIT_UPD_BASE_STATS | UNIT_UPD_KILL_STATS | UNIT_UPD_MAGIC_PROTECT)) == 0) {
 								if ((packet_unit->flags_mask & (UNIT_UPD_EXP_SPHERE0 | UNIT_UPD_EXP_SPHERE1 | UNIT_UPD_EXP_SPHERE2 | UNIT_UPD_EXP_SPHERE3 | UNIT_UPD_EXP_SPHERE4)) != 0) {
 									wnd->m_GameSession.AutosaveTick();
@@ -910,7 +910,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						case 0:
 							if (sval != 0) {
 								ct->action = ACTION_NONE;
-								if (ct->unitFlags & 1) {
+								if (ct->unitFlags & UNIT_FLAG_PLAYER_CLASS) {
 									ct->ReloadSprite();
 								}
 							}
@@ -993,7 +993,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 								wnd->vis_sidestatus->MsgProc(0x408, 0, 0);
 							}
 
-							if (ct->IsSelected() != 0 && ((ct->unitFlags & 2) != 0 || (packet_unit->flags_mask & UNIT_UPD_SPELLS) != 0)) {
+							if (ct->IsSelected() != 0 && ((ct->unitFlags & UNIT_FLAG_MAGE) != 0 || (packet_unit->flags_mask & UNIT_UPD_SPELLS) != 0)) {
 								this->UpdateSelectionState();
 							}
 
@@ -1231,7 +1231,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						}
 					}
 
-					ct->unitFlags |= 8;
+					ct->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
 
 					if ((wnd->dialogsMask & DIALOG_MASK_SHOP) != 0) {
 						wnd->vis_root->FindChild(1000)->MsgProc(0x413, packet_state->mode & 0x7f, 0);
@@ -1241,7 +1241,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 					ct->m_bSelectionDirty = 1;
 
-					if ((ct->unitFlags & 0x2U) != 0 && wnd->sessionMode != SESSION_LOCAL_BATTLE) {
+					if ((ct->unitFlags & UNIT_FLAG_MAGE) != 0 && wnd->sessionMode != SESSION_LOCAL_BATTLE) {
 						uint8_t* pdata = packet_state->data;
 						for (int i = 0; i < 12; i++) {
 							if ((packet_state->start_index & (1 << i)) != 0) {
@@ -1277,7 +1277,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					} else {
 						int num = ct->tokenEntries.GetSize();
 
-						if ((ct->unitFlags & 0x20) != 0) {
+						if ((ct->unitFlags & UNIT_FLAG_TOKEN_GOLD_ENTRY) != 0) {
 							num--;
 						}
 
@@ -1321,7 +1321,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 						ct->tokenEntries.RemoveAt(packet_state->start_index, packet_state->entry_count);
 
-						if ((ct->unitFlags & 0x20) != 0) {
+						if ((ct->unitFlags & UNIT_FLAG_TOKEN_GOLD_ENTRY) != 0) {
 							ct->tokenEntries.RemoveAt(ct->tokenEntries.GetUpperBound());
 						}
 					}
@@ -1361,7 +1361,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						}
 					}
 
-					if ((ct->unitFlags & 0x20) != 0) {
+					if ((ct->unitFlags & UNIT_FLAG_TOKEN_GOLD_ENTRY) != 0) {
 						if (wnd->sessionMode != SESSION_LOCAL_BATTLE) {
 							uint8_t *pdata = packet_state->data;
 							for (int i = 0; i < packet_state->entry_count; i++) {
@@ -1796,7 +1796,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 				CString txt;
 
-				if ((this->my_unit->unitFlags & 2) == 0) {
+				if ((this->my_unit->unitFlags & UNIT_FLAG_MAGE) == 0) {
 					txt = TxtFile::AllLines[texid + 0x81];
 				} else {
 					txt = TxtFile::AllLines[texid + 0x86];
@@ -1805,7 +1805,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				if (wnd->sessionMode == SESSION_LOCAL_BATTLE) {
 					CUnit* ct = this->FindUnitByServerId(serv_id);
 					if (ct) {
-						if ((ct->unitFlags & 2) == 0) {
+						if ((ct->unitFlags & UNIT_FLAG_MAGE) == 0) {
 							txt = TxtFile::AllLines[texid + 0x81] + CString(" (") + ct->str1 + ")";
 						} else {
 							txt = TxtFile::AllLines[texid + 0x86] + CString(" (") + ct->str1 + ")";
@@ -2069,7 +2069,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					}
 				}
 
-				ct->unitFlags |= 8;
+				ct->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
 				ct->ReloadSprite();
 			}
 		}
@@ -3085,7 +3085,7 @@ void BigStruct2::CleanupCompletedMissionMapState() { //41ce5a
 			arr.Add(key);
 		} else {
 			CUnit* uni = (CUnit*)obj;
-			if ((uni->unitFlags & 1) != 0 && uni->hp >= -10 && uni->map_player == this->my_main_unit) {
+			if ((uni->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0 && uni->hp >= -10 && uni->map_player == this->my_main_unit) {
 				uni->death_state = 0;
 				uni->action = ACTION_NONE;
 				uni->action_segments = 0;
@@ -3228,7 +3228,7 @@ void BigStruct2::UpdateSelectionState() { //416cf7
 					this->UpdateSpellModifiers(unit);
 				}
 
-				if (unit->unitFlags & 1) {
+				if (unit->unitFlags & UNIT_FLAG_PLAYER_CLASS) {
 					this->selection_flags |= 8;
 				}
 
@@ -3964,7 +3964,7 @@ void BigStruct2::SelectAllOwnUnits() {
 		CGameObject* obj;
 		this->objects.GetNextAssoc(it, key, obj);
 		if (obj->IsKindOf(RUNTIME_CLASS(CUnit)) && obj->map_player == this->my_main_unit &&
-			((CUnit*)obj)->death_state <= 1 && !(((CUnit*)obj)->unitFlags & 0x80)) {
+			((CUnit*)obj)->death_state <= 1 && !(((CUnit*)obj)->unitFlags & UNIT_FLAG_HIDDEN)) {
 			obj->SetSelected(1);
 		} else {
 			obj->SetSelected(0);
@@ -4872,7 +4872,7 @@ void BigStruct2::SendGroupGather() {
 		uint16_t key;
 		CGameObject* obj;
 		this->objects.GetNextAssoc(it, key, obj);
-		if (obj->IsSelected() && (((CUnit*)obj)->unitFlags & 1)) {
+		if (obj->IsSelected() && (((CUnit*)obj)->unitFlags & UNIT_FLAG_PLAYER_CLASS)) {
 			pkt->AppendWord(obj->unit_id);
 			break;
 		}
@@ -5131,13 +5131,13 @@ void BigStruct2::UpdateMapCursor() {
 					int32_t pickup_flag = (this->selected_object_count == 1 && (this->selection_flags & 1) != 0) ? 1 : 0;
 					int32_t town_flag = pickup_flag;
 					if (pickup_flag != 0) {
-						pickup_flag = ((CUnit*)this->primary_selected_object)->unitFlags & 1;
+						pickup_flag = ((CUnit*)this->primary_selected_object)->unitFlags & UNIT_FLAG_PLAYER_CLASS;
 						if (pickup_flag != 0) {
 							pickup_flag = (avail == 0x40 || (this->hovered_unit == this->primary_selected_object && (avail & 0x40) != 0)) ? 1 : 0;
 						}
 					}
 					if (town_flag != 0) {
-						town_flag = ((((CUnit*)this->primary_selected_object)->unitFlags & 1) != 0 && (avail & 0x800) != 0) ? 1 : 0;
+						town_flag = ((((CUnit*)this->primary_selected_object)->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0 && (avail & 0x800) != 0) ? 1 : 0;
 					}
 					if (kb_menu != 0) {
 						cursor = g_Cursors[CURSOR_MOVE];
@@ -5183,13 +5183,13 @@ void BigStruct2::UpdateMapCursor() {
 						int32_t pickup_flag = (this->selected_object_count == 1 && (this->selection_flags & 1) != 0) ? 1 : 0;
 						int32_t town_flag = pickup_flag;
 						if (pickup_flag != 0) {
-							pickup_flag = ((CUnit*)this->primary_selected_object)->unitFlags & 1;
+							pickup_flag = ((CUnit*)this->primary_selected_object)->unitFlags & UNIT_FLAG_PLAYER_CLASS;
 							if (pickup_flag != 0) {
 								pickup_flag = (avail == 0x40 || (this->hovered_unit == this->primary_selected_object && (avail & 0x40) != 0)) ? 1 : 0;
 							}
 						}
 						if (town_flag != 0) {
-							town_flag = ((((CUnit*)this->primary_selected_object)->unitFlags & 1) != 0 && (avail & 0x800) != 0) ? 1 : 0;
+							town_flag = ((((CUnit*)this->primary_selected_object)->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0 && (avail & 0x800) != 0) ? 1 : 0;
 						}
 						if ((avail & 4) != 0) {
 							if (kb_menu != 0) {
@@ -5256,7 +5256,7 @@ void BigStruct2::UpdateMapCursor() {
 		uint32_t avail = this->UpdateMouseHover();
 		cursor = wnd->item_cursor;
 		if (wnd->dialogsMask == DIALOG_MASK_INGAME && this->selected_object_count == 1 &&
-			(((CUnit*)this->primary_selected_object)->unitFlags & 1) != 0 &&
+			(((CUnit*)this->primary_selected_object)->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0 &&
 			this->primary_selected_object->map_player == this->my_main_unit) {
 			int32_t tile_x = (g_mousept.GetX() >> 5) + this->view_x;
 			int32_t tile_y = this->ScreenToTileRow(g_mousept.GetX(), g_mousept.GetY()) + this->view_y;
@@ -6552,7 +6552,7 @@ CGameBitmap* BigStruct2::BuildUnitPortrait(int32_t serv_id) {
 	} else {
 		result = new CBmp64(0x58, 0x6c);
 		CBmp64* pic = new CBmp64(0xa0, 0xf0);
-		if ((unit->unitFlags & 0x11) == 0) {
+		if ((unit->unitFlags & (UNIT_FLAG_PLAYER_CLASS | UNIT_FLAG_CREATURE)) == 0) {
 			char buf[257];
 			UnitVFXUnfo* info = g_VFX_info.GetAt(unit->typeId);
 			sprintf(buf, "graphics\\infowindow\\%s%d", info->info_picture, unit->face);
@@ -6582,7 +6582,7 @@ CGameBitmap* BigStruct2::BuildUnitPortrait(int32_t serv_id) {
 		g_bmp_t_back->FlipVertical();
 		g_spr_t_border->Draw(0, 0, 0, 0, 0);
 		delete pic;
-		if (unit->unitFlags & 0x40) {
+		if (unit->unitFlags & UNIT_FLAG_REMOTE_HERO) {
 			delete unit;
 		}
 	}
@@ -6628,9 +6628,9 @@ CUnit* BigStruct2::PickVoiceUnit() {
 			continue;
 		}
 		CUnit* unit = (CUnit*)obj;
-		if ((unit->unitFlags & 1) != 0) {
+		if ((unit->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0) {
 			primary.Add(unit);
-		} else if (primary.GetSize() == 0 && (unit->unitFlags & 0x10) != 0) {
+		} else if (primary.GetSize() == 0 && (unit->unitFlags & UNIT_FLAG_CREATURE) != 0) {
 			if (unit->equipmentTokens[0] != nullptr) {
 				secondary.Add(unit);
 			} else if (secondary.GetSize() == 0) {
@@ -7293,7 +7293,7 @@ int32_t BigStruct2::OnLButtonUp(uint32_t wparam, CPoint pos) {
 		if (this->selected_object_count == 1 && this->primary_selected_object != nullptr) {
 			int32_t tile_x = this->primary_selected_object->tileX;
 			int32_t tile_y = this->primary_selected_object->tileY;
-			if (this->hovered_unit != nullptr && this->hovered_unit->IsKindOf(RUNTIME_CLASS(CUnit)) && (this->hovered_unit->unitFlags & 1) != 0 &&
+			if (this->hovered_unit != nullptr && this->hovered_unit->IsKindOf(RUNTIME_CLASS(CUnit)) && (this->hovered_unit->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0 &&
 				abs(this->hovered_unit->tileX - this->primary_selected_object->tileX) <= 2 && abs(this->hovered_unit->tileY - this->primary_selected_object->tileY) <= 2) {
 				tile_x = this->hovered_unit->tileX;
 				tile_y = this->hovered_unit->tileY;
@@ -8196,7 +8196,7 @@ void BigStruct2::LeaveInn(int32_t serv_id) {
 			uint16_t key;
 			CGameObject* obj;
 			this->objects.GetNextAssoc(it, key, obj);
-			if (obj->IsKindOf(RUNTIME_CLASS(CUnit)) == 0 || (((CUnit*)obj)->unitFlags & 1) != 0) {
+			if (obj->IsKindOf(RUNTIME_CLASS(CUnit)) == 0 || (((CUnit*)obj)->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0) {
 				continue;
 			}
 			ids.Add(key);
@@ -8326,7 +8326,7 @@ void BigStruct2::SendShopSell() {
 // 41de80
 CUnit* BigStruct2::CreateRemoteHeroStub(int32_t serv_id) {
 	CUnit* unit = new CUnit();
-	unit->unitFlags = 0x56;
+	unit->unitFlags = UNIT_FLAG_REMOTE_HERO | UNIT_FLAG_CREATURE | UNIT_FLAG_FEMALE | UNIT_FLAG_MAGE;
 	unit->typeId = 1;
 	unit->face = serv_id - 0x50;
 	unit->serverId = (uint16_t)serv_id;

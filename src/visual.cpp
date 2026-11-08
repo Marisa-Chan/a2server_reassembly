@@ -3524,10 +3524,10 @@ bool VisRoleKeyScreen::AdvanceSpeechLine() {
         char gender = 0;
         if (this->spoken_by_player != 0 || id == 0x15) {
             CUnit* unit = main_wnd->vis_map_context->FindOrCreateUnitByServerId(0x15);
-            if ((unit->unitFlags & 4) == 0) {
-                gender = (unit->unitFlags & 2) != 0 ? 'm' : 'f';
+            if ((unit->unitFlags & UNIT_FLAG_FEMALE) == 0) {
+                gender = (unit->unitFlags & UNIT_FLAG_MAGE) != 0 ? 'm' : 'f';
             } else {
-                gender = (unit->unitFlags & 2) != 0 ? 's' : 'a';
+                gender = (unit->unitFlags & UNIT_FLAG_MAGE) != 0 ? 's' : 'a';
             }
         }
 
@@ -4361,7 +4361,7 @@ void VisQuestStatus::VMethod7() {
             CGameObject* obj;
             if (main_wnd->vis_map_context->objects.Lookup((uint16_t)quest->GetObj(), obj)) {
                 CUnit* unit = (CUnit*)obj;
-                if ((unit->unitFlags & 0x11) == 0) {
+                if ((unit->unitFlags & (UNIT_FLAG_PLAYER_CLASS | UNIT_FLAG_CREATURE)) == 0) {
                     if (unit->typeId < 0x52 || unit->typeId > 0x66) {
                         unit_name.Format("%s[%d]", txt_unitname.GetLine(unit->typeId), unit->face);
                     } else {
@@ -6032,7 +6032,7 @@ int32_t VisCharSelect::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 void VisCharSelect::SelectCharacter(CUnit* unit) {
     if (unit != nullptr) {
         unit->SetSelected(1);
-        unit->unitFlags |= 8;
+        unit->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
     }
     this->map_context->primary_selected_object = unit;
     this->map_context->UpdateSelectionState();
@@ -8140,7 +8140,7 @@ void VisCharGen::OnNextFace() {
         }
     }
     this->current_char->face = this->selected_face;
-    this->current_char->unitFlags |= 8;
+    this->current_char->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
     main_wnd->m_GameSession.face = this->current_char->face;
 }
 
@@ -8169,7 +8169,7 @@ void VisCharGen::OnPrevFace() {
         }
     }
     this->current_char->face = this->selected_face;
-    this->current_char->unitFlags |= 8;
+    this->current_char->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
     main_wnd->m_GameSession.face = this->current_char->face;
 }
 
@@ -8325,8 +8325,8 @@ void VisCharGen::VMethod28() {
     this->current_char = this->map_visual->GetUnit_3f6c();
     this->stats_panel->ReadUnitStats();
     this->selected_face = this->current_char->face - 1;
-    this->mage_flag = (this->current_char->unitFlags & 2) << 5;
-    this->female_face = (this->current_char->unitFlags & 4) << 6;
+    this->mage_flag = (this->current_char->unitFlags & UNIT_FLAG_MAGE) << 5;
+    this->female_face = (this->current_char->unitFlags & UNIT_FLAG_FEMALE) << 6;
     main_wnd->vis_right_panel->RemoveChild(this->info_panel);
     CRect& rc = this->info_panel->GetRect();
     OffsetRect(&rc, 0x280 - rc.Width(), 0);
@@ -8345,7 +8345,7 @@ void VisCharGen::VMethod28() {
     }
     if (g_settings.TipsMode != 0) {
         CString str;
-        if (this->current_char->unitFlags & 2) {
+        if (this->current_char->unitFlags & UNIT_FLAG_MAGE) {
             MissionGetTips(6, &str);
         } else {
             MissionGetTips(5, &str);
@@ -8367,8 +8367,8 @@ void VisCharGen::VMethod28() {
     this->stats_panel->LoadBitmaps();
     this->fullstats_panel->LoadBitmaps();
     this->action_panel->LoadBitmaps();
-    this->skills_panel->LoadBitmaps(this->current_char->unitFlags & 2);
-    this->skills_panel->LoadSamples(this->current_char->unitFlags & 2);
+    this->skills_panel->LoadBitmaps(this->current_char->unitFlags & UNIT_FLAG_MAGE);
+    this->skills_panel->LoadSamples(this->current_char->unitFlags & UNIT_FLAG_MAGE);
     this->LoadSamples();
     this->stats_panel->stat_points = 0;
     this->stats_panel->HandleClick(0, CPoint(0, 0));
@@ -9537,7 +9537,7 @@ void VisCharInfo::VMethod7() {
         if (this->info_mode == 0) {
             unit->DrawStatsPanel(&screen_rect);
         } else {
-            if ((unit->unitFlags & 0x11) != 0) {
+            if ((unit->unitFlags & (UNIT_FLAG_PLAYER_CLASS | UNIT_FLAG_CREATURE)) != 0) {
                 char temp_path[0x100];
                 char fname[0x100];
                 char full_path[0x100];
@@ -9546,14 +9546,14 @@ void VisCharInfo::VMethod7() {
                 sprintf(full_path, "%s%s", temp_path, fname);
                 if (strcmp(this->picturename, fname) != 0) {
                     strcpy(this->picturename, fname);
-                    if ((unit->unitFlags & 8) != 0) {
+                    if ((unit->unitFlags & UNIT_FLAG_EQUIP_CHANGED) != 0) {
                         UnlockSurface2();
                         unit->RenderHeroPortrait(full_path, this->bitmap, this->hitmap);
                         LockSurface2();
                     } else {
                         this->bitmap->LoadFile(fname, this->hitmap);
                     }
-                } else if ((unit->unitFlags & 8) != 0) {
+                } else if ((unit->unitFlags & UNIT_FLAG_EQUIP_CHANGED) != 0) {
                     UnlockSurface2();
                     unit->RenderHeroPortrait(full_path, this->bitmap, this->hitmap);
                     LockSurface2();
@@ -9751,7 +9751,7 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
 
     int32_t spell_id = token->GetAttribute(0x2A);
     if (spell_id != 0) {
-        if ((unit->unitFlags & 2) != 0) {
+        if ((unit->unitFlags & UNIT_FLAG_MAGE) != 0) {
             if (((1 << (spell_id & 0x1F)) & unit->spells) != 0) {
                 disallow = 1;
             }
@@ -9822,7 +9822,7 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
         }
     }
 
-    unit->unitFlags |= 8;
+    unit->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
     this->MsgProc(0x408, 0, 0);
     unit->equipmentTokens[a] = main_wnd->drag_entry;
 
@@ -9936,7 +9936,7 @@ int32_t VisCharInfo::OnMouseMove(uint32_t wparam, CPoint pos) {
     if (map->selected_object_count != 1) {
         return 0;
     }
-    if ((unit->unitFlags & 1) == 0) {
+    if ((unit->unitFlags & UNIT_FLAG_PLAYER_CLASS) == 0) {
         return 0;
     }
 
@@ -9954,7 +9954,7 @@ int32_t VisCharInfo::OnMouseMove(uint32_t wparam, CPoint pos) {
     CString path = "graphics\\inventory\\" + name + ".16a";
     main_wnd->SetItemCursor(main_wnd->drag_entry, main_wnd->drag_src_slot, path, main_wnd->drag_src_tab);
 
-    unit->unitFlags |= 8;
+    unit->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
     this->MsgProc(0x408, 0, 0);
     this->parent->MsgProc(0x46E, this->id, 0);
     unit->m_bSelectionDirty = 1;
@@ -9992,7 +9992,7 @@ int32_t VisCharInfo::VMethod26(int32_t a) {
         return 0;
     }
 
-    unit->unitFlags |= 8;
+    unit->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
     this->MsgProc(0x408, 0, 0);
     main_wnd->drag_entry = unit->equipmentTokens[a];
     unit->equipmentTokens[a] = nullptr;
@@ -10019,7 +10019,7 @@ int32_t VisCharInfo::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
     if (map->selected_object_count != 1) {
         return 0;
     }
-    if ((unit->unitFlags & 1) == 0) {
+    if ((unit->unitFlags & UNIT_FLAG_PLAYER_CLASS) == 0) {
         return 0;
     }
 
@@ -10728,12 +10728,12 @@ int32_t VisShop::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
             this->to_sell->RefreshGrid();
             this->assortiment->RefreshGrid();
             this->to_buy->RefreshGrid();
-            ((CUnit*)this->gameplay->primary_selected_object)->unitFlags |= 8;
+            ((CUnit*)this->gameplay->primary_selected_object)->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
             this->dirty |= 0x28;
         } else {
             switch (wparam) {
             case 1:
-                ((CUnit*)this->gameplay->primary_selected_object)->unitFlags |= 8;
+                ((CUnit*)this->gameplay->primary_selected_object)->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
                 this->dirty |= 8;
                 break;
             case 2:
@@ -10855,7 +10855,7 @@ void VisShop::VMethod28() {
     this->gameplay->MsgProc(0x405, 0, 0);
     this->selected_units[this->select_index]->SetSelected(1);
     this->gameplay->UpdateSelectionState();
-    this->selected_units[this->select_index]->unitFlags |= 8;
+    this->selected_units[this->select_index]->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
     this->to_sell->RefreshGrid();
     this->assortiment->RefreshGrid();
     this->to_buy->RefreshGrid();
@@ -11014,7 +11014,7 @@ void VisShop::SelectNextPartyUnit() {
     this->to_sell->visible_startref = &this->selected_units[this->select_index]->shopInventoryVisibleStart;
     this->to_sell->RefreshGrid();
     this->to_sell->ClampVisibleStart();
-    this->selected_units[this->select_index]->unitFlags |= 8;
+    this->selected_units[this->select_index]->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
     this->dirty |= 9;
 }
 
@@ -11034,7 +11034,7 @@ void VisShop::SelectPrevPartyUnit() {
     this->to_sell->visible_startref = &this->selected_units[this->select_index]->shopInventoryVisibleStart;
     this->to_sell->RefreshGrid();
     this->to_sell->ClampVisibleStart();
-    this->selected_units[this->select_index]->unitFlags |= 8;
+    this->selected_units[this->select_index]->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
     this->dirty |= 9;
 }
 
@@ -12742,7 +12742,7 @@ void VisShopDruid::VMethod28() {
     this->gameplay->MsgProc(0x405, 0, 0);
     this->selected_units[this->select_index]->SetSelected(1);
     this->gameplay->UpdateSelectionState();
-    this->selected_units[this->select_index]->unitFlags |= 8;
+    this->selected_units[this->select_index]->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
     this->to_sell->RefreshGrid();
     this->assortiment->RefreshGrid();
     this->to_buy->RefreshGrid();
@@ -13028,7 +13028,7 @@ void VisShopKaarg::VMethod28() {
     this->gameplay->MsgProc(0x405, 0, 0);
     this->selected_units[this->select_index]->SetSelected(1);
     this->gameplay->UpdateSelectionState();
-    this->selected_units[this->select_index]->unitFlags |= 8;
+    this->selected_units[this->select_index]->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
     this->to_sell->RefreshGrid();
     this->assortiment->RefreshGrid();
     this->to_buy->RefreshGrid();
@@ -13179,7 +13179,7 @@ void VisTav::VMethod28() {
     this->map_context->MsgProc(0x405, 0, 0);
     this->selected_entries[this->select_party]->SetSelected(1);
     this->map_context->UpdateSelectionState();
-    this->selected_entries[this->select_party]->unitFlags |= 8;
+    this->selected_entries[this->select_party]->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
 
     this->scene->VMethod26();
 
@@ -13580,7 +13580,7 @@ const char* VisTavLeftPanel::GetHint() {
 
     CRect item_rect(CPoint(0, 0), CSize(client_rect.Width(), 0xEE));
     if (item_rect.PtInRect(pt)) {
-        if (unit->unitFlags & 0x40) {
+        if (unit->unitFlags & UNIT_FLAG_REMOTE_HERO) {
             return nullptr;
         }
         return unit->GetStatsHint(pt.x, pt.y);
@@ -13687,11 +13687,11 @@ void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
             g_font2->DrawTextWithShadow(screen_rect.left + 0x58, screen_rect.top + 0x36, TxtFile::AllLines[0x2F], 2, clrsh_DullGold, 1);
             g_font2->DrawTextWithShadow(screen_rect.left + 0x58, screen_rect.top + 0x42, TxtFile::AllLines[0x30], 2, clrsh_DullGold, 1);
         } else {
-            if ((unit->unitFlags & 0x40) == 0) {
+            if ((unit->unitFlags & UNIT_FLAG_REMOTE_HERO) == 0) {
                 CRect unit_rect = rect_1C + screen_rect.TopLeft();
                 unit->DrawStatsPanel(&unit_rect);
             }
-            if ((unit->unitFlags & 0x11) == 0) {
+            if ((unit->unitFlags & (UNIT_FLAG_PLAYER_CLASS | UNIT_FLAG_CREATURE)) == 0) {
                 char picture[0x100];
                 char suffix[0x50];
                 strcpy(picture, g_VFX_info[unit->typeId]->info_picture);
@@ -13715,14 +13715,14 @@ void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
                 sprintf(full_path, "%s%s", temp_path, fname);
                 if (strcmp(this->picture_name, fname) != 0) {
                     strcpy(this->picture_name, fname);
-                    if ((unit->unitFlags & 8) != 0) {
+                    if ((unit->unitFlags & UNIT_FLAG_EQUIP_CHANGED) != 0) {
                         UnlockSurface2();
                         unit->RenderHeroPortrait(full_path, this->portrait_bmp, this->hitmap);
                         LockSurface2();
                     } else {
                         this->portrait_bmp->LoadFile(fname, this->hitmap);
                     }
-                } else if ((unit->unitFlags & 8) != 0) {
+                } else if ((unit->unitFlags & UNIT_FLAG_EQUIP_CHANGED) != 0) {
                     UnlockSurface2();
                     unit->RenderHeroPortrait(full_path, this->portrait_bmp, this->hitmap);
                     LockSurface2();
@@ -13760,7 +13760,7 @@ void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
             }
             CUnit* target = (CUnit*)obj;
             if (found != 0) {
-                if ((target->unitFlags & 0x11) != 0) {
+                if ((target->unitFlags & (UNIT_FLAG_PLAYER_CLASS | UNIT_FLAG_CREATURE)) != 0) {
                     char temp_path[0x100];
                     char fname[0x100];
                     char full_path[0x100];
@@ -13769,14 +13769,14 @@ void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
                     sprintf(full_path, "%s%s", temp_path, fname);
                     if (strcmp(this->picture_name, fname) != 0) {
                         strcpy(this->picture_name, fname);
-                        if ((target->unitFlags & 8) != 0) {
+                        if ((target->unitFlags & UNIT_FLAG_EQUIP_CHANGED) != 0) {
                             UnlockSurface2();
                             target->RenderHeroPortrait(full_path, this->portrait_bmp, this->hitmap);
                             LockSurface2();
                         } else {
                             this->portrait_bmp->LoadFile(fname, this->hitmap);
                         }
-                    } else if ((target->unitFlags & 8) != 0) {
+                    } else if ((target->unitFlags & UNIT_FLAG_EQUIP_CHANGED) != 0) {
                         UnlockSurface2();
                         target->RenderHeroPortrait(full_path, this->portrait_bmp, this->hitmap);
                         LockSurface2();
@@ -14507,8 +14507,8 @@ void VisTavScene::VMethod26() {
 
     for (int32_t i = 0; i < this->vis_tav->reserved_entries.GetSize(); i++) {
         CUnit* unit = this->vis_tav->reserved_entries[i];
-        if (unit->unitFlags & 1) {
-            if (unit->unitFlags & 2) {
+        if (unit->unitFlags & UNIT_FLAG_PLAYER_CLASS) {
+            if (unit->unitFlags & UNIT_FLAG_MAGE) {
                 name.Format("graphics\\interface\\inn\\HeroMage\\sprites.16a");
             } else {
                 name.Format("graphics\\interface\\inn\\HeroFighter\\sprites.16a");
@@ -15483,7 +15483,7 @@ void VisTavDruid::VMethod28() {
     this->map_context->MsgProc(0x405, 0, 0);
     this->selected_entries[this->select_party]->SetSelected(1);
     this->map_context->UpdateSelectionState();
-    this->selected_entries[this->select_party]->unitFlags |= 8;
+    this->selected_entries[this->select_party]->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
 
     this->scene->VMethod26();
 
@@ -15742,7 +15742,7 @@ void VisTavKaarg::VMethod28() {
     this->map_context->MsgProc(0x405, 0, 0);
     this->selected_entries[this->select_party]->SetSelected(1);
     this->map_context->UpdateSelectionState();
-    this->selected_entries[this->select_party]->unitFlags |= 8;
+    this->selected_entries[this->select_party]->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
 
     this->scene->VMethod26();
 

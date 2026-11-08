@@ -230,7 +230,7 @@ TIER 2 - bitflag families (medium effort; highest opacity today)
     Note `dialogsMask == 1` / `== 0` whole-value tests stay as-is (or gain a
     named constant DIALOG_MASK_INGAME for bit 1).
 
-[ ] 13. CUnit flag bits  (CUnit::unitFlags, ~35 uses)
+[x] 13. CUnit flag bits  (CUnit::unitFlags, ~35 uses)
     Known: 0x80 = hidden/out-of-vision (set by UNIT_HIDDEN packet),
     0x20 = has gold entry in token list, 0x8 = equipment changed (sprite
     reload), 0x2 = hero/main unit. The 0x11 tests are two bits at once -

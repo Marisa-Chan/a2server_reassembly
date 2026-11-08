@@ -244,6 +244,18 @@ enum UnitAction : uint8_t {
     ACTION_CAST   = 8, // cast spell (SpawnSpellProjectile / PlayCastSound)
 };
 
+// CUnit::unitFlags bit flags (client-side unit descriptor).
+enum UnitFlag : int32_t {
+    UNIT_FLAG_PLAYER_CLASS     = 0x1, // player-class humanoid: equipment/heropicture sprite path
+    UNIT_FLAG_MAGE             = 0x2, // mage class (mmage/fmage sprite dirs, SoundBank_mage)
+    UNIT_FLAG_FEMALE           = 0x4, // female (ffighter/fmage sprite dirs, female_face)
+    UNIT_FLAG_EQUIP_CHANGED    = 0x8, // equipment changed - ReloadSprite needed
+    UNIT_FLAG_CREATURE         = 0x10, // creature: monster sprite + unitname path (ApplyFace for typeId < 0x1a)
+    UNIT_FLAG_TOKEN_GOLD_ENTRY = 0x20, // token list carries the trailing gold entry (set on the own hero)
+    UNIT_FLAG_REMOTE_HERO      = 0x40, // remote hero stub (CreateRemoteHeroStub): no stats panel / stats hint
+    UNIT_FLAG_HIDDEN           = 0x80, // out of vision (set/cleared by the UNIT_HIDDEN packet)
+};
+
 class CUnit : public CGameObject {
 	DECLARE_DYNAMIC(CUnit);
 public:

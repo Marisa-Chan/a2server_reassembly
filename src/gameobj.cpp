@@ -166,7 +166,7 @@ CGameObject::CGameObject(const CGameObject* obj) {
 void CGameObject::AssertValid() const { //461dfa
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
-    if ((mwnd->dialogsMask & 1) != 0 && 
+    if ((mwnd->dialogsMask & DIALOG_MASK_INGAME) != 0 && 
         (this->x_pos < 1792 || this->y_pos < 1792 || 
         (this->pMapObject->map_width - 7) * 256 <= this->x_pos ||
         (this->pMapObject->map_height - 7) * 256 <= this->y_pos || 
@@ -1073,7 +1073,7 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
     char sprite_prefix[256] = { 0 };
     strcpy(sprite_prefix, "graphics\\equipment\\");
 
-    switch (this->unitFlags & 6) {
+    switch (this->unitFlags & (UNIT_FLAG_MAGE | UNIT_FLAG_FEMALE)) {
     case 0:
         strcat(sprite_prefix, "mfighter\\");
         break;
@@ -1111,7 +1111,7 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
             item_sprites[i] = new CSprite256(base_name);
             item_sprites[i]->ResetPalette(1, 1, 0);
 
-            if (i == 3 || i == 8 || i == 9 || (i == 7 && (this->unitFlags & 2) != 0)) {
+            if (i == 3 || i == 8 || i == 9 || (i == 7 && (this->unitFlags & UNIT_FLAG_MAGE) != 0)) {
                 extra_sprites[i] = new CSprite256(extra_name);
                 if (extra_sprites[i]) {
                     extra_sprites[i]->ResetPalette(1, 1, 0);
@@ -1141,8 +1141,8 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
         horse_sprite->Draw(0, 0, 0, 0, 0);
     }
 
-    if ((this->unitFlags & 1) != 0 && (this->unitFlags & 2) == 0) {
-        if ((this->unitFlags & 4) == 0) {
+    if ((this->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0 && (this->unitFlags & UNIT_FLAG_MAGE) == 0) {
+        if ((this->unitFlags & UNIT_FLAG_FEMALE) == 0) {
             if (g_spr_backm != nullptr) {
                 g_spr_backm->Draw(0, 0, 0, 0, 0);
             }
@@ -1156,7 +1156,7 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
         first_equipment_state = this->equipmentTokens[0]->IsTwoHandedWeapon();
     }
 
-    if ((this->unitFlags & 2) == 0) {
+    if ((this->unitFlags & UNIT_FLAG_MAGE) == 0) {
         if (unit_sprite != nullptr) {
             unit_sprite->Draw(0, 0, 0, 0, 0);
         }
@@ -1370,7 +1370,7 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
     }
 
     if (str != nullptr) {
-        this->unitFlags &= ~0x8;
+        this->unitFlags &= ~UNIT_FLAG_EQUIP_CHANGED;
     }
 
     if (this->action == ACTION_ATTACK || this->action == ACTION_SHOOT || this->action == ACTION_CAST) {
@@ -1495,43 +1495,43 @@ void CUnit::ApplyFace(int32_t _face) { //46b7d2
     this->face = _face;
 
     if (this->typeId > 0x1f && this->typeId < 0x40) {
-        this->unitFlags &= 0x80;
-        this->unitFlags |= 1 | 8;
+        this->unitFlags &= UNIT_FLAG_HIDDEN;
+        this->unitFlags |=(UNIT_FLAG_PLAYER_CLASS | UNIT_FLAG_EQUIP_CHANGED);
 
         this->typeId -= 0x21;
 
         if ((this->typeId & 1) != 0) {
-            this->unitFlags |= 4;
+            this->unitFlags |= UNIT_FLAG_FEMALE;
         }
 
         if ((this->typeId & 2) != 0) {
-            this->unitFlags |= 2;
+            this->unitFlags |= UNIT_FLAG_MAGE;
         }
 
         this->typeId = 1;
     } else if (this->typeId < 0x1a) {
-        this->unitFlags &= 0x80;
-        this->unitFlags |= 0x10 | 8;
+        this->unitFlags &= UNIT_FLAG_HIDDEN;
+        this->unitFlags |=(UNIT_FLAG_CREATURE | UNIT_FLAG_EQUIP_CHANGED);
 
         if ((this->face & 0x80) != 0) {
-            this->unitFlags |= 4;
+            this->unitFlags |= UNIT_FLAG_FEMALE;
         }
 
         this->face &= ~0x80;
 
         if (this->typeId > 0x16 && this->typeId < 0x19) {
-            this->unitFlags |= 2;
+            this->unitFlags |= UNIT_FLAG_MAGE;
         }
     }
 }
 
 void CUnit::ReloadSprite() { // 46b91c
-    if ((this->unitFlags & 1) != 0) {
+    if ((this->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0) {
         CString sname;
 
         if (this->action == ACTION_DIE) {
             sname = "unarmed";
-            if ((this->unitFlags & 2) != 0 /* && strcmp(local_c8, "unarmed") == 0 */) {
+            if ((this->unitFlags & UNIT_FLAG_MAGE) != 0 /* && strcmp(local_c8, "unarmed") == 0 */) {
                 sname = "mage_st";
             }
         } else {
@@ -1547,14 +1547,14 @@ void CUnit::ReloadSprite() { // 46b91c
                 sname += "_";
             }
 
-            if ((this->unitFlags & 2) != 0 && sname == "unarmed") {
+            if ((this->unitFlags & UNIT_FLAG_MAGE) != 0 && sname == "unarmed") {
                 sname = "mage";
             }
         }
 
         bool do_reload = sname != this->heroSpritePictureName;
 
-        if ((this->unitFlags & 2) == 0) {
+        if ((this->unitFlags & UNIT_FLAG_MAGE) == 0) {
             if (this->equipmentTokens[7] == nullptr) {
                 if (this->heroSpriteArmorMaterial != -1) {
                     do_reload = true;
@@ -1575,7 +1575,7 @@ void CUnit::ReloadSprite() { // 46b91c
 
             CString sprite_name = "graphics\\units\\";
 
-            if (this->unitFlags & 2) {
+            if (this->unitFlags & UNIT_FLAG_MAGE) {
                 sprite_name += "heroes";
             } else if (this->equipmentTokens[7] == nullptr) {
                 this->heroSpriteArmorMaterial = -1;
@@ -1752,7 +1752,7 @@ void CUnit::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) { // 466a
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 #ifdef A2CLIENT
     if (main_wnd->net_session.internet_game != 0 && main_wnd->hat_settings.ishat != 0 &&
-        main_wnd->hat_settings.deathmatch == 2 && (this->unitFlags & 1) != 0) {
+        main_wnd->hat_settings.deathmatch == 2 && (this->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0) {
         if (map->cursor_over_obj_last_index == this->map_player->index) {
             g_ca16_money->Draw(right - 0xa, bottom - 0x40, 0, 0, 0);
         }
@@ -1762,7 +1762,7 @@ void CUnit::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) { // 466a
     }
 #endif
     int32_t session_mode = main_wnd->sessionMode;
-    if (session_mode == 2 || g_settings.ClanNames == 0 || this->str1[0] == 0 || (this->unitFlags & 1) == 0) {
+    if (session_mode == 2 || g_settings.ClanNames == 0 || this->str1[0] == 0 || (this->unitFlags & UNIT_FLAG_PLAYER_CLASS) == 0) {
         if (session_mode != 2 && g_settings.ClanNames != 0) {
             int32_t quest_flag = 0;
             POSITION pos = map->quest_map->quests_map.GetStartPosition();
@@ -1966,7 +1966,7 @@ void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t light) { // 464974
     }
 
     UnitVFXUnfo* draw_vfx = g_VFX_info[vfx_idx];
-    if ((this->unitFlags & 1) != 0) {
+    if ((this->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0) {
         if (this->sprite->GetFrameCount() <= frame) {
             return;
         }
@@ -2149,7 +2149,7 @@ void CUnit::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) { // 465b5
     }
 
     UnitVFXUnfo* draw_vfx = g_VFX_info[vfx_idx];
-    if ((this->unitFlags & 1) != 0) {
+    if ((this->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0) {
         if (this->sprite->GetFrameCount() <= frame) {
             return;
         }
@@ -3093,7 +3093,7 @@ void CUnit::PlayHitSound(int32_t kind) {
             sample->Play(vol + g_SoundSettings.sfx_pos, pan, 0, (10000 - abs(vol)) / 100, 0);
         }
     } else {
-        if ((this->unitFlags & 0x11) != 0 || this->serverId <= 0x17) {
+        if ((this->unitFlags & (UNIT_FLAG_PLAYER_CLASS | UNIT_FLAG_CREATURE)) != 0 || this->serverId <= 0x17) {
             switch (kind) {
             case 1:
                 sample = this->GetSfxBank()->easy;
@@ -3155,7 +3155,7 @@ void CUnit::DrawMinimapRect(int32_t x, int32_t y, int32_t zoom) {
         return;
     }
 
-    if ((this->unitFlags & 0x80) != 0) {
+    if ((this->unitFlags & UNIT_FLAG_HIDDEN) != 0) {
         return;
     }
 
@@ -3193,7 +3193,7 @@ void CUnit::DrawMinimapRect(int32_t x, int32_t y, int32_t zoom) {
 int32_t CUnit::UpdateBlockedState() {
     BigStruct2* map = this->pMapObject;
 
-    if ((this->unitFlags & 0x80) != 0) {
+    if ((this->unitFlags & UNIT_FLAG_HIDDEN) != 0) {
         this->bIsBlocked = 1;
         if (this->m_bSelected == 0) {
             return 0;
@@ -3223,7 +3223,7 @@ int32_t CUnit::UpdateBlockedState() {
 
 // 464765
 void CUnit::UpdateTileLayer() {
-    if (this->death_state < 2 && (this->unitFlags & 0x80) == 0) {
+    if (this->death_state < 2 && (this->unitFlags & UNIT_FLAG_HIDDEN) == 0) {
         this->SetTileLayerCell(2, this);
     } else {
         this->SetTileLayerCell(4, this);
@@ -3417,7 +3417,7 @@ SfxBank* CUnit::GetSfxBank() {
     case 6:
         return &SoundBank_other[this->serverId + 5];
     case 0x15:
-        return &SoundBank_other[((this->unitFlags & 4) != 0) + ((this->unitFlags & 2) != 0) * 2];
+        return &SoundBank_other[((this->unitFlags & UNIT_FLAG_FEMALE) != 0) + ((this->unitFlags & UNIT_FLAG_MAGE) != 0) * 2];
     case 0x16:
         return &SoundBank_other[4];
     case 0x17:
@@ -3426,8 +3426,8 @@ SfxBank* CUnit::GetSfxBank() {
         break;
     }
 
-    int32_t is_hero = (this->unitFlags & 4) != 0;
-    if ((this->unitFlags & 2) != 0) {
+    int32_t is_hero = (this->unitFlags & UNIT_FLAG_FEMALE) != 0;
+    if ((this->unitFlags & UNIT_FLAG_MAGE) != 0) {
         return &SoundBank_mage[is_hero];
     }
     if (this->equipmentTokens[0] != nullptr) {
@@ -3461,7 +3461,7 @@ void CUnit::DrawStatsPanel(CRect* rect) {
     char buf2[16];
 
     if (strlen(this->str1) == 0) {
-        if ((this->unitFlags & 0x11) != 0) {
+        if ((this->unitFlags & (UNIT_FLAG_PLAYER_CLASS | UNIT_FLAG_CREATURE)) != 0) {
             if (map->my_main_unit->IsAllied(this->map_player->index) == 0) {
                 g_font2->DrawTextWithShadow(rect->right - 0x58, rect->top + 0x12, TxtFile::AllLines[0x54], 2, label_color, 1);
             } else if (this->typeId < 0x40) {
@@ -3499,12 +3499,12 @@ void CUnit::DrawStatsPanel(CRect* rect) {
     }
 
     if (view_level > 2) {
-        if ((this->unitFlags & 2) == 0) {
+        if ((this->unitFlags & UNIT_FLAG_MAGE) == 0) {
             g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x58, TxtFile::AllLines[0x17], 0, label_color, 1);
             g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x62, TxtFile::AllLines[0x19], 0, label_color, 1);
             uint32_t dmg_min = this->hand_dmg_min;
             uint32_t dmg_spread = this->hand_dmg_spread;
-            if ((this->hand_dmg_min & 0x80) != 0 && (this->unitFlags & 0x11) == 0) {
+            if ((this->hand_dmg_min & 0x80) != 0 && (this->unitFlags & (UNIT_FLAG_PLAYER_CLASS | UNIT_FLAG_CREATURE)) == 0) {
                 dmg_min = (dmg_min & 0x7f) * 0xf;
                 dmg_spread = dmg_spread * 0xf;
             }
@@ -3545,14 +3545,14 @@ void CUnit::DrawStatsPanel(CRect* rect) {
     }
 
     if (view_level > 6) {
-        if ((this->unitFlags & 0x11) == 0) {
+        if ((this->unitFlags & (UNIT_FLAG_PLAYER_CLASS | UNIT_FLAG_CREATURE)) == 0) {
             g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x70, TxtFile::AllLines[0x1c], 0, section_color, 1);
         } else {
             g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x70, TxtFile::AllLines[0x1b], 0, section_color, 1);
         }
         for (int32_t i = 0; i < 5; i++) {
             if (this->typeId == 0x18 || this->typeId == 0x17
-                || ((this->unitFlags & 1) != 0 && (this->unitFlags & 2) != 0)) {
+                || ((this->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0 && (this->unitFlags & UNIT_FLAG_MAGE) != 0)) {
                 g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x7a + i * 10, TxtFile::AllLines[i + 0x24], 0, label_color, 1);
             } else {
                 g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x7a + i * 10, TxtFile::AllLines[i + 0x1e], 0, label_color, 1);
@@ -3571,7 +3571,7 @@ void CUnit::DrawStatsPanel(CRect* rect) {
         }
     }
 
-    if ((this->unitFlags & 1) != 0 && view_level == 7) {
+    if ((this->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0 && view_level == 7) {
         sprintf(buf1, "%d.%d", this->carrying_weight_100g / 10, this->carrying_weight_100g % 10);
         g_font2->DrawTextWithShadow(rect->left + 0x10, rect->top + 0xae, TxtFile::AllLines[0x23], 0, label_color, 1);
         g_font2->DrawTextWithShadow(rect->left + 0x7f, rect->top + 0xae, buf1, 1, value_color, 1);
@@ -3580,11 +3580,11 @@ void CUnit::DrawStatsPanel(CRect* rect) {
         g_font2->DrawTextWithShadow(rect->left + 0x7f, rect->top + 0xba, buf1, 1, value_color, 1);
     }
 
-    if ((this->unitFlags & 1) == 0 && this->spells != 0 && view_level == 7) {
+    if ((this->unitFlags & UNIT_FLAG_PLAYER_CLASS) == 0 && this->spells != 0 && view_level == 7) {
         g_font2->DrawTextWithShadow(rect->left + 0x4a, rect->top + 0xae, TxtFile::AllLines[0xbe], 2, label_color, 1);
     }
 
-    if ((this->unitFlags & 0x11) == 0 && this->special_stat_kind != 0 && view_level == 7) {
+    if ((this->unitFlags & (UNIT_FLAG_PLAYER_CLASS | UNIT_FLAG_CREATURE)) == 0 && this->special_stat_kind != 0 && view_level == 7) {
         g_font2->DrawTextWithShadow(rect->left + 0x4a, rect->top + 0xba, TxtFile::AllLines[0xbf], 2, label_color, 1);
     }
 }
@@ -3637,7 +3637,7 @@ const char* CUnit::GetStatsHint(int32_t x, int32_t y) {
     }
 
     if (view_level > 5) {
-        if ((this->unitFlags & 0x11) == 0) {
+        if ((this->unitFlags & (UNIT_FLAG_PLAYER_CLASS | UNIT_FLAG_CREATURE)) == 0) {
             if (x < 0x4a && y > 0x6f && y < 0x7a) {
                 return TxtFile::AllLines[0xbc];
             }
@@ -3652,7 +3652,7 @@ const char* CUnit::GetStatsHint(int32_t x, int32_t y) {
         }
     }
 
-    if ((this->unitFlags & 1) != 0 && this->map_player == map->my_main_unit) {
+    if ((this->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0 && this->map_player == map->my_main_unit) {
         if (x > 0xf && x < 0x90 && y > 0xad && y < 0xb8) {
             return TxtFile::AllLines[0xa5];
         }
@@ -3661,7 +3661,7 @@ const char* CUnit::GetStatsHint(int32_t x, int32_t y) {
         }
     }
 
-    if ((this->unitFlags & 1) == 0 && this->spells != 0 && x > 0xf && x < 0x90 && y > 0xad && y < 0xb8) {
+    if ((this->unitFlags & UNIT_FLAG_PLAYER_CLASS) == 0 && this->spells != 0 && x > 0xf && x < 0x90 && y > 0xad && y < 0xb8) {
         CString str(TxtFile::AllLines[0xc0]);
         str += '#';
 
@@ -3699,10 +3699,10 @@ const char* CUnit::GetStatsHint(int32_t x, int32_t y) {
 
 // 46C0C9
 int32_t CUnit::IsItemRestricted(TokenEntry* entry) {
-    if ((entry->flg & 2) != 0 && (this->unitFlags & 2) == 0) {
+    if ((entry->flg & 2) != 0 && (this->unitFlags & UNIT_FLAG_MAGE) == 0) {
         return 1;
     }
-    if ((entry->flg & 4) != 0 && (this->unitFlags & 2) != 0) {
+    if ((entry->flg & 4) != 0 && (this->unitFlags & UNIT_FLAG_MAGE) != 0) {
         return 1;
     }
     return 0;
@@ -3807,9 +3807,9 @@ void StructEnter::RebuildFromMap() {
 		if (unit->map_player != map->my_main_unit) {
 			continue;
 		}
-		if ((unit->unitFlags & 1) != 0 && unit->death_state == 0) {
+		if ((unit->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0 && unit->death_state == 0) {
 			this->AddStructureUnit(unit);
-		} else if ((unit->unitFlags & 0x10) != 0 && unit->death_state == 0) {
+		} else if ((unit->unitFlags & UNIT_FLAG_CREATURE) != 0 && unit->death_state == 0) {
 			this->AddPartyMember(unit);
 		}
 	}
@@ -3819,7 +3819,7 @@ void StructEnter::RebuildFromMap() {
 int32_t StructEnter::FindFlaggedStructureUnit() {
 	for (int32_t i = 0; i < this->structure_list.GetSize(); i++) {
 		CUnit* unit = this->structure_list[i];
-		if ((unit->unitFlags & 0x20) != 0) {
+		if ((unit->unitFlags & UNIT_FLAG_TOKEN_GOLD_ENTRY) != 0) {
 			return i;
 		}
 	}
@@ -3829,7 +3829,7 @@ int32_t StructEnter::FindFlaggedStructureUnit() {
 // 475080
 void StructEnter::AddPartyMember(CUnit* unit) {
 	this->party_list.Add(unit);
-	if ((unit->unitFlags & 2) != 0) {
+	if ((unit->unitFlags & UNIT_FLAG_MAGE) != 0) {
 		this->male_party_count++;
 	} else {
 		this->female_party_count++;

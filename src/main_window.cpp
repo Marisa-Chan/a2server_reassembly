@@ -6541,7 +6541,7 @@ void CGameSession::SetCharacterStats(int32_t body, int32_t reaction, int32_t min
     this->spirit = spirit;
     if (main_sphere != 0) {
         this->main_sphere = main_sphere;
-        unit->unitFlags |= 8;
+        unit->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
     }
     this->RecreateCUnit();
 }
