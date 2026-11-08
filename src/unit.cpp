@@ -1771,7 +1771,7 @@ void Unit::InitDefaults(const CString& str) {
     this->experience = 0;
     this->hp_regen_carry = 0;
     this->mp_regen_carry = 0;
-    this->name = ""; // Originally it was set to `byte_70B460`, which was never populated, so it's always an empty string.
+    this->name = ""; // Originally it was set to `70B460`, which was never populated, so it's always an empty string.
     this->last_action_tick = 0;
     this->summon_id = 0;
     this->quest_kill_mark = 0;

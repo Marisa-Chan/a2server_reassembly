@@ -3676,7 +3676,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x43b:
-        // original binaries guard this with a CD-present check (DAT_0062f87c,
+        // original binaries guard this with a CD-present check (0062f87c,
         // cleared by a catch handler around PlayVideo); removed - no CD drives
         {
             CStringArray local_934;

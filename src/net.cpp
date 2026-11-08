@@ -805,7 +805,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
         mask &= ~0x2;
     }
 
-    // --- Pack fields into unk_6D1180 based on flags bits ---
+    // --- Pack fields into 6D1180 based on flags bits ---
 
     // bit 0x1: hp (uint16)
     if (mask & 0x1) {

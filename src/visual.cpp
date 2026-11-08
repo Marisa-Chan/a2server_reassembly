@@ -4169,7 +4169,7 @@ VisMissionFailed::VisMissionFailed(int32_t _id, int32_t l, int32_t t, int32_t r,
     : VisMessageBoxWithList(_id, l, t, r, b, _txt, TxtFile::AllLines[0x8D], 0xFFFF) {
 }
 
-// 450B00 (this address is the deleting dtor ??_G; the real dtor sub_450B30 only calls the base dtor)
+// 450B00 (this address is the deleting dtor ??_G; the real dtor 450B30 only calls the base dtor)
 VisMissionFailed::~VisMissionFailed() = default;
 
 // 44E8CA
@@ -4196,7 +4196,7 @@ VisCutScenesDlg::VisCutScenesDlg(int32_t _id, int32_t l, int32_t t, int32_t r, i
     : VisMessageBox(_id, l, t, r, b, (const void*)&_payload, nullptr, 1, txt_dialogs.GetLine(0x99)) {
 }
 
-// 450B50 (this address is the deleting dtor ??_G; the real dtor sub_450B80 only calls the base dtor)
+// 450B50 (this address is the deleting dtor ??_G; the real dtor 450B80 only calls the base dtor)
 VisCutScenesDlg::~VisCutScenesDlg() = default;
 
 // 44EB08
@@ -10524,8 +10524,8 @@ void VisShop::VMethod31() {
 
 // 4BCF2F
 void VisShop::VMethod30() {
-    static uint8_t snd_timing_init = 0; // byte_665DA8 in asm
-    static uint32_t last_snd_time; // dword_665DA0 in asm
+    static uint8_t snd_timing_init = 0; // 665DA8 in asm
+    static uint32_t last_snd_time; // 665DA0 in asm
 
     if ((snd_timing_init & 1) == 0) {
         snd_timing_init |= 1;
@@ -12641,8 +12641,8 @@ void VisShopDruid::VMethod31() {
 
 // 4C1958
 void VisShopDruid::VMethod30() {
-    static uint8_t snd_timing_init = 0; // byte_665D9C in asm
-    static uint32_t last_snd_time; // dword_665DD4 in asm
+    static uint8_t snd_timing_init = 0; // 665D9C in asm
+    static uint32_t last_snd_time; // 665DD4 in asm
 
     if ((snd_timing_init & 1) == 0) {
         snd_timing_init |= 1;
@@ -12881,8 +12881,8 @@ void VisShopKaarg::VMethod31() {
 
 // 4C4170
 void VisShopKaarg::VMethod30() {
-    static uint8_t snd_timing_init = 0; // byte_665DA4 in asm
-    static uint32_t last_snd_time; // dword_665DB8 in asm
+    static uint8_t snd_timing_init = 0; // 665DA4 in asm
+    static uint32_t last_snd_time; // 665DB8 in asm
 
     if ((snd_timing_init & 1) == 0) {
         snd_timing_init |= 1;
@@ -19597,9 +19597,9 @@ void VisTown::DrawBirdFlock() {
 
 // 4CE886
 void VisTown::VMethod7() {
-    static uint8_t anim_init_flags;   // byte_6669BC in asm
-    static uint32_t hover_tick;       // dword_66699C in asm
-    static uint32_t bird_anim_delay;  // dword_6669C4 in asm
+    static uint8_t anim_init_flags;   // 6669BC in asm
+    static uint32_t hover_tick;       // 66699C in asm
+    static uint32_t bird_anim_delay;  // 6669C4 in asm
 
     if (this->dialog_active == 0) {
         return;
@@ -19901,7 +19901,7 @@ void VisTown::AdvanceGateAnim() {
 
 // 4D0AD7
 void VisTown::AdvanceStarsAnim() {
-    static int32_t stars_repeat; // dword_6669d0 in asm
+    static int32_t stars_repeat; // 6669d0 in asm
     if (this->stars_frame == 0) {
         CSound::Play((CSound&)this->sounds[10]);
     }
@@ -19922,7 +19922,7 @@ void VisTown::AdvanceStarsAnim() {
 
 // 4D0B95
 void VisTown::AdvanceFighterAnim() {
-    static int32_t fighter_dir; // dword_6669d4 in asm
+    static int32_t fighter_dir; // 6669d4 in asm
     if (this->fighter_frame < 1 && fighter_dir == 0) {
         fighter_dir = (rand() % 100 > 0x5F) ? 1 : 0;
     } else if (this->fighter_frame == 10) {
@@ -19938,7 +19938,7 @@ void VisTown::AdvanceFighterAnim() {
 
 // 4D0C6E
 void VisTown::AdvanceMageAnim() {
-    static int32_t mage_dir; // dword_6669d8 in asm
+    static int32_t mage_dir; // 6669d8 in asm
     if (this->mage_frame < 1 && mage_dir == 0) {
         mage_dir = (rand() % 100 > 0x5F) ? 1 : 0;
     } else if (this->mage_frame == 10) {
@@ -20648,9 +20648,9 @@ void VisTownKaarg::VMethod38() {
 
 // 4D5EF0
 void VisTownKaarg::VMethod35() {
-    static uint8_t timer_init_flags; // byte_6669AC in asm
-    static uint32_t voice_delay;     // dword_666994 in asm
-    static uint32_t bird_delay;      // dword_6669B0 in asm
+    static uint8_t timer_init_flags; // 6669AC in asm
+    static uint32_t voice_delay;     // 666994 in asm
+    static uint32_t bird_delay;      // 6669B0 in asm
 
     uint32_t now = timeGetTime();
     if ((now - this->dervish_tick) > (uint32_t)this->dervish_delay) {
@@ -20884,9 +20884,9 @@ void VisTownKaarg::VMethod28() {
 
 // 4D57B9
 void VisTownKaarg::VMethod7() {
-    static uint8_t anim_init_flags;  // byte_6669C0 in asm
-    static uint32_t hover_tick;      // dword_6669B8 in asm
-    static uint32_t bird_anim_delay; // dword_6669CC in asm
+    static uint8_t anim_init_flags;  // 6669C0 in asm
+    static uint32_t hover_tick;      // 6669B8 in asm
+    static uint32_t bird_anim_delay; // 6669CC in asm
 
     if (this->dialog_active == 0) {
         return;
@@ -21307,9 +21307,9 @@ void VisTownDruid::VMethod34(CPoint pos) {
 
 // 4D3922
 void VisTownDruid::VMethod35() {
-    static uint8_t timer_init_flags; // byte_666998 in asm
-    static uint32_t bird_delay;      // dword_6669A4 in asm
-    static uint32_t tree_delay;      // dword_6669B4 in asm
+    static uint8_t timer_init_flags; // 666998 in asm
+    static uint32_t bird_delay;      // 6669A4 in asm
+    static uint32_t tree_delay;      // 6669B4 in asm
 
     uint32_t now = timeGetTime();
     CPoint pt(g_mousept.GetX(), g_mousept.GetY());
@@ -21411,9 +21411,9 @@ void VisTownDruid::VMethod35() {
 
 // 4D2E99
 void VisTownDruid::VMethod7() {
-    static uint8_t anim_init_flags;  // byte_6669A0 in asm
-    static uint32_t hover_tick;      // dword_6669A8 in asm
-    static uint32_t bird_anim_delay; // dword_6669C8 in asm
+    static uint8_t anim_init_flags;  // 6669A0 in asm
+    static uint32_t hover_tick;      // 6669A8 in asm
+    static uint32_t bird_anim_delay; // 6669C8 in asm
 
     if (this->dialog_active == 0) {
         return;
@@ -24273,7 +24273,7 @@ VisNetSerialSettings::VisNetSerialSettings(int32_t _id, int32_t l, int32_t t, in
 }
 
 
-// 44fcc0 (deleting dtor ??_G; the complete dtor sub_44fcf0 only calls the base dtor)
+// 44fcc0 (deleting dtor ??_G; the complete dtor 44fcf0 only calls the base dtor)
 VisNetSerialSettings::~VisNetSerialSettings() = default;
 
 
@@ -25296,8 +25296,8 @@ void VisCredits::VMethod7() {
         return;
     }
 
-    static uint8_t credits_timing_init = 0;  // byte_65995C in asm
-    static uint32_t credits_scroll_time = 0; // dword_659958 in asm
+    static uint8_t credits_timing_init = 0;  // 65995C in asm
+    static uint32_t credits_scroll_time = 0; // 659958 in asm
     if (credits_timing_init == 0) {
         credits_timing_init = 1;
         credits_scroll_time = timeGetTime();
@@ -25465,7 +25465,7 @@ VisNetTcpIp::VisNetTcpIp(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b
     this->ip = _ip;
 }
 
-// 44FD10 (this address is the deleting dtor ??_G; the real dtor sub_44FD40 only calls the base dtor)
+// 44FD10 (this address is the deleting dtor ??_G; the real dtor 44FD40 only calls the base dtor)
 VisNetTcpIp::~VisNetTcpIp() = default;
 
 // 449F67
@@ -25662,7 +25662,7 @@ Vis1200obj::Vis1200obj(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, 
     this->flags |= 2;
 }
 
-// 43BFA0 (deleting dtor; the complete dtor sub_43AC08 only sets the vtable and calls the member dtors)
+// 43BFA0 (deleting dtor; the complete dtor 43AC08 only sets the vtable and calls the member dtors)
 Vis1200obj::~Vis1200obj() = default;
 
 // 43B32F

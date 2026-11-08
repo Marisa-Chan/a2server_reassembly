@@ -1763,7 +1763,7 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
     // Encode and send the full map-terrain packet to the player.
     // encode_list is a stack-local CArray<uint16_t> (= CWordArray, var_88 in ASM).
     // MapStuff_Instance->EncodeTerrain fills it with run-length encoded terrain data.
-    // The result is copied into unk_6E9DB0 (the large static packet buffer)
+    // The result is copied into 6E9DB0 (the large static packet buffer)
     // beginning at offset 0xE, then the packet is sent.
     {
         // Set up terrain packet header.
@@ -2896,7 +2896,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
     }
 }
 
-Shop g_DefaultShop;     // unk_6D10B8
+Shop g_DefaultShop;     // 6D10B8
 
 // 502C50
 Shop* Server::FindShopAt(TokenPos* pos) {

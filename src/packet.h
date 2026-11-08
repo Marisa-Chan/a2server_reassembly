@@ -140,13 +140,13 @@ __pragma(pack(pop))
 ASSERT_SIZE(PacketTerrain, 0x2000e);
 
 
-// Unit-state update packet (static instance at _unk_6D1180).
+// Unit-state update packet (static instance at 6D1180).
 // Built incrementally by SendUnitUpdate; the flags_mask records which fields
 // are present and the data[] buffer holds their values.
 __pragma(pack(push, 1))
 class PacketUnitUpdate : public Packet {
 public:
-    static PacketUnitUpdate Inst; // _unk_6D1180
+    static PacketUnitUpdate Inst; // 6D1180
 public:
     PacketUnitUpdate(); // 527987 (client: 516957)
     PacketUnitUpdate(const PacketUnitUpdate* src); // 5279A6 (vtable-only ctor used in Duplicate) (client: 516976)
@@ -177,14 +177,14 @@ ASSERT_SIZE(PacketUnitUpdate, 0x418);
 
 // ---------------------------------------------------------------------------
 // PacketUnitRef
-// Constructor 5268FC, static unk_6E9B40, vtable off_60ED28.
+// Constructor 5268FC, static 6E9B40, vtable 60ED28.
 // Single uint16_t payload – typically a unit/object reference.
 // No custom Duplicate (inherits base); no custom VMethod3/VMethod4.
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketWord : public Packet {
 public:
-    static PacketWord Inst; // unk_6E9B40
+    static PacketWord Inst; // 6E9B40
 public:
     PacketWord(); // 5268FC (client: 515651)
     PacketWord(const PacketWord* src);  // client: 515651
@@ -200,7 +200,7 @@ ASSERT_SIZE(PacketWord, 0xC);
 
 // ---------------------------------------------------------------------------
 // PacketGroupOrder
-// Constructor 526924, static unk_6D1670, vtable off_60ED40.
+// Constructor 526924, static 6D1670, vtable 60ED40.
 // Variable-length list of uint16_t entries; up to 0xFD (253) entries.
 // AppendWord() mirrors 52695A.  VMethod3 sends count*2+0xA bytes from &id.
 // VMethod4 reads 9 fixed bytes then count*2 variable bytes.
@@ -208,7 +208,7 @@ ASSERT_SIZE(PacketWord, 0xC);
 __pragma(pack(push, 1))
 class PacketGroupOrder : public Packet {
 public:
-    static PacketGroupOrder Inst; // unk_6D1670
+    static PacketGroupOrder Inst; // 6D1670
 public:
     PacketGroupOrder(); // 526924 (client: 515756)
     PacketGroupOrder(const PacketGroupOrder* src);  // client: 515756
@@ -235,14 +235,14 @@ ASSERT_SIZE(PacketGroupOrder, 0x20d);
 
 // ---------------------------------------------------------------------------
 // PacketItemTransfer
-// Constructor 526A07, static unk_6B1650, vtable off_60ED58.
+// Constructor 526A07, static 6B1650, vtable 60ED58.
 // Command packet: 2 type/subtype bytes + 3 word params; field_0x12 init = 1.
 // Uses inherited Packet VMethod3/VMethod4 serialisation.
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketItemTransfer : public Packet {
 public:
-    static PacketItemTransfer Inst; // unk_6B1650
+    static PacketItemTransfer Inst; // 6B1650
 public:
     PacketItemTransfer(); // 526A07 (client: 51572e)
     PacketItemTransfer(const PacketItemTransfer* src);  // client copy ctor: no twin found (client: 51572e)
@@ -263,14 +263,14 @@ ASSERT_SIZE(PacketItemTransfer, 0x14);
 
 // ---------------------------------------------------------------------------
 // PacketEnterGame
-// Constructor 526A4F, static unk_6B1670, vtable off_60ED70.
+// Constructor 526A4F, static 6B1670, vtable 60ED70.
 // Three uint32_t fields followed by one uint8_t; all zeroed in ctor.
 // Uses inherited Packet VMethod3/VMethod4 serialisation.
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketEnterGame : public Packet {
 public:
-    static PacketEnterGame Inst; // unk_6B1670
+    static PacketEnterGame Inst; // 6B1670
 public:
     PacketEnterGame(); // 526A4F (client: 515839)
     PacketEnterGame(const PacketEnterGame* src);  // client copy ctor: no twin found (client: 515839)
@@ -289,14 +289,14 @@ ASSERT_SIZE(PacketEnterGame, 0x36);
 
 // ---------------------------------------------------------------------------
 // PacketDword
-// Constructor 526BB0, static unk_6CDB78, vtable off_60EDB8.
+// Constructor 526BB0, static 6CDB78, vtable 60EDB8.
 // Single uint32_t value payload; zeroed in ctor.
 // Copy ctor: 526BD9 (copies 5 bytes: id + dword).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketDword : public Packet {
 public:
-    static PacketDword Inst; // unk_6CDB78
+    static PacketDword Inst; // 6CDB78
 public:
     PacketDword(); // 526BB0 (client: 515976)
     PacketDword(const PacketDword* src); // 526BD9 (client: 516806)
@@ -313,14 +313,14 @@ ASSERT_SIZE(PacketDword, 0xE);
 
 // ---------------------------------------------------------------------------
 // PacketUnitAction
-// Constructor 526F68, static unk_70A7D0, vtable off_60EDE8.
+// Constructor 526F68, static 70A7D0, vtable 60EDE8.
 // Ability/buff broadcast; id fixed to 0x6B ('k') by ctor.
 // Copy ctor: 526F8E (copies 5 bytes: id + 4 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketUnitAction : public Packet {
 public:
-    static PacketUnitAction Inst; // unk_70A7D0
+    static PacketUnitAction Inst; // 70A7D0
 public:
     PacketUnitAction(); // 526F68  sets id = 0x6B (client: 515a16)
     PacketUnitAction(const PacketUnitAction* src); // 526F8E (client: 515a3f)
@@ -339,14 +339,14 @@ ASSERT_SIZE(PacketUnitAction, 0xE);
 
 // ---------------------------------------------------------------------------
 // PacketSack
-// Constructor 526FC7, static unk_6CE970, vtable off_60EE00.
+// Constructor 526FC7, static 6CE970, vtable 60EE00.
 // Generic 8-byte payload packet; fields not initialised by ctor.
 // Copy ctor: 526FE6 (copies 9 bytes: id + 8 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketSack : public Packet {
 public:
-    static PacketSack Inst; // unk_6CE970
+    static PacketSack Inst; // 6CE970
 public:
     PacketSack(); // 526FC7 (client: 515e01)
     PacketSack(const PacketSack* src); // 526FE6 (client: 515e27)
@@ -367,7 +367,7 @@ ASSERT_SIZE(PacketSack, 0x12);
 
 // ---------------------------------------------------------------------------
 // PacketMoveBroadcast
-// Constructor 52701F, static unk_6A6A70, vtable off_60EE18.
+// Constructor 52701F, static 6A6A70, vtable 60EE18.
 // Movement / targeting command; id fixed to 0x86 by ctor.
 // Bytes at +0xC/+0xD/+0xE zeroed by ctor; 0xA/0xB/0xF/0x10 set by caller.
 // Copy ctor: 52705A (copies 8 bytes: id + 7 payload bytes).
@@ -375,7 +375,7 @@ ASSERT_SIZE(PacketSack, 0x12);
 __pragma(pack(push, 1))
 class PacketMoveBroadcast : public Packet {
 public:
-    static PacketMoveBroadcast Inst; // unk_6A6A70
+    static PacketMoveBroadcast Inst; // 6A6A70
 public:
     PacketMoveBroadcast(); // 52701F  sets id = 0x86 (client: 515e94)
     PacketMoveBroadcast(const PacketMoveBroadcast* src); // 52705A (client: 515eb3)
@@ -396,14 +396,14 @@ ASSERT_SIZE(PacketMoveBroadcast, 0x11);
 
 // ---------------------------------------------------------------------------
 // PacketEffect
-// Constructor 527093, static unk_6CDB28, vtable off_60EE30.
+// Constructor 527093, static 6CDB28, vtable 60EE30.
 // Effect-type notification; effect_type byte zeroed by ctor.
 // Copy ctor: 5270B9 (copies 4 bytes: id + 3 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketEffect : public Packet {
 public:
-    static PacketEffect Inst; // unk_6CDB28
+    static PacketEffect Inst; // 6CDB28
 public:
     PacketEffect(); // 527093 (client: 515f20)
     PacketEffect(const PacketEffect* src); // 5270B9 (client: 515f5b)
@@ -421,14 +421,14 @@ ASSERT_SIZE(PacketEffect, 0xD);
 
 // ---------------------------------------------------------------------------
 // PacketAoeZone
-// Constructor 5270F2, static unk_6B37A8, vtable off_60EE48.
+// Constructor 5270F2, static 6B37A8, vtable 60EE48.
 // Area-of-effect zone info; id fixed to 0x87; bytes at +0xD/+0xE zeroed.
 // Copy ctor: 527126 (copies 19 bytes: id + 18 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketAoeZone : public Packet {
 public:
-    static PacketAoeZone Inst; // unk_6B37A8
+    static PacketAoeZone Inst; // 6B37A8
 public:
     PacketAoeZone(); // 5270F2  sets id = 0x87 (client: 51605b)
     PacketAoeZone(const PacketAoeZone* src); // 527126 (client: 515fee)
@@ -451,14 +451,14 @@ ASSERT_SIZE(PacketAoeZone, 0x1C);
 
 // ---------------------------------------------------------------------------
 // PacketRangedAttack
-// Constructor 52715F, static unk_6B37C8, vtable off_60EE60.
+// Constructor 52715F, static 6B37C8, vtable 60EE60.
 // Unit mount / ride packet; word unit_id zeroed by ctor.
 // Copy ctor: 527187 (copies 5 bytes: id + 4 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketRangedAttack : public Packet {
 public:
-    static PacketRangedAttack Inst; // unk_6B37C8
+    static PacketRangedAttack Inst; // 6B37C8
 public:
     PacketRangedAttack(); // 52715F (client: 51605b)
     PacketRangedAttack(const PacketRangedAttack* src); // 527187 (client: 51608f)
@@ -476,7 +476,7 @@ ASSERT_SIZE(PacketRangedAttack, 0xE);
 
 // ---------------------------------------------------------------------------
 // PacketFileChunk
-// Constructor 5271C0, static unk_6D1888, vtable off_60EE78.
+// Constructor 5271C0, static 6D1888, vtable 60EE78.
 // Large variable-length player-info packet.
 // Fixed area: 40-byte preamble at +0xA, int32_t count at +0x32.
 // Variable-length data starting at +0x36 with `count` bytes.
@@ -487,7 +487,7 @@ ASSERT_SIZE(PacketRangedAttack, 0xE);
 __pragma(pack(push, 1))
 class PacketFileChunk : public Packet {
 public:
-    static PacketFileChunk Inst; // unk_6D1888
+    static PacketFileChunk Inst; // 6D1888
 public:
     PacketFileChunk(); // 5271C0 (client: 516191)
     PacketFileChunk(const PacketFileChunk* src); // 5271DF (client: 5161b0)
@@ -514,7 +514,7 @@ ASSERT_SIZE(PacketFileChunk, 0x10036);
 
 // ---------------------------------------------------------------------------
 // PacketData
-// Constructor 527283, static unk_6B37D8, vtable off_60EE90.
+// Constructor 527283, static 6B37D8, vtable 60EE90.
 // Generic length-prefixed binary blob: uint32_t count at +0xA, data at +0xE.
 // VMethod3 (5272E3): sends count+5 bytes from &id.
 // VMethod4 (527309): reads 4-byte count, then count bytes of data.
@@ -523,7 +523,7 @@ ASSERT_SIZE(PacketFileChunk, 0x10036);
 __pragma(pack(push, 1))
 class PacketData : public Packet {
 public:
-    static PacketData Inst; // unk_6B37D8
+    static PacketData Inst; // 6B37D8
 public:
     PacketData(); // 527283 (client: 516254)
     PacketData(const PacketData* src); // 5272A2 (client: 516273)
@@ -545,7 +545,7 @@ ASSERT_SIZE(PacketData, 0x1000e);
 
 // ---------------------------------------------------------------------------
 // PacketUnitStateVec
-// Constructor 527415, static unk_6C5AF8, vtable off_60EEC0.
+// Constructor 527415, static 6C5AF8, vtable 60EEC0.
 // Variable-length TLV-encoded unit state vector; id fixed to 0x76 ('v').
 // entry_count: number of property entries; data_size: byte length of data[].
 // Each entry: 1–5 bytes (type tag + 1/2/4-byte value), added by helpers.
@@ -559,7 +559,7 @@ ASSERT_SIZE(PacketData, 0x1000e);
 __pragma(pack(push, 1))
 class PacketUnitStateVec : public Packet {
 public:
-    static PacketUnitStateVec Inst; // unk_6C5AF8
+    static PacketUnitStateVec Inst; // 6C5AF8
 public:
     PacketUnitStateVec(); // 527415  sets id = 0x76 (client: 5163e6)
     PacketUnitStateVec(const PacketUnitStateVec* src); // 527473 (client: 516443)
@@ -588,14 +588,14 @@ ASSERT_SIZE(PacketUnitStateVec, 0x8013);
 
 // ---------------------------------------------------------------------------
 // PacketBuildingHp
-// Constructor 527810, static unk_6A6A88, vtable off_60EED8.
+// Constructor 527810, static 6A6A88, vtable 60EED8.
 // Unit visibility-sync / broadcast; id fixed to 0x82 by ctor.
 // Copy ctor: 527836 (copies 5 bytes: id + 4 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketBuildingHp : public Packet {
 public:
-    static PacketBuildingHp Inst; // unk_6A6A88
+    static PacketBuildingHp Inst; // 6A6A88
 public:
     PacketBuildingHp(); // 527810  sets id = 0x82 (client: 5160fc)
     PacketBuildingHp(const PacketBuildingHp* src); // 527836 (client: 516806)
@@ -613,7 +613,7 @@ ASSERT_SIZE(PacketBuildingHp, 0xE);
 
 // ---------------------------------------------------------------------------
 // PacketUnitEquipment
-// Constructor 52786F, static unk_6D0628, vtable off_60EEF0.
+// Constructor 52786F, static 6D0628, vtable 60EEF0.
 // Variable-size player/unit property flags packet; id forced to 0 by ctor.
 // flags (word at +0xC): bitmask of up to 12 included uint16_t fields.
 // GetDataSize (5278CE) = 0x1D - (12 - popcount(flags))*2  (5..29 bytes).
@@ -622,7 +622,7 @@ ASSERT_SIZE(PacketBuildingHp, 0xE);
 __pragma(pack(push, 1))
 class PacketUnitEquipment : public Packet {
 public:
-    static PacketUnitEquipment Inst; // unk_6D0628
+    static PacketUnitEquipment Inst; // 6D0628
 public:
     PacketUnitEquipment(); // 52786F  sets id = 0 (client: 51683f)
     PacketUnitEquipment(const PacketUnitEquipment* src); // 527895 (client: 516865)
@@ -641,14 +641,14 @@ ASSERT_SIZE(PacketUnitEquipment, 0x26);
 
 // ---------------------------------------------------------------------------
 // PacketUnitHp
-// Constructor 52792F, static unk_6CDB88, vtable off_60EF08.
+// Constructor 52792F, static 6CDB88, vtable 60EF08.
 // Network ping / state packet; 4 payload bytes after Packet base.
 // Copy ctor: 52794E (copies 5 bytes: id + 4 payload bytes).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketUnitHp : public Packet {
 public:
-    static PacketUnitHp Inst; // unk_6CDB88
+    static PacketUnitHp Inst; // 6CDB88
 public:
     PacketUnitHp(); // 52792F (client: 5167e0)
     PacketUnitHp(const PacketUnitHp* src); // 52794E (client: 516806)

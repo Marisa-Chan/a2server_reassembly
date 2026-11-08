@@ -117,7 +117,7 @@ void Inn::InnCreateQuests(Player* player) {
     BuildingsList* building_list = g_Server->srv_stru1->building_list;
 
     // =====================================================================
-    //  KillN (vtable: off_60F9C0)
+    //  KillN (vtable: 60F9C0)
     // =====================================================================
     {
         // Collect type/face histogram: candidates[face][typeId]
@@ -214,7 +214,7 @@ void Inn::InnCreateQuests(Player* player) {
     }
 
     // =====================================================================
-    //  KillMob (vtable: off_60F9F8)
+    //  KillMob (vtable: 60F9F8)
     // =====================================================================
     {
         std::vector<Unit*> candidates;
@@ -272,7 +272,7 @@ void Inn::InnCreateQuests(Player* player) {
     }
 
     // =====================================================================
-    //  KillGroup (vtable: off_60F988)
+    //  KillGroup (vtable: 60F988)
     // =====================================================================
     {
         std::vector<Group*> candidates;
@@ -349,7 +349,7 @@ void Inn::InnCreateQuests(Player* player) {
     }
 
     // =====================================================================
-    //  InterceptUnit (vtable: off_60F800)
+    //  InterceptUnit (vtable: 60F800)
     // =====================================================================
     {
         std::vector<Unit*> candidates;
@@ -410,7 +410,7 @@ void Inn::InnCreateQuests(Player* player) {
     }
 
     // =====================================================================
-    //  InterceptGroup (vtable: off_60F7C8)
+    //  InterceptGroup (vtable: 60F7C8)
     // =====================================================================
     {
         std::vector<Group*> candidates;
@@ -479,7 +479,7 @@ void Inn::InnCreateQuests(Player* player) {
     }
 
     // =====================================================================
-    //  Escort (vtable: off_60F950)
+    //  Escort (vtable: 60F950)
     // =====================================================================
     {
         std::vector<Unit*> candidates;
@@ -514,7 +514,7 @@ void Inn::InnCreateQuests(Player* player) {
 
     // =====================================================================
     //  Raise undeads (Ghosts / Skeletons / Zombies)
-    //  vtables: Ghosts=off_60F838, Skeletons=off_60F870, Zombies=off_60F8A8
+    //  vtables: Ghosts=60F838, Skeletons=60F870, Zombies=60F8A8
     // =====================================================================
     if ((player->main_unit->unit_attrs & 4) != 0 && this->has_raise_dead != 0) {
         SpellBook* sb = player->main_unit->spell_book;
@@ -536,7 +536,7 @@ void Inn::InnCreateQuests(Player* player) {
     }
 
     // =====================================================================
-    //  KillInnDefenders (vtable: off_60F790)
+    //  KillInnDefenders (vtable: 60F790)
     // =====================================================================
     {
         // Find an AI enemy player that owns a building and has quest_ai != 0,
@@ -590,7 +590,7 @@ void Inn::InnCreateQuests(Player* player) {
     }
 
     // =====================================================================
-    //  DeliverMail (vtable: off_60F8E0)
+    //  DeliverMail (vtable: 60F8E0)
     // =====================================================================
     {
         int32_t dest_id = g_QuestMap.PickRandomOtherInn(this->building_id);
@@ -615,7 +615,7 @@ void Inn::InnCreateQuests(Player* player) {
     }
 
     // =====================================================================
-    //  DeliverItem (vtable: off_60F918)
+    //  DeliverItem (vtable: 60F918)
     // =====================================================================
     {
         int32_t dest_id = g_QuestMap.PickRandomOtherInn(this->building_id);

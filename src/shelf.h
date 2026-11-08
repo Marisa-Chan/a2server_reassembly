@@ -43,7 +43,7 @@ class CMultiShopInstance;
 
 class CMultiShopTemplate : public CObject {
 public:
-    DECLARE_SERIAL(CMultiShopTemplate); // Runtime class at stru_6372A0
+    DECLARE_SERIAL(CMultiShopTemplate); // Runtime class at 6372A0
 
 public: // VTable at 60f468
     virtual ~CMultiShopTemplate(); // 546DA4 (client: 52c05e)
