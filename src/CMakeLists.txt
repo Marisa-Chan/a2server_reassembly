@@ -65,6 +65,7 @@ set(A2_SOURCES
   vis_shop.cpp
   vis_tavern.cpp
   vis_town.cpp
+  vis_net.cpp
   world.cpp
   res/a2server.rc
 )
