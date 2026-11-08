@@ -2483,16 +2483,16 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
             CString str;
             this->vis_1200->WriteData(&str);
             if (str[0] == '=') {
-                this->vis_map_context->SendChatPacket(str.Mid(1), 3, 0);
+                this->vis_map_context->SendChatPacket(str.Mid(1), CHAT_TYPE_YELL, 0);
             } else if (str[0] == '-') {
                 int val = this->vis_1200->GetMatchPlayerIndex();
                 if (val == -1) {
-                    this->vis_map_context->SendChatPacket(str.Mid(1), 1, 0);
+                    this->vis_map_context->SendChatPacket(str.Mid(1), CHAT_TYPE_ALLIES, 0);
                 } else {
-                    this->vis_map_context->SendChatPacket(str.Mid(this->vis_1200->GetMatchNameLength()), 2, val);
+                    this->vis_map_context->SendChatPacket(str.Mid(this->vis_1200->GetMatchNameLength()), CHAT_TYPE_PRIVATE, val);
                 }
             } else {
-                this->vis_map_context->SendChatPacket(str, 0, 0);
+                this->vis_map_context->SendChatPacket(str, CHAT_TYPE_REGULAR, 0);
             }
         }
     } else if (obj == this->vis_logownd) {

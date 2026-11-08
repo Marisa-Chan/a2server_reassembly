@@ -147,7 +147,7 @@ TIER 1 - tiny enums, semantics fully verified (do these first)
 TIER 4 - small domain enums, localized (quick; do after Tier 1)
 ================================================================================
 
-[ ] 5. ChatType  (server chat relay, src/server.cpp 0x91/CHAT handler ~3940)
+[x] 5. ChatType  (server chat relay, src/server.cpp 0x91/CHAT handler ~3940)
     Byte packet_join->token_id. Semantics already in the handler comments:
         CHAT_TYPE_REGULAR = 0,   // everyone within chat_range
         CHAT_TYPE_ALLIES  = 1,   // players with diplomacy bit 2 toward sender

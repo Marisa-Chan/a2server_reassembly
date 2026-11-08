@@ -220,6 +220,17 @@ enum PacketId : uint8_t {
     HAT_PLAYER_CHECK     = 0xE1, // player existence check (both directions)
 };
 
+// ChatType: relay mode of a CHAT packet, carried in PacketJoin::token_id.
+// Server relays in the CHAT handler (server.cpp), client colors by it
+// (ingame.cpp CHAT handler).
+enum ChatType : uint8_t {
+    CHAT_TYPE_REGULAR = 0, // everyone within chat_range
+    CHAT_TYPE_ALLIES  = 1, // players with diplomacy bit 2 toward sender
+    CHAT_TYPE_PRIVATE = 2, // direct message, recipient in player_id byte
+    CHAT_TYPE_YELL    = 3, // global, shout_cooldown applies
+    CHAT_TYPE_GLOBAL  = 4, // global broadcast, no cooldown
+};
+
 struct PackerTail {
     PackerTail* child0;
     PackerTail* child1;

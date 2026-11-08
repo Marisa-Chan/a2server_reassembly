@@ -3937,7 +3937,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             out.__as_dword = (uint32_t)(packet_join->from_player_id & 0xFF) | ((uint32_t)chat_type << 8);
 
             switch (chat_type) {
-            case 0: // Regular message: send to all non-AI players within range.
+            case CHAT_TYPE_REGULAR: // Regular message: send to all non-AI players within range.
                 for (POSITION node = g_PlayersList->list.GetHeadPosition(); node;) {
                     Player* other = g_PlayersList->list.GetNext(node);
                     if (!other->is_ai && player->main_unit->position->Distance(other->main_unit->position) <= g_ServerConfig.chat_range) {
@@ -3947,7 +3947,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     }
                 }
                 break;
-            case 1: // Allies: send to players with diplomacy bit 2 set toward sender.
+            case CHAT_TYPE_ALLIES: // Allies: send to players with diplomacy bit 2 set toward sender.
                 for (POSITION node = g_PlayersList->list.GetHeadPosition(); node;) {
                     Player* other = g_PlayersList->list.GetNext(node);
                     if (!other->is_ai && (g_World->diplomacy.diplomacy[player->player_id][other->player_id] & 2) != 0) {
@@ -3957,7 +3957,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     }
                 }
                 break;
-            case 2: // Private message.
+            case CHAT_TYPE_PRIVATE: // Private message.
                 out.from_player_id = player->player_id;
                 out.player_id = player->player_id;
                 out.token_id = chat_type;
@@ -3969,7 +3969,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 out.to_player_id = (uint16_t)recipient_id;
                 g_NetStru1_main.QueuePacketSend(&out);
                 break;
-            case 3: // Yell: global with cooldown.
+            case CHAT_TYPE_YELL: // Yell: global with cooldown.
                 if (player->shout_cooldown == 0) {
                     out.from_player_id = player->player_id;
                     out.player_id = player->player_id;
@@ -3982,7 +3982,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     g_NetStru1_main.SendTeamNotify(8, player->shout_cooldown, player);
                 }
                 break;
-            case 4: // Global broadcast (no cooldown)
+            case CHAT_TYPE_GLOBAL: // Global broadcast (no cooldown)
                 out.from_player_id = player->player_id;
                 out.player_id = player->player_id;
                 out.token_id = chat_type;

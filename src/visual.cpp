@@ -5712,7 +5712,7 @@ int32_t VisNetChatTextBox::OnKeyDown(uint32_t wparam) {
         this->VMethod9();
 
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-        main_wnd->vis_map_context->SendChatPacket(buf, 4, 0);
+        main_wnd->vis_map_context->SendChatPacket(buf, CHAT_TYPE_GLOBAL, 0);
         return 1;
     }
 

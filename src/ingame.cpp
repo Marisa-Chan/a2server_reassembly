@@ -1749,7 +1749,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		case CHAT: {
 			if (packet_join->player_id == 0 || packet_join->player_id >= this->map_players.GetSize() || this->map_players[packet_join->player_id] == nullptr) {
 				this->msglog.Add(packet_join->name, clr_log_sblack, 10000);
-			} else if (this->my_main_unit->KnowsPlayer(packet_join->player_id) == 0 || packet_join->token_id == 4) {
+			} else if (this->my_main_unit->KnowsPlayer(packet_join->player_id) == 0 || packet_join->token_id == CHAT_TYPE_GLOBAL) {
 				MapPlayerData* dat = this->map_players[packet_join->player_id];
 
 				if (g_MessageColors == 0 || (wnd->dialogsMask & 1) == 0) {
@@ -1757,17 +1757,17 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				} else {
 					uint16_t* clr = nullptr;
 					switch (packet_join->token_id) {
-					case 0:
-					case 4:
+					case CHAT_TYPE_REGULAR:
+					case CHAT_TYPE_GLOBAL:
 						clr = clr_log_tok0;
 						break;
-					case 1:
+					case CHAT_TYPE_ALLIES:
 						clr = clr_log_tok1;
 						break;
-					case 2:
+					case CHAT_TYPE_PRIVATE:
 						clr = clr_log_tok2;
 						break;
-					case 3:
+					case CHAT_TYPE_YELL:
 						clr = clr_log_tok3;
 						break;
 					}
@@ -2726,7 +2726,7 @@ void BigStruct2::SendChatPacket(const char* nam, int32_t token, int32_t playerid
 
 	if (playerid == 0) {
 		join->player_id = 0;
-		join->token_id = 0;
+		join->token_id = CHAT_TYPE_REGULAR;
 		join->color = 0;
 		join->flags = 0;
 	} else {
