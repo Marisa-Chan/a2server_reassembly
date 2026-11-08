@@ -1784,13 +1784,13 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case TEAM_NOTIFY: {
 			switch (packet_2dwords->param1) {
-			case 1:
+			case TEAM_NOTIFY_UNREACHABLE:
 				if (g_EnableTrace) {
 					this->msglog.Add(TxtFile::AllLines[0x81], clr_log_sblack, 3000);
 				}
 				break;
 
-			case 2: {
+			case TEAM_NOTIFY_SPHERE_LEVELUP: {
 				int32_t texid = packet_2dwords->param2 & 0xffff;
 				int32_t serv_id = (packet_2dwords->param2 >> 16) & 0xffff;
 
@@ -1821,14 +1821,14 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			}
 				break;
 
-			case 3:
+			case TEAM_NOTIFY_PLAYER_JOINED_NEW:
 				if (packet_2dwords->param2 != this->my_main_unit->index) {
 					sprintf(buf, "%s %s %s", TxtFile::AllLines[0xcc], this->map_players[packet_2dwords->param2]->name, TxtFile::AllLines[0xcd]);
 					this->msglog.Add(buf, clr_log_sblack, 5000);
 				}
 				break;
 
-			case 4:
+			case TEAM_NOTIFY_PLAYER_JOINED:
 				if (packet_2dwords->param2 == this->my_main_unit->index) {
 					sprintf(buf, "%s %s %s", TxtFile::AllLines[0xd0], this->map_players[packet_2dwords->param2]->name, TxtFile::AllLines[0xd1]);
 				} else {
@@ -1837,7 +1837,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				this->msglog.Add(buf, clr_log_sblack, 5000);
 				break;
 
-			case 5:
+			case TEAM_NOTIFY_PLAYER_FLAGGED:
 				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xdd], this->map_players[packet_2dwords->param2]->name, TxtFile::AllLines[0xde]);
 				this->msglog.Add(buf, clr_log_sblack, 5000);
 
@@ -1846,7 +1846,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				}
 				break;
 
-			case 6:
+			case TEAM_NOTIFY_CHEAT_FAILED:
 				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xdf], this->map_players[packet_2dwords->param2]->name, TxtFile::AllLines[0xe0]);
 				this->msglog.Add(buf, clr_log_sblack, 5000);
 
@@ -1855,7 +1855,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				}
 				break;
 
-			case 7:
+			case TEAM_NOTIFY_CHEAT_OK:
 				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xe1], this->map_players[packet_2dwords->param2]->name, TxtFile::AllLines[0xe2]);
 				this->msglog.Add(buf, clr_log_sblack, 5000);
 
@@ -1864,7 +1864,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				}
 				break;
 
-			case 8:
+			case TEAM_NOTIFY_SHOUT_COOLDOWN:
 				sprintf(buf, "%s %d %s", txt_patch.GetLine(0x53), packet_2dwords->param2, txt_patch.GetLine(0x54));
 				this->msglog.Add(buf, clr_log_sblack, 5000);
 

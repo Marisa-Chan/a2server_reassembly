@@ -122,7 +122,7 @@ void NetStru1::SendExistingPlayers(Player* player) {
 			&& g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE
 #endif
 		) {
-			g_NetStru1_main.SendTeamNotify(5, p->player_id, player);
+			g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_PLAYER_FLAGGED, p->player_id, player);
 		}
 	}
 }

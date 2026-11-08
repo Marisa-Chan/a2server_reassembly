@@ -1305,7 +1305,7 @@ void Unit::PickUpSack(Sack* sack) {
                     }
                     human->RecalcStats();
                     update_mask = 0x31f0f;
-                    g_NetStru1_main.SendTeamNotify(9, boost, human->pOwner);
+                    g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_STAT_BOOST, boost, human->pOwner);
                 } else {
                     item->TokenID = 1;
                 }
@@ -2583,7 +2583,7 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
                     this->hit_values2.skill_levels[i] = this->hit_values.skill_levels[i];
                 }
                 if (this->pOwner->is_ai == 0) {
-                    g_NetStru1_main.SendTeamNotify(2, phys_sphere | ((uint32_t)this->server_id << 16), this->pOwner);
+                    g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_SPHERE_LEVELUP, phys_sphere | ((uint32_t)this->server_id << 16), this->pOwner);
                 }
             }
         }
@@ -2608,7 +2608,7 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
                 }
                 this->hit_values.skill_levels[sphere]++;
                 if (this->pOwner->is_ai == 0) {
-                    g_NetStru1_main.SendTeamNotify(2, sphere | ((uint32_t)this->server_id << 16), this->pOwner);
+                    g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_SPHERE_LEVELUP, sphere | ((uint32_t)this->server_id << 16), this->pOwner);
                 }
                 for (int i = 1; i <= 5; i++) {
                     this->hit_values2.skill_levels[i] = this->hit_values.skill_levels[i];

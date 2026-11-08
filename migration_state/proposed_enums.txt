@@ -184,7 +184,7 @@ TIER 4 - small domain enums, localized (quick; do after Tier 1)
     `case N:` in the action animation switch, src/gameobj.cpp ~1500s) before
     naming; leave unnamed if unclear. Enum in src/gameobj.h next to the field.
 
-[ ] 9. TeamNotifyType  (packet TEAM_NOTIFY, param1)
+[x] 9. TeamNotifyType  (packet TEAM_NOTIFY, param1)
     Senders: `SendTeamNotify(N, ...)` in src/server.cpp + src/unit_list.cpp
     (values 0..10). Meanings readable from the client handler switch in
     src/ingame.cpp ~1785-1908 (1 trace-only, 2 item/monster notify with

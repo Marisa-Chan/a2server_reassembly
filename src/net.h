@@ -259,6 +259,22 @@ enum TransferDest : uint8_t {
     TRANSFER_DST_SHELF_4 = 8, // stow on shop shelf 4
 };
 
+// TEAM_NOTIFY param1 (SendTeamNotify msg_type). The client switch also has
+// cases 0x10/0x20/0x40/0x80 (kind bits with own text lines) and the server
+// sends arena/CTF codes from 0x0B up - those stay raw.
+enum TeamNotifyType : uint32_t {
+    TEAM_NOTIFY_UNREACHABLE       = 1,  // move destination unreachable (client shows only with g_EnableTrace)
+    TEAM_NOTIFY_SPHERE_LEVELUP    = 2,  // skill sphere leveled up (param2 = sphere | server_id << 16)
+    TEAM_NOTIFY_PLAYER_JOINED_NEW = 3,  // player joined, character was not in the save
+    TEAM_NOTIFY_PLAYER_JOINED     = 4,  // player joined, character loaded from save
+    TEAM_NOTIFY_PLAYER_FLAGGED    = 5,  // player flagged: coop flagged item / cheat enabled / inn item destroyed
+    TEAM_NOTIFY_CHEAT_FAILED      = 6,  // cheat command rejected (bad latency, unknown item, dead unit, ...)
+    TEAM_NOTIFY_CHEAT_OK          = 7,  // cheat command applied
+    TEAM_NOTIFY_SHOUT_COOLDOWN    = 8,  // shout rejected, param2 = remaining cooldown seconds
+    TEAM_NOTIFY_STAT_BOOST        = 9,  // rune stat boost applied, param2 = boost (no client display)
+    TEAM_NOTIFY_TEAMS_READY       = 10, // all teams ready, match starting (no client display)
+};
+
 struct PackerTail {
     PackerTail* child0;
     PackerTail* child1;

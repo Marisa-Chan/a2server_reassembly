@@ -2601,7 +2601,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 int32_t lat = atoi(cheat_string);
                 if (lat != 0) {
                     if (lat < 50 || lat > 10000) {
-                        g_NetStru1_main.SendTeamNotify(6, player->player_id, player);
+                        g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_CHEAT_FAILED, player->player_id, player);
                         return;
                     }
                     NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(player->player_id);
@@ -2626,7 +2626,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                         g_NetStru1_main.SendTeamState(0);
                         if (g_PlayersList->AreTeamsStarted() != 0) {
                             // All players now ready --- start the match.
-                            g_NetStru1_main.SendTeamNotify(10, 0, nullptr);
+                            g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_TEAMS_READY, 0, nullptr);
                             this->OnTeamsReady();
                             this->UpdateQuestRune(0, 0);
                             this->UpdateQuestRune(1, 0);
@@ -2678,7 +2678,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             LogMessage(msg);
             player->gm_level = 0xFF;
             if (!is_reconnect) {
-                g_NetStru1_main.SendTeamNotify(5, player->player_id, nullptr);
+                g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_PLAYER_FLAGGED, player->player_id, nullptr);
             }
         }
         return;
@@ -2693,7 +2693,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         if (player->main_unit->decay != 0) {
             // Unit is dead/decayed --- cannot receive items.
             if (!is_reconnect) {
-                g_NetStru1_main.SendTeamNotify(6, player->player_id, nullptr);
+                g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_CHEAT_FAILED, player->player_id, nullptr);
             }
             return;
         }
@@ -2704,7 +2704,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         if (_stricmp((const char*)cheat_string, "Gold") == 0) {
             player->AddMoney(count, 0);
             if (!is_reconnect) {
-                g_NetStru1_main.SendTeamNotify(7, player->player_id, nullptr);
+                g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_CHEAT_OK, player->player_id, nullptr);
             }
             return;
         }
@@ -2712,7 +2712,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         Item* item = g_GameDataRes.FindItemTemplate(&cheat_string);
         if (item == nullptr) {
             if (!is_reconnect) {
-                g_NetStru1_main.SendTeamNotify(6, player->player_id, nullptr);
+                g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_CHEAT_FAILED, player->player_id, nullptr);
             }
             return;
         }
@@ -2721,7 +2721,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             // Item cannot be freely created; destroy the template copy we got.
             item->~Item(); // virtual dtor with delete-flag=1 equivalent
             if (!is_reconnect) {
-                g_NetStru1_main.SendTeamNotify(6, player->player_id, nullptr);
+                g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_CHEAT_FAILED, player->player_id, nullptr);
             }
             return;
         }
@@ -2731,7 +2731,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         player->main_unit->AddCarriedWeight(0);
         g_NetStru1_main.SendUnitUpdate(player->main_unit, player, -1, 0xFFB, 0, 0);
         if (!is_reconnect) {
-            g_NetStru1_main.SendTeamNotify(7, player->player_id, 0);
+            g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_CHEAT_OK, player->player_id, 0);
         }
     } else if (cheat_string.Find("#modify ") == 0) {
         cheat_string = cheat_string.Mid(8);
@@ -2763,7 +2763,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                     }
                 }
             }
-            g_NetStru1_main.SendTeamNotify(7, player->player_id, nullptr);
+            g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_CHEAT_OK, player->player_id, nullptr);
         } else if (cheat_string.Find("+spell ") == 0) {
             cheat_string = cheat_string.Mid(7);
             cheat_string.TrimLeft();
@@ -2778,7 +2778,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                     spell_book->SetSpell(spell_id, sp);
                 }
                 g_NetStru1_main.SendUnitUpdate(player->main_unit, player, 0xA31FFFFF, 0xFFB, 0, 0);
-                g_NetStru1_main.SendTeamNotify(7, player->player_id, nullptr);
+                g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_CHEAT_OK, player->player_id, nullptr);
             }
         } else if (cheat_string.Find("+spells") == 0) {
             if (target_mode == 1) {
@@ -2792,7 +2792,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 }
                 g_NetStru1_main.SendUnitUpdate(player->main_unit, player, (int32_t)0xA31FFFFF, 0xFFB, 0, 0);
                 if (!is_reconnect) {
-                    g_NetStru1_main.SendTeamNotify(7, player->player_id, nullptr);
+                    g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_CHEAT_OK, player->player_id, nullptr);
                 }
             }
         }
@@ -2835,7 +2835,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             }
         }
         if (!is_reconnect) {
-            g_NetStru1_main.SendTeamNotify(7, player->player_id, player);
+            g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_CHEAT_OK, player->player_id, player);
         }
     } else if (cheat_string.Find("#kill cheaters") == 0) {
         for (POSITION node = g_PlayersList->list.GetHeadPosition(); node != nullptr;) {
@@ -2852,7 +2852,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         if (target != nullptr) {
             target->KillAllUnits();
             if (target->hat_player_id != 0xF6D04773 || target->flags != 4) {
-                g_NetStru1_main.SendTeamNotify(7, target->player_id, nullptr);
+                g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_CHEAT_OK, target->player_id, nullptr);
             }
         }
     } else if (cheat_string.Find("#pickup all") == 0) {
@@ -2872,19 +2872,19 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         }
 
         if (!is_reconnect) {
-            g_NetStru1_main.SendTeamNotify(7, player->player_id, nullptr);
+            g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_CHEAT_OK, player->player_id, nullptr);
         }
 
         LogMessage("All sacks picked up");
     } else if (cheat_string.Find("#show map") == 0) {
         g_NetStru1_main.SendInfoPacket(MAP_REVEAL, 1, 0, player);
         if (!is_reconnect) {
-            g_NetStru1_main.SendTeamNotify(7, player->player_id, nullptr);
+            g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_CHEAT_OK, player->player_id, nullptr);
         }
     } else if (cheat_string.Find("#hide map") == 0) {
         g_NetStru1_main.SendInfoPacket(MAP_REVEAL, 0, 0, player);
         if (!is_reconnect) {
-            g_NetStru1_main.SendTeamNotify(7, player->player_id, nullptr);
+            g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_CHEAT_OK, player->player_id, nullptr);
         }
     } else if (cheat_string.Find("#victory") == 0) {
         g_NetStru1_main.SendInfoPacket(MAP_REVEAL, 2, 0, player);
@@ -3979,7 +3979,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     g_NetStru1_main.QueuePacketSend(&out);
                     player->shout_cooldown = g_ServerConfig.shout_delay;
                 } else {
-                    g_NetStru1_main.SendTeamNotify(8, player->shout_cooldown, player);
+                    g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_SHOUT_COOLDOWN, player->shout_cooldown, player);
                 }
                 break;
             case CHAT_TYPE_GLOBAL: // Global broadcast (no cooldown)
@@ -4253,9 +4253,9 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
     LogMessage("Player " + name + " joined.");
 
     if (player_not_exist) {
-        g_NetStru1_main.SendTeamNotify(3, player->player_id, nullptr);
+        g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_PLAYER_JOINED_NEW, player->player_id, nullptr);
     } else {
-        g_NetStru1_main.SendTeamNotify(4, player->player_id, nullptr);
+        g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_PLAYER_JOINED, player->player_id, nullptr);
     }
 
     player->AddMoney(0, 1);
