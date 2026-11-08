@@ -193,7 +193,7 @@ TIER 4 - small domain enums, localized (quick; do after Tier 1)
     (sender context + client text); skip the 0x10..0x80 bits if unclear.
     Enum TeamNotifyType : uint32_t in src/net.h.
 
-[ ] 10. SessionError  (global INT_00660f8c)
+[x] 10. SessionError  (global INT_00660f8c)
     Pattern: INT_00660f8c = 0x1000 | code (codes 4, 5, 8, 0x11 seen; low byte
     selects a txt_patch/AllLines error line). Inventory with:
         grep -rn "INT_00660f8c" src

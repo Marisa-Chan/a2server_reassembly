@@ -359,14 +359,14 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			}
 
 			if (!this->scenario) {
-				g_GameStatusCode = 0x1004;
+				g_GameStatusCode = SESSION_ERROR_NO_MAP_FILE;
 				return 0;
 			}
 			g_JoinState = 0;
 			break;
 
 		case JOIN_ERROR: {
-			g_GameStatusCode = packet_2dwords->param1 | 0x1000;
+			g_GameStatusCode = packet_2dwords->param1 | SESSION_ERROR_FLAG;
 
 			if ((wnd->dialogsMask & 1) == 0) {
 				while( g_NetStru1_local.ReceiveAnyPacket() != nullptr)
@@ -2487,7 +2487,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				fl.Write(packet_data->data + 8, packet_data->count - 8);
 				fl.Close();
 			} else
-				g_GameStatusCode = 0x1011;
+				g_GameStatusCode = SESSION_ERROR_HAT_CONNECTION_LOST;
 #else
 			CFile fl;
 			if (packet_data->count < 0x18) {
@@ -2537,19 +2537,19 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						srv_basic.flags = basic->flags;
 						srv_basic.color = basic->color;
 						if (!WritePlayerFile(fname, &srv_basic, &srv_stats, srv_kstat.data(), &srv_equip, &srv_state, nullptr, 0))
-							g_GameStatusCode = 0x1011;
+							g_GameStatusCode = SESSION_ERROR_HAT_CONNECTION_LOST;
 					}
 					else {
 						if (fl.Open(fname, CFile::modeCreate | CFile::modeWrite)) {
 							fl.Write(packet_data->data + 8, packet_data->count - 8);
 							fl.Close();
 						} else
-							g_GameStatusCode = 0x1011;
+							g_GameStatusCode = SESSION_ERROR_HAT_CONNECTION_LOST;
 					}
 				}
 				else {
 					fl.Close();
-					g_GameStatusCode = 0x1011;
+					g_GameStatusCode = SESSION_ERROR_HAT_CONNECTION_LOST;
 				}
 			} 
 			else if (fl.Open(fname, CFile::modeCreate | CFile::modeWrite)) {
@@ -2557,7 +2557,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				fl.Close();
 			}
 			else
-				g_GameStatusCode = 0x1011;
+				g_GameStatusCode = SESSION_ERROR_HAT_CONNECTION_LOST;
 #endif
 
 			while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
@@ -2595,7 +2595,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case HAT_ERROR:
 			// client: 41695a
-			g_GameStatusCode = (packet_dword->value + 0x18) | 0x1000;
+			g_GameStatusCode = (packet_dword->value + 0x18) | SESSION_ERROR_FLAG;
 			break;
 #endif
 		}
@@ -2813,7 +2813,7 @@ int32_t BigStruct2::SendEnterGameAndWait() {
 		}
 
 		if (g_CmdTimeout < timeGetTime() - stime) {
-			g_GameStatusCode = 0x1009;
+			g_GameStatusCode = SESSION_ERROR_SERVER_NO_RESPONSE;
 			return 0;
 		}
 
@@ -2826,7 +2826,7 @@ int32_t BigStruct2::SendEnterGameAndWait() {
 	}
 
 	if (this->map_players.GetSize() < 2) {
-		g_GameStatusCode = 0x1007;
+		g_GameStatusCode = SESSION_ERROR_NO_PLAYER_LIST;
 		return 0;
 	}
 #else
@@ -2844,7 +2844,7 @@ int32_t BigStruct2::SendEnterGameAndWait() {
 			}
 
 			if (g_CmdTimeout < timeGetTime() - stime) {
-				g_GameStatusCode = 0x1009;
+				g_GameStatusCode = SESSION_ERROR_SERVER_NO_RESPONSE;
 				return 0;
 			}
 

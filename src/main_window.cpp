@@ -3866,7 +3866,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                     g_mousept.Update();
 
                     if (GetAsyncKeyState(VK_ESCAPE) < 0) {
-                        g_GameStatusCode = 0x100c;
+                        g_GameStatusCode = SESSION_ERROR_CHAR_STILL_ON_SERVER;
                         PostMessage(0x45c, 0, 0);
                         return 0;
                     }
@@ -4391,7 +4391,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
 
             while (g_NetStru1_local.GetClientsPktNum() == 0) {
                 if (timeGetTime() - tm > g_CmdTimeout) {
-                    g_GameStatusCode = 0x1005;
+                    g_GameStatusCode = SESSION_ERROR_SWITCHMAP_TIMEOUT;
                     return 0;
                 }
                 g_NetStru1_local.ProcessConnections();
@@ -6022,7 +6022,7 @@ int CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit() {
             }
 
             if (g_CmdTimeout < timeGetTime() - stime) {
-                g_GameStatusCode = 0x1008;
+                g_GameStatusCode = SESSION_ERROR_NO_LOGIN_CONFIRM;
                 return 0;
             }
 

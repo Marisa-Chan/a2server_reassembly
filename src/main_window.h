@@ -12,6 +12,21 @@ extern int32_t g_LButtonDown; //660f4c
 extern int32_t g_SelCutsceneIndex; //660f88
 extern int32_t g_GameStatusCode; //660f8c
 
+// Session/join abort codes stored in g_GameStatusCode: 0x1000 | message id.
+// The low byte selects the message: id < 11 -> TxtFile::AllLines[0xc0 + id]
+// (main.txt), otherwise txt_patch.GetLine(id) (patch.txt). The server-side
+// JOIN_ERROR and HAT_ERROR codes are dynamic and stay raw.
+enum SessionError : int32_t {
+    SESSION_ERROR_NO_MAP_FILE          = 0x1004, // "You do not have the current map file."
+    SESSION_ERROR_SWITCHMAP_TIMEOUT    = 0x1005, // "Driver error. GM_SwitchMap packet has not arrived during 15 seconds."
+    SESSION_ERROR_NO_PLAYER_LIST       = 0x1007, // "Server sent no player list."
+    SESSION_ERROR_NO_LOGIN_CONFIRM     = 0x1008, // "Server sent no confirmation of character logging in."
+    SESSION_ERROR_SERVER_NO_RESPONSE   = 0x1009, // "Server does not respond."
+    SESSION_ERROR_CHAR_STILL_ON_SERVER = 0x100C, // "Your previous character still exists on this server..."
+    SESSION_ERROR_HAT_CONNECTION_LOST  = 0x1011, // hat char-data transfer failed (patch.txt line 0x11)
+    SESSION_ERROR_FLAG                 = 0x1000, // error flag ORed with the message id
+};
+
 void SaveSettings(); //441b1e (client: 4440ed)
 
 enum SessionMode : int32_t {
