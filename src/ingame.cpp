@@ -90,7 +90,7 @@ void GM_a28::Add(const char* msg, uint16_t* clr, uint32_t t) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	
 	CGameFont* fnt = g_font1;
-	if (wnd->sessionMode == 3) {
+	if (wnd->sessionMode == SESSION_SERVER) {
 		fnt = g_font2;
 	}
 
@@ -174,7 +174,7 @@ void GM_a28::Draw() {
 	int32_t out_y = 8;
 	CGameFont* fnt = g_font1;
 
-	if (wnd->sessionMode == 3) {
+	if (wnd->sessionMode == SESSION_SERVER) {
 		out_x = 0;
 		out_y = 220;
 		fnt = g_font2;
@@ -205,7 +205,7 @@ void GM_a28::SetRect(const CRect& r) {
 
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
-	if (wnd->sessionMode == 3) {
+	if (wnd->sessionMode == SESSION_SERVER) {
 		this->max_size = (g_ScreenSize.bottom - 480) / (g_font2->GetHeight() + 2) + 14;
 	} else {
 		this->max_size = (this->out_area.Height() / (g_font1->GetHeight() + 2)) / 2;
@@ -629,7 +629,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							uni->ApplyMonsterInfo(uni->monster_info->Values());
 							uni->server_id = g_CUnitStatic.serverId;
 
-							if (wnd->sessionMode == 2 && g_Server && g_Server->difficulty != 2) {
+							if (wnd->sessionMode == SESSION_LOCAL_BATTLE && g_Server && g_Server->difficulty != 2) {
 								if (g_Server->difficulty == 1) {
 									uni->hp_max = uni->hp_max / 2.0;
 								} else {
@@ -839,7 +839,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							pdata += 12 + 12;
 						}
 
-						if (wnd->sessionMode == 2) {
+						if (wnd->sessionMode == SESSION_LOCAL_BATTLE) {
 							if (ct->serverId == 0x15) {
 								this->my_unit = ct;
 								this->my_unit->unitFlags |= 0x20;
@@ -896,7 +896,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 							ScenarioSetVar(ct->serverId + 0x213, 0);
 						}
 
-						if (wnd->sessionMode != 2 && (ct->unitFlags & 0x20) != 0) {
+						if (wnd->sessionMode != SESSION_LOCAL_BATTLE && (ct->unitFlags & 0x20) != 0) {
 							if ((packet_unit->flags_mask & 0x22100000) == 0) {
 								if ((packet_unit->flags_mask & 0x1f00) != 0) {
 									wnd->m_GameSession.AutosaveTick();
@@ -947,7 +947,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 						case 2:
 						case 3:
 						case 4:
-							if (wnd->sessionMode != 2 && ct == this->my_unit && ct->death_state == 4 && sval < 4) {
+							if (wnd->sessionMode != SESSION_LOCAL_BATTLE && ct == this->my_unit && ct->death_state == 4 && sval < 4) {
 								this->msglog.Add(txt_patch.GetLine(0x44), clr_log_sblack, 10000);
 								this->msglog.Add(txt_patch.GetLine(0x45), clr_log_sblack, 10000);
 							}
@@ -1241,7 +1241,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 					ct->m_bSelectionDirty = 1;
 
-					if ((ct->unitFlags & 0x2U) != 0 && wnd->sessionMode != 2) {
+					if ((ct->unitFlags & 0x2U) != 0 && wnd->sessionMode != SESSION_LOCAL_BATTLE) {
 						uint8_t* pdata = packet_state->data;
 						for (int i = 0; i < 12; i++) {
 							if ((packet_state->start_index & (1 << i)) != 0) {
@@ -1362,7 +1362,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					}
 
 					if ((ct->unitFlags & 0x20) != 0) {
-						if (wnd->sessionMode != 2) {
+						if (wnd->sessionMode != SESSION_LOCAL_BATTLE) {
 							uint8_t *pdata = packet_state->data;
 							for (int i = 0; i < packet_state->entry_count; i++) {
 								if (i + packet_state->start_index < this->hero_inventory.GetSize()) {
@@ -1802,7 +1802,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 					txt = TxtFile::AllLines[texid + 0x86];
 				}
 
-				if (wnd->sessionMode == 2) {
+				if (wnd->sessionMode == SESSION_LOCAL_BATTLE) {
 					CUnit* ct = this->FindUnitByServerId(serv_id);
 					if (ct) {
 						if ((ct->unitFlags & 2) == 0) {
@@ -2104,7 +2104,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				this->MsgProc(0x406, packet_2dwords->param1 - (this->view_tiles_x / 2), packet_2dwords->param2 - (this->view_tiles_y / 2));
 #ifdef A2CLIENT
 				// client: 4164d8 — reselect the local player after the initial position
-				if ((wnd->sessionMode == 0 || wnd->sessionMode == 1) && this->my_unit != nullptr) {
+				if ((wnd->sessionMode == SESSION_SINGLEPLAYER || wnd->sessionMode == SESSION_CLIENT) && this->my_unit != nullptr) {
 					this->my_unit->SetSelected(1);
 					this->UpdateSelectionState();
 				}
@@ -2117,7 +2117,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case SERVER_SHUTDOWN:
-			if (wnd->sessionMode == 0) {
+			if (wnd->sessionMode == SESSION_SINGLEPLAYER) {
 				if ((wnd->dialogsMask & 1) == 0) {
 					while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
 					{}
@@ -2136,7 +2136,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		case KILL_STAT:
 			this->kill_stats[packet_dword->value & 0xffff] = (packet_dword->value >> 16) & 0xff;
 
-			if (wnd->sessionMode != 2) {
+			if (wnd->sessionMode != SESSION_LOCAL_BATTLE) {
 				wnd->m_GameSession.SaveKillStats();
 			}
 			break;
@@ -2154,14 +2154,14 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case ENTER_BUILDING:
-			if (wnd->sessionMode == 0) {
+			if (wnd->sessionMode == SESSION_SINGLEPLAYER) {
 				wnd->inside_building = 1;
 				wnd->PostMessage(0x45e, 0, 0);
 			}
 			break;
 
 		case LEAVE_BUILDING:
-			if (wnd->sessionMode == 0) {
+			if (wnd->sessionMode == SESSION_SINGLEPLAYER) {
 				if ((wnd->dialogsMask & 2) != 0) {
 					VisShop* shop = (VisShop*)wnd->vis_root->FindChild(1000);
 					shop->CloseShopDialog();
@@ -2246,7 +2246,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 			delete[] stats;
 
-			if (wnd->sessionMode != 2) {
+			if (wnd->sessionMode != SESSION_LOCAL_BATTLE) {
 				wnd->m_GameSession.SaveKillStats();
 			}
 		}
@@ -2764,7 +2764,7 @@ int32_t BigStruct2::SendEnterGameAndWait() {
 	//40d7f3  client: 40d87a
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
-	if (wnd->sessionMode == 0 && (wnd->net_session.internet_game == 0 || wnd->hat_settings.ishat == 0)) {
+	if (wnd->sessionMode == SESSION_SINGLEPLAYER && (wnd->net_session.internet_game == 0 || wnd->hat_settings.ishat == 0)) {
 		g_NetStru1_local.SendLatency(g_CmdLatency, 0);
 
 		NetStru2* conn = g_NetStru1_local.GetFirstClient();
@@ -2867,7 +2867,7 @@ int BigStruct2::ConnectAndJoinSession() {
 
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
-	if (wnd->sessionMode == 1 || wnd->sessionMode == 2) {
+	if (wnd->sessionMode == SESSION_CLIENT || wnd->sessionMode == SESSION_LOCAL_BATTLE) {
 		g_NetStru1_main.SetLinkedHLDriver(&g_NetStru1_local);
 		g_NetStru1_local.SetLinkedHLDriver(&g_NetStru1_main);
 		g_NetStru1_main.ProcessConnections();
@@ -4973,7 +4973,7 @@ uint32_t BigStruct2::UpdateMouseHover() {
 			avail |= 4;
 		}
 		this->hovered_unit = (CUnit*)obj;
-		if (wnd->sessionMode != 2) {
+		if (wnd->sessionMode != SESSION_LOCAL_BATTLE) {
 			for (POSITION it = this->quest_map->quests_map.GetStartPosition(); it != nullptr;) {
 				uint32_t quest_id;
 				Quest* quest;
@@ -6112,7 +6112,7 @@ void BigStruct2::RenderWorldFrame() {
 		sprintf(buf, "%3.1f fps", this->fps);
 		g_font1->DrawTextWithShadow(local_rect.right - 0x26, local_rect.top, buf, 1, clrsh_ShockingBlack, 1);
 	}
-	if (wnd->sessionMode == 0 && g_ShowNetStats != 0) {
+	if (wnd->sessionMode == SESSION_SINGLEPLAYER && g_ShowNetStats != 0) {
 		NetStru2* client = g_NetStru1_local.GetClientByPlayerID(0);
 		if (client != nullptr) {
 			uint32_t uid = client->GetUid();
@@ -6153,7 +6153,7 @@ void BigStruct2::RenderWorldFrame() {
 	if (g_ShowFps != 0) {
 		gfxFlushRect(fps_flush);
 	}
-	if (g_ShowNetStats != 0 && wnd->sessionMode == 0) {
+	if (g_ShowNetStats != 0 && wnd->sessionMode == SESSION_SINGLEPLAYER) {
 		gfxFlushRect(net_flush);
 	}
 	this->force_full_redraw = 0;
@@ -6611,7 +6611,7 @@ CUnit* BigStruct2::FindUnitByServerId(int32_t serv_id) {
 // 41DFDB
 CUnit* BigStruct2::PickVoiceUnit() {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	if (wnd->sessionMode != 2) {
+	if (wnd->sessionMode != SESSION_LOCAL_BATTLE) {
 		return nullptr;
 	}
 	if (g_settings.Acknowledgement == 0) {
@@ -6881,7 +6881,7 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 					}
 					break;
 				case 0x4B:
-					if (g_kbControlState != 0 && wnd->sessionMode != 2) {
+					if (g_kbControlState != 0 && wnd->sessionMode != SESSION_LOCAL_BATTLE) {
 						g_settings.ClanNames = g_settings.ClanNames == 0;
 						this->msglog.Add(TxtFile::AllLines[g_settings.ClanNames + 0x16F], clr_log_sblack, 2000);
 					}
@@ -6926,7 +6926,7 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 					break;
 				case 0x57:
 					if (g_kbControlState == 0) {
-						if (wnd->sessionMode != 2) {
+						if (wnd->sessionMode != SESSION_LOCAL_BATTLE) {
 							wnd->PostMessage(0x466, 0, 0);
 						}
 					} else {
@@ -7341,7 +7341,7 @@ void BigStruct2::LoadScenario(const char* name) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	delete this->scenario;
 	CString str(name);
-	if (wnd->sessionMode == 2) {
+	if (wnd->sessionMode == SESSION_LOCAL_BATTLE) {
 		str = "scenario\\" + str;
 	}
 	this->scenario = new Scenario(str);
@@ -8190,7 +8190,7 @@ void BigStruct2::SendGroupSelfCast(int32_t idx) {
 // 41ae1c
 void BigStruct2::LeaveInn(int32_t serv_id) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	if (wnd->sessionMode == 2) {
+	if (wnd->sessionMode == SESSION_LOCAL_BATTLE) {
 		CWordArray ids;
 		for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 			uint16_t key;

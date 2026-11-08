@@ -880,7 +880,7 @@ int32_t MainWindow::ConnectToServerAddress() {
     FlushScreen();
 
     g_CLlDriver.Close();
-    this->sessionMode = 0;
+    this->sessionMode = SESSION_SINGLEPLAYER;
 
     CLlAddress addr;
     strcpy(addr.address, "0.0.0.0");
@@ -985,7 +985,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
             break;
 
         case 0x13:
-            if (this->sessionMode == 2 && this->dialogsMask == 1) {
+            if (this->sessionMode == SESSION_LOCAL_BATTLE && this->dialogsMask == 1) {
                 VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x20, 0x30, 0x260, 0x1b0, TxtFile::AllLines[0x77], nullptr, 0);
                 this->PopUpScreen(mbox);
             }
@@ -994,13 +994,13 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
         case 0x1b:
             if (this->dialogsMask == 1) {
                 this->PostMessage(0x416, 0, 0);
-                if (this->sessionMode != 2) {
+                if (this->sessionMode != SESSION_LOCAL_BATTLE) {
                     this->m_GameSession.AutosaveCharacter();
                 }
             } else if (this->dialogsMask == 0) {
                 if (!this->net_session.key_capture_str.IsEmpty()) {
                     this->vis_root->MsgProc(0x100, key, 0);
-                } else if (this->sessionMode == 2) {
+                } else if (this->sessionMode == SESSION_LOCAL_BATTLE) {
                     this->PostMessage(0x41f, 0, 0);
                 }
             } else {
@@ -1023,7 +1023,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
 
         case 0x6b:
             if (g_kbControlState == 0) {
-                if (this->sessionMode != 0 && this->dialogsMask == 1) {
+                if (this->sessionMode != SESSION_SINGLEPLAYER && this->dialogsMask == 1) {
                     if (this->SetSpeed(this->game_speed + 1) == 0) {
                         this->vis_map_context->msglog.AddWithCheck(TxtFile::AllLines[this->game_speed + 0x6c], clr_log_sblack, 5000);
                     } else {
@@ -1037,7 +1037,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
 
         case 0x6d:
             if (g_kbControlState == 0) {
-                if (this->sessionMode != 0 && this->dialogsMask == 1) {
+                if (this->sessionMode != SESSION_SINGLEPLAYER && this->dialogsMask == 1) {
                     if (this->SetSpeed(this->game_speed - 1) == 0) {
                         this->vis_map_context->msglog.AddWithCheck(TxtFile::AllLines[this->game_speed + 0x6c], clr_log_sblack, 5000);
                     } else {
@@ -1057,7 +1057,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
             break;
 
         case 0x71:
-            if ((this->dialogsMask == 1 || this->dialogsMask == 0) && this->sessionMode == 2) {
+            if ((this->dialogsMask == 1 || this->dialogsMask == 0) && this->sessionMode == SESSION_LOCAL_BATTLE) {
                 this->PostMessage(0x41a, 0, 0);
             }
 
@@ -1070,7 +1070,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
 
         case 0x72:
             if (g_kbShiftState == 0 || g_kbControlState == 0) {
-                if (this->sessionMode == 2) {
+                if (this->sessionMode == SESSION_LOCAL_BATTLE) {
                     if (this->dialogsMask == 1 || this->dialogsMask == 0) {
                         this->PostMessage(0x418, 0, 0);
                     }
@@ -1388,10 +1388,10 @@ void MainWindow::ProcessPlayersTick() {
 #ifndef A2CLIENT
     g_Server->ProcessPlayers();
 #else
-    if ((sessionMode == 2 || sessionMode == 1) && g_Server && (dialogsMask & 1) != 0)
+    if ((sessionMode == SESSION_LOCAL_BATTLE || sessionMode == SESSION_CLIENT) && g_Server && (dialogsMask & 1) != 0)
         g_Server->ProcessPlayers();
 
-    if (g_NetStru1_local.IsActive() && sessionMode != 3)
+    if (g_NetStru1_local.IsActive() && sessionMode != SESSION_SERVER)
         vis_map_context->ResetWorldState(1);
 
     if ((dialogsMask & 1) != 0)
@@ -2472,7 +2472,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
     if (obj == this->vis_shop || obj == this->vis_shopdruid || obj == this->vis_shopkaarg) {
         this->vis_map_context->SendShopClose();
         this->vis_map_context->UpdateSelectionState();
-        if (this->sessionMode != 2) {
+        if (this->sessionMode != SESSION_LOCAL_BATTLE) {
             this->PlayDefaultMusic();
         }
     } else if (obj == this->vis_1200) {
@@ -2507,7 +2507,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
     } else if (obj == this->vis_town || obj == this->vis_towndruid || obj == this->vis_townkaarg)
     {}
     else if (obj == this->vis_tav || obj == this->vis_tavdruid || obj == this->vis_tavkaarg) {
-        if (this->sessionMode != 2) {
+        if (this->sessionMode != SESSION_LOCAL_BATTLE) {
             this->PlayDefaultMusic();
         }
 
@@ -2521,7 +2521,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         } else {
             this->m_GameSession.flags |= 4;
 
-            if (this->sessionMode == 2) {
+            if (this->sessionMode == SESSION_LOCAL_BATTLE) {
                 this->vis_map_context->ConnectAndJoinSession();
                 this->m_GameSession.SubmitCharacterSetupAndWaitForSelectedUnit();
 
@@ -2558,7 +2558,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
                 this->vis_map_context->SetUnit_3f6c(nullptr);
             }
 
-            if (this->sessionMode == 2) {
+            if (this->sessionMode == SESSION_LOCAL_BATTLE) {
                 PostMessage(0x421, 0, 0);
             } else {
                 this->ShowCharacterLoaderDialog();
@@ -2730,7 +2730,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         this->dialogsMask &= ~8;
 
         if (this->vis_connectiondlg->GetCloseCode() == 0x446) {
-            if (this->sessionMode == 3) {
+            if (this->sessionMode == SESSION_SERVER) {
                 PostMessage(0x421, 0, 0);
             } else {
                 this->ShowCharacterLoaderDialog();
@@ -2867,7 +2867,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
     } else if ((this->dialogsMask & 8) != 0) {
         this->dialogsMask &= ~8;
 
-        if (this->dialogsMask == 1 && this->sessionMode == 2) {
+        if (this->dialogsMask == 1 && this->sessionMode == SESSION_LOCAL_BATTLE) {
             this->tick_anchor_time = timeGetTime();
             this->game_tic_counter = 0;
             this->gap_0x43c = 0;
@@ -2967,7 +2967,7 @@ void MainWindow::ShowCharInfoPane() { //491a49
 
 
 void MainWindow::AutosaveGame() { // 48f905
-    if (this->sessionMode == 2) {
+    if (this->sessionMode == SESSION_LOCAL_BATTLE) {
         CString local_2a4 = this->last_save_info.filename;
         g_Server->SaveGame(&local_2a4);
 
@@ -3122,7 +3122,7 @@ void MainWindow::AutosaveGame() { // 48f905
 
 void MainWindow::EnterSinglePlayerMode() { // 4903d0
 
-    this->sessionMode = 0;
+    this->sessionMode = SESSION_SINGLEPLAYER;
 
     g_NetStru1_local.SetLLDriver(&g_CLlDriver);
     g_CLlDriver.SetHlDriver(&g_NetStru1_local);
@@ -3160,7 +3160,7 @@ void MainWindow::EnterSinglePlayerMode() { // 4903d0
 }
 
 void MainWindow::EnterServerMode() { //491822
-    this->sessionMode = 3;
+    this->sessionMode = SESSION_SERVER;
 
     g_NetStru1_main.SetLLDriver(&g_CLlDriver);
     g_CLlDriver.SetHlDriver(&g_NetStru1_main);
@@ -3190,7 +3190,7 @@ int MainWindow::StartServerSession(int mode) { //48ca7e
 
 void MainWindow::EnterClientMode() { // 4918ae
 
-    this->sessionMode = 1;
+    this->sessionMode = SESSION_CLIENT;
 
     g_NetStru1_main.SetLLDriver(&g_CLlDriver);
     g_CLlDriver.SetHlDriver(&g_NetStru1_main);
@@ -3334,8 +3334,8 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x41d:
-        if (this->sessionMode == 1 || this->sessionMode == 3) {
-            if (this->sessionMode == 1) {
+        if (this->sessionMode == SESSION_CLIENT || this->sessionMode == SESSION_SERVER) {
+            if (this->sessionMode == SESSION_CLIENT) {
                 this->vis_map_context->ResetWorldState(0);
             } else {
                 this->vis_map_context->ResetWorldState(1);
@@ -3347,7 +3347,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             
             g_Server->ProcessPlayers();
             PostMessage(0x459, 0, 0);
-        } else if (this->sessionMode == 0) {
+        } else if (this->sessionMode == SESSION_SINGLEPLAYER) {
 #ifdef A2CLIENT
             if (net_session.internet_game == 0 || hat_settings.ishat == 0 || hat_settings.deathmatch != 0) {
                 vis_map_context->ResetWorldState(1);
@@ -3475,7 +3475,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         this->vis_globalmap->RebuildScenarioLocations();
         this->m_FameHall.SetDifficulty(1);
 
-        if (this->sessionMode == 3) {
+        if (this->sessionMode == SESSION_SERVER) {
             PostMessage(MSG_42f, 0, 0);
         } else {
             this->m_GameSession.RefreshCharacterRosterFiles(1);
@@ -3487,7 +3487,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
     case 0x426:
         ReadFileToString("main\\text\\town.txt", &g_MissionText);
         this->serverLoopCounter = 0;
-        this->sessionMode = 0;
+        this->sessionMode = SESSION_SINGLEPLAYER;
 #ifdef A2CLIENT
         if (this->net_session.internet_game == 0 || this->hat_settings.ishat == 0) {
             m_GameSession.characterRosterHatId.RemoveAll();
@@ -3512,13 +3512,13 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x42a:
-        if (this->dialogsMask == 0 || (this->sessionMode < 2 && this->dialogsMask == 1)) {
+        if (this->dialogsMask == 0 || (this->sessionMode < SESSION_LOCAL_BATTLE && this->dialogsMask == 1)) {
             this->ShowShopDialog(wParam);
         }
         break;
 
     case 0x42b:
-        if (this->dialogsMask == 0 || (this->sessionMode < 2 && this->dialogsMask == 1)) {
+        if (this->dialogsMask == 0 || (this->sessionMode < SESSION_LOCAL_BATTLE && this->dialogsMask == 1)) {
             this->ShowInnDialog(wParam, lParam);
         }
         break;
@@ -3570,7 +3570,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x431:
-        if (this->mission_failed_reported == 0 && this->sessionMode == 2) {
+        if (this->mission_failed_reported == 0 && this->sessionMode == SESSION_LOCAL_BATTLE) {
             this->mission_failed_reported = 1;
             this->vis_missionfailed = new VisMissionFailed(1, 32, 100, 608, 380, g_MissionFailures[wParam - 2]);
             this->PopUpScreen(this->vis_missionfailed);
@@ -3809,7 +3809,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             }
         }
 
-        if (this->sessionMode == 3) {
+        if (this->sessionMode == SESSION_SERVER) {
             this->EnterServerMode();
         } else {
             this->net_dialog = new VisNetDlg(1, 0, 30, 640, 450, &this->net_sessions);
@@ -3836,8 +3836,8 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x457:
-        if (this->sessionMode != 3) {
-            if (this->sessionMode == 0) {
+        if (this->sessionMode != SESSION_SERVER) {
+            if (this->sessionMode == SESSION_SINGLEPLAYER) {
                 g_GameStatusCode = 0;
                 this->enter_ack_received = 0;
                 this->vis_map_context->SendRequestMapInfo();
@@ -3957,7 +3957,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             PostMessage(WM_CLOSE, 0, 0);
         } else 
 #endif
-        if (this->sessionMode == 0 || this->sessionMode == 1) {
+        if (this->sessionMode == SESSION_SINGLEPLAYER || this->sessionMode == SESSION_CLIENT) {
             if (this->dialogsMask & 8) {
                 vis_root->MsgProc(0x446, 0, 0);
             }
@@ -3991,7 +3991,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             } else {
                 PostMessage(0x452, 0, 0);
             }
-        } else if (this->sessionMode == 3) {
+        } else if (this->sessionMode == SESSION_SERVER) {
             if (g_CLlDriver.GetProvider() == 3) {
                 PostMessage(0x453, 0, 0);
                 this->DestroyServer();
@@ -4003,7 +4003,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x45d:
-        if (this->sessionMode == 0) {
+        if (this->sessionMode == SESSION_SINGLEPLAYER) {
             this->vis_map_context->ResetWorldState(0);
             if (this->dialogsMask & 1) {
                 this->UnloadMapAssets();
@@ -4086,7 +4086,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
     case 0x472:
         if (g_IsServer == 0) {
-            if (this->sessionMode == 3) {
+            if (this->sessionMode == SESSION_SERVER) {
                 this->vis_map_context->msglog.Add((const char*)wParam, clrsh_ShockingBlack, 30000);
                 free((void*)wParam);
             }
@@ -4276,7 +4276,7 @@ void MainWindow::BeginLocalCharacterSetup() { // 48f79d
 
     strcpy(this->m_GameSession.character_name, "Self");
     this->local_game = 1;
-    this->sessionMode = 2;
+    this->sessionMode = SESSION_LOCAL_BATTLE;
 
     this->StartServerSession(this->sessionMode);
 
@@ -4327,7 +4327,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
         this->music_player->OnEndTrack();
     }
 
-    if (this->sessionMode == 3) {
+    if (this->sessionMode == SESSION_SERVER) {
         CRect r = g_ScreenSize;
         r.bottom -= 72;
 
@@ -4344,7 +4344,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
     }
 
     char buf[128];
-    if (this->sessionMode == 2 && mode == 0) {
+    if (this->sessionMode == SESSION_LOCAL_BATTLE && mode == 0) {
         sprintf(buf, "%d.alm", ScenarioGetCurrentLocation()->GetId());
     } else {
         strcpy(buf, this->current_map_name);
@@ -4355,7 +4355,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
         g_Server->LoadGame(buf);
     }
 
-    if (this->sessionMode != 3) {
+    if (this->sessionMode != SESSION_SERVER) {
         this->ShowMainRightPanel();
         this->LoadObjectGfx();
         this->LoadStructureGfx();
@@ -4404,7 +4404,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
         }
     }
 
-    if (this->sessionMode == 2 && mode != 0) {
+    if (this->sessionMode == SESSION_LOCAL_BATTLE && mode != 0) {
         File2 fil;
         fil.Open(this->last_save_info.filename, CFile::modeRead);
         fil.Seek(4, 0);
@@ -4538,20 +4538,20 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
     this->vis_right_panel->MsgProc(0x408, 0, 0);
     this->vis_root->VMethod9();
 
-    if (this->sessionMode != 3) {
+    if (this->sessionMode != SESSION_SERVER) {
         this->PlayDefaultMusic();
         this->last_event_id = -1;
         this->in_famehall_mission = 0;
         this->mission_failed_reported = 0;
     }
 
-    if (this->sessionMode == 2) {
+    if (this->sessionMode == SESSION_LOCAL_BATTLE) {
         this->SetSpeed(this->game_speed);
     } else {
         this->SetSpeed(g_ServerConfig.game_speed);
     }
 
-    if (this->sessionMode == 2) {
+    if (this->sessionMode == SESSION_LOCAL_BATTLE) {
         sprintf(buf, "main\\text\\mission%d.txt", ScenarioGetCurrentLocation()->GetId());
         ReadFileToString(buf, &g_MissionText);
         MissionGetBriefing(&g_MissionBriefing);
@@ -5008,7 +5008,7 @@ void MainWindow::UnloadObjectGfx() { //47ad28
 
 void MainWindow::InitNewCampaignSession() { //48dd3a
     this->local_game = 1;
-    this->sessionMode = 2;
+    this->sessionMode = SESSION_LOCAL_BATTLE;
 
     if (this->StartServerSession(this->sessionMode) == 0) {
         this->m_GameSession.type = 0;
@@ -5043,7 +5043,7 @@ void MainWindow::ShowStartGameSetupForNewSession() { //491b3e
 
     this->vis_root->AddChild(this->vis_startgame);
 
-    if (this->sessionMode != 2) {
+    if (this->sessionMode != SESSION_LOCAL_BATTLE) {
         this->m_GameSession.character_name[0] = '\0';
     }
 
@@ -5128,7 +5128,7 @@ void MainWindow::ShowShopDialog(uint32_t id) { //48cdce
     g_Cursors[CURSOR_WAIT]->Use();
 
     int locid = 1;
-    if (this->sessionMode == 2) {
+    if (this->sessionMode == SESSION_LOCAL_BATTLE) {
         locid = ScenarioGetCurrentLocation()->GetId();
     } else {
         switch (id) {
@@ -5186,7 +5186,7 @@ void MainWindow::ShowInnDialog(uint32_t id, int32_t interact_target) { //48d4da
     g_Cursors[CURSOR_WAIT]->Use();
 
     int locid = 1;
-    if (this->sessionMode == 2) {
+    if (this->sessionMode == SESSION_LOCAL_BATTLE) {
         locid = ScenarioGetCurrentLocation()->GetId();
     } else {
         switch (id) {
@@ -5221,7 +5221,7 @@ void MainWindow::ShowInnDialog(uint32_t id, int32_t interact_target) { //48d4da
 
     this->vis_root->AddChild(inn);
 
-    if (this->sessionMode == 2) {
+    if (this->sessionMode == SESSION_LOCAL_BATTLE) {
         int32_t ids[32];
         int32_t num = 0;
         ScenarioEnterInn(ids, &num);
@@ -5467,7 +5467,7 @@ void MainWindow::SingleGameIdle() { //48a3a2
 
 void MainWindow::StartHatDedicatedServer() { //49172d
     //CHECK IN Allods2.exe
-    this->sessionMode = 3;
+    this->sessionMode = SESSION_SERVER;
     g_NetStru1_main.SetLLDriver(&g_CLlDriver);
     g_CLlDriver.SetHlDriver(&g_NetStru1_main);
     g_CLlDriver.ResetProvider(4);
@@ -5563,7 +5563,7 @@ int32_t MainWindow::RunModalLoopServer() { //49057b
     UnlockSurface2();
     FlushScreen();
 
-    this->sessionMode = 0;
+    this->sessionMode = SESSION_SINGLEPLAYER;
 
     g_NetStru1_local.SetLLDriver(&g_CLlDriver);
     g_CLlDriver.SetHlDriver(&g_NetStru1_local);
@@ -5697,7 +5697,7 @@ int32_t MainWindow::RunModalLoopClient() { //client 4949cd
     UnlockSurface2();
     FlushScreen();
 
-    this->sessionMode = 0;
+    this->sessionMode = SESSION_SINGLEPLAYER;
 
     g_NetStru1_local.SetLLDriver(&g_CLlDriver);
     g_CLlDriver.SetHlDriver(&g_NetStru1_local);
@@ -5995,16 +5995,16 @@ int CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit() {
 
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 #ifndef A2CLIENT
-    if ((this->flags & 1) == 0 && wnd->sessionMode != 2) {
+    if ((this->flags & 1) == 0 && wnd->sessionMode != SESSION_LOCAL_BATTLE) {
 #else
-    if ((this->flags & 1) == 0 && wnd->sessionMode != 2 && (wnd->net_session.internet_game == 0 || wnd->hat_settings.ishat == 0)) {
+    if ((this->flags & 1) == 0 && wnd->sessionMode != SESSION_LOCAL_BATTLE && (wnd->net_session.internet_game == 0 || wnd->hat_settings.ishat == 0)) {
 #endif
         wnd->vis_map_context->SendRequestUnitUpdateFile(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex]);
     } else {
         wnd->vis_map_context->SendJoinMap();
     }
 
-    if (wnd->sessionMode == 1 || wnd->sessionMode == 2) {
+    if (wnd->sessionMode == SESSION_CLIENT || wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         g_Server->PumpNetwork();
     }
 
@@ -6043,7 +6043,7 @@ int CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit() {
 void CGameSession::ResetCharacter() { //493d8d
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
-    if (wnd->sessionMode == 2) {
+    if (wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         return;
     }
 
@@ -6424,7 +6424,7 @@ void CGameSession::SetNameAndColor(char* name) { //49381c
 
 void CGameSession::AutosaveCharacter() { //4946e0
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
-    if (mwnd->sessionMode == 2) {
+    if (mwnd->sessionMode == SESSION_LOCAL_BATTLE) {
         return;
     }
 
@@ -6474,7 +6474,7 @@ void CGameSession::AutosaveCharacter() { //4946e0
 
 void CGameSession::SaveShortcuts() { //4948b2
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
-    if (mwnd->sessionMode == 2) {
+    if (mwnd->sessionMode == SESSION_LOCAL_BATTLE) {
         return;
     }
 
@@ -6518,7 +6518,7 @@ void CGameSession::DeleteSelectedCharacter() { //493cd8 client 4986a3
 
 void CGameSession::SaveKillStats() { //494982
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
-    if (mwnd->sessionMode == 2) {
+    if (mwnd->sessionMode == SESSION_LOCAL_BATTLE) {
         return;
     }
 

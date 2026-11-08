@@ -861,7 +861,7 @@ int32_t TokenEntry::IsQuestItem() { //43a5e5
     if (item.name.Find("Documents") != -1) {
         return 1;
     }
-    if (item.name.Find("Treasure") == -1 || main_wnd->sessionMode == 2) {
+    if (item.name.Find("Treasure") == -1 || main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         return 0;
     }
 

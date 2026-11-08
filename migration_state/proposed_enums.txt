@@ -105,7 +105,7 @@ TIER 1 - tiny enums, semantics fully verified (do these first)
     Also the parser assignments in game_app.cpp may use the names.
     NOTE: `gameType == 2` is TEAMPLAY (order-blocking gates), not arena.
 
-[ ] 2. SessionMode  (~129 comparisons)
+[x] 2. SessionMode  (~129 comparisons)
     Field: MainWindow::sessionMode (src/main_window.h). Values VERIFIED from
     assignments: 0 = singleplayer; 1 = network client (EnterClientMode,
     main_window.cpp ~3193); 2 = local battle / saved game (set together with

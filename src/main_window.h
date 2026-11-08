@@ -14,6 +14,13 @@ extern int32_t g_GameStatusCode; //660f8c
 
 void SaveSettings(); //441b1e (client: 4440ed)
 
+enum SessionMode : int32_t {
+    SESSION_SINGLEPLAYER = 0, // no network session (also the reset value on teardown)
+    SESSION_CLIENT       = 1, // network client (EnterClientMode)
+    SESSION_LOCAL_BATTLE = 2, // battle on the local machine: campaign missions, loaded saves
+    SESSION_SERVER       = 3, // server / dedicated mode (EnterServerMode, StartHatDedicatedServer)
+};
+
 
 class CListBox2 : public CListBox {
 public:

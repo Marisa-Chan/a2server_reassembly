@@ -5290,7 +5290,7 @@ void VisNetMapSelection::AddNetMapInfo(NetMapInfo* info) {
 // 44C788
 void VisNetMapSelection::VMethod26() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    this->mode = (main_wnd->sessionMode != 0);
+    this->mode = (main_wnd->sessionMode != SESSION_SINGLEPLAYER);
 
     this->AddChild(new VisLabel(0x19, 0x28, 0x16, this->rect.Width() - 0x28, 0x38,
                                 txt_dialogs.GetLine(0x8A), g_font1, p_clrsh_Black, 2));
@@ -5387,7 +5387,7 @@ int32_t VisNetMapSelection::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpar
         this->VisScreen::MsgProc(0x446, 0, 0);
         return 1;
     case 0x45E:
-        if (main_wnd->sessionMode == 0) {
+        if (main_wnd->sessionMode == SESSION_SINGLEPLAYER) {
             this->StopThread();
             if (this->mode == 0) {
                 VisListBox* map_list = (VisListBox*)this->FindChild(1);
@@ -6165,13 +6165,13 @@ IngameMenu::IngameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, 
     //Save game
     MenuButton* btn = new MenuButton(1, txt_dialogs.GetLine(34), g_font1, 0, 0x41a, 'S', "");
 
-    if (mwnd->sessionMode == 0 || mwnd->sessionMode == 1) {
+    if (mwnd->sessionMode == SESSION_SINGLEPLAYER || mwnd->sessionMode == SESSION_CLIENT) {
         btn->ChangeFlags(FLAG_ENABLED, false);
     }
 
     this->AddElement(btn, 30);
 
-    if (mwnd->sessionMode == 2) {
+    if (mwnd->sessionMode == SESSION_LOCAL_BATTLE) {
         //Load game
         btn = new MenuButton(2, txt_dialogs.GetLine(35), g_font1, 0, 0x418, 'L', "");
 
@@ -6658,7 +6658,7 @@ int32_t GameOptionsWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpara
         this->FindChild(2)->WriteData(&dat);
         mwnd->SetSpeed(dat.v);
 
-        if (mwnd->sessionMode == 2) {
+        if (mwnd->sessionMode == SESSION_LOCAL_BATTLE) {
             this->FindChild(13)->WriteData(&g_settings.TipsMode);
         } else {
             this->FindChild(13)->WriteData(&g_settings.ClanNames);
@@ -6733,7 +6733,7 @@ void GameOptionsWindow::VMethod26() { //442646
     VisScrollBar* scrl = new VisScrollBar(2, 40, 84, 232, 108, txt_dialogs.GetLine(51));
     this->AddChild(scrl);
 
-    if (mwnd->sessionMode == 0) {
+    if (mwnd->sessionMode == SESSION_SINGLEPLAYER) {
         scrl->ChangeFlags(FLAG_ENABLED, false);
     }
 
@@ -6799,7 +6799,7 @@ void GameOptionsWindow::VMethod26() { //442646
 
     VisRadioType1* clantips = new VisRadioType1(13, scr.right + 48, ypoint + 56, scr.right + 264, ypoint + 80, g_font1, p_clrsh_Black, nullptr);
 
-    if (mwnd->sessionMode == 2) {
+    if (mwnd->sessionMode == SESSION_LOCAL_BATTLE) {
         clantips->AddEntry(txt_dialogs.GetLine(156)); //tips
     } else {
         clantips->AddEntry(txt_dialogs.GetLine(175)); //clans
@@ -6807,7 +6807,7 @@ void GameOptionsWindow::VMethod26() { //442646
 
     this->AddChild(clantips);
 
-    if (mwnd->sessionMode == 2) {
+    if (mwnd->sessionMode == SESSION_LOCAL_BATTLE) {
         clantips->ReadData(&g_settings.TipsMode);
     } else {
         clantips->ReadData(&g_settings.ClanNames);
@@ -6937,16 +6937,16 @@ EndGameMenu::EndGameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
     MenuButton* btn = nullptr;
-    if (mwnd->sessionMode == 0 && mwnd->net_session.internet_game && mwnd->hat_settings.ishat && mwnd->hat_settings.deathmatch == 0)
+    if (mwnd->sessionMode == SESSION_SINGLEPLAYER && mwnd->net_session.internet_game && mwnd->hat_settings.ishat && mwnd->hat_settings.deathmatch == 0)
         btn = new MenuButton(1, txt_patch.GetLine(208), g_font1, nullptr, 0x41d, 'R', "");
-    else if (mwnd->sessionMode == 1 || mwnd->sessionMode == 3 || mwnd->sessionMode == 0) {
+    else if (mwnd->sessionMode == SESSION_CLIENT || mwnd->sessionMode == SESSION_SERVER || mwnd->sessionMode == SESSION_SINGLEPLAYER) {
         btn = new MenuButton(1, txt_dialogs.GetLine(42), g_font1, nullptr, 0x41d, 'C', ""); //restart mission
     } else {
         btn = new MenuButton(1, txt_dialogs.GetLine(43), g_font1, nullptr, 0x41d, 'V', ""); //win
     }
     this->AddElement(btn, 30);
 
-    if (unk2 == 0 && mwnd->sessionMode == 2) {
+    if (unk2 == 0 && mwnd->sessionMode == SESSION_LOCAL_BATTLE) {
         btn->ChangeFlags(FLAG_ENABLED, false);
     }
     
@@ -7121,7 +7121,7 @@ void SoundPreferencesDialogVisualObject::VMethod26() { //43d959
     btn_raport->ReadData(&g_settings.Acknowledgement);
     this->AddChild(btn_raport);
 
-    if (mwnd->sessionMode == 0 || mwnd->sessionMode == 1) {
+    if (mwnd->sessionMode == SESSION_SINGLEPLAYER || mwnd->sessionMode == SESSION_CLIENT) {
         btn_raport->ChangeFlags(FLAG_ENABLED, false);
     }
 
@@ -8119,7 +8119,7 @@ void VisCharGen::RollStats() {
 // 42EBE0
 void VisCharGen::OnNextFace() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         return;
     }
     if (this->mage_flag == 0) {
@@ -8148,7 +8148,7 @@ void VisCharGen::OnNextFace() {
 // 42EDC2
 void VisCharGen::OnPrevFace() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         return;
     }
     if (this->mage_flag == 0) {
@@ -8332,7 +8332,7 @@ void VisCharGen::VMethod28() {
     OffsetRect(&rc, 0x280 - rc.Width(), 0);
     this->info_panel->SetRect(&rc);
     this->AddChild(this->info_panel);
-    if (main_wnd->sessionMode == 0) {
+    if (main_wnd->sessionMode == SESSION_SINGLEPLAYER) {
         RegFile reg("scenario\\npc.reg");
         this->face_sets[0].RemoveAll();
         this->face_sets[1].RemoveAll();
@@ -9463,7 +9463,7 @@ void VisCharInfo::VMethod7() {
     }
 
     if ((main_wnd->dialogsMask & 0x226) != 0) {
-        if ((main_wnd->dialogsMask & 0x200) == 0 || main_wnd->sessionMode != 2) {
+        if ((main_wnd->dialogsMask & 0x200) == 0 || main_wnd->sessionMode != SESSION_LOCAL_BATTLE) {
             g_bmp_ar1->DrawSubRectMasked(screen_rect.left + 1, screen_rect.top + 0xCD, 0, 0, 0x20, 0x20);
             g_bmp_ar2->DrawSubRectMasked(screen_rect.left + 0x77, screen_rect.top + 0xCD, 0, 0, 0x20, 0x20);
         }
@@ -9657,7 +9657,7 @@ const char* VisCharInfo::GetHint() {
     }
 
     if ((main_wnd->dialogsMask & 0x226) != 0) {
-        if ((main_wnd->dialogsMask & 0x200) == 0 || main_wnd->sessionMode != 2) {
+        if ((main_wnd->dialogsMask & 0x200) == 0 || main_wnd->sessionMode != SESSION_LOCAL_BATTLE) {
             if (ar1_rect.PtInRect(mouse_pt)) {
                 return TxtFile::AllLines[0x79];
             }
@@ -10605,7 +10605,7 @@ void VisShop::DoClose(uint32_t code) {
 
     VisScreen::DoClose(code);
 
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         ScenarioLeaveShop();
     }
 }
@@ -10819,7 +10819,7 @@ void VisShop::VMethod28() {
     this->gameplay = main_wnd->vis_map_context;
     this->select_info_panel = main_wnd->vis_charinfo;
 
-    if (g_settings.TipsMode != 0 && main_wnd->sessionMode == 2) {
+    if (g_settings.TipsMode != 0 && main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         CString tips_text;
         MissionGetTips(3, &tips_text);
         this->tips = new VisTipsDialog(0x3F3, 0, 0xA2, 0x138, 0x12A, tips_text);
@@ -10879,7 +10879,7 @@ void VisShop::VMethod28() {
         this->snd_start->Play(g_SoundSettings.speech_pos, 0, 0, 0x80, 0);
     }
 
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         this->scenario_talk_target = ScenarioEnterShop();
     } else {
         this->scenario_talk_target = 0;
@@ -12173,7 +12173,7 @@ VisShopCompassDruid::~VisShopCompassDruid() {
 // 4C2842
 int32_t VisShopCompassDruid::IsDruidShopAvailable() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         if (ScenarioGetVar(0x302) != 0) {
             return 1;
         }
@@ -12706,7 +12706,7 @@ void VisShopDruid::VMethod28() {
     this->gameplay = main_wnd->vis_map_context;
     this->select_info_panel = main_wnd->vis_charinfo;
 
-    if (g_settings.TipsMode != 0 && main_wnd->sessionMode == 2) {
+    if (g_settings.TipsMode != 0 && main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         CString tips_text;
         MissionGetTips(3, &tips_text);
         this->tips = new VisTipsDialog(0x3F3, 0, 0xA2, 0x138, 0x12A, tips_text);
@@ -12771,7 +12771,7 @@ void VisShopDruid::VMethod28() {
         this->snd_start->Play(g_SoundSettings.speech_pos, 0, 0, 0x80, 0);
     }
 
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         this->scenario_talk_target = ScenarioEnterShop();
     } else {
         this->scenario_talk_target = 0;
@@ -12992,7 +12992,7 @@ void VisShopKaarg::VMethod28() {
     this->gameplay = main_wnd->vis_map_context;
     this->select_info_panel = main_wnd->vis_charinfo;
 
-    if (g_settings.TipsMode != 0 && main_wnd->sessionMode == 2) {
+    if (g_settings.TipsMode != 0 && main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         CString tips_text;
         MissionGetTips(3, &tips_text);
         this->tips = new VisTipsDialog(0x3F3, 0, 0xA2, 0x138, 0x12A, tips_text);
@@ -13057,7 +13057,7 @@ void VisShopKaarg::VMethod28() {
         this->snd_start->Play(g_SoundSettings.speech_pos, 0, 0, 0x80, 0);
     }
 
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         this->scenario_talk_target = ScenarioEnterShop();
     } else {
         this->scenario_talk_target = 0;
@@ -13131,7 +13131,7 @@ void VisTav::VMethod28() {
     this->info_panel->SetRect(&panel_rect);
     this->AddChild(this->info_panel);
 
-    if (g_settings.TipsMode != 0 && main_wnd->sessionMode == 2) {
+    if (g_settings.TipsMode != 0 && main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         CString tips_text;
         MissionGetTips(2, &tips_text);
         this->tips = new VisTipsDialog(0x467, 0, 0, 0x138, 0xC8, tips_text);
@@ -13144,7 +13144,7 @@ void VisTav::VMethod28() {
         this->tips = nullptr;
     }
 
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         int32_t ids[32];
         int32_t count;
         ScenarioEnterInn(ids, &count);
@@ -13190,7 +13190,7 @@ void VisTav::VMethod28() {
         name.Format("graphics\\interface\\inn\\candle\\t%.4d.bmp", i);
         names.Add(name);
     }
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         this->scene->anims[0].LoadAnimFrames(&names);
     }
     names.RemoveAll();
@@ -13199,7 +13199,7 @@ void VisTav::VMethod28() {
         name.Format("graphics\\interface\\inn\\cauldron\\t%.4d.bmp", i);
         names.Add(name);
     }
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         this->scene->anims[1].LoadAnimFrames(&names);
     }
     names.RemoveAll();
@@ -13208,7 +13208,7 @@ void VisTav::VMethod28() {
         name.Format("graphics\\interface\\inn\\tender\\breath\\br%.4d.bmp", i);
         names.Add(name);
     }
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         this->scene->anims[2].LoadAnimFrames(&names);
     }
     names.RemoveAll();
@@ -13217,7 +13217,7 @@ void VisTav::VMethod28() {
         name.Format("graphics\\interface\\inn\\tender\\drink\\dr%.4d.bmp", i);
         names.Add(name);
     }
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         this->scene->anims[3].LoadAnimFrames(&names);
     }
     names.RemoveAll();
@@ -13252,7 +13252,7 @@ void VisTav::DoClose(uint32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     this->VMethod9();
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         ScenarioLeaveInn();
     }
 
@@ -13560,7 +13560,7 @@ const char* VisTavLeftPanel::GetHint() {
         return nullptr;
     }
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->sessionMode != 2) {
+    if (main_wnd->sessionMode != SESSION_LOCAL_BATTLE) {
         return nullptr;
     }
     CPoint mouse_pt(g_mousept.GetX(), g_mousept.GetY());
@@ -13682,7 +13682,7 @@ void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
     this->bmp_left_picture->Draw(screen_rect.left, screen_rect.top + 0xEE, 0, 0, 0);
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         if (unit == nullptr) {
             g_font2->DrawTextWithShadow(screen_rect.left + 0x58, screen_rect.top + 0x36, TxtFile::AllLines[0x2F], 2, clrsh_DullGold, 1);
             g_font2->DrawTextWithShadow(screen_rect.left + 0x58, screen_rect.top + 0x42, TxtFile::AllLines[0x30], 2, clrsh_DullGold, 1);
@@ -13911,7 +13911,7 @@ void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
 void VisTavLeftPanel::SelectRosterEntry(int32_t idx) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         this->vis_tav->selection_index = idx;
         this->vis_tav->right_panel->UpdateButtonLabels();
     } else {
@@ -13932,7 +13932,7 @@ int32_t VisTavRightPanel::OnLButtonUp(uint32_t wparam, CPoint pos) {
         this->pressed_btn = -1;
         this->UpdateHoveredButton(wparam, pos);
 
-        if (main_wnd->sessionMode == 2) {
+        if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
             if (button == 0) {
                 if (this->vis_tav->selection_index < this->vis_tav->avail_entries.GetSize()) {
                     CUnit* unit = this->vis_tav->avail_entries[this->vis_tav->selection_index];
@@ -14153,7 +14153,7 @@ void VisTavRightPanel::FreeRightPanelBmps() {
 void VisTavRightPanel::UpdateButtonLabels() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         if (this->vis_tav->avail_entries.GetUpperBound() < this->vis_tav->selection_index || this->vis_tav->selection_index == -1) {
             this->texts[0] = "";
         } else {
@@ -14342,7 +14342,7 @@ void VisTavScene::VMethod7() {
 
     this->bmp_background->Draw(x, y, 0, 0, 0);
 
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         this->anims[0].Draw(x, y + 0x30);
         this->anims[1].Draw(x + 0x104, y + 0xA0);
         if (now - tavscene_anims_ts > 100) {
@@ -14473,7 +14473,7 @@ void VisTavScene::VMethod29() {
     this->bmp_ru_over = nullptr;
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->sessionMode != 2) {
+    if (main_wnd->sessionMode != SESSION_LOCAL_BATTLE) {
         for (int32_t i = 0; i < 13; i++) {
             delete this->quest_bmps[i];
             this->quest_bmps[i] = nullptr;
@@ -14539,7 +14539,7 @@ void VisTavScene::VMethod28() {
     g_mousept.Update();
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->sessionMode != 2) {
+    if (main_wnd->sessionMode != SESSION_LOCAL_BATTLE) {
         CString name;
         for (int32_t i = 0; i < 13; i++) {
             name.Format("graphics\\interface\\inn\\quests\\%02d.bmp", i + 1);
@@ -14579,7 +14579,7 @@ const char* VisTavScene::GetHint() {
 int32_t VisTavScene::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
-    if (main_wnd->sessionMode != 2) {
+    if (main_wnd->sessionMode != SESSION_LOCAL_BATTLE) {
         if (main_wnd->vis_map_context->quest_map->OnEvent(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->inn_id) != 0) {
             this->vis_tav->quest_alt_close = (this->vis_tav->quest_alt_close == 0) ? 1 : 0;
             return 1;
@@ -14590,7 +14590,7 @@ int32_t VisTavScene::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
         return 0;
     }
 
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         if (this->vis_tav->selection_index < this->vis_tav->avail_entries.GetSize()) {
             CUnit* unit = this->vis_tav->avail_entries[this->vis_tav->selection_index];
             int32_t entry = this->vis_tav->FindEntryIndexForUnit(unit);
@@ -14813,7 +14813,7 @@ int32_t VisTavScene::HitTestRoster(CPoint* pos) {
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         int32_t count = this->vis_tav->avail_entries.GetSize() + this->vis_tav->reserved_entries.GetSize();
         for (int32_t i = 0; i < count; i++) {
             int32_t row = i / 6;
@@ -14886,7 +14886,7 @@ void VisTavSceneDruid::VMethod7() {
 
     this->bmp_background->Draw(x, y, 0, 0, 0);
 
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         this->anims_druid[0].Draw(x + 0xA8, y + 0x90);
         if (now - tavscene_druid_anims_ts > 100) {
             if (this->anims_druid[0].frame_idx == 0) {
@@ -15025,7 +15025,7 @@ void VisTavSceneDruid::VMethod7() {
     UnlockSurface2();
     CVisualObject::VMethod7();
 
-    if (main_wnd->sessionMode == 2 && now - this->ambient_last_tick > this->ambient_interval) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE && now - this->ambient_last_tick > this->ambient_interval) {
         switch (GetRandS16(3) + 1) {
         case 1:
             CSound::Play((CSound&)tav_druid->snd_druid[8]);
@@ -15074,7 +15074,7 @@ void VisTavSceneDruid::VMethod29() {
     this->bmp_flash = nullptr;
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->sessionMode != 2) {
+    if (main_wnd->sessionMode != SESSION_LOCAL_BATTLE) {
         for (int32_t i = 0; i < 13; i++) {
             delete this->quest_bmps[i];
             this->quest_bmps[i] = nullptr;
@@ -15110,7 +15110,7 @@ void VisTavSceneDruid::VMethod28() {
     g_mousept.Update();
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->sessionMode != 2) {
+    if (main_wnd->sessionMode != SESSION_LOCAL_BATTLE) {
         CString name;
         for (int32_t i = 0; i < 13; i++) {
             name.Format("graphics\\interface\\inn\\quests\\%02d.bmp", i + 1);
@@ -15164,7 +15164,7 @@ void VisTavSceneKaarg::VMethod7() {
 
     this->bmp_background->Draw(x, y, 0, 0, 0);
 
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         if (tavscene_kaarg_anim_state == -1) {
             this->script_frame_index = 0;
             int32_t which = Random0N(0x14) + 1;
@@ -15307,7 +15307,7 @@ void VisTavSceneKaarg::VMethod7() {
     }
     UnlockSurface2();
 
-    if (main_wnd->sessionMode == 2 && now - this->ambient2_last_tick > this->ambient2_interval) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE && now - this->ambient2_last_tick > this->ambient2_interval) {
         switch (GetRandS16(3) + 1) {
         case 1:
             CSound::Play((CSound&)tav_kaarg->snd_kaarg[7]);
@@ -15323,7 +15323,7 @@ void VisTavSceneKaarg::VMethod7() {
         this->ambient2_last_tick = timeGetTime();
     }
 
-    if (main_wnd->sessionMode == 2 && now - this->ambient1_last_tick > this->ambient1_interval) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE && now - this->ambient1_last_tick > this->ambient1_interval) {
         switch (GetRandS16(4) + 1) {
         case 1:
             CSound::Play((CSound&)tav_kaarg->snd_kaarg[0]);
@@ -15376,7 +15376,7 @@ void VisTavSceneKaarg::VMethod29() {
     this->bmp_ru_over = nullptr;
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->sessionMode != 2) {
+    if (main_wnd->sessionMode != SESSION_LOCAL_BATTLE) {
         for (int32_t i = 0; i < 13; i++) {
             delete this->quest_bmps[i];
             this->quest_bmps[i] = nullptr;
@@ -15410,7 +15410,7 @@ void VisTavSceneKaarg::VMethod28() {
     g_mousept.Update();
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->sessionMode != 2) {
+    if (main_wnd->sessionMode != SESSION_LOCAL_BATTLE) {
         CString name;
         for (int32_t i = 0; i < 13; i++) {
             name.Format("graphics\\interface\\inn\\quests\\%02d.bmp", i + 1);
@@ -15435,7 +15435,7 @@ void VisTavDruid::VMethod28() {
     this->info_panel->SetRect(&panel_rect);
     this->AddChild(this->info_panel);
 
-    if (g_settings.TipsMode != 0 && main_wnd->sessionMode == 2) {
+    if (g_settings.TipsMode != 0 && main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         CString tips_text;
         MissionGetTips(2, &tips_text);
         this->tips = new VisTipsDialog(0x467, 0, 0, 0x138, 0xC8, tips_text);
@@ -15448,7 +15448,7 @@ void VisTavDruid::VMethod28() {
         this->tips = nullptr;
     }
 
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         int32_t ids[32];
         int32_t count;
         ScenarioEnterInn(ids, &count);
@@ -15496,7 +15496,7 @@ void VisTavDruid::VMethod28() {
         name.Format("graphics\\interface\\inn_druid\\waterdrop\\d%.4d.bmp", i + 1);
         names.Add(name);
     }
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         scene_druid->anims_druid[0].LoadAnimFrames(&names);
     }
     names.RemoveAll();
@@ -15505,7 +15505,7 @@ void VisTavDruid::VMethod28() {
         name.Format("graphics\\interface\\inn_druid\\taverner\\a1%.4d.bmp", i + 1);
         names.Add(name);
     }
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         scene_druid->anims_druid[1].LoadAnimFrames(&names);
     }
     names.RemoveAll();
@@ -15514,7 +15514,7 @@ void VisTavDruid::VMethod28() {
         name.Format("graphics\\interface\\inn_druid\\taverner\\a2%.4d.bmp", i + 1);
         names.Add(name);
     }
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         scene_druid->anims_druid[2].LoadAnimFrames(&names);
     }
     names.RemoveAll();
@@ -15550,7 +15550,7 @@ void VisTavDruid::DoClose(uint32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     this->VMethod9();
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         ScenarioLeaveInn();
     }
 
@@ -15694,7 +15694,7 @@ void VisTavKaarg::VMethod28() {
     this->info_panel->SetRect(&panel_rect);
     this->AddChild(this->info_panel);
 
-    if (g_settings.TipsMode != 0 && main_wnd->sessionMode == 2) {
+    if (g_settings.TipsMode != 0 && main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         CString tips_text;
         MissionGetTips(2, &tips_text);
         this->tips = new VisTipsDialog(0x467, 0, 0, 0x138, 0xC8, tips_text);
@@ -15707,7 +15707,7 @@ void VisTavKaarg::VMethod28() {
         this->tips = nullptr;
     }
 
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         int32_t ids[32];
         int32_t count;
         ScenarioEnterInn(ids, &count);
@@ -15755,7 +15755,7 @@ void VisTavKaarg::VMethod28() {
         name.Format("graphics\\interface\\inn_kaarg\\taverner\\a1%.4d.bmp", i + 1);
         names.Add(name);
     }
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         scene_kaarg->anims_kaarg[0].LoadAnimFrames(&names);
     }
     names.RemoveAll();
@@ -15764,7 +15764,7 @@ void VisTavKaarg::VMethod28() {
         name.Format("graphics\\interface\\inn_kaarg\\taverner\\a2%.4d.bmp", i + 1);
         names.Add(name);
     }
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         scene_kaarg->anims_kaarg[1].LoadAnimFrames(&names);
     }
     names.RemoveAll();
@@ -15773,7 +15773,7 @@ void VisTavKaarg::VMethod28() {
         name.Format("graphics\\interface\\inn_kaarg\\taverner\\a3%.4d.bmp", i + 1);
         names.Add(name);
     }
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         scene_kaarg->anims_kaarg[2].LoadAnimFrames(&names);
     }
     names.RemoveAll();
@@ -15782,7 +15782,7 @@ void VisTavKaarg::VMethod28() {
         name.Format("graphics\\interface\\inn_kaarg\\taverner\\a4%.4d.bmp", i);
         names.Add(name);
     }
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         scene_kaarg->anims_kaarg[3].LoadAnimFrames(&names);
     }
     names.RemoveAll();
@@ -15791,7 +15791,7 @@ void VisTavKaarg::VMethod28() {
         name.Format("graphics\\interface\\inn_kaarg\\taverner\\a5%.4d.bmp", i);
         names.Add(name);
     }
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         scene_kaarg->anims_kaarg[4].LoadAnimFrames(&names);
     }
     names.RemoveAll();
@@ -15827,7 +15827,7 @@ void VisTavKaarg::DoClose(uint32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     this->VMethod9();
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         ScenarioLeaveInn();
     }
 
@@ -18005,7 +18005,7 @@ int32_t VisInvExtType3::VMethod38() {
 // 4B9790
 int32_t VisInvExtType3::VMethod37(int32_t idx) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (GetRandS16(100) < 0x1E && main_wnd->sessionMode == 2 && main_wnd->drag_entry != nullptr) {
+    if (GetRandS16(100) < 0x1E && main_wnd->sessionMode == SESSION_LOCAL_BATTLE && main_wnd->drag_entry != nullptr) {
         TokenEntry* entry = main_wnd->drag_entry;
         if (entry->slot_code > 4 && entry->slot_code < 9) {
             char shopname[80];
@@ -18297,7 +18297,7 @@ void VisStartGame::VMethod7() {
             this->acceptButtonRect.Width(),
             this->acceptButtonRect.Height());
     }
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         for (int32_t i = 0; i < 3; i++) {
             if (this->difficultyStateFlags.ElementAt(i) == 2) {
                 const CRect& r = this->difficultyRects.ElementAt(i);
@@ -18517,7 +18517,7 @@ int32_t VisStartGame::OnLButtonDown(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     VisStartGameTextBox* label;
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         label = this->networkNameLabel;
     } else {
         label = this->nameLabel;
@@ -18526,21 +18526,21 @@ int32_t VisStartGame::OnLButtonDown(uint32_t wparam, CPoint pos) {
     this->UpdateTipsProgress(hotspot);
     switch (hotspot) {
     case 0x14:
-        if (main_wnd->sessionMode == 2) {
+        if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
             this->committedDifficultyIndex = 0;
             StopSfx(&this->difficultyLevel1Sound.sample);
             CSound::Play(this->difficultyLevel1Sound);
         }
         break;
     case 0x28:
-        if (main_wnd->sessionMode == 2) {
+        if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
             this->committedDifficultyIndex = 1;
             StopSfx(&this->difficultyLevel2Sound.sample);
             CSound::Play(this->difficultyLevel2Sound);
         }
         break;
     case 0x3C:
-        if (main_wnd->sessionMode == 2) {
+        if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
             this->committedDifficultyIndex = 2;
             StopSfx(&this->difficultyLevel3Sound.sample);
             CSound::Play(this->difficultyLevel3Sound);
@@ -18854,7 +18854,7 @@ void VisStartGame::VMethod28() {
     this->RemoveChildById(0x464);
     this->RemoveChildById(0x465);
 
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         this->AddChild(this->networkNameLabel);
         this->networkNameLabel->SetText(this->char_name);
     } else {
@@ -18896,7 +18896,7 @@ void VisStartGame::DoClose(uint32_t code) {
     this->dialogActiveFlag = 0;
     this->FreeBitmaps();
     this->FreeSamples();
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         this->char_name = this->networkNameLabel->GetText();
     } else {
         this->char_name = this->nameLabel->GetText();
@@ -18919,7 +18919,7 @@ const char* VisStartGame::GetHint() {
 
     uint32_t hotspot = this->GetHotspotId(g_mousept.GetX(), g_mousept.GetY());
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         switch (hotspot) {
         case 0x14:
             return TxtFile::AllLines.GetAt(0xF7);
@@ -18984,7 +18984,7 @@ void VisStartGame::UpdateTipsProgress(uint32_t hotspot) {
 // client: 43a2af
 void VisStartGame::Accept() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (main_wnd->sessionMode == 2) {
+    if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         if (this->networkNameLabel->GetText().GetLength() > 0) {
             CSound::Play(this->acceptSound);
             this->MsgProc(0x445, 0, 0);
@@ -26314,7 +26314,7 @@ CVisualObject* VisConnectionDlg::VMethod30(const void* data, const RECT& r) {
     CStringArray* names = new CStringArray();
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    int32_t no_serial = (main_wnd->sessionMode == 3) ? 1 : 0;
+    int32_t no_serial = (main_wnd->sessionMode == SESSION_SERVER) ? 1 : 0;
 
     int32_t count = 0;
     g_CLlDriver.EnumConnections(&this->protocols, &count);

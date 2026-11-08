@@ -471,7 +471,7 @@ void CGameSession::RefreshCharacterRosterFiles(int val) { //49265a
 	this->characterRosterNames.RemoveAll();
 	this->characterRosterHatId.RemoveAll();
 
-	if (mwnd->sessionMode != 2) {
+	if (mwnd->sessionMode != SESSION_LOCAL_BATTLE) {
 		CArray<FILETIME> ftimes;
 		CFileFind ff;
 		BOOL found = ff.FindFile("*.a2c");

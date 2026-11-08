@@ -220,7 +220,7 @@ void InitCpuAndDistTables() {
 // 43A857
 void __cdecl PostConsoleLine(const char* source) {
 	MainWindow* mainWnd = (MainWindow*)AfxGetMainWnd();
-	if (!mainWnd || mainWnd->sessionMode != 3) {
+	if (!mainWnd || mainWnd->sessionMode != SESSION_SERVER) {
 		return;
 	}
 
@@ -788,7 +788,7 @@ BOOL GameApp::OnIdle(LONG lCount) { //4835b0
 
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
-	if (mwnd->sessionMode == 3 && g_Server) {
+	if (mwnd->sessionMode == SESSION_SERVER && g_Server) {
 		mwnd->IdleLoop();
 	} else if ((mwnd->dialogsMask & 1) == 0) {
 		if (mwnd->serverBootstrapEnabled == 0 || !g_Server) {
@@ -814,7 +814,7 @@ BOOL GameApp::OnIdle(LONG lCount) { //4835b0
 	} else {
 		if (mwnd->serverBootstrapEnabled == 0) {
 			mwnd->RemoteGameIdle();
-		} else if ((mwnd->dialogsMask & 1) != 0 && (mwnd->sessionMode != 2 || (mwnd->dialogsMask & 0x4008) == 0)) {
+		} else if ((mwnd->dialogsMask & 1) != 0 && (mwnd->sessionMode != SESSION_LOCAL_BATTLE || (mwnd->dialogsMask & 0x4008) == 0)) {
 			if (mwnd->unlimited_speed == 0) {
 				mwnd->SingleGameTimedIdle();
 			} else {

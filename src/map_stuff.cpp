@@ -2988,7 +2988,7 @@ Scenario::Scenario(const char* fname) {
             if (temp_unit->monster_info->values.GetUpperBound() > 0x36) {
                 temp_unit->server_id = (uint16_t)temp_unit->monster_info->values[0x37];
             }
-            if (mwnd->sessionMode == 2 && g_Server != nullptr && g_Server->difficulty != 2) {
+            if (mwnd->sessionMode == SESSION_LOCAL_BATTLE && g_Server != nullptr && g_Server->difficulty != 2) {
                 if (g_Server->difficulty == 1) {
                     temp_unit->hp_max = temp_unit->hp_max / 2.0;
                     temp_unit->hp = temp_unit->hp_max;
