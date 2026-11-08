@@ -366,6 +366,7 @@
     <ClCompile Include="util.cpp" />
     <ClCompile Include="virtual_caster.cpp" />
     <ClCompile Include="visibility.cpp" />
+    <ClCompile Include="vis_shop.cpp" />
     <ClCompile Include="vis_inventory.cpp" />
     <ClCompile Include="vis_char.cpp" />
     <ClCompile Include="vis_menu.cpp" />

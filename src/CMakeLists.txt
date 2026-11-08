@@ -62,6 +62,7 @@ set(A2_SOURCES
   vis_menu.cpp
   vis_char.cpp
   vis_inventory.cpp
+  vis_shop.cpp
   world.cpp
   res/a2server.rc
 )
