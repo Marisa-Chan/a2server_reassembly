@@ -405,7 +405,6 @@ public: // VTable at 0060c1a8.
 public:
     void IdleLoop(); // Game loop tick processing function, called from GameApp::OnIdle when server is active.
     void ServerTickPump();  // client: 487ef5
-    void sub_41EA70(UINT msg, WPARAM wparam, LPARAM lparam);  // client: 420960
 
     int SetSpeed(int speed);  // client: 492068
 

@@ -287,8 +287,8 @@ struct HatBrowserProgress {
     HatBrowserProgress(); // 4b18c0
     ~HatBrowserProgress();
     void Init(const char* hst); // 4b1a9b - resolve host, open the ICMP socket, arm the session
-    void FUN_004b1dbb(); // 4b1dbb - send one ICMP echo and read the reply
-    int32_t FUN_00453df0(); // 453df0 - returns error
+    void PingServer(); // 4b1dbb - send one ICMP echo and read the reply
+    int32_t GetPingError(); // 453df0 - returns error
 };
 
 
@@ -466,8 +466,8 @@ public:
     void SendHatConnectServer(HatCharId key, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t sphere, uint8_t type_face, uint8_t color, const CString& name, const CString& srv); //51da14   (client:50e5cf)
 
     void SendServerConnectHatTicket(HatCharId ticket, uint16_t player_id); //51dce5   (client:50e8c0)
-    void FUN_0050eede(); // client-only helper (client: 50eede)
-    void FUN_0050e70d(HatCharId id); // client-only helper (client: 50e70d)
+    void SendUnknownDC(); // client-only helper (client: 50eede)
+    void SendHatCharRequest(HatCharId id); // client-only helper (client: 50e70d)
 
     NetStru2* GetFirstClient();
 };

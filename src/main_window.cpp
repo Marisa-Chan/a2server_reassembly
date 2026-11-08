@@ -628,7 +628,7 @@ void MainWindow::OnSysKeyDown(UINT key, UINT repeat, UINT flags) {
             } else if (key == 0x53) {
                 SaveScreenshot();
             } else if (key > 0x41 && key < 0x5A && (this->dialogsMask & 1) != 0) {
-                this->vis_map_context->sub_41AC2D(key - 0x41);
+                this->vis_map_context->SendHotkeyBroadcast(key - 0x41);
             }
         }
     }
@@ -652,7 +652,7 @@ void MainWindow::OnDestroy() {
     }
 
     if ((this->dialogsMask & 1) != 0) {
-        this->vis_map_context->FUN_0041d2da(1);
+        this->vis_map_context->ResetWorldState(1);
         this->UnloadMapAssets();
         this->DestroyServer();
     }
@@ -807,7 +807,7 @@ void MainWindow::ClearDiplomacyEntries() {
 
 // 49152f  client 495c94
 int32_t MainWindow::WaitConnectionCharacterJoin() {
-    if (this->vis_map_context->FUN_0040d7f3() == 0) {
+    if (this->vis_map_context->SendEnterGameAndWait() == 0) {
         VisMessageBoxWithList* mbox;
         if ((INT_00660f8c & 0xff) < 0xB) {
             mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, TxtFile::AllLines[(INT_00660f8c & 0xff) + 0xC0], nullptr, 0);
@@ -1186,7 +1186,7 @@ void MainWindow::OnChar(UINT ch, UINT repeat, UINT flags) {
 void MainWindow::OpenConsoleInput() {
     this->vis_map_context->full_redraw_requested = 1;
     this->vis_map_context->AddChild(this->vis_1200);
-    this->vis_1200->FUN_0043be9f();
+    this->vis_1200->RepositionAboveDialogs();
     this->vis_1200->VMethod28();
     this->vis_root->VMethod9();
     this->console_active = 1;
@@ -1392,7 +1392,7 @@ void MainWindow::ProcessPlayersTick() {
         g_Server->ProcessPlayers();
 
     if (g_NetStru1_local.IsActive() && sessionMode != 3)
-        vis_map_context->FUN_0041d2da(1);
+        vis_map_context->ResetWorldState(1);
 
     if ((dialogsMask & 1) != 0)
         UnloadMapAssets();
@@ -2470,7 +2470,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
     this->vis_map_context->full_redraw_requested = 1;
 
     if (obj == this->vis_shop || obj == this->vis_shopdruid || obj == this->vis_shopkaarg) {
-        this->vis_map_context->FUN_0041a8cc();
+        this->vis_map_context->SendShopClose();
         this->vis_map_context->UpdateSelectionState();
         if (this->sessionMode != 2) {
             this->PlayDefaultMusic();
@@ -2483,16 +2483,16 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
             CString str;
             this->vis_1200->WriteData(&str);
             if (str[0] == '=') {
-                this->vis_map_context->FUN_0041b2a4(str.Mid(1), 3, 0);
+                this->vis_map_context->SendChatPacket(str.Mid(1), 3, 0);
             } else if (str[0] == '-') {
-                int val = this->vis_1200->FUN_004972d0();
+                int val = this->vis_1200->GetMatchPlayerIndex();
                 if (val == -1) {
-                    this->vis_map_context->FUN_0041b2a4(str.Mid(1), 1, 0);
+                    this->vis_map_context->SendChatPacket(str.Mid(1), 1, 0);
                 } else {
-                    this->vis_map_context->FUN_0041b2a4(str.Mid(this->vis_1200->FUN_00497310()), 2, val);
+                    this->vis_map_context->SendChatPacket(str.Mid(this->vis_1200->GetMatchNameLength()), 2, val);
                 }
             } else {
-                this->vis_map_context->FUN_0041b2a4(str, 0, 0);
+                this->vis_map_context->SendChatPacket(str, 0, 0);
             }
         }
     } else if (obj == this->vis_logownd) {
@@ -2645,7 +2645,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
     } else if (obj == this->vis_credits) {
         this->dialogsMask &= ~0x40;
 
-        if (FUN_00497490() == 0) {
+        if (IsLateCampaignMission() == 0) {
             CWnd::PostMessage(0x421, 0, 0);
         } else {
             CWnd::PostMessage(0x429, 0, 0);
@@ -2660,7 +2660,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         this->dialogsMask &= ~0x8;
 
         if (this->gap_0x12c->GetCloseCode() == 0x447) {
-            this->vis_map_context->FUN_0041d2da(1);
+            this->vis_map_context->ResetWorldState(1);
             PostMessage(0x421, 0, 0);
         } else {
             PostMessage(0x42e, 0, 0);
@@ -2827,7 +2827,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
                 }
             }
 
-            this->vis_map_context->FUN_0041a735();
+            this->vis_map_context->SendDiplomacyState();
         }
 
         delete obj;
@@ -3115,7 +3115,7 @@ void MainWindow::AutosaveGame() { // 48f905
 
         local_13c.Close();
     } else {
-        this->vis_map_context->FUN_0041afcf(this->last_save_info.filename);
+        this->vis_map_context->SendPlayerName(this->last_save_info.filename);
     }
 }
 
@@ -3293,7 +3293,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         this->DestroyServer();
 
         if (this->dialogsMask == 0 && vis_root->FindChild(1020) != nullptr) {
-            this->vis_map_context->FUN_0041d2da(1);
+            this->vis_map_context->ResetWorldState(1);
 
             ScenarioLocation* cur_location = ScenarioGetCurrentLocation();
             if (cur_location != nullptr) {
@@ -3336,9 +3336,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
     case 0x41d:
         if (this->sessionMode == 1 || this->sessionMode == 3) {
             if (this->sessionMode == 1) {
-                this->vis_map_context->FUN_0041d2da(0);
+                this->vis_map_context->ResetWorldState(0);
             } else {
-                this->vis_map_context->FUN_0041d2da(1);
+                this->vis_map_context->ResetWorldState(1);
             }
 
             if ((this->dialogsMask & 1) != 0) {
@@ -3350,7 +3350,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         } else if (this->sessionMode == 0) {
 #ifdef A2CLIENT
             if (net_session.internet_game == 0 || hat_settings.ishat == 0 || hat_settings.deathmatch != 0) {
-                vis_map_context->FUN_0041d2da(1);
+                vis_map_context->ResetWorldState(1);
                 if ((dialogsMask & 1) != 0)
                     UnloadMapAssets();
 
@@ -3360,10 +3360,10 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                 CWnd::PostMessage(0x452, 0, 0);
             }
             else {
-                vis_map_context->FUN_0041be0f();
+                vis_map_context->SendGroupStopAfk();
             }
 #else
-            this->vis_map_context->FUN_0041d2da(1);
+            this->vis_map_context->ResetWorldState(1);
 
             if ((this->dialogsMask & 1) != 0) {
                 this->UnloadMapAssets();
@@ -3410,7 +3410,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                 this->PlayVideo(loc);
             }
 
-            if (FUN_00497490() == 0) {
+            if (IsLateCampaignMission() == 0) {
                 if (local_894 != 0) {
                     this->vis_map_context->SendAdjustPlayerGoldAction(local_894);
                 }
@@ -3425,7 +3425,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                 }
             } else {
                 this->m_FameHall.SubmitScore();
-                this->vis_map_context->FUN_0041d2da(1);
+                this->vis_map_context->ResetWorldState(1);
                 PostMessage(MSG_428, 0 ,0);
             }
         }
@@ -3553,7 +3553,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x430:
-        if (FUN_00497490() == 0) {
+        if (IsLateCampaignMission() == 0) {
             this->in_famehall_mission = 1;
 
             CRect local_8d0(128, 200, 512, 380);
@@ -3840,7 +3840,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             if (this->sessionMode == 0) {
                 INT_00660f8c = 0;
                 this->enter_ack_received = 0;
-                this->vis_map_context->FUN_0041cb21();
+                this->vis_map_context->SendRequestMapInfo();
 
                 while (this->enter_ack_received == 0) {
                     if (g_NetStru1_local.GetClientsPktNum() == 0) {
@@ -3970,7 +3970,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                 vis_root->MsgProc(0x445, 0, 0);
             }
             
-            this->vis_map_context->FUN_0041d2da(1);
+            this->vis_map_context->ResetWorldState(1);
 
             if (this->dialogsMask & 1) {
                 this->UnloadMapAssets();
@@ -4004,7 +4004,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
     case 0x45d:
         if (this->sessionMode == 0) {
-            this->vis_map_context->FUN_0041d2da(0);
+            this->vis_map_context->ResetWorldState(0);
             if (this->dialogsMask & 1) {
                 this->UnloadMapAssets();
             }
@@ -4079,7 +4079,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
             this->RunSessionBootstrap(0);
         } else {
-            this->vis_map_context->FUN_0041b064(0, 0);
+            this->vis_map_context->SendCheatShop(0, 0);
             this->ShowCurrentTownDialog();
         }
         break;
@@ -4188,7 +4188,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x48e:
-        vis_map_context->FUN_0041d2da(0);
+        vis_map_context->ResetWorldState(0);
         if ((this->dialogsMask & 1) != 0)
             UnloadMapAssets();
 
@@ -4199,7 +4199,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             ModalScreen(new VisMessageBoxWithList(1, 64, 100, 428, 594, txt_patch.GetLine(187 + wParam), nullptr, 0x1000));
         }
         PostMessage(0x487, 0, 0);
-        vis_map_context->FUN_0041d2da(1);
+        vis_map_context->ResetWorldState(1);
         break;
 #endif
     }
@@ -4287,7 +4287,7 @@ void MainWindow::BeginLocalCharacterSetup() { // 48f79d
     } else if (this->GetSaveFileInBattle()) {
         this->RunSessionBootstrap(1);
     } else {
-        this->vis_map_context->FUN_0041b10f();
+        this->vis_map_context->SendRequestUnitsResend();
         g_Server->PumpNetwork();
 
         while (g_NetStru1_local.GetClientsPktNum()) {
@@ -4295,7 +4295,7 @@ void MainWindow::BeginLocalCharacterSetup() { // 48f79d
         }
 
         this->LoadSavegame();
-        this->vis_map_context->FUN_0041b064(0, 0);
+        this->vis_map_context->SendCheatShop(0, 0);
         PostMessage(0x42e, 0, 0);
     }
     g_mousept.EnableHint();
@@ -4363,10 +4363,10 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
 
         this->pending_game_mode = mode;
 
-        this->vis_map_context->FUN_0041cad0(mode);
-        this->vis_map_context->FUN_0041aaaa(this->vis_map_context->wimpy);
-        this->vis_map_context->FUN_0041abd2(this->vis_map_context->formation);
-        this->vis_map_context->FUN_0041ab74();
+        this->vis_map_context->SendGameMode(mode);
+        this->vis_map_context->SendWimpyMode(this->vis_map_context->wimpy);
+        this->vis_map_context->SendFormationMode(this->vis_map_context->formation);
+        this->vis_map_context->SendAutoCastSetting();
 
         if (this->serverBootstrapEnabled != 0) {
             g_Server->ServerTic();
@@ -4440,11 +4440,11 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
 
         if (reg.GetInt("SpellBook", "IsOpen", 0) == 0) {
             if (this->vis_map_context->IsBookOpen() != 0) {
-                this->vis_map_context->FUN_0041b636();
+                this->vis_map_context->CloseSpellBook();
             }
         } else {
             if (this->vis_map_context->IsBookOpen() == 0) {
-                this->vis_map_context->FUN_0041b509();
+                this->vis_map_context->OpenSpellBook();
             }
         }
 
@@ -4478,11 +4478,11 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
 
         if (reg.GetInt("Inventory", "IsOpen", 0) == 0) {
             if (this->vis_map_context->IsBagOpen() != 0) {
-                this->vis_map_context->FUN_0041b40e();
+                this->vis_map_context->CloseBag();
             }
         } else {
             if (this->vis_map_context->IsBagOpen() == 0) {
-                this->vis_map_context->FUN_0041b381();
+                this->vis_map_context->OpenBag();
             }
         }
 
@@ -4936,7 +4936,7 @@ void MainWindow::LoadSavegame() { //48df44
 
 void MainWindow::UnloadMapAssets() { //48f6f7
 
-    this->vis_map_context->FUN_0041c39c();
+    this->vis_map_context->StopAmbientSounds();
     if (g_SoundSettings.music_allowed != 0) {
         this->music_player->OnEndTrack();
     }
@@ -5122,7 +5122,7 @@ void MainWindow::ShowShopDialog(uint32_t id) { //48cdce
     }
 
     if (this->vis_map_context->IsBookOpen() != 0) {
-        this->vis_map_context->FUN_0041b636();
+        this->vis_map_context->CloseSpellBook();
     }
 
     g_Cursors[CURSOR_WAIT]->Use();
@@ -5180,7 +5180,7 @@ void MainWindow::ShowInnDialog(uint32_t id, int32_t interact_target) { //48d4da
     }
 
     if (this->vis_map_context->IsBookOpen() != 0) {
-        this->vis_map_context->FUN_0041b636();
+        this->vis_map_context->CloseSpellBook();
     }
 
     g_Cursors[CURSOR_WAIT]->Use();
@@ -5832,7 +5832,7 @@ int32_t MainWindow::ClientRefreshUpdateCharacters() { // client 494f53
     }
 
     for (int i = 0; i < m_GameSession.pending_hat_downloads.GetSize(); i++) {
-        g_NetStru1_local.FUN_0050e70d(m_GameSession.pending_hat_downloads[i]);
+        g_NetStru1_local.SendHatCharRequest(m_GameSession.pending_hat_downloads[i]);
     }
     m_GameSession.pending_hat_downloads.RemoveAll();
     return 1;
@@ -5999,9 +5999,9 @@ int CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit() {
 #else
     if ((this->flags & 1) == 0 && wnd->sessionMode != 2 && (wnd->net_session.internet_game == 0 || wnd->hat_settings.ishat == 0)) {
 #endif
-        wnd->vis_map_context->FUN_0041cc78(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex]);
+        wnd->vis_map_context->SendRequestUnitUpdateFile(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex]);
     } else {
-        wnd->vis_map_context->FUN_0041cbb8();
+        wnd->vis_map_context->SendJoinMap();
     }
 
     if (wnd->sessionMode == 1 || wnd->sessionMode == 2) {
@@ -6495,7 +6495,7 @@ void CGameSession::DeleteSelectedCharacter() { //493cd8 client 4986a3
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
     if (mwnd->hat_settings.ishat && mwnd->net_session.internet_game) {
         HatCharId hid = characterRosterHatId[selectedCharacterRosterFileIndex];
-        g_NetStru1_local.FUN_0050e70d(hid);
+        g_NetStru1_local.SendHatCharRequest(hid);
 
         for (int i = 0; i < hat_char_ids.GetSize(); i++) {
             if (hid.id == hat_char_ids[i].id) {

@@ -423,13 +423,13 @@ void World::BuildAllyList(Group* group) {
     }
 
     Visibility* visibility = &this->map_stuff->visibility;
-    visibility->sub_58E1C1();
+    visibility->ClearVisScratch();
     uint8_t* scratch = visibility->vis_scratch;
 
     for (; it != nullptr;) {
         Unit* u = group->unit_list.GetNext(it);
         uint16_t yx = u->position->CompatGetYX();
-        visibility->sub_58DE69(u, yx);
+        visibility->RefreshUnitVisibility(u, yx);
 
         if (u->pOwner->is_ai != 0 && u->eye2->position3 != 0) {
             scratch[u->eye2->position3] += 1;
@@ -478,13 +478,13 @@ void World::ScanNearbyUnits(Group* group) {
     }
 
     Visibility* visibility = &this->map_stuff->visibility;
-    visibility->sub_58E1C1();
+    visibility->ClearVisScratch();
     uint8_t* scratch = visibility->vis_scratch;
 
     for (; it != nullptr;) {
         Unit* u = group->unit_list.GetNext(it);
         uint16_t yx = u->position->CompatGetYX();
-        visibility->sub_58DE69(u, yx);
+        visibility->RefreshUnitVisibility(u, yx);
 
         if (u->pOwner->is_ai && u->eye2->position3 != 0) {
             scratch[u->eye2->position3] += 1;
@@ -2410,11 +2410,11 @@ uint8_t World::UnitMaxRange(Unit* unit) { //5a6adb
 // 5A5E54 — build active/alternate target lists around unit.
 void World::BuildTargetLists(Unit* unit) {
     Visibility* visibility = &this->map_stuff->visibility;
-    visibility->sub_58E1C1();
+    visibility->ClearVisScratch();
     uint8_t* scratch = visibility->vis_scratch;
 
     uint16_t yx = unit->position->CompatGetYX();
-    visibility->sub_58DE69(unit, yx);
+    visibility->RefreshUnitVisibility(unit, yx);
 
     if (unit->pOwner->is_ai && unit->eye2->position3 != 0) {
         scratch[unit->eye2->position3] += 1;
@@ -2979,7 +2979,7 @@ void World::OrderPatrolTo(Unit* unit, uint8_t x, uint8_t y) {
     unit->eye2->position2 = unit->eye2->positions_list->GetTail();
     unit->eye2->patrol_reanchor = 0;
     unit->eye2->cast_action = 0;
-    this->map_stuff->visibility.sub_58D768(unit, unit->position->CompatGetYX());
+    this->map_stuff->visibility.ScanUnitVisibility(unit, unit->position->CompatGetYX());
 }
 
 // 5A9918 — helper used by GroupGoHomeCommand: set unit to idle/wander state 0x16.

@@ -888,7 +888,7 @@ int GameApp::ExitInstance() { //4833f1
 
 
 
-int FUN_00497490() { //497490
+int IsLateCampaignMission() { //497490
 	return ScenarioGetVar(0x300) > 0x77;
 }
 

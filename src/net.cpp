@@ -4995,14 +4995,14 @@ void NetStru1::SendServerConnectHatTicket(HatCharId ticket, uint16_t player_id) 
     QueuePacketSend(pkt);
 }
 
-void NetStru1::FUN_0050eede() { // client 50eede
+void NetStru1::SendUnknownDC() { // client 50eede
     Packet* pkt = &Packet::Inst;
     pkt->id = UNKNOWN_DC;
     pkt->to_player_id = 0;
     QueuePacketSend(pkt);
 }
 
-void NetStru1::FUN_0050e70d(HatCharId id) { //client  50e70d
+void NetStru1::SendHatCharRequest(HatCharId id) { //client  50e70d
     Packet2Dwords* pkt = &Packet2Dwords::Inst;
     pkt->id = HAT_CHAR_REQUEST;
     pkt->to_player_id = 0;

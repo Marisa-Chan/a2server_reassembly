@@ -113,7 +113,7 @@ void LoadFonts();  //460c37 (client: 464849)
 void LoadSettings(); //441a03 (client: 443fd2)
 void __cdecl SetMessageColors(uint32_t); //476de7 (client: 47ab33)
 
-int FUN_00497490(); //497490
+int IsLateCampaignMission(); //497490
 
 void SrandInit(); //5421e9 (client: 5296c9)
 

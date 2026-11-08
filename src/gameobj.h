@@ -376,10 +376,10 @@ struct StructEnter {
 	StructEnter(); //474f20 (client: 477ac0) in asm
 	~StructEnter(); //474f90 (client: 477b30) in asm
 	void RebuildFromMap(); //473b80 (client: 4778d0) in asm
-	int32_t FUN_00473d10(); //473d10 (client: 477a60) in asm
-	void FUN_00474ff0(CUnit* unit); //474ff0 in asm
+	int32_t FindFlaggedStructureUnit(); //473d10 (client: 477a60) in asm
+	void AddStructureUnit(CUnit* unit); //474ff0 in asm
 	void ClearGroups(); //475010 (client: 477b90) in asm
-	void FUN_00475080(CUnit* unit); //475080 (client: 477f70) in asm
+	void AddPartyMember(CUnit* unit); //475080 (client: 477f70) in asm
 };
 ASSERT_SIZE(StructEnter, 0x30);
 

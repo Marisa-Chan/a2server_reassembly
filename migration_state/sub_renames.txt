@@ -1,0 +1,320 @@
+# Proposed renames for address-named methods (sub_XXXXXX / FUN_00XXXXXX)
+#
+# APPLIED 2026-11-08: all 254 entries landed and were squashed into a single commit
+# 8420a362 "Rename all address-named sub_/FUN_ methods to semantic names (254)".
+#
+# Generated 2026-11-08. Every entry was proposed from the actual C++ body (and, where the
+# body alone was ambiguous, from call sites). 254 names total: 244 class methods across 34
+# classes + 10 free functions. One line per rename, format:  OldName -> NewName : reasoning
+#
+# When applying a rename: update the header declaration, the cpp definition and all call
+# sites; keep the `// <addr>` and `(client: <va>)` comments intact (the recheck tools key
+# off them). No C++ code was changed to produce this file.
+#
+# Names were checked against the codebase for collisions; four early proposals were
+# adjusted because of existing methods: SendChatMessage (DirectPlay macro),
+# SetControlGroup (CGameObject::SetControlGroup), ConfirmBuy/ConfirmSell (Shop::
+# /CMultiShopTemplate::), CloseShop (Shop::CloseShop).
+
+# ====================================================================
+# TakeDamage (ingame.cpp) - floating damage label over a unit
+# ====================================================================
+FUN_0041f620 -> GetScreenX : returns this->dx + cunit->centerScreenX, the label's screen X anchor
+FUN_0041f640 -> GetScreenY : returns dy + centerScreenY - terrainHeightOffset, the label's screen Y anchor
+
+# ====================================================================
+# BigStruct2 (ingame.cpp) - main in-game world view screen
+# ====================================================================
+FUN_0041b2a4 -> SendChatPacket : queues PacketJoin id=Chat carrying a player name/token; renamed from SendChatMessage to avoid the DirectPlay macro name
+FUN_0041a8cc -> SendShopClose : queues PacketWord id=ShopClose with the open shop's unit_id and clears the shop dialogsMask bit
+FUN_0040d7f3 -> SendEnterGameAndWait : sends PacketEnterGame, wipes local world state, then pumps messages until the server acks (map_players >= 2) or timeout
+FUN_0041cbb8 -> SendJoinMap : queues Packet2Dwords id=JoinMap with the GameSession stats (body/reaction/mind/spirit/sphere/face/color)
+FUN_0041cc78 -> SendRequestUnitUpdateFile : queues PacketData id=RequestUnitUpdate embedding a file's contents (<0x8000 bytes)
+FUN_0041d2da -> ResetWorldState : deletes objects/projectiles/damage labels/scenario, prunes map_players, drains packets, clears sound channels and map music
+FUN_0041afcf -> SendPlayerName : queues PacketJoin id=7 carrying the new player name
+FUN_0041a735 -> SendDiplomacyState : queues PacketTerrain id=SetDiplomacy with my_main_unit's diplomacy array
+FUN_0041c39c -> StopAmbientSounds : resets ambient view position and stops the two ambient SfxArray channels (50/90)
+FUN_0041cad0 -> SendGameMode : queues Packet2Dwords id=4 with the pending game mode right after entering a map (MainWindow join path)
+FUN_0041aaaa -> SendWimpyMode : queues SetParameter(param1=1, wimpy)
+FUN_0041abd2 -> SendFormationMode : queues SetParameter(param1=2, formation)
+FUN_0041ab74 -> SendAutoCastSetting : queues SetParameter(param1=3, g_settings.AutoCasting)
+FUN_0041b6e0 -> RecalcVisibleMapHeight : recomputes view_tiles_y from the bag/spellbook top edge, clamps view_y, repositions the console, forces full redraw
+FUN_0041b636 -> CloseSpellBook : removes the vis_spellbook child, plays sfx 7, notifies the right panel, recalcs the view height
+FUN_0041b509 -> OpenSpellBook : positions and attaches vis_spellbook (rect depends on whether the bag is open)
+FUN_0041b40e -> CloseBag : removes vis_invtype1 and repositions the spellbook
+FUN_0041b381 -> OpenBag : attaches vis_invtype1 and repositions the spellbook
+FUN_0041b10f -> SendRequestUnitsResend : queues Packet id=RequestUnitsResend
+FUN_0041b064 -> SendCheatShop : queues Packet2Dwords id=CheatShop with two params
+sub_406F7B -> RenderWorldFrame : the per-frame world render - scroll handling + incremental terrain redraw, shadows, objects, projectiles, fog fills, edge strips, msglog, FPS/netstat overlays
+sub_40403B -> RebuildWorldGrids : memsets the tile grids, re-updates every object's map position/layer/light, rebuilds corner_tile_kind from the landscape, extends dirty rects
+sub_404E1A -> DrawTerrainFull : draws every terrain tile (flat or height-deformed) with overlay-map lighting
+sub_405399 -> DrawTerrainAnimated : redraws only the animated terrain tiles at the tile-scroll offset during scrolling
+sub_40587B -> DrawTerrainScrolled : redraws terrain tiles offset by tile_scroll for incremental scroll redraw
+sub_405D0E -> RedrawLitTerrain : redraws only tiles whose corner lighting changed (lightning/overrides), min()ed with overlay light
+sub_404912 -> ApplyTerrainLightOverrides : writes the 0x00/0x50 bytes into the overlay map for terrain_light_override cells
+sub_404A2C -> UpdateTileLight : rebuilds per-tile light from corner_light, with override bits and animated flicker
+sub_404DA3 -> AddHitRect : appends rect+unit id to hit_rects/hit_unit_ids for mouse hover picking
+sub_403B8F -> StepShadowRay : one shadow-casting step: updates shadow_light[x][y] from the sun-facing neighbor and returns val<=0 (in shadow)
+sub_41B155 -> SendRequestRespawn : queues Packet2Dwords id=RequestRespawn (space key while dead)
+sub_41CE14 -> SendHurtSelf : queues Packet2Dwords id=HurtSelf (Ctrl+U)
+sub_41AC2D -> SendHotkeyBroadcast : queues SetParameter(param1=0x80, letter_index) for A..Z presses during a map (co-op quick-command; exact semantics undecoded)
+sub_41AC88 -> SendDropGold : queues Packet2Dwords id=DropGold with count and packed tile coords
+sub_40328E -> FreeTileGrids : frees all tile/corner/height grid buffers
+sub_402FB8 -> AllocTileGrids : computes view_tiles from the rect and mallocs all grid buffers (ctor / resize)
+sub_403730 -> BuildShadowTables : fills the quadrant-symmetric shadow_step directions and shadow_ray_len tables
+FUN_00403ca0 -> BuildShadowField : resets shadow_light, seeds it with the object's scan_range and casts rays ring by ring around the object
+FUN_0041c74b -> ApplyTileLightMask : sets/clears per-tile terrain_light_override bits from a bitmap; writes overlay/lightning effects for kinds 0xE/0xF/3
+FUN_0041cb21 -> SendRequestMapInfo : queues Packet2Dwords id=RequestMapInfo
+FUN_0041cb67 -> SendRequestFileChunk : queues Packet2Dwords id=RequestFileChunk with the chunk index
+FUN_0041da52 -> BuildUnitPortrait : renders the 0x58x0x6c info-window portrait bitmap for a unit (hero render or infowindow bmp via the projectile portrait table)
+FUN_0041df23 -> FindUnitByServerId : linear scan of objects for a CUnit with the given serverId
+sub_41DFDB -> PickVoiceUnit : picks a random selected unit for acknowledgement voices (own flag-1 units first, then equipped flag-0x10, then serverId<0x15)
+FUN_0041d97e -> UpdateDayNightCycle : recomputes time-of-day lighting from serverLoopCounter, refreshes terrain shading/palettes/minimap (arg forces)
+FUN_0041b7b7 -> ComputeSoundVolumePan : converts a world position into DirectSound volume/pan relative to the view center
+sub_40BD34 -> UpdateWorld : client-side sim tick - anim tick, damage labels, positional music, updates/removes objects and projectiles, refreshes blocked state
+sub_417B42 -> IssueOrderAtCursor : dispatches the pending order (move/attack/swarm/patrol/defend/select/pickup/enter/cast) based on the current cursor and clears order mode
+sub_417F09 -> SelectUnitsInRect : band-select units in the drag rect (shift adds, small rect single-picks, skips structures), plays the select voice
+sub_40C112 -> TickLightningCells : ages lightning_cells values and removes them at 0x16
+sub_40C18B -> RebuildLandscapeOccupancy : clears the 0x4000 landscape bit map-wide and re-marks occupancy from all objects
+FUN_0041c630 -> ApplyLandscapeFlags : decodes an RLE word stream into alternating 0x2000 landscape bits
+FUN_0041c4a1 -> LoadScenario : deletes the old scenario, loads Scenario(name), sets map size, updates lighting, loads terrain tiles, clears player quests
+FUN_0041a001 -> SendGroupSelfCast : for each selected unit with the book slot available, queues GroupCastUnit/ScrollCastUnit casting the slot on itself (spell book double-click)
+FUN_0041ae1c -> LeaveInn : in sessionMode 2 deletes all non-own units locally, otherwise queues Packet2Dwords id=ExitInn
+FUN_0041ace2 -> SendAutoSpellSelect : queues SetParameter(param1=4, unit_key|spell<<16) and sets obj->active_spell for each selected unit with the spell
+FUN_0041e2af -> FindUnitByQuestFlag : finds a CUnit whose questFlags equals id, returns it via out
+sub_40C0A8 -> FindObjectAtTile : returns the object key of the first unblocked object at the given tile
+FUN_0041cda3 -> SendMapAnnouncement : queues PacketJoin id=Announcement with the map name on g_NetStru1_main (server-side broadcast)
+sub_41A942 -> SendShopBuy : queues PacketWord id=ShopBuy for the primary selected unit
+FUN_0041dfa6 -> FindOrCreateUnitByServerId : FindUnitByServerId, or creates a remote-hero stub via CreateRemoteHeroStub
+sub_41A9F6 -> SendShopTakeBack : queues PacketWord id=ShopTakeBack for the primary selected unit
+sub_41A99C -> SendShopSell : queues PacketWord id=ShopSell for the primary selected unit
+sub_41DE80 -> CreateRemoteHeroStub : news a CUnit with unitFlags 0x56 and face=serv_id-0x50 for remote HAT heroes not yet in the world
+FUN_0041be0f -> SendGroupStopAfk : queues PacketGroupOrder id=GroupStopAfk with my_unit
+sub_40AFC5 -> DrawTileOverlayFx : draws the animated fire/magic tile overlays (projectiles 0xF/0x15/0x2B) selected by the terrain override flags
+sub_40B173 -> IsGfxObjectHidden : returns 1 when the ground object's whole footprint lies on corner_tile_kind 0x10 tiles, letting the render loop skip it
+sub_416983 -> SelectControlGroup : selects the units in control group digit (deselects others unless shift is held)
+sub_416A02 -> AssignControlGroup : assigns the selected own units to control group digit, clearing their previous membership (renamed from SetControlGroup - CGameObject::SetControlGroup exists)
+sub_416AA6 -> AddToControlGroup : adds the selected own units to control group digit via AddControlGroup (keeps existing membership)
+sub_416B4A -> SelectControlGroupAndCenter : selects control group digit and centers the view on its average position
+sub_416C4C -> SelectAllOwnUnits : selects every own living CUnit without flag 0x80
+sub_4168BD -> CancelOrderMode : exits order mode (closes the spell book for mode 5, notifies the toolbar) or, with no order mode active, deselects everything
+sub_4167F7 -> ScrollViewTo : clamps the target tile to the map bounds, sets scroll_dx/dy and notifies the minimap
+sub_403F08 -> SetScenario : stores the scenario pointer and the map_width/map_height from it
+sub_418F93 -> SetOrderMode : enters an order mode from the toolbar (9/0xA map to spellbook mode 5), executing the immediate orders 3/7/8 inline
+sub_419154 -> SendGroupMove : queues GroupMove with all selected ids (mouse tile Y), plays the move voice
+sub_419246 -> SendGroupAttack : queues GroupAttack on the target id, plays the attack voice
+sub_41930D -> SendGroupAttackMove : queues GroupAttackMove, plays the swarm voice
+sub_4193E8 -> SendGroupGuard : queues GroupGuard, plays the defend voice
+sub_4194A2 -> SendGroupAggressive : queues GroupAggressive, plays the defend voice
+sub_41955C -> SendGroupAttackTarget : queues GroupAttackTarget (validates the target is a CUnit), plays the defend voice
+sub_41965D -> SendGroupPatrol : queues GroupPatrol, plays the move voice
+sub_41972F -> SendGroupCastAtPosition : queues GroupCastPos/ScrollCastPos for the book slot at a tile, consuming scroll charges
+sub_419BA1 -> SendGroupCastAtUnit : queues GroupCastUnit/ScrollCastUnit at the target id, consuming scroll charges
+sub_4184B8 -> ScreenToTileRow : converts a pixel position to the visible tile row via top/bottom corner interpolation
+sub_41864D -> UpdateMouseHover : recomputes hovered_unit/hovered ids and the quest_* ids from the hit rects; returns the cursor-availability mask
+sub_40B314 -> UpdateMapCursor : picks the mouse cursor (edge arrows, order-mode cursors, pick/town/cast fallbacks, drag-item cursor)
+sub_41F6D0 -> CycleFormation : formation=(formation+1)%3 and sends the new value
+sub_41F720 -> CycleWimpyMode : wimpy=(wimpy+1)%3 and sends the new value
+sub_41F770 -> ToggleShowHp : toggles the show_hp flag
+sub_41F7B0 -> ToggleFlyingHp : toggles the flying_hp flag
+sub_41F7F0 -> GetWimpyMode : returns this->wimpy
+sub_41F810 -> GetFormation : returns this->formation
+sub_41AB05 -> CycleAutoCastGroup : rotates the AutoCasting bits 0x38 (8->0x18->0x38) and sends the setting
+sub_41A66E -> SendGroupEnterBuilding : queues GroupEnterBuilding with all selected ids, plays the move voice
+sub_41A7C7 -> SendItemOperation : queues PacketItemTransfer id=ItemOperation (type/subtype/params) for the primary selected unit
+sub_41A5B4 -> SendGroupStop : queues GroupStop for the selected units, plays the defend voice
+sub_41A33F -> SendGroupPickup : queues GroupPickup at the tile, plays the pickup voice
+sub_41A425 -> SendGroupGoHome : queues GroupGoHome, plays the retreat voice
+sub_41A4DF -> SendGroupGather : queues GroupGather with the first selected own unit, plays the pickup voice
+sub_41B8D0 -> UpdateAmbientSounds : header-decl fixup - the definition is already BigStruct2::UpdateAmbientSounds (41b8d0), only visual.h still carries the old name
+
+# ====================================================================
+# Visibility (visibility.cpp) - scan_range / fog-of-war visibility
+# ====================================================================
+sub_58E1C1 -> ClearVisScratch : memsets vis_scratch to 0
+sub_58DE69 -> RefreshUnitVisibility : thin wrapper that just forwards to ScanUnitVisibility (both entry points exist in the binary)
+sub_58CD84 -> BuildDistSqTable : fills the quadrant-symmetric dist_sq_table
+sub_58CE74 -> BuildRayTables : fills ray_dir_table (per-octant direction bitmasks) and dist_scale_table (scaled distances)
+sub_58D638 -> StepVisRay : one visibility ray step: updates vis_budget_scratch from the neighbor cell and marks vis_scratch while budget remains
+sub_58D768 -> ScanUnitVisibility : seeds vis_budget_scratch with the unit's scan_range and casts rays ring by ring, filling vis_scratch
+
+# ====================================================================
+# StructEnter (gameobj.cpp) - building-entry grouping state
+# ====================================================================
+FUN_00473d10 -> FindFlaggedStructureUnit : returns the index of the first structure_list entry carrying unitFlags 0x20, else -1
+FUN_00475080 -> AddPartyMember : appends to party_list and counts male (flag 2) / female members
+FUN_00474ff0 -> AddStructureUnit : appends the unit to structure_list
+
+# ====================================================================
+# NetStru1 (net.cpp) - client-only senders
+# ====================================================================
+FUN_0050eede -> SendUnknownDC : queues Packet id=UnknownDC (client-only helper)
+FUN_0050e70d -> SendHatCharRequest : queues Packet2Dwords id=HatCharRequest with the HAT character id
+
+# ====================================================================
+# Free functions
+# ====================================================================
+sub_530DCB -> ClampExperienceGain : clamps the experience gain to the max for the skill level (divided by 5 with fog of war on)
+FUN_00497490 -> IsLateCampaignMission : returns ScenarioGetVar(0x300) > 0x77 - gates the late-campaign ending flow (credits path, gold reward) in MainWindow
+FUN_0043aae0 -> IsWordSeparator : returns 1 for ' ' ',' '.' ':' ';'
+FUN_00476236 -> MakeLowerDosCp : lowercases a CString, mapping the 0x80-0x9F ranges for the DOS codepage
+FUN_00476987 -> InsertThousandsSeparators : inserts ',' every 3 digits into a number CString (heavily called formatting helper)
+FUN_004b9f20 -> CompareShopTokenEntries : qsort comparator - flag 2 first, then type, then id-range group, then price attribute
+FUN_004ba1cc -> SortTokenEntries : qsort wrapper using CompareShopTokenEntries
+sub_44E4CE -> ExecuteAdminChatCommand : handles "#disconnect N" / "#curse N" admin commands typed with a leading '#' in the server chat box
+sub_41EA70 -> DELETE_DECLARATION : declared in main_window.h but never defined or called (retail inlined it at every call site); remove the declaration instead of renaming
+
+# ====================================================================
+# VisShop (visual.cpp) - shop screen
+# ====================================================================
+FUN_004bcd02 -> CloseShopDialog : closes the spell panel / spell book, returns pending buys, sends 0x445 (ESC exit path; renamed from CloseShop - Shop::CloseShop exists)
+sub_4BCD79 -> ShowBuyPanel : spell_panel=nullptr and re-attaches the to_buy grid
+sub_4BCD4B -> ShowSpellPanel : attaches vis_spellbook in place of the to_buy grid
+sub_4BCEA4 -> ResetInfoPanelButtons : resets the buttons and clears the info-panel dirty bits
+sub_4BC8D7 -> UpdateShopTips : swaps the tips text once the buy grid has items (once per dialog)
+sub_4BCC38 -> ReturnPendingBuyItems : moves every to_buy entry back to the sell/assortment grids (client); server side only recalcs gold
+sub_4BCDA0 -> RecalcShopGold : recomputes current/sell/buy/result gold from the to_buy grid
+sub_4BB895 -> SelectNextPartyUnit : cycles select_index forward and rebinds the sell grid
+sub_4BBA06 -> SelectPrevPartyUnit : cycles select_index backward and rebinds the sell grid
+sub_4BC97B -> CancelItemDrag : returns the dragged entry to its source slot and resets the cursor
+sub_4BBBD6 -> SetAssortmentCategory : tags entries with the category code and refills category_grids[category] (sorted)
+sub_4BB4FB -> FreeShopGfx : deletes the item sprites, backgrounds and cost bitmaps
+sub_4BB102 -> LoadShopGfx : loads the myitem/shopitem sprites, cost bitmaps and inventory backgrounds
+sub_4BAD1D -> DrawInfoPanelEdge : draws the right-edge info panel strip (textback/humanback) while the dialog is active
+sub_4BCCE1 -> CancelAllPendingBuys : ReturnPendingBuyItems plus the SendShopTakeBack packet
+sub_4BCAF1 -> CommitSell : recalcs; if anything to sell, plays the compass anim + SendShopSell + sell sound (renamed from ConfirmSell - Shop::ConfirmSell exists)
+sub_4BCB63 -> CommitBuy : recalcs; refuses on insufficient gold (notif + refuse anim), otherwise compass anim + SendShopBuy + buy sound; returns success (renamed from ConfirmBuy - Shop::ConfirmBuy exists)
+sub_4BF63F -> AdvanceDirectionFrames : advances dir_frm[dir] (9->3 loop, clears the state bit at 10) - VisShopCompass turn animation
+FUN_004c2842 -> IsDruidShopAvailable : in sessionMode 2 requires ScenarioGetVar(0x302), otherwise true - VisShopCompassDruid goods gate
+sub_448708 -> UpdateConnectButton : enables/disables the phone-book Connect button from the enum results - VisNetPhoneBook
+
+# ====================================================================
+# VisTav family (visual.cpp) - tavern screens
+# ====================================================================
+FUN_0049eecd -> SelectPrevPartyUnit : select_party-- with wrap, reselects, updates selection state - VisTav
+FUN_0049ee36 -> SelectNextPartyUnit : select_party++ with wrap, reselects, updates selection state - VisTav
+FUN_0049ef63 -> ShowHireResponseDialog : accept/reject role-key dialog for the selected available entry, sets the talked flag 0x80000000, plays sound 5
+FUN_0049f179 -> ShowReservedNpcTalk : "npc%dtalk%d" role dialog for reserved (already hired) entries, plays sound 12
+FUN_0049f0da -> RetalkAvailNpc : clears the talked flag and re-runs ScenarioTalkTo for the selected available entry
+FUN_0049e2e3 -> FindEntryIndexForUnit : returns the entrie_id index whose low word equals unit->serverId, else -1
+FUN_0049edec -> CloseDialog : sends 0x445 and posts 0x42E when dialogsMask==4 (ESC exit path)
+FUN_004995d1 -> LoadLeftPanelBmps : VisTavLeftPanel
+FUN_004996ab -> FreeLeftPanelBmps : VisTavLeftPanel
+FUN_00497ace -> InitLeftPanel : sets the arrow button rects and allocates the hitmap/portrait buffers - VisTavLeftPanel
+FUN_00497f82 -> DrawUnitPanel : draws the stats/picture backgrounds, the selected unit's stats or cached portrait, plus the quest-target portrait and location text - VisTavLeftPanel
+FUN_00497e06 -> SelectRosterEntry : sets selection_index (or quest_id outside sessionMode 2) and refreshes the right-panel labels - VisTavLeftPanel
+FUN_00499a67 -> LoadRightPanelBmps : VisTavRightPanel
+FUN_0049a8fa -> UpdateHoveredButton : recomputes hovered_btn from the mouse position - VisTavRightPanel
+FUN_0049a873 -> HitTestButton : returns which of the 3 button rects contains the point, else -1 - VisTavRightPanel
+FUN_004998c2 -> InitRightPanel : button rects, null bmps, default label texts - VisTavRightPanel
+FUN_0049a84e -> ResetButtonStates : pressed_btn=hovered_btn=-1 - VisTavRightPanel
+FUN_00499cdf -> FreeRightPanelBmps : VisTavRightPanel
+FUN_0049a973 -> UpdateButtonLabels : hire/hired labels in sessionMode 2, quest/reward labels otherwise - VisTavRightPanel
+FUN_004010ee -> LoadAnimFrames : loads the CBmp64 frame list for a scene animation - VisTavSceneAnim
+FUN_004014f2 -> FreeAnimFrames : deletes all frames and resets the index - VisTavSceneAnim
+FUN_0049bc23 -> DrawQuestRoster : draws the quest icons / reward grid over the tavern scene - VisTavScene
+FUN_0049af8c -> InitSceneRects : computes the roster/party grid rects and nulls the bitmaps - VisTavScene
+FUN_0049cab8 -> HitTestRoster : maps a point to the roster/party grid (returns an entry index or quest some-id) - VisTavScene
+
+# ====================================================================
+# VisInv family (visual.cpp) - inventory grids
+# ====================================================================
+sub_4A5FAB -> DrawGlowTrail : sparkle trail around a cell using random_offsets and the alpha table - VisInvBase
+FUN_0046fb90 -> GetVisibleStart : returns *visible_startref - VisInvBase
+sub_4A4BCB -> InitGlowOffsets : fills random_offsets1/2 with rand/0x1FF+8 - VisInvBase
+FUN_004a5e12 -> TickCellAnims : advances anim_frames for visible enchanted (flg 0x20) cells on msg 0x401 - VisInvBase
+FUN_004a4ebc -> RefreshCellSprites : (re)loads the .16a sprite for each cell whose entry changed - VisInvBase
+sub_4A51C9 -> ScrollCellsForward : shifts the sprite/anim arrays and bumps visible_startref by 1 - VisInvBase
+sub_4A5350 -> ScrollCellsBack : shifts the sprite/anim arrays the other way and decrements visible_startref - VisInvBase
+sub_41F940 -> HasAnimatingCells : returns has_anim_visible_cells - VisInvBase
+sub_4B4FD1 -> ClampVisibleStart : adjusts visible_startref so the grid window stays full - VisInvExtBase
+sub_4B4D33 -> RefreshGrid : ClampVisibleStart + clear cell counters + RefreshCellSprites - VisInvExtBase
+sub_4B4BC5 -> LoadGridSfx : frees then reloads the put_on/put_off/scroll samples - VisInvExtBase
+sub_4B4BA9 -> FreeSpeechSfx : frees the speech sample - VisInvExtBase
+sub_4B4C1C -> FreeGridSfx : frees speech+put_on+put_off+scroll samples - VisInvExtBase
+sub_4B5A6C -> StartItemDrag : sets the item cursor from the entry sprite and locks shop placement - VisInvExtBase
+sub_4B5B81 -> EndItemDrag : resets the cursor and placement lock - VisInvExtBase
+sub_4B7859 -> ClearCategoryGrids : deletes all entries in category_grids[0..3] - VisInvExtType1
+sub_4B73E4 -> SelectCategoryGrid : points grid_source at category_grids[category] and refreshes - VisInvExtType1
+sub_4B7264 -> DrawUpArrowHover : draws arrow1 at the top when the up arrow is hovered - VisInvExtType1
+sub_4B72C1 -> DrawUpArrowIdle : draws arrow3 at the top otherwise - VisInvExtType1
+sub_4B731E -> DrawDownArrowHover : draws arrow2 at the bottom when the down arrow is hovered - VisInvExtType1
+sub_4B7381 -> DrawDownArrowIdle : draws arrow4 at the bottom otherwise - VisInvExtType1
+sub_4B860E -> DrawUpArrowHover : hovered up-arrow redraw (guard tests invarrow1 but draws invarrow3 - retail quirk kept) - VisInvExtType2
+sub_4B8666 -> DrawUpArrowIdle : idle up-arrow redraw - VisInvExtType2
+sub_4B86BE -> DrawDownArrowHover : hovered down-arrow redraw - VisInvExtType2
+sub_4B871C -> DrawDownArrowIdle : idle down-arrow redraw - VisInvExtType2
+sub_4B970E -> ClearBuyEntries : empties the to_buy entries array - VisInvExtType3
+sub_4B9B2F -> DropDraggedItem : drops the drag entry into the buy grid, sends ItemOperation, returns the index - VisInvExtType3
+sub_4B91F9 -> IsBuyGridFull : 1 when the grid is full and no stackable slot exists for the entry - VisInvExtType3
+FUN_004a7a30 -> SetSelection : selection=idx - VisDropGold
+sub_4B36B4 -> UpdateCursor : picks the cursor over the char info panel (drag placement, screen-edge arrows); matches the sibling VisMiniMap/VisOrderToolbar/VisSideStatus method name - VisCharInfo
+FUN_00432655 -> SelectCharacter : selects the char-select unit, sets flag 8, updates selection state - VisCharSelect
+FUN_00430fad -> ResetListState : top_row/selected_row/hovered_row/renaming reset - VisCharSellectList
+
+# ====================================================================
+# VisTown family (visual.cpp) - town hub ambient animations
+# (each Advance* ticks one animated element and clears its town_anim bit when done)
+# ====================================================================
+FUN_004ce64b -> StartBirdFlight : picks the bird group/count, plays the sound, returns the delay - VisTown
+FUN_004ce726 -> DrawBirdFlock : draws the active birds + overlay, clears the 0x80 bit when done - VisTown
+FUN_004d06aa -> AdvanceGuardAnim : guard_frame with step and Guard1/Guard2 sounds - VisTown
+FUN_004d07e8 -> AdvanceTavernAnim : tavern door frames + sounds - VisTown
+FUN_004d0884 -> AdvanceSignAnim : swinging sign frames - VisTown
+FUN_004d0913 -> AdvanceGateAnim : gate opens while hovered (ScenarioGetVar(0x301) gates), closes otherwise - VisTown
+FUN_004d0ad7 -> AdvanceStarsAnim : stars frames with 10x repeat - VisTown
+FUN_004d0b95 -> AdvanceFighterAnim : random-direction fighter frames - VisTown
+FUN_004d0c6e -> AdvanceMageAnim : random-direction mage frames - VisTown
+FUN_004d0d47 -> AdvanceShopAnim : shop frames - VisTown
+FUN_004d0da2 -> AdvanceFlugelAnim : flugel (winged banner) frames - VisTown
+FUN_004d0f66 -> AdvanceBlackBirdAnim : black-bird flight frames - VisTown
+FUN_004d1002 -> AdvanceHorseAnim : horse ride frames - VisTown
+FUN_004d109e -> AdvanceDervishAnim : looping dervish frames - VisTown
+FUN_004d6480 -> AdvanceGateAnim : Kaarg door variant (10 frames, Kdoor1/Kdoor2 sounds) - VisTownKaarg
+FUN_004d65dd -> AdvanceGirl1Anim : girl1 frame group - VisTownKaarg
+FUN_004d6655 -> AdvanceGirl2Anim : girl2 frame group - VisTownKaarg
+FUN_004d66ca -> AdvanceGuardAnim : guard frames over bmp_guard, clears 0x800 - VisTownKaarg
+FUN_004d6728 -> AdvanceDervishAnim : dervish frames, clears 0x400 - VisTownKaarg
+FUN_004d3384 -> AdvanceTavernAnim : tavern frame group with sounds - VisTownDruid
+FUN_004d3435 -> AdvanceShopAnim : shop frame group - VisTownDruid
+FUN_004d34b6 -> AdvanceBugAnim : bug frames (63-frame loop) - VisTownDruid
+FUN_004d3520 -> AdvanceLizardAnim : lizard frame sequences (lizard_seqs tables) - VisTownDruid
+
+# ====================================================================
+# VisSpellBook (visual.cpp)
+# ====================================================================
+sub_41F9B0 -> GetActiveSlot : returns selected, or pressed when nothing is selected (vanilla comment confirms fields 0x64/0x60)
+sub_41F9E0 -> HasSelectedSpell : returns selected >= 0
+sub_4CA89B -> IsSpellAvailable : checks the selected_available_spell_mask bit for the book id
+sub_4CA8E0 -> IsSpellEffectActive : checks the active_spell_effect_mask bit (spell currently on the selected units)
+sub_4CA925 -> SelectScrollEntry : spell=idx and selected=cast spell id-1 from the token entry
+sub_4CAAA7 -> NeedsUnitTarget : table lookup (DAT_0062F8A8/DAT_0062FA28) - nonzero when the active spell must target a unit; drives the cast-cursor fallbacks
+FUN_004caa69 -> ClearSpellSelection : selected=spell=-1 when something was selected
+FUN_004ca7c2 -> HitTestSpellCell : converts a point to the book cell index (y/0x26)*12 + x/0x26, -1 outside
+
+# ====================================================================
+# Misc screens (visual.cpp)
+# ====================================================================
+sub_4E0169 -> AdvanceSpeechLine : advances line_no, stops the previous speech sample, builds/plays the role speech wav, updates the NPC portrait, queues music - VisRoleKeyScreen
+FUN_004e0b43 -> ParseSpeechLine : parses the <...> tagged text buffer into id/text/name/name_end/music - VisRoleKeyScreen
+FUN_004e25c1 -> InitTipsDialog : creates the multi-text, OK button and show-again radio - VisTipsDialog
+FUN_0044aae5 -> ScanMapsThread : the .alm scanner thread body - enumerates maps and fills the list - VisNetMapSelection
+FUN_004382d9 -> PlayLabelInputSound : plays labelInputSound1[labelInputSoundIndex] - VisStartGame
+FUN_004b1dbb -> PingServer : sends one ICMP echo and reads the reply, tracking RTT min/max/avg - HatBrowserProgress
+FUN_00453df0 -> GetPingError : returns the last ping error - HatBrowserProgress
+FUN_00497330 -> GetMatchNameLength : returns match_name_length - Vis1200obj (chat/console input block)
+FUN_004972f0 -> GetMatchPlayerIndex : returns match_player_index - Vis1200obj
+FUN_0043ad86 -> SaveHistoryBackup : history_backup.Copy(history) - Vis1200obj
+FUN_0043ac8c -> ResetInputState : clears match fields, history and the input line - Vis1200obj
+FUN_0043ada3 -> RecallHistoryPrev : restores the backup and pulls the last history entry into the input line (up-arrow recall) - Vis1200obj
+FUN_0043ae1c -> AppendInputChar : appends a char, wrapping overflow words into history - Vis1200obj
+FUN_0043b03a -> BackspaceInputChar : deletes the last char, popping from history when empty - Vis1200obj
+FUN_0043b724 -> CompletePlayerName : tab-completes the last word against map_players names - Vis1200obj
+FUN_0043ba75 -> DeletePreviousWord : ctrl+backspace word delete - Vis1200obj
+FUN_0043b504 -> DrawInputLine : draws the input line and matches the "-name" prefix to set the match fields - Vis1200obj
+FUN_0043be9f -> RepositionAboveDialogs : moves the console rect above the bag/spellbook - Vis1200
+FUN_004972d0 -> GetMatchPlayerIndex : forwards to text_block - Vis1200
+FUN_00497310 -> GetMatchNameLength : forwards to text_block - Vis1200
+FUN_00432b80 -> BackspaceChar : truncates the text and plays the label input sound - VisStartGameTextBox
+FUN_00432ad1 -> InitTextBox : sets palettes, blink timer and flags - VisStartGameTextBox
+FUN_00432b33 -> AcceptChar : filters and appends a char, resetting the blink timer - VisStartGameTextBox

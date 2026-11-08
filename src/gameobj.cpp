@@ -448,7 +448,7 @@ void CGameObject::MarkOccupancy() { //462226
         int32_t iVar7 = this->GetTileHeight();
         int32_t iVar3 = this->tileY;
 
-        this->pMapObject->FUN_00403ca0(this);
+        this->pMapObject->BuildShadowField(this);
 
         for (int j = 0; j < 41; j++) {
             for (int i = 0; i < 41; i++) {
@@ -3088,7 +3088,7 @@ void CUnit::PlayHitSound(int32_t kind) {
             sample = g_SfxArray[g_VFX_info[this->typeId]->sound[1]];
         }
 
-        map->FUN_0041b7b7(this->x_pos, this->y_pos, &vol, &pan);
+        map->ComputeSoundVolumePan(this->x_pos, this->y_pos, &vol, &pan);
         if (sample != nullptr) {
             sample->Play(vol + g_SoundSettings.sfx_pos, pan, 0, (10000 - abs(vol)) / 100, 0);
         }
@@ -3109,7 +3109,7 @@ void CUnit::PlayHitSound(int32_t kind) {
             sample = g_SfxArray[g_VFX_info[this->typeId]->sound[kind + 1]];
         }
 
-        map->FUN_0041b7b7(this->x_pos, this->y_pos, &vol, &pan);
+        map->ComputeSoundVolumePan(this->x_pos, this->y_pos, &vol, &pan);
         if (sample != nullptr) {
             sample->Play(vol + g_SoundSettings.speech_pos, pan, 0, (10000 - abs(vol)) / 100, 0);
         }
@@ -3258,7 +3258,7 @@ void CUnit::PlayAttackVoice() {
     BigStruct2* map = this->pMapObject;
     int32_t vol;
     int32_t pan;
-    map->FUN_0041b7b7(this->x_pos, this->y_pos, &vol, &pan);
+    map->ComputeSoundVolumePan(this->x_pos, this->y_pos, &vol, &pan);
 
     if (sample != nullptr) {
         sample->Play(vol + g_SoundSettings.speech_pos, pan, 0, (10000 - abs(vol)) / 100, 0);
@@ -3282,7 +3282,7 @@ void CUnit::PlayMoveVoice() {
     BigStruct2* map = this->pMapObject;
     int32_t vol;
     int32_t pan;
-    map->FUN_0041b7b7(this->x_pos, this->y_pos, &vol, &pan);
+    map->ComputeSoundVolumePan(this->x_pos, this->y_pos, &vol, &pan);
 
     if (sample != nullptr) {
         sample->Play(vol + g_SoundSettings.speech_pos, pan, 0, (10000 - abs(vol)) / 100, 0);
@@ -3306,7 +3306,7 @@ void CUnit::PlaySwarmVoice() {
     BigStruct2* map = this->pMapObject;
     int32_t vol;
     int32_t pan;
-    map->FUN_0041b7b7(this->x_pos, this->y_pos, &vol, &pan);
+    map->ComputeSoundVolumePan(this->x_pos, this->y_pos, &vol, &pan);
 
     if (sample != nullptr) {
         sample->Play(vol + g_SoundSettings.speech_pos, pan, 0, (10000 - abs(vol)) / 100, 0);
@@ -3330,7 +3330,7 @@ void CUnit::PlaySelectVoice() {
     BigStruct2* map = this->pMapObject;
     int32_t vol;
     int32_t pan;
-    map->FUN_0041b7b7(this->x_pos, this->y_pos, &vol, &pan);
+    map->ComputeSoundVolumePan(this->x_pos, this->y_pos, &vol, &pan);
 
     if (sample != nullptr) {
         sample->Play(vol + g_SoundSettings.speech_pos, pan, 0, (10000 - abs(vol)) / 100, 0);
@@ -3347,7 +3347,7 @@ void CUnit::PlayAttackSound() {
     BigStruct2* map = this->pMapObject;
     int32_t vol;
     int32_t pan;
-    map->FUN_0041b7b7(this->x_pos, this->y_pos, &vol, &pan);
+    map->ComputeSoundVolumePan(this->x_pos, this->y_pos, &vol, &pan);
 
     if (sample != nullptr) {
         sample->Play(vol + g_SoundSettings.sfx_pos, pan, 0, (10000 - abs(vol)) / 100, 0);
@@ -3714,7 +3714,7 @@ void CUnit::SetSelected(int32_t selected) {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     if (selected == 0 && map->primary_selected_object == this && wnd->drag_entry != nullptr) {
         g_Cursors[CURSOR_DEFAULT]->Use();
-        wnd->vis_invtype1->VMethod37(wnd->vis_invtype1->FUN_0046fb90());
+        wnd->vis_invtype1->VMethod37(wnd->vis_invtype1->GetVisibleStart());
         wnd->ResetItemCursor();
     }
     CGameObject::SetSelected(selected);
@@ -3732,7 +3732,7 @@ void CUnit::PlayDefendVoice() {
     BigStruct2* map = this->pMapObject;
     int32_t vol;
     int32_t pan;
-    map->FUN_0041b7b7(this->x_pos, this->y_pos, &vol, &pan);
+    map->ComputeSoundVolumePan(this->x_pos, this->y_pos, &vol, &pan);
 
     if (sample != nullptr) {
         sample->Play(vol + g_SoundSettings.speech_pos, pan, 0, (10000 - abs(vol)) / 100, 0);
@@ -3751,7 +3751,7 @@ void CUnit::PlayRetreatVoice() {
     BigStruct2* map = this->pMapObject;
     int32_t vol;
     int32_t pan;
-    map->FUN_0041b7b7(this->x_pos, this->y_pos, &vol, &pan);
+    map->ComputeSoundVolumePan(this->x_pos, this->y_pos, &vol, &pan);
 
     if (sample != nullptr) {
         sample->Play(vol + g_SoundSettings.speech_pos, pan, 0, (10000 - abs(vol)) / 100, 0);
@@ -3770,7 +3770,7 @@ void CUnit::PlayPickupVoice() {
     BigStruct2* map = this->pMapObject;
     int32_t vol;
     int32_t pan;
-    map->FUN_0041b7b7(this->x_pos, this->y_pos, &vol, &pan);
+    map->ComputeSoundVolumePan(this->x_pos, this->y_pos, &vol, &pan);
 
     if (sample != nullptr) {
         sample->Play(vol + g_SoundSettings.speech_pos, pan, 0, (10000 - abs(vol)) / 100, 0);
@@ -3783,7 +3783,7 @@ void CUnit::PlayCastSound() {
     BigStruct2* map = this->pMapObject;
     int32_t vol;
     int32_t pan;
-    map->FUN_0041b7b7(this->x_pos, this->y_pos, &vol, &pan);
+    map->ComputeSoundVolumePan(this->x_pos, this->y_pos, &vol, &pan);
 
     if (sample != nullptr) {
         sample->Play(vol + g_SoundSettings.sfx_pos, pan, 0, (10000 - abs(vol)) / 100, 0);
@@ -3808,15 +3808,15 @@ void StructEnter::RebuildFromMap() {
 			continue;
 		}
 		if ((unit->unitFlags & 1) != 0 && unit->death_state == 0) {
-			this->FUN_00474ff0(unit);
+			this->AddStructureUnit(unit);
 		} else if ((unit->unitFlags & 0x10) != 0 && unit->death_state == 0) {
-			this->FUN_00475080(unit);
+			this->AddPartyMember(unit);
 		}
 	}
 }
 
 // 473d10
-int32_t StructEnter::FUN_00473d10() {
+int32_t StructEnter::FindFlaggedStructureUnit() {
 	for (int32_t i = 0; i < this->structure_list.GetSize(); i++) {
 		CUnit* unit = this->structure_list[i];
 		if ((unit->unitFlags & 0x20) != 0) {
@@ -3827,7 +3827,7 @@ int32_t StructEnter::FUN_00473d10() {
 }
 
 // 475080
-void StructEnter::FUN_00475080(CUnit* unit) {
+void StructEnter::AddPartyMember(CUnit* unit) {
 	this->party_list.Add(unit);
 	if ((unit->unitFlags & 2) != 0) {
 		this->male_party_count++;
@@ -3845,7 +3845,7 @@ void StructEnter::ClearGroups() {
 }
 
 // 474ff0
-void StructEnter::FUN_00474ff0(CUnit* unit) {
+void StructEnter::AddStructureUnit(CUnit* unit) {
 	this->structure_list.Add(unit);
 }
 
@@ -4520,7 +4520,7 @@ int32_t CProjectile::Update() {
                 SfxSample* sample = g_SfxArray.GetAt(0x20b);
                 int32_t vol = 0;
                 int32_t pan = 0;
-                map->FUN_0041b7b7(this->x_pos, this->y_pos, &vol, &pan);
+                map->ComputeSoundVolumePan(this->x_pos, this->y_pos, &vol, &pan);
                 int32_t priority = (10000 - std::abs(vol)) / 100;
                 if (sample != nullptr) {
                     sample->Play(vol + g_SoundSettings.sfx_pos, pan, 0, (uint8_t)priority, 0);
@@ -4740,7 +4740,7 @@ void CProjectile::UpdateLight() {
         for (int32_t i = 0; i < this->transientVisualElements.GetSize(); i++) {
             GO_11c& el = this->transientVisualElements.ElementAt(i);
             int32_t lx = el.x >> 5;
-            int32_t ly = map->sub_4184B8(el.x, el.y);
+            int32_t ly = map->ScreenToTileRow(el.x, el.y);
             if (lx < 0 || ly < 0 || lx > map->view_tiles_x || ly > map->view_tiles_y + 4) {
                 continue;
             }

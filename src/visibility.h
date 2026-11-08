@@ -25,11 +25,11 @@ public:
 
 public:
     Visibility(); // 58E1E4 (client: 55d694)
-    void sub_58CD84(); // Builds part of the path-cost lookup tables — 58CD84 (client: 55c234)
-    void sub_58CE74(); // Builds part of the path-cost lookup tables — 58CE74 (client: 55c324)
-    void sub_58E1C1(); // 58E1C1 (client: 514f28)
-    void sub_58DE69(Unit* unit, uint16_t yx); // 58DE69 (client: 55d319)
-    void sub_58D768(Unit* unit, uint16_t yx); // 58D768 (client: 55cc18)
-    int32_t sub_58D638(int32_t x, int32_t y, int32_t base_yx, int32_t base_height); // 58D638 (client: 55cae8)
+    void BuildDistSqTable(); // Builds part of the path-cost lookup tables — 58CD84 (client: 55c234)
+    void BuildRayTables(); // Builds part of the path-cost lookup tables — 58CE74 (client: 55c324)
+    void ClearVisScratch(); // 58E1C1 (client: 514f28)
+    void RefreshUnitVisibility(Unit* unit, uint16_t yx); // 58DE69 (client: 55d319)
+    void ScanUnitVisibility(Unit* unit, uint16_t yx); // 58D768 (client: 55cc18)
+    int32_t StepVisRay(int32_t x, int32_t y, int32_t base_yx, int32_t base_height); // 58D638 (client: 55cae8)
 };
 ASSERT_SIZE(Visibility, 0x3a00c);

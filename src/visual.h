@@ -613,8 +613,8 @@ public:
 
 	VisRoleKeyScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CString& text); //4dff5c (client: 4e48dd)
 
-	bool sub_4E0169(); //4e0169 (client: 4e4aea) in asm - advance to next talk line
-	bool FUN_004e0b43(int32_t line_no, int32_t* out_id, CString* out_text, char** out_name, char** out_name_end, int32_t* out_music); //4e0b43 (client: 4e54c4)
+	bool AdvanceSpeechLine(); //4e0169 (client: 4e4aea) in asm - advance to next talk line
+	bool ParseSpeechLine(int32_t line_no, int32_t* out_id, CString* out_text, char** out_name, char** out_name_end, int32_t* out_music); //4e0b43 (client: 4e54c4)
 	void LoadText(); //4e0978 (client: 4e52f9)
 public:
 	int32_t line_no; // 0x68
@@ -685,7 +685,7 @@ public:
 
 	void OpenRenameWindow(); //4327f3 (client: 434924)
 
-	void FUN_00432655(CUnit* unit); // client: 434786 (client: 434786)
+	void SelectCharacter(CUnit* unit); // client: 434786 (client: 434786)
 
 	void LoadSfx(); // 432280 (client: 430eb0)
 	void FreeSfx(); // 4322ed (client: 430f1d)
@@ -760,7 +760,7 @@ public:
 
 	VisCharSellectList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 430bbb (client: 432c87)
 
-	void FUN_00430fad(); // 430fad (client: 433104)
+	void ResetListState(); // 430fad (client: 433104)
 	void Init(); // 430cb3 (client: 432d7f)
 	void SelectRow(int32_t row); // 4316c4 (client: 43381b)
 	int32_t SelectPrevRow(); // 431a05 (client: 433b5c)
@@ -845,8 +845,8 @@ struct TakeDamage {
 	void Update(); //45dd1b (client: 46193b)
 	int Draw(); //45dd6d (client: 46198d)
 
-	int32_t FUN_0041f620(); //41f620 (client: 4203d0) in asm
-	int32_t FUN_0041f640(); //41f640 (client: 4203f0) in asm
+	int32_t GetScreenX(); //41f620 (client: 4203d0) in asm
+	int32_t GetScreenY(); //41f640 (client: 4203f0) in asm
 
 	static void __cdecl AddDamage(CArray<TakeDamage>* arr, const TakeDamage& dmg); //45dea1 (client: 461ac1)
 	static void __cdecl DrawDamages(CArray<TakeDamage>* arr); //45ddf6 (client: 461a16)
@@ -896,136 +896,135 @@ public:
 	virtual int32_t OnChar(uint32_t wparam) override; // 40d4b2 (client: 40d539)
 
 public:
-	void sub_406F7B(); //406f7b (client: 406fea)
-	void sub_40403B(); //40403b (client: 4040e2)
-	void sub_404E1A(); //404e1a (client: 404eb5)
-	void sub_405399(int32_t arg); //405399 (client: 405434)
-	void sub_40587B(int32_t arg); //40587b (client: 405908)
-	void sub_405D0E(); //405d0e (client: 405d9b)
-	void sub_404DA3(CRect* rect, uint16_t unit_id); //404da3 (client: 404e40)
-	void sub_40AFC5(int32_t x, int32_t y, uint32_t flags, int32_t flag); //40afc5 (client: 40b010)
-	int32_t sub_40B173(int32_t gfx_id, int32_t x, int32_t y, int32_t height); //40b173 (client: 40b1be)
-	void sub_40328E(); //40328e (client: 403311)
-	void sub_404912(); //404912 (client: 4049b7)
-	void sub_404A2C(); //404a2c (client: 404ad1)
-	void sub_403F08(Scenario* scen); //403f08 (client: 403faf)
-	void sub_40B314(); //40b314 (client: 40b35f)
-	uint32_t sub_41864D(); //41864d (client: 419e12)
-	int32_t sub_4184B8(int32_t x, int32_t y); //4184b8 (client: 419c7d)
-	void sub_417B42(CPoint* pt); //417b42 (client: 419313)
-	void sub_417F09(CRect* rect); //417f09 (client: 4196d2)
-	void sub_419154(uint16_t x, uint16_t y); //419154 (client: 41a90f)
-	void sub_419246(uint16_t id); //419246 (client: 41a9ff)
-	void sub_41930D(uint16_t x, uint16_t y); //41930d (client: 41aac4)
-	void sub_41955C(uint16_t id); //41955c (client: 41ad0d)
-	void sub_41965D(uint16_t x, uint16_t y); //41965d (client: 41ae0a)
-	void sub_41972F(uint16_t x, uint16_t y, int32_t spell); //41972f (client: 41aeda)
-	void sub_419BA1(uint16_t id, int32_t spell); //419ba1 (client: 41b346)
-	void sub_41A33F(uint16_t x, uint16_t y); //41a33f (client: 41bae8)
-	void sub_41A66E(uint16_t id); //41a66e (client: 41befc)
-	void sub_41AC2D(int32_t id); //41ac2d (client: 41c4b9) in asm
-	void sub_41AC88(int32_t arg1, int32_t arg2); //41ac88 (client: 41c514)
-	void sub_41A7C7(uint8_t arg1, uint16_t arg2, uint8_t arg3, uint16_t arg4, uint16_t arg5); //41a7c7 (client: 41c053)
-	void sub_40BD34(); //40bd34 (client: 40bdc1)
-	void sub_40C112(); //40c112 (client: 40c199)
-	void sub_40C18B(); //40c18b (client: 40c212)
-	int32_t sub_403B8F(int32_t arg1, int32_t arg2, int32_t arg3, int32_t arg4); //403b8f (client: 403c36)
-	void sub_402FB8(); //402fb8 (client: 40303b)
-	void sub_403730(); //403730 (client: 4037d7)
-	void sub_4168BD(); //4168bd (client: 4180d4)
-	void sub_4167F7(int32_t wparam, int32_t lparam); //4167f7 (client: 41800e)
-	void sub_418F93(int32_t arg); //418f93 (client: 41a74e)
-	void sub_4193E8(); //4193e8 (client: 41ab9d)
-	void sub_4194A2(); //4194a2 (client: 41ac55)
-	void sub_41A425(); //41a425 (client: 41bbcc)
-	void sub_41B8D0(); //41b8d0 (client: 41d158)
-	void sub_416983(int32_t digit); //416983 (client: 41819a)
-	void sub_416A02(int32_t digit); //416a02 (client: 418219)
-	void sub_416AA6(int32_t digit); //416aa6 (client: 4182bd)
-	void sub_416B4A(int32_t digit); //416b4a (client: 418361)
-	void sub_41A5B4(); //41a5b4 (client: 41bd57)
-	CUnit* sub_41DFDB(); //41dfdb (client: 41f85d)
-	void sub_41A4DF(); //41a4df (client: 41bc84)
-	void sub_41B155(); //41b155 (client: 41c9dd)
-	void sub_416C4C(); //416c4c (client: 418463)
-	void sub_41F6D0(); //41f6d0 (client: 420990)
-	void sub_41F770(); //41f770 (client: 420a30)
-	void sub_41F7B0(); //41f7b0 (client: 420a70)
-	void sub_41F720(); //41f720 (client: 4209e0)
-	int32_t sub_41F7F0(); //41f7f0 (client: 420c60)
-	int32_t sub_41F810(); //41f810 (client: 420ad0)
-	void sub_41AB05(); //41ab05 (client: 41c391)
-	void sub_41A9F6(); //41a9f6 (client: 41c282)
-	void sub_41A99C(); //41a99c (client: 41c228)
-	void sub_41CE14(); //41ce14 (client: 41e698)
-	void sub_41A942(); //41a942 (client: 41c1ce)
+	void RenderWorldFrame(); //406f7b (client: 406fea)
+	void RebuildWorldGrids(); //40403b (client: 4040e2)
+	void DrawTerrainFull(); //404e1a (client: 404eb5)
+	void DrawTerrainAnimated(int32_t arg); //405399 (client: 405434)
+	void DrawTerrainScrolled(int32_t arg); //40587b (client: 405908)
+	void RedrawLitTerrain(); //405d0e (client: 405d9b)
+	void AddHitRect(CRect* rect, uint16_t unit_id); //404da3 (client: 404e40)
+	void DrawTileOverlayFx(int32_t x, int32_t y, uint32_t flags, int32_t flag); //40afc5 (client: 40b010)
+	int32_t IsGfxObjectHidden(int32_t gfx_id, int32_t x, int32_t y, int32_t height); //40b173 (client: 40b1be)
+	void FreeTileGrids(); //40328e (client: 403311)
+	void ApplyTerrainLightOverrides(); //404912 (client: 4049b7)
+	void UpdateTileLight(); //404a2c (client: 404ad1)
+	void SetScenario(Scenario* scen); //403f08 (client: 403faf)
+	void UpdateMapCursor(); //40b314 (client: 40b35f)
+	uint32_t UpdateMouseHover(); //41864d (client: 419e12)
+	int32_t ScreenToTileRow(int32_t x, int32_t y); //4184b8 (client: 419c7d)
+	void IssueOrderAtCursor(CPoint* pt); //417b42 (client: 419313)
+	void SelectUnitsInRect(CRect* rect); //417f09 (client: 4196d2)
+	void SendGroupMove(uint16_t x, uint16_t y); //419154 (client: 41a90f)
+	void SendGroupAttack(uint16_t id); //419246 (client: 41a9ff)
+	void SendGroupAttackMove(uint16_t x, uint16_t y); //41930d (client: 41aac4)
+	void SendGroupAttackTarget(uint16_t id); //41955c (client: 41ad0d)
+	void SendGroupPatrol(uint16_t x, uint16_t y); //41965d (client: 41ae0a)
+	void SendGroupCastAtPosition(uint16_t x, uint16_t y, int32_t spell); //41972f (client: 41aeda)
+	void SendGroupCastAtUnit(uint16_t id, int32_t spell); //419ba1 (client: 41b346)
+	void SendGroupPickup(uint16_t x, uint16_t y); //41a33f (client: 41bae8)
+	void SendGroupEnterBuilding(uint16_t id); //41a66e (client: 41befc)
+	void SendHotkeyBroadcast(int32_t id); //41ac2d (client: 41c4b9) in asm
+	void SendDropGold(int32_t arg1, int32_t arg2); //41ac88 (client: 41c514)
+	void SendItemOperation(uint8_t arg1, uint16_t arg2, uint8_t arg3, uint16_t arg4, uint16_t arg5); //41a7c7 (client: 41c053)
+	void UpdateWorld(); //40bd34 (client: 40bdc1)
+	void TickLightningCells(); //40c112 (client: 40c199)
+	void RebuildLandscapeOccupancy(); //40c18b (client: 40c212)
+	int32_t StepShadowRay(int32_t arg1, int32_t arg2, int32_t arg3, int32_t arg4); //403b8f (client: 403c36)
+	void AllocTileGrids(); //402fb8 (client: 40303b)
+	void BuildShadowTables(); //403730 (client: 4037d7)
+	void CancelOrderMode(); //4168bd (client: 4180d4)
+	void ScrollViewTo(int32_t wparam, int32_t lparam); //4167f7 (client: 41800e)
+	void SetOrderMode(int32_t arg); //418f93 (client: 41a74e)
+	void SendGroupGuard(); //4193e8 (client: 41ab9d)
+	void SendGroupAggressive(); //4194a2 (client: 41ac55)
+	void SendGroupGoHome(); //41a425 (client: 41bbcc)
+	void SelectControlGroup(int32_t digit); //416983 (client: 41819a)
+	void AssignControlGroup(int32_t digit); //416a02 (client: 418219)
+	void AddToControlGroup(int32_t digit); //416aa6 (client: 4182bd)
+	void SelectControlGroupAndCenter(int32_t digit); //416b4a (client: 418361)
+	void SendGroupStop(); //41a5b4 (client: 41bd57)
+	CUnit* PickVoiceUnit(); //41dfdb (client: 41f85d)
+	void SendGroupGather(); //41a4df (client: 41bc84)
+	void SendRequestRespawn(); //41b155 (client: 41c9dd)
+	void SelectAllOwnUnits(); //416c4c (client: 418463)
+	void CycleFormation(); //41f6d0 (client: 420990)
+	void ToggleShowHp(); //41f770 (client: 420a30)
+	void ToggleFlyingHp(); //41f7b0 (client: 420a70)
+	void CycleWimpyMode(); //41f720 (client: 4209e0)
+	int32_t GetWimpyMode(); //41f7f0 (client: 420c60)
+	int32_t GetFormation(); //41f810 (client: 420ad0)
+	void CycleAutoCastGroup(); //41ab05 (client: 41c391)
+	void SendShopTakeBack(); //41a9f6 (client: 41c282)
+	void SendShopSell(); //41a99c (client: 41c228)
+	void SendHurtSelf(); //41ce14 (client: 41e698)
+	void SendShopBuy(); //41a942 (client: 41c1ce)
 
 	void UpdateSelectionState(); //416cf7 (client: 41850e)
-	void FUN_0041cda3(const char* mapname); // 41cda3 (client: 41e627)
-	uint32_t sub_40C0A8(int32_t x, int32_t y); // 40c0a8 (client: 40c12f)
-	void FUN_0041ace2(int32_t spell_id); //41ace2 (client: 41c56e)
-	void FUN_0041a001(int32_t idx); //41a001 (client: 41b7a0)
+	void SendMapAnnouncement(const char* mapname); // 41cda3 (client: 41e627)
+	uint32_t FindObjectAtTile(int32_t x, int32_t y); // 40c0a8 (client: 40c12f)
+	void SendAutoSpellSelect(int32_t spell_id); //41ace2 (client: 41c56e)
+	void SendGroupSelfCast(int32_t idx); //41a001 (client: 41b7a0)
 	void UpdateSpellEffects(CUnit* unit); //from 416cf7 (client: 41850e)
 	void UpdateSpellModifiers(CUnit* unit); //from 416cf7 (client: 41850e)
 
-	void FUN_0041c4a1(const char* name); //41c4a1 (client: 41dd29)
+	void LoadScenario(const char* name); //41c4a1 (client: 41dd29)
 
 	CUnit* GetUnit_3f6c(); //41f830 (client: 420c60)
 	void SetUnit_3f6c(CUnit* uni) { this->my_unit = uni; };
 
 	int32_t ProcessPackets(uint8_t breakid); //40da14 (client: 40dac9)
 
-	void FUN_0041b7b7(int32_t xpos, int32_t ypos, int32_t* pvol, int32_t* ppan); //41b7b7 (client: 41d03f)
-	void FUN_0041c74b(int32_t x, int32_t y, int32_t w, int32_t h, int32_t unk1, uint8_t* dat, int32_t unk2); //41c74b (client: 41dfd3)
+	void ComputeSoundVolumePan(int32_t xpos, int32_t ypos, int32_t* pvol, int32_t* ppan); //41b7b7 (client: 41d03f)
+	void ApplyTileLightMask(int32_t x, int32_t y, int32_t w, int32_t h, int32_t unk1, uint8_t* dat, int32_t unk2); //41c74b (client: 41dfd3)
 
-	CUnit* FUN_0041df23(int32_t serv_id); //41df23 (client: 41f7a5)
-	int32_t FUN_0041e2af(int32_t id, CUnit** out); //41e2af (client: 41fb31)
-	CUnit* FUN_0041dfa6(int32_t serv_id); //41dfa6 (client: 41f828)
-	CGameBitmap* FUN_0041da52(int32_t serv_id); //41da52 (client: 41f2d4) in asm
-	CUnit* sub_41DE80(int32_t serv_id); //41de80 (client: 41f702)
-	void FUN_0041ae1c(int32_t serv_id); //41ae1c (client: 41c6a8)
+	CUnit* FindUnitByServerId(int32_t serv_id); //41df23 (client: 41f7a5)
+	int32_t FindUnitByQuestFlag(int32_t id, CUnit** out); //41e2af (client: 41fb31)
+	CUnit* FindOrCreateUnitByServerId(int32_t serv_id); //41dfa6 (client: 41f828)
+	CGameBitmap* BuildUnitPortrait(int32_t serv_id); //41da52 (client: 41f2d4) in asm
+	CUnit* CreateRemoteHeroStub(int32_t serv_id); //41de80 (client: 41f702)
+	void LeaveInn(int32_t serv_id); //41ae1c (client: 41c6a8)
 
-	void FUN_0041c630(CWordArray *data); //41c630 (client: 41deb8)
+	void ApplyLandscapeFlags(CWordArray *data); //41c630 (client: 41deb8)
 
-	void FUN_0041cb67(int32_t val); //41cb67 (client: 41e3eb)
-	void FUN_0041cb21(); //41cb21 (client: 41e3a5)
+	void SendRequestFileChunk(int32_t val); //41cb67 (client: 41e3eb)
+	void SendRequestMapInfo(); //41cb21 (client: 41e3a5)
 
-	void FUN_0041b2a4(const char* nam, int32_t token, int32_t playerid); //41b2a4 (client: 41cb2c)
-	void FUN_0041a8cc(); //41a8cc (client: 41c158)
+	void SendChatPacket(const char* nam, int32_t token, int32_t playerid); //41b2a4 (client: 41cb2c)
+	void SendShopClose(); //41a8cc (client: 41c158)
 
-	int32_t FUN_0040d7f3(); //40d7f3 (client: 40d87a)
+	int32_t SendEnterGameAndWait(); //40d7f3 (client: 40d87a)
 	int ConnectAndJoinSession(); //40d4e2 (client: 40d569)
 
-	void FUN_0041cbb8(); //0041cbb8 (client: 41e43c)
-	void FUN_0041cc78(const CString& str); //41cc78 (client: 41e4fc)
-	void FUN_0041d2da(int32_t arg); //41d2da (client: 41eb5c)
+	void SendJoinMap(); //0041cbb8 (client: 41e43c)
+	void SendRequestUnitUpdateFile(const CString& str); //41cc78 (client: 41e4fc)
+	void ResetWorldState(int32_t arg); //41d2da (client: 41eb5c)
 	int32_t IsBookOpen(); //41b4b0 (client: 41cd38)
 	int32_t IsBagOpen(); //41b495 (client: 41cd1d)
 
-	void FUN_0041afcf(CString str); //41afcf (client: 41c857)
-	void FUN_0041a735(); //41a735 (client: 41bfc1)
+	void SendPlayerName(CString str); //41afcf (client: 41c857)
+	void SendDiplomacyState(); //41a735 (client: 41bfc1)
 
-	void FUN_0041cad0(int32_t m); //41cad0 (client: 41e354)
-	void FUN_0041aaaa(int32_t wim); //41aaaa (client: 41c336)
-	void FUN_0041abd2(int32_t form); // 41abd2 (client: 41c45e)
-	void FUN_0041ab74(); //41ab74 (client: 41c400)
+	void SendGameMode(int32_t m); //41cad0 (client: 41e354)
+	void SendWimpyMode(int32_t wim); //41aaaa (client: 41c336)
+	void SendFormationMode(int32_t form); // 41abd2 (client: 41c45e)
+	void SendAutoCastSetting(); //41ab74 (client: 41c400)
 
-	void FUN_0041b6e0(); //41b6e0 (client: 41cf68)
+	void RecalcVisibleMapHeight(); //41b6e0 (client: 41cf68)
 	int32_t MapMaxY() const { return (this->map_height - 8) - this->view_tiles_y; } //41f6b0 (client: 420310)
 
-	void FUN_0041b636(); //41b636 (client: 41cebe)
+	void CloseSpellBook(); //41b636 (client: 41cebe)
 
-	void FUN_0041b509(); //41b509 (client: 41cd91)
-	void FUN_0041b40e(); //41b40e (client: 41cc96)
-	void FUN_0041b381(); //41b381 (client: 41cc09)
-	void FUN_0041b10f(); //41b10f (client: 41c997)
-	void FUN_0041b064(int32_t arg1, int32_t arg2); //41b064 (client: 41c8ec)
-	void FUN_0041c39c(); //41c39c (client: 41dc24)
+	void OpenSpellBook(); //41b509 (client: 41cd91)
+	void CloseBag(); //41b40e (client: 41cc96)
+	void OpenBag(); //41b381 (client: 41cc09)
+	void SendRequestUnitsResend(); //41b10f (client: 41c997)
+	void SendCheatShop(int32_t arg1, int32_t arg2); //41b064 (client: 41c8ec)
+	void StopAmbientSounds(); //41c39c (client: 41dc24)
 
 	void CleanupCompletedMissionMapState(); //41ce5a (client: 41e6de)
 
-	void FUN_00403ca0(CGameObject* obj); //403ca0 (client: 403d47)
-	void FUN_0041d97e(int32_t); //41d97e (client: 41f200)
+	void BuildShadowField(CGameObject* obj); //403ca0 (client: 403d47)
+	void UpdateDayNightCycle(int32_t); //41d97e (client: 41f200)
 
 	uint32_t AvailableOrderMask() const; // 417af6 (client: 4192c7)
 	void SendAdjustPlayerGoldAction(int32_t goldDelta) const; //41b0be (client: 41c946)
@@ -1045,7 +1044,7 @@ public:
 	void MakeHeightCells(); //4065d3 (client: 406658)
 	void ApplyDynamicLight(int32_t tx, int32_t ty, int32_t radius, int32_t brightness); //406340 (client: 4063c5)
 
-	void FUN_0041be0f(); //client: 41be0f
+	void SendGroupStopAfk(); //client: 41be0f
 
 public:
 	int32_t view_x;
@@ -1296,14 +1295,14 @@ public:
 	virtual int32_t VMethod37(int32_t idx); //4a5c39 (client: 4a9c68)
 	virtual int32_t VMethod38(); //4a79b0 (client: 4ab820)
 
-	int32_t FUN_0046fb90(); //46fb90 (client: 472fd0)
-	int32_t sub_41F940(); //41f940 (client: 4207b0)
-	void FUN_004a4ebc(); //4a4ebc (client: 4a8eec)
-	void sub_4A4BCB(); //4a4bcb (client: 4a8bfb)
-	void sub_4A5350(); //4a5350 (client: 4a937f) in asm
-	void sub_4A51C9(); //4a51c9 (client: 4a91f8) in asm
-	void FUN_004a5e12(); //4a5e12 (client: 4a9e41) in asm
-	void sub_4A5FAB(int32_t x, int32_t y, int32_t idx); //4a5fab (client: 4a9fda) in asm
+	int32_t GetVisibleStart(); //46fb90 (client: 472fd0)
+	int32_t HasAnimatingCells(); //41f940 (client: 4207b0)
+	void RefreshCellSprites(); //4a4ebc (client: 4a8eec)
+	void InitGlowOffsets(); //4a4bcb (client: 4a8bfb)
+	void ScrollCellsBack(); //4a5350 (client: 4a937f) in asm
+	void ScrollCellsForward(); //4a51c9 (client: 4a91f8) in asm
+	void TickCellAnims(); //4a5e12 (client: 4a9e41) in asm
+	void DrawGlowTrail(int32_t x, int32_t y, int32_t idx); //4a5fab (client: 4a9fda) in asm
 
 public:
 	CArray<CSprite256*> spr_cells;
@@ -1373,13 +1372,13 @@ public:
 	virtual void VMethod41();  // client: 4be820
 	virtual void VMethod42();  // client: 4be830
 
-	int32_t sub_4B5B81(); //4b5b81 (client: 4ba550) in asm
-	int32_t sub_4B5A6C(int32_t idx); //4b5a6c (client: 4ba43b) in asm
-	void sub_4B4BA9(); //4b4ba9 (client: 461193) in asm
-	void sub_4B4C1C(); //4b4c1c (client: 4b95ec)
-	void sub_4B4BC5(); //4b4bc5 (client: 4b9595)
-	void sub_4B4D33(); //4b4d33 (client: 4b9703)
-	void sub_4B4FD1(); //4b4fd1 (client: 4b99a1)
+	int32_t EndItemDrag(); //4b5b81 (client: 4ba550) in asm
+	int32_t StartItemDrag(int32_t idx); //4b5a6c (client: 4ba43b) in asm
+	void FreeSpeechSfx(); //4b4ba9 (client: 461193) in asm
+	void FreeGridSfx(); //4b4c1c (client: 4b95ec)
+	void LoadGridSfx(); //4b4bc5 (client: 4b9595)
+	void RefreshGrid(); //4b4d33 (client: 4b9703)
+	void ClampVisibleStart(); //4b4fd1 (client: 4b99a1)
 
 public:
 	VisShop* shop;
@@ -1416,12 +1415,12 @@ public:
 	virtual void VMethod41() override;  // client: 4bb006
 	virtual void VMethod42() override;  // client: 4bb591
 
-	void sub_4B7859(); //4b7859 (client: 4bc223)
-	void sub_4B73E4(int32_t category); //4b73e4 (client: 4bbdae)
-	void sub_4B7264(); //4b7264 (client: 4bbc2e) in asm
-	void sub_4B72C1(); //4b72c1 (client: 4bbc8b) in asm
-	void sub_4B731E(); //4b731e (client: 4bbce8) in asm
-	void sub_4B7381(); //4b7381 (client: 4bbd4b) in asm
+	void ClearCategoryGrids(); //4b7859 (client: 4bc223)
+	void SelectCategoryGrid(int32_t category); //4b73e4 (client: 4bbdae)
+	void DrawUpArrowHover(); //4b7264 (client: 4bbc2e) in asm
+	void DrawUpArrowIdle(); //4b72c1 (client: 4bbc8b) in asm
+	void DrawDownArrowHover(); //4b731e (client: 4bbce8) in asm
+	void DrawDownArrowIdle(); //4b7381 (client: 4bbd4b) in asm
 
 	VisInvExtType1(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4b63f7 (client: 4badc1) in asm
 
@@ -1478,10 +1477,10 @@ public:
 	virtual int32_t VMethod38() override;  // client: 4be8d0
 	virtual void VMethod39() override;  // client: 4bcacc
 
-	void sub_4B860E(); //4b860e (client: 4bcfd8) in asm
-	void sub_4B8666(); //4b8666 (client: 4bd030) in asm
-	void sub_4B86BE(); //4b86be (client: 4bd088) in asm
-	void sub_4B871C(); //4b871c (client: 4bd0e6) in asm
+	void DrawUpArrowHover(); //4b860e (client: 4bcfd8) in asm
+	void DrawUpArrowIdle(); //4b8666 (client: 4bd030) in asm
+	void DrawDownArrowHover(); //4b86be (client: 4bd088) in asm
+	void DrawDownArrowIdle(); //4b871c (client: 4bd0e6) in asm
 
 	VisInvExtType2(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4b7fe5 (client: 4bc9af) in asm
 public:
@@ -1519,11 +1518,11 @@ public:
 
 	virtual TokenEntry* VMethod43(int32_t id1, int32_t id2);  // client: 4bdf8f
 
-	int32_t sub_4B91F9(TokenEntry* entry); //4b91f9 (client: 4bdbc3) in asm
+	int32_t IsBuyGridFull(TokenEntry* entry); //4b91f9 (client: 4bdbc3) in asm
 	VisInvExtType3(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4b8bba (client: 4bd584) in asm
 
-	void sub_4B970E(); //4b970e (client: 4be0d8)
-	int32_t sub_4B9B2F(int32_t idx); //4b9b2f (client: 4be4f9) in asm
+	void ClearBuyEntries(); //4b970e (client: 4be0d8)
+	int32_t DropDraggedItem(int32_t idx); //4b9b2f (client: 4be4f9) in asm
 public:
 	int32_t gap_0x20c8; //unk type
 	CRect up_arrow_rect;
@@ -1537,8 +1536,8 @@ ASSERT_SIZE(VisInvExtType3, 0x2108);
 
 class VisTavSceneAnim {
 public:
-	void FUN_004010ee(CStringArray* names); //4010ee (client: 4010ee) in asm
-	void FUN_004014f2(); //4014f2 (client: 4014f1) in asm
+	void LoadAnimFrames(CStringArray* names); //4010ee (client: 4010ee) in asm
+	void FreeAnimFrames(); //4014f2 (client: 4014f1) in asm
 	bool StepForward(); //4015c6 (client: 4015c5) in asm
 	bool StepBackward(); //401613 (client: 401612) in asm
 	void NextFrame(); //401659 (client: 401658) in asm
@@ -1567,13 +1566,13 @@ public:
 
 	VisTavRightPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //4997c6 (client: 42cc93) in asm
 
-	void FUN_00499a67(); //499a67 (client: 49da87) in asm
-	void FUN_0049a84e(); //49a84e (client: 49e87d) in asm
-	void FUN_0049a973(); //49a973 (client: 49e9a2) in asm
-	void FUN_00499cdf(); //499cdf in asm - client FreeBitmaps restructured away (both client 283b FreeBitmaps fns belong to VisCharGenAction 42d704 / VisCharSellectButtons 432ae6)
-	void FUN_004998c2(); //4998c2 (client: 42cd99) in asm
-	int32_t FUN_0049a873(CPoint pos); //49a873 (client: 43281c) in asm
-	void FUN_0049a8fa(uint32_t wparam, CPoint pos); //49a8fa in asm - client FreeBitmaps restructured away (42d41b is VisCharGenAction::UpdateMouseOver)
+	void LoadRightPanelBmps(); //499a67 (client: 49da87) in asm
+	void ResetButtonStates(); //49a84e (client: 49e87d) in asm
+	void UpdateButtonLabels(); //49a973 (client: 49e9a2) in asm
+	void FreeRightPanelBmps(); //499cdf in asm - client FreeBitmaps restructured away (both client 283b FreeBitmaps fns belong to VisCharGenAction 42d704 / VisCharSellectButtons 432ae6)
+	void InitRightPanel(); //4998c2 (client: 42cd99) in asm
+	int32_t HitTestButton(CPoint pos); //49a873 (client: 43281c) in asm
+	void UpdateHoveredButton(uint32_t wparam, CPoint pos); //49a8fa in asm - client FreeBitmaps restructured away (42d41b is VisCharGenAction::UpdateMouseOver)
 
 public:
 	VisTav* vis_tav; // 0x5c
@@ -1599,11 +1598,11 @@ public:
 
 	VisTavLeftPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //497990 (client: 49b9b0) in asm
 
-	void FUN_004995d1(); //4995d1 (client: 49d5f1) in asm
-	void FUN_004996ab(); //4996ab (client: 49d6cb) in asm
-	void FUN_00497ace(); //497ace (client: 49baee) in asm
-	void FUN_00497f82(CUnit* unit); //497f82 (client: 49bfa2) in asm
-	void FUN_00497e06(int32_t idx); //497e06 (client: 49be26) in asm
+	void LoadLeftPanelBmps(); //4995d1 (client: 49d5f1) in asm
+	void FreeLeftPanelBmps(); //4996ab (client: 49d6cb) in asm
+	void InitLeftPanel(); //497ace (client: 49baee) in asm
+	void DrawUnitPanel(CUnit* unit); //497f82 (client: 49bfa2) in asm
+	void SelectRosterEntry(int32_t idx); //497e06 (client: 49be26) in asm
 
 public:
 	VisTav* vis_tav; // 0x5c
@@ -1636,9 +1635,9 @@ public:
 
 	VisTavScene(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //49ad56 (client: 49ed85) in asm
 
-	void FUN_0049bc23(); //49bc23 (client: 49fc52) in asm
-	int32_t FUN_0049cab8(CPoint* pos); //49cab8 (client: 4a0ae6) in asm
-	void FUN_0049af8c(); //49af8c (client: 49efbb) in asm
+	void DrawQuestRoster(); //49bc23 (client: 49fc52) in asm
+	int32_t HitTestRoster(CPoint* pos); //49cab8 (client: 4a0ae6) in asm
+	void InitSceneRects(); //49af8c (client: 49efbb) in asm
 
 public:
 	VisTav* vis_tav; // 0x5c
@@ -1722,13 +1721,13 @@ public:
 	virtual void VMethod30(); // 49F298 (client: 4a32c6)
 	virtual void VMethod31(); // 49F3D7 (client: 4a3405)
 
-	void FUN_0049edec(); // client: 4a2e1a (client: 4a2e1a)
-	void FUN_0049ee36(); //49ee36 (client: 4a2e64) in asm
-	void FUN_0049eecd(); //49eecd (client: 4a2efb) in asm
-	int32_t FUN_0049e2e3(CUnit* unit); //49e2e3 (client: 4a2311) in asm
-	void FUN_0049ef63(); //49ef63 (client: 4a2f91) in asm
-	void FUN_0049f0da(); //49f0da (client: 4a3108) in asm
-	void FUN_0049f179(); //49f179 (client: 4a31a7) in asm
+	void CloseDialog(); // client: 4a2e1a (client: 4a2e1a)
+	void SelectNextPartyUnit(); //49ee36 (client: 4a2e64) in asm
+	void SelectPrevPartyUnit(); //49eecd (client: 4a2efb) in asm
+	int32_t FindEntryIndexForUnit(CUnit* unit); //49e2e3 (client: 4a2311) in asm
+	void ShowHireResponseDialog(); //49ef63 (client: 4a2f91) in asm
+	void RetalkAvailNpc(); //49f0da (client: 4a3108) in asm
+	void ShowReservedNpcTalk(); //49f179 (client: 4a31a7) in asm
 
 	VisTav(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //49db79 (client: 4a1ba7) in asm
 
@@ -1811,15 +1810,15 @@ public:
 	virtual int32_t OnRButtonDblClk(uint32_t wparam, CPoint pos) override; // 4cae94 (client: 4cf81a)
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 4CAC9B (client: 4cf621)
 
-	void FUN_004caa69(); // client: 4cf3f7 (client: 4cf3f7)
+	void ClearSpellSelection(); // client: 4cf3f7 (client: 4cf3f7)
 
-	int32_t FUN_004ca7c2(CPoint* pos); //4ca7c2 (client: 4cf150) in asm
-	void sub_4CA925(int32_t idx); //4ca925 (client: 4cf2b3) in asm
-	int32_t sub_4CA89B(int32_t id); //4ca89b (client: 4cf229)
-	int32_t sub_4CA8E0(int32_t id); //4ca8e0 (client: 4cf26e)
-	int32_t sub_41F9B0(); //41f9b0 (client: 4208e0)
-	int32_t sub_41F9E0(); //41f9e0 (client: 420910)
-	int32_t sub_4CAAA7(); //4caaa7 (client: 4cf435)
+	int32_t HitTestSpellCell(CPoint* pos); //4ca7c2 (client: 4cf150) in asm
+	void SelectScrollEntry(int32_t idx); //4ca925 (client: 4cf2b3) in asm
+	int32_t IsSpellAvailable(int32_t id); //4ca89b (client: 4cf229)
+	int32_t IsSpellEffectActive(int32_t id); //4ca8e0 (client: 4cf26e)
+	int32_t GetActiveSlot(); //41f9b0 (client: 4208e0)
+	int32_t HasSelectedSpell(); //41f9e0 (client: 420910)
+	int32_t NeedsUnitTarget(); //4caaa7 (client: 4cf435)
 
 	VisSpellBook(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4c99c7 (client: 4ce357)
 
@@ -1858,7 +1857,7 @@ public:
 
 	VisShopCompass(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4bd495 (client: 4c1e5a)
 
-	void sub_4BF63F(int32_t dir); // 4bf63f (client: 4c4002)
+	void AdvanceDirectionFrames(int32_t dir); // 4bf63f (client: 4c4002)
 
 public:
 	VisShop* shop; // 0x5c
@@ -1905,7 +1904,7 @@ public:
 
 	VisShopCompassDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4c247b (client: 4c6e34) in asm
 
-	int32_t FUN_004c2842(); // 4c2842 (client: 4c71fb)
+	int32_t IsDruidShopAvailable(); // 4c2842 (client: 4c71fb)
 
 public:
 	int32_t gap_0x258; // 0x258
@@ -1987,8 +1986,8 @@ public:
 ASSERT_SIZE(VisShopButtons, 0x100);
 
 
-void __cdecl FUN_004ba1cc(CArray<TokenEntry*>* arr); //4ba1cc (client: 4beb9c) in asm
-void __cdecl FUN_00476987(CString* str); //476987 (client: 47a6d3) - insert thousands separators
+void __cdecl SortTokenEntries(CArray<TokenEntry*>* arr); //4ba1cc (client: 4beb9c) in asm
+void __cdecl InsertThousandsSeparators(CString* str); //476987 (client: 47a6d3) - insert thousands separators
 
 
 //60d3e8
@@ -2012,23 +2011,23 @@ public:
 	virtual CString VMethod33(); // 4c6b90 (client: 4cb530)
 
 
-	void FUN_004bcd02(); // client: 4c16d3 (client: 4c16d3)
-	void sub_4BAD1D(); //4bad1d (client: 4bf6ea) in asm
-	void sub_4BB4FB(); //4bb4fb (client: 4bfec8)
-	void sub_4BB895(); //4bb895 (client: 4c0262)
-	void sub_4BBA06(); //4bba06 (client: 4c03d3)
-	void sub_4BB102(); //4bb102 (client: 4bfacf)
-	void sub_4BBBD6(int32_t category, CArray<TokenEntry*>* arr); //4bbbd6 (client: 4c05a3)
-	void sub_4BC8D7(); //4bc8d7 (client: 4c12a4)
-	void sub_4BCC38(); //4bcc38 (client: 4c1604)
-	void sub_4BC97B(); //4bc97b (client: 4c1348)
-	void sub_4BCD4B(); //4bcd4b (client: 4c171c)
-	void sub_4BCD79(); //4bcd79 (client: 4c174a)
-	void sub_4BCDA0(); //4bcda0 (client: 4c1771)
-	void sub_4BCEA4(); //4bcea4 (client: 4c1875)
-	void sub_4BCAF1(); //4bcaf1 (client: 4c14bd)
-	int sub_4BCB63(); //4bcb63 (client: 4c152f)
-	void sub_4BCCE1(); //4bcce1 (client: 4c16b2)
+	void CloseShopDialog(); // client: 4c16d3 (client: 4c16d3)
+	void DrawInfoPanelEdge(); //4bad1d (client: 4bf6ea) in asm
+	void FreeShopGfx(); //4bb4fb (client: 4bfec8)
+	void SelectNextPartyUnit(); //4bb895 (client: 4c0262)
+	void SelectPrevPartyUnit(); //4bba06 (client: 4c03d3)
+	void LoadShopGfx(); //4bb102 (client: 4bfacf)
+	void SetAssortmentCategory(int32_t category, CArray<TokenEntry*>* arr); //4bbbd6 (client: 4c05a3)
+	void UpdateShopTips(); //4bc8d7 (client: 4c12a4)
+	void ReturnPendingBuyItems(); //4bcc38 (client: 4c1604)
+	void CancelItemDrag(); //4bc97b (client: 4c1348)
+	void ShowSpellPanel(); //4bcd4b (client: 4c171c)
+	void ShowBuyPanel(); //4bcd79 (client: 4c174a)
+	void RecalcShopGold(); //4bcda0 (client: 4c1771)
+	void ResetInfoPanelButtons(); //4bcea4 (client: 4c1875)
+	void CommitSell(); //4bcaf1 (client: 4c14bd)
+	int CommitBuy(); //4bcb63 (client: 4c152f)
+	void CancelAllPendingBuys(); //4bcce1 (client: 4c16b2)
 
 	VisShop(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4ba342 (client: 4bed12) in asm
 
@@ -2164,21 +2163,21 @@ public:
 	virtual void VMethod38(); // 4D0E31 (client: 4d5776)
 	virtual void VMethod39(); // 4D15E3 (client: 4d5f14)
 
-	int32_t FUN_004ce64b(); //4ce64b (client: 4d2f98) in asm
-	void FUN_004ce726(); //4ce726 (client: 4d3070) in asm
+	int32_t StartBirdFlight(); //4ce64b (client: 4d2f98) in asm
+	void DrawBirdFlock(); //4ce726 (client: 4d3070) in asm
 
-	void FUN_004d06aa(); //4d06aa (client: 4d4ff1) in asm
-	void FUN_004d07e8(); //4d07e8 (client: 4d512f) in asm
-	void FUN_004d0884(); //4d0884 (client: 4d56e7) in asm
-	void FUN_004d0913(); //4d0913 (client: 4d525a) in asm
-	void FUN_004d0ad7(); //4d0ad7 (client: 4d541c) in asm
-	void FUN_004d0b95(); //4d0b95 (client: 4d54da) in asm
-	void FUN_004d0c6e(); //4d0c6e (client: 4d55b3) in asm
-	void FUN_004d0d47(); //4d0d47 (client: 4d568c) in asm
-	void FUN_004d0da2(); //4d0da2 (client: 4d51cb) in asm
-	void FUN_004d0f66(); //4d0f66 (client: 4d58ab) in asm
-	void FUN_004d1002(); //4d1002 (client: 4d5940) in asm
-	void FUN_004d109e(); //4d109e (client: 4d59d5) in asm
+	void AdvanceGuardAnim(); //4d06aa (client: 4d4ff1) in asm
+	void AdvanceTavernAnim(); //4d07e8 (client: 4d512f) in asm
+	void AdvanceSignAnim(); //4d0884 (client: 4d56e7) in asm
+	void AdvanceGateAnim(); //4d0913 (client: 4d525a) in asm
+	void AdvanceStarsAnim(); //4d0ad7 (client: 4d541c) in asm
+	void AdvanceFighterAnim(); //4d0b95 (client: 4d54da) in asm
+	void AdvanceMageAnim(); //4d0c6e (client: 4d55b3) in asm
+	void AdvanceShopAnim(); //4d0d47 (client: 4d568c) in asm
+	void AdvanceFlugelAnim(); //4d0da2 (client: 4d51cb) in asm
+	void AdvanceBlackBirdAnim(); //4d0f66 (client: 4d58ab) in asm
+	void AdvanceHorseAnim(); //4d1002 (client: 4d5940) in asm
+	void AdvanceDervishAnim(); //4d109e (client: 4d59d5) in asm
 
 	VisTown(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4cda5c (client: 4d23ac) in asm
 public:
@@ -2264,10 +2263,10 @@ public:
 	virtual void VMethod37() override; // 4D27FF (client: 4d7130)
 	virtual void VMethod38() override; // 4D3EA7 (client: 4d87cb)
 
-	void FUN_004d3384(); //4d3384 (client: 4d7cb5) in asm
-	void FUN_004d3435(); //4d3435 (client: 4d7d66) in asm
-	void FUN_004d34b6(); //4d34b6 (client: 4d7de7) in asm
-	void FUN_004d3520(); //4d3520 (client: 4d7e4e) in asm
+	void AdvanceTavernAnim(); //4d3384 (client: 4d7cb5) in asm
+	void AdvanceShopAnim(); //4d3435 (client: 4d7d66) in asm
+	void AdvanceBugAnim(); //4d34b6 (client: 4d7de7) in asm
+	void AdvanceLizardAnim(); //4d3520 (client: 4d7e4e) in asm
 
 	VisTownDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4d1af8 (client: 4d6429) in asm
 public:
@@ -2324,11 +2323,11 @@ public:
 	virtual void VMethod37() override; // 4D5112 (client: 4d9a36)
 	virtual void VMethod38() override; // 4D6786 (client: 4db097)
 
-	void FUN_004d6480(); //4d6480 (client: 4dad9c) in asm
-	void FUN_004d65dd(); //4d65dd (client: 4daef7) in asm
-	void FUN_004d6655(); //4d6655 (client: 4daf6c) in asm
-	void FUN_004d66ca(); //4d66ca (client: 4dafe1) in asm
-	void FUN_004d6728(); //4d6728 (client: 4db03c) in asm
+	void AdvanceGateAnim(); //4d6480 (client: 4dad9c) in asm
+	void AdvanceGirl1Anim(); //4d65dd (client: 4daef7) in asm
+	void AdvanceGirl2Anim(); //4d6655 (client: 4daf6c) in asm
+	void AdvanceGuardAnim(); //4d66ca (client: 4dafe1) in asm
+	void AdvanceDervishAnim(); //4d6728 (client: 4db03c) in asm
 
 	VisTownKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4d423a (client: 4d8b5e) in asm
 public:
@@ -2595,19 +2594,19 @@ public:
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 43b159 (client: 43d564)
 	virtual int32_t OnChar(uint32_t wparam) override; // 43b240 (client: 43d64b)
 
-	void FUN_0043ae1c(uint8_t ch); // 43ae1c (client: 43d22b)
-	void FUN_0043b03a(); // 43b03a (client: 43d445)
-	void FUN_0043b724(); // 43b724 (client: 43db33)
-	void FUN_0043ba75(); // 43ba75 (client: 43de84)
-	void FUN_0043b504(CString* str); // 43b504 (client: 43d913)
+	void AppendInputChar(uint8_t ch); // 43ae1c (client: 43d22b)
+	void BackspaceInputChar(); // 43b03a (client: 43d445)
+	void CompletePlayerName(); // 43b724 (client: 43db33)
+	void DeletePreviousWord(); // 43ba75 (client: 43de84)
+	void DrawInputLine(CString* str); // 43b504 (client: 43d913)
 
 	Vis1200obj(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint); //43ab28 (client: 43cf38)
 
-	void FUN_0043ac8c(); //43ac8c (client: 43d09b) - reset input/history state
-	void FUN_0043ad86(); //43ad86 (client: 43d195) - commit current line to history
-	void FUN_0043ada3(); //43ada3 (client: 43d1b2) - recall previous line from history
-	int32_t FUN_004972f0(); //4972f0 (client: 401780)
-	int32_t FUN_00497330(); //497330 (client: 401780)
+	void ResetInputState(); //43ac8c (client: 43d09b) - reset input/history state
+	void SaveHistoryBackup(); //43ad86 (client: 43d195) - commit current line to history
+	void RecallHistoryPrev(); //43ada3 (client: 43d1b2) - recall previous line from history
+	int32_t GetMatchPlayerIndex(); //4972f0 (client: 401780)
+	int32_t GetMatchNameLength(); //497330 (client: 401780)
 
 public:
 	CStringArray history_backup;
@@ -2623,8 +2622,8 @@ public:
 };
 ASSERT_SIZE(Vis1200obj, 0xa4);
 
-	int32_t FUN_0043aae0(char ch); // 43aae0 in asm - chat separator test (' ', ',', '.', ':', ';')
-	void FUN_00476236(CString* str); // 476236 - lowercase respecting DOS CP
+	int32_t IsWordSeparator(char ch); // 43aae0 in asm - chat separator test (' ', ',', '.', ':', ';')
+	void MakeLowerDosCp(CString* str); // 476236 - lowercase respecting DOS CP
 
 //609ad0
 class Vis1200 : public VisScreen {
@@ -2640,9 +2639,9 @@ public:
 	virtual void VMethod28() override; // 43BD2E (client: 43e13d)
 	virtual void DoClose(uint32_t code) override; // 43BD96 (client: 43e1a5)
 
-	int32_t FUN_004972d0(); //4972d0 (client: 430ac8)
-	int32_t FUN_00497310(); //497310 (client: 430ac8)
-	void FUN_0043be9f(); //43be9f (client: 43e2ae)
+	int32_t GetMatchPlayerIndex(); //4972d0 (client: 430ac8)
+	int32_t GetMatchNameLength(); //497310 (client: 430ac8)
+	void RepositionAboveDialogs(); //43be9f (client: 43e2ae)
 
 	Vis1200(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 43bb70 (client: 433fda) in asm
 
@@ -2667,7 +2666,7 @@ public:
 	virtual void VMethod28() override; // 441FA3 (client: 444575)
 	virtual void DoClose(uint32_t code) override; // 441FEE (client: 4445c0)
 
-	void FUN_004a7a30(int32_t idx); //4a7a30 (client: 4aba60) in asm
+	void SetSelection(int32_t idx); //4a7a30 (client: 4aba60) in asm
 
 	VisDropGold(int32_t _id, int32_t _x, int32_t _y); // 441bec (client: 4441bb) in asm
 public:
@@ -2700,7 +2699,7 @@ public:
 	virtual int32_t VMethod27(int32_t a); //4b3a0d (client: 4b8374)
 	virtual int32_t VMethod28(); // 4b4830 (client: 4b9200)
 
-	void sub_4B36B4(); //4b36b4 (client: 4b7fe4)
+	void UpdateCursor(); //4b36b4 (client: 4b7fe4)
 
 	VisCharInfo(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4b16c3 (client: 4b5ff5) in asm
 public:
@@ -2796,9 +2795,9 @@ public:
 	CString GetText(); // 438d80 (client: 43add0)
 	void SetText(const CString& text); // 432c03 (client: 434d3a)
 
-	void FUN_00432b80(); //432b80 (client: 434cb7) in asm
-	void FUN_00432b33(uint8_t ch); //432b33 (client: 434c63) in asm
-	void FUN_00432ad1(); //432ad1 (client: 434c02) in asm
+	void BackspaceChar(); //432b80 (client: 434cb7) in asm
+	void AcceptChar(uint8_t ch); //432b33 (client: 434c63) in asm
+	void InitTextBox(); //432ad1 (client: 434c02) in asm
 
 public:
 	VisStartGame* screen;
@@ -2836,7 +2835,7 @@ public:
 	void Accept(); // 43817d (client: 43a2af)
 	void Cancel(); // 4382a9 (client: 43a5a4)
 
-	void FUN_004382d9(); //4382d9 (client: 43a5d4) in asm
+	void PlayLabelInputSound(); //4382d9 (client: 43a5d4) in asm
 
 	void ClearDifficultySelectedFlags(); // 435743 (client: 43787b)
 	void ClearPortraitSelectedFlags(); // 43578c (client: 4378c3)
@@ -3056,7 +3055,7 @@ ASSERT_SIZE(TownMenuListDialogVisualObject, 0x7c);
 
 
 // Chat command handler for the server screen text box input ("#disconnect N", "#curse N"). 44e4ce
-void sub_44E4CE(const char* cmd);  // client: 4517f9
+void ExecuteAdminChatCommand(const char* cmd);  // client: 4517f9
 
 // 60adf8, radio checkbox on the server screen ("save on server" toggle)
 class VisServerScreenRadio : public VisRadioType1 {
@@ -3523,7 +3522,7 @@ public:
 
 	VisNetPhoneBook(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, PhoneBook* _book); //447ea8 (client: 44a577)
 
-	void sub_448708(const char* str); // 448708 (client: 44adda)
+	void UpdateConnectButton(const char* str); // 448708 (client: 44adda)
 
 public:
 	int32_t enum_addresses_num;
@@ -3614,7 +3613,7 @@ public:
 
 	void StopThread(); // 44aeef (client: 44d61c)
 	void AddNetMapInfo(NetMapInfo* info); // 44d13d (client: 450465)
-	void FUN_0044aae5(); // 44aae5 (client: 44d212)
+	void ScanMapsThread(); // 44aae5 (client: 44d212)
 
 public:
 	CString* p_mapname;
@@ -3642,7 +3641,7 @@ public:
 
 	VisTipsDialog(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* txt); //4e2541 (client: 4e6ec5)
 
-	void FUN_004e25c1(int32_t l, int32_t t, int32_t r, int32_t b, const char* txt); // 4e25c1 (client: 4e6f45)
+	void InitTipsDialog(int32_t l, int32_t t, int32_t r, int32_t b, const char* txt); // 4e25c1 (client: 4e6f45)
 	void SetText(const char* text); // 4e2b73 (client: 4e74f7)
 
 public:

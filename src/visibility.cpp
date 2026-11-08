@@ -10,17 +10,17 @@
 #include "unit.h"
 
 // 58E1C1
-void Visibility::sub_58E1C1() {
+void Visibility::ClearVisScratch() {
     memset(this->vis_scratch, 0, sizeof(this->vis_scratch));
 }
 
 // 58DE69
-void Visibility::sub_58DE69(Unit* unit, uint16_t yx) {
-    this->sub_58D768(unit, yx);
+void Visibility::RefreshUnitVisibility(Unit* unit, uint16_t yx) {
+    this->ScanUnitVisibility(unit, yx);
 }
 
 // 58CD84
-void Visibility::sub_58CD84() {
+void Visibility::BuildDistSqTable() {
     for (int32_t y = 0; y <= Visibility::CENTER; y++) {
         for (int32_t x = 0; x <= Visibility::CENTER; x++) {
             int16_t dist_sq = static_cast<int16_t>(y * y + x * x);
@@ -33,7 +33,7 @@ void Visibility::sub_58CD84() {
 }
 
 // 58CE74
-void Visibility::sub_58CE74() {
+void Visibility::BuildRayTables() {
     for (int32_t y = 0; y <= Visibility::CENTER; y++) {
         for (int32_t x = 0; x <= Visibility::CENTER; x++) {
             uint16_t p1;
@@ -90,14 +90,14 @@ Visibility::Visibility() {
     this->scan_shift = scan_shift;
     this->scan_radius = 1 << scan_shift;
 
-    this->sub_58CD84();
-    this->sub_58CE74();
+    this->BuildDistSqTable();
+    this->BuildRayTables();
 
     memset(this->gap_0x0, 0, sizeof(this->gap_0x0));
 }
 
 // 58D638
-int32_t Visibility::sub_58D638(int32_t x, int32_t y, int32_t base_yx, int32_t base_height) {
+int32_t Visibility::StepVisRay(int32_t x, int32_t y, int32_t base_yx, int32_t base_height) {
     PosYX pos = PosYX(x, y);
     PosYX direction = PosYX(this->ray_dir_table[x][y]);
     PosYX with_offset = PosYX(base_yx + pos.val);
@@ -116,7 +116,7 @@ int32_t Visibility::sub_58D638(int32_t x, int32_t y, int32_t base_yx, int32_t ba
 }
 
 // 58D768
-void Visibility::sub_58D768(Unit* unit, uint16_t yx) {
+void Visibility::ScanUnitVisibility(Unit* unit, uint16_t yx) {
     PosYX pos = PosYX(yx);
     int32_t base_yx = PosYX(pos.x - Visibility::CENTER, pos.y - Visibility::CENTER).val;
 
@@ -134,25 +134,25 @@ void Visibility::sub_58D768(Unit* unit, uint16_t yx) {
         for (int32_t offset = -radius; offset <= radius; offset++) {
             int32_t x1 = Visibility::CENTER + offset;
             int32_t y1 = Visibility::CENTER - radius;
-            if (this->map_stuff->IsInMapBounds(pos.x + x1, pos.y + y1) && !this->sub_58D638(x1, y1, base_yx, base_height)) {
+            if (this->map_stuff->IsInMapBounds(pos.x + x1, pos.y + y1) && !this->StepVisRay(x1, y1, base_yx, base_height)) {
                 keep_going = true;
             }
 
             x1 = Visibility::CENTER + offset;
             y1 = Visibility::CENTER + radius;
-            if (this->map_stuff->IsInMapBounds(pos.x + x1, pos.y + y1) && !this->sub_58D638(x1, y1, base_yx, base_height)) {
+            if (this->map_stuff->IsInMapBounds(pos.x + x1, pos.y + y1) && !this->StepVisRay(x1, y1, base_yx, base_height)) {
                 keep_going = true;
             }
 
             x1 = Visibility::CENTER - radius;
             y1 = Visibility::CENTER + offset;
-            if (this->map_stuff->IsInMapBounds(pos.x + x1, pos.y + y1) && !this->sub_58D638(x1, y1, base_yx, base_height)) {
+            if (this->map_stuff->IsInMapBounds(pos.x + x1, pos.y + y1) && !this->StepVisRay(x1, y1, base_yx, base_height)) {
                 keep_going = true;
             }
 
             x1 = Visibility::CENTER + radius;
             y1 = Visibility::CENTER - offset;
-            if (this->map_stuff->IsInMapBounds(pos.x + x1, pos.y + y1) && !this->sub_58D638(x1, y1, base_yx, base_height)) {
+            if (this->map_stuff->IsInMapBounds(pos.x + x1, pos.y + y1) && !this->StepVisRay(x1, y1, base_yx, base_height)) {
                 keep_going = true;
             }
         }

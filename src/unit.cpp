@@ -206,7 +206,7 @@ void __cdecl ExecuteRangedAttack(Unit* self, Unit* target) {
 
 // Clamps experience gain to the max gain for the given skill level.
 // 530DCB
-uint32_t __cdecl sub_530DCB(uint32_t experience, int32_t skill_level) {
+uint32_t __cdecl ClampExperienceGain(uint32_t experience, int32_t skill_level) {
     int32_t max_gain = ExperienceTable::GetExp(skill_level + 1) - ExperienceTable::GetExp(skill_level);
     if (g_Server->multiplayer != 0) {
         max_gain /= 5;
@@ -2567,7 +2567,7 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
                 new_exp = (new_exp + 7) / 8;
             }
 
-            new_exp = sub_530DCB(new_exp, this->hit_values.skill_levels[phys_sphere]);
+            new_exp = ClampExperienceGain(new_exp, this->hit_values.skill_levels[phys_sphere]);
             this->experience_per_sphere[phys_sphere - 1] += new_exp;
             this->experience += new_exp;
 
@@ -2595,7 +2595,7 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
                 new_exp = (new_exp + 7) / 8;
             }
 
-            new_exp = sub_530DCB(new_exp, this->hit_values.skill_levels[sphere]);
+            new_exp = ClampExperienceGain(new_exp, this->hit_values.skill_levels[sphere]);
             this->experience_per_sphere[sphere - 1] += new_exp;
             this->experience += new_exp;
 

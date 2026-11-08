@@ -282,14 +282,14 @@ void BigStruct2::CloseHatOverlays() {
 	if ((wnd->dialogsMask & 2) != 0) {
 		CVisualObject* shop = wnd->vis_root->FindChild(1000);
 		if (shop != nullptr) {
-			((VisShop*)shop)->FUN_004bcd02();
+			((VisShop*)shop)->CloseShopDialog();
 			wnd->vis_root->RemoveChild(shop);
 		}
 	}
 	if ((wnd->dialogsMask & 4) != 0) {
 		CVisualObject* tav = wnd->vis_root->FindChild(1100);
 		if (tav != nullptr) {
-			((VisTav*)tav)->FUN_0049edec();
+			((VisTav*)tav)->CloseDialog();
 			wnd->vis_root->RemoveChild(tav);
 		}
 	}
@@ -355,7 +355,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 		case START_GAME:
 			if (!this->scenario) {
-				this->FUN_0041c4a1(packet_join->name);
+				this->LoadScenario(packet_join->name);
 			}
 
 			if (!this->scenario) {
@@ -1584,7 +1584,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				if (packet_move->type_id != 23 && snd) {
 					int32_t vol = 0;
 					int32_t pan = 0;
-					this->FUN_0041b7b7(pj->x_pos, pj->y_pos, &vol, &pan);
+					this->ComputeSoundVolumePan(pj->x_pos, pj->y_pos, &vol, &pan);
 
 					int priority = (10000 - ::abs(vol)) / 100;
 
@@ -1597,7 +1597,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 		case AOE_ZONE:
 			// client 40dac9: gated on field_0x80.
 			if (this->scenario != 0) {
-			this->FUN_0041c74b(packet_aoe->x,
+			this->ApplyTileLightMask(packet_aoe->x,
 							packet_aoe->y,
 							packet_aoe->width,
 							packet_aoe->height,
@@ -1695,7 +1695,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			if (packet_move->type_id != 23 && snd) {
 				int32_t vol = 0;
 				int32_t pan = 0;
-				this->FUN_0041b7b7(pj->x_pos, pj->y_pos, &vol, &pan);
+				this->ComputeSoundVolumePan(pj->x_pos, pj->y_pos, &vol, &pan);
 
 				int priority = (10000 - ::abs(vol)) / 100;
 
@@ -1737,7 +1737,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			if (pj->typeId != 23 && snd) {
 				int32_t vol = 0;
 				int32_t pan = 0;
-				this->FUN_0041b7b7(pj->x_pos, pj->y_pos, &vol, &pan);
+				this->ComputeSoundVolumePan(pj->x_pos, pj->y_pos, &vol, &pan);
 
 				int priority = (10000 - ::abs(vol)) / 100;
 
@@ -1803,7 +1803,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				}
 
 				if (wnd->sessionMode == 2) {
-					CUnit* ct = this->FUN_0041df23(serv_id);
+					CUnit* ct = this->FindUnitByServerId(serv_id);
 					if (ct) {
 						if ((ct->unitFlags & 2) == 0) {
 							txt = TxtFile::AllLines[texid + 0x81] + CString(" (") + ct->str1 + ")";
@@ -2013,7 +2013,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 
 				if (obj->IsSelected() != 0) {
 					this->order_mode = 0;
-					wnd->vis_spellbook->FUN_004caa69();
+					wnd->vis_spellbook->ClearSpellSelection();
 					wnd->vis_ordertoolbar->MsgProc(0x40b, 0, 0);
 				}
 
@@ -2038,7 +2038,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			CWordArray tmp;
 			tmp.SetSize(packet_terrain->count);
 			memcpy(tmp.GetData(), packet_terrain->buf, packet_terrain->count * 2);
-			this->FUN_0041c630(&tmp);
+			this->ApplyLandscapeFlags(&tmp);
 		}
 			break;
 
@@ -2164,13 +2164,13 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			if (wnd->sessionMode == 0) {
 				if ((wnd->dialogsMask & 2) != 0) {
 					VisShop* shop = (VisShop*)wnd->vis_root->FindChild(1000);
-					shop->FUN_004bcd02();
+					shop->CloseShopDialog();
 					wnd->vis_root->RemoveChild(shop);
 				}
 
 				if ((wnd->dialogsMask & 4) != 0) {
 					VisTav* tavern = (VisTav*)wnd->vis_root->FindChild(1100);
-					tavern->FUN_0049edec();
+					tavern->CloseDialog();
 					wnd->vis_root->RemoveChild(tavern);
 				}
 				wnd->vis_root->MsgProc(0x446, 0, 0);
@@ -2300,7 +2300,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				wnd->enter_ack_received = 1;
 				wnd->input_locked = 0;
 			} else {
-				this->FUN_0041cb67(0);
+				this->SendRequestFileChunk(0);
 				wnd->input_locked = 1;
 			}
 			break;
@@ -2348,7 +2348,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 			{}
 
 			if (packet_file->offset + packet_file->count < packet_file->total_length) {
-				this->FUN_0041cb67(packet_file->offset + packet_file->count);
+				this->SendRequestFileChunk(packet_file->offset + packet_file->count);
 			} else {
 				
 				try {
@@ -2363,7 +2363,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid) {
 				catch (...)
 				{}
 
-				this->FUN_0041cb21();
+				this->SendRequestMapInfo();
 			}
 		}
 			break;
@@ -2665,11 +2665,11 @@ int TakeDamage::Draw() {
 	return 1;
 }
 
-int32_t TakeDamage::FUN_0041f620() { //41f620
+int32_t TakeDamage::GetScreenX() { //41f620
     return this->dx + this->cunit->centerScreenX;
 }
 
-int32_t TakeDamage::FUN_0041f640() { //41f640
+int32_t TakeDamage::GetScreenY() { //41f640
     return this->dy + this->cunit->centerScreenY - this->cunit->terrainHeightOffset;
 }
 
@@ -2714,7 +2714,7 @@ void __cdecl TakeDamage::UpdateDamages(CArray<TakeDamage>* arr) {
 
 
 
-void BigStruct2::FUN_0041b2a4(const char* nam, int32_t token, int32_t playerid) {
+void BigStruct2::SendChatPacket(const char* nam, int32_t token, int32_t playerid) {
 	//41b2a4
 
 	PacketJoin* join = &PacketJoin::Inst;
@@ -2745,7 +2745,7 @@ void BigStruct2::FUN_0041b2a4(const char* nam, int32_t token, int32_t playerid) 
 	}
 }
 
-void BigStruct2::FUN_0041a8cc() {
+void BigStruct2::SendShopClose() {
 	//41a8cc
 	PacketWord* pkt = &PacketWord::Inst;
 
@@ -2760,7 +2760,7 @@ void BigStruct2::FUN_0041a8cc() {
 }
 
 
-int32_t BigStruct2::FUN_0040d7f3() {
+int32_t BigStruct2::SendEnterGameAndWait() {
 	//40d7f3  client: 40d87a
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -2886,7 +2886,7 @@ int BigStruct2::ConnectAndJoinSession() {
 
 	g_NetStru1_local.ProcessConnections();
 
-	if (this->FUN_0040d7f3()) {
+	if (this->SendEnterGameAndWait()) {
 		return 1;
 	}
 
@@ -2900,7 +2900,7 @@ int BigStruct2::ConnectAndJoinSession() {
 
 
 
-void BigStruct2::FUN_0041cbb8() {
+void BigStruct2::SendJoinMap() {
 	//0041cbb8
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -2919,7 +2919,7 @@ void BigStruct2::FUN_0041cbb8() {
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-void BigStruct2::FUN_0041cc78(const CString& fname) {
+void BigStruct2::SendRequestUnitUpdateFile(const CString& fname) {
 	//41cc78
 	PacketData* pkt = &PacketData::Inst;
 
@@ -2943,7 +2943,7 @@ void BigStruct2::FUN_0041cc78(const CString& fname) {
 
 
 
-void BigStruct2::FUN_0041d2da(int32_t arg) { // 41d2da
+void BigStruct2::ResetWorldState(int32_t arg) { // 41d2da
 	this->my_unit = nullptr;
 
 	if (!this->objects.IsEmpty()) {
@@ -3040,7 +3040,7 @@ int32_t BigStruct2::IsBagOpen() { // 41b495
 	return this->FindChild(MAP_CHILD_BAG) != nullptr;
 }
 
-void BigStruct2::FUN_0041afcf(CString str) { //41afcf
+void BigStruct2::SendPlayerName(CString str) { //41afcf
 	PacketJoin* pkt = &PacketJoin::Inst;
 	pkt->id = 7;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -3050,7 +3050,7 @@ void BigStruct2::FUN_0041afcf(CString str) { //41afcf
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-void BigStruct2::FUN_0041a735() { //41a735
+void BigStruct2::SendDiplomacyState() { //41a735
 	PacketTerrain* pkt = &PacketTerrain::Inst;
 	pkt->id = SET_DIPLOMACY;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -3060,7 +3060,7 @@ void BigStruct2::FUN_0041a735() { //41a735
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-void BigStruct2::FUN_0041c39c() { //41c39c
+void BigStruct2::StopAmbientSounds() { //41c39c
 	this->ambient_view_x = -1;
 	this->ambient_view_y = -1;
 	SoundChannel* ch1 = g_SfxArray[50]->FindPlayingChannel();
@@ -3630,7 +3630,7 @@ CSprite256* ProjectileInfo::GetSpriteB() { //46f760
 }
 
 
-void BigStruct2::FUN_0041cad0(int32_t m) { //41cad0
+void BigStruct2::SendGameMode(int32_t m) { //41cad0
 	Packet2Dwords *pkt = &Packet2Dwords::Inst;
 	pkt->id = 4;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -3640,7 +3640,7 @@ void BigStruct2::FUN_0041cad0(int32_t m) { //41cad0
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-void BigStruct2::FUN_0041aaaa(int32_t wim) { //41aaaa
+void BigStruct2::SendWimpyMode(int32_t wim) { //41aaaa
 	Packet2Dwords* pkt = &Packet2Dwords::Inst;
 	pkt->id = SET_PARAMETER;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -3651,7 +3651,7 @@ void BigStruct2::FUN_0041aaaa(int32_t wim) { //41aaaa
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-void BigStruct2::FUN_0041abd2(int32_t form) { // 41abd2
+void BigStruct2::SendFormationMode(int32_t form) { // 41abd2
 	Packet2Dwords* pkt = &Packet2Dwords::Inst;
 	pkt->id = SET_PARAMETER;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -3662,7 +3662,7 @@ void BigStruct2::FUN_0041abd2(int32_t form) { // 41abd2
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-void BigStruct2::FUN_0041ab74() { //41ab74
+void BigStruct2::SendAutoCastSetting() { //41ab74
 	Packet2Dwords* pkt = &Packet2Dwords::Inst;
 	pkt->id = SET_PARAMETER;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -3674,7 +3674,7 @@ void BigStruct2::FUN_0041ab74() { //41ab74
 }
 
 
-void BigStruct2::FUN_0041b6e0() { //41b6e0
+void BigStruct2::RecalcVisibleMapHeight() { //41b6e0
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
 	int32_t btm = this->rect.bottom & (~0x1f);
@@ -3698,13 +3698,13 @@ void BigStruct2::FUN_0041b6e0() { //41b6e0
 	}
 
 	if (CVisualObject::FindChild(MAP_CHILD_CHAT_LINE)) {
-		mwnd->vis_1200->FUN_0043be9f();
+		mwnd->vis_1200->RepositionAboveDialogs();
 	}
 
 	this->force_full_redraw = 1;
 }
 
-void BigStruct2::FUN_0041b636() { //41b636
+void BigStruct2::CloseSpellBook() { //41b636
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
 	if ((mwnd->dialogsMask & 2) == 0) {
@@ -3717,11 +3717,11 @@ void BigStruct2::FUN_0041b636() { //41b636
 
 	mwnd->vis_right_panel->MsgProc(0x408, 0, 0);
 
-	this->FUN_0041b6e0();
+	this->RecalcVisibleMapHeight();
 }
 
 
-void BigStruct2::FUN_0041b509() { // 41b509
+void BigStruct2::OpenSpellBook() { // 41b509
 
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
@@ -3742,10 +3742,10 @@ void BigStruct2::FUN_0041b509() { // 41b509
 
 	mwnd->vis_right_panel->MsgProc(0x408, 0, 0);
 
-	this->FUN_0041b6e0();
+	this->RecalcVisibleMapHeight();
 }
 
-void BigStruct2::FUN_0041b40e() { //41b40e
+void BigStruct2::CloseBag() { //41b40e
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
 	if (this->IsBookOpen()) {
@@ -3756,10 +3756,10 @@ void BigStruct2::FUN_0041b40e() { //41b40e
 
 	g_SfxArray[7]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
 
-	this->FUN_0041b6e0();
+	this->RecalcVisibleMapHeight();
 }
 
-void BigStruct2::FUN_0041b381() { // 41b381
+void BigStruct2::OpenBag() { // 41b381
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
 	if (this->IsBookOpen()) {
@@ -3769,10 +3769,10 @@ void BigStruct2::FUN_0041b381() { // 41b381
 	this->AddChild(mwnd->vis_invtype1);
 
 	g_SfxArray[7]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
-	this->FUN_0041b6e0();
+	this->RecalcVisibleMapHeight();
 }
 
-void BigStruct2::FUN_0041b10f() {
+void BigStruct2::SendRequestUnitsResend() {
 	Packet* pkt = &Packet::Inst;
 	pkt->id = REQUEST_UNITS_RESEND;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -3780,7 +3780,7 @@ void BigStruct2::FUN_0041b10f() {
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-void BigStruct2::FUN_0041b064(int32_t arg1, int32_t arg2) {
+void BigStruct2::SendCheatShop(int32_t arg1, int32_t arg2) {
 	Packet2Dwords* pkt = &Packet2Dwords::Inst;
 	pkt->id = CHEAT_SHOP;
 	pkt->param1 = arg1;
@@ -3847,39 +3847,39 @@ CUnit* BigStruct2::GetUnit_3f6c() {
 }
 
 // 41F6D0
-void BigStruct2::sub_41F6D0() {
+void BigStruct2::CycleFormation() {
 	this->formation = (this->formation + 1) % 3;
-	this->FUN_0041abd2(this->formation);
+	this->SendFormationMode(this->formation);
 }
 
 // 41F720
-void BigStruct2::sub_41F720() {
+void BigStruct2::CycleWimpyMode() {
 	this->wimpy = (this->wimpy + 1) % 3;
-	this->FUN_0041aaaa(this->wimpy);
+	this->SendWimpyMode(this->wimpy);
 }
 
 // 41F770
-void BigStruct2::sub_41F770() {
+void BigStruct2::ToggleShowHp() {
 	this->show_hp = this->show_hp == 0;
 }
 
 // 41F7B0
-void BigStruct2::sub_41F7B0() {
+void BigStruct2::ToggleFlyingHp() {
 	this->flying_hp = this->flying_hp == 0;
 }
 
 // 41F7F0
-int32_t BigStruct2::sub_41F7F0() {
+int32_t BigStruct2::GetWimpyMode() {
 	return this->wimpy;
 }
 
 // 41F810
-int32_t BigStruct2::sub_41F810() {
+int32_t BigStruct2::GetFormation() {
 	return this->formation;
 }
 
 // 416983
-void BigStruct2::sub_416983(int32_t digit) {
+void BigStruct2::SelectControlGroup(int32_t digit) {
 	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
@@ -3894,7 +3894,7 @@ void BigStruct2::sub_416983(int32_t digit) {
 }
 
 // 416A02
-void BigStruct2::sub_416A02(int32_t digit) {
+void BigStruct2::AssignControlGroup(int32_t digit) {
 	if (this->selection_flags & 4) {
 		return;
 	}
@@ -3913,7 +3913,7 @@ void BigStruct2::sub_416A02(int32_t digit) {
 }
 
 // 416AA6
-void BigStruct2::sub_416AA6(int32_t digit) {
+void BigStruct2::AddToControlGroup(int32_t digit) {
 	if (this->selection_flags & 4) {
 		return;
 	}
@@ -3932,7 +3932,7 @@ void BigStruct2::sub_416AA6(int32_t digit) {
 }
 
 // 416B4A
-void BigStruct2::sub_416B4A(int32_t digit) {
+void BigStruct2::SelectControlGroupAndCenter(int32_t digit) {
 	int32_t sum_x = 0;
 	int32_t sum_y = 0;
 	int32_t count = 0;
@@ -3958,7 +3958,7 @@ void BigStruct2::sub_416B4A(int32_t digit) {
 }
 
 // 416C4C
-void BigStruct2::sub_416C4C() {
+void BigStruct2::SelectAllOwnUnits() {
 	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
@@ -3974,13 +3974,13 @@ void BigStruct2::sub_416C4C() {
 }
 
 // 4168BD
-void BigStruct2::sub_4168BD() {
+void BigStruct2::CancelOrderMode() {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	if (this->order_mode != 0) {
 		if (this->order_mode == 5 && this->IsBookOpen()) {
-			this->FUN_0041b636();
+			this->CloseSpellBook();
 		}
-		wnd->vis_spellbook->FUN_004caa69();
+		wnd->vis_spellbook->ClearSpellSelection();
 		this->order_mode = 0;
 		wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
 	} else {
@@ -3995,7 +3995,7 @@ void BigStruct2::sub_4168BD() {
 }
 
 // 4167F7
-void BigStruct2::sub_4167F7(int32_t wparam, int32_t lparam) {
+void BigStruct2::ScrollViewTo(int32_t wparam, int32_t lparam) {
 	if (this->scenario == nullptr) {
 		return;
 	}
@@ -4018,14 +4018,14 @@ void BigStruct2::sub_4167F7(int32_t wparam, int32_t lparam) {
 }
 
 // 403F08
-void BigStruct2::sub_403F08(Scenario* scen) {
+void BigStruct2::SetScenario(Scenario* scen) {
 	this->scenario = scen;
 	this->map_width = this->scenario->GetWidth();
 	this->map_height = this->scenario->GetHeight();
 }
 
 // 418F93
-void BigStruct2::sub_418F93(int32_t arg) {
+void BigStruct2::SetOrderMode(int32_t arg) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	uint32_t avail = this->AvailableOrderMask();
 	int32_t mode = arg;
@@ -4036,31 +4036,31 @@ void BigStruct2::sub_418F93(int32_t arg) {
 		mode = 5;
 	}
 	if (this->order_mode == 5 && mode != 5 && this->IsBookOpen()) {
-		this->FUN_0041b636();
-		wnd->vis_spellbook->FUN_004caa69();
+		this->CloseSpellBook();
+		wnd->vis_spellbook->ClearSpellSelection();
 	}
 	if ((avail & (1 << (mode - 1))) != 0 || arg == 0xA) {
 		this->order_mode = mode;
 		wnd->vis_ordertoolbar->MsgProc(0x40D, mode - 1, 0);
 		switch (arg) {
 		case 3:
-			this->sub_4193E8();
+			this->SendGroupGuard();
 			this->order_mode = 0;
 			wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
 			break;
 		case 7:
-			this->sub_4194A2();
+			this->SendGroupAggressive();
 			this->order_mode = 0;
 			wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
 			break;
 		case 8:
-			this->sub_41A425();
+			this->SendGroupGoHome();
 			this->order_mode = 0;
 			wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
 			break;
 		case 5:
 			if (!this->IsBookOpen()) {
-				this->FUN_0041b509();
+				this->OpenSpellBook();
 			}
 			break;
 		}
@@ -4068,14 +4068,14 @@ void BigStruct2::sub_418F93(int32_t arg) {
 }
 
 // 419154
-void BigStruct2::sub_419154(uint16_t x, uint16_t y) {
+void BigStruct2::SendGroupMove(uint16_t x, uint16_t y) {
 	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = GROUP_MOVE;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->x = x;
-	int32_t tile_y = this->sub_4184B8(g_mousept.x, g_mousept.y) + this->view_y;
+	int32_t tile_y = this->ScreenToTileRow(g_mousept.x, g_mousept.y) + this->view_y;
 	pkt->y = tile_y;
 	pkt->y_high = tile_y >> 8;
 	pkt->count = 0;
@@ -4088,14 +4088,14 @@ void BigStruct2::sub_419154(uint16_t x, uint16_t y) {
 		}
 	}
 	g_NetStru1_local.QueuePacketSend(pkt);
-	CUnit* unit = this->sub_41DFDB();
+	CUnit* unit = this->PickVoiceUnit();
 	if (unit != nullptr && unit->last_action != 1) {
 		unit->PlayMoveVoice();
 	}
 }
 
 // 419246
-void BigStruct2::sub_419246(uint16_t id) {
+void BigStruct2::SendGroupAttack(uint16_t id) {
 	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = GROUP_ATTACK;
@@ -4112,14 +4112,14 @@ void BigStruct2::sub_419246(uint16_t id) {
 		}
 	}
 	g_NetStru1_local.QueuePacketSend(pkt);
-	CUnit* unit = this->sub_41DFDB();
+	CUnit* unit = this->PickVoiceUnit();
 	if (unit != nullptr) {
 		unit->PlayAttackVoice();
 	}
 }
 
 // 41930D
-void BigStruct2::sub_41930D(uint16_t x, uint16_t y) {
+void BigStruct2::SendGroupAttackMove(uint16_t x, uint16_t y) {
 	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = GROUP_ATTACK_MOVE;
@@ -4138,14 +4138,14 @@ void BigStruct2::sub_41930D(uint16_t x, uint16_t y) {
 		}
 	}
 	g_NetStru1_local.QueuePacketSend(pkt);
-	CUnit* unit = this->sub_41DFDB();
+	CUnit* unit = this->PickVoiceUnit();
 	if (unit != nullptr && unit->last_action != 1) {
 		unit->PlaySwarmVoice();
 	}
 }
 
 // 4193E8
-void BigStruct2::sub_4193E8() {
+void BigStruct2::SendGroupGuard() {
 	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = GROUP_GUARD;
@@ -4161,14 +4161,14 @@ void BigStruct2::sub_4193E8() {
 		}
 	}
 	g_NetStru1_local.QueuePacketSend(pkt);
-	CUnit* unit = this->sub_41DFDB();
+	CUnit* unit = this->PickVoiceUnit();
 	if (unit != nullptr) {
 		unit->PlayDefendVoice();
 	}
 }
 
 // 4194A2
-void BigStruct2::sub_4194A2() {
+void BigStruct2::SendGroupAggressive() {
 	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = GROUP_AGGRESSIVE;
@@ -4184,14 +4184,14 @@ void BigStruct2::sub_4194A2() {
 		}
 	}
 	g_NetStru1_local.QueuePacketSend(pkt);
-	CUnit* unit = this->sub_41DFDB();
+	CUnit* unit = this->PickVoiceUnit();
 	if (unit != nullptr) {
 		unit->PlayDefendVoice();
 	}
 }
 
 // 41955C
-void BigStruct2::sub_41955C(uint16_t id) {
+void BigStruct2::SendGroupAttackTarget(uint16_t id) {
 	POSITION it = this->objects.GetStartPosition();
 	CGameObject* obj;
 	if (!this->objects.Lookup(id, obj) || !obj->IsKindOf(RUNTIME_CLASS(CUnit))) {
@@ -4211,14 +4211,14 @@ void BigStruct2::sub_41955C(uint16_t id) {
 		}
 	}
 	g_NetStru1_local.QueuePacketSend(pkt);
-	CUnit* unit = this->sub_41DFDB();
+	CUnit* unit = this->PickVoiceUnit();
 	if (unit != nullptr) {
 		unit->PlayDefendVoice();
 	}
 }
 
 // 41965D
-void BigStruct2::sub_41965D(uint16_t x, uint16_t y) {
+void BigStruct2::SendGroupPatrol(uint16_t x, uint16_t y) {
 	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = GROUP_PATROL;
@@ -4237,14 +4237,14 @@ void BigStruct2::sub_41965D(uint16_t x, uint16_t y) {
 		}
 	}
 	g_NetStru1_local.QueuePacketSend(pkt);
-	CUnit* unit = this->sub_41DFDB();
+	CUnit* unit = this->PickVoiceUnit();
 	if (unit != nullptr) {
 		unit->PlayMoveVoice();
 	}
 }
 
 // 41972F
-void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell) {
+void BigStruct2::SendGroupCastAtPosition(uint16_t x, uint16_t y, int32_t spell) {
 	POSITION it = this->objects.GetStartPosition();
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
@@ -4255,7 +4255,7 @@ void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell) {
 	pkt->y = y;
 	pkt->y_high = y >> 8;
 	pkt->count = 0;
-	if (wnd->vis_spellbook->sub_4CA89B(spell - 1) != 0 && wnd->vis_spellbook->spell == -1) {
+	if (wnd->vis_spellbook->IsSpellAvailable(spell - 1) != 0 && wnd->vis_spellbook->spell == -1) {
 		pkt->id = GROUP_CAST_POS;
 		pkt->slot = spell;
 		while (it != nullptr) {
@@ -4286,7 +4286,7 @@ void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell) {
 		wnd->vis_spellbook->spell = -1;
 		wnd->vis_spellbook->selected = -1;
 	} else {
-		if (wnd->vis_spellbook->sub_4CA8E0(spell - 1) != 0) {
+		if (wnd->vis_spellbook->IsSpellEffectActive(spell - 1) != 0) {
 			for (it = this->objects.GetStartPosition(); it != nullptr;) {
 				uint16_t key;
 				CGameObject* obj;
@@ -4331,7 +4331,7 @@ void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell) {
 }
 
 // 419BA1
-void BigStruct2::sub_419BA1(uint16_t id, int32_t spell) {
+void BigStruct2::SendGroupCastAtUnit(uint16_t id, int32_t spell) {
 	POSITION it = this->objects.GetStartPosition();
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
@@ -4339,7 +4339,7 @@ void BigStruct2::sub_419BA1(uint16_t id, int32_t spell) {
 	pkt->to_player_id = 0;
 	pkt->param = id;
 	pkt->count = 0;
-	if (wnd->vis_spellbook->sub_4CA89B(spell - 1) != 0 && wnd->vis_spellbook->spell == -1) {
+	if (wnd->vis_spellbook->IsSpellAvailable(spell - 1) != 0 && wnd->vis_spellbook->spell == -1) {
 		pkt->id = GROUP_CAST_UNIT;
 		pkt->slot = spell;
 		while (it != nullptr) {
@@ -4370,7 +4370,7 @@ void BigStruct2::sub_419BA1(uint16_t id, int32_t spell) {
 		wnd->vis_spellbook->spell = -1;
 		wnd->vis_spellbook->selected = -1;
 	} else {
-		if (wnd->vis_spellbook->sub_4CA8E0(spell - 1) != 0) {
+		if (wnd->vis_spellbook->IsSpellEffectActive(spell - 1) != 0) {
 			for (it = this->objects.GetStartPosition(); it != nullptr;) {
 				uint16_t key;
 				CGameObject* obj;
@@ -4415,7 +4415,7 @@ void BigStruct2::sub_419BA1(uint16_t id, int32_t spell) {
 }
 
 // 40328E
-void BigStruct2::sub_40328E() {
+void BigStruct2::FreeTileGrids() {
 	free(this->tile_units);
 	free(this->tile_air_units);
 	free(this->tile_structures);
@@ -4433,7 +4433,7 @@ void BigStruct2::sub_40328E() {
 }
 
 // 40403B
-void BigStruct2::sub_40403B() {
+void BigStruct2::RebuildWorldGrids() {
 	this->dirty_rect.SetRectEmpty();
 	memset(this->tile_units, 0, this->tile_grid_bytes);
 	memset(this->tile_air_units, 0, this->tile_grid_bytes);
@@ -4567,18 +4567,18 @@ void BigStruct2::sub_40403B() {
 	}
 	for (int32_t i = 0; i < this->damage_labels.GetSize(); i++) {
 		TakeDamage& dmg = this->damage_labels.ElementAt(i);
-		int32_t left = (dmg.FUN_0041f620() - 0x30) & ~0x1F;
-		int32_t top = dmg.FUN_0041f640() - 0x30;
-		int32_t right = ((dmg.FUN_0041f620() + 0x30) & ~0x1F) + 0x20;
-		int32_t bottom = dmg.FUN_0041f640() + 0x30;
+		int32_t left = (dmg.GetScreenX() - 0x30) & ~0x1F;
+		int32_t top = dmg.GetScreenY() - 0x30;
+		int32_t right = ((dmg.GetScreenX() + 0x30) & ~0x1F) + 0x20;
+		int32_t bottom = dmg.GetScreenY() + 0x30;
 		CRect rect(left, top, right, bottom);
 		this->dirty_rect |= rect;
 	}
-	this->sub_404A2C();
+	this->UpdateTileLight();
 }
 
 // 404912
-void BigStruct2::sub_404912() {
+void BigStruct2::ApplyTerrainLightOverrides() {
 	uint8_t* buf = this->scenario->GetOverlayMap();
 	for (POSITION it = this->terrain_light_override_cells.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
@@ -4603,7 +4603,7 @@ void BigStruct2::sub_404912() {
 }
 
 // 403B8F
-int32_t BigStruct2::sub_403B8F(int32_t arg1, int32_t arg2, int32_t arg3, int32_t arg4) {
+int32_t BigStruct2::StepShadowRay(int32_t arg1, int32_t arg2, int32_t arg3, int32_t arg4) {
 	int32_t idx;
 	if (arg2 > 0) {
 		idx = arg2 * this->map_width + arg1;
@@ -4620,7 +4620,7 @@ int32_t BigStruct2::sub_403B8F(int32_t arg1, int32_t arg2, int32_t arg3, int32_t
 }
 
 // 41B155
-void BigStruct2::sub_41B155() {
+void BigStruct2::SendRequestRespawn() {
 	Packet2Dwords* pkt = &Packet2Dwords::Inst;
 	pkt->id = REQUEST_RESPAWN;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -4629,7 +4629,7 @@ void BigStruct2::sub_41B155() {
 }
 
 // 41CE14
-void BigStruct2::sub_41CE14() {
+void BigStruct2::SendHurtSelf() {
 	Packet2Dwords* pkt = &Packet2Dwords::Inst;
 	pkt->id = HURT_SELF;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -4638,7 +4638,7 @@ void BigStruct2::sub_41CE14() {
 }
 
 // 41AC2D
-void BigStruct2::sub_41AC2D(int32_t id) {
+void BigStruct2::SendHotkeyBroadcast(int32_t id) {
 	Packet2Dwords* pkt = &Packet2Dwords::Inst;
 	pkt->id = SET_PARAMETER;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -4649,7 +4649,7 @@ void BigStruct2::sub_41AC2D(int32_t id) {
 }
 
 // 41AC88
-void BigStruct2::sub_41AC88(int32_t arg1, int32_t arg2) {
+void BigStruct2::SendDropGold(int32_t arg1, int32_t arg2) {
 	Packet2Dwords* pkt = &Packet2Dwords::Inst;
 	pkt->id = DROP_GOLD;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -4660,7 +4660,7 @@ void BigStruct2::sub_41AC88(int32_t arg1, int32_t arg2) {
 }
 
 // 404A2C
-void BigStruct2::sub_404A2C() {
+void BigStruct2::UpdateTileLight() {
 	int32_t delta = g_DeltaCLR.brightness;
 	memset(this->tile_light, delta >> 2, this->tile_grid_bytes / 4);
 	for (POSITION it = this->terrain_light_override_cells.GetStartPosition(); it != nullptr;) {
@@ -4730,14 +4730,14 @@ void BigStruct2::sub_404A2C() {
 }
 
 // 404DA3
-void BigStruct2::sub_404DA3(CRect* rect, uint16_t unit_id) {
+void BigStruct2::AddHitRect(CRect* rect, uint16_t unit_id) {
 	this->hit_rects.SetAtGrow(this->hit_count, *rect);
 	this->hit_unit_ids.SetAtGrow(this->hit_count, unit_id);
 	this->hit_count++;
 }
 
 // 41AB05
-void BigStruct2::sub_41AB05() {
+void BigStruct2::CycleAutoCastGroup() {
 	int32_t mode = g_settings.AutoCasting & 0x38;
 	if (mode == 8) {
 		mode = 0x18;
@@ -4747,11 +4747,11 @@ void BigStruct2::sub_41AB05() {
 		mode = 8;
 	}
 	g_settings.AutoCasting = (g_settings.AutoCasting & 7) | mode;
-	this->FUN_0041ab74();
+	this->SendAutoCastSetting();
 }
 
 // 41A66E
-void BigStruct2::sub_41A66E(uint16_t id) {
+void BigStruct2::SendGroupEnterBuilding(uint16_t id) {
 	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = GROUP_ENTER_BUILDING;
@@ -4768,14 +4768,14 @@ void BigStruct2::sub_41A66E(uint16_t id) {
 		}
 	}
 	g_NetStru1_local.QueuePacketSend(pkt);
-	CUnit* unit = this->sub_41DFDB();
+	CUnit* unit = this->PickVoiceUnit();
 	if (unit != nullptr) {
 		unit->PlayMoveVoice();
 	}
 }
 
 // 41A7C7
-void BigStruct2::sub_41A7C7(uint8_t arg1, uint16_t arg2, uint8_t arg3, uint16_t arg4, uint16_t arg5) {
+void BigStruct2::SendItemOperation(uint8_t arg1, uint16_t arg2, uint8_t arg3, uint16_t arg4, uint16_t arg5) {
 	PacketItemTransfer* pkt = &PacketItemTransfer::Inst;
 	pkt->id = ITEM_OPERATION;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -4790,7 +4790,7 @@ void BigStruct2::sub_41A7C7(uint8_t arg1, uint16_t arg2, uint8_t arg3, uint16_t 
 }
 
 // 41A5B4
-void BigStruct2::sub_41A5B4() {
+void BigStruct2::SendGroupStop() {
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = GROUP_STOP;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -4805,14 +4805,14 @@ void BigStruct2::sub_41A5B4() {
 		}
 	}
 	g_NetStru1_local.QueuePacketSend(pkt);
-	CUnit* unit = this->sub_41DFDB();
+	CUnit* unit = this->PickVoiceUnit();
 	if (unit != nullptr) {
 		unit->PlayDefendVoice();
 	}
 }
 
 // 41A33F
-void BigStruct2::sub_41A33F(uint16_t x, uint16_t y) {
+void BigStruct2::SendGroupPickup(uint16_t x, uint16_t y) {
 	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = GROUP_PICKUP;
@@ -4832,14 +4832,14 @@ void BigStruct2::sub_41A33F(uint16_t x, uint16_t y) {
 		}
 	}
 	g_NetStru1_local.QueuePacketSend(pkt);
-	CUnit* unit = this->sub_41DFDB();
+	CUnit* unit = this->PickVoiceUnit();
 	if (unit != nullptr) {
 		unit->PlayPickupVoice();
 	}
 }
 
 // 41A425
-void BigStruct2::sub_41A425() {
+void BigStruct2::SendGroupGoHome() {
 	POSITION it = this->objects.GetStartPosition();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = GROUP_GO_HOME;
@@ -4855,14 +4855,14 @@ void BigStruct2::sub_41A425() {
 		}
 	}
 	g_NetStru1_local.QueuePacketSend(pkt);
-	CUnit* unit = this->sub_41DFDB();
+	CUnit* unit = this->PickVoiceUnit();
 	if (unit != nullptr) {
 		unit->PlayRetreatVoice();
 	}
 }
 
 // 41A4DF
-void BigStruct2::sub_41A4DF() {
+void BigStruct2::SendGroupGather() {
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = GROUP_GATHER;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -4878,14 +4878,14 @@ void BigStruct2::sub_41A4DF() {
 		}
 	}
 	g_NetStru1_local.QueuePacketSend(pkt);
-	CUnit* unit = this->sub_41DFDB();
+	CUnit* unit = this->PickVoiceUnit();
 	if (unit != nullptr) {
 		unit->PlayPickupVoice();
 	}
 }
 
 // 4184B8
-int32_t BigStruct2::sub_4184B8(int32_t x, int32_t y) {
+int32_t BigStruct2::ScreenToTileRow(int32_t x, int32_t y) {
 	int32_t tx = (x >> 5) + 3;
 	int32_t frac = x & 0x1F;
 	for (int32_t ty = -3; ty < this->view_tiles_y + 7; ty++) {
@@ -4918,7 +4918,7 @@ int32_t BigStruct2::sub_4184B8(int32_t x, int32_t y) {
 }
 
 // 41864D
-uint32_t BigStruct2::sub_41864D() {
+uint32_t BigStruct2::UpdateMouseHover() {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	uint32_t avail = 0;
 	CUnit* old_unit = this->hovered_unit;
@@ -5023,7 +5023,7 @@ uint32_t BigStruct2::sub_41864D() {
 	}
 
 	int32_t tile_x = g_mousept.x >> 5;
-	int32_t tile_y = this->sub_4184B8(g_mousept.x, g_mousept.y);
+	int32_t tile_y = this->ScreenToTileRow(g_mousept.x, g_mousept.y);
 	uint16_t* land = this->scenario->GetLandscape();
 	int32_t cell = tile_x + this->view_x + (tile_y + this->view_y) * this->map_width;
 	uint16_t land_flags = (land[cell] & 0xC000) | (land[cell + 1] & 0xC000) |
@@ -5054,7 +5054,7 @@ uint32_t BigStruct2::sub_41864D() {
 
 // 40B314
 // client: 40b35f
-void BigStruct2::sub_40B314() {
+void BigStruct2::UpdateMapCursor() {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	if (wnd->dialogsMask != 1) {
 		return;
@@ -5072,7 +5072,7 @@ void BigStruct2::sub_40B314() {
 	CRect select_frame = g_mousept.GetSelectFrame();
 	select_frame.NormalizeRect();
 	if (!screen_rect.PtInRect(mouse_pt)) {
-		this->sub_41864D();
+		this->UpdateMouseHover();
 		return;
 	}
 	int32_t kb_control = g_kbControlState;
@@ -5111,21 +5111,21 @@ void BigStruct2::sub_40B314() {
 						cursor = g_Cursors[CURSOR_PATROL];
 						break;
 					}
-					uint32_t avail = this->sub_41864D();
+					uint32_t avail = this->UpdateMouseHover();
 					if ((avail & 0x400) != 0 && cursor == g_Cursors[CURSOR_CAST]) {
 						cursor = g_Cursors[CURSOR_MOVE];
 					}
 					if (g_mousept.GetSelectState() != 0 && !select_frame.IsRectEmpty()) {
 						cursor = g_Cursors[CURSOR_DEFAULT];
 					}
-				} else if (this->IsBookOpen() != 0 && wnd->vis_spellbook->sub_41F9B0() >= 0 &&
+				} else if (this->IsBookOpen() != 0 && wnd->vis_spellbook->GetActiveSlot() >= 0 &&
 					(this->selected_available_spell_mask != 0 || this->active_spell_effect_mask != 0) && (this->selection_flags & 4) == 0) {
-					uint32_t avail = this->sub_41864D();
+					uint32_t avail = this->UpdateMouseHover();
 					cursor = g_Cursors[CURSOR_CAST];
 					if ((avail & 0x400) != 0) {
 						cursor = g_Cursors[CURSOR_MOVE];
 					}
-					if ((avail & 3) == 0 && wnd->vis_spellbook->sub_4CAAA7() != 0) {
+					if ((avail & 3) == 0 && wnd->vis_spellbook->NeedsUnitTarget() != 0) {
 						cursor = g_Cursors[CURSOR_MOVE];
 					}
 					int32_t pickup_flag = (this->selected_object_count == 1 && (this->selection_flags & 1) != 0) ? 1 : 0;
@@ -5153,8 +5153,8 @@ void BigStruct2::sub_40B314() {
 					if (pickup_flag != 0 && cursor == g_Cursors[CURSOR_MOVE]) {
 						cursor = g_Cursors[CURSOR_PICKUP];
 					}
-					if (cursor == g_Cursors[CURSOR_CAST] && wnd->vis_spellbook->sub_4CAAA7() != 0 && (avail & 4) == 0 &&
-						wnd->vis_spellbook->sub_41F9E0() == 0 && dword_62F908[wnd->vis_spellbook->sub_41F9B0()] != 0) {
+					if (cursor == g_Cursors[CURSOR_CAST] && wnd->vis_spellbook->NeedsUnitTarget() != 0 && (avail & 4) == 0 &&
+						wnd->vis_spellbook->HasSelectedSpell() == 0 && dword_62F908[wnd->vis_spellbook->GetActiveSlot()] != 0) {
 						if ((avail & 3) != 0) {
 							cursor = g_Cursors[CURSOR_SELECT];
 						} else {
@@ -5164,9 +5164,9 @@ void BigStruct2::sub_40B314() {
 					if (town_flag != 0 && (avail & 4) == 0) {
 						cursor = g_Cursors[CURSOR_TOWN];
 					}
-					this->sub_41864D();
+					this->UpdateMouseHover();
 				} else {
-					uint32_t avail = this->sub_41864D();
+					uint32_t avail = this->UpdateMouseHover();
 					if (this->selected_object_count == 0) {
 						if ((avail & 0x23) != 0) {
 							cursor = g_Cursors[CURSOR_SELECT];
@@ -5253,13 +5253,13 @@ void BigStruct2::sub_40B314() {
 		cursor = g_Cursors[CURSOR_DEFAULT];
 	}
 	if (wnd->drag_entry != nullptr) {
-		uint32_t avail = this->sub_41864D();
+		uint32_t avail = this->UpdateMouseHover();
 		cursor = wnd->item_cursor;
 		if (wnd->dialogsMask == 1 && this->selected_object_count == 1 &&
 			(((CUnit*)this->primary_selected_object)->unitFlags & 1) != 0 &&
 			this->primary_selected_object->map_player == this->my_main_unit) {
 			int32_t tile_x = (g_mousept.GetX() >> 5) + this->view_x;
-			int32_t tile_y = this->sub_4184B8(g_mousept.GetX(), g_mousept.GetY()) + this->view_y;
+			int32_t tile_y = this->ScreenToTileRow(g_mousept.GetX(), g_mousept.GetY()) + this->view_y;
 			if (abs(tile_x - this->primary_selected_object->tileX) <= 2 &&
 				abs(tile_y - this->primary_selected_object->tileY) <= 2 && (avail & 1) != 0) {
 				cursor = g_Cursors[CURSOR_BACKPACK];
@@ -5272,7 +5272,7 @@ void BigStruct2::sub_40B314() {
 }
 
 // 404E1A
-void BigStruct2::sub_404E1A() {
+void BigStruct2::DrawTerrainFull() {
 	AfxGetMainWnd();
 	timeGetTime();
 	//this->field_0x80->GetMapHeights();
@@ -5332,7 +5332,7 @@ void BigStruct2::sub_404E1A() {
 }
 
 // 405399
-void BigStruct2::sub_405399(int32_t arg) {
+void BigStruct2::DrawTerrainAnimated(int32_t arg) {
 	//this->field_0x80->GetMapHeights();
 	uint8_t* f18map = this->scenario->GetOverlayMap();
 	uint16_t* landscape = this->scenario->GetLandscape();
@@ -5389,7 +5389,7 @@ void BigStruct2::sub_405399(int32_t arg) {
 }
 
 // 40587B
-void BigStruct2::sub_40587B(int32_t arg) {
+void BigStruct2::DrawTerrainScrolled(int32_t arg) {
 	AfxGetMainWnd();
 	timeGetTime();
 	//this->field_0x80->GetMapHeights();
@@ -5454,7 +5454,7 @@ void BigStruct2::sub_40587B(int32_t arg) {
 }
 
 // 405D0E
-void BigStruct2::sub_405D0E() {
+void BigStruct2::RedrawLitTerrain() {
 	AfxGetMainWnd();
 	//this->field_0x80->GetMapHeights();
 	uint8_t* f18map = this->scenario->GetOverlayMap();
@@ -5522,7 +5522,7 @@ void BigStruct2::sub_405D0E() {
 }
 
 // 406F7B
-void BigStruct2::sub_406F7B() {
+void BigStruct2::RenderWorldFrame() {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	if (wnd->dialogsMask != 1 || this->scenario == nullptr) {
 		return;
@@ -5547,7 +5547,7 @@ void BigStruct2::sub_406F7B() {
 		view_moved = 1;
 	}
 	this->MakeHeightCells();
-	this->sub_40403B();
+	this->RebuildWorldGrids();
 	this->dirty_rect.IntersectRect(&this->dirty_rect, &local_rect);
 	if (view_moved != 0) {
 		this->dirty_rect = local_rect;
@@ -5573,14 +5573,14 @@ void BigStruct2::sub_406F7B() {
 	if (childs_size != this->cached_msg_count) {
 		this->dirty_rect = local_rect;
 	}
-	if (child2 != nullptr && child2->sub_41F940() != 0) {
+	if (child2 != nullptr && child2->HasAnimatingCells() != 0) {
 		this->dirty_rect = local_rect;
 	}
 	g_mousept.Update();
 	LockSurface3();
 	GetClipRect(&clip_rect);
 	if (this->force_full_redraw != 0) {
-		this->sub_404E1A();
+		this->DrawTerrainFull();
 		this->tile_scroll_y = 0;
 		this->tile_scroll_x = 0;
 	} else if (this->scroll_dx != 0 || this->scroll_dy != 0) {
@@ -5612,32 +5612,32 @@ void BigStruct2::sub_406F7B() {
 			if (abs(this->tile_scroll_x - old_tx) < this->view_tiles_x / 2) {
 				if (!rc1.IsRectEmpty()) {
 					SetClipRect(rc1);
-					this->sub_40587B(-this->view_tiles_y);
+					this->DrawTerrainScrolled(-this->view_tiles_y);
 				}
 				if (!rc2.IsRectEmpty()) {
 					SetClipRect(rc2);
-					this->sub_40587B(0);
+					this->DrawTerrainScrolled(0);
 				}
 			} else {
 				rc3.SetRect(0, rc1.TopLeft().y, rc1.TopLeft().x, rc1.BottomRight().y);
 				if (!rc3.IsRectEmpty()) {
 					SetClipRect(rc3);
-					this->sub_40587B(-this->view_tiles_y);
+					this->DrawTerrainScrolled(-this->view_tiles_y);
 				}
 				rc3.SetRect(rc1.BottomRight().x, rc1.TopLeft().y, this->view_tiles_x << 5, rc1.BottomRight().y);
 				if (!rc3.IsRectEmpty()) {
 					SetClipRect(rc3);
-					this->sub_40587B(-this->view_tiles_y);
+					this->DrawTerrainScrolled(-this->view_tiles_y);
 				}
 				rc3.SetRect(0, rc2.TopLeft().y, rc2.TopLeft().x, rc2.BottomRight().y);
 				if (!rc3.IsRectEmpty()) {
 					SetClipRect(rc3);
-					this->sub_40587B(0);
+					this->DrawTerrainScrolled(0);
 				}
 				rc3.SetRect(rc2.BottomRight().x, rc2.TopLeft().y, this->view_tiles_x << 5, rc2.BottomRight().y);
 				if (!rc3.IsRectEmpty()) {
 					SetClipRect(rc3);
-					this->sub_40587B(0);
+					this->DrawTerrainScrolled(0);
 				}
 			}
 		}
@@ -5647,29 +5647,29 @@ void BigStruct2::sub_406F7B() {
 			if (abs(this->tile_scroll_y - old_ty) < this->view_tiles_y / 2) {
 				SetClipRect(rc1);
 				if (this->scroll_dy < 0) {
-					this->sub_40587B(0);
+					this->DrawTerrainScrolled(0);
 				} else {
-					this->sub_40587B(-this->view_tiles_y);
+					this->DrawTerrainScrolled(-this->view_tiles_y);
 				}
 			} else {
 				rc2.SetRect(0, 0, this->view_tiles_x << 5, rc1.TopLeft().y);
 				if (!rc2.IsRectEmpty()) {
 					SetClipRect(rc2);
-					this->sub_40587B(-this->view_tiles_y);
+					this->DrawTerrainScrolled(-this->view_tiles_y);
 				}
 				rc2.SetRect(0, rc1.BottomRight().y, this->view_tiles_x << 5, this->view_tiles_y << 5);
 				if (!rc2.IsRectEmpty()) {
 					SetClipRect(rc2);
-					this->sub_40587B(0);
+					this->DrawTerrainScrolled(0);
 				}
 			}
 		}
 	} else {
 		if (anim_redraw != 0 && g_Animation != 0) {
 			SetClipRect(0, this->tile_scroll_y << 5, this->view_tiles_x << 5, this->view_tiles_y << 5);
-			this->sub_405399(0);
+			this->DrawTerrainAnimated(0);
 			SetClipRect(0, 0, this->view_tiles_x << 5, this->tile_scroll_y << 5);
-			this->sub_405399(-this->view_tiles_y);
+			this->DrawTerrainAnimated(-this->view_tiles_y);
 		}
 	}
 	SetClipRect(clip_rect);
@@ -5683,7 +5683,7 @@ void BigStruct2::sub_406F7B() {
 	GetClipRect(&clip_rect);
 	SetClipRect(this->dirty_rect);
 	if (this->lightning_active != 0 && (g_DWORD_00659d18 & 2) == 0 && g_Lightning != 0) {
-		this->sub_405D0E();
+		this->RedrawLitTerrain();
 	}
 	int32_t tick = this->anim_tick;
 	uint8_t* gfx_cells = this->scenario->GetObjectMap();
@@ -5730,7 +5730,7 @@ void BigStruct2::sub_406F7B() {
 					sel.OffsetRect(obj94->mapBoundsLeft << 5,
 						((obj94->mapBoundsTop + si->tile_height) - si->full_height) * 0x20 - hgt);
 					if (obj94->IsBlocked() == 0) {
-						this->sub_404DA3(&sel, obj94->unit_id);
+						this->AddHitRect(&sel, obj94->unit_id);
 					}
 				}
 			}
@@ -5781,7 +5781,7 @@ void BigStruct2::sub_406F7B() {
 					sel.OffsetRect(bld->mapBoundsLeft << 5,
 						((bld->mapBoundsTop + si->tile_height) - si->full_height) * 0x20 - hgt);
 					if (bld->IsBlocked() == 0) {
-						this->sub_404DA3(&sel, bld->unit_id);
+						this->AddHitRect(&sel, bld->unit_id);
 					}
 				}
 				if (unit != nullptr && unit->IsBlocked() == 0 &&
@@ -5791,7 +5791,7 @@ void BigStruct2::sub_406F7B() {
 					sel.OffsetRect(unit->centerScreenX - vfx->center_x,
 						(unit->centerScreenY - vfx->center_y) - unit->terrainHeightOffset - unit->z_pos);
 					if (unit->death_state < 2) {
-						this->sub_404DA3(&sel, unit->unit_id);
+						this->AddHitRect(&sel, unit->unit_id);
 					}
 					if (g_Shadows != 0) {
 						unit->DrawShadow(x, y, light);
@@ -5818,7 +5818,7 @@ void BigStruct2::sub_406F7B() {
 				int32_t tanval = (int32_t)(tan(this->scenario->GetRenderSunAngle()) * 65536.0);
 				uint32_t hgt2 = this->height_cells[x + 4 + (y + 4) * (this->view_tiles_x + 8)];
 				gfxb--;
-				if (this->sub_40B173(gfxb, x, y, hgt2) == 0) {
+				if (this->IsGfxObjectHidden(gfxb, x, y, hgt2) == 0) {
 					GfxObject* gobj = g_GfxObjects[gfxb];
 					int32_t file = gobj->file;
 					int32_t index = gobj->index;
@@ -5888,7 +5888,7 @@ void BigStruct2::sub_406F7B() {
 				uint32_t tval;
 				if (this->terrain_light_override_cells.Lookup(tkey, tval) && tval != 0 && lflags == 0xC000) {
 					int32_t tidx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
-					this->sub_40AFC5(x * 0x20 + 0x10,
+					this->DrawTileOverlayFx(x * 0x20 + 0x10,
 						(int32_t)(this->tile_top_y[tidx] + this->tile_bottom_y[tidx]) / 2, tval, 1);
 				}
 			}
@@ -5936,7 +5936,7 @@ void BigStruct2::sub_406F7B() {
 				uint32_t tval;
 				if (this->terrain_light_override_cells.Lookup(tkey, tval) && tval != 0 && lflags == 0xC000) {
 					int32_t tidx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
-					this->sub_40AFC5(x * 0x20 + 0x10,
+					this->DrawTileOverlayFx(x * 0x20 + 0x10,
 						(int32_t)(this->tile_top_y[tidx] + this->tile_bottom_y[tidx]) / 2, tval, 0);
 				}
 			}
@@ -5959,7 +5959,7 @@ void BigStruct2::sub_406F7B() {
 					sel.OffsetRect(obj->centerScreenX - vfx->center_x,
 						(obj->centerScreenY - vfx->center_y) - obj->terrainHeightOffset - obj->z_pos);
 					if (((CUnit*)obj)->death_state < 2) {
-						this->sub_404DA3(&sel, obj->unit_id);
+						this->AddHitRect(&sel, obj->unit_id);
 					}
 					obj->Draw(x, y, light);
 				}
@@ -6138,7 +6138,7 @@ void BigStruct2::sub_406F7B() {
 	SetClipRect(clip_rect);
 	CVisualObject::VMethod7();
 	UnlockSurface2();
-	this->sub_40B314();
+	this->UpdateMapCursor();
 	if (childs_size == this->cached_msg_count) {
 		this->dirty_rect.SubtractRect(&this->dirty_rect, &childs_rect);
 		if (!childs_rect.IsRectEmpty()) {
@@ -6166,7 +6166,7 @@ void BigStruct2::sub_406F7B() {
 // 406F1A
 void BigStruct2::VMethod7() {
 	this->force_full_redraw = 1;
-	this->sub_406F7B();
+	this->RenderWorldFrame();
 }
 
 // 40C60F
@@ -6177,7 +6177,7 @@ int32_t BigStruct2::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
 // 402af6 (client: 402af6 — only the CVisualObject id differs, see MAP_CONTEXT_ID)
 BigStruct2::BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObject(MAP_CONTEXT_ID, l, t, r, b, nullptr) {
 	this->scenario = nullptr;
-	this->sub_402FB8();
+	this->AllocTileGrids();
 	this->view_x = this->MapMinX();
 	this->view_y = this->MapMinY();
 	this->fps_frames = 0;
@@ -6215,7 +6215,7 @@ BigStruct2::BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObje
 	this->scenario = nullptr;
 	this->shadow_shift = 7;
 	this->shadow_scale = 1 << this->shadow_shift;
-	this->sub_403730();
+	this->BuildShadowTables();
 	MapPlayerData* mpd = new MapPlayerData(0, 0xF);
 	this->map_players.Add(mpd);
 	this->map_players[0]->flags |= 1;
@@ -6244,7 +6244,7 @@ BigStruct2::BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObje
 }
 
 // 40AFC5
-void BigStruct2::sub_40AFC5(int32_t x, int32_t y, uint32_t flags, int32_t flag) {
+void BigStruct2::DrawTileOverlayFx(int32_t x, int32_t y, uint32_t flags, int32_t flag) {
 	if ((flags & 8) != 0 && flag != 0) {
 		ProjectileInfo* proj = g_ProjectileInfos[0xF];
 		int32_t phase = abs(this->anim_tick / 2 + x * y) % 5 + 3;
@@ -6262,7 +6262,7 @@ void BigStruct2::sub_40AFC5(int32_t x, int32_t y, uint32_t flags, int32_t flag) 
 }
 
 // 40B173
-int32_t BigStruct2::sub_40B173(int32_t gfx_id, int32_t x, int32_t y, int32_t height) {
+int32_t BigStruct2::IsGfxObjectHidden(int32_t gfx_id, int32_t x, int32_t y, int32_t height) {
 	GfxObject* gobj = g_GfxObjects[gfx_id];
 	int32_t min_tx = x - 1;
 	int32_t max_tx = x + 2;
@@ -6273,8 +6273,8 @@ int32_t BigStruct2::sub_40B173(int32_t gfx_id, int32_t x, int32_t y, int32_t hei
 		max_tx = this->view_tiles_x;
 	}
 	int32_t cy = (gobj->center_y - gobj->height / 2) + g_GfxFiles[gobj->file]->GetSprite()->GetHeight(0) / 2;
-	int32_t min_ty = this->sub_4184B8(x * 0x20 + 0x10, ((y * 0x20 + 0x10) - cy) - height);
-	int32_t max_ty = this->sub_4184B8(x * 0x20 + 0x10,
+	int32_t min_ty = this->ScreenToTileRow(x * 0x20 + 0x10, ((y * 0x20 + 0x10) - cy) - height);
+	int32_t max_ty = this->ScreenToTileRow(x * 0x20 + 0x10,
 		(((y * 0x20 + 0x10) - cy) - height) + g_GfxFiles[gobj->file]->GetSprite()->GetHeight(0)) + 1;
 	if (min_ty < 0) {
 		min_ty = 0;
@@ -6293,7 +6293,7 @@ int32_t BigStruct2::sub_40B173(int32_t gfx_id, int32_t x, int32_t y, int32_t hei
 }
 
 // 402FB8
-void BigStruct2::sub_402FB8() {
+void BigStruct2::AllocTileGrids() {
 	this->view_tiles_x = this->rect.Width() / 32;
 	this->view_tiles_y = this->rect.Height() / 32;
 	if (this->scenario != nullptr) {
@@ -6329,7 +6329,7 @@ void BigStruct2::sub_402FB8() {
 }
 
 // 403730
-void BigStruct2::sub_403730() {
+void BigStruct2::BuildShadowTables() {
 	for (int32_t i = 0; i <= 0x14; i++) {
 		for (int32_t j = 0; j <= 0x14; j++) {
 			if (j < i / 2) {
@@ -6374,7 +6374,7 @@ void BigStruct2::sub_403730() {
 }
 
 // 403CA0
-void BigStruct2::FUN_00403ca0(CGameObject* obj) {
+void BigStruct2::BuildShadowField(CGameObject* obj) {
 	int32_t base_x = obj->tileX - 20;
 	int32_t base_y = obj->tileY - 20;
 	int32_t base_idx = base_y * this->map_width + base_x;
@@ -6386,22 +6386,22 @@ void BigStruct2::FUN_00403ca0(CGameObject* obj) {
 		for (int32_t d = -r; d < r + 1; d++) {
 			int32_t cx = d + 20;
 			int32_t cy = 20 - r;
-			if (this->scenario->IsInShadedBounds(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
+			if (this->scenario->IsInShadedBounds(base_x + cx, base_y + cy) != 0 && this->StepShadowRay(cx, cy, base_idx, base_height) == 0) {
 				ring_ok = 0;
 			}
 			cx = d + 20;
 			cy = r + 20;
-			if (this->scenario->IsInShadedBounds(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
+			if (this->scenario->IsInShadedBounds(base_x + cx, base_y + cy) != 0 && this->StepShadowRay(cx, cy, base_idx, base_height) == 0) {
 				ring_ok = 0;
 			}
 			cx = 20 - r;
 			cy = d + 20;
-			if (this->scenario->IsInShadedBounds(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
+			if (this->scenario->IsInShadedBounds(base_x + cx, base_y + cy) != 0 && this->StepShadowRay(cx, cy, base_idx, base_height) == 0) {
 				ring_ok = 0;
 			}
 			cx = r + 20;
 			cy = 20 - d;
-			if (this->scenario->IsInShadedBounds(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
+			if (this->scenario->IsInShadedBounds(base_x + cx, base_y + cy) != 0 && this->StepShadowRay(cx, cy, base_idx, base_height) == 0) {
 				ring_ok = 0;
 			}
 		}
@@ -6412,7 +6412,7 @@ void BigStruct2::FUN_00403ca0(CGameObject* obj) {
 }
 
 // 41C74B
-void BigStruct2::FUN_0041c74b(int32_t x, int32_t y, int32_t w, int32_t h, int32_t unk1, uint8_t* dat, int32_t unk2) {
+void BigStruct2::ApplyTileLightMask(int32_t x, int32_t y, int32_t w, int32_t h, int32_t unk1, uint8_t* dat, int32_t unk2) {
 	uint8_t* overlay = this->scenario->GetOverlayMap();
 	for (int32_t i = 0; i < w; i++) {
 		for (int32_t j = 0; j < h; j++) {
@@ -6470,7 +6470,7 @@ void BigStruct2::FUN_0041c74b(int32_t x, int32_t y, int32_t w, int32_t h, int32_
 }
 
 // 41CB21
-void BigStruct2::FUN_0041cb21() {
+void BigStruct2::SendRequestMapInfo() {
 	Packet2Dwords* pkt = &Packet2Dwords::Inst;
 	pkt->id = REQUEST_MAP_INFO;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -6496,7 +6496,7 @@ int32_t BigStruct2::OnChar(uint32_t wparam) {
 }
 
 // 41CB67
-void BigStruct2::FUN_0041cb67(int32_t val) {
+void BigStruct2::SendRequestFileChunk(int32_t val) {
 	Packet2Dwords* pkt = &Packet2Dwords::Inst;
 	pkt->id = REQUEST_FILE_CHUNK;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -6532,7 +6532,7 @@ int32_t BigStruct2::OnRButtonUp(uint32_t wparam, CPoint pos) {
 }
 
 // 41da52
-CGameBitmap* BigStruct2::FUN_0041da52(int32_t serv_id) {
+CGameBitmap* BigStruct2::BuildUnitPortrait(int32_t serv_id) {
 	// 630e28: portrait top-left inside the 0xa0*0xf0 infowindow picture, indexed by typeId - 0x40
 	static const POINT projectile_portrait_pos[39] = {
 		{ 0x1e, 0x48 }, { 0x1a, 0x17 }, { 0x0a, 0x2c }, { -1, -1 },     { 0x0f, 0x15 },
@@ -6546,7 +6546,7 @@ CGameBitmap* BigStruct2::FUN_0041da52(int32_t serv_id) {
 	};
 
 	CBmp64* result = nullptr;
-	CUnit* unit = this->FUN_0041dfa6(serv_id);
+	CUnit* unit = this->FindOrCreateUnitByServerId(serv_id);
 	if (unit == nullptr) {
 		result = new CBmp64(0x58, 0x6c);
 	} else {
@@ -6590,7 +6590,7 @@ CGameBitmap* BigStruct2::FUN_0041da52(int32_t serv_id) {
 }
 
 // 41DF23
-CUnit* BigStruct2::FUN_0041df23(int32_t serv_id) {
+CUnit* BigStruct2::FindUnitByServerId(int32_t serv_id) {
 	CUnit* result = nullptr;
 	POSITION it = this->objects.GetStartPosition();
 	while (it != nullptr) {
@@ -6609,7 +6609,7 @@ CUnit* BigStruct2::FUN_0041df23(int32_t serv_id) {
 }
 
 // 41DFDB
-CUnit* BigStruct2::sub_41DFDB() {
+CUnit* BigStruct2::PickVoiceUnit() {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	if (wnd->sessionMode != 2) {
 		return nullptr;
@@ -6653,7 +6653,7 @@ CUnit* BigStruct2::sub_41DFDB() {
 }
 
 // 41D97E
-void BigStruct2::FUN_0041d97e(int32_t arg) {
+void BigStruct2::UpdateDayNightCycle(int32_t arg) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	if ((wnd->dialogsMask & 1) == 0) {
 		return;
@@ -6662,7 +6662,7 @@ void BigStruct2::FUN_0041d97e(int32_t arg) {
 	if (((wnd->serverLoopCounter & 0xF) == 0 && time_of_day % 20 == 0 && g_settings.ShowTimeFlow != 0) || arg != 0) {
 		UpdateDayNightLighting(time_of_day);
 		this->scenario->UpdateTerrainShading(1, 1, 0, 0);
-		this->sub_404912();
+		this->ApplyTerrainLightOverrides();
 		ReloadPalettes();
 		this->minimap_dirty = 1;
 		this->force_full_redraw = 1;
@@ -6689,7 +6689,7 @@ int32_t BigStruct2::OnMouseMove(uint32_t wparam, CPoint pos) {
 }
 
 // 41B7B7
-void BigStruct2::FUN_0041b7b7(int32_t xpos, int32_t ypos, int32_t* pvol, int32_t* ppan) {
+void BigStruct2::ComputeSoundVolumePan(int32_t xpos, int32_t ypos, int32_t* pvol, int32_t* ppan) {
 	int32_t center_x = (this->view_x << 8) + (this->view_tiles_x << 7);
 	int32_t center_y = (this->view_y << 8) + (this->view_tiles_y << 7);
 	double dx = xpos - center_x;
@@ -6720,14 +6720,14 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 		if (wparam >= 0x30 && wparam <= 0x39) {
 			if (g_kbControlState == 0) {
 				if (g_kbMenuState == 0) {
-					this->sub_416983(wparam - 0x30);
+					this->SelectControlGroup(wparam - 0x30);
 				} else {
-					this->sub_416B4A(wparam - 0x30);
+					this->SelectControlGroupAndCenter(wparam - 0x30);
 				}
 			} else if (g_kbShiftState == 0) {
-				this->sub_416A02(wparam - 0x30);
+				this->AssignControlGroup(wparam - 0x30);
 			} else {
-				this->sub_416AA6(wparam - 0x30);
+				this->AddToControlGroup(wparam - 0x30);
 			}
 			return 1;
 		}
@@ -6775,10 +6775,10 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 				wnd->vis_invtype1->MsgProc(0x417, wparam - 0x73, g_kbShiftState);
 			}
 			if (shortcut.kind == 1) {
-				if (this->IsBookOpen() == 0 && wnd->vis_spellbook->sub_4CA89B(shortcut.item_id) != 0) {
-					this->sub_418F93(9);
-				} else if (this->IsBookOpen() == 0 && wnd->vis_spellbook->sub_4CA8E0(shortcut.item_id) != 0) {
-					this->sub_418F93(10);
+				if (this->IsBookOpen() == 0 && wnd->vis_spellbook->IsSpellAvailable(shortcut.item_id) != 0) {
+					this->SetOrderMode(9);
+				} else if (this->IsBookOpen() == 0 && wnd->vis_spellbook->IsSpellEffectActive(shortcut.item_id) != 0) {
+					this->SetOrderMode(10);
 				}
 			}
 			break;
@@ -6788,36 +6788,36 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 				if (g_kbControlState == 0 && this->selected_object_count != 0 && (this->selection_flags & 0x24) == 0) {
 					switch (wparam) {
 					case 0x41:
-						this->sub_418F93(1);
+						this->SetOrderMode(1);
 						return 1;
 					case 0x43:
 						if (this->IsBookOpen() == 0) {
-							this->sub_418F93(5);
+							this->SetOrderMode(5);
 						}
 						return 1;
 					case 0x44:
-						this->sub_418F93(4);
+						this->SetOrderMode(4);
 						return 1;
 					case 0x47:
-						this->sub_418F93(3);
+						this->SetOrderMode(3);
 						return 1;
 					case 0x4C:
-						this->sub_41A5B4();
+						this->SendGroupStop();
 						return 1;
 					case 0x4D:
-						this->sub_418F93(2);
+						this->SetOrderMode(2);
 						return 1;
 					case 0x50:
-						this->sub_41A4DF();
+						this->SendGroupGather();
 						return 1;
 					case 0x52:
-						this->sub_418F93(8);
+						this->SetOrderMode(8);
 						return 1;
 					case 0x53:
-						this->sub_418F93(6);
+						this->SetOrderMode(6);
 						return 1;
 					case 0x54:
-						this->sub_418F93(7);
+						this->SetOrderMode(7);
 						return 1;
 					}
 				}
@@ -6841,7 +6841,7 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 								}
 							}
 						} else {
-							this->sub_41B155();
+							this->SendRequestRespawn();
 						}
 					}
 					break;
@@ -6859,17 +6859,17 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 					}
 					break;
 				case 0x45:
-					this->sub_416C4C();
+					this->SelectAllOwnUnits();
 					break;
 				case 0x46:
 					if (g_kbControlState != 0) {
-						this->sub_41F6D0();
-						this->msglog.Add(TxtFile::AllLines[this->sub_41F810() + 0x61], clr_log_sblack, 2000);
+						this->CycleFormation();
+						this->msglog.Add(TxtFile::AllLines[this->GetFormation() + 0x61], clr_log_sblack, 2000);
 					}
 					break;
 				case 0x48:
 					if (g_kbControlState != 0) {
-						this->sub_41F770();
+						this->ToggleShowHp();
 						this->msglog.Add(TxtFile::AllLines[this->show_hp + 0x64], clr_log_sblack, 2000);
 					}
 					break;
@@ -6888,7 +6888,7 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 					break;
 				case 0x4C:
 					if (g_kbControlState != 0) {
-						this->sub_41F7B0();
+						this->ToggleFlyingHp();
 						this->msglog.Add(TxtFile::AllLines[this->flying_hp + 0x66], clr_log_sblack, 2000);
 					}
 					break;
@@ -6896,7 +6896,7 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 					if (g_kbControlState != 0) {
 						g_settings.ShowTimeFlow = g_settings.ShowTimeFlow == 0;
 						this->msglog.Add(TxtFile::AllLines[g_settings.ShowTimeFlow + 0x68], clr_log_sblack, 2000);
-						this->FUN_0041d97e(1);
+						this->UpdateDayNightCycle(1);
 					}
 					break;
 				case 0x4F:
@@ -6913,10 +6913,10 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 				case 0x55:
 					if (g_kbControlState == 0) {
 						if (wnd->dialogsMask == 1) {
-							this->sub_41CE14();
+							this->SendHurtSelf();
 						}
 					} else {
-						this->sub_41AB05();
+						this->CycleAutoCastGroup();
 						int32_t cast_state = (g_settings.AutoCasting & 0x10) != 0;
 						if ((g_settings.AutoCasting & 0x20) != 0) {
 							cast_state = 2;
@@ -6930,8 +6930,8 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 							wnd->PostMessage(0x466, 0, 0);
 						}
 					} else {
-						this->sub_41F720();
-						this->msglog.Add(TxtFile::AllLines[this->sub_41F7F0() + 0x5E], clr_log_sblack, 2000);
+						this->CycleWimpyMode();
+						this->msglog.Add(TxtFile::AllLines[this->GetWimpyMode() + 0x5E], clr_log_sblack, 2000);
 					}
 					break;
 				}
@@ -6947,14 +6947,14 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam) {
 }
 
 // 40BD34
-void BigStruct2::sub_40BD34() {
+void BigStruct2::UpdateWorld() {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	uint32_t update_selection = 0;
 
 	this->anim_tick++;
 	TakeDamage::UpdateDamages(&this->damage_labels);
 	if (INT_00660f74 == 0 && (this->anim_tick & 0x1F) == 0) {
-		this->sub_40C18B();
+		this->RebuildLandscapeOccupancy();
 	}
 	if ((this->anim_tick & 0xF) == 0 && g_SoundSettings.music_allowed != 0 && this->my_unit != nullptr) {
 		UpdatePositionalMusic(this->my_unit->x_pos, this->my_unit->y_pos);
@@ -6975,7 +6975,7 @@ void BigStruct2::sub_40BD34() {
 		this->objects.RemoveKey(arr[i]);
 		if (obj->IsSelected() != 0) {
 			this->order_mode = 0;
-			wnd->vis_spellbook->FUN_004caa69();
+			wnd->vis_spellbook->ClearSpellSelection();
 			wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
 		}
 		delete obj;
@@ -6984,7 +6984,7 @@ void BigStruct2::sub_40BD34() {
 		update_selection = 1;
 	}
 
-	this->sub_40C112();
+	this->TickLightningCells();
 	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
@@ -7013,7 +7013,7 @@ void BigStruct2::sub_40BD34() {
 }
 
 // 417B42
-void BigStruct2::sub_417B42(CPoint* pt) {
+void BigStruct2::IssueOrderAtCursor(CPoint* pt) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	CRect select_rect = g_mousept.GetSelectFrame();
 	select_rect.right = pt->x;
@@ -7024,63 +7024,63 @@ void BigStruct2::sub_417B42(CPoint* pt) {
 		select_rect.InflateRect(1, 1);
 	}
 	if (select_rect.Width() > min_size || select_rect.Height() > min_size) {
-		this->sub_417F09(&select_rect);
+		this->SelectUnitsInRect(&select_rect);
 		return;
 	}
 	CSprite256* cursor_sprite = g_mousept.GetCursorSprite();
 	if (this->selected_object_count == 0) {
-		this->sub_417F09(&select_rect);
+		this->SelectUnitsInRect(&select_rect);
 		return;
 	}
 	uint16_t target_id = (uint16_t)this->hovered_unit_id;
 	if (cursor_sprite == g_Cursors[CURSOR_ATTACK]->GetSprite()) {
 		if (target_id != 0 && this->hovered_unit->IsKindOf(RUNTIME_CLASS(CUnit))) {
-			this->sub_419246(target_id);
+			this->SendGroupAttack(target_id);
 		} else {
-			this->sub_419154(this->last_mouse_tile_x, this->last_mouse_tile_y);
+			this->SendGroupMove(this->last_mouse_tile_x, this->last_mouse_tile_y);
 		}
 	} else if (cursor_sprite == g_Cursors[CURSOR_SWARM]->GetSprite()) {
-		this->sub_41930D(this->last_mouse_tile_x, this->last_mouse_tile_y);
+		this->SendGroupAttackMove(this->last_mouse_tile_x, this->last_mouse_tile_y);
 	} else if (cursor_sprite == g_Cursors[CURSOR_MOVE]->GetSprite()) {
-		this->sub_419154(this->last_mouse_tile_x, this->last_mouse_tile_y);
+		this->SendGroupMove(this->last_mouse_tile_x, this->last_mouse_tile_y);
 	} else if (cursor_sprite == g_Cursors[CURSOR_PATROL]->GetSprite()) {
-		this->sub_41965D(this->last_mouse_tile_x, this->last_mouse_tile_y);
+		this->SendGroupPatrol(this->last_mouse_tile_x, this->last_mouse_tile_y);
 	} else if (cursor_sprite == g_Cursors[CURSOR_DEFEND]->GetSprite()) {
 		if (target_id != 0) {
-			this->sub_41955C(target_id);
+			this->SendGroupAttackTarget(target_id);
 		}
 	} else if (cursor_sprite == g_Cursors[CURSOR_SELECT]->GetSprite()) {
-		this->sub_417F09(&select_rect);
+		this->SelectUnitsInRect(&select_rect);
 	} else if (cursor_sprite == g_Cursors[CURSOR_PICKUP]->GetSprite()) {
-		this->sub_41A33F(this->last_mouse_tile_x, this->last_mouse_tile_y);
+		this->SendGroupPickup(this->last_mouse_tile_x, this->last_mouse_tile_y);
 	} else if (cursor_sprite == g_Cursors[CURSOR_TOWN]->GetSprite()) {
-		this->sub_41A66E(target_id);
+		this->SendGroupEnterBuilding(target_id);
 	} else if (cursor_sprite == g_Cursors[CURSOR_CAST]->GetSprite()) {
-		int32_t spell_pos = wnd->vis_spellbook->sub_41F9B0();
+		int32_t spell_pos = wnd->vis_spellbook->GetActiveSlot();
 		if (spell_pos >= 0) {
 			if (target_id != 0) {
-				if (this->hovered_unit->IsKindOf(RUNTIME_CLASS(CUnit)) && wnd->vis_spellbook->sub_4CAAA7() != 0) {
-					this->sub_419BA1(target_id, spell_pos + 1);
+				if (this->hovered_unit->IsKindOf(RUNTIME_CLASS(CUnit)) && wnd->vis_spellbook->NeedsUnitTarget() != 0) {
+					this->SendGroupCastAtUnit(target_id, spell_pos + 1);
 				} else {
-					this->sub_41972F(this->last_mouse_tile_x, this->last_mouse_tile_y, spell_pos + 1);
+					this->SendGroupCastAtPosition(this->last_mouse_tile_x, this->last_mouse_tile_y, spell_pos + 1);
 				}
-			} else if (wnd->vis_spellbook->sub_4CAAA7() == 0) {
-				this->sub_41972F(this->last_mouse_tile_x, this->last_mouse_tile_y, spell_pos + 1);
+			} else if (wnd->vis_spellbook->NeedsUnitTarget() == 0) {
+				this->SendGroupCastAtPosition(this->last_mouse_tile_x, this->last_mouse_tile_y, spell_pos + 1);
 			}
 			if (this->order_mode == 5 && this->IsBookOpen() != 0) {
-				this->FUN_0041b636();
+				this->CloseSpellBook();
 			}
 		}
 	}
 	if (this->order_mode != 0) {
 		this->order_mode = 0;
-		wnd->vis_spellbook->FUN_004caa69();
+		wnd->vis_spellbook->ClearSpellSelection();
 		wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
 	}
 }
 
 // 417F09
-void BigStruct2::sub_417F09(CRect* rect) {
+void BigStruct2::SelectUnitsInRect(CRect* rect) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	int32_t min_size = g_ScreenSize.right * 10 / 0x280;
 	int32_t small_rect = rect->Width() < min_size && rect->Height() < min_size;
@@ -7161,13 +7161,13 @@ void BigStruct2::sub_417F09(CRect* rect) {
 	}
 	this->UpdateSelectionState();
 	if (g_kbMenuState != 0 && this->selected_object_count == 1 && this->primary_selected_object->GetControlGroup() >= 0) {
-		this->sub_416983(this->primary_selected_object->GetControlGroup());
+		this->SelectControlGroup(this->primary_selected_object->GetControlGroup());
 	}
 	this->order_mode = 0;
-	wnd->vis_spellbook->FUN_004caa69();
+	wnd->vis_spellbook->ClearSpellSelection();
 	wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
 	if (g_kbShiftState == 0 && this->selected_object_count != 0 && (this->selection_flags & 1) != 0 && (this->selection_flags & 4) == 0) {
-		CUnit* unit = this->sub_41DFDB();
+		CUnit* unit = this->PickVoiceUnit();
 		if (unit != nullptr) {
 			unit->PlaySelectVoice();
 		}
@@ -7175,7 +7175,7 @@ void BigStruct2::sub_417F09(CRect* rect) {
 }
 
 // 40C112
-void BigStruct2::sub_40C112() {
+void BigStruct2::TickLightningCells() {
 	for (POSITION it = this->lightning_cells.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		uint32_t value;
@@ -7190,7 +7190,7 @@ void BigStruct2::sub_40C112() {
 }
 
 // 40C18B
-void BigStruct2::sub_40C18B() {
+void BigStruct2::RebuildLandscapeOccupancy() {
 	this->minimap_dirty = 1;
 	this->full_redraw_requested = 1;
 	uint16_t* landscape = this->scenario->GetLandscape();
@@ -7215,53 +7215,53 @@ int32_t BigStruct2::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 	}
 	switch (msg) {
 	case 0x401:
-		this->sub_40BD34();
+		this->UpdateWorld();
 		this->msglog.Update();
-		this->FUN_0041d97e(0);
+		this->UpdateDayNightCycle(0);
 		break;
 	case 0x402:
-		this->sub_406F7B();
+		this->RenderWorldFrame();
 		break;
 	case 0x405:
-		this->sub_4168BD();
+		this->CancelOrderMode();
 		result = 1;
 		break;
 	case 0x406:
-		this->sub_4167F7(wparam, lparam);
+		this->ScrollViewTo(wparam, lparam);
 		result = 1;
 		break;
 	case 0x40C:
 		g_SfxArray[8]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xDC, 0);
-		this->sub_418F93(wparam + 1);
+		this->SetOrderMode(wparam + 1);
 		result = 1;
 		break;
 	case 0x40E:
 		if (this->IsBagOpen()) {
-			this->FUN_0041b40e();
+			this->CloseBag();
 		} else {
-			this->FUN_0041b381();
+			this->OpenBag();
 		}
 		if (g_mousept.GetSelectState() != 0) {
 			g_mousept.ResetStates();
 			wnd->ApplyCursorClip();
-			this->sub_40B314();
+			this->UpdateMapCursor();
 			CPoint pt(g_mousept.GetX(), g_mousept.GetY());
-			this->sub_417B42(&pt);
+			this->IssueOrderAtCursor(&pt);
 		}
 		result = 1;
 		break;
 	case 0x40F:
 		if (this->IsBookOpen()) {
-			this->FUN_0041b636();
+			this->CloseSpellBook();
 		} else {
-			this->FUN_0041b509();
+			this->OpenSpellBook();
 		}
 		if (g_mousept.GetSelectState() != 0) {
 			g_mousept.ResetStates();
 			wnd->ApplyCursorClip();
-			this->sub_40B314();
+			this->UpdateMapCursor();
 			CPoint pt(g_mousept.GetX(), g_mousept.GetY());
-			this->sub_417B42(&pt);
+			this->IssueOrderAtCursor(&pt);
 		}
 		result = 1;
 		break;
@@ -7286,8 +7286,8 @@ int32_t BigStruct2::OnLButtonUp(uint32_t wparam, CPoint pos) {
 	if (g_mousept.GetSelectState() != 0) {
 		g_mousept.ResetStates();
 		wnd->ApplyCursorClip();
-		this->sub_40B314();
-		this->sub_417B42(&pos);
+		this->UpdateMapCursor();
+		this->IssueOrderAtCursor(&pos);
 	}
 	if (wnd->drag_entry != nullptr) {
 		if (this->selected_object_count == 1 && this->primary_selected_object != nullptr) {
@@ -7299,9 +7299,9 @@ int32_t BigStruct2::OnLButtonUp(uint32_t wparam, CPoint pos) {
 				tile_y = this->hovered_unit->tileY;
 			}
 			if (wnd->drag_entry->IsEmpty() != 0) {
-				this->sub_41AC88(wnd->drag_entry->count, tile_x | (tile_y << 8));
+				this->SendDropGold(wnd->drag_entry->count, tile_x | (tile_y << 8));
 			} else {
-				this->sub_41A7C7(wnd->drag_src_tab, wnd->drag_src_slot, 3, tile_x | (tile_y << 8), wnd->drag_entry->count);
+				this->SendItemOperation(wnd->drag_src_tab, wnd->drag_src_slot, 3, tile_x | (tile_y << 8), wnd->drag_entry->count);
 			}
 		}
 		delete wnd->drag_entry;
@@ -7312,7 +7312,7 @@ int32_t BigStruct2::OnLButtonUp(uint32_t wparam, CPoint pos) {
 }
 
 // 41C630
-void BigStruct2::FUN_0041c630(CWordArray* data) {
+void BigStruct2::ApplyLandscapeFlags(CWordArray* data) {
 	uint16_t flag = (*data)[0];
 	if (flag != 0) {
 		flag = 0x2000;
@@ -7337,7 +7337,7 @@ void BigStruct2::FUN_0041c630(CWordArray* data) {
 }
 
 // 41C4A1
-void BigStruct2::FUN_0041c4a1(const char* name) {
+void BigStruct2::LoadScenario(const char* name) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	delete this->scenario;
 	CString str(name);
@@ -7346,9 +7346,9 @@ void BigStruct2::FUN_0041c4a1(const char* name) {
 	}
 	this->scenario = new Scenario(str);
 	this->minimap_dirty = 1;
-	this->sub_403F08(this->scenario);
+	this->SetScenario(this->scenario);
 	wnd->vis_right_panel->MsgProc(0x403, (uint32_t)this, 0);
-	this->FUN_0041d97e(1);
+	this->UpdateDayNightCycle(1);
 	LoadTerrainTiles(this->scenario->terrain_tile_mask);
 	this->quest_map->RemovePlayerQuests(0);
 }
@@ -7356,7 +7356,7 @@ void BigStruct2::FUN_0041c4a1(const char* name) {
 // 403395
 BigStruct2::~BigStruct2() {
 	delete this->scratch_tile;
-	this->sub_40328E();
+	this->FreeTileGrids();
 	delete this->scenario;
 
 	POSITION it = this->objects.GetStartPosition();
@@ -8122,10 +8122,10 @@ void BigStruct2::ApplyDynamicLight(int32_t tx, int32_t ty, int32_t radius, int32
 }
 
 // 41a001
-void BigStruct2::FUN_0041a001(int32_t idx) {
+void BigStruct2::SendGroupSelfCast(int32_t idx) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
-	if (wnd->vis_spellbook->sub_4CA89B(idx - 1) != 0 && wnd->vis_spellbook->spell == -1) {
+	if (wnd->vis_spellbook->IsSpellAvailable(idx - 1) != 0 && wnd->vis_spellbook->spell == -1) {
 		POSITION it = this->objects.GetStartPosition();
 		while (it != nullptr) {
 			uint16_t key;
@@ -8143,7 +8143,7 @@ void BigStruct2::FUN_0041a001(int32_t idx) {
 			}
 		}
 	}
-	if (wnd->vis_spellbook->sub_4CA8E0(idx - 1) != 0) {
+	if (wnd->vis_spellbook->IsSpellEffectActive(idx - 1) != 0) {
 		POSITION it = this->objects.GetStartPosition();
 		while (it != nullptr) {
 			uint16_t key;
@@ -8188,7 +8188,7 @@ void BigStruct2::FUN_0041a001(int32_t idx) {
 }
 
 // 41ae1c
-void BigStruct2::FUN_0041ae1c(int32_t serv_id) {
+void BigStruct2::LeaveInn(int32_t serv_id) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	if (wnd->sessionMode == 2) {
 		CWordArray ids;
@@ -8222,7 +8222,7 @@ void BigStruct2::FUN_0041ae1c(int32_t serv_id) {
 }
 
 // 41ace2
-void BigStruct2::FUN_0041ace2(int32_t spell_id) {
+void BigStruct2::SendAutoSpellSelect(int32_t spell_id) {
 	Packet2Dwords* pkt = &Packet2Dwords::Inst;
 	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
@@ -8241,7 +8241,7 @@ void BigStruct2::FUN_0041ace2(int32_t spell_id) {
 }
 
 // 41e2af
-int32_t BigStruct2::FUN_0041e2af(int32_t id, CUnit** out) {
+int32_t BigStruct2::FindUnitByQuestFlag(int32_t id, CUnit** out) {
 	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
@@ -8258,7 +8258,7 @@ int32_t BigStruct2::FUN_0041e2af(int32_t id, CUnit** out) {
 }
 
 // 40c0a8
-uint32_t BigStruct2::sub_40C0A8(int32_t x, int32_t y) {
+uint32_t BigStruct2::FindObjectAtTile(int32_t x, int32_t y) {
 	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
 		CGameObject* obj;
@@ -8272,7 +8272,7 @@ uint32_t BigStruct2::sub_40C0A8(int32_t x, int32_t y) {
 }
 
 // 41cda3
-void BigStruct2::FUN_0041cda3(const char* mapname) {
+void BigStruct2::SendMapAnnouncement(const char* mapname) {
 	PacketJoin* pkt = &PacketJoin::Inst;
 	pkt->id = ANNOUNCEMENT;
 	if (this->my_main_unit != nullptr) {
@@ -8285,7 +8285,7 @@ void BigStruct2::FUN_0041cda3(const char* mapname) {
 }
 
 // 41a942
-void BigStruct2::sub_41A942() {
+void BigStruct2::SendShopBuy() {
 	PacketWord* pkt = &PacketWord::Inst;
 	pkt->id = SHOP_BUY;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -8295,16 +8295,16 @@ void BigStruct2::sub_41A942() {
 }
 
 // 41dfa6
-CUnit* BigStruct2::FUN_0041dfa6(int32_t serv_id) {
-	CUnit* unit = this->FUN_0041df23(serv_id);
+CUnit* BigStruct2::FindOrCreateUnitByServerId(int32_t serv_id) {
+	CUnit* unit = this->FindUnitByServerId(serv_id);
 	if (unit == nullptr) {
-		unit = this->sub_41DE80(serv_id);
+		unit = this->CreateRemoteHeroStub(serv_id);
 	}
 	return unit;
 }
 
 // 41a9f6
-void BigStruct2::sub_41A9F6() {
+void BigStruct2::SendShopTakeBack() {
 	PacketWord* pkt = &PacketWord::Inst;
 	pkt->id = SHOP_TAKE_BACK;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -8314,7 +8314,7 @@ void BigStruct2::sub_41A9F6() {
 }
 
 // 41a99c
-void BigStruct2::sub_41A99C() {
+void BigStruct2::SendShopSell() {
 	PacketWord* pkt = &PacketWord::Inst;
 	pkt->id = SHOP_SELL;
 	pkt->from_player_id = this->my_main_unit->index;
@@ -8324,7 +8324,7 @@ void BigStruct2::sub_41A99C() {
 }
 
 // 41de80
-CUnit* BigStruct2::sub_41DE80(int32_t serv_id) {
+CUnit* BigStruct2::CreateRemoteHeroStub(int32_t serv_id) {
 	CUnit* unit = new CUnit();
 	unit->unitFlags = 0x56;
 	unit->typeId = 1;
@@ -8333,7 +8333,7 @@ CUnit* BigStruct2::sub_41DE80(int32_t serv_id) {
 	return unit;
 }
 
-void BigStruct2::FUN_0041be0f() { //client: 41be0f
+void BigStruct2::SendGroupStopAfk() { //client: 41be0f
 	PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
 	pkt->id = GROUP_STOP_AFK;
 	pkt->from_player_id = my_main_unit->index;

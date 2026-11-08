@@ -3446,7 +3446,7 @@ int32_t VisRoleKeyScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
         return this->VisScreen::MsgProc(msg, wparam, lparam);
     }
 
-    if (this->sub_4E0169()) {
+    if (this->AdvanceSpeechLine()) {
         CVisualObject* textbox = this->FindChild(10);
         textbox->VMethod9();
         CVisualObject* portrait = this->FindChild(12);
@@ -3475,7 +3475,7 @@ int32_t VisRoleKeyScreen::OnKeyDown(uint32_t wparam) {
 
 // 4e012d
 void VisRoleKeyScreen::VMethod28() {
-    this->sub_4E0169();
+    this->AdvanceSpeechLine();
     this->VisScreen::VMethod28();
 }
 
@@ -3490,7 +3490,7 @@ void VisRoleKeyScreen::DoClose(uint32_t code) {
 
 
 // 4e0169
-bool VisRoleKeyScreen::sub_4E0169() {
+bool VisRoleKeyScreen::AdvanceSpeechLine() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     this->line_no = this->line_no + 1;
@@ -3510,7 +3510,7 @@ bool VisRoleKeyScreen::sub_4E0169() {
     char* name;
     char* name_end;
     int32_t music_id;
-    if (!this->FUN_004e0b43(this->line_no, &id, &text, &name, &name_end, &music_id)) {
+    if (!this->ParseSpeechLine(this->line_no, &id, &text, &name, &name_end, &music_id)) {
         return false;
     }
 
@@ -3523,7 +3523,7 @@ bool VisRoleKeyScreen::sub_4E0169() {
     if (text.GetLength() == 0) {
         char gender = 0;
         if (this->spoken_by_player != 0 || id == 0x15) {
-            CUnit* unit = main_wnd->vis_map_context->FUN_0041dfa6(0x15);
+            CUnit* unit = main_wnd->vis_map_context->FindOrCreateUnitByServerId(0x15);
             if ((unit->unitFlags & 4) == 0) {
                 gender = (unit->unitFlags & 2) != 0 ? 'm' : 'f';
             } else {
@@ -3589,7 +3589,7 @@ bool VisRoleKeyScreen::sub_4E0169() {
         if (bmp != nullptr) {
             delete bmp;
         }
-        portrait->SetBitmap(main_wnd->vis_map_context->FUN_0041da52(id));
+        portrait->SetBitmap(main_wnd->vis_map_context->BuildUnitPortrait(id));
     }
 
     if (music_id >= 0) {
@@ -3601,7 +3601,7 @@ bool VisRoleKeyScreen::sub_4E0169() {
 
 
 // 4e0b43
-bool VisRoleKeyScreen::FUN_004e0b43(int32_t line_no, int32_t* out_id, CString* out_text, char** out_name, char** out_name_end, int32_t* out_music) {
+bool VisRoleKeyScreen::ParseSpeechLine(int32_t line_no, int32_t* out_id, CString* out_text, char** out_name, char** out_name_end, int32_t* out_music) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     char* p = this->text_buf;
 
@@ -3671,7 +3671,7 @@ bool VisRoleKeyScreen::FUN_004e0b43(int32_t line_no, int32_t* out_id, CString* o
             num = tag.Mid(pos, 5);
             int32_t unit_id = 0;
             sscanf(num, "%d", &unit_id);
-            CUnit* unit = main_wnd->vis_map_context->FUN_0041df23(unit_id);
+            CUnit* unit = main_wnd->vis_map_context->FindUnitByServerId(unit_id);
             if (unit == nullptr || pos < 0) {
                 break;
             }
@@ -3694,7 +3694,7 @@ bool VisRoleKeyScreen::FUN_004e0b43(int32_t line_no, int32_t* out_id, CString* o
             num = tag.Mid(pos, 5);
             int32_t unit_id = 0;
             sscanf(num, "%d", &unit_id);
-            CUnit* unit = main_wnd->vis_map_context->FUN_0041df23(unit_id);
+            CUnit* unit = main_wnd->vis_map_context->FindUnitByServerId(unit_id);
             if (unit != nullptr || pos < 0) {
                 break;
             }
@@ -4576,11 +4576,11 @@ int32_t VisTipsDialog::OnLButtonUp(uint32_t wparam, CPoint pos) {
 // 4e2541
 VisTipsDialog::VisTipsDialog(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* txt)
 : VisScreen(_id, l, t, r, b, nullptr) {
-    this->FUN_004e25c1(l, t, r, b, txt);
+    this->InitTipsDialog(l, t, r, b, txt);
 }
 
 // 4e25c1
-void VisTipsDialog::FUN_004e25c1(int32_t l, int32_t t, int32_t r, int32_t b, const char* txt) {
+void VisTipsDialog::InitTipsDialog(int32_t l, int32_t t, int32_t r, int32_t b, const char* txt) {
     VisMultiText* multitext = new VisMultiText(MAP_CHILD_TIPS_TEXT, 0x14, 0x18, this->rect.Width() - 0x1C, this->rect.Height() - 0x24, txt, g_font2, clrsh_DullGold, 0);
     this->AddChild(multitext);
 
@@ -4659,7 +4659,7 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
                         if (idx < this->parent_screen->session->GetStringArray1Size() - 1) {
                             this->parent_screen->session->LoadCharacterRosterEntry(idx);
                             this->parent_screen->vis_stats->ReadUnitStats();
-                            this->parent_screen->FUN_00432655(this->parent_screen->selected_unit);
+                            this->parent_screen->SelectCharacter(this->parent_screen->selected_unit);
                         } else {
                             this->parent_screen->roster_list->selected_row = this->parent_screen->session->GetStringArray1Size() - 1;
                             this->parent_screen->selected_unit->SetSelected(0);
@@ -4944,7 +4944,7 @@ void VisCharSellectList::SelectRow(int32_t row) {
         } else {
             this->parent_screen->session->LoadCharacterRosterEntry(row);
             this->parent_screen->vis_stats->ReadUnitStats();
-            this->parent_screen->FUN_00432655(this->parent_screen->selected_unit);
+            this->parent_screen->SelectCharacter(this->parent_screen->selected_unit);
         }
         this->selected_row = row;
     }
@@ -5120,7 +5120,7 @@ int32_t VisCharSellectList::OnKeyDown(uint32_t wparam) {
 
 
 // 430FAD
-void VisCharSellectList::FUN_00430fad() {
+void VisCharSellectList::ResetListState() {
     this->top_row = 0;
     this->selected_row = 0;
     this->hovered_row = -1;
@@ -5150,7 +5150,7 @@ void VisCharSellectList::Init() {
     this->up_arrow_rect = CRect(CPoint(0x78, 0), CSize(0x50, 0x3C)) + top_left;
     this->down_arrow_rect = CRect(CPoint(0x78, 0x188), CSize(0x50, 0x34)) + top_left;
 #endif
-    this->FUN_00430fad();
+    this->ResetListState();
 }
 
 
@@ -5176,13 +5176,13 @@ int32_t VisNetMapSelection::OnKeyDown(uint32_t wparam) {
 
 // 44aad6
 UINT AFX_CDECL VisNetMapThreadProc(LPVOID pParam) {
-    static_cast<VisNetMapSelection*>(pParam)->FUN_0044aae5();
+    static_cast<VisNetMapSelection*>(pParam)->ScanMapsThread();
     return 0;
 }
 
 
 // 44AAE5
-void VisNetMapSelection::FUN_0044aae5() {
+void VisNetMapSelection::ScanMapsThread() {
     char path[MAX_PATH];
     WIN32_FIND_DATAA find_data;
     AppGetWorkingDir(0x103, path);
@@ -5449,7 +5449,7 @@ int32_t VisNetMapSelection::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpar
                 VisListBox* map_list = (VisListBox*)this->FindChild(1);
                 map_list->VMethod9();
                 NetMapInfo* info = this->avail_maps.GetAt(this->selected_map_index);
-                this->map_context->FUN_0041cda3((LPCTSTR)info->name);
+                this->map_context->SendMapAnnouncement((LPCTSTR)info->name);
                 CString row = map_list->GetItem(lparam);
                 int32_t level = row[row.GetLength() - 1] - '1';
                 if (level < 0) {
@@ -5712,7 +5712,7 @@ int32_t VisNetChatTextBox::OnKeyDown(uint32_t wparam) {
         this->VMethod9();
 
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-        main_wnd->vis_map_context->FUN_0041b2a4(buf, 4, 0);
+        main_wnd->vis_map_context->SendChatPacket(buf, 4, 0);
         return 1;
     }
 
@@ -5935,7 +5935,7 @@ void VisCharSelect::VMethod28() {
     this->selected_unit = this->GetSelectedMapUnit();
     this->vis_stats->ReadUnitStats();
     if (this->session->GetStringArray1Size() > 1) {
-        this->FUN_00432655(this->selected_unit);
+        this->SelectCharacter(this->selected_unit);
     }
     main_wnd->vis_right_panel->RemoveChild(this->info_panel);
     CRect& rc = this->info_panel->GetRect();
@@ -5946,7 +5946,7 @@ void VisCharSelect::VMethod28() {
     this->vis_stats->LoadBitmaps();
     this->buttons->LoadBitmaps();
     this->roster_list->LoadBitmaps();
-    this->roster_list->FUN_00430fad();
+    this->roster_list->ResetListState();
     LockSurface2();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
     UnlockSurface2();
@@ -6029,7 +6029,7 @@ int32_t VisCharSelect::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 
 
 // 432655
-void VisCharSelect::FUN_00432655(CUnit* unit) {
+void VisCharSelect::SelectCharacter(CUnit* unit) {
     if (unit != nullptr) {
         unit->SetSelected(1);
         unit->unitFlags |= 8;
@@ -6710,12 +6710,12 @@ int32_t GameOptionsWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpara
         }
 
 
-        mwnd->vis_map_context->FUN_0041abd2(*g_settings.pFormationMode % 3);
-        mwnd->vis_map_context->FUN_0041aaaa(*g_settings.pWimpyMode % 3);
-        mwnd->vis_map_context->FUN_0041ab74();
+        mwnd->vis_map_context->SendFormationMode(*g_settings.pFormationMode % 3);
+        mwnd->vis_map_context->SendWimpyMode(*g_settings.pWimpyMode % 3);
+        mwnd->vis_map_context->SendAutoCastSetting();
     }
     if (g_settings.ShowTimeFlow != oldshtfl) {
-        mwnd->vis_map_context->FUN_0041d97e(1);
+        mwnd->vis_map_context->UpdateDayNightCycle(1);
     }
 
     return VisScreen::MsgProc(msg, wparam, lparam);
@@ -8470,12 +8470,12 @@ const char* VisCharGenStats::GetHint() {
         }
         if ((this->areas[i][1] + topleft).PtInRect(pt)) {
             str.Format("%+d", -this->StatUpCost((&this->stat_body)[i]));
-            FUN_00476987(&str);
+            InsertThousandsSeparators(&str);
             return str;
         }
         if ((this->areas[i][2] + topleft).PtInRect(pt)) {
             str.Format("%+d", this->StatDownRefund((&this->stat_body)[i]));
-            FUN_00476987(&str);
+            InsertThousandsSeparators(&str);
             return str;
         }
     }
@@ -8508,7 +8508,7 @@ void VisCharGenStats::VMethod7() {
                              screen_rect.top + this->areas[i][2].top,
                              0, 0, minus_bmp->GetWidth(0), minus_bmp->GetHeight(0));
         str.Format("%d", this->stat_points);
-        FUN_00476987(&str);
+        InsertThousandsSeparators(&str);
         pal = palette_husk->GetPalette(0);
         g_font4->DrawTextWithShadow(
             screen_rect.left + this->points_rect.left + this->points_rect.Width() / 2,
@@ -9773,8 +9773,8 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
 
     if ((token->flg & 0x10) != 0 && (token->flg & 1) != 0) {
         int32_t removed = main_wnd->vis_invtype1->VMethod37(main_wnd->drag_src_slot);
-        main_wnd->vis_spellbook->sub_4CA925(removed);
-        map->sub_418F93(0xA);
+        main_wnd->vis_spellbook->SelectScrollEntry(removed);
+        map->SetOrderMode(0xA);
         return 0;
     }
 
@@ -9787,7 +9787,7 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
         }
 
         int32_t amount = token->count;
-        map->sub_41A7C7(main_wnd->drag_src_tab, main_wnd->drag_src_slot, this->VMethod28(), a + 1, amount);
+        map->SendItemOperation(main_wnd->drag_src_tab, main_wnd->drag_src_slot, this->VMethod28(), a + 1, amount);
 
         if (split != nullptr) {
             main_wnd->vis_invtype1->VMethod37(main_wnd->drag_src_slot);
@@ -9827,7 +9827,7 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
     unit->equipmentTokens[a] = main_wnd->drag_entry;
 
     int32_t amount = main_wnd->drag_entry->count;
-    map->sub_41A7C7(main_wnd->drag_src_tab, main_wnd->drag_src_slot, this->VMethod28(), a + 1, amount);
+    map->SendItemOperation(main_wnd->drag_src_tab, main_wnd->drag_src_slot, this->VMethod28(), a + 1, amount);
 
     main_wnd->ResetItemCursor();
     unit->ReloadSprite();
@@ -9863,7 +9863,7 @@ int32_t VisCharInfo::OnLButtonUp(uint32_t wparam, CPoint pos) {
             return 1;
         }
         if (token->slot_code >= 5 && token->slot_code <= 8) {
-            ((VisShop*)main_wnd->vis_root->FindChild(0x3E8))->sub_4BC97B();
+            ((VisShop*)main_wnd->vis_root->FindChild(0x3E8))->CancelItemDrag();
             return 1;
         }
     }
@@ -10025,7 +10025,7 @@ int32_t VisCharInfo::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
 
     if (this->VMethod26(color - 1) != 0) {
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-        int32_t slot = main_wnd->vis_invtype1->FUN_0046fb90();
+        int32_t slot = main_wnd->vis_invtype1->GetVisibleStart();
         main_wnd->vis_invtype1->VMethod37(slot);
     }
     return 1;
@@ -10124,7 +10124,7 @@ int32_t VisCharInfo::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
                 }
             }
             if ((main_wnd->dialogsMask & 3) != 0) {
-                this->sub_4B36B4();
+                this->UpdateCursor();
             }
             break;
         case 0x40E:
@@ -10151,7 +10151,7 @@ int32_t VisCharInfo::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 }
 
 // 4B36B4
-void VisCharInfo::sub_4B36B4() {
+void VisCharInfo::UpdateCursor() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     CSprite256* cur_sprite = g_mousept.GetCursorSprite();
 
@@ -10393,7 +10393,7 @@ VisSideStatus::~VisSideStatus() {
 
 // 4BA5A0
 VisShop::~VisShop() {
-    this->sub_4BB4FB();
+    this->FreeShopGfx();
     this->VMethod32();
     if (this->assortiment != nullptr) {
         this->RemoveChild(this->assortiment);
@@ -10429,12 +10429,12 @@ VisShop::~VisShop() {
 
 
 // 4BCD02
-void VisShop::FUN_004bcd02() {
+void VisShop::CloseShopDialog() {
     if (this->spell_panel != nullptr) {
-        this->sub_4BCD79();
-        this->gameplay->FUN_0041b636();
+        this->ShowBuyPanel();
+        this->gameplay->CloseSpellBook();
     }
-    this->sub_4BCC38();
+    this->ReturnPendingBuyItems();
     this->MsgProc(0x445, 0, 0);
 }
 
@@ -10446,7 +10446,7 @@ int32_t VisShop::OnKeyDown(uint32_t wparam) {
         return 1;
     }
     if (wparam == 0x1b) {
-        this->FUN_004bcd02();
+        this->CloseShopDialog();
         if (main_wnd->dialogsMask == 2) {
             main_wnd->PostMessage(0x42e, 0, 0);
         }
@@ -10461,12 +10461,12 @@ int32_t VisShop::OnLButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->drag_entry != nullptr && this->spell_panel != nullptr) {
         if (this->spell_panel->GetRect().PtInRect(pos)) {
-            this->sub_4BC97B();
+            this->CancelItemDrag();
             return 1;
         }
     }
     if (main_wnd->drag_entry != nullptr && !this->rect.PtInRect(pos)) {
-        this->sub_4BC97B();
+        this->CancelItemDrag();
         return 1;
     }
     return CVisualObject::OnLButtonUp(wparam, pos);
@@ -10564,7 +10564,7 @@ void VisShop::DoClose(uint32_t code) {
     this->VMethod32();
 
     if (main_wnd->drag_entry != nullptr) {
-        this->sub_4BC97B();
+        this->CancelItemDrag();
         ApplyCursor(g_Cursors[0]);
         main_wnd->ResetItemCursor();
         this->placement_lock = 0;
@@ -10597,11 +10597,11 @@ void VisShop::DoClose(uint32_t code) {
     this->buttons->ReleaseBmp();
     this->shop_compass->VMethod27();
     this->shop_compass->VMethod36();
-    this->sub_4BB4FB();
-    this->assortiment->sub_4B7859();
-    this->assortiment->sub_4B4C1C();
-    this->to_sell->sub_4B4C1C();
-    this->to_buy->sub_4B4C1C();
+    this->FreeShopGfx();
+    this->assortiment->ClearCategoryGrids();
+    this->assortiment->FreeGridSfx();
+    this->to_sell->FreeGridSfx();
+    this->to_buy->FreeGridSfx();
 
     VisScreen::DoClose(code);
 
@@ -10648,7 +10648,7 @@ int32_t VisShop::OnMouseMove(uint32_t wparam, CPoint pos) {
 
     if (this->select_info_panel->GetRect().PtInRect(pos) && this->hovered_region != 0x66) {
         this->hovered_region = 0x66;
-        this->sub_4BCEA4();
+        this->ResetInfoPanelButtons();
     }
 
     return 0;
@@ -10702,7 +10702,7 @@ int32_t VisShop::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     switch (msg) {
     case 0x402:
         if ((main_wnd->dialogsMask & 8) == 0) {
-            this->sub_4BC8D7();
+            this->UpdateShopTips();
             this->shop_compass->VMethod9();
             this->to_sell->VMethod9();
             this->assortiment->VMethod9();
@@ -10712,22 +10712,22 @@ int32_t VisShop::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
                 this->to_buy->VMethod9();
             }
             this->select_info_panel->VMethod9();
-            this->sub_4BCDA0();
+            this->RecalcShopGold();
             this->buttons->VMethod9();
         }
         break;
     case 0x40F:
         if (this->spell_panel != nullptr) {
-            this->sub_4BCD79();
+            this->ShowBuyPanel();
         } else {
-            this->sub_4BCD4B();
+            this->ShowSpellPanel();
         }
         break;
     case 0x413:
         if (lparam == 0) {
-            this->to_sell->sub_4B4D33();
-            this->assortiment->sub_4B4D33();
-            this->to_buy->sub_4B4D33();
+            this->to_sell->RefreshGrid();
+            this->assortiment->RefreshGrid();
+            this->to_buy->RefreshGrid();
             ((CUnit*)this->gameplay->primary_selected_object)->unitFlags |= 8;
             this->dirty |= 0x28;
         } else {
@@ -10738,31 +10738,31 @@ int32_t VisShop::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
                 break;
             case 2:
                 this->to_sell->VMethod40((CArray<TokenEntry*>*)lparam);
-                this->to_sell->sub_4B4D33();
+                this->to_sell->RefreshGrid();
                 break;
             case 4:
                 this->to_buy->VMethod40((CArray<TokenEntry*>*)lparam);
-                this->to_buy->sub_4B4D33();
-                this->sub_4BCDA0();
+                this->to_buy->RefreshGrid();
+                this->RecalcShopGold();
                 this->dirty |= 0x20;
                 break;
             case 5:
             case 6:
             case 7:
             case 8:
-                this->sub_4BBBD6(wparam - 5, (CArray<TokenEntry*>*)lparam);
-                this->assortiment->sub_4B4D33();
+                this->SetAssortmentCategory(wparam - 5, (CArray<TokenEntry*>*)lparam);
+                this->assortiment->RefreshGrid();
                 break;
             }
             ((CArray<TokenEntry*>*)lparam)->RemoveAll();
         }
         break;
     case 0x414:
-        this->sub_4BBA06();
+        this->SelectPrevPartyUnit();
         this->dirty |= 1;
         break;
     case 0x415:
-        this->sub_4BB895();
+        this->SelectNextPartyUnit();
         this->dirty |= 1;
         break;
     case 0x45A:
@@ -10776,23 +10776,23 @@ int32_t VisShop::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
         break;
     case 0x46E:
         if (wparam == 7) {
-            this->to_sell->sub_4B4D33();
-            this->to_buy->sub_4B4D33();
+            this->to_sell->RefreshGrid();
+            this->to_buy->RefreshGrid();
         } else {
             switch (wparam) {
             case 1:
             case 2:
-                this->to_sell->sub_4B4D33();
+                this->to_sell->RefreshGrid();
                 break;
             case 4:
-                this->to_buy->sub_4B4D33();
-                this->sub_4BCDA0();
+                this->to_buy->RefreshGrid();
+                this->RecalcShopGold();
                 break;
             case 5:
             case 6:
             case 7:
             case 8:
-                this->assortiment->sub_4B4D33();
+                this->assortiment->RefreshGrid();
                 break;
             }
         }
@@ -10813,7 +10813,7 @@ void VisShop::VMethod28() {
     this->assortiment->VMethod41();
     this->shop_compass->VMethod26();
     this->buttons->LoadBmp();
-    this->sub_4BB102();
+    this->LoadShopGfx();
     this->VMethod31();
 
     this->gameplay = main_wnd->vis_map_context;
@@ -10842,27 +10842,27 @@ void VisShop::VMethod28() {
 
     g_StructEnter.RebuildFromMap();
     this->selected_units.Copy(g_StructEnter.structure_list);
-    this->select_index = g_StructEnter.FUN_00473d10();
+    this->select_index = g_StructEnter.FindFlaggedStructureUnit();
 
     this->to_sell->visible_startref = &this->selected_units[0]->shopInventoryVisibleStart;
     *this->assortiment->visible_startref = 0;
     this->select_category = 100;
     this->shop_compass->VMethod37(0);
     this->to_sell->VMethod32(&this->selected_units[this->select_index]->tokenEntries);
-    this->assortiment->sub_4B73E4(0);
-    this->assortiment->sub_4B7859();
-    this->to_buy->sub_4B970E();
+    this->assortiment->SelectCategoryGrid(0);
+    this->assortiment->ClearCategoryGrids();
+    this->to_buy->ClearBuyEntries();
     this->gameplay->MsgProc(0x405, 0, 0);
     this->selected_units[this->select_index]->SetSelected(1);
     this->gameplay->UpdateSelectionState();
     this->selected_units[this->select_index]->unitFlags |= 8;
-    this->to_sell->sub_4B4D33();
-    this->assortiment->sub_4B4D33();
-    this->to_buy->sub_4B4D33();
+    this->to_sell->RefreshGrid();
+    this->assortiment->RefreshGrid();
+    this->to_buy->RefreshGrid();
     this->dirty |= 0x2F;
-    this->assortiment->sub_4B4BC5();
-    this->to_sell->sub_4B4BC5();
-    this->to_buy->sub_4B4BC5();
+    this->assortiment->LoadGridSfx();
+    this->to_sell->LoadGridSfx();
+    this->to_buy->LoadGridSfx();
 
     LockSurface2();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
@@ -10898,14 +10898,14 @@ void VisShop::VMethod28() {
 
 
 // 4BCD79
-void VisShop::sub_4BCD79() {
+void VisShop::ShowBuyPanel() {
     this->spell_panel = nullptr;
     this->AddChild(this->to_buy);
 }
 
 
 // 4BCD4B
-void VisShop::sub_4BCD4B() {
+void VisShop::ShowSpellPanel() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     this->spell_panel = main_wnd->vis_spellbook;
     this->RemoveChild(this->to_buy);
@@ -10913,7 +10913,7 @@ void VisShop::sub_4BCD4B() {
 
 
 // 4BCEA4
-void VisShop::sub_4BCEA4() {
+void VisShop::ResetInfoPanelButtons() {
     this->buttons->ResetSelected();
     this->dirty &= ~0x200;
     this->dirty &= ~0x400;
@@ -10924,7 +10924,7 @@ void VisShop::sub_4BCEA4() {
 
 
 // 4BC8D7
-void VisShop::sub_4BC8D7() {
+void VisShop::UpdateShopTips() {
     if (this->tips != nullptr) {
         if (this->to_buy->grid_source->GetSize() != 0 && this->tips_update_flag == 0) {
             this->tips_update_flag = 1;
@@ -10938,9 +10938,9 @@ void VisShop::sub_4BC8D7() {
 
 // 4BCC38
 // client: 4c1604
-void VisShop::sub_4BCC38() {
+void VisShop::ReturnPendingBuyItems() {
     TokenEntry* removed = nullptr;
-    this->sub_4BCDA0();
+    this->RecalcShopGold();
 #ifndef A2CLIENT
     return;
 #endif
@@ -10984,7 +10984,7 @@ CString VisShop::VMethod33() {
 
 
 // 4BCDA0
-void VisShop::sub_4BCDA0() {
+void VisShop::RecalcShopGold() {
     this->current_gold = this->gameplay->my_main_unit->gold;
     this->sell_gold = 0;
     this->buy_gold = 0;
@@ -11001,7 +11001,7 @@ void VisShop::sub_4BCDA0() {
 
 
 // 4BB895
-void VisShop::sub_4BB895() {
+void VisShop::SelectNextPartyUnit() {
     this->gameplay->MsgProc(0x405, 0, 0);
     this->select_index++;
     if (this->select_index >= this->selected_units.GetSize()) {
@@ -11012,15 +11012,15 @@ void VisShop::sub_4BB895() {
     this->gameplay->UpdateSelectionState();
     this->to_sell->VMethod32(&this->selected_units[this->select_index]->tokenEntries);
     this->to_sell->visible_startref = &this->selected_units[this->select_index]->shopInventoryVisibleStart;
-    this->to_sell->sub_4B4D33();
-    this->to_sell->sub_4B4FD1();
+    this->to_sell->RefreshGrid();
+    this->to_sell->ClampVisibleStart();
     this->selected_units[this->select_index]->unitFlags |= 8;
     this->dirty |= 9;
 }
 
 
 // 4BBA06
-void VisShop::sub_4BBA06() {
+void VisShop::SelectPrevPartyUnit() {
     this->gameplay->MsgProc(0x405, 0, 0);
     if (this->select_index != 0) {
         this->select_index--;
@@ -11032,15 +11032,15 @@ void VisShop::sub_4BBA06() {
     this->gameplay->UpdateSelectionState();
     this->to_sell->VMethod32(&this->selected_units[this->select_index]->tokenEntries);
     this->to_sell->visible_startref = &this->selected_units[this->select_index]->shopInventoryVisibleStart;
-    this->to_sell->sub_4B4D33();
-    this->to_sell->sub_4B4FD1();
+    this->to_sell->RefreshGrid();
+    this->to_sell->ClampVisibleStart();
     this->selected_units[this->select_index]->unitFlags |= 8;
     this->dirty |= 9;
 }
 
 
 // 4BC97B
-void VisShop::sub_4BC97B() {
+void VisShop::CancelItemDrag() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     ApplyCursor(g_Cursors[0]);
     switch (main_wnd->drag_src_tab) {
@@ -11050,12 +11050,12 @@ void VisShop::sub_4BC97B() {
         break;
     case 2:
         this->to_sell->VMethod37(main_wnd->drag_src_slot);
-        this->to_sell->sub_4B4D33();
+        this->to_sell->RefreshGrid();
         this->dirty |= 1;
         break;
     case 4:
         this->to_buy->VMethod37(main_wnd->drag_src_slot);
-        this->to_buy->sub_4B4D33();
+        this->to_buy->RefreshGrid();
         if (this->spell_panel == nullptr) {
             this->dirty |= 4;
         }
@@ -11065,7 +11065,7 @@ void VisShop::sub_4BC97B() {
     case 7:
     case 8:
         this->assortiment->VMethod37(main_wnd->drag_src_slot);
-        this->assortiment->sub_4B4D33();
+        this->assortiment->RefreshGrid();
         this->dirty |= 2;
         break;
     }
@@ -11074,7 +11074,7 @@ void VisShop::sub_4BC97B() {
 
 
 // 4b9f20
-static int32_t __cdecl FUN_004b9f20(const void* a, const void* b) {
+static int32_t __cdecl CompareShopTokenEntries(const void* a, const void* b) {
     TokenEntry* entry_a = *(TokenEntry**)a;
     TokenEntry* entry_b = *(TokenEntry**)b;
 
@@ -11144,13 +11144,13 @@ static int32_t __cdecl FUN_004b9f20(const void* a, const void* b) {
 
 
 // 4ba1cc
-void __cdecl FUN_004ba1cc(CArray<TokenEntry*>* arr) {
-    qsort(arr->GetData(), arr->GetSize(), sizeof(TokenEntry*), FUN_004b9f20);
+void __cdecl SortTokenEntries(CArray<TokenEntry*>* arr) {
+    qsort(arr->GetData(), arr->GetSize(), sizeof(TokenEntry*), CompareShopTokenEntries);
 }
 
 
 // 4BBBD6
-void VisShop::sub_4BBBD6(int32_t category, CArray<TokenEntry*>* arr) {
+void VisShop::SetAssortmentCategory(int32_t category, CArray<TokenEntry*>* arr) {
     AfxGetMainWnd();
     for (int32_t i = 0; i < arr->GetSize(); i++) {
         (*arr)[i]->slot_code = category + 5;
@@ -11167,14 +11167,14 @@ void VisShop::sub_4BBBD6(int32_t category, CArray<TokenEntry*>* arr) {
     for (int32_t i = 0; i < arr->GetSize(); i++) {
         (*arr)[i]->list_index = i;
     }
-    FUN_004ba1cc(arr);
+    SortTokenEntries(arr);
     cat_arr.Copy(*arr);
     arr->RemoveAll();
 }
 
 
 // 4BB4FB
-void VisShop::sub_4BB4FB() {
+void VisShop::FreeShopGfx() {
     if (this->spr_myitem != nullptr) {
         delete this->spr_myitem;
     }
@@ -11211,10 +11211,10 @@ void VisShop::sub_4BB4FB() {
 
 
 // 4BB102
-void VisShop::sub_4BB102() {
+void VisShop::LoadShopGfx() {
     char fname[0x400];
 
-    this->sub_4BB4FB();
+    this->FreeShopGfx();
     this->spr_myitem = new CSprite256("graphics\\interface\\myitem.256");
     this->spr_myitem->ResetPalette(1, 1, 0);
     g_mousept.Update();
@@ -11239,7 +11239,7 @@ void VisShop::sub_4BB102() {
 
 
 // 4BAD1D
-void VisShop::sub_4BAD1D() {
+void VisShop::DrawInfoPanelEdge() {
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
     if (this->dialog_active && this->select_info_panel) {
@@ -11305,7 +11305,7 @@ void VisShopCompass::VMethod7() {
         last_frame_tick = timeGetTime();
         for (int32_t i = 0; i < 4; i++) {
             if ((this->state & (1 << i)) != 0 && this->direction_frames[i][this->dir_frm[i]] != nullptr) {
-                this->sub_4BF63F(i);
+                this->AdvanceDirectionFrames(i);
             }
         }
         if (timeGetTime() - idle_tick >= (uint32_t)(rand() % 5 * 1000 + 5000) &&
@@ -11386,7 +11386,7 @@ int32_t VisShopCompass::OnLButtonDown(uint32_t wparam, CPoint pos) {
         CRect no_rect = this->confirm_no_rect + this->confirm_rect.TopLeft() + topleft;
         if (yes_rect.PtInRect(pos) || no_rect.PtInRect(pos)) {
             this->state &= ~0x80;
-            this->shop->sub_4BC97B();
+            this->shop->CancelItemDrag();
             main_wnd->ResetItemCursor();
         }
     } else {
@@ -11395,7 +11395,7 @@ int32_t VisShopCompass::OnLButtonDown(uint32_t wparam, CPoint pos) {
             if (hit_rect.PtInRect(pos) && this->VMethod37(i) != 0) {
                 this->state |= 0x20;
                 this->VMethod28();
-                this->shop->assortiment->sub_4B73E4((uint16_t)this->shop->select_category);
+                this->shop->assortiment->SelectCategoryGrid((uint16_t)this->shop->select_category);
                 this->shop->assortiment->VMethod9();
                 break;
             }
@@ -11609,7 +11609,7 @@ int32_t VisShopCompass::OnLButtonUp(uint32_t wparam, CPoint pos) {
     if (main_wnd->drag_entry != nullptr) {
         this->shop->placement_lock = 0;
         ApplyCursor(g_Cursors[0]);
-        this->shop->sub_4BC97B();
+        this->shop->CancelItemDrag();
         main_wnd->ResetItemCursor();
     }
     return 1;
@@ -11622,7 +11622,7 @@ int32_t VisShopCompass::VMethod38() {
 }
 
 // 4bf63f
-void VisShopCompass::sub_4BF63F(int32_t dir) {
+void VisShopCompass::AdvanceDirectionFrames(int32_t dir) {
     ++this->dir_frm[dir];
 
     if (this->dir_frm[dir] == 9) {
@@ -11684,7 +11684,7 @@ void VisShopCompassDruid::VMethod7() {
     if (this->bkg_bmp != nullptr) {
         this->bkg_bmp->Draw(topleft.x + this->rect.left + 5, topleft.y + this->rect.top + 8, 0, 0, 0);
     }
-    if (this->category_bmp != nullptr && this->FUN_004c2842() != 0) {
+    if (this->category_bmp != nullptr && this->IsDruidShopAvailable() != 0) {
         if (this->shop->select_category == 3) {
             this->sel_goods_bmp->Draw(topleft.x + this->rect.left + 0x5D, topleft.y + this->rect.top + 0xAC, 0, 0, 0);
         } else {
@@ -12066,8 +12066,8 @@ int32_t VisShopCompassDruid::OnLButtonDown(uint32_t wparam, CPoint pos) {
     CPoint topleft = this->shop->rect.TopLeft();
     for (int32_t i = 0; i < 4; i++) {
         CRect hit_rect = this->outer_rects[i] + topleft;
-        if (hit_rect.PtInRect(pos) && (i != 3 || this->FUN_004c2842() != 0) && this->VMethod37(i) != 0) {
-            this->shop->assortiment->sub_4B73E4((uint16_t)this->shop->select_category);
+        if (hit_rect.PtInRect(pos) && (i != 3 || this->IsDruidShopAvailable() != 0) && this->VMethod37(i) != 0) {
+            this->shop->assortiment->SelectCategoryGrid((uint16_t)this->shop->select_category);
             this->shop->assortiment->VMethod9();
             break;
         }
@@ -12078,7 +12078,7 @@ int32_t VisShopCompassDruid::OnLButtonDown(uint32_t wparam, CPoint pos) {
 
 // 4C34E6
 int32_t VisShopCompassDruid::VMethod37(int32_t arg) {
-    if ((uint16_t)arg == 3 && this->FUN_004c2842() == 0) {
+    if ((uint16_t)arg == 3 && this->IsDruidShopAvailable() == 0) {
         return 0;
     }
     int32_t result = 0;
@@ -12171,7 +12171,7 @@ VisShopCompassDruid::~VisShopCompassDruid() {
 
 
 // 4C2842
-int32_t VisShopCompassDruid::FUN_004c2842() {
+int32_t VisShopCompassDruid::IsDruidShopAvailable() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->sessionMode == 2) {
         if (ScenarioGetVar(0x302) != 0) {
@@ -12190,7 +12190,7 @@ int32_t VisShopCompassKaarg::OnLButtonDown(uint32_t wparam, CPoint pos) {
     for (int32_t i = 0; i < 4; i++) {
         CRect hit_rect = this->outer_rects[i] + topleft;
         if (hit_rect.PtInRect(pos) && this->VMethod37(i) != 0) {
-            this->shop->assortiment->sub_4B73E4((uint16_t)this->shop->select_category);
+            this->shop->assortiment->SelectCategoryGrid((uint16_t)this->shop->select_category);
             this->shop->assortiment->VMethod9();
             break;
         }
@@ -12342,7 +12342,7 @@ int32_t VisShopButtons::OnLButtonDown(uint32_t wparam, CPoint pos) {
 int32_t VisShopButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->drag_entry != nullptr) {
-        this->shop->sub_4BC97B();
+        this->shop->CancelItemDrag();
         this->pressed_btn = -1;
         this->UpdateHoveredState(wparam, pos);
         this->shop->dirty |= 0x20;
@@ -12354,16 +12354,16 @@ int32_t VisShopButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
         this->UpdateHoveredState(wparam, pos);
         switch (button) {
         case 0:
-            this->shop->sub_4BCCE1();
+            this->shop->CancelAllPendingBuys();
             break;
         case 1:
-            this->shop->sub_4BCB63();
+            this->shop->CommitBuy();
             break;
         case 2:
-            this->shop->sub_4BCAF1();
+            this->shop->CommitSell();
             break;
         case 3:
-            this->shop->FUN_004bcd02();
+            this->shop->CloseShopDialog();
             if (main_wnd->dialogsMask == 2) {
                 main_wnd->PostMessageA(0x42E, 0, 0);
             }
@@ -12398,7 +12398,7 @@ void VisShopButtons::VMethod7() {
     str = TxtFile::AllLines[0x48];
     g_font4->DrawTxt(topleft.x + this->outer_rects[0].left + this->outer_rects[0].Width() / 2, topleft.y + this->outer_rects[0].top + 6 + this->outer_rects[0].Height() / 4, str, 10, pal);
     str.Format("%d", this->shop->current_gold);
-    FUN_00476987(&str);
+    InsertThousandsSeparators(&str);
     g_font4->DrawTxt(topleft.x + this->outer_rects[0].left + this->outer_rects[0].Width() / 2, topleft.y + this->outer_rects[0].top - 2 + this->outer_rects[0].Height() * 3 / 4, str, 10, pal);
     if (this->hovered_btn == 1) {
         pal = palette_paris_daisy->GetPalette(0);
@@ -12408,7 +12408,7 @@ void VisShopButtons::VMethod7() {
     str = TxtFile::AllLines[0x46];
     g_font4->DrawTxt(topleft.x + this->outer_rects[1].left + this->outer_rects[1].Width() / 2, topleft.y + this->outer_rects[1].top + 6 + this->outer_rects[1].Height() / 4, str, 10, pal);
     str.Format("%d", this->shop->buy_gold);
-    FUN_00476987(&str);
+    InsertThousandsSeparators(&str);
     g_font4->DrawTxt(topleft.x + this->outer_rects[1].left + this->outer_rects[1].Width() / 2, topleft.y + this->outer_rects[1].top - 2 + this->outer_rects[1].Height() * 3 / 4, str, 10, pal);
     if (this->hovered_btn == 2) {
         pal = palette_paris_daisy->GetPalette(0);
@@ -12418,7 +12418,7 @@ void VisShopButtons::VMethod7() {
     str = TxtFile::AllLines[0x47];
     g_font4->DrawTxt(topleft.x + this->outer_rects[2].left + this->outer_rects[2].Width() / 2, topleft.y + this->outer_rects[2].top + 8 + this->outer_rects[2].Height() / 4, str, 10, pal);
     str.Format("%d", this->shop->sell_gold);
-    FUN_00476987(&str);
+    InsertThousandsSeparators(&str);
     g_font4->DrawTxt(topleft.x + this->outer_rects[2].left + this->outer_rects[2].Width() / 2, topleft.y + this->outer_rects[2].top + this->outer_rects[2].Height() * 3 / 4, str, 10, pal);
     if (this->hovered_btn == 3) {
         pal = palette_paris_daisy->GetPalette(0);
@@ -12428,7 +12428,7 @@ void VisShopButtons::VMethod7() {
     str = TxtFile::AllLines[0x49];
     g_font4->DrawTxt(topleft.x + this->outer_rects[3].left + this->outer_rects[3].Width() / 2, topleft.y + this->outer_rects[3].top + 6 + this->outer_rects[3].Height() / 4, str, 10, pal);
     str.Format("%d", this->shop->result_gold);
-    FUN_00476987(&str);
+    InsertThousandsSeparators(&str);
     g_font4->DrawTxt(topleft.x + this->outer_rects[3].left + this->outer_rects[3].Width() / 2, topleft.y + this->outer_rects[3].top - 2 + this->outer_rects[3].Height() * 3 / 4, str, 10, pal);
     if (this->hovered_btn >= 0 && this->pressed_btn >= 0 && this->pressed_btn == this->hovered_btn) {
         CRect& rect = this->outer_rects[this->hovered_btn];
@@ -12439,28 +12439,28 @@ void VisShopButtons::VMethod7() {
             str = TxtFile::AllLines[0x48];
             g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top + 7 + rect.Height() / 4, str, 10, pal);
             str.Format("%d", this->shop->current_gold);
-            FUN_00476987(&str);
+            InsertThousandsSeparators(&str);
             g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top - 1 + rect.Height() * 3 / 4, str, 10, pal);
             break;
         case 1:
             str = TxtFile::AllLines[0x46];
             g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top + 7 + rect.Height() / 4, str, 10, pal);
             str.Format("%d", this->shop->buy_gold);
-            FUN_00476987(&str);
+            InsertThousandsSeparators(&str);
             g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top - 1 + rect.Height() * 3 / 4, str, 10, pal);
             break;
         case 2:
             str = TxtFile::AllLines[0x47];
             g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top + 9 + rect.Height() / 4, str, 10, pal);
             str.Format("%d", this->shop->sell_gold);
-            FUN_00476987(&str);
+            InsertThousandsSeparators(&str);
             g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top + 1 + rect.Height() * 3 / 4, str, 10, pal);
             break;
         case 3:
             str = TxtFile::AllLines[0x49];
             g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top + 7 + rect.Height() / 4, str, 10, pal);
             str.Format("%d", this->shop->result_gold);
-            FUN_00476987(&str);
+            InsertThousandsSeparators(&str);
             g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top - 1 + rect.Height() * 3 / 4, str, 10, pal);
             break;
         }
@@ -12700,7 +12700,7 @@ void VisShopDruid::VMethod28() {
     this->assortiment->VMethod41();
     this->shop_compass->VMethod26();
     this->buttons->LoadBmp();
-    this->sub_4BB102();
+    this->LoadShopGfx();
     this->VMethod31();
 
     this->gameplay = main_wnd->vis_map_context;
@@ -12729,27 +12729,27 @@ void VisShopDruid::VMethod28() {
 
     g_StructEnter.RebuildFromMap();
     this->selected_units.Copy(g_StructEnter.structure_list);
-    this->select_index = g_StructEnter.FUN_00473d10();
+    this->select_index = g_StructEnter.FindFlaggedStructureUnit();
 
     this->to_sell->visible_startref = &this->selected_units[0]->shopInventoryVisibleStart;
     *this->assortiment->visible_startref = 0;
     this->select_category = 100;
     this->shop_compass->VMethod37(0);
     this->to_sell->VMethod32(&this->selected_units[this->select_index]->tokenEntries);
-    this->assortiment->sub_4B73E4(0);
-    this->assortiment->sub_4B7859();
-    this->to_buy->sub_4B970E();
+    this->assortiment->SelectCategoryGrid(0);
+    this->assortiment->ClearCategoryGrids();
+    this->to_buy->ClearBuyEntries();
     this->gameplay->MsgProc(0x405, 0, 0);
     this->selected_units[this->select_index]->SetSelected(1);
     this->gameplay->UpdateSelectionState();
     this->selected_units[this->select_index]->unitFlags |= 8;
-    this->to_sell->sub_4B4D33();
-    this->assortiment->sub_4B4D33();
-    this->to_buy->sub_4B4D33();
+    this->to_sell->RefreshGrid();
+    this->assortiment->RefreshGrid();
+    this->to_buy->RefreshGrid();
     this->dirty |= 0x2F;
-    this->assortiment->sub_4B4BC5();
-    this->to_sell->sub_4B4BC5();
-    this->to_buy->sub_4B4BC5();
+    this->assortiment->LoadGridSfx();
+    this->to_sell->LoadGridSfx();
+    this->to_buy->LoadGridSfx();
 
     LockSurface2();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
@@ -12986,7 +12986,7 @@ void VisShopKaarg::VMethod28() {
     this->assortiment->VMethod41();
     this->shop_compass->VMethod26();
     this->buttons->LoadBmp();
-    this->sub_4BB102();
+    this->LoadShopGfx();
     this->VMethod31();
 
     this->gameplay = main_wnd->vis_map_context;
@@ -13015,27 +13015,27 @@ void VisShopKaarg::VMethod28() {
 
     g_StructEnter.RebuildFromMap();
     this->selected_units.Copy(g_StructEnter.structure_list);
-    this->select_index = g_StructEnter.FUN_00473d10();
+    this->select_index = g_StructEnter.FindFlaggedStructureUnit();
 
     this->to_sell->visible_startref = &this->selected_units[0]->shopInventoryVisibleStart;
     *this->assortiment->visible_startref = 0;
     this->select_category = 100;
     this->shop_compass->VMethod37(0);
     this->to_sell->VMethod32(&this->selected_units[this->select_index]->tokenEntries);
-    this->assortiment->sub_4B73E4(0);
-    this->assortiment->sub_4B7859();
-    this->to_buy->sub_4B970E();
+    this->assortiment->SelectCategoryGrid(0);
+    this->assortiment->ClearCategoryGrids();
+    this->to_buy->ClearBuyEntries();
     this->gameplay->MsgProc(0x405, 0, 0);
     this->selected_units[this->select_index]->SetSelected(1);
     this->gameplay->UpdateSelectionState();
     this->selected_units[this->select_index]->unitFlags |= 8;
-    this->to_sell->sub_4B4D33();
-    this->assortiment->sub_4B4D33();
-    this->to_buy->sub_4B4D33();
+    this->to_sell->RefreshGrid();
+    this->assortiment->RefreshGrid();
+    this->to_buy->RefreshGrid();
     this->dirty |= 0x2F;
-    this->assortiment->sub_4B4BC5();
-    this->to_sell->sub_4B4BC5();
-    this->to_buy->sub_4B4BC5();
+    this->assortiment->LoadGridSfx();
+    this->to_sell->LoadGridSfx();
+    this->to_buy->LoadGridSfx();
 
     LockSurface2();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
@@ -13076,26 +13076,26 @@ void VisShopKaarg::VMethod28() {
 
 
 // 4BCCE1
-void VisShop::sub_4BCCE1() {
-    this->sub_4BCC38();
-    this->gameplay->sub_41A9F6();
+void VisShop::CancelAllPendingBuys() {
+    this->ReturnPendingBuyItems();
+    this->gameplay->SendShopTakeBack();
 }
 
 
 // 4BCAF1
-void VisShop::sub_4BCAF1() {
-    this->sub_4BCDA0();
+void VisShop::CommitSell() {
+    this->RecalcShopGold();
     if (this->sell_gold != 0) {
         this->shop_compass->VMethod28();
         this->shop_compass->state |= 0x20;
-        this->gameplay->sub_41A99C();
+        this->gameplay->SendShopSell();
         this->snd_sell->Play();
     }
 }
 
 // 4BCB63
-int VisShop::sub_4BCB63() {
-    this->sub_4BCDA0();
+int VisShop::CommitBuy() {
+    this->RecalcShopGold();
 
     if (this->buy_gold == 0) {
         return 0;
@@ -13110,7 +13110,7 @@ int VisShop::sub_4BCB63() {
     
     this->shop_compass->VMethod28();
     this->shop_compass->state |= 0x20;
-    this->gameplay->sub_41A942();
+    this->gameplay->SendShopBuy();
     this->snd_buy->Play();
     return 1;
 }
@@ -13160,9 +13160,9 @@ void VisTav::VMethod28() {
         uint32_t unit_id = this->entrie_id[i] & 0xFFFF;
         uint32_t category = (this->entrie_id[i] >> 0x1C) & 7;
         if (category == 1 || category == 2) {
-            this->avail_entries.Add(this->map_context->FUN_0041dfa6(unit_id));
+            this->avail_entries.Add(this->map_context->FindOrCreateUnitByServerId(unit_id));
         } else {
-            this->reserved_entries.Add(this->map_context->FUN_0041dfa6(unit_id));
+            this->reserved_entries.Add(this->map_context->FindOrCreateUnitByServerId(unit_id));
         }
     }
 
@@ -13174,7 +13174,7 @@ void VisTav::VMethod28() {
 
     g_StructEnter.RebuildFromMap();
     this->selected_entries.Copy(g_StructEnter.structure_list);
-    this->select_party = g_StructEnter.FUN_00473d10();
+    this->select_party = g_StructEnter.FindFlaggedStructureUnit();
 
     this->map_context->MsgProc(0x405, 0, 0);
     this->selected_entries[this->select_party]->SetSelected(1);
@@ -13191,7 +13191,7 @@ void VisTav::VMethod28() {
         names.Add(name);
     }
     if (main_wnd->sessionMode == 2) {
-        this->scene->anims[0].FUN_004010ee(&names);
+        this->scene->anims[0].LoadAnimFrames(&names);
     }
     names.RemoveAll();
 
@@ -13200,7 +13200,7 @@ void VisTav::VMethod28() {
         names.Add(name);
     }
     if (main_wnd->sessionMode == 2) {
-        this->scene->anims[1].FUN_004010ee(&names);
+        this->scene->anims[1].LoadAnimFrames(&names);
     }
     names.RemoveAll();
 
@@ -13209,7 +13209,7 @@ void VisTav::VMethod28() {
         names.Add(name);
     }
     if (main_wnd->sessionMode == 2) {
-        this->scene->anims[2].FUN_004010ee(&names);
+        this->scene->anims[2].LoadAnimFrames(&names);
     }
     names.RemoveAll();
 
@@ -13218,15 +13218,15 @@ void VisTav::VMethod28() {
         names.Add(name);
     }
     if (main_wnd->sessionMode == 2) {
-        this->scene->anims[3].FUN_004010ee(&names);
+        this->scene->anims[3].LoadAnimFrames(&names);
     }
     names.RemoveAll();
 
-    this->right_panel->FUN_00499a67();
-    this->right_panel->FUN_0049a84e();
+    this->right_panel->LoadRightPanelBmps();
+    this->right_panel->ResetButtonStates();
     this->scene->VMethod28();
-    this->left_panel->FUN_004995d1();
-    this->right_panel->FUN_0049a973();
+    this->left_panel->LoadLeftPanelBmps();
+    this->right_panel->UpdateButtonLabels();
     this->VMethod30();
 
     this->dialog_active = 1;
@@ -13257,9 +13257,9 @@ void VisTav::DoClose(uint32_t code) {
     }
 
     if (this->quest_alt_close != 0) {
-        main_wnd->vis_map_context->FUN_0041ae1c(0xAAAAAAAA);
+        main_wnd->vis_map_context->LeaveInn(0xAAAAAAAA);
     } else {
-        main_wnd->vis_map_context->FUN_0041ae1c(this->quest_selection);
+        main_wnd->vis_map_context->LeaveInn(this->quest_selection);
     }
 
     this->dialog_active = 0;
@@ -13277,15 +13277,15 @@ void VisTav::DoClose(uint32_t code) {
         this->tips = nullptr;
     }
 
-    this->right_panel->FUN_00499cdf();
+    this->right_panel->FreeRightPanelBmps();
     this->scene->VMethod29();
     this->scene->VMethod27();
-    this->left_panel->FUN_004996ab();
+    this->left_panel->FreeLeftPanelBmps();
 
-    this->scene->anims[0].FUN_004014f2();
-    this->scene->anims[1].FUN_004014f2();
-    this->scene->anims[3].FUN_004014f2();
-    this->scene->anims[2].FUN_004014f2();
+    this->scene->anims[0].FreeAnimFrames();
+    this->scene->anims[1].FreeAnimFrames();
+    this->scene->anims[3].FreeAnimFrames();
+    this->scene->anims[2].FreeAnimFrames();
 
     this->VMethod31();
 
@@ -13336,7 +13336,7 @@ int32_t VisTav::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     case 0x402:
         if (this->rewards.GetSize() != 0 || this->quest_map->GetQuestCount() != 0) {
             if (this->right_panel->texts[0] == " ") {
-                this->right_panel->FUN_0049a973();
+                this->right_panel->UpdateButtonLabels();
             }
         }
         if (main_wnd->dialogsMask == 4 || main_wnd->dialogsMask == 5) {
@@ -13344,10 +13344,10 @@ int32_t VisTav::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
         }
         break;
     case 0x414:
-        this->FUN_0049eecd();
+        this->SelectPrevPartyUnit();
         break;
     case 0x415:
-        this->FUN_0049ee36();
+        this->SelectNextPartyUnit();
         break;
     case 0x45A:
         if (this->tips != nullptr) {
@@ -13399,7 +13399,7 @@ VisTav::VisTav(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 int32_t VisTav::OnMouseMove(uint32_t wparam, CPoint pos) {
     CRect r = this->right_panel->GetRect() + this->rect.TopLeft();
     if (!r.PtInRect(pos)) {
-        this->right_panel->FUN_0049a84e();
+        this->right_panel->ResetButtonStates();
     }
 
     return CVisualObject::OnMouseMove(wparam, pos);
@@ -13407,7 +13407,7 @@ int32_t VisTav::OnMouseMove(uint32_t wparam, CPoint pos) {
 
 
 // 49EECD
-void VisTav::FUN_0049eecd() {
+void VisTav::SelectPrevPartyUnit() {
     this->map_context->MsgProc(0x405, 0, 0);
 
     if (this->select_party != 0) {
@@ -13422,7 +13422,7 @@ void VisTav::FUN_0049eecd() {
 
 
 // 49EE36
-void VisTav::FUN_0049ee36() {
+void VisTav::SelectNextPartyUnit() {
     this->map_context->MsgProc(0x405, 0, 0);
 
     this->select_party++;
@@ -13436,9 +13436,9 @@ void VisTav::FUN_0049ee36() {
 
 
 // 49EF63
-void VisTav::FUN_0049ef63() {
+void VisTav::ShowHireResponseDialog() {
     CUnit* unit = this->avail_entries[this->selection_index];
-    int32_t entry = this->FUN_0049e2e3(unit);
+    int32_t entry = this->FindEntryIndexForUnit(unit);
     uint32_t npc_id = this->entrie_id[entry] & 0xFFFF;
 
     CString text;
@@ -13457,9 +13457,9 @@ void VisTav::FUN_0049ef63() {
 
 
 // 49F179
-void VisTav::FUN_0049f179() {
+void VisTav::ShowReservedNpcTalk() {
     CUnit* unit = this->reserved_entries[this->selection_index - this->avail_entries.GetSize()];
-    int32_t entry = this->FUN_0049e2e3(unit);
+    int32_t entry = this->FindEntryIndexForUnit(unit);
     uint32_t v = this->entrie_id[entry];
 
     CString text;
@@ -13472,13 +13472,13 @@ void VisTav::FUN_0049f179() {
 
 
 // 49F0DA
-void VisTav::FUN_0049f0da() {
+void VisTav::RetalkAvailNpc() {
     CUnit* unit = this->avail_entries[this->selection_index];
-    int32_t entry = this->FUN_0049e2e3(unit);
+    int32_t entry = this->FindEntryIndexForUnit(unit);
     this->entrie_id[entry] &= 0x7FFFFFFF;
 
     unit = this->avail_entries[this->selection_index];
-    entry = this->FUN_0049e2e3(unit);
+    entry = this->FindEntryIndexForUnit(unit);
     ScenarioTalkTo(this->entrie_id[entry]);
 
     CSound::Play(this->sounds[6]);
@@ -13486,7 +13486,7 @@ void VisTav::FUN_0049f0da() {
 
 
 // 49E2E3
-int32_t VisTav::FUN_0049e2e3(CUnit* unit) {
+int32_t VisTav::FindEntryIndexForUnit(CUnit* unit) {
     for (int32_t i = 0; i < this->entrie_id.GetSize(); i++) {
         if (unit->serverId == (this->entrie_id[i] & 0xFFFF)) {
             return i;
@@ -13497,7 +13497,7 @@ int32_t VisTav::FUN_0049e2e3(CUnit* unit) {
 
 
 // 49EDEC
-void VisTav::FUN_0049edec() {
+void VisTav::CloseDialog() {
     this->MsgProc(0x445, 0, 0);
 
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
@@ -13510,7 +13510,7 @@ void VisTav::FUN_0049edec() {
 // 49E233
 int32_t VisTav::OnKeyDown(uint32_t wparam) {
     if (wparam == VK_ESCAPE) {
-        this->FUN_0049edec();
+        this->CloseDialog();
         return 1;
     }
     return 0;
@@ -13598,8 +13598,8 @@ const char* VisTavLeftPanel::GetHint() {
 
 
 // 4995D1
-void VisTavLeftPanel::FUN_004995d1() {
-    this->FUN_004996ab();
+void VisTavLeftPanel::LoadLeftPanelBmps() {
+    this->FreeLeftPanelBmps();
     this->bmp_left_stats = new CBmp64("graphics\\Interface\\Inn\\LeftStats.bmp");
     g_mousept.Update();
     this->bmp_left_picture = new CBmp64("graphics\\Interface\\Inn\\LeftPicture.bmp");
@@ -13608,7 +13608,7 @@ void VisTavLeftPanel::FUN_004995d1() {
 
 
 // 4996AB
-void VisTavLeftPanel::FUN_004996ab() {
+void VisTavLeftPanel::FreeLeftPanelBmps() {
     if (this->bmp_left_stats != nullptr) {
         delete this->bmp_left_stats;
     }
@@ -13624,7 +13624,7 @@ void VisTavLeftPanel::FUN_004996ab() {
 VisTavLeftPanel::VisTavLeftPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav)
 : CVisualObject(_id, l, t, r, b, nullptr) {
     this->vis_tav = tav;
-    this->FUN_00497ace();
+    this->InitLeftPanel();
 }
 
 
@@ -13640,7 +13640,7 @@ VisTavLeftPanel::~VisTavLeftPanel() {
 
 
 // 497ACE
-void VisTavLeftPanel::FUN_00497ace() {
+void VisTavLeftPanel::InitLeftPanel() {
     this->flags |= 2;
     CRect client_rect;
     this->ClientRectToScreen(&client_rect, this->rect);
@@ -13663,17 +13663,17 @@ int32_t VisTavLeftPanel::OnLButtonDown(uint32_t wparam, CPoint pos) {
 // 497ED0
 void VisTavLeftPanel::VMethod7() {
     if (this->vis_tav->selection_index < 0) {
-        this->FUN_00497f82(nullptr);
+        this->DrawUnitPanel(nullptr);
     } else if (this->vis_tav->selection_index < this->vis_tav->avail_entries.GetSize()) {
-        this->FUN_00497f82(this->vis_tav->avail_entries[this->vis_tav->selection_index]);
+        this->DrawUnitPanel(this->vis_tav->avail_entries[this->vis_tav->selection_index]);
     } else {
-        this->FUN_00497f82(this->vis_tav->reserved_entries[this->vis_tav->selection_index - this->vis_tav->avail_entries.GetSize()]);
+        this->DrawUnitPanel(this->vis_tav->reserved_entries[this->vis_tav->selection_index - this->vis_tav->avail_entries.GetSize()]);
     }
 }
 
 
 // 497F82
-void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
+void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
     CRect screen_rect;
     CRect rect_1C(CPoint(0xC, 0), CSize(0xA0, 0xEE));
     this->ClientRectToScreen(&screen_rect, this->rect);
@@ -13754,7 +13754,7 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
             int32_t found = 0;
             CGameObject* obj;
             if (quest->Kind() == 3 || quest->Kind() == 0xC) {
-                found = main_wnd->vis_map_context->FUN_0041e2af(quest->GetObj(), (CUnit**)&obj);
+                found = main_wnd->vis_map_context->FindUnitByQuestFlag(quest->GetObj(), (CUnit**)&obj);
             } else {
                 found = main_wnd->vis_map_context->objects.Lookup((uint16_t)quest->GetObj(), obj);
             }
@@ -13908,12 +13908,12 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit) {
 
 
 // 497E06
-void VisTavLeftPanel::FUN_00497e06(int32_t idx) {
+void VisTavLeftPanel::SelectRosterEntry(int32_t idx) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     if (main_wnd->sessionMode == 2) {
         this->vis_tav->selection_index = idx;
-        this->vis_tav->right_panel->FUN_0049a973();
+        this->vis_tav->right_panel->UpdateButtonLabels();
     } else {
         this->vis_tav->quest_id = idx;
     }
@@ -13927,21 +13927,21 @@ void VisTavLeftPanel::FUN_00497e06(int32_t idx) {
 int32_t VisTavRightPanel::OnLButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
-    if (this->pressed_btn >= 0 && this->pressed_btn < 3 && this->FUN_0049a873(pos) == this->pressed_btn) {
+    if (this->pressed_btn >= 0 && this->pressed_btn < 3 && this->HitTestButton(pos) == this->pressed_btn) {
         int32_t button = this->pressed_btn;
         this->pressed_btn = -1;
-        this->FUN_0049a8fa(wparam, pos);
+        this->UpdateHoveredButton(wparam, pos);
 
         if (main_wnd->sessionMode == 2) {
             if (button == 0) {
                 if (this->vis_tav->selection_index < this->vis_tav->avail_entries.GetSize()) {
                     CUnit* unit = this->vis_tav->avail_entries[this->vis_tav->selection_index];
-                    if (this->vis_tav->entrie_id[this->vis_tav->FUN_0049e2e3(unit)] & 0x80000000) {
-                        this->vis_tav->FUN_0049f0da();
+                    if (this->vis_tav->entrie_id[this->vis_tav->FindEntryIndexForUnit(unit)] & 0x80000000) {
+                        this->vis_tav->RetalkAvailNpc();
                     } else {
-                        this->vis_tav->FUN_0049ef63();
+                        this->vis_tav->ShowHireResponseDialog();
                     }
-                    this->FUN_0049a973();
+                    this->UpdateButtonLabels();
                 }
             } else if (button == 1) {
                 if (this->vis_tav->selection_index < this->vis_tav->avail_entries.GetSize()) {
@@ -13953,10 +13953,10 @@ int32_t VisTavRightPanel::OnLButtonUp(uint32_t wparam, CPoint pos) {
                         CSound::Play(this->vis_tav->sounds[12]);
                     }
                 } else {
-                    this->vis_tav->FUN_0049f179();
+                    this->vis_tav->ShowReservedNpcTalk();
                 }
             } else if (button == 2) {
-                this->vis_tav->FUN_0049edec();
+                this->vis_tav->CloseDialog();
             }
         } else {
             if (button == 0) {
@@ -13998,20 +13998,20 @@ int32_t VisTavRightPanel::OnLButtonUp(uint32_t wparam, CPoint pos) {
                     }
                 }
             } else if (button == 2) {
-                this->vis_tav->FUN_0049edec();
+                this->vis_tav->CloseDialog();
             }
         }
     }
 
     this->pressed_btn = -1;
-    this->FUN_0049a8fa(wparam, pos);
+    this->UpdateHoveredButton(wparam, pos);
     return 1;
 }
 
 
 // 499A67
-void VisTavRightPanel::FUN_00499a67() {
-    this->FUN_00499cdf();
+void VisTavRightPanel::LoadRightPanelBmps() {
+    this->FreeRightPanelBmps();
     this->bmp_btn_on[0] = new CBmp64("graphics\\interface\\Inn\\button1on.bmp");
     g_mousept.Update();
     this->bmp_btn_on[1] = new CBmp64("graphics\\interface\\Inn\\button2on.bmp");
@@ -14030,8 +14030,8 @@ void VisTavRightPanel::FUN_00499a67() {
 
 
 // 49A8FA
-void VisTavRightPanel::FUN_0049a8fa(uint32_t wparam, CPoint pos) {
-    int32_t index = this->FUN_0049a873(pos);
+void VisTavRightPanel::UpdateHoveredButton(uint32_t wparam, CPoint pos) {
+    int32_t index = this->HitTestButton(pos);
     if (index < 0 || (wparam & 1) != 0) {
         if (index < 0 || index != this->pressed_btn || (wparam & 1) == 0) {
             this->hovered_btn = -1;
@@ -14045,7 +14045,7 @@ void VisTavRightPanel::FUN_0049a8fa(uint32_t wparam, CPoint pos) {
 
 
 // 49A873
-int32_t VisTavRightPanel::FUN_0049a873(CPoint pos) {
+int32_t VisTavRightPanel::HitTestButton(CPoint pos) {
     CPoint tav_topleft = this->vis_tav->rect.TopLeft();
     CPoint pt(pos.x - tav_topleft.x, pos.y - tav_topleft.y);
 
@@ -14059,7 +14059,7 @@ int32_t VisTavRightPanel::FUN_0049a873(CPoint pos) {
 
 
 // 4998C2
-void VisTavRightPanel::FUN_004998c2() {
+void VisTavRightPanel::InitRightPanel() {
     this->pressed_btn = -1;
     this->hovered_btn = -1;
     this->btn_rects[0] = CRect(0x1E4, 0x2C, 0x270, 0x5A);
@@ -14083,13 +14083,13 @@ void VisTavRightPanel::FUN_004998c2() {
 VisTavRightPanel::VisTavRightPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav)
 : CVisualObject(_id, l, t, r, b, nullptr) {
     this->vis_tav = tav;
-    this->FUN_004998c2();
+    this->InitRightPanel();
 }
 
 
 // 4A3E40
 VisTavRightPanel::~VisTavRightPanel() {
-    this->FUN_00499cdf();
+    this->FreeRightPanelBmps();
 }
 
 
@@ -14100,7 +14100,7 @@ const char* VisTavRightPanel::GetHint() {
 
 
 // 49A84E
-void VisTavRightPanel::FUN_0049a84e() {
+void VisTavRightPanel::ResetButtonStates() {
     this->pressed_btn = -1;
     this->hovered_btn = -1;
 }
@@ -14108,7 +14108,7 @@ void VisTavRightPanel::FUN_0049a84e() {
 
 // 49A26E
 int32_t VisTavRightPanel::OnMouseMove(uint32_t wparam, CPoint pos) {
-    this->FUN_0049a8fa(wparam, pos);
+    this->UpdateHoveredButton(wparam, pos);
     return 0;
 }
 
@@ -14121,7 +14121,7 @@ int32_t VisTavRightPanel::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
 
 // 49A291
 int32_t VisTavRightPanel::OnLButtonDown(uint32_t wparam, CPoint pos) {
-    this->pressed_btn = this->FUN_0049a873(pos);
+    this->pressed_btn = this->HitTestButton(pos);
     if (this->pressed_btn == 2) {
         CSound::Play(this->vis_tav->sounds[11]);
     }
@@ -14130,7 +14130,7 @@ int32_t VisTavRightPanel::OnLButtonDown(uint32_t wparam, CPoint pos) {
 
 
 // 499CDF
-void VisTavRightPanel::FUN_00499cdf() {
+void VisTavRightPanel::FreeRightPanelBmps() {
     for (int32_t i = 0; i < 3; i++) {
         if (this->bmp_btn_on[i] != nullptr) {
             delete this->bmp_btn_on[i];
@@ -14150,7 +14150,7 @@ void VisTavRightPanel::FUN_00499cdf() {
 
 
 // 49A973
-void VisTavRightPanel::FUN_0049a973() {
+void VisTavRightPanel::UpdateButtonLabels() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     if (main_wnd->sessionMode == 2) {
@@ -14158,7 +14158,7 @@ void VisTavRightPanel::FUN_0049a973() {
             this->texts[0] = "";
         } else {
             CUnit* unit = this->vis_tav->avail_entries[this->vis_tav->selection_index];
-            if (this->vis_tav->entrie_id[this->vis_tav->FUN_0049e2e3(unit)] & 0x80000000) {
+            if (this->vis_tav->entrie_id[this->vis_tav->FindEntryIndexForUnit(unit)] & 0x80000000) {
                 this->texts[0] = TxtFile::AllLines[0x103];
             } else {
                 this->texts[0] = TxtFile::AllLines[0x102];
@@ -14235,7 +14235,7 @@ void VisTavRightPanel::VMethod7() {
 
 
 // 4010EE
-void VisTavSceneAnim::FUN_004010ee(CStringArray* names) {
+void VisTavSceneAnim::LoadAnimFrames(CStringArray* names) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     this->frames.SetSize(names->GetSize(), -1);
@@ -14253,7 +14253,7 @@ void VisTavSceneAnim::FUN_004010ee(CStringArray* names) {
 
 
 // 4014F2
-void VisTavSceneAnim::FUN_004014f2() {
+void VisTavSceneAnim::FreeAnimFrames() {
     if (this->frames.GetSize() == 0 && this->current_frame != nullptr) {
         delete this->current_frame;
     }
@@ -14397,7 +14397,7 @@ void VisTavScene::VMethod7() {
             }
         }
 
-        // cell rects are tavern-space (FUN_0049af8c positions them from this->rect), and the
+        // cell rects are tavern-space (InitSceneRects positions them from this->rect), and the
         // epilogue mask offsets are tavern-space constants: the binary draws both from raw
         // tav_topleft, without this->rect (only bg/anims use it).
         int32_t avail_count = this->vis_tav->avail_entries.GetSize();
@@ -14418,7 +14418,7 @@ void VisTavScene::VMethod7() {
             }
 
             CUnit* unit = this->vis_tav->avail_entries[i];
-            int32_t entry = this->vis_tav->FUN_0049e2e3(unit);
+            int32_t entry = this->vis_tav->FindEntryIndexForUnit(unit);
             if (this->vis_tav->entrie_id[entry] & 0x80000000) {
                 CRect& r = this->roster_rects[row][col];
                 g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], 10, clrsh_CoralRed, 1);
@@ -14441,7 +14441,7 @@ void VisTavScene::VMethod7() {
             this->reserved_sprites[i]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, this->reserved_frames[i], 0, 0);
         }
     } else {
-        this->FUN_0049bc23();
+        this->DrawQuestRoster();
     }
 
     this->bmp_lu_over->DrawSubRectMasked(tav_topleft.x + 0xA0, tav_topleft.y, 0, 0, 0x10, 0xEE);
@@ -14593,15 +14593,15 @@ int32_t VisTavScene::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
     if (main_wnd->sessionMode == 2) {
         if (this->vis_tav->selection_index < this->vis_tav->avail_entries.GetSize()) {
             CUnit* unit = this->vis_tav->avail_entries[this->vis_tav->selection_index];
-            int32_t entry = this->vis_tav->FUN_0049e2e3(unit);
+            int32_t entry = this->vis_tav->FindEntryIndexForUnit(unit);
             if (this->vis_tav->entrie_id[entry] & 0x80000000) {
-                this->vis_tav->FUN_0049f0da();
+                this->vis_tav->RetalkAvailNpc();
             } else {
-                this->vis_tav->FUN_0049ef63();
+                this->vis_tav->ShowHireResponseDialog();
             }
-            this->vis_tav->right_panel->FUN_0049a973();
+            this->vis_tav->right_panel->UpdateButtonLabels();
         } else {
-            this->vis_tav->FUN_0049f179();
+            this->vis_tav->ShowReservedNpcTalk();
         }
     } else {
         if (this->vis_tav->quest_selection != this->vis_tav->quest_id) {
@@ -14636,11 +14636,11 @@ void VisTavScene::VMethod27() {
 
 // 49DA98
 int32_t VisTavScene::OnLButtonDown(uint32_t wparam, CPoint pos) {
-    int32_t idx = this->FUN_0049cab8(&pos);
+    int32_t idx = this->HitTestRoster(&pos);
     if (idx == -1) {
         return 0;
     }
-    this->vis_tav->left_panel->FUN_00497e06(idx);
+    this->vis_tav->left_panel->SelectRosterEntry(idx);
     return 1;
 }
 
@@ -14661,12 +14661,12 @@ VisTavScene::~VisTavScene() {
 VisTavScene::VisTavScene(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav)
 : CVisualObject(_id, l, t, r, b, nullptr) {
     this->vis_tav = tav;
-    this->FUN_0049af8c();
+    this->InitSceneRects();
 }
 
 
 // 49BC23
-void VisTavScene::FUN_0049bc23() {
+void VisTavScene::DrawQuestRoster() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     CPoint tav_topleft = this->vis_tav->rect.TopLeft();
 
@@ -14724,13 +14724,13 @@ void VisTavScene::FUN_0049bc23() {
             g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 0x28, tav_topleft.y + pt.y + 0x23, TxtFile::AllLines[0x2E], 2, clrsh_DullGold, 1);
             CString text;
             text.Format("%d", entry->count * 250);
-            FUN_00476987(&text);
+            InsertThousandsSeparators(&text);
             g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 3, tav_topleft.y + pt.y + 0x42, text, 0, clrsh_DullGold, 1);
         } else if (entry->item_id == 0xFFFF) {
             g_ca16_money->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
             CString text;
             text.Format("%d", entry->count * 250);
-            FUN_00476987(&text);
+            InsertThousandsSeparators(&text);
             g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 3, tav_topleft.y + pt.y + 0x42, text, 0, clrsh_DullGold, 1);
         } else {
             if (this->roster_sprites[i] == nullptr) {
@@ -14760,7 +14760,7 @@ void VisTavScene::FUN_0049bc23() {
                                    0xFF, 0, 0xFF, sparkle_alpha[k]);
                     }
                 }
-                main_wnd->vis_invtype1->sub_4A5FAB(cell_x, cell_y, i);
+                main_wnd->vis_invtype1->DrawGlowTrail(cell_x, cell_y, i);
             }
 
             if (i > 1 && this->vis_tav->rewards[i - 1]->item_id >= 0xFFFD) {
@@ -14777,7 +14777,7 @@ void VisTavScene::FUN_0049bc23() {
 
 
 // 49AF8C
-void VisTavScene::FUN_0049af8c() {
+void VisTavScene::InitSceneRects() {
     CPoint base(this->rect.left + 0x10, this->rect.bottom);
 
     for (int32_t i = 0; i < 3; i++) {
@@ -14807,7 +14807,7 @@ void VisTavScene::FUN_0049af8c() {
 
 
 // 49CAB8
-int32_t VisTavScene::FUN_0049cab8(CPoint* pos) {
+int32_t VisTavScene::HitTestRoster(CPoint* pos) {
     CPoint tav_topleft = this->vis_tav->rect.TopLeft();
     CPoint pt = *pos - tav_topleft;
 
@@ -14967,7 +14967,7 @@ void VisTavSceneDruid::VMethod7() {
             }
         }
 
-        // cell rects are tavern-space (FUN_0049af8c positions them from this->rect), and the
+        // cell rects are tavern-space (InitSceneRects positions them from this->rect), and the
         // epilogue mask offsets are tavern-space constants: the binary draws both from raw
         // tav_topleft, without this->rect (only bg/anims use it).
         int32_t avail_count = this->vis_tav->avail_entries.GetSize();
@@ -14988,7 +14988,7 @@ void VisTavSceneDruid::VMethod7() {
             }
 
             CUnit* unit = this->vis_tav->avail_entries[i];
-            int32_t entry = this->vis_tav->FUN_0049e2e3(unit);
+            int32_t entry = this->vis_tav->FindEntryIndexForUnit(unit);
             if (this->vis_tav->entrie_id[entry] & 0x80000000) {
                 CRect& r = this->roster_rects[row][col];
                 g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], 10, clrsh_CoralRed, 1);
@@ -15011,7 +15011,7 @@ void VisTavSceneDruid::VMethod7() {
             this->reserved_sprites[i]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, this->reserved_frames[i], 0, 0);
         }
     } else {
-        this->FUN_0049bc23();
+        this->DrawQuestRoster();
     }
 
     this->bmp_lu_over->DrawSubRectMasked(tav_topleft.x + 0xA0, tav_topleft.y, 0, 0, 0x10, 0xEE);
@@ -15250,7 +15250,7 @@ void VisTavSceneKaarg::VMethod7() {
             }
         }
 
-        // cell rects are tavern-space (FUN_0049af8c positions them from this->rect), and the
+        // cell rects are tavern-space (InitSceneRects positions them from this->rect), and the
         // epilogue mask offsets are tavern-space constants: the binary draws both from raw
         // tav_topleft, without this->rect (only bg/anims use it).
         int32_t avail_count = this->vis_tav->avail_entries.GetSize();
@@ -15271,7 +15271,7 @@ void VisTavSceneKaarg::VMethod7() {
             }
 
             CUnit* unit = this->vis_tav->avail_entries[i];
-            int32_t entry = this->vis_tav->FUN_0049e2e3(unit);
+            int32_t entry = this->vis_tav->FindEntryIndexForUnit(unit);
             if (this->vis_tav->entrie_id[entry] & 0x80000000) {
                 CRect& r = this->roster_rects[row][col];
                 g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], 10, clrsh_CoralRed, 1);
@@ -15294,7 +15294,7 @@ void VisTavSceneKaarg::VMethod7() {
             this->reserved_sprites[i]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, this->reserved_frames[i], 0, 0);
         }
     } else {
-        this->FUN_0049bc23();
+        this->DrawQuestRoster();
     }
 
     this->bmp_lu_over->DrawSubRectMasked(tav_topleft.x + 0xA0, tav_topleft.y, 0, 0, 0x10, 0xEE);
@@ -15464,9 +15464,9 @@ void VisTavDruid::VMethod28() {
         uint32_t unit_id = this->entrie_id[i] & 0xFFFF;
         uint32_t category = (this->entrie_id[i] >> 0x1C) & 7;
         if (category == 1 || category == 2) {
-            this->avail_entries.Add(this->map_context->FUN_0041dfa6(unit_id));
+            this->avail_entries.Add(this->map_context->FindOrCreateUnitByServerId(unit_id));
         } else {
-            this->reserved_entries.Add(this->map_context->FUN_0041dfa6(unit_id));
+            this->reserved_entries.Add(this->map_context->FindOrCreateUnitByServerId(unit_id));
         }
     }
 
@@ -15478,7 +15478,7 @@ void VisTavDruid::VMethod28() {
 
     g_StructEnter.RebuildFromMap();
     this->selected_entries.Copy(g_StructEnter.structure_list);
-    this->select_party = g_StructEnter.FUN_00473d10();
+    this->select_party = g_StructEnter.FindFlaggedStructureUnit();
 
     this->map_context->MsgProc(0x405, 0, 0);
     this->selected_entries[this->select_party]->SetSelected(1);
@@ -15497,7 +15497,7 @@ void VisTavDruid::VMethod28() {
         names.Add(name);
     }
     if (main_wnd->sessionMode == 2) {
-        scene_druid->anims_druid[0].FUN_004010ee(&names);
+        scene_druid->anims_druid[0].LoadAnimFrames(&names);
     }
     names.RemoveAll();
 
@@ -15506,7 +15506,7 @@ void VisTavDruid::VMethod28() {
         names.Add(name);
     }
     if (main_wnd->sessionMode == 2) {
-        scene_druid->anims_druid[1].FUN_004010ee(&names);
+        scene_druid->anims_druid[1].LoadAnimFrames(&names);
     }
     names.RemoveAll();
 
@@ -15515,15 +15515,15 @@ void VisTavDruid::VMethod28() {
         names.Add(name);
     }
     if (main_wnd->sessionMode == 2) {
-        scene_druid->anims_druid[2].FUN_004010ee(&names);
+        scene_druid->anims_druid[2].LoadAnimFrames(&names);
     }
     names.RemoveAll();
 
-    this->right_panel->FUN_00499a67();
-    this->right_panel->FUN_0049a84e();
+    this->right_panel->LoadRightPanelBmps();
+    this->right_panel->ResetButtonStates();
     this->scene->VMethod28();
-    this->left_panel->FUN_004995d1();
-    this->right_panel->FUN_0049a973();
+    this->left_panel->LoadLeftPanelBmps();
+    this->right_panel->UpdateButtonLabels();
     this->VMethod30();
 
     this->dialog_active = 1;
@@ -15555,9 +15555,9 @@ void VisTavDruid::DoClose(uint32_t code) {
     }
 
     if (this->quest_alt_close != 0) {
-        main_wnd->vis_map_context->FUN_0041ae1c(0xAAAAAAAA);
+        main_wnd->vis_map_context->LeaveInn(0xAAAAAAAA);
     } else {
-        main_wnd->vis_map_context->FUN_0041ae1c(this->quest_selection);
+        main_wnd->vis_map_context->LeaveInn(this->quest_selection);
     }
 
     this->dialog_active = 0;
@@ -15575,15 +15575,15 @@ void VisTavDruid::DoClose(uint32_t code) {
         this->tips = nullptr;
     }
 
-    this->right_panel->FUN_00499cdf();
+    this->right_panel->FreeRightPanelBmps();
     this->scene->VMethod29();
     this->scene->VMethod27();
-    this->left_panel->FUN_004996ab();
+    this->left_panel->FreeLeftPanelBmps();
 
     VisTavSceneDruid* scene_druid = (VisTavSceneDruid*)this->scene;
-    scene_druid->anims_druid[0].FUN_004014f2();
-    scene_druid->anims_druid[1].FUN_004014f2();
-    scene_druid->anims_druid[2].FUN_004014f2();
+    scene_druid->anims_druid[0].FreeAnimFrames();
+    scene_druid->anims_druid[1].FreeAnimFrames();
+    scene_druid->anims_druid[2].FreeAnimFrames();
 
     this->VMethod31();
 
@@ -15723,9 +15723,9 @@ void VisTavKaarg::VMethod28() {
         uint32_t unit_id = this->entrie_id[i] & 0xFFFF;
         uint32_t category = (this->entrie_id[i] >> 0x1C) & 7;
         if (category == 1 || category == 2) {
-            this->avail_entries.Add(this->map_context->FUN_0041dfa6(unit_id));
+            this->avail_entries.Add(this->map_context->FindOrCreateUnitByServerId(unit_id));
         } else {
-            this->reserved_entries.Add(this->map_context->FUN_0041dfa6(unit_id));
+            this->reserved_entries.Add(this->map_context->FindOrCreateUnitByServerId(unit_id));
         }
     }
 
@@ -15737,7 +15737,7 @@ void VisTavKaarg::VMethod28() {
 
     g_StructEnter.RebuildFromMap();
     this->selected_entries.Copy(g_StructEnter.structure_list);
-    this->select_party = g_StructEnter.FUN_00473d10();
+    this->select_party = g_StructEnter.FindFlaggedStructureUnit();
 
     this->map_context->MsgProc(0x405, 0, 0);
     this->selected_entries[this->select_party]->SetSelected(1);
@@ -15756,7 +15756,7 @@ void VisTavKaarg::VMethod28() {
         names.Add(name);
     }
     if (main_wnd->sessionMode == 2) {
-        scene_kaarg->anims_kaarg[0].FUN_004010ee(&names);
+        scene_kaarg->anims_kaarg[0].LoadAnimFrames(&names);
     }
     names.RemoveAll();
 
@@ -15765,7 +15765,7 @@ void VisTavKaarg::VMethod28() {
         names.Add(name);
     }
     if (main_wnd->sessionMode == 2) {
-        scene_kaarg->anims_kaarg[1].FUN_004010ee(&names);
+        scene_kaarg->anims_kaarg[1].LoadAnimFrames(&names);
     }
     names.RemoveAll();
 
@@ -15774,7 +15774,7 @@ void VisTavKaarg::VMethod28() {
         names.Add(name);
     }
     if (main_wnd->sessionMode == 2) {
-        scene_kaarg->anims_kaarg[2].FUN_004010ee(&names);
+        scene_kaarg->anims_kaarg[2].LoadAnimFrames(&names);
     }
     names.RemoveAll();
 
@@ -15783,7 +15783,7 @@ void VisTavKaarg::VMethod28() {
         names.Add(name);
     }
     if (main_wnd->sessionMode == 2) {
-        scene_kaarg->anims_kaarg[3].FUN_004010ee(&names);
+        scene_kaarg->anims_kaarg[3].LoadAnimFrames(&names);
     }
     names.RemoveAll();
 
@@ -15792,15 +15792,15 @@ void VisTavKaarg::VMethod28() {
         names.Add(name);
     }
     if (main_wnd->sessionMode == 2) {
-        scene_kaarg->anims_kaarg[4].FUN_004010ee(&names);
+        scene_kaarg->anims_kaarg[4].LoadAnimFrames(&names);
     }
     names.RemoveAll();
 
-    this->right_panel->FUN_00499a67();
-    this->right_panel->FUN_0049a84e();
+    this->right_panel->LoadRightPanelBmps();
+    this->right_panel->ResetButtonStates();
     this->scene->VMethod28();
-    this->left_panel->FUN_004995d1();
-    this->right_panel->FUN_0049a973();
+    this->left_panel->LoadLeftPanelBmps();
+    this->right_panel->UpdateButtonLabels();
     this->VMethod30();
 
     this->dialog_active = 1;
@@ -15832,9 +15832,9 @@ void VisTavKaarg::DoClose(uint32_t code) {
     }
 
     if (this->quest_alt_close != 0) {
-        main_wnd->vis_map_context->FUN_0041ae1c(0xAAAAAAAA);
+        main_wnd->vis_map_context->LeaveInn(0xAAAAAAAA);
     } else {
-        main_wnd->vis_map_context->FUN_0041ae1c(this->quest_selection);
+        main_wnd->vis_map_context->LeaveInn(this->quest_selection);
     }
 
     this->dialog_active = 0;
@@ -15852,17 +15852,17 @@ void VisTavKaarg::DoClose(uint32_t code) {
         this->tips = nullptr;
     }
 
-    this->right_panel->FUN_00499cdf();
+    this->right_panel->FreeRightPanelBmps();
     this->scene->VMethod29();
     this->scene->VMethod27();
-    this->left_panel->FUN_004996ab();
+    this->left_panel->FreeLeftPanelBmps();
 
     VisTavSceneKaarg* scene_kaarg = (VisTavSceneKaarg*)this->scene;
-    scene_kaarg->anims_kaarg[0].FUN_004014f2();
-    scene_kaarg->anims_kaarg[1].FUN_004014f2();
-    scene_kaarg->anims_kaarg[2].FUN_004014f2();
-    scene_kaarg->anims_kaarg[3].FUN_004014f2();
-    scene_kaarg->anims_kaarg[4].FUN_004014f2();
+    scene_kaarg->anims_kaarg[0].FreeAnimFrames();
+    scene_kaarg->anims_kaarg[1].FreeAnimFrames();
+    scene_kaarg->anims_kaarg[2].FreeAnimFrames();
+    scene_kaarg->anims_kaarg[3].FreeAnimFrames();
+    scene_kaarg->anims_kaarg[4].FreeAnimFrames();
 
     this->VMethod31();
 
@@ -15958,7 +15958,7 @@ VisTavKaarg::~VisTavKaarg() {
 
 
 // 4A5FAB
-void VisInvBase::sub_4A5FAB(int32_t x, int32_t y, int32_t idx) {
+void VisInvBase::DrawGlowTrail(int32_t x, int32_t y, int32_t idx) {
     static const int32_t trail_alpha[7] = {0x3F, 0x7F, 0xBF, 0xFF, 0xBF, 0x7F, 0x3F};
 
     int32_t i = this->anim_frames.GetAt(idx) >> 1;
@@ -16067,14 +16067,14 @@ int32_t VisInvBase::VMethod27(TokenEntry* o) {
 // 4A5DE0
 int32_t VisInvBase::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     if (msg == 0x401) {
-        this->FUN_004a5e12();
+        this->TickCellAnims();
     }
     return CVisualObject::MsgProc(msg, wparam, lparam);
 }
 
 
 // 46FB90
-int32_t VisInvBase::FUN_0046fb90() {
+int32_t VisInvBase::GetVisibleStart() {
     return *this->visible_startref;
 }
 
@@ -16104,12 +16104,12 @@ VisInvBase::VisInvBase(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
     this->visible_rows = 0;
     this->visible_startref = nullptr;
     this->grid_source = nullptr;
-    this->sub_4A4BCB();
+    this->InitGlowOffsets();
 }
 
 
 // 4a4bcb
-void VisInvBase::sub_4A4BCB() {
+void VisInvBase::InitGlowOffsets() {
     for (int32_t i = 0; i < 1024; i++) {
         this->random_offsets1[i] = rand() / 0x1FF + 8;
         this->random_offsets2[i] = rand() / 0x1FF + 8;
@@ -16155,7 +16155,7 @@ int32_t VisInvBase::VMethod37(int32_t idx) {
         this->VMethod32(this->grid_source);
     }
     if (same_tab != 0) {
-        main_wnd->vis_map_context->sub_41A7C7(main_wnd->drag_src_tab, main_wnd->drag_src_slot, this->VMethod38(), idx, count);
+        main_wnd->vis_map_context->SendItemOperation(main_wnd->drag_src_tab, main_wnd->drag_src_slot, this->VMethod38(), idx, count);
     }
     main_wnd->ResetItemCursor();
     main_wnd->vis_root->MsgProc(0x46E, this->id, 0);
@@ -16194,7 +16194,7 @@ TokenEntry* VisInvBase::VMethod36(int32_t idx, int32_t num) {
 
 
 // 4A5E12
-void VisInvBase::FUN_004a5e12() {
+void VisInvBase::TickCellAnims() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (this->grid_source == nullptr) {
         return;
@@ -16291,7 +16291,7 @@ int32_t VisInvBase::VMethod38() {
 
 
 // 4A4EBC
-void VisInvBase::FUN_004a4ebc() {
+void VisInvBase::RefreshCellSprites() {
     if (this->grid_source == nullptr) {
         return;
     }
@@ -16326,7 +16326,7 @@ void VisInvBase::FUN_004a4ebc() {
 
 
 // 4a51c9
-void VisInvBase::sub_4A51C9() {
+void VisInvBase::ScrollCellsForward() {
     if (this->grid_source == nullptr) {
         return;
     }
@@ -16343,12 +16343,12 @@ void VisInvBase::sub_4A51C9() {
     this->spr_cells.ElementAt(total_cells - 1) = first;
     this->cell_update_counter.ElementAt(total_cells - 1) = 0;
     *this->visible_startref += 1;
-    this->FUN_004a4ebc();
+    this->RefreshCellSprites();
 }
 
 
 // 4a5350
-void VisInvBase::sub_4A5350() {
+void VisInvBase::ScrollCellsBack() {
     if (this->grid_source == nullptr) {
         return;
     }
@@ -16364,11 +16364,11 @@ void VisInvBase::sub_4A5350() {
     this->spr_cells.ElementAt(0) = last;
     this->cell_update_counter.ElementAt(0) = 0;
     *this->visible_startref -= 1;
-    this->FUN_004a4ebc();
+    this->RefreshCellSprites();
 }
 
 // 41f940
-int32_t VisInvBase::sub_41F940() {
+int32_t VisInvBase::HasAnimatingCells() {
     return this->has_anim_visible_cells;
 } 
 
@@ -16376,7 +16376,7 @@ int32_t VisInvBase::sub_41F940() {
 // 4A6449
 void VisInvType1::VMethod7() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    this->FUN_004a4ebc();
+    this->RefreshCellSprites();
 
     CRect screen_rect = this->ClientRectToScreen(this->rect);
 
@@ -16460,7 +16460,7 @@ void VisInvType1::VMethod7() {
 
             CString text;
             text.Format("%d", main_wnd->vis_map_context->my_main_unit->gold);
-            FUN_00476987(&text);
+            InsertThousandsSeparators(&text);
             g_font2->DrawTextWithShadow(cell_x + 3, screen_rect.bottom - 0xe, text, 0, clrsh_DullGold, 1);
             continue;
         }
@@ -16478,7 +16478,7 @@ void VisInvType1::VMethod7() {
 
         entry = this->grid_source->GetAt(i + *this->visible_startref);
         if (entry->flg & 0x20) {
-            this->sub_4A5FAB(cell_x, cell_y, i);
+            this->DrawGlowTrail(cell_x, cell_y, i);
         }
 
         for (int32_t j = 0; j < 9; j++) {
@@ -16677,10 +16677,10 @@ int32_t VisInvType1::OnLButtonDown(uint32_t wparam, CPoint pos) {
     CRect right_rect(screen_rect.right - 0x30 - edge_width, screen_rect.top, screen_rect.right - 0x10, screen_rect.bottom);
 
     if (left_rect.PtInRect(pos)) {
-        this->sub_4A5350();
+        this->ScrollCellsBack();
     }
     if (right_rect.PtInRect(pos)) {
-        this->sub_4A51C9();
+        this->ScrollCellsForward();
     }
 
     return 1;
@@ -16775,7 +16775,7 @@ int32_t VisInvType1::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
         if (main_wnd->vis_map_context->my_main_unit->gold > 0) {
             main_wnd->dialogsMask |= 8;
             main_wnd->vis_root->AddChild(main_wnd->vis_dropgold);
-            main_wnd->vis_dropgold->FUN_004a7a30(idx);
+            main_wnd->vis_dropgold->SetSelection(idx);
             main_wnd->vis_dropgold->VMethod28();
             main_wnd->vis_root->VMethod9();
             ApplyCursor(g_Cursors[0]);
@@ -16807,7 +16807,7 @@ void VisInvExtBase::VMethod7() {
         return;
     }
 
-    this->FUN_004a4ebc();
+    this->RefreshCellSprites();
 
     if (this->grid_source == nullptr) {
         return;
@@ -16820,7 +16820,7 @@ void VisInvExtBase::VMethod7() {
     }
 
     LockSurface2();
-    this->FUN_004a5e12();
+    this->TickCellAnims();
 
     for (int32_t i = 0; i < total_cells; i++) {
         CPoint pos(this->cell_rects[i].left + off_x, this->cell_rects[i].top + off_y);
@@ -16859,7 +16859,7 @@ void VisInvExtBase::VMethod7() {
             CSprite256* sprite = this->spr_cells.GetAt(i);
             sprite->Draw(pos.x, pos.y + 1, 0, 0, 0);
             if (entry->flg & 0x20) {
-                this->sub_4A5FAB(pos.x, pos.y + 1, i);
+                this->DrawGlowTrail(pos.x, pos.y + 1, i);
             }
         }
 
@@ -16868,7 +16868,7 @@ void VisInvExtBase::VMethod7() {
             CPoint bottom_right(this->cell_rects[i].right + off_x, this->cell_rects[i].bottom + off_y);
             CString text;
             text.Format("%d", entry->count);
-            FUN_00476987(&text);
+            InsertThousandsSeparators(&text);
             g_font2->DrawTextWithShadow(pos.x + 10, bottom_right.y - 15, text, 0, clrsh_DullGold, 1);
         }
 
@@ -16900,12 +16900,12 @@ void VisInvExtBase::VMethod7() {
             }
             CString cost_text;
             cost_text.Format("%d", amount);
-            FUN_00476987(&cost_text);
+            InsertThousandsSeparators(&cost_text);
             g_font2->DrawTextWithShadow(cost_pos.x - 6 + cost_bmp->GetWidth(0), cost_pos.y, cost_text, 1, clrsh_DullGold, 1);
         }
     }
 
-    shop->sub_4BAD1D();
+    shop->DrawInfoPanelEdge();
     UnlockSurface2();
     shop->dirty |= 0x40;
 }
@@ -16929,7 +16929,7 @@ int32_t VisInvExtBase::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
                         break;
                     case 2:
                         shop->to_sell->VMethod37(*shop->to_sell->visible_startref);
-                        shop->to_sell->sub_4B4D33();
+                        shop->to_sell->RefreshGrid();
                         break;
                     case 5:
                     case 6:
@@ -16938,21 +16938,21 @@ int32_t VisInvExtBase::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
                         shop->assortiment->grid_source = &shop->assortiment->category_grids[main_wnd->drag_entry->slot_code - 5];
                         shop->assortiment->VMethod37(-1);
                         shop->assortiment->grid_source = &shop->assortiment->category_grids[shop->select_category];
-                        shop->assortiment->sub_4B4D33();
+                        shop->assortiment->RefreshGrid();
                         break;
                     }
-                    this->sub_4B4D33();
-                    shop->sub_4BCDA0();
+                    this->RefreshGrid();
+                    shop->RecalcShopGold();
                     shop->dirty |= 0x20;
                 } else if (main_wnd->drag_src_tab == 2) {
                     ((VisCharInfo*)shop->select_info_panel)->VMethod27(main_wnd->drag_entry->GetType() - 1);
                 } else {
-                    if (shop->to_buy->sub_4B91F9(main_wnd->drag_entry) == 0) {
+                    if (shop->to_buy->IsBuyGridFull(main_wnd->drag_entry) == 0) {
                         shop->to_buy->VMethod37(*shop->to_buy->visible_startref);
-                        this->sub_4B4D33();
+                        this->RefreshGrid();
                         this->VMethod9();
-                        shop->to_buy->sub_4B4D33();
-                        shop->sub_4BCDA0();
+                        shop->to_buy->RefreshGrid();
+                        shop->RecalcShopGold();
                         shop->dirty |= 0x20;
                     }
                 }
@@ -16975,14 +16975,14 @@ int32_t VisInvExtBase::OnLButtonUp(uint32_t wparam, CPoint pos) {
         shop->placement_lock = 0;
     }
     if (shop->placement_lock == 0) {
-        shop->sub_4BC97B();
+        shop->CancelItemDrag();
         CSound::Play((CSound&)shop->snd_notif);
         return 1;
     }
     int32_t region = this->VMethod38();
     if (region == 4) {
         this->VMethod37(this->VMethod31(&pos));
-        shop->sub_4BCDA0();
+        shop->RecalcShopGold();
         shop->dirty |= 0x20;
     } else if (region < 4 || region > 8) {
         this->VMethod37(this->VMethod31(&pos));
@@ -16990,11 +16990,11 @@ int32_t VisInvExtBase::OnLButtonUp(uint32_t wparam, CPoint pos) {
         if (this->VMethod38() == main_wnd->drag_entry->slot_code) {
             this->VMethod37(this->VMethod31(&pos));
         } else {
-            shop->sub_4BC97B();
+            shop->CancelItemDrag();
         }
     }
-    this->sub_4B5B81();
-    this->sub_4B4D33();
+    this->EndItemDrag();
+    this->RefreshGrid();
     this->VMethod9();
     return 1;
 }
@@ -17018,9 +17018,9 @@ int32_t VisInvExtBase::OnMouseMove(uint32_t wparam, CPoint pos) {
             }
             if (this->grid_source->GetAt(main_wnd->drag_src_slot)->IsQuestItem() == 0) {
                 if (this->VMethod36(main_wnd->drag_src_slot, count) != 0) {
-                    this->sub_4B5A6C(main_wnd->drag_src_slot);
-                    this->sub_4B4FD1();
-                    this->sub_4B4D33();
+                    this->StartItemDrag(main_wnd->drag_src_slot);
+                    this->ClampVisibleStart();
+                    this->RefreshGrid();
                     this->VMethod9();
                 }
             }
@@ -17067,7 +17067,7 @@ const char* VisInvExtBase::GetHint() {
 
 
 // 4B4FD1
-void VisInvExtBase::sub_4B4FD1() {
+void VisInvExtBase::ClampVisibleStart() {
     int32_t size = this->grid_source->GetSize();
     if (size - *this->visible_startref < this->visible_columns * this->visible_rows) {
         int32_t start = size - this->visible_columns * this->visible_rows;
@@ -17080,18 +17080,18 @@ void VisInvExtBase::sub_4B4FD1() {
 
 
 // 4B4D33
-void VisInvExtBase::sub_4B4D33() {
-    this->sub_4B4FD1();
+void VisInvExtBase::RefreshGrid() {
+    this->ClampVisibleStart();
     for (int32_t i = 0; i < this->visible_columns * this->visible_rows; i++) {
         this->cell_update_counter.ElementAt(i) = 0;
     }
-    this->FUN_004a4ebc();
+    this->RefreshCellSprites();
 }
 
 
 // 4B4BC5
-void VisInvExtBase::sub_4B4BC5() {
-    this->sub_4B4C1C();
+void VisInvExtBase::LoadGridSfx() {
+    this->FreeGridSfx();
     ReloadSfx(&this->snd_put_on.sample, "SFX\\Put_On.wav");
     ReloadSfx(&this->snd_put_off.sample, "SFX\\Put_Off.wav");
     ReloadSfx(&this->snd_scroll.sample, "SFX\\Scroll.wav");
@@ -17109,14 +17109,14 @@ int32_t VisInvExtBase::OnLButtonDown(uint32_t wparam, CPoint pos) {
 
 
 // 4B4BA9
-void VisInvExtBase::sub_4B4BA9() {
+void VisInvExtBase::FreeSpeechSfx() {
     FreeSfxSample(&this->snd_speech.sample);
 }
 
 
 // 4B4C1C
-void VisInvExtBase::sub_4B4C1C() {
-    this->sub_4B4BA9();
+void VisInvExtBase::FreeGridSfx() {
+    this->FreeSpeechSfx();
     FreeSfxSample(&this->snd_put_on.sample);
     FreeSfxSample(&this->snd_put_off.sample);
     FreeSfxSample(&this->snd_scroll.sample);
@@ -17219,13 +17219,13 @@ VisInvExtBase::~VisInvExtBase() {
     if (this->visible_startref != nullptr) {
         delete this->visible_startref;
     }
-    this->sub_4B4BA9();
-    this->sub_4B4C1C();
+    this->FreeSpeechSfx();
+    this->FreeGridSfx();
 }
 
 
 // 4B5A6C
-int32_t VisInvExtBase::sub_4B5A6C(int32_t idx) {
+int32_t VisInvExtBase::StartItemDrag(int32_t idx) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     TokenEntry* entry = main_wnd->drag_entry;
     int32_t region = this->VMethod38();
@@ -17240,7 +17240,7 @@ int32_t VisInvExtBase::sub_4B5A6C(int32_t idx) {
 
 
 // 4B5B81
-int32_t VisInvExtBase::sub_4B5B81() {
+int32_t VisInvExtBase::EndItemDrag() {
     ApplyCursor(g_Cursors[0]);
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     main_wnd->ResetItemCursor();
@@ -17301,9 +17301,9 @@ void VisInvExtType1::VMethod7() {
         CRect rc = this->up_arrow_rect;
         rc.OffsetRect(topleft.x, topleft.y);
         if (rc.PtInRect(pos)) {
-            this->sub_4B7264();
+            this->DrawUpArrowHover();
         } else {
-            this->sub_4B72C1();
+            this->DrawUpArrowIdle();
         }
     }
     if (this->grid_source->GetSize() - *this->visible_startref > this->visible_columns * this->visible_rows) {
@@ -17311,9 +17311,9 @@ void VisInvExtType1::VMethod7() {
         CRect rc = this->down_arrow_rect;
         rc.OffsetRect(topleft.x, topleft.y);
         if (rc.PtInRect(pos)) {
-            this->sub_4B731E();
+            this->DrawDownArrowHover();
         } else {
-            this->sub_4B7381();
+            this->DrawDownArrowIdle();
         }
     }
 }
@@ -17379,15 +17379,15 @@ int32_t VisInvExtType1::OnLButtonDown(uint32_t wparam, CPoint pos) {
     CPoint topleft = shop->rect.TopLeft();
     CPoint pt = pos - topleft;
     if (this->up_arrow_rect.PtInRect(pt)) {
-        this->sub_4A5350();
-        this->sub_4A5350();
+        this->ScrollCellsBack();
+        this->ScrollCellsBack();
         StopSfx(&this->snd_scroll.sample);
         CSound::Play(this->snd_scroll);
         return 1;
     }
     if (this->down_arrow_rect.PtInRect(pt)) {
-        this->sub_4A51C9();
-        this->sub_4A51C9();
+        this->ScrollCellsForward();
+        this->ScrollCellsForward();
         StopSfx(&this->snd_scroll.sample);
         CSound::Play(this->snd_scroll);
         return 1;
@@ -17403,15 +17403,15 @@ int32_t VisInvExtType1::OnWmUser(uint32_t wparam, CPoint pos) {
     CPoint pt = pos - topleft;
     if (wparam & 1) {
         if (this->up_arrow_rect.PtInRect(pt)) {
-            this->sub_4A5350();
-            this->sub_4A5350();
+            this->ScrollCellsBack();
+            this->ScrollCellsBack();
             StopSfx(&this->snd_scroll.sample);
             CSound::Play(this->snd_scroll);
             return 1;
         }
         if (this->down_arrow_rect.PtInRect(pt)) {
-            this->sub_4A51C9();
-            this->sub_4A51C9();
+            this->ScrollCellsForward();
+            this->ScrollCellsForward();
             StopSfx(&this->snd_scroll.sample);
             CSound::Play(this->snd_scroll);
             return 1;
@@ -17422,7 +17422,7 @@ int32_t VisInvExtType1::OnWmUser(uint32_t wparam, CPoint pos) {
 
 
 // 4B7859
-void VisInvExtType1::sub_4B7859() {
+void VisInvExtType1::ClearCategoryGrids() {
     for (int32_t i = 0; i < 4; i++) {
         CArray<TokenEntry*>& arr = this->category_grids[i];
         for (int32_t j = 0; j < arr.GetSize(); j++) {
@@ -17439,23 +17439,23 @@ void VisInvExtType1::sub_4B7859() {
 // 4B777C
 int32_t VisInvExtType1::OnKeyDown(uint32_t wparam) {
     if (wparam == 0x21) {
-        this->sub_4A5350();
-        this->sub_4A5350();
-        this->sub_4A5350();
-        this->sub_4A5350();
-        this->sub_4A5350();
-        this->sub_4A5350();
+        this->ScrollCellsBack();
+        this->ScrollCellsBack();
+        this->ScrollCellsBack();
+        this->ScrollCellsBack();
+        this->ScrollCellsBack();
+        this->ScrollCellsBack();
         StopSfx(&this->snd_scroll.sample);
         CSound::Play(this->snd_scroll);
         return 1;
     }
     if (wparam == 0x22) {
-        this->sub_4A51C9();
-        this->sub_4A51C9();
-        this->sub_4A51C9();
-        this->sub_4A51C9();
-        this->sub_4A51C9();
-        this->sub_4A51C9();
+        this->ScrollCellsForward();
+        this->ScrollCellsForward();
+        this->ScrollCellsForward();
+        this->ScrollCellsForward();
+        this->ScrollCellsForward();
+        this->ScrollCellsForward();
         StopSfx(&this->snd_scroll.sample);
         CSound::Play(this->snd_scroll);
         return 1;
@@ -17509,9 +17509,9 @@ int32_t VisInvExtType1::OnLButtonUp(uint32_t wparam, CPoint pos) {
 
 
 // 4B73E4
-void VisInvExtType1::sub_4B73E4(int32_t category) {
+void VisInvExtType1::SelectCategoryGrid(int32_t category) {
     this->grid_source = &this->category_grids[category];
-    this->sub_4B4D33();
+    this->RefreshGrid();
 }
 
 
@@ -17653,7 +17653,7 @@ int32_t VisInvExtType1::VMethod37(int32_t idx) {
         this->VMethod32(this->grid_source);
     }
     if (tab_before != main_wnd->drag_src_tab) {
-        main_wnd->vis_map_context->sub_41A7C7(main_wnd->drag_src_tab, main_wnd->drag_src_slot, this->VMethod38(), entry->list_index, count);
+        main_wnd->vis_map_context->SendItemOperation(main_wnd->drag_src_tab, main_wnd->drag_src_slot, this->VMethod38(), entry->list_index, count);
     }
     main_wnd->ResetItemCursor();
     main_wnd->vis_root->MsgProc(0x46E, this->id, 0);
@@ -17662,7 +17662,7 @@ int32_t VisInvExtType1::VMethod37(int32_t idx) {
 
 
 // 4B7264
-void VisInvExtType1::sub_4B7264() {
+void VisInvExtType1::DrawUpArrowHover() {
     CPoint topleft = this->shop->rect.TopLeft();
     if (this->arrow1 != nullptr) {
         this->arrow1->Draw(topleft.x + 0x2E, topleft.y, 0, 0, 0);
@@ -17671,7 +17671,7 @@ void VisInvExtType1::sub_4B7264() {
 
 
 // 4B72C1
-void VisInvExtType1::sub_4B72C1() {
+void VisInvExtType1::DrawUpArrowIdle() {
     CPoint topleft = this->shop->rect.TopLeft();
     if (this->arrow3 != nullptr) {
         this->arrow3->Draw(topleft.x + 0x2E, topleft.y, 0, 0, 0);
@@ -17680,7 +17680,7 @@ void VisInvExtType1::sub_4B72C1() {
 
 
 // 4B731E
-void VisInvExtType1::sub_4B731E() {
+void VisInvExtType1::DrawDownArrowHover() {
     CPoint topleft = this->shop->rect.TopLeft();
     if (this->arrow2 != nullptr) {
         this->arrow2->Draw(topleft.x + 0x2E, topleft.y + 0x10F, 0, 0, 0);
@@ -17689,7 +17689,7 @@ void VisInvExtType1::sub_4B731E() {
 
 
 // 4B7381
-void VisInvExtType1::sub_4B7381() {
+void VisInvExtType1::DrawDownArrowIdle() {
     CPoint topleft = this->shop->rect.TopLeft();
     if (this->arrow4 != nullptr) {
         this->arrow4->Draw(topleft.x + 0x2E, topleft.y + 0x10F, 0, 0, 0);
@@ -17722,9 +17722,9 @@ void VisInvExtType2::VMethod7() {
         CRect rc = this->up_arrow_rect;
         rc.OffsetRect(topleft.x, topleft.y);
         if (rc.PtInRect(pos)) {
-            this->sub_4B860E();
+            this->DrawUpArrowHover();
         } else {
-            this->sub_4B8666();
+            this->DrawUpArrowIdle();
         }
     }
     if (this->grid_source->GetSize() - *this->visible_startref > this->visible_columns * this->visible_rows) {
@@ -17732,9 +17732,9 @@ void VisInvExtType2::VMethod7() {
         CRect rc = this->down_arrow_rect;
         rc.OffsetRect(topleft.x, topleft.y);
         if (rc.PtInRect(pos)) {
-            this->sub_4B86BE();
+            this->DrawDownArrowHover();
         } else {
-            this->sub_4B871C();
+            this->DrawDownArrowIdle();
         }
     }
 }
@@ -17774,13 +17774,13 @@ int32_t VisInvExtType2::OnLButtonDown(uint32_t wparam, CPoint pos) {
     CPoint rel = pos - topleft;
 
     if (this->up_arrow_rect.PtInRect(rel)) {
-        this->sub_4A5350();
+        this->ScrollCellsBack();
         StopSfx(&this->snd_scroll.sample);
         CSound::Play(this->snd_scroll);
         return 1;
     }
     if (this->down_arrow_rect.PtInRect(rel)) {
-        this->sub_4A51C9();
+        this->ScrollCellsForward();
         StopSfx(&this->snd_scroll.sample);
         CSound::Play(this->snd_scroll);
         return 1;
@@ -17863,22 +17863,22 @@ TokenEntry* VisInvExtType3::VMethod43(int32_t id1, int32_t id2) {
         if (entry->RemoveCount(1) == 0) {
             this->grid_source->RemoveAt(i, 1);
             entry->count = 1;
-            this->sub_4B4FD1();
+            this->ClampVisibleStart();
             return entry;
         }
         TokenEntry* copy = new TokenEntry();
         *copy = *entry;
         copy->count = 1;
-        this->sub_4B4FD1();
+        this->ClampVisibleStart();
         return copy;
     }
-    this->sub_4B4FD1();
+    this->ClampVisibleStart();
     return nullptr;
 }
 
 
 // 4B970E
-void VisInvExtType3::sub_4B970E() {
+void VisInvExtType3::ClearBuyEntries() {
     while (this->entries.GetSize() != 0) {
         if (this->entries.GetAt(0) != nullptr) {
             delete this->entries.GetAt(0);
@@ -17917,7 +17917,7 @@ void VisInvExtType3::VMethod42() {
 
 
 // 4B9B2F
-int32_t VisInvExtType3::sub_4B9B2F(int32_t idx) {
+int32_t VisInvExtType3::DropDraggedItem(int32_t idx) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->drag_entry == nullptr) {
         return -1;
@@ -17933,7 +17933,7 @@ int32_t VisInvExtType3::sub_4B9B2F(int32_t idx) {
     int32_t result = this->VMethod26(entry, idx);
     this->VMethod32(this->grid_source);
     uint8_t kind = this->VMethod38();
-    main_wnd->vis_map_context->sub_41A7C7(main_wnd->drag_src_tab, grade, kind, result, amount);
+    main_wnd->vis_map_context->SendItemOperation(main_wnd->drag_src_tab, grade, kind, result, amount);
     main_wnd->ResetItemCursor();
     main_wnd->vis_root->MsgProc(0x46E, this->id, 0);
     return result;
@@ -17944,7 +17944,7 @@ int32_t VisInvExtType3::sub_4B9B2F(int32_t idx) {
 VisInvExtType3::~VisInvExtType3() {
     this->grid_source->RemoveAll();
     this->grid_source = nullptr;
-    this->sub_4B4C1C();
+    this->FreeGridSfx();
 }
 
 
@@ -18040,7 +18040,7 @@ int32_t VisInvExtType3::VMethod37(int32_t idx) {
     }
     StopSfx(&this->snd_put_on.sample);
     CSound::Play(this->snd_put_on);
-    return this->sub_4B9B2F(idx);
+    return this->DropDraggedItem(idx);
 }
 
 
@@ -18070,7 +18070,7 @@ int32_t VisInvExtType3::OnLButtonUp(uint32_t wparam, CPoint pos) {
     if (main_wnd->drag_entry == nullptr) {
         return 1;
     }
-    if (this->sub_4B91F9(main_wnd->drag_entry) != 0) {
+    if (this->IsBuyGridFull(main_wnd->drag_entry) != 0) {
         this->shop->placement_lock = 0;
     }
     return VisInvExtBase::OnLButtonUp(wparam, pos);
@@ -18082,7 +18082,7 @@ int32_t VisInvExtType3::OnMouseMove(uint32_t wparam, CPoint pos) {
     if (wparam & 1) {
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
         if (main_wnd->drag_entry != nullptr) {
-            if (this->sub_4B91F9(main_wnd->drag_entry) == 0) {
+            if (this->IsBuyGridFull(main_wnd->drag_entry) == 0) {
                 if (main_wnd->drag_entry->GetAttribute(1) > 0) {
                     this->shop->placement_lock = 1;
                     ApplyCursor(main_wnd->item_cursor);
@@ -18117,7 +18117,7 @@ void VisInvExtType3::VMethod7() {
 
 
 // 4B91F9
-int32_t VisInvExtType3::sub_4B91F9(TokenEntry* o) {
+int32_t VisInvExtType3::IsBuyGridFull(TokenEntry* o) {
     TokenEntry copy(o);
     if (o->slot_code == 1) {
         copy.slot_code = 2;
@@ -18197,7 +18197,7 @@ void VisInvExtType2::VMethod39() {
 
 
 // 4B860E
-void VisInvExtType2::sub_4B860E() {
+void VisInvExtType2::DrawUpArrowHover() {
     CPoint topleft = this->shop->rect.TopLeft();
     if (g_bmp_invarrow1 != nullptr) {
         g_bmp_invarrow3->DrawSubRectMasked(topleft.x, topleft.y + 0x188, 0, 0, 0x20, 0x58);
@@ -18206,7 +18206,7 @@ void VisInvExtType2::sub_4B860E() {
 
 
 // 4B8666
-void VisInvExtType2::sub_4B8666() {
+void VisInvExtType2::DrawUpArrowIdle() {
     CPoint topleft = this->shop->rect.TopLeft();
     if (g_bmp_invarrow3 != nullptr) {
         g_bmp_invarrow1->DrawSubRectMasked(topleft.x, topleft.y + 0x188, 0, 0, 0x20, 0x58);
@@ -18215,7 +18215,7 @@ void VisInvExtType2::sub_4B8666() {
 
 
 // 4B86BE
-void VisInvExtType2::sub_4B86BE() {
+void VisInvExtType2::DrawDownArrowHover() {
     CPoint topleft = this->shop->rect.TopLeft();
     if (g_bmp_invarrow2 != nullptr) {
         g_bmp_invarrow4->DrawSubRectMasked(topleft.x + 0x1B0, topleft.y + 0x188, 0, 0, 0x20, 0x58);
@@ -18224,7 +18224,7 @@ void VisInvExtType2::sub_4B86BE() {
 
 
 // 4B871C
-void VisInvExtType2::sub_4B871C() {
+void VisInvExtType2::DrawDownArrowIdle() {
     CPoint topleft = this->shop->rect.TopLeft();
     if (g_bmp_invarrow4 != nullptr) {
         g_bmp_invarrow2->DrawSubRectMasked(topleft.x + 0x1B0, topleft.y + 0x188, 0, 0, 0x20, 0x58);
@@ -19078,7 +19078,7 @@ void VisStartGame::Cancel() {
 }
 
 // 4382D9
-void VisStartGame::FUN_004382d9() {
+void VisStartGame::PlayLabelInputSound() {
     CSound::Play((&this->labelInputSound1)[this->labelInputSoundIndex]);
 }
 
@@ -19555,7 +19555,7 @@ const char* VisTown::GetHint() {
 
 
 // 4CE64B
-int32_t VisTown::FUN_004ce64b() {
+int32_t VisTown::StartBirdFlight() {
     this->town_anim |= 0x80;
     this->bird_group_index = GetRandS16(3);
     this->active_bird = GetRandS16(3) + 1;
@@ -19574,7 +19574,7 @@ int32_t VisTown::FUN_004ce64b() {
 
 
 // 4CE726
-void VisTown::FUN_004ce726() {
+void VisTown::DrawBirdFlock() {
     int32_t done_count = 0;
     if ((this->town_anim & 0x80) != 0) {
         for (int32_t i = 0; i < this->active_bird; i++) {
@@ -19627,13 +19627,13 @@ void VisTown::VMethod7() {
     }
     this->VMethod35();
     if ((now - this->last_bird) > bird_anim_delay && (this->town_anim & 0x80) == 0) {
-        bird_anim_delay = (uint32_t)this->FUN_004ce64b();
+        bird_anim_delay = (uint32_t)this->StartBirdFlight();
     }
     LockSurface2();
     if (this->bmp_bkg != nullptr) {
         this->bmp_bkg->Draw(this->rect.left, this->rect.top, 0, 0, 0);
     }
-    this->FUN_004ce726();
+    this->DrawBirdFlock();
     if (this->hovered_action_mask == 1) {
         this->bmp_shop_hover->Draw(this->rect.left + 0x108, this->rect.top + 0x108, 0, 0, 0);
     }
@@ -19810,7 +19810,7 @@ void VisTown::VMethod35() {
 
 
 // 4D06AA
-void VisTown::FUN_004d06aa() {
+void VisTown::AdvanceGuardAnim() {
     this->guard_frame += this->guard_frame_step;
     if (this->guard_frame_step == 1 && this->guard_sound == 0) {
         ReloadSfx(&this->sounds[2], "SFX\\Town\\Guard2.wav");
@@ -19836,7 +19836,7 @@ void VisTown::FUN_004d06aa() {
 
 
 // 4D07E8
-void VisTown::FUN_004d07e8() {
+void VisTown::AdvanceTavernAnim() {
     if (this->tavern_frame == 0) {
         StopSfx(&this->sounds[8]);
         StopSfx(&this->sounds[9]);
@@ -19851,7 +19851,7 @@ void VisTown::FUN_004d07e8() {
 
 
 // 4D0884
-void VisTown::FUN_004d0884() {
+void VisTown::AdvanceSignAnim() {
     if (this->sign_frame == 0) {
         CSound::Play((CSound&)this->sounds[6]);
     }
@@ -19865,7 +19865,7 @@ void VisTown::FUN_004d0884() {
 
 
 // 4D0913
-void VisTown::FUN_004d0913() {
+void VisTown::AdvanceGateAnim() {
     if (ScenarioGetVar(0x301) == 0) {
         this->door_frame = 8;
         this->bmp_cur_door = this->bmp_door.GetAt(this->door_frame);
@@ -19900,7 +19900,7 @@ void VisTown::FUN_004d0913() {
 
 
 // 4D0AD7
-void VisTown::FUN_004d0ad7() {
+void VisTown::AdvanceStarsAnim() {
     static int32_t stars_repeat; // dword_6669d0 in asm
     if (this->stars_frame == 0) {
         CSound::Play((CSound&)this->sounds[10]);
@@ -19921,7 +19921,7 @@ void VisTown::FUN_004d0ad7() {
 
 
 // 4D0B95
-void VisTown::FUN_004d0b95() {
+void VisTown::AdvanceFighterAnim() {
     static int32_t fighter_dir; // dword_6669d4 in asm
     if (this->fighter_frame < 1 && fighter_dir == 0) {
         fighter_dir = (rand() % 100 > 0x5F) ? 1 : 0;
@@ -19937,7 +19937,7 @@ void VisTown::FUN_004d0b95() {
 
 
 // 4D0C6E
-void VisTown::FUN_004d0c6e() {
+void VisTown::AdvanceMageAnim() {
     static int32_t mage_dir; // dword_6669d8 in asm
     if (this->mage_frame < 1 && mage_dir == 0) {
         mage_dir = (rand() % 100 > 0x5F) ? 1 : 0;
@@ -19953,7 +19953,7 @@ void VisTown::FUN_004d0c6e() {
 
 
 // 4D0D47
-void VisTown::FUN_004d0d47() {
+void VisTown::AdvanceShopAnim() {
     this->shop_frame++;
     if (this->shop_frame == this->spr_shop->GetFrameCount()) {
         this->shop_frame = 0;
@@ -19963,7 +19963,7 @@ void VisTown::FUN_004d0d47() {
 
 
 // 4D0DA2
-void VisTown::FUN_004d0da2() {
+void VisTown::AdvanceFlugelAnim() {
     if (this->flugel_frame == 0) {
         CSound::Play((CSound&)this->sounds[5]);
     }
@@ -19977,7 +19977,7 @@ void VisTown::FUN_004d0da2() {
 
 
 // 4D0F66
-void VisTown::FUN_004d0f66() {
+void VisTown::AdvanceBlackBirdAnim() {
     if (this->spr_cur_bbird != nullptr && (this->town_anim & 0x200) != 0 && this->bbird_frame != -1) {
         this->bbird_frame++;
         this->bbird_last_tick = timeGetTime();
@@ -19990,7 +19990,7 @@ void VisTown::FUN_004d0f66() {
 
 
 // 4D1002
-void VisTown::FUN_004d1002() {
+void VisTown::AdvanceHorseAnim() {
     if (this->spr_cur_horse != nullptr && (this->town_anim & 0x100) != 0 && this->horse_frame != -1) {
         this->horse_frame++;
         this->horse_last_tick = timeGetTime();
@@ -20003,7 +20003,7 @@ void VisTown::FUN_004d1002() {
 
 
 // 4D109E
-void VisTown::FUN_004d109e() {
+void VisTown::AdvanceDervishAnim() {
     if (this->spr_dervish == nullptr) {
         this->dervish_frame = -1;
     } else {
@@ -20015,20 +20015,20 @@ void VisTown::FUN_004d109e() {
 // 4D0E31
 void VisTown::VMethod38() {
     if ((this->town_anim & 1) != 0) {
-        this->FUN_004d0d47();
+        this->AdvanceShopAnim();
     }
     if ((this->town_anim & 2) != 0) {
-        this->FUN_004d07e8();
+        this->AdvanceTavernAnim();
     }
-    this->FUN_004d0913();
+    this->AdvanceGateAnim();
     if ((this->town_anim & 0x10) != 0) {
-        this->FUN_004d0ad7();
+        this->AdvanceStarsAnim();
     }
     if ((this->town_anim & 0x40) != 0) {
-        this->FUN_004d0884();
+        this->AdvanceSignAnim();
     }
     if ((this->town_anim & 0x20) != 0) {
-        this->FUN_004d0da2();
+        this->AdvanceFlugelAnim();
     }
     if ((this->town_anim & 0x80) != 0) {
         this->bird_frame0++;
@@ -20036,15 +20036,15 @@ void VisTown::VMethod38() {
         this->bird_frame2++;
     }
     if ((this->town_anim & 0x400) != 0) {
-        this->FUN_004d109e();
+        this->AdvanceDervishAnim();
     }
     if ((this->town_anim & 0x200) != 0) {
-        this->FUN_004d0f66();
+        this->AdvanceBlackBirdAnim();
     }
     if ((this->town_anim & 0x100) != 0) {
-        this->FUN_004d1002();
+        this->AdvanceHorseAnim();
     }
-    this->FUN_004d06aa();
+    this->AdvanceGuardAnim();
 }
 
 
@@ -20265,21 +20265,21 @@ void VisTown::VMethod36() {
     this->spr_dervish->ResetPalette(0x10, 4, 0);
     g_mousept.Update();
     this->tavern_frame = -1;
-    this->FUN_004d07e8();
+    this->AdvanceTavernAnim();
     this->sign_frame = -1;
-    this->FUN_004d0884();
+    this->AdvanceSignAnim();
     this->door_frame = 9;
-    this->FUN_004d0913();
+    this->AdvanceGateAnim();
     this->stars_frame = -1;
-    this->FUN_004d0ad7();
+    this->AdvanceStarsAnim();
     this->fighter_frame = 0;
-    this->FUN_004d0b95();
+    this->AdvanceFighterAnim();
     this->mage_frame = 0;
-    this->FUN_004d0c6e();
+    this->AdvanceMageAnim();
     this->shop_frame = -1;
-    this->FUN_004d0d47();
+    this->AdvanceShopAnim();
     this->flugel_frame = -1;
-    this->FUN_004d0da2();
+    this->AdvanceFlugelAnim();
     this->bbird_frame = -1;
     this->horse_frame = -1;
     this->dervish_frame = -1;
@@ -20558,7 +20558,7 @@ void VisTownKaarg::VMethod37() {
 
 
 // 4D6480
-void VisTownKaarg::FUN_004d6480() {
+void VisTownKaarg::AdvanceGateAnim() {
     CPoint pt(g_mousept.GetX(), g_mousept.GetY());
     if (this->VMethod33(pt) != 8) {
         if (this->door_open_flag != 0) {
@@ -20587,7 +20587,7 @@ void VisTownKaarg::FUN_004d6480() {
 
 
 // 4D65DD
-void VisTownKaarg::FUN_004d65dd() {
+void VisTownKaarg::AdvanceGirl1Anim() {
     this->bbird_frame++;
     if (this->bbird_frame == this->bmp_girl1[this->girl1_group].GetSize()) {
         this->bbird_frame = 0;
@@ -20598,7 +20598,7 @@ void VisTownKaarg::FUN_004d65dd() {
 
 
 // 4D6655
-void VisTownKaarg::FUN_004d6655() {
+void VisTownKaarg::AdvanceGirl2Anim() {
     this->girl2_frame++;
     if (this->girl2_frame == this->bmp_girl2[this->girl2_group].GetSize()) {
         this->girl2_frame = 0;
@@ -20609,7 +20609,7 @@ void VisTownKaarg::FUN_004d6655() {
 
 
 // 4D66CA
-void VisTownKaarg::FUN_004d66ca() {
+void VisTownKaarg::AdvanceGuardAnim() {
     this->fighter_frame++;
     if (this->fighter_frame == this->bmp_guard.GetSize()) {
         this->fighter_frame = 0;
@@ -20619,7 +20619,7 @@ void VisTownKaarg::FUN_004d66ca() {
 
 
 // 4D6728
-void VisTownKaarg::FUN_004d6728() {
+void VisTownKaarg::AdvanceDervishAnim() {
     this->dervish_frame++;
     if (this->dervish_frame == this->bmp_dervish.GetSize()) {
         this->dervish_frame = 0;
@@ -20631,18 +20631,18 @@ void VisTownKaarg::FUN_004d6728() {
 // 4D6786
 void VisTownKaarg::VMethod38() {
     if ((this->town_anim & 0x200) != 0) {
-        this->FUN_004d65dd();
+        this->AdvanceGirl1Anim();
     }
     if ((this->town_anim & 4) != 0) {
-        this->FUN_004d6655();
+        this->AdvanceGirl2Anim();
     }
     if ((this->town_anim & 0x400) != 0) {
-        this->FUN_004d6728();
+        this->AdvanceDervishAnim();
     }
     if ((this->town_anim & 0x800) != 0) {
-        this->FUN_004d66ca();
+        this->AdvanceGuardAnim();
     }
-    this->FUN_004d6480();
+    this->AdvanceGateAnim();
 }
 
 
@@ -21046,7 +21046,7 @@ static const int32_t* const lizard_seqs[4] = { lizard_seq0, lizard_seq1, lizard_
 
 
 // 4D3384
-void VisTownDruid::FUN_004d3384() {
+void VisTownDruid::AdvanceTavernAnim() {
     if (this->tavern_frame == 0) {
         StopSfx(&this->sounds[8]);
         CSound::Play((CSound&)this->sounds[7]);
@@ -21063,7 +21063,7 @@ void VisTownDruid::FUN_004d3384() {
 
 
 // 4D3435
-void VisTownDruid::FUN_004d3435() {
+void VisTownDruid::AdvanceShopAnim() {
     if (this->shop_group >= 0) {
         this->shop_frame++;
         if (this->shop_frame == this->shop_frame_group[this->shop_group].GetSize()) {
@@ -21076,7 +21076,7 @@ void VisTownDruid::FUN_004d3435() {
 
 
 // 4D34B6
-void VisTownDruid::FUN_004d34b6() {
+void VisTownDruid::AdvanceBugAnim() {
     if (this->bug_variant >= 0) {
         this->bug_frame++;
         if (this->bug_frame == 0x3D) {
@@ -21089,7 +21089,7 @@ void VisTownDruid::FUN_004d34b6() {
 
 
 // 4D3520
-void VisTownDruid::FUN_004d3520() {
+void VisTownDruid::AdvanceLizardAnim() {
     if (this->lizard_variant >= 0) {
         this->lizard_frame++;
         if (lizard_seqs[this->lizard_variant][this->lizard_frame] == -1) {
@@ -21143,7 +21143,7 @@ void VisTownDruid::VMethod36() {
     this->spr_lizard->ResetPalette(0x10, 4, 0);
     this->tavern_frame = -1;
     this->tavern_group = -1;
-    this->FUN_004d3384();
+    this->AdvanceTavernAnim();
     this->sign_frame = -1;
     this->door_frame = 9;
     this->stars_frame = -1;
@@ -21151,7 +21151,7 @@ void VisTownDruid::VMethod36() {
     this->mage_frame = 0;
     this->shop_frame = -1;
     this->shop_group = -1;
-    this->FUN_004d3435();
+    this->AdvanceShopAnim();
     this->flugel_frame = -1;
     this->lizard_variant = -1;
     this->lizard_frame = -1;
@@ -21208,16 +21208,16 @@ void VisTownDruid::VMethod37() {
 // 4D3EA7
 void VisTownDruid::VMethod38() {
     if ((this->town_anim & 1) != 0) {
-        this->FUN_004d3435();
+        this->AdvanceShopAnim();
     }
     if ((this->town_anim & 2) != 0) {
-        this->FUN_004d3384();
+        this->AdvanceTavernAnim();
     }
     if ((this->town_anim & 0x80) != 0) {
-        this->FUN_004d34b6();
+        this->AdvanceBugAnim();
     }
     if ((this->town_anim & 0x100) != 0) {
-        this->FUN_004d3520();
+        this->AdvanceLizardAnim();
     }
 }
 
@@ -21253,7 +21253,7 @@ void VisTownDruid::VMethod34(CPoint pos) {
                     this->shop_group = 2;
                     this->shop_frame = -1;
                     this->town_anim |= mask;
-                    this->FUN_004d3435();
+                    this->AdvanceShopAnim();
                     CSound::Play((CSound&)this->snd_shop);
                 }
                 if (this->hover_snd_shop == 0) {
@@ -21272,7 +21272,7 @@ void VisTownDruid::VMethod34(CPoint pos) {
                     this->tavern_group = 2;
                     this->tavern_frame = -1;
                     this->town_anim |= mask;
-                    this->FUN_004d3384();
+                    this->AdvanceTavernAnim();
                     CSound::Play((CSound&)this->snd_tavern);
                 }
                 if (this->tavern_hover_snd_flag == 0) {
@@ -22265,7 +22265,7 @@ void VisFameHall::VMethod7() {
             Fame1& entry = this->fame->m_Entries[i];
             g_font4->DrawTextWithShadow(top_left.x + this->name_rects[i].left, top_left.y + this->name_rects[i].top, entry.str, 0, palette_brown_derby->GetPalette(0), 1);
             str.Format("%d", entry.score);
-            FUN_00476987(&str);
+            InsertThousandsSeparators(&str);
             g_font4->DrawTextWithShadow(top_left.x + this->score_rects[i].right, top_left.y + this->score_rects[i].top, str, 1, palette_tawny_port->GetPalette(0), 1);
         }
         UnlockSurface2();
@@ -22670,23 +22670,23 @@ int32_t VisMiniMap::OnLButtonDown(uint32_t wparam, CPoint pos) {
         x = x + 8;
         y = y + 8;
         if (cur_sprite == g_Cursors[0x12]->GetSprite()) {
-            mc->sub_419154((uint16_t)x, (uint16_t)y);
+            mc->SendGroupMove((uint16_t)x, (uint16_t)y);
         } else if (cur_sprite == g_Cursors[0x13]->GetSprite()) {
-            uint32_t id = mc->sub_40C0A8(x, y);
+            uint32_t id = mc->FindObjectAtTile(x, y);
             if ((id & 0xffff) == 0) {
-                mc->sub_41930D((uint16_t)x, (uint16_t)y);
+                mc->SendGroupAttackMove((uint16_t)x, (uint16_t)y);
             } else {
-                mc->sub_419246((uint16_t)id);
+                mc->SendGroupAttack((uint16_t)id);
             }
         } else if (cur_sprite == g_Cursors[0x14]->GetSprite()) {
-            uint32_t id = mc->sub_40C0A8(x, y);
+            uint32_t id = mc->FindObjectAtTile(x, y);
             if ((id & 0xffff) != 0) {
-                mc->sub_41955C((uint16_t)id);
+                mc->SendGroupAttackTarget((uint16_t)id);
             }
         } else if (cur_sprite == g_Cursors[0x16]->GetSprite()) {
-            mc->sub_40C0A8(x, y);
+            mc->FindObjectAtTile(x, y);
         } else if (cur_sprite == g_Cursors[0x15]->GetSprite()) {
-            mc->sub_41965D((uint16_t)x, (uint16_t)y);
+            mc->SendGroupPatrol((uint16_t)x, (uint16_t)y);
         }
     }
     mc->order_mode = 0;
@@ -23000,7 +23000,7 @@ VisMiniMap::~VisMiniMap() {
 
 
 // 41F9B0
-int32_t VisSpellBook::sub_41F9B0() {
+int32_t VisSpellBook::GetActiveSlot() {
     // Vanilla: selected < 0 ? pressed : selected  (fields 0x64 / 0x60).
     if (this->selected < 0) {
         return this->pressed;
@@ -23010,27 +23010,27 @@ int32_t VisSpellBook::sub_41F9B0() {
 
 
 // 41F9E0
-int32_t VisSpellBook::sub_41F9E0() {
+int32_t VisSpellBook::HasSelectedSpell() {
     return this->selected >= 0;
 }
 
 
 // 4CA89B
-int32_t VisSpellBook::sub_4CA89B(int32_t id) {
+int32_t VisSpellBook::IsSpellAvailable(int32_t id) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     return (main_wnd->vis_map_context->selected_available_spell_mask & (1 << (id & 0x1F))) != 0;
 }
 
 
 // 4CA8E0
-int32_t VisSpellBook::sub_4CA8E0(int32_t id) {
+int32_t VisSpellBook::IsSpellEffectActive(int32_t id) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     return (main_wnd->vis_map_context->active_spell_effect_mask & (1 << (id & 0x1F))) != 0;
 }
 
 
 // 4CA925
-void VisSpellBook::sub_4CA925(int32_t idx) {
+void VisSpellBook::SelectScrollEntry(int32_t idx) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     BigStruct2* mc = main_wnd->vis_map_context;
     this->spell = idx;
@@ -23040,7 +23040,7 @@ void VisSpellBook::sub_4CA925(int32_t idx) {
 
 
 // 4CAAA7
-int32_t VisSpellBook::sub_4CAAA7() {
+int32_t VisSpellBook::NeedsUnitTarget() {
     if (this->selected < 0) {
         return DAT_0062F8A8[this->pressed];
     }
@@ -23049,7 +23049,7 @@ int32_t VisSpellBook::sub_4CAAA7() {
 
 
 // 4CAA69
-void VisSpellBook::FUN_004caa69() {
+void VisSpellBook::ClearSpellSelection() {
     (void)AfxGetMainWnd();
     if (this->selected >= 0) {
         this->selected = -1;
@@ -23059,7 +23059,7 @@ void VisSpellBook::FUN_004caa69() {
 
 
 // 4CA7C2
-int32_t VisSpellBook::FUN_004ca7c2(CPoint* pos) {
+int32_t VisSpellBook::HitTestSpellCell(CPoint* pos) {
     CRect rc;
     this->ClientRectToScreen(&rc, this->rect);
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
@@ -23116,7 +23116,7 @@ int32_t VisSpellBook::OnLButtonDown(uint32_t wparam, CPoint pos) {
     (void)wparam;
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     BigStruct2* mc = main_wnd->vis_map_context;
-    int32_t idx = this->FUN_004ca7c2(&pos);
+    int32_t idx = this->HitTestSpellCell(&pos);
     if (idx >= 0
         && ((mc->selected_available_spell_mask | mc->active_spell_effect_mask) & (1 << (idx & 0x1F))) != 0) {
         this->pressed = idx;
@@ -23157,11 +23157,11 @@ int32_t VisSpellBook::OnLButtonUp(uint32_t wparam, CPoint pos) {
             if (main_wnd->drag_src_tab == 2) {
                 main_wnd->vis_invtype1->VMethod37(main_wnd->drag_src_slot);
             } else if (main_wnd->drag_src_tab == 1) {
-                main_wnd->vis_invtype1->VMethod37(main_wnd->vis_invtype1->FUN_0046fb90());
+                main_wnd->vis_invtype1->VMethod37(main_wnd->vis_invtype1->GetVisibleStart());
             }
         } else {
             CVisualObject* obj = main_wnd->vis_root->FindChild(1000);
-            ((VisShop*)obj)->sub_4BC97B();
+            ((VisShop*)obj)->CancelItemDrag();
         }
     }
     return 1;
@@ -23172,13 +23172,13 @@ int32_t VisSpellBook::OnLButtonUp(uint32_t wparam, CPoint pos) {
 int32_t VisSpellBook::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     BigStruct2* mc = main_wnd->vis_map_context;
-    int32_t idx = this->FUN_004ca7c2(&pos);
+    int32_t idx = this->HitTestSpellCell(&pos);
     if (idx < 0
         || ((mc->selected_available_spell_mask | mc->active_spell_effect_mask) & (1 << (idx & 0x1F))) == 0
         || DAT_0062F9C8[idx] == 0) {
         this->OnLButtonDown(wparam, pos);
     } else {
-        mc->FUN_0041a001(idx + 1);
+        mc->SendGroupSelfCast(idx + 1);
         this->OnLButtonDown(wparam, pos);
     }
     return 1;
@@ -23194,7 +23194,7 @@ int32_t VisSpellBook::OnKeyDown(uint32_t wparam) {
         if (this->pressed == -1) {
             CPoint pt;
             GetCursorPos(&pt);
-            int32_t idx = this->FUN_004ca7c2(&pt);
+            int32_t idx = this->HitTestSpellCell(&pt);
             if (idx >= 0 && DAT_0062F968[idx] != 0) {
                 spell_id = BOOK_POS_TO_SPELL_ID[idx + 1];
             }
@@ -23202,7 +23202,7 @@ int32_t VisSpellBook::OnKeyDown(uint32_t wparam) {
             spell_id = BOOK_POS_TO_SPELL_ID[this->pressed + 1];
         }
         if (spell_id != 0) {
-            mc->FUN_0041ace2((int32_t)spell_id);
+            mc->SendAutoSpellSelect((int32_t)spell_id);
             mc->UpdateSelectionState();
         }
     }
@@ -23224,7 +23224,7 @@ int32_t VisSpellBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
             if (this->pressed == -1) {
                 CPoint pt;
                 GetCursorPos(&pt);
-                int32_t idx = this->FUN_004ca7c2(&pt);
+                int32_t idx = this->HitTestSpellCell(&pt);
                 if (idx >= 0) {
                     main_wnd->m_GameSession.shortcuts[wparam].SetSpell((short)idx);
                     for (int32_t i = 0; i < 9; i++) {
@@ -23330,7 +23330,7 @@ const char* VisSpellBook::GetHint() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     BigStruct2* mc = main_wnd->vis_map_context;
     CPoint mpt(g_mousept.GetX(), g_mousept.GetY());
-    int32_t idx = this->FUN_004ca7c2(&mpt);
+    int32_t idx = this->HitTestSpellCell(&mpt);
     if ((mc->selected_available_spell_mask & (1 << (idx & 0x1F))) == 0) {
         return nullptr;
     }
@@ -23948,7 +23948,7 @@ void VisServerScreen::VMethod26() {
 
 
 // 44e4ce
-void sub_44E4CE(const char* cmd) {
+void ExecuteAdminChatCommand(const char* cmd) {
     CString s(cmd);
     s.MakeLower();
     if (s.Find("disconnect") == 0) {
@@ -23988,7 +23988,7 @@ int32_t VisServerScreen::OnKeyDown(uint32_t wparam) {
         textbox->WriteData(pkt.name);
 
         if (pkt.name[0] == '#') {
-            sub_44E4CE(&pkt.name[1]);
+            ExecuteAdminChatCommand(&pkt.name[1]);
         } else {
             LogMessage(pkt.name);
             g_NetStru1_main.QueuePacketSend(&pkt);
@@ -24068,7 +24068,7 @@ int32_t VisNetPhoneBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
             } else {
                 str = this->phones->phones[lparam];
             }
-            this->sub_448708(str);
+            this->UpdateConnectButton(str);
             edit->ReadData(str);
             edit->VMethod9();
         }
@@ -24076,7 +24076,7 @@ int32_t VisNetPhoneBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
             CVisualObject* edit = this->FindChild(3);
             char buf[64];
             edit->WriteData(buf);
-            this->sub_448708(buf);
+            this->UpdateConnectButton(buf);
         }
         return 1;
     case 0x47d: {
@@ -24207,7 +24207,7 @@ void VisNetPhoneBook::VMethod26() {
         str = this->phones->phones[0];
         edit->ReadData(str);
     }
-    this->sub_448708(str);
+    this->UpdateConnectButton(str);
 }
 
 
@@ -24254,7 +24254,7 @@ int32_t VisListBoxPhoneBook::OnKeyDown(uint32_t wparam) {
 
 
 // 448708
-void VisNetPhoneBook::sub_448708(const char* str) {
+void VisNetPhoneBook::UpdateConnectButton(const char* str) {
     VisButton* connect_btn = (VisButton*)this->FindChild(10);
     if (str != nullptr && this->enum_addresses_num != 0) {
         connect_btn->ChangeFlags(1, true);
@@ -24906,7 +24906,7 @@ void HatBrowserProgress::Init(const char* hst) { //4b1a9b
 }
 
 
-void HatBrowserProgress::FUN_004b1dbb() { //4b1dbb
+void HatBrowserProgress::PingServer() { //4b1dbb
     if (active == 0)
         return;
 
@@ -24975,7 +24975,7 @@ void HatBrowserProgress::FUN_004b1dbb() { //4b1dbb
     LeaveCriticalSection(&cs);
 }
 
-int32_t HatBrowserProgress::FUN_00453df0() { //453df0
+int32_t HatBrowserProgress::GetPingError() { //453df0
     return error;
 }
 
@@ -25275,13 +25275,13 @@ UINT __cdecl VisHatBrowserDlg::ThreadProc(void* pv) { //44e391
                 break;
             }
 
-            PostMessageA(g_MainWndHWND, 0x48c, dlg->browser->FUN_00453df0(), 0);
+            PostMessageA(g_MainWndHWND, 0x48c, dlg->browser->GetPingError(), 0);
         }
         else
             LeaveCriticalSection(&dlg->connect_cs);
 
-        dlg->browser->FUN_004b1dbb();
-        PostMessageA(g_MainWndHWND, 0x48c, dlg->browser->FUN_00453df0(), 0);
+        dlg->browser->PingServer();
+        PostMessageA(g_MainWndHWND, 0x48c, dlg->browser->GetPingError(), 0);
         SetEvent(dlg->ack_event);
 
         if (WaitForSingleObject(dlg->exit_event, 500) == 0)
@@ -25673,7 +25673,7 @@ void Vis1200obj::VMethod7() {
 
     for (int32_t i = 0; i < this->history.GetSize(); i++) {
         if (i == 0) {
-            this->FUN_0043b504(&this->history[0]);
+            this->DrawInputLine(&this->history[0]);
         } else {
             this->font->DrawTxt(screen_rect.left, screen_rect.bottom - this->font->GetHeight() * (this->history.GetSize() - i + 1), this->history[i], 0, this->clr);
         }
@@ -25686,7 +25686,7 @@ void Vis1200obj::VMethod7() {
     }
 
     if (this->history.GetSize() == 0) {
-        this->FUN_0043b504(&line);
+        this->DrawInputLine(&line);
     } else {
         this->font->DrawTxt(screen_rect.left, screen_rect.bottom - this->font->GetHeight(), line, 0, this->clr);
     }
@@ -25698,14 +25698,14 @@ int32_t Vis1200obj::OnKeyDown(uint32_t wparam) {
     switch (wparam) {
     case 8:
         if (g_kbControlState == 0) {
-            this->FUN_0043b03a();
+            this->BackspaceInputChar();
         } else {
-            this->FUN_0043ba75();
+            this->DeletePreviousWord();
         }
         result = 1;
         break;
     case 9:
-        this->FUN_0043b724();
+        this->CompletePlayerName();
         result = 1;
         break;
     case 0xD:
@@ -25748,7 +25748,7 @@ int32_t Vis1200obj::OnChar(uint32_t wparam) {
 #endif
         return CVisualObject::OnChar(wparam);
     }
-    this->FUN_0043ae1c(EncodeChar((uint8_t)wparam));
+    this->AppendInputChar(EncodeChar((uint8_t)wparam));
     return 1;
 }
 
@@ -25771,22 +25771,22 @@ uint32_t Vis1200obj::DataSize() {
 }
 
 // 497330
-int32_t Vis1200obj::FUN_00497330() {
+int32_t Vis1200obj::GetMatchNameLength() {
     return this->match_name_length;
 }
 
 // 4972F0
-int32_t Vis1200obj::FUN_004972f0() {
+int32_t Vis1200obj::GetMatchPlayerIndex() {
     return this->match_player_index;
 }
 
 // 43AD86
-void Vis1200obj::FUN_0043ad86() {
+void Vis1200obj::SaveHistoryBackup() {
     this->history_backup.Copy(this->history);
 }
 
 // 43AC8C
-void Vis1200obj::FUN_0043ac8c() {
+void Vis1200obj::ResetInputState() {
     this->match_player_index = -1;
     this->match_name_length = 0;
     this->history.RemoveAll();
@@ -25794,7 +25794,7 @@ void Vis1200obj::FUN_0043ac8c() {
 }
 
 // 43ADA3
-void Vis1200obj::FUN_0043ada3() {
+void Vis1200obj::RecallHistoryPrev() {
     this->history.Copy(this->history_backup);
     this->input_line.Empty();
     if (this->history.GetSize() != 0) {
@@ -25804,7 +25804,7 @@ void Vis1200obj::FUN_0043ada3() {
 }
 
 // 43AE1C
-void Vis1200obj::FUN_0043ae1c(uint8_t ch) {
+void Vis1200obj::AppendInputChar(uint8_t ch) {
     if (this->font->GetStrWidth(this->input_line) + this->font->GetStrWidth("_") < this->rect.Width()) {
         this->input_line += (char)ch;
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
@@ -25820,12 +25820,12 @@ void Vis1200obj::FUN_0043ae1c(uint8_t ch) {
             this->input_line = this->input_line.Right(this->input_line.GetLength() - pos - 1);
         }
         this->input_line.TrimLeft();
-        this->FUN_0043ae1c(ch);
+        this->AppendInputChar(ch);
     }
 }
 
 // 43B03A
-void Vis1200obj::FUN_0043b03a() {
+void Vis1200obj::BackspaceInputChar() {
     this->input_line = this->input_line.Left(this->input_line.GetLength() - 1);
     this->input_line.TrimLeft();
     if (this->input_line.GetLength() == 0 && this->history.GetSize() > 0) {
@@ -25836,7 +25836,7 @@ void Vis1200obj::FUN_0043b03a() {
 }
 
 // 43aae0
-int32_t FUN_0043aae0(char ch) {
+int32_t IsWordSeparator(char ch) {
     if (ch == ' ' || ch == ',' || ch == '.' || ch == ':' || ch == ';') {
         return 1;
     }
@@ -25844,7 +25844,7 @@ int32_t FUN_0043aae0(char ch) {
 }
 
 // 476236
-void FUN_00476236(CString* str) {
+void MakeLowerDosCp(CString* str) {
     CString lowered(*str);
     lowered.MakeLower();
 
@@ -25865,7 +25865,7 @@ void FUN_00476236(CString* str) {
 }
 
 // 476987
-void FUN_00476987(CString* str) {
+void InsertThousandsSeparators(CString* str) {
     CString work(*str);
     int32_t len = work.GetLength();
     str->Empty();
@@ -25886,7 +25886,7 @@ void FUN_00476987(CString* str) {
 }
 
 // 43B724
-void Vis1200obj::FUN_0043b724() {
+void Vis1200obj::CompletePlayerName() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     BigStruct2* map = main_wnd->vis_map_context;
     int32_t pos = this->input_line.GetLength() - 1;
@@ -25897,10 +25897,10 @@ void Vis1200obj::FUN_0043b724() {
     if (this->input_line[0] == '=' || this->input_line[0] == '-') {
         start = 1;
     }
-    if (FUN_0043aae0(this->input_line[pos]) != 0) {
+    if (IsWordSeparator(this->input_line[pos]) != 0) {
         return;
     }
-    while (pos >= start && FUN_0043aae0(this->input_line[pos]) == 0) {
+    while (pos >= start && IsWordSeparator(this->input_line[pos]) == 0) {
         pos--;
     }
     CString word = this->input_line.Mid(pos + 1);
@@ -25908,7 +25908,7 @@ void Vis1200obj::FUN_0043b724() {
         return;
     }
     int32_t word_end = pos;
-    FUN_00476236(&word);
+    MakeLowerDosCp(&word);
     CStringArray candidates;
     for (int32_t i = 0; i < map->map_players.GetSize(); i++) {
         MapPlayerData* player = map->map_players[i];
@@ -25920,7 +25920,7 @@ void Vis1200obj::FUN_0043b724() {
         int32_t j = 0;
         while (j < candidates.GetSize()) {
             CString cand = candidates[j];
-            FUN_00476236(&cand);
+            MakeLowerDosCp(&cand);
             if (i >= cand.GetLength() || word[i] != cand[i]) {
                 candidates.RemoveAt(j, 1);
             } else {
@@ -25936,20 +25936,20 @@ void Vis1200obj::FUN_0043b724() {
 }
 
 // 43BA75
-void Vis1200obj::FUN_0043ba75() {
+void Vis1200obj::DeletePreviousWord() {
     int32_t pos = this->input_line.GetLength() - 1;
     if (pos == -1) {
         return;
     }
-    while (pos > 0 && FUN_0043aae0(this->input_line[pos]) == 0) {
-        this->FUN_0043b03a();
+    while (pos > 0 && IsWordSeparator(this->input_line[pos]) == 0) {
+        this->BackspaceInputChar();
         pos = this->input_line.GetLength() - 1;
     }
-    this->FUN_0043b03a();
+    this->BackspaceInputChar();
 }
 
 // 43B504
-void Vis1200obj::FUN_0043b504(CString* str) {
+void Vis1200obj::DrawInputLine(CString* str) {
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
     this->match_player_index = -1;
@@ -25974,7 +25974,7 @@ void Vis1200obj::FUN_0043b504(CString* str) {
 }
 
 // 43BE9F
-void Vis1200::FUN_0043be9f() {
+void Vis1200::RepositionAboveDialogs() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     BigStruct2* map = (BigStruct2*)this->parent;
     CSize size = this->rect.Size();
@@ -26000,7 +26000,7 @@ void Vis1200::VMethod26() {
 // 43BDEC
 int32_t Vis1200::OnKeyDown(uint32_t wparam) {
     if (wparam == 0xd) {
-        this->text_block->FUN_0043ad86();
+        this->text_block->SaveHistoryBackup();
         this->MsgProc(0x445, 0, 0);
         return 1;
     }
@@ -26009,7 +26009,7 @@ int32_t Vis1200::OnKeyDown(uint32_t wparam) {
         return 1;
     }
     if (wparam == 0x26) {
-        this->text_block->FUN_0043ada3();
+        this->text_block->RecallHistoryPrev();
     }
     return VisScreen::OnKeyDown(wparam);
 }
@@ -26019,7 +26019,7 @@ void Vis1200::VMethod28() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     main_wnd->console_active = 1;
     memset(this->buffer, 0, 0x100);
-    this->text_block->FUN_0043ac8c();
+    this->text_block->ResetInputState();
     VisScreen::VMethod28();
     this->active = 1;
     this->text_block->blink_last_tick = timeGetTime();
@@ -26046,13 +26046,13 @@ void Vis1200::VMethod7() {
 }
 
 // 4972D0
-int32_t Vis1200::FUN_004972d0() {
-    return this->text_block->FUN_004972f0();
+int32_t Vis1200::GetMatchPlayerIndex() {
+    return this->text_block->GetMatchPlayerIndex();
 }
 
 // 497310
-int32_t Vis1200::FUN_00497310() {
-    return this->text_block->FUN_00497330();
+int32_t Vis1200::GetMatchNameLength() {
+    return this->text_block->GetMatchNameLength();
 }
 
 // 43BE73
@@ -26424,7 +26424,7 @@ void VisDropGold::DoClose(uint32_t code) {
 
         TokenEntry* entry = main_wnd->vis_invtype1->VMethod36(this->selection, (int32_t)amount);
         main_wnd->vis_map_context->my_main_unit->gold -= entry->count;
-        main_wnd->vis_map_context->sub_41AC88(entry->count, main_wnd->vis_map_context->my_unit->tileX | (main_wnd->vis_map_context->my_unit->tileY << 8));
+        main_wnd->vis_map_context->SendDropGold(entry->count, main_wnd->vis_map_context->my_unit->tileX | (main_wnd->vis_map_context->my_unit->tileY << 8));
         main_wnd->ResetItemCursor();
 
         if (entry != nullptr) {
@@ -26470,7 +26470,7 @@ void VisDropGold::VMethod9() {
 }
 
 // 4A7A30
-void VisDropGold::FUN_004a7a30(int32_t idx) {
+void VisDropGold::SetSelection(int32_t idx) {
     this->selection = idx;
 }
 
@@ -26532,7 +26532,7 @@ int32_t VisStartGameTextBox::OnLButtonDown(uint32_t wparam, CPoint pos) {
 // 432CE3
 int32_t VisStartGameTextBox::OnKeyDown(uint32_t wparam) {
     if (wparam == VK_BACK) {
-        this->FUN_00432b80();
+        this->BackspaceChar();
         return 1;
     }
 
@@ -26544,7 +26544,7 @@ int32_t VisStartGameTextBox::OnKeyDown(uint32_t wparam) {
 int32_t VisStartGameTextBox::OnChar(uint32_t wparam) {
     int32_t len = this->text.GetLength();
     if (len < 10) {
-        this->FUN_00432b33(EncodeChar((uint8_t)wparam));
+        this->AcceptChar(EncodeChar((uint8_t)wparam));
     }
 #ifdef A2CLIENT
     return 1;
@@ -26573,13 +26573,13 @@ void VisStartGameTextBox::SetText(const CString& text) {
 }
 
 // 432B80
-void VisStartGameTextBox::FUN_00432b80() {
+void VisStartGameTextBox::BackspaceChar() {
     this->text = this->text.Left(this->text.GetLength() - 1);
-    this->screen->FUN_004382d9();
+    this->screen->PlayLabelInputSound();
 }
 
 // 432AD1
-void VisStartGameTextBox::FUN_00432ad1() {
+void VisStartGameTextBox::InitTextBox() {
     this->clr_active = palette_paris_daisy->GetPalette(0);
     this->clr_inactive = palette_paris_daisy->GetPalette(0);
     this->clr = this->clr_inactive;
@@ -26590,7 +26590,7 @@ void VisStartGameTextBox::FUN_00432ad1() {
 
 // 432B33
 // client: 434c63 (client variant also rejects '~')
-void VisStartGameTextBox::FUN_00432b33(uint8_t ch) {
+void VisStartGameTextBox::AcceptChar(uint8_t ch) {
     this->is_active = 1;
     this->ts = timeGetTime();
 #ifdef A2CLIENT
@@ -26598,7 +26598,7 @@ void VisStartGameTextBox::FUN_00432b33(uint8_t ch) {
 #else
     if (ch >= ' ') {
 #endif
-        this->screen->FUN_004382d9();
+        this->screen->PlayLabelInputSound();
         this->text += (char)ch;
     }
 }
@@ -26607,7 +26607,7 @@ void VisStartGameTextBox::FUN_00432b33(uint8_t ch) {
 VisStartGameTextBox::VisStartGameTextBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisStartGame* screen)
     : CVisualObject(_id, l, t, r, b, nullptr) {
     this->screen = screen;
-    this->FUN_00432ad1();
+    this->InitTextBox();
 }
 
 // 4DD54C
