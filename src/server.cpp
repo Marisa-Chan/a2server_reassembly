@@ -196,7 +196,7 @@ Server::~Server() {
 
 // 4F465E
 void Server::AnnounceHatGameStart() {
-    if (g_CLlDriver.provider != 4) {
+    if (g_CLlDriver.provider != PROVIDER_HAT_TCP) {
         return;
     }
     if (g_HatLLDriver.IsListen()) {
@@ -4089,7 +4089,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
             }
         }
 
-        if (g_CLlDriver.provider == 4) {
+        if (g_CLlDriver.provider == PROVIDER_HAT_TCP) {
             for (int i = 0; i < g_ServerConfig.banned_ips.GetSize(); i++) {
                 CString banIP = g_ServerConfig.banned_ips[i];
                 if (false) { //banIP == )
@@ -4137,7 +4137,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
     if (player) {
         player_not_exist = false;
 
-        if (this->MapLevel != -1 && g_CLlDriver.provider != 4) {
+        if (this->MapLevel != -1 && g_CLlDriver.provider != PROVIDER_HAT_TCP) {
             if (strong > this->MapLevel) {
                 this->JoinErrorSend(client, 14, "Character is too strong for this map.");
 
@@ -4316,7 +4316,7 @@ Player* Server::Allods2_CreatePlayer(CString name) {
 
 // 4f0bef
 int32_t Server::ConnectToHat() {
-    if (g_CLlDriver.provider != 4) {
+    if (g_CLlDriver.provider != PROVIDER_HAT_TCP) {
         return 0;
     }
 
@@ -4475,7 +4475,7 @@ int Server::Start(int mode) {
     if (mode == 0) {
         NetStru1::HatConnector.SetLLDriver(&g_HatLLDriver);
         g_HatLLDriver.hl_driver = &NetStru1::HatConnector;
-        g_HatLLDriver.ResetProvider(4);
+        g_HatLLDriver.ResetProvider(PROVIDER_HAT_TCP);
     }
 #endif
 
@@ -5210,7 +5210,7 @@ void Server::EnsurePlayerGroup(Player* player) {
 // 4F4570
 #ifndef A2CLIENT
 void Server::UpdateHatAnnounce() {
-    if (g_CLlDriver.provider != 4) {
+    if (g_CLlDriver.provider != PROVIDER_HAT_TCP) {
         return;
     }
     int32_t map_range = 0;
@@ -5227,7 +5227,7 @@ void Server::UpdateHatAnnounce() {
 #else
 // client 4f5e75
 void Server::UpdateHatAnnounce() {
-    if (g_CLlDriver.provider == 3) {
+    if (g_CLlDriver.provider == PROVIDER_DP_TCPIP) {
         CString str;
         if (!current_map_name.IsEmpty()) {
             str.Format("servername=%s&version=1.01&mapname=%s&mapsize=%dx%d&difficultyleve l=%d&players=%d&ip=%s",

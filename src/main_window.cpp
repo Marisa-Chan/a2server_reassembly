@@ -2232,7 +2232,7 @@ void MainWindow::ServerTickPump() { //484259
         NetStru2* con = g_NetStru1_main.GetClientByPlayerID(selpl->player_id);
         if (con) {
             uint32_t conid = con->GetUid();
-            if (g_CLlDriver.GetProvider() == 4) {
+            if (g_CLlDriver.GetProvider() == PROVIDER_HAT_TCP) {
                 con = g_NetStru1_main.GetClientByLowUid(conid & 0x3fff);
                 local_a54 = con->str;
                 local_a44 = con->buf;
@@ -2768,7 +2768,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
         } else if (this->hat_settings.ishat == 0) {
             g_NetStru1_local.SetLLDriver(&g_CLlDriver);
             g_CLlDriver.SetHlDriver(&g_NetStru1_local);
-            g_CLlDriver.ResetProvider(3);
+            g_CLlDriver.ResetProvider(PROVIDER_DP_TCPIP);
             PostMessage(0x452, 0, 0);
         } else {
             PostMessage(0x441, 0, 0);
@@ -3165,7 +3165,7 @@ void MainWindow::EnterServerMode() { //491822
     g_NetStru1_main.SetLLDriver(&g_CLlDriver);
     g_CLlDriver.SetHlDriver(&g_NetStru1_main);
 
-    if (g_CLlDriver.GetProvider() == 3 || g_CLlDriver.GetProvider() == 2) {
+    if (g_CLlDriver.GetProvider() == PROVIDER_DP_TCPIP || g_CLlDriver.GetProvider() == PROVIDER_IPX) {
         g_CLlDriver.StartServer(g_ServerConfig.max_players, this->m_GameSession.character_name, nullptr);
     }
 
@@ -3201,7 +3201,7 @@ void MainWindow::EnterClientMode() { // 4918ae
         g_CLlDriver.SetTimeout(g_CmdTimeout);
     }
 
-    if (g_CLlDriver.GetProvider() == 3 || g_CLlDriver.GetProvider() == 2) {
+    if (g_CLlDriver.GetProvider() == PROVIDER_DP_TCPIP || g_CLlDriver.GetProvider() == PROVIDER_IPX) {
         g_CLlDriver.StartServer(g_ServerConfig.max_players, this->m_GameSession.character_name, nullptr);
     }
 
@@ -3794,11 +3794,11 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case 0x452:
-        if (g_CLlDriver.GetProvider() == 2) {
+        if (g_CLlDriver.GetProvider() == PROVIDER_IPX) {
             g_CLlDriver.RecreateDp();
             g_CLlDriver.PrepareForConnect("", nullptr);
         } else {
-            if (g_CLlDriver.GetProvider() == 3) {
+            if (g_CLlDriver.GetProvider() == PROVIDER_DP_TCPIP) {
                 g_CLlDriver.RecreateDp();
 
                 CLlAddress* addresses;
@@ -3951,7 +3951,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
     case 0x45c:
         // client: 48a969 has no phone-dial prologue here (and its trailing
-        // IsDplayAvail stub call in the provider==3 path is a pure no-op, dropped)
+        // IsDplayAvail stub call in the PROVIDER_DP_TCPIP path is a pure no-op, dropped)
 #ifndef A2CLIENT
         if (this->net_session.key_capture_str.IsEmpty() == 0) {
             PostMessage(WM_CLOSE, 0, 0);
@@ -3980,19 +3980,19 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
             int32_t provider = g_CLlDriver.GetProvider();
 #ifdef A2CLIENT
-            if (provider == 4) { // hat TCP provider, client-only
+            if (provider == PROVIDER_HAT_TCP) { // hat TCP provider, client-only
                 PostMessage(0x487, 0, 0);
             } else
 #endif
-            if (provider == 0) {
+            if (provider == PROVIDER_SERIAL) {
                 PostMessage(0x454, 0, 0);
-            } else if (provider == 1) {
+            } else if (provider == PROVIDER_MODEM) {
                 PostMessage(0x455, 0, 0);
             } else {
                 PostMessage(0x452, 0, 0);
             }
         } else if (this->sessionMode == SESSION_SERVER) {
-            if (g_CLlDriver.GetProvider() == 3) {
+            if (g_CLlDriver.GetProvider() == PROVIDER_DP_TCPIP) {
                 PostMessage(0x453, 0, 0);
                 this->DestroyServer();
             } else {
@@ -5282,7 +5282,7 @@ void MainWindow::RemoteGameIdle() { //48acac
                 g_RemoteTimestamp = tick;
             }
         } else {
-            if (g_CLlDriver.GetProvider() == 4) {
+            if (g_CLlDriver.GetProvider() == PROVIDER_HAT_TCP) {
                 // client 48eb54: on TCP, first fast-forward any backlog of more
                 // than 3 sealed buffers (resetting the tick schedule each step),
                 // then tick paced by last_tic_time + game_tic_time * (counter+1).
@@ -5470,7 +5470,7 @@ void MainWindow::StartHatDedicatedServer() { //49172d
     this->sessionMode = SESSION_SERVER;
     g_NetStru1_main.SetLLDriver(&g_CLlDriver);
     g_CLlDriver.SetHlDriver(&g_NetStru1_main);
-    g_CLlDriver.ResetProvider(4);
+    g_CLlDriver.ResetProvider(PROVIDER_HAT_TCP);
 
     CLlAddress addr;
     strcpy(addr.address, g_ServerConfig.ip_address);
@@ -5567,7 +5567,7 @@ int32_t MainWindow::RunModalLoopServer() { //49057b
 
     g_NetStru1_local.SetLLDriver(&g_CLlDriver);
     g_CLlDriver.SetHlDriver(&g_NetStru1_local);
-    g_CLlDriver.ResetProvider(4);
+    g_CLlDriver.ResetProvider(PROVIDER_HAT_TCP);
 
     if (strstr(afxCurrentWinApp->m_lpCmdLine, "-timeout")) {
         g_CLlDriver.SetTimeout(g_CmdTimeout);
@@ -5701,7 +5701,7 @@ int32_t MainWindow::RunModalLoopClient() { //client 4949cd
 
     g_NetStru1_local.SetLLDriver(&g_CLlDriver);
     g_CLlDriver.SetHlDriver(&g_NetStru1_local);
-    g_CLlDriver.ResetProvider(4);
+    g_CLlDriver.ResetProvider(PROVIDER_HAT_TCP);
 
     if (strstr(afxCurrentWinApp->m_lpCmdLine, "-timeout")) {
         g_CLlDriver.SetTimeout(g_CmdTimeout);

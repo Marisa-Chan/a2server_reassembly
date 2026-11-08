@@ -890,7 +890,7 @@ void Unit::ProcessEffects() {
                     }
                     break;
                 }
-                if (building->typeId == 0x42 && g_CLlDriver.provider == 4) {
+                if (building->typeId == 0x42 && g_CLlDriver.provider == PROVIDER_HAT_TCP) {
                     NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(this->pOwner->player_id);
                     if (ns2) {
                         g_NetStru1_main.DisconnectClient(ns2);

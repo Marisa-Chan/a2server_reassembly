@@ -666,6 +666,15 @@ struct CLlConn : CLlName {
 };
 ASSERT_SIZE(CLlConn, 0x104);
 
+enum NetProvider : int32_t {
+    PROVIDER_SERIAL   = 0, // DirectPlay DPSPGUID_SERIAL
+    PROVIDER_MODEM    = 1, // DirectPlay DPSPGUID_MODEM
+    PROVIDER_IPX      = 2, // DirectPlay DPSPGUID_IPX
+    PROVIDER_DP_TCPIP = 3, // DirectPlay DPSPGUID_TCPIP
+    PROVIDER_HAT_TCP  = 4, // custom hat TCP stack (client/server internet play)
+    PROVIDER_NONE     = 5, // no provider initialized (ctor default; restored by Free())
+};
+
 struct CLlDriver {
     NetStru1* hl_driver;
     A2NetSock listen_socket;

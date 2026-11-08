@@ -122,7 +122,7 @@ TIER 1 - tiny enums, semantics fully verified (do these first)
     LOCAL_BATTLE fits (they are the load-save paths); if in doubt, use
     SESSION_SAVED_BATTLE - but pick ONE name.
 
-[ ] 3. NetProvider  (~52 comparisons)
+[x] 3. NetProvider  (~52 comparisons)
     Field: CLlDriver::provider (src/net.h:674), read via GetProvider().
     Values VERIFIED from src/net.cpp:2673-2693 (cbEnumConnections maps DirectPlay
     service-provider GUIDs) and ResetProvider (net.cpp:2781, typ 4 -> CreateTcp):

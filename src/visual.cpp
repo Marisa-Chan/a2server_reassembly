@@ -6950,7 +6950,7 @@ EndGameMenu::EndGameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b
         btn->ChangeFlags(FLAG_ENABLED, false);
     }
     
-    if (g_CLlDriver.GetProvider() == 4 && mwnd->hat_settings.deathmatch != 0) {
+    if (g_CLlDriver.GetProvider() == PROVIDER_HAT_TCP && mwnd->hat_settings.deathmatch != 0) {
         btn->ChangeFlags(FLAG_ENABLED, false);
     }
 
@@ -21750,11 +21750,11 @@ static int EnumSessionsPump() {
 void VisNetDlg::RefreshSessions() {
     uint32_t timeout = 0;
     int32_t provider = g_CLlDriver.GetProvider();
-    if (provider == 3) {
+    if (provider == PROVIDER_DP_TCPIP) {
         timeout = 0x5DC;
-    } else if (provider == 2) {
+    } else if (provider == PROVIDER_IPX) {
         timeout = 0x12C;
-    } else if (provider == 1) {
+    } else if (provider == PROVIDER_MODEM) {
         timeout = 0xEA60;
     }
 
@@ -21817,17 +21817,17 @@ int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
         main_wnd->dialogsMask = 0;
 
         int32_t provider = g_CLlDriver.GetProvider();
-        if (provider == 1) {
+        if (provider == PROVIDER_MODEM) {
             g_CLlDriver.Close();
             PostMessageA(g_MainWndHWND, 0x455, 0, 0);
         } else {
             provider = g_CLlDriver.GetProvider();
-            if (provider == 0) {
+            if (provider == PROVIDER_SERIAL) {
                 g_CLlDriver.Close();
                 PostMessageA(g_MainWndHWND, 0x454, 0, 0);
             } else {
                 provider = g_CLlDriver.GetProvider();
-                if (provider == 3) {
+                if (provider == PROVIDER_DP_TCPIP) {
                     g_CLlDriver.Close();
                     if (main_wnd->net_session.internet_game == 0) {
                         PostMessageA(g_MainWndHWND, 0x453, 0, 0);
@@ -21861,7 +21861,7 @@ int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
         return 1;
     case 0x471: {
         int32_t provider = g_CLlDriver.GetProvider();
-        if (provider == 0 || provider == 1) {
+        if (provider == PROVIDER_SERIAL || provider == PROVIDER_MODEM) {
             this->rect = this->net_rect;
             this->sessions->character_name = main_wnd->m_GameSession.character_name;
             this->sessions->selected_index = 0;
@@ -21875,7 +21875,7 @@ int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
                 int32_t w = this->rect.Width();
                 this->AddChild(new VisButton(2, w / 2 - 0x30, h / 2 + 0xC, w / 2 + 0x30, h / 2 + 0x24, txt_dialogs.GetLine(1), g_font1, clrsh_TechBlack, 0x446, 0, ""));
             } else {
-                if (g_CLlDriver.GetProvider() == 1) {
+                if (g_CLlDriver.GetProvider() == PROVIDER_MODEM) {
                     char* word = ExtractFirstWord(main_wnd->phone_book.phones.ElementAt(0));
                     if (word != nullptr) {
                         delete[] word;
@@ -21904,12 +21904,12 @@ int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 // 446E97
 void VisNetDlg::VMethod26() {
     int32_t provider = g_CLlDriver.GetProvider();
-    if (provider == 0 || provider == 1) {
+    if (provider == PROVIDER_SERIAL || provider == PROVIDER_MODEM) {
         this->net_rect = this->rect;
         this->rect = CRect(0, 0, 0x17C, 0xC4);
         this->UpdateWinRect();
 
-        if (g_CLlDriver.GetProvider() == 1) {
+        if (g_CLlDriver.GetProvider() == PROVIDER_MODEM) {
             this->AddChild(new VisLabel(1, 0x28, 0x30, 0xDC, 0x4A, txt_dialogs.GetLine(0x77), g_font1, p_clrsh_Black, 0));
         } else {
             this->AddChild(new VisLabel(1, 0x28, 0x30, 0xDC, 0x4A, txt_dialogs.GetLine(0xA3), g_font1, p_clrsh_Black, 0));

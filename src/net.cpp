@@ -1378,7 +1378,7 @@ void NetStru1::OnClientConnect(NetStru2* cli) {
     if (this != &HatConnector) {
         this->client_stat[cli->uid] = new ConnStatInfo;
 
-        if (this->lldriver && lldriver->provider != 4) {
+        if (this->lldriver && lldriver->provider != PROVIDER_HAT_TCP) {
             cli->is_claimed = 1;
         } else {
             cli->is_claimed = 0;
@@ -1396,7 +1396,7 @@ void NetStru1::OnClientDisconnect(NetStru2* cli) {
         return;
     }
 
-    if (this->lldriver && lldriver->is_server != 0 && lldriver->provider == 1) {
+    if (this->lldriver && lldriver->is_server != 0 && lldriver->provider == PROVIDER_MODEM) {
         lldriver->RestartModemServerDp();
     }
 
@@ -1408,7 +1408,7 @@ void NetStru1::OnClientDisconnect(NetStru2* cli) {
             // deadline conditions (disasm 50fc92).
             pl->Deactivate();
 
-            if (this->lldriver && this->lldriver->provider == 4) {
+            if (this->lldriver && this->lldriver->provider == PROVIDER_HAT_TCP) {
                 pl->drop_deadline_tick16 = g_Server->tick16 + 300;
             }
 
@@ -1433,7 +1433,7 @@ void NetStru1::OnClientDisconnect(NetStru2* cli) {
 
                 pl->Deactivate();
 
-                if (lldriver && lldriver->provider == 4 &&
+                if (lldriver && lldriver->provider == PROVIDER_HAT_TCP &&
                     g_ServerConfig.gameType != GAME_TYPE_DEATHMATCH &&
                     g_ServerConfig.gameType != GAME_TYPE_ARENA &&
                     g_Server->game_started == 0) {
@@ -2096,7 +2096,7 @@ CLlDriver::CLlDriver(GUID _appid, NetStru1* net1) {
     this->latency = 0xffffffff;
     this->max_connections = -1;
     this->session_lost = 0;
-    this->provider = 5;
+    this->provider = PROVIDER_NONE;
     this->connection_sockets = nullptr;
     this->connections_info = nullptr;
     this->enum_addresses = nullptr;
@@ -2156,7 +2156,7 @@ void CLlDriver::SetHlDriver(NetStru1* drv) {
 void CLlDriver::Close() {
     //5225d0
     if (this->listen_socket.is_in_use) {
-        if (this->provider == 4) {
+        if (this->provider == PROVIDER_HAT_TCP) {
             this->CloseTcp();
         } else {
             this->CloseDp();
@@ -2321,7 +2321,7 @@ void CLlDriver::FreeEnumAddresses() {
 int CLlDriver::EnumAddresses(CLlAddress** addrs, int* num) {
     //52182f
     this->FreeEnumAddresses();
-    if (this->provider == 0) {
+    if (this->provider == PROVIDER_SERIAL) {
         CLlAddress* addr = this->AllocAddress();
         strcpy(addr->name, "COM1");
         addr->com.index = 1;
@@ -2334,9 +2334,9 @@ int CLlDriver::EnumAddresses(CLlAddress** addrs, int* num) {
         addr = this->AllocAddress();
         strcpy(addr->name, "COM4");
         addr->com.index = 4;
-    } else if (this->provider == 1) {
+    } else if (this->provider == PROVIDER_MODEM) {
         this->EnumAddressesDp();
-    } else if (this->provider == 4) {
+    } else if (this->provider == PROVIDER_HAT_TCP) {
         this->EnumAddressesTcp();
     } else {
         return 0;
@@ -2537,7 +2537,7 @@ int CLlDriver::EnumSessions(CLlNetSession** sessions, int* num, CBUPDATECALLBACK
     //52210d
     this->FreeEnumSessions();
 
-    if (this->provider == 4) {
+    if (this->provider == PROVIDER_HAT_TCP) {
         return 0;
     }
 
@@ -2610,7 +2610,7 @@ BOOL __stdcall CLlDriver::cbEnumSessions(LPCDPSESSIONDESC2 lpThisSD, LPDWORD lpd
     strcpy(ses->name, lpThisSD->lpszSessionNameA);
     ses->guid = lpThisSD->guidInstance;
 
-    if (drv->provider == 1 || drv->provider == 0) {
+    if (drv->provider == PROVIDER_MODEM || drv->provider == PROVIDER_SERIAL) {
         drv->SetEventNewSession();
     }
 
@@ -2751,13 +2751,13 @@ void CLlDriver::Free() {
         this->Close();
     }
 
-    if (this->provider != 5) {
-        if (this->provider == 4) {
+    if (this->provider != PROVIDER_NONE) {
+        if (this->provider == PROVIDER_HAT_TCP) {
             this->FreeTcp();
         } else {
             this->FreeDp();
         }
-        this->provider = 5;
+        this->provider = PROVIDER_NONE;
     }
 }
 
@@ -3179,7 +3179,7 @@ int CLlDriver::PrepareAddressDp(CLlAddress* addr) {
     char addrbuf[100];
 
     switch (this->provider) {
-    case 0:
+    case PROVIDER_SERIAL:
         elem[0].guidDataType = DPAID_ServiceProvider;
         elem[0].dwDataSize = sizeof(GUID);
         elem[0].lpData = (LPVOID) &DPSPGUID_SERIAL;
@@ -3188,7 +3188,7 @@ int CLlDriver::PrepareAddressDp(CLlAddress* addr) {
         elem[1].lpData = &addr->com;
         numelem = 2;
         break;
-    case 1:
+    case PROVIDER_MODEM:
         elem[0].guidDataType = DPAID_ServiceProvider;
         elem[0].dwDataSize = sizeof(GUID);
         elem[0].lpData = (LPVOID)&DPSPGUID_MODEM;
@@ -3200,13 +3200,13 @@ int CLlDriver::PrepareAddressDp(CLlAddress* addr) {
         elem[2].lpData = this->address_str;
         numelem = 3;
         break;
-    case 2:
+    case PROVIDER_IPX:
         elem[0].guidDataType = DPAID_ServiceProvider;
         elem[0].dwDataSize = sizeof(GUID);
         elem[0].lpData = (LPVOID)&DPSPGUID_IPX;
         numelem = 1;
         break;
-    case 3:
+    case PROVIDER_DP_TCPIP:
         strcpy(addrbuf, this->address_str);
         elem[0].guidDataType = DPAID_ServiceProvider;
         elem[0].dwDataSize = sizeof(GUID);
@@ -3274,12 +3274,12 @@ int CLlDriver::StartServerDp() {
         this->guaranteed = 0;
     }
     
-    if (this->provider == 1) {
+    if (this->provider == PROVIDER_MODEM) {
         this->latency = 1000;
         if (this->timeout < 16000) {
             this->timeout = 16000;
         }
-    } else if (this->provider == 3) {
+    } else if (this->provider == PROVIDER_DP_TCPIP) {
         this->guaranteed = 0;
         this->latency = 500;
         if (this->timeout < 16000) {
@@ -3620,7 +3620,7 @@ int CLlDriver::StartServer(int maxconn, const char* name, CLlAddress* addr) {
 
     this->num_connections = 0;
 
-    if (this->provider == 4) {
+    if (this->provider == PROVIDER_HAT_TCP) {
         if (this->StartServerTcp() == 0) {
             ReportWarning("CLlDriver::StartServer().\nUnable to connect over TCP/IP.\n");
             return 0;
@@ -3660,7 +3660,7 @@ int CLlDriver::PrepareForConnect(const char* name, CLlAddress* addr) {
         memset(&this->cur_address, 0, sizeof(this->cur_address));
     }
 
-    if (this->provider == 4) {
+    if (this->provider == PROVIDER_HAT_TCP) {
         this->guaranteed = 1;
         return 1;
     }
@@ -3685,12 +3685,12 @@ int CLlDriver::PrepareForConnect(const char* name, CLlAddress* addr) {
         this->guaranteed = 0;
     }
 
-    if (this->provider == 1) {
+    if (this->provider == PROVIDER_MODEM) {
         this->latency = 1000;
         if (this->timeout < 16000) {
             this->timeout = 16000;
         }
-    } else if (this->provider == 3) {
+    } else if (this->provider == PROVIDER_DP_TCPIP) {
         this->guaranteed = 0;
         this->latency = 500;
         if (this->timeout < 16000) {
@@ -3830,7 +3830,7 @@ int CLlDriver::Connect(const char* name, CLlNetSession* session) {
         this->Close();
     }
 
-    if (this->provider == 4) {
+    if (this->provider == PROVIDER_HAT_TCP) {
         if (this->ConnectTcp() == 0) {
             ReportWarning("CLlDriver::Connect().\nUnable to connect over TCP/IP.\n");
             return 0;
@@ -4014,7 +4014,7 @@ int CLlDriver::SendData(uint32_t uid, NetStru3* buffer) {
 
     buffer->pos = buffer->datasz;
 
-    if (this->provider == 4) {
+    if (this->provider == PROVIDER_HAT_TCP) {
         XorData(buffer->buf, buffer->datasz);
 
         if (this->SendDataTcp(sock, buffer) != 0) {
@@ -4057,7 +4057,7 @@ void CLlDriver::DisconnectClient(uint32_t uid) {
     A2NetSock* sock = this->GetClientBySocketId(uid);
     if (sock) {
         if (this->IsInUse(sock)) {
-            if (this->provider == 4) {
+            if (this->provider == PROVIDER_HAT_TCP) {
                 this->CloseTcpSocket(sock);
             } else {
                 this->SendAllPendingDp(sock);
@@ -4071,7 +4071,7 @@ void CLlDriver::DisconnectClient(uint32_t uid) {
 
 void CLlDriver::CleanupInvalidTcpClient(uint32_t uid) {
     //52262a
-    if (this->provider == 4) {
+    if (this->provider == PROVIDER_HAT_TCP) {
         EnterCriticalSection(&this->critical_section);
         A2NetSock* sock = this->GetClientBySocketId(uid);
         if (sock && IsInUse(sock)) {
@@ -4091,7 +4091,7 @@ void CLlDriver::CleanupAllInvalid() {
         
     EnterCriticalSection(&this->critical_section);
     if (this->is_server == 0) {
-        if (this->provider == 4) {
+        if (this->provider == PROVIDER_HAT_TCP) {
             if (this->listen_socket.socket == INVALID_SOCKET) {
                 this->CloseTcp();
             }
@@ -4102,7 +4102,7 @@ void CLlDriver::CleanupAllInvalid() {
         for (int i = 0; i < this->num_connections; i++) {
             A2NetSock* sock = this->connection_sockets + i;
             if (this->IsInUse(sock)) {
-                if (this->provider == 4) {
+                if (this->provider == PROVIDER_HAT_TCP) {
                     if (sock->socket == INVALID_SOCKET) {
                         this->CloseTcpSocket(sock);
                     }
@@ -4118,7 +4118,7 @@ void CLlDriver::CleanupAllInvalid() {
 
 int CLlDriver::RestartModemServerDp() {
     //52460e
-    if (this->provider != 1) {
+    if (this->provider != PROVIDER_MODEM) {
         return 1;
     }
 
