@@ -6671,7 +6671,7 @@ void BigStruct2::IssueOrderAtCursor(CPoint* pt) {
 	select_rect.bottom = pt->y;
 	select_rect.NormalizeRect();
 	int32_t min_size = g_ScreenSize.right * 10 / 0x280;
-	if (!select_rect.IsRectEmpty()) {
+	if (select_rect.IsRectEmpty()) {
 		select_rect.InflateRect(1, 1);
 	}
 	if (select_rect.Width() > min_size || select_rect.Height() > min_size) {
