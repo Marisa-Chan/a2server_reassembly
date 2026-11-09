@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(rea2 LANGUAGES CXX RC)
+project(rea2 LANGUAGES C CXX RC)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -44,6 +44,7 @@ set(A2_SOURCES
   server.cpp
   shelf.cpp
   shop.cpp
+  smacker_player.cpp
   shop_assortment.cpp
   spell.cpp
   spell_effect.cpp
@@ -71,6 +72,7 @@ set(A2_SOURCES
   vis_worldmap.cpp
   visibility.cpp
   world.cpp
+  lib/smacker.c
   res/a2server.rc
 )
 

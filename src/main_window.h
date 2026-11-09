@@ -89,6 +89,7 @@ enum DialogMask : int32_t {
     DIALOG_MASK_CHAR_SELECT   = 0x400,  // character select screen
     DIALOG_MASK_START_GAME    = 0x800,  // start-game screen
     DIALOG_MASK_FAME_HALL     = 0x1000, // fame hall dialog
+    DIALOG_MASK_VIDEO         = 0x2000, // Smacker cutscene playback (PlayVideo)
     DIALOG_MASK_FAME_HALL_DOC = 0x4000, // fame hall document viewer
     DIALOG_MASK_MSGBOX_LIST   = 0x8000, // message-box list (PopUpScreen(vis_msgbox_list))
     DIALOG_MASK_NONE          = 0,      // no fullscreen dialog shown

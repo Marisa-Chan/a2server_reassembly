@@ -1,6 +1,7 @@
 #include "main_window.h"
 #include <cstdio>
 #include <timeapi.h>
+#include "smacker_player.h"
 #include "game_app.h"
 #include "net.h"
 #include "players_list.h"
@@ -2956,7 +2957,51 @@ void MainWindow::EnterClientMode() { // 4918ae
 
 
 void MainWindow::PlayVideo(int32_t vid_id) { //491f7d
-    printf("Video play PlayVideo not implemented yet: %d\n", vid_id);
+    // client: 4967d2
+    // Retail gated the whole body on a CD-present flag (0062f87c) that a
+    // catch handler cleared when the video directory was missing; we run
+    // without a CD (same call as MAIN_MSG_SHOW_CUTSCENES above).
+
+    this->music_player->OnEndTrack();
+
+    this->dialogsMask |= DIALOG_MASK_VIDEO;
+    int32_t first = 1;
+    g_using_vxd = g_using_vxd | (1u << (vid_id & 0x1f));
+    SaveSettings();
+
+    for (int32_t i = 1; i < 100; i++) {
+        char path[128];
+        sprintf(path, "video\\%s\\%02d.smk", txt_cutpaths.GetLine(vid_id), i);
+
+        File2 file;
+        if (file.Open(path, 0, nullptr) != 0) {
+            if (first != 0) {
+                g_mousept.Update();
+                g_mousept.Unpaint();
+                LockSurface2();
+                FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+                UnlockSurface2();
+                FlushScreen();
+                first = 0;
+            }
+
+            file.Close();
+
+            if (PlaySmackerVideo(this->GetSafeHwnd(), path) == 0) {
+                break;
+            }
+        }
+    }
+
+    this->dialogsMask &= ~DIALOG_MASK_VIDEO;
+    if (first == 0) {
+        g_mousept.Paint();
+    }
+
+    LockSurface2();
+    FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+    UnlockSurface2();
+    FlushScreen();
 }
 
 
