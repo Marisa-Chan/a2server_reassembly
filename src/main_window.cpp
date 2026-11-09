@@ -27,6 +27,7 @@
 #include "patch/kick_char.h"
 #endif
 #include "gameplay.h"
+#include "vis_playing_area.h"
 #include "vis_menu.h"
 #include "vis_char.h"
 #include "vis_inventory.h"
@@ -1395,7 +1396,7 @@ MainWindow::~MainWindow() { // 4961b0
 
 void MainWindow::CreateUI() { //484ab0
     this->vis_root = new CVisualObject(0, 0, 0, g_ScreenSize.right, g_ScreenSize.bottom, nullptr);
-    this->vis_map_context = new BigStruct2(0, 0, g_ScreenSize.right - 160, g_ScreenSize.bottom);
+    this->vis_map_context = new VisPlayingArea(0, 0, g_ScreenSize.right - 160, g_ScreenSize.bottom);
     this->vis_right_panel = new VisRightPanel(4, g_ScreenSize.right - 160, 0, g_ScreenSize.right, g_ScreenSize.bottom);
     this->vis_minimap = new VisMiniMap(5, 0, 0, 160, 158);
     this->vis_ordertoolbar = new VisOrderToolbar(6, 0, 158, 160, 238);
@@ -6169,7 +6170,7 @@ void CGameSession::AutosaveCharacter() { //4946e0
     if (mwnd->net_session.internet_game != 0 && mwnd->hat_settings.ishat != 0 && mwnd->hat_settings.deathmatch != 0)
         return;
 
-    BigStruct2* map = mwnd->vis_map_context;
+    VisPlayingArea* map = mwnd->vis_map_context;
     CUnit* unit = map->GetUnit_3f6c();
 
     if (this->flags & 1) {
@@ -6216,7 +6217,7 @@ void CGameSession::SaveShortcuts() { //4948b2
         return;
     }
 
-    BigStruct2* map = mwnd->vis_map_context;
+    VisPlayingArea* map = mwnd->vis_map_context;
     map->GetUnit_3f6c();
 
     uint8_t buffer[2560];
@@ -6263,7 +6264,7 @@ void CGameSession::SaveKillStats() { //494982
     if (mwnd->net_session.internet_game != 0 && mwnd->hat_settings.ishat != 0 && mwnd->hat_settings.deathmatch != 0)
         return;
 
-    BigStruct2* map = mwnd->vis_map_context;
+    VisPlayingArea* map = mwnd->vis_map_context;
     map->GetUnit_3f6c();
 
     WritePlayerFile(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], nullptr, nullptr, map->kill_stats.data(), nullptr, nullptr, nullptr, 0);

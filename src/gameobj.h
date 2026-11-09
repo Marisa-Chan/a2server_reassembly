@@ -9,7 +9,7 @@
 
 #include <array>
 
-class BigStruct2;
+class VisPlayingArea;
 class CGameBitmap;
 class CSprite256;
 class SfxBank;
@@ -225,7 +225,7 @@ public:
 	CPoint occupiedLocation; // c8
 	CArray<TokenEntry*> tokenEntries; //0xd0
 	int32_t shopInventoryVisibleStart; // e4
-	BigStruct2* pMapObject; // e8
+	VisPlayingArea* pMapObject; // e8
 	char str1[12]; // ec
 	char str2[12]; // f8
 	int16_t hp; // 104

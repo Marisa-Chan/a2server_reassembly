@@ -22,6 +22,7 @@
 #include "buildings_list.h"
 #include "packet.h"
 #include "gameplay.h"
+#include "vis_playing_area.h"
 #include "vis_net.h"
 
 

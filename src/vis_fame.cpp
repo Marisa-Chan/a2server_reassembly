@@ -22,6 +22,7 @@
 #include "packet.h"
 #include "vis_fame.h"
 #include "gameplay.h"
+#include "vis_playing_area.h"
 
 // 4AE7A3
 void VisFameDocument::VMethod7() {

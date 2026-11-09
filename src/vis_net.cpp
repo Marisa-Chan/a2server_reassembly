@@ -22,6 +22,7 @@
 #include "packet.h"
 #include "vis_net.h"
 #include "gameplay.h"
+#include "vis_playing_area.h"
 #include "vis_fame.h"
 
 char g_EmptyStrSrvScreenText[4]; //659a48 zeroed buffer used to clear the server screen text box
@@ -339,7 +340,7 @@ int32_t VisNetMapSelection::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpar
         return 1;
     }
     case VIS_MSG_ROSTER_CHANGED: {
-        BigStruct2* map_context = main_wnd->vis_map_context;
+        VisPlayingArea* map_context = main_wnd->vis_map_context;
         VisNetPlayerList* player_list = (VisNetPlayerList*)this->FindChild(5);
         player_list->entries.RemoveAll();
         player_list->selected_index = -1;

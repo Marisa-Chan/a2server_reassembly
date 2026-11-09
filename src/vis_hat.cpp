@@ -22,6 +22,7 @@
 #include "packet.h"
 #include "vis_hat.h"
 #include "gameplay.h"
+#include "vis_playing_area.h"
 
 // HatBrowserProgress implementation (struct declared in net.h)
 

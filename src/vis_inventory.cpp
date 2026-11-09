@@ -22,6 +22,7 @@
 #include "packet.h"
 #include "vis_inventory.h"
 #include "gameplay.h"
+#include "vis_playing_area.h"
 #include "vis_char.h"
 #include "vis_shop.h"
 #include "vis_menu.h"
@@ -2351,7 +2352,7 @@ int32_t VisSpellBook::IsSpellEffectActive(int32_t id) {
 // 4CA925
 void VisSpellBook::SelectScrollEntry(int32_t idx) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    BigStruct2* mc = main_wnd->vis_map_context;
+    VisPlayingArea* mc = main_wnd->vis_map_context;
     this->spell = idx;
     TokenEntry* entry = mc->primary_selected_object->tokenEntries[this->spell];
     this->selected = (int32_t)entry->GetCastSpellId() - 1;
@@ -2434,7 +2435,7 @@ int32_t VisSpellBook::OnRButtonDblClk(uint32_t wparam, CPoint pos) {
 int32_t VisSpellBook::OnLButtonDown(uint32_t wparam, CPoint pos) {
     (void)wparam;
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    BigStruct2* mc = main_wnd->vis_map_context;
+    VisPlayingArea* mc = main_wnd->vis_map_context;
     int32_t idx = this->HitTestSpellCell(&pos);
     if (idx >= 0
         && ((mc->selected_available_spell_mask | mc->active_spell_effect_mask) & (1 << (idx & 0x1F))) != 0) {
@@ -2490,7 +2491,7 @@ int32_t VisSpellBook::OnLButtonUp(uint32_t wparam, CPoint pos) {
 // 4CADEE
 int32_t VisSpellBook::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    BigStruct2* mc = main_wnd->vis_map_context;
+    VisPlayingArea* mc = main_wnd->vis_map_context;
     int32_t idx = this->HitTestSpellCell(&pos);
     if (idx < 0
         || ((mc->selected_available_spell_mask | mc->active_spell_effect_mask) & (1 << (idx & 0x1F))) == 0
@@ -2508,7 +2509,7 @@ int32_t VisSpellBook::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
 int32_t VisSpellBook::OnKeyDown(uint32_t wparam) {
     if (g_kbControlState != 0 && (wparam == 0x61 || wparam == 0x41)) {
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-        BigStruct2* mc = main_wnd->vis_map_context;
+        VisPlayingArea* mc = main_wnd->vis_map_context;
         uint32_t spell_id = 0;
         if (this->pressed == -1) {
             CPoint pt;
@@ -2575,7 +2576,7 @@ void VisSpellBook::VMethod7() {
     this->ClientRectToScreen(&rc, this->rect);
     LockSurface2();
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    BigStruct2* mc = main_wnd->vis_map_context;
+    VisPlayingArea* mc = main_wnd->vis_map_context;
     int32_t left = vis_scr_rect.left;
     if ((main_wnd->dialogsMask & DIALOG_MASK_SHOP) != 0) {
         left = 0;
@@ -2647,7 +2648,7 @@ void VisSpellBook::VMethod7() {
 // 4C9A6F
 const char* VisSpellBook::GetHint() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    BigStruct2* mc = main_wnd->vis_map_context;
+    VisPlayingArea* mc = main_wnd->vis_map_context;
     CPoint mpt(g_mousept.GetX(), g_mousept.GetY());
     int32_t idx = this->HitTestSpellCell(&mpt);
     if ((mc->selected_available_spell_mask & (1 << (idx & 0x1F))) == 0) {

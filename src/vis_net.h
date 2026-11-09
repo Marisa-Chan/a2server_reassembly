@@ -229,7 +229,7 @@ public:
 	HANDLE stop_event;
 	int32_t selected_map_index;
 	GM_a28* chat_log;
-	BigStruct2* map_context;
+	VisPlayingArea* map_context;
 	int32_t mode;
 };
 

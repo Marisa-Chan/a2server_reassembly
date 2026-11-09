@@ -13,6 +13,7 @@
 #include "gfx.h"
 #include "util.h"
 #include "gameplay.h"
+#include "vis_playing_area.h"
 #include "vis_net.h"
 
 GameApp GameApp::theApp;

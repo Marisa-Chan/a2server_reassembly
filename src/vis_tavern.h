@@ -196,7 +196,7 @@ public:
 	VisTav(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //49db79 (client: 4a1ba7) in asm
 
 public:
-	BigStruct2* map_context;
+	VisPlayingArea* map_context;
 	VisCharInfo* info_panel;
 	VisTavLeftPanel* left_panel;
 	VisTavRightPanel* right_panel;

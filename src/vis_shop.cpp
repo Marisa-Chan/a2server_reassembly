@@ -25,6 +25,7 @@
 #include "vis_char.h"
 #include "vis_inventory.h"
 #include "gameplay.h"
+#include "vis_playing_area.h"
 
 // 4b9f20
 static int32_t __cdecl CompareShopTokenEntries(const void* a, const void* b) {

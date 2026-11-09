@@ -32,7 +32,7 @@ public:
 public:
 	CGameSession* session;
 	CVisualObject* info_panel;
-	BigStruct2* map_context;
+	VisPlayingArea* map_context;
 	VisCharSellectStats* vis_stats;
 	VisCharSellectButtons* buttons;
 	VisCharSellectList* roster_list;
@@ -324,7 +324,7 @@ public:
 	void FreeSamples(); // 42f021 (client: 430f1d) in asm
 public:
 	VisCharInfo* info_panel;
-	BigStruct2* map_visual;
+	VisPlayingArea* map_visual;
 	VisCharGenStats* stats_panel;
 	VisCharGenFullStats* fullstats_panel;
 	VisCharGenAction* action_panel;
@@ -372,7 +372,7 @@ public:
 
 	VisCharInfo(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4b16c3 (client: 4b5ff5) in asm
 public:
-	BigStruct2* map_context;
+	VisPlayingArea* map_context;
 	int32_t dirty;
 	int32_t gap_64;
 	int32_t selection_panel_state;

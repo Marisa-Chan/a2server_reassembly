@@ -9,7 +9,7 @@
 #include "mouse.h"
 #include "net.h"
 
-class BigStruct2;
+class VisPlayingArea;
 class LoadGameWindow;
 class SaveGameWindow;
 class Vis1200;
@@ -591,7 +591,7 @@ public:
     void (*music_update_proc)();
     MusicPlayer* music_player;
     CVisualObject* vis_root;
-    BigStruct2* vis_map_context; // 0xd0
+    VisPlayingArea* vis_map_context; // 0xd0
     VisRightPanel* vis_right_panel; //0xd4
     VisMiniMap* vis_minimap;
     VisOrderToolbar* vis_ordertoolbar;

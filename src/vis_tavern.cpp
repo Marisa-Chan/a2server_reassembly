@@ -23,6 +23,7 @@
 #include "vis_tavern.h"
 #include "vis_menu.h"
 #include "gameplay.h"
+#include "vis_playing_area.h"
 #include "vis_char.h"
 #include "vis_inventory.h"
 

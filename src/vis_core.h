@@ -22,9 +22,9 @@ uint32_t IsDefaultNpcName(const char* name); // 4386e0 (client: 43ad20)
 // ranges overlap - forwarded ids (e.g. 0x467 music position) cross over.
 enum VisMsg : uint32_t {
     VIS_MSG_MOUSE                = 0x400, // mouse message forwarded from the window
-    VIS_MSG_WORLD_TICK           = 0x401, // per-frame world/logic tick (BigStruct2)
+    VIS_MSG_WORLD_TICK           = 0x401, // per-frame world/logic tick (VisPlayingArea)
     VIS_MSG_FRAME_TICK           = 0x402, // per-frame redraw tick (VMethod9 / RenderWorldFrame)
-    VIS_MSG_SET_MAP_CONTEXT      = 0x403, // wparam = BigStruct2* map context
+    VIS_MSG_SET_MAP_CONTEXT      = 0x403, // wparam = VisPlayingArea* map context
     VIS_MSG_MINIMAP_REBUILD      = 0x404, // rebuild the minimap bitmap
     VIS_MSG_CANCEL_ORDER         = 0x405, // leave order/targeting mode
     VIS_MSG_SCROLL_VIEW          = 0x406, // scroll the world view (wparam/lparam = tile x/y)
@@ -102,7 +102,7 @@ class CBmp256;
 class CA16;
 extern char g_HintBuf[223]; //4c9a6f GetHint static buffer (defined in vis_core.cpp)
 
-class BigStruct2;
+class VisPlayingArea;
 class GM_a28;
 class VisInvExtType1;
 class VisInvExtType2;
@@ -135,7 +135,7 @@ struct HatSettings;
 
 
 
-// Child-window IDs of the in-game screen tree: the map context (BigStruct2)
+// Child-window IDs of the in-game screen tree: the map context (VisPlayingArea)
 // itself, its children, and the tips-dialog internal controls all draw from one
 // shared ID allocation. The client build allocates one extra ID early in that
 // space (the map context itself sits at 2 instead of 1), which shifts every

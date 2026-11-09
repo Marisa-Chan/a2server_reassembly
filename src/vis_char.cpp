@@ -22,6 +22,7 @@
 #include "packet.h"
 #include "vis_char.h"
 #include "gameplay.h"
+#include "vis_playing_area.h"
 #include "vis_menu.h"
 #include "vis_shop.h"
 #include "vis_inventory.h"
@@ -2231,7 +2232,7 @@ void VisCharInfo::VMethod7() {
         moved_up = 0;
     }
 
-    BigStruct2* map = this->map_context;
+    VisPlayingArea* map = this->map_context;
     LockSurface2();
     if (moved_up != 0) {
         this->info_mode = 1;
@@ -2396,7 +2397,7 @@ const char* VisCharInfo::GetHint() {
         return nullptr;
     }
 
-    BigStruct2* map = this->map_context;
+    VisPlayingArea* map = this->map_context;
     CPoint mouse_pt(g_mousept.GetX(), g_mousept.GetY());
 
     CRect screen_rect;
@@ -2512,7 +2513,7 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
         disallow = 1;
     }
 
-    BigStruct2* map = this->map_context;
+    VisPlayingArea* map = this->map_context;
     if (map->selected_object_count != 1) {
         disallow = 1;
     }
@@ -2637,7 +2638,7 @@ int32_t VisCharInfo::OnLButtonUp(uint32_t wparam, CPoint pos) {
         moved_up = 0;
     }
 
-    BigStruct2* map = this->map_context;
+    VisPlayingArea* map = this->map_context;
 
     CRect backpack_rect(screen_rect.left, screen_rect.bottom - 0x28, screen_rect.left + 0x1C, screen_rect.bottom);
     CRect ar1_rect(screen_rect.left + 1, screen_rect.top + 0xCD, screen_rect.left + 0x21, screen_rect.top + 0xED);
@@ -2712,7 +2713,7 @@ int32_t VisCharInfo::OnMouseMove(uint32_t wparam, CPoint pos) {
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    BigStruct2* map = this->map_context;
+    VisPlayingArea* map = this->map_context;
 
     if (main_wnd->drag_entry != nullptr) {
         return 0;
@@ -2767,7 +2768,7 @@ int32_t VisCharInfo::VMethod26(int32_t a) {
         return 0;
     }
 
-    BigStruct2* map = this->map_context;
+    VisPlayingArea* map = this->map_context;
     if (map->selected_object_count != 1) {
         return 0;
     }
@@ -2797,7 +2798,7 @@ int32_t VisCharInfo::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
     uint8_t* data = (uint8_t*)this->hitmap->GetData();
-    BigStruct2* map = this->map_context;
+    VisPlayingArea* map = this->map_context;
 
     uint8_t color = data[(pos.y - screen_rect.top - 2) * 0xA0 + (pos.x - screen_rect.left)];
     if (color == 0) {
@@ -2836,7 +2837,7 @@ int32_t VisCharInfo::OnKeyDown(uint32_t wparam) {
 // 4B2857
 int32_t VisCharInfo::OnRButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    BigStruct2* map = this->map_context;
+    VisPlayingArea* map = this->map_context;
     if (main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
         return map->MsgProc(VIS_MSG_CANCEL_ORDER, 0, 0);
     }
@@ -2900,7 +2901,7 @@ int32_t VisCharInfo::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     if (result == 0) {
         switch (msg) {
         case VIS_MSG_SET_MAP_CONTEXT:
-            this->map_context = (BigStruct2*)wparam;
+            this->map_context = (VisPlayingArea*)wparam;
             this->dirty = 1;
             break;
         case VIS_MSG_DATA_REFRESH:

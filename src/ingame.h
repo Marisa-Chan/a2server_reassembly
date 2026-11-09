@@ -31,6 +31,11 @@ extern CGamePalette* g_pal_projectiles; //665490
 extern CGamePalette* g_pal_projectile_; //665494
 extern CA16* g_spr_smoke[2]; //6610f8
 extern uint16_t* clr_log_sblack;
+extern uint16_t* clr_log_tblack;
+extern uint16_t* clr_log_tok0;
+extern uint16_t* clr_log_tok1;
+extern uint16_t* clr_log_tok2;
+extern uint16_t* clr_log_tok3;
 
 extern CStringArray g_WwwServerList; // 666a00
 

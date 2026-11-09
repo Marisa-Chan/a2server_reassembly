@@ -24,6 +24,7 @@
 #include "vis_shop.h"
 #include "vis_net.h"
 #include "gameplay.h"
+#include "vis_playing_area.h"
 #include "vis_inventory.h"
 
 char g_EmptyStrConfirmHint[4]; //659a54 "" hint string of the action menu confirm button

@@ -203,7 +203,7 @@ public:
 	VisShopCompass* shop_compass;
 	VisShopButtons* buttons;
 	CVisualObject* select_info_panel;
-	BigStruct2* gameplay;
+	VisPlayingArea* gameplay;
 	VisSpellBook* spell_panel;
 	CVisualObject* tips;
 	int32_t tips_update_flag;

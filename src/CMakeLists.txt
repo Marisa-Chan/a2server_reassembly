@@ -29,8 +29,8 @@ set(A2_SOURCES
   mouse.cpp
   net.cpp
   outpost.cpp
-  perf.cpp
   packet.cpp
+  perf.cpp
   player.cpp
   player_file.cpp
   players_list.cpp
@@ -57,18 +57,19 @@ set(A2_SOURCES
   unit_to_hit.cpp
   util.cpp
   virtual_caster.cpp
-  visibility.cpp
-  vis_core.cpp
-  vis_menu.cpp
   vis_char.cpp
+  vis_core.cpp
+  vis_fame.cpp
+  vis_hat.cpp
   vis_inventory.cpp
+  vis_menu.cpp
+  vis_net.cpp
+  vis_playing_area.cpp
   vis_shop.cpp
   vis_tavern.cpp
   vis_town.cpp
-  vis_net.cpp
   vis_worldmap.cpp
-  vis_fame.cpp
-  vis_hat.cpp
+  visibility.cpp
   world.cpp
   res/a2server.rc
 )

@@ -24,6 +24,7 @@
 #include "unit.h"
 #include "world.h"
 #include "gameplay.h"
+#include "vis_playing_area.h"
 #include "vis_net.h"
 
 CString g_MissionText; //660f2c

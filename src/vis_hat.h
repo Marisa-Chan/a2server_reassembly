@@ -60,7 +60,7 @@ public:
 };
 ASSERT_SIZE(VisHatBrowserDlg, 0x94);
 
-// client vtable 5d7238 — hat-DM score dialog popped by BigStruct2 packet cases 0x5c/0xc3.
+// client vtable 5d7238 — hat-DM score dialog popped by VisPlayingArea packet cases 0x5c/0xc3.
 // (The client label "MusicPlayer" on this class is a mislabel; the real MusicPlayer is in sound.h.)
 class HatPlayerListWindow : public VisMessageBox {
 public:

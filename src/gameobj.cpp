@@ -19,6 +19,7 @@
 #include <cstdlib>
 #include <cstring>
 #include "gameplay.h"
+#include "vis_playing_area.h"
 #include "vis_char.h"
 #include "vis_inventory.h"
 
@@ -204,7 +205,7 @@ void CGameObject::AddControlGroup(int32_t grp) { //41f180
 
 
 void CGameObject::UpdateMapPosition() { //46190d
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
 
     this->tileX = this->x_pos2 >> 8;
     this->tileY = this->y_pos2 >> 8;
@@ -270,7 +271,7 @@ void CGameObject::SetTileLayerCell(int32_t layer_id, CGameObject* obj) { //461c4
         return;
     }
 
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
     CGameObject** layer;
     switch (layer_id) {
     case 0:
@@ -1641,7 +1642,7 @@ void CUnit::ReloadSprite() { // 46b91c
 }
 
 void CGameObject::DrawBarFill(int32_t left, int32_t right, int32_t y, int32_t fill_width, uint16_t color_lo, uint16_t color_mid, uint16_t color_hi) { // 46246B
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
     if (map->show_hp != 0 && this->IsSelected() == 0) {
         ShadowRect(CRect(left + 4, y - 2, left + fill_width + 4, y + 2), 8);
         FillRectClipped(left + 4, y - 2, left + fill_width + 4, y - 1, color_hi);
@@ -1660,7 +1661,7 @@ void CGameObject::DrawBarFill(int32_t left, int32_t right, int32_t y, int32_t fi
 }
 
 void CGameObject::DrawControlGroupNumber(int32_t x, int32_t y) { // 4627BB
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
     int32_t group = this->GetControlGroup();
     if (group < 0) {
         return;
@@ -1682,7 +1683,7 @@ void CUnit::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) { // 466a
         return;
     }
 
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
 
     if (this->FindEffectTimer(0x20) >= 0 && map->my_main_unit->IsVisibleTo(this->map_player->index) == 0) {
         return;
@@ -1817,7 +1818,7 @@ void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t light) { // 464974
     }
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
 
     int32_t sun_angle = (int32_t)(std::tan(this->pMapObject->scenario->GetRenderSunAngle()) * 65536.0);
     (void)sun_angle; // computed but never used in the original binary
@@ -2032,7 +2033,7 @@ void CUnit::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) { // 465b5
         return;
     }
 
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
 
     int32_t sun_angle = (int32_t)(std::tan(map->scenario->GetRenderSunAngle()) * 65536.0);
 
@@ -2985,7 +2986,7 @@ int32_t CUnit::Update() { // 46785f
 }
 
 void CUnit::SpawnSpellProjectile() { // 468765
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
     CGameObject* xd90_target = nullptr;
     if (this->action_target != 0 && map->objects.Lookup(this->action_target, xd90_target) == 0) {
         return;
@@ -3082,7 +3083,7 @@ void CUnit::PlayHitSound(int32_t kind) {
     }
 
     SfxSample* sample = nullptr;
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
     int32_t vol;
     int32_t pan;
 
@@ -3121,7 +3122,7 @@ void CUnit::PlayHitSound(int32_t kind) {
 
 // 4684fb
 void CUnit::SpawnAttackProjectile() {
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
     CGameObject* target = nullptr;
     if (map->objects.Lookup(this->action_target, target) == 0) {
         return;
@@ -3162,7 +3163,7 @@ void CUnit::DrawMinimapRect(int32_t x, int32_t y, int32_t zoom) {
         return;
     }
 
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
 
     if (this->FindEffectTimer(0x20) >= 0 && map->my_main_unit->IsVisibleTo(this->map_player->index) == 0) {
         return;
@@ -3194,7 +3195,7 @@ void CUnit::DrawMinimapRect(int32_t x, int32_t y, int32_t zoom) {
 
 // 469e67
 int32_t CUnit::UpdateBlockedState() {
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
 
     if ((this->unitFlags & UNIT_FLAG_HIDDEN) != 0) {
         this->bIsBlocked = 1;
@@ -3233,7 +3234,7 @@ void CUnit::UpdateTileLayer() {
     }
 
     if (g_Animation == 0 && this->IsBlocked() == 0 && this->m_bSelectionDirty != 0) {
-        BigStruct2* map = this->pMapObject;
+        VisPlayingArea* map = this->pMapObject;
         UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
         int32_t x = this->centerScreenX - vfx->center_x;
         int32_t y = this->centerScreenY - vfx->center_y - this->terrainHeightOffset - this->z_pos;
@@ -3258,7 +3259,7 @@ void CUnit::PlayAttackVoice() {
     }
 
     SfxSample* sample = bank->attack[Random0N(bank->attack_count - 1)];
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
     int32_t vol;
     int32_t pan;
     map->ComputeSoundVolumePan(this->x_pos, this->y_pos, &vol, &pan);
@@ -3282,7 +3283,7 @@ void CUnit::PlayMoveVoice() {
     }
 
     SfxSample* sample = bank->move[Random0N(bank->move_count - 1)];
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
     int32_t vol;
     int32_t pan;
     map->ComputeSoundVolumePan(this->x_pos, this->y_pos, &vol, &pan);
@@ -3306,7 +3307,7 @@ void CUnit::PlaySwarmVoice() {
     }
 
     SfxSample* sample = bank->swarm[Random0N(bank->swarm_count - 1)];
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
     int32_t vol;
     int32_t pan;
     map->ComputeSoundVolumePan(this->x_pos, this->y_pos, &vol, &pan);
@@ -3330,7 +3331,7 @@ void CUnit::PlaySelectVoice() {
     }
 
     SfxSample* sample = bank->select[Random0N(bank->select_count - 1)];
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
     int32_t vol;
     int32_t pan;
     map->ComputeSoundVolumePan(this->x_pos, this->y_pos, &vol, &pan);
@@ -3347,7 +3348,7 @@ void CUnit::PlayAttackSound() {
     }
 
     SfxSample* sample = g_SfxArray[g_VFX_info[this->typeId]->sound[0]];
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
     int32_t vol;
     int32_t pan;
     map->ComputeSoundVolumePan(this->x_pos, this->y_pos, &vol, &pan);
@@ -3441,7 +3442,7 @@ SfxBank* CUnit::GetSfxBank() {
 
 // 46C124
 void CUnit::DrawStatsPanel(CRect* rect) {
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
     uint16_t* label_color = clrsh_DullGold;
     uint16_t* value_color = clrsh_Oxley;
     uint16_t* section_color = clrsh_CharlieBrown;
@@ -3598,7 +3599,7 @@ const char* CUnit::GetStatsHint(int32_t x, int32_t y) {
         return nullptr;
     }
 
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
 
     int32_t view_level = 0;
     if (this->serverId != 0 && this->serverId < 0xa00) {
@@ -3713,7 +3714,7 @@ int32_t CUnit::IsItemRestricted(TokenEntry* entry) {
 
 // 4648e9
 void CUnit::SetSelected(int32_t selected) {
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     if (selected == 0 && map->primary_selected_object == this && wnd->drag_entry != nullptr) {
         g_Cursors[CURSOR_DEFAULT]->Use();
@@ -3732,7 +3733,7 @@ void CUnit::PlayDefendVoice() {
     this->lastVoicePlaybackTick = now;
 
     SfxSample* sample = this->GetSfxBank()->defend;
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
     int32_t vol;
     int32_t pan;
     map->ComputeSoundVolumePan(this->x_pos, this->y_pos, &vol, &pan);
@@ -3751,7 +3752,7 @@ void CUnit::PlayRetreatVoice() {
     this->lastVoicePlaybackTick = now;
 
     SfxSample* sample = this->GetSfxBank()->retreat;
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
     int32_t vol;
     int32_t pan;
     map->ComputeSoundVolumePan(this->x_pos, this->y_pos, &vol, &pan);
@@ -3770,7 +3771,7 @@ void CUnit::PlayPickupVoice() {
     this->lastVoicePlaybackTick = now;
 
     SfxSample* sample = this->GetSfxBank()->pickup;
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
     int32_t vol;
     int32_t pan;
     map->ComputeSoundVolumePan(this->x_pos, this->y_pos, &vol, &pan);
@@ -3783,7 +3784,7 @@ void CUnit::PlayPickupVoice() {
 // 469499
 void CUnit::PlayCastSound() {
     SfxSample* sample = g_SfxArray[this->action_spell + 500];
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
     int32_t vol;
     int32_t pan;
     map->ComputeSoundVolumePan(this->x_pos, this->y_pos, &vol, &pan);
@@ -3796,7 +3797,7 @@ void CUnit::PlayCastSound() {
 // 473b80
 void StructEnter::RebuildFromMap() {
 	MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-	BigStruct2* map = main_wnd->vis_map_context;
+	VisPlayingArea* map = main_wnd->vis_map_context;
 	POSITION it = map->objects.GetStartPosition();
 	this->ClearGroups();
 	while (it != NULL) {
@@ -3871,7 +3872,7 @@ void CStructure::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) {
         return;
     }
 
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
     StructureInfo* info = g_StructuresInfo[this->typeId];
     if (info->indestructible != 0) {
         return;
@@ -3918,7 +3919,7 @@ void CStructure::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) {
 
 // 462f58
 void CStructure::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
 
     int32_t sun_angle = (int32_t)(std::tan(map->scenario->GetRenderSunAngle()) * 65536.0);
 
@@ -3977,7 +3978,7 @@ void CStructure::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
 
 // 462d11
 void CStructure::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
     StructureInfo* info = g_StructuresInfo[this->typeId];
 
     int32_t x_offset = (tile_x + map->view_x) - this->tileX;
@@ -4036,7 +4037,7 @@ void CStructure::UpdateLight() {
         return;
     }
 
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
     StructureInfo* info = g_StructuresInfo[this->typeId];
     if (info->light_radius == 0 || this->hp <= 0) {
         return;
@@ -4069,7 +4070,7 @@ void CStructure::UpdateLight() {
 
 // 46380c
 void CStructure::DrawMinimapRect(int32_t x, int32_t y, int32_t zoom) {
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
 
     uint16_t* land = map->scenario->GetLandscape();
     int32_t idx = (this->x_pos >> 8) + map->map_width * (this->y_pos >> 8);
@@ -4099,7 +4100,7 @@ void CStructure::DrawMinimapRect(int32_t x, int32_t y, int32_t zoom) {
 
 // 462b28
 int32_t CStructure::UpdateBlockedState() {
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
 
     if (map->my_main_unit->IsVisibleTo(this->map_player->index) != 0) {
         this->bIsBlocked = 0;
@@ -4203,7 +4204,7 @@ CBridge::CBridge(int32_t width, int32_t height) {
 
 // 463d26
 void CVerticalWoodenBridge::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
     StructureInfo* info = g_StructuresInfo[this->typeId];
 
     int32_t dx = (tile_x + map->view_x) - this->tileX;
@@ -4254,7 +4255,7 @@ CVerticalWoodenBridge::CVerticalWoodenBridge(int32_t width, int32_t height) : CB
 
 // 463f0e
 void CHorisontalWoodenBridge::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
     StructureInfo* info = g_StructuresInfo[this->typeId];
 
     int32_t dx = (tile_x + map->view_x) - this->tileX;
@@ -4421,7 +4422,7 @@ CBackPack::CBackPack() {
 
 // 46d8d8
 int32_t CProjectile::Update() {
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
 
     CRect rect((this->screenX - 0x40) & 0xffffffe0,
                this->screenY - this->terrainHeightOffset - 0x40,
@@ -4611,7 +4612,7 @@ void CProjectile::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
         return;
     }
 
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
     ProjectileInfo* info = g_ProjectileInfos[this->typeId];
 
     int32_t x = this->screenX - info->width / 2;
@@ -4689,7 +4690,7 @@ void CProjectile::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
 
 // 46e805
 void CProjectile::UpdateLight() {
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
 
     switch (this->typeId) {
     case 10:
@@ -4770,7 +4771,7 @@ void CProjectile::UpdateLight() {
 
 // 46eb80
 void CProjectile::UpdateTransientVisualElements() {
-    BigStruct2* map = this->pMapObject;
+    VisPlayingArea* map = this->pMapObject;
 
     if (this->typeId == 28) {
         TransientVisualEffectBuilder builder;
