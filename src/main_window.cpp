@@ -26,6 +26,16 @@
 #ifdef A2SERVER_PATCH
 #include "patch/kick_char.h"
 #endif
+#include "gameplay.h"
+#include "vis_menu.h"
+#include "vis_char.h"
+#include "vis_inventory.h"
+#include "vis_shop.h"
+#include "vis_tavern.h"
+#include "vis_town.h"
+#include "vis_net.h"
+#include "vis_worldmap.h"
+#include "vis_hat.h"
 
 uint32_t g_RemoteTimestamp = 0;
 int32_t g_SelCutsceneIndex = 0;
@@ -6436,4 +6446,6 @@ void UserShortcut::LoadFromBuffer(uint8_t** buf) { //41e689
 
     *buf = data;
 }
+
+
 

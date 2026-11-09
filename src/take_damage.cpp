@@ -1,7 +1,6 @@
-#include "visual.h"
-#include <timeapi.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <timeapi.h>
 
 #include "server.h"
 #include "main_window.h"
@@ -122,4 +121,6 @@ void __cdecl TakeDamage::UpdateDamages(CArray<TakeDamage>* arr) {
 		arr->ElementAt(i).Update();
 	}
 }
+
+
 

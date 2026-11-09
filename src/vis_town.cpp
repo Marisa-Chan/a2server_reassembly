@@ -1,7 +1,6 @@
-#include "visual.h"
-#include <timeapi.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <timeapi.h>
 
 #include "server.h"
 #include "main_window.h"
@@ -22,6 +21,7 @@
 #include "buildings_list.h"
 #include "packet.h"
 #include "vis_town.h"
+#include "vis_menu.h"
 
 // lizard animation frame sequences from the original data (634870/634898/6348C8/634930), -1 terminated
 static const int32_t lizard_seq0[] = { 0x27, 0x28, 0x29, 0x2A, 0x29, 0x28, 0x27, 0x26, -1 };
@@ -2267,5 +2267,7 @@ int32_t VisTownDruid::OnLButtonDown(uint32_t wparam, CPoint pos) {
     }
     return 1;
 }
+
+
 
 

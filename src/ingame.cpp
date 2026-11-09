@@ -1,6 +1,5 @@
 #include "ingame.h"
 #include <afx.h>
-#include "visual.h"
 #include "gameobj.h"
 #include "net.h"
 #include "packet.h"
@@ -288,6 +287,7 @@ CSprite256* ProjectileInfo::GetSpriteB() { //46f760
     }
     return this->sprite2;
 }
+
 
 
 

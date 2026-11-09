@@ -1,7 +1,6 @@
-#include "visual.h"
-#include <timeapi.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <timeapi.h>
 
 #include "server.h"
 #include "main_window.h"
@@ -22,6 +21,7 @@
 #include "buildings_list.h"
 #include "packet.h"
 #include "vis_fame.h"
+#include "gameplay.h"
 
 // 4AE7A3
 void VisFameDocument::VMethod7() {
@@ -790,3 +790,6 @@ void CFameHall::SubmitScore() { //4ac498
         this->AddEntry(fm);
     }
 }
+
+
+

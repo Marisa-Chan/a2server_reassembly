@@ -12,6 +12,8 @@
 #include "player.h"
 #include "gfx.h"
 #include "util.h"
+#include "gameplay.h"
+#include "vis_net.h"
 
 GameApp GameApp::theApp;
 
@@ -1211,3 +1213,4 @@ extern "C" int32_t WINAPI a2WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance
 	AfxWinTerm();
 	return exitCode;
 }
+

@@ -1,7 +1,6 @@
-#include "visual.h"
-#include <timeapi.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <timeapi.h>
 
 #include "server.h"
 #include "main_window.h"
@@ -22,6 +21,7 @@
 #include "buildings_list.h"
 #include "packet.h"
 #include "vis_hat.h"
+#include "gameplay.h"
 
 // HatBrowserProgress implementation (struct declared in net.h)
 
@@ -1043,6 +1043,9 @@ void VisHatSession::VMethod7() { // 4e8545
     UnlockSurface2();
 }
 #endif
+
+
+
 
 
 

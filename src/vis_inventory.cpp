@@ -1,7 +1,6 @@
-#include "visual.h"
-#include <timeapi.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <timeapi.h>
 
 #include "server.h"
 #include "main_window.h"
@@ -22,6 +21,10 @@
 #include "buildings_list.h"
 #include "packet.h"
 #include "vis_inventory.h"
+#include "gameplay.h"
+#include "vis_char.h"
+#include "vis_shop.h"
+#include "vis_menu.h"
 
 // Spellbook pressed-position spell table. 62f8a8
 uint32_t g_SpellbookPressed[24] = {1,0,0,1, 1,1,1,1, 1,1,1,1, 1,0,0,1, 1,0,0,1, 1,1,0,1};
@@ -2765,5 +2768,8 @@ VisSpellBook::VisSpellBook(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
 // 4CB020 (scalar deleting dtor ??_G at 4CB020; complete dtor 4cb050 has no custom cleanup)
 VisSpellBook::~VisSpellBook() {
 }
+
+
+
 
 

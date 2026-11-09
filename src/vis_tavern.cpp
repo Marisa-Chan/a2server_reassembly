@@ -1,7 +1,6 @@
-#include "visual.h"
-#include <timeapi.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <timeapi.h>
 
 #include "server.h"
 #include "main_window.h"
@@ -22,6 +21,10 @@
 #include "buildings_list.h"
 #include "packet.h"
 #include "vis_tavern.h"
+#include "vis_menu.h"
+#include "gameplay.h"
+#include "vis_char.h"
+#include "vis_inventory.h"
 
 // Statics for VisTavSceneDruid::VMethod7 (665D44-665D6C, 631FB0 in the binary).
 static bool tavscene_druid_statics_inited = false;  // 665D64 init bitmask
@@ -2859,6 +2862,10 @@ VisTavKaarg::VisTavKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b
 // 4A4070
 VisTavKaarg::~VisTavKaarg() {
 }
+
+
+
+
 
 
 

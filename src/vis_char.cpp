@@ -1,7 +1,6 @@
-#include "visual.h"
-#include <timeapi.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <timeapi.h>
 
 #include "server.h"
 #include "main_window.h"
@@ -22,6 +21,10 @@
 #include "buildings_list.h"
 #include "packet.h"
 #include "vis_char.h"
+#include "gameplay.h"
+#include "vis_menu.h"
+#include "vis_shop.h"
+#include "vis_inventory.h"
 
 // Blink-cycle state (binary: 659530, 659518, 62CCF4, 62CCF8, 659550, 65953C)
 static uint32_t blink_hover_time = 0;
@@ -2989,5 +2992,8 @@ void VisCharInfo::UpdateCursor() {
     }
     new_cursor->Use();
 }
+
+
+
 
 

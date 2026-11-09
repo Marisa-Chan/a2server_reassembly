@@ -1,7 +1,6 @@
-#include "visual.h"
-#include <timeapi.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <timeapi.h>
 
 #include "server.h"
 #include "main_window.h"
@@ -22,6 +21,10 @@
 #include "buildings_list.h"
 #include "packet.h"
 #include "vis_menu.h"
+#include "vis_shop.h"
+#include "vis_net.h"
+#include "gameplay.h"
+#include "vis_inventory.h"
 
 char g_EmptyStrConfirmHint[4]; //659a54 "" hint string of the action menu confirm button
 char g_EmptyStrCancelHint[4]; //659a58 "" hint string of the action menu cancel button
@@ -3732,6 +3735,9 @@ int32_t VisListBoxDiplomacy::OnKeyDown(uint32_t wparam) {
 // 4E3D30
 void VisListBoxDiplomacy::VMethod30(CPoint pos, const CRect& r) {
 }
+
+
+
 
 
 

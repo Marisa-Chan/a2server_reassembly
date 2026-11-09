@@ -4,9 +4,45 @@
 #include <afxwin.h>
 #include <afxext.h>
 #include "assert_offset.h"
-#include "visual.h"
+#include "vis_core.h"
+#include "vis_fame.h"
 #include "mouse.h"
 #include "net.h"
+
+class BigStruct2;
+class LoadGameWindow;
+class SaveGameWindow;
+class Vis1200;
+class Vis2Action;
+class VisCharGen;
+class VisCharInfo;
+class VisCharSelect;
+class VisConnectionDlg;
+class VisCredits;
+class VisDropGold;
+class VisFameDocument;
+class VisFameHall;
+class VisGlobalMap;
+class VisHatBrowserDlg;
+class VisInvType1;
+class VisLogoWnd;
+class VisMainMenu;
+class VisMiniMap;
+class VisNetMapSelection;
+class VisOrderToolbar;
+class VisRightPanel;
+class VisShop;
+class VisShopDruid;
+class VisShopKaarg;
+class VisSideStatus;
+class VisSpellBook;
+class VisStartGame;
+class VisTav;
+class VisTavDruid;
+class VisTavKaarg;
+class VisTown;
+class VisTownDruid;
+class VisTownKaarg;
 
 // Session/join abort codes stored in g_GameStatusCode: 0x1000 | message id.
 // The low byte selects the message: id < 11 -> TxtFile::AllLines[0xc0 + id]
@@ -691,4 +727,8 @@ ASSERT_OFFSET(MainWindow, m_GameSession, offsetof(MainWindow, app_initialized) +
 ASSERT_OFFSET(MainWindow, m_FameHall, offsetof(MainWindow, m_GameSession) + sizeof(CGameSession) + 4); // field_0x5e4 present
 ASSERT_OFFSET(MainWindow, serverBootstrapEnabled, offsetof(MainWindow, shutdown_pending) + 4 + 0x14); // 5 cursor handles between
 #endif
+
+
+
+
 

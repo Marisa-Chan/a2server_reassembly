@@ -3,14 +3,12 @@
 
 Usage:
   python tool/rename_function.py <old_name> <new_name>
-      Textually renames (word-boundary) across all src/*.h|*.cpp|*.asm
-      (the visual.h umbrella shim excluded), then builds to verify.
+      Textually renames (word-boundary) across all src/*.h|*.cpp|*.asm,
+      then builds to verify.
 
   python tool/rename_function.py <old_name> <new_name> --fixonly
       Skips the initial replacement and only runs the build/fix loop.
 
-The visual.h umbrella shim is never touched; declarations/definitions live in
-vis_core.* and the vis_*.h family stems and are renamed like anywhere else.
 """
 import re
 import subprocess
@@ -43,8 +41,6 @@ def replace_everywhere(old: str, new: str) -> int:
     total = 0
     for pat in ("*.h", "*.cpp", "*.asm"):
         for f in sorted((ROOT / 'src').glob(pat)):
-            if f.name == "visual.h":
-                continue
             text = f.read_text(encoding="utf-8", errors="replace")
             new_text, n = re.subn(r"(?<![\w])" + re.escape(old) + r"(?![\w])", new, text)
             if n:
@@ -109,10 +105,6 @@ def main():
             sys.exit("ERROR: build failed with errors not mentioning the renamed function")
         print(f"round {round_no}: {len(sites)} site(s)")
         for f, ln in sorted(sites):
-            if f.name == "visual.h":
-                # the umbrella shim has no inline bodies, but stay defensive -
-                # a mere declaration never errors. Replace it like any call site.
-                print(f"  NOTE: call site inside visual.h at line {ln}")
             cnt = replace_on_line(f, ln, old, new)
             rel = f.relative_to(ROOT)
             print(f"  {rel}:{ln} ({cnt} replaced)" if cnt else f"  {rel}:{ln} NOTHING REPLACED")

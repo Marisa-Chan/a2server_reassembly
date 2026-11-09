@@ -23,6 +23,8 @@
 #include "spell_effect.h"
 #include "unit.h"
 #include "world.h"
+#include "gameplay.h"
+#include "vis_net.h"
 
 CString g_MissionText; //660f2c
 CString g_MissionBriefing; //660de8
@@ -3175,3 +3177,4 @@ void __cdecl ReadRecord(char* buf, File2* file) {
     file->Seek(-8, CFile::current);
     file->Read(buf, header[1]);
 }
+

@@ -1,7 +1,6 @@
-#include "visual.h"
-#include <timeapi.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <timeapi.h>
 
 #include "server.h"
 #include "main_window.h"
@@ -837,5 +836,7 @@ void VisGlobalMap::SearchRoute(uint16_t from, uint16_t to, GlobalMapRouteArray* 
         delete new_route;
     }
 }
+
+
 
 

@@ -1,4 +1,4 @@
-#include "visual.h"
+#include "vis_core.h"
 #include <timeapi.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
@@ -21,6 +21,8 @@
 #include "unit_list.h"
 #include "buildings_list.h"
 #include "packet.h"
+#include "gameplay.h"
+#include "vis_net.h"
 
 
 
@@ -4293,6 +4295,8 @@ int32_t GetFieldPos(CString str, int32_t field) {
 #ifdef A2CLIENT
 
 #endif
+
+
 
 
 

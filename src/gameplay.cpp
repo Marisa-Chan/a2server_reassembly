@@ -1,8 +1,7 @@
-#include "visual.h"
-#include <timeapi.h>
 #include <winsock2.h>
 #include <cmath>
 #include <ws2tcpip.h>
+#include <timeapi.h>
 
 #include "server.h"
 #include "main_window.h"
@@ -26,7 +25,13 @@
 #include "player_file.h"
 #include "world.h"
 #include "gameplay.h"
+#include "take_damage.h"
+#include "vis_inventory.h"
+#include "vis_shop.h"
+#include "vis_tavern.h"
+#include "vis_hat.h"
 #include "ingame.h"
+#include "vis_char.h"
 
 uint16_t* clr_log_sblack = clrsh_ShockingBlack; //62f88c
 uint16_t* clr_log_tblack = clrsh_TechBlack; //62f890
@@ -9361,4 +9366,7 @@ void VisOrderToolbar::UpdateCursor() {
     }
     new_cursor->Use();
 }
+
+
+
 

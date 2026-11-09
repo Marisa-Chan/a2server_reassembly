@@ -1,7 +1,6 @@
-#include "visual.h"
-#include <timeapi.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <timeapi.h>
 
 #include "server.h"
 #include "main_window.h"
@@ -22,6 +21,8 @@
 #include "buildings_list.h"
 #include "packet.h"
 #include "vis_net.h"
+#include "gameplay.h"
+#include "vis_fame.h"
 
 char g_EmptyStrSrvScreenText[4]; //659a48 zeroed buffer used to clear the server screen text box
 char g_EmptyStrMapTooltip[4]; //659a30 "" placeholder tooltip for net map entries with an unprintable tooltip
@@ -1762,5 +1763,7 @@ VisConnectionDlg::VisConnectionDlg(int32_t _id, int32_t l, int32_t t, int32_t r,
 // 44FA40
 VisConnectionDlg::~VisConnectionDlg() {
 }
+
+
 
 

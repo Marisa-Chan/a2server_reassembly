@@ -267,8 +267,17 @@ Deviations from the plan as written:
   vis_core.h that would have duplicated the VisTav family across vis_core.h and
   vis_tavern.h; the amended commit builds green.
 
-End state: visual.h = 28-line umbrella; vis_core.{h,cpp} = 954 + 4305 lines
-(widget toolkit); gameplay.cpp 9364 (R5 exception, single class); ingame.cpp
-8345 → 297 (gfx wrappers); main_window.cpp 6739 → 6439. Checker mismatch section:
-only ScenarioLocation (documented). client_refs counts unchanged throughout:
-3736 / 3412 / 3519.
+End state: vis_core.{h,cpp} = 954 + 4305 lines (widget toolkit); gameplay.cpp 9364
+(R5 exception, single class); ingame.cpp 8345 → 297 (gfx wrappers); main_window.cpp
+6739 → 6439. Checker mismatch section: only ScenarioLocation (documented).
+client_refs counts unchanged throughout: 3736 / 3412 / 3519.
+
+Follow-up (2026-11-09): the visual.h umbrella shim was removed — it was only meant
+to carry the split. main_window.h now includes vis_core.h + vis_fame.h (CFameHall
+is a by-value member) and forward-declares the screen classes it only points to;
+every other TU includes the concrete stems it uses (main_window.cpp, the
+composition root, includes all of them). Gotcha from that conversion: a group of
+new includes silently landed inside main_window.cpp's `#ifdef A2SERVER_PATCH`
+block, which rea2c does not define — the server build stayed green while the
+client build failed on every screen type. When adding includes near a
+preprocessor block, check which side of it they landed on.

@@ -18,6 +18,9 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include "gameplay.h"
+#include "vis_char.h"
+#include "vis_inventory.h"
 
 CStringArray g_CUnitMaterialSpritePaths; //660e70
 
@@ -4835,3 +4838,6 @@ CAirUnit::CAirUnit() {
 // 46f010
 CAirUnit::~CAirUnit() {
 }
+
+
+

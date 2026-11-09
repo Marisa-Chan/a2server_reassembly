@@ -1,7 +1,6 @@
-#include "visual.h"
-#include <timeapi.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <timeapi.h>
 
 #include "server.h"
 #include "main_window.h"
@@ -22,6 +21,10 @@
 #include "buildings_list.h"
 #include "packet.h"
 #include "vis_shop.h"
+#include "vis_menu.h"
+#include "vis_char.h"
+#include "vis_inventory.h"
+#include "gameplay.h"
 
 // 4b9f20
 static int32_t __cdecl CompareShopTokenEntries(const void* a, const void* b) {
@@ -2744,5 +2747,8 @@ int VisShop::CommitBuy() {
     this->snd_buy->Play();
     return 1;
 }
+
+
+
 
 
