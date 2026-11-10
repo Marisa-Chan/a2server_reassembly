@@ -110,6 +110,13 @@ void Spell::Init() { //5391ab
 
 // 53939E
 int Spell::IsAreaSpell(uint8_t, uint8_t) {
+    #ifdef A2SERVER_PATCH
+    // bug_0008: null spell_info or empty values array -> not an area spell
+    // (guards both derefs instead of crashing)
+    if (this->spell_info == nullptr || this->spell_info->Values().GetData() == nullptr) {
+        return 0;
+    }
+    #endif
     return this->spell_info->Values().GetData()[0].spell_target == 2;
 }
 
