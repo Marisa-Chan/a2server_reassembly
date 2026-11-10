@@ -2550,7 +2550,24 @@ void Humanoid::RecalcStats() {
     const uint16_t ceiling = min(100, max_magic);
     for (size_t i = 1; i < this->protections.magic_protections.size(); i++) {
         uint16_t value = this->protections.magic_protections[i];
+#ifdef A2SERVER_TANGAR_HAT
+        // imp_limit_magic_resist_wrapper hook (532243): per-class/gender
+        // resist caps from config replace the retail spirit-based ceiling
+        const MainCharacterParameters& resist_caps = fighter
+            ? (female ? Config::WarriorFemaleMaxParameters : Config::WarriorMaleMaxParameters)
+            : (female ? Config::MageFemaleMaxParameters : Config::MageMaleMaxParameters);
+        uint16_t resist_limit = 100;
+        switch (i) {
+            case 1: resist_limit = resist_caps.ResistFire; break;
+            case 2: resist_limit = resist_caps.ResistWater; break;
+            case 3: resist_limit = resist_caps.ResistAir; break;
+            case 4: resist_limit = resist_caps.ResistEarth; break;
+            case 5: resist_limit = resist_caps.ResistAstral; break;
+        }
+        this->protections.magic_protections[i] = min(value, resist_limit);
+#else
         this->protections.magic_protections[i] = min(value, ceiling);
+#endif
     }
 
     if (this->spell_book != nullptr) {
