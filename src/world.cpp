@@ -1329,6 +1329,16 @@ void World::RecordUnitHit(Unit* target, Unit* attacker, int32_t hit_flag) {
 
 // 5AAA89
 void World::ChaseOrCast(Unit* unit) {
+#ifdef A2SERVER_TANGAR_HAT
+    // imp_distance_bug_fix hook (5AAA8D): state 13 is "cast point spell from
+    // the book onto an enemy that is too far" - if the queued spell is not
+    // defensive, stop instead of casting
+    if (unit->state == 13) {
+        if (unit->eye2 == nullptr || unit->eye2->spell == nullptr || unit->eye2->spell->is_defensive == 0) {
+            unit->state = 12;
+        }
+    }
+#endif
     if (unit != unit->eye2->unit5 && this->map_stuff->FacesTargetInRange(unit, unit->eye2->unit5, unit->eye2->max_range) == 0) {
         this->StepTowardUnit(unit, unit->eye2->unit5);
         unit->some_state = 1;
