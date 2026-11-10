@@ -7,6 +7,11 @@
 #include "unit_list.h"
 #include "world.h"
 #include "server.h"
+#ifdef A2SERVER_TANGAR_HAT
+#include "patch/flags.h"
+#include "patch/tangar_log.h"
+#include "patch/config_new.h"
+#endif
 
 // 5A5047
 Settings::Settings() {
@@ -214,6 +219,12 @@ void Player::ResetAfkTimer() {
         this->afk_expire_tick = 0;
         this->afk_notify_tick = 0;
         g_NetStru1_main.SendTeamNotify(0xf, 0, this);
+#ifdef A2SERVER_TANGAR_HAT
+        // cancel_camp hook (534B59)
+        if (Config::LogMode & SVL_CAMPING) {
+            Printf("Player %s cancelled camping.", (const char*)this->name);
+        }
+#endif
     }
 }
 

@@ -38,6 +38,10 @@
 
 #include "patch/allowed_picture.h"
 #include "patch/flags.h"
+#ifdef A2SERVER_TANGAR_HAT
+#include "patch/tangar_log.h"
+#include "patch/config_new.h"
+#endif
 
 // ---- Global variables used by JoinPlayer ----
 UnitList* g_ServerUnits;  // pending-unit list
@@ -3519,6 +3523,12 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (!shop) {
                 break;
             }
+#ifdef A2SERVER_TANGAR_HAT
+            // left_shop hook (5065E5)
+            if (Config::LogMode & SVL_BUILDINGS) {
+                Printf("Player %s left shop.", (const char*)unit->pOwner->name);
+            }
+#endif
             shop->ReturnItems(unit);
             shop->CloseShop(unit);
             break;
@@ -3565,6 +3575,12 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (!inn) {
                 break;
             }
+#ifdef A2SERVER_TANGAR_HAT
+            // left_inn hook (5063B6)
+            if (Config::LogMode & SVL_BUILDINGS) {
+                Printf("Player %s left inn.", (const char*)unit->pOwner->name);
+            }
+#endif
             inn->RemoveUnit(static_cast<Humanoid*>(unit), packet_2dwords->param2);
             CString m;
             m.Format("Exit inn: player %d, unit %d, field: %x", packet_2dwords->from_player_id, packet_2dwords->param1, packet_2dwords->param2);
