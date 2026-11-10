@@ -1872,7 +1872,14 @@ void Server::AssignPlayerSlot(Player* player, int32_t slot_data) {
         }
     }
 
+#ifdef A2SERVER_TANGAR_HAT
+    // imp_LogIP hook (4FF783): include the client address in the join log
+    NetStru2* join_client = g_NetStru1_main.GetClientByPlayerID(player->player_id);
+    LogMessage("Player " + player->name + " has joined the game (from: "
+               + CString(join_client != nullptr ? (const char*)join_client->buf : "n/a") + ")");
+#else
     LogMessage("Player " + player->name + " has joined the game");
+#endif
 
     player->AddMoney(0, 1);
 
@@ -4399,7 +4406,11 @@ void Server::HatKeepaliveTick() {
                 file.Read(file_data, file_size);
 
                 NetStru1::HatConnector.SendHatMessage(basic_info->id1, basic_info->id2, login, file_data, file_size, 0);
+#ifndef A2SERVER_TANGAR_HAT
+                // skip_updating_character_log hook (4F117E): dropped from the
+                // production log
                 LogMessage("Updating character data file for " + login);
+#endif
                 file.Close();
             }
         }
@@ -4440,7 +4451,11 @@ void Server::HatKeepaliveTick() {
         file.Read(file_data, file_size);
 
         NetStru1::HatConnector.SendHatCharData(basic_info->id1, basic_info->id2, login, file_data, file_size, 0);
+#ifndef A2SERVER_TANGAR_HAT
+        // skip_returning_character_log hook (4F13F4): dropped from the
+        // production log
         LogMessage("Returning character data file for " + login);
+#endif
         this->hat_upload_tick = tick_count;
         file.Close();
     }
