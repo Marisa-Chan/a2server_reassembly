@@ -45,6 +45,7 @@
 #include "patch/player_settings.h"
 #include "patch/server_state.h"
 #include "patch/tangar_utils.h"
+#include "patch/kick_char.h"
 #endif
 
 // ---- Global variables used by JoinPlayer ----
@@ -2749,6 +2750,45 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             g_NetStru1_main.AnnouncePlayerName(reply, player);
             server_state.ThrottledSave(); // Save diplomacy settings.
             return;
+        }
+
+        // Admin commands (GMF-gated), reconciled from the manager's cheat
+        // engine. Rights = player flags OR-ed with the config escape hatch.
+        uint32_t tangar_rights = player->flags | Config::CheatsAdditionalRights;
+        if ((tangar_rights & GMF_CMD_KICK) != 0) {
+            if (lowered == "#kickme") {
+                KickPlayer(player, true);
+                return;
+            } else if (lowered == "#kickall") {
+                TangarKickAll(nullptr, false);
+                return;
+            } else if (lowered.Find("#kick_silent ") == 0) {
+                CString target_name = cheat_string.Mid(12);
+                target_name.TrimLeft();
+                Player* target = FindPlayerByNickname((const char*)target_name);
+                if (target != nullptr) {
+                    KickPlayer(target, true);
+                }
+                return;
+            } else if (lowered.Find("#disconnect ") == 0) {
+                CString target_name = cheat_string.Mid(11);
+                target_name.TrimLeft();
+                Player* target = FindPlayerByNickname((const char*)target_name);
+                if (target != nullptr) {
+                    DisconnectPlayer(target);
+                }
+                return;
+            } else if (lowered.Find("#kick ") == 0) {
+                // The manager's #kick performs the real kick (the baseline
+                // variant only announces).
+                CString target_name = cheat_string.Mid(6);
+                target_name.TrimLeft();
+                Player* target = FindPlayerByNickname((const char*)target_name);
+                if (target != nullptr) {
+                    KickPlayer(target, false);
+                }
+                return;
+            }
         }
     }
 #endif
