@@ -41,6 +41,7 @@
 #ifdef A2SERVER_TANGAR_HAT
 #include "patch/tangar_log.h"
 #include "patch/config_new.h"
+#include "patch/player_info.h"
 #endif
 
 // ---- Global variables used by JoinPlayer ----
@@ -3969,6 +3970,18 @@ void Server::ProcessClientPacket(Packet* pkt) {
             uint8_t chat_type = packet_join->token_id;   // chat type (byte 0xb)
             uint8_t recipient_id = packet_join->player_id;  // private message target (byte 0xa)
 
+#ifdef A2SERVER_TANGAR_HAT
+            // public_chat/private_chat/shout_chat hooks: mute system - a
+            // per-player timed mute (PI UnmuteDate) or the global SVF_MUTED
+            // server flag suppress the message; GMs (GMF_ANY) bypass the
+            // global flag only
+            PlayerInfo* pi = PI_Get(player);
+            if ((pi != nullptr && pi->UnmuteDate != 0 && time(nullptr) < (time_t)pi->UnmuteDate) ||
+                ((Config::ServerFlags & SVF_MUTED) != 0 && (player->flags & GMF_ANY) != GMF_ANY)) {
+                break;
+            }
+#endif
+
             PacketJoin out;
             out.id = packet_join->id;
             out.__as_dword = (uint32_t)(packet_join->from_player_id & 0xFF) | ((uint32_t)chat_type << 8);
@@ -3977,7 +3990,14 @@ void Server::ProcessClientPacket(Packet* pkt) {
             case CHAT_TYPE_REGULAR: // Regular message: send to all non-AI players within range.
                 for (POSITION node = g_PlayersList->list.GetHeadPosition(); node;) {
                     Player* other = g_PlayersList->list.GetNext(node);
-                    if (!other->is_ai && player->main_unit->position->Distance(other->main_unit->position) <= g_ServerConfig.chat_range) {
+#ifdef A2SERVER_TANGAR_HAT
+                    // public_chat_2 hook: don't deliver to AI players, players
+                    // without a main unit, or phased-out units (attrs bit 8)
+                    if (other->is_ai || other->main_unit == nullptr || (other->main_unit->unit_attrs & 8) != 0) {
+                        continue;
+                    }
+#endif
+                    if (player->main_unit->position->Distance(other->main_unit->position) <= g_ServerConfig.chat_range) {
                         out.to_player_id = other->player_id;
                         strcpy(out.name, packet_join->name);
                         g_NetStru1_main.QueuePacketSend(&out);
@@ -3987,7 +4007,14 @@ void Server::ProcessClientPacket(Packet* pkt) {
             case CHAT_TYPE_ALLIES: // Allies: send to players with diplomacy bit 2 set toward sender.
                 for (POSITION node = g_PlayersList->list.GetHeadPosition(); node;) {
                     Player* other = g_PlayersList->list.GetNext(node);
-                    if (!other->is_ai && (g_World->diplomacy.diplomacy[player->player_id][other->player_id] & DIPLO_ALLIANCE) != 0) {
+#ifdef A2SERVER_TANGAR_HAT
+                    // private_chat_2 hook: don't deliver to AI players, players
+                    // without a main unit, or phased-out units (attrs bit 8)
+                    if (other->is_ai || other->main_unit == nullptr || (other->main_unit->unit_attrs & 8) != 0) {
+                        continue;
+                    }
+#endif
+                    if ((g_World->diplomacy.diplomacy[player->player_id][other->player_id] & DIPLO_ALLIANCE) != 0) {
                         out.to_player_id = other->player_id;
                         strcpy(out.name, packet_join->name);
                         g_NetStru1_main.QueuePacketSend(&out);
@@ -3995,6 +4022,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 }
                 break;
             case CHAT_TYPE_PRIVATE: // Private message.
+            {
                 out.from_player_id = player->player_id;
                 out.player_id = player->player_id;
                 out.token_id = chat_type;
@@ -4002,10 +4030,19 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 out.to_player_id = packet_join->to_player_id;
                 strcpy(out.name, packet_join->name);
                 g_NetStru1_main.QueuePacketSend(&out);
+#ifdef A2SERVER_TANGAR_HAT
+                // private_chat_3 hook: don't deliver to a recipient whose
+                // unit is missing or phased out (the sender CC stands)
+                Player* recipient = g_PlayersList->FindById(recipient_id);
+                if (recipient == nullptr || recipient->main_unit == nullptr || (recipient->main_unit->unit_attrs & 8) != 0) {
+                    break;
+                }
+#endif
                 // Deliver to target.
                 out.to_player_id = (uint16_t)recipient_id;
                 g_NetStru1_main.QueuePacketSend(&out);
                 break;
+            }
             case CHAT_TYPE_YELL: // Yell: global with cooldown.
                 if (player->shout_cooldown == 0) {
                     out.from_player_id = player->player_id;
@@ -4308,6 +4345,12 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
     if (this->send_full_state != 0) {
         g_NetStru1_main.SendAllData();
     }
+
+#ifdef A2SERVER_TANGAR_HAT
+    // imp_PIadd hook (4FF418): track the joined player in the Tangar
+    // per-player info (mute state etc.)
+    PI_Create(player);
+#endif
 }
 
 void Server::JoinErrorSend(NetStru2* client, int32_t error_code, const CString& str) {
@@ -4795,6 +4838,25 @@ int Server::LoadGame(CString map_name) {
     if (g_ServerConfig.gameType == GAME_TYPE_ARENA) {
         this->SetupArenaFileList();
     }
+
+#ifdef A2SERVER_TANGAR_HAT
+    {
+        // imp_LoadedMap callback (4F191D): track the loaded map, update the
+        // window title and rebuild the Tangar per-player info. The map-title
+        // read (+0x1C8), ClearStapleCells and the player-settings map-vote
+        // reset return with those features.
+        Config::CurrentMapName = (const char*)this->current_map_name;
+        Config::CurrentMapTitle.clear();
+        Config::MapLoaded = true;
+        CString title;
+        title.Format("Server ID %u (%s)", Config::ServerID, (const char*)this->current_map_name);
+        if (CWnd* main_wnd = AfxGetMainWnd()) {
+            main_wnd->SetWindowTextA(title);
+        }
+        Printf("Loaded map \"%s\".", Config::CurrentMapName.c_str());
+        PI_Reset();
+    }
+#endif
 
     return 0;
 }

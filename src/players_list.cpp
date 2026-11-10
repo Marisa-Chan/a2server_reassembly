@@ -10,6 +10,9 @@
 #include "unit.h"
 #include "unit_list.h"
 #include "world.h"
+#ifdef A2SERVER_TANGAR_HAT
+#include "patch/player_info.h"
+#endif
 
 
 // 5357C6
@@ -437,6 +440,10 @@ void PlayersList::ProcessPlayerTimeouts() {
 			if (found != nullptr) {
 				this->list.RemoveAt(found);
 			}
+#ifdef A2SERVER_TANGAR_HAT
+			// imp_PIdel hook (535439): drop the Tangar per-player info
+			PI_Delete(player);
+#endif
 			delete player;
 
 			g_Server->UpdateHatAnnounce();
