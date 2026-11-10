@@ -152,7 +152,12 @@ void UnitList::ProcessTick() {
 			}
 
 			// Kill attribution
+			#ifdef A2SERVER_PATCH
+			// bug_0015: unit->pOwner may be null - skip kill attribution
+			if (unit->last_hit_by != NULL && unit->pOwner != NULL) {
+			#else
 			if (unit->last_hit_by != NULL) {
+			#endif
 				if (unit->last_hit_by->typeId < 0x21 || unit->last_hit_by->typeId > 0x3f) {
 					// Killer is NOT a monster type
 					if (0x20 < unit->typeId && unit->typeId < 0x40 && unit->last_hit_by->IsUnit() != 0 && unit->last_hit_by->monster_info != NULL) {
