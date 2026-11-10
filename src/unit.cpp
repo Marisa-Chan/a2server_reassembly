@@ -941,10 +941,25 @@ int32_t Unit::IsHumanoid() {
 void Unit::ReleaseObjects() {
     // 52a504
     if (this->some_item && ((this->some_item->item_id >> 8) & 0xF) == 0xE) {
+        #ifdef A2SERVER_PATCH
+        // bug_0002: some_item can be a zombie (destroyed earlier, zeroed
+        // vtable) - skip the delete instead of crashing on virtual dispatch
+        if (*reinterpret_cast<void**>(this->some_item) != nullptr) {
+            delete this->some_item;
+        }
+        #else
         delete this->some_item;
+        #endif
         this->some_item = nullptr;
         if (this->some_spell) {
+            #ifdef A2SERVER_PATCH
+            // bug_0003: same zombie guard for some_spell
+            if (*reinterpret_cast<void**>(this->some_spell) != nullptr) {
+                delete this->some_spell;
+            }
+            #else
             delete this->some_spell;
+            #endif
         }
         this->some_spell = nullptr;
     }
@@ -1193,6 +1208,12 @@ void Unit::AwardCastExperience(Unit*, int32_t)
 {}
 
 int32_t Unit::GetCorpseDecayTime() {
+    #ifdef A2SERVER_PATCH
+    // bug_0004: monster_info may be null (guards the whole deref chain)
+    if (this->monster_info == nullptr) {
+        return 0;
+    }
+    #endif
     return this->monster_info->Values()[0].dying_time;
 }
 
