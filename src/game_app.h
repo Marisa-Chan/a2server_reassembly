@@ -234,5 +234,6 @@ extern TxtFile txt_patch; //65FFE0
 extern TxtFile g_GlobalMapLocationHints; //660e88
 
 extern ServerConfig g_ServerConfig; //6D15A0
+extern int32_t g_EnableVideo; //62f87c  client:5fb96c
 
 #endif

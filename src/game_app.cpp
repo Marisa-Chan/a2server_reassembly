@@ -73,6 +73,8 @@ uint32_t g_CpuFeatureFlags;     // 660f84
 
 GameDataRes g_GameDataRes; // 6d0668
 
+int32_t g_EnableVideo = 1; //62f87c  client:5fb96c
+
 void GameSettings::Init() { // 442386
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
     this->pGameSpeed = &mwnd->game_speed;
@@ -824,7 +826,21 @@ BOOL GameApp::InitInstance() {
 
 	// client: 48626d — vanilla checked the CD before the main-menu message.
 	// We have disabled the CD check.
+#ifdef A2CLIENT
+	if (g_IsCdPresent == 0) {
+		mwnd->ShowNoCDIntro();
+		mwnd->PostMessageA(MAIN_MSG_CD_CHECK_FAILED, 0, 0);
+	}
+	else {
+		if (strstr(m_lpCmdLine, "-startserver") == nullptr && strstr(m_lpCmdLine, "-cfg") == nullptr && strstr(m_lpCmdLine, ".asl") == nullptr) {
+			if (mwnd->PlayIntroVideos())
+				mwnd->PlayVideo(0);
+		}
+		mwnd->PostMessageA(MAIN_MSG_MAIN_MENU, 0, 0);
+	}
+#else
 	mwnd->PostMessageA(MAIN_MSG_MAIN_MENU, 0, 0);
+#endif
 
 	g_AutoRunEvent = CreateEventA(NULL, TRUE, TRUE, "Allods 2 AutoRun");
 

@@ -2964,6 +2964,9 @@ void MainWindow::PlayVideo(int32_t vid_id) { //491f7d
 
     this->music_player->OnEndTrack();
 
+    if (!g_EnableVideo)
+        return;
+
     this->dialogsMask |= DIALOG_MASK_VIDEO;
     int32_t first = 1;
     g_using_vxd = g_using_vxd | (1u << (vid_id & 0x1f));
@@ -3462,7 +3465,10 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
     case MAIN_MSG_SHOW_CUTSCENES:
         // original binaries guard this with a CD-present check (0062f87c,
         // cleared by a catch handler around PlayVideo); removed - no CD drives
-        {
+        if (!g_EnableVideo) {
+            PostMessage(MAIN_MSG_MAIN_MENU, 0, 0);
+        }
+        else {
             CStringArray local_934;
             for (int i = 0; i < 32; i++) {
                 if ((g_using_vxd & (1 << i)) != 0) {
@@ -5761,6 +5767,89 @@ int32_t MainWindow::LeaveServerMode() { //490eb3
     }
 
     return 0;
+}
+
+
+
+void MainWindow::ShowNoCDIntro() {
+//491d8a  client: 4965e4
+
+    dialogsMask |= DIALOG_MASK_VIDEO;
+
+    g_mousept.Unpaint();
+
+    CBmp64* logo = new CBmp64("main\\graphics\\logo\\allods.bmp");
+
+    LockSurface2();
+    FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+
+    logo->Draw(vis_scr_rect.left, vis_scr_rect.top, 0, 0, 0);
+
+    UnlockSurface2();
+    FlushScreen();
+
+    delete logo;
+
+    uint32_t start_time = timeGetTime();
+    while(true) {
+        MSG msg;
+        if (PeekMessageA(&msg, NULL, 0, 0, PM_REMOVE)) {
+            if (msg.message == WM_QUIT || msg.message == WM_CLOSE || msg.message == WM_LBUTTONDOWN ||
+                msg.message == WM_RBUTTONDOWN || msg.message == WM_KEYDOWN || msg.message == WM_SYSKEYDOWN) {
+                TranslateMessage(&msg);
+                DispatchMessageA(&msg);
+                break;
+            }
+            TranslateMessage(&msg);
+            DispatchMessageA(&msg);
+        }
+
+        if (timeGetTime() - start_time > 5000)
+            break;
+    }
+
+    dialogsMask &= ~DIALOG_MASK_VIDEO;
+
+    LockSurface2();
+    FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+    UnlockSurface2();
+    FlushScreen();
+
+    g_mousept.Paint();
+}
+
+
+int MainWindow::PlayIntroVideos() {
+//492193  client: 4969e3
+    music_player->OnEndTrack();
+
+    if (!g_EnableVideo)
+        return 0;
+
+    dialogsMask |= DIALOG_MASK_VIDEO;
+
+    g_mousept.Update();
+    g_mousept.Unpaint();
+
+    LockSurface2();
+    FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+    UnlockSurface2();
+    FlushScreen();
+
+    int res = PlaySmackerVideo(m_hWnd, "video\\logos\\publisher.smk");
+    if (res)
+        res = PlaySmackerVideo(m_hWnd, "video\\logos\\nival.smk");
+
+    dialogsMask &= ~DIALOG_MASK_VIDEO;
+
+    g_mousept.Paint();
+
+    LockSurface2();
+    FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+    UnlockSurface2();
+    FlushScreen();
+
+    return res;
 }
 
 

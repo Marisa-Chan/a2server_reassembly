@@ -586,6 +586,9 @@ public:
     int32_t CheckWebVersion(const CString& str); //4e5466 (client: 4ea996)
     int32_t LeaveServerMode(); //490eb3 (client: 4952fb)
 
+    void ShowNoCDIntro(); //491d8a  client: 4965e4
+    int PlayIntroVideos(); //492193  client: 4969e3
+
 public:
     int32_t has_focus;
     int32_t console_active;
