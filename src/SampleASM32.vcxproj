@@ -330,6 +330,7 @@
     <ClCompile Include="inn.cpp" />
     <ClCompile Include="inventory.cpp" />
     <ClCompile Include="item.cpp" />
+    <ClCompile Include="lib\smacker.c" />
     <ClCompile Include="logic.cpp" />
     <ClCompile Include="main_window.cpp" />
     <ClCompile Include="map_stuff.cpp" />
@@ -354,6 +355,7 @@
     <ClCompile Include="shelf.cpp" />
     <ClCompile Include="shop.cpp" />
     <ClCompile Include="shop_assortment.cpp" />
+    <ClCompile Include="smacker_player.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="spell.cpp" />
     <ClCompile Include="spell_effect.cpp" />
@@ -368,6 +370,7 @@
     <ClCompile Include="visibility.cpp" />
     <ClCompile Include="vis_hat.cpp" />
     <ClCompile Include="vis_fame.cpp" />
+    <ClCompile Include="vis_playing_area.cpp" />
     <ClCompile Include="vis_worldmap.cpp" />
     <ClCompile Include="vis_net.cpp" />
     <ClCompile Include="vis_town.cpp" />
