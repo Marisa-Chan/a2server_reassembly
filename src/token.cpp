@@ -59,6 +59,11 @@ void TokenPos::Serialize(CArchive& ar) {
 
 uint8_t TokenPos::GetX() const {
 	//58aaf0
+	#ifdef A2SERVER_PATCH
+	if (this == nullptr) {
+		return 0;
+	}
+	#endif
 	return this->x;
 }
 
