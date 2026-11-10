@@ -2493,6 +2493,28 @@ void Humanoid::RecalcStats() {
         this->speed = static_cast<uint16_t>(adjusted < 6 ? 6 : adjusted);
     }
 
+#ifdef A2SERVER_TANGAR_HAT
+    // set_char_min_speed hook (531B72): clamp the computed speed into the
+    // ServerID-dependent range (EASY 15..15 ... beyond HARD 8..35)
+    {
+        uint16_t min_speed = 8, max_speed = 35;
+        switch (Config::ServerID) {
+            case EASY: min_speed = 15; max_speed = 15; break;
+            case KIDS: min_speed = 12; max_speed = 21; break;
+            case NIVAL: min_speed = 11; max_speed = 23; break;
+            case MEDIUM: min_speed = 10; max_speed = 25; break;
+            case HARD: min_speed = 9; max_speed = 30; break;
+            default: break;
+        }
+        if (this->speed < min_speed) {
+            this->speed = min_speed;
+        }
+        if (this->speed > max_speed) {
+            this->speed = max_speed;
+        }
+    }
+#endif
+
     const double body_pow = std::pow(1.1, static_cast<double>(this->body));
     this->hit_values.hand_damage_spread = static_cast<uint8_t>(body_pow / 20.0);
     this->hit_values.hand_damage_min = this->hit_values.hand_damage_spread;
