@@ -153,7 +153,12 @@ void UnitList::ProcessTick() {
 
 			// Kill attribution
 			#ifdef A2SERVER_PATCH
-			// bug_0015: unit->pOwner may be null - skip kill attribution
+			// part_of_kill hook (5569EF): units with hp_max <= 0 must not
+			// attribute kills; their last_hit_by is cleared. bug_0015:
+			// unit->pOwner may be null - skip kill attribution.
+			if (unit->hp_max <= 0) {
+				unit->last_hit_by = nullptr;
+			}
 			if (unit->last_hit_by != NULL && unit->pOwner != NULL) {
 			#else
 			if (unit->last_hit_by != NULL) {
