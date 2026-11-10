@@ -3909,6 +3909,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 player->ResetAfkTimer();
 
                 if (player->main_unit && player->main_unit->hp > -1) {
+#ifdef A2SERVER_PATCH
+                    // self_damage hook (5084F5): don't attribute self-damage
+                    // (zero damage_by / last_hit_by before the hit processes)
+                    player->main_unit->last_hit_by = nullptr;
+#endif
                     player->main_unit->hp -= 1;
                     g_NetStru1_main.SendLevelUp(player->main_unit, 1);
                 }
