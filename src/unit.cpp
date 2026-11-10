@@ -18,6 +18,10 @@
 #include "player.h"
 #include "sack.h"
 #include "server.h"
+#ifdef A2SERVER_TANGAR_HAT
+#include "patch/config_new.h"
+#include "patch/tangar_log.h"
+#endif
 #include "shop.h"
 #include "shop_assortment.h"
 #include "spell.h"
@@ -2771,6 +2775,12 @@ void Humanoid::CopyFrom(Humanoid* other) {
 
 // 53116B
 void Humanoid::ReviveWithPenalty() {
+    #ifdef A2SERVER_TANGAR_HAT
+    // player_respawned_init hook (53118A)
+    if (this->pOwner != nullptr) {
+        Printf("Player %s respawned.\n", (const char*)this->pOwner->name);
+    }
+    #endif
     this->experience = 0;
     for (int32_t i = 1; i < 6; i++) {
         if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
@@ -2781,7 +2791,13 @@ void Humanoid::ReviveWithPenalty() {
             this->experience += this->experience_per_sphere[i - 1];
             this->hit_values.skill_levels[i] = ExperienceTable::GetLevel(this->experience_per_sphere[i - 1]);
         } else {
+            #ifdef A2SERVER_TANGAR_HAT
+            // player_respawned hook (531278): respawn experience multiplier
+            // from config (retail: integer *9/10)
+            this->experience_per_sphere[i - 1] = (uint32_t)(this->experience_per_sphere[i - 1] * Config::RespawnExpMult2);
+            #else
             this->experience_per_sphere[i - 1] = (this->experience_per_sphere[i - 1] * 9) / 10;
+            #endif
             this->experience += this->experience_per_sphere[i - 1];
             this->hit_values.skill_levels[i] = ExperienceTable::GetLevel(this->experience_per_sphere[i - 1]);
         }
