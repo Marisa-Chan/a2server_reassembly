@@ -657,7 +657,14 @@ void Inn::RegenTick() {
     // Phase 2: Tick the quest-roll counter; when it exceeds 120 and the inn is
     // empty, refresh quests for each player and reset the counter.
     this->quest_roll_counter++;
-    if (this->quest_roll_counter > 120 && this->unit_list.unit_list.IsEmpty()) {
+    if (this->quest_roll_counter >
+#ifdef A2SERVER_TANGAR_HAT
+        // imp_inn_quest_roll_interval hook (567E7C): configurable roll rate
+        Config::QuestRollInterval
+#else
+        120
+#endif
+        && this->unit_list.unit_list.IsEmpty()) {
         POSITION qpos = this->quest_map_per_player.GetStartPosition();
         while (qpos) {
             uint32_t player_id;
@@ -779,6 +786,16 @@ void Inn::InnReward(Player* player) {
         return;
     }
 
+#ifdef A2SERVER_TANGAR_HAT
+    // bound_quest_reward hook (565406): configurable reward bounds
+    // (defaults equal the retail constants)
+    if (reward > Config::MaxQuestReward) {
+        reward = Config::MaxQuestReward;
+    }
+    if (reward < Config::MinQuestReward) {
+        reward = Config::MinQuestReward;
+    }
+#else
     if (reward > 16383000) {
         // The reward can't be much higher: gold is sent in a uint16_t multiple of 250,
         // and 65535 * 250 = 16_383_750, so the max reward is just below that.
@@ -787,6 +804,7 @@ void Inn::InnReward(Player* player) {
     if (reward < 250) {
         reward = 250;
     }
+#endif
 
     // Check if player already has a reward stored.
     Inventory* existing;
