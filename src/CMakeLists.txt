@@ -83,6 +83,7 @@ set(A2SERVER_SOURCES
   patch/tangar_log.cpp
   patch/config_new.cpp
   patch/server_state.cpp
+  patch/player_info.cpp
 )
 
 add_executable(rea2s ${A2_SOURCES} ${A2SERVER_SOURCES})
