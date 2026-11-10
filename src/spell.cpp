@@ -253,6 +253,13 @@ int32_t Spell::StartCast(Unit* caster, Unit* target, int8_t x, int8_t y) {
         return 0;
 	}
 
+    #ifdef A2SERVER_PATCH
+    // bug_0009: empty values array (null m_pData) - fail the cast instead of
+    // crashing on the delivery_system read
+    if (this->spell_info->Values().GetData() == nullptr) {
+        return 0;
+    }
+    #endif
     const SpellInfoData& info = this->spell_info->Values().GetData()[0];
     int32_t delay = 0;
     if (info.delivery_system == 2) {
@@ -360,6 +367,17 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
         return;
     }
 
+    #ifdef A2SERVER_PATCH
+    // bug_000A/000B/000C/000D/000E family (7 sites: 539FFE, 53BF64, 53C736,
+    // 53C73F, 53C94B, 53CA30, 53CA39): the values array can be empty (null
+    // m_pData). The patched binary guards each m_pData re-read mid-function
+    // (six recoveries jump to the common cleanup; the 53A091 one skips the
+    // power calc with stale locals); our single top binding covers all paths,
+    // so one guard + return is the equivalent.
+    if (this->spell_info->Values().GetData() == nullptr) {
+        return;
+    }
+    #endif
     const SpellInfoData& info = this->spell_info->Values().GetData()[0];
     int32_t sphere = info.sphere;
 
