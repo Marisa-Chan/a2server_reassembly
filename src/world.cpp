@@ -2135,6 +2135,12 @@ void World::ScriptOP_0x0a(TriggerAction* action) {
 
 // 5b3e56 — Give item from one unit (action->unit) to another (action->multi)
 void World::ScriptOP_0x0b(TriggerAction* action) {
+    #ifdef A2SERVER_PATCH
+    // bug_001B: action->unit can be null - skip the script op
+    if (action->unit == nullptr) {
+        return;
+    }
+    #endif
     Item* item = action->unit->inventory->TakeItemById(action->item_id);
     g_NetStru1_main.SendMonsterInventory(action->unit, action->unit->pOwner, 0, 0);
     if (item) {
@@ -2164,11 +2170,23 @@ void World::ScriptOP_0x0d(TriggerAction* action) {
 
 // 5b408d — kill unit
 void World::ScriptOP_0x0e(TriggerAction* action) {
+    #ifdef A2SERVER_PATCH
+    // bug_001C: action->unit can be null - skip the script op
+    if (action->unit == nullptr) {
+        return;
+    }
+    #endif
     g_NetStru1_main.SendHumanoidProps(action->unit, action->unit->pOwner, EQUIP_SLOTS_ALL);
 }
 
 // 5b40ba — kill unit (same as 0x0e)
 void World::ScriptOP_0x0f(TriggerAction* action) {
+    #ifdef A2SERVER_PATCH
+    // bug_001D: action->unit can be null - skip the script op
+    if (action->unit == nullptr) {
+        return;
+    }
+    #endif
     g_NetStru1_main.SendHumanoidProps(action->unit, action->unit->pOwner, EQUIP_SLOTS_ALL);
 }
 
