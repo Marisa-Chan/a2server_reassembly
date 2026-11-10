@@ -23,6 +23,9 @@
 #include "token.h"
 #include "unit.h"
 #include "unit_list.h"
+#ifdef A2SERVER_TANGAR_HAT
+#include "patch/config_new.h"
+#endif
 #include "world.h"
 #include "map_stuff.h"
 
@@ -915,6 +918,17 @@ void Inn::InnReward(Player* player) {
 
         uint8_t max_body, max_reaction, max_mind, max_spirit;
 
+#ifdef A2SERVER_TANGAR_HAT
+        // set_*_max_parameters_taking_potion hooks (566149/56617A/5661B6/
+        // 5661EA): the stat-potion caps come from config
+        const MainCharacterParameters& caps = is_fighter
+            ? (is_female ? Config::WarriorFemaleMaxParameters : Config::WarriorMaleMaxParameters)
+            : (is_female ? Config::MageFemaleMaxParameters : Config::MageMaleMaxParameters);
+        max_body = caps.Body;
+        max_reaction = caps.Reaction;
+        max_mind = caps.Mind;
+        max_spirit = caps.Spirit;
+#else
         if (is_fighter && !is_female) {
             max_body = 52;
             max_reaction = 50;
@@ -936,6 +950,7 @@ void Inn::InnReward(Player* player) {
             max_mind = 50;
             max_spirit = 52;
         }
+#endif
 
         // Note: vanilla logic used a retrying loop.
         std::vector<const char*> upgradable;
