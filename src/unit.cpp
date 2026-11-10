@@ -837,7 +837,15 @@ void Unit::ProcessEffects() {
                         if (this->some_item != nullptr) {
                             if (((this->some_item->item_id >> 8) & 0xF) == 0xE) {
                                 delete this->some_item;
+                                #ifdef A2SERVER_PATCH
+                                // bug_0005: some_spell can be a zombie (zeroed
+                                // vtable) - skip the delete instead of crashing
+                                if (*reinterpret_cast<void**>(this->some_spell) != nullptr) {
+                                    delete this->some_spell;
+                                }
+                                #else
                                 delete this->some_spell;
+                                #endif
                             }
                             this->some_item = nullptr;
                             this->some_spell = nullptr;
@@ -856,7 +864,15 @@ void Unit::ProcessEffects() {
                     }
                     this->charge_countdown = (int8_t)(this->relax + relax_extra + Random0N(3));
                     if ((this->some_state == 0xd || this->some_state == 0xe) && this->some_spell != nullptr) {
+                        #ifdef A2SERVER_PATCH
+                        // bug_0006: spell values array can be empty (null
+                        // m_pData) - skip the add instead of crashing
+                        if (this->some_spell->spell_info->Values().GetSize() != 0) {
+                            this->charge_countdown += (int8_t)this->some_spell->spell_info->Values()[0].level;
+                        }
+                        #else
                         this->charge_countdown += (int8_t)this->some_spell->spell_info->Values()[0].level;
+                        #endif
                     }
                 }
             } else if (this->some_state2 == 7) { // Countdown after attack or spell execution.
