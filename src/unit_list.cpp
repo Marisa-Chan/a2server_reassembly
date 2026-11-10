@@ -110,7 +110,14 @@ void UnitList::ProcessTick() {
 
 		// Tick alive unit
 		if (unit->some_state != 0x10) {
+			#ifdef A2SERVER_PATCH
+			// bug_0014: skip the virtual call for zombie units (zeroed vtable)
+			if (*reinterpret_cast<void**>(unit) != nullptr) {
+				unit->ProcessEffects();
+			}
+			#else
 			unit->ProcessEffects();
+			#endif
 		}
 
 		// Process dead unit
