@@ -2400,6 +2400,17 @@ void Humanoid::RecalcStats() {
 
     uint16_t max_body, max_reaction, max_mind, max_spirit;
 
+#ifdef A2SERVER_TANGAR_HAT
+    // set_*_max_parameters hooks (531650/53166C/531696/5316B8): the
+    // class/gender stat caps come from config (defaults = retail values)
+    const MainCharacterParameters& caps = fighter
+        ? (female ? Config::WarriorFemaleMaxParameters : Config::WarriorMaleMaxParameters)
+        : (female ? Config::MageFemaleMaxParameters : Config::MageMaleMaxParameters);
+    max_body = caps.Body;
+    max_reaction = caps.Reaction;
+    max_mind = caps.Mind;
+    max_spirit = caps.Spirit;
+#else
     if (fighter) {
         if (female) {
             max_body = 50;
@@ -2425,6 +2436,7 @@ void Humanoid::RecalcStats() {
             max_spirit = 50;
         }
     }
+#endif
 
     this->body = min(this->body, max_body + this->equipment_extra.body);
     this->reaction = min(this->reaction, max_reaction + this->equipment_extra.reaction);
