@@ -79,6 +79,10 @@ set(A2_SOURCES
 set(A2SERVER_SOURCES
   patch/kick_char.cpp
   patch/allowed_picture.cpp
+  patch/tangar_utils.cpp
+  patch/tangar_log.cpp
+  patch/config_new.cpp
+  patch/server_state.cpp
 )
 
 add_executable(rea2s ${A2_SOURCES} ${A2SERVER_SOURCES})
