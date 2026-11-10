@@ -3919,6 +3919,15 @@ void Server::ProcessClientPacket(Packet* pkt) {
     case CHAT: // Chat message.
         CheckPacketType(pkt, "PacketJoin");
         {
+#ifdef A2SERVER_PATCH
+            // chat_crash_fix hook (50716D): control characters in the chat
+            // text are replaced with spaces before further processing
+            for (char* p = packet_join->name; *p != '\0'; p++) {
+                if ((uint8_t)*p < 0x20) {
+                    *p = ' ';
+                }
+            }
+#endif
             CString msg(packet_join->name);
             if (msg.IsEmpty()) {
                 break;
