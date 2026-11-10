@@ -2980,7 +2980,11 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context) {
     //522e8f
     CLlDriver* drv = (CLlDriver*)context;
 
+#ifndef A2SERVER_PATCH
+    // setthreadp hook (522EA1): the patched server skips raising the accept
+    // thread's priority
     SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_ABOVE_NORMAL);
+#endif
 
     while (true) {
         if (drv->listen_socket.is_in_use != 1) {
