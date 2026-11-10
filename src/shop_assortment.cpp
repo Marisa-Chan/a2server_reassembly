@@ -9,6 +9,9 @@
 #include "item.h"
 #include "server.h"
 #include "table.h"
+#ifdef A2SERVER_TANGAR_HAT
+#include "patch/tangar_log.h"
+#endif
 
 static const uint16_t warrior_spells[] = { spell::stone_curse, spell::drain_life };
 static const uint16_t mage_spells[] = { spell::fire_arrow, spell::lightning, spell::prismatic_spray, spell::stone_curse, spell::drain_life, spell::ice_missile, spell::stone_missile };
@@ -448,6 +451,10 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
     }
 
     if (max_count > 1000) {
+#ifdef A2SERVER_TANGAR_HAT
+        // imp_ShopError hook (54DBA1): log instead of a blocking message box
+        Printf("Shop error: amount > 1000!");
+#else
         HWND hWnd = nullptr;
         CWinThread* thread = AfxGetThread();
         if (thread != nullptr) {
@@ -457,6 +464,7 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
             }
         }
         MessageBoxA(hWnd, "Amount > 1000", "Shop Error", 0);
+#endif
     }
 
     int32_t retry_count = 0;
