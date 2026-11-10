@@ -42,6 +42,8 @@
 #include "patch/tangar_log.h"
 #include "patch/config_new.h"
 #include "patch/player_info.h"
+#include "patch/player_settings.h"
+#include "patch/server_state.h"
 #endif
 
 // ---- Global variables used by JoinPlayer ----
@@ -2602,6 +2604,71 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
 // 502D0B
 void Server::CheatCommand(Player* player, CString cheat_string) {
     LogMessage("Server::CheatCommand: player " + player->name + " sent cheat command: " + cheat_string);
+
+#ifdef A2SERVER_TANGAR_HAT
+    // Selectively reconciled commands from the manager's cheat engine.
+    // Player-facing settings commands come first (available to everyone).
+    {
+        CString lowered(cheat_string);
+        lowered.MakeLower();
+        lowered.TrimLeft();
+
+        if (lowered.Find("#autobuff") == 0 || lowered.Find("#ab") == 0) {
+            CString args = cheat_string.Mid(lowered.Find("#autobuff") == 0 ? 9 : 3);
+            args.TrimLeft();
+            args.MakeLower();
+            // ProcessCheat_Autobuff from the manager: toggle one spell in the
+            // player's persisted autobuff mask (prefix match on the name)
+            settings::PlayerSettings* player_settings = settings::FindOrCreate((const char*)player->name);
+            static const struct { const char* name; uint32_t spell_number; } autobuff_spells[] = {
+                {"heal", 0x18},
+                {"haste", 0x15},
+                {"bless", 0x14},
+                {"shield", 0x1B},
+                {"invisibility", 0x0C},
+                {"fire protection", 0x04},
+                {"water protection", 0x08},
+                {"air protection", 0x0D},
+                {"earth protection", 0x13},
+            };
+
+            if (args.GetLength() == 0) {
+                player_settings->autobuff_mask = 0;
+                player_settings->last_modified = time(nullptr);
+                g_NetStru1_main.AnnouncePlayerName("Autobuff mask reset, all spells are allowed", player);
+            } else {
+                const char* command = (const char*)args;
+                if (strcmp(command, "h") == 0) {
+                    command = "heal"; // the only disambiguation needed
+                }
+                bool matched = false;
+                for (const auto& spell : autobuff_spells) {
+                    if (strncmp(spell.name, command, strlen(command)) == 0) {
+                        uint32_t mask = 1u << spell.spell_number;
+                        player_settings->autobuff_mask ^= mask;
+                        player_settings->last_modified = time(nullptr);
+                        CString reply;
+                        if ((player_settings->autobuff_mask & mask) != 0) {
+                            reply.Format("Filtered out *%s*, you will not cast it during autobuff", spell.name);
+                        } else {
+                            reply.Format("You will cast *%s* during autobuff normally", spell.name);
+                        }
+                        g_NetStru1_main.AnnouncePlayerName(reply, player);
+                        matched = true;
+                        break;
+                    }
+                }
+                if (!matched) {
+                    CString reply;
+                    reply.Format("'%s' does not match any spells. Autobuff mask left unchanged.", command);
+                    g_NetStru1_main.AnnouncePlayerName(reply, player);
+                }
+            }
+            server_state.ThrottledSave(); // Save autobuff settings.
+            return;
+        }
+    }
+#endif
 
     if (this->multiplayer != 0) {
         // Non-admin commands.
