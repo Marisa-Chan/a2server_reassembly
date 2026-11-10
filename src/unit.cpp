@@ -21,6 +21,7 @@
 #ifdef A2SERVER_TANGAR_HAT
 #include "patch/config_new.h"
 #include "patch/tangar_log.h"
+#include "patch/flags.h"
 #endif
 #include "shop.h"
 #include "shop_assortment.h"
@@ -2570,6 +2571,12 @@ uint32_t Humanoid::RecalcExperience() {
 
 // 530745
 void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
+    #ifdef A2SERVER_TANGAR_HAT
+    // imp_GMNoLevelUp hook (530745): full GMs (GMF_ANY) don't level up
+    if (this->pOwner != nullptr && (this->pOwner->flags & GMF_ANY) == GMF_ANY) {
+        return;
+    }
+    #endif
     if (g_ServerConfig.gameType != GAME_TYPE_COOPERATIVE) {
         return;
     }
@@ -2794,6 +2801,11 @@ void Humanoid::ReviveWithPenalty() {
     }
     #endif
     this->experience = 0;
+    #ifdef A2SERVER_TANGAR_HAT
+    // imp_GMNoLevelDown hook (53126B): full GMs (GMF_ANY) skip the
+    // respawn experience penalty
+    if (!(this->pOwner != nullptr && (this->pOwner->flags & GMF_ANY) == GMF_ANY))
+    #endif
     for (int32_t i = 1; i < 6; i++) {
         if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
             this->hit_values.skill_levels[i] = 70;
