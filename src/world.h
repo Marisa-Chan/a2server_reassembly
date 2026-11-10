@@ -348,6 +348,7 @@ public:
     int32_t PickAttackSpell(Unit* unit, Unit* target); // 5B6632 — AI mage spell selection: pick a random affordable non-defensive spell. (client: 5847a2)
     void CastSelfHealOrBuff(Unit* unit); // 5A845B — AI mage retreat helper: cast healing/buff on self or most-damaged ally. (client: 5765cb)
     Spell* GetCastableSpell(Unit* unit, int32_t spell_number, int32_t flag); // Pick spell by number if unit has enough MP. (client: 575b46)
+    Spell* GetAutobuffSpell(Unit* unit, int32_t spell_number); // autobuff-family hooks: GetCastableSpell honoring the per-player autobuff_mask
     int32_t ShouldAutobuff(Unit* unit, Unit* other); // Check if `unit` should autobuff `other` (diplomacy/settings check). (client: 575b8c)
     void DoAutobuff(Unit* unit); // Autobuff handler: pick and cast buff spells on self or allies. (client: 575cb4)
     int32_t IsSpellInRange(Unit* unit, Unit* other, Spell* spell); // Check if `other` is in range of spell from `unit`. (client: 575c67)

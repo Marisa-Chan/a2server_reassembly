@@ -27,6 +27,9 @@
 #include "token.h"
 #include "unit.h"
 #include "virtual_caster.h"
+#ifdef A2SERVER_TANGAR_HAT
+#include "patch/player_settings.h"
+#endif
 
 World* g_World; // 6a8b8c
 
@@ -1746,7 +1749,7 @@ void World::DoAutobuff(Unit* unit) {
 
     // Self-heal.
     if (unit->hp != unit->hp_max) {
-        Spell* spell = this->GetCastableSpell(unit, spell::heal, 0);
+        Spell* spell = this->GetAutobuffSpell(unit, spell::heal);
         if (spell != nullptr) {
             unit->eye2->action_done = 1;
             this->BeginAutobuffCast(unit, unit, spell);
@@ -1756,7 +1759,7 @@ void World::DoAutobuff(Unit* unit) {
 
     // Self-shield.
     if ((unit->enchantments & (1 << spell::shield)) == 0) {
-        Spell* spell = this->GetCastableSpell(unit, spell::shield, 0);
+        Spell* spell = this->GetAutobuffSpell(unit, spell::shield);
         if (spell != nullptr) {
             unit->eye2->action_done = 1;
             this->BeginAutobuffCast(unit, unit, spell);
@@ -1769,7 +1772,7 @@ void World::DoAutobuff(Unit* unit) {
     this->SplitTargetLists(unit, &this->nearby_list);
 
     // Ally-heal.
-    Spell* spell = this->GetCastableSpell(unit, spell::heal, 0);
+    Spell* spell = this->GetAutobuffSpell(unit, spell::heal);
     if (spell != nullptr && this->non_targets.unit_list.GetCount() > 1) {
         double best_ratio = 2.0;
         Unit* best_unit = nullptr;
@@ -1819,7 +1822,7 @@ void World::DoAutobuff(Unit* unit) {
             int32_t autobuff_backoff = abs((int32_t)other->eye2->autobuff_tick - g_Server->tick);
 
             // Bless: requires fighter, no matching enchantment.
-            spell = this->GetCastableSpell(unit, spell::bless, 0);
+            spell = this->GetAutobuffSpell(unit, spell::bless);
             if (spell != nullptr && (other->unit_attrs & 4) == 0 && (other->enchantments & (1 << spell::bless)) == 0) {
                 if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
                     if (this->IsSpellInRange(unit, other, spell) != 0) {
@@ -1831,7 +1834,7 @@ void World::DoAutobuff(Unit* unit) {
             }
 
             // Haste: no matching enchantment.
-            spell = this->GetCastableSpell(unit, spell::haste, 0);
+            spell = this->GetAutobuffSpell(unit, spell::haste);
             if (spell != nullptr && (other->enchantments & (1 << spell::haste)) == 0) {
                 if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
                     if (this->IsSpellInRange(unit, other, spell) != 0) {
@@ -1867,7 +1870,7 @@ void World::DoAutobuff(Unit* unit) {
             int32_t autobuff_backoff = abs((int32_t)other->eye2->autobuff_tick - g_Server->tick);
 
             // Protection from air: no matching enchantment.
-            spell = this->GetCastableSpell(unit, spell::protection_from_air, 0);
+            spell = this->GetAutobuffSpell(unit, spell::protection_from_air);
             if (spell != nullptr && this->IsSpellInRange(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::protection_from_air)) == 0) {
                     if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
@@ -1879,7 +1882,7 @@ void World::DoAutobuff(Unit* unit) {
             }
 
             // Protection from earth: no matching enchantment.
-            spell = this->GetCastableSpell(unit, spell::protection_from_earth, 0);
+            spell = this->GetAutobuffSpell(unit, spell::protection_from_earth);
             if (spell != nullptr && this->IsSpellInRange(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::protection_from_earth)) == 0) {
                     if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
@@ -1891,7 +1894,7 @@ void World::DoAutobuff(Unit* unit) {
             }
 
             // Protection from fire: no matching enchantment.
-            spell = this->GetCastableSpell(unit, spell::protection_from_fire, 0);
+            spell = this->GetAutobuffSpell(unit, spell::protection_from_fire);
             if (spell != nullptr && this->IsSpellInRange(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::protection_from_fire)) == 0) {
                     if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
@@ -1903,7 +1906,7 @@ void World::DoAutobuff(Unit* unit) {
             }
 
             // Protection from water: no matching enchantment.
-            spell = this->GetCastableSpell(unit, spell::protection_from_water, 0);
+            spell = this->GetAutobuffSpell(unit, spell::protection_from_water);
             if (spell != nullptr && this->IsSpellInRange(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::protection_from_water)) == 0) {
                     if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
@@ -1915,7 +1918,7 @@ void World::DoAutobuff(Unit* unit) {
             }
 
             // Invisibility: no matching enchantment, not self, diplomacy check.
-            spell = this->GetCastableSpell(unit, spell::invisibility, 0);
+            spell = this->GetAutobuffSpell(unit, spell::invisibility);
             if (spell != nullptr && this->IsSpellInRange(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::invisibility)) == 0 && unit != other) {
                     if ((this->diplomacy.diplomacy[unit->pOwner->player_id][other->pOwner->player_id] & (DIPLO_WAR | DIPLO_ALLIANCE)) != 0) {
@@ -1931,7 +1934,7 @@ void World::DoAutobuff(Unit* unit) {
     }
 
     // Self-invisibility --- last.
-    spell = this->GetCastableSpell(unit, spell::invisibility, 0);
+    spell = this->GetAutobuffSpell(unit, spell::invisibility);
     if (spell != nullptr && (unit->enchantments & (1 << spell::invisibility)) == 0) {
         unit->eye2->action_done = 1;
         this->BeginAutobuffCast(unit, unit, spell);
@@ -2685,6 +2688,21 @@ Spell* World::GetCastableSpell(Unit* unit, int32_t spell_number, int32_t /*flag*
         return nullptr;
     }
     return spell;
+}
+
+// autobuff-family hooks (5A7BBD..5A83FE, 11 call sites inside DoAutobuff):
+// wraps GetCastableSpell for the autobuff paths only - a bit set in the
+// player's persisted autobuff_mask suppresses that spell (AI is exempt).
+Spell* World::GetAutobuffSpell(Unit* unit, int32_t spell_number) {
+#ifdef A2SERVER_TANGAR_HAT
+    if (!unit->pOwner->is_ai) {
+        settings::PlayerSettings* ps = settings::Find((const char*)unit->pOwner->name);
+        if (ps != nullptr && (ps->autobuff_mask & (1u << spell_number)) != 0) {
+            return nullptr;
+        }
+    }
+#endif
+    return this->GetCastableSpell(unit, spell_number, 0);
 }
 
 // Check whether `other` is within `spell`'s max range from `unit`.
