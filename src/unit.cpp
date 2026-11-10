@@ -2564,7 +2564,8 @@ void Humanoid::RecalcStats() {
             case 4: resist_limit = resist_caps.ResistEarth; break;
             case 5: resist_limit = resist_caps.ResistAstral; break;
         }
-        this->protections.magic_protections[i] = min(value, resist_limit);
+        // the hook clamps the already-retail-clamped value once more
+        this->protections.magic_protections[i] = min(min(value, ceiling), resist_limit);
 #else
         this->protections.magic_protections[i] = min(value, ceiling);
 #endif
