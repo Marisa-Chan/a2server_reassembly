@@ -422,6 +422,12 @@ int Item::IsSimilar(Item* other) {
         return 0;
     }
 
+    #ifdef A2SERVER_PATCH
+    // bug_0011: 'this' can be a zombie item (zeroed vtable) - not similar
+    if (*reinterpret_cast<void**>(this) == nullptr) {
+        return 0;
+    }
+    #endif
     int v1 = this->IsSimpleItem();
     int v2 = other->IsSimpleItem();
     if (v1 != 0 && v2 != 0) {
