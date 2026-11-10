@@ -7,6 +7,22 @@
 #include "game_app.h"
 #include "players_list.h"
 #include "quest_map.h"
+#ifdef A2SERVER_TANGAR_HAT
+#include "patch/config_new.h"
+#endif
+
+#ifdef A2SERVER_TANGAR_HAT
+// death_update_exp from the manager (player_died/player_killed/
+// player_pkilled hooks): scale each sphere's experience by the multiplier
+// and recompute the total.
+static void TangarApplyDeathExpPenalty(Humanoid* unit, double mult) {
+	unit->experience = 0;
+	for (int32_t i = 0; i < 5; i++) {
+		unit->experience_per_sphere[i] = (uint32_t)(unit->experience_per_sphere[i] * mult);
+		unit->experience += unit->experience_per_sphere[i];
+	}
+}
+#endif
 
 //555a1d
 UnitList::UnitList() = default;
@@ -166,6 +182,10 @@ void UnitList::ProcessTick() {
 				if (unit->last_hit_by->typeId < 0x21 || unit->last_hit_by->typeId > 0x3f) {
 					// Killer is NOT a monster type
 					if (0x20 < unit->typeId && unit->typeId < 0x40 && unit->last_hit_by->IsUnit() != 0 && unit->last_hit_by->monster_info != NULL) {
+						#ifdef A2SERVER_TANGAR_HAT
+						// player_killed hook (557005)
+						TangarApplyDeathExpPenalty(static_cast<Humanoid*>(unit), Config::KilledExpMult);
+						#endif
 						CString msg;
 						uint8_t y = unit->position->GetY();
 						uint8_t x = unit->position->GetX();
@@ -198,7 +218,11 @@ void UnitList::ProcessTick() {
 					// Killer (a monster) is also dead — mutual kill
 					if (unit->pOwner->is_ai == 0) {
 						CString msg;
-						msg.Format("Player %s has died.", (const char*)unit->pOwner->name);
+						#ifdef A2SERVER_TANGAR_HAT
+						// player_died hook (556A56) - applied before the died message
+						TangarApplyDeathExpPenalty(static_cast<Humanoid*>(unit), Config::DeathExpMult);
+						#endif
+msg.Format("Player %s has died.", (const char*)unit->pOwner->name);
 						LogMessage(msg);
 					}
 					unit->last_hit_by = nullptr;
@@ -224,7 +248,11 @@ void UnitList::ProcessTick() {
 						CString msg;
 						uint8_t y = unit->position->GetY();
 						uint8_t x = unit->position->GetX();
-						msg.Format("Player %s pkilled by %s at %d,%d", (const char*)unit->pOwner->name, (const char*)unit->last_hit_by->pOwner->name, x, y);
+						#ifdef A2SERVER_TANGAR_HAT
+						// player_pkilled hook (556BE6) - applied before the pkilled message
+						TangarApplyDeathExpPenalty(static_cast<Humanoid*>(unit), Config::PKExpMult);
+						#endif
+msg.Format("Player %s pkilled by %s at %d,%d", (const char*)unit->pOwner->name, (const char*)unit->last_hit_by->pOwner->name, x, y);
 						LogMessage(msg);
 						uint32_t kill_sphere = 0;
 						if (g_ServerConfig.gameType != GAME_TYPE_COOPERATIVE) {
