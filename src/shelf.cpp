@@ -24,7 +24,14 @@ CMultiShopShelf::~CMultiShopShelf() {
 // 545865
 void CMultiShopShelf::ClearItems() {
     for (int i = 0; i < this->items.GetSize(); i++) {
+        #ifdef A2SERVER_PATCH
+        // bug_0010: skip deleting zombie items (zeroed vtable)
+        if (*reinterpret_cast<void**>(this->items[i]) != nullptr) {
+            delete this->items[i];
+        }
+        #else
         delete this->items[i];
+        #endif
     }
     this->items.RemoveAll();
 }
