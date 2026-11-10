@@ -15,6 +15,9 @@
 #include "gameplay.h"
 #include "vis_playing_area.h"
 #include "vis_net.h"
+#ifdef A2SERVER_TANGAR_HAT
+#include "patch/config_new.h"
+#endif
 
 GameApp GameApp::theApp;
 
@@ -345,6 +348,13 @@ int32_t GetRandS16(int32_t range) {
 }
 
 int32_t ParseConfig(const char* fname) { // 4f7188
+#ifdef A2SERVER_TANGAR_HAT
+	// Tangar config v2.0: the patched server replaces the stock parser
+	// wholesale with the manager's ReadConfig (imp_ParseConfig takeover at
+	// this address; the load_config hook at 482CCC only re-pushed the same
+	// "server.cfg" argument, so nothing else is needed there)
+	return ReadConfig(fname);
+#else
 	CStdioFile file;
 	if (!file.Open(fname, 0, nullptr)) {
 		return -1;
@@ -552,6 +562,7 @@ int32_t ParseConfig(const char* fname) { // 4f7188
 	}
 
 	return 0;
+#endif // A2SERVER_TANGAR_HAT
 }
 
 
