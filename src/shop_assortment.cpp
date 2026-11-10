@@ -11,6 +11,7 @@
 #include "table.h"
 #ifdef A2SERVER_TANGAR_HAT
 #include "patch/tangar_log.h"
+#include "patch/config_new.h"
 #endif
 
 static const uint16_t warrior_spells[] = { spell::stone_curse, spell::drain_life };
@@ -424,14 +425,26 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
 
             item = new Item("Potion Health Regeneration");
             item->count = Random1N(50) + 50;
+#ifdef A2SERVER_TANGAR_HAT
+            // imp_increase_potions_in_shops hook: scale the potion stack
+            item->count = (int16_t)(item->count * Config::shop_potions_factor);
+#endif
             item_array.SetAtGrow(item_array.GetSize(), item);
 
             item = new Item("Potion Medium Healing");
             item->count = Random1N(50) + 50;
+#ifdef A2SERVER_TANGAR_HAT
+            // imp_increase_potions_in_shops hook: scale the potion stack
+            item->count = (int16_t)(item->count * Config::shop_potions_factor);
+#endif
             item_array.SetAtGrow(item_array.GetSize(), item);
 
             item = new Item("Potion Big Healing");
             item->count = Random1N(50) + 50;
+#ifdef A2SERVER_TANGAR_HAT
+            // imp_increase_potions_in_shops hook: scale the potion stack
+            item->count = (int16_t)(item->count * Config::shop_potions_factor);
+#endif
             item_array.SetAtGrow(item_array.GetSize(), item);
         }
 
@@ -439,14 +452,26 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
 
         item = new Item("Potion Mana Regeneration");
         item->count = Random1N(50) + 50;
+#ifdef A2SERVER_TANGAR_HAT
+            // imp_increase_potions_in_shops hook: scale the potion stack
+            item->count = (int16_t)(item->count * Config::shop_potions_factor);
+#endif
         item_array.SetAtGrow(item_array.GetSize(), item);
 
         item = new Item("Potion Medium Mana");
         item->count = Random1N(50) + 50;
+#ifdef A2SERVER_TANGAR_HAT
+            // imp_increase_potions_in_shops hook: scale the potion stack
+            item->count = (int16_t)(item->count * Config::shop_potions_factor);
+#endif
         item_array.SetAtGrow(item_array.GetSize(), item);
 
         item = new Item("Potion Big Mana");
         item->count = Random1N(50) + 50;
+#ifdef A2SERVER_TANGAR_HAT
+            // imp_increase_potions_in_shops hook: scale the potion stack
+            item->count = (int16_t)(item->count * Config::shop_potions_factor);
+#endif
         item_array.SetAtGrow(item_array.GetSize(), item);
     }
 
