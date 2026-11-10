@@ -1041,6 +1041,12 @@ void World::CastSelfHealOrBuff(Unit* unit) {
 // eligible unit when target is null). If no target is found the caster idles.
 // 5A85F4
 void World::BeginAutobuffCast(Unit* caster, Unit* target, Spell* spell) {
+    #ifdef A2SERVER_PATCH
+    // bug_001A: target->eye2 may be null - treat the target as unavailable
+    if (target != nullptr && target->eye2 == nullptr) {
+        target = nullptr;
+    }
+    #endif
     if (target == nullptr) {
         PosYX yx = caster->position->GetYX();
         UnitList* list = (spell->is_defensive != 0) ? this->GetNearbyAllies(caster, yx) : this->GetNearbyEnemies(caster, yx);
