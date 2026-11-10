@@ -281,6 +281,12 @@ int32_t Spell::StartCast(Unit* caster, Unit* target, int8_t x, int8_t y) {
 
 // 53D368
 SpellBook::~SpellBook() {
+    #ifdef A2SERVER_PATCH
+    // bug_000F: spells.m_pData can be null (corrupted array) - skip the loop
+    if (this->spells.GetData() == nullptr) {
+        return;
+    }
+    #endif
     for (int i = 0; i < this->spells.GetSize(); ++i) {
         delete this->spells[i];
         this->spells[i] = nullptr;
