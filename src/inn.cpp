@@ -135,6 +135,15 @@ void Inn::InnCreateQuests(Player* player) {
                 continue;
             }
 
+            #ifdef A2SERVER_PATCH
+            // bug_0017: an AI player's unit_list can be null - bail out of
+            // quest generation (recovery = function exit; the histogram loops
+            // have no observable side effects, so guarding the first walk
+            // matches the patched site wherever it fires)
+            if (p->unit_list == nullptr) {
+                return;
+            }
+            #endif
             POSITION upos = p->unit_list->unit_list.GetHeadPosition();
             while (upos) {
                 Unit* u = p->unit_list->unit_list.GetNext(upos);
