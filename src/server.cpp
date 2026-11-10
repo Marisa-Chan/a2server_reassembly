@@ -2790,6 +2790,128 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 return;
             }
         }
+
+        // Map / server admin commands (GMF_CMD_SET gated), from the
+        // manager's cheat engine (zxmgr::NextMap/PrevMap + timer helpers).
+        if ((tangar_rights & GMF_CMD_SET) != 0) {
+            if (lowered == "#nextmap") {
+                g_ServerConfig.current_map_index += 1;
+                if (g_ServerConfig.current_map_index >= (uint32_t)g_ServerConfig.map_durations.GetSize()) {
+                    g_ServerConfig.current_map_index = 0;
+                }
+                this->SignalGameStart(0);
+                return;
+            } else if (lowered == "#prevmap") {
+                if (g_ServerConfig.current_map_index > 0) {
+                    g_ServerConfig.current_map_index -= 1;
+                } else {
+                    int32_t count = (int32_t)g_ServerConfig.map_durations.GetSize();
+                    if (count > 0) {
+                        g_ServerConfig.current_map_index = (uint32_t)(count - 1);
+                    } else {
+                        g_ServerConfig.current_map_index -= 1; // matches the DLL fallthrough
+                    }
+                }
+                this->SignalGameStart(0);
+                return;
+            } else if (lowered == "#shutdown") {
+                TerminateProcess(GetCurrentProcess(), 100);
+                return;
+            } else if (lowered == "#suspend") {
+                if (!Config::Suspended) {
+                    Config::OriginalTime = g_ServerConfig.map_durations[g_ServerConfig.current_map_index];
+                    g_ServerConfig.map_durations[g_ServerConfig.current_map_index] = 0x7FFFFFFF;
+                    g_NetStru1_main.AnnouncePlayerName("suspend: map timer suspended.", player);
+                } else {
+                    bool change_map = false;
+                    uint32_t cur_time = this->map_elapsed_time2 / 60000;
+                    if (cur_time >= Config::OriginalTime) {
+                        change_map = true;
+                    }
+
+                    g_ServerConfig.map_durations[g_ServerConfig.current_map_index] = Config::OriginalTime;
+                    Config::OriginalTime = 0;
+
+                    g_NetStru1_main.AnnouncePlayerName("suspend: map timer released.", player);
+
+                    if (change_map) {
+                        Printf("Note: map timer beyond total map time. Changing map...");
+                        g_ServerConfig.current_map_index += 1;
+                        if (g_ServerConfig.current_map_index >= (uint32_t)g_ServerConfig.map_durations.GetSize()) {
+                            g_ServerConfig.current_map_index = 0;
+                        }
+                        this->SignalGameStart(0);
+                    }
+                }
+                Config::Suspended = !Config::Suspended;
+                return;
+            } else if (lowered.Find("#speed") == 0) {
+                CString speed_str = cheat_string.Mid(6);
+                speed_str.TrimLeft();
+                speed_str.TrimRight();
+                if (CheckInt((const char*)speed_str)) {
+                    uint32_t speed = StrToUInt((const char*)speed_str);
+                    if (speed == 0) {
+                        speed = 1;
+                    }
+                    if (speed > 8) {
+                        speed = 8;
+                    }
+                    g_ServerConfig.game_speed = speed;
+                    g_NetStru1_main.SendGameInfo(speed, nullptr);
+                }
+                return;
+            } else if (lowered.Find("#set mode") == 0) {
+                CString mode_str = cheat_string.Mid(9);
+                mode_str.TrimLeft();
+                if (mode_str.IsEmpty()) {
+                    CString reply;
+                    reply.Format("mode is set to %08X", Config::ServerFlags);
+                    g_NetStru1_main.AnnouncePlayerName(reply, player);
+                } else {
+                    int32_t add_flags = 0;
+                    if (mode_str[0] == '+') {
+                        add_flags = 1;
+                        mode_str = mode_str.Mid(1);
+                    } else if (mode_str[0] == '-') {
+                        add_flags = -1;
+                        mode_str = mode_str.Mid(1);
+                    } else if (mode_str[0] != '=') {
+                        return;
+                    }
+                    mode_str = mode_str.Mid(1); // the '='
+                    mode_str.TrimLeft();
+
+                    uint32_t old_mode = Config::ServerFlags;
+                    uint32_t flags = ParseFlags((const char*)mode_str);
+                    if (add_flags == -1) {
+                        Config::ServerFlags &= ~flags;
+                    } else if (add_flags == 1) {
+                        Config::ServerFlags |= flags;
+                    } else {
+                        Config::ServerFlags = flags;
+                    }
+
+                    if (old_mode != Config::ServerFlags) {
+                        CString reply;
+                        reply.Format("mode is set to %08X (was: %08X)", Config::ServerFlags, old_mode);
+                        g_NetStru1_main.AnnouncePlayerName(reply, player);
+                        if (Config::ServerFlags & SVF_SOFTCORE) {
+                            MAX_SKILL = 110;
+                            Config::ServerCaps |= SVC_SOFTCORE;
+                        } else {
+                            MAX_SKILL = 100;
+                            Config::ServerCaps &= ~SVC_SOFTCORE;
+                        }
+                    } else {
+                        CString reply;
+                        reply.Format("mode is set to %08X", Config::ServerFlags);
+                        g_NetStru1_main.AnnouncePlayerName(reply, player);
+                    }
+                }
+                return;
+            }
+        }
     }
 #endif
 
