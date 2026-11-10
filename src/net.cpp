@@ -790,7 +790,14 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
             uint16_t tid = unit->typeId;
             if (tid < 0x21 || tid > 0x3F) {
                 mask &= 0xc0c000fb;
-            } else if (g_World != nullptr) {
+            }
+            #ifdef A2SERVER_PATCH
+            // bug_0001: unit->pOwner may be null here - skip the vision-share
+            // check (keep the full mask) instead of crashing
+            else if (g_World != nullptr && unit->pOwner != nullptr) {
+            #else
+            else if (g_World != nullptr) {
+            #endif
                 if ((g_World->diplomacy.diplomacy[unit->pOwner->player_id][player->player_id] & DIPLO_VISION_SHARE) == 0) {
                     mask &= 0xc0c000fb;
                 }
