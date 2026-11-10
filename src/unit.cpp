@@ -2874,6 +2874,12 @@ void Humanoid::InitCreationSkills(int8_t main_skill, int8_t skill_level) {
 
 // 532DDE
 void Humanoid::ApplyHumanInfo(CArray<HumanInfoData>* data) {
+    #ifdef A2SERVER_PATCH
+    // bug_0007: empty human info array (null m_pData) - skip applying the data
+    if (data->GetData() == nullptr) {
+        return;
+    }
+    #endif
     HumanInfoData& d = data->GetData()[0];
 
     if (d.body != -1) {
