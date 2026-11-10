@@ -478,6 +478,14 @@ inline TYPE CList<TYPE, ARG_TYPE>::GetTail() const {
 }
 template<class TYPE, class ARG_TYPE>
 inline POSITION CList<TYPE, ARG_TYPE>::GetHeadPosition() const {
+	#ifdef A2SERVER_PATCH
+	// Patched server guarded the CList<Unit> instantiation against a null
+	// 'this' (bug_0019); the guard is crash-path-only, so it covers every
+	// instantiation here.
+	if (this == nullptr) {
+		return nullptr;
+	}
+	#endif
 	return (POSITION)m_pNodeHead;
 }
 template<class TYPE, class ARG_TYPE>
