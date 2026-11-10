@@ -4211,6 +4211,11 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
     if (player) {
         player_not_exist = false;
 
+#ifdef A2SERVER_TANGAR_HAT
+        // allow_low_skill_enter_high_tier_maps hook (4FE632): the patched
+        // server skips the map-tier check entirely
+        if (false)
+#endif
         if (this->MapLevel != -1 && g_CLlDriver.provider != PROVIDER_HAT_TCP) {
             if (strong > this->MapLevel) {
                 this->JoinErrorSend(client, 14, "Character is too strong for this map.");
