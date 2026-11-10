@@ -44,6 +44,7 @@
 #include "patch/player_info.h"
 #include "patch/player_settings.h"
 #include "patch/server_state.h"
+#include "patch/tangar_utils.h"
 #endif
 
 // ---- Global variables used by JoinPlayer ----
@@ -2665,6 +2666,88 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 }
             }
             server_state.ThrottledSave(); // Save autobuff settings.
+            return;
+        }
+
+        // ProcessCheat_Diplomacy from the manager: the player's default
+        // diplomacy toward newly met players (persisted).
+        auto describe_diplomacy = [](int diplomacy) -> CString {
+            CString description;
+            if (diplomacy & 1) {
+                description += "war";
+            }
+            if (diplomacy & 2) {
+                description += description.IsEmpty() ? "" : "+";
+                description += "ally";
+            }
+            if (diplomacy & 4) {
+                description += description.IsEmpty() ? "" : "+";
+                description += "silent";
+            }
+            if (diplomacy & 16) {
+                description += description.IsEmpty() ? "" : "+";
+                description += "vision";
+            }
+            if (description.IsEmpty()) {
+                description = "nothing";
+            }
+            return description;
+        };
+
+        CString diplomacy_args;
+        if (lowered.Find("#diplomacy") == 0) {
+            diplomacy_args = cheat_string.Mid(10);
+        } else if (lowered.Find("#fren") == 0) { // easter-egg alias
+            diplomacy_args = "ally+vision";
+        }
+        if (diplomacy_args != "") {
+            diplomacy_args.TrimLeft();
+            diplomacy_args.TrimRight();
+            diplomacy_args.MakeLower();
+            settings::PlayerSettings* player_settings = settings::FindOrCreate((const char*)player->name);
+
+            if (diplomacy_args.IsEmpty()) {
+                CString reply;
+                reply.Format("Your default diplomacy is: %s", (const char*)describe_diplomacy(player_settings->default_diplomacy));
+                g_NetStru1_main.AnnouncePlayerName(reply, player);
+                return;
+            }
+
+            int new_diplomacy = 0;
+            if (CheckInt((const char*)diplomacy_args)) {
+                new_diplomacy = StrToUInt((const char*)diplomacy_args) & 0x17;
+            } else {
+                for (const auto& part : Explode((const char*)diplomacy_args, "+")) {
+                    std::string mode = Trim(part);
+                    if (mode == "war") {
+                        new_diplomacy |= 1;
+                    } else if (mode == "ally") {
+                        new_diplomacy |= 2;
+                    } else if (mode == "silent") {
+                        new_diplomacy |= 4;
+                    } else if (mode == "vision") {
+                        new_diplomacy |= 16;
+                    } else if (mode == "nothing") {
+                        // Pass.
+                    } else {
+                        CString reply;
+                        reply.Format("Unknown diplomacy mode '%s'. Supported values: nothing, war, ally, silent, vision. Example: 'ally+vision'.", mode.c_str());
+                        g_NetStru1_main.AnnouncePlayerName(reply, player);
+                        return;
+                    }
+                }
+            }
+
+            if (new_diplomacy & 2) {
+                new_diplomacy &= ~1; // Can't be ally and at war.
+            }
+
+            player_settings->default_diplomacy = new_diplomacy;
+            player_settings->last_modified = time(nullptr);
+            CString reply;
+            reply.Format("Default diplomacy set to: %s", (const char*)describe_diplomacy(player_settings->default_diplomacy));
+            g_NetStru1_main.AnnouncePlayerName(reply, player);
+            server_state.ThrottledSave(); // Save diplomacy settings.
             return;
         }
     }
