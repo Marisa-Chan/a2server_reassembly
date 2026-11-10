@@ -719,6 +719,14 @@ void Unit::ProcessEffects() {
     }
 
     // Decay.
+#ifdef A2SERVER_TANGAR_HAT
+    // check_health hook (52BD75): a unit idling at exactly 0 HP with active
+    // regen would stay in limbo forever (hiding behind "nearly-dead"
+    // monsters); once a minute one such unit drops to -1 and dies
+    if (this->hp == 0 && this->hp_regen > 0 && (time(nullptr) % 60) == 0) {
+        this->hp = -1;
+    }
+#endif
     if (this->hp < 1) {
         this->state = 0;
         this->some_state = 0;
