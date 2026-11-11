@@ -105,6 +105,13 @@ void NetStru1::SendExistingPlayers(Player* player) {
 		if (p == player) {
 			continue;
 		}
+#ifdef A2SERVER_TANGAR_HAT
+		// adm_invis hook (51C901): invisible GMs are hidden from the joining
+		// player's view of the world
+		if ((p->flags & 0x3F000800) == 0x3F000800) {
+			continue;
+		}
+#endif
 
 		PacketJoin& packet = PacketJoin::Inst;
 
