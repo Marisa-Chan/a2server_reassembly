@@ -90,6 +90,7 @@ set(A2SERVER_SOURCES
   patch/forbidden_items.cpp
   patch/quest_filters.cpp
   patch/damage_filter.cpp
+  patch/pvm2.cpp
 )
 
 add_executable(rea2s ${A2_SOURCES} ${A2SERVER_SOURCES})

@@ -10,6 +10,7 @@
 #include "config_new.h"
 #include "flags.h"
 #include "player_info.h"
+#include "pvm2.h"
 
 #include "../effect.h"
 #include "../item.h"
@@ -116,9 +117,10 @@ int32_t TangarOnDamage(Unit* attacker, Unit* victim, int16_t damage) {
     }
 
     // Advanced PvM: strong players cannot attack weak players and vice versa
-    // (VerifyDamage2's strong/weak check is not ported yet; block nothing)
     if ((Config::ServerFlags & SVF_ADVPVM) != 0) {
-        // no-op until vd2_CheckStrong lands
+        if (tangar_pvm2::VerifyDamage2(attacker, victim)) {
+            retval = 0;
+        }
     }
 
     if (attacker_player != nullptr && (attacker_player->flags & GMF_ANY) == GMF_ANY) {
