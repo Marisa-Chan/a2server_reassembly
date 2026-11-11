@@ -99,12 +99,11 @@ void GM_a28::Add(const char* msg, uint16_t* clr, uint32_t t) {
 	bool restart = this->text.GetSize() == 0;
 
 #ifdef A2CLIENT_PATCH
-	// CHAT_tilde hooks: escape tildes when adding chat text
-	CString escaped = TangarDoubleTilde(msg);
-	CStringArray& lines = fnt->StringArrayForRect(this->out_area, (const char*)escaped);
-#else
-	CStringArray& lines = fnt->StringArrayForRect(this->out_area, msg);
+	// CHAT_logStrings hook (4021FE): every added chat line is echoed
+	// to the client log
+	LogMessage(CString(msg));
 #endif
+	CStringArray& lines = fnt->StringArrayForRect(this->out_area, msg);
 	for (int i = 0; i < lines.GetSize(); i++) {
 		CString& s = lines[i];
 		for (int j = 0; j < s.GetLength(); j++) {
@@ -190,6 +189,11 @@ void GM_a28::Draw() {
 
 	for (int i = 0; i < this->text.GetSize(); i++) {
 		CString s = this->text[i];
+#ifdef A2CLIENT_PATCH
+		// CHAT_tilde1/2 hooks (40270A/40275E): double tildes so the font
+		// renderer shows a literal tilde instead of a color-code escape
+		s = TangarDoubleTilde((const char*)s);
+#endif
 
 		while (true) {
 			int rpos = s.Find('\r');
