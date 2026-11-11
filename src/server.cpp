@@ -4676,6 +4676,16 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
         player_not_exist = false;
 
 #ifdef A2SERVER_TANGAR_HAT
+        // imp_MapClosed hook (4FE2D0): a closed map (SVF_CLOSED, settable
+        // via #set mode) rejects joins with a log line; full GMs bypass
+        if ((player->flags & GMF_ANY) != GMF_ANY && (Config::ServerFlags & SVF_CLOSED) != 0) {
+            Printf("Player %s login %s has been rejected (Map closed)", (const char*)name, (const char*)name);
+            this->JoinErrorSend(client, 2, "Map closed.");
+            return;
+        }
+#endif
+
+#ifdef A2SERVER_TANGAR_HAT
         // allow_low_skill_enter_high_tier_maps hook (4FE632): the patched
         // server skips the map-tier check entirely
         if (false)
