@@ -1101,7 +1101,13 @@ void Inn::InnReward(Player* player) {
                     equip->RecalcFromTemplate();
                 }
 
+#ifdef A2SERVER_TANGAR_HAT
+                // imp_UpgradeItem hook (5669A6): quest items (price 2) are
+                // not upgradable at the inn
+                if (!equip || equip->IsSimpleItem() != 0 || equip->magic_volume <= 0 || equip->_exp == 2) {
+#else
                 if (!equip || equip->IsSimpleItem() != 0 || equip->magic_volume <= 0) {
+#endif
                     continue;
                 }
 
