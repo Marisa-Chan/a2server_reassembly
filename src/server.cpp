@@ -47,6 +47,7 @@
 #include "patch/tangar_utils.h"
 #include "patch/kick_char.h"
 #include "patch/gm_noclip.h"
+#include "patch/hat_net.h"
 #include "patch/damage_filter.h"
 #include "patch/forbidden_items.h"
 #include "quest.h"
@@ -170,6 +171,9 @@ Server::~Server() {
         }
     }
     Printf("Server closed.");
+    if (!tangar_hat::NetCmdShutdown()) {
+        // stay marked disconnected; the pump will not reconnect after shutdown
+    }
 #endif
     g_NetStru1_main.SendBarePacket(SERVER_SHUTDOWN, nullptr);
     g_NetStru1_main.SendPacket_64(this->tick | 1, 0);
@@ -5170,6 +5174,12 @@ int Server::Start(int mode) {
     }
     Printf("Server started.");
 #endif
+#ifdef A2SERVER_TANGAR_HAT
+    // imp_NetLayer_FirstConnect (4F0BEF): prepare and open the HAT control
+    // connection once the server is starting up
+    tangar_hat::NetHatPrepare();
+    tangar_hat::NetHatInit();
+#endif
 
     return 0;
 }
@@ -5431,6 +5441,13 @@ int Server::LoadGame(CString map_name) {
 
 // 4FBB79
 void Server::ServerTic() {
+#ifdef A2SERVER_TANGAR_HAT
+    // imp_ServerTic callback (4FBB79): pump the HAT control connection and
+    // yield the tick (the rest of OnServerTic - unit return checks, SR_Step -
+    // lives with its own subsystems)
+    tangar_hat::NetRegularProc();
+    Sleep(1);
+#endif
     if (this->has_world_state == 0) {
         return;
     }
@@ -5894,6 +5911,11 @@ void Server::UpdateHatAnnounce() {
     }
     if (g_HatLLDriver.IsListen()) {
         NetStru1::HatConnector.SendHatLobbyInfo(g_PlayersList->CountHumanPlayers(), this->current_map_title, this->MapLevel, g_ServerConfig.gameType, map_range);
+#ifdef A2SERVER_TANGAR_HAT
+        // imp_UpdateInfo hook (51E289): feed the HAT control connection
+        tangar_hat::NetHatUpdateInfo((uint8_t)g_PlayersList->CountHumanPlayers(), (const char*)this->current_map_title,
+                                     (uint8_t)this->MapLevel, (uint8_t)g_ServerConfig.gameType, (uint8_t)map_range);
+#endif
     }
     if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
         g_NetStru1_main.SendTeamState(0);
