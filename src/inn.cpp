@@ -1489,12 +1489,24 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                         // Last item вЂ” try to equip it, so `equipped` would be the item that was on the player before.
                         Item* equipped = item->Equip(humanoid);
                         if (equipped == nullptr || equipped->upgraded_at_inn == 0) {
+#ifdef A2SERVER_TANGAR_HAT
+                            // imp_inn_item_upgrade_failed hook (56154E): only
+                            // the upgraded copy is deleted; the original is put
+                            // back on (or the copy taken off when it is missing)
+                            if (equipped != nullptr) {
+                                equipped->Equip(humanoid);
+                            } else {
+                                item->Unequip(humanoid);
+                            }
+                            delete item;
+#else
                             // Failed --- burn the item.
                             item->Unequip(humanoid);
                             delete item;
                             if (equipped != nullptr) {
                                 delete equipped;
                             }
+#endif
                             g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_PLAYER_FLAGGED, humanoid->pOwner->player_id, humanoid->pOwner);
                         } else {
                             // Use succeeded вЂ” clean up equipped placeholder
