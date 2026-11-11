@@ -93,6 +93,7 @@ set(A2SERVER_SOURCES
   patch/pvm2.cpp
   patch/gm_noclip.cpp
   patch/hat_packet.cpp
+  patch/hat_net.cpp
 )
 
 add_executable(rea2s ${A2_SOURCES} ${A2SERVER_SOURCES})
