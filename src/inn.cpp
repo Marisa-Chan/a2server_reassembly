@@ -25,6 +25,7 @@
 #include "unit_list.h"
 #ifdef A2SERVER_TANGAR_HAT
 #include "patch/config_new.h"
+#include "patch/quest_filters.h"
 #endif
 #include "world.h"
 #include "map_stuff.h"
@@ -177,7 +178,15 @@ void Inn::InnCreateQuests(Player* player) {
                     continue;
                 }
 
+#ifdef A2SERVER_TANGAR_HAT
+                // remove_existing_n_monters_quests_wrapper hook (56289E):
+                // duplicate-quest and name-filter gating before counting
+                if (tangar_quests::FilterKillNCandidate(player, fid << 8 | tid)) {
+                    counts[fid][tid]++;
+                }
+#else
                 counts[fid][tid]++;
+#endif
             }
         }
 
@@ -264,7 +273,14 @@ void Inn::InnCreateQuests(Player* player) {
                     continue;
                 }
 
+#ifdef A2SERVER_TANGAR_HAT
+                // remove_existing_monster_quests_wrapper hook (562E10)
+                if (tangar_quests::FilterKillMobCandidate(player, u)) {
+                    candidates.push_back(u);
+                }
+#else
                 candidates.push_back(u);
+#endif
             }
         }
 
@@ -303,6 +319,13 @@ void Inn::InnCreateQuests(Player* player) {
                 if (!grp->has_quest_kill) {
                     continue;
                 }
+#ifdef A2SERVER_TANGAR_HAT
+                // remove_existing_group_quests_wrapper hook (563355):
+                // groups already covered by a live quest are skipped
+                if (Config::AllowOnlyOneQuest_KillTheGroup && tangar_quests::HasQuestForMonsterGroup(player, grp->group_id)) {
+                    continue;
+                }
+#endif
 
                 POSITION upos = grp->unit_list.GetHeadPosition();
                 while (upos) {
@@ -317,6 +340,12 @@ void Inn::InnCreateQuests(Player* player) {
                     if (g_QuestMap.OnEvent(0xd, grp->group_id, 0)) {
                         continue;
                     }
+#ifdef A2SERVER_TANGAR_HAT
+                    // name-filter gate per unit (retry with next unit)
+                    if (!tangar_quests::FilterKillGroupCandidateUnit(player, u)) {
+                        continue;
+                    }
+#endif
                     
                     candidates.push_back(grp);
                     break;
