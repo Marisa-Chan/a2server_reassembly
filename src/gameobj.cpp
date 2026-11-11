@@ -1724,7 +1724,15 @@ void CUnit::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) { // 466a
         color_hi = (color_hi >> 1) & add_mask;
     }
 
+#ifdef A2CLIENT_PATCH
+    // CRASH_fix_46AD10 (client 46AD10): clamp hp to hp_max; hp_max == 0 -> fill 0
+    if (this->hp > this->hp_max) {
+        this->hp = this->hp_max;
+    }
+    int32_t fill = this->hp_max != 0 ? this->hp * (right - left - 8) / this->hp_max : 0;
+#else
     int32_t fill = this->hp * (right - left - 8) / this->hp_max;
+#endif
     if (fill == 0 && this->hp != 0) {
         fill = 1;
     }

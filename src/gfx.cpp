@@ -4042,6 +4042,12 @@ void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useCo
 }
 
 uint16_t* CGamePalette::GetPalette(int32_t idx) { //41ec40
+#ifdef A2CLIENT_PATCH
+	// CRASH_fix_420450 (client 420450): invalid palette -> null
+	if (this == nullptr || this->colors == nullptr) {
+		return nullptr;
+	}
+#endif
 	return this->colors + 256 * idx; 
 }
 

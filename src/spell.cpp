@@ -180,6 +180,23 @@ void Spell::SetPower(uint32_t power) {
     const SpellInfoData& info = this->spell_info->Values().GetData()[0];
     uint8_t power_byte = power;
 
+#ifdef A2CLIENT_PATCH
+    // CRASH_fix_523295 (client 523295): data-driven range formula - the
+    // data.bin max_range value packs [base, divider]; range = 0 if base == 0,
+    // else base + power/divider (default divider: 3 for teleport, 30 otherwise)
+    {
+        uint8_t range_base = (uint8_t)(info.max_range & 0xFF);
+        uint8_t range_divider = (uint8_t)((info.max_range >> 8) & 0xFF);
+        if (range_base != 0) {
+            if (range_divider == 0) {
+                range_divider = (this->spell_id == spell::teleport) ? 3 : 30;
+            }
+            this->max_range = (uint8_t)(range_base + power_byte / range_divider);
+        } else {
+            this->max_range = 0;
+        }
+    }
+#else
     this->max_range = info.max_range;
     if (this->spell_id == spell::teleport) {
         int32_t divisor = (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) ? 15 : 3;
@@ -187,6 +204,7 @@ void Spell::SetPower(uint32_t power) {
     } else if (this->max_range != 0) {
         this->max_range += power_byte / 30;
     }
+#endif
 
     double multiplier = power_byte / 30.0 + 1.0;
 
