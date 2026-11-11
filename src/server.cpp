@@ -1651,6 +1651,15 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
 
                 // Copy Self's diplomacy column into the new player's row (slots 2..15).
                 for (int slot = 2; slot <= 15; ++slot) {
+#ifdef A2SERVER_TANGAR_HAT
+                    // adm_dip hook (4FFD77): a GM with the AI-ally flag joins
+                    // allied with every AI slot (retail copy skipped for it)
+                    if ((player->flags & GMF_AI_ALLY) == GMF_AI_ALLY) {
+                        g_World->diplomacy.diplomacy[player->player_id][slot] = 2;
+                        g_World->diplomacy.diplomacy[slot][player->player_id] = 2;
+                        continue;
+                    }
+#endif
                     g_World->diplomacy.diplomacy[slot][player_id] = g_World->diplomacy.diplomacy[slot][self_id];
                     g_World->diplomacy.diplomacy[self_id][slot] = g_World->diplomacy.diplomacy[player_id][slot];
                 }
@@ -1664,6 +1673,35 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
                     if (p->is_ai != 0 || p_id == player_id) {
                         continue;
                     }
+
+#ifdef A2SERVER_TANGAR_HAT
+                    // new_player_diplomacy hook (4FFEA6): apply the per-player
+                    // default diplomacy (both directions) and the GM players-ally
+                    // override; when handled, the retail zeroing and vision clears
+                    // are skipped
+                    {
+                        bool handled = false;
+                        settings::PlayerSettings* ps = settings::Find((const char*)player->name);
+                        if (ps != nullptr && ps->default_diplomacy != 0) {
+                            g_World->diplomacy.diplomacy[player->player_id][p_id] = ps->default_diplomacy;
+                            handled = true;
+                        }
+                        settings::PlayerSettings* ps2 = settings::Find((const char*)p->name);
+                        if (ps2 != nullptr && ps2->default_diplomacy != 0) {
+                            g_World->diplomacy.diplomacy[p_id][player->player_id] = ps2->default_diplomacy;
+                            handled = true;
+                        }
+                        auto gm_ally = [](Player* pl) { return (pl->flags & GMF_ANY) == GMF_ANY && (pl->flags & GMF_PLAYERS_ALLY) == GMF_PLAYERS_ALLY; };
+                        if (gm_ally(player) || gm_ally(p)) {
+                            g_World->diplomacy.diplomacy[player->player_id][p_id] = 2;
+                            g_World->diplomacy.diplomacy[p_id][player->player_id] = 2;
+                            handled = true;
+                        }
+                        if (handled) {
+                            continue;
+                        }
+                    }
+#endif
 
                     // Co-op: clear mutual alliance bytes.
                     if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE) {
