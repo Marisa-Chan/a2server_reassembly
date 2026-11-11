@@ -46,6 +46,7 @@
 #include "patch/server_state.h"
 #include "patch/tangar_utils.h"
 #include "patch/kick_char.h"
+#include "patch/gm_noclip.h"
 #include "patch/damage_filter.h"
 #include "patch/forbidden_items.h"
 #include "quest.h"
@@ -4377,7 +4378,13 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 }
             }
 
+#ifdef A2SERVER_TANGAR_HAT
+            // imp_GMNoClip hook (5070EC): re-apply the noclip footprint clear
+            // on return-to-map, then the full unit update
+            TangarCheckPlayerNoClip(player);
+#else
             g_NetStru1_main.SendUnitUpdate(player->main_unit, player, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
+#endif
             if ((player->main_unit->unit_attrs & 8) != 0) {
                 player->main_unit->ReturnToMap();
             }
