@@ -12,6 +12,7 @@
 #ifdef A2SERVER_TANGAR_HAT
 #include "patch/tangar_log.h"
 #include "patch/config_new.h"
+#include "patch/forbidden_items.h"
 #endif
 
 static const uint16_t warrior_spells[] = { spell::stone_curse, spell::drain_life };
@@ -416,7 +417,17 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
                 this->items[i]->count = 2;
 
                 Item* item = this->items[i]->TakeOne();
+#ifdef A2SERVER_TANGAR_HAT
+                // imp_CheckItemExclusion hook (54DDBA): disabled item ids
+                // never spawn in shops
+                if (tangar_items::IsDisabled(item->item_id)) {
+                    delete item;
+                } else {
+                    item_array.SetAtGrow(item_array.GetSize(), item);
+                }
+#else
                 item_array.SetAtGrow(item_array.GetSize(), item);
+#endif
             }
         }
 
