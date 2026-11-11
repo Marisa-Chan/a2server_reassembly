@@ -1278,7 +1278,14 @@ void Vis1200obj::DrawInputLine(CString* str) {
     this->ClientRectToScreen(&screen_rect, this->rect);
     this->match_player_index = -1;
     this->match_name_length = 0;
+#ifdef A2CLIENT_PATCH
+    // CHAT_tilde0 hook (43D976): double tildes in the chat input line so
+    // the font renderer shows a literal tilde instead of a color-code escape
+    this->font->DrawTxt(screen_rect.left, screen_rect.bottom - this->font->GetHeight() * (this->history.GetSize() + 1),
+                          TangarDoubleTilde((const char*)*str), 0, this->clr);
+#else
     this->font->DrawTxt(screen_rect.left, screen_rect.bottom - this->font->GetHeight() * (this->history.GetSize() + 1), *str, 0, this->clr);
+#endif
     if (!str->IsEmpty() && (*str)[0] == '-') {
         CString name_part = str->Mid(1);
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
