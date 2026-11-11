@@ -1,4 +1,7 @@
 ﻿#include "spell.h"
+#ifdef A2SERVER_TANGAR_HAT
+#include "patch/summon.h"
+#endif
 
 #include <algorithm>
 #include <cmath>
@@ -751,7 +754,12 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                     name += dot_tier;
                 }
                 unit->InitDefaults(name);
+#ifdef A2SERVER_TANGAR_HAT
+                // summon hook (53AC32): full stat override per ServerID/tier
+                TangarFixSummonedUnit(unit, tier);
+#else
                 unit->summoned = 1;
+#endif
 
                 if (!unit->PlaceOnMap(caster->position->GetX(), caster->position->GetY(), 6)) {
                     return;

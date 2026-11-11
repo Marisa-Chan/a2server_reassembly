@@ -86,6 +86,7 @@ set(A2SERVER_SOURCES
   patch/player_info.cpp
   patch/player_settings.cpp
   patch/circle.cpp
+  patch/summon.cpp
 )
 
 add_executable(rea2s ${A2_SOURCES} ${A2SERVER_SOURCES})
