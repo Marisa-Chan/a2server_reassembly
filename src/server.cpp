@@ -49,6 +49,8 @@
 #include "patch/forbidden_items.h"
 #include "quest.h"
 #include "quest_map.h"
+#include "main_window.h"
+#include "vis_core.h"
 #endif
 
 // ---- Global variables used by JoinPlayer ----
@@ -2941,6 +2943,18 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                     }
                 }
                 this->SignalGameStart(0);
+                return;
+            } else if (lowered == "#resetmap") {
+                if (Config::Suspended) {
+                    g_ServerConfig.map_durations[g_ServerConfig.current_map_index] = Config::OriginalTime;
+                    Config::Suspended = false;
+                }
+                // zxmgr::ResetMap: close the server screen (MainWindow+0x3D0),
+                // which reloads the current map
+                MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+                if (main_wnd != nullptr && main_wnd->vis_serverscreen != nullptr) {
+                    main_wnd->vis_serverscreen->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
+                }
                 return;
             } else if (lowered == "#shutdown") {
                 TerminateProcess(GetCurrentProcess(), 100);
