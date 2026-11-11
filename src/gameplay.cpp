@@ -66,6 +66,25 @@ GM_a28::GM_a28() {
 	this->dirty = 1;
 }
 
+#ifdef A2CLIENT_PATCH
+// conv_double_tilde from my-a2mgr chat.cpp: double '~' so the game renderer
+// shows a literal tilde instead of treating it as a color-code escape
+static CString TangarDoubleTilde(const char* str)
+{
+	static char tilda_buf[4000];
+	char* t = tilda_buf;
+	while (*str && t < (tilda_buf + sizeof(tilda_buf) - 3)) {
+		*t++ = *str;
+		if (*str == '~') {
+			*t++ = *str;
+		}
+		str++;
+	}
+	*t = 0;
+	return CString(tilda_buf);
+}
+#endif
+
 void GM_a28::Add(const char* msg, uint16_t* clr, uint32_t t) {
 	//4021fe
 	this->dirty = 1;
@@ -79,7 +98,13 @@ void GM_a28::Add(const char* msg, uint16_t* clr, uint32_t t) {
 
 	bool restart = this->text.GetSize() == 0;
 
+#ifdef A2CLIENT_PATCH
+	// CHAT_tilde hooks: escape tildes when adding chat text
+	CString escaped = TangarDoubleTilde(msg);
+	CStringArray& lines = fnt->StringArrayForRect(this->out_area, (const char*)escaped);
+#else
 	CStringArray& lines = fnt->StringArrayForRect(this->out_area, msg);
+#endif
 	for (int i = 0; i < lines.GetSize(); i++) {
 		CString& s = lines[i];
 		for (int j = 0; j < s.GetLength(); j++) {
