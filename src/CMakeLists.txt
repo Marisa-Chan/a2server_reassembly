@@ -87,6 +87,7 @@ set(A2SERVER_SOURCES
   patch/player_settings.cpp
   patch/circle.cpp
   patch/summon.cpp
+  patch/forbidden_items.cpp
 )
 
 add_executable(rea2s ${A2_SOURCES} ${A2SERVER_SOURCES})

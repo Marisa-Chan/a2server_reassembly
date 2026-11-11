@@ -46,6 +46,7 @@
 #include "patch/server_state.h"
 #include "patch/tangar_utils.h"
 #include "patch/kick_char.h"
+#include "patch/forbidden_items.h"
 #endif
 
 // ---- Global variables used by JoinPlayer ----
@@ -3465,6 +3466,20 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     break;
                 }
 
+#ifdef A2SERVER_TANGAR_HAT
+                // fix_scroll_burn hook (5056E1): only warriors may cast from
+                // scrolls, and prevented casts put the item back instead of
+                // burning it
+                {
+                    Effect* head_eff = item->_effects.GetHead();
+                    if (!tangar_items::IsScroll(item) || head_eff == nullptr || head_eff->effect_id != 0x29 ||
+                        (player->main_unit->unit_attrs & 4) != 0) {
+                        player->main_unit->inventory->PutItemIntoBag(packet_order->slot, item);
+                        g_NetStru1_main.SendUnitUpdate(player->main_unit, player, 0xFFFFFFFF, EQUIP_SLOTS_ALL, 0, 0);
+                        break;
+                    }
+                }
+#endif
                 Effect* eff = item->_effects.GetHead();
                 if (eff && eff->effect_id == 0x29) {
                     player->main_unit->some_item = item;
@@ -3656,6 +3671,16 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (!item) {
                 break;
             }
+
+#ifdef A2SERVER_TANGAR_HAT
+            // dont_eat_bad_food hook (505BDF): forbidden items moved from
+            // the bag onto the character are forced back into the bag
+            if (from_type == TRANSFER_SRC_BAG && to_type == TRANSFER_DST_EQUIP && !tangar_items::CanEat(human, item)) {
+                human->inventory->PutItemIntoBag(packet_transfer->param1, item);
+                g_NetStru1_main.SendUnitUpdate(human, human->pOwner, 0xFFFFFFFF, EQUIP_SLOTS_ALL, 0, 0);
+                break;
+            }
+#endif
 
             if (to_type == TRANSFER_DST_EQUIP) {
                 // Equip item.
