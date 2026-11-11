@@ -22,6 +22,7 @@
 #include "patch/config_new.h"
 #include "patch/tangar_log.h"
 #include "patch/flags.h"
+#include "patch/circle.h"
 #endif
 #include "shop.h"
 #include "shop_assortment.h"
@@ -1133,6 +1134,12 @@ uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
         damage = preliminary_damage;
     }
 
+#ifdef A2SERVER_TANGAR_HAT
+    // circle_damage_regular hook (536D81): circle members take scaled
+    // damage from monsters
+    damage = circle::IncreaseDamage(attacker, this, damage);
+#endif
+
     // Absorption and weapon-type resistance.
     if (damage > 0) {
         if (attacker == nullptr || !(attacker->unit_attrs & 0x10)) {
@@ -1151,6 +1158,10 @@ uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
     // Add magic damage.
     if ((int32_t)unit_to_hit->some_damage_spread + unit_to_hit->some_damage_min != 0) {
         int32_t some_dmg = (int32_t)Random0N(unit_to_hit->some_damage_spread) + unit_to_hit->some_damage_min;
+#ifdef A2SERVER_TANGAR_HAT
+        // circle_damage_special hook (536E1E)
+        some_dmg = circle::IncreaseDamage(attacker, this, some_dmg);
+#endif
         int16_t protection = this->protections.magic_protections[2];
         if (protection != 0) {
             some_dmg = (int32_t)((100.0 - protection) * (double)some_dmg / 100.0 + 0.75);
@@ -1165,6 +1176,10 @@ uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
     bool no_phys = (unit_to_hit->hand_damage_min + unit_to_hit->hand_damage_spread == 0);
     if ((unit_to_hit->some_damage2_spread + unit_to_hit->some_damage2_min) != 0 && (attack_roll > defense || no_phys)) {
         int32_t spell_dmg = (int32_t)Random0N(unit_to_hit->some_damage2_spread) + unit_to_hit->some_damage2_min;
+#ifdef A2SERVER_TANGAR_HAT
+        // circle_damage_magic hook (536ED8)
+        spell_dmg = circle::IncreaseDamage(attacker, this, spell_dmg);
+#endif
         uint8_t sphere = unit_to_hit->spell_id;
         if (sphere >= 1 && sphere <= 5) {
             int16_t protection = this->protections.magic_protections[sphere];
@@ -1275,7 +1290,16 @@ void Unit::InitDefaultStats() {
     this->scan_range = 5 * 0x100;
     this->extra_carrying_weight = 0;
     this->carrying_weight_100g = 0;
+#ifdef A2SERVER_TANGAR_HAT
+    // replace_unit_carrying_body_with_reaction hook (52A29E): circle witches
+    // carry by reaction, not body
+    this->carrying_body_100g =
+        (this->pOwner != nullptr && circle::Circle(this) > 0 && (this->unit_attrs & 4) == 0
+             && (this->typeId == 0x22 || this->typeId == 0x24)
+             ? this->reaction : this->body) * 10;
+#else
     this->carrying_body_100g = this->body * 10;
+#endif
     this->hp_max = 30;
     this->hp = 30;
     this->hp_regen = 100;
@@ -2477,7 +2501,16 @@ void Humanoid::RecalcStats() {
     }
 
     this->scan_range = static_cast<uint16_t>(((this->mind + this->reaction) / 25.0 + 4.0) * 256.0);
+#ifdef A2SERVER_TANGAR_HAT
+    // replace_human_carrying_body_with_reaction hook (531A0B): circle witches
+    // (mage + female + in a circle) carry by reaction, not body
+    this->carrying_body_100g = static_cast<uint16_t>(
+        (this->pOwner != nullptr && circle::Circle(this) > 0 && (this->unit_attrs & 4) == 0
+             && (this->typeId == 0x22 || this->typeId == 0x24)
+             ? this->reaction : this->body) * 10 + 1);
+#else
     this->carrying_body_100g = static_cast<uint16_t>(this->body * 10 + 1);
+#endif
 
     this->speed = (this->reaction < 12) ? this->reaction : this->reaction / 5 + 12;
     if (this->typeId == 0x13 || this->typeId == 0x15) { // Horse-riders, with sword and with lance.
