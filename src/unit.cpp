@@ -2677,6 +2677,19 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
     }
 
     new_exp = static_cast<uint32_t>(new_exp * ((double)this->mind / 30.0 + 0.25));
+#ifdef A2SERVER_TANGAR_HAT
+    // circle_experience hook (5307A3): off-sphere experience is scaled up
+    // for circle members
+    {
+        int eff_sphere = sphere;
+        if ((this->unit_attrs & 4) == 0) {
+            eff_sphere = this->hit_values.physical_damage_type;
+        }
+        if (eff_sphere != this->main_sphere && eff_sphere != 5 && eff_sphere != 0 && circle::Circle(this) != 0) {
+            new_exp = static_cast<uint32_t>(new_exp * circle::ExperienceMultiplier(this));
+        }
+    }
+#endif
 
     // Diminishing returns: reduce XP if this unit was killed multiple times this session.
     if (target != nullptr) {
