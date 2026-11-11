@@ -1320,8 +1320,28 @@ MainWindow::MainWindow() { //4837e1
             resolution.x = 1024;
             resolution.y = 768;
         } else {
+#ifdef A2CLIENT_PATCH
+            // VIDEO_checkVideoMode hook (487679): smart default - pick the
+            // largest mode the desktop supports instead of hardcoded 640x480
+            {
+                DEVMODEA mode;
+                mode.dmSize = sizeof(mode);
+                EnumDisplaySettingsA(NULL, ENUM_CURRENT_SETTINGS, &mode);
+                if (mode.dmPelsWidth >= 1024 && mode.dmPelsHeight >= 768) {
+                    resolution.x = 1024;
+                    resolution.y = 768;
+                } else if (mode.dmPelsWidth >= 800 && mode.dmPelsHeight >= 600) {
+                    resolution.x = 800;
+                    resolution.y = 600;
+                } else {
+                    resolution.x = 640;
+                    resolution.y = 480;
+                }
+            }
+#else
             resolution.x = 640;
             resolution.y = 480;
+#endif
         }
 
     } else {
