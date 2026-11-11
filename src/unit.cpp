@@ -2449,6 +2449,13 @@ void Humanoid::RecalcStats() {
     max_reaction = caps.Reaction;
     max_mind = caps.Mind;
     max_spirit = caps.Spirit;
+#elif defined(A2CLIENT_PATCH)
+    // character_stats hook (client 51D2D8): stat ceiling 100 for all
+    // stats on the patched client
+    max_body = 100;
+    max_reaction = 100;
+    max_mind = 100;
+    max_spirit = 100;
 #else
     if (fighter) {
         if (female) {
