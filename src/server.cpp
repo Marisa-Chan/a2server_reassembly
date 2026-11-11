@@ -153,6 +153,20 @@ SrvStru1 SrvStru1::Instance; //6cf390
 
 // 4f2c26
 Server::~Server() {
+#ifdef A2SERVER_TANGAR_HAT
+    // imp_ServerClosed callback (4F2FC3); the HAT NetCmd_Shutdown /
+    // NetHat::Connected reset lands with the HAT net layer
+    Config::ExitingCleanly = true;
+    Config::MapLoaded = false;
+    {
+        CString title;
+        title.Format("Server ID %u (map not loaded)", Config::ServerID);
+        if (CWnd* main_wnd = AfxGetMainWnd()) {
+            main_wnd->SetWindowTextA(title);
+        }
+    }
+    Printf("Server closed.");
+#endif
     g_NetStru1_main.SendBarePacket(SERVER_SHUTDOWN, nullptr);
     g_NetStru1_main.SendPacket_64(this->tick | 1, 0);
     g_NetStru1_main.SendAllData();
@@ -435,6 +449,20 @@ int Srv1::LoadMap(CString map_name) {
             error = "Unknown error";
             break;
         }
+#ifdef A2SERVER_TANGAR_HAT
+        // imp_MapLoadError callback (59B969)
+        {
+            CString what;
+            what.Format("Error: map \"%s\" not loaded (%s)", (const char*)map_name, (const char*)error);
+            Printf("%s", (const char*)what);
+            Config::MapLoaded = false;
+            CString title;
+            title.Format("Server ID %u (map not loaded)", Config::ServerID);
+            if (CWnd* main_wnd = AfxGetMainWnd()) {
+                main_wnd->SetWindowTextA(title);
+            }
+        }
+#endif
         LogMessage("Map error :" + error + ", in " + map_name);
 
         if (alm != nullptr) {
@@ -5018,6 +5046,20 @@ int Server::Start(int mode) {
     }
 #endif
 
+#ifdef A2SERVER_TANGAR_HAT
+    // imp_ServerStarted callback (4F09DB)
+    Config::MapLoaded = false;
+    Config::ServerStarted = true;
+    {
+        CString title;
+        title.Format("Server ID %u (map not loaded)", Config::ServerID);
+        if (CWnd* main_wnd = AfxGetMainWnd()) {
+            main_wnd->SetWindowTextA(title);
+        }
+    }
+    Printf("Server started.");
+#endif
+
     return 0;
 }
 
@@ -5143,6 +5185,18 @@ void Server::SaveCharacter(Humanoid* humanoid) {
 // Load map (or a saved game?)
 // 4F1471
 int Server::LoadGame(CString map_name) {
+#ifdef A2SERVER_TANGAR_HAT
+    // imp_LoadingMap callback (4F1471); ClearShops/UI_Reset
+    // (unit_info subsystem) land with that subsystem
+    Config::MapLoaded = false;
+    {
+        CString title;
+        title.Format("Server ID %u (loading map...)", Config::ServerID);
+        if (CWnd* main_wnd = AfxGetMainWnd()) {
+            main_wnd->SetWindowTextA(title);
+        }
+    }
+#endif
     this->gap_0x8c = 0;
     this->game_started = 0;
     this->current_map_name = map_name;
