@@ -2987,9 +2987,9 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context) {
     //522e8f
     CLlDriver* drv = (CLlDriver*)context;
 
-#ifndef A2SERVER_PATCH
-    // setthreadp hook (522EA1): the patched server skips raising the accept
-    // thread's priority
+#if !defined(A2SERVER_PATCH) && !defined(A2CLIENT_PATCH)
+    // setthreadp hook (522EA1) / SYSTEM_setThreadPriority (client 51259D):
+    // patched server and client skip raising the accept thread's priority
     SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_ABOVE_NORMAL);
 #endif
 
@@ -3366,7 +3366,11 @@ void __cdecl CLlDriver::RecvThreadDp(void* context) {
     //523b7a
     CLlDriver* drv = (CLlDriver*)context;
 
+#ifndef A2CLIENT_PATCH
+    // SYSTEM_setThreadPriority hook (client 51259D): patched client skips
+    // raising the recv thread priority
     SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_ABOVE_NORMAL);
+#endif
 
     HANDLE handles[2] = { drv->ev_close, drv->ev_create_player };
 
