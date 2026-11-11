@@ -15,6 +15,15 @@ uint8_t __cdecl DecodeChar(uint8_t ch) {
 		return ch;
 	}
 
+#ifdef A2CLIENT_PATCH
+	// CHAT_convDosToIdx hook (461DB6): map DOS jo-tyo back to the
+	// font-table indices before the standard decode
+	if (ch == 0xF0) {
+		return 192 + 32;
+	} else if (ch == 0xF1) {
+		return 105 + 32;
+	}
+#endif
 	uint8_t t = ch;
 	if (t >= 0x80 && t < 0xb0) {
 		return t + 0x30;
@@ -27,6 +36,17 @@ uint8_t __cdecl DecodeChar(uint8_t ch) {
 // 1251 -> dos
 uint8_t __cdecl EncodeChar(uint8_t c) {
 	//4763a9
+#ifdef A2CLIENT_PATCH
+	// CHAT_convWinToDos hook (47A11E): map Win-1251 jo-tyo to the
+	// DOS codepage equivalents before the standard conversion
+	if (g_isDosCP == 1) {
+		if (c == 0xA8) {
+			c = 0xF0;
+		} else if (c == 0xB8) {
+			c = 0xF1;
+		}
+	}
+#endif
 	if (g_isDosCP == 1 && c >= 0x80) {
 		if (c >= 0xc0 && c < 0xf0) {
 			c -= 0x40;
