@@ -26,6 +26,7 @@
 #ifdef A2SERVER_TANGAR_HAT
 #include "patch/config_new.h"
 #include "patch/quest_filters.h"
+#include "patch/player_settings.h"
 #endif
 #include "world.h"
 #include "map_stuff.h"
@@ -212,6 +213,29 @@ void Inn::InnCreateQuests(Player* player) {
             }
 
             int amount = 0;
+#ifdef A2SERVER_TANGAR_HAT
+            // quest_change_kill_n_count hook (562996): rebalanced ranges
+            // plus the player's quest_mob_count preference
+            {
+                settings::PlayerSettings* ps = settings::Find((const char*)player->name);
+                int desired = ps != nullptr ? ps->quest_mob_count : 0;
+                int min_mobs = 0, max_mobs = 0;
+                if (candidate.count < 2) {
+                    min_mobs = 1; max_mobs = 4;
+                } else if (candidate.count < 4) {
+                    min_mobs = 1; max_mobs = 6; // was 2..5, lowered for dragon.4 quests
+                } else if (candidate.count < 8) {
+                    min_mobs = 1; max_mobs = 7; // was 2..7
+                } else {
+                    min_mobs = 5; max_mobs = 25; // was 2..10
+                }
+                if (min_mobs <= desired && desired <= max_mobs) {
+                    amount = desired;
+                } else {
+                    amount = Random0N(max_mobs - min_mobs) + min_mobs;
+                }
+            }
+#else
             if (candidate.count < 2) {
                 amount = Random0N(3) + 1;
             } else if (candidate.count < 4) {
@@ -221,6 +245,7 @@ void Inn::InnCreateQuests(Player* player) {
             } else {
                 amount = Random0N(8) + 2;
             }
+#endif
 
             int reward = 0;
             if (type_id >= 0 && type_id < g_GameDataRes.monsters.GetSize()) {
