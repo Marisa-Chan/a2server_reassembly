@@ -1,4 +1,5 @@
 #include "resource.h"
+#include <string>
 #include "util.h"
 #include <stdio.h>
 #include <string.h>
@@ -124,10 +125,33 @@ void Resources::StaticAddResFile(const char* path) {
 }
 
 
+#ifdef A2CLIENT_PATCH
+// RES_loadFile hook (client 4EBEDA): before the regular archive lookup, try
+// the loose-file overrides "data\patch\<file>" then "data\<file>" for files
+// outside the known archive prefixes (TestMap in the manager)
+static bool TangarTestMapPath(const char* file);
+#endif
+
 FatInfo* Resources::GetFatInfo(const char* fpath) {
     //4e646d
     char buf[1024];
     pathStrCpy(fpath, buf);
+
+#ifdef A2CLIENT_PATCH
+    if (!TangarTestMapPath(buf)) {
+        char dbuf[1024];
+        _snprintf(dbuf, sizeof(dbuf), "data\\patch\\%s", buf);
+        FatInfo* inf = this->GetFatInfo(dbuf);
+        if (inf != nullptr) {
+            return inf;
+        }
+        _snprintf(dbuf, sizeof(dbuf), "data\\%s", buf);
+        inf = this->GetFatInfo(dbuf);
+        if (inf != nullptr) {
+            return inf;
+        }
+    }
+#endif
 
     for (uint32_t i = 0; i < this->res_files.GetSize(); i++) {
         FatInfo* inf = this->res_files[i]->GetFatInfo(buf);
@@ -1463,3 +1487,29 @@ int FatEntry::SortCompare(const void* a, const void* b) {
         return -1;
     }
 }
+#ifdef A2CLIENT_PATCH
+// TestMap from my-a2mgr resource_control.cpp: paths inside the archive
+// namespaces are loaded unchanged; everything else may be overridden on disk
+static bool TangarTestMapPath(const char* file)
+{
+    std::string filename = file;
+    for (char& ch : filename) {
+        if (ch == 0x5C) { // backslash
+            ch = '/';
+        }
+    }
+    for (char& ch : filename) {
+        ch = (char)tolower((unsigned char)ch);
+    }
+    static const char* prefixes[] = {
+        "graphics/", "locale/", "main/", "movies/", "music/",
+        "patch/", "scenario/", "sfx/", "speech/", "video/", "world/",
+    };
+    for (const char* prefix : prefixes) {
+        if (filename.find(prefix) == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+#endif
