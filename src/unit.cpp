@@ -2979,6 +2979,25 @@ void Humanoid::InitCreationSkills(int8_t main_skill, int8_t skill_level) {
     // Set main sphere.
     this->main_sphere = main_skill;
 
+#ifdef A2SERVER_TANGAR_HAT
+    // skip_new_character_weapon hook (533421): instead of the initial
+    // weapon/staff, give mages their sphere spell directly
+    if (this->unit_attrs & 4) {
+        if (this->spell_book != nullptr) {
+            int32_t spell_id = 0;
+            switch (main_skill) {
+                case 1: spell_id = 1; break;  // Fire arrow
+                case 2: spell_id = 5; break;  // Ice missile
+                case 3: spell_id = 10; break; // Lightning
+                case 4: spell_id = 16; break; // Diamond dust
+            }
+            if (spell_id != 0 && this->spell_book->GetSpell(spell_id) == nullptr) {
+                this->spell_book->SetSpell(spell_id, new Spell((uint8_t)spell_id));
+            }
+        }
+        return; // skip the weapon creation entirely
+    }
+#endif
     if (this->unit_attrs & 4) {
         // Mage: create a staff with cast spell.
         CString spell_name;
