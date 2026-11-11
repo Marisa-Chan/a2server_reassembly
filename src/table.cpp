@@ -1,4 +1,8 @@
 #include "table.h"
+#ifdef A2SERVER_TANGAR_HAT
+#include "patch/config_new.h"
+#include "patch/flags.h"
+#endif
 
 #include <cctype>
 #include <cstdlib>
@@ -900,6 +904,48 @@ int GameDataRes::GetRandomRecruitIndex(int experience) {
 
         MonsterInfoData* data = monster.Values().GetData();
 
+#ifdef A2SERVER_TANGAR_HAT
+        // change_inn_reward_mob hook (50DF19): wider type range with a
+        // longer exclusion list (ghosts, flyers, casters, campaign mercs);
+        // on quest maps only turtles (type 76) are allowed
+        static const int excluded_type_ids[] = {
+            69,  // Ghosts
+            70,  // Bats
+            71,  // Dragons
+            72,  // Urd
+            73,  // Bees
+            81,  // Shamans
+            82,  // F_Zombie.1
+            89,  // F_Skeleton.1
+            97,  // M_Skeleton.3
+            98,  // M_Skeleton.4
+            99,  // Necromancers
+            100, // Druids
+            101, // Mercenary orc (campaign)
+            102, // Mercenary troll (campaign)
+            104, // Spider
+            105, // Succubi
+        };
+        if (Config::ServerID >= QUEST_T1) {
+            if (data->type_id != 76) {
+                continue;
+            }
+        } else {
+            if (data->type_id <= 63 || data->type_id >= 108) {
+                continue;
+            }
+            bool excluded = false;
+            for (int ex : excluded_type_ids) {
+                if (data->type_id == ex) {
+                    excluded = true;
+                    break;
+                }
+            }
+            if (excluded) {
+                continue;
+            }
+        }
+#else
         // type_id must be in range [0x40, 0x62]
         if (data->type_id < 0x40 || data->type_id > 0x62) {
             continue;
@@ -914,6 +960,7 @@ int GameDataRes::GetRandomRecruitIndex(int experience) {
         if (data->type_id == 0x52 || data->type_id == 0x59) {
             continue;
         }
+#endif
 
         // Skip level 5 mobs
         if (monster.name.Find(".5") != -1) {
