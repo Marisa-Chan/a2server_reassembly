@@ -47,6 +47,8 @@
 #include "patch/tangar_utils.h"
 #include "patch/kick_char.h"
 #include "patch/forbidden_items.h"
+#include "quest.h"
+#include "quest_map.h"
 #endif
 
 // ---- Global variables used by JoinPlayer ----
@@ -2750,6 +2752,65 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             reply.Format("Default diplomacy set to: %s", (const char*)describe_diplomacy(player_settings->default_diplomacy));
             g_NetStru1_main.AnnouncePlayerName(reply, player);
             server_state.ThrottledSave(); // Save diplomacy settings.
+            return;
+        }
+
+        // #quest/#q: set the player's mob-name quest filter (filter [count]).
+        if (lowered.Find("#quest_state") == 0 || lowered.Find("#qs") == 0) {
+            // Quest state of the current player's kill-N quests (no args used).
+            CString reply;
+            POSITION qpos = g_QuestMap.quests_map.GetStartPosition();
+            Quest* q = nullptr;
+            uint32_t key = 0;
+            while (qpos != nullptr) {
+                g_QuestMap.quests_map.GetNextAssoc(qpos, key, q);
+                if (q != nullptr && q->Kind() == 2 && q->quest_data.player_id == player->player_id) {
+                    reply.Format("kill-N quest: obj=%d progress=%d/%d", q->quest_data.obj, q->progress, q->quest_data.limit);
+                    g_NetStru1_main.AnnouncePlayerName(reply, player);
+                }
+            }
+            return;
+        }
+        if (lowered.Find("#quest") == 0 || lowered.Find("#q ") == 0 || lowered == "#q") {
+            if ((Config::AllowQuestFilters) == 0) {
+                g_NetStru1_main.AnnouncePlayerName("Quest filtering is disabled", player);
+                return;
+            }
+            CString args_str = cheat_string.Mid(cheat_string.Find(' ') > 0 ? cheat_string.Find(' ') + 1 : cheat_string.GetLength());
+            args_str.TrimLeft();
+            args_str.MakeLower(); // NormalizeMobName (lower + '-'->'_')
+            args_str.Replace('-', '_');
+
+            CString filter = args_str;
+            int mob_count = 0;
+            int spacepos = filter.Find(' ');
+            if (spacepos >= 0) {
+                CString raw_count = filter.Mid(spacepos + 1);
+                raw_count.TrimLeft();
+                filter = filter.Left(spacepos);
+                if (CheckInt((const char*)raw_count)) {
+                    mob_count = (int)StrToUInt((const char*)raw_count);
+                } else {
+                    CString warn;
+                    warn.Format("'%s' is not an integer, ignored", (const char*)raw_count);
+                    g_NetStru1_main.AnnouncePlayerName(warn, player);
+                }
+            }
+
+            settings::PlayerSettings* player_settings = settings::FindOrCreate((const char*)player->name);
+            player_settings->quest_filter = (const char*)filter;
+            player_settings->quest_mob_count = mob_count;
+            player_settings->last_modified = time(nullptr);
+
+            CString reply2;
+            if (filter.GetLength() > 0 && mob_count > 0) {
+                reply2.Format("Quest filter set to '%s', mob count set to %d", (const char*)filter, mob_count);
+            } else if (filter.GetLength() > 0) {
+                reply2.Format("Quest filter set to '%s'", (const char*)filter);
+            } else {
+                reply2 = "Quest filter reset";
+            }
+            g_NetStru1_main.AnnouncePlayerName(reply2, player);
             return;
         }
 
