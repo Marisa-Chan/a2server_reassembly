@@ -792,8 +792,16 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 }
                 target->hp -= drain;
                 g_NetStru1_main.SendUnitUpdate(target, nullptr, UNIT_UPD_HP, EQUIP_SLOTS_ALL, 0, 0);
+                #ifdef A2SERVER_PATCH
+                // prevent_suicide_drain_life hook (53A7CC): self-damage must
+                // not overwrite the kill attribution
+                if (target != caster) {
+                #endif
                 target->last_hit_by = caster;
                 target->last_hit_spell_id = this->spell_id;
+                #ifdef A2SERVER_PATCH
+                }
+                #endif
                 caster->AddHp(drain);
                 g_NetStru1_main.SendUnitUpdate(caster, nullptr, UNIT_UPD_HP, EQUIP_SLOTS_ALL, 0, 0);
                 return;

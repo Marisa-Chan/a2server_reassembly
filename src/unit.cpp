@@ -1186,7 +1186,13 @@ uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
     if (attacker != nullptr && attacker->monster_info != nullptr) {
         if (attacker->pOwner == nullptr) {
             this->last_hit_by = nullptr;
+#ifdef A2SERVER_PATCH
+        // prevent_suicide_regular hook (5370ED): self-damage must not
+        // overwrite the kill attribution
+        } else if (this != attacker) {
+#else
         } else {
+#endif
             this->last_hit_by = attacker;
             if (attacker->unit_attrs & 4) {
                 this->last_hit_spell_id = (int8_t)unit_to_hit->spell_id;
