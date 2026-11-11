@@ -1328,8 +1328,63 @@ void Vis1200::VMethod26() {
     this->active = 0;
 }
 
+#ifdef A2CLIENT_PATCH
+// Chat history subsystem (my-a2mgr chat_history.cpp): a stack of
+// previously sent messages navigable with Up/Down in the chat console.
+// Each entry is the list of wrapped lines; restoring writes all but the
+// last line back into the wrap array and the last line into input_line.
+static CList<CStringArray*, CStringArray*> s_sent_history;
+static int32_t s_history_index = 0;
+#endif
+
 // 43BDEC
 int32_t Vis1200::OnKeyDown(uint32_t wparam) {
+#ifdef A2CLIENT_PATCH
+    // CHAT_keyDown hook (43E1FB): Up/Down navigate the sent-message
+    // history; Enter commits the current message into it
+    if (wparam == 0x26) {
+        if (s_history_index > 0) {
+            s_history_index--;
+            CStringArray* entry = s_sent_history.GetAt(s_sent_history.FindIndex(s_history_index));
+            this->text_block->history.RemoveAll();
+            for (int i = 0; i < entry->GetSize() - 1; i++) {
+                this->text_block->history.Add((*entry)[i]);
+            }
+            this->text_block->input_line = (*entry)[entry->GetUpperBound()];
+        }
+        return 1;
+    }
+    if (wparam == 0x28) {
+        if (s_history_index + 1 < s_sent_history.GetCount()) {
+            s_history_index++;
+            CStringArray* entry = s_sent_history.GetAt(s_sent_history.FindIndex(s_history_index));
+            this->text_block->history.RemoveAll();
+            for (int i = 0; i < entry->GetSize() - 1; i++) {
+                this->text_block->history.Add((*entry)[i]);
+            }
+            this->text_block->input_line = (*entry)[entry->GetUpperBound()];
+        }
+        return 1;
+    }
+    if (wparam == 0xd) {
+        // consoleEnter + addString: commit the current lines into history
+        if (this->text_block->history.GetSize() != 0) {
+            CStringArray* entry = new CStringArray();
+            entry->Copy(this->text_block->history);
+            entry->Add(this->text_block->input_line);
+            s_sent_history.AddTail(entry);
+            s_history_index = (int32_t)s_sent_history.GetCount();
+        }
+        this->text_block->SaveHistoryBackup();
+        this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
+        return 1;
+    }
+    if (wparam == 0x1b) {
+        this->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
+        return 1;
+    }
+    return VisScreen::OnKeyDown(wparam);
+#else
     if (wparam == 0xd) {
         this->text_block->SaveHistoryBackup();
         this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
@@ -1343,6 +1398,7 @@ int32_t Vis1200::OnKeyDown(uint32_t wparam) {
         this->text_block->RecallHistoryPrev();
     }
     return VisScreen::OnKeyDown(wparam);
+#endif
 }
 
 // 43BD2E
