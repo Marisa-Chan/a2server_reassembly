@@ -1,4 +1,7 @@
 #include "game_app.h"
+#ifdef A2CLIENT_PATCH
+#include "patch/locale.h"
+#endif
 
 #include <cmath>
 
@@ -788,6 +791,26 @@ BOOL GameApp::InitInstance() {
 		exit(1);
 	}
 
+#ifdef A2CLIENT_PATCH
+	// LANG_change hooks: decide locale before loading text tables
+	tangar_locale::DecideLanguage();
+	ReadFileToString(tangar_locale::help, &g_HelpStr);
+
+	txt_main.LoadChunkFile(tangar_locale::main);
+	txt_heropicture.LoadChunkFile(tangar_locale::heropicture);
+	txt_stats.LoadChunkFile(tangar_locale::stats);
+	txt_spells.LoadChunkFile(tangar_locale::spells);
+	txt_spell.LoadChunkFile(tangar_locale::spell);
+	txt_dialogs.LoadChunkFile(tangar_locale::dialogs);
+	txt_unitname.LoadChunkFile(tangar_locale::unitname);
+	txt_building.LoadChunkFile(tangar_locale::building);
+	txt_itemname.LoadChunkFile(tangar_locale::itemname);
+	txt_npcnames.LoadChunkFile(tangar_locale::npcnames);
+	txt_cutscene.LoadChunkFile(tangar_locale::cutscene);
+	txt_cutpaths.LoadChunkFile(tangar_locale::cutpaths);
+	txt_tunes.LoadChunkFile(tangar_locale::tunes);
+	txt_patch.LoadChunkFile(tangar_locale::patch_txt);
+#else
 	ReadFileToString("main\\text\\help.txt", &g_HelpStr);
 
 	txt_main.LoadChunkFile("main\\text\\main.txt");
@@ -804,6 +827,7 @@ BOOL GameApp::InitInstance() {
 	txt_cutpaths.LoadChunkFile("main\\text\\cutpaths.txt");
 	txt_tunes.LoadChunkFile("main\\text\\tunes.txt");
 	txt_patch.LoadChunkFile("patch\\patch.txt");
+#endif
 
 	ParseTunes();
 

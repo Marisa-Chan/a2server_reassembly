@@ -94,10 +94,15 @@ set(A2SERVER_SOURCES
   patch/gm_noclip.cpp
   patch/hat_packet.cpp
   patch/hat_net.cpp
+  patch/locale.cpp
 )
 
 add_executable(rea2s ${A2_SOURCES} ${A2SERVER_SOURCES})
-add_executable(rea2c ${A2_SOURCES})
+set(A2CLIENT_SOURCES
+  patch/locale.cpp
+)
+
+add_executable(rea2c ${A2_SOURCES} ${A2CLIENT_SOURCES})
 
 # Pin to what the build already defaulted to (26100 SDK MAXVER) — silences
 # the "_WIN32_WINNT not defined" warning in every TU.
