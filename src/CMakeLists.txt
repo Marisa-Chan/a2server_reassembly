@@ -101,6 +101,7 @@ add_executable(rea2s ${A2_SOURCES} ${A2SERVER_SOURCES})
 set(A2CLIENT_SOURCES
   patch/locale.cpp
   patch/client_config.cpp
+  patch/stats_level.cpp
 )
 
 add_executable(rea2c ${A2_SOURCES} ${A2CLIENT_SOURCES})

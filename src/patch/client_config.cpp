@@ -22,7 +22,8 @@ bool r_grid = false;
 uint32_t r_grid_color = 255;
 bool z_lang_override = false;
 bool z_russian = false;
-bool stats_based_level_selection = false;
+bool stats_based_level_selection = true; // a2mgr default: on
+int32_t z_softcore = 0; // 0=off, 1=force softcore, 2=force sandbox (no config parse in a2mgr)
 
 namespace {
 

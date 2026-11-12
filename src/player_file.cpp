@@ -1,4 +1,7 @@
 #include "player_file.h"
+#ifdef A2CLIENT_PATCH
+#include "patch/stats_level.h"
+#endif
 
 #include <cstring>
 
@@ -305,6 +308,12 @@ void WriteKillStatsSection(CFile& file, uint8_t* kill_stats) {
 
 } // namespace
 
+
+// Stats section from the most recent ParsePlayerFile call (client 0x6995a8 twin).
+// Outside the anonymous namespace so the Tangar client patch can reach it.
+FileSectionStats* GetParsedPlayerStats() {
+	return &s_stats_buf;
+}
 // 4F53EA
 int32_t __cdecl WritePlayerFile(const char* filename, FileSectionBasicInfo* basic_info, FileSectionStats* stats, uint8_t* kill_stats, PacketUnitStateVec* equip_pkt, PacketUnitStateVec* inv_pkt, uint8_t* section_40a, uint32_t size_40a) {
 	FileSectionBasicInfo* merged_basic_info = nullptr;
@@ -385,6 +394,11 @@ int32_t __cdecl WritePlayerFile(const char* filename, FileSectionBasicInfo* basi
 
 // 4F62E6
 int32_t __cdecl ParsePlayerFile(CFile* file, FileSectionBasicInfo** basic_info, FileSectionStats** stats, uint8_t** kill_stats, PacketUnitStateVec** equipment, PacketUnitStateVec** inventory, uint8_t** section_40a, uint32_t* size_40a) {
+#ifdef A2CLIENT_PATCH
+	// Tangar: parsing a player file means an existing character is being loaded
+	// (gui_bugfix.cpp load_character hook, 4F75F5).
+	tangar_stats::creating_new_character = false;
+#endif
 	*basic_info = nullptr;
 	*stats = nullptr;
 	*kill_stats = nullptr;

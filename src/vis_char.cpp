@@ -1,4 +1,7 @@
 #include <winsock2.h>
+#ifdef A2CLIENT_PATCH
+#include "patch/stats_level.h"
+#endif
 #include "patch/locale.h"
 #include <ws2tcpip.h>
 #include <timeapi.h>
@@ -1285,6 +1288,12 @@ void VisCharGen::VMethod28() {
 
 
 void VisCharGenStats::LoadBitmaps() { //429475
+#ifdef A2CLIENT_PATCH
+    // Tangar: the char-gen stats panel is up, so a new character is being
+    // created (it does not re-read the a2c file) - gui_bugfix.cpp
+    // new_character_screen hook, 42B599.
+    tangar_stats::creating_new_character = true;
+#endif
     this->FreeBitmaps();
     this->bmp = new CBmp64("main\\graphics\\chrgen\\leftup.bmp");
     g_mousept.Update();

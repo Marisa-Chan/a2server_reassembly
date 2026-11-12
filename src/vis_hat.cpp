@@ -1,4 +1,7 @@
 #include <winsock2.h>
+#ifdef A2CLIENT_PATCH
+#include "patch/stats_level.h"
+#endif
 #include <ws2tcpip.h>
 #include <timeapi.h>
 
@@ -261,12 +264,18 @@ int32_t VisHatBrowserList::IsItemEnabled(int32_t idx) {
     }
 #endif
     if (main_wnd->net_session.internet_game == 0 || main_wnd->hat_settings.ishat == 0 || main_wnd->hat_settings.deathmatch == 0) {
+#ifdef A2CLIENT_PATCH
+        // Tangar GUI_softcoreEnter (44DD0F): stats-based server-level selection
+        // replaces the retail skill-tier brackets (and the players == 16 check).
+        return tangar_stats::StatsBasedLevelSelection((const char*)item) ? 1 : 0;
+#else
         if (main_wnd->m_GameSession.GetSkillTier1() > level + 1
             || main_wnd->m_GameSession.GetSkillTier2() < level + 1
             || players == 16) {
             return 0;
         }
         return 1;
+#endif
     }
 
     return players != 16 ? 1 : 0;

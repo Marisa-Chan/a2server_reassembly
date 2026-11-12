@@ -34,6 +34,9 @@ extern bool z_russian;
 // Stats-based server-level selection brackets in the HAT browser.
 extern bool stats_based_level_selection;
 
+// Forced game mode for the HAT connect dialog (0 = keep dropdown choice).
+extern int32_t z_softcore;
+
 // Parse allods2.cfg / allods2.conf if present. Safe to call every startup.
 void ParseConfig();
 
