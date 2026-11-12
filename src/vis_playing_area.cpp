@@ -1934,6 +1934,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 
 			case 1: {
 				g_MapRevealed = 1;
+#ifndef A2CLIENT_PATCH
 				uint16_t* landscape = this->scenario->GetLandscape();
 
 				for (int i = 0; i < this->scenario->GetWidth(); i++) {
@@ -1941,6 +1942,11 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 						landscape[i + j * scenario->GetWidth()] |= 0xc000;
 					}
 				}
+#else
+				// Tangar showmap.xck (40F264): the reveal is a flag only — the
+				// landscape cells are not stamped 0xc000 (no permanent fog
+				// removal) and the full-stats cheats below stay disabled.
+#endif
 			}
 				break;
 			case 2:
@@ -6625,7 +6631,13 @@ void VisPlayingArea::UpdateWorld() {
 
 	this->anim_tick++;
 	TakeDamage::UpdateDamages(&this->damage_labels);
+#ifdef A2CLIENT_PATCH
+	// Tangar showmap.xck (40BE1B): the occupancy rebuild also runs while the
+	// map is revealed.
+	if ((this->anim_tick & 0x1F) == 0) {
+#else
 	if (g_MapRevealed == 0 && (this->anim_tick & 0x1F) == 0) {
+#endif
 		this->RebuildLandscapeOccupancy();
 	}
 	if ((this->anim_tick & 0xF) == 0 && g_SoundSettings.music_allowed != 0 && this->my_unit != nullptr) {

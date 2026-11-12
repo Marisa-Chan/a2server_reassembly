@@ -1,5 +1,5 @@
 # Client patch port progress tracker
-Updated: 2026-11-12 (SDL/PNG asset cluster)
+Updated: 2026-11-13 (map download + showmap)
 
 Legend: DONE / WIP / PENDING / NO-OP / DEFERRED(reason)
 
@@ -78,6 +78,28 @@ Legend: DONE / WIP / PENDING / NO-OP / DEFERRED(reason)
   (CSprite256 debug)
 - _fix_launcher (patcher-side unpacker wait tool)
 
+## Session batch 5 (2026-11-13) — map download + showmap
+- MAP_CFileOpen1/2 + MAP_loadFromServer (db9afb67): FILE_CHUNK handler in
+  VisPlayingArea::ProcessPackets stores downloaded maps under maps\ —
+  TangarMapsPath() prefixes once up front (covers both chunk-write opens),
+  final block becomes DeleteFile+MoveFile into maps\. Server side unchanged:
+  MAP_INFO announces current_map_name verbatim (config [maps] entries listed
+  as "maps\..." close the loop), FILE_CHUNK preamble is always the stripped
+  tail. MAP_CalcCRC hook was never active (and check_map_file is a stub) —
+  the checksum path needs no port.
+- showmap.xck — MISSED by the inventory sweep (active xck, not in any
+  disposition list), found via the 40F264 flip grouped next to the MAP
+  hooks. 4 byte-flips = MAP_REVEAL becomes a flag-only observer marker:
+  case 1 no longer stamps landscape |= 0xc000 (40F264), revealed map no
+  longer forces stats view_level 7 in CUnit::DrawStatsPanel (46FF75) and
+  CUnit::GetStatsHint (470F2E), occupancy rebuild runs even while revealed
+  (40BE1B). Ported in A2CLIENT_PATCH blocks; retail under #else/#ifndef.
+  Likely anti-spectator-intel for HAT (no permanent fog reveal / enemy
+  stats for dead observers).
+- Housekeeping: src/vis_playing_area.cpp was the repo's last CRLF blob —
+  normalized to LF in a standalone commit (1f8ee143) before the map port
+  (db9afb67) so history stays bisectable.
+
 ## Session batch 4 (2026-11-12) — SDL/PNG asset cluster COMPLETE
 - patch/image.{h,cpp} — Tangar Image port (SDL dropped): PNG via vendored
   lodepng + built-in uncompressed 24/32-bit BMP decoder; RGB565 blend onto
@@ -120,12 +142,13 @@ Legend: DONE / WIP / PENDING / NO-OP / DEFERRED(reason)
 ## DEFERRED (subsystem pairings)
 - CalcVisMapCLIENT (scanrange.cpp) — pairs with the unported SERVER SR_Step/OnServerTic
   scanrange subsystem; port both together (terrain-aware vision)
-- MAP_CFileOpen1/2 + MAP_loadFromServer (map_location.cpp "not used") — maps\ download
-  redirect, pairs with the custom-map sync work (0xBF/0x3B, OPEN in memory)
 - NETPROTO x3 + NET_cryptPacket + recv_ — v20 auth/protocol (spec in memory, user-shelved)
 - imp_MakeScreenshotNet — HAT-net-triggered screenshot (0x64 packet, with v20 auth)
 - (CHAT_prependType x2 now ported with hardcoded locale strings)
 - (MENU x6 + ITEMPNG x3 + add_info console UI done/no-op'd, session batch 4)
+- (MAP_CFileOpen1/2 + MAP_loadFromServer + showmap.xck done, session batch 5;
+  the 0xBF/0x3B transfer itself was already in — server side needs only
+  "maps\..." [maps] config entries)
 
 ## DEFERRED
 - PNG x3 + ITEMPNG (SDL), add_info console UI (PNG assets)

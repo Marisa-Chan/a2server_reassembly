@@ -3565,9 +3565,13 @@ void CUnit::DrawStatsPanel(CRect* rect) {
     } else if (map->my_main_unit->IsVisibleTo(this->map_player->index) != 0) {
         view_level = 7;
     }
+#ifndef A2CLIENT_PATCH
+    // Tangar showmap.xck (46FF75): a revealed map no longer grants the full
+    // enemy stats view.
     if (g_MapRevealed != 0) {
         view_level = 7;
     }
+#endif
 
     char buf1[16];
     char buf2[16];
@@ -3723,9 +3727,13 @@ const char* CUnit::GetStatsHint(int32_t x, int32_t y) {
     } else if (map->my_main_unit->IsVisibleTo(this->map_player->index) != 0) {
         view_level = 7;
     }
+#ifndef A2CLIENT_PATCH
+    // Tangar showmap.xck (470F2E): a revealed map no longer grants the full
+    // enemy stats view.
     if (g_MapRevealed != 0) {
         view_level = 7;
     }
+#endif
 
     if (view_level >= 5 && x <= 0x4f && y >= 0x2c && y <= 0x53) {
         return TxtFile::AllLines[(y - 0x2c) / 10 + 0x9b];
