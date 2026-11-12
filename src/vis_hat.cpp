@@ -1,6 +1,7 @@
 #include <winsock2.h>
 #ifdef A2CLIENT_PATCH
 #include "patch/stats_level.h"
+#include "patch/client_config.h"
 #endif
 #include <ws2tcpip.h>
 #include <timeapi.h>
@@ -387,8 +388,20 @@ void VisHatBrowserDlg::VMethod26() {
 
     VisHatBrowserList* list = nullptr;
     if (main_wnd->hat_settings.ishat != 0) {
+#ifdef A2CLIENT_PATCH
+        // Tangar GUI_setServColumnSize (44E9D5 + 44EBB0): the HAT server list
+        // starts higher (top 0x5c -> 0x44) and the non-deathmatch list grows
+        // taller (bottom Height-0x80 -> Height-0x60).
         int32_t list_top = 0x44;
         int32_t list_bottom = this->rect.Height() - 0x60;
+#elif defined(A2CLIENT)
+        int32_t list_top = 0x5c;
+        int32_t list_bottom = this->rect.Height() - 0x80;
+#else
+        // server retail: single list ctor (1, 0x28, 0x5c, Width-0x40, Height-0x60)
+        int32_t list_top = 0x5c;
+        int32_t list_bottom = this->rect.Height() - 0x60;
+#endif
         if (main_wnd->hat_settings.deathmatch == 2) {
             list_bottom = this->rect.Height() - 0xc0;
         }
@@ -776,7 +789,17 @@ void VisHatServerListDlg::VMethod31(int32_t code) {
         this->FindChild(8)->WriteData(buffer);
         this->hat_settings->password = buffer;
         this->FindChild(3)->WriteData(&this->hat_settings->deathmatch);
-#ifdef A2CLIENT
+#ifdef A2CLIENT_PATCH
+        // Tangar GUI_softcoreSwitch (44C966): dropdown value -> registry mode
+        // remap (0=PvP, 1=PvE->2, 2=Sandbox->4, 3=Arena->3).
+        if (this->hat_settings->deathmatch == 2) {
+            this->hat_settings->deathmatch = 4;
+        } else if (this->hat_settings->deathmatch == 1) {
+            this->hat_settings->deathmatch = 2;
+        } else if (this->hat_settings->deathmatch != 3) {
+            this->hat_settings->deathmatch = 0;
+        }
+#elif defined(A2CLIENT)
         if (this->hat_settings->deathmatch == 1) {
             this->hat_settings->deathmatch = 3;
         }
@@ -848,6 +871,37 @@ CVisualObject* VisHatServerListDlg::VMethod30(const void* data, const RECT& r) {
         ip_box->ReadData(hat->hatprogip);
     }
 
+#ifdef A2CLIENT_PATCH
+    // Tangar GUI_sandboxSwitch (44CB2D) + GUI_softcoreResetSwitch (44CBC7): the
+    // game-mode radio collapses to a single "hardcore" entry in a taller box; the
+    // shown index comes from the z_softcore override (1->2, 2->4) or the stored
+    // deathmatch value, remapped for display (2->1, 4->2).
+    VisRadioType2* deathmatch_radio = new VisRadioType2(3, r.left, 0x7C, r.right, 0xDC, g_font1, p_clrsh_Black, nullptr);
+    deathmatch_radio->AddEntry(txt_patch.GetLine(0x68));
+    this->AddChild(deathmatch_radio);
+    int32_t dm_value;
+    if (tangar_cfg::z_softcore == 1) {
+        dm_value = 2;
+    } else if (tangar_cfg::z_softcore == 2) {
+        dm_value = 4;
+    } else {
+        dm_value = hat->deathmatch;
+    }
+    int32_t dm_display;
+    if (dm_value == 2) {
+        dm_display = 1;
+    } else if (dm_value == 4) {
+        dm_display = 2;
+    } else if (dm_value == 3 || dm_value == 0) {
+        dm_display = dm_value;
+    } else {
+        dm_display = 0;
+    }
+    deathmatch_radio->ReadData(&dm_display);
+    if (hat->ishat == 0) {
+        deathmatch_radio->ChangeFlags(1, false);
+    }
+#else
     VisRadioType2* deathmatch_radio = new VisRadioType2(3, r.left, 0x6c, r.right, 0x9c + dy, g_font1, p_clrsh_Black, nullptr);
     deathmatch_radio->AddEntry(txt_patch.GetLine(0x68));
 #ifdef A2CLIENT
@@ -869,12 +923,23 @@ CVisualObject* VisHatServerListDlg::VMethod30(const void* data, const RECT& r) {
     if (hat->ishat == 0) {
         deathmatch_radio->ChangeFlags(1, false);
     }
+#endif
 
+#ifdef A2CLIENT_PATCH
+    // Tangar GUI_removeServerList (44CC1E): the ishat selector is removed -
+    // an off-screen disabled radio keeps the id-4 child (entries and ReadData
+    // still run so the stored value survives VMethod31 writeback).
+    VisRadioType2* ishat_radio = new VisRadioType2(4, r.left, (int32_t)0x80FFFFF0, r.right, (int32_t)0x80FFFFC0, g_font1, p_clrsh_Black, nullptr);
+#else
     VisRadioType2* ishat_radio = new VisRadioType2(4, r.left, 0xa8 + dy, r.right, 0xd8 + dy, g_font1, p_clrsh_Black, nullptr);
+#endif
     ishat_radio->AddEntry(txt_patch.GetLine(0x78));
     ishat_radio->AddEntry(txt_patch.GetLine(0x79));
     this->AddChild(ishat_radio);
     ishat_radio->ReadData(&hat->ishat);
+#ifdef A2CLIENT_PATCH
+    ishat_radio->flags = 0;
+#endif
 
     this->AddChild(new VisLabel(5, r.left, 0xe4 + dy, r.right, 0xfc + dy, txt_patch.GetLine(0x6e), g_font1, p_clrsh_Black, 0));
 

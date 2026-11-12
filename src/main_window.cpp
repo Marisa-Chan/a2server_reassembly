@@ -1589,7 +1589,19 @@ void HatSettings::Save(HKEY& rkey) {
 
     cbData = 4;
     RegSetValueExA(rkey, "ishat", 0, REG_DWORD, (const BYTE*)&this->ishat, cbData);
+#ifdef A2CLIENT_PATCH
+    // Tangar GUI_softcoreSaveSwitch (43FA41): when the dialog left PvP (0) and
+    // config forces a mode, persist the forced mode instead.
+    {
+        int32_t dm_value = this->deathmatch;
+        if (dm_value == 0 && tangar_cfg::z_softcore != 0) {
+            dm_value = (tangar_cfg::z_softcore == 2) ? 4 : 2;
+        }
+        RegSetValueExA(rkey, "deathmatch", 0, REG_DWORD, (const BYTE*)&dm_value, 4);
+    }
+#else
     RegSetValueExA(rkey, "deathmatch", 0, REG_DWORD, (const BYTE*)&this->deathmatch, cbData);
+#endif
     RegSetValueExA(rkey, "store", 0, REG_DWORD, (const BYTE*)&this->store, cbData);
 #ifdef A2CLIENT
     RegSetValueExA(rkey, "team", 0, REG_DWORD, (const BYTE*)&this->team, cbData);
