@@ -1,5 +1,8 @@
 #include <winsock2.h>
 #ifdef A2CLIENT_PATCH
+#include "patch/hotkeys.h"
+#endif
+#ifdef A2CLIENT_PATCH
 #include "patch/stats_level.h"
 #endif
 #include "patch/locale.h"
@@ -2255,7 +2258,15 @@ void VisCharInfo::VMethod7() {
     }
 
     if ((main_wnd->dialogsMask & (DIALOG_MASK_INGAME | DIALOG_MASK_SHOP)) != 0 && (main_wnd->dialogsMask & DIALOG_MASK_TAVERN) == 0) {
+#ifdef A2CLIENT_PATCH
+        // Tangar is_spell_book_open (4B758F): the open/closed book sprite is the
+        // only reliable spell-book indicator, so record it while drawing.
+        bool tangar_book_open = map->IsBookOpen() != 0;
+        tangar_hotkeys::SetSpellBookOpen(tangar_book_open);
+        if (tangar_book_open) {
+#else
         if (map->IsBookOpen()) {
+#endif
             g_bmp_bookopened->DrawSubRectMasked(screen_rect.left, screen_rect.top, 0, 0, 0x1C, 0x26);
         } else {
             g_bmp_bookclosed->DrawSubRectMasked(screen_rect.left, screen_rect.top + 4, 0, 0, 0x1C, 0x25);
@@ -2900,6 +2911,10 @@ int32_t VisCharInfo::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     int32_t result = CVisualObject::MsgProc(msg, wparam, lparam);
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+#ifdef A2CLIENT_PATCH
+    // Tangar panel_toggle (4B6977): remember the char-info panel object.
+    tangar_hotkeys::RememberPanel(this);
+#endif
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
 
