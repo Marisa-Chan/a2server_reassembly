@@ -53,6 +53,12 @@ ASSERT_SIZE(VisInvBase, 0x20ac);
 class VisInvType1 : public VisInvBase {
 public:
 	virtual ~VisInvType1(); // 4A7830 (client: 4aba40)
+#ifdef A2CLIENT_PATCH
+	// Tangar pack_scrolling (PSCRL_gameInventory, client vtable slot 0x5D8BAC):
+	// the retail class inherits CVisualObject::OnKeyDown; the patched client
+	// pages through the bags with PageUp/PageDown.
+	virtual int32_t OnKeyDown(uint32_t wparam) override;
+#endif
 
 	virtual const char* GetHint() override; // 4A765D (client: 4ab68b)
 	virtual void VMethod7() override; // 4A6449 (client: 4aa478)

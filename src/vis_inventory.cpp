@@ -642,6 +642,29 @@ int32_t VisInvType1::OnMouseMove(uint32_t wparam, CPoint pos) {
 
 
 // 4A7441
+#ifdef A2CLIENT_PATCH
+// Tangar pack_scrolling: PSCRL_gameInventory replaces the retail (base-class)
+// VisInvType1::OnKeyDown - PageUp/PageDown page through the bags, one bag
+// column per step (page width = (screen width - 240) / 80 - 1).
+int32_t VisInvType1::OnKeyDown(uint32_t wparam) {
+    if (wparam == 0x21 || wparam == 0x22) {
+        int32_t page_steps = ((int32_t)g_ScreenSize.right - 240) / 80 - 1;
+        if (page_steps <= 1) {
+            page_steps = 1;
+        }
+        for (int32_t i = 0; i < page_steps; i++) {
+            if (wparam == 0x21) {
+                this->ScrollCellsBack();
+            } else {
+                this->ScrollCellsForward();
+            }
+        }
+        return 1;
+    }
+    return 0;
+}
+#endif
+
 int32_t VisInvType1::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -1523,6 +1546,13 @@ void VisInvExtType1::ClearCategoryGrids() {
 
 // 4B777C
 int32_t VisInvExtType1::OnKeyDown(uint32_t wparam) {
+#ifdef A2CLIENT_PATCH
+    // Tangar pack_scrolling (PSCRL_shopShelfOnKeyDown, client vtable slot
+    // 0x5D92F4): the shelf page keys only reach the retail handler with Ctrl held.
+    if (GetAsyncKeyState(VK_CONTROL) == 0) {
+        return 0;
+    }
+#endif
     if (wparam == 0x21) {
         this->ScrollCellsBack();
         this->ScrollCellsBack();
