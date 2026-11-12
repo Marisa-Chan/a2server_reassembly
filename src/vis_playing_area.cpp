@@ -5601,7 +5601,22 @@ void VisPlayingArea::RenderWorldFrame() {
 	uint32_t panel_cmp = charinfo_h <= sidestatus_h;
 	if (g_ScreenSize.bottom > 600) {
 		g_bmp_extra1024l->DrawSubRectMasked(local_rect.right - 0x10, local_rect.top + 480, 0, 0, 0x10, g_bmp_extra1024l->GetHeight(0));
+#ifdef A2CLIENT_PATCH
+		// Tangar info_panel_left_sprite (40A939): the lower text strip is pinned to
+		// the bottom of the window instead of sitting fixed below the top strip.
+		{
+			int32_t strip_y;
+			RECT wr;
+			if (GetWindowRect(AfxGetMainWnd()->m_hWnd, &wr)) {
+				strip_y = wr.bottom - 0xf2;
+			} else {
+				strip_y = local_rect.bottom - 0xf2;
+			}
+			g_bmp_textbackl->DrawSubRectMasked(local_rect.right - 0x10, strip_y, 0, 0, 0x10, 0xf2);
+		}
+#else
 		g_bmp_textbackl->DrawSubRectMasked(local_rect.right - 0x10, local_rect.top + 480 + g_bmp_extra1024l->GetHeight(0), 0, 0, 0x10, 0xf2);
+#endif
 	} else if (g_ScreenSize.bottom > 480) {
 		g_bmp_extra800l->DrawSubRectMasked(local_rect.right - 0x10, local_rect.top + 480, 0, 0, 0x10, g_bmp_extra800l->GetHeight(0));
 	}
