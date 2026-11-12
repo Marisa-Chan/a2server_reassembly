@@ -43,6 +43,8 @@
 #include "patch/config_new.h"
 #include "patch/player_info.h"
 #include "patch/player_settings.h"
+#include <map>
+#include <vector>
 #include "patch/server_state.h"
 #include "patch/tangar_utils.h"
 #include "patch/kick_char.h"
@@ -2743,6 +2745,138 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             msg.Format("map: \"%s\" in \"%s\", time elapsed: %u:%02u:%02u, time total: %s",
                        Config::CurrentMapTitle.c_str(), Config::CurrentMapName.c_str(), tm_h, tm_m, tm_s, (const char*)time_left);
             g_NetStru1_main.AnnouncePlayerName(msg, player);
+            return;
+        }
+
+        if (lowered.Find("#vote_map") == 0) {
+            // Tangar #vote_map (ProcessCheat_VoteMap): players vote for the next
+            // map; the leading map is rotated into the slot after the current one.
+            // Only active on the QUEST_T1 server.
+            bool vote_applied = false;
+            if (Config::ServerID == QUEST_T1) {
+                CStringArray& map_files = g_ServerConfig.map_names;
+                CDWordArray& map_times = g_ServerConfig.map_durations;
+                int32_t map_index = (int32_t)g_ServerConfig.current_map_index;
+
+                if (map_index == map_files.GetSize() - 1) {
+                    g_NetStru1_main.AnnouncePlayerName("This is the last map in the pool, voting is closed. The next map will be chosen randomly.", player);
+                } else if (map_index == map_files.GetSize() - 2) {
+                    g_NetStru1_main.AnnouncePlayerName("There is only one map left in the pool, voting is closed.", player);
+                } else {
+                    // Map basenames for easier matching.
+                    std::vector<CString> all_map_names;
+                    for (int32_t i = 0; i < map_files.GetSize(); i++) {
+                        CString name = map_files[i];
+                        int32_t slash = name.ReverseFind('\\');
+                        int32_t slash2 = name.ReverseFind('/');
+                        if (slash2 > slash) {
+                            slash = slash2;
+                        }
+                        if (slash >= 0) {
+                            name = name.Mid(slash + 1);
+                        }
+                        all_map_names.push_back(name);
+                    }
+
+                    CString args = cheat_string.Mid(9);
+                    args.TrimLeft();
+                    args.TrimRight();
+
+                    settings::PlayerSettings* player_settings = settings::FindOrCreate((const char*)player->name);
+
+                    if (args.GetLength() > 0) {
+                        std::vector<CString> matching_maps;
+                        for (int32_t i = map_index + 1; i < map_files.GetSize(); i++) {
+                            if (all_map_names[i].Find((const char*)args) >= 0) {
+                                matching_maps.push_back(all_map_names[i]);
+                            }
+                        }
+
+                        if (matching_maps.size() == 0) {
+                            CString m;
+                            m.Format("Map '%s' is not available for selection", (const char*)args);
+                            g_NetStru1_main.AnnouncePlayerName(m, player);
+                        } else if (matching_maps.size() > 1) {
+                            CString names;
+                            for (size_t i = 0; i < matching_maps.size(); i++) {
+                                if (names.GetLength() > 0) {
+                                    names += ", ";
+                                }
+                                names += matching_maps[i];
+                            }
+                            CString m;
+                            m.Format("Multiple maps match '%s': %s", (const char*)args, (const char*)names);
+                            g_NetStru1_main.AnnouncePlayerName(m, player);
+                        } else {
+                            CString m;
+                            m.Format("You voted for map '%s'", (const char*)matching_maps[0]);
+                            g_NetStru1_main.AnnouncePlayerName(m, player);
+                            player_settings->map_vote = (const char*)matching_maps[0];
+                            player_settings->last_modified = time(nullptr);
+                        }
+                    }
+
+                    // Current votes.
+                    std::map<std::string, int32_t> current_votes;
+                    settings::ForEachReadonly([&current_votes](const std::string& name, settings::PlayerSettings* ps) {
+                        (void)name;
+                        if (!ps->map_vote.empty()) {
+                            current_votes[ps->map_vote]++;
+                        }
+                    });
+
+                    if (args.GetLength() == 0) {
+                        // No vote cast: show the current tally.
+                        for (auto vote_it = current_votes.begin(); vote_it != current_votes.end(); ++vote_it) {
+                            CString m;
+                            m.Format("Map '%s' has %d votes", vote_it->first.c_str(), vote_it->second);
+                            g_NetStru1_main.AnnouncePlayerName(m, player);
+                        }
+                    } else {
+                        // Which map is the most voted now? Ties cancel out.
+                        int32_t most_votes = -1;
+                        std::string next_map;
+                        for (auto vote_it = current_votes.begin(); vote_it != current_votes.end(); ++vote_it) {
+                            if (vote_it->second == most_votes) {
+                                next_map = "";
+                            } else if (vote_it->second > most_votes) {
+                                most_votes = vote_it->second;
+                                next_map = vote_it->first;
+                            }
+                        }
+
+                        int32_t next_map_index = -1;
+                        if (!next_map.empty()) {
+                            for (int32_t i = 0; i < map_files.GetSize(); i++) {
+                                if (strcmp((const char*)all_map_names[i], next_map.c_str()) == 0) {
+                                    next_map_index = i;
+                                }
+                            }
+
+                            if (next_map_index != -1 && next_map_index > map_index + 1) {
+                                // Rotate names and durations so the voted map follows
+                                // the current one (std::rotate(begin, middle, end)).
+                                CString chosen_name = map_files[next_map_index];
+                                uint32_t chosen_duration = map_times[next_map_index];
+                                for (int32_t i = next_map_index; i > map_index + 1; i--) {
+                                    map_files[i] = map_files[i - 1];
+                                    map_times[i] = map_times[i - 1];
+                                }
+                                map_files[map_index + 1] = chosen_name;
+                                map_times[map_index + 1] = (int32_t)chosen_duration;
+                                vote_applied = true;
+                            } else if (next_map_index != -1) {
+                                CString m;
+                                m.Format("The next map will be '%s' with %d vote(s).", next_map.c_str(), most_votes);
+                                g_NetStru1_main.AnnouncePlayerName(m, player);
+                            }
+                        }
+                    }
+                }
+            }
+            if (vote_applied) {
+                server_state.ThrottledSave(); // Map order has changed, save it.
+            }
             return;
         }
 
