@@ -1,4 +1,5 @@
 #include <winsock2.h>
+#include "patch/locale.h"
 #include <ws2tcpip.h>
 #include <timeapi.h>
 
@@ -582,9 +583,9 @@ VisGlobalMap::VisGlobalMap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
 void VisGlobalMap::LoadBitmaps() {
     this->FreeBitmaps();
     if (this->umoirMapMode != 0) {
-        this->gmap = new CBmp64("main\\graphics\\Global.Map\\Umoir.bmp");
+        this->gmap = new CBmp64(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_umoir : "main\\graphics\\Global.Map\\Umoir.bmp");
     } else {
-        this->gmap = new CBmp64("main\\graphics\\Global.Map\\GMap.bmp");
+        this->gmap = new CBmp64(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_gmap : "main\\graphics\\Global.Map\\GMap.bmp");
     }
     g_mousept.Update();
     this->flag1_spr = new CA16("graphics\\Global.Map\\Flag1\\sprites.16a");

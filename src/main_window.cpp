@@ -1,4 +1,5 @@
 #include "main_window.h"
+#include "patch/locale.h"
 #include <cstdio>
 #include <timeapi.h>
 #include "smacker_player.h"
@@ -633,7 +634,7 @@ int32_t MainWindow::WaitConnectionCharacterJoin() {
 // 48d815
 void MainWindow::ShowCurrentTownDialog() {
     CStringArray* plist = new CStringArray();
-    ReadFileToString("main\\text\\town.txt", &g_MissionText);
+    ReadFileToString(A2CLIENT_PATCH_ENABLED ? tangar_locale::town : "main\\text\\town.txt", &g_MissionText);
     g_Cursors[0x1a]->Use();
     this->ShowRightPanelInfo();
 
@@ -3270,7 +3271,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case MAIN_MSG_NEW_CAMPAIGN:
-        ReadFileToString("main\\text\\town.txt", &g_MissionText);
+        ReadFileToString(A2CLIENT_PATCH_ENABLED ? tangar_locale::town : "main\\text\\town.txt", &g_MissionText);
         ScenarioNewGame();
         this->serverLoopCounter = 0;
         this->serverBootstrapEnabled = 1;
@@ -3289,7 +3290,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case MAIN_MSG_SHOW_CHAR_LOADER:
-        ReadFileToString("main\\text\\town.txt", &g_MissionText);
+        ReadFileToString(A2CLIENT_PATCH_ENABLED ? tangar_locale::town : "main\\text\\town.txt", &g_MissionText);
         this->serverLoopCounter = 0;
         this->sessionMode = SESSION_SINGLEPLAYER;
 #ifdef A2CLIENT
@@ -4356,7 +4357,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
     }
 
     if (this->sessionMode == SESSION_LOCAL_BATTLE) {
-        sprintf(buf, "main\\text\\mission%d.txt", ScenarioGetCurrentLocation()->GetId());
+        sprintf(buf, A2CLIENT_PATCH_ENABLED ? tangar_locale::mission_fmt : "main\\text\\mission%d.txt", ScenarioGetCurrentLocation()->GetId());
         ReadFileToString(buf, &g_MissionText);
         MissionGetBriefing(&g_MissionBriefing);
 
@@ -4388,7 +4389,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
             PostMessage(MAIN_MSG_AUTOSAVE, 0, 0);
         }
     } else {
-        ReadFileToString("main\\text\\quest.txt", &g_MissionText);
+        ReadFileToString(A2CLIENT_PATCH_ENABLED ? tangar_locale::quest : "main\\text\\quest.txt", &g_MissionText);
     }
 
     g_Cursors[CURSOR_DEFAULT]->Use();

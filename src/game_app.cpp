@@ -796,7 +796,7 @@ BOOL GameApp::InitInstance() {
 	tangar_locale::DecideLanguage();
 	ReadFileToString(tangar_locale::help, &g_HelpStr);
 
-	txt_main.LoadChunkFile(tangar_locale::main);
+	txt_main.LoadChunkFile(tangar_locale::main_txt);
 	txt_heropicture.LoadChunkFile(tangar_locale::heropicture);
 	txt_stats.LoadChunkFile(tangar_locale::stats);
 	txt_spells.LoadChunkFile(tangar_locale::spells);

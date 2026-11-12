@@ -21,7 +21,7 @@ void DecideLanguage();
 extern const char* credits;    // was main\text\credits.txt
 extern const char* globalmap;  // was main\text\globalmap.txt
 extern const char* help;       // was main\text\help.txt
-extern const char* main;       // was main\text\main.txt
+extern const char* main_txt;       // was main\text\main.txt
 extern const char* heropicture;
 extern const char* stats;
 extern const char* spells;
@@ -42,7 +42,7 @@ extern const char* docs_fmt;    // was main\text\docs\%d.txt
 
 // Graphics overrides.
 extern const char* gfx_chrgen_leftup; // was main\graphics\chrgen\leftup.bmp
-extern const char* gfx_logo_dir;      // was main\graphics\logo\
+extern const char* gfx_logo_dir;      // was main\graphics\logo dir
 extern const char* gfx_famehall;      // was main\graphics\famehall\hall.bmp
 extern const char* gfx_umoir;         // was main\graphics\Global.Map\Umoir.bmp
 extern const char* gfx_gmap;          // was main\graphics\Global.Map\GMap.bmp

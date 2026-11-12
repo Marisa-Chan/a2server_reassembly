@@ -17,7 +17,7 @@ bool g_russian = false;
 const char* credits = "main\\text\\credits.txt";
 const char* globalmap = "main\\text\\globalmap.txt";
 const char* help = "main\\text\\help.txt";
-const char* main = "main\\text\\main.txt";
+const char* main_txt = "main\\text\\main.txt";
 const char* heropicture = "main\\text\\heropicture.txt";
 const char* stats = "main\\text\\stats.txt";
 const char* spells = "main\\text\\spells.txt";
@@ -64,7 +64,7 @@ void DecideLanguage() {
     SET(credits, "\\credits.txt");
     SET(globalmap, "\\globalmap.txt");
     SET(help, "\\help.txt");
-    SET(main, "\\main.txt");
+    SET(main_txt, "\\main.txt");
     SET(heropicture, "\\heropicture.txt");
     SET(stats, "\\stats.txt");
     SET(spells, "\\spells.txt");
