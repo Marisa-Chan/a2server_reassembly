@@ -84,7 +84,8 @@ Legend: DONE / WIP / PENDING / NO-OP / DEFERRED(reason)
 - CHAT_prependType x2 (ffabfe44): [Say/Private/Shout] prefixes under g_altchat
   (patch.res lines 223-225 approximated with locale-aware literals)
 - Server #-commands reconciled: #mapinfo (9ccbbc07), #killai (5adecc77),
-  #mapwide + #inn (b00607e7), #vote_map (c75f14fb) — see memory session-37
+  #mapwide + #inn (b00607e7), #vote_map (c75f14fb), #reborn + #hell
+  (3dd1723b, with the thresholds.cfg parser + reborn readiness module) — memory s37/s38
 
 ## DEFERRED (subsystem pairings)
 - CalcVisMapCLIENT (scanrange.cpp) — pairs with the unported SERVER SR_Step/OnServerTic
