@@ -35,10 +35,21 @@ Legend: DONE / WIP / PENDING / NO-OP / DEFERRED(reason)
   walks — MFC CArray owns its storage; no port possible or needed.
 - NO-OP 4BEE2D (VisShop ctor zero-init 0x164..0x17C): covered-by-construction.
 
+## GUI softcore family — DONE
+- GUI_softcoreEnter (44DD0F) stats-based level selection — fef03834: patch/stats_level.{h,cpp}
+  (ParseServerNumber + brackets by FileSectionStats: <15 mind / <20 reaction / 20-30 / 30-40 /
+  40-50 partial / 50+50+50), creating_new_character set in VisCharGenStats::LoadBitmaps (42B599),
+  cleared in ParsePlayerFile (4F75F5); stats read via GetParsedPlayerStats() (s_stats_buf,
+  client 0x6995a8 twin); tangar_cfg::stats_based_level_selection now defaults TRUE (a2mgr parity)
+- Dropdown rework — 4de26160: sandboxSwitch single "hardcore" entry radio(3,l,0x7C,r,0xDC);
+  ResetSwitch z_softcore override + remap (2->1,4->2); softcoreSwitch write remap (1->2,2->4);
+  SaveSwitch deathmatch registry remap when z_softcore forces mode; removeServerList = off-screen
+  disabled id-4 radio (flags=0, entries+ReadData kept); setServColumnSize list top 0x5c->0x44 +
+  non-dm2 bottom H-0x80->H-0x60. NOTE: our VMethod26 previously carried the PATCHED values
+  ungated (0x44/H-0x60) — now retail (0x5c, H-0x80 client / H-0x60 server) sits under #else.
+  z_softcore has NO config parse in a2mgr (always 0 → override paths dormant); knob added anyway.
+
 ## Current queue (next up)
-- [NEXT] GUI softcore family: softcoreEnter/Switch/Reset/SaveSwitch + sandboxSwitch +
-  StatsBasedLevelSelection + ParseServerNumber + creating_new_character flag +
-  new_character_screen/load_character — one feature, config knob already in tangar_cfg
 - MENU x6 (menu.cpp custom menus; needs patch.res strings via GetPatchString — check reachability)
 - hotkeys x10 (hotkey.cpp item/spell hotkeys; needs config aliases + Label())
 - chat subsystem remainder: prependType x2 (patch.res string table), HATENT_url_connect
