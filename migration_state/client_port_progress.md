@@ -78,6 +78,14 @@ Legend: DONE / WIP / PENDING / NO-OP / DEFERRED(reason)
   (CSprite256 debug)
 - _fix_launcher (patcher-side unpacker wait tool)
 
+## Session batch 3 (2026-11-12)
+- SCREENSHOT_take (2110b2e5): PNG screenshots via vendored lodepng (src/patch/lodepng/,
+  zlib-licensed, same file the manager uses), z_screendir knob
+- CHAT_prependType x2 (ffabfe44): [Say/Private/Shout] prefixes under g_altchat
+  (patch.res lines 223-225 approximated with locale-aware literals)
+- Server #-commands reconciled: #mapinfo (9ccbbc07), #killai (5adecc77),
+  #mapwide + #inn (b00607e7), #vote_map (c75f14fb) — see memory session-37
+
 ## DEFERRED (subsystem pairings)
 - CalcVisMapCLIENT (scanrange.cpp) — pairs with the unported SERVER SR_Step/OnServerTic
   scanrange subsystem; port both together (terrain-aware vision)
@@ -85,8 +93,8 @@ Legend: DONE / WIP / PENDING / NO-OP / DEFERRED(reason)
   redirect, pairs with the custom-map sync work (0xBF/0x3B, OPEN in memory)
 - NETPROTO x3 + NET_cryptPacket + recv_ — v20 auth/protocol (spec in memory, user-shelved)
 - MENU x6 + ITEMPNG x3 + add_info console UI — SDL/PNG asset dependency
-- SCREENSHOT_take + imp_MakeScreenshotNet — screenshot subsystem (with #screenshot cmd)
-- CHAT_prependType x2 — needs patch.res string table (locale work)
+- imp_MakeScreenshotNet — HAT-net-triggered screenshot (0x64 packet, with v20 auth)
+- (CHAT_prependType x2 now ported with hardcoded locale strings)
 
 ## DEFERRED
 - PNG x3 + ITEMPNG (SDL), add_info console UI (PNG assets)
