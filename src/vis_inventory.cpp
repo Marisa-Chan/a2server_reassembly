@@ -1,4 +1,7 @@
 #include <winsock2.h>
+#ifdef A2CLIENT_PATCH
+#include "patch/hotkeys.h"
+#endif
 #include <ws2tcpip.h>
 #include <timeapi.h>
 
@@ -566,6 +569,12 @@ void VisInvType1::VMethod7() {
             this->DrawGlowTrail(cell_x, cell_y, i);
         }
 
+#ifdef A2CLIENT_PATCH
+        // Tangar mark_item_hotkey (4AAC7C): custom-hotkey labels replace the
+        // retail F4-F12 labels.
+        entry = this->grid_source->GetAt(i + *this->visible_startref);
+        tangar_hotkeys::DrawItemHotkeyLabels(edge_width + screen_rect.left, screen_rect.top, i, entry);
+#else
         for (int32_t j = 0; j < 9; j++) {
             entry = this->grid_source->GetAt(i + *this->visible_startref);
             if (main_wnd->m_GameSession.shortcuts[j].MatchesItem(entry) != 0) {
@@ -575,6 +584,7 @@ void VisInvType1::VMethod7() {
                 break;
             }
         }
+#endif
     }
 }
 
@@ -675,16 +685,37 @@ int32_t VisInvType1::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
             if (screen_rect.PtInRect(mouse_pt)) {
                 int32_t idx = this->VMethod30(g_mousept.GetX(), -g_mousept.GetY());
                 if (idx >= 0) {
+#ifdef A2CLIENT_PATCH
+                    // Tangar item_hotkey_set (4AB545): the custom-hotkey map
+                    // owns the binding (with its own dedup); retail dedup skipped.
+                    tangar_hotkeys::ItemHotkeySet((int32_t)wparam + VK_F4, this->grid_source->GetAt(idx));
+#else
                     main_wnd->m_GameSession.shortcuts[wparam].SetItem(this->grid_source->GetAt(idx));
                     for (int32_t i = 0; i < 9; i++) {
                         if (i != wparam && main_wnd->m_GameSession.shortcuts[i].MatchesItem(this->grid_source->GetAt(idx)) != 0) {
                             main_wnd->m_GameSession.shortcuts[i].kind = 0;
                         }
                     }
+#endif
                     main_wnd->m_GameSession.SaveShortcuts();
                 }
             }
         } else {
+#ifdef A2CLIENT_PATCH
+            // Tangar item_hotkey_find (4AB61A): match against the custom hotkey.
+            UserShortcut* tangar_hotkey = tangar_hotkeys::LookupHotkey((int32_t)wparam + VK_F4);
+            if (tangar_hotkey != nullptr && this->grid_source != nullptr) {
+                for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
+                    if (tangar_hotkey->MatchesItem(this->grid_source->GetAt(i)) != 0) {
+                        TokenEntry* entry = this->VMethod36(i, 1);
+                        if (entry != nullptr) {
+                            main_wnd->vis_charinfo->VMethod27(entry->GetType() - 1);
+                        }
+                        break;
+                    }
+                }
+            }
+#else
             if (this->grid_source != nullptr) {
                 for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
                     if (main_wnd->m_GameSession.shortcuts[wparam].MatchesItem(this->grid_source->GetAt(i)) != 0) {
@@ -696,6 +727,7 @@ int32_t VisInvType1::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
                     }
                 }
             }
+#endif
         }
     }
 
@@ -2570,10 +2602,32 @@ int32_t VisSpellBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
         this->pressed = -1;
     } else if (msg == VIS_MSG_SHORTCUT_KEY) {
         if (lparam == 0) {
+#ifdef A2CLIENT_PATCH
+            // Tangar spell_hotkey_use (4CF5DF): select from the custom hotkey.
+            UserShortcut* tangar_hotkey = tangar_hotkeys::LookupHotkey((int32_t)wparam + VK_F4);
+            if (tangar_hotkey != nullptr && tangar_hotkey->kind == 1) {
+                this->pressed = tangar_hotkey->item_id;
+            }
+#else
             if (main_wnd->m_GameSession.shortcuts[wparam].kind == 1) {
                 this->pressed = main_wnd->m_GameSession.shortcuts[wparam].item_id;
             }
+#endif
         } else {
+#ifdef A2CLIENT_PATCH
+            // Tangar spell_hotkey_set_mouse/set_selected (4CF4EE/4CF562): the
+            // custom-hotkey map owns the binding (with its own dedup).
+            if (this->pressed == -1) {
+                CPoint pt;
+                GetCursorPos(&pt);
+                int32_t idx = this->HitTestSpellCell(&pt);
+                if (idx >= 0) {
+                    tangar_hotkeys::SpellHotkeySet((int32_t)wparam + VK_F4, (short)idx);
+                }
+            } else {
+                tangar_hotkeys::SpellHotkeySet((int32_t)wparam + VK_F4, (short)this->pressed);
+            }
+#else
             if (this->pressed == -1) {
                 CPoint pt;
                 GetCursorPos(&pt);
@@ -2596,6 +2650,7 @@ int32_t VisSpellBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
                     }
                 }
             }
+#endif
             main_wnd->m_GameSession.SaveShortcuts();
         }
     }
@@ -2646,6 +2701,11 @@ void VisSpellBook::VMethod7() {
     }
     for (int32_t i = 0; i < 0x18; i++) {
         if (((mc->selected_available_spell_mask | mc->active_spell_effect_mask) & (1 << (i & 0x1F))) != 0) {
+#ifdef A2CLIENT_PATCH
+            // Tangar mark_spell_hotkey (4CEFBA): custom spell-hotkey labels
+            // replace the retail F4-F12 labels.
+            tangar_hotkeys::DrawSpellHotkeyLabel(left + rc.left, rc.top, i, this->pressed);
+#else
             int32_t fkey = 0;
             for (int32_t s = 0; s < 9; s++) {
                 if (main_wnd->m_GameSession.shortcuts[s].IsSpellShortcut((short)i)) {
@@ -2662,6 +2722,7 @@ void VisSpellBook::VMethod7() {
                 g_font3->DrawTextWithShadow(left + rc.left + 8 + off + (i % 0xC) * 0x26,
                     rc.top + 8 + off + (i / 0xC) * 0x26, buf, 0, clrsh_TechBlack, 1);
             }
+#endif
         }
         if ((mc->selected_active_spell_mask & (1 << (i & 0x1F))) != 0) {
             char buf[80];
