@@ -253,6 +253,13 @@ int32_t VisHatBrowserList::IsItemEnabled(int32_t idx) {
     int32_t players = atoi(item.Mid(pos, 2));
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+#ifdef A2CLIENT_PATCH
+    // GUI_gmEnter hook (44DB8D): a full GM (session key part 2 carries the
+    // GMF flags) may enter any server
+    if ((main_wnd->m_GameSession.sessionKeyPart2 & 0x3F000000) == 0x3F000000) {
+        return 1;
+    }
+#endif
     if (main_wnd->net_session.internet_game == 0 || main_wnd->hat_settings.ishat == 0 || main_wnd->hat_settings.deathmatch == 0) {
         if (main_wnd->m_GameSession.GetSkillTier1() > level + 1
             || main_wnd->m_GameSession.GetSkillTier2() < level + 1
