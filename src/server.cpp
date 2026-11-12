@@ -2945,6 +2945,28 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         // Admin commands (GMF-gated), reconciled from the manager's cheat
         // engine. Rights = player flags OR-ed with the config escape hatch.
         uint32_t tangar_rights = player->flags | Config::CheatsAdditionalRights;
+        if ((tangar_rights & GMF_CMD_KILL) != 0) {
+            if (lowered == "#killai") {
+                // Tangar #killai (zxmgr::KillAll(player, true)): kill every AI unit
+                // except the caster's own. hp = -50 with no attacker, state
+                // broadcast via SendUnitUpdate like the manager does.
+                CList<Unit*>& kill_list = g_Server->srv_stru1->units_list->unit_list;
+                POSITION kill_it = kill_list.GetHeadPosition();
+                while (kill_it != nullptr) {
+                    Unit* unit = kill_list.GetNext(kill_it);
+                    if (unit == player->main_unit) {
+                        continue;
+                    }
+                    if (unit->pOwner != nullptr && unit->pOwner->is_ai == 0) {
+                        continue;
+                    }
+                    unit->last_hit_by = nullptr;
+                    unit->hp = -50;
+                    g_NetStru1_main.SendUnitUpdate(unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
+                }
+                return;
+            }
+        }
         if ((tangar_rights & GMF_CMD_KICK) != 0) {
             if (lowered == "#kickme") {
                 KickPlayer(player, true);
