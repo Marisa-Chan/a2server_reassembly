@@ -1,0 +1,56 @@
+# Client patch port progress tracker
+Updated: 2026-11-12 (token-max session, cont.)
+
+Legend: DONE / WIP / PENDING / NO-OP / DEFERRED(reason)
+
+## Completed families
+- CRASH batch 1: 46AD10 (DrawHealthBar), 420450 (GetPalette), 523295 (SetPower range) — 518559c9
+- RES_loadFile override cascade — 8a88052e
+- Client twins: INSTALLDIR cd, thread-priority x2 — 0892c9dd
+- CHAT tilde x3 + logStrings + charset x2 (convWinToDos/convDosToIdx) — 05c53f94, 4ee9a961, b1083881
+- Chat history subsystem (Up/Down/Enter) — e5caf6dd
+- VIDEO_checkVideoMode smart default — f751620b
+- character_stats ceiling 100 — 72a95477
+- GUI_gmEnter GM bypass — 35a602e1
+- LANG family (core + worldmap/famehall/town/mission/quest) — ae7e5d15, ecf6ab87
+- Crash-guard quartet 4AAB7E/46B685/45FC3B/4657AD — e1650676, 37284f94 (incl. 458CF9 Blit16)
+- Client Config subsystem (tangar_cfg: r_fps/r_time/r_stopwatch/r_grid/r_grid_color/
+  g_scrollintv/z_language/stats_based_level_selection) — d14f576f
+- SCROLL rate limiter (g_scrollintv) — 1183958f
+- GRID tile overlay (r_grid, r_grid_color) — 8b39a278
+- CRASH_fix_multiwindow 1-4: PID temp-file names + cleanup glob — 5c43e3ad
+- ADMINISTRAT: staff nickname two-line draw in CUnit::DrawHealthBar — 420f6c42
+  (client 46B17E; prefixes Administrator/GameMaster/TournamentMaster/BalanceMaker;
+   title at y-0x19, char name at y-0xF, both in g_colors_human_pals[color])
+- INFO_fps: config-gated fps/time/stopwatch HUD replacing retail g_ShowFps box — 7a8d9cdc
+  (client 40AAF5..40ABDA in RenderWorldFrame; FONT_COLOR_GRAY=clrsh_TechBlack,
+   WHITE=clrsh_ShockingBlack; RightShift keydown toggles/freeze/restarts stopwatch)
+
+## Crash guards — all dispositioned
+- NO-OP 414994 (ProcessPackets DIPLOMACY_STATE): hook = IsBadReadPtr chain pkt→[pkt]→flags&1;
+  our vis_playing_area.cpp DIPLOMACY_STATE case already null-checks `mp` before `mp->flags & 1`
+  and uses real CArray access — covered by construction.
+- NO-OP 42353A (FUN_423530): CArray element-address thunk ([this+4] + idx*4) used by
+  UpdateSelectionState/Spell::Init/SetPower; binary guard probes a raw pointer our C++ never
+  walks — MFC CArray owns its storage; no port possible or needed.
+- NO-OP 4BEE2D (VisShop ctor zero-init 0x164..0x17C): covered-by-construction.
+
+## Current queue (next up)
+- [NEXT] GUI softcore family: softcoreEnter/Switch/Reset/SaveSwitch + sandboxSwitch +
+  StatsBasedLevelSelection + ParseServerNumber + creating_new_character flag +
+  new_character_screen/load_character — one feature, config knob already in tangar_cfg
+- MENU x6 (menu.cpp custom menus; needs patch.res strings via GetPatchString — check reachability)
+- hotkeys x10 (hotkey.cpp item/spell hotkeys; needs config aliases + Label())
+- chat subsystem remainder: prependType x2 (patch.res string table), HATENT_url_connect
+  (ParseHatAddress + connect), add_info console (Shift+ё, PNG UI) — parts DEFERRED with PNG
+- infotext.cpp (INFO_text?), nosingle.cpp, scanrange.cpp, pack_scrolling.cpp,
+  resource_control/resource_files_replace (FIL family NO-OP'd), serialize.cpp,
+  video_init.cpp, screenshot.cpp, client_cmd.cpp, map_location.cpp, gui_bugfix/gui_replace,
+  class_extend, spells_fix, opengl.cpp, landscape_renderer.cpp — unreviewed singles
+
+## NO-OP'd (verified not needed)
+- FIL x13, fixEscape, getMessageLast('/'), wmChar(baseline)
+
+## DEFERRED
+- PNG x3 + ITEMPNG (SDL), add_info console UI (PNG assets)
+- NETPROTO x4 + HAT v20 auth (user decision spec in memory), updater (with auth), screenshots
