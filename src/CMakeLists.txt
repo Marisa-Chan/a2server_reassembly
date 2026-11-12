@@ -86,6 +86,8 @@ set(A2SERVER_SOURCES
   patch/player_info.cpp
   patch/player_settings.cpp
   patch/circle.cpp
+  patch/thresholds.cpp
+  patch/reborn.cpp
   patch/summon.cpp
   patch/forbidden_items.cpp
   patch/quest_filters.cpp

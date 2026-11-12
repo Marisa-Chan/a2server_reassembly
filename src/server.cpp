@@ -45,6 +45,7 @@
 #include "patch/player_settings.h"
 #include <map>
 #include <vector>
+#include "patch/reborn.h"
 #include "patch/server_state.h"
 #include "patch/tangar_utils.h"
 #include "patch/kick_char.h"
@@ -2748,6 +2749,17 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             return;
         }
 
+        if (lowered == "#reborn") {
+            // Tangar #reborn: reborn / reclass / ascend readiness report
+            // (reborn_readiness.cpp).
+            reborn::RebornReadinessInfo(Config::ServerID, player, false);
+            return;
+        }
+        if (lowered == "#hell") {
+            // Tangar #hell: force the hell-circle readiness report.
+            reborn::RebornReadinessInfo(Config::ServerID, player, true);
+            return;
+        }
         if (lowered.Find("#vote_map") == 0) {
             // Tangar #vote_map (ProcessCheat_VoteMap): players vote for the next
             // map; the leading map is rotated into the slot after the current one.
