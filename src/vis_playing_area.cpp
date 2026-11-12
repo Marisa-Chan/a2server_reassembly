@@ -120,6 +120,19 @@ void VisPlayingArea::CloseHatOverlays() {
 }
 #endif
 
+#ifdef A2CLIENT_PATCH
+// Tangar get_map_name (map_location.cpp): downloaded maps live in maps\
+// instead of the game root. Idempotent when the name already carries the
+// prefix — servers that keep maps in maps\ announce them as "maps\..." in
+// MAP_INFO, and the checksum path uses that name unchanged.
+static CString TangarMapsPath(const CString& name) {
+	if (name.Find("maps\\") == 0) {
+		return name;
+	}
+	return CString("maps\\") + name;
+}
+#endif
+
 // 40da14
 // client: 40dac9
 int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
@@ -2145,6 +2158,11 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 
 		case FILE_CHUNK: {
 			CString fname = CString((const char*)packet_file->preamble) + ".tmp";
+#ifdef A2CLIENT_PATCH
+			// Tangar MAP_CFileOpen1/2 (client 40E0E3/40E0C9): both chunk-write
+			// opens use the maps\-prefixed path.
+			fname = TangarMapsPath(fname);
+#endif
 			CFile fl;
 
 			try {
@@ -2188,7 +2206,14 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 			if (packet_file->offset + packet_file->count < packet_file->total_length) {
 				this->SendRequestFileChunk(packet_file->offset + packet_file->count);
 			} else {
-				
+#ifdef A2CLIENT_PATCH
+				// Tangar MAP_loadFromServer (client 40E2BA): the finished
+				// download replaces any old copy under maps\ (plain
+				// DeleteFile + MoveFile, no exceptions).
+				CString final_name = TangarMapsPath((const char*)packet_file->preamble);
+				DeleteFile((LPCTSTR)final_name);
+				MoveFile((LPCTSTR)fname, (LPCTSTR)final_name);
+#else
 				try {
 					CFile::Remove((const char*)packet_file->preamble);
 				}
@@ -2200,6 +2225,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 				}
 				catch (...)
 				{}
+#endif
 
 				this->SendRequestMapInfo();
 			}
