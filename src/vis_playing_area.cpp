@@ -4844,7 +4844,7 @@ void VisPlayingArea::DrawTerrainFull() {
 				FillRectColor(x * 0x20, h1, x * 0x20, h3, 0);
 			}
 		}
-	}
+	}
 #ifdef A2CLIENT_PATCH
 	TangarDrawTileGrid(0, 0, this->view_tiles_x * 32, this->view_tiles_y * 32);
 #endif
@@ -4904,7 +4904,7 @@ void VisPlayingArea::DrawTerrainAnimated(int32_t arg) {
 				DrawDeformedTile(map_x * 0x20, (map_x + 1) * 0x20, h1, h2, h3, h4, l1, l2, l3, l4, tile_data, pal);
 			}
 		}
-	}
+	}
 #ifdef A2CLIENT_PATCH
 	TangarDrawTileGrid(0, 0, this->view_tiles_x * 32, this->view_tiles_y * 32);
 #endif
@@ -4972,7 +4972,7 @@ void VisPlayingArea::DrawTerrainScrolled(int32_t arg) {
 				FillRectColor(map_x * 0x20, h1, map_x * 0x20, h3, 0);
 			}
 		}
-	}
+	}
 #ifdef A2CLIENT_PATCH
 	TangarDrawTileGrid(0, 0, this->view_tiles_x * 32, this->view_tiles_y * 32);
 #endif
@@ -5043,7 +5043,7 @@ void VisPlayingArea::RedrawLitTerrain() {
 				FillRectColor(x * 0x20, h1, x * 0x20, h3, 0);
 			}
 		}
-	}
+	}
 #ifdef A2CLIENT_PATCH
 	TangarDrawTileGrid(0, 0, this->view_tiles_x * 32, this->view_tiles_y * 32);
 #endif
