@@ -224,7 +224,14 @@ void Spell::SetPower(uint32_t power) {
         if (this->spell_id == spell::invisibility) {
             this->spell_power = power_byte << 4;
         } else if (this->spell_id == spell::stone_curse) {
+#ifdef A2CLIENT_PATCH
+            // Tangar fix_StoneCurseDurationCalculation (5233E6): the multiplier
+            // comes from the data.bin duration parameter (SpellInfoData[0].duration)
+            // instead of the hardcoded 15: power * duration * 32 / 100.
+            this->spell_power = power_byte * info.duration * 32 / 100;
+#else
             this->spell_power = power_byte * 480 / 100;
+#endif
         } else {
             this->spell_power = std::pow(1.025, power_byte) * info.duration * 16.0;
         }
