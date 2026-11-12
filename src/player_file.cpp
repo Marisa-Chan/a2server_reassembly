@@ -314,6 +314,11 @@ void WriteKillStatsSection(CFile& file, uint8_t* kill_stats) {
 FileSectionStats* GetParsedPlayerStats() {
 	return &s_stats_buf;
 }
+
+// Basic-info section from the most recent ParsePlayerFile call (client 0x69c058 twin).
+FileSectionBasicInfo* GetParsedPlayerBasicInfo() {
+	return &s_basic_info_buf;
+}
 // 4F53EA
 int32_t __cdecl WritePlayerFile(const char* filename, FileSectionBasicInfo* basic_info, FileSectionStats* stats, uint8_t* kill_stats, PacketUnitStateVec* equip_pkt, PacketUnitStateVec* inv_pkt, uint8_t* section_40a, uint32_t size_40a) {
 	FileSectionBasicInfo* merged_basic_info = nullptr;

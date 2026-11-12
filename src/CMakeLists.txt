@@ -102,6 +102,7 @@ set(A2CLIENT_SOURCES
   patch/locale.cpp
   patch/client_config.cpp
   patch/stats_level.cpp
+  patch/hotkeys.cpp
 )
 
 add_executable(rea2c ${A2_SOURCES} ${A2CLIENT_SOURCES})
