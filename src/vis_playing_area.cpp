@@ -1,4 +1,7 @@
 #include <winsock2.h>
+#ifdef A2CLIENT_PATCH
+#include "patch/client_config.h"
+#endif
 #include <cmath>
 #include <ws2tcpip.h>
 #include <timeapi.h>
@@ -5004,6 +5007,20 @@ void VisPlayingArea::RenderWorldFrame() {
 	this->gap_0xa90++;
 	this->ClientRectToScreen(&local_rect, this->rect);
 	this->UpdateAmbientSounds();
+#ifdef A2CLIENT_PATCH
+	// SCROLL_part1/part2 hooks (4070F6/4073C9): rate-limit the world scroll
+	// to g_scrollintv milliseconds between steps
+	{
+		static uint32_t tangar_last_scroll_time = 0;
+		uint32_t now = timeGetTime();
+		if (now - tangar_last_scroll_time < tangar_cfg::g_scrollintv) {
+			this->scroll_dx = 0;
+			this->scroll_dy = 0;
+		} else if (this->scroll_dx != 0 || this->scroll_dy != 0) {
+			tangar_last_scroll_time = now;
+		}
+	}
+#endif
 	if (abs(this->scroll_dx) >= this->view_tiles_x / 2 || abs(this->scroll_dy) >= this->view_tiles_y / 2) {
 		this->force_full_redraw = 1;
 	}
