@@ -3,6 +3,8 @@
 
 #include "client_config.h"
 
+#include <windows.h>
+
 #include "hotkeys.h"
 
 #include <cctype>
@@ -185,6 +187,54 @@ void Parse1x(std::ifstream& f) {
 }
 
 } // namespace
+
+namespace {
+
+std::vector<std::string> SplitCommandLine(const std::string& line) {
+    std::vector<std::string> out;
+    std::string cur;
+    bool in_quotes = false;
+    for (char c : line) {
+        if (c == '"') {
+            in_quotes = !in_quotes;
+        } else if (!in_quotes && (c == ' ' || c == '\t')) {
+            if (!cur.empty()) {
+                out.push_back(cur);
+                cur.clear();
+            }
+        } else {
+            cur += c;
+        }
+    }
+    if (!cur.empty()) {
+        out.push_back(cur);
+    }
+    return out;
+}
+
+} // namespace
+
+const char* HatAddress() {
+    static std::string hat;
+    if (!hat.empty()) {
+        return hat.c_str();
+    }
+
+    std::vector<std::string> args = SplitCommandLine(GetCommandLineA());
+    for (size_t i = 0; i + 1 < args.size(); ++i) {
+        if (args[i] == "-hat") {
+            hat = args[i + 1];
+        }
+    }
+
+    if (hat.empty()) {
+        hat = "hat.rom2.ru";
+    }
+    if (hat.size() > 255) {
+        hat.resize(255);
+    }
+    return hat.c_str();
+}
 
 void ParseConfig() {
     std::ifstream f;

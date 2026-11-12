@@ -1562,14 +1562,21 @@ void PhoneBook::Save(HKEY& rkey) {
 void HatSettings::Load(HKEY& rkey) { //43d249
     char buf[256];
 
-    buf[0] = '\0';
     DWORD sz = 255;
+#ifdef A2CLIENT_PATCH
+    // Tangar HATENT_url_text (43F738): the hat address comes from the -hat
+    // command line (default "hat.rom2.ru"); the registry value is ignored.
+    this->hatip = tangar_cfg::HatAddress();
+#else
+    buf[0] = '\0';
+    sz = 255;
     RegQueryValueExA(rkey, "hatip", nullptr, nullptr, (LPBYTE)buf, &sz);
 
     this->hatip = buf;
     if (this->hatip.IsEmpty()) {
         this->hatip = txt_patch.GetLine(118);
     }
+#endif
 
     buf[0] = '\0';
     sz = 255;
@@ -5442,7 +5449,13 @@ int32_t MainWindow::RunModalLoopServer() { //49057b
     CLlAddress local_224;
     strcpy(local_224.address, "0.0.0.0");
 
+#ifdef A2CLIENT_PATCH
+    // Tangar HATENT_url_connect (494AE4): connect to the -hat address
+    // instead of the dialog setting.
+    int local_230 = g_CLlDriver.PrepareForConnect((char*)tangar_cfg::HatAddress(), &local_224);
+#else
     int local_230 = g_CLlDriver.PrepareForConnect(this->hat_settings.hatprogip, &local_224);
+#endif
     if (local_230) {
         local_230 = g_CLlDriver.Connect(this->m_GameSession.character_name, nullptr);
     }
