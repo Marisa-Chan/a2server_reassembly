@@ -14,6 +14,9 @@ namespace tangar_cfg {
 bool r_fps = false;
 bool r_time = false;
 bool r_stopwatch = false;
+bool show_stopwatch = false;
+uint32_t show_stopwatch_frozen = 0;
+int64_t stopwatch_start = 0;
 uint32_t g_scrollintv = 35;
 bool r_grid = false;
 uint32_t r_grid_color = 255;

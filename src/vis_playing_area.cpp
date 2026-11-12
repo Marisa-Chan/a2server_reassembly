@@ -1,4 +1,5 @@
 #include <winsock2.h>
+#include <ctime>
 #ifdef A2CLIENT_PATCH
 #include "patch/client_config.h"
 #endif
@@ -5619,6 +5620,42 @@ void VisPlayingArea::RenderWorldFrame() {
 		this->fps_time_ms -= 1000;
 		this->fps_frames = 0;
 	}
+#ifdef A2CLIENT_PATCH
+	{
+		// Tangar INFO_fps: config-gated fps/time/stopwatch rows replace the retail
+		// g_ShowFps box (patch hook 40AAF5..40ABDA).
+		int32_t info_top = local_rect.top + 16;
+		if (tangar_cfg::r_fps) {
+			char fps_buf[32];
+			sprintf(fps_buf, "%3.1f", this->fps);
+			g_font1->DrawTextWithShadow(local_rect.right - 136, info_top, "fps:", 0, clrsh_TechBlack, 1);
+			g_font1->DrawTextWithShadow(local_rect.right - 86, info_top, fps_buf, 0, clrsh_ShockingBlack, 1);
+			info_top += 16;
+		}
+		if (tangar_cfg::r_time) {
+			time_t now = time(NULL);
+			struct tm tmv;
+			if (localtime_s(&tmv, &now) == 0) {
+				char time_buf[32];
+				sprintf(time_buf, "%02u:%02u:%02u", tmv.tm_hour, tmv.tm_min, tmv.tm_sec);
+				g_font1->DrawTextWithShadow(local_rect.right - 136, info_top, "time:", 0, clrsh_TechBlack, 1);
+				g_font1->DrawTextWithShadow(local_rect.right - 86, info_top, time_buf, 0, clrsh_ShockingBlack, 1);
+			}
+			info_top += 16;
+		}
+		if (tangar_cfg::show_stopwatch && tangar_cfg::r_stopwatch) {
+			time_t elapsed = tangar_cfg::show_stopwatch_frozen != 0
+			                           ? (time_t)tangar_cfg::show_stopwatch_frozen
+			                           : (time_t)difftime(time(NULL), (time_t)tangar_cfg::stopwatch_start);
+			struct tm td;
+			if (gmtime_s(&td, &elapsed) == 0) {
+				char sw_buf[32];
+				sprintf(sw_buf, "%02u:%02u:%02u", td.tm_hour, td.tm_min, td.tm_sec);
+				g_font1->DrawTextWithShadow(local_rect.right - 86, info_top, sw_buf, 0, clrsh_ShockingBlack, 1);
+			}
+		}
+	}
+#else
 	if (g_ShowFps != 0) {
 		FillRectColorSimple(local_rect.right - 0x78, local_rect.top, local_rect.right - 0x1e, local_rect.top + 0x18,
 			GetColorRGB(8, 8, 8));
@@ -5626,6 +5663,7 @@ void VisPlayingArea::RenderWorldFrame() {
 		sprintf(buf, "%3.1f fps", this->fps);
 		g_font1->DrawTextWithShadow(local_rect.right - 0x26, local_rect.top, buf, 1, clrsh_ShockingBlack, 1);
 	}
+#endif
 	if (wnd->sessionMode == SESSION_SINGLEPLAYER && g_ShowNetStats != 0) {
 		NetStru2* client = g_NetStru1_local.GetClientByPlayerID(0);
 		if (client != nullptr) {

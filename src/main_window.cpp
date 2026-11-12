@@ -1,5 +1,9 @@
 #include "main_window.h"
 #include "patch/locale.h"
+#ifdef A2CLIENT_PATCH
+#include "patch/client_config.h"
+#endif
+#include <ctime>
 #include <cstdio>
 #include <timeapi.h>
 #include "smacker_player.h"
@@ -735,6 +739,20 @@ int32_t MainWindow::ConnectToServerAddress() {
 // 4863f6 client 48a097
 void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
     if (this->input_locked == 0) {
+#ifdef A2CLIENT_PATCH
+        // Tangar INFO_fps stopwatch: a Right Shift keydown (VK_SHIFT while the right
+        // shift is physically held) freezes the running stopwatch, or toggles it off/on
+        // (restarting the timer). The key still falls through to the retail switch.
+        if (tangar_cfg::r_stopwatch && key == 0x10 && (GetAsyncKeyState(VK_RSHIFT) & 0x8000)) {
+            if (tangar_cfg::show_stopwatch && tangar_cfg::show_stopwatch_frozen == 0) {
+                tangar_cfg::show_stopwatch_frozen = (uint32_t)difftime(time(NULL), (time_t)tangar_cfg::stopwatch_start);
+            } else {
+                tangar_cfg::show_stopwatch = !tangar_cfg::show_stopwatch;
+                tangar_cfg::show_stopwatch_frozen = 0;
+                tangar_cfg::stopwatch_start = (int64_t)time(NULL);
+            }
+        }
+#endif
         switch (key) {
         case 0x08:
         case 0x09:
