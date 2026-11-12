@@ -2967,6 +2967,73 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 return;
             }
         }
+        if ((tangar_rights & GMF_CMD_SUMMON) != 0) {
+            if (lowered.Find("#mapwide") == 0) {
+                // Tangar #mapwide (GMF_CMD_SUMMON-gated in the manager): rain an area
+                // spell over a 51x51 cell grid centered on the caster. Only a few
+                // effect ids are allowed; anything else is ignored.
+                uint32_t what = 7; // blizzard
+                {
+                    CString arg = cheat_string.Mid(8);
+                    arg.TrimLeft();
+                    arg.TrimRight();
+                    if (arg.GetLength() > 0) {
+                        int32_t parsed = atoi((const char*)arg);
+                        if (parsed != 0) {
+                            what = (uint32_t)parsed;
+                        }
+                    }
+                }
+                switch (what) {
+                case 7:  // blizzard
+                case 14: // darkness
+                case 15: // light
+                case 6:  // poison cloud
+                case 9:  // acid steam
+                case 2:  // fire ball
+                case 3:  // fire wall
+                    break;
+                default: // any other spell is forbidden
+                    return;
+                }
+
+                Human* unit = player->main_unit;
+                if (unit == nullptr) {
+                    return;
+                }
+                if (unit->token_pos == nullptr) {
+                    return;
+                }
+                uint32_t p_x = unit->token_pos->x;
+                uint32_t p_y = unit->token_pos->y;
+                int32_t p_mapwidth = MapStuff_Instance->map_width;
+                int32_t p_mapheight = MapStuff_Instance->map_height;
+
+                int32_t start_x = (int32_t)p_x - 25;
+                int32_t start_y = (int32_t)p_y - 25;
+
+                for (int32_t i = start_x; i <= start_x + 51; i++) {
+                    for (int32_t j = start_y; j <= start_y + 51; j++) {
+                        if (i < 8 || i > p_mapwidth - 8 || j < 8 || j > p_mapheight - 8) {
+                            continue;
+                        }
+                        // zxmgr::CastPointEffect: fresh Spell with the effect id,
+                        // executed at the point with no target.
+                        Spell spell((uint8_t)what);
+                        spell.ExecuteAtArea(unit, nullptr, (int8_t)i, (int8_t)j);
+                    }
+                }
+                return;
+            } else if (lowered == "#inn") {
+                // Tangar #inn: debug dump of the equipped weapon item id.
+                Human* unit = player->main_unit;
+                if (unit == nullptr || unit->weapon == nullptr) {
+                    return;
+                }
+                Printf("weapon: %04x", unit->weapon->item_id);
+                return;
+            }
+        }
         if ((tangar_rights & GMF_CMD_KICK) != 0) {
             if (lowered == "#kickme") {
                 KickPlayer(player, true);
