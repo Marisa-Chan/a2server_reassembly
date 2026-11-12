@@ -22,6 +22,10 @@ public:
 	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override; // 40c56c (client: 40c5f3)
 	virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override; // 40c59c (client: 40c623)
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 40c902 (client: 40c989)
+#ifdef A2CLIENT_PATCH
+	// Tangar f_key_handler: the F-key shortcut logic, callable for any bound key.
+	void TangarHandleHotkey(uint32_t key);
+#endif
 	virtual int32_t OnChar(uint32_t wparam) override; // 40d4b2 (client: 40d539)
 
 public:

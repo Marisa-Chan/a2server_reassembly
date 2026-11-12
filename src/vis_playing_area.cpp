@@ -2,6 +2,7 @@
 #include <ctime>
 #ifdef A2CLIENT_PATCH
 #include "patch/client_config.h"
+#include "patch/hotkeys.h"
 #endif
 #include <cmath>
 #include <ws2tcpip.h>
@@ -6276,9 +6277,55 @@ void VisPlayingArea::ComputeSoundVolumePan(int32_t xpos, int32_t ypos, int32_t* 
 	*pvol = (int32_t)vol;
 }
 
+#ifdef A2CLIENT_PATCH
+// Tangar f_key_handler (patch hook 40caff): the retail F4-F12 case body, driven
+// by the custom-hotkey map instead of the retail shortcut slots. With Shift or
+// Ctrl held the keypress binds the item/spell under the cursor instead.
+void VisPlayingArea::TangarHandleHotkey(uint32_t key) {
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+
+	UserShortcut* shortcut = tangar_hotkeys::LookupHotkey((int32_t)key);
+	if (shortcut == nullptr) {
+		if (g_kbShiftState == 0 && g_kbControlState == 0) {
+			return;
+		}
+		shortcut = tangar_hotkeys::NewCustomHotkey((int32_t)key);
+	}
+
+	if ((shortcut->kind != 2 || g_kbControlState != 0) && g_kbShiftState == 0) {
+		wnd->vis_spellbook->MsgProc(VIS_MSG_SHORTCUT_KEY, key - 0x73, g_kbControlState);
+	}
+	if ((shortcut->kind != 1 || g_kbShiftState != 0) && g_kbControlState == 0) {
+		wnd->vis_invtype1->MsgProc(VIS_MSG_SHORTCUT_KEY, key - 0x73, g_kbShiftState);
+	}
+	if (shortcut->kind == 1) {
+		if (this->IsBookOpen() == 0 && wnd->vis_spellbook->IsSpellAvailable(shortcut->item_id) != 0) {
+			this->SetOrderMode(9);
+		} else if (this->IsBookOpen() == 0 && wnd->vis_spellbook->IsSpellEffectActive(shortcut->item_id) != 0) {
+			this->SetOrderMode(10);
+		}
+	}
+}
+#endif
+
 // 40C902
 int32_t VisPlayingArea::OnKeyDown(uint32_t wparam) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+#ifdef A2CLIENT_PATCH
+	// Tangar hotkey_handler (40c997): remember the live objects, route bound
+	// keys straight into the F-key logic, and re-enter the retail switch with
+	// aliased action keys.
+	tangar_hotkeys::RememberKeyHandler(this);
+	tangar_hotkeys::RememberWindow(wnd);
+	if (tangar_hotkeys::ShouldHandleHotkey(wparam)) {
+		this->TangarHandleHotkey(wparam);
+		return 1;
+	}
+	int alias_key = tangar_hotkeys::HandleAliasKey(wparam);
+	if (alias_key != 0) {
+		wparam = (uint32_t)alias_key;
+	}
+#endif
 	if (wnd->dialogsMask == DIALOG_MASK_INGAME && this->scenario != nullptr) {
 		if (wnd->console_active != 0) {
 			wnd->vis_1200->OnKeyDown(wparam);
@@ -6334,6 +6381,11 @@ int32_t VisPlayingArea::OnKeyDown(uint32_t wparam) {
 		case 0x79:
 		case 0x7A:
 		case 0x7B: {
+#ifdef A2CLIENT_PATCH
+			// Tangar f_key_handler (40caff): the custom-hotkey map replaces the
+			// retail F4-F12 shortcut slots.
+			this->TangarHandleHotkey(wparam);
+#else
 			UserShortcut& shortcut = wnd->m_GameSession.shortcuts[wparam - 0x73];
 			if ((shortcut.kind != 2 || g_kbControlState != 0) && g_kbShiftState == 0) {
 				wnd->vis_spellbook->MsgProc(VIS_MSG_SHORTCUT_KEY, wparam - 0x73, g_kbControlState);
@@ -6348,6 +6400,7 @@ int32_t VisPlayingArea::OnKeyDown(uint32_t wparam) {
 					this->SetOrderMode(10);
 				}
 			}
+#endif
 			break;
 		}
 		default:
