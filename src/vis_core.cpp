@@ -2315,6 +2315,37 @@ void VisTextBox::ResetBlink() {
 int32_t VisTextBox::GetCursorPosByX(int32_t x) {
     //4da153
     CRect rt = this->ClientRectToScreen(this->rect);
+#ifdef A2CLIENT_PATCH
+    // Tangar GUI_textField_MeasurePosition (4DEAD4 entry takeover): more
+    // accurate cursor placement, password-field asterisk measurement, and
+    // correct positions for fields not starting at the screen left edge.
+    if (this->is_password != 0) {
+        char* ctx = this->text.GetBuffer(0);
+        size_t len = strlen(ctx);
+        for (size_t i = 0; i < len; i++) {
+            ctx[i] = '*';
+        }
+        this->text.ReleaseBuffer();
+    }
+
+    const char* ctx = (const char*)this->text;
+    int32_t inner_pos = x - rt.left;
+    int32_t pos = this->text.GetLength();
+    for (int32_t i = 0; ctx[i] != 0; i++) {
+        int32_t wd = this->font->GetStrWidth(this->text.Left(i + 1));
+        if (wd >= inner_pos) {
+            char thissym[2] = { ctx[i], 0 };
+            int32_t wdx = (this->font->GetStrWidth(thissym) - 4) / 2;
+            if (wd - wdx >= inner_pos) {
+                pos = i;
+            } else {
+                pos = i + 1;
+            }
+            break;
+        }
+    }
+    return pos;
+#else
     for (int32_t i = 0; i < this->text.GetLength(); i++) {
         CString str = this->text.Left(i + 1);
         if (rt.left + 4 + this->font->GetStrWidth(str) >= x) {
@@ -2322,6 +2353,7 @@ int32_t VisTextBox::GetCursorPosByX(int32_t x) {
         }
     }
     return this->text.GetLength();
+#endif
 }
 
 
