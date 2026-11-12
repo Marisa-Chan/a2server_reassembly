@@ -17,6 +17,8 @@
 #include <windows.h>
 
 #include "../game_app.h"
+#include "../gfx.h"
+#include "../gameobj.h"
 #include "../main_window.h"
 #include "../mouse.h"
 #include "../player_file.h"
@@ -537,6 +539,94 @@ int HandleAliasKey(int key) {
     }
 
     return 0;
+}
+
+UserShortcut* NewCustomHotkey(int key) {
+    custom_hotkeys[key].reset(new UserShortcut());
+    return custom_hotkeys[key].get();
+}
+
+void ItemHotkeySet(int key, TokenEntry* entry) {
+    LoadCustomHotkeys();
+
+    UserShortcut* hotkey = tangar_hotkeys::LookupHotkey(key);
+    if (hotkey == nullptr) {
+        hotkey = NewCustomHotkey(key);
+    }
+
+    if (hotkey->MatchesItem(entry) != 0) {
+        // Same item: pressing the key again clears the binding.
+        custom_hotkeys.erase(key);
+    } else {
+        hotkey->SetItem(entry);
+
+        std::vector<int> drop;
+        for (auto it = custom_hotkeys.begin(); it != custom_hotkeys.end(); ++it) {
+            if (it->first == key) {
+                continue;
+            }
+            if (it->second != nullptr && it->second->MatchesItem(entry) != 0) {
+                drop.push_back(it->first);
+            }
+        }
+        for (size_t i = 0; i < drop.size(); ++i) {
+            custom_hotkeys.erase(drop[i]);
+        }
+    }
+
+    SaveCustomHotkeys();
+}
+
+void SpellHotkeySet(int key, short spell_number) {
+    LoadCustomHotkeys();
+
+    UserShortcut* hotkey = LookupHotkey(key);
+    if (hotkey == nullptr) {
+        hotkey = NewCustomHotkey(key);
+    }
+
+    // Same encoding as UserShortcut::SetSpell (41E323).
+    hotkey->kind = 1;
+    hotkey->item_id = (uint16_t)spell_number;
+
+    std::vector<int> drop;
+    for (auto it = custom_hotkeys.begin(); it != custom_hotkeys.end(); ++it) {
+        if (it->first == key) {
+            continue;
+        }
+        if (it->second != nullptr && it->second->kind == 1 && it->second->item_id == (uint16_t)spell_number) {
+            drop.push_back(it->first);
+        }
+    }
+    for (size_t i = 0; i < drop.size(); ++i) {
+        custom_hotkeys.erase(drop[i]);
+    }
+
+    SaveCustomHotkeys();
+}
+
+void DrawItemHotkeyLabels(int x1, int y, int bag_position, TokenEntry* entry) {
+    LoadCustomHotkeys();
+
+    for (auto it = custom_hotkeys.begin(); it != custom_hotkeys.end(); ++it) {
+        UserShortcut* hotkey = it->second.get();
+        if (hotkey != nullptr && hotkey->kind == 2 && hotkey->MatchesItem(entry) != 0) {
+            g_font2->DrawTextWithShadow(x1 + 35 + bag_position * 80, y + 8, Label(it->first), 0, clrsh_ShockingBlack, 1);
+        }
+    }
+}
+
+void DrawSpellHotkeyLabel(int x1, int y, int spell_number, int pressed) {
+    LoadCustomHotkeys();
+
+    for (auto it = custom_hotkeys.begin(); it != custom_hotkeys.end(); ++it) {
+        UserShortcut* hotkey = it->second.get();
+        if (hotkey != nullptr && hotkey->kind == 1 && hotkey->item_id == (uint16_t)spell_number) {
+            int32_t offset = (pressed == spell_number) ? 2 : 0;
+            g_font2->DrawTextWithShadow(x1 + 8 + offset + (spell_number % 0xC) * 0x26,
+                y + 8 + offset + (spell_number / 0xC) * 0x26, Label(it->first), 0, clrsh_ShockingBlack, 1);
+        }
+    }
 }
 
 int32_t TopLevelKeyDispatch(int key) {

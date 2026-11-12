@@ -11,6 +11,7 @@
 #include <string>
 
 class UserShortcut;
+class TokenEntry;
 
 namespace tangar_hotkeys {
 
@@ -92,5 +93,14 @@ bool MouseOverMagic();
 bool InventoryOpen();
 bool MouseOverItem();
 void RememberPanel(void* panel);
+
+// Hotkey-map mutation (the item_hotkey_set / spell_hotkey_set hooks).
+UserShortcut* NewCustomHotkey(int key);
+void ItemHotkeySet(int key, TokenEntry* entry);
+void SpellHotkeySet(int key, short spell_number);
+
+// On-screen labels (the mark_item_hotkey / mark_spell_hotkey hooks).
+void DrawItemHotkeyLabels(int x1, int y, int bag_position, TokenEntry* entry);
+void DrawSpellHotkeyLabel(int x1, int y, int spell_number, int pressed);
 
 } // namespace tangar_hotkeys
