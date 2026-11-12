@@ -1,5 +1,5 @@
 # Client patch port progress tracker
-Updated: 2026-11-12 (token-max session, cont.)
+Updated: 2026-11-12 (SDL/PNG asset cluster)
 
 Legend: DONE / WIP / PENDING / NO-OP / DEFERRED(reason)
 
@@ -78,6 +78,36 @@ Legend: DONE / WIP / PENDING / NO-OP / DEFERRED(reason)
   (CSprite256 debug)
 - _fix_launcher (patcher-side unpacker wait tool)
 
+## Session batch 4 (2026-11-12) — SDL/PNG asset cluster COMPLETE
+- patch/image.{h,cpp} — Tangar Image port (SDL dropped): PNG via vendored
+  lodepng + built-in uncompressed 24/32-bit BMP decoder; RGB565 blend onto
+  g_selDrawBitmap, manager clipping verbatim. Fixed the manager's
+  transparent-pixel dst-pointer stall (unreachable with shipped assets).
+- MENU x6 (53c10848): custom main menu = data\locale\{ru,en}\graphics\
+  mainmenu\menunew.png (640x480) + 3 inn-button buttons at (251,258/304/351),
+  140x46 hit rects. Labels = string-table lines 238-240: Play/Authors/Quit
+  (CP866 RU literals; patch.txt is 0-based). Dispatch via retail button codes
+  5 (HAT server list) / 3 (credits) / 7 (WM_CLOSE) written to active_button
+  on left-down; OnLButtonUp's retail switch fires on left-up, then hover3
+  resets. LoadGraphics/VMethod7 bodies fully replaced (even dialogsMask check
+  and ClientRectToScreen are skipped, per hook targets); OnLButtonUp only
+  swaps UpdateButtonState for the hover. MENU_click = dead-code no-op in the
+  release patch (its DoMenuClick block is unreachable). Sound = retail
+  CSound::Play((CSound&)snd_btn_click) from the hit-test. Fonts: g_font4 +
+  palette_husk (gold) / palette_paris_daisy (goldbright) via GetPalette(0).
+- ITEMPNG x3: PatchPngSprite : CSprite256 (patch/itempng.{h,cpp}) overrides
+  Draw (slot 6) + DrawIndexMask (slot 16) with the manager's IImage_Display/
+  CopyTo math (160x240-only, index-based hitmask writes, max(...,1) clamps);
+  no-op operator delete = the cachePng ??_G guard covered-by-construction;
+  permanent filename cache incl. negative entries. Sites: RenderHeroPortrait
+  equipment primary/secondary + face sprite via TangarLoadItemSprite(.256
+  path -> data\ twin .png). gfx.h gains a protected CSprite256() default ctor
+  under A2CLIENT_PATCH.
+- add_info console UI: NO-OP — ConsoleImpl() is commented out inside the
+  release FpsImpl and no console PNG assets ship; the only live part (Right-
+  Shift stopwatch via CHAT_fixEscape) is already ported with INFO_fps, and
+  the Shift+~ toggle flips a variable nothing reads.
+
 ## Session batch 3 (2026-11-12)
 - SCREENSHOT_take (2110b2e5): PNG screenshots via vendored lodepng (src/patch/lodepng/,
   zlib-licensed, same file the manager uses), z_screendir knob
@@ -93,9 +123,9 @@ Legend: DONE / WIP / PENDING / NO-OP / DEFERRED(reason)
 - MAP_CFileOpen1/2 + MAP_loadFromServer (map_location.cpp "not used") — maps\ download
   redirect, pairs with the custom-map sync work (0xBF/0x3B, OPEN in memory)
 - NETPROTO x3 + NET_cryptPacket + recv_ — v20 auth/protocol (spec in memory, user-shelved)
-- MENU x6 + ITEMPNG x3 + add_info console UI — SDL/PNG asset dependency
 - imp_MakeScreenshotNet — HAT-net-triggered screenshot (0x64 packet, with v20 auth)
 - (CHAT_prependType x2 now ported with hardcoded locale strings)
+- (MENU x6 + ITEMPNG x3 + add_info console UI done/no-op'd, session batch 4)
 
 ## DEFERRED
 - PNG x3 + ITEMPNG (SDL), add_info console UI (PNG assets)

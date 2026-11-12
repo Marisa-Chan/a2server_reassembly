@@ -108,6 +108,7 @@ set(A2CLIENT_SOURCES
   patch/lodepng/lodepng.cpp
   patch/image.cpp
   patch/menu.cpp
+  patch/itempng.cpp
 )
 
 add_executable(rea2c ${A2_SOURCES} ${A2CLIENT_SOURCES})

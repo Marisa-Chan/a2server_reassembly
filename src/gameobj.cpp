@@ -13,6 +13,9 @@
 #include "quest_map.h"
 #include "sound.h"
 #include "mouse.h"
+#ifdef A2CLIENT_PATCH
+#include "patch/itempng.h"
+#endif
 
 #include <cmath>
 #include <cstdio>
@@ -1119,13 +1122,27 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
             extra_name += item_name2;
             extra_name += ".256";
 
-            item_sprites[i] = new CSprite256(base_name);
-            item_sprites[i]->ResetPalette(1, 1, 0);
+#ifdef A2CLIENT_PATCH
+            // Tangar ITEMPNG_loadPng (client 46E014): PNG replacement for the
+            // equipment sprite, if a data\<...>.png twin exists.
+            item_sprites[i] = TangarLoadItemSprite(base_name);
+            if (item_sprites[i] == nullptr)
+#endif
+            {
+                item_sprites[i] = new CSprite256(base_name);
+                item_sprites[i]->ResetPalette(1, 1, 0);
+            }
 
             if (i == 3 || i == 8 || i == 9 || (i == 7 && (this->unitFlags & UNIT_FLAG_MAGE) != 0)) {
-                extra_sprites[i] = new CSprite256(extra_name);
-                if (extra_sprites[i]) {
-                    extra_sprites[i]->ResetPalette(1, 1, 0);
+#ifdef A2CLIENT_PATCH
+                extra_sprites[i] = TangarLoadItemSprite(extra_name);
+                if (extra_sprites[i] == nullptr)
+#endif
+                {
+                    extra_sprites[i] = new CSprite256(extra_name);
+                    if (extra_sprites[i]) {
+                        extra_sprites[i]->ResetPalette(1, 1, 0);
+                    }
                 }
             }
         }
@@ -1134,9 +1151,18 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
     char sprite_name[256] = { 0 };
     sprintf(sprite_name, "%s%d.256", sprite_prefix, this->face);
 
-    CSprite256* unit_sprite = new CSprite256(sprite_name);
-    if (unit_sprite) {
-        unit_sprite->ResetPalette(1, 1, 0);
+    CSprite256* unit_sprite = nullptr;
+#ifdef A2CLIENT_PATCH
+    // Tangar ITEMPNG_loadPngChar (client 46E1B0): PNG replacement for the
+    // character base sprite.
+    unit_sprite = TangarLoadItemSprite(sprite_name);
+    if (unit_sprite == nullptr)
+#endif
+    {
+        unit_sprite = new CSprite256(sprite_name);
+        if (unit_sprite) {
+            unit_sprite->ResetPalette(1, 1, 0);
+        }
     }
 
     CBmp64* horse_sprite = nullptr;

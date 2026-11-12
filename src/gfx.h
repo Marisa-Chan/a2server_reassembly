@@ -389,6 +389,13 @@ public:
 
 	CSprite256(const char* fname);  // client: 426da9
 	CSprite256(const CSprite256& b);  // client: 426fef
+
+#ifdef A2CLIENT_PATCH
+protected:
+	// Patch subclasses (patch/itempng.h) construct without loading a .256 file.
+	CSprite256() = default;
+public:
+#endif
 };
 
 class CA16 : public CSprite256 {
