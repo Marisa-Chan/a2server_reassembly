@@ -3,6 +3,8 @@
 
 #include "client_config.h"
 
+#include "hotkeys.h"
+
 #include <cctype>
 #include <cstdint>
 #include <fstream>
@@ -146,6 +148,16 @@ void Parse2x(std::ifstream& f) {
             z_russian = (lang == "russian" || lang == "ru");
         } else if (cmd[0] == "stats_based_level_selection" && cmd.size() == 2) {
             stats_based_level_selection = StrToBool(cmd[1]);
+        } else if (cmd.size() == 2 && cmd[0].compare(0, 6, "alias:") == 0) {
+            std::string name = cmd[0].substr(6);
+            std::string action = cmd[1];
+            for (char& c : name) {
+                c = (char)tolower((unsigned char)c);
+            }
+            for (char& c : action) {
+                c = (char)tolower((unsigned char)c);
+            }
+            tangar_hotkeys::ParseAlias(name, action);
         }
     }
 }
