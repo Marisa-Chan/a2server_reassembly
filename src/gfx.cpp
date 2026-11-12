@@ -3,6 +3,10 @@
 #include "game_app.h"
 #include <ddraw.h>
 #include "gfx.h"
+#ifdef A2CLIENT_PATCH
+#include "patch/client_config.h"
+#include "patch/lodepng/lodepng.h"
+#endif
 #include "ingame.h"
 #include "util.h"
 #include "file.h"
@@ -5203,11 +5207,72 @@ void FreeDDraw() { //454219
 }
 
 
+#ifdef A2CLIENT_PATCH
+// Tangar SCREENSHOT_take (entry takeover of client 457973): save the frame as a
+// timestamped PNG (lodepng) instead of the retail numbered BMP. The surface is
+// read directly, like the patch does (no lock/unlock).
+void SaveScreenshot() { //453d33
+	int32_t si_width = g_ScreenSize.right - g_ScreenSize.left;
+	int32_t si_height = g_ScreenSize.bottom - g_ScreenSize.top;
+
+	uint32_t* ndata = new uint32_t[si_width * si_height];
+	uint32_t* ndatap = ndata;
+
+	uint8_t* sdata = (uint8_t*)g_selDrawBitmap.lpSurface;
+	uint32_t spitch = g_selDrawBitmap.lPitch;
+
+	for (int32_t y = 0; y < si_height; y++) {
+		uint16_t* row = (uint16_t*)(sdata + y * spitch);
+		for (int32_t x = 0; x < si_width; x++) {
+			uint16_t clr = *row++;
+			uint32_t r = (clr & 0xF800) >> 11;
+			uint32_t g = (clr & 0x07E0) >> 5;
+			uint32_t b = clr & 0x001F;
+			r = r * 255 / 31;
+			g = g * 255 / 63;
+			b = b * 255 / 31;
+			*ndatap++ = 0xFF000000 | (b << 16) | (g << 8) | r;
+		}
+	}
+
+	unsigned char* buf = nullptr;
+	size_t size = 0;
+	lodepng_encode32(&buf, &size, (const unsigned char*)ndata, si_width, si_height);
+	delete[] ndata;
+
+	CString fname;
+	time_t t = time(NULL);
+	struct tm tmv;
+	if (localtime_s(&tmv, &t) == 0) {
+		fname.Format("screenshot_%02u-%02u-%04u_%02u-%02u-%02u", tmv.tm_mday, tmv.tm_mon + 1, tmv.tm_year + 1900, tmv.tm_hour, tmv.tm_min, tmv.tm_sec);
+	} else {
+		fname = "screenshot";
+	}
+	if (tangar_cfg::z_screendir) {
+		fname = CString("screenshots") + CString("\\") + fname;
+	}
+	fname += ".png";
+
+	FILE* outf = nullptr;
+	if (fopen_s(&outf, (const char*)fname, "wb") == 0) {
+		fwrite(buf, 1, size, outf);
+		fclose(outf);
+
+		// The patched string table line (GetPatchString(226)) is not available in
+		// the retail patch.txt, so the confirmation message is hardcoded.
+		CString msg;
+		msg.Format("Screenshot saved: %s", (const char*)fname);
+		LogMessage(msg);
+	}
+	free(buf);
+}
+#else
 void SaveScreenshot() { //453d33
 	static int32_t screenshot_num = 0; //65dd24
 	CString fname;
 	fname.Format("Allods%04d.bmp", screenshot_num);
 	screenshot_num++;
+
 
 	int32_t pixnum = g_ScreenSize.right * g_ScreenSize.bottom;
 	uint8_t* data = new uint8_t[pixnum * 3];
@@ -5260,3 +5325,4 @@ void SaveScreenshot() { //453d33
 
 	delete[] data;
 }
+#endif

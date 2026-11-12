@@ -27,6 +27,7 @@ uint32_t r_grid_color = 255;
 bool z_lang_override = false;
 bool z_russian = false;
 bool stats_based_level_selection = true; // a2mgr default: on
+bool z_screendir = false;
 int32_t z_softcore = 0; // 0=off, 1=force softcore, 2=force sandbox (no config parse in a2mgr)
 
 namespace {
@@ -132,6 +133,8 @@ void Parse2x(std::ifstream& f) {
             r_time = StrToBool(cmd[1]);
         } else if (cmd[0] == "r_stopwatch" && cmd.size() == 2) {
             r_stopwatch = StrToBool(cmd[1]);
+        } else if (cmd[0] == "z_screendir" && cmd.size() == 2) {
+            z_screendir = StrToBool(cmd[1]);
         } else if (cmd[0] == "r_grid" && cmd.size() == 2) {
             r_grid = StrToBool(cmd[1]);
         } else if (cmd[0] == "r_grid_color" && cmd.size() == 2) {

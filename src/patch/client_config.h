@@ -40,6 +40,9 @@ extern int32_t z_softcore;
 // Parse allods2.cfg / allods2.conf if present. Safe to call every startup.
 void ParseConfig();
 
+// Screenshots: put screenshot files into the screenshots subdirectory.
+extern bool z_screendir;
+
 // HAT address from the -hat command-line argument (default "hat.rom2.ru"),
 // ported from my-a2mgr network_hat_enter.cpp ParseHatAddress.
 const char* HatAddress();
