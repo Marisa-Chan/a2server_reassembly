@@ -2721,6 +2721,31 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         lowered.MakeLower();
         lowered.TrimLeft();
 
+        if (lowered.Find("#mapinfo") == 0) {
+            // Tangar #mapinfo: current map, elapsed and total time (available to
+            // everyone; the console path of the DLL falls back to Printf).
+            uint32_t tme = (uint32_t)(g_Server->map_elapsed_time2 / 1000);
+            uint32_t tm_h = tme / 3600;
+            uint32_t tm_m = tme / 60 - tm_h * 60;
+            uint32_t tm_s = tme - (tm_h * 3600 + tm_m * 60);
+            uint32_t total_min = g_ServerConfig.map_durations[(int)g_ServerConfig.current_map_index];
+            tme = total_min * 60;
+            uint32_t tt_h = tme / 3600;
+            uint32_t tt_m = tme / 60 - tt_h * 60;
+            uint32_t tt_s = tme - (tt_h * 3600 + tt_m * 60);
+
+            CString time_left = "infinite";
+            if (!Config::Suspended && total_min != 0x7FFFFFFF) {
+                time_left.Format("%u:%02u:%02u", tt_h, tt_m, tt_s);
+            }
+
+            CString msg;
+            msg.Format("map: \"%s\" in \"%s\", time elapsed: %u:%02u:%02u, time total: %s",
+                       Config::CurrentMapTitle.c_str(), Config::CurrentMapName.c_str(), tm_h, tm_m, tm_s, (const char*)time_left);
+            g_NetStru1_main.AnnouncePlayerName(msg, player);
+            return;
+        }
+
         if (lowered.Find("#autobuff") == 0 || lowered.Find("#ab") == 0) {
             CString args = cheat_string.Mid(lowered.Find("#autobuff") == 0 ? 9 : 3);
             args.TrimLeft();
