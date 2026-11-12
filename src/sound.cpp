@@ -227,7 +227,13 @@ void SfxSample::Release() { //45ba0f
 }
 
 SoundChannel* SfxSample::FindPlayingChannel() { //45c004
+#ifdef A2CLIENT_PATCH
+	// CRASH_fix_45FC3B (client 45FC3B): the sample object may already be freed
+	// at the call sites - guard this before the field reads
+	if (this == nullptr || !g_dsound || !this->loaded) {
+#else
 	if (!g_dsound || !this->loaded) {
+#endif
 		return nullptr;
 	}
 

@@ -330,6 +330,13 @@ void Blit16(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, ui
 	uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + y * g_selDrawBitmap.lPitch + x * 2;
 	uint8_t* src = src_data + (((src_height - 1) - t) * src_width + l) * 2;
 	for (int32_t yy = t; yy < t + h; yy++) {
+#ifdef A2CLIENT_PATCH
+		// CRASH_fix_458CF9 (client 458CF9): validate the computed row pointers
+		// before the copy; a bad clip result or freed surface aborts the blit
+		if (dst == nullptr || src == nullptr) {
+			return;
+		}
+#endif
 		memcpy(dst, src, w * 2);
 		dst += g_selDrawBitmap.lPitch;
 		src -= src_width * 2;

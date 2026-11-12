@@ -255,6 +255,13 @@ void CGameObject::UpdateMapPosition() { //46190d
     int32_t idx = (this->centerWorldX8 >> 8) + (this->centerWorldY8 >> 8) * map->map_width;
     const int8_t* heights = map->scenario->GetMapHeights();
 
+#ifdef A2CLIENT_PATCH
+    // CRASH_fix_4657AD (client 4657AD): missing height array or out-of-map
+    // position skips the terrain height interpolation entirely
+    if (heights == nullptr) {
+        return;
+    }
+#endif
     int32_t h00 = heights[idx];
     int32_t h10 = heights[idx + 1];
     int32_t h01 = heights[idx + map->map_width];
