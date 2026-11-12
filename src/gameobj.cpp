@@ -3488,6 +3488,41 @@ SfxBank* CUnit::GetSfxBank() {
 }
 
 // 46C124
+#ifdef A2CLIENT_PATCH
+// Tangar info_experience_spaces: format a number with thousands separators
+// (my-a2mgr debug.cpp FormatWithSpaces).
+static void TangarFormatWithSpaces(int32_t number, char* out_buf, size_t buf_size) {
+    char temp[32];
+    snprintf(temp, sizeof(temp), "%d", number);
+
+    size_t len = strlen(temp);
+    size_t out_i = 0;
+    int32_t digits = 0;
+
+    for (size_t i = len; i-- > 0;) {
+        if (out_i + 2 >= buf_size) {
+            break;
+        }
+        out_buf[out_i++] = temp[i];
+        digits++;
+        if (digits % 3 == 0 && i != 0 && temp[i - 1] != '-') {
+            if (out_i + 2 >= buf_size) {
+                break;
+            }
+            out_buf[out_i++] = ' ';
+        }
+    }
+
+    out_buf[out_i] = 0;
+
+    for (size_t i = 0, j = out_i - 1; i < j; ++i, --j) {
+        char t = out_buf[i];
+        out_buf[i] = out_buf[j];
+        out_buf[j] = t;
+    }
+}
+#endif
+
 void CUnit::DrawStatsPanel(CRect* rect) {
     VisPlayingArea* map = this->pMapObject;
     uint16_t* label_color = clrsh_DullGold;
@@ -3626,7 +3661,12 @@ void CUnit::DrawStatsPanel(CRect* rect) {
         sprintf(buf1, "%d.%d", this->carrying_weight_100g / 10, this->carrying_weight_100g % 10);
         g_font2->DrawTextWithShadow(rect->left + 0x10, rect->top + 0xae, TxtFile::AllLines[0x23], 0, label_color, 1);
         g_font2->DrawTextWithShadow(rect->left + 0x7f, rect->top + 0xae, buf1, 1, value_color, 1);
+#ifdef A2CLIENT_PATCH
+        // Tangar info_experience_spaces (470D13).
+        TangarFormatWithSpaces(this->exp_summary, buf1, sizeof(buf1));
+#else
         sprintf(buf1, "%d", this->exp_summary);
+#endif
         g_font2->DrawTextWithShadow(rect->left + 0x10, rect->top + 0xba, TxtFile::AllLines[0x2e], 0, label_color, 1);
         g_font2->DrawTextWithShadow(rect->left + 0x7f, rect->top + 0xba, buf1, 1, value_color, 1);
     }
