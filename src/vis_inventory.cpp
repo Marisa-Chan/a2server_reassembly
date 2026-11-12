@@ -486,6 +486,9 @@ void VisInvType1::VMethod7() {
     CPoint mouse_pt(g_mousept.GetX(), g_mousept.GetY());
 
     if (this->grid_source != nullptr) {
+        if (this->visible_startref == nullptr) { // CRASH_fix_4AAB7E (client 4AAB7E): null guard
+            return;
+        }
         if (*this->visible_startref != 0) {
             if (left_arrow_rect.PtInRect(mouse_pt)) {
                 g_bmp_invarrow3->DrawSubRectMasked(screen_rect.left + edge_width, screen_rect.top + 2, 0, 0, 0x20, 0x58);

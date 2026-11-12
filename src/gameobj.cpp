@@ -2671,6 +2671,13 @@ void CUnit::UpdateTransientVisualElements() { // 468dcb
 }
 
 int32_t CUnit::Update() { // 46785f
+#ifdef A2CLIENT_PATCH
+    // CRASH_fix_46B685 (client 46B685): guard a stale unit pointer before
+    // the UpdateTransientVisualElements virtual call
+    if (this == nullptr) {
+        return 0;
+    }
+#endif
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
 
