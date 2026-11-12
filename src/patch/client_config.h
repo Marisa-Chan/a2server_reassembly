@@ -40,6 +40,9 @@ extern int32_t z_softcore;
 // Parse allods2.cfg / allods2.conf if present. Safe to call every startup.
 void ParseConfig();
 
+// Chat: prefix chat messages with their type (say/private/yell).
+extern bool g_altchat;
+
 // Screenshots: put screenshot files into the screenshots subdirectory.
 extern bool z_screendir;
 

@@ -1564,8 +1564,31 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 			} else if (this->my_main_unit->KnowsPlayer(packet_join->player_id) == 0 || packet_join->token_id == CHAT_TYPE_GLOBAL) {
 				MapPlayerData* dat = this->map_players[packet_join->player_id];
 
+#ifdef A2CLIENT_PATCH
+				// Tangar CHAT_prependType (413DF7/413F86): prefix the message with its
+				// type. The patched string-table lines (223-225) are approximated with
+				// locale-aware literals.
+				CString tangar_chat_text = CString(dat->name) + ": " + packet_join->name;
+				if (tangar_cfg::g_altchat) {
+					const char* str_type = nullptr;
+					if (packet_join->token_id == CHAT_TYPE_REGULAR) {
+						str_type = tangar_cfg::z_russian ? "Сказать" : "Say";
+					} else if (packet_join->token_id == CHAT_TYPE_PRIVATE) {
+						str_type = tangar_cfg::z_russian ? "Приват" : "Private";
+					} else if (packet_join->token_id == CHAT_TYPE_YELL) {
+						str_type = tangar_cfg::z_russian ? "Вопль" : "Shout";
+					}
+					if (str_type != nullptr) {
+						tangar_chat_text = CString("[") + str_type + "] " + tangar_chat_text;
+					}
+				}
+#define TANGAR_CHAT_TEXT tangar_chat_text
+#else
+#define TANGAR_CHAT_TEXT CString(dat->name) + ": " + packet_join->name
+#endif
+
 				if (g_MessageColors == 0 || (wnd->dialogsMask & DIALOG_MASK_INGAME) == 0) {
-					this->msglog.Add(CString(dat->name) + ": " + packet_join->name, g_colors_human_pals[dat->color], 10000);
+					this->msglog.Add(TANGAR_CHAT_TEXT, g_colors_human_pals[dat->color], 10000);
 				} else {
 					uint16_t* clr = nullptr;
 					switch (packet_join->token_id) {
@@ -1584,10 +1607,13 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 						break;
 					}
 
-					this->msglog.Add(CString(dat->name) + ": " + packet_join->name, clr, 10000);
+					this->msglog.Add(TANGAR_CHAT_TEXT, clr, 10000);
 				}
 
-				g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+	#ifdef A2CLIENT_PATCH
+#undef TANGAR_CHAT_TEXT
+#endif
+			g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				
 			}
 			wnd->vis_root->MsgProc(VIS_MSG_NETMAP_CHAT_SYNC, 0, 0);
