@@ -49,18 +49,44 @@ Legend: DONE / WIP / PENDING / NO-OP / DEFERRED(reason)
   ungated (0x44/H-0x60) — now retail (0x5c, H-0x80 client / H-0x60 server) sits under #else.
   z_softcore has NO config parse in a2mgr (always 0 → override paths dormant); knob added anyway.
 
-## Current queue (next up)
-- MENU x6 (menu.cpp custom menus; needs patch.res strings via GetPatchString — check reachability)
-- hotkeys x10 (hotkey.cpp item/spell hotkeys; needs config aliases + Label())
-- chat subsystem remainder: prependType x2 (patch.res string table), HATENT_url_connect
-  (ParseHatAddress + connect), add_info console (Shift+ё, PNG UI) — parts DEFERRED with PNG
-- infotext.cpp (INFO_text?), nosingle.cpp, scanrange.cpp, pack_scrolling.cpp,
-  resource_control/resource_files_replace (FIL family NO-OP'd), serialize.cpp,
-  video_init.cpp, screenshot.cpp, client_cmd.cpp, map_location.cpp, gui_bugfix/gui_replace,
-  class_extend, spells_fix, opengl.cpp, landscape_renderer.cpp — unreviewed singles
+## Session batch (2026-11-12, token-max cont. 2) — inventory sweep COMPLETE
+- hotkeys x10 FULL SUBSYSTEM (29d89773..31c5ec6e): patch/hotkeys.{h,cpp} (aliases config
+  "alias:<key> <action>", labels, hotkey.<id1>.a2key persistence w/ retail UserShortcut
+  serialization, intercept helpers), sites: VisPlayingArea::OnKeyDown (head intercept +
+  TangarHandleHotkey = F-key case driven by custom map), MainWindow::OnKeyDown (TopLevelKeyDispatch
+  -> vis_root MsgProc / HELP / DIPLOMACY), VisInvType1::MsgProc 0x417 (item find/set),
+  VisSpellBook::MsgProc 0x417 (spell use/set x3), label draws (items/spells), VisCharInfo
+  (panel_toggle + is_spell_book_open tracking). Hotkey = our UserShortcut; key encoding:
+  Action = VK of the retail case body (patch used raw addresses); MsgProc 0x417 wparam =
+  key - VK_F4 (can be negative for non-F keys - hooks recover VK = wparam + VK_F4).
+- pack_scrolling (020c51b3): VisInvType1::OnKeyDown new override (PageUp/Down bag paging,
+  steps = (scrW-240)/80-1), VisInvExtType1::OnKeyDown Ctrl-gated.
+- info_panel_left_sprite (eaa85151): lower info strip pinned to window bottom.
+- info_experience_spaces (9652d0d9): thousands separators in stats panel (gameobj.cpp).
+- fix_StoneCurseDurationCalculation (dbe249ec): spell.cpp SetPower stone curse
+  power*info.duration*32/100 (chain [this+4]->spell_info, +0xC values.m_pData, +0x38
+  = SpellInfoData[0].duration index 14).
+- GUI_textField_MeasurePosition (71fba0a6): VisTextBox::GetCursorPosByX rewrite
+  (accuracy + password asterisks + non-zero X).
+- HATENT_url_text/url_connect (cdef809c): tangar_cfg::HatAddress() = -hat cmdline arg
+  (default hat.rom2.ru); overrides hatip registry read + PrepareForConnect target.
 
 ## NO-OP'd (verified not needed)
-- FIL x13, fixEscape, getMessageLast('/'), wmChar(baseline)
+- FIL x13 (ord2-14) + RES_loadDirectories/RES_noLoad/RES_loadException (resource family),
+  fixEscape, getMessageLast('/'), wmChar(baseline)
+- [DISABLED] in the patch itself: TILES_loadTiles/displayTile1, ord96, CHAT_dbg, DBG_x5
+  (CSprite256 debug)
+- _fix_launcher (patcher-side unpacker wait tool)
+
+## DEFERRED (subsystem pairings)
+- CalcVisMapCLIENT (scanrange.cpp) — pairs with the unported SERVER SR_Step/OnServerTic
+  scanrange subsystem; port both together (terrain-aware vision)
+- MAP_CFileOpen1/2 + MAP_loadFromServer (map_location.cpp "not used") — maps\ download
+  redirect, pairs with the custom-map sync work (0xBF/0x3B, OPEN in memory)
+- NETPROTO x3 + NET_cryptPacket + recv_ — v20 auth/protocol (spec in memory, user-shelved)
+- MENU x6 + ITEMPNG x3 + add_info console UI — SDL/PNG asset dependency
+- SCREENSHOT_take + imp_MakeScreenshotNet — screenshot subsystem (with #screenshot cmd)
+- CHAT_prependType x2 — needs patch.res string table (locale work)
 
 ## DEFERRED
 - PNG x3 + ITEMPNG (SDL), add_info console UI (PNG assets)
