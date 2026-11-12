@@ -74,4 +74,23 @@ void RememberWindow(void* window);
 void SetSpellBookOpen(bool open);
 bool SpellBookOpen();
 
+// Action classification (see the Action enum for the patch's address encoding).
+bool IsTopLevelAction(Action action);
+bool MaybeUnitAction(Action action);
+bool MaybeGlobalAction(Action action);
+
+// Key-intercept entry points used from the hooked OnKeyDown flows.
+bool ShouldHandleHotkey(int key);   // custom item/spell hotkey handles this key
+int HandleAliasKey(int key);        // aliased retail action key to run instead, 0 = none
+// 0 = normal flow, -1 = forward to the standard in-game key handler, else the
+// top-level action key (HELP/DIPLOMACY) to dispatch directly.
+int32_t TopLevelKeyDispatch(int key);
+
+// Mouse/state predicates (patch MouseOverMagic/SpellHighlighted/...).
+bool SpellHighlighted();
+bool MouseOverMagic();
+bool InventoryOpen();
+bool MouseOverItem();
+void RememberPanel(void* panel);
+
 } // namespace tangar_hotkeys

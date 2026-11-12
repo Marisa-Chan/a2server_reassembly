@@ -18,7 +18,10 @@
 
 #include "../game_app.h"
 #include "../main_window.h"
+#include "../mouse.h"
 #include "../player_file.h"
+#include "../vis_char.h"
+#include "../vis_inventory.h"
 #include "../vis_playing_area.h"
 
 namespace tangar_hotkeys {
@@ -276,7 +279,7 @@ uint32_t custom_hotkeys_loaded_for = 0;
 // equivalents are kept the same way (set from OnKeyDown entry / panel toggle).
 MainWindow* window_object = nullptr;
 VisPlayingArea* key_handler_object = nullptr;
-VisInvType1* panel_object = nullptr;
+VisCharInfo* panel_object = nullptr;
 
 // No clean way to check the spell book, so track whether the open or closed book
 // was rendered (is_spell_book_open hook).
@@ -412,6 +415,146 @@ bool HotkeysAvailable() {
     }
 
     return window_object->dialogsMask == DIALOG_MASK_INGAME && key_handler_object->scenario != nullptr;
+}
+
+bool IsUnitSelected() {
+    if (key_handler_object == nullptr) {
+        return false;
+    }
+
+    return g_kbControlState == 0 && key_handler_object->selected_object_count != 0
+        && (key_handler_object->selection_flags & 0x24) == 0;
+}
+
+bool IsTopLevelAction(Action action) {
+    return action == Action::DIPLOMACY || action == Action::HELP;
+}
+
+bool MaybeUnitAction(Action action) {
+    return action == Action::UNIT_A || action == Action::UNIT_C || action == Action::UNIT_D
+        || action == Action::UNIT_G || action == Action::UNIT_L || action == Action::UNIT_M
+        || action == Action::UNIT_P || action == Action::UNIT_R || action == Action::UNIT_S
+        || action == Action::UNIT_T;
+}
+
+bool MaybeGlobalAction(Action action) {
+    // [C], [L] and [T] are taken as unit actions; the global variants share the
+    // same key in this encoding, so ToGlobalAction is the identity here.
+    return action == Action::ACTION_B || action == Action::UNIT_C || action == Action::ACTION_E
+        || action == Action::ACTION_F || action == Action::ACTION_H || action == Action::ACTION_I
+        || action == Action::ACTION_K || action == Action::UNIT_L || action == Action::ACTION_N
+        || action == Action::ACTION_O || action == Action::UNIT_T || action == Action::ACTION_U
+        || action == Action::ACTION_W;
+}
+
+bool SpellHighlighted() {
+    if (window_object == nullptr || window_object->vis_spellbook == nullptr) {
+        return false;
+    }
+
+    return window_object->vis_spellbook->pressed >= 0;
+}
+
+bool MouseOverMagic() {
+    if (window_object == nullptr || window_object->vis_spellbook == nullptr) {
+        return false;
+    }
+
+    CPoint cursor{g_mousept.x, g_mousept.y};
+    return window_object->vis_spellbook->HitTestSpellCell(&cursor) >= 0;
+}
+
+bool InventoryOpen() {
+    if (panel_object == nullptr) {
+        return false;
+    }
+
+    return panel_object->selection_panel_state != 0;
+}
+
+bool MouseOverItem() {
+    if (window_object == nullptr || window_object->vis_invtype1 == nullptr) {
+        return false;
+    }
+
+    VisInvType1* inv = window_object->vis_invtype1;
+    if (PtInRect(&inv->rect, POINT{g_mousept.x, g_mousept.y}) == 0) {
+        return false;
+    }
+
+    return inv->VMethod30(g_mousept.x, -g_mousept.y) >= 0;
+}
+
+void RememberPanel(void* panel) {
+    panel_object = (VisCharInfo*)panel;
+}
+
+bool ShouldHandleHotkey(int key) {
+    if (labels.count(key) == 0 || !HotkeysAvailable()) {
+        return false;
+    }
+
+    if (g_kbShiftState != 0 || g_kbControlState != 0) {
+        if (IsTyping() && !AllowedWhileTyping(key)) {
+            return false;
+        }
+
+        if (g_kbControlState != 0) {
+            // Bind to the spell under the cursor / highlighted spell.
+            return SpellBookOpen() && (SpellHighlighted() || MouseOverMagic()) && key != 'A';
+        } else if (g_kbShiftState != 0) {
+            // Bind to the item under the cursor.
+            return InventoryOpen() && MouseOverItem();
+        } else {
+            return true;
+        }
+    } else {
+        UserShortcut* hotkey = LookupHotkey(key);
+        if (hotkey != nullptr) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+int HandleAliasKey(int key) {
+    auto it = aliases.find(key);
+    if (it == aliases.end() || it->second == Action::DEFAULT) {
+        return 0;
+    }
+
+    if (!HotkeysAvailable() || (IsTyping() && !AllowedWhileTyping(key))) {
+        return 0;
+    }
+
+    if (IsUnitSelected() && MaybeUnitAction(it->second)) {
+        return (int)it->second;
+    }
+
+    if (MaybeGlobalAction(it->second)) {
+        return (int)it->second;
+    }
+
+    return 0;
+}
+
+int32_t TopLevelKeyDispatch(int key) {
+    if (ShouldHandleHotkey(key)) {
+        return -1; // forward into the standard in-game key handler
+    }
+
+    auto it = aliases.find(key);
+    if (it != aliases.end() && it->second != Action::DEFAULT && !IsTopLevelAction(it->second)) {
+        return -1;
+    }
+
+    if (it != aliases.end() && IsTopLevelAction(it->second)
+        && (AllowedWhileTyping(key) || !IsTyping())) {
+        return (int32_t)it->second; // HELP or DIPLOMACY, dispatched directly
+    }
+
+    return 0; // normal flow
 }
 
 } // namespace tangar_hotkeys
