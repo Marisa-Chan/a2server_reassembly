@@ -1,7 +1,5 @@
 #include "game_app.h"
-#ifdef A2CLIENT_PATCH
 #include "patch/locale.h"
-#endif
 
 #include <cmath>
 
@@ -956,7 +954,8 @@ int GameApp::ExitInstance() { //4833f1
 	GetTempPathA(sizeof(path), path);
 
 	CString fpath = path;
-	fpath += "allods-2-*.$$$";
+	fpath += A2CLIENT_PATCH_ENABLED ? "" : "allods-2-*.$$$";
+	if (A2CLIENT_PATCH_ENABLED) { fpath.AppendFormat("allods-%u-*.$$$", GetCurrentProcessId()); }
 
 	WIN32_FIND_DATAA fnd;
 	HANDLE fhndl = FindFirstFileA(fpath, &fnd);
