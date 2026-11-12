@@ -2,6 +2,7 @@
 #include "patch/locale.h"
 #ifdef A2CLIENT_PATCH
 #include "patch/client_config.h"
+#include "patch/hotkeys.h"
 #endif
 #include <ctime>
 #include <cstdio>
@@ -750,6 +751,36 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
                 tangar_cfg::show_stopwatch = !tangar_cfg::show_stopwatch;
                 tangar_cfg::show_stopwatch_frozen = 0;
                 tangar_cfg::stopwatch_start = (int64_t)time(NULL);
+            }
+        }
+#endif
+#ifdef A2CLIENT_PATCH
+        // Tangar top_level_key (48a0de): custom hotkeys and non-top-level
+        // aliases go to the standard in-game handler; top-level aliases
+        // (help/diplomacy) dispatch straight into the F1/F3 case bodies.
+        {
+            int32_t dispatch = tangar_hotkeys::TopLevelKeyDispatch((int32_t)key);
+            if (dispatch == -1) {
+                this->vis_root->MsgProc(0x100, key, 0);
+                return;
+            }
+            if (dispatch == 0x70) {
+                this->PostMessage(MAIN_MSG_SHOW_HELP, 0, 0);
+                return;
+            }
+            if (dispatch == 0x72) {
+                if (this->sessionMode == SESSION_LOCAL_BATTLE) {
+                    if (this->dialogsMask == DIALOG_MASK_INGAME || this->dialogsMask == 0) {
+                        this->PostMessage(MAIN_MSG_SHOW_LOAD_GAME, 0, 0);
+                    }
+                } else if (this->dialogsMask == DIALOG_MASK_INGAME
+#ifdef A2CLIENT
+                    && (net_session.internet_game == 0 || hat_settings.ishat == 0 || hat_settings.deathmatch == 0 || hat_settings.deathmatch == 3)
+#endif
+                          ) {
+                    this->PostMessage(MAIN_MSG_SHOW_DIPLOMACY, 0, 0);
+                }
+                return;
             }
         }
 #endif
