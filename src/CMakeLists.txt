@@ -106,6 +106,8 @@ set(A2CLIENT_SOURCES
   patch/stats_level.cpp
   patch/hotkeys.cpp
   patch/lodepng/lodepng.cpp
+  patch/image.cpp
+  patch/menu.cpp
 )
 
 add_executable(rea2c ${A2_SOURCES} ${A2CLIENT_SOURCES})
