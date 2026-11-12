@@ -1823,6 +1823,31 @@ void CUnit::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) { // 466a
         g_font2->DrawTxt((left + right) / 2, y - 0xF, this->str2, 2, g_colors_human_pals[this->map_player->color]);
         g_font2->DrawTxt((left + right) / 2, y - 0x19, this->str1, 2, g_colors_human_pals[this->map_player->color]);
     } else {
+#ifdef A2CLIENT_PATCH
+        // Tangar ADMINISTRAT: staff nicknames ("Administrator <char>" etc.) draw as a
+        // title line above the character name instead of one long line.
+        const char* mp_name = this->map_player->name;
+        const char* title = nullptr;
+        const char* char_name = mp_name;
+        if (strncmp(mp_name, "Administrator ", 14) == 0) {
+            title = "Administrator";
+            char_name = mp_name + 14;
+        } else if (strncmp(mp_name, "GameMaster ", 11) == 0) {
+            title = "GameMaster";
+            char_name = mp_name + 11;
+        } else if (strncmp(mp_name, "TournamentMaster ", 17) == 0) {
+            title = "TournamentMaster";
+            char_name = mp_name + 17;
+        } else if (strncmp(mp_name, "BalanceMaker ", 13) == 0) {
+            title = "BalanceMaker";
+            char_name = mp_name + 13;
+        }
+        if (title != nullptr) {
+            g_font2->DrawTxt((left + right) / 2, y - 0xF, char_name, 2, g_colors_human_pals[this->map_player->color]);
+            g_font2->DrawTxt((left + right) / 2, y - 0x19, title, 2, g_colors_human_pals[this->map_player->color]);
+            return;
+        }
+#endif
         g_font2->DrawTxt((left + right) / 2, y - 0xF, this->str1, 2, g_colors_human_pals[this->map_player->color]);
     }
 }
