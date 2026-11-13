@@ -1,5 +1,5 @@
 # Client patch port progress tracker
-Updated: 2026-11-13 (map download + showmap)
+Updated: 2026-11-13 (scanrange pair)
 
 Legend: DONE / WIP / PENDING / NO-OP / DEFERRED(reason)
 
@@ -78,6 +78,25 @@ Legend: DONE / WIP / PENDING / NO-OP / DEFERRED(reason)
   (CSprite256 debug)
 - _fix_launcher (patcher-side unpacker wait tool)
 
+## Session batch 6 (2026-11-13) — scanrange pair COMPLETE (019b53d8)
+- patch/scanrange_calc.{h,cpp} — CScanrangeCalc verbatim from
+  my-srvmgr/lib (41x41 offset/cost/vision tables; ulScanShift=7 = the retail
+  shadow_shift; cost = sqrt(i^2+j^2)*128/max(i,j)).
+- Client CalcVisMapCLIENT (client 403D47) = BuildShadowField #ifdef branch:
+  CalculateVision(obj->tileX/tileY/scan_range) + memcpy into shadow_light;
+  helpers read scenario->GetMapHeights()/GetWidth() and map_width/height-7
+  bounds (note: client check uses '<', server uses '<=').
+- Server SR_* (patch/scanrange.{h,cpp}, A2SERVER_TANGAR_HAT via
+  A2SERVER_SOURCES): SR_Step from ServerTic (after NetRegularProc, before
+  Sleep(1), matching OnServerTic order); SR_UpdateUnit stamps
+  GetTickCount() into PlayerInfo.Vision[256][256] (new field) for the
+  unit's owner + vision-share partners (diplomacy[a][b] & DIPLO_VISION_SHARE
+  = 0x10, row = owner); heights from MapStuff_Instance->height_map
+  (256-stride, @0x944F4), bounds from map_width/map_height (@0x50000);
+  non-main units first, then mains. SR_CheckVision ported for parity
+  (unused in the manager too). #scan (GMF_CMD_INFO) dumps the vision grid
+  to the log via SR_DumpToFile; #info/#locate stay deferred (pvm2).
+
 ## Session batch 5 (2026-11-13) — map download + showmap
 - MAP_CFileOpen1/2 + MAP_loadFromServer (db9afb67): FILE_CHUNK handler in
   VisPlayingArea::ProcessPackets stores downloaded maps under maps\ —
@@ -140,8 +159,6 @@ Legend: DONE / WIP / PENDING / NO-OP / DEFERRED(reason)
   (3dd1723b, with the thresholds.cfg parser + reborn readiness module) — memory s37/s38
 
 ## DEFERRED (subsystem pairings)
-- CalcVisMapCLIENT (scanrange.cpp) — pairs with the unported SERVER SR_Step/OnServerTic
-  scanrange subsystem; port both together (terrain-aware vision)
 - NETPROTO x3 + NET_cryptPacket + recv_ — v20 auth/protocol (spec in memory, user-shelved)
 - imp_MakeScreenshotNet — HAT-net-triggered screenshot (0x64 packet, with v20 auth)
 - (CHAT_prependType x2 now ported with hardcoded locale strings)
@@ -149,6 +166,8 @@ Legend: DONE / WIP / PENDING / NO-OP / DEFERRED(reason)
 - (MAP_CFileOpen1/2 + MAP_loadFromServer + showmap.xck done, session batch 5;
   the 0xBF/0x3B transfer itself was already in — server side needs only
   "maps\..." [maps] config entries)
+- (scanrange pair + #scan done, session batch 6; remaining #-commands:
+  #info (pvm2 CheckStrong), #murder (DropEverything))
 
 ## DEFERRED
 - PNG x3 + ITEMPNG (SDL), add_info console UI (PNG assets)
