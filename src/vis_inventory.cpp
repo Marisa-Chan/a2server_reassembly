@@ -720,7 +720,9 @@ int32_t VisInvType1::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
             UserShortcut* tangar_hotkey = tangar_hotkeys::LookupHotkey((int32_t)wparam + VK_F4);
             if (tangar_hotkey != nullptr && this->grid_source != nullptr) {
                 for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
-                    if (tangar_hotkey->MatchesItem(this->grid_source->GetAt(i)) != 0) {
+                    TokenEntry* candidate = this->grid_source->GetAt(i);
+                    // p10mny.xck (4ab621 -> 6e20ee): skip money slot (item_id == 0xFFFF) before MatchesItem
+                    if (candidate->item_id != 0xFFFF && tangar_hotkey->MatchesItem(candidate) != 0) {
                         TokenEntry* entry = this->VMethod36(i, 1);
                         if (entry != nullptr) {
                             main_wnd->vis_charinfo->VMethod27(entry->GetType() - 1);
