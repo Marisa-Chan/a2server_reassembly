@@ -1,5 +1,9 @@
 #include "shelf.h"
 
+#ifdef A2SERVER_PATCH
+#include <climits>
+#endif
+
 #include "game_app.h"
 #include "item.h"
 #include "net.h"
@@ -114,6 +118,14 @@ CMultiShopInstance::~CMultiShopInstance() {
     }
 }
 
+#ifdef A2SERVER_PATCH
+static void LogMoneyCheatAttempt(Player* player) {
+    CString msg;
+    msg.Format("E667: Money cheat attempt from character \"%s\"", static_cast<const char*>(player->name));
+    LogMessage(msg);
+}
+#endif
+
 // 545D5E
 void CMultiShopInstance::Sell() {
     bool any_sold = false;
@@ -124,8 +136,24 @@ void CMultiShopInstance::Sell() {
         Item* item = this->inventory.items.GetNext(next_pos);
 
         if (item && item->pOwner != nullptr && item->_exp != 0) {
+#ifdef A2SERVER_PATCH
+            int64_t price64 = static_cast<int64_t>(static_cast<uint16_t>(item->count)) * static_cast<int64_t>(item->_exp);
+            if (price64 > INT32_MAX || price64 < INT32_MIN) {
+                LogMoneyCheatAttempt(this->unit->pOwner);
+                break;
+            }
+            int32_t price = static_cast<int32_t>(price64);
+            int32_t sell_gain = static_cast<int32_t>(price * 0.5 + 0.5);
+            int64_t new_money = static_cast<int64_t>(item->pOwner->money) + static_cast<int64_t>(sell_gain);
+            if (new_money > INT32_MAX || new_money < INT32_MIN) {
+                LogMoneyCheatAttempt(this->unit->pOwner);
+                break;
+            }
+            item->pOwner->money = static_cast<int32_t>(new_money);
+#else
             int32_t price = item->count * item->_exp;
             item->pOwner->money += (int32_t)(price * 0.5L + 0.5L);
+#endif
 
             this->inventory.items.RemoveAt(current_pos);
 
@@ -153,7 +181,16 @@ void CMultiShopInstance::Buy() {
         Item* item = this->inventory.items.GetNext(next_pos);
 
         if (item && item->pOwner == nullptr) {
+#ifdef A2SERVER_PATCH
+            int64_t price64 = static_cast<int64_t>(static_cast<uint16_t>(item->count)) * static_cast<int64_t>(item->_exp);
+            if (price64 > INT32_MAX || price64 < INT32_MIN) {
+                LogMoneyCheatAttempt(this->unit->pOwner);
+                break;
+            }
+            int32_t price = static_cast<int32_t>(price64);
+#else
             int32_t price = item->count * item->_exp;
+#endif
             if (this->unit->pOwner->money < price) {
                 break;
             }
