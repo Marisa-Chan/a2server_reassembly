@@ -185,16 +185,24 @@ void Spell::SetPower(uint32_t power) {
     const SpellInfoData& info = this->spell_info->Values().GetData()[0];
     uint8_t power_byte = power;
 
-#ifdef A2CLIENT_PATCH
-    // CRASH_fix_523295 (client 523295): data-driven range formula - the
-    // data.bin max_range value packs [base, divider]; range = 0 if base == 0,
-    // else base + power/divider (default divider: 3 for teleport, 30 otherwise)
+#if defined(A2CLIENT_PATCH) || defined(A2SERVER_PATCH)
+    // CRASH_fix_523295 (client 523295) / srv_range.fc (server 53955F): data-driven range formula -
+    // data.bin max_range packs [base, divider]; range = 0 if base == 0,
+    // else base + power/divider (default teleport divider: 15 in DM/TP on server, else 3; 30 otherwise)
     {
         uint8_t range_base = (uint8_t)(info.max_range & 0xFF);
         uint8_t range_divider = (uint8_t)((info.max_range >> 8) & 0xFF);
         if (range_base != 0) {
             if (range_divider == 0) {
-                range_divider = (this->spell_id == spell::teleport) ? 3 : 30;
+                if (this->spell_id == spell::teleport) {
+#ifndef A2CLIENT
+                    range_divider = (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) ? 15 : 3;
+#else
+                    range_divider = 3;
+#endif
+                } else {
+                    range_divider = 30;
+                }
             }
             this->max_range = (uint8_t)(range_base + power_byte / range_divider);
         } else {
