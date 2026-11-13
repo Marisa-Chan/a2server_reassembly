@@ -1578,7 +1578,11 @@ void Unit::Die() {
         }
 
         // Create sack if inventory has items or gold was dropped.
+#ifdef A2SERVER_TANGAR_HAT
+        if ((this->inventory->items.GetSize() >= 0 || gold > 0) && this->pOwner != nullptr) {
+#else
         if ((this->inventory->items.GetSize() > 0 || gold > 0) && this->pOwner != nullptr) {
+#endif
             int is_main = (this->pOwner->main_unit == this) ? 1 : 0;
             // Inline CreateSackFromInventory: drop inventory as a sack on the map.
             Inventory* sack_items = this->DetachInventory();
