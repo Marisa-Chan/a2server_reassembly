@@ -61,6 +61,7 @@
 #include "patch/forbidden_items.h"
 #include "patch/quest_filters.h"
 #include "patch/pvm2.h"
+#include "patch/gm_commands.h"
 #include "quest.h"
 #include "quest_map.h"
 #include "main_window.h"
@@ -3287,27 +3288,139 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                     tangar_scanrange::SR_DumpToFile(player);
                 }
                 return;
+            } else if (lowered.Find("#show map") == 0) {
+                if (player == nullptr) {
+                    Printf("This command may not be used from the console.");
+                    return;
+                }
+                g_NetStru1_main.SendInfoPacket(MAP_REVEAL, 1, 0, player);
+                return;
+            } else if (lowered.Find("#hide map") == 0) {
+                if (player == nullptr) {
+                    Printf("This command may not be used from the console.");
+                    return;
+                }
+                g_NetStru1_main.SendInfoPacket(MAP_REVEAL, 0, 0, player);
+                return;
             }
         }
         if (has_gm(GMF_CMD_KILL)) {
-            if (lowered == "#killai") {
-                // Tangar #killai (zxmgr::KillAll(player, true)): kill every AI unit
-                // except the caster's own. hp = -50 with no attacker, state
-                // broadcast via SendUnitUpdate like the manager does.
-                CList<Unit*>& kill_list = g_Server->srv_stru1->units_list->unit_list;
-                POSITION kill_it = kill_list.GetHeadPosition();
-                while (kill_it != nullptr) {
-                    Unit* unit = kill_list.GetNext(kill_it);
-                    if (player != nullptr && unit == player->main_unit) {
-                        continue;
-                    }
-                    if (unit->pOwner != nullptr && unit->pOwner->is_ai == 0) {
-                        continue;
-                    }
-                    unit->last_hit_by = nullptr;
-                    unit->hp = -50;
-                    g_NetStru1_main.SendUnitUpdate(unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
+            auto target_god_protected = [player, &has_gm](Player* target) -> bool {
+                if (target == nullptr || target->is_ai != 0 || target == player) {
+                    return false;
                 }
+                if ((target->flags & 0xFF000000u) != GMF_ANY) {
+                    return false;
+                }
+                uint32_t tri = target->flags & 0x00FFFFFFu;
+                bool target_god = (tri & (GMF_GODMODE & 0x00FFFFFFu)) != 0;
+                bool target_god_admin = (tri & (GMF_GODMODE_ADMIN & 0x00FFFFFFu)) != 0;
+                return (target_god && !has_gm(GMF_GODMODE_ADMIN)) || target_god_admin;
+            };
+
+            if (cmd_token == "#kill") {
+                CString target_name = cmd_rest;
+                target_name.TrimLeft();
+                Player* target = FindPlayerByNickname((const char*)target_name);
+                if (target != nullptr && !target_god_protected(target)) {
+                    tangar_gm::KillPlayerUnits(target, player);
+                }
+                return;
+            } else if (cmd_token == "#murder") {
+                CString target_name = cmd_rest;
+                target_name.TrimLeft();
+                Player* target = FindPlayerByNickname((const char*)target_name);
+                if (target != nullptr && !target_god_protected(target)) {
+                    tangar_gm::KillPlayerUnits(target, player);
+                    if (target->main_unit != nullptr && target != player) {
+                        tangar_gm::DropEverything(target->main_unit, true);
+                    }
+                }
+                return;
+            } else if (cmd_token == "#killall") {
+                tangar_gm::KillAllUnits(player, false);
+                return;
+            } else if (cmd_token == "#killai") {
+                tangar_gm::KillAllUnits(player, true);
+                return;
+            }
+        }
+        if (has_gm(GMF_CMD_PICKUP)) {
+            if (cmd_token == "#pickup") {
+                if (player == nullptr) {
+                    Printf("This command may not be used from the console.");
+                    return;
+                }
+                CString pickup_arg = cmd_rest;
+                pickup_arg.TrimLeft();
+                pickup_arg.TrimRight();
+                pickup_arg.MakeLower();
+                if ((pickup_arg.IsEmpty() || pickup_arg.Find("all") == 0) && player->main_unit != nullptr &&
+                    this->srv_stru1 != nullptr && this->srv_stru1->sack_list != nullptr) {
+                    SackList* sack_list = this->srv_stru1->sack_list;
+                    POSITION pos = sack_list->list.GetHeadPosition();
+                    while (pos != nullptr) {
+                        POSITION cur_pos = pos;
+                        Sack* sack = sack_list->list.GetNext(pos);
+                        this->PrepareSackPickup(sack);
+                        MapStuff_Instance->RemoveSack(sack);
+                        g_Server->srv_stru1->sack_list->list.RemoveAt(cur_pos);
+                        player->main_unit->PickUpSack(sack);
+                    }
+                    LogMessage("All sacks picked up");
+                }
+                return;
+            }
+        }
+        if (has_gm(GMF_CMD_MODIFY) || has_gm(GMF_CMD_SUMMON)) {
+            auto find_player_any = [](const char* nick) -> Player* {
+                Player* p = FindPlayerByNickname(nick);
+                if (p == nullptr && g_PlayersList != nullptr) {
+                    p = g_PlayersList->FindByName(CString(nick));
+                }
+                return p;
+            };
+
+            if (cmd_token == "#own") {
+                if (player == nullptr) {
+                    Printf("This command may not be used from the console.");
+                    return;
+                }
+                CString from_name = cmd_rest;
+                from_name.TrimLeft();
+                Player* from = find_player_any((const char*)from_name);
+                if (from != nullptr) {
+                    tangar_gm::OwnUnits(from, player);
+                }
+                return;
+            } else if (cmd_token == "#own_for") {
+                auto reply_own_err = [player](const std::string& err) {
+                    const char* usage = "Usage: #own_for <player-from> <player-to>";
+                    if (player != nullptr) {
+                        g_NetStru1_main.AnnouncePlayerName(err.c_str(), player);
+                        g_NetStru1_main.AnnouncePlayerName(usage, player);
+                    } else {
+                        Printf("%s", err.c_str());
+                        Printf("%s", usage);
+                    }
+                };
+
+                std::vector<std::string> args;
+                if (!tangar_gm::ParseSpaceDelimited((const char*)cmd_rest, args) || args.size() != 2) {
+                    reply_own_err("Invalid arguments");
+                    return;
+                }
+                Player* from = find_player_any(args[0].c_str());
+                if (from == nullptr) {
+                    reply_own_err("Invalid arguments : no such player - " + args[0]);
+                    return;
+                }
+                Player* to = find_player_any(args[1].c_str());
+                if (to == nullptr) {
+                    reply_own_err("Invalid arguments : no such player - " + args[1]);
+                    return;
+                }
+                tangar_gm::OwnUnits(from, to);
                 return;
             }
         }
