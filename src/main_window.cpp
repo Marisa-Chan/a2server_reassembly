@@ -4029,8 +4029,8 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 
     case MAIN_MSG_SHOW_HAT_BROWSER: {
 #ifdef A2CLIENT_PATCH
-        // extend_servers.txt (48deb2): widen server browser dialog from 640 to 704
-        this->vis_hatbrowser = new VisHatBrowserDlg(1, 0, -64, 704, 480);
+        // extend_servers.txt (48deb2) + long_servers.txt (48dead): 704x544 server browser dialog
+        this->vis_hatbrowser = new VisHatBrowserDlg(1, 0, -64, 704, 544);
 #else
         this->vis_hatbrowser = new VisHatBrowserDlg(1, 0, -64, 640, 480);
 #endif

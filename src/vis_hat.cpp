@@ -363,7 +363,16 @@ void VisHatBrowserList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
 void VisHatBrowserDlg::VMethod26() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
-    VisLabel* title_label = new VisLabel(0x19, 0x28, 0x16, this->rect.Width() - 0x28, 0x38, txt_patch.GetLine(0x6a), g_font1, p_clrsh_Black, 2);
+#ifdef A2CLIENT_PATCH
+    // long_servers.txt (44e7e7, 44e87f): shift header labels up (0x16 -> 0x10, 0x2c -> 0x20)
+    int32_t title_top = 0x10;
+    int32_t ip_top = 0x20;
+#else
+    int32_t title_top = 0x16;
+    int32_t ip_top = 0x2c;
+#endif
+
+    VisLabel* title_label = new VisLabel(0x19, 0x28, title_top, this->rect.Width() - 0x28, 0x38, txt_patch.GetLine(0x6a), g_font1, p_clrsh_Black, 2);
     this->AddChild(title_label);
 
     const char* ip_text = main_wnd->hat_settings.hatip;
@@ -372,7 +381,7 @@ void VisHatBrowserDlg::VMethod26() {
         ip_text = main_wnd->hat_settings.hatprogip;
     }
 #endif
-    VisLabel* ip_label = new VisLabel(0x7e, 0x28, 0x2c, this->rect.Width() - 0x28, 0x44, ip_text, g_font1, p_clrsh_Black, 2);
+    VisLabel* ip_label = new VisLabel(0x7e, 0x28, ip_top, this->rect.Width() - 0x28, 0x44, ip_text, g_font1, p_clrsh_Black, 2);
     this->AddChild(ip_label);
 
 #ifdef A2CLIENT
