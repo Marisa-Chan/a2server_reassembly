@@ -640,6 +640,11 @@ void Diplomacy::RecordHostility(Unit* attacker, Unit* target, int32_t hit_flag) 
 // Check if two units are at war.
 // 5B5816
 bool World::AreAtWar(Unit* unit1, Unit* unit2) {
+#ifdef A2SERVER_PATCH
+    if (unit2->pOwner == nullptr || unit1->pOwner == nullptr) {
+        return false;
+    }
+#endif
     return (this->diplomacy.diplomacy[unit1->pOwner->player_id][unit2->pOwner->player_id] & DIPLO_WAR) != 0;
 }
 
