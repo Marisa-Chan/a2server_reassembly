@@ -1955,10 +1955,16 @@ void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t light) { // 464974
                 dir8 = 8 - dir8;
                 flip = 1;
             }
+#ifdef A2CLIENT_PATCH
+            // boneidle.xck (468bd9, 468c34): corpse direction stride uses idle_phases (+0x28) instead of bone_phases (+0x24)
+            int32_t corpse_dir_phases = dying_vfx->idle_phases;
+#else
+            int32_t corpse_dir_phases = dying_vfx->bone_phases;
+#endif
             if (dying_vfx->flip != 0) {
-                frame = (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 5 + dir8 * dying_vfx->bone_phases + 9 + this->death_state - 2;
+                frame = (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 5 + dir8 * corpse_dir_phases + 9 + this->death_state - 2;
             } else {
-                frame = dir8 * dying_vfx->bone_phases + (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 8 + 0x10 + this->death_state - 2;
+                frame = dir8 * corpse_dir_phases + (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 8 + 0x10 + this->death_state - 2;
             }
         }
         break;
@@ -2161,10 +2167,16 @@ void CUnit::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) { // 465b5
                 dir8 = 8 - dir8;
                 flip = 1;
             }
+#ifdef A2CLIENT_PATCH
+            // boneidle.xck (469c2f, 469c87): corpse shadow direction stride uses idle_phases (+0x28) instead of bone_phases (+0x24)
+            int32_t corpse_dir_phases = dying_vfx->idle_phases;
+#else
+            int32_t corpse_dir_phases = dying_vfx->bone_phases;
+#endif
             if (dying_vfx->flip != 0) {
-                frame = (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 5 + dir8 * dying_vfx->bone_phases + 7 + this->death_state;
+                frame = (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 5 + dir8 * corpse_dir_phases + 7 + this->death_state;
             } else {
-                frame = dir8 * dying_vfx->bone_phases + (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 8 + 14 + this->death_state;
+                frame = dir8 * corpse_dir_phases + (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 8 + 14 + this->death_state;
             }
         }
         break;
