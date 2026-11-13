@@ -22,6 +22,7 @@
 #if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
 #include "patch/config_new.h"
 #include "patch/crash_filter.h"
+#include "patch/ctl_handle.h"
 #include "patch/tangar_log.h"
 #include "patch/thresholds.h"
 #endif
@@ -779,12 +780,13 @@ BOOL GameApp::InitInstance() {
 	}
 
 #if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
-	// DllMain LoadThresholds (srvmgr.cpp:2719-2725, 2769)
+	// DllMain LoadThresholds + StartControlThread (srvmgr.cpp:2719-2756, 2769)
 	try {
 		thresholds::thresholds.LoadFromFile(thresholds::THRESHOLDS_FILE);
 	} catch (const thresholds::ParseException& error) {
 		log_format("Loading thresholds failed: %s\n", error.what());
 	}
+	tangar_ctl::StartControlThread();
 #endif
 #ifndef A2CLIENT
 	if (g_ServerConfig.chr_base.IsEmpty()) {
@@ -957,6 +959,7 @@ BOOL GameApp::OnIdle(LONG lCount) { //4835b0
 int GameApp::ExitInstance() { //4833f1
 #if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
 	Config::ExitingCleanly = true;
+	tangar_ctl::StopControlThread();
 #endif
 	if (g_EnableTrace != 0) {
 		g_NetStru1_main.WriteStatsLog("pkt.log");

@@ -63,6 +63,7 @@
 #include "patch/pvm2.h"
 #include "patch/gm_commands.h"
 #include "patch/crash_filter.h"
+#include "patch/ctl_handle.h"
 #include "quest.h"
 #include "quest_map.h"
 #include "main_window.h"
@@ -3219,7 +3220,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         // engine. Every GMF_* constant in flags.h carries GMF_ANY (0x3F000000)
         // in its upper byte, so strip to the low 24 permission bits first.
         uint32_t tangar_rights = 0;
-        if (player == nullptr) {
+        if (player == nullptr || tangar_ctl::IsFullRightsOverride()) {
             tangar_rights = 0xFFFFFFFFu;
         } else if (player->is_ai == 0 && (player->flags & 0xFF000000u) == GMF_ANY) {
             tangar_rights = player->flags & 0x00FFFFFFu;
@@ -6447,8 +6448,10 @@ int Server::LoadGame(CString map_name) {
 void Server::ServerTic() {
 #ifdef A2SERVER_TANGAR_HAT
     // imp_ServerTic callback (4FBB79): pump the HAT control connection,
-    // retry failed main-unit map returns every 5s, step scanrange, and yield.
+    // drain control-directory commands, retry failed main-unit map returns
+    // every 5s, step scanrange, and yield.
     tangar_hat::NetRegularProc();
+    tangar_ctl::PollControlActions();
     for (int i = 0; i < 32; i++) {
         if (!g_PlayerInfo[i].Exists || g_PlayerInfo[i].Class == nullptr) {
             continue;

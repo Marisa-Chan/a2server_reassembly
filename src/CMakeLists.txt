@@ -106,6 +106,7 @@ set(A2SERVER_SOURCES
   patch/screenshots.cpp
   patch/gm_commands.cpp
   patch/crash_filter.cpp
+  patch/ctl_handle.cpp
   patch/locale.cpp
 )
 
