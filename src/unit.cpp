@@ -24,6 +24,7 @@
 #include "patch/flags.h"
 #include "patch/circle.h"
 #include "patch/damage_filter.h"
+#include "patch/partial_drop.h"
 #include "patch/player_info.h"
 #endif
 #include "shop.h"
@@ -1556,6 +1557,9 @@ void Unit::Die() {
 #else
     {
 #endif
+#if !defined(A2SERVER_TANGAR_HAT) || defined(A2CLIENT)
+        // partial_drop_skip_undress hook (52DA11): skipped in Tangar server build;
+        // equipped items are rolled individually in DropPartially instead.
         if (this->shield != nullptr) {
             this->inventory->PutItemIntoBagAtDefault(this->Unequip(this->shield));
         }
@@ -1567,6 +1571,7 @@ void Unit::Die() {
 
         // VMethod15: unequip all remaining equipped items.
         this->UnequipAll();
+#endif
 
         bool is_npc = (this->monster_info->name.Find("NPC") != -1);
         bool should_drop = false;
@@ -1622,16 +1627,20 @@ void Unit::Die() {
         }
 
         // Create sack if inventory has items or gold was dropped.
-#ifdef A2SERVER_TANGAR_HAT
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
         if ((this->inventory->items.GetSize() >= 0 || gold > 0) && this->pOwner != nullptr) {
+            int is_main = (this->pOwner->main_unit == this) ? 1 : 0;
+            // imp_drop_partially hook (52DEEF)
+            DropPartially(this, this->inventory, gold, is_main);
+        }
 #else
         if ((this->inventory->items.GetSize() > 0 || gold > 0) && this->pOwner != nullptr) {
-#endif
             int is_main = (this->pOwner->main_unit == this) ? 1 : 0;
             // Inline CreateSackFromInventory: drop inventory as a sack on the map.
             Inventory* sack_items = this->DetachInventory();
             g_Server->srv_stru1->sack_list->DropInventoryAt(this->position, sack_items, gold, is_main);
         }
+#endif
     } 
 #ifndef A2CLIENT
     else if (this->pOwner != nullptr && g_ServerConfig.gameType != GAME_TYPE_ARENA) {
@@ -1664,8 +1673,13 @@ void Unit::Die() {
         // Create sack if inventory has items.
         if (this->inventory->items.GetSize() > 0) {
             int is_main = (this->pOwner->main_unit == this) ? 1 : 0;
+#ifdef A2SERVER_TANGAR_HAT
+            // imp_drop_partially hook (52E264)
+            DropPartially(this, this->inventory, 0, is_main);
+#else
             Inventory* sack_inventory = this->DetachInventory();
             g_Server->srv_stru1->sack_list->DropInventoryAt(this->position, sack_inventory, 0, is_main);
+#endif
         }
     }
 #endif
