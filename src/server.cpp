@@ -663,6 +663,10 @@ void Srv1::CreateBuildings(MapAlm* alm) {
 
 // 59FC97
 void Srv1::SpawnRandomSacks(int count) {
+#ifdef A2SERVER_TANGAR_HAT
+    (void)count;
+    return;
+#else
     uint8_t x_range = (uint8_t)(MapStuff_Instance->map_width - 20);
     uint8_t y_range = (uint8_t)(MapStuff_Instance->map_height - 20);
     if (count == 0) {
@@ -683,6 +687,7 @@ void Srv1::SpawnRandomSacks(int count) {
         TokenPos pos(x, y, MapStuff_Instance);
         g_Server->srv_stru1->sack_list->DumpInventoryAt(&pos, inventory, gold, 0);
     }
+#endif
 }
 
 // 59BEDB
