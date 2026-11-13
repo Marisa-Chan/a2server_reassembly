@@ -6,6 +6,7 @@
 #include "hat_net.h"
 
 #include <ctime>
+#include <mutex>
 #include <windows.h>
 
 #include "config_new.h"
@@ -500,6 +501,109 @@ int RecvServerFramed(SOCKET s, char* buf, int len, int flags) {
         return -1;
     }
     return pkt_size + 8;
+}
+
+namespace {
+
+#ifdef SRV_LOG
+struct ClientLogNode {
+    SOCKET s;
+    std::string ip;
+    std::string name;
+    ClientLogNode* n;
+    ClientLogNode* p;
+};
+
+ClientLogNode* g_ClientLogHead = nullptr;
+std::mutex g_ClientLogMutex;
+#endif
+
+bool IsPeerIpBanned(const char* ip_str) {
+    if (ip_str == nullptr || ip_str[0] == '\0') {
+        return false;
+    }
+
+    for (int i = 0; i < g_ServerConfig.banned_ips.GetSize(); i++) {
+        if (_stricmp(g_ServerConfig.banned_ips[i], ip_str) == 0) {
+            return true;
+        }
+    }
+
+    IPFilter::IPFFile ipf;
+    ipf.ReadIPF("ban.ip", true);
+    if (!ipf.Entries.empty() && ipf.CheckAddress(ip_str) == -1) {
+        return true;
+    }
+
+    return false;
+}
+
+} // namespace
+
+// Ported from my-srvmgr/srvmgr.cpp:2426 (accept0 @ 5BB6AE).
+SOCKET AcceptServerSocket(SOCKET s, sockaddr* addr, int* addrlen) {
+    SOCKET r = accept(s, addr, addrlen);
+    if (r == INVALID_SOCKET) {
+        return INVALID_SOCKET;
+    }
+
+    char ip_buf[32] = {};
+    if (addr != nullptr && addr->sa_family == AF_INET) {
+        const sockaddr_in* sin = reinterpret_cast<const sockaddr_in*>(addr);
+        std::snprintf(ip_buf, sizeof(ip_buf), "%u.%u.%u.%u",
+                      sin->sin_addr.S_un.S_un_b.s_b1,
+                      sin->sin_addr.S_un.S_un_b.s_b2,
+                      sin->sin_addr.S_un.S_un_b.s_b3,
+                      sin->sin_addr.S_un.S_un_b.s_b4);
+        if (IsPeerIpBanned(ip_buf)) {
+            Printf("Connection from banned IP %s rejected", ip_buf);
+            closesocket(r);
+            WSASetLastError(WSAECONNRESET);
+            return INVALID_SOCKET;
+        }
+    }
+
+#ifdef SRV_LOG
+    {
+        std::lock_guard<std::mutex> lock(g_ClientLogMutex);
+        ClientLogNode* c = g_ClientLogHead;
+        g_ClientLogHead = new ClientLogNode{r, ip_buf, std::string(), c, nullptr};
+        if (c != nullptr) {
+            c->p = g_ClientLogHead;
+        }
+    }
+#endif
+
+    return r;
+}
+
+// Ported from my-srvmgr/srvmgr.cpp:2517 (closesocket0 @ 5BB6A8).
+int CloseServerSocket(SOCKET s) {
+#ifdef SRV_LOG
+    {
+        std::lock_guard<std::mutex> lock(g_ClientLogMutex);
+        ClientLogNode* c = g_ClientLogHead;
+        while (c != nullptr && c->s != s) {
+            c = c->n;
+        }
+        if (c != nullptr) {
+            ClientLogNode* t = c->n;
+            if (c->p != nullptr) {
+                c->p->n = t;
+                if (t != nullptr) {
+                    t->p = c->p;
+                }
+            } else {
+                g_ClientLogHead = t;
+                if (t != nullptr) {
+                    t->p = nullptr;
+                }
+            }
+            delete c;
+        }
+    }
+#endif
+    return closesocket(s);
 }
 
 } // namespace tangar_hat

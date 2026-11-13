@@ -51,4 +51,11 @@ void NetHatUpdateInfo(uint8_t player_count, const char* name, uint8_t level, uin
 void FlushEnqueuedPackets(SOCKET s);
 int RecvServerFramed(SOCKET s, char* buf, int len, int flags);
 
+// Game-socket lifecycle hooks (my-srvmgr accept0 @ 5BB6AE / closesocket0 @ 5BB6A8):
+// AcceptServerSocket enforces IP ban rules (ban.ip / g_ServerConfig.banned_ips)
+// and optional SRV_LOG client tracking; CloseServerSocket cleans up tracked
+// socket state before closing the descriptor.
+SOCKET AcceptServerSocket(SOCKET s, sockaddr* addr, int* addrlen);
+int CloseServerSocket(SOCKET s);
+
 } // namespace tangar_hat

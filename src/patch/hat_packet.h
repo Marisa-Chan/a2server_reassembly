@@ -114,10 +114,39 @@ void PACKET_XorByKey(uint8_t* data, uint32_t size, uint32_t protover);
 int SOCK_SendMsg(SOCKET sock, int ver, const uint8_t* msg, size_t len, int timeout);
 
 SOCKET SOCK_Connect(const std::string& address, uint16_t port, const std::string& localaddress, uint16_t localport);
+SOCKET SOCK_Listen(const std::string& address, uint16_t port);
+SOCKET SOCK_Accept(SOCKET listener, sockaddr_in& addr);
 int SOCK_SendPacket(SOCKET socket, Packet& packet, uint32_t protover, bool extended = false);
 int SOCK_ReceivePacket(SOCKET socket, Packet& packet, uint32_t protover);
 void SOCK_Destroy(SOCKET socket);
+void SOCK_SetBlocking(SOCKET socket, bool blocking);
 bool SOCK_WaitEvent(SOCKET socket, uint32_t timeout);
+
+namespace IPFilter {
+
+struct IPAddress {
+    std::string Address;
+    uint32_t Addr = 0;
+    uint32_t Masked = 0;
+    uint32_t Mask = 0;
+
+    void FromString(const std::string& str);
+};
+
+struct IPFEntry {
+    bool Action = false;
+    IPAddress Address;
+};
+
+struct IPFFile {
+    std::vector<IPFEntry> Entries;
+
+    // +1 = explicitly allowed, -1 = explicitly blocked, 0 = not set in this IPF
+    int CheckAddress(const std::string& addr) const;
+    void ReadIPF(const std::string& str, bool filename = false);
+};
+
+} // namespace IPFilter
 
 class PacketReceiver {
 public:

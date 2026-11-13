@@ -2211,7 +2211,11 @@ void CLlDriver::CloseTcpSocket(A2NetSock* sock) {
 
     sock->is_in_use = 0;
     if (sock->socket != INVALID_SOCKET) {
+#ifdef A2SERVER_TANGAR_HAT
+        tangar_hat::CloseServerSocket(sock->socket);
+#else
         closesocket(sock->socket);
+#endif
         sock->socket = INVALID_SOCKET;
     }
 
@@ -3044,7 +3048,11 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context) {
             if (drv->listen_socket.is_in_use == 1 &&
                 FD_ISSET(drv->listen_socket.socket, &fd) &&
                 drv->RecvThreadTcp(&drv->listen_socket) == 0) {
+#ifdef A2SERVER_TANGAR_HAT
+                tangar_hat::CloseServerSocket(drv->listen_socket.socket);
+#else
                 closesocket(drv->listen_socket.socket);
+#endif
                 drv->listen_socket.socket = INVALID_SOCKET;
             }
             continue;
@@ -3053,7 +3061,11 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context) {
         if (FD_ISSET(drv->listen_socket.socket, &fd)) {
             sockaddr_in newcon;
             int newconln = sizeof(newcon);
+#ifdef A2SERVER_TANGAR_HAT
+            SOCKET nsock = tangar_hat::AcceptServerSocket(drv->listen_socket.socket, (sockaddr*)&newcon, &newconln);
+#else
             SOCKET nsock = accept(drv->listen_socket.socket, (sockaddr*)&newcon, &newconln);
+#endif
             if (nsock == INVALID_SOCKET) {
                 if (drv->listen_socket.is_in_use == 1) {
                     ReportWarning("CLlDriverAcceptThreadTcp().\nUnable to accept new connection.\n");
@@ -3062,7 +3074,11 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context) {
             }
             
             if (drv->num_connections >= drv->max_connections) {
+#ifdef A2SERVER_TANGAR_HAT
+                tangar_hat::CloseServerSocket(nsock);
+#else
                 closesocket(nsock);
+#endif
                 ReportWarning("CLlDriverAcceptThreadTcp().\nClient connection refused.\n");
                 continue;
             }
@@ -3080,7 +3096,11 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context) {
             }
 
             if (idx == -1) {
+#ifdef A2SERVER_TANGAR_HAT
+                tangar_hat::CloseServerSocket(nsock);
+#else
                 closesocket(nsock);
+#endif
                 ReportWarning("CLlDriverAcceptThreadTcp().\n No free slot.\n");
             } else {
                 A2NetSock* cs = drv->connection_sockets + idx;
@@ -3103,7 +3123,11 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context) {
             if (conn->is_in_use == 1 &&
                 FD_ISSET(conn->socket, &fd) &&
                 drv->RecvThreadTcp(conn) == 0) {
+#ifdef A2SERVER_TANGAR_HAT
+                tangar_hat::CloseServerSocket(conn->socket);
+#else
                 closesocket(conn->socket);
+#endif
                 conn->socket = INVALID_SOCKET;
             }
         }

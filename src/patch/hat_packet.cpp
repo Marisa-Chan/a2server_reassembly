@@ -6,6 +6,7 @@
 
 #include <cstdlib>
 #include <cstring>
+#include <fstream>
 
 namespace tangar_hat {
 
@@ -147,6 +148,36 @@ SOCKET SOCK_Connect(const std::string& address, uint16_t port, const std::string
     return out;
 }
 
+SOCKET SOCK_Listen(const std::string& address, uint16_t port) {
+    sockaddr_in local;
+    memset(&local, 0, sizeof(local));
+    local.sin_family = AF_INET;
+    local.sin_addr.s_addr = inet_addr(address.c_str());
+    local.sin_port = htons(port);
+    SOCKET out = socket(AF_INET, SOCK_STREAM, 0);
+    if (out == INVALID_SOCKET) {
+        return SERR_NOTCREATED;
+    }
+    if (bind(out, (sockaddr*)&local, sizeof(local)) != 0) {
+        closesocket(out);
+        return SERR_NOTCREATED;
+    }
+    if (listen(out, 128) != 0) {
+        closesocket(out);
+        return SERR_NOTCREATED;
+    }
+    return out;
+}
+
+SOCKET SOCK_Accept(SOCKET listener, sockaddr_in& addr) {
+    int fromlen = sizeof(addr);
+    SOCKET client = accept(listener, (sockaddr*)&addr, &fromlen);
+    if (client == INVALID_SOCKET) {
+        return SERR_NOTCREATED;
+    }
+    return client;
+}
+
 int SOCK_SendPacket(SOCKET socket, Packet& packet, uint32_t protover, bool extended) {
     if (!extended) {
         if (packet.GetLength() == 0) {
@@ -239,6 +270,139 @@ int SOCK_ReceivePacket(SOCKET socket, Packet& packet, uint32_t protover) {
 void SOCK_Destroy(SOCKET socket) {
     closesocket(socket);
 }
+
+void SOCK_SetBlocking(SOCKET socket, bool blocking) {
+    u_long iMode = blocking ? 0u : 1u;
+    ioctlsocket(socket, FIONBIO, &iMode);
+}
+
+namespace {
+
+std::vector<std::string> SplitString(const std::string& s, char delim) {
+    std::vector<std::string> out;
+    size_t start = 0;
+    while (true) {
+        size_t pos = s.find(delim, start);
+        if (pos == std::string::npos) {
+            out.push_back(s.substr(start));
+            break;
+        }
+        out.push_back(s.substr(start, pos - start));
+        start = pos + 1;
+    }
+    return out;
+}
+
+std::string TrimWhitespace(const std::string& s) {
+    size_t b = 0;
+    while (b < s.size() && (s[b] == ' ' || s[b] == '\t' || s[b] == '\r' || s[b] == '\n')) {
+        b++;
+    }
+    size_t e = s.size();
+    while (e > b && (s[e - 1] == ' ' || s[e - 1] == '\t' || s[e - 1] == '\r' || s[e - 1] == '\n')) {
+        e--;
+    }
+    return s.substr(b, e - b);
+}
+
+} // namespace
+
+namespace IPFilter {
+
+void IPAddress::FromString(const std::string& str) {
+    uint32_t mask = 0;
+    std::vector<std::string> addr = SplitString(str, '/');
+    if (addr.size() == 2) {
+        mask = static_cast<uint32_t>(std::strtoul(addr[1].c_str(), nullptr, 10));
+        if (mask > 32) {
+            mask = 32;
+        }
+    } else if (addr.size() == 1) {
+        mask = 32;
+    } else {
+        Address.clear();
+        Addr = 0;
+        Masked = 0;
+        Mask = 0;
+        return;
+    }
+
+    std::vector<std::string> at = SplitString(addr[0], '.');
+    if (at.size() != 4) {
+        Address.clear();
+        Addr = 0;
+        Masked = 0;
+        Mask = 0;
+        return;
+    }
+
+    uint8_t oc1 = static_cast<uint8_t>(std::strtoul(at[0].c_str(), nullptr, 10));
+    uint8_t oc2 = static_cast<uint8_t>(std::strtoul(at[1].c_str(), nullptr, 10));
+    uint8_t oc3 = static_cast<uint8_t>(std::strtoul(at[2].c_str(), nullptr, 10));
+    uint8_t oc4 = static_cast<uint8_t>(std::strtoul(at[3].c_str(), nullptr, 10));
+    Addr = (static_cast<uint32_t>(oc1) << 24) |
+           (static_cast<uint32_t>(oc2) << 16) |
+           (static_cast<uint32_t>(oc3) << 8) |
+           static_cast<uint32_t>(oc4);
+    Address = addr[0];
+
+    uint32_t lmask = 0;
+    for (uint32_t i = 0; i < mask; i++) {
+        lmask |= (1u << (31 - i));
+    }
+    Masked = Addr & lmask;
+    Mask = lmask;
+}
+
+void IPFFile::ReadIPF(const std::string& str, bool filename) {
+    std::vector<std::string> vs;
+    if (filename) {
+        std::ifstream f_temp(str.c_str(), std::ios::in);
+        if (!f_temp.is_open()) {
+            return;
+        }
+        std::string token;
+        while (f_temp >> token) {
+            vs.push_back(TrimWhitespace(token));
+        }
+    } else {
+        vs = SplitString(str, '\n');
+    }
+
+    std::vector<IPFEntry> ret;
+    for (size_t i = 0; i < vs.size(); i++) {
+        std::string item = TrimWhitespace(vs[i]);
+        if (item.length() < 8) {
+            continue;
+        }
+        char action = item[0];
+        item.erase(0, 1);
+        IPFEntry ent;
+        if (action == '+') {
+            ent.Action = true;
+        } else if (action == '-') {
+            ent.Action = false;
+        } else {
+            continue;
+        }
+        ent.Address.FromString(item);
+        ret.push_back(ent);
+    }
+    Entries = ret;
+}
+
+int IPFFile::CheckAddress(const std::string& addr) const {
+    IPAddress caddr;
+    caddr.FromString(addr);
+    for (const IPFEntry& ent : Entries) {
+        if (ent.Address.Masked == (caddr.Addr & ent.Address.Mask)) {
+            return ent.Action ? 1 : -1;
+        }
+    }
+    return 0;
+}
+
+} // namespace IPFilter
 
 bool SOCK_WaitEvent(SOCKET socket, uint32_t timeout) {
     fd_set fd;
