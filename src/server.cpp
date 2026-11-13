@@ -4007,6 +4007,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         case GROUP_ENTER_BUILDING:
             CheckPacketType(pkt, "PacketGroupOrder");
+            // enter_b hook (505353): no-op trampoline in my-srvmgr; ResetAfkTimer runs below.
             if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 player->ResetAfkTimer();
                 auto* building = this->srv_stru1->building_list->FindById(packet_order->param);
@@ -4068,8 +4069,31 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         case GROUP_STOP_AFK:
             g_World->GroupStopCommand(group);
-            if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE) {
+            if (player && g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE) {
+#ifdef A2SERVER_TANGAR_HAT
+                // camp hook (50512E, superseding SRV_CMP.xck): forbid camping from inside buildings.
+                if ((unit->unit_attrs & 8) == 0) {
+                    player->StartAfkTimer();
+                    if (Config::LogMode & SVL_CAMPING) {
+                        if (Player* p = g_PlayersList->FindById(packet_order->from_player_id)) {
+                            Printf("Player %s initiated camping.", (const char*)p->name);
+                        }
+                    }
+                } else {
+                    if (Config::LogMode & SVL_CAMPING) {
+                        if (Player* p = g_PlayersList->FindById(packet_order->from_player_id)) {
+                            Printf("Player %s tried to camp from building.", (const char*)p->name);
+                        }
+                    }
+                }
+#elif defined(A2SERVER_PATCH)
+                // SRV_CMP.xck (505158 -> 50411E): forbid camping while phased out in a building.
+                if ((unit->unit_attrs & 8) == 0) {
+                    player->StartAfkTimer();
+                }
+#else
                 player->StartAfkTimer();
+#endif
             }
             break;
         default:
@@ -4356,9 +4380,29 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (!shop) {
                 break;
             }
+#ifdef A2SERVER_TANGAR_HAT
+            // enter_shop hook (50623D): require alive unit, log entry under SVL_BUILDINGS, and cancel camp.
+            if (unit->hp <= 0) {
+                break;
+            }
+#endif
             unit->CancelQueuedSpell();
             unit->pOwner->building_entered_from_yx = unit->position->GetY() * 0x100 + unit->position->GetX();
+#ifdef A2SERVER_TANGAR_HAT
+            if (Config::LogMode & SVL_BUILDINGS) {
+                Printf("Player %s entered shop ID=%u from (%u, %u).",
+                       (const char*)unit->pOwner->name,
+                       static_cast<uint32_t>(shop->TokenID & 0xFFFF),
+                       static_cast<uint32_t>(unit->position->GetX()),
+                       static_cast<uint32_t>(unit->position->GetY()));
+            }
+#endif
             shop->AttachUnit(unit);
+#ifdef A2SERVER_TANGAR_HAT
+            if (unit->pOwner != nullptr) {
+                unit->pOwner->ResetAfkTimer();
+            }
+#endif
             break;
         }
 
@@ -4446,12 +4490,33 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (!inn) {
                 break;
             }
+#ifdef A2SERVER_TANGAR_HAT
+            // enter_inn hook (5062FB): require alive unit, log entry under SVL_BUILDINGS, and cancel camp.
+            if (unit->hp <= 0) {
+                break;
+            }
+#endif
             unit->CancelQueuedSpell();
             unit->pOwner->building_entered_from_yx = unit->position->GetY() * 0x100 + unit->position->GetX();
+#ifdef A2SERVER_TANGAR_HAT
+            if (Config::LogMode & SVL_BUILDINGS) {
+                Printf("Player %s entered inn! ID=%u from (%u, %u).",
+                       (const char*)unit->pOwner->name,
+                       static_cast<uint32_t>(inn->TokenID & 0xFFFF),
+                       static_cast<uint32_t>(unit->position->GetX()),
+                       static_cast<uint32_t>(unit->position->GetY()));
+            }
+#endif
             inn->UpdateQuests(unit);
+#ifdef A2SERVER_TANGAR_HAT
+            if (unit->pOwner != nullptr) {
+                unit->pOwner->ResetAfkTimer();
+            }
+#else
             CString m;
             m.Format("Enter inn: player %d, unit %d, inn %d at (%d, %d)", packet_word->from_player_id, packet_word->value, inn->building_id, unit->position->GetX(), unit->position->GetY());
             LogMessage(m);
+#endif
             break;
         }
 
