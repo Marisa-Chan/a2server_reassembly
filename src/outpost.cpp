@@ -7,6 +7,9 @@
 #include "server.h"
 #include "unit.h"
 #include "world.h"
+#ifdef A2SERVER_PATCH
+#include "patch/flags.h"
+#endif
 
 IMPLEMENT_SERIAL(Outpost, Building, 1);
 
@@ -79,7 +82,11 @@ void Outpost::RegenTick() {
             }
 
             Player* p = u->pOwner;
+#ifdef A2SERVER_PATCH
+            if (p != nullptr && p->is_ai == 0 && (p->flags & 0xFF001000u) == GMF_GODMODE) {
+#else
             if (p != nullptr && p->is_ai == 0 && p->hat_player_id == 0xF6D04773u && p->flags == 4) {
+#endif
                 this->repop_countdown = 32000; // 32000 tick delay
                 return;
             }
