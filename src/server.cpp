@@ -2785,15 +2785,24 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
 //   #event <id>:          fire an in-game script event
 // 502D0B
 void Server::CheatCommand(Player* player, CString cheat_string) {
-    LogMessage("Server::CheatCommand: player " + player->name + " sent cheat command: " + cheat_string);
+    if (player != nullptr) {
+        LogMessage("Server::CheatCommand: player " + player->name + " sent cheat command: " + cheat_string);
+    } else {
+        LogMessage("Server::CheatCommand: <server> sent cheat command: " + cheat_string);
+    }
 
 #ifdef A2SERVER_TANGAR_HAT
     // Selectively reconciled commands from the manager's cheat engine.
     // Player-facing settings commands come first (available to everyone).
     {
-        CString lowered(cheat_string);
+        CString trimmed(cheat_string);
+        trimmed.TrimLeft();
+        if (trimmed.IsEmpty() || trimmed[0] != '#') {
+            return;
+        }
+
+        CString lowered(trimmed);
         lowered.MakeLower();
-        lowered.TrimLeft();
 
         if (lowered.Find("#mapinfo") == 0) {
             // Tangar #mapinfo: current map, elapsed and total time (available to
@@ -3160,13 +3169,27 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         }
 
         // Admin commands (GMF-gated), reconciled from the manager's cheat
-        // engine. Rights = player flags OR-ed with the config escape hatch.
-        uint32_t tangar_rights = player->flags | Config::CheatsAdditionalRights;
-        if ((tangar_rights & GMF_CMD_INFO) != 0) {
+        // engine. Every GMF_* constant in flags.h carries GMF_ANY (0x3F000000)
+        // in its upper byte, so strip to the low 24 permission bits first.
+        uint32_t tangar_rights = 0;
+        if (player == nullptr) {
+            tangar_rights = 0xFFFFFFFFu;
+        } else if (player->is_ai == 0 && (player->flags & 0xFF000000u) == GMF_ANY) {
+            tangar_rights = player->flags & 0x00FFFFFFu;
+        }
+        if ((Config::CheatsAdditionalRights & 0xFF000000u) == GMF_ANY ||
+            (Config::CheatsAdditionalRights & 0xFF000000u) == 0) {
+            tangar_rights |= (Config::CheatsAdditionalRights & 0x00FFFFFFu);
+        }
+        auto has_gm = [tangar_rights](uint32_t flag) -> bool {
+            return (tangar_rights & (flag & 0x00FFFFFFu)) != 0;
+        };
+
+        if (has_gm(GMF_CMD_INFO)) {
             if (lowered == "#scan") {
                 // Tangar #scan (GMF_CMD_INFO-gated in the manager): dump the
                 // issuing player's scanrange vision grid into the log.
-                if (player->main_unit != nullptr) {
+                if (player != nullptr && player->main_unit != nullptr) {
                     tangar_scanrange::SR_DumpToFile(player);
                 }
                 return;
@@ -3174,7 +3197,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             // #info / #locate from the same manager block stay deferred
             // (need pvm2 CheckStrong).
         }
-        if ((tangar_rights & GMF_CMD_KILL) != 0) {
+        if (has_gm(GMF_CMD_KILL)) {
             if (lowered == "#killai") {
                 // Tangar #killai (zxmgr::KillAll(player, true)): kill every AI unit
                 // except the caster's own. hp = -50 with no attacker, state
@@ -3183,7 +3206,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 POSITION kill_it = kill_list.GetHeadPosition();
                 while (kill_it != nullptr) {
                     Unit* unit = kill_list.GetNext(kill_it);
-                    if (unit == player->main_unit) {
+                    if (player != nullptr && unit == player->main_unit) {
                         continue;
                     }
                     if (unit->pOwner != nullptr && unit->pOwner->is_ai == 0) {
@@ -3196,82 +3219,17 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 return;
             }
         }
-        if ((tangar_rights & GMF_CMD_SUMMON) != 0) {
-            if (lowered.Find("#mapwide") == 0) {
-                // Tangar #mapwide (GMF_CMD_SUMMON-gated in the manager): rain an area
-                // spell over a 51x51 cell grid centered on the caster. Only a few
-                // effect ids are allowed; anything else is ignored.
-                uint32_t what = 7; // blizzard
-                {
-                    CString arg = cheat_string.Mid(8);
-                    arg.TrimLeft();
-                    arg.TrimRight();
-                    if (arg.GetLength() > 0) {
-                        int32_t parsed = atoi((const char*)arg);
-                        if (parsed != 0) {
-                            what = (uint32_t)parsed;
-                        }
-                    }
-                }
-                switch (what) {
-                case 7:  // blizzard
-                case 14: // darkness
-                case 15: // light
-                case 6:  // poison cloud
-                case 9:  // acid steam
-                case 2:  // fire ball
-                case 3:  // fire wall
-                    break;
-                default: // any other spell is forbidden
-                    return;
-                }
-
-                Human* unit = player->main_unit;
-                if (unit == nullptr) {
-                    return;
-                }
-                if (unit->token_pos == nullptr) {
-                    return;
-                }
-                uint32_t p_x = unit->token_pos->x;
-                uint32_t p_y = unit->token_pos->y;
-                int32_t p_mapwidth = MapStuff_Instance->map_width;
-                int32_t p_mapheight = MapStuff_Instance->map_height;
-
-                int32_t start_x = (int32_t)p_x - 25;
-                int32_t start_y = (int32_t)p_y - 25;
-
-                for (int32_t i = start_x; i <= start_x + 51; i++) {
-                    for (int32_t j = start_y; j <= start_y + 51; j++) {
-                        if (i < 8 || i > p_mapwidth - 8 || j < 8 || j > p_mapheight - 8) {
-                            continue;
-                        }
-                        // zxmgr::CastPointEffect: fresh Spell with the effect id,
-                        // executed at the point with no target.
-                        Spell spell((uint8_t)what);
-                        spell.ExecuteAtArea(unit, nullptr, (int8_t)i, (int8_t)j);
-                    }
-                }
-                return;
-            } else if (lowered == "#inn") {
-                // Tangar #inn: debug dump of the equipped weapon item id.
-                Human* unit = player->main_unit;
-                if (unit == nullptr || unit->weapon == nullptr) {
-                    return;
-                }
-                Printf("weapon: %04x", unit->weapon->item_id);
-                return;
-            }
-        }
-        if ((tangar_rights & GMF_CMD_KICK) != 0) {
+        if (has_gm(GMF_CMD_KICK)) {
             if (lowered == "#kickme") {
-                KickPlayer(player, true);
+                if (player != nullptr) {
+                    KickPlayer(player, true);
+                }
                 return;
             } else if (lowered == "#kickall") {
                 TangarKickAll(nullptr, false);
                 return;
             } else if (lowered.Find("#kick_silent ") == 0) {
-                CString target_name = cheat_string.Mid(12);
+                CString target_name = trimmed.Mid(12);
                 target_name.TrimLeft();
                 Player* target = FindPlayerByNickname((const char*)target_name);
                 if (target != nullptr) {
@@ -3279,7 +3237,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 }
                 return;
             } else if (lowered.Find("#disconnect ") == 0) {
-                CString target_name = cheat_string.Mid(11);
+                CString target_name = trimmed.Mid(11);
                 target_name.TrimLeft();
                 Player* target = FindPlayerByNickname((const char*)target_name);
                 if (target != nullptr) {
@@ -3289,7 +3247,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             } else if (lowered.Find("#kick ") == 0) {
                 // The manager's #kick performs the real kick (the baseline
                 // variant only announces).
-                CString target_name = cheat_string.Mid(6);
+                CString target_name = trimmed.Mid(6);
                 target_name.TrimLeft();
                 Player* target = FindPlayerByNickname((const char*)target_name);
                 if (target != nullptr) {
@@ -3299,9 +3257,9 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             }
         }
 
-        if ((tangar_rights & GMF_CMD_SCREENSHOT) != 0) {
+        if (has_gm(GMF_CMD_SCREENSHOT)) {
             if (lowered == "#screenshot" || lowered.Find("#screenshot ") == 0) {
-                CString target_name = cheat_string.Mid(11);
+                CString target_name = trimmed.Mid(11);
                 target_name.TrimLeft();
                 Player* target = FindPlayerByNickname((const char*)target_name);
                 if (target == nullptr) {
@@ -3354,7 +3312,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
 
         // Map / server admin commands (GMF_CMD_SET gated), from the
         // manager's cheat engine (zxmgr::NextMap/PrevMap + timer helpers).
-        if ((tangar_rights & GMF_CMD_SET) != 0) {
+        if (has_gm(GMF_CMD_SET)) {
             if (lowered == "#nextmap") {
                 g_ServerConfig.current_map_index += 1;
                 if (g_ServerConfig.current_map_index >= (uint32_t)g_ServerConfig.map_durations.GetSize()) {
@@ -3419,7 +3377,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 Config::Suspended = !Config::Suspended;
                 return;
             } else if (lowered.Find("#speed") == 0) {
-                CString speed_str = cheat_string.Mid(6);
+                CString speed_str = trimmed.Mid(6);
                 speed_str.TrimLeft();
                 speed_str.TrimRight();
                 if (CheckInt((const char*)speed_str)) {
@@ -3435,7 +3393,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 }
                 return;
             } else if (lowered.Find("#set mode") == 0) {
-                CString mode_str = cheat_string.Mid(9);
+                CString mode_str = trimmed.Mid(9);
                 mode_str.TrimLeft();
                 if (mode_str.IsEmpty()) {
                     CString reply;
@@ -3483,11 +3441,80 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                     }
                 }
                 return;
+            } else if (lowered == "#mapwide" || lowered.Find("#mapwide ") == 0) {
+                // Tangar #mapwide (GMF_CMD_SET-gated in the manager): rain an area
+                // spell over a 51x51 cell grid centered on the caster. Only a few
+                // effect ids are allowed; anything else is ignored.
+                if (player == nullptr) {
+                    Printf("This command may not be used from the console.");
+                    return;
+                }
+                uint32_t what = 7; // blizzard
+                {
+                    CString arg = trimmed.Mid(8);
+                    arg.TrimLeft();
+                    arg.TrimRight();
+                    if (arg.GetLength() > 0 && CheckInt((const char*)arg)) {
+                        what = StrToUInt((const char*)arg);
+                    }
+                }
+                switch (what) {
+                case 7:  // blizzard
+                case 14: // darkness
+                case 15: // light
+                case 6:  // poison cloud
+                case 9:  // acid steam
+                case 2:  // fire ball
+                case 3:  // fire wall
+                    break;
+                default: // any other spell is forbidden
+                    return;
+                }
+
+                Human* unit = player->main_unit;
+                if (unit == nullptr) {
+                    return;
+                }
+                if (unit->token_pos == nullptr) {
+                    return;
+                }
+                uint32_t p_x = unit->token_pos->x;
+                uint32_t p_y = unit->token_pos->y;
+                int32_t p_mapwidth = MapStuff_Instance->map_width;
+                int32_t p_mapheight = MapStuff_Instance->map_height;
+
+                int32_t start_x = (int32_t)p_x - 25;
+                int32_t start_y = (int32_t)p_y - 25;
+
+                for (int32_t i = start_x; i <= start_x + 51; i++) {
+                    for (int32_t j = start_y; j <= start_y + 51; j++) {
+                        if (i < 8 || i > p_mapwidth - 8 || j < 8 || j > p_mapheight - 8) {
+                            continue;
+                        }
+                        // zxmgr::CastPointEffect: fresh Spell with the effect id,
+                        // executed at the point with no target.
+                        Spell spell((uint8_t)what);
+                        spell.ExecuteAtArea(unit, nullptr, (int8_t)i, (int8_t)j);
+                    }
+                }
+                return;
+            } else if (lowered == "#inn") {
+                // Tangar #inn (GMF_CMD_SET-gated): debug dump of equipped weapon item id.
+                if (player == nullptr) {
+                    return;
+                }
+                Human* unit = player->main_unit;
+                if (unit == nullptr || unit->weapon == nullptr) {
+                    return;
+                }
+                CString msg;
+                msg.Format("%04x", unit->weapon->item_id);
+                g_NetStru1_main.AnnouncePlayerName(msg, nullptr);
+                return;
             }
         }
     }
-#endif
-
+#else
     if (this->multiplayer != 0) {
         // Non-admin commands.
         NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(player->player_id);
@@ -3791,6 +3818,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         int32_t event_id = atoi(cheat_string);
         g_NetStru1_main.SendGameEvent(player, event_id, 0);
     }
+#endif
 }
 
 Shop g_DefaultShop;     // 6D10B8
