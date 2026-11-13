@@ -1,18 +1,16 @@
-// Ported from my-a2mgr language.cpp DecideLanguage + path tables. The
-// language override config (z_lang_override) is not ported yet; the system
-// UI language decides, exactly like the DLL's no-override default.
+// Ported from my-a2mgr language.cpp DecideLanguage + path tables.
 
 #include "locale.h"
+
+#ifdef A2CLIENT_PATCH
+#include "client_config.h"
+#endif
 
 #include <cstdio>
 #include <cstdlib>
 #include <windows.h>
 
 namespace tangar_locale {
-
-namespace {
-bool g_russian = false;
-}
 
 const char* credits = "main\\text\\credits.txt";
 const char* globalmap = "main\\text\\globalmap.txt";
@@ -49,10 +47,18 @@ const char* gfx_button_fmt = "main\\graphics\\MainMenu\\button%u.bmp";
 const char* gfx_text_fmt = "main\\graphics\\MainMenu\\text%u.bmp";
 
 void DecideLanguage() {
+#ifdef A2CLIENT_PATCH
+    if (!tangar_cfg::z_lang_override) {
+        LANGID lid = GetSystemDefaultUILanguage();
+        tangar_cfg::z_russian = (lid == 0x419);
+    }
+    bool is_russian = tangar_cfg::z_russian;
+#else
     LANGID lid = GetSystemDefaultUILanguage();
-    g_russian = (lid == 0x419);
+    bool is_russian = (lid == 0x419);
+#endif
 
-    const char* dir = g_russian ? "locale\\ru" : "locale\\en";
+    const char* dir = is_russian ? "locale\\ru" : "locale\\en";
 
     char buf[128];
 #define SET(var, suffix)                              \

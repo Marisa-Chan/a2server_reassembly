@@ -1,5 +1,8 @@
 #include "game_app.h"
 #include "patch/locale.h"
+#ifdef A2CLIENT_PATCH
+#include "patch/client_config.h"
+#endif
 
 #include <cmath>
 
@@ -605,6 +608,7 @@ BOOL GameApp::InitInstance() {
 			Sleep(static_cast<DWORD>(delay));
 		}
 	}
+	tangar_cfg::ParseConfig();
 #endif
 
 	HKEY regkey;

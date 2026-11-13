@@ -25,7 +25,7 @@ uint32_t g_scrollintv = 35;
 bool r_grid = false;
 uint32_t r_grid_color = 255;
 bool z_lang_override = false;
-bool z_russian = false;
+bool z_russian = true;
 bool stats_based_level_selection = true; // a2mgr default: on
 bool z_screendir = false;
 bool g_altchat = false;
@@ -152,8 +152,15 @@ void Parse2x(std::ifstream& f) {
             for (char c : cmd[1]) {
                 lang += (char)tolower((unsigned char)c);
             }
-            z_lang_override = true;
-            z_russian = (lang == "russian" || lang == "ru");
+            if (lang == "rus" || lang == "russian") {
+                z_russian = true;
+                z_lang_override = true;
+            } else if (lang == "eng" || lang == "english") {
+                z_russian = false;
+                z_lang_override = true;
+            } else {
+                z_lang_override = false;
+            }
         } else if (cmd[0] == "stats_based_level_selection" && cmd.size() == 2) {
             stats_based_level_selection = StrToBool(cmd[1]);
         } else if (cmd.size() == 2 && cmd[0].compare(0, 6, "alias:") == 0) {
