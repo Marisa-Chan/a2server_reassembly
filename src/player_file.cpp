@@ -518,7 +518,8 @@ void CGameSession::RefreshCharacterRosterFiles(int val) { //49265a
 						sec->hat_id = mwnd->net_session.hat_id;
 					}
 					if (sec->hat_id == mwnd->net_session.hat_id
-#ifdef A2CLIENT
+#if defined(A2CLIENT) && !defined(A2CLIENT_PATCH)
+						// p10ach.xck (497083): disable 0xbabad0d0 wildcard HAT ID fallback
 						|| (sec->hat_id == 0xbabad0d0 && mwnd->net_session.internet_game != 0 && mwnd->hat_settings.ishat && mwnd->hat_settings.deathmatch)
 #endif
 						) {	
