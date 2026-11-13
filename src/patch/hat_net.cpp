@@ -159,7 +159,11 @@ bool NetCmdBroadcast(const std::string& what) {
     pack.WriteUInt8(0x13);
     pack.WriteString(what);
 
-    return SOCK_SendPacket(Socket, pack, Config::ProtocolVersion) == 0;
+    if (SOCK_SendPacket(Socket, pack, Config::ProtocolVersion) != 0) {
+        Connected = false;
+        return false;
+    }
+    return true;
 }
 
 bool NetCmdUnlockLogin(const std::string& login) {

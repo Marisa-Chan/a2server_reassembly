@@ -60,6 +60,7 @@
 #include "patch/screenshots.h"
 #include "patch/forbidden_items.h"
 #include "patch/quest_filters.h"
+#include "patch/pvm2.h"
 #include "quest.h"
 #include "quest_map.h"
 #include "main_window.h"
@@ -3201,8 +3202,85 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             return (tangar_rights & (flag & 0x00FFFFFFu)) != 0;
         };
 
+        if (has_gm(GMF_CMD_CHAT)) {
+            if (trimmed.Find("#@") == 0) {
+                CString body = trimmed.Mid(2);
+                CString what;
+                if (player == nullptr) {
+                    what.Format("[broadcast] <server%u>: %s", Config::ServerID, (const char*)body);
+                } else {
+                    what.Format("[broadcast] %s: %s", (const char*)player->name, (const char*)body);
+                }
+                tangar_hat::NetCmdBroadcast((const char*)what);
+                return;
+            } else if (trimmed.Find("#!") == 0) {
+                CString body = trimmed.Mid(2);
+                CString msg;
+                if (player == nullptr) {
+                    msg.Format("<server>: %s", (const char*)body);
+                } else {
+                    msg.Format("%s: %s", (const char*)player->name, (const char*)body);
+                }
+                g_NetStru1_main.AnnouncePlayerName(msg, nullptr);
+                return;
+            }
+        }
+
         if (has_gm(GMF_CMD_INFO)) {
-            if (lowered == "#scan") {
+            if (cmd_token == "#locate") {
+                CString target_name = cmd_rest;
+                target_name.TrimLeft();
+                Player* target = FindPlayerByNickname((const char*)target_name);
+                if (target != nullptr && target->main_unit != nullptr && target->main_unit->position != nullptr) {
+                    uint32_t p_x = target->main_unit->position->x;
+                    uint32_t p_y = target->main_unit->position->y;
+                    if (player == nullptr) {
+                        Printf("%s (%u:%u)", (const char*)target->name, p_x, p_y);
+                    } else {
+                        CString msg;
+                        msg.Format("%s (%u:%u)", (const char*)target->name, p_x, p_y);
+                        g_NetStru1_main.AnnouncePlayerName(msg, player);
+                    }
+                }
+                return;
+            } else if (cmd_token == "#info") {
+                CString target_name = cmd_rest;
+                target_name.TrimLeft();
+                Player* target = FindPlayerByNickname((const char*)target_name);
+                if (target == nullptr || target->main_unit == nullptr) {
+                    return;
+                }
+
+                const char* p_charname = (const char*)target->name;
+                const char* p_logname = (const char*)target->login;
+                NetStru2* netinf = g_NetStru1_main.GetClientByPlayerID(target->player_id);
+                CString p_state;
+                if (netinf != nullptr) {
+                    p_state.Format("connected (%s)", (const char*)netinf->buf);
+                } else {
+                    p_state = "disconnected";
+                }
+
+                Human* unit = target->main_unit;
+                uint16_t p_body = unit->body;
+                uint16_t p_reaction = unit->reaction;
+                uint16_t p_mind = unit->mind;
+                uint16_t p_spirit = unit->spirit;
+                const char* p_strong = tangar_pvm2::CheckStrong(unit) ? "yes" : "no";
+
+                if (player == nullptr) {
+                    Printf("nickname: \"%s\", login: \"%s\", state: %s, stats: [%u,%u,%u,%u], strong: %s",
+                           p_charname, p_logname, (const char*)p_state,
+                           (unsigned)p_body, (unsigned)p_reaction, (unsigned)p_mind, (unsigned)p_spirit, p_strong);
+                } else {
+                    CString msg;
+                    msg.Format("nickname: \"%s\", login: \"%s\", state: %s, stats: [%u,%u,%u,%u], strong: %s\n",
+                               p_charname, p_logname, (const char*)p_state,
+                               (unsigned)p_body, (unsigned)p_reaction, (unsigned)p_mind, (unsigned)p_spirit, p_strong);
+                    g_NetStru1_main.AnnouncePlayerName(msg, player);
+                }
+                return;
+            } else if (cmd_token == "#scan") {
                 // Tangar #scan (GMF_CMD_INFO-gated in the manager): dump the
                 // issuing player's scanrange vision grid into the log.
                 if (player != nullptr && player->main_unit != nullptr) {
@@ -3210,8 +3288,6 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 }
                 return;
             }
-            // #info / #locate from the same manager block stay deferred
-            // (need pvm2 CheckStrong).
         }
         if (has_gm(GMF_CMD_KILL)) {
             if (lowered == "#killai") {
