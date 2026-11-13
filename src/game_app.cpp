@@ -21,7 +21,9 @@
 #include "vis_net.h"
 #if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
 #include "patch/config_new.h"
+#include "patch/crash_filter.h"
 #include "patch/tangar_log.h"
+#include "patch/thresholds.h"
 #endif
 
 GameApp GameApp::theApp;
@@ -584,6 +586,9 @@ BOOL GameApp::InitInstance() {
 #else
 	g_IsServer = 1;
 #endif
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+	tangar_crash::SetExceptionFilter();
+#endif
 
 	const char* stmp = strstr(m_lpCmdLine, "-latency");
 	if (stmp) {
@@ -773,6 +778,14 @@ BOOL GameApp::InitInstance() {
 		}
 	}
 
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+	// DllMain LoadThresholds (srvmgr.cpp:2719-2725, 2769)
+	try {
+		thresholds::thresholds.LoadFromFile(thresholds::THRESHOLDS_FILE);
+	} catch (const thresholds::ParseException& error) {
+		log_format("Loading thresholds failed: %s\n", error.what());
+	}
+#endif
 #ifndef A2CLIENT
 	if (g_ServerConfig.chr_base.IsEmpty()) {
 		AfxMessageBox("Missing \'ChrBase\' parameter in config file.");
@@ -942,6 +955,9 @@ BOOL GameApp::OnIdle(LONG lCount) { //4835b0
 }
 
 int GameApp::ExitInstance() { //4833f1
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+	Config::ExitingCleanly = true;
+#endif
 	if (g_EnableTrace != 0) {
 		g_NetStru1_main.WriteStatsLog("pkt.log");
 	}

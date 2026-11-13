@@ -62,6 +62,7 @@
 #include "patch/quest_filters.h"
 #include "patch/pvm2.h"
 #include "patch/gm_commands.h"
+#include "patch/crash_filter.h"
 #include "quest.h"
 #include "quest_map.h"
 #include "main_window.h"
@@ -6139,7 +6140,9 @@ int Server::Start(int mode) {
 #endif
 
 #ifdef A2SERVER_TANGAR_HAT
-    // imp_ServerStarted callback (4F09DB)
+    // imp_ServerStarted callback (4F09DB, srvmgr_new.cpp OnInitializeServer)
+    tangar_crash::SetExceptionFilter();
+    Config::ExitingCleanly = false;
     Config::MapLoaded = false;
     Config::ServerStarted = true;
     {

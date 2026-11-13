@@ -105,6 +105,7 @@ set(A2SERVER_SOURCES
   patch/hat_net.cpp
   patch/screenshots.cpp
   patch/gm_commands.cpp
+  patch/crash_filter.cpp
   patch/locale.cpp
 )
 
