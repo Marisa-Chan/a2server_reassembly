@@ -54,6 +54,7 @@
 #include "patch/tangar_utils.h"
 #include "patch/gm_noclip.h"
 #include "patch/multiplayer_shop.h"
+#include "patch/antiinvis.h"
 #include "patch/hat_net.h"
 #include "patch/screenshots.h"
 #include "patch/forbidden_items.h"
@@ -4025,6 +4026,12 @@ void Server::ProcessClientPacket(Packet* pkt) {
             player->ResetAfkTimer();
             break;
         case GROUP_ATTACK: // move to building?
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+            // stop_unit_attack hook (505563)
+            if (StopUnitAttack(player, target)) {
+                break;
+            }
+#endif
             if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupAttackCommand(group, static_cast<Unit*>(target));
                 player->ResetAfkTimer();
@@ -4056,6 +4063,12 @@ void Server::ProcessClientPacket(Packet* pkt) {
             }
             break;
         case GROUP_CAST_UNIT: // cast at unit/building?
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+            // stop_mage_cast hook (5055FD)
+            if (StopMageCast(player, target)) {
+                break;
+            }
+#endif
             if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupCastAtUnitCommand(group, static_cast<Unit*>(target), cast_spell);
                 player->ResetAfkTimer();
@@ -4103,6 +4116,13 @@ void Server::ProcessClientPacket(Packet* pkt) {
         case SCROLL_CAST_UNIT: // Cast point spell with a scroll.
         case SCROLL_CAST_POS: // Cast area spell with a scroll.
             CheckPacketType(pkt, "PacketGroupOrder");
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+            // stop_unit_cast hook (50564D): runs before TakeItemAt so blocked
+            // scroll casts never consume the scroll from the bag.
+            if (StopUnitCast(player, target)) {
+                break;
+            }
+#endif
             if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 player->ResetAfkTimer();
                 auto* item = player->main_unit->inventory->TakeItemAt(packet_order->slot, 1);
