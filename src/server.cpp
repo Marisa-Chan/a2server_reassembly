@@ -53,6 +53,7 @@
 #include "patch/server_state.h"
 #include "patch/tangar_utils.h"
 #include "patch/gm_noclip.h"
+#include "patch/multiplayer_shop.h"
 #include "patch/hat_net.h"
 #include "patch/screenshots.h"
 #include "patch/forbidden_items.h"
@@ -582,6 +583,10 @@ void Srv1::CreateBuildings(MapAlm* alm) {
         int16_t type_id = bd->type_id;
 
         if (shop_type_ids.count(type_id) > 0) {
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+            // imp_LoadShopData hook (59C66E): create main shop plus 16 per-player custom shop clones.
+            building = CreateMultiShops(bd, alm);
+#else
             TokenPos pos(bd->x, bd->y, MapStuff_Instance);
             Shop* shop = new Shop(bd->type_id, &pos);
             building = shop;
@@ -600,6 +605,7 @@ void Srv1::CreateBuildings(MapAlm* alm) {
                 }
                 break;
             }
+#endif
         } else if (inn_type_ids.count(type_id) > 0) {
             TokenPos pos(bd->x, bd->y, MapStuff_Instance);
             Inn* inn = new Inn(bd->type_id, &pos);
@@ -3789,20 +3795,22 @@ Shop g_DefaultShop;     // 6D10B8
 
 // 502C50
 Shop* Server::FindShopAt(TokenPos* pos) {
+    Shop* shop = nullptr;
     if (this->use_default_shop != 0) {
-        return &g_DefaultShop;
+        shop = &g_DefaultShop;
+    } else if (this->srv_stru1->building_list != nullptr) {
+        Building* building = this->srv_stru1->building_list->FindNearby(pos);
+        if (building != nullptr && building->IsKindOf(RUNTIME_CLASS(Shop))) {
+            shop = static_cast<Shop*>(building);
+        }
     }
-    if (this->srv_stru1->building_list == nullptr) {
-        return nullptr;
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+    // imp_EnterCustomShop hook (502C50): substitute per-player .alm shop clone.
+    if (this->use_default_shop == 0) {
+        return CheckReplacementBuilding(shop, pos);
     }
-    Building* building = this->srv_stru1->building_list->FindNearby(pos);
-    if (building == nullptr) {
-        return nullptr;
-    }
-    if (!building->IsKindOf(RUNTIME_CLASS(Shop))) {
-        return nullptr;
-    }
-    return static_cast<Shop*>(building);
+#endif
+    return shop;
 }
 
 const char* PacketType(Packet *pkt) {
@@ -5889,8 +5897,8 @@ void Server::SaveCharacter(Humanoid* humanoid) {
 // 4F1471
 int Server::LoadGame(CString map_name) {
 #ifdef A2SERVER_TANGAR_HAT
-    // imp_LoadingMap callback (4F1471); ClearShops/UI_Reset
-    // (unit_info subsystem) land with that subsystem
+    // imp_LoadingMap callback (4F1471): reset custom shops before building reload.
+    ClearShops();
     Config::MapLoaded = false;
     {
         CString title;

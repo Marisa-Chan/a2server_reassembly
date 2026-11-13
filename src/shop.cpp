@@ -60,6 +60,36 @@ void Shop::RegenTick() {
 
 // 5446C7
 Item* Shop::BuyItem(Humanoid* humanoid, int16_t src_slot, int32_t count) {
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+    // sub_5446C7 hook (5446C7): only allow taking back consigned player-owned
+    // items (item->pOwner != nullptr) from the shop counter, blocking unpaid
+    // shop items from being dragged directly into the player's inventory.
+    if (src_slot < 0 || this->shop_template == nullptr) {
+        return nullptr;
+    }
+    CMultiShopInstance* instance = this->shop_template->FindInstanceFor(humanoid);
+    if (instance == nullptr) {
+        return nullptr;
+    }
+    int32_t idx = 0;
+    bool allowed = false;
+    for (POSITION pos = instance->inventory.items.GetHeadPosition(); pos != nullptr; ++idx) {
+        Item* item = instance->inventory.items.GetNext(pos);
+        if (item == nullptr) {
+            return nullptr;
+        }
+        if (idx == src_slot) {
+            if (item->pOwner == nullptr) {
+                return nullptr;
+            }
+            allowed = true;
+            break;
+        }
+    }
+    if (!allowed) {
+        return nullptr;
+    }
+#endif
     return this->shop_template->BuyItem(humanoid, src_slot, count);
 }
 
