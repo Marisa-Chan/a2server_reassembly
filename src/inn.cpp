@@ -395,9 +395,13 @@ void Inn::InnCreateQuests(Player* player) {
                 avg_x += u->position->x;
                 avg_y += u->position->y;
                 count++;
+#ifdef A2SERVER_TANGAR_HAT
+                max_exp += u->_exp;
+#else
                 if (u->_exp > max_exp) {
                     max_exp = u->_exp;
                 }
+#endif
             }
             if (count == 0) {
                 count = 1;
@@ -416,7 +420,12 @@ void Inn::InnCreateQuests(Player* player) {
             Quest* q = MakeActiveQuest(this, new QuestKillGroup());
             int32_t kind = q->Kind();
             int32_t some_id = (this->building_id << 16) | (player->player_id << 8) | kind;
-            RegisterQuest(this, q, some_id, player->player_id, this->building_id, obj, landmark_id, 0, max_exp * 5);
+#ifdef A2SERVER_TANGAR_HAT
+            int32_t reward = max_exp * 2;
+#else
+            int32_t reward = max_exp * 5;
+#endif
+            RegisterQuest(this, q, some_id, player->player_id, this->building_id, obj, landmark_id, 0, reward);
         }
     }
 
