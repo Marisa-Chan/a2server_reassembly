@@ -3642,14 +3642,20 @@ void CUnit::DrawStatsPanel(CRect* rect) {
             g_font2->DrawTextWithShadow(rect->left + 0x46, rect->top + 0x58, buf2, 1, value_color, 1);
         } else if (this->equipmentTokens[0] != nullptr && this->equipmentTokens[0]->mods_count != 0) {
             Spell spell((uint8_t)this->equipmentTokens[0]->GetCastSpellId());
-            spell.SetPower(this->equipmentTokens[0]->GetAttribute('2'));
-            CString str;
-            if (spell.damage_min + spell.damage_spread != 0) {
-                // NB: the binary formats this string but never draws it
-                str.Format("#%s: %d-%d", TxtFile::AllLines[0x76], spell.damage_min, spell.damage_min + spell.damage_spread);
-                g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x58, TxtFile::AllLines[0x17], 0, label_color, 1);
-                sprintf(buf2, "%d-%d", spell.damage_min, spell.damage_min + spell.damage_spread);
-                g_font2->DrawTextWithShadow(rect->left + 0x46, rect->top + 0x58, buf2, 1, value_color, 1);
+#ifdef A2CLIENT_PATCH
+            // p10stf.xck (470452 -> 6e20c0): skip SetPower and damage draw when spell_info is null
+            if (spell.spell_info != nullptr)
+#endif
+            {
+                spell.SetPower(this->equipmentTokens[0]->GetAttribute('2'));
+                CString str;
+                if (spell.damage_min + spell.damage_spread != 0) {
+                    // NB: the binary formats this string but never draws it
+                    str.Format("#%s: %d-%d", TxtFile::AllLines[0x76], spell.damage_min, spell.damage_min + spell.damage_spread);
+                    g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x58, TxtFile::AllLines[0x17], 0, label_color, 1);
+                    sprintf(buf2, "%d-%d", spell.damage_min, spell.damage_min + spell.damage_spread);
+                    g_font2->DrawTextWithShadow(rect->left + 0x46, rect->top + 0x58, buf2, 1, value_color, 1);
+                }
             }
         }
     }

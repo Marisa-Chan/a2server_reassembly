@@ -1,5 +1,5 @@
 # Client patch port progress tracker
-Updated: 2026-11-13 (v20 auth, screenshot net, auto-updater)
+Updated: 2026-11-13 (all 16 postbuild/list.txt binary patches + ParseConfig/z_lang_override)
 
 Legend: DONE / WIP / PENDING / NO-OP / DEFERRED(reason)
 
@@ -77,6 +77,41 @@ Legend: DONE / WIP / PENDING / NO-OP / DEFERRED(reason)
 - [DISABLED] in the patch itself: TILES_loadTiles/displayTile1, ord96, CHAT_dbg, DBG_x5
   (CSprite256 debug)
 - _fix_launcher (patcher-side unpacker wait tool)
+
+## Session batch 8 (2026-11-13) — all 16 `postbuild/list.txt` binary patches & `z_lang_override` COMPLETE
+- `ParseConfig` + `z_lang_override` (`bb19f89e`): call `tangar_cfg::ParseConfig()` on startup in
+  `GameApp::InitInstance` before `DecideLanguage()`, accept `"rus"`/`"russian"` and `"eng"`/`"english"`
+  (else `z_lang_override = false`, default `z_russian = true`), and sync `tangar_cfg::z_russian` in
+  `tangar_locale::DecideLanguage()`.
+- `boneidle.xck` (`f10cbdf0`): use `dying_vfx->idle_phases` (`+0x28`) instead of `bone_phases` (`+0x24`)
+  for corpse direction stride in `CUnit::Draw` (`468BD9`, `468C34`) and `CUnit::DrawShadow` (`469C2F`, `469C87`).
+- `dem_shop.xck` (`ed5c5f8b`): silence Druid shop `snd_bird[0..2]` and `snd_tool[0..3]` load/play/free in
+  `VisShopDruid::VMethod31`/`VMethod30`/`VMethod32` while keeping RNG/timer updates intact.
+- `extend_servers.txt` (`b0457718`) + `long_servers.txt` (`7e28c0f4`): `VisHatBrowserDlg` enlarged to
+  `704x544` (`48DEAD`, `48DEB2`), header labels shifted up to `0x10`/`0x20` (`44E7E7`, `44E87F`), and
+  button row recentered via `OffsetRect(4, 0)` (`44EF07`); list/caption/status positions already ported.
+- `long_dip.txt` (`c51c75b6`): `VisDiplomacy` height `480 -> 592` (`48B423`), single-line `VisMessageBox`
+  payload bottom `Height - 80` (`446875`), `VisDiplomacy` bottom margin `-= 32` (`446A03..446A15`), and
+  `VisListBoxDiplomacy` `entry_height_full = _entry_height + 1` (`4E13FF`).
+- `p10ach.xck` (`423422a9`): disable `sec->hat_id == 0xbabad0d0` wildcard character roster fallback in
+  `CGameSession::RefreshCharacterRosterFiles` (`497083`).
+- `p10iti.xck` (`a6059359`): enlarge `CMousePointer` `hint_image` and `saved_screen_rect_hint` `CBmp64`
+  buffers from `640x117` to `640x453` (`42859B`, `4285DD -> 6E2213`).
+- `p10itm.xck` (`4ade69f0`): add Alt=`min(count, 1000)` and Ctrl=`min(count, 10)` item drag modifiers in
+  `VisInvType1::OnMouseMove` (`4AB2A8 -> 6E21D0`) and `VisInvExtBase::OnMouseMove` (`4BA637 -> 6E21D0`).
+- `p10lck.xck` (`aa87aeae`): lock `HatSettings::Load` to `ishat = 1` (`43F895`, `43F8B6`), set
+  `ip_box->flags = CVisualObject::FLAG_NOTFOCUS` in `VisHatServerListDlg::VMethod30` (`44CAAD -> 6E215B`),
+  and fix `HATENT_url_text` (`43F738`) target field from `hatip` (`+0`) to `hatprogip` (`+4`).
+- `p10mny.xck` (`0c399754`): skip money slot (`item_id == 0xFFFF`) before `MatchesItem` in
+  `VisInvType1::MsgProc` (`4AB621 -> 6E20EE`).
+- `p10st2.xck` (`e48209ae`): reject `spell_id == 0 || spell_id > 0x1D` (`spell::max_spell_id`) in
+  `Spell::Init` (`522F14 -> 6E20F9`) and `Effect::CalcScrollPrice` (`52916F..529195`).
+- `p10stf.xck` (this commit): guard `spell.spell_info != nullptr` before `SetPower` and damage draw in
+  `CUnit::DrawStatsPanel` (`470452 -> 6E20C0`).
+- Verified already covered / NO-OP: `p10ncd.xck` (`g_IsCdPresent = 1` in `game_app.cpp`), `p10reg.xck`
+  (`SaveSettings` already uses `KEY_WRITE` + VirtualStore; `LoadSettings`/`InitInstance` stay `KEY_READ`
+  under UAC `asInvoker`), `showmap.xck` (session batch 5), and `rdata_writable.txt` (PE `.rdata` flag for
+  runtime DLL hooks).
 
 ## Session batch 7 (2026-11-13) — v20 auth protocol, screenshot net & HTTP auto-updater COMPLETE
 - v20 HAT authorization + crypt + extended TCP framing (d8947292):
