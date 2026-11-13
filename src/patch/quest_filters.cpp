@@ -180,4 +180,25 @@ bool HasQuestForMonsterGroup(Player* player, int32_t group_id) {
     return PlayerHasQuest(3, player->player_id, (uint32_t)group_id, false);
 }
 
+// 565B27
+uint32_t InnScrollsReward(Player* player, uint32_t reward) {
+    if (player != nullptr && player->main_unit != nullptr && (player->main_unit->unit_attrs & 4) == 0) {
+        // Note: max reward is 16383000, so this doesn't overflow.
+        return static_cast<uint32_t>(reward * 1.5);
+    }
+
+    // Mages don't get scrolls.
+    return 0;
+}
+
+// 5660C8
+bool SkipPotionReward() {
+    return Config::ServerID >= NIGHTMARE;
+}
+
+// 5666C1
+bool SkipExperienceReward() {
+    return true;
+}
+
 } // namespace tangar_quests

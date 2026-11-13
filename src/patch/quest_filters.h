@@ -24,4 +24,9 @@ bool FilterKillGroupCandidateUnit(Player* player, Unit* unit);
 // True if the player already has a kill-the-group quest for this group.
 bool HasQuestForMonsterGroup(Player* player, int32_t group_id);
 
+// Inn quest reward hooks (565B27, 5660C8, 5666C1).
+uint32_t InnScrollsReward(Player* player, uint32_t reward);
+bool SkipPotionReward();
+bool SkipExperienceReward();
+
 } // namespace tangar_quests

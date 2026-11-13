@@ -962,7 +962,17 @@ void Inn::InnReward(Player* player) {
 
         int32_t exp_800 = scroll->_exp * 800;
         if (scroll->_exp < reward && reward < exp_800) {
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+            // inn_scrolls_reward hook (565B27)
+            uint32_t scroll_reward = tangar_quests::InnScrollsReward(player, static_cast<uint32_t>(reward));
+            if (scroll_reward == 0) {
+                delete scroll;
+                continue;
+            }
+            scroll->count = static_cast<int32_t>(scroll_reward) / scroll->_exp;
+#else
             scroll->count = reward / scroll->_exp;
+#endif
             if (scroll->count > 10) {
                 scroll->count = (scroll->count - 10) / 2 + 10;
             }
@@ -1008,12 +1018,18 @@ void Inn::InnReward(Player* player) {
 
     // --- Phase 7: Stat potions ---
     if ((player->main_unit->experience > 18000000 && reward >= 1000000) || player->gm_level > 50) {
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+        // skip_potion_reward hook (5660C8)
+        if (!tangar_quests::SkipPotionReward()) {
+#else
+        {
+#endif
         bool is_fighter = (player->main_unit->unit_attrs & 4) == 0;
         bool is_female = (player->main_unit->typeId == 0x22 || player->main_unit->typeId == 0x24);
 
         uint8_t max_body, max_reaction, max_mind, max_spirit;
 
-#ifdef A2SERVER_TANGAR_HAT
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
         // set_*_max_parameters_taking_potion hooks (566149/56617A/5661B6/
         // 5661EA): the stat-potion caps come from config
         const MainCharacterParameters& caps = is_fighter
@@ -1068,6 +1084,7 @@ void Inn::InnReward(Player* player) {
             const char* name = upgradable[Random0N(upgradable.size() - 1)];
             result_items.Add(new Item(name));
         }
+        }
     }
 
     // --- Phase 8: Gold ---
@@ -1079,7 +1096,12 @@ void Inn::InnReward(Player* player) {
     }
 
     // --- Phase 9: Experience ---
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+    // skip_experience_reward hook (5666C1)
+    if (!tangar_quests::SkipExperienceReward() && g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE) {
+#else
     if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE) {
+#endif
         Item* experience = new Item();
         experience->item_id = 0xFFFE;
         experience->count = reward / 250;
