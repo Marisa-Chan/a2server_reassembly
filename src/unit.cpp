@@ -23,6 +23,7 @@
 #include "patch/tangar_log.h"
 #include "patch/flags.h"
 #include "patch/circle.h"
+#include "patch/damage_filter.h"
 #endif
 #include "shop.h"
 #include "shop_assortment.h"
@@ -1185,9 +1186,14 @@ uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
             int16_t protection = this->protections.magic_protections[sphere];
             if (protection != 0) {
                 spell_dmg = (int32_t)((100.0 - protection) * (double)spell_dmg / 100.0 + 0.75);
+#ifdef A2SERVER_TANGAR_HAT
+                // srv_pvm.xck + verify_damage hook (536F42..537087 -> 504033)
+                spell_dmg = TangarOnDamage(attacker, this, static_cast<int16_t>(spell_dmg));
+#else
                 if (spell_dmg < 0) {
                     spell_dmg = 0;
                 }
+#endif
             }
         } else {
             LogMessage(CString("Unknown magic damage type"));
@@ -1222,7 +1228,12 @@ uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
         }
     }
 
+#ifdef A2SERVER_TANGAR_HAT
+    // srv_pvm.xck + verify_damage hook (537171 -> 504033)
+    return TangarOnDamage(attacker, this, static_cast<int16_t>(cumulative));
+#else
     return cumulative > 0 ? cumulative : 0;
+#endif
 }
 
 void Unit::RecalcStats() {

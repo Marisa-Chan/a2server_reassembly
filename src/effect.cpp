@@ -9,6 +9,9 @@
 #include "net.h"
 #include "spell.h"
 #include "unit.h"
+#ifdef A2SERVER_TANGAR_HAT
+#include "patch/damage_filter.h"
+#endif
 
 IMPLEMENT_SERIAL(Effect, Token, 1); // 637098.
 
@@ -20,7 +23,13 @@ void Effect::ApplyToUnit(Unit* unit) {
             damage = (int32_t)((damage * (100 - unit->protections.magic_protections[2])) / 100.0 + 0.5);
         }
         if (damage != 0) {
+#ifdef A2SERVER_TANGAR_HAT
+            // srv_pvm.xck + verify_damage hook (53F7CD -> 5048D3)
+            int32_t applied_damage = TangarOnDamage(this->caster, unit, static_cast<int16_t>(damage));
+            unit->hp -= static_cast<int16_t>(applied_damage);
+#else
             unit->hp -= damage;
+#endif
             if (this->caster != nullptr) {
                 if (this->caster->hp < 0) {
                     this->caster = nullptr;

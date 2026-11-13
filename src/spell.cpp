@@ -1,6 +1,7 @@
 ﻿#include "spell.h"
 #ifdef A2SERVER_TANGAR_HAT
 #include "patch/summon.h"
+#include "patch/damage_filter.h"
 #endif
 
 #include <algorithm>
@@ -570,6 +571,10 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
             if (target->IsUnit() != 0) {
                 int32_t earth_protection = target->protections.magic_protections[4];
                 int32_t max_duration = effect->spell_value * (100 - earth_protection) / 100;
+#ifdef A2SERVER_TANGAR_HAT
+                // srv_pvm.xck + verify_damage hook (53C390 -> 5040D2)
+                max_duration = TangarOnDamage(caster, target, static_cast<int16_t>(max_duration));
+#endif
                 effect->spell_value = Random0N(max_duration);
                 if (effect->spell_value == 0) {
                     delete effect;
@@ -829,6 +834,10 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 if (drain >= till_corpse) {
                     drain = till_corpse;
                 }
+#ifdef A2SERVER_TANGAR_HAT
+                // srv_pvm.xck + verify_damage hook (53A740 -> 5040D2)
+                drain = TangarOnDamage(caster, target, static_cast<int16_t>(drain));
+#endif
                 if (drain <= 0) {
                     return;
                 }

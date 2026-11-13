@@ -53,7 +53,6 @@
 #include "patch/gm_noclip.h"
 #include "patch/hat_net.h"
 #include "patch/screenshots.h"
-#include "patch/damage_filter.h"
 #include "patch/forbidden_items.h"
 #include "quest.h"
 #include "quest_map.h"
@@ -2700,30 +2699,6 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
 //   #victory:             trigger a victory event for the player's team
 //   #event <id>:          fire an in-game script event
 // 502D0B
-#ifdef A2SERVER_TANGAR_HAT
-// verify_damage hooks (50403F/5040DA/5048E6): the manager routed the GM kill
-// commands' damage through its OnDamage filter, so god modes / PvP caps /
-// PvM rules apply to #kill. A filtered-away kill simply does not land.
-static bool TangarKillPlayerUnits(Player* gm, Player* target) {
-    if (target->unit_list == nullptr) {
-        return false;
-    }
-    bool killed = false;
-    for (POSITION it = target->unit_list->unit_list.GetHeadPosition(); it != nullptr;) {
-        Unit* unit = target->unit_list->unit_list.GetNext(it);
-        if (unit == nullptr) {
-            continue;
-        }
-        int32_t dmg = TangarOnDamage(gm != nullptr ? gm->main_unit : nullptr, unit, 32767);
-        if (dmg > 0) {
-            unit->hp = -50;
-            killed = true;
-        }
-    }
-    return killed;
-}
-#endif
-
 void Server::CheatCommand(Player* player, CString cheat_string) {
     LogMessage("Server::CheatCommand: player " + player->name + " sent cheat command: " + cheat_string);
 
@@ -3668,11 +3643,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             }
             int diplomacy = g_World->diplomacy.diplomacy[player->player_id][p->player_id];
             if (diplomacy & DIPLO_WAR) {
-#ifdef A2SERVER_TANGAR_HAT
-                TangarKillPlayerUnits(player, p); // verify_damage hook
-#else
                 p->KillAllUnits();
-#endif
             }
         }
         if (!is_reconnect) {
@@ -3683,11 +3654,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             Player* p = g_PlayersList->list.GetNext(node);
             if (p != nullptr && p->gm_level > 50 && p != player) {
                 p->gm_level = 0;
-#ifdef A2SERVER_TANGAR_HAT
-                TangarKillPlayerUnits(player, p); // verify_damage hook
-#else
                 p->KillAllUnits();
-#endif
             }
         }
     } else if (cheat_string.Find("#kill ") == 0) {
@@ -3695,11 +3662,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         cheat_string.TrimLeft();
         Player* target = g_PlayersList->FindByName(cheat_string);
         if (target != nullptr) {
-#ifdef A2SERVER_TANGAR_HAT
-            TangarKillPlayerUnits(player, target); // verify_damage hook
-#else
             target->KillAllUnits();
-#endif
             if (target->hat_player_id != 0xF6D04773 || target->flags != 4) {
                 g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_CHEAT_OK, target->player_id, nullptr);
             }
