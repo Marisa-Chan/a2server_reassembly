@@ -252,7 +252,8 @@ msg.Format("Player %s has died.", (const char*)unit->pOwner->name);
 						// player_pkilled hook (556BE6) - applied before the pkilled message
 						TangarApplyDeathExpPenalty(static_cast<Humanoid*>(unit), Config::PKExpMult);
 						#endif
-msg.Format("Player %s pkilled by %s at %d,%d", (const char*)unit->pOwner->name, (const char*)unit->last_hit_by->pOwner->name, x, y);
+						// pkill_msg hook (556C0F): pushes killer owner name (unit->last_hit_by->pOwner->name).
+						msg.Format("Player %s pkilled by %s at %d,%d", (const char*)unit->pOwner->name, (const char*)unit->last_hit_by->pOwner->name, x, y);
 						LogMessage(msg);
 						uint32_t kill_sphere = 0;
 						if (g_ServerConfig.gameType != GAME_TYPE_COOPERATIVE) {

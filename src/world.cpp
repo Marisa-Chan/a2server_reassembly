@@ -27,8 +27,9 @@
 #include "token.h"
 #include "unit.h"
 #include "virtual_caster.h"
-#ifdef A2SERVER_TANGAR_HAT
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
 #include "patch/player_settings.h"
+#include "patch/tangar_log.h"
 #endif
 
 World* g_World; // 6a8b8c
@@ -621,6 +622,10 @@ void Diplomacy::RecordHostility(Unit* attacker, Unit* target, int32_t hit_flag) 
     if ((this->diplomacy[attacker_pid][target_pid] & (DIPLO_WAR | DIPLO_ALLIANCE)) == 0) {
         this->diplomacy[attacker_pid][target_pid] |= DIPLO_WAR;
         if (!attacker->pOwner->is_ai) {
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+            // auto_war_1 hook (5B56EF)
+            Printf("Player %s (%s) set auto-war to player %s", (const char*)attacker->pOwner->name, "attacker", (const char*)target->pOwner->name);
+#endif
             g_NetStru1_main.SendVisibilityState(attacker->pOwner);
             g_NetStru1_main.SendVisibilityState(target->pOwner);
         }
@@ -634,6 +639,10 @@ void Diplomacy::RecordHostility(Unit* attacker, Unit* target, int32_t hit_flag) 
     if (hit_flag == 0 || target->eye2->hits_taken > 10 || target->hp < target->hp_max / 2 || target->some_state == 0x10) {
         this->diplomacy[target_pid][attacker_pid] |= DIPLO_WAR;
         if (!target->pOwner->is_ai) {
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+            // auto_war_2 hook (5B57C6)
+            Printf("Player %s (%s) set auto-war to player %s", (const char*)target->pOwner->name, "victim", (const char*)attacker->pOwner->name);
+#endif
             g_NetStru1_main.SendVisibilityState(attacker->pOwner);
             g_NetStru1_main.SendVisibilityState(target->pOwner);
         }

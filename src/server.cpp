@@ -4743,6 +4743,28 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     continue;
                 }
 
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+                // log_dip_change hook (5081DC): enforce GMF_PLAYERS_VISION / GMF_PLAYERS_ALLY
+                // toward target GMs and log individual diplomacy bit transitions.
+                uint8_t requested_val = new_val;
+                if ((other->flags & GMF_PLAYERS_VISION) == GMF_PLAYERS_VISION) {
+                    new_val |= 0x10;
+                }
+                if ((other->flags & GMF_PLAYERS_ALLY) == GMF_PLAYERS_ALLY) {
+                    new_val |= 0x02;
+                }
+                static const char* const diplo_names[4] = {"war", "ally", "ignore", "vision"};
+                static const uint8_t diplo_flags[4] = {1, 2, 4, 0x10};
+                for (int i = 0; i < 4; ++i) {
+                    if ((old_val & diplo_flags[i]) != 0 && (requested_val & diplo_flags[i]) == 0) {
+                        Printf("Player %s unset %s to player %s", (const char*)player->name, diplo_names[i], (const char*)other->name);
+                    }
+                    if ((old_val & diplo_flags[i]) == 0 && (requested_val & diplo_flags[i]) != 0) {
+                        Printf("Player %s set %s to player %s", (const char*)player->name, diplo_names[i], (const char*)other->name);
+                    }
+                }
+#endif
+
                 *diplo_slot = new_val;
 
                 if ((new_val & 0x10) == 0) {
@@ -5041,15 +5063,33 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 break;
             }
 
+            uint8_t chat_type = packet_join->token_id;   // chat type (byte 0xb)
+            uint8_t recipient_id = packet_join->player_id;  // private message target (byte 0xa)
+
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+            // chat_log hook (50721C): format ally ("--> ") and private (">>>") chat lines.
+            {
+                char chat_line[5000];
+                if (chat_type == CHAT_TYPE_ALLIES) {
+                    _snprintf(chat_line, sizeof(chat_line) - 1, "--> %s: %s", (const char*)player->name, (const char*)msg);
+                } else if (chat_type == CHAT_TYPE_PRIVATE) {
+                    Player* to_player = g_PlayersList->FindById(recipient_id);
+                    const char* to_name = (to_player != nullptr) ? (const char*)to_player->name : "(null)";
+                    _snprintf(chat_line, sizeof(chat_line) - 1, "%s >>> %s: %s", (const char*)player->name, to_name, (const char*)msg);
+                } else {
+                    _snprintf(chat_line, sizeof(chat_line) - 1, "%s: %s", (const char*)player->name, (const char*)msg);
+                }
+                chat_line[sizeof(chat_line) - 1] = '\0';
+                PostConsoleLine(chat_line);
+            }
+#else
             LogMessage(player->name + ": " + msg);
+#endif
 
             if (msg[0] == '#') {
                 this->CheatCommand(player, msg);
                 break;
             }
-
-            uint8_t chat_type = packet_join->token_id;   // chat type (byte 0xb)
-            uint8_t recipient_id = packet_join->player_id;  // private message target (byte 0xa)
 
 #ifdef A2SERVER_TANGAR_HAT
             // public_chat/private_chat/shout_chat hooks: mute system - a
