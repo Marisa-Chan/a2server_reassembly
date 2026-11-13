@@ -442,7 +442,12 @@ void VisHatBrowserDlg::VMethod26() {
 
     CPoint btn_center(0xc0, this->rect.Height() - 0x30);
     CRect btn_rect(btn_center.x - 0x30, btn_center.y - 0xc, btn_center.x + 0x30, btn_center.y + 0xc);
+#ifdef A2CLIENT_PATCH
+    // extend_servers.txt (44ef07): shift button row right (+4 instead of -0x48) for 704px width
+    btn_rect.OffsetRect(4, 0);
+#else
     btn_rect.OffsetRect(-0x48, 0);
+#endif
 
     VisButton* ok_btn = new VisButton(0x14, btn_rect, txt_dialogs.GetLine(0), g_font1, nullptr, 0x445, 0, "");
     this->AddChild(ok_btn);
