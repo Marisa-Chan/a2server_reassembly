@@ -4862,6 +4862,19 @@ void Server::ProcessClientPacket(Packet* pkt) {
 #endif
 
             if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE && (player->main_unit->unit_attrs & 8) != 0) {
+#ifdef A2SERVER_TANGAR_HAT
+                // imp_CheckShield hook (506A53): only grant JOIN_MAP spawn buffs once per map session.
+                bool allow_join_buffs = false;
+                PlayerInfo* pi = PI_Get(player);
+                if (pi != nullptr && !pi->Casted) {
+                    pi->Casted = true;
+                    allow_join_buffs = true;
+                } else {
+                    Printf("Warning: player %s tried to use shield bug!", (const char*)player->name);
+                }
+                if (allow_join_buffs)
+#endif
+                {
                 {
                     Effect* eff = new Effect("castSpell=Invisibility:20");
                     eff->itemDataID  = 0xC;
@@ -4919,6 +4932,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     eff->spell_or_damage = 0x96;
                     eff->spell_value    = 0x140;
                     eff->RemoveFromUnit(player->main_unit);
+                }
                 }
             }
 
