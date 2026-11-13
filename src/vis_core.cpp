@@ -24,6 +24,9 @@
 #include "gameplay.h"
 #include "vis_playing_area.h"
 #include "vis_net.h"
+#ifdef A2CLIENT_PATCH
+#include "vis_menu.h"
+#endif
 
 
 
@@ -3850,7 +3853,12 @@ void VisMessageBox::VMethod26() {
 
             this->AddChild(lbl);
 
+#ifdef A2CLIENT_PATCH
+            // long_dip.txt (446875): single-line header payload bottom Height-112 -> Height-80
+            r2 = CRect(40, 68, this->rect.Width() - 40, this->rect.Height() - 80);
+#else
             r2 = CRect(40, 68, this->rect.Width() - 40, this->rect.Height() - 112);
+#endif
         }
     } else {
         r2 = CRect(40, 56, this->rect.Width() - 40, this->rect.Height() - 88);
@@ -3864,6 +3872,12 @@ void VisMessageBox::VMethod26() {
 
     CVisualObject* obj = this->VMethod30(this->payload, r2);
     this->rect.bottom = this->rect.top + 144 + obj->GetRect().bottom;
+#ifdef A2CLIENT_PATCH
+    // long_dip.txt (446a03..446a15): vtable check for VisDiplomacy shrinks bottom margin by 32
+    if (dynamic_cast<VisDiplomacy*>(this) != nullptr) {
+        this->rect.bottom -= 32;
+    }
+#endif
     this->UpdateWinRect();
 #ifdef A2CLIENT
     if (this->button_types == 0x1000) {

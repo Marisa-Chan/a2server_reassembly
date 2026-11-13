@@ -83,7 +83,12 @@ VisListBoxDiplomacy::VisListBoxDiplomacy(int32_t _id, const RECT& r, CArray<Dipl
     if ((uint32_t)_entry_height <= 0x18) {
         _entry_height = 0x18;
     }
+#ifdef A2CLIENT_PATCH
+    // long_dip.txt (4e13ff): compact diplomacy row spacing (+8 -> +1)
+    this->entry_height_full = _entry_height + 1;
+#else
     this->entry_height_full = _entry_height + 8;
+#endif
     this->num_vis_entry = this->rect.Height() / this->entry_height_full;
 
     this->enemy_radios = new CArray<VisRadioType1*>();

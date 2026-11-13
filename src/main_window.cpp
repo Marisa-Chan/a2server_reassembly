@@ -3569,7 +3569,12 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             this->ClearDiplomacyEntries();
             // The original passes the address of the array pointer so the dialog
             // re-reads the current array on every ReadData (see VisDiplomacy::diplomacy).
+#ifdef A2CLIENT_PATCH
+            // long_dip.txt (48b423): taller diplomacy dialog (height 480 -> 592)
+            this->vis_msgbox = new VisDiplomacy(1, 10, 0, 630, 592, (const CArray<DiplomacyEntry*>*)&this->diplomacy_entries);
+#else
             this->vis_msgbox = new VisDiplomacy(1, 10, 0, 630, 480, (const CArray<DiplomacyEntry*>*)&this->diplomacy_entries);
+#endif
             this->PopUpScreen(this->vis_msgbox);
         }
         break;
