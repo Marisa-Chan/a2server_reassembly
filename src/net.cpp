@@ -31,6 +31,12 @@
 #include "inventory.h"
 #include "shelf.h"
 #include "shop.h"
+#ifdef A2CLIENT_PATCH
+#include "patch/hat_client.h"
+#endif
+#ifdef A2SERVER_TANGAR_HAT
+#include "patch/hat_net.h"
+#endif
 
 
 uint32_t g_SpectatorState;
@@ -1070,7 +1076,11 @@ Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
         break;
 
     case START_GAME: case REQUEST_SAVE_GAME: case REQUEST_LOAD_GAME: case HAT_JOIN_NAME: case HAT_SCORE_UPDATE: case PLAYER_ANNOUNCED:
+#if defined(A2CLIENT_PATCH) || defined(A2SERVER_PATCH)
+    case MAP_INFO: case 0: case HAT_LOGIN: case HAT_LOBBY_INFO: case HAT_CHAR_RETURN:
+#else
     case MAP_INFO: case HAT_CREDENTIALS: case HAT_LOGIN: case HAT_LOBBY_INFO: case HAT_CHAR_RETURN:
+#endif
         pkt = &PacketJoin::Inst;
         pkt->ReadFrom(ns2);
         break;
@@ -3123,8 +3133,20 @@ void __cdecl CLlDriver::SetSockOptions(SOCKET s, int enlinger) {
 
 int CLlDriver::RecvThreadTcp(A2NetSock* sock) {
     //522b95
+    // client: 5122d1
+#ifdef A2CLIENT_PATCH
+    static uint8_t databuf[51200];
+    int rsz = tangar_client::RecvClientFramed(sock->socket, reinterpret_cast<char*>(databuf), sizeof(databuf), 0);
+#elif defined(A2SERVER_TANGAR_HAT)
+    uint8_t databuf[0x2000];
+    int rsz = tangar_hat::RecvServerFramed(sock->socket, reinterpret_cast<char*>(databuf), sizeof(databuf), 0);
+    if (rsz == -2) {
+        return 1;
+    }
+#else
     uint8_t databuf[0x2000];
     int rsz = recv(sock->socket, (char *)databuf, 0x2000, 0);
+#endif
     if (rsz == 0 || rsz == -1) {
         return 0;
     }
@@ -3870,9 +3892,13 @@ int CLlDriver::Connect(const char* name, CLlNetSession* session) {
 
 int CLlDriver::SendDataTcp(A2NetSock* sock, NetStru3* buffer) {
     //52394a
+    // client: 513005
     int len = buffer->datasz + 8;
     int sendlen = -1;
     if (sock->socket != INVALID_SOCKET) {
+#ifdef A2SERVER_TANGAR_HAT
+        tangar_hat::FlushEnqueuedPackets(sock->socket);
+#endif
         sendlen = send(sock->socket, (char*)&buffer->full_data, len, 0);
     }
 
@@ -4954,7 +4980,11 @@ void NetStru1::WriteStatsLog(CString fname) { //51f124
 }
 
 void NetStru1::SendHatCredentials(const CString& login, const CString& password, uint32_t flags) { //51d8d6
+    // client: 50e48b
     PacketJoin* pkt = &PacketJoin::Inst;
+#ifdef A2CLIENT_PATCH
+    tangar_client::BuildAuthorizationPacket(pkt, login, password, flags);
+#else
     CString namepwd = login + password;
 
     strcpy(pkt->name, namepwd);
@@ -4966,6 +4996,7 @@ void NetStru1::SendHatCredentials(const CString& login, const CString& password,
     pkt->color = flags;
     pkt->flags = 7;
     pkt->to_player_id = 0;
+#endif
 
     this->QueuePacketSend(pkt);
 }

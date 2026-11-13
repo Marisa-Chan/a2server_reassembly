@@ -2,6 +2,7 @@
 #include "patch/locale.h"
 #ifdef A2CLIENT_PATCH
 #include "patch/client_config.h"
+#include "patch/hat_client.h"
 #include "patch/hotkeys.h"
 #endif
 #include <ctime>
@@ -5449,13 +5450,7 @@ int32_t MainWindow::RunModalLoopServer() { //49057b
     CLlAddress local_224;
     strcpy(local_224.address, "0.0.0.0");
 
-#ifdef A2CLIENT_PATCH
-    // Tangar HATENT_url_connect (494AE4): connect to the -hat address
-    // instead of the dialog setting.
-    int local_230 = g_CLlDriver.PrepareForConnect((char*)tangar_cfg::HatAddress(), &local_224);
-#else
     int local_230 = g_CLlDriver.PrepareForConnect(this->hat_settings.hatprogip, &local_224);
-#endif
     if (local_230) {
         local_230 = g_CLlDriver.Connect(this->m_GameSession.character_name, nullptr);
     }
@@ -5569,6 +5564,10 @@ int32_t MainWindow::RunModalLoopServer() { //49057b
 int32_t MainWindow::RunModalLoopClient() { //client 4949cd
     MSG msg;
 
+#ifdef A2CLIENT_PATCH
+    tangar_client::EnsureAnticheatHashes();
+#endif
+
     LockSurface2();
     FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
     //Connection to hat in process...
@@ -5589,7 +5588,13 @@ int32_t MainWindow::RunModalLoopClient() { //client 4949cd
     CLlAddress local_224;
     strcpy(local_224.address, "0.0.0.0");
 
+#ifdef A2CLIENT_PATCH
+    // Tangar HATENT_url_connect (494AE4): connect to the -hat address
+    // instead of the dialog setting.
+    int local_230 = g_CLlDriver.PrepareForConnect((char*)tangar_cfg::HatAddress(), &local_224);
+#else
     int local_230 = g_CLlDriver.PrepareForConnect(this->hat_settings.hatprogip, &local_224);
+#endif
     if (local_230) {
         local_230 = g_CLlDriver.Connect(this->m_GameSession.character_name, nullptr);
     }

@@ -11,7 +11,9 @@
 // net) fields return together with those features.
 
 #include <cstdint>
+#include <vector>
 
+#include "hat_packet.h"
 #include "../player.h"
 
 struct PlayerInfo {
@@ -29,6 +31,8 @@ struct PlayerInfo {
     Player* SpellSetter;
 
     uint32_t UnmuteDate;
+
+    std::vector<tangar_hat::Packet> EnqueuedPackets;
 
     // used in scanrange (patch/scanrange.cpp): GetTickCount() stamps of the
     // cells the player currently sees

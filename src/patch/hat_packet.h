@@ -11,7 +11,9 @@
 #include <string>
 #include <vector>
 
+#ifndef _WINSOCKAPI_
 #include <winsock2.h>
+#endif
 
 namespace tangar_hat {
 

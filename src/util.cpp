@@ -2,6 +2,9 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdio.h>
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+#include "patch/hat_packet.h"
+#endif
 
 int g_PathLower = 1;
 
@@ -110,6 +113,10 @@ void __cdecl ReportWarning(const char* warn) {
 
 void __cdecl XorData(void* data, uint32_t size) {
 	//51fd7d
+	// client: 50feed
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+	tangar_hat::PACKET_XorByKey(static_cast<uint8_t*>(data), size, 20);
+#else
 	static const uint8_t xorkey[80] =
 	{ 0x2e, 0xc7, 0xc4, 0x8d, 0xff, 0xe5, 0x5d, 0x0b,
 		0xd6, 0xff, 0x7f, 0xff, 0xd7, 0x34, 0xd2, 0x02,
@@ -138,5 +145,6 @@ void __cdecl XorData(void* data, uint32_t size) {
 		}
 
 		size -= num;
-	}	
+	}
+#endif
 }

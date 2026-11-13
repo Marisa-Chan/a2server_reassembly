@@ -112,6 +112,8 @@ set(A2CLIENT_SOURCES
   patch/menu.cpp
   patch/itempng.cpp
   patch/scanrange_calc.cpp
+  patch/hat_packet.cpp
+  patch/hat_client.cpp
 )
 
 add_executable(rea2c ${A2_SOURCES} ${A2CLIENT_SOURCES})

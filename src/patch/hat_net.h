@@ -44,4 +44,12 @@ bool NetCmdUnlockLogin(const std::string& login);
 // Lobby-info update hook equivalent (imp_UpdateInfo): snapshot then send.
 void NetHatUpdateInfo(uint8_t player_count, const char* name, uint8_t level, uint8_t type, uint8_t size);
 
+// Game-socket extended-packet framing hooks (my-srvmgr send0 / recv0):
+// FlushEnqueuedPackets drains PlayerInfo::EnqueuedPackets as 0x80100000 frames
+// before normal game sends; RecvServerFramed demultiplexes incoming 0x80100000
+// manager frames from normal 8-byte-headed game packets (returns -2 when an
+// extended packet was consumed and no trailing packet is immediately queued).
+void FlushEnqueuedPackets(SOCKET s);
+int RecvServerFramed(SOCKET s, char* buf, int len, int flags);
+
 } // namespace tangar_hat

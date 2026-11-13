@@ -335,4 +335,144 @@ void NetHatUpdateInfo(uint8_t player_count, const char* name, uint8_t level, uin
     }
 }
 
+namespace {
+
+bool RecvExactServer(SOCKET s, uint8_t* dst, int32_t total) {
+    int32_t got = 0;
+    while (got < total) {
+        int r = recv(s, reinterpret_cast<char*>(dst + got), total - got, 0);
+        if (r > 0) {
+            got += r;
+            continue;
+        }
+        if (r == SOCKET_ERROR && WSAGetLastError() == WSAEWOULDBLOCK) {
+            if (!SOCK_WaitEvent(s, 1000)) {
+                return false;
+            }
+            continue;
+        }
+        return false;
+    }
+    return true;
+}
+
+// Ported from my-srvmgr/srvmgr_new.cpp:209 (Sv_ProcessClientPacket).
+bool ProcessClientExtendedPacket(int16_t player_id, Packet& pack) {
+    (void)pack;
+    if (player_id == -1) {
+        return true; // hat
+    }
+    return true;
+}
+
+} // namespace
+
+// Ported from my-srvmgr/srvmgr.cpp:2475 (send0).
+void FlushEnqueuedPackets(SOCKET s) {
+    if (g_CLlDriver.connection_sockets == nullptr || g_PlayersList == nullptr) {
+        return;
+    }
+
+    for (uint32_t i = 0; i < g_CLlDriver.max_connections; i++) {
+        A2NetSock* conn = g_CLlDriver.connection_sockets + i;
+        if (conn->is_in_use == 0 || conn->socket != s || conn->manager == nullptr) {
+            continue;
+        }
+
+        uint16_t player_id = conn->manager->player_id;
+        if (player_id == 0) {
+            break;
+        }
+
+        Player* player = g_PlayersList->FindById(player_id);
+        PlayerInfo* pi = PI_Get(player);
+        if (pi != nullptr && !pi->EnqueuedPackets.empty()) {
+            for (Packet& cmd : pi->EnqueuedPackets) {
+                SOCK_SendPacket(s, cmd, 0, true);
+            }
+            pi->EnqueuedPackets.clear();
+        }
+        break;
+    }
+}
+
+// Ported from my-srvmgr/srvmgr.cpp:2539 (recv0).
+int RecvServerFramed(SOCKET s, char* buf, int len, int flags) {
+    SOCKET hat_socket = g_HatLLDriver.listen_socket.socket;
+
+    int16_t p_id = -1;
+    if (g_CLlDriver.connection_sockets != nullptr) {
+        for (uint32_t i = 0; i < g_CLlDriver.max_connections; i++) {
+            A2NetSock* conn = g_CLlDriver.connection_sockets + i;
+            if (conn->socket == s) {
+                if (conn->manager == nullptr) {
+                    Printf("Warning: received packet from player with NULL network structure!\n");
+                    memset(buf, 0, static_cast<size_t>(len));
+                    return -1;
+                }
+                p_id = static_cast<int16_t>(conn->manager->player_id);
+                break;
+            }
+        }
+    }
+
+    if (p_id == -1 && s != hat_socket) {
+        Printf("Warning: received packet from unknown player!\n");
+        memset(buf, 0, static_cast<size_t>(len));
+        return -1;
+    }
+
+    int r = recv(s, buf, 4, 0);
+    if (r != 4) {
+        return -1;
+    }
+    if (*reinterpret_cast<int32_t*>(buf) == 0) {
+        return 0;
+    }
+
+    if (!RecvExactServer(s, reinterpret_cast<uint8_t*>(buf + 4), 4)) {
+        return -1;
+    }
+
+    int32_t pkt_size = *reinterpret_cast<int32_t*>(buf);
+    uint32_t pkt_flags = *reinterpret_cast<uint32_t*>(buf + 4);
+
+    if ((pkt_flags & 0x80100000u) == 0x80100000u) {
+        if (pkt_size < 0 || pkt_size > 0x100000) {
+            return -1;
+        }
+
+        std::vector<uint8_t> rd(static_cast<size_t>(pkt_size));
+        if (pkt_size > 0 && !RecvExactServer(s, rd.data(), pkt_size)) {
+            return -1;
+        }
+
+        Packet pack;
+        pack.Reset();
+        for (int32_t i = 0; i < pkt_size; i++) {
+            pack.WriteUInt8(rd[static_cast<size_t>(i)]);
+        }
+        pack.Seek(0);
+
+        if (!ProcessClientExtendedPacket(p_id, pack)) {
+            return -1;
+        }
+
+        memset(buf, 0, static_cast<size_t>(len));
+        if (!SOCK_WaitEvent(s, 0)) {
+            return -2;
+        }
+        return RecvServerFramed(s, buf, len, flags);
+    }
+
+    if (pkt_size < 0 || pkt_size + 8 > len) {
+        return -1;
+    }
+
+    if (pkt_size > 0 && !RecvExactServer(s, reinterpret_cast<uint8_t*>(buf + 8), pkt_size)) {
+        return -1;
+    }
+    return pkt_size + 8;
+}
+
 } // namespace tangar_hat
