@@ -159,7 +159,8 @@ Legend: DONE / WIP / PENDING / NO-OP / DEFERRED(reason)
   (3dd1723b, with the thresholds.cfg parser + reborn readiness module) — memory s37/s38
 
 ## DEFERRED (subsystem pairings)
-- NETPROTO x3 + NET_cryptPacket + recv_ — v20 auth/protocol (spec in memory, user-shelved)
+- NETPROTO x3 + NET_cryptPacket + recv_ — v20 auth/protocol, user-shelved
+  (full spec + port plan: migration_state/auth_protocol_migration.md)
 - imp_MakeScreenshotNet — HAT-net-triggered screenshot (0x64 packet, with v20 auth)
 - (CHAT_prependType x2 now ported with hardcoded locale strings)
 - (MENU x6 + ITEMPNG x3 + add_info console UI done/no-op'd, session batch 4)
