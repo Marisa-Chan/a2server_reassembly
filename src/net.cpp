@@ -784,18 +784,24 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
         if (unit->pOwner != player) {
             mask &= 0xc08000fb;
 
-            int32_t max_hp = unit->monster_info->Values()[0].health_max;
+#ifdef A2SERVER_PATCH
+            // fix_0051946B hook (51946B): unit->monster_info may be null on non-humanoid units.
+            if (unit->monster_info != nullptr && unit->monster_info->Values().GetSize() > 0)
+#endif
+            {
+                int32_t max_hp = unit->monster_info->Values()[0].health_max;
 
-            if (g_Server->multiplayer == 0) {
-                if (g_Server->difficulty == DIFFICULTY_EASY) {
-                    max_hp = (int32_t)((double)max_hp * 0.5);
-                } else if (g_Server->difficulty == DIFFICULTY_HARD) {
-                    max_hp = (int32_t)((double)max_hp * 1.5);
+                if (g_Server->multiplayer == 0) {
+                    if (g_Server->difficulty == DIFFICULTY_EASY) {
+                        max_hp = (int32_t)((double)max_hp * 0.5);
+                    } else if (g_Server->difficulty == DIFFICULTY_HARD) {
+                        max_hp = (int32_t)((double)max_hp * 1.5);
+                    }
                 }
-            }
 
-            if (unit->hp_max == max_hp && unit->typeId != 0x1A && unit->typeId != 0x1B) {
-                mask &= 0xc08000f3;
+                if (unit->hp_max == max_hp && unit->typeId != 0x1A && unit->typeId != 0x1B) {
+                    mask &= 0xc08000f3;
+                }
             }
         }
     } else { // Humanoid units

@@ -2,6 +2,7 @@
 
 #include <cstdlib>
 #include <cstring>
+#include <string>
 
 #include "util.h"
 #include "resource.h"
@@ -11,9 +12,38 @@ int __cdecl CalcFileChecksum(CString filename) {
 	CFile file;
 	int checksum = 0;
 
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+	// loading_map_bug hook (4F1D4A): resolve relative map paths against the server executable directory.
+	CString open_path = filename;
+	const char* raw_name = (const char*)filename;
+	const bool is_abs = (raw_name[0] != '\0' && raw_name[1] == ':') ||
+	                    raw_name[0] == '\\' || raw_name[0] == '/';
+	if (!is_abs) {
+		char module_fn[MAX_PATH] = {};
+		if (GetModuleFileNameA(nullptr, module_fn, MAX_PATH - 1) > 0) {
+			std::string dir(module_fn);
+			size_t slash_fwd = dir.rfind('/');
+			size_t slash_bwd = dir.rfind('\\');
+			size_t k = slash_fwd;
+			if (k == std::string::npos || (slash_bwd != std::string::npos && k < slash_bwd)) {
+				k = slash_bwd;
+			}
+			if (k != std::string::npos) {
+				dir.erase(k + 1);
+				dir += raw_name;
+				open_path = dir.c_str();
+			}
+		}
+	}
+	if (!file.Open((const char*)open_path, 0, nullptr) &&
+	    (open_path == filename || !file.Open((const char*)filename, 0, nullptr))) {
+		return checksum;
+	}
+#else
 	if (!file.Open((const char*)filename, 0, nullptr)) {
 		return checksum;
 	}
+#endif
 
 	const uint32_t file_length = file.GetLength();
 	const uint32_t padded_length = (file_length & 0xfffffffc) + 4;
