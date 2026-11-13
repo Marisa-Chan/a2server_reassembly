@@ -2825,25 +2825,42 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 time_left.Format("%u:%02u:%02u", tt_h, tt_m, tt_s);
             }
 
-            CString msg;
-            msg.Format("map: \"%s\" in \"%s\", time elapsed: %u:%02u:%02u, time total: %s",
+            if (player != nullptr) {
+                CString msg;
+                msg.Format("map: \"%s\" in \"%s\", time elapsed: %u:%02u:%02u, time total: %s",
+                           Config::CurrentMapTitle.c_str(), Config::CurrentMapName.c_str(), tm_h, tm_m, tm_s, (const char*)time_left);
+                g_NetStru1_main.AnnouncePlayerName(msg, player);
+            } else {
+                Printf("Map: \"%s\" in \"%s\", time elapsed: %u:%02u:%02u, time total: %s",
                        Config::CurrentMapTitle.c_str(), Config::CurrentMapName.c_str(), tm_h, tm_m, tm_s, (const char*)time_left);
-            g_NetStru1_main.AnnouncePlayerName(msg, player);
+            }
             return;
         }
 
         if (lowered == "#reborn") {
+            if (player == nullptr) {
+                Printf("This command may not be used from the console.");
+                return;
+            }
             // Tangar #reborn: reborn / reclass / ascend readiness report
             // (reborn_readiness.cpp).
             reborn::RebornReadinessInfo(Config::ServerID, player, false);
             return;
         }
         if (lowered == "#hell") {
+            if (player == nullptr) {
+                Printf("This command may not be used from the console.");
+                return;
+            }
             // Tangar #hell: force the hell-circle readiness report.
             reborn::RebornReadinessInfo(Config::ServerID, player, true);
             return;
         }
-        if (lowered.Find("#vote_map") == 0) {
+        if (lowered == "#vote_map" || lowered.Find("#vote_map ") == 0) {
+            if (player == nullptr) {
+                Printf("This command may not be used from the console.");
+                return;
+            }
             // Tangar #vote_map (ProcessCheat_VoteMap): players vote for the next
             // map; the leading map is rotated into the slot after the current one.
             // Only active on the QUEST_T1 server.
@@ -2975,8 +2992,12 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             return;
         }
 
-        if (lowered.Find("#autobuff") == 0 || lowered.Find("#ab") == 0) {
-            CString args = cheat_string.Mid(lowered.Find("#autobuff") == 0 ? 9 : 3);
+        if (lowered == "#autobuff" || lowered.Find("#autobuff ") == 0 || lowered == "#ab" || lowered.Find("#ab ") == 0) {
+            if (player == nullptr) {
+                Printf("This command may not be used from the console.");
+                return;
+            }
+            CString args = trimmed.Mid(lowered.Find("#autobuff") == 0 ? 9 : 3);
             args.TrimLeft();
             args.MakeLower();
             // ProcessCheat_Autobuff from the manager: toggle one spell in the
@@ -3055,13 +3076,20 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             return description;
         };
 
+        bool is_diplomacy = false;
         CString diplomacy_args;
-        if (lowered.Find("#diplomacy") == 0) {
-            diplomacy_args = cheat_string.Mid(10);
-        } else if (lowered.Find("#fren") == 0) { // easter-egg alias
+        if (lowered == "#diplomacy" || lowered.Find("#diplomacy ") == 0) {
+            is_diplomacy = true;
+            diplomacy_args = trimmed.Mid(10);
+        } else if (lowered == "#fren" || lowered.Find("#fren ") == 0) { // easter-egg alias
+            is_diplomacy = true;
             diplomacy_args = "ally+vision";
         }
-        if (diplomacy_args != "") {
+        if (is_diplomacy) {
+            if (player == nullptr) {
+                Printf("This command may not be used from the console.");
+                return;
+            }
             diplomacy_args.TrimLeft();
             diplomacy_args.TrimRight();
             diplomacy_args.MakeLower();
@@ -3479,7 +3507,9 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         }
         if (has_gm(GMF_CMD_KICK)) {
             if (lowered == "#kickme") {
-                if (player != nullptr) {
+                if (player == nullptr) {
+                    Printf("This command may not be used from the console.");
+                } else {
                     KickPlayer(player, true);
                 }
                 return;
@@ -3517,13 +3547,20 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
 
         if (has_gm(GMF_CMD_SCREENSHOT)) {
             if (lowered == "#screenshot" || lowered.Find("#screenshot ") == 0) {
+                auto reply_ss = [player](const CString& msg) {
+                    if (player != nullptr) {
+                        g_NetStru1_main.AnnouncePlayerName(msg, player);
+                    } else {
+                        Printf("%s", (const char*)msg);
+                    }
+                };
                 CString target_name = trimmed.Mid(11);
                 target_name.TrimLeft();
                 Player* target = FindPlayerByNickname((const char*)target_name);
                 if (target == nullptr) {
                     CString msg;
                     msg.Format("screenshot: Player %s not found", (const char*)target_name);
-                    g_NetStru1_main.AnnouncePlayerName(msg, player);
+                    reply_ss(msg);
                     return;
                 }
 
@@ -3531,7 +3568,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 if (target_pi == nullptr) {
                     CString msg;
                     msg.Format("screenshot: Player %s has no playerinfo!", (const char*)target->name);
-                    g_NetStru1_main.AnnouncePlayerName(msg, player);
+                    reply_ss(msg);
                     return;
                 }
 
@@ -3550,7 +3587,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 if (target_sock == INVALID_SOCKET) {
                     CString msg;
                     msg.Format("screenshot: Player %s has no socket (AI or disconnected?)", (const char*)target->name);
-                    g_NetStru1_main.AnnouncePlayerName(msg, player);
+                    reply_ss(msg);
                     return;
                 }
 
@@ -3563,7 +3600,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
 
                 CString msg;
                 msg.Format("screenshot: Request sent to player %s", (const char*)target->name);
-                g_NetStru1_main.AnnouncePlayerName(msg, player);
+                reply_ss(msg);
                 return;
             }
         }
@@ -3610,7 +3647,11 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 if (!Config::Suspended) {
                     Config::OriginalTime = g_ServerConfig.map_durations[g_ServerConfig.current_map_index];
                     g_ServerConfig.map_durations[g_ServerConfig.current_map_index] = 0x7FFFFFFF;
-                    g_NetStru1_main.AnnouncePlayerName("suspend: map timer suspended.", player);
+                    if (player == nullptr) {
+                        Printf("Map timer suspended.");
+                    } else {
+                        g_NetStru1_main.AnnouncePlayerName("suspend: map timer suspended.", player);
+                    }
                 } else {
                     bool change_map = false;
                     uint32_t cur_time = this->map_elapsed_time2 / 60000;
@@ -3621,7 +3662,11 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                     g_ServerConfig.map_durations[g_ServerConfig.current_map_index] = Config::OriginalTime;
                     Config::OriginalTime = 0;
 
-                    g_NetStru1_main.AnnouncePlayerName("suspend: map timer released.", player);
+                    if (player == nullptr) {
+                        Printf("Map timer released.");
+                    } else {
+                        g_NetStru1_main.AnnouncePlayerName("suspend: map timer released.", player);
+                    }
 
                     if (change_map) {
                         Printf("Note: map timer beyond total map time. Changing map...");
@@ -3654,9 +3699,13 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 CString mode_str = trimmed.Mid(9);
                 mode_str.TrimLeft();
                 if (mode_str.IsEmpty()) {
-                    CString reply;
-                    reply.Format("mode is set to %08X", Config::ServerFlags);
-                    g_NetStru1_main.AnnouncePlayerName(reply, player);
+                    if (player == nullptr) {
+                        Printf("Mode is set to %08X.", Config::ServerFlags);
+                    } else {
+                        CString reply;
+                        reply.Format("mode is set to %08X", Config::ServerFlags);
+                        g_NetStru1_main.AnnouncePlayerName(reply, player);
+                    }
                 } else {
                     int32_t add_flags = 0;
                     if (mode_str[0] == '+') {
@@ -3666,6 +3715,9 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                         add_flags = -1;
                         mode_str = mode_str.Mid(1);
                     } else if (mode_str[0] != '=') {
+                        return;
+                    }
+                    if (mode_str.IsEmpty() || mode_str[0] != '=') {
                         return;
                     }
                     mode_str = mode_str.Mid(1); // the '='
@@ -3682,9 +3734,13 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                     }
 
                     if (old_mode != Config::ServerFlags) {
-                        CString reply;
-                        reply.Format("mode is set to %08X (was: %08X)", Config::ServerFlags, old_mode);
-                        g_NetStru1_main.AnnouncePlayerName(reply, player);
+                        if (player == nullptr) {
+                            Printf("Mode is set to %08X (was: %08X).", Config::ServerFlags, old_mode);
+                        } else {
+                            CString reply;
+                            reply.Format("mode is set to %08X (was: %08X)", Config::ServerFlags, old_mode);
+                            g_NetStru1_main.AnnouncePlayerName(reply, player);
+                        }
                         if (Config::ServerFlags & SVF_SOFTCORE) {
                             MAX_SKILL = 110;
                             Config::ServerCaps |= SVC_SOFTCORE;
@@ -3693,9 +3749,13 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                             Config::ServerCaps &= ~SVC_SOFTCORE;
                         }
                     } else {
-                        CString reply;
-                        reply.Format("mode is set to %08X", Config::ServerFlags);
-                        g_NetStru1_main.AnnouncePlayerName(reply, player);
+                        if (player == nullptr) {
+                            Printf("Mode is set to %08X.", Config::ServerFlags);
+                        } else {
+                            CString reply;
+                            reply.Format("mode is set to %08X", Config::ServerFlags);
+                            g_NetStru1_main.AnnouncePlayerName(reply, player);
+                        }
                     }
                 }
                 return;

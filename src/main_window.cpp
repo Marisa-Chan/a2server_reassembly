@@ -36,6 +36,7 @@
 #endif
 #if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
 #include "patch/map_rotation.h"
+#include "patch/tangar_log.h"
 #endif
 #include "gameplay.h"
 #include "vis_playing_area.h"
@@ -133,9 +134,20 @@ void CEdit2::OnKeyDown(UINT nChar, UINT nRepcnt, UINT nFlags) {
 		char buf[1024];
 		CharToOemA(txt, buf);
 
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+		Printf("<server>: %s", buf);
+		if (buf[0] != '#') {
+			CString msg;
+			msg.Format("<server>: %s", buf);
+			g_NetStru1_main.AnnouncePlayerName(msg, nullptr);
+		} else if (g_Server != nullptr) {
+			g_Server->CheatCommand(nullptr, CString(buf));
+		}
+#else
 		g_NetStru1_main.AnnouncePlayerName(buf, nullptr);
 
 		LogMessage(buf);
+#endif
 
 		SetSel(0xffff0000);
 	}
