@@ -1564,21 +1564,19 @@ void HatSettings::Load(HKEY& rkey) { //43d249
     char buf[256];
 
     DWORD sz = 255;
-#ifdef A2CLIENT_PATCH
-    // Tangar HATENT_url_text (43F738): the hat address comes from the -hat
-    // command line (default "hat.rom2.ru"); the registry value is ignored.
-    this->hatip = tangar_cfg::HatAddress();
-#else
     buf[0] = '\0';
-    sz = 255;
     RegQueryValueExA(rkey, "hatip", nullptr, nullptr, (LPBYTE)buf, &sz);
 
     this->hatip = buf;
     if (this->hatip.IsEmpty()) {
         this->hatip = txt_patch.GetLine(118);
     }
-#endif
 
+#ifdef A2CLIENT_PATCH
+    // Tangar HATENT_url_text (43F738): the hat address comes from the -hat
+    // command line (default "hat.rom2.ru"); the registry value is ignored.
+    this->hatprogip = tangar_cfg::HatAddress();
+#else
     buf[0] = '\0';
     sz = 255;
     RegQueryValueExA(rkey, "hatprogip", nullptr, nullptr, (LPBYTE)buf, &sz);
@@ -1587,6 +1585,7 @@ void HatSettings::Load(HKEY& rkey) { //43d249
     if (this->hatprogip.IsEmpty()) {
         this->hatprogip = txt_patch.GetLine(119);
     }
+#endif
 
     buf[0] = '\0';
     sz = 255;
@@ -1601,8 +1600,13 @@ void HatSettings::Load(HKEY& rkey) { //43d249
     this->password = XorRegString(buf);
 
     sz = 4;
+#ifdef A2CLIENT_PATCH
+    // p10lck.xck (43f895, 43f8b6): lock client to HAT mode (ishat = 1, ignore registry)
+    this->ishat = 1;
+#else
     this->ishat = 0;
     RegQueryValueExA(rkey, "ishat", nullptr, nullptr, (LPBYTE)&this->ishat, &sz);
+#endif
 
     this->deathmatch = 0;
     RegQueryValueExA(rkey, "deathmatch", nullptr, nullptr, (LPBYTE)&this->deathmatch, &sz);

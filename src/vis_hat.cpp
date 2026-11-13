@@ -878,6 +878,10 @@ CVisualObject* VisHatServerListDlg::VMethod30(const void* data, const RECT& r) {
 #endif
 
     VisTextBox* ip_box = new VisTextBox(2, r.left, r.top, r.right, r.top + 0x18, g_font1, clrsh_TechBlack, txt_patch.GetLine(0x70));
+#ifdef A2CLIENT_PATCH
+    // p10lck.xck (44caad -> 6e215b): disable/unfocus the HAT IP text box (flags = 2)
+    ip_box->flags = CVisualObject::FLAG_NOTFOCUS;
+#endif
     this->AddChild(ip_box);
     if (hat->ishat == 0) {
         ip_box->ReadData(hat->hatip);
