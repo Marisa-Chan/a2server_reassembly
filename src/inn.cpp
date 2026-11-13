@@ -1453,7 +1453,12 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                     // ---- Experience reward ----
                     uint32_t base_exp = ((uint32_t)item->count) * 250;
                     int32_t carry = 0;
+#ifdef A2SERVER_TANGAR_HAT
+                    // imp_Experience7 hook (5610DC): raise skill XP cap to MAX_SKILL.
+                    int32_t max_skill_exp = ExperienceTable::GetExp(MAX_SKILL);
+#else
                     int32_t max_skill_exp = ExperienceTable::GetExp(100);
+#endif
 
                     for (int32_t sphere = 1; sphere <= 5; sphere++) {
                         if (sphere == 5 || sphere == humanoid->main_sphere) {

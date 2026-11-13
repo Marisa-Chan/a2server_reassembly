@@ -445,6 +445,17 @@ int32_t __cdecl ParsePlayerFile(CFile* file, FileSectionBasicInfo** basic_info, 
                 if (!ReadStatsSection(*file, header)) {
                     return 0;
                 }
+#ifdef A2SERVER_TANGAR_HAT
+                // imp_FixExperience hook (4F6888): clamp loaded sphere XP and money.
+                for (int i = 0; i < 5; i++) {
+                    if (s_stats_buf.experience[i] > MAX_EXP_ON_SKILL) {
+                        s_stats_buf.experience[i] = MAX_EXP_ON_SKILL;
+                    }
+                }
+                if (s_stats_buf.money > 0x7FFFFFFFu) {
+                    s_stats_buf.money = 0x7FFFFFFFu;
+                }
+#endif
                 *stats = &s_stats_buf;
                 break;
             }

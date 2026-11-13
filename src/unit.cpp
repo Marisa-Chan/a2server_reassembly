@@ -1386,8 +1386,14 @@ void Unit::PickUpSack(Sack* sack) {
 
                     Humanoid* human = static_cast<Humanoid*>(this);
                     human->experience = 0;
+#ifdef A2SERVER_TANGAR_HAT
+                    // imp_Experience4 hook (52CD2D): raise skill cap to MAX_SKILL.
+                    const int max_skill = static_cast<int>(MAX_SKILL);
+#else
+                    const int max_skill = 100;
+#endif
                     for (int sphere = 1; sphere < 6; ++sphere) {
-                        int16_t new_lvl = (std::min)(human->hit_values.skill_levels[sphere] + boost, 100);
+                        int16_t new_lvl = static_cast<int16_t>((std::min)(static_cast<int>(human->hit_values.skill_levels[sphere]) + boost, max_skill));
                         human->hit_values.skill_levels[sphere] = new_lvl;
                         human->hit_values2.skill_levels[sphere] = new_lvl;
                         int32_t exp_val = ExperienceTable::GetExp(new_lvl);
@@ -2587,10 +2593,26 @@ void Humanoid::RecalcStats() {
         this->hit_values.skill_levels[i] = this->hit_values2.skill_levels[i];
     }
 
+#ifdef A2SERVER_TANGAR_HAT
+    // imp_Experience5 (531C52) & imp_Experience6 (531D03): raise skill cap to MAX_SKILL.
+    const int16_t max_skill = static_cast<int16_t>(MAX_SKILL);
+#else
+    const int16_t max_skill = 100;
+#endif
     for (int i = 1; i < static_cast<int>(this->hit_values.skill_levels.size()); i++) {
-        if (this->hit_values.skill_levels[i] > 100) {
-            this->hit_values.skill_levels[i] = 100;
+        if (this->hit_values.skill_levels[i] > max_skill) {
+            this->hit_values.skill_levels[i] = max_skill;
         }
+        if (this->hit_values.skill_levels[i] < 0) {
+            this->hit_values.skill_levels[i] = 0;
+        }
+    }
+
+    for (int i = 1; i < static_cast<int>(this->hit_values.skill_levels.size()); i++) {
+        const int16_t base = (this->hit_values.skill_levels[i] > max_skill)
+            ? max_skill
+            : this->hit_values.skill_levels[i];
+        this->hit_values.skill_levels[i] = base + this->equipment_extra.hit_values.skill_levels[i];
     }
 
     if (this->hit_values.physical_damage_type != 0 && this->hit_values.physical_damage_type < this->hit_values.skill_levels.size()) {
@@ -2739,11 +2761,18 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
 
     bool leveled_up = false;
     uint32_t update_mask = 0;
+#ifdef A2SERVER_TANGAR_HAT
+    // imp_Experience1 (530D47), imp_Experience2 (530AEA), imp_Experience3 (530918):
+    // raise skill cap from 100 to MAX_SKILL.
+    const int16_t max_skill = static_cast<int16_t>(MAX_SKILL);
+#else
+    const int16_t max_skill = 100;
+#endif
 
     if ((this->unit_attrs & 4) == 0) {
         // Fighter: physical attack XP goes to the weapon combat sphere.
         int phys_sphere = this->hit_values.physical_damage_type;
-        if (sphere == 0 && phys_sphere != 0 && this->hit_values.skill_levels[phys_sphere] < 100) {
+        if (sphere == 0 && phys_sphere != 0 && this->hit_values.skill_levels[phys_sphere] < max_skill) {
             // Secondary spheres gain XP at 1/8 the normal rate.
             if (phys_sphere != this->main_sphere && phys_sphere != 5) {
                 new_exp = (new_exp + 7) / 8;
@@ -2771,7 +2800,7 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
         }
     } else {
         // Mage: XP goes to the specified sphere.
-        if (sphere > 0 && this->hit_values.skill_levels[sphere] < 100) {
+        if (sphere > 0 && this->hit_values.skill_levels[sphere] < max_skill) {
             // Secondary spheres gain XP at 1/8 the normal rate.
             if (sphere != this->main_sphere && sphere != 5) {
                 new_exp = (new_exp + 7) / 8;
@@ -2810,7 +2839,7 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
         }
         // Apply equipment bonuses on top of base skill levels.
         for (int i = 1; i <= 5; i++) {
-            int16_t base = (this->hit_values.skill_levels[i] < 100) ? this->hit_values.skill_levels[i] : 100;
+            int16_t base = (this->hit_values.skill_levels[i] < max_skill) ? this->hit_values.skill_levels[i] : max_skill;
             this->hit_values.skill_levels[i] = base + this->equipment_extra.hit_values.skill_levels[i];
         }
     }
