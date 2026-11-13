@@ -5653,6 +5653,12 @@ void Server::SaveCharacter(Humanoid* humanoid) {
     }
 #endif
 
+#ifdef A2SERVER_TANGAR_HAT
+    // part_of_save_char hook (4EE563): log character save start under SVL_SAVES.
+    if (Config::LogMode & SVL_SAVES) {
+        Printf("Saving character to file \"%s\"...", (const char*)filename);
+    }
+#endif
     WritePlayerFile((const char*)filename, &basic_info, &stats, player->kill_stats, &equip_pkt, &inv_pkt, nullptr, 0);
 }
 

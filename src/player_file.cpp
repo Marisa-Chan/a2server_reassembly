@@ -2,6 +2,11 @@
 #ifdef A2CLIENT_PATCH
 #include "patch/stats_level.h"
 #endif
+#ifdef A2SERVER_TANGAR_HAT
+#include "patch/config_new.h"
+#include "patch/flags.h"
+#include "patch/tangar_log.h"
+#endif
 
 #include <cstring>
 
@@ -393,6 +398,12 @@ int32_t __cdecl WritePlayerFile(const char* filename, FileSectionBasicInfo* basi
 		WriteEncryptedSection(file, 0x3A5A3A5A, GetPacketPayload(merged_inventory), GetPacketPayloadSize(merged_inventory));
 	}
 
+#ifdef A2SERVER_TANGAR_HAT
+	// part_of_save hook (4F62B1): log character save completion under SVL_SAVES.
+	if (Config::LogMode & SVL_SAVES) {
+		Printf("Saved successfully!");
+	}
+#endif
 	file.Close();
 	return 1;
 }
