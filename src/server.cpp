@@ -3844,7 +3844,67 @@ void CheckPacketType(Packet* pkt, const char* want_type) {
     }
 }
 
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+// Ported from my-srvmgr/srvmgr.cpp:1192 (check_sig_c_s).
+static bool IsAllowedClientPacketId(uint8_t c) {
+    static const uint8_t kAllowedClientPackets[] = {
+        0x02, 0x04, 0x05, 0x07, 0x08, 0x09, 0x12, 0x13, 0x14, 0x16,
+        0x17, 0x18, 0x19, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F, 0x21,
+        0x22, 0x23, 0x24, 0x25, 0x26, 0x32, 0x33, 0x34, 0x35, 0x36,
+        0x38, 0x39, 0x3A, 0x3B, 0x3E, 0x3F, 0x45, 0x46, 0x48, 0x49,
+        0x4A, 0x4B, 0x4C, 0x4D, 0x91, 0xAE, 0xBE, 0xC1, 0xD0, 0x64,
+    };
+    for (size_t i = 0; i < sizeof(kAllowedClientPackets); ++i) {
+        if (c == kAllowedClientPackets[i]) {
+            return true;
+        }
+    }
+    return false;
+}
+#endif
+
 void Server::ProcessClientPacket(Packet* pkt) {
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+    // packet_recvd hook (504ABC): validate client->server opcode and ENTER_GAME color slot.
+    if (pkt == nullptr) {
+        return;
+    }
+    if (!IsAllowedClientPacketId(pkt->id)) {
+        Player* bad_player = g_PlayersList ? g_PlayersList->FindById(pkt->from_player_id) : nullptr;
+        if (bad_player != nullptr) {
+#ifdef A2SERVER_TANGAR_HAT
+            Printf("Invalid packet '%.2X' from '%s'", static_cast<unsigned int>(pkt->id), (const char*)bad_player->login);
+#else
+            CString inv_msg;
+            inv_msg.Format("Invalid packet '%.2X' from '%s'", static_cast<unsigned int>(pkt->id), (const char*)bad_player->login);
+            LogMessage(inv_msg);
+#endif
+            NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(bad_player->player_id);
+            if (ns2 != nullptr && ns2->is_local_player == 0) {
+                g_NetStru1_main.AnnouncePlayer(bad_player);
+            }
+        }
+        return;
+    }
+    if (pkt->id == ENTER_GAME) {
+        PacketEnterGame* enter_pkt = reinterpret_cast<PacketEnterGame*>(pkt);
+        uint8_t color_slot = static_cast<uint8_t>((enter_pkt->value3 >> 8) & 0xFF);
+        if (color_slot >= 0x11 && color_slot != 0xE1) {
+            enter_pkt->value3 &= ~0xFF00u;
+            Player* crasher = g_PlayersList ? g_PlayersList->FindById(pkt->from_player_id) : nullptr;
+            if (crasher != nullptr) {
+#ifdef A2SERVER_TANGAR_HAT
+                Printf("Player %s tried to use color crash bug", (const char*)crasher->name);
+#else
+                CString crash_msg;
+                crash_msg.Format("Player %s tried to use color crash bug", (const char*)crasher->name);
+                LogMessage(crash_msg);
+#endif
+            }
+        }
+    }
+#endif
+
     PacketGroupOrder* packet_order = reinterpret_cast<PacketGroupOrder*>(pkt);
     CString message;
     void* vtable = *reinterpret_cast<void**>(pkt);
@@ -3858,9 +3918,15 @@ void Server::ProcessClientPacket(Packet* pkt) {
         if (!g_World) {
             return;
         }
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+        if (packet_order->count == 0 || packet_order->count > 0xFD) {
+            return;
+        }
+#else
         if (packet_order->count == 0) {
             return;
         }
+#endif
 
         Unit* unit = this->FindPlayerUnit(packet_order->from_player_id, packet_order->entries[0]);
         if (!unit) {
@@ -3897,6 +3963,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
 
         Spell* cast_spell = nullptr;
         if (pkt->id == GROUP_CAST_UNIT || pkt->id == GROUP_CAST_POS) {
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+            if (packet_order->slot >= BOOK_POS_TO_SPELL_ID.size()) {
+                return;
+            }
+#endif
             uint8_t spell_id = BOOK_POS_TO_SPELL_ID[packet_order->slot];
             packet_order->slot = spell_id;
             // Find hero unit in group that matches the spell type
@@ -4583,9 +4654,15 @@ void Server::ProcessClientPacket(Packet* pkt) {
             CFile f;
             if (f.Open(this->current_map_name, CFile::modeRead | CFile::shareDenyNone, nullptr)) {
                 int32_t file_length = f.GetLength();
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+                if (file_start < 0 || file_start > file_length) {
+                    f.Close();
+                    break;
+                }
+#endif
 
                 int32_t chunk_size = 0x1000;
-                if (file_length < file_start + 0x1000) {
+                if (file_length - file_start < 0x1000) {
                     chunk_size = file_length - file_start;
                 }
 
@@ -4594,7 +4671,9 @@ void Server::ProcessClientPacket(Packet* pkt) {
 
                 resp.count = chunk_size;
                 f.Seek(static_cast<LONG>(file_start), CFile::begin);
-                f.Read(resp.var_data, static_cast<UINT>(chunk_size));
+                if (chunk_size > 0) {
+                    f.Read(resp.var_data, static_cast<UINT>(chunk_size));
+                }
                 f.Close();
             }
             g_NetStru1_main.QueuePacketSend(&resp);
@@ -4636,6 +4715,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
 
             int count = packet_data->count;
             const int16_t* modification = reinterpret_cast<const int16_t*>(packet_data->data);
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+            if (count < 0 || count > 0x10000 || player->player_id >= 70) {
+                break;
+            }
+#endif
 
             for (POSITION node = g_PlayersList->list.GetHeadPosition(); node;) {
                 Player* other = g_PlayersList->list.GetNext(node);
@@ -4644,6 +4728,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 }
 
                 int other_id = other->player_id;
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+                if (other_id < 0 || other_id >= count || other_id >= 70) {
+                    continue;
+                }
+#endif
 
                 uint8_t* diplo_slot = &g_World->diplomacy.diplomacy[player->player_id][other_id];
                 uint8_t old_val = *diplo_slot;
@@ -4762,9 +4851,15 @@ void Server::ProcessClientPacket(Packet* pkt) {
 #else
             CheckPacketType(pkt, "Packet2Dwords");
             player = this->FindPlayerById(packet_2dwords->from_player_id);
+#ifdef A2SERVER_PATCH
+            if (!player || !player->main_unit) {
+                break;
+            }
+#else
             if (!player) {
                 break;
             }
+#endif
 
             if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE && (player->main_unit->unit_attrs & 8) != 0) {
                 {
@@ -5047,6 +5142,9 @@ void Server::ProcessClientPacket(Packet* pkt) {
             // WAT: Vanilla builds a local announcement packet but then sends the ORIGINAL packet. We send the constructed announcement instead.
             PacketJoin announcement;
             std::strncpy(announcement.name, packet_join->name, 1023);
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+            announcement.name[1023] = '\0';
+#endif
             g_NetStru1_main.QueuePacketSend(&announcement);
             break;
         }
@@ -5054,7 +5152,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
     case REQUEST_UNIT_UPDATE:
         CheckPacketType(pkt, "Packet");
         player = this->FindPlayerById(pkt->from_player_id);
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+        if (player != nullptr && player->main_unit != nullptr) {
+#else
         if (player->main_unit != nullptr) {
+#endif
             g_NetStru1_main.SendUnitUpdate(player->main_unit, player, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
         }
         break;

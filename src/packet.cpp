@@ -142,6 +142,11 @@ void PacketJoin::ReadFrom(NetStru2* net) {
     }
 #endif
     net->ReadData(&this->player_id, 6);
+#ifdef A2SERVER_PATCH
+    if (this->name_len >= sizeof(this->name)) {
+        this->name_len = static_cast<uint16_t>(sizeof(this->name) - 1);
+    }
+#endif
     net->ReadData(this->name, this->name_len + 1);
     this->name[this->name_len] = 0;
 }
@@ -217,6 +222,11 @@ void PacketTerrain::WriteTo(NetStru2* net) {
 void PacketTerrain::ReadFrom(NetStru2* net) {
     //5273ce
     net->ReadData(&this->count, 4);
+#ifdef A2SERVER_PATCH
+    if (this->count > (sizeof(this->buf) / sizeof(this->buf[0]))) {
+        this->count = static_cast<uint32_t>(sizeof(this->buf) / sizeof(this->buf[0]));
+    }
+#endif
     if (this->count) {
         net->ReadData(this->buf, this->count * 2);
     }
@@ -419,6 +429,11 @@ void PacketGroupOrder::WriteTo(NetStru2* net) {
 void PacketGroupOrder::ReadFrom(NetStru2* net) {
     // 5C3
     net->ReadData(&this->x, 9);
+#ifdef A2SERVER_PATCH
+    if (this->count > 0xFD) {
+        this->count = 0xFD;
+    }
+#endif
     if (this->count) {
         net->ReadData(this->entries, this->count * 2);
     }
@@ -761,6 +776,11 @@ void PacketData::WriteTo(NetStru2* net) {
 void PacketData::ReadFrom(NetStru2* net) {
     // 527309
     net->ReadData(&this->count, 4);
+#ifdef A2SERVER_PATCH
+    if (this->count > sizeof(this->data)) {
+        this->count = static_cast<uint32_t>(sizeof(this->data));
+    }
+#endif
     if (this->count > 0) {
         net->ReadData(this->data, this->count);
     }
