@@ -2404,20 +2404,23 @@ Human* Server::CreatePlayerCharacter(Player* player, uint8_t body, uint8_t react
 
     Human* unit = new Human(CString(prefix) + filename, 1, nullptr);
 
-    #ifdef A2SERVER_PATCH
-    if (body < 15 || body > 43 || reaction < 15 || reaction > 43 || mind < 15 || mind > 43 || spirit < 15 || spirit > 43) {
-        unit->body = unit->reaction = unit->mind = unit->spirit = 25;
-    }
-    #endif
-
     // Validate stat budget: sum of point costs must not exceed 140
     int32_t budget = 140 - StatLevelPoints(body) - StatLevelPoints(reaction) - StatLevelPoints(mind) - StatLevelPoints(spirit);
-    if (budget >= 0
 #ifdef A2SERVER_TANGAR_HAT
-        || true // skip_new_character_stats hook (501049): keep the
-                 // entered stats even when not all points were spent
+    // skip_new_character_stats hook (501049 -> 50100B): keep the entered stats unconditionally
+    (void)budget;
+    unit->body     = body;
+    unit->reaction = reaction;
+    unit->mind     = mind;
+    unit->spirit   = spirit;
+#else
+    bool stats_valid = (budget >= 0);
+#ifdef A2SERVER_PATCH
+    if (body < 15 || body > 43 || reaction < 15 || reaction > 43 || mind < 15 || mind > 43 || spirit < 15 || spirit > 43) {
+        stats_valid = false;
+    }
 #endif
-    ) {
+    if (stats_valid) {
         unit->body     = body;
         unit->reaction = reaction;
         unit->mind     = mind;
@@ -2425,6 +2428,7 @@ Human* Server::CreatePlayerCharacter(Player* player, uint8_t body, uint8_t react
     } else {
         unit->body = unit->reaction = unit->mind = unit->spirit = 25;
     }
+#endif
 
     // Configure skills, then trigger stat-recalc `VMethod18()`.
     #ifdef A2SERVER_PATCH
