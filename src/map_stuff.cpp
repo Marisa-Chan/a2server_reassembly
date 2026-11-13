@@ -503,7 +503,13 @@ void MapStuff::MoveStepTowardUnit(Unit* unit, Unit* target, uint8_t max_range) {
 int16_t MapStuff::GetTileMoveTime(Unit* unit, uint8_t x, uint8_t y) {
     uint8_t type = (uint8_t)unit->GetMovementType();
     if (type == 1) {
-        return unit->speed * 8 / this->walk_cost_map[y * 256 + x];
+        uint8_t walk_cost = this->walk_cost_map[y * 256 + x];
+#ifdef A2SERVER_PATCH
+        if (walk_cost == 0) {
+            return 0;
+        }
+#endif
+        return unit->speed * 8 / walk_cost;
     }
     if (type == 2 || type == 3) {
         return unit->speed;
