@@ -2133,6 +2133,41 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
         return 5;
     }
 
+#ifdef A2SERVER_TANGAR_HAT
+    // imp_MapClosed (4FE2D0): full GMs bypass SVF_CLOSED and map-level range checks;
+    // non-GMs are rejected when SVF_CLOSED is set.
+    if ((player->flags & GMF_ANY) != GMF_ANY) {
+        if ((Config::ServerFlags & SVF_CLOSED) != 0) {
+            Printf("Player %s login %s has been rejected (Map closed)", (const char*)name, (const char*)login);
+            if (player != nullptr) {
+                delete player;
+                player = nullptr;
+            }
+            if (Block != nullptr) {
+                delete[] Block;
+            }
+            return 1;
+        }
+
+        // Map level range checks:
+        // - test_if_valid_injection (4FE2ED): only enforces "Too strong for this map"
+        //   when SVF_SOFTCORE is set (normal/hardcore allows entering lower-tier maps).
+        // - allow_low_skill_enter_high_tier_maps (4FE632): skips "Too weak for this map".
+        if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE && g_ServerConfig.map_range_check != 0) {
+            if ((Config::ServerFlags & SVF_SOFTCORE) != 0 && this->MapLevel < player->min_server_level) {
+                LogMessage("Player " + name + " login " + login + " has been rejected (Too strong for this map)");
+                if (player != nullptr) {
+                    delete player;
+                    player = nullptr;
+                }
+                if (Block != nullptr) {
+                    delete[] Block;
+                }
+                return 6;
+            }
+        }
+    }
+#else
     // Map level range checks.
     if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE && g_ServerConfig.map_range_check != 0) {
         if (this->MapLevel < player->min_server_level) {
@@ -2159,6 +2194,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
             return 7;
         }
     }
+#endif
 
     // Normalize the player's stored name (var_34 / var_14 split).
     // Re-read name from the character data (player->name at +0x18, which was set by packet processing)
@@ -2328,6 +2364,12 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
 
     // Server state update.
     this->UpdateHatAnnounce();
+
+#ifdef A2SERVER_TANGAR_HAT
+    // imp_PIadd hook (4FF418): track the joined player in the Tangar
+    // per-player info (mute state etc.)
+    PI_Create(player);
+#endif
 
     return 0;
 }
@@ -5041,21 +5083,6 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
     if (player) {
         player_not_exist = false;
 
-#ifdef A2SERVER_TANGAR_HAT
-        // imp_MapClosed hook (4FE2D0): a closed map (SVF_CLOSED, settable
-        // via #set mode) rejects joins with a log line; full GMs bypass
-        if ((player->flags & GMF_ANY) != GMF_ANY && (Config::ServerFlags & SVF_CLOSED) != 0) {
-            Printf("Player %s login %s has been rejected (Map closed)", (const char*)name, (const char*)name);
-            this->JoinErrorSend(client, 2, "Map closed.");
-            return;
-        }
-#endif
-
-#ifdef A2SERVER_TANGAR_HAT
-        // allow_low_skill_enter_high_tier_maps hook (4FE632): the patched
-        // server skips the map-tier check entirely
-        if (false)
-#endif
         if (this->MapLevel != -1 && g_CLlDriver.provider != PROVIDER_HAT_TCP) {
             if (strong > this->MapLevel) {
                 this->JoinErrorSend(client, 14, "Character is too strong for this map.");
@@ -5190,12 +5217,6 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
     if (this->send_full_state != 0) {
         g_NetStru1_main.SendAllData();
     }
-
-#ifdef A2SERVER_TANGAR_HAT
-    // imp_PIadd hook (4FF418): track the joined player in the Tangar
-    // per-player info (mute state etc.)
-    PI_Create(player);
-#endif
 }
 
 void Server::JoinErrorSend(NetStru2* client, int32_t error_code, const CString& str) {

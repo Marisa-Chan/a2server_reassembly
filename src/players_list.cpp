@@ -338,6 +338,10 @@ void PlayersList::ProcessPlayerTimeouts() {
 
 			g_Server->HatKeepaliveTick();
 			g_NetStru1_main.SendInfoPacket(PLAYER_LEFT, player->player_id, 0, nullptr);
+#ifdef A2SERVER_TANGAR_HAT
+			// imp_PIdel hook (535439): drop the Tangar per-player info
+			PI_Delete(player);
+#endif
 			LogMessage("Player " + player->name + " has left the game");
 
 			// Decrement next_player_id if this was the last assigned.
@@ -440,10 +444,6 @@ void PlayersList::ProcessPlayerTimeouts() {
 			if (found != nullptr) {
 				this->list.RemoveAt(found);
 			}
-#ifdef A2SERVER_TANGAR_HAT
-			// imp_PIdel hook (535439): drop the Tangar per-player info
-			PI_Delete(player);
-#endif
 			delete player;
 
 			g_Server->UpdateHatAnnounce();
