@@ -243,11 +243,23 @@ void Spell::SetPower(uint32_t power) {
             // comes from the data.bin duration parameter (SpellInfoData[0].duration)
             // instead of the hardcoded 15: power * duration * 32 / 100.
             this->spell_power = power_byte * info.duration * 32 / 100;
+#elif defined(A2SERVER_PATCH)
+            // fix_StoneCurseDurationCalculation (5396D9): 6-byte CALL replaces
+            // `imul eax, 0x0F; shl eax, 4` with `imul info.duration`, followed by
+            // `shl eax, 1; idiv 100`.
+            this->spell_power = static_cast<uint16_t>(power_byte * info.duration * 2 / 100);
 #else
             this->spell_power = power_byte * 480 / 100;
 #endif
         } else {
-            this->spell_power = std::pow(1.025, power_byte) * info.duration * 16.0;
+            int32_t dur = static_cast<int32_t>(std::pow(1.025, power_byte) * info.duration * 16.0);
+#ifdef A2SERVER_PATCH
+            // fix_spell_duration_overflow_0053973E (53973E)
+            if (dur > 0xFFFF) {
+                dur = 0xFFFF;
+            }
+#endif
+            this->spell_power = static_cast<uint16_t>(dur);
         }
     } else if (info.area_duration > 0) {
         this->spell_power = info.area_duration * 16 + power_byte * 16 / 10;
@@ -511,7 +523,14 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
             if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
                 effect->spell_value = power * 16;
             } else {
-                effect->spell_value = std::pow(1.025, power) * info.duration * 16.0;
+                int32_t dur = static_cast<int32_t>(std::pow(1.025, power) * info.duration * 16.0);
+#ifdef A2SERVER_PATCH
+                // fix_spell_duration_overflow (53BFA1)
+                if (dur > 0xFFFF) {
+                    dur = 0xFFFF;
+                }
+#endif
+                effect->spell_value = static_cast<uint16_t>(dur);
             }
             effect->itemDataID = this->spell_id;
             effect->typeId = this->spell_id * 2 + 8;
@@ -566,7 +585,13 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
             effect->usage_type |= 1;
             {
                 int32_t factor = (caster->some_item == nullptr) ? 2 : 1;
+#ifdef A2SERVER_PATCH
+                // fix_StoneCurseDurationCalculation (53C32E): 6-byte CALL replaces
+                // `imul eax, 0x0F; shl eax, 4` with `imul info.duration`.
+                effect->spell_value = static_cast<uint16_t>(power * info.duration * factor / 100);
+#else
                 effect->spell_value = power * 240 * factor / 100;
+#endif
             }
             if (target->IsUnit() != 0) {
                 int32_t earth_protection = target->protections.magic_protections[4];
@@ -595,7 +620,14 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 effect->spell_value = power * 16;
             } else {
                 effect->spell_or_damage = power * 4 / 5 + 20;
-                effect->spell_value = std::pow(1.025, power) * info.duration * 16.0;
+                int32_t dur = static_cast<int32_t>(std::pow(1.025, power) * info.duration * 16.0);
+#ifdef A2SERVER_PATCH
+                // fix_spell_duration_overflow (53C0E1)
+                if (dur > 0xFFFF) {
+                    dur = 0xFFFF;
+                }
+#endif
+                effect->spell_value = static_cast<uint16_t>(dur);
             }
             effect->itemDataID = this->spell_id;
             effect->typeId = this->spell_id * 2 + 8;
@@ -610,7 +642,14 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 effect->spell_value = power * 16;
             } else {
                 effect->spell_or_damage = power / 15 + 1;
-                effect->spell_value = std::pow(1.025, power) * info.duration * 16.0;
+                int32_t dur = static_cast<int32_t>(std::pow(1.025, power) * info.duration * 16.0);
+#ifdef A2SERVER_PATCH
+                // fix_spell_duration_overflow (53C21E)
+                if (dur > 0xFFFF) {
+                    dur = 0xFFFF;
+                }
+#endif
+                effect->spell_value = static_cast<uint16_t>(dur);
             }
             if (this->spell_id == spell::slow) {
                 effect->spell_or_damage = -effect->spell_or_damage;
@@ -870,7 +909,14 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 effect->spell_value = power * 16;
             } else {
                 effect->spell_or_damage = power / 10 + 3;
-                effect->spell_value = std::pow(1.025, power) * info.duration * 16.0;
+                int32_t dur = static_cast<int32_t>(std::pow(1.025, power) * info.duration * 16.0);
+#ifdef A2SERVER_PATCH
+                // fix_spell_duration_overflow (53C52A)
+                if (dur > 0xFFFF) {
+                    dur = 0xFFFF;
+                }
+#endif
+                effect->spell_value = static_cast<uint16_t>(dur);
             }
             effect->itemDataID = this->spell_id;
             effect->typeId = this->spell_id * 2 + 8;
