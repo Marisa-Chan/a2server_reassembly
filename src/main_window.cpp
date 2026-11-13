@@ -1788,7 +1788,9 @@ void MainWindow::SetControlPositions() { //484127
 // Game loop tick processing function
 // Called from GameApp::OnIdle when server is active
 void MainWindow::IdleLoop() {
+#ifndef A2SERVER_PATCH
     try {
+#endif
         g_mousept.Update();
 
         // Calculate next tick time
@@ -1947,11 +1949,11 @@ void MainWindow::IdleLoop() {
         }
         
         g_mousept.Update();
+#ifndef A2SERVER_PATCH
     } catch (...) {
-        #ifdef A2SERVER_PATCH
         _exit(-1);
-        #endif
     }
+#endif
 }
 #else
 // client 48e9d4
