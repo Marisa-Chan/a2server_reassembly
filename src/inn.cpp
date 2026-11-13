@@ -660,7 +660,11 @@ void Inn::InnCreateQuests(Player* player) {
     //  DeliverMail (vtable: 60F8E0)
     // =====================================================================
     {
+#ifdef A2SERVER_TANGAR_HAT
+        int32_t dest_id = 0;
+#else
         int32_t dest_id = g_QuestMap.PickRandomOtherInn(this->building_id);
+#endif
         if (dest_id != 0) {
             Building* target_building = building_list->FindById(dest_id);
             if (target_building) {
