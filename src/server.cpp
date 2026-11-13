@@ -3471,6 +3471,12 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 return;
             }
         }
+        if (has_gm(GMF_CMD_MODIFY)) {
+            if (cmd_token == "#modify") {
+                tangar_gm::ExecuteModifyCommand(player, (const char*)cmd_rest);
+                return;
+            }
+        }
         if (has_gm(GMF_CMD_KICK)) {
             if (lowered == "#kickme") {
                 if (player != nullptr) {
@@ -6142,6 +6148,13 @@ void Server::SaveCharacter(Humanoid* humanoid) {
     stats.mind = humanoid->mind - humanoid->equipment_extra.mind;
     stats.spirit = humanoid->spirit - humanoid->equipment_extra.spirit;
 
+#ifdef A2SERVER_TANGAR_HAT
+    // Never persist temporary #modify +/-spells changes into the character file.
+    PlayerInfo* save_pi = PI_Get(player);
+    if (save_pi != nullptr && save_pi->SetSpells != 0) {
+        stats.spells = save_pi->LastSpells;
+    } else
+#endif
     if (humanoid->spell_book) {
         stats.spells = humanoid->spell_book->CalcSpellMask();
     } else {

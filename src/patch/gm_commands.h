@@ -23,6 +23,9 @@ void GiveItemTo(Item* item, Player* player);
 // Execute #create <args> (gold or item definition with optional count and {effect=...}).
 void ExecuteCreateCommand(Player* player, const std::string& raw_args);
 
+// Execute #modify <nick|self> <+|++|-|--><god|spells|knowledge>.
+void ExecuteModifyCommand(Player* caster, const std::string& raw_args);
+
 // Read/replace the unit's learned spell bitmask (bits 1..29).
 uint32_t GetSpells(Unit* unit);
 void SetSpells(Unit* unit, uint32_t spells);

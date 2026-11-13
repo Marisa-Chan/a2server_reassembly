@@ -1,13 +1,15 @@
 // Ported from my-srvmgr/player_info.cpp. zxmgr::GetPlayers() iteration is
-// g_PlayersList here; the SetSpells restore (needs the #setspells spellbook
-// rebuild) and ClientScreenshot_DropPlayer return with those features.
+// g_PlayersList here.
 
 #include "player_info.h"
+#include "gm_commands.h"
 #include "screenshots.h"
 
 #include "../game_app.h"
+#include "../net.h"
 #include "../players_list.h"
 #include "../server.h"
+#include "../unit.h"
 
 PlayerInfo g_PlayerInfo[32];
 
@@ -67,6 +69,7 @@ void PI_Delete(Player* player) {
         return;
     }
 
+    uint16_t p_id = player->player_id;
     for (int i = 0; i < 32; i++) {
         if (!g_PlayerInfo[i].Exists || g_PlayerInfo[i].Class == nullptr) {
             continue;
@@ -76,13 +79,26 @@ void PI_Delete(Player* player) {
             g_PlayerInfo[i].GodSetter = nullptr;
         }
 
-        // The SetSpells restore for other players (zxmgr::SetSpells) returns
-        // with the #setspells feature.
+        Human* other_unit = g_PlayerInfo[i].Class->main_unit;
+        if (other_unit != nullptr && g_PlayerInfo[i].SetSpells != 0 &&
+            g_PlayerInfo[i].SpellSetter == player && i != static_cast<int>(p_id) - 1) {
+            tangar_gm::SetSpells(other_unit, g_PlayerInfo[i].LastSpells);
+            g_PlayerInfo[i].SetSpells = 0;
+            g_PlayerInfo[i].LastSpells = 0;
+            g_PlayerInfo[i].SpellSetter = nullptr;
+            g_NetStru1_main.SendUnitUpdate(other_unit, nullptr, 0xFFFFFFFFu, 0xFFB, 0, 0);
+        }
     }
 
-    // The own-unit SetSpells restore returns with the #setspells feature.
+    Human* unit = player->main_unit;
+    if (unit != nullptr && g_PlayerInfo[p_id - 1].SetSpells != 0) {
+        tangar_gm::SetSpells(unit, g_PlayerInfo[p_id - 1].LastSpells);
+        g_PlayerInfo[p_id - 1].SetSpells = 0;
+        g_PlayerInfo[p_id - 1].LastSpells = 0;
+        g_PlayerInfo[p_id - 1].SpellSetter = nullptr;
+    }
 
-    PI_Clear(g_PlayerInfo[player->player_id - 1]);
+    PI_Clear(g_PlayerInfo[p_id - 1]);
     ClientScreenshot_DropPlayer(player);
 }
 

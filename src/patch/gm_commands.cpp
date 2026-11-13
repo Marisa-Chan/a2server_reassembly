@@ -4,6 +4,8 @@
 
 #include "config_new.h"
 #include "flags.h"
+#include "kick_char.h"
+#include "player_info.h"
 #include "tangar_utils.h"
 
 #include "../game_app.h"
@@ -160,6 +162,139 @@ void ExecuteCreateCommand(Player* player, const std::string& raw_args) {
     }
 
     g_NetStru1_main.SendUnitUpdate(player->main_unit, player, 0xFFFFFFFFu, 0xFFB, 0, 0);
+}
+
+void ExecuteModifyCommand(Player* caster, const std::string& raw_args) {
+    std::string command = Trim(raw_args);
+    if (command.empty()) {
+        return;
+    }
+
+    Player* target = nullptr;
+    std::string targetname;
+    std::string accum;
+    for (size_t i = 0; i < command.length(); i++) {
+        accum += command[i];
+        if (accum == "self") {
+            continue;
+        }
+        if (i + 1 < command.length() && command[i + 1] != ' ') {
+            continue;
+        }
+        Player* candidate = FindPlayerByNickname(accum.c_str());
+        if (candidate != nullptr) {
+            target = candidate;
+            targetname = accum;
+            break;
+        }
+    }
+
+    if (target == nullptr) {
+        std::string lowercommand = ToLower(command);
+        if (lowercommand.find("self") == 0 && (command.length() == 4 || command[4] == ' ')) {
+            targetname = "self";
+            target = caster;
+        } else {
+            return;
+        }
+    }
+
+    if (target == nullptr) {
+        return;
+    }
+
+    PlayerInfo* pi = PI_Get(target);
+    if (pi == nullptr) {
+        return;
+    }
+
+    command.erase(0, targetname.length());
+    command = TrimLeft(command);
+    if (command.empty()) {
+        return;
+    }
+
+    int r_change = 0;
+    if (command[0] == '+') {
+        r_change = 1;
+    } else if (command[0] == '-') {
+        r_change = -1;
+    }
+    if (r_change == 0) {
+        return;
+    }
+
+    command.erase(0, 1);
+    if (command.empty()) {
+        return;
+    }
+    if (command[0] == '+') {
+        r_change = 2;
+    } else if (command[0] == '-') {
+        r_change = -2;
+    }
+    if (r_change == 2 || r_change == -2) {
+        command.erase(0, 1);
+    }
+
+    command = ToLower(TrimLeft(command));
+    Human* unit = target->main_unit;
+
+    if (command == "god") {
+        if (r_change > 0) {
+            pi->GodMode = true;
+            pi->GodSetter = (r_change == 1) ? caster : nullptr;
+        } else if (r_change < 0) {
+            pi->GodMode = false;
+            pi->GodSetter = nullptr;
+        }
+    } else if (command == "spells" && unit != nullptr) {
+        if (r_change > 0) {
+            if (pi->SetSpells == -1 && r_change != 2) {
+                pi->SetSpells = 0;
+                SetSpells(unit, pi->LastSpells);
+                pi->LastSpells = 0;
+                pi->SpellSetter = nullptr;
+            } else {
+                if (r_change == 1) {
+                    if (pi->SetSpells == 0) {
+                        pi->LastSpells = GetSpells(unit);
+                    }
+                    pi->SetSpells = 1;
+                    pi->SpellSetter = caster;
+                } else {
+                    pi->SetSpells = 0;
+                    pi->LastSpells = 0;
+                    pi->SpellSetter = nullptr;
+                }
+                SetSpells(unit, 0xFFFFFFFFu);
+            }
+        } else if (r_change < 0) {
+            if (pi->SetSpells == 1 && r_change != -2) {
+                pi->SetSpells = 0;
+                SetSpells(unit, pi->LastSpells);
+                pi->LastSpells = 0;
+                pi->SpellSetter = nullptr;
+            } else {
+                if (r_change == -1) {
+                    if (pi->SetSpells == 0) {
+                        pi->LastSpells = GetSpells(unit);
+                    }
+                    pi->SetSpells = -1;
+                    pi->SpellSetter = caster;
+                } else {
+                    pi->SetSpells = 0;
+                    pi->LastSpells = 0;
+                    pi->SpellSetter = nullptr;
+                }
+                SetSpells(unit, 0);
+            }
+        }
+
+        g_NetStru1_main.SendUnitUpdate(unit, nullptr, 0xFFFFFFFFu, 0xFFB, 0, 0);
+    } else if (command == "knowledge" && unit != nullptr) {
+        // Intentional no-op stub matching my-srvmgr/cheat_codes_new.cpp:1334-1344.
+    }
 }
 
 uint32_t GetSpells(Unit* unit) {
