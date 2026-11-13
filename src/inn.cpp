@@ -703,6 +703,11 @@ void Inn::RegenTick() {
     POSITION pos = this->unit_list.unit_list.GetHeadPosition();
     while (pos) {
         Unit* unit = this->unit_list.unit_list.GetNext(pos);
+#ifdef A2SERVER_PATCH
+        if (unit->pOwner == nullptr) {
+            break;
+        }
+#endif
         if (unit->pOwner->is_active == 0) {
             this->RemoveUnit(static_cast<Humanoid*>(unit), 0xFFFF);
         }
