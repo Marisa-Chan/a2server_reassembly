@@ -623,11 +623,25 @@ int32_t VisInvType1::OnMouseMove(uint32_t wparam, CPoint pos) {
             count = this->grid_source->GetAt(idx)->count;
         }
     } else {
+        int32_t stack_count = this->grid_source->GetAt(idx)->count;
+#ifdef A2CLIENT_PATCH
+        // p10itm.xck (4ab2a8 -> 6e21d0): Shift = all, Alt = min(count, 1000), Ctrl = min(count, 10), else 1
+        if (g_kbShiftState != 0) {
+            count = stack_count;
+        } else if (g_kbMenuState != 0) {
+            count = (stack_count > 1000) ? 1000 : stack_count;
+        } else if (g_kbControlState != 0) {
+            count = (stack_count > 10) ? 10 : stack_count;
+        } else {
+            count = 1;
+        }
+#else
         if (g_kbShiftState == 0) {
             count = 1;
         } else {
-            count = this->grid_source->GetAt(idx)->count;
+            count = stack_count;
         }
+#endif
     }
 
     if (this->grid_source->GetAt(idx)->IsQuestItem() != 0) {
@@ -1150,12 +1164,26 @@ int32_t VisInvExtBase::OnMouseMove(uint32_t wparam, CPoint pos) {
     if (wparam & 1) {
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
         if (main_wnd->drag_src_slot >= 0 && main_wnd->drag_src_slot < this->grid_source->GetSize() && main_wnd->drag_entry == nullptr) {
+            int32_t stack_count = this->grid_source->GetAt(main_wnd->drag_src_slot)->count;
             int32_t count;
+#ifdef A2CLIENT_PATCH
+            // p10itm.xck (4ba637 -> 6e21d0): Shift = all, Alt = min(count, 1000), Ctrl = min(count, 10), else 1
             if (g_kbShiftState != 0) {
-                count = this->grid_source->GetAt(main_wnd->drag_src_slot)->count;
+                count = stack_count;
+            } else if (g_kbMenuState != 0) {
+                count = (stack_count > 1000) ? 1000 : stack_count;
+            } else if (g_kbControlState != 0) {
+                count = (stack_count > 10) ? 10 : stack_count;
             } else {
                 count = 1;
             }
+#else
+            if (g_kbShiftState != 0) {
+                count = stack_count;
+            } else {
+                count = 1;
+            }
+#endif
             if (this->grid_source->GetAt(main_wnd->drag_src_slot)->IsQuestItem() == 0) {
                 if (this->VMethod36(main_wnd->drag_src_slot, count) != 0) {
                     this->StartItemDrag(main_wnd->drag_src_slot);
