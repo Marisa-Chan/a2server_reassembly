@@ -34,6 +34,9 @@
 #ifdef A2SERVER_PATCH
 #include "patch/kick_char.h"
 #endif
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+#include "patch/map_rotation.h"
+#endif
 #include "gameplay.h"
 #include "vis_playing_area.h"
 #include "vis_menu.h"
@@ -1878,6 +1881,10 @@ void MainWindow::IdleLoop() {
                     int32_t target_time = map_duration * 60000;
                     int32_t time_diff = target_time - g_Server->map_elapsed_time;
                     
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+                    // notify_about_map_rotation hook (48AA87): includes 1s notices for final 10s.
+                    NotifyAboutMapRotation(time_diff, this->game_tic_time);
+#else
                     if (time_diff < 660000 && time_diff > 1000) {
                         int32_t tick_interval = this->game_tic_time * 16;
                         
@@ -1895,6 +1902,7 @@ void MainWindow::IdleLoop() {
                             }
                         }
                     }
+#endif
                     
                     // Check if map should change now.
                     if (time_diff <= (this->game_tic_time * 16)) {
@@ -1911,6 +1919,10 @@ void MainWindow::IdleLoop() {
                             }
                             
                             g_Server->SignalGameStart(0);
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+                            // map_rotation hook (48ABA4)
+                            MapRotation();
+#endif
 
                             return;
                         }

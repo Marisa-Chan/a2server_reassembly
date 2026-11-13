@@ -6029,20 +6029,30 @@ int Server::LoadGame(CString map_name) {
 
 #ifdef A2SERVER_TANGAR_HAT
     {
-        // imp_LoadedMap callback (4F191D): track the loaded map, update the
-        // window title and rebuild the Tangar per-player info. The map-title
-        // read (+0x1C8), ClearStapleCells and the player-settings map-vote
-        // reset return with those features.
-        Config::CurrentMapName = (const char*)this->current_map_name;
-        Config::CurrentMapTitle.clear();
+        // imp_LoadedMap callback (4F191D): track the loaded map & title, update
+        // the window title, rebuild PlayerInfo, and clear per-player map votes.
+        Config::CurrentMapName = static_cast<const char*>(this->current_map_name);
+        Config::CurrentMapTitle = static_cast<const char*>(this->current_map_title);
         Config::MapLoaded = true;
+
+        std::string map_title;
+        if (Config::CurrentMapTitle.empty()) {
+            Config::CurrentMapTitle = Basename(Config::CurrentMapName);
+        } else if (Config::ServerFlags & SVF_PVM) {
+            map_title = "PvM: ";
+        }
+        map_title += Config::CurrentMapTitle;
+
         CString title;
-        title.Format("Server ID %u (%s)", Config::ServerID, (const char*)this->current_map_name);
+        title.Format("Server ID %u (%s)", Config::ServerID, map_title.c_str());
         if (CWnd* main_wnd = AfxGetMainWnd()) {
             main_wnd->SetWindowTextA(title);
         }
         Printf("Loaded map \"%s\".", Config::CurrentMapName.c_str());
         PI_Reset();
+        settings::ForEachMutable([](const std::string&, settings::PlayerSettings* player_settings) {
+            player_settings->map_vote.clear();
+        });
     }
 #endif
 

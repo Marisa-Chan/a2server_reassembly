@@ -26,3 +26,5 @@ bool CheckBool(const std::string& what);
 bool CheckFloat(const std::string& what);
 bool CheckIP(std::string addr);
 void tokenize(std::string const& str, const char delim, std::vector<std::string>& out);
+std::string FixSlashes(const std::string& filename);
+std::string Basename(const std::string& filename);

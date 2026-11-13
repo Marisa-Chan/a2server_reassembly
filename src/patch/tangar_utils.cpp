@@ -197,3 +197,25 @@ void tokenize(std::string const& str, const char delim, std::vector<std::string>
         out.push_back(s);
     }
 }
+
+std::string FixSlashes(const std::string& filename)
+{
+    std::string ret = filename;
+    for (char& ch : ret) {
+        if (ch == '\\') {
+            ch = '/';
+        }
+    }
+    return ret;
+}
+
+std::string Basename(const std::string& filename)
+{
+    std::string ret = FixSlashes(filename);
+    size_t where = ret.find_last_of('/');
+    if (where == std::string::npos) {
+        return ret;
+    }
+    ret.erase(0, where + 1);
+    return ret;
+}
