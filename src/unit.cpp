@@ -1305,7 +1305,7 @@ void Unit::InitDefaultStats() {
     // replace_unit_carrying_body_with_reaction hook (52A29E): circle witches
     // carry by reaction, not body
     this->carrying_body_100g =
-        (this->pOwner != nullptr && circle::Circle(this) > 0 && (this->unit_attrs & 4) == 0
+        (this->pOwner != nullptr && circle::Circle(this) > 0 && (this->unit_attrs & 4) != 0
              && (this->typeId == 0x22 || this->typeId == 0x24)
              ? this->reaction : this->body) * 10;
 #else
@@ -2527,7 +2527,7 @@ void Humanoid::RecalcStats() {
     // replace_human_carrying_body_with_reaction hook (531A0B): circle witches
     // (mage + female + in a circle) carry by reaction, not body
     this->carrying_body_100g = static_cast<uint16_t>(
-        (this->pOwner != nullptr && circle::Circle(this) > 0 && (this->unit_attrs & 4) == 0
+        (this->pOwner != nullptr && circle::Circle(this) > 0 && (this->unit_attrs & 4) != 0
              && (this->typeId == 0x22 || this->typeId == 0x24)
              ? this->reaction : this->body) * 10 + 1);
 #else
