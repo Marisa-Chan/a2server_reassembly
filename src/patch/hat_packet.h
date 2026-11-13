@@ -60,7 +60,9 @@ public:
         return v;
     }
 
-    // string with 16-bit size (almost everywhere)
+    // string with 16-bit size + trailing NUL (almost everywhere). The NUL is
+    // part of the wire format: my-redhat BinaryStream::WriteString appends it
+    // unconditionally and ReadString consumes size+1 bytes.
     std::string ReadString() {
         uint16_t size = ReadUInt16();
         std::string out;
@@ -68,6 +70,7 @@ public:
         for (uint16_t i = 0; i < size; i++) {
             out += (char)ReadUInt8();
         }
+        ReadUInt8(); // trailing NUL terminator
         return out;
     }
 
@@ -92,6 +95,7 @@ public:
         for (char c : what) {
             WriteUInt8((uint8_t)c);
         }
+        WriteUInt8(0); // trailing NUL terminator
     }
 
     const std::vector<uint8_t>& GetBuffer() const { return buffer; }
