@@ -177,6 +177,7 @@ Server::~Server() {
         }
     }
     Printf("Server closed.");
+    log_format("\n");
     if (!tangar_hat::NetCmdShutdown()) {
         // stay marked disconnected; the pump will not reconnect after shutdown
     }

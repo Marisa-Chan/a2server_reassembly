@@ -3,14 +3,14 @@
 // Logging for the Tangar patch modules, ported from my-srvmgr log.h /
 // lib/utils.cpp (Printf) / utils.cpp (log_format, LogString).
 //
-// Difference from the DLL version: everything is written to the log file
-// (Config::LogFile). The DLL additionally routed messages to the server
-// console via print_log once the server was started; that routing comes back
-// with the redir_log/console patch port.
+// Once Config::ServerStarted is true, Printf and LogString route lines through
+// PostConsoleLine (print_log @ 43A857), which both appends to the server GUI
+// console and writes the timestamped line to Config::LogFile via redir_log.
 
 #include <sstream>
 #include <string>
 
+void log_format(const char* format, ...);
 void Printf(const char* format, ...);
 void LogString(const std::string& s);
 

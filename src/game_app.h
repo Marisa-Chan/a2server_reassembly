@@ -93,6 +93,9 @@ public:
 	virtual BOOL InitInstance() override;  // client: 48626d
 	virtual BOOL OnIdle(LONG lCount) override;  // client: 4872dc
 	virtual int ExitInstance() override;  // client: 48711d
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+	virtual int DoMessageBox(LPCTSTR lpszPrompt, UINT nType, UINT nIDPrompt) override;
+#endif
 };
 
 void ReadFileToString(const char* fname, CString* str);

@@ -19,8 +19,9 @@
 #include "gameplay.h"
 #include "vis_playing_area.h"
 #include "vis_net.h"
-#ifdef A2SERVER_TANGAR_HAT
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
 #include "patch/config_new.h"
+#include "patch/tangar_log.h"
 #endif
 
 GameApp GameApp::theApp;
@@ -282,6 +283,10 @@ void InitCpuAndDistTables() {
 
 // 43A857
 void __cdecl PostConsoleLine(const char* source) {
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+	// redir_log hook (43A872): write every server console line to Tangar's timestamped log file.
+	log_format("%s\n", source != nullptr ? source : "");
+#endif
 	MainWindow* mainWnd = (MainWindow*)AfxGetMainWnd();
 	if (!mainWnd || mainWnd->sessionMode != SESSION_SERVER) {
 		return;
@@ -1241,6 +1246,15 @@ void LogWarning(const CString& msg) { //59b753
 		LogMessage(str);
 	}
 }
+
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+// 5EB49E imp_LocalMessageBox hook (OnLocalMessageBox): suppress modal AfxMessageBox
+// popups on the server and log them via Tangar Printf instead.
+int GameApp::DoMessageBox(LPCTSTR lpszPrompt, UINT /*nType*/, UINT /*nIDPrompt*/) {
+	Printf("Error: %s", lpszPrompt != nullptr ? lpszPrompt : "");
+	return IDOK;
+}
+#endif
 
 // 5e64bd - MFC AfxWinMain; the _a2WinMain@16 stdcall thunk (5d9d58) is folded in
 extern "C" int32_t WINAPI a2WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int32_t nShowCmd) {
