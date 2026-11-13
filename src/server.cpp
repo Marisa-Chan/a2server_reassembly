@@ -52,6 +52,7 @@
 #include "patch/kick_char.h"
 #include "patch/gm_noclip.h"
 #include "patch/hat_net.h"
+#include "patch/screenshots.h"
 #include "patch/damage_filter.h"
 #include "patch/forbidden_items.h"
 #include "quest.h"
@@ -3225,6 +3226,59 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 if (target != nullptr) {
                     KickPlayer(target, false);
                 }
+                return;
+            }
+        }
+
+        if ((tangar_rights & GMF_CMD_SCREENSHOT) != 0) {
+            if (lowered == "#screenshot" || lowered.Find("#screenshot ") == 0) {
+                CString target_name = cheat_string.Mid(11);
+                target_name.TrimLeft();
+                Player* target = FindPlayerByNickname((const char*)target_name);
+                if (target == nullptr) {
+                    CString msg;
+                    msg.Format("screenshot: Player %s not found", (const char*)target_name);
+                    g_NetStru1_main.AnnouncePlayerName(msg, player);
+                    return;
+                }
+
+                PlayerInfo* target_pi = PI_Get(target);
+                if (target_pi == nullptr) {
+                    CString msg;
+                    msg.Format("screenshot: Player %s has no playerinfo!", (const char*)target->name);
+                    g_NetStru1_main.AnnouncePlayerName(msg, player);
+                    return;
+                }
+
+                SOCKET target_sock = INVALID_SOCKET;
+                if (g_CLlDriver.connection_sockets != nullptr) {
+                    for (uint32_t i = 0; i < g_CLlDriver.max_connections; i++) {
+                        A2NetSock* conn = g_CLlDriver.connection_sockets + i;
+                        if (conn->is_in_use != 0 && conn->manager != nullptr &&
+                            conn->manager->player_id == target->player_id &&
+                            conn->socket != INVALID_SOCKET && conn->socket != 0) {
+                            target_sock = conn->socket;
+                            break;
+                        }
+                    }
+                }
+                if (target_sock == INVALID_SOCKET) {
+                    CString msg;
+                    msg.Format("screenshot: Player %s has no socket (AI or disconnected?)", (const char*)target->name);
+                    g_NetStru1_main.AnnouncePlayerName(msg, player);
+                    return;
+                }
+
+                uint32_t uid = ClientScreenshot_Enqueue(player, target);
+                tangar_hat::Packet cmd;
+                cmd.WriteUInt8(0x01);
+                cmd.WriteString((const char*)target->login);
+                cmd.WriteUInt32(uid);
+                target_pi->EnqueuedPackets.push_back(cmd);
+
+                CString msg;
+                msg.Format("screenshot: Request sent to player %s", (const char*)target->name);
+                g_NetStru1_main.AnnouncePlayerName(msg, player);
                 return;
             }
         }

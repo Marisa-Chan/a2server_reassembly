@@ -4,8 +4,7 @@
 // {h,cpp}. The server maintains one outbound connection to the HAT master
 // (address from server.cfg [network]/HatAddress): it authenticates, pushes
 // periodic server-info updates, and receives broadcasts / mute orders /
-// screenshot notifications. Screenshots are log-only until the screenshot
-// subsystem is ported.
+// screenshot notifications.
 
 #include <cstdint>
 #include <string>

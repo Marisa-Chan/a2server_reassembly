@@ -3,6 +3,7 @@
 // rebuild) and ClientScreenshot_DropPlayer return with those features.
 
 #include "player_info.h"
+#include "screenshots.h"
 
 #include "../game_app.h"
 #include "../players_list.h"
@@ -79,10 +80,10 @@ void PI_Delete(Player* player) {
         // with the #setspells feature.
     }
 
-    // The own-unit SetSpells restore and ClientScreenshot_DropPlayer return
-    // with the #setspells / #screenshot features.
+    // The own-unit SetSpells restore returns with the #setspells feature.
 
     PI_Clear(g_PlayerInfo[player->player_id - 1]);
+    ClientScreenshot_DropPlayer(player);
 }
 
 PlayerInfo* PI_Get(Player* player) {

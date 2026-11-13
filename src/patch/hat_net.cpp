@@ -11,6 +11,7 @@
 #include "config_new.h"
 #include "flags.h"
 #include "player_info.h"
+#include "screenshots.h"
 #include "tangar_log.h"
 #include "tangar_utils.h"
 
@@ -252,23 +253,49 @@ bool NetHatProcess() {
                 g_NetStru1_main.AnnouncePlayerName(message.c_str(), nullptr);
                 break;
             }
-            case 0x64: { // screenshot information (log-only until the
-                // screenshot subsystem is ported)
+            case 0x64: { // screenshot information
                 std::string login = pack.ReadString();
                 pack.ReadUInt8(); // ????
                 uint32_t uid = pack.ReadUInt32();
                 bool done = pack.ReadUInt8() != 0;
                 std::string url = pack.ReadString();
-                if (done) {
-                    if (!url.empty()) {
-                        Printf("screenshot: %s: Comeback transmission succeeded (saved to %s).", login.c_str(), url.c_str());
+                ClientScreenshot* cs = ClientScreenshot_FindByUID(uid);
+                if (cs == nullptr) {
+                    if (done) {
+                        if (!url.empty()) {
+                            Printf("screenshot: %s: Comeback transmission succeeded (saved to %s).", login.c_str(), url.c_str());
+                        } else {
+                            Printf("screenshot: %s: Comeback transmission failed.", login.c_str());
+                        }
                     } else {
-                        Printf("screenshot: %s: Comeback transmission failed.", login.c_str());
+                        Printf("screenshot: %s: Comeback transmission initiated.", login.c_str());
                     }
+                } else if (cs->SourcePlayer != nullptr) {
+                    CString msg;
+                    if (done) {
+                        if (!url.empty()) {
+                            msg.Format("screenshot: %s: Transmission succeeded (saved to %s).", login.c_str(), url.c_str());
+                        } else {
+                            msg.Format("screenshot: %s: Transmission failed.", login.c_str());
+                        }
+                    } else {
+                        msg.Format("screenshot: %s: Transmission initiated.", login.c_str());
+                    }
+                    g_NetStru1_main.AnnouncePlayerName(msg, cs->SourcePlayer);
                 } else {
-                    Printf("screenshot: %s: Comeback transmission initiated.", login.c_str());
+                    if (done) {
+                        if (!url.empty()) {
+                            Printf("screenshot: %s: Transmission succeeded (saved to %s).", login.c_str(), url.c_str());
+                        } else {
+                            Printf("screenshot: %s: Transmission failed.", login.c_str());
+                        }
+                    } else {
+                        Printf("screenshot: %s: Transmission initiated.", login.c_str());
+                    }
                 }
-                (void)uid;
+                if (done) {
+                    ClientScreenshot_Drop(uid);
+                }
                 break;
             }
             case 0x65: { // mute player packet

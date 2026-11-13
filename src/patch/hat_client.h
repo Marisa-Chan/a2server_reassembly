@@ -30,6 +30,10 @@ void BuildAuthorizationPacket(PacketJoin* pkt, const CString& login, const CStri
 // Handle extended server->client manager packets (pkt_flags == 0x80100000).
 bool ProcessServerPacket(tangar_hat::Packet& pack);
 
+// Deferred screen-surface capture + background PNG upload hook for
+// UnlockSurface1 (imp_MakeScreenshotNet, client: 457ff4).
+void ProcLastScreenshot();
+
 // Framed TCP receive hook for CLlDriver::RecvThreadTcp (client: 5122d1,
 // my-a2mgr recv_). Demultiplexes 0x80100000 manager packets and normal
 // 8-byte-headed game packets.

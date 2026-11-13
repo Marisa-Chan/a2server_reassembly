@@ -5,6 +5,7 @@
 #include "gfx.h"
 #ifdef A2CLIENT_PATCH
 #include "patch/client_config.h"
+#include "patch/hat_client.h"
 #include "patch/lodepng/lodepng.h"
 #endif
 #include "ingame.h"
@@ -3056,12 +3057,18 @@ uint32_t LockSurface1() { //45431c
 
 
 uint32_t UnlockSurface1() { //454378
+	// client: 457fdb
 	if (g_IsServer) {
 		return 0;
 	}
 
 	int res = 0;
 	if (g_ddsurf_lock != 0) {
+#ifdef A2CLIENT_PATCH
+		// imp_MakeScreenshotNet (client: 457ff4): capture any armed HAT
+		// screenshot request while the primary draw surface is still mapped.
+		tangar_client::ProcLastScreenshot();
+#endif
 		res = SUCCEEDED(g_ddsurface->Unlock(g_selDrawBitmap.lpSurface));
 		g_ddsurf_lock--;
 	}

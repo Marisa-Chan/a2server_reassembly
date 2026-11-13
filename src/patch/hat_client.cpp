@@ -4,12 +4,18 @@
 
 #include "hat_client.h"
 
+#include <atomic>
 #include <cstdio>
+#include <cstdlib>
 #include <cstring>
+#include <string>
 #include <vector>
 #include <windows.h>
 
 #include "client_config.h"
+#include "happyhttp/happyhttp.h"
+#include "lodepng/lodepng.h"
+#include "../gfx.h"
 #include "../main_window.h"
 #include "../packet.h"
 
@@ -346,14 +352,215 @@ void BuildAuthorizationPacket(PacketJoin* pkt, const CString& login, const CStri
     FillCrcMain(raw + 0x0A);
 }
 
+namespace {
+
+struct ScreenshotInfo {
+    std::string login;
+    uint32_t uid;
+    int32_t width;
+    int32_t height;
+    uint16_t* data;
+    bool flip;
+};
+
+std::atomic<ScreenshotInfo*> g_last_screenshot{nullptr};
+
+void HttpReplyDataCb(const happyhttp::Response* r, void* userdata, const unsigned char* data, int n) {
+    (void)r;
+    std::string* out = static_cast<std::string*>(userdata);
+    if (out != nullptr && n > 0) {
+        out->append(reinterpret_cast<const char*>(data), static_cast<size_t>(n));
+    }
+}
+
+std::string ExtractHatHost() {
+    std::string host = tangar_cfg::HatAddress();
+    size_t colon = host.find(':');
+    if (colon != std::string::npos) {
+        host.erase(colon);
+    }
+    if (host.empty()) {
+        host = "hat.rom2.ru";
+    }
+    return host;
+}
+
+void SendScreenshotStatus(SOCKET s, const ScreenshotInfo* si, uint8_t done, const std::string& reply) {
+    if (s == tangar_hat::SERR_NOTCREATED) {
+        return;
+    }
+    tangar_hat::Packet p;
+    p.WriteUInt32(0x5C0EE250u);
+    p.WriteString(si->login);
+    p.WriteUInt32(si->uid);
+    p.WriteUInt8(done);
+    if (done != 0) {
+        p.WriteString(reply);
+    }
+    tangar_hat::SOCK_SendPacket(s, p, 24);
+}
+
+// Ported from my-a2mgr/network_protocol_ext.cpp:707 (Cl_ScreenshotThread).
+DWORD WINAPI ScreenshotUploadThread(LPVOID param) {
+    ScreenshotInfo* si = static_cast<ScreenshotInfo*>(param);
+    SOCKET s = tangar_hat::SOCK_Connect(ExtractHatHost(), 8000, "0.0.0.0", 0);
+
+    SendScreenshotStatus(s, si, 0, "");
+
+    size_t pixel_count = static_cast<size_t>(si->width) * static_cast<size_t>(si->height);
+    uint32_t* ndata = new uint32_t[pixel_count];
+    const uint16_t* orp = si->data;
+
+    for (int32_t row = 0; row < si->height; row++) {
+        int32_t dst_y = si->flip ? (si->height - 1 - row) : row;
+        uint32_t* rowp = ndata + static_cast<size_t>(dst_y) * static_cast<size_t>(si->width);
+        for (int32_t x = 0; x < si->width; x++) {
+            uint16_t a = *orp++;
+            uint32_t r = (a & 0xF800u) >> 11;
+            uint32_t g = (a & 0x07E0u) >> 5;
+            uint32_t b = (a & 0x001Fu);
+            r = r * 255u / 31u;
+            g = g * 255u / 63u;
+            b = b * 255u / 31u;
+            *rowp++ = 0xFF000000u | (b << 16) | (g << 8) | r;
+        }
+    }
+
+    delete[] si->data;
+    si->data = nullptr;
+
+    std::string post_reply;
+    unsigned char* png_buf = nullptr;
+    size_t png_size = 0;
+    unsigned int encode_err = lodepng_encode32(
+        &png_buf, &png_size,
+        reinterpret_cast<const unsigned char*>(ndata),
+        static_cast<unsigned int>(si->width),
+        static_cast<unsigned int>(si->height));
+    delete[] ndata;
+
+    if (encode_err != 0) {
+        SendScreenshotStatus(s, si, 1, post_reply);
+        if (s != tangar_hat::SERR_NOTCREATED) {
+            tangar_hat::SOCK_Destroy(s);
+        }
+        if (png_buf != nullptr) {
+            free(png_buf);
+        }
+        delete si;
+        return 0;
+    }
+
+    static const char kBoundaryPre[] =
+        "------WebKitFormBoundaryePkpFF7tjBAqx29L\r\n"
+        "Content-Disposition: form-data; name=\"p\"; filename=\"ps.png\"\r\n"
+        "Content-Type: image/png\r\n\r\n";
+    static const char kBoundaryPost[] =
+        "\r\n------WebKitFormBoundaryePkpFF7tjBAqx29L--\r\n";
+
+    size_t pre_len = sizeof(kBoundaryPre) - 1;
+    size_t post_len = sizeof(kBoundaryPost) - 1;
+    int post_size = static_cast<int>(pre_len + png_size + post_len);
+
+    char path_buf[512];
+    snprintf(path_buf, sizeof(path_buf), "/posts.php?login=%s&uid=%u", si->login.c_str(), si->uid);
+
+    happyhttp::Connection hh_conn("api.allods2.eu", 8080);
+    hh_conn.setcallbacks(nullptr, HttpReplyDataCb, nullptr, &post_reply);
+
+    try {
+        hh_conn.putrequest("POST", path_buf);
+        hh_conn.putheader("Connection", "close");
+        hh_conn.putheader("Content-Length", post_size);
+        hh_conn.putheader("Content-Type", "multipart/form-data; boundary=----WebKitFormBoundaryePkpFF7tjBAqx29L");
+        hh_conn.putheader("Accept", "text/plain");
+        hh_conn.endheaders();
+
+        hh_conn.send(reinterpret_cast<const unsigned char*>(kBoundaryPre), static_cast<int>(pre_len));
+        hh_conn.send(png_buf, static_cast<int>(png_size));
+        hh_conn.send(reinterpret_cast<const unsigned char*>(kBoundaryPost), static_cast<int>(post_len));
+
+        while (hh_conn.outstanding()) {
+            hh_conn.pump();
+        }
+    } catch (const happyhttp::Wobbly&) {
+        post_reply.clear();
+    }
+
+    if (png_buf != nullptr) {
+        free(png_buf);
+    }
+
+    SendScreenshotStatus(s, si, 1, post_reply);
+    if (s != tangar_hat::SERR_NOTCREATED) {
+        tangar_hat::SOCK_Destroy(s);
+    }
+    delete si;
+    return 0;
+}
+
+} // namespace
+
+// Ported from my-a2mgr/network_protocol_ext.cpp:853 (ProcLastSI / imp_MakeScreenshotNet @ 457ff4).
+void ProcLastScreenshot() {
+    if (g_selDrawBitmap.lpSurface == nullptr) {
+        return;
+    }
+
+    ScreenshotInfo* si = g_last_screenshot.exchange(nullptr);
+    if (si == nullptr) {
+        return;
+    }
+
+    uint8_t* dst = reinterpret_cast<uint8_t*>(si->data);
+    const uint8_t* src_base = static_cast<const uint8_t*>(g_selDrawBitmap.lpSurface);
+    int32_t src_pitch = g_selDrawBitmap.lPitch;
+    size_t row_bytes = static_cast<size_t>(si->width) * 2;
+
+    for (int32_t y = 0; y < si->height; y++) {
+        memcpy(dst + static_cast<size_t>(y) * row_bytes, src_base + y * src_pitch, row_bytes);
+    }
+
+    HANDLE thread = CreateThread(nullptr, 0, ScreenshotUploadThread, si, 0, nullptr);
+    if (thread != nullptr) {
+        CloseHandle(thread);
+    } else {
+        delete[] si->data;
+        delete si;
+    }
+}
+
 // Ported from my-a2mgr/network_protocol_ext.cpp:825 (Cl_ProcessServerPacket).
 bool ProcessServerPacket(tangar_hat::Packet& pack) {
     uint8_t type = pack.ReadUInt8();
-    if (type == 0x01) { // screenshot request (log-only until screenshot upload commit)
+    if (type == 0x01) { // screenshot
         std::string login = pack.ReadString();
         uint32_t uid = pack.ReadUInt32();
-        (void)login;
-        (void)uid;
+
+        int32_t width = g_ScreenSize.right - g_ScreenSize.left;
+        int32_t height = g_ScreenSize.bottom - g_ScreenSize.top;
+        if (width <= 0 || height <= 0) {
+            return true;
+        }
+
+        ScreenshotInfo* si = new ScreenshotInfo();
+        si->login = login;
+        si->uid = uid;
+        si->width = width;
+        si->height = height;
+        si->data = new uint16_t[static_cast<size_t>(width) * static_cast<size_t>(height)];
+        si->flip = false;
+
+        ScreenshotInfo* prev = g_last_screenshot.exchange(si);
+        if (prev != nullptr) {
+            delete[] prev->data;
+            delete prev;
+        }
+
+        CWnd* main_wnd = AfxGetMainWnd();
+        if (main_wnd != nullptr && main_wnd->GetSafeHwnd() != nullptr && IsIconic(main_wnd->GetSafeHwnd())) {
+            ProcLastScreenshot();
+        }
         return true;
     }
     return false;

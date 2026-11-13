@@ -98,6 +98,7 @@ set(A2SERVER_SOURCES
   patch/gm_noclip.cpp
   patch/hat_packet.cpp
   patch/hat_net.cpp
+  patch/screenshots.cpp
   patch/locale.cpp
 )
 
@@ -114,6 +115,7 @@ set(A2CLIENT_SOURCES
   patch/scanrange_calc.cpp
   patch/hat_packet.cpp
   patch/hat_client.cpp
+  patch/happyhttp/happyhttp.cpp
 )
 
 add_executable(rea2c ${A2_SOURCES} ${A2CLIENT_SOURCES})
