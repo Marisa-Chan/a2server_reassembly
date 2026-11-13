@@ -8,6 +8,7 @@
 
 #include <cstdint>
 #include <string>
+#include <vector>
 
 class Player;
 class Unit;
@@ -23,6 +24,11 @@ bool FilterKillMobCandidate(Player* player, Unit* candidate);
 bool FilterKillGroupCandidateUnit(Player* player, Unit* unit);
 // True if the player already has a kill-the-group quest for this group.
 bool HasQuestForMonsterGroup(Player* player, int32_t group_id);
+
+// Count monsters in mob_names_by_server_id_normed matching a normalized filter.
+int CountMatchingMobs(const std::string& filter);
+// Formatted status lines ("Quest to kill %s: %d out of %d done") for #quest_state/#qs.
+std::vector<std::string> QuestStateNMonsters(Player* player);
 
 // Inn quest reward hooks (565B27, 5660C8, 5666C1).
 uint32_t InnScrollsReward(Player* player, uint32_t reward);

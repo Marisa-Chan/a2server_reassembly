@@ -59,6 +59,7 @@
 #include "patch/hat_net.h"
 #include "patch/screenshots.h"
 #include "patch/forbidden_items.h"
+#include "patch/quest_filters.h"
 #include "quest.h"
 #include "quest_map.h"
 #include "main_window.h"
@@ -3109,28 +3110,34 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
             return;
         }
 
-        // #quest/#q: set the player's mob-name quest filter (filter [count]).
-        if (lowered.Find("#quest_state") == 0 || lowered.Find("#qs") == 0) {
-            // Quest state of the current player's kill-N quests (no args used).
-            CString reply;
-            POSITION qpos = g_QuestMap.quests_map.GetStartPosition();
-            Quest* q = nullptr;
-            uint32_t key = 0;
-            while (qpos != nullptr) {
-                g_QuestMap.quests_map.GetNextAssoc(qpos, key, q);
-                if (q != nullptr && q->Kind() == 2 && q->quest_data.player_id == player->player_id) {
-                    reply.Format("kill-N quest: obj=%d progress=%d/%d", q->quest_data.obj, q->progress, q->quest_data.limit);
-                    g_NetStru1_main.AnnouncePlayerName(reply, player);
-                }
+        // #quest_state/#qs and #quest/#q (cheat_codes_new.cpp:178-241, quests.cpp:144-160).
+        CString cmd_token = lowered;
+        CString cmd_rest;
+        int first_space = trimmed.Find(' ');
+        if (first_space >= 0) {
+            cmd_token = lowered.Left(first_space);
+            cmd_rest = trimmed.Mid(first_space + 1);
+        }
+
+        if (cmd_token == "#quest_state" || cmd_token == "#qs") {
+            if (player == nullptr) {
+                return;
+            }
+            std::vector<std::string> messages = tangar_quests::QuestStateNMonsters(player);
+            for (size_t i = 0; i < messages.size(); ++i) {
+                g_NetStru1_main.AnnouncePlayerName(messages[i].c_str(), player);
             }
             return;
         }
-        if (lowered.Find("#quest") == 0 || lowered.Find("#q ") == 0 || lowered == "#q") {
-            if ((Config::AllowQuestFilters) == 0) {
+        if (cmd_token == "#quest" || cmd_token == "#q") {
+            if (player == nullptr) {
+                return;
+            }
+            if (!Config::AllowQuestFilters) {
                 g_NetStru1_main.AnnouncePlayerName("Quest filtering is disabled", player);
                 return;
             }
-            CString args_str = cheat_string.Mid(cheat_string.Find(' ') > 0 ? cheat_string.Find(' ') + 1 : cheat_string.GetLength());
+            CString args_str = cmd_rest;
             args_str.TrimLeft();
             args_str.MakeLower(); // NormalizeMobName (lower + '-'->'_')
             args_str.Replace('-', '_');
@@ -3148,6 +3155,15 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                     CString warn;
                     warn.Format("'%s' is not an integer, ignored", (const char*)raw_count);
                     g_NetStru1_main.AnnouncePlayerName(warn, player);
+                }
+            }
+
+            if (filter.GetLength() > 0) {
+                if (tangar_quests::CountMatchingMobs((const char*)filter) == 0) {
+                    CString nomatch;
+                    nomatch.Format("'%s' does not match any mobs, quest filter unchanged", (const char*)filter);
+                    g_NetStru1_main.AnnouncePlayerName(nomatch, player);
+                    return;
                 }
             }
 

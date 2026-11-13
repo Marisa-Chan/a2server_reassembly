@@ -3,6 +3,7 @@
 
 #include "quest_filters.h"
 
+#include <cstdio>
 #include <unordered_map>
 
 #include "config_new.h"
@@ -33,7 +34,8 @@ std::string NormalizeMobName(const char* name) {
     return result;
 }
 
-std::unordered_map<int, std::string> mob_names;                  // (face<<8|typeId) -> normalized name
+std::unordered_map<int, std::string> mob_names;                     // (face<<8|typeId) -> normalized name
+std::unordered_map<int, std::string> mob_names_raw;                 // (face<<8|typeId) -> raw display name
 std::unordered_map<int, std::string> mob_names_by_server_id_normed; // server_id -> normalized name
 
 void InitializeMobNames() {
@@ -62,7 +64,9 @@ void InitializeMobNames() {
             name = "Catapult";
         }
 
-        mob_names[d.face << 8 | d.type_id] = NormalizeMobName(name.c_str());
+        const int mob_type = d.face << 8 | d.type_id;
+        mob_names[mob_type] = NormalizeMobName(name.c_str());
+        mob_names_raw[mob_type] = name;
         mob_names_by_server_id[d.server_id] = (const char*)m.name;
     }
 
@@ -178,6 +182,46 @@ bool FilterKillGroupCandidateUnit(Player* player, Unit* unit) {
 
 bool HasQuestForMonsterGroup(Player* player, int32_t group_id) {
     return PlayerHasQuest(3, player->player_id, (uint32_t)group_id, false);
+}
+
+int CountMatchingMobs(const std::string& filter) {
+    InitializeMobNames();
+
+    int matching_mobs = 0;
+    for (auto mob = mob_names_by_server_id_normed.begin(); mob != mob_names_by_server_id_normed.end(); ++mob) {
+        if (mob->second.find(filter) != std::string::npos) {
+            matching_mobs++;
+        }
+    }
+    return matching_mobs;
+}
+
+std::vector<std::string> QuestStateNMonsters(Player* player) {
+    std::vector<std::string> result;
+    if (player == nullptr) {
+        return result;
+    }
+
+    InitializeMobNames();
+
+    POSITION pos = g_QuestMap.quests_map.GetStartPosition();
+    Quest* quest = nullptr;
+    uint32_t key = 0;
+    while (pos != nullptr) {
+        g_QuestMap.quests_map.GetNextAssoc(pos, key, quest);
+        if (quest == nullptr || quest->Kind() != 2) {
+            continue;
+        }
+        if ((int16_t)(player->player_id & 0xFFFF) == (int16_t)(quest->quest_data.player_id & 0xFFFF)) {
+            char buf[256];
+            std::snprintf(buf, sizeof(buf), "Quest to kill %s: %d out of %d done",
+                          mob_names_raw[(int)quest->quest_data.obj].c_str(),
+                          (int)quest->progress,
+                          (int)quest->quest_data.limit);
+            result.push_back(buf);
+        }
+    }
+    return result;
 }
 
 // 565B27
