@@ -22,6 +22,7 @@ void PI_Clear(PlayerInfo& struc) {
     struc.LastSpells = 0;
     struc.SpellSetter = nullptr;
     struc.UnmuteDate = 0;
+    memset(struc.Vision, 0, sizeof(struc.Vision));
 }
 
 void PI_Reset() {

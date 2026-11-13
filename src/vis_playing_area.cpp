@@ -3,6 +3,7 @@
 #ifdef A2CLIENT_PATCH
 #include "patch/client_config.h"
 #include "patch/hotkeys.h"
+#include "patch/scanrange_calc.h"
 #endif
 #include <cmath>
 #include <ws2tcpip.h>
@@ -6000,7 +6001,44 @@ void VisPlayingArea::BuildShadowTables() {
 }
 
 // 403CA0
+#ifdef A2CLIENT_PATCH
+// Tangar CalcVisMapCLIENT (client 403D47): the retail inline shadow-field
+// walk is replaced by the shared CScanrangeCalc table algorithm (terrain-
+// aware vision). Height/bounds lookups go through the scenario, exactly as
+// the manager's raw-offset helpers did.
+static VisPlayingArea* tangar_scanrange_map = nullptr;
+
+static bool TangarShadowCheckValid(int16_t x, int16_t y) {
+	return (x >= 7 && y >= 7 &&
+	        x < (int16_t)tangar_scanrange_map->map_width - 7 &&
+	        y < (int16_t)tangar_scanrange_map->map_height - 7);
+}
+
+static uint8_t TangarShadowGetHeight(int16_t x, int16_t y) {
+	if (!TangarShadowCheckValid(x, y)) {
+		return 0;
+	}
+	Scenario* mapthis = tangar_scanrange_map->scenario;
+	uint32_t mapwidth = (uint32_t)mapthis->GetWidth();
+	int8_t* heightmap = mapthis->GetMapHeights();
+	return (uint8_t)heightmap[y * mapwidth + x];
+}
+#endif
+
 void VisPlayingArea::BuildShadowField(CGameObject* obj) {
+#ifdef A2CLIENT_PATCH
+	static CScanrangeCalc tangar_scanrange;
+	static bool tangar_scanrange_initialized = false;
+
+	tangar_scanrange_map = this;
+	if (!tangar_scanrange_initialized) {
+		tangar_scanrange.InitializeTables();
+		tangar_scanrange_initialized = true;
+	}
+
+	tangar_scanrange.CalculateVision(obj->tileX, obj->tileY, obj->scan_range, &TangarShadowGetHeight, &TangarShadowCheckValid);
+	memcpy(this->shadow_light, tangar_scanrange.pTablesVision, 0x1A44);
+#else
 	int32_t base_x = obj->tileX - 20;
 	int32_t base_y = obj->tileY - 20;
 	int32_t base_idx = base_y * this->map_width + base_x;
@@ -6035,6 +6073,7 @@ void VisPlayingArea::BuildShadowField(CGameObject* obj) {
 			break;
 		}
 	}
+#endif
 }
 
 // 41C74B

@@ -84,6 +84,8 @@ set(A2SERVER_SOURCES
   patch/config_new.cpp
   patch/server_state.cpp
   patch/player_info.cpp
+  patch/scanrange_calc.cpp
+  patch/scanrange.cpp
   patch/player_settings.cpp
   patch/circle.cpp
   patch/thresholds.cpp
@@ -109,6 +111,7 @@ set(A2CLIENT_SOURCES
   patch/image.cpp
   patch/menu.cpp
   patch/itempng.cpp
+  patch/scanrange_calc.cpp
 )
 
 add_executable(rea2c ${A2_SOURCES} ${A2CLIENT_SOURCES})

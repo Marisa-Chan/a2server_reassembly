@@ -7,8 +7,8 @@
 //
 // Renames/omissions vs the original: the struct Player -> PlayerInfo (the
 // game already has a Player class), Players[32] -> g_PlayerInfo; the
-// Vision[256][256] (scanrange), SavedItems (forbidden items), CastSpell[0x14]
-// and EnqueuedPackets (HAT net) fields return together with those features.
+// SavedItems (forbidden items), CastSpell[0x14] and EnqueuedPackets (HAT
+// net) fields return together with those features.
 
 #include <cstdint>
 
@@ -29,6 +29,10 @@ struct PlayerInfo {
     Player* SpellSetter;
 
     uint32_t UnmuteDate;
+
+    // used in scanrange (patch/scanrange.cpp): GetTickCount() stamps of the
+    // cells the player currently sees
+    uint32_t Vision[256][256];
 };
 
 extern PlayerInfo g_PlayerInfo[32];

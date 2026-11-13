@@ -38,6 +38,7 @@
 
 #include "patch/allowed_picture.h"
 #include "patch/flags.h"
+#include "patch/scanrange.h"
 #ifdef A2SERVER_TANGAR_HAT
 #include "patch/tangar_log.h"
 #include "patch/config_new.h"
@@ -3091,6 +3092,18 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         // Admin commands (GMF-gated), reconciled from the manager's cheat
         // engine. Rights = player flags OR-ed with the config escape hatch.
         uint32_t tangar_rights = player->flags | Config::CheatsAdditionalRights;
+        if ((tangar_rights & GMF_CMD_INFO) != 0) {
+            if (lowered == "#scan") {
+                // Tangar #scan (GMF_CMD_INFO-gated in the manager): dump the
+                // issuing player's scanrange vision grid into the log.
+                if (player->main_unit != nullptr) {
+                    tangar_scanrange::SR_DumpToFile(player);
+                }
+                return;
+            }
+            // #info / #locate from the same manager block stay deferred
+            // (need pvm2 CheckStrong).
+        }
         if ((tangar_rights & GMF_CMD_KILL) != 0) {
             if (lowered == "#killai") {
                 // Tangar #killai (zxmgr::KillAll(player, true)): kill every AI unit
@@ -5703,9 +5716,10 @@ int Server::LoadGame(CString map_name) {
 void Server::ServerTic() {
 #ifdef A2SERVER_TANGAR_HAT
     // imp_ServerTic callback (4FBB79): pump the HAT control connection and
-    // yield the tick (the rest of OnServerTic - unit return checks, SR_Step -
-    // lives with its own subsystems)
+    // yield the tick (the rest of OnServerTic - unit return checks - lives
+    // with its own subsystems)
     tangar_hat::NetRegularProc();
+    tangar_scanrange::SR_Step();
     Sleep(1);
 #endif
     if (this->has_world_state == 0) {
