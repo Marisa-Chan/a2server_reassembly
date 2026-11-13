@@ -29,6 +29,7 @@
 #include "virtual_caster.h"
 #if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
 #include "patch/player_settings.h"
+#include "patch/solo.h"
 #include "patch/tangar_log.h"
 #endif
 
@@ -1301,7 +1302,12 @@ void World::ProcessVirtualCasters() {
 // 5A9961
 void World::OrderSwarmTo(Unit* unit, uint8_t x, uint8_t y) {
     this->BeginUnitOrder(unit);
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+    // solo_pickup_sack hook (5A9977)
+    SoloPickup(unit, y, x);
+#else
     unit->state = 2;
+#endif
     unit->eye2->command_to = ((uint16_t)y << 8) + x;
     unit->eye->target_reached = 0;
     unit->eye2->cast_action = 0;
@@ -1310,7 +1316,12 @@ void World::OrderSwarmTo(Unit* unit, uint8_t x, uint8_t y) {
 // 5A99C7
 void World::OrderGatherLoot(Unit* unit) {
     this->BeginUnitOrder(unit);
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+    // solo_pick_all_sacks hook (5A99DD)
+    SoloPickupAll(unit);
+#else
     unit->state = 26;
+#endif
     unit->eye->target_reached = 0;
     unit->eye2->cast_action = 0;
 }

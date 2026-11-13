@@ -96,6 +96,7 @@ set(A2SERVER_SOURCES
   patch/antiinvis.cpp
   patch/partial_drop.cpp
   patch/map_rotation.cpp
+  patch/solo.cpp
   patch/quest_filters.cpp
   patch/damage_filter.cpp
   patch/pvm2.cpp

@@ -10,6 +10,7 @@
 #include "../player.h"
 #include "../unit.h"
 #include "config_new.h"
+#include "solo.h"
 
 #include <cmath>
 #include <cstdlib>
@@ -72,16 +73,6 @@ int GetDropNum(int num, float probability)
     return drop_n;
 }
 
-bool IsPurePlayerUnit(const Unit* unit)
-{
-    return unit != nullptr && !unit->name.IsEmpty() && unit->name[0] == '!';
-}
-
-bool IsGigaPlayerUnit(const Unit* unit)
-{
-    return unit != nullptr && !unit->name.IsEmpty() && unit->name[0] == '_';
-}
-
 void DropRndItems(Inventory* item_list_src, Inventory* item_list_dst, float probability)
 {
     if (item_list_src == nullptr || item_list_dst == nullptr) {
@@ -124,7 +115,7 @@ void DropRndWearedItems(Unit* unit, Inventory* item_list_dst, float probability)
 
     Human* human = static_cast<Human*>(unit);
 
-    if (!IsPurePlayerUnit(unit)) {
+    if (!IsPurePlayer(unit)) {
         if (unit->weapon != nullptr && GetDropNum(1, probability) > 0) {
             item_list_dst->PutItemIntoBagAtDefault(unit->Unequip(unit->weapon));
         }
@@ -162,12 +153,18 @@ void DropPartially(Unit* unit, Inventory* /*unused*/, int32_t money, int32_t mai
         DropRndItems(unit->inventory, bag, Config::InventoryDropProbability);
         DropRndWearedItems(unit, bag, Config::WearDropProbability);
 
-        if (IsGigaPlayerUnit(unit) || IsPurePlayerUnit(unit)) {
+        if (bag->items.GetCount() > 0) {
+            PoisonStapleCell(unit->position);
+        }
+
+        if (IsGigaPlayer(unit) || IsPurePlayer(unit)) {
             delete bag;
         } else {
             CopyInventoryToMap(unit, bag, money, main_unit);
         }
     } else if (unit->inventory != nullptr) {
+        StapleCellOnMobKill(unit);
+
         CopyInventoryToMap(unit, unit->inventory, money, main_unit);
         unit->inventory = new Inventory();
     }

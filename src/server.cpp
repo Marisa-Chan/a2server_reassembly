@@ -55,6 +55,7 @@
 #include "patch/gm_noclip.h"
 #include "patch/multiplayer_shop.h"
 #include "patch/antiinvis.h"
+#include "patch/solo.h"
 #include "patch/hat_net.h"
 #include "patch/screenshots.h"
 #include "patch/forbidden_items.h"
@@ -3874,6 +3875,10 @@ static bool IsAllowedClientPacketId(uint8_t c) {
 #endif
 
 void Server::ProcessClientPacket(Packet* pkt) {
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+    // remember_a2server hook (504A99)
+    RememberA2Server(this);
+#endif
 #if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
     // packet_recvd hook (504ABC): validate client->server opcode and ENTER_GAME color slot.
     if (pkt == nullptr) {
@@ -4296,6 +4301,13 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 break;
             }
 
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+            // choose_drop_item hook (50597C): prevent giga/pure players from dropping items onto the ground.
+            if (ChooseDropItem(from_type, to_type, human)) {
+                break;
+            }
+#endif
+
             // TRANSFER_SRC_SACK: pickup sack from ground.
             if (from_type == TRANSFER_SRC_SACK) {
                 Sack* sack = MapStuff_Instance->GetSackAtPos(human->position);
@@ -4409,8 +4421,16 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 int dy = std::abs((int)human->position->GetY() - (int)drop_y);
                 if (dx <= 2 && dy <= 2) {
                     TokenPos new_pos(drop_x, drop_y, MapStuff_Instance);
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+                    // drop_item_under hook (505E9C)
+                    PoisonStapleCell(&new_pos);
+#endif
                     this->srv_stru1->sack_list->DropInventoryAt(&new_pos, sack_inv, 0, 1);
                 } else {
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+                    // drop_item_to_another hook (505EBE)
+                    PoisonStapleCell(human->position);
+#endif
                     this->srv_stru1->sack_list->DropInventoryAt(human->position, sack_inv, 0, 1);
                 }
                 human->AddCarriedWeight(0);
@@ -4447,6 +4467,13 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (!unit || amount < 1 || player->money < amount) {
                 break;
             }
+
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
+            // drop_gold hook (5060A4): prevent giga/pure players from dropping gold, and poison staple cell for regular players.
+            if (HandleDropGoldSolo(player)) {
+                break;
+            }
+#endif
 
             player->money -= amount;
 
@@ -6050,6 +6077,7 @@ int Server::LoadGame(CString map_name) {
         }
         Printf("Loaded map \"%s\".", Config::CurrentMapName.c_str());
         PI_Reset();
+        ClearStapleCells();
         settings::ForEachMutable([](const std::string&, settings::PlayerSettings* player_settings) {
             player_settings->map_vote.clear();
         });
