@@ -13,11 +13,18 @@
 
 #include "hat_packet.h"
 
+class MainWindow;
 class PacketJoin;
 
 namespace tangar_client {
 
 constexpr uint32_t PROTO_VER = 20;
+
+// Check remote /allods/version_id & /allods/version on api.allods2.eu, download
+// any updated resource files into data/, and self-restart if files changed.
+// Passes through cleanly when the update endpoint is unused or unreachable
+// (ported from my-a2mgr/network_protocol_ext.cpp NETPROTO_updater, client: 4949cd).
+bool RunAutoUpdater(MainWindow* wnd);
 
 // Lazily compute SHA-1 digests of executable, resources, and first volume UUID
 // used by the v20 HAT authorization fingerprint (my-a2mgr/a2mgr.cpp:107-174).

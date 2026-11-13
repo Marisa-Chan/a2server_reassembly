@@ -595,6 +595,18 @@ BOOL GameApp::InitInstance() {
 		g_CmdTimeout *= 1000;
 	}
 
+#ifdef A2CLIENT_PATCH
+	// Tangar a2mgr DllMain_Init: wait before video/window initialization after
+	// an auto-updater self-restart ("-delay 4000").
+	stmp = strstr(this->m_lpCmdLine, "-delay");
+	if (stmp != nullptr && (stmp[6] == ' ' || stmp[6] == '\t')) {
+		int32_t delay = atoi(stmp + 6);
+		if (delay > 0 && delay <= 60000) {
+			Sleep(static_cast<DWORD>(delay));
+		}
+	}
+#endif
+
 	HKEY regkey;
 	if (RegOpenKeyA(HKEY_LOCAL_MACHINE, "SOFTWARE\\1C\\Allods 2", &regkey) != ERROR_SUCCESS) {
 		char buf[1024];

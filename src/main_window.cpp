@@ -5565,6 +5565,9 @@ int32_t MainWindow::RunModalLoopClient() { //client 4949cd
     MSG msg;
 
 #ifdef A2CLIENT_PATCH
+    if (!tangar_client::RunAutoUpdater(this)) {
+        return 0;
+    }
     tangar_client::EnsureAnticheatHashes();
 #endif
 
