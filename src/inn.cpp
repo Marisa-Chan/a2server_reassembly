@@ -112,7 +112,11 @@ void Inn::InnCreateQuests(Player* player) {
         max_skill = (std::max)(max_skill, (int)player->main_unit->hit_values.skill_levels[i]);
     }
 
+#ifdef A2SERVER_TANGAR_HAT
+    int def_min = max_skill * 3 - 100;
+#else
     int def_min = max_skill * 3 - 50;
+#endif
     int def_max = max_skill * 3 + 75;
 
     // ---- Map width and distance thresholds ----
