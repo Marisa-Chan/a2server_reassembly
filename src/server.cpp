@@ -39,6 +39,9 @@
 #include "patch/allowed_picture.h"
 #include "patch/flags.h"
 #include "patch/scanrange.h"
+#ifdef A2SERVER_PATCH
+#include "patch/kick_char.h"
+#endif
 #ifdef A2SERVER_TANGAR_HAT
 #include "patch/tangar_log.h"
 #include "patch/config_new.h"
@@ -49,7 +52,6 @@
 #include "patch/reborn.h"
 #include "patch/server_state.h"
 #include "patch/tangar_utils.h"
-#include "patch/kick_char.h"
 #include "patch/gm_noclip.h"
 #include "patch/hat_net.h"
 #include "patch/screenshots.h"
@@ -228,6 +230,15 @@ Server::~Server() {
         delete this->script_settings;
         this->script_settings = nullptr;
     }
+
+#ifdef A2SERVER_TANGAR_HAT
+    // server_closed hook (4F2FD3): flag MainWindow::shutdown_pending when SVF_ONEMAP is set.
+    if ((Config::ServerFlags & SVF_ONEMAP) != 0) {
+        if (MainWindow* main_wnd = static_cast<MainWindow*>(AfxGetMainWnd())) {
+            main_wnd->shutdown_pending = 1;
+        }
+    }
+#endif
 
     LogMessage("Server closed\n");
 }
@@ -2376,12 +2387,35 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
 
 void Server::SignalGameStart(int32_t start_kind) {
     //4F94C0
+#ifdef A2SERVER_TANGAR_HAT
+    // map_exit hook (4F94C0): save and kick all connected human players instead of sending GAME_START.
+    if ((g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH) || (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY)) {
+        g_NetStru1_main.SendTeamState(0);
+    }
+    int32_t was_started = this->game_started;
+    this->game_started = 1;
+    if (was_started == 0) {
+        TangarKickAll(nullptr, false);
+    }
+#elif defined(A2SERVER_PATCH)
+    // SRV_EX.xck (4F94E5): save and kick all connected human players instead of sending GAME_START.
+    LogMessage("Server::SignalGameStart\n");
+    if ((g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH) || (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY)) {
+        g_NetStru1_main.SendTeamState(0);
+    }
+    int32_t was_started = this->game_started;
+    this->game_started = 1;
+    if (was_started == 0) {
+        TangarKickAll(nullptr, false);
+    }
+#else
     LogMessage("Server::SignalGameStart\n");
     if ((g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH) || (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY)) {
         g_NetStru1_main.SendTeamState(0);
     }
     g_NetStru1_main.SendInfoPacket(GAME_START, start_kind, 0, nullptr);
     this->game_started = 1;
+#endif
 }
 
 
