@@ -201,8 +201,51 @@ IMPLEMENT_SERIAL(Player, CObject, 1);
 
 // 534AC1
 void Player::AddMoney(int32_t amount, uint32_t notify_flag) {
+#ifdef A2SERVER_TANGAR_HAT
+    // imp_FixMoney hook (534AC1): clamp player gold at INT32_MAX and drop excess into a ground sack.
+    if (amount < 0) {
+        int64_t updated = static_cast<int64_t>(this->money) + static_cast<int64_t>(amount);
+        if (updated < 0) {
+            this->money = 0;
+        } else if (updated > 0x7FFFFFFF) {
+            this->money = 0x7FFFFFFF;
+        } else {
+            this->money = static_cast<int32_t>(updated);
+        }
+        g_NetStru1_main.SendInfoPacket(MONEY_UPDATE, this->money, notify_flag, this);
+        return;
+    }
+
+    uint32_t leftover = 0;
+    uint32_t add_money = static_cast<uint32_t>(amount);
+    uint32_t cur_money = this->money < 0 ? 0u : static_cast<uint32_t>(this->money);
+    if (cur_money > 0x7FFFFFFFu) {
+        leftover += cur_money - 0x7FFFFFFFu;
+        cur_money = 0x7FFFFFFFu;
+    }
+
+    cur_money += add_money;
+    if (cur_money > 0x7FFFFFFFu) {
+        leftover += cur_money - 0x7FFFFFFFu;
+        cur_money = 0x7FFFFFFFu;
+    }
+
+    this->money = static_cast<int32_t>(cur_money);
+    if (leftover > 0x7FFFFFFFu) {
+        leftover = 0x7FFFFFFFu;
+    }
+
+    if (this->main_unit != nullptr && this->main_unit->position != nullptr && leftover != 0 &&
+        g_Server != nullptr && g_Server->srv_stru1 != nullptr && g_Server->srv_stru1->sack_list != nullptr) {
+        TokenPos pos(this->main_unit->position->x, this->main_unit->position->y, MapStuff_Instance);
+        g_Server->srv_stru1->sack_list->DumpInventoryAt(&pos, nullptr, static_cast<int>(leftover), 0);
+    }
+
+    g_NetStru1_main.SendInfoPacket(MONEY_UPDATE, this->money, notify_flag, this);
+#else
     this->money += amount;
     g_NetStru1_main.SendInfoPacket(MONEY_UPDATE, this->money, notify_flag, this);
+#endif
 }
 
 // 534B17
