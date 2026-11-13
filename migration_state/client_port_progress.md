@@ -1,5 +1,5 @@
 # Client patch port progress tracker
-Updated: 2026-11-13 (scanrange pair)
+Updated: 2026-11-13 (v20 auth, screenshot net, auto-updater)
 
 Legend: DONE / WIP / PENDING / NO-OP / DEFERRED(reason)
 
@@ -77,6 +77,28 @@ Legend: DONE / WIP / PENDING / NO-OP / DEFERRED(reason)
 - [DISABLED] in the patch itself: TILES_loadTiles/displayTile1, ord96, CHAT_dbg, DBG_x5
   (CSprite256 debug)
 - _fix_launcher (patcher-side unpacker wait tool)
+
+## Session batch 7 (2026-11-13) — v20 auth protocol, screenshot net & HTTP auto-updater COMPLETE
+- v20 HAT authorization + crypt + extended TCP framing (d8947292):
+  `patch/hat_client.{h,cpp}` (`EnsureAnticheatHashes` SHA1/CRC32, `BuildAuthorizationPacket`
+  id=0 layout +0x0A..+0x50 + `crcmain` gamemode -> `hat_settings.deathmatch = 0` &
+  `tangar_cfg::z_softcore`, `RecvClientFramed` 0x80100000 demux + synthetic 0x64 `SERVER_TICK`),
+  `XorData` -> `PACKET_XorByKey(..., 20)`, `PacketJoin` id=0 read/write/size,
+  `DecodePacket` replaces `HAT_CREDENTIALS` (0xC9) with `0` under patch `#if`,
+  51200B `RecvThreadTcp` buffer + server `RecvServerFramed` & `FlushEnqueuedPackets`
+  (`PlayerInfo::EnqueuedPackets`), and fixed `HATENT_url_connect` placement from
+  `RunModalLoopServer` to `RunModalLoopClient`.
+- HAT-triggered screenshot capture + PNG upload + `#screenshot` (08196993):
+  vendored `patch/happyhttp/` (with 4s non-blocking connect timeout), client `0x80100000`
+  opcode `0x01` + `imp_MakeScreenshotNet` (`UnlockSurface1` @ 457FF4) + background thread
+  notifying `hat:8000` (protover 24 magic `0x5C0EE250`) and uploading PNG via HTTP multipart
+  POST to `api.allods2.eu:8080/posts.php`; server `patch/screenshots.{h,cpp}`, HAT packet
+  `0x64` completion reply, `PI_Delete` cleanup, and `#screenshot <nick>` (`GMF_CMD_SCREENSHOT`).
+- HTTP auto-updater + `-delay` startup flag (948326b3):
+  `tangar_client::RunAutoUpdater` in `RunModalLoopClient` (`/allods/version_id` +
+  `/allods/version` check on `api.allods2.eu:8080`, graceful pass-through when unreachable/empty,
+  per-file HTTP download on port 80 into `data/` with main-thread progress UI, self-restart
+  with `-delay 4000`), and `-delay <ms>` handling in `GameApp::InitInstance`.
 
 ## Session batch 6 (2026-11-13) — scanrange pair COMPLETE (019b53d8)
 - patch/scanrange_calc.{h,cpp} — CScanrangeCalc verbatim from
@@ -159,9 +181,8 @@ Legend: DONE / WIP / PENDING / NO-OP / DEFERRED(reason)
   (3dd1723b, with the thresholds.cfg parser + reborn readiness module) — memory s37/s38
 
 ## DEFERRED (subsystem pairings)
-- NETPROTO x3 + NET_cryptPacket + recv_ — v20 auth/protocol, user-shelved
-  (full spec + port plan: migration_state/auth_protocol_migration.md)
-- imp_MakeScreenshotNet — HAT-net-triggered screenshot (0x64 packet, with v20 auth)
+- (v20 auth + NET_cryptPacket + recv_ + imp_MakeScreenshotNet + #screenshot + HTTP auto-updater
+  now ported in session batch 7: d8947292, 08196993, 948326b3)
 - (CHAT_prependType x2 now ported with hardcoded locale strings)
 - (MENU x6 + ITEMPNG x3 + add_info console UI done/no-op'd, session batch 4)
 - (MAP_CFileOpen1/2 + MAP_loadFromServer + showmap.xck done, session batch 5;
@@ -169,7 +190,3 @@ Legend: DONE / WIP / PENDING / NO-OP / DEFERRED(reason)
   "maps\..." [maps] config entries)
 - (scanrange pair + #scan done, session batch 6; remaining #-commands:
   #info (pvm2 CheckStrong), #murder (DropEverything))
-
-## DEFERRED
-- PNG x3 + ITEMPNG (SDL), add_info console UI (PNG assets)
-- NETPROTO x4 + HAT v20 auth (user decision spec in memory), updater (with auth), screenshots

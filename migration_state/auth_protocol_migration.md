@@ -1,15 +1,14 @@
 # Authorization (v20) protocol migration — spec & port plan
 
-STATUS: SHELVED by user decision (2026-11-12): "store the authentication protocol
-migration for later. Right now go with simpler patches." This file is the full
-decoded spec so a future session can port it without re-deriving anything.
-Everything below was decoded from the manager sources (my-a2mgr has the full C++
-of every hook) plus our patch inventory; no binary archaeology needed to resume.
+STATUS: **PORTED** (2026-11-13):
+- `d8947292` — v20 HAT authorization protocol, `key_20` crypt, extended `0x80100000` TCP framing, and `RunModalLoopClient` `-hat` fix (`src/patch/hat_client.{h,cpp}`, `src/packet.cpp`, `src/net.cpp`, `src/util.cpp`, `src/patch/hat_net.{h,cpp}`, `src/patch/player_info.{h,cpp}`, `src/main_window.cpp`)
+- `08196993` — HAT-triggered screenshot capture (`0x80100000` opcode `0x01`), `imp_MakeScreenshotNet` (`UnlockSurface1`), PNG upload (`hat:8000` protover 24 + `api.allods2.eu:8080/posts.php` via vendored `happyhttp`), server `src/patch/screenshots.{h,cpp}`, and `#screenshot <nick>` GM command
+- `948326b3` — HTTP auto-updater (`NETPROTO_updater` `/allods/version_id` + `/allods/version` with graceful pass-through) and `-delay <ms>` startup flag (`src/patch/hat_client.{h,cpp}`, `src/game_app.cpp`, `src/main_window.cpp`)
 
 USER DECISIONS (in force):
 - Patched client talks ONLY to patched server; non-patched only to non-patched.
   REPLACE the old auth on both ends, do NOT dual-accept.
-- The HTTP auto-updater is wanted (rides along with this cluster).
+- The HTTP auto-updater and HAT screenshot capture+upload are ported alongside this cluster.
 
 ## 1. Scope — the client hooks (allods2.mp)
 
@@ -165,18 +164,29 @@ tables (cr08/cr10/cr11) exist in my-a2mgr/network_crypt.cpp if ever needed.
    (Cl_ScreenshotThread → hat.rom2.ru:8000; manual PNG screenshots already
    ported via lodepng), imp_MakeScreenshotNet.
 
-## 8. Open questions (settle by disasm/source read before coding)
+## 8. Resolved implementation findings (verified against disasm & my-srvmgr)
 
-1. Exact send target at client `0x50A218` (the final send call in
-   createAuthorizationPacket): game socket via QueuePacketSend or raw
-   `send()`? Crypt applied at that point or later?
-2. crcmain's low-16 "crc": which CRC over `+0x0A..0x4A` (the call site XORs it
-   into `+0x4A` — table-based CRC16? CRC32 truncated?).
-3. How the patched SERVER's recv detects `byte[+9]==0` (auth) vs normal
-   packets — the marker byte vs the flags dword (check my-srvmgr
-   protolayer_hat / server recv path).
-4. Whether the synthetic 0x64 packet (§4.3) must match an existing encrypted
-   packet id the client handles, or 0x64 is otherwise inert for the client.
+1. **`0x50A218` send target**: `NetStru1::QueuePacketSend` (`51A0EE`, client `50A218`).
+   `SendHatCredentials` hands the `PacketJoin` to `QueuePacketSend(0, &pkt, 1)`, which
+   serializes via `PacketJoin::WriteTo` (`id == 0` writes `+0x09..+0x4F` + `name` string)
+   and XOR-encrypts with `XorData` (`key_20` under patch `#if`).
+2. **`+0x4A` dword layout & credentials**: Low 16 bits of `+0x4A` (`PacketJoin::player_id`)
+   are `login.GetLength()` (not a CRC16!), bits 16..23 are `(gamemode & 0xFF)` (read by
+   `crcmain` to reset `hat_settings.deathmatch = 0` and set `tangar_cfg::z_softcore` = 1 or 2,
+   then cleared from `+0x4A` before send), and bits 24..31 are `PROTO_VER = 20`. The string
+   at `+0x50` (`PacketJoin::name`) is plain `login + password` (concatenated without `':'`),
+   sliced by `login.GetLength()` on the HAT (`a2hat` `Parse_TryLogin` reads `player_id & 0xFFFF`
+   for `login_len` and `player_id >> 24` for `proto_ver == 20`).
+3. **Server-side auth & framing**: `DecodePacket` (`src/net.cpp`) replaces `case HAT_CREDENTIALS:`
+   with `case 0:` under `#ifdef A2SERVER_PATCH`, instantiating `PacketJoin` whose `ReadFrom`
+   branches on `this->id == 0` (`+0x4E` size word, `+0x50` string). On the TCP game socket,
+   `CLlDriver::RecvThreadTcp` routes through `RecvServerFramed` (`src/patch/hat_net.cpp`,
+   `my-srvmgr/srvmgr_new.cpp:365` `recv_`) with a 51200B buffer, and `CLlDriver::SendDataTcp`
+   flushes `PlayerInfo::EnqueuedPackets` as `0x80100000`-flagged frames before game packets.
+4. **Synthetic `0x64` frame in client `RecvClientFramed`**: `0x64` is `PacketWord`
+   `SERVER_TICK` (`value = 1`), encrypted with `key_20` (5 bytes total + 8-byte `{5, 0x01000000}`
+   header), giving `RecvThreadTcp` a valid non-empty game packet after consuming an out-of-band
+   `0x80100000` manager frame.
 
 ## 9. Source references (ground truth)
 
